@@ -1,0 +1,39 @@
+DEPENDENCIES
+------------
+
++ Debian packages:
+
+# apt-get install <package>
+
+	+ perl
+	+ perl-modules
+	+ sudo
+	+ liblog-dispatch-perl
+	+ liblog-log4perl-perl
+	+ liblocale-gettext-perl
+	+ libnet-ip-perl
+	+ liberror-perl
+	+ libdevel-stacktrace-perl
+	+ libhtml-mason-perl
+	+ gettext
+
++ modules from cpan
+
+	none currently
+
+INSTALATION
+-----------
+
+1.- Configure:
+
+    $ ./configure <arguments>
+
+    Accepts standard GNU configure arguments, run ./configure --help
+    for a list
+
+    Suggested argument: --localstatedir=/var/ , to have variable data
+    installed in /var/lib/, instead of the default $prefix/var/lib/
+
+2.- Installation, as root:
+
+    $ make install

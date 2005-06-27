@@ -1,0 +1,81 @@
+#!/bin/sh
+
+fooebox_create(){
+	echo "Creating base distribution for eBox"
+	mkdir /tmp/fooebox.$$
+	debootstrap sarge /tmp/fooebox.$$
+	echo "deb http://ftp.us.debian.org/debian/ sarge main" > /tmp/fooebox.$$/etc/apt/sources.list
+	echo "deb http://people.warp.es/~isaac/debian-private/ ./" >> /tmp/fooebox.$$/etc/apt/sources.list
+	chroot /tmp/fooebox.$$/ apt-get clean
+	tar -C /tmp/fooebox.$$/ -zcf /tmp/fooebox-base.$$.tar.gz .
+	if [ ! -d /var/cache/ebox/ ]
+	then
+		mkdir -p /var/cache/ebox/
+	fi
+	mv /tmp/fooebox-base.$$.tar.gz /var/cache/ebox/fooebox-base.tar.gz
+}
+
+fooebox_new(){
+	if [ ! -f /var/cache/ebox/fooebox-base.tar.gz ]
+	then
+		echo "You must run fooebox create before running fooebox new"
+		exit
+	fi
+	name=$1
+	if ! echo $name | grep -qe "^[a-z]\+$"
+	then
+		echo "The name can only contain lowercase letters"
+		echo "$name"
+		exit
+	fi
+	if [ -a "/var/cache/ebox/$name" ]
+	then
+		echo "/var/cache/ebox/$name exists, exiting ..."
+		exit
+	fi
+	mkdir /var/cache/ebox/$name/
+	tar -C /var/cache/ebox/$name -zxf /var/cache/ebox/fooebox-base.tar.gz
+}
+
+install_base(){
+	name=$1
+	if ! echo $name | grep -qe "^[a-z]\+$"
+	then
+		echo "The name can only contain lowercase letters"
+		echo "$name"
+		exit
+	fi
+	if [ ! -d "/var/cache/ebox/$name" ]
+	then
+		echo "/var/cache/ebox/$name doesn't exists, exiting ..."
+		exit
+	fi
+	ROOT="/var/cache/ebox/$name/"
+	mount -t proc proc $ROOT/proc/
+	PACKAGES="perl perl-modules sudo iproute iptables apache-perl dhcp3-client libapache-mod-perl libapache-mod-ssl liblog-dispatch-perl liblog-log4perl-perl liblocale-gettext-perl libnetwork-ipv4addr-perl liberror-perl libdevel-stacktrace-perl libapache-authcookie-perl libgnome2-gconf-perl libnet-ifconfig-wrapper-perl libsys-cpu-perl libsys-cpuload-perl libhtml-mason-perl libproc-process-perl libapache-singleton-perl gettext"
+	if [ ! -d "$EBOX_SVN_ROOT/ebox/trunk/" ]
+	then
+		echo "Bad eBox SVN root set in /etc/fooebox"
+	fi
+	cp -a $EBOX_SVN_ROOT/ebox/trunk/ $ROOT/usr/src/
+
+	echo "apt-get update" > $ROOT/tmp/ebox-install
+	echo "apt-get -y install $PACKAGES" >> $ROOT/tmp/ebox-install
+	chroot /var/cache/ebox/$name/ sh /tmp/ebox-install
+}
+
+. /etc/fooebox
+
+case "$1" in
+	"create")
+		fooebox_create
+		;;
+
+	"new")
+		fooebox_new $2
+		;;
+
+	"install-base")
+		install_base $2
+		;;
+esac

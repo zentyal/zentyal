@@ -1,0 +1,114 @@
+A few coding style rules. Some of them make sense, some are just there to
+provide consistency across everybody's code.
+
+- KISS
+	
+	+ code should be kept simple and readable. This should be a _major_
+	  priority.
+
+	Some examples of this:
+
+	less readable: if (!condition) {
+	more readable: unless (condition) {
+
+	less readable: $foo->doSomeStuff(someArg, anotherArga) if (condition)
+	more readable: if (condition) {
+				$foo->doSomeStuff(...);
+			}
+
+	the shorter versions of if constructs are good when the code is small:
+
+	checkData($arg) or die "wrong data"; # this is perfectly readable
+
+	but, the ones that put the condition before are more readable:
+
+	die "Wrong data" unless checkData($arg); # this is less readable
+
+- Format
+
+	+ Lines should be 80 characters wide unless there is a _very_ good
+	  reason for doing so.
+	+ Tabs are tabs, spaces may only be used for alignment purposes, when
+	  the space to fill is smaller than a tab. Tabs are 8 spaces wide.
+
+
+- Braces
+
+	+ Opening brace starts at the end of the line:
+	+ Ending brace goes on a line by itself. Aligned with the opening line.
+
+		if () {
+			do stuff
+		}
+	+ else and elsif clauses go on the same line as the closing brace of the
+	  if:
+
+	  	if () {
+			do stuff
+		} else {
+			do other stuff
+		}
+
+- Spacing
+
+	+ put spaces before and after parethesis, and braces they make
+ 	  everything more readable:
+
+	 	wrong: if(someCondition){
+				do stuff
+		       }else{
+		       		do other stuff
+		       }
+	 	right: if (someCondition) {
+				do stuff
+		       } else {
+		       		do other stuff
+		       }
+
+	+ put spaces around operators:
+
+		wrong: my $foo=$bar+$foobar;
+		right: my $foo = $bar + $foobar;
+
+- Functions
+
+	+ Make argument fixed argument lists whenever possible:
+
+		wrong: sub foo {}
+		right: sub foo ($$$) {}
+
+	+ Document all of these things as precisely as possible above the
+	  function
+
+		+ all the arguments
+		+ what the function returns, in all possible cases
+		+ the cases in which the function dies
+		+ what exceptions may be thrown and why.
+
+	+ private function names should start with "_":
+
+		wrong: sub privateFunctionDoNotUse ($$) {}
+		right: sub _privateFunction ($$) {}
+
+- Names
+
+	+ Function names should describe what the function does, but they should
+	  not be verbose beyond usefulness.
+	+ Global variable names should... not exist (beyond the scope of a
+	  module).
+	+ Local variable names should be short, while understandable:
+		
+		wrong: my $m = $self->moduleName();
+		wrong: my $myModuleName = self->moduleName();
+		right  my $module = self->moduleName();
+		right  my $mod = self->moduleName();
+
+	+ Classnames start with capital letters
+	+ Function names do not start with capital letters
+	+ The whole path to a class must be used to reference it, so it does not
+	  make sense to put redundant information in the classname:
+	  	
+		wrong: EBox::Exception::FooException
+		right: EBox::Exception::Foo
+		right: EBox::FooException
+

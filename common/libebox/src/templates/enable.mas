@@ -1,0 +1,30 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$active
+	$title
+</%args>
+<%init>
+use EBox::Gettext;
+my $domain = settextdomain('libebox');
+</%init>
+
+	<form action='Enable' method='POST'>
+	<span class='ftitle'>
+		<% $title %>
+	</span>
+		<select name="active" enabled>
+%  if($active eq 'yes') {
+			<option value='no' ><% __('No') %></option>
+			<option selected value='yes' ><% __('Yes') %></option>
+%	}else{
+			<option selected value='no' ><% __('No') %></option>
+			<option value='yes' ><% __('Yes') %></option>
+%	}
+		</select>
+		<input class='inputButton' type='submit' name='change'
+			value="<% __('Ok') %>"
+			alt="<% __('Ok') %>">
+	</form>
+
+% settextdomain($domain);

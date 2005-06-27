@@ -1,0 +1,45 @@
+#!/bin/bash
+
+LOG=/tmp/check_translations.log
+rm -f $LOG
+
+if [ ! -f ebox/trunk/configure.ac ]
+then
+	echo "This program should be run from ebox SVN root directory"
+	exit 1
+fi
+
+ROOTDIR=$PWD
+
+for mod in *
+do
+	cd $ROOTDIR >> $LOG 2>&1
+	if [ ! -d $mod ] ; then
+		continue
+	fi
+	echo ""
+	echo "-------- Checking $mod module ----------"
+	if [ ! -f $mod/trunk/configure.ac ] ; then
+		echo "$mod module is not correct, skipping ..."
+		continue
+	fi
+	cd $mod/trunk/ >> $LOG 2>&1
+
+	if [ "$1" = "regen" -o ! -f po/Makefile ] ; then
+		echo "Regenerating po/Makefile ..."
+		sh autogen.sh --disable-runtime-tests >> $LOG 2>&1
+	fi
+
+	cd po >> $LOG 2>&1
+	POTFILE=$(echo *.pot)
+	make $POTFILE-update >> $LOG 2>&1
+	for LANG in `cat LINGUAS`
+	do
+		make $LANG.po-update >> $LOG 2>&1
+		if [ $? -eq 0 ] ; then
+			rm -f $LANG.gmo >> $LOG 2>&1
+			echo -n "$LANG: "
+			make $LANG.gmo 2>&1 | tail -n 1
+		fi
+	done
+done

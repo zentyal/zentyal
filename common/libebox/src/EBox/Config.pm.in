@@ -1,0 +1,182 @@
+package EBox::Config;
+
+use EBox::Exceptions::External;
+use EBox::Gettext;
+
+my $ref = {};
+$ref->{prefix} = "@prefix@";
+$ref->{datadir} = "@DATADIR@";
+$ref->{datadir} =~ s/\/$//;
+$ref->{sysconfdir} = "@SYSCONFDIR@";
+$ref->{sysconfdir} =~ s/\/$//;
+$ref->{localstatedir} = "@LOCALSTATEDIR@";
+$ref->{localstatedir} =~ s/\/$//;
+$ref->{libdir} = "@LIBDIR@";
+$ref->{libdir} =~ s/\/$//;
+$ref->{package} = "@PACKAGE@";
+$ref->{version} = "@VERSION@";
+$ref->{perlpath} = "@PERLPATH@";
+
+sub etc 
+{
+	return $ref->{sysconfdir} . "/ebox/";
+}
+
+sub var
+{
+	return $ref->{localstatedir};
+}
+
+sub configkeyFromFile # (key, file)
+{
+	my $key = shift;
+	my $file = shift;
+	my $value = undef;
+	open(CONF, $file) or 
+		throw EBox::Exceptions::External(
+					__('Could not open the config file.'));
+	while (<CONF>) {
+		$_ =~ s/\s//g;
+		$_ =~ s/#.*//g;
+		($_ eq '') and next;
+		my ($nkey, $nvalue) = $_ =~ /(.*)=(.*)/;
+		if ($nkey eq $key) {
+			$value = $nvalue;
+			last;
+		}
+	}
+	close(CONF);
+	return $value;
+}
+
+sub configkey # (key)
+{
+	my $key = shift;
+	my $value = undef;
+
+	my @conffiles = glob(EBox::Config::etc() . "[0-9][0-9]*.conf");
+	
+	foreach my $file (@conffiles){
+		$value = configkeyFromFile($key, $file);
+		defined($value) and last;
+	}
+	return $value;
+}
+
+sub user
+{
+	my $user = configkey('user');
+	$user or throw EBox::Exceptions::External(
+		__('The ebox user has not been set in the config file.'));
+	return $user;
+}
+
+sub group
+{
+	my $user = configkey('group');
+	$user or throw EBox::Exceptions::External("The ebox group has not ".
+						"been set in the config file.");
+	return $user;
+}
+
+sub prefix 
+{
+	return $ref->{prefix};
+}
+
+sub share 
+{
+	return $ref->{datadir};
+}
+
+sub libexec 
+{
+	return $ref->{libdir} . "/ebox/";
+}
+
+sub locale 
+{
+	return $ref->{datadir} . "/locale/";
+}
+
+sub conf 
+{
+	return $ref->{localstatedir} . "/lib/ebox/conf/";
+}
+
+sub tmp 
+{
+	return $ref->{localstatedir} . "/lib/ebox/tmp/";
+}
+
+sub passwd 
+{
+	return $ref->{localstatedir} . "/lib/ebox/conf/ebox.passwd";
+}
+
+sub sessionid 
+{
+	return $ref->{localstatedir} . "/lib/ebox/conf/ebox.sid";
+}
+
+sub log 
+{
+	return $ref->{localstatedir} . "/lib/ebox/log/";
+}
+
+sub logfile
+{
+	return $ref->{localstatedir} . "/lib/ebox/log/ebox.log";
+}
+
+sub stubs 
+{
+	return $ref->{datadir} . "/ebox/stubs/";
+}
+
+sub cgi 
+{
+	return $ref->{datadir} . "/ebox/cgi/";
+}
+
+sub templates 
+{
+	return $ref->{datadir} . "/ebox/templates/";
+}
+
+sub schemas 
+{
+	return $ref->{datadir} . "/ebox/schemas/";
+}
+
+sub www 
+{
+	return $ref->{datadir} . "/ebox/www/";
+}
+
+sub css 
+{
+	return $ref->{datadir} . "/ebox/www/css/";
+}
+
+sub images 
+{
+	return $ref->{datadir} . "/ebox/www/images/";
+}
+
+sub package 
+{
+	return $ref->{package};
+}
+
+sub version 
+{
+	return $ref->{version};
+}
+
+sub lang 
+{
+	return $ref->{lang};
+}
+
+1;

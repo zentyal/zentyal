@@ -1,0 +1,14 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$title
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+% if (length($title)) {
+<div id='titlehelp'>
+	<div class='title'><% $title %></div>
+	<div id='helpbutton'><a href="#" onclick="switchHelp(); return false; "><img src="/data/images/help.gif" alt="<% __d('Show or Hide help','libebox') %>" /></a></div>
+</div>
+% }

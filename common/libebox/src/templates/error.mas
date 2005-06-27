@@ -1,0 +1,6 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$error
+</%args>
+<div class='error'><% $error %></div>

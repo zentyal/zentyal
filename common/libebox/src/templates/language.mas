@@ -1,0 +1,24 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$lang
+</%args>
+<%init>
+use EBox::Gettext;
+my $langs = langs();
+</%init>
+<h3><% __d('Language selection','libebox') %></h3>
+	<form action='Lang' method='POST'>
+		<div class='ftitle'><% __d('Language','libebox') %></div>
+		<select name='lang'>
+%	foreach my $l (keys %{$langs}) {
+%		if($lang eq $l){
+			<option selected value="<% $l %>"><% $langs->{$l} %></option>
+%		}else{
+			<option value="<% $l %>"><% $langs->{$l} %></option>
+%		}
+%	}
+		</select>
+		<input class='inputButton' type='submit' name='setlang'
+			   value="<% __d('Ok','libebox') %>">
+	</form>
