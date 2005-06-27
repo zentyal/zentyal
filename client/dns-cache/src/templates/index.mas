@@ -1,0 +1,12 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+    $active
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<div class='dns-cachenew'>
+<& enable.mas, title => __('Enable the DNS Cache'), active => $active &>
+</div>

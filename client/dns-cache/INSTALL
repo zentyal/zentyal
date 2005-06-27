@@ -1,0 +1,23 @@
+- To install this module you need to install:
+     + eBox components
+        libebox
+        ebox
+        network
+        firewall
+     + Debian packages
+        bind9
+
+- Once the dependencies have been installed, type:
+	
+	./configure
+	make install
+
+  configure will autodetect EBox base path to install
+
+- Update your sudoers file with the ebox-sudoers command.
+
+- Do not run bind9 on startup, this module takes control of bind9:
+
+mv /etc/rc2.d/SXXbind9 /etc/rc2.d/KXXbind9
+
+- Stop bind9 if it's running.
