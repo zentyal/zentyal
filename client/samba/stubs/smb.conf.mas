@@ -1,0 +1,71 @@
+<%args>
+	$netbios
+	$workgroup
+	$desc
+	$ifaces
+	$ldap
+	@dirgroup
+	@printers
+	$active_printer
+	$active_file
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+[global]
+ unix charset = LOCALE
+ workgroup = <% $workgroup %> 
+ netbios name = <% $netbios %>
+ server string = <% $desc %>
+ interfaces = <% $ifaces %>
+ bind interfaces only = Yes
+ passdb backend = ldapsam:<% $ldap->{'ldapi'} %>
+ log level = 1
+ syslog = 0
+ log file = /var/log/samba/%m
+ max log size = 50
+ smb ports = 137 138 139 445
+ name resolve order = wins bcast hosts
+ time server = Yes
+ printcap name = CUPS
+ wins support = Yes
+ ldap suffix = <% $ldap->{'dn'} %>
+ ldap machine suffix = <% $ldap->{'users'} %>
+ ldap user suffix =  <% $ldap->{'users'} %>
+ ldap group suffix =  <% $ldap->{'groups'} %> 
+ ldap idmap suffix = ou=Idmap
+ ldap admin dn = <% $ldap->{'rootdn'} %>
+ map acl inherit = Yes
+ printing = cups
+ printer admin = Administrator
+
+% if ($active_file) { 
+[homes]
+ comment = <% __('Home Directories') %>
+ valid users = %S
+ read only = No
+ browseable = No
+
+% 	foreach my $group (@dirgroup) {
+[_<% $group->{'sharename'} %>]
+	path = <% $group->{'path'} %>
+	valid users = @"<% $group->{'groupname'} %>"
+	force group = "<% $group->{'groupname'} %>"
+	force create mode = 0750
+	force directory mode = 1770
+	printable = No
+	read only = No
+	browseable = Yes
+% 	}
+% }
+
+% if ($active_printer) { 
+% 	foreach my $printer (@printers) {
+[<% $printer->{'name'} %>]
+ path  = /var/spool/samba
+ read   only   =    yes
+ printable     =    yes
+ valid users   = <% $printer->{'users'} %>
+# guest ok = yes
+% 	}
+% }

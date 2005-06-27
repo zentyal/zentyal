@@ -1,0 +1,18 @@
+Source: ebox-samba
+Section: web
+Priority: optional
+Maintainer: Isaac Clerencia <isaac@warp.es>
+Build-Depends: debhelper (>= 4.0.0)
+Standards-Version: 3.6.1
+
+Package: ebox-samba
+Architecture: all
+Depends: ebox-network, ebox-firewall,  ebox-usersandgroups, samba, libnss-ldap, libcrypt-smbhash-perl, quota
+Description: eBox Samba server module
+ eBox is a framework for the development and deployment of security-wise
+ network services in small and medium-sized networks, offering a simplified
+ graphical interface to non expert users. It can be set up as a gateway,
+ having some extra features over a usual router.
+ .
+ This module adds a SAMBA server to your eBox installation, allowing your
+ users to authenticate against eBox and have shared network storage device.

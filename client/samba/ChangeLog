@@ -1,0 +1,19 @@
+0.6
+	* move to client
+	* API documented using naturaldocs
+	* Update install
+	* Update debian scripts
+	* Enable/disable printer sharing and file sharing independentely
+	* Use new syntax to define ACLs in slapd.conf
+	* Implements usesPort
+	* Add full support for printers
+	* Several bugfixes
+
+0.5.2
+	* Fix some packaging issues
+
+0.5.1
+	* Convert module to new menu system
+
+0.5
+	* Initial release

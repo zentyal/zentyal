@@ -1,0 +1,23 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+    $description
+    $group
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<h3><% __('Deleting group') %>: <% $description %></h3>
+<% __('The group you tried to delete has a directory which contains data, if you remove it all its data will be removed. Please confirm that you want to delete it.') %>
+
+<form action='Del' method='POST'>
+    <input type='hidden' name='groupname'
+           value='<% $group %>'/>
+    <input class='inputButton'
+           type='submit' name='deleteforce'
+           value="<% __('Delete') %>">
+    <input class='inputButton'
+           type='submit' name='cancel'
+           value="<% __('Cancel') %>">
+</form>
+

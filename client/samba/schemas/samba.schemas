@@ -1,0 +1,73 @@
+<!-- vim: ts=4 sw=4 nowrap
+-->
+
+<gconfschemafile>
+	<schemalist>
+		<schema>
+			<key>/schemas/ebox/modules/global/modules/samba/class</key>
+			<applyto>/ebox/modules/global/modules/samba/class</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>EBox::Samba</default>
+			<locale name="C"/>
+		</schema>
+		
+		<schema>
+            <key>/schemas/ebox/modules/samba/file_service</key>
+            <applyto>/ebox/modules/samba/file_service</applyto>
+            <owner>ebox</owner>
+            <type>bool</type>
+            <default>false</default>
+            <locale name="C"/>
+        </schema>
+		<schema>
+            <key>/schemas/ebox/modules/samba/printer_service</key>
+            <applyto>/ebox/modules/samba/printer_service</applyto>
+            <owner>ebox</owner>
+            <type>bool</type>
+            <default>false</default>
+            <locale name="C"/>
+        </schema>
+        <schema>
+            <key>/schemas/ebox/modules/samba/netbios</key>
+            <applyto>/ebox/modules/samba/netbios</applyto>
+            <owner>ebox</owner>
+            <type>string</type>
+            <default>EBOX-SMB3</default>
+            <locale name="C"/>
+        </schema>
+        <schema>
+            <key>/schemas/ebox/modules/samba/description</key>
+            <applyto>/ebox/modules/samba/description</applyto>
+            <owner>ebox</owner>
+            <type>string</type>
+            <default>EBox Samba Server</default>
+            <locale name="C"/>
+        </schema>
+	    <schema>
+            <key>/schemas/ebox/modules/samba/workgroup</key>
+            <applyto>/ebox/modules/samba/workgroup</applyto>
+            <owner>ebox</owner>
+            <type>string</type>
+            <default>EBOX</default>
+            <locale name="C"/>
+        </schema>
+	    <schema>
+            <key>/schemas/ebox/modules/samba/userquota</key>
+            <applyto>/ebox/modules/samba/userquota</applyto>
+            <owner>ebox</owner>
+            <type>int</type>
+            <default>100</default>
+            <locale name="C"/>
+        </schema>
+        <schema>
+            <key>/schemas/ebox/modules/global/modules/samba/depends</key>
+            <applyto>/ebox/modules/global/modules/samba/depends</applyto>
+            <owner>ebox</owner>
+            <type>list</type>
+            <list_type>string</list_type>
+            <default>[network]</default>
+            <locale name="C"/>
+        </schema>
+	</schemalist>
+</gconfschemafile>

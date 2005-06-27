@@ -1,0 +1,58 @@
+#!/usr/bin/perl
+
+use strict;
+
+use EBox;
+use EBox::Global;
+use EBox::SambaLdapUser;
+
+EBox::init();
+
+my $global = EBox::Global->getInstance(1);
+my $users  = $global->modInstance('users');
+
+
+sub update 
+{
+	my $smb  = new EBox::SambaLdapUser;
+
+	# update users
+	foreach my $user ($users->users){
+		my $username = $user->{'username'};
+		my $dn = "uid=$username," .  $users->usersDn;
+			$smb->_addUser($username);		
+	}
+
+	# update groups
+	foreach my $group ($users->groups){
+		my $groupname = $group->{'account'};
+		my $dn = "cn=$groupname," .  $users->groupsDn;
+			$smb->_addGroup($groupname);		
+	}
+}
+
+sub gen_config
+{
+	my $samba = EBox::Global->modInstance('samba');
+	$samba->_regenConfig;
+}
+
+sub usage
+{
+	print "Usage: $0 update | genconfig\n";
+	exit 1;
+}
+
+#main 
+
+unless ($#ARGV == 0) {
+	usage();
+}
+
+if ($ARGV[0] eq 'update') {
+	update();
+} elsif ($ARGV[0] eq 'genconfig') {
+	gen_config();
+} else {
+	usage();
+}

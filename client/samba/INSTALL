@@ -1,0 +1,74 @@
+DEPENDENCIES
+------------
+
++ EBox modules:
+	- Users and Groups
+	
++ Debian packages:
+
+# apt-get install <package>
+	+ samba
+	+ libnss-ldap
+	+ libcrypt-smbhash-perl
+	+ quota
+
++ Support for quotas in kernel
+
+INSTALLATION
+------------
+
+- Once EBox base has been installed:
+	
+	./configure
+	make install
+
+	Update your sudoers file with the ebox-sudoers command.
+	
+	Now you must generate  smb.conf file and  libnss-ldap.conf. 
+	Use ebox-samba-ldap in tools:
+
+		ebox-samba-ldap genconfig
+	
+	Copy samba.schema and ebox.schema from directory 'schemas' to
+	/etc/ldap/schema .
+
+	Execute 'ebox-init-ldap genconfig' from ebox-usersandgroups
+
+	Restart slapd
+
+		/etc/init.d/slapd restart
+
+	Now you  have to update the current ldap database with samba
+	objects:
+
+		ebox-samba-ldap update
+
+	You need to create some  directories:
+
+		mkdir -p /home/samba/users
+		mkdir /home/samba/groups
+
+
+	Set the samba admin password to your ldap admin password:
+
+		smbpasswd -w YOUR_LDAP_ADMIN_PASSWORD
+	
+	Now you must change your /etc/nsswitch.conf file to add
+	ldap support:
+
+		passwd:         files ldap
+		group:          files ldap
+		shadow:         files ldap
+	
+	Quota support:
+	
+		Your kernel must be compiled with quota support
+
+		Modify your /etc/fstab to support quotas(usrquota, grpquota) 
+		in your mounting point for home directories:
+		
+		/dev/hda12      /home           ext3    defaults,usrquota,grpquota      
+	
+		Remount the partition or reboot
+		
+		quotaon -u "mounting point for home directories"
