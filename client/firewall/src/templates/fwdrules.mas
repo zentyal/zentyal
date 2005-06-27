@@ -1,0 +1,326 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	@rules
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<div class='help'>
+	<% __('Protocol, ports and addresses are optional. The rules will be applied in order, from top to bottom, you can reorder them once they are added. Rules can also be disabled without deleting them.') %>
+</div>
+<h3><%__('New rule')%></h3>
+<form action='FwdRule' method='post'>
+<table class='formTable'>
+			<tr>
+				<td class='tright'>
+					<span class='ftitle'>
+						<% __('Protocol') %>:
+					</span>
+				</td>
+				<td>
+					<select name='protocol'>
+						<option value=""><%__('any')%></option>
+						<option value="tcp">tcp</option>
+						<option value="udp">udp</option>
+					</select>
+				</td>
+			</tr>
+
+			<tr>
+				<td class='tright'>
+					<span class='ftitle'>
+						<% __('Action') %>:
+					</span>
+				</td>
+				<td>
+					<select name='action'>
+						<option value="allow"><% __('Allow') %></option>
+						<option value="deny"><% __('Deny') %></option>
+					</select>
+				</td>
+			</tr>
+
+			<tr>
+				<td class='tright'>
+					<span class='ftitle'>
+						<% __('Source address') %>:
+					</span>
+				</td>
+				<td>
+					<select name="nsaddr">
+						<option value="yes" name='nsaddr'/><%__('is not')%>
+						<option selected value="" name='nsaddr'/><%__('is')%>
+					</select>
+					<input type='text' class='inputText' size='12' 
+						   name='saddr'/>
+					/
+					<select name='smask'>
+						<option selected value="32">32</option>
+						<option value="30">30</option>
+						<option value="29">29</option>
+						<option value="28">28</option>
+						<option value="27">27</option>
+						<option value="26">26</option>
+						<option value="25">25</option>
+						<option value="24">24</option>
+						<option value="16">16</option>
+						<option value="8">8</option>
+					</select>
+				</td>
+			</tr>
+
+			<tr>
+				<td class='tright'>
+					<span class='ftitle'>
+						<% __('Source port') %>:
+					</span>
+				</td>
+				<td>
+					<select name="nsport">
+						<option value="yes" name='nsport'/><%__('is not')%>
+						<option selected value="" name='nsport'/><%__('is')%>
+					</select>
+					<input class='inputText' type='text' size='5'
+						   name='sportfrom'/>
+					<%__('to')%>
+					<input class='inputText' type='text' size='5' 
+						   name='sportto'/>
+				</td>
+			</tr>
+
+			<tr>
+				<td class='tright'>
+					<span class='ftitle'>
+						<% __('Destination address') %>:
+					</span>
+				</td>
+				<td>
+					<select name="ndaddr">
+						<option value="yes" name='ndaddr'/><%__('is not')%>
+						<option selected value="" name='ndaddr'/><%__('is')%>
+					</select>
+					<input type='text' class='inputText' size='12' 
+						   name='daddr'/>
+					/
+					<select name='dmask'>
+						<option selected value="32">32</option>
+						<option value="30">30</option>
+						<option value="29">29</option>
+						<option value="28">28</option>
+						<option value="27">27</option>
+						<option value="26">26</option>
+						<option value="25">25</option>
+						<option value="24">24</option>
+						<option value="16">16</option>
+						<option value="8">8</option>
+					</select>
+				</td>
+			</tr>
+
+			<tr>
+				<td class='tright'>
+					<span class='ftitle'>
+						<% __('Destination port') %>:
+					</span>
+				</td>
+				<td>
+					<select name="ndport">
+						<option value="yes" name='ndport'/><%__('is not')%>
+						<option selected value="" name='ndport'/><%__('is')%>
+					</select>
+					<input class='inputText' type='text' size='5' 
+						   name='dportfrom'/>
+					<%__('to')%>
+					<input class='inputText' type='text' size='5' 
+						   name='dportto'/>
+				</td>
+			</tr>
+
+			<tr>
+				<td></td>
+				<td>
+					<input class='inputButton' 
+							name='add'
+							type='submit'
+							value="<% __('Add') %>" />
+				</td>
+			</tr>
+</table>
+</form>
+
+% if (@rules) {
+
+<br />
+
+<table class='dataTable' cellspacing='0'>
+	<thead>
+	<tr>
+			<th></th>
+			<th class="tleft"><%__('Protocol')%></th>
+			<th class="tleft"><% __('Source') %></th>
+			<th class="tleft"><%__('Port')%></th>
+			<th class="tleft"><% __('Destination') %></th>
+			<th class="tleft"><%__('Port')%></th>
+			<th><%__('Actions')%></th>
+	</tr>
+	</thead>
+	<tbody>
+
+%		foreach my $rule (@rules){
+%			my $colon = '';
+			<tr class='border'>
+				<form action='FwdRule' method='post'>
+					<input type='hidden' name='rulename'
+						   value='<% $rule->{'name'} %>' />
+
+					<td class='tcenter'>
+%						if (($rule->{'action'} eq 'allow') and ($rule->{'active'} == 1)) {
+							<img src="/data/images/allow-active.gif" 
+								 title="<% __('allow') %>"
+								 alt="<% __('allow') %>"/>
+%						} elsif (($rule->{'action'} eq 'allow') and	($rule->{'active'} == 0)) {
+							<img src="/data/images/allow-inactive.gif" 
+								 title="<% __('allow (disabled)') %>"
+								 alt="<% __('allow (disabled)') %>"/>
+%						} elsif (($rule->{'action'} eq 'deny') and ($rule->{'active'} == 1)) {
+							<img src="/data/images/deny-active.gif" 
+								 title="<% __('deny') %>"
+								 alt="<% __('deny') %>"/>
+%						} else {
+							<img src="/data/images/deny-inactive.gif" 
+								 title="<% __('deny (disabled)') %>"
+								 alt="<% __('deny (disabled)') %>"/>
+%						}
+					</td>
+
+					<td><% $rule->{'protocol'} %></td>
+
+					<td>
+%						if (defined($rule->{'saddress'}) and $rule->{'saddress'} ne '') {
+%							if ($rule->{'nsaddr'} == 1){
+								<img src="/data/images/not.gif"
+									 title="<%__('inverse match')%>"
+									 alt="<%__('inverse match')%>" />
+%							}
+							<% $rule->{'saddress'} %>/<% $rule->{'smask'} %>
+%						}
+					</td>
+
+					<td>
+%						$colon = '';
+%						if (defined($rule->{'sportfrom'}) and 
+%							$rule->{'sportfrom'} ne '' and
+%							defined($rule->{'sportto'}) and 
+%							$rule->{'sportto'} ne '') {
+%							$colon = ':';
+%						}
+%						if ((defined($rule->{'sportfrom'}) and $rule->{'sportfrom'} ne '') or
+%							(defined($rule->{'sportto'}) and $rule->{'sportto'} ne '')) {
+%								if ($rule->{'nsport'} == 1){
+									<img src="/data/images/not.gif"
+										 title="<%__('inverse match')%>"
+										 alt="<%__('inverse match')%>" />
+%								}
+%						}
+						<% $rule->{'sportfrom'} %><% $colon %><% $rule->{'sportto'} %>
+					</td>
+
+					<td>
+%						if (defined($rule->{'daddress'}) and $rule->{'daddress'} ne '') {
+%							if ($rule->{'ndaddr'} == 1){
+								<img src="/data/images/not.gif"
+									 title="<%__('inverse match')%>"
+									 alt="<%__('inverse match')%>" />
+%							}
+							<% $rule->{'daddress'} %>/<% $rule->{'dmask'} %>
+%						}
+					</td>
+
+					<td>
+%						$colon = '';
+%						if (defined($rule->{'dportfrom'}) and 
+%							$rule->{'dportfrom'} ne '' and
+%							defined($rule->{'dportto'}) and 
+%							$rule->{'dportto'} ne '') {
+%							$colon = ':';
+%						}
+%						if ((defined($rule->{'dportfrom'}) and $rule->{'dportfrom'} ne '') or
+%							(defined($rule->{'dportto'}) and $rule->{'dportto'} ne '')) {
+%								if ($rule->{'ndport'} == 1){
+									<img src="/data/images/not.gif"
+										 title="<%__('inverse match')%>"
+										 alt="<%__('inverse match')%>" />
+%								}
+%						}
+						<% $rule->{'dportfrom'} %><% $colon %><% $rule->{'dportto'} %>
+					</td>
+
+
+					<td class='tcenter'>
+						<input class='inputButton' type='image' name='edit'
+							   value="<% __('Edit') %>"
+							   alt="<% __('Edit') %>"
+							   title="<% __('Edit') %>"
+							   src='/data/images/edit.gif' />
+						<img src='/data/images/sep.gif' alt='-' />
+						<input class='inputButton' type='image' name='delete'
+							   value="<% __('Delete') %>"
+							   title="<% __('Delete') %>"
+							   alt="<% __('Delete') %>"
+							   src='/data/images/delete.gif' />
+						<img src='/data/images/sep.gif' alt='-' />
+						<input class='inputButton' type='image' name='up'
+							   value="<% __('Up') %>"
+							   title="<% __('Up') %>"
+							   alt="<% __('Up') %>"
+							   src='/data/images/up.gif' />
+						<img src='/data/images/sep.gif' alt='-' />
+						<input class='inputButton' type='image' name='down'
+							   value="<% __('Down') %>"
+							   title="<% __('Down') %>"
+							   alt="<% __('Down') %>"
+							   src='/data/images/down.gif' />
+					</td>
+				</form>
+			</tr>
+%		}
+	</tbody>
+</table>
+
+<br />
+
+<table class="leyend">
+<tr>
+	<td><img src="/data/images/allow-active.gif" alt="<%__('allow')%>"/></td>
+	<td style="padding-right: 10px;"><%__('allow')%></td>
+	
+	<td><img src="/data/images/deny-active.gif" alt="<%__('deny')%>"/></td>
+	<td style="padding-right: 10px;"><%__('deny')%></td>
+
+	<td><img src="/data/images/delete.gif" alt="<%__('delete')%>"/></td>
+	<td style="padding-right: 10px;"><%__('delete')%></td>
+
+	<td><img src="/data/images/edit.gif" alt="<%__('edit')%>"/></td>
+	<td style="padding-right: 10px;"><%__('edit')%></td>
+
+	<td><img src="/data/images/not.gif" alt="<%__('inverse match')%>"/></td>
+	<td style="padding-right: 10px;"><%__('inverse match')%></td>
+</tr>
+	
+<tr>
+	<td><img src="/data/images/allow-inactive.gif" alt="<%__('allow (disabled)')%>"/></td>
+	<td style="padding-right: 10px;"><%__('allow (disabled)')%></td>
+	
+	<td><img src="/data/images/deny-inactive.gif" alt="<%__('deny (disabled)')%>"/></td>
+	<td style="padding-right: 10px;"><%__('deny (disabled)')%></td>
+
+	<td><img src="/data/images/up.gif" alt="<%__('move up')%>"/></td>
+	<td style="padding-right: 10px;"><%__('move up')%></td>
+
+	<td><img src="/data/images/down.gif" alt="<%__('move down')%>"/></td>
+	<td style="padding-right: 10px;"><%__('move down')%></td>
+</tr>
+</table>
+
+% }

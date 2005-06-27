@@ -1,0 +1,57 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$deny
+	@objects => ()
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<div class='help'>
+<% __('This will tell the firewall what to do when discarding network packets.  If you choose Reject, a packet will be sent back to the sender, choosing Drop will make the firewall drop the packet silently.') %>
+</div>
+<p>
+	<form action='Deny' method='POST'>
+<div class='ftitle'><% __('Deny policy') %></div>
+		<select name='deny'>
+%			if($deny eq 'DROP'){
+				<option selected value="DROP"><% __('Drop packets') %></option>
+				<option value="REJECT"><% __('Reject packets') %></option>
+%			}else{
+				<option selected value="REJECT"><% __('Reject packets') %></option>
+				<option value="DROP"><% __('Drop packets') %></option>
+%			}
+		</select>
+		<input class='inputButton' type='submit' name='accept' value="<% __('Ok') %>">
+	</form>
+</p>
+<h3><%__('Rules')%></h3>
+<div class='help'>
+	<% __('This link will let you set up filtering rules that will take precedence over the ones you set up for network objects further below.') %>
+</div>
+	<p>
+		<a href="FwdRules"><% __('Forwarding rules') %></a>
+	</p>
+
+<h3><%__('Objects')%></h3>
+<div class='help'>
+	<% __('The link below will let you set up the default behavior of the packet filter. You may also choose an object and set up rules and the services it may access.') %>
+</div>
+	<p>
+		<a href="Object?object=_global"><% __('Configure default rules') %></a>
+	</p>
+%	if(@objects){
+	<p>
+	<form action='Object' method='post'>
+	<% __('Configure rules for a particular object') %>:
+		<select name='object'>
+%			foreach my $obj (@objects){
+				<option value='<% $obj->{'name'} %>'>
+					<% $obj->{'description'} %>
+				</option>
+%			}
+		</select>
+		<input class='inputButton' type='submit' value="<% __('Go') %>" name='configobject'>
+	</form>
+	</p>
+%	}

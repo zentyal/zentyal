@@ -1,0 +1,9 @@
+## Process this file with automake to produce Makefile.in
+
+templatedir = @TEMPLATESPATH@/firewall
+
+template_DATA = filter.mas fwdruleedit.mas fwdrules.mas object.mas redirects.mas
+
+EXTRA_DIST = $(template_DATA)
+
+MAINTAINERCLEANFILES = Makefile.in

@@ -1,0 +1,728 @@
+# Catalan translations for the EBox package.
+# Copyright (C) 2005 Warp Networks S.L. and DBS Servicios Informaticos S.L.
+# This file is distributed under the same license as the EBox package.
+# Isaac Clerencia <isaac@sindominio.net>, 2004.
+# Jordi Mallach <jordi@sindominio.net>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: EBox 0.3.svn\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2005-03-18 00:25+0100\n"
+"PO-Revision-Date: 2004-11-01 23:09+0100\n"
+"Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
+"Language-Team: Catalan\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/EBox/CGI/ObjectPolicy.pm:40 src/EBox/CGI/Object.pm:45
+#: src/EBox/CGI/Object.pm:50 src/EBox/CGI/ObjectService.pm:40
+#: src/EBox/CGI/ObjectRule.pm:40 ebox-firewall-0.1/src/EBox/CGI/Object.pm:45
+#: ebox-firewall-0.1/src/EBox/CGI/Object.pm:50
+#: ebox-firewall-0.1/src/EBox/CGI/ObjectPolicy.pm:40
+#: ebox-firewall-0.1/src/EBox/CGI/ObjectRule.pm:40
+#: ebox-firewall-0.1/src/EBox/CGI/ObjectService.pm:40
+msgid "Object"
+msgstr "Objecte"
+
+#: src/EBox/CGI/ObjectPolicy.pm:42 src/EBox/CGI/ObjectService.pm:46
+#: src/EBox/Firewall.pm:605 src/EBox/Firewall.pm:676 src/EBox/Firewall.pm:959
+#: src/EBox/Firewall.pm:1038 ebox-firewall-0.1/src/EBox/CGI/ObjectPolicy.pm:42
+#: ebox-firewall-0.1/src/EBox/CGI/ObjectService.pm:46
+msgid "policy"
+msgstr "política"
+
+#: src/EBox/CGI/Redirects.pm:31 ebox-firewall-0.1/src/EBox/CGI/Redirects.pm:31
+msgid "Port redirections"
+msgstr "Redireccions de ports"
+
+#: src/EBox/CGI/Filter.pm:31 ebox-firewall-0.1/src/EBox/CGI/Filter.pm:31
+msgid "Packet filtering"
+msgstr "Filtrat de paquets"
+
+#: src/EBox/CGI/Object.pm:61 ebox-firewall-0.1/src/EBox/CGI/Object.pm:61
+msgid "Global firewall configuration"
+msgstr "Configuració global del tallafocs"
+
+#: src/EBox/CGI/Object.pm:63 ebox-firewall-0.1/src/EBox/CGI/Object.pm:63
+#, perl-brace-format
+msgid "Firewall configuration: {desc}"
+msgstr "Configuració del tallafocs: {desc}"
+
+#: src/EBox/CGI/Redirection.pm:42 src/EBox/CGI/Redirection.pm:53
+#: src/EBox/CGI/Redirection.pm:60 src/EBox/CGI/Redirection.pm:67
+#: src/EBox/Firewall.pm:204 src/EBox/Firewall.pm:230 src/EBox/Firewall.pm:381
+#: src/EBox/Firewall.pm:434 src/EBox/Firewall.pm:679 src/EBox/Firewall.pm:728
+#: src/EBox/Firewall.pm:833 src/EBox/Firewall.pm:853 src/EBox/Firewall.pm:872
+#: src/EBox/Firewall.pm:962 ebox-firewall-0.1/src/EBox/CGI/Redirection.pm:42
+#: ebox-firewall-0.1/src/EBox/CGI/Redirection.pm:53
+#: ebox-firewall-0.1/src/EBox/CGI/Redirection.pm:60
+#: ebox-firewall-0.1/src/EBox/CGI/Redirection.pm:67
+msgid "protocol"
+msgstr "protocol"
+
+#: src/EBox/CGI/Redirection.pm:43 src/EBox/CGI/Redirection.pm:55
+#: src/EBox/CGI/Redirection.pm:62 src/EBox/CGI/Redirection.pm:66
+#: ebox-firewall-0.1/src/EBox/CGI/Redirection.pm:43
+#: ebox-firewall-0.1/src/EBox/CGI/Redirection.pm:55
+#: ebox-firewall-0.1/src/EBox/CGI/Redirection.pm:62
+#: ebox-firewall-0.1/src/EBox/CGI/Redirection.pm:66
+msgid "network interface"
+msgstr "interfície de xarxa"
+
+#: src/EBox/CGI/Redirection.pm:44 src/EBox/CGI/Redirection.pm:54
+#: src/EBox/CGI/Redirection.pm:61 src/EBox/CGI/Redirection.pm:68
+#: src/EBox/Firewall.pm:206 src/EBox/Firewall.pm:231
+#: ebox-firewall-0.1/src/EBox/CGI/Redirection.pm:44
+#: ebox-firewall-0.1/src/EBox/CGI/Redirection.pm:54
+#: ebox-firewall-0.1/src/EBox/CGI/Redirection.pm:61
+#: ebox-firewall-0.1/src/EBox/CGI/Redirection.pm:68
+msgid "external port"
+msgstr "port extern"
+
+#: src/EBox/CGI/Redirection.pm:45 src/EBox/CGI/Redirection.pm:63
+#: src/EBox/CGI/Redirection.pm:69 src/EBox/Firewall.pm:205
+#: ebox-firewall-0.1/src/EBox/CGI/Redirection.pm:45
+#: ebox-firewall-0.1/src/EBox/CGI/Redirection.pm:63
+#: ebox-firewall-0.1/src/EBox/CGI/Redirection.pm:69
+msgid "destination address"
+msgstr "adreça de destinació"
+
+#: src/EBox/CGI/Redirection.pm:46 src/EBox/CGI/Redirection.pm:64
+#: src/EBox/CGI/Redirection.pm:70 src/EBox/Firewall.pm:207
+#: src/EBox/Firewall.pm:741 src/EBox/Firewall.pm:747 src/EBox/Firewall.pm:885
+#: src/EBox/Firewall.pm:891 ebox-firewall-0.1/src/EBox/CGI/Redirection.pm:46
+#: ebox-firewall-0.1/src/EBox/CGI/Redirection.pm:64
+#: ebox-firewall-0.1/src/EBox/CGI/Redirection.pm:70
+msgid "destination port"
+msgstr "port de destinació"
+
+#: src/EBox/CGI/ObjectService.pm:45 src/EBox/CGI/ObjectService.pm:51
+#: src/EBox/Firewall.pm:385 ebox-firewall-0.1/src/EBox/CGI/ObjectService.pm:45
+#: ebox-firewall-0.1/src/EBox/CGI/ObjectService.pm:51
+msgid "service"
+msgstr "servei"
+
+#: src/EBox/CGI/FwdRule.pm:43 src/EBox/CGI/FwdRule.pm:67
+#: src/EBox/CGI/ObjectRule.pm:47 src/EBox/CGI/ObjectRule.pm:64
+#: src/EBox/CGI/Deny.pm:40 src/EBox/Firewall.pm:180 src/EBox/Firewall.pm:725
+#: src/EBox/Firewall.pm:869 ebox-firewall-0.1/src/EBox/CGI/Deny.pm:40
+#: ebox-firewall-0.1/src/EBox/CGI/FwdRule.pm:43
+#: ebox-firewall-0.1/src/EBox/CGI/FwdRule.pm:67
+#: ebox-firewall-0.1/src/EBox/CGI/ObjectRule.pm:47
+#: ebox-firewall-0.1/src/EBox/CGI/ObjectRule.pm:64
+msgid "action"
+msgstr "acció"
+
+#: src/EBox/CGI/FwdRule.pm:59 src/EBox/CGI/FwdRule.pm:66
+#: src/EBox/CGI/FwdRule.pm:85 src/EBox/CGI/FwdRule.pm:88
+#: src/EBox/CGI/FwdRule.pm:91 src/EBox/CGI/ObjectRule.pm:55
+#: src/EBox/CGI/ObjectRule.pm:63 src/EBox/CGI/ObjectRule.pm:74
+#: src/EBox/CGI/ObjectRule.pm:78 src/EBox/CGI/FwdRuleEdit.pm:43
+#: ebox-firewall-0.1/src/EBox/CGI/FwdRuleEdit.pm:43
+#: ebox-firewall-0.1/src/EBox/CGI/FwdRule.pm:59
+#: ebox-firewall-0.1/src/EBox/CGI/FwdRule.pm:66
+#: ebox-firewall-0.1/src/EBox/CGI/FwdRule.pm:85
+#: ebox-firewall-0.1/src/EBox/CGI/FwdRule.pm:88
+#: ebox-firewall-0.1/src/EBox/CGI/FwdRule.pm:91
+#: ebox-firewall-0.1/src/EBox/CGI/ObjectRule.pm:55
+#: ebox-firewall-0.1/src/EBox/CGI/ObjectRule.pm:63
+#: ebox-firewall-0.1/src/EBox/CGI/ObjectRule.pm:74
+#: ebox-firewall-0.1/src/EBox/CGI/ObjectRule.pm:78
+msgid "rule"
+msgstr "regla"
+
+#: src/EBox/CGI/FwdRules.pm:30 ebox-firewall-0.1/src/EBox/CGI/FwdRules.pm:30
+#: src/templates/filter.mas:35 src/templates/object.mas:156
+#: ebox-firewall-0.1/src/templates/filter.mas:35
+#: ebox-firewall-0.1/src/templates/object.mas:156
+msgid "Rules"
+msgstr "Regles"
+
+#: src/EBox/CGI/FwdRuleEdit.pm:30
+#: ebox-firewall-0.1/src/EBox/CGI/FwdRuleEdit.pm:30
+#, fuzzy
+msgid "Edit rule"
+msgstr "regla"
+
+#: src/EBox/Firewall.pm:211
+#, perl-brace-format
+msgid "Port {port} is being used by a service or port redirection."
+msgstr ""
+
+#: src/EBox/Firewall.pm:274 src/EBox/Firewall.pm:380 src/EBox/Firewall.pm:412
+#: src/EBox/Firewall.pm:433 src/EBox/Firewall.pm:465 src/EBox/Firewall.pm:502
+#: src/EBox/Firewall.pm:518 src/EBox/Firewall.pm:574
+#, perl-brace-format
+msgid "Name '{name}' is invalid"
+msgstr "El nom '{name}' és invàlid"
+
+#: src/EBox/Firewall.pm:382 src/EBox/Firewall.pm:435 src/EBox/Firewall.pm:466
+#: src/EBox/Firewall.pm:686 src/EBox/Firewall.pm:834 src/EBox/Firewall.pm:854
+#: src/EBox/Firewall.pm:969
+msgid "port"
+msgstr "port"
+
+#: src/EBox/Firewall.pm:589 src/EBox/Firewall.pm:609 src/EBox/Firewall.pm:980
+#: src/EBox/Firewall.pm:1019 src/EBox/Firewall.pm:1043
+msgid "object"
+msgstr "objecte"
+
+#: src/EBox/Firewall.pm:681 src/EBox/Firewall.pm:733 src/EBox/Firewall.pm:877
+#: src/EBox/Firewall.pm:964
+msgid "Port cannot be set if no protocol is selected."
+msgstr ""
+
+#: src/EBox/Firewall.pm:689 src/EBox/Firewall.pm:973
+msgid "address"
+msgstr "adreça"
+
+#: src/EBox/Firewall.pm:738 src/EBox/Firewall.pm:744 src/EBox/Firewall.pm:882
+#: src/EBox/Firewall.pm:888
+#, fuzzy
+msgid "source port"
+msgstr "Informe d'error"
+
+#: src/EBox/Firewall.pm:751 src/EBox/Firewall.pm:754 src/EBox/Firewall.pm:895
+#: src/EBox/Firewall.pm:898
+#, fuzzy
+msgid "source address"
+msgstr "adreça de xarxa"
+
+#: src/EBox/Firewall.pm:1167
+msgid "Rule not found"
+msgstr ""
+
+#: src/EBox/Firewall.pm:1227
+msgid "Firewall"
+msgstr ""
+
+#: src/EBox/Firewall.pm:1231
+#, fuzzy
+msgid "Packet Filter"
+msgstr "Filtrat de paquets"
+
+#: src/EBox/Firewall.pm:1233
+#, fuzzy
+msgid "Redirects"
+msgstr "Redireccions de ports"
+
+#: src/templates/redirects.mas:14
+#: ebox-firewall-0.1/src/templates/redirects.mas:14
+msgid "Interface"
+msgstr "Interfície"
+
+#: src/templates/redirects.mas:16
+#: ebox-firewall-0.1/src/templates/redirects.mas:16
+msgid "External port"
+msgstr "Port extern"
+
+#: src/templates/redirects.mas:18 src/templates/object.mas:169
+#: src/templates/fwdrules.mas:20 src/templates/fwdrules.mas:182
+#: src/templates/fwdruleedit.mas:31
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:31
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:20
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:182
+#: ebox-firewall-0.1/src/templates/object.mas:169
+#: ebox-firewall-0.1/src/templates/redirects.mas:18
+msgid "Protocol"
+msgstr "Protocol"
+
+#: src/templates/redirects.mas:20
+#: ebox-firewall-0.1/src/templates/redirects.mas:20
+msgid "IP address"
+msgstr "Adreça IP"
+
+#: src/templates/redirects.mas:22 src/templates/object.mas:171
+#: src/templates/fwdrules.mas:186 src/templates/fwdrules.mas:190
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:186
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:190
+#: ebox-firewall-0.1/src/templates/object.mas:171
+#: ebox-firewall-0.1/src/templates/redirects.mas:22
+msgid "Port"
+msgstr "Port"
+
+#: src/templates/redirects.mas:24 src/templates/object.mas:99
+#: src/templates/object.mas:179 src/templates/fwdrules.mas:192
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:192
+#: ebox-firewall-0.1/src/templates/object.mas:99
+#: ebox-firewall-0.1/src/templates/object.mas:179
+#: ebox-firewall-0.1/src/templates/redirects.mas:24
+msgid "Actions"
+msgstr "Accions"
+
+#: src/templates/redirects.mas:63 src/templates/redirects.mas:65
+#: src/templates/redirects.mas:67 src/templates/object.mas:87
+#: src/templates/object.mas:230 src/templates/object.mas:232
+#: src/templates/object.mas:234 src/templates/fwdrules.mas:167
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:167
+#: ebox-firewall-0.1/src/templates/object.mas:87
+#: ebox-firewall-0.1/src/templates/object.mas:230
+#: ebox-firewall-0.1/src/templates/object.mas:232
+#: ebox-firewall-0.1/src/templates/object.mas:234
+#: ebox-firewall-0.1/src/templates/redirects.mas:63
+#: ebox-firewall-0.1/src/templates/redirects.mas:65
+#: ebox-firewall-0.1/src/templates/redirects.mas:67
+msgid "Add"
+msgstr "Afegeix"
+
+#: src/templates/redirects.mas:134 src/templates/redirects.mas:136
+#: src/templates/redirects.mas:138 src/templates/object.mas:131
+#: src/templates/object.mas:133 src/templates/object.mas:135
+#: src/templates/object.mas:317 src/templates/object.mas:319
+#: src/templates/object.mas:321 src/templates/fwdruleedit.mas:223
+#: src/templates/fwdruleedit.mas:225 src/templates/fwdruleedit.mas:227
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:223
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:225
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:227
+#: ebox-firewall-0.1/src/templates/object.mas:131
+#: ebox-firewall-0.1/src/templates/object.mas:133
+#: ebox-firewall-0.1/src/templates/object.mas:135
+#: ebox-firewall-0.1/src/templates/object.mas:317
+#: ebox-firewall-0.1/src/templates/object.mas:319
+#: ebox-firewall-0.1/src/templates/object.mas:321
+#: ebox-firewall-0.1/src/templates/redirects.mas:134
+#: ebox-firewall-0.1/src/templates/redirects.mas:136
+#: ebox-firewall-0.1/src/templates/redirects.mas:138
+msgid "Change"
+msgstr "Canvia"
+
+#: src/templates/redirects.mas:143 src/templates/redirects.mas:145
+#: src/templates/redirects.mas:147 src/templates/object.mas:141
+#: src/templates/object.mas:143 src/templates/object.mas:145
+#: src/templates/object.mas:326 src/templates/object.mas:328
+#: src/templates/object.mas:330 src/templates/fwdrules.mas:315
+#: src/templates/fwdrules.mas:317 src/templates/fwdrules.mas:319
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:315
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:317
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:319
+#: ebox-firewall-0.1/src/templates/object.mas:141
+#: ebox-firewall-0.1/src/templates/object.mas:143
+#: ebox-firewall-0.1/src/templates/object.mas:145
+#: ebox-firewall-0.1/src/templates/object.mas:326
+#: ebox-firewall-0.1/src/templates/object.mas:328
+#: ebox-firewall-0.1/src/templates/object.mas:330
+#: ebox-firewall-0.1/src/templates/redirects.mas:143
+#: ebox-firewall-0.1/src/templates/redirects.mas:145
+#: ebox-firewall-0.1/src/templates/redirects.mas:147
+msgid "Delete"
+msgstr "Elimina"
+
+#: src/templates/filter.mas:11 ebox-firewall-0.1/src/templates/filter.mas:11
+#, fuzzy
+msgid ""
+"This will tell the firewall what to do when discarding network packets.  If "
+"you choose Reject, a packet will be sent back to the sender, choosing Drop "
+"will make the firewall drop the packet silently."
+msgstr ""
+"Això li dirà al tallafocs què fer quan es descarten paquets de xarxa. Si "
+"trieu «Rebutja», es tornarà el paquet a l'originador, i triar «Descarta» "
+"farà que el tallafocs descarte el paquet silenciosament."
+
+#: src/templates/filter.mas:16 ebox-firewall-0.1/src/templates/filter.mas:16
+msgid "Deny policy"
+msgstr "Política de denegació"
+
+#: src/templates/filter.mas:20 src/templates/filter.mas:27
+#: ebox-firewall-0.1/src/templates/filter.mas:20
+#: ebox-firewall-0.1/src/templates/filter.mas:27
+msgid "Drop packets"
+msgstr "Descarta els paquets"
+
+#: src/templates/filter.mas:22 src/templates/filter.mas:25
+#: ebox-firewall-0.1/src/templates/filter.mas:22
+#: ebox-firewall-0.1/src/templates/filter.mas:25
+msgid "Reject packets"
+msgstr "Rebutja els paquets"
+
+#: src/templates/filter.mas:31 ebox-firewall-0.1/src/templates/filter.mas:31
+msgid "Ok"
+msgstr "D'acord"
+
+#: src/templates/filter.mas:38 ebox-firewall-0.1/src/templates/filter.mas:38
+msgid ""
+"This link will let you set up filtering rules that will take precedence over "
+"the ones you set up for network objects further below."
+msgstr ""
+
+#: src/templates/filter.mas:42 ebox-firewall-0.1/src/templates/filter.mas:42
+msgid "Forwarding rules"
+msgstr ""
+
+#: src/templates/filter.mas:46 ebox-firewall-0.1/src/templates/filter.mas:46
+msgid "Objects"
+msgstr "Objectes"
+
+#: src/templates/filter.mas:49 ebox-firewall-0.1/src/templates/filter.mas:49
+msgid ""
+"The link below will let you set up the default behavior of the packet "
+"filter. You may also choose an object and set up rules and the services it "
+"may access."
+msgstr ""
+"El següent enllaç vos permetrà configurar el comportament per defecte del "
+"filtre de paquets. Podeu seleccionar un objecte i configurar regles i els "
+"serveis als quals pot accedir"
+
+#: src/templates/filter.mas:53 ebox-firewall-0.1/src/templates/filter.mas:53
+msgid "Configure default rules"
+msgstr "Configura les regles predeterminades"
+
+#: src/templates/filter.mas:59 ebox-firewall-0.1/src/templates/filter.mas:59
+msgid "Configure rules for a particular object"
+msgstr "Configura les regles per a un objecte particular"
+
+#: src/templates/filter.mas:68 ebox-firewall-0.1/src/templates/filter.mas:68
+msgid "Go"
+msgstr "Vés"
+
+#: src/templates/object.mas:14 ebox-firewall-0.1/src/templates/object.mas:14
+msgid ""
+"The policy states what to do on network packets not explicitly matched "
+"below. The policy is applied to connections that leave eBox through an "
+"external network interface. If you want to allow traffic between internal "
+"networks you need to create explicit rules for that."
+msgstr ""
+
+#: src/templates/object.mas:19 ebox-firewall-0.1/src/templates/object.mas:19
+#, fuzzy
+msgid ""
+"Choosing global will make the firewall fall back to the <a href='Object?"
+"object=_global'>default configuration</a>."
+msgstr ""
+"Si es selecciona «global», el tallafocs tornarà a la configuració per "
+"defecte."
+
+#: src/templates/object.mas:24 src/templates/object.mas:97
+#: ebox-firewall-0.1/src/templates/object.mas:24
+#: ebox-firewall-0.1/src/templates/object.mas:97
+msgid "Policy"
+msgstr "Política"
+
+#: src/templates/object.mas:32 src/templates/object.mas:35
+#: src/templates/object.mas:61 ebox-firewall-0.1/src/templates/object.mas:32
+#: ebox-firewall-0.1/src/templates/object.mas:35
+#: ebox-firewall-0.1/src/templates/object.mas:61
+msgid "Global"
+msgstr "Global"
+
+#: src/templates/object.mas:41 src/templates/object.mas:44
+#: src/templates/object.mas:56 src/templates/object.mas:81
+#: src/templates/object.mas:118 src/templates/object.mas:123
+#: src/templates/object.mas:220 src/templates/object.mas:296
+#: src/templates/object.mas:301 src/templates/fwdrules.mas:45
+#: src/templates/fwdruleedit.mas:69 src/templates/fwdruleedit.mas:74
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:69
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:74
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:45
+#: ebox-firewall-0.1/src/templates/object.mas:41
+#: ebox-firewall-0.1/src/templates/object.mas:44
+#: ebox-firewall-0.1/src/templates/object.mas:56
+#: ebox-firewall-0.1/src/templates/object.mas:81
+#: ebox-firewall-0.1/src/templates/object.mas:118
+#: ebox-firewall-0.1/src/templates/object.mas:123
+#: ebox-firewall-0.1/src/templates/object.mas:220
+#: ebox-firewall-0.1/src/templates/object.mas:296
+#: ebox-firewall-0.1/src/templates/object.mas:301
+msgid "Deny"
+msgstr "Denega"
+
+#: src/templates/object.mas:49 src/templates/object.mas:52
+#: src/templates/object.mas:58 src/templates/object.mas:83
+#: src/templates/object.mas:116 src/templates/object.mas:121
+#: src/templates/object.mas:218 src/templates/object.mas:294
+#: src/templates/object.mas:299 src/templates/fwdrules.mas:43
+#: src/templates/fwdruleedit.mas:67 src/templates/fwdruleedit.mas:72
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:67
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:72
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:43
+#: ebox-firewall-0.1/src/templates/object.mas:49
+#: ebox-firewall-0.1/src/templates/object.mas:52
+#: ebox-firewall-0.1/src/templates/object.mas:58
+#: ebox-firewall-0.1/src/templates/object.mas:83
+#: ebox-firewall-0.1/src/templates/object.mas:116
+#: ebox-firewall-0.1/src/templates/object.mas:121
+#: ebox-firewall-0.1/src/templates/object.mas:218
+#: ebox-firewall-0.1/src/templates/object.mas:294
+#: ebox-firewall-0.1/src/templates/object.mas:299
+msgid "Allow"
+msgstr "Permet"
+
+#: src/templates/object.mas:69 ebox-firewall-0.1/src/templates/object.mas:69
+msgid "Services"
+msgstr "Serveis"
+
+#: src/templates/object.mas:95 ebox-firewall-0.1/src/templates/object.mas:95
+msgid "Service"
+msgstr "Servei"
+
+#: src/templates/object.mas:159 ebox-firewall-0.1/src/templates/object.mas:159
+#, fuzzy
+msgid ""
+"Protocol, port and destination address are optional. The rules will be "
+"applied in order, from top to bottom, you can reorder them once they are "
+"added. Rules can also be disabled without deleting them."
+msgstr ""
+"L'adreça de destinació és opcional. Les regles s'aplicaran en ordre, d'amunt "
+"a avall, les podeu ordenar una vegada afegides. També es poden inhabilitar "
+"les regles sense eliminar-les."
+
+#: src/templates/object.mas:163 ebox-firewall-0.1/src/templates/object.mas:163
+msgid ""
+"Rules without an explicit destination address will be applied to packets "
+"that leave eBox through an external network interface. You may flag network "
+"interfaces as external in the <a href='../Network/Ifaces'>Network "
+"Interfaces</a> configuration page."
+msgstr ""
+
+#: src/templates/object.mas:173 src/templates/fwdrules.mas:109
+#: src/templates/fwdruleedit.mas:153
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:153
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:109
+#: ebox-firewall-0.1/src/templates/object.mas:173
+msgid "Destination address"
+msgstr "Adreça de destinació"
+
+#: src/templates/object.mas:175 src/templates/fwdrules.mas:37
+#: src/templates/fwdruleedit.mas:60
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:60
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:37
+#: ebox-firewall-0.1/src/templates/object.mas:175
+msgid "Action"
+msgstr "Acció"
+
+#: src/templates/object.mas:177 ebox-firewall-0.1/src/templates/object.mas:177
+msgid "Active"
+msgstr "Activa"
+
+#: src/templates/object.mas:188 src/templates/object.mas:260
+#: src/templates/fwdrules.mas:26 src/templates/fwdruleedit.mas:48
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:48
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:26
+#: ebox-firewall-0.1/src/templates/object.mas:188
+#: ebox-firewall-0.1/src/templates/object.mas:260
+msgid "any"
+msgstr ""
+
+#: src/templates/object.mas:335 src/templates/object.mas:337
+#: src/templates/object.mas:339 src/templates/fwdrules.mas:324
+#: src/templates/fwdrules.mas:326 src/templates/fwdrules.mas:328
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:324
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:326
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:328
+#: ebox-firewall-0.1/src/templates/object.mas:335
+#: ebox-firewall-0.1/src/templates/object.mas:337
+#: ebox-firewall-0.1/src/templates/object.mas:339
+msgid "Up"
+msgstr "Amunt"
+
+#: src/templates/object.mas:344 src/templates/object.mas:346
+#: src/templates/object.mas:348 src/templates/fwdrules.mas:333
+#: src/templates/fwdrules.mas:335 src/templates/fwdrules.mas:337
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:333
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:335
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:337
+#: ebox-firewall-0.1/src/templates/object.mas:344
+#: ebox-firewall-0.1/src/templates/object.mas:346
+#: ebox-firewall-0.1/src/templates/object.mas:348
+msgid "Down"
+msgstr "Avall"
+
+#: src/templates/fwdrules.mas:10
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:10
+#, fuzzy
+msgid ""
+"Protocol, ports and addresses are optional. The rules will be applied in "
+"order, from top to bottom, you can reorder them once they are added. Rules "
+"can also be disabled without deleting them."
+msgstr ""
+"L'adreça de destinació és opcional. Les regles s'aplicaran en ordre, d'amunt "
+"a avall, les podeu ordenar una vegada afegides. També es poden inhabilitar "
+"les regles sense eliminar-les."
+
+#: src/templates/fwdrules.mas:13
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:13
+#, fuzzy
+msgid "New rule"
+msgstr "regla"
+
+#: src/templates/fwdrules.mas:54 src/templates/fwdruleedit.mas:84
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:84
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:54
+#, fuzzy
+msgid "Source address"
+msgstr "adreça de xarxa"
+
+#: src/templates/fwdrules.mas:60 src/templates/fwdrules.mas:92
+#: src/templates/fwdrules.mas:115 src/templates/fwdrules.mas:147
+#: src/templates/fwdruleedit.mas:91 src/templates/fwdruleedit.mas:96
+#: src/templates/fwdruleedit.mas:128 src/templates/fwdruleedit.mas:133
+#: src/templates/fwdruleedit.mas:160 src/templates/fwdruleedit.mas:165
+#: src/templates/fwdruleedit.mas:197 src/templates/fwdruleedit.mas:202
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:91
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:96
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:128
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:133
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:160
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:165
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:197
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:202
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:60
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:92
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:115
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:147
+msgid "is not"
+msgstr ""
+
+#: src/templates/fwdrules.mas:62 src/templates/fwdrules.mas:94
+#: src/templates/fwdrules.mas:117 src/templates/fwdrules.mas:149
+#: src/templates/fwdruleedit.mas:93 src/templates/fwdruleedit.mas:98
+#: src/templates/fwdruleedit.mas:130 src/templates/fwdruleedit.mas:135
+#: src/templates/fwdruleedit.mas:162 src/templates/fwdruleedit.mas:167
+#: src/templates/fwdruleedit.mas:199 src/templates/fwdruleedit.mas:204
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:93
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:98
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:130
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:135
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:162
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:167
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:199
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:204
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:62
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:94
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:117
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:149
+msgid "is"
+msgstr ""
+
+#: src/templates/fwdrules.mas:86 src/templates/fwdruleedit.mas:121
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:121
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:86
+#, fuzzy
+msgid "Source port"
+msgstr "Informe d'error"
+
+#: src/templates/fwdrules.mas:99 src/templates/fwdrules.mas:154
+#: src/templates/fwdruleedit.mas:142 src/templates/fwdruleedit.mas:211
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:142
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:211
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:99
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:154
+msgid "to"
+msgstr ""
+
+#: src/templates/fwdrules.mas:141 src/templates/fwdruleedit.mas:190
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:190
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:141
+#, fuzzy
+msgid "Destination port"
+msgstr "port de destinació"
+
+#: src/templates/fwdrules.mas:184
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:184
+#, fuzzy
+msgid "Source"
+msgstr "Servei"
+
+#: src/templates/fwdrules.mas:188
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:188
+#, fuzzy
+msgid "Destination"
+msgstr "port de destinació"
+
+#: src/templates/fwdrules.mas:208 src/templates/fwdrules.mas:210
+#: src/templates/fwdrules.mas:351 src/templates/fwdrules.mas:353
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:208
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:210
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:351
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:353
+#, fuzzy
+msgid "allow"
+msgstr "Permet"
+
+#: src/templates/fwdrules.mas:214 src/templates/fwdrules.mas:216
+#: src/templates/fwdrules.mas:378 src/templates/fwdrules.mas:380
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:214
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:216
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:378
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:380
+msgid "allow (disabled)"
+msgstr ""
+
+#: src/templates/fwdrules.mas:220 src/templates/fwdrules.mas:222
+#: src/templates/fwdrules.mas:356 src/templates/fwdrules.mas:358
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:220
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:222
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:356
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:358
+#, fuzzy
+msgid "deny"
+msgstr "Denega"
+
+#: src/templates/fwdrules.mas:226 src/templates/fwdrules.mas:228
+#: src/templates/fwdrules.mas:383 src/templates/fwdrules.mas:385
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:226
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:228
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:383
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:385
+msgid "deny (disabled)"
+msgstr ""
+
+#: src/templates/fwdrules.mas:239 src/templates/fwdrules.mas:241
+#: src/templates/fwdrules.mas:260 src/templates/fwdrules.mas:262
+#: src/templates/fwdrules.mas:273 src/templates/fwdrules.mas:275
+#: src/templates/fwdrules.mas:294 src/templates/fwdrules.mas:296
+#: src/templates/fwdrules.mas:371 src/templates/fwdrules.mas:373
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:239
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:241
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:260
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:262
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:273
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:275
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:294
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:296
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:371
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:373
+msgid "inverse match"
+msgstr ""
+
+#: src/templates/fwdrules.mas:306 src/templates/fwdrules.mas:308
+#: src/templates/fwdrules.mas:310
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:306
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:308
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:310
+#, fuzzy
+msgid "Edit"
+msgstr "Surt"
+
+#: src/templates/fwdrules.mas:361 src/templates/fwdrules.mas:363
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:361
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:363
+#, fuzzy
+msgid "delete"
+msgstr "Elimina"
+
+#: src/templates/fwdrules.mas:366 src/templates/fwdrules.mas:368
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:366
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:368
+#, fuzzy
+msgid "edit"
+msgstr "Surt"
+
+#: src/templates/fwdrules.mas:388 src/templates/fwdrules.mas:390
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:388
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:390
+msgid "move up"
+msgstr ""
+
+#: src/templates/fwdrules.mas:393 src/templates/fwdrules.mas:395
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:393
+#: ebox-firewall-0.1/src/templates/fwdrules.mas:395
+#, fuzzy
+msgid "move down"
+msgstr "avall"
+
+#: src/templates/fwdruleedit.mas:14
+#: ebox-firewall-0.1/src/templates/fwdruleedit.mas:14
+msgid "Enabled"
+msgstr ""

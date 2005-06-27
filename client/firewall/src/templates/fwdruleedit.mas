@@ -1,0 +1,199 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$rule
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<form action='FwdRule' method='post'>
+<table>
+			<tr>
+				<td class="tright">
+					<span class='ftitle'>
+						<% __('Enabled') %>:
+					</span>
+				</td>
+
+				<td class='tleft'>
+%					if ($rule->{'active'} == 1) {
+						<input type='checkbox' checked value="yes" name='active'/>
+%					} else {
+						<input type='checkbox' value="yes" name='active'/>
+%					}
+				</td>
+			</tr>
+
+			<tr>
+				<td class="tright">
+					<span class='ftitle'>
+						<% __('Protocol') %>:
+					</span>
+				</td>
+				<td>
+					<input type='hidden' name='rulename'
+						   value='<%$rule->{'name'}%>'/>
+					<select name='protocol'>
+%						if ($rule->{'protocol'} eq 'tcp') {
+							<option value="">-</option>
+							<option selected value="tcp">tcp</option>
+							<option value="udp">udp</option>
+%						} elsif ($rule->{'protocol'} eq 'udp') {
+							<option value="">-</option>
+							<option value="tcp">tcp</option>
+							<option selected value="udp">udp</option>
+%						} else {
+							<option selected value=""><%__('any')%></option>
+							<option value="tcp">tcp</option>
+							<option value="udp">udp</option>
+%						}
+					</select>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="tright">
+					<span class='ftitle'>
+						<% __('Action') %>:
+					</span>
+				</td>
+				<td>
+					<select name='action'>
+%						if ($rule->{'action'} eq 'allow') {
+							<option selected value="allow"><% __('Allow') %></option>
+							<option value="deny"><% __('Deny') %></option>
+%						} else {
+							<option value="allow"><% __('Allow') %></option>
+							<option selected value="deny"><% __('Deny') %></option>
+%						}
+					</select>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="tright">
+					<span class='ftitle'>
+						<% __('Source address') %>:
+					</span>
+				</td>
+				<td>
+					<select name='nsaddr'>
+%					if ($rule->{'nsaddr'} == 1) {
+						<option selected value="yes" name='nsaddr'/><%__('is not')%></option>
+						<option value="" name='nsaddr'/><%__('is')%></option>
+%					} else {
+						<option value="yes" name='nsaddr'/><%__('is not')%></option>
+						<option selected value="" name='nsaddr'/><%__('is')%></option>
+%					}
+					</select>
+					<input type='text' class='inputText' size='12' 
+						   name='saddr'
+						   value='<%$rule->{'saddress'}%>'/>
+					/
+					<select name='smask'>
+%						foreach my $i (32, 30, 29, 28, 27, 26, 25, 24, 16, 8) {
+%							if ($rule->{'smask'} eq $i) {
+								<option selected value='<%$i%>'><%$i%></option>
+%							} else {
+								<option value='<%$i%>'><%$i%></option>
+%							}
+%						}
+					</select>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="tright">
+					<span class='ftitle'>
+						<% __('Source port') %>:
+					</span>
+				</td>
+				<td>
+					<select name='nsport'>
+%					if ($rule->{'nsport'} == 1) {
+						<option selected value="yes" name='nsport'/><%__('is not')%></option>
+						<option value="" name='nsport'/><%__('is')%></option>
+%					} else {
+						<option value="yes" name='nsport'/><%__('is not')%></option>
+						<option selected value="" name='nsport'/><%__('is')%></option>
+%					}
+					</select>
+					<input class='inputText' type='text' size='5'
+						   name='sportfrom'
+						   value='<%$rule->{'sportfrom'}%>'/>
+					<%__('to')%>
+					<input class='inputText' type='text' size='5' 
+						   name='sportto'
+						   value='<%$rule->{'sportto'}%>'/>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="tright">
+					<span class='ftitle'>
+						<% __('Destination address') %>:
+					</span>
+				</td>
+				<td>
+					<select name='ndaddr'>
+%					if ($rule->{'ndaddr'} == 1) {
+						<option selected value="yes" name='ndaddr'/><%__('is not')%></option>
+						<option value="" name='ndaddr'/><%__('is')%></option>
+%					} else {
+						<option value="yes" name='ndaddr'/><%__('is not')%></option>
+						<option selected value="" name='ndaddr'/><%__('is')%></option>
+%					}
+					</select>
+					<input type='text' class='inputText' size='12' 
+						   name='daddr'
+						   value='<%$rule->{'daddress'}%>'/>
+					/
+					<select name='dmask'>
+%						foreach my $i (32, 30, 29, 28, 27, 26, 25, 24, 16, 8) {
+%							if ($rule->{'dmask'} eq $i) {
+								<option selected value='<%$i%>'><%$i%></option>
+%							} else {
+								<option value='<%$i%>'><%$i%></option>
+%							}
+%						}
+					</select>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="tright">
+					<span class='ftitle'>
+						<% __('Destination port') %>:
+					</span>
+				</td>
+				<td>
+					<select name='ndport'>
+%					if ($rule->{'ndport'} == 1) {
+						<option selected value="yes" name='ndport'/><%__('is not')%></option>
+						<option value="" name='ndport'/><%__('is')%></option>
+%					} else {
+						<option value="yes" name='ndport'/><%__('is not')%></option>
+						<option selected value="" name='ndport'/><%__('is')%></option>
+%					}
+					</select>
+					<input class='inputText' type='text' size='5' 
+						   name='dportfrom'
+						   value='<%$rule->{'dportfrom'}%>'/>
+					<%__('to')%>
+					<input class='inputText' type='text' size='5' 
+						   name='dportto'
+						   value='<%$rule->{'dportto'}%>'/>
+				</td>
+			</tr>
+
+			<tr>
+				<td></td>
+				<td>
+					<input class='inputButton' type='submit' name='change'
+							   value="<% __('Change') %>"
+							   alt="<% __('Change') %>"
+							   title="<% __('Change') %>"/>
+				</td>
+			</tr>
+<table>
+</form>

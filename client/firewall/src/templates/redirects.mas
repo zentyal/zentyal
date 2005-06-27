@@ -1,0 +1,139 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	@ifaces
+	@redirections => ()
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+	<br />
+	<table class='dataTable' cellspacing='0'>
+		<thead>
+			<tr>
+				<th><% __('Interface') %></th>
+				<th><% __('External port') %></th>
+				<th><% __('Protocol') %></th>
+				<th><% __('IP address') %></th>
+				<th><% __('Port') %></th>
+				<th><% __('Actions') %></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class='border'><form action='Redirection' method='POST'>
+				<td>
+					<select name='iface'>
+						<option selected value=''>    </option>
+%						foreach my $iface (@ifaces) {
+							<option value="<% $iface->{name} %>">
+								<% $iface->{'name'} %>
+							</option>
+%						}
+					</select>
+				</td>
+
+				<td class='tcenter'>
+					<input type='text' class='inputText' name='eport' size='5'>
+				</td>
+
+				<td class='tcenter' >
+					<select name='proto'>
+						<option selected value='tcp'>TCP</option>
+						<option value='udp'>UDP</option>
+					</select>
+				</td>
+
+				<td class='tcenter' >
+					<input type='text' class='inputText' name='address' size='15'>
+				</td>
+
+				<td class='tcenter' >
+					<input type='text' class='inputText' name='dport' size='5'>
+				</td>
+
+				<td class='tcenter' >
+					<input class='inputButton' type='image' name='add'
+						   src='/data/images/add.gif'
+						   value="<% __('Add') %>"
+						   title="<% __('Add') %>"
+						   alt="<% __('Add') %>">
+				</td>
+
+			</form> </tr>
+
+%			foreach my $redirect (@redirections) {
+			<tr class='border'>
+
+				<form action='Redirection' method='post'>
+					<input type='hidden' name='oldeport'
+						   value='<% $redirect->{'eport'} %>'>
+					<input type='hidden' name='oldproto'
+						   value='<% $redirect->{'protocol'} %>'>
+					<input type='hidden' name='oldiface'
+						   value='<% $redirect->{'iface'} %>'>
+					<input type='hidden' name='oldip'
+						   value='<% $redirect->{'ip'} %>'>
+					<input type='hidden' name='olddport'
+						   value='<% $redirect->{'dport'} %>'>
+
+					<td>
+						<select name='iface'>
+%							foreach my $iface (@ifaces) {
+%								if($iface->{'name'} eq $redirect->{'iface'}){
+							<option selected value='<% $iface->{'name'} %>'>
+								<% $iface->{'name'} %>
+							</option>
+%								}else{
+							<option value='<% $iface->{'name'} %>'>
+								<% $iface->{'name'} %>
+							</option>
+%								}
+%							}
+						</select>
+					</td>
+					<td class='tcenter'>
+						<input type='text' class='inputText'
+							   value='<% $redirect->{'eport'} %>' name='eport'
+							   size='5'>
+					</td>
+
+					<td class='tcenter'> <select name='proto'>
+%						if($redirect->{'protocol'} eq 'tcp'){
+							<option selected value='tcp'>tcp</option>
+							<option value='udp'>udp</option>
+%						}else{
+							<option selected value='udp'>udp</option>
+							<option value='tcp'>tcp</option>
+%						}
+					</select> </td>
+
+					<td class='tcenter'>
+						<input type='text' class='inputText'
+							   value='<% $redirect->{'ip'} %>' name='address'
+							   size='15'>
+					</td>
+
+					<td class='tcenter'>
+						<input type='text' class='inputText'
+							   value='<% $redirect->{'dport'} %>' name='dport'
+							   size='5'>
+					</td>
+
+					<td class='tcenter'>
+						<input class='inputButton' type='image' name='change'
+							   src='/data/images/apply.gif'
+							   value="<% __('Change') %>"
+							   title="<% __('Change') %>"
+							   alt="<% __('Change') %>" >
+						<img src='/data/images/sep.gif' alt='-'/>
+						<input class='inputButton' type='image' name='delete'
+							   src='/data/images/delete.gif'
+							   value="<% __('Delete') %>"
+							   title="<% __('Delete') %>"
+							   alt="<% __('Delete') %>">
+					</td>
+				</form>
+			</tr>
+%			}
+		</tbody>
+	</table>

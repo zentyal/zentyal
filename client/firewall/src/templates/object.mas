@@ -1,0 +1,295 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$object
+	$policy
+	@services
+	@rules => ()
+	@servicepol => ()
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<div class='help'>
+<% __('The policy states what to do on network packets not explicitly matched below. The policy is applied to connections that leave eBox through an external network interface. If you want to allow traffic between internal networks you need to create explicit rules for that.') %>
+%	if ($object ne '_global') {
+<br/>
+<br/>
+		<% __("Choosing global will make the firewall fall back to the <a href='Object?object=_global'>default configuration</a>.") %>
+%	}
+</div>
+	<form action='ObjectPolicy' method='post'>
+		<div class='ftitle'><% __('Policy') %></div>
+		<input type='hidden' name='object'
+			   value='<% $object %>' />
+		<select name='policy'>
+%			if ($policy) {
+%				if ($object ne '_global') {
+%					if ($policy eq 'global') {
+						<option selected value="global"><% __('Global') %></option>
+%					} else {
+						<option value="global"><% __('Global') %></option>
+%					}
+%				}
+
+%				if ($policy eq 'deny') {
+					<option selected value="deny"><% __('Deny') %></option>
+%				} else {
+					<option value="deny"><% __('Deny') %></option>
+%				}
+
+%				if ($policy eq 'allow') {
+					<option selected value="allow"><% __('Allow') %></option>
+%				} else {
+					<option value="allow"><% __('Allow') %></option>
+%				}
+%			} else {
+				<option value="deny"><% __('Deny') %></option>
+				<option value="allow"><% __('Allow') %></option>
+%				if ($object ne '_global') {
+					<option selected value="global"><% __('Global') %></option>
+%				}
+%			}
+		</select>
+		<input class='inputButton' type='submit' name='accept' value='Ok' />
+	</form>
+% if (@services) {
+<h3><% __('Services') %></h3>
+<form action='ObjectService' method='post'>
+	<input type='hidden' name='object' value='<% $object %>' />
+	<select name='service'>
+%		foreach my $serv (@services) {
+			<option value='<% $serv->{'name'} %>'>
+				<% $serv->{'name'} %>
+			</option>
+%		}
+	</select>
+	<select name='policy'>
+		<option value="deny"><% __('Deny') %></option>
+		<option value="allow"><% __('Allow') %></option>
+	</select>
+	<input class='inputButton' type='submit' name='add'
+		   value="<% __('Add') %>" />
+</form>
+% }
+% if (@servicepol) {
+<table class='dataTable' cellspacing='0'>
+	<thead>
+		<tr>
+			<th class='tleft'><% __('Service') %></th>
+			<th><% __('Policy') %></th>
+			<th><% __('Actions') %></th>
+		</tr>
+	</thead>
+	<tbody>
+%		foreach my $spol (@servicepol) {
+			<form action='ObjectService' method='post'>
+				<input type='hidden' name='object' value='<% $object %>' />
+				<input type='hidden' name='service'
+					   value='<% $spol->{'name'} %>' />
+				<tr class='border'>
+					<td>
+						<% $spol->{'name'} %>
+					</td>
+					<td class='tcenter'>
+						<select name='policy'>
+%							if ($spol->{'policy'} eq 'allow') {
+								<option selected value="allow"><% __('Allow') %></option>
+								<option value="deny"><% __('Deny') %></option>
+%							} else {
+								<option value="allow"><% __('Allow') %></option>
+								<option selected value="deny"><% __('Deny') %></option>
+%							}
+						</select>
+					</td>
+					<td class='tcenter'>
+				<input class='inputButton' type='image' name='change'
+						src='/data/images/apply.gif'
+						title="<% __('Change') %>"
+						alt="<% __('Change') %>"
+						value="<% __('Change') %>" />
+%			if ($spol->{'name'} ne 'administration' or $object ne '_global') {
+				<img src='/data/images/sep.gif' alt='-' />
+				<input class='inputButton' type='image' name='delete'
+						src='/data/images/delete.gif'
+						alt="<% __('Delete') %>"
+						title="<% __('Delete') %>"
+					   	value="<% __('Delete') %>" />
+%			}
+					</td>
+				</tr>
+			</form>
+%		}
+	</tbody>
+</table>
+% }
+<!--div style="clear:both" /-->
+<h3><% __('Rules') %></h3>
+<div class='help'>
+	<% __('Protocol, port and destination address are optional. The rules will be applied in order, from top to bottom, you can reorder them once they are added. Rules can also be disabled without deleting them.') %>
+	<br/>
+	<br/>
+	<% __("Rules without an explicit destination address will be applied to packets that leave eBox through an external network interface. You may flag network interfaces as external in the <a href='../Network/Ifaces'>Network Interfaces</a> configuration page.") %>
+</div>
+<table class='dataTable' cellspacing='0'>
+	<thead>
+		<tr>
+			<th><% __('Protocol') %></th>
+			<th><% __('Port') %></th>
+			<th><% __('Destination address') %></th>
+			<th><% __('Action') %></th>
+			<th><% __('Active') %></th>
+			<th><% __('Actions') %></th>
+		</tr>
+	</thead>
+	<tbody>
+			<tr class='border'><form action='ObjectRule' method='post'>
+				<td>
+					<input type='hidden' name='object' value='<% $object %>' />
+					<select name='protocol'>
+						<option value=""><%__('any')%></option>
+						<option value="tcp">tcp</option>
+						<option value="udp">udp</option>
+					</select>
+				</td>
+
+				<td class='tcenter'>
+					<input class='inputText' type='text' size='5' name='port'/>
+				</td>
+
+				<td class='tcenter'>
+					<input type='text' class='inputText' size='15' name='address'/>
+					/
+					<select name='mask'>
+						<option selected value="32">32</option>
+						<option value="30">30</option>
+						<option value="29">29</option>
+						<option value="28">28</option>
+						<option value="27">27</option>
+						<option value="26">26</option>
+						<option value="25">25</option>
+						<option value="24">24</option>
+						<option value="16">16</option>
+						<option value="8">8</option>
+					</select>
+				</td>
+
+				<td class='tcenter'>
+					<select name='action'>
+						<option value="allow"><% __('Allow') %></option>
+						<option value="deny"><% __('Deny') %></option>
+					</select>
+				</td>
+
+				<td>
+				</td>
+
+				<td class='tcenter'>
+					<input class='inputButton' type='image' name='add'
+							   value="<% __('Add') %>"
+							   alt="<% __('Add') %>"
+							   title="<% __('Add') %>"
+							   src='/data/images/add.gif' />
+				</td>
+			</form></tr>
+
+%		foreach my $rule (@rules) {
+			<tr class='border'>
+				<form action='ObjectRule' method='post'>
+					<input type='hidden' name='object'
+						   value='<% $object %>' />
+					<input type='hidden' name='rulename'
+						   value='<% $rule->{'name'} %>' />
+					<input type='hidden' name='order'
+						   value='<% $rule->{'order'} %>' />
+					<td>
+						<select name='protocol'>
+%							if ($rule->{'protocol'} eq 'tcp') {
+								<option value="">-</option>
+								<option selected value="tcp">tcp</option>
+								<option value="udp">udp</option>
+%							} elsif ($rule->{'protocol'} eq 'udp') {
+								<option value="">-</option>
+								<option value="tcp">tcp</option>
+								<option selected value="udp">udp</option>
+%							} else {
+								<option selected value=""><%__('any')%></option>
+								<option value="tcp">tcp</option>
+								<option value="udp">udp</option>
+%							} 
+						</select>
+					</td>
+					<td class='tcenter'>
+						<input type='text' size='5' name='port'
+							   class='inputText' value="<% $rule->{'port'} %>"/>
+					</td>
+					<td class='tcenter'>
+						<input type='text' size='15' name='address'
+							   class='inputText' value="<% $rule->{'address'} %>"/>
+						/
+						<select name='mask'>
+							<option selected value="<% $rule->{'mask'} %>">
+								<% $rule->{'mask'} %>
+							</option>
+							<option value="32">32</option>
+							<option value="30">30</option>
+							<option value="29">29</option>
+							<option value="28">28</option>
+							<option value="27">27</option>
+							<option value="26">26</option>
+							<option value="25">25</option>
+							<option value="24">24</option>
+							<option value="16">16</option>
+							<option value="8">8</option>
+						</select>
+					</td>
+					<td class='tcenter'>
+						<select name='action'>
+%							if ($rule->{'action'} eq 'allow') {
+								<option selected value="allow"><% __('Allow') %></option>
+								<option value="deny"><% __('Deny') %></option>
+%							} else {
+								<option value="allow"><% __('Allow') %></option>
+								<option selected value="deny"><% __('Deny') %></option>
+%							}
+						</select>
+					</td>
+					<td class='tcenter'>
+%						if ($rule->{'active'} == 1) {
+							<input type='checkbox' checked value="yes"
+								   name='active'/>
+%						} else {
+							<input type='checkbox' value="yes" name='active'/>
+%						}
+					</td>
+
+					<td class='tcenter'>
+						<input class='inputButton' type='image' name='change'
+							   value="<% __('Change') %>"
+							   alt="<% __('Change') %>"
+							   title="<% __('Change') %>"
+							   src='/data/images/apply.gif' />
+						<img src='/data/images/sep.gif' alt='-' />
+						<input class='inputButton' type='image' name='delete'
+							   value="<% __('Delete') %>"
+							   title="<% __('Delete') %>"
+							   alt="<% __('Delete') %>"
+							   src='/data/images/delete.gif' />
+						<img src='/data/images/sep.gif' alt='-' />
+						<input class='inputButton' type='image' name='up'
+							   value="<% __('Up') %>"
+							   title="<% __('Up') %>"
+							   alt="<% __('Up') %>"
+							   src='/data/images/up.gif' />
+						<img src='/data/images/sep.gif' alt='-' />
+						<input class='inputButton' type='image' name='down'
+							   value="<% __('Down') %>"
+							   title="<% __('Down') %>"
+							   alt="<% __('Down') %>"
+							   src='/data/images/down.gif' />
+					</td>
+				</form>
+			</tr>
+%		}
+	</tbody>
+</table>
