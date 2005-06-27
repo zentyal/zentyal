@@ -1,0 +1,803 @@
+<!-- vim: ts=2 sw=2
+-->
+<chapter id="ch-frontend">
+
+	<title>Web frontend</title>
+
+	<section id="sect-cgi">
+		<title>CGIs</title>
+
+		<para>The eBox administration interface is web-based,
+		using <application>mod_perl</application> on top of
+		<application>apache.</application> Information is fetched from the
+		backends of the different modules by CGI scripts and it is displayed
+		using the <application>mason</application> templating engine.</para>
+
+		<!-- FIXME - screenshot -->
+
+		<para> URLs are mapped from slash-separated paths to perl class names:
+		the URL <uri>Network/Index</uri> is translated to the classname
+		<classname>EBox::CGI::Network::Index</classname>. Actually, the root
+		of the namespace is <uri>/ebox/</uri>, so the actual URL would be
+		<uri>/ebox/Network/Index</uri>, but that part is handled automatically
+		by the framework. So if you need to write a CGI to show some data
+		or let the user configure something, just put your class in the
+		<classname>EBox::CGI</classname> namespace and all matching requests
+		will be passed on to it.</para>
+
+		<para>There are lots of common functionality shared by most of
+		the CGIs in eBox: error handling, input data validation, calling
+		mason templates, showing messages and warnings, printing the menu,
+		etc.</para>
+
+		<para>For this reason there is a parent class from which all CGIs
+		should be inherited. This class implements all those features
+		with almost no intervention by its children, this is why many
+		CGIs end up being around 20 lines long. All this functionality is
+		actually split into two classes, because there is a small part
+		of it that is specific to the client side of eBox. This part is
+		kept in the client, and it is the class you should inherit from:
+		<classname>EBox::CGI::ClientBase</classname>.</para>
+
+		<!--+ FIXME - "the client side of ebox" and libebox are 
+		    | not mentioned anywhere else.
+				|
+				| explanation should be in chapter 1
+				+-->
+
+		<para> The other class, <classname>EBox::CGI::Base</classname>, has
+		most of the code, and it resides in <application>libebox</application>
+		so that it can be reused by the server side.
+		<classname>EBox::CGI::ClientBase</classname> inherits from
+		<classname>EBox::CGI::Base</classname>, so you can safely forget there
+		are two classes and just remember the former.</para>
+
+		<para>Inheriting from <classname>EBox::CGI::ClientBase</classname> will
+		give you a page with the usual title bar and menu, but an empty body. If
+		you pass a <parameter>title</parameter> argument to the constructor of
+		the parent class it will be shown too:</para>
+
+		<example id='ex-cgi-hello'>
+			<title>Hello world CGI</title>
+
+			<programlisting><![CDATA[package EBox::CGI::Hello::World;
+
+use strict;
+use warnings;
+
+use base 'EBox::CGI::ClientBase';
+
+use EBox::Gettext;
+
+sub new 
+{
+	my $class = shift;
+	my $self = $class->SUPER::new('title' => __('Hello World!'), @_);
+	bless($self, $class);
+	return $self;
+}]]></programlisting>
+		</example>
+
+		<para>In the vast majority of cases, you'll just need to implement
+		the <methodname>_process</methodname> abstract method in your class
+		to get the desired results. It is called by the parent class, which
+		then performs different actions depending on the state of the object
+		after the call to <methodname>_process</methodname>. There are certain
+		attributes in the class you can set to change the parent's behavior.
+		Your <methodname>_process</methodname> method will normally do one of
+		these two things (maybe both):</para>
+
+		<itemizedlist>
+			<listitem>
+				<para>Obtain information from module backend and feed it to a mason
+				template that will display it.</para>
+			</listitem>
+
+			<listitem>
+				<para>Read input fields from the HTTP request and use them to
+				perform some action on the module backend.</para>
+			</listitem>
+		</itemizedlist>
+
+		<para>The first thing there is to know is how to make a CGI use a
+		mason template to display stuff. It's really easy, you can just pass a
+		<parameter>template</parameter> argument to the parent's constructor,
+		or set the <structfield>template</structfield> attribute at any time
+		before your <methodname>_process</methodname> returns. This code shows
+		both approaches:</para>
+
+		<example>
+			<title>Setting the mason template for a CGI</title>
+
+			<programlisting><![CDATA[# Setting the template in the constructor
+sub new 
+{
+	my $class = shift;
+	my $self = $class->SUPER::new('title' => __('Hello World!'), 
+					'template' => 'hello/world.mas',
+					@_);
+	bless($self, $class);
+	return $self;
+}
+
+# Setting the template in _process
+sub _process
+{
+	my $self = shift;
+	$self->{template} = 'hello/world.mas';
+}]]></programlisting>
+		</example>
+
+		<para>Secondly, we need to be able to pass some data to the mason
+		template, this is done using the <structfield>params</structfield>
+		attribute. It should be an array reference holding all parameters and
+		their names. This is the <methodname>_process</methodname> method for
+		the general configuration page (the one with the port, password and
+		language):</para>
+
+		<example>
+			<title>Passing arguments to a mason template</title>
+			<programlisting><![CDATA[sub _process
+{
+	my $self = shift;
+
+	my $global = EBox::Global->getInstance();
+	my $apache = $global->modInstance('apache');
+
+	my @array = ();
+	push(@array, 'port' => $apache->port());
+	push(@array, 'lang' => EBox::locale());
+
+	$self->{params} = \@array;
+}]]></programlisting>
+		</example>
+
+		<para>That's all there is to using templates from the CGIs. The details
+		about writing them are outlined in <xref linkend='sect-mason'/>.</para>
+
+		<para> There is another mechanism to show data to the user. You can
+		show messages and errors by setting the <structfield>msg</structfield>
+		and <structfield>error</structfield> attributes to whatever text
+		you want to display. Both types of messages are displayed in a
+		box on the top of the page. You need to be a bit careful with
+		the <structfield>error</structfield> attribute, since it will be
+		overwritten if if an exception is caught by the parent class.</para>
+
+		<!-- FIXME example -->
+
+		<para>Reading arguments sent in the HTTP request is very straight
+		forward. The parent class uses the <classname>CGI</classname> perl
+		module to access that information, and provides a wrapper around its
+		<function>param</function> function that does some checks on the input
+		data. This is the <methodname>_process</methodname> method in the CGI that
+		changes the web interface tcp port:</para>
+
+		<example id='ex-http-params'>
+			<title>Using parameters from the HTTP request</title>
+			<programlisting><![CDATA[sub _process
+{
+	my $self = shift;
+
+	my $global = EBox::Global->getInstance();
+	my $apache = $global->modInstance('apache');
+
+	$apache->setPort($self->param('port'));
+}]]></programlisting>
+		</example>
+
+		<para>It is so simple because all checks on the data are performed
+		by the backend (using the <classname>EBox::Validate</classname> perl
+		module) and by the parent class. Another reason for the simplicity of the
+		code above is that error handling is automatic.</para>
+
+		<para>While you do all that stuff, exceptions may be thrown. Unless
+		you have a good reason to catch an exception (i.e. you expect it and
+		do not want it to be displayed as an error) you'll probably be just
+		fine with the standard error handling, so you can simply forget the
+		fact that exceptions could be thrown and write your code as if they
+		did not exist. The standard behavior is that exceptions that inherit
+		from <classname>EBox::Exceptions::Internal</classname> cause a generic
+		error message, pointing the user to the logs if they need the details.
+		<classname>EBox::Exceptions::External</classname> subclasses are
+		displayed verbatim, the most typical use of these exceptions is when
+		user-provided data is validated.</para>
+
+		<para>The last bit you should learn is how to redirect requests to
+		other CGIs. There are a few reasons why you could want to do that, e.g.
+		you could write a CGI that takes some input parameters from the web
+		browser, changes something in the module backend and then redirects
+		the request to the CGI that displays the data. The CGI shown in <xref
+		linkend='ex-http-params'/> does not call any mason template at all, it
+		just changes the apache port and does nothing else. We want the user to
+		see the same page they were seeing before changing the port, with the
+		new value. <xref linkend='ex-http-redirect'/> shows the constructor for
+		that CGI:</para>
+
+		<example id='ex-http-redirect'>
+			<title>Redirecting a request to a different CGI</title>
+			<programlisting><![CDATA[sub new
+	my $class = shift;
+	my $self = $class->SUPER::new(@_);
+	bless($self, $class);
+	$self->{redirect} = "EBox/General";
+	return $self;
+}]]></programlisting>
+		</example>
+
+		<para>You can see that the constructor sets the
+		<structfield>redirect</structfield> attribute to the URL of
+		the page we want to redirect to. That's all there is to
+		do, if <structfield>redirect</structfield> is set to some
+		value, the parent class will do an HTTP redirect after the
+		<methodname>_process</methodname> method returns.</para>
+
+		<para>An HTTP redirect makes the browser issue a new HTTP request, so
+		all the status data in the old request gets lost, but there are cases
+		when you want to keep that data for the new CGI. This could be done
+		passing GET parameters in the redirect URL, but it is simpler to do an
+		internal redirect, without going through the browser.</para>
+
+		<para> If you need to keep data, like a message or warning to the user,
+		you can use the <structfield>chain</structfield> attribute. It works
+		exactly the same way as <structfield>redirect</structfield> but instead
+		of sending an HTTP response to the browser, the parent class parses the
+		url, instantiates the matching CGI, copies all data into it and runs
+		it. Messages and errors are copied automatically, the parameters in
+		the HTTP request are not, since an error caused by one of them could
+		propagate to the next CGI.</para>
+
+		<!-- FIXME - example -->
+
+		<para> If you need to keep HTTP parameters you can use the
+		<methodname>keepParam</methodname> method in the parent class. It
+		takes the name of the parameter as an argument and adds it to the
+		list of parameters that will be copied to the new CGI if a "chain" is
+		performed.</para>
+
+		<!-- FIXME - example -->
+
+		<para>Errors are a special case here. When an error happens you don't
+		want redirects at all, as the error message would be lost. If an error
+		happens and <structfield>redirect</structfield> has been set, then
+		that value is used as if it was <structfield>chain</structfield>.
+		However, sometimes you want to chain to a different CGI if there is
+		an error, for example if the cause of the error is the absence of an
+		input parameter necessary to show the page. If that's the case you
+		can set the <structfield>errorchain</structfield> attribute, which
+		will have a higher priority than <structfield>chain</structfield> and
+		<structfield>redirect</structfield> if there's an error.</para>
+
+		<para>Finally, the last detail there is to know about CGIs is how to
+		make i18n work properly, both in the CGIs themselves and in mason
+		templates. Since your module will not have the same gettext domain as
+		the eBox framework, the framework needs to know your domain so that it
+		can set it before calling your CGI and your template. It is as simple
+		as setting the <structfield>domain</structfield> attribute in your
+		object, the "Hello world" constructor in <xref linkend='ex-cgi-hello'/>
+		would look like this:</para>
+
+		<example id='ex-cgi-domain'>
+			<title>Setting the gettext domain in a CGI</title>
+
+			<programlisting><![CDATA[sub new 
+{
+	my $class = shift;
+	my $self = $class->SUPER::new('title' => __('Hello World!'), @_);
+	$self->{domain} = 'ebox-hello';
+	bless($self, $class);
+	return $self;
+}]]></programlisting>
+		</example>
+
+		<para>
+		If your title is translatable you should set it again in the
+		<function>_process</function> function, like:
+		<programlisting>
+$self->{title} = __('Hello world');
+		</programlisting>
+		otherwise it will not be translated correctly.
+		</para>
+
+		<para>
+		On the other hand, note that you should never use <function>__</function>
+		with non translatable strings, like protocol names (i.e., DHCP, NTP, ...).
+		</para>
+
+	</section>
+
+	<section id="sect-mason">
+		<title>Mason templates</title>
+
+		<para>This section will only cover a few basic aspects of writing
+		mason templates, specially those details related to eBox. If you need
+		complete documentation about a certain aspect you should check the
+		<ulink url='http://www.masonhq.com/'>mason documentation</ulink> or the
+		<ulink url='http://www.masonbook.com/'>mason book</ulink>. Additional
+		examples can be found in <xref linkend='ch-examplemod'/>.</para>
+
+		<para>The first thing your mason template will have is the declarations
+		of the arguments it expects. Just write the name of the variables, one
+		per line and you are done. Arguments declared as arrays in the template
+		will be passed as array references by your CGI.</para> 
+
+		<para> In our example we are going to give the template an array with
+		names, and the template will say hello to each one of them separately.
+		We use an empty array as a default value for the variable, although
+		default values are optional. If none is given and you don't pass that
+		argument to the template an exception will be thrown.</para>
+
+		<example>
+			<title>Declaring arguments in a mason template</title>
+
+			<programlisting><![CDATA[<%args>
+	@people => ()
+</%args>]]></programlisting>
+		</example>
+
+		<para>The next thing is the initialization section, in this
+		section we can write regular perl code. It is optional and most
+		of the times not needed. However all eBox templates have one,
+		because there is always the need to have i18n, so we import
+		<classname>EBox::Gettext</classname>:</para>
+
+		<example>
+			<title>init section in mason templates</title>
+
+			<programlisting><![CDATA[<%init>
+use EBox::Gettext;
+</%init>]]></programlisting>
+		</example>
+
+		<para>Now we can go on and write the body of the template. The idea is
+		to just write HTML and use a couple of syntactic features to insert
+		perl code wherever we need. First, we'll learn how to do control flow.
+		All lines that start with a <literal>%</literal> are interpreted as
+		perl code.</para>
+
+		<example>
+			<title>Embedding perl code in a mason template</title>
+			<programlisting><![CDATA[<ul>
+% foreach my $person (@people) {
+	<li>Hello</li>
+% }
+</ul>]]></programlisting>
+		</example>
+
+		<para>We want to print the name of a person in each list item.
+		Embedding perl expressions in the special tags <literal>&lt;%
+		%&gt;</literal> prints the value of the expression in the output of
+		the template. We are going to use this feature to print the name of
+		the person and translate the "Hello" string (internationalization is
+		explained in <xref linkend='sect-i18n'/>).</para>
+
+		<example>
+			<title>Printing strings in a mason template</title>
+			<programlisting><![CDATA[<ul>
+% foreach my $person (@people) {
+	<li><% __('Hello') %> <% $person %></li>
+% }
+</ul>]]></programlisting>
+		</example>
+
+		<para>The ebox m4 macro exports the installation path for
+		mason templates as <varname>TEMPLATESPATH</varname>, so you
+		should install them under that directory, possibly creating a
+		subdirectory for your module. Whenever you need to reference
+		a template in your code, you can just use a path relative to
+		<varname>TEMPLATESPATH</varname>. Following our example, will use a
+		subdirectory named <filename>hello</filename> for our templates, and
+		place a template called <filename>world.mas</filename> in it.</para>
+
+		<section id='sect-gui-style'>
+			<title>Standard GUI elements</title>
+
+			<para>There are a few GUI elements that are displayed the same way
+			in all eBox modules. Things like tips, messages, warnings, errors,
+			tables and forms keep a common style. All this stuff is defined in
+			the CSS file, so that all modules can show a consistent look and
+			feel. Some of these elements have a dynamic behavior too, the tips
+			are hidden when the page is loaded and shown if the user clicks on
+			a link on the top-right corner of the page. This section gives an
+			overview of all of these elements and how to use them to achieve an
+			user interface that is consistent with all other eBox modules.</para>
+
+			<para>All messages you want to display, which could be warnings about a
+			risk if a certain action is performed, error notifications, help messages
+			or other relevant information will be included in the mason templates
+			using the same HTML code, but with different CSS styles.</para>
+
+			<example>
+				<title>HTML snippet for displaying messages</title>
+				<programlisting><![CDATA[<div class='class-name'>
+	Some message.
+</div>]]></programlisting>
+			</example>
+
+			<variablelist>
+
+				<title>CSS class names for informational messages</title>
+
+				<varlistentry>
+					<term><emphasis>help</emphasis></term>	
+
+					<listitem>
+						<para>For help information. Remember that information displayed
+						using this style will be hidden unless the user decides to
+						click on the help button.</para>
+					</listitem>
+				</varlistentry>
+
+				<varlistentry>
+					<term><emphasis>note</emphasis></term>	
+
+					<listitem>
+						<para>Displays help or other useful information in a persistent
+						way (it's not hidden like the <emphasis>help</emphasis> style).
+						Use it when you want the user to be aware of some information
+						without the need to click the help button.</para>
+					</listitem>
+				</varlistentry>
+
+				<varlistentry>
+					<term><emphasis>warning</emphasis></term>	
+
+					<listitem>
+						<para>Displays a warning, e.g. if you want to make sure the
+						user knows he is about to delete some data.</para>
+					</listitem>
+				</varlistentry>
+
+				<varlistentry>
+
+					<term><emphasis>error</emphasis></term>	
+
+					<listitem>
+						<para>For error notifications.</para>
+					</listitem>
+				</varlistentry>
+
+			</variablelist>
+
+			<para>You may want to display a list of data, e.g. a list
+			of users. In this case you should use a table with elements
+			<sgmltag>thead</sgmltag> and <sgmltag>tbody</sgmltag> to display the
+			heading and the contents respectively. The CSS style for this kind of
+			tables is <emphasis>dataTable</emphasis>.</para>
+
+			<example id='ex-gui-table'>
+				<title>A table to display data</title>
+				<programlisting><![CDATA[<table class='dataTable'>
+	<caption><% __('Object List') %></caption>
+	<thead>
+		<tr>
+			<th class='tleft'><% __('Name') %></th>
+			<th class='thOptions'><% __('Action') %></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td></td>
+			<td class='tcenter'>
+				<a href='Del?objectname=<% $obj->{'name'} %>'>
+						<img src='/data/images/delete.gif'
+						     title="<% __('Delete') %>"
+						     alt="<% __('Delete') %>"/>
+				</a>
+			</td>
+		</tr>
+	</tbody>
+</table>]]></programlisting>
+			</example>
+
+			<para>As you can see in <xref linkend='ex-gui-table'/> the table has
+			got a <sgmltag>caption</sgmltag> tag, which contains the title for
+			the table. It is not required to include it, but it helps the user
+			identify the kind of data we are listing.</para>
+
+			<para>The rest of CSS styles are used to align text in the
+			columns:</para>
+
+			<variablelist>
+				<varlistentry>
+					<term><emphasis>tleft</emphasis></term>
+
+					<listitem>
+						<para>The heading columns (<sgmltag>thead</sgmltag>) are
+						centered by default, we use <emphasis>tleft</emphasis> to force
+						them to be left aligned to make it easier to read the data
+						below.</para>
+					</listitem>
+				</varlistentry>
+
+				<varlistentry>
+					<term><emphasis>tcenter</emphasis></term>
+
+					<listitem>
+						<para>The actions that the user can execute for each row in a
+						listing are center-aligned using this style.</para>
+					</listitem>
+
+				</varlistentry>
+
+				<varlistentry>
+					<term><emphasis>thOptions</emphasis></term>
+
+					<listitem>
+						<para>It adjusts the column size to the minimum necessary and
+						makes the contents center aligned.</para>
+					</listitem>
+				</varlistentry>
+			</variablelist>
+
+			<para>Forms are displayed using a two-column table with the
+			<emphasis>formTable</emphasis> style.</para>
+
+			<example>
+				<title>Data entry form</title>
+				<programlisting><![CDATA[<table class='formTable'>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Name') %>:</span>	
+		</td>
+		<td>
+			<input class='inputText' type='text' name='name' />
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input class='inputButton' type='submit' />
+		</td>
+	</tr>
+</table>]]></programlisting>
+			</example>
+
+			<para>The first column contains the description for every field
+			that the user is going to type in the form. The description column
+			is right-aligned using the <emphasis>tright</emphasis> style, and
+			text is written inside a <sgmltag>span</sgmltag> tag with the
+			<emphasis>ftitle</emphasis> style.</para>
+
+			<para>Text entries in the right column use the
+			<emphasis>inputText</emphasis> class to decorate the input
+			field.</para>
+
+			<para>Form buttons use the <emphasis>inputButton</emphasis>
+			style.</para>
+
+		</section>
+
+	</section>
+
+	<section id="sect-menu">
+		<title>The menu</title>
+
+		<para>The menu in the administration interface is dynamically
+		generated, letting all installed modules add new items
+		and folders to it. There is a set of classes under
+		the <classname>EBox::Menu</classname> namespace that
+		can be used to build menu structures. The important
+		ones are <classname>EBox::Menu::Item</classname> and
+		<classname>EBox::Menu::Folder</classname>.</para>
+
+		<para>The constructor for <classname>EBox::Menu::Item</classname>
+		takes two named arguments, <parameter>text</parameter> and
+		<parameter>url</parameter>. <parameter>url</parameter> should be
+		relative to the root path for the configuration interface, for example
+		the firewall packet filtering page has <uri>Firewall/Filter</uri> as
+		its <parameter>url</parameter>.</para>
+
+		<para>The <classname>EBox::Menu::Folder</classname> constructor does
+		not take an <parameter>url</parameter> argument, but it takes a
+		<parameter>name</parameter> one. The name is used internally as an
+		identifier in the javascript menu implementation.</para>
+
+		<para>Both items and folders have an optional
+		<parameter>order</parameter> argument in their constructors, it should
+		be an integer between 1 and 10, items in the menu are ordered from
+		lower to higher values. The default is 5.</para>
+
+		<para>A folder may contain items, so you can add
+		<classname>EBox::Menu::Item</classname> instances to a
+		<classname>EBox::Menu::Folder</classname>.</para>
+
+		<para>Finally, the way to add menu items and/or folders to the menu is
+		to implement the <methodname>menu</methodname> method in your module.
+		This method gets a <classname>EBox::Menu::Root</classname> instance
+		as an argument, and you can add as many items and folders to it as
+		you want. This is the <methodname>menu</methodname> function for the
+		firewall module:</para>
+
+		<example>
+			<title>Adding folders and items to the menu</title>
+			<programlisting><![CDATA[sub menu
+{
+	my ($self, $root) = @_;
+	my $folder = new EBox::Menu::Folder('name' => 'Firewall',
+				'text' => __('Firewall'),
+				'order' => 4);
+
+	$folder->add(new EBox::Menu::Item('url' => 'Firewall/Filter',
+				'text' => __('Packet Filter')));
+	$folder->add(new EBox::Menu::Item('url' => 'Firewall/Redirects',
+				'text' => __('Redirects')));
+
+	$root->add($folder);
+}]]></programlisting>
+		</example>
+
+		<!-- FIXME - screenshot -->
+
+	</section>
+
+	<section id="sect-summarypage">
+		<title>Summary</title>
+
+		<para>The eBox user interface has a "Summary" page where status
+		information for every module is displayed. This page has two
+		parts:</para>
+
+		<itemizedlist>
+			<listitem>
+				<para>The first part is a table with the status of all network
+				services installed: whether they are running or not and buttons to
+				restart them.</para>
+			</listitem>
+
+			<listitem>
+				<para>The second part of the page has a separate section for each
+				module, where more detailed information can be displayed.</para>
+			</listitem>
+		</itemizedlist>
+
+		<!-- FIXME  screenshot -->
+
+		<para>Summary information is gathered by calling two abstract
+		methods defined in <classname>EBox::Module</classname>, if you
+		don't implement them then no information will be displayed about
+		your module. <methodname>statusSummary</methodname> populates
+		the table that will display the status of network services and
+		<methodname>summary</methodname> creates the summary section for your
+		module.</para>
+
+		<para>The way the summary is built is quite similar to they way
+		the menu is built, as shown in <xref linkend='sect-menu'/>. There
+		are a bunch of classes in the <classname>EBox::Summary</classname>
+		namespace that you can use to build your summary information,
+		<methodname>statusSummary</methodname> should return an
+		object of type <classname>EBox::Summary::Status</classname>
+		while <methodname>summary</methodname> is free
+		to return any object that is a subtype of
+		<classname>EBox::Summary::Item</classname>, although most modules just
+		return a <classname>EBox::Summary::Module</classname>.</para>
+
+		<para> Each one of the <classname>EBox::Summary::Item</classname>
+		subclasses has some attributes and can contain other
+		<classname>EBox::Summary::Item</classname> objects, and they all print
+		some HTML code. <classname>EBox::Summary::Module</classname> has a
+		<structfield>title</structfield> attribute, when it is time to generate
+		the page it prints the title and the html for its children below
+		it.</para>
+
+		<para>To see how the summary section is built, we are going to take
+		a look at the network module. The output of its summary is a title
+		and one section per network interface, with a bold title and a table
+		that displays its MAC address, IP addresses, netmask, etc. <xref
+		linkend='ex-network-summary'/> shows the important bits of its
+		<methodname>summary</methodname> method.</para>
+
+		<example id='ex-network-summary'>
+
+			<title><methodname>summary</methodname> sample implementation</title>
+
+			<programlisting><![CDATA[my $item = new EBox::Summary::Module(__("Network interfaces"));
+
+foreach my $iface (@{$ifaces}) {
+	my $status = __("down");
+	my $section = new EBox::Summary::Section($iface);
+	$item->add($section);
+
+	if (iface_is_up($iface)) {
+		$status = __("up");
+	}
+	$section->add(new EBox::Summary::Value (__("Status"), $status));
+
+	my $ether = iface_mac_address($iface);
+	if ($ether) {
+		$section->add(new EBox::Summary::Value(
+			__("MAC address"), $ether));
+	}
+
+	my @ips = iface_addresses($iface);
+	foreach my $ip (@ips) {
+		$section->add(new EBox::Summary::Value(
+			__("IP address"), "$ip"));
+	}
+}
+return $item;]]></programlisting>
+		</example>
+
+		<!-- FIXME screenshot -->
+
+		<para>First an <classname>EBox::Summary::Module</classname> item is
+		created, this object will hold all the summary information.</para>
+
+		<para> Then an <classname>EBox::Summary::Section</classname>
+		is created for each network interface, a section has a title
+		(passed as an argument to its constructor) and it contains several
+		<classname>EBox::Summary::Value</classname> objects, which display a
+		name and an associated value as rows in a table within the section.
+		So each several values are added to each section and the sections
+		are added to the <classname>EBox::Summary::Module</classname>
+		object. The result is a tree of objects, and its root is the
+		<classname>EBox::Summary::Module</classname>, when it is asked to print
+		itself it prints its title and asks each of its children to print
+		itself. To see what it looks like just open the summary page in an eBox
+		installation.</para>
+
+		<!-- FIXME - screenshot -->
+
+		<para><methodname>summary</methodname> may return any object as long as
+		it inherits from <classname>EBox::Summary::Item</classname>, you can
+		create your own if your needs are not covered by the standard items
+		that come with the framework.</para>
+
+		<para><methodname>statusSummary</methodname> is easier, it just has
+		to return an <classname>EBox::Summary::Status</classname> object.
+		The constructor for this class needs three arguments:</para>
+
+		<itemizedlist>
+
+			<listitem>
+				<para>The name of the service.</para>
+			</listitem>
+
+			<listitem>
+				<para>A boolean indicating whether the service is running.</para>
+			</listitem>
+
+			<listitem>
+				<para>A boolean indicating whether the service is enabled or not.</para>
+			</listitem>
+		</itemizedlist>
+
+		<para> The reason for this third argument is that services that the
+		user should not be able to use the summary page to start services that
+		have not been configured, so if, for example, the squid service is
+		disabled, the user will have to go to the squid configuration page and
+		enable the service there. <xref linkend='ex-squid-status'/> shows the
+		<methodname>statusSummary</methodname> implementation in the squid
+		module, along with some related methods.</para>
+
+		<example id='ex-squid-status'>
+
+			<title><methodname>statusSummary</methodname> sample
+			implementation</title>
+
+			<programlisting><![CDATA[sub statusSummary
+{
+	my $self = shift;
+	return new EBox::Summary::Status('squid', __('HTTP Proxy'),
+					$self->isRunning, $self->service);
+}
+
+sub isRunning
+{
+	my $self = shift;
+	return $self->pidFileRunning(PIDFILE);
+}
+
+sub service
+{
+	my $self = shift;
+	return $self->get_bool('active');
+}]]></programlisting>
+
+		</example>
+
+		<para>Again, you can see what it looks like by checking out the Summary
+		page in an eBox installation that has the squid module included.</para>
+
+	</section>
+
+</chapter>

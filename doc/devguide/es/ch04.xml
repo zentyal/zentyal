@@ -1,0 +1,526 @@
+<!-- vim: ts=2 sw=2 tw=75
+-->
+<chapter id="ch-interacting">
+
+	<title>Interacting with other components</title>
+
+		<section id="sect-interacting-intro">
+			<title>Introduction</title>
+
+			<para>There are three different reasons why your module may need to
+			interact with other modules:</para>
+
+			<itemizedlist>
+
+				<listitem>
+
+					<para>The simplest case is just the need to change some
+					configuration setting in another module using its API. An
+					example of this are all modules that offer services over the
+					network, they need to tell the firewall on what port they
+					are going to listen so that it can show all services in its
+					configuration interface, letting the user choose who gets to use
+					each service. This case is trivial, you just create an instance
+					of the module you want to call and use its API to change
+					whatever you need to change.</para>
+
+				</listitem>
+
+				<listitem>
+
+					<para>The second case are dependencies. A dependency happens
+					when a module keeps reference to configuration items handled
+					by other modules and needs to be restarted whenever the other
+					module gets its configuration change. An example of this is the
+					firewall, it lets you define rules for every network object
+					defined in the objects module. However if you create rules for
+					an object and then use the objects user interface to add new
+					members to that object the firewall will need to be restarted
+					too, so that the rules you created can be applied to the new
+					members. This situation is very easy to manage, the firewall
+					declares a dependency on the network module in its GConf schema,
+					and then the framework automatically restarts the firewall module
+					whenever the objects module is restarted. Declaring dependencies
+					is explained in <xref linkend='sect-schemas'/></para>
+
+				</listitem>
+
+				<listitem>
+
+					<para>Finally, the most complex situation is when some
+					configuration information handled by your module depends on how
+					other modules are configured. In the firewall example, what would
+					happen if you go and delete that object for which you had just
+					defined some rules? This kind of situation requires cooperation
+					between both modules so that they can offer a consistent behavior
+					to the user. This is what this chapter is all about, the
+					following sections will describe how the objects, firewall and
+					network modules solve this problem (these modules are the most
+					likely to be needed by others) and it will show you how to solve
+					this problem in your own modules.</para>
+
+        </listitem>
+
+			</itemizedlist>
+
+			<section id='sect-observers-intro'>
+				<title>Observers</title>
+
+				<para>Suppose you are writing a DHCP module, you want to let the
+				user set up the dhcp service on a per network interface basis.
+				However not all interfaces should be allowed to have a dhcp daemon
+				running on them, if the user configured interface eth1 as a dhcp
+				client, then it makes no sense to let him put a dhcp server on that
+				interface. So, you decide that the dhcp configuration pages will
+				only show network interfaces that have a static IP address. That's
+				fine, but what happens if the user sets up the dhcp service on an
+				static interface and later goes on to change the interface to dhcp
+				or trunk mode? </para>
+
+				<para>Those modules that might have to inform other modules about
+				certain events define abstract <emphasis>observer</emphasis>
+				classes the other modules can extend from if they want to be
+				notified when those events happen. The network module provides
+				the <classname>EBox::NetworkObserver</classname> class for this
+				purpose. This class has several abstract methods, your module may
+				implement any of these methods and it will be notified when a
+				relevant event takes place.</para>
+
+				<!-- FIXME - example? diagram? -->
+
+			</section>
+
+		</section>
+
+		<section id="sect-objectsmod">
+			<title>Objects module</title>
+
+			<para>The objects maintains a list of network objects created by the
+			user, these objects may contain any number of IP addresses and CIDR
+			blocks.</para>
+
+			<para>Its interface is very simple. The
+			<classname>EBox::ObjectsObserver</classname> class has two abstract
+			methods that should be implemented by modules that make use of the
+			objects module:</para>
+
+			<variablelist>
+
+				<varlistentry>
+					<term><methodname>usesObject</methodname></term>
+					<listitem>
+
+						<para>Receives an object name as an argument and returns
+						<literal>true</literal> if the module is making use of the
+						given object in its configuration and <literal>false</literal>
+						otherwise.</para>
+
+					</listitem>
+				</varlistentry>
+
+				<varlistentry>
+					<term><methodname>freeObject</methodname></term>
+					<listitem>
+
+						<para>Receives an object name as an argument too. This method
+						tells the module that the user has requested the removal of
+						the given object (even if it was being used by other modules).
+						The module should delete all references to the object in its
+						configuration when <methodname>freeObject</methodname> is
+						called.</para>
+
+					</listitem>
+				</varlistentry>
+
+			</variablelist>
+
+			<para>As an example, here's the implementation of both of these
+			methods in the firewall module:</para>
+
+			<example>
+				<title><classname>EBox::ObjectsObserver</classname> subclass
+				implementation</title>
+
+				<programlisting><![CDATA[sub usesObject # (object) 
+{
+	my ($self, $object) = @_;
+	defined($object) or return undef;
+	($object ne "") or return undef;
+	return $self->dir_exists("objects/$object");
+}
+
+sub freeObject # (object) 
+{
+	my ($self, $object) = @_;
+	defined($object) or return;
+	($object ne "") or return;
+	$self->delete_dir("objects/$object");
+}]]></programlisting>
+
+			</example>
+
+		</section>
+
+		<section id="sect-networkmod">
+			<title>Network module</title>
+
+			<para>The network case is more complex. There are several potential
+			changes in the network configuration that other modules may need
+			to know about. <classname>EBox::NetworkObserver</classname> has
+			four methods that the network module invokes when different
+			types of changes are made, and two methods that tell modules
+			to remove references to certain network interfaces from their
+			configurations:</para>
+
+			<variablelist>
+
+				<varlistentry>
+					<term><methodname>staticIfaceAddressChanged</methodname></term>
+					<listitem>
+
+						<para>Invoked when the address of an static network interface
+						is going to be changed, this method receives the old
+						and new addresses and masks as arguments. Returning a
+						<literal>true</literal> value means that this module's
+						configuration would become inconsistent if such a change was
+						made. In that case the network module will not make the change,
+						but warn the user instead.</para>
+
+					</listitem>
+				</varlistentry>
+
+				<varlistentry>
+					<term><methodname>ifaceMethodChanged</methodname></term>
+					<listitem>
+
+						<para>Invoked when the configuration method for a network
+						interface is going to change. Both the old and new methods
+						are passed as arguments to this function. They are strings:
+						<literal>static</literal>, <literal>dhcp</literal>,
+						<literal>trunk</literal> or <literal>notset.</literal>
+						As with the previous function, a return value of
+						<literal>true</literal> will prevent the change from being
+						made.</para>
+
+					</listitem>
+				</varlistentry>
+
+				<varlistentry>
+					<term><methodname>vifaceAdded</methodname></term>
+					<listitem>
+
+						<para>Invoked when a new virtual interface is going to be
+						created. Its arguments are the real interface to which
+						it's going to be added, the name of the new interface,
+						its ip address and its netmask. It works the same way: it
+						returns <literal>true</literal> if the creation of the
+						virtual interface is incompatible with your module's current
+						configuration.</para>
+
+					</listitem>
+				</varlistentry>
+
+				<varlistentry>
+					<term><methodname>vifaceDelete</methodname></term>
+					<listitem>
+
+						<para>Invoked when a virtual interface is going to be
+						removed. Its arguments are the names of the real and virtual
+						interfaces. It works exactly the same way as the three methods
+						above.</para>
+
+					</listitem>
+				</varlistentry>
+
+				<varlistentry>
+					<term><methodname>freeIface</methodname></term>
+					<listitem>
+
+						<para>It tells your module to remove all reference to a network
+						interface from its configuration. It is usually called after
+						you returned <literal>true</literal> in one of the methods
+						above and the user insisted on doing whatever change he was
+						trying to do.</para>
+
+					</listitem>
+				</varlistentry>
+
+				<varlistentry>
+					<term><methodname>freeViface</methodname></term>
+					<listitem>
+
+						<para>The same as <methodname>freeIface</methodname>, but for
+						virtual interfaces.</para>
+
+					</listitem>
+				</varlistentry>
+
+			</variablelist>
+
+			<para><xref linkend='ex-network-observer'/> shows the implementation
+			of <classname>EBox::NetworkObserver</classname> methods in the
+			firewall module.</para>
+
+			<example id='ex-network-observer'>
+
+				<title>Implementing a
+				<classname>EBox::NetworkObserver</classname></title>
+
+				<programlisting><![CDATA[sub ifaceMethodChanged # (iface, oldmethod, newmethod)
+{
+	 my ($self, $iface, $oldm, $newm) = @_;
+
+	 ($newm eq 'static') and return undef;
+	 ($newm eq 'dhcp') and return undef;
+
+	 return $self->usesIface($iface);
+}
+
+sub vifaceDelete # (iface, viface)
+{
+	 my ($self, $iface, $viface) = @_;
+	 return $self->usesIface("$iface:$viface");
+}
+
+sub usesIface # (iface)
+{
+	 my ($self, $iface) = @_;
+	 my @reds = $self->all_dirs("redirections");
+	 foreach (@reds) {
+		  if ($self->get_string("$_/iface") eq $iface) {
+			   return 1;
+		  }
+	 }
+	 return undef;
+}
+
+sub freeIface # (iface)
+{
+	 my ($self, $iface) = @_;
+	 $self->removePortRedirectionOnIface($iface);
+}
+
+sub freeViface # (iface, viface)
+{
+	 my ($self, $iface, $viface) = @_;
+	 $self->removePortRedirectionOnIface("$iface:$viface");
+}]]></programlisting>
+
+			</example>
+
+		</section>
+
+		<section id="sect-firewallmod">
+			<title>Firewall module</title>
+
+			<para>The firewall modules needs to allow other modules to insert
+			custom NAT and filtering rules. It has a limited API that lets
+			modules modify the filtering rules. For example, if a module
+			needs to connect to HTTP servers in the internet, it could call
+			<methodname>addOutputRule</methodname> and the firewall will open the
+			necessary ports.</para>
+
+      <para>However this mechanism is not very flexible since there may
+      be modules with very specific needs. The squid module needs to set
+      up several NAT and filtering rules for its transparent mode of
+      operation.</para>
+
+			<para>The <classname>EBox::FirewallObserver</classname>
+			class was created for these complex cases. Whenever the
+			firewall is restarted it asks all modules that inherit from
+			<classname>EBox::FirewallObserver</classname> to see if they want to
+			insert custom rules. Modules can insert any rules they want, with
+			the <application>iptables</application> syntax, the only thing they
+			cannot control is where exactly those rules are placed, the firewall
+			modules keeps several hooks along the different chains and tables
+			where it will put these custom rules.</para>
+
+			<para><classname>EBox::FirewallObserver</classname> defines two
+			methods:</para> 
+
+			<itemizedlist>
+				<listitem>
+					<para><methodname>firewallHelper</methodname></para>
+				</listitem>
+				<listitem>
+					<para><methodname>usesPort</methodname></para>
+				</listitem>
+			</itemizedlist>
+
+      <para><methodname>firewallHelper</methodname> should return
+      <literal>undef</literal> (the default behavior) or an object of type
+      <classname>EBox::FirewallHelper</classname>. This class defines
+      several functions that return rules that the firewall will insert in
+      each one of the hook places defined for this purpose.</para>
+
+			<para>The syntax of the rules provided by the modules is
+			simple: just use the same syntax you would use in the
+			<application>iptables</application> command line but exclude the
+			chain, the table and the <application>iptables</application> command
+			at the beginning.</para>
+
+			<para>These are the methods defined in
+			<classname>EBox::FirewallHelper</classname>, each one of them for a
+			different type of rule, all of them return a reference to an array
+			that holds the rules:</para>
+
+			<variablelist>
+
+				<varlistentry>
+					<term><methodname>prerouting</methodname></term>
+					<listitem>
+
+						<para>Rules returned by this method are added to
+						the <literal>PREROUTING</literal> chain in the
+						<literal>nat</literal> table. You can use them to do NAT on the
+						destination address of packets.</para>
+
+					</listitem>
+				</varlistentry>
+
+				<varlistentry>
+					<term><methodname>postrouting</methodname></term>
+					<listitem>
+
+						<para>Rules returned by this method are added to
+						the <literal>POSTROUTING</literal> chain in the
+						<literal>nat</literal> table. You can use them to do NAT on the
+						source address of packets.</para>
+
+					</listitem>
+				</varlistentry>
+
+				<varlistentry>
+					<term><methodname>forward</methodname></term>
+					<listitem>
+
+						<para>Rules returned by this method are added
+						to the <literal>FORWARD</literal> chain in the
+						<literal>filter</literal> table. You can use them to filter
+						packets passing through the firewall.</para>
+
+					</listitem>
+				</varlistentry>
+
+				<varlistentry>
+					<term><methodname>input</methodname></term>
+					<listitem>
+
+						<para>Rules returned by this method are added to the
+						<literal>INPUT</literal> chain in the <literal>filter</literal>
+						table. You can use them to filter packets directed at the
+						firewall itself.</para>
+
+					</listitem>
+				</varlistentry>
+
+				<varlistentry>
+					<term><methodname>output</methodname></term>
+					<listitem>
+
+						<para>Rules returned by this method are added
+						to the <literal>OUTPUT</literal> chain in the
+						<literal>filter</literal> table. You can use them to filter
+						packets originated in the firewall itself.</para>
+
+					</listitem>
+				</varlistentry>
+
+			</variablelist>
+
+			<warning>
+				<para> You should be careful with the firewall rules you write, as
+				they may open serious security holes in eBox. </para>
+			</warning>
+
+<para>If you need more information on how
+<application>iptables</application> and
+<application>Netfilter</application> work, check the <ulink
+url='http://netfilter.org/documentation/HOWTO/NAT-HOWTO.html'>NAT
+Howto</ulink> and the<ulink
+url='http://netfilter.org/documentation/HOWTO/packet-filtering-HOWTO.html'>
+Packet filtering Howto</ulink> in the Netfilter web site. <xref
+linkend='ex-fw-helper'/> shows the <methodname>output</methodname>
+implementation in the <classname>EBox::FirewallHelper</classname> defined
+by the squid module.</para>
+
+			<example id='ex-fw-helper'>
+				<title>Creating custom firewall rules</title>
+
+				<programlisting><![CDATA[sub output
+{
+        my $self = shift;
+        my $sq = EBox::Global->modInstance('squid');
+        my @rules = ();
+        push(@rules, "-m state --state NEW -p tcp --dport 80 -j ACCEPT");
+        push(@rules, "-m state --state NEW -p tcp --dport 443 -j ACCEPT");
+        return \@rules;
+}]]></programlisting>
+			</example>
+
+			<para> <methodname>usesPort</methodname> receives three arguments:
+			<parameter>protocol</parameter>, <parameter>port</parameter> and
+			<parameter>network interface</parameter>. This method is used to ask
+			modules if they use a certain tcp or udp port, it lets the firewall
+			know if it's a good a idea to let a port redirection be created or
+			not. It returns <literal>true</literal> if the module uses the given
+			port and <literal>undef</literal> otherwise.</para>
+
+		</section>
+
+		<section id="sect-observers">
+			<title>Defining new observers</title>
+
+			<para>Suppose you are implementing a mail module with support for
+			virtual domains, and you want to let other modules know when a
+			virtual domain is deleted. You could define an abstract class called
+			<classname>EBox::MailObserver</classname>, like this:</para>
+
+			<example>
+				<title>Defining an observer that may be implemented by other
+				modules</title>
+
+				<programlisting><![CDATA[package EBox::MailObserver;
+
+use strict;
+use warnings;
+
+sub new
+{
+	my $class = shift;
+	my $self = {};
+	bless($self, $class);
+	return $self;
+}
+
+# When a virtual domain is deleted this method is called
+sub virtualDomainDeleted # (domainName)
+{}]]></programlisting>
+			</example>
+
+			<para>When a relevant event takes place, your mail module
+			would call the <methodname>virtualDomainDeleted</methodname>
+			function on all the modules that extend the
+			<classname>EBox::MailObserver</classname> class:</para>
+
+			<example>
+				<title>Calling observer modules</title>
+
+				<programlisting><![CDATA[sub removeVirtualDomain # (domainName)
+{
+	my ($self, $domain) = @_;
+
+	#
+	# do stuff
+	#
+
+	my $global = EBox::Global->getInstance();
+	my @modules = @{$global->modInstancesOfType('EBox::MailObserver')};
+	foreach my $mod (@modules) {
+		$mod->virtualDomainDeleted($domain);
+	}
+}]]></programlisting>
+			</example>
+
+		</section>
+</chapter>

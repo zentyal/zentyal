@@ -1,0 +1,45 @@
+<!-- vim: ts=2 sw=2 tw=75
+-->
+<chapter id='ch-debian'>
+
+		<title>Installing eBox using the Debian packages</title>
+
+		<para>eBox is available as Debian packages which can be easily
+		installed using apt-get.</para>
+
+		<para>First of all you should have a clean Debian Sarge installation 
+		with a 2.6 kernel. Then you just need to add the following line to your
+		<filename>/etc/apt/sources.list</filename>:
+		<screen>
+		deb http://projects.warp.es/ebox/debian/ ./
+		</screen>
+		After running <command>apt-get update</command> you should be able to
+		get a list of available ebox packages by running:
+		<screen>
+		apt-cache -n search ebox
+		</screen>
+		</para>
+
+		<para>
+		Once you have performed the previous steps you just need to install the
+		desired packages using:
+		<screen>
+		apt-get install ebox-&lt;module&gt;
+		</screen>
+		This command should install every other required package, so you
+		shouldn't bother with module dependencies.
+		</para>
+
+		<para>
+		For example, to get a eBox like the one installed in the previous chapter
+		with firewall and proxy capabilities you should just run:
+		<screen>
+		apt-get install ebox-firewall ebox-squid
+		</screen>
+		This will download the required packages, install them and configure
+		everything correctly. After the process has finished you can access the
+		eBox administrative interface in <ulink
+		url="https://&lt;ip-address&gt;/"/> .
+		</para>
+
+</chapter>

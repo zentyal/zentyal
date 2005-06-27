@@ -1,0 +1,325 @@
+<!-- vim: ts=2 sw=2 tw=75
+-->
+<chapter id="ch-intro">
+
+	<title>Introduction</title>
+
+	<section id='sect-audience'>
+		<title>Intended audience</title>
+
+		<para>This guide is written for developers interested in writing new
+		modules with new features for <application>eBox</application>,
+		and for those who need to change or extend the base eBox
+		framework.</para>
+
+		<para><application>eBox</application> is written in perl and is mostly
+		object-oriented. It is assumed that readers know how to write object
+		oriented programs in perl. Some features of the language or the
+		libraries used in eBox may be discussed, but no attempt has been made
+		to document those aspects throughly.</para>
+
+		<para>Some experience writing object oriented applications and
+		using design patterns in any language should be useful, but you
+		should be fine just with the basic concepts of object oriented
+		programming.</para>
+
+		<para>An effort has been made to provide examples for all aspects of
+		eBox development explained in this guide. Most of them come straight
+		from existing and working modules. Furthermore, a complete module is
+		developed step by step in <xref linkend='ch-examplemod'/>. It's a real
+		module so that chapter should cover all the parts of a complete and
+		working module.</para>
+	</section>
+
+	<section id="sect-whatis">
+
+		<title>What is eBox?</title>
+
+		<para>eBox is a platform for the development and deployment of security
+		and work-group related services on a local network. It is configured
+		through a web interface that integrates all services in a consistent
+		and easy to use way. Its goal is to be usable by non-experts.</para>
+
+		<para>eBox is meant to be installed on a dedicated machine, all
+		configuration tasks are performed through the eBox web interface. This
+		means that the configuration of the underlying services is one-way:
+		eBox modules generate configuration files, overwriting system files in
+		some cases (although that tends to be avoided if possible) and manual
+		changes to those files are not detected by eBox. This simplifies the
+		implementation and usage of the package but has the disadvantage that
+		developers need to be careful if they use their own system for testing
+		purposes.</para>
+
+		<para>eBox design is modular, new modules providing new services and
+		features can be developed independently from its core package. eBox
+		simplifies the deployment of new modules and the updates of existing
+		ones with a software management module, which is also independent from
+		the eBox base package.</para>
+
+		<para>The system is based on Linux and has been developed on top of
+		Debian, no support is provided for other Linux distributions as there
+		are some debianisms in some of the modules. Porting to other Linux
+		distributions should be quite easy, and porting to other Unix like
+		operating systems such as OpenBSD would take a little more work but it
+		should still be doable, and worth it.</para>
+
+		<para>eBox is based on a few software packages, which are used for
+		several purposes:</para>
+
+		<variablelist>
+
+			<varlistentry>
+				<term>Linux 2.6</term>
+				<listitem>
+
+					<para>eBox relies on some features provided by the kernel, some
+					are available only on the 2.6 series. Among these features
+					are netfilter (for the firewall), 802.1q (for VLANs) and
+					ipsec.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>perl and mod_perl</term>
+				<listitem>
+
+					<para>All eBox modules are implemented in perl, the web interface
+					runs under mod_perl for performance reasons.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>mason</term>
+				<listitem>
+
+					<para>mason is a templating system for perl, it is used to
+					generate HTML for the web based user interface and to generate
+					configuration files.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>apache</term>
+				<listitem>
+
+					<para>The web interface is served by apache, we usually use the
+					apache-perl debian package.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>gconf</term>
+				<listitem>
+
+					<para>eBox stores its configuration using gconf2 and its perl
+					library bindings.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>sudo</term>
+				<listitem>
+
+					<para>Apache runs as an unprivileged user, all eBox modules use
+					sudo to execute commands that need to be run as root.</para>
+
+				</listitem>
+			</varlistentry>
+
+		</variablelist>
+
+		<para>The base eBox package provides a development framework for
+		new modules. By using this framework modules automatically get
+		features like configuration backups and reversion of changes in the
+		configuration before they are saved. The features available to module
+		developers will be explained in detail in later chapters.</para>
+
+		<!-- FIXME - screenshots -->
+
+  </section>
+
+	<section>
+		<title>Terminology</title>
+
+		<para>A few conventions are used throughout this guide regarding
+		several concepts:</para>
+
+		<formalpara>
+			<title>Booleans</title>
+			<para>Whenever we need to talk about a boolean value passed
+			to a method or returned by it, we will refer to a true
+			value as <literal>true</literal> and to a false value as
+			<literal>undef</literal> or <literal>false</literal>.</para>
+		</formalpara>
+
+		<formalpara>
+			<title>Perl modules and eBox modules</title>
+			<para>There may be some confusion in some parts of the guide about
+			the term <emphasis>module</emphasis> as the term may refer to an
+			<emphasis>eBox</emphasis> module or a <emphasis>perl</emphasis>
+			module. An eBox module is the complete set of classes (and perl
+			modules) and other files that provide a self-contained functionality
+			for eBox and that may be installed or uninstalled independently from
+			the rest of eBox. A perl module is basically a perl source file.</para>
+		</formalpara>
+
+		<para>Whenever there is no possibility of confusion, we'll just
+		write <emphasis>module</emphasis>, otherwise we'll write explicitly
+		<emphasis>perl module</emphasis> since this meaning will be the one
+		used less frequently.</para>
+	</section>
+
+	<section id="sect-amodule">
+		<title>How a module works</title>
+
+		<para>The typical eBox module handles the configuration of a daemon,
+		possibly integrated with other eBox modules. The developer decides
+		in what ways should the user be able to configure the daemon, this
+		ways do not necessarily map directly to the daemon config options on a
+		one-to-one relationship. The developer may pick a sane default value
+		for most of the options and hide them from the user, showing him just
+		the ones that he feels are important. Even further, an option changed
+		by the user through the web interface may cause configuration changes
+		in several real config options or even on several eBox modules. The
+		main goal is to have an user interface as simple, easy to use, and
+		integrated as possible, while providing the user with a rich set of
+		features.</para>
+
+		<para>However, there may be modules that do not handle the
+		configuration of a network service. An example is the 'sysinfo' module
+		in the base system, it just gathers system information to be shown in
+		the Summary page and provides a few menu entries for features that
+		do not belong to any module in particular. The module parent class
+		defines several abstract methods that real modules are free to leave
+		unimplemented. Thus, a module may just provide info in the Summary, add
+		new menu items, handle a network service or all of the above.</para>
+
+		<para>The normal, and most interesting, case is the module described
+		in the first paragraph. Such a module has three parts.</para>
+
+		<itemizedlist>
+			<listitem>
+				<para>It defines and implements an API that will let the GUI,
+				other modules or plain perl scripts configure the daemon it is
+				going to handle. </para>
+			</listitem>
+
+			<listitem>
+				<para> The second is the GUI, which is a set of CGIs that show the
+				current configuration to the user and let him change it, these
+				CGIs use the API defined earlier to fetch the config info and make
+				changes to it. </para>
+			</listitem>
+
+			<listitem>
+				<para>The third part of the module is usually quite small, it
+				translates all the configuration information stored in GConf into
+				firewall rules, config files and commands that make the network
+				service behave as the user expects. It also takes care of starting,
+				stopping and restarting the service when needed.</para>
+			</listitem>
+		</itemizedlist>
+
+		<para> This separation between the GUI and the backend opens the
+		possibility for other means of changing the config. One such means
+		is through perl scripts, these is useful when making packages for a
+		distro, the package maintainer can write a simple script to import the
+		current system config into eBox, or set up some default values. Another
+		use of the API is for other modules, the firewall module is the most
+		used case, almost all modules need tell the firewall to open some port
+		for them. In the future a wrapper may be written around these APIs to
+		publish them through web-services, this would make eBox configurable
+		programmatically over the network.</para>
+
+		<para>Besides these three parts, the module has some other minor
+		parts, like its piece of the summary page in the web
+		interface, menu entries, dependency declarations, backups of
+		configuration pieces not stored in GConf, etc.</para>
+
+		<para>That's all there is to it, creating a module is as simple as
+		following these steps:</para>
+
+		<itemizedlist>
+			<listitem>
+				<para>Decide what daemon your module is going to handle and learn
+				how it works and how to set it up.</para>
+			</listitem>
+
+			<listitem>
+				<para>Plan what options you are going to expose to the user through
+				the web interface, and how they may interact with other eBox
+				modules</para>
+			</listitem>
+
+			<listitem>
+				<para>Define and implement the API that will let the GUI manipulate
+				the necessary configuration options. The main class in your module
+				should inherit from <classname>EBox::GConfModule</classname>, this
+				class wraps the GConf API and transparently implements some useful
+				features that all eBox modules need to have.</para>
+			</listitem>
+
+			<listitem>
+				<para>Create the CGIs and HTML templates that will let the
+				user interact with the module. CGIs should inherit from the
+				<classname>EBox::CGI::Base</classname> class which, again, provides
+				some features transparently to all its children.</para>
+			</listitem>
+
+			<listitem>
+				<para>Write the code needed to make the daemon work, possibly
+				generating a config file and setting up a firewall rule using the
+				<classname>EBox::Firewall</classname> class. Config files are
+				generated almost trivially with mason, which is the template system
+				also used to generate the HTML pages for the GUI.</para>
+			</listitem>
+
+		</itemizedlist>
+
+		<para>The size and complexity of a module depends directly on the
+		complexity of the service involved and the amount of configuration
+		items exposed to the user. The necessary work to make a small eBox
+		module is minimal, take the DNSCache module as an example, its CGIs add
+		up to 49 lines of code and the module itself is 134 lines long.</para>
+
+		<para>The directory structure of an eBox module may look quite complex
+		for a newcomer. A usual eBox module directory should look like this:
+
+		<programlisting>
+AUTHORS     configure.ac  INSTALL     Makefile.am  README   stubs/
+autogen.sh  COPYING       NEWS        schemas/     tools/   ChangeLog
+debian/     m4/           po/         src/         www/
+		</programlisting>
+		</para>
+
+		<para>The more important directories are <filename>src/</filename>,
+		<filename>schemas/</filename>, <filename>www/</filename> and
+		<filename>stubs/</filename>.</para>
+
+		<para>The <filename>src/</filename> directory contains the source
+		code for the module. Inside this directory two directories can be
+		found: <filename>EBox</filename> and <filename>templates</filename>.
+		The <filename>EBox</filename> directory contains the Perl source code
+		files, including a <filename>CGI</filename> subdirectory with the web
+		frontend for the module. The <filename>templates</filename> directory
+		is used to store the Mason templates, which will be used to generate
+		the HTML output.</para>
+
+		<para>The <filename>schemas/</filename> directory contains gconf
+		schemas, used to define the configuration schemas for modules, and
+		optionally provide default values for some options.</para>
+
+		<para>The <filename>www/</filename> directory contains images and
+		stylesheets that will be used in the web frontend.</para>
+
+		<para>The <filename>stubs/</filename> is used to store Mason templates
+		to generate configuration files for the module services.</para>
+
+  </section>
+
+</chapter>

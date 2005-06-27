@@ -1,0 +1,437 @@
+<!-- vim: ts=2 sw=2
+-->
+<chapter id="ch-ldap">
+
+	<title>LDAP based modules</title>
+
+	<section id="sect-ldap-intro">
+		<title>Introduction</title>
+
+		<para>The <emphasis>users and groups</emphasis> module is
+		mainly intended to be used by eBox modules which manage
+		services supporting LDAP backends, and rely on the concepts
+		of user and group. It consists of several perl modules,
+		amongst them: <classname>EBox::UsersAndGroups</classname> and
+		<classname>EBox::LDAP</classname>. The former provides API support for
+		users and group management, and the latter a set of methods to work
+		directly with the LDAP directory.</para>
+
+	</section>
+
+	<section id="sect-ldap-conf">
+		<title>Fetching the configuration parameters</title>
+
+		<para>One of the main requisites for services that use an LDAP backend
+		is the correct configuration of its parameters. Let's see the contents
+		of the <filename>smb.conf</filename> file as an example:</para>
+
+		<programlisting><![CDATA[passsdb backend = ldapsam:ldap://127.0.0.1
+ldap suffix = dc=ebox 
+ldap admin dn = cn=admin,dc=ebox ]]> </programlisting>
+
+		<para>In this case we are configuring the
+		<application>samba</application> daemon using LDAP as a backend through
+		a  socket. We'll need to know the <emphasis>dc base</emphasis> and
+		the privileged <emphasis>dn</emphasis> in order to access protected
+		attributes. Continuing the <application>Samba</application> example,
+		we will also need to know the password of the user that has permission
+		to read restricted attributes for samba objects. For all these tasks,
+		<classname>EBox::LDAP</classname> offers a number of functions.</para>
+
+		<variablelist>
+			
+			<varlistentry>
+				<term><methodname>ldapConf</methodname></term>
+				<listitem>
+					<para>Returns a hash with the LDAP configuration.</para>
+					
+					<formalpara><title>dn</title>
+						<para>
+							base dn
+						</para>
+					</formalpara>
+
+					<formalpara><title>ldapi</title>
+						<para>
+							ldapi for the connection to the LDAP server
+						</para>
+					</formalpara>
+
+					<formalpara><title>rootdn</title>
+						<para>
+							cn for the privileged user
+						</para>
+					</formalpara>
+				</listitem>
+			</varlistentry>
+		
+			<varlistentry>
+				<term><methodname>getPassword</methodname></term>
+				<listitem>
+					<para>Returns the password for privileged user.</para>
+				</listitem>
+			</varlistentry>
+
+		</variablelist>
+	</section> 
+
+	<section id="sect-ldap-access">
+		<title>Access to the LDAP server</title>
+
+		<para><classname>EBox::LDAP</classname> provides a common entry
+		point to the LDAP server. You should be familiar with the
+		<classname>Net::LDAP</classname> perl module, as queries are based on
+		its syntax. <classname>EBox::LDAP</classname> is responsible of making
+		the queries.</para>
+
+		<para><classname>EBox::LDAP</classname> provides 4 basic methods: </para>
+
+		<itemizedlist>
+		
+		<listitem><para>search</para></listitem> 
+		<listitem><para>modify</para></listitem>
+		<listitem><para>add</para></listitem>
+		<listitem><para>delete</para></listitem>
+		
+		</itemizedlist>
+		<para>Each time one of the above methods is invoked, a check is
+		performed on the result of the query. In case of an error, and
+		<classname>EBox::Exceptions::Internal</classname> exception will be
+		thrown. In order to make debugging easier, a lot of information is
+		included in the exception and logged: the attributes included in the
+		query, the name of the method that caused the error and the message
+		reported by <classname>Net::LDAP</classname>.</para>
+
+	</section>
+
+	<section id="sect-ldap-impl">
+		<title>Implementing an LDAP based module</title>
+		
+		<para>The main idea in the design of modules that use the concept of
+		user and/or groups on top of LDAP is to offer a common user interface
+		inside the <emphasis>Users</emphasis> and <emphasis>Groups</emphasis>
+		menu entries. This means that every parameter related to a user or
+		group should appear in those pages, even though each one of those
+		parameters might belong to different eBox modules.</para>
+
+		<para>Let's use the samba module implementation as an example. We want
+		to let the user choose what users are going to have a shared storage
+		directory. For groups we need to be able to enable/disable a shared
+		resource for each group, and establish the name of the shared resource.
+		The goal is to concentrate all these operations that affect user and
+		group accounts on a common user interface. This interface is the one
+		provided by the <classname>EBox::UsersAndGroups</classname> module.
+		</para>
+
+		<para> To make this possible, this module has a number of interfaces
+		that allow other modules to include their own options in its GUI and
+		be notified every time a relevant change is made to an user or group
+		configuration data.</para>
+
+		<para>The first thing you need to define is what operations on the
+		basic attributes for users or groups are of interest to you. Usually
+		you will want to be notified when a user or group is eliminated or
+		created. </para>
+
+		<para> Let's go back to the samba example, when a user
+		is created in the LDAP server a number of attributes are
+		established. These attributes are the basic ones defined
+		by the <classname>EBox::UsersAndGroups</classname> module,
+		they are of types <emphasis>inetOrgPerson</emphasis> and
+		<emphasis>posixAccount</emphasis>. Samba needs to add attributes of
+		type <emphasis>SambaAccount</emphasis>. This task must be done by the
+		samba module, so <classname>EBox::UsersAndGroups</classname> will
+		notify the samba module that a new user has been created and then the
+		samba module will add the attributes it needs to the new object.</para>
+
+		<para><classname>EBox::LdapUserBase</classname> provides
+		the abstract methods that you need to implement according to
+		your needs. You only have to implement the methods that your
+		module needs. Inheriting from this class is the mechanism to let
+		<classname>EBox::UsersAndGroups</classname> know that your module is
+		an <emphasis>Observer</emphasis> of certain operations that happen in
+		it.</para>
+
+		<variablelist>
+
+			<varlistentry>
+				<term><methodname>_addUser</methodname></term>
+				<listitem>
+
+					<para>Invoked when a new user is created, it receives the
+					<parameter>username</parameter> as an argument.</para>
+					
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>_delUser</methodname></term>
+				<listitem>
+
+					<para>Invoked when a user is deleted, it gets the
+					<parameter>username</parameter> as an argument.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>_addGroup</methodname></term>
+				<listitem>
+
+					<para>Invoked whenever a new group is created, with the
+					<parameter> group name</parameter> as an argument.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>_delGroup</methodname></term>
+				<listitem>
+
+					<para>Invoked when a group is deleted, it gets the
+					<parameter>group name</parameter> as an argument.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>_modifyUser</methodname></term>
+				<listitem>
+
+					<para>Invoked when a user account is modified, its only argument
+					is the <parameter>username</parameter>.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>_modifyGroup</methodname></term>
+				<listitem>
+
+					<para>Similar to <methodname>_modifyUser</methodname>, but for
+					groups.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>_delUserWarning</methodname></term>
+				<listitem>
+
+					<para>This method is invoked every time a user is going to be
+					deleted, passing to it the <parameter>username</parameter>.
+					Here you need to decide if the removal of that user will mean
+					changes that the administrator should know about, like the loss
+					of data. You can return a string explaining the situation and it
+					will be shown to the user before the user is deleted. Returning
+					<literal>undef</literal> means that it's OK to delete the user as
+					far as your module is concerned.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>_delGroupWarning</methodname></term>
+				<listitem>
+
+					<para>This method will be invoked whenever a group is
+					about to be deleted, it receives the <parameter>group
+					name</parameter> as an argument. It works the same way as
+					<methodname>_delUserWarning</methodname>, it will return a string
+					with a message if deleting this group will cause changes that the
+					user should know about. Again, return <literal>undef</literal> if
+					it's fine to delete the group.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>_userAddOns</methodname> and
+				<methodname>_groupAddOns</methodname></term>
+
+				<listitem>
+
+					<para>When a user or group is going to be edited, one of
+					these two methods is called with the purpose of fetching
+					<emphasis>mason</emphasis> components from your module that
+					will be integrated in the user interface of the <emphasis>Users
+					and Groups</emphasis> module. It's only parameter is the
+					<parameter>user</parameter> or <parameter>group</parameter> name
+					respectively. It should return a <returnvalue>hash</returnvalue>
+					with two keys: <structfield>path</structfield> and
+					<structfield>parms</structfield>. The former contains the path to
+					the <emphasis>mason</emphasis> template; while the later contains
+					an array with the arguments to be passed to the template.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>_includeLDAPSchemas</methodname></term>
+				<listitem>
+
+					<para>This method should be implemented by those modules that need
+					to include their own LDAP schemas. They should return a reference
+					to an array that contains the names of the schemas that will be
+					included int the <filename>slapd.conf</filename> file.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>_includeLDAPAcls</methodname></term>
+				<listitem>
+
+					<para>This method should be implemented by those modules
+					that need to include their own access control lists,
+					<emphasis>ACLs</emphasis>. They need to return a reference to
+					an array holding the access control lists to be included in
+					<filename>slapd.conf</filename>.</para>
+
+				</listitem>
+			</varlistentry>
+
+		</variablelist>
+
+		<para>You should create a class that implements those methods
+		you see necessary. Your class will need to inherit from
+		<classname>EBox::LdapUserBase</classname>. You do not have to
+		implement these method the main class of your eBox module. Your
+		main class, probably a <classname>EBox::GConfModule</classname>
+		subclass, should inherit from <classname>EBox::LdapModule</classname>
+		too. This abstract class contains just one method:
+		<methodname>_ldapModImplementation</methodname>, which
+		should return an instance of the class that inherits from
+		<classname>EBox::LdapUserBase</classname>:</para>
+
+		<programlisting><![CDATA[sub _ldapModImplementation
+{
+	my $self;
+
+	return new EBox::SambaLdapUser();
+}]]></programlisting>
+
+	</section>
+
+	<section id="sect-ldap-addui">
+		<title>Adding functionality to the user interface</title>
+
+		<para>As we explained before, our goal is to centralize the
+		configuration of those modules that are based on user and group
+		accounts stored in LDAP in one place. This place is the configuration
+		pages provided by the <emphasis>Users and Groups</emphasis> eBox
+		module.</para>
+
+		<para>Let's go back to the samba module. When the user edits a group,
+		and the samba service is activated, he will be able to configure the
+		samba parameters for that group. In this case it will be possible
+		to enable a shared resource for the group as well as its name. This
+		options will show up along with the general configuration options for
+		the group.</para>
+
+		<para><classname>EBox::UsersAndGroups</classname> calls the
+		<methodname>_groupAddOns()</methodname> method implementation given
+		by the samba module, giving to it the name of the group that is about
+		to be edited. The samba module will return the template and its
+		arguments.</para>
+
+		<example>
+			<title><methodname>_groupAddOns</methodname> implementation</title>
+			<programlisting linenumbering="numbered"><![CDATA[sub _groupAddOns($$) {
+	my $self = shift;
+	my $groupname = shift;
+
+	my $samba = EBox::Global->modInstance('samba');
+	unless ($samba->service){
+		return undef;
+	}
+
+	my @args;
+	my $args =  { 'groupname' => $groupname,
+		'share'     => $self->_groupSharing($groupname)
+		'sharename' => $self->sharingName($groupname)};
+
+	return { path => '/samba/samba.mas', params => $args };
+
+} ]]> </programlisting>
+		</example>
+
+		<para>In line 3, we get the group name as a parameter.</para>
+
+		<para>In line 6, we return <returnvalue>undef</returnvalue> if the
+		samba service is disabled.</para>
+
+		<para>The next lines create a hash that contains the path to the
+		<emphasis>mason</emphasis> template and its arguments. The arguments
+		are the name of the shared resource and whether it is enabled.</para>
+
+	</section>
+
+	<section id="sect-ldap-schemas">
+		<title>Including your own LDAP schemas</title>
+
+		<para>If your service or module needs LDAP schemas that are not
+		included in the default installation, you'll have to implement
+		<methodname>_includeLDAPSchemas</methodname>. In this method,
+		you have to return a reference to an array that contains
+		the paths to the schemas you need. They will be added to
+		<filename>slapd.conf</filename>.</para>
+
+		<para>Let's see how the samba module does this. It needs the
+		<filename>samba.schema</filename> schema.</para>
+
+		<example>
+			<title>Implementing <methodname>_includeLDAPSchemas</methodname></title>
+			<programlisting><![CDATA[sub _includeLDAPSchemas {
+	my $self = shift;
+
+	return ['/etc/ldap/schema/samba.schema'];	
+} ]]> </programlisting>
+		</example>
+		
+		<para>The resulting <filename>slapd.conf</filename> file is as
+		follows:</para>
+		
+		<programlisting><![CDATA[# Schema and objectClass definitions
+include		/etc/ldap/schema/core.schema
+include		/etc/ldap/schema/cosine.schema
+include		/etc/ldap/schema/nis.schema
+include		/etc/ldap/schema/inetorgperson.schema
+include		/etc/ldap/schema/samba.schema ]]> </programlisting>
+		
+	</section>
+
+	<section id="sect-ldap-acls">
+		<title>Adding your own access control list</title>
+
+		<para>You may need to restrict access to some attributes in your
+		LDAP schemas, usually passwords and sensitive data. This is done
+		implementing the <methodname>_includeLDAPAcls</methodname> method,
+		which should return a reference to an array that contains your access
+		control list.</para>
+
+		<para>Let's see what this method looks like in the samba module:</para>
+
+		<programlisting><![CDATA[sub _includeLDAPAcls {
+	my $self = shift;
+
+	my $ldapconf = $self->{ldap}->ldapConf;
+
+	my @acls = ("access to attribute=sambaNTPassword,sambaLMPassword\n" .
+			"\tby dn=\"" . $ldapconf->{'rootdn'} . "\" write\n" .
+			"\tby * none\n");
+
+	return \@acls;
+} ]]> </programlisting>
+
+		<para>The above snippet will result in <filename>slapd.con</filename>
+		as follows:</para>
+
+		<programlisting><![CDATA[
+        access to attribute=sambaNTPassword,sambaLMPassword
+        by dn="cn=admin,dc=ebox" write
+        by * none
+]]> </programlisting>
+	</section>
+
+</chapter>

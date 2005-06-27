@@ -1,0 +1,1052 @@
+<!-- vim: ts=2 sw=2
+-->
+<chapter id="ch-backend">
+
+	<title>Module backend</title>
+
+	<simplesect>
+
+		<para>The eBox framework offers modules several functionalities that
+		are made available through a mostly object-oriented API. Not everything
+		is object-oriented, procedural interfaces have been used where it made
+		sense to do so.</para>
+
+		<para>Some of the features of the API work through inheritance,
+		these usually provide a means for the module to implement standard
+		functionalities like menus, the status page, configuration saving and
+		revoking, etc. Some of these functionalities need to be implemented by
+		the module, others are given by the framework for free, and the module
+		may override or extend them.</para>
+
+	</simplesect>
+
+	<section id="sect-basemod">
+		<title>The base module</title>
+
+		<para>All eBox modules inherit from the
+		<classname>EBox::Module</classname> class, this class defines abstract
+		methods that modules may override to implement certain functionality.
+		These methods are called by the framework when they are needed.</para>
+
+		<para>Besides those abstract methods, the class implements a few
+		methods, providing some basic functionality. These methods often
+		follow the template method design pattern, they perform some operation
+		but delegate some part of it on some abstract method that may be
+		implemented by child classes.</para>
+
+		<!-- FIXME - class diagram -->
+
+		<para>Finally, there are a few methods that implement some common
+		operations that get used in most of the modules, these are meant to be
+		called by children classes when they need them. They are located in the
+		<classname>EBox::Module</classname> class just for convenience.</para>
+
+		<section id="sect-modconstructor">
+			<title>Module constructor</title>
+
+			<para>All module instances are created and cached by the
+			<classname>EBox::Global</classname> class, module constructors must
+			not be called directly except by <classname>EBox::Global</classname>.
+			For this reason, they are named <methodname>_create</methodname>
+			instead of <methodname>new</methodname>.</para>
+
+			<para>The leading underscore in the method name is a naming
+			convention, methods with such a name are meant to be used
+			privately by the owner class and its ancestors, they should
+			not be called directly by an unrelated class. In the case of
+			the module constructor, the only class that should call it is
+			<classname>EBox::Global</classname>.</para>
+
+			<para>The <methodname>_create</methodname> method in
+			<classname>EBox::Module</classname> takes two named arguments
+			from the child classes. <parameter>name</parameter> is the name
+			of the module, it is required; <parameter>domain</parameter> is
+			the <application>gettext</application> domain for the module, it's
+			optional and <quote>ebox</quote> is its default value.</para>
+
+			<example>
+				<title>Simple module constructor</title>
+				<programlisting><![CDATA[sub _create
+{
+	my $class = shift;
+	my $self = $class->SUPER::_create(name => 'dhcp',
+					domain => 'ebox-dhcp',
+					@_);
+	bless ($self, $class);
+	return $self;
+}]]></programlisting>
+			</example>
+
+		</section>
+
+	</section>
+
+	<section id="sect-rootcmds">
+		<title>Root commands</title>
+
+		<para>The apache server under which eBox runs, and any perl script
+		that uses the eBox API run under a dedicated user id, the user is
+		typically called <quote>ebox</quote>. eBox modules need to execute
+		certain commands and write certain files with root privileges, this
+		is done using <application>sudo</application>. The sudo configuration
+		file, <filename>/etc/sudoers</filename> contains a list of the commands
+		that sudo will let the <quote>ebox</quote> user execute as root.</para>
+
+		<para> Whenever a module is installed, removed or updated, this list
+		of commands needs to be brought up to date. eBox provides the command
+		<command>ebox-sudoers</command> to generate the file easily, the
+		command is meant to be called by package maintainers in their post
+		installation and removal scripts.</para>
+
+		<para>For <command>ebox-sudoers</command> to work, eBox needs to know
+		what commands are needed by each of its modules. For that purpose
+		<classname>EBox::Module</classname> has an abstract method called
+		<methodname>rootCommands</methodname>. Modules implement this method
+		if they want to add commands to the <filename>/etc/sudoers</filename>
+		file. It returns an array whose elements are the desired commands.
+		The implementation of this method in the firewall module looks like
+		this:</para>
+
+		<example>
+			<title>Defining commands to be executed as root</title>
+			<programlisting><![CDATA[sub rootCommands
+{
+	my $self = shift;
+	my @array = ();
+	push(@array, '/sbin/iptables');
+	push(@array, '/sbin/sysctl -q -w net.ipv4.ip_forward*');
+	return @array;
+}]]></programlisting>
+		</example>
+
+		<para>Once you have all the commands you need to execute as root
+		defined in the <methodname>rootCommands</methodname> method, you
+		can invoke those commands using the <methodname>root()</methodname>
+		function in the <classname>EBox::Sudo</classname> perl module. If the
+		command fails, <methodname>root()</methodname> throws an internal
+		exception, so make sure you catch it if it's OK for the command to
+		fail or you want to inform the user in a different way, see <xref
+		linkend='sect-exceptions'/> for details.</para>
+
+		<!-- FIXME - example -->
+
+	</section>
+
+	<section id="sect-gconf">
+		<title><classname>EBox::GConfModule</classname></title>
+
+		<para>eBox uses GConf to store its configuration, the
+		development framework provides a wrapper around the <ulink
+		url='http://gtk2-perl.sourceforge.net/doc/pod/Gnome2/GConf.html'>
+		original perl bindings</ulink>. GConf gives us an easy API for storing
+		and retrieving typed configuration values organized hierarchically. It
+		also lets us define limited schemas for certain configuration keys,
+		setting their type and default values.</para>
+
+		<!-- FIXME - example -->
+
+		<para>The development framework defines a wrapper around the GConf API
+		that provides some extra features. The wrapper is implemented as child
+		class for <classname>EBox::Module</classname>, so all modules that want
+		to use GConf inherit from <classname>EBox::GConfModule</classname>. Its
+		children automatically get these features:</para>
+
+		<itemizedlist>
+
+			<listitem>
+
+				<para>Automatic backups: the first time a key's value is changed,
+				a backup of the configuration tree for the whole module is made.
+				When the configuration is saved, the backup is automatically
+				deleted, when the config changes are revoked the backup is
+				automatically restored. <classname>EBox::GConfModule</classname>
+				implements the <methodname>makeBackup</methodname>,
+				<methodname>restoreBackup</methodname> and
+				<methodname>revokeConfig</methodname> methods
+				defined in <classname>EBox::Module</classname>, so
+				<classname>EBox::GConfModule</classname> children do not need to
+				implement them unless they have really special requirements or
+				store part of their configuration outside of GConf.</para>
+
+			</listitem>
+			<listitem>
+
+				<para>Error handling: GConf errors are handled by the wrapper
+				class, it translates them into internal exceptions.</para>
+
+			</listitem>
+			<listitem>
+
+				<para>Read-only and read-write instances: when the module is
+				instantiated in read-only mode, the wrapper class uses a copy of
+				the configuration to avoid seeing unsaved changes. It also prevents
+				calls to methods that write to GConf.</para>
+
+			</listitem>
+			<listitem>
+
+				<para>Namespace boundary checks: the wrapper checks all gconf
+				keys used by the module to see if they are in its namespace. This
+				ensures that the keys for a module are only directly read or
+				written to by the module itself (as long as all modules use the
+				wrapper class).</para>
+
+			</listitem>
+			<listitem>
+
+				<para>Relative pathnames: methods in the wrapper class take both
+				absolute and relative pathnames for gconf keys. The root of a
+				module's namespace changes depending on the type of instance
+				(read-only of read-write) and the type of key (normal or status)
+				being accessed. For this reason it is best to use relative
+				pathnames when calling the wrapper class methods, they translate
+				the relative path to an absolute one automatically.</para>
+
+			</listitem>
+			<listitem>
+
+				<para>Status namespace: the is certain information that's not
+				given by the user and needs to be written at any time, even by
+				read-only instances. This kind of information is not subject to
+				configuration saving and revoking. It is status information,
+				like the name servers or IP address given to the system by an
+				external dhcp server. A separate namespace is provided for this
+				kind of information, and again it is automatically kept out of the
+				backup/save/revoke operations mentioned earlier. The methods use to
+				access this namespace are identical to the usual ones, they just
+				have the prefix <literal>st_</literal> in their names.</para>
+
+			</listitem>
+
+			<listitem>
+
+				<para>Recursive retrieval of directories: there are two
+				methods in <classname>EBox::GConfModule</classname> that
+				allow easy retrievals of whole directory structures.
+				<methodname>hash_from_dir</methodname> takes a directory as
+				an argument and returns a hash with all the keys under it.
+				<methodname>array_from_dir</methodname> takes a directory as
+				an argument and returns an array of hashes as returned by
+				<methodname>hash_from_dir</methodname> for each one of its
+				subdirectories.</para>
+
+			</listitem>
+
+		</itemizedlist>
+
+		<para>This is a list of the most important methods in
+		<classname>EBox::GConfModule</classname>:</para>
+
+		<variablelist>
+			<varlistentry>
+				<term><methodname>all_dirs</methodname></term>
+				<listitem>
+
+					<para>Given a key it returns all directories within.</para>
+				
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><methodname>all_dirs_base</methodname></term>
+				<listitem>
+
+					<para>Given a key it returns all directories within, removing any
+					leading directory component.</para>
+				
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><methodname>all_entries</methodname></term>
+				<listitem>
+
+					<para>Given a key it returns all entries within. Entries are
+					all those keys which are not directories, hence they contain a
+					value.</para>
+					
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term><methodname>all_entries_base</methodname></term>
+					<listitem>
+
+					<para>Given a key it returns all entries within, removing any
+					leading directory component. Entries are all those keys which are
+					not directories, hence they contain a value.</para>
+
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><methodname>array_from_dir</methodname></term>
+				<listitem>
+
+					<para>Given a key it returns an array using a hash reference to
+					contain in each element the directories under the key. Also, the
+					hash contains the key <structfield>_dir</structfield> which tells
+					you the directory's name.</para>
+
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><methodname>dir_exists</methodname></term>
+				<listitem>
+
+					<para>Given a key referencing a directory it returns
+					<literal>true</literal> if it exists.</para>
+
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><methodname>get_bool</methodname></term>
+				<listitem>
+
+					<para>Returns the value of a boolean key.</para>
+
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><methodname>get_int</methodname></term>
+				<listitem>
+
+					<para>Returns the value of a integer key.</para>
+
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><methodname>get_list</methodname></term>
+				<listitem>
+
+					<para>Returns an array containing the list referenced by the
+					key.</para>
+
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><methodname>get_string</methodname></term>
+				<listitem>
+
+					<para>Returns the value of a string key.</para>
+
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><methodname>get_unique_id</methodname></term>
+				<listitem>
+
+					<para>It generates a unique random identifier with a leading
+					<parameter>prefix</parameter> in the root of the module's
+					namespace, if <parameter>directory</parameter> is passed, it will
+					be added to the path. Note that it does not create the entry, it
+					just returns a unique identifier, so it is up to you to create
+					the proper entry.</para>
+
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><methodname>hash_from_dir</methodname></term>
+				<listitem>
+
+					<para>It returns a hash containing all the entries in the
+					directory referenced by the key.</para>
+
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><methodname>isReadOnly</methodname></term>
+				<listitem>
+
+					<para>It returns <literal>true</literal> if the current
+					<classname>EBox::GConfModule</classname> instance you are
+					accessing is read-only.</para>
+
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><methodname>makeBackup</methodname></term>
+				<listitem>
+
+					<para>It dumps your current configuration to file.</para>
+
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><methodname>restoreBackup</methodname></term>
+				<listitem>
+
+					<para>It restores the last backup.</para>
+
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><methodname>revokeConfig</methodname></term>
+				<listitem>
+
+					<para>All changes done since your first write or delete will be
+					dismissed.</para>
+
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><methodname>set_bool</methodname></term>
+				<listitem>
+
+					<para>It sets a <parameter>key</parameter> with a boolean
+					<parameter>value</parameter>.</para>
+
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><methodname>set_int</methodname></term>
+				<listitem>
+
+					<para>It sets a <parameter>key</parameter> with an integer
+					<parameter>value</parameter>.</para>
+
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><methodname>set_list</methodname></term>
+				<listitem>
+
+					<para>It sets a list of
+					<parameter>type</parameter><parameter>values</parameter> in
+					<parameter>value</parameter>.</para>
+				
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><methodname>set_string</methodname></term>
+				<listitem>
+
+					<para>It sets <parameter>values</parameter> of
+					<parameter>type</parameter> in <parameter>key</parameter>.</para>
+
+				</listitem>
+			</varlistentry>
+		</variablelist>
+			
+		<para>Let see some examples from the above functions.</para>	
+		
+		<example>
+			<title>Setting a string key</title>
+			<programlisting> <![CDATA[$self->set_string("printers/x4235/name", "fooprinter"); ]]></programlisting>
+		</example>
+
+		<example>
+			<title>Setting a string list</title>
+			<programlisting><![CDATA[$self->set_list('foo/foolist', 'string', ['foo', 'bar']);]]></programlisting>
+		</example>
+
+		<example>
+			<title>Getting and using a unique identifier</title>
+			<programlisting><![CDATA[my $id = $self->get_unique_id('p', 'printers');
+$self->set_string("printers/$id/name", $name);
+$self->set_bool("printers/$id/configured", undef);
+		]]></programlisting>
+		</example>
+	</section>
+
+	<section id="sect-ordering">
+		<title>Ordering stuff</title>
+
+		<para>The need to keep certain information ordered is fairly common
+		across eBox modules. It is also common to provide reordering functions.
+		An example of this are firewall rules, which need to be applied in
+		a given order, and the user has to be able to change their order.
+		The <classname>EBox::Order</classname> class solves just this
+		problem.</para>
+
+		<para>The idea is to give a directory to each item you want to
+		keep ordered. Following the firewall example, we could have a
+		<filename>rules/</filename> directory and, below it, one directory
+		per rule. Each rule would get a unique identifier, and that
+		would be its directory name below <filename>rules/</filename>.
+		A rule with id <literal>r3561</literal> would be stored in
+		<filename>rules/r3561</filename>, and below that directory we would
+		store keys with each one of the rule's parameters. This is the most
+		natural way of organizing items such as firewall rules, and it is with
+		this organization that <classname>EBox::Order</classname> is designed
+		to work.</para>
+
+		<!-- FIXME example -->
+
+		<para>The ordering mechanism adds one field to the
+		items being ordered. Not surprisingly it is called
+		<structfield>order</structfield>. To use the ordering API you have
+		to create an <classname>EBox::Order</classname> instance. Its
+		constructor takes to arguments: the instance of the module that owns
+		the items being ordered, and the base directory where the items are
+		stored.</para>
+
+		<para><classname>EBox::Order</classname> implements these
+		operations:</para>
+
+		<variablelist>
+
+			<varlistentry>
+				<term><methodname>highest</methodname></term>
+				<listitem>
+
+					<para>Returns the highest <structfield>order</structfield> key of
+					all the items.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>lowest</methodname></term>
+				<listitem>
+
+					<para>Returns the lowest <structfield>order</structfield> key of
+					all the items.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>nextn</methodname></term>
+				<listitem>
+
+					<para>Given a number, returns the
+					<structfield>order</structfield> key for the next item.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>prevn</methodname></term>
+				<listitem>
+
+					<para>Given a number, returns the
+					<structfield>order</structfield> key for the previous
+					item.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>get</methodname></term>
+				<listitem>
+
+					<para>Returns the identifier for the item whose
+					<structfield>order</structfield> key equals a given
+					number.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>swap</methodname></term>
+				<listitem>
+
+					<para>It finds the items whose <structfield>order</structfield>
+					keys match two given numbers and swaps their values.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>list</methodname></term>
+				<listitem>
+
+					<para>Returns a reference to an array that holds the identifiers
+					of all items, ordered from lowest to highest order.</para>
+
+				</listitem>
+			</varlistentry>
+
+		</variablelist>
+
+		<example>
+			<title>Ordering firewall rules</title>
+
+			<para>Let's see how the firewall module uses
+			<classname>EBox::Order</classname> to keep its forwarding rules
+			ordered. The <methodname>_fwdRulesOrder</methodname> returns the
+			<classname>EBox::Order</classname> instance for the firewall
+			rules:</para>
+
+			<programlisting><![CDATA[sub _fwdRulesOrder
+{
+	my $self = shift;
+	return new EBox::Order($self, "fwdrules");
+}]]></programlisting>
+
+			<para><filename>fwdrules</filename> is the directory that
+			holds all the rules. Another private helper function is
+			<methodname>_fwdRuleNumer</methodname>, it returns the order number
+			for a given rule identifier:</para>
+
+			<programlisting><![CDATA[sub _fwdRuleNumber # (rule)
+{
+	my ($self, $rule) = @_;
+	return $self->get_int("fwdrules/$rule/order");
+}]]></programlisting>
+
+			<para>New rules are appended at the end of the list, so we find the
+			highest order number and add one to it, this code is part of the
+			<methodname>addFwdRule</methodname> method:</para>
+
+			<programlisting><![CDATA[my $order = $self->_lastFwdRule() + 1;
+
+$self->set_string("fwdrules/$id/name", $id);
+$self->set_string("fwdrules/$id/action", $action);
+$self->set_bool("fwdrules/$id/active", 1);
+$self->set_int("fwdrules/$id/order", $order);]]></programlisting>
+
+			<para><methodname>_lastFwdRule</methodname> is a trivial wrapper that
+			returns the highest ordered number:</para>
+
+			<programlisting><![CDATA[sub _lastFwdRule
+{
+	my $self = shift;
+	my $order = $self->_fwdRulesOrder();
+	defined($order) or return 0;
+	return $order->highest;
+}]]></programlisting>
+
+			<para>Finally there are two methods to allow rule
+			reordering, they are <methodname>FwdRuleUp</methodname> and
+			<methodname>FwdRuleDown</methodname> (only the first one is shown
+			here since they are almost identical):</para>
+
+			<programlisting><![CDATA[sub FwdRuleUp # (rule)
+{
+	my ($self, $rule) = @_;
+	my $order = $self->_fwdRulesOrder();
+	defined($order) or return;
+	my $num = $self->_fwdRuleNumber($rule);
+	if ($num == 0) {
+		return;
+	}
+	my $prev = $order->prevn($num);
+	$order->swap($num, $prev);
+}]]></programlisting>
+		</example>
+
+	</section>
+
+	<section id="sect-config-and-daemons">
+		<title>Controlling a daemon</title>
+
+		<para>Besides exposing an API that allows reading and changing the
+		configuration of a given service, a module's backend is in charge of
+		making that service work. Typically, the service will be some sort of
+		daemon that offers some functionality across the network after reading
+		a config file. So your module needs to generate the config file and
+		start/stop/restart the daemon at the right times.</para>
+
+		<section id='sect-configfiles'>
+			<title>Config file generation</title>
+
+			<para>The easiest way to generate config files is using the
+			<application>mason</application> templating engine which is also used
+			in the web front-end. Using mason templates is documented in <xref
+			linkend='sect-mason'/> so we won't repeat it here.</para>
+
+			<para>Mason templates for config files are installed in the
+			<filename>stubs</filename> directory under the shared directory
+			for eBox. In the module source tree they are usually placed in
+			directory of their own called <filename>stubs</filename> too. The
+			<filename>Makefile.am</filename> in the <filename>stubs</filename>
+			directory for the dnscache module looks like this:</para>
+
+			<programlisting><![CDATA[Stubdir = @STUBSPATH@/dns-cache
+
+nobase_Stub_DATA = named.conf.mas named.conf.options.mas \
+	named.conf.local.mas
+
+EXTRA_DIST = $(nobase_Stub_DATA)
+
+MAINTAINERCLEANFILES = Makefile.in]]></programlisting>
+
+			<para>The <application>autoconf</application> macro included in
+			<filename>ebox.m4</filename> automatically exports the stubs
+			directory path as <varname>STUBSPATH</varname>, so you just need
+			to put create a directory for your module in it and put your mason
+			templates there.</para>
+
+			<para>There is a method in <classname>EBox::Module</classname>
+			that helps with file permissions and other details. It is called
+			<methodname>writeConfFile</methodname> and it takes three
+			arguments:</para>
+
+			<itemizedlist>
+				<listitem>
+					<para>The path of the config file that's going to be generated.
+					</para>
+				</listitem>
+
+				<listitem>
+					<para>The path of the mason template relative to the stubs
+					directory.</para>
+				</listitem>
+
+				<listitem>
+					<para>A reference to the arguments that you want to pass to the
+					mason template.</para>
+				</listitem>
+			</itemizedlist>
+
+			<para><methodname>writeConfFile</methodname> will generate the config
+			file in a temporary location and then copy it on top of the desired
+			destination, keeping its original permissions and ownership.</para>
+
+			<example>
+				<title>Generating a configuration file</title>
+
+				<para>This is the code that generates the configuration file in the
+				ipsec module:</para>
+
+				<programlisting><![CDATA[my $self = shift;
+my $conns = $self->staticActiveConnsArray();
+my $warriors = $self->warriorActiveConnsArray();
+my @array = ();
+
+push(@array, 'shared_secret_conns' => $conns);
+push(@array, 'road_warrior_conns' => $warriors);
+$self->writeConfFile(IPSECCONFFILE, "ipsec/ipsec.conf.mas", \@array);
+
+push(@array, 'includedir' => EBox::Config::conf . "/ipsecrsa/*");
+$self->writeConfFile(IPSECSECRETS, "ipsec/ipsec.secrets.mas", \@array);
+]]></programlisting>
+
+				<para>And this is the template the generates the
+				<filename>ipsec.secrets</filename> file:</para>
+
+				<programlisting><![CDATA[<%args>
+	@shared_secret_conns => ()
+ 	$includedir
+</%args>
+
+% foreach my $conn (@shared_secret_conns) {
+<%$conn->{'lIP'}%> <%$conn->{'rIP'}%> : PSK "<%$conn->{'authinfo'}%>"
+
+% }
+
+include <%$includedir%>]]></programlisting>
+			</example>
+	
+		</section>
+
+		<section>
+			<title>Controlling execution</title>
+
+			<para>The first thing you need to know is when to start and
+			stop the daemon you are controlling. Services are started
+			by calling the <methodname>restartService</methodname> or
+			<methodname>save</methodname> methods on a module instance, however
+			those methods are implemented by <classname>EBox::Module</classname>
+			and should normally not be overriden, since they takes
+			care of logging and/or saving the configuration changes.
+			Both of these methods call an abstract method when they
+			need to actually start/restart the service. This method is
+			<methodname>_regenConfig</methodname>, and it's the one that you need
+			to implement.</para>
+
+			<para><methodname>_regenConfig</methodname> should generate
+			the configuration files for the daemon and start or restart
+			it. A sample implementation of this method can be found in
+			<xref linkend='ex-regencfg'/>. If you need to know whether the
+			call is caused by a service start/restart or by saving the
+			configuration changes, you can check the parameters passed to
+			<methodname>_regenConfig</methodname>. When it's called because
+			the configuration was saved (<methodname>save()</methodname>)
+			the named argument <parameter>save</parameter> will be set
+			to <literal>1</literal>, if it is just a regular service
+			restart (<methodname>restartService()</methodname>), the
+			<parameter>restart</parameter> argument will be set to
+			<literal>1</literal>. In most situations you won't need this, since
+			you can easily know whether the daemon is running, this is only
+			useful for special cases like the network module.</para>
+
+			<para>When <methodname>_regenConfig</methodname> gets called,
+			you'll probably need to know whether to start or restart the
+			daemon, because choosing the wrong operation may produce an
+			error. To make that decision you need to know if the daemon is
+			currently running. <classname>EBox::Module</classname> has two
+			methods to make this task easier. If you know the process ID of
+			the process you can use <methodname>pidRunning</methodname>,
+			it receives a process ID as an argument. If you just know the
+			name of the file where the daemon stored its process ID, you'll
+			want to call <methodname>pidFileRunning</methodname>, which
+			takes a file name, checks for a process ID in it and calls
+			<methodname>pidRunning</methodname>. Both methods return true if the
+			process is running and false if it's not.</para>
+
+			<example id='ex-regencfg'>
+
+				<title>Sample <methodname>_regenConfig</methodname>
+				implementation</title>
+
+				<programlisting><![CDATA[sub _regenConfig
+{
+	my $self = shift;
+	$self->_setBindConf;
+	$self->_doDaemon();
+}
+
+sub _doDaemon
+{
+	my $self = shift;
+
+	if ($self->service and $self->pidFileRunning(PIDFILE)) {
+		$self->_daemon('reload');
+	} elsif ($self->service) {
+		$self->_daemon('start');
+	} elsif ($self->pidFileRunning(PIDFILE)) {
+		$self->_daemon('stop');
+	}
+}
+
+sub _daemon # (action)
+{
+	my ($self, $action) = @_;
+	my $command = BIND9INIT . " " . $action . " 2>&1";
+
+	if ( $action eq 'start') {
+		root($command);
+	} elsif ( $action eq 'stop') {
+		root($command);
+	} elsif ( $action eq 'reload') {
+		root($command);
+	} else {
+		throw EBox::Exceptions::Internal(
+			"Bad argument: $action");
+	}
+}]]></programlisting>
+				
+			</example>
+
+			<para>Stopping the service is similar, you just check if
+			it is running and if it is, then run the command that
+			stops it. As with <methodname>restartService</methodname>,
+			<classname>EBox::Module</classname> has a template implementation
+			of the <methodname>stopService</methodname> method, which calls an
+			abstract method when it's time to actually stop the service. The
+			abstract method, <methodname>_stopService</methodname> is the one you
+			need to implement.</para>
+
+			<example>
+
+				<title>Sample <methodname>_stopService</methodname>
+				implementation</title>
+
+				<programlisting><![CDATA[sub _stopService
+{
+	my $self = shift;
+
+	if ($self->pidFileRunning(PIDFILE)) {
+		$self->_daemon('stop');
+	}
+}]]></programlisting>
+			</example>
+
+		</section>
+
+	</section>
+
+	<section id='sect-schemas'>
+	
+		<title>gconf schemas</title>
+
+			<section id='sect-schemas-minimal'> 
+			<title>Minimal gconf schema</title>
+
+			<para>A gconf schema is a special gconf key that sets the type and
+			default value for some other gconf key. They are stored in the gconf
+			database under the <filename>/schemas</filename> directory.</para>
+
+			<para>You will need to create a gconf schema for you module. This is
+			needed at least to integrate your module within the framework. By
+			means of this schema your module could be instanced. So the first
+			thing you should do is to associate the given name for your module
+			and its proper perl module. Let's look at an example to clarify this
+			idea a little further.</para>
+
+			<para>Say we have a module called <emphasis>foobar</emphasis>,
+			and the implementation for this module lies in
+			<classname>EBox::Foobar</classname>. Your gconf schema would look
+			something like this:</para>
+
+			<example>
+			<title>Minimal gconf schema</title>
+				<programlisting><![CDATA[<gconfschemafile>
+<schemalist>
+	<schema>
+		<key>/schemas/ebox/modules/global/modules/foobar/class</key>
+		<applyto>/ebox/modules/global/modules/foobar/class</applyto>
+		<owner>ebox</owner>
+		<type>string</type>
+		<default>EBox::Foobar</default>
+		<locale name="C"/>
+	</schema>
+</schemalist>
+</gconfschemafile>]]></programlisting>
+			</example>
+
+			<para>Once you have done this, anytime you instance
+			the module <emphasis>foobar</emphasis> using the
+			method <methodname>modInstance</methodname> from
+			<classname>EBox::Global</classname>, it will know that it has to load
+			and instance the class <classname>EBox::Foobar</classname>.</para>
+	
+			<example>
+			<title>Creating a module instance</title>
+			<programlisting><![CDATA[my $foobar = EBox::Global->modInstance('foobar');
+$foobar->some_method();]]></programlisting>
+			</example>
+			
+		</section>
+
+		<section id='sect-schemas-default'> 
+			<title>Default values</title>
+
+			<para>Gconf schemas become useful to establish default values. These
+			values will be used by the system when the user has not set a value
+			for the corresponding key.</para>
+
+			<para>There is an obvious scenario in which you might be interested
+			in using this feature. This is when your module is installed for the
+			first time, it could come in handy to set default values for your
+			initial configuration.</para>
+
+			<para>Let's illustrate this with a simple example. Imagine you are
+			providing a module to manage a HTTP proxy. One of the configurable
+			parameters is the listening port. You want the user to have the
+			capability to change it, but also you wish to provide 3128 as an
+			initial value. Gconf schema is the right place to do it. For 
+			this example we would use the key 
+			<filename>/schemas/ebox/modules/proxy/port</filename>.</para>
+
+			<example>
+				<title>Setting a default value in gconf schemas</title>
+				 <programlisting><![CDATA[<schema>
+	<key>/schemas/ebox/modules/proxy/port</key>
+	<applyto>/ebox/modules/proxy/port</applyto>
+	<owner>ebox</owner>
+	<type>int</type>
+	<default>3128</default>
+	<locale name="C"/>
+</schema>]]></programlisting>
+			</example>
+		</section>
+			
+		<section id='sect-schemas-dependence'> 
+		<title>Module dependencies</title>
+
+			<para>It is likely your module configuration depends on some other
+			modules. If this occurs to your module, you will be interested in
+			being notified anytime that there is a change in any of the modules
+			you depend on.</para>
+
+			<para>Continuing with the example used earlier, consider you
+			want to configure the proxy for listening solely on the internal
+			interfaces. The network module is the one which deals with the
+			network interfaces. So at the time of generating the configuration
+			for the proxy we will ask the network module for the network
+			interfaces configured as internal. This raises an obvious issue, your
+			module should regenerate its configuration whenever the internal
+			interfaces change, that is, when the network module's configuration
+			is changed.</para>
+
+			<para>In order to express this relationship of dependence we will
+			use your module's gconf schema as follows:</para>
+
+			<example>
+				<title>Setting module dependencies</title>
+				 <programlisting><![CDATA[<schema>
+	<key>/schemas/ebox/modules/global/modules/proxy/depends</key>
+	<applyto>/ebox/modules/global/modules/proxy/depends</applyto>
+	<owner>ebox</owner>
+	<type>list</type>
+	<list_type>string</list_type>
+	<default>[network]</default>
+	<locale name="C"/>
+</schema>]]></programlisting>
+			</example>
+
+			<para>The above snippet tells the module global that
+			proxy depends on network. This way, global will run
+			the method <methodname>_regenConfig</methodname> from
+			<classname>EBox::Proxy</classname> when the network module's
+			configuration changes.</para>
+
+			<!-- FIXME - sintax for multiple dependencies-->
+
+		</section>
+	</section>
+
+	<section id="sect-cfgback">
+		<title>Configuration backups</title>
+
+		<para>As we pointed out earlier, all changes made on the keys stored
+		in gconf are automatically backed up the first time a write or delete
+		operation is carried on. In consequence, all theses changes could be
+		restored automatically if the user wishes to dismiss or restore them
+		from a file. Of course, this is true as long as you use the methods
+		provided by <classname>EBox::GConfModule</classname>.</para>
+
+		<para>If your module has some other stuff which is not stored in
+		gconf and needs some special treatment to be backed up you will have
+		to override the methods <methodname>_dump_to_file</methodname> and
+		<methodname>_load_from_file</methodname>.</para>
+
+		<para>The <emphasis>ipsec</emphasis> module keeps RSA keys outside
+		of gconf, so when it is time to do a backup it needs to take care of
+		them:</para>
+		
+		<example>
+			<title>Overriding backup methods</title>
+				<programlisting><![CDATA[sub _dump_to_file # (dir?)
+{
+	my ($self, $dir) = @_;
+	$self->SUPER::_dump_to_file($dir);
+	($dir) or $dir = EBox::Config::conf;
+	my $origdir = EBox::Config::conf . "/ipsecrsa";
+	if ( -e "$dir/ipsecrsa.bak") {
+		rmtree("$dir/ipsecrsa.bak") or 
+			throw EBox::Exceptions::Internal(__(
+			  'Error while removing old rsa keys backup'));
+	}
+	mkdir("$dir/ipsecrsa.bak", 0700) or 
+		throw EBox::Exceptions::Internal(__(
+		  'Error while making backup dir for rsa keys'));
+	my @keys = @{$self->listRSAKeys()};
+	foreach my $key (@keys) {
+		next unless (-f "$origdir/$key");
+		copy("$origdir/$key", "$dir/ipsecrsa.bak") or
+			throw EBox::Exceptions::Internal(
+				__('Error while backing up rsa keys'));
+	}
+}
+
+sub _load_from_file # (dir?)
+{
+	my ($self, $dir) = @_;
+	$self->SUPER::_load_from_file($dir);
+	($dir) or $dir = EBox::Config::conf;
+	my $destdir = EBox::Config::conf . "/ipsecrsa";
+	( -d "$dir/ipsecrsa.bak") or
+		throw EBox::Exceptions::Internal(
+			__('rsa keys backup not found'));
+	if ( -e "$destdir") {
+		rmtree($destdir) or throw EBox::Exceptions::Internal(
+			__('Error while removing rsa keys'));
+	}
+	mkdir("$destdir", 0700) or 
+		throw EBox::Exceptions::Internal(__(
+		  'Error while making dir for rsa keys'));
+
+	my @keys = @{$self->listRSAKeys()};
+	foreach my $key (@keys) {
+		next unless (-f "$dir/ipsecrsa.bak/$key");
+		copy("$dir/ipsecrsa.bak/$key", "$destdir") or
+			throw EBox::Exceptions::Internal(
+				__('Error while restoring rsa keys'));
+	}
+}]]></programlisting>
+		</example>
+		
+	</section>		
+
+</chapter>

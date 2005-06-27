@@ -1,0 +1,90 @@
+<!-- vim: ts=2 sw=2 tw=75
+-->
+<chapter id='ch-requirements'>
+
+		<title>Requirements</title>
+
+		<para>eBox is based on a few software packages, which are used for
+		several purposes:</para>
+
+		<variablelist>
+
+			<varlistentry>
+				<term>Linux 2.6</term>
+				<listitem>
+
+					<para>eBox relies on some features provided by the kernel, some
+					are available only on the 2.6 series. Among these features
+					are netfilter (for the firewall), 802.1q (for VLANs) and
+					ipsec.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>perl and mod_perl</term>
+				<listitem>
+
+					<para>All eBox modules are implemented in Perl, the web interface
+					runs under mod_perl for performance reasons.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>Mason</term>
+				<listitem>
+
+					<para>Mason is a templating system for Perl, it is used to
+					generate HTML for the web based user interface and to generate
+					configuration files.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>apache</term>
+				<listitem>
+
+					<para>The web interface is served by apache</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>gconf</term>
+				<listitem>
+
+					<para>eBox stores its configuration using gconf2 and its Perl
+					library bindings.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>sudo</term>
+				<listitem>
+
+					<para>Apache runs as an unprivileged user, all eBox modules use
+					sudo to execute commands that need to be run as root.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term>Debian</term>
+				<listitem>
+
+					<para>eBox has been developed on top of Debian, no support is
+					provided for other Linux distributions as there are some debianisms
+					in some of the modules. Porting to other Linux distributions should
+					be quite easy, and porting to other Unix like operating systems such
+					as OpenBSD would take a little more work but it should still be
+					doable, and worth it.</para>
+
+				</listitem>
+			</varlistentry>
+
+		</variablelist>
+
+</chapter>

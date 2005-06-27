@@ -1,0 +1,35 @@
+<!-- vim: ts=2 sw=2 tw=75
+-->
+<chapter id='ch-intro'>
+
+		<title>What is eBox?</title>
+
+		<para>eBox is a platform for the development and deployment of security
+		and work-group related services on a local network. It is configured
+		through a web interface that integrates all services in a consistent
+		and easy to use way. Its goal is to be usable by non-experts.</para>
+
+		<para>eBox is meant to be installed on a dedicated machine, all
+		configuration tasks are performed through the eBox web interface. This
+		means that the configuration of the underlying services is one-way:
+		eBox modules generate configuration files, overwriting system files in
+		some cases (although that tends to be avoided if possible) and manual
+		changes to those files are not detected by eBox. This simplifies the
+		implementation and usage of the package but has the disadvantage that
+		developers need to be careful if they use their own system for testing
+		purposes.</para>
+
+		<para>eBox design is modular, new modules providing new services and
+		features can be developed independently from its core package. eBox
+		simplifies the deployment of new modules and the updates of existing
+		ones with a software management module, which is also independent from
+		the eBox base package.</para>
+
+		<para>The system is based on Linux and has been developed on top of
+		Debian, no support is provided for other Linux distributions as there
+		are some debianisms in some of the modules. Porting to other Linux
+		distributions should be quite easy, and porting to other Unix like
+		operating systems such as OpenBSD would take a little more work but it
+		should still be doable, and worth it.</para>
+
+</chapter>

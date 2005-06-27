@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE book SYSTEM "../tools/dtd/dblite.dtd"
+[
+<!ENTITY ch01     SYSTEM "ch01.xml">
+<!ENTITY ch02     SYSTEM "ch02.xml">
+<!ENTITY ch03     SYSTEM "ch03.xml">
+<!ENTITY ch04     SYSTEM "ch04.xml">
+<!ENTITY ch05     SYSTEM "ch05.xml">
+<!ENTITY ch06     SYSTEM "ch06.xml">
+<!ENTITY ch07     SYSTEM "ch07.xml">
+]>
+
+<book id='ebox' lang='es'>
+  <title>eBox developers guide</title>
+
+  <bookinfo>
+
+    <authorgroup>
+
+      <author>
+        <firstname>Javier</firstname>
+        <surname>Uruen</surname>
+      </author>
+      <author>
+        <firstname>Ricardo</firstname>
+        <surname>Muñoz</surname>
+      </author>
+      <author>
+        <firstname>Jorge</firstname>
+        <surname>Arcas</surname>
+      </author>
+      <author>
+        <firstname>Isaac</firstname>
+        <surname>Clerencia</surname>
+      </author>
+      <author>
+        <firstname>Guillermo</firstname>
+        <surname>Ontañón</surname>
+      </author>
+
+    </authorgroup>
+
+    <copyright>
+      <year>2005</year>
+      <holder>Warp Networks S.L.</holder>
+      <holder>DBS Servicios Informáticos S.L.</holder>
+    </copyright>
+
+      <legalnotice><para>This work is licensed under the Creative
+        Commons Attribution License. To view a copy of this license,
+        visit http://creativecommons.org/licenses/by/2.0/ or send a
+        letter to Creative Commons, 559 Nathan Abbott Way, Stanford,
+        California 94305, USA.</para></legalnotice>
+
+  </bookinfo>
+
+  <!-- External entity refs -->
+
+  &ch01;
+  &ch02;
+  &ch03;
+  &ch04;
+  &ch05;
+  &ch06;
+  &ch07;
+
+</book>

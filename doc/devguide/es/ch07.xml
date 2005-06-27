@@ -1,0 +1,1226 @@
+<!-- vim: ts=2 sw=2
+-->
+<chapter id="ch-examplemod">
+
+	<title>Creando un módulo simple</title>
+
+	<simplesect>
+		<para>Una vez que hemos visto como funciona eBox internamente vamos a
+		aplicar todo lo visto hasta ahora en esta guía de desarrollo creando
+		un módulo desde cero. Lo primero que debemos hacer es elegir el
+		servicio queremos integrar en eBox. Para esta pequeña guía vamos a
+		elegir el servicio de sincronización horaria ya que es uno de los
+		módulos mas sencillos que existen dentro de eBox. Gracias a este
+		servicio vamos a permitir a eBox:</para>
+		<itemizedlist> 
+			<listitem>
+				<para>Sincronizar su fecha y hora mediante un servidor NTP
+				externo.</para>
+			</listitem>
+			<listitem>
+				<para>Permitir que un cliente pueda sincronizar su fecha y hora contra
+				ella.</para>
+			</listitem>
+		</itemizedlist>
+		
+		<para>Los pasos que vamos a seguir para la creación del módulo son:</para>
+		<itemizedlist>
+			<listitem>
+				<para>Estudio del servicio y evaluación de sus características.</para>
+			</listitem>
+			<listitem>
+				<para>Crear un nuevo módulo a partir de la plantilla de módulo.</para>
+			</listitem>
+			<listitem>
+				<para>Definir e implementar la API.</para>
+			</listitem>
+			<listitem>
+				<para>Crear los CGIs y plantillas mason.</para>
+			</listitem>
+			<listitem>
+				<para>Mostrar el módulo en el menú eBox y la página Resumen.</para>
+			</listitem>
+			<listitem>
+				<para>Generar los ficheros de configuración y controlar el
+				demonio.</para>
+			</listitem>
+			<listitem>
+				<para>Establecer reglas a medida en el firewall.</para>
+			</listitem>
+		</itemizedlist>
+		
+	</simplesect>
+	
+	<section id='sect-example-define'>
+		<title>Estudio del servicio y evaluación de características</title>
+
+		<para>Para desarrollar este módulo vamos a elegir los paquetes debian
+		ntp-server para poder ofrecer sincronización horaria y ntpdate
+		para poder realizar peticiones de sincronización a servidores
+		externos.</para>
+
+		<para>Tras la elección del software a utilizar debemos realizar
+		un estudio exhaustivo del demonio implicado, sus ficheros de
+		configuración y de todos los parámetros configurables en ellos. Con
+		toda esta información seremos capaces de elegir el grado de control
+		que vamos a ofrecer al futuro usuario del módulo, tratando siempre
+		de mantener un equilibrio entre facilidad de uso y flexibilidad en la
+		configuración del servicio.</para>
+
+		<para>Para el servicio que vamos a desarrollar tan solo
+		necesitamos configurar ciertos parámetros del fichero
+		<filename>/etc/ntp.conf</filename>, que contiene la configuración del
+		demonio de ntp. De todos los posibles parámetros configurables en él,
+		a nosotros nos van a interesar controlar tan solo dos.</para>
+
+		<itemizedlist>
+			<listitem>
+        <para>Por un lado la lista de servidores ntp a los que vamos
+        a poder sincronizarnos en caso que permitamos sincronización
+        horaria externa. Esto lo podemos realizar añadiendo la siguiente
+        linea tipo tantas veces como sea necesario al fichero de
+        configuración:</para>
+
+				<programlisting> <![CDATA[ server ip_servidor_ntp ]]>
+				</programlisting>
+      </listitem>
+
+			<listitem>
+        <para>Por otro lado la posibilidad de actuar como servidor de
+        sincronización horaria a los clientes de nuestra red. Esto se
+        realiza añadiendo un atributo server, visto antes, con una
+        dirección ip como sigue:</para>
+
+				<programlisting> <![CDATA[ server 127.127.1.0 ]]> </programlisting>
+			</listitem>
+		</itemizedlist>
+
+		<para>El servicio de ntp tiene mas parámetros configurables, pero
+		hemos creido conveniente dejarlos con un valor por defecto transparente
+		para el usuario y centrarnos únicamente en aquello que, de manera
+		general, puede necesitar un futuro usuario de nuestro módulo. </para>
+
+		<para>También vamos a ofrecer la posibilidad de que el usuario pueda
+		modificar tanto la fecha y hora del sistema como su zona horaria, en
+		caso de no tenga la posibilidad de sincronizarse con servidores NTP
+		externos.</para>
+
+    <para>La modificación de la fecha y hora del sistema se puede realizar
+    facilmente mediante el comando <filename>/bin/date</filename>.</para>
+
+		<para>La modificación de la zona horaria también es sencilla.
+		El enlace simbólico <filename>/etc/localtime</filename> apunta
+		a un fichero cuyo nombre es el país de la zona a la que
+		pertenecemos. Todas zonas horarias posibles se encuentran a
+		partir del directorio <filename>/usr/share/zoneinfo/</filename>,
+		cada país se encuentra dentro de su continente por lo que
+		si nuestra zona horaria es Madrid/Europa, el fichero donde
+		<filename>/etc/localtime</filename> ha de apuntar se encuentra en
+		<filename>/usr/share/zoneinfo/Europe/Madrid</filename>. Como podemos
+		deducir la operación de cambio de zona horaria se reduce a rehacer el
+		enlace simbólico de <filename>/etc/localtime</filename>.</para>
+
+  </section>
+
+	<section id='sect-example-module-bootstrap'>
+		<title>Crear un nuevo módulo a partir de la plantilla de módulo.</title>
+
+		<para>Como hemos visto en las secciones anteriores, los módulos
+		de eBox tienen una sofisticada estructura, que puede ser tediosa
+		de crear manualmente. Por ello, dentro del directorio tools del
+		módulo ebox se proporciona una plantilla de módulo, con el nombre
+		<filename>module-template</filename>. Esta plantilla proporciona
+		el esqueleto básico para un módulo eBox y puede ser copiada para
+		facilitar la creación del nuevo módulo, modificando a continuación
+		todas las apariciones de modulename con el nombre apropiado. </para>
+
+		<para> eBox utiliza <command>autoconf</command> y
+		<command>automake</command> para la configuración e instalación
+		de módulos. Los ficheros <filename>autogen.sh</filename>,
+		<filename>configure.ac</filename> y <filename>Makefile.am</filename>
+		contienen la configuración básica de autotools para un módulo estándar
+		y se encuentran incluidos en la plantilla. La plantilla también proporciona
+		el fichero de macros <filename>m4/ebox.m4</filename>, utilizado por los
+		módulos para detectar los directorios de la instalación de eBox actual.
+		</para>
+
+		<para>Los manuales de <ulink
+		url="http://www.gnu.org/software/autoconf/manual/">
+		Autoconf</ulink> y <ulink
+		url="http://www.gnu.org/software/automake/manual/">Automake</ulink>
+		son la mejor referencia sobre las autotools.</para>
+
+  </section>
+
+	<section id='sect-example-api'>
+		<title>Definir e implementar la API</title>
+
+		<para>En este momento ya deberiamos haber adquirido un alto grado de
+		conocimiento sobre el servicio con el que vamos a trabajar, y haber
+		decidido qué vamos y qué no vamos a permitir realizar al futuro usuario
+		del mismo. Además ya tenemos la plantilla básica sobre la que empezar a
+		escribir nuestro módulo. Ahora debemos definir la API, ver que métodos
+		vamos a necesitar para que el módulo pueda obtener y establecer los
+		parámetros de configuración elegidos, asi como el manejo típico sobre
+		el demonio: arranque, parada, reinicio, etc...</para>
+
+		<para>El backend de nuestro módulo va a estar en la clase
+		<classname>EBox::NTP</classname>. Esta clase va a heredar de
+		<classname>EBox::GConfModule</classname> y contendrá todos los métodos que
+		forman el API del NTP. Este es su constructor:</para>
+
+		<example>
+			<title>Constructor de <classname>EBox::NTP</classname></title>
+			<programlisting><![CDATA[sub _create 
+{
+	my $class = shift;
+	my $self = $class->SUPER::_create(name => 'ntp', 
+						domain => 'ebox-ntp',
+						@_);
+	bless($self, $class);
+	return $self;
+}]]></programlisting>
+		</example>
+
+		<para>Tras el estudio realizado en la sección anterior podemos definir
+		los siguientes métodos en <classname>EBox::NTP</classname>, recordemos
+		que todo método privado de la clase ha de empezar por el carácter de
+		subrayado (_metodo):</para>
+
+		<itemizedlist>
+			<listitem>
+				<para>setService</para>
+			</listitem>
+			<listitem>
+				<para>service</para>
+			</listitem>
+			<listitem>
+				<para>setSynchronized</para>
+			</listitem>
+			<listitem>
+				<para>synchronized</para>
+			</listitem>
+			<listitem>
+				<para>setServers</para>
+			</listitem>
+			<listitem>
+				<para>servers</para>
+			</listitem>
+			<listitem>
+				<para>setNewData</para>
+			</listitem>
+			<listitem>
+				<para>setNewTimeZone</para>
+			</listitem>
+			<listitem>
+				<para>_restartAllServices</para>
+			</listitem>
+		</itemizedlist>
+
+		<variablelist>
+			
+			<varlistentry>
+				<term><methodname>setService</methodname></term>
+				<listitem>
+
+					<para>Este método recibe un parámetro que establecerá la
+					activación o no del servicio de sincronización horaria de
+					eBox, con él permitiremos que un cliente de nuestra red pueda
+					sincronizar su fecha y hora con eBox.</para>
+
+					<para>Veamos mas a fondo cómo esta implementado este
+					método:</para>
+					
+					<example>
+						<title>Activación del servicio de sincronización</title>
+						<programlisting><![CDATA[sub setService 
+{
+	my ($self, $active) = @_;
+	if ($active xor $self->service) {
+		$self->set_bool('active', $active);
+	}
+} ]]> </programlisting>
+					</example>
+
+					<para>En primer lugar tomamos el valor de
+					<parameter>$active</parameter> que recibimos como parámetro
+					del métod y por otro lado gracias a la llamada a
+					<methodname>$self->service</methodname> obtenemos el estado
+					del servicio de sincronización. En caso de que estos valores
+					sean diferentes pasamos a actualizar el valor del parámetro
+					<parameter>active</parameter> de la configuración del módulo en
+					gconf, mediante la llamada <methodname>$self->setbool('active',
+					$active)</methodname>.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>service</methodname></term>
+				<listitem>
+
+					<para>En este caso, el método nos retornará el estado del
+					servicio de sincronización horaria. La implementación de este
+					método es trivial, tan solo retornamos el valor del parámetro
+					<parameter>active</parameter> de la configuración del módulo
+					almacenada en gconf.</para>
+					
+					<example>
+						<title>Obtención el estado del servicio NTP</title>
+						<programlisting><![CDATA[sub service 
+{
+	my $self = shift;
+	return $self->getbool('active');
+} ]]> </programlisting>
+					</example>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>setSynchronized</methodname></term>
+				<listitem>
+
+					<para>Este método recibe un parámetro que permitirá o no
+					la posibilidad de que eBox sincronice su fecha y hora a
+					través de servidores externos NTP. Como vemos en el código
+					que tenemos a continuación es practicamente similar a la
+					implementación del método <methodname>setService</methodname>
+					salvo que esta vez almacenamos el valor del parámetro
+					<parameter>synchronized</parameter> en la configuración de
+					gconf.</para>
+
+					<example>
+						<title>Establecer el estado de la sincronización externa</title>
+						<programlisting><![CDATA[sub setSynchronized # (synchronized)
+{
+	my ($self, $synchronized) = @_;
+
+	if ($synchronized xor $self->synchronized) {
+		$self->set_bool('synchronized', $synchronized);
+	}
+} ]]> </programlisting>
+					</example>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>synchronized</methodname></term>
+				<listitem>
+
+					<para>Éste método retorna el valor del parámetro
+					<parameter>synchronized</parameter> de la configuración
+					almacenada en gconf. Su implementación es muy sencilla y similar
+					a la del método <methodname>service</methodname>.</para>
+
+					<example>
+						<title>Obtener el estado de la sincronización externa</title>
+						<programlisting><![CDATA[sub synchronized 
+{ 
+	my $self = shift;
+	return $self->getbool('synchronized');
+} ]]> </programlisting>
+					</example>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>setServers</methodname></term>
+				<listitem>
+
+					<para>Gracias a este método, vamos a poder almacenar en la
+					configuración de gconf los servidores de NTP externos que
+					el usuario introduzca en caso de que active el servicio de
+					sincronización externa. La implementación de este método
+					tiene en cuenta por un lado si ha introducido una dirección
+					ip o un nombre dns para poder comprobar su sintaxis. En caso
+					de que sea correcta, lo almacenará en gconf mediante el
+					método <methodname>set_string</methodname>. Por otro lado
+					también se ha de tener en cuenta que no vamos a permitir
+					introducir un servidor secundario de ntp si antes no se ha
+					introducido un primario, e igual para un tercero. Veamos
+					parte<footnote><para>La implementación completa de este método
+					asi como del módulo completo se puede encontrar en el repositorio
+					de subversion</para></footnote>de la implementación de
+					este método:</para>
+
+					<example>
+						<title>Establecer servidores ntp externos</title>
+						<programlisting><![CDATA[sub setServers # (server1, server2, server3) 
+{
+	my ($self, $s1, $s2, $s3) = @_;
+
+	if ($s1 =~ /^(\d{1,3}\.){3}\d{1,3}$/) {
+		checkIP($s1, __("primary server IP address"));
+		$self->set_string('server1', $s1);
+	} else {
+		checkDomainName($s1, __("primary server name "));
+		$self->set_string('server1', $s1);
+	}
+
+	if (defined($s2) and ($s2 ne "")) {
+		if ($s2 =~ /^(\d{1,3}\.){3}\d{1,3}$/) {
+			checkIP($s2, __("secondary server IP address"));
+			$self->set_string('server2', $s2);
+		} else {
+
+			...
+]]> </programlisting>
+					</example>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>servers</methodname></term>
+				<listitem>
+
+					<para>Éste método nos retorna un array con los servidores ntp
+					externos que tengamos almacenados en gconf. Su implementación es
+					como sigue:</para>
+					
+					<example>
+						<title>Obtener la lista de servidores ntp externos</title>
+						<programlisting><![CDATA[sub servers 
+{
+	my $self = shift;
+	my @servers;
+	@servers = ($self->get_string('server1'),
+		$self->get_string('server2'),
+		$self->get_string('server3'));
+
+	return @servers;
+} ]]> </programlisting>
+					</example>
+				</listitem>
+			</varlistentry>
+		
+			<varlistentry>
+				<term><methodname>setNewDate</methodname></term>
+				<listitem>
+
+					<para>Con este método vamos a ofrecer la posibilidad de
+					cambiar manualmente la fecha y hora del sistema. Veamos su
+					implementación:</para>
+					
+					<example>
+						<title>Establecer una nueva fecha y hora en el sistema</title>
+						<programlisting><![CDATA[sub setNewDate # (day, month, year, hour, minute, second)
+{
+	my ($self, $day, $month, $year, $hour, $min, $sec) = @_;
+
+	my $newdate = "$year-$month-$day $hour:$min:$sec";
+	my $command = "/bin/date --set \"$newdate\"";
+	root($command);
+
+	$self->_restartAllServices;
+} ]]> </programlisting>
+					</example>
+
+					<para>Recibimos como parámetros todos y cada uno de los datos
+					necesarios para establecer la fecha y hora el sistema: día, mes,
+					año, hora, minutos y segundos.</para>
+
+					<para>Formamos el comando completo en la variable
+					<varname>$command</varname> y realizamos una llamada al
+					método <methodname>root($command)</methodname> con el comando
+					formado. Este comando ha de ser llamado como root mediante sudo
+					y es por eso que no lo ejecutamos directamente. Mas adelante
+					veremos como podemos añadir este comando al fichero sudoers
+					mediante el método <methodname>rootCommands</methodname>.</para>
+
+					<para>Tras un cambio de hora en el sistema es necesario
+					reiniciar ciertos servicios como módulos de eBox y logs del
+					sistemar; es por ello que realizamos la llamada al método
+					<methodname>_restartAllServices</methodname> del que veremos su
+					implementación mas adelante.</para>
+
+				</listitem> 
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>setNewTimeZone</methodname></term>
+				<listitem>
+
+					<para>Al igual que podemos modificar la fecha y hora del sistema,
+					también vamos a poder cambiar la zona horaria, para ello nos
+					implementamos éste método de la siguiente manera:</para>
+
+					<example>
+						<title>Establecer una nueva zona horaria</title>
+						<programlisting><![CDATA[sub setNewTimeZone # (continent, country)
+{
+	my ($self, $continent, $country) = @_;
+
+	my $command = "ln -s /usr/share/zoneinfo/$continent/$country" .
+			" /etc/localtime";
+	$self->set_string('continent', $continent);
+	$self->set_string('country', $country);
+	root("rm /etc/localtime");
+	root($command);
+	$self->_restartAllServices;
+} ]]></programlisting>
+					</example>
+
+					<para>Vamos a recibir dos parámetros: el país y el
+					continente. Con ellos vamos a rehacer el enlace simbólico
+					de <filename>/etc/localtime</filename> para que apunte al
+					nuevo país que se nos pasa como parámetro. Por ejemplo
+					si como parámetros tenemos <literal>Dakar</literal>
+					como país, y <literal>Africa</literal> como continente,
+					<filename>/etc/localtime</filename> deberá apuntar a
+					<filename>/usr/share/zoneinfo/Africa/Dakar</filename>.</para>
+
+					<para>También almacenaremos ambos parámetros en la
+					configuración de gconf con las llamadas al método
+					<methodname>set_string</methodname>. Tras haber realizado las
+					llamadas a comandos del sistema para establecer la nueva zona
+					horaria, pasamos a reiniciar ciertos módulos eBox y sistemas de
+					logs para que se arranquen en un estado consistente y no trabajen
+					con una desviación temporal.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>_restartAllServices</methodname></term>
+				<listitem>
+
+					<para>Hay ciertas operaciones que realizan métodos del módulo
+					que pueden dejar el sistema inconsistente, porque modifican
+					la fecha y hora. Para que tanto módulos eBox como logs no se
+					enfrenten a una diferencia temporal, vamos a implementar este
+					método que reiniciara los sistemas de logs y módulos eBox que
+					ahora se lanzarán con la nueva fecha y hora del sistema. Veamos
+					como esta implementado:</para>
+
+					<example>
+						<title>Reiniciar módulos y servicios del sistema</title>
+						<programlisting> <![CDATA[sub _restartAllServices
+{
+	my $self = shift;
+	my $global = EBox::Global->getInstance();
+	my @names = grep(!/^network$/, @{$global->modNames});
+	@names = grep(!/^firewall$/, @names);
+	my $log = $global->logger;
+	my $failed = "";
+ 	$log->info("Restarting all modules");
+	
+	foreach my $name (@names) {
+		my $mod = $global->modInstance($name);
+		try {
+			$mod->restartService();
+		} catch EBox::Exceptions::Internal with {
+			$failed .= "$name ";
+		};
+	}
+	
+	if ($failed ne "") {
+		throw EBox::Exceptions::Internal("The following modules ".
+			"failed while being restarted, their state is ".
+			"unknown: $failed");
+	}
+
+	$log->info("Restarting system logs");
+	try {
+		root("/etc/init.d/sysklogd restart");
+		root("/etc/init.d/klogd restart");
+		root("/etc/init.d/cron restart");
+	} catch EBox::Exceptions::Internal with {
+	};
+} ]]> </programlisting>
+					</example>
+
+					<para>Primero obtenemos una instacia de la clase
+					<classname>EBox::Global</classname> con la que obtendremos
+					la lista de módulos instalados en eBox. Vamos a reiniciar
+					todos salvo los módulos <classname>network</classname> y
+					<classname>firewall</classname>, capturando las posibles
+					excepciones que se produzcan al reiniciar cada módulo. Tras ello
+					pasaremos a reiniciar manualmente los sistemas de log: sysklogd,
+					klogd y cron, que como requiere privilegios de root se realiza a
+					través de la función <methodname>root</methodname>.</para>
+
+				</listitem>
+			</varlistentry>
+    </variablelist>
+
+	</section>
+
+	<section id='sect-example-cgis'>
+		<title>Creando CGIs y plantillas</title>
+
+		<para>Con una API definida e implementada, es el turno de crear los
+		clientes que han de interactuar con ella: los CGIs y plantillas en
+		mason. Tal y como vimos en <xref linkend="sect-example-define"/>,
+		nuestro módulo va a poder prestar el servicio de sincronización a un
+		cliente de la red. En <xref linkend="sect-example-api"/> implementamos
+		los métodos necesarios para realizar esta habilitar o deshabilitar
+		este servicio. Ahora crearemos dos CGIs y una plantilla en mason que
+		van hacer uso de esos métodos y mostrarán información sobre el
+		estado del servicio al usuario.</para>
+
+		<para>El primer CGI es <classname>EBox::CGI::NTP::Index</classname>,
+		que hereda de la clase <classname>EBox::CGI::ClientBase</classname>
+		e implementa el constructor de la clase en el que le pasaremos:
+		el título y la plantilla en mason a utilizar. Veamos la
+		implementación:</para>
+
+		<example> 
+			<title>Constructor del CGI <classname>EBox::CGI::NTP::Index</classname>
+			</title>
+      <programlisting><![CDATA[package EBox::CGI::NTP::Index;
+
+use strict;
+use warnings;
+
+use base 'EBox::CGI::ClientBase';
+
+use EBox::Global;
+use EBox::Gettext;
+
+sub new {
+	my $class = shift;
+	my $self = $class->SUPER::new('title'    => NTP,
+			'template' => 'ntp/index.mas', @_);
+
+	$self->{domain} = "ebox-ntp";
+	bless($self, $class);
+	return $self;
+} ]]> </programlisting>
+		</example>
+
+		<para>Fijémonos en un detalle interesante, la cadena
+		<parameter>title</parameter> de este CGI no es traducible
+		y es por ello que no seguimos las indicaciones de <xref
+		linkend="sect-i18n-developers"/> acerca del uso de cadenas en el
+		desarrollo de módulos. En el caso de que el título de alguno de
+		nuestros CGIs fuera traducible, sí deberiamos seguir las indicaciones
+		de <xref linkend="sect-i18n"/>.</para>
+
+		<para>Pasemos ahora a implementar el método
+		<methodname>_process</methodname> que va a obtener la información sobre
+		el estado del servicio de sincronización del módulo y se la va a pasar
+		a la plantilla en mason para que la muestre.</para>
+
+		<example>
+			<title>Envío del estado del servicio a la plantilla mason</title>
+			<programlisting><![CDATA[sub _process
+{
+   my $self = shift;
+   my $ntp = EBox::Global->modInstance('ntp');
+
+   my @array = ();
+   my $active = 'no';
+
+   if ($ntp->service()) {
+      $active = 'yes';
+   }
+
+   push (@array, 'active'     => $active);
+   $self->{params} = \@array;
+}]]></programlisting>
+		</example>
+
+		<para>Como podemos ver, lo primero que hacemos es pedir a
+		<classname>EBox::Global</classname> una instancia de nuestro
+		módulo ntp, sobre el que realizaremos una llamada al método
+		<methodname>service</methodname>. Esta llamada nos retorna el
+		estado del servicio y se lo pasamos a plantilla mason mediante
+		el atributo <structfield>param</structfield>. En este caso solo
+		vamos a necesitar pasarle un dato a la plantilla, pero si
+		necesitáramos pasarle mas datos bastaría con añadirlos a la variable
+		<varname>array</varname>.</para>
+
+		<para>Acabamos de implementar el CGI con el que pasamos el estado
+		del servicio de sincronización a la plantilla en mason. Pasemos a
+		implementar el CGI que le complementa, que recibe el estado que el
+		usuario ha seleccionado y se lo pasa al módulo.</para>
+
+		<example>
+			<title>CGI que habilita o deshabilita el servicio NTP</title>
+			<programlisting><![CDATA[package EBox::CGI::NTP::Enable;
+
+use strict;
+use warnings;
+
+use base 'EBox::CGI::ClientBase';
+
+use EBox::Global;
+use EBox::Gettext;
+
+sub new 
+{
+	my $class = shift;
+	my $self = $class->SUPER::new('title' => 'NTP', @_);
+	$self->{redirect} = "NTP/Index";
+	$self->{domain} = "ebox-ntp";
+	bless($self, $class);
+
+	return $self;
+}
+
+sub _process
+{
+	my $self = shift;
+	my $ntp= EBox::Global->modInstance('ntp');
+
+	$self->_requireParam('active', __('module status'));
+	$ntp->setService(($self->param('active') eq 'yes'));
+}
+
+1; ]]> </programlisting>
+		</example>
+
+		<para>Vemos que la implementación es muy sencilla, tan solo tenemos
+		que tener en cuenta dos detalles.</para>
+
+		<para>Por un lado que en el constructor establecemos el
+		atributo <structfield>redirect</structfield> con el valor de
+		<classname>NTP/Index</classname> para que cuando establezcamos el nuevo
+		estado del servicio, se llame de nuevo a ese CGI para actualizar el
+		valor del estado del servicio que se muestra al usuario.</para>
+
+		<para>El otro detalle que debemos fijarnos es la llamada a
+		<methodname>setService</methodname> en la que recogemos el parámetro
+		<parameter>active</parameter> de la petición HTTP mediante la llamada
+		<methodname>$self->param('active')</methodname>.</para>
+
+		<para>Vamos a implementar ahora la plantilla mason que nos permite
+		mostrar al usuario el estado del servicio de sincronización y
+		modificarlo. Este es un caso un tanto especial, casi todos los
+		módulos que se desarrollen para eBox van a necesitar habilitar e
+		deshabilitar el servicio. Para que en todos ellos se haga de una
+		manera similar se implementó en el sistema base la plantilla
+		<filename>enable.mas</filename>.</para>
+
+		<para>La manera de utilizarla es sencilla, nos creamos una plantilla
+		que recibe como parámetro el estado del servicio. Tal y como se
+		explicó en <xref linkend="sect-mason"/> podemos incluir una plantilla
+		mason dentro de otra plantilla mediante: <programlisting><![CDATA[
+		<& plantilla.mas, @parametros &> ]]></programlisting>. Nosotros
+		incluiremos la plantilla <filename>enable.mas</filename> en la que
+		nos estamos implementando y le pasaremos como parámetros el título
+		y el estado del servicio de sincronización. Veamos como quedaría su
+		implementación:</para>
+
+    <example> 
+			<title>Plantilla mason para habilitar el servicio NTP</title> 
+			<programlisting><![CDATA[<%args> $active </%args>
+<%init> use EBox::Gettext; </%init>
+
+<div class='ntpnew'>
+<br />
+<& enable.mas, title => __('Enable the local NTP server'),
+		active => $active &>
+</div>
+]]></programlisting>
+		</example>
+
+		<para>Sin embargo este sistema nos obliga a que el CGI que se
+		encargue de habilitar o deshabilitar el servicio se ha de llamar
+		<classname>Enable</classname> ya que quien realiza la llamada a este
+		CGI no es nuestra plantilla mason, si no la plantilla mason predefinida
+		<filename>enable.mas</filename>. Si echamos otro vistazo al CGI que
+		realiza esta operación, vemos que hemos llamado a la clase como
+		<classname>EBox::CGI::NTP::Enable</classname> con lo que cumplimos este
+		requerimiento.</para>
+
+		<para>En este momento nos queda por ver como estan implementados los
+		CGIs para cambiar la fecha y hora del sistema de manera manual, cambio
+		de la zona horaria y el establecimiento del servicio de sincronización
+		mediante servidores externos junto con sus plantillas en mason. La
+		implementación de estos CGIs y plantillas es bastante sencilla, para
+		ver el código puede ir al repositorio de subversion y descargarlo
+		libremente. El lector podrá realizar una lectura del código sin
+		problemas asi que no entraremos a explicar el código en profundidad y
+		simplemente explicaremos cómo estan relacionados y que es lo que hace
+		cada uno de los ficheros.</para>
+
+		<para>Tenemos dos partes bien diferenciadas, por un lado vamos
+		a poder cambiar la zona horaria del sistema cuya gestión la
+		realizaremos mediante dos CGIs.</para>
+		
+		<itemizedlist>
+			<listitem>
+				<para><filename>Timezone</filename> que será el
+				encargado de mandar información a la plantilla en mason
+				(<filename>timezone.mas</filename>).</para>
+			</listitem>
+			<listitem>
+				<para><filename>ChangeTimeZone</filename> con el que recogeremos
+				la nueva zona horaria y la estableceremos mediante el método
+				<methodname>SetNewTimeZone</methodname>. </para>
+			</listitem>
+		</itemizedlist>
+
+		<para>Tan solo quedaría comentar un pequeño detalle del CGI
+		<filename>TimeZone</filename>r. En él mandamos a la plantilla en
+		mason los valores de continente y país que tiene el sistema en ese
+		momento y por otro lado le mandamos un array con todos los continentes
+		posibles y una tabla hash en la que se relacionan cada uno de los
+		continentes anteriores con un array con los paises que pertenecen a ese
+		continente. Toda esta información nos está accesible en el fichero
+		<filename>/usr/share/zoneinfo/zone.tab</filename>.</para>
+
+		<para>La otra parte es el cambio de fecha y hora del sistema, que
+		bien lo podremos realizar manualmente o sincronizándonos a través
+		de servidores ntp externos. La implementación de estas opciones va a
+		ser excluyente. Vamos a tener el CGI <filename>Datetime</filename>,
+		cuya misión va a ser enviar toda información acerca de la fecha y
+		hora actual del sistema, el estado del servicio de sincronización
+		externa y los servidores ntp externos almacenados en la configuración
+		interna de gconf. Para establecer los nuevos valores que el usuario
+		haya elegido vamos a tener dos CGIs: <filename>Synch</filename> cuyo
+		trabajo será habilitar el servicio de sincronización externa y
+		<filename>ChangeDate</filename> que como podemos adivinar establecera
+		la nueva fecha y hora del sistema.</para>
+
+		<para>Hemos dicho antes que la opción de establecer la fecha y hora de
+		manera manual o mediante sincronización externa son excluyentes, tarea
+		realizada mediante las plantillas en mason. Veamos como implementarlo.
+		Por un lado tenemos la plantilla <filename>datetime.mas</filename>
+		que recibe toda información del CGI <filename>Datetime</filename>,
+		carga la plantilla mason <filename>synch.mas</filename> que ofrece
+		la posibilidad de arrancar o no el servicio de sincronización
+		externa y, dependiendo de si esta activado o no, mostrará la
+		plantilla de selección de servidores ntp externos a los que
+		sincronizarse(<filename>servers.mas</filename>) o permitirá cambiar
+		manualmente la fecha y hora del sistema mediante otra plantilla
+		(<filename>date.mas</filename>) si el servicio de sincronización
+		externa esta habilitado.</para>
+
+		<example>
+			<title>Código de plantilla mason de selección de plantillas</title>
+			<programlisting><![CDATA[<& /ntp/synch.mas, title => __('Synchronize with external NTP servers'),
+synchronized => $synchronized &>
+
+% if ($synchronized eq 'yes') {
+<& /ntp/servers.mas, title => __('External NTP servers'), servers => \@servers
+&>
+% }
+
+% if ($synchronized eq 'no') {
+<& /ntp/date.mas, title => __('Change Date and Time'), date => \@date &>
+% }]]></programlisting>
+		</example>
+
+		<para>Las plantillas <filename>synch.mas</filename>,
+		<filename>server.mas</filename> y <filename>date.mas</filename>
+		simplemente muestran la información que desde la plantilla
+		<filename>datetime.mas</filename> se les manda.</para>
+
+  </section>
+
+	<section id='sect-example-menu'>
+		<title>Mostrando el módulo en el menú y la página Resumen</title>
+
+		<para>Nos encontramos en los pasos finales para completar nuestro
+		módulo, ahora vamos a añadir una seccion de eBox al menú desde el cual
+		podremos acceder a las diferentes partes configurables del módulo e
+		insertar información acerca del servicio en la página Resumen.</para>
+
+		<para>Para insertar una nueva sección en el menú simplemente
+		tendremos que implementar el método <methodname>menu</methodname>
+		dentro de la clase del módulo que nos estemos implementando. En él
+		que recibimos una instancia de <classname>EBox::Menu::Root</classname>
+		a la que añadiremos la nueva sección ntp y las subsecciones: Servidor
+		NTP, Fecha/Hora y Zona Horaria. Veamos como esta implementado este
+		método:</para>
+
+		<example>
+			<title>Añadiendo entradas al menú eBox</title>
+			<programlisting><![CDATA[sub menu
+{
+	my ($self, $root) = @_;
+	my $folder = new EBox::Menu::Folder('name' => 'NTP',
+			'text' => __('NTP'));
+
+	$folder->add(new EBox::Menu::Item('url' => 'NTP/Index',
+			'text' => __('NTP server')));
+	$folder->add(new EBox::Menu::Item('url' => 'NTP/Datetime',
+			'text' => __('Date/time')));
+	$folder->add(new EBox::Menu::Item('url' => 'NTP/Timezone',
+			'text' => __('Time zone')));
+	$root->add($folder);
+}]]></programlisting>
+		</example>
+
+		<para>Como vimos en <xref linkend="sect-menu"/>, para crearnos una
+		nueva sección en el menú deberemos crearnos una instancia de la clase
+		<classname>EBox::Menu::Folder</classname> a la que le pasamos el nombre
+		que deseamos que tenga.</para>
+
+    <para>Después simplemente le añadiremos instancias de la clase
+    <classname>EBox::Menu::Item</classname> a las que además de pasarles
+    el nombre que deseemos que tengan, tenemos que indicar la URL (como
+    vimos en <xref linkend="sect-cgi"/> solo es necesario pasar NTP/Index)
+    del CGI a ejecutar en cuanto el usuario trate de acceder a la
+    subsección indicada.</para>
+
+		<para>El módulo NTP no va a tener su propia sección en la página
+		"Summary", ya que no hay mucha información que mostrar. Sólamente
+		vamos a añadir una entrada en la tabla de la parte de arriba de la
+		página que informa sobre el estado de cada servicio. Para ello vamos
+		a implementar el método <methodname>statusSummary</methodname> en la
+		clase <classname>EBox::NTP</classname>:</para>
+
+		<example>
+			<title><methodname>statusSummary</methodname> en
+			<classname>EBox::NTP</classname></title>
+
+			<programlisting><![CDATA[sub statusSummary
+{
+	my $self = shift;
+	return new EBox::Summary::Status('ntp', __('NTP local server'),
+					$self->isRunning, $self->service);
+}]]></programlisting>
+		</example>
+
+
+  </section>
+
+	<section id='sect-example-daemon'>
+		<title>Generando los ficheros de configuración y controlando el
+		demonio.</title>
+
+		<para>Veamos como usar las plantillas mason para generar los
+		ficheros de configuración de nuestro módulo ntp. Cuando
+		estudiamos el servicio que ibamos a implementar vimos que todo el
+		trabajo del demonio ntp se basa en el fichero de configuración
+		<filename>/etc/ntp.conf</filename>. Usaremos el mismo sistema que
+		genera HTML para generar este fichero.</para>
+
+		<para>Esta parte del módulo pertenece al backend, por lo que
+		todos los métodos necesarios para implementarla se incluirán en
+		<classname>EBox::NTP</classname>.</para>
+
+		<para>Lo primero que debemos hacer es implementar un método privado
+		en nuestro módulo, que llamamos <methodname>_setNTPConf</methodname>,
+		y será llamado cada vez que sea necesario generar el fichero de
+		configuración del demonio. Su implementación es la siguiente:</para>
+
+		<example>
+			<title>Generar el fichero de configuración 
+			<filename>/etc/ntp.conf</filename></title>
+			<programlisting><![CDATA[sub _setNTPConf
+{
+	my $self = shift;
+	my @array = ();
+	my @servers = $self->servers;
+	my $synch = 'no';
+	my $active = 'no';
+
+	($self->synchronized) and $synch = 'yes';
+	($self->service) and $active = 'yes';
+
+	push(@array, 'active'   => $active);
+	push(@array, 'synchronized'  => $synch);
+	push(@array, 'servers'  => \@servers);
+
+	$self->writeConfFile(NTPCONFFILE, "ntp/ntp.conf.mas", \@array);
+}]]></programlisting>
+		</example>
+		
+		<para>Como podemos ver su implementación es sencilla, simplemente
+		añadimos a la variable <varname>array</varname> los parámetros que
+		queremos pasar a la plantilla mason, en nuestro caso le pasamos el
+		parámetro <parameter>active</parameter> que indicará si el servicio
+		de sincronización a clientes de nuestra red esta activo o no, el
+		parámetro <parameter>synchronized</parameter> que indicará si esta
+		activado el servicio de sincronización externa y un último parámetro
+		<parameter>servers</parameter> que es un array con la lista de
+		servidores externos a los que podemos tratar de sincronizarnos. Por
+		último, llamamos al método <methodname>writeConfFile</methodname> que
+		se encargará de generar el fichero de configuración con los permisos
+		adecuados y al que le pasamos como parámetros:</para>
+
+		<itemizedlist>
+			<listitem>
+				<para>La ruta completa donde se encuentra el fichero de
+				configuración final del servicio. En nuestro caso usamos la
+				constante <constant>NTPCONFFILE</constant> que debemos tener
+				definida anteriormente en las cabeceras de nuestro módulo de la
+				siguiente manera: </para>
+<programlisting><![CDATA[use constant NTPCONFFILE => "/etc/ntp.conf";]]></programlisting>
+			</listitem>
+			<listitem>
+				<para>La ruta donde se encuentra la plantilla mason a
+				utilizar.</para>
+			</listitem>
+			<listitem>
+				<para>Un array con los parámetros que deseamos pasarle a la anterior
+				plantilla.</para>
+			</listitem>
+		</itemizedlist>
+
+		<para>Veamos ahora como implementar la plantilla. Hay ciertos
+		parámetros del fichero de configuración que hemos creido conveniente
+		dejar con un valor preestablecido ya que así lo decidimos en la fase
+		de estudio del servicio. Por lo demás la implementación se realiza de
+		la misma manera que cuando generamos las plantillas mason HTML.</para>
+
+		<example>
+			<title>Plantilla mason para generar el fichero 
+			<filename>/etc/ntp.conf</filename></title>
+			<programlisting><![CDATA[<%args>
+	$active
+	$synchronized
+	@servers
+</%args>
+# /etc/ntp.conf, configuration for ntpd
+# Generated by EBox
+
+driftfile /var/lib/ntp/ntp.drift
+statsdir /var/log/ntpstats/
+
+% if ($synchronized eq 'yes') {
+%       if ($servers[0]) {
+server <% $servers[0] %>
+%       }
+%       if ($servers[1]) {
+server <% $servers[1] %>
+%       }
+%       if ($servers[2]) {
+server <% $servers[2] %>
+%       }
+% }
+% if ($active eq 'yes') {
+server 127.127.1.0
+% }
+fudge 127.127.1.0 stratum 13
+
+restrict default kod notrap nomodify nopeer noquery
+
+restrict 127.0.0.1 nomodify]]></programlisting>
+		</example>
+
+		<para>Ya tan solo nos queda ver cómo controlar el demonio del
+		servicio. Debemos implementar varios métodos, el primero de ellos el
+		método abstracto de la clase base <classname>Ebox::Module</classname>
+		<methodname>_regenConfig</methodname>, llamado cuando se
+		relanzan los servicios eBox o cuando se salvan datos del
+		módulo. Su función generar los ficheros de configuración y
+		es por ello que ha de realizar una llamada al método visto
+		anteriormente <methodname>_setNTPConf</methodname>. Veamos como esta
+		implementado:</para>
+
+		<example>
+			<title>Método <methodname>_regenConfig</methodname></title>
+			<programlisting><![CDATA[sub _regenConfig
+{
+	my $self = shift;
+
+	$self->_setNTPConf;
+	$self->_doDaemon();
+}]]></programlisting>
+		</example>
+
+		<para>Junto con la llamada al método que genera el fichero
+		de configuración, realizamos una llamada al método
+		<methodname>_doDaemon</methodname>. Éste y los métodos:
+		<methodname>_daemon</methodname>, <methodname>_stopService</methodname>
+		y <methodname>isRunning</methodname> realizarán todo el control sobre
+		el demonio. Veamos uno a uno cómo estan implementados, empezando por
+		<methodname>_doDaemon</methodname>:</para>
+
+		<example>
+			<title>Método para la gestión del demonio</title>
+			<programlisting><![CDATA[sub _doDaemon
+{
+	my $self = shift;
+	my $logger = EBox::Global->logger;
+
+	if (($self->service or $self->synchronized) and $self->isRunning) {
+		$self->_daemon('stop');
+		sleep 2;
+		if ($self->synchronized) {
+			my $exserver = $self->get_string('server1');
+			try {
+				root("/usr/sbin/ntpdate $exserver");
+			} catch EBox::Exceptions::Internal with {
+				$logger->info("Error, ntpdate could" .
+						" not be started.");
+			};
+		}
+		$self->_daemon('start');
+	} elsif ($self->service or $self->synchronized) {
+		if ($self->synchronized) {
+			my $exserver = $self->get_string('server1');
+			try {
+				root("/usr/sbin/ntpdate $exserver");
+			} catch EBox::Exceptions::Internal with {
+				$logger->info("Error ntpdate could" .
+						" not be started.");
+			};
+		}
+		$self->_daemon('start');
+	} elsif ($self->isRunning) {
+		$self->_daemon('stop');
+		if ($self->synchronized) {
+			$self->_daemon('start');
+		}
+	}
+}]]></programlisting>
+		</example>
+
+		<para>Este método será llamado para:</para>
+		
+		<itemizedlist>
+			<listitem>
+				<para>Lanzar el servicio porque estaba parado.</para>
+			</listitem>
+			<listitem>
+				<para>Relanzarlo en caso de que ya estubiera lanzado.</para>
+			</listitem>
+			<listitem>
+				<para>Pararlo.</para>
+			</listitem>
+		</itemizedlist>
+
+		<para>Según el caso en que nos encontremos realizaremos
+		llamadas al método <methodname>_daemon</methodname>, cuya
+		implementación veremos a continuación, con la acción que
+		queramos realizar: start o stop. Lo único que debemos tener
+		en cuenta es que si el servicio de sincronización mediante
+		servidores externos esta activado, debemos tratar de sincronizarnos
+		con el primero de los servidores ntp mediante el comando
+		<command>/usr/sbin/ntpdate</command>, antes de arrancar el servicio con
+		la llamada a <methodname>$self->_daemon('start')</methodname> esta es
+		una práctica recomendada antes de lanzar un demonio de ntp.</para>
+
+		<para>Veamos ahora el método <methodname>_daemon</methodname>,
+		encargado de trabajar directamente con el demonio y lanzarlo,
+		pararlo o relanzarlo según la cadena que recibimos como parámetro. Su
+		implementación es muy sencilla:</para>
+
+		<example>
+			<title>Comandos para arrancar y parar el demonio ntp.</title>
+			<programlisting><![CDATA[sub _daemon # (action)
+{
+	my ($self, $action) = @_;
+
+	if ( $action eq 'start') {
+		root("start-stop-daemon --start --quiet --pidfile" .
+			" /var/run/ntpd.pid --exec /usr/sbin/ntpd " .
+			" -- -g -p /var/run/ntpd.pid");
+	} elsif ( $action eq 'stop') {
+		root("start-stop-daemon --stop --quiet --pidfile" .
+			" /var/run/ntpd.pid");
+	} elsif ( $action eq 'force-reload') {
+		root("start-stop-daemon --stop --quiet --pidfile"
+			" /var/run/ntpd.pid");
+		sleep 2;
+		root("start-stop-daemon --start --quiet --exec /usr/sbin/ntpd -- -g -p /var/run/ntpd.pid");
+	} else {
+		throw EBox::Exceptions::Internal("Bad argument: $action");
+	}
+}]]></programlisting>
+		</example>
+
+		<para>Por último nos queda por ver cómo dos métodos, por un lado el
+		método abstracto de la clase base <classname>EBox::Module</classname>
+		<methodname>_stopService</methodname> que simplemente parará el
+		servicio, y el método <methodname>isRunning</methodname> que nos dirá
+		si el servicio esta en ejecución o no a través de su identificador de
+		proceso o PID.</para>
+
+		<example>
+			<title>Método <methodname>_stopService</methodname>.</title>
+			<programlisting><![CDATA[sub _stopService
+{
+	my $self = shift;
+
+	if ($self->isRunning) {
+		$self->_daemon('stop');
+	}
+}
+]]> </programlisting>
+		</example>
+
+		<example>
+			<title>Método para saber si el servicio esta ejecutándose.</title>
+			<programlisting><![CDATA[sub isRunning
+{
+	my $self = shift;
+	return $self->pidFileRunning(PIDFILE);
+}
+]]> </programlisting>
+		</example>
+  </section>
+
+	<section id='sect-example-firewall'>
+		<title>Estableciendo reglas a medida al firewall</title>
+
+		<para>El último paso en la creación de nuestro módulo es
+		establecer las reglas necesarias al firewall para que permita que
+		el servicio pueda funcionar correctamente. En nuestro caso debemos
+		de poder realizar conexiones al puerto udp 123 de un servidor ntp
+		externo, en caso de que el servicio de sincronización externa
+		este activado. Que un cliente se conecte al puerto udp 123 de eBox
+		en caso de que el servicio de sincronización a clientes de la
+		red este activado. Para ello nos creamos un método en la clase
+		del módulo que nos estamos implementando, al que hemos llamado
+		<methodname>_configureFirewall</methodname>, al cual llamaremos cuando
+		sea necesario. Veamos su implementación:</para>
+
+		<example>
+			<title>Configuracóon del firewall</title>
+			<programlisting><![CDATA[sub _configureFirewall
+{
+	my $self = shift;
+	my $fw = EBox::Global->modInstance('firewall');
+
+	if ($self->synchronized) {
+		$fw->addOutputRule('udp', 123);
+	} else {
+		$fw->removeOutputRule('udp', 123);
+	}
+
+	if ($self->service and (!defined($fw->service('ntp')))) {
+		$fw->addService('ntp', 'udp', 123, 0);
+		$fw->setObjectService('_global', 'ntp', 'allow');
+	} elsif ( !($self->service) and defined($fw->service('ntp')) ) {
+		$fw->removeService('ntp');
+	}
+}]]></programlisting>
+		</example>
+
+		<para>Como vemos el módulo firewall de eBox nos
+		simplifica mucho el trabajo de añadir nuevas reglas de
+		entrada o salida al firewall. Lo primero que hacemos es
+		obtener una instancia del módulo firewall a través de
+		<methodname>EBox::Global->modInstance('firewall')</methodname>.
+		Después dependiendo de si el servicio de sincronización
+		externa esta activado añadiremos o eliminaremos la regla
+		de salida al puerto udp 123 de eBox mediante las llamadas
+		a los métodos: <methodname>addOutputRule</methodname> o
+		<methodname>removeOutputRule</methodname> del módulo firewall.</para>
+
+		<para>Para el servicio de sincronización a clientes de la red, el
+		módulo firewall nos ofrece otros sencillos métodos. Por un lado
+		deberemos añadir el servicio ntp al firewall mediante la llamada a
+		<methodname>addService('ntp', 'udp', 123, 0)</methodname> y después
+		mediante la llamada a <methodname>setObjectService</methodname>
+		estableceremos la politica sobre el objeto recien creado que en nuestro
+		caso va a ser permitir el acceso. En caso de que el servicio de
+		permitir sincronización a clientes de la red este desactivado, podemos
+		quitar el servicio ntp del firewall fácilmente mediante la llamada a
+		<methodname>removeService</methodname>.</para>
+
+  </section>
+	
+	<section id='sect-example-conclusion'>
+		<title>Finalizando</title>
+
+		<para>Y por fin hemos acabado, hemos visto como crear un módulo de eBox
+		desde cero, los pasos qué hemos de seguir y qué cosas debemos tener en
+		cuenta. Ahora es turno de probar el módulo y someterlo a diferentes
+		pruebas para comprobar que funciona como esperamos. Esperamos que este
+		documento te haya servido de ayuda y te anime a contribuir a que eBox
+		crezca y ofrezca nuevos módulos y posibilidades a sus usuarios.</para>
+
+	</section>
+
+</chapter>

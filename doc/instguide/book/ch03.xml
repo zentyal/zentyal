@@ -1,0 +1,404 @@
+<!-- vim: ts=2 sw=2 tw=75
+-->
+<chapter id='ch-source'>
+
+	<title>Installing eBox from source</title>
+	<tip>
+	<para>Before installing eBox from source you should be aware that the
+	preferred installation method are the provided Debian packages, which
+	have a much easier installation process.</para>
+	</tip>
+
+	<para>eBox is composed of a framework and modules using it. Before
+	installing any module you need to install the packages providing the
+	framework, namely libebox and ebox.</para>
+
+	<para>Once you have installed those packages you should be able to
+	install new modules. Anyway you should take into account that some
+	modules may depend on another ones and you should install them in the
+	right order </para>
+
+	<para>The new modules will be able to detect the paths used by the
+	framework and will install themselves in the right place. </para>
+
+	<section id='getting-source'>
+
+		<title>Getting the sources</title>
+
+		<para>
+		The first thing needed to install eBox from sources is obviously the
+		source itself. You can get it from <ulink
+		url="http://projects.warp.es/ebox/"/>.
+		</para>
+
+		<para>You should get at least the core packages (libebox and ebox),
+		the basic modules (objects, network and firewall) and then your desired
+		module selection.</para>
+
+		<para>
+		Once we have the gzipped tar files of the latest eBox version we should
+		be able to start installing them. To extract the contents of a tarball
+		you just need to run:
+		<screen>	
+		tar zxvf ebox-&lt;module&gt;-&lt;version&gt;.tar.gz
+		</screen>
+		</para>
+
+	</section>
+
+	<section id='installing-source'>
+
+		<title>Installing from source</title>
+
+		<note>
+		<para>
+		During the next sections will appear some commands that you should run,
+		the ones preceded by $ should be run as a normal user and the ones
+		preceded by # must be run as root.
+		</para>
+		</note>
+
+		<section id='installing-basic-ebox'>
+
+			<title>Installing a basic eBox: firewall and proxy</title>
+
+			<para>Now we will proceed to install a basic eBox with firewall and
+			proxy capabilities. To achieve this we should install the firewall and
+			squid modules and every other module required by them. To get a list of
+			dependencies for a given module you can check the INSTALL file provided
+			in the tarball.</para>
+
+			<section id='installing-libebox'>
+				<title>Installing libebox</title>
+				<para>libebox contains some code shared by eBox client and eBox server
+				and should always be the first package installed. Before installing it
+				we should install every dependency that appears in the INSTALL file. We
+				can install the packages easily using apt-get:
+				<screen>
+				# apt-get install perl perl-modules sudo
+				# apt-get install liblog-dispatch-perl liblog-log4perl-perl
+				# apt-get install liblocale-gettext-perl libnet-ip-perl liberror-perl
+				# apt-get install libdevel-stacktrace-perl libhtml-mason-perl gettext
+				</screen>
+				</para>
+
+				<para>The next step is to run the script configure to have it detect
+				if everything is correctly installed and where should it install eBox.
+				configure accepts several arguments to change its behaviour, for
+				example, we will provide the localstatedir parameter to install
+				variable data in a non-default directory:
+				<screen>
+				$ ./configure --localstatedir=/var/
+				</screen>
+				</para>
+
+				<para>
+				Once we have run configure we are ready to install libebox by running
+				as root:
+				<screen>
+				# make install
+				</screen>
+				</para>
+				<para>
+				You can check if everything is working correctly by trying to run
+				this command:
+				<screen>
+				$ perl -MEBox -e 'print EBox::Config->version'
+				</screen>
+				If it prints the eBox version then you're in the right way.
+				</para>
+			</section>
+
+			<section id='installing-ebox-base'>
+
+				<title>Installing eBox base</title>
+
+				<para>eBox base (or just ebox) is the module that contains the
+				framework to build eBox modules upon it and the one with the longer
+				installation process. As usual we will check the INSTALL file for
+				required software and will install it using apt-get:
+				<screen>
+				# apt-get install apache-perl libapache-mod-perl libapache-mod-ssl
+				# apt-get install libapache-authcookie-perl libapache-singleton-perl
+				# apt-get install libsys-cpu-perl libsys-cpuload-perl
+				# apt-get install libgnome2-gconf-perl libproc-process-perl
+				</screen>
+				</para>
+
+				<para>
+				Once we have installed every requisite we can proceed to run the
+				<command>configure</command> script, it will autodetect Apache and
+				libebox, and then running <command>make install</command> will put
+				everything in the right place:
+				<screen>
+				$ ./configure
+				# make install
+				</screen>
+				</para>
+
+				<para>From now on we will consider <filename>/var/lib/ebox</filename>
+				the home directory of ebox, if you haven't used --localstatedir=/var
+				in libebox configure, you should replace every
+				<filename>/var/lib/ebox</filename> appearance with the output of:
+				<screen>
+				$ echo $(perl -MEBox -e 'print EBox::Config->var')/lib/ebox
+				</screen>
+				</para>
+
+				<para>
+				eBox needs unprivileged user and group in your system to run safely, so we
+				will create the ebox user and group now. The home for the user will be
+				/var/lib/ebox:
+				<screen>
+				# addgroup --system ebox
+				# adduser --system --home /var/lib/ebox/ --no-create-home \
+					 --disabled-password --ingroup ebox ebox 
+				</screen>
+				</para>	
+
+				<para>eBox needs several directories inside its home to work properly,
+				we will create a <filename>log</filename> directory to hold the eBox
+				logs, a <filename>tmp</filename> to store temporary files and a
+				<filename>gconf</filename> directory to store gconf data:
+				<screen>
+				# mkdir /var/lib/ebox/tmp
+				# mkdir /var/lib/ebox/log
+				# mkdir /var/lib/ebox/gconf
+				</screen>
+				</para>
+
+				<para>gconf needs a <filename>.gconf.path</filename> file to know where
+				should it store preferences for the ebox users. You must copy this file
+				from the <filename>conf</filename> directory in the ebox sources:
+				<screen>
+				# cp conf/.gconf.path /var/lib/ebox
+				</screen>
+				</para>
+				
+				<para>
+				Now we should change the owner of the /var/lib/ebox directory to the
+				ebox user, including every subdirectory:
+				<screen>
+				# chown -R ebox.ebox /var/lib/ebox/
+				</screen>
+				</para>
+
+				<para>
+				eBox uses sudo to grant the ebox user the rights to run some commands under
+				a privileged account, every module includes the commands that it needs
+				to run as root. The <command>ebox-sudoers</command> can gather that
+				commands from the currently installed modules and generate a correct
+				sudoers file. Basically, every time you install a new eBox module you
+				need to update it like this:
+				<screen>
+				# ebox-sudoers > /etc/sudoers
+				</screen>
+				Note that this will overwrite your <filename>/etc/sudoers</filename>
+				file, so make a backup if you want to keep it safe.
+				</para>
+
+				<para>
+				Usually eBox takes control of every service it provides, including
+				starting and stopping it, so the general rule is that you need to
+				remove the links from /etc/rc2.d to avoid the services being started on
+				system launch. The eBox base module manages apache-perl, so we will
+				remove the links from the rc.d directories. The safer way to do this
+				is:
+				<screen>
+				# update-rc.d -f apache-perl remove
+				</screen>
+				as it will work for both sysv-rc and file-rc init systems.
+				</para>
+
+				<para>
+				Now we should make sure that ebox is run on startup, a ebox init
+				script is provided in the tools directory in the sources, we just need
+				to copy it to <filename>/etc/init.d</filename> and run update-rc.d:
+				<screen>
+				# cp tools/ebox /etc/init.d
+				# update-rc.d ebox defaults 99
+				</screen>
+				</para>
+
+				<para>
+				To start eBox immediately you can now run:
+				<screen>
+				# /etc/init.d/ebox start
+				</screen>
+				Once eBox is launched you should be able to access the administration
+				interface at https://&lt;ip address&gt;/, it should like this:
+				<figure><title>eBox login page</title>
+				<graphic fileref="images/ebox.png"/>
+				</figure>
+				</para>
+
+				<para>The default password is 'ebox'. It may be changed in the general
+				configuration page. If everything works correctly you should see
+				the eBox summary page:
+				<figure><title>eBox summary page</title>
+				<graphic fileref="images/ebox-base.png"/>
+				</figure>
+				As you will notice eBox is quite useless without installed modules so
+				we will quickly move to the next section to install more modules that
+				provide it nice features.
+				</para>
+
+			</section>
+
+			<section id='installing-basic-modules'>
+				<title>Installing eBox basic modules: network, objects and firewall</title>
+				<para>
+				There are three modules that are required by almost every other eBox
+				module, they are objects, network and firewall.
+				</para>
+
+				<para>
+				As usual, the first step is to install the required Debian packages:
+				<screen>
+				# apt-get install dhcp3-client iproute vlan     # network module
+				# apt-get install iptables                      # firewall module
+				</screen>
+				You should note that there are also requirements for the Linux kernel
+				installed in the machine, it should have VLAN (for network module) and
+				Netfilter (for firewall module) support (either built-in or with modules).
+				</para>
+
+				<para>
+				Once the prerequisites have been installed you just need to run
+				<screen>
+				$ ./configure
+				# make install
+				</screen>
+				for each module. The firewall module should be the last as it depends
+				on both objects and network module. The network module can import the
+				current network configuration stored in
+				<filename>/etc/network/interfaces</filename> and
+				<filename>/etc/resolv.conf</filename>. To do it you just need to run
+				the <command>ebox-netcfg-import</command> command.
+				</para>
+
+				<para>
+				Just to be sure that eBox gets the correct list of modules from gconf,
+				you should kill every running gconfd instance:
+				<screen>
+				# pkill gconf
+				</screen>
+				After this you can safely run ebox-sudoers to overwrite the old
+				sudoers file:
+				<screen>
+				# ebox-sudoers > /etc/sudoers
+				</screen>
+				</para>
+
+				<para>If you point your browser to the eBox administrative
+				interface again the new modules should appear there:
+				<figure><title>eBox with the basic modules installed</title>
+				<graphic fileref="images/ebox-basic-modules.png"/>
+				</figure>
+				</para>
+
+			</section>
+
+			<section id='installing-proxy'>
+
+				<title>Installing the HTTP proxy module</title>
+
+				<para>
+				Now we will finish our installation adding the Squid module, which
+				provides a HTTP proxy with optional content filter.  We will follow
+				the usual procedure after reading the INSTALL file:
+				<itemizedlist>
+				<listitem><para>
+				Install the required packages:
+				<screen>
+				# apt-get install squid dansguardian
+				</screen>
+				</para></listitem>
+
+				<listitem><para>
+				Run configure and make install:
+				<screen>
+				$ ./configure
+				# make install
+				</screen>
+				</para></listitem>
+
+				<listitem><para>
+				Don't start the associated services on system launch:
+				<screen>
+				# update-rc.d -f squid remove
+				# update-rc.d -f dansguardian remove
+				</screen>
+				</para></listitem>
+
+				<listitem><para>
+				Update the <filename>sudoers</filename> file:
+				<screen>
+				# pkill gconf
+				# ebox-sudoers > /etc/sudoers
+				</screen>
+				</para></listitem>
+
+				</itemizedlist>
+				</para>
+
+				<para>
+				After performing the previous steps, we can check if everything went ok
+				in the eBox administrative interface, where a Squid menu entry should
+				have appeared.
+				</para>
+
+			</section>
+		</section>
+		
+		<section id='installing-LDAP-modules'>	
+			<title>Installing LDAP modules</title>
+			<para>
+			There are several eBox modules that use the concept of users and
+			groups, for example, the Samba module, which allows you to setup
+			file sharing or the mail module that provides mail accounts for users.
+			</para>
+
+			<para>
+			The module that manages users in eBox is called usersandgroups and
+			stores them in an LDAP directory. You should install this module before
+			any other one that requires the existance of users. As usual, this
+			requirement will be clearly stated in the INSTALL file.
+			</para>
+
+			<para>
+			Although the installation steps are basically the same as the used to
+			install the previous modules, there are some tricky steps in the process.
+			In the next section we will install the usersandgroups and Samba
+			modules.
+			</para>
+
+			<section id='installing-usersandgroups'>
+				<title>Installing the usersandgroups module</title>
+				<para>
+				First of all you should perform the standard installation procedure:
+				<screen>
+				# apt-get install slapd libnet-ldap-perl
+				$ ./configure
+				# make install
+				# pkill gconf
+				# ebox-sudoers > /etc/sudoers
+				</screen>
+				</para>
+				<para>
+				FIXME magnetic (AFAIK the INSTALL file is not up-to-date)
+				</para>
+			</section>
+
+			<section id='installing-samba'>
+				<title>Installing the Samba module</title>
+				<para>
+				FIXME magnetic
+				</para>
+			</section>
+
+		</section>
+
+	</section>
+
+</chapter>

@@ -1,0 +1,397 @@
+<!-- vim: ts=2 sw=2 tw=75
+-->
+<chapter id="ch-basic-api">
+
+	<title>Basic API</title>
+
+	<section id="sect-eboxglobal">
+		<title><classname>EBox::Global</classname></title>
+
+		<para>The <classname>EBox::Global</classname> class offers various
+		module management functions. The most commonly used functions are those
+		regarding module instantiation. <classname>EBox::Global</classname>
+		works as a module factory, you get an instance of it using the
+		<methodname>getInstance</methodname> static method and then you can use
+		that instance to create modules. The factory comes in two flavors, a
+		read-only flavor and a read-write one.</para>
+
+		<para>Calling <methodname>getInstance</methodname> without arguments
+		will yield a read-write factory, which creates modules that let
+		you make calls which change the configuration. A very important
+		detail of read-write modules is that they return their latest
+		configuration information, even if it has not been saved (which
+		means that it could be revoked later by the user). This idea is
+		important, configuration info reported by a read-write module
+		should not be treated as final, unless that module has no changes
+		waiting to be saved. You can see if a module has unsaved changes
+		by calling the <methodname>modIsChanged</methodname> method in the
+		<classname>EBox::Global</classname> class.</para>
+
+		<para>The idea behind the read-write modules behavior is to make it
+		easy to build a configuration front-end. For example, if the user
+		creates a new network object in the objects module, the new object will
+		show up instantly in the firewall configuration, so he can create new
+		firewall rules that use it. After all the desired changes have been
+		made, the user saves the configuration. If he decides to cancel the
+		changes he just made, both the new object and the firewall rules will
+		be deleted.</para>
+
+		<para>There is one situation when you don't want to get information
+		that has not been saved yet. That's when you are generating the
+		configuration file for a daemon, setting up firewall rules, setting
+		the address for a network interface, or any other activity that
+		needs the real, final configuration info. This situation happens
+		in system scripts (the boot script, cron jobs, etc). In these
+		cases you need what we call read-only modules, they only report
+		saved information and they do not allow method calls that change
+		the configuration of the module. To obtain read-only modules you
+		create <classname>EBox::Global</classname> instance setting its
+		<parameter>readonly</parameter> parameter to <literal>true</literal>.
+		Module instances returned by a factory created in this way will be
+		read-only ones. This script shows how to get an instance of the squid
+		module and tell it to restart itself:</para>
+
+		<example>
+			<title>Creating a read-only module instance</title>
+			<programlisting><![CDATA[#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+use Error qw(:try);
+
+EBox::init();
+
+my $global = EBox::Global->getInstance(1);
+my $squid = $global->modInstance('squid');
+
+try {
+	$squid->restartService();
+} catch EBox::Exceptions::Base with {
+	print STDERR "Squid module failed to restart.\n";
+};]]></programlisting>
+		</example>
+
+		<para>There are two functions that make it easy to perform two
+		common tasks: getting an instance of every module and getting
+		and instance of every module that implements some abstract
+		class. These are <methodname>modInstances</methodname> and
+		<methodname>modInstancesOfType</methodname>. Using them is straight
+		forward:</para>
+
+		<example>
+			<title>Functions for instantiating more than one module</title>
+			<programlisting><![CDATA[my $global = EBox::Global->getInstance(1);
+
+# restart all modules
+foreach my $mod (@{$global->modInstances()}) {
+	$mod->restartService();
+}
+
+# restart only modules that implement the NetworkObserver class
+foreach my $mod (@{$global->modInstancesOfType('EBox::NetworkObserver')}) {
+	$mod->restartService();
+}]]></programlisting>
+		</example>
+
+		<para>Restarting all the modules is even easier than
+		that, <classname>EBox::Global</classname> provides the
+		<methodname>restartAllModules</methodname> just for that. It's
+		one of the methods that perform an operation on all the installed
+		modules:</para>
+
+		<variablelist>
+
+			<varlistentry>
+				<term><methodname>restartAllModules</methodname></term>
+				<listitem>
+
+					<para>Calls the <methodname>restartService</methodname> method
+					on all the modules. This has the effect of restarting all the
+					services handled by eBox. Config files are regenerated every time
+					a service is restarted.</para>
+
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>stopAllModules</methodname></term>
+				<listitem>
+					<para>Calls the <methodname>stopService</methodname> method on
+					all the modules, this includes the web based administration
+					interface, so be careful.</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>revokeAllModules</methodname></term>
+				<listitem>
+					<para>Cancels the configuration changes that have been made
+					in all the modules since the last time the configuration was
+					saved.</para>
+				</listitem>
+			</varlistentry>
+
+			<varlistentry>
+				<term><methodname>saveAllModules</methodname></term>
+				<listitem>
+					<para>Saves the config changes in all modules.</para>
+				</listitem>
+			</varlistentry>
+
+		</variablelist>
+
+	</section>
+
+	<section id="sect-exceptions">
+		<title>Exceptions</title>
+
+		<para>All error handling in eBox is implemented with
+		java-style exceptions. These are provided by the perl
+		module <classname>Error</classname>, you can check the perl
+		documentation for that module for a detailed description on how
+		to use exceptions in perl. eBox exceptions are defined in the
+		<classname>EBox::Exceptions</classname> namespace.</para>
+
+		<para>eBox provides a hierarchy of exceptions from which
+		you can choose the most appropriate for each situation. All
+		eBox exceptions inherit from one of these two exceptions:</para>
+
+		<itemizedlist>
+			<listitem>
+				<para><classname>EBox::Exceptions::External</classname></para>
+			</listitem>
+
+			<listitem>
+				<para><classname>EBox::Exceptions::Internal</classname></para>
+			</listitem>
+		</itemizedlist>
+
+		<para>The difference between these two kinds is what the user will
+		see when an uncaught exceptions occurs. The user interface framework
+		will show the message contained in the exception unaltered if the
+		exception is an external one. You should use external exceptions for
+		user induced errors, like a syntax error in an IP address given by the
+		user interface to the module backend.</para>
+
+		<para>If the exception is internal it will log the error and assume
+		something is wrong internally in eBox (a bug) or in the system in
+		general. When an internal exception is caught by the GUI framework
+		the user will see a generic error message, recommending him to check
+		the system logs or seek technical support. Any exception, internal or
+		external, may be used internally for other purposes, as long as it is
+		caught before it goes all the way up to the GUI framework.</para>
+
+		<para>If you can't find an exception for certain error condition,
+		you have two options: create a new exception class, inheriting
+		from either <classname>EBox::Exceptions::External</classname> or
+		<classname>EBox::Exceptions::Internal</classname>, or just use one
+		those two classes as generic exceptions:</para>
+
+		<example>
+			<title>Throwing a generic internal exception</title>
+			<programlisting><![CDATA[if ($foo_condition) {
+	throw EBox::Exceptions::Internal('Something happened!');
+}]]></programlisting>
+		</example>
+
+		<para>As you can see, throwing exceptions follows a syntax very similar
+		to Java's. Catching them is very similar too:</para>
+
+		<example>
+			<title>Catching an exception</title>
+			<programlisting><![CDATA[use Error qw(:try);
+
+sub foo
+{
+	my $bar = shift;
+
+	try {
+		$bar->doSomething();
+	} catch EBox::Exceptions::Base with {
+		# do nothing, just ignore the error
+	};
+}]]></programlisting>
+		</example>
+
+		<para>You can do whatever you like inside the <quote>catch</quote>
+		clause. You may also write several <quote>catch</quote> clauses
+		if you need to do different things for different exception types.
+		<quote>otherwise</quote> and <quote>finally</quote> clauses are
+		also allowed, for a detailed explanation about them just run
+		<command>perldoc Error</command>. A very important detail is not to
+		forget the semicolon after the last clause (the <quote>catch</quote>
+		in the example), failing to do so may produce very weird results, this
+		is due to the black magic that is used in the implementation of the
+		try-catch idiom.</para>
+
+	</section>
+
+	<section id="sect-validate">
+		<title>Data validation</title>
+
+		<para>It is very important that every function exposed by each module
+		validates its input data correctly. All of the arguments need to be
+		checked, if this wasn't done a module could save syntactically wrong
+		values in its configuration, and the underlying service would behave
+		in an unpredictable way with the config file generated by the module.
+		This also helps find bugs in the GUI front-end, and any other code that
+		uses the module.</para>
+
+		<para>The <classname>EBox::Validate</classname> perl module provides a
+		bunch of functions to validate different types of data. All of this
+		functions work the same way, their first argument is the value that's
+		going to be checked. They return <literal>true</literal> if the value
+		is correct, <literal>undef</literal> if it's not:</para>
+
+		<example>
+			<title>Using data validation functions</title>
+			<programlisting><![CDATA[use EBox::Validate qw(:all);
+
+my $ip = '192.168.0.1';
+
+unless (checkIP($ip))
+	print STDERR "$ip is invalid.\n";
+}]]></programlisting>
+		</example>
+
+		<para>The usual thing to do if an argument is incorrect is to
+		throw an exception. And most of the time the incorrect value will
+		be an user-supplied one. For this reasons, all the functions in
+		<classname>EBox::Validate</classname> provide an easy mechanism for
+		throwing <classname>EBox::External</classname> exceptions. All you have
+		to do is pass one more argument to them, with a name or description for
+		the value you are trying to check. If you pass that argument and the
+		validation fails, an exception will be thrown with a message indicating
+		the name of the wrong field:</para>
+
+		<example>
+			<title>Using data validation functions with automatic error
+			handling</title>
+
+			<programlisting><![CDATA[checkIP($ip, 'IP address');
+]]></programlisting>
+		</example>
+
+		<para>If you don't want an exception to be thrown, or if you want to
+		throw a different kind of exception, just do not pass the last argument
+		and handle the error yourself.</para>
+
+	</section>
+
+	<section id="sect-i18n">
+		<title>i18n</title>
+
+		<!-- FIXME - translate -->
+
+		<para>eBox uses <application>gettext</application>, the GNU project's
+		internationalization (i18n) platform. It makes it easy for translators
+		to translate the eBox user interface into their own language.</para>
+
+		<para>This section describes i18n from the point of view of both the
+		developer (what steps must be taken to build a translatable module) and
+		the translator (how to translate eBox into a new language).</para>
+
+		<section id="sect-i18n-developers">
+			<title>i18n developers</title>
+
+			<para>Every eBox module has it's own gettext domain for the text
+			strings it owns, the domain name is derived from the module
+			name. Modules must set their gettext domain both in their
+			constructor and in each one of their CGIs as explained in <xref
+			linkend='sect-modconstructor'/> and <xref linkend='ex-cgi-domain'/>
+			respectively.</para>
+
+			<para>All files that contain translatable strings, including mason
+			templates, must include the <classname>EBox::Gettext</classname>
+			perl module. Also, every translatable string must be marked as such,
+			using the <function>__</function> function as the following example
+			shows:
+			<programlisting>
+print __("Hello world");
+			</programlisting>
+			This will enable the eBox build system to detect and extract all the
+			translatable strings.</para>
+
+			<para>If a string includes a variable you should not concatenate it:
+			<programlisting>
+print __("Edit ") . $group . __(" members"); # wrong
+			</programlisting>
+			This would make it impossible to correctly translate the whole
+			sentence. The right way to do it is to use the
+			<function>__x</function> function, which is a variant of
+			<function>__</function> which lets you include variables:
+			<programlisting>
+print __x("Edit {group} members", group => $group); # right
+			</programlisting>
+			This way the translator can place the variable
+			<varname>group</varname> in the right position in the sentence.</para>
+
+			<para>If you follow this rules correctly, the build system will
+			automatically generate PO files with all translatable strings
+			included. These PO files can be easily translated, as explained in
+			the next section.</para>
+
+		</section>
+
+		<section id="sect-i18n-translators">
+
+			<title>i18n for translators</title>
+
+			<para>Using GNU gettext as an i18n platform means we have the most
+			widely used format for translations: PO files. Every eBox module
+			has its one PO file for every available language. A translator just
+			needs to translate all strings listed in that file in order to have a
+			completely translated module. In case you are starting a translation
+			for a new language from scratch, all you need to do is ask for a PO
+			file to be generated for your language.</para>
+
+			<para>A PO file contains the text strings in the original language
+			(english) along with their translations. Each string may be in one
+			fo three possible states: translated (a translation exists for that
+			string), fuzzy (a translation exists, but the original string has
+			changed slightly) or untranslated: </para>
+
+			<programlisting>
+# translated string
+msgid "Name"
+msgstr "Nombre"
+
+# fuzzy string
+#, fuzzy
+msgid "Interfaces"
+msgstr "Interface"
+
+# untranslated string
+msgid "External"
+msgstr ""
+			</programlisting>
+
+			<para>If the string includes the value of a variable when it is shown
+			in the user interface you will see an entry like this one in the PO
+			file:
+			<programlisting>
+msgid "Edit {group} members"
+			</programlisting>
+			In this case you just have to rewrite the sentence placing the name
+			of the variable (in curly braces) in its proper place, but without
+			translating it. The correct translation for this string in Spanish
+			would look like this:
+			<programlisting>
+msgstr "Editar miembros de {group}"
+			</programlisting>
+			</para>
+
+			<para>Even though it's possible to translate a PO file using any
+			UTF-8 enabled text editor, it's a very good idea to use some
+			of the tools created especificaly for this task, like <ulink
+			url='http://i18n.kde.org/tools/kbabel/'>KBabel</ulink> (*nix) or
+			<ulink url='http://www.poedit.org/'>poEdit</ulink> (multiplatform).
+			</para>
+
+		</section>
+  </section>
+
+</chapter>

@@ -1,0 +1,441 @@
+<!-- vim: ts=2 sw=2
+-->
+<chapter id="ch-ldap">
+
+	<title>Módulos basados en LDAP</title>
+
+	<section id="sect-ldap-intro">
+		<title>Introducción</title>
+
+		<para>La función principal del mdóulo users and groups es ser utilizado
+		por aquellos serivicios que utilizan LDAP, basados en los conceptos de
+		usario y grupo. Consiste en varios módulos perl, entre ellos:
+		<classname>EBox::UsersAndGroups</classname> y
+		<classname>EBox::LDAP</classname>. El primero de ellos proprciona un API
+		para la gestinón de usuarios y groupos,  mientras que el segundo proporciona
+		un conjunto de métodos para tratar directamente con el directorio LDAP.
+		</para>		
+
+	</section>
+	<section id="sect-ldap-conf">
+		<title>Obtención de la configuración</title>
+
+		<para>Uno de los requisitos principales para los servicios que
+		usan como backend LDAP, es la configuración correcta de los
+		parámetros del mismo. Veamos por ejemplo la configuración del fichero
+		<emphasis>smb.conf</emphasis> usando LDAP.</para>
+
+    <programlisting>
+passsdb backend = ldapsam:ldapi://%2fvar%2frun%2fldapi
+ldap suffix = dc=ebox 
+ldap admin dn = cn=admin,dc=ebox 
+		</programlisting>
+
+		<para>En este caso para configurar el servicio samba usando LDAP
+		como backend, necesitaremos conocer el <emphasis>dc base</emphasis>,
+		así como el <emphasis>dn</emphasis> privilegiado para acceder a
+		atributos protegidos, o siguiendo con este ejemplo de samba también
+		necesitamos conocer la contraseña del usuario con permisos para
+		acceder a los atributos restringidos de los objetos samba. Para
+		ello <classname>EBox::LDAP</classname> proporciona una sería de
+		métodos.</para>
+		
+	  <variablelist>
+			
+		<varlistentry>
+			<term><methodname>ldapConf</methodname></term>
+			<listitem>
+				<para>Devuelve un hash contiendo la configuración del LDAP.</para>
+				
+				<formalpara><title>dn</title>
+					<para>
+						base dn
+					</para>
+				</formalpara>
+				<formalpara><title>ldapi</title>
+					<para>
+						ldapi de la conexión con LDAP
+					</para>
+				</formalpara>
+				<formalpara><title>rootdn</title>
+					<para>
+						cn del usuario con privilegios
+					</para>
+				</formalpara>
+					
+			</listitem>
+		</varlistentry>
+		
+		<varlistentry>
+			<term><methodname>getPassword</methodname></term>
+			<listitem>
+				<para>Devuelve la contraseña del usuario con privilegios.</para>
+			</listitem>
+			
+		</varlistentry>
+
+	  </variablelist>
+	</section> 
+
+	<section id="sect-ldap-acces">
+		<title>Accediendo a LDAP</title>
+
+		<para><classname>EBox::LDAP</classname> proporciona un
+		punto único de entrada para acceder al LDAP. Deberás estar
+		familiarizado con el módulo<classname>Net::LDAP</classname>, ya
+		que las consultas serán creadas basadas en su sintáxis, siendo
+		<classname>EBox::LDAP</classname> el módulo responsable en realizar las
+		consultas.</para>
+
+		<para><classname>EBox::LDAP</classname> proporciona 4 métodos básicos,
+		<methodname>search</methodname>, <methodname>modify</methodname>,
+		<methodname>add</methodname> y <methodname>delete</methodname>.</para>
+
+		<para>Cada vez que alguno de los anteriores métodos son
+		ejecutados, se realiza una comprobación sobre el resultado
+		obtenido. En caso de existir un fallo, se lanzará la excepción
+		<exceptionname>EBox::Exceptions::Internal </exceptionname>. Para
+		favorecer la depuración, se volcará los atributos que se han utilizado
+		en la llamada, que método ha sido el que ha fallado y el error que
+		reporta <classname>Net::LDAP</classname>.</para>
+
+	</section>
+
+	<section id="sect-ldap-impl">
+		<title>Implementando tu módulo basado en LDAP</title>
+		
+
+		<para>La principal idea en el diseño de módulos que usan el concepto
+		de usario y/o grupo sobre un directorio LDAP es ofrecer un interaz de 
+		usuario común dentro de <emphasis>Usuarios</emphasis>
+		y <emphasis>Grupos</emphasis>. Esto significa que todos aquellos
+		parámetros que estén relacionados con un usuario o grupo deberían
+		aparecer en esas páginas, incluso cuando esos parámetros puedan
+		pertenecer a distintos módulos de eBox.</para>
+
+		<para>Pongamos el ejemplo de la implementación del módulo Samba.
+		Deberemos permitir al administrador elegir que usuarios van a poder
+		tener un directorio compartido. Para los grupos deberemos permitir
+		activar o desactivar un recurso compartido para cada grupo, así
+		como establecer el nombre del recurso compartido. La idea básica es
+		concentrar este tipo de operaciones asociadas a grupos y usuarios
+		sobre un interfaz de usuario común, este es el que ofrece el módulo
+		<classname>EBox::UsersAndGroups</classname>. Para ello, este último módulo
+		proporciona una serie de interfaces que permitirán a tu módulo incluir sus
+		propias opciones en el interfaz de usuario, así como ser avisado cada vez
+		que algo de interés ha sido modificado en los datos base de un usuario o un
+		grupo.</para>
+
+		<para>Lo primero que debes decidir es que operaciones sobre los
+		datos base de un usuario o grupo son de tu interés. Generalmente,
+		será de interés para tu módulo ser avisado cuando un usuario o
+		grupo es creado o eliminado. Siguiendo con el ejemplo de samba,
+		cuando un usuario es creado en LDAP se establecen los atributos de
+		un objeto base de <classname>EBox::UsersAndGroups</classname>,
+		que son del tipo <emphasis>inetOrgPerson</emphasis> y
+		<emphasis>posixAccount</emphasis>. Samba necesita añadir los
+		atributos del objeto <emphasis>SambaAccount</emphasis>.
+		Esto debe de realizarlo el módulo samba, así que lo que hará
+		<classname>EBox::UsersAndGroups</classname> será avisar al módulo samba que
+		un nuevo usuario ha sido creado, y este se encargará de añadir a ese objeto
+		los nuevos objetos y atributos necesarios.</para>
+
+		<para><classname>EBox::LdapUserBase</classname> proporciona
+		los métodos abstractos que necesitas implementar dependiendo de tus 
+		necesidades. Solo deberás implementar aquellos  métodos que sean de 
+		tu interés. Al heredar de esta clase harás  saber a 
+		<classname>EBox::UsersAndGroups</classname> que tu módulo es un
+		<emphasis>Observador</emphasis> de ciertas operaciones que tienen lugar
+		en el.</para>
+		
+	
+		<variablelist>
+
+		<varlistentry>
+			<term><methodname>_addUser</methodname></term>
+			<listitem>
+				
+			<para>Este método será llamado cada vez que un usuario es
+			creado, pasándole el nombre del <parameter>usuario</parameter> como
+			parámetro.</para>
+				
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><methodname>_delUser</methodname></term>
+			<listitem>
+				
+				<para>Este método será llamado cada vez que un usuario es
+				eliminado, pasándole el nombre del <parameter>usuario</parameter> como
+				parámetro.</para>
+				
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><methodname>_addGroup</methodname></term>
+			<listitem>
+				
+				<para>Este método será llamado cada vez que un grupo es creado,
+				pasándole el nombre del <parameter>grupo</parameter> como parámetro.</para>
+				
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><methodname>_delGroup</methodname></term>
+			<listitem>
+				
+				<para>Este método será llamado cada vez que un grupo es
+				eliminado, pasándole el nombre del <parameter>usuario</parameter> como
+				parámetro.</para>
+				
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><methodname>_modifyUser</methodname></term>
+			<listitem>
+				
+				<para>Este método será llamado cada vez que un usuario es
+				modificado, pasándole el nombre del <parameter>usuario</parameter> como
+				parámetro.</para>
+				
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><methodname>_modifyGroup</methodname></term>
+			<listitem>
+				
+
+				<para>Este método será llamado cada vez que un grupo es modificado,
+				pasándole el nombre del <parameter>grupo</parameter> como parámetro.</para>
+				
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><methodname>_delUserWarning</methodname></term>
+			<listitem>
+				
+				<para>Este método será llamado cada vez que un usuario va a ser eliminado,
+				pasándole el nombre del <parameter>usuario</parameter> como parámetro. El
+				módulo deberá decidir entonces, si el administrador deberá ser informado
+				de los cambios que conllevará eliminar al usuario, datos perdidos, etc...
+				Devolviendo una cadena de texto explicativa que será mostrada en el
+				interfaz de usuario</para>			
+				
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><methodname>_delGroupWarning</methodname></term>
+			<listitem>
+				
+				<para>Este método será llamado cada vez que un grupo va a ser
+				eliminado, pasándole el nombre del <parameter>grupo</parameter> como
+				parámetro. El módulo deberá decidir entonces, si el administrador deberá
+				ser informado de los cambios que conllevará eliminar al grupo, datos
+				perdidos, etc... Devolviendo una cadena de texto explicativa que será
+				mostrada en el interfaz de usuario</para>
+				
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><methodname>_userAddOns</methodname></term>
+			<listitem>
+
+				<para>Cuando un usuario va a ser editado, este método es
+				llamado para obtener componentes <emphasis>mason</emphasis> que contendrán
+				parte del interfaz de usuario de tu módulo que se integrará con
+				<emphasis>Users And Groups</emphasis>.Recibirá como parámetro
+				el nombre de <parameter>usuario</parameter>. Deberá devolver
+				un <returnvalue>hash</returnvalue> conteniendo como claves
+				<structfield>path</structfield> y <structfield>parms</structfield>, el
+				primero contendrá la ruta de la plantilla <emphasis>mason</emphasis>; mientras que
+				el segundo contendrá un vector con los parámetros que se le pasarán a la
+				plantilla.</para>
+		
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><methodname>_groupAddOns</methodname></term>
+			<listitem>
+			
+				<para>Cuando un Groups va a ser editado, este método es
+				llamado para obtener componentes <emphasis>mason</emphasis> que contendrán
+				parte del interfaz de usuario de tu módulo que se integrará con
+				<emphasis>Users And Groups</emphasis>.Recibirá como parámetro
+				el nombre de <parameter>grupo</parameter>. Deberá devolver
+				un <returnvalue>hash</returnvalue> conteniendo como claves
+				<structfield>path</structfield> y <structfield>parms</structfield>, el
+				primero contendrá la ruta de la plantilla <emphasis>mason</emphasis>; mientras que
+				el segundo contendrá un vector con los parámetros que se le pasarán a la
+				plantilla.</para>
+			
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><methodname>_includeLDAPSchemas</methodname></term>
+			<listitem>
+			
+				<para>Esta función deberá ser implementada por aquellos módulos que
+				necesiten incluir sus propios esquemas LDAP. Para ello deberán devolver una
+				<returnvalue>referencia a vector</returnvalue>conteniendo los nombres de
+				los esquemas que serán incluidos en <filename>slapd.conf</filename>.</para>
+
+			</listitem>
+		</varlistentry>
+		<varlistentry>
+			<term><methodname>_includeLDAPAcls</methodname></term>
+			<listitem>
+
+				<para>Esta función deberá ser implementada por aquellos
+				módulos que necesiten incluir sus propias listas de control de
+				acceso <emphasis>ACLs</emphasis>. Para ello deberán devolver una
+				<returnvalue>referencia a vector</returnvalue>conteniendo las listas de
+				control de acceso que serán incluídas en <filename>slapd.conf</filename>.</para>
+			
+			</listitem>
+		</varlistentry>
+
+		</variablelist>
+		
+				<para>Deberás crear un módulo que implemente los métodos
+				que veas necesarios. Tu clase  deberá heredar de 
+				<classname>EBox::LdapUserBase</classname>. No tienes que implementar
+				estos métodos en la clase principal de tu módulo eBox. Tu clase 
+				principal, probablemente una subclase de  
+				<classname>EBox::GConfModule</classname>, deberá heredar de 
+				<classname>EBox::LdapModule</classname> también. Esta clase
+				abstracta contiene simplemente un método: 
+				<methodname>_ldapModImplementation</methodname>, el cual deberá 
+				devolver una instancia de la clase que hereda de 
+				<classname>EBox::LdapUserBase</classname>:</para>
+
+		<programlisting>
+sub _ldapModImplementation    
+{
+my $self;
+
+return new EBox::SambaLdapUser();
+}
+		</programlisting>
+	</section>
+	
+	<section id="sect-ldap-addui">
+		<title>Añadiendo tu funcionalidad al interfaz de usuario</title>
+		
+				<para>Como hemos explicado anteriormente, buscamos centralizar
+				la administración de los módulos basados en el concepto de usuario y
+				grupo sobre LDAP en único punto. Este punto es el interfaz de usuario
+				proporcionado por el módulo <emphasis>Usuarios o Grupos</emphasis>.</para>
+
+				<para>Continuemos con el ejemplo del módulo samba. Cuando el
+				administrador de la aplicación edita un grupo, y el servicio samba está
+				activado podrá configurar los parámetros que ofrece el módulo para ese
+				grupo. En este caso será posible activar un recurso compartido asociado
+				al grupo así como su nombre. Estas opciones aparecerán bajo las opciones
+				generales del grupo.</para>
+
+				<para>Lo que hace <classname>EBox::UsersAndGroups</classname>
+				en el citado ejemplo, es llamar a la implementación de
+				<methodname>_groupAddOns()</methodname> en el módulo samba pasándole
+				el nombre del grupo que se esta editando. El módulo samba devolverá la
+				plantilla <emphasis>mason</emphasis> y sus argumentos.</para>
+	
+				<example>
+				<title>Implementando el método _groupAddOns</title>
+				<programlisting linenumbering="numbered">
+sub _groupAddOns($$) {
+	my $self = shift;
+	my $groupname = shift;
+
+	my $samba = EBox::Global->modInstance('samba');
+	unless ($samba->service){        
+		return undef;            
+	}                                
+
+	my @args;                        
+	my $args =  { 'groupname' => $groupname,
+		'share'     => $self->_groupSharing($groupname)
+		'sharename' => $self->sharingName($groupname)};
+
+	return { path => '/samba/samba.mas', params => $args };
+
+}
+				</programlisting>
+				</example>
+		
+		
+				<para>En la linea 3 recibimos el
+				nombre del grupo como parámetro.</para>
+
+				<para>En la linea 6 devolvemos
+				<returnvalue>undef</returnvalue> si el servicio no está activado.</para>
+
+				<para>En las siguientes lineas se crea el un hash que contiene la ruta
+				de la plantilla <emphasis>mason</emphasis> y los argumentos de la misma. Estos son,
+				el nombre del recurso compartido y la activación del mismo.</para>
+
+	</section>
+	<section id="sect-ldap-schemas">
+		<title>Incluyendo tus esquemas LDAP</title>
+		
+		
+		<para> Si tu servicio o módulo necesita esquemas LDAP que no están
+		incluidos en la instalación por defecto, deberás implementar el método
+		<methodname>_includeLDAPSchemas</methodname>. En este método deberás
+		devolver una referencia a vector conteniendo las rutas a los esquemas
+		que necesitas. Estos serán añadidos a <filename>slapd.conf</filename>. </para>
+
+		<para> Veamos el ejemplo de samba. Este módulo necesita el esquema
+		<filename>samba.schema</filename>.</para>
+
+		<example>
+		<title>Implementando el método _includeLDAPSchemas</title>
+		<programlisting>
+sub _includeLDAPSchemas {
+	my $self = shift;
+
+	return ['/etc/ldap/schema/samba.schema'];	
+}
+		</programlisting>
+		</example>
+		
+
+		<para>Así el fichero <filename>slapd.conf</filename> quedaría como
+		sigue.</para>
+		
+		<programlisting>
+			# Schema and objectClass definitions
+			include		/etc/ldap/schema/core.schema
+			include		/etc/ldap/schema/cosine.schema
+			include		/etc/ldap/schema/nis.schema
+			include		/etc/ldap/schema/inetorgperson.schema
+			include		/etc/ldap/schema/samba.schema
+		</programlisting>
+		
+	</section>
+	
+	<section id="sect-ldap-acls">
+		<title>Añadiendo tus lista de control de acceso</title>
+		
+		<para>Si necesitas restringir acceso a ciertos atributos de tus
+		esquemas, típicamente contraseñas y datos sensibles. Deberás implementar
+		el método <methodname>_includeLDAPAcls</methodname>, para devolver una
+		referencia a vector conteniendo tus lista de acceso.</para>
+
+   	<para>Vemos como quedaría la función para el caso de ejemplo de
+		samba.</para>
+
+		<programlisting>
+sub _includeLDAPAcls {
+	my $self = shift;
+
+	my $ldapconf = $self->{ldap}->ldapConf;
+
+	my @acls = ("access to attribute=sambaNTPassword,sambaLMPassword\n" .
+			"\tby dn=\"" . $ldapconf->{'rootdn'} . "\" write\n" .
+			"\tby * none\n");
+
+	return \@acls;
+}
+		</programlisting>
+	</section>
+</chapter>
