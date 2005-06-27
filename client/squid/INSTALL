@@ -1,0 +1,19 @@
+- To install this module you need to install EBox base, squid and 
+  dansguardian  before.
+
+- Once EBox base has been installed:
+	
+	./configure
+	make install
+
+  configure will autodetect EBox base path to install
+
+- Update your sudoers file with the ebox-sudoers command.
+
+- Do not run  squid  nor  dansguardian on startup, this module 
+  takes control of both of them:
+
+mv /etc/rc2.d/SXXsquid /etc/rc2.d/K20squid
+mv /etc/rc2.d/SXXdansguardian  /etc/rc2.d/K20dansguardian
+
+- Stop  squid and dansguardian if they're running.

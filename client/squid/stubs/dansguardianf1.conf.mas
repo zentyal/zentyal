@@ -1,0 +1,35 @@
+<%args>
+	$threshold
+</%args>
+# DansGuardian filter group config file for version 2.8.0
+
+# Content filtering files location
+bannedphraselist = '/etc/dansguardian/bannedphraselist'
+% if ($threshold != 0) {
+weightedphraselist = '/etc/dansguardian/weightedphraselist'
+% }
+exceptionphraselist = '/etc/dansguardian/exceptionphraselist'
+bannedsitelist = '/etc/dansguardian/bannedsitelist'
+greysitelist = '/etc/dansguardian/greysitelist'
+exceptionsitelist = '/etc/dansguardian/exceptionsitelist'
+bannedurllist = '/etc/dansguardian/bannedurllist'
+greyurllist = '/etc/dansguardian/greyurllist'
+exceptionurllist = '/etc/dansguardian/exceptionurllist'
+bannedregexpurllist = '/etc/dansguardian/bannedregexpurllist'
+bannedextensionlist = '/etc/dansguardian/bannedextensionlist'
+bannedmimetypelist = '/etc/dansguardian/bannedmimetypelist'
+picsfile = '/etc/dansguardian/pics'
+contentregexplist = '/etc/dansguardian/contentregexplist'
+
+
+
+# 50 is for young children,  100 for old children,  160 for young adults.
+% if ($threshold == 0) {
+naughtynesslimit = 50000
+% } else {
+naughtynesslimit = <% $threshold %>
+% }
+
+bypass = 0
+
+bypasskey = ''

@@ -1,0 +1,105 @@
+<!-- vim: ts=4 sw=4 nowrap
+-->
+<gconfschemafile>
+	<schemalist>
+		<schema>
+			<key>/schemas/ebox/modules/global/modules/squid/class</key>
+			<applyto>/ebox/modules/global/modules/squid/class</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>EBox::Squid</default>
+			<locale name="C"/>
+		</schema>
+        <schema>
+            <key>/schemas/ebox/modules/global/modules/squid/depends</key>
+            <applyto>/ebox/modules/global/modules/squid/depends</applyto>
+            <owner>ebox</owner>
+            <type>list</type>
+            <list_type>string</list_type>
+            <default>[objects]</default>
+            <locale name="C"/>
+        </schema>
+
+		<schema>
+			<key>/schemas/ebox/modules/squid/policy</key>
+			<applyto>/ebox/modules/squid/policy</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>deny</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/squid/active</key>
+			<applyto>/ebox/modules/squid/active</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+			<default>false</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/squid/auth</key>
+			<applyto>/ebox/modules/squid/auth</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+			<default>false</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/squid/transproxy</key>
+			<applyto>/ebox/modules/squid/transproxy</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+			<default>false</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/squid/port</key>
+			<applyto>/ebox/modules/squid/port</applyto>
+			<owner>ebox</owner>
+			<type>int</type>
+			<default>3128</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/squid/exceptions</key>
+			<applyto>/ebox/modules/squid/exceptions</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+			<list_type>string</list_type>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/squid/banned_sites</key>
+			<applyto>/ebox/modules/squid/banned_sites</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+			<list_type>string</list_type>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/squid/threshold</key>
+			<applyto>/ebox/modules/squid/threshold</applyto>
+			<owner>ebox</owner>
+			<type>int</type>
+			<default>0</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/squid/unfiltered</key>
+			<applyto>/ebox/modules/squid/unfiltered</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+			<list_type>string</list_type>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/squid/bans</key>
+			<applyto>/ebox/modules/squid/bans</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+			<list_type>string</list_type>
+			<locale name="C"/>
+		</schema>
+
+	</schemalist>
+</gconfschemafile>

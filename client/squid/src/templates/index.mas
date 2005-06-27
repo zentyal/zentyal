@@ -1,0 +1,133 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+	$active
+	$transparent
+	$port
+	$threshold
+	$policy
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<div class='squidnew'>
+<br />
+<& enable.mas, title => __('Enable the HTTP proxy'), active => $active &>
+<h3><% __('General Settings') %></h3>
+
+<div class='note'>
+<% __('Please note that if you set a configuration which prevents you from connecting to the administration interface through the proxy, you must then connect to it directly') %>
+</div>
+<br />
+<form action='General' method='POST'>
+<table class='formTable'>
+<tr>
+	<td class='tright'>
+		<span class="ftitle">
+			<% __('Transparent proxy') %>:
+		</span>
+	</td>
+	<td>
+		<select name="transparent" enabled>
+% if ($transparent) {
+			<option value='no'><% __('Disabled') %></option>
+			<option selected value='yes'><% __('Enabled')%></option>
+% } else { 
+			<option selected value='no'><% __('Disabled')%></option>
+			<option value='yes'><% __('Enabled') %></option>
+% }
+		</select>
+	</td>
+</tr>
+<tr>
+	<td class='tright'>
+		<span class="ftitle">
+			<% __('Port') %>:
+		</span>
+	</td>
+	<td>
+			<input class='inputText' size='5'
+				type='text' name='port'
+				value='<% $port %>'>
+	</td>
+	<td>
+<tr>
+	<td class='tright'>
+		<span class="ftitle">
+			<% __('Content filter threshold') %>:
+		</span>
+	</td>
+	<td>
+		<select name="threshold" enabled>
+% if ($threshold eq '0') {
+	<option value='0' selected><% __('Content filter disabled')%></option>
+% } else {
+			<option value='0'><% __('Content filter disabled')%></option>
+% }
+% if ($threshold eq '200') {
+			<option value='200' selected><% __('Very permissive')%></option>
+% } else {
+			<option value='200'><% __('Very permissive')%></option>
+% }
+% if ($threshold eq '160') {
+			<option value='160' selected><% __('Permissive')%></option>
+% } else {
+			<option value='160'><% __('Permissive')%></option>
+% }
+% if ($threshold eq '120') {
+			<option value='120' selected><% __('Medium')%></option>
+% } else {
+			<option value='120'><% __('Medium')%></option>
+% }
+% if ($threshold eq '80') {
+			<option value='80' selected><% __('Strict')%></option>
+% } else {
+			<option value='80'><% __('Strict')%></option>
+% }
+% if ($threshold eq '50') {
+			<option value='50' selected><% __('Very strict')%></option>
+% } else {
+			<option value='50'><% __('Very strict')%></option>
+% }
+		</select>
+	</td>
+</tr>
+<tr>
+	<td class='tright'>
+		<span class="ftitle">
+			<% __('Global policy') %>:
+		</span>
+	</td>
+	<td>
+		<select name="policy" enabled>
+% if ($policy eq 'allow') {
+			<option value='allow' selected><% __('Allow') %></option>
+% } else { 
+			<option value='allow' ><% __('Allow') %></option>
+% }
+% if ($policy eq 'deny') {
+			<option value='deny' selected><% __('Deny') %></option>
+% } else { 
+			<option value='deny' ><% __('Deny') %></option>
+% }
+% if ($policy eq 'filter') {
+			<option value='filter' selected><% __('Filter') %></option>
+% } else { 
+			<option value='filter' ><% __('Filter') %></option>
+% }
+
+
+		</select>
+	</td>
+</tr>
+<tr>
+		<td width='161px'></td>
+				<td><input class='inputButton' type='submit' name='change' 
+					value="<% __('Ok') %>" alt='<% __("Ok") %>'>
+				</td>
+</tr>
+</table>
+</form>
+
+</div>

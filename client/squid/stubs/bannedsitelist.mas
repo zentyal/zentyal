@@ -1,0 +1,76 @@
+<%args>
+	@domains
+	$block_ip
+</%args>
+
+#domains in banned list
+#Don't bother with the www. or the http://
+
+#The bannedurllist is for blocking PART of a site
+#The bannedsitelist is for blocking ALL of a site
+
+#As of DansGuardian 2.7.3 you can now include
+#.tld so for example you can match .gov for example
+
+#List other sites to block:
+% foreach my $domain (@domains) {
+<% $domain %>
+	
+% }
+
+
+# Blanket Block.  To block all sites except those in the
+# exceptionsitelist and greysitelist files remove
+# the # from the next line to leave only a '**':
+#**
+
+#Blanket IP Block.  To block all sites specified only as an IP
+#remove the # from the next line to leave only a '*ip':
+% if ($block_ip eq 'yes') {
+*ip
+% }
+
+#Remove the # from the following and edit as needed to use a stock
+#squidGuard/urlblacklist blacklists collection.
+#.Include</etc/dansguardian/blacklists/ads/domains>
+#.Include</etc/dansguardian/blacklists/adult/domains>
+#.Include</etc/dansguardian/blacklists/aggressive/domains>
+#.Include</etc/dansguardian/blacklists/artnudes/domains>
+#.Include</etc/dansguardian/blacklists/audio-video/domains>
+#.Include</etc/dansguardian/blacklists/beerliquorinfo/domains>
+#.Include</etc/dansguardian/blacklists/beerliquorsale/domains>
+#.Include</etc/dansguardian/blacklists/chat/domains>
+#.Include</etc/dansguardian/blacklists/childcare/domains>
+#.Include</etc/dansguardian/blacklists/clothing/domains>
+#.Include</etc/dansguardian/blacklists/culinary/domains>
+#.Include</etc/dansguardian/blacklists/dialers/domains>
+#.Include</etc/dansguardian/blacklists/drugs/domains>
+#.Include</etc/dansguardian/blacklists/entertainment/domains>
+#.Include</etc/dansguardian/blacklists/forums/domains>
+#.Include</etc/dansguardian/blacklists/frencheducation/domains>
+#.Include</etc/dansguardian/blacklists/gambling/domains>
+#.Include</etc/dansguardian/blacklists/government/domains>
+#.Include</etc/dansguardian/blacklists/hacking/domains>
+#.Include</etc/dansguardian/blacklists/homerepair/domains>
+#.Include</etc/dansguardian/blacklists/hygiene/domains>
+#.Include</etc/dansguardian/blacklists/jewelry/domains>
+#.Include</etc/dansguardian/blacklists/jobsearch/domains>
+#.Include</etc/dansguardian/blacklists/kidstimewasting/domains>
+#.Include</etc/dansguardian/blacklists/mail/domains>
+#.Include</etc/dansguardian/blacklists/news/domains>
+#.Include</etc/dansguardian/blacklists/onlineauctions/domains>
+#.Include</etc/dansguardian/blacklists/onlinegames/domains>
+#.Include</etc/dansguardian/blacklists/onlinepayment/domains>
+#.Include</etc/dansguardian/blacklists/personalfinance/domains>
+#.Include</etc/dansguardian/blacklists/pets/domains>
+#.Include</etc/dansguardian/blacklists/porn/domains>
+#.Include</etc/dansguardian/blacklists/proxy/domains>
+#.Include</etc/dansguardian/blacklists/publicite/domains>
+#.Include</etc/dansguardian/blacklists/redirector/domains>
+#.Include</etc/dansguardian/blacklists/ringtones/domains>
+#.Include</etc/dansguardian/blacklists/sportnews/domains>
+#.Include</etc/dansguardian/blacklists/sports/domains>
+#.Include</etc/dansguardian/blacklists/vacation/domains>
+#.Include</etc/dansguardian/blacklists/violence/domains>
+#.Include</etc/dansguardian/blacklists/virusinfected/domains>
+#.Include</etc/dansguardian/blacklists/warez/domains>

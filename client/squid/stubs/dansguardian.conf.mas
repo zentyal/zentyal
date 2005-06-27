@@ -1,0 +1,128 @@
+<%args>
+	$port
+	$lang
+	$squidport
+</%args>
+
+reportinglevel = 3
+
+languagedir = '/etc/dansguardian/languages'
+
+language = <% $lang %>
+
+loglevel = 3
+
+logexceptionhits = on
+
+# Log File Format
+# 1 = DansGuardian format        2 = CSV-style format
+# 3 = Squid Log File Format      4 = Tab delimited
+logfileformat = 1
+
+
+loglocation = '/var/log/dansguardian/access.log'
+
+filterip =
+
+filterport = <% $port %>
+
+proxyip = 127.0.0.1
+
+proxyport = <% $squidport %>
+
+# accessdeniedaddress is the address of your web server to which the cgi
+# dansguardian reporting script was copied
+# Do NOT change from the default if you are not using the cgi.
+#
+accessdeniedaddress = 'http://YOURSERVER.YOURDOMAIN/cgi-bin/dansguardian.pl'
+
+# Non standard delimiter (only used with accessdeniedaddress)
+# Default is enabled but to go back to the original standard mode dissable it.
+nonstandarddelimiter = on
+
+
+usecustombannedimage = 1
+custombannedimagefile = '/etc/dansguardian/transparent1x1.gif'
+
+
+
+filtergroups = 1
+filtergroupslist = '/etc/dansguardian/filtergroupslist'
+
+# Authentication files location
+bannediplist = '/etc/dansguardian/bannediplist'
+exceptioniplist = '/etc/dansguardian/exceptioniplist'
+banneduserlist = '/etc/dansguardian/banneduserlist'
+exceptionuserlist = '/etc/dansguardian/exceptionuserlist'
+
+showweightedfound = on
+
+# Weighted phrase mode
+# There are 3 possible modes of operation:
+# 0 = off = do not use the weighted phrase feature.
+# 1 = on, normal = normal weighted phrase operation.
+# 2 = on, singular = each weighted phrase found only counts once on a page.
+weightedphrasemode = 2
+
+urlcachenumber = 1000
+
+urlcacheage = 900
+
+phrasefiltermode = 2
+
+preservecase = 0
+
+hexdecodecontent = 0
+
+forcequicksearch = 0
+
+reverseaddresslookups = off
+
+reverseclientiplookups = off
+
+createlistcachefiles = on
+
+maxuploadsize = -1
+
+maxcontentfiltersize = 256
+
+usernameidmethodproxyauth = on
+usernameidmethodntlm = off # **NOT IMPLEMENTED**
+usernameidmethodident = off
+
+preemptivebanning = off
+
+
+forwardedfor = on
+
+usexforwardedfor = off
+
+logconnectionhandlingerrors = off
+
+maxchildren = 120
+
+minchildren = 8
+
+minsparechildren = 4
+
+preforkchildren = 6
+
+maxsparechildren = 32
+
+maxagechildren = 500
+
+ipcfilename = '/tmp/.dguardianipc'
+
+urlipcfilename = '/tmp/.dguardianurlipc'
+
+# Defines process id directory and filename.
+#pidfilename = '/var/run/dansguardian.pid'
+
+nodaemon = off
+
+nologger = off
+
+# daemonuser = 'nobody'
+# daemongroup = 'nobody'
+
+softrestart = off

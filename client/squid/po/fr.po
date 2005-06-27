@@ -1,0 +1,340 @@
+# French translations for EBox-squid package.
+# Copyright (C) 2004 Warp S.L.
+# This file is distributed under the same license as the EBox-squid package.
+# Automatically generated, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: EBox-squid 0.3\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2005-02-18 21:07+0100\n"
+"PO-Revision-Date: 2004-11-01 23:12+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: French\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/EBox/CGI/Enable.pm:42 ebox-squid-0.4+svn/src/EBox/CGI/Enable.pm:42
+msgid "module status"
+msgstr "statut du module"
+
+#: src/EBox/CGI/Banned.pm:39 src/EBox/Squid.pm.in:459 src/EBox/Squid.pm.in:464
+#: src/EBox/Squid.pm:459 src/EBox/Squid.pm:464
+#: ebox-squid-0.4+svn/src/EBox/Squid.pm.in:459
+#: ebox-squid-0.4+svn/src/EBox/Squid.pm.in:464
+#: ebox-squid-0.4+svn/src/EBox/CGI/Banned.pm:39
+msgid "domain name"
+msgstr "nom de domaine"
+
+#: src/EBox/CGI/Banned.pm:40 ebox-squid-0.4+svn/src/EBox/CGI/Banned.pm:40
+msgid "ban action"
+msgstr "exclusion"
+
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Squid.pm.in:702
+#: src/EBox/Squid.pm:702 ebox-squid-0.4+svn/src/EBox/Squid.pm.in:702
+#: ebox-squid-0.4+svn/src/EBox/CGI/Index.pm:30
+#: ebox-squid-0.4+svn/src/EBox/CGI/Index.pm:40
+msgid "HTTP Proxy"
+msgstr "Proxy HTTP"
+
+#: src/EBox/CGI/Domains.pm:30 src/EBox/CGI/Domains.pm:40
+#: ebox-squid-0.4+svn/src/EBox/CGI/Domains.pm:30
+#: ebox-squid-0.4+svn/src/EBox/CGI/Domains.pm:40 src/templates/domains.mas:12
+#: ebox-squid-0.4+svn/src/templates/domains.mas:12
+msgid "Banned domains"
+msgstr "Domaines exclus"
+
+#: src/EBox/CGI/SetPolicy.pm:30 src/EBox/CGI/Policy.pm:30
+#: src/EBox/CGI/Policy.pm:54 ebox-squid-0.4+svn/src/EBox/CGI/Policy.pm:30
+#: ebox-squid-0.4+svn/src/EBox/CGI/Policy.pm:54
+#: ebox-squid-0.4+svn/src/EBox/CGI/SetPolicy.pm:30
+#, fuzzy
+msgid "HTTP proxy policy"
+msgstr "Proxy HTTP"
+
+#: src/EBox/CGI/General.pm:41 ebox-squid-0.4+svn/src/EBox/CGI/General.pm:41
+msgid "content filter threshold"
+msgstr ""
+
+#: src/EBox/CGI/General.pm:44 ebox-squid-0.4+svn/src/EBox/CGI/General.pm:44
+msgid "transparent proxy"
+msgstr "proxy transparent"
+
+#: src/EBox/CGI/General.pm:47 src/EBox/Squid.pm.in:351 src/EBox/Squid.pm:351
+#: ebox-squid-0.4+svn/src/EBox/Squid.pm.in:351
+#: ebox-squid-0.4+svn/src/EBox/CGI/General.pm:47
+msgid "listening port"
+msgstr "port d'écoute"
+
+#: src/EBox/CGI/General.pm:50 ebox-squid-0.4+svn/src/EBox/CGI/General.pm:50
+msgid "global policy"
+msgstr "politique globale"
+
+#: src/EBox/Squid.pm.in:194 src/EBox/Squid.pm.in:254 src/EBox/Squid.pm:194
+#: src/EBox/Squid.pm:254 ebox-squid-0.4+svn/src/EBox/Squid.pm.in:194
+#: ebox-squid-0.4+svn/src/EBox/Squid.pm.in:254
+msgid "object"
+msgstr "objet"
+
+#: src/EBox/Squid.pm.in:436 src/EBox/Squid.pm:436
+#: ebox-squid-0.4+svn/src/EBox/Squid.pm.in:436
+#, perl-brace-format
+msgid "Policy '{policy}' is invalid"
+msgstr "La politique '{policy}' est invalide"
+
+#: src/EBox/Squid.pm.in:484 src/EBox/Squid.pm:484
+#: ebox-squid-0.4+svn/src/EBox/Squid.pm.in:484
+msgid "domain"
+msgstr "domaine"
+
+#: src/EBox/Squid.pm.in:509 src/EBox/Squid.pm:509
+#: ebox-squid-0.4+svn/src/EBox/Squid.pm.in:509
+msgid "Threshold"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:711 src/EBox/Squid.pm:711
+#: ebox-squid-0.4+svn/src/EBox/Squid.pm.in:711
+msgid "Proxy"
+msgstr "Proxy"
+
+#: src/EBox/Squid.pm.in:717 src/EBox/Squid.pm:717
+#: ebox-squid-0.4+svn/src/EBox/Squid.pm.in:717 src/templates/index.mas:35
+#: src/templates/index.mas:40 ebox-squid-0.4+svn/src/templates/index.mas:35
+#: ebox-squid-0.4+svn/src/templates/index.mas:40
+msgid "Enabled"
+msgstr "Activé"
+
+#: src/EBox/Squid.pm.in:719 src/EBox/Squid.pm:719
+#: ebox-squid-0.4+svn/src/EBox/Squid.pm.in:719 src/templates/index.mas:33
+#: src/templates/index.mas:38 ebox-squid-0.4+svn/src/templates/index.mas:33
+#: ebox-squid-0.4+svn/src/templates/index.mas:38
+msgid "Disabled"
+msgstr "Désactivé"
+
+#: src/EBox/Squid.pm.in:721 src/EBox/Squid.pm:721
+#: ebox-squid-0.4+svn/src/EBox/Squid.pm.in:721 src/templates/index.mas:26
+#: ebox-squid-0.4+svn/src/templates/index.mas:26
+msgid "Transparent proxy"
+msgstr "Proxy transparent"
+
+#: src/EBox/Squid.pm.in:724 src/EBox/Squid.pm:724
+#: ebox-squid-0.4+svn/src/EBox/Squid.pm.in:724 src/templates/index.mas:123
+#: src/templates/index.mas:126 src/templates/policy.mas:88
+#: src/templates/policy.mas:92 ebox-squid-0.4+svn/src/templates/index.mas:123
+#: ebox-squid-0.4+svn/src/templates/index.mas:126
+#: ebox-squid-0.4+svn/src/templates/policy.mas:88
+#: ebox-squid-0.4+svn/src/templates/policy.mas:92
+msgid "Allow"
+msgstr "Autoriser"
+
+#: src/EBox/Squid.pm.in:726 src/EBox/Squid.pm:726
+#: ebox-squid-0.4+svn/src/EBox/Squid.pm.in:726 src/templates/index.mas:130
+#: src/templates/index.mas:133 ebox-squid-0.4+svn/src/templates/index.mas:130
+#: ebox-squid-0.4+svn/src/templates/index.mas:133
+msgid "Deny"
+msgstr "Interdire"
+
+#: src/EBox/Squid.pm.in:728 src/EBox/Squid.pm:728
+#: ebox-squid-0.4+svn/src/EBox/Squid.pm.in:728 src/templates/index.mas:116
+#: ebox-squid-0.4+svn/src/templates/index.mas:116
+msgid "Global policy"
+msgstr "Politique globale"
+
+#: src/EBox/Squid.pm.in:730 src/EBox/Squid.pm:730
+#: ebox-squid-0.4+svn/src/EBox/Squid.pm.in:730
+msgid "Listening port"
+msgstr "Port d'écoute"
+
+#: src/templates/index.mas:16 ebox-squid-0.4+svn/src/templates/index.mas:16
+msgid "Enable the HTTP proxy"
+msgstr "Activer le proxy HTTP"
+
+#: src/templates/index.mas:18 ebox-squid-0.4+svn/src/templates/index.mas:18
+msgid "General Settings"
+msgstr "Paramètres généraux"
+
+#: src/templates/index.mas:49 ebox-squid-0.4+svn/src/templates/index.mas:49
+msgid "Port"
+msgstr "Port"
+
+#: src/templates/index.mas:62 ebox-squid-0.4+svn/src/templates/index.mas:62
+msgid "Content filter threshold"
+msgstr ""
+
+#: src/templates/index.mas:69 src/templates/index.mas:72
+#: ebox-squid-0.4+svn/src/templates/index.mas:69
+#: ebox-squid-0.4+svn/src/templates/index.mas:72
+msgid "Content filter disabled"
+msgstr ""
+
+#: src/templates/index.mas:76 src/templates/index.mas:79
+#: ebox-squid-0.4+svn/src/templates/index.mas:76
+#: ebox-squid-0.4+svn/src/templates/index.mas:79
+msgid "Very permissive"
+msgstr ""
+
+#: src/templates/index.mas:83 src/templates/index.mas:86
+#: ebox-squid-0.4+svn/src/templates/index.mas:83
+#: ebox-squid-0.4+svn/src/templates/index.mas:86
+msgid "Permissive"
+msgstr ""
+
+#: src/templates/index.mas:90 src/templates/index.mas:93
+#: ebox-squid-0.4+svn/src/templates/index.mas:90
+#: ebox-squid-0.4+svn/src/templates/index.mas:93
+msgid "Medium"
+msgstr ""
+
+#: src/templates/index.mas:97 src/templates/index.mas:100
+#: ebox-squid-0.4+svn/src/templates/index.mas:97
+#: ebox-squid-0.4+svn/src/templates/index.mas:100
+msgid "Strict"
+msgstr ""
+
+#: src/templates/index.mas:104 src/templates/index.mas:107
+#: ebox-squid-0.4+svn/src/templates/index.mas:104
+#: ebox-squid-0.4+svn/src/templates/index.mas:107
+msgid "Very strict"
+msgstr ""
+
+#: src/templates/index.mas:137 src/templates/index.mas:140
+#: src/templates/policy.mas:48 src/templates/policy.mas:52
+#: src/templates/policy.mas:98 src/templates/policy.mas:102
+#: ebox-squid-0.4+svn/src/templates/index.mas:137
+#: ebox-squid-0.4+svn/src/templates/index.mas:140
+#: ebox-squid-0.4+svn/src/templates/policy.mas:48
+#: ebox-squid-0.4+svn/src/templates/policy.mas:52
+#: ebox-squid-0.4+svn/src/templates/policy.mas:98
+#: ebox-squid-0.4+svn/src/templates/policy.mas:102
+msgid "Filter"
+msgstr ""
+
+#: src/templates/index.mas:151 src/templates/index.mas:152
+#: ebox-squid-0.4+svn/src/templates/index.mas:151
+#: ebox-squid-0.4+svn/src/templates/index.mas:152
+msgid "Ok"
+msgstr "Ok"
+
+#: src/templates/domains.mas:15
+#: ebox-squid-0.4+svn/src/templates/domains.mas:15
+msgid "Add here those domains which you do not want to allow access."
+msgstr ""
+"Ajoutez ici les domaines auxquels vous ne souhaitez pas autoriser l'accès"
+
+#: src/templates/domains.mas:19
+#: ebox-squid-0.4+svn/src/templates/domains.mas:19
+msgid "Introduce domains in this way: "
+msgstr "Introduire les domaines de cette manière : "
+
+#: src/templates/domains.mas:21
+#: ebox-squid-0.4+svn/src/templates/domains.mas:21
+msgid "domain.com"
+msgstr "domain.com"
+
+#: src/templates/domains.mas:27
+#: ebox-squid-0.4+svn/src/templates/domains.mas:27
+msgid "Domain"
+msgstr "Domaine"
+
+#: src/templates/domains.mas:29
+#: ebox-squid-0.4+svn/src/templates/domains.mas:29
+msgid "Action"
+msgstr "Action"
+
+#: src/templates/domains.mas:47 src/templates/domains.mas:49
+#: src/templates/domains.mas:51
+#: ebox-squid-0.4+svn/src/templates/domains.mas:47
+#: ebox-squid-0.4+svn/src/templates/domains.mas:49
+#: ebox-squid-0.4+svn/src/templates/domains.mas:51
+msgid "Add"
+msgstr ""
+
+#: src/templates/domains.mas:67 src/templates/domains.mas:69
+#: src/templates/domains.mas:71
+#: ebox-squid-0.4+svn/src/templates/domains.mas:67
+#: ebox-squid-0.4+svn/src/templates/domains.mas:69
+#: ebox-squid-0.4+svn/src/templates/domains.mas:71
+#, fuzzy
+msgid "Delete"
+msgstr "Sélectionner"
+
+#: src/templates/policy.mas:14 ebox-squid-0.4+svn/src/templates/policy.mas:14
+msgid ""
+"Choose the object whose state you want to change and click in the arrow to "
+"move it to the desired column."
+msgstr ""
+
+#: src/templates/policy.mas:23 ebox-squid-0.4+svn/src/templates/policy.mas:23
+#, fuzzy
+msgid "Allowed"
+msgstr "Autoriser"
+
+#: src/templates/policy.mas:26 ebox-squid-0.4+svn/src/templates/policy.mas:26
+msgid "Filtered"
+msgstr ""
+
+#: src/templates/policy.mas:29 ebox-squid-0.4+svn/src/templates/policy.mas:29
+#, fuzzy
+msgid "Denied"
+msgstr "Interdire"
+
+#: src/templates/policy.mas:50 src/templates/policy.mas:100
+#: ebox-squid-0.4+svn/src/templates/policy.mas:50
+#: ebox-squid-0.4+svn/src/templates/policy.mas:100
+msgid "Move selected objects to the filtered column"
+msgstr ""
+
+#: src/templates/policy.mas:67 src/templates/policy.mas:71
+#: ebox-squid-0.4+svn/src/templates/policy.mas:67
+#: ebox-squid-0.4+svn/src/templates/policy.mas:71
+msgid "Ban"
+msgstr ""
+
+#: src/templates/policy.mas:69 ebox-squid-0.4+svn/src/templates/policy.mas:69
+msgid "Move selected objects to the banned column"
+msgstr ""
+
+#: src/templates/policy.mas:90 ebox-squid-0.4+svn/src/templates/policy.mas:90
+msgid "Move selected objects to the unfiltered column"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Banned"
+#~ msgstr "Domaines exclus"
+
+#~ msgid "Running"
+#~ msgstr "En marche"
+
+#~ msgid "Stopped"
+#~ msgstr "Stoppé"
+
+#~ msgid "Status"
+#~ msgstr "Statut"
+
+#~ msgid "auth"
+#~ msgstr "authentification"
+
+#~ msgid "Service Status"
+#~ msgstr "Statut du service"
+
+#~ msgid "Default policy"
+#~ msgstr "Politique par défaut"
+
+#~ msgid "Object selection"
+#~ msgstr "Sélection d'objet"
+
+#~ msgid "Select those objects which you want to allow access to"
+#~ msgstr "Sélectionner les objets auxquels vous voulez autoriser l'accès"
+
+#~ msgid "Select those objects which you want to deny access to"
+#~ msgstr "Sélectionner les objets auxquels vous voulez interdire l'accès"
+
+#~ msgid "Object Name"
+#~ msgstr "Nom de l'objet"
+
+#~ msgid "Show"
+#~ msgstr "Montrer"
+
+#~ msgid "Hide"
+#~ msgstr "Cacher"

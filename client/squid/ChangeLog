@@ -1,0 +1,39 @@
+0.6
+	* move to client
+	* API documented using naturaldocs
+	* Update install
+	* Update debian scripts
+
+0.5.2
+	+ Fix some packaging issues
+
+0.5.1
+	+ Convert module to new menu system
+
+0.5
+	+ No changes
+
+0.4
+	+ debian package
+	+ Added content filter based on dansguardian
+	+ Rework to support dansguardian
+	+ Added French translation
+	+ Added Catalan translation
+
+0.3
+	+ Supports i18n
+	+ Supports banned domains
+	+ API name consistency
+	+ Use Mason for templates
+	+ added tips to GUI 
+	+ Fixed bugs to IE compliant
+	+ Several bugfixes
+
+0.2
+	+ All modules are now based on gconf.
+	+ Removed dependencies on xml-simple, xerces and xpath
+	+ New MAC address field in Object members.
+	+ Several bugfixes.
+
+0.1
+	+ Initial release

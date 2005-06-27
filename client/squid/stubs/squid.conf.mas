@@ -1,0 +1,74 @@
+<%args>
+	$port
+	$transparent
+	$policy
+	$objects
+</%args>
+# <EBOX> TAG_HTTPORT #
+http_port <% $port %>
+# END_TAG #
+
+visible_hostname localhost
+hierarchy_stoplist cgi-bin ?
+acl QUERY urlpath_regex cgi-bin \?
+no_cache deny QUERY
+refresh_pattern ^ftp:		1440	20%	10080
+refresh_pattern ^gopher:	1440	0%	1440
+refresh_pattern .		0	20%	4320
+coredump_dir /var/spool/squid
+cache_effective_user proxy
+cache_effective_group proxy
+cache_mem 100 MB
+
+% if ($transparent eq 'yes') { 
+# <EBOX> TAG_TRANSPARENT #
+httpd_accel_host virtual
+httpd_accel_port 80
+httpd_accel_with_proxy on
+httpd_accel_uses_host_header on
+# END_TAG #
+% }
+
+
+# <EBOX> TAG_ACL #
+<% $objects %>
+# END_TAG #
+acl localhost src 127.0.0.0/8
+acl localhostdst dst 127.0.0.0/8
+acl all src 0.0.0.0/0.0.0.0
+acl manager proto cache_object
+acl to_localhost dst 127.0.0.0/8
+acl SSL_ports port 443 563	# https, snews
+acl SSL_ports port 873		# rsync
+acl Safe_ports port 80		# http
+acl Safe_ports port 21		# ftp
+acl Safe_ports port 443 563	# https, snews
+acl Safe_ports port 70		# gopher
+acl Safe_ports port 210		# wais
+acl Safe_ports port 1025-65535	# unregistered ports
+acl Safe_ports port 280		# http-mgmt
+acl Safe_ports port 488		# gss-http
+acl Safe_ports port 591		# filemaker
+acl Safe_ports port 777		# multiling http
+acl Safe_ports port 631		# cups
+acl Safe_ports port 873		# rsync
+acl Safe_ports port 901		# SWAT
+acl purge method PURGE
+acl CONNECT method CONNECT
+ 
+http_access allow localhost 
+http_access deny manager
+http_access deny purge
+http_access deny !Safe_ports
+http_access deny CONNECT !SSL_ports
+http_reply_access allow all
+ 
+# <EBOX> TAG_HTTP_ACCESS #
+% my $obpolicy = $policy eq 'allow' ? 'deny' : 'allow';
+% if ($objects) {
+http_access <% $obpolicy %> objects
+% }
+http_access <% $policy %> all
+# END_TAG #
+
+always_direct allow localhostdst

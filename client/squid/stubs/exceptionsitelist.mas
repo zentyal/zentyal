@@ -1,0 +1,21 @@
+<%args>
+	@domains
+</%args>
+
+#Sites in exception list
+#Don't bother with the www. or
+#the http://
+#
+#These are specifically domains and are not URLs.
+#For example 'foo.bar/porn/' is no good, you need
+#to just have 'foo.bar'.
+#
+#You can also match IPs here too.
+#
+#As of DansGuardian 2.7.3 you can now include
+#.tld so for example you can match .gov for example
+
+% foreach my $domain (@domains) {
+<% $domain %>
+	
+% }
