@@ -1,0 +1,48 @@
+#!/bin/bash
+
+webserver=apache
+
+case "$1" in
+	configure)
+		# install gconf schemas
+		SCHEMA_LOCATION=/usr/share/gconf/schemas
+		SCHEMA_FILES="software.schemas "
+		for SCHEMA in $SCHEMA_FILES; do
+			if [ -e $SCHEMA_LOCATION/$SCHEMA ]; then
+				HOME=/var/lib/ebox GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` \
+				gconftool-2 \
+				--makefile-install-rule $SCHEMA_LOCATION/$SCHEMA > /dev/null
+			fi
+		done
+
+		kill `pidof gconfd-2` >/dev/null 2>&1 || true
+
+		# sudo configuration
+		ebox-sudoers > /etc/sudoers
+		chmod 0440 /etc/sudoers
+
+		# allow eBox to fetch packages via http
+		perl -e '
+			use EBox;
+			use EBox::Global;
+			EBox::init();
+			my $global = EBox::Global->getInstance();
+			exit (0) unless ($global->modExists("firewall"));
+			eval "use EBox::Firewall"; 
+			my $fw = EBox::Global->modInstance("firewall");
+			$fw->addOutputRule("tcp",80);
+			$fw->save();'
+
+		# make sure dpkg prefers to preserver old configuration files
+		echo "force-confold" > /etc/dpkg/dpkg.cfg
+		# make sure ucf prefers to preserver old configuration files
+		echo "conf_force_conffold=YES" > /etc/ucf.conf
+
+		. /usr/share/debconf/confmodule.sh
+		db_set debconf/priority critical
+		db_set debconf/frontend noninteractive
+esac
+
+#DEBHELPER#
+
+exit 0

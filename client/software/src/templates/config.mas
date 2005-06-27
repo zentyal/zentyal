@@ -1,0 +1,10 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+	$automatic
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<& enable.mas, title => __('Perform automatic security updates'), 
+				active => $automatic &>

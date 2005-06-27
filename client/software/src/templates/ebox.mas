@@ -1,0 +1,58 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+	@eboxpkgs => ()
+</%args>
+<%init>
+use EBox::Gettext;
+my $eboxupgbutton = 'no';
+</%init>
+<br />
+	<table class='dataTable'>
+	<thead>
+		<tr>
+			<th class='tleft'><%__('Component')%></th>
+			<th class='tleft'><%__('Description')%></th>
+			<th class='tleft'><%__('Installed version ')%></th>
+			<th class='tleft'><%__('Latest version')%></th>
+			<th class='tcenter'><%__('Actions')%></th>
+		</tr>
+	</thead>
+	<tbody>
+% 	foreach my $pkg (@eboxpkgs) {
+% 		my $eboxupg = 'no';
+		<tr class='border'>
+			<td><%$pkg->{name}%></td>
+			<td><%$pkg->{description}%></td>
+% 		if ($pkg->{version}) {
+% 			if ($pkg->{version} ne $pkg->{avail}) {
+%				$eboxupg = __('Update');
+%				$eboxupgbutton = 'yes';
+% 			}
+			<td><%$pkg->{version}%></td>
+% 		} else {
+%			$eboxupg = __('Install');
+%			$eboxupgbutton = 'yes';
+			<td><%__('none')%></td>
+% 		}
+			<td><%$pkg->{avail}%></td>
+			<form action='InstallPkgs' method='post'>
+			<input type='hidden' value='yes' 
+					name='pkg-<%$pkg->{name}%>'/>
+			<td class='tcenter'>
+% 		if ($eboxupg ne 'no') {
+				<input type='submit' name='ebox-install' 
+						class='inputButton'
+						value='<%$eboxupg%>'/>
+% 		}
+% 		if ($pkg->{version} and $pkg->{removable}) {
+				<input type='submit' name='ebox-remove' 
+						class='inputButton'
+						value='<%__('Remove')%>'/>
+% 		}
+			</td>
+			</form>
+		</tr>
+% 	}
+	</tbody>
+	</table>

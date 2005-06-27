@@ -1,0 +1,51 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+	@upgradables => ()
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+% if (@upgradables != 0) {
+	<p><%__('Updates are available for the following system components')%>:</p>
+	<form id='updates' action='InstallPkgs' method='post'>
+		<table class='dataTable' cellspacing='0'>
+		<thead>
+			<tr>
+				<th class='tleft'><%__('Component')%></th>
+				<th class='tleft'><%__('Description')%></th>
+				<th><%__('Update')%></th>
+			</tr>
+		</thead>
+		<tbody>
+% 	foreach my $pkg (@upgradables) {
+			<tr class='border'>
+				<td><%$pkg->{name}%></td>
+				<td><%$pkg->{description}%></td>
+				<td class='tcenter'>
+					<input type='checkbox' value='yes' 
+						name='pkg-<%$pkg->{name}%>'/>
+				</td>
+			</tr>
+% 	}
+			<tr class='trimp'>
+				<td colspan='2'>
+					<%__('Update all packages')%>
+				</td>
+				<td class='tcenter'>
+					<input type='checkbox' value='on'
+						onclick="checkAll('updates');"
+						name='allbox'>
+				</td>
+			</tr>
+		</tbody>
+		</table>
+		<p>
+			<input type='submit' class='inputButton' name='upgrade' value='<%__('Upgrade')%>'/>
+		</p>
+	</form>
+	<div class="note">
+	<% __("This operation can take some time, don't worry if eBox looks unresponsive after pressing the Upgrade button.") %>
+	</div>
+
+% }

@@ -1,0 +1,25 @@
+<!-- vim: ts=4 sw=4 nowrap
+-->
+
+<gconfschemafile>
+	<schemalist>
+		<schema>
+			<key>/schemas/ebox/modules/global/modules/software/class</key>
+			<applyto>/ebox/modules/global/modules/software/class</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>EBox::Software</default>
+			<locale name="C"/>
+		</schema>
+
+        <schema>
+            <key>/schemas/ebox/modules/software/automatic</key>
+            <applyto>/ebox/modules/software/automatic</applyto>
+            <owner>ebox</owner>
+            <type>bool</type>
+			<default>false</default>
+            <locale name="C"/>
+        </schema>
+
+	</schemalist>
+</gconfschemafile>

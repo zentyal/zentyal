@@ -1,0 +1,129 @@
+# translation of es.po to 
+# translation of es.po to Spanish
+# translation of es.po to
+# Guillermo Ontañón <gontanon@warp.es>, 2005.
+# Isaac Clerencia <isaac@warp.es>, 2005.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: es\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2005-03-14 02:13+0100\n"
+"PO-Revision-Date: 2005-03-01 19:19+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <es@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+
+#: src/EBox/CGI/InstallPkgs.pm:57
+msgid "The packages were installed successfully"
+msgstr "Los paquetes se han instalado correctamente"
+
+#: src/EBox/CGI/InstallPkgs.pm:60
+msgid "The packages were uninstalled successfully"
+msgstr "Los paquetes se han instalado correctamente"
+
+#: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
+#: src/EBox/Software.pm:384
+msgid "System updates"
+msgstr "Actualizaciones del sistema"
+
+#: src/EBox/CGI/Updates.pm:45
+msgid "Software updates are being handled automatically"
+msgstr "Las actualizaciones de software se gestionan automáticamente"
+
+#: src/EBox/CGI/Updates.pm:52
+msgid "The system is up to date"
+msgstr "El sistema está al día"
+
+#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+msgid "Software updates configuration"
+msgstr "Configuración de las actualizaciones de software"
+
+#: src/EBox/CGI/Enable.pm:41
+msgid "automatic updates configuration"
+msgstr "configuración de las actualizaciones automáticas"
+
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:382
+msgid "eBox components"
+msgstr "Componentes eBox"
+
+#: src/EBox/Software.pm:105
+msgid ""
+"An error ocurred while installing components. If the error persists or eBox "
+"stops working properly, seek technical support."
+msgstr ""
+"Se ha producido un error al instalar componentes. Si el error persiste o "
+"eBox deja de funcionar correctamente pida soporte técnico."
+
+#: src/EBox/Software.pm:119
+msgid ""
+"An error ocurred while removing components. If the error persists or eBox "
+"stops working properly, seek technical support."
+msgstr ""
+"Se ha producido un error al instalar componentes. Si el error persiste o "
+"eBox deja de funcionar correctamente pida soporte técnico."
+
+#: src/EBox/Software.pm:379
+msgid "Software management"
+msgstr "Gestión de software"
+
+#: src/EBox/Software.pm:386
+msgid "Configuration"
+msgstr "Configuración"
+
+#: src/templates/updates.mas:10
+msgid "Updates are available for the following system components"
+msgstr ""
+"Hay actualizaciones disponibles para los siguientes componentes del sistema"
+
+#: src/templates/updates.mas:16 src/templates/ebox.mas:14
+msgid "Component"
+msgstr "Componente"
+
+#: src/templates/updates.mas:18 src/templates/ebox.mas:16
+msgid "Description"
+msgstr "Descripción"
+
+#: src/templates/updates.mas:20 src/templates/ebox.mas:34
+msgid "Update"
+msgstr "Actualizar"
+
+#: src/templates/updates.mas:37
+msgid "Update all packages"
+msgstr "Actualizar todos los paquetes"
+
+#: src/templates/updates.mas:49
+msgid "Upgrade"
+msgstr "Actualizar"
+
+#: src/templates/config.mas:9
+msgid "Perform automatic security updates"
+msgstr "Instalar automáticamente parches de seguridad"
+
+#: src/templates/ebox.mas:18
+msgid "Installed version "
+msgstr "Versión instalada"
+
+#: src/templates/ebox.mas:20
+msgid "Latest version"
+msgstr "Última versión"
+
+#: src/templates/ebox.mas:22
+msgid "Actions"
+msgstr "Acciones"
+
+#: src/templates/ebox.mas:40
+msgid "Install"
+msgstr "Instalar"
+
+#: src/templates/ebox.mas:43
+msgid "none"
+msgstr "ninguna"
+
+#: src/templates/ebox.mas:59
+msgid "Remove"
+msgstr "Eliminar"
