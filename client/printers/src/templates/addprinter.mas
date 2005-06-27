@@ -1,0 +1,44 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<form action='AddPrinter' method='POST'>
+	<h3><% __('Add a new printer') %></h3>
+	<table class='formTable'>
+	<tbody>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Printer name') %>:</span>
+		</td>
+		<td>
+			<input type='text' class='inputText' name='printername' >
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Method') %>:</span>
+		</td>
+		<td>
+			<select name='method'>
+				<option value='usb'>USB</option>
+				<option value='parallel'><% __('Parallel') %> </option>
+				<option value='network'><% __('Network printer') %></option>
+				<option value='samba'><% __('Samba') %></option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input class='inputButton' type='submit' name='addprinter' 
+				   value="<% __('Add') %>"
+				   alt="<% __('Add') %>">
+		</td>
+	</tr>
+</tbody>
+</table>
+</form>

@@ -1,0 +1,47 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+$printerid
+@devices
+$device => ''
+$button_val
+$button_name
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<form action='USBPrinter' method='POST'>
+	<h3><% __('Local USB printer configuration') %></h3>
+	<input type='hidden' name='printerid' value=<% $printerid %>>
+	<input name='selected' type='hidden' value='config'>
+	<table class='formTable'>
+	<tbody>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Device') %>:</span>
+		</td>
+		<td>
+       		<select name='dev'>
+%				for my $dev (@devices) {				
+%					if ($device eq $dev) {				
+		                <option selected value=<% $dev %>><% $dev %></option>
+%					} else {
+		                <option value=<% $dev %>><% $dev %></option>
+%					}
+
+%				}
+            </select>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input class='inputButton' type='submit' name='<% $button_name %>' 
+				   value="<% $button_val %>"
+				   alt="<% $button_val %>">
+		</td>
+	</tr>
+</tbody>
+</table>
+</form>

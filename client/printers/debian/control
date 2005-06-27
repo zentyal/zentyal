@@ -1,0 +1,17 @@
+Source: ebox-printers
+Section: web
+Priority: optional
+Maintainer: Javier Uruen  <javi@warp.es>
+Build-Depends: debhelper (>= 4.0.0)
+Standards-Version: 3.6.1
+
+Package: ebox-printers
+Architecture: all
+Depends: ebox-samba, cupsys, libexporter-cluster-perl, libnet-cups-perl, foomatic-db, foomatic-db-engine, foomatic-db-hpijs, foomatic-filters, foomatic-filters-ppds
+Description: eBox printing module
+ eBox is a framework for the development and deployment of security-wise
+ printers services in small and medium-sized printerss, offering a simplified
+ graphical interface to non expert users. It can be set up as a gateway,
+ having some extra features over a usual router.
+ .
+ This module adds a printing server, allowing to manage and share printers. 

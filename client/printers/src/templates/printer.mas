@@ -1,0 +1,170 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+$printerid
+$name
+$manufacturer
+$model
+$driver
+$opts
+$methconf
+@jobs
+@devices => ();
+@tabs
+$selected
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<div class='ifaces'>
+% foreach my $tab (@tabs) {
+%	if($tab->{link} eq $selected) {
+		<span class='selected'><% $tab->{name} %></span>
+%	} else {
+		<a href='ManagePrinterUI?selected=<% $tab->{link} %>
+			&amp;printerid=<% $printerid %>'>
+			<% $tab->{name} %></a>
+%	}
+% }
+</div>
+
+% my $button_val = __('Change');
+% if ($selected eq 'drvopts') {
+
+	<& /printers/drvopts.mas, opts => $opts, printerid => $printerid, ip => $methconf->{host}, port => $methconf->{port}, button_val => $button_val, button_name => 'manageprinterui' &>
+
+% } elsif ($selected eq 'config') {
+
+%	if ($methconf->{method} eq 'samba') {
+
+		<& /printers/samba.mas, opts => $opts, printerid => $printerid, resource => $methconf->{resource}, auth => $methconf->{auth}, user => $methconf->{user}, passwd => $methconf->{passwd}, button_val => $button_val, button_name => 'manageprinterui' &>
+
+%	} elsif ($methconf->{method} eq 'network') {
+
+	<& /printers/network.mas, opts => $opts, printerid => $printerid, ip => $methconf->{host}, port => $methconf->{port}, button_val => $button_val, button_name => 'manageprinterui' &>
+
+%	} elsif ($methconf->{method} eq 'usb') {
+
+	<& /printers/usb.mas, opts => $opts, printerid => $printerid, devices => \@devices, device => $methconf->{dev}, button_val => $button_val, button_name => 'manageprinterui' &>
+
+%	} elsif ($methconf->{method} eq 'parallel') {
+
+	<& /printers/parallel.mas, opts => $opts, printerid => $printerid, devices => \@devices, device => $methconf->{dev}, button_val => $button_val, button_name => 'manageprinterui' &>
+	
+% }
+
+% } elsif ($selected eq 'jobs') {
+
+%	if(@jobs){
+
+		<h3><% __('Job queue') %></h3>
+
+		<table class='dataTable' cellspacing='0'>
+			<caption>
+				<% __('List of jobs') %>
+			</caption>
+
+			<thead>
+				<tr>
+					<th class="tleft"><%__('Job ID')%></th>
+					<th><%__('Owner')%></th>
+					<th><%__('Name')%></th>
+					<th><%__('Size(KB)')%></th>
+					<th><%__('Creation time')%></th>
+					<th><%__('Action')%></th>
+				</tr>
+			</thead>
+
+			<tbody>
+%			foreach my $job (@jobs) {
+				<tr class='border'>
+					<form method='POST' action='CancelJob'>
+						<input type='hidden'
+								name='printerid'
+								value='<% $printerid %>'>
+						<input type='hidden'
+								name='printername'
+								value="<% $job->{'dest'} %>"/>
+						<input type='hidden'
+								name='jobid'
+								value="<% $job->{'id'} %>"/>
+						<input name='selected' 
+								type='hidden' 
+								value='jobs'>
+						<td>
+							<% $job->{'id'} %>
+						</td>
+						<td>
+							<% $job->{'user'} %>
+						</td>
+						<td>
+							<% $job->{'title'} %>
+						</td>
+						<td class='tcenter'>
+							<% $job->{'size'} %>
+						</td>
+						<td class='tcenter'>
+%							my $jobtime = localtime($job->{'creation_time'});
+							<% $jobtime %>
+						</td>
+						<td class='tcenter'>
+								<input type='image' name='delete'
+										src='/data/images/delete.gif'
+										value='<%__('Delete')%>'
+										title='<%__('Delete')%>'
+										alt='<%__('Delete')%>'/>
+						</td>
+					</form>
+				</tr>
+%			}
+			</tbody>
+</table>
+%	} else {
+	<div class='note'><% __('This printer has no pending job in queue at the moment') %></div>
+%	}
+% } else {
+	<form action='ManufacturerUI' method='POST'>
+
+	<h3><% __('Printer') %> <% $name %></h3>
+	<input name='printerid' type='hidden' value='<% $printerid %>'>
+
+	<table class='formTable'>
+	<tbody>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Manufacturer') %>:</span>
+		</td>
+		<td>
+			<% $manufacturer %>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Model') %>:</span>
+		</td>
+		<td>
+			<% $model %>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Driver') %>:</span>
+		</td>
+		<td>
+			<% $driver %>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input class='inputButton' type='submit' name='managemodelui' 
+				   value="<% __('Change') %>"
+				   alt="<% __('Change') %>">
+		</td>
+	</tr>
+	</tbody>
+	</table>
+
+	</form>
+% }

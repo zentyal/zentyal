@@ -1,0 +1,38 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+@drivers
+$printerid
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<form action='Driver' method='POST'>
+	<h3><% __('Choose a driver for the printer') %></h3>
+	<input name='printerid' type='hidden' value='<% $printerid %>'>
+	<table class='formTable'>
+	<tbody>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Driver') %>:</span>
+		</td>
+		<td>
+			<select name='driver'>
+%				foreach my $drv (@drivers) {
+					<option value='<% $drv%>'><% $drv %></option>
+%				}
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input class='inputButton' type='submit' name='driverui' 
+				   value="<% __('Next') %>"
+				   alt="<% __('Next') %>">
+		</td>
+	</tr>
+</tbody>
+</table>
+</form>

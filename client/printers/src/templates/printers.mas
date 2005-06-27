@@ -1,0 +1,56 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+@printers
+$active
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<& enable.mas, title => __('Enable the printer sharing'), active => $active &>
+
+<h3><% __('List of printers') %></h3>
+% if(@printers){
+<table class='dataTable' cellspacing='0'>
+    <caption>
+        <% __('Printers') %>
+    </caption>
+    <thead>
+        <tr>
+            <th class="tleft"><%__('Name')%></th>
+            <th><%__('Description')%></th>
+            <th><%__('Actions')%></th>
+        </tr>
+    </thead>
+    <tbody>
+%       foreach my $printer (@printers) {
+        <tr class='border'>
+            <form method='POST' action='ManagePrinter'>
+                <td>
+                    <input type='hidden'
+                        name='printerid'
+                        value="<%$printer->{'id'}%>"/>
+                    <% $printer->{'name'} %>
+                </td>
+                <td class='tcenter'>
+                    <% $printer->{'info'} %>
+                </td>
+                <td class='tcenter'>
+                    <input type='image' name='edit'
+                        src='/data/images/edit.gif'
+                        value='<%__('Manage')%>'
+                        title='<%__('Manage this printer')%>'
+                        alt='<%__('Manage this printer')%>'/>
+                    <img src='/data/images/sep.gif' alt='-'/>
+                    <input type='image' name='delete'
+                        src='/data/images/delete.gif'
+                        value='<%__('Delete')%>'
+                        title='<%__('Delete')%>'
+                        alt='<%__('Delete')%>'/>
+                </td>
+            </form>
+        </tr>
+%       }
+    </tbody>
+</table>
+% }

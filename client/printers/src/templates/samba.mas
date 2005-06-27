@@ -1,0 +1,85 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+$printerid
+$resource => ''
+$auth => ''
+$user => ''
+$passwd => ''
+$button_val
+$button_name
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<form action='SambaPrinter' method='POST'>
+    <h3><% __('Samba shared printer configuration') %></h3>
+    <input type='hidden' name='printerid' value=<% $printerid %>>
+	<input name='selected' type='hidden' value='config'>
+    <table class='formTable'>
+    <tbody>
+    <tr>
+        <td class='tright'>
+            <span class='ftitle'><% __('Share resource') %>:</span>
+        </td>
+        <td>
+            <input type='text' class='inputText' name='resource' value='<% $resource %>' >
+        </td>
+    </tr>
+    <tr>
+        <td class='tright'>
+            <span class='ftitle'><% __('Authentication') %>:</span>
+        </td>
+        <td>
+            <select name='auth'>
+
+%			if ($auth eq 'anonymous') {
+                <option selected value='anonymous'><% __('Anonymous') %></option>
+% 			} else {
+                <option value='anonymous'><% __('Anonymous') %></option>
+%			}
+
+%			if ($auth eq 'guest') {
+                <option selected value='guest'><% __('Guest') %></option>
+% 			} else {
+                <option value='guest'><% __('Guest') %></option>
+%			}
+
+%			if ($auth eq 'user') {
+                <option selected value='user'><% __('User/Password') %></option>
+% 			} else {
+                <option value='user'><% __('User/Password') %></option>
+%			}
+
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class='tright'>
+            <span class='ftitle'><% __('User') %>:</span>
+        </td>
+        <td>
+            <input type='text' class='inputText' name='user' value='<% $user %>'>
+        </td>
+
+    </tr>
+    <tr>
+        <td class='tright'>
+            <span class='ftitle'><% __('Password') %>:</span>
+        </td>
+        <td>
+            <input type='text' class='inputText' name='passwd' value='<% $passwd %>' >
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <input class='inputButton' type='submit' name='<% $button_name %>' 
+                   value="<% $button_val %>"
+                   alt="<% $button_val %>">
+        </td>
+    </tr>
+</tbody>
+</table>
+</form>

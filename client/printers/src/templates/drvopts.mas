@@ -1,0 +1,63 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+$opts
+$printerid
+$button_val
+$button_name
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<form action='Drvopts' method='POST'>
+	<h3><% __('Driver options') %></h3>
+    <input name='printerid' type='hidden' value='<% $printerid %>'>
+    <input name='selected' type='hidden' value='drvopts'>
+	<table class='formTable'>
+	<tbody>
+	<tr>
+% 	for my $key (keys %{$opts}) {		
+		<td class='tright'>
+%		 my $text = $opts->{$key}->{text};		
+			<span class='ftitle'><% __d($text,'ebox-printers-ppds') %>:</span>
+		</td>
+		<td>
+% 			if ($opts->{$key}->{'type'} eq 'enum') {			
+			<select name='<% $key %>'>
+%				for my $option (@{$opts->{$key}->{options}}){
+%					my @optiontxt = %{$option};
+
+%					 if ($opts->{$key}->{'value'} eq $optiontxt[0]) {
+						<option selected value='<% $optiontxt[0] %>'> 
+								<% __d($optiontxt[1],'ebox-printers-ppds') %>
+%					 } else {
+						<option value='<% $optiontxt[0] %>'> 
+								<% __d($optiontxt[1],'ebox-printers-ppds') %>
+%					 }
+					</option>				
+% 				}
+			</select>
+%			} elsif (($opts->{$key}->{'type'} eq 'float') or  ($opts->{$key}->{'type'} eq 'int')) {
+						<input type='text' name=<%  $key %> value=<% $opts->{$key}->{'value'}  %>>
+%			} elsif ($opts->{$key}->{'type'} eq 'bool') {
+%					if ($opts->{$key}->{value}) {
+						<input type='checkbox' checked name=<% $key %>>
+%					} else {
+						<input type='checkbox'  name=<%	 $key %>>
+%					}
+%			}
+		</td>
+	</tr>
+% }	
+	<tr>
+		<td></td>
+		<td>
+			<input class='inputButton' type='submit' name='<% $button_name %>' 
+				   value="<% $button_val %>"
+				   alt="<% $button_val %>">
+		</td>
+	</tr>
+</tbody>
+</table>
+</form>
