@@ -1,0 +1,11 @@
+- To install this module you need to install:
+     + eBox components
+        libebox
+        ebox
+
+- Once all dependencies are satisfied, type:
+	
+	./configure
+	make install
+
+  configure will autodetect eBox base path to install
