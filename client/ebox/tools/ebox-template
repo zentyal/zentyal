@@ -1,0 +1,51 @@
+#!/usr/bin/perl
+
+use strict;
+
+sub usage() {
+	print "Usage: $0 module-name [path]\n";
+	exit 1;
+}
+
+if ($#ARGV < 0 or $#ARGV > 1){
+	usage();
+}
+
+my $name = $ARGV[0];
+my $path = $ARGV[1] ? $ARGV[1] : ".";
+
+#my $templatepath = "@DATADIR@/module-template";
+my $templatepath = "./module-template";
+
+for   (`find $templatepath -not -regex ".*svn.*"`) {
+	chop;
+	s/^$templatepath\/?//g;
+	next if length($_) == 0;
+	if ( -d "$templatepath/$_" ){
+		unless (system("mkdir $path/$_") == 0){
+			die "Couldnt create directory $path/$_";
+		}
+		next;
+	}
+	unless (system("cp  $templatepath/$_ $path/$_") == 0){
+		die "Couldnt copy from $templatepath/$_ to $path/$_";
+	}
+}
+
+
+unless (system("sed -i -e 's/#MODULE#/$name/' $path/configure.ac") == 0){
+	die "Couldnt modify $path/configure.ac";
+}
+
+unless (system("sed -i -e 's/#MODULE#/$name/' $path/schemas/Makefile.am") == 0){
+	die "Couldnt modify $path/schemas/Makefile.am";
+}
+
+unless (system("sed -i -e 's/#MODULE#/$name/' $path/stubs/Makefile.am") == 0){
+	die "Couldnt modify $path/stubs/Makefile.am";
+}
+
+unless (system("sed -i -e 's/#MODULE#/$name/' $path/tools/po-am.header") == 0){
+	die "Couldnt modify $path/tools/po-am.header";
+}
+

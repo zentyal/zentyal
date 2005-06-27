@@ -1,0 +1,99 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	@backups
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<h3><% __('Back up the current configuration') %></h3>
+<div class='help'>
+	<% __('Backups will be stored in eBox and then you will be able to download them to your hard disk') %>
+</div>
+<p>
+<form action='Backup' method='POST'>
+		<% __('Description') %>:
+		<input type='text' class='inputText' name='description'
+			size='52'>
+		<input class='inputButton' type='submit' name='backup'
+			   value="<% __('Back up') %>" />
+</form>
+</p>
+
+<h3><% __('Restore configuration') %></h3>
+<p>
+	<% __('You can upload a backup file from your computer or use one from the list below') %>:
+</p>
+<form action='Backup' method='POST' enctype="multipart/form-data">
+		<input type='file' name='backupfile'/>
+		<input class='inputButton' type='submit' name='restore'
+			   value="<% __('Restore') %>" />
+</form>
+
+
+% if(@backups){
+<table class='dataTable' cellspacing='0'>
+	<caption>
+		<% __('List of configuration backups') %>
+	</caption>
+	<thead>
+		<tr>
+			<th class="tleft"><%__('Description')%></th>
+			<th><%__('Date')%></th>
+			<th><%__('Actions')%></th>
+		</tr>
+	</thead>
+	<tbody>
+%		foreach my $backup (@backups) {
+		<tr class='border'>
+			<form method='POST' action='ConfirmBackup'>
+				<td>
+					<input type='hidden'
+						name='id'
+						value="<%$backup->{'id'}%>"/>
+					<% $backup->{'description'} %>
+				</td>
+				<td class='tcenter'>
+					<% $backup->{'date'} %>
+				</td>
+				<td class='tcenter'>
+					<input type='image' name='restore'
+						src='/data/images/apply.gif'
+						value='<%__('Restore')%>'
+						title='<%__('Restore configuration using this file')%>'
+						alt='<%__('Restore from backup')%>'/>
+					<img src='/data/images/sep.gif' alt='-'/>
+					<input type='image' name='download'
+						src='/data/images/down.gif'
+						value='<%__('Download')%>'
+						title='<%__('Download')%>'
+						alt='<%__('Download')%>'/>
+					<img src='/data/images/sep.gif' alt='-'/>
+					<input type='image' name='delete'
+						src='/data/images/delete.gif'
+						value='<%__('Delete')%>'
+						title='<%__('Delete')%>'
+						alt='<%__('Delete')%>'/>
+				</td>
+			</form>
+		</tr>
+%		}
+	</tbody>
+</table>
+<br />
+<table class="legend">
+<tr>
+    <td><img src="/data/images/down.gif" alt=""/></td>
+    <td style="padding-right: 10px;"><%__('download')%></td>
+
+    <td><img src="/data/images/delete.gif" alt=""/></td>
+    <td style="padding-right: 10px;"><%__('delete')%></td>
+</tr>
+
+<tr>
+    <td><img src="/data/images/apply.gif" alt=""/></td>
+    <td style="padding-right: 10px;"><%__('restore')%></td>
+</tr>
+</table>
+% }

@@ -1,0 +1,16 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$port
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<h3><% __('Administration interface TCP port') %></h3>
+	<form action='Port' method='POST'>
+		<div class='ftitle'><% __('Port') %></div>
+		<input type='text' class='inputText' name='port'
+								size='5' value="<% $port %>"/>
+		<input class='inputButton' type='submit' name='setport'
+				value="<% __('Change') %>">
+	</form>

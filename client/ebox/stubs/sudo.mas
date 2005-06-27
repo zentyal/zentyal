@@ -1,0 +1,17 @@
+<%args>
+	@cmds
+</%args>
+
+# sudoers file for ebox
+
+# Cmnd alias specification
+Cmnd_Alias      EBOXCMNDS = \
+% foreach my $cmd (@cmds) {
+	<%$cmd%>, \\
+
+% }
+	/bin/false
+
+# Allow httpd user to execute above commands
+
+ebox ALL = NOPASSWD:EBOXCMNDS

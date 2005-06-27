@@ -1,0 +1,26 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$reason => ""
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<form action='/LOGIN' method='post'>
+	<div id='login'>
+		<img src='/data/images/logintro.png' 
+			title='Login:'
+			alt='Login:'  />
+		<br />
+		<% __('Administrator password') %>:
+		<input  class='inputTextLogin' type='password' 
+			name='credential_0' 
+			maxlength='16' size='14' />
+		<input  type='hidden' name='destination' 
+			value='/ebox/Summary/Index' />
+		<input class='inputButton' type='submit' value="<% __('Ok') %>"/>
+	</div>
+</form>
+% if(length($reason)){
+	<div id='reason'><% $reason %></div>
+% }

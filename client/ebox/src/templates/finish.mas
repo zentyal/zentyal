@@ -1,0 +1,28 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$unsaved => 'no'
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+% if($unsaved eq 'yes') {
+<div class='note'>
+	<% __('There are unsaved changes in one or more modules, you can save or discard those changes.')%>
+	<br/>
+	<br/>
+	<%__('If you made changes to the network interfaces or the administration port, you may need to manually rewrite the url in order to access this administration interface again.') %>
+</div>
+<form action='Finish' method='POST'>
+	<p>
+		<input class='inputButton' type='submit' name='save'
+			   value="<% __('Save') %>" />
+		<input class='inputButton' type='submit' name='cancel'
+			   value="<% __('Discard changes') %>" />
+	</p>
+</form>
+% }else{
+<div class='note'>
+<% __('There are no unsaved changes.') %>
+</div>
+% }

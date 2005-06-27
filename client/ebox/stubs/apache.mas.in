@@ -1,0 +1,153 @@
+<%args>
+	$port
+	$group
+	$user
+	$serverroot
+</%args>
+
+ServerType standalone
+ServerRoot <% $serverroot %>
+LockFile @VARPATH@/lock/apache-perl.lock
+PidFile @VARPATH@/run/apache-perl.pid
+ScoreBoardFile @VARPATH@/run/apache-perl.scoreboard
+
+Timeout 300
+KeepAlive On
+MaxKeepAliveRequests 100
+KeepAliveTimeout 15
+MinSpareServers 1
+MaxSpareServers 4
+StartServers 2
+MaxClients 5
+MaxRequestsPerChild 100
+
+# begin modules
+ClearModuleList
+AddModule mod_so.c
+AddModule mod_macro.c
+LoadModule config_log_module /usr/lib/apache/1.3/mod_log_config.so
+LoadModule mime_magic_module /usr/lib/apache/1.3/mod_mime_magic.so
+LoadModule mime_module /usr/lib/apache/1.3/mod_mime.so
+LoadModule dir_module /usr/lib/apache/1.3/mod_dir.so
+LoadModule cgi_module /usr/lib/apache/1.3/mod_cgi.so
+LoadModule alias_module /usr/lib/apache/1.3/mod_alias.so
+LoadModule rewrite_module /usr/lib/apache/1.3/mod_rewrite.so
+LoadModule access_module /usr/lib/apache/1.3/mod_access.so
+LoadModule auth_module /usr/lib/apache/1.3/mod_auth.so
+LoadModule expires_module /usr/lib/apache/1.3/mod_expires.so
+LoadModule setenvif_module /usr/lib/apache/1.3/mod_setenvif.so
+LoadModule ssl_module /usr/lib/apache/1.3/mod_ssl.so
+AddModule mod_perl.c
+AddModule mod_ssl.c
+# end modules
+
+Port <% $port %>
+User <% $user %>
+Group <% $group %>
+
+ServerAdmin webmaster@localhost
+ServerName localhost
+
+DocumentRoot @WWWPATH@
+
+<Directory />
+    Options SymLinksIfOwnerMatch
+    AllowOverride None
+</Directory>
+
+
+<Directory @WWWPATH@>
+    Options Indexes MultiViews
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+</Directory>
+
+UseCanonicalName Off
+TypesConfig /etc/mime.types
+DefaultType text/plain
+
+<IfModule mod_mime_magic.c>
+    MIMEMagicFile /usr/share/misc/file/magic.mime
+</IfModule>
+
+HostnameLookups Off
+
+ErrorLog @LOGPATH@/error.log
+LogLevel warn
+
+LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{forensic-id}n\"" combined
+
+CustomLog @LOGPATH@/access.log combined
+
+<IfModule mod_backtrace.c>
+ EnableExceptionHook On
+</IfModule>
+
+<IfModule mod_whatkilledus.c>
+ EnableExceptionHook On
+</IfModule>
+
+ServerSignature Off
+ServerTokens Min
+AddDefaultCharset on
+
+<IfModule mod_ssl.c>
+SSLEngine on
+SSLProtocol all
+SSLCipherSuite HIGH:MEDIUM
+
+SSLCertificateFile @ETCPATH@/ssl.crt/ebox.cert
+SSLCertificateKeyFile @ETCPATH@/ssl.key/ebox.key
+</IfModule>
+
+<IfModule mod_setenvif.c>
+    BrowserMatch "Mozilla/2" nokeepalive
+    BrowserMatch "MSIE 4\.0b2;" nokeepalive downgrade-1.0 force-response-1.0
+    BrowserMatch "RealPlayer 4\.0" force-response-1.0
+    BrowserMatch "Java/1\.0" force-response-1.0
+    BrowserMatch "JDK/1\.0" force-response-1.0
+</IfModule>
+
+Alias /data/ @WWWPATH@
+ScriptAlias /ebox/ @CGIPATH@
+
+PerlModule EBox::Auth
+PerlSetVar EBoxPath /
+PerlSetVar EBoxLoginScript /ebox/Login/Index
+PerlSetVar EBoxSatisfy Any
+PerlSetVar AuthCookieDebug 0
+
+<Files LOGIN>
+	AuthType EBox::Auth
+	AuthName EBox
+	SetHandler perl-script
+	PerlHandler EBox::Auth->login
+</Files>
+
+<Directory @CGIPATH@>
+   <IfModule mod_ssl.c>
+	   SSLOptions +StdEnvVars
+   </IfModule>
+
+	AuthType EBox::Auth
+	AuthName EBox
+	PerlModule 	EBox::Auth
+	PerlAuthenHandler EBox::Auth->authenticate
+	PerlAuthzHandler  EBox::Auth->authorize
+	require valid-user
+        SetHandler perl-script
+        PerlHandler Apache::Registry
+        PerlSendHeader On
+        AllowOverride None
+        Options +ExecCGI
+        Order allow,deny
+        Allow from all
+</Directory>
+
+RewriteEngine On
+
+RewriteRule ^/ebox$ /ebox/ [R]
+RewriteRule ^/$ /ebox/ [R]
+RewriteRule ^/ebox/ebox.cgi$ [S,PT]
+RewriteRule ^/ebox/(.*) /ebox/ebox.cgi [E=script:$1,PT,L]

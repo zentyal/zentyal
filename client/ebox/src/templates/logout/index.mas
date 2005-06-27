@@ -1,0 +1,20 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$unsaved => 'no'	
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+% if($unsaved eq 'yes'){
+<div class='warning'>
+	<% __('There are unsaved changes, if you log out now they will be lost.') %>
+</div>
+<p>
+<a class='logout' href='/ebox/Logout/Logout'><% __('Exit anyway') %></a>
+</p>
+% }else{
+<p>
+<a class='logout' href='/ebox/Logout/Logout'><% __('Exit') %></a>
+</p>
+% }

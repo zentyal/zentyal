@@ -1,0 +1,12 @@
+#!/bin/bash
+
+case "$1" in
+	purge)
+		#delete logs and temporary files when purging
+		rm -rf /var/lib/ebox/
+		rm -rf /etc/ebox/ssl.crt/
+		rm -rf /etc/ebox/ssl.key/
+		;;	
+esac
+
+#DEBHELPER#

@@ -1,0 +1,30 @@
+ebox (0.5.1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Guillermo Ontañón <gontanon@warp.es>  Mon, 14 Mar 2005 14:32:15 +0100
+
+ebox (0.5) unstable; urgency=low
+
+  * New upstream release
+
+ -- Isaac Clerencia <isaac@debian.org>  Thu,  3 Mar 2005 19:55:13 +0100
+
+ebox (0.4-3) unstable; urgency=low
+
+  * SSL certs are now copied by Makefile
+  * Added network detection capabilities
+
+ -- Isaac Clerencia <isaac@debian.org>  Mon, 17 Jan 2005 16:41:33 +0100
+
+ebox (0.4-2) unstable; urgency=low
+
+  * Added libapache-mod-ssl in Depends: 
+
+ -- Isaac Clerencia <isaac@sindominio.net>  Sat,  4 Dec 2004 16:33:09 +0100
+
+ebox (0.4-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Isaac Clerencia <isaac@warp.es>  Fri,  3 Dec 2004 05:58:03 +0100

@@ -1,0 +1,27 @@
+<!-- vim: ts=4 sw=4 nowrap
+-->
+
+<gconfschemafile>
+	<schemalist>
+
+		<schema>
+			<key>/schemas/ebox/modules/global/modules/apache/class</key>
+			<applyto>/ebox/modules/global/modules/apache/class</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>EBox::Apache</default>
+			<locale name="C"/>
+		</schema>
+
+		<schema>
+			<key>/schemas/ebox/modules/apache/port</key>
+			<applyto>/ebox/modules/apache/port</applyto>
+			<owner>ebox</owner>
+			<type>int</type>
+			<default>443</default>
+			<locale name="C"/>
+		</schema>
+
+
+	</schemalist>
+</gconfschemafile>

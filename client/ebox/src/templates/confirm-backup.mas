@@ -1,0 +1,45 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$backup
+	$action
+	$actiontext
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<br/>
+<table class='formTable'>
+	<tbody>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'><% __('Date') %>:</span>
+			</td>
+			<td>
+				<% $backup->{'date'} %>
+			</td>
+		</tr>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'><% __('Description') %>:</span>
+			</td>
+			<td>
+				<% $backup->{'description'} %>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<form action='Backup' method='POST'>
+					<input type='hidden' name='id' value='<%$backup->{'id'}%>'/>
+					<input class='inputButton' type='submit'
+							name='cancel' value='<%__('Cancel')%>' alt='<%__('Cancel')%>'/>
+					<input class='inputButton' type='submit'
+							name='<%$action%>' value='<%$actiontext%>' alt='<%$actiontext%>'/>
+				</form>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<br/>

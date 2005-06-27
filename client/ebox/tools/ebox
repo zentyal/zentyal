@@ -1,0 +1,85 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use EBox::Global;
+use EBox;
+use Error qw(:try);
+
+EBox::init();
+my $global = EBox::Global->getInstance(1);
+
+sub usage {
+	print "Usage: $0 start|stop|restart\n";
+	exit 1;
+}
+
+sub start() {
+	my @names = grep (! /^apache$/ ,@{$global->modNames});
+	push(@names, 'apache');
+	foreach my $modname (@names) {
+
+		my $tabs = 2 + (length($modname)/8);
+		{ use integer; $tabs = 3 - (length($modname)/8); };
+		my $tabstr = "";
+		while ($tabs-- > 0) {
+			$tabstr .= "\t";
+		}
+
+		my $mod = EBox::Global->modInstance($modname);
+		print "EBox: starting $modname:$tabstr";
+		try {
+			$mod->restartService;
+			print "   [ OK ]\n";
+		} catch EBox::Exceptions::Base with {
+			my $ex = shift;
+			print "[ ERROR ]\n";
+			print STDERR $ex->text . "\n";
+		};
+	}
+}
+
+sub stop() {
+	my @names = grep (! /^apache$/ ,@{$global->modNames});
+	push(@names, 'apache');
+	foreach my $modname (@names) {
+
+		my $tabs = 2 + (length($modname)/8);
+		{ use integer; $tabs = 3 - (length($modname)/8); };
+		my $tabstr = "";
+		while ($tabs-- > 0) {
+			$tabstr .= "\t";
+		}
+
+		my $mod = EBox::Global->modInstance($modname);
+		print "EBox: stopping $modname:$tabstr";
+		try {
+			$mod->stopService;
+			print "   [ OK ]\n";
+		} catch EBox::Exceptions::Base with {
+			my $ex = shift;
+			print "[ ERROR ]\n";
+			print STDERR $ex->text . "\n";
+		};
+	}
+}
+
+if (@ARGV != 1) {
+	usage;
+}
+
+
+if ($ARGV[0] eq "start") {
+	start();
+} elsif ($ARGV[0] eq "restart") {
+	stop();
+	start();
+} elsif ($ARGV[0] eq "force-reload") {
+	stop();
+	start();
+} elsif ($ARGV[0] eq "stop") {
+	stop();
+} else {
+	usage;
+}

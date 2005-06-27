@@ -1,0 +1,89 @@
+DEPENDENCIES
+------------
+
++ Debian packages:
+
+# apt-get install <package>
+
+	+ apache-perl
+	+ libapache-mod-perl
+	+ libapache-mod-ssl
+	+ libapache-authcookie-perl
+	+ libgnome2-gconf-perl
+	+ libsys-cpu-perl
+	+ libsys-cpuload-perl
+	+ libproc-process-perl
+	+ libapache-singleton-perl
+
++ modules from cpan
+
+	none currently
+
++ eBox components:
+	libebox
+
+INSTALLATION
+-----------
+
+1.- Configure:
+
+    $ ./configure <arguments>
+
+    Accepts standard GNU configure arguments, run ./configure --help
+    for a list.
+
+    Apache and libebox will be autodetected
+
+2.- Instalation, as root:
+
+    $ make install
+
+3.- Create an ebox user and an ebox group, the home for the user should be
+    $prefix/var/lib/ebox, if --localstatedir=/var has been used in libebox
+    configuration:
+    	addgroup --system ebox
+    	adduser --system --home /var/lib/ebox --no-create-home \
+		--disabled-password --ingroup ebox ebox
+
+4.- Create directories log and tmp in $prefix/var/lib/ebox or /var/lib/ebox
+    if the --localstatedir=/var parameter was used and change ownership of the
+    whole directory to the ebox user:
+
+    mkdir /var/lib/ebox/tmp
+    mkdir /var/lib/ebox/log
+    chown -R ebox.ebox /var/lib/ebox
+
+5.- Allow the apache user to run some root commands via sudo, redirect
+    the output of the ebox-sudoers command in your sudoers file. 
+
+    ebox-sudoers > /etc/sudoers
+
+6.- Copy conf/.gconf.path to the home directory of the ebox user 
+    ( /var/lib/ebox/ if the previous steps have been followed) and:
+	
+	mkdir /var/lib/ebox/gconf
+	chown ebox.ebox /var/lib/ebox/gconf
+
+7.- Remove the link to /etc/init.d/apache-perl from /etc/rc2.d/, the ebox script
+     will handle apache starts/stops.
+
+8.- To make ebox run on startup:
+
+    cp tools/ebox /etc/init.d
+    ln -s /etc/init.d/ebox /etc/rc2.d/S99ebox
+
+9.- Start ebox:
+	
+	/etc/init.d/ebox start
+
+RUNNING
+-------
+
+The url for the administration interface is:
+
+https://<ip address>/
+
+The default password is 'ebox'. It may be changed in the general configuration
+page.
+
+eBox and apache logs are stored in $localstatedir/ebox/log/ 

@@ -1,0 +1,18 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<form action='Halt' method='POST'>
+	<div class='note'>
+		<%__('You will probably lose your Internet connection if this machine is halted.')%>
+	</div>
+	<p>
+		<input class='inputButton' type='submit' name='halt'
+			   value="<% __('Halt') %>" /> 
+		<input class='inputButton' type='submit' name='reboot'
+		   value='<% __('Reboot') %>' />
+	</p>
+</form>

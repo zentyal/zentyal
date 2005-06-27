@@ -1,0 +1,1377 @@
+# translation of es.po to Spanish
+# Spanish Warp Team translation of ebox.
+# Copyright (C) 2005 Warp Networks S.L and DBS Servicios Informaticos S.L.
+# This file is distributed under the same license as the PACKAGE package.
+# Isaac Clerencia <isaac@sindominio.net>, 2004, 2005.
+# Jorge Arcas <jarcas@warp.es>, 2005.
+# Isaac Clerencia <isaac@warp.es>, 2005.
+msgid ""
+msgstr ""
+"Project-Id-Version: es\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2005-03-13 22:43+0100\n"
+"PO-Revision-Date: 2005-03-03 17:11+0100\n"
+"Last-Translator: Isaac Clerencia <isaac@warp.es>\n"
+"Language-Team: Spanish <es@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+
+#: src/EBox/Exceptions/DataNotFound.pm:30
+#, perl-brace-format
+msgid "{data} {value} does not exist."
+msgstr "{data} no existente: {value}."
+
+#: src/EBox/Exceptions/DataExists.pm:31
+#, perl-brace-format
+msgid "{data} {value} already exists."
+msgstr "{data} ya existente: {value}."
+
+#: src/EBox/Exceptions/InvalidData.pm:31
+#, perl-brace-format
+msgid "Invalid {data} value: {value}."
+msgstr "{data} inválido, valor: {value}."
+
+#: src/EBox/Exceptions/DataMissing.pm:30
+#, perl-brace-format
+msgid "{data} is empty."
+msgstr "Dato vacío: {data}"
+
+#: src/EBox/Summary/Status.pm:42
+msgid "Restart"
+msgstr "Reiniciar"
+
+#: src/EBox/Summary/Status.pm:45
+msgid "Running"
+msgstr "Ejecutándose"
+
+#: src/EBox/Summary/Status.pm:48
+msgid "Stopped"
+msgstr "Parado"
+
+#: src/EBox/Summary/Status.pm:50
+msgid "Start"
+msgstr "Arrancar"
+
+#: src/EBox/Summary/Status.pm:52
+msgid "Disabled"
+msgstr "Deshabilitado"
+
+#: src/EBox/CGI/Firewall/ObjectPolicy.pm:40
+#: src/EBox/CGI/Firewall/ObjectService.pm:40
+#: src/EBox/CGI/Firewall/Object.pm:45 src/EBox/CGI/Firewall/Object.pm:50
+#: src/EBox/CGI/Firewall/ObjectRule.pm:40 src/EBox/Objects.pm:73
+#: src/EBox/Objects.pm:189 src/EBox/Objects.pm:222
+msgid "Object"
+msgstr "Objeto"
+
+#: src/EBox/CGI/Firewall/ObjectPolicy.pm:42
+#: src/EBox/CGI/Firewall/ObjectService.pm:46 src/EBox/Firewall.pm:570
+#: src/EBox/Firewall.pm:641 src/EBox/Firewall.pm:924 src/EBox/Firewall.pm:1003
+msgid "policy"
+msgstr "política"
+
+#: src/EBox/CGI/Firewall/Redirects.pm:31
+msgid "Port redirections"
+msgstr "Redirecciones de puertos"
+
+#: src/EBox/CGI/Firewall/Filter.pm:31
+msgid "Packet filtering"
+msgstr "Filtrado de paquetes"
+
+#: src/EBox/CGI/Firewall/ObjectService.pm:45
+#: src/EBox/CGI/Firewall/ObjectService.pm:51 src/EBox/Firewall.pm:386
+msgid "service"
+msgstr "servicio"
+
+#: src/EBox/CGI/Firewall/Object.pm:61
+msgid "Global firewall configuration"
+msgstr "Configuración global del firewall"
+
+#: src/EBox/CGI/Firewall/Object.pm:63
+#, perl-brace-format
+msgid "Firewall configuration: {desc}"
+msgstr "Configuración del firewall: {desc}"
+
+#: src/EBox/CGI/Firewall/Redirection.pm:42
+#: src/EBox/CGI/Firewall/Redirection.pm:53
+#: src/EBox/CGI/Firewall/Redirection.pm:60
+#: src/EBox/CGI/Firewall/Redirection.pm:67 src/EBox/Firewall.pm:204
+#: src/EBox/Firewall.pm:230 src/EBox/Firewall.pm:382 src/EBox/Firewall.pm:435
+#: src/EBox/Firewall.pm:644 src/EBox/Firewall.pm:693 src/EBox/Firewall.pm:798
+#: src/EBox/Firewall.pm:818 src/EBox/Firewall.pm:837 src/EBox/Firewall.pm:927
+msgid "protocol"
+msgstr "protocolo"
+
+#: src/EBox/CGI/Firewall/Redirection.pm:43
+#: src/EBox/CGI/Firewall/Redirection.pm:55
+#: src/EBox/CGI/Firewall/Redirection.pm:62
+#: src/EBox/CGI/Firewall/Redirection.pm:66 src/EBox/CGI/Network/Iface.pm:44
+#: src/EBox/CGI/Network/VIface.pm:42 src/EBox/CGI/Network/Vlan.pm:39
+msgid "network interface"
+msgstr "interfaz de red"
+
+#: src/EBox/CGI/Firewall/Redirection.pm:44
+#: src/EBox/CGI/Firewall/Redirection.pm:54
+#: src/EBox/CGI/Firewall/Redirection.pm:61
+#: src/EBox/CGI/Firewall/Redirection.pm:68 src/EBox/Firewall.pm:206
+#: src/EBox/Firewall.pm:231
+msgid "external port"
+msgstr "puerto externo"
+
+#: src/EBox/CGI/Firewall/Redirection.pm:45
+#: src/EBox/CGI/Firewall/Redirection.pm:63
+#: src/EBox/CGI/Firewall/Redirection.pm:69 src/EBox/Firewall.pm:205
+msgid "destination address"
+msgstr "dirección de destino"
+
+#: src/EBox/CGI/Firewall/Redirection.pm:46
+#: src/EBox/CGI/Firewall/Redirection.pm:64
+#: src/EBox/CGI/Firewall/Redirection.pm:70 src/EBox/Firewall.pm:207
+#: src/EBox/Firewall.pm:706 src/EBox/Firewall.pm:712 src/EBox/Firewall.pm:850
+#: src/EBox/Firewall.pm:856
+msgid "destination port"
+msgstr "puerto de destino"
+
+#: src/EBox/CGI/Firewall/ObjectRule.pm:47
+#: src/EBox/CGI/Firewall/ObjectRule.pm:64 src/EBox/CGI/Firewall/Deny.pm:40
+#: src/EBox/CGI/Firewall/FwdRule.pm:43 src/EBox/CGI/Firewall/FwdRule.pm:67
+#: src/EBox/Firewall.pm:180 src/EBox/Firewall.pm:690 src/EBox/Firewall.pm:834
+msgid "action"
+msgstr "acción"
+
+#: src/EBox/CGI/Firewall/ObjectRule.pm:55
+#: src/EBox/CGI/Firewall/ObjectRule.pm:63
+#: src/EBox/CGI/Firewall/ObjectRule.pm:74
+#: src/EBox/CGI/Firewall/ObjectRule.pm:78 src/EBox/CGI/Firewall/FwdRule.pm:59
+#: src/EBox/CGI/Firewall/FwdRule.pm:66 src/EBox/CGI/Firewall/FwdRule.pm:85
+#: src/EBox/CGI/Firewall/FwdRule.pm:88 src/EBox/CGI/Firewall/FwdRule.pm:91
+#: src/EBox/CGI/Firewall/FwdRuleEdit.pm:43
+msgid "rule"
+msgstr "regla"
+
+#: src/EBox/CGI/Firewall/FwdRules.pm:30 src/templates/firewall/filter.mas:35
+#: src/templates/firewall/object.mas:156
+msgid "Rules"
+msgstr "Reglas"
+
+#: src/EBox/CGI/Firewall/FwdRuleEdit.pm:30
+msgid "Edit rule"
+msgstr "Editar regla"
+
+#: src/EBox/CGI/Login/Index.pm:52
+msgid "For security reasons your session has expired due to inactivity"
+msgstr "Por razones de seguridad, su sesión ha expirado por inactividad"
+
+#: src/EBox/CGI/Login/Index.pm:55
+msgid "You have been logged out because a new session has been opened"
+msgstr "Su sesión ha sido cerrada porque se ha creado una nueva sesión"
+
+#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/SysInfo.pm:98
+msgid "Logout"
+msgstr "Salir de sesión"
+
+#: src/EBox/CGI/Objects/DelFrom.pm:40 src/EBox/CGI/Objects/Del.pm:41
+#: src/EBox/CGI/Objects/Edit.pm:40 src/EBox/CGI/Objects/Add.pm:40
+#: src/EBox/CGI/Objects/AddTo.pm:41 src/EBox/Objects.pm:135
+msgid "Object name"
+msgstr "Nombre del objeto"
+
+#: src/EBox/CGI/Objects/Edit.pm:29
+msgid "Edit Object"
+msgstr "Editar Objeto"
+
+#: src/EBox/CGI/Objects/Index.pm:30 src/EBox/Objects.pm:258
+#: src/templates/firewall/filter.mas:46
+msgid "Objects"
+msgstr "Objetos"
+
+#: src/EBox/CGI/Objects/AddTo.pm:45 src/EBox/CGI/Network/VIface.pm:61
+#: src/EBox/Network.pm:438 src/EBox/Network.pm:443 src/EBox/Network.pm:663
+#: src/EBox/Network.pm:684 src/EBox/Network.pm:1063 src/EBox/Network.pm:1087
+#: src/EBox/Network.pm:1516 src/EBox/Network.pm:1524 src/EBox/Network.pm:1583
+#: src/EBox/Network.pm:1624 src/templates/network/ifaces.mas:78
+#: src/templates/network/ifaces.mas:202 src/templates/objects/edit.mas:18
+#: src/templates/firewall/redirects.mas:20
+msgid "IP address"
+msgstr "Dirección IP"
+
+#: src/EBox/CGI/Objects/AddTo.pm:46 src/EBox/Network.pm:438
+#: src/EBox/Network.pm:663 src/EBox/Network.pm:1516
+#: src/templates/network/ifaces.mas:88 src/templates/network/ifaces.mas:204
+#: src/templates/objects/edit.mas:20
+msgid "Netmask"
+msgstr "Máscara de red"
+
+#: src/EBox/CGI/Objects/AddTo.pm:47 src/templates/network/ifaces.mas:200
+#: src/templates/objects/edit.mas:16 src/templates/objects/index.mas:33
+msgid "Name"
+msgstr "Nombre"
+
+#: src/EBox/CGI/Network/Ifaces.pm:29 src/EBox/Network.pm:1602
+msgid "Network interfaces"
+msgstr "Interfaces de red"
+
+#: src/EBox/CGI/Network/Iface.pm:43
+msgid "method"
+msgstr "método"
+
+#: src/EBox/CGI/Network/Iface.pm:70 src/EBox/Network.pm:1116
+msgid "ip address"
+msgstr "dirección IP"
+
+#: src/EBox/CGI/Network/Iface.pm:71 src/EBox/CGI/Network/VIface.pm:62
+#: src/EBox/CGI/Network/Route.pm:41
+msgid "netmask"
+msgstr "máscara de red"
+
+#: src/EBox/CGI/Network/VIface.pm:43
+msgid "virtual interface action"
+msgstr "acción sobre la interfaz virtual"
+
+#: src/EBox/CGI/Network/VIface.pm:63 src/EBox/CGI/Network/VIface.pm:69
+msgid "virtual interface name"
+msgstr "nombre de la interfaz virtual"
+
+#: src/EBox/CGI/Network/Route.pm:40 src/EBox/Network.pm:1115
+#: src/EBox/Objects.pm:202
+msgid "network address"
+msgstr "dirección de red"
+
+#: src/EBox/CGI/Network/Route.pm:46 src/EBox/CGI/Network/Gateway.pm:40
+msgid "gateway address"
+msgstr "dirección del router"
+
+#: src/EBox/CGI/Network/Routes.pm:29 src/EBox/Network.pm:1642
+msgid "Routes"
+msgstr "Rutas"
+
+#: src/EBox/CGI/Network/Vlan.pm:49 src/EBox/CGI/Network/Vlan.pm:52
+#: src/EBox/Network.pm:798 src/EBox/Network.pm:820
+#: src/templates/network/ifaces.mas:131
+msgid "VLAN Id"
+msgstr "Identificador de VLAN"
+
+#: src/EBox/CGI/Summary/Index.pm:47
+msgid "Error"
+msgstr "Error"
+
+#: src/EBox/CGI/Summary/Index.pm:58 src/EBox/SysInfo.pm:89
+msgid "Summary"
+msgstr "Resumen"
+
+#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/CGI/EBox/ConfirmBackup.pm:34
+msgid "Configuration backups"
+msgstr "Backups de la configuración"
+
+#: src/EBox/CGI/EBox/Backup.pm:72
+msgid "description"
+msgstr "descripción"
+
+#: src/EBox/CGI/EBox/Backup.pm:81 src/EBox/CGI/EBox/Backup.pm:90
+#: src/EBox/CGI/EBox/Backup.pm:100 src/EBox/CGI/EBox/ConfirmBackup.pm:70
+msgid "identifier"
+msgstr "Identificador"
+
+#: src/EBox/CGI/EBox/Backup.pm:85 src/EBox/CGI/EBox/Backup.pm:94
+#: src/EBox/CGI/EBox/Backup.pm:104 src/EBox/CGI/EBox/ConfirmBackup.pm:75
+#: src/EBox/Backup.pm:151 src/EBox/Backup.pm:181
+msgid "The input contains invalid characters"
+msgstr "Los datos contienen caracteres inválidos"
+
+#: src/EBox/CGI/EBox/Backup.pm:117
+msgid "Invalid backup file."
+msgstr "Fichero de backup inválido"
+
+#: src/EBox/CGI/EBox/Backup.pm:129
+msgid ""
+"Configuration restored succesfully, you should now review it and save it if "
+"you want to keep it."
+msgstr ""
+"La configuración se ha cargado correctamente, ahora debería revisarla y "
+"guardarla si quiere conservarla."
+
+#: src/EBox/CGI/EBox/RestartService.pm:42
+msgid "module name"
+msgstr "Nombre de módulo"
+
+#: src/EBox/CGI/EBox/RestartService.pm:46
+msgid "The module was restarted correctly."
+msgstr "El módulo se ha reiniciado correctamente."
+
+#: src/EBox/CGI/EBox/Halt.pm:30
+msgid "Halt or reboot"
+msgstr "Apagar o reiniciar"
+
+#: src/EBox/CGI/EBox/Halt.pm:43
+msgid "EBox is going down for halt"
+msgstr "EBox se está apagando"
+
+#: src/EBox/CGI/EBox/Halt.pm:46
+msgid "EBox is going down for reboot"
+msgstr "EBox se está reiniciando"
+
+#: src/EBox/CGI/EBox/Bug.pm:29 src/EBox/SysInfo.pm:116
+msgid "Bug report"
+msgstr "Informe de error"
+
+#: src/EBox/CGI/EBox/General.pm:29
+msgid "General configuration"
+msgstr "Configuración general"
+
+#: src/EBox/CGI/EBox/Password.pm:49
+msgid "Incorrect password."
+msgstr "Contraseña incorrecta"
+
+#: src/EBox/CGI/EBox/Password.pm:54
+msgid "New passwords do not match."
+msgstr "Las contraseñas no coinciden"
+
+#: src/EBox/CGI/EBox/Password.pm:58
+msgid "The password must be at least 6 characters long"
+msgstr "La contraseña debe tener al menos 6 caracteres"
+
+#: src/EBox/CGI/EBox/Password.pm:62
+msgid "The password was changed successfully."
+msgstr "La contraseña fue cambiada correctamente"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:55 src/templates/network/routes.mas:88
+#: src/templates/network/routes.mas:90 src/templates/network/routes.mas:92
+#: src/templates/network/ifaces.mas:174 src/templates/network/ifaces.mas:176
+#: src/templates/network/ifaces.mas:178 src/templates/network/ifaces.mas:273
+#: src/templates/network/ifaces.mas:275 src/templates/network/ifaces.mas:277
+#: src/templates/objects/delete.mas:23 src/templates/objects/edit.mas:97
+#: src/templates/objects/edit.mas:99 src/templates/objects/edit.mas:101
+#: src/templates/objects/index.mas:55 src/templates/objects/index.mas:57
+#: src/templates/firewall/redirects.mas:143
+#: src/templates/firewall/redirects.mas:145
+#: src/templates/firewall/redirects.mas:147
+#: src/templates/firewall/object.mas:141 src/templates/firewall/object.mas:143
+#: src/templates/firewall/object.mas:145 src/templates/firewall/object.mas:326
+#: src/templates/firewall/object.mas:328 src/templates/firewall/object.mas:330
+#: src/templates/firewall/fwdrules.mas:315
+#: src/templates/firewall/fwdrules.mas:317
+#: src/templates/firewall/fwdrules.mas:319 src/templates/backup.mas:92
+#: src/templates/backup.mas:94 src/templates/backup.mas:96
+msgid "Delete"
+msgstr "Borrar"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:56
+msgid "Please confirm that you want to delete the following backup file:"
+msgstr "Por favor, confirme que quiere borrar este fichero de backup:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:61 src/templates/backup.mas:37
+#: src/templates/backup.mas:74
+msgid "Restore"
+msgstr "Restaurar"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:62
+msgid ""
+"Please confirm that you want to restore the configuration from this backup "
+"file:"
+msgstr ""
+"Por favor, confirme que quiere restaurar la configuración almacenada en este "
+"fichero de backup:"
+
+#: src/EBox/CGI/Run.pm:56
+msgid "The page could not be found"
+msgstr "La página no pudo encontrarse"
+
+#: src/EBox/CGI/Base.pm:179
+msgid ""
+"The input contains invalid characters. All alphanumeric characters, plus "
+"these non alphanumeric chars: /.?'&+:- and spaces are allowed."
+msgstr ""
+"La entrada contiene caracteres inválidos. Todos los caracteres alfanuméricos "
+"más los caracteres /.?'&+:- y los espacios están permitidos."
+
+#: src/EBox/CGI/Base.pm:249 src/EBox/CGI/Base.pm:301
+msgid ""
+"An internal error has ocurred. This is most probably a bug, relevant "
+"information can be found in the logs."
+msgstr ""
+"Se ha producido un error interno. Probablemente se trate de un bug, puede "
+"encontrar más información en los logs."
+
+#: src/EBox/CGI/Base.pm:256
+msgid ""
+"An unknown internal error has ocurred. This is a bug, relevant information "
+"can be found in the logs."
+msgstr ""
+"Se ha producido un error interno. Se trata de un bug, puede encontrar más "
+"información en los logs."
+
+#: src/EBox/CGI/Base.pm:266
+msgid "You have just hit a bug in eBox. Please seek technical support."
+msgstr ""
+"Acaba de encontrar un bug en eBox. Por favor, consulte a su soporte técnico."
+
+#: src/EBox/CGI/Base.pm:310
+msgid ""
+"An internal error related to a template has occurred. This is a bug, "
+"relevant information can be found in the logs."
+msgstr ""
+"Se ha producido un error interno relacionado con una plantilla. Se trata de "
+"un bug, puede encontrar más información en los logs."
+
+#: src/EBox/CGI/Finish.pm:29
+msgid "Save configuration"
+msgstr "Guardar la configuración"
+
+#: src/EBox/Menu/Root.pm:38
+msgid "Menu"
+msgstr "Menú"
+
+#: src/EBox/Backup.pm:233 src/EBox/SysInfo.pm:110
+msgid "Backup"
+msgstr "Backup"
+
+#: src/EBox/Backup.pm:272 src/EBox/Backup.pm:317
+msgid "Could not unpack the backup"
+msgstr "No pudo desempaquetarse el backup"
+
+#: src/EBox/Backup.pm:279
+msgid "Incorrect or corrupt backup file"
+msgstr "Fichero de backup incorrecto o corrupto"
+
+#: src/EBox/Backup.pm:301
+msgid "The backup file is corrupt."
+msgstr "El fichero de backup está corrupto"
+
+#: src/EBox/Firewall.pm:211
+#, perl-brace-format
+msgid "Port {port} is being used by a service or port redirection."
+msgstr ""
+"El puerto {port} está siendo usado por un servicio o por una redirección de "
+"puerto."
+
+#: src/EBox/Firewall.pm:274 src/EBox/Firewall.pm:381 src/EBox/Firewall.pm:413
+#: src/EBox/Firewall.pm:434 src/EBox/Firewall.pm:466 src/EBox/Firewall.pm:503
+#: src/EBox/Firewall.pm:519 src/EBox/Firewall.pm:539
+#, perl-brace-format
+msgid "Name '{name}' is invalid"
+msgstr "El nombre '{name}' no es válido"
+
+#: src/EBox/Firewall.pm:383 src/EBox/Firewall.pm:436 src/EBox/Firewall.pm:467
+#: src/EBox/Firewall.pm:651 src/EBox/Firewall.pm:799 src/EBox/Firewall.pm:819
+#: src/EBox/Firewall.pm:934 src/EBox/Apache.pm:153
+msgid "port"
+msgstr "puerto"
+
+#: src/EBox/Firewall.pm:554 src/EBox/Firewall.pm:574 src/EBox/Firewall.pm:945
+#: src/EBox/Firewall.pm:984 src/EBox/Firewall.pm:1008
+msgid "object"
+msgstr "objeto"
+
+#: src/EBox/Firewall.pm:646 src/EBox/Firewall.pm:698 src/EBox/Firewall.pm:842
+#: src/EBox/Firewall.pm:929
+msgid "Port cannot be set if no protocol is selected."
+msgstr "Si no selecciona un protocolo no es posible establecer el puerto."
+
+#: src/EBox/Firewall.pm:654 src/EBox/Firewall.pm:938
+msgid "address"
+msgstr "dirección"
+
+#: src/EBox/Firewall.pm:703 src/EBox/Firewall.pm:709 src/EBox/Firewall.pm:847
+#: src/EBox/Firewall.pm:853
+msgid "source port"
+msgstr "puerto de origen"
+
+#: src/EBox/Firewall.pm:716 src/EBox/Firewall.pm:719 src/EBox/Firewall.pm:860
+#: src/EBox/Firewall.pm:863
+msgid "source address"
+msgstr "dirección de origen"
+
+#: src/EBox/Firewall.pm:1132
+msgid "Rule not found"
+msgstr "Regla no encontrada"
+
+#: src/EBox/Firewall.pm:1192
+msgid "Firewall"
+msgstr "Cortafuegos"
+
+#: src/EBox/Firewall.pm:1196
+msgid "Packet Filter"
+msgstr "Filtrado de paquetes"
+
+#: src/EBox/Firewall.pm:1198
+msgid "Redirects"
+msgstr "Redirecciones"
+
+#: src/EBox/NetWrappers.pm:64 src/EBox/NetWrappers.pm:75
+#: src/EBox/NetWrappers.pm:88 src/EBox/NetWrappers.pm:103
+#: src/EBox/Network.pm:479 src/EBox/Network.pm:543 src/EBox/Network.pm:567
+#: src/EBox/Network.pm:593 src/EBox/Network.pm:610 src/EBox/Network.pm:659
+#: src/EBox/Network.pm:734 src/EBox/Network.pm:879 src/EBox/Network.pm:928
+#: src/EBox/Network.pm:955 src/EBox/Network.pm:984 src/EBox/Network.pm:1010
+#: src/EBox/Network.pm:1514 src/EBox/Network.pm:1534 src/EBox/Network.pm:1557
+#: src/EBox/Network.pm:1568 src/EBox/Network.pm:1580 src/EBox/Network.pm:1594
+#: src/templates/firewall/redirects.mas:14
+msgid "Interface"
+msgstr "Interfaz"
+
+#: src/EBox/Sudo.pm:43
+#, perl-brace-format
+msgid "Command '{cmd}' failed"
+msgstr "El comando '{cmd}' falló"
+
+#: src/EBox/Sudo.pm:52
+#, perl-brace-format
+msgid "Root command '{cmd}' failed"
+msgstr "El comando '{cmd}', ejecutado como root, falló"
+
+#: src/EBox/Sudo.pm:61
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "El comando '{cmd}', ejecutado como {user}, falló"
+
+#: src/EBox/Config.pm.in:32
+msgid "Could not open the config file."
+msgstr "No se pudo abrir el fichero de configuración"
+
+#: src/EBox/Config.pm.in:51
+msgid "The ebox user has not been set in the config file."
+msgstr ""
+"El usuario de ebox no ha sido establecido en el fichero de configuración."
+
+#: src/EBox/Apache.pm:46
+msgid ""
+"You must set the httpd_serverroot variable in the ebox configuration file"
+msgstr ""
+"Debe establecer la variable httpd_serverroot en el fichero de configuración "
+"de ebox"
+
+#: src/EBox/Apache.pm:55
+msgid "You must set the httpd_init variable in the ebox configuration file"
+msgstr ""
+"Debe establecer la variable httpd_init en el fichero de configuración de ebox"
+
+#: src/EBox/Apache.pm:58
+msgid "The httpd_init script you configured is not executable."
+msgstr "El script httpd_init configurado no es ejecutable."
+
+#: src/EBox/Network.pm:435 src/EBox/Network.pm:439
+msgid "Virtual interface name"
+msgstr "Nombre de la interfaz virtual"
+
+#: src/EBox/Network.pm:739
+msgid "This interface cannot be put in trunk mode, it is an vlan interface."
+msgstr ""
+"Esta interfaz no puede configurarse en modo trunk, es una interfaz vlan."
+
+#: src/EBox/Network.pm:784
+msgid ""
+"This interface is in trunk mode, you should unconfigure all the vlan "
+"interfaces in this trunk before changing its configuration mode."
+msgstr ""
+"Esta interfaz está en modo trunk, debería desconfigurar todas las interfaces "
+"de este trunk antes de cambiar su modo de configuración."
+
+#: src/EBox/Network.pm:807
+msgid ""
+"Network interfaces need to be in trunk mode before adding vlans to them."
+msgstr ""
+"Last interfaces de red deben ponerse en modo trunk antes de poder añadirles "
+"vlans."
+
+#: src/EBox/Network.pm:1088 src/EBox/Network.pm:1117
+#: src/templates/network/routes.mas:34
+msgid "Gateway"
+msgstr "Router"
+
+#: src/EBox/Network.pm:1455
+msgid ""
+"The requested operation will cause one of the configured routers to become "
+"unreachable. Please remove it first if you really want to make this change."
+msgstr ""
+"La operación solicitada hará que uno de los routers configurados no sea "
+"accesible. Por favor, eliminelo antes si realmente desea hacer este cambio."
+
+#: src/EBox/Network.pm:1484
+#, perl-brace-format
+msgid "Gateway {gw} not reachable"
+msgstr "El router {gw} no es alcanzable"
+
+#: src/EBox/Network.pm:1606
+msgid "down"
+msgstr "abajo"
+
+#: src/EBox/Network.pm:1611
+msgid "up"
+msgstr "arriba"
+
+#: src/EBox/Network.pm:1613
+msgid "Status"
+msgstr "Estado"
+
+#: src/EBox/Network.pm:1618
+msgid "MAC address"
+msgstr "Dirección MAC"
+
+#: src/EBox/Network.pm:1634 src/templates/network/routes.mas:32
+msgid "Network"
+msgstr "Red"
+
+#: src/EBox/Network.pm:1638
+msgid "Interfaces"
+msgstr "Interfaces"
+
+#: src/EBox/SysInfo.pm:50 src/templates/firewall/object.mas:69
+msgid "Services"
+msgstr "Servicios"
+
+#: src/EBox/SysInfo.pm:67
+msgid "General information"
+msgstr "Información general"
+
+#: src/EBox/SysInfo.pm:74
+msgid "Time"
+msgstr "Fecha y hora"
+
+#: src/EBox/SysInfo.pm:75
+msgid "Host name"
+msgstr "Nombre de máquina"
+
+#: src/EBox/SysInfo.pm:77
+msgid "eBox version"
+msgstr "Versión de eBox"
+
+#: src/EBox/SysInfo.pm:80
+msgid "System load"
+msgstr "Carga del sistema"
+
+#: src/EBox/SysInfo.pm:93
+msgid "Save/Cancel"
+msgstr "Guardar o cancelar"
+
+#: src/EBox/SysInfo.pm:107
+msgid "General"
+msgstr "General"
+
+#: src/EBox/SysInfo.pm:113
+msgid "Halt/Reboot"
+msgstr "Apagar o reiniciar"
+
+#: src/templates/network/routes.mas:11
+msgid ""
+"All routers you enter here must be reachable through one of the network "
+"interfaces currently configured."
+msgstr ""
+"Todos los routers que introduzca en esta página deben ser alcanzables desde "
+"uno de los interfaces de red que haya configurado."
+
+#: src/templates/network/routes.mas:15
+msgid ""
+"Having network interfaces configured via DHCP may cause this settings, "
+"mostly the default gateway, to be overriden."
+msgstr ""
+"Esta configuración podría ser ignorada si tiene interfaces de red "
+"configurados por DHCP."
+
+#: src/templates/network/routes.mas:20
+msgid "Default gateway"
+msgstr "Ruta por defecto"
+
+#: src/templates/network/routes.mas:28
+msgid "Static routes"
+msgstr "Rutas estáticas"
+
+#: src/templates/network/routes.mas:36 src/templates/network/ifaces.mas:135
+#: src/templates/network/ifaces.mas:206 src/templates/objects/edit.mas:24
+#: src/templates/objects/index.mas:37 src/templates/firewall/object.mas:175
+#: src/templates/firewall/fwdrules.mas:37
+#: src/templates/firewall/fwdruleedit.mas:60
+msgid "Action"
+msgstr "Acción"
+
+#: src/templates/network/routes.mas:65 src/templates/network/routes.mas:67
+#: src/templates/network/routes.mas:69 src/templates/network/ifaces.mas:152
+#: src/templates/network/ifaces.mas:154 src/templates/network/ifaces.mas:156
+#: src/templates/network/ifaces.mas:243 src/templates/network/ifaces.mas:245
+#: src/templates/network/ifaces.mas:247 src/templates/objects/edit.mas:63
+#: src/templates/objects/edit.mas:64 src/templates/objects/edit.mas:66
+#: src/templates/firewall/redirects.mas:63
+#: src/templates/firewall/redirects.mas:65
+#: src/templates/firewall/redirects.mas:67
+#: src/templates/firewall/object.mas:87 src/templates/firewall/object.mas:230
+#: src/templates/firewall/object.mas:232 src/templates/firewall/object.mas:234
+#: src/templates/firewall/fwdrules.mas:167
+msgid "Add"
+msgstr "Añadir"
+
+#: src/templates/network/dns.mas:11
+msgid ""
+"Having network interfaces configured via DHCP may cause this settings to be "
+"overriden."
+msgstr ""
+"Esta configuración podría ser ignorada si tiene interfaces de red "
+"configurados por DHCP."
+
+#: src/templates/network/dns.mas:20
+msgid "Primary"
+msgstr "Primario"
+
+#: src/templates/network/dns.mas:32
+msgid "Secondary"
+msgstr "Secundario"
+
+#: src/templates/network/ifaces.mas:12
+msgid ""
+"Remember that changing the network interfaces configuration may cause you to "
+"lose access to the administration page."
+msgstr ""
+"Recuerde que cambiar la configuración de los interfaces de red puede hacer "
+"que pierda la conexión con este panel de administración."
+
+#: src/templates/network/ifaces.mas:16
+msgid ""
+"Traffic being routed through interfaces marked as external will be NATed.  "
+"Also, services meant for the LAN users will not be available on external "
+"interfaces."
+msgstr ""
+"Se aplicará NAT a todo el trafico que salga a través de los interfaces "
+"marcados como externos. Además, los servicios destinados a la LAN no estarán "
+"disponibles en dichos interfaces."
+
+#: src/templates/network/ifaces.mas:29 src/templates/network/ifaces.mas:32
+msgid "Static"
+msgstr "Estático"
+
+#: src/templates/network/ifaces.mas:44 src/templates/network/ifaces.mas:47
+msgid "Trunk (802.1q)"
+msgstr "Trunk (802.1q)"
+
+#: src/templates/network/ifaces.mas:53 src/templates/network/ifaces.mas:56
+msgid "Not set"
+msgstr "No configurado"
+
+#: src/templates/network/ifaces.mas:66
+msgid "External"
+msgstr "Externo"
+
+#: src/templates/network/ifaces.mas:116 src/templates/network/confirm.mas:33
+#: src/templates/network/confirmremove.mas:26
+#: src/templates/firewall/filter.mas:31 src/templates/login/index.mas:22
+#: src/templates/language.mas:25 src/templates/enable.mas:25
+#: src/templates/enable.mas:27
+msgid "Ok"
+msgstr "Aceptar"
+
+#: src/templates/network/ifaces.mas:126
+msgid "VLANs"
+msgstr "VLANs"
+
+#: src/templates/network/ifaces.mas:133 src/templates/confirm-backup.mas:26
+#: src/templates/backup.mas:18 src/templates/backup.mas:50
+msgid "Description"
+msgstr "Descripción"
+
+#: src/templates/network/ifaces.mas:195
+msgid "Virtual interfaces"
+msgstr "Interfaces virtuales"
+
+#: src/templates/network/confirm.mas:14
+#: src/templates/network/confirmremove.mas:11
+msgid ""
+"The change you are trying to make will affect the configuration of one or "
+"more modules that use references to this network interface."
+msgstr ""
+"El cambio que esta intentando realizar afectará a la configuración de uno o "
+"varios módulos que usan este interfaz de red."
+
+#: src/templates/network/confirm.mas:18
+#: src/templates/network/confirmremove.mas:15
+msgid ""
+"If you choose to continue, all modules that make use of the current "
+"configuration of this network interface will delete the relevant parts of "
+"their configuration. Choose "
+msgstr ""
+"Si elige continuar, todos los módulos que usan la configuración actual de "
+"este interfaz de red borrarán las partes mas relevantes de su configuración. "
+"Elija"
+
+#: src/templates/network/confirm.mas:36
+#: src/templates/network/confirmremove.mas:29
+#: src/templates/objects/delete.mas:27 src/templates/confirm-backup.mas:39
+#: src/templates/confirm-backup.mas:40
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: src/templates/objects/delete.mas:10
+msgid "Deleting object"
+msgstr "Borrando objeto"
+
+#: src/templates/objects/delete.mas:13
+msgid ""
+"The object you tried to delete is being used by some modules, please confirm "
+"that you want to delete it."
+msgstr ""
+"El objeto que ha intentado borrar está siendo usado por algunos módulos, por "
+"favor, confirme que desea borrarlo."
+
+#: src/templates/objects/edit.mas:11
+#, perl-brace-format
+msgid "Edit '{description}' members"
+msgstr "Editar miembros de '{description}'"
+
+#: src/templates/objects/edit.mas:22
+msgid "MAC"
+msgstr "MAC"
+
+#: src/templates/objects/edit.mas:111
+msgid "Delete Object"
+msgstr "Borrar Objeto"
+
+#: src/templates/objects/edit.mas:115
+msgid ""
+"If you delete this object, all the information about its members will be "
+"lost."
+msgstr ""
+"Al borrar este objeto perderá toda la información acerca de sus miembros."
+
+#: src/templates/objects/edit.mas:121
+msgid "Delete object"
+msgstr "Borrar objeto"
+
+#: src/templates/objects/index.mas:11
+msgid "New object"
+msgstr "Nuevo objeto"
+
+#: src/templates/objects/index.mas:15 src/templates/objects/index.mas:17
+msgid "Create"
+msgstr "Crear"
+
+#: src/templates/objects/index.mas:21
+msgid ""
+"The objects that you create here can be used in the rest of the system. "
+"Remember that an IP address cannot belong to more than one object."
+msgstr ""
+"Los objetos que cree aquí pueden usarse en el resto del sistema. Recuerde "
+"que una dirección IP no puede pertenecer a más de un objeto."
+
+#: src/templates/objects/index.mas:28
+msgid "Object list"
+msgstr "Lista de objetos"
+
+#: src/templates/objects/index.mas:49 src/templates/objects/index.mas:50
+#: src/templates/firewall/fwdrules.mas:306
+#: src/templates/firewall/fwdrules.mas:308
+#: src/templates/firewall/fwdrules.mas:310
+msgid "Edit"
+msgstr "Editar"
+
+#: src/templates/firewall/redirects.mas:16
+msgid "External port"
+msgstr "Puerto externo"
+
+#: src/templates/firewall/redirects.mas:18
+#: src/templates/firewall/object.mas:169
+#: src/templates/firewall/fwdrules.mas:20
+#: src/templates/firewall/fwdrules.mas:182
+#: src/templates/firewall/fwdruleedit.mas:31
+msgid "Protocol"
+msgstr "Protocolo"
+
+#: src/templates/firewall/redirects.mas:22
+#: src/templates/firewall/object.mas:171
+#: src/templates/firewall/fwdrules.mas:186
+#: src/templates/firewall/fwdrules.mas:190 src/templates/port.mas:12
+msgid "Port"
+msgstr "Puerto"
+
+#: src/templates/firewall/redirects.mas:24
+#: src/templates/firewall/object.mas:99 src/templates/firewall/object.mas:179
+#: src/templates/firewall/fwdrules.mas:192 src/templates/backup.mas:54
+msgid "Actions"
+msgstr "Acciones"
+
+#: src/templates/firewall/redirects.mas:134
+#: src/templates/firewall/redirects.mas:136
+#: src/templates/firewall/redirects.mas:138
+#: src/templates/firewall/object.mas:131 src/templates/firewall/object.mas:133
+#: src/templates/firewall/object.mas:135 src/templates/firewall/object.mas:317
+#: src/templates/firewall/object.mas:319 src/templates/firewall/object.mas:321
+#: src/templates/firewall/fwdruleedit.mas:223
+#: src/templates/firewall/fwdruleedit.mas:225
+#: src/templates/firewall/fwdruleedit.mas:227 src/templates/password.mas:58
+#: src/templates/port.mas:17
+msgid "Change"
+msgstr "Cambiar"
+
+#: src/templates/firewall/filter.mas:11
+msgid ""
+"This will tell the firewall what to do when discarding network packets.  If "
+"you choose Reject, a packet will be sent back to the sender, choosing Drop "
+"will make the firewall drop the packet silently."
+msgstr ""
+"Esto determina el comportamiento del firewall al descartar paquetes. Si "
+"selecciona Rechazar, se enviará un paquete al remitente del paquete a "
+"descartar. Si selecciona Ignorar el firewall descartará los paquetes de "
+"forma silenciosa."
+
+#: src/templates/firewall/filter.mas:16
+msgid "Deny policy"
+msgstr "Política de denegación"
+
+#: src/templates/firewall/filter.mas:20 src/templates/firewall/filter.mas:27
+msgid "Drop packets"
+msgstr "Ignorar paquetes"
+
+#: src/templates/firewall/filter.mas:22 src/templates/firewall/filter.mas:25
+msgid "Reject packets"
+msgstr "Rechazar paquetes"
+
+#: src/templates/firewall/filter.mas:38
+msgid ""
+"This link will let you set up filtering rules that will take precedence over "
+"the ones you set up for network objects further below."
+msgstr ""
+"Este enlace le permitirá establecer reglas de filtrado que tendrán "
+"preferencia sobre las que configure para los objetos de red más abajo."
+
+#: src/templates/firewall/filter.mas:42
+msgid "Forwarding rules"
+msgstr "Reglas de filtrado"
+
+#: src/templates/firewall/filter.mas:49
+msgid ""
+"The link below will let you set up the default behavior of the packet "
+"filter. You may also choose an object and set up rules and the services it "
+"may access."
+msgstr ""
+"El enlace que hay a continuación le permitira configurar el comportamiento "
+"por defecto del firewall. También puede seleccionar un objeto y configurar "
+"reglas y los servicios a los que podrá acceder."
+
+#: src/templates/firewall/filter.mas:53
+msgid "Configure default rules"
+msgstr "Configurar reglas por defecto"
+
+#: src/templates/firewall/filter.mas:59
+msgid "Configure rules for a particular object"
+msgstr "Configurar las reglas para un objeto concreto"
+
+#: src/templates/firewall/filter.mas:68
+msgid "Go"
+msgstr "Ir"
+
+#: src/templates/firewall/object.mas:14
+msgid ""
+"The policy states what to do on network packets not explicitly matched "
+"below. The policy is applied to connections that leave eBox through an "
+"external network interface. If you want to allow traffic between internal "
+"networks you need to create explicit rules for that."
+msgstr ""
+"La política determina la acción a tomar sobre los paquetes de red no "
+"especificados explícitamente a continuación. La política se aplica a las "
+"conexiones que salen de la eBox a través de una interfaz de red externa. Si "
+"desea permitir tráfico entre redes internas debe crear reglas explícitas "
+"para ello."
+
+#: src/templates/firewall/object.mas:19
+msgid ""
+"Choosing global will make the firewall fall back to the <a href='Object?"
+"object=_global'>default configuration</a>."
+msgstr ""
+"Si elige global el cortafuegos usará la <a href='Object?"
+"object=_global'>configuración por defecto</a>."
+
+#: src/templates/firewall/object.mas:24 src/templates/firewall/object.mas:97
+msgid "Policy"
+msgstr "Política"
+
+#: src/templates/firewall/object.mas:32 src/templates/firewall/object.mas:35
+#: src/templates/firewall/object.mas:61
+msgid "Global"
+msgstr "Global"
+
+#: src/templates/firewall/object.mas:41 src/templates/firewall/object.mas:44
+#: src/templates/firewall/object.mas:56 src/templates/firewall/object.mas:81
+#: src/templates/firewall/object.mas:118 src/templates/firewall/object.mas:123
+#: src/templates/firewall/object.mas:220 src/templates/firewall/object.mas:296
+#: src/templates/firewall/object.mas:301
+#: src/templates/firewall/fwdrules.mas:45
+#: src/templates/firewall/fwdruleedit.mas:69
+#: src/templates/firewall/fwdruleedit.mas:74
+msgid "Deny"
+msgstr "Denegar"
+
+#: src/templates/firewall/object.mas:49 src/templates/firewall/object.mas:52
+#: src/templates/firewall/object.mas:58 src/templates/firewall/object.mas:83
+#: src/templates/firewall/object.mas:116 src/templates/firewall/object.mas:121
+#: src/templates/firewall/object.mas:218 src/templates/firewall/object.mas:294
+#: src/templates/firewall/object.mas:299
+#: src/templates/firewall/fwdrules.mas:43
+#: src/templates/firewall/fwdruleedit.mas:67
+#: src/templates/firewall/fwdruleedit.mas:72
+msgid "Allow"
+msgstr "Permitir"
+
+#: src/templates/firewall/object.mas:95
+msgid "Service"
+msgstr "Servicio"
+
+#: src/templates/firewall/object.mas:159
+msgid ""
+"Protocol, port and destination address are optional. The rules will be "
+"applied in order, from top to bottom, you can reorder them once they are "
+"added. Rules can also be disabled without deleting them."
+msgstr ""
+"La dirección de destino, el protocolo y el puerto son opcionales. Las reglas "
+"se aplicarán en orden, de arriba a abajo, puede reordenarlas despues de "
+"haberlas añadido. Las reglas también pueden ser desactivadas sin necesidad "
+"de borrarlas."
+
+#: src/templates/firewall/object.mas:163
+msgid ""
+"Rules without an explicit destination address will be applied to packets "
+"that leave eBox through an external network interface. You may flag network "
+"interfaces as external in the <a href='../Network/Ifaces'>Network "
+"Interfaces</a> configuration page."
+msgstr ""
+"Las reglas sin una dirección de destino explícita se aplicarán a los "
+"paquetes que salen de la eBox por una interfaz de red externa. Puede marcar "
+"las interfaces de red como externas en la página de configuración de <a "
+"href='../Network/Ifaces'>Interfaces de Red</a>."
+
+#: src/templates/firewall/object.mas:173
+#: src/templates/firewall/fwdrules.mas:109
+#: src/templates/firewall/fwdruleedit.mas:153
+msgid "Destination address"
+msgstr "Dirección de destino"
+
+#: src/templates/firewall/object.mas:177
+msgid "Active"
+msgstr "Activa"
+
+#: src/templates/firewall/object.mas:188 src/templates/firewall/object.mas:260
+#: src/templates/firewall/fwdrules.mas:26
+#: src/templates/firewall/fwdruleedit.mas:48
+msgid "any"
+msgstr "cualquiera"
+
+#: src/templates/firewall/object.mas:335 src/templates/firewall/object.mas:337
+#: src/templates/firewall/object.mas:339
+#: src/templates/firewall/fwdrules.mas:324
+#: src/templates/firewall/fwdrules.mas:326
+#: src/templates/firewall/fwdrules.mas:328
+msgid "Up"
+msgstr "Arriba"
+
+#: src/templates/firewall/object.mas:344 src/templates/firewall/object.mas:346
+#: src/templates/firewall/object.mas:348
+#: src/templates/firewall/fwdrules.mas:333
+#: src/templates/firewall/fwdrules.mas:335
+#: src/templates/firewall/fwdrules.mas:337
+msgid "Down"
+msgstr "Abajo"
+
+#: src/templates/firewall/fwdrules.mas:10
+msgid ""
+"Protocol, ports and addresses are optional. The rules will be applied in "
+"order, from top to bottom, you can reorder them once they are added. Rules "
+"can also be disabled without deleting them."
+msgstr ""
+"El protocolo, los puertos y las direcciones son opcionales. Las reglas se "
+"aplicarán en orden, de arriba a abajo, puede reordenarlas después de "
+"haberlas añadido. Las reglas también pueden ser desactivadas sin necesidad "
+"de borrarlas."
+
+#: src/templates/firewall/fwdrules.mas:13
+msgid "New rule"
+msgstr "Nueva regla"
+
+#: src/templates/firewall/fwdrules.mas:54
+#: src/templates/firewall/fwdruleedit.mas:84
+msgid "Source address"
+msgstr "Dirección de origen"
+
+#: src/templates/firewall/fwdrules.mas:60
+#: src/templates/firewall/fwdrules.mas:92
+#: src/templates/firewall/fwdrules.mas:115
+#: src/templates/firewall/fwdrules.mas:147
+#: src/templates/firewall/fwdruleedit.mas:91
+#: src/templates/firewall/fwdruleedit.mas:96
+#: src/templates/firewall/fwdruleedit.mas:128
+#: src/templates/firewall/fwdruleedit.mas:133
+#: src/templates/firewall/fwdruleedit.mas:160
+#: src/templates/firewall/fwdruleedit.mas:165
+#: src/templates/firewall/fwdruleedit.mas:197
+#: src/templates/firewall/fwdruleedit.mas:202
+msgid "is not"
+msgstr "no es"
+
+#: src/templates/firewall/fwdrules.mas:62
+#: src/templates/firewall/fwdrules.mas:94
+#: src/templates/firewall/fwdrules.mas:117
+#: src/templates/firewall/fwdrules.mas:149
+#: src/templates/firewall/fwdruleedit.mas:93
+#: src/templates/firewall/fwdruleedit.mas:98
+#: src/templates/firewall/fwdruleedit.mas:130
+#: src/templates/firewall/fwdruleedit.mas:135
+#: src/templates/firewall/fwdruleedit.mas:162
+#: src/templates/firewall/fwdruleedit.mas:167
+#: src/templates/firewall/fwdruleedit.mas:199
+#: src/templates/firewall/fwdruleedit.mas:204
+msgid "is"
+msgstr "es"
+
+#: src/templates/firewall/fwdrules.mas:86
+#: src/templates/firewall/fwdruleedit.mas:121
+msgid "Source port"
+msgstr "Puerto de origen"
+
+#: src/templates/firewall/fwdrules.mas:99
+#: src/templates/firewall/fwdrules.mas:154
+#: src/templates/firewall/fwdruleedit.mas:142
+#: src/templates/firewall/fwdruleedit.mas:211
+msgid "to"
+msgstr "a"
+
+#: src/templates/firewall/fwdrules.mas:141
+#: src/templates/firewall/fwdruleedit.mas:190
+msgid "Destination port"
+msgstr "Puerto de destino"
+
+#: src/templates/firewall/fwdrules.mas:184
+msgid "Source"
+msgstr "Origen"
+
+#: src/templates/firewall/fwdrules.mas:188
+msgid "Destination"
+msgstr "Destino"
+
+#: src/templates/firewall/fwdrules.mas:208
+#: src/templates/firewall/fwdrules.mas:210
+#: src/templates/firewall/fwdrules.mas:351
+#: src/templates/firewall/fwdrules.mas:353
+msgid "allow"
+msgstr "permitir"
+
+#: src/templates/firewall/fwdrules.mas:214
+#: src/templates/firewall/fwdrules.mas:216
+#: src/templates/firewall/fwdrules.mas:378
+#: src/templates/firewall/fwdrules.mas:380
+msgid "allow (disabled)"
+msgstr "permitir (habilitado)"
+
+#: src/templates/firewall/fwdrules.mas:220
+#: src/templates/firewall/fwdrules.mas:222
+#: src/templates/firewall/fwdrules.mas:356
+#: src/templates/firewall/fwdrules.mas:358
+msgid "deny"
+msgstr "denegar"
+
+#: src/templates/firewall/fwdrules.mas:226
+#: src/templates/firewall/fwdrules.mas:228
+#: src/templates/firewall/fwdrules.mas:383
+#: src/templates/firewall/fwdrules.mas:385
+msgid "deny (disabled)"
+msgstr "denegar (deshabilitado)"
+
+#: src/templates/firewall/fwdrules.mas:239
+#: src/templates/firewall/fwdrules.mas:241
+#: src/templates/firewall/fwdrules.mas:260
+#: src/templates/firewall/fwdrules.mas:262
+#: src/templates/firewall/fwdrules.mas:273
+#: src/templates/firewall/fwdrules.mas:275
+#: src/templates/firewall/fwdrules.mas:294
+#: src/templates/firewall/fwdrules.mas:296
+#: src/templates/firewall/fwdrules.mas:371
+#: src/templates/firewall/fwdrules.mas:373
+msgid "inverse match"
+msgstr "coincidencia inversa"
+
+#: src/templates/firewall/fwdrules.mas:361
+#: src/templates/firewall/fwdrules.mas:363 src/templates/backup.mas:112
+msgid "delete"
+msgstr "borrar"
+
+#: src/templates/firewall/fwdrules.mas:366
+#: src/templates/firewall/fwdrules.mas:368
+msgid "edit"
+msgstr "editar"
+
+#: src/templates/firewall/fwdrules.mas:388
+#: src/templates/firewall/fwdrules.mas:390
+msgid "move up"
+msgstr "subir"
+
+#: src/templates/firewall/fwdrules.mas:393
+#: src/templates/firewall/fwdrules.mas:395
+msgid "move down"
+msgstr "bajar"
+
+#: src/templates/firewall/fwdruleedit.mas:14
+msgid "Enabled"
+msgstr "Habilitado"
+
+#: src/templates/login/index.mas:15
+msgid "Administrator password"
+msgstr "Contraseña de administrador"
+
+#: src/templates/logout/index.mas:11
+msgid "There are unsaved changes, if you log out now they will be lost."
+msgstr "Hay cambios sin guardar, si sale ahora los perderá"
+
+#: src/templates/logout/index.mas:15
+msgid "Exit anyway"
+msgstr "Salir de todos modos"
+
+#: src/templates/logout/index.mas:20
+msgid "Exit"
+msgstr "Salir"
+
+#: src/templates/confirm-backup.mas:17 src/templates/backup.mas:52
+msgid "Date"
+msgstr "Fecha"
+
+#: src/templates/password.mas:6
+msgid "Change password"
+msgstr "Cambiar contraseña"
+
+#: src/templates/password.mas:13
+msgid "Current password"
+msgstr "Contraseña actual"
+
+#: src/templates/password.mas:28
+msgid "New password"
+msgstr "Nueva contraseña"
+
+#: src/templates/password.mas:43
+msgid "Confirm new password"
+msgstr "Confirmar nueva contraseña"
+
+#: src/templates/backup.mas:10
+msgid "Back up the current configuration"
+msgstr "Guardar la configuración actual"
+
+#: src/templates/backup.mas:13
+msgid ""
+"Backups will be stored in eBox and then you will be able to download them to "
+"your hard disk"
+msgstr ""
+"Los backups se almacenarán en eBox y posteriormente pueden ser descargados a "
+"su disco duro"
+
+#: src/templates/backup.mas:23
+msgid "Back up"
+msgstr "Guardar"
+
+#: src/templates/backup.mas:28
+msgid "Restore configuration"
+msgstr "Recuperar la configuración"
+
+#: src/templates/backup.mas:31
+msgid ""
+"You can upload a backup file from your computer or use one from the list "
+"below"
+msgstr ""
+"Puede subir un fichero de backup desde su ordenador o utilizar uno de la "
+"lista de abajo"
+
+#: src/templates/backup.mas:45
+msgid "List of configuration backups"
+msgstr "Lista de backups de la configuración"
+
+#: src/templates/backup.mas:76
+msgid "Restore configuration using this file"
+msgstr "Restaurar la configuración utilizando este fichero"
+
+#: src/templates/backup.mas:78
+msgid "Restore from backup"
+msgstr "Restaurar desde backup"
+
+#: src/templates/backup.mas:83 src/templates/backup.mas:85
+#: src/templates/backup.mas:87
+msgid "Download"
+msgstr "Descargar"
+
+#: src/templates/backup.mas:108
+msgid "download"
+msgstr "descargar"
+
+#: src/templates/backup.mas:118
+msgid "restore"
+msgstr "restaurar"
+
+#: src/templates/bug.mas:9
+msgid ""
+"This page lets you generate a file with information about the state of your "
+"system. The file will be useful if you want to report a bug in eBox."
+msgstr ""
+"Esta página le permite generar un fichero con información acerca del estado "
+"de su sistema. El fichero puede ser útil si quiere informar de un bug en "
+"EBox."
+
+#: src/templates/bug.mas:15
+msgid "Download bug report file"
+msgstr "Descargar informe de error"
+
+#: src/templates/finish.mas:11
+msgid ""
+"There are unsaved changes in one or more modules, you can save or discard "
+"those changes."
+msgstr ""
+"Hay cambios no guardados en uno o más módulos, puedes guardar o descartar "
+"los cambios."
+
+#: src/templates/finish.mas:15
+msgid ""
+"If you made changes to the network interfaces or the administration port, "
+"you may need to manually rewrite the url in order to access this "
+"administration interface again."
+msgstr ""
+"Si ha hecho cambios en los interfaces de red o en el puerto del panel de "
+"administración, es posible que necesite reescribir la url manualmente para "
+"volver a acceder al panel de administración."
+
+#: src/templates/finish.mas:21
+msgid "Save"
+msgstr "Guardar"
+
+#: src/templates/finish.mas:24
+msgid "Discard changes"
+msgstr "Descartar cambios"
+
+#: src/templates/finish.mas:30
+msgid "There are no unsaved changes."
+msgstr "No hay cambios sin guardar"
+
+#: src/templates/title.mas:12
+msgid "Show/Hide help"
+msgstr "Mostrar/Ocultar ayuda"
+
+#: src/templates/language.mas:10
+msgid "Language selection"
+msgstr "Selección de idioma"
+
+#: src/templates/language.mas:13
+msgid "Language"
+msgstr "Idioma"
+
+#: src/templates/port.mas:9
+msgid "Administration interface TCP port"
+msgstr "Puerto TCP de la interfaz de administración"
+
+#: src/templates/enable.mas:13 src/templates/enable.mas:18
+msgid "No"
+msgstr "No"
+
+#: src/templates/enable.mas:15 src/templates/enable.mas:20
+msgid "Yes"
+msgstr "Sí"
+
+#: src/templates/halt.mas:10
+msgid ""
+"You will probably lose your Internet connection if this machine is halted."
+msgstr "Si apaga está máquina perderá, posiblemente, la conexión a Internet."
+
+#: src/templates/halt.mas:15
+msgid "Halt"
+msgstr "Apagar"
+
+#: src/templates/halt.mas:18
+msgid "Reboot"
+msgstr "Reiniciar"

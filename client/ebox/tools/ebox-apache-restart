@@ -1,0 +1,7 @@
+#!/usr/bin/perl
+
+#Stop apache, sleep a few seconds and restart.
+system("/usr/bin/sudo /etc/init.d/apache-perl stop");
+sleep 5;
+system("/usr/bin/sudo /etc/init.d/apache-perl start");
+
