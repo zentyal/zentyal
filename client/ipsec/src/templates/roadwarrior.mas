@@ -1,0 +1,175 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	@connections => ()
+	@ifaces => ()
+	@rsakeys => ()
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<h3><% __('New road warrior connection') %></h3>
+<p>
+<form action="RoadWarrior" method="post">
+	<table class='formTable'>
+		<tr>
+			<td class='tright'>
+				<span class="ftitle">
+					<%__('Name')%>:
+				</span>
+			</td>
+			<td>
+				<input type="text" class="inputText" size="20" name="name"/>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+				<span class="ftitle">
+					<%__('Network interface')%>:
+				</span>		
+			</td>
+			<td>
+				<select name="iface">
+					<option selected value=''>    </option>
+%					foreach my $iface (@ifaces) {
+						<option value="<%$iface->{'name'}%>">
+							<%$iface->{'name'}%>
+						</option>
+%					}
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+					<span class="ftitle">
+						<%__('Local subnet')%>:
+					</span>
+				</td>
+			<td>
+				<input type="text" class="inputText" size="15" name="lnet"/> /
+				<select name='lmask'>
+					<option selected value="32">32</option>
+					<option value="30">30</option>
+					<option value="29">29</option>
+					<option value="28">28</option>
+					<option value="27">27</option>
+					<option value="26">26</option>
+					<option value="25">25</option>
+					<option value="24">24</option>
+					<option value="16">16</option>
+					<option value="8">8</option>
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+				<span class="ftitle">
+					<%__('Allowed remote subnet range')%>:
+				</span>	
+			</td>
+			<td>
+				<input type="text" class="inputText" size="15" name="rnet"/> /
+				<select name='rmask'>
+					<option selected value="32">32</option>
+					<option value="30">30</option>
+					<option value="29">29</option>
+					<option value="28">28</option>
+					<option value="27">27</option>
+					<option value="26">26</option>
+					<option value="25">25</option>
+					<option value="24">24</option>
+					<option value="16">16</option>
+					<option value="8">8</option>
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+				<span class="ftitle">
+					<%__('Local RSA Key')%>:
+				</span>		
+			</td>
+			<td>
+				<select name='lid'>
+					<option selected value=''>    </option>
+%					foreach my $key (@rsakeys) {
+						<option value="<%$key%>">
+							@<%$key%>
+						</option>
+%					}
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+				<span class="ftitle">
+					<%__('Remote ID')%>:
+				</span>		
+			</td>
+			<td>
+				<input type="text" class="inputText" size="32"
+						name="rid"/>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+				<span class="ftitle">
+					<%__('Remote RSA public key')%>:
+				</span>		
+			</td>
+			<td>
+				<input type="text" class="inputText" size="54"
+						name="rrsa"/>
+			</td>
+		</tr>
+
+		<tr>
+			<td></td>
+			<td>
+				<input class='inputButton' type='submit' name='add'
+						value='<%__('Add')%>' alt='<%__('Add')%>'/>
+			</td>
+		</tr>
+	</table>
+</form>
+</p>
+
+% if (@connections != 0) {
+<h3><%__('Connections')%></h3>
+<table cellspacing='0' class='dataTable'>
+	<thead>
+		<tr>
+			<th width='66%' class='tleft'><%__('Connection')%></th>
+			<th class='thOptions'><%__('Action')%></th>
+		</tr>
+	</thead>
+	<tbody>
+%		foreach my $conn (@connections) {
+			<tr class='border'>
+				<form action="RoadWarrior" method="post">
+					<input type='hidden' name="id" value='<%$conn->{'id'}%>'/>
+					<td><%$conn->{'name'}%></td>
+					<td class='tcenter'>
+						<a href="RoadWarriorEdit?id=<%$conn->{'id'}%>"><img 
+								src='/data/images/edit.gif'
+								title='<%__('Edit')%>'
+								alt='<%__('Edit')%>'/></a>
+						<img src='/data/images/sep.gif' alt='-' />
+						<input class='inputButton' type='image' name='delete'
+								src='/data/images/delete.gif'
+								value='<%__('Delete')%>'
+								title='<%__('Delete')%>'
+								alt='<%__('Delete')%>'/>
+					</td>
+				</form>
+			</tr>
+%		}
+	</tbody>
+</table>
+% }

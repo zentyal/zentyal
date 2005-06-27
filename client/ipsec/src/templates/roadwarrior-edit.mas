@@ -1,0 +1,165 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$connection
+	$id
+	@ifaces => ()
+	@rsakeys => ()
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<p>
+<form action="RoadWarriorEdit" method="post">
+	<input type='hidden' name='id' value='<%$id%>'/>
+	<table class='formTable'>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'>
+					<%__('Enabled')%>:
+				</span>
+			</td>
+			<td>
+				<input type='checkbox' value='yes' 
+%			if ($connection->{'enabled'} == 1) {
+					checked
+%			}
+					name='enabled'/>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+				<span class="ftitle">
+					<%__('Name')%>:
+				</span>
+			</td>
+			<td>
+				<input type="text" class="inputText" size="20" name="name"
+					value='<%$connection->{'name'}%>'/>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+				<span class="ftitle">
+					<%__('Network interface')%>:
+				</span>		
+			</td>
+			<td>
+				<select name="iface">
+%					foreach my $iface (@ifaces) {
+						<option 
+%                       if ($connection->{'iface'} eq $iface->{'name'}) {
+                            selected
+%                       }
+%						if ($connection->{'iface'} eq $iface) {
+							selected
+%						}
+							value="<%$iface->{'name'}%>">
+							<%$iface->{'name'}%>
+						</option>
+%					}
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+					<span class="ftitle">
+						<%__('Local subnet')%>:
+					</span>
+				</td>
+			<td>
+				<input type="text" class="inputText" size="15" name="lnet"
+						value='<%$connection->{'lnet'}%>'/> /
+				<select name='lmask'>
+%                   foreach my $value ((8,16,24,25,26,27,28,29,30,32)) {
+                        <option 
+%                           if ($value eq $connection->{'lmask'}) {
+                                selected
+%                           }
+                                value="<%$value%>"><%$value%></option>
+%                   }
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+				<span class="ftitle">
+					<%__('Allowed remote subnet range')%>:
+				</span>	
+			</td>
+			<td>
+				<input type="text" class="inputText" size="15" name="rnet"
+						value='<%$connection->{'rnet'}%>'/> /
+				<select name='rmask'>
+%                   foreach my $value ((8,16,24,25,26,27,28,29,30,32)) {
+                        <option 
+%                           if ($value eq $connection->{'rmask'}) {
+                                selected
+%                           }
+                                value="<%$value%>"><%$value%></option>
+%                   }
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+				<span class="ftitle">
+					<%__('Local RSA Key')%>:
+				</span>		
+			</td>
+			<td>
+				<select name='lid'>
+%					foreach my $key (@rsakeys) {
+						<option 
+%						if ($key eq $connection->{'lid'}) {
+							selected
+%						}
+							value="<%$key%>">
+							@<%$key%>
+						</option>
+%					}
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+				<span class="ftitle">
+					<%__('Remote ID')%>:
+				</span>		
+			</td>
+			<td>
+				<input type="text" class="inputText" size="32"
+						name="rid" value='<%$connection->{'rid'}%>'/>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+				<span class="ftitle">
+					<%__('Remote RSA public key')%>:
+				</span>		
+			</td>
+			<td>
+				<input type="text" class="inputText" size="54"
+						name="rrsa" value='<%$connection->{'rrsa'}%>'/>
+			</td>
+		</tr>
+
+		<tr>
+			<td></td>
+			<td>
+				<input class='inputButton' type='submit' name='change'
+						value='<%__('Change')%>' alt='<%__('Change')%>'/>
+				<input class='inputButton' type='submit' name='cancel'
+						value='<%__('Cancel')%>' alt='<%__('Cancel')%>'/>
+			</td>
+		</tr>
+	</table>
+</form>
+</p>

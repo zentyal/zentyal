@@ -1,0 +1,49 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	@ids => ()
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<h3><%__('New RSA key')%></h3>
+<form action="RSA" method="post">
+	<div class='ftitle'>
+		<%__('Key ID:')%>
+	</div>
+	<input class='inputText' type='text' size='16' name='id'/>
+	<input class='inputButton' type='submit' name='generate' 
+			value='<%__('Generate')%>'/>
+</form>
+% if(@ids != 0) {
+<table cellspacing='0' class='dataTable'>
+	<thead>
+		<tr>
+			<th width='66%' class='tleft'><%__('Key')%></th>
+			<th class='thOptions'><%__('Actions')%></th>
+		</tr>
+	</thead>
+	<tbody>
+%		foreach my $id (@ids) {
+			<tr class='border'>
+				<form action="RSA" method="post">
+					<input type='hidden' name="id" value='<%$id%>'/>
+					<td>@<%$id%></td>
+					<td class='tcenter'>
+						<a href="RSAView?id=<%$id%>"><img 
+								src='/data/images/view.gif'
+								title='<%__('View')%>'
+								alt='<%__('View')%>'/></a>
+						<img src='/data/images/sep.gif' alt='-' />
+						<input class='inputButton' type='image' name='delete'
+								src='/data/images/delete.gif'
+								value='<%__('Delete')%>'
+								title='<%__('Delete')%>'
+								alt='<%__('Delete')%>'/>
+					</td>
+				</form>
+			</tr>
+%		}
+	</tbody>
+</table>
+% }

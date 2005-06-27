@@ -1,0 +1,10 @@
+#!/bin/bash
+
+case "$1" in
+	remove)
+		kill `pidof gconfd-2` >/dev/null 2>&1 || true
+		invoke-rc.d ipsec stop || true
+		;;		
+esac
+
+#DEBHELPER#

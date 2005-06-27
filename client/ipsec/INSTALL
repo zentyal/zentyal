@@ -1,0 +1,18 @@
+- To install this module you need to install eBox base, openswan, and an IPSec
+  enabled linux kernel.
+
+- Once all dependencies are satisfied, type:
+	
+	./configure
+	make install
+
+  configure will autodetect eBox base path to install
+
+- Update your sudoers file with the ebox-sudoers command.
+
+- You should not run openswan automatically on startup, this module will start
+  it whenever it's needed:
+
+  mv /etc/rcX.d/SXXipsec /etc/rcX.d/KXXipsec
+
+  (replace the X's with the correct numbers)

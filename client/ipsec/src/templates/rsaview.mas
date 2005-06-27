@@ -1,0 +1,12 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$id
+	$key
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<textarea name="key-string" rows="10" cols="60">
+<%$key%>
+</textarea>

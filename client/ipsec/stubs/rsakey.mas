@@ -1,0 +1,9 @@
+<%args>
+	$id
+	$key
+</%args>
+% if ($id ne '_default') {
+@<%$id%> <%$key%>
+% } else {
+<%$key%>
+% }

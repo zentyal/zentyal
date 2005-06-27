@@ -1,0 +1,76 @@
+<%args>
+	@shared_secret_conns => ()
+	@road_warrior_conns => ()
+</%args>
+
+version	2.0
+
+# basic configuration
+config setup
+	# Debug-logging controls:  "none" for (almost) none, "all" for lots.
+	interfaces=%defaultroute
+	klipsdebug=none
+	plutodebug=none
+	uniqueids=yes
+	nat_traversal=yes
+
+% foreach my $conn (@shared_secret_conns) {
+conn <%$conn->{'id'}%>
+%	if ($conn->{'authmethod'} eq 'rsa') {
+	authby=rsasig
+%	} else {
+	authby=secret
+%	}
+	left=<%$conn->{'lIP'}%>
+	leftsubnet=<%$conn->{'lnet'}."/".$conn->{'lmask'}%>
+	leftnexthop=%defaultroute
+%	if ($conn->{'authmethod'} eq 'rsa') {
+	leftid=@<%$conn->{'authinfo'}%>
+	leftrsasigkey=<%$conn->{'localrsa'}%>
+%	}
+	right=<%$conn->{'rIP'}%>
+	rightsubnet=<%$conn->{'rnet'}."/".$conn->{'rmask'}%>
+	rightnexthop=%defaultroute
+%	if ($conn->{'authmethod'} eq 'rsa') {
+	rightid=@<%$conn->{'remoteid'}%>
+	rightrsasigkey=<%$conn->{'remotersa'}%>
+%	}
+	auto=<%$conn->{'auto'}%>
+
+% }
+
+% foreach my $conn (@road_warrior_conns) {
+conn <%$conn->{'id'}%>
+	authby=rsasig
+	left=<%$conn->{'lIP'}%>
+	leftsubnet=<%$conn->{'lnet'}."/".$conn->{'lmask'}%>
+	leftnexthop=%defaultroute
+	leftid=@<%$conn->{'lid'}%>
+	leftrsasigkey=<%$conn->{'lrsa'}%>
+	right=%any
+	rightsubnetwithin=<%$conn->{'rnet'}."/".$conn->{'rmask'}%>
+	rightnexthop=%defaultroute
+	rightid=@<%$conn->{'rid'}%>
+	rightrsasigkey=<%$conn->{'rrsa'}%>
+	auto=add
+% }
+
+# Disable Opportunistic Encryption
+conn block 
+    auto=ignore
+
+conn private 
+    auto=ignore
+
+conn private-or-clear 
+    auto=ignore
+
+conn clear-or-private 
+    auto=ignore
+
+conn clear 
+    auto=ignore
+
+conn packetdefault 
+    auto=ignore
+# End - disable Opportunistic Encryption

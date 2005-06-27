@@ -1,0 +1,251 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	@connections => ()
+	@ifaces => ()
+	@rsakeys => ()
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<h3><% __('Add new tunnel') %></h3>
+<p>
+<form action="Static" method="post">
+	<table class='formTable'>
+		<tr>
+			<td class='tright'>
+				<span class="ftitle">
+					<%__('Name')%>:
+				</span>
+			</td>
+			<td>
+				<input type="text" class="inputText" size="20" name="name"/>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+				<span class="ftitle">
+					<%__('Network interface')%>:
+				</span>		
+			</td>
+			<td>
+				<select name="iface">
+					<option selected value=''>    </option>
+%					foreach my $iface (@ifaces) {
+						<option value="<%$iface->{'name'}%>">
+							<%$iface->{'name'}%>
+						</option>
+%					}
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+				<span class="ftitle">
+					<%__('Remote IP address')%>:
+				</span>
+			</td>
+			<td>
+				<input type="text" class="inputText" size="15" name="rIP"/>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+					<span class="ftitle">
+						<%__('Local subnet')%>:
+					</span>
+				</td>
+			<td>
+				<input type="text" class="inputText" size="15" name="lnet"/> /
+				<select name='lmask'>
+					<option selected value="32">32</option>
+					<option value="30">30</option>
+					<option value="29">29</option>
+					<option value="28">28</option>
+					<option value="27">27</option>
+					<option value="26">26</option>
+					<option value="25">25</option>
+					<option value="24">24</option>
+					<option value="16">16</option>
+					<option value="8">8</option>
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+				<span class="ftitle">
+					<%__('Remote subnet')%>:
+				</span>	
+			</td>
+			<td>
+				<input type="text" class="inputText" size="15" name="rnet"/> /
+				<select name='rmask'>
+					<option selected value="32">32</option>
+					<option value="30">30</option>
+					<option value="29">29</option>
+					<option value="28">28</option>
+					<option value="27">27</option>
+					<option value="26">26</option>
+					<option value="25">25</option>
+					<option value="24">24</option>
+					<option value="16">16</option>
+					<option value="8">8</option>
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+				<span class="ftitle">
+					<%__('Authentication method')%>:
+				</span>		
+			</td>
+			<td>
+				<select name='authmethod' onChange='methodChanged(this)'>
+					<option selected value="sharedsecret">
+						<%__('Shared secret')%>
+					</option>
+					<option value="rsa"><%__('RSA keys')%></option>
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+				<div id="sharedsecret1">
+				<span class="ftitle">
+					<%__('Shared secret')%>:
+				</span>		
+				</div>
+				<div id="rsa1">
+				<span class="ftitle">
+					<%__('RSA Key')%>:
+				</span>		
+				</div>
+			</td>
+			<td>
+				<div id="sharedsecret2">
+				<input type="text" class="inputText" size="32"
+						name="sharedsecret"/>
+				</div>
+				<div id="rsa2">
+				<select name='rsakey'>
+					<option selected value=''>    </option>
+%					foreach my $key (@rsakeys) {
+						<option value="<%$key%>">
+							@<%$key%>
+						</option>
+%					}
+				</select>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+				<div id="rsa3">
+				<span class="ftitle">
+					<%__('Remote ID')%>:
+				</span>		
+				</div>
+			</td>
+			<td>
+				<div id="rsa4">
+				<input type="text" class="inputText" size="32"
+						name="remoteid"/>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td class='tright'>
+				<div id="rsa5">
+				<span class="ftitle">
+					<%__('Remote RSA public key')%>:
+				</span>		
+				</div>
+			</td>
+			<td>
+				<div id="rsa6">
+				<input type="text" class="inputText" size="54"
+						name="remotersa"/>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td></td>
+			<td>
+				<input class='inputButton' type='submit' name='add'
+						value='<%__('Add')%>' alt='<%__('Add')%>'/>
+			</td>
+		</tr>
+	</table>
+</form>
+</p>
+
+% if (@connections != 0) {
+<h3><%__('Connections')%></h3>
+<table cellspacing='0' class='dataTable'>
+	<thead>
+		<tr>
+			<th width='66%' class='tleft'><%__('Connection')%></th>
+			<th class='thOptions'><%__('Action')%></th>
+		</tr>
+	</thead>
+	<tbody>
+%		foreach my $conn (@connections) {
+			<tr class='border'>
+				<form action="Static" method="post">
+					<input type='hidden' name="id" value='<%$conn->{'id'}%>'/>
+					<td><%$conn->{'name'}%></td>
+					<td class='tcenter'>
+						<a href="StaticEdit?id=<%$conn->{'id'}%>"><img 
+								src='/data/images/edit.gif'
+								title='<%__('Edit')%>'
+								alt='<%__('Edit')%>'/></a>
+						<img src='/data/images/sep.gif' alt='-' />
+						<input class='inputButton' type='image' name='delete'
+								src='/data/images/delete.gif'
+								value='<%__('Delete')%>'
+								title='<%__('Delete')%>'
+								alt='<%__('Delete')%>'/>
+					</td>
+				</form>
+			</tr>
+%		}
+	</tbody>
+</table>
+% }
+
+<script type="text/javascript"><!--
+function methodChanged(select){
+	selected = select.options[select.selectedIndex].value;
+	if(selected == 'sharedsecret'){
+		document.getElementById("sharedsecret1").style.display="block";
+		document.getElementById("sharedsecret2").style.display="block";
+		document.getElementById("rsa1").style.display="none";
+		document.getElementById("rsa2").style.display="none";
+		document.getElementById("rsa3").style.display="none";
+		document.getElementById("rsa4").style.display="none";
+		document.getElementById("rsa5").style.display="none";
+		document.getElementById("rsa6").style.display="none";
+	}else if(selected == 'rsa'){
+		document.getElementById("sharedsecret1").style.display="none";
+		document.getElementById("sharedsecret2").style.display="none";
+		document.getElementById("rsa1").style.display="block";
+		document.getElementById("rsa2").style.display="block";
+		document.getElementById("rsa3").style.display="block";
+		document.getElementById("rsa4").style.display="block";
+		document.getElementById("rsa5").style.display="block";
+		document.getElementById("rsa6").style.display="block";
+	}
+}
+
+var selects = document.getElementsByName('authmethod');
+methodChanged(selects[0]);
+//--></script>
