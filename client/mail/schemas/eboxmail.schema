@@ -1,0 +1,22 @@
+attributetype ( 1.3.6.1.4.1.7165.2.1.71 NAME 'mailHomeDirectory'
+	DESC 'Base directory to mail directory'
+	EQUALITY caseIgnoreMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{128} )
+			
+attributetype ( 1.3.6.1.4.1.7165.2.1.72 NAME 'userMaildirSize'
+	DESC 'User account default maildir size'
+	EQUALITY integerMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE )
+	
+attributetype ( 1.3.6.1.4.1.7165.2.1.73 NAME 'vddftMaildirSize'
+	DESC 'Virtual domain default maildir size'
+	EQUALITY integerMatch
+	SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 SINGLE-VALUE )
+			
+objectclass ( 1.3.6.1.4.1.7165.2.2.33 NAME 'usereboxmail' SUP posixAccount AUXILIARY
+	DESC 'Extra User Data to Mail Ebox Module'
+	MUST (mailHomeDirectory $ userMaildirSize ) )
+
+objectclass ( 1.3.6.1.4.1.7165.2.2.34 NAME 'vdeboxmail' AUXILIARY
+	DESC 'Extra Virtual Domain Data to Mail Ebox Module'
+	MUST (vddftMaildirSize ) )

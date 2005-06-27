@@ -1,0 +1,67 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+    $params
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+% settextdomain('ebox-mail');
+
+<form action='/ebox/Mail/DelAccount' method='POST'>
+	<h3><% __('Mail account settings') %></h3>
+    <input type="hidden" name="mail" value="<% $params->{'mail'} %>">
+    <input type="hidden" name="username" value="<% $params->{'username'} %>">
+	<h4><% $params->{'mail'} %></h4>
+	<input class='inputButton' type='submit' name='change'
+			value="<% __('Delete') %>"
+			alt="<% __('Delete') %>">
+</form>
+
+<form action='/ebox/Mail/CreateAlias' method='POST'>
+    <input type="hidden" name="maildrop" value="<% $params->{'mail'} %>">
+    <input type="hidden" name="username" value="<% $params->{'username'} %>">
+	<h3><% __('Create mail alias to mail account') %></h3>
+	
+	<input type='text' class='inputText' name='lhs'>
+	<select name="rhs" enabled>
+%	foreach my $vd (@{$params->{vdomains}}) {
+		<option value= <% $vd %> > <% __($vd) %> </option>
+%	}
+	</select>
+	<input class='inputButton' type='submit' name='change'
+			value="<% __('Create') %>"
+			alt="<% __('Create') %>">
+
+%	if(@{$params->{aliases}} != 0) {
+		<table cellspacing='0' class='dataTable'>
+			<caption><% __('Mail aliases accounts list') %></caption>
+			<thead>
+				<tr>
+					<th width='66%' class='tleft'>
+						<% __('Mail alias') %>
+					</th>
+					<th class='thOptions'>
+						<% __('Action') %>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+%			my @aux=();
+%			foreach my $alias (@{$params->{aliases}}) {
+				<tr class='border'>
+					<td><% $alias %></td>
+					<td class='tcenter'>
+						<a href='../Mail/DelAlias?alias=<% $alias %>&username=<% $params->{'username'} %>'>
+						<img src='/data/images/delete.gif' 
+							title="<% __('Delete') %>"
+							alt="<% __('Delete') %>"/></a>
+					</td>
+				</tr>
+%				}
+			</tbody>
+		</table>
+%	}
+</form>
+% settextdomain('ebox-usersandgroups');
+

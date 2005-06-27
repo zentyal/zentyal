@@ -1,0 +1,26 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+    $params
+</%args>
+<%init>
+use EBox::Gettext;
+settextdomain('ebox-mail');
+</%init>
+
+<form action='/ebox/Mail/CreateAccount' method='POST'>
+    <input type="hidden" name="username" value="<% $params->{'username'} %>">
+	<h3><% __('Create mail account') %></h3>
+	<input type='text' class='inputText' name='lhs'>
+	<select name="vdomain" enabled>
+%	foreach my $vd (@{$params->{vdomains}}) {
+		<option value= <% $vd %> > <% __($vd) %> </option>
+%	}
+	</select>
+	<div class='ftitle'><% __('Set default maildir size for this virtual domain') %></div>
+	<input type='text' class='inputText' name='dftmdsize' value=<% $params->{'mdsize'} %>>
+	<input class='inputButton' type='submit' name='change'
+			value="<% __('Create') %>"
+			alt="<% __('Create') %>">
+</form>
+% settextdomain('ebox-usersandgroups');

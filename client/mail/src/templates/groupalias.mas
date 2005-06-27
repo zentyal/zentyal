@@ -1,0 +1,42 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+    $params
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+% settextdomain('ebox-mail');
+%if($params->{'alias'} eq undef) {
+<form action='/ebox/Mail/CreateGroupAlias' method='POST'>
+    <input type="hidden" name="group" value="<% $params->{'group'} %>">
+	<h3><% __('Create alias mail account to group') %></h3>
+	
+	<div class='note'>
+		<% __("When the last member of a group is removed, the mail alias account will be deleted")%>
+	</div>
+	
+	<input type='text' class='inputText' name='lhs'>
+	<select name="rhs" enabled>
+%	foreach my $vd (@{$params->{vdomains}}) {
+		<option value= <% $vd %> > <% __($vd) %> </option>
+%	}
+	</select>
+
+	<input class='inputButton' type='submit' name='change'
+			value="<% __('Create') %>"
+			alt="<% __('Create') %>">
+% settextdomain('ebox-usersandgroups');
+</form>
+%} else {
+<form action='/ebox/Mail/DelGroupAlias' method='POST'>
+	<h3><% __('Mail alias settings') %></h3>
+    <input type="hidden" name="alias" value="<% $params->{'alias'} %>">
+    <input type="hidden" name="group" value="<% $params->{'group'} %>">
+	<h4><% $params->{'alias'} %></h4>
+	<input class='inputButton' type='submit' name='change'
+			value="<% __('Delete') %>"
+			alt="<% __('Delete') %>">
+</form>
+%}
+% settextdomain('ebox-usersandgroups');

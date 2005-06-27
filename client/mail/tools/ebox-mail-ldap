@@ -1,0 +1,79 @@
+#!/usr/bin/perl
+
+use strict;
+
+use EBox::Global;
+use EBox::MailVDomainsLdap;
+use EBox::MailAliasLdap;
+
+EBox::init();
+
+my $global = EBox::Global->getInstance(1);
+my $vdomain = new EBox::MailVDomainsLdap;
+my $alias = new EBox::MailAliasLdap;
+
+sub populate
+{
+	$vdomain->{ldap}->ldapCon;
+	my $ldap = $vdomain->{ldap}->{ldap};
+	my $dn = "ou=postfix, " . $vdomain->{ldap}->dn;
+	
+	my $result = $ldap->add($dn, attr => [
+														'ou' => 'postfix',
+														'objectClass' => 'top',
+														'objectClass' => 'organizationalUnit'
+													]);
+
+	($result->is_error) and warn "Cant initialize postfix leaf.";
+	
+	my $dn = $vdomain->vdomainDn();
+
+	my $result = $ldap->add($dn, attr => [
+														'ou' => 'vdomains',
+														'objectClass' => 'top',
+														'objectClass' => 'organizationalUnit'
+													]);
+	
+	($result->is_error) and warn "Cant initialize virtual domains leaf.";
+	
+	my $dn = $alias->aliasDn();
+
+	my $result = $ldap->add($dn, attr => [
+														'ou'	=>	'mailalias',
+														'objectClass' => 'top',
+														'objectClass' => 'organizationalUnit'
+													]);
+	
+	($result->is_error) and warn "Cant initialize mail alias leaf.";
+	
+}
+
+sub clean 
+{
+}
+
+sub gen_config
+{
+#	$mail->_regenConfig;
+}
+
+sub usage
+{
+	print "Usage: $0 populate | genconfig\n";
+}
+
+#main 
+
+unless ($#ARGV == 0) {
+	usage();
+}
+
+if ($ARGV[0] eq 'populate') {
+	populate();
+} elsif ($ARGV[0] eq 'genconfig') {
+	gen_config();
+} elsif ($ARGV[0] eq 'clean') {
+	clean();
+} else {
+	usage();
+}

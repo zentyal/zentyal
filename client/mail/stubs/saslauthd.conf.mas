@@ -1,0 +1,12 @@
+<%args>
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+ldap_servers: ldap://localhost
+ldap_bind_dn: cn=admin,dc=ebox
+ldap_password: ebox280642958
+ldap_search_base: ou=USERS,dc=ebox
+ldap_filter: mail=%u@%r
+ldap_password_attr: userPassword
+ldap_mech: plain login

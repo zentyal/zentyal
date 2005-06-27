@@ -1,0 +1,49 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+	$mdsize
+	@vdomains
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+
+<form action='AddVDomain' method='POST'>
+	<div class='ftitle'><% __('Add a new virtual domain') %></div>
+		<input type='text' class='inputText' name='vdomain'>
+	<div class='ftitle'><% __('Set default maildir size for this virtual domain') %></div>
+		<input type='text' class='inputText' name='dftmdsize' value=<% $mdsize %>>
+		<input class='inputButton' type='submit' name='addVDomain' 
+			   value="<% __('Add') %>"
+			   alt="<% __('Add') %>">
+</form>
+
+%	if(@vdomains != 0) {
+		<table cellspacing='0' class='dataTable'>
+			<caption><% __('Virtual domains list') %></caption>
+			<thead>
+				<tr>
+					<th width='66%' class='tleft'>
+						<% __('Name') %>
+					</th>
+					<th class='thOptions'>
+						<% __('Action') %>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+%			foreach my $domain (@vdomains) {
+				<tr class='border'>
+					<td><% $domain %></td>
+					<td class='tcenter'>
+						<a href='DelVDomain?vdomain=<% $domain %>'>
+						<img src='/data/images/delete.gif' 
+							title="<% __('Delete') %>"
+							alt="<% __('Delete') %>"/></a>
+					</td>
+				</tr>
+%				}
+			</tbody>
+		</table>
+%	}

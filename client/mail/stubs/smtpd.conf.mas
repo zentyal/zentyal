@@ -1,0 +1,7 @@
+<%args>
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+pwcheck_method: saslauthd
+mech_list: plain login

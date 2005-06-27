@@ -1,0 +1,215 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+	$active
+	$relay
+	$maxmsgsize
+	$maxmdsize
+	@deniedobjs
+	@allowedobjs
+	$menu
+	$popservice
+	$imapservice
+	$filterservice
+	$saslservice
+	$smtptls
+	$popssl
+	$imapssl
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<link href="/data/css/mail.css" rel="stylesheet" type="text/css" />
+
+<& mail/mailtabs.mas, selected => $menu, filter => $filterservice &>
+<br/>
+
+% if ($menu eq 'services') {
+<div>
+<h3><% __('Services') %></h3>
+<br />
+<& enable.mas, title => __('Enable Mail system'), active => $active &>
+<& mail/pop.mas, title => __('Enable POP3 service'), pop => $popservice &>
+<& mail/popssl.mas, title => __('Enable POP3 SSL service'), popssl => $popssl &>
+<& mail/imap.mas, title => __('Enable IMAP service'), imap => $imapservice &>
+<& mail/imapssl.mas, title => __('Enable IMAP SSL service'), imapssl => $imapssl &>
+<& mail/filter.mas, title => __('Enable mail filtering service'), filter => $filterservice &>
+<& mail/smtptls.mas, title => __('Enable TLS for SMTP server '), smtptls => $smtptls &>
+<& mail/sasl.mas, title => __('Enable SASL authentication'), sasl => $saslservice &>
+% }
+
+% if ($menu eq 'settings') {
+<form action='MailConf' method='POST'>
+	<h3><% __('General Settings') %></h3>
+	<table class='formTable'>
+	<tbody>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Relay') %>:</span>
+		</td>
+		<td>
+			<input type='text' class='inputText' name='relay' 
+		   		value='<% $relay %>'>
+		</td>
+	</tr>
+	</tbody>
+	</table>
+</form>
+
+<form action='SetQuota' method='POST'>
+	<table class='formTable'>
+	<tbody>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Message size limit (in MB)') %>:</span>
+		</td>
+		<td>
+			<input type='text' class='inputText' name='maxmsgsize' 
+		   		value='<% $maxmsgsize %>'>
+		</td>
+		<td>
+			<input class='inputButton' type='submit' name='change'
+				value="<% __('Change') %>"
+				alt="<% __('Change') %>">
+		</td>
+	</tr>
+	</tbody>
+	</table>
+</form>
+
+<form action='SetMDQuota' method='POST'>
+	<table class='formTable'>
+	<tbody>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Default maildir size limit (in MB)') %>:</span>
+		</td>
+		<td>
+			<input type='text' class='inputText' name='mdsize' 
+		   		value='<% $maxmdsize %>'>
+		</td>
+		<td>
+			<input class='inputButton' type='submit' name='change'
+				value="<% __('Change') %>"
+				alt="<% __('Change') %>">
+		</td>
+	</tr>
+	</tbody>
+	</table>
+</form>
+
+<div class='fixme'>
+        <div class="help">
+		<% __('Choose the object whose state you want to change and click in the arrow to move it to the desired column.') %>
+	</div>
+	<br />
+
+<form action='SetAllowed' method='POST'>
+<table> 
+<thead>
+	<tr>
+		<th><% __('Denied') %></th>
+		<th></th>
+		<th><% __('Allowed') %></th>
+	</tr>
+</thead>
+
+<tbody> 
+<tr>
+		<td rowspan='2'>
+		<select name="denied" size="8" multiple>
+% 			foreach my $ob (@{deniedobjs}) {
+				<option value='<% $ob->{name} %>'>
+					<% $ob->{description} %>
+				</option>
+%   		}
+		</select>
+		</td>
+		<td>
+			<input class='inputButton' type='image' name='deniedToAllowed'
+				src='/data/images/right.gif'
+				value="<% __('Allow') %>"
+				title="<% __('Move selected objects to the allowed column') %>"
+				alt="<% __('Allow') %>">
+		</td>
+		<td rowspan='2'>
+		<select name="allowed" size="8" multiple>
+% 			foreach my $ob (@{allowedobjs}) {
+				<option value='<% $ob->{name} %>'>
+					<% $ob->{description} %>
+				</option>
+%   		}
+		</select>
+		</td>
+</tr>
+<tr> 
+	<td>
+		<input class='inputButton' type='image' name='allowedToDenied'
+			src='/data/images/left.gif'
+			value="<% __('Deny') %>"
+			title="<% __('Move selected objects to the denied column') %>"
+			alt="<% __('Deny') %>">
+	</td>
+</tr> 
+</tbody> </table>
+</form>
+
+<form action='SetAllowed' method='POST'>
+
+<table class="mailTable">
+<tr>
+<th colspan="3" align="left">
+	<a>Objects that can relay mail</a>
+</th>
+</tr>
+<tr>
+<td></td>
+<td align="center">
+	<a style="color: green">Allowed</a>
+</td>
+<td align="center">
+	<a style="color: red">Denied</a>
+</td>
+</tr>
+% foreach my $ob (@{allowedobjs}) {
+<tr style="background-color:#f0f0f0;">
+	<td style="white-space: nowrap;">
+	<a style="color: green;"><% $ob->{description} %></a>
+	</td>
+	<td align="center">
+	<input type="radio" name="<% $ob->{name} %>" value="<%__('Allow')%>" checked="true">
+	</td>
+	<td align="center">
+	<input type="radio" name="<% $ob->{name} %>" value="<%__('Deny')%>">
+	</td>
+</tr>
+% }
+% foreach my $ob (@{deniedobjs}) {
+<tr style="background-color:#f0f0f0;">
+	<td style="white-space: nowrap;">
+	<a style="color: red;"><% $ob->{description} %></a>
+	</td>
+	<td align="center">
+	<input type="radio" name="<% $ob->{name} %>" value="<%__('Allow')%>">
+	</td>
+	<td align="center">
+	<input type="radio" name="<% $ob->{name} %>" value="<%__('Deny')%>" checked>
+	</td>
+</tr>
+% }
+<tr>
+<td></td>
+<td></td>
+<td>
+	<input class='inputButton' type='submit' name='change'
+		value="<% __('Change') %>"
+		alt="<% __('Change') %>">
+</td>
+</tr>
+</table>
+</form>
+% }
+
+% if ($menu eq 'filter') {
+<h3><% __('Filter Settings') %></h3>
+% }
