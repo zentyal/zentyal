@@ -1,0 +1,25 @@
+<%args>
+	$active
+	@ranges
+	%iface
+	@ifaces
+	@fixed
+	$gateway
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+% if (defined($iface{name})) {
+<br />
+<& enable.mas, title => __('Enable the DHCP server'), active => $active &>
+<& dhcp/iftabs.mas, ifaces => \@ifaces, selected => $iface{name} &>
+<& dhcp/options.mas, name => $iface{name}, gateway => $gateway &>
+<& dhcp/ranges.mas, name => $iface{name}, address => $iface{address},
+netmask => $iface{netmask}, network => $iface{network}, init => $iface{init},
+end => $iface{end}, ranges => \@ranges &>
+<& dhcp/fixed.mas, iface => $iface{name}, fixed => \@fixed &>
+% } else{
+<div class='note'>
+<% __('DHCP server requires a static interface, configure one first') %>
+</div>
+% }

@@ -1,0 +1,187 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Warp S.L.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2005-02-18 20:44+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/EBox/CGI/RemoveRange.pm:24 src/EBox/CGI/AddRange.pm:24
+#: src/EBox/CGI/AddFixed.pm:24 src/EBox/CGI/RemoveFixed.pm:24
+#: src/EBox/DHCP.pm:184 src/EBox/DHCP.pm:262 src/EBox/DHCP.pm:276
+#: src/EBox/DHCP.pm:291 src/EBox/DHCP.pm:378
+msgid "Interface"
+msgstr ""
+
+#: src/EBox/CGI/AddRange.pm:28 src/EBox/CGI/AddFixed.pm:30
+#: src/templates/ranges.mas:58 src/templates/fixed.mas:9
+msgid "Name"
+msgstr ""
+
+#: src/EBox/CGI/AddRange.pm:29 src/templates/ranges.mas:60
+msgid "From"
+msgstr ""
+
+#: src/EBox/CGI/AddRange.pm:30 src/templates/ranges.mas:62
+msgid "To"
+msgstr ""
+
+#: src/EBox/CGI/Enable.pm:24
+msgid "module status"
+msgstr ""
+
+#: src/EBox/CGI/AddFixed.pm:28 src/EBox/DHCP.pm:301 src/templates/fixed.mas:11
+msgid "MAC address"
+msgstr ""
+
+#: src/EBox/CGI/AddFixed.pm:29 src/EBox/DHCP.pm:302 src/templates/fixed.mas:13
+msgid "IP address"
+msgstr ""
+
+#: src/EBox/CGI/Status.pm:27
+msgid "Module Status"
+msgstr ""
+
+#: src/EBox/DHCP.pm:190 src/EBox/DHCP.pm:297
+#, perl-brace-format
+msgid "{iface} is not static"
+msgstr ""
+
+#: src/EBox/DHCP.pm:194
+msgid "\"From\" IP address"
+msgstr ""
+
+#: src/EBox/DHCP.pm:195
+msgid "\"To\" IP address"
+msgstr ""
+
+#: src/EBox/DHCP.pm:200
+#, perl-brace-format
+msgid "{from}-{to} is an invalid range"
+msgstr ""
+
+#: src/EBox/DHCP.pm:209
+#, perl-brace-format
+msgid "Range {from}-{to} is not in network {net}"
+msgstr ""
+
+#: src/EBox/DHCP.pm:217
+#, perl-brace-format
+msgid "Range {new_from}-{new_to} includes interface IP address: {iface_ip}"
+msgstr ""
+
+#: src/EBox/DHCP.pm:228
+#, perl-brace-format
+msgid ""
+"Range {new_from}-{new_to} overlaps with range '{range}': {old_from}-{old_to}"
+msgstr ""
+
+#: src/EBox/DHCP.pm:242
+#, perl-brace-format
+msgid "Range {new_from}-{new_to} includes fixed address '{name}': {fixed_ip}"
+msgstr ""
+
+#: src/EBox/DHCP.pm:312
+#, perl-brace-format
+msgid "IP address {ip} is not in network {net}"
+msgstr ""
+
+#: src/EBox/DHCP.pm:320
+#, perl-brace-format
+msgid "The selected IP is the interface IP address: {iface_ip}"
+msgstr ""
+
+#: src/EBox/DHCP.pm:330
+#, perl-brace-format
+msgid "IP address {ip} is in range '{range}': {old_from}-{old_to}"
+msgstr ""
+
+#: src/EBox/DHCP.pm:348
+#, perl-brace-format
+msgid "IP address {ip} is already added as fixed address '{name}'"
+msgstr ""
+
+#: src/EBox/DHCP.pm:357
+#, perl-brace-format
+msgid ""
+"MAC address {mac} is already added as fixed address '{name}' for interface "
+"'{iface}'"
+msgstr ""
+
+#: src/EBox/DHCP.pm:454
+#, perl-brace-format
+msgid ""
+"The IP address of the virtual interface you're trying to add is already used "
+"by the DHCP range '{range}' in the interface '{iface}'. Please, remove it "
+"before trying to add a virtual interface using it."
+msgstr ""
+
+#: src/EBox/DHCP.pm:468
+#, perl-brace-format
+msgid ""
+"The IP address of the virtual interface you're trying to add is already used "
+"by the DHCP fixed address '{fixed}' in the interface '{iface}'. Please, "
+"remove it before trying to add a virtual interface using it."
+msgstr ""
+
+#: src/templates/index.mas:13
+msgid "Enable the DHCP server"
+msgstr ""
+
+#: src/templates/index.mas:22
+msgid "DHCP server requires a static interface, configure one first"
+msgstr ""
+
+#: src/templates/ranges.mas:15
+msgid "DHCP ranges"
+msgstr ""
+
+#: src/templates/ranges.mas:21
+msgid "Subnet"
+msgstr ""
+
+#: src/templates/ranges.mas:32
+msgid "Subnet netmask"
+msgstr ""
+
+#: src/templates/ranges.mas:43
+msgid "Available range"
+msgstr ""
+
+#: src/templates/ranges.mas:53
+msgid "Ranges"
+msgstr ""
+
+#: src/templates/ranges.mas:64 src/templates/fixed.mas:15
+msgid "Action"
+msgstr ""
+
+#: src/templates/ranges.mas:83 src/templates/ranges.mas:85
+#: src/templates/ranges.mas:87 src/templates/fixed.mas:39
+#: src/templates/fixed.mas:43 src/templates/fixed.mas:45
+msgid "Add"
+msgstr ""
+
+#: src/templates/ranges.mas:103 src/templates/ranges.mas:105
+#: src/templates/ranges.mas:107
+msgid "Delete"
+msgstr ""
+
+#: src/templates/fixed.mas:5
+msgid "Fixed addresses"
+msgstr ""
+
+#: src/templates/fixed.mas:59 src/templates/fixed.mas:62
+#: src/templates/fixed.mas:64
+msgid "Remove"
+msgstr ""

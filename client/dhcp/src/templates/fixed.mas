@@ -1,0 +1,60 @@
+<%args>
+	$iface
+	@fixed
+</%args>
+<h3><% __('Fixed addresses') %></h3>
+<table class='dataTable'>
+<thead>
+	<th class='tleft'><% __('Name') %></th>
+	<th class='tleft'><% __('MAC address') %></th>
+	<th class='tleft'><% __('IP address') %></th>
+	<th class='tleft'><% __('Action') %></th>
+</thead>
+<tbody>
+<form method="post" action="AddFixed">
+<tr class='border'>
+	<td class='tleft'><input class='inputText' 
+				type="text" 
+				name="name" 
+				size="15"
+				value=""/></td>
+	<td class='tleft'><input type="text" 
+		class='inputText' 
+		name="mac" 
+		size="16"
+		value=""/></td>
+	<td class='tleft'><input class='inputText' 
+				type="text" 
+				name="ip" 
+				size="15"
+				value=""/></td>
+	<td class='tcenter'><input type="hidden" 
+				name="iface" 
+				value="<% $iface %>"/>
+			<input type="image" value="<% __('Add') %>"
+				name='add'
+				src='/data/images/add.gif'
+				title="<% __('Add') %>"
+				alt="<% __('Add') %>"/></td>
+</tr>
+</form>
+% foreach my $fixedAddress (@fixed) {
+<form action='RemoveFixed' method='post'>
+<input type="hidden" name="iface" value="<% $iface %>"/>
+<input type="hidden" name="id" value="<% $fixedAddress->{'_dir'} %>"/>
+<tr class='border'>
+	<td><% $fixedAddress->{'name'} %></td>
+	<td><% $fixedAddress->{'mac'} %></td>
+	<td><% $fixedAddress->{'ip'} %></td>
+	<td class='tcenter'>
+		<input class='inputButton' type='image' name='remove'
+				value="<% __('Remove') %>"
+				src='/data/images/delete.gif'
+				title="<% __('Remove') %>"
+				alt="<% __('Remove') %>" />
+	</td>
+</tr>
+</form>
+%	}
+</tbody>
+</table>

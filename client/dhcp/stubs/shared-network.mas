@@ -1,0 +1,11 @@
+<%args>
+	$iface
+	%ifaces
+	@vifaces
+</%args>
+shared-network <% $iface %> {
+<& subnet.mas, info => $ifaces{$iface} &>
+% foreach my $viface (@vifaces) {
+<& subnet.mas, info => $ifaces{$viface} &>
+% }
+}

@@ -1,0 +1,24 @@
+<%args>
+	%ifaces
+	%real_ifaces
+	$dnsone => ""
+	$dnstwo => ""
+</%args>
+ddns-update-style none;
+
+%	if(length($dnsone) != 0) {
+option domain-name-servers <% $dnsone %>\
+%		if(length($dnstwo) != 0) {
+, <% $dnstwo %>;
+% 		}else{
+;
+%		}
+%	}
+
+default-lease-time 1800;
+max-lease-time 7200;
+
+%	foreach my $iface (keys(%real_ifaces)) {
+<& dhcp/shared-network.mas, iface => $iface, ifaces => \%ifaces, 
+	vifaces => $real_ifaces{$iface} &>
+%	}

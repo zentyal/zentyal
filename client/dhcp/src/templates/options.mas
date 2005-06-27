@@ -1,0 +1,31 @@
+<%args>
+	$name
+	$gateway
+</%args>
+<h3><% __('Options') %></h3>
+<div class='class'>
+<% __('You can leave empty the Default Gateway field to use eBox as default gateway for this subnet') %>
+</div>
+<form method="post" action="SetIfaceOptions">
+<input type="hidden" name="iface" value="<% $name %>"/>
+<table class='formTable'>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'>
+				<% __('Default gateway') %>
+			</span>
+		</td>
+		<td>
+			<input type="text" class='inputText' 
+				name="gateway" size="16" value="<% $gateway %>"/></td>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input class='inputButton' type='submit'
+				name='accept' value='Ok' />
+		</td>
+	</tr>
+</table>
+</form>

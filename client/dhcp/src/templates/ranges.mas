@@ -1,0 +1,103 @@
+<%args>
+	$name
+	$address
+	$netmask
+	$network
+	$init
+	$end
+	@ranges
+</%args>
+
+<%init>
+use EBox::Gettext;
+</%init>
+
+<h3><% __('DHCP ranges') %></h3>
+<table class='formTable'>
+<tr>
+	<td class='tright'>
+		<span class="ftitle">
+			<% __('Subnet')%>:
+		</span>
+	</td>
+	<td>
+		<% $network %><br/>
+	</td>
+</tr>
+<tr>
+	<td class='tright'>
+		<span class="ftitle">
+			<% __('Subnet netmask')%>:
+		</span>
+	</td>
+	<td>
+		<% $netmask %><br/>
+	</td>
+</tr>
+<tr>
+	<td class='tright'>
+		<span class="ftitle">
+			<% __('Available range')%>:
+		</span>
+	</td>
+	<td>
+		<% $init %>-<% $end %><br/>
+	</td>
+</tr>
+</table>
+
+		<h3><% __('Ranges') %></h3>
+		<table cellspacing='0' class='dataTable'>
+			<thead>
+				<tr>
+					<th class='tleft'><% __('Name') %></th>
+					<th class='tleft'><% __('From') %></th>
+					<th class='tleft'><% __('To') %></th>
+					<th><% __('Action') %></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='border'>
+					<form action='AddRange' method='post'>
+					<input type="hidden" name="iface" value="<% $name %>"/>
+					<td>
+						<input class='inputText' type='text' size='15' name='name' />
+					</td>
+					<td>
+						<input class='inputText' type='text' size='15' name='from' />
+					</td>
+					<td>
+						<input class='inputText' type='text' size='15' name='to' />
+					</td>
+					<td class='tcenter'>
+						<input class='inputButton' type='image' name='add'
+							value="<% __('Add') %>"
+							alt="<% __('Add') %>"
+							title="<% __('Add') %>"
+							src='/data/images/add.gif' />
+					</td>
+					</form>
+				</tr>
+%	foreach my $range (@ranges) {
+				<form action='RemoveRange' method='post'>
+				<input type="hidden" name="iface" value="<% $name %>"/>
+				<input type='hidden' name='id' value='<% $range->{'_dir'} %>' />
+				<tr class='border'>
+					<td><% $range->{'name'} %></td>
+					<td><% $range->{'from'} %></td>
+					<td><% $range->{'to'} %></td>
+					<td class='tcenter'>
+						<input class='inputButton' type='image' name='add'
+							value="<% __('Delete') %>"
+							alt="<% __('Delete') %>"
+							title="<% __('Delete') %>"
+							src='/data/images/delete.gif' />
+					</td>
+				</tr>
+				</form>
+%	}
+			</tbody>
+		</table>
+	</td>
+</tr>
+</table>

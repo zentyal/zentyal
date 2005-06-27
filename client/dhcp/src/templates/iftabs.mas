@@ -1,0 +1,13 @@
+<%args>
+	@ifaces
+	$selected
+</%args>
+<div class='ifaces'>
+%  foreach my $if (@ifaces) {
+%     if($if eq $selected) {
+	<span class='selected'><% $if %></span>
+%     } else {
+	<a href='Index?iface=<% $if %>'><% $if %></a>
+%     }
+%  }
+</div>
