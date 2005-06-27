@@ -1,0 +1,23 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$synchronized
+	$title
+</%args>
+	<form action='Synch' method='POST'>
+	<span class='ftitle'>
+		<% $title %>
+	</span>
+		<select name="synchronized" enabled>
+%  if($synchronized eq 'yes') {
+			<option value='no' ><% __('No') %></option>
+			<option selected value='yes' ><% __('Yes') %></option>
+%	}else{
+			<option selected value='no' ><% __('No') %></option>
+			<option value='yes' ><% __('Yes') %></option>
+%	}
+		</select>
+		<input class='inputButton' type='submit' name='change'
+			value="<% __('Ok') %>"
+			alt="<% __('Ok') %>">
+	</form>

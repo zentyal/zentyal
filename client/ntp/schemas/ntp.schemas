@@ -1,0 +1,41 @@
+<!-- vim: ts=4 sw=4 nowrap
+-->
+
+<gconfschemafile>
+	<schemalist>
+		<schema>
+			<key>/schemas/ebox/modules/global/modules/ntp/class</key>
+			<applyto>/ebox/modules/global/modules/ntp/class</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>EBox::NTP</default>
+			<locale name="C"/>
+		</schema>
+
+		<schema>
+			<key>/schemas/ebox/modules/ntp/active</key>
+			<applyto>/ebox/modules/ntp/active</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+			<default>false</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/ntp/synchronized</key>
+			<applyto>/ebox/modules/ntp/synchronized</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+			<default>false</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/ntp/server1</key>
+			<applyto>/ebox/modules/ntp/server1</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>0.pool.ntp.org</default>
+			<locale name="C"/>
+		</schema>
+		
+	</schemalist>
+</gconfschemafile>

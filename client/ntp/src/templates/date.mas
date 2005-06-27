@@ -1,0 +1,101 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$title
+	@date
+</%args>
+	<form action='ChangeDate' method='POST'>
+		<h3> <%$title %> </h3>
+		<div class='note'>
+			<% __("A change in the date or time will cause all eBox services to be restarted")%>
+		</div>
+		<br />
+		<table class='formTable'>
+		<tr>
+			<td class='tright'><span class='ftitle'><% __('Change date')%>:</span></td>
+			<td>
+				<select name="day">
+%  					for (my $i=1; $i<=31; $i++) {
+						<option
+%  							if ($i == $date[0]) {
+								selected
+%  							}
+							value='<%$i%>'><%$i%></option>
+%					}
+				</select>
+
+				<span class='ftitle'> / </span>
+
+				<select name="month">
+%  					my @months = ( __('January') , __('February'), __('March'), __('April'), __('May'), __('June'), __('July'), __('August'), __('September'), __('October'), __('November'), __('December'));
+%  					my $i=1;
+%  					foreach my $month(@months) {
+						<option 
+%  						if ($i == $date[1]) {
+							selected
+%  						}
+						value='<%$i%>' ><%$month%></option>
+%						$i++; }
+				</select>
+
+				<span class='ftitle'> / </span>
+
+				<select name="year">
+%  					for (my $i=1990; $i<2020; $i++) {
+						<option 
+%  						if ($i == $date[2]) {
+							selected
+%  						}
+						value='<%$i%>' ><%$i%></option>
+%  					}
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class='tright'><span class='ftitle'><% __('Change time')%>:</span></td>
+			<td>
+				<select name="hour">
+%  					for (my $i=0; $i<24; $i++) {
+						<option 
+%  						if ($i == $date[3]) {
+							selected
+%  						}
+						value='<%$i%>' ><%$i%></option>
+%					}
+				</select>
+				
+				<span class='ftitle'> / </span>
+		
+				<select name="minute">
+%  					for (my $i=0; $i<=59; $i++) {
+						<option
+%  						if ($i == $date[4]) {
+							selected
+%  						}
+						value='<%$i%>' ><%$i%></option>
+%  					}
+				</select>
+
+				<span class='ftitle'> / </span>
+		
+				<select name="second">
+%  					for (my $i=0; $i<=59; $i++) {
+						<option
+%  						if ($i == $date[5]) {
+							selected
+%  						}
+						value='<%$i%>' ><%$i%></option>
+%					}
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<input class='inputButton' type='submit' name='change'
+					value="<% __('Change') %>"
+					alt="<% __('Change') %>">
+				</form>
+			</td>
+		</tr>
+	</table>

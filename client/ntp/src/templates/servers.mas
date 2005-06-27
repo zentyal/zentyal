@@ -1,0 +1,51 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$title
+	@servers
+</%args>
+	<form action='AddServers' method='POST'>
+	<p><%__('Insert here the NTP servers to synchronize with')%>:</p>
+	<table class='formTable'>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'>
+					<% __('Primary server') %>:
+				</span>
+			</td>
+			<td>
+				<input class='inputText' type='text' name='server1'
+					   value='<% $servers[0] %>' alt='Server 1' />
+			</td>
+		</tr>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'>
+					<% __('Secondary server') %>:
+				</span>		
+			</td>
+			<td>
+				<input class='inputText' type='text' name='server2'
+					   value='<% $servers[1]%>' alt='Server 2' />
+			</td>
+		</tr>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'>
+					<% __('Tertiary server') %>:
+				</span>
+			</td>
+			<td>
+				<input class='inputText' type='text' name='server3'
+					   value='<% $servers[2] %>' alt='Server 3' />
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<input class='inputButton' type='submit'
+					  name='accept' value='Ok' />
+			</td>
+		</tr>
+	</table>
+	</form>

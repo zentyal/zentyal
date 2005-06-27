@@ -1,0 +1,25 @@
+#!/usr/bin/perl
+# Simple script to import time zone 
+use strict; 
+
+use EBox;
+use EBox::Global;
+
+EBox::init();
+my $global = EBox::Global->getInstance();
+
+my $ntp = EBox::Global->modInstance('ntp');
+
+my $link = readlink("/etc/localtime");
+
+if($link) {
+	my @items = split('/',$link);
+
+	$ntp->set_string('continent', $items[4]);
+	if ($items[6]) {
+		$ntp->set_string('country', $items[5]."/".$items[6]);
+	} else {
+		$ntp->set_string('country', $items[5]);
+	}
+	$ntp->save();
+}

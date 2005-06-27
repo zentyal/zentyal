@@ -1,0 +1,25 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+	$synchronized
+	@servers
+	@date
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<div class='ntpnew'>
+<br />
+<& /ntp/synch.mas, title => __('Synchronize with external NTP servers'),
+synchronized => $synchronized &>
+
+% if ($synchronized eq 'yes') {
+<& /ntp/servers.mas, title => __('External NTP servers'), servers => \@servers &>
+% }
+
+% if ($synchronized eq 'no') {
+<& /ntp/date.mas, title => __('Change Date and Time'), date => \@date &>
+% }
+</div>
+</div>
