@@ -1,0 +1,15 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	@ifaces
+	$selected
+</%args>
+<div class='ifaces'>
+%  foreach my $if (@ifaces) {
+%     if($if eq $selected) {
+	<span class='selected'><% $if %></span>
+%     } else {
+	<a href='Ifaces?iface=<% $if %>'><% $if %></a>
+%     }
+%  }
+</div>

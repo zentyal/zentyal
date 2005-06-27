@@ -1,0 +1,28 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$iface
+	$viface
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<div class="warning">
+<% __('The change you are trying to make will affect the configuration of one or more modules that use references to this network interface.') %>
+<br/>
+<br/>
+<% __('If you choose to continue, all modules that make use of the current configuration of this network interface will delete the relevant parts of their configuration. Choose "Cancel" if you are not sure about this.') %>
+</div>
+
+<p>
+<form action="VIface" method="post">
+	<input type="hidden" name="ifaction"    value="delete"/>
+	<input type="hidden" name="force"    value="yes"/>
+	<input type="hidden" name="ifname"    value="<% $iface %>"/>
+	<input type="hidden" name="vif_name"   value="<% $viface %>"/>
+	<input class="inputButton" type="submit" name="accept" 
+	       value="<% __('Ok') %>"/>
+	<input class="inputButton" type="submit" name="cancel" 
+	       value="<% __('Cancel') %>"/>
+</form>
+</p>

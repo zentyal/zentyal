@@ -1,0 +1,61 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$action
+	$target
+	$output
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<form action='Diag' method='POST'>
+<input type="hidden" name="action" value="ping"/>
+<table class='formTable'>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'>
+				<% __('Ping') %>:
+			</span>
+		</td>
+		<td>
+			<input class='inputText' type='text' name='ip'
+				   value='<% $action eq 'ping' ? $target : ''%>' />
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input class='inputButton' type='submit'
+				  name='accept' value='Ok' />
+		</td>
+	</tr>
+</table>
+</form>
+<form action='Diag' method='POST'>
+<input type="hidden" name="action" value="dns"/>
+<table class='formTable'>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'>
+				<% __('Name resolution') %>:
+			</span>
+		</td>
+		<td>
+			<input class='inputText' type='text' name='host'
+				   value='<% $action eq 'dns' ? $target : ''%>' />
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input class='inputButton' type='submit'
+				  name='accept' value='Ok' />
+		</td>
+	</tr>
+</table>
+% if($action ne ''){
+<pre>
+<% $output %>
+</pre>
+% }
+</form>

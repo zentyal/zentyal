@@ -1,0 +1,85 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$gateway
+	@routes
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<div class='help'>
+<% __('All routers you enter here must be reachable through one of the network interfaces currently configured.') %>
+	<br/>
+	<br/>
+<% __('Having network interfaces configured via DHCP may cause this settings, mostly the default gateway, to be overriden.') %>
+</div>
+	<form action='Gateway' method='POST'>
+		<p>
+<div class='ftitle'><% __('Default gateway') %></div>
+			<input class='inputText' type='text' name='gateway'
+				   alt='Default Gateway' value='<% $gateway %>' />
+			<input class='inputButton' type='submit' name='accept' value='Ok' />
+		</p>
+	</form>
+	<table class='dataTable' cellspacing='0'>
+	<caption><% __('Static routes') %></caption>
+	<thead>
+		<tr>
+			<th class='tleft'><% __('Network') %></th>
+			<th class='thOptions'><% __('Gateway') %></th>
+			<th class='thOptions'><% __('Action') %></th>
+		</tr>
+	</thead>
+	<tr>
+	<form action='Route' method='POST'>
+		<td>
+			<input class='inputText' size="15" type="text" name="ip"/>
+			/ <select name='mask'>
+				<option value="32">32</option>
+				<option value="30">30</option>
+				<option value="29">29</option>
+				<option value="28">28</option>
+				<option value="27">27</option>
+				<option value="26">26</option>
+				<option value="25">25</option>
+				<option selected value="24">24</option>
+				<option value="16">16</option>
+				<option value="8">8</option>
+			</select>
+		</td>
+		<td class='tcenter'>
+			<input class='inputText' type="text" 
+				size='15'
+				name="gateway"/>
+		</td>
+		<td class='tcenter'>
+			<input class='inputButton' type='image' name='add'
+				   src='/data/images/add.gif'
+				   value="<% __('Add') %>"
+				   title="<% __('Add') %>"
+				   alt="<% __('Add') %>">
+		</td>
+	</form>
+	</tr>
+%	foreach my $route (@routes){
+	<tr class='border'>
+		<form action="Route" method="post">
+		<td class='tleft'>
+			<input type="hidden" name="ip"   value='<% $route->{'ip'} %>'/>
+			<input type="hidden" name="mask" value='<% $route->{'mask'} %>'/>
+			<% $route->{'ip'} %>/<% $route->{'mask'} %>
+		</td>
+		<td class='tcenter'>
+			<% $route->{'gateway'} %>
+		</td>
+		<td class='tcenter'>
+			<input type='image' name='del'
+				   src='/data/images/delete.gif'
+				   alt="<% __('Delete') %>"
+				   title="<% __('Delete') %>"
+				   value="<% __('Delete') %>"/>
+		</td>
+		</form>
+	</tr>
+%	}
+	</table>

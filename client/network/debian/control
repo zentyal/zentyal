@@ -1,0 +1,20 @@
+Source: ebox-network
+Section: web
+Priority: optional
+Maintainer: Javier Uruen  <juruen@warp.es>
+Build-Depends: debhelper (>= 4.0.0)
+Standards-Version: 3.6.1
+
+Package: ebox-network
+Architecture: all
+Depends: ebox, iproute, vlan, net-tools, dnsutils, libnet-ip-perl
+Replaces: ebox (<< 0.6)
+Conflicts: ebox (<< 0.6)
+Description: eBox Network  module
+ eBox is a framework for the development and deployment of security-wise
+ network services in small and medium-sized networks, offering a simplified
+ graphical interface to non expert users. It can be set up as a gateway,
+ having some extra features over a usual router.
+ .
+ This module adds network configuration, allowing to configurate network 
+ interfaces, routes, domain servers...

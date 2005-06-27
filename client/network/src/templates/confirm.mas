@@ -1,0 +1,35 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$iface
+	$method
+	$address
+	$netmask
+	$external
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<div class="warning">
+<% __('The change you are trying to make will affect the configuration of one or more modules that use references to this network interface.') %>
+<br/>
+<br/>
+<% __('If you choose to continue, all modules that make use of the current configuration of this network interface will delete the relevant parts of their configuration. Choose "Cancel" if you are not sure about this.') %>
+</div>
+
+<p>
+<form action="Iface" method="post">
+	<input type="hidden" name="force"    value="yes"/>
+	<input type="hidden" name="ifname"    value="<% $iface %>"/>
+	<input type="hidden" name="method"   value="<% $method %>"/>
+	<input type="hidden" name="if_address"  value="<% $address %>"/>
+	<input type="hidden" name="if_netmask"  value="<% $netmask %>"/>
+% if (defined($external)) {
+	<input type="hidden" name="external" value="yes"/>
+% }
+	<input class="inputButton" type="submit" name="accept" 
+	       value="<% __('Ok') %>"/>
+	<input class="inputButton" type="submit" name="cancel" 
+	       value="<% __('Cancel') %>"/>
+</form>
+</p>

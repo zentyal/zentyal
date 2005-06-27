@@ -1,0 +1,46 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$dnsone
+	$dnstwo
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<div class='help'>
+<% __('Having network interfaces configured via DHCP may cause this settings to be overriden.') %>
+</div>
+<br />
+	<form action='Nameservers' method='POST'>
+	<table class='formTable'>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'>
+					<% __('Primary') %>:
+				</span>
+			</td>
+			<td>
+				<input class='inputText' type='text' name='dnsone'
+					   value='<% $dnsone %>' alt='DNS 1' />
+			</td>
+		</tr>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'>
+					<% __('Secondary') %>:
+				</span>
+			</td>
+			<td>
+				<input class='inputText' type='text' name='dnstwo'
+					   value='<% $dnstwo %>' alt='DNS 2' />
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<input class='inputButton' type='submit'
+					  name='accept' value='Ok' />
+			</td>
+		</tr>
+	</table>
+	</form>

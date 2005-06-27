@@ -1,0 +1,276 @@
+# French translations for EBox package.
+# Copyright (C) 2005 Warp Networks S.L. and DBS Servicios Inform�ticos
+# This file is distributed under the same license as the EBox package.
+#  <isaac@sindominio.net>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: EBox 0.3.svn\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2005-03-18 00:18+0100\n"
+"PO-Revision-Date: 2004-11-02 17:54+0100\n"
+"Last-Translator:  <isaac@sindominio.net>\n"
+"Language-Team: French <cedricduval@free.fr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/EBox/CGI/Ifaces.pm:29 src/EBox/Network.pm:1597
+msgid "Network interfaces"
+msgstr "Interfaces réseau"
+
+#: src/EBox/CGI/Iface.pm:43
+msgid "method"
+msgstr "méthode"
+
+#: src/EBox/CGI/Iface.pm:44 src/EBox/CGI/VIface.pm:42 src/EBox/CGI/Vlan.pm:39
+msgid "network interface"
+msgstr "interface réseau"
+
+#: src/EBox/CGI/Iface.pm:70 src/EBox/Network.pm:1111
+msgid "ip address"
+msgstr "adresse IP"
+
+#: src/EBox/CGI/Iface.pm:71 src/EBox/CGI/VIface.pm:62 src/EBox/CGI/Route.pm:41
+msgid "netmask"
+msgstr "masque de sous-réseau"
+
+#: src/EBox/CGI/VIface.pm:43
+msgid "virtual interface action"
+msgstr "action d'interface virtuelle"
+
+#: src/EBox/CGI/VIface.pm:61 src/EBox/Network.pm:438 src/EBox/Network.pm:443
+#: src/EBox/Network.pm:637 src/EBox/Network.pm:658 src/EBox/Network.pm:1058
+#: src/EBox/Network.pm:1082 src/EBox/Network.pm:1511 src/EBox/Network.pm:1519
+#: src/EBox/Network.pm:1578 src/EBox/Network.pm:1619
+#: src/templates/ifaces.mas:78 src/templates/ifaces.mas:202
+msgid "IP address"
+msgstr "Adresse IP"
+
+#: src/EBox/CGI/VIface.pm:63 src/EBox/CGI/VIface.pm:69
+msgid "virtual interface name"
+msgstr "nom d'interface virtuelle"
+
+#: src/EBox/CGI/Route.pm:40 src/EBox/Network.pm:1110
+msgid "network address"
+msgstr "adresse réseau"
+
+#: src/EBox/CGI/Route.pm:46 src/EBox/CGI/Gateway.pm:40
+msgid "gateway address"
+msgstr "adresse de passerelle"
+
+#: src/EBox/CGI/Vlan.pm:49 src/EBox/CGI/Vlan.pm:52 src/EBox/Network.pm:791
+#: src/EBox/Network.pm:813 src/templates/ifaces.mas:131
+msgid "VLAN Id"
+msgstr ""
+
+#: src/EBox/CGI/Routes.pm:29 src/EBox/Network.pm:1637
+msgid "Routes"
+msgstr "Routes"
+
+#: src/EBox/Network.pm:435 src/EBox/Network.pm:439
+msgid "Virtual interface name"
+msgstr "Nom d'interface virtuelle"
+
+#: src/EBox/Network.pm:438 src/EBox/Network.pm:637 src/EBox/Network.pm:1511
+#: src/templates/ifaces.mas:88 src/templates/ifaces.mas:204
+msgid "Netmask"
+msgstr "Masque de sous-réseau"
+
+#: src/EBox/Network.pm:514 src/EBox/Network.pm:538 src/EBox/Network.pm:564
+#: src/EBox/Network.pm:581 src/EBox/Network.pm:633 src/EBox/Network.pm:727
+#: src/EBox/Network.pm:872 src/EBox/Network.pm:923 src/EBox/Network.pm:950
+#: src/EBox/Network.pm:979 src/EBox/Network.pm:1005 src/EBox/Network.pm:1509
+#: src/EBox/Network.pm:1529 src/EBox/Network.pm:1552 src/EBox/Network.pm:1563
+#: src/EBox/Network.pm:1575 src/EBox/Network.pm:1589
+msgid "Interface"
+msgstr "Interface"
+
+#: src/EBox/Network.pm:732
+msgid "This interface cannot be put in trunk mode, it is an vlan interface."
+msgstr ""
+
+#: src/EBox/Network.pm:777
+msgid ""
+"This interface is in trunk mode, you should unconfigure all the vlan "
+"interfaces in this trunk before changing its configuration mode."
+msgstr ""
+
+#: src/EBox/Network.pm:800
+msgid ""
+"Network interfaces need to be in trunk mode before adding vlans to them."
+msgstr ""
+
+#: src/EBox/Network.pm:1083 src/EBox/Network.pm:1112
+#: src/templates/routes.mas:34
+msgid "Gateway"
+msgstr "Passerelle"
+
+#: src/EBox/Network.pm:1450
+msgid ""
+"The requested operation will cause one of the configured routers to become "
+"unreachable. Please remove it first if you really want to make this change."
+msgstr ""
+
+#: src/EBox/Network.pm:1479
+#, perl-brace-format
+msgid "Gateway {gw} not reachable"
+msgstr "Passerelle {gw} inatteignable"
+
+#: src/EBox/Network.pm:1601
+msgid "down"
+msgstr "desactivée"
+
+#: src/EBox/Network.pm:1606
+msgid "up"
+msgstr "activée"
+
+#: src/EBox/Network.pm:1608
+msgid "Status"
+msgstr "Statut"
+
+#: src/EBox/Network.pm:1613
+msgid "MAC address"
+msgstr "Adresse MAC"
+
+#: src/EBox/Network.pm:1629 src/templates/routes.mas:32
+msgid "Network"
+msgstr "Réseau"
+
+#: src/EBox/Network.pm:1633
+#, fuzzy
+msgid "Interfaces"
+msgstr "Interface"
+
+#: src/templates/routes.mas:11
+msgid ""
+"All routers you enter here must be reachable through one of the network "
+"interfaces currently configured."
+msgstr ""
+"Tous les routeurs que vous entrez ici doivent être atteignables depuis l'une "
+"des interfaces actuellement configurées."
+
+#: src/templates/routes.mas:15
+msgid ""
+"Having network interfaces configured via DHCP may cause this settings, "
+"mostly the default gateway, to be overriden."
+msgstr ""
+"La configuration d'interfaces par DHCP peut causer un remplacement de ces "
+"paramètres, particulièrement la passerelle par défaut."
+
+#: src/templates/routes.mas:20
+msgid "Default gateway"
+msgstr "Passerelle par défaut"
+
+#: src/templates/routes.mas:28
+msgid "Static routes"
+msgstr "Routes statiques"
+
+#: src/templates/routes.mas:36 src/templates/ifaces.mas:135
+#: src/templates/ifaces.mas:206
+msgid "Action"
+msgstr "Action"
+
+#: src/templates/routes.mas:65 src/templates/routes.mas:67
+#: src/templates/routes.mas:69 src/templates/ifaces.mas:152
+#: src/templates/ifaces.mas:154 src/templates/ifaces.mas:156
+#: src/templates/ifaces.mas:243 src/templates/ifaces.mas:245
+#: src/templates/ifaces.mas:247
+msgid "Add"
+msgstr "Ajouter"
+
+#: src/templates/routes.mas:88 src/templates/routes.mas:90
+#: src/templates/routes.mas:92 src/templates/ifaces.mas:174
+#: src/templates/ifaces.mas:176 src/templates/ifaces.mas:178
+#: src/templates/ifaces.mas:273 src/templates/ifaces.mas:275
+#: src/templates/ifaces.mas:277
+msgid "Delete"
+msgstr "Effacer"
+
+#: src/templates/dns.mas:11
+msgid ""
+"Having network interfaces configured via DHCP may cause this settings to be "
+"overriden."
+msgstr ""
+"La configuration d'interfaces par DHCP peut causer un remplacement de ces "
+"paramètres."
+
+#: src/templates/dns.mas:20
+msgid "Primary"
+msgstr "Primaire"
+
+#: src/templates/dns.mas:32
+msgid "Secondary"
+msgstr "Secondaire"
+
+#: src/templates/ifaces.mas:12
+msgid ""
+"Remember that changing the network interfaces configuration may cause you to "
+"lose access to the administration page."
+msgstr ""
+"Souvenez-vous que la modification de la configuration des interfaces réseau "
+"peut vous faire perdre l'accès à la page d'administration."
+
+#: src/templates/ifaces.mas:16
+msgid ""
+"Traffic being routed through interfaces marked as external will be NATed.  "
+"Also, services meant for the LAN users will not be available on external "
+"interfaces."
+msgstr ""
+"Le trafic routé par des interfaces marquées comme externes sera NATé. De "
+"même, les services destinés aux utilisateurs de réseau local ne seront pas "
+"accessibles sur les interfaces externes."
+
+#: src/templates/ifaces.mas:29 src/templates/ifaces.mas:32
+msgid "Static"
+msgstr "Statique"
+
+#: src/templates/ifaces.mas:44 src/templates/ifaces.mas:47
+msgid "Trunk (802.1q)"
+msgstr ""
+
+#: src/templates/ifaces.mas:53 src/templates/ifaces.mas:56
+msgid "Not set"
+msgstr "Non positionné"
+
+#: src/templates/ifaces.mas:66
+msgid "External"
+msgstr "Externe"
+
+#: src/templates/ifaces.mas:116 src/templates/confirm.mas:33
+#: src/templates/confirmremove.mas:26
+msgid "Ok"
+msgstr "Ok"
+
+#: src/templates/ifaces.mas:126
+msgid "VLANs"
+msgstr ""
+
+#: src/templates/ifaces.mas:133
+msgid "Description"
+msgstr "Description"
+
+#: src/templates/ifaces.mas:195
+msgid "Virtual interfaces"
+msgstr "Interfaces virtuelles"
+
+#: src/templates/ifaces.mas:200
+msgid "Name"
+msgstr "Nom"
+
+#: src/templates/confirm.mas:14 src/templates/confirmremove.mas:11
+msgid ""
+"The change you are trying to make will affect the configuration of one or "
+"more modules that use references to this network interface."
+msgstr ""
+
+#: src/templates/confirm.mas:18 src/templates/confirmremove.mas:15
+msgid ""
+"If you choose to continue, all modules that make use of the current "
+"configuration of this network interface will delete the relevant parts of "
+"their configuration. Choose "
+msgstr ""
+
+#: src/templates/confirm.mas:36 src/templates/confirmremove.mas:29
+msgid "Cancel"
+msgstr "Annuler"

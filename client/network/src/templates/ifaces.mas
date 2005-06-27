@@ -1,0 +1,311 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	@ifaces
+	$iface
+	@vlans => ()
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<div class='help'>
+<% __('Remember that changing the network interfaces configuration may cause you to lose access to the administration page.') %>
+	<br/>
+	<br/>
+<% __('Traffic being routed through interfaces marked as external will be NATed.  Also, services meant for the LAN users will not be available on external interfaces.') %>
+</div>
+<& network/iftabs.mas, ifaces=> \@ifaces, selected => $iface->{name}&>
+<br/>
+
+<form action='Iface' method='post'>
+	<input type='hidden' name='ifname' value='<% $iface->{'name'} %>'/>
+	<table class='formTable'>
+	<tr>
+		<td class='tright'>
+			<span class="ftitle">
+				<%__('Method')%>:
+			</span>
+		</td>
+		<td>
+			<select name='method' onChange='methodChanged(this)'>
+% if ($iface->{'method'} eq 'static') {
+				<option selected value='static'><% __('Static') %></option>
+% } else {
+				<option value='static'><% __('Static') %></option>
+% }
+
+% if ($iface->{'method'} eq 'dhcp') {
+				<option selected value='dhcp'>DHCP</option>
+% } else {
+				<option value='dhcp'>DHCP</option>
+% }
+
+% unless ($iface->{'name'} =~ /^vlan/) {
+% 	if ($iface->{'method'} eq 'trunk') {
+				<option selected value='trunk'><%__('Trunk (802.1q)')%></option>
+% 	} else {
+				<option value='trunk'><%__('Trunk (802.1q)')%></option>
+% 	}
+% }
+
+% if ($iface->{'method'} eq 'notset') {
+				<option selected value='notset'><% __('Not set') %></option>
+% } else {
+				<option value='notset'><% __('Not set') %></option>
+% }
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<div id="external1">
+			<span class="ftitle">
+				<%__('External')%>:
+			</span>
+			</div>
+		</td>
+		<td>
+			<div id="external2">
+			<input type='checkbox'
+%					if ($iface->{'external'} eq 'yes') {
+					checked \
+%					}
+				name="external" /> 
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<div id="static1">
+				<span class='ftitle'><% __('IP address') %>:</span>
+			</div>
+		</td>
+		<td>
+			<div id="static2">
+			<input class='inputText' type='text' size='16' name='if_address'
+				   alt='if_name' value='<% $iface->{'address'} %>' />
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<div id="static3">
+				<span class='ftitle'><% __('Netmask') %>:</span>
+			</div>
+		</td>
+		<td>
+			<div id="static4">
+			<select name="if_netmask">
+%	my $netmask;
+%	if (defined($iface->{'netmask'})) {
+%		$netmask = $iface->{'netmask'};
+%	} else {
+%		$netmask = '255.255.255.0';
+%	}
+				<option selected value='<% $netmask %>'><% $netmask %></option>
+				<option value='255.255.255.248'>255.255.255.248</option>
+				<option value='255.255.255.240'>255.255.255.240</option>
+				<option value='255.255.255.224'>255.255.255.224</option>
+				<option value='255.255.255.192'>255.255.255.192</option>
+				<option value='255.255.255.128'>255.255.255.128</option>
+				<option value='255.255.255.0'>255.255.255.0</option>
+				<option value='255.255.0.0'>255.255.0.0</option>
+				<option value='255.0.0.0'>255.0.0.0</option>
+			</select>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input class='inputButton' type='submit'
+				name='accept' value="<% __('Ok') %>" />
+		</td>
+	</tr>
+	</table>
+</form>
+
+<div id='trunk'>
+% if ($iface->{"method"} eq "trunk") {
+
+	<table class='dataTable' cellspacing='0'>
+		<caption>
+			<% __('VLANs') %>
+		</caption>
+	<thead>
+		<tr>
+			<th class='tleft'><% __('VLAN Id') %></th>
+			<th class='thOptions'><% __('Description') %></th>
+			<th class='thOptions'><% __('Action') %></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<tr class='border'><form action='Vlan' method='POST'>
+			<td class='tleft'>
+				<input type="hidden" name="ifname" value="<% $iface->{"name"}%>"/>
+				<input class="inputText" type="text" size="4" name="vlanid"/>
+			</td>
+			<td class='tleft'>
+				<input class="inputText" type="text" size="16" name="vlandesc"/>
+			</td>
+			<td class='tcenter'>
+				<input class="inputButton" type="image" name="add"
+						src="/data/images/add.gif"
+						alt="<% __("Add") %>"
+						title="<% __("Add") %>"
+						value="<% __("Add") %>" >
+			</td>
+		</form></tr>
+
+% 	foreach my $vlan (@vlans) {
+		<tr class='border'><form action='Vlan' method='POST'>
+			<td class='tleft'>
+				<input type="hidden" name="ifname" value="<% $iface->{'name'}%>"/>
+				<input type="hidden" name="vlanid" value="<% $vlan->{'id'}%>"/>
+				<%$vlan->{'id'}%>
+			</td>
+			<td class='tleft'>
+				<%$vlan->{'name'}%>
+			</td>
+			<td class='tcenter'>
+				<input class="inputButton" type="image" name="del"
+						src="/data/images/delete.gif"
+						alt="<% __("Delete") %>"
+						title="<% __("Delete") %>"
+						value="<% __("Delete") %>" >
+			</td>
+		</form></tr>
+% 	}
+
+	</tbody>
+	</table>
+
+% }
+</div>
+
+<div id='virtual'>
+% if ($iface->{"method"} eq "static") {
+
+	<table class='dataTable' cellspacing='0'>
+		<caption>
+			<% __('Virtual interfaces') %>
+		</caption>
+	<thead>
+		<tr>
+			<th class='tleft'><% __('Name') %></th>
+			<th class='thOptions'><% __('IP address') %></th>
+			<th class='thOptions'><% __('Netmask') %></th>
+			<th class='thOptions'><% __('Action') %></th>
+		</tr>
+	</thead>
+	<tbody>
+
+		<tr class='border'><form action='VIface' method='POST'>
+
+			<td>
+				<input type="hidden" name="ifname" value="<% $iface->{"name"} %>">
+				<input type="hidden" name="ifaction" value="add">
+				<input class="inputText" type="text" size="16" name="vif_name"
+					   alt="vif_name" value="" >
+			</td>
+
+			<td>
+				<input class="inputText" type="text" size="16" name="vif_address"
+					   alt="vif_name" value="" >
+			</td>
+
+			<td>
+				<select name="vif_netmask">
+					<option selected value="255.255.255.0">255.255.255.0</option>
+					<option value="255.255.255.248">255.255.255.248</option>
+					<option value="255.255.255.240">255.255.255.240</option>
+					<option value="255.255.255.224">255.255.255.224</option>
+					<option value="255.255.255.192">255.255.255.192</option>
+					<option value="255.255.255.128">255.255.255.128</option>
+					<option value="255.255.255.0">255.255.255.0</option>
+					<option value="255.255.0.0">255.255.0.0</option>
+					<option value="255.0.0.0">255.0.0.0</option>
+				</select>
+			</td>
+
+			<td class='tcenter'>
+				<input class="inputButton" type="image" name="accept"
+						src="/data/images/add.gif"
+						alt="<% __("Add") %>"
+						title="<% __("Add") %>"
+						value="<% __("Add") %>" >
+			</td>
+		</form></tr>
+
+% 	foreach my $viface (@{$iface->{"virtual"}}) {
+		<tr class='border'><form name="<% $iface->{"name"} %>" action="VIface" method="post">
+
+			<td>
+				<input type="hidden" name="ifname" value="<% $iface->{"name"} %>">
+				<input type="hidden" name="ifaction" value="delete">
+				<input type="hidden"  name="vif_name" value="<% $viface->{"name"} %>" >
+				<% $viface->{"name"} %>
+			</td>
+
+			<td>
+				<% $viface->{"address"} %>
+			</td>
+
+			<td>
+				<% $viface->{"netmask"} %>
+			</td>
+
+			<td class='tcenter'>
+				<input type="image" name="del"
+					src="/data/images/delete.gif"
+					alt="<% __("Delete") %>"
+					title="<% __("Delete") %>"
+					value="<% __("Delete") %>">
+			</td>
+
+		</form></tr>
+% 	}
+
+	</tbody>
+	</table>
+% }
+</div>
+
+<script type="text/javascript"><!--
+function methodChanged(select) {
+	selected = select.options[select.selectedIndex].value;
+
+	if (selected == 'static' || selected == 'dhcp') {
+		document.getElementById("external1").style.display="block";
+		document.getElementById("external2").style.display="block";
+	} else {
+		document.getElementById("external1").style.display="none";
+		document.getElementById("external2").style.display="none";
+	}
+
+	if (selected == 'static') {
+		document.getElementById("static1").style.display="block";
+		document.getElementById("static2").style.display="block";
+		document.getElementById("static3").style.display="block";
+		document.getElementById("static4").style.display="block";
+		document.getElementById("virtual").style.display="block";
+	} else {
+		document.getElementById("static1").style.display="none";
+		document.getElementById("static2").style.display="none";
+		document.getElementById("static3").style.display="none";
+		document.getElementById("static4").style.display="none";
+		document.getElementById("virtual").style.display="none";
+	}
+
+	if (selected == 'trunk') {
+		document.getElementById("trunk").style.display="block";
+	} else {
+		document.getElementById("trunk").style.display="none";
+	}
+}
+
+var methodSelects = document.getElementsByName('method');
+for (var i = 0; i< methodSelects.length; i++) 
+	methodChanged(methodSelects[i]);
+//--></script>
