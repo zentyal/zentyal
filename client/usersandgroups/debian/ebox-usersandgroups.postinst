@@ -1,0 +1,107 @@
+#!/bin/bash
+
+webserver=apache
+
+# Function stolen from slapd.config in slapd package
+create_password_hash() {
+  perl -e '
+    sub GenRandom {
+      local ($len) = @_;
+      local ($char, $data, @chars);
+      @chars = split(//, "abcdefghijklmnopqrstuvwxyz"
+                       . "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+
+      open(RD, "</dev/urandom") or die "Failed to open random source";
+      $data = "";
+      while ($len--) {
+        read(RD, $char, 1) == 1 or die "Failed to read random data";
+        $data .= $chars[ord($char) % @chars];
+      }
+
+      close(RD);
+      return $data;
+    }
+    print crypt($ARGV[0], GenRandom(2));' "$1"
+}
+
+case "$1" in
+	configure)
+		# install gconf schemas
+		SCHEMA_LOCATION=/usr/share/gconf/schemas
+		SCHEMA_FILES="usersandgroups.schemas "
+		for SCHEMA in $SCHEMA_FILES; do
+			if [ -e $SCHEMA_LOCATION/$SCHEMA ]; then
+				HOME=/var/lib/ebox GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` \
+				gconftool-2 \
+				--makefile-install-rule $SCHEMA_LOCATION/$SCHEMA > /dev/null
+			fi
+		done
+
+		kill `pidof gconfd-2` >/dev/null 2>&1 || true
+
+
+		# sudo configuration
+		ebox-sudoers > /etc/sudoers
+		chmod 0440 /etc/sudoers
+		
+		
+		# Init ldap data base
+		PASS="ebox$RANDOM$RANDOM"
+		CRYPTPASS=`create_password_hash "$PASS"`;
+
+                echo "$PASS" > /var/lib/ebox/conf/ebox-ldap.passwd
+                chmod 0440 /var/lib/ebox/conf/ebox-ldap.passwd
+                chown ebox.ebox /var/lib/ebox/conf/ebox-ldap.passwd
+
+		# generate slapd.conf
+		/usr/lib/ebox-usersandgroups/ebox-init-ldap genconfig
+		
+		invoke-rc.d slapd stop
+		touch /var/lib/slapd/suffix_change
+		
+		if [ ! -d /var/lib/ebox/ldap ]; then
+
+		mkdir /var/lib/ebox/ldap
+ cat <<EOF | slapadd
+dn: dc=ebox
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: warp
+dc: ebox
+structuralObjectClass: organization
+
+dn: cn=admin,dc=ebox
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: admin
+description: LDAP administrator
+userPassword: {crypt}$CRYPTPASS
+structuralObjectClass: organizationalRole
+
+EOF
+	
+		echo "done"
+		
+		fi
+		
+		# replace /etc/default/slapd with desired options
+		echo 'SLAPD_SERVICES="ldapi://%2fvar%2frun%2fldapi/????x-mod=0777"' > /etc/default/slapd
+
+		# Workaround for slapd 2.23-5, it does not update the rc?.d files
+		 update-rc.d slapd defaults 19 80 >/dev/null
+
+		# start slapd
+		invoke-rc.d slapd start
+		
+		if [ -z "$2" ]; then
+			# populate ldap database 
+			/usr/lib/ebox-usersandgroups/ebox-init-ldap populate
+		else 
+			exit 0;
+		fi
+esac
+
+#DEBHELPER#
+
+exit 0

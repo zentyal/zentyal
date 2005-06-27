@@ -1,0 +1,59 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	@groups => ();
+</%args>
+<%init>
+use EBox::Gettext;
+use Data::Dumper;
+</%init>
+<h3><% __('Add Group') %></h3>
+	<form action='AddGroup' method='POST'>
+	<table class='formTable'>
+		<tr>
+			<td  class='tright'>
+				<span class="ftitle">
+					<% __('Group name') %>:
+				</span>
+			</td>
+			<td>
+				<input type='text' class='inputText' name='groupname'>
+			</td>
+		</tr>
+		<tr>
+			<td class='tright'>
+				<span class="ftitle">
+					<% __('Comment') %>:
+				</span>
+			</td>
+			<td>
+				<input type='text' class='inputText' name='comment'>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<input class='inputButton' type='submit' name='group' 
+					   value="<% __('Create') %>"
+					   alt="<% __('Create') %>">
+			</td>
+		</tr>
+	</table>
+	</form>
+
+
+%   if(@groups) {
+<h3><% __('Edit Group') %></h3>
+    <form action='Group' method='post'>
+    <span class='ftitle'><% __('Group of users') %>: </span>
+        <select name='group'>
+%           foreach my $gr (@groups){
+                <option value='<% $gr->{'account'} %>'>
+                    <% $gr->{'account'} %>
+                </option>
+%           }
+        </select>
+        <input class='inputButton' type='submit' value="<% __('Edit') %>" name='configgroup' />
+    </form>
+%   }
+

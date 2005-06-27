@@ -1,0 +1,48 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+    $object
+    $name 
+    @data
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+% if ($object eq 'user') {
+<h3><% __('Deleting user') %>: <% $name %></h3>
+<div class="warning">
+<% __('The user you tried to delete contains data in the following modules. Please confirm you want to remove it and all its related data') %>
+</div>
+% } else {
+<h3><% __('Deleting group') %>: <% $name %></h3>
+<div class="warning">
+<% __('The group you tried to delete contains data in the following modules. Please confirm you want to remove it and all its related data') %>
+</div>
+% }
+
+
+% foreach my $par (@data) {
+	<div class=note>
+		<% $par %>			
+	</div>
+% }
+<br/>
+
+<form action='Del' method='POST'>
+    <input type='hidden' name='object'
+           value='<% $object %>'/>
+    <input type='hidden' name='objectname'
+           value='<% $name %>'/>
+    <input class='inputButton'
+% if ($object eq 'user') {
+           type='submit' name='deluserforce'
+% } else {
+           type='submit' name='delgroupforce'
+% }
+           value="<% __('Delete') %>">
+    <input class='inputButton'
+           type='submit' name='cancel'
+           value="<% __('Cancel') %>">
+</form>
+

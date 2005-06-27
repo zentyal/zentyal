@@ -1,0 +1,66 @@
+<%args>
+	$rootdn
+	$rootpw
+	$dn
+        @acls
+	@schemas
+</%args>
+
+
+# Default schema and objectClass definitions
+include         /etc/ldap/schema/core.schema
+include         /etc/ldap/schema/cosine.schema
+include         /etc/ldap/schema/nis.schema
+include         /etc/ldap/schema/inetorgperson.schema
+
+# Schemas added by ebox
+% foreach my $schema (@schemas) {
+include 	<% $schema %>
+% }
+
+schemacheck     on
+
+pidfile         /var/run/slapd/slapd.pid
+
+# List of arguments that were passed to the server
+argsfile        /var/run/slapd.args
+
+loglevel 	0
+
+modulepath	/usr/lib/ldap
+moduleload	back_bdb
+
+backend		bdb
+
+database        bdb
+
+suffix          "<% $dn %>"
+
+directory       "/var/lib/ebox/ldap"
+
+index           objectClass eq
+
+lastmod         on
+
+rootdn  "<% $rootdn %>"	
+rootpw 	<% $rootpw %>
+
+access to attrs=userPassword
+        by dn.regex="<% $rootdn %>" write
+        by anonymous auth
+        by self write
+        by * none
+
+access to dn.base="" by * read
+
+access to *
+        by dn="<% $rootdn %>" write
+	        by * read
+
+# ACLs needed by ebox modules
+# 
+
+% foreach my $acl (@acls) {
+	<% $acl %>
+% }
+

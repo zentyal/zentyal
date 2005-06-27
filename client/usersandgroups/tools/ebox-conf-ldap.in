@@ -1,0 +1,78 @@
+#!/bin/bash
+
+PASSLDAP="@CONFPATH@/ebox-ldap.passwd"
+LDAPDIR="@VARPATH@/lib/ebox/ldap"
+
+# Function stolen from slapd.config in slapd package
+create_password_hash() {
+  perl -e '
+    sub GenRandom {
+      local ($len) = @_;
+      local ($char, $data, @chars);
+      @chars = split(//, "abcdefghijklmnopqrstuvwxyz"
+                       . "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+
+      open(RD, "</dev/urandom") or die "Failed to open random source";
+      $data = "";
+      while ($len--) {
+        read(RD, $char, 1) == 1 or die "Failed to read random data";
+        $data .= $chars[ord($char) % @chars];
+      }
+
+      close(RD);
+      return $data;
+    }
+    print crypt($ARGV[0], GenRandom(2));' "$1"
+}
+
+		
+# Init ldap data base
+PASS="ebox$RANDOM$RANDOM"
+CRYPTPASS=`create_password_hash "$PASS"`;
+
+echo "$PASS" > "$PASSLDAP"
+chmod 0440 "$PASSLDAP"
+chown ebox.ebox "$PASSLDAP"
+
+# generate slapd.conf
+./ebox-init-ldap genconfig
+
+invoke-rc.d slapd stop
+touch /var/lib/slapd/suffix_change
+
+if [ ! -d "$LDAPDIR" ]; then
+
+mkdir "$LDAPDIR"
+ cat <<EOF | slapadd
+dn: dc=ebox
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: warp
+dc: ebox
+structuralObjectClass: organization
+
+dn: cn=admin,dc=ebox
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: admin
+description: LDAP administrator
+userPassword: {crypt}$CRYPTPASS
+structuralObjectClass: organizationalRole
+
+EOF
+	
+echo "done"
+
+fi
+		
+# replace /etc/default/slapd with desired options
+echo 'SLAPD_SERVICES="ldapi://%2fvar%2frun%2fldapi/????x-mod=0777"' > /etc/default/slapd
+
+
+# start slapd
+invoke-rc.d slapd start
+
+./ebox-init-ldap populate
+
+exit 0

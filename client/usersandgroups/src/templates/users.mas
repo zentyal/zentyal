@@ -1,0 +1,92 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	@users => ();
+	@groups => ();
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<h3><% __('Add User') %></h3>
+	<form action='AddUser' method='POST'>
+	<table class='formTable'>
+		<tr>
+			<td class='tright'>
+				<span class="ftitle"><% __('User name')%>:</span>
+			</td>
+			<td>
+				<input type='text' class='inputText' name='username'>
+			</td>
+		</tr>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'><% __('Full name')%>:</span>
+			</td>
+			<td>
+				<input type='text' class='inputText' name='fullname'>
+			</td>
+		</tr>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'><% __('Comment') %>:</span>
+			</td>
+			<td>
+				<input type='text' class='inputText' name='comment'>
+			</td>
+		</tr>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'><% __('Password') %>:</span>
+			</td>
+			<td>
+				<input type='password' class='inputText' name='password'>
+			</td>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'><% __('Retype password') %>:</span>
+			</td>
+			<td>
+				<input type='password' class='inputText' name='repassword'>
+			</td>
+		</tr>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'><% __('Group') %>:</span>
+			</td>
+			<td>
+        			<select name='group'>
+						<option selected value=''></option>
+%			           foreach my $gr (@groups){
+							<option value='<% $gr->{'account'} %>'>
+								<% $gr->{'account'} %>
+							</option>
+%			           }
+					</select>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<input class='inputButton' type='submit' name='user' 
+					   value="<% __('Create') %>"
+					   alt="<% __('Create') %>">
+				</form>
+			</td>
+		</tr>
+	</table>
+
+
+%   if(@users) {
+<h3><% __('Edit User') %></h3>
+    <form action='User' method='post'>
+    <span class='ftitle'><% __('User') %>: </span>
+        <select name='username'>
+%           foreach my $us (@users){
+                <option value='<% $us->{'username'} %>'>
+                    <% $us->{'username'}  %>
+                </option>
+%           }
+        </select>
+        <input class='inputButton' type='submit' value="<% __('Edit') %>" name='configuser' />
+    </form>
+%   }

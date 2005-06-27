@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+foreach $item (@ARGV){        
+	open (FH, "<", $item);        
+	foreach $line(<FH>){                
+		while ($line =~ s/(__x?)\(([\'\"])(.+?)\2//){
+			print $1 . '("' . $3 . '"); '; print "\n";
+		}        
+		print "\n";
+	}        
+	close (FH);
+}

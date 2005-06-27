@@ -1,0 +1,104 @@
+#!/usr/bin/perl
+
+use strict;
+
+use EBox;
+use EBox::Global;
+
+EBox::init();
+
+use constant DEFAULTGROUP    => '__USERS__';
+use constant DEFAULTGROUPGID => '2000';
+
+my $global = EBox::Global->getInstance(1);
+my $users = $global->modInstance('users');
+
+sub populate
+{
+	$users->{ldap}->ldapCon;
+	my $ldap = $users->{ldap}->{ldap};
+	my $dn = $users->usersDn;
+	my $result = $ldap->add($dn, attr => [
+                                        'ou' => 'Users',
+                                        'objectClass' => 'organizationalUnit'
+                                             ]);
+	($result->is_error) and warn "Cant initialize Users";
+
+	$dn = $users->groupsDn;
+	$result = $ldap->add($dn, attr => [
+                                        'ou' => 'Groups',
+                                        'objectClass' => 'organizationalUnit'
+                                          ]);
+
+	($result->is_error) and warn "Cant initialize Groups";
+	
+	$users->addGroup(DEFAULTGROUP, 'All users', 1);
+}
+
+sub clean 
+{
+	# clean users
+	foreach my $user ($users->users){
+		my $username = $user->{'username'};
+		$users->delUser($username);		
+	}
+
+	# clean groups
+	foreach my $group ($users->groups){
+		my $groupname = $group->{'account'};
+		$users->delGroup($groupname);		
+	}
+}
+
+sub gen_config
+{
+	$users->_regenConfig;
+}
+
+sub addSysUser
+{
+	my $user = { 'user' => $_[1], 
+		     'fullname' => $_[2],
+		     'password' => "{crypt}" . $_[3], 
+		     'comment' => $_[4] };
+
+	$users->addUser($user, 1);
+}
+
+sub addSysGroup
+{
+
+	$users->addGroup($_[1], $_[2]);
+}
+
+sub usage
+{
+	print "Usage: $0 (populate | genconfig | addSysUser name fullname pwd commet | addSysGroup name comment)\n";
+}
+
+#main 
+
+if ($#ARGV == -1) {
+	usage();
+	exit(1);
+}
+
+if ($ARGV[0] eq 'populate') {
+	populate();
+} elsif ($ARGV[0] eq 'genconfig') {
+	gen_config();
+} elsif ($ARGV[0] eq 'clean') {
+	clean();
+} elsif ($ARGV[0] eq 'addSysUser') {
+	unless ($#ARGV == 4) {
+	        usage();
+	}
+	addSysUser(@ARGV);
+} elsif ($ARGV[0] eq 'addSysGroup') {
+	unless ($#ARGV == 2) {
+	        usage();
+	}
+	addSysGroup(@ARGV);
+} else {
+	usage();
+}
