@@ -8,11 +8,11 @@ use EBox::Gettext;
 settextdomain('ebox-mail');
 </%init>
 
-<form action='/ebox/Mail/CreateAccount' method='POST'>
+<form name='createaccount' action='/ebox/Mail/CreateAccount' method='POST'>
     <input type="hidden" name="username" value="<% $params->{'username'} %>">
 	<h3><% __('Create mail account') %></h3>
 	<input type='text' class='inputText' name='lhs'>
-	<select name="vdomain" enabled>
+	<select name="vdomain" enabled onChange='vdomainChanged(this)'>
 %	my @kvd = keys %{$params->{'vdomains'}};
 %	foreach my $vd (@kvd) {
 		<option value= <% $vd %> > <% __($vd) %> </option>
@@ -24,4 +24,24 @@ settextdomain('ebox-mail');
 			value="<% __('Create') %>"
 			alt="<% __('Create') %>">
 </form>
+
+<script type="text/javascript"><!--
+    var a = new Array();
+
+%	my %hashdom = %{$params->{'vdomains'}};
+%   foreach my $domain (@kvd) {
+        a["<%$domain%>"] = <% $hashdom{$domain} %>;
+%   }
+
+    function vdomainChanged(select){
+        domain = select.options[select.selectedIndex].value;
+        maildirsizeText.value = a[domain];
+    }
+
+var maildirsizeText = document.forms.createaccount.dftmdsize;
+var vdomainSelect = document.forms.createaccount.vdomain;
+vdomainChanged(vdomainSelect);
+//--></script>
+
+
 % settextdomain('ebox-usersandgroups');

@@ -25,7 +25,8 @@ use EBox::Gettext;
 	
 	<input type='text' class='inputText' name='lhs'>
 	<select name="rhs" enabled>
-%	foreach my $vd (@{$params->{vdomains}}) {
+%	my @kvd = keys %{$params->{'vdomains'}};
+%	foreach my $vd (@kvd) {
 		<option value= <% $vd %> > <% __($vd) %> </option>
 %	}
 	</select>

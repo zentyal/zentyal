@@ -43,8 +43,8 @@ sub new
 }
 
 # Implements LdapUserBase interface
-sub setUserAccount ($$$$) {
-	my ($self, $user, $lhs, $rhs)  = @_;
+sub setUserAccount () {
+	my ($self, $user, $lhs, $rhs, $mdsize)  = @_;
 	
 	my $ldap = $self->{ldap};
 	my $users = EBox::Global->modInstance('users');
@@ -76,7 +76,7 @@ sub setUserAccount ($$$$) {
 				mail		=> $email,
 				mailbox	=> $rhs.'/'.$lhs.'/',
 				quota		=> '0',
-				#userMaildirSize => $mdsize,
+				userMaildirSize => $mdsize,
 				mailHomeDirectory => DIRVMAIL
 			]
 		]

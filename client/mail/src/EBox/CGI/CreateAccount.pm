@@ -47,10 +47,12 @@ sub _process($) {
 	my $vdomain = $self->param('vdomain');
 	$self->_requireParam('lhs', __('left hand side'));
 	my $lhs = $self->param('lhs');
+	$self->_requireParam('dftmdsize', __('maildir size'));
+	my $mdsize = $self->param('dftmdsize');
 	
 	$self->keepParam('username');
 
-	$mail->{musers}->setUserAccount($username, $lhs, $vdomain);
+	$mail->{musers}->setUserAccount($username, $lhs, $vdomain, $mdsize);
 }
 
 1;
