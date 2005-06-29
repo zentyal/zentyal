@@ -95,13 +95,28 @@ sub vdomains($)
 	
 	my $result = $self->{ldap}->search(\%args);
 
-	my @vdomains = ();
-	foreach my $vdomain ($result->sorted('domainComponent'))
-	{
-		@vdomains = (@vdomains, $vdomain->get_value('dc'));
-	}
+	my @vdomains = map { $_->get_value('dc')} $result->sorted('domainComponent');
 
 	return @vdomains;
+}
+
+sub vdandmaxsizes()
+{
+	my $self = shift;
+
+	my %args = (
+		base => $self->vdomainDn,
+		filter => 'objectclass=*',
+		scope => 'one',
+		attrs => ['domainComponent', 'vddftMaildirSize']
+	);
+	
+	my $result = $self->{ldap}->search(\%args);
+
+	my %vdomains = map { $_->get_value('dc'), $_->get_value('vddftMaildirSize')}
+		$result->sorted('domainComponent');
+
+	return %vdomains;
 }
 
 

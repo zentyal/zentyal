@@ -233,13 +233,16 @@ sub _userAddOns($$) {
 	my $entry = $result->entry(0);
 
 	my $usermail = $entry->get_value('mail');
-	my @vd =  $mail->{vdomains}->vdomains();
+	my %vd =  $mail->{vdomains}->vdandmaxsizes();
 	my @aliases = $mail->{malias}->accountAlias($usermail);
+
+	use Data::Dumper;
+	print STDERR " El foo es: " . Dumper(\%vd) . "\n\n";
 
 	my $args = { 'username'	=>	$username,
 			'mail'	=>	$usermail,
 			'aliases'	=> \@aliases,
-			'vdomains'	=> \@vd };
+			'vdomains'	=> \%vd };
 	
 	return { path => '/mail/account.mas', params => $args };
 

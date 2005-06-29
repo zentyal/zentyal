@@ -13,12 +13,13 @@ settextdomain('ebox-mail');
 	<h3><% __('Create mail account') %></h3>
 	<input type='text' class='inputText' name='lhs'>
 	<select name="vdomain" enabled>
-%	foreach my $vd (@{$params->{vdomains}}) {
+%	my @kvd = keys %{$params->{'vdomains'}};
+%	foreach my $vd (@kvd) {
 		<option value= <% $vd %> > <% __($vd) %> </option>
 %	}
 	</select>
 	<div class='ftitle'><% __('Set default maildir size for this virtual domain') %></div>
-	<input type='text' class='inputText' name='dftmdsize' value=<% $params->{'mdsize'} %>>
+	<input type='text' class='inputText' name='dftmdsize' value=<%  %>>
 	<input class='inputButton' type='submit' name='change'
 			value="<% __('Create') %>"
 			alt="<% __('Create') %>">
