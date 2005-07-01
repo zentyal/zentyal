@@ -1,0 +1,257 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Warp S.L.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2005-07-01 17:24+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/EBox/CGI/BannedDomains.pm:30 src/EBox/CGI/BannedDomains.pm:40
+#: src/EBox/Squid.pm.in:1026 src/templates/banned.mas:10
+msgid "Banned domains"
+msgstr ""
+
+#: src/EBox/CGI/Enable.pm:42
+msgid "module status"
+msgstr ""
+
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Squid.pm.in:939
+msgid "HTTP Proxy"
+msgstr ""
+
+#: src/EBox/CGI/SetPolicy.pm:30 src/EBox/CGI/Policy.pm:30
+#: src/EBox/CGI/Policy.pm:54
+msgid "HTTP proxy policy"
+msgstr ""
+
+#: src/EBox/CGI/General.pm:42
+msgid "content filter threshold"
+msgstr ""
+
+#: src/EBox/CGI/General.pm:45
+msgid "transparent proxy"
+msgstr ""
+
+#: src/EBox/CGI/General.pm:48 src/EBox/Squid.pm.in:442
+msgid "listening port"
+msgstr ""
+
+#: src/EBox/CGI/General.pm:51
+msgid "global policy"
+msgstr ""
+
+#: src/EBox/CGI/Allow.pm:40 src/EBox/CGI/Ban.pm:40 src/EBox/Squid.pm.in:617
+#: src/EBox/Squid.pm.in:622 src/EBox/Squid.pm.in:670 src/EBox/Squid.pm.in:675
+msgid "domain name"
+msgstr ""
+
+#: src/EBox/CGI/Allow.pm:41 src/EBox/CGI/Ban.pm:41
+msgid "action"
+msgstr ""
+
+#: src/EBox/CGI/AllowedDomains.pm:30 src/EBox/CGI/AllowedDomains.pm:40
+#: src/EBox/Squid.pm.in:1024 src/templates/allowed.mas:10
+msgid "Allowed domains"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:209 src/EBox/Squid.pm.in:299
+msgid "object"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:593
+#, perl-brace-format
+msgid "Policy '{policy}' is invalid"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:645 src/EBox/Squid.pm.in:698
+msgid "domain"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:725
+msgid "Threshold"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:953
+msgid "Proxy"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:959 src/templates/index.mas:40
+#: src/templates/index.mas:45
+msgid "Enabled"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:961 src/templates/index.mas:38
+#: src/templates/index.mas:43
+msgid "Disabled"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:963 src/templates/index.mas:31
+msgid "Transparent proxy"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:966 src/templates/index.mas:128
+#: src/templates/index.mas:131 src/templates/policy.mas:88
+#: src/templates/policy.mas:92
+msgid "Allow"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:968 src/templates/index.mas:135
+#: src/templates/index.mas:138
+msgid "Deny"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:970 src/templates/index.mas:142
+#: src/templates/index.mas:145 src/templates/policy.mas:48
+#: src/templates/policy.mas:52 src/templates/policy.mas:98
+#: src/templates/policy.mas:102
+msgid "Filter"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:973 src/templates/index.mas:121
+msgid "Global policy"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:975
+msgid "Listening port"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:1019
+msgid "HTTP proxy"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:1022
+msgid "General"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:1028
+msgid "Policy"
+msgstr ""
+
+#: src/templates/allowed.mas:12
+msgid "Add here those domains which you want to allow access."
+msgstr ""
+
+#: src/templates/index.mas:16
+msgid "Enable the HTTP proxy"
+msgstr ""
+
+#: src/templates/index.mas:18
+msgid "General Settings"
+msgstr ""
+
+#: src/templates/index.mas:22
+msgid ""
+"Please note that if you set a configuration which prevents you from "
+"connecting to the administration interface through the proxy, you must then "
+"connect to it directly"
+msgstr ""
+
+#: src/templates/index.mas:54
+msgid "Port"
+msgstr ""
+
+#: src/templates/index.mas:67
+msgid "Content filter threshold"
+msgstr ""
+
+#: src/templates/index.mas:74 src/templates/index.mas:77
+msgid "Content filter disabled"
+msgstr ""
+
+#: src/templates/index.mas:81 src/templates/index.mas:84
+msgid "Very permissive"
+msgstr ""
+
+#: src/templates/index.mas:88 src/templates/index.mas:91
+msgid "Permissive"
+msgstr ""
+
+#: src/templates/index.mas:95 src/templates/index.mas:98
+msgid "Medium"
+msgstr ""
+
+#: src/templates/index.mas:102 src/templates/index.mas:105
+msgid "Strict"
+msgstr ""
+
+#: src/templates/index.mas:109 src/templates/index.mas:112
+msgid "Very strict"
+msgstr ""
+
+#: src/templates/index.mas:156 src/templates/index.mas:157
+msgid "Ok"
+msgstr ""
+
+#: src/templates/banned.mas:12
+msgid "Add here those domains which you do not want to allow access."
+msgstr ""
+
+#: src/templates/domains.mas:20
+msgid "Introduce domains in this way: "
+msgstr ""
+
+#: src/templates/domains.mas:22
+msgid "domain.com"
+msgstr ""
+
+#: src/templates/domains.mas:28
+msgid "Domain"
+msgstr ""
+
+#: src/templates/domains.mas:30
+msgid "Action"
+msgstr ""
+
+#: src/templates/domains.mas:48 src/templates/domains.mas:50
+#: src/templates/domains.mas:52
+msgid "Add"
+msgstr ""
+
+#: src/templates/domains.mas:68 src/templates/domains.mas:70
+#: src/templates/domains.mas:72
+msgid "Delete"
+msgstr ""
+
+#: src/templates/policy.mas:14
+msgid ""
+"Choose the object whose state you want to change and click in the arrow to "
+"move it to the desired column."
+msgstr ""
+
+#: src/templates/policy.mas:23
+msgid "Allowed"
+msgstr ""
+
+#: src/templates/policy.mas:26
+msgid "Filtered"
+msgstr ""
+
+#: src/templates/policy.mas:29
+msgid "Denied"
+msgstr ""
+
+#: src/templates/policy.mas:50 src/templates/policy.mas:100
+msgid "Move selected objects to the filtered column"
+msgstr ""
+
+#: src/templates/policy.mas:67 src/templates/policy.mas:71
+msgid "Ban"
+msgstr ""
+
+#: src/templates/policy.mas:69
+msgid "Move selected objects to the banned column"
+msgstr ""
+
+#: src/templates/policy.mas:90
+msgid "Move selected objects to the unfiltered column"
+msgstr ""
