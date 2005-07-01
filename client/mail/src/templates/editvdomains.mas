@@ -1,0 +1,17 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$vdomain
+	$mdsize
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<form action='ModifyVDomain' method='POST'>
+<div class='ftitle'><% __x('Set default maildir size for {vdomain} virtual domain', vdomain => $vdomain ) %></div>
+	<input type='hidden' name='vdomain' value=<% $vdomain %>>
+	<input type='text' class='inputText' name='mdsize' value=<% $mdsize %>>
+	<input class='inputButton' type='submit' name='change'
+		value="<% __('Modify') %>"
+		alt="<% __('Modify') %>">
+</form>	
