@@ -2,7 +2,7 @@
 -->
 <%args>
 	$mdsize
-	@vdomains
+	%vdomains
 </%args>
 <%init>
 use EBox::Gettext;
@@ -18,14 +18,17 @@ use EBox::Gettext;
 			   value="<% __('Add') %>"
 			   alt="<% __('Add') %>">
 </form>
-
-%	if(@vdomains != 0) {
+%   my @kvd = keys %vdomains;
+%	if(@kvd != 0) {
 		<table cellspacing='0' class='dataTable'>
 			<caption><% __('Virtual domains list') %></caption>
 			<thead>
 				<tr>
-					<th width='66%' class='tleft'>
+					<th width='44%' class='tleft'>
 						<% __('Name') %>
+					</th>
+					<th width='22%' class='tleft'>
+						<% __('Maildir Size (in Mb)') %>
 					</th>
 					<th class='thOptions'>
 						<% __('Action') %>
@@ -33,10 +36,15 @@ use EBox::Gettext;
 				</tr>
 			</thead>
 			<tbody>
-%			foreach my $domain (@vdomains) {
+%			foreach my $domain (@kvd) {
 				<tr class='border'>
 					<td><% $domain %></td>
+					<td><% $vdomains{$domain} %></td>
 					<td class='tcenter'>
+						<a href="EditVDomain?vdomain=<% $domain %>">
+						<img src='/data/images/edit.gif'
+							alt="<% __('Edit') %>" title="<% __('Edit') %>" /></a>
+						<img src='/data/images/sep.gif' alt='-'/>
 						<a href='DelVDomain?vdomain=<% $domain %>'>
 						<img src='/data/images/delete.gif' 
 							title="<% __('Delete') %>"

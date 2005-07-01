@@ -119,6 +119,33 @@ sub vdandmaxsizes()
 	return %vdomains;
 }
 
+sub getMDSize() {
+	my ($self, $vdomain) = @_;
+	
+	my %args = (
+		base => $self->vdomainDn,
+		filter => 'domainComponent='.$vdomain,
+		scope => 'one',
+		attrs => ['vddftMaildirSize']
+	);
+	
+	my $result = $self->{ldap}->search(\%args);
+	my $entry = $result->entry(0);
+
+	my $mdsize = $entry->get_value('vddftMaildirSize');
+
+	print STDERR "El mdsize es: $mdsize \n";
+
+	return $mdsize;
+}
+
+sub setMDSize() {
+	my ($self, $vdomain, $mdsize) = @_;
+   
+	my $dn = "domainComponent=$vdomain," .  $self->vdomainDn;
+	my $r = $self->{'ldap'}->modify($dn, {
+		replace => { 'vddftMaildirSize' => $mdsize }});
+}
 
 sub vdomainDn
 {

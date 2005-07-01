@@ -4,7 +4,7 @@ templatedir = @TEMPLATESPATH@/mail
 
 template_DATA = index.mas vdomains.mas account.mas createaccount.mas alias.mas \
 	groupalias.mas mailtabs.mas pop.mas imap.mas filter.mas sasl.mas smtptls.mas\
-	popssl.mas imapssl.mas
+	popssl.mas imapssl.mas editvdomains.mas
 
 EXTRA_DIST = $(template_DATA)
 

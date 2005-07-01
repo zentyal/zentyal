@@ -93,10 +93,8 @@ sub setUserAccount () {
 	}
 }
 
-sub delUserAccount ($$$) { #username, mail
-	my $self = shift;
-	my $username = shift;
-	my $usermail = shift;
+sub delUserAccount () { #username, mail
+	my ($self, $username, $usermail) = @_;
 	
 	my $mail = EBox::Global->modInstance('mail');
 	my $users = EBox::Global->modInstance('users');
@@ -142,10 +140,8 @@ sub delUserAccount ($$$) { #username, mail
 
 }
 
-sub _getUserLdapValue ($$$) { #uid, ldap value
-	my $self = shift;
-	my $uid = shift;
-	my $value = shift;
+sub _getUserLdapValue () { #uid, ldap value
+	my ($self, $uid, $value) = @_;
 	my $users = EBox::Global->modInstance('users');
 
 	my %args = (
@@ -162,18 +158,16 @@ sub _getUserLdapValue ($$$) { #uid, ldap value
 }
 
 
-sub _delGroup($$) { #groupname
-	my $self = shift;
-	my $group = shift;
+sub _delGroup() { #groupname
+	my ($self, $group) = @_;
 	my $mail = EBox::Global->modInstance('mail');
 
 	$mail->{malias}->delAliasGroup($group);
 	
 }
 
-sub _delGroupWarning($$) {
-	my $self = shift;
-	my $group = shift;
+sub _delGroupWarning() {
+	my ($self, $group) = @_;
 	my $mail = EBox::Global->modInstance('mail');
 
 	settextdomain('ebox-mail');
@@ -188,17 +182,15 @@ sub _delGroupWarning($$) {
 }
 
 
-sub _delUser($$) { #username
-	my $self = shift;
-	my $user = shift;
+sub _delUser() { #username
+	my ($self, $user) = @_;
 
 	$self->delUserAccount($user);
 	
 }
 
-sub _delUserWarning($$) {
-	my $self = shift;
-	my $user = shift;
+sub _delUserWarning() {
+	my ($self, $user) = @_;
 
 	settextdomain('ebox-mail');
 	my $txt = __('This user has a mail account');
@@ -211,9 +203,8 @@ sub _delUserWarning($$) {
 	return undef;
 }
 
-sub _userAddOns($$) {
-	my $self = shift;
-	my $username = shift;
+sub _userAddOns() {
+	my ($self, $username) = @_;
 
 	my $mail = EBox::Global->modInstance('mail');
 	my $users = EBox::Global->modInstance('users');
@@ -248,9 +239,8 @@ sub _userAddOns($$) {
 
 }
 
-sub _groupAddOns($$) {
-	my $self = shift;
-	my $group = shift;
+sub _groupAddOns() {
+	my ($self, $group) = @_;
 
 	my $mail = EBox::Global->modInstance('mail');
 	my $users = EBox::Global->modInstance('users');
@@ -285,7 +275,7 @@ sub _groupAddOns($$) {
 	return { path => '/mail/groupalias.mas', params => $args };
 }
 
-sub _modifyGroup($$) {
+sub _modifyGroup() {
 	my ($self, $group) = @_;
 	my $mail = EBox::Global->modInstance('mail');
 
@@ -305,9 +295,8 @@ sub _modifyGroup($$) {
 
 }
 
-sub _accountExists($$) { #username
-	my $self = shift;
-	my $username = shift;
+sub _accountExists() { #username
+	my ($self, $username) = @_;
 
 	my $users = EBox::Global->modInstance('users');
 
@@ -333,10 +322,8 @@ sub _includeLDAPSchemas {
 #sub _includeLDAPAcls {
 #}
 
-sub _createMaildir($$$) { #user (lhs of account), vdomain (rhs of account)
-	my $self = shift;
-	my $lhs = shift;
-	my $vdomain = shift;
+sub _createMaildir() { #user (lhs of account), vdomain (rhs of account)
+	my ($self, $lhs, $vdomain) = @_;
 	
 	root("/bin/mkdir -p /var/vmail");
 	root("/bin/chmod 2775 /var/mail/");
@@ -349,22 +336,20 @@ sub _createMaildir($$$) { #user (lhs of account), vdomain (rhs of account)
 
 }
 
-sub gidvmail($) {
+sub gidvmail() {
 	my $self = shift;
 
 	return scalar (getgrnam(EBox::Config::group));
 }
 
-sub uidvmail($) {
+sub uidvmail() {
 	my $self = shift;
 
 	return scalar (getpwnam(EBox::Config::user));
 }
 
-sub _isCourierObject($$$) {
-	my $self = shift;
-	my $object = shift;
-	my $dn   = shift;
+sub _isCourierObject() {
+	my ($self, $object, $dn) = @_;
 	
 	my $ldap = $self->{ldap};
 	

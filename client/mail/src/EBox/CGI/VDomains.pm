@@ -41,10 +41,10 @@ sub _process($) {
 
 	my @array = ();
 
-	my @vdomains = $mail->{vdomains}->vdomains;
+	my %vdomains = $mail->{vdomains}->vdandmaxsizes();
 
 	push(@array, 'mdsize'		=> $mail->getMDDefaultSize());
-	push(@array, 'vdomains'		=> \@vdomains);
+	push(@array, 'vdomains'		=> \%vdomains);
 
 	$self->{params} = \@array;
 }
