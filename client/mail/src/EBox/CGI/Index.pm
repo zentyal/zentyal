@@ -88,6 +88,9 @@ sub _process($) {
 	push (@array, 'smtptls'		=> $self->_inService('smtptls'));
 	push (@array, 'popssl'		=> $self->_inService('popssl'));
 	push (@array, 'imapssl'		=> $self->_inService('imapssl'));
+	push (@array, 'fwport'		=> $mail->fwport());
+	push (@array, 'ipfilter'		=> $mail->ipfilter());
+	push (@array, 'portfilter'		=>  $mail->portfilter());
 
 	$self->{params} = \@array;
 }

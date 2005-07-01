@@ -15,6 +15,9 @@
 	$smtptls
 	$popssl
 	$imapssl
+	$fwport
+	$ipfilter
+	$portfilter
 </%args>
 <%init>
 use EBox::Gettext;
@@ -211,5 +214,16 @@ use EBox::Gettext;
 % }
 
 % if ($menu eq 'filter') {
+<form action='SetExternalFilter' method='POST'>
 <h3><% __('Filter Settings') %></h3>
+<h4><% __('Set the local port to get filtered mail reinjected') %></h4>
+<input type='text' class='inputText' name='fwport' value=<% $fwport %>>
+<h4><% __('Set the IP of the external filter service') %></h4>
+<input type='text' class='inputText' name='ipfilter' value=<% $ipfilter %>>
+<h4><% __('Set the listen port of the external filter service') %></h4>
+<input type='text' class='inputText' name='portfilter' value=<% $portfilter %>>
+<input class='inputButton' type='submit' name='change'
+	value="<% __('Apply') %>"
+	alt="<% __('Apply') %>">
+</form>
 % }

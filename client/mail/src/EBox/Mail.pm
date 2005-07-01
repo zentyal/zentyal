@@ -22,6 +22,7 @@ use base qw(EBox::GConfModule EBox::LdapModule EBox::ObjectsObserver);
 
 use Proc::ProcessTable;
 use EBox::Sudo qw( :all );
+use EBox::Validate qw( :all );
 use EBox::Gettext;
 use EBox::Summary::Module;
 use EBox::Menu::Item;
@@ -97,6 +98,10 @@ sub _setMailConf {
 
 	@array = ();
 	push(@array, 'smtptls', $self->service('smtptls'));
+	push(@array, 'filter', $self->service('filter'));
+	push(@array, 'fwport', $self->fwport());
+	push(@array, 'ipfilter', $self->ipfilter());
+	push(@array, 'portfilter', $self->portfilter());
 	$self->writeConfFile(MAILMASTERCONFFILE, "mail/master.cf.mas", \@array);
 
 	@array = ();
@@ -133,6 +138,54 @@ sub isRunning
 	} else {
 		return undef;
 	}
+}
+
+sub setFWPort
+{
+	my ($self, $fwport) = @_;
+
+   my $fw = EBox::Global->modInstance('firewall');
+   checkPort($fwport, "listening port");
+   
+	if ($self->fwport() == $fwport) {
+		return;
+	}
+	unless ($fw->availablePort($fwport)) {
+		throw EBox::Exceptions::DataExists(
+			'data'  => __('listening port'),
+			'value' => $fwport);
+	}
+	$self->set_int('fwport', $fwport);
+}
+
+sub fwport
+{
+	my $self = shift;
+	return $self->get_int('fwport');
+}
+
+sub setIPFilter
+{
+	my ($self, $ip) = @_;
+	$self->set_string('ipfilter', $ip);
+}
+
+sub ipfilter
+{
+	my $self = shift;
+	return $self->get_string('ipfilter');
+}
+
+sub setPortFilter
+{
+	my ($self, $port) = @_;
+	$self->set_int('portfilter', $port);
+}
+
+sub portfilter
+{
+	my $self = shift;
+	return $self->get_int('portfilter');
 }
 
 sub setRelay #(smarthost)
