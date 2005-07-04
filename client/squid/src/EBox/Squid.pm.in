@@ -767,7 +767,7 @@ sub usesPort # (protocol, port, iface)
 	# the service is disabled.
 	($port eq SQUIDPORT) and return 1;
 	($port eq DGPORT) and return 1;
-	# the port selected by the user is only reported if the service is not
+	# the port selected by the user is only reported if the service is
 	# enabled
 	($self->service) or return undef;
 	($port eq $self->port) and return 1;
