@@ -240,6 +240,19 @@ sub setFileService # (enabled)
         my ($self, $active) = @_;
         ($active and $self->fileService) and return;
         (!$active and !$self->fileService) and return;
+
+	if ($active) {
+		if (not $self->printerService) {
+			my $fw = EBox::Global->modInstance('firewall');
+			foreach my $smbport (SMBPORTS) {
+				unless ($fw->availablePort($smbport)) {
+					throw EBox::Exceptions::DataExists(
+					'data'  => __('listening port'),
+					'value' => $smbport);
+				}
+			}
+		}
+	}
         $self->set_bool('file_active', $active);
 }
 
@@ -271,6 +284,19 @@ sub setPrinterService # (enabled)
         my ($self, $active) = @_;
         ($active and $self->printerService) and return;
         (!$active and !$self->printerService) and return;
+
+	if ($active) {
+		if (not $self->fileService) {
+			my $fw = EBox::Global->modInstance('firewall');
+			foreach my $smbport (SMBPORTS) {
+				unless ($fw->availablePort($smbport)) {
+					throw EBox::Exceptions::DataExists(
+					'data'  => __('listening port'),
+					'value' => $smbport);
+				}
+			}
+		}
+	}
         $self->set_bool('printer_active', $active);
 }
 #   Function: servicePrinter
