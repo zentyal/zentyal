@@ -397,7 +397,7 @@ sub serviceIsInternal # (service)
 	return $self->get_bool("services/$name/internal");
 }
 
-# Method: service
+# Method: availablePort
 #
 #	Checks if a port is available, i.e: it's not used by any module.
 #   
@@ -410,7 +410,7 @@ sub serviceIsInternal # (service)
 #
 #	boolean - true if it's available, otherwise undef
 #
-sub availablePort # (port, interface) 
+sub availablePort # (port, interface)
 {
 	my ($self, $port, $iface) = @_;
 	defined($port) or return undef;
