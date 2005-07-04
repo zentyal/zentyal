@@ -374,7 +374,7 @@ sub setService # (enabled)
 	($active and $self->service) and return;
 	(!$active and !$self->service) and return;
 
-	if($active) {
+	if ($active) {
 		my $fw = EBox::Global->modInstance('firewall');
 		unless ($fw->availablePort($self->port)) {
 			throw EBox::Exceptions::DataExists(
