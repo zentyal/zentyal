@@ -763,11 +763,10 @@ sub usesPort # (protocol, port, iface)
 {
 	my ($self, $protocol, $port, $iface) = @_;
 	($protocol eq 'tcp') or return undef;
-	# DGPORT and SQUIDPORT hard-coded, they are reported as used even if
+	# DGPORT is hard-coded, it is reported as used even if
 	# the service is disabled.
 	($port eq DGPORT) and return 1;
-	($port eq SQUIDPORT) and return 1;
-	# the port selected by the user is only reported
+	# the port selected by the user (by default SQUIDPORT) is only reported
 	# if the service is enabled
 	($self->service) or return undef;
 	($port eq $self->port) and return 1;
@@ -880,7 +879,7 @@ sub _squidAndDG
 	# FIXME - get a proper lang name for the current locale
 	push(@array, 'port'  => DGPORT);
 	push(@array, 'lang'  => $lang);
-	push(@array, 'squidport'  => SQUIDPORT);
+	push(@array, 'squidport'  => $self->port);
 	$self->writeConfFile(DGDIR . "/dansguardian.conf", 
 				"squid/dansguardian.conf.mas", \@array);
 
@@ -1003,6 +1002,8 @@ sub rootCommands
 		"/bannedsitelist");
 	push(@array,"/bin/chmod * " . DGDIR . "/bannedsitelist");
 	push(@array,"/bin/chown * " . DGDIR . "/bannedsitelist");
+	push(@array,"/bin/mv ".EBox::Config::tmp ."* ". DGDIR . 
+		"/exceptionsitelist");
 	push(@array,"/bin/chmod * " . DGDIR . "/exceptionsitelist");
 	push(@array,"/bin/chown * " . DGDIR . "/exceptionsitelist");
 	return @array;
