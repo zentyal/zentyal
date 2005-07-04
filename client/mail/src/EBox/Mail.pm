@@ -150,7 +150,7 @@ sub setFWPort
 	if ($self->fwport() == $fwport) {
 		return;
 	}
-	unless ($fw->availablePort($fwport)) {
+	unless ($fw->availablePort('tcp',$fwport)) {
 		throw EBox::Exceptions::DataExists(
 			'data'  => __('listening port'),
 			'value' => $fwport);

@@ -245,7 +245,8 @@ sub setFileService # (enabled)
 		if (not $self->printerService) {
 			my $fw = EBox::Global->modInstance('firewall');
 			foreach my $smbport (SMBPORTS) {
-				unless ($fw->availablePort($smbport)) {
+				unless ($fw->availablePort('tcp',$smbport) and
+					$fw->availablePort('udp',$smbport)) {
 					throw EBox::Exceptions::DataExists(
 					'data'  => __('listening port'),
 					'value' => $smbport);
@@ -289,7 +290,8 @@ sub setPrinterService # (enabled)
 		if (not $self->fileService) {
 			my $fw = EBox::Global->modInstance('firewall');
 			foreach my $smbport (SMBPORTS) {
-				unless ($fw->availablePort($smbport)) {
+				unless ($fw->availablePort('tcp',$smbport) and
+					$fw->availablePort('udp',$smbport)) {
 					throw EBox::Exceptions::DataExists(
 					'data'  => __('listening port'),
 					'value' => $smbport);

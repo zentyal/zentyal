@@ -152,7 +152,7 @@ sub setPort # (port)
 	}
 
 	if (defined($fw)) {
-		unless ($fw->availablePort($port)) {
+		unless ($fw->availablePort("tcp",$port)) {
 			throw EBox::Exceptions::DataExists(data => __('port'),
 							   value => $port);
 		}

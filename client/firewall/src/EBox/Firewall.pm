@@ -233,7 +233,7 @@ sub addPortRedirection # (protocol, ext_port, interface, address, dest_port)
 	checkPort($eport, __("external port"));
 	checkPort($dport, __("destination port"));
 
-	$self->availablePort($eport, $iface) or
+	$self->availablePort($proto, $eport, $iface) or
 		throw EBox::Exceptions::External(__x(
 		"Port {port} is being used by a service or port redirection.", 
 		port => $eport));
@@ -403,6 +403,7 @@ sub serviceIsInternal # (service)
 #   
 # Parameters:
 #
+# 	proto - protocol
 # 	port - port number
 #	interface - interface 
 #
@@ -410,9 +411,11 @@ sub serviceIsInternal # (service)
 #
 #	boolean - true if it's available, otherwise undef
 #
-sub availablePort # (port, interface)
+sub availablePort # (proto, port, interface)
 {
-	my ($self, $port, $iface) = @_;
+	my ($self, $proto, $port, $iface) = @_;
+	defined($proto) or return undef;
+	($proto ne "") or return undef;
 	defined($port) or return undef;
 	($port ne "") or return undef;
 	my $global = EBox::Global->getInstance();
@@ -422,7 +425,8 @@ sub availablePort # (port, interface)
 	unless ($iface &&
 	($network->ifaceIsExternal($iface) || $network->vifaceExists($iface))) {
 		foreach (@{$self->services()}){
-			if ($self->servicePort($_->{name}) == $port){
+			if (($self->servicePort($_->{name}) == $port) and 
+				($self->serviceProtocol($_->{name}) == $proto)){
 				return undef;
 			}
 		}
@@ -440,7 +444,7 @@ sub availablePort # (port, interface)
 	my $redirs = $self->portRedirections();
 	foreach my $ifc (@ifaces) {
 		foreach my $red (@{$redirs}) {
-			($red->{protocol} eq 'tcp') or next;
+			($red->{protocol} eq $proto) or next;
 			($red->{iface} eq $ifc) or next;
 			($red->{eport} eq $port) and return undef;
 		}
@@ -448,7 +452,7 @@ sub availablePort # (port, interface)
 
 	my @mods = @{$global->modInstancesOfType('EBox::FirewallObserver')};
         foreach my $mod (@mods) {
-                if ($mod->usesPort('tcp', $port, $iface)) {
+                if ($mod->usesPort($proto, $port, $iface)) {
                         return undef;
                 }
         }

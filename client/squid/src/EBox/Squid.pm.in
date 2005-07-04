@@ -376,12 +376,13 @@ sub setService # (enabled)
 
 	if ($active) {
 		my $fw = EBox::Global->modInstance('firewall');
-		unless ($fw->availablePort($self->port)) {
+		unless ($fw->availablePort('tcp', $self->port)) {
 			throw EBox::Exceptions::DataExists(
 				'data'  => __('Squid listening port'),
 				'value' => $self->port);
 		}
-		unless ((!$self->_dgNeeded) or $fw->availablePort(DGPORT)) {
+		unless ((!$self->_dgNeeded) or 
+				$fw->availablePort('tcp', DGPORT)) {
 			throw EBox::Exceptions::DataExists(
 				'data'  => __('DansGuardian listening port'),
 				'value' => DGPORT);
@@ -451,7 +452,7 @@ sub setPort # (port)
 	if ($currentport == $port) {
 		return;
 	}
-	unless ($fw->availablePort($port)) {
+	unless ($fw->availablePort('tcp', $port)) {
 		throw EBox::Exceptions::DataExists(
 					'data'  => __('listening port'),
 					'value' => $port);
