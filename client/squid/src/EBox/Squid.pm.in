@@ -389,7 +389,7 @@ sub service
 	return $self->get_bool('active');
 }
 
-# Method: setService 
+# Method: setTransproxy
 #
 #      Sets the transparent proxy mode. 
 #
