@@ -373,15 +373,6 @@ sub setService # (enabled)
 	my ($self, $active) = @_;
 	($active and $self->service) and return;
 	(!$active and !$self->service) and return;
-
-	my $fw = EBox::Global->modInstance('firewall');
-	HERE
-	unless ($fw->availablePort($port)) {
-		throw EBox::Exceptions::DataExists(
-					'data'  => __('listening port'),
-					'value' => $port);
-	}					
-
 	$self->set_bool('active', $active);
 }
 
@@ -772,10 +763,11 @@ sub usesPort # (protocol, port, iface)
 {
 	my ($self, $protocol, $port, $iface) = @_;
 	($protocol eq 'tcp') or return undef;
-	# DGPORT is hard-coded, it is reported as used even if
+	# DGPORT and SQUIDPORT hard-coded, they are reported as used even if
 	# the service is disabled.
 	($port eq DGPORT) and return 1;
-	# the port selected by the user (SQUIDPORT by default) is only reported
+	($port eq SQUIDPORT) and return 1;
+	# the port selected by the user is only reported
 	# if the service is enabled
 	($self->service) or return undef;
 	($port eq $self->port) and return 1;
