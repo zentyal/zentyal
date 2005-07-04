@@ -32,8 +32,6 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
 	my $class = shift;
 	my %opts = @_;
 
-	system("pkill gconf");
-
 	my $self = $class->SUPER::new(@_);
 	my $tmp = $class;
 	$tmp =~ s/^.*?::.*?::(.*?)::.*?//;
