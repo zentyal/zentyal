@@ -373,6 +373,20 @@ sub setService # (enabled)
 	my ($self, $active) = @_;
 	($active and $self->service) and return;
 	(!$active and !$self->service) and return;
+
+	if($active) {
+		my $fw = EBox::Global->modInstance('firewall');
+		unless ($fw->availablePort($self->port)) {
+			throw EBox::Exceptions::DataExists(
+				'data'  => __('Squid listening port'),
+				'value' => $self->port);
+		}
+		unless ((!$self->_dgNeeded) or $fw->availablePort(DGPORT)) {
+			throw EBox::Exceptions::DataExists(
+				'data'  => __('DansGuardian listening port'),
+				'value' => DGPORT);
+		}
+	}
 	$self->set_bool('active', $active);
 }
 
