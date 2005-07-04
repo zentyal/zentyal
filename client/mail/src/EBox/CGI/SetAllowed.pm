@@ -29,7 +29,7 @@ sub new {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => 'Mail',
 				      @_);
-	$self->{redirect} = "Mail/Index";
+	$self->{redirect} = "Mail/Index?menu=settings";
 	$self->{domain} = 'ebox-mail';
 	bless($self, $class);
 	return $self;
