@@ -78,7 +78,7 @@ POP3_STARTTLS=YES
 # (this option advertises the LOGINDISABLED POP3 capability, until STARTTLS
 # is issued).
 
-POP3_TLS_REQUIRED=1
+POP3_TLS_REQUIRED=0
 
 ##NAME: COURIERTLS:0
 #

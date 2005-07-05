@@ -109,7 +109,7 @@ LDAP_GLOB_GID		ebox
 #
 # The HOMEDIR attribute MUST exist, and we MUST be able to chdir to it
 
-LDAP_HOMEDIR		description
+LDAP_HOMEDIR		mailHomeDirectory
 
 ##NAME: LDAP_MAILROOT:0
 #

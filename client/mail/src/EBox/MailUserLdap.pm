@@ -28,7 +28,7 @@ use EBox::Exceptions::DataMissing;
 use EBox::Gettext;
 
 # LDAP schema
-use constant SCHEMAS		=> ('/etc/ldap/schema/authldap.schema');
+use constant SCHEMAS		=> ('/etc/ldap/schema/authldap.schema', '/etc/ldap/schema/eboxmail.schema');
 use constant DIRVMAIL	=>	'/var/vmail/';
 
 use base qw(EBox::LdapUserBase);

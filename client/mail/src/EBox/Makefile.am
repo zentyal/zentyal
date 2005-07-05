@@ -3,7 +3,8 @@ SUBDIRS = CGI
 
 perldir = @PERLPATH@/EBox
 
-nobase_perl_DATA = Mail.pm MailVDomainsLdap.pm MailUserLdap.pm MailAliasLdap.pm
+nobase_perl_DATA = Mail.pm MailVDomainsLdap.pm MailUserLdap.pm\
+	MailAliasLdap.pm MailFirewall.pm
 
 DISTCLEANFILES = 
 

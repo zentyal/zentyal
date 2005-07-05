@@ -18,7 +18,8 @@ package EBox::Mail;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::LdapModule EBox::ObjectsObserver);
+use base qw(EBox::GConfModule EBox::LdapModule EBox::ObjectsObserver
+	EBox::FirewallObserver);
 
 use Proc::ProcessTable;
 use EBox::Sudo qw( :all );
@@ -30,6 +31,7 @@ use EBox::Menu::Folder;
 use EBox::MailVDomainsLdap;
 use EBox::MailUserLdap;
 use EBox::MailAliasLdap;
+use EBox::MailFirewall;
 
 use constant MAILMAINCONFFILE			=> '/etc/postfix/main.cf';
 use constant MAILMASTERCONFFILE			=> '/etc/postfix/master.cf';
@@ -56,13 +58,13 @@ sub _create
 {
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'mail',
-					domain => 'ebox-mail',
-					@_);
+		domain => 'ebox-mail',
+		@_);
 
 	$self->{vdomains} = new EBox::MailVDomainsLdap;
 	$self->{musers} = new EBox::MailUserLdap;
 	$self->{malias} = new EBox::MailAliasLdap;
-	
+
 	bless($self, $class);
 	return $self;
 }
@@ -72,6 +74,7 @@ sub _setMailConf {
 	my @array = ();
 	my $users = EBox::Global->modInstance('users');
 	my $ob = EBox::Global->modInstance('objects');
+	my $ldap = new EBox::Ldap;
 	my $allowedaddrs = "127.0.0.0/8";
 
 	foreach my $obj (@{$self->allowedObj}) {
@@ -94,6 +97,7 @@ sub _setMailConf {
 	push(@array, 'smtptls', $self->service('smtptls'));
 	push(@array, 'popssl', $self->service('popssl'));
 	push(@array, 'imapssl', $self->service('imapssl'));
+	push(@array, 'ldap', $ldap->ldapConf());
 	$self->writeConfFile(MAILMAINCONFFILE, "mail/main.cf.mas", \@array);
 
 	@array = ();
@@ -108,15 +112,15 @@ sub _setMailConf {
 	push(@array, 'usersDN', $users->usersDn());
 	push(@array, 'rootDN', $self->{vdomains}->{ldap}->rootDn());
 	push(@array, 'rootPW', $self->{vdomains}->{ldap}->rootPw());
-	
+
 	$self->writeConfFile(AUTHLDAPCONFFILE, "mail/authldaprc.mas", \@array);
-	
+
 	$self->writeConfFile(AUTHDAEMONCONFFILE, "mail/authdaemonrc.mas");
 	$self->writeConfFile(IMAPDCONFFILE, "mail/imapd.mas");
 	$self->writeConfFile(POP3DCONFFILE, "mail/pop3d.mas");
 	$self->writeConfFile(POP3DSSLCONFFILE, "mail/pop3d-ssl.mas");
 	$self->writeConfFile(IMAPDSSLCONFFILE, "mail/imapd-ssl.mas");
-	
+
 }
 
 sub isRunning
@@ -144,9 +148,9 @@ sub setFWPort
 {
 	my ($self, $fwport) = @_;
 
-   my $fw = EBox::Global->modInstance('firewall');
-   checkPort($fwport, "listening port");
-   
+	my $fw = EBox::Global->modInstance('firewall');
+	checkPort($fwport, "listening port");
+
 	if ($self->fwport() == $fwport) {
 		return;
 	}
@@ -215,7 +219,6 @@ sub getMaxMsgSize
 sub setMDDefaultSize
 {
 	my ($self, $size)  = @_;
-	print STDERR "FOO: $size";
 	$self->set_int('mddefaultsize', $size);
 }
 
@@ -263,12 +266,12 @@ sub allowedObj
 sub isAllowed
 {
 	my ($self, $object)  = @_;
-   my @allowed = @{$self->allowedObj};
+	my @allowed = @{$self->allowedObj};
 	(@allowed) or return;
-   foreach (@allowed) {
-      return 1 if ($_ eq $object);
-   }
-   return undef;
+	foreach (@allowed) {
+		return 1 if ($_ eq $object);
+	}
+	return undef;
 }
 
 #
@@ -299,19 +302,19 @@ sub deniedObj
 
 sub freeObject # (object)
 {
-   my ($self, $object) = @_;
-   (defined($object) && $object ne "") or return;
+	my ($self, $object) = @_;
+	(defined($object) && $object ne "") or return;
 
-   my @allowedobjs= @{$self->allowedObj};
+	my @allowedobjs= @{$self->allowedObj};
 
-   if (grep(/^$object$/, @allowedobjs)) {
-      my @array = ();
-      foreach (@allowedobjs) {
-         ($_ ne $object) or next;
-         push(@array, $_)
-      }
-      $self->setAllowedObj(\@array);
-   }
+	if (grep(/^$object$/, @allowedobjs)) {
+		my @array = ();
+		foreach (@allowedobjs) {
+			($_ ne $object) or next;
+			push(@array, $_)
+		}
+		$self->setAllowedObj(\@array);
+	}
 }
 
 sub usesObject # (object)
@@ -323,16 +326,50 @@ sub usesObject # (object)
 	return undef;
 }
 
+# Function: usesPort
+#
+#       Implements EBox::FirewallObserver interface
+#
+sub usesPort # (protocol, port, iface)
+{
+	my ($self, $protocol, $port, $iface) = @_;
+
+	my %srvpto = (
+		'active' => 25,
+		'pop'		=> 110,
+		'imap'	=> 143,
+		'popssl'	=> 995,
+		'imapssl'=> 993,
+		'smtptls'=> 465,
+	);
+	
+	foreach my $mysrv (keys %srvpto) {
+		print STDERR "El servicio es $mysrv y su pto: ".$srvpto{$mysrv}."\n";
+		return 1 if (($port eq $srvpto{$mysrv}) and ($self->service($mysrv)));
+	}
+
+	return undef;
+}
+
+sub firewallHelper
+{
+	my $self = shift;
+	if ($self->anyInService()) {
+		return new EBox::MailFirewall();
+	}
+	return undef;
+}
+
 sub _doDaemon
 {
-        my ($self, $service) = @_;
-        if ($self->service($service) and $self->isRunning($service)) {
-                $self->_daemon('restart', $service);
-        } elsif ($self->service($service)) {
-                $self->_daemon('start', $service);
-        } elsif ($self->isRunning($service)) {
-                $self->_daemon('stop', $service);
-        }
+	my ($self, $service) = @_;
+	if ($self->service($service) and $self->isRunning($service)) {
+		$self->_daemon('restart', $service);
+	} elsif ($self->service($service)) {
+		$self->_daemon('start', $service);
+	} elsif ($self->isRunning($service)) {
+		$self->_daemon('stop', $service);
+	}
 }
 
 sub _command
@@ -366,7 +403,7 @@ sub _daemon
 	my ($self, $action, $service) = @_;
 
 	my $command = $self->_command($action, $service);
-	
+
 	if ( $action eq 'start') {
 		root($command);
 	} elsif ( $action eq 'stop') {
@@ -400,7 +437,54 @@ sub _regenConfig
 
 	$self->_daemon('restart', 'authdaemon');
 	$self->_daemon('restart', 'authldap');
+
+#	foreach (@services) {
+#		$self->_configureFirewall($_);
+#	}
+#	$self->_configureFirewall('smtptls');
+#	$self->_configureFirewall('filter');
 }
+
+#sub _configureFirewall(){
+#	my ($self, $service) = @_;
+#	my %srvpto = (
+#		'active' => 25,
+#		'pop'		=> 110,
+#		'imap'	=> 143,
+#		'popssl'	=> 995,
+#		'imapssl'=> 993,
+#		'smtptls'	=> 465,
+#	);
+#	my %srvname = (
+#		'active' => 'smtp',
+#		'pop'		=> 'pop3',
+#		'imap'	=> 'imap2',
+#		'popssl'	=> 'pop3s',
+#		'imapssl'=> 'imaps',
+#		'smtptls'	=> 'ssmtp',
+#	);
+#	my $fw = EBox::Global->modInstance('firewall');
+#
+#	if (($service eq 'active') and ($self->service($service))) {
+#		$fw->addOutputRule('tcp', 25);
+#	} elsif ($service eq 'active') {
+#		$fw->removeOutputRule('tcp', 25);
+#	}
+#
+#	if (($service eq 'filter') and ($self->service($service))) {
+#		$fw->addOutputRule('tcp', $self->fwport());
+#	} elsif ($service eq 'filter') {
+#		$fw->removeOutputRule('tcp', $self->fwport());
+#	} else {
+#		if ($self->service($service) and (!defined($fw->service($srvname{$service})))) {
+#			$fw->addService($srvname{$service}, 'tcp', $srvpto{$service}, 0);
+#			$fw->setObjectService('_global', $srvname{$service}, 'allow');
+#		} elsif ( !($self->service) and defined($fw->service($srvname{$service})) ) {
+#			$fw->removeService($srvname{$service});
+#		}
+#	}
+#}
+
 
 #
 # Method: setService
@@ -414,10 +498,10 @@ sub _regenConfig
 #
 sub setService 
 {
-        my ($self, $active, $service) = @_;
-        ($active and $self->service($service)) and return;
-        (!$active and !$self->service($service)) and return;
-        $self->set_bool($service, $active);
+	my ($self, $active, $service) = @_;
+	($active and $self->service($service)) and return;
+	(!$active and !$self->service($service)) and return;
+	$self->set_bool($service, $active);
 }
 
 #
@@ -440,11 +524,22 @@ sub service
 	return $self->get_bool($service);
 }
 
+sub anyInService {
+	my $self = shift;
+	my @services = ('active', 'pop', 'imap', 'popssl', 'imapssl', 'smtptls');
+
+	foreach (@services) {
+		return 1 if $self->service($_);
+	}
+
+	return undef;
+}	
+
 # LdapModule implmentation    
 sub _ldapModImplementation    
 {
 	my $self;
-        
+
 	return new EBox::MailUserLdap();
 }
 
@@ -525,11 +620,11 @@ sub menu
 {
 	my ($self, $root) = @_;
 	my $folder = new EBox::Menu::Folder('name' => 'Mail',
-												  'text' => __('Mail'));
+		'text' => __('Mail'));
 	$folder->add(new EBox::Menu::Item('url' => 'Mail/Index',
-												'text' => __('General')));
+			'text' => __('General')));
 	$folder->add(new EBox::Menu::Item('url' => 'Mail/VDomains',
-												'text' => __('Virtual domains')));
+			'text' => __('Virtual domains')));
 	$root->add($folder);
 }
 
