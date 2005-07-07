@@ -32,13 +32,15 @@ use EBox::Gettext;
 <h3><% __('Services') %></h3>
 <br />
 <& enable.mas, title => __('Enable Mail system'), active => $active &>
+% if ($active eq 'yes') {
+<& mail/filter.mas, title => __('Enable mail filtering service'), filter => $filterservice &>
+<& mail/smtptls.mas, title => __('Enable TLS for SMTP server '), smtptls => $smtptls &>
+<& mail/sasl.mas, title => __('Enable SASL authentication'), sasl => $saslservice &>
+% }
 <& mail/pop.mas, title => __('Enable POP3 service'), pop => $popservice &>
 <& mail/popssl.mas, title => __('Enable POP3 SSL service'), popssl => $popssl &>
 <& mail/imap.mas, title => __('Enable IMAP service'), imap => $imapservice &>
 <& mail/imapssl.mas, title => __('Enable IMAP SSL service'), imapssl => $imapssl &>
-<& mail/filter.mas, title => __('Enable mail filtering service'), filter => $filterservice &>
-<& mail/smtptls.mas, title => __('Enable TLS for SMTP server '), smtptls => $smtptls &>
-<& mail/sasl.mas, title => __('Enable SASL authentication'), sasl => $saslservice &>
 % }
 
 % if ($menu eq 'settings') {
