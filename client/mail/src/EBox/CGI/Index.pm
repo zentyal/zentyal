@@ -72,8 +72,6 @@ sub _process($) {
 	my @deniedobjs = @{$mail->deniedObj};
 	my @allowedobjs = @{$mail->allowedObj};
 	
-	print STDERR "FOO: ".$self->_inService('pop')."\n";
-
 	push (@array, 'active'		=> $self->_inService('active'));
 	push (@array, 'relay'		=> $mail->relay());
 	push (@array, 'maxmsgsize'		=> $mail->getMaxMsgSize());

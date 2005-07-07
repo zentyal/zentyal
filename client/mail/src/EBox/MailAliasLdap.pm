@@ -306,9 +306,7 @@ sub listMailGroupsByUser($$) {
 	my @groups = @{$users->groupOfUsers($user)};
 	
 	foreach my $group (@groups) {
-		print STDERR "GRUPO: $group\n";
 		if ($self->groupHasAlias($group)) {
-			print STDERR "Grupo con alias pertenece usuario $group\n";
 			push(@list, $group);
 		}
 	}

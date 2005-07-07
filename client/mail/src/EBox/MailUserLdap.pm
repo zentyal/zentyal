@@ -99,17 +99,13 @@ sub delUserAccount () { #username, mail
 	my $mail = EBox::Global->modInstance('mail');
 	my $users = EBox::Global->modInstance('users');
 
-	print STDERR "Mail User: $usermail\n";
-	
 	# First we remove all mail aliases asociated with the user account.
 	foreach my $alias ($mail->{malias}->accountAlias($usermail)) {
-		print STDERR "\tAlias: $alias\n";
 		$mail->{malias}->delAlias($alias);
 	}
 
 	# Remove mail account from group alias maildrops
 	foreach my $alias ($mail->{malias}->groupAccountAlias($usermail)) {
-		print STDERR "\tGroup Alias: $alias\n";
 		$mail->{malias}->delMaildrop($alias,$usermail);
 	}
 
@@ -226,9 +222,6 @@ sub _userAddOns() {
 	my $usermail = $entry->get_value('mail');
 	my %vd =  $mail->{vdomains}->vdandmaxsizes();
 	my @aliases = $mail->{malias}->accountAlias($usermail);
-
-	use Data::Dumper;
-	print STDERR " El foo es: " . Dumper(\%vd) . "\n\n";
 
 	my $args = { 'username'	=>	$username,
 			'mail'	=>	$usermail,

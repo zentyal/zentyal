@@ -41,7 +41,6 @@ sub _process($) {
 	
 	$self->_requireParam('group', __('group'));
 	my $group= $self->param('group');
-	print STDERR "El grupo es $group\n";
 	$self->{redirect} = "UsersAndGroups/Group?group=$group";
 	
 	$self->_requireParam('lhs', __('left hand side of mail'));

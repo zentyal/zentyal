@@ -44,7 +44,6 @@ sub _process($) {
 
 	my $vdomain = $self->param('vdomain');
 	my $mdsize = $self->param('mdsize');
-	print STDERR "El vdomain es $vdomain, el mdsize $mdsize\n";
 	
 	$mail->{vdomains}->setMDSize($vdomain, $mdsize);
 }

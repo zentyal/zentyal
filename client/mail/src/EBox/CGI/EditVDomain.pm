@@ -43,7 +43,6 @@ sub _process($) {
 	$self->_requireParam('vdomain', __('vdomain'));
 
 	my $vdomain = $self->param('vdomain');
-	print STDERR "El vdomain es $vdomain\n";
 	
 	my @array = ();
 	push(@array, 'vdomain' => $vdomain);

@@ -74,10 +74,8 @@ sub _getIfacesForAddress {
 
 	my $net = EBox::Global->modInstance('network');
 	my @ifaces = ();
-	use Data::Dumper;
 
 	foreach my $iface (@{$net->InternalIfaces()}) {
-		print STDERR "El iface es: ".Dumper($iface)."\n";
 		foreach my $addr (@{$net->ifaceAddresses($iface)}) {
 			if (isIPInNetwork($addr->{'address'}, $addr->{'netmask'}, $ip)) {
 				push(@ifaces, $iface);
@@ -378,7 +376,6 @@ sub usesPort # (protocol, port, iface)
 	);
 	
 	foreach my $mysrv (keys %srvpto) {
-		print STDERR "El servicio es $mysrv y su pto: ".$srvpto{$mysrv}."\n";
 		return 1 if (($port eq $srvpto{$mysrv}) and ($self->service($mysrv)));
 	}
 

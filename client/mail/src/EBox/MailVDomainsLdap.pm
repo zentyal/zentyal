@@ -134,8 +134,6 @@ sub getMDSize() {
 
 	my $mdsize = $entry->get_value('vddftMaildirSize');
 
-	print STDERR "El mdsize es: $mdsize \n";
-
 	return $mdsize;
 }
 

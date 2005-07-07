@@ -46,8 +46,6 @@ sub _process($) {
 	$self->_requireParam('mail', __('user mail'));
 	my $usermail = $self->param('mail');
 
-	print STDERR "USERNAME=> ".$username."\n";
-	
 	$self->keepParam('username');
 
 	$mail->{musers}->delUserAccount($username, $usermail);
