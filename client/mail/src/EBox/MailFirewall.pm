@@ -56,7 +56,11 @@ sub input
 	foreach my $ifc (@ifaces) {
 		foreach my $srv (keys %srvpto) {
 			if ($mail->service($srv)) {
-				my $r = "-m state --state NEW -i $ifc  ".
+				my $r = "";
+				if($srv eq 'filter') {
+					$r .= "-s ".$mail->ipfilter." ";
+				}
+				$r .= "-m state --state NEW -i $ifc  ".
 					"-p tcp --dport ".$srvpto{$srv}." -j ACCEPT";
 				push(@rules, $r);
 			}
@@ -84,7 +88,9 @@ sub output
 
 		if((isIPInNetwork($conf{'address'}, $conf{'netmask'}, $mail->ipfilter())) and ($mail->service('filter'))) {
 			my $port = $mail->portfilter();
-			$r = "-m state --state NEW -o $ifc ".
+			my $ipfilter = $mail->ipfilter();
+			
+			$r = "-d $ipfilter -m state --state NEW -o $ifc ".
 				"-p tcp --dport $port -j ACCEPT";
 
 			push(@rules, $r);

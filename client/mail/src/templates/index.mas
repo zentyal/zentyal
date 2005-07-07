@@ -161,61 +161,6 @@ use EBox::Gettext;
 </tr> 
 </tbody> </table>
 </form>
-
-<form action='SetAllowed' method='POST'>
-
-<table class="mailTable">
-<tr>
-<th colspan="3" align="left">
-	<a>Objects that can relay mail</a>
-</th>
-</tr>
-<tr>
-<td></td>
-<td align="center">
-	<a style="color: green">Allowed</a>
-</td>
-<td align="center">
-	<a style="color: red">Denied</a>
-</td>
-</tr>
-% foreach my $ob (@{allowedobjs}) {
-<tr style="background-color:#f0f0f0;">
-	<td style="white-space: nowrap;">
-	<a style="color: green;"><% $ob->{description} %></a>
-	</td>
-	<td align="center">
-	<input type="radio" name="<% $ob->{name} %>" value="<%__('Allow')%>" checked="true">
-	</td>
-	<td align="center">
-	<input type="radio" name="<% $ob->{name} %>" value="<%__('Deny')%>">
-	</td>
-</tr>
-% }
-% foreach my $ob (@{deniedobjs}) {
-<tr style="background-color:#f0f0f0;">
-	<td style="white-space: nowrap;">
-	<a style="color: red;"><% $ob->{description} %></a>
-	</td>
-	<td align="center">
-	<input type="radio" name="<% $ob->{name} %>" value="<%__('Allow')%>">
-	</td>
-	<td align="center">
-	<input type="radio" name="<% $ob->{name} %>" value="<%__('Deny')%>" checked>
-	</td>
-</tr>
-% }
-<tr>
-<td></td>
-<td></td>
-<td>
-	<input class='inputButton' type='submit' name='change'
-		value="<% __('Change') %>"
-		alt="<% __('Change') %>">
-</td>
-</tr>
-</table>
-</form>
 % }
 
 % if ($menu eq 'filter') {
