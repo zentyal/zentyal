@@ -69,6 +69,25 @@ sub _create
 	return $self;
 }
 
+sub _getIfacesForAddress {
+	my ($self, $ip) = @_;
+
+	my $net = EBox::Global->modInstance('network');
+	my @ifaces = ();
+	use Data::Dumper;
+
+	foreach my $iface (@{$net->InternalIfaces()}) {
+		print STDERR "El iface es: ".Dumper($iface)."\n";
+		foreach my $addr (@{$net->ifaceAddresses($iface)}) {
+			if (isIPInNetwork($addr->{'address'}, $addr->{'netmask'}, $ip)) {
+				push(@ifaces, $iface);
+			}
+		}
+	}
+
+	return \@ifaces;
+}
+
 sub _setMailConf {
 	my $self = shift;
 	my @array = ();
@@ -98,6 +117,9 @@ sub _setMailConf {
 	push(@array, 'popssl', $self->service('popssl'));
 	push(@array, 'imapssl', $self->service('imapssl'));
 	push(@array, 'ldap', $ldap->ldapConf());
+	push(@array, 'filter', $self->service('filter'));
+	push(@array, 'ipfilter', $self->ipfilter());
+	push(@array, 'portfilter', $self->portfilter());
 	$self->writeConfFile(MAILMAINCONFFILE, "mail/main.cf.mas", \@array);
 
 	@array = ();
@@ -105,7 +127,6 @@ sub _setMailConf {
 	push(@array, 'filter', $self->service('filter'));
 	push(@array, 'fwport', $self->fwport());
 	push(@array, 'ipfilter', $self->ipfilter());
-	push(@array, 'portfilter', $self->portfilter());
 	$self->writeConfFile(MAILMASTERCONFFILE, "mail/master.cf.mas", \@array);
 
 	@array = ();
@@ -171,6 +192,19 @@ sub fwport
 sub setIPFilter
 {
 	my ($self, $ip) = @_;
+	
+	unless (defined(@{$self->_getIfacesForAddress($ip)})) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('external filter service'),
+			'value'	=> __('The '.$ip.' cannot be reached by any configured interface'));
+	}
+	
+	unless ($#{$self->_getIfacesForAddress($ip)} = 1) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('external filter service'),
+			'value'	=> __('The '.$ip.' can be reached by more than one configured interface'));
+	}
+	
 	$self->set_string('ipfilter', $ip);
 }
 

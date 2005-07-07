@@ -46,8 +46,6 @@ sub _process($) {
 	$self->_requireParam('portfilter');
 	my $portfilter = $self->param('portfilter');
 
-	print STDERR "FW: $fwport, IP: $ipfilter, PT: $portfilter\n";
-
 	$mail->setFWPort($fwport);
 	$mail->setIPFilter($ipfilter);
 	$mail->setPortFilter($portfilter);

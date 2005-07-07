@@ -13,6 +13,9 @@
 	$sasl
 	$smtptls
 	$ldap
+	$filter
+	$ipfilter
+	$portfilter
 </%args>
 <%init>
 use EBox::Gettext;
@@ -84,4 +87,8 @@ smtpd_sasl_auth_enable = yes
 smtpd_sasl_security_options = noanonymous
 smtpd_sasl_local_domain =
 broken_sasl_auth_clients = yes
+% }
+
+% if ($filter) {
+content_filter=smtp-amavis:<% $ipfilter %>:<% $portfilter %>
 % }

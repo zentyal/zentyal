@@ -48,6 +48,7 @@ sub input
 		'popssl' => 995,
 		'imapssl'=> 993,
 		'smtptls'=> 465,
+		'filter'	=> $mail->fwport(),
 	);
 
 	my $net = EBox::Global->modInstance('network');
@@ -84,13 +85,13 @@ sub output
 		if((isIPInNetwork($conf{'address'}, $conf{'netmask'}, $mail->ipfilter())) and ($mail->service('filter'))) {
 			my $port = $mail->portfilter();
 			$r = "-m state --state NEW -o $ifc ".
-				"-p tcp --sport $port -j ACCEPT";
+				"-p tcp --dport $port -j ACCEPT";
 
 			push(@rules, $r);
 		}
 		
 		$r = "-m state --state NEW -o $ifc  ".
-			"-p tcp --sport 25 -j ACCEPT";
+			"-p tcp --dport 25 -j ACCEPT";
 		push(@rules, $r);
 		}
 	}

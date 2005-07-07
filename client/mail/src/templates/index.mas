@@ -54,6 +54,11 @@ use EBox::Gettext;
 			<input type='text' class='inputText' name='relay' 
 		   		value='<% $relay %>'>
 		</td>
+		<td>
+			<input class='inputButton' type='submit' name='change'
+				value="<% __('Change') %>"
+				alt="<% __('Change') %>">
+		</td>
 	</tr>
 	</tbody>
 	</table>
