@@ -382,7 +382,7 @@ sub stopAllModules
 sub getInstance # (read_only?) 
 {
 	my $tmp = shift;
-	if (!$tmp or ($tmp == 1)) {
+	if (!$tmp or ($tmp ne 'EBox::Global')) {
 		throw EBox::Exceptions::Internal("Incorrect call to ".
 		"EBox::Global->getInstance(), maybe it was called as an static".
 		" function instead of a class method?");
