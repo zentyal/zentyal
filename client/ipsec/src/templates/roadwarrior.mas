@@ -34,7 +34,7 @@ use EBox::Gettext;
 					<option selected value=''>    </option>
 %					foreach my $iface (@ifaces) {
 						<option value="<%$iface->{'name'}%>">
-							<%$iface->{'name'}%>
+							<%$iface->{'alias'}%>
 						</option>
 %					}
 				</select>

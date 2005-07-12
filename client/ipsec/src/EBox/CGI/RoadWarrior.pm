@@ -38,17 +38,17 @@ sub _process
 	my $self = shift;
 	$self->{title} = __('Road Warrior tunnels');
 	my $ipsec = EBox::Global->modInstance('ipsec');
-	my $network = EBox::Global->modInstance('network');
+	my $net = EBox::Global->modInstance('network');
 
 	my @array = ();
 
 	my $rsakeys = $ipsec->listRSAKeys();
 	push(@array, 'rsakeys' => $rsakeys);
 
-	my $aux = $network->allIfaces();
+	my $aux = $net->allIfaces();
 	my @ifaces = ();
 	foreach (@{$aux}) {
-		push(@ifaces, {'name' => $_});
+		push(@ifaces, {'name' => $_, 'alias' => $net->ifaceAlias($_)});
 	}
 	push(@array, 'ifaces' => \@ifaces);
 
