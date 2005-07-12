@@ -707,7 +707,7 @@ sub setIfaceAlias # (iface, alias)
 sub ifaceAlias # (iface) 
 {
 	my ($self, $iface) = @_;
-	unless ($self->ifaceExists($iface) and iface_exists($iface)) {
+	unless ($self->ifaceExists($iface)) {
 		throw EBox::Exceptions::DataNotFound(data => __('Real interface'),
 						     value => $iface);
 	}
