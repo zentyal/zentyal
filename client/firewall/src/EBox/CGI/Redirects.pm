@@ -47,7 +47,7 @@ sub _process
 	my $aux = $net->allIfaces;
 	my @ifaces = ();
 	foreach(@{$aux}) {
-		push(@ifaces, {'name' => $_});			
+		push(@ifaces, {'name' => $_, 'alias' => $net->ifaceAlias($_)});			
 	}
 
 	my @array = ();
