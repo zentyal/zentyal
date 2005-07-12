@@ -188,8 +188,8 @@ sub initRange # (interface)
 	my ($self, $iface) = @_;
 
 	my $net = EBox::Global->modInstance('network');
-	my $address = $net->ifaceAddress($_);
-	my $netmask = $net->ifaceNetmask($_);
+	my $address = $net->ifaceAddress($iface);
+	my $netmask = $net->ifaceNetmask($iface);
 	
 	my $network = ip_network($address, $netmask);
 	my ($first, $last) = $network =~ /(.*)\.(\d+)$/;
@@ -214,8 +214,8 @@ sub endRange # (interface)
 	my ($self, $iface) = @_;
 
 	my $net = EBox::Global->modInstance('network');
-	my $address = $net->ifaceAddress($_);
-	my $netmask = $net->ifaceNetmask($_);
+	my $address = $net->ifaceAddress($iface);
+	my $netmask = $net->ifaceNetmask($iface);
 	
 	my $broadcast = ip_broadcast($address, $netmask);
 	my ($first, $last) = $broadcast =~ /(.*)\.(\d+)$/;

@@ -46,10 +46,9 @@ sub _process($) {
 
 	foreach (@{$ifaces}) {
 		if ($net->ifaceMethod($_) eq 'static') {
-			push(@iflist, $_);
+			push(@iflist, { name => $_, alias => $net->ifaceAlias($_)});
 		}
 	}
-
 	my %iface;
 	my $gateway = "";
 	my $fixed = undef;
@@ -59,15 +58,19 @@ sub _process($) {
 		$iface{name} = $self->param("iface");
 		if(! defined($iface{name})) {
 			#if not specified in URL take first static iface
-			$iface{name} = $iflist[0];
+			$iface{name} = $iflist[0]->{name};
 		}
-		foreach(@iflist){
-			if($_ eq $iface{name}){
-				$iface{address} = $net->ifaceAddress($_);
-				$iface{netmask} = $net->ifaceNetmask($_);
-				$iface{network} = $net->ifaceNetwork($_);
-				$iface{init} = $dhcp->initRange($_);
-				$iface{end} = $dhcp->endRange($_);
+		foreach my $if (@iflist){
+			if($if->{name} eq $iface{name}){
+				my $name = $if->{name};
+				$iface{alias} = $net->ifaceAlias($name);
+				$iface{address} = $net->ifaceAddress($name);
+				$iface{netmask} = $net->ifaceNetmask($name);
+				$iface{network} = $net->ifaceNetwork($name);
+				print STDERR "bar1w\n";
+				$iface{init} = $dhcp->initRange($name);
+				print STDERR "bar1y\n";
+				$iface{end} = $dhcp->endRange($name);
 			}
 		}
 		$fixed = $dhcp->fixedAddresses($iface{name});

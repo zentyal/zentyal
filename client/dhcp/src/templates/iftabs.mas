@@ -4,10 +4,10 @@
 </%args>
 <div class='ifaces'>
 %  foreach my $if (@ifaces) {
-%     if($if eq $selected) {
-	<span class='selected'><% $if %></span>
+%     if($if->{name} eq $selected) {
+	<span class='selected'><% $if->{alias} %></span>
 %     } else {
-	<a href='Index?iface=<% $if %>'><% $if %></a>
+	<a href='Index?iface=<% $if->{name} %>'><% $if->{alias} %></a>
 %     }
 %  }
 </div>
