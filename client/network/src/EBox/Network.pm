@@ -21,12 +21,13 @@ use warnings;
 use base 'EBox::GConfModule';
 
 # Interfaces list which will be ignored
+use constant ALLIFACES => qw(sit tun tap lo irda eth wlan vlan); 
 use constant IGNOREIFACES => qw(sit tun tap lo irda); 
+use constant IFNAMSIZ => 16; #Max length name for interfaces
 
 use Net::IP;
 use EBox::NetWrappers qw(:all);
 use EBox::Validate qw(:all);
-#use EBox::Firewall;
 use EBox::Config;
 use EBox::Order;
 use EBox::Exceptions::InvalidData;
@@ -675,6 +676,46 @@ sub vifaceNetmask # (interface)
 	return undef;
 }
 
+# Method: setIfaceAlias
+#
+#	Sets the alias for a given interface
+#
+# Parameters:
+#
+# 	iface - the name of a network interface
+# 	alias - the alias for the interface
+#
+sub setIfaceAlias # (iface, alias)
+{
+	my ($self, $iface, $alias) = @_;
+	print STDERR "$iface: $alias\n";
+	$self->set_string("interfaces/$iface/alias", $alias);
+}
+
+# Method: ifaceAlias
+#
+#	Returns the alias for a given interface
+#
+# Parameters:
+#
+# 	iface - the name of a network interface
+#
+# Returns:
+#
+# 	string - alias for the interface
+#
+sub ifaceAlias # (iface) 
+{
+	my ($self, $iface) = @_;
+	unless ($self->ifaceExists($iface) and iface_exists($iface)) {
+		throw EBox::Exceptions::DataNotFound(data => __('Real interface'),
+						     value => $iface);
+	}
+	my $alias = $self->get_string("interfaces/$iface/alias");
+	defined($alias) or $alias = $iface;
+	return $alias;
+}
+
 # Method: ifaceMethod
 #
 #	Returns the configured method for a given interface
@@ -747,7 +788,6 @@ sub setIfaceDHCP # (interface, external, force)
 				}
 			}
 		}
-		$self->delete_dir("interfaces/$name");
 	} else {
 		my $oldm = $self->ifaceIsExternal($name);
 		
@@ -1111,7 +1151,9 @@ sub unsetIface # (interface, force)
 		}
 	}
 
-	$self->delete_dir("interfaces/$name");
+	$self->unset("interfaces/$name/address");
+	$self->unset("interfaces/$name/netmask");
+	$self->set_string("interfaces/$name/method",'notset');
 	$self->set_bool("interfaces/$name/changed", 'true');
 }
 

@@ -42,17 +42,24 @@ sub _process
 	my $ifname = $self->param('iface');
 	($ifname) or $ifname = '';
 
-	my $ifaces = $net->ifaces();
+	my $tmpifaces = $net->ifaces();
 	my $iface = {};
 	if ($ifname eq '') {
-		$ifname = @{$ifaces}[0];
+		$ifname = @{$tmpifaces}[0];
 	}
 
 	my @array = ();
+	
+	my @ifaces = ();
 
-	foreach (@{$ifaces}) {
+	foreach (@{$tmpifaces}) {
+		my $ifinfo = {};
+		$ifinfo->{'name'} = $_;
+		$ifinfo->{'alias'} = $net->ifaceAlias($_);
+		push(@ifaces,$ifinfo);
 		($_ eq $ifname) or next;
 		$iface->{'name'} = $_;
+		$iface->{'alias'} = $net->ifaceAlias($_);
 		$iface->{'method'} = $net->ifaceMethod($_);
 		if ($net->ifaceIsExternal($_)){
 			$iface->{'external'} = "yes";
@@ -69,7 +76,7 @@ sub _process
 	}
 
 	push(@array, 'iface' => $iface);
-	push(@array, 'ifaces' => $ifaces);
+	push(@array, 'ifaces' => \@ifaces);
 
 	$self->{params} = \@array;
 }

@@ -7,6 +7,7 @@
 </%args>
 <%init>
 use EBox::Gettext;
+use EBox::NetWrappers qw(:all);
 </%init>
 <div class='help'>
 <% __('Remember that changing the network interfaces configuration may cause you to lose access to the administration page.') %>
@@ -18,8 +19,20 @@ use EBox::Gettext;
 <br/>
 
 <form action='Iface' method='post'>
-	<input type='hidden' name='ifname' value='<% $iface->{'name'} %>'/>
+	<input type="hidden" name="ifname" value="<% $iface->{"name"} %>"/>
 	<table class='formTable'>
+%	if (iface_exists($iface->{'name'})) {
+	<tr>
+		<td class='tright'>
+			<span class="ftitle">
+				<%__('Name')%>: 
+			</span>
+		</td>
+		<td class='tright'>
+			<input type='text' name='ifalias' value='<% $iface->{'alias'} %>'/>
+		</td>
+	</tr>
+%	}
 	<tr>
 		<td class='tright'>
 			<span class="ftitle">

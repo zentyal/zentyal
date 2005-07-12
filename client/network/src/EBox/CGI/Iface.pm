@@ -44,6 +44,7 @@ sub _process
 	$self->_requireParam("ifname", __("network interface"));
 
 	my $iface = $self->param("ifname");
+	my $alias = $self->param("ifalias");
 	my $method = $self->param("method");
 	my $address  = "";
 	my $netmask  = "";
@@ -66,6 +67,9 @@ sub _process
 	$self->cgi()->param(-name=>'iface', -value=>$iface);
 
 	try {
+		if (defined($alias)) {
+			$net->setIfaceAlias($iface,$alias);
+		}
 		if ($method eq 'static') {
 			$self->_requireParam("if_address", __("ip address"));
 			$self->_requireParam("if_netmask", __("netmask"));
