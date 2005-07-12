@@ -32,6 +32,42 @@ sub deprecated
 	}
 }
 
+sub info # (msg)
+{
+	my ($msg) = @_;
+	my $logger = EBox::logger(caller);
+	$Log::Log4perl::caller_depth +=1;
+	$logger->info($msg);
+	$Log::Log4perl::caller_depth -=1;
+}
+
+sub error # (msg)
+{
+	my ($msg) = @_;
+	my $logger = EBox::logger(caller);
+	$Log::Log4perl::caller_depth +=1;
+	$logger->error($msg);
+	$Log::Log4perl::caller_depth -=1;
+}
+
+sub debug # (msg)
+{
+	my ($msg) = @_;
+	my $logger = EBox::logger(caller);
+	$Log::Log4perl::caller_depth +=1;
+	$logger->debug($msg);
+	$Log::Log4perl::caller_depth -=1;
+}
+
+sub warn # (msg)
+{
+	my ($msg) = @_;
+	my $logger = EBox::logger(caller);
+	$Log::Log4perl::caller_depth +=1;
+	$logger->warn($msg);
+	$Log::Log4perl::caller_depth -=1;
+}
+
 # initializes Log4perl if necessary, returns the logger for the caller package
 sub logger # (caller?) 
 {
