@@ -762,7 +762,7 @@ sub staticActiveConnsArray
 	return \@connsfiltered;
 }
 
-# Method: warriorActive ConnsArray
+# Method: warriorActiveConnsArray
 #
 #	Returns all the active road warrior connections
 #
@@ -1042,6 +1042,63 @@ sub statusSummary
 	my $self = shift;
 	return new EBox::Summary::Status('ipsec','IPSec', 
 				$self->isRunning, $self->_serviceNeeded);
+}
+
+sub summary
+{
+	my $self = shift;
+	my $ipsecStatus = root(IPSEC . " auto --status");
+	my $item = new EBox::Summary::Module(__("IPSec VPNs"));
+	my $section;
+	my $staticConns = $self->staticActiveConnsArray();
+	if (scalar(@{$staticConns})) {
+		$section = new EBox::Summary::Section(__("Static tunnels"));
+		$item->add($section);
+		foreach my $static (@{$staticConns}) {
+			$static->{'enabled'} or next;
+			my $status = 0;
+			my $value = __('Down');
+			my $regex = '"' . $static->{'id'} . '".*STATE_MAIN_I4.*ISAKMP SA established';
+			foreach my $line (@{$ipsecStatus}) {
+				if ($line=~/$regex/) {
+					if ($status == 0) {
+						$regex = '"' . $static->{'id'} . '".*STATE_QUICK_I2.*IPsec SA established';
+						$status = 1;
+					} else {
+						$status = 2;
+						$value = __('Up');
+						last;
+					}
+				}
+			}
+			$section->add(new EBox::Summary::Value($static->{'name'},$value));
+		}
+	}
+	my $warriors = $self->warriorActiveConnsArray();
+	if (scalar(@{$warriors})) {
+		$section = new EBox::Summary::Section(__("Road warriors"));
+		$item->add($section);
+		foreach my $warrior (@{$warriors}) {
+			$warrior->{'enabled'} or next;
+			my $status = 0;
+			my $value = __('Down');
+			my $regex = '"' . $warrior->{'id'} . '".*STATE_MAIN_I4.*ISAKMP SA established';
+			foreach my $line (@{$ipsecStatus}) {
+				if ($line=~/$regex/) {
+					if ($status == 0) {
+						$regex = '"' . $warrior->{'id'} . '".*STATE_QUICK_I2.*IPsec SA established';
+						$status = 1;
+					} else {
+						$status = 2;
+						$value = __('Up');
+						last;
+					}
+				}
+			}
+			$section->add(new EBox::Summary::Value($warrior->{'name'},$value));
+		}
+	}
+	return $item;
 }
 
 # Method: rootCommands 
