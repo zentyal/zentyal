@@ -1047,15 +1047,21 @@ sub statusSummary
 sub summary
 {
 	my $self = shift;
-	my $ipsecStatus = root(IPSEC . " auto --status");
+	my $ipsecStatus = ();
+	if ($self->isRunning()) {
+		$ipsecStatus = root(IPSEC . " auto --status");
+	}
 	my $item = new EBox::Summary::Module(__("IPSec VPNs"));
 	my $section;
-	my $staticConns = $self->staticActiveConnsArray();
+	my $staticConns = $self->staticConnsArray();
 	if (scalar(@{$staticConns})) {
 		$section = new EBox::Summary::Section(__("Static tunnels"));
 		$item->add($section);
 		foreach my $static (@{$staticConns}) {
-			$static->{'enabled'} or next;
+			if (not $static->{'enabled'}) {
+				$section->add(new EBox::Summary::Value($static->{'name'},__('Disabled')));
+				next;
+			}
 			my $status = 0;
 			my $value = __('Down');
 			my $regex = '"' . $static->{'id'} . '".*STATE_MAIN_I4.*ISAKMP SA established';
@@ -1074,12 +1080,15 @@ sub summary
 			$section->add(new EBox::Summary::Value($static->{'name'},$value));
 		}
 	}
-	my $warriors = $self->warriorActiveConnsArray();
+	my $warriors = $self->warriorConnsArray();
 	if (scalar(@{$warriors})) {
 		$section = new EBox::Summary::Section(__("Road warriors"));
 		$item->add($section);
 		foreach my $warrior (@{$warriors}) {
-			$warrior->{'enabled'} or next;
+			if (not $warrior->{'enabled'}) {
+				$section->add(new EBox::Summary::Value($warrior->{'name'},__('Disabled')));
+				next;
+			}
 			my $status = 0;
 			my $value = __('Down');
 			my $regex = '"' . $warrior->{'id'} . '".*STATE_MAIN_I4.*ISAKMP SA established';
