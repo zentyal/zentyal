@@ -49,8 +49,8 @@ INSTALACION
     si se utilizo --localstatedir=/var y cambiar el propietario del directorio
     completo al usuario ebox:
 
-    mkdir /var/lib/ebox/tmp
-    mkdir /var/lib/ebox/log
+    mkdir -p /var/lib/ebox/tmp
+    mkdir -p /var/lib/ebox/log
     chown -R ebox.ebox /var/lib/ebox
 
 5.- Permitir al usuario de apache ejecutar comandos como root utilizando sudo.

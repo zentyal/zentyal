@@ -49,8 +49,8 @@ INSTALLATION
     if the --localstatedir=/var parameter was used and change ownership of the
     whole directory to the ebox user:
 
-    mkdir /var/lib/ebox/tmp
-    mkdir /var/lib/ebox/log
+    mkdir -p /var/lib/ebox/tmp
+    mkdir -p /var/lib/ebox/log
     chown -R ebox.ebox /var/lib/ebox
 
 5.- Allow the apache user to run some root commands via sudo, redirect
