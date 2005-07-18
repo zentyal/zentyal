@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-05-13 11:05+0200\n"
+"POT-Creation-Date: 2005-07-18 20:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,40 +48,48 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
+#: src/EBox/CGI/Summary/Index.pm:47
+msgid "Error"
+msgstr ""
+
+#: src/EBox/CGI/Summary/Index.pm:58 src/EBox/SysInfo.pm:109
+msgid "Summary"
+msgstr ""
+
 #: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/CGI/EBox/ConfirmBackup.pm:34
 msgid "Configuration backups"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:72
+#: src/EBox/CGI/EBox/Backup.pm:73
 msgid "description"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:81 src/EBox/CGI/EBox/Backup.pm:90
-#: src/EBox/CGI/EBox/Backup.pm:100 src/EBox/CGI/EBox/ConfirmBackup.pm:70
+#: src/EBox/CGI/EBox/Backup.pm:82 src/EBox/CGI/EBox/Backup.pm:91
+#: src/EBox/CGI/EBox/Backup.pm:101 src/EBox/CGI/EBox/ConfirmBackup.pm:71
 msgid "identifier"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:85 src/EBox/CGI/EBox/Backup.pm:94
-#: src/EBox/CGI/EBox/Backup.pm:104 src/EBox/CGI/EBox/ConfirmBackup.pm:75
+#: src/EBox/CGI/EBox/Backup.pm:86 src/EBox/CGI/EBox/Backup.pm:95
+#: src/EBox/CGI/EBox/Backup.pm:105 src/EBox/CGI/EBox/ConfirmBackup.pm:76
 #: src/EBox/Backup.pm:168 src/EBox/Backup.pm:210
 msgid "The input contains invalid characters"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:117
+#: src/EBox/CGI/EBox/Backup.pm:118
 msgid "Invalid backup file."
 msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:129
+#: src/EBox/CGI/EBox/Backup.pm:130
 msgid ""
 "Configuration restored succesfully, you should now review it and save it if "
 "you want to keep it."
 msgstr ""
 
-#: src/EBox/CGI/EBox/RestartService.pm:42
+#: src/EBox/CGI/EBox/RestartService.pm:43
 msgid "module name"
 msgstr ""
 
-#: src/EBox/CGI/EBox/RestartService.pm:46
+#: src/EBox/CGI/EBox/RestartService.pm:47
 msgid "The module was restarted correctly."
 msgstr ""
 
@@ -89,64 +97,56 @@ msgstr ""
 msgid "Halt or reboot"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Halt.pm:43
+#: src/EBox/CGI/EBox/Halt.pm:44
 msgid "EBox is going down for halt"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Halt.pm:46
+#: src/EBox/CGI/EBox/Halt.pm:47
 msgid "EBox is going down for reboot"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Bug.pm:29 src/EBox/SysInfo.pm:136
-msgid "Bug report"
 msgstr ""
 
 #: src/EBox/CGI/EBox/General.pm:30
 msgid "General configuration"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Password.pm:49
+#: src/EBox/CGI/EBox/Bug.pm:29 src/EBox/SysInfo.pm:136
+msgid "Bug report"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Password.pm:50
 msgid "Incorrect password."
 msgstr ""
 
-#: src/EBox/CGI/EBox/Password.pm:54
+#: src/EBox/CGI/EBox/Password.pm:55
 msgid "New passwords do not match."
 msgstr ""
 
-#: src/EBox/CGI/EBox/Password.pm:58
+#: src/EBox/CGI/EBox/Password.pm:59
 msgid "The password must be at least 6 characters long"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Password.pm:62
+#: src/EBox/CGI/EBox/Password.pm:63
 msgid "The password was changed successfully."
 msgstr ""
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:55 src/templates/backup.mas:92
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:56 src/templates/backup.mas:92
 #: src/templates/backup.mas:94 src/templates/backup.mas:96
 msgid "Delete"
 msgstr ""
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:56
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:57
 msgid "Please confirm that you want to delete the following backup file:"
 msgstr ""
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:61 src/templates/backup.mas:37
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:62 src/templates/backup.mas:37
 #: src/templates/backup.mas:74
 msgid "Restore"
 msgstr ""
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:62
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:63
 msgid ""
 "Please confirm that you want to restore the configuration from this backup "
 "file:"
-msgstr ""
-
-#: src/EBox/CGI/Summary/Index.pm:47
-msgid "Error"
-msgstr ""
-
-#: src/EBox/CGI/Summary/Index.pm:58 src/EBox/SysInfo.pm:109
-msgid "Summary"
 msgstr ""
 
 #: src/EBox/CGI/Finish.pm:29

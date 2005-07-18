@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-07-01 13:03+0200\n"
+"POT-Creation-Date: 2005-07-18 20:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/EBox/CGI/Ifaces.pm:29 src/EBox/CGI/Ifaces.pm:40
-#: src/EBox/Network.pm:1999
+#: src/EBox/Network.pm:2041
 msgid "Network interfaces"
 msgstr ""
 
@@ -25,16 +25,16 @@ msgstr ""
 msgid "Network diagnosis"
 msgstr ""
 
-#: src/EBox/CGI/Diag.pm:51 src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:540
-#: src/EBox/Network.pm:545 src/EBox/Network.pm:787 src/EBox/Network.pm:808
-#: src/EBox/Network.pm:1317 src/EBox/Network.pm:1351 src/EBox/Network.pm:1811
-#: src/EBox/Network.pm:1826 src/EBox/Network.pm:1928 src/EBox/Network.pm:1968
-#: src/EBox/Network.pm:2043 src/templates/ifaces.mas:107
-#: src/templates/ifaces.mas:239
+#: src/EBox/CGI/Diag.pm:51 src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:541
+#: src/EBox/Network.pm:546 src/EBox/Network.pm:827 src/EBox/Network.pm:848
+#: src/EBox/Network.pm:1359 src/EBox/Network.pm:1393 src/EBox/Network.pm:1853
+#: src/EBox/Network.pm:1868 src/EBox/Network.pm:1970 src/EBox/Network.pm:2010
+#: src/EBox/Network.pm:2085 src/templates/ifaces.mas:104
+#: src/templates/ifaces.mas:236
 msgid "IP address"
 msgstr ""
 
-#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:1987
+#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2029
 msgid "host name"
 msgstr ""
 
@@ -46,11 +46,11 @@ msgstr ""
 msgid "network interface"
 msgstr ""
 
-#: src/EBox/CGI/Iface.pm:70 src/EBox/Network.pm:1393
+#: src/EBox/CGI/Iface.pm:74 src/EBox/Network.pm:1435
 msgid "ip address"
 msgstr ""
 
-#: src/EBox/CGI/Iface.pm:71 src/EBox/CGI/VIface.pm:63 src/EBox/CGI/Route.pm:42
+#: src/EBox/CGI/Iface.pm:75 src/EBox/CGI/VIface.pm:63 src/EBox/CGI/Route.pm:42
 msgid "netmask"
 msgstr ""
 
@@ -62,7 +62,7 @@ msgstr ""
 msgid "virtual interface name"
 msgstr ""
 
-#: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1392
+#: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1434
 msgid "network address"
 msgstr ""
 
@@ -70,98 +70,102 @@ msgstr ""
 msgid "gateway address"
 msgstr ""
 
-#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:960
-#: src/EBox/Network.pm:989 src/templates/ifaces.mas:168
+#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1000
+#: src/EBox/Network.pm:1029 src/templates/ifaces.mas:165
 msgid "VLAN Id"
 msgstr ""
 
 #: src/EBox/CGI/Routes.pm:29 src/EBox/CGI/Routes.pm:40
-#: src/EBox/Network.pm:2066
+#: src/EBox/Network.pm:2108
 msgid "Routes"
 msgstr ""
 
-#: src/EBox/Network.pm:537 src/EBox/Network.pm:541
+#: src/EBox/Network.pm:538 src/EBox/Network.pm:542
 msgid "Virtual interface name"
 msgstr ""
 
-#: src/EBox/Network.pm:540 src/EBox/Network.pm:787 src/EBox/Network.pm:1811
-#: src/templates/ifaces.mas:121 src/templates/ifaces.mas:241
+#: src/EBox/Network.pm:541 src/EBox/Network.pm:827 src/EBox/Network.pm:1853
+#: src/templates/ifaces.mas:118 src/templates/ifaces.mas:238
 msgid "Netmask"
 msgstr ""
 
-#: src/EBox/Network.pm:633 src/EBox/Network.pm:665 src/EBox/Network.pm:698
-#: src/EBox/Network.pm:723 src/EBox/Network.pm:783 src/EBox/Network.pm:886
-#: src/EBox/Network.pm:1081 src/EBox/Network.pm:1139 src/EBox/Network.pm:1174
-#: src/EBox/Network.pm:1210 src/EBox/Network.pm:1243 src/EBox/Network.pm:1809
-#: src/EBox/Network.pm:1841 src/EBox/Network.pm:1884 src/EBox/Network.pm:1904
-#: src/EBox/Network.pm:1925 src/EBox/Network.pm:1948
+#: src/EBox/Network.pm:634 src/EBox/Network.pm:666 src/EBox/Network.pm:739
+#: src/EBox/Network.pm:764 src/EBox/Network.pm:823 src/EBox/Network.pm:926
+#: src/EBox/Network.pm:1121 src/EBox/Network.pm:1181 src/EBox/Network.pm:1216
+#: src/EBox/Network.pm:1252 src/EBox/Network.pm:1285 src/EBox/Network.pm:1851
+#: src/EBox/Network.pm:1883 src/EBox/Network.pm:1926 src/EBox/Network.pm:1946
+#: src/EBox/Network.pm:1967 src/EBox/Network.pm:1990
 msgid "Interface"
 msgstr ""
 
-#: src/EBox/Network.pm:891
+#: src/EBox/Network.pm:711
+msgid "Real interface"
+msgstr ""
+
+#: src/EBox/Network.pm:931
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr ""
 
-#: src/EBox/Network.pm:936
+#: src/EBox/Network.pm:976
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
 msgstr ""
 
-#: src/EBox/Network.pm:969
+#: src/EBox/Network.pm:1009
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
 
-#: src/EBox/Network.pm:1352 src/EBox/Network.pm:1394
+#: src/EBox/Network.pm:1394 src/EBox/Network.pm:1436
 #: src/templates/routes.mas:34
 msgid "Gateway"
 msgstr ""
 
-#: src/EBox/Network.pm:1744
+#: src/EBox/Network.pm:1786
 msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
 msgstr ""
 
-#: src/EBox/Network.pm:1773
+#: src/EBox/Network.pm:1815
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
 msgstr ""
 
-#: src/EBox/Network.pm:2018
+#: src/EBox/Network.pm:2060
 msgid "down"
 msgstr ""
 
-#: src/EBox/Network.pm:2023
+#: src/EBox/Network.pm:2065
 msgid "up"
 msgstr ""
 
-#: src/EBox/Network.pm:2027
+#: src/EBox/Network.pm:2069
 msgid "link ok"
 msgstr ""
 
-#: src/EBox/Network.pm:2029
+#: src/EBox/Network.pm:2071
 msgid "no link"
 msgstr ""
 
-#: src/EBox/Network.pm:2032
+#: src/EBox/Network.pm:2074
 msgid "Status"
 msgstr ""
 
-#: src/EBox/Network.pm:2037
+#: src/EBox/Network.pm:2079
 msgid "MAC address"
 msgstr ""
 
-#: src/EBox/Network.pm:2058 src/templates/routes.mas:32
+#: src/EBox/Network.pm:2100 src/templates/routes.mas:32
 msgid "Network"
 msgstr ""
 
-#: src/EBox/Network.pm:2062
+#: src/EBox/Network.pm:2104
 msgid "Interfaces"
 msgstr ""
 
-#: src/EBox/Network.pm:2068
+#: src/EBox/Network.pm:2110
 msgid "Diagnosis"
 msgstr ""
 
@@ -185,24 +189,24 @@ msgstr ""
 msgid "Static routes"
 msgstr ""
 
-#: src/templates/routes.mas:36 src/templates/ifaces.mas:172
-#: src/templates/ifaces.mas:243
+#: src/templates/routes.mas:36 src/templates/ifaces.mas:169
+#: src/templates/ifaces.mas:240
 msgid "Action"
 msgstr ""
 
 #: src/templates/routes.mas:65 src/templates/routes.mas:67
-#: src/templates/routes.mas:69 src/templates/ifaces.mas:189
-#: src/templates/ifaces.mas:191 src/templates/ifaces.mas:193
-#: src/templates/ifaces.mas:280 src/templates/ifaces.mas:282
-#: src/templates/ifaces.mas:284
+#: src/templates/routes.mas:69 src/templates/ifaces.mas:186
+#: src/templates/ifaces.mas:188 src/templates/ifaces.mas:190
+#: src/templates/ifaces.mas:277 src/templates/ifaces.mas:279
+#: src/templates/ifaces.mas:281
 msgid "Add"
 msgstr ""
 
 #: src/templates/routes.mas:88 src/templates/routes.mas:90
-#: src/templates/routes.mas:92 src/templates/ifaces.mas:211
-#: src/templates/ifaces.mas:213 src/templates/ifaces.mas:215
-#: src/templates/ifaces.mas:310 src/templates/ifaces.mas:312
-#: src/templates/ifaces.mas:314
+#: src/templates/routes.mas:92 src/templates/ifaces.mas:208
+#: src/templates/ifaces.mas:210 src/templates/ifaces.mas:212
+#: src/templates/ifaces.mas:307 src/templates/ifaces.mas:309
+#: src/templates/ifaces.mas:311
 msgid "Delete"
 msgstr ""
 
@@ -228,57 +232,57 @@ msgstr ""
 msgid "Secondary"
 msgstr ""
 
-#: src/templates/ifaces.mas:12
+#: src/templates/ifaces.mas:13
 msgid ""
 "Remember that changing the network interfaces configuration may cause you to "
 "lose access to the administration page."
 msgstr ""
 
-#: src/templates/ifaces.mas:16
+#: src/templates/ifaces.mas:17
 msgid ""
 "Traffic being routed through interfaces marked as external will be NATed.  "
 "Also, services meant for the LAN users will not be available on external "
 "interfaces."
 msgstr ""
 
-#: src/templates/ifaces.mas:27 src/templates/ifaces.mas:237
+#: src/templates/ifaces.mas:30 src/templates/ifaces.mas:234
 msgid "Name"
 msgstr ""
 
-#: src/templates/ifaces.mas:45
+#: src/templates/ifaces.mas:42
 msgid "Method"
 msgstr ""
 
-#: src/templates/ifaces.mas:52 src/templates/ifaces.mas:55
+#: src/templates/ifaces.mas:49 src/templates/ifaces.mas:52
 msgid "Static"
 msgstr ""
 
-#: src/templates/ifaces.mas:67 src/templates/ifaces.mas:70
+#: src/templates/ifaces.mas:64 src/templates/ifaces.mas:67
 msgid "Trunk (802.1q)"
 msgstr ""
 
-#: src/templates/ifaces.mas:76 src/templates/ifaces.mas:79
+#: src/templates/ifaces.mas:73 src/templates/ifaces.mas:76
 msgid "Not set"
 msgstr ""
 
-#: src/templates/ifaces.mas:89
+#: src/templates/ifaces.mas:86
 msgid "External"
 msgstr ""
 
-#: src/templates/ifaces.mas:151 src/templates/confirm.mas:33
+#: src/templates/ifaces.mas:148 src/templates/confirm.mas:33
 #: src/templates/confirmremove.mas:26
 msgid "Ok"
 msgstr ""
 
-#: src/templates/ifaces.mas:163
+#: src/templates/ifaces.mas:160
 msgid "VLANs"
 msgstr ""
 
-#: src/templates/ifaces.mas:170
+#: src/templates/ifaces.mas:167
 msgid "Description"
 msgstr ""
 
-#: src/templates/ifaces.mas:232
+#: src/templates/ifaces.mas:229
 msgid "Virtual interfaces"
 msgstr ""
 

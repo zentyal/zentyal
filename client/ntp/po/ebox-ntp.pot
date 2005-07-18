@@ -1,0 +1,222 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Warp S.L.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2005-07-18 20:22+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/EBox/CGI/Enable.pm:41
+msgid "module status"
+msgstr ""
+
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr ""
+
+#: src/EBox/CGI/Timezone.pm:30 src/EBox/CGI/Timezone.pm:41
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40
+#: src/EBox/CGI/Datetime.pm:30 src/EBox/CGI/Datetime.pm:40 src/EBox/NTP.pm:428
+msgid "NTP"
+msgstr ""
+
+#: src/EBox/CGI/AddServers.pm:42
+msgid "first ntp server"
+msgstr ""
+
+#: src/EBox/CGI/AddServers.pm:45 src/templates/servers.mas:14
+msgid "Primary server"
+msgstr ""
+
+#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:228
+#: src/templates/servers.mas:26
+msgid "Secondary server"
+msgstr ""
+
+#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
+msgid "Tertiary server"
+msgstr ""
+
+#: src/EBox/CGI/ChangeTimeZone.pm:41
+msgid "country"
+msgstr ""
+
+#: src/EBox/CGI/ChangeTimeZone.pm:42
+msgid "continent"
+msgstr ""
+
+#: src/EBox/CGI/ChangeDate.pm:41
+msgid "Day"
+msgstr ""
+
+#: src/EBox/CGI/ChangeDate.pm:42
+msgid "Month"
+msgstr ""
+
+#: src/EBox/CGI/ChangeDate.pm:43
+msgid "Year"
+msgstr ""
+
+#: src/EBox/CGI/ChangeDate.pm:44
+msgid "Hour"
+msgstr ""
+
+#: src/EBox/CGI/ChangeDate.pm:45
+msgid "Minutes"
+msgstr ""
+
+#: src/EBox/CGI/ChangeDate.pm:46
+msgid "Seconds"
+msgstr ""
+
+#: src/EBox/NTP.pm:200
+msgid "primary server IP address"
+msgstr ""
+
+#: src/EBox/NTP.pm:203
+msgid "primary server name "
+msgstr ""
+
+#: src/EBox/NTP.pm:209
+msgid "secondary server IP address"
+msgstr ""
+
+#: src/EBox/NTP.pm:212
+msgid "secondary server name"
+msgstr ""
+
+#: src/EBox/NTP.pm:217
+msgid "tertiary server IP address"
+msgstr ""
+
+#: src/EBox/NTP.pm:220
+msgid "tertiary server name"
+msgstr ""
+
+#: src/EBox/NTP.pm:389
+msgid "NTP local server"
+msgstr ""
+
+#: src/EBox/NTP.pm:431
+msgid "NTP server"
+msgstr ""
+
+#: src/EBox/NTP.pm:433
+msgid "Date/time"
+msgstr ""
+
+#: src/EBox/NTP.pm:435 src/templates/timezone.mas:15
+msgid "Time zone"
+msgstr ""
+
+#: src/templates/synch.mas:13 src/templates/synch.mas:18
+msgid "No"
+msgstr ""
+
+#: src/templates/synch.mas:15 src/templates/synch.mas:20
+msgid "Yes"
+msgstr ""
+
+#: src/templates/synch.mas:25 src/templates/synch.mas:27
+msgid "Ok"
+msgstr ""
+
+#: src/templates/index.mas:12
+msgid "Enable the local NTP server"
+msgstr ""
+
+#: src/templates/servers.mas:8
+msgid "Insert here the NTP servers to synchronize with"
+msgstr ""
+
+#: src/templates/timezone.mas:19
+msgid "A time zone change will cause all eBox services to be restarted"
+msgstr ""
+
+#: src/templates/timezone.mas:37 src/templates/timezone.mas:39
+#: src/templates/date.mas:111 src/templates/date.mas:113
+msgid "Change"
+msgstr ""
+
+#: src/templates/datetime.mas:14
+msgid "Synchronize with external NTP servers"
+msgstr ""
+
+#: src/templates/datetime.mas:19
+msgid "External NTP servers"
+msgstr ""
+
+#: src/templates/datetime.mas:24
+msgid "Change Date and Time"
+msgstr ""
+
+#: src/templates/date.mas:10
+msgid ""
+"A change in the date or time will cause all eBox services to be restarted"
+msgstr ""
+
+#: src/templates/date.mas:16
+msgid "Change date"
+msgstr ""
+
+#: src/templates/date.mas:32
+msgid "January"
+msgstr ""
+
+#: src/templates/date.mas:33
+msgid "February"
+msgstr ""
+
+#: src/templates/date.mas:34
+msgid "March"
+msgstr ""
+
+#: src/templates/date.mas:35
+msgid "April"
+msgstr ""
+
+#: src/templates/date.mas:36
+msgid "May"
+msgstr ""
+
+#: src/templates/date.mas:37
+msgid "June"
+msgstr ""
+
+#: src/templates/date.mas:38
+msgid "July"
+msgstr ""
+
+#: src/templates/date.mas:39
+msgid "August"
+msgstr ""
+
+#: src/templates/date.mas:40
+msgid "September"
+msgstr ""
+
+#: src/templates/date.mas:41
+msgid "October"
+msgstr ""
+
+#: src/templates/date.mas:42
+msgid "November"
+msgstr ""
+
+#: src/templates/date.mas:43
+msgid "December"
+msgstr ""
+
+#: src/templates/date.mas:69
+msgid "Change time"
+msgstr ""

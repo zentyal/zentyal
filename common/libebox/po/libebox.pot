@@ -1,0 +1,126 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Warp S.L.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2005-07-05 11:51+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/EBox/Exceptions/DataNotFound.pm:30
+#, perl-brace-format
+msgid "{data} {value} does not exist."
+msgstr ""
+
+#: src/EBox/Exceptions/DataExists.pm:31
+#, perl-brace-format
+msgid "{data} {value} already exists."
+msgstr ""
+
+#: src/EBox/Exceptions/InvalidData.pm:31
+#, perl-brace-format
+msgid "Invalid value for {data}: {value}."
+msgstr ""
+
+#: src/EBox/Exceptions/DataMissing.pm:30
+#, perl-brace-format
+msgid "{data} is empty."
+msgstr ""
+
+#: src/EBox/CGI/Run.pm:58
+msgid "The page could not be found"
+msgstr ""
+
+#: src/EBox/CGI/Base.pm:166
+msgid ""
+"The input contains invalid characters. All alphanumeric characters, plus "
+"these non alphanumeric chars: /.?'&+:-@ and spaces are allowed."
+msgstr ""
+
+#: src/EBox/CGI/Base.pm:246 src/EBox/CGI/Base.pm:321
+msgid ""
+"An internal error has ocurred. This is most probably a bug, relevant "
+"information can be found in the logs."
+msgstr ""
+
+#: src/EBox/CGI/Base.pm:264
+msgid ""
+"An unknown internal error has ocurred. This is a bug, relevant information "
+"can be found in the logs."
+msgstr ""
+
+#: src/EBox/CGI/Base.pm:284
+msgid "You have just hit a bug in eBox. Please seek technical support."
+msgstr ""
+
+#: src/EBox/CGI/Base.pm:330
+msgid ""
+"An internal error related to a template has occurred. This is a bug, "
+"relevant information can be found in the logs."
+msgstr ""
+
+#: src/EBox/Menu/Root.pm:38
+msgid "Menu"
+msgstr ""
+
+#: src/EBox/NetWrappers.pm:101 src/EBox/NetWrappers.pm:129
+#: src/EBox/NetWrappers.pm:160 src/EBox/NetWrappers.pm:192
+msgid "Interface"
+msgstr ""
+
+#: src/EBox/Config.pm.in:37
+msgid "Could not open the config file."
+msgstr ""
+
+#: src/EBox/Config.pm.in:70
+msgid "The ebox user has not been set in the config file."
+msgstr ""
+
+#: src/EBox/Sudo.pm:57
+#, perl-brace-format
+msgid "Command '{cmd}' failed"
+msgstr ""
+
+#: src/EBox/Sudo.pm:86
+#, perl-brace-format
+msgid "Root command '{cmd}' failed"
+msgstr ""
+
+#: src/EBox/Sudo.pm:111
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr ""
+
+#: src/templates/title.mas:12
+msgid "Show or Hide help"
+msgstr ""
+
+#: src/templates/language.mas:10
+msgid "Language selection"
+msgstr ""
+
+#: src/templates/language.mas:13
+msgid "Language"
+msgstr ""
+
+#: src/templates/language.mas:25 src/templates/enable.mas:30
+#: src/templates/enable.mas:32
+msgid "Ok"
+msgstr ""
+
+#: src/templates/enable.mas:18 src/templates/enable.mas:23
+msgid "No"
+msgstr ""
+
+#: src/templates/enable.mas:20 src/templates/enable.mas:25
+msgid "Yes"
+msgstr ""
