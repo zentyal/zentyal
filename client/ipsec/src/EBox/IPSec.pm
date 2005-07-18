@@ -87,7 +87,7 @@ sub isRunning
 	my $self = shift;
 	(-f PLUTOPIDFILE) or return undef;
 	unless ($self->pidFileRunning(PLUTOPIDFILE)) {
-		my $log = EBox::Global->logger;
+		my $log = EBox::logger();
 		$log->error("IPSec daemon died, file ". PLUTOPIDFILE . 
 			"exists and daemon is not running");
 		root("/bin/rm -f " . PLUTOPIDFILE);
