@@ -47,6 +47,9 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	AC_PROG_PERL_MODULES(Sys::CpuLoad, ,
 	  AC_MSG_ERROR(Missing Sys::CpuLoad))
 
+	AC_PROG_PERL_MODULES(Proc::Process, ,
+	  AC_MSG_ERROR(Missing Proc::Process))
+
 	AC_PROG_PERL_MODULES(Error, ,
 	  AC_MSG_ERROR(Missing Error))
 	  
