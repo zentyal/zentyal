@@ -4,6 +4,6 @@ use EBox::Config;
 my $apache_init = EBox::Config::configkey('httpd_init');
 
 #Stop apache, sleep a few seconds and restart.
-system("/usr/bin/sudo $apache_init stop");
+system("/usr/bin/sudo $apache_init stop > /dev/null");
 sleep 5;
-system("/usr/bin/sudo $apache_init start");
+system("/usr/bin/sudo $apache_init start > /dev/null");
