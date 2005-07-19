@@ -1,7 +1,9 @@
 #!/usr/bin/perl
+use EBox::Config;
+
+my $apache_init = EBox::Config::configkey('httpd_init');
 
 #Stop apache, sleep a few seconds and restart.
-system("/usr/bin/sudo /etc/init.d/apache-perl stop");
+system("/usr/bin/sudo $apache_init stop");
 sleep 5;
-system("/usr/bin/sudo /etc/init.d/apache-perl start");
-
+system("/usr/bin/sudo $apache_init start");
