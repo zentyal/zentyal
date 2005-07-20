@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Exceptions::Deprecated;
+package EBox::Exceptions::NotImplemented;
 
 use base 'EBox::Exceptions::Internal';
 use Log::Log4perl;
@@ -29,7 +29,7 @@ sub new
 	local $Error::Debug = 1;
 
 	$Log::Log4perl::caller_depth++;
-	$self = $class->SUPER::new("Call to deprecated method '$method' in ".
+	$self = $class->SUPER::new("Method '$method' not implemented in ".
 				   "'$caller'");
 	$Log::Log4perl::caller_depth--;
 
