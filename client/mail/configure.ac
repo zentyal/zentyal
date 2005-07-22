@@ -31,15 +31,7 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	if test -z "$perlpath" ; then
 	perlpath=`$PERL -e 'foreach (@INC) { print "$_\n";}' | grep "^$prefix" | head -1`
 	fi
-	if test -z "$perlpath" ; then
-	perlpath="$DATADIR/perl5/"
-	AC_MSG_NOTICE([Perl libraries will be installed in $perlpath, make sure to
-	include it in your path])
-	else
-	AC_MSG_NOTICE([Perl libraries will be installed in $perlpath])
-	fi
 
-	AC_DEFINE_DIR(PERLPATH, perlpath)
 
 	AM_GCONF_SOURCE_2
 
@@ -48,6 +40,17 @@ else
 	GCONF_SCHEMAS_INSTALL_FALSE=
 	GCONF_SCHEMAS_INSTALL_TRUE='#'
 fi
+
+if test -z "$perlpath" ; then
+	perlpath="$DATADIR/perl5/"
+	AC_MSG_NOTICE([Perl libraries will be installed in $perlpath, make sure to
+	include it in your path])
+else
+	AC_MSG_NOTICE([Perl libraries will be installed in $perlpath])
+fi
+
+AC_DEFINE_DIR(PERLPATH, perlpath)
+
 AM_PO_SUBDIRS
 
 AC_CONFIG_FILES([
