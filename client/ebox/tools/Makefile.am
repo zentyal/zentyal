@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-bin_SCRIPTS = ebox-test ebox-tmpl-parse ebox-sudoers ebox
+bin_SCRIPTS = ebox-test ebox-sudoers ebox
 
 pkglib_SCRIPTS =  ebox-apache-restart 
 
