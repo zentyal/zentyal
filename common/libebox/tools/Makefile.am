@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-bin_SCRIPTS = po-am.generator 
+bin_SCRIPTS = po-am.generator  ebox-tmpl-parse
 
 SUBDIRS = 
 
