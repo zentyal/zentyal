@@ -69,7 +69,6 @@ AC_DEFINE_DIR(PERLPATH, perlpath)
 AM_PO_SUBDIRS
 
 AC_CONFIG_FILES([
-tools/Makefile
 doc/Makefile
 src/cgi/Makefile
 src/Makefile
