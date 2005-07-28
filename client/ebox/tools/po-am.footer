@@ -258,7 +258,8 @@ EXTRA_DIST = remove-potcdate.sin LINGUAS $(DOMAIN).pot stamp-po $(POFILES) $(GMO
 # Hidden from automake, but really activated. Works around an automake-1.5 bug.
 #distdir: distdir1
 distdir1:
-	$(MAKE) update-po
+
+#	$(MAKE) update-po
 
 update-po: Makefile
 	$(MAKE) $(DOMAIN).pot-update
