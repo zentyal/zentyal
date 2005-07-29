@@ -82,7 +82,7 @@ POP3_STARTTLS=YES
 # is issued).
 
 % if ($popssl eq 'required') {
-POP3_TLS_REQUIRED=0
+POP3_TLS_REQUIRED=1
 % }
 
 ##NAME: COURIERTLS:0
