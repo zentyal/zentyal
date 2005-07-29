@@ -1,0 +1,23 @@
+<%args>
+	$vdomain
+</%args>
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<h3><% __('Deleting virtual domain') %>: <% $vdomain %></h3>
+<div class="warning">
+	<% __('Remove a virtual domain will cause that all mail accounts and mail alias accounts that belong to the virtual domain will also be removed.') %>
+</div>
+
+<form action='DelVDomain' method='POST'>
+	<input type='hidden' name='vdomain'
+			value='<% $vdomain %>'/>
+	<input class='inputButton'
+			type='submit' name='delvdforce'
+			value="<% __('Delete') %>">
+	<input class='inputButton'
+			type='submit' name='cancel'
+			value="<% __('Cancel') %>">
+</form>
