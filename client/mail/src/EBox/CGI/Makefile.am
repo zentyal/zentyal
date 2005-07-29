@@ -4,10 +4,9 @@ perldir = @PERLPATH@/EBox/CGI/Mail
 
 nobase_perl_DATA = Index.pm Enable.pm MailConf.pm VDomains.pm AddVDomain.pm \
 DelVDomain.pm CreateAccount.pm CreateAlias.pm DelAccount.pm DelAlias.pm \
-CreateGroupAlias.pm DelGroupAlias.pm SetAllowed.pm SetQuota.pm EnablePop.pm \
-EnableImap.pm EnableFilter.pm EnableSASL.pm EnableSMTPTLS.pm EnablePopSsl.pm\
-EnableImapSsl.pm SetMDQuota.pm EditVDomain.pm ModifyVDomain.pm\
-SetExternalFilter.pm ModifyAccountMDSize.pm MailSettings.pm EnableServices.pm
+CreateGroupAlias.pm DelGroupAlias.pm SetAllowed.pm SetQuota.pm SetMDQuota.pm \
+EditVDomain.pm ModifyVDomain.pm SetExternalFilter.pm ModifyAccountMDSize.pm \
+MailSettings.pm EnableServices.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 
