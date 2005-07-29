@@ -1,1 +1,7 @@
-prueba
+This eBox module provides the following functionalities:
+
+	* SMTP server with TLS and authentication support.
+	* Virtual domains and accounts.
+	* Maildir and mail size quotas per user and/or domain.
+	* POP/IMAP servers with TLS support
+	* Posibility to use an external filter to mail filtering.

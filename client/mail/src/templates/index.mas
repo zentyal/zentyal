@@ -87,7 +87,7 @@ use EBox::Gettext;
 <form action='MailConf' method='POST'>
 	<h3><% __('General Settings') %></h3>
 	<div class='ftitle'><% __('Relay') %></div>
-	<div>Cualquier tipo de stuff explicando que es esta movida.</div>
+	<div><% __('The ip of the smarthost to send our mail.') %></div>
 	<input type='text' class='inputText' name='relay' 
 		value='<% $relay %>'>
 	<input class='inputButton' type='submit' name='change'
@@ -97,6 +97,7 @@ use EBox::Gettext;
 
 <form action='SetQuota' method='POST'>
 	<div class='ftitle'><% __('Message size limit (in MB)') %></div>
+	<div><% __('The maximum message size that our server accepts.') %></div>
 	<input type='text' class='inputText' name='maxmsgsize' 
 		value='<% $maxmsgsize %>'>
 	<input class='inputButton' type='submit' name='change'
@@ -106,6 +107,7 @@ use EBox::Gettext;
 
 <form action='SetMDQuota' method='POST'>
 	<div class='ftitle'><% __('Default maildir size limit (in MB)') %></div>
+	<div><% __('The maximum default maildir size to the new virtual domains.') %></div>
 	<input type='text' class='inputText' name='mdsize' 
 		value='<% $maxmdsize %>'>
 	<input class='inputButton' type='submit' name='change'
@@ -118,9 +120,7 @@ use EBox::Gettext;
 		<% __('Choose the object whose state you want to change and click in the arrow to move it to the desired column.') %>
 	</div>
 
-<div class='note'><% __('Deberá introducir en la columna de permitidos aquellos objetos a los 
-que se permite reenviar correo electrónico haciendo uso de este servidor.')
-%></div>
+<div class='note'><% __('You should move to allowed column those objects that do you want to allow send mail through this module.') %></div>
 <br/>
 
 <form action='SetAllowed' method='POST'>

@@ -45,10 +45,6 @@ use EBox::Gettext;
 
 %   my @kvd = keys %vdomains;
 %	if(@kvd != 0) {
-		<div class='note'>
-            <% __('Remove a virtual domain will cause that all mail accounts and mail alias accounts that belong to the virtual domain will also be removed.') %>
-        </div>
-
 		<br/>
 
 		<table cellspacing='0' class='dataTable'>

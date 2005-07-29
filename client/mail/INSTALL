@@ -1,1 +1,36 @@
-test
+- To install this module you need to install the following EBox modules: eBox,
+  Network, Firewall, Objects and this debian testing packages:
+  + Postfix with VDA patch applied.
+  + postfix-tls
+  + postfix-ldap
+  + courier-pop
+  + courier-imap
+  + courier-pop-ssl
+  + courier-imap-ssl
+  + courier-authdaemon
+  + FIXME
+
+- Once all packages has been installed:
+	
+	./configure
+	make install
+
+  configure will autodetect EBox base path to install
+
+- Update your sudoers file with the ebox-sudoers command.
+
+- Execute tools/ebox-mail-install script as root.
+- Execute as root:
+	tools/ebox-mail-ldap genconfig 
+	tools/ebox-mail-ldap populate
+
+- Do not services on startup, this module takes control all services:
+
+mv /etc/rc2.d/SXXpostfix /etc/rc2.d/KXXpostfix
+mv /etc/rc2.d/SXXcourier-authdaemon /etc/rc2.d/KXXcourier-authdaemon
+mv /etc/rc2.d/SXXcourier-imap /etc/rc2.d/KXXcourier-imap
+mv /etc/rc2.d/SXXcourier-imap-ssl /etc/rc2.d/KXXcourier-imap-ssl
+mv /etc/rc2.d/SXXcourier-pop-ssl /etc/rc2.d/KXXcourier-pop-ssl
+mv /etc/rc2.d/SXXcourier-pop /etc/rc2.d/KXXcourier-pop
+
+- Stop all services if it's running.
