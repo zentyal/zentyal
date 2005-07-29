@@ -45,9 +45,6 @@ sub input
 		'active' => 25,
 		'pop'    => 110,
 		'imap'   => 143,
-		'popssl' => 995,
-		'imapssl'=> 993,
-		'smtptls'=> 465,
 		'filter'	=> $mail->fwport(),
 	);
 

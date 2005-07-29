@@ -68,11 +68,22 @@ vmaildomains_result_attribute = dc
 virtual_minimum_uid = 100
 virtual_uid_maps = static:<% $uidvmail %>
 virtual_gid_maps = static:<% $gidvmail %>
+mailbox_transport = virtual
+virtual_mailbox_limit_inbox = yes
+virtual_mailbox_limit_maps = ldap:ldapvquota
 
-% if ($sasl) {
+ldapvquota_server_host = 127.0.0.1
+ldapvquota_bind = no
+ldapvquota_search_base = <% $usersDN %>
+ldapvquota_query_filter = (&(mail=%s)(objectClass=usereboxmail))
+ldapvquota_result_attribute = userMaildirSize
+
+virtual_mailbox_limit_override = yes
+virtual_maildir_extended = yes
+virtual_create_maildirsize = yes
+
+% if ($smtptls) {
 ## TLS/SSL
-smtp_use_tls = yes
-smtp_tls_note_starttls = yes
 smtpd_use_tls = yes
 smtpd_tls_note_starttls = yes
 smtpd_tls_key_file = /etc/postfix/sasl/smtpd-key.pem
@@ -80,13 +91,14 @@ smtpd_tls_cert_file = /etc/postfix/sasl/smtpd.pem
 smtpd_tls_loglevel = 1
 % }
 
-% if ($smtptls) {
+% if ($sasl) {
 #SASL authentication
 smtpd_recipient_restrictions = permit_sasl_authenticated, permit_mynetworks, reject_unauth_destination
 smtpd_sasl_auth_enable = yes
 smtpd_sasl_security_options = noanonymous
 smtpd_sasl_local_domain =
 broken_sasl_auth_clients = yes
+smtpd_tls_auth_only = yes
 % }
 
 % if ($filter) {

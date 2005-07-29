@@ -18,8 +18,7 @@ package EBox::Mail;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::LdapModule EBox::ObjectsObserver
-	EBox::FirewallObserver);
+use base qw(EBox::GConfModule EBox::LdapModule EBox::ObjectsObserver EBox::FirewallObserver);
 
 use Proc::ProcessTable;
 use EBox::Sudo qw( :all );
@@ -43,15 +42,11 @@ use constant IMAPDCONFFILE			=> '/etc/courier/imapd';
 use constant IMAPDSSLCONFFILE			=> '/etc/courier/imapd-ssl';
 use constant MAILINIT				=> '/etc/init.d/postfix';
 use constant POPINIT				=> '/etc/init.d/courier-pop';
-use constant POPSSLINIT				=> '/etc/init.d/courier-pop-ssl';
 use constant IMAPINIT				=> '/etc/init.d/courier-imap';
-use constant IMAPSSLINIT				=> '/etc/init.d/courier-imap-ssl';
 use constant AUTHDAEMONINIT			=> '/etc/init.d/courier-authdaemon';
 use constant AUTHLDAPINIT			=> '/etc/init.d/courier-ldap';
 use constant POPPIDFILE				=> "/var/run/courier/pop3d.pid";
-use constant POPSSLPIDFILE				=> "/var/run/courier/pop3d-ssl.pid";
 use constant IMAPPIDFILE			=> "/var/run/courier/imapd.pid";
-use constant IMAPSSLPIDFILE			=> "/var/run/courier/imapd-ssl.pid";
 use constant BYTES				=> '1048576';
 
 sub _create 
@@ -111,9 +106,9 @@ sub _setMailConf {
 	push(@array, 'uidvmail', $self->{musers}->uidvmail());
 	push(@array, 'gidvmail', $self->{musers}->gidvmail());
 	push(@array, 'sasl', $self->service('sasl'));
-	push(@array, 'smtptls', $self->service('smtptls'));
-	push(@array, 'popssl', $self->service('popssl'));
-	push(@array, 'imapssl', $self->service('imapssl'));
+	push(@array, 'smtptls', $self->tlsSmtp());
+	push(@array, 'popssl', $self->sslPop());
+	push(@array, 'imapssl', $self->sslImap());
 	push(@array, 'ldap', $ldap->ldapConf());
 	push(@array, 'filter', $self->service('filter'));
 	push(@array, 'ipfilter', $self->ipfilter());
@@ -121,7 +116,7 @@ sub _setMailConf {
 	$self->writeConfFile(MAILMAINCONFFILE, "mail/main.cf.mas", \@array);
 
 	@array = ();
-	push(@array, 'smtptls', $self->service('smtptls'));
+	push(@array, 'smtptls', $self->tlsSmtp);
 	push(@array, 'filter', $self->service('filter'));
 	push(@array, 'fwport', $self->fwport());
 	push(@array, 'ipfilter', $self->ipfilter());
@@ -137,8 +132,14 @@ sub _setMailConf {
 	$self->writeConfFile(AUTHDAEMONCONFFILE, "mail/authdaemonrc.mas");
 	$self->writeConfFile(IMAPDCONFFILE, "mail/imapd.mas");
 	$self->writeConfFile(POP3DCONFFILE, "mail/pop3d.mas");
-	$self->writeConfFile(POP3DSSLCONFFILE, "mail/pop3d-ssl.mas");
-	$self->writeConfFile(IMAPDSSLCONFFILE, "mail/imapd-ssl.mas");
+
+	@array = ();
+	push(@array, 'popssl', $self->sslPop());
+	$self->writeConfFile(POP3DSSLCONFFILE, "mail/pop3d-ssl.mas", \@array);
+	
+	@array = ();
+	push(@array, 'imapssl', $self->sslImap());
+	$self->writeConfFile(IMAPDSSLCONFFILE, "mail/imapd-ssl.mas",\@array);
 
 }
 
@@ -152,12 +153,8 @@ sub isRunning
 		}
 	} elsif ($service eq 'pop') {
 		return $self->pidFileRunning(POPPIDFILE);
-	} elsif ($service eq 'popssl') {
-		return $self->pidFileRunning(POPSSLPIDFILE);
 	} elsif ($service eq 'imap') {
 		return $self->pidFileRunning(IMAPPIDFILE);
-	} elsif ($service eq 'imapssl') {
-		return $self->pidFileRunning(IMAPSSLPIDFILE);
 	} else {
 		return undef;
 	}
@@ -267,6 +264,46 @@ sub setAllowedObj
 	$self->set_list("allowed", "string", $args);
 }
 
+sub setTlsSmtp
+{
+	my ($self, $level) = @_;
+	$self->set_bool('smtptls', $level);
+}
+
+sub tlsSmtp
+{
+	my $self = shift;
+
+	my $foo = $self->get_bool('smtptls');
+	return $foo;
+}
+
+sub setSslPop
+{
+	my ($self, $level) = @_;
+	$self->set_string('popssl', $level);
+}
+
+sub sslPop
+{
+	my $self = shift;
+
+	return $self->get_string('popssl');
+}
+
+sub setSslImap
+{
+	my ($self, $level) = @_;
+	$self->set_string('imapssl', $level);
+}
+
+sub sslImap
+{
+	my $self = shift;
+
+	return $self->get_string('imapssl');
+}
+
 #
 # Method: allowedObj
 #
@@ -370,11 +407,9 @@ sub usesPort # (protocol, port, iface)
 		'active' => 25,
 		'pop'		=> 110,
 		'imap'	=> 143,
-		'popssl'	=> 995,
-		'imapssl'=> 993,
-		'smtptls'=> 465,
 	);
-	
+
+
 	foreach my $mysrv (keys %srvpto) {
 		return 1 if (($port eq $srvpto{$mysrv}) and ($self->service($mysrv)));
 	}
@@ -394,7 +429,14 @@ sub firewallHelper
 sub _doDaemon
 {
 	my ($self, $service) = @_;
+	my @services = ('active', 'pop', 'imap');
+
 	if ($self->service($service) and $self->isRunning($service)) {
+		if ($service eq 'active') {
+			foreach (@services) {
+				$self->_daemon('restart',$_);
+			}
+		}
 		$self->_daemon('restart', $service);
 	} elsif ($self->service($service)) {
 		$self->_daemon('start', $service);
@@ -412,12 +454,8 @@ sub _command
 		$cmd = MAILINIT . " " . $action . " 2>&1";
 	} elsif ($service eq 'pop') {
 		$cmd = POPINIT . " " . $action . " 2>&1";
-	} elsif ($service eq 'popssl') {
-		$cmd = POPSSLINIT . " " . $action . " 2>&1";
 	} elsif ($service eq 'imap') {
 		$cmd = IMAPINIT . " " . $action . " 2>&1";
-	} elsif ($service eq 'imapssl') {
-		$cmd = IMAPSSLINIT . " " . $action . " 2>&1";
 	} elsif ($service eq 'authdaemon') {
 		$cmd = AUTHDAEMONINIT . " " . $action . " 2>&1";
 	} elsif ($service eq 'authldap') {
@@ -459,7 +497,7 @@ sub _stopService
 sub _regenConfig
 {
 	my $self = shift;
-	my @services = ('active', 'pop', 'popssl', 'imap', 'imapssl');
+	my @services = ('active', 'pop', 'imap');
 	$self->_setMailConf;
 
 	foreach (@services) {
@@ -468,54 +506,7 @@ sub _regenConfig
 
 	$self->_daemon('restart', 'authdaemon');
 	$self->_daemon('restart', 'authldap');
-
-#	foreach (@services) {
-#		$self->_configureFirewall($_);
-#	}
-#	$self->_configureFirewall('smtptls');
-#	$self->_configureFirewall('filter');
 }
-
-#sub _configureFirewall(){
-#	my ($self, $service) = @_;
-#	my %srvpto = (
-#		'active' => 25,
-#		'pop'		=> 110,
-#		'imap'	=> 143,
-#		'popssl'	=> 995,
-#		'imapssl'=> 993,
-#		'smtptls'	=> 465,
-#	);
-#	my %srvname = (
-#		'active' => 'smtp',
-#		'pop'		=> 'pop3',
-#		'imap'	=> 'imap2',
-#		'popssl'	=> 'pop3s',
-#		'imapssl'=> 'imaps',
-#		'smtptls'	=> 'ssmtp',
-#	);
-#	my $fw = EBox::Global->modInstance('firewall');
-#
-#	if (($service eq 'active') and ($self->service($service))) {
-#		$fw->addOutputRule('tcp', 25);
-#	} elsif ($service eq 'active') {
-#		$fw->removeOutputRule('tcp', 25);
-#	}
-#
-#	if (($service eq 'filter') and ($self->service($service))) {
-#		$fw->addOutputRule('tcp', $self->fwport());
-#	} elsif ($service eq 'filter') {
-#		$fw->removeOutputRule('tcp', $self->fwport());
-#	} else {
-#		if ($self->service($service) and (!defined($fw->service($srvname{$service})))) {
-#			$fw->addService($srvname{$service}, 'tcp', $srvpto{$service}, 0);
-#			$fw->setObjectService('_global', $srvname{$service}, 'allow');
-#		} elsif ( !($self->service) and defined($fw->service($srvname{$service})) ) {
-#			$fw->removeService($srvname{$service});
-#		}
-#	}
-#}
-
 
 #
 # Method: setService
@@ -557,7 +548,7 @@ sub service
 
 sub anyInService {
 	my $self = shift;
-	my @services = ('active', 'pop', 'imap', 'popssl', 'imapssl', 'smtptls');
+	my @services = ('active', 'pop', 'imap');
 
 	foreach (@services) {
 		return 1 if $self->service($_);
@@ -578,19 +569,15 @@ sub summary
 {
 	my $self = shift;
 	my $item = new EBox::Summary::Module(__("Mail"));
+	my $section = new EBox::Summary::Section();
+	$item->add($section);
 	my $pop = new EBox::Summary::Status('mail', __('POP3 service'),
-		$self->isRunning('pop'), $self->service('pop'));
-	my $popssl = new EBox::Summary::Status('mail', __('POP3 SSL service'),
-		$self->isRunning('popssl'), $self->service('popssl'));
+		$self->isRunning('pop'), $self->service('pop'), 1);
 	my $imap = new EBox::Summary::Status('mail', __('IMAP service'),
-		$self->isRunning('imap'), $self->service('imap'));
-	my $imapssl = new EBox::Summary::Status('mail', __('IMAP SSL service'),
-		$self->isRunning('imapssl'), $self->service('imapssl'));
+		$self->isRunning('imap'), $self->service('imap'), 1);
 
-	$item->add($pop);
-	$item->add($popssl);
-	$item->add($imap);
-	$item->add($imapssl);
+	$section->add($pop);
+	$section->add($imap);
 
 	return $item;
 }
@@ -601,9 +588,7 @@ sub rootCommands
 	my @array = ();
 	push(@array, MAILINIT);
 	push(@array, POPINIT);
-	push(@array, POPSSLINIT);
 	push(@array, IMAPINIT);
-	push(@array, IMAPSSLINIT);
 	push(@array, AUTHDAEMONINIT);
 	push(@array, AUTHLDAPINIT);
 	push(@array, "/bin/chmod * " . MAILMAINCONFFILE);

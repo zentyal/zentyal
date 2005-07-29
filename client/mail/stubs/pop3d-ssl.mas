@@ -1,4 +1,5 @@
 <%args>
+	$popssl
 </%args>
 <%init>
 use EBox::Gettext;
@@ -64,13 +65,15 @@ SSLPIDFILE=/var/run/courier/pop3d-ssl.pid
 #
 #  Whether or not to start POP3 over SSL on spop3 port:
 
-POP3DSSLSTART=YES
+#POP3DSSLSTART=YES
 
 ##NAME: POP3_STARTTLS:0
 #
 # Whether or not to implement the POP3 STLS extension:
 
+% if (($popssl eq 'optional') or ($popssl eq 'required')) {
 POP3_STARTTLS=YES
+% }
 
 ##NAME: POP3_TLS_REQUIRED:1
 #
@@ -78,7 +81,9 @@ POP3_STARTTLS=YES
 # (this option advertises the LOGINDISABLED POP3 capability, until STARTTLS
 # is issued).
 
+% if ($popssl eq 'required') {
 POP3_TLS_REQUIRED=0
+% }
 
 ##NAME: COURIERTLS:0
 #

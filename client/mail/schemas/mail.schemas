@@ -32,8 +32,8 @@
 		<key>/schemas/ebox/modules/mail/popssl</key>
 		<applyto>/ebox/modules/mail/popssl</applyto>
 		<owner>ebox</owner>
-		<type>boolean</type>
-		<default>false</default>
+		<type>string</type>
+		<default>no</default>
 		<locale name="C"/>
 	</schema>
 	<schema>
@@ -48,8 +48,8 @@
 		<key>/schemas/ebox/modules/mail/imapssl</key>
 		<applyto>/ebox/modules/mail/imapssl</applyto>
 		<owner>ebox</owner>
-		<type>boolean</type>
-		<default>false</default>
+		<type>string</type>
+		<default>no</default>
 		<locale name="C"/>
 	</schema>
 	<schema>
@@ -73,7 +73,7 @@
 		<applyto>/ebox/modules/mail/smtptls</applyto>
 		<owner>ebox</owner>
 		<type>boolean</type>
-		<default>false</default>
+		<default>true</default>
 		<locale name="C"/>
 	</schema>
 	<schema>

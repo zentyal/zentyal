@@ -4,20 +4,15 @@
 	$smtptls
 	$title
 </%args>
-	<form action='EnableSMTPTLS' method='POST'>
-	<span class='ftitle'>
-		<% $title %>
-	</span>
-		<select name="smtptls" enabled>
-%  if($smtptls eq 'yes') {
-			<option value='no' ><% __('No') %></option>
-			<option selected value='yes' ><% __('Yes') %></option>
-%	}else{
-			<option selected value='no' ><% __('No') %></option>
-			<option value='yes' ><% __('Yes') %></option>
-%	}
-		</select>
-		<input class='inputButton' type='submit' name='change'
-			value="<% __('Ok') %>"
-			alt="<% __('Ok') %>">
-	</form>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% $title %>:</span>
+		</td>
+		<td>
+		<input id="tlsCheckBox" type='checkbox' value='yes'
+% 		if ($smtptls) {
+				checked
+%		}
+				name='smtptls' />
+		</td>
+	</tr>

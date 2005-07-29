@@ -57,7 +57,7 @@ scalemail-backend unix	-	n	n	-	2	pipe
 # only used by postfix-tls
 tlsmgr	  fifo	-	-	n	300	1	tlsmgr
 smtps	  inet	n	-	n	-	-	smtpd -o smtpd_tls_wrappermode=yes -o smtpd_sasl_auth_enable=yes
-587	  inet	n	-	n	-	-	smtpd -o smtpd_enforce_tls=yes -o smtpd_sasl_auth_enable=yes
+#587	  inet	n	-	n	-	-	smtpd -o smtpd_enforce_tls=yes -o smtpd_sasl_auth_enable=yes
 % }
 
 % if ($filter) {
