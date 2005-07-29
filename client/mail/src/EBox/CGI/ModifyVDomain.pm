@@ -44,7 +44,7 @@ sub _warn {
 	push(@array, 'vdomain' => $vdomain);
 	push(@array, 'mdsize' => $mdsize);
 	push(@array, 'forceold' => $forceold);
-	push(@array, 'users' => @users);
+	push(@array, 'users' => \@users);
 	$self->{params} = \@array;
 
 	return 1;
@@ -66,9 +66,7 @@ sub _process($) {
 	my $modify = undef;
 
 	my @users = @{$mail->{musers}->checkUserMDSize($vdomain, $mdsize)};
-	print STDERR "Users? " . scalar(@users) . "\n";
 	foreach (@users) {
-		print STDERR "$_\n";
 	}
 	if ((@users > 0) and ($forceold)) {
 		if($self->param('cancel')) {
@@ -76,7 +74,6 @@ sub _process($) {
 		} elsif ($self->param('force')) {
 			$modify = 1;
 		} else {
-			print STDERR " USERS: " . @users . "\n";
 			$modify = not $self->_warn($mdsize, $vdomain, $forceold, @users);
 		}
 	} else {

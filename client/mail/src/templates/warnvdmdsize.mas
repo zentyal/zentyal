@@ -15,9 +15,7 @@ use EBox::Gettext;
 <div class="warning">
 	<% __('The new maildir size is smaller than the oldest one, the following
 	users will surprass the new limitation:') %>
-% for my $user (@users) {
-<% $user %>, 
-% }
+<% join(', ', @users) %>
 </div>
 
 <form action='ModifyVDomain' method='POST'>
