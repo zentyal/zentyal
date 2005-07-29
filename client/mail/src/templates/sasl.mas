@@ -2,13 +2,15 @@
 -->
 <%args>
 	$sasl
+	$smtptls
 	$title
 </%args>
-	<form action='EnableSASL' method='POST'>
-	<span class='ftitle'>
-		<% $title %>
-	</span>
-		<select name="sasl" enabled>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% $title %>:</span>
+		</td>
+		<td>
+		<select id="saslSelect" name="sasl" enabled onChange="saslChanged()">
 %  if($sasl eq 'yes') {
 			<option value='no' ><% __('No') %></option>
 			<option selected value='yes' ><% __('Yes') %></option>
@@ -17,7 +19,25 @@
 			<option value='yes' ><% __('Yes') %></option>
 %	}
 		</select>
-		<input class='inputButton' type='submit' name='change'
-			value="<% __('Ok') %>"
-			alt="<% __('Ok') %>">
-	</form>
+		</td>
+	</tr>
+
+
+<script type="text/javascript">
+
+function saslChanged() {
+	var sel = document.getElementById("saslSelect")
+	var chk = document.getElementById("tlsCheckBox")
+
+	if(sel.value == 'yes') {
+		chk.checked = true;
+	} else {
+%		if($smtptls) {
+			chk.checked = true;
+%		} else {
+			chk.checked = false;
+%		}
+	}
+}
+
+</script>

@@ -4,20 +4,16 @@
 	$filter
 	$title
 </%args>
-	<form action='EnableFilter' method='POST'>
-	<span class='ftitle'>
-		<% $title %>
-	</span>
-		<select name="filter" enabled>
-%  if($filter eq 'yes') {
-			<option value='no' ><% __('No') %></option>
-			<option selected value='yes' ><% __('Yes') %></option>
-%	}else{
-			<option selected value='no' ><% __('No') %></option>
-			<option value='yes' ><% __('Yes') %></option>
-%	}
-		</select>
-		<input class='inputButton' type='submit' name='change'
-			value="<% __('Ok') %>"
-			alt="<% __('Ok') %>">
-	</form>
+	<tr>
+		<td>
+			<span class='ftitle'><% $title %></span>
+		</td>
+		<td class='tcenter'>
+		<input type='checkbox' value='yes' 
+%			if($filter eq 'yes') {
+				checked
+%			}
+				name='filter' />
+		</td>
+		<td></td>
+	</tr>

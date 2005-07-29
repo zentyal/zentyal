@@ -8,13 +8,19 @@
 	<span class='ftitle'>
 		<% $title %>
 	</span>
-		<select name="popssl" enabled>
-%  if($popssl eq 'yes') {
-			<option value='no' ><% __('No') %></option>
-			<option selected value='yes' ><% __('Yes') %></option>
-%	}else{
+	<select name="popssl">
+%  if($popssl eq 'no') {
 			<option selected value='no' ><% __('No') %></option>
-			<option value='yes' ><% __('Yes') %></option>
+			<option value='optional' ><% __('Optional') %></option>
+			<option value='required' ><% __('Required') %></option>
+%	} elsif ($popssl eq 'optional'{
+			<option value='no' ><% __('No') %></option>
+			<option selected value='optional' ><% __('Optional') %></option>
+			<option value='required' ><% __('Required') %></option>
+%	} else {
+			<option value='no' ><% __('No') %></option>
+			<option value='optional' ><% __('Optional') %></option>
+			<option selected value='required' ><% __('Required') %></option>
 %	}
 		</select>
 		<input class='inputButton' type='submit' name='change'

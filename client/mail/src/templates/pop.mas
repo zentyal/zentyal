@@ -2,22 +2,50 @@
 -->
 <%args>
 	$pop
+	$popssl
 	$title
 </%args>
-	<form action='EnablePop' method='POST'>
-	<span class='ftitle'>
-		<% $title %>
-	</span>
-		<select name="pop" enabled>
-%  if($pop eq 'yes') {
-			<option value='no' ><% __('No') %></option>
-			<option selected value='yes' ><% __('Yes') %></option>
-%	}else{
+	<tr>
+		<td>
+			<span class='ftitle'> <% $title %> </span>
+		</td>
+		<td class='tcenter'>
+		<input id="popCheckBox" type='checkbox' value='yes' onclick="updatePopSelect()"
+%			if($pop eq 'yes') {
+				checked
+%			}
+				name='pop' />
+		</td>
+		<td class='tcenter'>
+		<select id="popSelect" name="popssl">
+%  if($popssl eq 'no') {
 			<option selected value='no' ><% __('No') %></option>
-			<option value='yes' ><% __('Yes') %></option>
+			<option value='optional' ><% __('Optional') %></option>
+			<option value='required' ><% __('Required') %></option>
+%	} elsif ($popssl eq 'optional') {
+			<option value='no' ><% __('No') %></option>
+			<option selected value='optional' ><% __('Optional') %></option>
+			<option value='required' ><% __('Required') %></option>
+%	} else {
+			<option value='no' ><% __('No') %></option>
+			<option value='optional' ><% __('Optional') %></option>
+			<option selected value='required' ><% __('Required') %></option>
 %	}
 		</select>
-		<input class='inputButton' type='submit' name='change'
-			value="<% __('Ok') %>"
-			alt="<% __('Ok') %>">
-	</form>
+		</td>
+	</tr>
+
+<script type="text/javascript">
+
+function updatePopSelect() {
+	var sel = document.getElementById("popSelect")
+	var chk = document.getElementById("popCheckBox")
+
+	if(chk.checked) {
+		sel.disabled = false;
+	} else {
+		sel.disabled = true;
+	}
+}
+updatePopSelect()
+</script>

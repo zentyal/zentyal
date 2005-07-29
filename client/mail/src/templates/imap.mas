@@ -2,22 +2,50 @@
 -->
 <%args>
 	$imap
+	$imapssl
 	$title
 </%args>
-	<form action='EnableImap' method='POST'>
-	<span class='ftitle'>
-		<% $title %>
-	</span>
-		<select name="imap" enabled>
-%  if($imap eq 'yes') {
-			<option value='no' ><% __('No') %></option>
-			<option selected value='yes' ><% __('Yes') %></option>
-%	}else{
+	<tr>
+		<td>
+			<span class='ftitle'> <% $title %> </span>
+		</td>
+		<td class='tcenter'>
+		<input id="imapCheckBox" type='checkbox' value='yes' onclick="updateImapSelect()"
+%			if($imap eq 'yes') {
+				checked
+%			}
+				name='imap' />
+		</td>
+		<td class='tcenter'>
+		<select id="imapSelect" name="imapssl">
+%  if($imapssl eq 'no') {
 			<option selected value='no' ><% __('No') %></option>
-			<option value='yes' ><% __('Yes') %></option>
+			<option value='optional' ><% __('Optional') %></option>
+			<option value='required' ><% __('Required') %></option>
+%	} elsif ($imapssl eq 'optional') {
+			<option value='no' ><% __('No') %></option>
+			<option selected value='optional' ><% __('Optional') %></option>
+			<option value='required' ><% __('Required') %></option>
+%	} else {
+			<option value='no' ><% __('No') %></option>
+			<option value='optional' ><% __('Optional') %></option>
+			<option selected value='required' ><% __('Required') %></option>
 %	}
 		</select>
-		<input class='inputButton' type='submit' name='change'
-			value="<% __('Ok') %>"
-			alt="<% __('Ok') %>">
-	</form>
+		</td>
+	</tr>
+
+<script type="text/javascript">
+
+function updateImapSelect() {
+	var sel = document.getElementById("imapSelect")
+	var chk = document.getElementById("imapCheckBox")
+
+	if(chk.checked) {
+		sel.disabled = false;
+	} else {
+		sel.disabled = true;
+	}
+}
+updateImapSelect()
+</script>

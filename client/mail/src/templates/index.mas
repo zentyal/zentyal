@@ -29,90 +29,99 @@ use EBox::Gettext;
 
 % if ($menu eq 'services') {
 <div>
-<h3><% __('Services') %></h3>
-<br />
-<& enable.mas, title => __('Enable Mail system'), active => $active &>
+<h3><% __('Settings') %></h3>
+
+<form action='MailSettings' method='post'>
+<table class='formTable'>
+	<& mail/enable.mas, title => __('Enable Mail system'), active => $active &>
 % if ($active eq 'yes') {
-<& mail/filter.mas, title => __('Enable mail filtering service'), filter => $filterservice &>
-<& mail/smtptls.mas, title => __('Enable TLS for SMTP server '), smtptls => $smtptls &>
-<& mail/sasl.mas, title => __('Enable SASL authentication'), sasl => $saslservice &>
+	<& mail/smtptls.mas, title => __('TLS for SMTP server '), smtptls => $smtptls &>
+	<& mail/sasl.mas, title => __('Require authentication'), sasl => $saslservice, smtptls => $smtptls &>
 % }
-<& mail/pop.mas, title => __('Enable POP3 service'), pop => $popservice &>
-<& mail/popssl.mas, title => __('Enable POP3 SSL service'), popssl => $popssl &>
-<& mail/imap.mas, title => __('Enable IMAP service'), imap => $imapservice &>
-<& mail/imapssl.mas, title => __('Enable IMAP SSL service'), imapssl => $imapssl &>
+	<tr>
+		<td></td>
+		<td>
+			<input 	type='submit'
+					class='inputButton'
+					name='applySettings'
+					title="<% __('Change')%>"
+					value="<% __('Change')%>"/>
+	</tr>
+</table>
+</form>
+
+<h3><% __('Services') %></h3>
+
+<form action='EnableServices'>
+
+<table class='dataTable'>
+<tr>
+	<th class='tleft'>
+		<% __('Service') %>
+	</th>
+	<th>
+		<% __('Enabled') %>
+	</th>
+	<th>
+		<% __('SSL Support') %>
+	</th>
+</tr>
+
+% if ($active eq 'yes') {
+	<& mail/filter.mas, title => __('Mail filtering'), filter => $filterservice &>
+% }
+
+<& mail/pop.mas, title => __('POP3'), pop => $popservice, popssl => $popssl &>
+<& mail/imap.mas, title => __('IMAP'), imap => $imapservice, imapssl => $imapssl &>
+
+</table>
+<input 	type='submit'
+		class='inputButton'
+		name='applyChanges'
+		title="<% __('Apply Changes')%>"
+		value="<% __('Apply Changes')%>"
+</form>
 % }
 
 % if ($menu eq 'settings') {
 <form action='MailConf' method='POST'>
 	<h3><% __('General Settings') %></h3>
-	<table class='formTable'>
-	<tbody>
-	<tr>
-		<td class='tright'>
-			<span class='ftitle'><% __('Relay') %>:</span>
-		</td>
-		<td>
-			<input type='text' class='inputText' name='relay' 
-		   		value='<% $relay %>'>
-		</td>
-		<td>
-			<input class='inputButton' type='submit' name='change'
-				value="<% __('Change') %>"
-				alt="<% __('Change') %>">
-		</td>
-	</tr>
-	</tbody>
-	</table>
+	<div class='ftitle'><% __('Relay') %></div>
+	<div>Cualquier tipo de stuff explicando que es esta movida.</div>
+	<input type='text' class='inputText' name='relay' 
+		value='<% $relay %>'>
+	<input class='inputButton' type='submit' name='change'
+		value="<% __('Change') %>"
+		alt="<% __('Change') %>">
 </form>
 
 <form action='SetQuota' method='POST'>
-	<table class='formTable'>
-	<tbody>
-	<tr>
-		<td class='tright'>
-			<span class='ftitle'><% __('Message size limit (in MB)') %>:</span>
-		</td>
-		<td>
-			<input type='text' class='inputText' name='maxmsgsize' 
-		   		value='<% $maxmsgsize %>'>
-		</td>
-		<td>
-			<input class='inputButton' type='submit' name='change'
-				value="<% __('Change') %>"
-				alt="<% __('Change') %>">
-		</td>
-	</tr>
-	</tbody>
-	</table>
+	<div class='ftitle'><% __('Message size limit (in MB)') %></div>
+	<input type='text' class='inputText' name='maxmsgsize' 
+		value='<% $maxmsgsize %>'>
+	<input class='inputButton' type='submit' name='change'
+		value="<% __('Change') %>"
+		alt="<% __('Change') %>">
 </form>
 
 <form action='SetMDQuota' method='POST'>
-	<table class='formTable'>
-	<tbody>
-	<tr>
-		<td class='tright'>
-			<span class='ftitle'><% __('Default maildir size limit (in MB)') %>:</span>
-		</td>
-		<td>
-			<input type='text' class='inputText' name='mdsize' 
-		   		value='<% $maxmdsize %>'>
-		</td>
-		<td>
-			<input class='inputButton' type='submit' name='change'
-				value="<% __('Change') %>"
-				alt="<% __('Change') %>">
-		</td>
-	</tr>
-	</tbody>
-	</table>
+	<div class='ftitle'><% __('Default maildir size limit (in MB)') %></div>
+	<input type='text' class='inputText' name='mdsize' 
+		value='<% $maxmdsize %>'>
+	<input class='inputButton' type='submit' name='change'
+		value="<% __('Change') %>"
+		alt="<% __('Change') %>">
 </form>
-
+<br/>
 <div class='fixme'>
         <div class="help">
 		<% __('Choose the object whose state you want to change and click in the arrow to move it to the desired column.') %>
 	</div>
-	<br />
+
+<div class='note'><% __('Deberá introducir en la columna de permitidos aquellos objetos a los 
+que se permite reenviar correo electrónico haciendo uso de este servidor.')
+%></div>
+<br/>
 
 <form action='SetAllowed' method='POST'>
 <table> 
