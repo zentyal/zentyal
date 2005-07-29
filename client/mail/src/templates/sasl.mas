@@ -31,7 +31,9 @@ function saslChanged() {
 
 	if(sel.value == 'yes') {
 		chk.checked = true;
+		chk.disabled = true;
 	} else {
+		chk.disabled = false;
 %		if($smtptls) {
 			chk.checked = true;
 %		} else {
