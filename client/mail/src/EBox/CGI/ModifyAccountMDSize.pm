@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::Mail::ModifyVDomain;
+package EBox::CGI::Mail::ModifyAccountMDSize;
 
 use strict;
 use warnings;
@@ -35,16 +35,14 @@ sub new {
 }
 
 sub _warn {
-	my ($self, $mdsize, $vdomain, $forceold, @users) = @_;
+	my ($self, $mdsize, $username) = @_;
 
-	$self->{template} = 'mail/warnvdmdsize.mas';
+	$self->{template} = 'mail/warnusermdsize.mas';
 	$self->{redirect} = undef;
-	
+
 	my @array = ();
-	push(@array, 'vdomain' => $vdomain);
+	push(@array, 'username' => $username);
 	push(@array, 'mdsize' => $mdsize);
-	push(@array, 'forceold' => $forceold);
-	push(@array, 'users' => @users);
 	$self->{params} = \@array;
 
 	return 1;
@@ -54,40 +52,32 @@ sub _process($) {
 	my $self = shift;
 	my $mail = EBox::Global->modInstance('mail');
  
-	$self->_requireParam('vdomain', __('vdomain'));
-	$self->_requireParam('mdsize', __('mdsize'));
+	$self->_requireParam('username', __('username'));
+	my $username = $self->param('username');
+	$self->{redirect} = "UsersAndGroups/User?username=$username";
 	
-	$self->{redirect} = "Mail/VDomains";	
-
-	my $vdomain = $self->param('vdomain');
+	$self->_requireParam('mdsize', __('mdsize'));
 	my $mdsize = $self->param('mdsize');
-	my $oldmdsize = $mail->{vdomains}->getMDSize($vdomain);
-	my $forceold = $self->param('forceold');
+	my $oldmdsize = ($mail->{musers}->getUserLdapValue($username,
+		'userMaildirSize')) / $mail->BYTES;
 	my $modify = undef;
 
-	my @users = @{$mail->{musers}->checkUserMDSize($vdomain, $mdsize)};
-	print STDERR "Users? " . scalar(@users) . "\n";
-	foreach (@users) {
-		print STDERR "$_\n";
-	}
-	if ((@users > 0) and ($forceold)) {
+	if ($mdsize < $oldmdsize) {
 		if($self->param('cancel')) {
-			$self->{redirect} = "Mail/VDomains";	
+			$self->{redirect} = "UsersAndGroups/User?username=$username";
 		} elsif ($self->param('force')) {
 			$modify = 1;
 		} else {
-			print STDERR " USERS: " . @users . "\n";
-			$modify = not $self->_warn($mdsize, $vdomain, $forceold, @users);
+			$modify = not $self->_warn($mdsize, $username);
 		}
 	} else {
 		$modify = 1;
 	}
-
-	if($modify) {
-		$mail->{vdomains}->setMDSize($vdomain, $mdsize);
-		if ($forceold) {
-			$mail->{vdomains}->updateMDSizes($vdomain, $mdsize);
-		}
+	
+	$self->keepParam('username');
+	
+	if ($modify) {
+		$mail->{musers}->setMDSize($username, $mdsize);
 	}
 }
 

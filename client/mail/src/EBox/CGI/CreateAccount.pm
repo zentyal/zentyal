@@ -48,7 +48,7 @@ sub _process($) {
 	$self->_requireParam('lhs', __('left hand side'));
 	my $lhs = $self->param('lhs');
 	$self->_requireParam('dftmdsize', __('maildir size'));
-	my $mdsize = $self->param('dftmdsize');
+	my $mdsize = $self->param('dftmdsize') * $mail->BYTES;
 	
 	$self->keepParam('username');
 

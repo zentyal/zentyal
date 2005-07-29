@@ -1,0 +1,39 @@
+<!-- vim: filetype=mason
+-->
+<%args>
+	$vdomain
+	$mdsize
+	$forceold
+	@users
+</%args>
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<h3><% __('Changing maildir size of') %>: <% $vdomain %></h3>
+<div class="warning">
+	<% __('The new maildir size is smaller than the oldest one, the following
+	users will surprass the new limitation:') %>
+% for my $user (@users) {
+<% $user %>, 
+% }
+</div>
+
+<form action='ModifyVDomain' method='POST'>
+	<input type='hidden' name='vdomain'
+			value='<% $vdomain %>'/>
+	<input type='hidden' name='mdsize'
+			value='<% $mdsize %>'/>
+	<input type='hidden' id="forceold" type='checkbox' value='yes'
+%			if($forceold) {
+				checked
+%			}
+				name='forceold' />
+	<input class='inputButton'
+			type='submit' name='force'
+			value="<% __('Change') %>">
+	<input class='inputButton'
+			type='submit' name='cancel'
+			value="<% __('Cancel') %>">
+</form>

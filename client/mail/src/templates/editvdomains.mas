@@ -14,4 +14,6 @@ use EBox::Gettext;
 	<input class='inputButton' type='submit' name='change'
 		value="<% __('Modify') %>"
 		alt="<% __('Modify') %>">
+	<a>Force new value to old users</a>
+	<input id="forceold" type='checkbox' value='no' name="forceold" />
 </form>	

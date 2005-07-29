@@ -10,16 +10,47 @@ use EBox::Gettext;
 
 
 <form action='AddVDomain' method='POST'>
-	<div class='ftitle'><% __('Add a new virtual domain') %></div>
-		<input type='text' class='inputText' name='vdomain'>
-	<div class='ftitle'><% __('Set default maildir size for this virtual domain') %></div>
-		<input type='text' class='inputText' name='dftmdsize' value=<% $mdsize %>>
-		<input class='inputButton' type='submit' name='addVDomain' 
-			   value="<% __('Add') %>"
-			   alt="<% __('Add') %>">
+	<table class='formTable'>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Domain name') %>:</span>
+		</td>
+		<td class='tright'>
+			<input type='text' class='inputText' name='vdomain' />
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'>
+				<% __('Default maildir size') %>:
+			</span>
+		</td>
+		<td class='tright'>
+			<input 	type='text' 
+					class='inputText' 
+					name='dftmdsize' 
+					value='<% $mdsize %>' />
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input class='inputButton' type='submit' name='addVDomain' 
+				   value="<% __('Add') %>"
+				   alt="<% __('Add') %>">
+		</td>
+	</tr>
+	</table>
 </form>
+
 %   my @kvd = keys %vdomains;
 %	if(@kvd != 0) {
+		<div class='note'>
+            <% __('Remove a virtual domain will cause that all mail accounts and mail alias accounts that belong to the virtual domain will also be removed.') %>
+        </div>
+
+		<br/>
+
 		<table cellspacing='0' class='dataTable'>
 			<caption><% __('Virtual domains list') %></caption>
 			<thead>

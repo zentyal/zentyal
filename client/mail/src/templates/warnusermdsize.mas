@@ -1,0 +1,27 @@
+<%args>
+	$username
+	$mdsize
+</%args>
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<h3><% __('Changing maildir size of') %>: <% $username %></h3>
+<div class="warning">
+	<% __('The new maildir size is smaller than the oldest one and the actual
+	size of the user maildir will surpass the new limitation.') %>
+</div>
+
+<form action='ModifyAccountMDSize' method='POST'>
+	<input type='hidden' name='username'
+			value='<% $username %>'/>
+	<input type='hidden' name='mdsize'
+			value='<% $mdsize %>'/>
+	<input class='inputButton'
+			type='submit' name='force'
+			value="<% __('Change') %>">
+	<input class='inputButton'
+			type='submit' name='cancel'
+			value="<% __('Cancel') %>">
+</form>

@@ -230,6 +230,16 @@ sub delAlias($$) { #mail alias account
 	my $r = $self->{'ldap'}->delete("mail=$alias, " . $self->aliasDn);
 }
 
+sub delAliasesFromVDomain () {
+	my ($self, $vdomain) = @_;
+
+	my @aliases = @{$self->_allAliasFromVDomain($vdomain)};
+
+	foreach (@aliases) {
+		$self->delAlias($_);
+	}
+}
+
 sub delAliasGroup($$) {
 	my ($self, $group) = @_;
 
@@ -372,6 +382,22 @@ sub accountExists($$) { #mail alias account
 	my $result = $self->{'ldap'}->search(\%attrs);
 
 	return (($result->count > 0) || ($self->aliasExists($alias)));
+}
+
+sub _allAliasFromVDomain () { #vdomain
+	my ($self, $vdomain) = @_;
+
+	my %attrs = (
+		base => $self->aliasDn,
+		filter => "&(objectclass=couriermailalias)(mail=*@".$vdomain.")",
+		scope => 'one'
+	);
+
+	my $result = $self->{'ldap'}->search(\%attrs);
+
+	my @alias = map { $_->get_value('mail')} $result->sorted('mail');
+
+	return \@alias;
 }
 
 1;

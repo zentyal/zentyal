@@ -28,6 +28,7 @@ use EBox::Exceptions::DataMissing;
 use EBox::Gettext;
 
 use constant VDOMAINDN     => 'ou=vdomains, ou=postfix';
+use constant BYTES				=> '1048576';
 
 sub new 
 {
@@ -49,27 +50,24 @@ sub addVDomain { #vdomain
 														'value' => $vdomain);
 	}
 	
-	# Black magic here! the atribute default maildir size for the virtual domains 
-	# 
 	my $dn = "domainComponent=$vdomain, " . $self->vdomainDn;
 	my %attrs = ( 
 		attr => [
 			'domainComponent'	=> $vdomain,
-			'vddftMaildirSize'=> $dftmdsize,
+			'vddftMaildirSize'=> ($dftmdsize * $self->BYTES),
 			'objectclass'		=> 'domain',
 			'objectclass'		=> 'vdeboxmail'
 		]
 	);
 
 	my $r = $self->{'ldap'}->add($dn, \%attrs);
-
-#	$self->_createHome("/var/vmail/$vdomain");
 }
 
 sub delVDomain($$) { #vdomain
 	my $self = shift;
 	my $vdomain = shift;
-
+	my $mail = EBox::Global->modInstance('mail');
+	
 	# Verify vdomain exists
 	unless ($self->vdomainExists($vdomain)) {
 		throw EBox::Exceptions::DataNotFound('data' => __('virtual domain'),
@@ -77,6 +75,8 @@ sub delVDomain($$) { #vdomain
 	}
 
 	# We Should warn about users whose mail account belong to this vdomain.
+	$mail->{malias}->delAliasesFromVDomain($vdomain);
+	$mail->{musers}->delAccountsFromVDomain($vdomain);
 
 	my $r = $self->{'ldap'}->delete("domainComponent=$vdomain, " .
 	$self->vdomainDn);
@@ -113,8 +113,8 @@ sub vdandmaxsizes()
 	
 	my $result = $self->{ldap}->search(\%args);
 
-	my %vdomains = map { $_->get_value('dc'), $_->get_value('vddftMaildirSize')}
-		$result->sorted('domainComponent');
+	my %vdomains = map { $_->get_value('dc'), ($_->get_value('vddftMaildirSize') / $self->BYTES)}
+	$result->sorted('domainComponent');
 
 	return %vdomains;
 }
@@ -134,7 +134,7 @@ sub getMDSize() {
 
 	my $mdsize = $entry->get_value('vddftMaildirSize');
 
-	return $mdsize;
+	return ($mdsize / $self->BYTES);
 }
 
 sub setMDSize() {
@@ -142,7 +142,18 @@ sub setMDSize() {
    
 	my $dn = "domainComponent=$vdomain," .  $self->vdomainDn;
 	my $r = $self->{'ldap'}->modify($dn, {
-		replace => { 'vddftMaildirSize' => $mdsize }});
+		replace => { 'vddftMaildirSize' => $mdsize * $self->BYTES }});
+}
+
+sub updateMDSizes() {
+	my ($self, $vdomain, $mdsize) = @_;
+	my $mail = EBox::Global->modInstance('mail');
+	
+	my %accounts = %{$mail->{musers}->allAccountsFromVDomain($vdomain)};
+
+	foreach my $uids (keys %accounts) {
+		$mail->{musers}->setMDSize($uids, $mdsize);
+	}
 }
 
 sub vdomainDn

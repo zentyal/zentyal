@@ -18,7 +18,7 @@ settextdomain('ebox-mail');
 		<option value= <% $vd %> > <% __($vd) %> </option>
 %	}
 	</select>
-	<div class='ftitle'><% __('Set default maildir size for this virtual domain') %></div>
+	<div class='ftitle'><% __('Set default maildir size for this mailaccount') %></div>
 	<input type='text' class='inputText' name='dftmdsize' value=<%  %>>
 	<input class='inputButton' type='submit' name='change'
 			value="<% __('Create') %>"

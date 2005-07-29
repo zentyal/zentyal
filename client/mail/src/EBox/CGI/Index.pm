@@ -83,9 +83,9 @@ sub _process($) {
 	push (@array, 'imapservice'		=> $self->_inService('imap'));
 	push (@array, 'filterservice'		=> $self->_inService('filter'));
 	push (@array, 'saslservice'		=> $self->_inService('sasl'));
-	push (@array, 'smtptls'		=> $self->_inService('smtptls'));
-	push (@array, 'popssl'		=> $self->_inService('popssl'));
-	push (@array, 'imapssl'		=> $self->_inService('imapssl'));
+	push (@array, 'smtptls'		=> $mail->tlsSmtp());
+	push (@array, 'popssl'		=> $mail->sslPop());
+	push (@array, 'imapssl'		=> $mail->sslImap());
 	push (@array, 'fwport'		=> $mail->fwport());
 	push (@array, 'ipfilter'		=> $mail->ipfilter());
 	push (@array, 'portfilter'		=>  $mail->portfilter());

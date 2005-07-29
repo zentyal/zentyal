@@ -35,15 +35,39 @@ sub new {
 	return $self;
 }
 
+sub _warn {
+	my ($self, $vdomain) = @_;
+
+	$self->{template} = 'mail/warnvd.mas';
+	$self->{redirect} = undef;
+
+	my @array = ();
+	push(@array, 'vdomain' => $vdomain);
+	$self->{params} = \@array;
+
+	return 1;
+}
+
 sub _process($) {
 	my $self = shift;
 	my $mail = EBox::Global->modInstance('mail');
+	my $delvd;
  
 	$self->_requireParam('vdomain', __('vdomain'));
 	
 	my $vdomain = $self->param('vdomain');
 
-	$mail->{vdomains}->delVDomain($vdomain);
+	if($self->param('cancel')) {
+		$self->{redirect} = "Mail/VDomains";
+	} elsif ($self->param('delvdforce')) {
+		$delvd = 1;
+	} else {
+		$delvd = not $self->_warn($vdomain);
+	}
+
+	if ($delvd) {
+		$mail->{vdomains}->delVDomain($vdomain);
+	}
 }
 
 1;

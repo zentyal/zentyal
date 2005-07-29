@@ -30,6 +30,7 @@ use EBox::Gettext;
 # LDAP schema
 use constant SCHEMAS		=> ('/etc/ldap/schema/authldap.schema', '/etc/ldap/schema/eboxmail.schema');
 use constant DIRVMAIL	=>	'/var/vmail/';
+use constant BYTES				=> '1048576';
 
 use base qw(EBox::LdapUserBase);
 
@@ -63,9 +64,6 @@ sub setUserAccount () {
 	
 
 	my $userinfo = $users->userInfo($user);
-
-	#busqueda del valor de maildir por defecto del vmdomain seleccionado en $lhs
-	#my $mdsize =
 
 	my $dn = "uid=$user," .  $users->usersDn;
 	my %attrs = ( 
@@ -111,15 +109,15 @@ sub delUserAccount () { #username, mail
 
 
 	# Now we remove all mail atributes from user ldap leaf
-	my $mailbox = $self->_getUserLdapValue($username, "mailbox");
+	my $mailbox = $self->getUserLdapValue($username, "mailbox");
 	my %attrs = (
 			changes => [
 				delete => [
-					mail			=> $self->_getUserLdapValue($username, "mail"),
+					mail			=> $self->getUserLdapValue($username, "mail"),
 					mailbox 		=> $mailbox,
-					quota			=> $self->_getUserLdapValue($username, "quota"),
-					userMaildirSize => $self->_getUserLdapValue($username, "userMaildirSize"),
-					mailHomeDirectory => $self->_getUserLdapValue($username, "mailHomeDirectory"),
+					quota			=> $self->getUserLdapValue($username, "quota"),
+					userMaildirSize => $self->getUserLdapValue($username, "userMaildirSize"),
+					mailHomeDirectory => $self->getUserLdapValue($username, "mailHomeDirectory"),
 					objectClass	=> 'couriermailaccount',
 					objectClass => 'usereboxmail'
 				]
@@ -131,12 +129,23 @@ sub delUserAccount () { #username, mail
 	my $removed = $ldap->modify($dn, \%attrs ); 
 
 	# Here we remove mail directorie of user account.
-	
 	root("/bin/rm -rf ".DIRVMAIL.$mailbox);
 
 }
 
-sub _getUserLdapValue () { #uid, ldap value
+sub delAccountsFromVDomain () { #vdomain
+	my ($self, $vdomain) = @_;
+
+	my %accs = %{$self->allAccountsFromVDomain($vdomain)};
+
+	my $mail = "";
+	foreach my $uid (keys %accs) {
+		$mail = $accs{$uid};
+		$self->delUserAccount($uid, $accs{$uid});
+	}
+}
+
+sub getUserLdapValue () { #uid, ldap value
 	my ($self, $uid, $value) = @_;
 	my $users = EBox::Global->modInstance('users');
 
@@ -220,13 +229,15 @@ sub _userAddOns() {
 	my $entry = $result->entry(0);
 
 	my $usermail = $entry->get_value('mail');
+	my $mdsize = $entry->get_value('userMaildirSize');
 	my %vd =  $mail->{vdomains}->vdandmaxsizes();
 	my @aliases = $mail->{malias}->accountAlias($usermail);
 
 	my $args = { 'username'	=>	$username,
 			'mail'	=>	$usermail,
 			'aliases'	=> \@aliases,
-			'vdomains'	=> \%vd };
+			'vdomains'	=> \%vd,
+			'mdsize'	=> ($mdsize / $self->BYTES) };
 	
 	return { path => '/mail/account.mas', params => $args };
 
@@ -303,6 +314,68 @@ sub _accountExists() { #username
 
 	return ($result->count > 0);
 
+}
+
+sub setMDSize() {
+	my ($self, $uid, $mdsize) = @_;
+	my $users = EBox::Global->modInstance('users');
+	
+	my $dn = "uid=$uid," .  $users->usersDn;
+	my $r = $self->{'ldap'}->modify($dn, {
+		replace => { 'userMaildirSize' => $mdsize * $self->BYTES }});
+}
+
+sub allAccountsFromVDomain() { #vdomain
+	my ($self, $vdomain) = @_;
+
+	my $users = EBox::Global->modInstance('users');
+
+	my %attrs = (
+		base => $users->usersDn,
+		filter => "&(objectclass=couriermailaccount)(mail=*@".$vdomain.")",
+		scope => 'one'
+	);
+
+	my $result = $self->{'ldap'}->search(\%attrs);
+	
+	my %accounts = map { $_->get_value('uid'), $_->get_value('mail')} $result->sorted('uid');
+
+	return \%accounts;
+}
+
+sub checkUserMDSize () {
+	my ($self, $vdomain, $newmdsize) = @_;
+
+	my %accounts = %{$self->allAccountsFromVDomain($vdomain)};
+	my @warnusers = ();
+	my $size = 0;
+
+	foreach my $acc (keys %accounts) {
+		$size = $self->_getActualMDSize($acc);
+		($size > $newmdsize) and push (@warnusers, $acc);
+	}
+
+	return \@warnusers;
+}
+
+sub _getActualMDSize() {
+	my ($self, $username) = @_;
+
+	my $mailhome = $self->getUserLdapValue($username, 'mailHomeDirectory');
+	my $mailbox = $mailhome . $self->getUserLdapValue($username, 'mailbox');
+
+	open(FILE,$mailbox.'maildirsize');
+	my @lines = <FILE>;
+	
+	shift(@lines);
+	
+	my $sum = 0;
+	for my $line (@lines) {
+		my @array = split(' ', $line);
+		$sum += $array[0];
+	}
+
+	return ($sum / $self->BYTES);
 }
 
 sub _includeLDAPSchemas {

@@ -18,6 +18,16 @@ use EBox::Gettext;
 			alt="<% __('Delete') %>">
 </form>
 
+<form action='/ebox/Mail/ModifyAccountMDSize' method='POST'>
+<div class='ftitle'><% __x('Set default maildir size for {mail} account', 
+		mail => $params->{'mail'} ) %></div>
+    <input type="hidden" name="username" value="<% $params->{'username'} %>">
+	<input type='text' class='inputText' name='mdsize' value=<% $params->{'mdsize'} %>>
+	<input class='inputButton' type='submit' name='change'
+		value="<% __('Modify') %>"
+		alt="<% __('Modify') %>">
+</form>
+
 <form action='/ebox/Mail/CreateAlias' method='POST'>
     <input type="hidden" name="maildrop" value="<% $params->{'mail'} %>">
     <input type="hidden" name="username" value="<% $params->{'username'} %>">
