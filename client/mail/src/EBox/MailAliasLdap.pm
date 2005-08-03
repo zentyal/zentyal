@@ -207,13 +207,21 @@ sub delMaildrop ($$$) { #alias account, mail account to remove
 
 	my $dn = "mail=$alias, " . $self->aliasDn();
 
-	my %attrs = (
-		changes => [
-			delete => [ 'maildrop'	=> $maildrop ]
-		]
-	);
+	#if is the last maildrop delete the alias account
+	my @mlist = @{$self->accountListByAliasGroup($alias)};
+	my %attrs;
 
-	my $r = $self->{'ldap'}->modify($dn, \%attrs);
+	if (@mlist == 1) {
+		$self->delAlias($alias);
+	} else {
+		%attrs = (
+			changes => [
+				delete => [ 'maildrop'	=> $maildrop ]
+			]
+		);
+		my $r = $self->{'ldap'}->modify($dn, \%attrs);
+	}	
+
 }
 
 sub delAlias($$) { #mail alias account
@@ -300,6 +308,23 @@ sub groupAccountAlias($$) { #mail account
 	}
 
 	return @malias;
+}
+
+sub accountListByAliasGroup() {
+	my ($self, $mail) = @_;
+
+	my %args = (
+		base => $self->aliasDn,
+		filter => "(mail=$mail)",
+		scope => 'one',
+		attrs => ['maildrop']
+	);
+	
+	my $result = $self->{ldap}->search(\%args);
+
+	my @mlist = map { $_->get_value('maildrop') } $result->sorted('uid');
+
+	return \@mlist;
 }
 
 sub aliasDn
