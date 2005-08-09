@@ -1,0 +1,5 @@
+apt-get install:
+ spamassassin
+ clamav
+ clamav-freshclam
+ amavisd-new
