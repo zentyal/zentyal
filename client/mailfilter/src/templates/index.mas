@@ -1,0 +1,10 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+	$active
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<& enable.mas, title => __('Enable Mail filter system'), active => $active &>

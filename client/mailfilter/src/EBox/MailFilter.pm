@@ -24,6 +24,7 @@ use EBox::Gettext;
 #use EBox::Sudo qw( :all );
 #use EBox::Validate qw( :all );
 use EBox::Summary::Module;
+use EBox::Summary::Status;
 
 use constant AMAVISPIDFILE			=> "/var/run/amavis/amavisd.pid";
 use constant SAPIDFILE				=> "/var/run/spamd.pid";
@@ -143,8 +144,23 @@ sub setService
 sub statusSummary
 {
 	my $self = shift;
-	return new EBox::Summary::Status('mailfilter', __('MailFilter system'),
+	return new EBox::Summary::Status('mailfilter', __('Mail filter system'),
 		$self->isRunning(), $self->service());
+}
+
+#
+# Method: menu
+#
+#	This method add a mailfilter item to the Mail folder in the menu.
+#
+sub menu
+{
+	my ($self, $root) = @_;
+	my $folder = new EBox::Menu::Folder('name' => 'Mail',
+		'text' => __('Mail'));
+	$folder->add(new EBox::Menu::Item('url' => 'MailFilter/Index',
+			'text' => __('Mail filter')));
+	$root->add($folder);
 }
 
 #
