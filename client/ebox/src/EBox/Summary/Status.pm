@@ -29,6 +29,7 @@ sub new  # (key, value)
 	$self->{title} = shift;
 	$self->{status} = shift;
 	$self->{enabled} = shift;
+	$self->{nobutton} = shift;
 	bless($self, $class);
 	return $self;
 }
@@ -63,7 +64,7 @@ sub html($)
 	print "<span class='sleft'>\n";
 	print $status_str;
 	print "</span>\n";
-	if ($self->{status} or $self->{enabled}) {
+	if (($self->{status} or $self->{enabled}) and not(defined($self->{nobutton}))) {
 		print "<input type='hidden' name='module' value='$mod'/>\n";
 		print "<span class='sright'>\n";
 		print "<input class='inputButtonRestart' type='submit' name='restart' value='$restart'/>\n";
