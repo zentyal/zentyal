@@ -25,6 +25,7 @@ use EBox::Sudo qw( :all );
 #use EBox::Validate qw( :all );
 use EBox::Summary::Module;
 use EBox::Summary::Status;
+use EBox::Exceptions::InvalidData;
 
 use constant AMAVISPIDFILE			=> "/var/run/amavis/amavisd.pid";
 use constant SAPIDFILE				=> "/var/run/spamd.pid";
@@ -94,6 +95,23 @@ sub service
 }
 
 #
+# Method: setService
+#
+#  Enable/Disable the service.
+#
+# Parameters:
+#
+#  active - true or false
+#
+sub setService 
+{
+	my ($self, $active) = @_;
+	($active and $self->service()) and return;
+	(!$active and !$self->service()) and return;
+	$self->set_bool('active', $active);
+}
+
+#
 # Method: _doDaemon
 #
 #  Sends restart/start/stop command to the daemons depending of their actual
@@ -160,20 +178,364 @@ sub _stopService
 }
 
 #
-# Method: setService
+# Method: bayes
 #
-#  Enable/Disable the service.
+#  Returns the state of the bayesian filter.
+#
+# Returns:
+#
+#  boolean - true if it's active, otherwise false
+#
+sub bayes
+{
+	my $self = shift;
+	return $self->get_bool('bayes');
+}
+
+#
+# Method: setBayes
+#
+#  Enable/Disable the bayesian filter.
 #
 # Parameters:
 #
 #  active - true or false
 #
-sub setService 
+sub setBayes
 {
 	my ($self, $active) = @_;
-	($active and $self->service()) and return;
-	(!$active and !$self->service()) and return;
-	$self->set_bool('active', $active);
+	($active and $self->bayes()) and return;
+	(!$active and !$self->bayes()) and return;
+	$self->set_bool('bayes', $active);
+}
+
+#
+# Method: updateVirus
+#
+#  Returns the state of the automatic virus signs database.
+#
+# Returns:
+#
+#  boolean - true if it's active, otherwise false
+#
+sub updateVirus
+{
+	my $self = shift;
+	return $self->get_bool('updatevirus');
+}
+
+#
+# Method: setUpdateVirus
+#
+#  Enable/Disable the automatic virus signs database
+#
+# Parameters:
+#
+#  active - true or false
+#
+sub setUpdateVirus
+{
+	my ($self, $active) = @_;
+	($active and $self->updateVirus()) and return;
+	(!$active and !$self->updateVirus()) and return;
+	$self->set_bool('updatevirus', $active);
+}
+
+#
+# Method: mode
+#
+#  Returns the mode of MailFilter system.
+#
+# Returns:
+#
+#  boolean - true: working as filter proxy to an external mail system.
+#  			 false: working with an eBox Mail module.
+#
+sub moduleMode
+{
+	my $self = shift;
+	return $self->get_bool('mode');
+}
+
+#
+# Method: setModuleMode
+#
+#  Sets the working mode of the MailFilter module.
+#
+# Parameters:
+#
+#  active - true: working as filter proxy to an external mail system.
+#  			false: working with an eBox Mail module.
+#
+sub setModuleMode
+{
+	my ($self, $active) = @_;
+	($active and $self->moduleMode()) and return;
+	(!$active and !$self->moduleMode()) and return;
+	$self->set_bool('mode', $active);
+}
+
+#
+# Method: autolearn
+#
+#  Returns the state of the autolearn in bayesian subsystem.
+#
+# Returns:
+#
+#  boolean - true if it's active, otherwise false
+#
+sub autolearn
+{
+	my $self = shift;
+	return $self->get_bool('autolearn');
+}
+
+#
+# Method: setAutolearn
+#
+#  Enable/Disable autolearn in bayesian subsystem.
+#
+# Parameters:
+#
+#  active - true or false
+#
+sub setAutolearn
+{
+	my ($self, $active) = @_;
+	($active and $self->autolearn()) and return;
+	(!$active and !$self->autolearn()) and return;
+	$self->set_bool('autolearn', $active);
+}
+
+#
+# Method: autoSpamHits
+#
+#  Returns the hits that a spam message would have to obtain to enter to the
+#  learning system.
+#
+# Returns:
+#
+#  string - The score.
+#
+sub autoSpamHits
+{
+	my $self = shift;
+	return $self->get_string('autospamhits');
+}
+
+#
+# Method: setAutoSpamHits
+#
+#  Sets the hits score that a spam message would have to obtain to enter to the
+#  learning system.
+#
+# Parameters:
+#
+#  hits - A string contains the hits score.
+#
+sub setAutoSpamHits
+{
+	my ($self, $hits) = @_;
+	($hits eq $self->autoSpamHits()) and return;
+	$self->set_string('autospamhits', $hits);
+}
+
+#
+# Method: autoHamHits
+#
+#  Returns the hits that a ham message would have to obtain to enter to the
+#  learning system.
+#
+# Returns:
+#
+#  string - The score.
+#
+sub autoHamHits
+{
+	my $self = shift;
+	return $self->get_string('autohamhits');
+}
+
+#
+# Method: setAutoHamHits
+#
+#  Sets the hits score that a ham message would have to obtain to enter to the
+#  learning system.
+#
+# Parameters:
+#
+#  hits - A string contains the hits score.
+#
+sub setAutoHamHits
+{
+	my ($self, $hits) = @_;
+	($hits eq $self->autoHamHits()) and return;
+	$self->set_string('autohamhits', $hits);
+}
+
+#
+# Method: subjectModification
+#
+#  Returns the modification of the subject state
+#  
+# Returns:
+#
+#  boolean - true if its active, false otherwise
+#
+sub subjectModification
+{
+	my $self = shift;
+	return $self->get_bool('subjectmod');
+}
+
+#
+# Method: setSubjectModification
+#
+#  Sets the modification of the subject parameter.
+#
+# Parameters:
+#
+#  sbmod - true if the modification is active, false otherwise
+#
+sub setSubjectString
+{
+	my ($self, $sbmod) = @_;
+	($sbmod and $self->subjectModification()) and return;
+	(!sbmod and !$self->subjectModification()) and return;
+	$self->set_bool('subjectmod', $sbmod);
+}
+
+
+#
+# Method: subjectString
+#
+#  Returns the string to add to the subject of a spam message (if this option is
+#  active)
+#  
+# Returns:
+#
+#  string - The string to add.
+#
+sub subjectString
+{
+	my $self = shift;
+	return $self->get_string('subjectstr');
+}
+
+#
+# Method: setSubjectString
+#
+#  Sets the string to add to the subject of a spam message.
+#
+# Parameters:
+#
+#  subject - A string to add.
+#
+sub setSubjectString
+{
+	my ($self, $subject) = @_;
+	($subject eq $self->subjectString()) and return;
+	$self->set_string('subjectstr', $subject);
+}
+
+#
+# Method: filterPolicy
+#
+#  Returns the policy of a filter type passed as parameter. The filter type
+#  could be:
+#  	- virus: Virus filter.
+#  	- spam: Spam filter.
+#  	- bhead: Bad headers checks.
+#  	- banned: Banned names and types checks.
+#  And the policy:
+#  	- PASS
+#		- REJECT
+#  	- BOUNCE
+#
+# Parameters:
+# 
+#  ftype - A string with filter type.
+#   
+# Returns:
+#
+#  string - The string with the policy established to the filter type.
+#
+sub filterPolicy
+{
+	my ($self, $ftype) = shift;
+	my @ftypes = ('virus', 'spam', 'bhead', 'banned');
+
+	if (grep(/^$ftype$/, @ftypes)) {
+		return $self->get_string($ftype.'policy');
+	} else {
+      throw EBox::Exceptions::InvalidData(
+         'data'  => __('filter type'),
+         'value' => $ftype);
+	}
+}
+
+#
+# Method: setFilterPolicy
+#
+#  Sets the policy to a filter type. (see filterPolicy method to filter types
+#  and policies details.)
+#
+# Parameters:
+#
+#  ftype - A string with the filter type.
+#  policy - A string with the policy.
+#
+sub setFilterPolicy
+{
+	my ($self, $ftype, $policy) = @_;
+	my @ftypes = ('virus', 'spam', 'bhead', 'banned');
+	my @policies = ('PASS', 'REJECT', 'BOUNCE');
+	
+	($policy eq $self->filterPolicy($ftype)) and return;
+
+	if (grep(/^$ftype$/, @ftypes)) {
+		if (grep(/^$policy$/, @policies)) {
+			$self->set_string($ftype.'policy', $policy);
+		} else {
+			throw EBox::Exceptions::InvalidData(
+				'data'  => __('policy type'),
+				'value' => $policy);
+		}
+	} else {
+      throw EBox::Exceptions::InvalidData(
+         'data'  => __('filter type'),
+         'value' => $ftype);
+	}
+}
+
+# Method: hitsThrowPolicy
+#
+#  Returns the minimum hits to throw the selected policy.
+#  
+# Returns:
+#
+#  string - The score.
+#
+sub hitsThrowPolicy
+{
+	my $self = shift;
+	return $self->get_string('hitspolicy');
+}
+
+#
+# Method: setHitsThrowPolicy
+#
+#  Sets the minimum hits to throw the selected policy.
+#
+# Parameters:
+#
+#  hits - A string with the hits score.
+#
+sub setHitsThrowPolicy
+{
+	my ($self, $hits) = @_;
+	($hits eq $self->hitsThrowPolicy()) and return;
+	$self->set_string('hitspolicy', $hits);
 }
 
 #
