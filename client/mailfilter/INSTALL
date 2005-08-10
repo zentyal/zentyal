@@ -3,3 +3,8 @@ apt-get install:
  clamav
  clamav-freshclam
  amavisd-new
+
+Añadimos al usuario ebox a los grupos amavis y clamav (como root):
+ addgroup ebox amavis
+ addgroup ebox clamav
+

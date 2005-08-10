@@ -56,7 +56,6 @@ sub _regenConfig
 #	@array = ();
 #	$self->writeConfFile(AMAVISCONFFILE, "mailfilter/amavisd.conf.mas", \@array);
 
-	print STDERR "do daemon!!!\n";
 	$self->_doDaemon();
 }
 
@@ -73,16 +72,6 @@ sub _regenConfig
 sub isRunning
 {
 	my $self = shift;
-
-	if ($self->pidFileRunning(AMAVISPIDFILE)) {
-		print STDERR "Amavis esta rulando\n";
-	}
-	if ($self->pidFileRunning(SAPIDFILE)) {
-		print STDERR "SA esta rulando\n";
-	}
-	if ($self->pidFileRunning(CLAMAVPIDFILE)) {
-		print STDERR "Clamav esta rulando\n";
-	}
 
 	return (($self->pidFileRunning(AMAVISPIDFILE)) and
 		($self->pidFileRunning(SAPIDFILE)) and
@@ -115,13 +104,10 @@ sub _doDaemon
 	my $self = shift;
 
 	if ($self->service() and $self->isRunning()) {
-		print STDERR "RESTART\n";
 		$self->_daemon('restart');
 	} elsif ($self->service()) {
-		print STDERR "START\n";
 		$self->_daemon('start');
 	} elsif ($self->isRunning()) {
-		print STDERR "STOP\n";
 		$self->_daemon('stop');
 	}
 }
