@@ -538,6 +538,130 @@ sub setHitsThrowPolicy
 	$self->set_string('hitspolicy', $hits);
 }
 
+# Method: accountBypassList
+#
+#  Returns the list of account that bypass the selected list check. There are
+#  four types of check so there are four lists: 
+#  - Virus check							-> virus (list)
+#  - Spam check							-> smap (list)
+#  - Bad headers check					-> bhead (list)
+#  - Banned files and types check	-> banned (list)
+#
+# Parameters:
+#
+#  list - The type of check list to get accounts.
+#  
+# Returns:
+#
+#  array ref - Holding the accounts
+#
+sub accountsBypassList
+{
+	my ($self, $list) = @_;
+	my @ltypes = ('virus', 'spam', 'bhead', 'banned');
+	
+	if (grep(/^$list$/, @ltypes)) {
+		return $self->get_list($list."list");
+	} else {
+		throw EBox::Exceptions::InvalidData(
+			'data'  => __('list type'),
+			'value' => $list);
+	}
+}
+
+# Method: setAccountBypassList
+#
+#  Sets a list of accounts to bypass the check over it. See accountBypassList to
+#  get types of list details.
+#
+# Parameters:
+#
+#  list - The list to add to.
+#  acocunts - The accounto to bypass the check.
+#
+sub setAccountsBypassList
+{
+	my ($self, $list, $accounts) = @_;
+	my @ltypes = ('virus', 'spam', 'bhead', 'banned');
+	
+	if (grep(/^$list$/, @ltypes)) {
+		$self->set_list($list."list", "string", $accounts);
+	} else {
+		throw EBox::Exceptions::InvalidData(
+			'data'  => __('list type'),
+			'value' => $list);
+	}
+}
+
+# Method: whitelist
+#
+#	Returns the list of accounts that are whitelisted. This list is a soft
+#	whitelist so with each account has associated a score with the following
+#	format: someuser@somedomain.com,score
+#
+# Returns:
+#
+#  array ref - Holding the accounts/score pairs.
+#
+sub whitelist
+{
+	my $self = shift;
+	
+	return $self->get_list("whitelist");
+}
+
+# Method: setWhitelist
+#
+#  Sets a list of accounts that are whitelisted. This list is a soft whitelist
+#  so with each account has associated a score with the following format:
+#  someuser@somedomain.com,score
+#
+# Parameters:
+#
+#  acocunts - The account/score pair list to whitelist
+#
+sub setWhitelist
+{
+	my ($self, $accounts) = @_;
+	
+	$self->set_list("whitelist", "string", $accounts);
+}
+
+# Method: blacklist
+#
+#	Returns the list of accounts that are blacklisted. This list is a soft
+#	blacklist so with each account has associated a score with the following
+#	format: someuser@somedomain.com,score
+#
+# Returns:
+#
+#  array ref - Holding the accounts/score pairs.
+#
+sub blacklist
+{
+	my $self = shift;
+	
+	return $self->get_list("blacklist");
+}
+
+# Method: setBlacklist
+#
+#  Sets a list of accounts that are blacklisted. This list is a soft blacklist
+#  so with each account has associated a score with the following format:
+#  someuser@somedomain.com,score
+#
+# Parameters:
+#
+#  acocunts - The account/score pair list to blacklist
+#
+sub setBlacklist
+{
+	my ($self, $accounts) = @_;
+	
+	$self->set_list("blacklist", "string", $accounts);
+}
+
+#
 #
 # Method: summary
 #
