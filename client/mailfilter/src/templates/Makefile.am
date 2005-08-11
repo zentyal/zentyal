@@ -2,7 +2,7 @@
 
 templatedir = @TEMPLATESPATH@/mailfilter
 
-template_DATA = index.mas
+template_DATA = index.mas menutabs.mas general.mas
 
 EXTRA_DIST = $(template_DATA)
 

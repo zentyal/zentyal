@@ -1,10 +1,21 @@
 <!-- vim: ts=4 sw=4 filetype=mason
 -->
 <%args>
-	$active
+	$menu
+	$args
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
 
-<& enable.mas, title => __('Enable Mail filter system'), active => $active &>
+<& mailfilter/menutabs.mas, selected => $menu &>
+
+% if ($menu eq 'general') {
+<& mailfilter/general.mas, selected => $menu, args => $args &>
+%} elsif ($menu eq 'policy') {
+%#<& mailfilter/policy.mas, selected => $menu, args => $args &>
+%} elsif ($menu eq 'restrict') {
+%#<& mailfilter/restrict.mas, selected => $menu, args => $args &>
+%} else {
+%# <& mailfilter/lists.mas, selected => $menu, args => $args &>
+%}

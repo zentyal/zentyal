@@ -39,13 +39,24 @@ sub _process($) {
 	my $mfilter = EBox::Global->modInstance('mailfilter');
 		
 	my @array = ();
-	my $active = 'no';
 	
-	if ($mfilter->service()) {
-		$active = 'yes';
-	}
+	my $menu = $self->param('menu');
+	($menu) or $menu = 'general';
+
+	my $args = {
+		'active' => ($mfilter->service() ? 'yes' : 'no'),
+		'modulemode' =>  ($mfilter->moduleMode() ? 'yes' : 'no'),
+		'bayes' => ($mfilter->bayes() ? 'yes' : 'no'),
+		'autolearn' => ($mfilter->autolearn() ? 'yes' : 'no'),
+		'autospamhits' => $mfilter->autoSpamHits(),
+		'autohamhits' => $mfilter->autoHamHits(),
+		'subjectmod' => ($mfilter->subjectModification() ? 'yes' : 'no'),
+		'subjectstr' => $mfilter->subjectString(),
+		'updatevirus' => ($mfilter->updateVirus() ? 'yes' : 'no'),
+	};
 	
-	push (@array, 'active' => $active);
+	push (@array, 'menu' => $menu);
+	push (@array, 'args' => $args);
 
 	$self->{params} = \@array;
 }

@@ -123,6 +123,53 @@
 			<default>5.4</default>
 			<locale name="C"/>
 		</schema>
-
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/viruslist</key>
+			<applyto>/ebox/modules/mailfilter/viruslist</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+			<list_type>string</list_type>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/spamlist</key>
+			<applyto>/ebox/modules/mailfilter/spamlist</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+			<list_type>string</list_type>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/bheadlist</key>
+			<applyto>/ebox/modules/mailfilter/bheadlist</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+			<list_type>string</list_type>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/bannedlist</key>
+			<applyto>/ebox/modules/mailfilter/bannedlist</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+			<list_type>string</list_type>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/whitelist</key>
+			<applyto>/ebox/modules/mailfilter/whitelist</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+			<list_type>string</list_type>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/blacklist</key>
+			<applyto>/ebox/modules/mailfilter/blacklist</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+			<list_type>string</list_type>
+			<locale name="C"/>
+		</schema>
 	</schemalist>
 </gconfschemafile>

@@ -1,0 +1,162 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+	$selected
+	$args
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<div>
+<div align='center'>
+<& "../enable.mas", title => __('Enable Mail filter system'), active => $args->{'active'} &>
+</div>
+<form action='GeneralSettings' method='post'>
+<table class='formTable'>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Mail filter system mode') %>:</span>
+		</td>
+		<td>
+			<select name='modulemode' enabled>
+%			if($args->{'modulemode'} eq 'yes') {
+				<option value='no' ><% __('Filter eBox Mail module') %></option>
+				<option selected value='yes' ><% __('External proxy filter') %></option>
+%			}else{
+				<option selected value='no' ><% __('Filter eBox Mail module') %></option>
+				<option value='yes' ><% __('External proxy filter') %></option>
+%			}
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Enable bayesian filter') %>:</span>
+		</td>
+		<td>
+			<select name='bayes' enabled>
+%			if($args->{'bayes'} eq 'yes') {
+				<option value='no' ><% __('No') %></option>
+				<option selected value='yes' ><% __('Yes') %></option>
+%			}else{
+				<option selected value='no' ><% __('No') %></option>
+				<option value='yes' ><% __('Yes') %></option>
+%			}
+			</select>
+		</td>
+	</tr>	
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Enable autolearn system') %>:</span>
+		</td>
+		<td>
+			<select name='autolearn' id='autolearn' onChange="changeAutolearnSelect()">
+%			if($args->{'autolearn'} eq 'yes') {
+				<option value='no' ><% __('No') %></option>
+				<option selected value='yes' ><% __('Yes') %></option>
+%			}else{
+				<option selected value='no' ><% __('No') %></option>
+				<option value='yes' ><% __('Yes') %></option>
+%			}
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Needed score by a spam message to comprise of autolearn system') %>:</span>
+		</td>
+		<td>
+		    <input type='text' class='inputText' id='autospamhits'
+				name='autospamhits' value='<% $args->{'autospamhits'} %>'>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Needed score by a ham message to comprise of autolearn system') %>:</span>
+		</td>
+		<td>
+		    <input type='text' class='inputText' id='autohamhits'
+				name='autohamhits' value='<% $args->{'autohamhits'} %>'>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Enable subject rewrite on spam message') %>:</span>
+		</td>
+		<td>
+			<select name='subjectmod' id='subjectmod' onChange="changeSubjectSelect()">
+%			if($args->{'subjectmod'} eq 'yes') {
+				<option value='no' ><% __('No') %></option>
+				<option selected value='yes' ><% __('Yes') %></option>
+%			}else{
+				<option selected value='no' ><% __('No') %></option>
+				<option value='yes' ><% __('Yes') %></option>
+%			}
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('String to add to the subject of spam message') %>:</span>
+		</td>
+		<td>
+		    <input type='text' class='inputText' id='subjectstr'
+				name='subjectstr' value='<% $args->{'subjectstr'} %>'>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Enable periodic updates of signs virus database') %>:</span>
+		</td>
+		<td>
+			<select name='updatevirus'>
+%			if($args->{'updatevirus'} eq 'yes') {
+				<option value='no' ><% __('No') %></option>
+				<option selected value='yes' ><% __('Yes') %></option>
+%			}else{
+				<option selected value='no' ><% __('No') %></option>
+				<option value='yes' ><% __('Yes') %></option>
+%			}
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td colspan='2' align='center'>
+			<input class='inputButton' type='submit' name='change' 
+				value="<% __('Apply') %>"
+				alt="<% __('Apply') %>">
+		</td>
+	</tr>
+</table>
+</form>
+</div>
+
+<script type="text/javascript">
+
+function changeAutolearnSelect() {
+    var sel = document.getElementById("autolearn")
+    var spam = document.getElementById("autospamhits")
+    var ham = document.getElementById("autohamhits")
+
+    if(sel.selectedIndex == 1) {
+        spam.disabled = false;
+        ham.disabled = false;
+    } else {
+        spam.disabled = true;
+        ham.disabled = true;
+    }
+}
+function changeSubjectSelect() {
+    var sel = document.getElementById("subjectmod")
+    var str = document.getElementById("subjectstr")
+
+    if(sel.selectedIndex == 1) {
+        str.disabled = false;
+    } else {
+        str.disabled = true;
+    }
+}
+changeAutolearnSelect()
+changeSubjectSelect()
+</script>
+

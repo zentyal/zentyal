@@ -397,11 +397,11 @@ sub subjectModification
 #
 #  sbmod - true if the modification is active, false otherwise
 #
-sub setSubjectString
+sub setSubjectModification
 {
 	my ($self, $sbmod) = @_;
 	($sbmod and $self->subjectModification()) and return;
-	(!sbmod and !$self->subjectModification()) and return;
+	(!$sbmod and !$self->subjectModification()) and return;
 	$self->set_bool('subjectmod', $sbmod);
 }
 
