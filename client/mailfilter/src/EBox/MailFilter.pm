@@ -462,7 +462,7 @@ sub setSubjectString
 #
 sub filterPolicy
 {
-	my ($self, $ftype) = shift;
+	my ($self, $ftype) = @_;
 	my @ftypes = ('virus', 'spam', 'bhead', 'banned');
 
 	if (grep(/^$ftype$/, @ftypes)) {
@@ -491,7 +491,9 @@ sub setFilterPolicy
 	my @ftypes = ('virus', 'spam', 'bhead', 'banned');
 	my @policies = ('PASS', 'REJECT', 'BOUNCE');
 	
-	($policy eq $self->filterPolicy($ftype)) and return;
+	print STDERR "SETFILTERPOLICY: $ftype, $policy\n";
+
+#	($policy eq $self->filterPolicy($ftype)) and return;
 
 	if (grep(/^$ftype$/, @ftypes)) {
 		if (grep(/^$policy$/, @policies)) {

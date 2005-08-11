@@ -43,7 +43,7 @@ sub _process($) {
 	my $menu = $self->param('menu');
 	($menu) or $menu = 'general';
 
-	my $args = {
+	my %general = (
 		'active' => ($mfilter->service() ? 'yes' : 'no'),
 		'modulemode' =>  ($mfilter->moduleMode() ? 'yes' : 'no'),
 		'bayes' => ($mfilter->bayes() ? 'yes' : 'no'),
@@ -53,10 +53,19 @@ sub _process($) {
 		'subjectmod' => ($mfilter->subjectModification() ? 'yes' : 'no'),
 		'subjectstr' => $mfilter->subjectString(),
 		'updatevirus' => ($mfilter->updateVirus() ? 'yes' : 'no'),
-	};
+	);
+
+	my %policy = (
+		'viruspolicy' => $mfilter->filterPolicy('virus'),
+		'spampolicy' => $mfilter->filterPolicy('spam'),
+		'bheadpolicy' => $mfilter->filterPolicy('bhead'),
+		'bannedpolicy' => $mfilter->filterPolicy('banned'),
+		'hitspolicy' => $mfilter->hitsThrowPolicy(),
+	);
 	
 	push (@array, 'menu' => $menu);
-	push (@array, 'args' => $args);
+	push (@array, 'general' => \%general);
+	push (@array, 'policy' => \%policy);
 
 	$self->{params} = \@array;
 }

@@ -2,7 +2,8 @@
 -->
 <%args>
 	$menu
-	$args
+	$general
+	$policy
 </%args>
 <%init>
 use EBox::Gettext;
@@ -11,9 +12,9 @@ use EBox::Gettext;
 <& mailfilter/menutabs.mas, selected => $menu &>
 
 % if ($menu eq 'general') {
-<& mailfilter/general.mas, selected => $menu, args => $args &>
+<& mailfilter/general.mas, args => $general &>
 %} elsif ($menu eq 'policy') {
-%#<& mailfilter/policy.mas, selected => $menu, args => $args &>
+<& mailfilter/policy.mas, args => $policy &>
 %} elsif ($menu eq 'restrict') {
 %#<& mailfilter/restrict.mas, selected => $menu, args => $args &>
 %} else {

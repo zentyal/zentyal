@@ -1,0 +1,118 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+	$args
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<div>
+<form action='PolicySettings' method='post'>
+<table class='formTable'>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Select policy on a message with virus check positive') %>:</span>
+		</td>
+		<td>
+			<select name='viruspolicy' enabled>
+%			if($args->{'viruspolicy'} eq 'PASS') {
+				<option selected value='PASS' ><% __('PASS') %></option>
+				<option value='REJECT' ><% __('REJECT') %></option>
+				<option value='BOUNCE' ><% __('BOUNCE') %></option>
+%			} elsif ($args->{'viruspolicy'} eq 'REJECT') {
+				<option value='PASS' ><% __('PASS') %></option>
+				<option selected value='REJECT' ><% __('REJECT') %></option>
+				<option value='BOUNCE' ><% __('BOUNCE') %></option>
+%			} else {
+				<option value='PASS' ><% __('PASS') %></option>
+				<option value='REJECT' ><% __('REJECT') %></option>
+				<option selected value='BOUNCE' ><% __('BOUNCE') %></option>
+%			}
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Select policy on a message with spam check positive') %>:</span>
+		</td>
+		<td>
+			<select name='spampolicy' enabled>
+%			if($args->{'spampolicy'} eq 'PASS') {
+				<option selected value='PASS' ><% __('PASS') %></option>
+				<option value='REJECT' ><% __('REJECT') %></option>
+				<option value='BOUNCE' ><% __('BOUNCE') %></option>
+%			} elsif ($args->{'spampolicy'} eq 'REJECT') {
+				<option value='PASS' ><% __('PASS') %></option>
+				<option selected value='REJECT' ><% __('REJECT') %></option>
+				<option value='BOUNCE' ><% __('BOUNCE') %></option>
+%			} else {
+				<option value='PASS' ><% __('PASS') %></option>
+				<option value='REJECT' ><% __('REJECT') %></option>
+				<option selected value='BOUNCE' ><% __('BOUNCE') %></option>
+%			}
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Select policy on a message with bad headers checks positive') %>:</span>
+		</td>
+		<td>
+			<select name='bheadpolicy' enabled>
+%			if($args->{'bheadpolicy'} eq 'PASS') {
+				<option selected value='PASS' ><% __('PASS') %></option>
+				<option value='REJECT' ><% __('REJECT') %></option>
+				<option value='BOUNCE' ><% __('BOUNCE') %></option>
+%			} elsif ($args->{'bheadpolicy'} eq 'REJECT') {
+				<option value='PASS' ><% __('PASS') %></option>
+				<option selected value='REJECT' ><% __('REJECT') %></option>
+				<option value='BOUNCE' ><% __('BOUNCE') %></option>
+%			} else {
+				<option value='PASS' ><% __('PASS') %></option>
+				<option value='REJECT' ><% __('REJECT') %></option>
+				<option selected value='BOUNCE' ><% __('BOUNCE') %></option>
+%			}
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Select policy on a message with banned files and types check positive') %>:</span>
+		</td>
+		<td>
+			<select name='bannedpolicy' enabled>
+%			if($args->{'bannedpolicy'} eq 'PASS') {
+				<option selected value='PASS' ><% __('PASS') %></option>
+				<option value='REJECT' ><% __('REJECT') %></option>
+				<option value='BOUNCE' ><% __('BOUNCE') %></option>
+%			} elsif ($args->{'bannedpolicy'} eq 'REJECT') {
+				<option value='PASS' ><% __('PASS') %></option>
+				<option selected value='REJECT' ><% __('REJECT') %></option>
+				<option value='BOUNCE' ><% __('BOUNCE') %></option>
+%			} else {
+				<option value='PASS' ><% __('PASS') %></option>
+				<option value='REJECT' ><% __('REJECT') %></option>
+				<option selected value='BOUNCE' ><% __('BOUNCE') %></option>
+%			}
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Needed score by positive message to take the selected policy in action') %>:</span>
+		</td>
+		<td>
+		    <input type='text' class='inputText'
+				name='hitspolicy' value='<% $args->{'hitspolicy'} %>'>
+		</td>
+	</tr>
+	<tr>
+		<td colspan='2' align='center'>
+			<input class='inputButton' type='submit' name='change' 
+				value="<% __('Apply') %>"
+				alt="<% __('Apply') %>">
+		</td>
+	</tr>
+</table>
+</form>
+</div>

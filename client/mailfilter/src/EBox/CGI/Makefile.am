@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CGI/MailFilter
 
-nobase_perl_DATA = Index.pm Enable.pm GeneralSettings.pm
+nobase_perl_DATA = Index.pm Enable.pm GeneralSettings.pm PolicySettings.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 
