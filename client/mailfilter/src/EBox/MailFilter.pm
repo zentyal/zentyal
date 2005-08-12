@@ -595,7 +595,7 @@ sub setAccountsBypassList
 	}
 }
 
-# Method: whitelist
+# Method: _whitelist
 #
 #	Returns the list of accounts that are whitelisted. This list is a soft
 #	whitelist so with each account has associated a score with the following
@@ -605,11 +605,51 @@ sub setAccountsBypassList
 #
 #  array ref - Holding the accounts/score pairs.
 #
-sub whitelist
+sub _whitelist
 {
 	my $self = shift;
 	
 	return $self->get_list("whitelist");
+}
+
+# Method: _setWhitelist
+#
+#  Sets a list of accounts that are whitelisted. This list is a soft whitelist
+#  so with each account has associated a score with the following format:
+#  someuser@somedomain.com,score
+#
+# Parameters:
+#
+#  acocunts - The account/score pair list to whitelist
+#
+sub _setWhitelist
+{
+	my ($self, $accounts) = @_;
+	
+	$self->set_list("whitelist", "string", $accounts);
+}
+
+# Method: whitelist
+#
+#	Returns the list of accounts that are whitelisted with their scores.
+#
+# Returns:
+#
+#  hash ref - Holding the accounts/score pairs.
+#
+sub whitelist
+{
+	my $self = shift;
+
+	my @pairs = @{$self->_whitelist()};
+	my %whitehash = ();
+
+	foreach my $str (@pairs) {
+		my ($addr, $score) = split (/,/, $str);
+		$whitehash{$addr} = $score;
+	}
+	
+	return \%whitehash;
 }
 
 # Method: setWhitelist
@@ -620,13 +660,22 @@ sub whitelist
 #
 # Parameters:
 #
-#  acocunts - The account/score pair list to whitelist
+#  acchash - The account/score hash to whitelist
 #
 sub setWhitelist
 {
-	my ($self, $accounts) = @_;
+	my ($self, $acchash) = @_;
+	my %acc = %{$acchash};
+	my @pairs = ();
+
+	while (my ($addr, $score) = each(%acc)) {
+		print STDERR "Addr: $addr, Score: $score\n";
+		push(@pairs, $addr.",".$score);
+	}
+	use Data::Dumper;
+	print STDERR Dumper(@pairs)."\n";
 	
-	$self->set_list("whitelist", "string", $accounts);
+	$self->set_list("whitelist", "string", \@pairs);
 }
 
 # Method: blacklist
@@ -639,7 +688,7 @@ sub setWhitelist
 #
 #  array ref - Holding the accounts/score pairs.
 #
-sub blacklist
+sub _blacklist
 {
 	my $self = shift;
 	
@@ -656,11 +705,60 @@ sub blacklist
 #
 #  acocunts - The account/score pair list to blacklist
 #
-sub setBlacklist
+sub _setBlacklist
 {
 	my ($self, $accounts) = @_;
 	
 	$self->set_list("blacklist", "string", $accounts);
+}
+
+# Method: blacklist
+#
+#	Returns the list of accounts that are blacklisted with their scores.
+#
+# Returns:
+#
+#  hash ref - Holding the accounts/score pairs.
+#
+sub blacklist
+{
+	my $self = shift;
+
+	my @pairs = @{$self->_blacklist()};
+	my %blackhash = ();
+
+	foreach my $str (@pairs) {
+		my ($addr, $score) = split (/,/, $str);
+		$blackhash{$addr} = $score;
+	}
+	
+	return \%blackhash;
+}
+
+# Method: setBlacklist
+#
+#  Sets a list of accounts that are blacklisted. This list is a soft blacklist
+#  so with each account has associated a score with the following format:
+#  someuser@somedomain.com,score
+#
+# Parameters:
+#
+#  acchash - The account/score hash to blacklist
+#
+sub setBlacklist
+{
+	my ($self, $acchash) = @_;
+	my %acc = %{$acchash};
+	my @pairs = ();
+
+	while (my ($addr, $score) = each(%acc)) {
+		print STDERR "Addr: $addr, Score: $score\n";
+		push(@pairs, $addr.",".$score);
+	}
+	use Data::Dumper;
+	print STDERR Dumper(@pairs)."\n";
+	
+	$self->set_list("blacklist", "string", \@pairs);
 }
 
 #

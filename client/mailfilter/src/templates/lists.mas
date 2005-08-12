@@ -7,7 +7,6 @@ use EBox::Gettext;
 use Data::Dumper;
 </%init>
 <div>
-<form action='ListsSettings' method='post'>
 <table class='formTable'>
 	<tr>
 		<td colspan='2' align='center'>
@@ -49,6 +48,7 @@ use Data::Dumper;
 	</tr>
 	<tr>
 		<td>
+			<form action='AddWhitelist' method='post'>
 			<table>
 			<thead>
 				<tr>
@@ -72,6 +72,7 @@ use Data::Dumper;
 				</tr>
 			</tbody>
 			</table>
+			</form>
 		</td>
 	</tr>
 	<tr>
@@ -114,6 +115,7 @@ use Data::Dumper;
 	</tr>
 	<tr>
 		<td>
+			<form action='AddBlacklist' method='post'>
 			<table>
 			<thead>
 				<tr>
@@ -137,6 +139,7 @@ use Data::Dumper;
 				</tr>
 			</tbody>
 			</table>
+			</form>
 		</td>
 	</tr>
 	<tr>
@@ -147,5 +150,4 @@ use Data::Dumper;
 		</td>
 	</tr>
 </table>
-</form>
 </div>

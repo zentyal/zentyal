@@ -71,15 +71,8 @@ sub _process($) {
 	);
 
 	my %lists = (
-		'whitelist' => {
-			'a@a.es' => '2.5',
-			'b@b.es' => '3.1',
-			'c@c.es' => '2.8',
-		},
-		'blacklist' => {
-			'd@d.es' => '8.7',
-			'e@e.es' => '9.9',
-		},
+		'whitelist' => $mfilter->whitelist(),
+		'blacklist' => $mfilter->blacklist(),
 	);
 	
 	push (@array, 'menu' => $menu);
