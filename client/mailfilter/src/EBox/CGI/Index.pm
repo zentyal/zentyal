@@ -63,9 +63,30 @@ sub _process($) {
 		'hitspolicy' => $mfilter->hitsThrowPolicy(),
 	);
 	
+	my %restrict = (
+		'ltype' => 'virus',
+		'alldomain' => 'no',
+		'nonres' => ['a@a.es', 'b@b.es', 'c@c.es'],
+		'res' => ['d@d.es', 'e@e.es'],
+	);
+
+	my %lists = (
+		'whitelist' => {
+			'a@a.es' => '2.5',
+			'b@b.es' => '3.1',
+			'c@c.es' => '2.8',
+		},
+		'blacklist' => {
+			'd@d.es' => '8.7',
+			'e@e.es' => '9.9',
+		},
+	);
+	
 	push (@array, 'menu' => $menu);
 	push (@array, 'general' => \%general);
 	push (@array, 'policy' => \%policy);
+	push (@array, 'restrict' => \%restrict);
+	push (@array, 'lists' => \%lists);
 
 	$self->{params} = \@array;
 }

@@ -1,0 +1,140 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+	$args
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<div>
+<form action='RestrictSettings' method='post'>
+<table class='formTable'>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Select the list to restrict accounts') %>:</span>
+		</td>
+		<td>
+			<select name='tlist' enabled>
+%			if($args->{'tlist'} eq 'virus') {
+				<option selected value='virus' ><% __('Virus') %></option>
+				<option value='spam' ><% __('Spam') %></option>
+				<option value='bhead' ><% __('Bad Headers') %></option>
+				<option value='banned' ><% __('Banned files and types') %></option>
+%			} elsif ($args->{'tlist'} eq 'spam') {
+				<option value='virus' ><% __('Virus') %></option>
+				<option selected value='spam' ><% __('Spam') %></option>
+				<option value='bhead' ><% __('Bad Headers') %></option>
+				<option value='banned' ><% __('Banned files and types') %></option>
+%			} elsif ($args->{'tlist'} eq 'bhead') {
+				<option value='virus' ><% __('Virus') %></option>
+				<option value='spam' ><% __('Spam') %></option>
+				<option selected value='bhead' ><% __('Bad Headers') %></option>
+				<option value='banned' ><% __('Banned files and types') %></option>
+%			} else {
+				<option value='virus' ><% __('Virus') %></option>
+				<option value='spam' ><% __('Spam') %></option>
+				<option value='bhead' ><% __('Bad Headers') %></option>
+				<option selected value='banned' ><% __('Banned files and types') %></option>
+%			}
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td colspan='2' align='center'>
+		<table> 
+			<thead>
+				<tr>
+					<th><% __('Non restricted accounts') %></th>
+				<th></th>
+					<th><% __('Restricted accounts') %></th>
+				</tr>
+			</thead>
+			<tbody> 
+				<tr>
+					<td rowspan='2'>
+						<select id='non' name="nonres" size="8" multiple>
+% 							foreach my $ob (@{$args->{'nonres'}}) {
+							<option value='<% $ob %>'>
+								<% $ob %>
+							</option>
+% 					  		}
+						</select>
+					</td>
+					<td>
+						<input id='n2r' class='inputButton' type='image'
+							name='Non2Res'
+							src='/data/images/right.gif'
+							value="<% __('Restrict') %>"
+							title="<% __('Move selected accounts to the restricted column') %>"
+							alt="<% __('Restrict') %>">
+					</td>
+					<td rowspan='2'>
+						<select id='res' name="res" size="8" multiple>
+% 							foreach my $ob (@{$args->{'res'}}) {
+							<option value='<% $ob %>'>
+								<% $ob %>
+							</option>
+%   						}
+						</select>
+					</td>
+				</tr>
+				<tr> 
+					<td>
+						<input id='r2n' class='inputButton' type='image' 
+							name='Res2Non'
+							src='/data/images/left.gif'
+							value="<% __('Allow') %>"
+							title="<% __('Move selected accounts to the non-restricted column') %>"
+							alt="<% __('Allow') %>">
+					</td>
+				</tr> 
+			</tbody> 
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Restrict all domain') %>:</span>
+		</td>
+		<td>
+			<input id="domainCheckBox" type='checkbox' value='no' onclick="updateLists()"
+%			if($args->{'alldomain'} eq 'yes') {
+				checked
+%			}
+				name='domainCheckBox' />
+		</td>
+	</tr>
+	<tr>
+		<td colspan='2' align='center'>
+			<input class='inputButton' type='submit' name='change' 
+				value="<% __('Apply') %>"
+				alt="<% __('Apply') %>">
+		</td>
+	</tr>
+</table>
+</form>
+</div>
+<script type="text/javascript">
+
+function updateLists() {
+	var chk = document.getElementById("domainCheckBox");
+	var nonlist = document.getElementById("non");
+	var reslist = document.getElementById("res");
+	var r2n = document.getElementById("r2n");
+	var n2r = document.getElementById("n2r");
+
+	if(chk.checked) {
+		nonlist.disabled = true;
+		reslist.disabled = true;
+		r2n.disabled = true;
+		n2r.disabled = true;
+	} else {
+		nonlist.disabled = false;
+		reslist.disabled = false;
+		r2n.disabled = false;
+		n2r.disabled = false;
+	}
+}
+updateLists()
+</script>
+

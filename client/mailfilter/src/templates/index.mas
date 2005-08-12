@@ -4,6 +4,8 @@
 	$menu
 	$general
 	$policy
+	$restrict
+	$lists
 </%args>
 <%init>
 use EBox::Gettext;
@@ -16,7 +18,7 @@ use EBox::Gettext;
 %} elsif ($menu eq 'policy') {
 <& mailfilter/policy.mas, args => $policy &>
 %} elsif ($menu eq 'restrict') {
-%#<& mailfilter/restrict.mas, selected => $menu, args => $args &>
+<& mailfilter/restrict.mas,  args => $restrict &>
 %} else {
-%# <& mailfilter/lists.mas, selected => $menu, args => $args &>
+<& mailfilter/lists.mas, args => $lists &>
 %}

@@ -1,0 +1,151 @@
+%# vim: ts=4 sw=4 filetype=mason
+<%args>
+	$args
+</%args>
+<%init>
+use EBox::Gettext;
+use Data::Dumper;
+</%init>
+<div>
+<form action='ListsSettings' method='post'>
+<table class='formTable'>
+	<tr>
+		<td colspan='2' align='center'>
+			<table cellspacing='0' class='dataTable'>
+				<caption><% __('Whitelist') %></caption>
+			<thead>
+			<tr>
+				<th width='44%' class='tleft'>
+					<% __('Account') %>
+				</th>
+				<th width='22%' class='tleft'>
+					<% __('Score') %>
+				</th>
+				<th class='thOptions'>
+					<% __('Actions') %>
+				</th>
+			</tr>
+			</thead>
+			<tbody>
+%           	foreach my $key (keys (%{$args->{'whitelist'}})) {
+				<tr class='border'>
+					<td><% $key %></td>
+					<td><% $args->{'whitelist'}->{$key} %></td>
+					<td class='tcenter'>
+					<a href="Index?menu=lists">
+						<img src='/data/images/edit.gif'
+							alt="<% __('Edit') %>" title="<% __('Edit') %>" /></a>
+						<img src='/data/images/sep.gif' alt='-'/>
+					<a href='Index?menu=lists'>
+						<img src='/data/images/delete.gif'
+							title="<% __('Delete') %>"
+							alt="<% __('Delete') %>"/></a>
+					</td>
+				</tr>
+%               }
+			</tbody>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<table>
+			<thead>
+				<tr>
+					<th align='left'> <% __('Account') %> </th>
+					<th align='left'> <% __('Score') %> </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<input type='text' class='inputText' name='acc'/>
+					</td>
+					<td>
+						<input type='text' class='inputText' name='sco'/>
+					</td>
+					<td>
+						<input class='inputButton' type='submit' name='add' 
+							value="<% __('Add') %>"
+							alt="<% __('Add') %>">
+					</td>
+				</tr>
+			</tbody>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan='2' align='center'>
+			<table cellspacing='0' class='dataTable'>
+				<caption><% __('Blacklist') %></caption>
+			<thead>
+			<tr>
+				<th width='44%' class='tleft'>
+					<% __('Account') %>
+				</th>
+				<th width='22%' class='tleft'>
+					<% __('Score') %>
+				</th>
+				<th class='thOptions'>
+					<% __('Actions') %>
+				</th>
+			</tr>
+			</thead>
+			<tbody>
+%           	foreach my $key (keys (%{$args->{'blacklist'}})) {
+				<tr class='border'>
+					<td><% $key %></td>
+					<td><% $args->{'blacklist'}->{$key} %></td>
+					<td class='tcenter'>
+					<a href="Index?menu=lists">
+						<img src='/data/images/edit.gif'
+							alt="<% __('Edit') %>" title="<% __('Edit') %>" /></a>
+						<img src='/data/images/sep.gif' alt='-'/>
+					<a href='Index?menu=lists'>
+						<img src='/data/images/delete.gif'
+							title="<% __('Delete') %>"
+							alt="<% __('Delete') %>"/></a>
+					</td>
+				</tr>
+%               }
+			</tbody>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<table>
+			<thead>
+				<tr>
+					<th align='left'> <% __('Account') %> </th>
+					<th align='left'> <% __('Score') %> </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<input type='text' class='inputText' name='acc'/>
+					</td>
+					<td>
+						<input type='text' class='inputText' name='sco'/>
+					</td>
+					<td>
+						<input class='inputButton' type='submit' name='add' 
+							value="<% __('Add') %>"
+							alt="<% __('Add') %>">
+					</td>
+				</tr>
+			</tbody>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan='2' align='center'>
+			<input class='inputButton' type='submit' name='change' 
+				value="<% __('Apply') %>"
+				alt="<% __('Apply') %>">
+		</td>
+	</tr>
+</table>
+</form>
+</div>
