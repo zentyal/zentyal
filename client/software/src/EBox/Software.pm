@@ -411,11 +411,11 @@ sub listUpgradablePkgs
 
 		#my $file = $info->{FileName};
 		#$file =~ s/^.*\///;
-		my $file = "$p" . "_$curver"."_$arch.deb";
-		$file =~ s/:/%3a/g;
+		my $pkgfile = "$p" . "_$curver"."_$arch.deb";
+		$pkgfile =~ s/:/%3a/g;
 
-		( -f "/var/cache/apt/archives/$file" ) or next;
-		open(MD5, "/var/cache/apt/archives/$file") or next;
+		( -f "/var/cache/apt/archives/$pkgfile" ) or next;
+		open(MD5, "/var/cache/apt/archives/$pkgfile") or next;
 		my $md5 = Digest::MD5->new;
 		$md5->addfile(*MD5);
 		my $digest = $md5->hexdigest;
