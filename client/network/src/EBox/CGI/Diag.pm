@@ -48,7 +48,7 @@ sub _process
 
 	if(defined($action)){
 		if($action eq "ping"){
-			$self->_requireParam("ip", __("IP address"));
+			$self->_requireParam("ip", __("Host"));
 			my $ip = $self->param("ip");
 			my $output = $net->ping($ip);
 			push(@array, 'action' => 'ping');
@@ -62,10 +62,6 @@ sub _process
 			push(@array, 'target' => $host);
 			push(@array, 'output' => $output);
 		}
-	}else{
-		push(@array, 'action' => '');
-		push(@array, 'target' => '');
-		push(@array, 'output' => '');
 	}
 	$self->{params} = \@array;
 }

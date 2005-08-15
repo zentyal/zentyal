@@ -1998,17 +1998,19 @@ sub DHCPNameservers # (interface)
 #
 # Parameters:
 #
-# 	ip - ip to ping
+# 	host - host to ping (either ip or hostname)
 #
 # Returns:
 #
 #	string - output of the ping command
 #
-sub ping # (ip)
+sub ping # (host)
 {
-	my ($self, $ip) = @_;
-	checkIP($ip, __("IP address"));
-	return `ping -c 3 $ip 2>&1`;
+	my ($self, $host) = @_;
+	(checkIP($host) or checkDomainName($host)) or
+		throw EBox::Exceptions::InvalidData
+			('data' => __('Host name'), 'value' => $host);
+	return `ping -c 3 $host 2>&1`;
 }
 
 # Method: resolv
