@@ -150,6 +150,14 @@ sub setDHCPConf
 			}else{
 				$iflist{$_}->{'gateway'} = $address;
 			}
+			my $nameserver1 = $self->nameserver($_,1);
+			if(defined($nameserver1) and $nameserver1 ne ""){
+				$iflist{$_}->{'nameserver1'} = $nameserver1;
+			}
+			my $nameserver2 = $self->nameserver($_,2);
+			if(defined($nameserver2) and $nameserver2 ne ""){
+				$iflist{$_}->{'nameserver2'} = $nameserver2;
+			}
 		}
 	}
 
@@ -294,7 +302,6 @@ sub defaultGateway # (iface)
 	$self->get_string("$iface/gateway");
 }
 
-
 #   Function: setNameserver
 #
 #	Sets the nameserver that will be sent to DHCP clients for a
@@ -303,10 +310,11 @@ sub defaultGateway # (iface)
 #   Parameters:
 #
 #   	iface - interface name
+#   	number - nameserver number (1 or 2)
 #	nameserver - nameserver IP
-sub setNameserver # (iface, nameserver)
+sub setNameserver # (iface, number, nameserver)
 {
-	my ($self, $iface, $nameserver) = @_;
+	my ($self, $iface, $number, $nameserver) = @_;
 	
 	my $network = EBox::Global->modInstance('network');
 
@@ -323,7 +331,41 @@ sub setNameserver # (iface, nameserver)
 	}
 
 	checkIP($nameserver, __("Nameserver IP address"));
-	$self->set_string("$iface/nameserver", $nameserver);
+	$self->set_string("$iface/nameserver$number", $nameserver);
+}
+
+#   Function: nameserver
+#
+#	Gets the nameserver that will be sent to DHCP clients for a
+#	given interface
+#
+#   Parameters:
+#
+#   	iface - interface name
+#   	number - nameserver number (1 or 2)
+#
+#   Returns:
+#   	string - the nameserver
+#
+sub nameserver # (iface,number)
+{
+	my ($self, $iface, $number) = @_;
+	
+	my $network = EBox::Global->modInstance('network');
+
+	#if iface doesn't exists throw exception
+	if (not $iface or not $network->ifaceExists($iface)) {
+		throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+				value => $iface);
+	}
+
+	#if iface is not static, throw exception
+	if($network->ifaceMethod($iface) ne 'static') {
+		throw EBox::Exceptions::External(__x("{iface} is not static",
+			iface => $iface));
+	}
+
+	$self->get_string("$iface/nameserver$number");
 }
 
 #   Function: addRange

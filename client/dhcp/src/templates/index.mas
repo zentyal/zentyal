@@ -4,7 +4,9 @@
 	%iface
 	@ifaces
 	@fixed
-	$gateway
+	$gateway => ""
+	$nameserver1 => ""
+	$nameserver2 => ""
 </%args>
 <%init>
 use EBox::Gettext;
@@ -13,7 +15,7 @@ use EBox::Gettext;
 <br />
 <& enable.mas, title => __('Enable the DHCP server'), active => $active &>
 <& dhcp/iftabs.mas, ifaces => \@ifaces, selected => $iface{name} &>
-<& dhcp/options.mas, name => $iface{name}, gateway => $gateway &>
+<& dhcp/options.mas, name => $iface{name}, gateway => $gateway, nameserver1 => $nameserver1, nameserver2 => $nameserver2 &>
 <& dhcp/ranges.mas, name => $iface{name}, address => $iface{address},
 netmask => $iface{netmask}, network => $iface{network}, init => $iface{init},
 end => $iface{end}, ranges => \@ranges &>

@@ -1,6 +1,8 @@
 <%args>
 	$name
 	$gateway
+	$nameserver1
+	$nameserver2
 </%args>
 <h3><% __('Options') %></h3>
 <div class='class'>
@@ -18,6 +20,28 @@
 		<td>
 			<input type="text" class='inputText' 
 				name="gateway" size="16" value="<% $gateway %>"/></td>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'>
+				<% __('Primary nameserver') %>
+			</span>
+		</td>
+		<td>
+			<input type="text" class='inputText' 
+				name="nameserver1" size="16" value="<% $nameserver1 %>"/></td>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'>
+				<% __('Secondary nameserver') %>
+			</span>
+		</td>
+		<td>
+			<input type="text" class='inputText' 
+				name="nameserver2" size="16" value="<% $nameserver2 %>"/></td>
 		</td>
 	</tr>
 	<tr>

@@ -7,6 +7,14 @@
 		range <% $range->{'from'} %> <% $range->{'to'} %>;
 %	}
 		option routers <% $info{'gateway'} %>;
+%       if(length($info{'nameserver1'}) != 0) {
+		option domain-name-servers <% $info{'nameserver1'} %>\
+%               if(length($info{'nameserver2'}) != 0) {
+, <% $info{'nameserver2'} %>;
+%               }else{
+;
+%               }
+%       }
 	}
 %	my $fixedAddresses = $info{'fixed'};
 %	if(@{$fixedAddresses}){

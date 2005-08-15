@@ -51,6 +51,8 @@ sub _process($) {
 	}
 	my %iface;
 	my $gateway = "";
+	my $nameserver1 = "";
+	my $nameserver2 = "";
 	my $fixed = undef;
 	my $ranges = undef;
 
@@ -76,6 +78,8 @@ sub _process($) {
 		$fixed = $dhcp->fixedAddresses($iface{name});
 		$ranges = $dhcp->ranges($iface{name});
 		$gateway = $dhcp->defaultGateway($iface{name});
+		$nameserver1 = $dhcp->nameserver($iface{name},1);
+		$nameserver2 = $dhcp->nameserver($iface{name},2);
 	}
 
 	my @array = ();
@@ -84,6 +88,8 @@ sub _process($) {
 	push (@array, 'ifaces'    	=> \@iflist);
 	push (@array, 'fixed'    	=> $fixed);
 	push (@array, 'gateway'		=> $gateway);
+	push (@array, 'nameserver1'	=> $nameserver1);
+	push (@array, 'nameserver2'	=> $nameserver2);
 	push (@array, 'active'		=> $dhcp->service() ? 'yes' : 'no' );
 	$self->{params} = \@array;
 }
