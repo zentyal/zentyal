@@ -38,7 +38,7 @@ sub _process($) {
 	my $self = shift;
 	my $mfilter = EBox::Global->modInstance('mailfilter');
 
-	$self->_requireParam('add', __('account'));
+	$self->_requireParam('acc', __('account'));
 	my $account = $self->param('acc');
 
 	my @bklist = @{$mfilter->blacklist()};

@@ -13,7 +13,7 @@ use EBox::Gettext;
 				<caption><% __('Whitelist') %></caption>
 			<thead>
 			<tr>
-				<th width='44%' class='tleft'>
+				<th width='66%' class='tleft'>
 					<% __('Account') %>
 				</th>
 				<th class='thOptions'>
@@ -26,11 +26,7 @@ use EBox::Gettext;
 				<tr class='border'>
 					<td><% $key %></td>
 					<td class='tcenter'>
-					<a href="Index?menu=lists">
-						<img src='/data/images/edit.gif'
-							alt="<% __('Edit') %>" title="<% __('Edit') %>" /></a>
-						<img src='/data/images/sep.gif' alt='-'/>
-					<a href='Index?menu=lists'>
+					<a href="DelWhitelist?acc=<% $key %>">
 						<img src='/data/images/delete.gif'
 							title="<% __('Delete') %>"
 							alt="<% __('Delete') %>"/></a>
@@ -72,7 +68,7 @@ use EBox::Gettext;
 				<caption><% __('Blacklist') %></caption>
 			<thead>
 			<tr>
-				<th width='44%' class='tleft'>
+				<th width='66%' class='tleft'>
 					<% __('Account') %>
 				</th>
 				<th class='thOptions'>
@@ -83,11 +79,9 @@ use EBox::Gettext;
 			<tbody>
 %           	foreach my $key (@{$args->{'blacklist'}}) {
 				<tr class='border'>
-					<a href="Index?menu=lists">
-						<img src='/data/images/edit.gif'
-							alt="<% __('Edit') %>" title="<% __('Edit') %>" /></a>
-						<img src='/data/images/sep.gif' alt='-'/>
-					<a href='Index?menu=lists'>
+					<td><% $key %></td>
+					<td class='tcenter'>
+					<a href="DelBlacklist?acc=<% $key %>">
 						<img src='/data/images/delete.gif'
 							title="<% __('Delete') %>"
 							alt="<% __('Delete') %>"/></a>

@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::MailFilter::AddWhitelist;
+package EBox::CGI::MailFilter::DelBlacklist;
 
 use strict;
 use warnings;
@@ -41,11 +41,15 @@ sub _process($) {
 	$self->_requireParam('acc', __('account'));
 	my $account = $self->param('acc');
 
-	my @whlist = @{$mfilter->whitelist()};
-	push (@whlist, $account);
+	my @oldbklist = @{$mfilter->blacklist()};
+	my @newbklist = ();
 	
-	$mfilter->setWhitelist(\@whlist);
+	foreach (@oldbklist) {
+		if ($_ eq $account) { next; }
+		push (@newbklist, $_);
+	}
 	
+	$mfilter->setBlacklist(\@newbklist);
 }
 
 1;
