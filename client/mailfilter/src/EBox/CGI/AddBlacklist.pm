@@ -40,13 +40,11 @@ sub _process($) {
 
 	$self->_requireParam('add', __('account'));
 	my $account = $self->param('acc');
-	$self->_requireParam('sco', __('score'));
-	my $score = $self->param('sco');
 
-	my %bklist = %{$mfilter->blacklist()};
-	$bklist{$account} = $score;
+	my @bklist = @{$mfilter->blacklist()};
+	push(@bklist, $account);
 	
-	$mfilter->setBlacklist(\%bklist);
+	$mfilter->setBlacklist(\@bklist);
 	
 }
 

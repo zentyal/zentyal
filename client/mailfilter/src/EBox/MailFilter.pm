@@ -286,8 +286,8 @@ sub setModuleMode
 #
 sub autolearn
 {
-	my $self = shift;
-	return $self->get_bool('autolearn');
+       my $self = shift;
+       return $self->get_bool('autolearn');
 }
 
 #
@@ -301,10 +301,10 @@ sub autolearn
 #
 sub setAutolearn
 {
-	my ($self, $active) = @_;
-	($active and $self->autolearn()) and return;
-	(!$active and !$self->autolearn()) and return;
-	$self->set_bool('autolearn', $active);
+       my ($self, $active) = @_;
+       ($active and $self->autolearn()) and return;
+       (!$active and !$self->autolearn()) and return;
+       $self->set_bool('autolearn', $active);
 }
 
 #
@@ -338,39 +338,6 @@ sub setAutoSpamHits
 	my ($self, $hits) = @_;
 	($hits eq $self->autoSpamHits()) and return;
 	$self->set_string('autospamhits', $hits);
-}
-
-#
-# Method: autoHamHits
-#
-#  Returns the hits that a ham message would have to obtain to enter to the
-#  learning system.
-#
-# Returns:
-#
-#  string - The score.
-#
-sub autoHamHits
-{
-	my $self = shift;
-	return $self->get_string('autohamhits');
-}
-
-#
-# Method: setAutoHamHits
-#
-#  Sets the hits score that a ham message would have to obtain to enter to the
-#  learning system.
-#
-# Parameters:
-#
-#  hits - A string contains the hits score.
-#
-sub setAutoHamHits
-{
-	my ($self, $hits) = @_;
-	($hits eq $self->autoHamHits()) and return;
-	$self->set_string('autohamhits', $hits);
 }
 
 #
@@ -597,15 +564,13 @@ sub setAccountsBypassList
 
 # Method: _whitelist
 #
-#	Returns the list of accounts that are whitelisted. This list is a soft
-#	whitelist so with each account has associated a score with the following
-#	format: someuser@somedomain.com,score
+#	Returns the list of accounts that are whitelisted. 
 #
 # Returns:
 #
 #  array ref - Holding the accounts/score pairs.
 #
-sub _whitelist
+sub whitelist
 {
 	my $self = shift;
 	
@@ -614,81 +579,28 @@ sub _whitelist
 
 # Method: _setWhitelist
 #
-#  Sets a list of accounts that are whitelisted. This list is a soft whitelist
-#  so with each account has associated a score with the following format:
-#  someuser@somedomain.com,score
+#  Sets a list of accounts that are whitelisted. 
 #
 # Parameters:
 #
 #  acocunts - The account/score pair list to whitelist
 #
-sub _setWhitelist
+sub setWhitelist
 {
 	my ($self, $accounts) = @_;
 	
 	$self->set_list("whitelist", "string", $accounts);
 }
 
-# Method: whitelist
-#
-#	Returns the list of accounts that are whitelisted with their scores.
-#
-# Returns:
-#
-#  hash ref - Holding the accounts/score pairs.
-#
-sub whitelist
-{
-	my $self = shift;
-
-	my @pairs = @{$self->_whitelist()};
-	my %whitehash = ();
-
-	foreach my $str (@pairs) {
-		my ($addr, $score) = split (/,/, $str);
-		$whitehash{$addr} = $score;
-	}
-	
-	return \%whitehash;
-}
-
-# Method: setWhitelist
-#
-#  Sets a list of accounts that are whitelisted. This list is a soft whitelist
-#  so with each account has associated a score with the following format:
-#  someuser@somedomain.com,score
-#
-# Parameters:
-#
-#  acchash - The account/score hash to whitelist
-#
-sub setWhitelist
-{
-	my ($self, $acchash) = @_;
-	my %acc = %{$acchash};
-	my @pairs = ();
-
-	while (my ($addr, $score) = each(%acc)) {
-		print STDERR "Addr: $addr, Score: $score\n";
-		push(@pairs, $addr.",".$score);
-	}
-	use Data::Dumper;
-	print STDERR Dumper(@pairs)."\n";
-	
-	$self->set_list("whitelist", "string", \@pairs);
-}
-
 # Method: blacklist
 #
-#	Returns the list of accounts that are blacklisted. This list is a soft
-#	blacklist so with each account has associated a score with the following
-#	format: someuser@somedomain.com,score
+#	Returns the list of accounts that are blacklisted.
 #
 # Returns:
 #
 #  array ref - Holding the accounts/score pairs.
 #
-sub _blacklist
+sub blacklist
 {
 	my $self = shift;
 	
@@ -697,71 +609,82 @@ sub _blacklist
 
 # Method: setBlacklist
 #
-#  Sets a list of accounts that are blacklisted. This list is a soft blacklist
-#  so with each account has associated a score with the following format:
-#  someuser@somedomain.com,score
+#  Sets a list of accounts that are blacklisted.
 #
 # Parameters:
 #
 #  acocunts - The account/score pair list to blacklist
 #
-sub _setBlacklist
+sub setBlacklist
 {
 	my ($self, $accounts) = @_;
 	
 	$self->set_list("blacklist", "string", $accounts);
 }
 
-# Method: blacklist
 #
-#	Returns the list of accounts that are blacklisted with their scores.
+# Method: hitsToProbability
 #
-# Returns:
-#
-#  hash ref - Holding the accounts/score pairs.
-#
-sub blacklist
-{
-	my $self = shift;
-
-	my @pairs = @{$self->_blacklist()};
-	my %blackhash = ();
-
-	foreach my $str (@pairs) {
-		my ($addr, $score) = split (/,/, $str);
-		$blackhash{$addr} = $score;
-	}
-	
-	return \%blackhash;
-}
-
-# Method: setBlacklist
-#
-#  Sets a list of accounts that are blacklisted. This list is a soft blacklist
-#  so with each account has associated a score with the following format:
-#  someuser@somedomain.com,score
+#  Returns a probabilistic categorization of score hits.
 #
 # Parameters:
+#  
+#  hits the hits score to categorize.
+#  
+# Returns:
 #
-#  acchash - The account/score hash to blacklist
+#  String with the categorization.
 #
-sub setBlacklist
-{
-	my ($self, $acchash) = @_;
-	my %acc = %{$acchash};
-	my @pairs = ();
+sub hitsToProbability {
+	my ($self, $hits) = @_;
+	my $str = "";
 
-	while (my ($addr, $score) = each(%acc)) {
-		print STDERR "Addr: $addr, Score: $score\n";
-		push(@pairs, $addr.",".$score);
+	if ($hits <= 0.5) {
+		$str = "llow";
+	} elsif ((0.5 < $hits) and ($hits <= 3.5)) {
+		$str = 'low';
+	} elsif ((3.5 < $hits) and ($hits <= 5.5)) {
+		$str = 'medium';
+	} elsif ((5.5 < $hits) and ($hits <= 8.5)) {
+		$str = 'high';
+	} elsif (8.5 < $hits) {
+		$str = 'hhigh';
 	}
-	use Data::Dumper;
-	print STDERR Dumper(@pairs)."\n";
-	
-	$self->set_list("blacklist", "string", \@pairs);
+
+	return $str;
 }
 
 #
+# Method: probabilityToHits
+#
+#  Returns hits score of a categorization string.
+#
+# Parameters:
+#  
+#  str the categorization string
+#  
+# Returns:
+#
+#  string numerical value of categorization string.
+#
+sub probabilityToHits {
+	my ($self, $str) = @_;
+	my $hits = "";
+
+	if ($str eq 'llow') {
+		$hits = '0.5';
+	} elsif ($str eq 'low') {
+		$hits = '2';
+	} elsif ($str eq 'medium') {
+		$hits = '4';
+	} elsif ($str eq 'high') {
+		$hits = '6';
+	} elsif ($str eq 'hhigh') {
+		$hits = '8';
+	}
+
+	return $hits;
+}
 #
 # Method: summary
 #

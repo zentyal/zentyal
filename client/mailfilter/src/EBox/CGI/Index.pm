@@ -43,13 +43,18 @@ sub _process($) {
 	my $menu = $self->param('menu');
 	($menu) or $menu = 'general';
 
+	my $autospamvalue = '';
+	if ($mfilter->autolearn()) {
+		$autospamvalue =  $mfilter->hitsToProbability($mfilter->autoSpamHits());
+	} else {
+		$autospamvalue = 'dnota';
+	}
+
 	my %general = (
 		'active' => ($mfilter->service() ? 'yes' : 'no'),
 		'modulemode' =>  ($mfilter->moduleMode() ? 'yes' : 'no'),
 		'bayes' => ($mfilter->bayes() ? 'yes' : 'no'),
-		'autolearn' => ($mfilter->autolearn() ? 'yes' : 'no'),
-		'autospamhits' => $mfilter->autoSpamHits(),
-		'autohamhits' => $mfilter->autoHamHits(),
+		'autospamhits' => $autospamvalue,
 		'subjectmod' => ($mfilter->subjectModification() ? 'yes' : 'no'),
 		'subjectstr' => $mfilter->subjectString(),
 		'updatevirus' => ($mfilter->updateVirus() ? 'yes' : 'no'),

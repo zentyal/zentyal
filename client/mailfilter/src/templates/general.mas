@@ -46,36 +46,55 @@ use EBox::Gettext;
 	</tr>	
 	<tr>
 		<td class='tright'>
-			<span class='ftitle'><% __('Enable autolearn system') %>:</span>
+			<span class='ftitle'><% __('Select spam probability of a message to'
+			. 'comprise of autolearn system as spam message') %>:</span>
 		</td>
 		<td>
-			<select name='autolearn' id='autolearn' onChange="changeAutolearnSelect()">
-%			if($args->{'autolearn'} eq 'yes') {
-				<option value='no' ><% __('No') %></option>
-				<option selected value='yes' ><% __('Yes') %></option>
-%			}else{
-				<option selected value='no' ><% __('No') %></option>
-				<option value='yes' ><% __('Yes') %></option>
+		    <select id='autospamhits' name='autospamhits'> 
+%			if($args->{'autospamhits'} eq 'dnota') {
+				<option selected value='dnota'><% __('Do not autolearn') %></option>
+				<option value='llow'><% __('Very low') %></option>
+				<option value='low'><% __('Low') %></option>
+				<option value='medium'><% __('Medium') %></option>
+				<option value='high'><% __('High') %></option>
+				<option value='hhigh'><% __('Very high') %></option>
+%			} elsif ($args->{'autospamhits'} eq 'llow') {
+				<option value='dnota'><% __('Do not autolearn') %></option>
+				<option selected value='llow'><% __('Very low') %></option>
+				<option value='low'><% __('Low') %></option>
+				<option value='medium'><% __('Medium') %></option>
+				<option value='high'><% __('High') %></option>
+				<option value='hhigh'><% __('Very high') %></option>
+%			} elsif ($args->{'autospamhits'} eq 'low') {
+				<option value='dnota'><% __('Do not autolearn') %></option>
+				<option value='llow'><% __('Very low') %></option>
+				<option selected value='low'><% __('Low') %></option>
+				<option value='medium'><% __('Medium') %></option>
+				<option value='high'><% __('High') %></option>
+				<option value='hhigh'><% __('Very high') %></option>
+%			} elsif ($args->{'autospamhits'} eq 'medium') {
+				<option value='dnota'><% __('Do not autolearn') %></option>
+				<option value='llow'><% __('Very low') %></option>
+				<option value='low'><% __('Low') %></option>
+				<option selected value='medium'><% __('Medium') %></option>
+				<option value='high'><% __('High') %></option>
+				<option value='hhigh'><% __('Very high') %></option>
+%			} elsif ($args->{'autospamhits'} eq 'high') {
+				<option value='dnota'><% __('Do not autolearn') %></option>
+				<option value='llow'><% __('Very low') %></option>
+				<option value='low'><% __('Low') %></option>
+				<option value='medium'><% __('Medium') %></option>
+				<option selected value='high'><% __('High') %></option>
+				<option value='hhigh'><% __('Very high') %></option>
+%			} elsif ($args->{'autospamhits'} eq 'hhigh') {
+				<option value='dnota'><% __('Do not autolearn') %></option>
+				<option value='llow'><% __('Very low') %></option>
+				<option value='low'><% __('Low') %></option>
+				<option value='medium'><% __('Medium') %></option>
+				<option value='high'><% __('High') %></option>
+				<option selected value='hhigh'><% __('Very high') %></option>
 %			}
 			</select>
-		</td>
-	</tr>
-	<tr>
-		<td class='tright'>
-			<span class='ftitle'><% __('Needed score by a spam message to comprise of autolearn system') %>:</span>
-		</td>
-		<td>
-		    <input type='text' class='inputText' id='autospamhits'
-				name='autospamhits' value='<% $args->{'autospamhits'} %>'>
-		</td>
-	</tr>
-	<tr>
-		<td class='tright'>
-			<span class='ftitle'><% __('Needed score by a ham message to comprise of autolearn system') %>:</span>
-		</td>
-		<td>
-		    <input type='text' class='inputText' id='autohamhits'
-				name='autohamhits' value='<% $args->{'autohamhits'} %>'>
 		</td>
 	</tr>
 	<tr>

@@ -40,13 +40,11 @@ sub _process($) {
 
 	$self->_requireParam('add', __('account'));
 	my $account = $self->param('acc');
-	$self->_requireParam('sco', __('score'));
-	my $score = $self->param('sco');
 
-	my %whlist = %{$mfilter->whitelist()};
-	$whlist{$account} = $score;
+	my @whlist = @{$mfilter->whitelist()};
+	push (@whlist, $account);
 	
-	$mfilter->setWhitelist(\%whlist);
+	$mfilter->setWhitelist(\@whlist);
 	
 }
 

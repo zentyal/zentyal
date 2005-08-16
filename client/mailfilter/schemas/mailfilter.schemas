@@ -60,14 +60,6 @@
 			<locale name="C"/>
 		</schema>
 		<schema>
-			<key>/schemas/ebox/modules/mailfilter/autohamhits</key>
-			<applyto>/ebox/modules/mailfilter/autohamhits</applyto>
-			<owner>ebox</owner>
-			<type>string</type>
-			<default>0</default>
-			<locale name="C"/>
-		</schema>
-		<schema>
 			<key>/schemas/ebox/modules/mailfilter/subjectstr</key>
 			<applyto>/ebox/modules/mailfilter/subjectstr</applyto>
 			<owner>ebox</owner>

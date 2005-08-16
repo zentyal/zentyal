@@ -4,7 +4,6 @@
 </%args>
 <%init>
 use EBox::Gettext;
-use Data::Dumper;
 </%init>
 <div>
 <table class='formTable'>
@@ -17,19 +16,15 @@ use Data::Dumper;
 				<th width='44%' class='tleft'>
 					<% __('Account') %>
 				</th>
-				<th width='22%' class='tleft'>
-					<% __('Score') %>
-				</th>
 				<th class='thOptions'>
 					<% __('Actions') %>
 				</th>
 			</tr>
 			</thead>
 			<tbody>
-%           	foreach my $key (keys (%{$args->{'whitelist'}})) {
+%           	foreach my $key (@{$args->{'whitelist'}}) {
 				<tr class='border'>
 					<td><% $key %></td>
-					<td><% $args->{'whitelist'}->{$key} %></td>
 					<td class='tcenter'>
 					<a href="Index?menu=lists">
 						<img src='/data/images/edit.gif'
@@ -53,16 +48,12 @@ use Data::Dumper;
 			<thead>
 				<tr>
 					<th align='left'> <% __('Account') %> </th>
-					<th align='left'> <% __('Score') %> </th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td>
 						<input type='text' class='inputText' name='acc'/>
-					</td>
-					<td>
-						<input type='text' class='inputText' name='sco'/>
 					</td>
 					<td>
 						<input class='inputButton' type='submit' name='add' 
@@ -84,20 +75,14 @@ use Data::Dumper;
 				<th width='44%' class='tleft'>
 					<% __('Account') %>
 				</th>
-				<th width='22%' class='tleft'>
-					<% __('Score') %>
-				</th>
 				<th class='thOptions'>
 					<% __('Actions') %>
 				</th>
 			</tr>
 			</thead>
 			<tbody>
-%           	foreach my $key (keys (%{$args->{'blacklist'}})) {
+%           	foreach my $key (@{$args->{'blacklist'}}) {
 				<tr class='border'>
-					<td><% $key %></td>
-					<td><% $args->{'blacklist'}->{$key} %></td>
-					<td class='tcenter'>
 					<a href="Index?menu=lists">
 						<img src='/data/images/edit.gif'
 							alt="<% __('Edit') %>" title="<% __('Edit') %>" /></a>
@@ -120,16 +105,12 @@ use Data::Dumper;
 			<thead>
 				<tr>
 					<th align='left'> <% __('Account') %> </th>
-					<th align='left'> <% __('Score') %> </th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td>
 						<input type='text' class='inputText' name='acc'/>
-					</td>
-					<td>
-						<input type='text' class='inputText' name='sco'/>
 					</td>
 					<td>
 						<input class='inputButton' type='submit' name='add' 

@@ -43,25 +43,25 @@ sub _process($) {
 
 	$self->_requireParam('modulemode', __('module mode'));
 	$self->_requireParam('bayes', __('bayesian filter status'));
-	$self->_requireParam('autolearn', __('autolearn status'));
 	$self->_requireParam('subjectmod', __('subject rewrite state'));
 	$self->_requireParam('updatevirus', __('update virus state'));
 	
 	$self->_requireParam('autospamhits', __('autospamhits'));
 	my $autospamhits = $self->param('autospamhits');
-	$self->_requireParam('autohamhits', __('autohamhits'));
-	my $autohamhits = $self->param('autohamhits');
 	$self->_requireParam('subjectstr', __('subject string'));
 	my $subjectstr = $self->param('subjectstr');
 
 	$mfilter->setModuleMode(($self->param('modulemode') eq 'yes'));
 	$mfilter->setBayes(($self->param('bayes') eq 'yes'));
-	$mfilter->setAutolearn(($self->param('autolearn') eq 'yes'));
 	$mfilter->setSubjectModification(($self->param('subjectmod') eq 'yes'));
 	$mfilter->setUpdateVirus(($self->param('updatevirus') eq 'yes'));
 
-	$mfilter->setAutoSpamHits($autospamhits);
-	$mfilter->setAutoHamHits($autohamhits);
+	if ($autospamhits eq 'dnota') {
+		$mfilter->setAutolearn(0);
+	} else {
+		$mfilter->setAutolearn(1);
+		$mfilter->setAutoSpamHits($mfilter->probabilityToHits($autospamhits));
+	}
 	$mfilter->setSubjectString($subjectstr);
 	
 }
