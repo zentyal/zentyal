@@ -33,6 +33,34 @@ sub new {
 	return $self;
 }
 
+sub _accounts() {
+	my ($self, $list) = @_;
+
+	my $mail = EBox::Global->modInstance('mail');
+	my $mfilter = EBox::Global->modInstance('mailfilter');
+	my @domain = $mail->{'vdomains'}->vdomains();
+	
+	my %accounts;
+	if (@domain) {
+		%accounts = %{$mail->{'musers'}->allAccountsFromVDomain($domain[0])};
+	}
+	
+	my @allacc = values(%accounts);
+	my @bypacc = @{$mfilter->accountsBypassList($list)};
+	my %tmp = ();
+	my @diff = ();
+
+	foreach my $elmt (@bypacc) { $tmp{$elmt} = 1 }
+
+	foreach my $elmt (@allacc) {
+		unless ($tmp{$elmt}) { 
+			push (@diff, $elmt);
+		}
+	}
+
+	return \@diff;
+}
+
 sub _process($) {
 	my $self = shift;
 	$self->{title} = __('Mail filter');
@@ -68,11 +96,35 @@ sub _process($) {
 		'hitspolicy' => $mfilter->hitsThrowPolicy(),
 	);
 	
+	my $list;
+	if ($self->param('tlist')) {
+		$list = $self->param('tlist');
+	} else {
+		$list = 'virus';
+	}
+
+	my $dom = 'no';
+	if ($self->param('domainCheckBox')) {
+		$dom = 'yes';
+	} else {
+		my @l = @{$mfilter->accountsBypassList($list)};
+		if (grep(/^@.*/, $l[0])) {
+			$dom = 'yes';
+			print STDERR "entramos por empieza por @\n";
+		}
+	}
+
 	my %restrict = (
-		'ltype' => 'virus',
-		'alldomain' => 'no',
-		'nonres' => ['a@a.es', 'b@b.es', 'c@c.es'],
-		'res' => ['d@d.es', 'e@e.es'],
+		'tlist' => $list,
+		'alldomain' => $dom,
+		'vlistnr' => $self->_accounts('virus'),
+		'vlistr' => $mfilter->accountsBypassList('virus'),
+		'slistnr' => $self->_accounts('spam'),
+		'slistr' => $mfilter->accountsBypassList('spam'),
+		'hlistnr' => $self->_accounts('bhead'),
+		'hlistr' => $mfilter->accountsBypassList('bhead'),
+		'blistnr' => $self->_accounts('banned'),
+		'blistr' => $mfilter->accountsBypassList('banned'),
 	);
 
 	my %lists = (

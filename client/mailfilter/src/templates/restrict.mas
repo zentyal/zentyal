@@ -6,7 +6,6 @@
 <%init>
 use EBox::Gettext;
 </%init>
-<div>
 <form action='RestrictSettings' method='post'>
 <table class='formTable'>
 	<tr>
@@ -14,7 +13,7 @@ use EBox::Gettext;
 			<span class='ftitle'><% __('Select the list to restrict accounts') %>:</span>
 		</td>
 		<td>
-			<select name='tlist' enabled>
+			<select id='tlist' name='tlist' enabled onChange="listChanged()">
 %			if($args->{'tlist'} eq 'virus') {
 				<option selected value='virus' ><% __('Virus') %></option>
 				<option value='spam' ><% __('Spam') %></option>
@@ -52,12 +51,28 @@ use EBox::Gettext;
 			<tbody> 
 				<tr>
 					<td rowspan='2'>
-						<select id='non' name="nonres" size="8" multiple>
-% 							foreach my $ob (@{$args->{'nonres'}}) {
-							<option value='<% $ob %>'>
-								<% $ob %>
-							</option>
-% 					  		}
+						<select id='non' name="nonres" size="8" multiple
+%						if ($args->{'alldomain'} eq 'yes') {
+						disabled
+%						}
+						>
+%						if ($args->{'tlist'} eq "virus") {
+%							foreach (@{$args->{'vlistnr'}}) {
+								<option value='<% $_ %>'> <% $_ %> </option>
+%							}
+%						} elsif ($args->{'tlist'} eq "spam") {
+%							foreach (@{$args->{'slistnr'}}) {
+								<option value='<% $_ %>' ><% $_ %></option>
+%							}
+%						} elsif ($args->{'tlist'} eq "bhead") {
+%							foreach (@{$args->{'hlistnr'}}) {
+								<option value='<% $_ %>' ><% $_ %></option>
+%							}
+%						} elsif ($args->{'tlist'} eq "banned") {
+%							foreach (@{$args->{'blistnr'}}) {
+								<option value='<% $_ %>' ><% $_ %></option>
+%							}
+%						}
 						</select>
 					</td>
 					<td>
@@ -69,12 +84,28 @@ use EBox::Gettext;
 							alt="<% __('Restrict') %>">
 					</td>
 					<td rowspan='2'>
-						<select id='res' name="res" size="8" multiple>
-% 							foreach my $ob (@{$args->{'res'}}) {
-							<option value='<% $ob %>'>
-								<% $ob %>
-							</option>
-%   						}
+						<select id='res' name="res" size="8" multiple
+%						if ($args->{'alldomain'} eq 'yes') {
+						disabled
+%						}
+						>
+%						if ($args->{'tlist'} eq "virus") {
+%							foreach (@{$args->{'vlistr'}}) {
+								<option value='<% $_ %>'> <% $_ %> </option>
+%							}
+%						} elsif ($args->{'tlist'} eq "spam") {
+%							foreach (@{$args->{'slistr'}}) {
+								<option value='<% $_ %>' ><% $_ %></option>
+%							}
+%						} elsif ($args->{'tlist'} eq "bhead") {
+%							foreach (@{$args->{'hlistr'}}) {
+								<option value='<% $_ %>' ><% $_ %></option>
+%							}
+%						} elsif ($args->{'tlist'} eq "banned") {
+%							foreach (@{$args->{'blistr'}}) {
+								<option value='<% $_ %>' ><% $_ %></option>
+%							}
+%						}
 						</select>
 					</td>
 				</tr>
@@ -104,19 +135,26 @@ use EBox::Gettext;
 				name='domainCheckBox' />
 		</td>
 	</tr>
-	<tr>
-		<td colspan='2' align='center'>
-			<input class='inputButton' type='submit' name='change' 
-				value="<% __('Apply') %>"
-				alt="<% __('Apply') %>">
-		</td>
-	</tr>
 </table>
 </form>
-</div>
+
 <script type="text/javascript">
+function listChanged() {
+	var sel = document.getElementById("tlist");
+	var chk = document.getElementById("domainCheckBox");
+	var nonlist = document.getElementById("non");
+	var reslist = document.getElementById("res");
+	var rtmp = new Array();
+	var ntmp = new Array();
+	var i = 0;
+	
+	location.href = 'Index?menu=restrict&tlist=' + sel.options[sel.selectedIndex].value;
+	
+	return false;
+}
 
 function updateLists() {
+	var sel = document.getElementById("tlist");
 	var chk = document.getElementById("domainCheckBox");
 	var nonlist = document.getElementById("non");
 	var reslist = document.getElementById("res");
@@ -128,13 +166,15 @@ function updateLists() {
 		reslist.disabled = true;
 		r2n.disabled = true;
 		n2r.disabled = true;
+		location.href = 'RestrictSettings?menu=restrict&tlist=' + sel.options[sel.selectedIndex].value + '&domainCheckBox=1';
 	} else {
 		nonlist.disabled = false;
 		reslist.disabled = false;
 		r2n.disabled = false;
 		n2r.disabled = false;
+		location.href = 'RestrictSettings?menu=restrict&tlist=' + sel.options[sel.selectedIndex].value;
 	}
+	return false;
 }
-updateLists()
 </script>
 

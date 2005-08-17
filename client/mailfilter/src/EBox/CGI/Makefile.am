@@ -3,7 +3,8 @@
 perldir = @PERLPATH@/EBox/CGI/MailFilter
 
 nobase_perl_DATA = Index.pm Enable.pm GeneralSettings.pm PolicySettings.pm \
-	AddWhitelist.pm AddBlacklist.pm DelWhitelist.pm DelBlacklist.pm
+	AddWhitelist.pm AddBlacklist.pm DelWhitelist.pm DelBlacklist.pm \
+	RestrictSettings.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 
