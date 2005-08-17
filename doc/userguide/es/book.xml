@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE book SYSTEM "../tools/dtd/dblite.dtd"
+[
+<!ENTITY ch01     SYSTEM "ch01.xml">
+<!ENTITY ch07     SYSTEM "ch07.xml">
+]>
+
+<book id='ebox' lang='es'>
+  <title>eBox users guide</title>
+
+  <bookinfo>
+
+    <authorgroup></authorgroup>
+
+    <copyright>
+      <year>2005</year>
+      <holder>Warp Networks S.L.</holder>
+      <holder>DBS Servicios Informáticos S.L.</holder>
+    </copyright>
+
+      <legalnotice><para>This work is licensed under the Creative
+        Commons Attribution License. To view a copy of this license,
+        visit http://creativecommons.org/licenses/by/2.0/ or send a
+        letter to Creative Commons, 559 Nathan Abbott Way, Stanford,
+        California 94305, USA.</para></legalnotice>
+
+  </bookinfo>
+
+  <!-- External entity refs -->
+
+<!--
+  &ch01;
+  &ch02;
+  &ch03;
+  &ch04;
+  &ch05;
+  &ch06;
+  &ch07;
+  -->
+
+</book>
