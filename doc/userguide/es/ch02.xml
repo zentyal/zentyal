@@ -1,0 +1,39 @@
+	<!-- vim: ts=2 sw=2 tw=75
+-->
+<chapter id="ch-system">
+
+	<title>Configuración del sistema</title>
+
+	<section id='sect-ebox-general'>
+		<!-- eBox->General -->
+		<title>Configuración del interface de usuario</title>
+
+		<para>TODO</para>
+
+	</section>
+
+	<section id='sect-ebox-backup'>
+		<!-- eBox->Backup -->
+		<title>Backups de la configuración</title>
+
+		<para>TODO</para>
+
+	</section>
+
+	<section id='sect-ebox-halt'>
+		<!-- eBox->Halt/Reboot -->
+		<title>Reinicio/Apagado del sistema</title>
+
+		<para>TODO</para>
+
+	</section>
+
+	<section id='sect-ebox-bug'>
+		<!-- eBox->Bug report -->
+		<title>Generación de informes de error</title>
+
+		<para>TODO</para>
+
+	</section>
+
+</chapter>

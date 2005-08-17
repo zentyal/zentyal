@@ -1,0 +1,38 @@
+	<!-- vim: ts=2 sw=2 tw=75
+-->
+<chapter id="ch-proxy">
+
+	<title>Proxy HTTP</title>
+
+	<section id='sect-proxy-general'>
+		<!-- Proxy->General -->
+		<title>Configuración general</title>
+
+		<para>TODO</para>
+
+	</section>
+
+	<section id='sect-proxy-contentfilter'>
+		<title>Filtro de contenidos</title>
+
+		<para>TODO</para>
+
+		<section id='sect-proxy-content-policy'>
+			<!-- Proxy->Policy -->
+			<title>Establecimiento de políticas</title>
+
+			<para>TODO</para>
+
+		</section>
+
+		<section id='sect-proxy-content-lists'>
+			<!-- Proxy->Policy -->
+			<title>Listas de dominios prohibidos y permitidos</title>
+
+			<para>TODO</para>
+
+		</section>
+
+	</section>
+
+</chapter>

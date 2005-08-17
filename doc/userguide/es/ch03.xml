@@ -1,0 +1,39 @@
+	<!-- vim: ts=2 sw=2 tw=75
+-->
+<chapter id="ch-network">
+
+	<title>Configuración de la red</title>
+
+	<section id='sect-ebox-interfaces'>
+		<!-- Network->Interfaces -->
+		<title>Interfaces de red</title>
+
+		<para>TODO</para>
+
+	</section>
+
+	<section id='sect-ebox-dns'>
+		<!-- Network->DNS -->
+		<title>Servidores DNS</title>
+
+		<para>TODO</para>
+
+	</section>
+
+	<section id='sect-ebox-routes'>
+		<!-- Network->Routes -->
+		<title>Rutas</title>
+
+		<para>TODO</para>
+
+	</section>
+
+	<section id='sect-ebox-diagnostics'>
+		<!-- Network->Diagnostics -->
+		<title>Herramientas de diagnóstico</title>
+
+		<para>TODO</para>
+
+	</section>
+
+</chapter>

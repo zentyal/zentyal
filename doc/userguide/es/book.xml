@@ -1,7 +1,12 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0"?>
 <!DOCTYPE book SYSTEM "../tools/dtd/dblite.dtd"
 [
 <!ENTITY ch01     SYSTEM "ch01.xml">
+<!ENTITY ch02     SYSTEM "ch02.xml">
+<!ENTITY ch03     SYSTEM "ch03.xml">
+<!ENTITY ch04     SYSTEM "ch04.xml">
+<!ENTITY ch05     SYSTEM "ch05.xml">
+<!ENTITY ch06     SYSTEM "ch06.xml">
 <!ENTITY ch07     SYSTEM "ch07.xml">
 ]>
 
@@ -15,7 +20,7 @@
     <copyright>
       <year>2005</year>
       <holder>Warp Networks S.L.</holder>
-      <holder>DBS Servicios Informáticos S.L.</holder>
+      <holder>DBS Servicios InformÃ¡ticos S.L.</holder>
     </copyright>
 
       <legalnotice><para>This work is licensed under the Creative
@@ -28,7 +33,6 @@
 
   <!-- External entity refs -->
 
-<!--
   &ch01;
   &ch02;
   &ch03;
@@ -36,6 +40,5 @@
   &ch05;
   &ch06;
   &ch07;
-  -->
 
 </book>
