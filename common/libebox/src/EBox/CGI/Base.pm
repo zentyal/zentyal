@@ -340,6 +340,33 @@ sub run
 	}
 }
 
+sub unsafeParam # (param) 
+{
+	my ($self, $param) = @_;
+	my $cgi = $self->cgi;
+	my @array;
+	my $scalar;
+	if (wantarray) {
+		@array = $cgi->param($param);
+		(@array) or return undef;
+		my @ret = ();
+		foreach my $v (@array) {
+			_utf8_on($v);
+			push(@ret, $v);
+		}
+		return @ret;
+	} else {
+		$scalar = $cgi->param($param);
+		#check if $param.x exists for input type=image
+		unless (defined($scalar)) {
+			$scalar = $cgi->param($param . ".x");
+		}
+		defined($scalar) or return undef;
+		_utf8_on($scalar);
+		return $scalar;
+	}
+}
+
 sub param # (param) 
 {
 	my ($self, $param) = @_;
