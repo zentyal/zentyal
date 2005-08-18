@@ -123,22 +123,6 @@ use EBox::Gettext;
 		</td>
 	</tr>
 	<tr>
-		<td class='tright'>
-			<span class='ftitle'><% __('Enable periodic updates of signs virus database') %>:</span>
-		</td>
-		<td>
-			<select name='updatevirus'>
-%			if($args->{'updatevirus'} eq 'yes') {
-				<option value='no' ><% __('No') %></option>
-				<option selected value='yes' ><% __('Yes') %></option>
-%			}else{
-				<option selected value='no' ><% __('No') %></option>
-				<option value='yes' ><% __('Yes') %></option>
-%			}
-			</select>
-		</td>
-	</tr>
-	<tr>
 		<td colspan='2' align='center'>
 			<input class='inputButton' type='submit' name='change' 
 				value="<% __('Apply') %>"

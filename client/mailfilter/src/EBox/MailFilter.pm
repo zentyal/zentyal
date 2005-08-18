@@ -216,12 +216,12 @@ sub setBayes
 #
 # Returns:
 #
-#  boolean - true if it's active, otherwise false
+#  string - With the last information update
 #
 sub updateVirus
 {
 	my $self = shift;
-	return $self->get_bool('updatevirus');
+	return $self->get_string('updatevirus');
 }
 
 #
@@ -231,14 +231,12 @@ sub updateVirus
 #
 # Parameters:
 #
-#  active - true or false
+#  str - The update information
 #
 sub setUpdateVirus
 {
-	my ($self, $active) = @_;
-	($active and $self->updateVirus()) and return;
-	(!$active and !$self->updateVirus()) and return;
-	$self->set_bool('updatevirus', $active);
+	my ($self, $str) = @_;
+	$self->set_string('updatevirus', $active);
 }
 
 #

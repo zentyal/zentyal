@@ -39,8 +39,8 @@
 			<key>/schemas/ebox/modules/mailfilter/updatevirus</key>
 			<applyto>/ebox/modules/mailfilter/updatevirus</applyto>
 			<owner>ebox</owner>
-			<type>boolean</type>
-			<default>false</default>
+			<type>string</type>
+			<default></default>
 			<locale name="C"/>
 		</schema>
 		<schema>
