@@ -42,6 +42,8 @@ sub _process($) {
 	$self->_requireParam('bayes', __('bayesian filter status'));
 	$self->_requireParam('subjectmod', __('subject rewrite state'));
 	
+	$self->_requireParam('hitspolicy', __('hitspolicy'));
+	my $hitspolicy = $self->param('hitspolicy');
 	$self->_requireParam('autospamhits', __('autospamhits'));
 	my $autospamhits = $self->param('autospamhits');
 	my $subjectstr = $self->unsafeParam('subjectstr');
@@ -57,7 +59,7 @@ sub _process($) {
 		$mfilter->setAutoSpamHits($mfilter->probabilityToHits($autospamhits));
 	}
 	$mfilter->setSubjectString($subjectstr);
-	
+	$mfilter->setHitsThrowPolicy($mfilter->probabilityToHits($hitspolicy));
 }
 
 1;

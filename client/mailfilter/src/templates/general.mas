@@ -123,6 +123,46 @@ use EBox::Gettext;
 		</td>
 	</tr>
 	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Spam probability of a message to take a policy in action') %>:</span>
+		</td>
+		<td>
+		    <select id='hitspolicy' name='hitspolicy'> 
+%			if ($args->{'hitspolicy'} eq 'llow') {
+				<option selected value='llow'><% __('Very low') %></option>
+				<option value='low'><% __('Low') %></option>
+				<option value='medium'><% __('Medium') %></option>
+				<option value='high'><% __('High') %></option>
+				<option value='hhigh'><% __('Very high') %></option>
+%			} elsif ($args->{'hitspolicy'} eq 'low') {
+				<option value='llow'><% __('Very low') %></option>
+				<option selected value='low'><% __('Low') %></option>
+				<option value='medium'><% __('Medium') %></option>
+				<option value='high'><% __('High') %></option>
+				<option value='hhigh'><% __('Very high') %></option>
+%			} elsif ($args->{'hitspolicy'} eq 'medium') {
+				<option value='llow'><% __('Very low') %></option>
+				<option value='low'><% __('Low') %></option>
+				<option selected value='medium'><% __('Medium') %></option>
+				<option value='high'><% __('High') %></option>
+				<option value='hhigh'><% __('Very high') %></option>
+%			} elsif ($args->{'hitspolicy'} eq 'high') {
+				<option value='llow'><% __('Very low') %></option>
+				<option value='low'><% __('Low') %></option>
+				<option value='medium'><% __('Medium') %></option>
+				<option selected value='high'><% __('High') %></option>
+				<option value='hhigh'><% __('Very high') %></option>
+%			} elsif ($args->{'hitspolicy'} eq 'hhigh') {
+				<option value='llow'><% __('Very low') %></option>
+				<option value='low'><% __('Low') %></option>
+				<option value='medium'><% __('Medium') %></option>
+				<option value='high'><% __('High') %></option>
+				<option selected value='hhigh'><% __('Very high') %></option>
+%			}
+			</select>
+		</td>
+	</tr>
+	<tr>
 		<td colspan='2' align='center'>
 			<input class='inputButton' type='submit' name='change' 
 				value="<% __('Apply') %>"

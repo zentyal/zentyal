@@ -85,6 +85,7 @@ sub _process($) {
 		'autospamhits' => $autospamvalue,
 		'subjectmod' => ($mfilter->subjectModification() ? 'yes' : 'no'),
 		'subjectstr' => $mfilter->subjectString(),
+		'hitspolicy' => $mfilter->hitsToProbability($mfilter->hitsThrowPolicy()),
 	);
 
 	my %policy = (
@@ -92,7 +93,6 @@ sub _process($) {
 		'spampolicy' => $mfilter->filterPolicy('spam'),
 		'bheadpolicy' => $mfilter->filterPolicy('bhead'),
 		'bannedpolicy' => $mfilter->filterPolicy('banned'),
-		'hitspolicy' => $mfilter->hitsThrowPolicy(),
 	);
 	
 	my $list;

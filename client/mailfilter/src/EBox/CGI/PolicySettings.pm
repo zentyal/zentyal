@@ -49,14 +49,11 @@ sub _process($) {
 	my $bheadpolicy = $self->param('bheadpolicy');
 	$self->_requireParam('bannedpolicy', __('bannedpolicy'));
 	my $bannedpolicy = $self->param('bannedpolicy');
-	$self->_requireParam('hitspolicy', __('hitspolicy'));
-	my $hitspolicy = $self->param('hitspolicy');
 
 	$mfilter->setFilterPolicy('virus', $viruspolicy);
 	$mfilter->setFilterPolicy('spam', $spampolicy);
 	$mfilter->setFilterPolicy('bhead', $bheadpolicy);
 	$mfilter->setFilterPolicy('banned', $bannedpolicy);
-	$mfilter->setHitsThrowPolicy($hitspolicy);
 	
 }
 

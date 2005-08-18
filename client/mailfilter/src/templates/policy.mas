@@ -98,15 +98,6 @@ use EBox::Gettext;
 		</td>
 	</tr>
 	<tr>
-		<td class='tright'>
-			<span class='ftitle'><% __('Needed score by positive message to take the selected policy in action') %>:</span>
-		</td>
-		<td>
-		    <input type='text' class='inputText'
-				name='hitspolicy' value='<% $args->{'hitspolicy'} %>'>
-		</td>
-	</tr>
-	<tr>
 		<td colspan='2' align='center'>
 			<input class='inputButton' type='submit' name='change' 
 				value="<% __('Apply') %>"
