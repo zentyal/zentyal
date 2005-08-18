@@ -236,7 +236,7 @@ sub updateVirus
 sub setUpdateVirus
 {
 	my ($self, $str) = @_;
-	$self->set_string('updatevirus', $active);
+	$self->set_string('updatevirus', $str);
 }
 
 #

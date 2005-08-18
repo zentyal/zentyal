@@ -38,23 +38,17 @@ sub _process($) {
 	my $self = shift;
 	my $mfilter = EBox::Global->modInstance('mailfilter');
 
-	use Data::Dumper;
-	print STDERR Dumper($self);
-
 	$self->_requireParam('modulemode', __('module mode'));
 	$self->_requireParam('bayes', __('bayesian filter status'));
 	$self->_requireParam('subjectmod', __('subject rewrite state'));
-	$self->_requireParam('updatevirus', __('update virus state'));
 	
 	$self->_requireParam('autospamhits', __('autospamhits'));
 	my $autospamhits = $self->param('autospamhits');
-	$self->_requireParam('subjectstr', __('subject string'));
-	my $subjectstr = $self->param('subjectstr');
+	my $subjectstr = $self->unsafeParam('subjectstr');
 
 	$mfilter->setModuleMode(($self->param('modulemode') eq 'yes'));
 	$mfilter->setBayes(($self->param('bayes') eq 'yes'));
 	$mfilter->setSubjectModification(($self->param('subjectmod') eq 'yes'));
-	$mfilter->setUpdateVirus(($self->param('updatevirus') eq 'yes'));
 
 	if ($autospamhits eq 'dnota') {
 		$mfilter->setAutolearn(0);

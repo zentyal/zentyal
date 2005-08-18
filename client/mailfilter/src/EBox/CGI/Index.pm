@@ -85,7 +85,6 @@ sub _process($) {
 		'autospamhits' => $autospamvalue,
 		'subjectmod' => ($mfilter->subjectModification() ? 'yes' : 'no'),
 		'subjectstr' => $mfilter->subjectString(),
-		'updatevirus' => ($mfilter->updateVirus() ? 'yes' : 'no'),
 	);
 
 	my %policy = (
@@ -110,7 +109,6 @@ sub _process($) {
 		my @l = @{$mfilter->accountsBypassList($list)};
 		if (grep(/^@.*/, $l[0])) {
 			$dom = 'yes';
-			print STDERR "entramos por empieza por @\n";
 		}
 	}
 
