@@ -18,7 +18,7 @@ package EBox::MailFilter;
 use strict;
 use warnings;
 
-use base 'EBox::GConfModule';
+use base qw(EBox::GConfModule EBox::VDomainModule EBox::LdapModule);
 
 use EBox::Gettext;
 use EBox::Sudo qw( :all );
@@ -26,6 +26,7 @@ use EBox::Sudo qw( :all );
 use EBox::Summary::Module;
 use EBox::Summary::Status;
 use EBox::Exceptions::InvalidData;
+use EBox::MailFilterLdap;
 
 use constant AMAVISPIDFILE			=> "/var/run/amavis/amavisd.pid";
 use constant SAPIDFILE				=> "/var/run/spamd.pid";
@@ -762,4 +763,37 @@ sub rootCommands
 	return @array;
 }
 
+# Method: _vdomainModImplementation
+#
+#  All modules using any of the functions in LdapVDomainsBase.pm
+#  should override this method to return the implementation
+#  of that interface.
+#
+# Returns:
+#
+#  An object implementing EBox::LdapVDomainsBase
+
+sub _vdomainModImplementation
+{
+	my $self = shift;
+
+	return new EBox::MailFilterLdap();
+}
+
+# Method: _ldapModImplementation
+#
+#        All modules using any of the functions in LdapUserBase.pm
+#     should override this method to return the implementation
+#  of that interface.
+#
+# Returns:
+#
+#  An object implementing EBox::LdapUserBase
+sub _ldapModImplementation
+{
+	my $self = shift;
+
+	return new EBox::MailFilterLdap();
+}
+   
 1;

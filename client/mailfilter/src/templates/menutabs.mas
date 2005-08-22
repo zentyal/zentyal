@@ -2,6 +2,7 @@
 -->
 <%args>
 	$selected
+	$mode
 </%args>
 <div class='ifaces'>
 %     if($selected eq 'general') {
@@ -14,14 +15,17 @@
 %     } else {
     <a href='Index?menu=policy'><% __('Policies') %></a>
 %     }
-%     if($selected eq 'restrict') {
+
+% if ($mode eq 'global') {
+%     if ($selected eq 'restrict') {
     <span class='selected'><% __('Restrictions') %></span>
 %     } else {
     <a href='Index?menu=restrict'><% __('Restrictions') %></a>
 %     }
-%     if($selected eq 'lists') {
+%     if ($selected eq 'lists') {
     <span class='selected'><% __('White/Black Lists') %></span>
 %     } else {
     <a href='Index?menu=lists'><% __('White/Black Lists') %></a>
 %     }
+% }
 </div>

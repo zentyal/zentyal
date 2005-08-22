@@ -65,11 +65,19 @@ sub _process($) {
 	my $self = shift;
 	$self->{title} = __('Mail filter');
 	my $mfilter = EBox::Global->modInstance('mailfilter');
+	my $mail = EBox::Global->modInstance('mail');
 		
 	my @array = ();
 	
 	my $menu = $self->param('menu');
 	($menu) or $menu = 'general';
+
+	my $vdnumber = scalar($mail->{'vdomains'}->vdomains());
+	my $mode = 'bydomain';
+	print STDERR "Numero de dominios = $vdnumber\n";
+	if (($mfilter->moduleMode()) or ($vdnumber == 1)){
+		$mode = 'global';
+	}
 
 	my $autospamvalue = '';
 	if ($mfilter->autolearn()) {
@@ -131,6 +139,7 @@ sub _process($) {
 	);
 	
 	push (@array, 'menu' => $menu);
+	push (@array, 'mode' => $mode);
 	push (@array, 'general' => \%general);
 	push (@array, 'policy' => \%policy);
 	push (@array, 'restrict' => \%restrict);

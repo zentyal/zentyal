@@ -14,6 +14,6 @@ install-data-local:
 
 endif
 
-EXTRA_DIST = $(schema_DATA)
+EXTRA_DIST = $(schema_DATA) eboxfilter.schema
 
 MAINTAINERCLEANFILES = Makefile.in

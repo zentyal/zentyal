@@ -38,9 +38,6 @@ sub _process($) {
 	my $self = shift;
 	my $mfilter = EBox::Global->modInstance('mailfilter');
 
-	use Data::Dumper;
-	print STDERR Dumper($self);
-
 	$self->_requireParam('viruspolicy', __('viruspolicy'));
 	my $viruspolicy = $self->param('viruspolicy');
 	$self->_requireParam('spampolicy', __('spampolicy'));

@@ -7,4 +7,8 @@ apt-get install:
 Añadimos al usuario ebox a los grupos amavis y clamav (como root):
  addgroup ebox amavis
  addgroup ebox clamav
+ 
+Copiar el schema de tool/eboxfilter.schema a /etc/ldap/schema (como root)
 
+Regenarar la configuracion de ldap
+sudo /usr/local/lib/ebox-usersandgroups/ebox-init-ldap genconfig

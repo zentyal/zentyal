@@ -40,17 +40,23 @@ sub _process($) {
 
 	$self->_requireParam('modulemode', __('module mode'));
 	$self->_requireParam('bayes', __('bayesian filter status'));
-	$self->_requireParam('subjectmod', __('subject rewrite state'));
+	$self->_requireParam('mode', __('module mode'));
+	my $mode = $self->param('mode');
 	
-	$self->_requireParam('hitspolicy', __('hitspolicy'));
-	my $hitspolicy = $self->param('hitspolicy');
+	if ($mode eq 'global') {
+		$self->_requireParam('subjectmod', __('subject rewrite state'));
+		$mfilter->setSubjectModification(($self->param('subjectmod') eq 'yes'));
+		$self->_requireParam('hitspolicy', __('hitspolicy'));
+		my $hitspolicy = $self->param('hitspolicy');
+		$mfilter->setHitsThrowPolicy($mfilter->probabilityToHits($hitspolicy));
+	}
+	
 	$self->_requireParam('autospamhits', __('autospamhits'));
 	my $autospamhits = $self->param('autospamhits');
 	my $subjectstr = $self->unsafeParam('subjectstr');
 
 	$mfilter->setModuleMode(($self->param('modulemode') eq 'yes'));
 	$mfilter->setBayes(($self->param('bayes') eq 'yes'));
-	$mfilter->setSubjectModification(($self->param('subjectmod') eq 'yes'));
 
 	if ($autospamhits eq 'dnota') {
 		$mfilter->setAutolearn(0);
@@ -58,8 +64,7 @@ sub _process($) {
 		$mfilter->setAutolearn(1);
 		$mfilter->setAutoSpamHits($mfilter->probabilityToHits($autospamhits));
 	}
-	$mfilter->setSubjectString($subjectstr);
-	$mfilter->setHitsThrowPolicy($mfilter->probabilityToHits($hitspolicy));
+		$mfilter->setSubjectString($subjectstr);
 }
 
 1;
