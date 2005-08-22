@@ -41,9 +41,25 @@ sub _warn {
 	$self->{template} = 'mail/warnvd.mas';
 	$self->{redirect} = undef;
 
+	my $str = 'Remove a virtual domain will cause that all mail accounts and'.
+'mail alias accounts that belong to the virtual domain will also be removed.';
+
 	my @array = ();
 	push(@array, 'vdomain' => $vdomain);
+	push(@array, 'data' => $str);
 	$self->{params} = \@array;
+
+   my $mail = EBox::Global->modInstance('mail');
+   my $warns = $mail->{'vdomains'}->allWarnings($vdomain);
+
+   if (@{$warns}) { # If any module wants to warn
+       $self->{template} = 'mail/warnvd.mas';
+       $self->{redirect} = undef;
+       my @array = ();
+       push(@array, 'vdomain'   => $vdomain);
+       push(@array, 'data'   => $warns);
+       $self->{params} = \@array;
+   }
 
 	return 1;
 }

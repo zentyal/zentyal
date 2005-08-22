@@ -644,5 +644,4 @@ sub menu
 	$root->add($folder);
 }
 
-
 1;

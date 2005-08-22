@@ -1,5 +1,8 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
 <%args>
 	$vdomain
+	@data
 </%args>
 </%args>
 <%init>
@@ -8,8 +11,15 @@ use EBox::Gettext;
 
 <h3><% __('Deleting virtual domain') %>: <% $vdomain %></h3>
 <div class="warning">
-	<% __('Remove a virtual domain will cause that all mail accounts and mail alias accounts that belong to the virtual domain will also be removed.') %>
+	<% __('The virtual domain you tried to delete contains data in the following modules. Please confirm you want to remove it and all its related data') %>
 </div>
+
+% foreach my $par (@data) {
+    <div class=note>
+        <% $par %>
+    </div>
+% }
+<br/>
 
 <form action='DelVDomain' method='POST'>
 	<input type='hidden' name='vdomain'

@@ -1,0 +1,24 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$selected
+	$vdomain
+	@components
+</%args>
+<div class='ifaces'>
+%     if($selected eq '0') {
+    <span class='selected'><% __('General') %></span>
+%     } else {
+    <a href='EditVDomain?vdomain=<%$vdomain%>&menu=0'><% __('General') %></a>
+%     }
+
+% my $foo=1;
+% foreach my $comp (@components) {
+%     if($selected eq $foo) {
+    	<span class='selected'><% __($comp->{'name'}) %></span>
+%     } else {
+    	<a href='EditVDomain?vdomain=<%$vdomain%>&menu=<%$foo%>'><%__($comp->{'name'}) %></a>
+%     }
+%	  $foo++;
+% }
+</div>

@@ -61,6 +61,18 @@ sub addVDomain { #vdomain
 	);
 
 	my $r = $self->{'ldap'}->add($dn, \%attrs);
+
+	$self->_initVDomain($vdomain);
+}
+
+sub _initVDomain() {
+	my ($self, $vdomain) = @_;
+
+	my @mods = @{$self->_modsVDomainModule()};
+
+	foreach my $mod (@mods){
+		$mod->_addVDomain($vdomain);
+	}
 }
 
 sub delVDomain($$) { #vdomain
@@ -78,8 +90,20 @@ sub delVDomain($$) { #vdomain
 	$mail->{malias}->delAliasesFromVDomain($vdomain);
 	$mail->{musers}->delAccountsFromVDomain($vdomain);
 
+	$self->_cleanVDomain($vdomain);
+
 	my $r = $self->{'ldap'}->delete("domainComponent=$vdomain, " .
 	$self->vdomainDn);
+}
+
+sub _cleanVDomain() {
+	my ($self, $vdomain) = @_;
+
+	my @mods = @{$self->_modsVDomainModule()};
+
+	foreach my $mod (@mods){
+		$mod->_delVDomain($vdomain);
+	}
 }
 
 sub vdomains($)
@@ -141,6 +165,9 @@ sub setMDSize() {
 	my ($self, $vdomain, $mdsize) = @_;
    
 	my $dn = "domainComponent=$vdomain," .  $self->vdomainDn;
+
+	$self->_updateVDomain($vdomain);
+
 	my $r = $self->{'ldap'}->modify($dn, {
 		replace => { 'vddftMaildirSize' => $mdsize * $self->BYTES }});
 }
@@ -153,6 +180,16 @@ sub updateMDSizes() {
 
 	foreach my $uids (keys %accounts) {
 		$mail->{musers}->setMDSize($uids, $mdsize);
+	}
+}
+
+sub _updateVDomain() {
+	my ($self, $vdomain) = @_;
+
+	my @mods = @{$self->_modsVDomainModule()};
+
+	foreach my $mod (@mods){
+		$mod->_modifyVDomain($vdomain);
 	}
 }
 
@@ -175,6 +212,72 @@ sub vdomainExists($$) { #vdomain
 	my $result = $self->{'ldap'}->search(\%attrs);
 
 	return ($result->count > 0);
+}
+
+sub _modsVDomainModule {
+	my $self = shift;
+
+	my $global = EBox::Global->modInstance('global');
+	my @names = @{$global->modNames};
+
+	my @modules;
+	foreach my $name (@names) {
+		my $mod = EBox::Global->modInstance($name);
+		if ($mod->isa('EBox::VDomainModule')) {
+			push (@modules, $mod->_vdomainModImplementation);
+		}
+	}
+
+	return \@modules;
+}
+
+# Method: allWarning
+#
+#  Returns all the the warnings provided by the modules when a certain
+#  virtual domain is going to be deleted. Function _delVDomainWarning 
+#  is called in all module implementing them.
+#
+# Parameters:
+#
+#  name - name of the virtual domain
+#
+# Returns:
+#
+#       array ref - holding all the warnings
+#
+sub allWarnings($$$)
+{
+	my ($self, $name) = @_;
+
+	my @modsFunc = @{$self->_modsVDomainModule()};
+	my @allWarns;
+
+	foreach my $mod (@modsFunc) {
+		my $warn = undef;
+		$warn = $mod->_delVDomainWarning($name);
+		push (@allWarns, $warn) if ($warn);
+	}
+
+	return \@allWarns;
+}
+
+sub allVDomainsAddOns # (user)
+{
+	my ($self, $vdomain) = shift;
+
+	my $global = EBox::Global->modInstance('global');
+	my @names = @{$global->modNames};
+
+	my @modsFunc = @{$self->_modsVDomainModule()};
+	my @components;
+	foreach my $mod (@modsFunc) {
+		my @comp = @{$mod->_vdomainAddOns($vdomain)};
+		if (@comp) {
+			push (@components, @comp);
+		}
+	}
+
+	return \@components;
 }
 
 1;

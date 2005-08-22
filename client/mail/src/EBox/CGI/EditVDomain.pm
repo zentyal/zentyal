@@ -43,10 +43,16 @@ sub _process($) {
 	$self->_requireParam('vdomain', __('vdomain'));
 
 	my $vdomain = $self->param('vdomain');
-	
+	my $components = $mail->{'vdomains'}->allVDomainsAddOns($vdomain);
+
+	my $menu = '0'; 
+	if (defined($self->param('menu'))) { $menu = $self->param('menu'); }
+
 	my @array = ();
 	push(@array, 'vdomain' => $vdomain);
 	push(@array, 'mdsize' => $mail->{vdomains}->getMDSize($vdomain));
+	push(@array, 'menu' => $menu);
+	push(@array, 'components' => $components);
 
 	$self->{params} = \@array;
 }

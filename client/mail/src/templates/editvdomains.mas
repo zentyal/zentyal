@@ -3,10 +3,16 @@
 <%args>
 	$vdomain
 	$mdsize
+	$menu
+	@components
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
+
+<& mail/menutabs.mas, selected => $menu, vdomain => $vdomain, components => \@components &>
+
+% if ($menu eq '0') {
 <form action='ModifyVDomain' method='POST'>
 <div class='ftitle'><% __x('Set default maildir size for {vdomain} virtual domain', vdomain => $vdomain ) %></div>
 	<input type='hidden' name='vdomain' value=<% $vdomain %>>
@@ -18,3 +24,7 @@ use EBox::Gettext;
 	<a><% __('Force the change to the existing accounts') %></a>
 	<input id="forceold" type='checkbox' value='no' name="forceold" />
 </form>	
+
+% } elsif (defined($components[$menu-1])) {
+      <& $components[$menu-1]->{'path'}, params => $components[$menu-1]->{'params'} &>
+% }

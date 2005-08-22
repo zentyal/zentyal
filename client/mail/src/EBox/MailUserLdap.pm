@@ -93,6 +93,8 @@ sub setUserAccount () {
 
 sub delUserAccount () { #username, mail
 	my ($self, $username, $usermail) = @_;
+
+	($self->_accountExists($username)) or return;
 	
 	my $mail = EBox::Global->modInstance('mail');
 	my $users = EBox::Global->modInstance('users');
