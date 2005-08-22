@@ -1300,6 +1300,10 @@ sub allLDAPIncludes
 		}
 	}
 
+	#We removes duplicated elements
+	my %temp = ();
+	@includes = grep ++$temp{$_} < 2, @includes;
+
 	return \@includes;
 }
 
