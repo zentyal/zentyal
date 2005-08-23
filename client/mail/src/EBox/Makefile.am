@@ -10,3 +10,5 @@ nobase_perl_DATA = Mail.pm MailVDomainsLdap.pm MailUserLdap.pm\
 DISTCLEANFILES = 
 
 MAINTAINERCLEANFILES = Makefile.in
+
+EXTRA_DIST = $(nobase_perl_DATA)
