@@ -54,7 +54,7 @@ sub clean
 
 sub gen_config
 {
-#	$mail->_regenConfig;
+	$mail->_regenConfig;
 }
 
 sub usage
