@@ -1,4 +1,4 @@
-AC_INIT([EBox-mail], [0.5.1+svn])
+AC_INIT([EBox-mail], [0.7])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Mail.pm])
@@ -6,7 +6,6 @@ AC_CONFIG_SRCDIR([src/EBox/Mail.pm])
 AM_INIT_AUTOMAKE([foreign])
 
 AM_MAINTAINER_MODE
-
 
 AC_DEFINE_DIR(DATADIR, datadir)
 AC_DEFINE_DIR(LIBDIR, libdir)
@@ -60,6 +59,7 @@ src/EBox/CGI/Makefile
 src/templates/Makefile
 schemas/Makefile
 stubs/Makefile
+tools/Makefile
 www/Makefile
 Makefile
 ])
