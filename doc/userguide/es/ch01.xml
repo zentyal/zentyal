@@ -1,14 +1,22 @@
 	<!-- vim: ts=2 sw=2 tw=75
 -->
-<!-- PARA JORGE -->
 <chapter id="ch-intro">
 
 	<title>Introducción</title>
 
 	<section id='sect-audience'>
+
 		<title>¿A quién va dirigido?</title>
 
-		<para>TODO</para>
+		<para>A aquellas personas que ya tengan instalada la plataforma eBox y
+		deseen conocer de una forma breve y concisa su funcionamiento.</para>
+
+		<para>Este manual no contempla la formación mínima necesaria sobre
+		servicios de red que precisa eBox para comprender su funcionamiento.</para>
+
+		<para>Si su interés está enfocado al funcionamiento interno de la
+		plataforma o desea aprender como funciona la framework de desarrollo
+		sobre la que está escrita eBox, consulte la guía del desarrollador.</para>
 
 	</section>
 
@@ -16,21 +24,130 @@
 
 		<title>¿Qué es eBox?</title>
 
-		<para>TODO</para>
+		<para>eBox es una plataforma para gestionar, a través de un interfaz
+		web, los servicios de red que incorpora. Parte de estos servicios son:
+		cortafuegos, gestión de objetos de red, proxy caché, filtro de
+		contenidos, servidor ntp, compartición de ficheros...</para>
+
+		<para>Al estar diseñada de forma modular es posible que su instalación
+		de eBox no tenga todos los módulos que se detallan en este manual. Esto
+		no representa un problema, puede aprovechar la información acerca de
+		los módulos que no posee y averiguar si le aportan un valor añadido a su 
+		plataforma eBox actual.</para>
 
   </section>
 
 	<section>
 		<title>Terminología</title>
 
-		<para>TODO</para>
+		<para>FIXME: esta sección es como un glosario de términos de eBox?</para>
 
   </section>
 
 	<section>
 		<title>Toma de contacto con el interface de usuario</title>
 		
-		<para>TODO</para>
+		<para>La dirección predeterminada para acceder al interfaz de
+		administración de eBox es <ulink url="#">https://hostname/eBox</ulink>,
+		donde <emphasis>hostname</emphasis> es la dirección IP o el nombre del 
+		host donde está instalado eBox.</para>
+
+		<para>El interfaz de usuario esta dividido en tres partes
+		fundamentales:</para>
+
+		<!-- FIXME odio los nombres que le he dado a las partes del interfaz
+		-->
+
+		<variablelist>
+			<varlistentry>
+				<term>Menú vertical izquierdo</term>
+				<listitem>
+					<para>El menú vertical contiene enlaces a todos los servicios de que se
+					pueden configurar mediante eBox.</para>
+					<!-- FIXME: left menu screenshot -->
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Contenido principal</term>
+				<listitem>
+					<para>El contenido comprende uno o varios formularios para
+					ajustar la configuración del servicio que hemos escogido a traves 
+					del menú vertical. Dentro del contenido podrá encontrar una 
+					barra con enlaces que representan diferentes subsecciones de la 
+					seción a la que hemos accedido.</para>
+					<!-- FIXME: content screenshot -->
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Menú horizontal superior</term>
+				<listitem>
+					<para>El menú horizontal contiene los enlaces para guardar los cambios
+					y hacerlos efectivos, para mostrar la ayuda y para salir de la
+					aplicación.</para>
+					<!-- FIXME: top menu screenshot -->
+				</listitem>
+			</varlistentry>
+		</variablelist>
+
+		<note>
+			<para>La posición de los elementos de eBox es susceptible a
+			cambios.</para>
+		</note>
+
+		<para>Una importante particularidad de eBox es su forma de hacer
+		efectivas todas las variaciones que hagamos en la aplicación, es decir
+		como y cuando se guardan los cambios.</para>
+
+		<para>Primero tendrá que aceptar los cambios en el formulario en el
+		que estemos trabajando, para que estos cambios sean efectivos y
+		permantentes tendrá que presionar en Guardar Cambios del menú
+		horizontal, si no lo hacemos perderá los cambios al terminar la
+		sesión.</para>
+
+		<para>Existen varias excepciones en las cuales no es necesario Guardar
+		Cambios, es suficiente con ejecutar el formulario en el que estamos
+		realizando dichos cambios, estas situaciones son:
+		
+			<variablelist>
+				<varlistentry>
+					<term>Gestión de usuarios y grupos</term>
+						<listitem>
+							<para>Añadir, modificar y eliminar usuarios o grupos es una
+							acción inmediata y no es necesario Guardar Cambios para hacerla
+							efectiva.</para>
+						</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Servidor NTP</term>
+						<listitem>
+							<para>Dentro del módulo NTP podemos ajustar la fecha y la zona
+							horaria de nuestro sistema, estos cambios son efectivos con
+							solo aceptar el formulario en cuestión.</para>
+						</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Cambio de idioma</term>
+						<listitem>
+							<para>El cambio del idioma del interfaz es un cambio
+							automático que no precisa de ser guardado de forma permanete.
+							El cambio de idioma está en 
+							<menuchoice>
+								<guimenu>eBox</guimenu>
+								<guimenuitem>General</guimenuitem>
+							</menuchoice>
+							</para>
+						</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Reiniciar Servicios</term>
+						<listitem>
+							<para>FIME: existira despues de la implementacion del monitor
+							de serivicos?</para>
+						</listitem>
+				</varlistentry>
+			</variablelist>
+		
+		</para>
 
 	</section>
 

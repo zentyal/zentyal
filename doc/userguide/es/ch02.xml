@@ -1,15 +1,59 @@
 	<!-- vim: ts=2 sw=2 tw=75
 -->
-<!-- PARA JORGE -->
 <chapter id="ch-system">
 
 	<title>Configuración del sistema</title>
 
 	<section id='sect-ebox-general'>
 		<!-- eBox->General -->
-		<title>Configuración del interface de usuario</title>
+		<title>Configuración general del interfaz de usuario</title>
 
-		<para>TODO</para>
+		<para>Accedemos a la configuración general del interfaz a través de
+		<menuchoice>
+			<guimenu>eBox</guimenu>
+			<guimenuitem>General</guimenuitem>
+		</menuchoice>
+		del menú lateral izquierdo.
+		</para>
+
+		<para>Desde esta sección podemos hacer tres cambios significativos
+		sobre el interfaz de administración de eBox:</para>
+
+		<variablelist>
+			<varlistentry>
+				<term>Cambiar contraseña</term>
+				<listitem>
+					<para>Introduzca la contraseña actual, la nueva, confirme dicha
+					contraseña introduciéndola una vez más y después confirme los
+					cambios en el formulario. Para hacer efectivos estos cambios no
+					olvide guardar su configuración de forma definitiva.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Selección de Idioma</term>
+				<listitem>
+					<para>Seleccione de la lista desplegagle el idioma que prefiera y
+					confirme los cambios aceptando el formulario. No es necesario
+					guardar los cambios de forma global para que el cambio sea
+					efectivo.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Puerto TCP de la interfaz de administración</term>
+				<listitem>
+					<para>El acceso predeterminado al interfaz de administración de
+					eBox se realiza mediante la dirección:FIXME</para>
+
+					<para>Si cambia el puerto a un valor diferente al 443, acepta el
+					formulario y guarda los cambios podrá acceder usando la
+					dirección:FIXME</para>
+
+					<para>Ha de tener en cuenta que cuando guarde los cambios, después
+					de cambiar el puerto del interfaz de administración, tardará unos
+					segundos hasta poder acceder usando la nueva dirección.</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
 
 	</section>
 
@@ -17,7 +61,44 @@
 		<!-- eBox->Backup -->
 		<title>Backups de la configuración</title>
 
-		<para>TODO</para>
+		<para>Accedemos a la gestión de backups de eBox a través de 
+		<menuchoice>
+			<guimenu>eBox</guimenu>
+			<guimenuitem>Backups</guimenuitem>
+		</menuchoice>
+		del menú lateral izquierdo. 
+		</para>
+
+		<para>Desde el interfaz de backups básicamente podrá guardar la última
+		configuración guardada de eBox o recuperarla.</para>
+
+		<variablelist>
+			<varlistentry>
+				<term>Guardar la configuración actual</term>
+				<listitem>
+					<para>Después de introducir una descripción y guardar los cambios
+					en el formulario aparecera una nueva entrada en la lista de
+					backups de la configuración, indicando la descripción y la fecha
+					de realización del backup.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Recuperar la configuración</term>
+				<listitem>
+					<para>Puede recuperar la configuración subiendo el fichero de 
+					backup de su disco duro y presionando en restaurar.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Lista de backups de la configuración</term>
+				<listitem>
+					<para>Desde las acciones de esta lista, situadas a la derecha de
+					cada elemento, podrá, por este orden, restaurar un backup,
+					descargar un fichero con el backup a su disco duro o eliminar un
+					backup de la lista.</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
 
 	</section>
 
@@ -25,7 +106,17 @@
 		<!-- eBox->Halt/Reboot -->
 		<title>Reinicio/Apagado del sistema</title>
 
-		<para>TODO</para>
+		<para>Podrá acceder al interfaz para apagar o reiniciar el computador
+		sobre el que funciona su sistema eBox a través de 
+		<menuchoice>
+			<guimenu>eBox</guimenu>
+			<guimenuitem>Apagar o reiniciar</guimenuitem>
+		</menuchoice>.
+		</para>
+
+		<para>Tenga en cuenta que si su sistema eBox es la puerta de enlace
+		para su conexión a Internet la perderá mientras la máquina esté
+		apagada.</para>
 
 	</section>
 
@@ -33,7 +124,14 @@
 		<!-- eBox->Bug report -->
 		<title>Generación de informes de error</title>
 
-		<para>TODO</para>
+		<para>Si encuentra alguna anomalía durante el funcionamiento de eBox
+		puede generar un fichero con el informe de error en 
+		<menuchoice>
+			<guimenu>eBox</guimenu>
+			<guimenuitem>Informe de error</guimenuitem>
+		</menuchoice>
+		y enviarlo por correo electrónico a FIXME@FIXME.FIXME.
+		</para>
 
 	</section>
 
