@@ -1,0 +1,33 @@
+Dudosas decisiones sobre el etiquetado de algunos elementos:
+
+- Path a un elemento del menu, ejemplo:
+
+		<menuchoice>
+			<guimenu>eBox</guimenu>
+			<guimenuitem>General</guimenuitem>
+		</menuchoice>
+
+- Para comentar las diferentes secciones dentro de una misma pagina, por ejemplo
+  en eBox->General tenemos 'Cambiar contraseña', 'Selección de idioma' y 'Puerto
+  TCP de la interfaz de administración', se ha elegido el formato:
+
+		   <variablelist>
+			  <varlistentry>
+				<term>Cambiar contraseña</term>
+				<listitem>
+				  <para></para>
+				</listitem>
+			  </varlistentry>
+			  <varlistentry>
+				<term>Selección de Idioma</term>
+				<listitem>
+				  <para></para>
+				</listitem>
+			  </varlistentry>
+			  <varlistentry>
+				<term>Puerto TCP de la interfaz de administración</term>
+				<listitem>
+				  <para></para>
+				</listitem>
+			  </varlistentry>
+			</variablelist>
