@@ -16,7 +16,7 @@
 		<key>/schemas/ebox/modules/mail/active</key>
 		<applyto>/ebox/modules/mail/active</applyto>
 		<owner>ebox</owner>
-		<type>boolean</type>
+		<type>bool</type>
 		<default>false</default>
 		<locale name="C"/>
 	</schema>
@@ -24,7 +24,7 @@
 		<key>/schemas/ebox/modules/mail/pop</key>
 		<applyto>/ebox/modules/mail/pop</applyto>
 		<owner>ebox</owner>
-		<type>boolean</type>
+		<type>bool</type>
 		<default>false</default>
 		<locale name="C"/>
 	</schema>
@@ -40,7 +40,7 @@
 		<key>/schemas/ebox/modules/mail/imap</key>
 		<applyto>/ebox/modules/mail/imap</applyto>
 		<owner>ebox</owner>
-		<type>boolean</type>
+		<type>bool</type>
 		<default>false</default>
 		<locale name="C"/>
 	</schema>
@@ -56,7 +56,7 @@
 		<key>/schemas/ebox/modules/mail/filter</key>
 		<applyto>/ebox/modules/mail/filter</applyto>
 		<owner>ebox</owner>
-		<type>boolean</type>
+		<type>bool</type>
 		<default>false</default>
 		<locale name="C"/>
 	</schema>
@@ -64,7 +64,7 @@
 		<key>/schemas/ebox/modules/mail/sasl</key>
 		<applyto>/ebox/modules/mail/sasl</applyto>
 		<owner>ebox</owner>
-		<type>boolean</type>
+		<type>bool</type>
 		<default>false</default>
 		<locale name="C"/>
 	</schema>
@@ -72,7 +72,7 @@
 		<key>/schemas/ebox/modules/mail/smtptls</key>
 		<applyto>/ebox/modules/mail/smtptls</applyto>
 		<owner>ebox</owner>
-		<type>boolean</type>
+		<type>bool</type>
 		<default>true</default>
 		<locale name="C"/>
 	</schema>
