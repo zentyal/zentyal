@@ -1,5 +1,5 @@
 - To install this module you need to install the following EBox modules: eBox,
-  Network, Firewall, Objects and this debian testing packages:
+  Network, Firewall, Objects, UsersAndGroups and this debian testing packages:
   + Postfix with VDA patch applied.
   + postfix-tls
   + postfix-ldap
@@ -8,7 +8,7 @@
   + courier-pop-ssl
   + courier-imap-ssl
   + courier-authdaemon
-  + FIXME
+  + courier-ldap
 
 - Once all packages has been installed:
 	
@@ -19,10 +19,10 @@
 
 - Update your sudoers file with the ebox-sudoers command.
 
-- Execute tools/ebox-mail-install script as root.
-- Execute as root:
-	tools/ebox-mail-ldap genconfig 
-	tools/ebox-mail-ldap populate
+- Copy conf/*.pem to /etc/postfix/sasl/, creating the directory if needed
+
+- Execute as root (should be in $prefix/lib/ebox-mail/ ):
+	./ebox-mail-ldap
 
 - Do not services on startup, this module takes control all services:
 
