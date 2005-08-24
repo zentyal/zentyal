@@ -1,0 +1,70 @@
+#$Id: authldap.schema,v 1.5 2004/04/18 15:54:38 mrsam Exp $
+#
+# OID prefix: 1.3.6.1.4.1.10018
+#
+# Attributes: 1.3.6.1.4.1.10018.1.1
+#
+# Depends on: nis.schema, which depends on cosine.schema
+
+attributetype ( 1.3.6.1.4.1.10018.1.1.1 NAME 'mailbox'
+	DESC 'The absolute path to the mailbox for a mail account in a non-default location'
+        EQUALITY caseExactIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE )
+
+attributetype ( 1.3.6.1.4.1.10018.1.1.2 NAME 'quota'
+	DESC 'A string that represents the quota on a mailbox'
+        EQUALITY caseExactIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 SINGLE-VALUE )
+
+attributetype ( 1.3.6.1.4.1.10018.1.1.3 NAME 'clearPassword'
+	DESC 'A separate text that stores the mail account password in clear text'
+        EQUALITY octetStringMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.40{128})
+
+attributetype ( 1.3.6.1.4.1.10018.1.1.4 NAME 'maildrop'
+        DESC 'RFC822 Mailbox - mail alias'
+        EQUALITY caseIgnoreIA5Match
+        SUBSTR caseIgnoreIA5SubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26{256} )
+
+attributetype ( 1.3.6.1.4.1.10018.1.1.5 NAME 'mailsource'
+        DESC 'Message source'
+        EQUALITY caseIgnoreIA5Match
+        SUBSTR caseIgnoreIA5SubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+
+attributetype ( 1.3.6.1.4.1.10018.1.1.6 NAME 'virtualdomain'
+        DESC 'A mail domain that is mapped to a single mail account'
+        EQUALITY caseIgnoreIA5Match
+        SUBSTR caseIgnoreIA5SubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+
+attributetype ( 1.3.6.1.4.1.10018.1.1.7 NAME 'virtualdomainuser'
+        DESC 'Mailbox that receives mail for a mail domain'
+        EQUALITY caseIgnoreIA5Match
+        SUBSTR caseIgnoreIA5SubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+
+attributetype ( 1.3.6.1.4.1.10018.1.1.8 NAME 'defaultdelivery'
+        DESC 'Default mail delivery instructions'
+        EQUALITY caseExactIA5Match
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.26 )
+
+#
+# Objects: 1.3.6.1.4.1.10018.1.2
+#
+
+objectclass ( 1.3.6.1.4.1.10018.1.2.1 NAME 'CourierMailAccount' SUP top AUXILIARY
+	DESC 'Mail account object as used by the Courier mail server'
+	MUST ( mail $ homeDirectory $ uidNumber $ gidNumber )
+        MAY ( mailbox $ uid $ cn $ gecos $ description $ loginShell $ quota $ userPassword $ clearPassword $ defaultdelivery) )
+
+objectclass ( 1.3.6.1.4.1.10018.1.2.2 NAME 'CourierMailAlias' SUP top AUXILIARY
+	DESC 'Mail aliasing/forwarding entry'
+	MUST ( mail $ maildrop )
+        MAY ( mailsource $ description ) )
+
+objectclass ( 1.3.6.1.4.1.10018.1.2.3 NAME 'CourierDomainAlias' SUP top AUXILIARY
+	DESC 'Domain mail aliasing/forwarding entry'
+	MUST ( virtualdomain $ virtualdomainuser )
+        MAY ( mailsource $ description ) )

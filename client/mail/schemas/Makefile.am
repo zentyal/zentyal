@@ -14,6 +14,6 @@ install-data-local:
 
 endif
 
-EXTRA_DIST = $(schema_DATA) eboxmail.schema
+EXTRA_DIST = $(schema_DATA) authldap.schema eboxmail.schema
 
 MAINTAINERCLEANFILES = Makefile.in
