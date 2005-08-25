@@ -29,6 +29,7 @@ function saslChanged() {
 	var sel = document.getElementById("saslSelect")
 	var chk = document.getElementById("tlsCheckBox")
 
+	alert("FOOBAR " + sel.value);
 	if(sel.value == 'yes') {
 		chk.checked = true;
 		chk.disabled = true;
@@ -41,5 +42,5 @@ function saslChanged() {
 %		}
 	}
 }
-
+salsChanged();
 </script>
