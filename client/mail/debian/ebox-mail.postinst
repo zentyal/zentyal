@@ -19,13 +19,15 @@ case "$1" in
 
 		# don't start postfix with its script
 		update-rc.d -f postfix remove
+		update-rc.d -f courier-authdaemon remove
+		update-rc.d -f courier-imap remove
+		update-rc.d -f courier-imap-ssl remove
+		update-rc.d -f courier-pop remove
+		update-rc.d -f courier-pop-ssl remove
 
 		# sudo configuration
 		ebox-sudoers > /etc/sudoers
 		chmod 0440 /etc/sudoers
-
-		# copy mail certificate
-		/usr/lib/ebox-mail/ebox-mail-install	
 
 		# regenerate slapd.conf
 		/usr/lib/ebox-usersandgroups/ebox-init-ldap genconfig

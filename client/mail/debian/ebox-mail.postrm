@@ -1,9 +1,15 @@
 #!/bin/bash
 
 case "$1" in
-	remove)
+	stop || true)
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 		invoke-rc.d postfix stop || true
+		invoke-rc.d courier-authdaemon stop || true
+		invoke-rc.d courier-imap stop || true
+		invoke-rc.d courier-imap-ssl stop || true
+		invoke-rc.d courier-pop stop || true
+		invoke-rc.d courier-pop-ssl stop || true
+
 		;;		
 esac
 
