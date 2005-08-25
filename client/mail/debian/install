@@ -1,1 +1,2 @@
 schemas/*.schema etc/ldap/schema/
+conf/*.pem etc/postfix/sasl/
