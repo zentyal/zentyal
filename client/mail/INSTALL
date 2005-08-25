@@ -9,6 +9,8 @@
   + courier-imap-ssl
   + courier-authdaemon
   + courier-ldap
+  + libsasl2-modules
+  + libsasl2
 
 - Once all packages has been installed:
 	
