@@ -8,6 +8,12 @@
 <!ENTITY ch05     SYSTEM "ch05.xml">
 <!ENTITY ch06     SYSTEM "ch06.xml">
 <!ENTITY ch07     SYSTEM "ch07.xml">
+<!ENTITY ch08     SYSTEM "ch08.xml">
+<!ENTITY ch09     SYSTEM "ch09.xml">
+<!ENTITY ch10     SYSTEM "ch10.xml">
+<!ENTITY ch11     SYSTEM "ch11.xml">
+<!ENTITY ch12     SYSTEM "ch12.xml">
+<!ENTITY ch13     SYSTEM "ch13.xml">
 ]>
 
 <book id='ebox' lang='es'>
@@ -49,5 +55,11 @@
   &ch05;
   &ch06;
   &ch07;
+  &ch08;
+  &ch09;
+  &ch10;
+  &ch11;
+  &ch12;
+  &ch13;
 
 </book>
