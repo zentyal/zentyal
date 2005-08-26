@@ -7,7 +7,14 @@
 	<section id='sect-objects-desc'>
 		<title>¿Qué son los objetos de red?</title>
 
-		<para>TODO</para>
+		<para>Los objetos de red sirven para simplificar la gestión de los
+		elementos pertenecientes a una red.</para>
+
+		<para>Por ejemplo, en lugar de definir reglas de acceso para varios
+		elementos por separado, es posible agruparlas en un único objeto.
+		También resultan útiles para asociar nombres a las direcciones
+		IP.</para>
+
 
 	</section>
 
@@ -16,6 +23,44 @@
 		<title>Gestión de objetos de red</title>
 
 		<para>TODO</para>
+
+		<section id="create-object">
+			<title>Creación de objetos</title>
+
+			<para>La creación de nuevos objetos se lleva a cabo desde el menú
+			<menuchoice><guimenu>Objetos</guimenu></menuchoice></para>
+
+			<para>Para ello, se debe introducir el el nombre del
+			objeto en el recuadro a tal efecto, y pulsar sobre
+			<guibutton>Crear</guibutton>.</para>
+
+			<para>El siguiente paso es introducir los miembros del objeto en la
+			pantalla que aparece. Para cada miembro se pueden definir:</para>
+
+			<itemizedlist>
+				<listitem><para><guilabel>Nombre</guilabel>: el nombre con el que
+				se va a designar ese miembro</para></listitem>
+				<listitem><para><guilabel>Dirección IP</guilabel>: la dirección IP
+				del miembro</para></listitem>
+				<listitem><para><guilabel>Máscara de red</guilabel>: la máscara de
+				red, utilizando la notación CIDR</para></listitem>
+				<!-- FIXME: poner equivalencias entre notación CIDR y dotted
+				subnet -->
+				<listitem><para><guilabel>MAC</guilabel> (opcional)</para>: la
+				dirección hardware -o dirección MAC- del interfaz de red
+				correspondiente a la dirección IP</listitem>
+			</itemizedlist>
+
+			<para>TODO</para>
+
+		</section>
+
+		<section id="delete-object">
+			<title>Eliminación de objetos</title>
+
+			<para>TODO</para>
+
+		</section>
 
 	</section>
 
