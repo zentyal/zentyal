@@ -15,7 +15,21 @@
 		<!-- Firewall->Redirects -->
 		<title>Redirecciones de puertos</title>
 
-		<para>TODO</para>
+		<para>Las redirecciones de puertos permiten llevar un tráfico
+		procedente del exterior de la red hacia una máquina detrás de un
+		cortafuegos equipado con eBox.</para>
+
+		<para>Para añadir una nueva redirección, en primer lugar debe
+		seleccionarse el <guilabel>Interfaz</guilabel> que atenderá las
+		peticiones de conexión. Este debe ser uno de los designados como
+		externos en la configuración de los interfaces de red. Además, debe
+		especificarse el <guilabel>Puerto externo<guilabel> sobre el que se
+		espera recibir el tráfico, y el <guilabel>Protocolo</guilabel> que este
+		empleará.</para>
+
+		<para>En cuanto a la máquina destino, se debe introducir su
+		<guilabel>Dirección IP</guilabel> y el <guilabel>Puerto</guilabel> al
+		que se reencaminarán los paquetes.</para>
 
 	</section>
 
