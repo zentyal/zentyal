@@ -99,11 +99,11 @@ use EBox::Gettext;
 
 					<td class='tcenter'> <select name='proto'>
 %						if($redirect->{'protocol'} eq 'tcp'){
-							<option selected value='tcp'>tcp</option>
-							<option value='udp'>udp</option>
+							<option selected value='tcp'>TCP</option>
+							<option value='udp'>UDP</option>
 %						}else{
-							<option selected value='udp'>udp</option>
-							<option value='tcp'>tcp</option>
+							<option selected value='udp'>UDP</option>
+							<option value='tcp'>TCP</option>
 %						}
 					</select> </td>
 
