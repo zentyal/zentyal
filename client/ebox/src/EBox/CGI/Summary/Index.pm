@@ -32,7 +32,7 @@ use Error qw(:try);
 sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
-	my $self = $class->SUPER::new(@_);
+	my $self = $class->SUPER::new(@_, title => __('Status'));
 	bless($self, $class);
 	return $self;
 }

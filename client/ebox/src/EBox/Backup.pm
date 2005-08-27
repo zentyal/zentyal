@@ -138,9 +138,14 @@ sub _bug # (dir)
 	`/bin/df -k > $dir/disks`;
 	`/bin/netstat -n -a --inet > $dir/sockets`;
 	`/sbin/ifconfig -a > $dir/interfaces`;
-	root("/sbin/iptables -nvL > $dir/filter");
-	root("/sbin/iptables -t nat -nvL > $dir/nat");
+	root("/sbin/iptables -nvL > $dir/iptables-filter");
+	root("/sbin/iptables -t nat -nvL > $dir/iptables-nat");
 	copy(EBox::Config::logfile, "$dir/ebox.log");
+	copy(EBox::Config::log . "/error.log", "$dir/error.log");
+	copy("/var/log/syslog", "$dir/syslog");
+	copy("/var/log/messages", "$dir/messages");
+	copy("/var/log/daemon.log", "$dir/daemon.log");
+	copy("/var/log/auth.log", "$dir/auth.log");
 }
 
 #
