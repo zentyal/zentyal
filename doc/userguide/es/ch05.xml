@@ -31,6 +31,17 @@
 		<guilabel>Dirección IP</guilabel> y el <guilabel>Puerto</guilabel> al
 		que se reencaminarán los paquetes.</para>
 
+		<para>Una vez suminstrados todos estos datos, basta escoger entre las
+		<guilabel>Acciones</guilabel> la correspondiente a añadir, y pulsar
+		sobre ella.</para>
+
+		<para>Para eliminar una regla, debe seleccionarse borrar entre las
+		<guilabel>Acciones</guilabel>, y pulsar sobre ella.
+
+		<para>La configuración de una redirección puede modificarse simplemente
+		cambiando los parámetros sobre la misma y pulsando entre las
+		<guilabel>Acciones</guilabel> en la correspondiente a modificar.</para>
+
 	</section>
 
 	<section id='sect-fw-filter'>
