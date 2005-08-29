@@ -17,9 +17,9 @@
 %     }
 %	if($filter eq 'yes') {
 %     if($selected eq 'filter') {
-    <span class='selected'><% __('Filter') %></span>
+    <span class='selected'><% __('External Filter') %></span>
 %     } else {
-    <a href='Index?menu=filter'><% __('Filter') %></a>
+    <a href='Index?menu=filter'><% __('External Filter') %></a>
 %     }
 %	}
 </div>

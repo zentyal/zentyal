@@ -40,13 +40,11 @@ sub _process($) {
 
 	my $pop = $self->param('pop');
 	my $imap = $self->param('imap');
-	my $filter = $self->param('filter');
 	my $popssl = $self->param('popssl');
 	my $imapssl = $self->param('imapssl');
 
 	$mail->setService(defined($pop), 'pop');
 	$mail->setService(defined($imap), 'imap');
-	$mail->setService(defined($filter), 'filter');
 
 	if (defined($popssl)) {
 		$mail->setSslPop($popssl);

@@ -105,7 +105,7 @@
 		<applyto>/ebox/modules/mail/fwport</applyto>
 		<owner>ebox</owner>
 		<type>int</type>
-		<default>10025</default>
+		<default></default>
 		<locale name="C"/>
 	</schema>
 	<schema>
@@ -113,7 +113,7 @@
 		<applyto>/ebox/modules/mail/ipfilter</applyto>
 		<owner>ebox</owner>
 		<type>string</type>
-		<default>127.0.0.1</default>
+		<default></default>
 		<locale name="C"/>
 	</schema>
 	<schema>
@@ -121,7 +121,7 @@
 		<applyto>/ebox/modules/mail/portfilter</applyto>
 		<owner>ebox</owner>
 		<type>int</type>
-		<default>10024</default>
+		<default></default>
 		<locale name="C"/>
 	</schema>
 

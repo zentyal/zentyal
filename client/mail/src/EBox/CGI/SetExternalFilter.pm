@@ -42,16 +42,21 @@ sub _process($) {
 	$self->{errorchain} = "Mail/Index";
 	$self->keepParam('menu');
 
-	$self->_requireParam('fwport');
-	my $fwport = $self->param('fwport');
-	$self->_requireParam('ipfilter');
-	my $ipfilter = $self->param('ipfilter');
-	$self->_requireParam('portfilter');
-	my $portfilter = $self->param('portfilter');
+	my $filter = $self->param('filter');
+	$mail->setService(($filter eq 'yes'), 'filter');
+	
+	if ($filter eq 'yes') {
+		$self->_requireParam('fwport');
+		my $fwport = $self->param('fwport');
+		$self->_requireParam('ipfilter');
+		my $ipfilter = $self->param('ipfilter');
+		$self->_requireParam('portfilter');
+		my $portfilter = $self->param('portfilter');
 
-	$mail->setFWPort($fwport);
-	$mail->setIPFilter($ipfilter);
-	$mail->setPortFilter($portfilter);
+		$mail->setFWPort($fwport);
+		$mail->setIPFilter($ipfilter);
+		$mail->setPortFilter($portfilter);
+	}
 }
 
 

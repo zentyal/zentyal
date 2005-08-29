@@ -67,10 +67,6 @@ use EBox::Gettext;
 	</th>
 </tr>
 
-% if ($active eq 'yes') {
-	<& mail/filter.mas, title => __('Mail filtering'), filter => $filterservice &>
-% }
-
 <& mail/pop.mas, title => __('POP3'), pop => $popservice, popssl => $popssl &>
 <& mail/imap.mas, title => __('IMAP'), imap => $imapservice, imapssl => $imapssl &>
 
@@ -180,15 +176,49 @@ use EBox::Gettext;
 % if ($menu eq 'filter') {
 <form action='SetExternalFilter' method='POST'>
 <input type='hidden' name='menu' value='<% $menu %>'/>
-<h3><% __('Filter Settings') %></h3>
-<h4><% __('Set the local port to get filtered mail reinjected') %></h4>
-<input type='text' class='inputText' name='fwport' value=<% $fwport %>>
-<h4><% __('Set the IP of the external filter service') %></h4>
-<input type='text' class='inputText' name='ipfilter' value=<% $ipfilter %>>
-<h4><% __('Set the listen port of the external filter service') %></h4>
-<input type='text' class='inputText' name='portfilter' value=<% $portfilter %>>
+<h3><% __('External Filter Settings') %></h3>
+		<div class='ftitle'> <% __('Enable external mail filtering service') %></div>
+		<select name='filter' id='filter' onChange='filterChanged()'>
+%			if($filterservice eq 'yes') {
+				<option selected value='yes'><% __('Yes') %></option>
+				<option value='no'><% __('No') %></option>
+%			} else {
+				<option value='yes'><% __('Yes') %></option>
+				<option selected value='no'><% __('No') %></option>
+%			}
+		</select>
+<div class='ftitle'><% __('Set the local port to get filtered mail reinjected') %></div>
+<input type='text' class='inputText' name='fwport' 
+		id='fwport' value=<% $fwport %>>
+<div class='ftitle'><% __('Set the IP of the external filter service') %></div>
+<input type='text' class='inputText' name='ipfilter' 
+		id='ipfilter' value=<% $ipfilter %>>
+<div class='ftitle'><% __('Set the listen port of the external filter service') %></div>
+</br>
+<input type='text' class='inputText' name='portfilter'
+		id='portfilter' value=<% $portfilter %>>
 <input class='inputButton' type='submit' name='change'
 	value="<% __('Apply') %>"
 	alt="<% __('Apply') %>">
 </form>
 % }
+
+<script type="text/javascript">
+function filterChanged() {
+	var sel = document.getElementById("filter")
+	var fwp = document.getElementById("fwport")
+	var ipf = document.getElementById("ipfilter")
+	var ptf = document.getElementById("portfilter")
+
+	if(sel.selectedIndex == 1) {
+		fwp.disabled = true;
+		ptf.disabled = true;
+		ipf.disabled = true;
+	} else {
+		fwp.disabled = false;
+		ptf.disabled = false;
+		ipf.disabled = false;
+	}
+}
+filterChanged()
+</script>
