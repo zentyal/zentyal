@@ -29,7 +29,7 @@ sub new {
 	my $class = shift;
 	my $self = $class->SUPER::new('title' => 'Mail',
 				      @_);
-	$self->{redirect} = "Mail/Index?menu=filter";	
+	$self->{redirect} = "Mail/Index?menu=filter";
 	$self->{domain} = 'ebox-mail';
 	bless($self, $class);
 	return $self;
@@ -38,6 +38,9 @@ sub new {
 sub _process($) {
 	my $self = shift;
 	my $mail = EBox::Global->modInstance('mail');
+	$self->{redirect} = "Mail/Index?menu=filter";
+	$self->{errorchain} = "Mail/Index";
+	$self->keepParam('menu');
 
 	$self->_requireParam('fwport');
 	my $fwport = $self->param('fwport');

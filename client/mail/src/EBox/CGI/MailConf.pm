@@ -36,6 +36,8 @@ sub new {
 sub _process($) {
 	my $self = shift;
 	my $mail = EBox::Global->modInstance('mail');
+	$self->{errorchain} = "Mail/Index";
+	$self->keepParam('menu');
 
 	$self->_requireParamAllowEmpty('relay', __('relay'));
 

@@ -85,6 +85,7 @@ use EBox::Gettext;
 
 % if ($menu eq 'settings') {
 <form action='MailConf' method='POST'>
+	<input type='hidden' name='menu' value='<% $menu %>'/>
 	<h3><% __('General Settings') %></h3>
 	<div class='ftitle'><% __('Relay') %></div>
 	<div><% __('The ip of the smarthost to send our mail.') %></div>
@@ -96,6 +97,7 @@ use EBox::Gettext;
 </form>
 
 <form action='SetQuota' method='POST'>
+	<input type='hidden' name='menu' value='<% $menu %>'/>
 	<div class='ftitle'><% __('Message size limit (in MB)') %></div>
 	<div><% __('The maximum message size that our server accepts.') %></div>
 	<input type='text' class='inputText' name='maxmsgsize' 
@@ -106,6 +108,7 @@ use EBox::Gettext;
 </form>
 
 <form action='SetMDQuota' method='POST'>
+	<input type='hidden' name='menu' value='<% $menu %>'/>
 	<div class='ftitle'><% __('Default maildir size limit (in MB)') %></div>
 	<div><% __('The maximum default maildir size to the new virtual domains.') %></div>
 	<input type='text' class='inputText' name='mdsize' 
@@ -176,6 +179,7 @@ use EBox::Gettext;
 
 % if ($menu eq 'filter') {
 <form action='SetExternalFilter' method='POST'>
+<input type='hidden' name='menu' value='<% $menu %>'/>
 <h3><% __('Filter Settings') %></h3>
 <h4><% __('Set the local port to get filtered mail reinjected') %></h4>
 <input type='text' class='inputText' name='fwport' value=<% $fwport %>>
