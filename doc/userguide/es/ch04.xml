@@ -46,13 +46,13 @@
 				red, utilizando la notación CIDR</para></listitem>
 				<!-- FIXME: poner equivalencias entre notación CIDR y dotted
 				subnet -->
-				<listitem><para><guilabel>MAC</guilabel> (opcional)</para>: la
+				<listitem><para><guilabel>MAC</guilabel> (opcional): la
 				dirección hardware -o dirección MAC- del interfaz de red
-				correspondiente a la dirección IP</listitem>
+				correspondiente a la dirección IP</para></listitem>
 			</itemizedlist>
 
 			<para>Una vez introducidos los campos oportunos, pulsar sobre
-			la <guilabel>Acción</guilabel> correspondiente a añadir.
+			la <guilabel>Acción</guilabel> correspondiente a añadir.</para>
 
 		</section>
 
