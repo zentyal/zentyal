@@ -483,6 +483,10 @@ sub modInstance # (module)
 	} else {
 		$global->modExists($name) or return undef;
 		my $classname = $global->get_string("modules/$name/class");
+		unless ($classname) {
+			throw EBox::Exceptions::Internal("Module '$name' ".
+					"declared, but it has no classname.");
+		}
 		eval "use $classname";
 		if ($@) {
 			throw EBox::Exceptions::Internal("Error loading ".
