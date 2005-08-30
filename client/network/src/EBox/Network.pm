@@ -1629,8 +1629,12 @@ sub _regenConfig
 	my $skipdns = undef;
 	my $file = EBox::Config::tmp . "/interfaces";
 
-	root("/sbin/modprobe 8021q");
-	root("/sbin/vconfig set_name_type VLAN_PLUS_VID_NO_PAD");
+	try {
+		root("/sbin/modprobe 8021q");
+	} catch EBox::Exceptions::Internal with {};
+	try {
+		root("/sbin/vconfig set_name_type VLAN_PLUS_VID_NO_PAD");
+	} catch EBox::Exceptions::Internal with {};
 
 	my $dhcpgw = $self->DHCPGateway();
 	unless ($dhcpgw and ($dhcpgw ne '')) {
