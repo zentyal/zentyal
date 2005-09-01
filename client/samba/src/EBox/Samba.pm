@@ -159,6 +159,8 @@ sub usesPort # (protocol, port, iface)
 {
         my ($self, $protocol, $port, $iface) = @_;
 
+	return undef unless($self->service());
+
 	foreach my $smbport (SMBPORTS) {
 		return 1 if ($port eq $smbport);
 	}
