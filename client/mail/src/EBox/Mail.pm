@@ -187,6 +187,12 @@ sub fwport
 sub setIPFilter
 {
 	my ($self, $ip) = @_;
+
+	unless (checkIP($ip)) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('external filter service'),
+			'value'	=> __('The '.$ip.' is not a valid ip address.'));
+	}
 	
 	unless (defined(@{$self->_getIfacesForAddress($ip)})) {
 		throw EBox::Exceptions::InvalidData(
@@ -212,6 +218,8 @@ sub ipfilter
 sub setPortFilter
 {
 	my ($self, $port) = @_;
+	
+	checkPort($port, "listening port");
 	$self->set_int('portfilter', $port);
 }
 
