@@ -28,18 +28,25 @@ use EBox::Gettext;
 
 % if ($menu eq 'services') {
 <div>
+<table class="formData">
 <form action='MailSettings' method='post'>
-	<& mail/enable.mas, title => __('Mail service status'), active => $active &>
+	<& mail/enable.mas, title => __('Mail service settings'), active => $active &>
 % if ($active eq 'yes') {
 	<& mail/smtptls.mas, title => __('TLS for SMTP server '), smtptls => $smtptls &>
 	<& mail/sasl.mas, title => __('Require authentication'), sasl => $saslservice, smtptls => $smtptls &>
 % }
-	<input 	type='submit'
-			class='inputButton'
-			name='applySettings'
-			title="<% __('Change')%>"
-			value="<% __('Change')%>"/>
+	<tr>
+	<td></td>
+	<td>
+		<input 	type='submit'
+				class='inputButton'
+				name='applySettings'
+				title="<% __('Change')%>"
+				value="<% __('Change')%>"/>
+	</td>
+	</tr>
 </form>
+</table>
 
 <h3><% __('Services') %></h3>
 
