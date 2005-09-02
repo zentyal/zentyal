@@ -236,6 +236,13 @@ sub relay
 sub setMaxMsgSize
 {
 	my ($self, $size)  = @_;
+	
+	unless (isAPositiveNumber($size)) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('Maildir default size'),
+			'value'	=> __('The '.$size.' value is invalid.'));
+	}
+	
 	$self->set_int('maxmsgsize', $size);
 }
 
@@ -248,6 +255,13 @@ sub getMaxMsgSize
 sub setMDDefaultSize
 {
 	my ($self, $size)  = @_;
+	
+	unless (isAPositiveNumber($size)) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('Maildir default size'),
+			'value'	=> __('The '.$size.' value is invalid.'));
+	}
+	
 	$self->set_int('mddefaultsize', $size);
 }
 
