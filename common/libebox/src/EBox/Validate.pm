@@ -37,7 +37,8 @@ BEGIN {
 					checkProtocol checkPort
 					checkName checkMAC checkVifaceName
 					checkDomainName isIPInNetwork
-					checkVlanID makePrivateDir
+					checkVlanID makePrivateDir isANumber 
+					isAPositiveNumber
 				} ],
 			);
 	@EXPORT_OK = qw();
@@ -584,6 +585,46 @@ sub makePrivateDir # (path)
         unless ($perm =~ /.700/) {
                 throw EBox::Exceptions::Internal("Wrong permissions in $dir");
         }
+}
+
+# Method: isANumber
+#
+#	Check if the parameter is a number.
+#
+# Parameters:
+#
+#	value - The parameter to test.
+#
+# Returns
+# 	true if the parameter is a number, undef otherwise.
+# 	
+sub isANumber # (value)
+{
+	my $value = shift;
+
+	($value =~ /^-?[\d]+$/) and return 1;
+
+	return undef;
+}
+
+# Method: isAPositiveNumber
+#
+#	Check if the parameter is a positive number.
+#
+# Parameters:
+#
+#	value - The parameter to test.
+#
+# Returns
+# 	true if the parameter is a postive number, undef otherwise.
+# 	
+sub isAPositiveNumber # (value)
+{
+	my $value = shift;
+
+	($value =~ /^[\d]+$/) and return 1;
+
+	return undef;
 }
 
 1;
