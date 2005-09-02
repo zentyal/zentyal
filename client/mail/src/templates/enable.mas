@@ -6,19 +6,13 @@
 </%args>
 <%init>
 </%init>
-	<tr>
-		<td class='tright'>
-			<span class='ftitle'><% $title %>:</span>
-		</td>
-		<td>
-			<select name="active" enabled>
-%  			if($active eq 'yes') {
-				<option value='no' ><% __('No') %></option>
-				<option selected value='yes' ><% __('Yes') %></option>
-%			}else{
-				<option selected value='no' ><% __('No') %></option>
-				<option value='yes' ><% __('Yes') %></option>
-%			}
-			</select>
-		</td>
-	</tr>
+<h3><% $title %></h3>
+<select name="active" enabled>
+%	if($active eq 'yes') {
+		<option value='no' ><% __('Disabled') %></option>
+		<option selected value='yes' ><% __('Enabled') %></option>
+%	}else{
+		<option selected value='no' ><% __('Disabled') %></option>
+		<option value='yes' ><% __('Enabled') %></option>
+%	}
+</select>
