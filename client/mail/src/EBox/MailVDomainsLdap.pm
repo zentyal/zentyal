@@ -19,6 +19,7 @@ use strict;
 use warnings;
 
 use EBox::Sudo qw( :all );
+use EBox::Validate qw( :all );
 use EBox::Global;
 use EBox::Ldap;
 use EBox::Exceptions::InvalidData;
@@ -44,6 +45,8 @@ sub addVDomain { #vdomain
 	
 	my $ldap = $self->{ldap};
 
+	checkDomainName($vdomain, 'Virtual domain name');
+	
 	# Verify vdomain exists
 	if ($self->vdomainExists($vdomain)) {
 		throw EBox::Exceptions::DataExists('data' => __('virtual domain'),
