@@ -12,7 +12,7 @@ nobase_www_DATA = images/delete.gif images/show.gif \
   images/edit.gif images/view.gif images/r_arrow.gif images/cmenu.gif \
   images/allow-active.gif images/allow-inactive.gif \
   images/deny-active.gif images/deny-inactive.gif images/not.gif \
-  css/login.css images/deg.gif images/menub.gif
+  css/login.css images/deg.gif
 
 EXTRA_DIST = $(nobase_www_DATA)
 
