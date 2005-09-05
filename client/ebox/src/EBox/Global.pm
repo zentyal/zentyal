@@ -18,7 +18,7 @@ package EBox::Global;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule Apache::Singleton);
+use base qw(EBox::GConfModule Apache::Singleton::Process);
 
 use EBox qw( :all );
 use EBox::Validate qw( :all );
@@ -37,20 +37,21 @@ use Digest::MD5;
 
 #redefine inherited method to create own constructor
 #for Singleton pattern
-sub _new_instance 
-{
-	my $class = shift;
-	my $self  = bless { }, $class;
-	$self->{'global'} = _create EBox::Global;
-	return $self;
-}
+#sub _new_instance 
+#{
+	#my $class = shift;
+	#my $self  = bless { }, $class;
+	#$self->{'global'} = _create EBox::Global;
+	#return $self;
+#}
 
-sub _create 
+sub _new_instance 
 {
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'global', @_);
 	bless($self, $class);
 	$self->{'mod_instances'} = {};
+	$self->{'mod_instances_hidden'} = {};
 	return $self;
 }
 
@@ -162,7 +163,7 @@ sub modNames
 {
 	my $self = shift;
 	my $log = EBox::logger();
-	my $global = EBox::Global->instance->{'global'};
+	my $global = EBox::Global->instance();
 	my @allmods = ();
 	foreach (('sysinfo', 'network', 'firewall')) {
 		if ($self->modExists($_)) {
@@ -388,10 +389,13 @@ sub getInstance # (read_only?)
 		" function instead of a class method?");
 	}
 	my $ro = shift;
-	my $global = EBox::Global->instance->{'global'};
+	my $global = EBox::Global->instance();
 	if ($global->isReadOnly xor $ro) {
 		$global->{ro} = $ro;
-		$global->{'mod_instances'} = {};
+		# swap instance groups
+		my $bak = $global->{mod_instances};
+		$global->{mod_instances} = $global->{mod_instances_hidden};
+		$global->{mod_instances_hidden} = $bak;
 	}
 	return $global;
 }
@@ -407,7 +411,7 @@ sub getInstance # (read_only?)
 #
 sub modInstances
 {
-	my $self = EBox::Global->instance->{'global'};
+	my $self = EBox::Global->instance();
 	my @names = @{$self->modNames};
 	my @array = ();
 
@@ -437,7 +441,7 @@ sub modInstancesOfType # (classname)
 {
 	shift;
 	my $classname = shift;
-	my $self = EBox::Global->instance->{'global'};
+	my $self = EBox::Global->instance();
 	my @names = @{$self->modNames};
 	my @array = ();
 
@@ -474,7 +478,7 @@ sub modInstance # (module)
 {
 	shift;
 	my $name = shift;
-	my $global = EBox::Global->instance->{'global'};
+	my $global = EBox::Global->instance();
 	if ($name eq 'global') {
 		return $global;
 	}
