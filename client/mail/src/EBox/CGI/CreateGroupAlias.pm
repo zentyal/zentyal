@@ -43,13 +43,13 @@ sub _process($) {
 	my $group= $self->param('group');
 	$self->{redirect} = "UsersAndGroups/Group?group=$group";
 	
+	$self->keepParam('group');
+
 	$self->_requireParam('lhs', __('left hand side of mail'));
 	$self->_requireParam('rhs', __('right hand side of mail'));
 	
 	my $lhs = $self->param('lhs');
 	my $rhs = $self->param('rhs');
-
-	$self->keepParam('group');
 
 	$mail->{malias}->addGroupAlias($lhs."@".$rhs, $group);
 }

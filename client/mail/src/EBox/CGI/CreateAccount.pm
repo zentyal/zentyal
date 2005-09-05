@@ -42,6 +42,8 @@ sub _process($) {
 	$self->_requireParam('username', __('username'));
 	my $username = $self->param('username');
 	$self->{redirect} = "UsersAndGroups/User?username=$username";
+
+	$self->keepParam('username');
 	
 	$self->_requireParam('vdomain', __('virtual domain'));
 	my $vdomain = $self->param('vdomain');
@@ -49,8 +51,6 @@ sub _process($) {
 	my $lhs = $self->param('lhs');
 	$self->_requireParam('dftmdsize', __('maildir size'));
 	my $mdsize = $self->param('dftmdsize') * $mail->BYTES;
-	
-	$self->keepParam('username');
 
 	$mail->{musers}->setUserAccount($username, $lhs, $vdomain, $mdsize);
 }

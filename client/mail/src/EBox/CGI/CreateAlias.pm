@@ -43,6 +43,8 @@ sub _process($) {
 	my $username = $self->param('username');
 	$self->{redirect} = "UsersAndGroups/User?username=$username";
 	
+	$self->keepParam('username');
+
 	$self->_requireParam('maildrop', __('maildrop'));
 	$self->_requireParam('lhs', __('left hand side of mail'));
 	$self->_requireParam('rhs', __('right hand side of mail'));
@@ -51,7 +53,6 @@ sub _process($) {
 	my $lhs = $self->param('lhs');
 	my $rhs = $self->param('rhs');
 
-	$self->keepParam('username');
 
 	$mail->{malias}->addAlias($lhs."@".$rhs, $maildrop, $maildrop);
 }
