@@ -7,7 +7,7 @@ use EBox::Gettext;
 </%init>
 <form action='Halt' method='POST'>
 	<div class='warning'>
-		<%__('You will probably lose your Internet connection if this machine is halted.')%>
+		<%__('You might lose your Internet connection if this machine is halted.')%>
 	</div>
 	<p>
 		<input class='inputButton' type='submit' name='halt'
