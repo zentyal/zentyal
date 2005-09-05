@@ -7,21 +7,20 @@
 <%init>
 use EBox::Gettext;
 </%init>
+<h3><% __('Create new object') %></h3>
+<div class="help">
+<% __('The objects that you create here can be used in the rest of the system. Remember that an IP address cannot belong to more than one object.') %>
+</div>
 <form action='Add' method='POST'>
-	<div class='ftitle'><% __('New object') %></div>
 		<input type='text' class='inputText' name='objectname'>
 		<input class='inputButton' type='submit' name='create' 
 			   value="<% __('Create') %>"
 			   alt="<% __('Create') %>">
-
-	<div class='help'>
-		<% __('The objects that you create here can be used in the rest of the system. Remember that an IP address cannot belong to more than one object.') %>
-	</div>
 </form>
 
 %	if(@objects != 0) {
+<h3><% __('Object list') %></h3>
 		<table cellspacing='0' class='dataTable'>
-			<caption><% __('Object list') %></caption>
 			<thead>
 				<tr>
 					<th width='66%' class='tleft'>

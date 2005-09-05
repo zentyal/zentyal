@@ -12,8 +12,7 @@
 use EBox::Gettext;
 </%init>
 % if (defined($iface{name})) {
-<br />
-<& enable.mas, title => __('Enable the DHCP server'), active => $active &>
+<& enable.mas, title => __('DHCP server status'), active => $active &>
 <& dhcp/iftabs.mas, ifaces => \@ifaces, selected => $iface{name} &>
 <& dhcp/options.mas, name => $iface{name}, gateway => $gateway, nameserver1 => $nameserver1, nameserver2 => $nameserver2 &>
 <& dhcp/ranges.mas, name => $iface{name}, address => $iface{address},

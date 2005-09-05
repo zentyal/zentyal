@@ -47,7 +47,7 @@ sub _process($) {
 	
 	$self->_requireParam('vdomain', __('virtual domain'));
 	my $vdomain = $self->param('vdomain');
-	$self->_requireParam('lhs', __('left hand side'));
+	$self->_requireParam('lhs', __('Mail address'));
 	my $lhs = $self->param('lhs');
 	$self->_requireParam('dftmdsize', __('maildir size'));
 	my $mdsize = $self->param('dftmdsize') * $mail->BYTES;

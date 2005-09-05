@@ -7,7 +7,7 @@
 use EBox::Gettext;
 </%init>
 % if($unsaved eq 'yes') {
-<div class='note'>
+<div class='warning'>
 	<% __('There are unsaved changes in one or more modules, you can save or discard those changes.')%>
 	<br/>
 	<br/>

@@ -79,7 +79,6 @@ use EBox::Gettext;
 %   if(@users) {
 <h3><% __('Edit User') %></h3>
     <form action='User' method='post'>
-    <span class='ftitle'><% __('User') %>: </span>
         <select name='username'>
 %           foreach my $us (@users){
                 <option value='<% $us->{'username'} %>'>

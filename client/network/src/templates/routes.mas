@@ -14,19 +14,17 @@ use EBox::Gettext;
 <% __('Having network interfaces configured via DHCP may cause this settings, mostly the default gateway, to be overriden.') %>
 </div>
 	<form action='Gateway' method='POST'>
-		<p>
-<div class='ftitle'><% __('Default gateway') %></div>
+<h3><% __('Default gateway') %></h3>
 			<input class='inputText' type='text' name='gateway'
 				   alt='Default Gateway' value='<% $gateway %>' />
-			<input class='inputButton' type='submit' name='accept' value='Ok' />
-		</p>
+			<input class='inputButton' type='submit' name='accept' value='<% __("Apply") %>' />
 	</form>
+	<h3><% __('Static routes') %></h3>
 	<table class='dataTable' cellspacing='0'>
-	<caption><% __('Static routes') %></caption>
 	<thead>
 		<tr>
 			<th class='tleft'><% __('Network') %></th>
-			<th class='thOptions'><% __('Gateway') %></th>
+			<th class='tleft'><% __('Gateway') %></th>
 			<th class='thOptions'><% __('Action') %></th>
 		</tr>
 	</thead>
@@ -47,7 +45,7 @@ use EBox::Gettext;
 				<option value="8">8</option>
 			</select>
 		</td>
-		<td class='tcenter'>
+		<td>
 			<input class='inputText' type="text" 
 				size='15'
 				name="gateway"/>

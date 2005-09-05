@@ -288,7 +288,7 @@ use EBox::Gettext;
 	</tbody>
 </table>
 
-<br />
+<br style="clear:both"/>
 
 <table class="leyend">
 <tr>
@@ -321,6 +321,6 @@ use EBox::Gettext;
 	<td><img src="/data/images/down.gif" alt="<%__('move down')%>"/></td>
 	<td style="padding-right: 10px;"><%__('move down')%></td>
 </tr>
-</table>
+</table><br/>
 
 % }

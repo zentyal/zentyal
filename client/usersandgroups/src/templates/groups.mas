@@ -45,7 +45,6 @@ use Data::Dumper;
 %   if(@groups) {
 <h3><% __('Edit Group') %></h3>
     <form action='Group' method='post'>
-    <span class='ftitle'><% __('Group of users') %>: </span>
         <select name='group'>
 %           foreach my $gr (@groups){
                 <option value='<% $gr->{'account'} %>'>

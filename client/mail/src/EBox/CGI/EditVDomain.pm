@@ -28,7 +28,7 @@ use EBox::Mail;
 ## 	title [required]
 sub new {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Mail', 
+	my $self = $class->SUPER::new('title' => 'Edit virtual domain', 
 		'template' => '/mail/editvdomains.mas', @_);
 	$self->{domain} = "ebox-mail";	
 	#$self->{redirect} = "Mail/VDomains";	

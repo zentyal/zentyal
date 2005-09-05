@@ -1668,14 +1668,43 @@ sub rootCommands
 sub menu
 {
 	my ($self, $root) = @_;
+
 	my $folder = new EBox::Menu::Folder('name' => 'Firewall',
 					    'text' => __('Firewall'),
 					    'order' => 4);
 
 	$folder->add(new EBox::Menu::Item('url' => 'Firewall/Filter',
 					  'text' => __('Packet Filter')));
+
 	$folder->add(new EBox::Menu::Item('url' => 'Firewall/Redirects',
 					  'text' => __('Redirects')));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Firewall/FwdRules',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Firewall/FwdRuleEdit',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Firewall/FwdRule',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Firewall/Object',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Firewall/Objects',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Firewall/ObjectPolicy',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Firewall/ObjectRule',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Firewall/ObjectService',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Firewall/Redirection',
+					  'text' => ''));
 
 	$root->add($folder);
 }

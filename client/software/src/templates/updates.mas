@@ -30,7 +30,7 @@ use EBox::Gettext;
 % 	}
 			<tr class='trimp'>
 				<td colspan='2'>
-					<%__('Update all packages')%>
+					<strong><%__('Update all packages')%></strong>
 				</td>
 				<td class='tcenter'>
 					<input type='checkbox' value='on'
@@ -40,12 +40,12 @@ use EBox::Gettext;
 			</tr>
 		</tbody>
 		</table>
+		<div class="note" style="clear:both;">
+		<% __("This operation can take some time, don't worry if eBox looks unresponsive after pressing the Upgrade button.") %>
+		</div>
 		<p>
 			<input type='submit' class='inputButton' name='upgrade' value='<%__('Upgrade')%>'/>
 		</p>
 	</form>
-	<div class="note">
-	<% __("This operation can take some time, don't worry if eBox looks unresponsive after pressing the Upgrade button.") %>
-	</div>
 
 % }

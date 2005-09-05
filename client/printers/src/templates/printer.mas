@@ -61,9 +61,6 @@ use EBox::Gettext;
 		<h3><% __('Job queue') %></h3>
 
 		<table class='dataTable' cellspacing='0'>
-			<caption>
-				<% __('List of jobs') %>
-			</caption>
 
 			<thead>
 				<tr>
@@ -126,7 +123,7 @@ use EBox::Gettext;
 % } else {
 	<form action='ManufacturerUI' method='POST'>
 
-	<h3><% __('Printer') %> <% $name %></h3>
+	<h3><% __('Printer') %> <span class="stitle"><% $name %></span></h3>
 	<input name='printerid' type='hidden' value='<% $printerid %>'>
 
 	<table class='formTable'>

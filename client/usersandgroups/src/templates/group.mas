@@ -9,7 +9,7 @@
 <%init>
 use EBox::Gettext;
 </%init>
-<h3><% __('Administration of group ') %> <% $groupinfo->{'groupname'} %></h3>
+<h3><% __('Administration of group ') %> <span class='stitle'><% $groupinfo->{'groupname'} %></span></h3>
 % unless (@groupusers or @remainusers) {
 <div class='note'>
     <% __("There are no users the moment. You need at least one  to manage this group properly")%>
@@ -85,6 +85,10 @@ use EBox::Gettext;
 </tbody>
 </table>
 
+% foreach my $comp (@components) {
+      <& $comp->{'path'}, 'params' => $comp->{'params'}   &>
+% }
+
 <h3><% __("Delete group") %></h3>
 <div class='note'>
 	<% __('If you remove this group all its data within its shared directory will be deleted') %>
@@ -98,7 +102,3 @@ use EBox::Gettext;
 			<td>
 		</tr>
 </form>
-
-% foreach my $comp (@components) {
-      <& $comp->{'path'}, 'params' => $comp->{'params'}   &>
-% }

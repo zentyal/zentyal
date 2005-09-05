@@ -27,7 +27,7 @@ use EBox::Gettext;
 ## 	title [required]
 sub new {
 	my $class = shift;
-	my $self = $class->SUPER::new('title'    => __('NTP'),
+	my $self = $class->SUPER::new('title'    => __('Timezone settings'),
 				      'template' => 'ntp/timezone.mas',
 				      @_);
 	$self->{domain} = "ebox-ntp";	
@@ -38,7 +38,6 @@ sub new {
 sub _process($) {
 	my $self = shift;
 	my @array = ();
-	$self->{title} = __('NTP');
 	my $ntp = EBox::Global->modInstance('ntp');
 	
 	my @zonedata = `cat /usr/share/zoneinfo/zone.tab |grep -v '#'|cut -f3|cut -d '/' -f1|sort -u`;

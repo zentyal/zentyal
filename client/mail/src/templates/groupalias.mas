@@ -12,7 +12,7 @@ use EBox::Gettext;
     <input type="hidden" name="group" value="<% $params->{'group'} %>">
 	<h3><% __('Create alias mail account to group') %></h3>
 	
-	<div class='note'>
+	<div class='help'>
 		<% __("When the last member of a group is removed, the mail alias account will be deleted")%>
 	</div>
 	

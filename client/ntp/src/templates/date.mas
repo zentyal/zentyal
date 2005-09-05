@@ -5,14 +5,14 @@
 	@date
 </%args>
 	<form action='ChangeDate' method='POST'>
-		<h3> <%$title %> </h3>
+		<h3><%$title %></h3>
 		<div class='note'>
 			<% __("A change in the date or time will cause all eBox services to be restarted")%>
 		</div>
 		<br />
 		<table class='formTable'>
 		<tr>
-			<td class='tright'><span class='ftitle'><% __('Change date')%>:</span></td>
+			<td class='tright'><span class='ftitle'><% __('Date')%>:</span></td>
 			<td>
 				<select name="day">
 %  					for (my $i=1; $i<=31; $i++) {
@@ -24,7 +24,7 @@
 %					}
 				</select>
 
-				<span class='ftitle'> / </span>
+				 / 
 
 				<select name="month">
 %  					my @months = ( __('January') , __('February'), __('March'), __('April'), __('May'), __('June'), __('July'), __('August'), __('September'), __('October'), __('November'), __('December'));
@@ -38,7 +38,7 @@
 %						$i++; }
 				</select>
 
-				<span class='ftitle'> / </span>
+				 / 
 
 				<select name="year">
 %  					for (my $i=1990; $i<2020; $i++) {
@@ -52,7 +52,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td class='tright'><span class='ftitle'><% __('Change time')%>:</span></td>
+			<td class='tright'><span class='ftitle'><% __('Time')%>:</span></td>
 			<td>
 				<select name="hour">
 %  					for (my $i=0; $i<24; $i++) {
@@ -64,7 +64,7 @@
 %					}
 				</select>
 				
-				<span class='ftitle'> / </span>
+				 / 
 		
 				<select name="minute">
 %  					for (my $i=0; $i<=59; $i++) {
@@ -76,7 +76,7 @@
 %  					}
 				</select>
 
-				<span class='ftitle'> / </span>
+				 / 
 		
 				<select name="second">
 %  					for (my $i=0; $i<=59; $i++) {

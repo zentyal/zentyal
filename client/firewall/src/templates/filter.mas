@@ -11,8 +11,8 @@ use EBox::Gettext;
 <% __('This will tell the firewall what to do when discarding network packets.  If you choose Reject, a packet will be sent back to the sender, choosing Drop will make the firewall drop the packet silently.') %>
 </div>
 <p>
-	<form action='Deny' method='POST'>
-<div class='ftitle'><% __('Deny policy') %></div>
+<h3><% __('Deny policy') %></h3>
+<form action='Deny' method='POST'>
 		<select name='deny'>
 %			if($deny eq 'DROP'){
 				<option selected value="DROP"><% __('Drop packets') %></option>
@@ -22,7 +22,7 @@ use EBox::Gettext;
 				<option value="DROP"><% __('Drop packets') %></option>
 %			}
 		</select>
-		<input class='inputButton' type='submit' name='accept' value="<% __('Ok') %>">
+		<input class='inputButton' type='submit' name='accept' value="<% __('Apply') %>">
 	</form>
 </p>
 <h3><%__('Rules')%></h3>

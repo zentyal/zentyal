@@ -15,13 +15,7 @@ use EBox::Gettext;
 	<h3><% __('Local parallel printer configuration') %></h3>
 	<input type='hidden' name='printerid' value=<% $printerid %>>
 	<input name='selected' type='hidden' value='config'>
-	<table class='formTable'>
-	<tbody>
-	<tr>
-		<td class='tright'>
-			<span class='ftitle'><% __('Device') %>:</span>
-		</td>
-		<td>
+	<p><% __('Device') %>: 
        		<select name='dev'>
 %				for my $dev (@devices) {				
 %					if ($device eq $dev) {				
@@ -32,16 +26,8 @@ use EBox::Gettext;
 
 %				}
             </select>
-		</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>
-			<input class='inputButton' type='submit' name='<% $button_name %>' 
-				   value="<% $button_val %>"
-				   alt="<% $button_val %>">
-		</td>
-	</tr>
-</tbody>
-</table>
+	<input class='inputButton' type='submit' name='<% $button_name %>' 
+		   value="<% $button_val %>"
+		   alt="<% $button_val %>">
+</p>
 </form>

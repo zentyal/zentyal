@@ -82,13 +82,13 @@ use EBox::Gettext;
 % if ($menu eq 'settings') {
 
 <div class="help">
-		<% __('FIXME: Introduzca 0 al establecer el tamaño maximo de mensaje o al establecer tamaño maximo de las cuentas de correo para conseguir un tamaño ilimitado.') %>
+		<% __('FIXME: Introduzca 0 al establecer el tamanio maximo de mensaje o al establecer tamanio maximo de las cuentas de correo para conseguir un tamanio ilimitado.') %>
 </div>
 
 <form action='MailConf' method='POST'>
 	<input type='hidden' name='menu' value='<% $menu %>'/>
 	<h3><% __('Relay') %></h3>
-	<p><% __('FIXME: Direccion IP del smarthost que enviará el correo.') %></p>
+	<p><% __('FIXME: Direccion IP del smarthost que enviara el correo.') %></p>
 	<input type='text' class='inputText' name='relay' 
 		value='<% $relay %>'>
 	<input class='inputButton' type='submit' name='change'
@@ -99,7 +99,7 @@ use EBox::Gettext;
 <form action='SetQuota' method='POST'>
 	<input type='hidden' name='menu' value='<% $menu %>'/>
 	<h3><% __('Message size limit (MB)') %></h3>
-	<p><% __('FIXME: Tamaño maximo de mensaje que acepta el servidor de correo.') %></p>
+	<p><% __('FIXME: Tamanio maximo de mensaje que acepta el servidor de correo.') %></p>
 	<input type='text' class='inputText' name='maxmsgsize' 
 		value='<% $maxmsgsize %>'>
 	<input class='inputButton' type='submit' name='change'
@@ -109,8 +109,8 @@ use EBox::Gettext;
 
 <form action='SetMDQuota' method='POST'>
 	<input type='hidden' name='menu' value='<% $menu %>'/>
-	<h3><% __('FIXME: Tamaño máximo de las cuentas de correo (MB)') %></h3>
-	<p><% __('FIXME: Tamaño máximo predeterminado para las nuevas cuentas de correo.') %></p>
+	<h3><% __('FIXME: Tamanio maximo de las cuentas de correo (MB)') %></h3>
+	<p><% __('FIXME: Tamanio maximo predeterminado para las nuevas cuentas de correo.') %></p>
 	<input type='text' class='inputText' name='mdsize' 
 		value='<% $maxmdsize %>'>
 	<input class='inputButton' type='submit' name='change'

@@ -27,7 +27,7 @@ use EBox::Gettext;
 ## 	title [required]
 sub new {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'NTP', @_);
+	my $self = $class->SUPER::new('title' => 'Date and time settings', @_);
 	$self->{redirect} = "NTP/Datetime";	
 	$self->{domain} = "ebox-ntp";	
 	bless($self, $class);

@@ -7,8 +7,7 @@
 <%init>
 use EBox::Gettext;
 </%init>
-
-
+<h3><% __('Add a new virtual domain') %></h3>
 <form action='AddVDomain' method='POST'>
 	<table class='formTable'>
 	<tr>
@@ -22,7 +21,7 @@ use EBox::Gettext;
 	<tr>
 		<td class='tright'>
 			<span class='ftitle'>
-				<% __('Default maildir size') %>:
+				<% __('Default maildir size (Mb)') %>:
 			</span>
 		</td>
 		<td class='tright'>
@@ -45,17 +44,16 @@ use EBox::Gettext;
 
 %   my @kvd = keys %vdomains;
 %	if(@kvd != 0) {
-		<br/>
 
+		<h3><% __('Virtual domains list') %></h3>
 		<table cellspacing='0' class='dataTable'>
-			<caption><% __('Virtual domains list') %></caption>
 			<thead>
 				<tr>
 					<th width='44%' class='tleft'>
 						<% __('Name') %>
 					</th>
 					<th width='22%' class='tleft'>
-						<% __('Maildir Size (in Mb)') %>
+						<% __('Maildir Size') %>
 					</th>
 					<th class='thOptions'>
 						<% __('Action') %>

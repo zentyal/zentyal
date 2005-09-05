@@ -109,18 +109,8 @@ sub menu
 					'text' => __('Summary'),
 					'order' => 1));
 
-	$root->add(new EBox::Menu::Item('url' => 'Finish',
-					'text' => __('Save/Cancel'),
-					'order' => 10),
-					'style' => 'last');
-
-	$root->add(new EBox::Menu::Item('url' => 'Logout/Index',
-					'text' => __('Logout'),
-					'order' => 9),
-					'style' => 'last');
-
 	my $folder = new EBox::Menu::Folder('name' => 'EBox',
-					    'text' => 'eBox',
+					    'text' => 'System',
 					    'order' => 2);
 
 	$folder->add(new EBox::Menu::Item('url' => 'EBox/General',
@@ -134,6 +124,9 @@ sub menu
 
 	$folder->add(new EBox::Menu::Item('url' => 'EBox/Bug',
 					  'text' => __('Bug report')));
+
+	$folder->add(new EBox::Menu::Item('url' => 'EBox/ConfirmBackup',
+					  'text' => ''));
 
 	$root->add($folder);
 }

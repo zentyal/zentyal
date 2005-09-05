@@ -8,7 +8,6 @@ use EBox::Gettext;
 </%init>
 
 <div class='ntpnew'>
-<br />
-<& enable.mas, title => __('Enable the local NTP server'), active => $active &>
+<& enable.mas, title => __('NTP server status'), active => $active &>
 </div>
 </div>

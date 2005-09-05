@@ -139,12 +139,12 @@ sub _print
 	$self->_header;
 	$self->_top;
 	$self->_menu;
-	print "<div id='content'>";
+	print "</div><div id='limewrap'><div id='content'>";
 	$self->_title;
 	$self->_error;
 	$self->_msg;
 	$self->_body;
-	print "</div>";
+	print "</div></div>";
 	$self->_footer;
 }
 

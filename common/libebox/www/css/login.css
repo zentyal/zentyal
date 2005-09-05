@@ -1,0 +1,21 @@
+#login {
+	padding-top: 125px;
+	text-align: center;
+	color: #898989;
+}
+
+#reason {
+	font-family: Trebuchet MS;
+	color: #BC0606;
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+}
+
+body {
+	color: #000000;
+	font-size: 11px;
+	font-family: Verdana, sans-serif;
+	background-color: #FFFFFF;
+	behavior: url(/data/js/csshover.htc);
+}

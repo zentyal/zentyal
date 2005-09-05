@@ -32,6 +32,13 @@ sub new # (error=?, msg=?, cgi=?)
 	return $self;
 }
 
+sub _print
+{
+	my $self = shift;
+	print($self->cgi()->header(-charset=>'utf-8'));
+	$self->_body;
+}
+
 sub _process
 {
 	my $self = shift;

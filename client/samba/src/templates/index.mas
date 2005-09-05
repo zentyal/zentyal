@@ -12,8 +12,7 @@ use EBox::Gettext;
 </%init>
 
 <div class='sambanew'>
-<br />
-<& enable.mas, title => __('Enable the File sharing'), active => $active &>
+<& enable.mas, title => __('File sharing service status'), active => $active &>
 
 <form action='SambaConf' method='POST'>
 	<h3><% __('General Settings') %></h3>
@@ -48,7 +47,7 @@ use EBox::Gettext;
 		</td>
 	<tr>
 		<td class='tright'>
-			<span class='ftitle'><% __('User quota limit') %> (Mb):</span>
+			<span class='ftitle'><% __('Quota limit') %> (Mb):</span>
 		</td>
 		<td>
 			<input type='text' class='inputText' name='userquota' value='<% $userquota %>'>

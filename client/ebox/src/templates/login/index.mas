@@ -6,6 +6,13 @@
 <%init>
 use EBox::Gettext;
 </%init>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>eBox Security Framework</TITLE>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<link href="/data/css/login.css" type="text/css" rel="stylesheet">
+<script src="/data/js/common.js" type="text/javascript">//</SCRIPT>
+</head>
+<center>
 <form action='/LOGIN' method='post'>
 	<div id='login'>
 		<img src='/data/images/logintro.png' 
@@ -21,6 +28,12 @@ use EBox::Gettext;
 		<input class='inputButton' type='submit' value="<% __('Ok') %>"/>
 	</div>
 </form>
+</center>
+
 % if(length($reason)){
 	<div id='reason'><% $reason %></div>
 % }
+
+<script src="/data/js/help.js" type=text/javascript>//</SCRIPT>
+</body>
+</html>

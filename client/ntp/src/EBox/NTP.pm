@@ -424,16 +424,19 @@ sub rootCommands
 sub menu
 {
         my ($self, $root) = @_;
-        my $folder = new EBox::Menu::Folder('name' => 'NTP',
-                                            'text' => __('NTP'));
+        my $folder = new EBox::Menu::Folder('name' => 'EBox',
+                                            'text' => __('System'));
 
-        $folder->add(new EBox::Menu::Item('url' => 'NTP/Index',
-                                          'text' => __('NTP server')));
         $folder->add(new EBox::Menu::Item('url' => 'NTP/Datetime',
                                           'text' => __('Date/time')));
+
         $folder->add(new EBox::Menu::Item('url' => 'NTP/Timezone',
                                           'text' => __('Time zone')));
         $root->add($folder);
+
+        my $item = new EBox::Menu::Item('url' => 'NTP/Index',
+                                        'text' => __('NTP server'));
+		$root->add($item);
 }
 
 1;

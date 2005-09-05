@@ -165,14 +165,14 @@ sub setFWPort
 	my ($self, $fwport) = @_;
 
 	my $fw = EBox::Global->modInstance('firewall');
-	checkPort($fwport, "listening port");
+	checkPort($fwport, "port");
 
 	if ($self->fwport() == $fwport) {
 		return;
 	}
 	unless ($fw->availablePort('tcp',$fwport)) {
 		throw EBox::Exceptions::DataExists(
-			'data'  => __('listening port'),
+			'data'  => __('port'),
 			'value' => $fwport);
 	}
 	$self->set_int('fwport', $fwport);
@@ -190,20 +190,20 @@ sub setIPFilter
 
 	unless (checkIP($ip)) {
 		throw EBox::Exceptions::InvalidData(
-			'data'	=> __('external filter service'),
-			'value'	=> __('The '.$ip.' is not a valid ip address.'));
+			'data'	=> __('remote IP'),
+			'value'	=> __($ip.' is not a valid ip address'));
 	}
 	
 	unless (defined(@{$self->_getIfacesForAddress($ip)})) {
 		throw EBox::Exceptions::InvalidData(
-			'data'	=> __('external filter service'),
-			'value'	=> __('The '.$ip.' cannot be reached by any configured interface'));
+			'data'	=> __('remote IP'),
+			'value'	=> __($ip.' cannot be reached by any configured interface'));
 	}
 	
 	unless ($#{$self->_getIfacesForAddress($ip)} = 1) {
 		throw EBox::Exceptions::InvalidData(
-			'data'	=> __('external filter service'),
-			'value'	=> __('The '.$ip.' can be reached by more than one configured interface'));
+			'data'	=> __('remote IP'),
+			'value'	=> __($ip.' can be reached by more than one configured interface'));
 	}
 	
 	$self->set_string('ipfilter', $ip);
@@ -219,7 +219,7 @@ sub setPortFilter
 {
 	my ($self, $port) = @_;
 	
-	checkPort($port, "listening port");
+	checkPort($port, "port");
 	$self->set_int('portfilter', $port);
 }
 
@@ -247,8 +247,8 @@ sub setMaxMsgSize
 	
 	unless (isAPositiveNumber($size)) {
 		throw EBox::Exceptions::InvalidData(
-			'data'	=> __('Maildir default size'),
-			'value'	=> __('The '.$size.' value is invalid.'));
+			'data'	=> __('message size'),
+			'value'	=> $size);
 	}
 	
 	$self->set_int('maxmsgsize', $size);
@@ -266,8 +266,8 @@ sub setMDDefaultSize
 	
 	unless (isAPositiveNumber($size)) {
 		throw EBox::Exceptions::InvalidData(
-			'data'	=> __('Maildir default size'),
-			'value'	=> __('The '.$size.' value is invalid.'));
+			'data'	=> __('maildir size'),
+			'value'	=> $size);
 	}
 	
 	$self->set_int('mddefaultsize', $size);
@@ -657,12 +657,19 @@ sub statusSummary
 sub menu
 {
 	my ($self, $root) = @_;
+
 	my $folder = new EBox::Menu::Folder('name' => 'Mail',
 		'text' => __('Mail'));
+
 	$folder->add(new EBox::Menu::Item('url' => 'Mail/Index',
 			'text' => __('General')));
+
 	$folder->add(new EBox::Menu::Item('url' => 'Mail/VDomains',
 			'text' => __('Virtual domains')));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Mail/EditVDomain',
+			'text' => ''));
+
 	$root->add($folder);
 }
 

@@ -4,8 +4,11 @@
 	$title
 	@servers
 </%args>
+	<h3><%__('NTP servers')%></h3>
 	<form action='AddServers' method='POST'>
-	<p><%__('Insert here the NTP servers to synchronize with')%>:</p>
+	<div class="help">
+		<% __('FIXME: Recuerde ajustar su zona horaria para que la sincronización se realice de forma satisfactoria.') %>
+	</div>
 	<table class='formTable'>
 		<tr>
 			<td class='tright'>
@@ -44,7 +47,7 @@
 			<td></td>
 			<td>
 				<input class='inputButton' type='submit'
-					  name='accept' value='Ok' />
+					  name='accept' value='<% __('Change') %>' />
 			</td>
 		</tr>
 	</table>

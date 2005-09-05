@@ -23,11 +23,12 @@ use EBox::Gettext;
 
 sub new 
 {
-        my $class = shift;
-        my %opts = @_;
-        my $self = $class->SUPER::new(@_);
-        bless($self, $class);
-        return $self;
+	my $class = shift;
+	my %opts = @_;
+	my $self = $class->SUPER::new(@_);
+	$self->{'current'} = delete $opts{'current'};
+	bless($self, $class);
+	return $self;
 }
 
 sub html
@@ -35,11 +36,10 @@ sub html
 	my $self = shift;
 
 	my $html = "<div id='menu'>\n";
-	$html .=   "<div class='mtitle'>" . __('Menu') .  "</div>\n";
 	$html .=   "<ul id='nav'>\n";
 
 	foreach my $item (@{$self->items}) {
-		$html .= $item->html;
+		$html .= $item->html($self->{'current'});
 	}
 
 	$html .= "</ul></div>\n";

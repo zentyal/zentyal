@@ -34,7 +34,7 @@ use EBox::Menu::Root;
 #
 sub title
 {
-	return '<div id="header"><img src="/data/images/title.gif"></div>';
+	return '<div id="header"><img src="/data/images/title.gif"></div><div id="hmenu"><a href="/ebox/Finish">Save changes</a> | <a href="">Help</a> | <a href="/ebox/Logout/Index">Logout</a></div> ';
 }
 
 #
@@ -48,9 +48,11 @@ sub title
 #
 sub menu
 {
+	my $current = shift;
+
 	my $global = EBox::Global->getInstance();
 
-	my $root = new EBox::Menu::Root;
+	my $root = new EBox::Menu::Root('current' => $current);
 	my $domain = gettextdomain();
 	foreach (@{$global->modNames}) {
 		my $mod = $global->modInstance($_);
@@ -76,12 +78,11 @@ sub footer($) # (module)
 	my $module = shift;
 
 	return qq%<div id="footer">
-	Copyright &copy; 2005, <a href='http://www.warp.es'>Warp Networks S.L.</a>, 
-	<a href='http://www.dbs.es'>DBS Servicios Informaticos S.L.</a>
-		  </div>
+	Copyright &copy; 2005, <a href='http://www.warp.es'>Warp Networks S.L.</a>
+	</div>
 	<script type="text/javascript" src="/data/js/help.js">//</script>
 	<script type="text/javascript"><!--
-	shownMenu = "menu$module"; 
+	stripe('dataTable', '#cdddf7', '#ffffff');
 //--></script>
 	</body>
 	</html>
@@ -97,10 +98,9 @@ sub footer($) # (module)
 #
 #      	string - containg the html code for the header page
 #
-sub header # (title, class) 
+sub header # (title)
 {
 	my $title = shift;
-	my $class = shift;
 
 	return qq%
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -109,7 +109,6 @@ sub header # (title, class)
 <head>
 <title>eBox - $title</title>
 <link href="/data/css/public.css" rel="stylesheet" type="text/css" />
-<link href="/ebox/MenuCSS?section=$class" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="/data/js/common.js">//</script>
 </head>
 <body>%

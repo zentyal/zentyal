@@ -64,21 +64,19 @@ use EBox::Gettext;
 			</tr>
 		</tbody>
 		</table>
-		<h3><%__('Delete user')%></h3>
-		<div class='note'>
-			<% __('This operation will cause the removal of the user and all his dependences; such as mail accounts, user data...') %>
-		</div>
-		<form action='Del' method='POST'>
-		<p>
-		<input type="hidden" name="objectname" value="<% $user->{'username'} %>">
-					<input class='inputButton' type='submit' name='deluser'
-						   value="<% __('Delete user') %>"
-						   alt="<% __('Delete user') %>">
-		</p>
-	    </form>
 % foreach my $comp (@components) {
       <& $comp->{'path'}, 'params' => $comp->{'params'}   &>
 % }
 
-
-
+<h3><%__('Delete user')%></h3>
+<div class='note'>
+	<% __('This operation will cause the removal of the user and all his dependences; such as mail accounts, user data...') %>
+</div>
+<form action='Del' method='POST'>
+<p>
+<input type="hidden" name="objectname" value="<% $user->{'username'} %>">
+			<input class='inputButton' type='submit' name='deluser'
+				   value="<% __('Delete user') %>"
+				   alt="<% __('Delete user') %>">
+</p>
+</form>

@@ -12,8 +12,7 @@ use EBox::Gettext;
 </%init>
 
 <div class='squidnew'>
-<br />
-<& enable.mas, title => __('Enable the HTTP proxy'), active => $active &>
+<& enable.mas, title => __('HTTP Proxy service status'), active => $active &>
 <h3><% __('General Settings') %></h3>
 
 <div class='note'>
@@ -122,9 +121,9 @@ use EBox::Gettext;
 	</td>
 </tr>
 <tr>
-		<td width='161px'></td>
+		<td></td>
 				<td><input class='inputButton' type='submit' name='change' 
-					value="<% __('Ok') %>" alt='<% __("Ok") %>'>
+					value="<% __('Change') %>" alt='<% __("Change") %>'>
 				</td>
 </tr>
 </table>

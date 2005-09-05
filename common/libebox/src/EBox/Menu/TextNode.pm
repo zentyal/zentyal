@@ -28,7 +28,7 @@ sub new
 	my $class = shift;
 	my %opts = @_;
 	my $text = delete $opts{text};
-	unless (defined($text) and ($text ne '')) {
+	unless (defined($text)) {
 		throw EBox::Exceptions::MissingArgument('text');
 	}
 	my $self = $class->SUPER::new(@_);
@@ -42,7 +42,7 @@ sub _compare # (node)
 	my ($self, $node) = @_;
 	defined($node) or return undef;
 	$node->isa('EBox::Menu::TextNode') or return undef;
-	if ($node->{text} eq $self->{text}) {
+	if (($node->{text} eq $self->{text}) and ($node->{url} eq $self->{url})) {
 		return 1;
 	}
 	return undef;

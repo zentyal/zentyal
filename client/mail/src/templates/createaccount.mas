@@ -11,18 +11,36 @@ settextdomain('ebox-mail');
 <form name='createaccount' action='/ebox/Mail/CreateAccount' method='POST'>
     <input type="hidden" name="username" value="<% $params->{'username'} %>">
 	<h3><% __('Create mail account') %></h3>
-	<input type='text' class='inputText' name='lhs'>
-	<select name="vdomain" enabled onChange='vdomainChanged(this)'>
-%	my @kvd = keys %{$params->{'vdomains'}};
-%	foreach my $vd (@kvd) {
-		<option value= <% $vd %> > <% __($vd) %> </option>
-%	}
-	</select>
-	<div class='ftitle'><% __('Set default maildir size for this mailaccount') %></div>
-	<input type='text' class='inputText' name='dftmdsize' value=<%  %>>
-	<input class='inputButton' type='submit' name='change'
-			value="<% __('Create') %>"
-			alt="<% __('Create') %>">
+	<table class="formTable">
+	<tr>
+		<td class="tright"><% __('Account name') %>:</td>
+		<td><input type='text' class='inputText' name='lhs'></td>
+	</tr>
+	<tr>
+		<td class="tright"><% __('Domain name') %>:</td>
+		<td>
+			<select name="vdomain" enabled onChange='vdomainChanged(this)'>
+%			my @kvd = keys %{$params->{'vdomains'}};
+%			foreach my $vd (@kvd) {
+				<option value= <% $vd %> > <% __($vd) %> </option>
+%			}
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="tright"><% __('Maildir size (MB)') %>:</div>
+		<td>
+			<input type='text' class='inputText' size="5" name='dftmdsize' value=<%  %>>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input class='inputButton' type='submit' name='change'
+					value="<% __('Create') %>"
+					alt="<% __('Create') %>">
+		</td>
+	</table>
 </form>
 
 <script type="text/javascript"><!--

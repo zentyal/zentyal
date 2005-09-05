@@ -7,18 +7,15 @@ $active
 <%init>
 use EBox::Gettext;
 </%init>
-<& enable.mas, title => __('Enable the printer sharing'), active => $active &>
+<& enable.mas, title => __('Printer sharing status'), active => $active &>
 
-<h3><% __('List of printers') %></h3>
 % if(@printers){
+<h3><% __('List of printers') %></h3>
 <table class='dataTable' cellspacing='0'>
-    <caption>
-        <% __('Printers') %>
-    </caption>
     <thead>
         <tr>
             <th class="tleft"><%__('Name')%></th>
-            <th><%__('Description')%></th>
+            <th class="tleft"><%__('Description')%></th>
             <th><%__('Actions')%></th>
         </tr>
     </thead>
@@ -32,7 +29,7 @@ use EBox::Gettext;
                         value="<%$printer->{'id'}%>"/>
                     <% $printer->{'name'} %>
                 </td>
-                <td class='tcenter'>
+                <td>
                     <% $printer->{'info'} %>
                 </td>
                 <td class='tcenter'>

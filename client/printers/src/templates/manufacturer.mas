@@ -11,28 +11,13 @@ use EBox::Gettext;
 <form action='Manufacturer' method='POST'>
 	<h3><% __('Choose manufacturer') %></h3>
 	<input name='printerid' value='<% $printerid %>' type='hidden'>
-	<table class='formTable'>
-	<tbody>
-	<tr>
-		<td class='tright'>
-			<span class='ftitle'><% __('Manufacturer') %>:</span>
-		</td>
-		<td>
-			<select name='manufacturer'>
-%				foreach my $vendor (@manufacturers) {
-					<option value='<% $vendor %>'><% $vendor %></option>
-%				}
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<td></td>
-		<td>
-			<input class='inputButton' type='submit' name='manufacturerui' 
+	<select name='manufacturer'>
+%		foreach my $vendor (@manufacturers) {
+			<option value='<% $vendor %>'><% $vendor %></option>
+%		}
+	</select>
+
+	<input class='inputButton' type='submit' name='manufacturerui' 
 				   value="<% __('Next') %>"
 				   alt="<% __('Next') %>">
-		</td>
-	</tr>
-</tbody>
-</table>
 </form>

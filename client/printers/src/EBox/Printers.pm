@@ -295,13 +295,73 @@ sub menu
 	
 	my $folder = new EBox::Menu::Folder('name' => 'Printers',
 					    'text' => __('Printers'));
+
 	$folder->add(new EBox::Menu::Item('url' => 'Printers/AddPrinterUI',
 					  'text' => __('Add printer')));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Printers/AddPrinter',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Printers/CancelJob',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Printers/DeleteUI',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Printers/DriverUI',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Printers/DrvoptsUI',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Printers/Enable',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Printers/ManagePrinter',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Printers/ManagePrinterUI',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Printers/Manufacturer',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Printers/ManufacturerUI',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Printers/Model',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Printers/ModelUI',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Printers/NetworkPrinter',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Printers/NetworkPrinterUI',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Printers/ParallelPrinterUI',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Printers/SambaPrinter',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Printers/SambaPrinterUI',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Printers/USBPrinterUI',
+					  'text' => ''));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Printers/USBPrinter',
+					  'text' => ''));
+
 	if (@{$self->printers()}){
 		$folder->add(new EBox::Menu::Item(
 			'url' => 'Printers/ShowPrintersUI',
 		  	'text' => __('Manage printers')));
 	}
+
 	$root->add($folder);
 }
 

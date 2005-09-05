@@ -4,20 +4,18 @@
 	$synchronized
 	$title
 </%args>
-	<form action='Synch' method='POST'>
-	<span class='ftitle'>
-		<% $title %>
-	</span>
-		<select name="synchronized" enabled>
+<form action='Synch' method='POST'>
+	<h3><% $title %></h3>
+	<select name="synchronized" enabled>
 %  if($synchronized eq 'yes') {
-			<option value='no' ><% __('No') %></option>
-			<option selected value='yes' ><% __('Yes') %></option>
+		<option value='no' ><% __('Disabled') %></option>
+		<option selected value='yes' ><% __('Enabled') %></option>
 %	}else{
-			<option selected value='no' ><% __('No') %></option>
-			<option value='yes' ><% __('Yes') %></option>
+		<option selected value='no' ><% __('Disabled') %></option>
+		<option value='yes' ><% __('Enabled') %></option>
 %	}
-		</select>
-		<input class='inputButton' type='submit' name='change'
-			value="<% __('Ok') %>"
-			alt="<% __('Ok') %>">
-	</form>
+	</select>
+	<input class='inputButton' type='submit' name='change'
+		value="<% __('Change') %>"
+		alt="<% __('Change') %>">
+</form>

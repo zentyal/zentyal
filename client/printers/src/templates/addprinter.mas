@@ -12,7 +12,7 @@ use EBox::Gettext;
 	<tbody>
 	<tr>
 		<td class='tright'>
-			<span class='ftitle'><% __('Printer name') %>:</span>
+			<span class='ftitle'><% __('Name') %>:</span>
 		</td>
 		<td>
 			<input type='text' class='inputText' name='printername' >

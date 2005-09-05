@@ -34,8 +34,15 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
 
 	my $self = $class->SUPER::new(@_);
 	my $tmp = $class;
-	$tmp =~ s/^.*?::.*?::(.*?)::.*?//;
+	$tmp =~ s/^.*?::.*?::(.*?)::(.*)//;
 	$self->{module} = $1;
+	$self->{cginame} = $2;
+	if (defined($self->{cginame})) {
+		$self->{url} = $self->{module} . "/" . $self->{cginame};
+	} else {
+		$self->{url} = $self->{module} . "/Index";
+	}
+
 	bless($self, $class);
 	return $self;
 }
@@ -44,7 +51,7 @@ sub _header
 {
 	my $self = shift;
 	print($self->cgi()->header(-charset=>'utf-8'));
-	print(EBox::Html::header($self->{title}, $self->{module}));
+	print(EBox::Html::header($self->{title}));
 }
 
 sub _top
@@ -55,7 +62,8 @@ sub _top
 
 sub _menu
 {
-	print(EBox::Html::menu);
+	my $self = shift;
+	print(EBox::Html::menu($self->{url}));
 }
 
 sub _footer

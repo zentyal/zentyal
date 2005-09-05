@@ -11,6 +11,7 @@ use EBox::Gettext;
 <div class="warning">
 <% __x("Are you sure you want to delete the printer '{name}'?", name => $printername) %>
 </div>
+<br/>
 
 <form action='ManagePrinter' method='POST'>
     <input type='hidden' name='printerid'

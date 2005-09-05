@@ -7,19 +7,17 @@
 use EBox::Gettext;
 settextdomain('ebox-samba');
 </%init>
-	
     <form action='/ebox/Samba/ActiveSharing' method='POST'>
-	<h3><% __('File sharing') %></h3>
+	<h3><% __('Sharing user directory') %></h3>
 % if ($params->{'username'}) {
     <input type="hidden" name="user" value="<% $params->{'username'} %>">
-        <span class='ftitle'><% __('Share directory') %></span>
         <select name="active" enabled>
 % 		if ($params->{'share'}  eq 'yes') {
-            <option value='no' ><% __('No') %></option>
-            <option selected value='yes' ><% __('Yes') %></option>
+            <option value='no' ><% __('Disabled') %></option>
+            <option selected value='yes' ><% __('Enabled') %></option>
 % 		} else {
-            <option selected value='no' ><% __('No') %></option>
-            <option value='yes' ><% __('Yes') %></option>
+            <option selected value='no' ><% __('Disabled') %></option>
+            <option value='yes' ><% __('Enabled') %></option>
 % 		}
         </select>
      <input class='inputButton' type='submit' name='change'
@@ -28,7 +26,7 @@ settextdomain('ebox-samba');
 			
 %  } else {
 
-	<div class='note'>
+	<div class='help'>
 		<%   __("You can set a share directory for this group, but you should keep in mind that Microsoft Windows 98 and Millenium will not be able to see names longer than 12 characters") %>
 	</div>
 
@@ -38,8 +36,7 @@ settextdomain('ebox-samba');
 				<%   __("This resource name is longer than 12 charcters.") %>
 				</div>
 % 			}
-	<br/>
-	<div class="ftitle"><% __('Sharing name')%></div> 
+	<span class="ftitle"><% __('Sharing name')%></span>:
    	<input 	type="text" 
 			name="sharename" 
 			class="inputText"
@@ -62,6 +59,8 @@ settextdomain('ebox-samba');
 
 % if (@{$params->{'printers'}})  {
 	<h3><% __('Printers') %></h3>
+	<p><% __('FIXME: seleccione las impresoras a las que tendrá acceso este
+	usuario.') %></p>
 	<form id='printers' action='/ebox/Samba/ActivePrinting' method='POST'>
 % if ($params->{'username'}) {
     <input type="hidden" name="user" value="<% $params->{'username'} %>">
@@ -92,7 +91,7 @@ settextdomain('ebox-samba');
 %				}
 				<tr class='trimp'>
 					<td>
-						<% __('Allow all printers') %>
+						<strong><% __('Allow all printers') %></strong>
 					</td>
 					<td class='tcenter'>
 						<input type='checkbox' value='on'

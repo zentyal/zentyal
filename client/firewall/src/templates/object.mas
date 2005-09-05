@@ -10,6 +10,7 @@
 <%init>
 use EBox::Gettext;
 </%init>
+<h3><% __('Policy') %></h3>
 <div class='help'>
 <% __('The policy states what to do on network packets not explicitly matched below. The policy is applied to connections that leave eBox through an external network interface. If you want to allow traffic between internal networks you need to create explicit rules for that.') %>
 %	if ($object ne '_global') {
@@ -19,7 +20,6 @@ use EBox::Gettext;
 %	}
 </div>
 	<form action='ObjectPolicy' method='post'>
-		<div class='ftitle'><% __('Policy') %></div>
 		<input type='hidden' name='object'
 			   value='<% $object %>' />
 		<select name='policy'>

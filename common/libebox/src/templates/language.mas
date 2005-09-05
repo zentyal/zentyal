@@ -9,7 +9,6 @@ my $langs = langs();
 </%init>
 <h3><% __d('Language selection','libebox') %></h3>
 	<form action='Lang' method='POST'>
-		<div class='ftitle'><% __d('Language','libebox') %></div>
 		<select name='lang'>
 %	foreach my $l (keys %{$langs}) {
 %		if($lang eq $l){
@@ -20,5 +19,5 @@ my $langs = langs();
 %	}
 		</select>
 		<input class='inputButton' type='submit' name='setlang'
-			   value="<% __d('Ok','libebox') %>">
+			   value="<% __d('Change','libebox') %>">
 	</form>

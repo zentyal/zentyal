@@ -132,23 +132,21 @@ use EBox::NetWrappers qw(:all);
 		<td></td>
 		<td>
 			<input class='inputButton' type='submit'
-				name='accept' value="<% __('Ok') %>" />
+				name='accept' value="<% __('Change') %>" />
 		</td>
 	</tr>
 	</table>
 </form>
 
 <div id='trunk'>
+<h3><% __('FIXME: VLANs List') %></h3>
 % if ($iface->{"method"} eq "trunk") {
 
 	<table class='dataTable' cellspacing='0'>
-		<caption>
-			<% __('VLANs') %>
-		</caption>
 	<thead>
 		<tr>
 			<th class='tleft'><% __('VLAN Id') %></th>
-			<th class='thOptions'><% __('Description') %></th>
+			<th class='tleft'><% __('Description') %></th>
 			<th class='thOptions'><% __('Action') %></th>
 		</tr>
 	</thead>
@@ -157,10 +155,10 @@ use EBox::NetWrappers qw(:all);
 		<tr class='border'><form action='Vlan' method='POST'>
 			<td class='tleft'>
 				<input type="hidden" name="ifname" value="<% $iface->{"name"}%>"/>
-				<input class="inputText" type="text" size="4" name="vlanid"/>
+				<input class="inputText" type="text" size="6" name="vlanid"/>
 			</td>
 			<td class='tleft'>
-				<input class="inputText" type="text" size="16" name="vlandesc"/>
+				<input class="inputText" type="text" size="36" name="vlandesc"/>
 			</td>
 			<td class='tcenter'>
 				<input class="inputButton" type="image" name="add"
@@ -199,16 +197,14 @@ use EBox::NetWrappers qw(:all);
 
 <div id='virtual'>
 % if ($iface->{"method"} eq "static") {
+<h3><% __('Virtual interfaces') %></h3>
 
 	<table class='dataTable' cellspacing='0'>
-		<caption>
-			<% __('Virtual interfaces') %>
-		</caption>
 	<thead>
 		<tr>
 			<th class='tleft'><% __('Name') %></th>
-			<th class='thOptions'><% __('IP address') %></th>
-			<th class='thOptions'><% __('Netmask') %></th>
+			<th class='tleft'><% __('IP address') %></th>
+			<th class='tleft'><% __('Netmask') %></th>
 			<th class='thOptions'><% __('Action') %></th>
 		</tr>
 	</thead>

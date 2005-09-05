@@ -46,15 +46,22 @@ sub add # (item)
 
 sub html
 {
-	my $self = shift;
+	my ($self, $current) = @_;
 	my $text = $self->{text};
 	my $url = $self->{url};
 	my $html = '';
 
+	(length($text) == 0) and return $html;
+
+	my $idcurrent = "";
+	if ($current eq $url) {
+		$idcurrent="id='current'";
+	}
+
 	if (defined($self->{style})) {
-		$html .= "<li class='$self->{style}'>\n";
+		$html .= "<li $idcurrent class='$self->{style}'>\n";
 	} else {
-		$html .= "<li>\n";
+		$html .= "<li $idcurrent>\n";
 	}
 
 	$html .= "<a title='$text' href='/ebox/$url' class='navc' ".

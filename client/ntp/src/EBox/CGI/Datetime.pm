@@ -27,7 +27,7 @@ use EBox::Gettext;
 ## 	title [required]
 sub new {
 	my $class = shift;
-	my $self = $class->SUPER::new('title'    => __('NTP'),
+	my $self = $class->SUPER::new('title' => __('Date and time settings'),
 				      'template' => 'ntp/datetime.mas',
 				      @_);
 	$self->{domain} = "ebox-ntp";	
@@ -37,7 +37,6 @@ sub new {
 
 sub _process($) {
 	my $self = shift;
-	$self->{title} = __('NTP');
 	my $ntp = EBox::Global->modInstance('ntp');
 	
 	my @array = ();

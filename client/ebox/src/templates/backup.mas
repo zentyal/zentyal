@@ -33,10 +33,8 @@ use EBox::Gettext;
 
 
 % if(@backups){
+<h3><% __('List of configuration backups') %></h3>
 <table class='dataTable' cellspacing='0'>
-	<caption>
-		<% __('List of configuration backups') %>
-	</caption>
 	<thead>
 		<tr>
 			<th class="tleft"><%__('Description')%></th>

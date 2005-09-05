@@ -55,7 +55,7 @@ sub _body
 	$self->SUPER::_body;
 	my $global = EBox::Global->getInstance(1);
 	my @modNames = @{$global->modNames};
-	my $page = new EBox::Summary::Page(__('Summary'));
+	my $page = new EBox::Summary::Page();
 	my @errors;
 	foreach my $name (@modNames) {
 		my $mod = EBox::Global->modInstance($name);

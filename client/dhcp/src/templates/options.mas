@@ -5,7 +5,7 @@
 	$nameserver2
 </%args>
 <h3><% __('Options') %></h3>
-<div class='class'>
+<div class='help'>
 <% __('You can leave empty the Default Gateway field to use eBox as default gateway for this subnet') %>
 </div>
 <form method="post" action="SetIfaceOptions">
@@ -14,7 +14,7 @@
 	<tr>
 		<td class='tright'>
 			<span class='ftitle'>
-				<% __('Default gateway') %>
+				<% __('Default gateway') %>:
 			</span>
 		</td>
 		<td>
@@ -25,7 +25,7 @@
 	<tr>
 		<td class='tright'>
 			<span class='ftitle'>
-				<% __('Primary nameserver') %>
+				<% __('Primary nameserver') %>:
 			</span>
 		</td>
 		<td>
@@ -36,7 +36,7 @@
 	<tr>
 		<td class='tright'>
 			<span class='ftitle'>
-				<% __('Secondary nameserver') %>
+				<% __('Secondary nameserver') %>:
 			</span>
 		</td>
 		<td>
@@ -48,7 +48,7 @@
 		<td></td>
 		<td>
 			<input class='inputButton' type='submit'
-				name='accept' value='Ok' />
+				name='accept' value='<% __("Apply") %>' />
 		</td>
 	</tr>
 </table>

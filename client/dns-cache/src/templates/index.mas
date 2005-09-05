@@ -8,5 +8,5 @@ use EBox::Gettext;
 </%init>
 
 <div class='dns-cachenew'>
-<& enable.mas, title => __('Enable the DNS Cache'), active => $active &>
+<& enable.mas, title => __('DNS Cache service status'), active => $active &>
 </div>

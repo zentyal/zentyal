@@ -6,13 +6,11 @@
 <%init>
 use EBox::Gettext;
 </%init>
-<div>
-<br/>
 
 %if($params->{'mail'} eq undef) {
-	<& /mail/createaccount.mas, title => __('Create mail account'), params =>
-		$params &>
+	<& /mail/createaccount.mas, title => __('Create mail account'), 
+		params => $params &>
 %} else {
-	<& /mail/alias.mas, title => __('Create mail alias to mail account'), params =>
-		$params &>
+	<& /mail/alias.mas, title => __('Create mail alias to mail account'), 
+		params => $params &>
 %}

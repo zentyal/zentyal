@@ -25,7 +25,6 @@ sub new # (title)
 {
 	my $class = shift;
 	my $self = $class->SUPER::new();
-	$self->{title} = shift;
 	bless($self, $class);
 	return $self;
 }
@@ -33,11 +32,6 @@ sub new # (title)
 sub html
 {
 	my $self = shift;
-	print "<div id='titlehelp'>\n";
-	print "<div class='title'>\n";
-	print $self->{title};
-	print "\n</div>\n";
-	print "</div>\n";
 	$self->_htmlitems;
 }
 

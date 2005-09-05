@@ -8,7 +8,7 @@
 <%init>
 use EBox::Gettext;
 </%init>
-<h3><%__x("Edit '{description}' members", description => $description)%></h3> 
+<h3><%__x("Edit <span class='stitle'>{description}</span> members", description => $description)%></h3> 
 <table class='dataTable'>
 	<thead>
 		<tr>

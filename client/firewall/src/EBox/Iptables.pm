@@ -415,6 +415,8 @@ sub vifaceRealname # (viface)
 sub start
 {
 	my $self = shift;
+	
+	return;
 
 	$self->setStructure();
 

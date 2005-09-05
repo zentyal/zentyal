@@ -1,10 +1,30 @@
 #header {
 	height: 55px;
 	padding-top: 6px;
-	padding-left: 15px;
+	padding-left: 5px;
 	color: transparent;
-	background-color: #ffffff;
-	border-bottom: 1px solid #485C84;
+	border-bottom: 1px solid #CDDDF7;
+}
+
+#hmenu {
+	position: relative;
+	display: block;
+	top: -25px;
+	margin-right: 10px;
+	float:right;
+	color: #cccccc;
+}
+
+#hmenu a {
+    color: #3b7f9f;
+    font-size: 90%;
+    text-decoration: none;
+}
+
+#hmenu a:hover {
+    color: #3b7f9f;
+    background-color: #dbe7ed;
+    text-decoration: none;
 }
 
 #content {
@@ -18,10 +38,8 @@
 	float: left;
 	padding-left: 0px;
 	padding-right: 0px;
-	padding-top: 0px;
+	padding-top: 15px;
 	padding-bottom: 0px;
-	border-right: 1px dotted #485C84;
-	border-bottom: 1px dotted #485C84;
 }
 
 
@@ -70,13 +88,14 @@
 }
 
 .warning {
-	border-top: 1px solid #7ad9ea;
-	border-bottom: 1px solid #7ad9ea;
+	border-top: 1px solid  #FF9F39;
+	border-bottom: 1px solid #FF9F39;
 	padding: 9pt 9pt 9pt 30pt;
 	color: #484554;
 	font-size: 8pt;
-	background: #f3f7fc url("/data/images/warning.gif") 6pt 6pt no-repeat;
+	background: #FAFF9F url("/data/images/warning.gif") 6pt 6pt no-repeat;
 	margin: 1em 0px 0em 0px;
+	margin-bottom: 10px;
 }
 
 .helptd {
@@ -270,7 +289,6 @@ iptable tr {
 }
 
 .squidnew p {
-	padding-left: 20px;
 }
 
 .endform {
@@ -282,9 +300,6 @@ iptable tr {
 	color: #000000;
 	font-size: 11px;
 	font-family: Verdana, sans-serif;
-	text-align: center;
-	border: 1px solid #999999;
-	background-color: #F4F8FC;
 }
 
 .inputTextError {
@@ -293,43 +308,22 @@ iptable tr {
 
 .inputText:focus {
 	background-color: #ffffff;
-	border: 1px solid #485C84;
 }
 
 .inputTextLogin {
 	color: #000000;
 	font-size: 11px;
 	font-family: Verdana, sans-serif;
-	text-align: center;
-	border: 1px solid #898989;
-	background-color: #FFFFFF;
 }
 
 .inputButtonRestart {
 	font-size: 11px;
-	color: #487BB4;
 	font-family: Verdana, sans-serif;
-	border-top-color: #000000; 
-	border-left-color: #000000;
-	border-right-color: #000000; 
-	border-bottom-color: #000000;
-	border-top-width: 1px; 
-	border-left-width: 1px; 
-	border-bottom-width: 1px; 
-	border-right-width: 1px;
 }
 
 .inputButton {
 	font-size: 11px;
 	font-family: Verdana, sans-serif;
-	border-top-color: #000000; 
-	border-left-color: #000000;
-	border-right-color: #000000; 
-	border-bottom-color: #000000;
-	border-top-width: 1px; 
-	border-left-width: 1px; 
-	border-bottom-width: 1px; 
-	border-right-width: 1px;
 }
 
 .msg {
@@ -370,10 +364,11 @@ iptable tr {
 body {
 	width: 790px;
 	margin: 0px;
+	margin-left:10px;
 	color: #000000;
 	font-size: 11px;
 	font-family: Verdana, sans-serif;
-	background-color: #FFFFFF;
+	background-color: #ffffff;
 	behavior: url(/data/js/csshover.htc);
 }
 
@@ -432,8 +427,6 @@ input {
 
 .dataTableMini caption, .ftitle {
 	text-align: left;
-	font-weight: bold;
-	color: #4c4c4c;
 	border: 0px;
 	padding: 2px;
 }
@@ -457,7 +450,6 @@ input {
 .formTable td {
 	padding-top: 5px;
 	padding-bottom: 5px;
-	padding-left: 5px;
 }
 
 .endproxyform {
@@ -465,47 +457,75 @@ input {
 	padding-top: 7px;
 }
 
-.ifaces{
-	border-bottom: 1px solid #aaa;
-	padding-bottom: 3px;
-	padding-left: 10px;
+.ifaces {
+	border-bottom: 1px solid #2299CC;
+	padding-bottom: 5px;
+	padding-left: 15px;
 	padding-top: 13px;
 }
 
 .selected {
-	border-top: 1px solid #aaa;
-	border-left: 1px solid #aaa;
-	border-right: 1px solid #aaa;
+	border-top: 1px solid #2299CC;
+	border-left: 1px solid #2299CC;
+	border-right: 1px solid #2299CC;
 	border-bottom: 1px solid #fff;
-	padding-bottom: 3px;
-	padding-top: 3px;
-	padding-left: 4px;
-	padding-right: 4px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	background: #fff url('/data/images/deg.gif') repeat-x;
+	color:  #29c;
+	font-weight: bold;
 }
 
 .ifaces a {
-	border-top: 1px outset #4c4c4c;
-	border-left: 1px outset #4c4c4c;
-	border-right: 1px outset #4c4c4c;
-	background: #eeeedd;
-	color: #000000;
-	padding-top: 3px;
-	padding-bottom: 3px;
-	padding-left: 4px;
-	padding-right: 4px;
+	border-top: 1px solid #dddddd;
+	border-left: 1px solid #dddddd;
+	border-right: 1px solid #dddddd;
+	background: #efefef;
+	color: #999;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 .ifaces a:hover {
 	color: #4c4c4c;
 	background-color: #eeeeee;
-	border-top: 1px inset #aaa;
-	border-left: 1px inset #aaa;
-	border-right: 1px inset #aaa;
+	border-top: 1px solid #aaa;
+	border-left: 1px solid #aaa;
+	border-right: 1px solid #aaa;
 }
 
-#helpbutton {
-	float: right;
-	display: block;
+#helpbutton a {
+	font-size: 18px;
+	font-weight: bold;
+	font-family: Trebuchet MS, sans-serif;
+	color: #FFA9A9;
+	text-align: center;
+	clear:right;
+	display:inline;
+	float:right;
+	background-color: #FFF8EF;
+	height: 21px;
+	width: 21px;
+	border: 1px solid #bbbbbb;
+}
+
+#helpbutton a:hover {
+	font-size: 18px;
+	font-weight: bold;
+	font-family: Trebuchet MS, sans-serif;
+	color: #FFFFFF;
+	text-align: center;
+	clear:right;
+	display:inline;
+	float:right;
+	height: 21px;
+	width: 21px;
+	background-color: #FF0000;
+	border: 1px solid #bbbbbb;
 }
 
 #titlehelp {
@@ -542,7 +562,6 @@ input {
 
 #nav li {
 	display: inline;
-	font-weight: bold;
 	padding: 0;
 	margin: 0;
 }
@@ -550,19 +569,22 @@ input {
 #nav li span { /* used for un-linked menu items */
 	display: block;
 	padding: 6px 10px;
-	font-weight: bold;
-	color: #485C84;
+	color: #115E7F;
 }
 
 #nav li span#configParent, #nav li span #configuration {
 	display: inline;
-	font-weight: normal;
 	padding: 0;
 }
 
 #nav li li {
-	font-weight: normal;
 	display: none;
+}
+
+#nav li ul {
+	/*background-color: #e8f4f6;
+	border-left: 1px solid #c1dee3;
+	border-right: 1px solid #c1dee3;*/
 }
 	
 #nav li a {
@@ -572,7 +594,9 @@ input {
 	padding-left: 18px;
 	margin: 0px;
 	margin-right: 0px;
-	color: #494949;
+	color: #4c4c4c;
+	font-weight: bold;
+	/*background: #D4E9ED url('/data/images/menub.gif') top repeat-x;*/
 }
 
 .mtitle {
@@ -598,6 +622,7 @@ input {
 
 #nav li a:hover {
 	color: #485C84;
+	/*background-color: #bef;*/
 }
 
 #nav li li span { /* used for un-linked menu items */
@@ -607,6 +632,9 @@ input {
 #nav li li a {
 	padding: 6px 8px 6px 20px;
 	background: none;
+	border-bottom:0;
+	border-top:0;
+	font-weight: normal;
 }
 	
 #nav {
@@ -623,11 +651,20 @@ input {
 }
 
 .stitle {
-	font-family: georgia, sans-serif;
 	font-weight: bold;
+	background-color: #FFFB90;
+	color: #555555;
+	padding: 1px;
 }
 
 .trimp {
 	border-bottom: 1px solid #eeeeee;
 	background-color: #ffe9e8;
+}
+
+pre {
+	background-color: #4B4B4B;
+	color: #EAEAEA;
+	border: 1px solid #BABABA;
+	padding: 10px;
 }
