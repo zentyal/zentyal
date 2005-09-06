@@ -219,7 +219,7 @@ sub setPortFilter
 {
 	my ($self, $port) = @_;
 	
-	checkPort($port, "port");
+	checkPort($port, __('port'));
 	$self->set_int('portfilter', $port);
 }
 
@@ -232,6 +232,11 @@ sub portfilter
 sub setRelay #(smarthost)
 {
 	my ($self, $relay) = @_;
+	
+	unless ($relay eq "") {
+		checkIP($relay, __('smarthost ip'));
+	}
+
 	$self->set_string('relay', $relay);
 }
 
