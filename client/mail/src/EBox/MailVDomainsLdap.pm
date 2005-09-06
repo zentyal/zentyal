@@ -53,6 +53,12 @@ sub addVDomain { #vdomain
 														'value' => $vdomain);
 	}
 	
+	unless (isAPositiveNumber($dftmdsize)) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('maildir size'),
+			'value'	=> $dftmdsize);
+	}
+	
 	my $dn = "domainComponent=$vdomain, " . $self->vdomainDn;
 	my %attrs = ( 
 		attr => [
