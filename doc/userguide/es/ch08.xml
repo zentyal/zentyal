@@ -2,16 +2,7 @@
 -->
 <chapter id="ch-time">
 
-	<title>Configuración horaria y servidor NTP</title>
-
-	<section id='sect-time-general'>
-		<!-- NTP->Date/Time -->
-		<!-- NTP->Timezone -->
-		<title>Configuración horaria</title>
-
-		<para>TODO</para>
-
-	</section>
+	<title>Servidor NTP</title>
 
 	<section id='sect-time-ntp'>
 		<!-- NTP->Server -->
