@@ -7,15 +7,14 @@
 use EBox::Gettext;
 my $eboxupgbutton = 'no';
 </%init>
-<br />
-	<table class='dataTable'>
+	<table class='dataTable' cellspacing='0'>
 	<thead>
 		<tr>
 			<th class='tleft'><%__('Component')%></th>
 			<th class='tleft'><%__('Description')%></th>
 			<th class='tleft'><%__('Installed version ')%></th>
 			<th class='tleft'><%__('Latest version')%></th>
-			<th class='tcenter'><%__('Actions')%></th>
+			<th class='thOptions'><%__('Actions')%></th>
 		</tr>
 	</thead>
 	<tbody>

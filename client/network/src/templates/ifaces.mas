@@ -139,8 +139,8 @@ use EBox::NetWrappers qw(:all);
 </form>
 
 <div id='trunk'>
-<h3><% __('FIXME: VLANs List') %></h3>
 % if ($iface->{"method"} eq "trunk") {
+<h3><% __('VLAN List') %></h3>
 
 	<table class='dataTable' cellspacing='0'>
 	<thead>

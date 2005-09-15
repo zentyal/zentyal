@@ -27,12 +27,9 @@ use EBox::Gettext;
 <& mail/mailtabs.mas, selected => $menu, filter => $filterservice &>
 
 % if ($menu eq 'services') {
-<div>
-<table class="formData">
-<form action='MailSettings' method='post'>
 	<& mail/enable.mas, title => __('Mail service settings'), active => $active &>
 % if ($active eq 'yes') {
-	<& mail/smtptls.mas, title => __('TLS for SMTP server '), smtptls => $smtptls &>
+	<& mail/smtptls.mas, title => __('TLS for SMTP server'), smtptls => $smtptls &>
 	<& mail/sasl.mas, title => __('Require authentication'), sasl => $saslservice, smtptls => $smtptls &>
 % }
 	<tr>
@@ -61,7 +58,7 @@ use EBox::Gettext;
 		<th>
 			<% __('Enabled') %>
 		</th>
-		<th>
+		<th class="thOptions">
 			<% __('SSL Support') %>
 		</th>
 	</tr>
@@ -69,6 +66,7 @@ use EBox::Gettext;
 <tbody>
 <& mail/pop.mas, title => __('POP3'), pop => $popservice, popssl => $popssl &>
 <& mail/imap.mas, title => __('IMAP'), imap => $imapservice, imapssl => $imapssl &>
+</tr>
 </tbody>
 </table>
 <input 	type='submit'
@@ -82,14 +80,15 @@ use EBox::Gettext;
 % if ($menu eq 'settings') {
 
 <div class="help">
-		<% __('FIXME: Introduzca 0 al establecer el tamanio maximo de mensaje o al establecer tamanio maximo de las cuentas de correo para conseguir un tamanio ilimitado.') %>
+		<% __('A value of 0 for the maximum message size and maximum mail account size stands for no size limitation.') %>
 </div>
 
 <form action='MailConf' method='POST'>
 	<input type='hidden' name='menu' value='<% $menu %>'/>
 	<h3><% __('Relay') %></h3>
-	<p><% __('FIXME: Direccion IP del smarthost que enviara el correo.') %></p>
+	<p><% __('IP address of smarthost to send mail:') %></p>
 	<input type='text' class='inputText' name='relay' 
+		size="15"
 		value='<% $relay %>'>
 	<input class='inputButton' type='submit' name='change'
 		value="<% __('Change') %>"
@@ -98,9 +97,10 @@ use EBox::Gettext;
 
 <form action='SetQuota' method='POST'>
 	<input type='hidden' name='menu' value='<% $menu %>'/>
-	<h3><% __('Message size limit (MB)') %></h3>
-	<p><% __('FIXME: Tamanio maximo de mensaje que acepta el servidor de correo.') %></p>
+	<h3><% __('Message size limit') %></h3>
+	<p><% __('Maximum message size accepted by the mail server (MB):') %></p>
 	<input type='text' class='inputText' name='maxmsgsize' 
+		size="15"
 		value='<% $maxmsgsize %>'>
 	<input class='inputButton' type='submit' name='change'
 		value="<% __('Change') %>"
@@ -109,16 +109,17 @@ use EBox::Gettext;
 
 <form action='SetMDQuota' method='POST'>
 	<input type='hidden' name='menu' value='<% $menu %>'/>
-	<h3><% __('FIXME: Tamanio maximo de las cuentas de correo (MB)') %></h3>
-	<p><% __('FIXME: Tamanio maximo predeterminado para las nuevas cuentas de correo.') %></p>
+	<h3><% __('Maximum mail account size') %></h3>
+	<p><% __('Default maximum size for new mail accounts (MB):') %></p>
 	<input type='text' class='inputText' name='mdsize' 
+		size="15"
 		value='<% $maxmdsize %>'>
 	<input class='inputButton' type='submit' name='change'
 		value="<% __('Change') %>"
 		alt="<% __('Change') %>">
 </form>
 
-<h3>FIXME: Politica de relay para los objetos</h3>
+<h3><% __('Relay policy for objects') %></h3>
 <div class="help">
 	<% __('You should move to allowed column those objects that do you want to allow send mail through this module.') %>
 	<br/><br/>

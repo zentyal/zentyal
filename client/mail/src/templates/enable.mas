@@ -7,6 +7,9 @@
 <%init>
 </%init>
 <h3><% $title %></h3>
+<div class="help"><%__('TLS support is required by the authentication system')%></div>
+<table class="formTable">
+<form action='MailSettings' method='post'>
 <tr>
 	<td class="tright">
 		<% __('Service status') %>:

@@ -50,6 +50,7 @@ use EBox::Gettext;
 			<tr>
 				<td>
 					<input type='text' class='inputText' name='lhs'>
+					 @ 
 					<select name="rhs" enabled>
 %					my @kvd = keys %{$params->{'vdomains'}};
 %					foreach my $vd (@kvd) {

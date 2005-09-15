@@ -53,7 +53,7 @@ use EBox::Gettext;
 					<th class='tleft'><% __('Name') %></th>
 					<th class='tleft'><% __('From') %></th>
 					<th class='tleft'><% __('To') %></th>
-					<th><% __('Action') %></th>
+					<th class="thOptions"><% __('Action') %></th>
 				</tr>
 			</thead>
 			<tbody>

@@ -8,7 +8,7 @@
 	<th class='tleft'><% __('Name') %></th>
 	<th class='tleft'><% __('MAC address') %></th>
 	<th class='tleft'><% __('IP address') %></th>
-	<th class='tleft'><% __('Action') %></th>
+	<th class='thOptions'><% __('Action') %></th>
 </thead>
 <tbody>
 <form method="post" action="AddFixed">

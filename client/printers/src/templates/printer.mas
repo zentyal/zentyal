@@ -69,7 +69,7 @@ use EBox::Gettext;
 					<th><%__('Name')%></th>
 					<th><%__('Size(KB)')%></th>
 					<th><%__('Creation time')%></th>
-					<th><%__('Action')%></th>
+					<th class="thOptionsFwd"><%__('Action')%></th>
 				</tr>
 			</thead>
 

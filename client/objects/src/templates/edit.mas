@@ -13,10 +13,10 @@ use EBox::Gettext;
 	<thead>
 		<tr>
 			<th width='40%' class='tleft'> <%__('Name')%> </th>
-			<th class='thOptions'> <%__('IP address')%> </th>
-			<th class='thOptions'> <%__('Netmask')%> </th>
-			<th class='thOptions'> <%__('MAC')%> </th>
-			<th class='thOptions'> <%__('Action')%> </th>
+			<th><%__('IP address')%></th>
+			<th><%__('Netmask')%></th>
+			<th><%__('MAC')%></th>
+			<th class='thOptions'><%__('Action')%></th>
 			</th>
 		</tr>
 	</thead>

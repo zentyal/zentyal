@@ -10,7 +10,7 @@ use EBox::Gettext;
 </%init>
 
 <div class='ntpnew'>
-<& /ntp/synch.mas, title => __('FIXME: Sincronización horaria con servidores NTP'),
+<& /ntp/synch.mas, title => __('Time synchronization with NTP servers'),
 synchronized => $synchronized &>
 
 % if ($synchronized eq 'yes') {

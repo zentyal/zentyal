@@ -20,9 +20,9 @@ use EBox::Gettext;
 				</td>
 				<td>
 					<select name='protocol'>
-						<option value=""><%__('any')%></option>
-						<option value="tcp">tcp</option>
-						<option value="udp">udp</option>
+						<option value="">-</option>
+						<option value="tcp">TCP</option>
+						<option value="udp">UDP</option>
 					</select>
 				</td>
 			</tr>
@@ -152,7 +152,7 @@ use EBox::Gettext;
 % if (@rules) {
 
 <br />
-
+<h3><% __('Rule list') %></h3>
 <table class='dataTable' cellspacing='0'>
 	<thead>
 	<tr>
@@ -162,7 +162,7 @@ use EBox::Gettext;
 			<th class="tleft"><%__('Port')%></th>
 			<th class="tleft"><% __('Destination') %></th>
 			<th class="tleft"><%__('Port')%></th>
-			<th><%__('Actions')%></th>
+			<th class="thOptionsFwd"><%__('Actions')%></th>
 	</tr>
 	</thead>
 	<tbody>

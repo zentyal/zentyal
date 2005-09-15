@@ -78,7 +78,7 @@ use EBox::Gettext;
 		<tr>
 			<th class='tleft'><% __('Service') %></th>
 			<th><% __('Policy') %></th>
-			<th><% __('Actions') %></th>
+			<th class='thOptions'><% __('Actions') %></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -139,7 +139,7 @@ use EBox::Gettext;
 			<th><% __('Destination address') %></th>
 			<th><% __('Action') %></th>
 			<th><% __('Active') %></th>
-			<th><% __('Actions') %></th>
+			<th class='thOptionsFwd'><% __('Actions') %></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -147,9 +147,9 @@ use EBox::Gettext;
 				<td>
 					<input type='hidden' name='object' value='<% $object %>' />
 					<select name='protocol'>
-						<option value=""><%__('any')%></option>
-						<option value="tcp">tcp</option>
-						<option value="udp">udp</option>
+						<option value="">-</option>
+						<option value="tcp">TCP</option>
+						<option value="udp">UDP</option>
 					</select>
 				</td>
 
@@ -206,16 +206,16 @@ use EBox::Gettext;
 						<select name='protocol'>
 %							if ($rule->{'protocol'} eq 'tcp') {
 								<option value="">-</option>
-								<option selected value="tcp">tcp</option>
-								<option value="udp">udp</option>
+								<option selected value="tcp">TCP</option>
+								<option value="udp">UDP</option>
 %							} elsif ($rule->{'protocol'} eq 'udp') {
 								<option value="">-</option>
-								<option value="tcp">tcp</option>
-								<option selected value="udp">udp</option>
+								<option value="tcp">TCP</option>
+								<option selected value="udp">UDP</option>
 %							} else {
-								<option selected value=""><%__('any')%></option>
-								<option value="tcp">tcp</option>
-								<option value="udp">udp</option>
+								<option selected value="">-</option>
+								<option value="tcp">TCP</option>
+								<option value="udp">UDP</option>
 %							} 
 						</select>
 					</td>

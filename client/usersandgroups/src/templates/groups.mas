@@ -28,6 +28,7 @@ use Data::Dumper;
 			</td>
 			<td>
 				<input type='text' class='inputText' name='comment'>
+				<div class="comment">(<% __('Optional value') %>)</div>
 			</td>
 		</tr>
 		<tr>

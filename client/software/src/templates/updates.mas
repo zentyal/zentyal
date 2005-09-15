@@ -14,7 +14,7 @@ use EBox::Gettext;
 			<tr>
 				<th class='tleft'><%__('Component')%></th>
 				<th class='tleft'><%__('Description')%></th>
-				<th><%__('Update')%></th>
+				<th class='thOptions'><%__('Update')%></th>
 			</tr>
 		</thead>
 		<tbody>

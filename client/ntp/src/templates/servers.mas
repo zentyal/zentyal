@@ -7,7 +7,7 @@
 	<h3><%__('NTP servers')%></h3>
 	<form action='AddServers' method='POST'>
 	<div class="help">
-		<% __('FIXME: Recuerde ajustar su zona horaria para que la sincronización se realice de forma satisfactoria.') %>
+		<% __('You should remember to set up your timezone to have synchronization behaving correctly.') %>
 	</div>
 	<table class='formTable'>
 		<tr>

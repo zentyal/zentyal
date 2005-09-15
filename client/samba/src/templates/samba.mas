@@ -36,7 +36,7 @@ settextdomain('ebox-samba');
 				<%   __("This resource name is longer than 12 charcters.") %>
 				</div>
 % 			}
-	<span class="ftitle"><% __('Sharing name')%></span>:
+	<span class="ftitle"><% __('Sharing name')%>:</span>
    	<input 	type="text" 
 			name="sharename" 
 			class="inputText"
@@ -59,8 +59,7 @@ settextdomain('ebox-samba');
 
 % if (@{$params->{'printers'}})  {
 	<h3><% __('Printers') %></h3>
-	<p><% __('FIXME: seleccione las impresoras a las que tendrá acceso este
-	usuario.') %></p>
+	<p><% __('Select the printers this user will have access to.') %></p>
 	<form id='printers' action='/ebox/Samba/ActivePrinting' method='POST'>
 % if ($params->{'username'}) {
     <input type="hidden" name="user" value="<% $params->{'username'} %>">
@@ -71,7 +70,7 @@ settextdomain('ebox-samba');
 			<thead>
 				<tr>
 					<th class='tleft' width='90%'><% __('Printer') %></th>
-					<th><% __('Allow') %></th>
+					<th class='thOptionsFwd'><% __('Allow') %></th>
 				</tr>
 			</thead>
 			<tbody>
