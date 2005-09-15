@@ -39,7 +39,7 @@ use EBox::Gettext;
 		<tr>
 			<th class="tleft"><%__('Description')%></th>
 			<th><%__('Date')%></th>
-			<th><%__('Actions')%></th>
+			<th class="thOptions"><%__('Actions')%></th>
 		</tr>
 	</thead>
 	<tbody>

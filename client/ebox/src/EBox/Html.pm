@@ -34,7 +34,7 @@ use EBox::Menu::Root;
 #
 sub title
 {
-	return '<div id="header"><img src="/data/images/title.gif"></div><div id="hmenu"><a href="/ebox/Finish">Save changes</a> | <a href="">Help</a> | <a href="/ebox/Logout/Index">Logout</a></div> ';
+	return '<div id="top"></div><div id="header"><img src="/data/images/title.gif"></div><div id="hmenu"><a href="/ebox/Finish">Save changes</a>  <a href="">Help</a>  <a href="/ebox/Logout/Index">Logout</a></div> ';
 }
 
 #
@@ -82,8 +82,8 @@ sub footer($) # (module)
 	</div>
 	<script type="text/javascript" src="/data/js/help.js">//</script>
 	<script type="text/javascript"><!--
-	stripe('dataTable', '#cdddf7', '#ffffff');
-//--></script>
+	stripe('dataTable', '#ecf5da', '#ffffff');
+	//--></script>
 	</body>
 	</html>
 %;

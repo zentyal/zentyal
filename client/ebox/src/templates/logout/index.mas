@@ -10,11 +10,11 @@ use EBox::Gettext;
 <div class='warning'>
 	<% __('There are unsaved changes, if you log out now they will be lost.') %>
 </div>
-<p>
-<a class='logout' href='/ebox/Logout/Logout'><% __('Exit anyway') %></a>
-</p>
 % }else{
-<p>
-<a class='logout' href='/ebox/Logout/Logout'><% __('Exit') %></a>
-</p>
+<div class='note'>
+	<% __('There are no unsaved changes in this session.') %>
+</div>
 % }
+<p>
+<a href='/ebox/Logout/Logout'><% __('Exit') %></a>
+</p>

@@ -15,24 +15,18 @@ use EBox::Gettext;
 <center>
 <form action='/LOGIN' method='post'>
 	<div id='login'>
-		<img src='/data/images/logintro.png' 
-			title='Login:'
-			alt='Login:'  />
-		<br />
-		<% __('Administrator password') %>:
 		<input  class='inputTextLogin' type='password' 
 			name='credential_0' 
 			maxlength='16' size='14' />
 		<input  type='hidden' name='destination' 
 			value='/ebox/Summary/Index' />
-		<input class='inputButton' type='submit' value="<% __('Ok') %>"/>
+		<input class='inputButton' type='submit' value="<% __('Enter') %>"/>
+% 		if(length($reason)){
+			<div id='reason'><% $reason %></div>
+%		}
 	</div>
 </form>
 </center>
-
-% if(length($reason)){
-	<div id='reason'><% $reason %></div>
-% }
 
 <script src="/data/js/help.js" type=text/javascript>//</SCRIPT>
 </body>
