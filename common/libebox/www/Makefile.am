@@ -12,7 +12,9 @@ nobase_www_DATA = images/delete.gif images/show.gif \
   images/edit.gif images/view.gif images/r_arrow.gif images/cmenu.gif \
   images/allow-active.gif images/allow-inactive.gif \
   images/deny-active.gif images/deny-inactive.gif images/not.gif \
-  css/login.css images/deg.gif
+  css/login.css images/deg.gif css/niftyCorners.css \
+  images/right-head.png images/header-bg.png images/thead.png \
+  images/thead-right.png js/prototype.js images/exit.png
 
 EXTRA_DIST = $(nobase_www_DATA)
 

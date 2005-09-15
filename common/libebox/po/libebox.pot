@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-07-05 11:51+0200\n"
+"POT-Creation-Date: 2005-09-05 19:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,10 +68,6 @@ msgid ""
 "relevant information can be found in the logs."
 msgstr ""
 
-#: src/EBox/Menu/Root.pm:38
-msgid "Menu"
-msgstr ""
-
 #: src/EBox/NetWrappers.pm:101 src/EBox/NetWrappers.pm:129
 #: src/EBox/NetWrappers.pm:160 src/EBox/NetWrappers.pm:192
 msgid "Interface"
@@ -100,27 +96,23 @@ msgstr ""
 msgid "Running command '{cmd}' as {user} failed"
 msgstr ""
 
-#: src/templates/title.mas:12
-msgid "Show or Hide help"
-msgstr ""
-
 #: src/templates/language.mas:10
 msgid "Language selection"
 msgstr ""
 
-#: src/templates/language.mas:13
-msgid "Language"
+#: src/templates/language.mas:23 src/templates/enable.mas:27
+#: src/templates/enable.mas:29
+msgid "Change"
 msgstr ""
 
-#: src/templates/language.mas:25 src/templates/enable.mas:30
-#: src/templates/enable.mas:32
-msgid "Ok"
+#: src/templates/enable.mas:15 src/templates/enable.mas:20
+msgid "Disabled"
 msgstr ""
 
-#: src/templates/enable.mas:18 src/templates/enable.mas:23
-msgid "No"
+#: src/templates/enable.mas:17 src/templates/enable.mas:22
+msgid "Enabled"
 msgstr ""
 
-#: src/templates/enable.mas:20 src/templates/enable.mas:25
-msgid "Yes"
+#: src/templates/title.mas:12
+msgid "FIXME: Ver notas de ayuda"
 msgstr ""

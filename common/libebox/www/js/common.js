@@ -51,7 +51,7 @@ function showMenu(name){
 	elements=getElementByClass(name);
 	inc=0;
 	while (elements[inc]){
-		elements[inc].style.display="block";
+		elements[inc].style.display="inline";
 		inc++;
 	}
 	shownMenu = name;
