@@ -41,7 +41,7 @@ sub get_interfaces {
 
 	my @interfaces;
 	my $iface;
-	my @fields = qw /address netmask gateway/;
+	my @fields = qw /address netmask gateway vlan-raw-device/;
 	
 	for my $line (<FD>) {
 		$line =~ s/^\s+//g;
@@ -65,9 +65,18 @@ sub get_interfaces {
 
 
 
-my $network = EBox::Global->modInstance('network');
+my $network = $global->modInstance('network');
 
 foreach my $iface (get_interfaces) {
+	if ($iface->{name} =~ /^vlan/) {
+		($iface->{'vlan-raw-device'}) or 
+			die "vlan interface '$iface->{name}' needs a ".
+			"raw-device declaration";
+		$network->setIfaceTrunk($iface->{'vlan-raw-device'}, 1);
+		my $vlan = $iface->{name};
+		$vlan =~ s/^vlan//;
+		$network->createVlan($vlan, undef, $iface->{'vlan-raw-device'});
+	}
 	if ($iface->{'method'} eq 'static') {
 		$network->setIfaceStatic($iface->{'name'}, $iface->{'address'},
 					 $iface->{'netmask'}, undef, 1);
