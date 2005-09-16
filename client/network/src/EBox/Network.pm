@@ -2063,7 +2063,8 @@ sub summary
 	foreach my $iface (@{$ifaces}) {
 		iface_exists($iface) or next;
 		my $status = __("down");
-		my $section = new EBox::Summary::Section($iface);
+		my $section = new
+			EBox::Summary::Section($self->ifaceAlias($iface));
 		$item->add($section);
 
 		if (iface_is_up($iface)) {
