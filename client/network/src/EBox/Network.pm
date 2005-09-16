@@ -688,7 +688,6 @@ sub vifaceNetmask # (interface)
 sub setIfaceAlias # (iface, alias)
 {
 	my ($self, $iface, $alias) = @_;
-	print STDERR "$iface: $alias\n";
 	$self->set_string("interfaces/$iface/alias", $alias);
 }
 
@@ -834,7 +833,7 @@ sub setIfaceStatic # (interface, address, netmask, external, force)
 	if (($oldm eq 'static') and 
 	    ($oldaddr eq $address) and
 	    ($oldmask eq $netmask) and
-	    ($oldext == $ext)) {
+	    (! ($oldext xor $ext))) {
 		return;
 	}
 
