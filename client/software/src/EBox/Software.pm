@@ -366,7 +366,7 @@ sub listUpgradablePkgs
 {
 	my ($self,$clear) = @_;
 
-	my $upgrade = ();
+	my $upgrade = [];
 
 	my $file = EBox::Config::tmp . "packagelist";
 
