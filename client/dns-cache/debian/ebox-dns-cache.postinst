@@ -21,7 +21,7 @@ case "$1" in
 		update-rc.d -f bind9 remove
 
 		# stop bind9
-		invoke-rc.d bind9
+		invoke-rc.d bind9 stop
 
 		#sudo configuration
 		ebox-sudoers > /etc/sudoers

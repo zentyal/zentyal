@@ -20,6 +20,9 @@ case "$1" in
 		# don't start dhcp with its script
 		update-rc.d -f dhcp3-server remove
 
+		# don't start dhcp with its script
+		invoke-rc.d dhcp3-server stop
+
 		# replace /etc/default/dhcp3-server
 		echo 'INTERFACES=""' > /etc/default/dhcp3-server
 
