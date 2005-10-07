@@ -61,6 +61,7 @@ use EBox::Gettext;
 
 % if ($active_printer) { 
 % 	foreach my $printer (@printers) {
+%               next unless (length $printer->{'users'} > 0);
 [<% $printer->{'name'} %>]
  path  = /var/spool/samba
  read   only   =    yes
