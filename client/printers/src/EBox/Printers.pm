@@ -474,8 +474,9 @@ sub addPrinter($$$)
 {
 	my ($self, $name, $method) = @_;
 	unless (_checkPrinterName($name)) {
-		throw EBox::Exceptions::InvalidData
-			('data' => __('Name'), 'value' => $name);
+                throw EBox::Exceptions::External
+                        __("The printer's name contains characters not valid." .
+                        "Only alphanumeric characters are allowed");	
 	}
 	unless (grep(/^$method$/, SUPPORTEDMETHODS)) {
 		throw EBox::Exceptions::InvalidData('data'  => __('Method'),
