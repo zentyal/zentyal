@@ -134,6 +134,7 @@ sub save
 	my $global = EBox::Global->getInstance();
 	my $log = EBox::logger;
 	$log->info("Restarting service for module: " . $self->name);
+	$self->_saveConfig();
 	try {
 		$self->_regenConfig('save' => '1');
 	} finally {

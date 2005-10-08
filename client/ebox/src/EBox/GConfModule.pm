@@ -147,6 +147,19 @@ sub scheduleRestart
 	$self->_backup;
 }
 
+sub _saveConfig
+{
+	my $self = shift;
+	if ($self->{ro})  {
+		throw EBox::Exceptions::Internal("tried to save a read-only"
+			 . " module: " . $self->name() . "\n");
+	}
+	$self->_dump_to_file();
+	$self->{ro} = 1;
+	$self->_load_from_file();
+	$self->{ro} = undef;
+}
+
 sub _backup
 {
 	my $self = shift;
