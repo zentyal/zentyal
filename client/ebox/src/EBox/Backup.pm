@@ -408,7 +408,9 @@ sub restoreBackup # (file)
 		try {
 			my $mod = $global->modInstance($modname);
 			push(@restored,$modname);
-			$mod->restoreBackup("$tempdir/eboxbackup");
+			if (-f "$tempdir/eboxbackup/$modname.bak") {
+				$mod->restoreBackup("$tempdir/eboxbackup");
+			}
 		} catch EBox::Exceptions::Base with {
 			my $ex = shift;
 			`rm -rf $tempdir`;
