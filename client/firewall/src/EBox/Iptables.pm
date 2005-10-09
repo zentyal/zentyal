@@ -416,8 +416,6 @@ sub start
 {
 	my $self = shift;
 	
-	return;
-
 	$self->setStructure();
 
 	my @dns = @{$self->{net}->nameservers()};
