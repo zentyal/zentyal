@@ -8,7 +8,17 @@
 		<!-- Software->Configuration -->
 		<title>Configuración</title>
 
-		<para>TODO</para>
+		<para>eBox es capaz de actualizar automáticamente el software de su
+		sistema. Para activar esta opción tiene que acceder a 
+		<menuchoice>
+			<guimenu>Gestión de software</guimenu>
+			<guimenuitem>Configuración</guimenuitem>
+		</menuchoice>
+		</para>
+
+		<warning>Todas las funcionalidades del componente de gestión de
+		software de eBox requieren que su sistema operativo sea Debian
+		GNU/Linux.</warning>
 
 	</section>
 
@@ -16,7 +26,14 @@
 		<!-- Software->eBox components -->
 		<title>Componentes eBox</title>
 
-		<para>TODO</para>
+		<para>En
+		<menuchoice>
+			<guimenu>Gestión de software</guimenu>
+			<guimenuitem>Componentes eBox</guimenuitem>
+		</menuchoice>
+		podrá instalar, actualizar o eliminar los diferentes paquetes de eBox
+		que existen.
+		</para>
 
 	</section>
 
@@ -24,7 +41,9 @@
 		<!-- Software->System updates -->
 		<title>Actualizaciones del sistema operativo</title>
 
-		<para>TODO</para>
+		<para>De la misma forma que la gestión de componentes de eBox podrá
+		gestionar el resto del software del sistema sobre el que está instalado
+		eBox.</para>
 
 	</section>
 

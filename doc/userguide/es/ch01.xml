@@ -40,7 +40,7 @@
 	<section>
 		<title>Terminología</title>
 
-		<para>FIXME: esta sección es como un glosario de términos de eBox?</para>
+		<para>FIXME: ¿esta sección es como un glosario de términos de eBox?</para>
 
   </section>
 
@@ -52,7 +52,7 @@
 		donde <emphasis>hostname</emphasis> es la dirección IP o el nombre del 
 		host donde está instalado eBox.</para>
 
-		<para>El interfaz de usuario esta dividido en tres partes
+		<para>El interfaz de usuario está dividido en tres partes
 		fundamentales:</para>
 
 		<!-- FIXME odio los nombres que le he dado a las partes del interfaz
@@ -99,8 +99,8 @@
 		como y cuando se guardan los cambios.</para>
 
 		<para>Primero tendrá que aceptar los cambios en el formulario en el
-		que estemos trabajando, para que estos cambios sean efectivos y
-		permantentes tendrá que presionar en Guardar Cambios del menú
+		que está trabajando, para que estos cambios sean efectivos y se guarden
+		de forma permanente tendrá que presionar en Guardar Cambios del menú
 		horizontal, si no lo hacemos perderá los cambios al terminar la
 		sesión.</para>
 
@@ -120,9 +120,8 @@
 				<varlistentry>
 					<term>Servidor NTP</term>
 						<listitem>
-							<para>Dentro del módulo NTP podemos ajustar la fecha y la zona
-							horaria de nuestro sistema, estos cambios son efectivos con
-							solo aceptar el formulario en cuestión.</para>
+							<para>El ajuste de fecha y zona horaria de nuestro sistema
+							tampoco requiere que guardemos los cambios.</para>
 						</listitem>
 				</varlistentry>
 				<varlistentry>

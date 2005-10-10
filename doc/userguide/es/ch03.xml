@@ -9,7 +9,61 @@
 		<!-- Network->Interfaces -->
 		<title>Interfaces de red</title>
 
-		<para>TODO</para>
+		<para>Se accede a la configuración de los interfaces de red a través de 
+		<menuchoice>
+			<guimenu>Red</guimenu>
+			<guimenuitem>Interfaces</guimenuitem>
+		</menuchoice>
+		en el menú lateral izquierdo.
+		</para>
+
+		<para>Para cada interfaz de red podemos establecer un nuevo nombre y el
+		método de configuración de la misma. Los métodos de configuración son:</para>
+
+		<variablelist>
+			<varlistentry>
+				<term>Estático</term>
+				<listitem>
+					<para>Asigna de forma permanete una dirección IP al
+					interface de red. Una vez seleccionado este método podrá
+					establecer si la interfaz de red es
+					externa<footnote><para>FIXME</para></footnote>, 
+					su dirección IP y su máscara de red.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>DHCP</term>
+				<listitem>
+					<para>Al seleccionar este método la interfaz de red se 
+					configurará de forma dinámica si hay un
+					servidor DHCP en la red. El único parámetro configurable es la
+					elección del interfaz como externo.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Trunk 802.11q</term>
+				<listitem>
+					<para>FIXME</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>No configurado</term>
+				<listitem>
+					<para>No se establece ninguna configuración para el interfaz de
+					red.</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+
+		<section>
+			<title>Interfaces virtuales</title>
+			<para>Se pueden crear interfaces virtuales asociadas a cualquier
+			interfaz configurada como estática.</para>
+			<para>Una vez configurada la interfaz estática aparecerá un
+			formulario para añadir interfaces virtuales en el cual se asigna el
+			nombre, la dirección IP y la máscara de red del nuevo interfaz de red
+			virtual.</para>
+		</section>
 
 	</section>
 
@@ -17,7 +71,10 @@
 		<!-- Network->DNS -->
 		<title>Servidores DNS</title>
 
-		<para>TODO</para>
+		<para>Especifique las direcciones IP de los servidores DNS a
+		través de los cuales desee resolver nombres. Recuerde que si sus
+		interfaces de red están configuradas por DHCP esta configuración puede
+		ser sobreescrita.</para>
 
 	</section>
 
@@ -25,7 +82,23 @@
 		<!-- Network->Routes -->
 		<title>Rutas</title>
 
-		<para>TODO</para>
+		<para>Se accede a la configuración de las rutas a través de
+		<menuchoice>
+			<guimenu>Red</guimenu>
+			<guimenuitem>Rutas</guimenuitem>
+		</menuchoice>.
+		</para>
+
+		<section>
+			<title>Ruta por defecto</title>
+			<para>La ruta por defecto corresponderá, normalmente, con la
+			dirección IP de su router.</para>
+		</section>
+
+		<section>
+			<title>Rutas estáticas</title>
+			<para>FIXME</para>
+		</section>
 
 	</section>
 
@@ -33,7 +106,21 @@
 		<!-- Network->Diagnostics -->
 		<title>Herramientas de diagnóstico</title>
 
-		<para>TODO</para>
+		<para>Puede usar estas herramientas para comprobar que ha establecido
+		una configuración de red correcta.</para>
+
+		<para>Desde 
+		<menuchoice>
+			<guimenu>Red</guimenu>
+			<guimenuitem>Diagnóstico</guimenuitem>
+		</menuchoice>
+		 podrá realizar un ping a una máquina que sea alcanzable a través de
+		 sus interfaces de red o podrá resolver un nombre de dominio.
+		</para>
+
+		<para>El resultado de estas operaciones se mostrará en esta misma
+		página y corresponde a la salida estándar de los comandos de GNU/Linux
+		<command>ping</command> y <command>dig</command> respectivamente.</para>
 
 	</section>
 
