@@ -11,7 +11,7 @@ Architecture: all
 Depends: libebox, apache-perl, libapache-mod-ssl, libapache-singleton-perl, libapache-authcookie-perl, libgnome2-gconf-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl
 Replaces: ebox (<< 0.6)
 Conflicts: ebox (<< 0.6)
-Description: eBox base modules
+Description: base framework
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
  graphical interface to non expert users. It can be set up as a gateway,

@@ -8,7 +8,7 @@ Standards-Version: 3.6.1
 Package: ebox-usersandgroups
 Architecture: all
 Depends: ebox, slapd (>=2.2.23-5), libnet-ldap-perl
-Description: eBox user and group management module
+Description: user and group management (LDAP)
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
  graphical interface to non expert users. It can be set up as a gateway,
