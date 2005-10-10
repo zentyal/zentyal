@@ -706,12 +706,19 @@ sub setIfaceAlias # (iface, alias)
 sub ifaceAlias # (iface) 
 {
 	my ($self, $iface) = @_;
+	my $viface = undef;
 	unless ($self->ifaceExists($iface)) {
-		throw EBox::Exceptions::DataNotFound(data => __('Real interface'),
+		throw EBox::Exceptions::DataNotFound(data => __('Interface'),
 						     value => $iface);
+	}
+	if($self->vifaceExists($iface)) {
+		my @aux = $self->_viface2array($iface);
+		$iface = $aux[0];
+		$viface = $aux[1];
 	}
 	my $alias = $self->get_string("interfaces/$iface/alias");
 	defined($alias) or $alias = $iface;
+	defined($viface) and $alias = $alias . ":" . $viface;
 	return $alias;
 }
 
