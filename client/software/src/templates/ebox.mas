@@ -11,7 +11,6 @@ my $eboxupgbutton = 'no';
 	<thead>
 		<tr>
 			<th class='tleft'><%__('Component')%></th>
-			<th class='tleft'><%__('Description')%></th>
 			<th class='tleft'><%__('Installed version ')%></th>
 			<th class='tleft'><%__('Latest version')%></th>
 			<th class='thOptions'><%__('Actions')%></th>
@@ -21,8 +20,7 @@ my $eboxupgbutton = 'no';
 % 	foreach my $pkg (@eboxpkgs) {
 % 		my $eboxupg = 'no';
 		<tr class='border'>
-			<td><%$pkg->{name}%></td>
-			<td><%$pkg->{description}%></td>
+			<td><%__($pkg->{description})%></td>
 % 		if ($pkg->{version}) {
 % 			if ($pkg->{version} ne $pkg->{avail}) {
 %				$eboxupg = __('Update');
