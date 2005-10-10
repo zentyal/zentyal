@@ -39,23 +39,27 @@ use EBox::Gettext;
 
 <script type="text/javascript"><!--
 	var a = new Array();
+	var temp = 0;
 	
 %	foreach my $group (keys %table) {
 		a["<%$group%>"] = new Array();
 %		foreach (sort(@{$table{$group}})) {
-			a["<%$group%>"]["<%$_%>"] = "<%$_%>";
+			a["<%$group%>"][temp++] = "<%$_%>";
 %		}
+		temp = 0;
 %	}
 
 	function continentChanged(select){
 		countrySelect.options.length = 0;
 		continent = select.options[select.selectedIndex].value;
-		countries = a[continent];
-		for(var c in countries){
+		var countries = new Array();
+		countries = a[continent].sort();
+		for(var c=0; c < countries.length; c++){
+			alert("FOO: " + c);
 			var length = countrySelect.options.length;
 			var option;
 			
-			if(c == "<% $oldcountry %>"){
+			if(countries[c] == "<% $oldcountry %>"){
 				option = new Option(countries[c], countries[c], true,true);
 			}else{
 				option = new Option(countries[c], countries[c], false,false);
