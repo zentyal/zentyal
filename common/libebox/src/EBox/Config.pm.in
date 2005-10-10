@@ -6,20 +6,23 @@ use EBox::Gettext;
 my $ref = {};
 $ref->{prefix} = "@prefix@";
 $ref->{datadir} = "@DATADIR@";
-$ref->{datadir} =~ s/\/$//;
 $ref->{sysconfdir} = "@SYSCONFDIR@";
-$ref->{sysconfdir} =~ s/\/$//;
 $ref->{localstatedir} = "@LOCALSTATEDIR@";
-$ref->{localstatedir} =~ s/\/$//;
 $ref->{libdir} = "@LIBDIR@";
-$ref->{libdir} =~ s/\/$//;
+
+for my $key (keys(%{$ref})) {
+	if (substr($ref->{$key},-1) ne '/') {
+		$ref->{$key} = ($ref->{$key} . "/");
+	}
+}
+
 $ref->{package} = "@PACKAGE@";
 $ref->{version} = "@VERSION@";
 $ref->{perlpath} = "@PERLPATH@";
 
 sub etc 
 {
-	return $ref->{sysconfdir} . "/ebox/";
+	return $ref->{sysconfdir} . "ebox/";
 }
 
 sub var
@@ -91,77 +94,77 @@ sub share
 
 sub libexec 
 {
-	return $ref->{libdir} . "/ebox/";
+	return $ref->{libdir} . "ebox/";
 }
 
 sub locale 
 {
-	return $ref->{datadir} . "/locale/";
+	return $ref->{datadir} . "locale/";
 }
 
 sub conf 
 {
-	return $ref->{localstatedir} . "/lib/ebox/conf/";
+	return $ref->{localstatedir} . "lib/ebox/conf/";
 }
 
 sub tmp 
 {
-	return $ref->{localstatedir} . "/lib/ebox/tmp/";
+	return $ref->{localstatedir} . "lib/ebox/tmp/";
 }
 
 sub passwd 
 {
-	return $ref->{localstatedir} . "/lib/ebox/conf/ebox.passwd";
+	return $ref->{localstatedir} . "lib/ebox/conf/ebox.passwd";
 }
 
 sub sessionid 
 {
-	return $ref->{localstatedir} . "/lib/ebox/conf/ebox.sid";
+	return $ref->{localstatedir} . "lib/ebox/conf/ebox.sid";
 }
 
 sub log 
 {
-	return $ref->{localstatedir} . "/lib/ebox/log/";
+	return $ref->{localstatedir} . "lib/ebox/log/";
 }
 
 sub logfile
 {
-	return $ref->{localstatedir} . "/lib/ebox/log/ebox.log";
+	return $ref->{localstatedir} . "lib/ebox/log/ebox.log";
 }
 
 sub stubs 
 {
-	return $ref->{datadir} . "/ebox/stubs/";
+	return $ref->{datadir} . "ebox/stubs/";
 }
 
 sub cgi 
 {
-	return $ref->{datadir} . "/ebox/cgi/";
+	return $ref->{datadir} . "ebox/cgi/";
 }
 
 sub templates 
 {
-	return $ref->{datadir} . "/ebox/templates/";
+	return $ref->{datadir} . "ebox/templates/";
 }
 
 sub schemas 
 {
-	return $ref->{datadir} . "/ebox/schemas/";
+	return $ref->{datadir} . "ebox/schemas/";
 }
 
 sub www 
 {
-	return $ref->{datadir} . "/ebox/www/";
+	return $ref->{datadir} . "ebox/www/";
 }
 
 sub css 
 {
-	return $ref->{datadir} . "/ebox/www/css/";
+	return $ref->{datadir} . "ebox/www/css/";
 }
 
 sub images 
 {
-	return $ref->{datadir} . "/ebox/www/images/";
+	return $ref->{datadir} . "ebox/www/images/";
 }
 
 sub package 
