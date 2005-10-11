@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-07-18 20:22+0200\n"
+"POT-Creation-Date: 2005-10-11 10:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,27 +24,33 @@ msgstr ""
 msgid "external synchronize status"
 msgstr ""
 
-#: src/EBox/CGI/Timezone.pm:30 src/EBox/CGI/Timezone.pm:41
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40
-#: src/EBox/CGI/Datetime.pm:30 src/EBox/CGI/Datetime.pm:40 src/EBox/NTP.pm:428
-msgid "NTP"
+#: src/EBox/CGI/Timezone.pm:30
+msgid "Timezone settings"
+msgstr ""
+
+#: src/EBox/CGI/Index.pm:30
+msgid "NTP Server"
 msgstr ""
 
 #: src/EBox/CGI/AddServers.pm:42
 msgid "first ntp server"
 msgstr ""
 
-#: src/EBox/CGI/AddServers.pm:45 src/templates/servers.mas:14
+#: src/EBox/CGI/AddServers.pm:45 src/templates/servers.mas:18
 msgid "Primary server"
 msgstr ""
 
 #: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:228
-#: src/templates/servers.mas:26
+#: src/templates/servers.mas:30
 msgid "Secondary server"
 msgstr ""
 
-#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
+#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:42
 msgid "Tertiary server"
+msgstr ""
+
+#: src/EBox/CGI/Datetime.pm:30
+msgid "Date and time settings"
 msgstr ""
 
 #: src/EBox/CGI/ChangeTimeZone.pm:41
@@ -107,56 +113,64 @@ msgstr ""
 msgid "NTP local server"
 msgstr ""
 
-#: src/EBox/NTP.pm:431
-msgid "NTP server"
+#: src/EBox/NTP.pm:428
+msgid "System"
 msgstr ""
 
-#: src/EBox/NTP.pm:433
+#: src/EBox/NTP.pm:431
 msgid "Date/time"
 msgstr ""
 
-#: src/EBox/NTP.pm:435 src/templates/timezone.mas:15
+#: src/EBox/NTP.pm:434 src/templates/timezone.mas:15
 msgid "Time zone"
 msgstr ""
 
+#: src/EBox/NTP.pm:438
+msgid "NTP server"
+msgstr ""
+
+#: src/templates/synch.mas:11 src/templates/synch.mas:16
+msgid "Disabled"
+msgstr ""
+
 #: src/templates/synch.mas:13 src/templates/synch.mas:18
-msgid "No"
+msgid "Enabled"
 msgstr ""
 
-#: src/templates/synch.mas:15 src/templates/synch.mas:20
-msgid "Yes"
+#: src/templates/synch.mas:23 src/templates/synch.mas:25
+#: src/templates/servers.mas:55 src/templates/timezone.mas:37
+#: src/templates/timezone.mas:39 src/templates/date.mas:111
+#: src/templates/date.mas:113
+msgid "Change"
 msgstr ""
 
-#: src/templates/synch.mas:25 src/templates/synch.mas:27
-msgid "Ok"
+#: src/templates/index.mas:11
+msgid "NTP server status"
 msgstr ""
 
-#: src/templates/index.mas:12
-msgid "Enable the local NTP server"
+#: src/templates/servers.mas:7
+msgid "NTP servers"
 msgstr ""
 
-#: src/templates/servers.mas:8
-msgid "Insert here the NTP servers to synchronize with"
+#: src/templates/servers.mas:11
+msgid ""
+"You should remember to set up your timezone to have synchronization behaving "
+"correctly."
 msgstr ""
 
 #: src/templates/timezone.mas:19
 msgid "A time zone change will cause all eBox services to be restarted"
 msgstr ""
 
-#: src/templates/timezone.mas:37 src/templates/timezone.mas:39
-#: src/templates/date.mas:111 src/templates/date.mas:113
-msgid "Change"
+#: src/templates/datetime.mas:13
+msgid "Time synchronization with NTP servers"
 msgstr ""
 
-#: src/templates/datetime.mas:14
-msgid "Synchronize with external NTP servers"
-msgstr ""
-
-#: src/templates/datetime.mas:19
+#: src/templates/datetime.mas:18
 msgid "External NTP servers"
 msgstr ""
 
-#: src/templates/datetime.mas:24
+#: src/templates/datetime.mas:23
 msgid "Change Date and Time"
 msgstr ""
 
@@ -166,7 +180,7 @@ msgid ""
 msgstr ""
 
 #: src/templates/date.mas:16
-msgid "Change date"
+msgid "Date"
 msgstr ""
 
 #: src/templates/date.mas:32
@@ -218,5 +232,5 @@ msgid "December"
 msgstr ""
 
 #: src/templates/date.mas:69
-msgid "Change time"
+msgid "Time"
 msgstr ""
