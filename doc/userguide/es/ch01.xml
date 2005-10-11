@@ -35,15 +35,15 @@
 		eBox es una plataforma que incorpora servicios web y una aplicación de gestión 
 		de dichos servicios	a través de un interfaz web. 
 		Entre estos servicios se encuentran: cortafuegos, compartición de ficheros, 
-		proxy caché, filtro de contenidos, servidor ntp, servidor DHCP, 
-		servidor de impresoras, servidor de correo y gestión de objetos de red.
+		proxy caché, filtro de contenidos, servidor de correo, servidor NTP, servidor DHCP, 
+		servidor de impresoras y gestión de objetos de red.
 		</para>
 
 		<para>
 		eBox se ha diseñado de forma modular, por lo que es posible que su 
 		instalación no incluya todos los módulos que se detallan en este manual. 
 		En cualquier caso puede consultar la información acerca de los módulos 
-		que no posee y averiguar si le resultan útiles, necesarios o aportan un 
+		que no posee y averiguar si le resultan útiles, necesarios o si aportan un 
 		valor añadido a su plataforma eBox actual.
 		</para>
   </section>
@@ -104,7 +104,7 @@
 					El contenido, que ocupa la parte central, comprende uno o varios 
 					formularios con información acerca de la configuración del 
 					servicio seleccionado a traves del menú vertical izquierdo y sus submenús. 
-					En ocasiones, en la parte superior podrá encontrar una barra de pestañas
+					En ocasiones, en la parte superior podrá encontrar una barra de pestañas que
 					representarán diferentes subsecciones de la seción a la que hemos accedido.
 					</para>
 					<!-- FIXME: content screenshot -->
@@ -142,8 +142,8 @@
 					<term>Gestión de usuarios y grupos</term>
 						<listitem>
 							<para>
-							Añadir, modificar y eliminar usuarios o grupos es una	acción 
-							inmediata y no es necesario Guardar Cambios para hacerla efectiva.
+							Añadir, modificar y eliminar usuarios o grupos son acciones 
+							inmediatas y no es necesario Guardar Cambios para hacerlas efectivas.
 							</para>
 						</listitem>
 				</varlistentry>
@@ -160,11 +160,10 @@
 					<term>Cambio de idioma</term>
 						<listitem>
 							<para>
-							El cambio del idioma del interfaz es un cambio
-							automático que no precisa de ser guardado de forma permanete.
-							El cambio de idioma está en 
+							El cambio del idioma del interfaz es automático y no necesita
+							ser guardado de forma permanete. Se puede modificar el idioma de eBox en 
 								<menuchoice>
-									<guimenu>System</guimenu>
+									<guimenu>Sistema</guimenu>
 									<guimenuitem>General</guimenuitem>
 								</menuchoice>
 							</para>
