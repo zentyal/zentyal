@@ -8,123 +8,173 @@
 		<!-- System->General -->
 		<title>Configuración general del interfaz de usuario</title>
 
-		<para>Se accede a la configuración general del interfaz a través de
-		<menuchoice>
-			<guimenu>Sistema</guimenu>
-			<guimenuitem>General</guimenuitem>
-		</menuchoice>
+		<para>
+		Se accede a la configuración general del interfaz a través de
+			<menuchoice>
+				<guimenu>Sistema</guimenu>
+				<guimenuitem>General</guimenuitem>
+			</menuchoice>
 		del menú lateral izquierdo.
 		</para>
 
-		<para>Desde esta sección puede hacer tres cambios significativos
-		sobre el interfaz de administración de eBox:</para>
+		<para>
+		Desde esta sección se pueden hacer tres cambios significativos
+		sobre el interfaz de administración de eBox:
+		</para>
 
 		<section>
 			<title>Cambiar contraseña</title>
-			<para>Introduzca la contraseña actual, la nueva, confirme dicha
-			contraseña introduciéndola una vez más y después confirme los
-			cambios en el formulario. Para hacer efectivos estos cambios no
-			olvide guardar su configuración de forma definitiva.</para>
+			<para>
+			Para cambiar la contraseña se debe introducir la contraseña actual, 
+			por motivos de seguridad,	y la contraseña nueva, confirmando dicha 
+			contraseña, es decir, introduciéndola dos veces en líneas sucesivas. 
+			Seguidamente es necesario aceptar el formulario sin olvidar que 
+			para hacer efectivos los cambios debe guardar su configuración de 
+			forma definitiva usando la opción	correspondiente del menu 
+			horizontal superior.
+			</para>
 		</section>
 
 		<section>
 			<title>Selección de Idioma</title>
-			<para>Seleccione de la lista desplegagle el idioma que prefiera y
-			confirme los cambios aceptando el formulario. No es necesario
-			guardar los cambios de forma global para que el cambio sea
-			efectivo.</para>
+			<para>
+			Seleccione de la lista desplegable el idioma que prefiera y
+			confirme los cambios aceptando el formulario. Esta vez no será
+			necesario	guardar los cambios de forma global para que el cambio sea
+			efectivo.
+			</para>
 		</section>
 
 		<section>
 			<title>Puerto TCP de la interfaz de administración</title>
 
-			<para>Si cambia el puerto a un valor diferente al 443, acepta el
+			<para>
+			Si se cambia el puerto a un valor diferente al 443, acepta el
 			formulario y guarda los cambios podrá acceder usando la
-			dirección:<ulink url="#">https://hostname:PUERTO/eBox</ulink></para>
+			dirección:<ulink url="#">https://hostname:PUERTO/eBox</ulink>
+			siendo PUERTO el nuevo número de puerto introducido.
+			</para>
 
-			<para>Ha de tener en cuenta que cuando guarde los cambios, después
-			de cambiar el puerto del interfaz de administración, tardará unos
-			segundos hasta poder acceder usando la nueva dirección.</para>
+			<note>
+				<para>
+				Se ha de tener en cuenta que después de guardar los cambios 
+				realizados sobre el puerto del interfaz de administración, 
+				pasarán unos segundos	antes de que sea posible acceder usando 
+				el nuevo puerto.
+				</para>
+			</note>
 		</section>
-
 	</section>
 
 	<section id='sect-ebox-backup'>
 		<!-- System->Backup -->
 		<title>Backups de la configuración</title>
 
-		<para>Acceda a la gestión de backups de eBox a través de 
-		<menuchoice>
-			<guimenu>Sistema</guimenu>
-			<guimenuitem>Backups</guimenuitem>
-		</menuchoice>
+		<para>
+		Se accede a la gestión de backups de eBox a través de 
+			<menuchoice>
+				<guimenu>Sistema</guimenu>
+				<guimenuitem>Backups</guimenuitem>
+			</menuchoice>
 		del menú lateral izquierdo. 
 		</para>
 
-		<para>Desde el interfaz de backups básicamente podrá guardar la última
-		configuración guardada de eBox o recuperarla.</para>
+		<para>
+		Desde el interfaz de backups se permitirá hacer una copia
+		de seguridad de la última configuración guardada de eBox o 
+		restaurar copias de seguridad de configuraciones anteriores.
+		</para>
 
 		<section>
 			<title>Guardar la configuración actual</title>
-			<para>Después de introducir una descripción y guardar los cambios
+			<para>
+			Después de introducir una descripción y guardar los cambios
 			en el formulario aparecera una nueva entrada en la lista de
 			backups de la configuración, indicando la descripción y la fecha
-			de realización del backup.</para>
+			de realización del backup. 
+			</para>
+
+			<note>
+				<para>
+				Es importante recordar que la configuración de la que se hace 
+				copia de seguridad es de la última configuración guardada a través
+				del enlace correspondiente en el menú horizontal superior.
+				</para>
+			</note>
 		</section>
 
 		<section>
 			<title>Recuperar la configuración</title>
-			<para>Puede recuperar la configuración subiendo el fichero de 
-			backup de su disco duro y presionando en restaurar.</para>
+			<para>
+			Puede recuperar la configuración cargando el fichero de 
+			backup de su disco duro y presionando en restaurar. Esta opción
+			es útil para restaurar copias de seguridad exportadas a otros
+			dispositivos de almacenamiento.
+			</para>
 		</section>
 
 		<section>
 			<title>Lista de backups de la configuración</title>
-			<para>Desde las acciones de esta lista, situadas a la derecha de
-			cada elemento, podrá, por este orden, restaurar un backup,
+			<para>
+			La lista de backups contiene los backups de eBox realizados durante
+			el período de funcionamiento.	Las acciones de esta lista, situadas 
+			a la derecha de	cada elemento, permiten restaurar un backup,
 			descargar un fichero con el backup a su disco duro o eliminar un
-			backup de la lista.</para>
+			backup de la lista.
+			</para>
 		</section>
-
 	</section>
 
 	<section id='sect-ebox-halt'>
 		<!-- System->Halt/Reboot -->
 		<title>Reinicio/Apagado del sistema</title>
 
-		<para>Podrá acceder al interfaz para apagar o reiniciar el computador
-		sobre el que funciona su sistema eBox a través de 
-		<menuchoice>
-			<guimenu>Sistema</guimenu>
-			<guimenuitem>Apagar o reiniciar</guimenuitem>
-		</menuchoice>.
+		<para>
+		El interfaz para apagar o reiniciar el computador	sobre el que funciona 
+		su sistema eBox es accesible a través de 
+			<menuchoice>
+				<guimenu>Sistema</guimenu>
+				<guimenuitem>Apagar o reiniciar</guimenuitem>
+			</menuchoice>.
 		</para>
 
-		<para>Tenga en cuenta que si su sistema eBox es la puerta de enlace
-		para su conexión a Internet la perderá mientras la máquina esté
-		apagada.</para>
-
+		<para>
+		No se debe olvidar que si su sistema eBox es la puerta de enlace
+		para su conexión a Internet, perdera dicha conexión mientras 
+		la máquina esté	apagada.
+		</para>
 	</section>
 
 	<section id='sect-ebox-bug'>
 		<!-- System->Bug report -->
 		<title>Generación de informes de error</title>
 
-		<para>Si encuentra alguna anomalía durante el funcionamiento de eBox
-		puede generar un fichero con el informe de error correspondiente en 
-		<menuchoice>
-			<guimenu>Sistema</guimenu>
-			<guimenuitem>Informe de error</guimenuitem>
-		</menuchoice>
+		<para>
+		Si se encuentra alguna anomalía durante el funcionamiento de eBox
+		se puede generar un fichero con el informe de error correspondiente en 
+			<menuchoice>
+				<guimenu>Sistema</guimenu>
+				<guimenuitem>Informe de error</guimenuitem>
+			</menuchoice>
 		y enviarlo por correo electrónico a support@ebox-platform.com
 		</para>
-
 	</section>
 
 	<section id='sect-ebox-datetime'>
 		<!-- System->Date/Time -->
 		<title>Configuración horaria</title>
-		<para>FIXME: añadir aqui tambien la configuración de la zona horaria.</para>
-	</section>
+		<para>
+		Para configurar la zona horaria en la que se encuentra el sistema 
+		sólo tiene que seleccionar una zona geográfica de la lista desplegable
+		de la izquierda y una ciudad de la lista desplegable de la derecha que
+		pertenezcan a su huso horario y aceptar la configuración.
+		</para>
 
+		<note>
+			<para>
+			Al realizar este cambio se reiniciarán todos los servicios de eBox.
+			</para>
+		</note>
+	</section>
+	
 </chapter>
