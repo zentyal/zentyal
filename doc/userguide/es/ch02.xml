@@ -21,7 +21,37 @@
 		Desde esta sección se pueden hacer tres cambios significativos
 		sobre el interfaz de administración de eBox:
 		</para>
+		
+		<variablelist>
+			<varlistentry>
+				<term>Cambiar contraseña</term>
+				<listitem>
+					<para>
+					Permite cambiar la contraseña para administrar eBox.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Selección de Idioma</term>
+				<listitem>
+					<para>
+					eBox puede mostrar la información en varios idiomas,
+					seleccionables desde esta sección.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Puerto TCP de la interfaz de administración</term>
+				<listitem>
+					<para>
+					El puerto al que se conecta la interfaz de administración
+					de eBox es configurable por el usuario.
+					</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
 
+		
 		<section>
 			<title>Cambiar contraseña</title>
 			<para>

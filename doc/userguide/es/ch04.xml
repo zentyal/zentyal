@@ -7,63 +7,98 @@
 	<section id='sect-objects-desc'>
 		<title>¿Qué son los objetos de red?</title>
 
-		<para>Los objetos de red sirven para simplificar la gestión de los
-		elementos pertenecientes a una red.</para>
+		<para>
+		Los objetos de red son una manera de darle un nombre a un 
+		elemento de una red o un conjunto de elementos. Sirven para 
+		simplificar la gestión de la configuración de la red pudiendo 
+		elegir comportamientos para elementos individuales o conjuntos 
+		de elementos con un	solo nombre explicativo.
+		</para>
 
-		<para>Por ejemplo, en lugar de definir reglas de acceso para varios
-		elementos por separado, es posible agruparlas en un único objeto.
-		También resultan útiles para asociar nombres a las direcciones
-		IP.</para>
-
-
+		<para>
+		Por ejemplo, pueden servir para ponerle un nombre a una direccion IP
+		o a un grupo de direcciones IP. En el caso de ser un grupo de 
+		direcciones IP, en lugar de definir reglas de acceso cada una de las 
+		direcciones, bastaría simplemente con definirlas para el objeto de red
+		para que todas las direcciones pertenecientes al objeto adquirieran dicha
+		configuración.
+		</para>
 	</section>
 
 	<section id='sect-objects-manage'>
 		<!-- Objects -->
 		<title>Gestión de objetos de red</title>
 
-		<para>TODO</para>
+		<para>
+		Los objetos de red con los que trabaja eBox se pueden crear, modificar y
+		borrar de una forma sencilla e intuitiva gracias al interfaz web.
+		</para>
 
 		<section id="create-object">
 			<title>Creación de objetos</title>
 
-			<para>La creación de nuevos objetos se lleva a cabo desde el menú
-			<menuchoice><guimenu>Objetos</guimenu></menuchoice></para>
+			<para>
+			La creación de nuevos objetos se lleva a cabo desde el menú
+				<menuchoice><guimenu>Objetos</guimenu></menuchoice>
+			.
+			</para>
 
-			<para>Para ello, se debe introducir el el nombre del
+			<para>
+			Para ello, se debe introducir el el nombre del
 			objeto en el recuadro a tal efecto, y pulsar sobre
-			<guibutton>Crear</guibutton>.</para>
+				<guibutton>Crear</guibutton>
+			.
+			</para>
 
-			<para>El siguiente paso es introducir los miembros del objeto en la
-			pantalla que aparece. Para cada miembro se pueden definir:</para>
+			<para>
+			El siguiente paso es introducir los miembros del objeto en la
+			pantalla que aparece. Para cada miembro se pueden definir:
+			</para>
 
 			<itemizedlist>
-				<listitem><para><guilabel>Nombre</guilabel>: el nombre con el que
-				se va a designar ese miembro</para></listitem>
-				<listitem><para><guilabel>Dirección IP</guilabel>: la dirección IP
-				del miembro</para></listitem>
-				<listitem><para><guilabel>Máscara de red</guilabel>: la máscara de
-				red, utilizando la notación CIDR</para></listitem>
+				<listitem><para><guilabel>Nombre</guilabel>
+				: el nombre con el quese va a designar ese miembro
+				</para></listitem>
+				<listitem><para><guilabel>Dirección IP</guilabel>
+				: la dirección IP	del miembro
+				</para></listitem>
+				<listitem><para><guilabel>Máscara de red</guilabel>
+				: la máscara de	red, utilizando la notación CIDR
+				</para></listitem>
 				<!-- FIXME: poner equivalencias entre notación CIDR y dotted
 				subnet -->
-				<listitem><para><guilabel>MAC</guilabel> (opcional): la
-				dirección hardware -o dirección MAC- del interfaz de red
-				correspondiente a la dirección IP</para></listitem>
+				<listitem><para><guilabel>MAC</guilabel> 
+				(opcional): la dirección hardware -o dirección MAC- del 
+				interfaz de red	correspondiente a la dirección IP
+				</para></listitem>
 			</itemizedlist>
 
-			<para>Una vez introducidos los campos oportunos, pulsar sobre
-			la <guilabel>Acción</guilabel> correspondiente a añadir.</para>
+			<para>
+			Una vez introducidos los campos oportunos, pulsar sobre
+			la <guilabel>Acción</guilabel> correspondiente a añadir.
+			</para>
+		</section>
 
+		<section id="edit-object">
+			<title>Edición de objetos</title>
+
+			<para>
+			Para editar un objeto de la lista de objetos, basta con pulsar 
+			sobre el icono de la <guilabel>Acción</guilabel> 
+			correspondiente a editar. El método de edición es exactamente el
+			mismo que el de creación.
+			</para>
 		</section>
 
 		<section id="delete-object">
 			<title>Eliminación de objetos</title>
 
-			<para>Para eliminar un objeto, debe pulsarse sobre el icono
-			de la <guilabel>Acción</guilabel> correspondiente a borrar.</para>
-
+			<para>
+			Para eliminar un objeto que se encuentre en la lista de objetos	actuales, 
+			debe pulsarse sobre el icono de la <guilabel>Acción</guilabel> 
+			correspondiente a borrar.
+			</para>
 		</section>
-
 	</section>
-
+	
 </chapter>
