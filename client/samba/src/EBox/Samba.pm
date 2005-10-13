@@ -180,8 +180,12 @@ sub firewallHelper
 sub statusSummary
 {
 	my $self = shift;
+	my $running;
+	if ($self->fileService()) {
+		$running = $self->isRunning();
+	}
 	return new EBox::Summary::Status('samba', __('File sharing'),
-					$self->isRunning, $self->fileService);
+					$running, $self->fileService);
 }
 
 sub menu
