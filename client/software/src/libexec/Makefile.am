@@ -1,5 +1,9 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS =  EBox libexec templates
+scriptsdir = @LIBDIR@/ebox
+
+scripts_SCRIPTS = eboxsofttool
 
 MAINTAINERCLEANFILES = Makefile.in
+
+EXTRA_DIST = $(scripts_SCRIPTS)
