@@ -106,7 +106,7 @@ sub menu
 	my ($self, $root) = @_;
 
 	$root->add(new EBox::Menu::Item('url' => 'Summary/Index',
-					'text' => __('Summary'),
+					'text' => __('Status'),
 					'order' => 1));
 
 	my $folder = new EBox::Menu::Folder('name' => 'EBox',
