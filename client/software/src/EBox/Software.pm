@@ -127,7 +127,7 @@ sub updatePkgList
 sub fetchAllPkgs
 {
 	my @pkgs;
-	@pkgs = @{_getSoftToolResult("ebox-info")};
+	@pkgs = @{_getSoftToolResult("ebox")};
 
 	my $cmd ='/usr/bin/apt-get install -qq --download-only --yes ';
 	$cmd .= join(" ", @pkgs);
