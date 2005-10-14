@@ -55,7 +55,6 @@ use EBox::Gettext;
 		var countries = new Array();
 		countries = a[continent].sort();
 		for(var c=0; c < countries.length; c++){
-			alert("FOO: " + c);
 			var length = countrySelect.options.length;
 			var option;
 			
