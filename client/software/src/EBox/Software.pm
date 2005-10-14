@@ -113,7 +113,7 @@ sub installPkgs # (@pkgs)
 sub removePkgs # (@pkgs)
 {
 	my ($self, @pkgs) = @_;
-	my $cmd ='/usr/bin/apt-get remove --no-download -q --yes ';
+	my $cmd ='/usr/bin/apt-get remove --purge --no-download -q --yes ';
 	$cmd .= join(" ", @pkgs);
 	try {
 		root($cmd);

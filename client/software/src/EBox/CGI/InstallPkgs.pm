@@ -55,8 +55,10 @@ sub _process($) {
 		$action = 'upgrade';
 		$doit = 'yes';
 	} elsif (defined($self->param('ebox-install'))) {
+		$self->{chain} = "Software/EBox";
 		$action = 'install';	
 	} elsif (defined($self->param('ebox-remove'))) {
+		$self->{chain} = "Software/EBox";
 		$action = 'remove';
 	} else {
 		$self->{redirect} = "Summary/Index";
