@@ -2,10 +2,27 @@
 -->
 <chapter id="ch-dns">
 
-	<title>Cach� DNS</title>
+	<title>Caché DNS</title>
 
-	<para>
-	TODO
-	</para>
+	<section id='sect-time-ntp'>
+		<!-- NTP->Server -->
+		<title>Caché DNS</title>
+
+		<para>
+		La caché DNS sólo permite ser activada o desactivada en la pantalla
+		de configuración a la que se puede acceder a través de 
+			<menuchoice>
+				<guimenu>Caché DNS</guimenu>
+			</menuchoice>
+		.
+		</para>
+
+		<para>
+		Si se encuentra activada permitirá que varias peticiones DNS iguales 
+		a eBox se	resuelvan con una sola petición DNS externa, reduciendo así
+		el tiempo de respuesta y el tráfico por la red para los sitios más 
+		frecuentados.
+		</para>
+	</section>
 
 </chapter>
