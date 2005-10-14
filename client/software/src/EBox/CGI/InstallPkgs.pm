@@ -78,6 +78,7 @@ sub _process($) {
 		}
 		#regen the cache
 		$software->listUpgradablePkgs(1);
+		$software->listEBoxPkgs(1);
 		delete $self->{'template'};
 		return;
 	}

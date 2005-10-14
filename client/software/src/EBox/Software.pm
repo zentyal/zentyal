@@ -59,8 +59,27 @@ sub _getSoftToolResult {
 # 	array ref of hashes holding the above keys
 sub listEBoxPkgs
 {
-	my $self = shift;
-	return _getSoftToolResult("ebox-info");
+	my ($self,$clear) = @_;
+
+	my $eboxlist = [];
+
+	my $file = EBox::Config::tmp . "eboxpackagelist";
+
+	if(defined($clear) and $clear == 1){
+		if ( -f "$file" ) {
+			unlink($file);
+		}
+	}else{
+		if (-f "$file" ) {
+			$eboxlist = retrieve($file);
+			return $eboxlist;
+		}
+	}
+	
+	$eboxlist =  _getSoftToolResult("ebox-info");
+
+	store($eboxlist, $file);
+	return $eboxlist;
 }
 
 # Method: installPkgs 
