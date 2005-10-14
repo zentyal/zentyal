@@ -7,6 +7,9 @@
 <%init>
 use EBox::Gettext;
 </%init>
+<div class="warning">
+	<%__('FIXME: Crear, eliminar o modificar información de usuarios son acciones que tienen efecto inmediato y no es necesario guardar los cambios para que tengan efecto.')%>
+</div>
 <h3><% __('Add User') %></h3>
 	<form action='AddUser' method='POST'>
 	<table class='formTable'>

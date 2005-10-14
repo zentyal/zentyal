@@ -7,6 +7,9 @@
 use EBox::Gettext;
 use Data::Dumper;
 </%init>
+<div class="warning">
+	<%__('FIXME: Crear, eliminar o modificar información de grupos son acciones que tienen efecto inmediato y no es necesario guardar los cambios para que tengan efecto.')%>
+</div>
 <h3><% __('Add Group') %></h3>
 	<form action='AddGroup' method='POST'>
 	<table class='formTable'>
