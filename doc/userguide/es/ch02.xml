@@ -193,18 +193,75 @@
 	<section id='sect-ebox-datetime'>
 		<!-- System->Date/Time -->
 		<title>Configuración horaria</title>
+
 		<para>
-		Para configurar la zona horaria en la que se encuentra el sistema 
+		Se accede a la configuración horaria a través de 
+			<menuchoice>
+				<guimenu>Sistema</guimenu>
+				<guimenuitem>Fecha/hora</guimenuitem>
+			</menuchoice>
+		y
+			<menuchoice>
+				<guimenu>Sistema</guimenu>
+				<guimenuitem>Zona horaria</guimenuitem>
+			</menuchoice>
+		.	
+		</para>
+
+		<para>
+		En
+			<menuchoice>
+				<guimenu>Sistema</guimenu>
+				<guimenuitem>Fecha/hora</guimenuitem>
+			</menuchoice>
+		se permite ajustar la fecha y la hora de eBox. Existen dos opciones distintas
+		para ajustar la fecha y la hora correctamente: manualmente, deshabilitando la
+		sincronización con un servidor NTP, y a través de un servidor NTP externo,
+		habilitando la sincronización con un servidor NTP
+		<variablelist>
+			<varlistentry>
+				<term>Manualmente</term>
+				<listitem>
+					<para>
+					Si la sincronización con otro servidor NTP está desactivada, el ajuste de
+					fecha y hora será manual, seleccionando los valores correspondientes a 
+					través de las listas desplegables que se muestran en la pantalla tanto para
+					la fecha como para la hora del sistema.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Por medio de otro servidor NTP</term>
+				<listitem>
+					<para>
+					Si la sincronización de hora y fecha con un servidor NTP está activada se
+					mostrará una pantalla de configuración en la que se podrán especificar
+					hasta tres servidores NTP de los que eBox obtendrá la hora y fecha
+					actuales teniendo en cuenta la zona horaria configurada en el sistema.
+					</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+		</para>
+
+		<para>
+		A través de
+			<menuchoice>
+				<guimenu>Sistema</guimenu>
+				<guimenuitem>Zona horaria</guimenuitem>
+			</menuchoice>
+		se puede configurar la zona horaria en la que se encuentra el sistema, 
 		sólo tiene que seleccionar una zona geográfica de la lista desplegable
 		de la izquierda y una ciudad de la lista desplegable de la derecha que
 		pertenezcan a su huso horario y aceptar la configuración.
 		</para>
 
-		<note>
+		<warning>
 			<para>
-			Al realizar este cambio se reiniciarán todos los servicios de eBox.
+			Al realizar un cambio en la configuración horaria del sistema 
+			se reiniciarán todos los servicios de eBox.
 			</para>
-		</note>
+		</warning>
 	</section>
 	
 </chapter>

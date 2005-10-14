@@ -7,53 +7,74 @@
 	<section id='sect-fw-desc'>
 		<title>Funcionamiento del firewall</title>
 
-		<para>TODO</para>
+		<para>
+		TODO
+		</para>
 
-		<para>TODO: qué hace eBox con los interfaces externos</para>
-		<para>TODO: qué tráficos se aplican para objetos y reglas</para>
-		<para>TODO: qué diferencias hay entre objetos y reglas</para>
+		<para>
+		TODO: qué hace eBox con los interfaces externos
+		</para>
 
+		<para>
+		TODO: qué tráficos se aplican para objetos y reglas
+		</para>
+		
+		<para>
+		TODO: qué diferencias hay entre objetos y reglas
+		</para>
 	</section>
 
 	<section id='sect-fw-redirects'>
 		<!-- Firewall->Redirects -->
 		<title>Redirecciones de puertos</title>
 
-		<para>Las redirecciones de puertos permiten llevar un tráfico
+		<para>
+		Las redirecciones de puertos permiten llevar un tráfico
 		procedente del exterior de la red hacia una máquina detrás de un
-		cortafuegos equipado con eBox.</para>
+		cortafuegos equipado con eBox.
+		</para>
 
-		<para>Para añadir una nueva redirección, en primer lugar debe
+		<para>
+		Para añadir una nueva redirección, en primer lugar debe
 		seleccionarse el <guilabel>Interfaz</guilabel> que atenderá las
 		peticiones de conexión. Este debe ser uno de los designados como
 		externos en la configuración de los interfaces de red. Además, debe
 		especificarse el <guilabel>Puerto externo</guilabel> sobre el que se
 		espera recibir el tráfico, y el <guilabel>Protocolo</guilabel> que este
-		empleará.</para>
+		empleará.
+		</para>
 
-		<para>En cuanto a la máquina destino, se debe introducir su
+		<para>
+		En cuanto a la máquina destino, se debe introducir su
 		<guilabel>Dirección IP</guilabel> y el <guilabel>Puerto</guilabel> al
-		que se reencaminarán los paquetes.</para>
+		que se reencaminarán los paquetes.
+		</para>
 
-		<para>Una vez suminstrados todos estos datos, basta escoger entre las
+		<para>
+		Una vez suminstrados todos estos datos, basta escoger entre las
 		<guilabel>Acciones</guilabel> la correspondiente a añadir, y pulsar
-		sobre ella.</para>
+		sobre ella.
+		</para>
 
-		<para>Para eliminar una regla, debe seleccionarse borrar entre las
-		<guilabel>Acciones</guilabel>, y pulsar sobre ella.</para>
+		<para>
+		Para eliminar una regla, debe seleccionarse borrar entre las
+		<guilabel>Acciones</guilabel>, y pulsar sobre ella.
+		</para>
 
-		<para>La configuración de una redirección puede modificarse simplemente
+		<para>
+		La configuración de una redirección puede modificarse simplemente
 		cambiando los parámetros sobre la misma y pulsando entre las
-		<guilabel>Acciones</guilabel> en la correspondiente a modificar.</para>
-
+		<guilabel>Acciones</guilabel> en la correspondiente a modificar.
+		</para>
 	</section>
 
 	<section id='sect-fw-filter'>
 		<!-- Firewall->Packet Filter -->
 		<title>Filtrado</title>
 
-		<para>TODO</para>
-
+		<para>
+		TODO
+		</para>
 	</section>
 
 </chapter>

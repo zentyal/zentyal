@@ -8,8 +8,23 @@
 		<!-- NTP->Server -->
 		<title>Servidor NTP</title>
 
-		<para>TODO</para>
+		<para>
+	  El servidor NTP sólo puede ser activado o desactivado en la pantalla
+		de configuración a la que se puede acceder a través de 
+			<menuchoice>
+				<guimenu>Servidor NTP</guimenu>
+			</menuchoice>
+		.
+		</para>
 
+		<para>
+		Si se encuentra activado, los clientes que tengan eBox 
+		como servidor NTP	mantendrán sincronizada su configuración horaria 
+		con la que posea eBox, que a su vez puede ser configurada siguiendo
+		las instrucciones que se indican en
+		<link linkend='sect-ebox-datetime'>Configuración horaria</link>
+		.
+		</para>
 	</section>
 
 </chapter>
