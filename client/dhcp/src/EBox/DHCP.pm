@@ -741,6 +741,8 @@ sub _configureFirewall {
 sub ifaceMethodChanged # (iface, old_method, new_method)
 {
 	my ($self, $iface, $old_method, $new_method) = @_;
+	($old_method eq 'static') or return 0;
+
 	my $nr = @{$self->ranges($iface)};
 	($nr != 0) and return 1;
 
