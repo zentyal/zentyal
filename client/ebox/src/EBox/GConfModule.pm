@@ -77,15 +77,15 @@ sub _state
 	$self->{helper} = $self->{state};
 }
 
-sub _load_from_file # (dir?) 
+sub _load_from_file # (dir?, key?) 
 {
-	my ($self, $dir) = @_;
+	my ($self, $dir, $key) = @_;
 	($dir) or $dir = EBox::Config::conf;
 
 	my $file = "$dir/" . $self->name . ".bak";
 	-f $file or throw EBox::Exceptions::Internal("Backup file missing: ".
 							"$file.");
-	my $key = $self->_key("");
+	($key) or $key = $self->_key("");
 	$self->_delete_dir_internal($key);
 	`/usr/bin/gconftool --load=$file $key` and
 		throw EBox::Exceptions::Internal("Error while restoring " .
@@ -155,9 +155,7 @@ sub _saveConfig
 			 . " module: " . $self->name() . "\n");
 	}
 	$self->_dump_to_file();
-	$self->{ro} = 1;
-	$self->_load_from_file();
-	$self->{ro} = undef;
+	$self->_load_from_file(undef, "/ebox-ro/modules/". $self->name());
 }
 
 sub _backup
