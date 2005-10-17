@@ -21,6 +21,8 @@
 
   configure will autodetect EBox base path to install
 
+- Add ebox to lpadmin group
+
 - Update your sudoers file with the ebox-sudoers command.
 
 - Do not run cupsys on startup, this module takes control of it:
