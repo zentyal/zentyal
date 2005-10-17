@@ -21,6 +21,8 @@ case "$1" in
                 #sudo configuration
                 ebox-sudoers > /etc/sudoers
                 chmod 0440 /etc/sudoers
+
+		adduser --quiet ebox lpadmin
 		
 	;;
 esac
