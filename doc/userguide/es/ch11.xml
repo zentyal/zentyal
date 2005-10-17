@@ -7,10 +7,18 @@
 
 	<section>
 		<title>Servidor de ficheros</title>
+
 		<para>
+		Se accede a la configuración del servidor de ficheros
+		a traves de 
+			<menuchoice>
+				<guimenu>Compartir ficheros</guimenu>
+			</menuchoice>
+		.
 		Para activar el servidor de ficheros simplemente seleccione
 		de la lista desplegable de estados, en la parte superior
-		de la ventana de configuración, el estado habilitado.
+		de la ventana de configuración, el estado habilitado y acepte
+		el cambio pulsando en cambiar.
 		</para>
 
 		<para>

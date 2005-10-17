@@ -5,11 +5,78 @@
 	<title>Servidor DHCP</title>
 	
 	<section>
-		<title>TODO</title>
+		<title>Servidor DHCP</title>
 	
 		<para>
-		TODO
+		Se puede acceder a la configuración del servidor DHCP
+		a traves de 
+			<menuchoice>
+				<guimenu>DHCP</guimenu>
+			</menuchoice>
+		.
 		</para>
-	</section>
+
+		<para>
+		Sólo se podrá configurar el servidor DHCP si hay algún 
+		interfaz de red configurado como estático. Si hay varios
+		interfaces configurados como estáticos se podrá elegir cuál
+		de ellos configurar a traves de unas pestañas en la parte
+		superior de la configuración, justo debajo de la lista de estados
+		del servicio.
+		</para>
+
+		<para>
+		Para activar el servidor DHCP seleccione de la lista 
+		desplegable de estados, en la parte superior de la ventana 
+		de configuración, el estado habilitado y acepte el cambio
+		pulsando en cambiar.
+		</para>
+
+		<para>
+		Se puede configurar el funcionamiento del servidor DHCP 
+		correspondiente en distintos aspectos:
+		<variablelist>
+			<varlistentry>
+				<term>Opciones</term>
+				<listitem>
+					<para>
+					Estos apartados son opcionales, pudiendo dejarlos en blanco.
+					Se usan para especificar el router por defecto y dos 
+					servidores de nombres para la red.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Rangos</term>
+				<listitem>
+					<para>
+					Se pueden crear listas de rangos con los valores que se
+					quiere asignar a las máquinas de la red. Estas listas no deben
+					tener coincidencias entre sí y todas las direcciones asignables
+					deben	pertenecer al rango disponible mostrado justo encima de
+					la lista de rangos. Si no se crea ninguna lista, se usará todo
+					el rango disponible para asignar direcciones a las máquinas 
+					de la	red.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Asignaciones estáticas</term>
+				<listitem>
+					<para>
+					Se puede asignar una dirección IP concreta (siempre que 
+					pertenezca al	rango disponible) a una dirección MAC de 
+					la red. Para ello sólo hay que crear un elemento en la lista
+					de asignaciones estáticas que contenga la dirección MAC
+					de la máquina conocida y la IP que se le desea asignar.
+					</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+		</para>
+				
+		
+
+		</section>
 	
 </chapter>
