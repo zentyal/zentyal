@@ -3,6 +3,7 @@
 	$transparent
 	$policy
 	$objects
+	$memory
 </%args>
 # <EBOX> TAG_HTTPORT #
 http_port <% $port %>
@@ -18,7 +19,7 @@ refresh_pattern .		0	20%	4320
 coredump_dir /var/spool/squid
 cache_effective_user proxy
 cache_effective_group proxy
-cache_mem 100 MB
+cache_mem <% $memory %> MB
 
 % if ($transparent eq 'yes') { 
 # <EBOX> TAG_TRANSPARENT #
