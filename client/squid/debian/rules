@@ -19,7 +19,7 @@ config.status: configure
         ETCPATH="/etc/ebox" \
 	SQUIDCONF="/etc/squid/squid.conf" \
 		--disable-runtime-tests \
-		--prefix=/usr --localstatedir=/var/
+		--prefix=/usr --localstatedir=/var/ --sysconfdir=/etc
 
 build: build-stamp
 

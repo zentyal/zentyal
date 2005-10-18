@@ -139,6 +139,15 @@ sub _regenConfig
 	$self->_doDGDaemon();
 }
 
+sub _cache_mem 
+{
+        my $cache_mem = EBox::Config::configkey('cache_mem');
+        ($cache_mem) or
+                throw EBox::Exceptions::External(__('You must set the '.
+                        'cache_mem variable in the ebox configuration file'));
+        return $cache_mem;
+}
+
 #
 # Method: usesObject
 #       
@@ -828,6 +837,7 @@ sub _squidOnly
 	push(@array, 'transparent'  => $trans);
 	push(@array, 'policy'  => $squidpolicy);
 	push(@array, 'objects' => $objects);
+	push(@array, 'memory' => $self->_cache_mem);
 
 	$self->writeConfFile(SQUIDCONFFILE, "squid/squid.conf.mas", \@array);
 }
@@ -879,6 +889,7 @@ sub _squidAndDG
 	push(@array, 'transparent'  => $trans);
 	push(@array, 'policy'  => $squidpolicy);
 	push(@array, 'objects' => $objects);
+	push(@array, 'memeory' => $self->_cache_mem);
 
 	$self->writeConfFile(SQUIDCONFFILE, "squid/squid.conf.mas", \@array);
 
