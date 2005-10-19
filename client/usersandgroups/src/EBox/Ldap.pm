@@ -37,6 +37,7 @@ use Error qw(:try);
 
 use constant DN            => "dc=ebox";
 use constant LDAPI         => "ldapi://%2fvar%2frun%2fldapi";
+use constant LDAP	   => "ldap://127.0.0.1";
 use constant SLAPDCONFFILE => "/etc/ldap/slapd.conf";
 use constant ROOTDN        => 'cn=admin,' . DN;
 
@@ -154,7 +155,7 @@ sub slapdConfFile {
 #       
 # Returns:    
 #               
-#     hash ref  - holding the keys 'dn', 'ldapi' and 'rootdn' 
+#     hash ref  - holding the keys 'dn', 'ldapi', 'ldap', and 'rootdn' 
 #
 sub ldapConf {
 	shift;
@@ -162,6 +163,7 @@ sub ldapConf {
 	my $conf = {
 		     'dn'     => DN,
 		     'ldapi'  => LDAPI,
+		     'ldap'   => LDAP,
 		     'rootdn' => ROOTDN,
 		   };
 	return $conf;
