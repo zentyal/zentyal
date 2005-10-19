@@ -889,7 +889,7 @@ sub _squidAndDG
 	push(@array, 'transparent'  => $trans);
 	push(@array, 'policy'  => $squidpolicy);
 	push(@array, 'objects' => $objects);
-	push(@array, 'memeory' => $self->_cache_mem);
+	push(@array, 'memory' => $self->_cache_mem);
 
 	$self->writeConfFile(SQUIDCONFFILE, "squid/squid.conf.mas", \@array);
 
