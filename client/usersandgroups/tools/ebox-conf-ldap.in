@@ -67,7 +67,7 @@ echo "done"
 fi
 		
 # replace /etc/default/slapd with desired options
-echo 'SLAPD_SERVICES="ldapi://%2fvar%2frun%2fldapi/????x-mod=0777" ldap://127.0.0.1' > /etc/default/slapd
+echo 'SLAPD_SERVICES="ldap://127.0.0.1 ldapi://%2fvar%2frun%2fldapi/????x-mod=0777' > /etc/default/slapd
 
 
 # start slapd
