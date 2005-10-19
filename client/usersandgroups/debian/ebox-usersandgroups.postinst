@@ -86,7 +86,7 @@ EOF
 		fi
 		
 		# replace /etc/default/slapd with desired options
-		echo 'ldap://127.0.0.1 SLAPD_SERVICES="ldapi://%2fvar%2frun%2fldapi/????x-mod=0777"' > /etc/default/slapd
+		echo 'SLAPD_SERVICES="ldap://127.0.0.1 ldapi://%2fvar%2frun%2fldapi/????x-mod=0777"' > /etc/default/slapd
 
 		# Workaround for slapd 2.23-5, it does not update the rc?.d files
 		 update-rc.d slapd defaults 19 80 >/dev/null
