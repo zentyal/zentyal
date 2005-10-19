@@ -40,7 +40,7 @@ inet_interfaces = all
 
 # Virtual Aliases
 virtual_alias_maps = ldap:valiases
-valiases_server_host = 127.0.0.1
+valiases_server_host = <% $ldapi %>
 valiases_search_base = <% $aliasDN %>
 valiases_query_filter = (&(mail=%s)(objectClass=CourierMailAlias))
 valiases_result_attribute = maildrop
@@ -51,7 +51,7 @@ virtual_transport = virtual
 virtual_mailbox_base = <% $vmaildir %>
 virtual_mailbox_maps= ldap:ldapvirtualmap
 
-ldapvirtualmap_server_host = 127.0.0.1
+ldapvirtualmap_server_host = <% $ldapi %>
 ldapvirtualmap_bind = no
 ldapvirtualmap_search_base = <% $usersDN %>
 ldapvirtualmap_query_filter = (&(mail=%s)(!(quota=-1))(objectClass=CourierMailAccount))
@@ -59,7 +59,7 @@ ldapvirtualmap_result_attribute = mailbox
 
 #virtual_mailbox_domains = $virtual_mailbox_maps hash:/etc/postfix/vmaildomains
 virtual_mailbox_domains = ldap:vmaildomains
-vmaildomains_server_host = 127.0.0.1
+vmaildomains_server_host = <% $ldapi %>
 vmaildomains_bind = no
 vmaildomains_search_base = <% $vdomainDN %>
 vmaildomains_query_filter = (domainComponent=%s)
@@ -72,7 +72,7 @@ mailbox_transport = virtual
 virtual_mailbox_limit_inbox = yes
 virtual_mailbox_limit_maps = ldap:ldapvquota
 
-ldapvquota_server_host = 127.0.0.1
+ldapvquota_server_host = <% $ldapi %>
 ldapvquota_bind = no
 ldapvquota_search_base = <% $usersDN %>
 ldapvquota_query_filter = (&(mail=%s)(objectClass=usereboxmail))
@@ -82,7 +82,7 @@ virtual_mailbox_limit_override = yes
 virtual_maildir_extended = yes
 virtual_create_maildirsize = yes
 
-% if ($smtptls) {
+% if (($smtptls) or ($sasl)){
 ## TLS/SSL
 smtpd_use_tls = yes
 smtpd_tls_note_starttls = yes
