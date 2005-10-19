@@ -95,7 +95,7 @@ sub _setMailConf {
 		}
 	}
 
-	push(@array, 'ldapi', $self->{vdomains}->{ldap}->ldapConf->{ldapi});
+	push(@array, 'ldapi', $self->{vdomains}->{ldap}->ldapConf->{ldap});
 	push(@array, 'vdomainDN', $self->{vdomains}->vdomainDn());
 	push(@array, 'relay', $self->relay());
 	push(@array, 'maxmsgsize', ($self->getMaxMsgSize() * $self->BYTES));
