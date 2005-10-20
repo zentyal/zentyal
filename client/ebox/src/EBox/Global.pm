@@ -87,7 +87,8 @@ sub restoreBackup # (dir)
 sub modExists # (module) 
 {
 	my ($self, $name) = @_;
-	return $self->dir_exists("modules/$name");
+	my $class = $self->get_bool("modules/$name/class");
+	return defined($class);
 }
 
 #
