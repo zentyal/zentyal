@@ -40,6 +40,9 @@ use constant POP3DCONFFILE			=> '/etc/courier/pop3d';
 use constant POP3DSSLCONFFILE			=> '/etc/courier/pop3d-ssl';
 use constant IMAPDCONFFILE			=> '/etc/courier/imapd';
 use constant IMAPDSSLCONFFILE			=> '/etc/courier/imapd-ssl';
+use constant SASLAUTHDCONFFILE			=> '/etc/saslauthd.conf';
+use constant SASLAUTHDDCONFFILE			=> '/etc/default/saslauthd';
+use constant SMTPDCONFFILE			=> '/etc/postfix/sasl/smtpd.conf';
 use constant MAILINIT				=> '/etc/init.d/postfix';
 use constant POPINIT				=> '/etc/init.d/courier-pop';
 use constant IMAPINIT				=> '/etc/init.d/courier-imap';
@@ -141,6 +144,9 @@ sub _setMailConf {
 	push(@array, 'imapssl', $self->sslImap());
 	$self->writeConfFile(IMAPDSSLCONFFILE, "mail/imapd-ssl.mas",\@array);
 
+	$self->writeConfFile(SASLAUTHDCONFFILE, "mail/saslauthd.mas",\@array);
+	$self->writeConfFile(SASLAUTHDDCONFFILE, "mail/saslauthd.conf.mas",\@array);
+	$self->writeConfFile(SMTPDCONFFILE, "mail/smtpd.mas",\@array);
 }
 
 sub isRunning
@@ -634,6 +640,12 @@ sub rootCommands
 	push(@array, "/bin/chown * " . AUTHDAEMONCONFFILE);
 	push(@array, "/bin/chmod * " . AUTHLDAPCONFFILE);
 	push(@array, "/bin/chown * " . AUTHLDAPCONFFILE);
+	push(@array, "/bin/chmod * " . SASLAUTHDCONFFILE);
+	push(@array, "/bin/chown * " . SASLAUTHDCONFFILE);
+	push(@array, "/bin/chmod * " . SASLAUTHDDCONFFILE);
+	push(@array, "/bin/chown * " . SASLAUTHDDCONFFILE);
+	push(@array, "/bin/chmod * " . SMTPDCONFFILE);
+	push(@array, "/bin/chown * " . SMTPDCONFFILE);
 	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . MAILMAINCONFFILE);
 	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . MAILMASTERCONFFILE);
 	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . POP3DCONFFILE);
@@ -642,6 +654,9 @@ sub rootCommands
 	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . IMAPDSSLCONFFILE);
 	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . AUTHDAEMONCONFFILE);
 	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . AUTHLDAPCONFFILE);
+	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . SASLAUTHDCONFFILE);
+	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . SASLAUTHDCONFFILE);
+	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . SMTPDCONFFILE);
 	push(@array, "/bin/chmod 2775 /var/mail/");
 	push(@array, "/bin/chown ebox.ebox -R /var/vmail/*");
 	push(@array, "/bin/chown ebox.ebox /var/vmail/*");
