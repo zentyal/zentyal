@@ -1563,7 +1563,7 @@ sub _generateResolver
 	root("/bin/mv " . EBox::Config::tmp . "resolv.conf /etc/resolv.conf");
 }
 
-sub _generateInterfaces
+sub generateInterfaces
 {
 	my $self = shift;
 	my $file = EBox::Config::tmp . "/interfaces";
@@ -1673,7 +1673,7 @@ sub _regenConfig
 		}
 	}
 
-	$self->_generateInterfaces();
+	$self->generateInterfaces();
 
 	unless ($skipdns) {
 		# FIXME: there is a corner case when this won't be enough:
