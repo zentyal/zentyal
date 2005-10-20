@@ -53,3 +53,14 @@ my $eboxupgbutton = 'no';
 % 	}
 	</tbody>
 	</table>
+%	if(@eboxpkgs) {
+	<form action='InstallPkgs' method='post'>
+%	foreach my $pkg (@eboxpkgs) {
+%		if ($pkg->{version} ne $pkg->{avail}) {
+		<input type='hidden' value='yes' name='pkg-<%$pkg->{name}%>'/>
+%		}
+%	}
+		<input type='submit' name='ebox-install' class='inputButton'
+			value='<%__("Update all packages")%>'/>
+	</form>
+%	}
