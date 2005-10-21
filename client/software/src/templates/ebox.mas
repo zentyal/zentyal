@@ -6,6 +6,7 @@
 <%init>
 use EBox::Gettext;
 my $eboxupgbutton = 'no';
+my $upgpkgs = 0;
 </%init>
 	<table class='dataTable' cellspacing='0'>
 	<thead>
@@ -25,6 +26,7 @@ my $eboxupgbutton = 'no';
 % 			if ($pkg->{version} ne $pkg->{avail}) {
 %				$eboxupg = __('Update');
 %				$eboxupgbutton = 'yes';
+%				$upgpkgs = 1;
 % 			}
 			<td><%$pkg->{version}%></td>
 % 		} else {
@@ -53,7 +55,7 @@ my $eboxupgbutton = 'no';
 % 	}
 	</tbody>
 	</table>
-%	if(@eboxpkgs) {
+%	if($upgpkgs) {
 	<form action='InstallPkgs' method='post'>
 %	foreach my $pkg (@eboxpkgs) {
 %		if ($pkg->{version} ne $pkg->{avail}) {
