@@ -12,6 +12,7 @@ my $global = EBox::Global->getInstance(1);
 
 sub usage {
 	print "Usage: $0 start|stop|restart\n";
+	print "       $0 <module> restart\n";
 	exit 1;
 }
 
@@ -65,21 +66,42 @@ sub stop() {
 	}
 }
 
-if (@ARGV != 1) {
-	usage;
+sub module_restart {
+	my ($modname) = @_;
+	if ($global->modExists($modname)) {
+		my $mod = EBox::Global->modInstance($modname);
+		print "EBox: restarting $modname: ";
+		try {
+			$mod->restartService;
+			print "   [ OK ]\n";
+		} catch EBox::Exceptions::Base with {
+			my $ex = shift;
+			print "[ ERROR ]\n";
+			print STDERR $ex->text . "\n";
+		};
+	}
 }
 
-
-if ($ARGV[0] eq "start") {
-	start();
-} elsif ($ARGV[0] eq "restart") {
-	stop();
-	start();
-} elsif ($ARGV[0] eq "force-reload") {
-	stop();
-	start();
-} elsif ($ARGV[0] eq "stop") {
-	stop();
+if (@ARGV == 1) {
+	if ($ARGV[0] eq "start") {
+		start();
+	} elsif ($ARGV[0] eq "restart") {
+		stop();
+		start();
+	} elsif ($ARGV[0] eq "force-reload") {
+		stop();
+		start();
+	} elsif ($ARGV[0] eq "stop") {
+		stop();
+	} else {
+		usage;
+	}
+} elsif (@ARGV == 2) {
+	if ($ARGV[1] eq ("restart")) {
+		module_restart($ARGV[0]);
+	} else {
+		usage;
+	}
 } else {
 	usage;
 }
