@@ -29,6 +29,7 @@ case "$1" in
 		fi
 
 
+		invoke-rc.d ebox network restart
 	;;
 esac
 

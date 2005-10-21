@@ -41,6 +41,8 @@ case "$1" in
 		. /usr/share/debconf/confmodule.sh
 		db_set debconf/priority critical
 		db_set debconf/frontend noninteractive
+
+		invoke-rc.d ebox software restart
 esac
 
 #DEBHELPER#

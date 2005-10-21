@@ -29,6 +29,8 @@ case "$1" in
 			/usr/lib/ebox-ntp/ebox-timezone-import
 			kill `pidof gconfd-2` >/dev/null 2>&1 || true
 		fi
+
+		invoke-rc.d ebox ntp restart
 esac
 
 #DEBHELPER#

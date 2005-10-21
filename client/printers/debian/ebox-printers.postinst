@@ -24,6 +24,7 @@ case "$1" in
 
 		adduser --quiet ebox lpadmin
 		
+		invoke-rc.d ebox printers restart
 	;;
 esac
 

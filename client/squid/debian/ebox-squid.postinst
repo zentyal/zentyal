@@ -27,6 +27,7 @@ case "$1" in
 		ebox-sudoers > /etc/sudoers
 		chmod 0440 /etc/sudoers
 		
+		invoke-rc.d ebox squid restart
 esac
 
 #DEBHELPER#

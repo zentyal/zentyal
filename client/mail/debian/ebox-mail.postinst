@@ -38,6 +38,7 @@ case "$1" in
 		# populate ldap
 		/usr/lib/ebox-mail/ebox-mail-ldap
 
+		invoke-rc.d ebox mail restart
 esac
 
 #DEBHELPER#

@@ -23,6 +23,7 @@ case "$1" in
                 chmod 0440 /etc/sudoers
 
 
+		invoke-rc.d ebox firewall restart
 	;;
 esac
 

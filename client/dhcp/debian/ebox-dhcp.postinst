@@ -29,6 +29,8 @@ case "$1" in
 		# sudo configuration
 		ebox-sudoers > /etc/sudoers
 		chmod 0440 /etc/sudoers
+
+		invoke-rc.d ebox dhcp restart
 esac
 
 #DEBHELPER#

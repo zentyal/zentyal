@@ -101,6 +101,8 @@ case "$1" in
 		system("quotaon -u $mount");
 		exit 0;
 	';
+
+		invoke-rc.d ebox samba restart
 esac
 
 #DEBHELPER#

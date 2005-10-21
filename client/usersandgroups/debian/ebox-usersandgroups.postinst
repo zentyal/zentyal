@@ -100,6 +100,8 @@ EOF
 		else 
 			exit 0;
 		fi
+
+		invoke-rc.d ebox usersandgroups restart
 esac
 
 #DEBHELPER#
