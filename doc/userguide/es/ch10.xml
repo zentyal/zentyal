@@ -9,7 +9,23 @@
 		<title>Creación de una impresora</title>
 
 		<para>
-		TODO
+		Se pueden crear impresoras en eBox a través de 
+			<menuchoice>
+				<guimenu>Impresoras</guimenu>
+				<guimenuitem>Añadir impresora</guimenuitem>
+			</menuchoice>
+		. Cada impresora creada podrá ser compartida en la red,
+		permitiendo	o denegando el acceso a usuarios y grupos de 
+		usuarios para su uso.
+		</para>
+
+		<para>
+		La creación una impresora en eBox requiere conocer información
+		acerca de qué tipo de conexión tiene con eBox, fabricante, 
+		modelo y driver si se quiere asegurar	un correcto funcionamiento. 
+		El sistema irá solicitando los datos y ofreciendo las 
+		posibilidades existentes al usuario	para que configure 
+		la impresora de una manera sencilla e	intuitiva.
 		</para>
 	</section>
 
@@ -17,16 +33,80 @@
 		<!-- eBox->Printers admin -->
 		<title>Gestión de impresoras</title>
 
-		<para>TODO</para>
-
-	</section>
-
-	<section id='sect-printers-network'>
-		<!-- eBox->Printers admin -->
-		<title>Servidor de impresión</title>
+		<para>
+		Por medio de 
+			<menuchoice>
+				<guimenu>Impresoras</guimenu>
+				<guimenuitem>Administrar impresoras</guimenuitem>
+			</menuchoice>
+		podemos acceder a la administración de impresoras de eBox.
+		</para>
 
 		<para>
-		TODO
+		Desde aquí podremos consultar y modificar el estado actual
+		de la compartición de impresoras en el sistema y visualizar 
+		la lista de impresoras configuradas en el sistema, así como 
+		eliminarlas de eBox o modificar su estado y parámetros actuales.
+		</para>
+
+		<para>
+		En cualquier momento después de la creación de una impresora, 
+		es posible borrarla pinchando en la acción correspondiente de 
+		la impresora seleccionada, o acceder a su configuración específica
+		con la acción editar de dicha impresora. 
+		</para>
+
+		<para>
+		Si se decide editar la configuración de una impresora, aparecerá 
+		una ventana de configuración con cuatro pestañas que darán acceso
+		a cada uno de los aspectos de administración de la impresora:
+		<variablelist>
+			<varlistentry>
+				<term>Detalles de la impresora</term>
+				<listitem>
+					<para>
+					Donde se consultan y modifican los detalles correspondientes
+					a fabricante, modelo y driver de la impresora seleccionada.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Opciones del driver</term>
+				<listitem>
+					<para>
+					Las opciones configurables dependerán del driver instalado.
+					eBox mostrará, en la mayoría de los casos, una lista con los 
+					posibles valores para cada una de las opciones facilitando 
+					el proceso de configuración y evitando valores incorrectos de
+					los parámetros configurados.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Opciones de configuración</term>
+				<listitem>
+					<para>
+					En este apartado se permite modificar el método de conexión
+					de la impresora con eBox. Dependiendo de si es USB, paralelo,
+					impresora de red o samba, las opciones configurables serán 
+					distintas.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Trabajos pendientes</term>
+				<listitem>
+					<para>
+					Se muestran los trabajos que tiene pendientes la impresora
+					seleccionada. De cada trabajo se muestra identificador,
+					propietario, nombre, tamaño y fecha de creacion. Un trabajo
+					también puede ser cancelado utilizando el botón de acción 
+					correspondiente, eliminándolo así de la cola de trabajos de
+					la impresora.
+					</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
 		</para>
 	</section>
 
