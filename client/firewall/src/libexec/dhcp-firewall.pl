@@ -12,7 +12,7 @@ EBox::init();
 
 my $timeout = 60;
 my $global = EBox::Global->getInstance(1);
-$global->modExists("firewall") or return;
+$global->modExists("firewall") or exit(0);
 my $fw = $global->modInstance("firewall");
 my $logger = $global->logger;
 
