@@ -13,44 +13,39 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::KeepAlived;
+package EBox::KeepAlive;
 
-use base qw(EBox::AbstractDaemon);
+use strict;
+use warnings;
+
+use base qw(EBox::Module);
 
 use EBox;
 use EBox::Global;
 use EBox::Sudo qw( :all );
 
-sub new
+sub _create
 {
 	my $class = shift;
-	my $self = $class->SUPER::new(name => 'keepalive', @_);
+	my $self = $class->SUPER::_create(name => 'keepalive', @_);
 	bless($self,$class);
-	$self->{'interval'} = EBox::Config::configkey('keepalive_interval');
 	return $self;
 }
 
-sub run
+sub _regenConfig
 {
-	my $self = shift;
-	EBox::init();
-	$self->init();
+	_stopService();
+	command(EBox::Config::libexec . 'ebox-keepalived');
+}
 
-	my $global = EBox::Global->getInstance(1);
-	my @names = @{$global->modNames};
-	while(1) {
-		foreach (@names) {
-			my $mod = $global->modInstance($_);
-			my $status = $mod->statusSummary;
-			if (defined($status)) {
-				if($mod->service() and (! $mod->isRunning())) {
-					EBox::warn("Starting module " . $mod->name());
-					$mod->restartService();
-				}
-			}
-			sleep($self->{'interval'});
-		}
-	}
+sub _stopService
+{
+	my $pidfile = EBox::Config::tmp . "/pids/keepalive.pid";
+	(-f $pidfile) or return;
+	open(FD, $pidfile) or return;
+	my $pid = <FD>;
+	close(FD);
+	kill(15, $pid);
 }
 
 1;
