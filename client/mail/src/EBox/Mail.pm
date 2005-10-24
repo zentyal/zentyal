@@ -655,7 +655,7 @@ sub rootCommands
 	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . AUTHDAEMONCONFFILE);
 	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . AUTHLDAPCONFFILE);
 	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . SASLAUTHDCONFFILE);
-	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . SASLAUTHDCONFFILE);
+	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . SASLAUTHDDCONFFILE);
 	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . SMTPDCONFFILE);
 	push(@array, "/bin/chmod 2775 /var/mail/");
 	push(@array, "/bin/chown ebox.ebox -R /var/vmail/*");
