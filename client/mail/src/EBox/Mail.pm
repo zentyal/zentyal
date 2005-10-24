@@ -146,7 +146,7 @@ sub _setMailConf {
 
 	$self->writeConfFile(SASLAUTHDCONFFILE, "mail/saslauthd.mas",\@array);
 	$self->writeConfFile(SASLAUTHDDCONFFILE, "mail/saslauthd.conf.mas",\@array);
-	$self->writeConfFile(SMTPDCONFFILE, "mail/smtpd.mas",\@array);
+	$self->writeConfFile(SMTPDCONFFILE, "mail/smtpd.conf.mas",\@array);
 }
 
 sub isRunning
