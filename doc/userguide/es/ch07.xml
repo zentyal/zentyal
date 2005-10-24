@@ -9,34 +9,136 @@
 		<title>Configuración general</title>
 
 		<para>
-		TODO
+		Mediante
+		<menuchoice>
+			<guimenu>Proxy HTTP</guimenu>
+			<guimenuitem>General</guimenuitem>
+		</menuchoice>
+		se accede a la configuración general del proxy HTTP de
+		eBox. 
 		</para>
-	</section>
-
-	<section id='sect-proxy-contentfilter'>
-		<title>Filtro de contenidos</title>
 
 		<para>
-		TODO
+		En la ventana de configuración es posible habilitar
+		o deshabilitar el proxy utilizando el menu desplegable
+		superior. El resto de opciones se detallan a continuación:
+		<variablelist>
+			<varlistentry>
+				<term>Proxy transparente</term>
+				<listitem>
+					<para>
+					Si el proxy transparente está habilitado, todos
+					los usuarios de eBox utilizarán el proxy
+					obligatoriamente y sin darse cuenta. Si se
+					deshabilita, habría que configurar los exploradores
+					de cada uno de los usuarios para que se conectaran
+					a través del proxy.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Puerto</term>
+				<listitem>
+					<para>
+					Asigna un número de puerto para el proxy, este es 
+					el puerto al que se conectarán los navegadores
+					para acceder a internet a través del proxy.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Restricción de contenidos</term>
+				<listitem>
+					<para>
+					Permite establecer un nivel de restricción para
+					contenidos que tienen que ver con sexo y violencia
+					en elementos que se encuentren filtrados por el proxy.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Política global</term>
+				<listitem>
+					<para>
+					Corresponde a la política que tendrán por defecto los 
+					usuarios que utilicen el proxy. Se puede elegir entre
+					permitir el acceso libre y sin restricciones,
+					filtrar el acceso con la restricción de contenidos
+					explicada en el apartado anterior o denegar el acceso
+					completamente. Posteriormente esta política puede
+					ser modificada para cada uno de los casos concretos de
+					usuarios y dominios para los cuales se desea un
+					comportamiento específico, tal y como se explica en
+					las siguientes secciones.
+					</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+		</para>
+		
+		<warning>
+		Si se estableciera una configuración que denegara el acceso al 
+		interfaz de administración desde las máquinas que utilicen
+		eBox, se tendría que conectar a dicho interfaz desde esas máquinas
+		directamente,	evitando la mediación del proxy.
+		</warning>
+	</section>
+
+	<section id='sect-proxy-content-lists'>
+		<!-- Proxy->Policy -->
+		<title>Listas de dominios prohibidos y permitidos</title>
+
+		<para>
+		Dentro de
+		<menuchoice>
+			<guimenu>Proxy HTTP</guimenu>
+			<guimenuitem>Dominios permitidos</guimenuitem>
+		</menuchoice>
+		y
+		<menuchoice>
+			<guimenu>Proxy HTTP</guimenu>
+			<guimenuitem>Dominios denegados</guimenuitem>
+		</menuchoice>
+		se pueden especificar los dominios que se desean 
+		permitir o denegar para todos los usuarios de eBox.
+		La clasificación de los distintos dominios en estas listas
+		es prioritaria sobre cualquier otra configuración del proxy.
 		</para>
 
-		<section id='sect-proxy-content-policy'>
-			<!-- Proxy->Policy -->
-			<title>Establecimiento de políticas</title>
+		<para>
+		Para ello sólo es necesario agregar a la lista correspondiente 
+		los dominios a los que se desea permitir o denegar el acceso.
+		Simplemente hay que escribir el nombre completo del dominio del
+		que se desea modificar el comportamiento por defecto y hacer click
+		en el boton de acción añadir. El formato correcto para el nombre
+		del dominio es dominio.extension, por ejemplo: "warp.es".
+		</para>
 
-			<para>
-			TODO
-			</para>
-		</section>
+		<para>
+		Si se desea eliminar un dominio de cualquiera de las listas basta 
+		con	utilizar el boton de acción de borrar correspondiente al
+		dominio que se desea suprimir de la lista.
+		</para>
 
-		<section id='sect-proxy-content-lists'>
-			<!-- Proxy->Policy -->
-			<title>Listas de dominios prohibidos y permitidos</title>
+		
+	</section>
 
-			<para>
-			TODO
-			</para>
-		</section>
+	<section id='sect-proxy-content-policy'>
+		<!-- Proxy->Policy -->
+		<title>Establecimiento de políticas</title>
+
+		<para>
+		Por medio de
+		<menuchoice>
+			<guimenu>Proxy HTTP</guimenu>
+			<guimenuitem>Políticas</guimenuitem>
+		</menuchoice>
+		es posible establecer una política de conexión específica para un 
+		<link linkend='ch-objects'>objeto de red</link> concreto, permitiendo
+		así una configuración distinta para cada uno de los objetos	creados 
+		en eBox. Esta configuración se antepondrá a la política	global de 
+		eBox para los objetos seleccionados.
+		</para>
 	</section>
 
 </chapter>
