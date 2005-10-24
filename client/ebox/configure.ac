@@ -91,6 +91,7 @@ src/EBox/CGI/Login/Makefile
 src/EBox/CGI/Logout/Makefile
 src/EBox/CGI/Summary/Makefile
 src/EBox/Summary/Makefile
+src/libexec/Makefile
 schemas/Makefile
 conf/Makefile
 conf/.gconf.path
