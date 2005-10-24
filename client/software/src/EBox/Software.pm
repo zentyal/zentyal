@@ -94,13 +94,34 @@ sub installPkgs # (@pkgs)
 	my ($self, @pkgs) = @_;
 	my $cmd ='/usr/bin/apt-get install --no-download -q --yes --no-remove ';
 	$cmd .= join(" ", @pkgs);
-	try {
-		root($cmd);
-	} catch EBox::Exceptions::Internal with {
-		throw EBox::Exceptions::External(__('An error ocurred while '.
-			'installing components. If the error persists or eBox '.
-			'stops working properly, seek technical support.'));
-	};
+	my $exec = undef;
+	my $pid;
+
+	if (grep(/^apache-perl$/,@pkgs) or grep(/^ebox$/,@pkgs)) {
+		$exec = 1;	
+	}
+	if($exec) {
+		unless (defined($pid = fork())) {
+			throw EBox::Exceptions::Internal("Cannot fork().");
+		}
+		if ($pid) {
+			return; # parent returns immediately
+		}
+		POSIX::setsid();
+		close(STDOUT);
+		close(STDERR);
+		open(STDOUT, "> /dev/null");
+		open(STDERR, "> /dev/null");
+		exec("sudo $cmd");
+	} else {
+		try {
+			root($cmd);
+		} catch EBox::Exceptions::Internal with {
+			throw EBox::Exceptions::External(__('An error ocurred while '.
+				'installing components. If the error persists or eBox '.
+				'stops working properly, seek technical support.'));
+		};
+	}
 }
 
 # Method: removePkgs 
