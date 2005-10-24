@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-use EBox::KeepAlive;
-my $l = new EBox::KeepAlive();
+use EBox::KeepAlived;
+my $l = new EBox::KeepAlived();
 
 $l->run();
