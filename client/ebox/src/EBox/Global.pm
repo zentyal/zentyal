@@ -477,9 +477,24 @@ sub modInstancesOfType # (classname)
 #   	undef
 sub modInstance # (module) 
 {
-	shift;
+	my $self = shift;
 	my $name = shift;
-	my $global = EBox::Global->instance();
+	if (!$self) {
+		throw EBox::Exceptions::Internal("Incorrect call to ".
+		"EBox::Global modInstance(), maybe it was called as an static".
+		" function instead of an instance method?");
+	}
+	my $global = undef;
+	if ($self eq "EBox::Global") {
+		$global = EBox::Global->getInstance();
+	} elsif ($self->isa("EBox::Global")) {
+		$global = $self;
+	} else {
+		throw EBox::Exceptions::Internal("Incorrect call to ".
+		"EBox::Global modInstance(), the first parameter is not a class".
+		" nor an instance.");
+	}
+
 	if ($name eq 'global') {
 		return $global;
 	}
