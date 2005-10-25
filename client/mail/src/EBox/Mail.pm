@@ -40,8 +40,8 @@ use constant POP3DCONFFILE			=> '/etc/courier/pop3d';
 use constant POP3DSSLCONFFILE			=> '/etc/courier/pop3d-ssl';
 use constant IMAPDCONFFILE			=> '/etc/courier/imapd';
 use constant IMAPDSSLCONFFILE			=> '/etc/courier/imapd-ssl';
-use constant SASLAUTHDCONFFILE			=> '/etc/saslauthd.conf';
-use constant SASLAUTHDDCONFFILE			=> '/etc/default/saslauthd';
+use constant SASLAUTHDDCONFFILE			=> '/etc/saslauthd.conf';
+use constant SASLAUTHDCONFFILE			=> '/etc/default/saslauthd';
 use constant SMTPDCONFFILE			=> '/etc/postfix/sasl/smtpd.conf';
 use constant MAILINIT				=> '/etc/init.d/postfix';
 use constant POPINIT				=> '/etc/init.d/courier-pop';
@@ -144,8 +144,14 @@ sub _setMailConf {
 	push(@array, 'imapssl', $self->sslImap());
 	$self->writeConfFile(IMAPDSSLCONFFILE, "mail/imapd-ssl.mas",\@array);
 
-	$self->writeConfFile(SASLAUTHDCONFFILE, "mail/saslauthd.mas",\@array);
+	@array = ();
+	push(@array, 'ldapi', $self->{vdomains}->{ldap}->ldapConf->{ldap});
+	push(@array, 'rootdn', $self->{vdomains}->{ldap}->rootDn());
+	push(@array, 'passdn', $self->{vdomains}->{ldap}->rootPw());
+	push(@array, 'usersdn', $users->usersDn());
+	
 	$self->writeConfFile(SASLAUTHDDCONFFILE, "mail/saslauthd.conf.mas",\@array);
+	$self->writeConfFile(SASLAUTHDCONFFILE, "mail/saslauthd.mas",\@array);
 	$self->writeConfFile(SMTPDCONFFILE, "mail/smtpd.conf.mas",\@array);
 }
 
