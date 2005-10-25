@@ -11,7 +11,12 @@ use EBox::Gettext;
 <form action='/ebox/Mail/CreateGroupAlias' method='POST'>
     <input type="hidden" name="group" value="<% $params->{'group'} %>">
 	<h3><% __('Create alias mail account to group') %></h3>
-	
+
+	<div class='note'>
+		<% __('If there are no users in the group, or the users do not ' .
+		'have mail account, the group alias account will not be created.') %>
+	</div>
+	</br>
 	<div class='help'>
 		<% __("When the last member of a group is removed, the mail alias account will be deleted")%>
 	</div>
