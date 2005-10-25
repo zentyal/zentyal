@@ -4,21 +4,62 @@
 
 	<title>Servidor de correo</title>
 
-	<section id='sect-mail-services'>
-		<!-- Mail->General->Services -->
-		<title>Configuración de servicios</title>
-
-		<para>
-		TODO
-		</para>
-	</section>
-
 	<section id='sect-mail-config'>
 		<!-- Mail->General->Settings -->
 		<title>Configuración general</title>
 
 		<para>
-		TODO
+		Para acceder a la configuración general del servidor de
+		correo de eBox hay que entrar en 
+		<menuchoice>
+			<guimenu>Correo</guimenu>
+			<guimenuitem>General</guimenuitem>
+		</menuchoice>
+		. En la ventana de configuración, en la parte superior, 
+		aparecerán varias pestañas referentes a distintos aspectos 
+		de configuración del servidor de correo:
+		<variablelist>
+			<varlistentry>
+				<term>Servicios</term>
+				<listitem>
+					<para>
+					En la pestaña de servicios podremos habilitar o deshabilitar
+					el servidor de correo, requerir autentificación para los usuarios
+					que se conecten al servidor de correo o permitir acceso libre y
+					utilizar o no TLS para cifrar la comunicación SMTP con el servidor. 
+					También se permite desde aquí habilitar POP3 e IMAP así como
+					obligar al usuario a utilizar SSL, permitirselo o prohibirselo.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Configuración</term>
+				<listitem>
+					<para>
+					La configuración que se muestra en esta pestaña permite fijar
+					un servidor para hacer relay simplemente utilizando su IP, así
+					como establecer un límite de tamaño de mensaje aceptado por el
+					servidor de correo y un límite de tamaño para las nuevas cuentas
+					de correo por defecto. En la parte inferior se puede concretar
+					una política de relay para cada uno de los objetos de red de
+					eBox que tendrá preferencia para el objeto sobre la configuración
+					general establecida en la pestaña Servicios.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Filtro externo</term>
+				<listitem>
+					<para>
+					Desde esta pestaña podemos habilitar un filtro externo para 
+					filtrar los mensajes de correo de eBox. Para habilitarlo
+					hay que fijar un puerto en la máquina de eBox para establecer
+					la comunicación y conocer la direccion IP y el puerto donde se
+					encuentra el filtro.
+					</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
 		</para>
 	</section>
 
@@ -27,7 +68,26 @@
 		<title>Gestión de dominios</title>
 
 		<para>
-		TODO
+		En 
+		<menuchoice>
+			<guimenu>Correo</guimenu>
+			<guimenuitem>Dominios Virtuales</guimenuitem>
+		</menuchoice>
+		se pueden administrar los dominios virtuales, que dan nombre
+		de dominio a las cuentas de correo de los distintos
+		usuarios de eBox. 
+		</para>
+
+		<para>
+		Para crear un dominio basta con elegir un nombre para el
+		dominio y un tamaño por defecto para los buzones de correo
+		de los usuarios de eBox que pertenezcan al dominio. Posteriormente
+		se puede modificar el tamaño por defecto de los buzones e incluso
+		forzar el cambio de los buzones ya existentes a ese tamaño desde el 
+		menú al que se accede utilizando el boton de accion Editar del 
+		dominio correspondiente. Si se desea borrar uno de los dominios 
+		existentes simplemente se debe pulsar el boton de acción 
+		correspondiente a borrar de dicho dominio.
 		</para>
 	</section>
 
@@ -35,7 +95,28 @@
 		<title>Cuentas y alias de correo</title>
 
 		<para>
-		TODO
+		Si el módulo de correo está instalado y activado en eBox y se desea 
+		crear una cuenta de correo para un determinado usuario habrá que 
+		hacerlo a través de
+		<menuchoice>
+			<guimenu>Usuarios</guimenu>
+		</menuchoice>
+		editando el usuario correspondiente, donde también se podrá fijar un
+		alias para la dirección de correo del usuario. Ver 
+		<link linkend='sect-users-users'>Cuentas de usuario</link> para saber
+		cómo acceder a la configuración de un usuario de eBox.
+		</para>
+
+		<para>
+		Para poner alias a grupos de usuarios hay que acceder a la configuración
+		del grupo usando 
+		<menuchoice>
+			<guimenu>Grupos</guimenu>
+		</menuchoice>
+		. Si el módulo de correo está activado se podrá fijar un alias para
+		todos los miembros del grupo. Ver 
+		<link linkend='sect-users-groups'>Grupos de usuarios</link> para saber cómo
+		se accede a la configuración de un grupo.
 		</para>
 	</section>
 
