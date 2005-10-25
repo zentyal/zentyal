@@ -48,8 +48,8 @@ sub run
 					$mod->restartService();
 				}
 			}
-			sleep($self->{'interval'});
 		}
+		sleep($self->{'interval'});
 	}
 }
 
