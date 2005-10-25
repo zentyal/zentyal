@@ -2,7 +2,7 @@
 
 scriptsdir = @LIBDIR@/ebox
 
-scripts_SCRIPTS = ebox-keepalive
+scripts_SCRIPTS = ebox-keepalived
 
 MAINTAINERCLEANFILES = Makefile.in
 
