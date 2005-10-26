@@ -55,11 +55,13 @@ sub _process($) {
 	my $mail = EBox::Global->modInstance('mail');
  
 	$self->_requireParam('vdomain', __('vdomain'));
-	$self->_requireParam('mdsize', __('mdsize'));
-	
-	$self->{redirect} = "Mail/VDomains";	
-
 	my $vdomain = $self->param('vdomain');
+	
+	$self->{redirect} = "Mail/EditVDomain?vdomain=$vdomain";
+
+	$self->keepParam('vdomain');
+
+	$self->_requireParam('mdsize', __('mdsize'));
 	my $mdsize = $self->param('mdsize');
 	my $oldmdsize = $mail->{vdomains}->getMDSize($vdomain);
 	my $forceold = $self->param('forceold');
