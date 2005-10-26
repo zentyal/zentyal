@@ -38,6 +38,17 @@ sub _process($) {
 	my $self = shift;
 
 	$self->_requireParam('printerid', __('Printer'));
+	$self->keepParam('printerid');
+	if ($self->param('sambaconfui')) {
+		$self->keepParam('printerid');
+		$self->{chain} = "Printers/ManufacturerUI";
+		$self->{errorchain} = "Printers/ManufacturerUI";
+	} elsif ($self->param('manageprinterui')) {
+		$self->{chain} = "Printers/ManagePrinterUI";
+		$self->{errorchain} = "Printers/ManagePrinterUI";
+		$self->keepParam('selected');
+	}
+
 	$self->_requireParam('resource', __('Shared resource'));
 	$self->_requireParam('auth', __('Authentication'));
 	my $id = $self->param('printerid');
@@ -52,17 +63,9 @@ sub _process($) {
 		$user = $self->param('user');
 		$passwd = $self->param('passwd');
 	}
+
 	my $printers = EBox::Global->modInstance('printers');
-
 	$printers->setSambaPrinter($id, $resource, $auth, $user, $passwd);
-	if ($self->param('sambaconfui')) {	
-		$self->keepParam('printerid');
-		$self->{chain} = "Printers/ManufacturerUI";
-	} elsif ($self->param('manageprinterui')) {
-		$self->{chain} = "Printers/ManagePrinterUI";
-		$self->keepParam('selected');
-	}
-
 }
 
 1;
