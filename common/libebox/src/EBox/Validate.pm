@@ -516,6 +516,7 @@ sub _checkDomainName {
 	($d =~ /\.-/) and return undef;
 	($d =~ /-\./) and return undef;
 	($d =~ /\.\./) and return undef;
+	($d =~ /_/) and return undef;
 	($d =~ /^[-\.\w]+$/) or return undef;
 	return 1;
 }
