@@ -41,7 +41,7 @@ sub _process($) {
 	$self->{errorchain} = "Mail/Index";
 	$self->keepParam('menu');
 
-	$self->_requireParam('mdsize');
+	$self->_requireParam('mdsize', __('Maximum mail account size'));
 	my $mdsize = $self->param('mdsize');
 	
 	$mail->setMDDefaultSize($mdsize);

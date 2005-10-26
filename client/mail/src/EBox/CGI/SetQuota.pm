@@ -41,7 +41,7 @@ sub _process($) {
 	$self->{errorchain} = "Mail/Index";
 	$self->keepParam('menu');
 
-	$self->_requireParam('maxmsgsize');
+	$self->_requireParam('maxmsgsize', __('Message size limit'));
 	my $msgsize = $self->param('maxmsgsize');
 	
 	$mail->setMaxMsgSize($msgsize);
