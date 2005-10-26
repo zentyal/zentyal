@@ -159,7 +159,7 @@
 }
 
 .thOptions {
-	background: #787878 url('/data/images/thead-right.png') right no-repeat;
+	background: #787878 /*url('/data/images/thead-right.png') right no-repeat*/;
 	padding:0;
 	margin:0;
 	width: 13%;
@@ -168,7 +168,7 @@
 .thOptionsFwd {
 	padding:0;
 	margin:0;
-	background: #787878 url('/data/images/thead-right.png') right no-repeat;
+	background: #787878 /*url('/data/images/thead-right.png') right no-repeat*/;
 }
 
 .summarySection {
@@ -248,7 +248,7 @@
 }
 
 .dataTable {
-	background: #787878 url('/data/images/thead.png') top left no-repeat;
+	background: #787878 /*url('/data/images/thead.png') top left no-repeat*/;
 }
 
 .iptable {
