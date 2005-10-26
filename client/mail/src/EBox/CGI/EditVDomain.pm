@@ -41,8 +41,10 @@ sub _process($) {
 	my $mail = EBox::Global->modInstance('mail');
  
 	$self->_requireParam('vdomain', __('vdomain'));
-
 	my $vdomain = $self->param('vdomain');
+	$self->{redirect} = "Mail/EditVDomain?vdomain=$vdomain";
+
+	$self->keepParam('vdomain');
 	my $components = $mail->{'vdomains'}->allVDomainsAddOns($vdomain);
 
 	my $menu = '0'; 

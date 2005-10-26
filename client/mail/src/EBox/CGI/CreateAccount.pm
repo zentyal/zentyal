@@ -50,7 +50,7 @@ sub _process($) {
 	$self->_requireParam('lhs', __('Mail address'));
 	my $lhs = $self->param('lhs');
 	$self->_requireParam('dftmdsize', __('maildir size'));
-	my $mdsize = $self->param('dftmdsize') * $mail->BYTES;
+	my $mdsize = $self->param('dftmdsize');
 
 	$mail->{musers}->setUserAccount($username, $lhs, $vdomain, $mdsize);
 }

@@ -63,7 +63,8 @@ sub setUserAccount () {
 		throw EBox::Exceptions::DataExists('data' => __('mail account'),
 														'value' => $email);
    }
-	
+
+	print STDERR "SIZE: $mdsize\n";
 	unless (isAPositiveNumber($mdsize)) {
 		throw EBox::Exceptions::InvalidData(
 			'data'	=> __('maildir size'),
@@ -87,7 +88,7 @@ sub setUserAccount () {
 				mail		=> $email,
 				mailbox	=> $rhs.'/'.$lhs.'/',
 				quota		=> '0',
-				userMaildirSize => $mdsize,
+				userMaildirSize => $mdsize * BYTES,
 				mailHomeDirectory => DIRVMAIL
 			]
 		]
