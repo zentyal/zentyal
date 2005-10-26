@@ -69,7 +69,7 @@ use EBox::Gettext;
             <span class='ftitle'><% __('Password') %>:</span>
         </td>
         <td>
-            <input type='text' class='inputText' name='passwd' value='<% $passwd %>' >
+            <input type='password' class='inputText' name='passwd' value='<% $passwd %>' >
         </td>
     </tr>
     <tr>
