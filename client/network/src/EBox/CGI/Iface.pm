@@ -43,6 +43,8 @@ sub _process
 	$self->_requireParam("method", __("method"));
 	$self->_requireParam("ifname", __("network interface"));
 
+	$self->{errorchain} = "Network/Ifaces";
+
 	my $iface = $self->param("ifname");
 	my $alias = $self->param("ifalias");
 	my $method = $self->param("method");
@@ -53,9 +55,7 @@ sub _process
 		$external = 1;
 	}
 
-
 	$self->{redirect} = "Network/Ifaces?iface=$iface";
-	$self->{errorchain} = "Network/Ifaces";
 
 	if (defined($self->param("cancel"))) {
 		return;
