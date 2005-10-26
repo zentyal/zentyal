@@ -70,7 +70,7 @@ sub _process($) {
 	}
 
 	my @pkgs = grep(s/^pkg-//, @{$self->params()});
-	(@pkgs == 0) and return;
+	(@pkgs == 0) and throw EBox::Exceptions::External(__('There were no packages to update'));
 
 	if ($doit eq 'yes') {
 		if ($action eq 'install') {
