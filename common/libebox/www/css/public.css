@@ -1,44 +1,52 @@
 #header {
-	height: 29px;
+	height: 46px;
+	background: #a6c733 url('/data/images/bkgwhite.png') top left no-repeat;
 	padding:0;
 	margin: 0;
 	color: transparent;
-	background: #787878 url('/data/images/right-head.png') right no-repeat;
 }
 
 #header img {
-	padding-top: 0;
+	padding-top: 3px;
+	padding-left: 3px;
 	padding-bottom: 0;
-	padding-left: 0;
 	margin:0;
 }
 
 #hmenu {
 	position: relative;
 	display: block;
-	top: -23px;
-	margin-right: 10px;
+	top: -46px;
+	margin-right: 0px;
 	float:right;
 }
 
 #hmenu a {
+	display: block;
+	float:left;
     color: #fff;
-    font-size: 9px;
-	margin-left: 5px;
+    font-size: 11px;
+	line-height: 16px;
+	padding-bottom: 5px;
+	padding-top: 25px;
+	padding-left: 15px;
+	padding-right: 15px;
     text-decoration: none;
+	background: #ececec;
 }
 
-#hmenu a:hover {
-	border-bottom: 1px solid #fff;
-	background-color: #787878;
-}
+#hmenu #m { background-color: #b5d448; }
+#hmenu #m:hover { background-color: #C5E64E; }
+#hmenu #mm { background-color: #e99219; }
+#hmenu #mm:hover { background-color: #FFA01B; }
+#hmenu #mmm { background-color: #d3761e; }
+#hmenu #mmm:hover { background-color: #F1971A; }
+
 
 #top {
-	height: 3px;
 	padding:0;
 	font-size: 0;
 	margin:0;
-	background: url('/data/images/header-bg.png') repeat-x;
 }
 
 #content {

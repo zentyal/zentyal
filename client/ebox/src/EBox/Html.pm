@@ -34,7 +34,7 @@ use EBox::Menu::Root;
 #
 sub title
 {
-	return '<div id="top"></div><div id="header"><img src="/data/images/title.gif"></div><div id="hmenu"><a href="/ebox/Finish">Save changes</a>  <a href="">Help</a>  <a href="/ebox/Logout/Index">Logout</a></div> ';
+	return '<div id="top"></div><div id="header"><img src="/data/images/title.gif"></div><div id="hmenu"><a id="m" href="/ebox/Finish">Save changes</a><a id="mm" href="">Help</a><a id="mmm" href="/ebox/Logout/Index">Logout</a></div> ';
 }
 
 #
