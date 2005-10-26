@@ -449,6 +449,25 @@ sub printers
 	return \@printers;	
 }
 
+# Method: cleanTempPrinters
+#
+#  	Remove those printers which have not been fully configured	
+#
+# 	
+sub cleanTempPrinters
+{
+	my $self = shift;
+
+	return unless ($self->dir_exists("printers"));
+	foreach my $dirid ($self->all_dirs("printers")) {
+		my $id = $dirid;
+		$id =~  s'.*/'';
+		unless ($self->_printerConfigured($id)) {
+			$self->removePrinter($id);
+		}
+	}
+}
+
 sub removePrinter # (id)
 {
 	my $self = shift;

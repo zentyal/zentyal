@@ -43,6 +43,7 @@ sub _process($) {
 					__('Printer description');
 
 	my $printers = EBox::Global->modInstance('printers');
+	$printers->cleanTempPrinters();
 	my $name = $self->param('printername');
 	my $method = $self->param('method');
 	
