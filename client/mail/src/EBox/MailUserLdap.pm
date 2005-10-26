@@ -21,6 +21,7 @@ use warnings;
 use EBox::Sudo qw( :all );
 use EBox::Global;
 use EBox::Ldap;
+use EBox::Validate qw( :all );
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
@@ -31,6 +32,7 @@ use EBox::Gettext;
 use constant SCHEMAS		=> ('/etc/ldap/schema/authldap.schema', '/etc/ldap/schema/eboxmail.schema');
 use constant DIRVMAIL	=>	'/var/vmail/';
 use constant BYTES				=> '1048576';
+use constant MAXMGSIZE				=> '104857600';
 
 use base qw(EBox::LdapUserBase);
 
@@ -62,6 +64,17 @@ sub setUserAccount () {
 														'value' => $email);
    }
 	
+	unless (isAPositiveNumber($mdsize)) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('maildir size'),
+			'value'	=> $mdsize);
+	}
+	
+	if($mdsize > MAXMGSIZE) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('maildir size'),
+			'value'	=> $mdsize);
+	}
 
 	my $userinfo = $users->userInfo($user);
 
@@ -322,6 +335,18 @@ sub setMDSize() {
 	my ($self, $uid, $mdsize) = @_;
 	my $users = EBox::Global->modInstance('users');
 	
+	unless (isAPositiveNumber($mdsize)) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('maildir size'),
+			'value'	=> $mdsize);
+	}
+	
+	if($mdsize > MAXMGSIZE) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('maildir size'),
+			'value'	=> $mdsize);
+	}
+
 	my $dn = "uid=$uid," .  $users->usersDn;
 	my $r = $self->{'ldap'}->modify($dn, {
 		replace => { 'userMaildirSize' => $mdsize * $self->BYTES }});

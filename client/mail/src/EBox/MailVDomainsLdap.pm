@@ -22,6 +22,7 @@ use EBox::Sudo qw( :all );
 use EBox::Validate qw( :all );
 use EBox::Global;
 use EBox::Ldap;
+use EBox::Validate qw( :all );
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
@@ -30,6 +31,7 @@ use EBox::Gettext;
 
 use constant VDOMAINDN     => 'ou=vdomains, ou=postfix';
 use constant BYTES				=> '1048576';
+use constant MAXMGSIZE				=> '104857600';
 
 sub new 
 {
@@ -54,6 +56,12 @@ sub addVDomain { #vdomain
 	}
 	
 	unless (isAPositiveNumber($dftmdsize)) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('maildir size'),
+			'value'	=> $dftmdsize);
+	}
+	
+	if($dftmdsize > MAXMGSIZE) {
 		throw EBox::Exceptions::InvalidData(
 			'data'	=> __('maildir size'),
 			'value'	=> $dftmdsize);
@@ -173,6 +181,18 @@ sub getMDSize() {
 sub setMDSize() {
 	my ($self, $vdomain, $mdsize) = @_;
    
+	unless (isAPositiveNumber($mdsize)) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('maildir size'),
+			'value'	=> $mdsize);
+	}
+	
+	if($mdsize > MAXMGSIZE) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('maildir size'),
+			'value'	=> $mdsize);
+	}
+
 	my $dn = "domainComponent=$vdomain," .  $self->vdomainDn;
 
 	$self->_updateVDomain($vdomain);

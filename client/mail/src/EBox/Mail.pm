@@ -52,6 +52,7 @@ use constant AUTHLDAPINIT			=> '/etc/init.d/courier-ldap';
 use constant POPPIDFILE				=> "/var/run/courier/pop3d.pid";
 use constant IMAPPIDFILE			=> "/var/run/courier/imapd.pid";
 use constant BYTES				=> '1048576';
+use constant MAXMGSIZE				=> '104857600';
 
 sub _create 
 {
@@ -268,6 +269,12 @@ sub setMaxMsgSize
 			'data'	=> __('message size'),
 			'value'	=> $size);
 	}
+
+	if($size > MAXMGSIZE) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('message size'),
+			'value'	=> $size);
+	}
 	
 	$self->set_int('maxmsgsize', $size);
 }
@@ -283,6 +290,12 @@ sub setMDDefaultSize
 	my ($self, $size)  = @_;
 	
 	unless (isAPositiveNumber($size)) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('maildir size'),
+			'value'	=> $size);
+	}
+	
+	if($size > MAXMGSIZE) {
 		throw EBox::Exceptions::InvalidData(
 			'data'	=> __('maildir size'),
 			'value'	=> $size);
