@@ -554,19 +554,6 @@ sub allowedDomainExists # (domain)
 	return undef;
 }
 
-sub _checkDomainName # (domain)
-{
-	my $self = shift;
-	my $domain = shift;
-	
-	unless (length($domain) < MAXDOMAINSIZ) {
-		return undef;
-	}
-	unless ($domain =~ /^[^\.\-][\w\.\-]+[^\-]$/) {
-		return undef;
-	}
-	return 1;
-}
 
 #
 sub ipBlocked #
@@ -636,7 +623,7 @@ sub addBannedDomain # (domain)
 	my $self = shift;
 	my $domain = shift;
 
-	unless ($self->_checkDomainName($domain)) {
+	unless (checkDomainName($domain)) {
   		throw EBox::Exceptions::InvalidData(
 				'data' => __('domain name'),
 	  			'value' => $domain); 
@@ -689,7 +676,7 @@ sub addAllowedDomain # (domain)
 	my $self = shift;
 	my $domain = shift;
 
-	unless ($self->_checkDomainName($domain)) {
+	unless (checkDomainName($domain)) {
   		throw EBox::Exceptions::InvalidData(
 				'data' => __('domain name'),
 	  			'value' => $domain); 
