@@ -99,10 +99,25 @@ use EBox::Gettext;
 	<input type='hidden' name='menu' value='<% $menu %>'/>
 	<h3><% __('Message size limit') %></h3>
 	<p><% __('Maximum message size accepted by the mail server (MB):') %></p>
+	<br/><p><% __('Unlimited size') %></p><br/>
+	<input type='checkbox' name='ulmsize' id='ulmsize'
+			value='0' onclick="updateMsgSize()"
+%		if($maxmsgsize eq 0) {
+			checked
+%		} 
+	>
+	<br/>
 	<input type='text' class='inputText' name='maxmsgsize' 
-		size="15"
+		size="15" id='maxmsgsize'
+%	if($maxmsgsize eq 0) {
+		disabled
+		value=""
+%	} else {
+		enabled
 		value='<% $maxmsgsize %>'>
+%	}
 	<input class='inputButton' type='submit' name='change'
+		id='mmschange'
 		value="<% __('Change') %>"
 		alt="<% __('Change') %>">
 </form>
@@ -111,10 +126,26 @@ use EBox::Gettext;
 	<input type='hidden' name='menu' value='<% $menu %>'/>
 	<h3><% __('Maximum mail account size') %></h3>
 	<p><% __('Default maximum size for new mail accounts (MB):') %></p>
-	<input type='text' class='inputText' name='mdsize' 
+	<br/><p><% __('Unlimited size') %></p>
+	<input type='checkbox' name='ummsize' id='ummsize'
+			value='0' onclick="updateMDSize()"
+%		if($maxmdsize eq 0) {
+			checked
+%		} 
+	>
+	<br/>
+	<input type='text' class='inputText' name='mdsize'
+		id='mdsize'
 		size="15"
+%	if($maxmdsize eq 0) {
+		disabled
+		value=""
+%	} else {
+		enabled
 		value='<% $maxmdsize %>'>
+%	}
 	<input class='inputButton' type='submit' name='change'
+		id='mdchange'
 		value="<% __('Change') %>"
 		alt="<% __('Change') %>">
 </form>
@@ -225,6 +256,44 @@ use EBox::Gettext;
 % }
 
 <script type="text/javascript">
+
+function updateMsgSize() {
+    var size = document.getElementById("maxmsgsize")
+    var chk = document.getElementById("ulmsize")
+	var val = <% $maxmsgsize %>;
+
+    if(chk.checked) {
+        size.disabled = true;
+        size.value = '';
+    } else {
+        size.disabled = false;
+
+		if(val == 0) {
+			val = 10;
+		}
+
+        size.value = val;
+    }
+}
+
+function updateMDSize() {
+    var size = document.getElementById("mdsize")
+    var chk = document.getElementById("ummsize")
+	var val = <% $maxmdsize %>;
+
+    if(chk.checked) {
+        size.disabled = true;
+        size.value = '';
+    } else {
+        size.disabled = false;
+		
+		if(val == 0) {
+			val = 10;
+		}
+        size.value = val;
+    }
+}
+
 function filterChanged() {
 	var sel = document.getElementById("filter")
 	var fwp = document.getElementById("fwport")
@@ -242,4 +311,5 @@ function filterChanged() {
 	}
 }
 filterChanged()
+updateMsgSize()
 </script>
