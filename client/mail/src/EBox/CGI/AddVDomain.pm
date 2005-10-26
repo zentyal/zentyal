@@ -39,8 +39,8 @@ sub _process($) {
 	my $self = shift;
 	my $mail = EBox::Global->modInstance('mail');
  
-	$self->_requireParam('vdomain', __('vdomain'));
-	$self->_requireParam('dftmdsize', __('dftmdsize'));
+	$self->_requireParam('vdomain', __('Virtual domain name'));
+	$self->_requireParam('dftmdsize', __('Default maildir size'));
 	
 	my $vdomain = $self->param('vdomain');
 	my $dftmdsize = $self->param('dftmdsize');
