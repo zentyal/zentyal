@@ -38,7 +38,7 @@ use EBox::Gettext;
 	<h3><% __('Mail alias settings') %></h3>
     <input type="hidden" name="alias" value="<% $params->{'alias'} %>">
     <input type="hidden" name="group" value="<% $params->{'group'} %>">
-	<h4><% $params->{'alias'} %></h4>
+	<% __('Mail alias') %>:<span class='stitle'><% $params->{'alias'} %></span>
 	<input class='inputButton' type='submit' name='change'
 			value="<% __('Delete') %>"
 			alt="<% __('Delete') %>">
