@@ -25,6 +25,7 @@ use EBox::Sudo qw( :all );
 use EBox::Validate qw( :all );
 use EBox::Gettext;
 use EBox::Summary::Module;
+use EBox::Summary::Status;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::MailVDomainsLdap;
