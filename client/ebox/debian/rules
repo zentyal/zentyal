@@ -50,6 +50,7 @@ install-indep: build config.status
 			install -d -m 755 $(CURDIR)/debian/ebox/etc/runit/$$serv ; \
 			install -m 644 $(CURDIR)/tools/runit/$$serv $(CURDIR)/debian/ebox/etc/runit/$$serv/run ; \
 			touch $(CURDIR)/debian/ebox/etc/runit/$$serv/down ; \
+			echo "etc/runit/$$serv var/service/$$serv" >> $(CURDIR)/debian/links ; \
 		done ; \
 		popd ; \
 	fi
