@@ -4,8 +4,8 @@ bin_SCRIPTS = ebox-test ebox-sudoers ebox
 
 pkglib_SCRIPTS =  ebox-apache-restart 
 
-SUBDIRS = runit
+SUBDIRS =
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(bin_SCRIPTS) $(pkglib_SCRIPTS)
+EXTRA_DIST = $(bin_SCRIPTS) $(pkglib_SCRIPTS) runit/apache-perl

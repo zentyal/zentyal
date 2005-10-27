@@ -79,7 +79,6 @@ AC_CONFIG_FILES([
 stubs/apache.mas
 stubs/Makefile
 tools/Makefile
-tools/runit/Makefile
 doc/Makefile
 src/Makefile
 src/templates/login/Makefile
