@@ -44,7 +44,10 @@ install-indep: build config.status
 		$(CURDIR)/debian/ebox/etc/ebox/ssl.crt/
 	install -m 600 $(CURDIR)/conf/ebox.key \
 		$(CURDIR)/debian/ebox/etc/ebox/ssl.key/
-
+	if [ -d tools/runit ] ; then \
+		for file in tools/runit ; do \
+		done
+	fi
 binary-indep: install-indep
 	dh_testdir
 	dh_testroot

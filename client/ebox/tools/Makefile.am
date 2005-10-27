@@ -4,7 +4,7 @@ bin_SCRIPTS = ebox-test ebox-sudoers ebox
 
 pkglib_SCRIPTS =  ebox-apache-restart 
 
-SUBDIRS = 
+SUBDIRS = runit
 
 MAINTAINERCLEANFILES = Makefile.in
 
