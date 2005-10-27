@@ -48,6 +48,7 @@ sub serverroot
 	return $root;
 }
 
+#not used now
 sub initd
 {
 	my $initd = EBox::Config::configkey('httpd_init');
@@ -68,7 +69,6 @@ sub _daemon # (action)
 	my $action = shift;
 	my $pid;
 	my $fork = undef;
-	my $initd = $self->initd;
 	exists $ENV{"MOD_PERL"} and $fork = 1;
 
 	if ($fork) {
@@ -89,9 +89,9 @@ sub _daemon # (action)
 	}
 
 	if ($action eq 'stop') {
-		root("$initd stop");
+		root("/usr/bin/runsvctrl down /var/service/apache-perl");
 	} elsif ($action eq 'start') {
-		root("$initd start");
+		root("/usr/bin/runsvctrl up /var/service/apache-perl");
 	} elsif ($action eq 'restart') {
 		exec(EBox::Config::libexec . 'ebox-apache-restart');
 	}

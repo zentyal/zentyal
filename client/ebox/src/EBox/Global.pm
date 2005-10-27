@@ -657,6 +657,7 @@ sub rootCommands
 	my @array = ();
 	push(@array, '/sbin/halt');
 	push(@array, '/sbin/reboot');
+	push(@array, '/usr/bin/runsvctrl');
 	return @array;
 }
 
