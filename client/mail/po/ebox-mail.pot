@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-07-18 20:22+0200\n"
+"POT-Creation-Date: 2005-10-26 18:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,21 +16,21 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/CGI/AddVDomain.pm:42 src/EBox/CGI/DelVDomain.pm:42
-#: src/EBox/CGI/ModifyVDomain.pm:42 src/EBox/CGI/EditVDomain.pm:43
-msgid "vdomain"
+#: src/EBox/CGI/AddVDomain.pm:42
+msgid "Virtual domain name"
 msgstr ""
 
 #: src/EBox/CGI/AddVDomain.pm:43
-msgid "dftmdsize"
+msgid "Default maildir size"
 msgstr ""
 
-#: src/EBox/CGI/EnablePop.pm:41
-msgid "pop3 service status"
+#: src/EBox/CGI/SetQuota.pm:46 src/templates/index.mas:118
+msgid "Message size limit"
 msgstr ""
 
 #: src/EBox/CGI/DelAlias.pm:42 src/EBox/CGI/CreateAlias.pm:42
 #: src/EBox/CGI/CreateAccount.pm:42 src/EBox/CGI/DelAccount.pm:42
+#: src/EBox/CGI/ModifyAccountMDSize.pm:55
 msgid "username"
 msgstr ""
 
@@ -38,8 +38,8 @@ msgstr ""
 msgid "mail alias"
 msgstr ""
 
-#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:583
-#: src/EBox/Mail.pm:657
+#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:624
+#: src/EBox/Mail.pm:702
 msgid "Mail"
 msgstr ""
 
@@ -47,45 +47,37 @@ msgstr ""
 msgid "group"
 msgstr ""
 
-#: src/EBox/CGI/CreateGroupAlias.pm:47 src/EBox/CGI/CreateAlias.pm:47
+#: src/EBox/CGI/CreateGroupAlias.pm:48 src/EBox/CGI/CreateAlias.pm:49
 msgid "left hand side of mail"
 msgstr ""
 
-#: src/EBox/CGI/CreateGroupAlias.pm:48 src/EBox/CGI/CreateAlias.pm:48
+#: src/EBox/CGI/CreateGroupAlias.pm:49 src/EBox/CGI/CreateAlias.pm:50
 msgid "right hand side of mail"
 msgstr ""
 
-#: src/EBox/CGI/EnableSASL.pm:41
-msgid "sasl auth service status"
-msgstr ""
-
-#: src/EBox/CGI/CreateAlias.pm:46
+#: src/EBox/CGI/CreateAlias.pm:48
 msgid "maildrop"
 msgstr ""
 
-#: src/EBox/CGI/EnableSMTPTLS.pm:41
-msgid "smtp tls service status"
-msgstr ""
-
-#: src/EBox/CGI/EnableImapSsl.pm:41
-msgid "imap ssl service status"
-msgstr ""
-
-#: src/EBox/CGI/CreateAccount.pm:46 src/EBox/MailVDomainsLdap.pm:48
-#: src/EBox/MailVDomainsLdap.pm:75
+#: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:54
+#: src/EBox/MailVDomainsLdap.pm:102
 msgid "virtual domain"
 msgstr ""
 
-#: src/EBox/CGI/CreateAccount.pm:48
-msgid "left hand side"
+#: src/EBox/CGI/CreateAccount.pm:50 src/templates/alias.mas:17
+msgid "Mail address"
 msgstr ""
 
-#: src/EBox/CGI/CreateAccount.pm:50
+#: src/EBox/CGI/CreateAccount.pm:52 src/EBox/MailVDomainsLdap.pm:60
+#: src/EBox/MailVDomainsLdap.pm:66 src/EBox/MailVDomainsLdap.pm:186
+#: src/EBox/MailVDomainsLdap.pm:192 src/EBox/MailUserLdap.pm:70
+#: src/EBox/MailUserLdap.pm:76 src/EBox/MailUserLdap.pm:341
+#: src/EBox/MailUserLdap.pm:347 src/EBox/Mail.pm:294 src/EBox/Mail.pm:300
 msgid "maildir size"
 msgstr ""
 
 #: src/EBox/CGI/VDomains.pm:29 src/EBox/CGI/VDomains.pm:39
-#: src/EBox/Mail.pm:661
+#: src/EBox/Mail.pm:708
 msgid "Virtual domains"
 msgstr ""
 
@@ -93,15 +85,24 @@ msgstr ""
 msgid "user mail"
 msgstr ""
 
+#: src/EBox/CGI/DelVDomain.pm:72 src/EBox/CGI/ModifyVDomain.pm:57
+#: src/EBox/CGI/EditVDomain.pm:43
+msgid "vdomain"
+msgstr ""
+
+#: src/EBox/CGI/SetMDQuota.pm:46 src/templates/index.mas:150
+msgid "Maximum mail account size"
+msgstr ""
+
 #: src/EBox/CGI/Enable.pm:40
 msgid "module status"
 msgstr ""
 
-#: src/EBox/CGI/EnablePopSsl.pm:41
-msgid "pop3 ssl service status"
+#: src/EBox/CGI/ModifyVDomain.pm:58 src/EBox/CGI/ModifyAccountMDSize.pm:59
+msgid "mdsize"
 msgstr ""
 
-#: src/EBox/CGI/MailConf.pm:40
+#: src/EBox/CGI/MailConf.pm:42
 msgid "relay"
 msgstr ""
 
@@ -109,72 +110,69 @@ msgstr ""
 msgid "group alias mail"
 msgstr ""
 
-#: src/EBox/CGI/EnableFilter.pm:41
-msgid "mail filtering service status"
-msgstr ""
-
-#: src/EBox/CGI/EnableImap.pm:41
-msgid "imap service status"
-msgstr ""
-
-#: src/EBox/CGI/ModifyVDomain.pm:43
-msgid "mdsize"
+#: src/EBox/CGI/MailSettings.pm:41
+msgid "mail system status"
 msgstr ""
 
 #: src/EBox/MailAliasLdap.pm:49 src/EBox/MailAliasLdap.pm:54
 #: src/EBox/MailAliasLdap.pm:79 src/EBox/MailAliasLdap.pm:84
-#: src/EBox/MailAliasLdap.pm:130 src/EBox/MailUserLdap.pm:55
-#: src/EBox/MailUserLdap.pm:60
+#: src/EBox/MailAliasLdap.pm:130 src/EBox/MailUserLdap.pm:58
+#: src/EBox/MailUserLdap.pm:63
 msgid "mail account"
 msgstr ""
 
 #: src/EBox/MailAliasLdap.pm:183 src/EBox/MailAliasLdap.pm:204
-#: src/EBox/MailAliasLdap.pm:224
+#: src/EBox/MailAliasLdap.pm:232
 msgid "mail alias account"
 msgstr ""
 
-#: src/EBox/Mail.pm:180
-msgid "listening port"
-msgstr ""
-
-#: src/EBox/Mail.pm:198 src/EBox/Mail.pm:204
-msgid "external filter service"
-msgstr ""
-
-#: src/EBox/Mail.pm:199 src/EBox/Mail.pm:205
-msgid "The "
-msgstr ""
-
-#: src/EBox/Mail.pm:584
-msgid "POP3 service"
-msgstr ""
-
-#: src/EBox/Mail.pm:586
-msgid "POP3 SSL service"
-msgstr ""
-
-#: src/EBox/Mail.pm:588
-msgid "IMAP service"
-msgstr ""
-
-#: src/EBox/Mail.pm:590
-msgid "IMAP SSL service"
-msgstr ""
-
-#: src/EBox/Mail.pm:649
-msgid "Mail system"
-msgstr ""
-
-#: src/EBox/Mail.pm:659
-msgid "General"
-msgstr ""
-
-#: src/EBox/MailUserLdap.pm:174
+#: src/EBox/MailUserLdap.pm:195
 msgid "This group has a mail alias"
 msgstr ""
 
-#: src/EBox/MailUserLdap.pm:196
+#: src/EBox/MailUserLdap.pm:217
 msgid "This user has a mail account"
+msgstr ""
+
+#: src/EBox/Mail.pm:189 src/EBox/Mail.pm:236
+msgid "port"
+msgstr ""
+
+#: src/EBox/Mail.pm:207 src/EBox/Mail.pm:213 src/EBox/Mail.pm:219
+msgid "remote IP"
+msgstr ""
+
+#: src/EBox/Mail.pm:251
+msgid "smarthost ip"
+msgstr ""
+
+#: src/EBox/Mail.pm:269 src/EBox/Mail.pm:275
+msgid "message size"
+msgstr ""
+
+#: src/EBox/Mail.pm:627
+msgid "POP3 service"
+msgstr ""
+
+#: src/EBox/Mail.pm:629
+msgid "IMAP service"
+msgstr ""
+
+#: src/EBox/Mail.pm:693
+msgid "Mail system"
+msgstr ""
+
+#: src/EBox/Mail.pm:705 src/templates/menutabs.mas:10
+#: src/templates/menutabs.mas:13
+msgid "General"
+msgstr ""
+
+#: src/EBox/MailTrafficRRDGraph.pm:36
+msgid "Mail Traffic"
+msgstr ""
+
+#: src/EBox/MailTrafficRRDGraph.pm:79
+msgid "Mail traffic"
 msgstr ""
 
 #: src/templates/groupalias.mas:13
@@ -182,232 +180,312 @@ msgid "Create alias mail account to group"
 msgstr ""
 
 #: src/templates/groupalias.mas:17
+msgid "If there are no users in the group, or the users do not "
+msgstr ""
+
+#: src/templates/groupalias.mas:23
 msgid ""
 "When the last member of a group is removed, the mail alias account will be "
 "deleted"
 msgstr ""
 
-#: src/templates/groupalias.mas:29 src/templates/groupalias.mas:31
-#: src/templates/createaccount.mas:26 src/templates/createaccount.mas:28
-#: src/templates/alias.mas:38 src/templates/alias.mas:40
+#: src/templates/groupalias.mas:35 src/templates/groupalias.mas:37
+#: src/templates/createaccount.mas:44 src/templates/createaccount.mas:46
+#: src/templates/alias.mas:77 src/templates/alias.mas:79
+#: src/templates/alias.mas:81
 msgid "Create"
 msgstr ""
 
-#: src/templates/groupalias.mas:37
+#: src/templates/groupalias.mas:43
 msgid "Mail alias settings"
 msgstr ""
 
-#: src/templates/groupalias.mas:43 src/templates/groupalias.mas:45
-#: src/templates/vdomains.mas:60 src/templates/vdomains.mas:62
-#: src/templates/alias.mas:18 src/templates/alias.mas:20
-#: src/templates/alias.mas:67 src/templates/alias.mas:69
+#: src/templates/groupalias.mas:49 src/templates/groupalias.mas:51
+#: src/templates/vdomains.mas:86 src/templates/vdomains.mas:88
+#: src/templates/alias.mas:20 src/templates/alias.mas:22
+#: src/templates/alias.mas:24 src/templates/alias.mas:93
+#: src/templates/alias.mas:95 src/templates/warnvd.mas:31
 msgid "Delete"
 msgstr ""
 
-#: src/templates/popssl.mas:13 src/templates/popssl.mas:18
-#: src/templates/sasl.mas:13 src/templates/sasl.mas:18
-#: src/templates/imap.mas:13 src/templates/imap.mas:18
-#: src/templates/filter.mas:13 src/templates/filter.mas:18
-#: src/templates/smtptls.mas:13 src/templates/smtptls.mas:18
-#: src/templates/imapssl.mas:13 src/templates/imapssl.mas:18
-#: src/templates/pop.mas:13 src/templates/pop.mas:18
-msgid "No"
-msgstr ""
-
-#: src/templates/popssl.mas:15 src/templates/popssl.mas:20
-#: src/templates/sasl.mas:15 src/templates/sasl.mas:20
-#: src/templates/imap.mas:15 src/templates/imap.mas:20
-#: src/templates/filter.mas:15 src/templates/filter.mas:20
-#: src/templates/smtptls.mas:15 src/templates/smtptls.mas:20
-#: src/templates/imapssl.mas:15 src/templates/imapssl.mas:20
-#: src/templates/pop.mas:15 src/templates/pop.mas:20
-msgid "Yes"
-msgstr ""
-
-#: src/templates/popssl.mas:25 src/templates/popssl.mas:27
-#: src/templates/sasl.mas:25 src/templates/sasl.mas:27
-#: src/templates/imap.mas:25 src/templates/imap.mas:27
-#: src/templates/filter.mas:25 src/templates/filter.mas:27
-#: src/templates/smtptls.mas:25 src/templates/smtptls.mas:27
-#: src/templates/imapssl.mas:25 src/templates/imapssl.mas:27
-#: src/templates/pop.mas:25 src/templates/pop.mas:27
-msgid "Ok"
-msgstr ""
-
-#: src/templates/vdomains.mas:13
-msgid "Add a new virtual domain"
-msgstr ""
-
-#: src/templates/vdomains.mas:16 src/templates/createaccount.mas:22
-msgid "Set default maildir size for this virtual domain"
-msgstr ""
-
-#: src/templates/vdomains.mas:20 src/templates/vdomains.mas:22
-msgid "Add"
-msgstr ""
-
-#: src/templates/vdomains.mas:28
-msgid "Virtual domains list"
-msgstr ""
-
-#: src/templates/vdomains.mas:33
-msgid "Name"
-msgstr ""
-
-#: src/templates/vdomains.mas:37
-msgid "Maildir Size (in Mb)"
-msgstr ""
-
-#: src/templates/vdomains.mas:41 src/templates/alias.mas:54
-msgid "Action"
-msgstr ""
-
-#: src/templates/vdomains.mas:54 src/templates/vdomains.mas:55
-msgid "Edit"
-msgstr ""
-
-#: src/templates/createaccount.mas:13 src/templates/account.mas:13
-msgid "Create mail account"
-msgstr ""
-
-#: src/templates/editvdomains.mas:11
-#, perl-brace-format
-msgid "Set default maildir size for {vdomain} virtual domain"
-msgstr ""
-
-#: src/templates/editvdomains.mas:16 src/templates/editvdomains.mas:18
-msgid "Modify"
-msgstr ""
-
-#: src/templates/index.mas:32 src/templates/mailtabs.mas:9
-#: src/templates/mailtabs.mas:12
+#: src/templates/mailtabs.mas:9 src/templates/mailtabs.mas:12
+#: src/templates/index.mas:53
 msgid "Services"
-msgstr ""
-
-#: src/templates/index.mas:35
-msgid "Enable Mail system"
-msgstr ""
-
-#: src/templates/index.mas:38
-msgid "Enable mail filtering service"
-msgstr ""
-
-#: src/templates/index.mas:40
-msgid "Enable TLS for SMTP server "
-msgstr ""
-
-#: src/templates/index.mas:42
-msgid "Enable SASL authentication"
-msgstr ""
-
-#: src/templates/index.mas:45
-msgid "Enable POP3 service"
-msgstr ""
-
-#: src/templates/index.mas:47
-msgid "Enable POP3 SSL service"
-msgstr ""
-
-#: src/templates/index.mas:49
-msgid "Enable IMAP service"
-msgstr ""
-
-#: src/templates/index.mas:51
-msgid "Enable IMAP SSL service"
-msgstr ""
-
-#: src/templates/index.mas:57
-msgid "General Settings"
-msgstr ""
-
-#: src/templates/index.mas:63
-msgid "Relay"
-msgstr ""
-
-#: src/templates/index.mas:72 src/templates/index.mas:74
-#: src/templates/index.mas:96 src/templates/index.mas:98
-#: src/templates/index.mas:120 src/templates/index.mas:122
-msgid "Change"
-msgstr ""
-
-#: src/templates/index.mas:87
-msgid "Message size limit (in MB)"
-msgstr ""
-
-#: src/templates/index.mas:111
-msgid "Default maildir size limit (in MB)"
-msgstr ""
-
-#: src/templates/index.mas:132
-msgid ""
-"Choose the object whose state you want to change and click in the arrow to "
-"move it to the desired column."
-msgstr ""
-
-#: src/templates/index.mas:141
-msgid "Denied"
-msgstr ""
-
-#: src/templates/index.mas:144
-msgid "Allowed"
-msgstr ""
-
-#: src/templates/index.mas:163 src/templates/index.mas:167
-msgid "Allow"
-msgstr ""
-
-#: src/templates/index.mas:165
-msgid "Move selected objects to the allowed column"
-msgstr ""
-
-#: src/templates/index.mas:184 src/templates/index.mas:188
-msgid "Deny"
-msgstr ""
-
-#: src/templates/index.mas:186
-msgid "Move selected objects to the denied column"
-msgstr ""
-
-#: src/templates/index.mas:198
-msgid "Filter Settings"
-msgstr ""
-
-#: src/templates/index.mas:200
-msgid "Set the local port to get filtered mail reinjected"
-msgstr ""
-
-#: src/templates/index.mas:203
-msgid "Set the IP of the external filter service"
-msgstr ""
-
-#: src/templates/index.mas:206
-msgid "Set the listen port of the external filter service"
-msgstr ""
-
-#: src/templates/index.mas:210 src/templates/index.mas:212
-msgid "Apply"
-msgstr ""
-
-#: src/templates/alias.mas:12
-msgid "Mail account settings"
-msgstr ""
-
-#: src/templates/alias.mas:27 src/templates/account.mas:17
-msgid "Create mail alias to mail account"
-msgstr ""
-
-#: src/templates/alias.mas:45
-msgid "Mail aliases accounts list"
-msgstr ""
-
-#: src/templates/alias.mas:50
-msgid "Mail alias"
 msgstr ""
 
 #: src/templates/mailtabs.mas:16 src/templates/mailtabs.mas:19
 msgid "Settings"
 msgstr ""
 
-#: src/templates/mailtabs.mas:24 src/templates/mailtabs.mas:27
-msgid "Filter"
+#: src/templates/mailtabs.mas:23 src/templates/mailtabs.mas:26
+msgid "External Filter"
+msgstr ""
+
+#: src/templates/vdomains.mas:10
+msgid "Add a new virtual domain"
+msgstr ""
+
+#: src/templates/vdomains.mas:16 src/templates/createaccount.mas:22
+msgid "Domain name"
+msgstr ""
+
+#: src/templates/vdomains.mas:26
+msgid "Default maildir size (Mb)"
+msgstr ""
+
+#: src/templates/vdomains.mas:41 src/templates/vdomains.mas:43
+msgid "Add"
+msgstr ""
+
+#: src/templates/vdomains.mas:53
+msgid "Virtual domains list"
+msgstr ""
+
+#: src/templates/vdomains.mas:59
+msgid "Name"
+msgstr ""
+
+#: src/templates/vdomains.mas:63
+msgid "Maildir Size"
+msgstr ""
+
+#: src/templates/vdomains.mas:67 src/templates/alias.mas:55
+msgid "Action"
+msgstr ""
+
+#: src/templates/vdomains.mas:80 src/templates/vdomains.mas:81
+msgid "Edit"
+msgstr ""
+
+#: src/templates/sasl.mas:15 src/templates/sasl.mas:20
+#: src/templates/imap.mas:22 src/templates/imap.mas:29
+#: src/templates/imap.mas:36 src/templates/pop.mas:22 src/templates/pop.mas:29
+#: src/templates/pop.mas:36
+msgid "No"
+msgstr ""
+
+#: src/templates/sasl.mas:17 src/templates/sasl.mas:22
+msgid "Yes"
+msgstr ""
+
+#: src/templates/imap.mas:24 src/templates/imap.mas:31
+#: src/templates/imap.mas:38 src/templates/pop.mas:24 src/templates/pop.mas:31
+#: src/templates/pop.mas:38
+msgid "Optional"
+msgstr ""
+
+#: src/templates/imap.mas:26 src/templates/imap.mas:33
+#: src/templates/imap.mas:40 src/templates/pop.mas:26 src/templates/pop.mas:33
+#: src/templates/pop.mas:40
+msgid "Required"
+msgstr ""
+
+#: src/templates/createaccount.mas:13 src/templates/account.mas:11
+msgid "Create mail account"
+msgstr ""
+
+#: src/templates/createaccount.mas:17
+msgid "Account name"
+msgstr ""
+
+#: src/templates/createaccount.mas:34 src/templates/alias.mas:29
+msgid "Maildir size (MB)"
+msgstr ""
+
+#: src/templates/index.mas:30
+msgid "Mail service settings"
+msgstr ""
+
+#: src/templates/index.mas:33
+msgid "TLS for SMTP server"
+msgstr ""
+
+#: src/templates/index.mas:35
+msgid "Require authentication"
+msgstr ""
+
+#: src/templates/index.mas:44 src/templates/index.mas:46
+#: src/templates/index.mas:110 src/templates/index.mas:112
+#: src/templates/index.mas:142 src/templates/index.mas:144
+#: src/templates/index.mas:175 src/templates/index.mas:177
+#: src/templates/warnvdmdsize.mas:34 src/templates/warnusermdsize.mas:24
+msgid "Change"
+msgstr ""
+
+#: src/templates/index.mas:62
+msgid "Service"
+msgstr ""
+
+#: src/templates/index.mas:66 src/templates/index.mas:262
+#: src/templates/index.mas:267 src/templates/enable.mas:24
+#: src/templates/enable.mas:29
+msgid "Enabled"
+msgstr ""
+
+#: src/templates/index.mas:70
+msgid "SSL Support"
+msgstr ""
+
+#: src/templates/index.mas:76
+msgid "POP3"
+msgstr ""
+
+#: src/templates/index.mas:78
+msgid "IMAP"
+msgstr ""
+
+#: src/templates/index.mas:86 src/templates/index.mas:88
+msgid "Apply Changes"
+msgstr ""
+
+#: src/templates/index.mas:96
+msgid ""
+"A value of 0 for the maximum message size and maximum mail account size "
+"stands for no size limitation."
+msgstr ""
+
+#: src/templates/index.mas:102
+msgid "Relay"
+msgstr ""
+
+#: src/templates/index.mas:104
+msgid "IP address of smarthost to send mail:"
+msgstr ""
+
+#: src/templates/index.mas:120
+msgid "Maximum message size accepted by the mail server (MB):"
+msgstr ""
+
+#: src/templates/index.mas:122 src/templates/index.mas:154
+msgid "Unlimited size"
+msgstr ""
+
+#: src/templates/index.mas:152
+msgid "Default maximum size for new mail accounts (MB):"
+msgstr ""
+
+#: src/templates/index.mas:181
+msgid "Relay policy for objects"
+msgstr ""
+
+#: src/templates/index.mas:184
+msgid ""
+"You should move to allowed column those objects that do you want to allow "
+"send mail through this module."
+msgstr ""
+
+#: src/templates/index.mas:187
+msgid ""
+"Choose the object whose state you want to change and click in the arrow to "
+"move it to the desired column."
+msgstr ""
+
+#: src/templates/index.mas:195
+msgid "Denied"
+msgstr ""
+
+#: src/templates/index.mas:198
+msgid "Allowed"
+msgstr ""
+
+#: src/templates/index.mas:217 src/templates/index.mas:221
+msgid "Allow"
+msgstr ""
+
+#: src/templates/index.mas:219
+msgid "Move selected objects to the allowed column"
+msgstr ""
+
+#: src/templates/index.mas:238 src/templates/index.mas:242
+msgid "Deny"
+msgstr ""
+
+#: src/templates/index.mas:240
+msgid "Move selected objects to the denied column"
+msgstr ""
+
+#: src/templates/index.mas:257
+msgid "Status"
+msgstr ""
+
+#: src/templates/index.mas:264 src/templates/index.mas:269
+#: src/templates/enable.mas:22 src/templates/enable.mas:27
+msgid "Disabled"
+msgstr ""
+
+#: src/templates/index.mas:277
+msgid "Local port"
+msgstr ""
+
+#: src/templates/index.mas:283
+msgid "Remote IP address"
+msgstr ""
+
+#: src/templates/index.mas:289
+msgid "Remote Port"
+msgstr ""
+
+#: src/templates/index.mas:298 src/templates/index.mas:300
+msgid "Apply"
+msgstr ""
+
+#: src/templates/alias.mas:11
+msgid "Mail account settings"
+msgstr ""
+
+#: src/templates/alias.mas:34 src/templates/alias.mas:36
+#: src/templates/editvdomains.mas:32 src/templates/editvdomains.mas:34
+msgid "Modify"
+msgstr ""
+
+#: src/templates/alias.mas:45
+msgid "Create mail aliases"
+msgstr ""
+
+#: src/templates/alias.mas:51
+msgid "Mail alias"
+msgstr ""
+
+#: src/templates/account.mas:15
+msgid "Create mail alias to mail account"
+msgstr ""
+
+#: src/templates/warnvdmdsize.mas:14 src/templates/warnusermdsize.mas:10
+msgid "Changing maildir size of"
+msgstr ""
+
+#: src/templates/warnvdmdsize.mas:38 src/templates/warnvd.mas:35
+#: src/templates/warnusermdsize.mas:28
+msgid "Cancel"
+msgstr ""
+
+#: src/templates/enable.mas:10
+msgid "TLS support is required by the authentication system"
+msgstr ""
+
+#: src/templates/enable.mas:16
+msgid "Service status"
+msgstr ""
+
+#: src/templates/editvdomains.mas:20
+#, perl-brace-format
+msgid "Maildir size for {vdomain} virtual domain"
+msgstr ""
+
+#: src/templates/editvdomains.mas:25
+msgid "Force the change to the existing accounts"
+msgstr ""
+
+#: src/templates/warnvd.mas:12
+msgid "Deleting virtual domain"
+msgstr ""
+
+#: src/templates/warnvd.mas:15
+msgid ""
+"The virtual domain you tried to delete contains data in the following "
+"modules. Please confirm you want to remove it and all its related data"
+msgstr ""
+
+#: src/templates/mailstats.mas:12
+msgid "Esto es un foobar del Mail: "
 msgstr ""

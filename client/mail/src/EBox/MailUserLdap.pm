@@ -289,7 +289,8 @@ sub _groupAddOns() {
 
 	my $args = { 	'group' => $group,
 						'vdomains'	=>	\@vd,
-						'alias'		=> $alias
+						'alias'		=> $alias,
+						'nacc' => $self->usersWithMailInGroup($group)
 	};
 	
 	return { path => '/mail/groupalias.mas', params => $args };
@@ -369,6 +370,37 @@ sub allAccountsFromVDomain() { #vdomain
 	my %accounts = map { $_->get_value('uid'), $_->get_value('mail')} $result->sorted('uid');
 
 	return \%accounts;
+}
+
+sub usersWithMailInGroup() {
+	my ($self, $groupname) = @_;
+	my $users = EBox::Global->modInstance('users');
+
+	my %args = (
+		base => $users->usersDn,
+		filter => "(objectclass=couriermailaccount)",
+		scope => 'one',
+		attrs => ['mail']
+	);
+	
+	my $result = $self->{ldap}->search(\%args);
+
+	my @mailusers;
+	foreach my $user ($result->sorted('mail')) {
+		push(@mailusers, $user->get_value('mail'));
+	}
+	my @usersingroup = @{$users->usersInGroup($groupname)};
+	
+	# the intersection between users with mail and users of the group
+	my @mailingroup;
+	foreach my $m (@mailusers) {
+		my $temp = (split(/@/, $m))[0];
+		if (grep(/^$temp$/,@usersingroup)) {
+			push (@mailingroup, $m);
+		}
+	}
+
+	return scalar(@mailingroup);
 }
 
 sub checkUserMDSize () {

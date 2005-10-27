@@ -13,19 +13,35 @@ use EBox::Gettext;
 	<h3><% __('Create alias mail account to group') %></h3>
 
 	<div class='help'>
-		<p><% __('If there are no users in the group, or the users do not ' .
-		'have mail account, the group alias account will not be created.') %></p>
 		<p><% __("When the last member of a group is removed, the mail alias account will be deleted")%></p>
 	</div>
+
+%	if($params->{'nacc'} eq 0) {
+	<div class='warning'>
+		<p><% __('There are no users in the group or the users do not ' .
+		'have a mail account, so an alias account cannot be created') %></p>
+	</div>
+%	}
 	
-	<p><input type='text' class='inputText' name='lhs'>
-	<select name="rhs" enabled>
+	<p><input type='text' class='inputText' name='lhs'
+%	if($params->{'nacc'} eq 0) {
+		disabled
+%	}
+	>
+	<select name="rhs"
+%	if($params->{'nacc'} eq 0) {
+		disabled
+%	}
+	>
 %	foreach my $vd (@{$params->{vdomains}}) {
 		<option value= <% $vd %> > <% __($vd) %> </option>
 %	}
 	</select>
 
 	<input class='inputButton' type='submit' name='change'
+%	if($params->{'nacc'} eq 0) {
+			disabled
+%	}
 			value="<% __('Create') %>"
 			alt="<% __('Create') %>"></p>
 % settextdomain('ebox-usersandgroups');
