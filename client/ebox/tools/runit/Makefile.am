@@ -2,4 +2,4 @@
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = apache-perl
+EXTRA_DIST = apache-perl.runit
