@@ -21,7 +21,7 @@ use EBox::Gettext;
 		<% __("When the last member of a group is removed, the mail alias account will be deleted")%>
 	</div>
 	
-	<input type='text' class='inputText' name='lhs'>
+	<p><input type='text' class='inputText' name='lhs'>
 	<select name="rhs" enabled>
 %	foreach my $vd (@{$params->{vdomains}}) {
 		<option value= <% $vd %> > <% __($vd) %> </option>
@@ -30,7 +30,7 @@ use EBox::Gettext;
 
 	<input class='inputButton' type='submit' name='change'
 			value="<% __('Create') %>"
-			alt="<% __('Create') %>">
+			alt="<% __('Create') %>"></p>
 % settextdomain('ebox-usersandgroups');
 </form>
 %} else {
