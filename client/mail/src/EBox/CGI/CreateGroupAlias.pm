@@ -45,8 +45,8 @@ sub _process($) {
 	
 	$self->keepParam('group');
 
-	$self->_requireParam('lhs', __('left hand side of mail'));
-	$self->_requireParam('rhs', __('right hand side of mail'));
+	$self->_requireParam('lhs', __('account name'));
+	$self->_requireParam('rhs', __('domain name'));
 	
 	my $lhs = $self->param('lhs');
 	my $rhs = $self->param('rhs');

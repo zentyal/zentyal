@@ -46,8 +46,8 @@ sub _process($) {
 	$self->keepParam('username');
 
 	$self->_requireParam('maildrop', __('maildrop'));
-	$self->_requireParam('lhs', __('left hand side of mail'));
-	$self->_requireParam('rhs', __('right hand side of mail'));
+	$self->_requireParam('lhs', __('account name'));
+	$self->_requireParam('rhs', __('domain name'));
 	
 	my $maildrop = $self->param('maildrop');
 	my $lhs = $self->param('lhs');
