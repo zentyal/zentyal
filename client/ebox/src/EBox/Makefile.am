@@ -4,7 +4,7 @@ perldir = @PERLPATH@/EBox
 
 mods = Module.pm Html.pm Global.pm SysInfo.pm GConfModule.pm \
 	Auth.pm Order.pm GConfHelper.pm GConfState.pm GConfConfig.pm \
-	Apache.pm Backup.pm AbstractDaemon.pm KeepAlive.pm KeepAlived.pm
+	Apache.pm Backup.pm AbstractDaemon.pm
 
 nobase_perl_DATA = $(mods)
 

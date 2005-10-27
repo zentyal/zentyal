@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 Etcdir = $(sysconfdir)/ebox
-Etc_DATA = 70eboxkeepalive.conf 80eboxclient.conf
+Etc_DATA = 80eboxclient.conf
 
 SSLCertdir = $(sysconfdir)/ebox/ssl.crt
 SSLCert_DATA = ebox.cert
