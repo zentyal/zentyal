@@ -38,7 +38,6 @@ use HTML::Mason;
 use Error qw(:try);
 
 #Module local conf stuff
-use constant DHCPINIT => "/etc/init.d/dhcp3-server";
 use constant DHCPCONFFILE => "/etc/dhcp3/dhcpd.conf";
 use constant PIDFILE => "/var/run/dhcpd.pid";
 
@@ -696,15 +695,15 @@ sub fixedAddresses # (interface)
 sub daemon # (action)
 {
 	my ($self, $action) = @_;
-	my $command = DHCPINIT . " " . $action . " 2>&1";
 	if ( $action eq 'start') {
-		root($command);
+		root("/usr/bin/runsvctrl up /var/service/apache-perl");
 	}
 	elsif ( $action eq 'stop'){
-		root($command);
+		root("/usr/bin/runsvctrl down /var/service/apache-perl");
 	}
 	elsif ( $action eq 'restart'){
-		root($command);
+		root("/usr/bin/runsvctrl down /var/service/apache-perl");
+		root("/usr/bin/runsvctrl up /var/service/apache-perl");
 	}
 	else {
 		throw EBox::Exceptions::Internal("Bad argument: $action");
@@ -910,7 +909,6 @@ sub rootCommands
 {
 	my $self = shift;
 	my @array = ();
-	push(@array, DHCPINIT);
 	push(@array,"/bin/mv ". EBox::Config::tmp . "* ". DHCPCONFFILE);
 	push(@array,"/bin/chmod * ". DHCPCONFFILE);
 	push(@array,"/bin/chown * ". DHCPCONFFILE);
