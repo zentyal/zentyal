@@ -78,7 +78,8 @@ sub footer($) # (module)
 	my $module = shift;
 
 	return qq%<div id="footer">
-	Copyright &copy; 2005, <a href='http://www.warp.es'>Warp Networks S.L.</a>
+	<a href='http://www.warp.es'>Warp Networks S.L.</a> | 
+	<a href='http://www.dbs.es'>DBS Servicios Informáticos S.L.</a>
 	</div>
 	<script type="text/javascript" src="/data/js/help.js">//</script>
 	<script type="text/javascript"><!--
