@@ -1616,7 +1616,7 @@ sub _generateRoutes
 		if (route_is_up($net, $router)) {
 			root("/sbin/ip route del $net via $router");
 		}
-		root("/sbin/ip route add $net via $router");
+		root("/sbin/ip route add $net via $router || true");
 	}
 }
 
