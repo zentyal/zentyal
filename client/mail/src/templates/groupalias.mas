@@ -13,12 +13,9 @@ use EBox::Gettext;
 	<h3><% __('Create alias mail account to group') %></h3>
 
 	<div class='help'>
-		<% __('If there are no users in the group, or the users do not ' .
-		'have mail account, the group alias account will not be created.') %>
-	</div>
-	</br>
-	<div class='help'>
-		<% __("When the last member of a group is removed, the mail alias account will be deleted")%>
+		<p><% __('If there are no users in the group, or the users do not ' .
+		'have mail account, the group alias account will not be created.') %></p>
+		<p><% __("When the last member of a group is removed, the mail alias account will be deleted")%></p>
 	</div>
 	
 	<p><input type='text' class='inputText' name='lhs'>
