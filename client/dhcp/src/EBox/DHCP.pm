@@ -33,6 +33,7 @@ use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Sudo qw(:all);
 use EBox::NetWrappers qw(:all);
+use EBox::Service;
 use Net::IP;
 use HTML::Mason;
 use Error qw(:try);
@@ -61,11 +62,11 @@ sub _doDaemon
 {
 	my $self = shift;
 	if($self->service and $self->isRunning) {
-		$self->daemon('restart');
+		EBox::Service::manage('dhcp3','restart');
 	} elsif ($self->service) {
-		$self->daemon('start');
+		EBox::Service::manage('dhcp3','start');
 	} elsif (not $self->service and $self->isRunning) {
-		$self->daemon('stop');
+		EBox::Service::manage('dhcp3','stop');
 	}
 }
 
@@ -73,7 +74,7 @@ sub _stopService
 {
 	my $self = shift;
 	if($self->isRunning) {
-		$self->daemon('stop');
+		EBox::Service::manage('dhcp3','stop');
 	}
 }
 
@@ -678,36 +679,6 @@ sub fixedAddresses # (interface)
 {
 	my ($self,$iface) = @_;
 	return $self->array_from_dir("$iface/fixed");
-}
-
-#   Function: daemon 
-#
-#	Manage dhcp via /etc/init.d/dhcp
-#   
-#   Parameters:
-#	
-#	action - [start|stop|reload]
-#
-#   Exceptions:
-#
-#	Internal - Bad argument	
-#
-sub daemon # (action)
-{
-	my ($self, $action) = @_;
-	if ( $action eq 'start') {
-		root("/usr/bin/runsvctrl up /var/service/dhcp3");
-	}
-	elsif ( $action eq 'stop'){
-		root("/usr/bin/runsvctrl down /var/service/dhcp3");
-	}
-	elsif ( $action eq 'restart'){
-		root("/usr/bin/runsvctrl down /var/service/dhcp3");
-		root("/usr/bin/runsvctrl up /var/service/dhcp3");
-	}
-	else {
-		throw EBox::Exceptions::Internal("Bad argument: $action");
-	}
 }
 
 sub _configureFirewall {
