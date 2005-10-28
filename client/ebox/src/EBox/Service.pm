@@ -53,4 +53,34 @@ sub manage # (daemon,action)
 	}
 }
 
+#
+#   Function: running
+#
+#	Check if a daemon is running
+#
+#   Parameters:
+#   	
+#   	daemon - name of the daemon
+#
+#   Exceptions:
+#
+#       Internal - Bad argument
+#
+sub running # (daemon)
+{
+	my ($self, $daemon) = @_;
+	(-d "/var/service/$daemon") or
+		throw EBox::Exceptions::Internal("No such daemon: $daemon");
+
+	my $output = root("/usr/bin/runsvstat /var/service/$daemon");
+	my $status = @{$output}[0];
+	if ($status =~ {^/var/service/$daemon: run}) {
+		return 1;
+	} elsif ($status =~ {^/var/service/$daemon: down}) {
+		return undef;
+	} else {
+		throw EBox::Exceptions::Internal("Error getting status: $daemon");
+	}
+}
+
 1;
