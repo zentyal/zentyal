@@ -22,6 +22,7 @@ use base 'EBox::GConfModule';
 
 use EBox::Objects;
 use EBox::Gettext;
+use EBox::Service;
 use EBox::Summary::Module;
 use EBox::Summary::Status;
 use EBox::Menu::Item;
@@ -55,11 +56,11 @@ sub _doDaemon
 	my $self = shift;
 
 	if ($self->service and $self->isRunning) {
-		$self->_daemon('reload');
+		EBox::Service::manage('bind9','restart');
 	} elsif ($self->service) {
-		$self->_daemon('start');
+		EBox::Service::manage('bind9','start');
 	} elsif ($self->isRunning) {
-		$self->_daemon('stop');
+		EBox::Service::manage('bind9','stop');
 	}
 }
 
@@ -68,7 +69,7 @@ sub _stopService
 	my $self = shift;
 
 	if ($self->isRunning) {
-		$self->_daemon('stop');
+		EBox::Service::manage('bind9','stop');
 	}
 
 }
@@ -147,22 +148,6 @@ sub _setBindConf
 				\@array);
 }
 
-sub _daemon # (action)
-{
-	my ($self, $action) = @_;
-	my $command =  BIND9INIT . " " . $action . " 2>&1";
-
-	if ( $action eq 'start') {
-		root($command);
-	} elsif ( $action eq 'stop') {
-		root($command);
-	} elsif ( $action eq 'reload') {
-		root($command);
-	} else {
-		throw EBox::Exceptions::Internal("Bad argument: $action");
-	}
-}
-
 sub statusSummary
 {
 	my $self = shift;
@@ -179,7 +164,6 @@ sub rootCommands
 	my $self = shift;
 	my @array = ();
    
-	push(@array, BIND9INIT);
 	push(@array, "/bin/chmod * " . BIND9CONFFILE);
 	push(@array, "/bin/chown * " . BIND9CONFFILE);
 	push(@array, "/bin/chmod * " . BIND9CONFOPTIONSFILE);
