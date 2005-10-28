@@ -18,7 +18,7 @@ package EBox::Service;
 use strict;
 use warnings;
 
-use EBox::Sudo;
+use EBox::Sudo qw( :all );
 
 #
 #   Function: manage
