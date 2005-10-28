@@ -44,34 +44,22 @@ sub _create
 	return $self;
 }
 
-sub isRunning
-{
-	my $self = shift;
-	return $self->pidFileRunning(PIDFILE);
-}
-
-
 sub _doDaemon
 {
 	my $self = shift;
 
-	if ($self->service and $self->isRunning) {
+	if ($self->service and EBox::Service::running('bind9')) {
 		EBox::Service::manage('bind9','restart');
 	} elsif ($self->service) {
 		EBox::Service::manage('bind9','start');
-	} elsif ($self->isRunning) {
+	} elsif (EBox::Service::running('bind9')) {
 		EBox::Service::manage('bind9','stop');
 	}
 }
 
 sub _stopService
 {
-	my $self = shift;
-
-	if ($self->isRunning) {
-		EBox::Service::manage('bind9','stop');
-	}
-
+	EBox::Service::manage('bind9','stop');
 }
 
 sub _configureFirewall($){
@@ -152,7 +140,7 @@ sub statusSummary
 {
 	my $self = shift;
 	return new EBox::Summary::Status('dns-cache', __('DNS cache'),
-						$self->isRunning, $self->service);
+		EBox::Service::running('bind9'), $self->service);
 }
 
 # Method: rootCommands
