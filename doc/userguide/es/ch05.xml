@@ -31,7 +31,13 @@
 		<para>
 		Las redirecciones de puertos permiten llevar un tráfico
 		procedente del exterior de la red hacia una máquina detrás de un
-		cortafuegos equipado con eBox.
+		cortafuegos equipado con eBox. Se puede acceder a la configuración de las
+		redirecciones de puertos a través de 
+		<menuchoice>
+			<guimenu>Cortafuegos</guimenu>
+			<guimenuitem>Redirecciones</guimenuitem>
+		</menuchoice>
+		.
 		</para>
 
 		<para>
@@ -73,7 +79,59 @@
 		<title>Filtrado</title>
 
 		<para>
-		TODO
+		Desde
+		<menuchoice>
+			<guimenu>Cortafuegos</guimenu>
+			<guimenuitem>Filtrado de paquetes</guimenuitem>
+		</menuchoice>
+		se pueden configurar las reglas de filtrado de paquetes generales
+		o particularizarlas para cada uno de los objetos de red.
+		</para>
+
+		<para>
+		En la ventana de configuración podemos establecer la política de 
+		denegación de paquetes de red. Si se selecciona la política de 
+		rechazar paquetes, se notificará al remitente del paquete de que se
+		ha denegado en el destino. Si en cambio se selecciona la política de 
+		ignorar paquetes, los paquetes filtrados serán descartados sin notificar
+		al remitente.
+		</para>
+
+		<para>
+		Haciendo click sobre Reglas de filtrado se accede a la lista de reglas
+		de filtrado del cortafuegos de eBox. Cada regla puede ser activada o 
+		desactivada sin necesidad de borrarla. Las reglas de la lista se aplican
+		de arriba a abajo y el orden puede ser importante. Para cada regla se
+		puede especificar el protocolo de transmisión de paquetes, la acción a 
+		tomar en caso de que un paquete cumpla la regla, es decir permitirlo o
+		denegarlo, la dirección y puerto de origen del paquete y la dirección
+		y puerto de destino. A la hora de especificar una dirección o un puerto
+		se pueden especificar los que pertenecen o los que no pertenecen a
+		la regla, lo que aumenta la flexibilidad y claridad de las reglas
+		reduciendo además su número.
+		</para>
+
+		<para>
+		Dentro de Configurar reglas por defecto, se pueden establecer las reglas 
+		que se aplicarán por defecto a todos los objetos de eBox. Esto incluye la
+		política general del objeto, la denegación o aceptación de ciertos servicios
+		seleccionables a partir de una lista desplegable y la creación de una
+		lista de reglas específicas para el objeto que permiten o deniegan
+		conexiones con un protocolo, una dirección de destino (con máscara) y
+		puerto determinados. Estas reglas pueden ser activadas y desactivadas sin
+		necesidad de borrarlas y volverlas a crear, al igual que las reglas
+		de filtrado de eBox.
+		</para>
+
+		<para>
+		En la parte inferior se puede seleccionar un objeto de red de eBox
+		de la lista desplegable, y, haciendo click en Ir, aplicarle
+		reglas de filtrado de paquetes específicas. Entre las opciones 
+		configurables para los objetos de red se encuentran: fijar una política
+		específica o utilizar la política global, aceptar o denegar ciertos
+		servicios seleccionables de la lista desplegable de Servicios y crear 
+		reglas para el objeto de la misma manera que se crean para la política 
+		global.
 		</para>
 	</section>
 
