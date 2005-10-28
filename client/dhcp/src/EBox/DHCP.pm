@@ -52,30 +52,21 @@ sub _create
 	return $self;
 }
 
-sub isRunning
-{
-	my $self = shift;
-	return $self->pidFileRunning(PIDFILE);
-}
-
 sub _doDaemon
 {
 	my $self = shift;
-	if($self->service and $self->isRunning) {
+	if ($self->service and EBox::Service::running('dhcp3')) {
 		EBox::Service::manage('dhcp3','restart');
 	} elsif ($self->service) {
 		EBox::Service::manage('dhcp3','start');
-	} elsif (not $self->service and $self->isRunning) {
+	} elsif (not $self->service and EBox::Service::running('dhcp3')) {
 		EBox::Service::manage('dhcp3','stop');
 	}
 }
 
 sub _stopService
 {
-	my $self = shift;
-	if($self->isRunning) {
-		EBox::Service::manage('dhcp3','stop');
-	}
+	EBox::Service::manage('dhcp3','stop');
 }
 
 #   Function: _regenConfig
@@ -868,7 +859,7 @@ sub statusSummary
 {
 	my $self = shift;
 	return new EBox::Summary::Status('dhcp', 'DHCP',
-		$self->isRunning, $self->service);	
+		EBox::Service::running('dhcp3'), $self->service);	
 }
 
 #   Function: rootCommands
