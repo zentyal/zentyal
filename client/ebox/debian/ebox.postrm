@@ -10,7 +10,7 @@ case "$1" in
 			mv -f /etc/inittab'{new}' /etc/inittab
 			kill -s HUP 1 || :
 		fi
-
+		;;
 	purge)
 		if grep '#-- ebox begin' /etc/inittab >/dev/null; then
 			echo 'Removing eBox inittab entry...'
