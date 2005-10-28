@@ -74,9 +74,9 @@ sub running # (daemon)
 
 	my $output = root("/usr/bin/runsvstat /var/service/$daemon");
 	my $status = @{$output}[0];
-	if ($status =~ {^/var/service/$daemon: run}) {
+	if ($status =~ m{^/var/service/$daemon: run}) {
 		return 1;
-	} elsif ($status =~ {^/var/service/$daemon: down}) {
+	} elsif ($status =~ m{^/var/service/$daemon: down}) {
 		return undef;
 	} else {
 		throw EBox::Exceptions::Internal("Error getting status: $daemon");
