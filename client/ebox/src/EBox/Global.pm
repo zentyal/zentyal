@@ -658,6 +658,7 @@ sub rootCommands
 	push(@array, '/sbin/halt');
 	push(@array, '/sbin/reboot');
 	push(@array, '/usr/bin/runsvctrl');
+	push(@array, '/usr/bin/runsvstat');
 	return @array;
 }
 

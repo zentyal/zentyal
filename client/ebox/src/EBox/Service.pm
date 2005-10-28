@@ -18,6 +18,8 @@ package EBox::Service;
 use strict;
 use warnings;
 
+use EBox::Sudo;
+
 #
 #   Function: manage
 #
