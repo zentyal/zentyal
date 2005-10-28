@@ -35,6 +35,32 @@ case "$1" in
 		ebox-sudoers > /etc/sudoers
 		chmod 0440 /etc/sudoers
 
+		if test -z "$2"; then
+			# not upgrading
+			if grep '^EB:' /etc/inittab >/dev/null; then
+				cat <<\EOT >&2
+
+There already is an EB entry in /etc/inittab.  In order to have this package
+add an entry with the name EB to have ebox starting by sysvinit you need to
+remove or rename the current EB entry first.
+
+Installation failed.
+
+EOT
+				exit 1
+			fi
+		fi
+		if ! grep '^EB:' /etc/inittab >/dev/null; then
+			echo 'Adding eBox inittab entry...'
+			cp /etc/inittab /etc/inittab'{new}'
+			cat >>/etc/inittab'{new}' <<-\EOT
+#-- ebox begin
+EB:2:once:/etc/init.d/ebox start
+#-- ebox end
+EOT
+			mv -f /etc/inittab'{new}' /etc/inittab
+			kill -s HUP 1
+		fi
 		;;
 esac
 

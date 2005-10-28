@@ -35,7 +35,9 @@ install-indep: build config.status
 
 	GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=yes DESTDIR=$(CURDIR)/debian/ebox/ \
 	$(MAKE) install schemadir=usr/share/gconf/schemas
-	cp tools/ebox debian/ebox.init
+	#add the init script but don't make /etc/rc?.d/ links neither run it
+	install -d $(CURDIR)/debian/ebox/etc/init.d
+	install -m 755 tools/ebox $(CURDIR)/debian/ebox/etc/init.d/ebox
 	install -m 644 $(CURDIR)/conf/.gconf.path \
 		$(CURDIR)/debian/ebox/var/lib/ebox/
 	install -d -m 755 $(CURDIR)/debian/ebox/etc/ebox/ssl.crt/
@@ -61,12 +63,8 @@ binary-indep: install-indep
 	dh_installchangelogs ChangeLog
 	dh_installdocs
 	dh_install
-#	dh_installmenu
 #	dh_gconf - done manually
-	dh_installinit -- defaults 99
-#	dh_installman
 	dh_link
-#	dh_strip
 	dh_compress
 	dh_fixperms
 	dh_installdeb

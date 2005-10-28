@@ -1,7 +1,25 @@
 #!/bin/bash
 
 case "$1" in
+	remove) 
+		if grep '#-- ebox begin' /etc/inittab >/dev/null; then
+			echo 'Removing eBox inittab entry...'
+			rm -f /etc/inittab'{new}'
+			sed -e '/#-- ebox begin/,/#-- ebox end/d' \
+				< /etc/inittab >/etc/inittab'{new}'
+			mv -f /etc/inittab'{new}' /etc/inittab
+			kill -s HUP 1 || :
+		fi
+
 	purge)
+		if grep '#-- ebox begin' /etc/inittab >/dev/null; then
+			echo 'Removing eBox inittab entry...'
+			rm -f /etc/inittab'{new}'
+			sed -e '/#-- ebox begin/,/#-- ebox end/d' \
+				< /etc/inittab >/etc/inittab'{new}'
+			mv -f /etc/inittab'{new}' /etc/inittab
+			kill -s HUP 1 || :
+		fi
 		#delete logs and temporary files when purging
 		rm -rf /etc/ebox/ssl.crt/
 		rm -rf /etc/ebox/ssl.key/
