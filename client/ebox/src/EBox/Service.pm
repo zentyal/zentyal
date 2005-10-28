@@ -36,7 +36,7 @@ use EBox::Sudo qw( :all );
 #
 sub manage # (daemon,action)
 {
-	my ($self, $daemon, $action) = @_;
+	my ($daemon, $action) = @_;
 	(-d "/var/service/$daemon") or
 		throw EBox::Exceptions::Internal("No such daemon: $daemon");
 
@@ -70,7 +70,7 @@ sub manage # (daemon,action)
 #
 sub running # (daemon)
 {
-	my ($self, $daemon) = @_;
+	my ($daemon) = @_;
 	(-d "/var/service/$daemon") or
 		throw EBox::Exceptions::Internal("No such daemon: $daemon");
 
