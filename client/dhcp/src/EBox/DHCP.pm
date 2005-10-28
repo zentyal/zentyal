@@ -696,14 +696,14 @@ sub daemon # (action)
 {
 	my ($self, $action) = @_;
 	if ( $action eq 'start') {
-		root("/usr/bin/runsvctrl up /var/service/apache-perl");
+		root("/usr/bin/runsvctrl up /var/service/dhcp3");
 	}
 	elsif ( $action eq 'stop'){
-		root("/usr/bin/runsvctrl down /var/service/apache-perl");
+		root("/usr/bin/runsvctrl down /var/service/dhcp3");
 	}
 	elsif ( $action eq 'restart'){
-		root("/usr/bin/runsvctrl down /var/service/apache-perl");
-		root("/usr/bin/runsvctrl up /var/service/apache-perl");
+		root("/usr/bin/runsvctrl down /var/service/dhcp3");
+		root("/usr/bin/runsvctrl up /var/service/dhcp3");
 	}
 	else {
 		throw EBox::Exceptions::Internal("Bad argument: $action");
