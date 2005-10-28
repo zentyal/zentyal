@@ -41,6 +41,7 @@ use Error qw(:try);
 #Module local conf stuff
 use constant DHCPCONFFILE => "/etc/dhcp3/dhcpd.conf";
 use constant PIDFILE => "/var/run/dhcpd.pid";
+use constant SERVICE => "dhcpd3";
 
 sub _create
 {
@@ -55,18 +56,18 @@ sub _create
 sub _doDaemon
 {
 	my $self = shift;
-	if ($self->service and EBox::Service::running('dhcp3')) {
-		EBox::Service::manage('dhcp3','restart');
+	if ($self->service and EBox::Service::running(SERVICE)) {
+		EBox::Service::manage(SERVICE,'restart');
 	} elsif ($self->service) {
-		EBox::Service::manage('dhcp3','start');
-	} elsif (not $self->service and EBox::Service::running('dhcp3')) {
-		EBox::Service::manage('dhcp3','stop');
+		EBox::Service::manage(SERVICE,'start');
+	} elsif (not $self->service and EBox::Service::running(SERVICE)) {
+		EBox::Service::manage(SERVICE,'stop');
 	}
 }
 
 sub _stopService
 {
-	EBox::Service::manage('dhcp3','stop');
+	EBox::Service::manage(SERVICE,'stop');
 }
 
 #   Function: _regenConfig
@@ -859,7 +860,7 @@ sub statusSummary
 {
 	my $self = shift;
 	return new EBox::Summary::Status('dhcp', 'DHCP',
-		EBox::Service::running('dhcp3'), $self->service);	
+		EBox::Service::running(SERVICE), $self->service);	
 }
 
 #   Function: rootCommands
