@@ -24,6 +24,7 @@ use EBox::Validate qw( :all );
 use EBox::Sudo qw( :all );
 use POSIX qw(setsid);
 use EBox::Global;
+use EBox::Service;
 use HTML::Mason::Interp;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
@@ -89,9 +90,9 @@ sub _daemon # (action)
 	}
 
 	if ($action eq 'stop') {
-		root("/usr/bin/runsvctrl down /var/service/apache-perl");
+		EBox::Service::manage('apache-perl','stop');
 	} elsif ($action eq 'start') {
-		root("/usr/bin/runsvctrl up /var/service/apache-perl");
+		EBox::Service::manage('apache-perl','start');
 	} elsif ($action eq 'restart') {
 		exec(EBox::Config::libexec . 'ebox-apache-restart');
 	}
