@@ -8,4 +8,7 @@ if [ -d tools/runit ] ; then
 		install -m 755 $serv /etc/runit/$serv/run
 		ln -s /etc/runit/$serv /var/service/$serv
 	done
+else
+	echo "No tools/runit directory found, may be you are running ebox-runit"
+	echo "from the wrong place or this eBox module doesn't have runit scripts"
 fi
