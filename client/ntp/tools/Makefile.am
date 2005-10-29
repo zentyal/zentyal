@@ -4,4 +4,4 @@ pkglib_SCRIPTS =  ebox-timezone-import
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(pkglib_SCRIPTS)
+EXTRA_DIST = $(pkglib_SCRIPTS) runit/ntpd

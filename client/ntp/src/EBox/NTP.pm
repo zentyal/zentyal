@@ -22,6 +22,7 @@ use base 'EBox::GConfModule';
 
 use EBox::Objects;
 use EBox::Gettext;
+use EBox::Service;
 use EBox::Summary::Module;
 use EBox::Summary::Section;
 use EBox::Summary::Status;
@@ -34,8 +35,6 @@ use EBox::Sudo qw( :all );
 use EBox;
 
 use constant NTPCONFFILE => "/etc/ntp.conf";
-use constant NTPINIT     => "/etc/init.d/ntp-server";
-use constant PIDFILE       => "/var/run/ntpd.pid";
 
 sub _create 
 {
@@ -49,8 +48,7 @@ sub _create
 
 sub isRunning
 {
-   my $self = shift;
-   return $self->pidFileRunning(PIDFILE);
+   return EBox::Service::running('ntpd');
 }
 
 
@@ -60,7 +58,7 @@ sub _doDaemon
 	my $logger = EBox::logger();
 
   if (($self->service or $self->synchronized) and $self->isRunning) {
-      $self->_daemon('stop');
+      EBox::Service::manage('ntpd','stop')
 		sleep 2;
 		if ($self->synchronized) {
 			my $exserver = $self->get_string('server1');
@@ -70,7 +68,7 @@ sub _doDaemon
 				$logger->info("Error no se pudo lanzar ntpdate");
 			};
 		}
-      $self->_daemon('start');
+      EBox::Service::manage('ntpd','start')
    } elsif ($self->service or $self->synchronized) {    
 		if ($self->synchronized) {
 			my $exserver = $self->get_string('server1');
@@ -80,22 +78,18 @@ sub _doDaemon
 				$logger->info("Error no se pudo lanzar ntpdate");
 			};
 		}
-      $self->_daemon('start');
+      EBox::Service::manage('ntpd','start')
    } elsif ($self->isRunning) {
-		$self->_daemon('stop');
+      		EBox::Service::manage('ntpd','stop')
 		if ($self->synchronized) {
-			$self->_daemon('start');
+      			EBox::Service::manage('ntpd','start')
 		}
    }
 }
 
 sub _stopService
 {
-	my $self = shift;
-
-	if ($self->isRunning) {
-	$self->_daemon('stop');
-	}
+      	EBox::Service::manage('ntpd','stop')
 }
 
 sub _configureFirewall($){
@@ -280,23 +274,6 @@ sub _setNTPConf
 	$self->writeConfFile(NTPCONFFILE, "ntp/ntp.conf.mas", \@array);
 }
 
-sub _daemon # (action)
-{
-	my ($self, $action) = @_;
-
-	if ( $action eq 'start') {
-		root("start-stop-daemon --start --quiet --pidfile /var/run/ntpd.pid --exec /usr/sbin/ntpd -- -g -p /var/run/ntpd.pid");
-	} elsif ( $action eq 'stop') {
-		root("start-stop-daemon --stop --quiet --pidfile /var/run/ntpd.pid");
-	} elsif ( $action eq 'force-reload') {
-		root("start-stop-daemon --stop --quiet --pidfile /var/run/ntpd.pid");
-		sleep 2;
-		root("start-stop-daemon --start --quiet --exec /usr/sbin/ntpd -- -g -p /var/run/ntpd.pid");
-	} else {
-		throw EBox::Exceptions::Internal("Bad argument: $action");
-	}
-}
-
 sub _restartAllServices
 {
 	my $self = shift;
@@ -401,9 +378,6 @@ sub rootCommands
 
 	push(@array,"/bin/mv ".EBox::Config::tmp ."* ".NTPCONFFILE);
 	push(@array, "/usr/sbin/ntpdate *");
-	push(@array, "/sbin/start-stop-daemon --start --quiet --pidfile /var/run/ntpd.pid --exec /usr/sbin/ntpd -- -g -p /var/run/ntpd.pid");
-	push(@array, "/sbin/start-stop-daemon --stop --quiet --pidfile /var/run/ntpd.pid");
-	push(@array, "/sbin/start-stop-daemon --start --quiet --exec /usr/sbin/ntpd -- -g -p /var/run/ntpd.pid");
 	push(@array, "/bin/date");
 	push(@array, "/bin/rm /etc/localtime");
 	push(@array, "/bin/ln -s /usr/share/zoneinfo/* /etc/localtime");

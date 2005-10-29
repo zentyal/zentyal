@@ -12,8 +12,9 @@
 - Ejecute el script tools/ebox-timezone-import como root.
 
 - No ejecute ntp-server en el arranque, este modulo toma el control de
-  ntp-server:
+  ntp-server usando runit:
 
 mv /etc/rc2.d/SXXntp-server /etc/rc2.d/KXXntp-server
+ebox-runit
 
 - Pare ntp-server si está corriendo.
