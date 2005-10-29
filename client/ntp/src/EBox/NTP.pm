@@ -58,7 +58,7 @@ sub _doDaemon
 	my $logger = EBox::logger();
 
   if (($self->service or $self->synchronized) and $self->isRunning) {
-      EBox::Service::manage('ntpd','stop')
+      EBox::Service::manage('ntpd','stop');
 		sleep 2;
 		if ($self->synchronized) {
 			my $exserver = $self->get_string('server1');
@@ -68,7 +68,7 @@ sub _doDaemon
 				$logger->info("Error no se pudo lanzar ntpdate");
 			};
 		}
-      EBox::Service::manage('ntpd','start')
+      EBox::Service::manage('ntpd','start');
    } elsif ($self->service or $self->synchronized) {    
 		if ($self->synchronized) {
 			my $exserver = $self->get_string('server1');
@@ -78,18 +78,18 @@ sub _doDaemon
 				$logger->info("Error no se pudo lanzar ntpdate");
 			};
 		}
-      EBox::Service::manage('ntpd','start')
+      EBox::Service::manage('ntpd','start');
    } elsif ($self->isRunning) {
-      		EBox::Service::manage('ntpd','stop')
+      		EBox::Service::manage('ntpd','stop');
 		if ($self->synchronized) {
-      			EBox::Service::manage('ntpd','start')
+      			EBox::Service::manage('ntpd','start');
 		}
    }
 }
 
 sub _stopService
 {
-      	EBox::Service::manage('ntpd','stop')
+      	EBox::Service::manage('ntpd','stop');
 }
 
 sub _configureFirewall($){
