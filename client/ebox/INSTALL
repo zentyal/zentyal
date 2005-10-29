@@ -66,7 +66,9 @@ INSTALLATION
 	chown ebox.ebox /var/lib/ebox/gconf
 
 7.- Remove the link to /etc/init.d/apache-perl from /etc/rc2.d/, the ebox script
-     will handle apache starts/stops.
+     will handle apache starts/stops through runit. To nstall runit scripts:
+
+    ebox-runit
 
 8.- To make ebox run on startup:
 
