@@ -1,0 +1,11 @@
+#!/bin/sh
+if [ -d tools/runit ] ; then
+	cd tools/runit
+	for serv in * ; do
+		echo "Installing service $serv"
+		install -d -m 755 /etc/runit/$serv
+	        touch /etc/runit/$serv/down
+		install -m 755 $serv /etc/runit/$serv/run
+		ln -s /etc/runit/$serv /var/service/$serv
+	done
+fi
