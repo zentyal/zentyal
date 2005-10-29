@@ -8,8 +8,8 @@ use EBox::Gettext;
 use Data::Dumper;
 </%init>
 <div class="note">
-	<p><%__('FIXME: Crear, eliminar o modificar información de usuarios son acciones que tienen efecto inmediato y no es necesario guardar los cambios.')%></p>
-	<p><% __('Las propiedades sobre las impresoras y la comparticion de ficheros si que requieren de guardas los cambios para que sean efectivos.') %></p>
+	<p><%__('Changes in user accounts take effect inmediately, they do not need to be saved.')%></p>
+	<p><% __('Changes related to printing and file sharing do need to be saved in order to be effective.') %></p>
 </div>
 <h3><% __('Add Group') %></h3>
 	<form action='AddGroup' method='POST'>
