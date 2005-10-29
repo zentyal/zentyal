@@ -11,7 +11,7 @@ use EBox::Gettext;
 <% __('This will tell the firewall what to do when discarding network packets.  If you choose Reject, a packet will be sent back to the sender, choosing Drop will make the firewall drop the packet silently.') %>
 </div>
 <p>
-<h3><% __('Deny policy') %></h3>
+<h3><% __('Deny action') %></h3>
 <form action='Deny' method='POST'>
 		<select name='deny'>
 %			if($deny eq 'DROP'){
@@ -25,7 +25,7 @@ use EBox::Gettext;
 		<input class='inputButton' type='submit' name='accept' value="<% __('Apply') %>">
 	</form>
 </p>
-<h3><%__('Rules')%></h3>
+<h3><%__('Filtering Rules')%></h3>
 <div class='help'>
 	<% __('This link will let you set up filtering rules that will take precedence over the ones you set up for network objects further below.') %>
 </div>
@@ -33,9 +33,9 @@ use EBox::Gettext;
 		<a href="FwdRules"><% __('Forwarding rules') %></a>
 	</p>
 
-<h3><%__('Objects')%></h3>
+<h3><%__('Rules for internet access')%></h3>
 <div class='help'>
-	<% __('The link below will let you set up the default behavior of the packet filter. You may also choose an object and set up rules and the services it may access.') %>
+	<% __('The link below will let you set up the default behavior of the packet filter. You may also choose an object and set up rules and the services it may access. These rules are meant to control access from internal network interfaces to external ones, they provide a simpler way to control access to the internet.') %>
 </div>
 	<p>
 		<a href="Object?object=_global"><% __('Configure default rules') %></a>
