@@ -14,6 +14,7 @@ DEPENDENCIAS
 	+ libsys-cpuload-perl
 	+ libproc-process-perl
 	+ libapache-singleton-perl
+	+ runit
 
 + modulos de cpan
 
@@ -71,8 +72,10 @@ INSTALACION
 8.- Para que ebox se inicie en el arranque de la maquina:
 
     cp tools/ebox /etc/init.d
-    ln -s /etc/init.d/ebox /etc/rc2.d/S99ebox
 
+    Añade una línea como esta:
+EB:2:once:/etc/init.d/ebox start
+    al final (después de las líneas de runit) del fichero /etc/inittab
 
 9.- Arrancar ebox:
 	
