@@ -14,6 +14,7 @@ DEPENDENCIES
 	+ libsys-cpuload-perl
 	+ libproc-process-perl
 	+ libapache-singleton-perl
+	+ runit
 
 + modules from cpan
 
@@ -70,7 +71,10 @@ INSTALLATION
 8.- To make ebox run on startup:
 
     cp tools/ebox /etc/init.d
-    ln -s /etc/init.d/ebox /etc/rc2.d/S99ebox
+
+    Add a line like:
+EB:2:once:/etc/init.d/ebox start
+    at the end (after the runit lines) of /etc/inittab
 
 9.- Start ebox:
 	
