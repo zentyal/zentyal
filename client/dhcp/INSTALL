@@ -16,8 +16,10 @@
 
 - Update your sudoers file with the ebox-sudoers command.
 
-- Do not run dhcp3-server on startup, this module takes control of it:
+- Do not run dhcp3-server on startup, this module takes control of it
+  using runit:
 
 mv /etc/rc2.d/SXXdhcp3-server /etc/rc2.d/K20dhcp3-server
+ebox-runit
 
 - Stop dhcp3-server if it's running.
