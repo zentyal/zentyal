@@ -44,11 +44,7 @@ use HTML::Mason;
 
 #Module local conf stuff
 use constant SQUIDCONFFILE => "@SQUIDCONF@";
-use constant SQUIDINIT     => "/etc/init.d/squid";
-use constant DGINIT     => "/etc/init.d/dansguardian";
-use constant PIDFILE       => "/var/run/squid.pid";
-use constant DGPIDFILE	=> "/var/run/dansguardian.pid";
-use constant MAXDOMAINSIZ 		=> 255; 
+use constant MAXDOMAINSIZ => 255; 
 use constant SQUIDPORT => '3128';
 use constant DGPORT => '3129';
 use constant DGDIR => '/etc/dansguardian';
@@ -67,14 +63,12 @@ sub _create
 
 sub isRunning
 {
-	my $self = shift;
-	return $self->pidFileRunning(PIDFILE);
+	return EBox::Service::running('squid');
 }
 
 sub DGIsRunning
 {
-	my $self = shift;
-	return $self->pidFileRunning(DGPIDFILE);
+	return EBox::Service::running('dansguardian');
 }
 
 sub _doDaemon
@@ -83,7 +77,7 @@ sub _doDaemon
 	my $action = undef;
 
 	if ($self->service and $self->isRunning) {
-		$action = 'reload';
+		$action = 'restart';
 	} elsif ($self->service) {
 		$action = 'start';
 	} elsif ($self->isRunning) {
@@ -92,8 +86,7 @@ sub _doDaemon
 		return;
 	}
 
-	my $command =  SQUIDINIT . " " . $action . " 2>&1";
-	root($command);
+	EBox::Service::manage('squid', $action);
 }
 
 sub _doDGDaemon
@@ -111,19 +104,12 @@ sub _doDGDaemon
 		return;
 	}
 
-	my $dgcommand =  DGINIT . " " . $action . " 2>&1";
-	root($dgcommand);
+	EBox::Service::manage('dansguardian', $action);
 }
 sub _stopService 
 {
-	my $self = shift;
-	if ($self->isRunning) {
-		root(SQUIDINIT . " stop 2>&1");
-	}
-	if ($self->DGIsRunning) {
-		root(DGINIT . " stop 2>&1");
-	}
-	
+	EBox::Service::manage('squid', 'stop');
+	EBox::Service::manage('dansguardian', 'stop');
 }
 
 # Method: _regenConfig
@@ -926,25 +912,6 @@ sub firewallHelper
 	return undef;
 }
 
-#manage squid via init.d/squid script
-#Pars 0: start|stop|restart
-sub _daemon # (action)
-{
-	my ($self, $action) = @_;
-	my $command =  SQUIDINIT . " " . $action . " 2>&1";
-
-	if ( $action eq 'start') {
-		root($command);
-	} elsif ( $action eq 'stop') {
-		root($command);
-	} elsif ( $action eq 'reload') {
-		root($command);
-	} else {
-		throw EBox::Exceptions::Internal("Bad argument: $action");
-	}
-	
-}
-
 sub statusSummary
 {
 	my $self = shift;
@@ -998,8 +965,6 @@ sub rootCommands
 {
 	my $self = shift;
 	my @array = ();
-	push(@array, SQUIDINIT);
-	push(@array, DGINIT);
 	push(@array,"/bin/mv ".EBox::Config::tmp ."* ".SQUIDCONFFILE);
 	push(@array,"/bin/chmod * " . SQUIDCONFFILE);
 	push(@array,"/bin/chown * " . SQUIDCONFFILE);

@@ -3,6 +3,8 @@
 # Sample debian/rules that uses debhelper.
 # GNU copyright 1997 to 1999 by Joey Hess.
 
+PACKAGE = ebox-squid
+
 config.status: configure
 	dh_testdir
 	./configure \
@@ -48,9 +50,20 @@ install-indep: build config.status
 	dh_clean -k 
 	dh_installdirs
 
-	GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=yes DESTDIR=$(CURDIR)/debian/ebox-squid/ \
-	DESTDIR=$(CURDIR)/debian/ebox-squid/ \
+	GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=yes DESTDIR=$(CURDIR)/debian/$(PACKAGE)/ \
+	DESTDIR=$(CURDIR)/debian/$(PACKAGE)/ \
 		$(MAKE) install schemadir=usr/share/gconf/schemas
+
+	if [ -d tools/runit ] ; then \
+		pushd tools/runit ; \
+		for serv in * ; do \
+			install -d -m 755 $(CURDIR)/debian/$(PACKAGE)/etc/runit/$$serv ; \
+			install -m 755 $(CURDIR)/tools/runit/$$serv $(CURDIR)/debian/$(PACKAGE)/etc/runit/$$serv/run ; \
+			touch $(CURDIR)/debian/$(PACKAGE)/etc/runit/$$serv/down ; \
+			echo "etc/runit/$$serv var/service/$$serv" >> $(CURDIR)/debian/links ; \
+		done ; \
+		popd ; \
+	fi
 
 binary-indep: install-indep
 	dh_testdir
@@ -58,10 +71,7 @@ binary-indep: install-indep
 	dh_installchangelogs ChangeLog
 	dh_installdocs
 	dh_install
-#	dh_installmenu
-#	dh_installman
 	dh_link
-#	dh_strip
 #	dh_gconf - done manually
 	dh_compress
 	dh_fixperms
