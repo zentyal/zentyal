@@ -23,6 +23,7 @@ use base qw(EBox::GConfModule EBox::LdapModule EBox::FirewallObserver);
 use EBox::Sudo qw( :all );
 use EBox::Global;
 use EBox::Ldap;
+use EBox::Service;
 use EBox::SambaLdapUser;
 use EBox::UsersAndGroups;
 use EBox::Network;
@@ -40,7 +41,6 @@ use EBox::Gettext;
 
 use constant SMBCONFFILE          => '/etc/samba/smb.conf';
 use constant LIBNSSLDAPFILE       => '/etc/libnss-ldap.conf';
-use constant SMBINIT              => '/etc/init.d/samba';
 use constant SMBPIDFILE           => '/var/run/samba/smbd.pid';
 use constant NMBPIDFILE           => '/var/run/samba/nmbd.pid';
 use constant MAXNETBIOSLENGTH 	  => 32;
@@ -102,46 +102,29 @@ sub isRunning
 {
 	my $self = shift;
 	
-	return ($self->pidFileRunning(SMBPIDFILE) and 
-	        $self->pidFileRunning(NMBPIDFILE));
+	return EBox::Service::running('smbd') and 
+		EBox::Service::running('nmbd');
 }
 
 sub _doDaemon
 {
         my $self = shift;
         if ($self->service and $self->isRunning) {
-                $self->_daemon('restart');
+		EBox::Service::manage('smbd','restart');
+		EBox::Service::manage('nmbd','restart');
         } elsif ($self->service) {
-                $self->_daemon('start');
+		EBox::Service::manage('smbd','start');
+		EBox::Service::manage('nmbd','start');
         } elsif ($self->isRunning) {
-                $self->_daemon('stop');
-        }
-}
-
-sub _daemon
-{
-	my ($self, $action) = @_;
-        my $command =  SMBINIT . " " . $action . " 2>&1";
-
-        if ( $action eq 'start') {
-                root($command);
-        } elsif ( $action eq 'stop') {
-                root($command);
-        } elsif ( $action eq 'reload') {
-                root($command);
-        } elsif ( $action eq 'restart') {
-                root($command);
-        } else {
-     		throw EBox::Exceptions::Internal("Bad argument: $action");
+		EBox::Service::manage('smbd','stop');
+		EBox::Service::manage('nmbd','stop');
         }
 }
 
 sub _stopService
 {
-	my $self = shift;
-	if ($self->isRunning) {
-		$self->_daemon('stop');
-	}
+	EBox::Service::manage('smbd','stop');
+	EBox::Service::manage('nmbd','stop');
 }
 
 sub _regenConfig
@@ -199,7 +182,6 @@ sub rootCommands
 {
 	my $self = shift;
 	my @array = ();
-	push(@array, SMBINIT);
 	push(@array, "/bin/chmod * " . SMBCONFFILE);
 	push(@array, "/bin/chown * " . SMBCONFFILE);
 	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . SMBCONFFILE);

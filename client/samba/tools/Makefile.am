@@ -4,4 +4,4 @@ pkglib_SCRIPTS =  ebox-samba-ldap
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(pkglib_SCRIPTS)
+EXTRA_DIST = $(pkglib_SCRIPTS) runit/nmbd runit/smbd
