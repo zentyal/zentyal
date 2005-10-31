@@ -61,6 +61,7 @@ src/EBox/CGI/Makefile
 src/templates/Makefile
 stubs/Makefile
 schemas/Makefile
+tools/Makefile
 Makefile
 ])
 

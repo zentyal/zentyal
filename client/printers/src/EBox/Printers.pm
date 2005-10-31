@@ -22,6 +22,7 @@ use base qw(EBox::GConfModule EBox::FirewallObserver);
 
 use EBox::Gettext;
 use EBox::Config;
+use EBox::Service;
 use EBox::Summary::Module;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
@@ -40,8 +41,6 @@ use constant MAXPRINTERLENGHT 	=> 10;
 use constant SUPPORTEDMETHODS 	=> ('usb', 'parallel', 'network', 'samba');
 use constant CUPSPRINTERS     	=> '/etc/cups/printers.conf';
 use constant CUPSPPD 		=> '/etc/cups/ppd/';
-use constant CUPSINIT         	=> '/etc/init.d/cupsys';
-use constant CUPSBIN		=> '/usr/sbin/cupsd';
 
 sub _create 
 {
@@ -61,7 +60,6 @@ sub rootCommands
 	push(@array, "/bin/chmod * " . CUPSPRINTERS);
 	push(@array, "/bin/chown * " . CUPSPRINTERS);
 	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . CUPSPPD ."*");
-	push(@array, CUPSINIT);
 
 	return @array;
 
@@ -102,9 +100,7 @@ sub _setCupsConf
 
 sub isRunning 
 {
-	my $self = shift;
-	
-	return  (system("/bin/pidof " . CUPSBIN) == 0);
+	EBox::Service::running('cups');
 }
 
 sub _doDaemon
@@ -116,32 +112,14 @@ sub _doDaemon
 	my $service = $samba->service();
 
         if ($service and $self->isRunning) {
-                $self->_daemon('restart');
+                EBox::Service::manage('cups','restart');
         } elsif ($service) {
-                $self->_daemon('start');
+                EBox::Service::manage('cups','start');
         } elsif ($self->isRunning) {
-                $self->_daemon('stop');
+                EBox::Service::manage('cups','stop');
         }
 }
 
-sub _daemon
-{
-        my ($self, $action) = @_;
-        my $command =  CUPSINIT . " " . $action . " 2>&1";
-
-        if ( $action eq 'start') {
-                root($command);
-        } elsif ( $action eq 'stop') {
-                root($command);
-        } elsif ( $action eq 'reload') {
-                root($command);
-        } elsif ( $action eq 'restart') {
-                root($command);
-        } else {
-                throw EBox::Exceptions::Internal("Bad argument: $action");
-        }
-}
-	
 sub _regenConfig
 {
 	my $self = shift;
