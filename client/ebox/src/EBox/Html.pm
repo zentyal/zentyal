@@ -76,10 +76,12 @@ sub menu
 sub footer($) # (module)
 {
 	my $module = shift;
-
+	my $copy = __('Created by <a href="http://www.warp.es">' .
+	'Warp Networks S.L.</a> in collaboration with ' .
+	'<a href="http://www.dbs.es">DBS Servicios ' .
+	'Informáticos S.L.</a>');
 	return qq%<div id="footer">
-	<% _('Created by <a href='http://www.warp.es'>Warp Networks S.L.</a> in collaboration with <a href='http://www.dbs.es'>DBS Servicios Informáticos S.L.</a>') %>
-	</div>
+	$copy</div>
 	<script type="text/javascript" src="/data/js/help.js">//</script>
 	<script type="text/javascript"><!--
 	stripe('dataTable', '#ecf5da', '#ffffff');
