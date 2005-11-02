@@ -399,6 +399,17 @@ sub writeConfFile # (file, comp, params)
 	}
 }
 
+sub rootCommandsForWriteConfFile # (file)
+{
+	my ($self, $file) = @_;
+	my @commands = ();
+	push (@commands, "/bin/mv " . EBox::Config::tmp . "* " . $file);
+	push (@commands, "/bin/chmod * " . $file);
+	push (@commands, "/bin/chown * " . $file);
+	
+	return @commands;
+}
+
 #sub logs
 #{
 #	my @array = ();
