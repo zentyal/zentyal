@@ -344,21 +344,6 @@ iptable tr {
 	padding-bottom: 2px;
 }
 
-#login {
-	padding-top: 85px;
-	text-align: center;
-	color: #898989;
-	background: url('/data/images/logintro.png') top no-repeat;
-}
-
-#reason {
-	font-family: Trebuchet MS;
-	color: #BC0606;
-	font-size: 14px;
-	font-weight: bold;
-	text-align: center;
-}
-
 body {
 	width: 820px;
 	margin: 0px;

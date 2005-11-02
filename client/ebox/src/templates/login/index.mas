@@ -12,22 +12,30 @@ use EBox::Gettext;
 <link href="/data/css/login.css" type="text/css" rel="stylesheet">
 <script src="/data/js/common.js" type="text/javascript">//</SCRIPT>
 </head>
+<body>
 <center>
-<form action='/LOGIN' method='post'>
 	<div id='login'>
-		<input  class='inputTextLogin' type='password' 
-			name='credential_0' 
-			maxlength='16' size='14' />
-		<input  type='hidden' name='destination' 
-			value='/ebox/Summary/Index' />
-		<input class='inputButton' type='submit' value="<% __('Enter') %>"/>
+	<div id='loginin'>
+	<img src="/data/images/title.gif" alt="eBox Logo" id="logo"/>
 % 		if(length($reason)){
 			<div id='reason'><% $reason %></div>
 %		}
+	
+	<form action='/LOGIN' method='post'>
+		<dl>
+			<dt><% __('Password') %>:</dt>
+			<dd><input  class='inputTextLogin' type='password' 
+					name='credential_0' 
+					maxlength='16' size='14' /></dd>
+				<input  type='hidden' name='destination' 
+					value='/ebox/Summary/Index' />
+		<dd><input class='inputButton' type='submit' value="<% __('Enter') %>"/></dd>
+		</dl>
+	</form>
 	</div>
-</form>
+	</div>
 </center>
-
+<div id="footer"><% __('Created by <a href="http://warp.es">Warp Networks</a> in collaboration with <a href="http://www.dbs.es">DBS</a>')%></div>
 <script src="/data/js/help.js" type=text/javascript>//</SCRIPT>
 </body>
 </html>

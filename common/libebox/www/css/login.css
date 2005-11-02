@@ -1,28 +1,75 @@
 #login {
-	margin-top: 125px;
-	padding-top: 90px;
-	padding-left: 80px;
-	color: #898989;
-	background: url('/data/images/logintro.png') top no-repeat;
-	height: 201px;
-	width: 420px;
+	width: 400px;
+	margin: 60px auto 20px auto;
+	min-width: inherit;
 }
 
 #reason {
-	font-family: Trebuchet MS;
-	color: #ffffff;
-	font-size: 14px;
-	font-weight: bold;
-	text-align: center;
-	width: 200px;
-	padding-top: 20px;
-	padding-left: 8px;
+	text-align: left;
+	font-weight: normal;
+	border-bottom: 1px solid #fa601d;
+	border-top: 1px solid #fa601d;
+	padding: 5px;
+	font-size: 11px;
+	margin: 0 0 0 80px;
+	background: #fdddd9;
+	color: #484554;
+}
+
+#logo {
+	float: left;
 }
 
 body {
 	color: #000000;
-	font-size: 11px;
 	font-family: Verdana, sans-serif;
-	background-color: #FFFFFF;
+	background-color: #dff0a4;
 	behavior: url(/data/js/csshover.htc);
+	margin-top: 90px;
+}
+
+dl { margin: 10px 0 0 80px; }
+
+dt { 
+	float: left;
+	width: 80px;
+	font-size: 14px;
+	line-height: 24px;
+}
+
+dd {
+	margin: 0 0 5px 90px;
+	font-size: 11px;
+	line-height: 24px;
+	color: #666;
+	margin-left: 80px;
+}
+
+#loginin {
+	border: 10px solid #A7C73B;
+	padding: 15px 20px 10px 20px;
+	background: #fff;
+	text-align: left;
+}
+
+#footer {
+	text-align: center;
+	font-size: 11px;
+	color: #888;
+}
+
+#footer a { 
+	text-decoration: underline; 
+	color: #888;
+}
+
+#footer a:active { 
+	text-decoration: underline; 
+	color: #888;
+}
+
+#footer a:hover { 
+	text-decoration: none;
+	background: #888;
+	color: #fff;
 }
