@@ -872,9 +872,7 @@ sub rootCommands
 {
 	my $self = shift;
 	my @array = ();
-	push(@array,"/bin/mv ". EBox::Config::tmp . "* ". DHCPCONFFILE);
-	push(@array,"/bin/chmod * ". DHCPCONFFILE);
-	push(@array,"/bin/chown * ". DHCPCONFFILE);
+	push(@array,$self->rootCommandsForWriteConfFile(DHCPCONFFILE));
 
 	return @array;
 }

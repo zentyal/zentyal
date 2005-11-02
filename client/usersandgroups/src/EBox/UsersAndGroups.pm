@@ -84,10 +84,8 @@ sub rootCommands
 	my @array = ();
 	my $ldapconf = $self->{ldap}->slapdConfFile;
 
-	push(@array, "/bin/mv " . EBox::Config::tmp ."* " . $ldapconf);
+	push(@array, $self->rootCommandsForWriteConfFile($ldapconf));
 	push(@array, "/etc/init.d/slapd *");
-	push(@array, "/bin/chmod * " . $ldapconf);
-	push(@array, "/bin/chown * " . $ldapconf);
 
 	return @array;
 }

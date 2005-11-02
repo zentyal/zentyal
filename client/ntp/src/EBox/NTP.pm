@@ -376,13 +376,11 @@ sub rootCommands
 	my $self = shift;
 	my @array = ();
 
-	push(@array,"/bin/mv ".EBox::Config::tmp ."* ".NTPCONFFILE);
+	push(@array, $self->rootCommandsForWriteConfFile(NTPCONFFILE));
 	push(@array, "/usr/sbin/ntpdate *");
 	push(@array, "/bin/date");
 	push(@array, "/bin/rm /etc/localtime");
 	push(@array, "/bin/ln -s /usr/share/zoneinfo/* /etc/localtime");
-	push(@array, "/bin/chmod 0644 /etc/ntp.conf");
-	push(@array, "/bin/chown 0.0 /etc/ntp.conf");
 	push(@array, "/etc/init.d/sysklogd restart");
 	push(@array, "/etc/init.d/klogd restart");
 	push(@array, "/etc/init.d/cron restart");

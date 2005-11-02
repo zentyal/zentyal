@@ -56,9 +56,7 @@ sub rootCommands
 {
 	my $self = shift;
 	my @array;
-	push(@array, "/bin/mv " . EBox::Config::tmp ."* ". CUPSPRINTERS);
-	push(@array, "/bin/chmod * " . CUPSPRINTERS);
-	push(@array, "/bin/chown * " . CUPSPRINTERS);
+	push(@array, $self->rootCommandsForWriteConfFile(CUPSPRINTERS));
 	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . CUPSPPD ."*");
 
 	return @array;

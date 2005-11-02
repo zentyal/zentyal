@@ -1026,13 +1026,8 @@ sub rootCommands
 	push(@array, IPSECINIT);
 	push(@array, "/bin/mv ". EBox::Config::tmp . "* " .  
 		     EBox::Config::conf . "ipsecrsa/*");
-	push(@array, "/bin/chmod * " . IPSECCONFFILE);
-	push(@array, "/bin/chown * " . IPSECCONFFILE);
-	push(@array, "/bin/chmod * " . IPSECSECRETS);
-	push(@array, "/bin/chown * " . IPSECSECRETS);
-	push(@array, "/bin/mv ". EBox::Config::tmp . "* " .  IPSECCONFFILE);
-	push(@array, "/bin/mv ". EBox::Config::tmp . "* " .  IPSECCONFFILE);
-	push(@array, "/bin/mv ". EBox::Config::tmp . "* " .  IPSECSECRETS);
+	push(@array, $self->rootCommandsForWriteConfFile(IPSECCONFFILE));
+	push(@array, $self->rootCommandsForWriteConfFile(IPSECSECRETS));
 	push(@array, "/bin/rm -f " . PLUTOPIDFILE);
 	return @array;
 }

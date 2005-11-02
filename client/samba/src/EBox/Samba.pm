@@ -182,12 +182,8 @@ sub rootCommands
 {
 	my $self = shift;
 	my @array = ();
-	push(@array, "/bin/chmod * " . SMBCONFFILE);
-	push(@array, "/bin/chown * " . SMBCONFFILE);
-	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . SMBCONFFILE);
-	push(@array, "/bin/chmod * " . LIBNSSLDAPFILE);
-	push(@array, "/bin/chown * " . LIBNSSLDAPFILE);
-	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . LIBNSSLDAPFILE);
+	push(@array, $self->rootCommandsForWriteConfFile(SMBCONFFILE));
+	push(@array, $self->rootCommandsForWriteConfFile(LIBNSSLDAPFILE));
 	push(@array, "/bin/mkdir " . USERSPATH . "/*");
 	push(@array, "/bin/chown * " . USERSPATH . "/*");
 	push(@array, "/bin/chmod * " . USERSPATH . "/*");
