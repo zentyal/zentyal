@@ -1,0 +1,25 @@
+- To install this module you need to install:
+	+ eBox components
+	   libebox
+	   ebox
+	   network
+	   firewall
+	   usersandgroups
+	+ Debian packages
+	   jabber-common
+	   jabberd2-ldap-bdb
+
+- Once the dependencies have been installed, type:
+	
+	./configure
+	make install
+
+ configure will autodetect EBox base path to install
+
+- Update your sudoers file with the ebox-sudoers command.
+
+- Do not run jabberd2-ldap-bdb on startup, this module takes control of it:
+
+mv /etc/rc2.d/SXXjabberd2-ldap-bdb /etc/rc2.d/KXXjabberd2-ldap-bdb
+
+- Stop jabberd2-ldap-bdb if it's running

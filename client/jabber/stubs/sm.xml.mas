@@ -1,0 +1,146 @@
+<sm>
+  <id>192.168.0.53</id>
+  <pidfile>/var/run/jabberd2/sm.pid</pidfile>
+
+  <router>
+    <ip>127.0.0.1</ip>            <!-- default: 127.0.0.1 -->
+    <port>5347</port>             <!-- default: 5347 -->
+
+    <user>jabberd</user>          <!-- default: jabberd -->
+    <pass>secret</pass>           <!-- default: secret -->
+
+    <retry>
+      <init>3</init>
+      <lost>3</lost>
+      <sleep>2</sleep>
+    </retry>
+  </router>
+
+  <log type='file'>
+    <ident>jabberd/sm</ident>
+    <facility>local3</facility>
+    <file>/var/log/jabberd2/sm.log</file>
+  </log>
+
+  <storage>
+    <driver>db</driver>
+    <db>
+      <path>/usr/local/var/lib/ebox/jabberd/db</path>
+      <sync/>
+    </db>
+  </storage>
+  
+  <aci>
+    <acl type='all'>
+      <jid>admin@localhost</jid>
+    </acl>
+  </aci>
+
+  <modules>
+    <chain id='sess-start'/>
+    <chain id='sess-end'>
+      <module>iq-last</module>          <!-- update logout time -->
+    </chain>
+
+    <chain id='in-sess'>
+      <module>validate</module>         <!-- validate packet type -->
+      <module>privacy</module>          <!-- manage privacy lists -->
+      <module>roster</module>           <!-- handle roster get/sets and s10ns -->
+      <module>vacation</module>         <!-- manage vacation settings -->
+      <module>iq-vcard</module>         <!-- store and retrieve the user's vcard -->
+      <module>iq-private</module>       <!-- manage the user's private data store -->
+      <module>disco</module>            <!-- respond to agents requests from sessions -->
+      <module>offline</module>          <!-- if we're coming online for the first time, deliver queued messages -->
+      <module>announce</module>         <!-- deliver motd -->
+      <module>presence</module>         <!-- process and distribute presence updates -->
+      <module>deliver</module>          <!-- deliver packets with full jids directly -->
+    </chain>
+
+    <chain id='out-sess'/>
+    <chain id='in-router'>
+      <module>session</module>          <!-- perform session actions as required by c2s -->
+      <module>validate</module>         <!-- validate packet type -->
+      <module>presence</module>         <!-- drop incoming presence if user not online -->
+      <module>privacy</module>          <!-- filter incoming packets based on privacy rules -->
+    </chain>
+
+    <chain id='out-router'>
+      <module>privacy</module>          <!-- filter outgoing packets based on privacy rules -->
+    </chain>
+
+    <chain id='pkt-sm'>
+      <module>iq-last</module>          <!-- return the server uptime -->
+      <module>iq-time</module>          <!-- return the current server time -->
+      <module>iq-version</module>       <!-- return the server name and version -->
+      <module>disco</module>            <!-- build the disco list; respond to disco queries -->
+      <module>announce</module>         <!-- send broadcast messages (announce, motd, etc) -->
+      <module>help</module>             <!-- resend sm messages to administrators -->
+      <module>echo</module>             <!-- echo messages sent to /echo -->
+    </chain>
+
+    <chain id='pkt-user'>
+      <module>roster</module>           <!-- handle s10n responses -->
+      <module>presence</module>         <!-- process and distribute incoming presence from external entities -->
+      <module>iq-vcard</module>         <!-- grab user vcards -->
+      <module>deliver</module>          <!-- deliver the packet to an active session if we can -->
+      <module>vacation</module>         <!-- send vacation messages -->
+      <module>offline</module>          <!-- save messages and s10ns for later -->
+      <module>disco-publish</module>    <!-- handle disco publishes; return information about user sessions -->
+      <module>iq-last</module>          <!-- return time since last logout -->
+    </chain>
+
+    <chain id='pkt-router'>
+      <module>session</module>          <!-- take sessions offline their c2s disappears -->
+      <module>disco</module>            <!-- query new components for service information -->
+    </chain>
+
+    <chain id='user-load'>
+      <module>active</module>           <!-- get active status -->
+      <module>roster</module>           <!-- load the roster and trust list -->
+      <module>privacy</module>          <!-- load privacy lists -->
+      <module>disco-publish</module>    <!-- load published information -->
+      <module>vacation</module>         <!-- load vacation settings -->
+    </chain>
+
+    <chain id='user-create'>
+      <module>active</module>           <!-- activate new users -->
+      <module>template-roster</module>  <!-- populate roster from template -->
+    </chain>
+
+    <chain id='user-delete'>
+      <module>active</module>           <!-- deactivate users -->
+      <module>announce</module>         <!-- delete motd data -->
+      <module>disco-publish</module>    <!-- delete published information -->
+      <module>offline</module>          <!-- bounce queued messages -->
+      <module>privacy</module>          <!-- delete privacy lists -->
+      <module>roster</module>           <!-- delete roster -->
+      <module>vacation</module>         <!-- delete vacation settings -->
+      <module>iq-last</module>          <!-- delete last logout time -->
+      <module>iq-private</module>       <!-- delete private data -->
+      <module>iq-vcard</module>         <!-- delete vcard -->
+    </chain>
+
+  </modules>
+
+  <discovery>
+
+    <identity>
+      <category>server</category>       <!-- default: server -->
+      <type>im</type>                   <!-- default: im -->
+      <name>Jabber IM server</name>     <!-- default: Jabber IM server -->
+    </identity>
+
+    <agents/>
+
+    <items>
+    </items>
+
+  </discovery>
+  
+  <user>
+    <auto-create/>
+    <template>
+    </template>
+  </user>
+
+</sm>

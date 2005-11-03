@@ -1,0 +1,101 @@
+<c2s>
+  <id>c2s</id>
+  <pidfile>/var/run/jabberd2/c2s.pid</pidfile>
+  <router>
+    <ip>127.0.0.1</ip>            <!-- default: 127.0.0.1 -->
+    <port>5347</port>             <!-- default: 5347 -->
+    <user>jabberd</user>          <!-- default: jabberd -->
+    <pass>secret</pass>           <!-- default: secret -->
+
+    <retry>
+      <init>3</init>
+      <lost>3</lost>
+      <sleep>2</sleep>
+    </retry>
+  </router>
+
+  <log type='file'>
+    <ident>jabberd/c2s</ident>
+    <facility>local3</facility>
+    <file>/var/log/jabberd2/c2s.log</file>
+  </log>
+
+  <local>
+    <id>192.168.0.53</id>
+    
+    <ip>192.168.0.53</ip>
+    <port>5222</port>
+
+    <!--
+    <pemfile>/etc/jabberd/server.pem</pemfile>
+    -->
+  </local>
+
+  <io>
+    <max_fds>1024</max_fds>
+    <limits>
+      <bytes>0</bytes>
+      <connects>0</connects>
+    </limits>
+    
+    <access>
+      <order>allow,deny</order>
+    </access>
+
+    <check>
+      <interval>0</interval>
+      <idle>0</idle>
+      <keepalive>0</keepalive>
+    </check>
+  </io>
+
+  <authreg>
+    <module>ldap</module>
+    <register>
+      <enable/>
+
+      <instructions>Enter a username and password to register with this server.</instructions>
+
+      <password/>
+    </register>
+
+    <mechanisms>
+      <traditional>
+        <plain/>
+        <digest/>
+        <zerok/>
+      </traditional>
+
+      <sasl>
+        <plain/>
+        <digest-md5/>
+      </sasl>
+
+    </mechanisms>
+
+    <db>
+      <path>/var/lib/jabberd2/db</path>
+      
+      <sync/>
+    </db>
+
+    <ldap>
+      <host>localhost</host>
+      <port>389</port>
+
+      <v3/>
+
+      <binddn>cn=admin, dc=ebox</binddn>
+      <bindpw>ebox103586956</bindpw>
+      
+      <uidattr>uid</uidattr>
+      <basedn>ou=Users,dc=ebox</basedn>
+    </ldap>
+
+    <pipe>
+      <exec>/usr/sbin/pipe-auth.pl</exec>
+    </pipe>
+
+  </authreg>
+
+</c2s>

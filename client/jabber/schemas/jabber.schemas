@@ -1,0 +1,23 @@
+<!-- vim: ts=4 sw=4 nowrap
+-->
+
+<gconfschemafile>
+	<schemalist>
+		<schema>
+			<key>/schemas/ebox/modules/global/modules/jabber/class</key>
+			<applyto>/ebox/modules/global/modules/jabber/class</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>EBox::Jabber</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/global/modules/jabber/active</key>
+			<applyto>/ebox/modules/jabber/active</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+			<default>false</default>
+			<locale name="C"/>
+		</schema>
+	</schemalist>
+</gconfschemafile>
