@@ -77,10 +77,12 @@
 		</para>
 		
 		<warning>
+		<para>
 		Si se estableciera una configuración que denegara el acceso al 
 		interfaz de administración desde las máquinas que utilicen
 		eBox, se tendría que conectar a dicho interfaz desde esas máquinas
 		directamente,	evitando la mediación del proxy.
+		</para>
 		</warning>
 	</section>
 
