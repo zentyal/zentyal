@@ -21,10 +21,10 @@ use warnings;
 use base 'EBox::GConfModule';
 
 use EBox::Gettext;
-use EBox::Menu::Item;
 use EBox::Service;
 use EBox::Summary::Module;
 use EBox::Summary::Status;
+use EBox::Menu::Item;
 use EBox::Sudo qw ( :all );
 
 use constant JABBERC2SCONFFILE => '/etc/jabberd2/c2s.xml';
@@ -103,16 +103,17 @@ sub _setJabberConf
 sub statusSummary
 {
 	my $self = shift;
-	return new EBox::Summary::Status('jabber', __('Jabber')),
-		EBox::Service::running('jabber-c2s', $self->service);
+	return new EBox::Summary::Status('jabber', __('Jabber'),
+		EBox::Service::running('jabber-c2s'), $self->service);
 }
 
-sub summary
-{
-	my $self = shift;
-	my $item = new EBox::Summary::Module(__("Jabber service"));
-	return $item;
-}
+#sub summary
+#{
+#	my $self = shift;
+#	my $item = new EBox::Summary::Module(__("Jabber service"));
+#	
+#	return $item;
+#}
 
 sub rootCommands
 {
@@ -126,8 +127,8 @@ sub rootCommands
 sub menu
 {
 	my ($self, $root) = @_;
-	$root->add (new EBox::Menu::Item('url' => 'Jabber/Index',
-					 'text' => __('Jabber Service')));
+	$root->add(new EBox::Menu::Item('url' => 'Jabber/Index',
+					'text' => __('Jabber Service')));
 }
 
 1;
