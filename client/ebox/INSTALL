@@ -78,7 +78,13 @@ INSTALLATION
 EB:2:once:/etc/init.d/ebox start
     at the end (after the runit lines) of /etc/inittab
 
-9.- Start ebox:
+9.- Create ebox.pem mixing ssl.cert and ssl.key:
+    
+    mkdir /etc/ebox/ssl.pem
+    cat /etc/ebox/ssl.crt/ebox.cert \
+        /etc/ebox/ssl.key/ebox.key > /etc/ebox/ssl.pem/ebox.pem
+
+10.- Start ebox:
 	
 	/etc/init.d/ebox start
 
