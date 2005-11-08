@@ -1,4 +1,4 @@
-# Copyright (C) 2005  Warp Netwoks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2005 Warp Netwoks S.L., DBS Servicios Informaticos S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::Jabber::Enable;
+package EBox::CGI::Jabber::JabberConf;
 
 use strict;
 use warnings;
@@ -27,9 +27,10 @@ use EBox::Gettext;
 ## 	title [required]
 sub new {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Jabber', @_);
+	my $self = $class->SUPER::new('title' => 'Jabber',
+				      @_);
 	$self->{redirect} = "Jabber/Index";	
-	$self->{domain} = "ebox-jabber";
+	$self->{domain} = "ebox-jabber";	
 	bless($self, $class);
 	return $self;
 }
@@ -38,8 +39,14 @@ sub _process($) {
 	my $self = shift;
 	my $jabber = EBox::Global->modInstance('jabber');
 
-	$self->_requireParam('active', __('module status'));
-	$jabber->setService($self->param('active') eq 'yes');
+	$self->_requireParam('domain', __('domain'));
+	$jabber->setDomain($self->param('domain'));
+	if (not defined($self->param('external_connection'))) {
+	    $jabber->setExternalConnection('false');
+	} else {
+	    $jabber->setExternalConnection('true');
+	}
+	$jabber->setSsl($self->param('ssl'));
 }
 
 1;

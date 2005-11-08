@@ -1,5 +1,10 @@
+<%args>
+	$domain
+</%args>
+<%init>
+</%init>
 <sm>
-  <id>192.168.0.53</id>
+  <id><% $domain %></id>
   <pidfile>/var/run/jabberd2/sm.pid</pidfile>
 
   <router>
@@ -25,7 +30,7 @@
   <storage>
     <driver>db</driver>
     <db>
-      <path>/usr/local/var/lib/ebox/jabberd/db</path>
+      <path>/var/lib/ebox/jabberd	/db</path>
       <sync/>
     </db>
   </storage>
@@ -127,7 +132,7 @@
     <identity>
       <category>server</category>       <!-- default: server -->
       <type>im</type>                   <!-- default: im -->
-      <name>Jabber IM server</name>     <!-- default: Jabber IM server -->
+      <name>EBox Jabber IM server</name>     <!-- default: Jabber IM server -->
     </identity>
 
     <agents/>

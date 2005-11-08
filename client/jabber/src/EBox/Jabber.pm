@@ -18,17 +18,22 @@ package EBox::Jabber;
 use strict;
 use warnings;
 
-use base 'EBox::GConfModule';
+use base qw(EBox::GConfModule EBox::FirewallObserver);
 
+use EBox::Exceptions::DataExists;
 use EBox::Gettext;
+use EBox::JabberFirewall;
+use EBox::Menu::Item;
+use EBox::Network;
 use EBox::Service;
+use EBox::Sudo qw ( :all );
 use EBox::Summary::Module;
 use EBox::Summary::Status;
-use EBox::Menu::Item;
-use EBox::Sudo qw ( :all );
+use EBox::Validate qw ( :all );
 
 use constant JABBERC2SCONFFILE => '/etc/jabberd2/c2s.xml';
 use constant JABBERSMCONFFILE => '/etc/jabberd2/sm.xml';
+use constant JABBERPORT => '5222';
 
 sub _create 
 {
@@ -64,19 +69,93 @@ sub _doDaemon
 	}
 }
 
+sub usesPort # (protocol, port, iface)
+{
+	my ($self, $protocol, $port, $iface) = @_;
+
+	return undef unless($self->service());
+
+	return 1 if ($port eq JABBERPORT);
+
+	return undef;
+}
+
+sub firewallHelper
+{
+	my $self = shift;
+	if ($self->service){
+		return new EBox::JabberFirewall();
+	}
+	return undef;
+}
+
+sub setExternalConnection
+{
+    my ($self, $external) = @_;
+    $self->set_bool('external_connection', $external);
+}
+
+sub externalConnection
+{
+    my $self = shift;
+    return $self->get_bool('external_connection');
+}
+
+sub setSsl
+{
+    my ($self, $ssl) = @_;
+    $self->set_string('ssl', $ssl);
+}
+
+sub ssl
+{
+    my $self = shift;
+    return $self->get_string('ssl');
+}
+
 sub setService
 {
 	my ($self, $active) = @_;
 	($active and $self->service) and return;
 	(!$active and !$self->service) and return;
+
+	if ($active) {
+		if (not $self->service){
+			my $fw = EBox::Global->modInstance('firewall');
+			my $port = JABBERPORT;
+			unless ($fw->availablePort('tcp', $port) and
+				$fw->availablePort('udp', $port)){
+					throw EBox::Exceptions::DataExists(
+						'data' => __('listening port'),
+						'value' => $port);
+				}
+		}
+	}
+	
 	$self->set_bool('active', $active);
-#	$self->_configureFirewall;
 }
 
 sub service
 {
 	my $self = shift;
 	return $self->get_bool('active');
+}
+
+sub setDomain
+{
+	my ($self, $domain) = @_;
+	unless (checkDomainName($domain)){
+		throw EBox::Exceptions::InvalidData
+			('data' => __('domain'), 'value' => $domain);
+	}
+	($domain eq $self->domain) and return;
+	$self->set_string('domain', $domain);
+}
+
+sub domain
+{
+	my $self = shift;
+	return $self->get_string('domain');
 }
 
 sub _regenConfig
@@ -92,9 +171,23 @@ sub _setJabberConf
 	my $self = shift;
 	my @array = ();
 
+	my $net = EBox::Global->modInstance('network');
+	my $ldap = new EBox::Ldap;
+	my $ldapconf = $ldap->ldapConf;
+
+	push (@array, 'domain' => $self->domain);
+	push (@array, 'binddn' => $ldapconf->{'rootdn'});
+	push (@array, 'bindpw' => $ldap->rootPw);
+	push (@array, 'basedc' => $ldapconf->{'dn'});
+
 	$self->writeConfFile(JABBERC2SCONFFILE,
 			     "jabber/c2s.xml.mas",
 			     \@array);
+
+	@array = ();
+
+	push (@array, 'domain' => $self->domain);
+
 	$self->writeConfFile(JABBERSMCONFFILE,
 			     "jabber/sm.xml.mas",
 			     \@array);

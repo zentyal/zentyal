@@ -43,12 +43,26 @@ sub _process($) {
 		
 	my @array = ();
 	my $active = 'no';
+	my $domain = '';
+	my $ssl = 'No';
+	my $external_connection = 0;
 	if ($jabber->service()) {
-		$active = 'yes';
+	    $active = 'yes';
 	}
-	push (@array, 'active' => $active);
-	$self->{params} = \@array;
+	if ($jabber->domain) {
+	    $domain = $jabber->domain;
+	}
+        $ssl = $jabber->ssl;
+	if ($jabber->externalConnection eq 'true') {
+	    $external_connection = 'yes';
+	}
 
+	push (@array, 'active' => $active);
+	push (@array, 'domain' => $domain);
+	push (@array, 'ssl' => $ssl);
+	push (@array, 'external_connection' => $external_connection);
+
+	$self->{params} = \@array;
 }
 
 1;

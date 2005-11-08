@@ -1,3 +1,11 @@
+<%args>
+	$domain
+	$bindpw
+	$binddn
+	$basedc
+</%args>
+<%init>
+</%init>
 <c2s>
   <id>c2s</id>
   <pidfile>/var/run/jabberd2/c2s.pid</pidfile>
@@ -21,9 +29,9 @@
   </log>
 
   <local>
-    <id>192.168.0.53</id>
+    <id><% $domain %></id>
     
-    <ip>192.168.0.53</ip>
+    <ip>0.0.0.0</ip>
     <port>5222</port>
 
     <!--
@@ -73,23 +81,17 @@
 
     </mechanisms>
 
-    <db>
-      <path>/var/lib/jabberd2/db</path>
-      
-      <sync/>
-    </db>
-
     <ldap>
       <host>localhost</host>
       <port>389</port>
 
       <v3/>
 
-      <binddn>cn=admin, dc=ebox</binddn>
-      <bindpw>ebox103586956</bindpw>
+      <binddn><% $binddn %></binddn>
+      <bindpw><% $bindpw %></bindpw>
       
       <uidattr>uid</uidattr>
-      <basedn>ou=Users,dc=ebox</basedn>
+      <basedn><% $basedc %></basedn>
     </ldap>
 
     <pipe>

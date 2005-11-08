@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CGI/Jabber
 
-nobase_perl_DATA = Index.pm Enable.pm
+nobase_perl_DATA = Index.pm Enable.pm JabberConf.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

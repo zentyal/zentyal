@@ -19,5 +19,29 @@
 			<default>false</default>
 			<locale name="C"/>
 		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/global/modules/jabber/domain</key>
+			<applyto>/ebox/modules/jabber/domain</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default></default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/global/modules/jabber/ssl</key>
+			<applyto>/ebox/modules/jabber/ssl</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>No</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/global/modules/jabber/external_connection</key>
+			<applyto>/ebox/modules/jabber/external_connection</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+			<default>true</default>
+			<locale name="C"/>
+		</schema>
 	</schemalist>
 </gconfschemafile>

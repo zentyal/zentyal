@@ -2,6 +2,9 @@
 -->
 <%args>
 	$active
+	$domain
+	$ssl
+	$external_connection
 </%args>
 <%init>
 use EBox::Gettext;
@@ -9,4 +12,65 @@ use EBox::Gettext;
 
 <div class='jabbernew'>
 <& enable.mas, title => __('Jabber Service status'), active => $active &>
+
+<form action='JabberConf' method='POST'>
+	<h3><% __('General Settings') %></h3>
+	<div class='help'>
+		<% __('Domain name should be available on the network. Otherwise, you may not be able to use this service. This applies for internal and external connections.') %>
+	</div>
+	<table class='formTable'>
+	<tbody>
+	<tr>
+ 	        <td class='tright'>
+			<span class='ftitle'><% __('Domain name') %>:</span>
+	        </td>
+		<td>
+			<input type='text' class='inputText' name='domain' value='<% $domain %>'>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Connect to global Jabber network') %>:</span>
+		</td>
+		<td>
+			<input type='checkbox' name='external_connection' id='external' value='yes'
+%			if ($external_connection eq 'yes') {
+				checked
+%			}
+			>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('SSL Support') %>:</span>
+		</td>
+		<td>
+			<select id="jabberSsl" name="ssl">
+%       if($ssl eq 'No') {
+			<option selected value='no' ><% __('No') %></option>
+			<option value='optional' ><% __('Optional') %></option>
+			<option value='required' ><% __('Required') %></option>
+%	} elsif ($ssl eq 'Optional') {
+			<option value='no' ><% __('No') %></option>
+			<option selected value='optional' ><% __('Optional') %></option>
+			<option value='required' ><% __('Required') %></option>
+%	} else {
+			<option value='no' ><% __('No') %></option>
+			<option value='optional' ><% __('Optional') %></option>
+			<option selected value='required' ><% __('Required') %></option>
+%	}
+			</select>	
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input class='inputButton' type='submit' name='change'
+				value="<% __('Apply Changes') %>"
+				alt="<% __('Apply Changes') %>">
+		</td>
+	</tr>
+	</tbody>
+	</table>
+</form>
 </div>
