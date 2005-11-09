@@ -3,8 +3,11 @@
 	$bindpw
 	$binddn
 	$basedc
+	$ssl
 </%args>
 <%init>
+use EBox::Gettext;
+settextdomain('ebox-jabber');
 </%init>
 <c2s>
   <id>c2s</id>
@@ -32,11 +35,18 @@
     <id><% $domain %></id>
     
     <ip>0.0.0.0</ip>
+%	if (!($ssl eq 'no')){
+    <pemfile>/etc/ebox/ssl.pem/ebox.pem</pemfile>
+    <ssl-port>5223</ssl-port>
+%		if ($ssl eq 'required') {
+    <require-starttls/>
+    <port>0</port>
+%		} else {
     <port>5222</port>
-
-    <!--
-    <pemfile>/etc/jabberd/server.pem</pemfile>
-    -->
+%		}
+%	} else {
+    <port>5222</port>
+%	}
   </local>
 
   <io>
@@ -62,7 +72,7 @@
     <register>
       <enable/>
 
-      <instructions>Enter a username and password to register with this server.</instructions>
+      <instructions><% __('Enter a username and password to register with this server.') %></instructions>
 
       <password/>
     </register>

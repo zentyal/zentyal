@@ -39,28 +39,17 @@ sub _process($) {
 	my $self = shift;
 	$self->{title} = __('Jabber');
 	my $jabber = EBox::Global->modInstance('jabber');
-	
-		
+
 	my @array = ();
 	my $active = 'no';
-	my $domain = '';
-	my $ssl = 'No';
-	my $external_connection = 0;
 	if ($jabber->service()) {
 	    $active = 'yes';
 	}
-	if ($jabber->domain) {
-	    $domain = $jabber->domain;
-	}
-        $ssl = $jabber->ssl;
-	if ($jabber->externalConnection eq 'true') {
-	    $external_connection = 'yes';
-	}
 
 	push (@array, 'active' => $active);
-	push (@array, 'domain' => $domain);
-	push (@array, 'ssl' => $ssl);
-	push (@array, 'external_connection' => $external_connection);
+	push (@array, 'domain' => $jabber->domain);
+	push (@array, 'external_connection' => $jabber->externalConnection);
+	push (@array, 'ssl' => $jabber->ssl);
 
 	$self->{params} = \@array;
 }

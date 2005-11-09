@@ -18,11 +18,13 @@ package EBox::Jabber;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::FirewallObserver);
+use base qw(EBox::GConfModule EBox::LdapModule EBox::FirewallObserver);
 
 use EBox::Exceptions::DataExists;
 use EBox::Gettext;
 use EBox::JabberFirewall;
+use EBox::JabberLdapUser;
+use EBox::Ldap;
 use EBox::Menu::Item;
 use EBox::Network;
 use EBox::Service;
@@ -34,6 +36,7 @@ use EBox::Validate qw ( :all );
 use constant JABBERC2SCONFFILE => '/etc/jabberd2/c2s.xml';
 use constant JABBERSMCONFFILE => '/etc/jabberd2/sm.xml';
 use constant JABBERPORT => '5222';
+use constant JABBERPORTSSL => '5223';
 
 sub _create 
 {
@@ -48,12 +51,24 @@ sub _create
 sub daemons # (action)
 {
 	my ($self, $action) = @_;
+	
+	if ($action eq 'start') {
+	      EBox::Service::manage('jabber-router', $action);
+	      EBox::Service::manage('jabber-resolver', $action) if ($self->externalConnection);
+	      EBox::Service::manage('jabber-sm', $action);
+	      EBox::Service::manage('jabber-c2s', $action);
+	      EBox::Service::manage('jabber-s2s', $action) if ($self->externalConnection);
+	} elsif ($action eq 'stop'){
+	      EBox::Service::manage('jabber-s2s', $action);
+	      EBox::Service::manage('jabber-c2s', $action);
+	      EBox::Service::manage('jabber-sm', $action);
+  	      EBox::Service::manage('jabber-resolver', $action);
+	      EBox::Service::manage('jabber-router', $action);
+	} else {
+  	      $self->daemons('stop');
+	      $self->daemons('start');
+	}
 
-	EBox::Service::manage('jabber-router', $action);
-	EBox::Service::manage('jabber-resolver', $action);
-	EBox::Service::manage('jabber-sm', $action);
-	EBox::Service::manage('jabber-s2s', $action);
-	EBox::Service::manage('jabber-c2s', $action);
 }
 
 sub _doDaemon
@@ -75,7 +90,8 @@ sub usesPort # (protocol, port, iface)
 
 	return undef unless($self->service());
 
-	return 1 if ($port eq JABBERPORT);
+	return 1 if (($port eq JABBERPORT) and !($self->ssl eq 'required'));
+	return 1 if (($port eq JABBERPORTSSL) and !($self->ssl eq 'no'));
 
 	return undef;
 }
@@ -92,6 +108,7 @@ sub firewallHelper
 sub setExternalConnection
 {
     my ($self, $external) = @_;
+    ($external == $self->externalConnection) and return;
     $self->set_bool('external_connection', $external);
 }
 
@@ -104,6 +121,7 @@ sub externalConnection
 sub setSsl
 {
     my ($self, $ssl) = @_;
+    ($ssl eq $self->ssl) and return;
     $self->set_string('ssl', $ssl);
 }
 
@@ -131,7 +149,6 @@ sub setService
 				}
 		}
 	}
-	
 	$self->set_bool('active', $active);
 }
 
@@ -179,6 +196,7 @@ sub _setJabberConf
 	push (@array, 'binddn' => $ldapconf->{'rootdn'});
 	push (@array, 'bindpw' => $ldap->rootPw);
 	push (@array, 'basedc' => $ldapconf->{'dn'});
+	push (@array, 'ssl' => $self->ssl);
 
 	$self->writeConfFile(JABBERC2SCONFFILE,
 			     "jabber/c2s.xml.mas",
@@ -224,4 +242,10 @@ sub menu
 					'text' => __('Jabber Service')));
 }
 
+sub _ldapModImplementation
+{
+    my $self;
+
+    return new EBox::JabberLdapUser();
+}
 1;

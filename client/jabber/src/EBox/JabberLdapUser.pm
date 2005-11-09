@@ -13,41 +13,40 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::Jabber::JabberConf;
+package EBox::JabberLdapUser;
 
 use strict;
 use warnings;
 
-use base 'EBox::CGI::ClientBase';
 
+use EBox::Sudo qw( :all );
 use EBox::Global;
+use EBox::Ldap;
+use EBox::Network;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::DataExists;
+use EBox::Exceptions::DataMissing;
 use EBox::Gettext;
 
-## arguments:
-## 	title [required]
-sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Jabber',
-				      @_);
-	$self->{redirect} = "Jabber/Index";	
-	$self->{domain} = "ebox-jabber";	
-	bless($self, $class);
-	return $self;
+use constant SCHEMAS => ('/etc/ldap/schema/jabber.schema');
+
+use base qw(EBox::LdapUserBase);
+
+sub _userAddOns
+{
+        my ($self, $username) = @_;
+
+	my @args;
+	my $args = {'user' => $username };
+	return { path => '/jabber/jabber.mas', params => \@args};
 }
 
-sub _process($) {
-	my $self = shift;
-	my $jabber = EBox::Global->modInstance('jabber');
-
-	$self->_requireParam('domain', __('domain'));
-
-	$jabber->setDomain($self->param('domain'));
-	if (defined($self->param('external_connection'))) {
-	    $jabber->setExternalConnection(1);
-	} else {
-	    $jabber->setExternalConnection(0);
-	}
-	$jabber->setSsl($self->param('ssl'));
+sub _includeLDAPSchemas
+{
+        my $self = shift;
+	my @schemas = SCHEMAS;
+	return \@schemas;
 }
 
 1;

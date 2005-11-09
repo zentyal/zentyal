@@ -24,7 +24,7 @@
 			<applyto>/ebox/modules/jabber/domain</applyto>
 			<owner>ebox</owner>
 			<type>string</type>
-			<default></default>
+			<default>ebox</default>
 			<locale name="C"/>
 		</schema>
 		<schema>

@@ -30,7 +30,7 @@
   <storage>
     <driver>db</driver>
     <db>
-      <path>/var/lib/ebox/jabberd	/db</path>
+      <path>/var/lib/jabberd2/db</path>
       <sync/>
     </db>
   </storage>

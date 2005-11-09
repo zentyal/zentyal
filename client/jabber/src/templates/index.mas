@@ -34,7 +34,7 @@ use EBox::Gettext;
 		</td>
 		<td>
 			<input type='checkbox' name='external_connection' id='external' value='yes'
-%			if ($external_connection eq 'yes') {
+%			if ($external_connection) {
 				checked
 %			}
 			>
@@ -46,11 +46,11 @@ use EBox::Gettext;
 		</td>
 		<td>
 			<select id="jabberSsl" name="ssl">
-%       if($ssl eq 'No') {
+%       if($ssl eq 'no') {
 			<option selected value='no' ><% __('No') %></option>
 			<option value='optional' ><% __('Optional') %></option>
 			<option value='required' ><% __('Required') %></option>
-%	} elsif ($ssl eq 'Optional') {
+%	} elsif ($ssl eq 'optional') {
 			<option value='no' ><% __('No') %></option>
 			<option selected value='optional' ><% __('Optional') %></option>
 			<option value='required' ><% __('Required') %></option>

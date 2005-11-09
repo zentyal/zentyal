@@ -26,6 +26,7 @@ use EBox::Firewall;
 use EBox::Gettext;
 
 use constant JABBERPORT => '5222';
+use constant JABBERPORTSSL => '5223';
 
 sub new 
 {
@@ -42,15 +43,26 @@ sub input
 	my @rules = ();
 	
 	my $net = EBox::Global->modInstance('network');
+	my $jabber = EBox::Global->modInstance('jabber');
 	my @ifaces = @{$net->InternalIfaces()};
-	my $port = JABBERPORT;
-	foreach my $ifc (@ifaces) {
+
+	my @jabberPorts = ();
+	if (($jabber->ssl eq 'no') || ($jabber->ssl eq 'optional')){
+	    push(@jabberPorts, JABBERPORT);
+	}
+	if (($jabber->ssl eq 'optional') || ($jabber->ssl eq 'required')){
+	    push(@jabberPorts, JABBERPORTSSL);
+	}
+
+	foreach my $port (@jabberPorts){
+	    foreach my $ifc (@ifaces) {
 		my $r = "-m state --state NEW -i $ifc  ".
-			"-p tcp --dport $port -j ACCEPT";
+		        "-p tcp --dport $port -j ACCEPT";
 		push(@rules, $r);
 		$r = "-m state --state NEW -i $ifc  ".
-			"-p udp --dport $port -j ACCEPT";
+		     "-p udp --dport $port -j ACCEPT";
 		push(@rules, $r);
+	    }
 	}
 	
 	return \@rules;
@@ -62,15 +74,26 @@ sub output
 	my @rules = ();
 	
 	my $net = EBox::Global->modInstance('network');
+	my $jabber = EBox::Global->modInstance('jabber');
 	my @ifaces = @{$net->InternalIfaces()};
-	my $port = JABBERPORT;
-	foreach my $ifc (@ifaces) {
+
+	my @jabberPorts = ();
+	if (($jabber->ssl eq 'no') || ($jabber->ssl eq 'optional')){
+	    push (@jabberPorts, JABBERPORT);
+	}
+	if (($jabber->ssl eq 'optional') || ($jabber->ssl eq 'required')){
+	    push (@jabberPorts, JABBERPORTSSL);
+	}
+	
+	foreach my $port (@jabberPorts){
+	    foreach my $ifc (@ifaces) {
 		my $r = "-m state --state NEW -o $ifc  ".
 			"-p tcp --sport $port -j ACCEPT";
 		push(@rules, $r);
 		$r = "-m state --state NEW -o $ifc  ".
 			"-p udp --sport $port -j ACCEPT";
 		push(@rules, $r);
+	    }
 	}
 	
 	return \@rules;

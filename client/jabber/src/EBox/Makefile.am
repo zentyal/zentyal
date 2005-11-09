@@ -3,7 +3,7 @@ SUBDIRS = CGI
 
 perldir = @PERLPATH@/EBox
 
-nobase_perl_DATA = Jabber.pm JabberFirewall.pm
+nobase_perl_DATA = Jabber.pm JabberFirewall.pm JabberLdapUser.pm
 
 DISTCLEANFILES =
 
