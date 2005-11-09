@@ -1,2 +1,42 @@
 <%args>
+	$params
 </%args>
+<%init>
+	use EBox::Gettext;
+	settextdomain('ebox-jabber');
+</%init>
+<form action='/ebox/Jabber/JabberUserOpions' method='POST'>
+	<h3><% __('Jabber service user options') %></h3>
+	<div class="help"><%__('Password for Jabber service is the user password')%></div>
+	<table class="formTable">
+	<form action='/ebox/Jabber/JabberUserOptions' method='post'>
+	<tr>
+	<td class="tright">
+		<% __('User account') %>:
+	</td>
+	<td>
+		<select name="active" enabled>
+%	if($params->{'active'} eq 'yes') {
+		<option value='no' ><% __('Disabled') %></option>
+		<option selected value='yes' ><% __('Enabled') %></option>
+%	}else{
+		<option selected value='no' ><% __('Disabled') %></option>
+		<option value='yes' ><% __('Enabled') %></option>
+%	}
+		</select>
+	</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('User has administration rights') %>:</span>
+		</td>
+		<td>
+			<input type='checkbox' name='is_admin' id='external' value='yes'
+%			if ($params->{'is_admin'}) {
+				checked
+%			}
+			>
+		</td>
+	</tr>
+	</form>
+	</table>

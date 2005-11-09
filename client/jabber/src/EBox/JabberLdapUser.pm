@@ -38,8 +38,10 @@ sub _userAddOns
         my ($self, $username) = @_;
 
 	my @args;
-	my $args = {'user' => $username };
-	return { path => '/jabber/jabber.mas', params => \@args};
+	my $args = { 'active'   => 'yes',
+		     'is_admin' => '1' };
+	return { path => '/jabber/jabber.mas',
+		 params => $args };
 }
 
 sub _includeLDAPSchemas
