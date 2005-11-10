@@ -5,11 +5,11 @@
 	use EBox::Gettext;
 	settextdomain('ebox-jabber');
 </%init>
-<form action='/ebox/Jabber/JabberUserOpions' method='POST'>
-	<h3><% __('Jabber service user options') %></h3>
+	<h3><% __('Jabber account') %></h3>
 	<div class="help"><%__('Password for Jabber service is the user password')%></div>
 	<table class="formTable">
 	<form action='/ebox/Jabber/JabberUserOptions' method='post'>
+	    <input type="hidden" name="username" value="<% $params->{'username'} %>">
 	<tr>
 	<td class="tright">
 		<% __('User account') %>:
@@ -36,6 +36,14 @@
 				checked
 %			}
 			>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input class='inputButton' type='submit' name='change'
+					value="<% __('Change') %>"
+					alt="<% __('Change') %>">
 		</td>
 	</tr>
 	</form>

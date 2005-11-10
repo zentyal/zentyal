@@ -1,0 +1,44 @@
+#!/usr/bin/perl
+
+use strict;
+
+use EBox::Global;
+use EBox::UsersAndGroups;
+
+EBox::init();
+
+my $global = EBox::Global->getInstance(1);
+my $users = $global->modInstance('users');
+$users->{ldap}->ldapCon;
+my $ldap = $users->{ldap};
+
+foreach my $user ($users->users){
+    my $username = $user->{'username'};
+    my $dn = "uid=$username," . $users->usersDn;
+    
+    print "Checking user: $username\n";
+    my %args = (base => $users->usersDn,
+		filter => "(jabberUid=$username)");
+
+    my $mesg = $ldap->search(
+			      \%args
+			     );
+
+    if (!$mesg->count){
+	print "Adding Jabber account for $username at $dn\n";
+	
+	my %attrs = ( 
+		      changes => [ 
+				   add => [
+					   objectClass => 'userJabberAccount',
+					   jabberUid   => $username,
+					   jabberAdmin => 'FALSE'
+					   ]
+				   ]
+		      );
+	my $result = $ldap->modify($dn, \%attrs ); 
+	($result->is_error) and warn "Error updating user: $username\n\n";
+    } else {
+	print "User $username already has a Jabber account\n\n";
+    }
+}

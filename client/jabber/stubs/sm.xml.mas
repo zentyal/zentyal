@@ -1,5 +1,6 @@
 <%args>
 	$domain
+	@admins
 </%args>
 <%init>
 </%init>
@@ -37,7 +38,9 @@
   
   <aci>
     <acl type='all'>
-      <jid>admin@localhost</jid>
+% foreach my $admin (@admins){	
+      <jid><%$admin%>@<%$domain%></jid>
+% }
     </acl>
   </aci>
 

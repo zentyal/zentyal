@@ -191,6 +191,7 @@ sub _setJabberConf
 	my $net = EBox::Global->modInstance('network');
 	my $ldap = new EBox::Ldap;
 	my $ldapconf = $ldap->ldapConf;
+	my $jabberldap = new EBox::JabberLdapUser;
 
 	push (@array, 'domain' => $self->domain);
 	push (@array, 'binddn' => $ldapconf->{'rootdn'});
@@ -204,8 +205,10 @@ sub _setJabberConf
 
 	@array = ();
 
+	my @admins = ();
+	@admins = $jabberldap->getJabberAdmins();
 	push (@array, 'domain' => $self->domain);
-
+	push (@array, 'admins' => \@admins);
 	$self->writeConfFile(JABBERSMCONFFILE,
 			     "jabber/sm.xml.mas",
 			     \@array);
