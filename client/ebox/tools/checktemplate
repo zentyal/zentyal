@@ -1,0 +1,61 @@
+#!/bin/sh
+
+awk '
+BEGIN {
+	in_args = 0
+	in_init = 0
+	print "use strict;"
+}
+
+{
+	if ($0 ~ /^<\/%args>/)
+	{
+		in_args = 0
+		next
+	}
+	if ($0 ~ /^<\/%init>/)
+	{
+		in_init= 0
+		next
+	}
+	if (in_args == 1)
+	{
+		print "my " $1 ";"
+		next
+	}
+	if (in_init == 1)
+	{
+		print
+		next
+	}
+	if ($0 ~ /^<%args>/)
+	{
+		in_args = 1
+		next
+	}
+	if ($0 ~ /^<%init>/)
+	{
+		in_init = 1
+		next
+	}
+	if (in_args == 0)
+	{
+		perlline = ($0 ~ /^%/)
+		if (perlline)
+		{
+			print substr($0,2)
+			next
+		}
+		if ($0 ~ /<%.*%>/)
+		{
+			str = $0
+			sub(/^.*?<%/,"",str)
+			gsub(/%>.*?<%/,";",str)
+			sub(/%>.*?$/,";",str)
+			print str
+		}
+	}
+}
+' $1 > /tmp/$$.pl
+
+perl -c /tmp/$$.pl
