@@ -10,7 +10,15 @@ case "$1" in
 		invoke-rc.d courier-pop stop || true
 		invoke-rc.d courier-pop-ssl stop || true
 
+		# restart logs
+                invoke-rc.d ebox logs restart || true
+
 		;;		
+
+	purge)
+		/usr/lib/ebox-logs/ebox-sql-table drop message
+
+		;;
 esac
 
 #DEBHELPER#

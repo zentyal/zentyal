@@ -18,7 +18,7 @@ package EBox::Printers;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::FirewallObserver);
+use base qw(EBox::GConfModule EBox::FirewallObserver EBox::LogObserver);
 
 use EBox::Gettext;
 use EBox::Config;
@@ -32,6 +32,7 @@ use EBox::Exceptions::External;
 use EBox::Validate qw( :all );
 use EBox::Sudo qw( :all );
 use EBox::PrinterFirewall;
+use EBox::PrinterLogHelper;
 use Foomatic::DB;
 use Net::CUPS::Printer;
 use Storable;
@@ -1162,6 +1163,37 @@ sub _removeCacheDrvOptions # (id)
 	}
 	
 	command("/bin/rm $file");
+}
+
+# Impelment LogHelper interface
+
+sub tableInfo {
+	my $self = shift;
+	my $titles = { 'job' => __('Job ID'),
+		'printer' => __('Printer'),
+		'owner' => __('Owner'),
+		'timestamp' => __('Queued at'),
+		'event' => __('Event')
+	};
+	my @order = ('timestamp', 'job', 'printer', 'owner', 'event');
+	my $events = { 'queued' => __('Queued'), 'canceled' => __('Canceled') };
+
+	return {
+		'name' => __('Printers'),
+		'index' => 'printers',
+		'titles' => $titles,
+		'order' => \@order,
+		'tablename' => 'jobs',
+		'timecol' => 'timestamp',
+                'filter' => ['printer', 'owner'],
+                'events' => $events,
+                'eventcol' => 'event'
+								
+	};
+}
+sub logHelper
+{
+	return (new EBox::PrinterLogHelper);
 }
 
 # Helper functions

@@ -62,6 +62,7 @@ src/templates/Makefile
 stubs/Makefile
 schemas/Makefile
 tools/Makefile
+tools/sqllog/Makefile
 Makefile
 ])
 

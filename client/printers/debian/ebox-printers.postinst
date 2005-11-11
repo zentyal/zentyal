@@ -24,6 +24,13 @@ case "$1" in
 
 		adduser --quiet ebox lpadmin
 		
+
+		# create log table
+		/usr/lib/ebox-logs/ebox-sql-table add jobs /usr/share/ebox/sqllog/printers.sql	
+	
+		# restart logs
+		invoke-rc.d ebox logs restart || true
+
 		invoke-rc.d ebox printers restart
 	;;
 esac

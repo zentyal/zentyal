@@ -61,6 +61,7 @@ conf/Makefile
 schemas/Makefile
 stubs/Makefile
 tools/Makefile
+tools/sqllog/Makefile
 www/Makefile
 Makefile
 ])

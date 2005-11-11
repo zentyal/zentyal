@@ -17,7 +17,7 @@ package EBox::Squid;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::FirewallObserver EBox::ObjectsObserver);
+use base qw(EBox::GConfModule EBox::FirewallObserver EBox::ObjectsObserver EBox::LogObserver);
 
 use EBox::Objects;
 use EBox::Global;
@@ -28,6 +28,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
 use EBox::SquidFirewall;
+use EBox::SquidLogHelper;
 use EBox::SquidOnlyFirewall;
 use EBox::Summary::Module;
 use EBox::Summary::Value;
@@ -994,6 +995,40 @@ sub menu
         $folder->add(new EBox::Menu::Item('url' => 'Squid/Policy',
                                           'text' => __('Policy')));
         $root->add($folder);
+}
+
+# Impelment LogHelper interface
+sub tableInfo {
+	my $self = shift;
+	my $titles = { 'timestamp' => __('Date'),
+			'remotehost' => __('Host'),
+			'url'	=> __('URL'),
+			'bytes' => __('Bytes'),
+			'mimetype' => __('Mime/type'),
+			'event' => __('Event')
+	};
+	my @order = ( 'timestamp', 'remotehost', 'url', 
+			'bytes', 'mimetype', 'event');
+
+	my $events = { 'accepted' => __('Accepted'), 
+			'denied' => __('Denied'),
+			'filtered' => __('Filtered') };
+	return {
+		'name' => __('Squid'),
+		'index' => 'squid',
+		'titles' => $titles,
+		'order' => \@order,
+		'tablename' => 'access',
+		'timecol' => 'timestamp',
+		'filter' => ['url', 'remotehost'],
+		'events' => $events,
+		'eventcol' => 'event'
+	};
+}
+
+sub logHelper
+{
+        return (new EBox::SquidLogHelper);
 }
 
 1;

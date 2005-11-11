@@ -1,0 +1,66 @@
+#!/bin/bash
+
+webserver=apache
+
+create_db() 
+{
+	db_name="eboxlogs"
+	db_user="eboxlogs"
+	db_pass="eboxlogs"
+
+	su postgres -c 'psql -Alt' | grep -q '^$db_name|' && db_exists=1 || db_exists=0
+	if [ $db_exists -eq 0 ]; then
+		echo "Creating the $db_name database"
+		su postgres -c "createdb $db_name"
+		su postgres -c "createuser -A -D $db_user"
+		su  postgres -c "psql -d template1 -c \"ALTER USER $db_user WITH PASSWORD \"\"'\"$db_pass\"'\" " || (echo "Cannot set password for database user $db_user" && exit 1)
+
+	cat <<EOF > /etc/postgresql/pg_hba.conf
+# TYPE  DATABASE    USER        IP-ADDRESS        IP-MASK           METHOD
+# Database administrative login by UNIX sockets
+local   all         postgres                                        ident sameuser
+#
+# Ebox log database
+host    $db_name    $db_user     127.0.0.1       255.255.255.255 md5
+# All IPv4 connections from localhost
+host    all         all         127.0.0.1         255.255.255.255  ident sameuser
+# 
+# All IPv6 localhost connections
+host    all         all         ::1               ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff        ident sameuser
+host    all         all         ::ffff:127.0.0.1/128                ident sameuser
+# 
+# reject all other connection attempts
+host    all         all         0.0.0.0           0.0.0.0           reject
+EOF
+
+	fi
+}
+
+case "$1" in
+	configure)
+		# install gconf schemas
+		SCHEMA_LOCATION=/usr/share/gconf/schemas
+		SCHEMA_FILES="logs.schemas "
+		for SCHEMA in $SCHEMA_FILES; do
+			if [ -e $SCHEMA_LOCATION/$SCHEMA ]; then
+				HOME=/var/lib/ebox GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` \
+				gconftool-2 \
+				--makefile-install-rule $SCHEMA_LOCATION/$SCHEMA > /dev/null
+			fi
+		done
+
+		kill `pidof gconfd-2` >/dev/null 2>&1 || true
+
+		#sudo configuration
+		ebox-sudoers > /etc/sudoers
+		chmod 0440 /etc/sudoers
+
+		#Create user and database
+		create_db
+		
+		;;
+esac
+
+#DEBHELPER#
+
+exit 0

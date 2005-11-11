@@ -4,7 +4,15 @@ case "$1" in
 	remove)
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 		invoke-rc.d dhcp3-server stop || true
+		invoke-rc.d ebox logs restart || true
 		;;		
+	
+	purge)
+		# drop log table
+		/usr/lib/ebox-logs/ebox-sql-table drop leases
+
+		;;
+
 esac
 
 #DEBHELPER#

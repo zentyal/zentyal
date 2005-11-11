@@ -1,0 +1,20 @@
+#!/bin/bash
+
+case "$1" in
+	remove)
+		kill `pidof gconfd-2` >/dev/null 2>&1 || true
+
+		;;		
+	purge)
+
+		db_name="eboxlogs"
+		db_user="eboxlogs"
+		su postgres -c "dropdb $db_name" || true
+		su postgres -c "dropuser $db_user" || true
+
+		;;
+	
+	
+esac
+
+#DEBHELPER#

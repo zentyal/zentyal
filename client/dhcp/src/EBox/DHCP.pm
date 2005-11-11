@@ -18,7 +18,7 @@ package EBox::DHCP;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::NetworkObserver);
+use base qw(EBox::GConfModule EBox::NetworkObserver EBox::LogObserver);
 
 use EBox::Objects;
 use EBox::Gettext;
@@ -34,6 +34,7 @@ use EBox::Menu::Folder;
 use EBox::Sudo qw(:all);
 use EBox::NetWrappers qw(:all);
 use EBox::Service;
+use EBox::DHCPLogHelper;
 use Net::IP;
 use HTML::Mason;
 use Error qw(:try);
@@ -889,5 +890,36 @@ sub menu
                                         'text' => 'DHCP'));
 }
 
+
+# Impelment LogHelper interface
+sub tableInfo {
+	my $self = shift;
+
+	my $titles = { 'timestamp' => __('Date'),
+		'interface' => __('Interface'),
+		'mac' => __('MAC address'),
+		'ip' => __('IP'),
+		'event' => __('Event')
+	};
+	my @order = ('timestamp', 'ip', 'mac', 'interface', 'event');
+	my $events = {'leased' => __('Leased'), 'released' => __('Released') };
+	
+	return {
+		'name' => __('DHCP'),
+		'index' => 'dhcp',
+		'titles' => $titles,
+		'order' => \@order,
+		'tablename' => 'leases',
+		'timecol' => 'timestamp',
+		'filter' => ['interface', 'mac', 'ip'],
+		'events' => $events,
+		'eventcol' => 'event'
+	};
+}
+
+sub logHelper
+{
+       return (new EBox::DHCPLogHelper);
+}
 
 1;

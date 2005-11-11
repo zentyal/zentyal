@@ -1,0 +1,77 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+# GNU copyright 1997 to 1999 by Joey Hess.
+
+config.status: configure
+	dh_testdir
+	./configure \
+	LOGPATH="/var/lib/ebox/log" \
+        CONFPATH="/var/lib/ebox/conf" \
+        STUBSPATH="/usr/share/ebox/stubs" \
+        CGIPATH="/usr/share/ebox/cgi/" \
+        TEMPLATESPATH="/usr/share/ebox/templates" \
+        SCHEMASPATH="/usr/share/ebox/schemas" \
+        WWWPATH="/usr/share/ebox/www/" \
+        CSSPATH="/usr/share/ebox/www/css" \
+        IMAGESPATH="/usr/share/ebox/www/images" \
+        VARPATH="/var" \
+	PERLPATH="/usr/share/perl5"\
+        ETCPATH="/etc/ebox" \
+		--disable-runtime-tests  --prefix=/usr \
+		--localstatedir=/var/ --sysconfdir=/etc 
+
+build: build-stamp
+
+build-stamp: config.status
+	dh_testdir
+	$(MAKE)
+	touch build-stamp
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp
+	-$(MAKE) distclean
+ifneq "$(wildcard /usr/share/misc/config.sub)" ""
+	cp -f /usr/share/misc/config.sub config.sub
+endif
+ifneq "$(wildcard /usr/share/misc/config.guess)" ""
+	cp -f /usr/share/misc/config.guess config.guess
+endif
+	rm -f config.log
+	dh_clean 
+
+install-indep: build config.status
+	dh_testdir
+	dh_testroot
+	dh_clean -k 
+	dh_installdirs
+
+	GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=yes DESTDIR=$(CURDIR)/debian/ebox-logs/ \
+	DESTDIR=$(CURDIR)/debian/ebox-logs/ \
+		$(MAKE) install schemadir=usr/share/gconf/schemas
+
+binary-indep: install-indep
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs ChangeLog
+	dh_installdocs
+	dh_install
+#	dh_installmenu
+#	dh_installman
+	dh_link
+#	dh_strip
+#	dh_gconf - done manually
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+# Build architecture-independent files here.
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch install

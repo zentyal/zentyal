@@ -18,7 +18,7 @@ package EBox::Mail;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::LdapModule EBox::ObjectsObserver EBox::FirewallObserver);
+use base qw(EBox::GConfModule EBox::LdapModule EBox::ObjectsObserver EBox::FirewallObserver EBox::LogObserver);
 
 use Proc::ProcessTable;
 use EBox::Sudo qw( :all );
@@ -31,6 +31,7 @@ use EBox::Menu::Folder;
 use EBox::MailVDomainsLdap;
 use EBox::MailUserLdap;
 use EBox::MailAliasLdap;
+use EBox::MailLogHelper;
 use EBox::MailFirewall;
 
 use constant MAILMAINCONFFILE			=> '/etc/postfix/main.cf';
@@ -56,34 +57,34 @@ use constant MAXMGSIZE				=> '104857600';
 
 sub _create 
 {
-	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'mail',
-		domain => 'ebox-mail',
-		@_);
+my $class = shift;
+my $self = $class->SUPER::_create(name => 'mail',
+	domain => 'ebox-mail',
+	@_);
 
-	$self->{vdomains} = new EBox::MailVDomainsLdap;
-	$self->{musers} = new EBox::MailUserLdap;
-	$self->{malias} = new EBox::MailAliasLdap;
+$self->{vdomains} = new EBox::MailVDomainsLdap;
+$self->{musers} = new EBox::MailUserLdap;
+$self->{malias} = new EBox::MailAliasLdap;
 
-	bless($self, $class);
-	return $self;
+bless($self, $class);
+return $self;
 }
 
 sub _getIfacesForAddress {
-	my ($self, $ip) = @_;
+my ($self, $ip) = @_;
 
-	my $net = EBox::Global->modInstance('network');
-	my @ifaces = ();
+my $net = EBox::Global->modInstance('network');
+my @ifaces = ();
 
-	foreach my $iface (@{$net->InternalIfaces()}) {
-		foreach my $addr (@{$net->ifaceAddresses($iface)}) {
-			if (isIPInNetwork($addr->{'address'}, $addr->{'netmask'}, $ip)) {
-				push(@ifaces, $iface);
-			}
+foreach my $iface (@{$net->InternalIfaces()}) {
+	foreach my $addr (@{$net->ifaceAddresses($iface)}) {
+		if (isIPInNetwork($addr->{'address'}, $addr->{'netmask'}, $ip)) {
+			push(@ifaces, $iface);
 		}
 	}
+}
 
-	return \@ifaces;
+return \@ifaces;
 }
 
 sub _setMailConf {
@@ -691,6 +692,51 @@ sub menu
 			'text' => ''));
 
 	$root->add($folder);
+}
+
+sub tableInfo {
+	my $self = shift;
+	my $titles = { 'postfix_date' => __('Date'),
+						'message_id' => __('Message ID'),
+						'from_address' => __('From'),
+						'to_address' => __('To'),
+						'client_host_name' => __('From hostname'),
+						'client_host_ip' => __('From host ip'),
+						'message_size' => __('Size (bytes)'),
+						'relay' => __('Relay'),
+						'status' => __('Status'),
+						'event' => __('Event'),
+						'message' => __('Aditional Info')
+					};
+	my @order = ('postfix_date', 'from_address',
+		'to_address', 'client_host_ip',
+		'message_size', 'relay', 'status', 'event', 'message');
+
+	my $events = { 'msgsent' => __('Successful messages'),
+		'maxmsgsize' => __('Maximum message size exceeded'),
+		'maxusrsize' => __('User quote exceeded'),
+		'norelay' => __('Relay access denied'),
+		'noaccount' => __('Account do not exists'),
+		'nohost' => __('Host unreachable'),
+		'noauth' => __('Authentication error'),
+		'other' => __('Other events') };
+
+	return {
+		'name' => __('Mail'),
+		'index' => 'mail',
+		'titles' => $titles,
+		'order' => \@order,
+		'tablename' => 'message',
+		'timecol' => 'postfix_date',
+		'filter' => ['from_address', 'to_address', 'status'],
+		'events' => $events,
+		'eventcol' => 'event'
+	};
+}
+
+sub logHelper
+{
+	return (new EBox::MailLogHelper);
 }
 
 1;

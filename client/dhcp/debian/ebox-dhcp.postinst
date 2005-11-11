@@ -26,6 +26,14 @@ case "$1" in
 		# sudo configuration
 		ebox-sudoers > /etc/sudoers
 		chmod 0440 /etc/sudoers
+ 
+ 		# create log table
+                /usr/lib/ebox-logs/ebox-sql-table add leases /usr/share/ebox/sqllog/dhcp.sql
+	
+		# restart logs
+		invoke-rc.d ebox logs restart || true
+				
+
 esac
 
 #DEBHELPER#

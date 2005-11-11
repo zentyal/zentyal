@@ -3,7 +3,7 @@ SUBDIRS = CGI
 
 perldir = @PERLPATH@/EBox
 
-nobase_perl_DATA = Printers.pm PrinterFirewall.pm
+nobase_perl_DATA = Printers.pm PrinterFirewall.pm PrinterLogHelper.pm
 
 DISTCLEANFILES = 
 

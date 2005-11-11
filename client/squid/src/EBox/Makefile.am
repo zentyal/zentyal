@@ -3,7 +3,8 @@ SUBDIRS = CGI
 
 perldir = @PERLPATH@/EBox
 
-nobase_perl_DATA = Squid.pm SquidFirewall.pm SquidOnlyFirewall.pm
+nobase_perl_DATA = Squid.pm SquidFirewall.pm SquidOnlyFirewall.pm \
+			SquidLogHelper.pm
 
 SOURCES = $(nobase_perl_DATA)
 

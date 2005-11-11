@@ -17,7 +17,7 @@ logexceptionhits = on
 # Log File Format
 # 1 = DansGuardian format        2 = CSV-style format
 # 3 = Squid Log File Format      4 = Tab delimited
-logfileformat = 1
+logfileformat = 3
 
 
 loglocation = '/var/log/dansguardian/access.log'

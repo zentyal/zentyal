@@ -3,9 +3,13 @@
 case "$1" in
 	remove)
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
+		
+		# restart logs
+		invoke-rc.d ebox logs restart || true
 
 		;;		
 	purge)
+                /usr/lib/ebox-logs/ebox-sql-table drop jobs
 
 	        ;;    
 esac
