@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2005-11-11 13:12+0100\n"
-"PO-Revision-Date: 2005-11-11 13:15+0100\n"
+"PO-Revision-Date: 2005-11-11 13:29+0100\n"
 "Last-Translator: Dani Baeyens <dani@warp.es>\n"
 "Language-Team:  <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -55,11 +55,11 @@ msgstr "Diagnóstico de la red"
 
 #: src/EBox/CGI/Diag.pm:51 src/templates/diag.mas:15
 msgid "Host"
-msgstr ""
+msgstr "Máquina"
 
 #: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2041
 msgid "host name"
-msgstr ""
+msgstr "nombre de máquina"
 
 #: src/EBox/CGI/VIface.pm:44
 msgid "virtual interface action"
@@ -143,7 +143,7 @@ msgstr "El router {gw} no es alcanzable"
 
 #: src/EBox/Network.pm:2022
 msgid "Host name"
-msgstr ""
+msgstr "Nombre de máquina"
 
 #: src/EBox/Network.pm:2072
 msgid "down"
@@ -155,11 +155,11 @@ msgstr "arriba"
 
 #: src/EBox/Network.pm:2082
 msgid "link ok"
-msgstr ""
+msgstr "enlace ok"
 
 #: src/EBox/Network.pm:2084
 msgid "no link"
-msgstr ""
+msgstr "sin enlace"
 
 #: src/EBox/Network.pm:2087
 msgid "Status"
