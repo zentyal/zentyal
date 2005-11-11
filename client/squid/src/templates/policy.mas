@@ -19,11 +19,11 @@ use EBox::Gettext;
 <table> 
 <thead>
 	<tr>
-		<th><% __('Allowed') %></th>
+		<th class='tleft'><% __('Allowed') %></th>
 		<th></th>
-		<th><% __('Filtered') %></th>
+		<th class='tleft'><% __('Filtered') %></th>
 		<th></th>
-		<th><% __('Denied') %></th>
+		<th class='tleft'><% __('Denied') %></th>
 	</tr>
 </thead>
 
@@ -31,10 +31,16 @@ use EBox::Gettext;
 <tr>
 		<td rowspan='2'>
 		<select name="unfiltered" size="8" multiple>
-% 			foreach my $ob (@{unfiltered}) {
-				<option value='<% $ob->{name} %>'>
-					<% $ob->{description} %>
+%			if ((scalar @{unfiltered}) == 0) {
+				<option value='' disabled>
+					<% __('Empty list') %>
 				</option>
+%   		} else {
+% 				foreach my $ob (@{unfiltered}) {
+					<option value='<% $ob->{name} %>'>
+						<% $ob->{description} %>
+					</option>
+%   			}
 %   		}
 		</select>
 		</td>
@@ -47,11 +53,17 @@ use EBox::Gettext;
 		</td>
 		<td rowspan='2'>
 		<select name="defaults" size="8" multiple>
-% 			foreach my $ob (@{defaults}) {
-				<option value='<% $ob->{name} %>'>
-					<% $ob->{description} %>
+%			if ((scalar @{defaults}) == 0) {
+				<option value='' disabled>
+					<% __('Empty list') %>
 				</option>
-%   		}
+%			} else {
+% 				foreach my $ob (@{defaults}) {
+					<option value='<% $ob->{name} %>'>
+						<% $ob->{description} %>
+					</option>
+%   			}
+%  			}
 		</select>
 		</td>
 		<td>
@@ -63,10 +75,16 @@ use EBox::Gettext;
 		</td>
 		<td rowspan='2'>
 		<select name="bans" size="8" multiple>
-% 			foreach my $ob (@{bans}) {
-				<option value='<% $ob->{name} %>'>
-					<% $ob->{description} %>
+%			if ((scalar @{bans}) == 0) {
+				<option value='' disabled>
+					<% __('Empty list') %>
 				</option>
+%			} else {
+% 				foreach my $ob (@{bans}) {
+					<option value='<% $ob->{name} %>'>
+						<% $ob->{description} %>
+					</option>
+%   			}
 %   		}
 		</select>
 		</td>
