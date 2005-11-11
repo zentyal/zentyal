@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-10-10 12:58+0200\n"
+"POT-Creation-Date: 2005-11-11 13:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/EBox/CGI/InstallPkgs.pm:73
+msgid "There were no packages to update"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:79
 msgid "The packages were installed successfully"
 msgstr ""
 
-#: src/EBox/CGI/InstallPkgs.pm:77
+#: src/EBox/CGI/InstallPkgs.pm:83
 msgid "The packages were removed successfully"
 msgstr ""
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:539
+#: src/EBox/Software.pm:331
 msgid "System updates"
 msgstr ""
 
@@ -45,84 +49,28 @@ msgstr ""
 msgid "automatic updates configuration"
 msgstr ""
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:537
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:329
 msgid "eBox components"
 msgstr ""
 
-#: src/EBox/Software.pm:125
+#: src/EBox/Software.pm:120
 msgid ""
 "An error ocurred while installing components. If the error persists or eBox "
 "stops working properly, seek technical support."
 msgstr ""
 
-#: src/EBox/Software.pm:146
+#: src/EBox/Software.pm:142
 msgid ""
 "An error ocurred while removing components. If the error persists or eBox "
 "stops working properly, seek technical support."
 msgstr ""
 
-#: src/EBox/Software.pm:534
+#: src/EBox/Software.pm:326
 msgid "Software management"
 msgstr ""
 
-#: src/EBox/Software.pm:541
+#: src/EBox/Software.pm:333
 msgid "Configuration"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:1
-msgid "DHCP server"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:2
-msgid "DNS cache"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:3
-msgid "base framework"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:4
-msgid "Firewall"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:5
-msgid "IPsec VPNs"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:6
-msgid "mail server"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:7
-msgid "network"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:8
-msgid "NTP server"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:9
-msgid "objects"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:10
-msgid "printing"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:11
-msgid "Samba server"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:12
-msgid "software management"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:13
-msgid "proxy cache and content filter"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:14
-msgid "user and group management (LDAP)"
 msgstr ""
 
 #: src/templates/config.mas:9
@@ -149,7 +97,7 @@ msgstr ""
 msgid "Updates are available for the following system components"
 msgstr ""
 
-#: src/templates/updates.mas:16 src/templates/ebox.mas:13
+#: src/templates/updates.mas:16 src/templates/ebox.mas:14
 msgid "Component"
 msgstr ""
 
@@ -157,11 +105,11 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: src/templates/updates.mas:20 src/templates/ebox.mas:30
+#: src/templates/updates.mas:20 src/templates/ebox.mas:31
 msgid "Update"
 msgstr ""
 
-#: src/templates/updates.mas:37
+#: src/templates/updates.mas:37 src/templates/ebox.mas:82
 msgid "Update all packages"
 msgstr ""
 
@@ -175,26 +123,26 @@ msgstr ""
 msgid "Upgrade"
 msgstr ""
 
-#: src/templates/ebox.mas:15
+#: src/templates/ebox.mas:16
 msgid "Installed version "
 msgstr ""
 
-#: src/templates/ebox.mas:17
+#: src/templates/ebox.mas:18
 msgid "Latest version"
 msgstr ""
 
-#: src/templates/ebox.mas:19
+#: src/templates/ebox.mas:20
 msgid "Actions"
 msgstr ""
 
-#: src/templates/ebox.mas:36
+#: src/templates/ebox.mas:38
 msgid "Install"
 msgstr ""
 
-#: src/templates/ebox.mas:39
+#: src/templates/ebox.mas:41
 msgid "none"
 msgstr ""
 
-#: src/templates/ebox.mas:55
+#: src/templates/ebox.mas:64
 msgid "Remove"
 msgstr ""
