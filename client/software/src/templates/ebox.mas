@@ -40,12 +40,19 @@ my $upgpkgs = 0;
 					name='pkg-<%$pkg->{name}%>'/>
 			<td class='tcenter'>
 % 		if ($eboxupg ne 'no') {
-				<input type='submit' name='ebox-install' 
+				<input type='image' name='ebox-install' 
 						class='inputButton'
+						src='/data/images/install.gif'
 						value='<%$eboxupg%>'/>
 % 		}
+
+% 		if ($pkg->{version} and $pkg->{removable} and $eboxupg ne 'no') {
+				<img src='/data/images/sep.gif' alt='-'/>
+% 		}
 % 		if ($pkg->{version} and $pkg->{removable}) {
-				<input type='submit' name='ebox-remove' 
+				<input type='image' name='ebox-remove' 
+						src='/data/images/delete.gif'
+						title=''
 						class='inputButton'
 						value='<%__('Remove')%>'/>
 % 		}
@@ -55,6 +62,7 @@ my $upgpkgs = 0;
 % 	}
 	</tbody>
 	</table>
+	<br style="clear:both;"/>
 %	if($upgpkgs) {
 	<form action='InstallPkgs' method='post'>
 %	foreach my $pkg (@eboxpkgs) {
@@ -62,7 +70,7 @@ my $upgpkgs = 0;
 		<input type='hidden' value='yes' name='pkg-<%$pkg->{name}%>'/>
 %		}
 %	}
-		<input type='submit' name='ebox-install' class='inputButton'
+		<input type='submit' name='ebox-install'
 			value='<%__("Update all packages")%>'/>
 	</form>
 %	}
