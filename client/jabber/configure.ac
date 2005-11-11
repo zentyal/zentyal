@@ -35,8 +35,6 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 
 	AM_GCONF_SOURCE_2
 
-	AC_PROG_SQUID
-
 else
 	GCONF_SCHEMAS_INSTALL_FALSE=
 	GCONF_SCHEMAS_INSTALL_TRUE='#'
