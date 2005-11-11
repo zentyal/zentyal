@@ -65,15 +65,31 @@
 }
 
 #footer {
+	color: #888;
 	clear: both;
-	color: #485C84;
-	font-size: 9px;
+	font-size: 11px;
 	text-align: center;
 	width: 100%;
 	margin-top: 20px;
 	padding-top: 20px;
 	margin-left: 0px;
 	padding: 3px;
+}
+
+#footer a { 
+	text-decoration: underline; 
+	color: #888;
+}
+
+#footer a:active { 
+	text-decoration: underline; 
+	color: #888;
+}
+
+#footer a:hover { 
+	text-decoration: none;
+	background: #888;
+	color: #fff;
 }
 
 .help {
