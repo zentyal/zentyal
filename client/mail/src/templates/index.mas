@@ -161,9 +161,9 @@ use EBox::Gettext;
 <table> 
 <thead>
 	<tr>
-		<th><% __('Denied') %></th>
+		<th class='tleft'><% __('Denied') %></th>
 		<th></th>
-		<th><% __('Allowed') %></th>
+		<th class='tleft'><% __('Allowed') %></th>
 	</tr>
 </thead>
 
@@ -171,11 +171,17 @@ use EBox::Gettext;
 <tr>
 		<td rowspan='2'>
 		<select name="denied" multiple="multiple" size="7">
-% 			foreach my $ob (@{deniedobjs}) {
-				<option value='<% $ob->{name} %>'>
-					<% $ob->{description} %>
+%			if ((scalar @{deniedobjs}) == 0) {
+				<option value='' disabled>
+					<% __('Empty list') %>
 				</option>
-%   		}
+%			} else {
+% 				foreach my $ob (@{deniedobjs}) {
+					<option value='<% $ob->{name} %>'>
+						<% $ob->{description} %>
+					</option>
+%   			}
+%  			}
 		</select>
 		</td>
 		<td>
@@ -187,10 +193,16 @@ use EBox::Gettext;
 		</td>
 		<td rowspan='2'>
 		<select name="allowed" multiple="multiple" size="7">
-% 			foreach my $ob (@{allowedobjs}) {
-				<option value='<% $ob->{name} %>'>
-					<% $ob->{description} %>
+%			if ((scalar @{allowedobjs}) == 0) {
+				<option value='' disabled>
+					<% __('Empty list') %>
 				</option>
+%			} else {
+% 				foreach my $ob (@{allowedobjs}) {
+					<option value='<% $ob->{name} %>'>
+						<% $ob->{description} %>
+					</option>
+%   			}
 %   		}
 		</select>
 		</td>
