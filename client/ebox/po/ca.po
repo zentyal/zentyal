@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox 0.3.svn\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-03-03 17:11+0100\n"
+"POT-Creation-Date: 2005-11-11 12:57+0100\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -16,240 +16,66 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/Exceptions/DataNotFound.pm:30
-#, perl-brace-format
-msgid "{data} {value} does not exist."
-msgstr "{data} {value} no existeix."
+#: src/EBox/CGI/EBox/Bug.pm:29 src/EBox/SysInfo.pm:126
+msgid "Bug report"
+msgstr "Informe d'error"
 
-#: src/EBox/Exceptions/DataExists.pm:31
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} {value} ja existeix."
-
-#: src/EBox/Exceptions/InvalidData.pm:31
-#, perl-brace-format
-msgid "Invalid {data} value: {value}."
-msgstr "El valor de {data} és invàlid: {value}."
-
-#: src/EBox/Exceptions/DataMissing.pm:30
-#, perl-brace-format
-msgid "{data} is empty."
-msgstr "{data} és buit."
-
-#: src/EBox/Summary/Status.pm:42
-#, fuzzy
-msgid "Restart"
-msgstr "Restaura"
-
-#: src/EBox/Summary/Status.pm:45
-msgid "Running"
-msgstr ""
-
-#: src/EBox/Summary/Status.pm:48
-msgid "Stopped"
-msgstr ""
-
-#: src/EBox/Summary/Status.pm:50
-#, fuzzy
-msgid "Start"
-msgstr "Estat"
-
-#: src/EBox/Summary/Status.pm:52
-msgid "Disabled"
-msgstr ""
-
-#: src/EBox/CGI/Firewall/ObjectPolicy.pm:40 src/EBox/CGI/Firewall/Object.pm:45
-#: src/EBox/CGI/Firewall/Object.pm:50
-#: src/EBox/CGI/Firewall/ObjectService.pm:40
-#: src/EBox/CGI/Firewall/ObjectRule.pm:40 src/EBox/Objects.pm:73
-#: src/EBox/Objects.pm:189 src/EBox/Objects.pm:222
-msgid "Object"
-msgstr "Objecte"
-
-#: src/EBox/CGI/Firewall/ObjectPolicy.pm:42
-#: src/EBox/CGI/Firewall/ObjectService.pm:46 src/EBox/Firewall.pm:570
-#: src/EBox/Firewall.pm:625 src/EBox/Firewall.pm:723 src/EBox/Firewall.pm:802
-msgid "policy"
-msgstr "política"
-
-#: src/EBox/CGI/Firewall/Redirects.pm:31
-msgid "Port redirections"
-msgstr "Redireccions de ports"
-
-#: src/EBox/CGI/Firewall/Filter.pm:31
-msgid "Packet filtering"
-msgstr "Filtrat de paquets"
-
-#: src/EBox/CGI/Firewall/Object.pm:61
-msgid "Global firewall configuration"
-msgstr "Configuració global del tallafocs"
-
-#: src/EBox/CGI/Firewall/Object.pm:63
-#, perl-brace-format
-msgid "Firewall configuration: {desc}"
-msgstr "Configuració del tallafocs: {desc}"
-
-#: src/EBox/CGI/Firewall/Redirection.pm:42
-#: src/EBox/CGI/Firewall/Redirection.pm:53
-#: src/EBox/CGI/Firewall/Redirection.pm:60
-#: src/EBox/CGI/Firewall/Redirection.pm:67 src/EBox/Firewall.pm:204
-#: src/EBox/Firewall.pm:230 src/EBox/Firewall.pm:382 src/EBox/Firewall.pm:435
-#: src/EBox/Firewall.pm:628 src/EBox/Firewall.pm:681 src/EBox/Firewall.pm:701
-#: src/EBox/Firewall.pm:726
-msgid "protocol"
-msgstr "protocol"
-
-#: src/EBox/CGI/Firewall/Redirection.pm:43
-#: src/EBox/CGI/Firewall/Redirection.pm:55
-#: src/EBox/CGI/Firewall/Redirection.pm:62
-#: src/EBox/CGI/Firewall/Redirection.pm:66 src/EBox/CGI/Network/Iface.pm:44
-#: src/EBox/CGI/Network/VIface.pm:42
-msgid "network interface"
-msgstr "interfície de xarxa"
-
-#: src/EBox/CGI/Firewall/Redirection.pm:44
-#: src/EBox/CGI/Firewall/Redirection.pm:54
-#: src/EBox/CGI/Firewall/Redirection.pm:61
-#: src/EBox/CGI/Firewall/Redirection.pm:68 src/EBox/Firewall.pm:206
-#: src/EBox/Firewall.pm:231
-msgid "external port"
-msgstr "port extern"
-
-#: src/EBox/CGI/Firewall/Redirection.pm:45
-#: src/EBox/CGI/Firewall/Redirection.pm:63
-#: src/EBox/CGI/Firewall/Redirection.pm:69 src/EBox/Firewall.pm:205
-msgid "destination address"
-msgstr "adreça de destinació"
-
-#: src/EBox/CGI/Firewall/Redirection.pm:46
-#: src/EBox/CGI/Firewall/Redirection.pm:64
-#: src/EBox/CGI/Firewall/Redirection.pm:70 src/EBox/Firewall.pm:207
-msgid "destination port"
-msgstr "port de destinació"
-
-#: src/EBox/CGI/Firewall/ObjectService.pm:45
-#: src/EBox/CGI/Firewall/ObjectService.pm:51 src/EBox/Firewall.pm:386
-msgid "service"
-msgstr "servei"
-
-#: src/EBox/CGI/Firewall/ObjectRule.pm:47
-#: src/EBox/CGI/Firewall/ObjectRule.pm:64 src/EBox/CGI/Firewall/Deny.pm:40
-#: src/EBox/Firewall.pm:180
-msgid "action"
-msgstr "acció"
-
-#: src/EBox/CGI/Firewall/ObjectRule.pm:55
-#: src/EBox/CGI/Firewall/ObjectRule.pm:63
-#: src/EBox/CGI/Firewall/ObjectRule.pm:74
-#: src/EBox/CGI/Firewall/ObjectRule.pm:78
-msgid "rule"
-msgstr "regla"
-
-#: src/EBox/CGI/Login/Index.pm:52
-msgid "For security reasons your session has expired due to inactivity"
-msgstr "Per raons de seguretat, la vostra sessió ha caducat per inactivitat"
-
-#: src/EBox/CGI/Login/Index.pm:55
-msgid "You have been logged out because a new session has been opened"
-msgstr "Heu sortit perque s'ha iniciat una nova sessió"
-
-#: src/EBox/CGI/Network/Ifaces.pm:29 src/EBox/Network.pm:1326
-msgid "Network interfaces"
-msgstr "Interfícies de xarxa"
-
-#: src/EBox/CGI/Network/Iface.pm:43
-msgid "method"
-msgstr "mètode"
-
-#: src/EBox/CGI/Network/Iface.pm:70 src/EBox/Network.pm:855
-msgid "ip address"
-msgstr "adreça ip"
-
-#: src/EBox/CGI/Network/Iface.pm:71 src/EBox/CGI/Network/VIface.pm:62
-#: src/EBox/CGI/Network/Route.pm:41
-msgid "netmask"
-msgstr "màscara de xarxa"
-
-#: src/EBox/CGI/Network/VIface.pm:43
-msgid "virtual interface action"
-msgstr "acció d'interfície virtual"
-
-#: src/EBox/CGI/Network/VIface.pm:61 src/EBox/CGI/Objects/AddTo.pm:45
-#: src/EBox/Network.pm:335 src/EBox/Network.pm:340 src/EBox/Network.pm:555
-#: src/EBox/Network.pm:572 src/EBox/Network.pm:802 src/EBox/Network.pm:826
-#: src/EBox/Network.pm:1240 src/EBox/Network.pm:1248 src/EBox/Network.pm:1307
-#: src/EBox/Network.pm:1347 src/templates/firewall/redirects.mas:20
-#: src/templates/network/ifaces.mas:65 src/templates/network/ifaces.mas:120
-#: src/templates/objects/edit.mas:18
-msgid "IP address"
-msgstr "Adreça IP"
-
-#: src/EBox/CGI/Network/VIface.pm:63 src/EBox/CGI/Network/VIface.pm:69
-msgid "virtual interface name"
-msgstr "nom de la interfície virtual"
-
-#: src/EBox/CGI/Network/Route.pm:40 src/EBox/Network.pm:854
-#: src/EBox/Objects.pm:202
-msgid "network address"
-msgstr "adreça de xarxa"
-
-#: src/EBox/CGI/Network/Route.pm:46 src/EBox/CGI/Network/Gateway.pm:40
-msgid "gateway address"
-msgstr "adreça de la pasarel·la"
-
-#: src/EBox/CGI/Network/Routes.pm:29
-msgid "Routes"
-msgstr "Rutes"
-
-#: src/EBox/CGI/Objects/DelFrom.pm:40 src/EBox/CGI/Objects/Del.pm:41
-#: src/EBox/CGI/Objects/Edit.pm:40 src/EBox/CGI/Objects/Add.pm:40
-#: src/EBox/CGI/Objects/AddTo.pm:41 src/EBox/Objects.pm:135
-msgid "Object name"
-msgstr "Nom de l'objecte"
-
-#: src/EBox/CGI/Objects/Edit.pm:29
-#, fuzzy
-msgid "Edit Object"
-msgstr "Objecte"
-
-#: src/EBox/CGI/Objects/Index.pm:30 src/templates/firewall/filter.mas:36
-msgid "Objects"
-msgstr "Objectes"
-
-#: src/EBox/CGI/Objects/AddTo.pm:46 src/EBox/Network.pm:335
-#: src/EBox/Network.pm:555 src/EBox/Network.pm:1240
-#: src/templates/network/ifaces.mas:75 src/templates/network/ifaces.mas:122
-#: src/templates/objects/edit.mas:20
-msgid "Netmask"
-msgstr "Màscara de xarxa"
-
-#: src/EBox/CGI/Objects/AddTo.pm:47 src/templates/network/ifaces.mas:118
-#: src/templates/objects/index.mas:33 src/templates/objects/edit.mas:16
-msgid "Name"
-msgstr "Nom"
-
-#: src/EBox/CGI/Logout/Index.pm:30
-msgid "Logout"
-msgstr "Surt"
-
-#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/CGI/EBox/ConfirmBackup.pm:34
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:34 src/EBox/CGI/EBox/Backup.pm:34
 msgid "Configuration backups"
 msgstr "Còpies de seguretat de la configuració"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:55 src/templates/backup.mas:90
+#: src/templates/backup.mas:92 src/templates/backup.mas:94
+msgid "Delete"
+msgstr "Elimina"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:56
+msgid "Please confirm that you want to delete the following backup file:"
+msgstr "Confirmeu que voleu eliminar el següent fitxer de còpia de seguretat:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:61 src/templates/backup.mas:37
+#: src/templates/backup.mas:72
+msgid "Restore"
+msgstr "Restaura"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:62
+msgid ""
+"Please confirm that you want to restore the configuration from this backup "
+"file:"
+msgstr ""
+"Confirmeu que voleu restaurar la configuració des d'aquest fitxer de còpia "
+"de seguretat:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:70 src/EBox/CGI/EBox/Backup.pm:81
+#: src/EBox/CGI/EBox/Backup.pm:90 src/EBox/CGI/EBox/Backup.pm:100
+msgid "identifier"
+msgstr "identificador"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:75 src/EBox/CGI/EBox/Backup.pm:85
+#: src/EBox/CGI/EBox/Backup.pm:94 src/EBox/CGI/EBox/Backup.pm:104
+#: src/EBox/Backup.pm:180 src/EBox/Backup.pm:222
+msgid "The input contains invalid characters"
+msgstr "L'entrada conté caràcters invàlids"
+
+#: src/EBox/CGI/EBox/Password.pm:49
+msgid "Incorrect password."
+msgstr "Contrasenya incorrecta."
+
+#: src/EBox/CGI/EBox/Password.pm:54
+msgid "New passwords do not match."
+msgstr "Les contrasenyes noves no coincideixen."
+
+#: src/EBox/CGI/EBox/Password.pm:58
+msgid "The password must be at least 6 characters long"
+msgstr "La contrasenya ha de tenir almenys 6 caràcters"
+
+#: src/EBox/CGI/EBox/Password.pm:62
+msgid "The password was changed successfully."
+msgstr "S'ha canviat la contrasenya amb èxit."
 
 #: src/EBox/CGI/EBox/Backup.pm:72
 msgid "description"
 msgstr "descripció"
-
-#: src/EBox/CGI/EBox/Backup.pm:81 src/EBox/CGI/EBox/Backup.pm:90
-#: src/EBox/CGI/EBox/Backup.pm:100 src/EBox/CGI/EBox/ConfirmBackup.pm:70
-msgid "identifier"
-msgstr "identificador"
-
-#: src/EBox/CGI/EBox/Backup.pm:85 src/EBox/CGI/EBox/Backup.pm:94
-#: src/EBox/CGI/EBox/Backup.pm:104 src/EBox/CGI/EBox/ConfirmBackup.pm:75
-#: src/EBox/Backup.pm:151 src/EBox/Backup.pm:181
-msgid "The input contains invalid characters"
-msgstr "L'entrada conté caràcters invàlids"
 
 #: src/EBox/CGI/EBox/Backup.pm:117
 msgid "Invalid backup file."
@@ -272,6 +98,10 @@ msgstr "Nom del servidor"
 msgid "The module was restarted correctly."
 msgstr ""
 
+#: src/EBox/CGI/EBox/General.pm:30
+msgid "General configuration"
+msgstr "Configuració general"
+
 #: src/EBox/CGI/EBox/Halt.pm:30
 msgid "Halt or reboot"
 msgstr ""
@@ -284,719 +114,167 @@ msgstr ""
 msgid "EBox is going down for reboot"
 msgstr ""
 
-#: src/EBox/CGI/EBox/General.pm:29
-msgid "General configuration"
-msgstr "Configuració general"
+#: src/EBox/CGI/Finish.pm:29
+msgid "Save configuration"
+msgstr "Desa la configuració"
 
-#: src/EBox/CGI/EBox/Bug.pm:29
-msgid "Bug report"
-msgstr "Informe d'error"
+#: src/EBox/CGI/Login/Index.pm:59
+msgid "For security reasons your session has expired due to inactivity"
+msgstr "Per raons de seguretat, la vostra sessió ha caducat per inactivitat"
 
-#: src/EBox/CGI/EBox/Password.pm:49
-msgid "Incorrect password."
-msgstr "Contrasenya incorrecta."
+#: src/EBox/CGI/Login/Index.pm:62
+msgid "You have been logged out because a new session has been opened"
+msgstr "Heu sortit perque s'ha iniciat una nova sessió"
 
-#: src/EBox/CGI/EBox/Password.pm:54
-msgid "New passwords do not match."
-msgstr "Les contrasenyes noves no coincideixen."
+#: src/EBox/CGI/Logout/Index.pm:30
+msgid "Logout"
+msgstr "Surt"
 
-#: src/EBox/CGI/EBox/Password.pm:58
-msgid "The password must be at least 6 characters long"
-msgstr "La contrasenya ha de tenir almenys 6 caràcters"
-
-#: src/EBox/CGI/EBox/Password.pm:62
-msgid "The password was changed successfully."
-msgstr "S'ha canviat la contrasenya amb èxit."
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:55
-#: src/templates/firewall/redirects.mas:143
-#: src/templates/firewall/redirects.mas:145
-#: src/templates/firewall/redirects.mas:147
-#: src/templates/firewall/object.mas:141 src/templates/firewall/object.mas:143
-#: src/templates/firewall/object.mas:145 src/templates/firewall/object.mas:324
-#: src/templates/firewall/object.mas:326 src/templates/firewall/object.mas:328
-#: src/templates/network/ifaces.mas:191 src/templates/network/ifaces.mas:193
-#: src/templates/network/ifaces.mas:195 src/templates/network/routes.mas:88
-#: src/templates/network/routes.mas:90 src/templates/network/routes.mas:92
-#: src/templates/objects/delete.mas:23 src/templates/objects/index.mas:55
-#: src/templates/objects/index.mas:57 src/templates/objects/edit.mas:97
-#: src/templates/objects/edit.mas:99 src/templates/objects/edit.mas:101
-#: src/templates/backup.mas:92 src/templates/backup.mas:94
-#: src/templates/backup.mas:96
-msgid "Delete"
-msgstr "Elimina"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:56
-msgid "Please confirm that you want to delete the following backup file:"
-msgstr "Confirmeu que voleu eliminar el següent fitxer de còpia de seguretat:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:61 src/templates/backup.mas:37
-#: src/templates/backup.mas:74
-msgid "Restore"
-msgstr "Restaura"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:62
-msgid ""
-"Please confirm that you want to restore the configuration from this backup "
-"file:"
-msgstr ""
-"Confirmeu que voleu restaurar la configuració des d'aquest fitxer de còpia "
-"de seguretat:"
+#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
+msgid "Status"
+msgstr "Estat"
 
 #: src/EBox/CGI/Summary/Index.pm:47
 msgid "Error"
 msgstr ""
 
-#: src/EBox/CGI/Summary/Index.pm:58
-msgid "Summary"
-msgstr "Resum"
+#: src/EBox/SysInfo.pm:57
+msgid "Services"
+msgstr "Serveis"
 
-#: src/EBox/CGI/Run.pm:56
-msgid "The page could not be found"
-msgstr "No s'ha pogut trobar la pàgina"
+#: src/EBox/SysInfo.pm:74
+msgid "General information"
+msgstr "Informació general"
 
-#: src/EBox/CGI/Base.pm:177
-msgid ""
-"The input contains invalid characters. All alphanumeric characters, plus "
-"these non alphanumeric chars: /.?'&+:- and spaces are allowed."
-msgstr ""
+#: src/EBox/SysInfo.pm:82
+msgid "Time"
+msgstr "Temps"
 
-#: src/EBox/CGI/Base.pm:247 src/EBox/CGI/Base.pm:299
-msgid ""
-"An internal error has ocurred. This is most probably a bug, relevant "
-"information can be found in the logs."
-msgstr ""
-"S'ha produït un error intern. Això probablement és una errada, hauríeu de "
-"trobar informació relevant als registres."
+#: src/EBox/SysInfo.pm:83
+msgid "Host name"
+msgstr "Nom del servidor"
 
-#: src/EBox/CGI/Base.pm:254
-msgid ""
-"An unknown internal error has ocurred. This is a bug, relevant information "
-"can be found in the logs."
-msgstr ""
-"S'ha produït un error desconegut. Això és una errada, hauríeu de trobar "
-"informació relevant als registres."
-
-#: src/EBox/CGI/Base.pm:264
+#: src/EBox/SysInfo.pm:85
 #, fuzzy
-msgid "You have just hit a bug in eBox. Please seek technical support."
-msgstr ""
-"Heu trobat una errada a l'Ebox. Si us plau, informeu-ne a Warp Networks"
+msgid "eBox version"
+msgstr "Versió d'Ebox"
 
-#: src/EBox/CGI/Base.pm:308
-msgid ""
-"An internal error related to a template has occurred. This is a bug, "
-"relevant information can be found in the logs."
-msgstr ""
-"S'ha produït un error relacionat amb una plantilla. Això és una errada, "
-"hauríeu de trobar informació relevant als registres."
+#: src/EBox/SysInfo.pm:88
+msgid "System load"
+msgstr "Càrrega del sistema"
 
-#: src/EBox/CGI/Finish.pm:29
-msgid "Save configuration"
-msgstr "Desa la configuració"
-
-#: src/EBox/Firewall.pm:211
-#, perl-brace-format
-msgid "Port {port} is being used by a service or port redirection."
+#: src/EBox/SysInfo.pm:117
+msgid "General"
 msgstr ""
 
-#: src/EBox/Firewall.pm:274 src/EBox/Firewall.pm:381 src/EBox/Firewall.pm:413
-#: src/EBox/Firewall.pm:434 src/EBox/Firewall.pm:466 src/EBox/Firewall.pm:503
-#: src/EBox/Firewall.pm:519 src/EBox/Firewall.pm:539
-#, perl-brace-format
-msgid "Name '{name}' is invalid"
-msgstr "El nom '{name}' és invàlid"
-
-#: src/EBox/Firewall.pm:383 src/EBox/Firewall.pm:436 src/EBox/Firewall.pm:467
-#: src/EBox/Firewall.pm:635 src/EBox/Firewall.pm:682 src/EBox/Firewall.pm:702
-#: src/EBox/Firewall.pm:733 src/EBox/Apache.pm:153
-msgid "port"
-msgstr "port"
-
-#: src/EBox/Firewall.pm:554 src/EBox/Firewall.pm:574 src/EBox/Firewall.pm:744
-#: src/EBox/Firewall.pm:783 src/EBox/Firewall.pm:807
-msgid "object"
-msgstr "objecte"
-
-#: src/EBox/Firewall.pm:630 src/EBox/Firewall.pm:728
-msgid "Port cannot be set if no protocol is selected."
-msgstr ""
-
-#: src/EBox/Firewall.pm:638 src/EBox/Firewall.pm:737
-msgid "address"
-msgstr "adreça"
-
-#: src/EBox/Html.pm:85
-msgid "Menu"
-msgstr ""
-
-#: src/EBox/NetWrappers.pm:64 src/EBox/NetWrappers.pm:75
-#: src/EBox/NetWrappers.pm:88 src/EBox/NetWrappers.pm:103
-#: src/EBox/Network.pm:376 src/EBox/Network.pm:440 src/EBox/Network.pm:464
-#: src/EBox/Network.pm:489 src/EBox/Network.pm:506 src/EBox/Network.pm:551
-#: src/EBox/Network.pm:622 src/EBox/Network.pm:667 src/EBox/Network.pm:694
-#: src/EBox/Network.pm:723 src/EBox/Network.pm:749 src/EBox/Network.pm:1238
-#: src/EBox/Network.pm:1258 src/EBox/Network.pm:1281 src/EBox/Network.pm:1292
-#: src/EBox/Network.pm:1304 src/EBox/Network.pm:1318
-#: src/templates/firewall/redirects.mas:14
-msgid "Interface"
-msgstr "Interfície"
-
-#: src/EBox/Backup.pm:233
+#: src/EBox/SysInfo.pm:120 src/EBox/Backup.pm:300
 msgid "Backup"
 msgstr "Còpia de seguretat"
 
-#: src/EBox/Backup.pm:272 src/EBox/Backup.pm:317
+#: src/EBox/SysInfo.pm:123
+msgid "Halt/Reboot"
+msgstr ""
+
+#: src/EBox/Html.pm:79
+msgid ""
+"Created by <a href=\"http://www.warp.es\">Warp Networks S.L.</a> in "
+"collaboration with <a href=\"http://www.dbs.es\">DBS Servicios Informáticos "
+"S.L.</a>"
+msgstr ""
+
+#: src/EBox/Backup.pm:344 src/EBox/Backup.pm:402
 msgid "Could not unpack the backup"
 msgstr "No s'ha pogut desempaquetar la còpia de seguretat"
 
-#: src/EBox/Backup.pm:279
+#: src/EBox/Backup.pm:351
 msgid "Incorrect or corrupt backup file"
 msgstr "El fitxer de còpia de seguretat és incorrecte o corromput"
 
-#: src/EBox/Backup.pm:301
+#: src/EBox/Backup.pm:373
 msgid "The backup file is corrupt."
 msgstr "El fitxer de còpia de seguretat és corrupte."
 
-#: src/EBox/Config.pm.in:32
-msgid "Could not open the config file."
-msgstr "No vaig poder obrir el fitxer de configuració"
-
-#: src/EBox/Config.pm.in:51
-msgid "The ebox user has not been set in the config file."
-msgstr "L'usuari de la ebox no ... al fitxer de configuració."
-
-#: src/EBox/Sudo.pm:43
-#, fuzzy, perl-brace-format
-msgid "Command '{cmd}' failed"
-msgstr "Ha fallat l'ordre del superusuari «{cmd}»"
-
-#: src/EBox/Sudo.pm:52
-#, perl-brace-format
-msgid "Root command '{cmd}' failed"
-msgstr "Ha fallat l'ordre del superusuari «{cmd}»"
-
-#: src/EBox/Sudo.pm:61
-#, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "Ha fallat l'execució de l'ordre «{cmd}» com {user}"
-
-#: src/EBox/Apache.pm:46
+#: src/EBox/Apache.pm:47
 msgid ""
 "You must set the httpd_serverroot variable in the ebox configuration file"
 msgstr ""
 "Heu d'establir la variable httpd_serverroot al fitxer de configuració de "
 "l'ebox"
 
-#: src/EBox/Apache.pm:55
+#: src/EBox/Apache.pm:57
 msgid "You must set the httpd_init variable in the ebox configuration file"
 msgstr "Heu d'establir la variable httpd_init al fitxer de configuració d'ebox"
 
-#: src/EBox/Apache.pm:58
+#: src/EBox/Apache.pm:60
 #, fuzzy
 msgid "The httpd_init script you configured is not executable."
 msgstr "El script httpd_init que heu configurat no és executable."
 
-#: src/EBox/Network.pm:332 src/EBox/Network.pm:336
-msgid "Virtual interface name"
-msgstr "Nom de la interfície virtual"
+#: src/EBox/Apache.pm:148 src/EBox/Apache.pm:157
+msgid "port"
+msgstr "port"
 
-#: src/EBox/Network.pm:827 src/EBox/Network.pm:856
-#: src/templates/network/routes.mas:34
-msgid "Gateway"
-msgstr "Pasarel·la"
+#: src/EBox/Summary/Status.pm:44
+#, fuzzy
+msgid "Restart"
+msgstr "Restaura"
 
-#: src/EBox/Network.pm:1179
-msgid ""
-"The requested operation will cause one of the configured routers to become "
-"unreachable. Please remove it first if you really want to make this change."
+#: src/EBox/Summary/Status.pm:47
+msgid "Running"
 msgstr ""
 
-#: src/EBox/Network.pm:1208
-#, perl-brace-format
-msgid "Gateway {gw} not reachable"
-msgstr "No es pot accedir a la pasarel·la {gw}"
+#: src/EBox/Summary/Status.pm:50
+msgid "Stopped"
+msgstr ""
 
-#: src/EBox/Network.pm:1329
-msgid "down"
-msgstr "avall"
-
-#: src/EBox/Network.pm:1334
-msgid "up"
-msgstr "amunt"
-
-#: src/EBox/Network.pm:1336
-msgid "Status"
+#: src/EBox/Summary/Status.pm:52
+#, fuzzy
+msgid "Start"
 msgstr "Estat"
 
-#: src/EBox/Network.pm:1341
-msgid "MAC address"
-msgstr "Adreça MAC"
+#: src/EBox/Summary/Status.pm:54
+msgid "Disabled"
+msgstr ""
 
-#: src/EBox/SysInfo.pm:48 src/templates/firewall/object.mas:69
-msgid "Services"
-msgstr "Serveis"
-
-#: src/EBox/SysInfo.pm:65
-msgid "General information"
-msgstr "Informació general"
-
-#: src/EBox/SysInfo.pm:72
-msgid "Time"
-msgstr "Temps"
-
-#: src/EBox/SysInfo.pm:73
-msgid "Host name"
-msgstr "Nom del servidor"
-
-#: src/EBox/SysInfo.pm:75
+#: src/templates/login/index.mas:26
 #, fuzzy
-msgid "eBox version"
-msgstr "Versió d'Ebox"
+msgid "Password"
+msgstr "Nova contrasenya"
 
-#: src/EBox/SysInfo.pm:78
-msgid "System load"
-msgstr "Càrrega del sistema"
-
-#: src/templates/firewall/redirects.mas:16
-msgid "External port"
-msgstr "Port extern"
-
-#: src/templates/firewall/redirects.mas:18
-#: src/templates/firewall/object.mas:169
-msgid "Protocol"
-msgstr "Protocol"
-
-#: src/templates/firewall/redirects.mas:22
-#: src/templates/firewall/object.mas:171 src/templates/port.mas:12
-msgid "Port"
-msgstr "Port"
-
-#: src/templates/firewall/redirects.mas:24
-#: src/templates/firewall/object.mas:99 src/templates/firewall/object.mas:179
-#: src/templates/backup.mas:54
-msgid "Actions"
-msgstr "Accions"
-
-#: src/templates/firewall/redirects.mas:63
-#: src/templates/firewall/redirects.mas:65
-#: src/templates/firewall/redirects.mas:67
-#: src/templates/firewall/object.mas:87 src/templates/firewall/object.mas:229
-#: src/templates/firewall/object.mas:231 src/templates/firewall/object.mas:233
-#: src/templates/network/ifaces.mas:161 src/templates/network/ifaces.mas:163
-#: src/templates/network/ifaces.mas:165 src/templates/network/routes.mas:65
-#: src/templates/network/routes.mas:67 src/templates/network/routes.mas:69
-#: src/templates/objects/edit.mas:63 src/templates/objects/edit.mas:64
-#: src/templates/objects/edit.mas:66
-msgid "Add"
-msgstr "Afegeix"
-
-#: src/templates/firewall/redirects.mas:134
-#: src/templates/firewall/redirects.mas:136
-#: src/templates/firewall/redirects.mas:138
-#: src/templates/firewall/object.mas:131 src/templates/firewall/object.mas:133
-#: src/templates/firewall/object.mas:135 src/templates/firewall/object.mas:315
-#: src/templates/firewall/object.mas:317 src/templates/firewall/object.mas:319
-#: src/templates/password.mas:58 src/templates/port.mas:17
-msgid "Change"
-msgstr "Canvia"
-
-#: src/templates/firewall/filter.mas:11
+#: src/templates/login/index.mas:33
 #, fuzzy
-msgid ""
-"This will tell the firewall what to do when discarding network packets.  If "
-"you choose Reject, a packet will be sent back to the sender, choosing Drop "
-"will make the firewall drop the packet silently."
-msgstr ""
-"Això li dirà al tallafocs què fer quan es descarten paquets de xarxa. Si "
-"trieu «Rebutja», es tornarà el paquet a l'originador, i triar «Descarta» "
-"farà que el tallafocs descarte el paquet silenciosament."
-
-#: src/templates/firewall/filter.mas:16
-msgid "Deny policy"
-msgstr "Política de denegació"
-
-#: src/templates/firewall/filter.mas:20 src/templates/firewall/filter.mas:27
-msgid "Drop packets"
-msgstr "Descarta els paquets"
-
-#: src/templates/firewall/filter.mas:22 src/templates/firewall/filter.mas:25
-msgid "Reject packets"
-msgstr "Rebutja els paquets"
-
-#: src/templates/firewall/filter.mas:31 src/templates/login/index.mas:22
-#: src/templates/network/confirmremove.mas:26
-#: src/templates/network/confirm.mas:33 src/templates/network/ifaces.mas:103
-#: src/templates/enable.mas:25 src/templates/enable.mas:27
-#: src/templates/language.mas:25
-msgid "Ok"
-msgstr "D'acord"
-
-#: src/templates/firewall/filter.mas:39
-msgid ""
-"The link below will let you set up the default behavior of the packet "
-"filter. You may also choose an object and set up rules and the services it "
-"may access."
-msgstr ""
-"El següent enllaç vos permetrà configurar el comportament per defecte del "
-"filtre de paquets. Podeu seleccionar un objecte i configurar regles i els "
-"serveis als quals pot accedir"
-
-#: src/templates/firewall/filter.mas:43
-msgid "Configure default rules"
-msgstr "Configura les regles predeterminades"
-
-#: src/templates/firewall/filter.mas:49
-msgid "Configure rules for a particular object"
-msgstr "Configura les regles per a un objecte particular"
-
-#: src/templates/firewall/filter.mas:58
-msgid "Go"
-msgstr "Vés"
-
-#: src/templates/firewall/object.mas:14
-msgid ""
-"The policy states what to do on network packets not explicitly matched "
-"below. The policy is applied to connections that leave eBox through an "
-"external network interface. If you want to allow traffic between internal "
-"networks you need to create explicit rules for that."
-msgstr ""
-
-#: src/templates/firewall/object.mas:19
-#, fuzzy
-msgid ""
-"Choosing global will make the firewall fall back to the <a href='Object?"
-"object=_global'>default configuration</a>."
-msgstr ""
-"Si es selecciona «global», el tallafocs tornarà a la configuració per "
-"defecte."
-
-#: src/templates/firewall/object.mas:24 src/templates/firewall/object.mas:97
-msgid "Policy"
-msgstr "Política"
-
-#: src/templates/firewall/object.mas:32 src/templates/firewall/object.mas:35
-#: src/templates/firewall/object.mas:61
-msgid "Global"
-msgstr "Global"
-
-#: src/templates/firewall/object.mas:41 src/templates/firewall/object.mas:44
-#: src/templates/firewall/object.mas:56 src/templates/firewall/object.mas:81
-#: src/templates/firewall/object.mas:118 src/templates/firewall/object.mas:123
-#: src/templates/firewall/object.mas:219 src/templates/firewall/object.mas:294
-#: src/templates/firewall/object.mas:299
-msgid "Deny"
-msgstr "Denega"
-
-#: src/templates/firewall/object.mas:49 src/templates/firewall/object.mas:52
-#: src/templates/firewall/object.mas:58 src/templates/firewall/object.mas:83
-#: src/templates/firewall/object.mas:116 src/templates/firewall/object.mas:121
-#: src/templates/firewall/object.mas:217 src/templates/firewall/object.mas:292
-#: src/templates/firewall/object.mas:297
-msgid "Allow"
-msgstr "Permet"
-
-#: src/templates/firewall/object.mas:95
-msgid "Service"
-msgstr "Servei"
-
-#: src/templates/firewall/object.mas:156
-msgid "Rules"
-msgstr "Regles"
-
-#: src/templates/firewall/object.mas:159
-#, fuzzy
-msgid ""
-"Protocol, port and destination address are optional. The rules will be "
-"applied in order, from top to bottom, you can reorder them once they are "
-"added. Rules can also be disabled without deleting them."
-msgstr ""
-"L'adreça de destinació és opcional. Les regles s'aplicaran en ordre, d'amunt "
-"a avall, les podeu ordenar una vegada afegides. També es poden inhabilitar "
-"les regles sense eliminar-les."
-
-#: src/templates/firewall/object.mas:163
-msgid ""
-"Rules without an explicit destination address will be applied to packets "
-"that leave eBox through an external network interface. You may flag network "
-"interfaces as external in the <a href='../Network/Ifaces'>Network "
-"Interfaces</a> configuration page."
-msgstr ""
-
-#: src/templates/firewall/object.mas:173
-msgid "Destination address"
-msgstr "Adreça de destinació"
-
-#: src/templates/firewall/object.mas:175 src/templates/network/ifaces.mas:124
-#: src/templates/network/routes.mas:36 src/templates/objects/index.mas:37
-#: src/templates/objects/edit.mas:24
-msgid "Action"
-msgstr "Acció"
-
-#: src/templates/firewall/object.mas:177
-msgid "Active"
-msgstr "Activa"
-
-#: src/templates/firewall/object.mas:333 src/templates/firewall/object.mas:335
-#: src/templates/firewall/object.mas:337
-msgid "Up"
-msgstr "Amunt"
-
-#: src/templates/firewall/object.mas:342 src/templates/firewall/object.mas:344
-#: src/templates/firewall/object.mas:346
-msgid "Down"
-msgstr "Avall"
-
-#: src/templates/login/index.mas:15
-msgid "Administrator password"
-msgstr "Contrasenya de l'administrador"
-
-#: src/templates/logout/index.mas:11
-msgid "There are unsaved changes, if you log out now they will be lost."
-msgstr "Hi ha canvis sense desar, si sortiu ara es perdran."
-
-#: src/templates/logout/index.mas:15
-msgid "Exit anyway"
-msgstr "Surt igualment"
-
-#: src/templates/logout/index.mas:20
-msgid "Exit"
-msgstr "Surt"
-
-#: src/templates/network/confirmremove.mas:11
-#: src/templates/network/confirm.mas:14
-msgid ""
-"The change you are trying to make will affect the configuration of one or "
-"more modules that use references to this network interface."
-msgstr ""
-
-#: src/templates/network/confirmremove.mas:15
-#: src/templates/network/confirm.mas:18
-msgid ""
-"If you choose to continue, all modules that make use of the current "
-"configuration of this network interface will delete the relevant parts of "
-"their configuration. Choose "
-msgstr ""
-
-#: src/templates/network/confirmremove.mas:29
-#: src/templates/network/confirm.mas:36 src/templates/objects/delete.mas:27
-#: src/templates/confirm-backup.mas:39 src/templates/confirm-backup.mas:40
-msgid "Cancel"
-msgstr "Cancel·la"
-
-#: src/templates/network/ifaces.mas:11
-msgid ""
-"Remember that changing the network interfaces configuration may cause you to "
-"lose access to the administration page."
-msgstr ""
-"Recordeu que canviar la configuració de les interfícies de xarxa pot fer que "
-"vos quedeu sense accés a la pàgina d'administració."
-
-#: src/templates/network/ifaces.mas:15
-msgid ""
-"Traffic being routed through interfaces marked as external will be NATed.  "
-"Also, services meant for the LAN users will not be available on external "
-"interfaces."
-msgstr ""
-"S'aplicarà el NAT al tràfic que s'enruta a través de les interfícies "
-"marcades com a externes. A més a més, els serveis dirigits als usuaris de la "
-"LAN no seran disponibles a les interfícies externes."
-
-#: src/templates/network/ifaces.mas:28 src/templates/network/ifaces.mas:31
-msgid "Static"
-msgstr "Estàtic"
-
-#: src/templates/network/ifaces.mas:42 src/templates/network/ifaces.mas:45
-msgid "Not set"
-msgstr "No establert"
-
-#: src/templates/network/ifaces.mas:54
-msgid "External"
+msgid "Enter"
 msgstr "Extern"
 
-#: src/templates/network/ifaces.mas:113
-msgid "Virtual interfaces"
-msgstr "Interfícies virtuals"
-
-#: src/templates/network/dns.mas:11
-msgid ""
-"Having network interfaces configured via DHCP may cause this settings to be "
-"overriden."
+#: src/templates/login/index.mas:40
+msgid "Created by <a href="
 msgstr ""
-"Tenir interfícies de xarxa configurades via DHCP pot fer que aquests "
-"paràmetres es sobreescriguen."
 
-#: src/templates/network/dns.mas:20
-msgid "Primary"
-msgstr "Primària"
+#: src/templates/password.mas:6
+msgid "Change password"
+msgstr "Canvia la contrasenya"
 
-#: src/templates/network/dns.mas:32
-msgid "Secondary"
-msgstr "Secundària"
-
-#: src/templates/network/routes.mas:11
-msgid ""
-"All routers you enter here must be reachable through one of the network "
-"interfaces currently configured."
-msgstr ""
-"Totes les rutes que introduïu han de ser accessibles des de una de les "
-"interfícies de xarxa actualment configurades."
-
-#: src/templates/network/routes.mas:15
-msgid ""
-"Having network interfaces configured via DHCP may cause this settings, "
-"mostly the default gateway, to be overriden."
-msgstr ""
-"Tenir interfícies de xarxa configurades via DHCP pot fer que aquests "
-"paràmetres, i sobretot la pasarel·la per defecte, es sobreescriguen."
-
-#: src/templates/network/routes.mas:20
-msgid "Default gateway"
-msgstr "Pasarel·la per defecte"
-
-#: src/templates/network/routes.mas:28
-msgid "Static routes"
-msgstr "Rutes estàtiques"
-
-#: src/templates/network/routes.mas:32
-msgid "Network"
-msgstr "Xarxa"
-
-#: src/templates/objects/delete.mas:10
-msgid "Deleting object"
-msgstr "S'està eliminant l'objecte"
-
-#: src/templates/objects/delete.mas:13
-msgid ""
-"The object you tried to delete is being used by some modules, please confirm "
-"that you want to delete it."
-msgstr ""
-"L'objecte que heu intentat eliminar està sent utilitzar per alguns mòduls. "
-"Confirmeu que voleu eliminar-lo."
-
-#: src/templates/objects/index.mas:11
-msgid "New object"
-msgstr "Nou objecte"
-
-#: src/templates/objects/index.mas:15 src/templates/objects/index.mas:17
-msgid "Create"
-msgstr "Crea"
-
-#: src/templates/objects/index.mas:21
-msgid ""
-"The objects that you create here can be used in the rest of the system. "
-"Remember that an IP address cannot belong to more than one object."
-msgstr ""
-"Els objectes que creeu aquí es poden utilitzar a la resta del sistema. "
-"Recordeu que una adreça IP no pot pertànyer a més d'un objecte."
-
-#: src/templates/objects/index.mas:28
-msgid "Object list"
-msgstr "Llista d'objectes"
-
-#: src/templates/objects/index.mas:49 src/templates/objects/index.mas:50
+#: src/templates/password.mas:8
 #, fuzzy
-msgid "Edit"
-msgstr "Surt"
+msgid "Your password must be at least 6 characters long."
+msgstr "La contrasenya ha de tenir almenys 6 caràcters"
 
-#: src/templates/objects/edit.mas:11
-#, perl-brace-format
-msgid "Edit '{description}' members"
-msgstr ""
+#: src/templates/password.mas:15
+msgid "Current password"
+msgstr "Contrasenya actual"
 
-#: src/templates/objects/edit.mas:22
-msgid "MAC"
-msgstr "MAC"
+#: src/templates/password.mas:30
+msgid "New password"
+msgstr "Nova contrasenya"
 
-#: src/templates/objects/edit.mas:111
+#: src/templates/password.mas:45
 #, fuzzy
-msgid "Delete Object"
-msgstr "S'està eliminant l'objecte"
+msgid "Confirm password"
+msgstr "Nova contrasenya"
 
-#: src/templates/objects/edit.mas:115
-msgid ""
-"If you delete this object, all the information about its members will be "
-"lost."
-msgstr ""
-
-#: src/templates/objects/edit.mas:121
-#, fuzzy
-msgid "Delete object"
-msgstr "S'està eliminant l'objecte"
-
-#: src/templates/confirm-backup.mas:17 src/templates/backup.mas:52
-msgid "Date"
-msgstr "Data"
-
-#: src/templates/confirm-backup.mas:26 src/templates/backup.mas:18
-#: src/templates/backup.mas:50
-msgid "Description"
-msgstr "Descripció"
-
-#: src/templates/backup.mas:10
-msgid "Back up the current configuration"
-msgstr "Fes una còpia de seguretat de la configuració actual"
-
-#: src/templates/backup.mas:13
-msgid ""
-"Backups will be stored in eBox and then you will be able to download them to "
-"your hard disk"
-msgstr ""
-
-#: src/templates/backup.mas:23
-msgid "Back up"
-msgstr "Fes una còpia de seguretat"
-
-#: src/templates/backup.mas:28
-msgid "Restore configuration"
-msgstr "Restaura la configuració"
-
-#: src/templates/backup.mas:31
-msgid ""
-"You can upload a backup file from your computer or use one from the list "
-"below"
-msgstr ""
-"Podeu pujar un fitxer de còpia de seguretat des del vostre ordinador o "
-"utilitzar un de la següent llista"
-
-#: src/templates/backup.mas:45
-msgid "List of configuration backups"
-msgstr "Llista de còpies de seguretat de la configuració"
-
-#: src/templates/backup.mas:76
-msgid "Restore configuration using this file"
-msgstr "Restaura la configuració fent servir aquest fitxer"
-
-#: src/templates/backup.mas:78
-msgid "Restore from backup"
-msgstr "Restaura des de la còpia de seguretat"
-
-#: src/templates/backup.mas:83 src/templates/backup.mas:85
-#: src/templates/backup.mas:87
-msgid "Download"
-msgstr "Descarrega"
-
-#: src/templates/bug.mas:9
-#, fuzzy
-msgid ""
-"This page lets you generate a file with information about the state of your "
-"system. The file will be useful if you want to report a bug in eBox."
-msgstr ""
-"Aquesta pàgina vos permet generar un fitxer amb la informació sobre l'estat "
-"del vostre sistema. El fitxer serà útil si voleu informar d'una errada en "
-"EBox."
-
-#: src/templates/bug.mas:15
-msgid "Download bug report file"
-msgstr "Descarrega un fitxer d'informe d'error"
-
-#: src/templates/enable.mas:13 src/templates/enable.mas:18
-msgid "No"
-msgstr "No"
-
-#: src/templates/enable.mas:15 src/templates/enable.mas:20
-msgid "Yes"
-msgstr "Sí"
+#: src/templates/password.mas:60 src/templates/port.mas:15
+msgid "Change"
+msgstr "Canvia"
 
 #: src/templates/finish.mas:11
 msgid ""
@@ -1028,9 +306,25 @@ msgstr "Descarta els canvis"
 msgid "There are no unsaved changes."
 msgstr "No hi ha canvis sense desar."
 
+#: src/templates/confirm-backup.mas:17 src/templates/backup.mas:50
+msgid "Date"
+msgstr "Data"
+
+#: src/templates/confirm-backup.mas:26 src/templates/backup.mas:18
+#: src/templates/backup.mas:48
+msgid "Description"
+msgstr "Descripció"
+
+#: src/templates/confirm-backup.mas:39 src/templates/confirm-backup.mas:40
+msgid "Cancel"
+msgstr "Cancel·la"
+
+#: src/templates/port.mas:9
+msgid "Administration interface TCP port"
+msgstr "Port TCP per a la interfície d'administració"
+
 #: src/templates/halt.mas:10
-msgid ""
-"You will probably lose your Internet connection if this machine is halted."
+msgid "You might lose your Internet connection if this machine is halted."
 msgstr ""
 
 #: src/templates/halt.mas:15
@@ -1041,37 +335,498 @@ msgstr ""
 msgid "Reboot"
 msgstr ""
 
-#: src/templates/language.mas:10
-msgid "Language selection"
-msgstr "Selecció de llengua"
+#: src/templates/backup.mas:10
+msgid "Back up the current configuration"
+msgstr "Fes una còpia de seguretat de la configuració actual"
 
-#: src/templates/language.mas:13
-msgid "Language"
-msgstr "Llengua"
+#: src/templates/backup.mas:13
+msgid ""
+"Backups will be stored in eBox and then you will be able to download them to "
+"your hard disk"
+msgstr ""
 
-#: src/templates/password.mas:6
-msgid "Change password"
-msgstr "Canvia la contrasenya"
+#: src/templates/backup.mas:23
+msgid "Back up"
+msgstr "Fes una còpia de seguretat"
 
-#: src/templates/password.mas:13
-msgid "Current password"
-msgstr "Contrasenya actual"
+#: src/templates/backup.mas:28
+msgid "Restore configuration"
+msgstr "Restaura la configuració"
 
-#: src/templates/password.mas:28
-msgid "New password"
-msgstr "Nova contrasenya"
+#: src/templates/backup.mas:31
+msgid ""
+"You can upload a backup file from your computer or use one from the list "
+"below"
+msgstr ""
+"Podeu pujar un fitxer de còpia de seguretat des del vostre ordinador o "
+"utilitzar un de la següent llista"
 
-#: src/templates/password.mas:43
-msgid "Confirm new password"
-msgstr "Nova contrasenya"
+#: src/templates/backup.mas:43
+msgid "List of configuration backups"
+msgstr "Llista de còpies de seguretat de la configuració"
 
-#: src/templates/port.mas:9
-msgid "Administration interface TCP port"
-msgstr "Port TCP per a la interfície d'administració"
+#: src/templates/backup.mas:52
+msgid "Actions"
+msgstr "Accions"
 
-#: src/templates/title.mas:12
-msgid "Show/Hide help"
-msgstr "Mostra/Amaga l'ajuda"
+#: src/templates/backup.mas:74
+msgid "Restore configuration using this file"
+msgstr "Restaura la configuració fent servir aquest fitxer"
+
+#: src/templates/backup.mas:76
+msgid "Restore from backup"
+msgstr "Restaura des de la còpia de seguretat"
+
+#: src/templates/backup.mas:81 src/templates/backup.mas:83
+#: src/templates/backup.mas:85
+msgid "Download"
+msgstr "Descarrega"
+
+#: src/templates/backup.mas:106
+#, fuzzy
+msgid "download"
+msgstr "Descarrega"
+
+#: src/templates/backup.mas:110
+#, fuzzy
+msgid "delete"
+msgstr "Elimina"
+
+#: src/templates/backup.mas:116
+#, fuzzy
+msgid "restore"
+msgstr "Restaura"
+
+#: src/templates/logout/index.mas:11
+msgid "There are unsaved changes, if you log out now they will be lost."
+msgstr "Hi ha canvis sense desar, si sortiu ara es perdran."
+
+#: src/templates/logout/index.mas:16
+#, fuzzy
+msgid "There are no unsaved changes in this session."
+msgstr "No hi ha canvis sense desar."
+
+#: src/templates/logout/index.mas:21
+msgid "Exit"
+msgstr "Surt"
+
+#: src/templates/bug.mas:9
+#, fuzzy
+msgid ""
+"This page lets you generate a file with information about the state of your "
+"system. The file will be useful if you want to report a bug in eBox."
+msgstr ""
+"Aquesta pàgina vos permet generar un fitxer amb la informació sobre l'estat "
+"del vostre sistema. El fitxer serà útil si voleu informar d'una errada en "
+"EBox."
+
+#: src/templates/bug.mas:15
+msgid "Download bug report file"
+msgstr "Descarrega un fitxer d'informe d'error"
+
+#~ msgid "{data} {value} does not exist."
+#~ msgstr "{data} {value} no existeix."
+
+#~ msgid "{data} {value} already exists."
+#~ msgstr "{data} {value} ja existeix."
+
+#~ msgid "Invalid {data} value: {value}."
+#~ msgstr "El valor de {data} és invàlid: {value}."
+
+#~ msgid "{data} is empty."
+#~ msgstr "{data} és buit."
+
+#~ msgid "Object"
+#~ msgstr "Objecte"
+
+#~ msgid "policy"
+#~ msgstr "política"
+
+#~ msgid "Port redirections"
+#~ msgstr "Redireccions de ports"
+
+#~ msgid "Packet filtering"
+#~ msgstr "Filtrat de paquets"
+
+#~ msgid "Global firewall configuration"
+#~ msgstr "Configuració global del tallafocs"
+
+#~ msgid "Firewall configuration: {desc}"
+#~ msgstr "Configuració del tallafocs: {desc}"
+
+#~ msgid "protocol"
+#~ msgstr "protocol"
+
+#~ msgid "network interface"
+#~ msgstr "interfície de xarxa"
+
+#~ msgid "external port"
+#~ msgstr "port extern"
+
+#~ msgid "destination address"
+#~ msgstr "adreça de destinació"
+
+#~ msgid "destination port"
+#~ msgstr "port de destinació"
+
+#~ msgid "service"
+#~ msgstr "servei"
+
+#~ msgid "action"
+#~ msgstr "acció"
+
+#~ msgid "rule"
+#~ msgstr "regla"
+
+#~ msgid "Network interfaces"
+#~ msgstr "Interfícies de xarxa"
+
+#~ msgid "method"
+#~ msgstr "mètode"
+
+#~ msgid "ip address"
+#~ msgstr "adreça ip"
+
+#~ msgid "netmask"
+#~ msgstr "màscara de xarxa"
+
+#~ msgid "virtual interface action"
+#~ msgstr "acció d'interfície virtual"
+
+#~ msgid "IP address"
+#~ msgstr "Adreça IP"
+
+#~ msgid "virtual interface name"
+#~ msgstr "nom de la interfície virtual"
+
+#~ msgid "network address"
+#~ msgstr "adreça de xarxa"
+
+#~ msgid "gateway address"
+#~ msgstr "adreça de la pasarel·la"
+
+#~ msgid "Routes"
+#~ msgstr "Rutes"
+
+#~ msgid "Object name"
+#~ msgstr "Nom de l'objecte"
+
+#, fuzzy
+#~ msgid "Edit Object"
+#~ msgstr "Objecte"
+
+#~ msgid "Objects"
+#~ msgstr "Objectes"
+
+#~ msgid "Netmask"
+#~ msgstr "Màscara de xarxa"
+
+#~ msgid "Name"
+#~ msgstr "Nom"
+
+#~ msgid "Summary"
+#~ msgstr "Resum"
+
+#~ msgid "The page could not be found"
+#~ msgstr "No s'ha pogut trobar la pàgina"
+
+#~ msgid ""
+#~ "An internal error has ocurred. This is most probably a bug, relevant "
+#~ "information can be found in the logs."
+#~ msgstr ""
+#~ "S'ha produït un error intern. Això probablement és una errada, hauríeu de "
+#~ "trobar informació relevant als registres."
+
+#~ msgid ""
+#~ "An unknown internal error has ocurred. This is a bug, relevant "
+#~ "information can be found in the logs."
+#~ msgstr ""
+#~ "S'ha produït un error desconegut. Això és una errada, hauríeu de trobar "
+#~ "informació relevant als registres."
+
+#, fuzzy
+#~ msgid "You have just hit a bug in eBox. Please seek technical support."
+#~ msgstr ""
+#~ "Heu trobat una errada a l'Ebox. Si us plau, informeu-ne a Warp Networks"
+
+#~ msgid ""
+#~ "An internal error related to a template has occurred. This is a bug, "
+#~ "relevant information can be found in the logs."
+#~ msgstr ""
+#~ "S'ha produït un error relacionat amb una plantilla. Això és una errada, "
+#~ "hauríeu de trobar informació relevant als registres."
+
+#~ msgid "Name '{name}' is invalid"
+#~ msgstr "El nom '{name}' és invàlid"
+
+#~ msgid "object"
+#~ msgstr "objecte"
+
+#~ msgid "address"
+#~ msgstr "adreça"
+
+#~ msgid "Interface"
+#~ msgstr "Interfície"
+
+#~ msgid "Could not open the config file."
+#~ msgstr "No vaig poder obrir el fitxer de configuració"
+
+#~ msgid "The ebox user has not been set in the config file."
+#~ msgstr "L'usuari de la ebox no ... al fitxer de configuració."
+
+#, fuzzy
+#~ msgid "Command '{cmd}' failed"
+#~ msgstr "Ha fallat l'ordre del superusuari «{cmd}»"
+
+#~ msgid "Root command '{cmd}' failed"
+#~ msgstr "Ha fallat l'ordre del superusuari «{cmd}»"
+
+#~ msgid "Running command '{cmd}' as {user} failed"
+#~ msgstr "Ha fallat l'execució de l'ordre «{cmd}» com {user}"
+
+#~ msgid "Virtual interface name"
+#~ msgstr "Nom de la interfície virtual"
+
+#~ msgid "Gateway"
+#~ msgstr "Pasarel·la"
+
+#~ msgid "Gateway {gw} not reachable"
+#~ msgstr "No es pot accedir a la pasarel·la {gw}"
+
+#~ msgid "down"
+#~ msgstr "avall"
+
+#~ msgid "up"
+#~ msgstr "amunt"
+
+#~ msgid "MAC address"
+#~ msgstr "Adreça MAC"
+
+#~ msgid "External port"
+#~ msgstr "Port extern"
+
+#~ msgid "Protocol"
+#~ msgstr "Protocol"
+
+#~ msgid "Port"
+#~ msgstr "Port"
+
+#~ msgid "Add"
+#~ msgstr "Afegeix"
+
+#, fuzzy
+#~ msgid ""
+#~ "This will tell the firewall what to do when discarding network packets.  "
+#~ "If you choose Reject, a packet will be sent back to the sender, choosing "
+#~ "Drop will make the firewall drop the packet silently."
+#~ msgstr ""
+#~ "Això li dirà al tallafocs què fer quan es descarten paquets de xarxa. Si "
+#~ "trieu «Rebutja», es tornarà el paquet a l'originador, i triar «Descarta» "
+#~ "farà que el tallafocs descarte el paquet silenciosament."
+
+#~ msgid "Deny policy"
+#~ msgstr "Política de denegació"
+
+#~ msgid "Drop packets"
+#~ msgstr "Descarta els paquets"
+
+#~ msgid "Reject packets"
+#~ msgstr "Rebutja els paquets"
+
+#~ msgid "Ok"
+#~ msgstr "D'acord"
+
+#~ msgid ""
+#~ "The link below will let you set up the default behavior of the packet "
+#~ "filter. You may also choose an object and set up rules and the services "
+#~ "it may access."
+#~ msgstr ""
+#~ "El següent enllaç vos permetrà configurar el comportament per defecte del "
+#~ "filtre de paquets. Podeu seleccionar un objecte i configurar regles i els "
+#~ "serveis als quals pot accedir"
+
+#~ msgid "Configure default rules"
+#~ msgstr "Configura les regles predeterminades"
+
+#~ msgid "Configure rules for a particular object"
+#~ msgstr "Configura les regles per a un objecte particular"
+
+#~ msgid "Go"
+#~ msgstr "Vés"
+
+#, fuzzy
+#~ msgid ""
+#~ "Choosing global will make the firewall fall back to the <a href='Object?"
+#~ "object=_global'>default configuration</a>."
+#~ msgstr ""
+#~ "Si es selecciona «global», el tallafocs tornarà a la configuració per "
+#~ "defecte."
+
+#~ msgid "Policy"
+#~ msgstr "Política"
+
+#~ msgid "Global"
+#~ msgstr "Global"
+
+#~ msgid "Deny"
+#~ msgstr "Denega"
+
+#~ msgid "Allow"
+#~ msgstr "Permet"
+
+#~ msgid "Service"
+#~ msgstr "Servei"
+
+#~ msgid "Rules"
+#~ msgstr "Regles"
+
+#, fuzzy
+#~ msgid ""
+#~ "Protocol, port and destination address are optional. The rules will be "
+#~ "applied in order, from top to bottom, you can reorder them once they are "
+#~ "added. Rules can also be disabled without deleting them."
+#~ msgstr ""
+#~ "L'adreça de destinació és opcional. Les regles s'aplicaran en ordre, "
+#~ "d'amunt a avall, les podeu ordenar una vegada afegides. També es poden "
+#~ "inhabilitar les regles sense eliminar-les."
+
+#~ msgid "Destination address"
+#~ msgstr "Adreça de destinació"
+
+#~ msgid "Action"
+#~ msgstr "Acció"
+
+#~ msgid "Active"
+#~ msgstr "Activa"
+
+#~ msgid "Up"
+#~ msgstr "Amunt"
+
+#~ msgid "Down"
+#~ msgstr "Avall"
+
+#~ msgid "Administrator password"
+#~ msgstr "Contrasenya de l'administrador"
+
+#~ msgid "Exit anyway"
+#~ msgstr "Surt igualment"
+
+#~ msgid ""
+#~ "Remember that changing the network interfaces configuration may cause you "
+#~ "to lose access to the administration page."
+#~ msgstr ""
+#~ "Recordeu que canviar la configuració de les interfícies de xarxa pot fer "
+#~ "que vos quedeu sense accés a la pàgina d'administració."
+
+#~ msgid ""
+#~ "Traffic being routed through interfaces marked as external will be "
+#~ "NATed.  Also, services meant for the LAN users will not be available on "
+#~ "external interfaces."
+#~ msgstr ""
+#~ "S'aplicarà el NAT al tràfic que s'enruta a través de les interfícies "
+#~ "marcades com a externes. A més a més, els serveis dirigits als usuaris de "
+#~ "la LAN no seran disponibles a les interfícies externes."
+
+#~ msgid "Static"
+#~ msgstr "Estàtic"
+
+#~ msgid "Not set"
+#~ msgstr "No establert"
+
+#~ msgid "Virtual interfaces"
+#~ msgstr "Interfícies virtuals"
+
+#~ msgid ""
+#~ "Having network interfaces configured via DHCP may cause this settings to "
+#~ "be overriden."
+#~ msgstr ""
+#~ "Tenir interfícies de xarxa configurades via DHCP pot fer que aquests "
+#~ "paràmetres es sobreescriguen."
+
+#~ msgid "Primary"
+#~ msgstr "Primària"
+
+#~ msgid "Secondary"
+#~ msgstr "Secundària"
+
+#~ msgid ""
+#~ "All routers you enter here must be reachable through one of the network "
+#~ "interfaces currently configured."
+#~ msgstr ""
+#~ "Totes les rutes que introduïu han de ser accessibles des de una de les "
+#~ "interfícies de xarxa actualment configurades."
+
+#~ msgid ""
+#~ "Having network interfaces configured via DHCP may cause this settings, "
+#~ "mostly the default gateway, to be overriden."
+#~ msgstr ""
+#~ "Tenir interfícies de xarxa configurades via DHCP pot fer que aquests "
+#~ "paràmetres, i sobretot la pasarel·la per defecte, es sobreescriguen."
+
+#~ msgid "Default gateway"
+#~ msgstr "Pasarel·la per defecte"
+
+#~ msgid "Static routes"
+#~ msgstr "Rutes estàtiques"
+
+#~ msgid "Network"
+#~ msgstr "Xarxa"
+
+#~ msgid "Deleting object"
+#~ msgstr "S'està eliminant l'objecte"
+
+#~ msgid ""
+#~ "The object you tried to delete is being used by some modules, please "
+#~ "confirm that you want to delete it."
+#~ msgstr ""
+#~ "L'objecte que heu intentat eliminar està sent utilitzar per alguns "
+#~ "mòduls. Confirmeu que voleu eliminar-lo."
+
+#~ msgid "New object"
+#~ msgstr "Nou objecte"
+
+#~ msgid "Create"
+#~ msgstr "Crea"
+
+#~ msgid ""
+#~ "The objects that you create here can be used in the rest of the system. "
+#~ "Remember that an IP address cannot belong to more than one object."
+#~ msgstr ""
+#~ "Els objectes que creeu aquí es poden utilitzar a la resta del sistema. "
+#~ "Recordeu que una adreça IP no pot pertànyer a més d'un objecte."
+
+#~ msgid "Object list"
+#~ msgstr "Llista d'objectes"
+
+#, fuzzy
+#~ msgid "Edit"
+#~ msgstr "Surt"
+
+#~ msgid "MAC"
+#~ msgstr "MAC"
+
+#, fuzzy
+#~ msgid "Delete Object"
+#~ msgstr "S'està eliminant l'objecte"
+
+#, fuzzy
+#~ msgid "Delete object"
+#~ msgstr "S'està eliminant l'objecte"
+
+#~ msgid "No"
+#~ msgstr "No"
+
+#~ msgid "Yes"
+#~ msgstr "Sí"
+
+#~ msgid "Language selection"
+#~ msgstr "Selecció de llengua"
+
+#~ msgid "Language"
+#~ msgstr "Llengua"
+
+#~ msgid "Show/Hide help"
+#~ msgstr "Mostra/Amaga l'ajuda"
 
 #~ msgid ""
 #~ "The policy states what to do on network packets not explicitly configured "

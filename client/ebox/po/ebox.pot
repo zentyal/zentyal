@@ -8,182 +8,129 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-07-18 20:22+0200\n"
+"POT-Creation-Date: 2005-11-11 12:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/Summary/Status.pm:43
-msgid "Restart"
+#: src/EBox/CGI/EBox/Bug.pm:29 src/EBox/SysInfo.pm:126
+msgid "Bug report"
 msgstr ""
 
-#: src/EBox/Summary/Status.pm:46
-msgid "Running"
-msgstr ""
-
-#: src/EBox/Summary/Status.pm:49
-msgid "Stopped"
-msgstr ""
-
-#: src/EBox/Summary/Status.pm:51
-msgid "Start"
-msgstr ""
-
-#: src/EBox/Summary/Status.pm:53
-msgid "Disabled"
-msgstr ""
-
-#: src/EBox/CGI/Login/Index.pm:52
-msgid "For security reasons your session has expired due to inactivity"
-msgstr ""
-
-#: src/EBox/CGI/Login/Index.pm:55
-msgid "You have been logged out because a new session has been opened"
-msgstr ""
-
-#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/SysInfo.pm:118
-msgid "Logout"
-msgstr ""
-
-#: src/EBox/CGI/Summary/Index.pm:47
-msgid "Error"
-msgstr ""
-
-#: src/EBox/CGI/Summary/Index.pm:58 src/EBox/SysInfo.pm:109
-msgid "Summary"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Backup.pm:34 src/EBox/CGI/EBox/ConfirmBackup.pm:34
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:34 src/EBox/CGI/EBox/Backup.pm:34
 msgid "Configuration backups"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:73
-msgid "description"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:55 src/templates/backup.mas:90
+#: src/templates/backup.mas:92 src/templates/backup.mas:94
+msgid "Delete"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:82 src/EBox/CGI/EBox/Backup.pm:91
-#: src/EBox/CGI/EBox/Backup.pm:101 src/EBox/CGI/EBox/ConfirmBackup.pm:71
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:56
+msgid "Please confirm that you want to delete the following backup file:"
+msgstr ""
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:61 src/templates/backup.mas:37
+#: src/templates/backup.mas:72
+msgid "Restore"
+msgstr ""
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:62
+msgid ""
+"Please confirm that you want to restore the configuration from this backup "
+"file:"
+msgstr ""
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:70 src/EBox/CGI/EBox/Backup.pm:81
+#: src/EBox/CGI/EBox/Backup.pm:90 src/EBox/CGI/EBox/Backup.pm:100
 msgid "identifier"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:86 src/EBox/CGI/EBox/Backup.pm:95
-#: src/EBox/CGI/EBox/Backup.pm:105 src/EBox/CGI/EBox/ConfirmBackup.pm:76
-#: src/EBox/Backup.pm:168 src/EBox/Backup.pm:210
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:75 src/EBox/CGI/EBox/Backup.pm:85
+#: src/EBox/CGI/EBox/Backup.pm:94 src/EBox/CGI/EBox/Backup.pm:104
+#: src/EBox/Backup.pm:180 src/EBox/Backup.pm:222
 msgid "The input contains invalid characters"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:118
+#: src/EBox/CGI/EBox/Password.pm:49
+msgid "Incorrect password."
+msgstr ""
+
+#: src/EBox/CGI/EBox/Password.pm:54
+msgid "New passwords do not match."
+msgstr ""
+
+#: src/EBox/CGI/EBox/Password.pm:58
+msgid "The password must be at least 6 characters long"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Password.pm:62
+msgid "The password was changed successfully."
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:72
+msgid "description"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:117
 msgid "Invalid backup file."
 msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:130
+#: src/EBox/CGI/EBox/Backup.pm:129
 msgid ""
 "Configuration restored succesfully, you should now review it and save it if "
 "you want to keep it."
 msgstr ""
 
-#: src/EBox/CGI/EBox/RestartService.pm:43
+#: src/EBox/CGI/EBox/RestartService.pm:42
 msgid "module name"
 msgstr ""
 
-#: src/EBox/CGI/EBox/RestartService.pm:47
+#: src/EBox/CGI/EBox/RestartService.pm:46
 msgid "The module was restarted correctly."
-msgstr ""
-
-#: src/EBox/CGI/EBox/Halt.pm:30
-msgid "Halt or reboot"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Halt.pm:44
-msgid "EBox is going down for halt"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Halt.pm:47
-msgid "EBox is going down for reboot"
 msgstr ""
 
 #: src/EBox/CGI/EBox/General.pm:30
 msgid "General configuration"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Bug.pm:29 src/EBox/SysInfo.pm:136
-msgid "Bug report"
+#: src/EBox/CGI/EBox/Halt.pm:30
+msgid "Halt or reboot"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Password.pm:50
-msgid "Incorrect password."
+#: src/EBox/CGI/EBox/Halt.pm:43
+msgid "EBox is going down for halt"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Password.pm:55
-msgid "New passwords do not match."
-msgstr ""
-
-#: src/EBox/CGI/EBox/Password.pm:59
-msgid "The password must be at least 6 characters long"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Password.pm:63
-msgid "The password was changed successfully."
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:56 src/templates/backup.mas:92
-#: src/templates/backup.mas:94 src/templates/backup.mas:96
-msgid "Delete"
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:57
-msgid "Please confirm that you want to delete the following backup file:"
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:62 src/templates/backup.mas:37
-#: src/templates/backup.mas:74
-msgid "Restore"
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:63
-msgid ""
-"Please confirm that you want to restore the configuration from this backup "
-"file:"
+#: src/EBox/CGI/EBox/Halt.pm:46
+msgid "EBox is going down for reboot"
 msgstr ""
 
 #: src/EBox/CGI/Finish.pm:29
 msgid "Save configuration"
 msgstr ""
 
-#: src/EBox/Backup.pm:288 src/EBox/SysInfo.pm:130
-msgid "Backup"
+#: src/EBox/CGI/Login/Index.pm:59
+msgid "For security reasons your session has expired due to inactivity"
 msgstr ""
 
-#: src/EBox/Backup.pm:332 src/EBox/Backup.pm:390
-msgid "Could not unpack the backup"
+#: src/EBox/CGI/Login/Index.pm:62
+msgid "You have been logged out because a new session has been opened"
 msgstr ""
 
-#: src/EBox/Backup.pm:339
-msgid "Incorrect or corrupt backup file"
+#: src/EBox/CGI/Logout/Index.pm:30
+msgid "Logout"
 msgstr ""
 
-#: src/EBox/Backup.pm:361
-msgid "The backup file is corrupt."
+#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
+msgid "Status"
 msgstr ""
 
-#: src/EBox/Apache.pm:46
-msgid ""
-"You must set the httpd_serverroot variable in the ebox configuration file"
-msgstr ""
-
-#: src/EBox/Apache.pm:55
-msgid "You must set the httpd_init variable in the ebox configuration file"
-msgstr ""
-
-#: src/EBox/Apache.pm:58
-msgid "The httpd_init script you configured is not executable."
-msgstr ""
-
-#: src/EBox/Apache.pm:147 src/EBox/Apache.pm:156
-msgid "port"
+#: src/EBox/CGI/Summary/Index.pm:47
+msgid "Error"
 msgstr ""
 
 #: src/EBox/SysInfo.pm:57
@@ -210,49 +157,108 @@ msgstr ""
 msgid "System load"
 msgstr ""
 
-#: src/EBox/SysInfo.pm:113
-msgid "Save/Cancel"
-msgstr ""
-
-#: src/EBox/SysInfo.pm:127
+#: src/EBox/SysInfo.pm:117
 msgid "General"
 msgstr ""
 
-#: src/EBox/SysInfo.pm:133
+#: src/EBox/SysInfo.pm:120 src/EBox/Backup.pm:300
+msgid "Backup"
+msgstr ""
+
+#: src/EBox/SysInfo.pm:123
 msgid "Halt/Reboot"
 msgstr ""
 
-#: src/templates/login/index.mas:15
-msgid "Administrator password"
+#: src/EBox/Html.pm:79
+msgid ""
+"Created by <a href=\"http://www.warp.es\">Warp Networks S.L.</a> in "
+"collaboration with <a href=\"http://www.dbs.es\">DBS Servicios Informáticos "
+"S.L.</a>"
 msgstr ""
 
-#: src/templates/login/index.mas:22
-msgid "Ok"
+#: src/EBox/Backup.pm:344 src/EBox/Backup.pm:402
+msgid "Could not unpack the backup"
 msgstr ""
 
-#: src/templates/logout/index.mas:11
-msgid "There are unsaved changes, if you log out now they will be lost."
+#: src/EBox/Backup.pm:351
+msgid "Incorrect or corrupt backup file"
 msgstr ""
 
-#: src/templates/logout/index.mas:15
-msgid "Exit anyway"
+#: src/EBox/Backup.pm:373
+msgid "The backup file is corrupt."
 msgstr ""
 
-#: src/templates/logout/index.mas:20
-msgid "Exit"
+#: src/EBox/Apache.pm:47
+msgid ""
+"You must set the httpd_serverroot variable in the ebox configuration file"
 msgstr ""
 
-#: src/templates/confirm-backup.mas:17 src/templates/backup.mas:52
-msgid "Date"
+#: src/EBox/Apache.pm:57
+msgid "You must set the httpd_init variable in the ebox configuration file"
 msgstr ""
 
-#: src/templates/confirm-backup.mas:26 src/templates/backup.mas:18
-#: src/templates/backup.mas:50
-msgid "Description"
+#: src/EBox/Apache.pm:60
+msgid "The httpd_init script you configured is not executable."
 msgstr ""
 
-#: src/templates/confirm-backup.mas:39 src/templates/confirm-backup.mas:40
-msgid "Cancel"
+#: src/EBox/Apache.pm:148 src/EBox/Apache.pm:157
+msgid "port"
+msgstr ""
+
+#: src/EBox/Summary/Status.pm:44
+msgid "Restart"
+msgstr ""
+
+#: src/EBox/Summary/Status.pm:47
+msgid "Running"
+msgstr ""
+
+#: src/EBox/Summary/Status.pm:50
+msgid "Stopped"
+msgstr ""
+
+#: src/EBox/Summary/Status.pm:52
+msgid "Start"
+msgstr ""
+
+#: src/EBox/Summary/Status.pm:54
+msgid "Disabled"
+msgstr ""
+
+#: src/templates/login/index.mas:26
+msgid "Password"
+msgstr ""
+
+#: src/templates/login/index.mas:33
+msgid "Enter"
+msgstr ""
+
+#: src/templates/login/index.mas:40
+msgid "Created by <a href="
+msgstr ""
+
+#: src/templates/password.mas:6
+msgid "Change password"
+msgstr ""
+
+#: src/templates/password.mas:8
+msgid "Your password must be at least 6 characters long."
+msgstr ""
+
+#: src/templates/password.mas:15
+msgid "Current password"
+msgstr ""
+
+#: src/templates/password.mas:30
+msgid "New password"
+msgstr ""
+
+#: src/templates/password.mas:45
+msgid "Confirm password"
+msgstr ""
+
+#: src/templates/password.mas:60 src/templates/port.mas:15
+msgid "Change"
 msgstr ""
 
 #: src/templates/finish.mas:11
@@ -280,32 +286,33 @@ msgstr ""
 msgid "There are no unsaved changes."
 msgstr ""
 
-#: src/templates/password.mas:6
-msgid "Change password"
+#: src/templates/confirm-backup.mas:17 src/templates/backup.mas:50
+msgid "Date"
 msgstr ""
 
-#: src/templates/password.mas:13
-msgid "Current password"
+#: src/templates/confirm-backup.mas:26 src/templates/backup.mas:18
+#: src/templates/backup.mas:48
+msgid "Description"
 msgstr ""
 
-#: src/templates/password.mas:28
-msgid "New password"
-msgstr ""
-
-#: src/templates/password.mas:43
-msgid "Confirm new password"
-msgstr ""
-
-#: src/templates/password.mas:58 src/templates/port.mas:17
-msgid "Change"
+#: src/templates/confirm-backup.mas:39 src/templates/confirm-backup.mas:40
+msgid "Cancel"
 msgstr ""
 
 #: src/templates/port.mas:9
 msgid "Administration interface TCP port"
 msgstr ""
 
-#: src/templates/port.mas:12
-msgid "Port"
+#: src/templates/halt.mas:10
+msgid "You might lose your Internet connection if this machine is halted."
+msgstr ""
+
+#: src/templates/halt.mas:15
+msgid "Halt"
+msgstr ""
+
+#: src/templates/halt.mas:18
+msgid "Reboot"
 msgstr ""
 
 #: src/templates/backup.mas:10
@@ -332,50 +339,49 @@ msgid ""
 "below"
 msgstr ""
 
-#: src/templates/backup.mas:45
+#: src/templates/backup.mas:43
 msgid "List of configuration backups"
 msgstr ""
 
-#: src/templates/backup.mas:54
+#: src/templates/backup.mas:52
 msgid "Actions"
 msgstr ""
 
-#: src/templates/backup.mas:76
+#: src/templates/backup.mas:74
 msgid "Restore configuration using this file"
 msgstr ""
 
-#: src/templates/backup.mas:78
+#: src/templates/backup.mas:76
 msgid "Restore from backup"
 msgstr ""
 
-#: src/templates/backup.mas:83 src/templates/backup.mas:85
-#: src/templates/backup.mas:87
+#: src/templates/backup.mas:81 src/templates/backup.mas:83
+#: src/templates/backup.mas:85
 msgid "Download"
 msgstr ""
 
-#: src/templates/backup.mas:108
+#: src/templates/backup.mas:106
 msgid "download"
 msgstr ""
 
-#: src/templates/backup.mas:112
+#: src/templates/backup.mas:110
 msgid "delete"
 msgstr ""
 
-#: src/templates/backup.mas:118
+#: src/templates/backup.mas:116
 msgid "restore"
 msgstr ""
 
-#: src/templates/halt.mas:10
-msgid ""
-"You will probably lose your Internet connection if this machine is halted."
+#: src/templates/logout/index.mas:11
+msgid "There are unsaved changes, if you log out now they will be lost."
 msgstr ""
 
-#: src/templates/halt.mas:15
-msgid "Halt"
+#: src/templates/logout/index.mas:16
+msgid "There are no unsaved changes in this session."
 msgstr ""
 
-#: src/templates/halt.mas:18
-msgid "Reboot"
+#: src/templates/logout/index.mas:21
+msgid "Exit"
 msgstr ""
 
 #: src/templates/bug.mas:9
