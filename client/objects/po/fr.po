@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox 0.3.svn\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-03-18 00:21+0100\n"
+"POT-Creation-Date: 2005-11-11 13:18+0100\n"
 "PO-Revision-Date: 2004-11-02 17:54+0100\n"
 "Last-Translator:  <isaac@sindominio.net>\n"
 "Language-Team: French <cedricduval@free.fr>\n"
@@ -15,19 +15,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/CGI/DelFrom.pm:40 src/EBox/CGI/Del.pm:41 src/EBox/CGI/Edit.pm:40
-#: src/EBox/CGI/Add.pm:40 src/EBox/CGI/AddTo.pm:41 src/EBox/Objects.pm:134
+#: src/EBox/CGI/Del.pm:42 src/EBox/CGI/DelFrom.pm:41 src/EBox/CGI/AddTo.pm:41
+#: src/EBox/CGI/Edit.pm:42 src/EBox/CGI/Add.pm:41 src/EBox/Objects.pm:198
 msgid "Object name"
 msgstr "Nom de l'objet"
-
-#: src/EBox/CGI/Edit.pm:29
-#, fuzzy
-msgid "Edit Object"
-msgstr "Objet"
-
-#: src/EBox/CGI/Index.pm:30 src/EBox/Objects.pm:256
-msgid "Objects"
-msgstr "Objets"
 
 #: src/EBox/CGI/AddTo.pm:45 src/templates/edit.mas:18
 msgid "IP address"
@@ -38,50 +29,37 @@ msgid "Netmask"
 msgstr "Masque de sous-réseau"
 
 #: src/EBox/CGI/AddTo.pm:47 src/templates/edit.mas:16
-#: src/templates/index.mas:33
+#: src/templates/index.mas:32
 msgid "Name"
 msgstr "Nom"
 
-#: src/EBox/Objects.pm:73 src/EBox/Objects.pm:187 src/EBox/Objects.pm:220
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:41 src/EBox/Objects.pm:372
+msgid "Objects"
+msgstr "Objets"
+
+#: src/EBox/CGI/Edit.pm:29 src/EBox/CGI/Edit.pm:39
+#, fuzzy
+msgid "Edit Object"
+msgstr "Objet"
+
+#: src/EBox/Objects.pm:100 src/EBox/Objects.pm:279 src/EBox/Objects.pm:319
 msgid "Object"
 msgstr "Objet"
 
-#: src/EBox/Objects.pm:200
+#: src/EBox/Objects.pm:292
 msgid "network address"
 msgstr "adresse réseau"
 
-#: src/templates/delete.mas:10
-msgid "Deleting object"
-msgstr "Suppression de l'objet"
-
-#: src/templates/delete.mas:13
-msgid ""
-"The object you tried to delete is being used by some modules, please confirm "
-"that you want to delete it."
-msgstr ""
-"L'objet que vous tentez de supprimer est utilisé par un modules, veuillez "
-"confimer votre intention de l'effacer."
-
-#: src/templates/delete.mas:23 src/templates/edit.mas:97
-#: src/templates/edit.mas:99 src/templates/edit.mas:101
-#: src/templates/index.mas:55 src/templates/index.mas:57
-msgid "Delete"
-msgstr "Effacer"
-
-#: src/templates/delete.mas:27
-msgid "Cancel"
-msgstr "Annuler"
-
 #: src/templates/edit.mas:11
 #, perl-brace-format
-msgid "Edit '{description}' members"
+msgid "Edit <span class='stitle'>{description}</span> members"
 msgstr ""
 
 #: src/templates/edit.mas:22
 msgid "MAC"
 msgstr "MAC"
 
-#: src/templates/edit.mas:24 src/templates/index.mas:37
+#: src/templates/edit.mas:24 src/templates/index.mas:36
 msgid "Action"
 msgstr "Action"
 
@@ -89,6 +67,12 @@ msgstr "Action"
 #: src/templates/edit.mas:66
 msgid "Add"
 msgstr "Ajouter"
+
+#: src/templates/edit.mas:97 src/templates/edit.mas:99
+#: src/templates/edit.mas:101 src/templates/index.mas:54
+#: src/templates/index.mas:56 src/templates/delete.mas:23
+msgid "Delete"
+msgstr "Effacer"
 
 #: src/templates/edit.mas:111
 #, fuzzy
@@ -106,15 +90,12 @@ msgstr ""
 msgid "Delete object"
 msgstr "Suppression de l'objet"
 
-#: src/templates/index.mas:11
-msgid "New object"
+#: src/templates/index.mas:10
+#, fuzzy
+msgid "Create new object"
 msgstr "Nouvel objet"
 
-#: src/templates/index.mas:15 src/templates/index.mas:17
-msgid "Create"
-msgstr "Créer"
-
-#: src/templates/index.mas:21
+#: src/templates/index.mas:13
 msgid ""
 "The objects that you create here can be used in the rest of the system. "
 "Remember that an IP address cannot belong to more than one object."
@@ -122,11 +103,41 @@ msgstr ""
 "Les objets que vous créez ici peuvent être utilisés pour le reste du "
 "système. Souvenez-vous qu'une adresse IP peut appartenir à plus d'un objet."
 
-#: src/templates/index.mas:28
+#: src/templates/index.mas:19 src/templates/index.mas:21
+msgid "Create"
+msgstr "Créer"
+
+#: src/templates/index.mas:26
 msgid "Object list"
 msgstr "List d'objets"
 
-#: src/templates/index.mas:49 src/templates/index.mas:50
+#: src/templates/index.mas:48 src/templates/index.mas:49
 #, fuzzy
 msgid "Edit"
 msgstr "Quitter"
+
+#: src/templates/index.mas:67
+#, fuzzy
+msgid "edit"
+msgstr "Quitter"
+
+#: src/templates/index.mas:73
+#, fuzzy
+msgid "delete"
+msgstr "Effacer"
+
+#: src/templates/delete.mas:10
+msgid "Deleting object"
+msgstr "Suppression de l'objet"
+
+#: src/templates/delete.mas:13
+msgid ""
+"The object you tried to delete is being used by some modules, please confirm "
+"that you want to delete it."
+msgstr ""
+"L'objet que vous tentez de supprimer est utilisé par un modules, veuillez "
+"confimer votre intention de l'effacer."
+
+#: src/templates/delete.mas:27
+msgid "Cancel"
+msgstr "Annuler"
