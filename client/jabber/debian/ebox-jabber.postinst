@@ -26,6 +26,16 @@ case "$1" in
 		# sudo configuration
 		ebox-sudoers > /etc/sudoers
 		chmod 0440 /etc/sudoers
+
+		# regenerate slapd.conf
+		/usr/lib/ebox-usersandgroups/ebox-init-ldap genconfig
+				
+		# restart slapd
+		/etc/init.d/slapd restart
+		
+		# update current ldap database
+		/usr/lib/ebox-jabber/ebox-jabber-ldap 
+
 esac
 
 #DEBHELPER#
