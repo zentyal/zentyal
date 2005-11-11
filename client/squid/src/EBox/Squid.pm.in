@@ -969,7 +969,7 @@ sub rootCommands
 	push(@array, $self->rootCommandsForWriteConfFile(DGDIR . "/dansguardian.conf"));
 	push(@array, $self->rootCommandsForWriteConfFile(DGDIR . "/dansguardianf1.conf"));
 	push(@array, $self->rootCommandsForWriteConfFile(DGDIR . "/bannedsitelist"));
-	push(@array, $self->rootCommandsForWriteConfFile(DGDIR . "/excepetionsitelist"));
+	push(@array, $self->rootCommandsForWriteConfFile(DGDIR . "/exceptionsitelist"));
 	return @array;
 }
 
