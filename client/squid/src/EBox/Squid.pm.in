@@ -19,6 +19,7 @@ use warnings;
 
 use base qw(EBox::GConfModule EBox::FirewallObserver EBox::ObjectsObserver EBox::LogObserver);
 
+use EBox::Service;
 use EBox::Objects;
 use EBox::Global;
 use EBox::Config;
