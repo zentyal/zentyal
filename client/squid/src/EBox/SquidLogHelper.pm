@@ -22,7 +22,7 @@ sub new
 }
 
 sub domain { 
-        return 'ebox-printers';
+        return 'ebox-squid';
 }
 
 
