@@ -48,6 +48,15 @@ sub new
 	return $self;
 }
 
+# Method: domain
+#       
+#       Must return the text domain which the package belongs to
+#
+sub domain 
+{
+	return 'ebox-mail'; 
+}
+
 sub logFiles {
 	return [ULOGFIFO];
 }
