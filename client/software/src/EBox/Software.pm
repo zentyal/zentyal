@@ -167,11 +167,15 @@ sub updatePkgList
 sub fetchAllPkgs
 {
 	my @pkgs;
-	@pkgs = @{_getSoftToolResult("ebox")};
+	@pkgs = @{_getSoftToolResult("ebox-info")};
 
 	my $cmd ='/usr/bin/apt-get install -qq --download-only --yes ';
-	$cmd .= join(" ", @pkgs);
+	foreach my $pkg (@pkgs) {
+		$cmd .= ($pkg->{name} . " ");
+		$cmd .= (join(" ", @{$pkg->{depends}}) . " ");
+	}
 	try {
+		print STDERR $cmd . "\n";
 		root($cmd);
 	} catch EBox::Exceptions::Internal with {
 	};

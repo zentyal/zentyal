@@ -63,14 +63,25 @@ sub listEBoxPkgs
                         $curver = $pkg->{CurrentVer}{VerStr};
                         $h->{version} = $pkg->{CurrentVer}{VerStr};
                 }
+		my $curverobject;
                 foreach my $v (@{$available}) {
                         if (!$curver) {
                                 $curver = $v->{VerStr};
+				$curverobject = $v;
                         } elsif ($versioning->compare
                                         ($curver, $v->{VerStr}) < 0) {
                                 $curver = $v->{VerStr};
+				$curverobject = $v;
                         }
                 }
+		my @depends = ();
+		if($curverobject->{DependsList}) {
+			@depends = @{$curverobject->{DependsList}};
+		}
+		$h->{depends} = [];
+		foreach my $dep (@depends) {
+			push(@{$h->{depends}}, $dep->{TargetPkg}{Name});
+		}
 		if (pkgIsFetched($p)) {
 			$h->{avail} = $curver;
 		} else {
@@ -86,23 +97,6 @@ sub listEBoxPkgs
         }
 
 	return \@array;
-}
-
-# Method: listEBoxSimple
-#	
-#	Returns an array with the names of the ebox packages available
-#	
-# Returns:
-#
-# 	array with the names of the ebox packages available for installation
-# 
-sub listEBoxSimple
-{
-	my $cache = AptPkg::Cache->new;
-	my $versioning = $AptPkg::System::_system->versioning();
-	my @pkgs = grep(/^ebox/, $cache->keys());
-
-	return \@pkgs;
 }
 
 sub _pkgIsFetched # (pkg, cache, versioning, records)
@@ -337,9 +331,7 @@ if(not defined($ARGV[0])) {
 
 my $return;
 
-if ($ARGV[0] eq "--ebox") {
-	$return = listEBoxSimple();
-} elsif ($ARGV[0] eq "--ebox-info") {
+if ($ARGV[0] eq "--ebox-info") {
 	$return = listEBoxPkgs();
 } elsif ($ARGV[0] eq "--upgradable") {
 	$return = listUpgradablePkgs();
