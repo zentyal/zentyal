@@ -9,7 +9,7 @@ use EBox::Gettext;
 </%init>
 <div class="note">
 	<p><%__('Changes in user accounts take effect inmediately, they do not need to be saved.')%></p>
-	<p><% __('Changes related to printing and file sharing do need to be saved in order to be effective.') %></p>
+	<p><% __('Changes related to printing, file sharing and Jabber service do need to be saved in order to be effective.') %></p>
 </div>
 <h3><% __('Add User') %></h3>
 	<form action='AddUser' method='POST'>
