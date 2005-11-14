@@ -17,6 +17,7 @@ BEGIN {
 }
 
 my $cur_domain = 'ebox';
+my $old_domain;
 
 # Method: settextdomain
 #
@@ -52,7 +53,9 @@ sub gettextdomain
 
 sub __ # (text)
 {
+	_set_packagedomain();
 	my $string = gettext(shift);
+	_unset_packagedomain();
 	_utf8_on($string);
 	return $string;
 }
@@ -60,7 +63,9 @@ sub __ # (text)
 sub __x # (text, %variables)
 {
 	my ($msgid, %vars) = @_;
+	_set_packagedomain();
 	my $string = gettext($msgid);
+	_unset_packagedomain();
 	_utf8_on($string);
 	return __expand($string, %vars);
 }
@@ -83,6 +88,35 @@ sub __expand # (translation, %arguments)
 	my $re = join '|', map { quotemeta $_ } keys %args;
 	$translation =~ s/\{($re)\}/defined $args{$1} ? $args{$1} : "{$1}"/ge;
 	return $translation;
+}
+
+# Method: _set_packagedomain
+# 
+# 	Fetch and set the module's domain.
+# 	Tries to call $PACKAGE::domain function
+# 	to fetch the domain
+# 	
+sub _set_packagedomain
+{
+	my ($package, $filename, $line) = caller 2;
+	my $domain = undef;
+	eval {$domain = $package->domain};
+	if ($domain) {
+		$old_domain = settextdomain($domain);
+	} else {
+		$old_domain = undef;
+	}
+}
+
+# Method: _unset_packagedomain
+# 
+#	Restore de previous domain
+# 	
+sub _unset_packagedomain
+{
+	if ($old_domain) {
+		settextdomain($old_domain);
+	}
 }
 
 use utf8;
