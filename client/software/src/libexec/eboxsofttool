@@ -325,7 +325,7 @@ sub listUpgradablePkgs
 }
 
 if(not defined($ARGV[0])) {
-	print "Usage: eboxsofttool [ --ebox | --ebox-info | --upgradable ]\n";
+	print "Usage: eboxsofttool [ --ebox-info | --upgradable ]\n";
 	exit 1;
 }
 
@@ -336,7 +336,7 @@ if ($ARGV[0] eq "--ebox-info") {
 } elsif ($ARGV[0] eq "--upgradable") {
 	$return = listUpgradablePkgs();
 } else {
-	print "Usage: eboxsofttool [ --ebox | --ebox-info | --upgradable ]\n";
+	print "Usage: eboxsofttool [ --ebox-info | --upgradable ]\n";
 	exit 1;
 }
 
