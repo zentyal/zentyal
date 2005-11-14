@@ -175,7 +175,6 @@ sub fetchAllPkgs
 		$cmd .= (join(" ", @{$pkg->{depends}}) . " ");
 	}
 	try {
-		print STDERR $cmd . "\n";
 		root($cmd);
 	} catch EBox::Exceptions::Internal with {
 	};
