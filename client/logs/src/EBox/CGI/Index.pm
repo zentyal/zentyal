@@ -39,6 +39,15 @@ sub _getTime {
 	return undef;
 }
 
+sub _encode_filters {
+	my ($par) = @_;
+
+	my %encoded = map { $par->{$_} =~ s/'/&#39;/g; $_ => $par->{$_}  } 
+			keys %{$par};
+	
+	return \%encoded;
+}
+
 sub _process
 {
 	my $self = shift;
@@ -149,9 +158,8 @@ sub _process
 		$selected = 'none';
 	}
 
-
 	push(@array, 'templates' => $templates);
-	push(@array, 'filters' => $hfilters);
+	push(@array, 'filters' => _encode_filters($hfilters));
 	push(@array, 'tableinfo' => $tableinfo);
 	push(@array, 'selected' => $selected);
 	push(@array, 'page' => $page);
