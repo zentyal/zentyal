@@ -129,12 +129,12 @@ sub _pkgIsFetched # (pkg, cache, versioning, records)
 	my $provides = $pkg->{ProvidesList};
 	if (defined($provides) and (scalar(@{$provides}) > 0)) {
 		foreach my $provide (@{$provides}) {
-			my $fetched = _pkgIsFetched(
+			my $depFetched = _pkgIsFetched(
 					$provide->{OwnerPkg}->{Name}, 
 					$cache, 
 					$versioning, 
 					$records);
-			if ($fetched) {
+			if ($depFetched) {
 				push(@{$fetched}, $p);
 				return 1;
 			}
@@ -219,11 +219,11 @@ sub _pkgIsFetched # (pkg, cache, versioning, records)
 			next;
 		}
 
-		my $fetched = _pkgIsFetched($dep->{TargetPkg}{Name}, 
+		my $pkgFetched = _pkgIsFetched($dep->{TargetPkg}{Name}, 
 							$cache, 
 							$versioning, 
 							$records);
-		if (@{$fetched}) {
+		if ($pkgFetched) {
 			if ($or) {
 				$skip = 1;
 			}
