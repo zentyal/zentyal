@@ -21,7 +21,7 @@ use EBox::Gettext;
 
 use base qw(EBox::LogHelper);
 
-use constant ULOGFIFO => "/var/log/mail.log";
+use constant MAILOG => "/var/log/mail.log";
 use constant TABLENAME => "message";
 
 # Table structure:
@@ -58,7 +58,7 @@ sub domain
 }
 
 sub logFiles {
-	return [ULOGFIFO];
+	return [MAILOG];
 }
 
 sub _getDate
