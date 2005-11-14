@@ -54,7 +54,6 @@ sub _process
 	my @array;
 	
 	my $logs = EBox::Global->modInstance('logs');
-	my $templates = $logs->getAllTemplates();
 	my %hret = ();
 	my @fromdate = ();
 	my @todate = ();
@@ -158,7 +157,7 @@ sub _process
 		$selected = 'none';
 	}
 
-	push(@array, 'templates' => $templates);
+	push(@array, 'logdomains' => $logs->getLogDomains());
 	push(@array, 'filters' => _encode_filters($hfilters));
 	push(@array, 'tableinfo' => $tableinfo);
 	push(@array, 'selected' => $selected);

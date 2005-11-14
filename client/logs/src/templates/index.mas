@@ -1,7 +1,7 @@
 <!-- vim: ts=4 sw=4 nowrap filetype=mason
 -->
 <%args>
-	@templates
+	$logdomains
 	$tableinfo
 	$filters 
 	$selected
@@ -17,22 +17,14 @@ use Data::Dumper;
 </%init>
 	<% __('Select available logs') %>:
 	<select name='smodule' id='smodule' onChange="modChanged()">
-%	if ($selected eq 'none') {
-		<option selected value='none'></option>
-%	} else {
-		<option value='none'></option>
-%	}				
-%	foreach my $t (@templates){
-		<option 
-%		if ($selected eq $t->{'index'}) {
-			selected
+%	foreach my $domain (sort keys %{$logdomains}){
+%		if ($selected eq $domain) {
+			<option selected value='<% $domain %>'><% $logdomains->{$domain} %></option>
+%		} else {
+			<option value='<% $domain %>'><% $logdomains->{$domain} %></option>
 %		}
-		value='<% $t->{'index'} %>'>
-			<% $t->{'name'} %>
-		</option>
 %	}
 	</select>
-
 % if ($selected ne 'none') {
 %	my @time = localtime(time);
 %	my $currentyear = $time[5]+1900; 

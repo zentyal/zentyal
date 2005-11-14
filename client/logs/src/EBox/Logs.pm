@@ -146,27 +146,13 @@ sub getLogsModules
 	return $global->modInstancesOfType('EBox::LogObserver');
 }
 
-sub getAllTemplates 
+sub getAllTables
 {
-	my $self = shift;
-	my @templates;
-
-	my @mods = @{$self->getLogsModules()};
-	foreach my $mod (@mods) {
-		if ($mod->{'name'} eq 'logs') { next; }
-		my $comp = $mod->tableInfo();
-		if($comp) {
-			push (@templates, $comp);
-		}
-	}
-
-	return \@templates
-}
-
-sub _getAllTables
-{
+	my ($self) = @_;
 	my $global = EBox::Global->getInstance();	
 	my $tables;
+	
+	return $self->{tables} if ($self->{tables});
 	
 	foreach my $mod (@{getLogsModules()}) {
 		my $comp = $mod->tableInfo();
@@ -174,17 +160,27 @@ sub _getAllTables
 		$tables->{$comp->{'index'}} = $comp;
 	}
 
+	$self->{tables} = $tables;
 	return $tables;
 }
+
 
 sub  getTableInfo
 {
 	my ($self, $index) = @_;
 
-	$self->{tables} = _getAllTables() unless $self->{tables};
-	return $self->{tables}->{$index};
+	my $tables = $self->getAllTables();
+	return $tables->{$index};
 }
 
+sub getLogDomains 
+{
+	my ($self) = @_;
+	
+	my $tables = $self->getAllTables();
+	my %logdomains = map { $_ => $tables->{$_}->{'name'} } keys %{$tables};
+	return \%logdomains;
+}
 
 # Private helper functions
 sub _checkValidDate # (date)
@@ -214,8 +210,8 @@ sub search {
 
 	my $dbengine = EBox::DBEngineFactory::DBEngine();
 	
-	$self->{tables} = _getAllTables() unless $self->{tables};
-	my $tableinfo = $self->{'tables'}->{$index};
+	my $tables = $self->getAllTables();
+	my $tableinfo = $tables->{$index};
 	my $table = $tableinfo->{'tablename'};
 	
 	unless (defined $tableinfo) {
