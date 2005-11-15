@@ -18,6 +18,9 @@ case "$1" in
 		
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
+		# don't start squid with its script
+		update-rc.d -f cupsys remove
+		
                 #sudo configuration
                 ebox-sudoers > /etc/sudoers
                 chmod 0440 /etc/sudoers
