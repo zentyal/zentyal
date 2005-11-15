@@ -76,26 +76,33 @@ sub output
 	my $mail = EBox::Global->modInstance('mail');
 	
 	my @ifaces = @{$net->InternalIfaces()};
-	my %conf = ();
+	my @exifaces = @{$net->ExternalIfaces()};
+	my $port = $mail->portfilter();
+	my $ipfilter = $mail->ipfilter();
+	my @conf = ();
 	my $r;
 
-	if ($mail->service()) {
+	if (($mail->service()) and ($mail->service('filter'))) {
 		foreach my $ifc (@ifaces) {
-		%conf = $net->ifaceAddresses($ifc);
+			@conf = @{$net->ifaceAddresses($ifc)};
 
-		if((isIPInNetwork($conf{'address'}, $conf{'netmask'}, $mail->ipfilter())) and ($mail->service('filter'))) {
-			my $port = $mail->portfilter();
-			my $ipfilter = $mail->ipfilter();
-			
-			$r = "-d $ipfilter -m state --state NEW -o $ifc ".
-				"-p tcp --dport $port -j ACCEPT";
+			foreach my $c (@conf) {
+				if(isIPInNetwork($$c{'address'}, 
+							$$c{'netmask'},
+							$mail->ipfilter())) {
+					
+					$r = "-d $ipfilter -m state --state NEW -o $ifc ".
+						"-p tcp --dport $port -j ACCEPT";
 
-			push(@rules, $r);
+					push(@rules, $r);
+				}
+			}
 		}
-		
-		$r = "-m state --state NEW -o $ifc  ".
-			"-p tcp --dport 25 -j ACCEPT";
-		push(@rules, $r);
+	} elsif ($mail->service()) {
+		foreach my $exifc (@exifaces) {
+			$r = "-m state --state NEW -o $exifc  ".
+				"-p tcp --dport 25 -j ACCEPT";
+			push(@rules, $r);
 		}
 	}
 	
