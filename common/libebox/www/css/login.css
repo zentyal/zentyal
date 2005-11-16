@@ -11,7 +11,7 @@
 	border-top: 1px solid #fa601d;
 	padding: 5px;
 	font-size: 11px;
-	margin: 0 0 0 80px;
+	margin: 0 0 0 90px;
 	background: #fdddd9;
 	color: #484554;
 }
@@ -28,7 +28,7 @@ body {
 	margin-top: 90px;
 }
 
-dl { margin: 10px 0 0 80px; }
+dl { margin: 20px 0 0 90px; }
 
 dt { 
 	float: left;
