@@ -98,7 +98,8 @@ sub output
 				}
 			}
 		}
-	} elsif ($mail->service()) {
+	}
+	if ($mail->service()) {
 		foreach my $exifc (@exifaces) {
 			$r = "-m state --state NEW -o $exifc  ".
 				"-p tcp --dport 25 -j ACCEPT";
