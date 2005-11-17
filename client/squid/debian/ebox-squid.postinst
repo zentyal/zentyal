@@ -17,8 +17,9 @@ case "$1" in
 
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
-		# don't start squid with its script
+		# don't start neither squid nor dansguardian with its script
 		update-rc.d -f squid remove
+		update-rc.d -f dansguardian remove
 
 		# stop squid 
 		invoke-rc.d squid stop
@@ -32,8 +33,6 @@ case "$1" in
 
 		# restart logs
 		invoke-rc.d ebox logs restart || true
-
-	
 
 		invoke-rc.d ebox squid restart
 esac
