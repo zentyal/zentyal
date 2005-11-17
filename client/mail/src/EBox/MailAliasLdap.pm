@@ -38,7 +38,16 @@ sub new
 	return $self;
 }
 
-sub addAlias ($$$$) { #mail alias account, maildrop, id(mailuser or groupname)
+# Method: addAlias
+#
+#  Creates a new mail alias to an account.
+#
+# Parameters:
+#
+#     alias - The mail alias account to create
+#		maildrop - The mail account(s) to send all mail
+#		id - the username or groupname
+sub addAlias ($$$$) { 
 	my $self = shift;
 	my $alias = shift;
 	my $maildrop = shift;
@@ -69,6 +78,14 @@ sub addAlias ($$$$) { #mail alias account, maildrop, id(mailuser or groupname)
 	my $r = $self->{'ldap'}->add($dn, \%attrs);
 }
 
+# Method: addGroupAlias
+#
+#  Creates a new mail alias to a group of users
+#
+# Parameters:
+#
+#     alias - The mail alias account to create
+#		groupname - The group name.
 sub addGroupAlias ($$$) { #mail alias, groupname
 	my $self = shift;
 	my $alias = shift;
@@ -121,6 +138,15 @@ sub addGroupAlias ($$$) { #mail alias, groupname
 
 }
 
+# Method: updateGroupAlias
+#
+#  When a change on users of a group this method updates the maildrops of the
+#  mail alias account.
+#
+# Parameters:
+#
+#		group - The group name
+#     alias - The mail alias account to create
 sub updateGroupAlias ($$$) {
 	my ($self, $group, $alias) = @_;
 
@@ -173,7 +199,15 @@ sub updateGroupAlias ($$$) {
 	$self->addGroupAlias($alias,$group);
 }
 
-
+# Method: addMaildrop
+#
+#	This method adds a new maildrop to an existing mail alias account (used on
+#	group mail alias accounts).
+#
+# Parameters:
+#
+#     alias - The mail alias account to create
+#		maildrop - The mail account to add to the alias account
 sub addMaildrop ($$$) { #alias account, mail account to add
 	my $self = shift;
 	my $alias = shift;
@@ -195,6 +229,15 @@ sub addMaildrop ($$$) { #alias account, mail account to add
 	my $r = $self->{'ldap'}->modify($dn, \%attrs);
 }
 
+# Method: delMaildrop
+#
+#	This method removes a maildrop to an existing mail alias account (used on
+#	group mail alias accounts).
+#
+# Parameters:
+#
+#     alias - The mail alias account to create
+#		maildrop - The mail account to add to the alias account
 sub delMaildrop ($$$) { #alias account, mail account to remove
 	my $self = shift;
 	my $alias = shift;
@@ -224,6 +267,13 @@ sub delMaildrop ($$$) { #alias account, mail account to remove
 
 }
 
+# Method: delAlias
+#
+#	This method removes a mail alias account
+#
+# Parameters:
+#
+#     alias - The mail alias account to create
 sub delAlias($$) { #mail alias account
 	my $self = shift;
 	my $alias = shift;
@@ -238,6 +288,13 @@ sub delAlias($$) { #mail alias account
 	my $r = $self->{'ldap'}->delete("mail=$alias, " . $self->aliasDn);
 }
 
+# Method: delAliasesFromVDomain
+#
+#	This method removes all mail aliases from a virtual domain
+#
+# Parameters:
+#
+#		vdomain - The Virtual domain name
 sub delAliasesFromVDomain () {
 	my ($self, $vdomain) = @_;
 
@@ -248,6 +305,13 @@ sub delAliasesFromVDomain () {
 	}
 }
 
+# Method: delAliasGroup
+#
+#	This method removes the mail alias account of a group
+#
+# Parameters:
+#
+#     group - The group name
 sub delAliasGroup($$) {
 	my ($self, $group) = @_;
 
@@ -266,6 +330,14 @@ sub delAliasGroup($$) {
 	}
 }
 
+# Method: accountAlias
+#
+#	This method returns all mail alias accounts that have a mail account of
+#	a user
+#
+# Parameters:
+#
+#     mail - The mail account 
 sub accountAlias($$) { #mail account
 	my $self = shift;
 	my $mail = shift;
@@ -288,6 +360,14 @@ sub accountAlias($$) { #mail account
 	return @malias;
 }
 
+# Method: groupAccountAlias
+#
+#	This method returns all mail alias accounts that have a mail account of
+#	a group
+#
+# Parameters:
+#
+#     mail - The mail account 
 sub groupAccountAlias($$) { #mail account
 	my $self = shift;
 	my $mail = shift;
@@ -310,6 +390,15 @@ sub groupAccountAlias($$) { #mail account
 	return @malias;
 }
 
+# Method: accountListByAliasGroup
+#
+#	This method returns an array ref with all maildrops of a group alias account
+#
+# Parameters:
+#
+#     mail - The mail aliasaccount 
+# Returns:
+# 		array ref - Array that contains mail accounts
 sub accountListByAliasGroup() {
 	my ($self, $mail) = @_;
 
@@ -327,12 +416,31 @@ sub accountListByAliasGroup() {
 	return \@mlist;
 }
 
+# Method: aliasDn
+#
+#	This method returns the DN of alias ldap leaf
+#
+# Returns:
+#
+#     string - DN of alias leaf
 sub aliasDn
 {
 	my $self = shift;
 	return ALIASDN . ", " . $self->{ldap}->dn;
 }
 
+# Method: listMailGroupsByUser
+#
+#	This method returns all groups whith an alias account which the user passed
+#	as parameter belongs.
+#
+# Parameters:
+#
+#     user - usename 
+#     
+# Returns:
+# 
+# 		array - With the group's name list
 sub listMailGroupsByUser($$) {
 	my ($self, $user) = @_;
 	my @list;
@@ -348,6 +456,16 @@ sub listMailGroupsByUser($$) {
 	return @list;
 }
 
+# Method: groupAlias
+#
+#	This method returns the mail alias account of a group
+#
+# Parameters:
+#
+#     group - The group name
+#
+# Returns:
+# 		string - mail alias account
 sub groupAlias ($$) {
 	my ($self, $group) = @_;
 
@@ -363,6 +481,17 @@ sub groupAlias ($$) {
 	return (($result->sorted('mail'))[0]->get_value('mail'));
 }
 
+# Method: groupHasAlias
+#
+#	This method returns if the group has a mail alias account
+#
+# Parameters:
+#
+#     group - The group name
+#
+# Returns:
+# 	
+# 		true if the group has an account, false otherwise
 sub groupHasAlias ($$) {
 	my ($self, $group) = @_;
 
@@ -377,7 +506,15 @@ sub groupHasAlias ($$) {
 
 	return ($result->count > 0);
 }
-		
+
+# Method: accountAlias
+#
+#	This method returns all mail alias accounts that have a mail account as
+#	maildrop value
+#
+# Parameters:
+#
+#     mail - The mail account 
 sub aliasExists($$) { #mail alias account
 	my $self = shift;
 	my $alias = shift;
@@ -393,6 +530,17 @@ sub aliasExists($$) { #mail alias account
 	return ($result->count > 0);
 }
 
+# Method: accountExists
+#
+#	This method returns an account exists like an alias account or mail account
+#
+# Parameters:
+#
+#     mail - The mail account 
+#
+# Returns
+#
+# 		true if the account exists, false otherwise
 sub accountExists($$) { #mail alias account
 	my $self = shift;
 	my $alias = shift;
@@ -409,6 +557,17 @@ sub accountExists($$) { #mail alias account
 	return (($result->count > 0) || ($self->aliasExists($alias)));
 }
 
+# Method: _allAliasFromVDomain
+#
+#	This method returns all mail alias accounts from a virtual domain
+#
+# Parameters:
+#
+#     vdomain - The Virtual domain name
+#
+# Returns:
+# 		
+# 		array ref - with all alias account from a virtual domain.
 sub _allAliasFromVDomain () { #vdomain
 	my ($self, $vdomain) = @_;
 
