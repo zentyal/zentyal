@@ -9,7 +9,7 @@ case "$1" in
 	
 	purge)
 		# drop log table
-		/usr/lib/ebox-logs/ebox-sql-table drop leases
+		/usr/lib/ebox-logs/ebox-sql-table drop leases || true
 
 		;;
 
