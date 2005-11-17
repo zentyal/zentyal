@@ -16,7 +16,7 @@ case "$1" in
 		;;		
 
 	purge)
-		/usr/lib/ebox-logs/ebox-sql-table drop message
+		/usr/lib/ebox-logs/ebox-sql-table drop message || true
 
 		;;
 esac
