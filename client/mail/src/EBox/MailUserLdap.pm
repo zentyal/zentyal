@@ -45,7 +45,16 @@ sub new
 	return $self;
 }
 
-# Implements LdapUserBase interface
+# Method: setUserAccount
+#
+#  This method sets a mail account to a user
+#
+# Parameters:
+#
+# 		user - username
+# 		lhs - the left hand side of a mail (the foo on foo@bar.baz account)
+# 		rhs - the right hand side of a mail (the bar.baz on previus account)
+# 		mdsize - the maildir size of the account
 sub setUserAccount () {
 	my ($self, $user, $lhs, $rhs, $mdsize)  = @_;
 	
@@ -105,6 +114,14 @@ sub setUserAccount () {
 	}
 }
 
+# Method: setUserAccount
+#
+#  This method removes a mail account to a user
+#
+# Parameters:
+#
+# 		username - username
+#		usermail - the user's mail address
 sub delUserAccount () { #username, mail
 	my ($self, $username, $usermail) = @_;
 
@@ -149,6 +166,13 @@ sub delUserAccount () { #username, mail
 
 }
 
+# Method: delAccountsFromVDomain
+#
+#  This method removes all mail accounts from a virtual domain
+#
+# Parameters:
+# 
+#		vdomain - the virtual domain name
 sub delAccountsFromVDomain () { #vdomain
 	my ($self, $vdomain) = @_;
 
@@ -161,6 +185,14 @@ sub delAccountsFromVDomain () { #vdomain
 	}
 }
 
+# Method: getUserLdapValue
+#
+#  This method returns the value of an atribute in users leaf
+#
+# Parameters:
+#
+# 		uid - uid of the user
+#		value - the atribute name
 sub getUserLdapValue () { #uid, ldap value
 	my ($self, $uid, $value) = @_;
 	my $users = EBox::Global->modInstance('users');
@@ -316,6 +348,16 @@ sub _modifyGroup() {
 
 }
 
+# Method: _accountExists
+#
+#  This method returns if a user have a mail account
+#
+# Parameters:
+# 
+# 		username - username
+# Returnss:
+#
+# 		bool - true if user have mail account
 sub _accountExists() { #username
 	my ($self, $username) = @_;
 
@@ -333,6 +375,14 @@ sub _accountExists() { #username
 
 }
 
+# Method: setMDSize
+#
+#  This method sets maildir size to a user account
+#
+# Parameters:
+#
+# 		uid - username
+#		mdsize - new maildir size
 sub setMDSize() {
 	my ($self, $uid, $mdsize) = @_;
 	my $users = EBox::Global->modInstance('users');
@@ -354,6 +404,18 @@ sub setMDSize() {
 		replace => { 'userMaildirSize' => $mdsize * $self->BYTES }});
 }
 
+
+# Method: allAccountFromVDomain
+#
+#  This method returns all accounts from a virtual domain
+#
+# Parameters:
+#
+# 		vdomain - The Virtual domain name
+#
+# Returns:
+#
+# 		hash ref - with (uid, mail) pairs of the virtual domain
 sub allAccountsFromVDomain() { #vdomain
 	my ($self, $vdomain) = @_;
 
@@ -372,6 +434,14 @@ sub allAccountsFromVDomain() { #vdomain
 	return \%accounts;
 }
 
+# Method: usersWithMailInGroup
+#
+#  This method returns the number of users with mail account on the group
+#
+# Parameters:
+#
+# 		groupname - groupname
+# 	
 sub usersWithMailInGroup() {
 	my ($self, $groupname) = @_;
 	my $users = EBox::Global->modInstance('users');
@@ -403,6 +473,15 @@ sub usersWithMailInGroup() {
 	return scalar(@mailingroup);
 }
 
+# Method: checkUserMDSize
+#
+#  This method returns all users that should be warned about a reduction on the
+#  maildir size
+#
+# Parameters:
+#
+# 		vdomain - The Virtual domain name
+#		newmdsize - The new maildir size
 sub checkUserMDSize () {
 	my ($self, $vdomain, $newmdsize) = @_;
 
@@ -418,6 +497,17 @@ sub checkUserMDSize () {
 	return \@warnusers;
 }
 
+# Method: _getActualMDSize
+#
+#  This method returns the maildir size of a user account
+#
+# Parameters:
+#
+# 		username - username
+#
+# Returns:
+#
+# 		maildir size
 sub _getActualMDSize() {
 	my ($self, $username) = @_;
 
@@ -445,9 +535,14 @@ sub _includeLDAPSchemas {
        return \@schemas;
 }
 
-#sub _includeLDAPAcls {
-#}
-
+# Method: _createMaildir
+#
+#  This method creates the maildir of an account
+#
+# Parameters:
+#
+# 		lhs - left hand side of an account (foo on foo@bar.baz)
+#		vdomain - Virtual Domain name
 sub _createMaildir() { #user (lhs of account), vdomain (rhs of account)
 	my ($self, $lhs, $vdomain) = @_;
 	
@@ -462,18 +557,30 @@ sub _createMaildir() { #user (lhs of account), vdomain (rhs of account)
 
 }
 
+# Method: gidvmail
+#
+#  This method returns the gid value of ebox user
+#
 sub gidvmail() {
 	my $self = shift;
 
 	return scalar (getgrnam(EBox::Config::group));
 }
 
+# Method: uidvmail
+#
+#  This method returns the uid value of ebox user
+#
 sub uidvmail() {
 	my $self = shift;
 
 	return scalar (getpwnam(EBox::Config::user));
 }
 
+# Method: _isCourierObject
+#
+#  This method returns if the leaf have a courierobject class
+#
 sub _isCourierObject() {
 	my ($self, $object, $dn) = @_;
 	
