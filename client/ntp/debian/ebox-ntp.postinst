@@ -21,7 +21,9 @@ case "$1" in
 		update-rc.d -f ntp-server remove
 
 		#sudo configuration
-		ebox-sudoers > /etc/sudoers
+		tmp=`tempfile`
+		ebox-sudoers > $tmp
+		mv $tmp /etc/sudoers
 		chmod 0440 /etc/sudoers
 
 		# import timezone from system if installing for the first time
