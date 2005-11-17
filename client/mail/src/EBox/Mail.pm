@@ -57,36 +57,51 @@ use constant MAXMGSIZE				=> '104857600';
 
 sub _create 
 {
-my $class = shift;
-my $self = $class->SUPER::_create(name => 'mail',
-	domain => 'ebox-mail',
-	@_);
+	my $class = shift;
+	my $self = $class->SUPER::_create(name => 'mail',
+		domain => 'ebox-mail',
+		@_);
 
-$self->{vdomains} = new EBox::MailVDomainsLdap;
-$self->{musers} = new EBox::MailUserLdap;
-$self->{malias} = new EBox::MailAliasLdap;
+	$self->{vdomains} = new EBox::MailVDomainsLdap;
+	$self->{musers} = new EBox::MailUserLdap;
+	$self->{malias} = new EBox::MailAliasLdap;
 
-bless($self, $class);
-return $self;
+	bless($self, $class);
+	return $self;
 }
 
+# Method: _getIfacesForAddress
+#
+#  This method returns all interfaces which ip address belongs
+#
+# Parameters:
+#
+# 		ip - The IP address
+#
+# Returns:
+#
+# 		array ref - with all interfaces
 sub _getIfacesForAddress {
-my ($self, $ip) = @_;
+	my ($self, $ip) = @_;
 
-my $net = EBox::Global->modInstance('network');
-my @ifaces = ();
+	my $net = EBox::Global->modInstance('network');
+	my @ifaces = ();
 
-foreach my $iface (@{$net->InternalIfaces()}) {
-	foreach my $addr (@{$net->ifaceAddresses($iface)}) {
-		if (isIPInNetwork($addr->{'address'}, $addr->{'netmask'}, $ip)) {
-			push(@ifaces, $iface);
+	foreach my $iface (@{$net->InternalIfaces()}) {
+		foreach my $addr (@{$net->ifaceAddresses($iface)}) {
+			if (isIPInNetwork($addr->{'address'}, $addr->{'netmask'}, $ip)) {
+				push(@ifaces, $iface);
+			}
 		}
 	}
+
+	return \@ifaces;
 }
 
-return \@ifaces;
-}
-
+# Method: _setMailConf
+#
+#  This method creates all configuration files from gconf data.
+#  
 sub _setMailConf {
 	my $self = shift;
 	my @array = ();
@@ -158,6 +173,20 @@ sub _setMailConf {
 	$self->writeConfFile(SMTPDCONFFILE, "mail/smtpd.conf.mas",\@array);
 }
 
+# Method: isRunning
+#
+#  This method returns if the service is running
+#
+# Parameter:
+#
+# 		service - a string with a service name. It could be:
+# 			active for smtp service
+# 			pop for pop service
+# 			imap for imap service
+#
+# Returns
+#
+# 		bool - true if the service is running, false otherwise
 sub isRunning
 {
 	my ($self, $service) = @_;
@@ -175,6 +204,13 @@ sub isRunning
 	}
 }
 
+# Method: setFWPort
+#
+#  This method sets the port where forward all messages from external filter
+#
+# Parameters:
+#
+# 		fwport - The port
 sub setFWPort
 {
 	my ($self, $fwport) = @_;
@@ -193,12 +229,23 @@ sub setFWPort
 	$self->set_int('fwport', $fwport);
 }
 
+# Method: setFWPort
+#
+#  This method returns the port where forward all messages from external filter
+#
 sub fwport
 {
 	my $self = shift;
 	return $self->get_int('fwport');
 }
 
+# Method: setIPFilter
+#
+#  This method sets the ip of the external filter
+#
+# Parameters:
+#
+# 		ip - The ip address
 sub setIPFilter
 {
 	my ($self, $ip) = @_;
@@ -224,12 +271,23 @@ sub setIPFilter
 	$self->set_string('ipfilter', $ip);
 }
 
+# Method: ipfilter
+#
+#  This method returns the ip of the external filter
+#
 sub ipfilter
 {
 	my $self = shift;
 	return $self->get_string('ipfilter');
 }
 
+# Method: setPortFilter
+#
+#  This method sets the port where the external filter listen
+#
+# Parameters:
+#
+# 		port - The port
 sub setPortFilter
 {
 	my ($self, $port) = @_;
@@ -238,12 +296,23 @@ sub setPortFilter
 	$self->set_int('portfilter', $port);
 }
 
+# Method: portfilter
+#
+#  This method returns the port where the external filter listen
+#
 sub portfilter
 {
 	my $self = shift;
 	return $self->get_int('portfilter');
 }
 
+# Method: setRelay
+#
+#  This method sets the ip address of the smarthost
+#
+# Parameters:
+#
+# 		relay - The ip address
 sub setRelay #(smarthost)
 {
 	my ($self, $relay) = @_;
@@ -255,12 +324,23 @@ sub setRelay #(smarthost)
 	$self->set_string('relay', $relay);
 }
 
+# Method: relay
+#
+#  This method returns the ip address of the smarthost if set
+#
 sub relay
 {
 	my $self = shift;
 	return $self->get_string('relay');
 }
 
+# Method: setMaxMsgSize
+#
+#  This method sets maximum message size
+#
+# Parameters:
+#
+# 		size - the size
 sub setMaxMsgSize
 {
 	my ($self, $size)  = @_;
@@ -280,12 +360,23 @@ sub setMaxMsgSize
 	$self->set_int('maxmsgsize', $size);
 }
 
+# Method: getMaxMsgSize
+#
+#  This method returns the maximum message size
+#
 sub getMaxMsgSize
 {
 	my $self = shift;
 	return $self->get_int('maxmsgsize');
 }
 
+# Method: setMDDefaultSize
+#
+#  This method sets the default maildir size 
+#
+# Parameters:
+#
+# 		size - size of maildir
 sub setMDDefaultSize
 {
 	my ($self, $size)  = @_;
@@ -305,12 +396,23 @@ sub setMDDefaultSize
 	$self->set_int('mddefaultsize', $size);
 }
 
+# Method: getMDDefaultSize
+#
+#  This method returns the default maildir size
+#
 sub getMDDefaultSize
 {
 	my $self = shift;
 	return $self->get_int('mddefaultsize');
 }
 
+# Method: setAllowedObj
+#
+#  This method sets the object lists that can send mail throught mail module
+#
+# Parameters:
+#
+# 		args - Object list
 sub setAllowedObj
 {
 	my ($self, $args) = @_;
@@ -318,12 +420,23 @@ sub setAllowedObj
 	$self->set_list("allowed", "string", $args);
 }
 
+# Method: setTlsSmtp
+#
+#  This method sets the tls on smtp
+#
+# Parameters:
+#
+# 		bool
 sub setTlsSmtp
 {
 	my ($self, $level) = @_;
 	$self->set_bool('smtptls', $level);
 }
 
+# Method: tlsSmtp
+#
+#  This method returns if tls on smtp is active
+#
 sub tlsSmtp
 {
 	my $self = shift;
@@ -332,12 +445,26 @@ sub tlsSmtp
 	return $foo;
 }
 
+# Method: setSslPop
+#
+#  This method sets the ssl level on pop, it could be: no, optional, required
+#
+# Parameters:
+#
+# 		level - a string with the level
 sub setSslPop
 {
 	my ($self, $level) = @_;
 	$self->set_string('popssl', $level);
 }
 
+# Method: sslPop
+#
+#  This method returns the ssl level on pop, it could be: no, optional, required
+#
+# Returns:
+#
+# 		string - with the level (no, optional, required)
 sub sslPop
 {
 	my $self = shift;
@@ -345,12 +472,26 @@ sub sslPop
 	return $self->get_string('popssl');
 }
 
+# Method: setSslImap
+#
+#  This method sets the ssl level on imap, it could be: no, optional, required
+#
+# Parameters:
+#
+# 		level - a string with the level
 sub setSslImap
 {
 	my ($self, $level) = @_;
 	$self->set_string('imapssl', $level);
 }
 
+# Method: sslImap
+#
+#  This method returns the ssl level on imap, it could be: no, optional, required
+#
+# Returns:
+#
+# 		string - with the level (no, optional, required)
 sub sslImap
 {
 	my $self = shift;
@@ -423,6 +564,15 @@ sub deniedObj
 	return \@denied;
 }
 
+#
+# Method: freeObject
+#
+#  This method set a new allowed object list without the object passed as
+#  parameter
+#
+# Parameters:
+#		object - The object to remove.
+#
 sub freeObject # (object)
 {
 	my ($self, $object) = @_;
@@ -440,6 +590,14 @@ sub freeObject # (object)
 	}
 }
 
+# Method: usesObject
+#
+#  This methos method returns if the object is on allowed list
+#
+# Returns:
+#
+#		bool - true if the object is in allowed list, false otherwise
+#
 sub usesObject # (object)
 {
 	my ($self, $object) = @_;
@@ -600,6 +758,15 @@ sub service
 	return $self->get_bool($service);
 }
 
+#
+# Method: anyInService
+#
+#  Returns if any service is active
+#
+# Returns:
+#
+#  boolean - true if any is active, otherwise false
+#
 sub anyInService {
 	my $self = shift;
 	my @services = ('active', 'pop', 'imap');
