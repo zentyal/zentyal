@@ -61,8 +61,9 @@ EB:2:once:/etc/init.d/ebox start
 #-- ebox end
 EOT
 			mv -f /etc/inittab'{new}' /etc/inittab
-			kill -s HUP 1
 		fi
+
+		/etc/init.d/ebox start
 		;;
 esac
 
