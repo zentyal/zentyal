@@ -9,7 +9,7 @@ case "$1" in
 
 		;;		
 	purge)
-		/usr/lib/ebox-logs/ebox-sql-table drop access
+		/usr/lib/ebox-logs/ebox-sql-table drop access || true
 
 		;;
 esac
