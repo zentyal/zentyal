@@ -61,6 +61,13 @@ sub logFiles {
 	return [MAILOG];
 }
 
+# Method: _getDate
+#
+#  This method returns the date and time on database format.
+#
+# Returns:
+#
+# 		string - yyyy-mm-dd hh:mm:ss format.
 sub _getDate
 {
 	my ($self, $line) = @_;
