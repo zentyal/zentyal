@@ -43,7 +43,9 @@ sub _regenConfig
 
 sub _stopService
 {
-        root(EBox::Config::libexec . 'ebox-kill-pid loggerd');
+	if (-f PIDPATH . "loggerd.pid") {
+        	root(EBox::Config::libexec . 'ebox-kill-pid loggerd');
+	}
 }
 
 sub cleanup 
