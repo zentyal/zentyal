@@ -98,7 +98,7 @@ sub __expand # (translation, %arguments)
 # 	
 sub _set_packagedomain
 {
-	my ($package, $filename, $line) = caller 2;
+	my ($package, $filename, $line) = caller 1;
 	my $domain = undef;
 	eval {$domain = $package->domain};
 	if ($domain) {
