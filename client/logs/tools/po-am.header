@@ -5,6 +5,6 @@
 # Makefile configuration - processed by automake.
 #
 
-MAINTAINERCLEANFILES = Makefile.in ebox-modulename.pot
+MAINTAINERCLEANFILES = Makefile.in ebox-logs.pot
 
 # List of files which contain translatable strings.
