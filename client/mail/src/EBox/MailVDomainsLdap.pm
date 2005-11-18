@@ -42,6 +42,14 @@ sub new
 	return $self;
 }
 
+# Method: addVDomain
+#
+#  Creates a new virtual domain
+#
+# Parameters:
+#
+#     vdomain - The virtual domain name
+#		dftmdsize - Default maildir size for the vdomain
 sub addVDomain { #vdomain
 	my ($self, $vdomain, $dftmdsize) = @_;
 	
@@ -82,6 +90,13 @@ sub addVDomain { #vdomain
 	$self->_initVDomain($vdomain);
 }
 
+# Method: _initVDomain
+#
+#  This method tell all modules that a new virtual domain was added.
+#
+# Parameters:
+#
+#     vdomain - The virtual domain name
 sub _initVDomain() {
 	my ($self, $vdomain) = @_;
 
@@ -92,6 +107,13 @@ sub _initVDomain() {
 	}
 }
 
+# Method: delVDomain
+#
+#  Removes a virtual domain
+#
+# Parameters:
+#
+#     vdomain - The virtual domain name
 sub delVDomain($$) { #vdomain
 	my $self = shift;
 	my $vdomain = shift;
@@ -113,6 +135,13 @@ sub delVDomain($$) { #vdomain
 	$self->vdomainDn);
 }
 
+# Method: _cleanVDomain
+#
+#  This method noitifies that the virtual domain its going to be deleted.
+#
+# Parameters:
+#
+#     vdomain - The virtual domain name
 sub _cleanVDomain() {
 	my ($self, $vdomain) = @_;
 
@@ -123,6 +152,13 @@ sub _cleanVDomain() {
 	}
 }
 
+# Method: vdomains
+#
+#  This method returns all defined virtual domains
+#
+# Returns:
+#
+#     array - with all virtual domain names
 sub vdomains($)
 {
 	my $self = shift;
@@ -141,6 +177,14 @@ sub vdomains($)
 	return @vdomains;
 }
 
+# Method: vdandmaxsizes
+#
+#  This method returns all defined virtual domain with their maximal maildir
+#  sizes.
+#
+# Returns:
+#
+#     hash - with (vdomain name, dflt mfsize) pairs
 sub vdandmaxsizes()
 {
 	my $self = shift;
@@ -160,6 +204,17 @@ sub vdandmaxsizes()
 	return %vdomains;
 }
 
+# Method: getMDSize
+#
+#  This method returns the maildir size of a virtual domain.
+#
+# Parameters:
+#
+#     vdomain - The virtual domain name
+#
+# Returns:
+# 
+#		dftmdsize - Default maildir size for the vdomain
 sub getMDSize() {
 	my ($self, $vdomain) = @_;
 	
@@ -178,6 +233,14 @@ sub getMDSize() {
 	return ($mdsize / $self->BYTES);
 }
 
+# Method: setMDSize
+#
+#  This method changes the default maildir size of a virtual domain
+#
+# Parameters:
+#
+#     vdomain - The virtual domain name
+#		mdsize - Desired maildir size for the vdomain
 sub setMDSize() {
 	my ($self, $vdomain, $mdsize) = @_;
    
@@ -201,6 +264,15 @@ sub setMDSize() {
 		replace => { 'vddftMaildirSize' => $mdsize * $self->BYTES }});
 }
 
+# Method: updateMDSizes
+#
+#  This method updates all maildir sizes of users accounts that belongs to the
+#  virtual domain.
+#
+# Parameters:
+#
+#     vdomain - The virtual domain name
+#		mdsize - Default maildir size for the vdomain
 sub updateMDSizes() {
 	my ($self, $vdomain, $mdsize) = @_;
 	my $mail = EBox::Global->modInstance('mail');
@@ -212,6 +284,13 @@ sub updateMDSizes() {
 	}
 }
 
+# Method: _updateVDomain
+#
+#  This method notifies that the virtual domain was changed
+#
+# Parameters:
+#
+#     vdomain - The virtual domain name
 sub _updateVDomain() {
 	my ($self, $vdomain) = @_;
 
@@ -222,12 +301,30 @@ sub _updateVDomain() {
 	}
 }
 
+# Method: vdomainDn
+#
+#  This method returns the base Dn od virtual domains ldap leaf
+#
+# Returns:
+#
+#		string - base dn
 sub vdomainDn
 {
 	my $self = shift;
 	return VDOMAINDN . ", " . $self->{ldap}->dn;
 }
-		
+
+# Method: vdomainExists
+#
+#  This method returns if the virtual domain exists in ldap leaf
+#
+# Parameters:
+#
+#     vdomain - The virtual domain name
+#
+# Returns:
+#
+# 		boolean - true if the virtual domain exists, false otherwise
 sub vdomainExists($$) { #vdomain 
 	my $self = shift;
 	my $vdomain = shift;
@@ -243,6 +340,13 @@ sub vdomainExists($$) { #vdomain
 	return ($result->count > 0);
 }
 
+# Method: _modsVDomainModule
+#
+#  FIXME
+#
+# Returns:
+#
+#  
 sub _modsVDomainModule {
 	my $self = shift;
 
@@ -290,9 +394,21 @@ sub allWarnings($$$)
 	return \@allWarns;
 }
 
+# Method: allVDomainsAddOns
+#
+#  Returns all the mason components from those modules implementing
+#  the function _userAddOns from EBox::LdapUserBase
+#
+# Parameters:
+#
+#     vdomain - The virtual domain name
+# 
+# Returns:
+#     
+#		array ref - holding all the components and parameters    
 sub allVDomainsAddOns # (user)
 {
-	my ($self, $vdomain) = shift;
+	my ($self, $vdomain) = @_;
 
 	my $global = EBox::Global->modInstance('global');
 	my @names = @{$global->modNames};
