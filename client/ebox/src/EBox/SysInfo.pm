@@ -110,7 +110,7 @@ sub menu
 					'order' => 1));
 
 	my $folder = new EBox::Menu::Folder('name' => 'EBox',
-					    'text' => 'System',
+					    'text' => __('System'),
 					    'order' => 2);
 
 	$folder->add(new EBox::Menu::Item('url' => 'EBox/General',
