@@ -54,6 +54,11 @@ sub _create
 	return $self;
 }
 
+sub domain
+{
+	return 'ebox-dhcp';
+}
+
 sub _doDaemon
 {
 	my $self = shift;
