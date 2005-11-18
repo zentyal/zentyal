@@ -70,6 +70,11 @@ sub _create
 	return $self;
 }
 
+sub domain 
+{
+	return 'ebox-mail';	
+}
+
 # Method: _getIfacesForAddress
 #
 #  This method returns all interfaces which ip address belongs
