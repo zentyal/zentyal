@@ -63,6 +63,11 @@ sub _create
 	return $self;
 }
 
+sub domain
+{
+	return 'ebox-squid';
+}
+
 sub isRunning
 {
 	return EBox::Service::running('squid');
@@ -1015,7 +1020,7 @@ sub tableInfo {
 			'denied' => __('Denied'),
 			'filtered' => __('Filtered') };
 	return {
-		'name' => __('Squid'),
+		'name' => __('HTTP proxy'),
 		'index' => 'squid',
 		'titles' => $titles,
 		'order' => \@order,
