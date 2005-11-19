@@ -2,70 +2,78 @@
 -->
 <chapter id="ch-backend">
 
-	<title>Module backend</title>
+	<title>Backend del módulo</title>
 
 	<simplesect>
 
-		<para>The eBox framework offers modules several functionalities that
-		are made available through a mostly object-oriented API. Not everything
-		is object-oriented, procedural interfaces have been used where it made
-		sense to do so.</para>
+		<para>La plataforma eBox ofrece unos módulos con ciertas
+		funcionalidades que están disponibles a través de una API orientada a
+		objetos en su mayor parte. No todo está orientado a objetos,
+		interfaces procedurales se han usado cuando tenía sentido hacerlo.</para> 
 
-		<para>Some of the features of the API work through inheritance,
-		these usually provide a means for the module to implement standard
-		functionalities like menus, the status page, configuration saving and
-		revoking, etc. Some of these functionalities need to be implemented by
-		the module, others are given by the framework for free, and the module
-		may override or extend them.</para>
+		<para>Algunas de las características de la API funcionan a través de
+		herencia, éstas normalmente ofrecen un medio para que el módulo
+		implemente las funcionalidades estándar como los menús, la página de
+		estado, el guardado de la configuración o su revocación, etc. Algunas
+		de estas características necesitan ser implementadas por el módulo
+		mientras que otras son completas en la plataforma, y el módulo puede
+		extenderlas o sobreescribirlas.</para>
 
 	</simplesect>
 
 	<section id="sect-basemod">
-		<title>The base module</title>
+		<title>El módulo base</title>
 
-		<para>All eBox modules inherit from the
-		<classname>EBox::Module</classname> class, this class defines abstract
-		methods that modules may override to implement certain functionality.
-		These methods are called by the framework when they are needed.</para>
+		<para>Todos los módulos de eBox heredan de la clase
+		<classname>EBox::Module</classname>. Esta clase define funciones
+		abstractas que los módulos sobreescribirán para implementar una cierta
+		funcionalidad. Estas funciones son llamados por la plataforma cuando son
+		necesarios.</para>
 
-		<para>Besides those abstract methods, the class implements a few
-		methods, providing some basic functionality. These methods often
-		follow the template method design pattern, they perform some operation
-		but delegate some part of it on some abstract method that may be
-		implemented by child classes.</para>
+		<para>Ademas de estas funciones abstractas, la clase implementa unos
+		pocas funcionescon algunas funcionalidades básicas. Estas últimas,
+		siguen normalmente el método que define una plantilla de un
+		patrón de diseño, es decir, realizan algunas operaciones pero delegan
+		parte de ellas en alguna función abstracta que deberá ser implementada
+		por la clase hija.</para>
 
 		<!-- FIXME - class diagram -->
 
-		<para>Finally, there are a few methods that implement some common
-		operations that get used in most of the modules, these are meant to be
-		called by children classes when they need them. They are located in the
-		<classname>EBox::Module</classname> class just for convenience.</para>
+		<para>Finalmente, hay unas pocas funciones que implementan algunas
+		operaciones comunes que son utilizadas por la mayoría de los módulos,
+		están escritas para que sean llamadas por las clases hijas cuando se
+		les necesita. Están situadas en la clase
+		<classname>EBox::Module</classname> únicamente por conveniencia.</para>
 
 		<section id="sect-modconstructor">
-			<title>Module constructor</title>
+			<title>Constructor del módulo</title>
 
-			<para>All module instances are created and cached by the
-			<classname>EBox::Global</classname> class, module constructors must
-			not be called directly except by <classname>EBox::Global</classname>.
-			For this reason, they are named <methodname>_create</methodname>
-			instead of <methodname>new</methodname>.</para>
+			<para>Todas las instancias del módulo son creadas y cacheadas
+			por la clase <classname>Ebox::Global</classname>. Los
+			constructores de un módulo no deben ser llamados directamente
+			excepto por la clase <classname>EBox::Global</classname>. Por
+			esta razón, se llaman <methodname>_create</methodname> en vez
+			de <methodname>new</methodname>.</para>
 
-			<para>The leading underscore in the method name is a naming
-			convention, methods with such a name are meant to be used
-			privately by the owner class and its ancestors, they should
-			not be called directly by an unrelated class. In the case of
-			the module constructor, the only class that should call it is
-			<classname>EBox::Global</classname>.</para>
+			<para>El primer guión bajo en el nombre de la función es una
+			convención de nombres. Las funciones con un nombre así están
+			pensadas para ser usados de forma privada por su propia clase
+			y por sus clases ascendentes. No deberían ser llamadas
+			directamente por cualquier otra clase que no tenga una
+			relación de este tipo. En el caso del constructor del módulo,
+			la única clase que debería llamarlo es
+			<classname>Ebox::Global</classname>.</para>
 
-			<para>The <methodname>_create</methodname> method in
-			<classname>EBox::Module</classname> takes two named arguments
-			from the child classes. <parameter>name</parameter> is the name
-			of the module, it is required; <parameter>domain</parameter> is
-			the <application>gettext</application> domain for the module, it's
-			optional and <quote>ebox</quote> is its default value.</para>
+			<para>La función <methodname>_create</methodname> en
+			<classname>EBox::Module</classname> recibe dos argumentos
+			desde sus clases hijas. <parameter>name</parameter> es el
+			nombre del módulo y es obligatorio;
+			<parameter>domain</parameter>es el dominio
+			<application>gettext</application> para el módulo, es
+			opcional, y <quote>ebox</quote> es su valor por defecto.</para>
 
 			<example>
-				<title>Simple module constructor</title>
+				<title>Sencillo constructor de un módulo</title>
 				<programlisting><![CDATA[sub _create
 {
 	my $class = shift;
@@ -82,33 +90,35 @@
 	</section>
 
 	<section id="sect-rootcmds">
-		<title>Root commands</title>
+		<title>Comandos de root</title>
 
-		<para>The apache server under which eBox runs, and any perl script
-		that uses the eBox API run under a dedicated user id, the user is
-		typically called <quote>ebox</quote>. eBox modules need to execute
-		certain commands and write certain files with root privileges, this
-		is done using <application>sudo</application>. The sudo configuration
-		file, <filename>/etc/sudoers</filename> contains a list of the commands
-		that sudo will let the <quote>ebox</quote> user execute as root.</para>
+		<para>El servidor apache bajo el que funciona eBox y cualquier otro
+		script de perl que utilice el API de eBox, utilizan un id de usuario
+		dedicado. El usuario es normalmente llamado <quote>ebox</quote>. Los
+		módulos de eBox necesitan ejecutar ciertos comandos y escribir ciertos
+		ficheros con privilegios de root, esto se hace usando
+		<application>sudo</application>. El fichero de configuración de
+		<application>sudo</application>, <filename>/etc/sudoers</filename>
+		contiene una lista de los comandos que <application>sudo</application>
+		permitirá al usuario ejecutar como root.</para>
 
-		<para> Whenever a module is installed, removed or updated, this list
-		of commands needs to be brought up to date. eBox provides the command
-		<command>ebox-sudoers</command> to generate the file easily, the
-		command is meant to be called by package maintainers in their post
-		installation and removal scripts.</para>
+		<para>Cuando un módulo se instala, se borra o se actualiza, la lista
+		de comandos se ha de poner al día. eBox tiene el comando
+		<command>ebox-sudoers</command> para generar fácilmente el fichero. El
+		comando existe para ser llamado por los mantenedores de los paquetes
+		en los scripts de post instalación o de desinstalación.</para>
 
-		<para>For <command>ebox-sudoers</command> to work, eBox needs to know
-		what commands are needed by each of its modules. For that purpose
-		<classname>EBox::Module</classname> has an abstract method called
-		<methodname>rootCommands</methodname>. Modules implement this method
-		if they want to add commands to the <filename>/etc/sudoers</filename>
-		file. It returns an array whose elements are the desired commands.
-		The implementation of this method in the firewall module looks like
-		this:</para>
+		<para>Para que <command>ebox-sudoers</command> funcione, eBox necesita
+		saber que comandos necesita cada uno de sus módulos. Para esto, la
+		clase <classname>Ebox::Module</classname> tiene una función abstracta
+		llamada <methodname>rootCommands</methodname>. Los módulos implementan
+		esta función si quieren añadir nuevos comandos al fichero
+		<filename>/etc/sudoers</filename>. Devolverá un array cuyos elementos
+		serán los comandos que se deseen ejecutar. La implementación de este
+		método en el módulo del firewall es algo así:</para>
 
 		<example>
-			<title>Defining commands to be executed as root</title>
+			<title>Definiendo comandos para ser ejecutados como root</title>
 			<programlisting><![CDATA[sub rootCommands
 {
 	my $self = shift;
@@ -119,14 +129,15 @@
 }]]></programlisting>
 		</example>
 
-		<para>Once you have all the commands you need to execute as root
-		defined in the <methodname>rootCommands</methodname> method, you
-		can invoke those commands using the <methodname>root()</methodname>
-		function in the <classname>EBox::Sudo</classname> perl module. If the
-		command fails, <methodname>root()</methodname> throws an internal
-		exception, so make sure you catch it if it's OK for the command to
-		fail or you want to inform the user in a different way, see <xref
-		linkend='sect-exceptions'/> for details.</para>
+		<para>Una vez que tiene definidos todos los comandos que necesita
+		ejecutar como root en la función
+		<methodname>rootCommands</methodname>, puede llamar a esos comandos
+		utilizando la función <methodname>root()</methodname> en el módulo
+		perl <classname>EBox::Sudo</classname>. Si el comando falla,
+		<methodname>root()</methodname> lanza una excepción interna, para
+		asegurarse de que sea capturada si es correcto que el comando falle o
+		si desea informar al usuario de una forma distinta. Consulte la sección
+		<xref linkend='sect-exceptions'/> para más detalles.</para>
 
 		<!-- FIXME - example -->
 
@@ -135,106 +146,132 @@
 	<section id="sect-gconf">
 		<title><classname>EBox::GConfModule</classname></title>
 
-		<para>eBox uses GConf to store its configuration, the
-		development framework provides a wrapper around the <ulink
+		<para>eBox utiliza GConf para almacenar su configuración. La
+		plataforma de desarrollo ofrece un recubrimiento sobre los <ulink
 		url='http://gtk2-perl.sourceforge.net/doc/pod/Gnome2/GConf.html'>
-		original perl bindings</ulink>. GConf gives us an easy API for storing
-		and retrieving typed configuration values organized hierarchically. It
-		also lets us define limited schemas for certain configuration keys,
-		setting their type and default values.</para>
+		bindings originales de perl</ulink>. GConf ofrece una sencilla API
+		para almacenar y consultar configuración con valores clasificados por
+		tipos y organizada jerarquicamente. También nos permite definir
+		esquemas limitados para algunas claves de configuración, configurando
+		sus tipos y valores por defecto.</para>
 
 		<!-- FIXME - example -->
 
-		<para>The development framework defines a wrapper around the GConf API
-		that provides some extra features. The wrapper is implemented as child
-		class for <classname>EBox::Module</classname>, so all modules that want
-		to use GConf inherit from <classname>EBox::GConfModule</classname>. Its
-		children automatically get these features:</para>
+		<para>La plataforma de desarrollo define un recubrimiento sobre el API
+		de GConf más algunas funcionalidades añadidas. El recubrimiento es
+		implementado como una clase hija de
+		<classname>Ebox::Module</classname>, así que todos los módulos que
+		quieren usar GConf heredan de
+		<classname>EBox::GConfModule</classname>. Sus hijos automáticamente
+		adquieren estas características:</para>
 
 		<itemizedlist>
 
 			<listitem>
 
-				<para>Automatic backups: the first time a key's value is changed,
-				a backup of the configuration tree for the whole module is made.
-				When the configuration is saved, the backup is automatically
-				deleted, when the config changes are revoked the backup is
-				automatically restored. <classname>EBox::GConfModule</classname>
-				implements the <methodname>makeBackup</methodname>,
-				<methodname>restoreBackup</methodname> and
-				<methodname>revokeConfig</methodname> methods
-				defined in <classname>EBox::Module</classname>, so
-				<classname>EBox::GConfModule</classname> children do not need to
-				implement them unless they have really special requirements or
-				store part of their configuration outside of GConf.</para>
+				<para>Copias de seguridad automáticos: La primera vez
+				que la clave de un valor es modificada, se hace una
+				copia de seguridad del árbol completo de configuración
+				para ese módulo. Cuando la configuración se guarda, la
+				copia de seguridad es automáticamente
+				eliminada. Cuando los cambios en la configuración son
+				descartados, la copia de seguridad es automáticamente
+				recuperada. <classname>EBox::GConfModule</classname>
+				implementa las funciones
+				<methodname>makeBackup</methodname>,
+				<methodname>restoreBackup</methodname> y
+				<methodname>revokeConfig</methodname> definidas en la
+				clase <classname>EBox::Module</classname>, por lo que
+				las clases hijas de
+				<classname>EBox::GConfModule</classname> no necesitan
+				implementar estas funciones a no ser que se necesite
+				algún requisito en especial o almacenar parte de su
+				configuración fuera de GConf.</para>
+
 
 			</listitem>
 			<listitem>
 
-				<para>Error handling: GConf errors are handled by the wrapper
-				class, it translates them into internal exceptions.</para>
+				<para>Manejo de errores: Los errores de GConf son
+				manejados por la clase recubridora. Ella los traduce
+				a excepciones internas.</para>
 
 			</listitem>
 			<listitem>
 
-				<para>Read-only and read-write instances: when the module is
-				instantiated in read-only mode, the wrapper class uses a copy of
-				the configuration to avoid seeing unsaved changes. It also prevents
-				calls to methods that write to GConf.</para>
+				<para>Instancias de sólo-lectura y sólo-escritura:
+				Cuando el módulo es instanciado en modo sólo-lectura,
+				la clase recubridora utiliza una copia de la
+				configuración para evitar ver que hay cambios sin
+				guardar. También previene de llamadas a métodos que
+				escriban en GConf.</para>
 
 			</listitem>
 			<listitem>
 
-				<para>Namespace boundary checks: the wrapper checks all gconf
-				keys used by the module to see if they are in its namespace. This
-				ensures that the keys for a module are only directly read or
-				written to by the module itself (as long as all modules use the
-				wrapper class).</para>
+				<para>Comprobación de los límites del espacio de
+				nombre: El recubrimiento comprueba todas las claves de
+				GConf utilizadas por el módulo, para ver si están en
+				su espacio de nombres. Esto asegura que las claves
+				para un módulo sólo son leídas o escritas directamente
+				por el propio módulo (siempre que todos los módulos
+				utilicen esta clase recubridora).</para>
 
 			</listitem>
 			<listitem>
 
-				<para>Relative pathnames: methods in the wrapper class take both
-				absolute and relative pathnames for gconf keys. The root of a
-				module's namespace changes depending on the type of instance
-				(read-only of read-write) and the type of key (normal or status)
-				being accessed. For this reason it is best to use relative
-				pathnames when calling the wrapper class methods, they translate
-				the relative path to an absolute one automatically.</para>
+				<para>Rutas relativas: las funciones en la clase
+				recubridora pueden recibir para las claves de gconf
+				tanto rutas absolutas como relativas. La raíz del
+				espacio de nombres de un módulo cambia dependiendo del
+				tipo de instancia (sólo-lectura o lectura-escritura) y
+				el tipo de clave (normal o de estado) a la cual se
+				acceda. Por esta razón lo mejor es utilizar rutas
+				relativas cuando se llamen a las funciones de la clase
+				recubridora, ya que ellas traducen la ruta relativa en
+				una ruta absoluta automáticamente.</para>
 
 			</listitem>
 			<listitem>
 
-				<para>Status namespace: the is certain information that's not
-				given by the user and needs to be written at any time, even by
-				read-only instances. This kind of information is not subject to
-				configuration saving and revoking. It is status information,
-				like the name servers or IP address given to the system by an
-				external dhcp server. A separate namespace is provided for this
-				kind of information, and again it is automatically kept out of the
-				backup/save/revoke operations mentioned earlier. The methods use to
-				access this namespace are identical to the usual ones, they just
-				have the prefix <literal>st_</literal> in their names.</para>
+				<para>Estado del espacio de nombres: hay cierta
+				información que no es suministrada por el usuario y
+				que necesita ser escrita en cualquier momento, incluso
+				en las instancias de sólo-lectura. Este tipo de
+				información no está sujeta a guardar o cancelar la
+				configuración. Es la información de estado, como los
+				nombres de los servidores o la dirección IP dada por
+				el sistema por un servidor DHCP externo. Un espacio de
+				nombres aparte está disponible para este tipo de
+				información, y de nuevo es automáticamente apartado de
+				las operaciones de copia de seguridad, guardado y
+				cancelación mencionadas anteriormente. Las funciones
+				que suelen acceder a este espacio de nombres son
+				idénticas a las normales, sólo que tienen el prefijo
+				<literal>st_</literal> en sus nombres.</para>
 
 			</listitem>
 
 			<listitem>
 
-				<para>Recursive retrieval of directories: there are two
-				methods in <classname>EBox::GConfModule</classname> that
-				allow easy retrievals of whole directory structures.
-				<methodname>hash_from_dir</methodname> takes a directory as
-				an argument and returns a hash with all the keys under it.
-				<methodname>array_from_dir</methodname> takes a directory as
-				an argument and returns an array of hashes as returned by
-				<methodname>hash_from_dir</methodname> for each one of its
-				subdirectories.</para>
+				<para>Recuperación recursiva de directorios: hay dos
+				funciones en <classname>EBox::GConfModule</classname>
+				que permiten facilmente recuperar la estructura
+				completa de
+				directorios. <methodname>hash_from_dir</methodname>
+				toma un directorio como argumento y devuelve un hash
+				con todas las claves que están por debajo
+				suyo. <methodname>array_from_dir</methodname> toma un
+				directorio como argumento y devuelve un array de
+				hashes tal y como devuelve
+				<methodname>hash_from_dir</methodname> para cada uno
+				de sus subdirectorios.</para>
 
 			</listitem>
 
 		</itemizedlist>
 
-		<para>This is a list of the most important methods in
+		<para>Esta es la lista de las funciones más importantes en
 		<classname>EBox::GConfModule</classname>:</para>
 
 		<variablelist>
@@ -242,7 +279,8 @@
 				<term><methodname>all_dirs</methodname></term>
 				<listitem>
 
-					<para>Given a key it returns all directories within.</para>
+					<para>Dada una clave, devuelve todos los
+					directorios de su interior.</para>
 				
 				</listitem>
 			</varlistentry>
@@ -250,8 +288,9 @@
 				<term><methodname>all_dirs_base</methodname></term>
 				<listitem>
 
-					<para>Given a key it returns all directories within, removing any
-					leading directory component.</para>
+					<para>Dada una clave, devuelve todos los
+					directorios de su interior, eliminando
+					cualquier directorio que aparezca por delante.</para>
 				
 				</listitem>
 			</varlistentry>
@@ -259,9 +298,10 @@
 				<term><methodname>all_entries</methodname></term>
 				<listitem>
 
-					<para>Given a key it returns all entries within. Entries are
-					all those keys which are not directories, hence they contain a
-					value.</para>
+					<para>Dada una clave, devuelve todas las
+					entradas de su interior. Estas entradas son
+					todas aquellas claves que no son directorios,
+					por lo que contendrán un valor.</para>
 					
 					</listitem>
 				</varlistentry>
@@ -269,9 +309,11 @@
 					<term><methodname>all_entries_base</methodname></term>
 					<listitem>
 
-					<para>Given a key it returns all entries within, removing any
-					leading directory component. Entries are all those keys which are
-					not directories, hence they contain a value.</para>
+					<para>Dada una clave, devuelve todas las
+					de su interior, eliminando cualquier
+					directorio que aparezca por delante. Las
+					entradas son todas aquellas claves que no son
+					directorios, por lo que contendrán un valor.</para>
 
 				</listitem>
 			</varlistentry>
@@ -279,10 +321,12 @@
 				<term><methodname>array_from_dir</methodname></term>
 				<listitem>
 
-					<para>Given a key it returns an array using a hash reference to
-					contain in each element the directories under the key. Also, the
-					hash contains the key <structfield>_dir</structfield> which tells
-					you the directory's name.</para>
+					<para>Dada una clave, devuelve un array
+					utilizando una referencia a un hash para
+					contener en cada elemento los directorios bajo
+					su clave. También, el hash contiene la clave
+					<structfield>_dir</structfield> que dice cual
+					es el nombre del directorio.</para>
 
 				</listitem>
 			</varlistentry>
@@ -290,8 +334,9 @@
 				<term><methodname>dir_exists</methodname></term>
 				<listitem>
 
-					<para>Given a key referencing a directory it returns
-					<literal>true</literal> if it exists.</para>
+					<para>Dada una clave que referencia un
+					directorio, devuelve <literal>true</literal>
+					si existe.</para>
 
 				</listitem>
 			</varlistentry>
@@ -299,7 +344,7 @@
 				<term><methodname>get_bool</methodname></term>
 				<listitem>
 
-					<para>Returns the value of a boolean key.</para>
+					<para>Devuelve el valor de una clave de tipo booleano.</para>
 
 				</listitem>
 			</varlistentry>
@@ -307,7 +352,7 @@
 				<term><methodname>get_int</methodname></term>
 				<listitem>
 
-					<para>Returns the value of a integer key.</para>
+					<para>Devuelve el valor de una clave de tipo entero.</para>
 
 				</listitem>
 			</varlistentry>
@@ -315,8 +360,8 @@
 				<term><methodname>get_list</methodname></term>
 				<listitem>
 
-					<para>Returns an array containing the list referenced by the
-					key.</para>
+					<para>Devuelve un array conteniendo la lista
+					referenciada por la clave.</para>
 
 				</listitem>
 			</varlistentry>
@@ -324,29 +369,31 @@
 				<term><methodname>get_string</methodname></term>
 				<listitem>
 
-					<para>Returns the value of a string key.</para>
+					<para>Devuelve el valor de una clave de tipo cadena.</para>
 
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term><methodname>get_unique_id</methodname></term>
 				<listitem>
-
-					<para>It generates a unique random identifier with a leading
-					<parameter>prefix</parameter> in the root of the module's
-					namespace, if <parameter>directory</parameter> is passed, it will
-					be added to the path. Note that it does not create the entry, it
-					just returns a unique identifier, so it is up to you to create
-					the proper entry.</para>
+					
+					<para>General un identificado único aleatorio
+					con un <parameter>prefix</parameter> delante
+					en la raiz del nombre del espacio del
+					módulo. Si <parameter>directory</parameter> es
+					pasado, será añadido a la ruta. Notar que esto
+					no crea la entrada, únicamente devuelve un
+					identificador único, así que es tarea del
+					programador crear la entrada correctamente.</para>
 
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term><methodname>hash_from_dir</methodname></term>
 				<listitem>
-
-					<para>It returns a hash containing all the entries in the
-					directory referenced by the key.</para>
+					
+					<para>Devuelve un hash conteniendo todas las
+					entradas del directorio referenciado por la clave.</para>
 
 				</listitem>
 			</varlistentry>
@@ -354,9 +401,10 @@
 				<term><methodname>isReadOnly</methodname></term>
 				<listitem>
 
-					<para>It returns <literal>true</literal> if the current
-					<classname>EBox::GConfModule</classname> instance you are
-					accessing is read-only.</para>
+					<para>Devuelve <literal>true</literal> si la
+					instancia actual de
+					<classname>EBox::GConfModule</classname> a la
+					que se está accediendo es de sólo-lectura.</para>
 
 				</listitem>
 			</varlistentry>
@@ -364,7 +412,8 @@
 				<term><methodname>makeBackup</methodname></term>
 				<listitem>
 
-					<para>It dumps your current configuration to file.</para>
+					<para>Vuelca el contenido actual de la
+					configuración a un fichero.</para>
 
 				</listitem>
 			</varlistentry>
@@ -372,7 +421,7 @@
 				<term><methodname>restoreBackup</methodname></term>
 				<listitem>
 
-					<para>It restores the last backup.</para>
+					<para>Recupera el último backup.</para>
 
 				</listitem>
 			</varlistentry>
@@ -380,17 +429,17 @@
 				<term><methodname>revokeConfig</methodname></term>
 				<listitem>
 
-					<para>All changes done since your first write or delete will be
-					dismissed.</para>
-
+					<para>Todos los cambios hechos desde que se
+					escribió o eliminó algo serán descartados.</para>
+					
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term><methodname>set_bool</methodname></term>
 				<listitem>
 
-					<para>It sets a <parameter>key</parameter> with a boolean
-					<parameter>value</parameter>.</para>
+					<para>Asigna un <parameter>valor</parameter>
+					booleano a una <parameter>clave</parameter>.</para>
 
 				</listitem>
 			</varlistentry>
@@ -398,8 +447,9 @@
 				<term><methodname>set_int</methodname></term>
 				<listitem>
 
-					<para>It sets a <parameter>key</parameter> with an integer
-					<parameter>value</parameter>.</para>
+					<para>Asigna un <paramenter>valor</paramenter>
+					entero a una
+					<parameter>clave</parameter>.</para> 
 
 				</listitem>
 			</varlistentry>
@@ -407,9 +457,9 @@
 				<term><methodname>set_list</methodname></term>
 				<listitem>
 
-					<para>It sets a list of
-					<parameter>type</parameter><parameter>values</parameter> in
-					<parameter>value</parameter>.</para>
+					<para>Asigna una lista de
+					<parameter>valores</parameter> de un
+					<parameter>tipo</parameter> en un <parameter>valor</parameter>.</para>
 				
 				</listitem>
 			</varlistentry>
@@ -417,27 +467,27 @@
 				<term><methodname>set_string</methodname></term>
 				<listitem>
 
-					<para>It sets <parameter>values</parameter> of
-					<parameter>type</parameter> in <parameter>key</parameter>.</para>
+					<para>Asigna un <parameter>valor</parameter>
+					de tipo cadena en la <parameter>clave</parameter>.</para>
 
 				</listitem>
 			</varlistentry>
 		</variablelist>
-			
-		<para>Let see some examples from the above functions.</para>	
+
+		<para>Veamos algunos ejemplos de las funciones anteriormente descritas.</para>
 		
 		<example>
-			<title>Setting a string key</title>
+			<title>Asignando un valor de tipo cadena</title>
 			<programlisting> <![CDATA[$self->set_string("printers/x4235/name", "fooprinter"); ]]></programlisting>
 		</example>
 
 		<example>
-			<title>Setting a string list</title>
+			<title>Asignando una lista de cadenas</title>
 			<programlisting><![CDATA[$self->set_list('foo/foolist', 'string', ['foo', 'bar']);]]></programlisting>
 		</example>
 
 		<example>
-			<title>Getting and using a unique identifier</title>
+			<title>Recogiendo y usando un identificador único</title>
 			<programlisting><![CDATA[my $id = $self->get_unique_id('p', 'printers');
 $self->set_string("printers/$id/name", $name);
 $self->set_bool("printers/$id/configured", undef);

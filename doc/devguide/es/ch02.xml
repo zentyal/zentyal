@@ -2,57 +2,62 @@
 -->
 <chapter id="ch-basic-api">
 
-	<title>Basic API</title>
+	<title>API Básica</title>
 
 	<section id="sect-eboxglobal">
 		<title><classname>EBox::Global</classname></title>
 
-		<para>The <classname>EBox::Global</classname> class offers various
-		module management functions. The most commonly used functions are those
-		regarding module instantiation. <classname>EBox::Global</classname>
-		works as a module factory, you get an instance of it using the
-		<methodname>getInstance</methodname> static method and then you can use
-		that instance to create modules. The factory comes in two flavors, a
-		read-only flavor and a read-write one.</para>
+		<para>La clase <classname>EBox::Global</classname> ofrece varias
+		funciones para la administración de módulos. Las funciones utilizadas
+		más comúnmente son las que hacen referencia a la instanciación de
+		módulos. <classname>EBox::Global</classname> funciona como una factoría
+		de módulos, obtienes una instancia suya usando la función estática
+		<methodname>getInstance</methodname> y después usar esa instancia para
+		crear módulos. La factoría puede tener dos formas, una de sólo lectura
+		y otra de lectura-escritura.</para>
 
-		<para>Calling <methodname>getInstance</methodname> without arguments
-		will yield a read-write factory, which creates modules that let
-		you make calls which change the configuration. A very important
-		detail of read-write modules is that they return their latest
-		configuration information, even if it has not been saved (which
-		means that it could be revoked later by the user). This idea is
-		important, configuration info reported by a read-write module
-		should not be treated as final, unless that module has no changes
-		waiting to be saved. You can see if a module has unsaved changes
-		by calling the <methodname>modIsChanged</methodname> method in the
-		<classname>EBox::Global</classname> class.</para>
+		<para>Llamar a <methodname>getInstance</methodname> sin argumentos
+		producirá una factoría de lectura-escritura, la cual crea módulos que
+		le permiten hacer llamadas para cambiar la configuración. Un detalle
+		muy importante de los módulos lectura-escritura es que devuelven la
+		información de su última configuración, incluso si no se ha guardado
+		todavía (lo que significa que podría ser revocada más tarde por el
+		usuario). Esta idea es importante, ya que la configuración que nos
+		ofrece el módulo lectura-escritura no debe ser tratada como
+		definitiva, a no ser que el módulo no tenga cambios esperando a ser
+		guardados. Puede ver si un módulo tiene cambios sin guardar llamando
+		a la función <methodname>modIsChanged</methodname> en la clase
+		<classname>EBox::Global</classname>.</para>
 
-		<para>The idea behind the read-write modules behavior is to make it
-		easy to build a configuration front-end. For example, if the user
-		creates a new network object in the objects module, the new object will
-		show up instantly in the firewall configuration, so he can create new
-		firewall rules that use it. After all the desired changes have been
-		made, the user saves the configuration. If he decides to cancel the
-		changes he just made, both the new object and the firewall rules will
-		be deleted.</para>
+		<para>La idea subyacente en el comportamiento de los módulos
+		lectura-escritura es tener un front-end para construir una
+		configuración. Por ejemplo, si el usuario crea un nuevo objeto de red
+		en el módulo objetos, el nuevo objeto mostrará instantáneamente la
+		configuración del firewall y se podrá crear nuevas reglas del firewall
+		que lo usen. Después de realizar todos los cambios deseados, el
+		usuario guarda la configuración. Si decide cancelar los cambios que
+		acaba de hacer, tanto el nuevo objeto como las reglas del firewall
+		serán borradas.</para>
 
-		<para>There is one situation when you don't want to get information
-		that has not been saved yet. That's when you are generating the
-		configuration file for a daemon, setting up firewall rules, setting
-		the address for a network interface, or any other activity that
-		needs the real, final configuration info. This situation happens
-		in system scripts (the boot script, cron jobs, etc). In these
-		cases you need what we call read-only modules, they only report
-		saved information and they do not allow method calls that change
-		the configuration of the module. To obtain read-only modules you
-		create <classname>EBox::Global</classname> instance setting its
-		<parameter>readonly</parameter> parameter to <literal>true</literal>.
-		Module instances returned by a factory created in this way will be
-		read-only ones. This script shows how to get an instance of the squid
-		module and tell it to restart itself:</para>
+		<para>Hay una situación en la que no desea recoger la información que
+		no ha sido guardada todavía.  Ésta es cuando se está generando el
+		fichero de configuración de un demonio, configurando las reglas del
+		firewall, configurando la dirección de un interfaz de red, o cualquier
+		otra actividad que necesita la configuración real y definitiva. Esta
+		situación se encuentra en los scripts del sistema (el script de
+		arranque, trabajos de cron, etc). En estos casos necesita lo que se
+		denominan módulos de sólo-lectura, que sólo ofrecen la información
+		almacenada y no permiten hacer llamadas a funciones que cambiarían la
+		configuración del módulo. Para obtener módulos de sólo-lectura
+		necesita crear una instancia de <classname>EBox::Global</classname>
+		configurando su parámetro <parameter>readonly</parameter> como
+		<literal>true</literal>. Las instancias del módulo devueltas por una
+		factoría creada de esta forma serán de sólo-lectura. Este script
+		muestra como obtener una instancia del módulo squid y le pide que se
+		reinicie:</para>
 
 		<example>
-			<title>Creating a read-only module instance</title>
+			<title>Creando una instancia de un módulo de sólo-lectura</title>
 			<programlisting><![CDATA[#!/usr/bin/perl
 
 use strict;
@@ -70,74 +75,78 @@ my $squid = $global->modInstance('squid');
 try {
 	$squid->restartService();
 } catch EBox::Exceptions::Base with {
-	print STDERR "Squid module failed to restart.\n";
+	print STDERR "El módulo Squid falló al reiniciarse.\n";
 };]]></programlisting>
 		</example>
 
-		<para>There are two functions that make it easy to perform two
-		common tasks: getting an instance of every module and getting
-		and instance of every module that implements some abstract
-		class. These are <methodname>modInstances</methodname> and
-		<methodname>modInstancesOfType</methodname>. Using them is straight
-		forward:</para>
+		<para>Hay dos funciones que hacen más sencillo realizar dos tareas muy
+		comunes: obtener una instancia de cada módulo y obtener una instancia
+		de cada módulo que implemente alguna clase abstracta. Éstas son
+		<methodname>modInstances</methodname> y
+		<methodname>modInstancesOfType</methodname>. Usarlas es muy
+		sencillo:</para>
 
 		<example>
-			<title>Functions for instantiating more than one module</title>
+			<title>Funciones para instanciar más de un módulo</title>
 			<programlisting><![CDATA[my $global = EBox::Global->getInstance(1);
 
-# restart all modules
+# se reinician todos los módulos
 foreach my $mod (@{$global->modInstances()}) {
 	$mod->restartService();
 }
 
-# restart only modules that implement the NetworkObserver class
+# se reinician todos los módulos que implementen la clase NetworkObserver
 foreach my $mod (@{$global->modInstancesOfType('EBox::NetworkObserver')}) {
 	$mod->restartService();
 }]]></programlisting>
 		</example>
 
-		<para>Restarting all the modules is even easier than
-		that, <classname>EBox::Global</classname> provides the
-		<methodname>restartAllModules</methodname> just for that. It's
-		one of the methods that perform an operation on all the installed
-		modules:</para>
+		<para>Reiniciar todos los módulos es todavía más sencillo que
+		eso. <classname>EBox::Global</classname> nos provee de la función
+		<methodname>restartAllModules</methodname> justamente para eso. Éste
+		es uno de los métodos que realiza una operación en todos los módulos
+		instalados:</para>
 
 		<variablelist>
 
 			<varlistentry>
 				<term><methodname>restartAllModules</methodname></term>
 				<listitem>
-
-					<para>Calls the <methodname>restartService</methodname> method
-					on all the modules. This has the effect of restarting all the
-					services handled by eBox. Config files are regenerated every time
-					a service is restarted.</para>
-
+					<para>Llama a la función
+					<methodname>restartService</methodname> de
+					todos los módulos. Reinicia todos los
+					servicios manejados por eBox. Los ficheros de
+					configuración son regenerados cada vez que un
+					servicio es reiniciado.</para>
 				</listitem>
 			</varlistentry>
 
 			<varlistentry>
 				<term><methodname>stopAllModules</methodname></term>
 				<listitem>
-					<para>Calls the <methodname>stopService</methodname> method on
-					all the modules, this includes the web based administration
-					interface, so be careful.</para>
+					<para>Llama a la función
+					<methodname>stopService</methodname> en todos
+					los módulos, esto incluye la interfaz web de
+					administración, por lo que hay que ser
+					cauteloso.</para>
 				</listitem>
 			</varlistentry>
 
 			<varlistentry>
 				<term><methodname>revokeAllModules</methodname></term>
 				<listitem>
-					<para>Cancels the configuration changes that have been made
-					in all the modules since the last time the configuration was
-					saved.</para>
+					<para>Cancela los cambios de configuración que
+					se han hecho en todos los módulos desde la
+					última vez que la configuración se
+					guardó.</para>
 				</listitem>
 			</varlistentry>
 
 			<varlistentry>
 				<term><methodname>saveAllModules</methodname></term>
 				<listitem>
-					<para>Saves the config changes in all modules.</para>
+					<para>Guarda los cambios de la configuración
+					en todos los módulos.</para>
 				</listitem>
 			</varlistentry>
 
@@ -146,18 +155,19 @@ foreach my $mod (@{$global->modInstancesOfType('EBox::NetworkObserver')}) {
 	</section>
 
 	<section id="sect-exceptions">
-		<title>Exceptions</title>
+		<title>Excepciones</title>
 
-		<para>All error handling in eBox is implemented with
-		java-style exceptions, these are provided by the perl
-		module <classname>Error</classname>, you can check the perl
-		documentation for that module for a detailed description on how
-		to use exceptions in perl. eBox exceptions are defined in the
-		<classname>EBox::Exceptions</classname> namespace.</para>
+		<para>El manejo de todos los errores en eBox está implementado con
+		excepciones del estilo de Java. Éstas están provistas por el módulo de
+		perl <classname>Error</classname>. Puede leer la documentación de perl
+		para ese módulo para obtener una descripción detallada de cómo
+		utilizar las excepciones en perl. Las excepciones de eBox están
+		definidas en el espacio de nombres
+		<classname>EBox::Exceptions</classname>.</para>
 
-		<para>eBox provides a hierarchy of exceptions from which
-		you can choose the most appropriate for each situation. All
-		eBox exceptions inherit from one of these two exceptions:</para>
+		<para>eBox provee una jerarquía de excepciones de la cual puede elegir
+		la más apropiada para cada situación. Todas las excepciones de eBox
+		heredan de una de estas dos:</para>
 
 		<itemizedlist>
 			<listitem>
@@ -169,39 +179,40 @@ foreach my $mod (@{$global->modInstancesOfType('EBox::NetworkObserver')}) {
 			</listitem>
 		</itemizedlist>
 
-		<para>The difference between these two kinds is what the user will
-		see when an uncaught exceptions occurs. The user interface framework
-		will show the message contained in the exception unaltered if the
-		exception is an external one. You should use external exceptions for
-		user induced errors, like a syntax error in an IP address given by the
-		user interface to the module backend.</para>
+		<para>La diferencia entre estos dos tipos es que el usuario verá cuando
+		una excepción no ha sido capturada. La plataforma del interfaz de
+		usuario mostrará el mensaje contenido en la excepción sin alterarlo si
+		la excepción es una de tipo externo. Debería usar excepciones externas
+		para los errores introducidos por el usuario, como un error de
+		sintaxis en una dirección IP dada por el interfaz de usuario al
+		backend del módulo.</para>
 
-		<para>If the exception is internal it will log the error and assume
-		something is wrong internally in eBox (a bug) or in the system in
-		general. When an internal exception is caught by the GUI framework
-		the user will see a generic error message, recommending him to check
-		the system logs or seek technical support. Any exception, internal or
-		external, may be used internally for other purposes, as long as it is
-		caught before it goes all the way up to the GUI framework.</para>
+		<para>Si la excepción es interna se registrará el error y se asumirá
+		que algo falló internamente en eBox (un bug) o en el sistema en
+		general. Cuando una excepción interna se captura por GUI el usuario
+		verá un mensaje de error genérico. Cualquier excepción, interna o
+		externa, puede ser utilizada internamente para otros propósitos,
+		siempre que sea capturada antes de que recorra todo el camino hasta la
+		GUI.</para>
 
-		<para>If you can't find an exception for certain error condition,
-		you have two options: create a new exception class, inheriting
-		from either <classname>EBox::Exceptions::External</classname> or
-		<classname>EBox::Exceptions::Internal</classname>, or just use one
-		those two classes as generic exceptions:</para>
+		<para>Si no puede encontrar una excepción para ciertas condiciones de
+		error, tiene dos opciones: crear una nueva clase de excepción,
+		heredándola de <classname>EBox::Exceptions::External</classname> o
+		<classname>EBox::Exceptions::Internal</classname>, o usar únicamente
+		una de estas dos clases como excepciones genéricas:</para>
 
 		<example>
-			<title>Throwing a generic internal exception</title>
+			<title>Lanzando una excepción interna genérica</title>
 			<programlisting><![CDATA[if ($foo_condition) {
-	throw EBox::Exceptions::Internal('Something happened!');
+	throw EBox::Exceptions::Internal('Algo ha pasado!!');
 }]]></programlisting>
 		</example>
 
-		<para>As you can see, throwing exceptions follows a syntax very similar
-		to Java's. Catching them is very similar too:</para>
+		<para>Como puede ver, lanzar excepciones sigue una sintaxis muy
+		similar a Java. Capturarlas también es muy similar:</para>
 
 		<example>
-			<title>Catching an exception</title>
+			<title>Capturando una excepción</title>
 			<programlisting><![CDATA[use Error qw(:try);
 
 sub foo
@@ -211,74 +222,76 @@ sub foo
 	try {
 		$bar->doSomething();
 	} catch EBox::Exceptions::Base with {
-		# do nothing, just ignore the error
+		# no hace nada, sólo se ignora el error
 	};
 }]]></programlisting>
 		</example>
 
-		<para>You can do whatever you like inside the <quote>catch</quote>
-		clause. You may also write several <quote>catch</quote> clauses
-		if you need to do different things for different exception types.
-		<quote>otherwise</quote> and <quote>finally</quote> clauses are
-		also allowed, for a detailed explanation about them just run
-		<command>perldoc Error</command>. A very important detail is not to
-		forget the semicolon after the last clause (the <quote>catch</quote>
-		in the example), failing to do so may produce very weird results, this
-		is due to the black magic that is used in the implementation of the
-		try-catch idiom.</para>
-
+		<para>Puede hacer lo que quiera dentro de la sección
+		<quote>catch</quote>. Puede escribir varias secciones
+		<quote>catch</quote> si necesita hacer diferentes cosas para
+		diferentes tipos de excepción. Las secciones <quote>otherwise</quote>
+		y <quote>finally</quote> también están permitidas. Para una
+		explicación detallada sobre éstas, únicamente ejecute <command>perldoc
+		Error</command>. Un detalle muy importante es no olvidar el punto y
+		coma después de la última sección (el <quote>catch</quote> en el
+		ejemplo). No hacerlo puede producir resultados inesperados, esto se
+		debe a la magia negra que es utilizada en la implementación del
+		try-catch en perl.</para>               
 	</section>
 
 	<section id="sect-validate">
-		<title>Data validation</title>
+		<title>Validación de datos</title>
 
-		<para>It is very important that every function exposed by each module
-		validates its input data correctly. All of the arguments need to be
-		checked, if this wasn't done a module could save syntactically wrong
-		values in its configuration, and the underlying service would behave
-		in an unpredictable way with the config file generated by the module.
-		This also helps find bugs in the GUI front-end, and any other code that
-		uses the module.</para>
-
-		<para>The <classname>EBox::Validate</classname> perl module provides a
-		bunch of functions to validate different types of data. All of this
-		functions work the same way, their first argument is the value that's
-		going to be checked. They return <literal>true</literal> if the value
-		is correct, <literal>undef</literal> if it's not:</para>
+		<para>Es muy importante que cada funcionalidad ofrecida por cada
+		módulo valide sus datos de entrada correctamente. Todos los argumentos
+		necesitan ser comprobados. Si esto no se hace, un módulo podría
+		guardar valores sintácticamente incorrectos en su configuración, y el
+		servicio subyacente se comportaría de una forma impredecible con el
+		fichero de configuración generado por el módulo. La validación de
+		datos también ayuda a encontrar errores en la GUI, y cualquier otro
+		código que utilice el módulo.</para>
+		
+		<para>El módulo de perl <classname>EBox::Validate</classname> provee
+		de una serie de funciones para validar diferentes tipos de
+		datos. Todas estas funciones funcionan de la misma manera, su primer
+		argumento es el valor que se va a comprobar. Devuelven
+		<literal>true</literal> si el valor es correcto,
+		<literal>undef</literal> si no lo es:</para>
 
 		<example>
-			<title>Using data validation functions</title>
+			<title>Usando funciones de validación de datos</title>
 			<programlisting><![CDATA[use EBox::Validate qw(:all);
 
 my $ip = '192.168.0.1';
 
 unless (checkIP($ip))
-	print STDERR "$ip is invalid.\n";
+	print STDERR "$ip no es válida.\n";
 }]]></programlisting>
 		</example>
 
-		<para>The usual thing to do if an argument is incorrect is to
-		throw an exception. And most of the time the incorrect value will
-		be an user-supplied one. For this reasons, all the functions in
-		<classname>EBox::Validate</classname> provide an easy mechanism for
-		throwing <classname>EBox::External</classname> exceptions. All you have
-		to do is pass one more argument to them, with a name or description for
-		the value you are trying to check. If you pass that argument and the
-		validation fails, an exception will be thrown with a message indicating
-		the name of the wrong field:</para>
+		<para>Lo que hay que hacer normalmente si un argumento es incorrecto
+		es lanzar una excepción. Y la mayor parte del tiempo el valor
+		incorrecto será uno suministrado por el usuario. Por esta razón, todas
+		las funciones en <classname>EBox::Validate</classname> nos suministran
+		un mecanismo sencillo para lanzar excepciones del tipo
+		<classname>EBox::External</classname>. Todo lo que es necesario hacer
+		es pasarles un argumento más, con un nombre o descripción para el
+		valor que está intentando comprobar. Si pasa ese argumento y la
+		validación falla, se lanzará una excepción con un mensaje indicando el
+		nombre del campo incorrecto:</para>
 
 		<example>
-			<title>Using data validation functions with automatic error
-			handling</title>
+			<title>Utilizando las funciones de validación de datos con
+			gestión automática de errores</title>
 
-			<programlisting><![CDATA[checkIP($ip, 'IP address');
+			<programlisting><![CDATA[checkIP($ip, 'dirección IP ');
 ]]></programlisting>
 		</example>
 
-		<para>If you don't want an exception to be thrown, or if you want to
-		throw a different kind of exception, just do not pass the last argument
-		and handle the error yourself.</para>
-
+		<para>Si no quiere que se lance una excepción, o si quiere que se
+		lance un tipo distinto, no pase el último argumento y gestione el
+		error dentro de su código.</para>
 	</section>
 
 	<section id="sect-i18n">
@@ -306,7 +319,7 @@ unless (checkIP($ip))
 			</para>
 
 			<para>Todos los ficheros que contengan cadenas traducibles, incluyendo
-			las plantillas de Mason, deben incluir modulo perl
+			las plantillas de Mason, deben incluir módulo perl
 			<classname>EBox::Gettext</classname> y cualquier cadena que deba poder
 			ser traducible debe ser marcada como tal, utilizando la función
 			<function>__</function> tal y como se indica en el siguiente ejemplo:
