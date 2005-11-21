@@ -2,55 +2,57 @@
 -->
 <chapter id="ch-frontend">
 
-	<title>Web frontend</title>
+	<title>Frontend web</title>
 
 	<section id="sect-cgi">
 		<title>CGIs</title>
 
-		<para>The eBox administration interface is web-based,
-		using <application>mod_perl</application> on top of
-		<application>apache.</application> Information is fetched from the
-		backends of the different modules by CGI scripts and it is displayed
-		using the <application>mason</application> templating engine.</para>
+		<para>El interfaz de administración de eBox está basado en web,
+		utilizando <application>mod_perl</application> por encima de
+		<application>apache</application>. La información es recogida desde
+		los backends de los distintos módulos por scripts CGI y es mostrada a
+		través del sistema de plantillas <application>mason</application>.</para>
 
-		<para> URLs are mapped from slash-separated paths to perl class names,
-		the URL <uri>Network/Index</uri> is translated to the classname
-		<classname>EBox::CGI::Network::Index</classname>. Actually, the root
-		of the namespace is <uri>/ebox/</uri>, so the actual URL would be
-		<uri>/ebox/Network/Index</uri>, but that part is handled automatically
-		by the framework. So if you need to write a CGI to show some data
-		or let the user configure something, just put your class in the
-		<classname>EBox::CGI</classname> namespace and all matching requests
-		will be passed on to it.</para>
+		<para>La separación por barras de las URLs están asociados con nombres
+		de clases de perl. La URL <uri>Network/Index</uri> es traducida al
+		nombre de la clase
+		<classname>EBox::CGI::Network::Index</classname>. De hecho, la raíz
+		del espacio de nombres es <uri>/ebox/</uri>, por lo que la URL actual
+		sería <uri>/ebox/Network/Index</uri>, pero esa parte es
+		automáticamente manejada por la plataforma. Así que si se necesita
+		escribir un CGI para mostrar algún dato o dejarle al usuario
+		configurar algo, se debe escribir la clase en el espacio de nombres
+		<classname>EBox::CGI</classname> y todas las peticiones coincidentes
+		serán envíadas a ésta.</para>
 
-		<para>There are lots of common functionality shared by most of
-		the CGIs in eBox: error handling, input data validation, calling
-		mason templates, showing messages and warnings, printing the menu,
-		etc.</para>
+		<para>Hay muchas funcionalidades comunes compartidas por la mayoría de
+		CGIs en eBox: manejo de errores, validación de datos de entrada,
+		llamada a las plantillas de mason, muestra de mensajes y avisos,
+		impresión del menú, etc.</para>
 
-		<para>For this reason there is a parent class from which all CGIs
-		should be inherited, this class implements all those functions
-		with almost no intervention by its children, this is why many
-		CGIs end up being around 20 lines long. All this functionality is
-		actually split into two classes, because there is a small part
-		of it that is specific to the client side of eBox. This part is
-		kept in the client, and it is the class you should inherit from:
-		<classname>EBox::CGI::ClientBase</classname>.</para>
+		<para>Por esta razón hay una clase padre de la cual todos los CGI
+		deberían heredar. Esta clase implementa todas aquellas funciones que
+		que casi no intervienen con las clases hijas, esto es el por qué
+		tantos CGI acaban siendo de unas 20 líneas de código. Toda esta
+		funcionalidad ahora se divide en dos clases, porque hay una pequeña
+		parte específica a la parte del cliente de eBox. Esta parte es
+		mantenida por el cliente, y es la clase de la que se debe
+		heredar:<classname>EBox::CGI::ClientBase</classname>.</para>
 
-		<para> The other class, <classname>EBox::CGI::Base</classname>, has
-		most of the code, and it resides in <application>libebox</application>
-		so that it can be reused by the server side.
-		<classname>EBox::CGI::ClientBase</classname> inherits from
-		<classname>EBox::CGI::Base</classname>, so you can safely forget there
-		are two classes and just remember the former.</para>
+		<para>La otra clase, <classname>EBox::CGI::Base</classname>, tiene la
+		mayor parte del código, y reside en <application>libebox</application>
+		por lo que puede ser rechazada por el lado del
+		servidor. <classname>EBox::CGI::ClientBase</classname> hereda de
+		<classname>EBox::CGI::Base</classname>, por lo que se puede olvidar de
+		manera segura que son dos clases y únicamnete recordar la primera.</para>
 
-		<para>Inheriting from <classname>EBox::CGI::ClientBase</classname> will
-		give you a page with the usual title bar and menu, but an empty body. If
-		you pass a <parameter>title</parameter> argument to the constructor of
-		the parent class it will be shown too:</para>
+		<para>Heredar de <classname>EBox::CGI::ClientBase</classname> mostrará
+		una página con la barra de titulo normal y el menú, pero con el cuerpo
+		vacío. Si se pasa el argumento <parameter>title</parameter> al
+		constructor de la clase padre, se mostrará también.</para>
 
 		<example id='ex-cgi-hello'>
-			<title>Hello world CGI</title>
+			<title>CGI Hola mundo</title>
 
 			<programlisting><![CDATA[package EBox::CGI::Hello::World;
 
@@ -64,48 +66,50 @@ use EBox::Gettext;
 sub new 
 {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Hello World!'), @_);
+	my $self = $class->SUPER::new('title' => __('Hola Mundo!'), @_);
 	bless($self, $class);
 	return $self;
 }]]></programlisting>
 		</example>
 
-		<para>In the vast majority of cases, you'll just need to implement
-		the <methodname>_process</methodname> abstract method in your class
-		to get the desired results. It is called by the parent class, which
-		then performs different actions depending on the state of the object
-		after the call to <methodname>_process</methodname>. There are certain
-		attributes in the class you can set to change the parent's behavior.
-		Your <methodname>_process</methodname> method will normally do one of
-		these two things (maybe both):</para>
+		<para>En la gran mayoría de casos, sólo será necesario implementar la
+		función abstracta <methodname>_process</methodname> en las clases para
+		conseguir el resultado deseado. Es llamada por la clase padre, la cual
+		realiza distintas acciones dependiendo del estado del objeto después
+		de la llamada a <methodname>_process</methodname>. Hay ciertos
+		atributos en la clase que pueden cambiarse para modificar el
+		comportamiento de la clase padre. La propia función
+		<methodname>_process</methodname> normalmente haría alguna de estas
+		dos cosas (quizá ambas):</para>
 
 		<itemizedlist>
 			<listitem>
-				<para>Obtain information from module backend and feed it to a mason
-				template that will display it.</para>
+				<para>Obtener información del backend del módulo y
+				dárselo a una plantilla de mason que la mostraría.</para>
 			</listitem>
 
 			<listitem>
-				<para>Read input fields from the HTTP request and use them to
-				perform some action on the module backend.</para>
+				<para>Leer los campos de entrada de la petición HTTP y
+				usarlos para realizar alguna acción en el backend del módulo.</para>
 			</listitem>
 		</itemizedlist>
 
-		<para>The first thing there is to know is how to make a CGI use a
-		mason template to display stuff. It's really easy, you can just pass a
-		<parameter>template</parameter> argument to the parent's constructor,
-		or set the <structfield>template</structfield> attribute at any time
-		before your <methodname>_process</methodname> returns. This code shows
-		both approaches:</para>
+		<para>La próxima cosa que hay que saber es como hacer que un CGI
+		utilice una plantilla de mason para mostrar información. Es realmente
+		sencillo. Se puede pasar únicamente un argumento
+		<parameter>template</parameter> al constructor del padre, o configurar
+		el atributo <structfield>template</structfield> en cualquier momento
+		antes del return de su función <methodname>_process</methodname>. Este
+		código muestra ambas aproximaciones:</para>
 
 		<example>
-			<title>Setting the mason template for a CGI</title>
+			<title>Configurando la plantilla mason para un CGI</title>
 
-			<programlisting><![CDATA[# Setting the template in the constructor
+			<programlisting><![CDATA[# Configurando la plantilla en el constructor
 sub new 
 {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Hello World!'), 
+	my $self = $class->SUPER::new('title' => __('Hola Mundo!'), 
 					'template' => 'hello/world.mas',
 					@_);
 	bless($self, $class);
@@ -120,15 +124,16 @@ sub _process
 }]]></programlisting>
 		</example>
 
-		<para>Secondly, we need to be able to pass some data to the mason
-		template, this is done using the <structfield>params</structfield>
-		attribute. It should be an array reference holding all parameters and
-		their names. This is the <methodname>_process</methodname> method for
-		the general configuration page (the one with the port, password and
-		language):</para>
+		<para>En segundo lugar, necesitamos poder pasar alguna información a
+		la plantilla mason. Esto se hace utilizando el atributo
+		<structfield>params</structfield>. Debería ser una referencia a un
+		array que contenga todos los parámetros y sus nombres. Esto es la
+		función <methodname>_process</methodname> para la página de
+		configuración general (la que contiene el puerto, contraseña e
+		idioma):</para>
 
 		<example>
-			<title>Passing arguments to a mason template</title>
+			<title>Enviando argumentos a la plantilla de mason</title>
 			<programlisting><![CDATA[sub _process
 {
 	my $self = shift;
@@ -144,28 +149,31 @@ sub _process
 }]]></programlisting>
 		</example>
 
-		<para>That's all there is to using templates from the CGIs. The details
-		about writing them are outlined in <xref linkend='sect-mason'/>.</para>
+		<para>Eso está así para utilizar plantillas desde los CGIs. Los
+		detalles acerca de la escritura están descritos en <xref
+		linkend='sect-mason'/>.</para>
 
-		<para> There is another mechanism to show data to the user. You can
-		show messages and errors by setting the <structfield>msg</structfield>
-		and <structfield>error</structfield> attributes to whatever text
-		you want to display. Both types of messages are displayed in a
-		box on the top of the page. You need to be a bit careful with
-		the <structfield>error</structfield> attribute, since it will be
-		overwritten if if an exception is caught by the parent class.</para>
+		<para>Hay otro mecanismo para mostrar los datos al usuario. Puede
+		mostrar mensajes configurando los atributos
+		<structfield>msg</structfield> y <structfield>error</structfield> para
+		mostrar cualquier texto que se quiera. Ambos tipos de mensajes se
+		muestran en una caja en la parte superior de la página. Necesita tener
+		algo de cuidado con el atributo <structfield>error</structfield>,
+		siendo que serán sobreescritas si una excepción es capturada por la
+		clase padre.</para>
 
 		<!-- FIXME example -->
 
-		<para>Reading arguments sent in the HTTP request is very straight
-		forward. The parent class uses the <classname>CGI</classname> perl
-		module to access that information, and provides a wrapper around its
-		<function>param</function> function that does some checks on the input
-		data. This is the <methodname>_process</methodname> method in the CGI that
-		changes the web interface tcp port:</para>
+		<para>Leyendo los argumentos enviados en la petición HTTP es muy
+		sencillo. La clase padre utiliza el módulo de perl
+		<classname>CGI</classname> para acceder a esta información, y provee
+		de un recubridor sobre esta función <function>param</function>, que
+		hace algunas comprobaciones en la entrada de datos. Esta es la función
+		<methodname>_process</methodname> en el CGI que cambia el puerto TCP
+		del interfaz web:</para>
 
 		<example id='ex-http-params'>
-			<title>Using parameters from the HTTP request</title>
+			<title>Utilizando parámetros de la petición HTTP</title>
 			<programlisting><![CDATA[sub _process
 {
 	my $self = shift;
@@ -177,22 +185,26 @@ sub _process
 }]]></programlisting>
 		</example>
 
-		<para>It is so simple because all checks on the data are performed
-		by the backend (using the <classname>EBox::Validate</classname> perl
-		module) and by the parent class. Another reason for the simplicity of the
-		code above is that error handling is automatic.</para>
+		<para>Es tan simple porque todas las comprobaciones sobre los datos
+		son realizados por el backend (utilizando el módulo de perl
+		<classname>EBox::Validate</classname>) y por la clase padre. Otra
+		razón para conseguir la simplicidad del código de arriba es que el
+		manejo de errores es automático.</para>
 
-		<para>While you do all that stuff, exceptions may be thrown. Unless
-		you have a good reason to catch an exception (i.e. you expect it and
-		do not want it to be displayed as an error) you'll probably be just
-		fine with the standard error handling, so you can simply forget the
-		fact that exceptions could be thrown and write your code as if they
-		did not exist. The standard behavior is that exceptions that inherit
-		from <classname>EBox::Exceptions::Internal</classname> cause a generic
-		error message, pointing the user to the logs if they need the details.
-		<classname>EBox::Exceptions::External</classname> subclasses are
-		displayed verbatim, the most typical use of these exceptions is when
-		user-provided data is validated.</para>
+		<para>Mientras se hacen todas esas cosas, las excepciones se pueden
+		lanzar. A no ser que haya una buena razón para capturar una excepción
+		(p.ej. espera el error y no quiere que se muestre como un error)
+		probablemente será suficiente que las excepciones sean lanzadas y
+		escribir el código como si no existieran realmente. El comportamiento
+		estándar es que las excepciones que hereden de
+		<classname>EBox::Exceptions::Internal</classname> causen un mensaje de
+		error genérico, mandando al usuario a consultar los registros si
+		necesitase ver los detalles. Las subclases de
+		<classname>EBox::Exceptions::External</classname> son mostradas
+		textualmente, el uso más común para estas excepciones es cuando los
+		datos introducidos por el usuario se validan.</para>
+
+		<para></para>
 
 		<para>The last bit you should learn is how to redirect requests to
 		other CGIs. There are a few reasons why you could want to do that, e.g.
@@ -578,46 +590,46 @@ use EBox::Gettext;
 	</section>
 
 	<section id="sect-menu">
-		<title>The menu</title>
+		<title>El menu</title>
 
-		<para>The menu in the administration interface is dynamically
-		generated, letting all installed modules add new items
-		and folders to it. There is a set of classes under
-		the <classname>EBox::Menu</classname> namespace that
-		can be used to build menu structures. The important
-		ones are <classname>EBox::Menu::Item</classname> and
+		<para>El menú en el interfaz de la administración es dinámicamente
+		generado, permitiendo a todos los módulos instalados añadir nuevos
+		objetos y carpetas a él. Hay un juego de clases bajo el espacio de
+		nombres <classname>EBox::Menu</classname> que pueden ser utilizadas
+		para construir las estructuras del menú. Las importantes son
+		<classname>EBox::Menu::Item</classname> y
 		<classname>EBox::Menu::Folder</classname>.</para>
 
-		<para>The constructor for <classname>EBox::Menu::Item</classname>
-		takes two named arguments, <parameter>text</parameter> and
-		<parameter>url</parameter>. <parameter>url</parameter> should be
-		relative to the root path for the configuration interface, for example
-		the firewall packet filtering page has <uri>Firewall/Filter</uri> as
-		its <parameter>url</parameter>.</para>
+		<para>El constructor para <classname>EBox::Menu::Item</classname> toma
+		dos argumentos nombrados <parameter>text</parameter> y
+		<parameter>url</parameter>. <parameter>url</parameter> debería ser
+		relativo a la ruta raíz para el interfaz de configuración, por
+		ejemplo, la página de filtrado de paquetes del firewall tiene
+		<uri>Firewall/Filter</uri> como su <parameter>url</parameter>.</para>
 
-		<para>The <classname>EBox::Menu::Folder</classname> constructor does
-		not take an <parameter>url</parameter> argument, but it takes a
-		<parameter>name</parameter> one. The name is used internally as an
-		identifier in the javascript menu implementation.</para>
+		<para>El constructor de <classname>EBox::Menu::Folder</classname> no
+		toma el argumento <parameter>url</parameter>, pero toma el
+		<parameter>name</parameter>. El nombre es utilizado internamente como
+		un identificador en la implementación del menú javascript.</para>
 
-		<para>Both items and folders have an optional
-		<parameter>order</parameter> argument in their constructors, it should
-		be an integer between 1 and 10, items in the menu are ordered from
-		lower to higher values. The default is 5.</para>
+		<para>Ambos elementos y carpetas tienen un argumento opcional
+		<parameter>order</parameter> en sus constructores, que debería ser un
+		entero entre 1 y 10. Los elementos del menú están ordenador desde los
+		valores más bajos a los más altos. El valor por defecto es 5.</para>
 
-		<para>A folder may contain items, so you can add
-		<classname>EBox::Menu::Item</classname> instances to a
+		<para>Una carpeta puede contener elementos, por lo que se pueden
+		añadir instancias de <classname>EBox::Menu::Item</classname> a
 		<classname>EBox::Menu::Folder</classname>.</para>
 
-		<para>Finally, the way to add menu items and/or folders to the menu is
-		to implement the <methodname>menu</methodname> method in your module.
-		This method gets a <classname>EBox::Menu::Root</classname> instance
-		as an argument, and you can add as many items and folders to it as
-		you want. This is the <methodname>menu</methodname> function for the
-		firewall module:</para>
+		<para>Finalmente, la forma de añadir elementos del menú y/o carpetas
+		al menú es simplemente implementar la función
+		<methodname>menu</methodname> en el módulo. Esta función toma una
+		instancia <classname>EBox::Menu::Root</classname> como argumento, y
+		puede añadir tantos elementos y carpetas como se quieran. Esta es la
+		función <methodname>menu</methodname> para el módulo firewall:</para>		
 
 		<example>
-			<title>Adding folders and items to the menu</title>
+			<title>Añadiendo carpetas y elementos al menú</title>
 			<programlisting><![CDATA[sub menu
 {
 	my ($self, $root) = @_;
@@ -639,66 +651,70 @@ use EBox::Gettext;
 	</section>
 
 	<section id="sect-summarypage">
-		<title>Summary</title>
+		<title>Resumen</title>
 
-		<para>The eBox user interface has a "Summary" page where status
-		information for every module is displayed. This page has two
-		parts:</para>
+		<para>La interfaz de usuario de eBox tiene  una página "Resumen" donde
+		se muestra la información del estado de cada módulo. Esta página tiene
+		dos partes:</para>
 
 		<itemizedlist>
 			<listitem>
-				<para>The first part is a table with the status of all network
-				services installed: whether they are running or not and buttons to
-				restart them.</para>
+				<para>La primera parte es una tabla con el estado de
+				todos los servicios de red instalados: si están
+				ejecutándose o no y los botones correspondientes para reiniciarlos.</para>
 			</listitem>
 
 			<listitem>
-				<para>The second part of the page has a separate section for each
-				module, where more detailed information can be displayed.</para>
+				<para>La segunda parte de la página tiene una sección
+				separada para cada módulo, donde se puede mostrar una
+				información más detallada.</para>
 			</listitem>
 		</itemizedlist>
 
 		<!-- FIXME  screenshot -->
 
-		<para>Summary information is gathered by calling two abstract
-		methods defined in <classname>EBox::Module</classname>, if you
-		don't implement them then no information will be displayed about
-		your module. <methodname>statusSummary</methodname> populates
-		the table that will display the status of network services and
-		<methodname>summary</methodname> creates the summary section for your
-		module.</para>
+		<para>La información del resumen es recogida llamando a dos funciones
+		abstractas definidas en <classname>EBox::Module</classname>, si no
+		desea implementarlas, entonces no se mostrará información sobre ese
+		módulo. <methodname>statusSummary</methodname> rellena la tabla en la
+		que se mostrará el estado de los servicios de red y
+		<methodname>summary</methodname> crea la sección resumen para el módulo.</para>
 
-		<para>The way the summary is built is quite similar to they way
-		the menu is built, as shown in <xref linkend='sect-menu'/>. There
-		are a bunch of classes in the <classname>EBox::Summary</classname>
-		namespace that you can use to build your summary information,
-		<methodname>statusSummary</methodname> should return an
-		object of type <classname>EBox::Summary::Status</classname>
-		while <methodname>summary</methodname> is free
-		to return any object that is a subtype of
-		<classname>EBox::Summary::Item</classname>, although most modules just
-		return a <classname>EBox::Summary::Module</classname>.</para>
+		<para>La forma en que el resumen está construido es muy parecida a la
+		forma en que lo está el menú, como se puede ver en <xref
+		linkend='sect-menu'/>. Hay unas cuantas clases en el espacio de
+		nombres <classname>EBox::Summary</classname> que se pueden usar para
+		construir la información de
+		resumen. <methodname>statusSummary</methodname> debería devolverun
+		objeto de tipo <classname>EBox::Summary::Status</classname> mientras
+		que <methodname>summary</methodname> es libre de devolver cualquier
+		objeto cuyo tipo sea un suptipo de
+		<classname>EBox::Summary::Item</classname>, aunque la mayor parte de
+		los módulos sólo devuelvan un
+		<classname>EBox::Summary::Module</classname>.</para>
 
-		<para> Each one of the <classname>EBox::Summary::Item</classname>
-		subclasses has some attributes and can contain other
-		<classname>EBox::Summary::Item</classname> objects, and they all print
-		some HTML code. <classname>EBox::Summary::Module</classname> has a
-		<structfield>title</structfield> attribute, when it is time to generate
-		the page it prints the title and the html for its children below
-		it.</para>
+		<para>Cada uno de las subclases de
+		<classname>EBox::Summary::Item</classname> tiene algunos atributos y
+		pueden contener otros objetos
+		<classname>EBox::Summary::Item</classname>, y que todos ellos saquen
+		algo de código HTML. <classname>EBox::Summary::Module</classname>
+		tiene un atributo <structfield>title</structfield>, que cuando llega
+		el momento de generar la página muestra el título
+		<structfield>title</structfield> y el html para sus hijos por debajo
+		suyo.</para>
 
-		<para>To see how the summary section is built, we are going to take
-		a look at the network module. The output of its summary is a title
-		and one section per network interface, with a bold title and a table
-		that displays its MAC address, IP addresses, netmask, etc. <xref
-		linkend='ex-network-summary'/> shows the important bits of its
-		<methodname>summary</methodname> method.</para>
+		<para>Para ver como está construida la sección resumen, vamos a echar
+		un vistazo al módulo network. La salida de su resumen es un título y
+		una sección por cada interfaz de red, con un título en negrita y una
+		tabla que muestra su dirección MAC, dirección IP, máscara de red,
+		etc. <xref linkend='ex-network-summary'/> muestra las partes
+		importantes de su función <methodname>summary</methodname>.</para>
 
 		<example id='ex-network-summary'>
 
-			<title><methodname>summary</methodname> sample implementation</title>
+			<title>Implementación de ejemplo de <methodname>summary</methodname></title>
 
-			<programlisting><![CDATA[my $item = new EBox::Summary::Module(__("Network interfaces"));
+			<programlisting><![CDATA[my $item = new	EBox::Summary::Module(__("Interfaces de red"));
 
 foreach my $iface (@{$ifaces}) {
 	my $status = __("down");
@@ -713,13 +729,13 @@ foreach my $iface (@{$ifaces}) {
 	my $ether = iface_mac_address($iface);
 	if ($ether) {
 		$section->add(new EBox::Summary::Value(
-			__("MAC address"), $ether));
+			__("dirección MAC"), $ether));
 	}
 
 	my @ips = iface_addresses($iface);
 	foreach my $ip (@ips) {
 		$section->add(new EBox::Summary::Value(
-			__("IP address"), "$ip"));
+			__("dirección IP"), "$ip"));
 	}
 }
 return $item;]]></programlisting>
@@ -727,8 +743,11 @@ return $item;]]></programlisting>
 
 		<!-- FIXME screenshot -->
 
-		<para>First an <classname>EBox::Summary::Module</classname> item is
-		created, this object will hold all the summary information.</para>
+		<para>Primero se crea un objeto
+		<classname>EBox::Summary::Module</classname>. Éste objeto mantendrá
+		toda la información del resumen.</para>
+
+		<para>
 
 		<para> Then an <classname>EBox::Summary::Section</classname>
 		is created for each network interface, a section has a title
@@ -779,13 +798,13 @@ return $item;]]></programlisting>
 
 		<example id='ex-squid-status'>
 
-			<title><methodname>statusSummary</methodname> sample
-			implementation</title>
+			<title>Ejemplo de implementación de
+			<methodname>statusSummary</methodname></title>
 
 			<programlisting><![CDATA[sub statusSummary
 {
 	my $self = shift;
-	return new EBox::Summary::Status('squid', __('HTTP Proxy'),
+	return new EBox::Summary::Status('squid', __('Proxy HTTP'),
 					$self->isRunning, $self->service);
 }
 
@@ -802,9 +821,9 @@ sub service
 }]]></programlisting>
 
 		</example>
-
-		<para>Again, you can see what it looks like by checking out the Summary
-		page in an eBox installation that has the squid module included.</para>
+		
+		<para>De nuevo, se puede comprobar como se ve en la página de Resumen
+		en una instalación de eBox que tiene el módulo squid incluido.</para>
 
 	</section>
 
