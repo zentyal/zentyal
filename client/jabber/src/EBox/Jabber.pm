@@ -48,7 +48,7 @@ sub _create
 	return $self;
 }
 
-sub daemons # (action)
+sub _daemons # (action)
 {
 	my ($self, $action) = @_;
 	
@@ -76,11 +76,11 @@ sub _doDaemon
 	my $self = shift;
 
 	if ($self->service and EBox::Service::running('jabber-c2s')) {
-		$self->daemons('restart');
+		$self->_daemons('restart');
 	} elsif ($self->service) {
-		$self->daemons('start');
+		$self->_daemons('start');
 	} elsif (EBox::Service::running('jabber-c2s')){
-		$self->daemons('stop');
+		$self->_daemons('stop');
 	}
 }
 
@@ -105,6 +105,14 @@ sub firewallHelper
 	return undef;
 }
 
+# Method: setExternalConnection
+#
+#       Sets if jabber service has to connect with jabber global network
+#
+# Parameters:
+#
+#       enabled - boolean. True, connect with global network. undef, not connect.
+#
 sub setExternalConnection
 {
     my ($self, $external) = @_;
@@ -112,12 +120,30 @@ sub setExternalConnection
     $self->set_bool('external_connection', $external);
 }
 
+# Method: externalConnection
+#
+#       Returns if jabber service has to connect with 
+#         jabber global network
+#
+# Returns:
+#
+#       boolean. True, connects. undef, not connects.
 sub externalConnection
 {
     my $self = shift;
     return $self->get_bool('external_connection');
 }
 
+# Method: setSsl
+#
+#       Sets if jabbers service needs SSL authentication
+#
+# Parameters:
+#
+#       ssl - string. 'no' if not needed.
+#                     'optional' if ssl auth is optional
+#                     'required' if it's mandatory ssl authentication
+#
 sub setSsl
 {
     my ($self, $ssl) = @_;
@@ -125,12 +151,29 @@ sub setSsl
     $self->set_string('ssl', $ssl);
 }
 
+# Method: ssl
+#
+#       Returns if jabber service needs SSL authentication
+#
+# Returns:
+#
+#       string - 'no' if not needed.
+#                'optional' if ssl auth is optional
+#                'required' if it's mandatory ssl authentication
 sub ssl
 {
     my $self = shift;
     return $self->get_string('ssl');
 }
 
+# Method: setService
+#
+#       Sets the jabber service as enabled or disabled
+#
+# Parameters:
+#
+#       enabled - boolean. True, enable. undef, disable.
+#
 sub setService
 {
 	my ($self, $active) = @_;
@@ -152,12 +195,28 @@ sub setService
 	$self->set_bool('active', $active);
 }
 
+# Method: service
+#
+#       Returns if the jabber service is enabled
+#
+# Returns:
+#
+#       boolean. True enabled, undef disabled
 sub service
 {
 	my $self = shift;
 	return $self->get_bool('active');
 }
 
+# Method: setDomain
+#
+#       Sets the domain for jabber service. Accounts would have
+#          user@domain format
+#
+# Parameters:
+#
+#       domain - string with the domain name
+#
 sub setDomain
 {
 	my ($self, $domain) = @_;
@@ -169,12 +228,23 @@ sub setDomain
 	$self->set_string('domain', $domain);
 }
 
+# Method: domain
+#
+#       Returns current jabber service domain
+#
+# Returns:
+#
+#       string. Current jabber service domain 
 sub domain
 {
 	my $self = shift;
 	return $self->get_string('domain');
 }
 
+# Method: _regenConfig
+#
+#       Overrides base method. It regenerates the jabber service configuration
+#
 sub _regenConfig
 {
 	my $self = shift;
@@ -221,14 +291,9 @@ sub statusSummary
 		EBox::Service::running('jabber-c2s'), $self->service);
 }
 
-#sub summary
-#{
-#	my $self = shift;
-#	my $item = new EBox::Summary::Module(__("Jabber service"));
-#	
-#	return $item;
-#}
-
+# Method: rootCommands
+#
+#       Overrides EBox::Module method.
 sub rootCommands
 {
 	my $self = shift;
@@ -238,6 +303,9 @@ sub rootCommands
 	return @array;
 }
 
+# Method: menu
+#
+#       Overrides EBox::Module method.
 sub menu
 {
 	my ($self, $root) = @_;
