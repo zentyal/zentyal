@@ -190,20 +190,20 @@
 	<section id="sect-amodule">
 		<title>Como funciona un módulo</title>
 
-		<para>FIXME ESTE PARRAFO El módulo eBox típico maneja la
-		configuración de un demonio, posiblemente integrado con otros módulos
-		eBox. El desarrollador decide de qué forma el usuario debeía poder
-		configurar el demonio, la forma elegida no necesariamente mapea
-		directamente una a una todas las opciones de configuración del
-		demonio. El desarrollador puede elegir un valor por defecto adecuado
-		para la mayoría de las opciones y esconderlas de cara al usuario,
-		mostrándole solamente las que considere realmente importantes.
-		Igualmente, el cambio de una opción por parte del usuario mediante
-		la interfaz web puede causar cambios de configuración en varios
-		parámetros de configuración reales o en varios módulos eBox. El
-		principal objetivo es mantener un interfaz de usuario simple, fácil
-		de usar e integrada lo más posible mientras se ofrece un abanico de
-		parámetros de configuración lo mas rico posible. </para>
+		<para>Un módulo eBox típico, maneja la configuración de un demonio,
+                pudiendo integrarse también con otros módulos de eBox. El
+                desarrollador es quien decida la forma en la que el usuario podrá
+                configurar el demonio, que no será necesariamente una relación directa
+                entre las del módulo y las que admita el demonio. El desarrollador
+                podrá elegir el valor, por defecto, más adecuado para la mayoría de las
+                opciones y esconderlas de cara al usuario, mostrándole sólo las que se
+                consideren realmente importantes. De igual forma, el cambio de una
+                opción por parte del usuario mediante el interfaz web, puede causar
+                cambios de configuración en varios parámetros de configuración del
+                demonio, o en varios módulos de eBox. El principal objetivo es
+                mantener un interfaz de usuario sencillo, facil de usar e integrado
+                lo más posible, mientras se ofrece un conjunto de parámetros de
+                configuración lo más rico posible.</para>
 
 		<para>Sin embargo, puede haber módulos que no manejen la
 		configuración de un servicio de red. Un ejemplo de un módulo de este
