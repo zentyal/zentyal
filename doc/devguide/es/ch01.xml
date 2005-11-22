@@ -190,9 +190,9 @@
 	<section id="sect-amodule">
 		<title>Como funciona un módulo</title>
 
-		<para>Un módulo eBox típico, maneja la configuración de un demonio,
+		<para>Un módulo eBox típico maneja la configuración de un demonio,
                 pudiendo integrarse también con otros módulos de eBox. El
-                desarrollador es quien decida la forma en la que el usuario podrá
+                desarrollador será quien decida la forma en la que el usuario podrá
                 configurar el demonio, que no será necesariamente una relación directa
                 entre las del módulo y las que admita el demonio. El desarrollador
                 podrá elegir el valor, por defecto, más adecuado para la mayoría de las
