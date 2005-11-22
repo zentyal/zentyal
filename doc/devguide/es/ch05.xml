@@ -23,7 +23,7 @@
 		escribir un CGI para mostrar algún dato o dejarle al usuario
 		configurar algo, se debe escribir la clase en el espacio de nombres
 		<classname>EBox::CGI</classname> y todas las peticiones coincidentes
-		serán envíadas a ésta.</para>
+		serán enviadas a ésta.</para>
 
 		<para>Hay muchas funcionalidades comunes compartidas por la mayoría de
 		CGIs en eBox: manejo de errores, validación de datos de entrada,
@@ -44,7 +44,7 @@
 		por lo que puede ser rechazada por el lado del
 		servidor. <classname>EBox::CGI::ClientBase</classname> hereda de
 		<classname>EBox::CGI::Base</classname>, por lo que se puede olvidar de
-		manera segura que son dos clases y únicamnete recordar la primera.</para>
+		manera segura que son dos clases y únicamente recordar la primera.</para>
 
 		<para>Heredar de <classname>EBox::CGI::ClientBase</classname> mostrará
 		una página con la barra de titulo normal y el menú, pero con el cuerpo
@@ -204,21 +204,19 @@ sub _process
 		textualmente, el uso más común para estas excepciones es cuando los
 		datos introducidos por el usuario se validan.</para>
 
-		<para></para>
-
-		<para>The last bit you should learn is how to redirect requests to
-		other CGIs. There are a few reasons why you could want to do that, e.g.
-		you could write a CGI that takes some input parameters from the web
-		browser, changes something in the module backend and then redirects
-		the request to the CGI that displays the data. The CGI shown in <xref
-		linkend='ex-http-params'/> does not call any mason template at all, it
-		just changes the apache port and does nothing else. We want the user to
-		see the same page they were seeing before changing the port, with the
-		new value. <xref linkend='ex-http-redirect'/> shows the constructor for
-		that CGI:</para>
+		<para>La última parte que necesita aprender es como redirigir las
+		peticiones a otros CGIs. Hay pocas razones por las cuales se requiere
+		hacer eso, por ejemplo, escribir un CGI que tome unos datos del
+		usuario desde el navegador, cambie algo en el backend del módulo y
+		redirija la petición al CGI que muestra los datos. El CGI mostrado en
+		<xref linkend='ex-http-params'/> no llama a ninguna plantilla de
+		mason, únicamente cambia el puerto de apache y no hace nada
+		más. Queremos que el usuario vea la misma página que veía antes de
+		cambiar el puerto, con el nuevo valor. <xref
+		linkend='ex-http-redirect'/> muestra el constructor para ese CGI:</para>
 
 		<example id='ex-http-redirect'>
-			<title>Redirecting a request to a different CGI</title>
+			<title>Redirigiendo una petición a un CGI distinto</title>
 			<programlisting><![CDATA[sub new
 	my $class = shift;
 	my $self = $class->SUPER::new(@_);
@@ -228,65 +226,69 @@ sub _process
 }]]></programlisting>
 		</example>
 
-		<para>You can see that the constructor sets the
-		<structfield>redirect</structfield> attribute to the URL of
-		the page we want to redirect to. That's all there is to
-		do, if <structfield>redirect</structfield> is set to some
-		value, the parent class will do an HTTP redirect after the
-		<methodname>_process</methodname> method returns.</para>
+		<para>Se puede ver que el constructor configura el atributo
+		<structfield>redirect</structfield> con el valor de la URL de la
+		página a la que queremos ser redirigidos. Eso es todo lo que hace
+		falta hacer. A <structfield>redirect</structfield> se le da un valor y
+		la clase padre hará una redirección HTTP después de que haya acabado
+		la función <methodname>_process</methodname>.</para>
 
-		<para>An HTTP redirect makes the browser issue a new HTTP request, so
-		all the status data in the old request gets lost, but there are cases
-		when you want to keep that data for the new CGI. This could be done
-		passing GET parameters in the redirect URL, but it is simpler to do an
-		internal redirect, without going through the browser.</para>
+		<para>Una redirección HTTP hace que el navegador lance una nueva
+		petición HTTP, por lo que toda la información de estado de la antigua
+		petición se pierde. Habrá casos en los que querremos mantener la
+		información para el nuevo CGI, y para ello tenemos dos formas de
+		hacerlo. Podría hacerse pasando los parámetros GET en la URL de la
+		redirección, pero es mucho más sencillo hacerlo en una redirección
+		interna, sin que pase a través del navegador.</para>
 
-		<para> If you need to keep data, like a message or warning to the user,
-		you can use the <structfield>chain</structfield> attribute. It works
-		exactly the same way as <structfield>redirect</structfield> but instead
-		of sending an HTTP response to the browser, the parent class parses the
-		URL, instantiates the matching CGI, copies all data into it and runs
-		it. Messages and errors are copied automatically, the parameters in
-		the HTTP request are not, since an error caused by one of them could
-		propagate to the next CGI.</para>
-
-		<!-- FIXME - example -->
-
-		<para> If you need to keep HTTP parameters you can use the
-		<methodname>keepParam</methodname> method in the parent class. It
-		takes the name of the parameter as an argument and adds it to the
-		list of parameters that will be copied to the new CGI if a "chain" is
-		performed.</para>
+		<para>Si necesita mantener la información, como un mensaje o una
+		advertencia la usuario, puede utilizar el atributo
+		<structfield>chain</structfield>. Funciona exactamente de la misma
+		forma que <structfield>redirect</structfield> pero en vez de enviar
+		una respuesta HTTP al navegador, la clase padre procesa la URL,
+		instancia el CGI coincidente, copia todos los datos en él y lo
+		ejecuta. Los mensajes y errores son copiados automáticamente, los
+		parámetros en la petición HTTP no, ya que un error causado por uno de
+		ellos se podría propagar al siguiente CGI.</para>
 
 		<!-- FIXME - example -->
 
-		<para>Errors are a special case here, when an error happens you don't
-		want redirects at all, as the error message would be lost. If an error
-		happens and <structfield>redirect</structfield> has been set, then
-		that value is used as if it was <structfield>chain</structfield>.
-		However, sometimes you want to chain to a different CGI if there is
-		an error, for example if the cause of the error is the absence of an
-		input parameter necessary to show the page. If that's the case you
-		can set the <structfield>errorchain</structfield> attribute, which
-		will have a higher priority than <structfield>chain</structfield> and
-		<structfield>redirect</structfield> if there's an error.</para>
+		<para>Si necesita mantener los parámetros HTTP puede utilizar la
+		función <methodname>keepParam</methodname> de la clase padre. Toma el
+		nombre del parámetro como un argumento y lo añade a la lista de
+		parámetros que se le copiarán al nuevo CGI si se usa el atributo
+		<structfield>chain</structfield>.</para>
 
-		<para>Finally, the last detail there is to know about CGIs is how to
-		make i18n work properly, both in the CGIs themselves and in mason
-		templates. Since your module will not have the same gettext domain a
-		the eBox framework, the framework needs to know your domain so that it
-		can set it before calling your CGI and your template. It is as simple
-		as passing it as an argument to the parent's constructor, the "Hello
-		world" constructor in <xref linkend='ex-cgi-hello'/> would look like
-		this:</para>
+		<!-- FIXME - example -->
+
+		<para>Los errores son un caso especial. Cuando aparece un error, no se
+		desea hacer redirecciones, ya que el mensaje de error se perdería. Si
+		aparece un error y <structfield>redirect</structfield> tiene un valor,
+		entonces ese valor se utiliza como si fuera
+		<structfield>chain</structfield>. Sin embargo, algunas veces se desea
+		encadenarlo a un CGI aparte si hay un error, por ejemplo si la causa
+		del error es la ausencia de un parámetro de entrada necesario para
+		mostrar la página. Si se da ese caso, se puede utilizar el atributo
+		<structfield>errorchain</structfield>, el cual tiene una prioridad más
+		alta que <structfield>chain</structfield> y
+		<structfield>redirect</structfield> si hay un error.</para>
+
+		<para>Finalmente, el último detalle que hace falta conocer acerca de
+		los CGIs es como hacer que funcione correctamente la
+		internacionalización, tanto en los CGIs como en las plantillas de
+		mason. Siendo que el módulo no tendrá el mismo dominio gettext en la
+		plataforma eBox, la plataforma necesita conocer el dominio para poder
+		configurarlo antes de llamar al CGI y a la plantilla. Es tan simple
+		como pasarle como argumento al constructor del padre. El constructor
+		"Hola mundo" en <xref linkend='ex-cgi-hello'/> sería así:</para>
 
 		<example id='ex-cgi-domain'>
-			<title>Setting the gettext domain in a CGI</title>
+			<title>Configurando el dominio gettext en un CGI</title>
 
 			<programlisting><![CDATA[sub new 
 {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Hello World!'),
+	my $self = $class->SUPER::new('title' => __('Hola mundo!'),
 					'domain' => 'ebox-hello',
 					@_);
 	bless($self, $class);
@@ -294,73 +296,75 @@ sub _process
 }]]></programlisting>
 		</example>
 
-		<para>
-		If your title is translatable you should set it again in the
-		<function>_process</function> function, like:
-		<programlisting>
-$self->{title} = __('Hello world');
-		</programlisting>
-		otherwise it will not be translated correctly.
+		<para>Si el título se puede traducir, debería configurarlo de nuevo en
+		la función <function>_process</function>, como:
+			<programlisting>
+				$self->{title} = __('Hello world');
+			</programlisting>
+		o de otra forma no será traducido correctamente.
 		</para>
 
-		<para>
-		On the other hand, note that you should never use <function>__</function>
-		with non translatable strings, like protocol names (i.e., DHCP, NTP, ...).
-		</para>
-
+		<para>Por otra parte, note que no debería utilizar nunca
+		<function>__</function> con cadenas no traducibles, como nombres de
+		protocolo (p. ej., DHCP, NTP, ...).</para>
+		       
 	</section>
 
 	<section id="sect-mason">
-		<title>Mason templates</title>
+		<title>Plantillas mason</title>
 
-		<para>This section will only cover a few basic aspects of writing
-		mason templates, specially those details related to eBox. If you need
-		complete documentation about a certain aspect you should check the
-		<ulink url='http://www.masonhq.com/'>mason documentation</ulink> or the
-		<ulink url='http://www.masonbook.com/'>mason book</ulink>. Additional
-		examples can be found in <xref linkend='ch-examplemod'/>.</para>
-
-		<para>The first thing your mason template will have is the declarations
-		of the arguments it expects. Just write the name of the variables, one
-		per line and you are done. Arguments declared as arrays in the template
-		will be passed as array references by your CGI.</para> 
-
-		<para> In our example we are going to give the template an array with
-		names, and the template will say hello to each one of them separately.
-		We use an empty array as a default value for the variable, although
-		default values are optional. If none is given and you don't pass that
-		argument to the template an exception will be thrown.</para>
+		<para>Esta sección cubrirá sólo unos pocos aspectos básicos de la
+		escritura de las plantillas de mason, especialmente aquellos detalles
+		relacionados con eBox. Si necesita información concreta acerca de
+		algún aspecto debería revistar la <ulink
+		url='http://www.masonhq.com/'>documentación de mason</ulink> o el
+		<ulink url='http://www.masonbook.com/'>libro de mason</ulink>. Más
+		ejemplos se pueden encontrar en <xref linkend='ch-examplemod'/>.</para>
+			
+		<para>La primera cosa que la plantilla de mason debe tener es la
+		declaración de los argumentos que espera. Únicamente se ha de escribir
+		el nombre de las variables, una por línea y nada más. Los argumentos
+		declarados como arrays en la plantilla serán pasados como la
+		referencia a un array por el CGI.</para>
+		
+		<para>En nuestro ejemplo vamos a enviar un array con nombres a la
+		plantilla, y la plantilla saludará a cada uno de ellos por
+		separado. Utilizamos un array vacío como valor por defecto para la
+		variable, aunque los valores por defecto  son opcionales. Si no se le
+		da nada y ni se le pasa ese argumento a la plantilla, se lanzará una
+		excepción.</para>
 
 		<example>
-			<title>Declaring arguments in a mason template</title>
+			<title>Declarando argumentos en una plantilla de mason</title>
 
 			<programlisting><![CDATA[<%args>
 	@people => ()
 </%args>]]></programlisting>
 		</example>
 
-		<para>The next thing is the initialization section, in this
-		section we can write regular perl code. It is optional and most
-		of the times not needed. However all eBox templates have one,
-		because there is always the need to have i18n, so we import
-		<classname>EBox::Gettext</classname>:</para>
+		<para>La siguiente parte es la sección de inicialización. En esta
+		sección podemos escribir código perl normal. Es opcional y la mayor
+		parte de las veces no necesario. Sin embargo, todas las plantillas de
+		eBox tienen uno, porque siempre está la necesidad de tener i18n, por
+		lo que importaremos <classname>EBox::Gettext</classname>:</para>
 
 		<example>
-			<title>init section in mason templates</title>
+			<title>Sección init en las plantillas de mason</title>
 
 			<programlisting><![CDATA[<%init>
 use EBox::Gettext;
 </%init>]]></programlisting>
 		</example>
 
-		<para>Now we can go on and write the body of the template. The idea is
-		to just write HTML and use a couple of syntactic features to insert
-		perl code wherever we need. First, we'll learn how to do control flow.
-		All lines that start with a <literal>%</literal> are interpreted as
-		perl code.</para>
+		<para>Ahora podemos escribir el cuerpo de la plantilla. La idea es
+		escribir únicamente HTML y utilizar un par de características
+		sintácticas para insertar código de perl cuando es necesario. Primero,
+		aprenderemos a controlar el flujo de la plantilla. Todas las lineas
+		que comiencen por <literal>%</literal> son interpretadas como código
+		de perl.</para>
 
 		<example>
-			<title>Embedding perl code in a mason template</title>
+			<title>Incluyendo código perl en una plantilla de mason</title>
 			<programlisting><![CDATA[<ul>
 % foreach my $person (@people) {
 	<li>Hello</li>
@@ -368,43 +372,47 @@ use EBox::Gettext;
 </ul>]]></programlisting>
 		</example>
 
-		<para>We want to print the name of a person in each list item.
-		Embedding perl expressions in the special tags <literal>&lt;%
-		%&gt;</literal> prints the value of the expression in the output of
-		the template. We are going to use this feature to print the name of
-		the person and translate the "Hello" string (internationalization is
-		explained in <xref linkend='sect-i18n'/>).</para>
+		<para>Queremos imprimir el nombre de una persona por cada elemento de
+		la lista. Incluir expresiones de perl en las marcas especiales
+		<literal>&lt;&% %gt;</literal> imprime el valor de la expresión en la
+		salida de la plantilla. Vamos a utilizar esta característica para
+		imprimir el nombre de la persona y traducir la cadena "Hola"
+		(internacionalización es explicada en <xref linkend='sect-i18n'/>).</para>
 
 		<example>
-			<title>Printing strings in a mason template</title>
+			<title>Imprimiendo cadenas en una plantilla de mason</title>
 			<programlisting><![CDATA[<ul>
 % foreach my $person (@people) {
-	<li><% __('Hello') %> <% $person %></li>
+	<li><% __('Hola ') %> <% $person %></li>
 % }
 </ul>]]></programlisting>
 		</example>
 
-		<para>The ebox m4 macro exports the installation path for
-		mason templates as <varname>TEMPLATESPATH</varname>, so you
-		should install them under that directory, possibly creating a
-		subdirectory for your module. Whenever you need to reference
-		a template in your code, you can just use a path relative to
-		<varname>TEMPLATESPATH</varname>. Following our example, will use a
-		subdirectory named <filename>hello</filename> for our templates, and
-		place a template called <filename>world.mas</filename> in it.</para>
+		<para>La macro m4 de ebox exporta la ruta de instalación para las
+		plantillas de mason como <varname>TEMPLATESPATH</varname>, por lo que
+		deberían instalarse bajo ese directorio, posiblemente creando un
+		subdirectorio para el módulo. Cuando se necesite referenciar una
+		plantilla en el código, se puede usar una ruta relativa a
+		<varname>TEMPLATESPATH</varname>. Siguiendo nuestro ejemplo, se usará
+		un subdirectorio llamado <filename>hello</filename> para nuestras
+		plantillas, y colocaremos una plantilla denominada
+		<filename>world.mas</filename> en él.</para>
 
 		<section id='sect-gui-style'>
-			<title>Standard GUI elements</title>
-
-			<para>There are a few GUI elements that are displayed the same way
-			in all eBox modules. Things like tips, messages, warnings, errors,
-			tables and forms keep a common style. All this stuff is defined in
-			the CSS file, so that all modules can show a consistent look and
-			feel. Some of these elements have a dynamic behavior too, the tips
-			are hidden when the page is loaded and shown if the user clicks on
-			a link on the top-right corner of the page. This section gives an
-			overview of all of these elements and how to use them to achieve an
-			user interface that is consistent with all other eBox modules.</para>
+			<title>Elementos estándar de la GUI</title>	
+			
+			<para>Hay unos pocos elementos de la GUI que son mostrados de
+			la misma forma en todos los módulos de eBox. Cosas como
+			consejos, mensajes, avisos, errores, tablas y formularios
+			mantienen un estilo común. Todas estas cosas están definidas
+			en un fichero CSS, para que todos los módulos tengan un estilo
+			consistente. Algunos de estos elementos tienen un
+			comportamiento dinámico también. Los consejos son ocultados
+			cuando la página se carga, y se muestran si el usuario pulsa
+			sobre el enlace de la esquina superior derecha de la
+			página. Esta sección da una repaso a todos estos elementos y
+			como usarlos para alcanzar un interfaz de usuario consistente
+			con el resto de módulos de eBox.</para>
 
 			<para>Toda información que queramos mostrar al usuario, ya sea para
 			advertirle que una operación tiene riesgo, notificarle un error,
@@ -529,7 +537,7 @@ use EBox::Gettext;
 					<term><emphasis>tcenter</emphasis></term>
 
 					<listitem>
-						<para>Las acciones que podemos ejectutar sobre cada fila de un
+						<para>Las acciones que podemos ejecutar sobre cada fila de un
 						listado se alinean en el centro con este estilo.</para>
 					</listitem>
 
@@ -590,7 +598,7 @@ use EBox::Gettext;
 	</section>
 
 	<section id="sect-menu">
-		<title>El menu</title>
+		<title>El menú</title>
 
 		<para>El menú en el interfaz de la administración es dinámicamente
 		generado, permitiendo a todos los módulos instalados añadir nuevos
@@ -685,10 +693,10 @@ use EBox::Gettext;
 		linkend='sect-menu'/>. Hay unas cuantas clases en el espacio de
 		nombres <classname>EBox::Summary</classname> que se pueden usar para
 		construir la información de
-		resumen. <methodname>statusSummary</methodname> debería devolverun
+		resumen. <methodname>statusSummary</methodname> debería devolver un
 		objeto de tipo <classname>EBox::Summary::Status</classname> mientras
 		que <methodname>summary</methodname> es libre de devolver cualquier
-		objeto cuyo tipo sea un suptipo de
+		objeto cuyo tipo sea un subtipo de
 		<classname>EBox::Summary::Item</classname>, aunque la mayor parte de
 		los módulos sólo devuelvan un
 		<classname>EBox::Summary::Module</classname>.</para>
@@ -747,55 +755,57 @@ return $item;]]></programlisting>
 		<classname>EBox::Summary::Module</classname>. Éste objeto mantendrá
 		toda la información del resumen.</para>
 
-		<para>
-
-		<para> Then an <classname>EBox::Summary::Section</classname>
-		is created for each network interface, a section has a title
-		(passed as an argument to its constructor) and it contains several
-		<classname>EBox::Summary::Value</classname> objects, which display a
-		name and an associated value as rows in a table within the section.
-		So each several values are added to each section and the sections
-		are added to the <classname>EBox::Summary::Module</classname>
-		object. The result is a tree of objects, and its root is the
-		<classname>EBox::Summary::Module</classname>, when it is asked to print
-		itself it prints its title and asks each of its children to print
-		itself. To see what it looks like just open the summary page in an eBox
-		installation.</para>
+		<para>Entonces se creará un objeto de tipo
+		<classname>EBox::Summary::Section</classname> para cada interfaz de
+		red. Es una sección con un título (pasado como argumento al
+		constructor) y contiene varios objetos
+		<classname>EBox::Summary::Value</classname>, los cuales muestran el
+		nombre y un valor asociado como filas de una tabla en la sección. Por
+		tanto, varios valores se añaden a cada sección y las secciones son
+		añadidas al objeto <classname>EBox::Summary::Module</classname>. El
+		resultado es un árbol de objetos, y su raíz es la
+		<classname>EBox::Summary::Module</classname>. Cuando se le pide
+		imprimirse, muestra su título y pide a cada uno de sus hijos que se
+		impriman. Para ver como es, sólo hace falta abrir la página Resumen de
+		una instalación de eBox.</para>
 
 		<!-- FIXME - screenshot -->
 
-		<para><methodname>summary</methodname> may return any object as long as
-		it inherits from <classname>EBox::Summary::Item</classname>, you can
-		create your own if your needs are not covered by the standard items
-		that come with the framework.</para>
+		<para><methodname>summary</methodname> puede devolver cualquier objeto
+		siempre que herede de <classname>EBox::Summary::Item</classname>,
+		puede crearse uno propio si las necesidades no son cubiertas por los
+		elementos estándar que vienen con la plataforma.</para>
 
-		<para><methodname>statusSummary</methodname> is easier, it just has
-		to return an <classname>EBox::Summary::Status</classname> object.
-		The constructor for this class needs three arguments:</para>
+		<para><methodname>statusSummary</methodname> es más sencillo. Solo ha
+		de devolver un objeto <classname>EBox::Summary::Status</classname>. El
+		constructor para esta clase necesita tres argumentos:</para>
 
 		<itemizedlist>
 
 			<listitem>
-				<para>The name of the service.</para>
+				<para>El nombre del servicio.</para>
 			</listitem>
 
 			<listitem>
-				<para>A boolean indicating whether the service is running.</para>
+				<para>Un valor booleano que indique si el servicio
+				está ejecutándose.</para>
 			</listitem>
 
 			<listitem>
-				<para>A boolean indicating whether the service is enabled or not.</para>
+				<para>Un valor booleano que indica si el servicio está
+				activado o no.</para>
 			</listitem>
 		</itemizedlist>
 
-		<para> The reason for this third argument is that services that the
-		user should not be able to use the summary page to start services that
-		have not been configured, so if, for example, the squid service is
-		disabled, the user will have to go to the squid configuration page and
-		enable the service there. <xref linkend='ex-squid-status'/> shows the
-		<methodname>statusSummary</methodname> implementation in the squid
-		module, along with some related methods.</para>
-
+		<para>La razón por la cual existe este tercer argumento es que existen
+		servicios que el usuario no debería poder iniciar, en la página de
+		resumen, porque no han sido configurados. Así si, por ejemplo, el
+		servicio de squid está desconectado, el usuario tendrá que ir a la
+		página de configuración de squid y activar allí el servicio. <xref
+		linkend='ex-squid-status'/> muestra la implementación de la función
+		<methodname>statusSummary</methodname> en el módulo squid, además de
+		algunas funciones relacionadas.</para>
+				
 		<example id='ex-squid-status'>
 
 			<title>Ejemplo de implementación de
