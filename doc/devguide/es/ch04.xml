@@ -412,7 +412,7 @@ sub freeViface # (iface, viface)
 					son añadidas a la cadena <literal>POSTROUTING>
 					en la tabla <literal>nat</literal>. Puedes
 					usarla para hacer NAT en la dirección de
-					origen de los paquetes.</literal>
+					origen de los paquetes.</literal></para>
 
 				</listitem>
 			</varlistentry>

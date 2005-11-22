@@ -447,9 +447,9 @@
 				<term><methodname>set_int</methodname></term>
 				<listitem>
 
-					<para>Asigna un <paramenter>valor</paramenter>
+					<para>Asigna un <parameter>valor</parameter>
 					entero a una
-					<parameter>clave</parameter>.</para> 
+					<parameter>clave</parameter>.</para>
 
 				</listitem>
 			</varlistentry>
@@ -459,7 +459,8 @@
 
 					<para>Asigna una lista de
 					<parameter>valores</parameter> de un
-					<parameter>tipo</parameter> en un <parameter>valor</parameter>.</para>
+					<parameter>tipo</parameter> en un
+					<parameter>valor</parameter>.</para>
 				
 				</listitem>
 			</varlistentry>

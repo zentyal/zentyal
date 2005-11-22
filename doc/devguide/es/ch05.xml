@@ -374,7 +374,7 @@ use EBox::Gettext;
 
 		<para>Queremos imprimir el nombre de una persona por cada elemento de
 		la lista. Incluir expresiones de perl en las marcas especiales
-		<literal>&lt;&% %gt;</literal> imprime el valor de la expresión en la
+		<literal>&lt;% %&gt;</literal> imprime el valor de la expresión en la
 		salida de la plantilla. Vamos a utilizar esta característica para
 		imprimir el nombre de la persona y traducir la cadena "Hola"
 		(internacionalización es explicada en <xref linkend='sect-i18n'/>).</para>
