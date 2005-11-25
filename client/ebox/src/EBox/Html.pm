@@ -34,7 +34,18 @@ use EBox::Menu::Root;
 #
 sub title
 {
-	return '<div id="top"></div><div id="header"><img src="/data/images/title.gif"></div><div id="hmenu"><a id="m" href="/ebox/Finish">Save changes</a><a id="mm" href="">Help</a><a id="mmm" href="/ebox/Logout/Index">Logout</a></div> ';
+	my $save = __('Save changes');
+	my $help = __('Help');
+	my $logout = __('Logout');
+
+	return qq%<div id="top"></div>
+	<div id="header"><img src="/data/images/title.gif"></div>
+	<div id="hmenu">
+	<a id="m" href="/ebox/Finish">$save</a>
+	<a id="mm" href="">$help</a>
+	<a id="mmm" href="/ebox/Logout/Index">$logout</a>
+	</div>
+	%;
 }
 
 #
