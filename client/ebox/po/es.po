@@ -1,3 +1,4 @@
+# translation of es.po to Español
 # translation of es.po to
 # translation of es.po to Spanish
 # Spanish Warp Team translation of ebox.
@@ -12,10 +13,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-18 17:33+0100\n"
-"PO-Revision-Date: 2005-11-18 17:34+0100\n"
-"Last-Translator: Javier Uruen Val <juruen@warp.es>\n"
-"Language-Team:  <en@li.org>\n"
+"POT-Creation-Date: 2005-11-25 19:17+0100\n"
+"PO-Revision-Date: 2005-11-25 19:18+0100\n"
+"Last-Translator: Jorge Arcas <jarcas@warp.es>\n"
+"Language-Team: Español <ebox-devel@lists.warp.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -49,7 +50,7 @@ msgstr "Por razones de seguridad, su sesión ha expirado por inactividad"
 msgid "You have been logged out because a new session has been opened"
 msgstr "Su sesión ha sido cerrada porque se ha creado una nueva sesión"
 
-#: src/EBox/CGI/Logout/Index.pm:30
+#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:39
 msgid "Logout"
 msgstr "Salir de sesión"
 
@@ -178,7 +179,15 @@ msgstr "Fichero de backup incorrecto o corrupto"
 msgid "The backup file is corrupt."
 msgstr "El fichero de backup está corrupto"
 
-#: src/EBox/Html.pm:79
+#: src/EBox/Html.pm:37
+msgid "Save changes"
+msgstr "Guardar cambios"
+
+#: src/EBox/Html.pm:38
+msgid "Help"
+msgstr "Ayuda"
+
+#: src/EBox/Html.pm:90
 msgid ""
 "Created by <a href=\"http://www.warp.es\">Warp Networks S.L.</a> in "
 "collaboration with <a href=\"http://www.dbs.es\">DBS Servicios Informáticos "
