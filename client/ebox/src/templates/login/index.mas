@@ -16,7 +16,7 @@ use EBox::Gettext;
 <center>
 	<div id='login'>
 	<div id='loginin'>
-	<img src="/data/images/title.gif" alt="eBox Logo" id="logo"/>
+	<img src="/data/images/title-login.png" alt="eBox Logo" id="logo"/>
 % 		if(length($reason)){
 			<div id='reason'><% $reason %></div>
 %		}
