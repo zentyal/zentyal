@@ -1,0 +1,27 @@
+	<!-- vim: ts=2 sw=2 tw=75
+-->
+<chapter id="ch-time">
+
+	<title>NTP Server</title>
+
+	<section id='sect-time-ntp'>
+		<!-- NTP->Server -->
+		<title>NTP Server</title>
+
+		<para>NTP server can only be enabled or disabled at its configuration
+		page, you can access through
+			<menuchoice>
+				<guimenu>NTP Server</guimenu>
+			</menuchoice>
+		.
+		</para>
+
+		<para>If it's "Enabled", clients with eBox as NTP Server will have its
+		date/time configuration synchronized with eBox one, whose
+		configuration can be configured following the instructions at <link
+		linkend='sect-ebox-datetime'>Date/time configuration</link>
+		.
+		</para>
+	</section>
+
+</chapter>

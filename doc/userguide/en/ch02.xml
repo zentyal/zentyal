@@ -1,0 +1,224 @@
+	<!-- vim: ts=2 sw=2 tw=75
+-->
+<chapter id="ch-system">
+	<title>System configuration</title>
+
+	<section id='sect-ebox-general'>
+		<!-- System->General -->
+		<title>User interface general configuration</title>
+
+		<para>Interface general configuration is accessed through
+			<menuchoice>
+				<guimenu>System</guimenu>
+				<guimenuitem>General</guimenuitem>
+			</menuchoice>
+		from the left menu.
+		</para>
+
+		<para>From this section you can make three significative changes over
+		the eBox management interface:</para>
+			
+		<variablelist>
+			<varlistentry>
+				<term>Password change</term>
+				<listitem>
+					<para>It allows the password modification to
+					administrate eBox.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Language Selection</term>
+				<listitem>
+					<para>eBox can show its information on
+					different languages. You could choose them here.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Management interface TCP Port</term>
+				<listitem>
+					<para>TCP Port where eBox management interface
+					is bound.</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+
+		
+		<section>
+			<title>Password change</title>
+			<para>To change your password, you should enter current
+			password, for security reasons, and the new one twice, so it
+			can be confirmed. Next, you have to accept the input data and
+			not forgive that it's mandatory to save changes, using the
+			upper menu, to make them definitive.</para>
+		</section>
+
+		<section>
+			<title>Language selection</title>
+			<para>Select your preferred language from the
+			list and confirm your changes by submitting the
+			form. This time won't be necessary to "Save
+			Changes" to make it effective.</para>
+		</section>
+
+		<section>
+			<title>Management Interface TCP Port</title>
+			<para>If the port value is changed to something different to
+			443, form is submitted and changed are saved, you will be able
+			to access to eBox typing: <ulink
+			url="#">https://hostname:PORT/eBox</ulink> on your browser,
+			with PORT as the new PORT value.</para>
+			<note>
+				<para>Please, remember that after saving changes of
+				the management interface port, some seconds are needed
+				before eBox can work on the new port.</para>
+			</note>
+		</section>
+	</section>
+
+	<section id='sect-ebox-backup'>
+		<!-- System->Backup -->
+		<title>Configuration Backup</title>
+
+		<para>You can get eBox backups management through
+			<menuchoice>
+				<guimenu>System</guimenu>
+				<guimenuitem>Backups</guimenuitem>
+			</menuchoice>
+		from the left menu.
+ 		</para>
+
+		<para>From the backups page, you can make a copy of the last saved
+		eBox configuration or restore previous saved backups.</para>
+
+		<section>
+			<title>Saving your current configuration</title>
+			<para>After entering a description and saving the changes in
+			the form, a new entry will appear on the backups list, showing
+			date and description of the backup.</para>
+			<note>
+				<para>It's important to remember that the
+				configuration which is backuped is the last saved
+				configuration, though the corresponding link at the
+				horizontal upper menu.</para>
+			</note>
+		</section>
+
+		<section>
+			<title>Restore configuration</title>
+			<para>You can recover one configuration selecting a backup file
+			from your hard disk and pressing recover button. This option
+			is useful to restore backups exported to other storage devices.</para>
+		</section>
+
+		<section>
+			<title>Configuration backups list</title>
+			<para>Backups list has the eBox backups made during its
+			working period. Actions on that list, located at the right of
+			each element, let restore a backup, download a file with a
+			backup or remove a backup from the list.</para>
+		</section>
+	</section>
+
+	<section id='sect-ebox-halt'>
+		<!-- System->Halt/Reboot -->
+		<title>System Halt/Reboot</title>
+
+		<para>Our web interface to halt or reboot the computer where eBox is
+		installed in, is reachable through
+			<menuchoice>
+				<guimenu>System</guimenu>
+				<guimenuitem>Halt/Reboot</guimenuitem>
+			</menuchoice>.
+		</para>
+
+		<para>You shouldn't forget that if your eBox system is your Internet
+		gateway, you will lose connection to the global network meanwhile eBox
+		is halt.</para>
+	</section>
+
+	<section id='sect-ebox-bug'>
+		<!-- System->Bug report -->
+		<title>Bug reports generation</title>
+
+		<para>If you find a problem while eBox is running, you can fill a file
+		with the bug report at
+			<menuchoice>
+				<guimenu>System</guimenu>
+				<guimenuitem>Bug report</guimenuitem>
+			</menuchoice>
+		and send it by e-mail to support@ebox-platform.com
+		</para>
+	</section>
+
+	<section id='sect-ebox-datetime'>
+		<!-- System->Date/Time -->
+		<title>Date/Time Configuration</title>
+
+		<para>You can access to date/time configuration in 
+			<menuchoice>
+				<guimenu>System</guimenu>
+				<guimenuitem>Date/Time</guimenuitem>
+			</menuchoice>
+		and
+			<menuchoice>
+				<guimenu>System</guimenu>
+				<guimenuitem>Timezone</guimenuitem>
+			</menuchoice>
+		.
+		</para>
+			
+		<para>At
+			<menuchoice>
+				<guimenu>System</guimenu>
+				<guimenuitem>Date/Time</guimenuitem>
+			</menuchoice>
+		, you can adjust eBox date and time. There are two different options
+		to adjust date and time correctly: by hand, setting as "Disabled" NTP
+		Server sinchronization, and using an external NTP Server, setting as
+		"Enabled" NTP sinchronization.
+
+		<variablelist>
+			<varlistentry>
+				<term>By hand</term>
+				<listitem>
+					<para>If sinchronization with other NTP server
+					is disabled, date and time adjust will be
+					manual. Selecting corresponding values, shown
+					in the page, for system date and time values.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Using another NTP Server</term>
+				<listitem>
+					<para>If date/time sinchronization with a NTP
+					Server is enabled, another configuration will
+					be shown, where you can specify until a
+					maximum of three NTP Servers where eBox will
+					ask for date and time, using current timezone
+					from the system configuration.</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+		</para>
+
+		<para>At
+			<menuchoice>
+				<guimenu>System</guimenu>
+				<guimenuitem>Timezone</guimenuitem>
+			</menuchoice>
+		you can configure the system timezone. You just need to select you
+		geographic zone from the list at the left, and a city from the list at
+		the right, both belonging your time zone, and accept your
+		configuration.
+		</para>
+
+		<warning>
+			<para>When you make a change on the system date/time
+			configuration, every eBox service will be restarted.
+			</para>
+		</warning>
+	</section>
+	
+</chapter>

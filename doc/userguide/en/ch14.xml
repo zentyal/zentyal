@@ -1,0 +1,26 @@
+	<!-- vim: ts=2 sw=2 tw=75
+-->
+<chapter id="ch-dns">
+
+	<title>DNS cache</title>
+
+	<section id='sect-dns-cache'>
+		<!-- DNS Cache -->
+		<title>DNS cache</title>
+
+		<para>DNS cache just allow to be "Enabled" or
+		"Disabled" at the configuration page, that you can
+		find at 
+			<menuchoice>
+				<guimenu>DNS cache</guimenu>
+			</menuchoice>
+		.
+		</para>
+
+		<para>If it's enabled, various DNS requests will be
+		resolved as an only external DNS request, reducing
+		response time and network traffic with most visited
+		hosts.</para>
+	</section>
+
+</chapter>

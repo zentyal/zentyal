@@ -1,0 +1,66 @@
+	<!-- vim: ts=2 sw=2 tw=75
+-->
+<chapter id="ch-dhcp">
+
+	<title>DHCP Server</title>
+	
+	<section>
+		<title>DHCP Server</title>
+	
+		<para>You can enter into DHCP Server configuration
+		going into
+			<menuchoice>
+				<guimenu>DHCP</guimenu>
+			</menuchoice>
+		.
+		</para>
+
+		<para>You just will be able to configure DHCP server if there is any
+		network interface declared as Static. If there are different
+		interfaces set as static, you could choose which one will be
+		configured through the upper tabs, just below the status select
+		list.</para>
+      
+		<para>If you want to enable DHCP server, select from the selection
+		list (at the upper zone of the configuration page), status "Enabled"
+		and accept the form clicking at "Change".</para>
+			
+		<para>Working configuration about DHCP server can be adjusted with
+		these options:
+		<variablelist>
+			<varlistentry>
+				<term>Options</term>
+				<listitem>
+					<para>These options are not required, and
+					leave them blank is ok. They are used to
+					define the default gateway and two Name
+					Servers in the network.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Ranges</term>
+				<listitem>
+					<para>Range lists can be created with some
+					values you could like to assign to network
+					hosts. This lists must not have matches
+					between them and every allocatable adresses
+					must belong to the available range shown above
+					the ranges list. If no list is created, every
+					range will be used to assign adresses to the
+					network.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Static assignments</term>
+				<listitem>
+					<para>A fixed IP can be assigned (if belongs
+					to the available range) to a MAC adress from
+					the network. You just need to create an
+					item at the static assignation list which has
+					the MAC adress and the required IP adress.</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+		</para>
+		</section>
+</chapter>

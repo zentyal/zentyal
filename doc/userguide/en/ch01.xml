@@ -1,0 +1,169 @@
+	<!-- vim: ts=2 sw=2 tw=75
+-->
+<chapter id="ch-intro">
+
+	<title>Introduction</title>
+
+	<section id='sect-audience'>
+		<title>Who is intended this guide for?</title>
+
+		<para>This guide is intended for those people who
+		already has eBox platform installed, or those who are
+		evaluating its installation and want to know briefly
+		its working and its possibilities.</para>
+		
+		<para>If your interest is focused on the internal
+		working of this program or wants to learn how does the
+		platform, which is written eBox with, please consult
+		the "eBox Developers Guide".</para>
+
+		<note>
+			<para>This guide does not include general
+			information about network services,
+			communication protocols nor its
+			application. These could be neccesary to fully
+			understand the eBox, and its modules, way of
+			working and utility.</para>
+		</note>
+	</section>
+
+	<section id="sect-whatis">
+		<title>What is eBox?</title>
+
+		<para>eBox is a framework which has network services
+		and a management application, for these services,
+		through a web interface. Some of them are: firewall,
+		file sharing, proxy-cache, content filter, mail
+		server, NTP server, DHCP server, printer server,
+		Jabber server and network objects management.</para>
+
+		<para>eBox has a modular design, so it's possible
+		its installation without all the available modules
+		described on this guide. Anyway, you can check the
+		information about the modules you don't own and
+		inquire if they are useful for you, necessary or have
+		an important real value for your current eBox
+		platform.</para>
+  </section>
+
+	<section>
+		<title>Terminology</title>
+
+		<para>FIXME: ¿esta sección es como un glosario de términos de eBox?</para>
+  </section>
+
+	<section>
+		<title>A first contact with the user interface</title>
+
+		<para>Default URL to access to eBox administration
+		interface is <ulink
+		url="#">https://hostname/eBox</ulink>, where
+		<emphasis>hostname</emphasis> is the IP adress or the
+		hostname where eBox is installed.</para>
+
+		<para>User interface is divided on three main parts:</para>
+
+		<!-- FIXME odio los nombres que le he dado a las partes del interfaz
+		-->
+
+		<variablelist>
+			<varlistentry>
+				<term>Left vertical menu</term>
+				<listitem>
+					<para>Left vertical menu, which is located at the left zone, has links to
+					every service that can be configured with eBox. When any service has been
+					selected in this menu, then a new submenu of the former service could
+					appear. This submenu will let you configure and ask for the contents of each
+					aspects of this service.
+					</para>
+					<!-- FIXME: left menu screenshot -->
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Horizontal upper menu</term>
+				<listitem>
+					<para>Horizontal menu, located at the upper zone, has links to save the new
+					changed made on contents part and make them real, to show the help and to
+					log out from the application.</para>
+					<!-- FIXME: top menu screenshot -->
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Main Content</term>
+				<listitem>
+					<para>The content, which fits the central zone, has one or more forms with
+					information about the service configuration, selected through the vertical
+					left menu and/or its submenus. Sometimes, on the upper part of the content
+					zone, will appear a tab bar, which will represent different subsections for
+					the section we have accessed.</para>
+					<!-- FIXME: content screenshot -->
+				</listitem>
+			</varlistentry>
+		</variablelist>
+
+		<note>
+			<para>eBox items position could be modified anytime in future
+			development.</para>
+		</note>
+
+		<para>An important detail of eBox is its way to do effective every
+		change on the application. In other words, how and when changes will
+		be saved.</para>
+
+		<para>First, changes should be accepted on the current form, but it's
+		needed to click on "Save Changes" (at the Horizontal upper menu) to
+		make effective this changes and	save them permanently. If you don't
+		follow these simple steps, you will lose every single change you had
+		made during the session.
+		</para>
+
+		<para>There are some excepciones when it's not necessary to "Save
+		Changes". Just enough doing an action on the form where we are will
+		make the work. These are the cases:
+
+			<variablelist>
+				<varlistentry>
+					<term>Users and groups management</term>
+						<listitem>
+							<para>
+							To add, modify or delete users
+							or groups are inmediate
+							actions, and it's not
+							necessary to "Save Changes" to
+							make them effective.</para>
+						</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>NTP Server</term>
+						<listitem>
+							<para>Date and time zone
+							adjust for our system does not
+							require changes save, either.
+							</para>
+						</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Language Changes</term>
+						<listitem>
+						<para>Interface language change is
+						automatic and it's not needed to be
+						saved permanently. It can be changed
+						the eBox language on
+						<menuchoice><guimenu>System</guimenu>
+						<guimenuitem>General</guimenuitem></menuchoice>
+						</para>
+						</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Restart Services</term>
+						<listitem>
+							<para>
+							FIXME: existirá después de la implementación del monitor de servicios?
+							</para>
+						</listitem>
+				</varlistentry>
+			</variablelist>
+		</para>
+	</section>
+
+</chapter>

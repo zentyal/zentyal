@@ -1,0 +1,94 @@
+	<!-- vim: ts=2 sw=2 tw=75
+-->
+<chapter id="ch-objects">
+
+	<title>Network objects</title>
+
+	<section id='sect-objects-desc'>
+		<title>What the network objects are?</title>
+
+		<para>Network objects are an easy way to give a name
+		to a network item, or a group of them. They are used
+		to simplify network configuration management, allowing
+		you to choose different behaviours for each item or
+		group of them with just a descriptive name.</para>
+
+		<para>Network objects can be used, for instance, to
+		five a name to an IP or a group of IPs. If the object
+		is a group of IPs, instead of defining some rules for
+		each IP, every IP inside the object will acquire that
+		configuration.</para>
+	</section>
+
+	<section id='sect-objects-manage'>
+		<!-- Objects -->
+		<title>Network objects management</title>
+
+		<para>Network objects used by eBox can be created,
+		modified and erased in an easy and intuitive way using
+		the web interface.
+		</para>
+
+		<section id="create-object">
+			<title>Object creation</title>
+
+			<para>New object creation is done at
+				<menuchoice><guimenu>Objects</guimenu></menuchoice>
+			.
+			</para>
+
+			<para>So, you should enter the name's object
+			at the text input and click 
+				<guibutton>Create</guibutton>
+			.
+			</para>
+
+			<para>The next step is to enter every member
+			for the object shown in the screen. For each
+			member, you can define:
+			</para>
+
+			<itemizedlist>
+				<listitem><para><guilabel>Name</guilabel>
+				: name assigned to the member.
+				</para></listitem>
+				<listitem><para><guilabel>IP
+				adress</guilabel>
+				: member IP adress
+				</para></listitem>
+				<listitem><para><guilabel>Network
+				mask</guilabel>
+				: netowkr mask, using CIDR notation
+				</para></listitem>
+				<!-- FIXME: poner equivalencias entre notación CIDR y dotted
+				subnet -->
+				<listitem><para><guilabel>MAC</guilabel> 
+				(optional): hardware adress -or MAC
+				adress- of the network interface
+				corresponding to that IP adress.
+				</para></listitem>
+			</itemizedlist>
+
+			<para>Once you hace entered those fields,
+			click at its <guilabel>Action</guilabel> add icon.
+			</para>
+		</section>
+
+		<section id="edit-object">
+			<title>Edit objects</title>
+
+			<para>To edit one object, just click at its
+			<guilabel>Action</guilabel> edit icon. Edition
+			process is identical as creation one.</para>
+		</section>
+
+		<section id="delete-object">
+			<title>Objects removal</title>
+
+			<para>To remove one object located at the
+			current object list, you have to click at its
+			<guilabel>Action</guilabel> removal icon.</para>
+		</section>
+	</section>
+	
+</chapter>

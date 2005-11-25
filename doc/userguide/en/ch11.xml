@@ -1,0 +1,56 @@
+	<!-- vim: ts=2 sw=2 tw=75
+-->
+<chapter id="ch-files">
+
+	<title>File sharing</title>
+	<!-- File Sharing -->
+
+	<section>
+		<title>File sharing</title>
+
+		<para>You can get into file sharing server
+		configuration entering into
+			<menuchoice>
+				<guimenu>File sharing</guimenu>
+			</menuchoice>
+		.
+		To activate file sharing, just select from the status list, at the
+		upper configuration page, "Enabled" status and accept the changes
+		clicking at "Change".
+		</para>
+
+		<para>If you want to have file sharing fully working, you need to
+		configure these fields:
+		<variablelist>
+			<varlistentry>
+				<term>Work Group</term>
+				<listitem>
+					<para>Only users who belong to the same
+					workgroup can share their files between them.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Netbios name</term>
+				<listitem>
+					<para>Name that eBox will have inside the network.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Description</term>
+				<listitem>
+					<para>Host Description.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Quota limit</term>
+				<listitem>
+					<para>Quota disk limit on MB to use for each
+					user. If you don't want to set any quota is ok
+					to fill this field with zero value.</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+		</para>
+	</section>
+
+</chapter>

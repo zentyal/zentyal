@@ -1,0 +1,95 @@
+	<!-- vim: ts=2 sw=2 tw=75
+-->
+<chapter id="ch-jabber">
+
+	<title>Jabber Server</title>
+	
+	<section>
+		<title>Jabber Server</title>
+	
+		<para>You can get to Jabber server configuration at
+			<menuchoice>
+				<guimenu>Jabber</guimenu>
+			</menuchoice>
+		and with each user options.</para>
+
+		<para>Jabber server configures a instant messenger network access, for
+		a local network or with external connection. It also handles
+		authentication per-user, allowing or not its access to each one.</para>
+		
+		<para>If you want to enable Jabber server, enter on its configuration
+		page and select, from the upper part, "Enabled" option from the
+		selection list.</para>
+
+		<para>You can configure Jabber server behaviour by setting these options:
+			<variablelist>
+				<varlistentry>
+					<term>Domain Name</term>
+					<listitem>
+						<para>Every account on a Jabber server has this syntax:
+						user@domain. Users shall use this syntax on their IM clients to
+						chat. For this reason, the domain name should be resolved by the
+						user's PC, and resolved by the rest of Internet if external access
+						is configured.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Global Jabber network connection</term>
+					<listitem>
+						<para>Jabber server can be part of the planet-wide Jabber network;
+						or work as a stand-alone server on a corporative network. This
+						option allows to select its behaviour.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>SSL Support</term>
+					<listitem>
+						<para>Authentication and data transmission between Jabber user and
+						the server can be made of three different ways:
+							<itemizedlist>
+								<listitem>
+									<para>First, selecting "No" value will make
+									a plain communication between both
+									parts.</para>
+								</listitem>
+								<listitem>
+									<para>Second option, "Optional". It allows
+									the user to choose if communication with the
+									server should be encripted, with SSL, or
+									plain.</para> 
+								</listitem>
+								<listitem>
+									<para>Last, if SSL access is "Required", IM
+									client must allow SSL authentication to get
+									connected to Jabber server.</para>
+								</listitem>
+							</itemizedlist>
+						</para>
+					</listitem>
+				</varlistentry>
+			</variablelist>
+		</para>
+
+		<para>On each user configuration, we can find two new options for its Jabber access configuration:
+			<variablelist>
+				<varlistentry>
+					<term>User account</term>
+					<listitem>
+						<para>It can be checked or not, which will allow the user access to
+						the Jabber server.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>User has administration rights</term>
+					<listitem>
+						<para>A user with administration privileges can be notified with
+						some server events, or make some actions only available to admin
+						users. Please, check Jabber documentation if you need to know about
+						the full set of privileges of a Jabber network administrator.</para>
+					</listitem>
+				</varlistentry>
+			</variablelist>
+		</para>
+		</section>
+	
+</chapter>

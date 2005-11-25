@@ -1,0 +1,46 @@
+	<!-- vim: ts=2 sw=2 tw=75
+-->
+<chapter id="ch-software">
+	<title>System updates</title>
+
+	<section id='sect-software-config'>
+		<!-- Software->Configuration -->
+		<title>Configuration</title>
+
+		<para>eBox can automatically upgrade your system
+		software. This option can be enable at
+			<menuchoice>
+				<guimenu>Software</guimenu>
+				<guimenuitem>Configuration</guimenuitem>
+			</menuchoice>
+		</para>
+
+		<warning>
+		<para>For all these eBox software management module's
+		functionalities, it is needed the Operating System is
+		Debian GNU/Linux.</para>
+		</warning>
+	</section>
+
+	<section id='sect-software-ebox'>
+		<!-- Software->eBox components -->
+		<title>eBox components</title>
+
+		<para>
+		At
+			<menuchoice>
+				<guimenu>Software</guimenu>
+				<guimenuitem>eBox components</guimenuitem>
+			</menuchoice>
+		you can install, upgrade or remove different existing eBox packages.</para>
+	</section>
+
+	<section id='sect-software-system'>
+		<!-- Software->System updates -->
+		<title>System updates</title>
+
+		<para>You can manage the software at the system where
+		eBox is installed with the same ease as components management.</para>
+	</section>
+
+</chapter>
