@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox 0.3.svn\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-25 19:17+0100\n"
+"POT-Creation-Date: 2005-11-26 18:39+0100\n"
 "PO-Revision-Date: 2004-11-02 17:54+0100\n"
 "Last-Translator:  <isaac@sindominio.net>\n"
 "Language-Team: French <cedricduval@free.fr>\n"
@@ -266,8 +266,9 @@ msgid "Enter"
 msgstr "Externe"
 
 #: src/templates/login/index.mas:40
-msgid "Created by <a href="
-msgstr ""
+#, fuzzy
+msgid "Created by "
+msgstr "Créer"
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."
@@ -810,9 +811,6 @@ msgstr "Charger de fichier de rapport de bug"
 
 #~ msgid "New object"
 #~ msgstr "Nouvel objet"
-
-#~ msgid "Create"
-#~ msgstr "Créer"
 
 #~ msgid ""
 #~ "The objects that you create here can be used in the rest of the system. "

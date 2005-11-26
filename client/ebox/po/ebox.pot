@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-25 19:17+0100\n"
+"POT-Creation-Date: 2005-11-26 18:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -246,7 +246,7 @@ msgid "Enter"
 msgstr ""
 
 #: src/templates/login/index.mas:40
-msgid "Created by <a href="
+msgid "Created by "
 msgstr ""
 
 #: src/templates/logout/index.mas:11

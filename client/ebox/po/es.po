@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-25 19:17+0100\n"
-"PO-Revision-Date: 2005-11-25 19:18+0100\n"
+"POT-Creation-Date: 2005-11-26 18:39+0100\n"
+"PO-Revision-Date: 2005-11-26 18:42+0100\n"
 "Last-Translator: Jorge Arcas <jarcas@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
 "MIME-Version: 1.0\n"
@@ -260,8 +260,8 @@ msgid "Enter"
 msgstr "Entrar"
 
 #: src/templates/login/index.mas:40
-msgid "Created by <a href="
-msgstr "Creado por <a href="
+msgid "Created by "
+msgstr "Creado por "
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."
