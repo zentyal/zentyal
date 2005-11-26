@@ -8,13 +8,37 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-11 12:41+0100\n"
+"POT-Creation-Date: 2005-11-26 18:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: src/EBox/Exceptions/DataNotFound.pm:30
+#, perl-brace-format
+msgid "{data} {value} does not exist."
+msgstr ""
+
+#: src/EBox/Exceptions/DataExists.pm:31
+#, perl-brace-format
+msgid "{data} {value} already exists."
+msgstr ""
+
+#: src/EBox/Exceptions/InvalidData.pm:31
+#, perl-brace-format
+msgid "Invalid value for {data}: {value}."
+msgstr ""
+
+#: src/EBox/Exceptions/DataMissing.pm:30
+#, perl-brace-format
+msgid "{data} is empty."
+msgstr ""
+
+#: src/EBox/CGI/Run.pm:58
+msgid "The page could not be found"
+msgstr ""
 
 #: src/EBox/CGI/Base.pm:166
 msgid ""
@@ -44,33 +68,17 @@ msgid ""
 "relevant information can be found in the logs."
 msgstr ""
 
-#: src/EBox/CGI/Run.pm:58
-msgid "The page could not be found"
-msgstr ""
-
 #: src/EBox/NetWrappers.pm:101 src/EBox/NetWrappers.pm:129
 #: src/EBox/NetWrappers.pm:160 src/EBox/NetWrappers.pm:192
 msgid "Interface"
 msgstr ""
 
-#: src/EBox/Exceptions/DataNotFound.pm:30
-#, perl-brace-format
-msgid "{data} {value} does not exist."
+#: src/EBox/Config.pm.in:40
+msgid "Could not open the config file."
 msgstr ""
 
-#: src/EBox/Exceptions/DataExists.pm:31
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr ""
-
-#: src/EBox/Exceptions/DataMissing.pm:30
-#, perl-brace-format
-msgid "{data} is empty."
-msgstr ""
-
-#: src/EBox/Exceptions/InvalidData.pm:31
-#, perl-brace-format
-msgid "Invalid value for {data}: {value}."
+#: src/EBox/Config.pm.in:73
+msgid "The ebox user has not been set in the config file."
 msgstr ""
 
 #: src/EBox/Sudo.pm:57
@@ -88,27 +96,6 @@ msgstr ""
 msgid "Running command '{cmd}' as {user} failed"
 msgstr ""
 
-#: src/EBox/Config.pm.in:40
-msgid "Could not open the config file."
-msgstr ""
-
-#: src/EBox/Config.pm.in:73
-msgid "The ebox user has not been set in the config file."
-msgstr ""
-
-#: src/templates/enable.mas:15 src/templates/enable.mas:20
-msgid "Disabled"
-msgstr ""
-
-#: src/templates/enable.mas:17 src/templates/enable.mas:22
-msgid "Enabled"
-msgstr ""
-
-#: src/templates/enable.mas:27 src/templates/enable.mas:29
-#: src/templates/language.mas:25
-msgid "Change"
-msgstr ""
-
 #: src/templates/title.mas:12
 msgid "Display help notes"
 msgstr ""
@@ -121,4 +108,17 @@ msgstr ""
 msgid ""
 "Language changes happen automatically, saving the configuration it's not "
 "needed."
+msgstr ""
+
+#: src/templates/language.mas:25 src/templates/enable.mas:27
+#: src/templates/enable.mas:29
+msgid "Change"
+msgstr ""
+
+#: src/templates/enable.mas:15 src/templates/enable.mas:20
+msgid "Disabled"
+msgstr ""
+
+#: src/templates/enable.mas:17 src/templates/enable.mas:22
+msgid "Enabled"
 msgstr ""

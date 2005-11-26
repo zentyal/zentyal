@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-11 12:41+0100\n"
+"POT-Creation-Date: 2005-11-26 18:37+0100\n"
 "PO-Revision-Date: 2005-11-11 12:46+0100\n"
 "Last-Translator: Dani Baeyens <dani@warp.es>\n"
 "Language-Team:  <es@li.org>\n"
@@ -20,8 +20,31 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.10.2\n"
 
-#: src/EBox/CGI/Base.pm:166
+#: src/EBox/Exceptions/DataNotFound.pm:30
+#, perl-brace-format
+msgid "{data} {value} does not exist."
+msgstr "{data} no existente: {value}."
 
+#: src/EBox/Exceptions/DataExists.pm:31
+#, perl-brace-format
+msgid "{data} {value} already exists."
+msgstr "{data} ya existente: {value}."
+
+#: src/EBox/Exceptions/InvalidData.pm:31
+#, perl-brace-format
+msgid "Invalid value for {data}: {value}."
+msgstr "{data} inválido, valor: {value}."
+
+#: src/EBox/Exceptions/DataMissing.pm:30
+#, perl-brace-format
+msgid "{data} is empty."
+msgstr "Dato vacío: {data}"
+
+#: src/EBox/CGI/Run.pm:58
+msgid "The page could not be found"
+msgstr "La página no pudo encontrarse"
+
+#: src/EBox/CGI/Base.pm:166
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
@@ -47,7 +70,8 @@ msgstr ""
 
 #: src/EBox/CGI/Base.pm:284
 msgid "You have just hit a bug in eBox. Please seek technical support."
-msgstr "Acaba de encontrar un bug en eBox. Por favor, consulte a su soporte técnico."
+msgstr ""
+"Acaba de encontrar un bug en eBox. Por favor, consulte a su soporte técnico."
 
 #: src/EBox/CGI/Base.pm:330
 msgid ""
@@ -57,34 +81,19 @@ msgstr ""
 "Se ha producido un error interno relacionado con una plantilla. Se trata de "
 "un bug, puede encontrar más información en los logs."
 
-#: src/EBox/CGI/Run.pm:58
-msgid "The page could not be found"
-msgstr "La página no pudo encontrarse"
-
 #: src/EBox/NetWrappers.pm:101 src/EBox/NetWrappers.pm:129
 #: src/EBox/NetWrappers.pm:160 src/EBox/NetWrappers.pm:192
 msgid "Interface"
 msgstr "Interfaz"
 
-#: src/EBox/Exceptions/DataNotFound.pm:30
-#, perl-brace-format
-msgid "{data} {value} does not exist."
-msgstr "{data} no existente: {value}."
+#: src/EBox/Config.pm.in:40
+msgid "Could not open the config file."
+msgstr "No se pudo abrir el fichero de configuración"
 
-#: src/EBox/Exceptions/DataExists.pm:31
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} ya existente: {value}."
-
-#: src/EBox/Exceptions/DataMissing.pm:30
-#, perl-brace-format
-msgid "{data} is empty."
-msgstr "Dato vacío: {data}"
-
-#: src/EBox/Exceptions/InvalidData.pm:31
-#, perl-brace-format
-msgid "Invalid value for {data}: {value}."
-msgstr "{data} inválido, valor: {value}."
+#: src/EBox/Config.pm.in:73
+msgid "The ebox user has not been set in the config file."
+msgstr ""
+"El usuario de ebox no ha sido establecido en el fichero de configuración."
 
 #: src/EBox/Sudo.pm:57
 #, perl-brace-format
@@ -101,27 +110,6 @@ msgstr "El comando '{cmd}', ejecutado como root, falló"
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "El comando '{cmd}', ejecutado como {user}, falló"
 
-#: src/EBox/Config.pm.in:40
-msgid "Could not open the config file."
-msgstr "No se pudo abrir el fichero de configuración"
-
-#: src/EBox/Config.pm.in:73
-msgid "The ebox user has not been set in the config file."
-msgstr "El usuario de ebox no ha sido establecido en el fichero de configuración."
-
-#: src/templates/enable.mas:15 src/templates/enable.mas:20
-msgid "Disabled"
-msgstr "Deshabilitado"
-
-#: src/templates/enable.mas:17 src/templates/enable.mas:22
-msgid "Enabled"
-msgstr "Habilitado"
-
-#: src/templates/enable.mas:27 src/templates/enable.mas:29
-#: src/templates/language.mas:25
-msgid "Change"
-msgstr "Cambiar"
-
 #: src/templates/title.mas:12
 msgid "Display help notes"
 msgstr "Ver notas de ayuda"
@@ -134,5 +122,19 @@ msgstr "Selección de idioma"
 msgid ""
 "Language changes happen automatically, saving the configuration it's not "
 "needed."
-msgstr "Los cambios de idioma se efectúan de forma automática, no es necesario guardar la configuración"
+msgstr ""
+"Los cambios de idioma se efectúan de forma automática, no es necesario "
+"guardar la configuración"
 
+#: src/templates/language.mas:25 src/templates/enable.mas:27
+#: src/templates/enable.mas:29
+msgid "Change"
+msgstr "Cambiar"
+
+#: src/templates/enable.mas:15 src/templates/enable.mas:20
+msgid "Disabled"
+msgstr "Deshabilitado"
+
+#: src/templates/enable.mas:17 src/templates/enable.mas:22
+msgid "Enabled"
+msgstr "Habilitado"
