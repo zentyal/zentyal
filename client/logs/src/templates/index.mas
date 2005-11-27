@@ -15,8 +15,11 @@
 use EBox::Gettext;
 use Data::Dumper;
 </%init>
+	<form method="Index" action="POST">
+	<div class='help'><% __('FIXME: Al seleccionar un componente para ' .
+	'visualizar sus logs se mostraran los correspondientes a la ultima hora.') %></div>
 	<% __('Select available logs') %>:
-	<select name='smodule' id='smodule' onChange="modChanged()">
+	<select name='selected'>
 %	foreach my $domain (sort keys %{$logdomains}){
 %		if ($selected eq $domain) {
 			<option selected value='<% $domain %>'><% $logdomains->{$domain} %></option>
@@ -25,9 +28,17 @@ use Data::Dumper;
 %		}
 %	}
 	</select>
+	<input  class='inputButton'
+			type='submit'
+			name='<% __('View') %>'
+			value='<% __('View') %>'
+			alt='<% __('View') %>' />
+	</form>
+
 % if ($selected ne 'none') {
 %	my @time = localtime(time);
 %	my $currentyear = $time[5]+1900; 
+
 <h3><% __('Custom query') %></h3>
 <form action='Index' method='POST'>
 	<input type='hidden' name='selected' value='<% $selected %>'>
@@ -191,20 +202,3 @@ use Data::Dumper;
 		<div class='note'><% __('No logs matching current criteria') %></div>
 %	}
 % }
-
-
-<script type="text/javascript">
-function modChanged() {
-    var sel = document.getElementById("smodule");
-
-	if (sel.options[sel.selectedIndex].value == 'none') {
-		location.href = 'Index';
-	} else {
-		location.href = 'Index?selected=' + sel.options[sel.selectedIndex].value;
-	}
-
-	return false;
-}
-
-</script>
-
