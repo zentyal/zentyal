@@ -60,8 +60,6 @@ sub run # (url)
 		$cgi = new $classname;
 	}
 
-	settextdomain($cgi->domain());
-
 	$cgi->run;
 }
 

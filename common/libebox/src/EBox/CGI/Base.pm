@@ -226,7 +226,9 @@ sub run
 		$self->{redirect} = "/ebox/Login/Index";
 	} else { 
 		try {
+			settextdomain($self->domain());
 			$self->_process;
+			settextdomain('ebox');
 		} catch EBox::Exceptions::External with {
 			my $ex = shift;
 			$self->{error} = $ex->text;
