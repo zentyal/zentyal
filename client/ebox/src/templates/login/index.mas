@@ -7,7 +7,7 @@
 use EBox::Gettext;
 </%init>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>eBox Security Framework</TITLE>
+<html xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>eBox Platform</TITLE>
 <meta http-equiv=Content-Type content="text/html; charset=utf-8">
 <link href="/data/css/login.css" type="text/css" rel="stylesheet">
 <script src="/data/js/common.js" type="text/javascript">//</SCRIPT>
@@ -37,7 +37,7 @@ use EBox::Gettext;
 </center>
 <div id="footer"><% __('Created by ' .
 '<a href="http://www.warp.es">Warp Networks</a>' .
-'in collaboration with ' .
+' in collaboration with ' .
 '<a href="http://www.dbs.es">DBS</a>') %></div>
 <script src="/data/js/help.js" type=text/javascript>//</SCRIPT>
 </body>
