@@ -90,7 +90,7 @@ sub footer($) # (module)
 	my $copy = __('Created by <a href="http://www.warp.es">' .
 	'Warp Networks S.L.</a> in collaboration with ' .
 	'<a href="http://www.dbs.es">DBS Servicios ' .
-	'Informáticos S.L.</a>');
+	'Informaticos S.L.</a>');
 	return qq%<div id="footer">
 	$copy</div>
 	<script type="text/javascript" src="/data/js/help.js">//</script>
