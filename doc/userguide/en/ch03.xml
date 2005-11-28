@@ -30,7 +30,7 @@
 					to the network interface. Once you have
 					choosen the configuration, you can set if
 					this network interface is
-					external<footnote><para>FIXME</para><footnote>,
+					external<footnote><para>FIXME</para></footnote>,
 					its IP adress and its network mask.</para>
 				</listitem>
 			</varlistentry>
@@ -96,7 +96,6 @@
 			<title>Default gateway</title> 
 			<para>Default gateway will be,
 			usually, your router IP adress.</para>
-			</para>
 		</section>
 
 		<section>
