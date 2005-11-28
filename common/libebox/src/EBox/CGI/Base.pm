@@ -81,7 +81,9 @@ sub _title
 	}
 	push(@params, 'title' => $title);
 
+	settextdomain('ebox');
 	$interp->exec($comp, @params);
+	settextdomain($self->{domain});
 }
 
 sub _print_error # (text)
