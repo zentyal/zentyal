@@ -2053,7 +2053,7 @@ sub summary
 	my $item = new EBox::Summary::Module(__("Network interfaces"));
 	my $ifaces = $self->ifacesWithRemoved;
 	my $linkstatus = {};
-	root("/sbin/mii-tool > " . EBox::Config::tmp . "linkstatus");
+	root("/sbin/mii-tool > " . EBox::Config::tmp . "linkstatus || true");
 	if(open(LINKF, EBox::Config::tmp . "linkstatus")){
 		while (<LINKF>){
 			if(/link ok/){
