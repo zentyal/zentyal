@@ -65,7 +65,8 @@
 		</para>
 
 		<para>
-		El interfaz de usuario está dividido en tres partes	fundamentales:
+		En la configuración por defecto de eBox el interfaz de usuario se encuentra 
+		dividido en tres partes	fundamentales:
 		</para>
 
 		<!-- FIXME odio los nombres que le he dado a las partes del interfaz
@@ -77,8 +78,8 @@
 				<listitem>
 					<para>
 					El menú vertical, que se encuentra en el lado izquierdo,
-					contiene enlaces a todos los servicios que se pueden configurar 
-					mediante eBox. Cuando se ha seleccionado algún servicio en este menú
+					contiene enlaces a todos los <emphasis>servicios que se pueden configurar 
+					mediante eBox</emphasis>. Cuando se ha seleccionado algún servicio en este menú
 					puede aparecer un submenú referente a dicho servicio en líneas posteriores.
 					Este submenú permitirá consultar y configurar el contenido de cada uno 
 					de los distintos aspectos del servicio.
@@ -90,8 +91,9 @@
 				<term>Menú horizontal superior</term>
 				<listitem>
 					<para>
-					El menú horizontal, ubicado en la parte superior, contiene enlaces 
-					para guardar los cambios realizados en la parte de contenido y hacerlos efectivos,
+					El menú horizontal, ubicado en la parte superior, contiene las 
+					<emphasis>opciones generales</emphasis> que sirven para guardar los cambios 
+					realizados en la parte de contenido y hacerlos efectivos,
 					para mostrar la ayuda y para salir de la aplicación.
 					</para>
 					<!-- FIXME: top menu screenshot -->
@@ -102,8 +104,8 @@
 				<listitem>
 					<para>
 					El contenido, que ocupa la parte central, comprende uno o varios 
-					formularios con información acerca de la configuración del 
-					servicio seleccionado a traves del menú vertical izquierdo y sus submenús. 
+					formularios con información acerca de la <emphasis>configuración del 
+					servicio seleccionado</emphasis> a traves del menú vertical izquierdo y sus submenús. 
 					En ocasiones, en la parte superior, aparecerá una barra de pestañas en la que
 					cada pestaña representará una subsección diferente de la seción a la que hemos accedido.
 					</para>
@@ -114,7 +116,8 @@
 
 		<note>
 			<para>
-			La posición de los elementos de eBox es susceptible de ser modificada.
+			La posición de los elementos de eBox puede ser modificada a lo largo del 
+			periodo de desarrollo.
 			</para>
 		</note>
 
@@ -124,13 +127,15 @@
 		como y cuando se guardarán los cambios.
 		</para>
 
-		<para>
-		Primero se tendrán que aceptar los cambios en el formulario actual,
-		pero para que estos cambios sean efectivos y se guarden	de forma permanente 
-		se tendrá que presionar "Guardar Cambios" del menú horizontal superior.
-		Si no se sigue este procedimiento se perderán todos los cambios que se hayan 
-		realizado a lo largo de la sesión al finalizar ésta.
-		</para>
+		<warning>
+			<para>
+			Primero se tendrán que aceptar los cambios en el formulario actual,
+			pero para que estos cambios sean efectivos y se guarden	de forma permanente 
+			se tendrá que presionar <guimenuitem>Guardar Cambios</guimenuitem> del menú horizontal superior.
+			Si no se sigue este procedimiento se perderán todos los cambios que se hayan 
+			realizado a lo largo de la sesión al finalizar ésta.
+			</para>
+		</warning>
 
 		<para>
 		Existen varias excepciones en las cuales no es necesario Guardar
@@ -151,8 +156,8 @@
 					<term>Servidor NTP</term>
 						<listitem>
 							<para>
-							El ajuste de fecha y zona horaria de nuestro sistema
-							tampoco requiere que guardemos los cambios.
+							El ajuste de fecha y zona horaria del sistema
+							tampoco requiere guardar los cambios.
 							</para>
 						</listitem>
 				</varlistentry>
@@ -161,7 +166,7 @@
 						<listitem>
 							<para>
 							El cambio del idioma del interfaz es automático y no necesita
-							ser guardado de forma permanete. Se puede modificar el idioma de eBox en 
+							ser guardado de forma permanente. Se puede modificar el idioma de eBox en 
 								<menuchoice>
 									<guimenu>Sistema</guimenu>
 									<guimenuitem>General</guimenuitem>

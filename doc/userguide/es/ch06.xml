@@ -9,12 +9,19 @@
 		<title>Configuración</title>
 
 		<para>
-		eBox es capaz de actualizar automáticamente el software de su
-		sistema. Esta opción se puede activar en 
+		eBox es capaz de actualizar automáticamente el software que utiliza
+		su sistema. Esta opción se puede activar en 
 			<menuchoice>
 				<guimenu>Gestión de software</guimenu>
 				<guimenuitem>Configuración</guimenuitem>
 			</menuchoice>
+		</para>
+
+		<para>
+		Al automatizar las actualizaciones de software del sistema se
+		simplifica la tarea de mantener el sistema funcionando con
+		la ultima versión disponible y evitar posibles bugs o problemas
+		de seguridad tan pronto como aparezca una solución.
 		</para>
 
 		<warning>
@@ -37,7 +44,8 @@
 				<guimenuitem>Componentes eBox</guimenuitem>
 			</menuchoice>
 		se permite instalar, actualizar o eliminar los diferentes paquetes de eBox
-		que existen.
+		que existen. Sólo se excluyen de la desinstalación algunos de los módulos 
+		por resultar imprescindibles para el correcto funcionamiento básico de eBox.
 		</para>
 	</section>
 
@@ -47,7 +55,7 @@
 
 		<para>
 		De la misma forma que se gestionan los componentes de eBox se puede gestionar 
-		el resto del software del sistema sobre el que está instalado	eBox.
+		el resto del software del sistema sobre el que está instalado	eBox. 
 		</para>
 	</section>
 

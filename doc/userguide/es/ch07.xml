@@ -14,7 +14,7 @@
 			<guimenu>Proxy HTTP</guimenu>
 			<guimenuitem>General</guimenuitem>
 		</menuchoice>
-		se accede a la configuración general del proxy HTTP de
+		se accede a la configuración general del proxy-caché HTTP de
 		eBox. 
 		</para>
 
@@ -30,7 +30,7 @@
 					Si el proxy transparente está habilitado, todos
 					los usuarios de eBox utilizarán el proxy
 					obligatoriamente y sin darse cuenta. Si se
-					deshabilita, habría que configurar los exploradores
+					deshabilita, habría que configurar los navegadores
 					de cada uno de los usuarios para que se conectaran
 					a través del proxy.
 					</para>
@@ -40,9 +40,9 @@
 				<term>Puerto</term>
 				<listitem>
 					<para>
-					Asigna un número de puerto para el proxy, este es 
-					el puerto al que se conectarán los navegadores
-					para acceder a internet a través del proxy.
+					Asigna el número de puerto al que se conectarán 
+					los navegadores para acceder a internet a través
+					del proxy, cuando funciona de forma no transparente.
 					</para>
 				</listitem>
 			</varlistentry>
@@ -52,7 +52,8 @@
 					<para>
 					Permite establecer un nivel de restricción para
 					contenidos que tienen que ver con sexo y violencia
-					en elementos que se encuentren filtrados por el proxy.
+					en aquellos elementos que se encuentren filtrados 
+					por el proxy.
 					</para>
 				</listitem>
 			</varlistentry>
@@ -118,10 +119,9 @@
 
 		<para>
 		Si se desea eliminar un dominio de cualquiera de las listas basta 
-		con	utilizar el boton de acción de borrar correspondiente al
-		dominio que se desea suprimir de la lista.
+		con	utilizar el botón de acción de <guibutton>borrar</guibutton> 
+		correspondiente al dominio que se desea suprimir de la lista.
 		</para>
-
 		
 	</section>
 
@@ -138,8 +138,8 @@
 		es posible establecer una política de conexión específica para un 
 		<link linkend='ch-objects'>objeto de red</link> concreto, permitiendo
 		así una configuración distinta para cada uno de los objetos	creados 
-		en eBox. Esta configuración se antepondrá a la política	global de 
-		eBox para los objetos seleccionados.
+		en eBox. Esta configuración se antepondrá a la política	global del 
+		proxy de eBox para los objetos seleccionados.
 		</para>
 	</section>
 

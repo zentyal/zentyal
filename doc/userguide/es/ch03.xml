@@ -19,8 +19,9 @@
 		</para>
 
 		<para>
-		Para cada interfaz de red podemos establecer un nuevo nombre y el
-		método de configuración de la misma. Los métodos de configuración son:
+		Para cada interfaz de red podemos establecer un nuevo nombre útil para 
+		diferenciarla y el método de configuración de la misma. Los métodos de 
+		configuración son:
 		</para>
 
 		<variablelist>
@@ -40,10 +41,9 @@
 				<term>DHCP</term>
 				<listitem>
 					<para>
-					Al seleccionar este método la interfaz de red se 
-					configurará de forma dinámica si hay un
-					servidor DHCP en la red. El único parámetro configurable es la
-					elección del interfaz como externo.
+					Al seleccionar este método la interfaz de red se configurará 
+					de forma automática si hay un	servidor DHCP en la red. El único 
+					parámetro configurable es la elección del interfaz como externo.
 					</para>
 				</listitem>
 			</varlistentry>
@@ -57,7 +57,8 @@
 				<term>No configurado</term>
 				<listitem>
 					<para>
-					No se establece ninguna configuración para el interfaz de	red.
+					No se establece ninguna configuración para el interfaz de	red
+					que, por tanto, no se podrá utilizar en ningún servicio.
 					</para>
 				</listitem>
 			</varlistentry>
@@ -66,14 +67,19 @@
 		<section>
 			<title>Interfaces virtuales</title>
 			<para>
+			Una interfaz virtual es aquella que se adjunta a una interfaz real, 
+			y se utiliza para escuchar o servir una dirección IP extra a la real, 
+			es decir podemos hacer que nuestra interfaz real atienda dos redes 
+			diferentes con sólo crear o agregar una interfaz virtual.
+			</para>
+			<para>
 			Es posible crear interfaces virtuales asociadas a cualquier
 			interfaz configurada como estática.
 			</para>
 			<para>
 			Una vez configurada la interfaz estática aparecerá un
 			formulario para añadir interfaces virtuales en el cual se asigna el
-			nombre, la dirección IP y la máscara de red del nuevo interfaz de red
-			virtual.
+			nombre, la dirección IP y la máscara de red.
 			</para>
 		</section>
 
@@ -85,10 +91,15 @@
 
 		<para>
 		Se pueden especificar las direcciones IP de los servidores DNS a
-		través de los cuales se desea resolver nombres. Se debe tener en cuenta 
-		que, si sus interfaces de red están configuradas por DHCP, esta configuración 
-		puede ser sobreescrita.
+		través de los cuales se desea resolver nombres. 
 		</para>
+		
+		<warning>
+			<para>
+			Se debe tener en cuenta que, si sus interfaces de red están 
+			configuradas por DHCP, esta configuración puede ser sobreescrita.
+			</para>
+		</warning>
 	</section>
 
 	<section id='sect-ebox-routes'>
@@ -107,7 +118,7 @@
 			<title>Ruta por defecto</title>
 			<para>
 			La ruta por defecto corresponderá, normalmente, con la
-			dirección IP de su router.
+			dirección IP del router de la subred.
 			</para>
 		</section>
 
@@ -122,8 +133,8 @@
 		<title>Herramientas de diagnóstico</title>
 
 		<para>
-		Puede usar estas herramientas para comprobar que ha establecido
-		una configuración de red correcta.
+		Se pueden usar estas herramientas para comprobar que la 
+		configuración de red es correcta.
 		</para>
 
 		<para>
@@ -132,13 +143,13 @@
 				<guimenu>Red</guimenu>
 				<guimenuitem>Diagnóstico</guimenuitem>
 			</menuchoice>
-		podrá realizar un ping a una máquina que sea alcanzable a través de
-		sus interfaces de red o podrá resolver un nombre de dominio.
+		se puede realizar un ping a una máquina que sea alcanzable a través de
+		sus interfaces de los red o se podrá resolver un nombre de dominio.
 		</para>
 
 		<para>
 		El resultado de estas operaciones se mostrará en esta misma
-		página y corresponde a la salida estándar de los comandos de GNU/Linux
+		página y corresponde a la salida estándar de las órdenes
 		<command>ping</command> y <command>dig</command> respectivamente.
 		</para>
 	</section>

@@ -20,7 +20,8 @@
 		<para>
 		Para crear un usuario basta con introducir la 
 		información en el formulario que se muestra en la
-		ventana de configuración y hacer click en Crear. 
+		ventana de configuración y hacer click en 
+		<guibutton>Crear</guibutton>. 
 		Hay campos para introducir nombre de usuario, nombre real, 
 		un comentario sobre el usuario, su contraseña (con confirmación) 
 		y el grupo al que pertenecerá. 
@@ -29,7 +30,8 @@
 		<para>
 		Posteriormente, la configuración de cada usuario creado 
 		puede ser modificada seleccionando el usuario en la lista
-		desplegable inferior y haciendo click en Editar.
+		desplegable inferior y haciendo click en 
+		<guibutton>Editar</guibutton>.
 		</para>
 
 		<para>
@@ -76,16 +78,15 @@
 
 		<para>
 		La ventana de edición de grupos es dinámica al igual que la
-		de usuarios, y al igual que la de usuarios, incluye dos bloques 
-		de configuración fijos: en la parte superior se permite cambiar
-		el comentario del grupo y los usuarios que pertenecen o no 
-		pertenecen a dicho grupo; y en la parte inferior se muestra un
-		botón Eliminar grupo que borrara el grupo de eBox y todas las 
-		dependencias del grupo con los módulos que se encuentren instalados.
-		Entre los dos bloques se mostrará la información que tiene
-		que ver con los módulos instalados que se encuentran habilitados
-		en el momento actual y que poseen alguna configuración específica
-		para grupos de usuarios.
+		de usuarios y también incluye dos bloques	de configuración fijos: 
+		en la parte superior se permite cambiar	el comentario del grupo y 
+		los usuarios que pertenecen o no pertenecen a dicho grupo; y en la 
+		parte inferior se muestra un botón <guibutton>Eliminar</guibutton> 
+		grupo que borrara el grupo de eBox y todas las dependencias del grupo 
+		con los módulos que se encuentren instalados. Entre los dos bloques 
+		se mostrará la información que tiene que ver con los módulos instalados 
+		que se encuentran habilitados en el momento actual y que poseen alguna 
+		configuración específica para grupos de usuarios.
 		</para>
 	</section>
 

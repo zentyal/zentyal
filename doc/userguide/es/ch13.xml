@@ -40,7 +40,7 @@
 				<term>Opciones</term>
 				<listitem>
 					<para>
-					Estos apartados son opcionales, pudiendo dejarlos en blanco.
+					Estos apartados son opcionales, pudiendo quedar en blanco.
 					Se usan para especificar el router por defecto y dos 
 					servidores de nombres para la red.
 					</para>
@@ -51,7 +51,7 @@
 				<listitem>
 					<para>
 					Se pueden crear listas de rangos con los valores que se
-					quiere asignar a las máquinas de la red. Estas listas no deben
+					quieran asignar a las máquinas de la red. Estas listas no deben
 					tener coincidencias entre sí y todas las direcciones asignables
 					deben	pertenecer al rango disponible mostrado justo encima de
 					la lista de rangos. Si no se crea ninguna lista, se usará todo

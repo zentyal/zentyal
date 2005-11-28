@@ -18,8 +18,7 @@
 		</para>
 
 		<para>
-		Desde esta sección se pueden hacer tres cambios significativos
-		sobre el interfaz de administración de eBox:
+		Desde esta sección se pueden hacer tres cambios:
 		</para>
 		
 		<variablelist>
@@ -32,7 +31,7 @@
 				</listitem>
 			</varlistentry>
 			<varlistentry>
-				<term>Selección de Idioma</term>
+				<term>Seleccionar el Idioma</term>
 				<listitem>
 					<para>
 					eBox puede mostrar la información en varios idiomas,
@@ -41,7 +40,7 @@
 				</listitem>
 			</varlistentry>
 			<varlistentry>
-				<term>Puerto TCP de la interfaz de administración</term>
+				<term>Elegir el puerto TCP de la interfaz de administración</term>
 				<listitem>
 					<para>
 					El puerto al que se conecta la interfaz de administración
@@ -82,7 +81,8 @@
 			Si se cambia el puerto a un valor diferente al 443, acepta el
 			formulario y guarda los cambios podrá acceder usando la
 			dirección:<ulink url="#">https://hostname:PUERTO/eBox</ulink>
-			siendo PUERTO el nuevo número de puerto introducido.
+			siendo PUERTO el nuevo número de puerto introducido. Por ejemplo:
+			<ulink url="#">https://www.warp.es:444/eBox</ulink>.
 			</para>
 
 			<note>
@@ -121,14 +121,14 @@
 			Después de introducir una descripción y guardar los cambios
 			en el formulario aparecera una nueva entrada en la lista de
 			backups de la configuración, indicando la descripción y la fecha
-			de realización del backup. 
+			de realización de la copia de seguridad. 
 			</para>
 
 			<note>
 				<para>
 				Es importante recordar que la configuración de la que se hace 
-				copia de seguridad es de la última configuración guardada a través
-				del enlace correspondiente en el menú horizontal superior.
+				copia de seguridad es la última guardada a través del enlace
+				correspondiente en el menú horizontal superior.
 				</para>
 			</note>
 		</section>
@@ -136,19 +136,21 @@
 		<section>
 			<title>Recuperar la configuración</title>
 			<para>
-			Puede recuperar la configuración cargando el fichero de 
-			backup de su disco duro y presionando en restaurar. Esta opción
-			es útil para restaurar copias de seguridad exportadas a otros
-			dispositivos de almacenamiento.
+			Puede recuperar la configuración cargando un fichero de 
+			backup de su disco duro, que puede seleccionar directamente a través de
+			un selector de ficheros que se abrirá al pinchar el botón 
+			correspondiente y presionando en <guilabel>Restaurar</guilabel>. 
+			Esta opción es útil para restaurar copias de seguridad de configuraciones
+			determinadas exportadas a otros dispositivos de almacenamiento.
 			</para>
 		</section>
-
+		
 		<section>
 			<title>Lista de backups de la configuración</title>
 			<para>
-			La lista de backups contiene los backups de eBox realizados durante
-			el período de funcionamiento.	Las acciones de esta lista, situadas 
-			a la derecha de	cada elemento, permiten restaurar un backup,
+			La lista de backups contiene las copias de seguridad de eBox realizadas 
+			durante	el período de funcionamiento.	Las acciones de esta lista, 
+			situadas a la derecha de	cada elemento, permiten restaurar un backup,
 			descargar un fichero con el backup a su disco duro o eliminar un
 			backup de la lista.
 			</para>
@@ -164,14 +166,14 @@
 		su sistema eBox es accesible a través de 
 			<menuchoice>
 				<guimenu>Sistema</guimenu>
-				<guimenuitem>Apagar o reiniciar</guimenuitem>
+				<guimenuitem>Apagar</guimenuitem> o <guimenuitem>reiniciar</guimenuitem>
 			</menuchoice>.
 		</para>
 
 		<para>
-		No se debe olvidar que si su sistema eBox es la puerta de enlace
-		para su conexión a Internet, perdera dicha conexión mientras 
-		la máquina esté	apagada.
+		No se debe olvidar que si el sistema eBox es la puerta de enlace
+		para la conexión a Internet, se perderá dicha conexión mientras 
+		la máquina esté	apagada o reiniciándose.
 		</para>
 	</section>
 
@@ -204,8 +206,7 @@
 			<menuchoice>
 				<guimenu>Sistema</guimenu>
 				<guimenuitem>Zona horaria</guimenuitem>
-			</menuchoice>
-		.	
+			</menuchoice>	
 		</para>
 
 		<para>
