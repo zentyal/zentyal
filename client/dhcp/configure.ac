@@ -1,4 +1,4 @@
-AC_INIT([EBox-DHCP], [0.6])
+AC_INIT([EBox-DHCP], [0.7])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/DHCP.pm])
