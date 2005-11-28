@@ -63,9 +63,6 @@
 
 		<para>User interface is divided on three main parts:</para>
 
-		<!-- FIXME odio los nombres que le he dado a las partes del interfaz
-		-->
-
 		<variablelist>
 			<varlistentry>
 				<term>Left vertical menu</term>
@@ -110,12 +107,17 @@
 		change on the application. In other words, how and when changes will
 		be saved.</para>
 
-		<para>First, changes should be accepted on the current form, but it's
-		needed to click on "Save Changes" (at the Horizontal upper menu) to
-		make effective this changes and	save them permanently. If you don't
-		follow these simple steps, you will lose every single change you had
-		made during the session.
-		</para>
+		<warning>
+			<para>First, changes should be accepted on the
+			current form, but it's needed to click on
+			<guimenuitem>Save Changes</guimenuitem> (at
+			the Horizontal upper menu) to make effective
+			this changes and save them permanently. If you
+			don't follow these simple steps, you will lose
+			every single change you had made during the
+			session.
+			</para>
+		</warning>
 
 		<para>There are some excepciones when it's not necessary to "Save
 		Changes". Just enough doing an action on the form where we are will
@@ -158,7 +160,8 @@
 					<term>Restart Services</term>
 						<listitem>
 							<para>
-							FIXME: existirá después de la implementación del monitor de servicios?
+							FIXME:
+							existirá después de la implantación del monitor de servicios?
 							</para>
 						</listitem>
 				</varlistentry>

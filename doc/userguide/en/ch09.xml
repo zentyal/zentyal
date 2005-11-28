@@ -17,18 +17,21 @@
 
 		<para>If you want to create a user, you just need to enter required
 		information on the form, at the configuration window, and click
-		"Create". There are fields to enter user name, real name, user
-		comments, its password (with confirmation) and its user group which
-		will belong to.</para>
+		<guibutton>Create</guibutton>. There are fields to enter user name,
+                real name, user	comments, its password (with confirmation) and its
+                user group which will belong to.</para>
 
 		<para>After this, configuration for each created user can be modified,
-		selecting the user from the selection list and click at "Edit".</para>
+                selecting the user from the selection list and click at
+                <guibutton>Edit</guibutton>.</para> 
 
 		<para>User edit window is dynamic, which means that its content can
 		change depending on the eBox modules installed. There are two parts
 		that will ever exist: on the upper zone, general user information will
 		be shown to give the chance to modify it, including its comment, name
-		and password (with confirmation); on the bottom you can see a "Delete"
+		and password (with confirmation); on the bottom you
+		can see a 
+                <guibutton>Delete</guibutton>
 		button that you can click to remove the eBox user, and its
 		dependencies with the installed modules. Between these parts, new
 		information about each installed and enabled eBox modules can appear,
@@ -51,12 +54,14 @@
 
 		<para>If you want to edit a gruop, you have to follow the same
 		procedure as with users. Just select it from the selection list at the
-		bottom part and click "Edit".</para>
+		bottom part and click <guibutton>Edit</guibutton>.</para>
 
 		<para>Group edit window is dynamic as users edit window is. It
 		includes the same two blocks: first one to edit comment group and
 		choose which users belongs to the group, and the
-		second one to "Delete" the selected group and all the dependencies
+		second one to <guibutton>Delete</guibutton> the
+		selected group and
+                all the dependencies
 		with the installed modules. Between these two parts, group-related
 		information of each eBox module installed, will be shown here.</para>
 	</section>

@@ -5,7 +5,7 @@
 	<title>Firewall</title>
 
 	<section id='sect-fw-desc'>
-		<title>Funcionamiento del firewall</title>
+		<title>Firewall in eBox</title>
 
 		<para>
 		TODO
@@ -26,112 +26,106 @@
 
 	<section id='sect-fw-redirects'>
 		<!-- Firewall->Redirects -->
-		<title>Redirecciones de puertos</title>
+		<title>Port Redirects</title>
 
-		<para>
-		Las redirecciones de puertos permiten llevar un tráfico
-		procedente del exterior de la red hacia una máquina detrás de un
-		cortafuegos equipado con eBox. Se puede acceder a la configuración de las
-		redirecciones de puertos a través de 
+		<para>Port redirects allow to get external traffic
+		into a host behind a eBox system with firewall module
+		installed. You can get the configuration of these
+		options at
 		<menuchoice>
-			<guimenu>Cortafuegos</guimenu>
-			<guimenuitem>Redirecciones</guimenuitem>
+			<guimenu>Firewall</guimenu>
+			<guimenuitem>Port redirects</guimenuitem>
 		</menuchoice>
 		.
 		</para>
 
 		<para>
-		Para añadir una nueva redirección, en primer lugar debe
-		seleccionarse el <guilabel>Interfaz</guilabel> que atenderá las
-		peticiones de conexión. Este debe ser uno de los designados como
-		externos en la configuración de los interfaces de red. Además, debe
-		especificarse el <guilabel>Puerto externo</guilabel> sobre el que se
-		espera recibir el tráfico, y el <guilabel>Protocolo</guilabel> que este
-		empleará.
-		</para>
+		If you need to add a new redirect, first select your
+		desired <guilabel>Interface</guilabel> which will
+		listen incoming connections. This should be one of the
+		interfaces previously selected as external. Moreover,
+		it should be assigned the <guilabel>External
+		port</guilabel> where you expect your incoming
+		traffic, and the <guilabel>protocol</guilabel> that
+		will be used.</para>
 
-		<para>
-		En cuanto a la máquina destino, se debe introducir su
-		<guilabel>Dirección IP</guilabel> y el <guilabel>Puerto</guilabel> al
-		que se reencaminarán los paquetes.
-		</para>
+		<para>You should enter the destination system
+		<guilabel>IP adress</guilabel> and its
+		<guilabel>Port</guilabel> where packets would go
+		on.</para>
+	        
+		<para>Once you have selected this data, you just need
+		to select between the different
+		<guilabel>Actions</guilabel>, the
+		<guilabel>Add</guilabel> one, and click on it.</para>
+				
+		<para>To remove a rule, you should select remove
+		between the available <guilabel>Actions</guilabel>,
+		and click on it.</para>
 
-		<para>
-		Una vez suminstrados todos estos datos, basta escoger entre las
-		<guilabel>Acciones</guilabel> la correspondiente a añadir, y pulsar
-		sobre ella.
-		</para>
-
-		<para>
-		Para eliminar una regla, debe seleccionarse borrar entre las
-		<guilabel>Acciones</guilabel>, y pulsar sobre ella.
-		</para>
-
-		<para>
-		La configuración de una redirección puede modificarse simplemente
-		cambiando los parámetros sobre la misma y pulsando entre las
-		<guilabel>Acciones</guilabel> en la correspondiente a modificar.
-		</para>
+		<para>Redirect configuration can be modified by
+		changing its parameters and clicking on their modify
+		<guilabel>Actions</guilabel>.</para>
 	</section>
 
 	<section id='sect-fw-filter'>
 		<!-- Firewall->Packet Filter -->
-		<title>Filtrado</title>
+		<title>Packet filter</title>
 
 		<para>
-		Desde
+		From
 		<menuchoice>
-			<guimenu>Cortafuegos</guimenu>
-			<guimenuitem>Filtrado de paquetes</guimenuitem>
+			<guimenu>Firewall</guimenu>
+			<guimenuitem>Packet filter</guimenuitem>
 		</menuchoice>
-		se pueden configurar las reglas de filtrado de paquetes generales
-		o particularizarlas para cada uno de los objetos de red.
+		you can configure general packet filter rules or
+		define them to each network object.
+		</para>
+
+		<para>At configuration window we can stablish a deny
+		policy for network packets. If you select this deny
+		policy, it will be notified to the sender that the
+		packet will be denied on destination. If you select an
+		ignoration policy for network packets, they will be
+		filtered and discarded without any notification.
 		</para>
 
 		<para>
-		En la ventana de configuración podemos establecer la política de 
-		denegación de paquetes de red. Si se selecciona la política de 
-		rechazar paquetes, se notificará al remitente del paquete de que se
-		ha denegado en el destino. Si en cambio se selecciona la política de 
-		ignorar paquetes, los paquetes filtrados serán descartados sin notificar
-		al remitente.
+		Making a click on Packet filer rules, you can access
+		to a rule list for the eBox firewall. Each rule can be
+		enabled or disabled without remove it. These rules,
+		will be applied from top to bottom, so order could be
+		important. On each rule, you can select its
+		transmission protocol, which action to apply if a
+		packet matches this rule (accept it or deny it),
+		origin adress and port and destination adress and
+		port. When specifying an adress or a port, you can
+		choose which ones belongs to the rule or which not, to
+		enhace its flexibility and clearness of the rules,
+		reducing the amount.
 		</para>
 
 		<para>
-		Haciendo click sobre Reglas de filtrado se accede a la lista de reglas
-		de filtrado del cortafuegos de eBox. Cada regla puede ser activada o 
-		desactivada sin necesidad de borrarla. Las reglas de la lista se aplican
-		de arriba a abajo y el orden puede ser importante. Para cada regla se
-		puede especificar el protocolo de transmisión de paquetes, la acción a 
-		tomar en caso de que un paquete cumpla la regla, es decir permitirlo o
-		denegarlo, la dirección y puerto de origen del paquete y la dirección
-		y puerto de destino. A la hora de especificar una dirección o un puerto
-		se pueden especificar los que pertenecen o los que no pertenecen a
-		la regla, lo que aumenta la flexibilidad y claridad de las reglas
-		reduciendo además su número.
-		</para>
+		Inside <guilabel>Default rules
+		configuration</guilabel>, we can stablish rules to be
+		applied by default to each eBox object. This includes
+		a general policy for the object, denying or accepting
+		some services selectables from a list. It also
+		includes the creation of a specific rules list for the
+		object, which allow or deny connections with a
+		protocol, a destination adress (with a network mask)
+		and certain ports. These rules can be enabled or
+		disabled without removing them, as in eBox filtering rules</para>
 
 		<para>
-		Dentro de Configurar reglas por defecto, se pueden establecer las reglas 
-		que se aplicarán por defecto a todos los objetos de eBox. Esto incluye la
-		política general del objeto, la denegación o aceptación de ciertos servicios
-		seleccionables a partir de una lista desplegable y la creación de una
-		lista de reglas específicas para el objeto que permiten o deniegan
-		conexiones con un protocolo, una dirección de destino (con máscara) y
-		puerto determinados. Estas reglas pueden ser activadas y desactivadas sin
-		necesidad de borrarlas y volverlas a crear, al igual que las reglas
-		de filtrado de eBox.
-		</para>
-
-		<para>
-		En la parte inferior se puede seleccionar un objeto de red de eBox
-		de la lista desplegable, y, haciendo click en Ir, aplicarle
-		reglas de filtrado de paquetes específicas. Entre las opciones 
-		configurables para los objetos de red se encuentran: fijar una política
-		específica o utilizar la política global, aceptar o denegar ciertos
-		servicios seleccionables de la lista desplegable de Servicios y crear 
-		reglas para el objeto de la misma manera que se crean para la política 
-		global.
+		At the bottom, we can choose an eBox network object
+		from the selection list, and clicking on "Go", to
+		apply the specified packet filtering rules. Between
+		the selectable options for network objects we find:
+		fix a specific policy or use a global policy,
+		accepting or denying some services, from the Services
+		selection list, and create rules for the object in the
+		same way they are created for the global policy.
 		</para>
 	</section>
 

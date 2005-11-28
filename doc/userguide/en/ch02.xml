@@ -67,7 +67,8 @@
 			443, form is submitted and changed are saved, you will be able
 			to access to eBox typing: <ulink
 			url="#">https://hostname:PORT/eBox</ulink> on your browser,
-			with PORT as the new PORT value.</para>
+			with PORT as the new PORT value. For instance:
+			<ulink url="#">https://www.warp.es:444/eBox</ulink>.</para>
 			<note>
 				<para>Please, remember that after saving changes of
 				the management interface port, some seconds are needed
@@ -105,10 +106,11 @@
 		</section>
 
 		<section>
-			<title>Restore configuration</title>
-			<para>You can recover one configuration selecting a backup file
-			from your hard disk and pressing recover button. This option
-			is useful to restore backups exported to other storage devices.</para>
+			<title>Restore configuration</title> 
+			<para>You can recover one configuration selecting a backup
+			file from your hard disk and pressing
+			<guilabel>recover</guilabel> button. This option is useful to
+			restore backups exported to other storage devices.</para>
 		</section>
 
 		<section>

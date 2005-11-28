@@ -15,10 +15,17 @@
 			</menuchoice>
 		</para>
 
+		<para>
+			When you make automatic the system software
+			update, it will be easier to keep an
+			up-to-date system, avoiding possible bugs or
+			security problems as soon as a solution appear.
+		</para>
+
 		<warning>
-		<para>For all these eBox software management module's
-		functionalities, it is needed the Operating System is
-		Debian GNU/Linux.</para>
+			<para>For all these eBox software management module's
+			functionalities, it is needed the Operating System is
+		        Debian GNU/Linux.</para>
 		</warning>
 	</section>
 
@@ -32,7 +39,9 @@
 				<guimenu>Software</guimenu>
 				<guimenuitem>eBox components</guimenuitem>
 			</menuchoice>
-		you can install, upgrade or remove different existing eBox packages.</para>
+		you can install, upgrade or remove different existing
+		eBox packages. Some packages won't be uninstalled, so
+		these are needed for eBox correct working.</para>
 	</section>
 
 	<section id='sect-software-system'>
