@@ -136,6 +136,7 @@ sub _footer
 sub _print
 {
 	my $self = shift;
+	settextdomain('ebox');
 	$self->_header;
 	$self->_top;
 	$self->_menu;
@@ -143,7 +144,9 @@ sub _print
 	$self->_title;
 	$self->_error;
 	$self->_msg;
+	settextdomain($self->{'domain'});
 	$self->_body;
+	settextdomain('ebox');
 	print "</div></div>";
 	$self->_footer;
 }
@@ -228,7 +231,6 @@ sub run
 		try {
 			settextdomain($self->domain());
 			$self->_process;
-			settextdomain('ebox');
 		} catch EBox::Exceptions::External with {
 			my $ex = shift;
 			$self->{error} = $ex->text;
@@ -318,6 +320,7 @@ sub run
 		return;
 	} else {
 		try  { 
+			settextdomain('ebox');
 			$self->_print 
 		} catch EBox::Exceptions::Internal with {
 			my $error = __("An internal error has ocurred. " . 
