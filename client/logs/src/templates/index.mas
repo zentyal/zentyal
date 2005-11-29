@@ -15,7 +15,7 @@
 use EBox::Gettext;
 use Data::Dumper;
 </%init>
-	<form method="Index" action="POST">
+	<form method="POST" action="Index">
 	<div class='help'><% __('FIXME: Al seleccionar un componente para ' .
 	'visualizar sus logs se mostraran los correspondientes a la ultima hora.') %></div>
 	<% __('Select available logs') %>:
