@@ -1,0 +1,152 @@
+# translation of ebox-software.po to Español
+# French translations for PACKAGE package.
+# Copyright (C) 2005 Warp S.L.
+# This file is distributed under the same license as the PACKAGE package.
+# Automatically generated, 2005.
+# Ignacio Correas <icorreas@warp.es>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-software\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2005-11-11 13:07+0100\n"
+"PO-Revision-Date: 2005-11-29 12:45+0100\n"
+"Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
+"Language-Team: Español <es@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: KBabel 1.10.2\n"
+
+#: src/EBox/CGI/InstallPkgs.pm:73
+msgid "There were no packages to update"
+msgstr "Il n'y avait aucun paquet à mettre à jour"
+
+#: src/EBox/CGI/InstallPkgs.pm:79
+msgid "The packages were installed successfully"
+msgstr "Les paquets ont été installés avec succès"
+
+#: src/EBox/CGI/InstallPkgs.pm:83
+msgid "The packages were removed successfully"
+msgstr "Les paquets ont été enlevés avec succès"
+
+#: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
+#: src/EBox/Software.pm:331
+msgid "System updates"
+msgstr "Actualisations du système"
+
+#: src/EBox/CGI/Updates.pm:45
+msgid "Software updates are being handled automatically"
+msgstr "Les actualisations du logiciel sont gérées automatiquement"
+
+#: src/EBox/CGI/Updates.pm:52
+msgid "The system is up to date"
+msgstr "Le système est à jour"
+
+#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+msgid "Software updates configuration"
+msgstr "Configuration des actualisations"
+
+#: src/EBox/CGI/Enable.pm:41
+msgid "automatic updates configuration"
+msgstr "configuration des actualisations automatiques"
+
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:329
+msgid "eBox components"
+msgstr "Composantes d'eBox"
+
+#: src/EBox/Software.pm:120
+msgid ""
+"An error ocurred while installing components. If the error persists or eBox "
+"stops working properly, seek technical support."
+msgstr "S'est produit une erreur pendant l'installation des composants. Si l'erreur persiste ou eBox cesse de fonctionner correctement, cherchez le soutien technique."
+
+#: src/EBox/Software.pm:142
+msgid ""
+"An error ocurred while removing components. If the error persists or eBox "
+"stops working properly, seek technical support."
+msgstr "S'est produit une erreur pendant l'enlèvement des composants. Si l'erreur persiste ou eBox cesse de fonctionner correctement, cherchez le soutien technique."
+
+#: src/EBox/Software.pm:326
+msgid "Software management"
+msgstr "Gestion du logiciel"
+
+#: src/EBox/Software.pm:333
+msgid "Configuration"
+msgstr "Configuration"
+
+#: src/templates/config.mas:9
+msgid "Perform automatic security updates"
+msgstr "Exécutez actualisations de sécurité automatiques"
+
+#: src/templates/del.mas:14
+msgid "The following packages will be installed"
+msgstr "Les paquets suivants seront installés"
+
+#: src/templates/del.mas:17
+msgid "The following packages will be removed"
+msgstr "Les paquets suivants seront enlevés"
+
+#: src/templates/del.mas:34
+msgid "Ok"
+msgstr "Ok"
+
+#: src/templates/del.mas:36
+msgid "Cancel"
+msgstr "Annuler"
+
+#: src/templates/updates.mas:10
+msgid "Updates are available for the following system components"
+msgstr "Des actualisations sont disponibles pour les composants suivants du système"
+
+#: src/templates/updates.mas:16 src/templates/ebox.mas:14
+msgid "Component"
+msgstr "Composante"
+
+#: src/templates/updates.mas:18
+msgid "Description"
+msgstr "Description"
+
+#: src/templates/updates.mas:20 src/templates/ebox.mas:31
+msgid "Update"
+msgstr "Actualiser"
+
+#: src/templates/updates.mas:37 src/templates/ebox.mas:82
+msgid "Update all packages"
+msgstr "Actualiser tous les paquets"
+
+#: src/templates/updates.mas:49
+msgid ""
+"This operation can take some time, don't worry if eBox looks unresponsive "
+"after pressing the Upgrade button."
+msgstr "Cette opération peut prendre un certain temps, ne vous inquiètez pas si eBox semble insensible après avoir appuyé sur le bouton \"Étendre\"."
+
+#: src/templates/updates.mas:53
+msgid "Upgrade"
+msgstr "Étendre"
+
+#: src/templates/ebox.mas:16
+msgid "Installed version "
+msgstr "Version installée"
+
+#: src/templates/ebox.mas:18
+msgid "Latest version"
+msgstr "Dernière version"
+
+#: src/templates/ebox.mas:20
+msgid "Actions"
+msgstr "Actions"
+
+#: src/templates/ebox.mas:38
+msgid "Install"
+msgstr "Installer"
+
+#: src/templates/ebox.mas:41
+msgid "none"
+msgstr "aucun"
+
+#: src/templates/ebox.mas:64
+msgid "Remove"
+msgstr "Effacer"
+
