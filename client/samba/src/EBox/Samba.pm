@@ -58,6 +58,11 @@ sub _create
 	return $self;
 }
 
+sub domain
+{
+	return 'ebox-samba';
+}
+
 sub _setSambaConf
 {
 	my $self = shift;

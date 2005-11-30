@@ -52,6 +52,10 @@ sub _create
 	return $self;
 }
 
+sub domain
+{
+	return 'ebox-printers';	
+}
 
 sub rootCommands
 {
