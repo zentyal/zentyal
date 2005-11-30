@@ -44,7 +44,7 @@ use EBox::Gettext;
 		<% __("This operation can take some time, don't worry if eBox looks unresponsive after pressing the Upgrade button.") %>
 		</div>
 		<p>
-			<input type='submit' class='inputButton' name='upgrade' value='<%__('Upgrade')%>'/>
+			<input type='submit' class='inputButton' name='upgrade' value="<%__('Upgrade')%>"/>
 		</p>
 	</form>
 

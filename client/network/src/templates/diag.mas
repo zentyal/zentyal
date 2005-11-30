@@ -13,18 +13,18 @@ use EBox::Gettext;
 <h3><% __('Ping') %></h3>
 <% __('Host') %>: 
 <input class='inputText' type='text' name='ip'
-	   value='<% $action eq 'ping' ? $target : ''%>' /> 
+	   value="<% $action eq 'ping' ? $target : ''%>" /> 
 <input class='inputButton' type='submit'
-	  name='accept' value='<% __('Ping') %>' />
+	  name='accept' value="<% __('Ping') %>" />
 </form>
 <form action='Diag' method='POST'>
 <input type="hidden" name="action" value="dns"/>
 <h3><% __('Name resolution') %></h3>
 <% __('Domain name') %>: 
 <input class='inputText' type='text' name='host'
-	   value='<% $action eq 'dns' ? $target : ''%>' /> 
+	   value="<% $action eq 'dns' ? $target : ''%>" /> 
 <input class='inputButton' type='submit'
-	  name='accept' value='<% __('Lookup') %>' />
+	  name='accept' value="<% __('Lookup') %>" />
 % if($action ne ''){
 <h3><% __('Output') %></h3>
 <pre>

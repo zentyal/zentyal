@@ -39,7 +39,7 @@ use EBox::Gettext;
 			<td></td>
 			<td>
 				<input class='inputButton' type='submit'
-					  name='accept' value='<% __("Apply") %>' />
+					  name='accept' value="<% __("Apply") %>" />
 			</td>
 		</tr>
 	</table>

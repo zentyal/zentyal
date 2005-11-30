@@ -58,21 +58,21 @@ use EBox::Gettext;
 				<td class='tcenter'>
 					<input type='image' name='restore'
 						src='/data/images/apply.gif'
-						value='<%__('Restore')%>'
-						title='<%__('Restore configuration using this file')%>'
-						alt='<%__('Restore from backup')%>'/>
+						value="<%__('Restore')%>"
+						title="<%__('Restore configuration using this file')%>"
+						alt="<%__('Restore from backup')%>"/>
 					<img src='/data/images/sep.gif' alt='-'/>
 					<input type='image' name='download'
 						src='/data/images/down.gif'
-						value='<%__('Download')%>'
-						title='<%__('Download')%>'
-						alt='<%__('Download')%>'/>
+						value="<%__('Download')%>"
+						title="<%__('Download')%>"
+						alt="<%__('Download')%>"/>
 					<img src='/data/images/sep.gif' alt='-'/>
 					<input type='image' name='delete'
 						src='/data/images/delete.gif'
-						value='<%__('Delete')%>'
-						title='<%__('Delete')%>'
-						alt='<%__('Delete')%>'/>
+						value="<%__('Delete')%>"
+						title="<%__('Delete')%>"
+						alt="<%__('Delete')%>"/>
 				</td>
 			</form>
 		</tr>

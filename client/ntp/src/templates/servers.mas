@@ -47,7 +47,7 @@
 			<td></td>
 			<td>
 				<input class='inputButton' type='submit'
-					  name='accept' value='<% __('Change') %>' />
+					  name='accept' value="<% __('Change') %>" />
 			</td>
 		</tr>
 	</table>

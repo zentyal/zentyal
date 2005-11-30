@@ -74,7 +74,7 @@ my $domain = settextdomain('libebox');
 		<input name='toprev' type='image'
 			src="/data/images/r.gif"
 			alt="<% __('prev') %>"
-			value='<% __('prev') %>'>
+			value="<% __('prev') %>">
 %	}
 
 	</td>
@@ -94,11 +94,11 @@ my $domain = settextdomain('libebox');
 		<input name='tonext' type='image'
 			src="/data/images/f.gif"
 			alt="<% __('next') %>"
-			value='<% __('next') %>'>
+			value="<% __('next') %>">
 		<input name='tolast' type='image'
 			src="/data/images/ff.gif"
 			alt="<% __('last') %>"
-			value='<% __('last') %>'>
+			value="<% __('last') %>">
 %	}
 
 	</td>

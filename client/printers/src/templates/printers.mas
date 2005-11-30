@@ -35,15 +35,15 @@ use EBox::Gettext;
                 <td class='tcenter'>
                     <input type='image' name='edit'
                         src='/data/images/edit.gif'
-                        value='<%__('Manage')%>'
-                        title='<%__('Manage this printer')%>'
-                        alt='<%__('Manage this printer')%>'/>
+                        value="<%__('Manage')%>"
+                        title="<%__('Manage this printer')%>"
+                        alt="<%__('Manage this printer')%>"/>
                     <img src='/data/images/sep.gif' alt='-'/>
                     <input type='image' name='delete'
                         src='/data/images/delete.gif'
-                        value='<%__('Delete')%>'
-                        title='<%__('Delete')%>'
-                        alt='<%__('Delete')%>'/>
+                        value="<%__('Delete')%>"
+                        title="<%__('Delete')%>"
+                        alt="<%__('Delete')%>"/>
                 </td>
             </form>
         </tr>

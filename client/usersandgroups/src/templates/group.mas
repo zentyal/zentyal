@@ -41,7 +41,7 @@ use EBox::Gettext;
         <select name='deluser' size='8' multiple>
 %   if(@groupusers) {
 %           foreach my $user (@groupusers){
-                <option value='<% $user %>'>
+                <option value="<% $user %>">
                     <% $user %>
                 </option>
 %           }
@@ -51,10 +51,10 @@ use EBox::Gettext;
 
 	<td>
 		<input 	class='inputButton' type='image' name='delfromgroup'
-				value='<%__('Remove')%>'
+				value="<%__('Remove')%>"
 				src='/data/images/right.gif'
-				title='<%('Remove users from group')%>'
-				alt='<%__('Remove users from group')%>' />
+				title="<%('Remove users from group')%>"
+				alt="<%__('Remove users from group')%>" />
 		<input 	type="hidden" name="group" 
 				value="<% $groupinfo->{'groupname'} %>"/>
     </form>
@@ -62,17 +62,17 @@ use EBox::Gettext;
 		<br />
     <form action='AddUserToGroup' method='post'>
 		<input 	class='inputButton' type='image' name='addtogroup'
-				value='<%__('Add users to group')%>'
+				value="<%__('Add users to group')%>"
 				src='/data/images/left.gif'
-				title='<%('Add users to group')%>'
-				alt='<%__('Add users to group')%>' />
+				title="<%('Add users to group')%>"
+				alt="<%__('Add users to group')%>" />
 	</td>
 
 	<td>
         <select name='adduser' size='8' multiple>
 %   	if(@remainusers) {
 %           foreach my $user (@remainusers){
-                <option value='<% $user %>'>
+                <option value="<% $user %>">
                     <% $user %>
                 </option>
 %           }

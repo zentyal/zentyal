@@ -123,7 +123,7 @@ use EBox::Gettext;
 <tr>
 		<td></td>
 				<td><input class='inputButton' type='submit' name='change' 
-					value="<% __('Change') %>" alt='<% __("Change") %>'>
+					value="<% __('Change') %>" alt="<% __("Change") %>">
 				</td>
 </tr>
 </table>

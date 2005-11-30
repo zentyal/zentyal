@@ -155,9 +155,9 @@ use EBox::Gettext;
 			<td></td>
 			<td>
 				<input class='inputButton' type='submit' name='change'
-						value='<%__('Change')%>' alt='<%__('Change')%>'/>
+						value="<%__('Change')%>" alt="<%__('Change')%>"/>
 				<input class='inputButton' type='submit' name='cancel'
-						value='<%__('Cancel')%>' alt='<%__('Cancel')%>'/>
+						value="<%__('Cancel')%>" alt="<%__('Cancel')%>"/>
 			</td>
 		</tr>
 	</table>

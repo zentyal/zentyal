@@ -37,13 +37,13 @@ my $upgpkgs = 0;
 			<td><%$pkg->{avail}%></td>
 			<form action='InstallPkgs' method='post'>
 			<input type='hidden' value='yes' 
-					name='pkg-<%$pkg->{name}%>'/>
+					name="pkg-<%$pkg->{name}%>"/>
 			<td class='tcenter'>
 % 		if ($eboxupg ne 'no') {
 				<input type='image' name='ebox-install' 
 						class='inputButton'
 						src='/data/images/install.gif'
-						value='<%$eboxupg%>'/>
+						value="<%$eboxupg%>"/>
 % 		}
 
 % 		if ($pkg->{version} and $pkg->{removable} and $eboxupg ne 'no') {
@@ -54,7 +54,7 @@ my $upgpkgs = 0;
 						src='/data/images/delete.gif'
 						title=''
 						class='inputButton'
-						value='<%__('Remove')%>'/>
+						value="<%__('Remove')%>"/>
 % 		}
 			</td>
 			</form>
@@ -71,6 +71,6 @@ my $upgpkgs = 0;
 %		}
 %	}
 		<input type='submit' name='ebox-install'
-			value='<%__("Update all packages")%>'/>
+			value="<%__("Update all packages")%>"/>
 	</form>
 %	}

@@ -16,8 +16,8 @@ use EBox::Gettext;
 	<form action='Gateway' method='POST'>
 <h3><% __('Default gateway') %></h3>
 			<input class='inputText' type='text' name='gateway'
-				   alt='Default Gateway' value='<% $gateway %>' />
-			<input class='inputButton' type='submit' name='accept' value='<% __("Apply") %>' />
+				   alt='Default Gateway' value="<% $gateway %>" />
+			<input class='inputButton' type='submit' name='accept' value="<% __("Apply") %>" />
 	</form>
 	<h3><% __('Static routes') %></h3>
 	<table class='dataTable' cellspacing='0'>
@@ -63,8 +63,8 @@ use EBox::Gettext;
 	<tr class='border'>
 		<form action="Route" method="post">
 		<td class='tleft'>
-			<input type="hidden" name="ip"   value='<% $route->{'ip'} %>'/>
-			<input type="hidden" name="mask" value='<% $route->{'mask'} %>'/>
+			<input type="hidden" name="ip"   value="<% $route->{'ip'} %>"/>
+			<input type="hidden" name="mask" value="<% $route->{'mask'} %>"/>
 			<% $route->{'ip'} %>/<% $route->{'mask'} %>
 		</td>
 		<td class='tcenter'>

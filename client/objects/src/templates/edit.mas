@@ -23,7 +23,7 @@ use EBox::Gettext;
 	<tbody>
 		<form action='AddTo' method='post'>
 		<input  type='hidden' name='objectname'
-				value='<%__( $name )%>' />
+				value="<%__( $name )%>" />
 		<tr class='border'>
 			<td>
 				<input type="text" class="inputText"
@@ -104,6 +104,6 @@ use EBox::Gettext;
 	<p>
 	<input type='hidden' value='<%$name%>' name='objectname' />
 	<input  class='inputButton' type='submit'
-			name='del' value='<%__('Delete object')%>' />
+			name='del' value="<%__('Delete object')%>" />
 	</p>
 </form>

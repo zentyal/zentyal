@@ -13,6 +13,6 @@ use EBox::Gettext;
 		<input class='inputButton' type='submit' name='halt'
 			   value="<% __('Halt') %>" /> 
 		<input class='inputButton' type='submit' name='reboot'
-		   value='<% __('Reboot') %>' />
+		   value="<% __('Reboot') %>" />
 	</p>
 </form>

@@ -29,9 +29,9 @@ use Data::Dumper;
 	</select>
 	<input  class='inputButton'
 			type='submit'
-			name='<% __('View') %>'
-			value='<% __('View') %>'
-			alt='<% __('View') %>' />
+			name="<% __('View') %>"
+			value="<% __('View') %>"
+			alt="<% __('View') %>" />
 	</form>
 
 % if ($selected ne 'none') {

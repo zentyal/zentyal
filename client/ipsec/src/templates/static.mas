@@ -181,7 +181,7 @@ use EBox::Gettext;
 			<td></td>
 			<td>
 				<input class='inputButton' type='submit' name='add'
-						value='<%__('Add')%>' alt='<%__('Add')%>'/>
+						value="<%__('Add')%>" alt="<%__('Add')%>"/>
 			</td>
 		</tr>
 	</table>
@@ -206,14 +206,14 @@ use EBox::Gettext;
 					<td class='tcenter'>
 						<a href="StaticEdit?id=<%$conn->{'id'}%>"><img 
 								src='/data/images/edit.gif'
-								title='<%__('Edit')%>'
-								alt='<%__('Edit')%>'/></a>
+								title="<%__('Edit')%>"
+								alt="<%__('Edit')%>"/></a>
 						<img src='/data/images/sep.gif' alt='-' />
 						<input class='inputButton' type='image' name='delete'
 								src='/data/images/delete.gif'
-								value='<%__('Delete')%>'
-								title='<%__('Delete')%>'
-								alt='<%__('Delete')%>'/>
+								value="<%__('Delete')%>"
+								title="<%__('Delete')%>"
+								alt="<%__('Delete')%>"/>
 					</td>
 				</form>
 			</tr>
