@@ -1,19 +1,22 @@
+# translation of ebox-objects.po to Español
 # French translations for EBox package.
-# Copyright (C) 2005 Warp Networks S.L. and DBS Servicios Inform�ticos
+# Copyright (C) 2005 Warp Networks S.L. and DBS Servicios Inform�icos
 # This file is distributed under the same license as the EBox package.
 #  <isaac@sindominio.net>, 2004.
+# Ignacio Correas <icorreas@warp.es>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: EBox 0.3.svn\n"
+"Project-Id-Version: ebox-objects\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2005-11-11 13:18+0100\n"
-"PO-Revision-Date: 2004-11-02 17:54+0100\n"
-"Last-Translator:  <isaac@sindominio.net>\n"
-"Language-Team: French <cedricduval@free.fr>\n"
+"PO-Revision-Date: 2005-11-28 19:40+0100\n"
+"Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
+"Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.10.2\n"
 
 #: src/EBox/CGI/Del.pm:42 src/EBox/CGI/DelFrom.pm:41 src/EBox/CGI/AddTo.pm:41
 #: src/EBox/CGI/Edit.pm:42 src/EBox/CGI/Add.pm:41 src/EBox/Objects.pm:198
@@ -38,9 +41,8 @@ msgid "Objects"
 msgstr "Objets"
 
 #: src/EBox/CGI/Edit.pm:29 src/EBox/CGI/Edit.pm:39
-#, fuzzy
 msgid "Edit Object"
-msgstr "Objet"
+msgstr "Éditer Objet"
 
 #: src/EBox/Objects.pm:100 src/EBox/Objects.pm:279 src/EBox/Objects.pm:319
 msgid "Object"
@@ -53,7 +55,7 @@ msgstr "adresse réseau"
 #: src/templates/edit.mas:11
 #, perl-brace-format
 msgid "Edit <span class='stitle'>{description}</span> members"
-msgstr ""
+msgstr "Éditer <span class='stitle'>{description}</span> membres"
 
 #: src/templates/edit.mas:22
 msgid "MAC"
@@ -75,25 +77,22 @@ msgid "Delete"
 msgstr "Effacer"
 
 #: src/templates/edit.mas:111
-#, fuzzy
 msgid "Delete Object"
-msgstr "Suppression de l'objet"
+msgstr "Supprimer l'Objet"
 
 #: src/templates/edit.mas:115
 msgid ""
 "If you delete this object, all the information about its members will be "
 "lost."
-msgstr ""
+msgstr "Si vous effacez cet objet, toutes les informations sur ses membres seront perdues."
 
 #: src/templates/edit.mas:121
-#, fuzzy
 msgid "Delete object"
-msgstr "Suppression de l'objet"
+msgstr "Supprimer l'objet"
 
 #: src/templates/index.mas:10
-#, fuzzy
 msgid "Create new object"
-msgstr "Nouvel objet"
+msgstr "Créer nouvel objet"
 
 #: src/templates/index.mas:13
 msgid ""
@@ -112,23 +111,20 @@ msgid "Object list"
 msgstr "List d'objets"
 
 #: src/templates/index.mas:48 src/templates/index.mas:49
-#, fuzzy
 msgid "Edit"
-msgstr "Quitter"
+msgstr "Éditer"
 
 #: src/templates/index.mas:67
-#, fuzzy
 msgid "edit"
-msgstr "Quitter"
+msgstr "éditer"
 
 #: src/templates/index.mas:73
-#, fuzzy
 msgid "delete"
-msgstr "Effacer"
+msgstr "effacer"
 
 #: src/templates/delete.mas:10
 msgid "Deleting object"
-msgstr "Suppression de l'objet"
+msgstr "En supprimant l'objet"
 
 #: src/templates/delete.mas:13
 msgid ""
@@ -141,3 +137,4 @@ msgstr ""
 #: src/templates/delete.mas:27
 msgid "Cancel"
 msgstr "Annuler"
+
