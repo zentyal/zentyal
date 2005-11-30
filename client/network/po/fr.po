@@ -1,19 +1,22 @@
+# translation of ebox-network.po to Español
 # French translations for EBox package.
-# Copyright (C) 2005 Warp Networks S.L. and DBS Servicios Inform�ticos
+# Copyright (C) 2005 Warp Networks S.L. and DBS Servicios Inform�icos
 # This file is distributed under the same license as the EBox package.
 #  <isaac@sindominio.net>, 2004.
+# Ignacio Correas <icorreas@warp.es>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: EBox 0.3.svn\n"
+"Project-Id-Version: ebox-network\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2005-11-11 13:12+0100\n"
-"PO-Revision-Date: 2004-11-02 17:54+0100\n"
-"Last-Translator:  <isaac@sindominio.net>\n"
-"Language-Team: French <cedricduval@free.fr>\n"
+"PO-Revision-Date: 2005-11-29 16:18+0100\n"
+"Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
+"Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.10.2\n"
 
 #: src/EBox/CGI/Gateway.pm:41 src/EBox/CGI/Route.pm:47
 msgid "gateway address"
@@ -26,7 +29,7 @@ msgstr "interface réseau"
 #: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1006
 #: src/EBox/Network.pm:1035 src/templates/ifaces.mas:163
 msgid "VLAN Id"
-msgstr ""
+msgstr "Id de VLAN"
 
 #: src/EBox/CGI/Iface.pm:43
 msgid "method"
@@ -45,17 +48,16 @@ msgid "network address"
 msgstr "adresse réseau"
 
 #: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
-#, fuzzy
 msgid "Network diagnosis"
-msgstr "Interfaces réseau"
+msgstr "Diagnostic de réseau"
 
 #: src/EBox/CGI/Diag.pm:51 src/templates/diag.mas:15
 msgid "Host"
-msgstr ""
+msgstr "Hôte"
 
 #: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2041
 msgid "host name"
-msgstr ""
+msgstr "nom d'hôte"
 
 #: src/EBox/CGI/VIface.pm:44
 msgid "virtual interface action"
@@ -103,18 +105,17 @@ msgstr "Interface"
 
 #: src/EBox/Network.pm:937
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
-msgstr ""
+msgstr "Cette interface ne peut pas être mise dans mode tronc, c'est une interface vlan."
 
 #: src/EBox/Network.pm:982
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
-msgstr ""
+msgstr "Cette interface est en mode tronc, vous devriez déconfigurer toutes les interfaces vlan dans ce tronc avant de changer son mode de configuration."
 
 #: src/EBox/Network.pm:1015
-msgid ""
-"Network interfaces need to be in trunk mode before adding vlans to them."
-msgstr ""
+msgid "Network interfaces need to be in trunk mode before adding vlans to them."
+msgstr "Les interfaces de réseau doivent être en mode tronc avant leur d'ajouter des vlans."
 
 #: src/EBox/Network.pm:1400 src/EBox/Network.pm:1442
 #: src/templates/routes.mas:33
@@ -125,7 +126,7 @@ msgstr "Passerelle"
 msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
-msgstr ""
+msgstr "L'opération demandée fera devenir un des routers configurés inaccessible. Veuillez l'enlever d'abord si vous voulez vraiment faire ce changement."
 
 #: src/EBox/Network.pm:1825
 #, perl-brace-format
@@ -134,11 +135,11 @@ msgstr "Passerelle {gw} inatteignable"
 
 #: src/EBox/Network.pm:2022
 msgid "Host name"
-msgstr ""
+msgstr "Nom d'hôte"
 
 #: src/EBox/Network.pm:2072
 msgid "down"
-msgstr "desactivée"
+msgstr "désactivée"
 
 #: src/EBox/Network.pm:2078
 msgid "up"
@@ -146,11 +147,11 @@ msgstr "activée"
 
 #: src/EBox/Network.pm:2082
 msgid "link ok"
-msgstr ""
+msgstr "lien correct"
 
 #: src/EBox/Network.pm:2084
 msgid "no link"
-msgstr ""
+msgstr "aucun lien"
 
 #: src/EBox/Network.pm:2087
 msgid "Status"
@@ -165,33 +166,32 @@ msgid "Network"
 msgstr "Réseau"
 
 #: src/EBox/Network.pm:2117
-#, fuzzy
 msgid "Interfaces"
-msgstr "Interface"
+msgstr "Interfaces"
 
 #: src/EBox/Network.pm:2123
 msgid "Diagnosis"
-msgstr ""
+msgstr "Diagnostic"
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:20
 msgid "Ping"
-msgstr ""
+msgstr "Ping"
 
 #: src/templates/diag.mas:25
 msgid "Name resolution"
-msgstr ""
+msgstr "Résolution de nom"
 
 #: src/templates/diag.mas:27
 msgid "Domain name"
-msgstr ""
+msgstr "Nom de domaine"
 
 #: src/templates/diag.mas:32
 msgid "Lookup"
-msgstr ""
+msgstr "Recherche"
 
 #: src/templates/diag.mas:35
 msgid "Output"
-msgstr ""
+msgstr "Sortie"
 
 #: src/templates/dns.mas:11
 msgid ""
@@ -211,20 +211,20 @@ msgstr "Secondaire"
 
 #: src/templates/dns.mas:45 src/templates/routes.mas:23
 msgid "Apply"
-msgstr ""
+msgstr "Appliquer"
 
 #: src/templates/confirmremove.mas:11 src/templates/confirm.mas:14
 msgid ""
 "The change you are trying to make will affect the configuration of one or "
 "more modules that use references to this network interface."
-msgstr ""
+msgstr "Le changement que vous essayez de faire affectera la configuration d'un ou plusieurs modules qui emploient des références à cette interface de réseau."
 
 #: src/templates/confirmremove.mas:15 src/templates/confirm.mas:18
 msgid ""
 "If you choose to continue, all modules that make use of the current "
 "configuration of this network interface will delete the relevant parts of "
 "their configuration. Choose "
-msgstr ""
+msgstr "Si vous choisissez de continuer, tous les modules qui se servent de la configuration courante de cette interface de réseau supprimeront les parties pertinentes de leur configuration. Choisissez"
 
 #: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
 msgid "Ok"
@@ -302,9 +302,8 @@ msgid "Name"
 msgstr "Nom"
 
 #: src/templates/ifaces.mas:42
-#, fuzzy
 msgid "Method"
-msgstr "méthode"
+msgstr "Méthode"
 
 #: src/templates/ifaces.mas:49 src/templates/ifaces.mas:52
 msgid "Static"
@@ -312,7 +311,7 @@ msgstr "Statique"
 
 #: src/templates/ifaces.mas:64 src/templates/ifaces.mas:67
 msgid "Trunk (802.1q)"
-msgstr ""
+msgstr "Tronc (802.1q)"
 
 #: src/templates/ifaces.mas:73 src/templates/ifaces.mas:76
 msgid "Not set"
@@ -323,13 +322,12 @@ msgid "External"
 msgstr "Externe"
 
 #: src/templates/ifaces.mas:148
-#, fuzzy
 msgid "Change"
-msgstr "Annuler"
+msgstr "Changer"
 
 #: src/templates/ifaces.mas:157
 msgid "VLAN List"
-msgstr ""
+msgstr "List VLAN"
 
 #: src/templates/ifaces.mas:165
 msgid "Description"
@@ -338,3 +336,4 @@ msgstr "Description"
 #: src/templates/ifaces.mas:224
 msgid "Virtual interfaces"
 msgstr "Interfaces virtuelles"
+
