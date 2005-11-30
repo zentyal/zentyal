@@ -1,19 +1,22 @@
+# translation of ebox-firewall.po to Español
 # French translations for EBox package.
-# Copyright (C) 2005 Warp Networks S.L. and DBS Servicios Inform�ticos
+# Copyright (C) 2005 Warp Networks S.L. and DBS Servicios Inform�icos
 # This file is distributed under the same license as the EBox package.
 #  <isaac@sindominio.net>, 2004.
+# Ignacio Correas <icorreas@warp.es>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: EBox 0.3.svn\n"
+"Project-Id-Version: ebox-firewall\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2005-11-11 13:01+0100\n"
-"PO-Revision-Date: 2004-11-02 17:54+0100\n"
-"Last-Translator:  <isaac@sindominio.net>\n"
-"Language-Team: French <cedricduval@free.fr>\n"
+"PO-Revision-Date: 2005-11-29 12:11+0100\n"
+"Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
+"Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.10.2\n"
 
 #: src/EBox/CGI/ObjectService.pm:41 src/EBox/CGI/Object.pm:46
 #: src/EBox/CGI/Object.pm:51 src/EBox/CGI/ObjectRule.pm:41
@@ -66,9 +69,8 @@ msgid "Port redirections"
 msgstr "Redirections de port"
 
 #: src/EBox/CGI/FwdRuleEdit.pm:30 src/EBox/CGI/FwdRuleEdit.pm:42
-#, fuzzy
 msgid "Edit rule"
-msgstr "règle"
+msgstr "Editer règle"
 
 #: src/EBox/CGI/Filter.pm:31 src/EBox/CGI/Filter.pm:42
 msgid "Packet filtering"
@@ -109,7 +111,7 @@ msgstr "port de destination"
 #: src/EBox/Firewall.pm:238
 #, perl-brace-format
 msgid "Port {port} is being used by a service or port redirection."
-msgstr ""
+msgstr "Le port {port} est employé par un service ou une redirection de port."
 
 #: src/EBox/Firewall.pm:330 src/EBox/Firewall.pm:485 src/EBox/Firewall.pm:529
 #: src/EBox/Firewall.pm:561 src/EBox/Firewall.pm:611 src/EBox/Firewall.pm:656
@@ -132,7 +134,7 @@ msgstr "objet"
 #: src/EBox/Firewall.pm:931 src/EBox/Firewall.pm:1006
 #: src/EBox/Firewall.pm:1194 src/EBox/Firewall.pm:1287
 msgid "Port cannot be set if no protocol is selected."
-msgstr ""
+msgstr "Le port ne peut pas être disposé si aucun protocole n'est choisi."
 
 #: src/EBox/Firewall.pm:939 src/EBox/Firewall.pm:1296
 msgid "address"
@@ -140,31 +142,27 @@ msgstr "adresse"
 
 #: src/EBox/Firewall.pm:1011 src/EBox/Firewall.pm:1017
 #: src/EBox/Firewall.pm:1199 src/EBox/Firewall.pm:1205
-#, fuzzy
 msgid "source port"
-msgstr "Rapport de bug"
+msgstr "Port source"
 
 #: src/EBox/Firewall.pm:1024 src/EBox/Firewall.pm:1027
 #: src/EBox/Firewall.pm:1212 src/EBox/Firewall.pm:1215
-#, fuzzy
 msgid "source address"
-msgstr "adresse réseau"
+msgstr "adresse source"
 
 #: src/EBox/Firewall.pm:1582
 msgid "Rule not found"
-msgstr ""
+msgstr "Règle non trouvée"
 
 #: src/EBox/Firewall.pm:1673
 msgid "Firewall"
-msgstr ""
+msgstr "Parefeu"
 
 #: src/EBox/Firewall.pm:1677
-#, fuzzy
 msgid "Packet Filter"
 msgstr "Filtrage de paquets"
 
 #: src/EBox/Firewall.pm:1680
-#, fuzzy
 msgid "Redirects"
 msgstr "Redirections de port"
 
@@ -178,16 +176,15 @@ msgid ""
 "below. The policy is applied to connections that leave eBox through an "
 "external network interface. If you want to allow traffic between internal "
 "networks you need to create explicit rules for that."
-msgstr ""
+msgstr "La politique précise quoi faire sur des paquets de réseau pas explicitement correspondus ci-dessous. La politique est appliquée aux raccordements qui laissent l'eBox par une interface externe de réseau. Si vous voulez permettre le trafic entre les réseaux internes vous devez créer des règles explicites pour cela."
 
 #: src/templates/object.mas:21
-#, fuzzy
 msgid ""
 "Choosing global will make the firewall fall back to the <a href='Object?"
 "object=_global'>default configuration</a>."
 msgstr ""
-"Choisir \"global\" causera le retour du parefeu à sa configuration par "
-"défaut."
+"Choisir global causera le retour du parefeu à sa <a href='Object?"
+"object=_global'>configuration par défaut</a>."
 
 #: src/templates/object.mas:32 src/templates/object.mas:35
 #: src/templates/object.mas:61
@@ -251,13 +248,12 @@ msgid "Delete"
 msgstr "Effacer"
 
 #: src/templates/object.mas:159
-#, fuzzy
 msgid ""
 "Protocol, port and destination address are optional. The rules will be "
 "applied in order, from top to bottom, you can reorder them once they are "
 "added. Rules can also be disabled without deleting them."
 msgstr ""
-"L'adresse de destination est optionnelle. Les règles seront appliquées dans "
+"L'adresse de destination, le port et le protocol sont optionnels. Les règles seront appliquées dans "
 "l'ordre, du haut vers le bas. Vous pouvez modifier l'ordre après qu'elles "
 "aient été ajoutées. Les règles peuvent également être désactivées sans être "
 "effacées."
@@ -268,7 +264,7 @@ msgid ""
 "that leave eBox through an external network interface. You may flag network "
 "interfaces as external in the <a href='../Network/Ifaces'>Network "
 "Interfaces</a> configuration page."
-msgstr ""
+msgstr "Les règles sans adresse de destination explicite seront appliquées aux paquets qui quittent eBox par une interface de réseau.externe. Vous pouvez marquer les interfaces de réseau comme externes dans la page de configuration d'<a href='../Network/Ifaces'>Interfaces de Réseau</a>."
 
 #: src/templates/object.mas:169 src/templates/fwdrules.mas:20
 #: src/templates/fwdrules.mas:182 src/templates/fwdruleedit.mas:32
@@ -308,21 +304,17 @@ msgid "Down"
 msgstr "Désactivée"
 
 #: src/templates/filter.mas:11
-#, fuzzy
 msgid ""
 "This will tell the firewall what to do when discarding network packets.  If "
 "you choose Reject, a packet will be sent back to the sender, choosing Drop "
 "will make the firewall drop the packet silently."
 msgstr ""
-"Cela informera le parefeu de l'attitude à adopter lorsque des paquets sont "
-"rejetés. Si vous choisissez \"Rejeter\", un paquet sera renvoyé à "
-"l'expéditeur. Avec \"Ignorer\", le paquet sera ignoré silencieusement par le "
-"parefeu."
+"Cela informera le parefeu l'attitude à adopter lorsque des paquets sont rejetés. Si vous choisissez \"Rejeter\", un paquet sera renvoyé à "
+"l'expéditeur. Avec \"Ignorer\", le paquet sera ignoré silencieusement par le parefeu."
 
 #: src/templates/filter.mas:15
-#, fuzzy
 msgid "Deny action"
-msgstr "port de destination"
+msgstr "Déniez l'action"
 
 #: src/templates/filter.mas:20 src/templates/filter.mas:27
 msgid "Drop packets"
@@ -334,38 +326,34 @@ msgstr "Rejeter les paquets"
 
 #: src/templates/filter.mas:31
 msgid "Apply"
-msgstr ""
+msgstr "Appliquer"
 
 #: src/templates/filter.mas:35
 msgid "Filtering Rules"
-msgstr ""
+msgstr "Règles de filtrage"
 
 #: src/templates/filter.mas:38
 msgid ""
 "This link will let you set up filtering rules that will take precedence over "
 "the ones you set up for network objects further below."
-msgstr ""
+msgstr "Ce lien vous laissera installer les règles de filtrage qui auront la priorité au-dessus de celles que vous installez pour des objets de réseau ci-dessous."
 
 #: src/templates/filter.mas:42
 msgid "Forwarding rules"
-msgstr ""
+msgstr "Règles d'expédition"
 
 #: src/templates/filter.mas:46
 msgid "Rules for internet access"
-msgstr ""
+msgstr "Règles pour l'accès d'Internet"
 
 #: src/templates/filter.mas:49
-#, fuzzy
 msgid ""
 "The link below will let you set up the default behavior of the packet "
 "filter. You may also choose an object and set up rules and the services it "
 "may access. These rules are meant to control access from internal network "
 "interfaces to external ones, they provide a simpler way to control access to "
 "the internet."
-msgstr ""
-"Le lien ci-dessous vous permettra de configurer le comportement par défaut "
-"du filtre de paquets. Vous pouvez également choisir un objet et configurer "
-"les services auxquels il a accès."
+msgstr "Le lien ci-dessous vous permettra de configurer le comportement par défaut du filtre de paquets. Vous pouvez également choisir un objet et configurer les règles et services auxquels il a accès. Ces règles sont destinées à controler l'accès des interfaces de réseau internes aux externes, elles fournissent une manière plus simple de controler l'accès à l'Internet."
 
 #: src/templates/filter.mas:53
 msgid "Configure default rules"
@@ -380,26 +368,21 @@ msgid "Go"
 msgstr "Appliquer"
 
 #: src/templates/fwdrules.mas:10
-#, fuzzy
 msgid ""
 "Protocol, ports and addresses are optional. The rules will be applied in "
 "order, from top to bottom, you can reorder them once they are added. Rules "
 "can also be disabled without deleting them."
 msgstr ""
-"L'adresse de destination est optionnelle. Les règles seront appliquées dans "
-"l'ordre, du haut vers le bas. Vous pouvez modifier l'ordre après qu'elles "
-"aient été ajoutées. Les règles peuvent également être désactivées sans être "
-"effacées."
+"Le protocol, le port et l'adresse sont optionnels. Les règles seront appliquées dans l'ordre, du haut vers le bas. Vous pouvez modifier l'ordre après qu'elles "
+"aient été ajoutées. Les règles peuvent également être désactivées sans être effacées."
 
 #: src/templates/fwdrules.mas:13
-#, fuzzy
 msgid "New rule"
-msgstr "règle"
+msgstr "Règle nouvelle"
 
 #: src/templates/fwdrules.mas:53 src/templates/fwdruleedit.mas:84
-#, fuzzy
 msgid "Source address"
-msgstr "adresse réseau"
+msgstr "Adresse source"
 
 #: src/templates/fwdrules.mas:59 src/templates/fwdrules.mas:91
 #: src/templates/fwdrules.mas:114 src/templates/fwdrules.mas:146
@@ -408,7 +391,7 @@ msgstr "adresse réseau"
 #: src/templates/fwdruleedit.mas:160 src/templates/fwdruleedit.mas:165
 #: src/templates/fwdruleedit.mas:197 src/templates/fwdruleedit.mas:202
 msgid "is not"
-msgstr ""
+msgstr "n'est pas"
 
 #: src/templates/fwdrules.mas:61 src/templates/fwdrules.mas:93
 #: src/templates/fwdrules.mas:116 src/templates/fwdrules.mas:148
@@ -417,59 +400,52 @@ msgstr ""
 #: src/templates/fwdruleedit.mas:162 src/templates/fwdruleedit.mas:167
 #: src/templates/fwdruleedit.mas:199 src/templates/fwdruleedit.mas:204
 msgid "is"
-msgstr ""
+msgstr "est"
 
 #: src/templates/fwdrules.mas:85 src/templates/fwdruleedit.mas:121
-#, fuzzy
 msgid "Source port"
-msgstr "Rapport de bug"
+msgstr "Port source"
 
 #: src/templates/fwdrules.mas:98 src/templates/fwdrules.mas:153
 #: src/templates/fwdruleedit.mas:142 src/templates/fwdruleedit.mas:211
 msgid "to"
-msgstr ""
+msgstr "à"
 
 #: src/templates/fwdrules.mas:140 src/templates/fwdruleedit.mas:190
-#, fuzzy
 msgid "Destination port"
-msgstr "port de destination"
+msgstr "Port de destination"
 
 #: src/templates/fwdrules.mas:176
-#, fuzzy
 msgid "Rule list"
-msgstr "Règles"
+msgstr "Liste de règles"
 
 #: src/templates/fwdrules.mas:184
-#, fuzzy
 msgid "Source"
-msgstr "Service"
+msgstr "Source"
 
 #: src/templates/fwdrules.mas:188
-#, fuzzy
 msgid "Destination"
-msgstr "port de destination"
+msgstr "Destination"
 
 #: src/templates/fwdrules.mas:208 src/templates/fwdrules.mas:210
 #: src/templates/fwdrules.mas:351 src/templates/fwdrules.mas:353
-#, fuzzy
 msgid "allow"
-msgstr "Authoriser"
+msgstr "authoriser"
 
 #: src/templates/fwdrules.mas:214 src/templates/fwdrules.mas:216
 #: src/templates/fwdrules.mas:378 src/templates/fwdrules.mas:380
 msgid "allow (disabled)"
-msgstr ""
+msgstr "authoriser (désactivé)"
 
 #: src/templates/fwdrules.mas:220 src/templates/fwdrules.mas:222
 #: src/templates/fwdrules.mas:356 src/templates/fwdrules.mas:358
-#, fuzzy
 msgid "deny"
-msgstr "Interdire"
+msgstr "interdire"
 
 #: src/templates/fwdrules.mas:226 src/templates/fwdrules.mas:228
 #: src/templates/fwdrules.mas:383 src/templates/fwdrules.mas:385
 msgid "deny (disabled)"
-msgstr ""
+msgstr "interdire (désactivé)"
 
 #: src/templates/fwdrules.mas:239 src/templates/fwdrules.mas:241
 #: src/templates/fwdrules.mas:260 src/templates/fwdrules.mas:262
@@ -477,36 +453,32 @@ msgstr ""
 #: src/templates/fwdrules.mas:294 src/templates/fwdrules.mas:296
 #: src/templates/fwdrules.mas:371 src/templates/fwdrules.mas:373
 msgid "inverse match"
-msgstr ""
+msgstr "correspondence inverse"
 
 #: src/templates/fwdrules.mas:306 src/templates/fwdrules.mas:308
 #: src/templates/fwdrules.mas:310
-#, fuzzy
 msgid "Edit"
-msgstr "Quitter"
+msgstr "Éditer"
 
 #: src/templates/fwdrules.mas:361 src/templates/fwdrules.mas:363
-#, fuzzy
 msgid "delete"
-msgstr "Effacer"
+msgstr "effacer"
 
 #: src/templates/fwdrules.mas:366 src/templates/fwdrules.mas:368
-#, fuzzy
 msgid "edit"
-msgstr "Quitter"
+msgstr "éditer"
 
 #: src/templates/fwdrules.mas:388 src/templates/fwdrules.mas:390
 msgid "move up"
-msgstr ""
+msgstr "remonter"
 
 #: src/templates/fwdrules.mas:393 src/templates/fwdrules.mas:395
-#, fuzzy
 msgid "move down"
-msgstr "desactivée"
+msgstr "abaisser"
 
 #: src/templates/fwdruleedit.mas:15
 msgid "Enabled"
-msgstr ""
+msgstr "Activé"
 
 #: src/templates/redirects.mas:14
 msgid "Interface"
@@ -520,11 +492,3 @@ msgstr "Port externe"
 msgid "IP address"
 msgstr "Adresse IP"
 
-#~ msgid "Deny policy"
-#~ msgstr "Politique de rejet"
-
-#~ msgid "Ok"
-#~ msgstr "Ok"
-
-#~ msgid "Objects"
-#~ msgstr "Objets"
