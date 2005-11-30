@@ -16,8 +16,7 @@ use EBox::Gettext;
 use Data::Dumper;
 </%init>
 	<form method="POST" action="Index">
-	<div class='help'><% __('FIXME: Al seleccionar un componente para ' .
-	'visualizar sus logs se mostraran los correspondientes a la ultima hora.') %></div>
+	<div class='help'><% __('Last hour logs will be showed when selecting a component') %></div>
 	<% __('Select available logs') %>:
 	<select name='selected'>
 %	foreach my $domain (sort keys %{$logdomains}){
