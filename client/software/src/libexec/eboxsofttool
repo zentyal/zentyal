@@ -85,13 +85,11 @@ sub listEBoxPkgs
 		if (pkgIsFetched($p)) {
 			$h->{avail} = $curver;
 		} else {
-			unless (defined($h->{version})) {
-				next;
+			if (defined($h->{version})) {
+				$h->{avail} = $h->{version};
 			}
-			$h->{avail} = $h->{version};
 		}
 		my $info = $records->lookup($pkg->{Name});
-                $h->{avail} = $curver;
                 $h->{description} = $info->{ShortDesc};
 		push(@array, $h);
         }
