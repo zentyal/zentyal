@@ -1,23 +1,24 @@
-# translation of es.po to
-# Spanish translations for EBox-logs package
-# Traducciones al español para el paquete EBox-logs.
+# translation of fr.po to
+# translation of logs.po to Español
+# French translations for EBox-logs package.
 # Copyright (C) 2005 Warp S.L.
 # This file is distributed under the same license as the EBox-logs package.
 # Automatically generated, 2005.
+# Ignacio Correas <icorreas@warp.es>, 2005.
 # Javier Uruen Val <juruen@warp.es>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: es\n"
+"Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2005-11-30 13:40+0100\n"
-"PO-Revision-Date: 2005-11-16 18:58+0100\n"
+"PO-Revision-Date: 2005-11-30 13:42+0100\n"
 "Last-Translator: Javier Uruen Val <juruen@warp.es>\n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: KBabel 1.10.2\n"
 
 #: src/EBox/CGI/Index.pm:35 src/EBox/Logs.pm:90
@@ -26,134 +27,131 @@ msgstr "Logs"
 
 #: src/EBox/Logs.pm:234
 msgid "Table {$table} does not exist"
-msgstr "Tabla {$table} no existe"
+msgstr "La table {$table} n'existe pas"
 
 #: src/EBox/Logs.pm:249
 #, perl-brace-format
 msgid "Field {field} does not exist"
-msgstr "Campo {field} no existe"
+msgstr "Le fichier {field} n'existe pas"
 
 #: src/EBox/PgDBEngine.pm:39
-msgid ""
-"You must set the eboxlogs_dbname variable in the ebox configuration file"
+msgid "You must set the eboxlogs_dbname variable in the ebox configuration file"
 msgstr ""
-"Debes de asignar un valor a la variable eboxlogs_dbname en el archivo de "
-"configuración de ebox"
+"Vous devez fixer la valeur de la variable eboxlogs_dbname dans le fichier de "
+"configuration d'ebox"
 
 #: src/EBox/PgDBEngine.pm:51
-msgid ""
-"You must set the eboxlogs_dbuser variable in the ebox configuration file"
+msgid "You must set the eboxlogs_dbuser variable in the ebox configuration file"
 msgstr ""
-"Debe de asignar un valor a la variable eboxlogs_dbuser en el archivo de "
-"configuración de ebox"
+"Vous devez fixer la valeur de la variable eboxlogs_dbuser dans le fichier de "
+"configuration d'ebox"
 
 #: src/EBox/PgDBEngine.pm:63
-msgid ""
-"You must set the eboxlogs_dbpass variable in the ebox configuration file"
+msgid "You must set the eboxlogs_dbpass variable in the ebox configuration file"
 msgstr ""
-"Debe de asignar un valor a la variable eboxlogs_dbpass en el archivo de "
-"configuración de ebox"
+"Vous devez fixer la valeur de la variable eboxlogs_dbpass dans le fichier de "
+"configuration d'ebox"
 
 #: src/templates/index.mas:19
 msgid "Last hour logs will be displayed when selecting a component"
-msgstr ""
+msgstr "Les logs de la dernière minute seront montrés quand une composante est choisie"
 
 #: src/templates/index.mas:21
 msgid "Select available logs"
-msgstr "Seleccione los logs disponibles"
+msgstr "Choisissez des logs disponibles"
 
 #: src/templates/index.mas:34 src/templates/index.mas:36
 #: src/templates/index.mas:38
 msgid "View"
-msgstr ""
+msgstr "Voir"
 
 #: src/templates/index.mas:46
 msgid "Custom query"
-msgstr "Consulta personalizada"
+msgstr "Consultation personnalisée"
 
 #: src/templates/index.mas:53
 msgid "From date:"
-msgstr "Desde la fecha:"
+msgstr "De la date:"
 
 #: src/templates/index.mas:66 src/templates/index.mas:136
 msgid "January"
-msgstr "Enero"
+msgstr "Janvier"
 
 #: src/templates/index.mas:67 src/templates/index.mas:137
 msgid "February"
-msgstr "Febrero"
+msgstr "Février"
 
 #: src/templates/index.mas:68 src/templates/index.mas:138
 msgid "March"
-msgstr "Marzo"
+msgstr "Mars"
 
 #: src/templates/index.mas:69 src/templates/index.mas:139
 msgid "April"
-msgstr "Abril"
+msgstr "Avril"
 
 #: src/templates/index.mas:70 src/templates/index.mas:140
 msgid "May"
-msgstr "Mayo"
+msgstr "Mai"
 
 #: src/templates/index.mas:71 src/templates/index.mas:141
 msgid "June"
-msgstr "Junio"
+msgstr "Juin"
 
 #: src/templates/index.mas:72 src/templates/index.mas:142
 msgid "July"
-msgstr "Julio"
+msgstr "Juillet"
 
 #: src/templates/index.mas:73 src/templates/index.mas:143
 msgid "August"
-msgstr "Agosto"
+msgstr "Août"
 
 #: src/templates/index.mas:74 src/templates/index.mas:144
 msgid "September"
-msgstr "Septiembre"
+msgstr "Septembre"
 
 #: src/templates/index.mas:75 src/templates/index.mas:145
 msgid "October"
-msgstr "Octubre"
+msgstr "Octobre"
 
 #: src/templates/index.mas:76 src/templates/index.mas:146
 msgid "November"
-msgstr "Noviembre"
+msgstr "Novembre"
 
 #: src/templates/index.mas:77 src/templates/index.mas:147
 msgid "December"
-msgstr "Diciembre"
+msgstr "Décembre"
 
 #: src/templates/index.mas:123
 msgid "To date:"
-msgstr "Hasta la fecha:"
+msgstr "À la date:"
 
 #: src/templates/index.mas:203
 msgid "Event"
-msgstr "Evento"
+msgstr "Événement"
 
 #: src/templates/index.mas:206
 msgid "Any"
-msgstr "Cualquiera"
+msgstr "Quelconque"
 
 #: src/templates/index.mas:221 src/templates/index.mas:223
 msgid "Search"
-msgstr "Buscar"
+msgstr "Chercher"
 
 #: src/templates/index.mas:237
 msgid "No logs matching current criteria"
-msgstr "No hay logs que se correspondan con el criterio seleccionado"
+msgstr "Aucun log se corresponde avec les critères actuels"
 
 #: src/templates/dbtable.mas:72 src/templates/dbtable.mas:74
 msgid "first"
-msgstr "primero"
+msgstr "premier"
 
 #: src/templates/dbtable.mas:78 src/templates/dbtable.mas:80
 msgid "prev"
-msgstr "prev"
+msgstr "précédant"
 
 #: src/templates/dbtable.mas:88 src/templates/dbtable.mas:91
 msgid "Page"
-msgstr "Página"
+msgstr "Page"
 
 #: src/templates/dbtable.mas:92
 msgid "of"
@@ -161,8 +159,9 @@ msgstr "de"
 
 #: src/templates/dbtable.mas:103 src/templates/dbtable.mas:105
 msgid "next"
-msgstr "siguiente"
+msgstr "suivant"
 
 #: src/templates/dbtable.mas:109 src/templates/dbtable.mas:111
 msgid "last"
-msgstr "última"
+msgstr "dernier"
+
