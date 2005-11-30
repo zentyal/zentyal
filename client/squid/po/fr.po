@@ -1,19 +1,22 @@
+# translation of ebox-squid.po to Español
 # French translations for EBox-squid package.
 # Copyright (C) 2004 Warp S.L.
 # This file is distributed under the same license as the EBox-squid package.
 # Automatically generated, 2004.
+# Ignacio Correas <icorreas@warp.es>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: EBox-squid 0.3\n"
+"Project-Id-Version: ebox-squid\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2005-11-11 13:02+0100\n"
-"PO-Revision-Date: 2004-11-01 23:12+0100\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: French\n"
+"PO-Revision-Date: 2005-11-29 13:24+0100\n"
+"Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
+"Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.10.2\n"
 
 #: src/EBox/CGI/BannedDomains.pm:30 src/EBox/CGI/BannedDomains.pm:40
 #: src/EBox/Squid.pm.in:993 src/templates/banned.mas:10
@@ -30,13 +33,12 @@ msgstr "Proxy HTTP"
 
 #: src/EBox/CGI/SetPolicy.pm:30 src/EBox/CGI/Policy.pm:30
 #: src/EBox/CGI/Policy.pm:54
-#, fuzzy
 msgid "HTTP proxy policy"
-msgstr "Proxy HTTP"
+msgstr "Politique du proxy HTTP"
 
 #: src/EBox/CGI/General.pm:42
 msgid "content filter threshold"
-msgstr ""
+msgstr "seuil de filtre de contents"
 
 #: src/EBox/CGI/General.pm:45
 msgid "transparent proxy"
@@ -56,33 +58,29 @@ msgid "domain name"
 msgstr "nom de domaine"
 
 #: src/EBox/CGI/Allow.pm:41 src/EBox/CGI/Ban.pm:41
-#, fuzzy
 msgid "action"
-msgstr "Action"
+msgstr "action"
 
 #: src/EBox/CGI/AllowedDomains.pm:30 src/EBox/CGI/AllowedDomains.pm:40
 #: src/EBox/Squid.pm.in:991 src/templates/allowed.mas:10
-#, fuzzy
 msgid "Allowed domains"
-msgstr "Domaines exclus"
+msgstr "Domaines autorisés"
 
 #: src/EBox/Squid.pm.in:132
 msgid "You must set the cache_mem variable in the ebox configuration file"
-msgstr ""
+msgstr "Vous devez établir la valeur de la variable cache_mem dans le fichier de configuration d'ebox"
 
 #: src/EBox/Squid.pm.in:204 src/EBox/Squid.pm.in:294
 msgid "object"
 msgstr "objet"
 
 #: src/EBox/Squid.pm.in:376
-#, fuzzy
 msgid "Squid listening port"
-msgstr "port d'écoute"
+msgstr "Port d'écoute de Squid"
 
 #: src/EBox/Squid.pm.in:382
-#, fuzzy
 msgid "DansGuardian listening port"
-msgstr "port d'écoute"
+msgstr "Port d'écoute de DansGuardian"
 
 #: src/EBox/Squid.pm.in:590
 #, perl-brace-format
@@ -95,7 +93,7 @@ msgstr "domaine"
 
 #: src/EBox/Squid.pm.in:722
 msgid "Threshold"
-msgstr ""
+msgstr "Seuil"
 
 #: src/EBox/Squid.pm.in:932
 msgid "Proxy"
@@ -131,7 +129,7 @@ msgstr "Interdire"
 #: src/templates/policy.mas:59 src/templates/policy.mas:119
 #: src/templates/policy.mas:123
 msgid "Filter"
-msgstr ""
+msgstr "Filtre"
 
 #: src/EBox/Squid.pm.in:952 src/templates/index.mas:120
 msgid "Global policy"
@@ -142,29 +140,24 @@ msgid "Listening port"
 msgstr "Port d'écoute"
 
 #: src/EBox/Squid.pm.in:986
-#, fuzzy
 msgid "HTTP proxy"
-msgstr "Proxy HTTP"
+msgstr "Proxy HTTP "
 
 #: src/EBox/Squid.pm.in:989
-#, fuzzy
 msgid "General"
 msgstr "Paramètres généraux"
 
 #: src/EBox/Squid.pm.in:995
 msgid "Policy"
-msgstr ""
+msgstr "Politique"
 
 #: src/templates/allowed.mas:12
-#, fuzzy
 msgid "Add here those domains which you want to allow access."
-msgstr ""
-"Ajoutez ici les domaines auxquels vous ne souhaitez pas autoriser l'accès"
+msgstr "Ajoutez ici les domaines auxquels vous souhaitez autoriser l'accès"
 
 #: src/templates/index.mas:15
-#, fuzzy
 msgid "HTTP Proxy service status"
-msgstr "Statut du service"
+msgstr "Statut du service Proxy HTTP"
 
 #: src/templates/index.mas:17
 msgid "General Settings"
@@ -175,7 +168,7 @@ msgid ""
 "Please note that if you set a configuration which prevents you from "
 "connecting to the administration interface through the proxy, you must then "
 "connect to it directly"
-msgstr ""
+msgstr "Veuillez noter que si vous placez une configuration qui vous empêche de vous connecter à l'interface d'administration par le proxy, vous devez alors vous connecter à elle directement"
 
 #: src/templates/index.mas:53
 msgid "Port"
@@ -183,40 +176,39 @@ msgstr "Port"
 
 #: src/templates/index.mas:66
 msgid "Content filter threshold"
-msgstr ""
+msgstr "Seuil de filtre de contents"
 
 #: src/templates/index.mas:73 src/templates/index.mas:76
 msgid "Content filter disabled"
-msgstr ""
+msgstr "Filtre de contents désactivé"
 
 #: src/templates/index.mas:80 src/templates/index.mas:83
 msgid "Very permissive"
-msgstr ""
+msgstr "Très permissif"
 
 #: src/templates/index.mas:87 src/templates/index.mas:90
 msgid "Permissive"
-msgstr ""
+msgstr "Permissif"
 
 #: src/templates/index.mas:94 src/templates/index.mas:97
 msgid "Medium"
-msgstr ""
+msgstr "Moyen"
 
 #: src/templates/index.mas:101 src/templates/index.mas:104
 msgid "Strict"
-msgstr ""
+msgstr "Strict"
 
 #: src/templates/index.mas:108 src/templates/index.mas:111
 msgid "Very strict"
-msgstr ""
+msgstr "Très strict"
 
 #: src/templates/index.mas:155 src/templates/index.mas:156
 msgid "Change"
-msgstr ""
+msgstr "Changer"
 
 #: src/templates/banned.mas:12
 msgid "Add here those domains which you do not want to allow access."
-msgstr ""
-"Ajoutez ici les domaines auxquels vous ne souhaitez pas autoriser l'accès"
+msgstr "Ajoutez ici les domaines auxquels vous ne souhaitez pas autoriser l'accès"
 
 #: src/templates/domains.mas:20
 msgid "Introduce domains in this way: "
@@ -237,97 +229,49 @@ msgstr "Action"
 #: src/templates/domains.mas:48 src/templates/domains.mas:50
 #: src/templates/domains.mas:52
 msgid "Add"
-msgstr ""
+msgstr "Ajouter"
 
 #: src/templates/domains.mas:68 src/templates/domains.mas:70
 #: src/templates/domains.mas:72
-#, fuzzy
 msgid "Delete"
-msgstr "Sélectionner"
+msgstr "Effacer"
 
 #: src/templates/policy.mas:14
 msgid ""
 "Choose the object whose state you want to change and click in the arrow to "
 "move it to the desired column."
-msgstr ""
+msgstr "Choisissez l'objet dont l'état vous voulez changer et cliquer sur la flèche pour le déplacer à la colonne désirée."
 
 #: src/templates/policy.mas:23
-#, fuzzy
 msgid "Allowed"
-msgstr "Autoriser"
+msgstr "Autorisé"
 
 #: src/templates/policy.mas:26
 msgid "Filtered"
-msgstr ""
+msgstr "Filtré"
 
 #: src/templates/policy.mas:29
-#, fuzzy
 msgid "Denied"
-msgstr "Interdire"
+msgstr "Interdit"
 
 #: src/templates/policy.mas:40 src/templates/policy.mas:66
 #: src/templates/policy.mas:92
 msgid "Empty list"
-msgstr ""
+msgstr "Liste vide"
 
 #: src/templates/policy.mas:57 src/templates/policy.mas:121
 msgid "Move selected objects to the filtered column"
-msgstr ""
+msgstr "Déplacez les objets choisis à la colonne filtrée"
 
 #: src/templates/policy.mas:81 src/templates/policy.mas:85
 msgid "Ban"
-msgstr ""
+msgstr "Exclure"
 
 #: src/templates/policy.mas:83
 msgid "Move selected objects to the banned column"
-msgstr ""
+msgstr "Déplacez les objets choisis à la colonne interdite"
 
 #: src/templates/policy.mas:111
 msgid "Move selected objects to the unfiltered column"
-msgstr ""
+msgstr "Déplacez les objets choisis à la colonne non filtrée"
 
-#~ msgid "ban action"
-#~ msgstr "exclusion"
-
-#~ msgid "Enable the HTTP proxy"
-#~ msgstr "Activer le proxy HTTP"
-
-#~ msgid "Ok"
-#~ msgstr "Ok"
-
-#, fuzzy
-#~ msgid "Banned"
-#~ msgstr "Domaines exclus"
-
-#~ msgid "Running"
-#~ msgstr "En marche"
-
-#~ msgid "Stopped"
-#~ msgstr "Stoppé"
-
-#~ msgid "Status"
-#~ msgstr "Statut"
-
-#~ msgid "auth"
-#~ msgstr "authentification"
-
-#~ msgid "Default policy"
-#~ msgstr "Politique par défaut"
-
-#~ msgid "Object selection"
-#~ msgstr "Sélection d'objet"
-
-#~ msgid "Select those objects which you want to allow access to"
-#~ msgstr "Sélectionner les objets auxquels vous voulez autoriser l'accès"
-
-#~ msgid "Select those objects which you want to deny access to"
-#~ msgstr "Sélectionner les objets auxquels vous voulez interdire l'accès"
-
-#~ msgid "Object Name"
-#~ msgstr "Nom de l'objet"
-
-#~ msgid "Show"
-#~ msgstr "Montrer"
-
-#~ msgid "Hide"
-#~ msgstr "Cacher"
