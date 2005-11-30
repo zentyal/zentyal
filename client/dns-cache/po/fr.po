@@ -1,0 +1,38 @@
+# translation of ebox-dns-cache.po to Español
+# French translations for PACKAGE package.
+# Copyright (C) 2005 Warp S.L.
+# This file is distributed under the same license as the PACKAGE package.
+# Automatically generated, 2005.
+# Ignacio Correas <icorreas@warp.es>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-dns-cache\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2005-07-18 20:21+0200\n"
+"PO-Revision-Date: 2005-11-28 19:47+0100\n"
+"Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
+"Language-Team: Español <es@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: KBabel 1.10.2\n"
+
+#: src/EBox/CGI/Enable.pm:41
+msgid "module status"
+msgstr "statut du module"
+
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40
+#: src/EBox/DNSCache.pm.in:169
+msgid "DNS cache"
+msgstr "Cache DNS"
+
+#: src/EBox/DNSCache.pm.in:204
+msgid "DNS Cache"
+msgstr "Cache DNS"
+
+#: src/templates/index.mas:11
+msgid "Enable the DNS Cache"
+msgstr "Habiliter Cache DNS"
+
