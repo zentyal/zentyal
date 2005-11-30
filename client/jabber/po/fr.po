@@ -1,32 +1,31 @@
-# translation of es.po to
-# Spanish translations for EBox-jabber package
-# Traducciones al español para el paquete EBox-jabber.
+# translation of jabber.po to Español
+# French translations for EBox-jabber package.
 # Copyright (C) 2005 Warp S.L.
 # This file is distributed under the same license as the EBox-jabber package.
 # Automatically generated, 2005.
-# Dani Baeyens <dani@warp.es>, 2005.
+# Ignacio Correas <icorreas@warp.es>, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: es\n"
+"Project-Id-Version: jabber\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2005-11-30 12:50+0100\n"
-"PO-Revision-Date: 2005-11-16 18:19+0100\n"
-"Last-Translator: Dani Baeyens <dani@warp.es>\n"
-"Language-Team:  <es@li.org>\n"
+"PO-Revision-Date: 2005-11-30 13:16+0100\n"
+"Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
+"Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: KBabel 1.10.2\n"
 
 #: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:225
 msgid "domain"
-msgstr "dominio"
+msgstr "domaine"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
-msgstr "estado del módulo"
+msgstr "statut du module"
 
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:290
 msgid "Jabber"
@@ -34,93 +33,90 @@ msgstr "Jabber"
 
 #: src/EBox/CGI/JabberUserOptions.pm:44
 msgid "username"
-msgstr "nombre de usuario"
+msgstr "nom d'usager"
 
 #: src/EBox/Jabber.pm:190
 msgid "listening port"
-msgstr "puerto"
+msgstr "port d'écoute"
 
 #: src/EBox/Jabber.pm:313
 msgid "Jabber Service"
-msgstr "Servicio Jabber"
+msgstr "Service Jabber"
 
 #: src/templates/jabber.mas:8
 msgid "Jabber account"
-msgstr "Cuenta Jabber"
+msgstr "Compte Jabber"
 
 #: src/templates/jabber.mas:10
 msgid "Password for Jabber service is the user password"
-msgstr "La contraseña para el servicio Jabber es la contraseña del usuario"
+msgstr "Le mot de passe pour le service Jabber est le mot de passe d'usager"
 
 #: src/templates/jabber.mas:17
 msgid "User account"
-msgstr "Cuenta de usuario"
+msgstr "Compte d'usager"
 
 #: src/templates/jabber.mas:23 src/templates/jabber.mas:28
 msgid "Disabled"
-msgstr "Desactivado"
+msgstr "Désactivé"
 
 #: src/templates/jabber.mas:25 src/templates/jabber.mas:30
 msgid "Enabled"
-msgstr "Activado"
+msgstr "Activé"
 
 #: src/templates/jabber.mas:38
 msgid "User has administration rights"
-msgstr "El usuario tiene permisos de administrador"
+msgstr "L¡usager a des droits d'administration"
 
 #: src/templates/jabber.mas:53 src/templates/jabber.mas:55
 msgid "Change"
-msgstr "Cambiar"
+msgstr "Changer"
 
 #: src/templates/index.mas:14
 msgid "Jabber Service status"
-msgstr "Estado del servicio Jabber"
+msgstr "Statut du Service Jabber"
 
 #: src/templates/index.mas:18
 msgid "General Settings"
-msgstr "Configuración general"
+msgstr "Configuration Générale"
 
 #: src/templates/index.mas:21
 msgid ""
 "Domain name should be available on the network. Otherwise, you may not be "
 "able to use this service. This applies for internal and external connections."
-msgstr ""
-"El nombre del dominio debe estar disponible en la red. De otra forma, es "
-"posible que no se pueda utilizar. Ésto se aplica tanto para las conexiones "
-"internas como para las externas."
+msgstr "Le nom de domaine devrait être disponible sur le réseau. Autrement, vous ne pourriez pas utiliser ce service. Ceci s'applique pour les connexions internes et externes."
 
 #: src/templates/index.mas:28
 msgid "Domain name"
-msgstr "Nombre de dominio"
+msgstr "Nom de domaine"
 
 #: src/templates/index.mas:37
 msgid "Connect to global Jabber network"
-msgstr "Conectar a la red Jabber global"
+msgstr "Connecté au réseau global de Jabber"
 
 #: src/templates/index.mas:50
 msgid "SSL Support"
-msgstr "Soporte SSL"
+msgstr "Support SSL"
 
 #: src/templates/index.mas:56 src/templates/index.mas:63
 #: src/templates/index.mas:70
 msgid "No"
-msgstr "No"
+msgstr "Non"
 
 #: src/templates/index.mas:58 src/templates/index.mas:65
 #: src/templates/index.mas:72
 msgid "Optional"
-msgstr "Opcional"
+msgstr "Optional"
 
 #: src/templates/index.mas:60 src/templates/index.mas:67
 #: src/templates/index.mas:74
 msgid "Required"
-msgstr "Requerido"
+msgstr "Requis"
 
 #: src/templates/index.mas:84 src/templates/index.mas:86
 msgid "Apply Changes"
-msgstr "Aplicar Cambios"
+msgstr "Appliquer changements"
 
 #: stubs/c2s.xml.mas:75
 msgid "Enter a username and password to register with this server."
-msgstr ""
-"Escriba un nombre de usuario y una contraseña para entrar a este servidor"
+msgstr "Entrer un nom d'usager et un mot de passe pour registrer avec ce service."
+
