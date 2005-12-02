@@ -30,7 +30,7 @@
 					to the network interface. Once you have
 					choosen the configuration, you can set if
 					this network interface is
-					external<footnote><para>FIXME</para></footnote>,
+					external<footnote><para><!--FIXME--></para></footnote>,
 					its IP adress and its network mask.</para>
 				</listitem>
 			</varlistentry>
@@ -48,7 +48,7 @@
 			<varlistentry>
 				<term>Trunk 802.11q</term>
 				<listitem>
-					<para>FIXME</para>
+					<para><!--FIXME--></para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
@@ -100,7 +100,7 @@
 
 		<section>
 			<title>Static routes</title>
-			<para>FIXME</para>
+			<para><!--FIXME--></para>
 		</section>
 	</section>
 

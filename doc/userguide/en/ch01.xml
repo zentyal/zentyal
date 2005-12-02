@@ -49,7 +49,8 @@
 	<section>
 		<title>Terminology</title>
 
-		<para>FIXME: ¿esta sección es como un glosario de términos de eBox?</para>
+		<para><!--FIXME: ¿esta sección es como un glosario de términos de
+eBox?--></para>
   </section>
 
 	<section>
@@ -160,8 +161,9 @@
 					<term>Restart Services</term>
 						<listitem>
 							<para>
-							FIXME:
-							existirá después de la implantación del monitor de servicios?
+						<!--FIXME:
+							existirá después de la implantación del monitor de
+servicios?-->
 							</para>
 						</listitem>
 				</varlistentry>

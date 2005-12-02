@@ -32,7 +32,7 @@
 					Asigna de forma permanete una dirección IP al
 					interface de red. Una vez seleccionado este método podrá
 					establecer si la interfaz de red es
-					externa<footnote><para>FIXME</para></footnote>, 
+					externa<footnote><para><!--FIXME--></para></footnote>, 
 					su dirección IP y su máscara de red.
 					</para>
 				</listitem>
@@ -50,7 +50,7 @@
 			<varlistentry>
 				<term>Trunk 802.11q</term>
 				<listitem>
-					<para>FIXME</para>
+					<para><!--FIXME--></para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
@@ -124,7 +124,7 @@
 
 		<section>
 			<title>Rutas estáticas</title>
-			<para>FIXME</para>
+			<para><!--FIXME--></para>
 		</section>
 	</section>
 
