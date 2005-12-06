@@ -1,4 +1,4 @@
-# Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2005 Warp Netwoks S.L., DBS Servicios Informaticos S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -61,8 +61,10 @@ sub _process($) {
 
 	$self->keepParam('vdomain');
 
-	$self->_requireParam('mdsize', __('mdsize'));
-	my $mdsize = $self->param('mdsize');
+	my $mdsize = 0;
+	if (defined($self->param('mdsize'))) {
+		$mdsize = $self->param('mdsize');
+	}
 	my $oldmdsize = $mail->{vdomains}->getMDSize($vdomain);
 	my $forceold = $self->param('forceold');
 	my $modify = undef;

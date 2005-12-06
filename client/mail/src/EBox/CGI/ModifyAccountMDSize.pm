@@ -1,4 +1,4 @@
-# Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2005 Warp Netwoks S.L., DBS Servicios Informaticos S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -56,13 +56,15 @@ sub _process($) {
 	my $username = $self->param('username');
 	$self->{redirect} = "UsersAndGroups/User?username=$username";
 	
-	$self->_requireParam('mdsize', __('mdsize'));
-	my $mdsize = $self->param('mdsize');
+	my $mdsize = 0;
+	if (defined($self->param('mdsize'))) {
+		$mdsize = $self->param('mdsize');
+	}
 	my $oldmdsize = ($mail->{musers}->getUserLdapValue($username,
 		'userMaildirSize')) / $mail->BYTES;
 	my $modify = undef;
 
-	if ($mdsize < $oldmdsize) {
+	if ((($mdsize < $oldmdsize) and ($mdsize > 0)) or (($oldmdsize == 0) and ($mdsize > 0))) {
 		if($self->param('cancel')) {
 			$self->{redirect} = "UsersAndGroups/User?username=$username";
 		} elsif ($self->param('force')) {

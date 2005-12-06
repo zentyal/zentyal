@@ -17,8 +17,27 @@ use EBox::Gettext;
 <form action='ModifyVDomain' method='POST'>
 <table>
 	<tr>
-		<td class="tright"><% __x('Maildir size for {vdomain} virtual domain', vdomain => $vdomain ) %>:</td>
-		<td><input type='text' class='inputText' name='mdsize' size="5" value=<% $mdsize %>></td>
+	<td class="tright"><% __x('Maildir size for {vdomain} virtual domain', vdomain => $vdomain ) %>:</td>
+	<td><input type='text' class='inputText' name='mdsize'
+				id='mdsize'
+				size="15"
+%				if($mdsize eq 0) {
+			disabled
+			value=""
+%				} else {
+			enabled
+			value='<% $mdsize %>'>
+%				}
+	</td>
+	</tr>
+	<tr>
+	<td class='tright'><% __('Unlimited size') %></td>
+	<td><input type='checkbox' name='ummsize' id='ummsize'
+			value='0' onclick="updateMDSize()"
+%				if($mdsize eq 0) {
+			checked
+%				} 
+	></td>
 	</tr>
 	<tr>
 		<td class="tright"><% __('Force the change to the existing accounts') %>:</td>
@@ -37,3 +56,22 @@ use EBox::Gettext;
 % } elsif (defined($components[$menu-1])) {
       <& $components[$menu-1]->{'path'}, params => $components[$menu-1]->{'params'} &>
 % }
+<script type="text/javascript">
+function updateMDSize() {
+    var size = document.getElementById("mdsize")
+    var chk = document.getElementById("ummsize")
+	var val = <% $mdsize %>;
+
+    if(chk.checked) {
+        size.disabled = true;
+        size.value = '';
+    } else {
+        size.disabled = false;
+		
+		if(val == 0) {
+			val = 10;
+		}
+        size.value = val;
+    }
+}
+</script>

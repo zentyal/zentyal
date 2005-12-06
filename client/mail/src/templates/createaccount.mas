@@ -1,4 +1,5 @@
 <!-- vim: ts=4 sw=4 nowrap filetype=mason
+
 -->
 <%args>
     $params
@@ -28,10 +29,27 @@ settextdomain('ebox-mail');
 		</td>
 	</tr>
 	<tr>
-		<td class="tright"><% __('Maildir size (MB)') %>:</div>
-		<td>
-			<input type='text' class='inputText' size="5" name='dftmdsize' value=<%  %>>
-		</td>
+	<td class='tright'><% __('Maildir size (MB)') %>:</td>
+	<td><input type='text' class='inputText' name='mdsize'
+				id='mdsize'
+				size="15"
+%				if($params->{'mdsize'} eq 0) {
+			disabled
+			value=""
+%				} else {
+			enabled
+			value='<% $params->{'mdsize'} %>'>
+%				}
+	</td>
+	</tr>
+	<tr>
+	<td class='tright'><% __('Unlimited size') %></td>
+	<td><input type='checkbox' name='ummsize' id='ummsize'
+			value='0' onclick="updateMDSize()"
+%				if($params->{'mdsize'} eq 0) {
+			checked
+%				} 
+	></td>
 	</tr>
 	<tr>
 		<td></td>
@@ -55,6 +73,24 @@ settextdomain('ebox-mail');
         domain = select.options[select.selectedIndex].value;
         maildirsizeText.value = a[domain];
     }
+
+	function updateMDSize() {
+		var size = document.getElementById("mdsize")
+		var chk = document.getElementById("ummsize")
+		var val = <% $params->{'mdsize'} %>;
+
+		if(chk.checked) {
+			size.disabled = true;
+			size.value = '';
+		} else {
+			size.disabled = false;
+			
+			if(val == 0) {
+				val = 10;
+			}
+			size.value = val;
+		}
+	}
 
 var maildirsizeText = document.forms.createaccount.dftmdsize;
 var vdomainSelect = document.forms.createaccount.vdomain;

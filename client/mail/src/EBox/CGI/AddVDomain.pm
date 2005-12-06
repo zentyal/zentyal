@@ -1,4 +1,4 @@
-# Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2005 Warp Netwoks S.L., DBS Servicios Informaticos S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -40,10 +40,12 @@ sub _process($) {
 	my $mail = EBox::Global->modInstance('mail');
  
 	$self->_requireParam('vdomain', __('Virtual domain name'));
-	$self->_requireParam('dftmdsize', __('Default maildir size'));
 	
 	my $vdomain = $self->param('vdomain');
-	my $dftmdsize = $self->param('dftmdsize');
+	my $dftmdsize = 0;
+	if (defined($self->param('mdsize'))) {
+		$dftmdsize = $self->param('mdsize');
+	}
 
 	$mail->{vdomains}->addVDomain($vdomain, $dftmdsize);
 }

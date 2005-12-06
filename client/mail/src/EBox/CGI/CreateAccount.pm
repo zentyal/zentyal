@@ -1,4 +1,4 @@
-# Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2005 Warp Netwoks S.L., DBS Servicios Informaticos S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -49,8 +49,10 @@ sub _process($) {
 	my $vdomain = $self->param('vdomain');
 	$self->_requireParam('lhs', __('Mail address'));
 	my $lhs = $self->param('lhs');
-	$self->_requireParam('dftmdsize', __('maildir size'));
-	my $mdsize = $self->param('dftmdsize');
+	my $mdsize = 0;
+	if (defined($self->param('mdsize'))) {
+		$mdsize = $self->param('mdsize');
+	}
 
 	$mail->{musers}->setUserAccount($username, $lhs, $vdomain, $mdsize);
 }

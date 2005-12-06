@@ -1,4 +1,6 @@
 <!-- vim: ts=4 sw=4 filetype=mason
+</script>
+</script>
 -->
 <%args>
 	$mdsize
@@ -19,17 +21,33 @@ use EBox::Gettext;
 		</td>
 	</tr>
 	<tr>
-		<td class='tright'>
-			<span class='ftitle'>
-				<% __('Default maildir size (Mb)') %>:
-			</span>
-		</td>
-		<td class='tright'>
-			<input 	type='text' 
-					class='inputText' 
-					name='dftmdsize' 
-					value='<% $mdsize %>' />
-		</td>
+		<table class='formTable'>
+			<tr>
+			<td class='tright'><% __('Default maildir size (MB)') %>:</td>
+			<td><input type='text' class='inputText' name='mdsize'
+						id='mdsize'
+						size="15"
+%				if($mdsize eq 0) {
+					disabled
+					value=""
+%				} else {
+					enabled
+					value='<% $mdsize %>'>
+%				}
+			</td>
+			</tr>
+			<tr>
+			<td class='tright'><% __('Unlimited size') %></td>
+			<td><input type='checkbox' name='ummsize' id='ummsize'
+					value='0' onclick="updateMDSize()"
+%				if($mdsize eq 0) {
+					checked
+%				} 
+			></td>
+			</tr>
+			<tr>
+			<td></td>
+		</table>
 	</tr>
 	<tr>
 		<td></td>
@@ -81,3 +99,22 @@ use EBox::Gettext;
 		</table>
 %	}
 
+<script type="text/javascript">
+function updateMDSize() {
+    var size = document.getElementById("mdsize")
+    var chk = document.getElementById("ummsize")
+	var val = <% $mdsize %>;
+
+    if(chk.checked) {
+        size.disabled = true;
+        size.value = '';
+    } else {
+        size.disabled = false;
+		
+		if(val == 0) {
+			val = 10;
+		}
+        size.value = val;
+    }
+}
+</script>

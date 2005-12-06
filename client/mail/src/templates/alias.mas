@@ -20,15 +20,41 @@ use EBox::Gettext;
 			alt="<% __('Delete') %>">
 </form>
 
-	<form action='/ebox/Mail/ModifyAccountMDSize' method='POST'>
-	<td><% __('Maildir size (MB)') %>:</td>
-    <input type="hidden" name="username" value="<% $params->{'username'} %>">
-	<input type='text' size="10" class='inputText' name='mdsize' value=<% $params->{'mdsize'} %>>
+<form action='/ebox/Mail/ModifyAccountMDSize' method='POST'>
+<table class='formTable'>
+<input type="hidden" name="username" value="<% $params->{'username'} %>">
+	<tr>
+	<td class='tright'><% __('Default maildir size (MB)') %>:</td>
+	<td><input type='text' class='inputText' name='mdsize'
+				id='mdsize'
+				size="15"
+%				if($params->{'mdsize'} eq 0) {
+			disabled
+			value=""
+%				} else {
+			enabled
+			value='<% $params->{'mdsize'} %>'>
+%				}
+	</td>
+	</tr>
+	<tr>
+	<td class='tright'><% __('Unlimited size') %></td>
+	<td><input type='checkbox' name='ummsize' id='ummsize'
+			value='0' onclick="updateMDSize()"
+%				if($params->{'mdsize'} eq 0) {
+			checked
+%				} 
+	></td>
+	</tr>
+	<tr>
+	<td>
 	<input class='inputButton' type='submit' name='change'
-		value="<% __('Modify') %>"
-		alt="<% __('Modify') %>">
-	</form>
+			value="<% __('Modify') %>"
+			alt="<% __('Modify') %>">
+	</td>
+	</tr>
 </table>
+</form>
 
 <form action='/ebox/Mail/CreateAlias' method='POST'>
     <input type="hidden" name="maildrop" value="<% $params->{'mail'} %>">
@@ -87,3 +113,22 @@ use EBox::Gettext;
 </form>
 % settextdomain('ebox-usersandgroups');
 
+<script type="text/javascript">
+	function updateMDSize() {
+		var size = document.getElementById("mdsize")
+		var chk = document.getElementById("ummsize")
+		var val = <% $params->{'mdsize'} %>;
+
+		if(chk.checked) {
+			size.disabled = true;
+			size.value = '';
+		} else {
+			size.disabled = false;
+			
+			if(val == 0) {
+				val = 10;
+			}
+			size.value = val;
+		}
+	}
+</script>
