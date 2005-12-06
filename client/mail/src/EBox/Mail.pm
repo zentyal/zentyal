@@ -837,6 +837,7 @@ sub rootCommands
 	push(@array, "/usr/bin/maildirmake /var/vmail/*");
 	push(@array, "/bin/rm -rf /var/vmail/*");
 	push(@array, "/usr/bin/mailq");
+	push(@array, "/usr/sbin/postsuper");
 
 	return @array;
 }

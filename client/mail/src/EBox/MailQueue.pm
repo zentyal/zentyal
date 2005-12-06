@@ -29,6 +29,8 @@ BEGIN {
 	@EXPORT = qw();
 	%EXPORT_TAGS  = (all => [qw{
 					mailQueueList
+					removeMail
+					requeueMail
 					test
 				} ],
 			);
@@ -67,8 +69,8 @@ sub mailQueueList {
 			$temp->{'size'} = $size;
 			$temp->{'atime'} = $dweek.' '.$month.' '.$day.' '.$time;
 			$temp->{'sender'} = $sender;
-		} elsif ($_ =~ m/^\s+\(.*$/) {
-			my ($msg) = $_ =~ m/^\s+\((.*)\)$/;
+		} elsif ($_ =~ m/^\s*\(.*$/) {
+			my ($msg) = $_ =~ m/^\s*\((.*)\)$/;
 			$temp->{'msg'} = $msg;
 		} elsif ($_ =~ m/^\s+\w+\@.*$/) {
 			my ($rec) = $_ =~ m/^\s+(\w+\@.*).*$/;
@@ -80,6 +82,40 @@ sub mailQueueList {
 		}
 	}
 	return \@mqarray;
+}
+
+#
+# Method: removeMail
+#
+#  This method removes a mail from queue.
+#
+# Parameters:
+#
+#  qid: queue id.
+#
+sub removeMail {
+	my $qid = shift;
+
+	print STDERR "REMOVE: $qid\n";
+
+	root("/usr/sbin/postsuper -d $qid");
+}
+
+#
+# Method: requeueMail
+#
+#  This method requeues a mail from queue.
+#
+# Parameters:
+#
+#  qid: queue id.
+#
+sub requeueMail {
+	my $qid = shift;
+
+	print STDERR "REQUEUE: $qid\n";
+
+	root("/usr/sbin/postsuper -r $qid");
 }
 
 sub test {

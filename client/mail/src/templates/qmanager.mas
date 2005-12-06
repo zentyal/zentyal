@@ -32,7 +32,22 @@ use EBox::Gettext;
 			<td><% $row->{$it} %></td>
 %		}
 %   }
-		<td>R I D</td>
+		<td class='tcenter'>
+			<a href="MQRequeue?qid=<% $row->{'qid'} %>">
+			<img src='/data/images/requeue.gif'
+				title="<% __('Requeue') %>"
+				alt="<% __('Requeue') %>"/></a>
+			<img src='/data/images/sep.gif' alt='-'/>
+			<a href="MQInfo?qid=<% $row->{'qid'} %>">
+			<img src='/data/images/add.gif'
+				title="<% __('More Info') %>"
+				alt="<% __('More Info') %>"/></a>
+			<img src='/data/images/sep.gif' alt='-'/>
+			<a href="MQRemove?qid=<% $row->{'qid'} %>">
+			<img src='/data/images/remove.gif'
+				title="<% __('Remove') %>"
+				alt="<% __('Remove') %>"/></a>
+		</td>
 	</tr>
 % }
 	</tbody>
