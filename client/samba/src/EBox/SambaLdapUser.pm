@@ -35,15 +35,13 @@ use Crypt::SmbHash qw(nthash ntlmgen);
 use constant SCHEMAS            => ('/etc/ldap/schema/samba.schema',
 				    '/etc/ldap/schema/ebox.schema');
 # Default values for samba user
-# TODO Get SID once samba has been installed
-use constant DEFAULTSID         => 'S-1-5-21-1911238739-97561441-2706018148-';
 use constant SMBLOGONTIME       => '0'; 
 use constant SMBLOGOFFTIME      => '2147483647'; 
 use constant SMBKICKOFFTIME     => '2147483647'; 
 use constant SMBPWDCANCHANGE    => '0'; 
 use constant SMBPWDMUSTCHANGE   => '2147483647'; 
 use constant SMBHOMEDRIVE       => 'H:'; 
-use constant SMBPRIMARYGROUPSID => DEFAULTSID . '513'; 
+use constant SMBGROUP 		=> '513'; 
 use constant SMBACCTFLAGS       => '[U]'; 
 use constant GECOS              => 'Ebox file sharing user '; 
 use constant DOMAINNAME         => 'EBOX-SMB3';
@@ -93,7 +91,7 @@ sub _addUser ($$)
 	
 	my $unixuid = $users->lastUid;
 	my $rid = 2 * $unixuid + 1000;
-	my $sambaSID = DEFAULTSID . $rid;
+	my $sambaSID = _getSID() . $rid;
 	my $userinfo = $users->userInfo($user);
 	my ($lm ,$nt) = ntlmgen $userinfo->{'password'};
 
@@ -111,7 +109,7 @@ sub _addUser ($$)
                                   sambaHomePath        => SMBHOMES . $user,
                                   sambaHomeDrive       => SMBHOMEDRIVE,
                                   sambaProfilePath     => SMBPROFILES . $user,
-                                  sambaPrimaryGroupSID => SMBPRIMARYGROUPSID,
+                                  sambaPrimaryGroupSID => _getSID() . SMBGROUP,
                         	  sambaLMPassword      => $lm,
                         	  sambaNTPassword      => $nt,
                         	  sambaAcctFlags       => SMBACCTFLAGS,
@@ -199,7 +197,7 @@ sub _addGroup ($$)
 	my $users = EBox::Global->modInstance('users');
 	
 	my $rid = 2 * $users->lastGid + 1001;
-	my $sambaSID = DEFAULTSID . $rid;
+	my $sambaSID = _getSID() . $rid;
 
 	my $dn = "cn=$group," .  $users->groupsDn;
         
@@ -376,8 +374,7 @@ sub _directoryEmpty($$) {
 
 sub _getSID 
 {
-
-	return DEFAULTSID;
+	return EBox::Config::configkey('sid') . '-';
 }
 
 sub _groupSharing($$)
