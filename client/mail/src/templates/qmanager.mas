@@ -4,6 +4,8 @@
 	$mqlist
 	$page
 	$tpages
+	$getinfo
+	$data
 </%args>
 <%init>
 use EBox::Gettext;
@@ -25,23 +27,23 @@ use EBox::Gettext;
 % my @order = ('qid', 'size', 'atime', 'sender', 'recipients', 'msg');
 % foreach my $row (@{$mqlist}) {
 	<tr>
-%  foreach my $it (@order) {
+%	foreach my $it (@order) {
 %		if ($it eq 'recipients') {
 			<td><% join(', ', @{$row->{$it}}) %></td>
 %		} else {
 			<td><% $row->{$it} %></td>
 %		}
-%   }
+%	}
 		<td class='tcenter'>
 			<a href="MQRequeue?qid=<% $row->{'qid'} %>">
 			<img src='/data/images/requeue.gif'
 				title="<% __('Requeue') %>"
 				alt="<% __('Requeue') %>"/></a>
 			<img src='/data/images/sep.gif' alt='-'/>
-			<a href="MQInfo?qid=<% $row->{'qid'} %>">
-			<img src='/data/images/add.gif'
-				title="<% __('More Info') %>"
-				alt="<% __('More Info') %>"/></a>
+			<a href="QueueManager?getinfo=<% $row->{'qid'} %>">
+			<img src='/data/images/down.gif'
+				title="<% __('Show Info') %>"
+				alt="<% __('Show Info') %>"/></a>
 			<img src='/data/images/sep.gif' alt='-'/>
 			<a href="MQRemove?qid=<% $row->{'qid'} %>">
 			<img src='/data/images/remove.gif'
@@ -49,6 +51,20 @@ use EBox::Gettext;
 				alt="<% __('Remove') %>"/></a>
 		</td>
 	</tr>
+%	if($row->{'qid'} eq $getinfo) {
+		<tr><td></td><td colspan="5">
+%		foreach (@{$data}) {
+			<% $_ %><br/>
+%		}
+		</td>
+		<td>
+			<a href="QueueManager?getinfo=none">
+			<img src='/data/images/up.gif'
+				title="<% __('Hide Info') %>"
+				alt="<% __('Hide Info') %>"/></a>
+		</td>
+		</tr>
+%	}
 % }
 	</tbody>
 </table>

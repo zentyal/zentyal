@@ -31,7 +31,7 @@ BEGIN {
 					mailQueueList
 					removeMail
 					requeueMail
-					test
+					infoMail
 				} ],
 			);
 	@EXPORT_OK = qw();
@@ -96,8 +96,6 @@ sub mailQueueList {
 sub removeMail {
 	my $qid = shift;
 
-	print STDERR "REMOVE: $qid\n";
-
 	root("/usr/sbin/postsuper -d $qid");
 }
 
@@ -113,13 +111,35 @@ sub removeMail {
 sub requeueMail {
 	my $qid = shift;
 
-	print STDERR "REQUEUE: $qid\n";
-
 	root("/usr/sbin/postsuper -r $qid");
 }
 
-sub test {
-	print STDERR "TEST\n";
+#
+# Method: infoMail
+#
+#  This method returns extra mail information like subject and body contents.
+#
+# Parameters:
+#
+#  qid: queue id.
+#
+# Returns:
+#
+#  string: Extra mail information
+sub infoMail {
+	my $qid = shift;
+
+	my $writeon = 0;
+	my @info;
+	foreach (@{root("/usr/sbin/postcat -q $qid")}) {
+		chomp;
+		if ($writeon) { push(@info, $_);}
+		if ($_ =~ m/^\*\*\* MESSAGE CONTENTS.*$/) { $writeon	= 1; }
+		if ($_ =~ m/^\*\*\* HEADER EXTRACTED.*$/) { $writeon	= 0; }
+	}
+	pop(@info);
+	
+	return \@info;
 }
 
 1;

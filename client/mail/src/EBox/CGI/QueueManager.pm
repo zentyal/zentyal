@@ -47,18 +47,23 @@ sub _process($) {
 	my @array = ();
 
 	my @mqlist = @{mailQueueList()};
-	print STDERR "Size: ".scalar(@mqlist)."\n".Dumper(@mqlist);
 
 	my $page = 1;
 #	if(defined($self->params('page'))) {
 #		$page = $self->params('page');
 #	}
 
+	my $info = $self->param('getinfo');
+	unless ($self->param('getinfo')) {
+		$info = 'none';
+	}
+	my @data = ('');
+	if ($info ne 'none') {
+		@data = @{infoMail($info)};
+	}
+	
 	my $aux = ($page - 1) * PAGESIZE;
-	print STDERR "Page: $page, Pagesize: ".PAGESIZE.", Aux: $aux\n";
 	my @showlist;
-#	if ($aux >= (scalar(@mqlist) - 1)) {
-#		@showlist = @mqlist;
 	if (($aux + PAGESIZE - 1) >= (scalar(@mqlist) - 1)) {
 		print STDERR "First: $aux, Last: ".(scalar(@mqlist) - 1) ."\n";
 		@showlist = @mqlist[$aux..(scalar(@mqlist) - 1)];
@@ -67,10 +72,12 @@ sub _process($) {
 	}
 	
 	my $tpages = ceil(scalar(@mqlist) / PAGESIZE);
-	print STDERR "Pagina $page, tpages: $tpages\n".Dumper(@showlist);
+	
 	push(@array, 'mqlist'		=> \@showlist);
 	push(@array, 'page'	=> $page);
 	push(@array, 'tpages'	=> $tpages);
+	push(@array, 'getinfo'	=> $info);
+	push(@array, 'data'	=> \@data);
 
 	$self->{params} = \@array;
 }

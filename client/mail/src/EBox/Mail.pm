@@ -838,6 +838,7 @@ sub rootCommands
 	push(@array, "/bin/rm -rf /var/vmail/*");
 	push(@array, "/usr/bin/mailq");
 	push(@array, "/usr/sbin/postsuper");
+	push(@array, "/usr/sbin/postcat");
 
 	return @array;
 }
