@@ -1,4 +1,4 @@
-# Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2005 Warp Netwoks S.L., DBS Servicios Informaticos S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -836,6 +836,7 @@ sub rootCommands
 	push(@array, "/bin/mkdir -p /var/vmail*");
 	push(@array, "/usr/bin/maildirmake /var/vmail/*");
 	push(@array, "/bin/rm -rf /var/vmail/*");
+	push(@array, "/usr/bin/mailq");
 
 	return @array;
 }
@@ -860,8 +861,8 @@ sub menu
 	$folder->add(new EBox::Menu::Item('url' => 'Mail/VDomains',
 			'text' => __('Virtual domains')));
 
-	$folder->add(new EBox::Menu::Item('url' => 'Mail/EditVDomain',
-			'text' => ''));
+	$folder->add(new EBox::Menu::Item('url' => 'Mail/QueueManager',
+			'text' => 'Queue Management'));
 
 	$root->add($folder);
 }

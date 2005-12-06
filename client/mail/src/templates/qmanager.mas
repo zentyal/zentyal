@@ -1,0 +1,87 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+	$mqlist
+	$page
+	$tpages
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<table class='dataTable' cellspacing='0'>
+	<thead>
+		<tr>
+			<th class='tleft'><% __('Queue ID') %></th>
+			<th class='tleft'><% __('Size (bytes)') %></th>
+			<th class='tleft'><% __('Date') %></th>
+			<th class='tleft'><% __('Sender') %></th>
+			<th class='tleft'><% __('Recipients') %></th>
+			<th class='tleft'><% __('Message') %></th>
+			<th class='tleft'><% __('Operate') %></th>
+		</tr>
+	</thead>
+	<tbody>
+% my @order = ('qid', 'size', 'atime', 'sender', 'recipients', 'msg');
+% foreach my $row (@{$mqlist}) {
+	<tr>
+%  foreach my $it (@order) {
+%		if ($it eq 'recipients') {
+			<td><% join(', ', @{$row->{$it}}) %></td>
+%		} else {
+			<td><% $row->{$it} %></td>
+%		}
+%   }
+		<td>R I D</td>
+	</tr>
+% }
+	</tbody>
+</table>
+
+<form action='QueueManager' method='POST'>
+<input type='hidden' name='page' value='<% $page %>'>
+<br style="clear:both;"/>
+
+<table width="100%">
+	<tr>
+	<td style="widht: 5%">
+
+%	if ($page != 0) {
+		<input name='tofirst' type='image'
+			src='/data/images/rw.gif'
+			alt="<% __('first') %>"
+			value="<% __('first') %>">
+		<input name='toprev' type='image'
+			src="/data/images/r.gif"
+			alt="<% __('prev') %>"
+			value='<% __('prev') %>'>
+%	}
+
+	</td>
+
+	<td style="width:90%; text-align: center;">
+%	if ($tpages <= 0) {
+		<% __('Page') %> <% $page %> 
+%	} else {
+		<% __('Page') %> <% $page %> <% __('of') %> <%$tpages%>
+%	}
+
+	</td>
+
+	<td class='tright' style="widht: 5%">
+
+%	if ($page != $tpages) {
+		<input name='tonext' type='image'
+			src="/data/images/f.gif"
+			alt="<% __('next') %>"
+			value='<% __('next') %>'>
+		<input name='tolast' type='image'
+			src="/data/images/ff.gif"
+			alt="<% __('last') %>"
+			value='<% __('last') %>'>
+%	}
+
+	</td>
+	</tr>
+</table>
+</form>
