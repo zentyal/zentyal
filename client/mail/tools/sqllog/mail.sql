@@ -1,4 +1,5 @@
 CREATE TABLE message (
+        qid VARCHAR(50),
         message_id VARCHAR(340),
         client_host_ip INET NOT NULL,
         client_host_name VARCHAR(255) NOT NULL,
