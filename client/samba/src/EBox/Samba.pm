@@ -82,6 +82,7 @@ sub _setSambaConf
 	push(@array, 'printers'  => $self->_sambaPrinterConf());
 	push(@array, 'active_file' => $self->fileService());	
 	push(@array, 'active_printer' => $self->printerService());	
+	push(@array, 'pdc' => $self->pdc());
 	
 	$self->writeConfFile(SMBCONFFILE, "samba/smb.conf.mas", \@array);
 
@@ -95,6 +96,7 @@ sub _setSambaConf
 	push(@array, 'bindpw'    => $ldap->rootPw);
 	push(@array, 'usersdn'   => $users->usersDn);
 	push(@array, 'groupsdn'  => $users->groupsDn); 
+	push(@array, 'computersdn' => 'ou=Computers,' . $ldapconf->{'dn'});
 	
 	$self->writeConfFile(LIBNSSLDAPFILE, "samba/libnss-ldap.conf.mas", 
 					     \@array);
@@ -290,7 +292,8 @@ sub setPrinterService # (enabled)
 	}
         $self->set_bool('printer_active', $active);
 }
-#   Function: servicePrinter
+
+#   Method: servicePrinter
 #
 #       Returns if the printer sharing service is enabled  
 #
@@ -304,14 +307,126 @@ sub printerService
         return $self->get_bool('printer_active');
 }
 
+
+
+#   Method: setDomainName
+#
+#      	Set the domain's name. Needed for PDC mode
+#
+#   Parameters:
+#
+#       name - string containing the name
+#
+sub setDomainName
+{
+        my ($self, $domain) = @_;
+	unless (_checkWorkgroupName($domain)) {
+		 throw EBox::Exceptions::InvalidData
+		        ('data' => __('Domain Name'), 'value' => $domain);
+	}
+	($domain eq $self->domain) and return;
+        $self->set_string('domain', $domain);
+
+}
+
+#   Method: domainName
+#
+#       Return the domain's name.
+#
+#   Returns:
+#
+#       string - containing the domain's name
+#
+sub domainName
+{
+        my ($self) = @_;
+        return $self->get_string('domain');
+}
+
+#   Method: pdc
+#
+#       Returns if samba must configured as a PDC 
+#
+#   Returns:
+#
+#       boolean - true if enabled, otherwise undef      
+#
+sub pdc
+{
+        my ($self) = @_;
+        return $self->get_bool('pdc');
+}
+
+#   Method: setPdc
+#
+#      	Set the configuration for samba, PDC or file server
+#
+#   Parameters:
+#
+#       enable - true if enabled, otherwise undef      
+#
+sub  setPdc
+{
+        my ($self, $enable) = @_;
+	
+	($self->pdc eq $enable) and return;
+        $self->set_bool('pdc', $enable);
+}
+#   Method: adminUser
+#
+#	Check if a given user is a Domain Administrator
+#
+#   Parameters:
+#
+#       user - string containign the username
+#
+#  Returns:
+#
+#  	bool - true if it is, otherwise undef
+#
+sub  adminUser
+{
+        my ($self, $user) = @_;
+	($user) or return;
+        my $usermod = EBox::Global->modInstance('users');
+	foreach my $u (@{$usermod->usersInGroup('Domain Admins')}) {
+		return 1 if ($u eq $user);
+	}
+	return undef;
+}
+
+
+#   Method: setAdminUser
+#
+#	Add a given user to the Domain Admins group
+#
+#   Parameters:
+#
+#       user - string containign the username
+#	admin -  true if it must be an administrator, undef otherwise
+#
+#
+sub  setAdminUser 
+{
+        my ($self, $user, $admin) = @_;
+	($user) or return;
+	($admin xor $self->adminUser($user)) or return;
+        my $usermod = EBox::Global->modInstance('users');
+	if ($admin) {
+		$usermod->addUserToGroup($user, 'Domain Admins');
+	} else {
+		$usermod->delUserFromGroup($user, 'Domain Admins');
+	}
+}
+
 sub setNetbios # (enabled) 
 {
         my ($self, $netbios) = @_;
-	unless (_checkNetbiosName($netbios)) {
-		 throw EBox::Exceptions::InvalidData
-		        ('data' => __('netbios'), 'value' => $netbios);
-	}
-	($netbios eq $self->netbios) and return;
+        unless (_checkNetbiosName($netbios)) {
+                 throw EBox::Exceptions::InvalidData
+                        ('data' => __('netbios'), 'value' => $netbios);
+        }
+        ($netbios eq $self->netbios) and return;
         $self->set_string('netbios', $netbios);
 }
 

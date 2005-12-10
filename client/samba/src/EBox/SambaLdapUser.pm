@@ -44,9 +44,6 @@ use constant SMBHOMEDRIVE       => 'H:';
 use constant SMBGROUP 		=> '513'; 
 use constant SMBACCTFLAGS       => '[U]'; 
 use constant GECOS              => 'Ebox file sharing user '; 
-use constant DOMAINNAME         => 'EBOX-SMB3';
-use constant SMBHOMES           => "\\\\" . DOMAINNAME . "\\homes\\";
-use constant SMBPROFILES        => "\\\\" . DOMAINNAME . "\\profiles\\";
 use constant USERGROUP          => 513;
 # Home path for users and groups
 use constant BASEPATH          => '/home/samba';
@@ -78,7 +75,15 @@ sub new
 }
 
 
+sub _smbHomes {
+	my  $samba = EBox::Global->modInstance('samba');
+	return "\\\\" . $samba->netbios() . "\\homes\\";
+}
 
+sub _smbProfiles {
+	my  $samba = EBox::Global->modInstance('samba');
+	return "\\\\" . $samba->netbios() . "\\profiles\\";
+}
 
 # Implements LdapUserBase interface
 sub _addUser ($$)
@@ -91,7 +96,7 @@ sub _addUser ($$)
 	
 	my $unixuid = $users->lastUid;
 	my $rid = 2 * $unixuid + 1000;
-	my $sambaSID = _getSID() . $rid;
+	my $sambaSID = getSID() . '-' .  $rid;
 	my $userinfo = $users->userInfo($user);
 	my ($lm ,$nt) = ntlmgen $userinfo->{'password'};
 
@@ -106,10 +111,11 @@ sub _addUser ($$)
                                   sambaKickoffTime     => SMBKICKOFFTIME,
                                   sambaPwdCanChange    => SMBPWDCANCHANGE,
                                   sambaPwdMustChange   => SMBPWDMUSTCHANGE,
-                                  sambaHomePath        => SMBHOMES . $user,
+                                  sambaHomePath        => _smbHomes() . $user,
                                   sambaHomeDrive       => SMBHOMEDRIVE,
-                                  sambaProfilePath     => SMBPROFILES . $user,
-                                  sambaPrimaryGroupSID => _getSID() . SMBGROUP,
+                                  sambaProfilePath     => _smbProfiles . $user,
+                                  sambaPrimaryGroupSID => 
+				  		getSID() . '-' . SMBGROUP,
                         	  sambaLMPassword      => $lm,
                         	  sambaNTPassword      => $nt,
                         	  sambaAcctFlags       => SMBACCTFLAGS,
@@ -197,7 +203,7 @@ sub _addGroup ($$)
 	my $users = EBox::Global->modInstance('users');
 	
 	my $rid = 2 * $users->lastGid + 1001;
-	my $sambaSID = _getSID() . $rid;
+	my $sambaSID = getSID() . '-' .  $rid;
 
 	my $dn = "cn=$group," .  $users->groupsDn;
         
@@ -264,7 +270,8 @@ sub _userAddOns($$) {
 	my $printers = $samba->_printersForUser($username);
         my $args =  { 'username' => $username,
 		      'share'    => $share,
-		      'printers' => $printers
+		      'printers' => $printers,
+		      'is_admin' => $samba->adminUser($username)
 		      };
 	use Data::Dumper;
         return { path => '/samba/samba.mas',
@@ -372,9 +379,9 @@ sub _directoryEmpty($$) {
 
 
 
-sub _getSID 
+sub getSID 
 {
-	return EBox::Config::configkey('sid') . '-';
+	return EBox::Config::configkey('sid');
 }
 
 sub _groupSharing($$)
@@ -612,7 +619,78 @@ sub setUserSharing($$) {
 	$ldap->modify($dn, \%attrs );
 }
 
+# Method: sambaDomainName
+#
+# 	Fetch the samba domain name
+# 
+# Returns:
+#
+# 	string - samba domain name
+# 	
+sub sambaDomainName
+{
+	my $self = @_;
+	my $ldap = $self->{ldap}; 
+	my %attrs = ( 
+			base => "dc=ebox", 
+			filter => "(objectclass=sambaDomain)", 
+			scope => "sub"
+	    	    ); 
+	my $entry = $ldap->search(\%attrs)->pop_entry();
 
+	if ($entry) {
+		return $entry->get_value('sambaDomainName');
+	} else {
+		return undef;
+	}
+}
+
+# Method: setSambaDomainName
+#
+# 	Set the samba domain name. The entry is created if it does not
+#	exits
+# 
+# Parameters:
+#
+#	name - string containing the domain name
+#
+# Throws:
+#
+#	InvalidData - wrong domain name
+sub setSambaDomainName
+{
+	my ($self, $domain) = @_;
+	
+	my $ldap = $self->{ldap}; 
+	my %attrs = ( 
+			base => "dc=ebox", 
+			filter => "(objectclass=sambaDomain)", 
+			scope => "sub"
+	    	    ); 
+	my $entry = $ldap->search(\%attrs)->pop_entry();
+
+	if ($entry) {
+		my $current = $entry->get_value('sambaDomainName');
+		return if ($current eq $domain);
+		$ldap->moddn("sambaDomainName=$current,dc=ebox", 
+				newrdn => "sambaDomainName=$domain");
+	} else {
+		my $users = EBox::Global->modInstance('users');
+		my %args = (
+			attr => [
+				'sambaDomainName'	=> $domain,
+				'sambaSID'		=> getSID(),
+				'uidNumber'		=> $users->lastUid,
+				'gidNumber'		=> $users->lastGid,
+				'objectclass'		=> ['sambaDomain', 
+							    'sambaUnixidPool']
+				]
+			   );
+
+		my $dn = "sambaDomainName=$domain,dc=ebox";
+		$ldap->add($dn, \%args);
+	}
+}
 
 sub _isSambaObject($$$) {
 	my $self = shift;

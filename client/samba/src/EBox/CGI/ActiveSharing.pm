@@ -59,19 +59,21 @@ sub _group {
 sub _user {
 	my $self = shift;
 	
-	my $samba = new EBox::SambaLdapUser;
+	my $smbldap = new EBox::SambaLdapUser;
+	my $smb = EBox::Global->modInstance('samba');
 	
 
 	$self->_requireParam('user', __('user name'));
 	$self->keepParam('user');
 	$self->{errorchain} =  "UsersAndGroups/User";
 	$self->_requireParam('active', __('active'));
-	my $active = $self->param('active');
 	my $user = $self->param('user');
+	my $active = $self->param('active');
 	
 	$self->{redirect} = "UsersAndGroups/User?username=$user";
-	
-	$samba->setUserSharing($user, $active);
+
+	$smbldap->setUserSharing($user, $active);
+	$smb->setAdminUser($user, $self->param('is_admin'));
 }
 
 sub _process($) {
