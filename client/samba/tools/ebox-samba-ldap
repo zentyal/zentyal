@@ -5,12 +5,205 @@ use strict;
 use EBox;
 use EBox::Global;
 use EBox::SambaLdapUser;
+use EBox::Ldap;
+use EBox::Sudo qw( :all );
+use Crypt::SmbHash qw(nthash ntlmgen);
+
+
+use constant DEFAULTDOMAINNAME => 'EBOX';
+use constant TMPROOT	=> 'ebox-samba-admin';
+
+# LDAP Domain stuff
+use constant DomainGroups => 
+		( 
+			{ 
+				name => 'Domain Admins',
+				gid  => 512,
+				gtype => 2,
+			},
+			{
+				name => 'Domain Users',
+				gid => 513,
+				gtype => 2,
+			},
+			{
+				name => 'Domain Guests',
+				gid  => 514,
+				gtype => 2,
+			},
+			{
+				name => 'Domain Computers',
+				gid => 544,
+				gtype => 2,
+			},
+			{
+				name => 'Administrators',
+				gid => 544,
+				gtype => 5,
+				sid => 'S-1-5-32-544',
+			},
+			{
+				name => 'Account Operators',
+				gid => 548,
+				gtype => 5,
+				sid => 'S-1-5-32-548'
+			},
+			{
+				name => 'Print Operators',
+				gid => 550,
+				gtype => 5,
+				sid => 'S-1-5-32-550'
+			}, 
+			{
+				name => 'Backup Operators',
+				gid => 551,
+				gtype => 5,
+				sid => 'S-1-5-32-551'
+
+			},
+			{
+				name => 'Replicators',
+				gid => 552,
+				gtype => 5,
+				sid => 'S-1-5-32-552'
+
+			}
+		);
+	
+
 
 EBox::init();
 
 my $global = EBox::Global->getInstance(1);
 my $users  = $global->modInstance('users');
 
+sub _addPDCStuff {
+	my $ldap = new EBox::Ldap;
+	my $smb  = new EBox::SambaLdapUser;
+	my $sid = EBox::SambaLdapUser::getSID();
+	
+	# Mandatory groups
+	foreach my $group (DomainGroups) {
+		my ($name, $gid, $gtype) = ($group->{'name'}, 
+					    $group->{'gid'}, $group->{'gtype'});
+		my %attrs = (
+				base => 'ou=Groups,dc=ebox',
+				filter => "&(objectclass=*)(cn=$name)",
+				scope => 'one'
+			    );
+		next if ($ldap->search(\%attrs)->count() > 0);
+
+		my $gsid;
+		if ($group->{'sid'}) {
+			$gsid = $group->{'sid'};
+		} else {
+			$gsid = "$sid-$gid";
+		}
+
+		my %args = (
+			    attr => [
+				      'cn'		=> $name,
+				      'gidNumber'	=> $gid,
+				      'sambaSID'	=> $gsid, 
+				      'sambaGroupType'  => $gtype,
+				      'displayName'	=> $name, 
+				      'objectclass'	=> ['posixGroup',
+				      			   'sambaGroupMapping', 
+							   'eboxGroup']
+				    ]
+			    );
+
+		my $dn = "cn=$name,ou=Groups,dc=ebox";
+		$ldap->add($dn, \%args);
+
+	}
+	
+	# Computers
+        my %args = (base => "dc=ebox", filter => "&(ou=Computers)", 
+			scope => 'one');
+	unless ($ldap->search(\%args)->pop_entry()) {
+		%args = (
+		    attr => [
+			      'ou'		=> 'Computers',
+			      'objectclass'	=> ['organizationalUnit']
+			    ]
+		        );
+
+		my $dn = "ou=Computers,dc=ebox";
+		$ldap->add($dn, \%args);
+	}
+
+	# Idmap 
+	%args = (base => "dc=ebox", filter => "&(ou=Idmap)", 
+			scope => 'one');
+
+	unless ($ldap->search(\%args)->pop_entry()) {
+		%args = (
+		    attr => [
+			      'ou'		=> 'Idmap',
+			      'objectclass'	=> ['organizationalUnit']
+			    ]
+		    );
+
+		my $dn = "ou=Idmap,dc=ebox";
+		$ldap->add($dn, \%args);
+	}
+
+
+	# SambaDomainName
+	%args = (
+                        base => "dc=ebox",
+                        filter => "(sambaDomainName=EBOX-SMB3)",
+                        scope => "sub"
+                    );
+	
+	if ($ldap->search(\%args)->pop_entry()) {
+		$ldap->delete('sambaDomainName=EBOX-SMB3,dc=ebox');
+	}
+        %args = (
+                        base => "dc=ebox",
+                        filter => "(objectclass=sambaDomain)",
+                        scope => "sub"
+                    );
+
+	unless ($ldap->search(\%args)->pop_entry()) {
+		$smb->setSambaDomainName(DEFAULTDOMAINNAME);
+	}
+	
+	# Set permissions for Domain Admins 
+        %args = (
+                        base => "ou=Users,dc=ebox",
+                        filter => '(uid=' . TMPROOT . ')',
+                        scope => "sub"
+                    );
+
+	unless ($ldap->search(\%args)->pop_entry()) {
+		root('/usr/sbin/smbldap-useradd -a ' . TMPROOT);
+		root('/usr/sbin/smbldap-usermod  -u 0 '.  TMPROOT);
+	}
+
+	my $pass .= int (rand(10000000)); 
+	my ($lm ,$nt) = ntlmgen $pass;
+	%args = (
+		changes => [
+			replace => [
+					sambaLMPassword 	=> $lm,
+					sambaNTPassword 	=> $nt,
+					sambaAcctFlags		=> '[U]',
+					sambaPwdLastSet		=> time
+				]
+			]
+		);
+
+	my $dn = 'uid=' . TMPROOT . ',' . $users->usersDn;
+	$ldap->modify($dn, \%args );
+
+	system("net rpc rights grant  '" . DEFAULTDOMAINNAME . 
+	"\\Domain Admins' Semachineaccountprivilege -U " . TMPROOT . "%$pass");
+	root('/usr/sbin/smbldap-userdel ' . TMPROOT);
+	
+
+}
 
 sub update 
 {
@@ -51,6 +244,7 @@ unless ($#ARGV == 0) {
 
 if ($ARGV[0] eq 'update') {
 	update();
+	_addPDCStuff();
 } elsif ($ARGV[0] eq 'genconfig') {
 	gen_config();
 } else {
