@@ -1,4 +1,5 @@
 <%args>
+	$pdc => 1
 	$netbios
 	$workgroup
 	$desc
@@ -17,6 +18,7 @@ use EBox::Gettext;
  workgroup = <% $workgroup %> 
  netbios name = <% $netbios %>
  server string = <% $desc %>
+ enable privileges = yes
  interfaces = <% $ifaces %>
  bind interfaces only = Yes
  passdb backend = ldapsam:<% $ldap->{'ldapi'} %>
@@ -30,7 +32,7 @@ use EBox::Gettext;
  printcap name = CUPS
  wins support = Yes
  ldap suffix = <% $ldap->{'dn'} %>
- ldap machine suffix = <% $ldap->{'users'} %>
+ ldap machine suffix = ou=Computers
  ldap user suffix =  <% $ldap->{'users'} %>
  ldap group suffix =  <% $ldap->{'groups'} %> 
  ldap idmap suffix = ou=Idmap
@@ -38,6 +40,52 @@ use EBox::Gettext;
  map acl inherit = Yes
  printing = cups
  printer admin = Administrator
+
+% if ($pdc) {
+ encrypt passwords = Yes
+ obey pam restrictions = No
+ ldap passwd sync = Yes
+ mangling method = hash2
+
+ logon script = logon.bat
+ logon drive = H:
+ logon home =
+ logon path =
+
+ domain logons = Yes
+ os level = 65
+ preferred master = Yes
+ domain master = Yes
+ add user script = /usr/sbin/smbldap-useradd -m "%u"
+ ldap delete dn = Yes
+ add machine script = /usr/sbin/smbldap-useradd -w "%u"
+ add group script = /usr/sbin/smbldap-groupadd -p "%g" 
+ add user to group script = /usr/sbin/smbldap-groupmod -m "%u" "%g"
+ delete user from group script = /usr/sbin/smbldap-groupmod -x "%u" "%g"
+ set primary group script = /usr/sbin/smbldap-usermod -g "%g" "%u"
+
+% if ($active_file) { 
+ [netlogon]
+        path = /home/samba/netlogon/
+	browseable = No
+        read only = yes
+
+ [profiles]
+        path = /home/samba/profiles
+        read only = no
+        create mask = 0600
+        directory mask = 0700
+        browseable = No
+        guest ok = Yes
+        profile acls = yes
+        csc policy = disable
+        # next line is a great way to secure the profiles 
+        force user = %U 
+        # next line allows administrator to access all profiles 
+        valid users = %U "Domain Admins"
+
+%  }
+% }
 
 % if ($active_file) { 
 [homes]
