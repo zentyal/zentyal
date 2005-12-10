@@ -4,6 +4,7 @@
 	$binddn
 	$bindpw
 	$usersdn
+	$computersdn
 	$groupsdn
 </%args>
 	
@@ -28,5 +29,6 @@ ldap_version 3
 rootbindn <% $binddn %>
 
 nss_base_passwd	        <% $usersdn %>?one
+nss_base_passwd	        <% $computersdn %>?one
 nss_base_shadow	        <% $usersdn %>?one
 nss_base_group		<% $groupsdn %>?one
