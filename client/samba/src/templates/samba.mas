@@ -7,55 +7,84 @@
 use EBox::Gettext;
 settextdomain('ebox-samba');
 </%init>
-    <form action='/ebox/Samba/ActiveSharing' method='POST'>
-	<h3><% __('Sharing user directory') %></h3>
 % if ($params->{'username'}) {
-    <input type="hidden" name="user" value="<% $params->{'username'} %>">
+	<h3><% __('PDC/File sharing account') %></h3>
+	<table class="formTable">
+	<form action='/ebox/Samba/ActiveSharing' method='post'>
+	    <input type="hidden" name="user" value="<% $params->{'username'} %>">
+	<tr>
+	<td class="tright">
+		<% __('User account') %>:
+	</td>
+	<td>
         <select name="active" enabled>
-% 		if ($params->{'share'}  eq 'yes') {
+%       if ($params->{'share'}  eq 'yes') {
             <option value='no' ><% __('Disabled') %></option>
             <option selected value='yes' ><% __('Enabled') %></option>
-% 		} else {
+%       } else {
             <option selected value='no' ><% __('Disabled') %></option>
             <option value='yes' ><% __('Enabled') %></option>
-% 		}
+%       }
         </select>
-     <input class='inputButton' type='submit' name='change'
-            value="<% __('Ok') %>"
-            alt="<% __('Ok') %>">
-			
+	</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('User has administration rights') %>:</span>
+		</td>
+		<td>
+			<input type='checkbox' name='is_admin' id='external' value='yes'
+%			if ($params->{'is_admin'}) {
+				checked
+%			}
+			>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input class='inputButton' type='submit' name='change'
+					value="<% __('Change') %>"
+					alt="<% __('Change') %>">
+		</td>
+	</tr>
+	</form>
+	</table>
+	
 %  } else {
 
-	<div class='help'>
-		<%   __("You can set a share directory for this group, but you should keep in mind that Microsoft Windows 98 and Millenium will not be able to see names longer than 12 characters") %>
-	</div>
+	<h3> <% __('Sharing directory for this group') %> </h3>
+	<form action='/ebox/Samba/ActiveSharing' method='post'>
+    <div class='help'>
+        <%   __("You can set a share directory for this group, but you should keep in mind that Microsoft Windows 98 and Millenium will not be able to see names longer than 12 characters") %>
+    </div>
 
     <input type="hidden" name="group" value="<% $params->{'groupname'} %>">
-%			if (length($params->{'sharename'}) > 12) {
-				<div class='warning'>
-				<%   __("This resource name is longer than 12 charcters.") %>
-				</div>
-% 			}
-	<span class="ftitle"><% __('Sharing name')%>:</span>
-   	<input 	type="text" 
-			name="sharename" 
-			class="inputText"
-			value="<% $params->{'sharename'} %>">
-% 		if (length($params->{'sharename'}) > 0)	 {
-  			<input class='inputButton' type='submit' name='namechange'
-        	    value="<% __('Change') %>"
-           		 alt="<% __('Change') %>">
-			<input class='inputButton' type='submit' name='remove'
-        	    value="<% __('Delete') %>"
-           		 alt="<% __('Delete') %>">
-% 		} else {
-			<input class='inputButton' type='submit' name='add'
-        	    value="<% __('Add') %>"
-           		 alt="<% __('Add') %>">
-%		}
+%           if (length($params->{'sharename'}) > 12) {
+                <div class='warning'>
+                <%   __("This resource name is longer than 12 charcters.") %>
+                </div>
+%           }
+    <span class="ftitle"><% __('Directory name')%>:</span>
+    <input  type="text" 
+            name="sharename" 
+            class="inputText"
+            value="<% $params->{'sharename'} %>">
+%       if (length($params->{'sharename'}) > 0)  {
+            <input class='inputButton' type='submit' name='namechange'
+                value="<% __('Change') %>"
+                 alt="<% __('Change') %>">
+            <input class='inputButton' type='submit' name='remove'
+                value="<% __('Delete') %>"
+                 alt="<% __('Delete') %>">
+%       } else {
+            <input class='inputButton' type='submit' name='add'
+                value="<% __('Add') %>"
+                 alt="<% __('Add') %>">
+%       }
+	</form>
 %  }
 
-    </form>
 
 % if (@{$params->{'printers'}})  {
 	<h3><% __('Printers') %></h3>

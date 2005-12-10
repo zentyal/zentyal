@@ -2,6 +2,8 @@
 -->
 <%args>
 	$active
+	$mode
+	$domain
 	$workinggroup
 	$netbios
 	$description
@@ -12,7 +14,7 @@ use EBox::Gettext;
 </%init>
 
 <div class='sambanew'>
-<& enable.mas, title => __('File sharing service status'), active => $active &>
+<& enable.mas, title => __('PDC/File sharing service status'), active => $active &>
 
 <form action='SambaConf' method='POST'>
 	<h3><% __('General Settings') %></h3>
@@ -21,6 +23,32 @@ use EBox::Gettext;
 	</div>
 	<table class='formTable'>
 	<tbody>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Working mode') %>:</span>
+		</td>
+		<td>
+		        <select name="mode" enabled>
+%    		   	if ($mode) {
+           		 	<option value='fileserver' ><% __('File server') %></option>
+       		     	<option selected value='pdc' ><% __('PDC') %></option>
+%				} else {
+           		 	<option selected value='fileserver' ><% __('File server') %></option>
+       		     	<option value='pdc' ><% __('PDC') %></option>
+%       		}
+       			 </select>
+   		</td>
+	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'><% __('Domain') %>:</span>
+		</td>
+		<td>
+			<input type='text' class='inputText' name='domain' 
+		   		value='<% $domain %>'>
+		</td>
+	</tr>
+
 	<tr>
 		<td class='tright'>
 			<span class='ftitle'><% __('Working group') %>:</span>
