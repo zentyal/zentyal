@@ -41,6 +41,8 @@ use EBox::Gettext;
 
 use constant SMBCONFFILE          => '/etc/samba/smb.conf';
 use constant LIBNSSLDAPFILE       => '/etc/libnss-ldap.conf';
+use constant SMBLDAPTOOLBINDFILE  => '/etc/smbldap-tools/smbldap_bind.conf';
+use constant SMBLDAPTOOLCONFFILE  => '/etc/smbldap-tools/smbldap.conf';
 use constant SMBPIDFILE           => '/var/run/samba/smbd.pid';
 use constant NMBPIDFILE           => '/var/run/samba/nmbd.pid';
 use constant MAXNETBIOSLENGTH 	  => 32;
@@ -100,7 +102,23 @@ sub _setSambaConf
 	
 	$self->writeConfFile(LIBNSSLDAPFILE, "samba/libnss-ldap.conf.mas", 
 					     \@array);
+
+	@array = ();
+	push(@array, 'netbios'  => $self->netbios());
+	push(@array, 'domain'   => $self->domainName());
+	push(@array, 'sid' 	=> $smbimpl->getSID());
+	push(@array, 'ldap'     => $ldap->ldapConf());
+
+	$self->writeConfFile(SMBLDAPTOOLCONFFILE, "samba/smbldap.conf.mas", 
+					     \@array);
 	
+	@array = ();
+	push(@array, 'pwd' 	=> $ldap->rootPwd());
+	push(@array, 'ldap'     => $ldap->ldapConf());
+
+	$self->writeConfFile(SMBLDAPTOOLBINDFILE,
+			"samba/smbldap_bind.conf.mas", \@array);
+
 	# Set quotas
 	$smbimpl->_setAllUsersQuota();
 }
@@ -199,6 +217,10 @@ sub rootCommands
 	push(@array, "/bin/chown * " . GROUPSPATH . "/*");
 	push(@array, "/bin/chmod * " . GROUPSPATH . "/*");
 	push(@array, "/bin/rm -rf " . GROUPSPATH. "/*");
+	push(@array, "/usr/sbin/setquota *");
+	push(@array, "/usr/sbin/smbldap-useradd *");
+	push(@array, "/usr/sbin/smbldap-userdel *");
+	push(@array, "/usr/sbin/smbldap-usermod *");
 	push(@array, "/usr/sbin/setquota *");
 
 	return @array;
