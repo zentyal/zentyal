@@ -36,6 +36,23 @@
             <default>EBOX-SMB3</default>
             <locale name="C"/>
         </schema>
+		<schema>
+            <key>/schemas/ebox/modules/samba/domain</key>
+            <applyto>/ebox/modules/samba/domain</applyto>
+            <owner>ebox</owner>
+            <type>string</type>
+            <default>EBOX</default>
+            <locale name="C"/>
+        </schema>
+		<schema>
+            <key>/schemas/ebox/modules/samba/pdc</key>
+            <applyto>/ebox/modules/samba/pdc</applyto>
+            <owner>ebox</owner>
+            <type>bool</type>
+            <default>true</default>
+            <locale name="C"/>
+        </schema>
+
         <schema>
             <key>/schemas/ebox/modules/samba/description</key>
             <applyto>/ebox/modules/samba/description</applyto>
