@@ -1,0 +1,77 @@
+<%args>
+	$sid
+	$domain
+	$netbios
+	$ldap
+</%args>
+SID="<% $sid %>"
+
+sambaDomain="<% $domain %>"
+
+slaveLDAP="127.0.0.1"
+
+slavePort="389"
+
+masterLDAP="127.0.0.1"
+
+masterPort="389"
+
+ldapTLS="0"
+
+verify="none"
+
+cafile="/noexist"
+
+clientcert="/noexist"
+
+clientkey="/noexist"
+
+suffix="<% $ldap->{'dn'} %>"
+
+usersdn="ou=Users,${suffix}"
+
+computersdn="ou=Computers,${suffix}"
+
+groupsdn="ou=Groups,${suffix}"
+
+idmapdn="ou=Idmap,${suffix}"
+
+sambaUnixIdPooldn="sambaDomainName=<% $domain %>,${suffix}"
+
+scope="sub"
+
+hash_encrypt="CLEARTEXT"
+
+crypt_salt_format="%s"
+
+userLoginShell="/bin/null"
+
+userHome="/home/%U"
+
+userHomeDirectoryMode="700"
+
+userGecos="System User"
+
+defaultUserGid="513"
+
+defaultComputerGid="515"
+
+skeletonDir="/etc/skel"
+
+defaultMaxPasswordAge="45"
+
+userSmbHome="\\<% $netbios %>\%U"
+
+userProfile="\\<% $netbios %>\profiles\%U"
+
+userHomeDrive="H:"
+
+userScript="logon.bat"
+
+mailDomain="ebox"
+
+with_smbpasswd="0"
+smbpasswd="/usr/bin/smbpasswd"
+
+with_slappasswd="0"
+slappasswd="/usr/sbin/slappasswd"
