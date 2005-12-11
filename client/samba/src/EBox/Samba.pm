@@ -209,6 +209,8 @@ sub rootCommands
 	my @array = ();
 	push(@array, $self->rootCommandsForWriteConfFile(SMBCONFFILE));
 	push(@array, $self->rootCommandsForWriteConfFile(LIBNSSLDAPFILE));
+	push(@array, $self->rootCommandsForWriteConfFile(SMBLDAPTOOLBINDFILE));
+	push(@array, $self->rootCommandsForWriteConfFile(SMBLDAPTOOLCONFFILE));
 	push(@array, "/bin/mkdir " . USERSPATH . "/*");
 	push(@array, "/bin/chown * " . USERSPATH . "/*");
 	push(@array, "/bin/chmod * " . USERSPATH . "/*");
