@@ -95,7 +95,7 @@ sub _setSambaConf
 	push(@array, 'basedc'    => $ldapconf->{'dn'});
 	push(@array, 'ldapi'     => $ldapconf->{'ldapi'});
 	push(@array, 'binddn'     => $ldapconf->{'rootdn'});
-	push(@array, 'bindpw'    => $ldap->rootPw);
+	push(@array, 'bindpw'    => $ldap->getPassword());
 	push(@array, 'usersdn'   => $users->usersDn);
 	push(@array, 'groupsdn'  => $users->groupsDn); 
 	push(@array, 'computersdn' => 'ou=Computers,' . $ldapconf->{'dn'});
@@ -113,7 +113,7 @@ sub _setSambaConf
 					     \@array);
 	
 	@array = ();
-	push(@array, 'pwd' 	=> $ldap->rootPwd());
+	push(@array, 'pwd' 	=> $ldap->getPassword());
 	push(@array, 'ldap'     => $ldap->ldapConf());
 
 	$self->writeConfFile(SMBLDAPTOOLBINDFILE,
