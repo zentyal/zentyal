@@ -74,13 +74,15 @@ use constant DomainGroups =>
 
 EBox::init();
 
-my $global = EBox::Global->getInstance(1);
+my $global = EBox::Global->getInstance();
 my $users  = $global->modInstance('users');
+
 
 sub _addPDCStuff {
 	my $ldap = new EBox::Ldap;
 	my $smb  = new EBox::SambaLdapUser;
 	my $sid = EBox::SambaLdapUser::getSID();
+	my $samba  = $global->modInstance('samba');
 	
 	# Mandatory groups
 	foreach my $group (DomainGroups) {
@@ -176,7 +178,9 @@ sub _addPDCStuff {
                         filter => '(uid=' . TMPROOT . ')',
                         scope => "sub"
                     );
-
+	
+	# TODO Redo from here to the end of the function
+	
 	unless ($ldap->search(\%args)->pop_entry()) {
 		root('/usr/sbin/smbldap-useradd -a ' . TMPROOT);
 		root('/usr/sbin/smbldap-usermod  -u 0 '.  TMPROOT);
@@ -197,9 +201,24 @@ sub _addPDCStuff {
 
 	my $dn = 'uid=' . TMPROOT . ',' . $users->usersDn;
 	$ldap->modify($dn, \%args );
+	
+	# This evil hack needs to be done to use net rpc rights 
+	# Now, I prefer to modify the TDB file directly to set
+	# the proper bits.
+	my $oldserv = $samba->fileService();
+	unless ($oldserv) {
+		$samba->setFileService(1);
+		$samba->save();
+	}
+	$samba->_regenConfig();
 
 	system("net rpc rights grant  '" . DEFAULTDOMAINNAME . 
 	"\\Domain Admins' Semachineaccountprivilege -U " . TMPROOT . "%$pass");
+	unless ($oldserv) {
+		$samba->setFileService(undef);
+		$samba->save();
+		$samba->_regenConfig();
+	}
 	root('/usr/sbin/smbldap-userdel ' . TMPROOT);
 	
 
