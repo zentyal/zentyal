@@ -18,6 +18,12 @@
 
 - Update your sudoers file with the ebox-sudoers command.
 
+- Copy schema/jabber.schema /etc/ldap/schemas/
+
+- Add this line to /etc/ldap/slapd.conf and restart slapd service:
+
+	include  /etc/ldap/schema/jabber.schema
+
 - Run tools/ebox-jabber-ldap to update ebox users
 
 - Do not run jabberd2-ldap-bdb on startup, this module takes control of it using
@@ -25,5 +31,6 @@
 
 mv /etc/rc2.d/SXXjabberd2-ldap-bdb /etc/rc2.d/KXXjabberd2-ldap-bdb
 ebox-runit
+
 
 - Stop jabberd2-ldap-bdb if it's running
