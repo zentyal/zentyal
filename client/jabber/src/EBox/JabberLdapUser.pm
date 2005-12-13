@@ -41,7 +41,12 @@ sub new
 
 sub _userAddOns
 {
-        my ($self, $username) = @_;
+	my ($self, $username) = @_;
+	my $jabber = EBox::Global->modInstance('jabber');
+
+	unless ($jabber->service) {
+		return undef;
+	}
 
 	my $active = 'no';
 	$active = 'yes' if($self->hasAccount($username));

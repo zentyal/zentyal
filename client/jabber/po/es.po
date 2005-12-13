@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-30 12:50+0100\n"
+"POT-Creation-Date: 2005-12-13 17:59+0100\n"
 "PO-Revision-Date: 2005-11-16 18:19+0100\n"
 "Last-Translator: Dani Baeyens <dani@warp.es>\n"
 "Language-Team:  <es@li.org>\n"
@@ -44,43 +44,49 @@ msgstr "puerto"
 msgid "Jabber Service"
 msgstr "Servicio Jabber"
 
-#: src/templates/jabber.mas:8
+#: src/templates/jabber.mas:8 po/templates/src/templates/jabber.mas:8
 msgid "Jabber account"
 msgstr "Cuenta Jabber"
 
-#: src/templates/jabber.mas:10
+#: src/templates/jabber.mas:10 po/templates/src/templates/jabber.mas:11
 msgid "Password for Jabber service is the user password"
 msgstr "La contraseña para el servicio Jabber es la contraseña del usuario"
 
-#: src/templates/jabber.mas:17
+#: src/templates/jabber.mas:17 po/templates/src/templates/jabber.mas:19
 msgid "User account"
 msgstr "Cuenta de usuario"
 
 #: src/templates/jabber.mas:23 src/templates/jabber.mas:28
+#: po/templates/src/templates/jabber.mas:26
+#: po/templates/src/templates/jabber.mas:33
 msgid "Disabled"
 msgstr "Desactivado"
 
 #: src/templates/jabber.mas:25 src/templates/jabber.mas:30
+#: po/templates/src/templates/jabber.mas:29
+#: po/templates/src/templates/jabber.mas:36
 msgid "Enabled"
 msgstr "Activado"
 
-#: src/templates/jabber.mas:38
+#: src/templates/jabber.mas:38 po/templates/src/templates/jabber.mas:45
 msgid "User has administration rights"
 msgstr "El usuario tiene permisos de administrador"
 
 #: src/templates/jabber.mas:53 src/templates/jabber.mas:55
+#: po/templates/src/templates/jabber.mas:61
+#: po/templates/src/templates/jabber.mas:64
 msgid "Change"
 msgstr "Cambiar"
 
-#: src/templates/index.mas:14
+#: src/templates/index.mas:14 po/templates/src/templates/index.mas:14
 msgid "Jabber Service status"
 msgstr "Estado del servicio Jabber"
 
-#: src/templates/index.mas:18
+#: src/templates/index.mas:18 po/templates/src/templates/index.mas:19
 msgid "General Settings"
 msgstr "Configuración general"
 
-#: src/templates/index.mas:21
+#: src/templates/index.mas:21 po/templates/src/templates/index.mas:23
 msgid ""
 "Domain name should be available on the network. Otherwise, you may not be "
 "able to use this service. This applies for internal and external connections."
@@ -89,38 +95,46 @@ msgstr ""
 "posible que no se pueda utilizar. Ésto se aplica tanto para las conexiones "
 "internas como para las externas."
 
-#: src/templates/index.mas:28
+#: src/templates/index.mas:28 po/templates/src/templates/index.mas:31
 msgid "Domain name"
 msgstr "Nombre de dominio"
 
-#: src/templates/index.mas:37
+#: src/templates/index.mas:37 po/templates/src/templates/index.mas:41
 msgid "Connect to global Jabber network"
 msgstr "Conectar a la red Jabber global"
 
-#: src/templates/index.mas:50
+#: src/templates/index.mas:50 po/templates/src/templates/index.mas:55
 msgid "SSL Support"
 msgstr "Soporte SSL"
 
 #: src/templates/index.mas:56 src/templates/index.mas:63
-#: src/templates/index.mas:70
+#: src/templates/index.mas:70 po/templates/src/templates/index.mas:62
+#: po/templates/src/templates/index.mas:72
+#: po/templates/src/templates/index.mas:82
 msgid "No"
 msgstr "No"
 
 #: src/templates/index.mas:58 src/templates/index.mas:65
-#: src/templates/index.mas:72
+#: src/templates/index.mas:72 po/templates/src/templates/index.mas:65
+#: po/templates/src/templates/index.mas:75
+#: po/templates/src/templates/index.mas:85
 msgid "Optional"
 msgstr "Opcional"
 
 #: src/templates/index.mas:60 src/templates/index.mas:67
-#: src/templates/index.mas:74
+#: src/templates/index.mas:74 po/templates/src/templates/index.mas:68
+#: po/templates/src/templates/index.mas:78
+#: po/templates/src/templates/index.mas:88
 msgid "Required"
 msgstr "Requerido"
 
 #: src/templates/index.mas:84 src/templates/index.mas:86
+#: po/templates/src/templates/index.mas:99
+#: po/templates/src/templates/index.mas:102
 msgid "Apply Changes"
 msgstr "Aplicar Cambios"
 
-#: stubs/c2s.xml.mas:75
+#: stubs/c2s.xml.mas:75 po/templates/stubs/c2s.xml.mas:75
 msgid "Enter a username and password to register with this server."
 msgstr ""
 "Escriba un nombre de usuario y una contraseña para entrar a este servidor"
