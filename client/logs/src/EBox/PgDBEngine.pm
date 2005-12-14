@@ -81,6 +81,7 @@ sub _connect {
 	unless ($dbh) {
 		#throw exception
 		die "Connection DB error $DBI::errstr\n";
+		EBox::debug("Connection DB Error: $DBI::errstr\n");
 	}
 
 	$self->{'dbh'} = $dbh;
@@ -105,6 +106,7 @@ sub _prepare {
 	$self->{'sthinsert'} =  $self->{'dbh'}->prepare($sql);
 	unless ($self->{'sthinsert'}) {
 		#throw exception
+		EBox::debug("Error preparing sql: $sql\n");
 	}
 }
 
@@ -142,6 +144,7 @@ sub insert {
 	my $err = $self->{'sthinsert'}->execute(@vals);
 	if (!$err) {
 		#throw exception
+		EBox::debug ("Error inserting data: $sql\n");
 	}
 	$self->_disconnect();
 }
@@ -163,6 +166,7 @@ sub query {
 	my $err = $self->{'sthinsert'}->execute(@values);
 	if (!$err) {
 		#throw exception
+		EBox::debug ("Error querying data: $sql\n");
 	}
 	my $ret = $self->{'sthinsert'}->fetchall_arrayref({});
 	$self->{'sthinsert'}->finish();

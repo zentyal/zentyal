@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-30 13:40+0100\n"
+"POT-Creation-Date: 2005-12-07 13:04+0100\n"
 "PO-Revision-Date: 2005-11-30 13:42+0100\n"
 "Last-Translator: Javier Uruen Val <juruen@warp.es>\n"
 "Language-Team:  <en@li.org>\n"
@@ -35,26 +35,32 @@ msgid "Field {field} does not exist"
 msgstr "Le fichier {field} n'existe pas"
 
 #: src/EBox/PgDBEngine.pm:39
-msgid "You must set the eboxlogs_dbname variable in the ebox configuration file"
+msgid ""
+"You must set the eboxlogs_dbname variable in the ebox configuration file"
 msgstr ""
 "Vous devez fixer la valeur de la variable eboxlogs_dbname dans le fichier de "
 "configuration d'ebox"
 
 #: src/EBox/PgDBEngine.pm:51
-msgid "You must set the eboxlogs_dbuser variable in the ebox configuration file"
+msgid ""
+"You must set the eboxlogs_dbuser variable in the ebox configuration file"
 msgstr ""
 "Vous devez fixer la valeur de la variable eboxlogs_dbuser dans le fichier de "
 "configuration d'ebox"
 
 #: src/EBox/PgDBEngine.pm:63
-msgid "You must set the eboxlogs_dbpass variable in the ebox configuration file"
+msgid ""
+"You must set the eboxlogs_dbpass variable in the ebox configuration file"
 msgstr ""
 "Vous devez fixer la valeur de la variable eboxlogs_dbpass dans le fichier de "
 "configuration d'ebox"
 
 #: src/templates/index.mas:19
-msgid "Last hour logs will be displayed when selecting a component"
-msgstr "Les logs de la dernière minute seront montrés quand une composante est choisie"
+#, fuzzy
+msgid "Last hour logs will be showed when selecting a component"
+msgstr ""
+"Les logs de la dernière minute seront montrés quand une composante est "
+"choisie"
 
 #: src/templates/index.mas:21
 msgid "Select available logs"
@@ -164,4 +170,3 @@ msgstr "suivant"
 #: src/templates/dbtable.mas:109 src/templates/dbtable.mas:111
 msgid "last"
 msgstr "dernier"
-
