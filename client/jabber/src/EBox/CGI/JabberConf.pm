@@ -41,7 +41,7 @@ sub _process($) {
 
 	$self->_requireParam('domain', __('domain'));
 
-	$jabber->setDomain($self->param('domain'));
+	$jabber->setJabberDomain($self->param('domain'));
 	if (defined($self->param('external_connection'))) {
 	    $jabber->setExternalConnection(1);
 	} else {

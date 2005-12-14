@@ -47,7 +47,7 @@ sub _process($) {
 	}
 
 	push (@array, 'active' => $active);
-	push (@array, 'domain' => $jabber->domain);
+	push (@array, 'domain' => $jabber->jabberDomain);
 	push (@array, 'external_connection' => $jabber->externalConnection);
 	push (@array, 'ssl' => $jabber->ssl);
 

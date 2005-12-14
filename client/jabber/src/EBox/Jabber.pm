@@ -48,6 +48,11 @@ sub _create
 	return $self;
 }
 
+sub domain
+{
+	return "ebox-jabber";
+}
+
 sub _daemons # (action)
 {
 	my ($self, $action) = @_;
@@ -208,7 +213,7 @@ sub service
 	return $self->get_bool('active');
 }
 
-# Method: setDomain
+# Method: setJabberDomain
 #
 #       Sets the domain for jabber service. Accounts would have
 #          user@domain format
@@ -217,25 +222,25 @@ sub service
 #
 #       domain - string with the domain name
 #
-sub setDomain
+sub setJabberDomain
 {
 	my ($self, $domain) = @_;
 	unless (checkDomainName($domain)){
 		throw EBox::Exceptions::InvalidData
 			('data' => __('domain'), 'value' => $domain);
 	}
-	($domain eq $self->domain) and return;
+	($domain eq $self->jabberDomain) and return;
 	$self->set_string('domain', $domain);
 }
 
-# Method: domain
+# Method: jabberDomain
 #
 #       Returns current jabber service domain
 #
 # Returns:
 #
 #       string. Current jabber service domain 
-sub domain
+sub jabberDomain
 {
 	my $self = shift;
 	return $self->get_string('domain');
@@ -263,7 +268,7 @@ sub _setJabberConf
 	my $ldapconf = $ldap->ldapConf;
 	my $jabberldap = new EBox::JabberLdapUser;
 
-	push (@array, 'domain' => $self->domain);
+	push (@array, 'domain' => $self->jabberDomain);
 	push (@array, 'binddn' => $ldapconf->{'rootdn'});
 	push (@array, 'bindpw' => $ldap->rootPw);
 	push (@array, 'basedc' => $ldapconf->{'dn'});
@@ -277,7 +282,7 @@ sub _setJabberConf
 
 	my @admins = ();
 	@admins = $jabberldap->getJabberAdmins();
-	push (@array, 'domain' => $self->domain);
+	push (@array, 'domain' => $self->jabberDomain);
 	push (@array, 'admins' => \@admins);
 	$self->writeConfFile(JABBERSMCONFFILE,
 			     "jabber/sm.xml.mas",
