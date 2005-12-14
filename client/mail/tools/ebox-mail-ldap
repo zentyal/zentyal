@@ -5,42 +5,90 @@ use strict;
 use EBox::Global;
 use EBox::MailVDomainsLdap;
 use EBox::MailAliasLdap;
+use EBox::MailUserLdap;
+use EBox::Sudo qw(:all);
 
 EBox::init();
 
 my $global = EBox::Global->getInstance(1);
 my $users = $global->modInstance('users');
 my $vdomain = new EBox::MailVDomainsLdap;
+my $vusers = new EBox::MailUserLdap;
 my $alias = new EBox::MailAliasLdap;
 
-$vdomain->{ldap}->ldapCon;
-my $ldap = $vdomain->{ldap}->{ldap};
-my $dn = "ou=postfix, " . $vdomain->{ldap}->dn;
+sub update {
+	$vdomain->{ldap}->ldapCon;
+	my $ldap = $vdomain->{ldap}->{ldap};
+	my $dn = "ou=postfix, " . $vdomain->{ldap}->dn;
 
-my $result = $ldap->add($dn, attr => [
-	'ou' => 'postfix',
+	my $result = $ldap->add($dn, attr => [
+		'ou' => 'postfix',
+		'objectClass' => 'top',
+		'objectClass' => 'organizationalUnit'
+	]);
+
+	($result->is_error) and warn "Cant initialize postfix leaf.";
+
+	my $dn = $vdomain->vdomainDn();
+
+	my $result = $ldap->add($dn, attr => [
+	'ou' => 'vdomains',
 	'objectClass' => 'top',
 	'objectClass' => 'organizationalUnit'
-]);
+	]);
 
-($result->is_error) and warn "Cant initialize postfix leaf.";
+	($result->is_error) and warn "Cant initialize virtual domains leaf.";
 
-my $dn = $vdomain->vdomainDn();
+	my $dn = $alias->aliasDn();
 
-my $result = $ldap->add($dn, attr => [
-'ou' => 'vdomains',
-'objectClass' => 'top',
-'objectClass' => 'organizationalUnit'
-]);
+	my $result = $ldap->add($dn, attr => [
+		'ou'	=>	'mailalias',
+		'objectClass' => 'top',
+		'objectClass' => 'organizationalUnit'
+	]);
 
-($result->is_error) and warn "Cant initialize virtual domains leaf.";
+	($result->is_error) and warn "Cant initialize mail alias leaf.";
+}
 
-my $dn = $alias->aliasDn();
+sub clean {
+	$vdomain->{ldap}->ldapCon;
+	my $ldap = $vdomain->{ldap}->{ldap};
+	my $pdn = "ou=postfix, " . $vdomain->{ldap}->dn;
+	my $adn = $alias->aliasDn;
+	my $vdn = $vdomain->vdomainDn;
+	
+	my @domains = $vdomain->vdomains;
 
-my $result = $ldap->add($dn, attr => [
-	'ou'	=>	'mailalias',
-	'objectClass' => 'top',
-	'objectClass' => 'organizationalUnit'
-]);
+	foreach (@domains) {
+		$alias->delAliasesFromVDomain($_);
+		$vusers->delAccountsFromVDomain($_);
+		$vdomain->delVDomain($_);
+	}
+	
+	my $result = $ldap->delete($adn);
+	($result->is_error) and warn "Can not remove postfix leaf ".$result->error;
+	$result = $ldap->delete($vdn);
+	($result->is_error) and warn "Can not remove postfix leaf ".$result->error;
+	$result = $ldap->delete($pdn);
+	($result->is_error) and warn "Can not remove postfix parent leaf ".$result->error;
+	
+	root("/bin/rm -rf /var/vmail/*");
+}
 
-($result->is_error) and warn "Cant initialize mail alias leaf.";
+sub usage {
+	print "Usage: $0 update | clean\n";
+	exit 1;
+}
+
+unless ($#ARGV == 0) {
+	usage();
+}
+
+if ($ARGV[0] eq 'update') {
+	update();
+} elsif ($ARGV[0] eq 'clean') {
+	clean();
+} else {
+	usage();
+}
+
