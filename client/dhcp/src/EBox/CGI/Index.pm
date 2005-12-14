@@ -69,9 +69,7 @@ sub _process($) {
 				$iface{address} = $net->ifaceAddress($name);
 				$iface{netmask} = $net->ifaceNetmask($name);
 				$iface{network} = $net->ifaceNetwork($name);
-				print STDERR "bar1w\n";
 				$iface{init} = $dhcp->initRange($name);
-				print STDERR "bar1y\n";
 				$iface{end} = $dhcp->endRange($name);
 			}
 		}
