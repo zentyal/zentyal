@@ -6,10 +6,9 @@
 <%init>
 use EBox::Gettext;
 my $langs = langs();
-settextdomain('libebox');
 </%init>
 <h3><% __d('Language selection','libebox') %></h3>
-<div class="help"><% __("Language changes happen automatically, saving the configuration it's not needed.") %></div>
+<div class="help"><% __d("Language changes happen automatically, saving the configuration it's not needed.", 'libebox') %></div>
 	<form action='Lang' method='POST'>
 		<select name='lang'>
 %	foreach my $l (keys %{$langs}) {
