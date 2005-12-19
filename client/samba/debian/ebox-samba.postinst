@@ -2,7 +2,6 @@
 
 webserver=apache
 
-echo "$*" >> /tmp/debianfoo
 
 case "$1" in
 	configure)
