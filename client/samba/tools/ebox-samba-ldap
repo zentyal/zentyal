@@ -155,12 +155,15 @@ sub _addPDCStuff {
 	# SambaDomainName
 	%args = (
                         base => "dc=ebox",
-                        filter => "(sambaDomainName=EBOX-SMB3)",
+                        filter => "(sambaDomainName=*)",
+			attrs => ['sambaDomainName'],
                         scope => "sub"
                     );
 	
-	if ($ldap->search(\%args)->pop_entry()) {
-		$ldap->delete('sambaDomainName=EBOX-SMB3,dc=ebox');
+	foreach my $entry ($ldap->search(\%args)->entries()) {
+		my $dn = 'sambaDomainName=' . 
+			$entry->get_value('sambaDomainName') . ',dc=ebox';
+		$ldap->delete($dn);
 	}
         %args = (
                         base => "dc=ebox",
@@ -210,7 +213,16 @@ sub _addPDCStuff {
 		$samba->setFileService(1);
 		$samba->save();
 	}
-	$samba->_regenConfig();
+	system("/etc/init.d/ebox samba restart");
+	my $abort = 1;
+	for (1..3) {
+		if ($samba->isRunning()) {
+			$abort = undef;
+			last;
+		}
+		sleep 2;
+	} 
+	die "smbd is not running" if $abort;
 
 	system("net rpc rights grant  '" . DEFAULTDOMAINNAME . 
 	"\\Domain Admins' Semachineaccountprivilege -U " . TMPROOT . "%$pass");
@@ -222,6 +234,84 @@ sub _addPDCStuff {
 	root('/usr/sbin/smbldap-userdel ' . TMPROOT);
 	
 
+}
+
+sub clean 
+{
+	my $smb  = new EBox::SambaLdapUser;
+	my $ldap = new EBox::Ldap;
+
+	
+	# clean users
+	foreach my $user ($users->users){
+		my $username = $user->{'username'};
+		my $dn = "uid=$username," .  $users->usersDn;
+		$ldap->delObjectclass($dn, 'sambaSamAccount');
+		
+	}
+
+	# clean groups
+	foreach my $group ($users->groups){
+		my $groupname = $group->{'account'};
+		my $dn = "cn=$groupname," .  $users->groupsDn;
+		$ldap->delObjectclass($dn, 'sambaGroupMapping');
+		$ldap->delObjectclass($dn, 'eboxGroup');
+	}
+	
+	# remove groups
+	foreach my $group (DomainGroups) {
+		my $name = $group->{'name'}; 
+		my $dn = "cn=$name,ou=Groups,dc=ebox";
+		my %attrs = (
+				base => 'ou=Groups,dc=ebox',
+				filter => "&(objectclass=*)(cn=$name)",
+				scope => 'one'
+			    );
+		next unless ($ldap->search(\%attrs)->count() > 0);
+		$ldap->delete($dn);
+	}
+
+	# Idmap 
+	my %args = (base => "dc=ebox", filter => "&(ou=Idmap)", 
+			scope => 'one');
+
+	if ($ldap->search(\%args)->pop_entry()) {
+		$ldap->delete ('ou=Idmap,dc=ebox');
+	}
+
+
+	# SambaDomainName
+	%args = (
+                        base => "dc=ebox",
+                        filter => "(sambaDomainName=*)",
+			attrs => ['sambaDomainName'],
+                        scope => "sub"
+                    );
+	
+	foreach my $entry ($ldap->search(\%args)->entries()) {
+		my $dn = 'sambaDomainName=' . 
+			$entry->get_value('sambaDomainName') . ',dc=ebox';
+		$ldap->delete($dn);
+	}
+
+	# Comptuers
+	%args = (base => "dc=ebox", filter => "&(ou=Computers)", 
+			scope => 'sub');
+	if ($ldap->search(\%args)->pop_entry()) {
+		%args = (
+			base => "ou=Computers,dc=ebox",
+			filter => 'objectclass=*',
+			scope => "one",
+			attrs => ['cn']
+			
+		    );
+		
+		for my $entry ($ldap->search(\%args)->entries()) {
+			my $cn = $entry->get_value('cn');
+			$ldap->delete("uid=$cn,ou=Computers,dc=ebox");
+		}
+	}
+	
 }
 
 sub update 
@@ -251,7 +341,7 @@ sub gen_config
 
 sub usage
 {
-	print "Usage: $0 update | genconfig\n";
+	print "Usage: $0 update | clean | genconfig\n";
 	exit 1;
 }
 
@@ -266,6 +356,8 @@ if ($ARGV[0] eq 'update') {
 	_addPDCStuff();
 } elsif ($ARGV[0] eq 'genconfig') {
 	gen_config();
+} elsif ($ARGV[0] eq 'clean') {
+	clean();
 } else {
 	usage();
 }
