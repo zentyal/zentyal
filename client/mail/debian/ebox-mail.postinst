@@ -39,7 +39,7 @@ case "$1" in
 		/etc/init.d/slapd restart
 
 		# populate ldap
-		/usr/lib/ebox-mail/ebox-mail-ldap
+		/usr/lib/ebox-mail/ebox-mail-ldap update
 
 		invoke-rc.d ebox mail restart
 		# create log table
