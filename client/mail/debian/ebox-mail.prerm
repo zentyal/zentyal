@@ -20,6 +20,9 @@ case "$1" in
 		remove_gconf_schemas
 		;;
 	remove)
+                # populate ldap
+		/usr/lib/ebox-mail/ebox-mail-ldap clean
+		
 		remove_gconf_schemas
 		;;	
 esac 
