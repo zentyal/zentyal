@@ -2,6 +2,8 @@
 
 webserver=apache
 
+echo "$*" >> /tmp/debianfoo
+
 case "$1" in
 	configure)
 		# install gconf schemas
@@ -44,6 +46,8 @@ case "$1" in
 		test -d /home/samba || mkdir /home/samba
 		test -d /home/samba/users || mkdir /home/samba/users
 		test -d /home/samba/groups || mkdir /home/samba/groups
+		test -d /home/samba/profiles || mkdir /home/samba/profiles
+		test -d /home/samba/netlogon || mkdir /home/samba/netlogon
 
 				
 		# update current ldap database
