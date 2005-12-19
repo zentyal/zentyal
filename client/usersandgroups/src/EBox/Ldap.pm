@@ -263,7 +263,67 @@ sub add($$) {
 }
 
 
-sub _errorOnLdap($;$) 
+# Method: delObjectclass
+#
+#       Remove an objectclass from an object an all its associated attributes
+#       
+# Parameters:
+#
+#	dn - object's dn
+#	objectclass - objectclass
+#               
+# Exceptions:
+#
+#	Internal - If there is an error during the search
+sub delObjectclass # (dn, objectclass);
+{
+	my $self = shift;
+	my $dn   = shift;
+	my $objectclass = shift;
+
+	my $schema = $self->ldapCon->schema();
+	my $msg = $self->search(
+				{ base => $dn, scope => 'base',
+				  filter => "(objectclass=$objectclass)"
+				});
+	_errorOnLdap($msg);
+	my %attrexist = map {$_ => 1} $msg->pop_entry->attributes; 
+	my $objectattrs = $schema->objectclass($objectclass);
+
+	$msg = $self->search(
+				{ base => $dn, scope => 'base',
+				  attrs => ['objectClass'], 
+				  filter => '(objectclass=*)'
+				});
+	_errorOnLdap($msg);
+	my %attrs;
+	for my $oc (grep(!/^$objectclass$/, $msg->entry->get_value('objectclass'))){
+		my $ocattrs = $schema->objectclass($oc);
+		map { $attrs{$_ } = 1 } @{$ocattrs->{'may'}}, @{$ocattrs->{'must'}};	
+	}
+		my %attr2del;
+	for my $attr (@{$objectattrs->{'may'}}, @{$objectattrs->{'must'}}) {
+		# Skip if the attribute belongs to another objectclass
+		next if (exists $attrs{$attr});
+		# Skip if the attribute is not stored in the object
+		next unless (exists $attrexist{$attr});
+		$attr2del{$attr} = [];
+	}
+
+	my $result;
+	if (%attr2del) {
+		$result = $self->modify($dn, { changes => 
+			[delete =>[ objectclass => $objectclass, %attr2del ] ] });
+		_errorOnLdap($msg);
+	} else {
+		$result = $self->modify($dn, { changes => 
+			[delete =>[ objectclass => $objectclass ] ] });
+		_errorOnLdap($msg);
+	}
+	return $result;
+}
+
+sub _errorOnLdap 
 {
         my $result = shift;
         my $args   = shift;
