@@ -11,6 +11,7 @@ DEPENDENCIES
 	+ libnss-ldap
 	+ libcrypt-smbhash-perl
 	+ quota
+	+ smbldap-tools
 
 + Support for quotas in kernel
 
@@ -47,6 +48,8 @@ INSTALLATION
 
 		mkdir -p /home/samba/users
 		mkdir /home/samba/groups
+		mkdir /home/samba/profiles
+		mkdir /home/samba/logon
 
 
 	Set the samba admin password to your ldap admin password:
