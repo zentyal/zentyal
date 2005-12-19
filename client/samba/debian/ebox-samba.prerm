@@ -21,7 +21,10 @@ case "$1" in
 		;;
 	remove)
 		remove_gconf_schemas
-
+		
+		# clean ldap
+		/usr/lib/ebox-samba/ebox-samba-ldap clean
+		
 		sed  -i -e 's/^\(passwd:.*\)ldap.*/\1/' /etc/nsswitch.conf
 		sed  -i -e 's/^\(group:.*\)ldap.*/\1/' /etc/nsswitch.conf
 		sed  -i -e 's/^\(shadow:.*\)ldap.*/\1/' /etc/nsswitch.conf
