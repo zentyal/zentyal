@@ -69,7 +69,7 @@ sub new
 {
 	my $class = shift;
 	my $self  = {};
-	$self->{ldap} = new EBox::Ldap;
+	$self->{ldap} = EBox::Ldap->instance();
 	bless($self, $class);
 	return $self;
 }

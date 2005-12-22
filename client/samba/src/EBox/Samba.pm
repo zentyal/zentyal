@@ -71,7 +71,7 @@ sub _setSambaConf
 	
 	my $net = EBox::Global->modInstance('network');
 	my $interfaces = join (',', @{$net->InternalIfaces}, 'lo');
-	my $ldap = new EBox::Ldap;
+	my $ldap = EBox::Ldap->instance();
 	my $smbimpl = new EBox::SambaLdapUser;
 	
 	my @array = ();
