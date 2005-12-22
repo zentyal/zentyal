@@ -41,7 +41,9 @@ use constant LDAP	   => "ldap://127.0.0.1";
 use constant SLAPDCONFFILE => "/etc/ldap/slapd.conf";
 use constant ROOTDN        => 'cn=admin,' . DN;
 
-sub new {
+use base qw (Apache::Singleton);
+
+sub _new_instance {
 	my $class = shift;
 	
 	my $self = {};
