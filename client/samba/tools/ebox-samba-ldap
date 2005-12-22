@@ -254,8 +254,8 @@ sub clean
 	foreach my $group ($users->groups){
 		my $groupname = $group->{'account'};
 		my $dn = "cn=$groupname," .  $users->groupsDn;
-		$ldap->delObjectclass($dn, 'sambaGroupMapping');
 		$ldap->delObjectclass($dn, 'eboxGroup');
+		$ldap->delObjectclass($dn, 'sambaGroupMapping');
 	}
 	
 	# remove groups
