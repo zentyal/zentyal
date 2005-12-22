@@ -47,7 +47,7 @@ sub _create
 					  domain => 'ebox-usersandgroups',
 					  @_);
 
-	$self->{ldap} = new EBox::Ldap();
+	$self->{ldap} = EBox::Ldap->instance();
 
 	bless($self, $class);
 	return $self;
