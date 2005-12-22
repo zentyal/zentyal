@@ -112,7 +112,7 @@ sub _setMailConf {
 	my @array = ();
 	my $users = EBox::Global->modInstance('users');
 	my $ob = EBox::Global->modInstance('objects');
-	my $ldap = new EBox::Ldap;
+	my $ldap = EBox::Ldap->instance();
 	my $allowedaddrs = "127.0.0.0/8";
 
 	foreach my $obj (@{$self->allowedObj}) {
