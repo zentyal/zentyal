@@ -70,8 +70,8 @@ sub _daemons # (action)
   	      EBox::Service::manage('jabber-resolver', $action);
 	      EBox::Service::manage('jabber-router', $action);
 	} else {
-  	      $self->daemons('stop');
-	      $self->daemons('start');
+  	      $self->_daemons('stop');
+	      $self->_daemons('start');
 	}
 
 }
