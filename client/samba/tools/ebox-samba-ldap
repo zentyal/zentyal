@@ -79,7 +79,7 @@ my $users  = $global->modInstance('users');
 
 
 sub _addPDCStuff {
-	my $ldap = new EBox::Ldap;
+	my $ldap = EBox::Ldap->instance();
 	my $smb  = new EBox::SambaLdapUser;
 	my $sid = EBox::SambaLdapUser::getSID();
 	my $samba  = $global->modInstance('samba');
@@ -239,7 +239,7 @@ sub _addPDCStuff {
 sub clean 
 {
 	my $smb  = new EBox::SambaLdapUser;
-	my $ldap = new EBox::Ldap;
+	my $ldap = EBox::Ldap->instance();
 
 	
 	# clean users
