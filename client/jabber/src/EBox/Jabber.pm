@@ -264,7 +264,7 @@ sub _setJabberConf
 	my @array = ();
 
 	my $net = EBox::Global->modInstance('network');
-	my $ldap = new EBox::Ldap;
+	my $ldap = EBox::Ldap->instance();
 	my $ldapconf = $ldap->ldapConf;
 	my $jabberldap = new EBox::JabberLdapUser;
 
