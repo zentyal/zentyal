@@ -49,12 +49,13 @@ case "$1" in
 		test -d /home/samba/netlogon || mkdir /home/samba/netlogon
 
 				
-		# update current ldap database
-		/usr/lib/ebox-samba/ebox-samba-ldap update
-
+		
 
 		# Set samba admin password to ldap admin password
 		smbpasswd -w `cat /var/lib/ebox/conf/ebox-ldap.passwd`
+
+		# update current ldap database
+		/usr/lib/ebox-samba/ebox-samba-ldap update
 
 		# Change nsswitch.conf to use ldap
 		sed  -i -e 's/^\(passwd:.*\)/\1 ldap/' /etc/nsswitch.conf
