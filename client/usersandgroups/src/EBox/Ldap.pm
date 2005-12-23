@@ -24,6 +24,7 @@ use Net::LDAP::Message;
 use Net::LDAP::Search;
 use Net::LDAP::LDIF;
 use Net::LDAP qw(LDAP_SUCCESS);
+use Net::LDAP::Util qw(ldap_error_name);
 
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::Internal;
@@ -303,6 +304,8 @@ sub delObjectclass # (dn, objectclass);
 				  filter => "(objectclass=$objectclass)"
 				});
 	_errorOnLdap($msg);
+	return unless ($msg->entries > 0);
+
 	my %attrexist = map {$_ => 1} $msg->pop_entry->attributes; 
 	my $objectattrs = $schema->objectclass($objectclass);
 
