@@ -148,6 +148,8 @@ sub setDHCPConf
 			}else{
 				$iflist{$_}->{'gateway'} = $address;
 			}
+			my $search = $self->searchDomain($_);
+			$iflist{$_}->{'search'} = $search;
 			my $nameserver1 = $self->nameserver($_,1);
 			if(defined($nameserver1) and $nameserver1 ne ""){
 				$iflist{$_}->{'nameserver1'} = $nameserver1;

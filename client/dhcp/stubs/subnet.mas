@@ -7,6 +7,9 @@
 		range <% $range->{'from'} %> <% $range->{'to'} %>;
 %	}
 		option routers <% $info{'gateway'} %>;
+%	if(defined($info{'search'})) {
+		option domain-name '<% $info{'search'} %>';
+%	}
 %       if(length($info{'nameserver1'}) != 0) {
 		option domain-name-servers <% $info{'nameserver1'} %>\
 %               if(length($info{'nameserver2'}) != 0) {
@@ -20,6 +23,9 @@
 %	if(@{$fixedAddresses}){
 	group {
 		option routers <% $info{'gateway'} %>;
+%	if(defined($info{'search'})) {
+		option domain-name '<% $info{'search'} %>';
+%	}
 %	foreach my $fixed (@{$fixedAddresses}) {
 		host <% $fixed->{'name'} %> {
 			hardware ethernet <% $fixed->{'mac'} %>;
