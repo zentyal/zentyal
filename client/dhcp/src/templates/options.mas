@@ -1,6 +1,7 @@
 <%args>
 	$name
 	$gateway
+	$search
 	$nameserver1
 	$nameserver2
 </%args>
@@ -22,6 +23,18 @@
 				name="gateway" size="16" value="<% $gateway %>"/></td>
 		</td>
 	</tr>
+	<tr>
+		<td class='tright'>
+			<span class='ftitle'>
+				<% __('Search domain') %>:
+			</span>
+		</td>
+		<td>
+			<input type="text" class='inputText' 
+				name="search" size="16" value="<% $search %>"/></td>
+		</td>
+	</tr>
+
 	<tr>
 		<td class='tright'>
 			<span class='ftitle'>

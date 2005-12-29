@@ -41,12 +41,14 @@ sub _process($){
 	$self->{redirect} = "DHCP/Index?iface=$iface";
 
 	my $gateway = $self->param("gateway");
+	my $search = $self->param("search");
 	my $nameserver1 = $self->param("nameserver1");
 	my $nameserver2 = $self->param("nameserver2");
 
 	$self->keepParam('iface');
 
 	$dhcp->setDefaultGateway($iface,$gateway);
+	$dhcp->setSearchDomain($iface,$search);
 	$dhcp->setNameserver($iface,1,$nameserver1);
 	$dhcp->setNameserver($iface,2,$nameserver2);
 }

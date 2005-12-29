@@ -300,6 +300,73 @@ sub defaultGateway # (iface)
 	$self->get_string("$iface/gateway");
 }
 
+#   Function: setSearchDomain
+#
+#	Sets the search domain that will be sent to DHCP clients for a
+#	given interface
+#
+#   Parameters:
+#
+#   	iface - interface name
+#	search - search domain
+#
+sub setSearchDomain # (iface, search)
+{
+	my ($self, $iface, $search) = @_;
+	
+	my $network = EBox::Global->modInstance('network');
+
+	#if iface doesn't exists throw exception
+	if (not $iface or not $network->ifaceExists($iface)) {
+		throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+				value => $iface);
+	}
+
+	#if iface is not static, throw exception
+	if($network->ifaceMethod($iface) ne 'static') {
+		throw EBox::Exceptions::External(__x("{iface} is not static",
+			iface => $iface));
+	}
+
+	if(defined($search) && $search ne ""){
+		checkDomainName($search, __("Search domain"));
+	}
+	$self->set_string("$iface/search", $search);
+}
+
+#   Function: searchDomain
+#
+#	Gets the search domain that will be sent to DHCP clients for a
+#	given interface
+#
+#   Parameters:
+#
+#   	iface - interface name
+#
+#   Returns:
+#   	string - the search domain
+#
+sub searchDomain # (iface)
+{
+	my ($self, $iface) = @_;
+	
+	my $network = EBox::Global->modInstance('network');
+
+	#if iface doesn't exists throw exception
+	if (not $iface or not $network->ifaceExists($iface)) {
+		throw EBox::Exceptions::DataNotFound(data => __('Interface'),
+				value => $iface);
+	}
+
+	#if iface is not static, throw exception
+	if($network->ifaceMethod($iface) ne 'static') {
+		throw EBox::Exceptions::External(__x("{iface} is not static",
+			iface => $iface));
+	}
+
+	$self->get_string("$iface/search");
+}
+
 #   Function: setNameserver
 #
 #	Sets the nameserver that will be sent to DHCP clients for a
