@@ -69,6 +69,7 @@ sub _configureFirewall($){
 	if ($self->service) {
 		$fw->addService('dnscache', 'udp', 53, 0);
 		$fw->addOutputRule('udp', 53);
+		$fw->addOutputRule('tcp', 53);
 		$fw->setObjectService('_global', 'dnscache', 'allow');
 	} else {
 		$fw->removeService('dnscache');
