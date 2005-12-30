@@ -397,7 +397,9 @@ sub setNameserver # (iface, number, nameserver)
 			iface => $iface));
 	}
 
-	checkIP($nameserver, __("Nameserver IP address"));
+	if($nameserver) {
+		checkIP($nameserver, __("Nameserver IP address"));
+	}
 	$self->set_string("$iface/nameserver$number", $nameserver);
 }
 
