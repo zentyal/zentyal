@@ -64,6 +64,11 @@ EOT
 		fi
 
 		/etc/init.d/ebox start
+
+		if [ -n "$2" ] && dpkg --compare-versions "$2" lt 0.7.1;
+		then
+			/etc/init.d/ebox apache restart
+		fi
 		;;
 esac
 
