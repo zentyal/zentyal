@@ -49,6 +49,7 @@ use constant USERGROUP          => 513;
 use constant BASEPATH          => '/home/samba';
 use constant USERSPATH 	       => BASEPATH . '/users';
 use constant GROUPSPATH	       => BASEPATH . '/groups';
+use constant PROFILESPATH      => BASEPATH . '/profiles';
 
 BEGIN 
 {
@@ -56,7 +57,7 @@ BEGIN
         our ($VERSION, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
 
         @ISA = qw(Exporter);
-        @EXPORT = qw{ USERSPATH GROUPSPATH };
+        @EXPORT = qw{ USERSPATH GROUPSPATH PROFILESPATH };
         %EXPORT_TAGS = ( DEFAULT => \@EXPORT );
         @EXPORT_OK = qw();
         $VERSION = EBox::Config::version;
@@ -119,8 +120,8 @@ sub _addUser ($$)
                         	  sambaLMPassword      => $lm,
                         	  sambaNTPassword      => $nt,
                         	  sambaAcctFlags       => SMBACCTFLAGS,
-                        	  sambaSID             => $sambaSID,
-                        	  gecos                => GECOS
+                        	  sambaSID             => $sambaSID
+                         	  # gecos                => GECOS
                            	        ],
 				 replace => [ homeDirectory =>  
 				 	      BASEPATH . "/users/$user" 
@@ -132,7 +133,8 @@ sub _addUser ($$)
 	}	
 	
 	my  $samba = EBox::Global->modInstance('samba');
-	$self->_createHome(BASEPATH . "/users/$user", $unixuid, USERGROUP);
+	$self->_createHome(USERSPATH . "/$user", $unixuid, USERGROUP, '0700');
+	$self->_createHome(PROFILESPATH . "/$user", $unixuid, USERGROUP, '0700');
 	$self->_setUserQuota($unixuid, $samba->defaultUserQuota);
 }
 
@@ -170,6 +172,9 @@ sub _delUser($$){
 
 	if ( -d BASEPATH . "/users/$user"){
  		root ("rm -rf \'" .  BASEPATH . "/users/$user\'");
+	}
+	if ( -d BASEPATH . "/profiles/$user"){
+ 		root ("rm -rf \'" .  BASEPATH . "/profiles/$user\'");
 	}
 
 	# Remove user from printers
@@ -322,7 +327,7 @@ sub _includeLDAPAcls {
 	return \@acls;
 }
 
-sub _createHome($$$;$) {
+sub _createHome {
 	my $self = shift;
 	my $path = shift;
 	my $uid  = shift;
