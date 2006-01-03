@@ -14,6 +14,7 @@ DEPENDENCIES
 	+ libsys-cpuload-perl
 	+ libproc-process-perl
 	+ libapache-singleton-perl
+	+ libapache-reload-perl
 	+ runit
 
 + modules from cpan
