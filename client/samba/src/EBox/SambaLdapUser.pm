@@ -133,8 +133,8 @@ sub _addUser ($$)
 	}	
 	
 	my  $samba = EBox::Global->modInstance('samba');
-	$self->_createHome(USERSPATH . "/$user", $unixuid, USERGROUP, '0700');
-	$self->_createHome(PROFILESPATH . "/$user", $unixuid, USERGROUP, '0700');
+	$self->_createDir(USERSPATH . "/$user", $unixuid, USERGROUP, '0700');
+	$self->_createDir(PROFILESPATH . "/$user", $unixuid, USERGROUP, '0700');
 	$self->_setUserQuota($unixuid, $samba->defaultUserQuota);
 }
 
@@ -327,7 +327,7 @@ sub _includeLDAPAcls {
 	return \@acls;
 }
 
-sub _createHome {
+sub _createDir {
 	my $self = shift;
 	my $path = shift;
 	my $uid  = shift;
@@ -519,7 +519,7 @@ sub setSharingName($$$) {
 	unless ( -d BASEPATH . "/groups/$group"){
 		my $uid = getpwnam(EBox::Config::user);
 		my $gid = $users->groupGid($group);
- 		$self->_createHome(BASEPATH . "/groups/$group", 
+ 		$self->_createDir(BASEPATH . "/groups/$group", 
 				   $uid, $gid, "+t,g+w");
 	}
 }
