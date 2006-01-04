@@ -50,7 +50,7 @@ use EBox::Gettext;
  logon script = logon.bat
  logon drive = H:
  logon home =
- logon path =
+ logon path = \\<% $netbios %>\%U
 
  domain logons = Yes
  os level = 65
@@ -79,10 +79,8 @@ use EBox::Gettext;
         guest ok = Yes
         profile acls = yes
         csc policy = disable
-        # next line is a great way to secure the profiles 
-        force user = %U 
-        # next line allows administrator to access all profiles 
-        valid users = %U "Domain Admins"
+        valid users = %U
+	admin users = @"Domain Admins"
 
 %  }
 % }
