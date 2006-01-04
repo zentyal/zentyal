@@ -213,6 +213,7 @@ sub _addPDCStuff {
 		$samba->setFileService(1);
 		$samba->save();
 	}
+	$samba->_regenConfig();
 	system("/etc/init.d/ebox samba restart");
 	my $abort = 1;
 	for (1..3) {
