@@ -74,6 +74,9 @@ sub _setSambaConf
 	my $ldap = EBox::Ldap->instance();
 	my $smbimpl = new EBox::SambaLdapUser;
 	
+	$smbimpl->setSambaDomainName($self->workgroup);
+	$smbimpl->updateNetbiosName($self->netbios);
+	
 	my @array = ();
 	push(@array, 'netbios'   => $self->netbios);
 	push(@array, 'desc'      => $self->description);
@@ -105,7 +108,7 @@ sub _setSambaConf
 
 	@array = ();
 	push(@array, 'netbios'  => $self->netbios());
-	push(@array, 'domain'   => $self->domainName());
+	push(@array, 'domain'   => $self->workgroup());
 	push(@array, 'sid' 	=> $smbimpl->getSID());
 	push(@array, 'ldap'     => $ldap->ldapConf());
 
@@ -155,6 +158,8 @@ sub _stopService
 sub _regenConfig
 {
 	my $self = shift;
+
+	$self->_stopService() if ($self->isRunning);
 	$self->_setSambaConf;
 	$self->_doDaemon();
 }
