@@ -279,7 +279,6 @@ sub add($$) {
 	return $result;
 }
 
-
 # Method: delObjectclass
 #
 #       Remove an objectclass from an object an all its associated attributes
@@ -340,6 +339,29 @@ sub delObjectclass # (dn, objectclass);
 		_errorOnLdap($msg);
 	}
 	return $result;
+}
+
+# Method: modifyAttribute 
+#
+#       Modify an attribute from a given dn
+#       
+# Parameters:
+#
+#	dn - object's dn
+#	attribute - attribute to change
+#	value - new value
+#               
+# Exceptions:
+#
+#	Internal - If there is an error during the modification
+#	
+sub modifyAttribute # (dn, attribute, value);
+{
+	my ($self, $dn, $attribute, $value) = @_;
+
+	my %attrs = ( changes => [ replace => [ $attribute => $value ] ]);
+	$self->modify($dn, \%attrs ); 
+
 }
 
 sub _errorOnLdap 
