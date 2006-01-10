@@ -31,16 +31,17 @@ case "$1" in
 		test -d /var/spool/samba || mkdir /var/spool/samba \
 		&& chmod 1777 /var/spool/samba
 
-	
-		# generate smb.conf and libnss-ldap.conf
-		/usr/lib/ebox-samba/ebox-samba-ldap genconfig
-
-                # regenerate slapd.conf
+	 
+	 	# regenerate slapd.conf
 		/usr/lib/ebox-usersandgroups/ebox-init-ldap genconfig
 				
 		# restart slapd
 		/etc/init.d/slapd restart
 
+		# generate smb.conf and libnss-ldap.conf
+		/usr/lib/ebox-samba/ebox-samba-ldap genconfig
+
+               
 		# create home directories
 		test -d /home/samba || mkdir /home/samba
 		test -d /home/samba/users || mkdir /home/samba/users
@@ -49,18 +50,17 @@ case "$1" in
 		test -d /home/samba/netlogon || mkdir /home/samba/netlogon
 
 				
-		
+		# Change nsswitch.conf to use ldap
+		sed  -i -e 's/^\(passwd:.*\)/\1 ldap/' /etc/nsswitch.conf
+		sed  -i -e 's/^\(group:.*\)/\1 ldap/' /etc/nsswitch.conf
+		sed  -i -e 's/^\(shadow:.*\)/\1 ldap/' /etc/nsswitch.conf
+
 
 		# Set samba admin password to ldap admin password
 		smbpasswd -w `cat /var/lib/ebox/conf/ebox-ldap.passwd`
 
 		# update current ldap database
 		/usr/lib/ebox-samba/ebox-samba-ldap update
-
-		# Change nsswitch.conf to use ldap
-		sed  -i -e 's/^\(passwd:.*\)/\1 ldap/' /etc/nsswitch.conf
-		sed  -i -e 's/^\(group:.*\)/\1 ldap/' /etc/nsswitch.conf
-		sed  -i -e 's/^\(shadow:.*\)/\1 ldap/' /etc/nsswitch.conf
 
 		# Add quota support to fstab. It's set up for "/home" if exists,
 		# otherwise we fall back to "/". Remount partition and
