@@ -23,12 +23,10 @@ INSTALLATION
 	./configure
 	make install
 
-	Update your sudoers file with the ebox-sudoers command.
+	Please it is necessary to perform all the steps below
+	in strict sequence:
 	
-	Now you must generate  smb.conf file and  libnss-ldap.conf. 
-	Use ebox-samba-ldap in tools:
-
-		ebox-samba-ldap genconfig
+	Update your sudoers file with the ebox-sudoers command.
 	
 	Copy samba.schema and ebox.schema from directory 'schemas' to
 	/etc/ldap/schema .
@@ -39,6 +37,18 @@ INSTALLATION
 
 		/etc/init.d/slapd restart
 
+	Now you must generate  smb.conf file and  libnss-ldap.conf. 
+	Use ebox-samba-ldap in tools:
+
+		ebox-samba-ldap genconfig
+	
+	Now you must change your /etc/nsswitch.conf file to add
+	ldap support:
+
+		passwd:         files ldap
+		group:          files ldap
+		shadow:         files ldap
+	
 	Now you  have to update the current ldap database with samba
 	objects:
 
@@ -55,13 +65,6 @@ INSTALLATION
 	Set the samba admin password to your ldap admin password:
 
 		smbpasswd -w YOUR_LDAP_ADMIN_PASSWORD
-	
-	Now you must change your /etc/nsswitch.conf file to add
-	ldap support:
-
-		passwd:         files ldap
-		group:          files ldap
-		shadow:         files ldap
 	
 	Quota support:
 	
