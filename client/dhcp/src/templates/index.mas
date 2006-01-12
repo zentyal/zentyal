@@ -7,6 +7,7 @@
 	$gateway => ""
 	$nameserver1 => ""
 	$nameserver2 => ""
+	$search => ""
 </%args>
 <%init>
 use EBox::Gettext;
@@ -14,7 +15,7 @@ use EBox::Gettext;
 % if (defined($iface{name})) {
 <& enable.mas, title => __('DHCP server status'), active => $active &>
 <& dhcp/iftabs.mas, ifaces => \@ifaces, selected => $iface{name} &>
-<& dhcp/options.mas, name => $iface{name}, gateway => $gateway, nameserver1 => $nameserver1, nameserver2 => $nameserver2 &>
+<& dhcp/options.mas, name => $iface{name}, gateway => $gateway, nameserver1 => $nameserver1, nameserver2 => $nameserver2, search => $search &>
 <& dhcp/ranges.mas, name => $iface{name}, address => $iface{address},
 netmask => $iface{netmask}, network => $iface{network}, init => $iface{init},
 end => $iface{end}, ranges => \@ranges &>

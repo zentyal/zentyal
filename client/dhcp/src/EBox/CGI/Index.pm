@@ -53,6 +53,7 @@ sub _process($) {
 	my $gateway = "";
 	my $nameserver1 = "";
 	my $nameserver2 = "";
+	my $search = "";
 	my $fixed = undef;
 	my $ranges = undef;
 
@@ -78,6 +79,7 @@ sub _process($) {
 		$gateway = $dhcp->defaultGateway($iface{name});
 		$nameserver1 = $dhcp->nameserver($iface{name},1);
 		$nameserver2 = $dhcp->nameserver($iface{name},2);
+		$search = $dhcp->searchDomain($iface{name});
 	}
 
 	my @array = ();
@@ -88,6 +90,7 @@ sub _process($) {
 	push (@array, 'gateway'		=> $gateway);
 	push (@array, 'nameserver1'	=> $nameserver1);
 	push (@array, 'nameserver2'	=> $nameserver2);
+	push (@array, 'search'		=> $search);
 	push (@array, 'active'		=> $dhcp->service() ? 'yes' : 'no' );
 	$self->{params} = \@array;
 }

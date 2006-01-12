@@ -8,7 +8,7 @@
 %	}
 		option routers <% $info{'gateway'} %>;
 %	if(defined($info{'search'})) {
-		option domain-name '<% $info{'search'} %>';
+		option domain-name "<% $info{'search'} %>";
 %	}
 %       if(length($info{'nameserver1'}) != 0) {
 		option domain-name-servers <% $info{'nameserver1'} %>\
