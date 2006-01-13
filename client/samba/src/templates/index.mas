@@ -3,7 +3,6 @@
 <%args>
 	$active
 	$mode
-	$domain
 	$workinggroup
 	$netbios
 	$description
@@ -41,17 +40,11 @@ use EBox::Gettext;
 	</tr>
 	<tr>
 		<td class='tright'>
-			<span class='ftitle'><% __('Domain') %>:</span>
-		</td>
-		<td>
-			<input type='text' class='inputText' name='domain' 
-		   		value='<% $domain %>'>
-		</td>
-	</tr>
-
-	<tr>
-		<td class='tright'>
+%		if ($mode) {
 			<span class='ftitle'><% __('Working group') %>:</span>
+%		} else {
+			<span class='ftitle'><% __('Domain') %>:</span>
+%		}
 		</td>
 		<td>
 			<input type='text' class='inputText' name='workgroup' 

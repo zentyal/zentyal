@@ -41,7 +41,6 @@ sub _process($) {
 
 	$self->_requireParam('netbios', __('netbios'));
 	$self->_requireParam('workgroup', __('working group'));
-	$self->_requireParam('domain', __('domain'));
 	$self->_requireParam('mode', __('working mode'));
 	$self->_requireParam('description', __('description'));
 	$self->_requireParam('userquota', __('user quota'));
