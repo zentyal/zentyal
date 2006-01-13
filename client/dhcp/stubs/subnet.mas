@@ -24,7 +24,7 @@
 	group {
 		option routers <% $info{'gateway'} %>;
 %	if(defined($info{'search'})) {
-		option domain-name '<% $info{'search'} %>';
+		option domain-name "<% $info{'search'} %>";
 %	}
 %	foreach my $fixed (@{$fixedAddresses}) {
 		host <% $fixed->{'name'} %> {
