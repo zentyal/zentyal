@@ -1197,7 +1197,13 @@ sub tableInfo {
 }
 sub logHelper
 {
-	return (new EBox::PrinterLogHelper);
+	my $self = shift;
+	
+	if ($self->service()) {
+		return (new EBox::PrinterLogHelper);
+	} else {
+		return undef;
+	}
 }
 
 # Helper functions
