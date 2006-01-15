@@ -911,7 +911,13 @@ sub tableInfo {
 
 sub logHelper
 {
-	return (new EBox::MailLogHelper);
+	my $self = shift;
+
+	if ($self->service()) {
+		return (new EBox::MailLogHelper);
+	} else {
+		return undef;
+	}
 }
 
 1;
