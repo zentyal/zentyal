@@ -12,7 +12,6 @@ use EBox::Gettext;
 
 <div class='squidnew'>
 
-<h3><% $title %></h3>
 	<p>
 		<% $description %>
 	</p>

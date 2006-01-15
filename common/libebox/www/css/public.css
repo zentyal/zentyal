@@ -38,10 +38,8 @@
 
 #hmenu #m { background-color: #b5d448; }
 #hmenu #m:hover { background-color: #C5E64E; }
-#hmenu #mm { background-color: #e99219; }
-#hmenu #mm:hover { background-color: #FFA01B; }
-#hmenu #mmm { background-color: #d3761e; }
-#hmenu #mmm:hover { background-color: #F1971A; }
+#hmenu #mm { background-color: #F60000; }
+#hmenu #mm:hover { background-color: #FF2424; }
 
 
 #top {
@@ -310,6 +308,11 @@ iptable tr {
 	border-top: 1px solid #CCCCCC;
 }
 
+select {
+	font-size: 11px;
+	font-family: Verdana, sans-serif;
+}
+
 .inputText, .inputTextError {
 	color: #000000;
 	font-size: 11px;
@@ -498,33 +501,23 @@ input {
 	border-right: 1px solid #aaa;
 }
 
-#helpbutton a {
-	font-size: 20px;
+#helpbutton {
+	font-size: 11px;
 	font-weight: bold;
 	font-family: Trebuchet MS, sans-serif;
-	color: #859E83;
 	text-align: center;
 	clear:right;
 	background-color: #ffffff;
 	display:inline;
-	float:right;
-	height: 21px;
-	width: 21px;
+	margin-left: 10px;
+}
+
+#helpbutton a {
+	color: #859E83;
 }
 
 #helpbutton a:hover {
-	font-size: 20px;
-	border:0;
-	background-color: #ffffff;
-	font-weight: bold;
-	font-family: Trebuchet MS, sans-serif;
-	text-align: center;
-	clear:right;
 	color: #625E70;
-	display:inline;
-	float:right;
-	height: 21px;
-	width: 21px;
 }
 
 #titlehelp {
@@ -633,3 +626,14 @@ pre {
 	color: #4a4a4a;
 	font-size: 9px;
 }
+
+#enable {
+       background-color: #FFFFCC;
+       padding: 10px;
+       border: 1px solid #FFCC99;
+       margin: 5px 0 5px 0;
+}
+
+.bold { font-weight: bold; } 
+
+

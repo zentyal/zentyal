@@ -8,8 +8,9 @@
 use EBox::Gettext;
 my $domain = settextdomain('libebox');
 </%init>
-<h3><% $title %></h3>
 	<form action='Enable' method='POST'>
+	<div id="enable">
+		<span class="bold">Service configuration: </span>
 		<select name="active" enabled>
 %  if($active eq 'yes') {
 			<option value='no' ><% __('Disabled') %></option>
@@ -22,6 +23,7 @@ my $domain = settextdomain('libebox');
 		<input class='inputButton' type='submit' name='change'
 			value="<% __('Change') %>"
 			alt="<% __('Change') %>">
+	</div>
 	</form>
 
 % settextdomain($domain);

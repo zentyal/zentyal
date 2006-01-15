@@ -60,9 +60,9 @@ use EBox::Gettext;
 	<td>
 		<select name="threshold" enabled>
 % if ($threshold eq '0') {
-	<option value='0' selected><% __('Content filter disabled')%></option>
+	<option value='0' selected><% __('Disabled')%></option>
 % } else {
-			<option value='0'><% __('Content filter disabled')%></option>
+			<option value='0'><% __('Disabled')%></option>
 % }
 % if ($threshold eq '200') {
 			<option value='200' selected><% __('Very permissive')%></option>

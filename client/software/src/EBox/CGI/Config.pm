@@ -28,7 +28,7 @@ use EBox::Gettext;
 sub new {
 	my $class = shift;
 	my $self = $class->SUPER::new('title'    => 
-					__('Software updates configuration'),
+					__('Automatic software updates'),
 				      'template' => 'software/config.mas',
 				      @_);
 	$self->{domain} = 'ebox-software';
@@ -38,7 +38,7 @@ sub new {
 
 sub _process($) {
 	my $self = shift;
-	$self->{title} = __('Software updates configuration');
+	$self->{title} = __('Automatic software updates');
 	my $software = EBox::Global->modInstance('software');
 	my @array = ();
 	my $auto = 'no';

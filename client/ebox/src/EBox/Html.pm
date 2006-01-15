@@ -35,15 +35,13 @@ use EBox::Menu::Root;
 sub title
 {
 	my $save = __('Save changes');
-	my $help = __('Help');
 	my $logout = __('Logout');
 
 	return qq%<div id="top"></div>
 	<div id="header"><img src="/data/images/title.gif"></div>
 	<div id="hmenu">
-	<a id="m" href="/ebox/Finish">$save</a>
-	<a id="mm" href="http://www.ebox-platform.com/usersguide/en/html-chunk/">$help</a>
-	<a id="mmm" href="/ebox/Logout/Index">$logout</a>
+	<a id="m" href="/ebox/Logout/Index">$logout</a>
+	<a id="mm" href="/ebox/Finish">$save</a>
 	</div>
 	%;
 }
