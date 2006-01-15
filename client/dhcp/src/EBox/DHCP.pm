@@ -995,6 +995,8 @@ sub tableInfo {
 
 sub logHelper
 {
+	my $self = shift;
+
 	if ($self->service()) {
 		return (new EBox::DHCPLogHelper);
 	} else {
