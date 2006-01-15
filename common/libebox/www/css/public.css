@@ -38,8 +38,10 @@
 
 #hmenu #m { background-color: #b5d448; }
 #hmenu #m:hover { background-color: #C5E64E; }
-#hmenu #mm { background-color: #F60000; }
-#hmenu #mm:hover { background-color: #FF2424; }
+#hmenu #changes { background-color: #BBDF39; }
+#hmenu #changes:hover { background-color: #CBF23E; }
+#hmenu #notchanges { background-color: #F60000; }
+#hmenu #notchanges:hover { background-color: #FF2424; }
 
 
 #top {

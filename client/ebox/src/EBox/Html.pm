@@ -36,12 +36,20 @@ sub title
 {
 	my $save = __('Save changes');
 	my $logout = __('Logout');
+	my $global = EBox::Global->getInstance();
+	my $finishId;
+
+	if ($global->unsaved) {
+		$finishId = "notchanges";
+	} else {
+		$finishId = "changes";
+	}
 
 	return qq%<div id="top"></div>
 	<div id="header"><img src="/data/images/title.gif"></div>
 	<div id="hmenu">
 	<a id="m" href="/ebox/Logout/Index">$logout</a>
-	<a id="mm" href="/ebox/Finish">$save</a>
+	<a id="$finishId" href="/ebox/Finish">$save</a>
 	</div>
 	%;
 }
