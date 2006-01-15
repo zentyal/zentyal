@@ -79,7 +79,8 @@ sub _prepare # (fifo)
 		for my $file (@{$obj->logFiles()}) {
 			my $tail;
 			eval { $tail = File::Tail->new(name => $file, 
-					interval => 1, maxinterval => 1) };
+					interval => 1, maxinterval => 1,
+					ignore_nonexistant => 1)};
 
 			if ($@) {
 				EBox::warn($@);
