@@ -27,7 +27,7 @@ use EBox::Gettext;
 ## 	title [required]
 sub new {
 	my $class = shift;
-	my $self = $class->SUPER::new('title'    => __('Parallel printers'),
+	my $self = $class->SUPER::new('title'    => __('Add a new printer (II)'),
 				      'template' => 'printers/parallel.mas',
 				      @_);
 	$self->{domain} = 'ebox-printers';
