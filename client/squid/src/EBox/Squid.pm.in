@@ -1034,7 +1034,11 @@ sub tableInfo {
 
 sub logHelper
 {
-        return (new EBox::SquidLogHelper);
+	if ($self->service()) {
+	        return (new EBox::SquidLogHelper);
+	} else {
+		return undef;
+	}
 }
 
 1;
