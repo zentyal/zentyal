@@ -995,7 +995,11 @@ sub tableInfo {
 
 sub logHelper
 {
-       return (new EBox::DHCPLogHelper);
+	if ($self->service()) {
+		return (new EBox::DHCPLogHelper);
+	} else {
+		return undef;
+	}
 }
 
 1;
