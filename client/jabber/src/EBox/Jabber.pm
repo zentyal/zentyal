@@ -37,6 +37,7 @@ use constant JABBERC2SCONFFILE => '/etc/jabberd2/c2s.xml';
 use constant JABBERSMCONFFILE => '/etc/jabberd2/sm.xml';
 use constant JABBERPORT => '5222';
 use constant JABBERPORTSSL => '5223';
+use constant JABBEREXTERNALPORT => '5269';
 
 sub _create 
 {
@@ -97,6 +98,7 @@ sub usesPort # (protocol, port, iface)
 
 	return 1 if (($port eq JABBERPORT) and !($self->ssl eq 'required'));
 	return 1 if (($port eq JABBERPORTSSL) and !($self->ssl eq 'no'));
+	return 1 if (($port eq JABBEREXTERNALPORT) and ($self->externalConnection));
 
 	return undef;
 }

@@ -27,6 +27,7 @@ use EBox::Gettext;
 
 use constant JABBERPORT => '5222';
 use constant JABBERPORTSSL => '5223';
+use constant JABBEREXTERNALPORT => '5269';
 
 sub new 
 {
@@ -52,6 +53,9 @@ sub input
 	}
 	if (($jabber->ssl eq 'optional') || ($jabber->ssl eq 'required')){
 	    push(@jabberPorts, JABBERPORTSSL);
+	}
+	if ($jabber->externalConnection){
+	    push(@jabberPorts, JABBEREXTERNALPORT);
 	}
 
 	foreach my $port (@jabberPorts){
@@ -84,10 +88,31 @@ sub output
 	if (($jabber->ssl eq 'optional') || ($jabber->ssl eq 'required')){
 	    push (@jabberPorts, JABBERPORTSSL);
 	}
+	foreach my $port (@jabberPorts){
+	    foreach my $ifc (@ifaces) {
+		my $r = "-m state --state NEW -o $ifc  ".
+			"-p tcp --sport $port -j ACCEPT";
+		push(@rules, $r);
+		$r = "-m state --state NEW -o $ifc  ".
+			"-p udp --sport $port -j ACCEPT";
+		push(@rules, $r);
+	    }
+	}
+
+	@jabberPorts = ();
+	if ($jabber->externalConnection){
+	    push(@jabberPorts, JABBEREXTERNALPORT);
+	}
 	
 	foreach my $port (@jabberPorts){
 	    foreach my $ifc (@ifaces) {
 		my $r = "-m state --state NEW -o $ifc  ".
+			"-p tcp --dport $port -j ACCEPT";
+		push(@rules, $r);
+		$r = "-m state --state NEW -o $ifc  ".
+			"-p udp --dport $port -j ACCEPT";
+		push(@rules, $r);
+	        $r = "-m state --state NEW -o $ifc  ".
 			"-p tcp --sport $port -j ACCEPT";
 		push(@rules, $r);
 		$r = "-m state --state NEW -o $ifc  ".
