@@ -100,6 +100,22 @@
 			<list_type>string</list_type>
 			<locale name="C"/>
 		</schema>
-
+		<schema>
+			<key>/schemas/ebox/modules/squid/allowed_extensions</key>
+			<applyto>/ebox/modules/squid/allowed_extensions</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+			<list_type>string</list_type>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/squid/banned_extensions</key>
+			<applyto>/ebox/modules/squid/banned_extensions</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+			<list_type>string</list_type>
+			<default>[ade,adp,asx,bas,bat,cab,chm,cmd,com,cpl,crt,dll,exe,hlp,ini,hta,inf,ins,isp,lnk,mda,mdb,mde,mdt,mdw,mdz,msc,msi,msp,mst,pcd,pif,prf,reg,scf,scr,sct,sh,shs,shb,sys,url,vb,vbe,vbs,vxd,wsc,wsf,wsh,otf,ops,doc,xls,gz,tar,zip,tgz,bz2,cdr,dmg,smi,sit,sea,bin,hqx,rar,mp3,mpeg,mpg,avi,asf,iso,ogg,wmf,bin,cue]</default>
+			<locale name="C"/>
+		</schema>
 	</schemalist>
 </gconfschemafile>

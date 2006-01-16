@@ -758,7 +758,6 @@ sub _dgNeeded
 	return undef;
 }
 
-#
 # Function: usesPort
 #
 #	Implements EBox::FirewallObserver interface
@@ -904,6 +903,112 @@ sub _squidAndDG
 	push(@array, 'domains'  => $allowed);
 	$self->writeConfFile(DGDIR . "/exceptionsitelist", 
 				"squid/exceptionsitelist.mas", \@array);
+	@array = ();
+	push(@array, 'extensions'  => $self->bannedExtensions);
+	$self->writeConfFile(DGDIR . "/bannedextensionlist", 
+				"squid/bannedextensionlist.mas", \@array);
+
+}
+
+sub _setList # ($listname, $newlist)
+{
+	my ($self, $listname, @newlist) = @_;
+
+	my @list= sort @{$self->get_list($listname)};
+	@newlist = sort @newlist;
+
+	my $changed = undef;
+	if (@list ne @newlist) {
+	 	my $i;
+		for my $val (@newlist) {
+			if ($val ne $list[$i]) {
+				$changed = 1;
+				last;
+			}
+		}
+	} else {
+		$changed = 1;
+	}
+
+	$self->set_list($listname, 'string', \@newlist) if ($changed);
+}
+
+# Function: allowedExtensions
+#
+#	Fetch the allowed extensions
+#
+# Returns:
+#
+# 	Array ref - containing the extensions
+sub allowedExtensions
+{
+	my ($self) = @_;
+
+	return $self->get_list('allowed_extensions');
+}
+
+
+# Function: setAllowedExtensions
+#
+#	Set the allowed extensions
+#
+# Parameters:
+#
+# 	Array  - containing the extensions
+sub setAllowedExtensions
+{
+	my ($self, @newallow) = @_;
+
+	$self->_setList('allowed_extensions', @newallow);
+}
+
+# Function: bannedExtensions
+#
+#	Fetch the banned extensions
+#
+# Returns:
+#
+# 	Array ref - containing the extensions
+sub bannedExtensions
+{
+	my ($self) = @_;
+
+	return $self->get_list('banned_extensions');
+}
+
+# Function: setBanExtensions
+#
+#	Set the banned  extensions
+#
+# Parameters:
+#
+# 	Array  - containing the extensions
+sub setBannedExtensions
+{
+	my ($self, @newban) = @_;
+
+	$self->_setList('banned_extensions', @newban);
+}
+
+# Function: hashedExtension 
+#
+#	Fetch the extensions, both allowed and banned
+#
+# Returns:
+#
+# 	Array ref of hashes containing:
+#
+# 		extension => boolean (allowed or not)
+# 	
+sub hashedExtensions
+{
+	my ($self) = @_;
+
+	my %extents;
+	map { $extents{$_} = 1 } @{$self->allowedExtensions};
+	map { $extents{$_} = undef } @{$self->bannedExtensions};
+	
+	return \%extents;
 }
 
 sub firewallHelper 
@@ -977,6 +1082,7 @@ sub rootCommands
 	push(@array, $self->rootCommandsForWriteConfFile(DGDIR . "/dansguardianf1.conf"));
 	push(@array, $self->rootCommandsForWriteConfFile(DGDIR . "/bannedsitelist"));
 	push(@array, $self->rootCommandsForWriteConfFile(DGDIR . "/exceptionsitelist"));
+	push(@array, $self->rootCommandsForWriteConfFile(DGDIR . "/bannedextensionlist"));
 	return @array;
 }
 
@@ -998,6 +1104,8 @@ sub menu
                                           'text' => __('Allowed domains')));
         $folder->add(new EBox::Menu::Item('url' => 'Squid/BannedDomains',
                                           'text' => __('Banned domains')));
+	$folder->add(new EBox::Menu::Item('url' => 'Squid/ExtensionsUI',
+                                          'text' => __('Extensions filter')));
         $folder->add(new EBox::Menu::Item('url' => 'Squid/Policy',
                                           'text' => __('Policy')));
         $root->add($folder);
