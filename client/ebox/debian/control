@@ -8,9 +8,9 @@ Standards-Version: 3.6.1
 
 Package: ebox
 Architecture: all
-Depends: libebox, apache-perl, libapache-mod-ssl, libapache-singleton-perl, libapache-authcookie-perl, libgnome2-gconf-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl, runit
-Replaces: ebox (<< 0.6)
-Conflicts: ebox (<< 0.6)
+Depends: libebox, apache-perl, libapache-mod-ssl, libapache-singleton-perl, libapache-authcookie-perl, libgnome2-gconf-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl, runit, libapache-reload-perl (= 0.07-5warp.es)
+Replaces: ebox (<< 0.7.0.99)
+Conflicts: ebox (<< 0.7.0.99)
 Description: Base framework
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
