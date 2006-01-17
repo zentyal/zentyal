@@ -49,15 +49,35 @@ use Data::Dumper;
 
 %   if(@groups) {
 <h3><% __('Edit Group') %></h3>
-    <form action='Group' method='post'>
-        <select name='group'>
+		<table class="dataTable">
+		<thead>
+			<th widht="66%" class="tleft"><% __("Group name") %></th>
+			<th class="thOptions"><% __("Actions") %></th>
+		</thead>
+		<tbody>
 %           foreach my $gr (@groups){
-                <option value='<% $gr->{'account'} %>'>
+			<tr class="border">
+				<td>
                     <% $gr->{'account'} %>
-                </option>
+				</td>
+    			<form action='Del' method='post'>
+				<td class="tcenter">
+					<a href="Group?group=<% $gr->{'account'} %>" >
+        			<img src='/data/images/edit.gif'
+							alt="<% __('Edit') %> <% $gr->{'account'} %>"
+							title="<% __('Edit') %> <% $gr->{'account'} %>" />
+					</a>
+					<img src="/data/images/sep.gif" alt=" | " />
+					<input type="hidden" name="objectname" value="<% $gr->{'account'} %>" />
+        			<input 	type='image' name='delgroup' 
+							src='/data/images/delete.gif'
+							alt="<% __('Remove') %> <% $gr->{'account'} %>"
+							title="<% __('Remove') %> <% $gr->{'account'} %>"
+							value="<% __('Remove') %>" />
+				</td>
+			</tr>
+    		</form>
 %           }
-        </select>
-        <input class='inputButton' type='submit' value="<% __('Edit') %>" name='configgroup' />
-    </form>
-%   }
-
+		</tbody>
+		</table>
+%  }
