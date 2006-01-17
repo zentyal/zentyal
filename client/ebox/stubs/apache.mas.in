@@ -16,9 +16,9 @@ KeepAlive On
 MaxKeepAliveRequests 100
 KeepAliveTimeout 15
 MinSpareServers 1
-MaxSpareServers 4
+MaxSpareServers 2 
 StartServers 2
-MaxClients 5
+MaxClients 3
 MaxRequestsPerChild 100
 
 # begin modules
@@ -112,7 +112,7 @@ SSLCertificateKeyFile @ETCPATH@/ssl.key/ebox.key
 Alias /data/ @WWWPATH@
 ScriptAlias /ebox/ @CGIPATH@
 
-PerlInitHandler Apache::StatINC
+PerlInitHandler	Apache::Reload
 
 PerlModule EBox::Auth
 PerlSetVar EBoxPath /
