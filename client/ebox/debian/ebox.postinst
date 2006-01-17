@@ -8,6 +8,9 @@ case "$1" in
 		# don't start apache-perl with its script
 		update-rc.d -f apache-perl remove
 
+		# stop apache-perl
+		invoke-rc.d apache-perl stop
+
 		#add the ebox group and user
 		touch /tmp/test.$$
 		chgrp ebox /tmp/test.$$ >/dev/null 2>&1 || addgroup --system ebox
