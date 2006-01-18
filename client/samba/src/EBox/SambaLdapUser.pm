@@ -667,33 +667,60 @@ sub setSambaDomainName
 	my ($self, $domain) = @_;
 	
 	my $ldap = $self->{ldap}; 
-	my %attrs = ( 
-			base => "dc=ebox", 
-			filter => "(objectclass=sambaDomain)", 
-			scope => "sub"
-	    	    ); 
-	my $entry = $ldap->search(\%attrs)->pop_entry();
+	my %attrs = (
+				base => "dc=ebox",
+				filter => "(sambaDomainName=*)",
+				attrs => ['sambaDomainName'],
+				scope => "sub"
+		    );
 
-	if ($entry) {
-		my $current = $entry->get_value('sambaDomainName');
-		return if ($current eq $domain);
-		$ldap->moddn("sambaDomainName=$current,dc=ebox", 
-				newrdn => "sambaDomainName=$domain");
-	} else {
-		my $users = EBox::Global->modInstance('users');
-		my %args = (
-			attr => [
-				'sambaDomainName'	=> $domain,
-				'sambaSID'		=> getSID(),
-				'uidNumber'		=> $users->lastUid,
-				'gidNumber'		=> $users->lastGid,
-				'objectclass'		=> ['sambaDomain', 
-							    'sambaUnixidPool']
-				]
-			   );
+	foreach my $entry ($ldap->search(\%attrs)->entries()) {
+		my $dn = 'sambaDomainName=' . 
+			$entry->get_value('sambaDomainName') . ',dc=ebox';
+		$ldap->delete($dn);	
+	}
 
-		my $dn = "sambaDomainName=$domain,dc=ebox";
-		$ldap->add($dn, \%args);
+	my $users = EBox::Global->modInstance('users');
+	%attrs = (
+		attr => [
+			'sambaDomainName'	=> $domain,
+			'sambaSID'		=> getSID(),
+			'uidNumber'		=> $users->lastUid,
+			'gidNumber'		=> $users->lastGid,
+			'objectclass'		=> ['sambaDomain', 
+						    'sambaUnixidPool']
+			]
+		   );
+
+	my $dn = "sambaDomainName=$domain,dc=ebox";
+	$ldap->add($dn, \%attrs);
+}
+
+# Method: updateNetbiosName
+#
+#	Update in LDAP all those attributes which contain the netbios name
+# 
+# Parameters:
+#
+#	netbios - string containing the new netbios name
+#
+# Throws:
+#
+#	InvalidData - wrong domain name
+sub updateNetbiosName
+{
+	my ($self, $netbios) = @_;
+	
+	my $users = EBox::Global->modInstance('users');
+	my $ldap = $self->{'ldap'};
+	
+	foreach my $user ($users->users){
+		my $username = $user->{'username'};
+		my $dn = "uid=$username," .  $users->usersDn;
+		$ldap->modifyAttribute($dn, 'sambaHomePath', 
+					"\\\\$netbios\\homes\\$username");
+		$ldap->modifyAttribute($dn, 'sambaProfilePath', 
+					"\\\\$netbios\\profiles\\$username");
 	}
 }
 
