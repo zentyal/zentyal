@@ -21,5 +21,9 @@ case "$1" in
 		;;
 	remove)
 		remove_gconf_schemas
+
+		#clean ldap
+		/usr/lib/ebox-jabber/ebox-jabber-ldap clean
+		
 		;;	
 esac 

@@ -4,6 +4,12 @@ case "$1" in
 	remove)
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 		invoke-rc.d  jabberd2-ldap-bdb stop || true
+
+                # Generate configuration
+                /usr/lib/ebox-usersandgroups/ebox-init-ldap genconfig
+
+                # Restart slapd
+                invoke-rc.d slapd restart
 		;;		
 esac
 

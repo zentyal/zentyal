@@ -36,7 +36,7 @@ case "$1" in
 		/etc/init.d/slapd restart
 		
 		# update current ldap database
-		/usr/lib/ebox-jabber/ebox-jabber-ldap 
+		/usr/lib/ebox-jabber/ebox-jabber-ldap update
 
 esac
 
