@@ -48,7 +48,11 @@ sub _create
 
 sub isRunning
 {
-   return EBox::Service::running('ntpd');
+	my ($self) = @_;
+	# return undef if service is not enabled
+	# otherwise it might be misleading if time synchronization is set
+	($self->service) or return undef;
+	return EBox::Service::running('ntpd');
 }
 
 
