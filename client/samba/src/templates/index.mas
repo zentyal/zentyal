@@ -2,7 +2,7 @@
 -->
 <%args>
 	$active
-	$mode
+	$pdc
 	$workinggroup
 	$netbios
 	$description
@@ -28,7 +28,7 @@ use EBox::Gettext;
 		</td>
 		<td>
 		        <select name="mode" enabled>
-%    		   	if ($mode) {
+%    		   	if ($pdc) {
            		 	<option value='fileserver' ><% __('File server') %></option>
        		     	<option selected value='pdc' ><% __('PDC') %></option>
 %				} else {
@@ -40,10 +40,10 @@ use EBox::Gettext;
 	</tr>
 	<tr>
 		<td class='tright'>
-%		if ($mode) {
-			<span class='ftitle'><% __('Working group') %>:</span>
+%		if ($pdc) {
+			<span class='ftitle'><% __('Domain name') %>:</span>
 %		} else {
-			<span class='ftitle'><% __('Domain') %>:</span>
+			<span class='ftitle'><% __('Working group') %>:</span>
 %		}
 		</td>
 		<td>
