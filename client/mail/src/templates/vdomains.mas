@@ -14,40 +14,36 @@ use EBox::Gettext;
 	<table class='formTable'>
 	<tr>
 		<td class='tright'>
-			<span class='ftitle'><% __('Domain name') %>:</span>
+			<span class='ftitle'><% __('Domain name') %>: </span>
 		</td>
 		<td class='tright'>
 			<input type='text' class='inputText' name='vdomain' />
 		</td>
 	</tr>
 	<tr>
-		<table class='formTable'>
-			<tr>
-			<td class='tright'><% __('Default maildir size (MB)') %>:</td>
-			<td><input type='text' class='inputText' name='mdsize'
-						id='mdsize'
-						size="15"
-%				if($mdsize eq 0) {
-					disabled
-					value=""
-%				} else {
-					enabled
-					value='<% $mdsize %>'>
-%				}
-			</td>
-			</tr>
-			<tr>
-			<td class='tright'><% __('Unlimited size') %></td>
-			<td><input type='checkbox' name='ummsize' id='ummsize'
-					value='0' onclick="updateMDSize()"
-%				if($mdsize eq 0) {
-					checked
-%				} 
-			></td>
-			</tr>
-			<tr>
-			<td></td>
-		</table>
+		<td class='tright'><% __('Unlimited size') %></td>
+		<td><input type='checkbox' name='ummsize' id='ummsize'
+				value='0' onclick="updateMDSize()"
+%			if($mdsize eq 0) {
+				checked
+%			} 
+			/>
+		</td>
+	</tr>
+	<tr>
+		<td class='tright'><% __('Default maildir size') %>: </td>
+		<td><input type='text' class='inputText' name='mdsize'
+					id='mdsize'
+					size="15"
+%			if($mdsize eq 0) {
+				disabled
+				value=""
+%			} else {
+				enabled
+				value='<% $mdsize %>'
+%			}
+			/> <% __("(MB)") %>
+		</td>
 	</tr>
 	<tr>
 		<td></td>
