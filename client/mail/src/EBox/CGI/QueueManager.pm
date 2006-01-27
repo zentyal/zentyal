@@ -42,16 +42,12 @@ sub _process($) {
 	my $self = shift;
 	$self->{title} = __('Queue Management');
 	my $mail = EBox::Global->modInstance('mail');
-	use Data::Dumper;
 
 	my @array = ();
 
 	my @mqlist = @{mailQueueList()};
 
 	my $page = 1;
-#	if(defined($self->params('page'))) {
-#		$page = $self->params('page');
-#	}
 
 	my $info = $self->param('getinfo');
 	unless ($self->param('getinfo')) {
@@ -65,7 +61,6 @@ sub _process($) {
 	my $aux = ($page - 1) * PAGESIZE;
 	my @showlist;
 	if (($aux + PAGESIZE - 1) >= (scalar(@mqlist) - 1)) {
-		print STDERR "First: $aux, Last: ".(scalar(@mqlist) - 1) ."\n";
 		@showlist = @mqlist[$aux..(scalar(@mqlist) - 1)];
 	} else {
 		@showlist = @mqlist[$aux..($aux + PAGESIZE - 1)];
@@ -73,7 +68,7 @@ sub _process($) {
 	
 	my $tpages = ceil(scalar(@mqlist) / PAGESIZE);
 	
-	push(@array, 'mqlist'		=> \@showlist);
+	push(@array, 'mqlist'	=> \@showlist);
 	push(@array, 'page'	=> $page);
 	push(@array, 'tpages'	=> $tpages);
 	push(@array, 'getinfo'	=> $info);
@@ -81,4 +76,5 @@ sub _process($) {
 
 	$self->{params} = \@array;
 }
+
 1;
