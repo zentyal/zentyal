@@ -58,7 +58,6 @@ AC_CONFIG_FILES([
 tools/Makefile
 tools/cron/Makefile
 src/Makefile
-src/libexec/Makefile
 src/EBox/Makefile
 src/EBox/CGI/Makefile
 src/templates/Makefile
