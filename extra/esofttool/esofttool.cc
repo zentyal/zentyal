@@ -227,7 +227,7 @@ void listUpgradablePkgs() {
 		description = P.ShortDesc();
 
 		std::cout << "{";
-		std::cout << "'name ' => '" << name << "'," << std::endl;
+		std::cout << "'name' => '" << name << "'," << std::endl;
 		std::cout << "'description' => '" << description << "'" << std::endl;
 		std::cout << "}," << std::endl;
 
@@ -238,7 +238,7 @@ void listUpgradablePkgs() {
 
 int main(int argc, char *argv[]){
 	if((argc != 2) || (argv[1][0] != '-')) {
-		std::cerr << "Usage: eboxsoftool [-i|-u]" << std::endl;
+		std::cerr << "Usage: " << argv[0] << " [-i|-u]" << std::endl;
 		return 1;
 	}
 	if(argv[1][1] == 'i') {

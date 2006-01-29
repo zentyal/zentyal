@@ -1,11 +1,11 @@
-Source: eboxsoftool
+Source: esofttool
 Section: utils
 Priority: optional
 Maintainer: Isaac Clerencia <isaac@debian.org>
 Build-Depends: cdbs, debhelper (>= 4.1.0), libapt-pkg-dev
 Standards-Version: 3.6.2
 
-Package: eboxsoftool
+Package: esofttool
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: ebox software tool

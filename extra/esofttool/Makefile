@@ -1,8 +1,8 @@
-eboxsofttool:
-	g++ -lapt-pkg -o eboxsofttool eboxsofttool.cc
+esofttool:
+	g++ -lapt-pkg -o esofttool esofttool.cc
 
 clean:
-	rm -f eboxsofttool
+	rm -f esofttool
 
-install: eboxsofttool
-	install eboxsofttool $(DESTDIR)/usr/bin 
+install: esofttool
+	install esofttool $(DESTDIR)/usr/bin 
