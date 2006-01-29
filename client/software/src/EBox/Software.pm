@@ -39,6 +39,14 @@ sub _create
 	return $self;
 }
 
+sub _getInfoEBoxPkgs {
+	return _getSoftToolResult("i");
+}
+
+sub _getUpgradablePkgs {
+	return _getSoftToolResult("u");
+}
+
 sub _getSoftToolResult {
 	my ($command) = @_;
 	open(PKGS, "/usr/bin/esofttool -$command |");
@@ -77,7 +85,7 @@ sub listEBoxPkgs
 		}
 	}
 	
-	$eboxlist =  _getSoftToolResult("i");
+	$eboxlist =  _getInfoEBoxPkgs();
 
 	store($eboxlist, $file);
 	return $eboxlist;
@@ -168,7 +176,7 @@ sub updatePkgList
 sub fetchAllPkgs
 {
 	my @pkgs;
-	@pkgs = @{_getSoftToolResult("i")};
+	@pkgs = @{_getInfoEBoxPkgs()};
 
 	my $cmd ='/usr/bin/apt-get install -qq --download-only --yes ';
 	foreach my $pkg (@pkgs) {
@@ -224,7 +232,7 @@ sub listUpgradablePkgs
 		}
 	}
 	
-	$upgrade = _getSoftToolResult("u");
+	$upgrade = _getUpgradablePkgs();
 
 	store($upgrade, $file);
 	return $upgrade;
