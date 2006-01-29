@@ -1,0 +1,13 @@
+Source: eboxsoftool
+Section: utils
+Priority: optional
+Maintainer: Isaac Clerencia <isaac@debian.org>
+Build-Depends: cdbs, debhelper (>= 4.1.0), libapt-pkg-dev
+Standards-Version: 3.6.2
+
+Package: eboxsoftool
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: ebox software tool
+ This tool is used by the ebox-software modules to gather info about
+ ebox packages and upgradable packages.
