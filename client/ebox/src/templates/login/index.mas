@@ -35,7 +35,7 @@ use EBox::Gettext;
 	</div>
 	</div>
 </center>
-<div id="footer"><% __('Created by <a href="http://www.warp.es">Warp Networks</a> in collaboration with <a href="http://www.dbs.es">DBS Servicios Informaticos</a>') %></div>
+<div id="footer"><% __("Created by <a href='http://www.warp.es'>Warp Networks</a> in collaboration with <a href='http://www.dbs.es'>DBS Servicios Informaticos</a>") %></div>
 <script src="/data/js/help.js" type=text/javascript>//</SCRIPT>
 </body>
 </html>

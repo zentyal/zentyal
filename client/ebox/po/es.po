@@ -1,26 +1,26 @@
 # translation of es.po to Español
-# translation of es.po to
-# translation of es.po to Spanish
-# Spanish Warp Team translation of ebox.
-# Copyright (C) 2005 Warp Networks S.L and DBS Servicios Informaticos S.L.
-# This file is distributed under the same license as the PACKAGE package.
 # Isaac Clerencia <isaac@sindominio.net>, 2004, 2005.
 # Jorge Arcas <jarcas@warp.es>, 2005.
 # Isaac Clerencia <isaac@warp.es>, 2005.
 # Dani Baeyens <dani@warp.es>, 2005.
 # Javier Uruen Val <juruen@warp.es>, 2005.
+# Jorge Arcas <jorge@warp.es>, 2006.
+# translation of es.po to
+# Spanish Warp Team translation of ebox.
+# Copyright (C) 2005 Warp Networks S.L and DBS Servicios Informaticos S.L.
+# This file is distributed under the same license as the PACKAGE package.
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-26 18:39+0100\n"
-"PO-Revision-Date: 2005-11-26 18:42+0100\n"
-"Last-Translator: Jorge Arcas <jarcas@warp.es>\n"
+"POT-Creation-Date: 2006-01-30 18:20+0100\n"
+"PO-Revision-Date: 2006-01-30 18:19+0100\n"
+"Last-Translator: Jorge Arcas <jorge@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.11.1\n"
 
 #: src/EBox/Summary/Status.pm:44
 msgid "Restart"
@@ -50,7 +50,7 @@ msgstr "Por razones de seguridad, su sesión ha expirado por inactividad"
 msgid "You have been logged out because a new session has been opened"
 msgstr "Su sesión ha sido cerrada porque se ha creado una nueva sesión"
 
-#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:39
+#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:38
 msgid "Logout"
 msgstr "Salir de sesión"
 
@@ -183,29 +183,28 @@ msgstr "El fichero de backup está corrupto"
 msgid "Save changes"
 msgstr "Guardar cambios"
 
-#: src/EBox/Html.pm:38
-msgid "Help"
-msgstr "Ayuda"
-
-#: src/EBox/Html.pm:90
+#: src/EBox/Html.pm:96
+#, fuzzy
 msgid ""
-"Created by <a href=\"http://www.warp.es\">Warp Networks S.L.</a> in "
-"collaboration with <a href=\"http://www.dbs.es\">DBS Servicios Informaticos "
-"S.L.</a>"
+"Created by <a href='http://www.warp.es'>Warp Networks S.L.</a> in "
+"collaboration with <a href='http://www.dbs.es'>DBS Servicios Informaticos S."
+"L.</a>"
 msgstr ""
 "Creado por <a href=\"http://www.warp.es\">Warp Networks S.L.</a> en "
 "colaboración con <a href=\"http://www.dbs.es\">DBS Servicios Informáticos S."
 "L.</a>"
 
 #: src/EBox/Apache.pm:47
-msgid "You must set the httpd_serverroot variable in the ebox configuration file"
+msgid ""
+"You must set the httpd_serverroot variable in the ebox configuration file"
 msgstr ""
 "Debe establecer la variable httpd_serverroot en el fichero de configuración "
 "de ebox"
 
 #: src/EBox/Apache.pm:57
 msgid "You must set the httpd_init variable in the ebox configuration file"
-msgstr "Debe establecer la variable httpd_init en el fichero de configuración de ebox"
+msgstr ""
+"Debe establecer la variable httpd_init en el fichero de configuración de ebox"
 
 #: src/EBox/Apache.pm:60
 msgid "The httpd_init script you configured is not executable."
@@ -260,8 +259,14 @@ msgid "Enter"
 msgstr "Entrar"
 
 #: src/templates/login/index.mas:40
-msgid "Created by "
-msgstr "Creado por "
+#, fuzzy
+msgid ""
+"Created by <a href='http://www.warp.es'>Warp Networks</a> in collaboration "
+"with <a href='http://www.dbs.es'>DBS Servicios Informaticos</a>"
+msgstr ""
+"Creado por <a href=\"http://www.warp.es\">Warp Networks S.L.</a> en "
+"colaboración con <a href=\"http://www.dbs.es\">DBS Servicios Informáticos S."
+"L.</a>"
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."
@@ -432,3 +437,5 @@ msgstr ""
 msgid "Download bug report file"
 msgstr "Descargar informe de error"
 
+#~ msgid "Created by <a href="
+#~ msgstr "Creado por <a href="

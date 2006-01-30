@@ -1,24 +1,24 @@
-# translation of es.po to Español
+# translation of software-es.po to Español
 # translation of es.po to
-# translation of es.po to Spanish
 # translation of es.po to
+#
+#
 # Guillermo Ontañón <gontanon@warp.es>, 2005.
 # Isaac Clerencia <isaac@warp.es>, 2005.
 # Jorge Arcas <jarcas@warp.es>, 2005.
-#
-#
+# Jorge Arcas <jorge@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: es\n"
+"Project-Id-Version: software-es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-11 13:07+0100\n"
-"PO-Revision-Date: 2005-11-11 13:09+0100\n"
-"Last-Translator: Jorge Arcas <jarcas@warp.es>\n"
+"POT-Creation-Date: 2006-01-30 18:04+0100\n"
+"PO-Revision-Date: 2006-01-30 18:55+0100\n"
+"Last-Translator: Jorge Arcas <jorge@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.11.1\n"
 
 #: src/EBox/CGI/InstallPkgs.pm:73
 msgid "There were no packages to update"
@@ -33,7 +33,7 @@ msgid "The packages were removed successfully"
 msgstr "Los paquetes se han eliminado correctamente"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:331
+#: src/EBox/Software.pm:343
 msgid "System updates"
 msgstr "Actualizaciones del sistema"
 
@@ -46,18 +46,18 @@ msgid "The system is up to date"
 msgstr "El sistema está al día"
 
 #: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
-msgid "Software updates configuration"
-msgstr "Configuración de las actualizaciones de software"
+msgid "Automatic software updates"
+msgstr "Actualizaciones automáticas de software"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
 msgstr "configuración de las actualizaciones automáticas"
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:329
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:341
 msgid "eBox components"
 msgstr "Componentes eBox"
 
-#: src/EBox/Software.pm:120
+#: src/EBox/Software.pm:129
 msgid ""
 "An error ocurred while installing components. If the error persists or eBox "
 "stops working properly, seek technical support."
@@ -65,7 +65,7 @@ msgstr ""
 "Se ha producido un error al instalar componentes. Si el error persiste o "
 "eBox deja de funcionar correctamente pida soporte técnico."
 
-#: src/EBox/Software.pm:142
+#: src/EBox/Software.pm:151
 msgid ""
 "An error ocurred while removing components. If the error persists or eBox "
 "stops working properly, seek technical support."
@@ -73,13 +73,73 @@ msgstr ""
 "Se ha producido un error al instalar componentes. Si el error persiste o "
 "eBox deja de funcionar correctamente pida soporte técnico."
 
-#: src/EBox/Software.pm:326
+#: src/EBox/Software.pm:338 src/EBox/PackageDescriptions.pm:14
 msgid "Software management"
 msgstr "Gestión de software"
 
-#: src/EBox/Software.pm:333
+#: src/EBox/Software.pm:345
 msgid "Configuration"
 msgstr "Configuración"
+
+#: src/EBox/PackageDescriptions.pm:1
+msgid "DHCP server"
+msgstr "Servidor DHCP"
+
+#: src/EBox/PackageDescriptions.pm:2
+msgid "DNS cache"
+msgstr "Caché DNS"
+
+#: src/EBox/PackageDescriptions.pm:3
+msgid "Base framework"
+msgstr "Sistema base"
+
+#: src/EBox/PackageDescriptions.pm:4
+msgid "Firewall"
+msgstr "Cortafuegos"
+
+#: src/EBox/PackageDescriptions.pm:5
+msgid "IPsec VPNs"
+msgstr "VPN IPSec"
+
+#: src/EBox/PackageDescriptions.pm:6
+msgid "Instant messaging (Jabber)"
+msgstr "Mensajería instantánea (Jabber)"
+
+#: src/EBox/PackageDescriptions.pm:7
+msgid "Service logs"
+msgstr "Servicio de Logs"
+
+#: src/EBox/PackageDescriptions.pm:8
+msgid "Mail server"
+msgstr "Servidor de Correo"
+
+#: src/EBox/PackageDescriptions.pm:9
+msgid "Network configuration"
+msgstr "Configuración de red"
+
+#: src/EBox/PackageDescriptions.pm:10
+msgid "NTP server"
+msgstr "Servidor NTP"
+
+#: src/EBox/PackageDescriptions.pm:11
+msgid "Object management"
+msgstr "Gestión de objetos"
+
+#: src/EBox/PackageDescriptions.pm:12
+msgid "Printer sharing"
+msgstr "Compartición de impresoras"
+
+#: src/EBox/PackageDescriptions.pm:13
+msgid "File sharing"
+msgstr "Compartición de ficheros"
+
+#: src/EBox/PackageDescriptions.pm:15
+msgid "Proxy cache and content filter"
+msgstr "Caché HTTP y filtro de contenidos"
+
+#: src/EBox/PackageDescriptions.pm:16
+msgid "User and Group management"
+msgstr "Gestión de usuarios y grupos"
 
 #: src/templates/config.mas:9
 msgid "Perform automatic security updates"
@@ -117,7 +177,7 @@ msgstr "Descripción"
 msgid "Update"
 msgstr "Actualizar"
 
-#: src/templates/updates.mas:37 src/templates/ebox.mas:82
+#: src/templates/updates.mas:37 src/templates/ebox.mas:83
 msgid "Update all packages"
 msgstr "Actualizar todos los paquetes"
 
@@ -125,7 +185,9 @@ msgstr "Actualizar todos los paquetes"
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
-msgstr "Esta operación puede tomar un tiempo, no se preocupe si eBox no responde después de presionar el botón de Actualizar."
+msgstr ""
+"Esta operación puede tomar un tiempo, no se preocupe si eBox no responde "
+"después de presionar el botón de Actualizar."
 
 #: src/templates/updates.mas:53
 msgid "Upgrade"
@@ -151,7 +213,7 @@ msgstr "Instalar"
 msgid "none"
 msgstr "ninguna"
 
-#: src/templates/ebox.mas:64
+#: src/templates/ebox.mas:62 src/templates/ebox.mas:65
 msgid "Remove"
 msgstr "Eliminar"
 

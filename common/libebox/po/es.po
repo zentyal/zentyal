@@ -1,24 +1,25 @@
-# translation of es.po to
-# translation of es.po to Spanish
-# Spanish Warp Team translation of ebox.
-# Copyright (C) 2005 Warp Networks S.L and DBS Servicios Informaticos S.L.
-# This file is distributed under the same license as the PACKAGE package.
+# translation of es.po to Español
 # Isaac Clerencia <isaac@sindominio.net>, 2004, 2005.
 # Jorge Arcas <jarcas@warp.es>, 2005.
 # Isaac Clerencia <isaac@warp.es>, 2005.
 # Dani Baeyens <dani@warp.es>, 2005.
+# Jorge Arcas <jorge@warp.es>, 2006.
+# translation of es.po to
+# Spanish Warp Team translation of ebox.
+# Copyright (C) 2005 Warp Networks S.L and DBS Servicios Informaticos S.L.
+# This file is distributed under the same license as the PACKAGE package.
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-26 18:37+0100\n"
-"PO-Revision-Date: 2005-11-11 12:46+0100\n"
-"Last-Translator: Dani Baeyens <dani@warp.es>\n"
-"Language-Team:  <es@li.org>\n"
+"POT-Creation-Date: 2006-01-30 11:06+0100\n"
+"PO-Revision-Date: 2006-01-30 18:16+0100\n"
+"Last-Translator: Jorge Arcas <jorge@warp.es>\n"
+"Language-Team: Español <ebox-devel@lists.warp.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.11.1\n"
 
 #: src/EBox/Exceptions/DataNotFound.pm:30
 #, perl-brace-format
@@ -44,7 +45,7 @@ msgstr "Dato vacío: {data}"
 msgid "The page could not be found"
 msgstr "La página no pudo encontrarse"
 
-#: src/EBox/CGI/Base.pm:166
+#: src/EBox/CGI/Base.pm:169
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
@@ -52,7 +53,7 @@ msgstr ""
 "La entrada contiene caracteres inválidos. Todos los caracteres alfanuméricos "
 "más los caracteres /.?'&+:-@ y los espacios están permitidos."
 
-#: src/EBox/CGI/Base.pm:246 src/EBox/CGI/Base.pm:321
+#: src/EBox/CGI/Base.pm:250 src/EBox/CGI/Base.pm:326
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -60,7 +61,7 @@ msgstr ""
 "Se ha producido un error interno. Probablemente se trate de un bug, puede "
 "encontrar más información en los logs."
 
-#: src/EBox/CGI/Base.pm:264
+#: src/EBox/CGI/Base.pm:268
 msgid ""
 "An unknown internal error has ocurred. This is a bug, relevant information "
 "can be found in the logs."
@@ -68,12 +69,11 @@ msgstr ""
 "Se ha producido un error interno. Se trata de un bug, puede encontrar más "
 "información en los logs."
 
-#: src/EBox/CGI/Base.pm:284
+#: src/EBox/CGI/Base.pm:288
 msgid "You have just hit a bug in eBox. Please seek technical support."
-msgstr ""
-"Acaba de encontrar un bug en eBox. Por favor, consulte a su soporte técnico."
+msgstr "Acaba de encontrar un bug en eBox. Por favor, consulte a su soporte técnico."
 
-#: src/EBox/CGI/Base.pm:330
+#: src/EBox/CGI/Base.pm:335
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -92,8 +92,7 @@ msgstr "No se pudo abrir el fichero de configuración"
 
 #: src/EBox/Config.pm.in:73
 msgid "The ebox user has not been set in the config file."
-msgstr ""
-"El usuario de ebox no ha sido establecido en el fichero de configuración."
+msgstr "El usuario de ebox no ha sido establecido en el fichero de configuración."
 
 #: src/EBox/Sudo.pm:57
 #, perl-brace-format
@@ -114,6 +113,10 @@ msgstr "El comando '{cmd}', ejecutado como {user}, falló"
 msgid "Display help notes"
 msgstr "Ver notas de ayuda"
 
+#: src/templates/title.mas:13
+msgid "show help"
+msgstr "mostrar ayuda"
+
 #: src/templates/language.mas:10
 msgid "Language selection"
 msgstr "Selección de idioma"
@@ -126,15 +129,16 @@ msgstr ""
 "Los cambios de idioma se efectúan de forma automática, no es necesario "
 "guardar la configuración"
 
-#: src/templates/language.mas:25 src/templates/enable.mas:27
-#: src/templates/enable.mas:29
+#: src/templates/language.mas:25 src/templates/enable.mas:28
+#: src/templates/enable.mas:30
 msgid "Change"
 msgstr "Cambiar"
 
-#: src/templates/enable.mas:15 src/templates/enable.mas:20
+#: src/templates/enable.mas:16 src/templates/enable.mas:21
 msgid "Disabled"
 msgstr "Deshabilitado"
 
-#: src/templates/enable.mas:17 src/templates/enable.mas:22
+#: src/templates/enable.mas:18 src/templates/enable.mas:23
 msgid "Enabled"
 msgstr "Habilitado"
+

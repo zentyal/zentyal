@@ -16,5 +16,5 @@ use EBox::Gettext;
 </div>
 % }
 <p>
-<a href='/ebox/Logout/Logout'><% __('Exit') %></a>
+<a class="big" href='/ebox/Logout/Logout'><% __('Exit') %></a>
 </p>

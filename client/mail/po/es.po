@@ -1,24 +1,26 @@
+# translation of mail-es.po to Español
 # translation of es.po to
 # Spanish translations for EBox-mail package
 # Traducciones al español para el paquete EBox-mail.
 # Copyright (C) 2005 Warp S.L.
 # This file is distributed under the same license as the EBox-mail package.
+#
 # Automatically generated, 2005.
 # Ricardo Muñoz <richi@warp.es>, 2005.
-#
+# Jorge Arcas <jorge@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: es\n"
+"Project-Id-Version: mail-es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-12-06 19:24+0100\n"
-"PO-Revision-Date: 2005-11-16 18:38+0100\n"
-"Last-Translator: Ricardo Muñoz <richi@warp.es>\n"
-"Language-Team:  <en@li.org>\n"
+"POT-Creation-Date: 2006-01-30 18:04+0100\n"
+"PO-Revision-Date: 2006-01-30 18:35+0100\n"
+"Last-Translator: Jorge Arcas <jorge@warp.es>\n"
+"Language-Team: Español <ebox-devel@lists.warp.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.11.1\n"
 
 #: src/EBox/CGI/ModifyAccountMDSize.pm:55 src/EBox/CGI/CreateAlias.pm:42
 #: src/EBox/CGI/DelAlias.pm:42 src/EBox/CGI/CreateAccount.pm:42
@@ -26,14 +28,14 @@ msgstr ""
 msgid "username"
 msgstr "nombre de usuario"
 
-#: src/EBox/CGI/SetQuota.pm:46
-msgid "Message size limit"
-msgstr "Tamaño límite de mensaje"
-
 #: src/EBox/CGI/ModifyVDomain.pm:57 src/EBox/CGI/DelVDomain.pm:72
 #: src/EBox/CGI/EditVDomain.pm:43
 msgid "vdomain"
 msgstr "dominio virtual"
+
+#: src/EBox/CGI/SetQuota.pm:46
+msgid "Message size limit"
+msgstr "Tamaño límite de mensaje"
 
 #: src/EBox/CGI/AddVDomain.pm:42
 msgid "Virtual domain name"
@@ -94,10 +96,6 @@ msgstr "estado del módulo"
 msgid "relay"
 msgstr "relay"
 
-#: src/EBox/CGI/QueueManager.pm:33 src/EBox/CGI/QueueManager.pm:43
-msgid "Queue Management"
-msgstr ""
-
 #: src/EBox/CGI/DelGroupAlias.pm:47
 msgid "group alias mail"
 msgstr "alias de correo de grupo"
@@ -106,16 +104,20 @@ msgstr "alias de correo de grupo"
 msgid "mail system status"
 msgstr "estado del sistema de correo"
 
-#: src/EBox/CGI/MQRemove.pm:42 src/EBox/CGI/MQRequeue.pm:42
-#: src/templates/qmanager.mas:15
+#: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
+#: src/templates/qmanager.mas:17
 msgid "Queue ID"
-msgstr ""
+msgstr "ID de la cola"
+
+#: src/EBox/CGI/QueueManager.pm:33 src/EBox/CGI/QueueManager.pm:43
+msgid "Queue Management"
+msgstr "Gestión de cola"
 
 #: src/EBox/MailVDomainsLdap.pm:68 src/EBox/MailVDomainsLdap.pm:74
 #: src/EBox/MailVDomainsLdap.pm:249 src/EBox/MailVDomainsLdap.pm:255
-#: src/EBox/Mail.pm:391 src/EBox/Mail.pm:397 src/EBox/MailUserLdap.pm:79
-#: src/EBox/MailUserLdap.pm:85 src/EBox/MailUserLdap.pm:392
-#: src/EBox/MailUserLdap.pm:398
+#: src/EBox/MailUserLdap.pm:79 src/EBox/MailUserLdap.pm:85
+#: src/EBox/MailUserLdap.pm:392 src/EBox/MailUserLdap.pm:398
+#: src/EBox/Mail.pm:391 src/EBox/Mail.pm:397
 msgid "maildir size"
 msgstr "tamaño del buzón de correo"
 
@@ -130,6 +132,14 @@ msgstr "cuenta de correo"
 #: src/EBox/MailAliasLdap.pm:282
 msgid "mail alias account"
 msgstr "alias de cuenta de correo"
+
+#: src/EBox/MailUserLdap.pm:227
+msgid "This group has a mail alias"
+msgstr "Este grupo tiene una cuenta alias de correo"
+
+#: src/EBox/MailUserLdap.pm:249
+msgid "This user has a mail account"
+msgstr "Este usuario tiene cuenta de correo"
 
 #: src/EBox/Mail.pm:231 src/EBox/Mail.pm:300
 msgid "port"
@@ -164,7 +174,7 @@ msgstr "Sistema de correo"
 msgid "General"
 msgstr "General"
 
-#: src/EBox/Mail.pm:874 src/templates/qmanager.mas:19
+#: src/EBox/Mail.pm:874 src/templates/qmanager.mas:21
 msgid "Date"
 msgstr "Fecha"
 
@@ -188,7 +198,7 @@ msgstr "Desde nombre de máquina"
 msgid "From host ip"
 msgstr "Desde ip de la máquina"
 
-#: src/EBox/Mail.pm:880 src/templates/qmanager.mas:17
+#: src/EBox/Mail.pm:880 src/templates/qmanager.mas:19
 msgid "Size (bytes)"
 msgstr "Tamaños (bytes)"
 
@@ -240,14 +250,6 @@ msgstr "Error de autenticación"
 msgid "Other events"
 msgstr "Otros eventos"
 
-#: src/EBox/MailUserLdap.pm:227
-msgid "This group has a mail alias"
-msgstr "Este grupo tiene una cuenta alias de correo"
-
-#: src/EBox/MailUserLdap.pm:249
-msgid "This user has a mail account"
-msgstr "Este usuario tiene cuenta de correo"
-
 #: src/templates/groupalias.mas:13
 msgid "Create alias mail account to group"
 msgstr "Crear un alias de cuenta de correo al grupo"
@@ -280,8 +282,8 @@ msgid "Mail alias"
 msgstr "Alias de cuenta de correo"
 
 #: src/templates/groupalias.mas:63 src/templates/groupalias.mas:65
-#: src/templates/warnvd.mas:31 src/templates/vdomains.mas:105
-#: src/templates/vdomains.mas:107 src/templates/alias.mas:20
+#: src/templates/warnvd.mas:31 src/templates/vdomains.mas:102
+#: src/templates/vdomains.mas:104 src/templates/alias.mas:20
 #: src/templates/alias.mas:22 src/templates/alias.mas:24
 #: src/templates/alias.mas:120 src/templates/alias.mas:122
 msgid "Delete"
@@ -391,7 +393,7 @@ msgid "Size (MB)"
 msgstr "Tamaño (MB)"
 
 #: src/templates/index.mas:134 src/templates/index.mas:178
-#: src/templates/editvdomains.mas:35 src/templates/vdomains.mas:43
+#: src/templates/editvdomains.mas:35 src/templates/vdomains.mas:26
 #: src/templates/createaccount.mas:50 src/templates/alias.mas:47
 msgid "Unlimited size"
 msgstr "Tamaño ilimitado"
@@ -491,32 +493,35 @@ msgstr "Añadir un nuevo dominio virtual"
 msgid "Domain name"
 msgstr "Nombre de dominio"
 
-#: src/templates/vdomains.mas:28 src/templates/alias.mas:32
-#, fuzzy
-msgid "Default maildir size (MB)"
-msgstr "Tamaño de buzón de correo por defecto (Mb)"
+#: src/templates/vdomains.mas:37
+msgid "Default maildir size"
+msgstr "Tamaño del buzón de correo por defecto"
 
-#: src/templates/vdomains.mas:60 src/templates/vdomains.mas:62
+#: src/templates/vdomains.mas:49
+msgid "(MB)"
+msgstr "(MB)"
+
+#: src/templates/vdomains.mas:57 src/templates/vdomains.mas:59
 msgid "Add"
 msgstr "Añadir"
 
-#: src/templates/vdomains.mas:72
+#: src/templates/vdomains.mas:69
 msgid "Virtual domains list"
 msgstr "Lista de dominios virtuales"
 
-#: src/templates/vdomains.mas:78
+#: src/templates/vdomains.mas:75
 msgid "Name"
 msgstr "Nombre"
 
-#: src/templates/vdomains.mas:82
+#: src/templates/vdomains.mas:79
 msgid "Maildir Size"
 msgstr "Tamaño de buzón de correo"
 
-#: src/templates/vdomains.mas:86 src/templates/alias.mas:82
+#: src/templates/vdomains.mas:83 src/templates/alias.mas:82
 msgid "Action"
 msgstr "Acción"
 
-#: src/templates/vdomains.mas:99 src/templates/vdomains.mas:100
+#: src/templates/vdomains.mas:96 src/templates/vdomains.mas:97
 msgid "Edit"
 msgstr "Editar"
 
@@ -552,66 +557,13 @@ msgstr "Opcional"
 msgid "Required"
 msgstr "Necesario"
 
-#: src/templates/qmanager.mas:21
-#, fuzzy
-msgid "Sender"
-msgstr "General"
-
-#: src/templates/qmanager.mas:23
-msgid "Recipients"
-msgstr ""
-
-#: src/templates/qmanager.mas:25
-#, fuzzy
-msgid "Message"
-msgstr "ID de Mensaje"
-
-#: src/templates/qmanager.mas:27
-#, fuzzy
-msgid "Operate"
-msgstr "Crear"
-
-#: src/templates/qmanager.mas:45 src/templates/qmanager.mas:47
-#, fuzzy
-msgid "Requeue"
-msgstr "Necesario"
-
-#: src/templates/qmanager.mas:52 src/templates/qmanager.mas:54
-msgid "More Info"
-msgstr ""
-
-#: src/templates/qmanager.mas:59 src/templates/qmanager.mas:61
-msgid "Remove"
-msgstr ""
-
-#: src/templates/qmanager.mas:80 src/templates/qmanager.mas:82
-msgid "first"
-msgstr ""
-
-#: src/templates/qmanager.mas:86 src/templates/qmanager.mas:88
-msgid "prev"
-msgstr ""
-
-#: src/templates/qmanager.mas:96 src/templates/qmanager.mas:99
-#, fuzzy
-msgid "Page"
-msgstr "Cambiar"
-
-#: src/templates/qmanager.mas:100
-msgid "of"
-msgstr ""
-
-#: src/templates/qmanager.mas:111 src/templates/qmanager.mas:113
-msgid "next"
-msgstr ""
-
-#: src/templates/qmanager.mas:117 src/templates/qmanager.mas:119
-msgid "last"
-msgstr ""
-
 #: src/templates/alias.mas:11
 msgid "Mail account settings"
 msgstr "Características de la cuenta de correo"
+
+#: src/templates/alias.mas:32
+msgid "Default maildir size (MB)"
+msgstr "Tamaño del buzón por defecto (Mb)"
 
 #: src/templates/alias.mas:72
 msgid "Create mail aliases"
@@ -629,8 +581,59 @@ msgstr "Características"
 msgid "External Filter"
 msgstr "Filtrado externo"
 
-#~ msgid "mdsize"
-#~ msgstr "tamaño de buzón de correo"
+#: src/templates/qmanager.mas:23
+msgid "Sender"
+msgstr "Remitente"
 
-#~ msgid "Default maildir size"
-#~ msgstr "Tamaño del buzón de correo por defecto"
+#: src/templates/qmanager.mas:25
+msgid "Recipients"
+msgstr "Destinatarios"
+
+#: src/templates/qmanager.mas:27
+msgid "Message"
+msgstr "ID del mensaje"
+
+#: src/templates/qmanager.mas:29
+msgid "Operate"
+msgstr "Ejecutar"
+
+#: src/templates/qmanager.mas:47 src/templates/qmanager.mas:49
+msgid "Requeue"
+msgstr "Reencolar"
+
+#: src/templates/qmanager.mas:54 src/templates/qmanager.mas:56
+msgid "Show Info"
+msgstr "Mostrar información"
+
+#: src/templates/qmanager.mas:61 src/templates/qmanager.mas:63
+msgid "Remove"
+msgstr "Eliminar"
+
+#: src/templates/qmanager.mas:76 src/templates/qmanager.mas:78
+msgid "Hide Info"
+msgstr "Ocultar información"
+
+#: src/templates/qmanager.mas:98 src/templates/qmanager.mas:100
+msgid "first"
+msgstr "primero"
+
+#: src/templates/qmanager.mas:104 src/templates/qmanager.mas:106
+msgid "prev"
+msgstr "anterior"
+
+#: src/templates/qmanager.mas:114 src/templates/qmanager.mas:117
+msgid "Page"
+msgstr "Página"
+
+#: src/templates/qmanager.mas:118
+msgid "of"
+msgstr "de"
+
+#: src/templates/qmanager.mas:129 src/templates/qmanager.mas:131
+msgid "next"
+msgstr "siguiente"
+
+#: src/templates/qmanager.mas:135 src/templates/qmanager.mas:137
+msgid "last"
+msgstr "última"
+

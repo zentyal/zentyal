@@ -1,31 +1,30 @@
-# translation of es.po to Español
-# translation of es.po to Spanish
+# translation of samba-es.po to Español
 # translation of es.po to
 # Spanish translations for EBox-samba package.
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
 # This file is distributed under the same license as the EBox-samba package.
+#
 # Automatically generated, 2005.
-# , 2005.
 # Isaac Clerencia <isaac@warp.es>, 2005.
 # Jorge Arcas <jarcas@warp.es>, 2005.
-#
+# Jorge Arcas <jorge@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: es\n"
+"Project-Id-Version: samba-es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-11 13:10+0100\n"
-"PO-Revision-Date: 2005-11-11 13:29+0100\n"
-"Last-Translator: Jorge Arcas <jarcas@warp.es>\n"
+"POT-Creation-Date: 2006-01-30 12:30+0100\n"
+"PO-Revision-Date: 2006-01-30 18:52+0100\n"
+"Last-Translator: Jorge Arcas <jorge@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.11.1\n"
 
 #: src/EBox/CGI/ActiveSharing.pm:44 src/EBox/CGI/ActivePrinting.pm:47
-#: src/EBox/SambaLdapUser.pm:450 src/EBox/SambaLdapUser.pm:480
-#: src/EBox/SambaLdapUser.pm:527
+#: src/EBox/SambaLdapUser.pm:459 src/EBox/SambaLdapUser.pm:489
+#: src/EBox/SambaLdapUser.pm:536
 msgid "group name"
 msgstr "nombre del grupo"
 
@@ -33,11 +32,11 @@ msgstr "nombre del grupo"
 msgid "sharing name"
 msgstr "nombre del recurso compartido"
 
-#: src/EBox/CGI/ActiveSharing.pm:65 src/EBox/CGI/ActivePrinting.pm:43
+#: src/EBox/CGI/ActiveSharing.pm:66 src/EBox/CGI/ActivePrinting.pm:43
 msgid "user name"
 msgstr "nombre de usuario"
 
-#: src/EBox/CGI/ActiveSharing.pm:68
+#: src/EBox/CGI/ActiveSharing.pm:69
 msgid "active"
 msgstr "activo"
 
@@ -45,56 +44,64 @@ msgstr "activo"
 msgid "module status"
 msgstr "estado del módulo"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:170
-#: src/EBox/Samba.pm:178
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:200
+#: src/EBox/Samba.pm:208
 msgid "File sharing"
 msgstr "Compartir ficheros"
 
-#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:307
+#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:460
 msgid "netbios"
 msgstr "netbios"
 
-#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:345
+#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:498
 msgid "working group"
 msgstr "grupo de trabajo"
 
-#: src/EBox/CGI/SambaConf.pm:44 src/EBox/Samba.pm:326
+#: src/EBox/CGI/SambaConf.pm:44
+msgid "working mode"
+msgstr "modo de trabajo"
+
+#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:479
 msgid "description"
 msgstr "descripción"
 
-#: src/EBox/CGI/SambaConf.pm:45
+#: src/EBox/CGI/SambaConf.pm:46
 msgid "user quota"
 msgstr "cuota de usuario"
 
-#: src/EBox/SambaLdapUser.pm:183
+#: src/EBox/SambaLdapUser.pm:192
 msgid "This user has a sharing directory associated which conatins data"
 msgstr "Este usuario tiene asociado un directorio compartido que contiene datos"
 
-#: src/EBox/SambaLdapUser.pm:244
+#: src/EBox/SambaLdapUser.pm:253
 msgid "This group has a sharing directory associatedwhich conatins data"
 msgstr "Este grupo tiene asociado un directorio compartido que contiene datos"
 
-#: src/EBox/SambaLdapUser.pm:489
+#: src/EBox/SambaLdapUser.pm:498
 msgid "sharing resource"
 msgstr "recurso compartido"
 
-#: src/EBox/SambaLdapUser.pm:597 src/EBox/Samba.pm:652 src/EBox/Samba.pm:682
+#: src/EBox/SambaLdapUser.pm:606 src/EBox/Samba.pm:805 src/EBox/Samba.pm:835
 msgid "group"
 msgstr "grupo"
 
-#: src/EBox/Samba.pm:235 src/EBox/Samba.pm:280
+#: src/EBox/Samba.pm:275 src/EBox/Samba.pm:320
 msgid "listening port"
 msgstr "Puerto de escucha"
 
-#: src/EBox/Samba.pm:364
+#: src/EBox/Samba.pm:358
+msgid "Domain Name"
+msgstr "Nombre del Dominio"
+
+#: src/EBox/Samba.pm:517
 msgid "quota"
 msgstr "cuota"
 
-#: src/EBox/Samba.pm:649 src/EBox/Samba.pm:668
+#: src/EBox/Samba.pm:802 src/EBox/Samba.pm:821
 msgid "user"
 msgstr "usuario"
 
-#: src/EBox/Samba.pm:655
+#: src/EBox/Samba.pm:808
 msgid "printer"
 msgstr "impresora"
 
@@ -112,8 +119,8 @@ msgstr ""
 "contiene dato, si lo elimina se perderán esos datos. Por favor confirme que "
 "desea eliminarlo"
 
-#: src/templates/delete.mas:20 src/templates/samba.mas:61
-#: src/templates/samba.mas:63
+#: src/templates/delete.mas:20 src/templates/samba.mas:93
+#: src/templates/samba.mas:95
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -122,22 +129,37 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: src/templates/samba.mas:11
-msgid "Sharing user directory"
-msgstr "Compartir directorio de usuario"
+msgid "PDC/File sharing account"
+msgstr "Cuenta de compartición de ficheros o de PDC"
 
-#: src/templates/samba.mas:17 src/templates/samba.mas:22
+#: src/templates/samba.mas:18
+msgid "User account"
+msgstr "Cuenta de usuario"
+
+#: src/templates/samba.mas:24 src/templates/samba.mas:29
 msgid "Disabled"
 msgstr "Deshabilitado"
 
-#: src/templates/samba.mas:19 src/templates/samba.mas:24
+#: src/templates/samba.mas:26 src/templates/samba.mas:31
 msgid "Enabled"
 msgstr "Habilitado"
 
-#: src/templates/samba.mas:29 src/templates/samba.mas:31
-msgid "Ok"
-msgstr "Ok"
+#: src/templates/samba.mas:39
+msgid "User has administration rights"
+msgstr "El usuario tiene privilegios de administración"
 
-#: src/templates/samba.mas:37
+#: src/templates/samba.mas:54 src/templates/samba.mas:56
+#: src/templates/samba.mas:88 src/templates/samba.mas:90
+#: src/templates/samba.mas:158 src/templates/samba.mas:160
+#: src/templates/index.mas:94 src/templates/index.mas:96
+msgid "Change"
+msgstr "Cambiar"
+
+#: src/templates/samba.mas:65
+msgid "Sharing directory for this group"
+msgstr "Directorio compartido para este grupo"
+
+#: src/templates/samba.mas:69
 msgid ""
 "You can set a share directory for this group, but you should keep in mind "
 "that Microsoft Windows 98 and Millenium will not be able to see names longer "
@@ -147,75 +169,85 @@ msgstr ""
 "tener en cuenta que en Microsoft Windows 98 y Millenium no es posible ver "
 "los nombres de más de 12 caracteres"
 
-#: src/templates/samba.mas:44
+#: src/templates/samba.mas:76
 msgid "This resource name is longer than 12 charcters."
 msgstr "El nombre del recurso compartido no puede superar 12 carácteres."
 
-#: src/templates/samba.mas:48
-msgid "Sharing name"
-msgstr "Nombre del recurso compartido"
+#: src/templates/samba.mas:80
+msgid "Directory name"
+msgstr "Nombre del directorio"
 
-#: src/templates/samba.mas:56 src/templates/samba.mas:58
-#: src/templates/samba.mas:126 src/templates/samba.mas:128
-#: src/templates/index.mas:67 src/templates/index.mas:69
-msgid "Change"
-msgstr "Cambiar"
-
-#: src/templates/samba.mas:67 src/templates/samba.mas:69
+#: src/templates/samba.mas:99 src/templates/samba.mas:101
 msgid "Add"
 msgstr "Añadir"
 
-#: src/templates/samba.mas:77
+#: src/templates/samba.mas:109
 msgid "Printers"
 msgstr "Impresoras"
 
-#: src/templates/samba.mas:79
+#: src/templates/samba.mas:111
 msgid "Select the printers this user will have access to."
 msgstr "Seleccione las impresoras a las que tendrá acceso este usuario."
 
-#: src/templates/samba.mas:90
+#: src/templates/samba.mas:122
 msgid "Printer"
 msgstr "Impresora"
 
-#: src/templates/samba.mas:92
+#: src/templates/samba.mas:124
 msgid "Allow"
 msgstr "Permitir"
 
-#: src/templates/samba.mas:113
+#: src/templates/samba.mas:145
 msgid "Allow all printers"
 msgstr "Permitir todas las impresoras"
 
-#: src/templates/index.mas:15
-msgid "File sharing service status"
-msgstr "Estado del servicio de compartición de ficheros"
+#: src/templates/index.mas:16
+msgid "PDC/File sharing service status"
+msgstr "Estado del servicio de compartición de ficheros o del PDC"
 
-#: src/templates/index.mas:19
+#: src/templates/index.mas:20
 msgid "General Settings"
 msgstr "Configuración general"
 
-#: src/templates/index.mas:22
+#: src/templates/index.mas:23
 msgid "To allow unlimited disk usage to users, just set zero as user quota limit."
 msgstr ""
 "Para permitir uso de disco ilimitado a los usuarios simplemente ponga su "
 "límite de cuota a cero."
 
-#: src/templates/index.mas:29
+#: src/templates/index.mas:30
+msgid "Working mode"
+msgstr "Modo de trabajo"
+
+#: src/templates/index.mas:36 src/templates/index.mas:41
+msgid "File server"
+msgstr "Servidor de ficheros"
+
+#: src/templates/index.mas:38 src/templates/index.mas:43
+msgid "PDC"
+msgstr "PDC"
+
+#: src/templates/index.mas:52
+msgid "Domain name"
+msgstr "Nombre del dominio"
+
+#: src/templates/index.mas:55
 msgid "Working group"
 msgstr "Grupo de trabajo"
 
-#: src/templates/index.mas:39
+#: src/templates/index.mas:66
 msgid "Netbios name"
 msgstr "Nombre de netbios"
 
-#: src/templates/index.mas:48
+#: src/templates/index.mas:75
 msgid "Description"
 msgstr "Descripción"
 
-#: src/templates/index.mas:56
+#: src/templates/index.mas:83
 msgid "Quota limit"
 msgstr "Límite de cuota"
 
-#: stubs/smb.conf.mas:44
+#: stubs/smb.conf.mas:90
 msgid "Home Directories"
 msgstr "Directorios de usuario"
 

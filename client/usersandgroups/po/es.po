@@ -1,32 +1,28 @@
-# translation of es.po to Español
-# translation of es.po to Spanish
+# translation of usersandgroups-es.po to Español
 # translation of es.po to
 # translation of es.po to
 # Spanish translations for EBox-usersandgroups package.
 # Copyright (C) 2005 Warp S.L.
 # This file is distributed under the same license as the EBox-usersandgroups package.
+#
 # Automatically generated, 2005.
-# , 2005.
-# , 2005.
-# , 2005.
-# , 2005.
 # Isaac Clerencia <isaac@warp.es>, 2005.
 # Javier Uruen Val <460821@celes.unizar.es>, 2005.
 # Jorge Arcas <jarcas@warp.es>, 2005.
-#
+# Jorge Arcas <jorge@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: es\n"
+"Project-Id-Version: usersandgroups-es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-11 12:55+0100\n"
-"PO-Revision-Date: 2005-11-11 13:01+0100\n"
-"Last-Translator: Jorge Arcas <jarcas@warp.es>\n"
+"POT-Creation-Date: 2006-01-30 12:30+0100\n"
+"PO-Revision-Date: 2006-01-30 19:00+0100\n"
+"Last-Translator: Jorge Arcas <jorge@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.11.1\n"
 
 #: src/EBox/CGI/DelUserFromGroup.pm:45 src/EBox/CGI/AddUserToGroup.pm:44
 #: src/EBox/CGI/Group.pm:45
@@ -143,19 +139,23 @@ msgstr "Este grupo contiene usuarios"
 msgid ""
 "Changes in user accounts take effect inmediately, they do not need to be "
 "saved."
-msgstr "Los cambios sobre las cuentas de usuario tienen efecto inmediato, no es necesario salvar la configuración."
+msgstr ""
+"Los cambios sobre las cuentas de usuario tienen efecto inmediato, no es "
+"necesario salvar la configuración."
 
 #: src/templates/users.mas:13 src/templates/groups.mas:13
 msgid ""
-"Changes related to printing and file sharing do need to be saved in order to "
-"be effective."
-msgstr "Los cambios relacionados con las impresoras y la compartición de ficheros no necesitan ser salvados para resultar efectivos."
+"Changes related to printing, file sharing and Jabber service do need to be "
+"saved in order to be effective."
+msgstr ""
+"Los cambios relacionados con las impresoras, la compartición de ficheros y el servicio de mensajería instantánea, no "
+"necesitan ser salvados para resultar efectivos."
 
 #: src/templates/users.mas:16
 msgid "Add User"
 msgstr "Añadir usuario"
 
-#: src/templates/users.mas:22
+#: src/templates/users.mas:22 src/templates/users.mas:99
 msgid "User name"
 msgstr "Nombre de usuario"
 
@@ -189,9 +189,21 @@ msgstr "Crear"
 msgid "Edit User"
 msgstr "Editar usuario"
 
-#: src/templates/users.mas:105 src/templates/groups.mas:69
+#: src/templates/users.mas:101 src/templates/groups.mas:65
+msgid "Actions"
+msgstr "Acciones"
+
+#: src/templates/users.mas:114 src/templates/users.mas:116
+#: src/templates/groups.mas:78 src/templates/groups.mas:80
 msgid "Edit"
 msgstr "Editar"
+
+#: src/templates/users.mas:123 src/templates/users.mas:125
+#: src/templates/users.mas:127 src/templates/group.mas:61
+#: src/templates/groups.mas:87 src/templates/groups.mas:89
+#: src/templates/groups.mas:91
+msgid "Remove"
+msgstr "Quitar"
 
 #: src/templates/del.mas:13
 msgid "Deleting user"
@@ -250,10 +262,6 @@ msgstr "Usuarios en el grupo"
 msgid "Users not in group"
 msgstr "Usuarios fuera del grupo"
 
-#: src/templates/group.mas:61
-msgid "Remove"
-msgstr "Quitar"
-
 #: src/templates/group.mas:65
 msgid "Remove users from group"
 msgstr "Eliminar usuarios del grupo"
@@ -296,7 +304,7 @@ msgstr ""
 msgid "Add Group"
 msgstr "Añadir grupo"
 
-#: src/templates/groups.mas:23
+#: src/templates/groups.mas:23 src/templates/groups.mas:63
 msgid "Group name"
 msgstr "Nombre de grupo"
 
