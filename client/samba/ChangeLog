@@ -1,3 +1,13 @@
+0.7.1
+	* Initial support for PDC
+	* GUI improvements
+	* Added update/clean actions to eobx-samba-ldap
+	* Use EBox::LDAP singleton
+	* Debian package fixes
+	* Fetch SID from configuration file
+
+0.7
+	* First public release
 0.6
 	* move to client
 	* API documented using naturaldocs
