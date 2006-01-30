@@ -1,5 +1,5 @@
-esofttool:
-	g++ -lapt-pkg -o esofttool esofttool.cc
+esofttool: esofttool.cc
+	g++ -Wall -lapt-pkg -o esofttool esofttool.cc
 
 clean:
 	rm -f esofttool

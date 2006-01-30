@@ -34,12 +34,17 @@ void init() {
 }
 
 bool _pkgIsFetched(pkgCache::PkgIterator P) {
-	if(fetched.find(P.Name()) != fetched.end()) return true;
+	if(fetched.find(P.Name()) != fetched.end()){
+		return true;
+	}
 
-	if(notfetched.find(P.Name()) != notfetched.end()) return false;
+	if(notfetched.find(P.Name()) != notfetched.end()) {
+		return false;
+	}
 
-	if(visited.find(P.Name()) != visited.end()) return true;
-	else {
+	if(visited.find(P.Name()) != visited.end()) {
+		return true;
+	} else {
 		visited.insert(visited.begin(),P.Name());
 	}
 
@@ -74,7 +79,7 @@ bool _pkgIsFetched(pkgCache::PkgIterator P) {
 		}
 	}
 	if(P.CurrentVer()) {
-		if(curver == P.CurrentVer().VerStr()) {
+		if(curver.compare(P.CurrentVer().VerStr())==0) {
 			fetched.insert(fetched.begin(),P.Name());
 			return true;
 		}
@@ -86,10 +91,12 @@ bool _pkgIsFetched(pkgCache::PkgIterator P) {
 	//Par.Filename() was used previously, but for some (I guess good)
 	//reason it was replaced by this handcrafted version
 	file << "/var/cache/apt/archives/" << P.Name() << "_" << curver << "_" << arch << ".deb";
-	//TODO: if the version has an epoch we should do a $file =~ s/:/%3a/g;
+	std::string filename = file.str();
+	std::string::size_type epoch = filename.find(":",0);
+	if(epoch != std::string::npos) filename.replace(epoch,1,"%3a");
 
 	struct stat stats;
-	if(stat(file.str().c_str(),&stats)!=0){
+	if(stat(filename.c_str(),&stats)!=0){
 		notfetched.insert(notfetched.begin(),P.Name());
 		return false;
 	}
@@ -111,11 +118,12 @@ bool _pkgIsFetched(pkgCache::PkgIterator P) {
 		bool pkgFetched = _pkgIsFetched(d.TargetPkg());
 		if(pkgFetched) {
 			if(isOr) {
+				skip = true;
 				continue;
-			} else {
+			}
+		} else {
 				notfetched.insert(notfetched.begin(),P.Name());
 				return false;
-			}
 		}
 	}
 	fetched.insert(fetched.begin(),P.Name());
@@ -124,7 +132,7 @@ bool _pkgIsFetched(pkgCache::PkgIterator P) {
 
 bool pkgIsFetched(pkgCache::PkgIterator P) {
 	visited.clear();
-	_pkgIsFetched(P);
+	return _pkgIsFetched(P);
 }
 
 void listEBoxPkgs() {
@@ -220,8 +228,12 @@ void listUpgradablePkgs() {
 		}
 		std::stringstream file;
 		file << "/var/cache/apt/archives/" << P.Name() << "_" << curver << "_" << arch << ".deb";
+
+		std::string filename = file.str();
+		std::string::size_type epoch = filename.find(":",0);
+		if(epoch != std::string::npos) filename.replace(epoch,1,"%3a");
 		struct stat stats;
-		if(stat(file.str().c_str(),&stats)!=0){
+		if(stat(filename.c_str(),&stats)!=0){
 			continue;
 		}
 		//TODO: check md5
