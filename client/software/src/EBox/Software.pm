@@ -51,6 +51,7 @@ sub _getSoftToolResult {
 	my ($command) = @_;
 	open(PKGS, "/usr/bin/esofttool -$command |");
 	my $data = join("",<PKGS>);
+	close(PKGS);
 	return eval($data);
 }
 
