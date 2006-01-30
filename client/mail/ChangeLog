@@ -1,2 +1,7 @@
+0.7.1
+	* GUI improvements
+	* Added queue managment support
+	* Use EBox::LDAP singleton
+	* Added update/clean actions to eobx-mail-ldap
 0.7
-	* Initial release
+	* First public release 
