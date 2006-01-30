@@ -1,0 +1,10 @@
+0.7.1
+	* Fix errors on make install
+	* Jabber add-on template is not shown when disabled (#16)
+	* Fix i18n 
+	* Fix a bug which prevented jabber to be restarted properly
+	* Use EBox::LDAP singleton
+	* Fix issue with external connections (#31)
+
+0.7
+	* First public release
