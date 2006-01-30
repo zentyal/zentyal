@@ -130,7 +130,7 @@ bool pkgIsFetched(pkgCache::PkgIterator P) {
 void listEBoxPkgs() {
 	init();
 
-	std::cout << "$result = [" << std::endl;
+	std::cout << "my $result = [" << std::endl;
 	for (pkgCache::PkgIterator P = Cache->PkgBegin(); P.end() == false; P++){
 		std::string name;
 		bool removable;
@@ -191,7 +191,7 @@ void listEBoxPkgs() {
 void listUpgradablePkgs() {
 	init();
 
-	std::cout << "$result = [" << std::endl;
+	std::cout << "my $result = [" << std::endl;
 
 	for (pkgCache::PkgIterator P = Cache->PkgBegin(); P.end() == false; P++){
 		if((!strncmp(P.Name(),"ebox",4)) || (!strncmp(P.Name(),"kernel-image",12)) || (!strncmp(P.Name(),"linux-image",11))) {
