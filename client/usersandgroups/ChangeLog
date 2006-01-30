@@ -1,3 +1,11 @@
+0.7.1
+	+ Add delObjectclass (useful for ldap clean actions)
+	+ Detect and recover when ldap connection is broken (#25)
+	+ Make EBox::Ldap a singleton class
+	+ Initial factoring
+0.7
+	+ New public release
+	
 0.6
 	+ Move to client
 	+ API documented using naturaldocs
