@@ -46,7 +46,6 @@ sub _process($) {
 	$self->_requireParam('userquota', __('user quota'));
 
 	$samba->setPdc($self->param('mode') eq 'pdc');
-	$samba->setDomainName($self->param('domain'));
 	$samba->setWorkgroup($self->param('workgroup'));
 	$samba->setNetbios($self->param('netbios'));
 	$samba->setDefaultUserQuota($self->param('userquota'));
