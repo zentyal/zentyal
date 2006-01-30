@@ -154,6 +154,7 @@ void listEBoxPkgs() {
 			if(P.CurrentVer()) {
 				curver = P.CurrentVer().VerStr();
 				version = curver;
+				std::cout << "'version' => '" << curver << "'," << std::endl;
 			}
 			pkgCache::VerIterator curverObject;
 			for (pkgCache::VerIterator v = P.VersionList(); v.end() == false; v++) {
@@ -178,6 +179,7 @@ void listEBoxPkgs() {
 					available = version;
 				}
 			}
+			std::cout << "'avail' => '" << available << "'," << std::endl;
 			pkgRecords::Parser &P = Recs->Lookup(curverObject.FileList());
 			description = P.ShortDesc();
 			std::cout << "'description' => '" << description << "'" << std::endl;
