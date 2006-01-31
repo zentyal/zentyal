@@ -997,11 +997,7 @@ sub logHelper
 {
 	my $self = shift;
 
-	if ($self->service()) {
-		return (new EBox::DHCPLogHelper);
-	} else {
-		return undef;
-	}
+	return (new EBox::DHCPLogHelper);
 }
 
 1;
