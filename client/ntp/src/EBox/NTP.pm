@@ -55,6 +55,10 @@ sub isRunning
 	return EBox::Service::running('ntpd');
 }
 
+sub domain
+{
+	return 'ebox-ntp';
+}
 
 sub _doDaemon
 {
