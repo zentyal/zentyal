@@ -11,6 +11,8 @@
 use EBox::Gettext;
 </%init>
 
+% if (@{$mqlist}) { 
+
 <table class='dataTable' cellspacing='0'>
 	<thead>
 		<tr>
@@ -116,3 +118,10 @@ use EBox::Gettext;
 	</tr>
 </table>
 </form>
+
+% } else {
+<div class='note'>
+	<% __('There is not any message at the queue or the service is stopped') %>
+</div>
+% }
+
