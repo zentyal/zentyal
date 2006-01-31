@@ -7,26 +7,27 @@ use EBox::Gettext;
 </%init>
 
 <h3><% __('Configure allowed extensions') %></h3>
-<div class='note'>
+<p>
 	<% __('When the filter content is enabled you can select those file extensions which are allowed to download') %>
-</div>
-<form action='Extensions' method='POST'>
+</p>
+
+<form id='extensions' action='Extensions' method='POST'>
 	<table class='dataTable'>
 	<thead>
 		<tr>
-			<th>
+			<th width=85%" class="tleft">
 				<% __('Extension') %>
 			</th>
-			<th>
+			<th class="thOptionsFwd">
 				<% __('State') %>
 			</th>
 		</tr>
 	</thead>
 	<tbody>
 %       foreach my $extension (sort keys %extensions) {
-		<tr>
+		<tr class="border">
 			<td><% $extension %></td>
-			<td>
+			<td class="tcenter">
 %				my $checked = "";
 %				my $val = 0;
 %				if($extensions{$extension}) {
@@ -37,8 +38,17 @@ use EBox::Gettext;
 			<input type='checkbox' onclick="updateCheckbox(this,'bool-<% $extension %>')" <% $checked %> />
 			</td>
 		</tr>
-
 %		}
+		<tr class="trimp">
+			<td>
+				<strong><% __("Allow all extensions") %></strong>
+			</td>
+			<td class='tcenter'>
+				<input type='checkbox' value='on'
+					onclick='checkAll("extensions");'
+					name='allbox'/>
+			</td>
+		</tr>
 
 </tbody>
 </table>
