@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: samba-es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-01-30 12:30+0100\n"
-"PO-Revision-Date: 2006-01-30 18:52+0100\n"
+"POT-Creation-Date: 2006-01-31 17:56+0100\n"
+"PO-Revision-Date: 2006-01-31 18:00+0100\n"
 "Last-Translator: Jorge Arcas <jorge@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
 "MIME-Version: 1.0\n"
@@ -145,8 +145,8 @@ msgid "Enabled"
 msgstr "Habilitado"
 
 #: src/templates/samba.mas:39
-msgid "User has administration rights"
-msgstr "El usuario tiene privilegios de administración"
+msgid "Administration rights"
+msgstr "Privilegios de administrador"
 
 #: src/templates/samba.mas:54 src/templates/samba.mas:56
 #: src/templates/samba.mas:88 src/templates/samba.mas:90

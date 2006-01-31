@@ -11,7 +11,7 @@
 	<form action='/ebox/Jabber/JabberUserOptions' method='post'>
 	    <input type="hidden" name="username" value="<% $params->{'username'} %>">
 	<tr>
-	<td class="tright">
+	<td class="tright" width="170px">
 		<% __('User account') %>:
 	</td>
 	<td>
@@ -28,7 +28,7 @@
 	</tr>
 	<tr>
 		<td class='tright'>
-			<span class='ftitle'><% __('User has administration rights') %>:</span>
+			<span class='ftitle'><% __('Administration rights') %>:</span>
 		</td>
 		<td>
 			<input type='checkbox' name='is_admin' id='external' value='yes'

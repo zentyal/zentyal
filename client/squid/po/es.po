@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: squid-es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-01-30 18:05+0100\n"
-"PO-Revision-Date: 2006-01-30 18:59+0100\n"
+"POT-Creation-Date: 2006-01-31 17:56+0100\n"
+"PO-Revision-Date: 2006-01-31 18:01+0100\n"
 "Last-Translator: Jorge Arcas <jorge@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
 "MIME-Version: 1.0\n"
@@ -213,17 +213,23 @@ msgstr "Configurar extensiones permitidas"
 msgid ""
 "When the filter content is enabled you can select those file extensions "
 "which are allowed to download"
-msgstr "Seleccione las extensiones de fichero para permitir su descarga. Cuando el filtro de contenidos este deshabilitado todas podrán ser descargadas"
+msgstr ""
+"Seleccione las extensiones de fichero para permitir su descarga. Cuando el "
+"filtro de contenidos este deshabilitado todas podrán ser descargadas"
 
-#: src/templates/extensions.mas:20
+#: src/templates/extensions.mas:21
 msgid "Extension"
 msgstr "Extensión"
 
-#: src/templates/extensions.mas:24
+#: src/templates/extensions.mas:25
 msgid "State"
 msgstr "Estado"
 
-#: src/templates/extensions.mas:50 src/templates/extensions.mas:52
+#: src/templates/extensions.mas:48
+msgid "Allow all extensions"
+msgstr "Permitir todas las extensiones"
+
+#: src/templates/extensions.mas:61 src/templates/extensions.mas:63
 #: src/templates/index.mas:155 src/templates/index.mas:156
 msgid "Change"
 msgstr "Cambiar"

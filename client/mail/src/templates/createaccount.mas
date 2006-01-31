@@ -14,7 +14,7 @@ settextdomain('ebox-mail');
 	<h3><% __('Create mail account') %></h3>
 	<table class="formTable">
 	<tr>
-		<td class="tright"><% __('Account name') %>:</td>
+		<td class="tright" width="170px"><% __('Account name') %>:</td>
 		<td><input type='text' class='inputText' name='lhs'></td>
 	</tr>
 	<tr>
@@ -29,17 +29,18 @@ settextdomain('ebox-mail');
 		</td>
 	</tr>
 	<tr>
-	<td class='tright'><% __('Maildir size (MB)') %>:</td>
+	<td class='tright'><% __('Maildir size') %>:</td>
 	<td><input type='text' class='inputText' name='mdsize'
 				id='mdsize'
 				size="15"
-%				if($params->{'mdsize'} eq 0) {
+%		if($params->{'mdsize'} eq 0) {
 			disabled
 			value=""
-%				} else {
+%		} else {
 			enabled
-			value='<% $params->{'mdsize'} %>'>
-%				}
+			value='<% $params->{'mdsize'} %>'
+%		}
+		/> (Mb)
 	</td>
 	</tr>
 	<tr>
