@@ -1144,11 +1144,7 @@ sub logHelper
 {
 	my $self = shift;
 
-	if ($self->service()) {
-	        return (new EBox::SquidLogHelper);
-	} else {
-		return undef;
-	}
+        return (new EBox::SquidLogHelper);
 }
 
 1;
