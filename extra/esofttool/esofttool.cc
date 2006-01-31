@@ -15,6 +15,7 @@
 pkgCache *Cache;
 pkgRecords *Recs;
 pkgSourceList *SrcList = 0;
+pkgPolicy *Plcy;
 
 struct ltstr
 {
@@ -41,6 +42,7 @@ void init() {
 	pkgMakeStatusCache(*SrcList,Prog,&Map,true);
 
 	Cache = new pkgCache(Map);
+	Plcy = new pkgPolicy(Cache);
 	Recs = new pkgRecords(*Cache);
 }
 
@@ -78,17 +80,14 @@ bool _pkgIsFetched(pkgCache::PkgIterator P) {
 		curver = P.CurrentVer().VerStr();
 		curverObject = P.CurrentVer();
 	}
-	for(pkgCache::VerIterator v = P.VersionList(); v.end() == false; v++) {
-		if(!curver.empty()) {
-			curver = v.VerStr();
-			arch = v.Arch();
-			curverObject = v;
-		} else if(Cache->VS->CmpVersion(curver,v.VerStr()) < 0){
-			curver = v.VerStr();
-			arch = v.Arch();
-			curverObject = v;
-		}
+
+	pkgCache::VerIterator v = Plcy->GetCandidateVer(P);
+	if (v.end() != true) {
+		curver = v.VerStr();
+		arch = v.Arch();
+		curverObject = v;
 	}
+
 	if(P.CurrentVer()) {
 		if(curver.compare(P.CurrentVer().VerStr())==0) {
 			fetched.insert(fetched.begin(),P.Name());
@@ -175,15 +174,9 @@ void listEBoxPkgs() {
 				version = curver;
 				std::cout << "'version' => '" << curver << "'," << std::endl;
 			}
-			pkgCache::VerIterator curverObject;
-			for (pkgCache::VerIterator v = P.VersionList(); v.end() == false; v++) {
-				if(!curver.empty()) {
-					curver = v.VerStr();
-					curverObject = v;
-				} else if(Cache->VS->CmpVersion(curver,v.VerStr()) < 0){
-					curver = v.VerStr();
-					curverObject = v;
-				}
+			pkgCache::VerIterator curverObject = Plcy->GetCandidateVer(P);
+			if (curverObject.end() != true) {
+				curver = curverObject.VerStr();
 			}
 			std::cout << "'depends' => [" << std::endl;
 			for (pkgCache::DepIterator d = curverObject.DependsList(); d.end() == false; d++) {
