@@ -913,11 +913,7 @@ sub logHelper
 {
 	my $self = shift;
 
-	if ($self->service()) {
-		return (new EBox::MailLogHelper);
-	} else {
-		return undef;
-	}
+	return (new EBox::MailLogHelper);
 }
 
 1;
