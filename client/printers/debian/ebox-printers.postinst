@@ -21,6 +21,9 @@ case "$1" in
 		# don't start squid with its script
 		update-rc.d -f cupsys remove
 		
+		# stop cups
+		invoke-rc.d cupsys stop
+		
                 #sudo configuration
                 tmp=`tempfile`
 		ebox-sudoers > $tmp
