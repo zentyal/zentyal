@@ -1199,11 +1199,7 @@ sub logHelper
 {
 	my $self = shift;
 	
-	if ($self->service()) {
-		return (new EBox::PrinterLogHelper);
-	} else {
-		return undef;
-	}
+	return (new EBox::PrinterLogHelper);
 }
 
 # Helper functions
