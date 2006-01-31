@@ -27,7 +27,7 @@ use EBox::Gettext;
 
 sub new {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Groups'),
+	my $self = $class->SUPER::new(
 				     'template' => '/usersandgroups/groups.mas',
 				      @_);
 	$self->{domain} = 'ebox-usersandgroups';
@@ -39,7 +39,9 @@ sub new {
 sub _process($) {
 	my $self = shift;
 	my $usersandgroups = EBox::Global->modInstance('users');
-
+	
+	$self->{'title'} = __('Groups');
+	
 	my @args = ();
 
 	my @groups = $usersandgroups->groups();

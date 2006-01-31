@@ -27,8 +27,7 @@ use EBox::Gettext;
 
 sub new {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Edit user'),
-				      'template' => '/usersandgroups/user.mas',
+	my $self = $class->SUPER::new('template' => '/usersandgroups/user.mas',
 				      @_);
 	$self->{domain} = 'ebox-usersandgroups';
 	bless($self, $class);
@@ -39,7 +38,9 @@ sub new {
 sub _process($) {
 	my $self = shift;
 	my $usersandgroups = EBox::Global->modInstance('users');
-
+	
+	$self->{'title'} = __('Users');
+	
 	my @args = ();
 
 	$self->_requireParam("username", __('username'));
