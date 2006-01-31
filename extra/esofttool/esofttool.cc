@@ -148,16 +148,16 @@ void listEBoxPkgs() {
 		std::string description;
 
 		if(!strncmp(P.Name(),"ebox",4)) {
-			std::cout << "{";
 			name = P.Name();
 			removable = !((name == "ebox") || (name=="ebox-software"));
+			if(P.VersionList() == 0) continue;
+			std::cout << "{";
 			std::cout << "'name' => '" << name << "'," << std::endl;
 			if(removable) {
 				std::cout << "'removable' => " << 1 << "," << std::endl;
 			} else {
 				std::cout << "'removable' => " << 0 << "," << std::endl;
 			}
-			if(P.VersionList() == 0) continue;
 			std::string curver;
 			if(P.CurrentVer()) {
 				curver = P.CurrentVer().VerStr();
