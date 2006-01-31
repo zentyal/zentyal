@@ -1,4 +1,4 @@
-# translation of usersandgroups-es.po to Español
+# translation of es.po to Español
 # translation of es.po to
 # translation of es.po to
 # Spanish translations for EBox-usersandgroups package.
@@ -12,10 +12,10 @@
 # Jorge Arcas <jorge@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: usersandgroups-es\n"
+"Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-01-30 12:30+0100\n"
-"PO-Revision-Date: 2006-01-30 19:00+0100\n"
+"POT-Creation-Date: 2006-01-31 18:27+0100\n"
+"PO-Revision-Date: 2006-01-31 18:27+0100\n"
 "Last-Translator: Jorge Arcas <jorge@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
 "MIME-Version: 1.0\n"
@@ -95,21 +95,18 @@ msgstr "reescriba contraseña"
 msgid "Edit group"
 msgstr "Editar grupo"
 
-#: src/EBox/CGI/User.pm:30
-msgid "Edit user"
-msgstr "Editar usuario"
+#: src/EBox/CGI/User.pm:42 src/EBox/CGI/Users.pm:31
+#: src/EBox/UsersAndGroups.pm:1377
+msgid "Users"
+msgstr "Usuarios"
 
-#: src/EBox/CGI/User.pm:45
+#: src/EBox/CGI/User.pm:46
 msgid "username"
 msgstr "nombre de usuario"
 
-#: src/EBox/CGI/Groups.pm:30 src/EBox/UsersAndGroups.pm:1379
+#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1379
 msgid "Groups"
 msgstr "Grupos"
-
-#: src/EBox/CGI/Users.pm:31 src/EBox/UsersAndGroups.pm:1377
-msgid "Users"
-msgstr "Usuarios"
 
 #: src/EBox/UsersAndGroups.pm:260
 msgid "Username must not be longer than "
@@ -148,8 +145,9 @@ msgid ""
 "Changes related to printing, file sharing and Jabber service do need to be "
 "saved in order to be effective."
 msgstr ""
-"Los cambios relacionados con las impresoras, la compartición de ficheros y el servicio de mensajería instantánea, no "
-"necesitan ser salvados para resultar efectivos."
+"Los cambios relacionados con las impresoras, la compartición de ficheros y "
+"el servicio de mensajería instantánea, no necesitan ser salvados para "
+"resultar efectivos."
 
 #: src/templates/users.mas:16
 msgid "Add User"
@@ -199,7 +197,7 @@ msgid "Edit"
 msgstr "Editar"
 
 #: src/templates/users.mas:123 src/templates/users.mas:125
-#: src/templates/users.mas:127 src/templates/group.mas:61
+#: src/templates/users.mas:127 src/templates/group.mas:66
 #: src/templates/groups.mas:87 src/templates/groups.mas:89
 #: src/templates/groups.mas:91
 msgid "Remove"
@@ -262,20 +260,24 @@ msgstr "Usuarios en el grupo"
 msgid "Users not in group"
 msgstr "Usuarios fuera del grupo"
 
-#: src/templates/group.mas:65
+#: src/templates/group.mas:57 src/templates/group.mas:97
+msgid "Empty list"
+msgstr "Lista vacía"
+
+#: src/templates/group.mas:70
 msgid "Remove users from group"
 msgstr "Eliminar usuarios del grupo"
 
-#: src/templates/group.mas:74 src/templates/group.mas:78
+#: src/templates/group.mas:79 src/templates/group.mas:83
 msgid "Add users to group"
 msgstr "Añadir usuarios al grupo"
 
-#: src/templates/group.mas:103 src/templates/group.mas:113
-#: src/templates/group.mas:115
+#: src/templates/group.mas:113 src/templates/group.mas:123
+#: src/templates/group.mas:125
 msgid "Delete group"
 msgstr "Eliminar grupo"
 
-#: src/templates/group.mas:106
+#: src/templates/group.mas:116
 msgid ""
 "If you remove this group all its data within its shared directory will be "
 "deleted"

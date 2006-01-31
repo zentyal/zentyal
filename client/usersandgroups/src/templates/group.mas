@@ -29,14 +29,14 @@ use EBox::Gettext;
 <table>
 <thead>
 	<tr>
-		<th><% __("Users in group") %></th>
+		<th class="tleft"><% __("Users in group") %></th>
 		<th></th>
-		<th><% __("Users not in group") %></th>
+		<th class="tleft"><% __("Users not in group") %></th>
 	</tr>
 </thead>
 <tbody>
 <tr>
-	<td>
+	<td rowspan="2">
     <form action='DelUserFromGroup' method='post'>
         <select name='deluser' size='8' multiple>
 %   if(@groupusers) {
@@ -45,7 +45,11 @@ use EBox::Gettext;
                     <% $user %>
                 </option>
 %           }
-%   }
+%   } else {
+                <option value="" disabled>
+					<% __('Empty list') %>
+                </option>
+%	}
         </select>
 	</td>
 
@@ -76,7 +80,11 @@ use EBox::Gettext;
                     <% $user %>
                 </option>
 %           }
-%   	}
+%   	} else {
+                <option value="" disabled>
+					<% __('Empty list') %>
+                </option>
+%		}
         </select>
 		<input type="hidden" name="group" value="<% $groupinfo->{'groupname'} %>">
     </form>
