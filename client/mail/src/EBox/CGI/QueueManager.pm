@@ -40,33 +40,40 @@ sub new {
 
 sub _process($) {
 	my $self = shift;
+	
+	my @showlist;
+	my $page;
+	my $tpages;
+	my @data;
+	my $info;
+	
 	$self->{title} = __('Queue Management');
 	my $mail = EBox::Global->modInstance('mail');
 
 	my @array = ();
+	if ($mail->isRunning('active')) {
 
-	my @mqlist = @{mailQueueList()};
+		my @mqlist = @{mailQueueList()};
+		$page = 1;
 
-	my $page = 1;
-
-	my $info = $self->param('getinfo');
-	unless ($self->param('getinfo')) {
-		$info = 'none';
+		$info = $self->param('getinfo');
+		unless ($self->param('getinfo')) {
+			$info = 'none';
+		}
+		@data = ('');
+		if ($info ne 'none') {
+			@data = @{infoMail($info)};
+		}
+		
+		my $aux = ($page - 1) * PAGESIZE;
+		if (($aux + PAGESIZE - 1) >= (scalar(@mqlist) - 1)) {
+			@showlist = @mqlist[$aux..(scalar(@mqlist) - 1)];
+		} else {
+			@showlist = @mqlist[$aux..($aux + PAGESIZE - 1)];
+		}
+		
+		$tpages = ceil(scalar(@mqlist) / PAGESIZE);
 	}
-	my @data = ('');
-	if ($info ne 'none') {
-		@data = @{infoMail($info)};
-	}
-	
-	my $aux = ($page - 1) * PAGESIZE;
-	my @showlist;
-	if (($aux + PAGESIZE - 1) >= (scalar(@mqlist) - 1)) {
-		@showlist = @mqlist[$aux..(scalar(@mqlist) - 1)];
-	} else {
-		@showlist = @mqlist[$aux..($aux + PAGESIZE - 1)];
-	}
-	
-	my $tpages = ceil(scalar(@mqlist) / PAGESIZE);
 	
 	push(@array, 'mqlist'	=> \@showlist);
 	push(@array, 'page'	=> $page);
@@ -74,7 +81,7 @@ sub _process($) {
 	push(@array, 'getinfo'	=> $info);
 	push(@array, 'data'	=> \@data);
 
+
 	$self->{params} = \@array;
 }
-
 1;
