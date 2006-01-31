@@ -2,15 +2,19 @@
 #include <sstream>
 #include <set>
 #include <sys/stat.h>
+#include <apt-pkg/configuration.h>
 #include <apt-pkg/init.h>
 #include <apt-pkg/pkgcache.h>
+#include <apt-pkg/pkgcachegen.h>
 #include <apt-pkg/pkgsystem.h>
 #include <apt-pkg/pkgrecords.h>
-#include <apt-pkg/configuration.h>
+#include <apt-pkg/policy.h>
+#include <apt-pkg/sourcelist.h>
 #include <apt-pkg/version.h>
 
 pkgCache *Cache;
 pkgRecords *Recs;
+pkgSourceList *SrcList = 0;
 
 struct ltstr
 {
@@ -27,8 +31,15 @@ void init() {
 	pkgInitConfig(*_config);
 	pkgInitSystem(*_config,_system);
 	MMap *Map;
-	Map = new MMap(*new FileFd(_config->FindFile("Dir::Cache::pkgcache"),
-		FileFd::ReadOnly),MMap::Public|MMap::ReadOnly);
+
+	// Open the cache file
+	SrcList = new pkgSourceList;
+	SrcList->ReadMainList();
+
+	// Generate it and map it
+	OpProgress Prog;
+	pkgMakeStatusCache(*SrcList,Prog,&Map,true);
+
 	Cache = new pkgCache(Map);
 	Recs = new pkgRecords(*Cache);
 }
