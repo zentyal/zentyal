@@ -11,9 +11,9 @@ create_db()
 	su postgres -c 'psql -Alt' | grep -q '^$db_name|' && db_exists=1 || db_exists=0
 	if [ $db_exists -eq 0 ]; then
 		echo "Creating the $db_name database"
-		su postgres -c "createdb $db_name"
-		su postgres -c "createuser -A -D $db_user"
-		su  postgres -c "psql -d template1 -c \"ALTER USER $db_user WITH PASSWORD \"\"'\"$db_pass\"'\" " || (echo "Cannot set password for database user $db_user" && exit 1)
+		su postgres -c "createdb $db_name" > /dev/null 2>&1
+		su postgres -c "createuser -A -D $db_user" > /dev/null 2>&1
+		su  postgres -c "psql -d template1 -c \"ALTER USER $db_user WITH PASSWORD \"\"'\"$db_pass\"'\" " > /dev/null 2>&1 || (echo "Cannot set password for database user $db_user" && exit 1)
 
 	cat <<EOF > /etc/postgresql/pg_hba.conf
 # TYPE  DATABASE    USER        IP-ADDRESS        IP-MASK           METHOD
