@@ -5,6 +5,7 @@
 </%args>
 <%init>
 use EBox::Gettext;
+my $domain = settextdomain('libebox');
 </%init>
 % if (length($title)) {
 <div id='titlehelp'>
@@ -12,3 +13,5 @@ use EBox::Gettext;
 	<div id='helpbutton'><a href="#" onclick="switchHelp(); return false; " title="<% __('Display help notes') %>">(<% __("show help")%>)</a></div>
 </div>
 % }
+
+% settextdomain($domain);
