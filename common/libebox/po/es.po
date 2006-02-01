@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-01-30 11:06+0100\n"
-"PO-Revision-Date: 2006-01-30 18:16+0100\n"
+"POT-Creation-Date: 2006-02-01 13:49+0100\n"
+"PO-Revision-Date: 2006-02-01 13:50+0100\n"
 "Last-Translator: Jorge Arcas <jorge@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
 "MIME-Version: 1.0\n"
@@ -129,16 +129,20 @@ msgstr ""
 "Los cambios de idioma se efectúan de forma automática, no es necesario "
 "guardar la configuración"
 
-#: src/templates/language.mas:25 src/templates/enable.mas:28
-#: src/templates/enable.mas:30
+#: src/templates/language.mas:25 src/templates/enable.mas:29
+#: src/templates/enable.mas:31
 msgid "Change"
 msgstr "Cambiar"
 
-#: src/templates/enable.mas:16 src/templates/enable.mas:21
+#: src/templates/enable.mas:13
+msgid "Service configuration"
+msgstr "Configuración del servicio"
+
+#: src/templates/enable.mas:17 src/templates/enable.mas:22
 msgid "Disabled"
 msgstr "Deshabilitado"
 
-#: src/templates/enable.mas:18 src/templates/enable.mas:23
+#: src/templates/enable.mas:19 src/templates/enable.mas:24
 msgid "Enabled"
 msgstr "Habilitado"
 

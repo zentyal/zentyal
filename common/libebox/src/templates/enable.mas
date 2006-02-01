@@ -10,7 +10,7 @@ my $domain = settextdomain('libebox');
 </%init>
 	<form action='Enable' method='POST'>
 	<div id="enable">
-		<span class="bold">Service configuration: </span>
+		<span class="bold"><% __("Service configuration") %>: </span>
 		<select name="active" enabled>
 %  if($active eq 'yes') {
 			<option value='no' ><% __('Disabled') %></option>
