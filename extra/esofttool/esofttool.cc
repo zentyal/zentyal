@@ -95,8 +95,8 @@ bool _pkgIsFetched(pkgCache::PkgIterator P) {
 			return true;
 		}
 	}
-
 	//package not installed or upgrade available
+	
 	std::stringstream file;
 	pkgRecords::Parser &Par = Recs->Lookup(curverObject.FileList());
 	//Par.Filename() was used previously, but for some (I guess good)
@@ -169,42 +169,37 @@ void listEBoxPkgs() {
 			name = P.Name();
 			removable = !((name == "ebox") || (name=="ebox-software"));
 			if(P.VersionList() == 0) continue;
-			std::string curver;
-			if(P.CurrentVer()) {
-				curver = P.CurrentVer().VerStr();
-				version = curver;
-			}
-			pkgCache::VerIterator curverObject = Plcy->GetCandidateVer(P);
-			if (curverObject.end() != true) {
-				curver = curverObject.VerStr();
-			}
-
-			if(pkgIsFetched(P)){
-				available = curver;
-			}else{
-				if(!version.empty()){
-					available = version;
-				} else {
-					continue;
-				}
-			}
 			std::cout << "{";
 			std::cout << "'name' => '" << name << "'," << std::endl;
-			if(!version.empty()) {
-				std::cout << "'version' => '" << version << "'," << std::endl;
-			}
 			if(removable) {
 				std::cout << "'removable' => " << 1 << "," << std::endl;
 			} else {
 				std::cout << "'removable' => " << 0 << "," << std::endl;
 			}
-			std::cout << "'avail' => '" << available << "'," << std::endl;
+			std::string curver;
+			if(P.CurrentVer()) {
+				curver = P.CurrentVer().VerStr();
+				version = curver;
+				std::cout << "'version' => '" << curver << "'," << std::endl;
+			}
+			pkgCache::VerIterator curverObject = Plcy->GetCandidateVer(P);
+			if (curverObject.end() != true) {
+				curver = curverObject.VerStr();
+			}
 			std::cout << "'depends' => [" << std::endl;
 			for (pkgCache::DepIterator d = curverObject.DependsList(); d.end() == false; d++) {
 				depends.insert(depends.begin(),d.TargetPkg().Name());
 				std::cout << "\t'" << d.TargetPkg().Name()  << "'," << std::endl;
 			}
 			std::cout << "]," << std::endl;
+			if(pkgIsFetched(P)){
+				available = curver;
+			}else{
+				if(!version.empty()){
+					available = version;
+				}
+			}
+			std::cout << "'avail' => '" << available << "'," << std::endl;
 			pkgRecords::Parser &P = Recs->Lookup(curverObject.FileList());
 			description = P.ShortDesc();
 			std::cout << "'description' => '" << description << "'" << std::endl;
