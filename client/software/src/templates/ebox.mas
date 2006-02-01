@@ -39,7 +39,7 @@ my $upgpkgs = 0;
 			<input type='hidden' value='yes' 
 					name="pkg-<%$pkg->{name}%>"/>
 			<td class='tcenter'>
-% 		if ($eboxupg ne 'no') {
+% 		if ($eboxupg ne 'no' and $pkg->{avail} ne '') {
 				<input type='image' name='ebox-install' 
 						class='inputButton'
 						src='/data/images/install.gif'
