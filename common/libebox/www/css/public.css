@@ -24,11 +24,11 @@
 #hmenu a {
 	display: block;
 	float:left;
-    	color: #fff;
-    	font-size: 11px;
+   	color: #fff;
+   	font-size: 11px;
 	line-height: 16px;
 	padding: 25px 15px 5px 15px;
-    	text-decoration: none;
+   	text-decoration: none;
 	background: #ececec;
 }
 
@@ -361,8 +361,19 @@ h4 {
 }
 
 a {
-	color: #A9C500;
+	color: #888;
+	text-decoration: underline;
+}
+
+a:active {
+	color: #888;
+	text-decoration: underline;
+}
+
+a:hover {
 	text-decoration: none;
+	background: #888;
+	color: #ffffff;
 }
 
 a img { border: 0px; }
@@ -445,14 +456,13 @@ input {
 	font-family: Trebuchet MS, sans-serif;
 	text-align: center;
 	clear:right;
-	background-color: #ffffff;
 	display:inline;
 	margin-left: 10px;
 }
 
 #helpbutton a { color: #859E83; }
 
-#helpbutton a:hover { color: #625E70; }
+#helpbutton a:hover { color: #ffffff; }
 
 #titlehelp {
 	width: auto;
