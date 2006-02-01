@@ -40,6 +40,13 @@ case "$1" in
 		mv $tmp /etc/sudoers
 		chmod 0440 /etc/sudoers
 
+		# Set default passwd if it does not exist yet
+		if [ ! -f /var/lib/ebox/conf/ebox.passwd ]; then
+			echo -n 'ebox' | md5sum | cut -d' ' -f1 > \
+				/var/lib/ebox/conf/ebox.passwd
+			chown ebox.ebox /var/lib/ebox/conf/ebox.passwd
+		fi
+
 		if test -z "$2"; then
 			# not upgrading
 			if grep '^EB:' /etc/inittab >/dev/null; then

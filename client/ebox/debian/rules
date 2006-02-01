@@ -62,6 +62,8 @@ install-indep: build config.status
 		popd ; \
 	fi
 
+	rm $(CURDIR)/debian/ebox/var/lib/ebox/conf/ebox.passwd
+
 binary-indep: install-indep
 	dh_testdir
 	dh_testroot
