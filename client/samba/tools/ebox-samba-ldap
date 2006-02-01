@@ -203,8 +203,9 @@ sub _addPDCStuff {
 	$samba->_regenConfig();
 	system("/etc/init.d/ebox samba restart");
 	sleep 5;
-	system("net rpc rights grant  '" . DEFAULTDOMAINNAME . 
-	"\\Domain Admins' Semachineaccountprivilege -U " . TMPROOT . "%$pass");
+	my $domain = $samba->workgroup();
+	system("net rpc rights grant  '$domain\\Domain Admins' " .
+		"Semachineaccountprivilege -U " . TMPROOT . "%$pass");
 	unless ($oldserv) {
 		$samba->setFileService(undef);
 		$samba->save();
