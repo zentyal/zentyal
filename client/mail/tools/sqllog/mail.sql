@@ -12,3 +12,4 @@ CREATE TABLE message (
         postfix_date TIMESTAMP NOT NULL,
 		  event VARCHAR(255) NOT NULL
 );
+CREATE INDEX timestamp_i on message(postfix_date);
