@@ -4,6 +4,7 @@
 #include <sys/stat.h>
 #include <apt-pkg/configuration.h>
 #include <apt-pkg/init.h>
+#include <apt-pkg/md5.h>
 #include <apt-pkg/pkgcache.h>
 #include <apt-pkg/pkgcachegen.h>
 #include <apt-pkg/pkgsystem.h>
@@ -97,7 +98,7 @@ bool _pkgIsFetched(pkgCache::PkgIterator P) {
 	//package not installed or upgrade available
 	
 	std::stringstream file;
-	//pkgRecords::Parser &Par = Recs->Lookup(curverObject.FileList());
+	pkgRecords::Parser &Par = Recs->Lookup(curverObject.FileList());
 	//Par.Filename() was used previously, but for some (I guess good)
 	//reason it was replaced by this handcrafted version
 	file << "/var/cache/apt/archives/" << P.Name() << "_" << curver << "_" << arch << ".deb";
@@ -110,7 +111,14 @@ bool _pkgIsFetched(pkgCache::PkgIterator P) {
 		notfetched.insert(notfetched.begin(),P.Name());
 		return false;
 	}
-	//TODO: check if the md5 is ok
+
+	MD5Summation sum;
+	FileFd Fd(filename, FileFd::ReadOnly);
+	sum.AddFD(Fd.Fd(), Fd.Size());
+	Fd.Close();
+	if(sum.Result().Value() != Par.MD5Hash()){
+		return false;
+	}
 
 	bool skip = false;
 	//package is fetched, check dependencies
@@ -240,9 +248,18 @@ void listUpgradablePkgs() {
 		if(stat(filename.c_str(),&stats)!=0){
 			continue;
 		}
-		//TODO: check md5
-		pkgRecords::Parser &P = Recs->Lookup(curverObject.FileList());
-		description = P.ShortDesc();
+
+		pkgRecords::Parser &Par = Recs->Lookup(curverObject.FileList());
+
+		MD5Summation sum;
+		FileFd Fd(filename, FileFd::ReadOnly);
+		sum.AddFD(Fd.Fd(), Fd.Size());
+		Fd.Close();
+		if(sum.Result().Value() != Par.MD5Hash()){
+			continue;
+		}
+
+		description = Par.ShortDesc();
 
 		std::cout << "{";
 		std::cout << "'name' => '" << name << "'," << std::endl;
