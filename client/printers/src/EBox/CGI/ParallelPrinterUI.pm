@@ -35,6 +35,11 @@ sub new {
 	return $self;
 }
 
+sub domain
+{
+	return 'ebox-printers';
+}
+
 sub _process($) {
 	my $self = shift;
 
