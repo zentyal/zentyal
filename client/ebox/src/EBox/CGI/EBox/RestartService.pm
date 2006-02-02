@@ -26,11 +26,16 @@ use EBox::Gettext;
 sub new # (cgi=?)
 {
 	my $class = shift;
-	my $self = $class->SUPER::new('domain' => 'ebox', @_);
+	my $self = $class->SUPER::new(@_);
 	bless($self, $class);
 	$self->{errorchain} = "/Summary/Index";
 	$self->{redirect} = "/Summary/Index";
 	return $self;
+}
+
+sub domain
+{
+	return 'ebox';
 }
 
 sub _process
