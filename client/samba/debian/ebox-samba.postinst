@@ -111,6 +111,8 @@ case "$1" in
 		exit 0;
 	';
 
+		invoke-rc.d quota restart 
+		
 		invoke-rc.d ebox samba restart
 esac
 
