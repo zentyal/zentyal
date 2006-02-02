@@ -26,7 +26,7 @@ use EBox::Gettext;
 sub new # (cgi=?)
 {
 	my $class = shift;
-	my $self = $class->SUPER::new(@_);
+	my $self = $class->SUPER::new('domain' => 'ebox', @_);
 	bless($self, $class);
 	$self->{errorchain} = "/Summary/Index";
 	$self->{redirect} = "/Summary/Index";
@@ -34,6 +34,7 @@ sub new # (cgi=?)
 }
 
 sub _process
+
 {
 	my $self = shift;
 
