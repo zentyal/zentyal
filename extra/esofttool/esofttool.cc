@@ -188,6 +188,10 @@ void listEBoxPkgs() {
 			}
 			std::cout << "'depends' => [" << std::endl;
 			for (pkgCache::DepIterator d = curverObject.DependsList(); d.end() == false; d++) {
+				if((strcmp(d.DepType(),"Depends")!=0) &&
+					(strcmp(d.DepType(),"PreDepends")!=0)) {
+					continue;
+				}
 				depends.insert(depends.begin(),d.TargetPkg().Name());
 				std::cout << "\t'" << d.TargetPkg().Name()  << "'," << std::endl;
 			}
