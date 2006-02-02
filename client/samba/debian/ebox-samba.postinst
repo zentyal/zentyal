@@ -107,7 +107,6 @@ case "$1" in
 		print FD  @fstab;
 		close(FD);
 		system("/bin/mount -o remount $mount");
-		system("quotaon -u $mount");
 		exit 0;
 	';
 
