@@ -138,10 +138,12 @@ bool _pkgIsFetched(pkgCache::PkgIterator P) {
 			if(isOr) {
 				skip = true;
 				continue;
-			}
+			} 
 		} else {
+			if(!isOr) {
 				notfetched.insert(notfetched.begin(),P.Name());
 				return false;
+			}
 		}
 	}
 	fetched.insert(fetched.begin(),P.Name());
