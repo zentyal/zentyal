@@ -7,7 +7,7 @@ use EBox::Gettext;
 </%init>
 
 <form action='AddPrinter' method='POST'>
-<h3><% __("Set printer name and method") %></h3>
+<h3><% __('Set printer name and method') %></h3>
 	<table class='formTable'>
 	<tbody>
 	<tr>
