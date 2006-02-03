@@ -1,4 +1,3 @@
-# translation of printers-es.po to Español
 # translation of es.po to
 # Spanish translations for EBox-printers package
 # Traducciones al español para el paquete EBox-printers.
@@ -8,16 +7,16 @@
 #  <magnetic@backtracer>, 2005.
 # Javier Uruen Val <460821@celes.unizar.es>, 2005.
 # Dani Baeyens <dani@warp.es>, 2005.
-# Javier Uruen Val <juruen@warp.es>, 2005.
+# Javier Uruen Val <juruen@warp.es>, 2005, 2006.
 # Jorge Arcas <jorge@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: printers-es\n"
+"Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-01-30 18:04+0100\n"
-"PO-Revision-Date: 2006-01-30 18:37+0100\n"
-"Last-Translator: Jorge Arcas <jorge@warp.es>\n"
-"Language-Team: Español <ebox-devel@lists.warp.es>\n"
+"POT-Creation-Date: 2006-02-03 14:31+0100\n"
+"PO-Revision-Date: 2006-02-03 14:33+0100\n"
+"Last-Translator: Javier Uruen Val <juruen@warp.es>\n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -49,15 +48,15 @@ msgstr "El trabajo fue cancelado con éxito"
 msgid "Add a new printer (II)"
 msgstr "Añadir nueva impresora (II)"
 
-#: src/EBox/CGI/SambaPrinterUI.pm:41 src/EBox/CGI/SambaPrinter.pm:40
-#: src/EBox/CGI/DriverUI.pm:41 src/EBox/CGI/ManufacturerUI.pm:41
-#: src/EBox/CGI/ManagePrinterUI.pm:41 src/EBox/CGI/USBPrinterUI.pm:41
-#: src/EBox/CGI/NetworkPrinterUI.pm:41 src/EBox/CGI/Driver.pm:39
+#: src/EBox/CGI/SambaPrinterUI.pm:46 src/EBox/CGI/SambaPrinter.pm:40
+#: src/EBox/CGI/DriverUI.pm:46 src/EBox/CGI/ManufacturerUI.pm:46
+#: src/EBox/CGI/ManagePrinterUI.pm:46 src/EBox/CGI/USBPrinterUI.pm:46
+#: src/EBox/CGI/NetworkPrinterUI.pm:46 src/EBox/CGI/Driver.pm:39
 #: src/EBox/CGI/Manufacturer.pm:39 src/EBox/CGI/ManagePrinter.pm:40
 #: src/EBox/CGI/NetworkPrinter.pm:40 src/EBox/CGI/USBPrinter.pm:40
-#: src/EBox/CGI/ModelUI.pm:41 src/EBox/CGI/ParallelPrinterUI.pm:41
-#: src/EBox/CGI/DrvoptsUI.pm:41 src/EBox/CGI/Model.pm:39
-#: src/EBox/CGI/DeleteUI.pm:41 src/EBox/CGI/ParallelPrinter.pm:40
+#: src/EBox/CGI/ModelUI.pm:46 src/EBox/CGI/ParallelPrinterUI.pm:46
+#: src/EBox/CGI/DrvoptsUI.pm:46 src/EBox/CGI/Model.pm:39
+#: src/EBox/CGI/DeleteUI.pm:46 src/EBox/CGI/ParallelPrinter.pm:40
 #: src/EBox/CGI/Drvopts.pm:39 src/EBox/Printers.pm:245
 #: src/EBox/Printers.pm:373 src/EBox/Printers.pm:386 src/EBox/Printers.pm:403
 #: src/EBox/Printers.pm:459 src/EBox/Printers.pm:513 src/EBox/Printers.pm:549
@@ -73,9 +72,9 @@ msgstr "Añadir nueva impresora (II)"
 msgid "Printer"
 msgstr "Impresora"
 
-#: src/EBox/CGI/SambaPrinterUI.pm:49 src/EBox/CGI/USBPrinterUI.pm:49
-#: src/EBox/CGI/NetworkPrinterUI.pm:48 src/EBox/CGI/ParallelPrinterUI.pm:49
-#: src/EBox/CGI/DrvoptsUI.pm:48 src/templates/printerback.mas:187
+#: src/EBox/CGI/SambaPrinterUI.pm:54 src/EBox/CGI/USBPrinterUI.pm:54
+#: src/EBox/CGI/NetworkPrinterUI.pm:53 src/EBox/CGI/ParallelPrinterUI.pm:54
+#: src/EBox/CGI/DrvoptsUI.pm:53 src/templates/printerback.mas:187
 #: src/templates/printerback.mas:189 src/templates/models.mas:22
 #: src/templates/models.mas:24 src/templates/manufacturer.mas:22
 #: src/templates/manufacturer.mas:24 src/templates/driver.mas:22
@@ -114,7 +113,7 @@ msgstr "Añadir nueva impresora (V)"
 
 #: src/EBox/CGI/AddPrinterUI.pm:30
 msgid "Add a new printer (I)"
-msgstr "Añadir nueva impresora (II)"
+msgstr "Añadir nueva impresora (I)"
 
 #: src/EBox/CGI/ManufacturerUI.pm:30
 msgid "Add a new printer (III)"
@@ -124,19 +123,19 @@ msgstr "Añadir nueva impresora (III)"
 msgid "Manage printer"
 msgstr "Administrar impresora"
 
-#: src/EBox/CGI/ManagePrinterUI.pm:53
+#: src/EBox/CGI/ManagePrinterUI.pm:58
 msgid "Printer details"
 msgstr "Detalles de impresora"
 
-#: src/EBox/CGI/ManagePrinterUI.pm:54
+#: src/EBox/CGI/ManagePrinterUI.pm:59
 msgid "Driver Options"
 msgstr "Opciones del driver"
 
-#: src/EBox/CGI/ManagePrinterUI.pm:55
+#: src/EBox/CGI/ManagePrinterUI.pm:60
 msgid "Configuration options"
 msgstr "Opciones de configuración"
 
-#: src/EBox/CGI/ManagePrinterUI.pm:56
+#: src/EBox/CGI/ManagePrinterUI.pm:61
 msgid "Jobs Queue"
 msgstr "Trabajos pendientes"
 
