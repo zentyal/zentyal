@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: squid-es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-01-31 17:56+0100\n"
+"POT-Creation-Date: 2006-02-03 16:07+0100\n"
 "PO-Revision-Date: 2006-01-31 18:01+0100\n"
 "Last-Translator: Jorge Arcas <jorge@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
@@ -81,7 +81,8 @@ msgstr "Dominios permitidos"
 
 #: src/EBox/Squid.pm.in:139
 msgid "You must set the cache_mem variable in the ebox configuration file"
-msgstr "Debe establecer la variable cache_mem en el fichero de configuración de eBox"
+msgstr ""
+"Debe establecer la variable cache_mem en el fichero de configuración de eBox"
 
 #: src/EBox/Squid.pm.in:211 src/EBox/Squid.pm.in:301
 msgid "object"
@@ -205,35 +206,6 @@ msgstr "Denegado"
 msgid "Filtered"
 msgstr "Filtrado"
 
-#: src/templates/extensions.mas:9
-msgid "Configure allowed extensions"
-msgstr "Configurar extensiones permitidas"
-
-#: src/templates/extensions.mas:12
-msgid ""
-"When the filter content is enabled you can select those file extensions "
-"which are allowed to download"
-msgstr ""
-"Seleccione las extensiones de fichero para permitir su descarga. Cuando el "
-"filtro de contenidos este deshabilitado todas podrán ser descargadas"
-
-#: src/templates/extensions.mas:21
-msgid "Extension"
-msgstr "Extensión"
-
-#: src/templates/extensions.mas:25
-msgid "State"
-msgstr "Estado"
-
-#: src/templates/extensions.mas:48
-msgid "Allow all extensions"
-msgstr "Permitir todas las extensiones"
-
-#: src/templates/extensions.mas:61 src/templates/extensions.mas:63
-#: src/templates/index.mas:155 src/templates/index.mas:156
-msgid "Change"
-msgstr "Cambiar"
-
 #: src/templates/allowed.mas:12
 msgid "Add here those domains which you want to allow access."
 msgstr "Añada aquí los dominios a los que quiere permitir acceso"
@@ -283,6 +255,11 @@ msgstr "Estricto"
 #: src/templates/index.mas:108 src/templates/index.mas:111
 msgid "Very strict"
 msgstr "Muy estricto"
+
+#: src/templates/index.mas:155 src/templates/index.mas:156
+#: src/templates/extensions.mas:61 src/templates/extensions.mas:63
+msgid "Change"
+msgstr "Cambiar"
 
 #: src/templates/banned.mas:12
 msgid "Add here those domains which you do not want to allow access."
@@ -347,3 +324,30 @@ msgstr "Mover los objetos seleccionados a la columna de baneados"
 msgid "Move selected objects to the unfiltered column"
 msgstr "Mover los objetos seleccionados a la columna de no filtrados"
 
+#: src/templates/extensions.mas:9
+msgid "Configure allowed extensions"
+msgstr "Configurar extensiones permitidas"
+
+#: src/templates/extensions.mas:12
+msgid ""
+"When the filter content is enabled you can select those file extensions "
+"which are allowed to download"
+msgstr ""
+"Seleccione las extensiones de fichero para permitir su descarga. Cuando el "
+"filtro de contenidos este deshabilitado todas podrán ser descargadas"
+
+#: src/templates/extensions.mas:21
+msgid "Extension"
+msgstr "Extensión"
+
+#: src/templates/extensions.mas:25
+msgid "State"
+msgstr "Estado"
+
+#: src/templates/extensions.mas:48
+msgid "Allow all extensions"
+msgstr "Permitir todas las extensiones"
+
+#, fuzzy
+#~ msgid "Content filter disabled"
+#~ msgstr "Umbral de filtro de contenido"
