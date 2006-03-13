@@ -26,7 +26,7 @@ use EBox::Gettext;
 			<dt><% __('Password') %>:</dt>
 			<dd><input  class='inputTextLogin' type='password' 
 					name='credential_0' 
-					maxlength='16' size='14' /></dd>
+					size='14' /></dd>
 				<input  type='hidden' name='destination' 
 					value='/ebox/Summary/Index' />
 		<dd><input class='inputButton' type='submit' value="<% __('Enter') %>"/></dd>
