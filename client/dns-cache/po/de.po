@@ -1,0 +1,33 @@
+# Language =de translations for PACKAGE package.
+# Copyright (C) 2006 Warp S.L.
+# This file is distributed under the same license as the PACKAGE package.
+# Automatically generated, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2005-07-18 20:21+0200\n"
+"PO-Revision-Date: 2005-07-18 20:21+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/EBox/CGI/Enable.pm:41
+msgid "module status"
+msgstr ""
+
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40
+#: src/EBox/DNSCache.pm.in:169
+msgid "DNS cache"
+msgstr ""
+
+#: src/EBox/DNSCache.pm.in:204
+msgid "DNS Cache"
+msgstr ""
+
+#: src/templates/index.mas:11
+msgid "Enable the DNS Cache"
+msgstr ""
