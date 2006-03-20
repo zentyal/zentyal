@@ -1,0 +1,20 @@
+#!/bin/bash
+
+SUDOERS=`cat /etc/sudoers`
+
+ebox=$(echo "$SUDOERS" | grep "#<ebox>")
+if [ $? -eq 0 ]
+then
+	echo "$SUDOERS" | sed -n -e '0,/\#<ebox>/p' > /etc/sudoers
+	ebox-sudoers >> /etc/sudoers
+	echo "$SUDOERS" | sed -n -e '/\#<\/ebox>/,$p' >> /etc/sudoers
+else
+	echo "$SUDOERS" | sed -n -e '/^Cmnd_Alias/,$!p' > /etc/sudoers
+	echo "$SUDOERS" | sed -n -e '/^Cmnd_Alias/,/^Cmnd_Alias.*EBOXCMNDS/{/^Cmnd_Alias.*EBOXCMNDS/,$!p}' >> /etc/sudoers
+	echo "# DO NOT MODIFY ANYTHING BETWEEN THESE MARKS." >> /etc/sudoers
+	echo "# EBOX WILL OVERWRITE IT." >> /etc/sudoers
+	echo "#<ebox>" >> /etc/sudoers
+	ebox-sudoers >> /etc/sudoers
+	echo "#</ebox>" >> /etc/sudoers
+	echo "$SUDOERS" | sed -n -e '0,/^ebox/!p' >> /etc/sudoers
+fi

@@ -1,6 +1,8 @@
 0.7.1
 	* use Apache::Reload to reload modules when changed
 	* GUI consistency (#12)
+	* Fixed a bug for passwords longer than 16 chars
+	* ebox-sudoers-friendly added to not overwrite /etc/sudoers each time
 0.7
 	* First public release
 0.6
