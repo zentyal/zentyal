@@ -1,5 +1,6 @@
 0.7.1
 	* Use ignore_nonexistant to avoid issues with files removed suddenly.
 	  There was a problem when logrotate removed squid log file
+	* Use of ebox-sudoers-friendly
 0.7
 	* First public release

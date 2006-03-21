@@ -2,6 +2,7 @@
 	* GUI improvements
 	* Added queue managment support
 	* Use EBox::LDAP singleton
-	* Added update/clean actions to eobx-mail-ldap
+	* Added update/clean actions to ebox-mail-ldap
+	* Use of ebox-sudoers-friendly 
 0.7
 	* First public release 

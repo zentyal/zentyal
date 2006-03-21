@@ -24,9 +24,7 @@ case "$1" in
 		invoke-rc.d bind9 stop
 
 		#sudo configuration
-		tmp=`tempfile`
-		ebox-sudoers > $tmp
-		mv $tmp /etc/sudoers
+		ebox-sudoers-friendly
 		chmod 0440 /etc/sudoers
 
 		invoke-rc.d ebox dns-cache restart

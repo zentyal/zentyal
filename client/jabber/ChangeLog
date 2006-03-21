@@ -5,6 +5,6 @@
 	* Fix a bug which prevented jabber to be restarted properly
 	* Use EBox::LDAP singleton
 	* Fix issue with external connections (#31)
-
+	* Use of ebox-sudoers-friendly
 0.7
 	* First public release

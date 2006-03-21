@@ -27,9 +27,7 @@ case "$1" in
 		update-rc.d -f courier-pop-ssl remove
 
 		# sudo configuration
-		tmp=`tempfile`
-		ebox-sudoers > $tmp
-		mv $tmp /etc/sudoers
+		ebox-sudoers-friendly
 		chmod 0440 /etc/sudoers
 
 		# regenerate slapd.conf

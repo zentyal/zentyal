@@ -25,9 +25,7 @@ case "$1" in
 		invoke-rc.d samba stop
 
 		#sudo configuration
-		tmp=`tempfile`
-		ebox-sudoers > $tmp
-		mv $tmp /etc/sudoers
+		ebox-sudoers-friendly
 		chmod 0440 /etc/sudoers
 		
 		# create spool

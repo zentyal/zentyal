@@ -3,6 +3,7 @@
 	+ Detect and recover when ldap connection is broken (#25)
 	+ Make EBox::Ldap a singleton class
 	+ Initial factoring
+	+ Use of ebox-sudoers-friendly
 0.7
 	+ New public release
 	
