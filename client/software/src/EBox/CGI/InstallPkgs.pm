@@ -52,7 +52,7 @@ sub _process($) {
 	if (defined($self->param('upgrade'))) {
 		$self->{chain} = "Software/Updates";
 		delete $self->{'template'};
-		$action = 'upgrade';
+		$action = 'install';
 		$doit = 'yes';
 	} elsif (defined($self->param('ebox-install'))) {
 		if($doit eq 'yes') {
