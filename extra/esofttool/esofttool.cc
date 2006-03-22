@@ -208,6 +208,14 @@ void listEBoxPkgs() {
 			std::cout << "'avail' => '" << available << "'," << std::endl;
 			pkgRecords::Parser &P = Recs->Lookup(curverObject.FileList());
 			description = P.ShortDesc();
+			
+			uint pos;
+			pos = description.find("'",0);
+			while (pos != string::npos){
+				description.replace(pos,1,"\\'");
+				pos = description.find("'",pos+2);
+			}
+		
 			std::cout << "'description' => '" << description << "'" << std::endl;
 			std::cout << "}," << std::endl;
 		}
@@ -266,7 +274,14 @@ void listUpgradablePkgs() {
 		}
 
 		description = Par.ShortDesc();
-
+	
+		uint pos;
+		pos = description.find("'",0);
+		while (pos != string::npos){
+			description.replace(pos,1,"\\'");
+			pos = description.find("'",pos+2);
+		}
+		
 		std::cout << "{";
 		std::cout << "'name' => '" << name << "'," << std::endl;
 		std::cout << "'description' => '" << description << "'" << std::endl;
