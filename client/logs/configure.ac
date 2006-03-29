@@ -60,7 +60,6 @@ src/templates/Makefile
 schemas/Makefile
 tools/Makefile
 www/Makefile
-conf/Makefile
 Makefile
 ])
 
