@@ -753,8 +753,8 @@ sub _dgNeeded
 	$self->service or return undef;
 	$self->ipBlocked and return 1;
 	($self->banThreshold > 0) and return 1;
-	(scalar(@{$self->bannedDomains}) > 0) and return 1;
-	(scalar(@{$self->allowedDomains}) > 0) and return 1;
+	((scalar(@{$self->bannedDomains}) > 0) and ($self->banThreshold > 0)) and return 1;
+	((scalar(@{$self->allowedDomains}) > 0) and ($self->banThreshold > 0)) and return 1;
 	return undef;
 }
 

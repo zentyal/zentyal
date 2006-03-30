@@ -1,5 +1,6 @@
 0.7.2
 	* Fix a bug which made dansguardian crash at start
+	* dansguardian does not start when it shouldn't
 
 0.7.1
 	* Add support to configure banned extension list in dansguardian
