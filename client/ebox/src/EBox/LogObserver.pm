@@ -42,7 +42,7 @@ sub domain
 	throw EBox::Exceptions::NotImplemented;
 }
 
-# Method: loglHelper 
+# Method: logHelper 
 #
 # Returns:
 #
