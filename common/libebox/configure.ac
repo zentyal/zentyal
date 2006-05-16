@@ -80,9 +80,11 @@ src/EBox/CGI/Makefile
 src/EBox/CGI/EBox/Makefile
 src/EBox/Menu/Makefile
 src/EBox/Test/Makefile
-src/EBox/Test/Mock/Makefile
-src/EBox/Test/Mock/t/Makefile
 src/EBox/Config.pm
+src/EBox/Config/Makefile
+src/EBox/Config/t/Makefile
+src/EBox/Sudo/Makefile
+src/EBox/Sudo/t/Makefile
 conf/Makefile
 conf/eboxlog.conf
 www/Makefile
