@@ -4,6 +4,7 @@ perldir = @PERLPATH@/EBox/Test/Mock
 
 nobase_perl_DATA = Config.pm
 
+SUBDIRS = t
 
 SOURCES = $(nobase_perl_DATA)
 

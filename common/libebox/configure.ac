@@ -80,6 +80,7 @@ src/EBox/CGI/EBox/Makefile
 src/EBox/Menu/Makefile
 src/EBox/Test/Makefile
 src/EBox/Test/Mock/Makefile
+src/EBox/Test/Mock/t/Makefile
 src/EBox/Config.pm
 conf/Makefile
 conf/eboxlog.conf
