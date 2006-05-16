@@ -2,12 +2,12 @@
 
 perldir = @PERLPATH@/EBox
 
-mods = Validate.pm Gettext.pm Sudo.pm NetWrappers.pm 
+mods = Validate.pm Gettext.pm Sudo.pm NetWrappers.pm  Mock.pm
 	
 
 nobase_perl_DATA = $(mods) Config.pm
 
-SUBDIRS = CGI Exceptions Menu Test
+SUBDIRS = CGI Exceptions Menu Test t
 
 SOURCES = $(nobase_perl_DATA)
 

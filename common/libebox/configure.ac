@@ -74,6 +74,7 @@ src/cgi/Makefile
 src/Makefile
 src/templates/Makefile
 src/EBox/Makefile
+src/EBox/t/Makefile
 src/EBox/Exceptions/Makefile
 src/EBox/CGI/Makefile
 src/EBox/CGI/EBox/Makefile
