@@ -78,6 +78,8 @@ src/EBox/Exceptions/Makefile
 src/EBox/CGI/Makefile
 src/EBox/CGI/EBox/Makefile
 src/EBox/Menu/Makefile
+src/EBox/Test/Makefile
+src/EBox/Test/Mock/Makefile
 src/EBox/Config.pm
 conf/Makefile
 conf/eboxlog.conf
