@@ -4,17 +4,17 @@ use warnings;
 use Test::More tests => 51;
 use Test::Exception;
 
-use lib '../../../..';
+use lib '../../..';
 
 
-BEGIN { use_ok 'EBox::Test::Mock::Config' }
+BEGIN { use_ok 'EBox::Config::Mock' }
 badParametersTest();
 mockTest();
 
 sub badParametersTest 
 {
-    dies_ok { EBox::Test::Mock::Config::mock()  } 'No parameters call';
-    dies_ok { EBox::Test::Mock::Config::mock(cgi => '/tmp/cgi', monkeyFightDir => '/usr/zoo')  } 'Incorrect parameters call';
+    dies_ok { EBox::Config::Mock::mock()  } 'No parameters call';
+    dies_ok { EBox::Config::Mock::mock(cgi => '/tmp/cgi', monkeyFightDir => '/usr/zoo')  } 'Incorrect parameters call';
 }
 
 
@@ -31,13 +31,13 @@ sub mockTest
     $afterMock{logfile} = '/egypt/baboon.log';
     $afterMock{version} = '-0.4'; 
 
-    dies_ok {EBox::Test::Mock::Config::unmock()} 'Unmocking before the module was mocked';
-    lives_ok { EBox::Test::Mock::Config::mock(prefix => $afterMock{prefix}, user => $afterMock{user}, logfile => $afterMock{logfile}, version => $afterMock{version}) };
+    dies_ok {EBox::Config::Mock::unmock()} 'Unmocking before the module was mocked';
+    lives_ok { EBox::Config::Mock::mock(prefix => $afterMock{prefix}, user => $afterMock{user}, logfile => $afterMock{logfile}, version => $afterMock{version}) };
 
     diag "Checking results after mocking EBox::Config";
     _checkConfigSubs(\%afterMock);
 
-    lives_ok {EBox::Test::Mock::Config::unmock()};
+    lives_ok {EBox::Config::Mock::unmock()};
 
     diag "Checking results after umocking EBox::Config";
     _checkConfigSubs(\%beforeMock);

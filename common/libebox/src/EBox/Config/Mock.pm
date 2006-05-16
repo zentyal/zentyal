@@ -1,4 +1,4 @@
-package EBox::Test::Mock::Config;
+package EBox::Config::Mock;
 # Description:
 # 
 use strict;
