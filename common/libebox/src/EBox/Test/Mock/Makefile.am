@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/Test/Mock
 
-nobase_perl_DATA = Config.pm
+nobase_perl_DATA = Config.pm Sudo.pm
 
 SUBDIRS = t
 
