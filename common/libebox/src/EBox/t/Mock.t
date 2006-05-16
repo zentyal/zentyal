@@ -4,7 +4,7 @@ use strict;
 use warnings;
 #use Smart::Comments; # turn on for debug purposes
 
-use Test::More tests => 7; 
+use Test::More tests => 9; 
 use Test::Exception;
 use Test::Output;
 
@@ -23,9 +23,15 @@ sub mockTest
     
     
     EBox::Mock::mock();
+
     stderr_like {
 	lives_ok { EBox::debug($debugMsg)  } 'After mocking any user can use the ebox logger without raising exception';
     } qr/$debugMsg/, 'Checking that debug text is printed in stderr';
+
+    stderr_like {
+	lives_ok { EBox::debug($debugMsg)  } 'Checking that after the first initializtion the behaviour is unchanged';
+    } qr/$debugMsg/;
+
 
     EBox::Mock::unmock();
     stderr_unlike {
