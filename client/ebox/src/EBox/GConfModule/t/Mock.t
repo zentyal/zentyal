@@ -3,9 +3,9 @@
 use strict;
 use warnings;
 
-use Test::More 'no_plan';#tests => 1;
+use Test::More tests => 87;
 use Test::Exception;
-use Test::Deep qw(cmp_bag);
+use Test::Deep qw(cmp_bag cmp_deeply);
 
 
 use lib '../../..';
@@ -81,11 +81,11 @@ sub _setAndGetStraightCasesTest
 		foreach my $value (@values) {
 		    $setter_r->($gconfModule, $key, $value);
 		    my $actualValue = $getter_r->($gconfModule, $key);
-		    is $actualValue, $value;
+		    is $actualValue, $value, "setter and getter of gconf simple type";
 		}
 	    }
 
-	    last; # so we check pairs only
+	    last; # it is pointless to continue te loop, whith tests of pairs of get and set fot the same type we are fine for now 
 	}
     }
 
@@ -93,7 +93,7 @@ sub _setAndGetStraightCasesTest
 	$gconfModule->unset($key);
 	foreach my $getter_r (@getters) {
 	    my $actualValue = $getter_r->($gconfModule, $key);
-	    ok !defined $actualValue;
+	    ok !defined $actualValue, 'unset';
 	}
     }
 
@@ -101,10 +101,24 @@ sub _setAndGetStraightCasesTest
 
 sub setAndGetListTest
 {
-  TODO:{
-      local $TODO = "write test";
-  }
+    my $gconfModule = EBox::GConfModule::_create('EBox::Mandrill', name => 'mandrill');
+    my $key = "lista";
+    my @lists = (
+		 [1],
+		 [1, 3, "ea"],
+		 [],
+	 );
 
+    foreach my $list_r (@lists) {
+	$gconfModule->set_list($key, "Ignored parameter for now",  $list_r);
+	my $actualValue_r = $gconfModule->get_list($key);
+
+	cmp_deeply $actualValue_r, $list_r, "set_list and get_list";
+    }
+
+    $gconfModule->unset($key);
+    my $actualValue_r = $gconfModule->get_list($key);
+    cmp_deeply $actualValue_r, [], 'Checking unseting of lists';
 }
 
 
@@ -113,14 +127,14 @@ sub dirExistsTest
     my $gconfModule = EBox::GConfModule::_create('EBox::Mandrill', name => 'mandrill');
     
     $gconfModule->set_string('groomingPartners/coco' => 'toBeGroomed');
-    ok $gconfModule->dir_exists('groomingPartners');
-    ok !$gconfModule->dir_exists('groomingPartners/coco');
+    ok $gconfModule->dir_exists('groomingPartners'), 'dir_exists';
+    ok !$gconfModule->dir_exists('groomingPartners/coco'), 'dir_exists';
 
     $gconfModule->set_bool ('banana' => 1)  ;
-    ok !$gconfModule->dir_exists('banana');
+    ok !$gconfModule->dir_exists('banana'), 'dir_exists';
 
     # inexistent entry..
-      ok !$gconfModule->dir_exists('suits');
+      ok !$gconfModule->dir_exists('suits'), 'dir_exists';
 	
 }
 

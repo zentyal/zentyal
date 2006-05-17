@@ -41,6 +41,10 @@ my %subByGConfMethod = (
 			set_int    => \&_setEntry,
 			get_string => \&_getEntry,
 			set_string => \&_setEntry,
+		
+			get_list   => \&_getEntry,
+			set_list   => \&_setList,
+
 			unset      => \&_unsetEntry,
 
 			dir_exists  => \&_dirExists,
@@ -105,6 +109,12 @@ sub _getEntry
 
 }
 
+# for now we ignore the type...
+sub _setList
+{
+    my ($key, $type, $val) = @_;
+    $config{$key} = $val;
+}
 
 
 sub _allEntries
