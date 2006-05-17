@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-01-30 18:20+0100\n"
+"POT-Creation-Date: 2006-05-17 17:25+0200\n"
 "PO-Revision-Date: 2006-01-30 18:19+0100\n"
 "Last-Translator: Jorge Arcas <jorge@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
@@ -85,11 +85,11 @@ msgstr ""
 "La configuración se ha cargado correctamente, ahora debería revisarla y "
 "guardarla si quiere conservarla."
 
-#: src/EBox/CGI/EBox/RestartService.pm:42
+#: src/EBox/CGI/EBox/RestartService.pm:48
 msgid "module name"
 msgstr "Nombre de módulo"
 
-#: src/EBox/CGI/EBox/RestartService.pm:46
+#: src/EBox/CGI/EBox/RestartService.pm:52
 msgid "The module was restarted correctly."
 msgstr "El módulo se ha reiniciado correctamente."
 
@@ -280,19 +280,6 @@ msgstr "No hay cambios sin guardar en esta sesión"
 msgid "Exit"
 msgstr "Salir"
 
-#: src/templates/confirm-backup.mas:17 src/templates/backup.mas:50
-msgid "Date"
-msgstr "Fecha"
-
-#: src/templates/confirm-backup.mas:26 src/templates/backup.mas:18
-#: src/templates/backup.mas:48
-msgid "Description"
-msgstr "Descripción"
-
-#: src/templates/confirm-backup.mas:39 src/templates/confirm-backup.mas:40
-msgid "Cancel"
-msgstr "Cancelar"
-
 #: src/templates/finish.mas:11
 msgid ""
 "There are unsaved changes in one or more modules, you can save or discard "
@@ -346,6 +333,19 @@ msgstr "Confirmar nueva contraseña"
 #: src/templates/password.mas:60 src/templates/port.mas:15
 msgid "Change"
 msgstr "Cambiar"
+
+#: src/templates/confirm-backup.mas:17 src/templates/backup.mas:50
+msgid "Date"
+msgstr "Fecha"
+
+#: src/templates/confirm-backup.mas:26 src/templates/backup.mas:18
+#: src/templates/backup.mas:48
+msgid "Description"
+msgstr "Descripción"
+
+#: src/templates/confirm-backup.mas:39 src/templates/confirm-backup.mas:40
+msgid "Cancel"
+msgstr "Cancelar"
 
 #: src/templates/port.mas:9
 msgid "Administration interface TCP port"

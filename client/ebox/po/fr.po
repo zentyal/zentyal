@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox 0.3.svn\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-26 18:39+0100\n"
+"POT-Creation-Date: 2006-05-17 17:25+0200\n"
 "PO-Revision-Date: 2004-11-02 17:54+0100\n"
 "Last-Translator:  <isaac@sindominio.net>\n"
 "Language-Team: French <cedricduval@free.fr>\n"
@@ -47,7 +47,7 @@ msgid "You have been logged out because a new session has been opened"
 msgstr ""
 "Vous avez été deconnecté de cette session suite à l'ouverture d'une nouvelle"
 
-#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:39
+#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:38
 msgid "Logout"
 msgstr "Déconnexion"
 
@@ -82,12 +82,12 @@ msgstr ""
 "La configuration a été restaurée avec succès. Vous devriez maintenant la "
 "vérifier et la sauver si vous souhaitez la conserver."
 
-#: src/EBox/CGI/EBox/RestartService.pm:42
+#: src/EBox/CGI/EBox/RestartService.pm:48
 #, fuzzy
 msgid "module name"
 msgstr "Nom de l'hôte"
 
-#: src/EBox/CGI/EBox/RestartService.pm:46
+#: src/EBox/CGI/EBox/RestartService.pm:52
 msgid "The module was restarted correctly."
 msgstr ""
 
@@ -184,15 +184,11 @@ msgstr "La copie de sauvegarde est corrompue."
 msgid "Save changes"
 msgstr "Annuler les modifications"
 
-#: src/EBox/Html.pm:38
-msgid "Help"
-msgstr ""
-
-#: src/EBox/Html.pm:90
+#: src/EBox/Html.pm:96
 msgid ""
-"Created by <a href=\"http://www.warp.es\">Warp Networks S.L.</a> in "
-"collaboration with <a href=\"http://www.dbs.es\">DBS Servicios Informáticos "
-"S.L.</a>"
+"Created by <a href='http://www.warp.es'>Warp Networks S.L.</a> in "
+"collaboration with <a href='http://www.dbs.es'>DBS Servicios Informaticos S."
+"L.</a>"
 msgstr ""
 
 #: src/EBox/Apache.pm:47
@@ -266,9 +262,10 @@ msgid "Enter"
 msgstr "Externe"
 
 #: src/templates/login/index.mas:40
-#, fuzzy
-msgid "Created by "
-msgstr "Créer"
+msgid ""
+"Created by <a href='http://www.warp.es'>Warp Networks</a> in collaboration "
+"with <a href='http://www.dbs.es'>DBS Servicios Informaticos</a>"
+msgstr ""
 
 #: src/templates/logout/index.mas:11
 msgid "There are unsaved changes, if you log out now they will be lost."
@@ -284,19 +281,6 @@ msgstr "Il n'y a aucune modification non sauvegardée"
 #: src/templates/logout/index.mas:21
 msgid "Exit"
 msgstr "Quitter"
-
-#: src/templates/confirm-backup.mas:17 src/templates/backup.mas:50
-msgid "Date"
-msgstr "Date"
-
-#: src/templates/confirm-backup.mas:26 src/templates/backup.mas:18
-#: src/templates/backup.mas:48
-msgid "Description"
-msgstr "Description"
-
-#: src/templates/confirm-backup.mas:39 src/templates/confirm-backup.mas:40
-msgid "Cancel"
-msgstr "Annuler"
 
 #: src/templates/finish.mas:11
 msgid ""
@@ -353,6 +337,19 @@ msgstr "Confirmer le nouveau mot de passe"
 #: src/templates/password.mas:60 src/templates/port.mas:15
 msgid "Change"
 msgstr "Modifier"
+
+#: src/templates/confirm-backup.mas:17 src/templates/backup.mas:50
+msgid "Date"
+msgstr "Date"
+
+#: src/templates/confirm-backup.mas:26 src/templates/backup.mas:18
+#: src/templates/backup.mas:48
+msgid "Description"
+msgstr "Description"
+
+#: src/templates/confirm-backup.mas:39 src/templates/confirm-backup.mas:40
+msgid "Cancel"
+msgstr "Annuler"
 
 #: src/templates/port.mas:9
 msgid "Administration interface TCP port"
@@ -445,6 +442,10 @@ msgstr ""
 #: src/templates/bug.mas:15
 msgid "Download bug report file"
 msgstr "Charger de fichier de rapport de bug"
+
+#, fuzzy
+#~ msgid "Created by "
+#~ msgstr "Créer"
 
 #~ msgid "{data} {value} does not exist."
 #~ msgstr "{data} {value} n'existe pas"

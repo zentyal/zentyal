@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-26 18:39+0100\n"
+"POT-Creation-Date: 2006-05-17 17:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/EBox/Summary/Status.pm:44
@@ -44,7 +44,7 @@ msgstr ""
 msgid "You have been logged out because a new session has been opened"
 msgstr ""
 
-#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:39
+#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:38
 msgid "Logout"
 msgstr ""
 
@@ -77,11 +77,11 @@ msgid ""
 "you want to keep it."
 msgstr ""
 
-#: src/EBox/CGI/EBox/RestartService.pm:42
+#: src/EBox/CGI/EBox/RestartService.pm:48
 msgid "module name"
 msgstr ""
 
-#: src/EBox/CGI/EBox/RestartService.pm:46
+#: src/EBox/CGI/EBox/RestartService.pm:52
 msgid "The module was restarted correctly."
 msgstr ""
 
@@ -173,15 +173,11 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
-#: src/EBox/Html.pm:38
-msgid "Help"
-msgstr ""
-
-#: src/EBox/Html.pm:90
+#: src/EBox/Html.pm:96
 msgid ""
-"Created by <a href=\"http://www.warp.es\">Warp Networks S.L.</a> in "
-"collaboration with <a href=\"http://www.dbs.es\">DBS Servicios Informáticos "
-"S.L.</a>"
+"Created by <a href='http://www.warp.es'>Warp Networks S.L.</a> in "
+"collaboration with <a href='http://www.dbs.es'>DBS Servicios Informaticos S."
+"L.</a>"
 msgstr ""
 
 #: src/EBox/Apache.pm:47
@@ -246,7 +242,9 @@ msgid "Enter"
 msgstr ""
 
 #: src/templates/login/index.mas:40
-msgid "Created by "
+msgid ""
+"Created by <a href='http://www.warp.es'>Warp Networks</a> in collaboration "
+"with <a href='http://www.dbs.es'>DBS Servicios Informaticos</a>"
 msgstr ""
 
 #: src/templates/logout/index.mas:11
@@ -259,19 +257,6 @@ msgstr ""
 
 #: src/templates/logout/index.mas:21
 msgid "Exit"
-msgstr ""
-
-#: src/templates/confirm-backup.mas:17 src/templates/backup.mas:50
-msgid "Date"
-msgstr ""
-
-#: src/templates/confirm-backup.mas:26 src/templates/backup.mas:18
-#: src/templates/backup.mas:48
-msgid "Description"
-msgstr ""
-
-#: src/templates/confirm-backup.mas:39 src/templates/confirm-backup.mas:40
-msgid "Cancel"
 msgstr ""
 
 #: src/templates/finish.mas:11
@@ -321,6 +306,19 @@ msgstr ""
 
 #: src/templates/password.mas:60 src/templates/port.mas:15
 msgid "Change"
+msgstr ""
+
+#: src/templates/confirm-backup.mas:17 src/templates/backup.mas:50
+msgid "Date"
+msgstr ""
+
+#: src/templates/confirm-backup.mas:26 src/templates/backup.mas:18
+#: src/templates/backup.mas:48
+msgid "Description"
+msgstr ""
+
+#: src/templates/confirm-backup.mas:39 src/templates/confirm-backup.mas:40
+msgid "Cancel"
 msgstr ""
 
 #: src/templates/port.mas:9
