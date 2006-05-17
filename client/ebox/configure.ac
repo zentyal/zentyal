@@ -85,6 +85,8 @@ src/templates/login/Makefile
 src/templates/logout/Makefile
 src/templates/Makefile
 src/EBox/Makefile
+src/EBox/GConfModule/Makefile
+src/EBox/GConfModule/t/Makefile
 src/EBox/CGI/Makefile
 src/EBox/CGI/EBox/Makefile
 src/EBox/CGI/Login/Makefile
