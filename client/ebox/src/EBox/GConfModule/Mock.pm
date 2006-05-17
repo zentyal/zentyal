@@ -19,7 +19,7 @@ my $mockedModule;
 sub mock
 {
     if (defined $mockedModule) {
-	unmock();
+	return;
     }
 
     $mockedModule = new Test::MockModule('EBox::GConfModule');
@@ -30,7 +30,12 @@ sub mock
 
 sub unmock
 {
+    if (!defined $mockedModule) {
+	die "GConfModule not mocked";
+    }
+
     $mockedModule->unmock_all();
+    $mockedModule = undef;
 }
 
 
