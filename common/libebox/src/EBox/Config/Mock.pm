@@ -3,7 +3,7 @@ package EBox::Config::Mock;
 # 
 use strict;
 use warnings;
-#use Smart::Comments; # turn on for debug purposes
+
 use Test::MockModule;
 use Perl6::Junction qw(all);
 use EBox::Config;
@@ -37,9 +37,11 @@ sub mock
 
     _checkMockParams(@_);
 
-    if (!defined $mockedConfigPackage) {
-	$mockedConfigPackage = new Test::MockModule('EBox::Config');
+    if (defined $mockedConfigPackage) {
+	return;
     }
+
+    $mockedConfigPackage = new Test::MockModule('EBox::Config');
 
     while ( my ($configKey, $mockedResult) = each %mockedConfig ) {
 	$mockedConfigPackage->mock($configKey => $mockedResult );
@@ -67,6 +69,7 @@ sub unmock
 {
     defined $mockedConfigPackage or die "Module was not mocked";
     $mockedConfigPackage->unmock_all();
+    $mockedConfigPackage = undef;
 }
 
 

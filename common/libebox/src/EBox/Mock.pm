@@ -17,8 +17,9 @@ sub mock
     (defined $minLogLevel) or $minLogLevel = 'debug';
 
     if (defined $mockedEBoxModule) {
-	unmock();
+	return;
     }
+
 
     $mockedEBoxModule = new Test::MockModule('EBox');
     $mockedEBoxModule->mock('logger', \&_mockedLogger);
@@ -38,7 +39,12 @@ sub mock
 
 sub unmock
 {
+    if (!defined $mockedEBoxModule) {
+	die "EBox module not mocked";
+    }
+
     $mockedEBoxModule->unmock_all();
+    $mockedEBoxModule = undef;
 }
 
 

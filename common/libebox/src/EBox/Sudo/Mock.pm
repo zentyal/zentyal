@@ -13,6 +13,10 @@ my $mockedSudoModule;
 
 sub mock
 {
+    if (defined $mockedSudoModule) {
+	return;
+    }
+
     $mockedSudoModule = new Test::MockModule ('EBox::Sudo');
     $mockedSudoModule->mock('root', \&_mockedRoot);
 }
@@ -21,6 +25,7 @@ sub unmock
 {
   defined $mockedSudoModule or die "Module was not mocked";
   $mockedSudoModule->unmock_all();
+  $mockedSudoModule = undef;
 }
 
 
