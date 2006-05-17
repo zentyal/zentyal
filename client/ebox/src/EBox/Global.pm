@@ -20,7 +20,7 @@ use warnings;
 
 use base qw(EBox::GConfModule Apache::Singleton::Process);
 
-use EBox qw( :all );
+use EBox;
 use EBox::Validate qw( :all );
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::DataNotFound;
