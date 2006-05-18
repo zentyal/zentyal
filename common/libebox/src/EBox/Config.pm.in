@@ -32,13 +32,12 @@ sub var
 
 sub configkeyFromFile # (key, file)
 {
-	my $key = shift;
-	my $file = shift;
+	my ($key, $file) = @_;
 	my $value = undef;
-	open(CONF, $file) or 
+	open(my $CONF, $file) or 
 		throw EBox::Exceptions::External(
 					__('Could not open the config file.'));
-	while (<CONF>) {
+	while (<$CONF>) {
 		$_ =~ s/\s//g;
 		$_ =~ s/#.*//g;
 		($_ eq '') and next;
@@ -48,7 +47,7 @@ sub configkeyFromFile # (key, file)
 			last;
 		}
 	}
-	close(CONF);
+	close($CONF);
 	return $value;
 }
 
