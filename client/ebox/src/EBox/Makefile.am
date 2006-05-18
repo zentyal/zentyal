@@ -9,7 +9,7 @@ mods = Module.pm Html.pm Global.pm SysInfo.pm GConfModule.pm \
 
 nobase_perl_DATA = $(mods)
 
-SUBDIRS = CGI Summary GConfModule Global
+SUBDIRS = CGI Summary GConfModule Global Test
 
 SOURCES = $(nobase_perl_DATA)
 

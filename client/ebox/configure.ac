@@ -89,6 +89,8 @@ src/EBox/GConfModule/Makefile
 src/EBox/GConfModule/t/Makefile
 src/EBox/Global/Makefile
 src/EBox/Global/t/Makefile
+src/EBox/Test/Makefile
+src/EBox/Test/t/Makefile
 src/EBox/CGI/Makefile
 src/EBox/CGI/EBox/Makefile
 src/EBox/CGI/Login/Makefile
