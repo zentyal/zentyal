@@ -1,9 +1,9 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = CGI
+SUBDIRS = CGI NTP t
 
 perldir = @PERLPATH@/EBox
 
-nobase_perl_DATA = NTP.pm
+nobase_perl_DATA = NTP.pm 
 
 DISTCLEANFILES = 
 
