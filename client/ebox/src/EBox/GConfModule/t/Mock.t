@@ -6,7 +6,7 @@ use warnings;
 use Test::More tests => 131;
 use Test::Exception;
 use Test::Deep qw(cmp_bag cmp_deeply);
-
+use File::Basename;
 
 use lib '../../..';
 
@@ -171,11 +171,11 @@ sub allEntriesTest
 	cmp_bag \@actualResult, $awaitedResult, "all_entries($key)";
     }
 
-    while (my ($key, $awaitedResult) = each %cases ) {
-	my @awaitedResultMassaged = map { m{.*/(\w+)$}; $1  } @{ $awaitedResult };
+    while (my ($key, $resultWithPath) = each %cases ) {
+	my @awaitedResult = map { basename $_ }  @{ $resultWithPath };
 	my $actualResult = $gconfModule->all_entries_base($key);
 	is ref $actualResult, "ARRAY", "Checking that he result is a reference to a array";
-	cmp_bag $actualResult, \@awaitedResultMassaged, "all_entries_base($key)";
+	cmp_bag $actualResult, \@awaitedResult, "all_entries_base($key)";
     }
 }
 
@@ -214,11 +214,11 @@ sub allDirsTest
 	cmp_bag \@actualResult, $awaitedResult, "all_dirs($key)";
     }
 
-    while (my ($key, $awaitedResult) = each %cases ) {
-	my @awaitedResultMassaged = map { m{.*/(\w+)$}; $1  } @{ $awaitedResult };
+    while (my ($key, $resultWithPath) = each %cases ) {
+	my @awaitedResult = map { basename $_ }  @{ $resultWithPath };
 	my $actualResult = $gconfModule->all_dirs_base($key);
 	is ref $actualResult, "ARRAY", "Checking that he result is a reference to a array";
-	cmp_bag $actualResult, \@awaitedResultMassaged, "all_dirs_base($key)";
+	cmp_bag $actualResult, \@awaitedResult, "all_dirs_base($key)";
     }
 }
 
