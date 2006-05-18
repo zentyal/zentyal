@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 87;
+use Test::More tests => 131;
 use Test::Exception;
 use Test::Deep qw(cmp_bag cmp_deeply);
 
@@ -166,14 +166,16 @@ sub allEntriesTest
 
     while (my ($key, $awaitedResult) = each %cases ) {
 	my @actualResult = $gconfModule->all_entries($key);
+	my @nReferences = grep { ref $_ } @actualResult;
+	is @nReferences, 0, 'Checking that result is a flat list';
 	cmp_bag \@actualResult, $awaitedResult, "all_entries($key)";
     }
 
     while (my ($key, $awaitedResult) = each %cases ) {
 	my @awaitedResultMassaged = map { m{.*/(\w+)$}; $1  } @{ $awaitedResult };
-	my @actualResult = $gconfModule->all_entries_base($key);
-
-	cmp_bag @actualResult, \@awaitedResultMassaged, "all_entries_base($key)";
+	my $actualResult = $gconfModule->all_entries_base($key);
+	is ref $actualResult, "ARRAY", "Checking that he result is a reference to a array";
+	cmp_bag $actualResult, \@awaitedResultMassaged, "all_entries_base($key)";
     }
 }
 
@@ -201,20 +203,22 @@ sub allDirsTest
 
 		 # inexistent dir 
 		 'cars'   => [],
-		 # inexistent dir that exist in anothe module
+		 # inexistent dir that exists in anothe module
 		 'trees'  => [],
 	      );
 
    while (my ($key, $awaitedResult) = each %cases ) {
 	my @actualResult = $gconfModule->all_dirs($key);
+	my @nReferences = grep { ref $_ } @actualResult;
+	is @nReferences, 0, 'Checking that result is a flat list';
 	cmp_bag \@actualResult, $awaitedResult, "all_dirs($key)";
     }
 
     while (my ($key, $awaitedResult) = each %cases ) {
 	my @awaitedResultMassaged = map { m{.*/(\w+)$}; $1  } @{ $awaitedResult };
-	my @actualResult = $gconfModule->all_dirs_base($key);
-
-	cmp_bag @actualResult, \@awaitedResultMassaged, "all_dirs_base($key)";
+	my $actualResult = $gconfModule->all_dirs_base($key);
+	is ref $actualResult, "ARRAY", "Checking that he result is a reference to a array";
+	cmp_bag $actualResult, \@awaitedResultMassaged, "all_dirs_base($key)";
     }
 }
 
