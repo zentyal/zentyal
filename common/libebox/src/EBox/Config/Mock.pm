@@ -33,18 +33,21 @@ sub _defaultConfig
 
 sub mock
 {
-    my %mockedConfig = @_;
+    my @mockedConfig = @_;
 
-    _checkMockParams(@_);
 
     if (defined $mockedConfigPackage) {
 	return;
     }
 
+    if ( @mockedConfig > 0)  {
+	_checkConfigKeysParameters(@mockedConfig);
+    }
+
     $mockedConfigPackage = new Test::MockModule('EBox::Config');
 
-    while ( my ($configKey, $mockedResult) = each %mockedConfig ) {
-	$mockedConfigPackage->mock($configKey => $mockedResult );
+    if ( @mockedConfig > 0)  {
+	setConfigKeys(@mockedConfig);
     }
 }
 
@@ -53,16 +56,7 @@ sub _checkMockParams
 {
     my %params = @_;
     
-    if (@_ == 0) {
-	die "It has not any sense to call mock sub without parameters";
-    }
 
-    my $allCorrectParam = all (keys %config);
-    my @incorrectParams = grep { $_ ne $allCorrectParam } keys %params;
-
-    if (@incorrectParams) {
-	die "mock called with the following incorrect named parameters: @incorrectParams";
-    }
 }
 
 sub unmock
@@ -71,6 +65,43 @@ sub unmock
     $mockedConfigPackage->unmock_all();
     $mockedConfigPackage = undef;
 }
+
+
+
+sub _checkConfigKeysParameters
+{
+    my %params = @_;
+
+   # check parameters...
+    if (@_ == 0) {
+	die "setConfigKeys called without parameters";
+    }
+    my $allCorrectParam = all (keys %config);
+    my @incorrectParams = grep { $_ ne $allCorrectParam } keys %params;
+
+    if (@incorrectParams) {
+	die "called with the following incorrect config key names: @incorrectParams";
+    }
+}
+
+sub setConfigKeys
+{
+    my %mockedConfig = @_;
+
+    if (!defined $mockedConfigPackage) {
+	die "Must mock first call EBox::Config::Mock::mock before setting config keys";
+    }
+
+    _checkConfigKeysParameters(@_);
+ 
+
+    # mock config keys..
+    while ( my ($configKey, $mockedResult) = each %mockedConfig ) {
+	$mockedConfigPackage->mock($configKey => $mockedResult );
+    }
+}
+
+
 
 
 1;
