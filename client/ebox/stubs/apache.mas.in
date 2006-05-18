@@ -114,6 +114,8 @@ ScriptAlias /ebox/ @CGIPATH@
 
 PerlInitHandler	Apache::Reload
 
+PerlWarn On
+
 PerlModule EBox::Auth
 PerlSetVar EBoxPath /
 PerlSetVar EBoxLoginScript /ebox/Login/Index
