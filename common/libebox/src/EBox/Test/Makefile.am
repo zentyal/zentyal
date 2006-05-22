@@ -2,8 +2,9 @@
 
 perldir = @PERLPATH@/EBox/Test
 
-nobase_perl_DATA = 
+nobase_perl_DATA = CGI.pm
 
+SUBDIRS = t
 
 SOURCES = $(nobase_perl_DATA)
 

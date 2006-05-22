@@ -80,6 +80,7 @@ src/EBox/CGI/Makefile
 src/EBox/CGI/EBox/Makefile
 src/EBox/Menu/Makefile
 src/EBox/Test/Makefile
+src/EBox/Test/t/Makefile
 src/EBox/Config.pm
 src/EBox/Config/Makefile
 src/EBox/Config/t/Makefile
