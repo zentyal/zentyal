@@ -15,7 +15,7 @@ use EBox::Sudo::Mock;
 use EBox::GConfModule::Mock;
 use EBox::Global::Mock;
 
-sub mockFrameworkModules :  Test(startup) {
+sub _mockFrameworkModules :  Test(startup) {
     EBox::Mock::mock();
     EBox::Config::Mock::mock();
     EBox::Sudo::Mock::mock();
@@ -38,6 +38,7 @@ sub testDir
 {
     return '/tmp/ebox.test';
 }
+
 
 
 1;
