@@ -25,6 +25,8 @@ sub runCgi
 
 }
 
+
+# there are 3 subs to check error because i am not sure what style/name is better
 sub cgiErrorOk
 {
     my ($cgi, $name) = @_;
@@ -42,6 +44,16 @@ sub cgiErrorNotOk
 }
 
 
+sub checkCgiError
+{
+    my ($cgi, $wantError, $name) = @_;
+    if ($wantError) {
+	cgiErrorOk($cgi, $name);
+    }
+    else {
+	cgiErrorNotOk($cgi, $name);
+    }
+}
 
 sub _errorInCgi
 {
