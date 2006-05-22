@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 use base 'Exporter';
-our @EXPORT_OK   = qw(runCgi cgiErrorOk cgiErrorNotOk);
+our @EXPORT_OK   = qw(runCgi setCgiParams cgiErrorOk cgiErrorNotOk  checkCgiError);
 our %EXPORT_TAGS = (all => \@EXPORT_OK  );
 
 
@@ -14,17 +14,24 @@ my $Test = Test::Builder->new;
 
 sub runCgi
 {
-    my ($cgi, %params) = @_;
+    my ($cgi, @params) = @_;
     
+    setCgiParams($cgi, @params);
+
+    $cgi->run();
+}
+
+
+sub setCgiParams
+{
+    my ($cgi, %params) = @_;
+
     while (my ($paramName, $paramValue) = each %params) {
 	my $query = $cgi->{cgi};
 	$query->param( $paramName =>  $paramValue);
     }
 
-    $cgi->run();
-
 }
-
 
 # there are 3 subs to check error because i am not sure what style/name is better
 sub cgiErrorOk

@@ -92,30 +92,27 @@ sub new
 
     bless $self, $class;
     return $self;
-};
+}
 
 sub  _process
 {
     my ($self) = @_;
     $self->{hasRun} = 1;
 
-    my $otherParam = $self->param('otherParameter');
-
     my $errorParam = $self->param('forceError');
-
 
 
     if ($errorParam) {
 	$self->{error} = 'Error forced by parameter';
     }
-};
+}
 
 
 sub hasRun
 {
     my ($self ) = @_;
     return $self->{hasRun};
-};
+}
 
 
 # to eliminate html output while running cgi:
