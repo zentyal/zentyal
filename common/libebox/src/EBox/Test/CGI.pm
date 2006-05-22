@@ -5,10 +5,10 @@ use strict;
 use warnings;
 
 use base 'Exporter';
-our @EXPORT_OK   = qw(runCgi setCgiParams cgiErrorOk cgiErrorNotOk  checkCgiError);
+our @EXPORT_OK   = qw(runCgi setCgiParams cgiErrorOk cgiErrorNotOk  checkCgiError checkMasonParameters);
 our %EXPORT_TAGS = (all => \@EXPORT_OK  );
 
-
+use Test::Differences;
 use Test::Builder;
 my $Test = Test::Builder->new;
 
@@ -66,6 +66,24 @@ sub _errorInCgi
 {
     my ($cgi) = @_;
     return defined ($cgi->{error}) or defined ($cgi->{olderror});
+}
+
+
+sub checkMasonParameters
+{
+    my ($cgi, %params) = @_;
+    my $error = undef;
+
+    exists $params{wantedParameters} or die "wantedParameters argument not found";
+    my $wantedParameters = $params{wantedParameters};
+
+    my $testName = exists $params{testName} ? $params{testName} : 'Checking mason parameters';
+
+   # we convert to hash to eliminate order issues
+    my $masonParameters = $cgi->{params};
+    my $params = defined $masonParameters ?  { @{ $masonParameters } } : {}; 
+
+    eq_or_diff $params, $wantedParameters, $testName;
 }
 
 

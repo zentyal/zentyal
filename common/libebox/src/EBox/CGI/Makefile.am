@@ -4,7 +4,7 @@ perldir = @PERLPATH@/EBox/CGI
 
 nobase_perl_DATA = Base.pm Run.pm MenuCSS.pm
 
-SUBDIRS = EBox
+SUBDIRS = EBox t
 
 SOURCES = $(nobase_perl_DATA)
 

@@ -31,6 +31,8 @@ use Error qw(:try);
 use Encode qw(:all);
 use Data::Dumper;
 
+use Data::FormValidator; # XXX temporal TODO: wirte a  _validateParams equivalent 
+
 ## arguments
 ##		title [optional]
 ##		error [optional]
@@ -151,10 +153,6 @@ sub _print
 	$self->_footer;
 }
 
-sub _process
-{
-	my $self = shift;
-}
 
 sub _checkForbiddenChars
 {
@@ -435,5 +433,77 @@ sub domain
 	my $self = shift;
 	return $self->{domain};
 }
+
+sub _process
+{
+    my ($self) = @_;
+
+    try {
+	$self->_validateParams();
+	$self->actuate();
+    }
+    otherwise {
+	my $e = shift;
+	$self->setErrorFromException($e);
+
+    };
+
+    $self->{params} = $self->masonParameters();
+}
+
+
+sub setErrorFromException
+{
+    my ($self, $ex) = @_;
+
+    if ($ex->can('text') ) {
+	$self->{error} = $ex->text;
+    }
+    else {
+	$self->{error} = $ex;
+    }
+}
+
+
+# XXX maybe it will be good idea cache this in some field of the instance
+sub paramsAsHash
+{
+    my ($self) = @_;
+
+    my @names = @{ $self->params() };
+    my %params = map { $_ => $self->param($_) } @names; 
+
+    return \%params;
+}
+
+
+sub _validateParams
+{
+    my ($self) = @_;
+
+    my $validatorProfile = { 
+	optional => $self->optionalParameters(),
+	required => $self->requiredParameters(),
+    };
+
+    my $results = Data::FormValidator->check($self->paramsAsHash, $validatorProfile);
+ 
+    if ($results->has_invalid or  $results->has_unknown or $results->has_missing) {
+	my $msg = $results->msgs;
+	throw EBox::Exceptions::External $msg;
+    }
+
+}
+
+sub optionalParameters
+{
+    return [];
+}
+
+sub requiredParameters
+{
+    return [];
+}
+
 
 1;
