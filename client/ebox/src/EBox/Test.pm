@@ -14,5 +14,57 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Test;
+use base 'Exporter';
 
-# description: helper subs for testing ebox modules
+use Test::More;
+use Test::Builder;
+use Error qw(:try);
+
+our @EXPORT_OK = qw(checkModuleInstantiation);
+our %EXPORT_TAGS = ( all => \@EXPORT_OK );
+
+
+my $Test = Test::Builder->new;
+
+
+sub checkModuleInstantiation 
+{
+    my ($moduleName, $modulePackage) = @_;
+
+    eval  "use  $modulePackage";
+    if ($@) {
+	$Test->ok(0, "$modulePackage failed to load");
+	return;
+    }
+ 
+    my $global = EBox::Global->getInstance();
+    defined $global or die "Can not get a instance of the global module";
+	
+    my $instance;
+    my $modInstanceError = 0;
+
+    try {
+	$instance = $global->modInstance($moduleName);
+    }
+    otherwise {
+	$modInstanceError = 1;;
+    };
+    
+    if ($modInstanceError or !defined $instance) {
+	$Test->ok(0, "Can not create a instance of the EBox's module $moduleName");
+	return;
+    }
+
+    my $refType = ref $instance;
+
+    if ($refType eq $modulePackage) {
+	$Test->ok(1, "$moduleName instantiated correctly");
+    }
+    elsif (defined $refType) {
+	$Test->ok(0, "The instance returned of $moduleName is not of type $modulePackage instead is a $refType");
+    }
+    else {
+	$Test->ok(0, "The instance returned of $moduleName is not a blessed reference");
+    }
+
+}
