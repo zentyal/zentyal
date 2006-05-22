@@ -9,22 +9,20 @@ use Test::More;
 use Test::Exception;
 use Test::Differences;
 
+
 use File::Slurp;
 
 use lib '../..';
+use EBox::Test ':all';
 
 sub setModuleGlobalConf : Test(startup)
 {
     EBox::Global::Mock::setAllEBoxModules('ntp' => 'EBox::NTP');
 }
 
-sub _useAndCreationTest : Test(3)
+sub _useAndCreationTest : Test  
 {
-    use_ok 'EBox::NTP';
-
-    my $ntp = EBox::Global->modInstance('ntp');
-    lives_ok { $ntp = EBox::Global->modInstance('ntp') };
-    isa_ok ($ntp, 'EBox::NTP');
+    checkModuleInstantiation('ntp', 'EBox::NTP');
 }
 
 
