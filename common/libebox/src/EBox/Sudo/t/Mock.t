@@ -27,14 +27,14 @@ sub testMock
     system "mkdir -p $tmpDir";
     ($? == 0) or die "Can not create test dir $tmpDir";
 
-  #  dies_ok { EBox::Sudo::root($cmdNotInSudoers) };
+#    dies_ok { EBox::Sudo::root($cmdNotInSudoers) } 'Checking that can not execute a sudo command without password';
 
     EBox::Sudo::Mock::mock();
     lives_ok { EBox::Sudo::root($cmdNotInSudoers) };
     ok (-e $file), "Checking if the not in sudoers command was carried on";
 
     EBox::Sudo::Mock::unmock();
-#    dies_ok { EBox::Sudo::root($cmdNotInSudoers) };
+ #   dies_ok { EBox::Sudo::root($cmdNotInSudoers) } 'Checking that root had returned to his normal behaviour';
     system "rm -rf $tmpDir";
 }
 
