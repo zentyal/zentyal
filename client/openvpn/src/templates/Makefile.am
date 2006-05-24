@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-templatedir = @TEMPLATESPATH@/modulename
+templatedir = @TEMPLATESPATH@/openvpn
 
 template_DATA = 
 

@@ -26,7 +26,7 @@ use EBox::Summary::Module;
 sub _create 
 {
 	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'openVPN');
+	my $self = $class->SUPER::_create(name => 'openvpn');
 	bless($self, $class);
 	return $self;
 }

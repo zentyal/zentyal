@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Stubdir = @STUBSPATH@/modulename
+Stubdir = @STUBSPATH@/openvpn
 
 
 nobase_Stub_DATA =

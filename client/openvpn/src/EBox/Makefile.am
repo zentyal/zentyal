@@ -3,7 +3,7 @@ SUBDIRS = CGI
 
 perldir = @PERLPATH@/EBox
 
-nobase_perl_DATA = ModuleName.pm
+nobase_perl_DATA = OpenVPN.pm
 
 DISTCLEANFILES = 
 
