@@ -18,18 +18,22 @@ package EBox::Exceptions::InvalidData;
 use base 'EBox::Exceptions::External';
 use EBox::Gettext;
 
-sub new # (data=>string,  value=>string)
+sub new # (data=>string,  value=>string, advice => string)
 {
 	my $class = shift;
 	my %opts = @_;
 
-	my $data = delete $opts{data};
-	my $value = delete $opts{value};
+	my $data   = delete $opts{data};
+	my $value  = delete $opts{value};
+	my $advice = delete $opts{advice};
 
 	my $old_domain = settextdomain('libebox');
 
 	my $error = __x("Invalid value for {data}: {value}.", data => $data,
 							 value => $value);
+	if (defined $advice) {
+	    $error .= "\n$advice";
+	}
 
 	settextdomain($old_domain);
 
