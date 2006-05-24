@@ -41,11 +41,11 @@ sub unmock
 
 my %subByGConfMethod = (
 			get_bool   => \&_getEntry,
-			set_bool   => \&_setEntry,
+			set_bool   => \&setEntry,
 			get_int    => \&_getEntry,
-			set_int    => \&_setEntry,
+			set_int    => \&setEntry,
 			get_string => \&_getEntry,
-			set_string => \&_setEntry,
+			set_string => \&setEntry,
 		
 			get_list   => \&_getEntry,
 			set_list   => \&_setList,
@@ -92,11 +92,9 @@ sub _unsetEntry
     delete $config{$key};
 }
 
-sub _setEntry
+sub setEntry
 {
     my ($key, $value) = @_;
-
- 
     $config{$key} = $value;
 }
 
@@ -186,13 +184,6 @@ sub setArbitraryEntry
 {
     warn "name deprecated, use setEntry instead";
     return setEntry(@_);
-}
-
-
-sub setEntry
-{
-    my ($key, $value) = @_;
-    $config{$key} = $value;
 }
 
 
