@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More 'no_plan';
+use Test::More tests => 20;
 use Test::Exception;
 use Test::MockClass('EBox::Baboon', '0.2');
 
@@ -17,6 +17,7 @@ mocksSetup();
 getInstanceTest();
 modInstanceTest();
 changedTest();
+clearTest();
 
 my $baboonMockClass;
 
@@ -84,5 +85,23 @@ sub changedTest
     ok !$global->modIsChanged('baboon'), 'Checking modRestarted and modIsChanged';
 }
 
+
+sub clearTest
+{
+    my %originalConfig = (
+		      '/ebox/unrelatedToGlobal/bool'    => 1,
+		      '/ebox/unrelatedToGlobal/integer' => 100,
+		      '/anotherApp/string'              => 'a string',
+	  );
+    EBox::GConfModule::Mock::setConfig(%originalConfig); 
+
+    EBox::Global::Mock::setEBoxModule('baboon', 'EBox::Baboon');
+    EBox::Global::Mock::setEBoxModule('mandrill', 'EBox::Mandrill');
+
+
+    EBox::Global::Mock::clear();
+    my %actualConfig = @{ EBox::GConfModule::Mock::dumpConfig() };
+    is_deeply(\%actualConfig, \%originalConfig, 'Checking that all keys of module global are remvoed from the config and the rest is left untouched');
+}
 
 1;

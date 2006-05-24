@@ -29,6 +29,19 @@ sub setEBoxModule
 
 }
 
+sub clear
+{
+    my %config = @{ EBox::GConfModule::Mock::dumpConfig() };
+
+    my @globalKeys = grep { m{^/ebox/modules/global/}  } keys %config;
+    foreach my $key (@globalKeys) {
+	delete $config{$key};
+    }
+    
+    EBox::GConfModule::Mock::setConfig(%config);
+}
+
+
 
 my $globalModuleMocked;
 sub mock
