@@ -184,6 +184,13 @@ sub _dirExists
 
 sub setArbitraryEntry
 {
+    warn "name deprecated, use setEntry instead";
+    return setEntry(@_);
+}
+
+
+sub setEntry
+{
     my ($key, $value) = @_;
     $config{$key} = $value;
 }
@@ -191,13 +198,27 @@ sub setArbitraryEntry
 
 sub setArbitraryConfig
 {
+    warn "name deprecated, use setConfig instead";
+    return setConfig(@_);
+}
+
+
+sub setConfig
+{
     %config = @_;
 }
 
 sub dumpFakeConfig
 {
+    warn "name deprecated, use dumpConfig instead";
+    return dumpConfig(@_);
+}
+
+sub dumpConfig
+{
     my @configList = %config;
     return \@configList
 }
+
 
 1;
