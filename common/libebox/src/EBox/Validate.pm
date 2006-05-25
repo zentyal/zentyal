@@ -39,6 +39,7 @@ BEGIN {
 					checkDomainName isIPInNetwork
 					checkVlanID makePrivateDir isANumber 
 					isAPositiveNumber
+					checkFilePath checkAbsoluteFilePath
 				} ],
 			);
 	@EXPORT_OK = qw();
