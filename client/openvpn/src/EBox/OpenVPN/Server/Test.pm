@@ -10,6 +10,7 @@ use EBox::Global::Mock;
 use EBox::Test;
 use Test::More;
 use Test::Exception;
+use Test::MockModule;
 
 use lib '../../../';
 
@@ -75,14 +76,63 @@ sub setProtoTest : Test(6)
 			  setter         => $portSetter_r,
 			  straightValues => $correctProtos,
 			  deviantValues  => $incorrectProtos,
+			  propierty      => "Server\'s IP protocol",
 			);
 }
+
+
+sub setPortTest : Test(18)
+{
+    my ($self) = @_;
+ 
+    my $server          = $self->_newServer('macaco');
+    my $portGetter_r    =  $server->can('port');
+    my $portSetter_r    =  $server->can('setPort');
+    my $correctPorts   = [1024, 1194, 4000];
+    my $incorrectPorts = [0, -1, 'ea', 1023, 40, 0.4];
+
+    setterAndGetterTest(
+			  object         => $server,
+			  getter         => $portGetter_r,
+			  setter         => $portSetter_r,
+			  straightValues => $correctPorts,
+			  deviantValues  => $incorrectPorts,
+			  propierty      => "Server\'s IP port",
+			);
+}
+
+sub setLocalTest : Test(12)
+{
+    my ($self) = @_;
+    my $mockedNetWrappersModule = new Test::MockModule('EBox::NetWrappers');
+
+    my $server          = $self->_newServer('macaco');
+    my $localGetter_r    =  $server->can('local');
+    my $localSetter_r    =  $server->can('setLocal');
+    my $correctLocals   = [qw(192.168.5.21 127.0.0.1 68.45.32.43) ];
+    my $incorrectLocals = [ qw(21 'ea' 192.168.5.22)];
+
+    
+    $mockedNetWrappersModule->mock('list_local_addresses' => sub { return @{ $correctLocals  } } );
+
+    setterAndGetterTest(
+			  object         => $server,
+			  getter         => $localGetter_r,
+			  setter         => $localSetter_r,
+			  straightValues => $correctLocals,
+			  deviantValues  => $incorrectLocals,
+			  propierty      => "Server\'s IP local address",
+			);
+
+    $mockedNetWrappersModule->unmock_all();
+}
+
 
 sub setterAndGetterTest
 {
     my %params = @_;
     my $object         = $params{object};
-    my $propierty      = exists $params{propierty} ? $params{propierty} : 'porpierty';
+    my $propierty      = exists $params{propierty} ? $params{propierty} : 'propierty';
     my @straightValues = @{ $params{straightValues} };
     my @deviantValues  = @{ $params{deviantValues} };
     my $setter_r       = $params{setter};
