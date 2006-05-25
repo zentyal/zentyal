@@ -31,6 +31,7 @@ BEGIN {
 	%EXPORT_TAGS  = (all => [qw{    list_ifaces iface_exists iface_is_up 
 					iface_netmask iface_addresses 
 					iface_mac_address list_routes
+					list_local_addresses
 					route_is_up
 					ip_network ip_broadcast
 					bits_from_mask mask_from_bits
@@ -337,4 +338,15 @@ sub mask_from_bits # (bits)
 	my $mask_binary = "1" x $bits . "0" x (32 - $bits);
 	return join(".",unpack("CCCC", pack("B*",$mask_binary)));
 }
+
+
+sub list_local_addresses
+{
+    my @ifaces = list_ifaces();
+    my @localAddresses = map { iface_is_up($_) ?  iface_addresses($_) : () } @ifaces;
+    @localAddresses    = map { s{/.*$}{}; $_  } @localAddresses;
+    return @localAddresses;
+}
+
+
 1;
