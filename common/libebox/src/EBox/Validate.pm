@@ -628,4 +628,48 @@ sub isAPositiveNumber # (value)
 	return undef;
 }
 
+
+sub checkFilePath # (filePath, name)
+{
+    my ($filePath, $name) = @_;
+
+    # see Regexp::Common::URI::RFC1738 in CPAN for inspiration in the regex
+
+    my $fpart = q{[:alpha:\-\$_.+!*(),][|\#]+ }; # there are missing character but this will suffice for now...
+    my $fPathRegex = "($fpart)?(/$fpart)*";
+
+    if ( $filePath =~ m/$fPathRegex/ ) {
+	return 1;
+    }
+    else {
+	if ($name) {
+	    throw EBox::Exceptions::InvalidData
+		('data' => $name, 'value' => $filePath, 'advice' => __("The file path supplied is not valid. (Currently not all of the valid file's  characters are supported) ") );
+	} 
+	else {
+	    return undef;
+	}
+    }
+}
+
+sub checkAbsoluteFilePath 
+{
+   my ($filePath, $name) = @_;
+   
+   my $isValidPath = checkFilePath($filePath, $name);
+   $isValidPath or return undef;
+
+   if ( ( $filePath =~ m{^[^/]} )  or ( $filePath =~ m{/\.+/} ) ) {
+	if ($name) {
+	    throw EBox::Exceptions::InvalidData
+		('data' => $name, 'value' => $filePath, 'advice' => __("The file path must be absolute") );
+	} 
+	else {
+	    return undef;
+	}
+   }
+
+   return 1;
+}
+
 1;
