@@ -1,0 +1,26 @@
+<!-- vim: ts=4 sw=4 nowrap
+-->
+
+<gconfschemafile>
+	<schemalist>
+		<schema>
+			<key>/schemas/ebox/modules/global/modules/modulename/class</key>
+			<applyto>/ebox/modules/global/modules/modulename/class</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>EBox::OpenVPN</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/global/modules/modulename/conf_dir</key>
+			<applyto>/ebox/modules/global/modules/modulename/conf_dir</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>EBox::OpenVPN</default>
+			<locale name="C">
+				<short>Path of the directory where the configuration files will be stored</short>
+			</locale>
+		</schema>
+
+	</schemalist>
+</gconfschemafile>

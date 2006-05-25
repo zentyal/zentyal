@@ -33,18 +33,52 @@ sub _create
 
 sub _regenConfig
 {
+    
+    _writeServersConfFiles();
 }
+
+
+sub _writeServersConfFiles
+{
+    my ($self) = @_;
+
+    my $confDir = $self->get_string('confDir');
+
+    my @servers = $self->_serversNames();
+    foreach my $serverName (@servers) {
+	my $server = $self->_server($serverName);
+	$server->writeConfFile($confDir);
+    }
+}
+
+
+sub _serversNames
+{
+    my ($self) = @_;
+    
+    my @serversNames = @{ $self->all_dirs_base('servers') };
+    return @serversNames;
+}
+
+sub _server
+{
+    my ($self, $name) = @_;
+    
+    my $server = new EBox::OpenVPN::Server ($name, $self);
+    return $server;
+}
+
 
 sub summary
 {
-	my $self = shift;
+	my ($self) = @_;
 	my $item = new EBox::Summary::Module(__("ModuleName stuff"));
 	return $item;
 }
 
 sub rootCommands
 {
-	my $self = shift;
+	my ($self) = @_;
 	my @array = ();
 	push(@array, "/bin/true");
 	return @array;

@@ -53,6 +53,9 @@ AM_PO_SUBDIRS
 AC_CONFIG_FILES([
 src/Makefile
 src/EBox/Makefile
+src/EBox/OpenVPN/Makefile
+src/EBox/OpenVPN/Server/Makefile
+src/EBox/OpenVPN/t/Makefile
 src/EBox/CGI/Makefile
 src/templates/Makefile
 schemas/Makefile
