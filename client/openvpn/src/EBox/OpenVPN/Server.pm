@@ -11,7 +11,7 @@ sub new
 {
     my ($class, $name, $openvpnModule) = @_;
     
-    my $confKeysBase = "servers/$name";
+    my $confKeysBase = "server/$name";
     if (!$openvpnModule->dir_exists($confKeysBase) ) {
 	throw EBox::Exceptions::Internal("Tried to instantiate a server with a name not found in module configuration: $name");
     }

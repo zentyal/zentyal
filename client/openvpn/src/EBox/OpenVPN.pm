@@ -22,6 +22,8 @@ use base 'EBox::GConfModule';
 
 use EBox::Gettext;
 use EBox::Summary::Module;
+use Perl6::Junction qw(any);
+use EBox::OpenVPN::Server;
 
 sub _create 
 {
@@ -33,8 +35,23 @@ sub _create
 
 sub _regenConfig
 {
-    
-    _writeServersConfFiles();
+    my ($self) = @_;
+
+    $self->_writeServersConfFiles();
+    $self->_doDaemon();
+}
+
+sub confDir
+{
+    my ($self) = @_;
+    return $self->get_string('conf_dir');
+}
+
+
+sub openvpnBin
+{
+   my ($self) = @_;
+   return $self->get_string('openvpn_bin');
 }
 
 
@@ -42,7 +59,7 @@ sub _writeServersConfFiles
 {
     my ($self) = @_;
 
-    my $confDir = $self->get_string('confDir');
+    my $confDir = $self->confDir;
 
     my @servers = $self->_serversNames();
     foreach my $serverName (@servers) {
@@ -56,7 +73,7 @@ sub serversNames
 {
     my ($self) = @_;
     
-    my @serversNames = @{ $self->all_dirs_base('servers') };
+    my @serversNames = @{ $self->all_dirs_base('server') };
     return @serversNames;
 }
 
@@ -75,17 +92,33 @@ sub newServer
 {
     my ($self, $name, $type) = @_;
 # type is ignored for now.. Now we use only a type of server
+    if ( ! $name =~ m{^\w+$} ) {
+	throw EBox::Exceptions::External __x("{name} is a invalid name for a server. Only alphanumerics abnd underscores are allowed", name => $name);
+    }
 
-    my @serverNames = $self->serverNames();
-    if ($name eq any(@serverNames)) {
+    my @serversNames = $self->serversNames();
+    if ($name eq any(@serversNames)) {
 	throw EBox::Exceptions::DataExists(data => "OpenVPN server", value => $name  );
     }
     
-    $self->set_string('server/name/type' => 'one_to_many');
+    $self->set_string("server/$name/type" => 'one_to_many');
 
-    return _server($name);
+    return $self->server($name);
 }
 
+
+sub removeServer
+{
+    my ($self, $name) = @_;
+    my $serverDir = "server/$name";
+
+    if (! $self->dir_exists($serverDir)) {
+	throw EBox::Exceptions::External __x("Unable to remove because there is not a openvpn server named {name}", name => $name);
+    }
+
+	
+    $self->delete_dir($serverDir);
+}
 
 sub user
 {
@@ -107,12 +140,60 @@ sub summary
 	return $item;
 }
 
+
+sub setService # (active)
+{
+    my ($self, $active) = @_;
+    ($active and $self->service)   and return;
+    (!$active and !$self->service) and return;
+
+    $self->set_bool('active', $active);
+#   $self->_configureFirewall;
+}
+
+
+sub service
+{
+   my ($self) = @_;
+   return $self->get_bool('active');
+}
+
+sub _doDaemon
+{
+    my ($self) = @_;
+    my $running = EBox::Service::running('openvpn');
+
+    if ($self->service) {
+	if ($running) {
+	    EBox::Service::manage('openvpn', 'restart');
+	}
+	else {
+	EBox::Service::manage('openvpn', 'start');
+	}
+    }
+    else {
+	if ($running) {
+	    EBox::Service::manage('openvpn', 'stop');
+	  }
+    }
+
+}
+
+sub _stopService
+{
+    EBox::Service::manage('openvpn','stop');
+}
+
+
 sub rootCommands
 {
 	my ($self) = @_;
-	my @array = ();
-	push(@array, "/bin/true");
-	return @array;
+	my @commands = ();
+	push @commands, $self->rootCommandsForWriteConfFile($self->confDir . '/*');
+	
+	#XXX TODO: add doDaemon commands
+
+	return @commands;
 }
 
 1;

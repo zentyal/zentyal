@@ -33,18 +33,18 @@ sub setUpConfiguration : Test(setup)
         my @config = (
 		  '/ebox/modules/openvpn/user'  => 'nobody',
 		  '/ebox/modules/openvpn/group' => 'nobody',
-		  '/ebox/modules/openvpn/confDir' => $self->_confDir(),
+		  '/ebox/modules/openvpn/conf_dir' => $self->_confDir(),
 
-		  '/ebox/modules/openvpn/servers/macaco/port'    => 1194,
-		  '/ebox/modules/openvpn/servers/macaco/proto'   => 'tcp',
-		  '/ebox/modules/openvpn/servers/macaco/ca_certificate'   => 'monos.crt',
-		  '/ebox/modules/openvpn/servers/macaco/server_certificate'   => 'macaco.crt',
-		  '/ebox/modules/openvpn/servers/macaco/server_key'   => 'macaco.key',
-		  '/ebox/modules/openvpn/servers/macaco/vpn_net'     => '10.0.8.0',
-		  '/ebox/modules/openvpn/servers/macaco/vpn_netmask' => '255.255.255.0',
+		  '/ebox/modules/openvpn/server/macaco/port'    => 1194,
+		  '/ebox/modules/openvpn/server/macaco/proto'   => 'tcp',
+		  '/ebox/modules/openvpn/server/macaco/ca_certificate'   => 'monos.crt',
+		  '/ebox/modules/openvpn/server/macaco/server_certificate'   => 'macaco.crt',
+		  '/ebox/modules/openvpn/server/macaco/server_key'   => 'macaco.key',
+		  '/ebox/modules/openvpn/server/macaco/vpn_net'     => '10.0.8.0',
+		  '/ebox/modules/openvpn/server/macaco/vpn_netmask' => '255.255.255.0',
 
-		  '/ebox/modules/openvpn/servers/gibon/port'   => 1294,
-		  '/ebox/modules/openvpn/servers/gibon/proto'  => 'udp',
+		  '/ebox/modules/openvpn/server/gibon/port'   => 1294,
+		  '/ebox/modules/openvpn/server/gibon/proto'  => 'udp',
 
 		  );
 
