@@ -13,11 +13,13 @@ use Test::Exception;
 use Test::MockModule;
 
 use lib '../../../';
+use EBox::OpenVPN;
+
 
 sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
-    $self->{openvpnModInstance} = EBox::GConfModule->_create(name => 'openvpn');
+    $self->{openvpnModInstance} = EBox::OpenVPN->_create();
 
     my @config = (
 		  '/ebox/modules/openvpn/servers/macaco/port'  => 1194,
@@ -81,7 +83,7 @@ sub setProtoTest : Test(6)
 }
 
 
-sub setPortTest : Test(18)
+sub setPortTest : Test(20)
 {
     my ($self) = @_;
  
@@ -99,6 +101,16 @@ sub setPortTest : Test(18)
 			  deviantValues  => $incorrectPorts,
 			  propierty      => "Server\'s IP port",
 			);
+
+
+    # duplicates port test
+    my $server2  = $self->_newServer('gibon');
+    my $samePort = 3030;
+    my $previousPort =  $server2->port();
+    $server->setPort($samePort);
+
+    dies_ok { $server2->setPort($samePort) } "Checking that setting a duplicate port raises error";
+    is $server2->port(), $previousPort, "Checking that the port remains untouched after the failed setting operation";
 }
 
 sub setLocalTest : Test(12)

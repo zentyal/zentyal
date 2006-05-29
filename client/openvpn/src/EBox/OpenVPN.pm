@@ -52,7 +52,7 @@ sub _writeServersConfFiles
 }
 
 
-sub _serversNames
+sub serversNames
 {
     my ($self) = @_;
     
@@ -60,13 +60,32 @@ sub _serversNames
     return @serversNames;
 }
 
-sub _server
+# a object server cache may be a good idea?
+sub server
 {
     my ($self, $name) = @_;
     
     my $server = new EBox::OpenVPN::Server ($name, $self);
     return $server;
 }
+
+
+
+sub newServer
+{
+    my ($self, $name, $type) = @_;
+# type is ignored for now.. Now we use only a type of server
+
+    my @serverNames = $self->serverNames();
+    if ($name eq any(@serverNames)) {
+	throw EBox::Exceptions::DataExists(data => "OpenVPN server", value => $name  );
+    }
+    
+    $self->set_string('server/name/type' => 'one_to_many');
+
+    return _server($name);
+}
+
 
 
 sub summary

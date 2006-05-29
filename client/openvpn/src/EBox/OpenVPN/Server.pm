@@ -3,20 +3,20 @@ package EBox::OpenVPN::Server;
 use strict;
 use warnings;
 
-use EBox::Validate qw(checkPort checkAbsoluteFilePath checkIP);
+use EBox::Validate qw(checkPort checkAbsoluteFilePath checkIP checkIPNetmask);
 use EBox::NetWrappers;
 use Perl6::Junction qw(all);
 
 sub new
 {
-    my ($class, $name, $confModule) = @_;
+    my ($class, $name, $openvpnModule) = @_;
     
     my $confKeysBase = "servers/$name";
-    if (!$confModule->dir_exists($confKeysBase) ) {
+    if (!$openvpnModule->dir_exists($confKeysBase) ) {
 	throw EBox::Exceptions::Internal("Tried to instantiate a server with a name not found in module configuration: $name");
     }
 
-    my $self = {  confModule => $confModule, confKeysBase => $confKeysBase   };
+    my $self = { name => $name,  openvpnModule => $openvpnModule, confKeysBase => $confKeysBase   };
     bless $self, $class;
 
     return $self;
@@ -28,24 +28,24 @@ sub _confKey
     return $self->{confKeysBase} . "/$key";
 }
 
-sub _confModule
+sub _openvpnModule
 {
     my ($self) = @_;
-    return $self->{confModule};
+    return $self->{openvpnModule};
 }
 
 sub _getConfString
 {
     my ($self, $key) = @_;
     $key = $self->_confKey($key);
-    $self->_confModule->get_string($key);
+    $self->_openvpnModule->get_string($key);
 }
 
 sub _setConfString
 {
     my ($self, $key, $value) = @_;
     $key = $self->_confKey($key);
-    $self->_confModule->set_string($key, $value);
+    $self->_openvpnModule->set_string($key, $value);
 }
 
 sub _setConfPath
@@ -60,14 +60,14 @@ sub _getConfInt
 {
     my ($self, $key) = @_;
     $key = $self->_confKey($key);
-    $self->_confModule->get_int($key);
+    $self->_openvpnModule->get_int($key);
 }
 
 sub _setConfInt
 {
     my ($self, $key, $value) = @_;
     $key = $self->_confKey($key);
-    $self->_confModule->set_int($key, $value);
+    $self->_openvpnModule->set_int($key, $value);
 }
 
 
@@ -75,16 +75,22 @@ sub _getConfBool
 {
     my ($self, $key) = @_;
     $key = _confKey($key);
-    $self->_confModule->get_bool($key);
+    $self->_openvpnModule->get_bool($key);
 }
 
 sub _setConfBool
 {
     my ($self, $key, $value) = @_;
     $key = _confKey($key);
-    $self->_confModule->set_bool($key, $value);
+    $self->_openvpnModule->set_bool($key, $value);
 }
 
+
+sub name
+{
+    my ($self) = @_;
+    return $self->{name};
+}
 
 sub setProto
 {
@@ -112,8 +118,27 @@ sub setPort
       throw EBox::Exceptions::InvalidData(data => "server's port", value => $port, advice => __("The port must be a non-privileged port")  );
     }
 
-    $self->_setConfInt('port', $port);
+  $self->_checkPortIsNotDuplicate($port);
+
+  $self->_setConfInt('port', $port);
 }
+
+
+sub _checkPortIsNotDuplicate
+{
+    my ($self, $port) = @_;
+
+    my $ownName = $self->name();
+    my @serversNames = grep { $_ ne $ownName } $self->_openvpnModule->serversNames();
+
+    foreach my $serverName (@serversNames) {
+	my $server =  $self->_openvpnModule->server($serverName); 
+	if ($port eq $server->port() ) {
+	    throw EBox::Exceptions::External ("There are already a OpenVPN server that uses port $port");
+	}
+    }
+}
+
 
 sub port
 {
@@ -142,8 +167,78 @@ sub local
 }
 
 
+# XXX certificates: 
+# - existence control
+# - file permision c9ntrol (specially server key)
+
+sub setCaCertificate
+{
+    my ($self, $caCertificate) = @_;
+    $self->_setConfPath($caCertificate);
+}
+
+sub caCertificate
+{
+    my ($self) = @_;
+    return $self->_getConfString('ca_certificate');
+}
+
+sub setServerCertificate
+{
+    my ($self, $serverCertificate) = @_;
+    $self->_setConfPath($serverCertificate);
+}
+
+sub serverCertificate
+{
+    my ($self) = @_;
+    return $self->_getConfString('server_certificate');
+}
 
 
+sub setKeyCertificate
+{
+    my ($self, $keyCertificate) = @_;
+    $self->_setConfPath($keyCertificate);
+}
 
+sub keyCertificate
+{
+    my ($self) = @_;
+    return $self->_getConfString('key_certificate');
+}
+
+
+sub setVPNSubnet
+{
+    my ($self, $net, $netmask) = @_;
+
+    checkIPNetmask($net, $netmask, 'VPN net', "VPN net\'s netmask");
+
+    $self->_setConfString('vpn_net', $net);
+    $self->_setConfString('vpn_netmask', $netmask);
+}
+
+sub VPNSubnet
+{
+    my ($self) = @_;
+    my $net = $self->_getConfString('vpn_net');
+    my $netmask = $self->_getConfString('vpn_netmask');
+
+    return ($net, $netmask);
+}
+
+
+sub setClientToClient
+{
+    my ($self, $clientToClientAllowed) = @_;
+    $self->_setConfBool('client_to_client', $clientToClientAllowed);
+}
+
+sub clientToClient
+{
+    my ($self) = @_;
+    return $self->_getConfBool('client_to_client');
+}
 
 1;
