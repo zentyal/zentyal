@@ -60,7 +60,6 @@ sub clearConfiguration : Test(teardown)
 
 sub _useOkTest : Test
 {
-    EBox::Sudo::Mock::mock();
     use_ok ('EBox::OpenVPN::Server');
 }
 
