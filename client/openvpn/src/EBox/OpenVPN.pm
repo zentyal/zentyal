@@ -92,7 +92,7 @@ sub newServer
 {
     my ($self, $name, $type) = @_;
 # type is ignored for now.. Now we use only a type of server
-    if ( ! $name =~ m{^\w+$} ) {
+    unless ( $name =~ m{^\w+$} ) {
 	throw EBox::Exceptions::External __x("{name} is a invalid name for a server. Only alphanumerics abnd underscores are allowed", name => $name);
     }
 
