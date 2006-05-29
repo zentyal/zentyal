@@ -265,10 +265,10 @@ sub writeConfFile
     my $templatePath = "openvpn/openvpn.conf.mas";
     
     my @templateParams;
-    my ($vpnSubnet, $vpnSubnetNetmask) = $self->VPNSubnet();
-    push @templateParams, (vpnSubnet => $vpnSubnet, vpnSubnetNetmask => $vpnSubnetNetmask);
+    my ($vpnSubnet, $vpnSubnetMask) = $self->VPNSubnet();
+    push @templateParams, (vpnSubnet => $vpnSubnet, vpnSubnetMask => $vpnSubnetMask);
 
-    my @paramsWithSimpleAccessors = qw(local port caCertificate serverCertificate serverKey clientToClient user group);
+    my @paramsWithSimpleAccessors = qw(local port caCertificate serverCertificate serverKey clientToClient user group proto);
     foreach  my $param (@paramsWithSimpleAccessors) {
 	my $accessor_r = $self->can($param);
 	defined $accessor_r or die "Can not found accesoor for param $param";

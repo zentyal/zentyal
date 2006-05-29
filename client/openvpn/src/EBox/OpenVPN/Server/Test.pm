@@ -35,8 +35,14 @@ sub setUpConfiguration : Test(setup)
 		  '/ebox/modules/openvpn/group' => 'nobody',
 		  '/ebox/modules/openvpn/confDir' => $self->_confDir(),
 
-		  '/ebox/modules/openvpn/servers/macaco/port'  => 1194,
-		  '/ebox/modules/openvpn/servers/macaco/proto' => 'tcp',
+		  '/ebox/modules/openvpn/servers/macaco/port'    => 1194,
+		  '/ebox/modules/openvpn/servers/macaco/proto'   => 'tcp',
+		  '/ebox/modules/openvpn/servers/macaco/ca_certificate'   => 'monos.crt',
+		  '/ebox/modules/openvpn/servers/macaco/server_certificate'   => 'macaco.crt',
+		  '/ebox/modules/openvpn/servers/macaco/server_key'   => 'macaco.key',
+		  '/ebox/modules/openvpn/servers/macaco/vpn_net'     => '10.0.8.0',
+		  '/ebox/modules/openvpn/servers/macaco/vpn_netmask' => '255.255.255.0',
+
 		  '/ebox/modules/openvpn/servers/gibon/port'   => 1294,
 		  '/ebox/modules/openvpn/servers/gibon/proto'  => 'udp',
 
@@ -54,6 +60,7 @@ sub clearConfiguration : Test(teardown)
 
 sub _useOkTest : Test
 {
+    EBox::Sudo::Mock::mock();
     use_ok ('EBox::OpenVPN::Server');
 }
 
@@ -183,22 +190,29 @@ sub setterAndGetterTest
 
 
 
-sub writeConfFileTest : Test()
+sub writeConfFileTest : Test(2)
 {
     my ($self) = @_;
 
-    my $stubDir = `cd ../../../../stubs; pwd`;
-    ($? ==0 ) or die "Error getting source stub dir";
+    my $stubDir  = $self->testDir() . '/stubs';
+    my $confDir =   $self->testDir() . "/config";
+    foreach my $testSubdir ($confDir, $stubDir, "$stubDir/openvpn") {
+	system ("rm -rf $testSubdir");
+	($? == 0) or die "Error removing  temp test subdir $testSubdir: $!";
+	system ("mkdir -p $testSubdir");
+	($? == 0) or die "Error creating  temp test subdir $testSubdir: $!";
+    }
+    
+    
+    system "cp ../../../../stubs/openvpn.conf.mas $stubDir/openvpn";
+    ($? ==0 ) or die "Can not copy templates to stub mock dir";
     EBox::Config::Mock::setConfigKeys('stubs' => $stubDir, tmp => '/tmp');
 
-    my $confDir =   $self->testDir() . "/config";
-    system ("rm -rf $confDir");
-    ($? == 0) or die "Error removing config temp test dir $confDir: $!";
-    system ("mkdir -p $confDir");
-    ($? == 0) or die "Error creating config temp test dir $confDir: $!";
-
+  
     my $server = $self->_newServer('macaco');
     lives_ok { $server->writeConfFile($confDir)  } 'Calling writeConfFile method in server instance';
+    file_exists_ok("$confDir/macaco.conf", "Checking if the new configuration file was written");
+    diag "TODO: try to validate automatically the generated conf file without ressorting a aspect-like thing. (You may validate manually with openvpn --config)";
 }
 
 

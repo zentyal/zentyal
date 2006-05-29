@@ -33,9 +33,9 @@ dev tun
 
 # SSL/TLS root certificate (ca), certificate
 # (cert), and private key (key). 
-<& valueEntry, entry => 'caCertificate', value => $caCertificate  &>
-<& valueEntry, entry => 'serverCertificate', value => $serverCertificate  &>
-<& valueEntry, entry => 'serverKey', value => $serverKey  &> # This file should be kept secret
+<& valueEntry, entry => 'ca', value => $caCertificate  &>
+<& valueEntry, entry => 'cert', value => $serverCertificate  &>
+<& valueEntry, entry => 'key', value => $serverKey  &> # This file should be kept secret
 
 # Diffie hellman parameters.
 # Generate your own with:
@@ -46,7 +46,7 @@ dh dh1024.pem
 
 # Configure server mode and supply a VPN subnet
 # for OpenVPN to draw client addresses from.
-server <$ $vpnSubnet $> <$ $vpnSubnetMask $>
+server <% $vpnSubnet %> <% $vpnSubnetMask %>
 
 # Maintain a record of client <-> virtual IP address
 # associations in this file.  
