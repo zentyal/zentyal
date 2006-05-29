@@ -1,81 +1,41 @@
-#################################################
-# Sample OpenVPN 2.0 config file for            #
+<%args>
+$local            => undef
+$port  
+$proto
+$caCertificate
+$serverCertificate
+$serverKey
+$vpnSubnet
+$vpnSubnetMask
+$clientToClient   => 0
+$user
+$group
+</%args>
+
+# EBox OpenVPN 2.0 config file for            #
 # multi-client server.                          #
 #                                               #
-# This file is for the server side              #
-# of a many-clients <-> one-server              #
-# OpenVPN configuration.                        #
-#                                               #
-# OpenVPN also supports                         #
-# single-machine <-> single-machine             #
-# configurations (See the Examples page         #
-# on the web site for more info).               #
-#                                               #
-# This config should work on Windows            #
-# or Linux/BSD systems.  Remember on            #
-# Windows to quote pathnames and use            #
-# double backslashes, e.g.:                     #
-# "C:\\Program Files\\OpenVPN\\config\\foo.key" #
-#                                               #
-# Comments are preceded with '#' or ';'         #
-#################################################
+
 
 # Which local IP address should OpenVPN
 # listen on? (optional)
-;local a.b.c.d
+<& valueEntry, entry => 'local', value => $local  &>
+
 
 # Which TCP/UDP port should OpenVPN listen on?
-# If you want to run multiple OpenVPN instances
-# on the same machine, use a different port
-# number for each one.  You will need to
-# open up this port on your firewall.
-port 1194
+<& valueEntry, entry => 'port', value => $port  &>
 
 # TCP or UDP server?
-;proto tcp
-proto udp
+<& valueEntry, entry => 'proto', value => $proto  &>
 
 # "dev tun" will create a routed IP tunnel,
-# "dev tap" will create an ethernet tunnel.
-# Use "dev tap" if you are ethernet bridging.
-# If you want to control access policies
-# over the VPN, you must create firewall
-# rules for the the TUN/TAP interface.
-# On non-Windows systems, you can give
-# an explicit unit number, such as tun0.
-# On Windows, use "dev-node" for this.
-# On most systems, the VPN will not function
-# unless you partially or fully disable
-# the firewall for the TUN/TAP interface.
-;dev tap
 dev tun
 
-# Windows needs the TAP-Win32 adapter name
-# from the Network Connections panel if you
-# have more than one.  On XP SP2 or higher,
-# you may need to selectively disable the
-# Windows firewall for the TAP adapter.
-# Non-Windows systems usually don't need this.
-;dev-node MyTap
-
 # SSL/TLS root certificate (ca), certificate
-# (cert), and private key (key).  Each client
-# and the server must have their own cert and
-# key file.  The server and all clients will
-# use the same ca file.
-#
-# See the "easy-rsa" directory for a series
-# of scripts for generating RSA certificates
-# and private keys.  Remember to use
-# a unique Common Name for the server
-# and each of the client certificates.
-#
-# Any X509 key management system can be used.
-# OpenVPN can also use a PKCS #12 formatted key file
-# (see "pkcs12" directive in man page).
-;ca ca.crt
-;cert server.crt
-;key server.key  # This file should be kept secret
+# (cert), and private key (key). 
+<& valueEntry, entry => 'caCertificate', value => $caCertificate  &>
+<& valueEntry, entry => 'serverCertificate', value => $serverCertificate  &>
+<& valueEntry, entry => 'serverKey', value => $serverKey  &> # This file should be kept secret
 
 # Diffie hellman parameters.
 # Generate your own with:
@@ -86,146 +46,30 @@ dh dh1024.pem
 
 # Configure server mode and supply a VPN subnet
 # for OpenVPN to draw client addresses from.
-# The server will take 10.8.0.1 for itself,
-# the rest will be made available to clients.
-# Each client will be able to reach the server
-# on 10.8.0.1. Comment this line out if you are
-# ethernet bridging. See the man page for more info.
-server 10.8.0.0 255.255.255.0
+server <$ $vpnSubnet $> <$ $vpnSubnetMask $>
 
 # Maintain a record of client <-> virtual IP address
-# associations in this file.  If OpenVPN goes down or
-# is restarted, reconnecting clients can be assigned
-# the same virtual IP address from the pool that was
-# previously assigned.
+# associations in this file.  
 ifconfig-pool-persist ipp.txt
 
-# Configure server mode for ethernet bridging.
-# You must first use your OS's bridging capability
-# to bridge the TAP interface with the ethernet
-# NIC interface.  Then you must manually set the
-# IP/netmask on the bridge interface, here we
-# assume 10.8.0.4/255.255.255.0.  Finally we
-# must set aside an IP range in this subnet
-# (start=10.8.0.50 end=10.8.0.100) to allocate
-# to connecting clients.  Leave this line commented
-# out unless you are ethernet bridging.
-;server-bridge 10.8.0.4 255.255.255.0 10.8.0.50 10.8.0.100
-
-# Push routes to the client to allow it
-# to reach other private subnets behind
-# the server.  Remember that these
-# private subnets will also need
-# to know to route the OpenVPN client
-# address pool (10.8.0.0/255.255.255.0)
-# back to the OpenVPN server.
-;push "route 192.168.10.0 255.255.255.0"
-;push "route 192.168.20.0 255.255.255.0"
-
-# To assign specific IP addresses to specific
-# clients or if a connecting client has a private
-# subnet behind it that should also have VPN access,
-# use the subdirectory "ccd" for client-specific
-# configuration files (see man page for more info).
-
-# EXAMPLE: Suppose the client
-# having the certificate common name "Thelonious"
-# also has a small subnet behind his connecting
-# machine, such as 192.168.40.128/255.255.255.248.
-# First, uncomment out these lines:
-;client-config-dir ccd
-;route 192.168.40.128 255.255.255.248
-# Then create a file ccd/Thelonious with this line:
-#   iroute 192.168.40.128 255.255.255.248
-# This will allow Thelonious' private subnet to
-# access the VPN.  This example will only work
-# if you are routing, not bridging, i.e. you are
-# using "dev tun" and "server" directives.
-
-# EXAMPLE: Suppose you want to give
-# Thelonious a fixed VPN IP address of 10.9.0.1.
-# First uncomment out these lines:
-;client-config-dir ccd
-;route 10.9.0.0 255.255.255.252
-# Then add this line to ccd/Thelonious:
-#   ifconfig-push 10.9.0.1 10.9.0.2
-
-# Suppose that you want to enable different
-# firewall access policies for different groups
-# of clients.  There are two methods:
-# (1) Run multiple OpenVPN daemons, one for each
-#     group, and firewall the TUN/TAP interface
-#     for each group/daemon appropriately.
-# (2) (Advanced) Create a script to dynamically
-#     modify the firewall in response to access
-#     from different clients.  See man
-#     page for more info on learn-address script.
-;learn-address ./script
 
 # If enabled, this directive will configure
 # all clients to redirect their default
-# network gateway through the VPN, causing
-# all IP traffic such as web browsing and
-# and DNS lookups to go through the VPN
-# (The OpenVPN server machine may need to NAT
-# the TUN/TAP interface to the internet in
-# order for this to work properly).
-# CAVEAT: May break client's network config if
-# client's local DHCP server packets get routed
-# through the tunnel.  Solution: make sure
-# client's local DHCP server is reachable via
-# a more specific route than the default route
-# of 0.0.0.0/0.0.0.0.
+# network gateway through the VPN
 ;push "redirect-gateway"
 
-# Certain Windows-specific network settings
-# can be pushed to clients, such as DNS
-# or WINS server addresses.  CAVEAT:
-# http://openvpn.net/faq.html#dhcpcaveats
-;push "dhcp-option DNS 10.8.0.1"
-;push "dhcp-option WINS 10.8.0.1"
 
 # Uncomment this directive to allow different
 # clients to be able to "see" each other.
-# By default, clients will only see the server.
-# To force clients to only see the server, you
-# will also need to appropriately firewall the
-# server's TUN/TAP interface.
-;client-to-client
-
-# Uncomment this directive if multiple clients
-# might connect with the same certificate/key
-# files or common names.  This is recommended
-# only for testing purposes.  For production use,
-# each client should have its own certificate/key
-# pair.
-#
-# IF YOU HAVE NOT GENERATED INDIVIDUAL
-# CERTIFICATE/KEY PAIRS FOR EACH CLIENT,
-# EACH HAVING ITS OWN UNIQUE "COMMON NAME",
-# UNCOMMENT THIS LINE OUT.
-;duplicate-cn
+<& boolEntry, entry => 'client-to-client', value => $clientToClient &>
 
 # The keepalive directive causes ping-like
 # messages to be sent back and forth over
-# the link so that each side knows when
-# the other side has gone down.
-# Ping every 10 seconds, assume that remote
-# peer is down if no ping received during
-# a 120 second time period.
 keepalive 10 120
 
 # For extra security beyond that provided
 # by SSL/TLS, create an "HMAC firewall"
 # to help block DoS attacks and UDP port flooding.
-#
-# Generate with:
-#   openvpn --genkey --secret ta.key
-#
-# The server and each client must have
-# a copy of this key.
-# The second parameter should be '0'
-# on the server and '1' on the clients.
 ;tls-auth ta.key 0 # This file is secret
 
 # Select a cryptographic cipher.
@@ -244,13 +88,11 @@ comp-lzo
 # clients we want to allow.
 ;max-clients 100
 
-# It's a good idea to reduce the OpenVPN
+# group and user for the OpenVPN
 # daemon's privileges after initialization.
-#
-# You can uncomment this out on
-# non-Windows systems.
-user nobody
-group nobody
+<& valueEntry, entry => 'user', value => $user  &>
+<& valueEntry, entry => 'group', value => $group  &>
+
 
 # The persist options will try to avoid
 # accessing certain resources on restart
@@ -289,4 +131,22 @@ verb 3
 ;mute 20
 
 
-management localhost 7505
+<%def valueEntry>
+<%args>
+$entry
+$value
+</%args>
+% if (defined $value) {
+<% $entry %> <% $value %>
+%}
+</%def>
+
+<%def boolEntry>
+<%args>
+$entry
+$value
+</%args>
+% if ($value) {
+<% $entry %>
+%}
+</%def>
