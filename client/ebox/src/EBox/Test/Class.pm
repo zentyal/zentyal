@@ -9,16 +9,18 @@ use Test::More;
 
 use Fatal qw(mkdir);
 
+use EBox::Sudo::Mock;
+EBox::Sudo::Mock::mock();
+
 use EBox::Mock;
 use EBox::Config::Mock;
-use EBox::Sudo::Mock;
 use EBox::GConfModule::Mock;
 use EBox::Global::Mock;
 
 sub _mockFrameworkModules :  Test(startup) {
     EBox::Mock::mock();
     EBox::Config::Mock::mock();
-    EBox::Sudo::Mock::mock();
+
     EBox::GConfModule::Mock::mock();
     EBox::Global::Mock::mock();
 }
