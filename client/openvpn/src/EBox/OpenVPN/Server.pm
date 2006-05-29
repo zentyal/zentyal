@@ -74,14 +74,14 @@ sub _setConfInt
 sub _getConfBool
 {
     my ($self, $key) = @_;
-    $key = _confKey($key);
+    $key = $self->_confKey($key);
     $self->_openvpnModule->get_bool($key);
 }
 
 sub _setConfBool
 {
     my ($self, $key, $value) = @_;
-    $key = _confKey($key);
+    $key = $self->_confKey($key);
     $self->_openvpnModule->set_bool($key, $value);
 }
 
@@ -196,16 +196,16 @@ sub serverCertificate
 }
 
 
-sub setKeyCertificate
+sub setServerKey
 {
-    my ($self, $keyCertificate) = @_;
-    $self->_setConfPath($keyCertificate);
+    my ($self, $serverKey) = @_;
+    $self->_setConfPath($serverKey);
 }
 
-sub keyCertificate
+sub serverKey
 {
     my ($self) = @_;
-    return $self->_getConfString('key_certificate');
+    return $self->_getConfString('server_key');
 }
 
 
@@ -240,5 +240,44 @@ sub clientToClient
     my ($self) = @_;
     return $self->_getConfBool('client_to_client');
 }
+
+
+sub user
+{
+    my ($self) = @_;
+    return $self->_openvpnModule->user();
+}
+
+
+sub group
+{
+    my ($self) = @_;
+    return $self->_openvpnModule->group();
+}
+
+
+sub writeConfFile
+{
+    my ($self, $confDir) = @_;
+    my $confFile = $self->name() . '.conf';
+    my $confFilePath = "$confDir/$confFile";
+
+    my $templatePath = "openvpn/openvpn.conf.mas";
+    
+    my @templateParams;
+    my ($vpnSubnet, $vpnSubnetNetmask) = $self->VPNSubnet();
+    push @templateParams, (vpnSubnet => $vpnSubnet, vpnSubnetNetmask => $vpnSubnetNetmask);
+
+    my @paramsWithSimpleAccessors = qw(local port caCertificate serverCertificate serverKey clientToClient user group);
+    foreach  my $param (@paramsWithSimpleAccessors) {
+	my $accessor_r = $self->can($param);
+	defined $accessor_r or die "Can not found accesoor for param $param";
+	push @templateParams, ($param => $accessor_r->($self));
+    }
+
+
+    EBox::GConfModule->writeConfFile($confFilePath, $templatePath, \@templateParams)
+}
+
 
 1;

@@ -11,21 +11,35 @@ use EBox::Test;
 use Test::More;
 use Test::Exception;
 use Test::MockModule;
+use Test::File;
 
 use lib '../../../';
 use EBox::OpenVPN;
 
 
+sub testDir
+{
+    return  '/tmp/ebox.openvpn.test';
+}
+
+
 sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
+   
+
     $self->{openvpnModInstance} = EBox::OpenVPN->_create();
 
-    my @config = (
+        my @config = (
+		  '/ebox/modules/openvpn/user'  => 'nobody',
+		  '/ebox/modules/openvpn/group' => 'nobody',
+		  '/ebox/modules/openvpn/confDir' => $self->_confDir(),
+
 		  '/ebox/modules/openvpn/servers/macaco/port'  => 1194,
 		  '/ebox/modules/openvpn/servers/macaco/proto' => 'tcp',
 		  '/ebox/modules/openvpn/servers/gibon/port'   => 1294,
-		  '/ebox/modules/openvpn/servers/gibon/proto' => 'udp',
+		  '/ebox/modules/openvpn/servers/gibon/proto'  => 'udp',
+
 		  );
 
     EBox::GConfModule::Mock::setConfig(@config);
@@ -88,10 +102,10 @@ sub setPortTest : Test(20)
     my ($self) = @_;
  
     my $server          = $self->_newServer('macaco');
-    my $portGetter_r    =  $server->can('port');
-    my $portSetter_r    =  $server->can('setPort');
-    my $correctPorts   = [1024, 1194, 4000];
-    my $incorrectPorts = [0, -1, 'ea', 1023, 40, 0.4];
+    my $portGetter_r    = $server->can('port');
+    my $portSetter_r    = $server->can('setPort');
+    my $correctPorts    = [1024, 1194, 4000];
+    my $incorrectPorts  = [0, -1, 'ea', 1023, 40, 0.4];
 
     setterAndGetterTest(
 			  object         => $server,
@@ -167,6 +181,32 @@ sub setterAndGetterTest
     }
 }
 
+
+
+sub writeConfFileTest : Test()
+{
+    my ($self) = @_;
+
+    my $stubDir = `cd ../../../../stubs; pwd`;
+    ($? ==0 ) or die "Error getting source stub dir";
+    EBox::Config::Mock::setConfigKeys('stubs' => $stubDir, tmp => '/tmp');
+
+    my $confDir =   $self->testDir() . "/config";
+    system ("rm -rf $confDir");
+    ($? == 0) or die "Error removing config temp test dir $confDir: $!";
+    system ("mkdir -p $confDir");
+    ($? == 0) or die "Error creating config temp test dir $confDir: $!";
+
+    my $server = $self->_newServer('macaco');
+    lives_ok { $server->writeConfFile($confDir)  } 'Calling writeConfFile method in server instance';
+}
+
+
+sub _confDir
+{
+    my ($self) = @_;
+    return $self->testDir() . "/config";
+}
 
 sub _newServer
 {

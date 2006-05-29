@@ -87,6 +87,18 @@ sub newServer
 }
 
 
+sub user
+{
+    my ($self) = @_;
+    return $self->get_string('user');
+}
+
+sub group
+{
+    my ($self) = @_;
+    return $self->get_string('group');
+}
+
 
 sub summary
 {
