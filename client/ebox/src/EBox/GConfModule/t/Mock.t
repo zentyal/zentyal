@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 131;
+use Test::More tests => 137;
 use Test::Exception;
 use Test::Deep qw(cmp_bag cmp_deeply);
 use File::Basename;
@@ -27,6 +27,7 @@ setAndGetListTest();
 dirExistsTest();
 allEntriesTest();
 allDirsTest();
+deleteDirTest();
 
 sub createTest
 {
@@ -222,6 +223,20 @@ sub allDirsTest
     }
 }
 
+
+sub deleteDirTest
+{
+    _setFakeConfig();
+    my $gconfModule = EBox::GConfModule::_create('EBox::Mandrill', name => 'mandrill');
+
+    # try with a simple dir, a subdir and a dir with nested dirs..
+    foreach my $dir ('grooming_partners', 'foodEaten/prey/insects', 'foodEaten') {
+	$gconfModule->dir_exists($dir) or die "Fake config incorrectly stted";
+	lives_ok { $gconfModule->delete_dir($dir) } "Checking removal fake of gconf dir $dir";
+	$gconfModule->dir_exists($dir) and die "It exists..";
+	ok !$gconfModule->dir_exists($dir), "Testing that  dir $dir was deleted";
+    }
+}
 
 sub _setFakeConfig
 {

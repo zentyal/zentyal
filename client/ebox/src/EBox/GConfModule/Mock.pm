@@ -24,8 +24,8 @@ sub mock
 
     $mockedModule = new Test::MockModule('EBox::GConfModule');
     $mockedModule->mock('_gconf_wrapper' => \&_mockedGConfWrapper);
+    $mockedModule->mock('_delete_dir_internal' => \&_mockedDeleteDirInternal );
     $mockedModule->mock('_backup' => sub {} );
-
 }
 
 sub unmock
@@ -176,6 +176,17 @@ sub _dirExists
     return defined $dirExists ? 1 : 0;
 }
 
+sub _mockedDeleteDirInternal
+{
+    my ($self, $dir) = @_;
+    # very ineffcient:
+    my $target = qr{^$dir};
+    foreach my $key (keys %config) {
+	if ($key =~ m{$target} ) {
+	    delete $config{$key};
+	}
+    }
+}
 
 
 # subs to mangle configuration for testing:
