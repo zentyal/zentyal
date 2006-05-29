@@ -11,14 +11,48 @@
 			<default>EBox::OpenVPN</default>
 			<locale name="C"/>
 		</schema>
+
 		<schema>
 			<key>/schemas/ebox/modules/global/modules/modulename/conf_dir</key>
 			<applyto>/ebox/modules/global/modules/modulename/conf_dir</applyto>
 			<owner>ebox</owner>
 			<type>string</type>
-			<default>EBox::OpenVPN</default>
+			<default>/etc/openvpn</default>
 			<locale name="C">
 				<short>Path of the directory where the configuration files will be stored</short>
+			</locale>
+		</schema>
+
+		<schema>
+			<key>/schemas/ebox/modules/global/modules/modulename/openvpn_bin</key>
+			<applyto>/ebox/modules/global/modules/modulename/openvpn_bin</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>/usr/sbin/openvpn</default>
+			<locale name="C">
+				<short>Path of the openvpn binary</short>
+			</locale>
+		</schema>
+
+		<schema>
+			<key>/schemas/ebox/modules/global/modules/modulename/user</key>
+			<applyto>/ebox/modules/global/modules/modulename/user</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>nobody</default>
+			<locale name="C">
+				<short>User to which root will drop privileges after starting openvpn</short>
+			</locale>
+		</schema>
+
+		<schema>
+			<key>/schemas/ebox/modules/global/modules/modulename/group</key>
+			<applyto>/ebox/modules/global/modules/modulename/group</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>nobody</default>
+			<locale name="C">
+				<short>Group to which root will drop privileges after starting openvpn</short>
 			</locale>
 		</schema>
 
