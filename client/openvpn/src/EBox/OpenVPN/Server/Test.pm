@@ -12,6 +12,7 @@ use Test::More;
 use Test::Exception;
 use Test::MockModule;
 use Test::File;
+use Test::Differences;
 
 use lib '../../../';
 use EBox::OpenVPN;
@@ -214,6 +215,60 @@ sub writeConfFileTest : Test(2)
     diag "TODO: try to validate automatically the generated conf file without ressorting a aspect-like thing. (You may validate manually with openvpn --config)";
 }
 
+sub setVPNSubnetTest : Test(6)
+{
+    my ($self) = @_;
+    my $server = $self->_newServer('macaco');
+    my @straightCases =(
+			[qw(10.8.0.0 255.255.255.0)],
+			);
+    my @deviantCases = (
+			[qw(10.8.0.340 255.255.255.0)],
+			[qw(10.8.0.1 255.0.255.0)],
+			);
+
+    foreach my $value_r (@straightCases) {
+	lives_ok { $server->setVPNSubnet(@{ $value_r })  } 'Setting a straight vpn subnet';
+	my @actualVPNSubnet = $server->VPNSubnet();
+	eq_or_diff \@actualVPNSubnet, $value_r, 'Checking if the new values of VP were setted correctly';
+    }
+
+    foreach my $value_r (@deviantCases) {
+	my @beforeValue = $server->VPNSubnet();
+
+	dies_ok { $server->setVPNSubnet(@{ $value_r }) } "Checking that setting a invalid VPN subnet raises error";
+
+	my @actualValue = $server->VPNSubnet();
+	eq_or_diff \@actualValue, \@beforeValue, "Checking that VPN subnet values were left unchanged";
+    }
+}
+
+
+sub setCACertificateTest : Test(6)
+{
+    my ($self) = @_;
+    my $server                   = $self->_newServer('macaco');
+    my $caCertificateGetter_r    = $server->can('caCertificate');
+    my $caCertificateSetter_r    = $server->can('setCaCertificate');
+    my $correctCaCertificates    = [
+				    '/etc/openvpn/certs/ca.cert',
+				    ];
+    my $incorrectCaCertificates  = [
+				    'openvpn/certs/ca.cert',
+				    '/etc/../certs/ca.cert',
+				    ];
+
+    setterAndGetterTest(
+			  object         => $server,
+			  getter         => $caCertificateGetter_r,
+			  setter         => $caCertificateSetter_r,
+			  straightValues => $correctCaCertificates,
+			  deviantValues  => $incorrectCaCertificates,
+			  propierty      => "Server\'s caCertificate",
+			);
+
+
+}
 
 sub _confDir
 {
