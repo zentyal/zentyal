@@ -59,15 +59,22 @@ sub newAndRemoveServerTest : Test(24)
     my $openVPN = EBox::OpenVPN->_create();
 
     my @serversNames = qw(server1 sales staff_vpn );
+    my %serversParams = (
+			 server1 => [net => '10.8.0.0', netmask => '255.255.255.0', port => 3000, proto => 'tcp', caCertificate => '/etc/cert/ca.cert', serverCertificate => '/etc/cert/server.cert', serverKey => '/etc/cert/server.key', type => 'one2many'],
+			 sales => [net => '10.8.0.0', netmask => '255.255.255.0', port => 3001, proto => 'tcp', caCertificate => '/etc/cert/ca.cert', serverCertificate => '/etc/cert/server.cert', serverKey => '/etc/cert/server.key', type => 'one2many'],
+			 staff_vpn => [net => '10.8.0.0', netmask => '255.255.255.0', port => 3002, proto => 'tcp', caCertificate => '/etc/cert/ca.cert', serverCertificate => '/etc/cert/server.cert', serverKey => '/etc/cert/server.key', type => 'one2many'],
+
+			 );
 
     dies_ok { $openVPN->removeServer($serversNames[0]) } "Checking that removal of server when the server list is empty raises error";
-    dies_ok {  $openVPN->newServer('incorrect-dot', 'idleParam')  } 'Testing addition of incorrect named server';
+    dies_ok {  $openVPN->newServer('incorrect-dot', $serversParams{server1})  } 'Testing addition of incorrect named server';
 
     foreach my $name (@serversNames) {
 	my $instance;
-	lives_ok { $instance = $openVPN->newServer($name, 'idleParam')  } 'Testing addition of new server';
+	my @params = @{ $serversParams{$name} };
+	lives_ok { $instance = $openVPN->newServer($name, @params)  } 'Testing addition of new server';
 	isa_ok $instance, 'EBox::OpenVPN::Server', 'Checking that newServer has returned a server instance';
-	dies_ok { $instance  = $openVPN->newServer($name, 'idleParam')  } 'Checking that the servers cannot be added a second time';
+	dies_ok { $instance  = $openVPN->newServer($name, @params)  } 'Checking that the servers cannot be added a second time';
     }
 
     my @actualServersNames = $openVPN->serversNames();

@@ -24,6 +24,7 @@ use EBox::Gettext;
 use EBox::Summary::Module;
 use Perl6::Junction qw(any);
 use EBox::OpenVPN::Server;
+use Error qw(:try);
 
 sub _create 
 {
@@ -90,10 +91,11 @@ sub server
 
 sub newServer
 {
-    my ($self, $name, $type) = @_;
-# type is ignored for now.. Now we use only a type of server
+    my ($self, $name, %params) = @_;
+    my $type = exists $params{type} ? delete $params{type} : 'one2many'; # type is ignored for now.. Now we use only a type of server
+
     unless ( $name =~ m{^\w+$} ) {
-	throw EBox::Exceptions::External __x("{name} is a invalid name for a server. Only alphanumerics abnd underscores are allowed", name => $name);
+	throw EBox::Exceptions::External (__x("{name} is a invalid name for a server. Only alphanumerics and underscores are allowed", name => $name) );
     }
 
     my @serversNames = $self->serversNames();
@@ -101,9 +103,19 @@ sub newServer
 	throw EBox::Exceptions::DataExists(data => "OpenVPN server", value => $name  );
     }
     
-    $self->set_string("server/$name/type" => 'one_to_many');
+    $self->set_string("server/$name/type" => $type);
+    my $server;
+    try {
+	$server = $self->server($name);
+	$server->setFundamentalAttributes(%params);
+    }
+    otherwise {
+	my  $ex = shift;
+	$self->delete_dir("server/$name");
+	$ex->throw();
+    };
 
-    return $self->server($name);
+    return $server;
 }
 
 
