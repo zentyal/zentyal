@@ -30,8 +30,8 @@ use POSIX qw(setlocale LC_ALL);
 use Error qw(:try);
 use Encode qw(:all);
 use Data::Dumper;
+use List::Util qw(first);
 
-use Data::FormValidator; # XXX temporal TODO: wirte a  _validateParams equivalent 
 
 ## arguments
 ##		title [optional]
@@ -481,18 +481,37 @@ sub _validateParams
 {
     my ($self) = @_;
 
-    my $validatorProfile = { 
-	optional => $self->optionalParameters(),
-	required => $self->requiredParameters(),
-    };
+    my %params =  map { ($_ => 0)  }  @{ $self->params() };
+    
+    my @requiredParams =   @{ $self->requiredParameters };
+    foreach my $requiredParam (@requiredParams) {
+	my $requiredParamRe = qr/^$requiredParam$/ ;
 
-    my $results = Data::FormValidator->check($self->paramsAsHash, $validatorProfile);
- 
-    if ($results->has_invalid or  $results->has_unknown or $results->has_missing) {
-	my $msg = $results->msgs;
-	throw EBox::Exceptions::External $msg;
+	my $paramMatched = first { $_ =~ $requiredParamRe  } keys %params;
+	if (defined $paramMatched) {
+	    delete $params{$paramMatched};
+	}
+	else {
+	    throw EBox::Exceptions::External __x("Missing mandatory parameter {param}", param => $requiredParam);
+	}
+    }
+    
+
+    my @optionalParams =     @{ $self->optionalParameters };
+    foreach my $optionalParam (@optionalParams) {
+	my $optionalParamRe = qr/^$optionalParam$/;
+	my $paramMatched = first { $_ =~ $optionalParamRe  } keys %params;
+	if (defined $paramMatched) {
+	    delete $params{$paramMatched};
+	}
     }
 
+    if (keys %params) {
+	my @unexpectedParams = keys %params;
+	throw EBox::Exceptions::External ( __("Unallowed parameters found: ") .  "@unexpectedParams");
+    }
+
+    return 1;
 }
 
 sub optionalParameters
