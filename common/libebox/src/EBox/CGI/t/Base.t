@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 
-use Test::More 'no_plan';
+use Test::More tests => 60;
 use Test::Exception;
 
 use lib '../../..';
@@ -16,7 +16,8 @@ use EBox::Mock;
 EBox::Mock::mock();
 
 paramsAsHashTest();
-validateParamsTest();
+validateParamsTestWithRegularCases();
+validateParamsTestWithFlexibleCases();
 processTest();
 
 
@@ -37,7 +38,7 @@ sub paramsAsHashTest
     is_deeply(\%params, $cgiParamsHash, 'Checking return value of paramsAsHash')
 }
 
-sub validateParamsTest
+sub validateParamsTestWithRegularCases
 {
     my @correctCases = @{ cgiParametersCorrectCases() };
     my @deviantCases = @{ cgiParametersDeviantCases() };
@@ -49,7 +50,6 @@ sub validateParamsTest
 
 	lives_ok { $cgi->_validateParams()  } "Checking parameters validation with correct parameters: @params";
     }
-
  
 
     foreach my $case_r (@deviantCases) {
@@ -61,6 +61,50 @@ sub validateParamsTest
     }
 }
 
+sub validateParamsTestWithFlexibleCases
+{
+    my @deviantCases = (
+			[],  # none parameter
+			 ['mandatoryParameterEa'], # one mandatory alone
+ 			 ['mandatoryParameter', 'macacoA'], 
+			# extra params:
+			 ['mandatoryParameter3', '8macaco', 'hoolibuz'], 
+			 ['mandatoryParameter3', 'supermacaco', 'mandatoryParameter'],
+		    );
+    my @straightCases = (
+			 ['mandatoryParameterZ', 'macacoA'], 
+			 ['mandatoryParameter1', 'forevermacacoforever'], 
+			 ['mandatoryParametermacaco'],   # this lone param makes two matches. For now we consider it correct...
+			 ['mandatoryParameter1', 'foomacaco'], 
+			 # various mandatory matches:
+			 ['mandatoryParameter1', 'foomacaco', 'mandatoryParameterGibon'],
+			 # adding optionals:
+			 ['mandatoryParameter1', 'foomacaco', 'fooop1'], 
+			 ['mandatoryParameter1', 'foomacaco', 'mandatoryParameterGibon', 'chimop1'],
+			 ['mandatoryParameter1', 'foomacaco', 'fooop1', 'barop1'], 
+			 ['mandatoryParameter1', 'foomacaco', 'mandatoryParameterGibon', 'chimop1', 'titiop7'],
+			 );
+
+    my $prepareCgi_r = sub {
+	my ($case_r) = @_;
+	my $cgi = new EBox::CGI::FlexibleOptions;
+	my @params = map { ($_ => 1)  } @{ $case_r };
+	setCgiParams($cgi, @params);
+	
+	return $cgi;
+    };
+
+    foreach my $case_r (@straightCases) {
+	my $cgi = $prepareCgi_r->($case_r);
+	lives_ok { $cgi->_validateParams()  } "Checking parameters validation with correct parameters: @{$case_r}";
+    }
+    
+    foreach my $case_r (@deviantCases) {
+	my $cgi = $prepareCgi_r->($case_r);
+	dies_ok { $cgi->_validateParams()  } "Checking parameters validation with deviant parameters: @{$case_r}";
+    }
+    
+}
 
 sub processTest
 {
@@ -193,5 +237,33 @@ sub masonParameters
 sub _print
 {}
 
+
+
+package EBox::CGI::FlexibleOptions;
+use base 'EBox::CGI::Base';
+
+sub new 
+{
+    my ($class, @params) = @_;
+    my $self = $class->SUPER::new(@params);
+
+    bless $self, $class;
+    return $self;
+}
+
+sub requiredParameters
+{
+    return [
+	      'mandatoryParameter\w+', # anything that start with 'mandatory and continues with word chars
+	      '.*macaco.*'  # anything that has the string macaco on it
+	    ];
+}
+
+sub optionalParameters
+{
+    return [
+	    '.*op\d'  # anything that ends whit 'op' + digit
+	    ];
+}
 
 1;

@@ -30,7 +30,7 @@ use POSIX qw(setlocale LC_ALL);
 use Error qw(:try);
 use Encode qw(:all);
 use Data::Dumper;
-use List::Util qw(first);
+use Perl6::Junction qw(all);
 
 
 ## arguments
@@ -479,39 +479,71 @@ sub paramsAsHash
 
 sub _validateParams
 {
+
     my ($self) = @_;
-
-    my %params =  map { ($_ => 0)  }  @{ $self->params() };
+    my $params_r    = $self->params();
+    $params_r       = $self->_validateRequiredParams($params_r);
+    $params_r       = $self->_validateOptionalParams($params_r);
     
-    my @requiredParams =   @{ $self->requiredParameters };
-    foreach my $requiredParam (@requiredParams) {
-	my $requiredParamRe = qr/^$requiredParam$/ ;
-
-	my $paramMatched = first { $_ =~ $requiredParamRe  } keys %params;
-	if (defined $paramMatched) {
-	    delete $params{$paramMatched};
-	}
-	else {
-	    throw EBox::Exceptions::External __x("Missing mandatory parameter {param}", param => $requiredParam);
-	}
-    }
-    
-
-    my @optionalParams =     @{ $self->optionalParameters };
-    foreach my $optionalParam (@optionalParams) {
-	my $optionalParamRe = qr/^$optionalParam$/;
-	my $paramMatched = first { $_ =~ $optionalParamRe  } keys %params;
-	if (defined $paramMatched) {
-	    delete $params{$paramMatched};
-	}
-    }
-
-    if (keys %params) {
-	my @unexpectedParams = keys %params;
-	throw EBox::Exceptions::External ( __("Unallowed parameters found: ") .  "@unexpectedParams");
+    my @paramsLeft = @{ $params_r };
+    if (@paramsLeft ) {
+	throw EBox::Exceptions::External ( __("Unallowed parameters found: ") .  "@paramsLeft");
     }
 
     return 1;
+}
+
+
+sub _validateRequiredParams
+{
+    my ($self, $params_r) = @_;
+
+    my $matchResult_r = _matchParams($self->requiredParameters(), $params_r);
+    my @requiresWithoutMatch =  @{ $matchResult_r->{targetsWithoutMatch} };
+    if (@requiresWithoutMatch) {
+	throw EBox::Exceptions::External ( __("Mandatory parameters not found: ") . "@requiresWithoutMatch");
+    }
+    else {
+
+	my $allMatches = all  @{ $matchResult_r->{matches} };
+	my @newParams = grep { $_ ne $allMatches } @{ $params_r} ;
+	return \@newParams;
+    }
+}
+
+
+sub _validateOptionalParams
+{
+    my ($self, $params_r) = @_;
+
+    my $matchResult_r = _matchParams($self->optionalParameters(), $params_r);
+    
+    my $allMatches = all  @{ $matchResult_r->{matches} };
+    my @newParams = grep { $_ ne $allMatches } @{ $params_r} ;
+    return \@newParams;
+}
+
+
+sub _matchParams
+{
+    my ($targetParams_r, $actualParams_r) = @_;
+    my @targets = @{ $targetParams_r };
+    my @actualParams = @{ $actualParams_r};
+
+    my @targetsWithoutMatch;
+    my @matchedParams;
+    foreach my $targetParam ( @targets ) {
+	my $targetRe = qr/^$targetParam$/;
+	my @matched = grep { $_ =~ $targetRe } @actualParams;
+	if (@matched) {
+	    push @matchedParams, @matched;
+	}
+	else {
+	    push @targetsWithoutMatch, $targetParam;
+	}
+    }
+
+    return { matches => \@matchedParams, targetsWithoutMatch => \@targetsWithoutMatch };
 }
 
 sub optionalParameters
