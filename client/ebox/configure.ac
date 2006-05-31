@@ -58,6 +58,18 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	  
 	AC_PROG_PERL_MODULES(Apache::AuthCookie, ,
 	  AC_MSG_ERROR(Missing Apache::AuthCookie))
+
+	AC_PROG_PERL_MODULES(Test::MockClass, ,
+	  AC_MSG_WARN(Missing test dependency Test::MockClass))
+
+	AC_PROG_PERL_MODULES(Test::MockObject, ,
+	  AC_MSG_WARN(Missing test dependency Test::MockObject))
+
+	AC_PROG_PERL_MODULES(File::Slurp, ,
+	  AC_MSG_WARN(Missing test dependency File::Slurp))
+	  
+	AC_PROG_PERL_MODULES(List::Util, ,
+	  AC_MSG_WARN(Missing test dependency List::Util))
 else
 	GCONF_SCHEMAS_INSTALL_FALSE=
 	GCONF_SCHEMAS_INSTALL_TRUE='#'
