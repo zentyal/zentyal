@@ -21,6 +21,7 @@ use warnings;
 use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
+use File::stat qw();
 
 BEGIN {
 	use Exporter ();
@@ -28,7 +29,7 @@ BEGIN {
 
 	@ISA = qw(Exporter);
 	@EXPORT = qw();
-	%EXPORT_TAGS  = (all => [qw{ root command } ],
+	%EXPORT_TAGS  = (all => [qw{ root command stat rootCommandForStat} ],
 			);
 	@EXPORT_OK = qw();
 	Exporter::export_ok_tags('all');
@@ -111,6 +112,36 @@ sub sudo # (command, user)
 			__x("Running command '{cmd}' as {user} failed", 
 				cmd => $cmd, user => $user));
 	}
+}
+
+
+# return the same than perl's stat with the exception of:
+#       6 rdev     the device identifier (special files only)   %T <--- UNDEF because is not emulated yet
+
+sub stat
+{
+    my ($file) = @_;
+    my $statCmd = rootCommandForStat($file);
+
+    my $statOutput   = root($statCmd);
+    my @statElements = split '\s', $statOutput->[0];
+
+    # convert file mode from hexadecimal...
+    $statElements[2]  = hex ('0x' . $statElements[2]); 
+
+    # XXX: add the correct value for  '6 rdev     the device identifier (special files only) '
+    # meanwhile we make it undef...
+    $statElements[6] = undef;
+
+    my $statObject = File::stat::populate( @statElements );
+    return $statObject;
+}
+
+
+sub rootCommandForStat
+{
+    my ($file) = @_;
+    return "/usr/bin/stat -c'%d %i %f %h %u %g todo %s %X %Y %Z %o %b' $file";
 }
 
 1;
