@@ -59,6 +59,9 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	AC_PROG_PERL_MODULES(Apache::AuthCookie, ,
 	  AC_MSG_ERROR(Missing Apache::AuthCookie))
 
+	AC_PROG_PERL_MODULES(Test::Class, ,
+	  AC_MSG_WARN(Missing test dependency Test::Class))
+
 	AC_PROG_PERL_MODULES(Test::MockClass, ,
 	  AC_MSG_WARN(Missing test dependency Test::MockClass))
 
