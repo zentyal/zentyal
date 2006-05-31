@@ -556,5 +556,15 @@ sub requiredParameters
     return [];
 }
 
+sub setMsg
+{
+    my ($self, $msg) = @_;
+    $self->{msg} = $msg;
+}
+
+
+# default actuate behavoiur: do nothing
+sub actuate
+{}
 
 1;
