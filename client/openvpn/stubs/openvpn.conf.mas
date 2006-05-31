@@ -5,8 +5,8 @@ $proto
 $caCertificate
 $serverCertificate
 $serverKey
-$vpnSubnet
-$vpnSubnetMask
+$subnet
+$subnetNetmask
 $clientToClient   => 0
 $user
 $group
@@ -46,7 +46,7 @@ dh dh1024.pem
 
 # Configure server mode and supply a VPN subnet
 # for OpenVPN to draw client addresses from.
-server <% $vpnSubnet %> <% $vpnSubnetMask %>
+server <% $subnet %> <% $subnetNetmask %>
 
 # Maintain a record of client <-> virtual IP address
 # associations in this file.  

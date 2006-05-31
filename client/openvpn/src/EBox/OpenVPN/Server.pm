@@ -6,6 +6,7 @@ use warnings;
 use EBox::Validate qw(checkPort checkAbsoluteFilePath checkIP checkNetmask);
 use EBox::NetWrappers;
 use Perl6::Junction qw(all);
+use EBox::Gettext;
 
 sub new
 {
@@ -209,27 +210,35 @@ sub serverKey
 }
 
 
-sub setVPNSubnet
+sub setSubnet
 {
-    my ($self, $net, $netmask) = @_;
+    my ($self, $net) = @_;
 
     checkIP($net, 'VPN subnet');
-    checkNetmask($netmask, "VPN net\'s netmask");
-
     $self->_setConfString('vpn_net', $net);
+}
+
+sub subnet
+{
+    my ($self) = @_;
+    my $net = $self->_getConfString('vpn_net');
+    return $net;
+}
+
+
+sub setSubnetNetmask
+{
+    my ($self, $netmask) = @_;
+    checkNetmask($netmask, "VPN net\'s netmask");
     $self->_setConfString('vpn_netmask', $netmask);
 }
 
 
-
-
-sub VPNSubnet
+sub subnetNetmask
 {
     my ($self) = @_;
-    my $net = $self->_getConfString('vpn_net');
     my $netmask = $self->_getConfString('vpn_netmask');
-
-    return ($net, $netmask);
+    return $netmask;
 }
 
 
@@ -269,11 +278,9 @@ sub writeConfFile
     my $templatePath = "openvpn/openvpn.conf.mas";
     
     my @templateParams;
-    my ($vpnSubnet, $vpnSubnetMask) = $self->VPNSubnet();
-    push @templateParams, (vpnSubnet => $vpnSubnet, vpnSubnetMask => $vpnSubnetMask);
 
-    my @paramsWithSimpleAccessors = qw(local port caCertificate serverCertificate serverKey clientToClient user group proto);
-    foreach  my $param (@paramsWithSimpleAccessors) {
+    my @paramsNeeded = qw(subnet subnetNetmask local port caCertificate serverCertificate serverKey clientToClient user group proto);
+    foreach  my $param (@paramsNeeded) {
 	my $accessor_r = $self->can($param);
 	defined $accessor_r or die "Can not found accesoor for param $param";
 	push @templateParams, ($param => $accessor_r->($self));
@@ -288,15 +295,16 @@ sub setFundamentalAttributes
 {
     my ($self, %params) = @_;
 
-    (exists $params{net}) or throw EBox::Exceptions::External __("The server needs a subnet address for the VPN");
-    (exists $params{netmask}) or throw EBox::Exceptions::External __("The server needs a submask for his VPN net");
+    (exists $params{subnet}) or throw EBox::Exceptions::External __("The server needs a subnet address for the VPN");
+    (exists $params{subnetNetmask}) or throw EBox::Exceptions::External __("The server needs a submask for his VPN net");
     (exists $params{port} ) or throw EBox::Exceptions::External __("The server needs a port number");
     (exists $params{proto}) or throw EBox::Exceptions::External __("A IP protocol must be specified for the server");
     (exists $params{caCertificate}) or throw EBox::Exceptions::External __("A path to a CA certificate must be specified");
     (exists $params{serverCertificate}) or throw EBox::Exceptions::External __("A path to the server certificate must be specified");
     (exists $params{serverKey}) or throw EBox::Exceptions::External __("A path to the server key must be specified");
 
-    $self->setVPNSubnet($params{net}, $params{netmask});
+    $self->setSubnet($params{subnet});
+    $self->setSubnetNetmask( $params{subnetNetmask} );
     $self->setPort($params{port});
     $self->setProto($params{proto});
     $self->setCaCertificate($params{caCertificate});

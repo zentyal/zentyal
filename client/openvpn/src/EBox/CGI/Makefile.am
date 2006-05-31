@@ -1,8 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-perldir = @PERLPATH@/EBox/CGI/#MDOULE#
+perldir = @PERLPATH@/EBox/CGI/OpenVPN
 
-nobase_perl_DATA = 
+nobase_perl_DATA = Index.pm Create.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

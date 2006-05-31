@@ -215,32 +215,59 @@ sub writeConfFileTest : Test(2)
     diag "TODO: try to validate automatically the generated conf file without ressorting a aspect-like thing. (You may validate manually with openvpn --config)";
 }
 
-sub setVPNSubnetTest : Test(6)
+sub setSubnetTest : Test(6)
 {
     my ($self) = @_;
     my $server = $self->_newServer('macaco');
-    my @straightCases =(
-			[qw(10.8.0.0 255.255.255.0)],
+    my $subnetGetter_r    = $server->can('subnet');
+    my $subnetSetter_r    = $server->can('setSubnet');
+
+    my $straightCases =[
+			'10.8.0.0'
+			];
+    my $deviantCases = [
+			'255.3.4.3',
+			'domainsnotok.com',
+			];
+
+    setterAndGetterTest(
+			  object         => $server,
+			  getter         => $subnetGetter_r,
+			  setter         => $subnetSetter_r,
+			  straightValues => $straightCases,
+			  deviantValues  => $deviantCases,
+			  propierty      => "Server\'s VPN subnet",
 			);
-    my @deviantCases = (
-			[qw(10.8.0.340 255.255.255.0)],
-			[qw(10.8.0.1 255.0.255.0)],
+
+   
+
+  
+}
+
+
+sub setSubnetNetmaskTest : Test(6)
+{
+    my ($self) = @_;
+    my $server = $self->_newServer('macaco');
+    my $subnetNetmaskGetter_r    = $server->can('subnetNetmask');
+    my $subnetNetmaskSetter_r    = $server->can('setSubnetNetmask');
+    my $straightValues            = [
+				    '255.255.255.0',
+				    ];
+    my $deviantValues             = [
+				    '255.0.255.0',
+				    '311.255.255.0',
+				    ];
+
+    setterAndGetterTest(
+			  object         => $server,
+			  getter         => $subnetNetmaskGetter_r,
+			  setter         => $subnetNetmaskSetter_r,
+			  straightValues => $straightValues,
+			  deviantValues  => $deviantValues,
+			  propierty      => "Server\'s VPN subnet netmask",
 			);
 
-    foreach my $value_r (@straightCases) {
-	lives_ok { $server->setVPNSubnet(@{ $value_r })  } 'Setting a straight vpn subnet';
-	my @actualVPNSubnet = $server->VPNSubnet();
-	eq_or_diff \@actualVPNSubnet, $value_r, 'Checking if the new values of VP were setted correctly';
-    }
-
-    foreach my $value_r (@deviantCases) {
-	my @beforeValue = $server->VPNSubnet();
-
-	dies_ok { $server->setVPNSubnet(@{ $value_r }) } "Checking that setting a invalid VPN subnet raises error";
-
-	my @actualValue = $server->VPNSubnet();
-	eq_or_diff \@actualValue, \@beforeValue, "Checking that VPN subnet values were left unchanged";
-    }
 }
 
 
@@ -266,7 +293,6 @@ sub setCACertificateTest : Test(6)
 			  deviantValues  => $incorrectCaCertificates,
 			  propierty      => "Server\'s caCertificate",
 			);
-
 
 }
 
