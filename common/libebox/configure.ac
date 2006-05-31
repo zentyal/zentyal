@@ -72,6 +72,9 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	AC_PROG_PERL_MODULES(Test::Differences, ,
 	  AC_MSG_WARN(Missing test dependency Test::Differences))
 
+	AC_PROG_PERL_MODULES(Test::Output, ,
+	  AC_MSG_WARN(Missing test dependency Test::Output))
+
 fi  
 
 if test -z "$perlpath" ; then
