@@ -53,6 +53,25 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	  
 	AC_PROG_PERL_MODULES(Devel::StackTrace, ,
 	  AC_MSG_ERROR(Missing Devel::StackTrace))
+
+	AC_PROG_PERL_MODULES(Perl6::Junction, ,
+	  AC_MSG_ERROR(Missing Perl6::Junction))
+
+	AC_PROG_PERL_MODULES(Test::Exception, ,
+	  AC_MSG_WARN(Missing test dependency Test::Exception))
+
+	AC_PROG_PERL_MODULES(Test::MockModule, ,
+	  AC_MSG_WARN(Missing test dependency Test::MockModule))
+
+	AC_PROG_PERL_MODULES(Test::Builder, ,
+	  AC_MSG_WARN(Missing test dependency Test::Builder))
+
+	AC_PROG_PERL_MODULES(Test::Builder::Tester, ,
+	  AC_MSG_WARN(Missing test dependency Test::Builder::Tester))
+
+	AC_PROG_PERL_MODULES(Test::Differences, ,
+	  AC_MSG_WARN(Missing test dependency Test::Differences))
+
 fi  
 
 if test -z "$perlpath" ; then
