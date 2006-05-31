@@ -27,7 +27,9 @@ sub statTest
 
     }
 
-    # unstatable file now
+    # inexistent file
+    my $sudoStat = EBox::Sudo::stat('/muchos/monos/salvajes');
+    ok !defined $sudoStat, "Checking tha return undef while stat called upon inexistent files";
 
 }
 

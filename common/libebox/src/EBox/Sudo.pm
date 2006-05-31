@@ -22,6 +22,7 @@ use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use File::stat qw();
+use Error qw(:try);
 
 BEGIN {
 	use Exporter ();
@@ -123,7 +124,9 @@ sub stat
     my ($file) = @_;
     my $statCmd = rootCommandForStat($file);
 
-    my $statOutput   = root($statCmd);
+    my $statOutput = root($statCmd);
+    return undef if !exists $statOutput->[0];
+
     my @statElements = split '\s', $statOutput->[0];
 
     # convert file mode from hexadecimal...
