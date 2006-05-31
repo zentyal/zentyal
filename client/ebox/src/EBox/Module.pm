@@ -19,7 +19,6 @@ use strict;
 use warnings;
 
 use File::Copy;
-use File::stat;
 use Proc::ProcessTable;
 use EBox;
 use EBox::Config;
@@ -361,6 +360,7 @@ sub pidFileRunning
 #	It executes a given mason component with the passed parameters over 
 #	a file. It becomes handy to set configuration files for services. 
 #	Also, its file 	permissions will be kept.
+#      XXX : the correct behaviour will be to throw exceptions if file will not be stated and no defualts provided. Instead will provide hardcored defaults because we need to be backwards-compatible
 #
 # Parameters:
 #	
@@ -375,7 +375,7 @@ sub pidFileRunning
 #
 sub writeConfFile # (file, comp, params)
 {
-	my ($self, $file, $compname, $params) = @_;
+	my ($self, $file, $compname, $params, $defaults) = @_;
 	my ($fh,$tmpfile) = tempfile(DIR => EBox::Config::tmp);
 	unless($fh) {
 		throw EBox::Exceptions::Internal(
@@ -388,16 +388,26 @@ sub writeConfFile # (file, comp, params)
 	$interp->exec($comp, @{$params});
 	$fh->close();
 
+	my $mode;
+	my $uid;
+	my $gid;
 	if(my $st = stat($file)) {
-		root("/bin/mv " . $tmpfile . " " . $file);
-		
-		my $mode= sprintf("%04o", $st->mode & 07777); 
-		root("/bin/chmod " . $mode . " " . $file);
-		root("/bin/chown " . $st->uid . "." . $st->gid . " " . $file);
+	    $mode= sprintf("%04o", $st->mode & 07777); 
+	    $uid = $st->uid;
+	    $gid = $st->gid;
+
 	} else {
-		root("/bin/mv " . $tmpfile . " " . $file);
+	    defined $defaults or $defaults = {};
+	    $mode = exists $defaults->{mode} ?  $defaults->{mode}  : '0755';
+	    $uid  = exists $defaults->{uid}  ?  $defaults->{uid}   : 0;
+	    $gid  = exists $defaults->{gid}  ?  $defaults->{gid}   : 0;
 	}
+
+	root("/bin/mv $tmpfile  $file");
+	root("/bin/chmod $mode $file");
+	root("/bin/chown $uid.$gid $file");
 }
+
 
 sub rootCommandsForWriteConfFile # (file)
 {
@@ -406,7 +416,8 @@ sub rootCommandsForWriteConfFile # (file)
 	push (@commands, "/bin/mv " . EBox::Config::tmp . "* " . $file);
 	push (@commands, "/bin/chmod * " . $file);
 	push (@commands, "/bin/chown * " . $file);
-	
+	push (@commands, rootCommandForStat($file));
+
 	return @commands;
 }
 

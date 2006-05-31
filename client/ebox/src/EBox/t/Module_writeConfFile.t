@@ -3,15 +3,13 @@ package main;
 use strict;
 use warnings;
 
-use Test::More tests => 10;
+use Test::More tests => 7;
 use Test::Exception;
 use Test::File;
 use Test::MockModule;
 use Test::MockObject;
 
-
-
-use File::stat;
+use English qw( -no_match_vars ) ;  # Avoids regex performance penalty
 use File::Slurp;
 
 use lib '../..';
@@ -42,42 +40,29 @@ sub writeConfFileTest
     # setup..
     filesSetup($testDir, $testFile, $wantedMode);
     mockSetup($testDir, $testFile);
-    my $runAndTest_r = runAndTestClosure($testFile, $masonComponent, $masonParams, $wantedMode);
     
     ## Test cases:
 
     # file exists and stat succeed case
-    $runAndTest_r->();
+    lives_ok {  EBox::Module->writeConfFile($testFile, $masonComponent, $masonParams) } 'EBox::Module::writeConfFile execution upon a existent file';
+    # check results
+    file_exists_ok $testFile;
+    file_mode_is ($testFile, oct $wantedMode);
+
    
     # file does not exist
     unlink $testFile or die "Cannot unlink test file $testFile";
-    $runAndTest_r->();
+    my @gids =  split '\s', $GID ;
+    my $defaults = { mode => $wantedMode, uid => $UID, gid => $gids[0] };
+    lives_ok {  EBox::Module->writeConfFile($testFile, $masonComponent, $masonParams, $defaults) } 'EBox::Module::writeConfFile execution upon a inexistent file';
+  file_exists_ok $testFile;
+    file_mode_is ($testFile, oct $wantedMode);
 
- 
-  TODO: {
-      local $TODO ="Look for anything that forces File::stat to fail (remember import problems)";
-      # file exists and stat fails
-      _destroyFileStat();
-#      my $stat = stat '/';
-#      diag "stat: $stat";
-    
-      filesSetup($testDir, $testFile, $wantedMode);
-      $runAndTest_r->();
-  }
+
+
 }
 
 
-sub runAndTestClosure
-{
-    my ($confFile, $masonComponent,  $masonParams , $wantedMode) = @_;
-
-    return sub {
-	lives_ok {  EBox::Module->writeConfFile($confFile, $masonComponent, $masonParams) } 'EBox::Module::writeConfFile execution';
-	# check results
-	file_exists_ok $confFile;
-	file_mode_is ($confFile, oct $wantedMode);
-    };
- }
 
 sub filesSetup
 {
