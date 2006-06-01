@@ -567,4 +567,10 @@ sub setMsg
 sub actuate
 {}
 
+# default : no mason parameters
+sub masonParameters
+{
+    return [];
+}
+
 1;
