@@ -127,7 +127,7 @@ sub stat
     my $statOutput = root($statCmd);
     return undef if !exists $statOutput->[0];
 
-    my @statElements = split '\s', $statOutput->[0];
+    my @statElements = split '[I\n]', $statOutput->[0];
 
     # convert file mode from hexadecimal...
     $statElements[2]  = hex ('0x' . $statElements[2]); 
@@ -144,7 +144,7 @@ sub stat
 sub rootCommandForStat
 {
     my ($file) = @_;
-    return "/usr/bin/stat -c'%d %i %f %h %u %g todo %s %X %Y %Z %o %b' $file";
+    return "/usr/bin/stat -c%dI%iI%fI%hI%uI%gItodoI%sI%XI%YI%ZI%oI%b $file";
 }
 
 1;
