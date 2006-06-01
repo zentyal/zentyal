@@ -4,8 +4,8 @@
 <gconfschemafile>
 	<schemalist>
 		<schema>
-			<key>/schemas/ebox/modules/global/modules/modulename/class</key>
-			<applyto>/ebox/modules/global/modules/modulename/class</applyto>
+			<key>/schemas/ebox/modules/global/modules/openvpn/class</key>
+			<applyto>/ebox/modules/global/modules/openvpn/class</applyto>
 			<owner>ebox</owner>
 			<type>string</type>
 			<default>EBox::OpenVPN</default>
@@ -13,8 +13,8 @@
 		</schema>
 
 		<schema>
-			<key>/schemas/ebox/modules/global/modules/modulename/conf_dir</key>
-			<applyto>/ebox/modules/global/modules/modulename/conf_dir</applyto>
+			<key>/schemas/ebox/modules/openvpn/conf_dir</key>
+			<applyto>/ebox/modules/openvpn/conf_dir</applyto>
 			<owner>ebox</owner>
 			<type>string</type>
 			<default>/etc/openvpn</default>
@@ -23,9 +23,20 @@
 			</locale>
 		</schema>
 
+
 		<schema>
-			<key>/schemas/ebox/modules/global/modules/modulename/openvpn_bin</key>
-			<applyto>/ebox/modules/global/modules/modulename/openvpn_bin</applyto>
+			<key>/schemas/ebox/modules/openvpn/active</key>
+			<applyto>/ebox/modules/openvpn/active</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+			<default>false</default>
+		        <locale name="C" />
+		</schema>
+
+
+		<schema>
+			<key>/schemas/ebox/modules/openvpn/openvpn_bin</key>
+			<applyto>/ebox/modules/openvpn/openvpn_bin</applyto>
 			<owner>ebox</owner>
 			<type>string</type>
 			<default>/usr/sbin/openvpn</default>
@@ -35,8 +46,8 @@
 		</schema>
 
 		<schema>
-			<key>/schemas/ebox/modules/global/modules/modulename/user</key>
-			<applyto>/ebox/modules/global/modules/modulename/user</applyto>
+			<key>/schemas/ebox/modules/openvpn/user</key>
+			<applyto>/ebox/modules/openvpn/user</applyto>
 			<owner>ebox</owner>
 			<type>string</type>
 			<default>nobody</default>
@@ -46,8 +57,8 @@
 		</schema>
 
 		<schema>
-			<key>/schemas/ebox/modules/global/modules/modulename/group</key>
-			<applyto>/ebox/modules/global/modules/modulename/group</applyto>
+			<key>/schemas/ebox/modules/openvpn/group</key>
+			<applyto>/ebox/modules/openvpn/group</applyto>
 			<owner>ebox</owner>
 			<type>string</type>
 			<default>nobody</default>
