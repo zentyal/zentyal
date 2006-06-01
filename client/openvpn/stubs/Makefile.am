@@ -3,7 +3,7 @@
 Stubdir = @STUBSPATH@/openvpn
 
 
-nobase_Stub_DATA =
+nobase_Stub_DATA = openvpn.conf.mas
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 
