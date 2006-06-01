@@ -296,7 +296,9 @@ sub writeConfFile
     foreach  my $param (@paramsNeeded) {
 	my $accessor_r = $self->can($param);
 	defined $accessor_r or die "Can not found accesoor for param $param";
-	push @templateParams, ($param => $accessor_r->($self));
+	my $value = $accessor_r->($self);
+	defined $value or next;
+	push @templateParams, ($param => $value);
     }
 
 

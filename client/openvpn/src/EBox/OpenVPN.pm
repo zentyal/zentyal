@@ -239,7 +239,7 @@ sub rootCommandForStartDaemon
     my $file = ($target eq 'rootCommands') ? '*' : $target;
 
     my $confOption = "--config $confDir/$file";
-    my $daemonOption = ($target eq 'rootCommands') ? '*' : $name;
+    my $daemonOption = ($target eq 'rootCommands') ? '*' : " --daemon $name";
 
     return "$bin $daemonOption $confOption";
 }
