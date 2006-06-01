@@ -1,6 +1,6 @@
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
 #
-# This program is free software; you can redistribute it and/or modify
+# This program is free softwa re; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
 # published by the Free Software Foundation.
 #
@@ -22,9 +22,11 @@ use base 'EBox::GConfModule';
 
 use EBox::Gettext;
 use EBox::Summary::Module;
+use EBox::Sudo;
 use Perl6::Junction qw(any);
 use EBox::OpenVPN::Server;
 use Error qw(:try);
+
 
 sub _create 
 {
@@ -62,11 +64,19 @@ sub _writeServersConfFiles
 
     my $confDir = $self->confDir;
 
-    my @servers = $self->_serversNames();
-    foreach my $serverName (@servers) {
-	my $server = $self->_server($serverName);
+    my @servers = $self->servers();
+    foreach my $server (@servers) {
 	$server->writeConfFile($confDir);
     }
+}
+
+
+sub servers
+{
+    my ($self) = @_;
+    my @servers = $self->serversNames();
+    @servers = map { $self->server($_) } @servers;
+    return @servers;
 }
 
 
@@ -173,23 +183,74 @@ sub service
 sub _doDaemon
 {
     my ($self) = @_;
-    my $running = EBox::Service::running('openvpn');
+    my $running = $self->running();
 
     if ($self->service) {
 	if ($running) {
-	    EBox::Service::manage('openvpn', 'restart');
+	    $self->_stopDaemon();
+	    $self->_startDaemon();
 	}
 	else {
-	EBox::Service::manage('openvpn', 'start');
+	    $self->_startDaemon();
 	}
     }
     else {
 	if ($running) {
-	    EBox::Service::manage('openvpn', 'stop');
+	    $self->_stopDaemon();
 	  }
     }
 
 }
+
+sub running
+{
+    my ($self) = @_;
+    my $bin = $self->openvpnBin;
+    system "/usr/bin/pgrep -f $bin";
+    return ($? == 0) ? 1 : 0;
+}
+
+sub _startDaemon
+{
+    my ($self) = @_;
+    my @servers = $self->servers();
+    foreach my $server (@servers) {
+	my $command = $self->rootCommandForStartDaemon($server->confFile, $server->name);
+	EBox::Sudo::root($command);
+    }
+}
+
+sub _stopDaemon
+{
+    my ($self) = @_;
+    my $stopCommand = $self->rootCommandForStopDaemon();
+    EBox::Sudo::root($stopCommand);
+}
+
+
+
+
+sub rootCommandForStartDaemon
+{
+    my ($self, $target, $name) = @_;
+
+    my $bin     = $self->openvpnBin();
+    my $confDir = $self->confDir();
+    my $file = ($target eq 'rootCommands') ? '*' : $target;
+
+    my $confOption = "--config $confDir/$file";
+    my $daemonOption = ($target eq 'rootCommands') ? '*' : $name;
+
+    return "$bin $daemonOption $confOption";
+}
+
+sub rootCommandForStopDaemon
+{
+    my ($self) = @_;
+    my $bin = $self->openvpnBin();
+    return "/usr/bin/killall $bin";
+}
+
 
 sub _stopService
 {
@@ -202,10 +263,25 @@ sub rootCommands
 	my ($self) = @_;
 	my @commands = ();
 	push @commands, $self->rootCommandsForWriteConfFile($self->confDir . '/*');
-	
-	#XXX TODO: add doDaemon commands
+	push @commands, $self->rootCommandForStartDaemon('rootCommands');
+	push @commands, $self->rootCommandForStopDaemon();
 
 	return @commands;
 }
+
+
+# Method: menu 
+#
+#       Overrides EBox::Module method.
+#
+sub menu
+{
+        my ($self, $root) = @_;
+    
+        my $item = new EBox::Menu::Item('url' => 'OpenVPN/Index',
+                                        'text' => __('OpenVPN server'));
+	$root->add($item);
+}
+
 
 1;

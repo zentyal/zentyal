@@ -1,0 +1,83 @@
+<%args>
+$service
+@servers
+</%args>
+<%init>
+use EBox::Gettext;
+my $active  = $service ? 'yes' : 'no';
+</%init>
+
+<& enable.mas, title => __('OpenVPN service status'), active => $active &>
+<& addForm &>
+<& serversList, servers => \@servers &>
+
+
+
+<%def addForm >
+<h3><% __('Create new server') %></h3>
+<div class="help">
+<% __('Help') %>
+</div>
+<form action='Create' method='POST'>
+		<input class='inputButton' type='submit' name='createFromIndex' 
+			   value="<% __('Create') %>"
+			   alt="<% __('Create') %>">
+</form>
+</%def>
+
+
+<%def serversList>
+<%args>
+@servers
+</%args>
+% return if (@servers == 0);
+		<table cellspacing='0' class='dataTable'>
+			<thead>
+				<tr>
+					<th width='66%' class='tleft'>
+						<% __('Name') %>
+					</th>
+					<th class='thOptions'>
+						<% __('Action') %>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+%			foreach my $server (@servers) {
+                        <& .serverRow, server => $server &>
+%			}
+			</tbody>
+		</table>
+		<br />
+		<table class="legend">
+		<tr>
+			<td><img src="/data/images/edit.gif" alt=""/></td>
+			<td style="padding-right: 10px;"><%__('edit')%></td>
+		</tr>
+
+		<tr>
+			<td><img src="/data/images/delete.gif" alt=""/></td>
+			<td style="padding-right: 10px;"><%__('delete')%></td>
+		</tr>
+		</table>
+
+</%def>
+
+
+<%def .serverRow>
+<%args>
+$server
+</%args>
+ <tr class='border'>
+    <td><% $server %></td>
+    <td class='tcenter'>
+         <a href="Edit?objectname=<% $server %>">
+        <img src='/data/images/edit.gif' alt="<% __('Edit') %>" title="<% __('Edit') %>" /></a>
+				<img src='/data/images/sep.gif' alt='-'/>
+						<a href='Del?objectname=<% $server %>'>
+						<img src='/data/images/delete.gif' 
+							title="<% __('Delete') %>"
+							alt="<% __('Delete') %>"/></a>
+					</td>
+				</tr>
+</%def>

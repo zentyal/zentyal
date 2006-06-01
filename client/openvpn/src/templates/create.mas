@@ -1,0 +1,34 @@
+<%init>
+use EBox::Gettext;
+</%init>
+
+<h3><% __('OpenvPN server creation') %> <</h3>
+<form action=Create' method='POST'>
+<& attributesTable &>
+<input class='inputButton' type='submit' name='create' value='<%
+__('Create') %>' alt='<% __('Create') %>'  />
+</form>
+
+<%def attributesTable>
+<%init>
+my @attributes =qw(port subnet subnetNetmask proto caCertificate
+serverCertificate serverKey clientToClient local);
+my %attributesPrettyTitle = map { $_ => $_ } @attributes;
+</%init>
+<table class='formTable' >
+<tbody>
+% foreach my $attr (@attributes) {
+  <tr>
+      <td class='tright' width="170px">
+          <span class='ftitle'>
+	        <% __($attributesPrettyTitle{$attr}  ) %>:
+	  </span>
+     </td>
+     <td>
+        <input type='text' class='inputText' name='<% $attr %>' value=""> 
+    </td>
+  </tr>
+% }
+</tbody>
+</table>
+</%def>

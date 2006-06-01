@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CGI/OpenVPN
 
-nobase_perl_DATA = Index.pm Create.pm
+nobase_perl_DATA = Index.pm Create.pm Enable.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 
