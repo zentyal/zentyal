@@ -8,6 +8,7 @@ use EBox::NetWrappers;
 use Perl6::Junction qw(all);
 use EBox::Gettext;
 
+
 sub new
 {
     my ($class, $name, $openvpnModule) = @_;
@@ -269,15 +270,27 @@ sub group
 }
 
 
-sub writeConfFile
+sub confFile
 {
     my ($self, $confDir) = @_;
     my $confFile = $self->name() . '.conf';
     my $confFilePath = "$confDir/$confFile";
 
+    return $confFilePath;
+}
+
+sub writeConfFile
+{
+    my ($self, $confDir) = @_;
+
+    my $confFilePath = $self->confFile($confDir);
     my $templatePath = "openvpn/openvpn.conf.mas";
-    
     my @templateParams;
+    my $defaults     = {
+	uid  => $self->user,
+	gid  => $self->group,
+	mode => '0400',
+    };
 
     my @paramsNeeded = qw(subnet subnetNetmask local port caCertificate serverCertificate serverKey clientToClient user group proto);
     foreach  my $param (@paramsNeeded) {
@@ -287,7 +300,7 @@ sub writeConfFile
     }
 
 
-    EBox::GConfModule->writeConfFile($confFilePath, $templatePath, \@templateParams)
+    EBox::GConfModule->writeConfFile($confFilePath, $templatePath, \@templateParams, $defaults);
 }
 
 
@@ -310,6 +323,15 @@ sub setFundamentalAttributes
     $self->setCaCertificate($params{caCertificate});
     $self->setServerCertificate($params{serverCertificate});    
     $self->setServerKey($params{serverKey});
+
+    my @noFundamentalAttrs = qw(local clientToClient);
+    foreach my $attr (@noFundamentalAttrs)  {
+	if (exists $params{$attr} ) {
+	    my $mutator_r = $self->can("set\u$attr");
+	    defined $mutator_r or die "Not mutator found for attribute $attr";
+	    $mutator_r->($self, $params{$attr});
+	}
+    }
 }
 
 1;

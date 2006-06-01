@@ -17,6 +17,7 @@ use Test::Differences;
 use lib '../../../';
 use EBox::OpenVPN;
 
+use English qw(-no_match_vars);
 
 sub testDir
 {
@@ -31,9 +32,11 @@ sub setUpConfiguration : Test(setup)
 
     $self->{openvpnModInstance} = EBox::OpenVPN->_create();
 
+    my @gids = split '\s', $GID;
+
         my @config = (
-		  '/ebox/modules/openvpn/user'  => 'nobody',
-		  '/ebox/modules/openvpn/group' => 'nobody',
+		  '/ebox/modules/openvpn/user'  => $UID,
+		  '/ebox/modules/openvpn/group' =>  $gids[0],
 		  '/ebox/modules/openvpn/conf_dir' => $self->_confDir(),
 
 		  '/ebox/modules/openvpn/server/macaco/port'    => 1194,
