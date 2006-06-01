@@ -398,7 +398,7 @@ sub writeConfFile # (file, comp, params)
 
 	} else {
 	    defined $defaults or $defaults = {};
-	    $mode = exists $defaults->{mode} ?  $defaults->{mode}  : '0755';
+	    $mode = exists $defaults->{mode} ?  $defaults->{mode}  : '0644';
 	    $uid  = exists $defaults->{uid}  ?  $defaults->{uid}   : 0;
 	    $gid  = exists $defaults->{gid}  ?  $defaults->{gid}   : 0;
 	}
