@@ -44,11 +44,15 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	AM_GCONF_SOURCE_2
 
 	AC_CONF_EBOX
+
+	AC_PROG_PERL_MODULES(Test::File, ,
+	  AC_MSG_WARN(Missing test dependency Test::File))
+
 else
 	GCONF_SCHEMAS_INSTALL_FALSE=
 	GCONF_SCHEMAS_INSTALL_TRUE='#'
 fi
-AM_PO_SUBDIRS
+#AM_PO_SUBDIRS
 
 AC_CONFIG_FILES([
 src/Makefile
@@ -57,6 +61,9 @@ src/EBox/t/Makefile
 src/EBox/OpenVPN/Makefile
 src/EBox/OpenVPN/Server/Makefile
 src/EBox/OpenVPN/t/Makefile
+src/EBox/rootTests/Makefile
+src/EBox/rootTests/lib/Makefile
+src/EBox/rootTests/testdata/Makefile
 src/EBox/CGI/Makefile
 src/templates/Makefile
 schemas/Makefile
@@ -65,5 +72,5 @@ www/Makefile
 Makefile
 ])
 
-AC_CONFIG_FILES([po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
+#AC_CONFIG_FILES([po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
 AC_OUTPUT

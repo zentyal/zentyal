@@ -28,6 +28,7 @@ use EBox::OpenVPN::Server;
 use Error qw(:try);
 
 
+
 sub _create 
 {
 	my $class = shift;
@@ -155,6 +156,13 @@ sub group
 }
 
 
+sub dh
+{
+    my ($self) = @_;
+    return $self->get_string('dh');
+}
+
+
 sub summary
 {
 	my ($self) = @_;
@@ -199,7 +207,6 @@ sub _doDaemon
 	    $self->_stopDaemon();
 	  }
     }
-
 }
 
 sub running
@@ -209,6 +216,7 @@ sub running
     system "/usr/bin/pgrep -f $bin";
     return ($? == 0) ? 1 : 0;
 }
+
 
 sub _startDaemon
 {

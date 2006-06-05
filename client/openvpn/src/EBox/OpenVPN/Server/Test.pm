@@ -28,7 +28,7 @@ sub testDir
 sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
-   
+    my $confDir = $self->_confDir();
 
     $self->{openvpnModInstance} = EBox::OpenVPN->_create();
 
@@ -37,7 +37,8 @@ sub setUpConfiguration : Test(setup)
         my @config = (
 		  '/ebox/modules/openvpn/user'  => $UID,
 		  '/ebox/modules/openvpn/group' =>  $gids[0],
-		  '/ebox/modules/openvpn/conf_dir' => $self->_confDir(),
+		  '/ebox/modules/openvpn/conf_dir' => $confDir,
+		  '/ebox/modules/openvpn/dh' => "$confDir/dh1024.pem",		      
 
 		  '/ebox/modules/openvpn/server/macaco/port'    => 1194,
 		  '/ebox/modules/openvpn/server/macaco/proto'   => 'tcp',

@@ -87,6 +87,12 @@ sub setupStubDir : Test(setup)
     EBox::Config::Mock::setConfigKeys('stubs' => $stubDir);
 }
 
+
+sub killDaemons : Test(setup)
+{
+    system "pkill openvpn";
+}
+
 sub clearStubDir : Test(teardown)
 {
     my ($self) = @_;
@@ -126,6 +132,50 @@ sub daemonTest : Test(35)
 	
 	_checkService($openVPN, $service);
 	_checkDaemon($openVPN, $service, 'macaco');
+    }
+
+}
+
+sub _addServerToConfig
+{
+    my ($self) = @_;
+    my $confDir = $self->_confDir();
+
+    my %extraConfig = (
+		  '/ebox/modules/openvpn/server/gibon/port'    => 1196,
+		  '/ebox/modules/openvpn/server/gibon/proto'   => 'tcp',
+		  '/ebox/modules/openvpn/server/gibon/ca_certificate'   => "$confDir/tmp-ca.crt",
+		  '/ebox/modules/openvpn/server/gibon/server_certificate'   => "$confDir/server.crt",
+		  '/ebox/modules/openvpn/server/gibon/server_key'   => "$confDir/server.key",
+		  '/ebox/modules/openvpn/server/gibon/vpn_net'     => '10.0.8.0',
+		  '/ebox/modules/openvpn/server/gibon/vpn_netmask' => '255.255.255.0',
+
+		  );
+
+    while ( my ($key, $value) = each %extraConfig) {
+	EBox::GConfModule::Mock::setEntry($key, $value);
+    }
+
+}
+
+sub multipleDaemonTest : Test(50)
+{
+    my ($self) = @_;
+    $self->_addServerToConfig();
+
+    my $openVPN = EBox::Global->modInstance('openvpn');
+    defined $openVPN or die "Can not get OPenVPN instance";
+
+
+    my @serviceSequence =  (0, 1, 1, 0, 0);
+    foreach my $service (@serviceSequence) {
+	$openVPN->setService($service);
+	lives_ok { $openVPN->_regenConfig() } "Regenerating service configuration";
+	sleep 1; # to avoid false results
+
+	_checkService($openVPN, $service);
+	_checkDaemon($openVPN, $service, 'macaco');
+	_checkDaemon($openVPN, $service, 'gibon');
     }
 
 }

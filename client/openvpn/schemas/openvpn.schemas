@@ -23,6 +23,17 @@
 			</locale>
 		</schema>
 
+		<schema>
+			<key>/schemas/ebox/modules/openvpn/dh</key>
+			<applyto>/ebox/modules/openvpn/dh</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>/etc/openvpn/dh1024.pm</default>
+			<locale name="C">
+				<short>Diffie hellman parametes file</short>
+			</locale>
+		</schema>
+
 
 		<schema>
 			<key>/schemas/ebox/modules/openvpn/active</key>

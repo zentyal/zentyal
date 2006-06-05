@@ -269,6 +269,11 @@ sub group
     return $self->_openvpnModule->group();
 }
 
+sub dh
+{
+    my ($self) = @_;
+    return $self->_openvpnModule->dh();
+}
 
 sub confFile
 {
@@ -292,7 +297,7 @@ sub writeConfFile
 	mode => '0400',
     };
 
-    my @paramsNeeded = qw(subnet subnetNetmask local port caCertificate serverCertificate serverKey clientToClient user group proto);
+    my @paramsNeeded = qw(subnet subnetNetmask local port caCertificate serverCertificate serverKey clientToClient user group proto dh);
     foreach  my $param (@paramsNeeded) {
 	my $accessor_r = $self->can($param);
 	defined $accessor_r or die "Can not found accesoor for param $param";
@@ -335,5 +340,17 @@ sub setFundamentalAttributes
 	}
     }
 }
+
+sub running
+{
+    my ($self) = @_;
+    my $bin = $self->_openvpnModule->openvpnBin;
+    my $name = $self->name;
+
+    system "/usr/bin/pgrep -f $bin.*$name";
+
+    return ($? == 0) ? 1 : 0;
+}
+
 
 1;

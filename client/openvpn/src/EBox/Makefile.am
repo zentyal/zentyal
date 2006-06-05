@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = t CGI OpenVPN 
+SUBDIRS = t CGI OpenVPN  rootTests
 
 perldir = @PERLPATH@/EBox
 

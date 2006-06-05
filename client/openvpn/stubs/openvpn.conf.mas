@@ -10,6 +10,7 @@ $subnetNetmask
 $clientToClient   => 0
 $user
 $group
+$dh
 </%args>
 
 # EBox OpenVPN 2.0 config file for            #
@@ -42,7 +43,8 @@ dev tun
 #   openssl dhparam -out dh1024.pem 1024
 # Substitute 2048 for 1024 if you are using
 # 2048 bit keys. 
-dh /etc/openvpn/dh1024.pem
+#dh /etc/openvpn/dh1024.pem
+<& valueEntry, entry => 'dh', value => $dh  &>
 
 # Configure server mode and supply a VPN subnet
 # for OpenVPN to draw client addresses from.
