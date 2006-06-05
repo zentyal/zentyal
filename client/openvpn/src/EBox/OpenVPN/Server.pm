@@ -165,7 +165,7 @@ sub setLocal
 sub local
 {
     my ($self) = @_;
-    return $self->_getConfInt('local');
+    return $self->_getConfString('local');
 }
 
 
