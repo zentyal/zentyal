@@ -121,19 +121,7 @@ sub clearFiles : Test(teardown)
 
 sub daemonTest : Test(35)
 {
-    my $openVPN = EBox::Global->modInstance('openvpn');
-    defined $openVPN or die "Can not get OPenVPN instance";
-
-
-    my @serviceSequence =  (0, 1, 1, 0, 0);
-    foreach my $service (@serviceSequence) {
-	$openVPN->setService($service);
-	lives_ok { $openVPN->_regenConfig() } "Regenerating service configuration";
-	
-	_checkService($openVPN, $service);
-	_checkDaemon($openVPN, $service, 'macaco');
-    }
-
+     _regenConfigTest(serversNames => [qw(macaco )]);
 }
 
 sub _addServerToConfig
@@ -162,8 +150,15 @@ sub multipleDaemonTest : Test(50)
 {
     my ($self) = @_;
     $self->_addServerToConfig();
+    _regenConfigTest(serversNames => [qw(macaco gibon)])
+}
 
-    my $openVPN = EBox::Global->modInstance('openvpn');
+sub _regenConfigTest
+{
+    my %args = @_;
+    my @serversNames = @{ $args{serversNames} };
+
+   my $openVPN = EBox::Global->modInstance('openvpn');
     defined $openVPN or die "Can not get OPenVPN instance";
 
 
@@ -174,11 +169,12 @@ sub multipleDaemonTest : Test(50)
 	sleep 1; # to avoid false results
 
 	_checkService($openVPN, $service);
-	_checkDaemon($openVPN, $service, 'macaco');
-	_checkDaemon($openVPN, $service, 'gibon');
+	foreach my $name (@serversNames) {
+	    _checkDaemon($openVPN, $service, $name);
+	}
     }
-
 }
+
 
 
 sub _checkService
