@@ -1,0 +1,23 @@
+<%args>
+$name
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<h3><% __('Deleting OpenVPN server') %>:</h3>
+<div class='warning'>
+<% __x('Are you sure you want delete the server {name}.', name => $name) %>
+</div>
+
+<p>
+<form action='Delete' method='POST'>
+	<input type='hidden' name='name'
+		   value='<% $name %>'/>
+	<input class='inputButton'
+		   type='submit' name='deleteConfirmed'
+		   value="<% __('Delete') %>">
+	<input class='inputButton'
+		   type='submit' name='cancel'
+		   value="<% __('Cancel') %>">
+</form>
+</p>

@@ -71,10 +71,10 @@ $server
  <tr class='border'>
     <td><% $server %></td>
     <td class='tcenter'>
-         <a href="Edit?objectname=<% $server %>">
+         <a href="Edit?name=<% $server %>">
         <img src='/data/images/edit.gif' alt="<% __('Edit') %>" title="<% __('Edit') %>" /></a>
 				<img src='/data/images/sep.gif' alt='-'/>
-						<a href='Del?objectname=<% $server %>'>
+						<a href='Delete?name=<% $server %>'>
 						<img src='/data/images/delete.gif' 
 							title="<% __('Delete') %>"
 							alt="<% __('Delete') %>"/></a>
