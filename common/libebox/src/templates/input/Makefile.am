@@ -2,7 +2,7 @@
 
 SUBDIRS = 
 templatedir = $(datadir)/ebox/templates/input
-template_DATA = text.mas checkbox.mas
+template_DATA = text.mas checkbox.mas submit.mas
 
 EXTRA_DIST = $(template_DATA)
 
