@@ -54,13 +54,7 @@ if ($input eq 'submit') {
    $printableName = '';
 }
 </%init>
-      <td class='tright' width="170px">
-%         if ($printableName) {
-          <span class='ftitle'>
-	        <% $printableName %>:
-	  </span>
-%         }
-     </td>
+<% $printableName %>
 </%def>
 
 
