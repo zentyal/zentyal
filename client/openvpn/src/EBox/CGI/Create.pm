@@ -25,7 +25,7 @@ sub requiredParameters
 {
     my ($self) = @_;
     if ($self->param('create')) {
-	[qw(create name subnet subnetNetmask port proto caCertificate serverCertificate serverKey)];
+	[qw(create name subnet subnetNetmask port proto caCertificate serverCertificate serverKey )];
     }
     else {
 	return [];
@@ -38,7 +38,7 @@ sub optionalParameters
 {
     my ($self) = @_;
     if ($self->param('create')) {
-	[qw(local clientToClient)];
+	[qw(local clientToClient service)];
     }
     else {
 	return [qw(createFromIndex)];

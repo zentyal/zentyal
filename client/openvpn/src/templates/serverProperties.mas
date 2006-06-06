@@ -1,10 +1,14 @@
 <%args>
 $nameEditable   => 0
 %properties     => ()
+$submitName
+$submitValue
 </%args>
 <%init>
 use EBox::Gettext;
 my @tableElements  = (
+      { name => 'service',              printableName => __('Service
+      active'), input => 'checkbox' },
       { name => 'port',              printableName => __('Port'), },
       { name => 'subnet',            printableName => __('VPN subnet'),}, 
       { name => 'subnetNetmask',     printableName => __('VPN subnet netmask'),}, 
@@ -26,6 +30,8 @@ foreach my $tableElement_r (@tableElements) {
        $tableElement_r->{value} =  $properties{$propierty};
    }
 }
+
+push @tableElements, { name => $submitName, value => $submitValue, input => 'submit' };
 
 </%init>
 <& /formTable.mas, elements => \@tableElements &>

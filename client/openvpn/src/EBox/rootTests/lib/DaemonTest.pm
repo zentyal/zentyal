@@ -42,6 +42,7 @@ sub setupEBoxConf : Test(setup)
 		  '/ebox/modules/openvpn/conf_dir' => $confDir,
 		  '/ebox/modules/openvpn/dh' => "$confDir/dh1024.pem",
 
+		  '/ebox/modules/openvpn/server/macaco/active'    => 1,
 		  '/ebox/modules/openvpn/server/macaco/port'    => 1194,
 		  '/ebox/modules/openvpn/server/macaco/proto'   => 'tcp',
 		  '/ebox/modules/openvpn/server/macaco/ca_certificate'   => "$confDir/tmp-ca.crt",
@@ -130,6 +131,7 @@ sub _addServerToConfig
     my $confDir = $self->_confDir();
 
     my %extraConfig = (
+		  '/ebox/modules/openvpn/server/gibon/active'    => 1,
 		  '/ebox/modules/openvpn/server/gibon/port'    => 1196,
 		  '/ebox/modules/openvpn/server/gibon/proto'   => 'tcp',
 		  '/ebox/modules/openvpn/server/gibon/ca_certificate'   => "$confDir/tmp-ca.crt",
@@ -152,6 +154,72 @@ sub multipleDaemonTest : Test(50)
     $self->_addServerToConfig();
     _regenConfigTest(serversNames => [qw(macaco gibon)])
 }
+
+sub daemonDisabledTest : Test(10)
+{
+    my ($self) = @_;
+
+    my $openvpn = EBox::Global->modInstance('openvpn');
+    defined $openvpn or die "Can not get OPenVPN instance";
+    my $bin = $openvpn->openvpnBin;
+    
+    my $server = $openvpn->server('macaco');
+    $server->setService(0);
+
+    my @serviceSequence =  (0, 1, 1, 0, 0);
+    foreach my $service (@serviceSequence) {
+	$openvpn->setService($service);
+	lives_ok { $openvpn->_regenConfig() } "Regenerating service configuration";
+	sleep 1; # to avoid false results
+
+	system "pgrep -f $bin";
+	my $processNotFound      = ($? != 0) ? 1 : 0;
+	ok $processNotFound, "Checking that a disabled server will not start";
+
+    }
+
+}
+
+
+sub daemonsDisabledAndEnabledTest : Test(35)
+{
+    my ($self) = @_;
+    $self->_addServerToConfig();
+    my $openvpn = EBox::Global->modInstance('openvpn');
+    defined $openvpn or die "Can not get OPenVPN instance";
+    my $bin = $openvpn->openvpnBin;
+    
+    my $server = $openvpn->server('macaco');
+    $server->setService(0);
+
+  
+    _regenConfigTest(serversNames => [qw(gibon)]);
+}
+
+
+sub _regenConfigTest
+{
+    my %args = @_;
+    my @serversNames = @{ $args{serversNames} };
+
+   my $openVPN = EBox::Global->modInstance('openvpn');
+    defined $openVPN or die "Can not get OPenVPN instance";
+
+
+    my @serviceSequence =  (0, 1, 1, 0, 0);
+    foreach my $service (@serviceSequence) {
+	$openVPN->setService($service);
+	lives_ok { $openVPN->_regenConfig() } "Regenerating service configuration";
+	sleep 1; # to avoid false results
+
+	_checkService($openVPN, $service);
+	foreach my $name (@serversNames) {
+	    _checkDaemon($openVPN, $service, $name);
+	}
+    }
+}
+
+
 
 sub _regenConfigTest
 {

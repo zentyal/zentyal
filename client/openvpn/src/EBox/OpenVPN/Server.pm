@@ -311,6 +311,23 @@ sub writeConfFile
 }
 
 
+sub setService # (active)
+{
+    my ($self, $active) = @_;
+    ($active and $self->service)   and return;
+    (!$active and !$self->service) and return;
+
+    $self->_setConfBool('active', $active);
+}
+
+
+sub service
+{
+   my ($self) = @_;
+   return $self->_getConfBool('active');
+}
+
+
 sub setFundamentalAttributes
 {
     my ($self, %params) = @_;
@@ -331,7 +348,7 @@ sub setFundamentalAttributes
     $self->setServerCertificate($params{serverCertificate});    
     $self->setServerKey($params{serverKey});
 
-    my @noFundamentalAttrs = qw(local clientToClient);
+    my @noFundamentalAttrs = qw(local clientToClient service);
     foreach my $attr (@noFundamentalAttrs)  {
 	if (exists $params{$attr} ) {
 	    my $mutator_r = $self->can("set\u$attr");

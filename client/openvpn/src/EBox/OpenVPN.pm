@@ -19,13 +19,12 @@ use base qw(EBox::GConfModule EBox::FirewallObserver);
 use strict;
 use warnings;
 
-
-
 use EBox::Gettext;
 use EBox::Summary::Module;
 use EBox::Sudo;
 use Perl6::Junction qw(any);
 use EBox::OpenVPN::Server;
+use EBox::OpenVPN::FirewallHelper;
 use EBox::NetWrappers qw(iface_addresses);
 use Error qw(:try);
 
@@ -106,6 +105,8 @@ sub newServer
 {
     my ($self, $name, %params) = @_;
     my $type = exists $params{type} ? delete $params{type} : 'one2many'; # type is ignored for now.. Now we use only a type of server
+    my $service = exists $params{service} ? $params{service} : 1;
+
 
     unless ( $name =~ m{^\w+$} ) {
 	throw EBox::Exceptions::External (__x("{name} is a invalid name for a server. Only alphanumerics and underscores are allowed", name => $name) );
@@ -262,7 +263,7 @@ sub running
 sub _startDaemon
 {
     my ($self) = @_;
-    my @servers = $self->servers();
+    my @servers =  grep { $_->service } $self->servers();
     foreach my $server (@servers) {
 	my $command = $self->rootCommandForStartDaemon($server->confFile, $server->name);
 	EBox::Sudo::root($command);
@@ -335,9 +336,31 @@ sub menu
 sub summary
 {
 	my ($self) = @_;
-	my $item = new EBox::Summary::Module(__("OpenVPN server"));
-	return $item;
+	my $summary = new EBox::Summary::Module(__("OpenVPN servers"));
+
+	foreach my $server ($self->servers) {
+	    my $section = new EBox::Summary::Section($server->name);
+
+	    my $service = $server->service ? __('Enabled') : __('Disabled');
+	    $section->add(new EBox::Summary::Value (__("Service"), $service));
+
+	    my $running = $server->running ? __('Running') : __('Stopped');
+	    $section->add(new EBox::Summary::Value (__("Daemon status"), $running));
+
+	    my $subnet  = $server->subnet . '/' . $server->subnetNetmask;
+	    $section->add(new EBox::Summary::Value (__("VPN subnet"), $subnet));
+
+	    $summary->add($section);
+	}
+				    
+
+	return $summary;
 }
 
+sub statusSummary
+{
+    my ($self) = @_;
+    return new EBox::Summary::Status('openvpn', __('OpenVPN service'), $self->running, $self->service);
+}
 
 1;

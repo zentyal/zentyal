@@ -9,7 +9,7 @@ use EBox::Global;
 use EBox::OpenVPN;
 use Perl6::Junction qw(any);
 
-my @serverPropierties = qw(subnet subnetNetmask port proto caCertificate serverCertificate serverKey clientToClient local);
+my @serverPropierties = qw(subnet subnetNetmask port proto caCertificate serverCertificate serverKey clientToClient local service);
 
 sub new # (error=?, msg=?, cgi=?)
 {
