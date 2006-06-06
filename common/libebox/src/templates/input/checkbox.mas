@@ -1,0 +1,10 @@
+<%args>
+$name
+$value       => ''
+@extraParams => ()
+</%args>
+<%init>
+my $checked = $value ? 'checked' : '';
+</%init>
+<input type='checkbox' class='inputText' name='<% $name %>' <%
+$checked %> <% @extraParams %> />

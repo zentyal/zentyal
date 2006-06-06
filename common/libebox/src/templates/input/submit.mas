@@ -1,0 +1,6 @@
+<%args>
+$name
+$value       => ''
+@extraParams => ()
+</%args>
+<input type='submit' class='inputButton' name='<% $name %>' value='<% $value %>' alt='<% $value%>'   <% @extraParams %> />

@@ -9,7 +9,7 @@ use EBox::Gettext;
 <table class='formTable' >
 <tbody>
 % foreach my $element (@elements) {
-% my @tableRowParams = %{$element}l
+% my @tableRowParams = %{$element};
 <& .tableRow, @tableRowParams &>
 % }
 </tbody>
@@ -27,22 +27,42 @@ $value       => ''
 @extraParams => ()
 </%args>
 <%init>
+# adjust default printable name if needed
 if (!defined $printableName ) {
    $printableName = $name;
 }
+
 my $inputComponent = "/input/$input.mas";
 </%init>
   <tr>
       <td class='tright' width="170px">
-          <span class='ftitle'>
-	        <% $printableName %>:
-	  </span>
+          <& .printableName, printableName => $printableName, input => $input &>
      </td>
      <td>
         <& $inputComponent, name => $name, value => $value, @extraParams &>
      </td>
   </tr>
 </%def>
+
+<%def .printableName>
+<%args>
+$printableName
+$input
+</%args>
+<%init>
+if ($input eq 'submit') { 
+   $printableName = '';
+}
+</%init>
+      <td class='tright' width="170px">
+%         if ($printableName) {
+          <span class='ftitle'>
+	        <% $printableName %>:
+	  </span>
+%         }
+     </td>
+</%def>
+
 
 <%def .emptyMsg>
 <%args>
