@@ -14,17 +14,19 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::OpenVPN;
+use base qw(EBox::GConfModule EBox::FirewallObserver);
 
 use strict;
 use warnings;
 
-use base 'EBox::GConfModule';
+
 
 use EBox::Gettext;
 use EBox::Summary::Module;
 use EBox::Sudo;
 use Perl6::Junction qw(any);
 use EBox::OpenVPN::Server;
+use EBox::NetWrappers qw(iface_addresses);
 use Error qw(:try);
 
 
@@ -163,11 +165,51 @@ sub dh
 }
 
 
-sub summary
+sub _portsByProtoFromServers
 {
-	my ($self) = @_;
-	my $item = new EBox::Summary::Module(__("ModuleName stuff"));
-	return $item;
+    my ($self, @servers) = @_;
+    
+    my %ports;
+    foreach my $proto (qw(tcp udp)) {
+	my @protoServers = grep { $_->proto eq $proto  } @servers;
+	my @ports        = map  { $_->port } @protoServers;
+
+	$ports{$proto} = \@ports;
+    }
+
+    return \%ports;
+}
+
+
+
+
+sub usesPort
+{
+    my ($self, $proto, $port, $iface) = @_;
+    if ($iface =~ m/tun\d\d/ ) {  # see if we are asking about openvpn virtual iface
+	return 1;
+    }
+
+    my @servers = $self->servers();
+    my $anyIfaceAddr   = any(iface_addresses($iface));
+    @servers = grep { my $lAddr = $_->local(); (!defined $lAddr) or ($lAddr eq  $anyIfaceAddr) } @servers;
+
+    my $portsByProto = $self->_portsByProtoFromServers(@servers);
+
+    exists $portsByProto->{$proto} or return undef;
+    my $ports        = $portsByProto->{$proto};
+
+    my $portUsed = ( $port == any(@{ $ports }) );
+    return $portUsed ? 1 : undef;
+}
+
+sub firewallHelper
+{
+    my ($self) = @_;
+    my $portsByProto = $self->_portsByProtoFromServers($self->servers);
+
+    my $firewallHelper = new EBox::OpenVPN::FirewallHelper (portsByProto => $portsByProto);
+    return $firewallHelper;
 }
 
 
@@ -178,7 +220,6 @@ sub setService # (active)
     (!$active and !$self->service) and return;
 
     $self->set_bool('active', $active);
-#   $self->_configureFirewall;
 }
 
 
@@ -289,6 +330,13 @@ sub menu
         my $item = new EBox::Menu::Item('url' => 'OpenVPN/Index',
                                         'text' => __('OpenVPN server'));
 	$root->add($item);
+}
+
+sub summary
+{
+	my ($self) = @_;
+	my $item = new EBox::Summary::Module(__("OpenVPN server"));
+	return $item;
 }
 
 
