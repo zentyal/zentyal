@@ -1,0 +1,59 @@
+<%args>
+@elements  => (),
+$emptyMsg  => undef
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+% if (@elements) {
+<table class='formTable' >
+<tbody>
+% foreach my $element (@elements) {
+% my @tableRowParams = %{$element}l
+<& .tableRow, @tableRowParams &>
+% }
+</tbody>
+</table>
+% }
+% else {
+    <& .emptyMsg, msg => $emptyMsg &>
+%}
+<%def .tableRow>
+<%args>
+$name
+$printableName => undef
+$input       => 'text'
+$value       => ''
+@extraParams => ()
+</%args>
+<%init>
+if (!defined $printableName ) {
+   $printableName = $name;
+}
+my $inputComponent = "/input/$input.mas";
+</%init>
+  <tr>
+      <td class='tright' width="170px">
+          <span class='ftitle'>
+	        <% $printableName %>:
+	  </span>
+     </td>
+     <td>
+        <& $inputComponent, name => $name, value => $value, @extraParams &>
+     </td>
+  </tr>
+</%def>
+
+<%def .emptyMsg>
+<%args>
+$msg
+</%args>
+<%init>
+if (!defined $msg) {
+  $msg = __('Table is empty');
+}
+</%init>
+<div class='note'>
+   <% $msg %>
+</div>
+</%def>
