@@ -9,7 +9,7 @@ use EBox::Gettext;
 
 <h3><% __x('Editing configuration of server {name}', name => $name) %> <</h3>
 <form action='Edit' method='POST'>
-<& /openvpn/attrTable.mas, attributes => \%serverAttrs &>
+<& /openvpn/serverProperties.mas, properties => \%serverAttrs &>
 <input type='hidden' name='name' value='<% $name %>' />
 <input class='inputButton' type='submit' name='edit' value='<%__('Edit') %>' alt='<% __('Edit') %>'  />
 </form>
