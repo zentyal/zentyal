@@ -3,32 +3,27 @@ $nameEditable   => 0
 %properties     => ()
 </%args>
 <%init>
-my @propertiesNames =qw(port subnet subnetNetmask proto caCertificate serverCertificate serverKey clientToClient local);
+my @tableElements  = (
+      { name => 'port'},
+      { name => 'subnet'}, 
+      { name => 'subnetNetmask'}, 
+      { name => 'proto'}, 
+      { name => 'caCertificate'},
+      { name => 'serverCertificate'}, 
+      { name => 'serverKey'}, 
+      { name => 'clientToClient'}, 
+      { name => 'local'},
+     );
 if ($nameEditable) {
-   push @propertiesNames, 'name';
+   unshift @tableElements, { name => 'name' };
+}
+# set values if required..
+foreach my $tableElement_r (@tableElements) {
+   my $propierty = $tableElement_r->{name};
+   if (exists $properties{$propierty}) {
+       $tableElement_r->{value} =  $properties{$propierty};
+   }
 }
 
-foreach my $attrName (@propertiesNames) {
-   next if exists $properties{$attrName};
-   $properties{$attrName} = '';
-}
-
-my %propertiesPrettyTitle = map { $_ => $_ } keys %properties;
 </%init>
-<table class='formTable' >
-<tbody>
-% foreach my $propiertyName (@propertiesNames) {
-  <tr>
-      <td class='tright' width="170px">
-          <span class='ftitle'>
-	        <% __($propertiesPrettyTitle{$propiertyName}  ) %>:
-	  </span>
-     </td>
-     <td>
-        <input type='text' class='inputText' name='<% $propiertyName %>'
-	value='<%  exists $properties{$propiertyName} ?
-	$properties{$propiertyName} : ''%>'>     </td>
-  </tr>
-% }
-</tbody>
-</table>
+<& /formTable.mas, elements => \@tableElements &>
