@@ -1,8 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = 
+SUBDIRS = input
 templatedir = $(datadir)/ebox/templates
-template_DATA = enable.mas error.mas language.mas msg.mas title.mas
+template_DATA = enable.mas error.mas language.mas msg.mas title.mas formTable.mas 
 
 EXTRA_DIST = $(template_DATA)
 

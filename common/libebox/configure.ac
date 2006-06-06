@@ -95,6 +95,7 @@ doc/Makefile
 src/cgi/Makefile
 src/Makefile
 src/templates/Makefile
+src/templates/input/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile
 src/EBox/Exceptions/Makefile
