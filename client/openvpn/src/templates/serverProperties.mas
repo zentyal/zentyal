@@ -3,19 +3,21 @@ $nameEditable   => 0
 %properties     => ()
 </%args>
 <%init>
+use EBox::Gettext;
 my @tableElements  = (
-      { name => 'port'},
-      { name => 'subnet'}, 
-      { name => 'subnetNetmask'}, 
-      { name => 'proto'}, 
-      { name => 'caCertificate'},
-      { name => 'serverCertificate'}, 
-      { name => 'serverKey'}, 
-      { name => 'clientToClient'}, 
-      { name => 'local'},
+      { name => 'port',              printableName => __('Port'), },
+      { name => 'subnet',            printableName => __('VPN subnet'),}, 
+      { name => 'subnetNetmask',     printableName => __('VPN subnet netmask'),}, 
+      { name => 'proto',             printableName => __('Protocol'), }, 
+      { name => 'caCertificate',     printableName => __('CA certificate'), },
+      { name => 'serverCertificate', printableName => __('Server certificate'), }, 
+      { name => 'serverKey',         printableName => __('Server key'), }, 
+      { name => 'clientToClient',    printableName => __('Allow client-to-client connections'), input => 'checkbox' }, 
+      { name => 'local',             printableName => __('Local
+      address to listen (blank: listen all adresses)'), },
      );
 if ($nameEditable) {
-   unshift @tableElements, { name => 'name' };
+   unshift @tableElements, { name => 'name', printableName =>    __('Server name') };
 }
 # set values if required..
 foreach my $tableElement_r (@tableElements) {
