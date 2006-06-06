@@ -8,20 +8,15 @@ my $active  = $service ? 'yes' : 'no';
 </%init>
 
 <& enable.mas, title => __('OpenVPN service status'), active => $active &>
-<& addForm &>
 <& serversList, servers => \@servers &>
-
+<& addForm &>
 
 
 <%def addForm >
-<h3><% __('Create new server') %></h3>
-<div class="help">
-<% __('Help') %>
-</div>
 <form action='Create' method='POST'>
 		<input class='inputButton' type='submit' name='createFromIndex' 
-			   value="<% __('Create') %>"
-			   alt="<% __('Create') %>">
+			   value="<% __('Create new server') %>"
+			   alt="<% __('Create new server') %>">
 </form>
 </%def>
 
