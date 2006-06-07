@@ -193,6 +193,12 @@ sub _portsByProtoFromServers
 sub usesPort
 {
     my ($self, $proto, $port, $iface) = @_;
+
+    if (!$self->service) {
+	 return undef;
+     }
+
+
     if ($iface =~ m/tun\d\d/ ) {  # see if we are asking about openvpn virtual iface
 	return 1;
     }
@@ -213,6 +219,11 @@ sub usesPort
 sub firewallHelper
 {
     my ($self) = @_;
+
+    if (!$self->service) {
+	 return undef;
+     }
+
     my $portsByProto = $self->_portsByProtoFromServers($self->activeServers); 
 
     my $firewallHelper = new EBox::OpenVPN::FirewallHelper (portsByProto => $portsByProto);
