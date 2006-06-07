@@ -282,7 +282,7 @@ sub confFile
 {
     my ($self, $confDir) = @_;
     my $confFile = $self->name() . '.conf';
-    my $confFilePath = "$confDir/$confFile";
+    my $confFilePath = defined $confDir ? "$confDir/$confFile" : $confFile;
 
     return $confFilePath;
 }
