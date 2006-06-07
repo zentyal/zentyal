@@ -82,6 +82,12 @@ sub servers
 }
 
 
+sub activeServers
+{
+    my ($self) = @_;
+    return grep { $_->service } $self->servers();
+}
+
 sub serversNames
 {
     my ($self) = @_;
@@ -191,7 +197,7 @@ sub usesPort
 	return 1;
     }
 
-    my @servers = $self->servers();
+    my @servers = $self->activeServers();
     my $anyIfaceAddr   = any(iface_addresses($iface));
     @servers = grep { my $lAddr = $_->local(); (!defined $lAddr) or ($lAddr eq  $anyIfaceAddr) } @servers;
 
@@ -207,7 +213,7 @@ sub usesPort
 sub firewallHelper
 {
     my ($self) = @_;
-    my $portsByProto = $self->_portsByProtoFromServers($self->servers);
+    my $portsByProto = $self->_portsByProtoFromServers($self->activeServers); 
 
     my $firewallHelper = new EBox::OpenVPN::FirewallHelper (portsByProto => $portsByProto);
     return $firewallHelper;
