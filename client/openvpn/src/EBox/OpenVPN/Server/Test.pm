@@ -108,11 +108,13 @@ sub setProtoTest : Test(6)
 }
 
 
-sub setPortTest : Test(20)
+sub setPortTestForSingleServer : Test(18)
 {
     my ($self) = @_;
  
     my $server          = $self->_newServer('macaco');
+    $server->setProto('tcp');
+
     my $portGetter_r    = $server->can('port');
     my $portSetter_r    = $server->can('setPort');
     my $correctPorts    = [1024, 1194, 4000];
@@ -127,16 +129,35 @@ sub setPortTest : Test(20)
 			  propierty      => "Server\'s IP port",
 			);
 
+ 
+}
 
-    # duplicates port test
-    my $server2  = $self->_newServer('gibon');
-    my $samePort = 3030;
-    my $previousPort =  $server2->port();
+
+sub setPortTestForMultipleServers : Test(4)
+{
+    my ($self) = @_;
+ 
+    my $samePort     =  20000;
+    my $distinctPort =  30000;
+    my $sameProto = 'tcp';
+    my $distinctProto = 'udp';
+
+    my $server = $self->_newServer('macaco');
+    $server->setProto($sameProto);
     $server->setPort($samePort);
 
-    dies_ok { $server2->setPort($samePort) } "Checking that setting a duplicate port raises error";
-    is $server2->port(), $previousPort, "Checking that the port remains untouched after the failed setting operation";
+    my $server2  = $self->_newServer('gibon');
+    $server2->setProto($sameProto);
+    $server2->setPort($distinctPort);
+
+    dies_ok { $server2->setPort($samePort) } "Checking that setting a duplicate port and protocol combination raises error";
+    is $server2->port(), $distinctPort, "Checking that the port remains untouched after the failed setting operation";
+
+    $server2->setProto($distinctProto);
+    lives_ok { $server2->setPort($samePort) } "Checking that is correct for two servers be setted to the same port number as long they are not using the same protocol";
+    is $server2->port(), $samePort, "Checking that prevoius setPort call was successful";
 }
+
 
 sub setLocalTest : Test(12)
 {

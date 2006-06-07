@@ -131,10 +131,13 @@ sub _checkPortIsNotDuplicate
     my ($self, $port) = @_;
 
     my $ownName = $self->name();
+    my $proto   = $self->proto;
     my @serversNames = grep { $_ ne $ownName } $self->_openvpnModule->serversNames();
+
 
     foreach my $serverName (@serversNames) {
 	my $server =  $self->_openvpnModule->server($serverName); 
+	next if ($proto ne $server->proto);
 	if ($port eq $server->port() ) {
 	    throw EBox::Exceptions::External ("There are already a OpenVPN server that uses port $port");
 	}
