@@ -65,9 +65,6 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	AC_PROG_PERL_MODULES(Test::Deep, ,
 	  AC_MSG_WARN(Missing test dependency Test::Deep))
 
-	AC_PROG_PERL_MODULES(Test::MockClass, ,
-	  AC_MSG_WARN(Missing test dependency Test::MockClass))
-
 	AC_PROG_PERL_MODULES(Test::MockObject, ,
 	  AC_MSG_WARN(Missing test dependency Test::MockObject))
 
