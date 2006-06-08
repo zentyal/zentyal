@@ -22,9 +22,12 @@ use EBox::Gettext;
 <%args>
 $name
 $printableName => undef
-$input       => 'text'
-$value       => ''
-@extraParams => ()
+$input         => 'text'
+$value         => ''
+$warning       => undef
+$note          => undef
+$help          => undef
+@extraParams   => ()
 </%args>
 <%init>
 # adjust default printable name if needed
@@ -42,10 +45,12 @@ my $inputComponent = "/input/$input.mas";
      <td>
         <& $inputComponent, name => $name, value => $value, @extraParams &>
      </td>
-     <td>
+     </tr>
 
-</td>
-  </tr>
+  <tr>
+  <& div, type => 'warning', content => $warning &>
+  <& div, type => 'note', content => $note &>
+  <& div, type => 'help', content => $help &>
 </%def>
 
 <%def .printableName>
@@ -77,4 +82,20 @@ if (!defined $msg) {
 <div class='note'>
    <% $msg %>
 </div>
+</%def>
+
+
+<%def div> 
+<%args>
+$content
+$type
+</%args>
+% if (defined $content) {
+<tr><td/>
+<td> 
+<div class ='<% $type %>'>
+<% $content %>
+</div>
+</td>
+% }
 </%def>
