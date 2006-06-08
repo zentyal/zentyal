@@ -35,12 +35,16 @@ if (!defined $printableName ) {
 my $inputComponent = "/input/$input.mas";
 </%init>
   <tr>
-      <td class='tright' width="170px">
+      <td class='tright' >
+
           <& .printableName, printableName => $printableName, input => $input &>
      </td>
      <td>
         <& $inputComponent, name => $name, value => $value, @extraParams &>
      </td>
+     <td>
+
+</td>
   </tr>
 </%def>
 
@@ -53,8 +57,11 @@ $input
 if ($input eq 'submit') { 
    $printableName = '';
 }
+if ($printableName ne '') {
+    $printableName .= ':';
+}
 </%init>
-<% $printableName %>
+<% "$printableName" %>
 </%def>
 
 
