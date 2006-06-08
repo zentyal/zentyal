@@ -5,7 +5,7 @@ use warnings;
 
 use Test::More tests => 20;
 use Test::Exception;
-use Test::MockClass('EBox::Baboon', '0.2');
+
 
 use lib '../../..';
 
@@ -19,7 +19,7 @@ modInstanceTest();
 changedTest();
 clearTest();
 
-my $baboonMockClass;
+
 
 sub mocksSetup
 {
@@ -27,19 +27,18 @@ sub mocksSetup
     EBox::Global::Mock::mock();
     EBox::Global::Mock::setEBoxModule('baboon', 'EBox::Baboon');
 
-      $baboonMockClass = Test::MockClass->new('EBox::Baboon');
-      $baboonMockClass->inheritFrom('EBox::GConfModule');
-       my $baboonCreateMethod_r =  sub {
-	  my ($class, @optParams) = @_;
-
-	  # XXX i hope that the unability to use SUPER:: correctly is the result of a error of myself or a side efecct of Test::MockClass and that the nromal modu;les will not have any problem when instantiated by a mocked EBox::Global
-# 	  my $self = $class->SUPER::_create(name => 'baboon', @optParams);
-	  my $self = EBox::GConfModule::_create($class, name => 'baboon', @optParams);
-
-	  return $self;
-      };
-      
-      $baboonMockClass->addMethod('_create' => $baboonCreateMethod_r);
+      MOCK_CLASS:{
+	  package EBox::Baboon;
+	  use base 'EBox::GConfModule';
+	  $INC{'EBox/Baboon.pm'} =1;
+	  sub _create
+	  {
+	      my ($class, @optParams) = @_;
+	      my $self = $class->SUPER::_create(name => 'baboon', @optParams);
+	      return $self;
+	      
+	  }
+     }
 }
 
 
