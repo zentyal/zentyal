@@ -253,7 +253,7 @@ sub _setFakeConfig
 		  '/ebox/modules/forest/trees/pine'                         =>  14, 
 	      );
 
-   EBox::GConfModule::Mock::setArbitraryConfig(@config);
+   EBox::GConfModule::Mock::setConfig(@config);
 
 }
 

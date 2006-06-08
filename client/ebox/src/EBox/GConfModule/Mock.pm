@@ -191,19 +191,6 @@ sub _mockedDeleteDirInternal
 
 # subs to mangle configuration for testing:
 
-sub setArbitraryEntry
-{
-    warn "name deprecated, use setEntry instead";
-    return setEntry(@_);
-}
-
-
-sub setArbitraryConfig
-{
-    warn "name deprecated, use setConfig instead";
-    return setConfig(@_);
-}
-
 
 sub setConfig
 {
