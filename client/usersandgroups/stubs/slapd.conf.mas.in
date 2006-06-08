@@ -33,6 +33,8 @@ moduleload	back_bdb
 backend		bdb
 
 database        bdb
+checkpoint      1 1
+
 
 suffix          "<% $dn %>"
 
