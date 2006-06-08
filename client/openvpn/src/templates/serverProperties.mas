@@ -23,8 +23,10 @@ my @tableElements  = (
       { name => 'serverCertificate', printableName => __('Server certificate'), }, 
       { name => 'serverKey',         printableName => __('Server key'), }, 
       { name => 'clientToClient',    printableName => __('Allow client-to-client connections'), input => 'checkbox' }, 
-      { name => 'local',             printableName => __('Local
-      address to listen (blank: listen all adresses)'), },
+      { name => 'local',             printableName => __('Local address to listen on'), 
+      help => __("If not local address to listen on is provided, the server will
+listen in all local addresses"),
+      },
      );
 if ($nameEditable) {
    unshift @tableElements, { name => 'name', printableName =>    __('Server name') };
