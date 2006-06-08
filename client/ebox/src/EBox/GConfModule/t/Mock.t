@@ -12,14 +12,7 @@ use lib '../../..';
 
 use EBox::Mock;
 
-use Test::MockClass qw(EBox::Mandrill 0.1);
-
-
 BEGIN { use_ok 'EBox::GConfModule::Mock' }
-
-
-
-
 mock();
 createTest();
 setAndGetTest();
@@ -257,15 +250,19 @@ sub _setFakeConfig
 
 }
 
-my $mockEBoxMandrill;
+
 
 sub mock
 {
     EBox::GConfModule::Mock::mock();
       EBox::Mock::mock();
-      
-      my $mockEBoxMandrill = Test::MockClass->new('EBox::Mandrill');
-      $mockEBoxMandrill->inheritFrom('EBox::GConfModule');
 }
+
+
+# dummy class for testing
+package EBox::Mandrill;
+use base 'EBox::GConfModule';
+$INC{'EBox/Mandrill.pm'} = 1;
+
 
 1;
