@@ -6,20 +6,8 @@ $service
 use EBox::Gettext;
 my $active  = $service ? 'yes' : 'no';
 </%init>
-
 <& enable.mas, title => __('OpenVPN service status'), active => $active &>
 <& serversList, servers => \@servers &>
-<& addForm &>
-
-
-<%def addForm >
-<form action='Create' method='POST'>
-		<input class='inputButton' type='submit' name='createFromIndex' 
-			   value="<% __('Create new server') %>"
-			   alt="<% __('Create new server') %>">
-</form>
-</%def>
-
 
 <%def serversList>
 <%args>
@@ -41,6 +29,7 @@ my $active  = $service ? 'yes' : 'no';
 %			foreach my $server (@servers) {
                         <& .serverRow, server => $server &>
 %			}
+                        <& .addServerRow &>
 			</tbody>
 		</table>
 		<br />
@@ -75,4 +64,17 @@ $server
 							alt="<% __('Delete') %>"/></a>
 					</td>
 				</tr>
+</%def>
+
+<%def .addServerRow >
+ <tr class='border'>
+<td/>
+<td class='tcenter'>
+<form action='Create' method='POST'>
+		<input class='inputButton' type='submit' name='createFromIndex' 
+			   value="<% __('Create new server') %>"
+			   alt="<% __('Create new server') %>">
+</form>
+</td>
+</tr>
 </%def>
