@@ -23,6 +23,8 @@ use EBox::Config;
 use EBox::Gettext;
 use EBox::Menu::Root;
 
+use HTML::Mason;
+
 #
 # Method: title 
 #
@@ -36,22 +38,18 @@ sub title
 {
 	my $save = __('Save changes');
 	my $logout = __('Logout');
+
 	my $global = EBox::Global->getInstance();
 	my $finishId;
-
 	if ($global->unsaved) {
 		$finishId = "notchanges";
 	} else {
 		$finishId = "changes";
 	}
 
-	return qq%<div id="top"></div>
-	<div id="header"><img src="/data/images/title.gif"></div>
-	<div id="hmenu">
-	<a id="m" href="/ebox/Logout/Index">$logout</a>
-	<a id="$finishId" href="/ebox/Finish">$save</a>
-	</div>
-	%;
+
+	my $html = _makeHtml('headTitle.mas', save => $save, logout => $logout, finishId => $finishId  );
+	return $html;
 }
 
 #
@@ -92,20 +90,9 @@ sub menu
 #
 sub footer($) # (module)
 {
-	my $module = shift;
-	my $copy = __("Created by <a href='http://www.warp.es'>" .
-	"Warp Networks S.L.</a> in collaboration with " .
-	"<a href='http://www.dbs.es'>DBS Servicios " .
-	"Informaticos S.L.</a>");
-	return qq%<div id="footer">
-	$copy</div>
-	<script type="text/javascript" src="/data/js/help.js">//</script>
-	<script type="text/javascript"><!--
-	stripe('dataTable', '#ecf5da', '#ffffff');
-	//--></script>
-	</body>
-	</html>
-%;
+    my ($module) = @_;  # XXX unused arg
+    my $html = _makeHtml('footer.mas');
+    return $html;
 }
 
 #
@@ -119,18 +106,26 @@ sub footer($) # (module)
 #
 sub header # (title)
 {
-	my $title = shift;
+	my ($title) = @_;
 
-	return qq%
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-		      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>eBox - $title</title>
-<link href="/data/css/public.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="/data/js/common.js">//</script>
-</head>
-<body>%
+	my $html = _makeHtml('header.mas', title => $title );
+	return $html;
+
+}
+
+
+sub _makeHtml
+{
+    my ($filename, @params) = @_;
+
+    my $filePath = EBox::Config::templates . "/$filename";
+
+    my $output;
+    my $interp = HTML::Mason::Interp->new(comp_root => EBox::Config::templates, out_method => \$output,);
+    my $comp = $interp->make_component(comp_file => $filePath);
+	
+    $interp->exec($comp, @params);
+    return $output;
 }
 
 1;

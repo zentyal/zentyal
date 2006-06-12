@@ -1,0 +1,16 @@
+<%init>
+use EBox::Gettext;
+my $copy = __("Created by <a href='http://www.warp.es'>" .
+              "Warp Networks S.L.</a> in collaboration with " .
+	      "<a href='http://www.dbs.es'>DBS Servicios " .
+	     "Informaticos S.L.</a>");
+
+</%init>
+<div id="footer">
+	<% $copy %></div>
+	<script type="text/javascript" src="/data/js/help.js">//</script>
+	<script type="text/javascript"><!--
+	stripe('dataTable', '#ecf5da', '#ffffff');
+	//--></script>
+	</body>
+	</html>

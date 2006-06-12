@@ -1,0 +1,11 @@
+<%args>
+$save 
+$logout
+$finishId
+</%args>
+<div id="top"></div>
+	<div id="header"><img src="/data/images/title.gif"></div>
+	<div id="hmenu">
+	<a id="m" href="/ebox/Logout/Index"><% $logout %></a>
+	<a id="<% $finishId %>" href="/ebox/Finish"><% $save %></a>
+	</div>
