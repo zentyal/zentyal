@@ -52,6 +52,38 @@ sub _getTime {
 	return undef;
 }
 
+
+sub _actualPage
+{
+    my ($self, $tpages) = @_;
+
+    my $page = $self->param('page');
+    
+    unless (defined($self->param('page'))) {
+	$page = 0;
+    }
+
+    if(defined($self->param('tofirst'))) { 
+	$page = 0; 
+    }
+    if(defined($self->param('toprev'))) { 
+	if ($page > 0) { 
+	    $page = $page -1; 
+	} 
+    }
+    if(defined($self->param('tonext'))) { 
+	if ($page < $tpages) {
+	    $page = $page + 1; 
+	}
+    }
+    if(defined($self->param('tolast'))) { 
+	$page = $tpages; 
+    }
+
+    return $page;
+}
+
+
 sub _encode_filters {
 	my ($par) = @_;
 
@@ -85,11 +117,7 @@ sub _process
 	$toMonth += 1;
 	$fromMonth += 1;
 
-	my $page = $self->param('page');
-	
-	unless (defined($self->param('page'))) {
-		$page = 0;
-	}
+	my $page;
 	
 	my $selected = $self->param('selected');
 	my $tableinfo;
@@ -100,23 +128,8 @@ sub _process
 		my $timecol = $tableinfo->{'timecol'};
 
 		$tpages = ceil($logs->totalRecords($table) / PAGESIZE) - 1;
+		$page = $self->_actualPage($tpages);
 
-		if(defined($self->param('tofirst'))) { 
-			$page = 0; 
-		}
-		if(defined($self->param('toprev'))) { 
-			if ($page > 0) { 
-				$page = $page -1; 
-			} 
-		}
-		if(defined($self->param('tonext'))) { 
-			if ($page < $tpages) {
-				$page = $page + 1; 
-			}
-		}
-		if(defined($self->param('tolast'))) { 
-			$page = $tpages; 
-		}
 	
 		my $fromday = $self->param('fromday');
 		my $frommonth = $self->param('frommonth');
@@ -166,7 +179,9 @@ sub _process
 			$hfilters)};
 		
 		$tpages = ceil ($hret{'totalret'} / PAGESIZE) -1;
-	} else {
+		$page = $self->_actualPage($tpages);
+	} 
+	else {
 		$selected = 'none';
 	}
 
@@ -182,5 +197,7 @@ sub _process
 	
 	$self->{params} = \@array;
 }
+
+
 
 1;
