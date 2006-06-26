@@ -1,11 +1,11 @@
 <%init>
 use EBox::Gettext;
-my $eboxHomepageName = __(q{EBox's homepage});
+my $eboxHomepageName = __(q{eBox's homepage});
 my $eboxHomepageAHref = "<a href='http://www.ebox-platform.com'>$eboxHomepageName</a> ";
 
 my @tipList = (
    __(q{If you typed the URL manually, please check it}),
-   __(q{Maybe a change in EBox's configuration or software made no longer available the requested page}),
+   __(q{Maybe a change in eBox's configuration or software made no longer available the requested page}),
    __x(q{If you need more help, you may want visit {homepage} for
    documentation and mailing lists}, homepage => $eboxHomepageAHref),
 );
