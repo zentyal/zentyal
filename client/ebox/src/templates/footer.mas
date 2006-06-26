@@ -1,9 +1,12 @@
 <%init>
 use EBox::Gettext;
-my $copy = __("Created by <a href='http://www.warp.es'>" .
-              "Warp Networks S.L.</a> in collaboration with " .
-	      "<a href='http://www.dbs.es'>DBS Servicios " .
-	     "Informaticos S.L.</a>");
+my $warp = q{<a href='http://www.warp.es'>Warp Networks S.L.</a>};
+my $dbs  = q{<a href='http://www.dbs.es'>DBS Servicios Informaticos
+S.L.</a>};
+my $ebox = q{<a href='http://www.ebox-platform.com'>eBox</a>};
+
+my $copy = __x('{ebox} created by {warp} in collaboration with {dbs}',
+ebox => $ebox, warp => $warp, dbs => $dbs);
 
 </%init>
 <div id="footer">
