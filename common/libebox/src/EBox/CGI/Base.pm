@@ -563,7 +563,7 @@ sub setMsg
 }
 
 
-# default actuate behavoiur: do nothing
+# default actuate behaviour: do nothing
 sub actuate
 {}
 

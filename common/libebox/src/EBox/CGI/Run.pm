@@ -51,12 +51,13 @@ sub run # (url)
 	eval "use $classname"; 
 	if ($@) {
 		my $log = EBox::logger;
-		$log->error("Unable to import cgi: $classname");
-		my $error_cgi = EBox::Config::configkey("default_error_cgi");
+		$log->error("Unable to import cgi: $classname Error: $@");
+
+		my $error_cgi = 'EBox::CGI::EBox::PageNotFound';
 		eval "use $error_cgi"; 
-		$cgi = new $error_cgi(
-			error => __d("The page could not be found",'libebox'));
-	} else {
+		$cgi = new $error_cgi;
+	} 
+        else {
 		$cgi = new $classname;
 	}
 

@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CGI/EBox
 
-nobase_perl_DATA = Lang.pm
+nobase_perl_DATA = Lang.pm PageNotFound.pm
 
 SOURCES = $(nobase_perl_DATA)
 
