@@ -10,7 +10,7 @@ my @tipList = (
    documentation and mailing lists}, homepage => $eboxHomepageAHref),
 );
 </%init>
-<h3><% __(q{we're sorry}) %></h3>
+<h4><% __(q{we're sorry}) %></h4>
 <% __('The page can not be found') %>
 <ul>
 % foreach my $tip (@tipList) {
