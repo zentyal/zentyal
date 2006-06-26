@@ -198,6 +198,19 @@ sub addObject # (description)
 			('data' => __('Object name'));
 	}
 
+	# normalize description
+	$desc =~ s/^\s+//;
+	$desc =~ s/\s+$//;
+	$desc =~ s/\s+/ /g;
+
+	foreach my $object (@{ $self->ObjectNames() }) {
+	    my $otherDesc = $self->ObjectDescription($object);
+	    if ($desc eq $otherDesc) {
+		throw EBox::Exceptions::External __x('There are already a object named {name}' ,name => $desc);
+	    }
+	}
+
+
 	my $id = $self->get_unique_id("x");
 
 	$self->set_string("$id/description", $desc);
