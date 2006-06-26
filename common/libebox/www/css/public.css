@@ -6,6 +6,12 @@
 	color: transparent;
 }
 
+
+#header a:hover {
+ 	background: transparent;
+ 	color: black;
+}
+
 #header img {
 	padding-top: 3px;
 	padding-left: 3px;
