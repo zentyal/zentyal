@@ -20,6 +20,7 @@ MaxSpareServers 2
 StartServers 2
 MaxClients 3
 MaxRequestsPerChild 100
+AddDefaultCharset utf-8	
 
 # begin modules
 ClearModuleList
