@@ -54,19 +54,7 @@ use EBox::Gettext;
 			</td>
 		</tr>
 		<tr>
-			<td class='tright'>
-				<span class='ftitle'><% __('Group') %>:</span>
-			</td>
-			<td>
-        			<select name='group'>
-						<option selected value=''></option>
-%			           foreach my $gr (@groups){
-							<option value='<% $gr->{'account'} %>'>
-								<% $gr->{'account'} %>
-							</option>
-%			           }
-					</select>
-			</td>
+		<& .groupSelectorLine, groups => \@groups &>
 		</tr>
 		<tr>
 			<td></td>
@@ -114,3 +102,23 @@ use EBox::Gettext;
 		</tbody>
 		</table>
 %   }
+
+
+<%def .groupSelectorLine>
+<%args>
+@groups 
+</%args>
+<td class='tright'>
+     <span class='ftitle'><% __('Group') %>:</span>
+</td>
+<td>
+    <select name='group' <% @groups == 0 ? 'disabled' : ''  %>>
+        <option selected value=''></option>
+%        foreach my $gr (@groups){
+	      <option value='<% $gr->{'account'} %>'>
+		<% $gr->{'account'} %>
+              </option>
+%	}
+    </select>
+</td>
+</%def>
