@@ -51,7 +51,7 @@ sub run # (url)
 	eval "use $classname"; 
 	if ($@) {
 		my $log = EBox::logger;
-		$log->error("Unable to import cgi: $classname Error: $@");
+		$log->error("Unable to import cgi: $classname Eval error: $@");
 
 		my $error_cgi = 'EBox::CGI::EBox::PageNotFound';
 		eval "use $error_cgi"; 
