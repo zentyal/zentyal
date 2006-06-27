@@ -20,7 +20,13 @@ use Test::More;
 use Test::Builder;
 use Error qw(:try);
 
-our @EXPORT_OK = qw(checkModuleInstantiation);
+use EBox::Sudo::Mock;
+use EBox::Mock;
+use EBox::Config::Mock;
+use EBox::GConfModule::Mock;
+use EBox::Global::Mock;
+
+our @EXPORT_OK = qw(checkModuleInstantiation activateEBoxTestStubs);
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 
 
@@ -68,3 +74,23 @@ sub checkModuleInstantiation
     }
 
 }
+
+
+
+sub activateEBoxTestStubs
+{
+    my %params = @_;
+
+    foreach my $stub (EBox Sudo Config GConfModule Global) {
+	 $params{stub} = []  if (!exists $params{$stub});
+    }
+
+    EBox::Mock::mock( @{ $params{EBox} } );
+    EBox::Sudo::Mock::mock( @{ $params{Sudo} } );
+    EBox::Config::Mock::mock( @{ $params{Config} } );
+    EBox::GConfModule::Mock::mock( @{ $params{GConfModule} } );
+    EBox::Global::Mock::mock( @{ $params{Global} } );
+}
+
+
+1;
