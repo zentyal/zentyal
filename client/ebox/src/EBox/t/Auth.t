@@ -11,6 +11,7 @@ use EBox::Mock;
 use EBox::Global::Mock;
 use EBox::Config::Mock;
 
+use lib '../..';
 
 use_ok('EBox::Auth');
 globalSetUp();
