@@ -73,26 +73,26 @@ sub _savesession # (session_id)
 #       Internal - when password's file cannot be opened
 sub checkPassword # (password) 
 {
-        shift;
-	my $passwd = shift;
-	open(PASSWD, EBox::Config->passwd) or
-		throw EBox::Exceptions::Internal('Could not open passwd file');
+    my ($self, $passwd) = @_;
+ 
+    open(my $PASSWD_F, EBox::Config->passwd) or
+	throw EBox::Exceptions::Internal('Could not open passwd file');
 
-	my @lines = <PASSWD>;
-	close(PASSWD);
+    my @lines = <$PASSWD_F>;
+    close($PASSWD_F);
 
-	my $filepasswd = $lines[0];
-	$filepasswd =~ s/[\n\r]//g;
+    my $filepasswd = $lines[0];
+    $filepasswd =~ s/[\n\r]//g;
 
-	my $md5 = Digest::MD5->new;
-	$md5->add($passwd);
+    my $md5 = Digest::MD5->new;
+    $md5->add($passwd);
 
-	my $encpasswd = $md5->hexdigest;
-	if ($encpasswd eq $filepasswd) {
-		return 1;
-	} else {
-		return undef;
-	}
+    my $encpasswd = $md5->hexdigest;
+    if ($encpasswd eq $filepasswd) {
+	return 1;
+    } else {
+	return undef;
+    }
 }
 
 
@@ -110,20 +110,21 @@ sub checkPassword # (password)
 #	External - when password length is no longer than 6 characters
 sub setPassword # (password) 
 {
-        shift;
-	my $passwd = shift;
-	unless (length($passwd) > 5) {
-		throw EBox::Exceptions::External('The password must be at '.
-						 'least 6 characters long');
-	}
-	open(PASSWD, "> ". EBox::Config->passwd) or
-		throw EBox::Exceptions::Internal('Could not open passwd file');
+    my ($self, $passwd) = @_;
 
-	my $md5 = Digest::MD5->new;
-	$md5->add($passwd);
-	my $encpasswd = $md5->hexdigest;
-	print PASSWD $encpasswd;
-	close(PASSWD);
+    unless (length($passwd) > 5) {
+	throw EBox::Exceptions::External('The password must be at least 6 characters long');
+    }
+
+    open(my $PASSWD_F, "> ". EBox::Config->passwd) or
+	throw EBox::Exceptions::Internal('Could not open passwd file');
+
+    my $md5 = Digest::MD5->new;
+    $md5->add($passwd);
+    my $encpasswd = $md5->hexdigest;
+
+    print $PASSWD_F $encpasswd;
+    close($PASSWD_F);
 }
 
 
@@ -133,24 +134,24 @@ sub setPassword # (password)
 #
 sub authen_cred  # (request, password)
 {
-        my $self = shift;  # Package name (same as AuthName directive)
-        my $r    = shift;  # Apache request object
-	my $passwd = shift;
+    my ($self, $r, $passwd) = @_;
 
-	unless ($self->checkPassword($passwd)) {
-		my $log = EBox->logger;
-		my $ip  = $r->get_remote_host();
-		$log->warn("Failed login from: $ip");
-		return;
-	}
+    unless ($self->checkPassword($passwd)) {
+	my $log = EBox->logger;
+	my $ip  = $r->get_remote_host();
+	$log->warn("Failed login from: $ip");
+	return;
+    }
 
-	my $md5 = Digest::MD5->new;
-	$md5->add(rand(10000) + 100000);
-	my $sid = $md5->hexdigest;
-	_savesession($sid);
-	my $global = EBox::Global->getInstance();
-	$global->revokeAllModules;
-	return $sid;
+    my $md5 = Digest::MD5->new;
+    $md5->add(rand(10000) + 100000);
+    my $sid = $md5->hexdigest;
+    _savesession($sid);
+
+    my $global = EBox::Global->getInstance();
+    $global->revokeAllModules;
+
+    return $sid;
 }
 
 
@@ -160,36 +161,41 @@ sub authen_cred  # (request, password)
 #
 sub authen_ses_key  # (request, session_key) 
 {
-	my ($self, $r, $session_key) = @_;
-	
-	unless( -e EBox::Config->sessionid){
-		unless  (open (SID,  "> ". EBox::Config->sessionid)){
-			 throw EBox::Exceptions::Internal(
-	                 "Could not create  ". 
-	                 EBox::Config->sessionid);
-	         }
-		close(SID);
-		return;											 
-	}
-	unless   (open (SID,  EBox::Config->sessionid)){
-		 throw EBox::Exceptions::Internal(
-			"Could not open ". 
-			EBox::Config->sessionid);
-	}
-	$_ = <SID>;
-	my ($sid, $lastime) = split /\t/; 
-	my $expires = $lastime + EXPIRE;
-	if(($session_key eq $sid) and ( $expires > time )){
-		_savesession($sid);
-		return "admin";
-	}elsif ($expires < time) {
-                $r->subprocess_env(LoginReason => "Expired");
-		_savesession(undef);
-	}else {
-		$r->subprocess_env(LoginReason => "Already");
-	}
+    my ($self, $r, $session_key) = @_;
 
-	return;
+    my $SID_F; # sid file handle
+
+    unless( -e EBox::Config->sessionid){
+	unless  (open ($SID_F,  "> ". EBox::Config->sessionid)){
+	    throw EBox::Exceptions::Internal(
+					     "Could not create  ". 
+					     EBox::Config->sessionid);
+	}
+	close($SID_F);
+	return;											 
+    }
+    unless   (open ($SID_F,  EBox::Config->sessionid)){
+	throw EBox::Exceptions::Internal(
+					 "Could not open ". 
+					 EBox::Config->sessionid);
+    }
+
+    $_ = <$SID_F>;
+    my ($sid, $lastime) = split /\t/; 
+    my $expires = $lastime + EXPIRE;
+    if(($session_key eq $sid) and ( $expires > time )){
+	_savesession($sid);
+	return "admin";
+    }
+    elsif ($expires < time) {
+	$r->subprocess_env(LoginReason => "Expired");
+	_savesession(undef);
+    }
+    else {
+	$r->subprocess_env(LoginReason => "Already");
+    }
+
+    return;
 }
 
 1;
