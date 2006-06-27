@@ -3,7 +3,9 @@ use warnings;
 
 use Test::More qw(no_plan);
 use Test::Exception;
-use Apache::FakeRequest;
+use Test::MockTime;
+use Test::Differences;
+use Test::MockObject;
 
 use EBox::Mock;
 use EBox::Global::Mock;
@@ -15,6 +17,7 @@ globalSetUp();
 setAndCheckPasswdTest();
 authen_cred_test();
 authen_ses_key_test();
+simultaneousLoginTest();
 
 sub globalSetUp
 {
@@ -51,7 +54,7 @@ sub setAndCheckPasswdTest
 sub authen_cred_test
 {
   my $auth        = new EBox::Auth;
-  my $request = _request();
+  my $request = _newRequest();
 
   my $passwd = 'macaco';
   $auth->setPassword($passwd);
@@ -69,33 +72,68 @@ sub authen_ses_key_test
   my $auth        = new EBox::Auth;
   my $user        = 'admin';
 
-  my $request = new Apache::FakeRequest(get_remote_host => '10.0.0.2', 'subprocess_env' => undef);
+  my $request = _newRequest();
   my $passwd = 'macaco';
   $auth->setPassword($passwd);
   my $sessionKey = $auth->authen_cred($request, $passwd);
 
-  $request = _request();
+  $request = _newRequest();
   is $auth->authen_ses_key($request, $sessionKey), $user, 'Checking user returned by authen_cred';
   ok !$request->subprocess_env, 'Checking apache request subprocess_env field is clear ';
 
-  # try a simultaneous login
-  $request = _request();
-  my $simultaneousSessionKey = $auth->authen_cred($request, $passwd);
-  ok !$auth->authen_ses_key($request, $simultaneousSessionKey), 'Trying a simultaneous login';
-  is $request->subprocess_env, 'Already', 'See if apache request subprocess_env field marks the login error';
-
-  $request = _request();
-  is $auth->authen_ses_key($request, $sessionKey), $user, 'Checking that simultaneous login has not logged of the first user';
-  ok !$request->subprocess_env, 'Checking apache request subprocess_env field is clear ';
+  # expiration test
+  Test::MockTime::set_relative_time(+3601);
+  $request = _newRequest();
+  ok !$auth->authen_ses_key($request, $sessionKey), 'Trying a expired login';
+  eq_or_diff $request->subprocess_env(), [LoginReason => 'Expired'], 'See if apache request subprocess_env field marks the login error as expired';
   
 }
 
 
-sub _request
+sub simultaneousLoginTest
+{
+  my $auth        = new EBox::Auth;
+  my $user        = 'admin';
+
+  my $request = _newRequest();
+  my $passwd = 'macaco';
+  $auth->setPassword($passwd);
+
+  # log first user ..
+  my $firstSessionKey = $auth->authen_cred($request, $passwd);
+  $request = _newRequest();
+  $auth->authen_ses_key($request, $firstSessionKey); 
+
+  # try simultaneous login
+  $request = _newRequest();
+  my $secondSessionKey = $auth->authen_cred($request, $passwd);
+  ok !$auth->authen_ses_key($request, $secondSessionKey), 'Trying a simultaneous login';
+  eq_or_diff $request->subprocess_env, [LoginReason => 'Already'], 'See if apache request subprocess_env field marks the login error';
+
+  $request = _newRequest();
+  is $auth->authen_ses_key($request, $firstSessionKey), $user, 'Checking that simultaneous login has not logged of the first user';
+  ok !$request->subprocess_env, 'Checking apache request subprocess_env field is clear ';
+}
+
+
+sub _newRequest
 {
   my ($host) = @_;
   defined $host or $host = '10.0.0.2';
-  return new Apache::FakeRequest(get_remote_host => $host, 'subprocess_env' => undef);
+
+  my $r = Test::MockObject->new();
+  $r->mock(get_remote_host => sub { return $host }  );
+  $r->mock(subprocess_env =>  sub {
+	     my $self = shift;
+	     if (@_) {
+	       $self->{subprocess_env} = [@_];
+	     }
+	     else {
+	        return $self->{subprocess_env};
+	     }
+	   } );
+
+  return $r;
 }
 
 1;
