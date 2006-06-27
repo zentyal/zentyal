@@ -53,7 +53,7 @@ sub _process
 	
 	my $reason;
 	if ((defined $authreason) and ($authreason  eq 'bad_credentials')){
-		$reason = 'Password Incorrect';	
+		$reason = __('Password Incorrect');	
 	}
 	elsif ((defined $envre) and ($envre eq 'Expired')){
 		$reason = __('For security reasons your session ' .
