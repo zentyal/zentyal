@@ -14,7 +14,7 @@ if (@options == 0) {
 
 
 </%init>
-<select name='<% $name %>' >
+<select name='<% $name %>' <% @options == 0 ? 'disabled' : ''  %>  >
 % foreach my $option (@options) {
 %  my $optionValue = $option->{value};
 %  $option->{selected} = ($value eq $optionValue) ? 1 : 0;
