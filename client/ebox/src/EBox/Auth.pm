@@ -163,6 +163,30 @@ sub authen_ses_key  # (request, session_key)
 {
     my ($self, $r, $session_key) = @_;
 
+    my ($sid, $lastime) = _currentSessionId();
+
+    my $expired =  _timeExpired($lastime);
+
+    if(($session_key eq $sid) and (!$expired )){
+	_savesession($sid);
+	return "admin";
+    }
+    elsif ($expired) {
+	$r->subprocess_env(LoginReason => "Expired");
+	_savesession(undef);
+    }
+    else {
+	$r->subprocess_env(LoginReason => "Already");
+    }
+
+    return;
+}
+
+
+# scalar mode: return the sessionid
+# list mode:   returns (sessionid, lastime)
+sub _currentSessionId
+{
     my $SID_F; # sid file handle
 
     unless( -e EBox::Config->sessionid){
@@ -181,21 +205,37 @@ sub authen_ses_key  # (request, session_key)
     }
 
     $_ = <$SID_F>;
-    my ($sid, $lastime) = split /\t/; 
-    my $expires = $lastime + EXPIRE;
-    if(($session_key eq $sid) and ( $expires > time )){
-	_savesession($sid);
-	return "admin";
-    }
-    elsif ($expires < time) {
-	$r->subprocess_env(LoginReason => "Expired");
-	_savesession(undef);
+    my ($sid, $lastime);
+    ($sid, $lastime) = split /\t/ if defined $_; 
+
+    if (wantarray()) {
+	return ($sid, $lastime) ;
     }
     else {
-	$r->subprocess_env(LoginReason => "Already");
+	return $sid;
     }
+}
 
-    return;
+
+sub _timeExpired
+{
+    my ($lastime) = @_;
+
+    my $expires = $lastime + EXPIRE;
+
+    my $expired = (time() > $expires);
+    return $expired;
+}
+
+sub alreadyLogged
+{
+    my ($self) = @_;
+    my ($sid, $lastime) = _currentSessionId();
+    
+    return 0 if !defined $sid;
+    return 0 if _timeExpired($lastime);
+
+    return 1;
 }
 
 1;

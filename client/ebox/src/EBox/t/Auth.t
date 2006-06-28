@@ -3,13 +3,19 @@ use warnings;
 
 use Test::More qw(no_plan);
 use Test::Exception;
-use Test::MockTime;
+use Test::MockTime();
 use Test::Differences;
 use Test::MockObject;
 
 use EBox::Mock;
 use EBox::Global::Mock;
 use EBox::Config::Mock;
+
+
+use constant {
+    EXPIRE_TIME   => 3601,
+    NOEXPIRE_TIME => 3000,
+};
 
 use lib '../..';
 
@@ -18,6 +24,7 @@ globalSetUp();
 setAndCheckPasswdTest();
 authen_cred_test();
 authen_ses_key_test();
+alreadyLoggedTest();
 simultaneousLoginTest();
 
 sub globalSetUp
@@ -39,21 +46,23 @@ sub globalSetUp
 
 sub setAndCheckPasswdTest
 {
-  my $auth        = new EBox::Auth;  
+    setUp();
+    my $auth        = new EBox::Auth;  
 
-  # passwd too short
-  dies_ok { $auth->setPassword('12345')  } "Checking for error with a short password";
+    # passwd too short
+    dies_ok { $auth->setPassword('12345')  } "Checking for error with a short password";
 
-  my @passwds     = qw(pipadao macaco34 mandril34 ed463fg);
-  foreach my $pass (@passwds) {
-    lives_ok {  $auth->setPassword($pass) } 'Trying to set new password';
-    ok $auth->checkPassword($pass, $pass), 'Checking new password';
-  }
+    my @passwds     = qw(pipadao macaco34 mandril34 ed463fg);
+    foreach my $pass (@passwds) {
+	lives_ok {  $auth->setPassword($pass) } 'Trying to set new password';
+	ok $auth->checkPassword($pass, $pass), 'Checking new password';
+    }
 
 }
 
 sub authen_cred_test
 {
+    setUp();
   my $auth        = new EBox::Auth;
   my $request = _newRequest();
 
@@ -70,6 +79,7 @@ sub authen_cred_test
 
 sub authen_ses_key_test
 {
+    setUp();
   my $auth        = new EBox::Auth;
   my $user        = 'admin';
 
@@ -82,14 +92,54 @@ sub authen_ses_key_test
   is $auth->authen_ses_key($request, $sessionKey), $user, 'Checking user returned by authen_cred';
   ok !$request->subprocess_env, 'Checking apache request subprocess_env field is clear ';
 
+
+    # retry authen_ses after a while
+    Test::MockTime::set_relative_time(+NOEXPIRE_TIME);
+  $request = _newRequest();
+  is $auth->authen_ses_key($request, $sessionKey), $user, 'Checking authen_cred again after a while';
+  ok !$request->subprocess_env, 'Checking apache request subprocess_env field is clear ';
+
   # expiration test
-  Test::MockTime::set_relative_time(+3601);
+  Test::MockTime::set_relative_time(+EXPIRE_TIME+NOEXPIRE_TIME);
   $request = _newRequest();
   ok !$auth->authen_ses_key($request, $sessionKey), 'Trying a expired login';
   eq_or_diff $request->subprocess_env(), [LoginReason => 'Expired'], 'See if apache request subprocess_env field marks the login error as expired';
   
+    Test::MockTime::restore();
 }
 
+
+sub alreadyLoggedTest
+{
+    setUp();
+
+    my $auth        = new EBox::Auth;
+
+    ok !$auth->alreadyLogged(), 'alreadyLogged when no login has happened';
+
+
+    my $passwd = 'macaco';
+    $auth->setPassword($passwd);
+    my $request = _newRequest();
+
+    # unsuccessful login
+    $auth->authen_cred($request, $passwd . 'bad'); 
+    ok !$auth->alreadyLogged(), 'alreadyLogged after a unsuccessful login';
+
+    # successful login..
+    $auth->authen_cred($request, $passwd); 
+    ok $auth->alreadyLogged(), 'alreadyLogged after a successful login';
+
+    # retry after a while..
+    Test::MockTime::set_relative_time(+NOEXPIRE_TIME);
+    ok $auth->alreadyLogged(), 'alreadyLogged after a while since login';
+
+    # expired session
+    Test::MockTime::set_relative_time(+EXPIRE_TIME+NOEXPIRE_TIME);
+    ok !$auth->alreadyLogged(), 'alreadyLogged with a expired session';
+
+
+}
 
 sub simultaneousLoginTest
 {
@@ -135,6 +185,15 @@ sub _newRequest
 	   } );
 
   return $r;
+}
+
+
+sub setUp
+{
+    foreach my $f (EBox::Config::passwd EBox::Config::sessionid) {
+	system "rm -f $f";
+	($? == 0) or die $!;
+    }
 }
 
 1;
