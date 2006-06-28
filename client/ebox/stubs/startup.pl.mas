@@ -1,0 +1,45 @@
+use strict;
+use warnings;
+
+
+
+# preload CGI module
+use CGI;
+CGI->compile(qw(header redirect delete param)); 
+
+# preload  main ebox modules
+
+# libebox
+use EBox;
+use EBox::Validate;
+use EBox::Config;
+use EBox::Sudo;
+use EBox::Gettext;
+
+# libebox's menu stuff
+use EBox::Menu::Root;
+use EBox::Menu::Folder;
+use EBox::Menu::Item;
+
+# libebox's cgi stuff
+use EBox::CGI::Base;
+use EBox::CGI::Run;
+#use EBox::CGI::MenuCSS;
+
+# ebox 
+use EBox::GConfModule;
+use EBox::Global;
+use EBox::AbstractDaemon;
+use EBox::Service;
+use EBox::Html;
+use EBox::LogObserver;
+use EBox::Apache;
+
+# ebox cgi stuff
+use EBox::CGI::ClientBase;
+
+
+# other modules
+use Perl6::Junction;
+
+1;

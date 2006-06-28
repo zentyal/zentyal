@@ -31,6 +31,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Gettext;
+use English qw(-no_match_vars);
 
 sub _create
 {
@@ -111,8 +112,18 @@ sub _stopService
 sub _regenConfig
 {
 	my $self = shift;
+	
+	$self->_writeHttpdConfFile();
+	$self->_writeStartupFile();
 
-	my $httpdconf = EBox::Config::configkey('httpd_conf');
+	$self->_daemon('restart');
+}
+
+sub _writeHttpdConfFile
+{
+    my ($self) = @_;
+
+	my $httpdconf = _httpdConfFile();
 	my $output;
 	my $interp = HTML::Mason::Interp->new(out_method => \$output);
 	my $comp = $interp->make_component(
@@ -132,7 +143,29 @@ sub _regenConfig
 
 	root("/bin/mv $confile $httpdconf");
 
-	$self->_daemon('restart');
+}
+
+sub _writeStartupFile
+{
+    my ($self) = @_;
+
+    my $startupFile = _startupFile();
+    $self->writeConfFile($startupFile, '/startup.pl.mas' , [], [mode => '0600', uid => $UID, gid => $GID]);
+}
+
+
+sub _httpdConfFile
+{
+    my $httpdconf = EBox::Config::configkey('httpd_conf');
+    return $httpdconf;
+}
+
+
+sub _startupFile
+{
+    my $startup = _httpdConfFile(); # startup mus be in the same dir thet the pache conf file
+    $startup =~ s{/.*?$}{startup\.pl};
+    return $startup;
 }
 
 sub port
@@ -165,15 +198,16 @@ sub setPort # (port)
 
 sub rootCommands 
 {
-	my $self = shift;
+	my ($self) = @_;
 	my $initd = $self->initd;
 	my $confile = EBox::Config::tmp . "httpd.conf";
-	my $httpdconf = EBox::Config::configkey('httpd_conf');
+	my $httpdconf = _httpdConfFile();
 
-	my @array = ();
-	push(@array, $initd);
-	push(@array, "/bin/mv $confile $httpdconf");
-	return @array;
+	my @commands = ();
+	push @commands, $initd;
+	push @commands, "/bin/mv $confile $httpdconf";
+	push @commands, $self->rootCommandsForWriteConfFile(_startupFile());
+	return @commands;
 }
 
 sub logs {

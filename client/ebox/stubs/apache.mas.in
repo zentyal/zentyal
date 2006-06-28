@@ -117,6 +117,8 @@ PerlInitHandler	Apache::Reload
 
 PerlWarn On
 
+PerlRequire "startup.pl"
+
 PerlModule EBox::Auth
 PerlSetVar EBoxPath /
 PerlSetVar EBoxLoginScript /ebox/Login/Index
