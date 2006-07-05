@@ -19,89 +19,111 @@ sub usage {
 sub start() {
 	my @names = grep (! /^apache$/ ,@{$global->modNames});
 	push(@names, 'apache');
+
 	foreach my $modname (@names) {
-
-		my $tabs = 2 + (length($modname)/8);
-		{ use integer; $tabs = 3 - (length($modname)/8); };
-		my $tabstr = "";
-		while ($tabs-- > 0) {
-			$tabstr .= "\t";
-		}
-
-		my $mod = EBox::Global->modInstance($modname);
-		print "EBox: starting $modname:$tabstr";
-		try {
-			$mod->restartService;
-			print "   [ OK ]\n";
-		} catch EBox::Exceptions::Base with {
-			my $ex = shift;
-			print "[ ERROR ]\n";
-			print STDERR $ex->text . "\n";
-		};
+	  moduleAction($modname, 'restartService', 'start');
 	}
 }
 
 sub stop() {
 	my @names = grep (! /^apache$/ ,@{$global->modNames});
 	push(@names, 'apache');
+
 	foreach my $modname (@names) {
-
-		my $tabs = 2 + (length($modname)/8);
-		{ use integer; $tabs = 3 - (length($modname)/8); };
-		my $tabstr = "";
-		while ($tabs-- > 0) {
-			$tabstr .= "\t";
-		}
-
-		my $mod = EBox::Global->modInstance($modname);
-		print "EBox: stopping $modname:$tabstr";
-		try {
-			$mod->stopService;
-			print "   [ OK ]\n";
-		} catch EBox::Exceptions::Base with {
-			my $ex = shift;
-			print "[ ERROR ]\n";
-			print STDERR $ex->text . "\n";
-		};
+	  moduleAction($modname, 'stopService', 'stop');
 	}
 }
 
-sub module_restart {
-	my ($modname) = @_;
-	if ($global->modExists($modname)) {
-		my $mod = EBox::Global->modInstance($modname);
-		print "EBox: restarting $modname: ";
-		try {
-			$mod->restartService;
-			print "   [ OK ]\n";
-		} catch EBox::Exceptions::Base with {
-			my $ex = shift;
-			print "[ ERROR ]\n";
-			print STDERR $ex->text . "\n";
-		};
-	}
+
+sub moduleAction
+{
+  my ($modname, $action, $actionName) = @_;
+  my $mod = EBox::Global->modInstance($modname);
+
+  my $success;
+  my $errorMsg;
+  try {
+    $mod->$action();
+    $success = 1;
+  } 
+  catch EBox::Exceptions::Base with {
+      my $ex = shift;
+      $success = 0;
+      $errorMsg =  $ex->text;
+  };
+
+  printModuleMessage($modname, $actionName, $success, $errorMsg);
 }
 
+
+sub printModuleMessage
+{
+  my ($modname, $action, $success, $errorMsg) = @_;
+
+  my $successMsg = $success ?  '   [ OK ]' : '[ ERROR ]';
+  my $tabstr     = tabs($modname);
+
+  print STDOUT 'EBox: ', $action, ' ', $modname, ':',  $tabstr, $successMsg, "\n";
+
+  if ($errorMsg) {
+    print STDERR $errorMsg, "\n";
+  }
+}
+
+sub tabs
+{
+  my ($modname) = @_;
+
+  my $tabs;
+  { use integer; $tabs = 3 - (length($modname)/8); };
+
+  my $tabstr = "\t" x $tabs;
+  return $tabstr;
+}
+
+
+sub moduleRestart {
+  my ($modname) = @_;
+  
+  if ($global->modExists($modname)) {
+    moduleAction($modname, 'restartService', 'restart');
+  }
+  else {
+    print STDERR "$modname is not a valid module name\n";
+    exit 1;
+  }
+
+}
+
+
+# entry point
 if (@ARGV == 1) {
-	if ($ARGV[0] eq "start") {
-		start();
-	} elsif ($ARGV[0] eq "restart") {
-		stop();
-		start();
-	} elsif ($ARGV[0] eq "force-reload") {
-		stop();
-		start();
-	} elsif ($ARGV[0] eq "stop") {
-		stop();
-	} else {
-		usage;
-	}
-} elsif (@ARGV == 2) {
-	if ($ARGV[1] eq ("restart")) {
-		module_restart($ARGV[0]);
-	} else {
-		usage;
-	}
-} else {
-	usage;
+  if ($ARGV[0] eq "start") {
+    start();
+  } 
+  elsif ($ARGV[0] eq "restart") {
+    stop();
+    start();
+  } 
+  elsif ($ARGV[0] eq "force-reload") {
+    stop();
+    start();
+  } 
+  elsif ($ARGV[0] eq "stop") {
+    stop();
+  } 
+  else {
+    usage();
+  }
+}
+elsif (@ARGV == 2) {
+  if ($ARGV[1] eq ("restart")) {
+    moduleRestart($ARGV[0]);
+  } 
+  else {
+    usage();
+  }
+} 
+else {
+  usage();
 }
