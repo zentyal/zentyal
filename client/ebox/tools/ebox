@@ -90,7 +90,7 @@ sub moduleRestart {
   }
   else {
     print STDERR "$modname is not a valid module name\n";
-    exit 1;
+    exit 2;
   }
 
 }
