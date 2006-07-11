@@ -26,7 +26,7 @@ sub _useAndCreationTest : Test
 }
 
 
-sub setAndGetServersDeviantTest : Test(18)
+sub setAndGetServersDeviantTest : Test(20)
 {
     my @deviantCases = (
 			# bad IPs:
@@ -38,6 +38,7 @@ sub setAndGetServersDeviantTest : Test(18)
 			['macaco', 'badHost='],
 			['macaco', 'rhesus.mono.com',  'badHost|'],
 			# blank entries
+			[],
 			[''],
 			['192.168.3', ''],
 			['192.168.3', 'ntp.monos.org', ''],

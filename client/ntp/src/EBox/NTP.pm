@@ -193,46 +193,62 @@ sub synchronized
 #
 sub setServers # (server1, server2, server3)
 {
-	my $self = shift;
-	my $s1 = shift;
-	my $s2 = shift;
-	my $s3 = shift;
+        my ($self, $s1, $s2, $s3) = @_;
 
-	if ($s1 =~ /^(\d{1,3}\.){3}\d{1,3}$/) {
-		checkIP($s1, __("primary server IP address"));
-		$self->set_string('server1', $s1);
-	} else {
-		checkDomainName($s1, __("primary server name ")); 
-		$self->set_string('server1', $s1);
+	if (!(defined $s1 and ($s1 ne''))) {
+	  throw EBox::Exceptions::DataMissing (data => __('Primary server'));
 	}
+	_checkServer($s1, __('primary server'));
+
 	
-	if (defined($s2) and ($s2 ne "")) {
-		if ($s2 =~ /^(\d{1,3}\.){3}\d{1,3}$/) {
-			checkIP($s2, __("secondary server IP address"));
-			$self->set_string('server2', $s2);
-		} else {
-			checkDomainName($s2,  __("secondary server name"));
-			$self->set_string('server2', $s2);
+	if (defined $s2 and ($s2 ne '')) {
+	  if ($s2 eq $s1) {
+	    throw EBox::Exceptions::External (__("Primary and secondary server must be different"))
+	  }
 
-			if (defined($s3) and ($s3 ne "")) {
-				if ($s3 =~ /^(\d{1,3}\.){3}\d{1,3}$/) {
-					checkIP($s3, __("tertiary server IP address"));
-					$self->set_string('server3', $s3);
-				} else {
-					checkDomainName($s3,  __("tertiary server name"));
-					$self->set_string('server3', $s3);
-				}
-			} else {
-					$self->set_string('server3', "");
-			}
-		}
-	} elsif (defined($s3) and ($s3 ne "")) {
-		throw EBox::Exceptions::DataMissing ('data' => __('Secondary server'));
-	} else {
-		$self->set_string('server2', "");
-		$self->set_string('server3', "");
+	  _checkServer($s2, __('secondary server'));
 	}
+	else {
+	  if (defined($s3) and ($s3 ne "")) {
+	    throw EBox::Exceptions::DataMissing (data => __('Secondary server'));
+	  }
+
+	  $s2 = '';
+	}
+
+
+	if (defined $s3 and ($s3 ne '')) {
+	  if ($s3 eq $s1) {
+	    throw EBox::Exceptions::External (__("Primary and tertiary server must be different"))
+	  }
+	  if ($s3 eq $s2) {
+	    throw EBox::Exceptions::External (__("Primary and secondary server must be different"))
+	  }
+
+	  _checkServer($s3, __('tertiary server'));	  
+	}
+	else {
+	  $s3 = '';
+	}
+
+	$self->set_string('server1', $s1);
+	$self->set_string('server2', $s2);
+	$self->set_string('server3', $s3);
 }
+
+sub _checkServer
+{
+  my ($server, $serverName) = @_;
+
+  if ($server =~ m/^[.0-9]*$/) {  # seems a IP address
+    checkIP($server, __x('{name} IP address', name => $serverName));
+  }
+  else {
+    checkDomainName($server, __x('{name} host name', name => $serverName));
+  }
+  
+}
+
 
 # Method: servers 
 #
@@ -245,8 +261,7 @@ sub servers {
 	my $self = shift;
 	my @servers;
 	
-	@servers = ($self->get_string('server1'),	$self->get_string('server2'),
-	$self->get_string('server3'));
+	@servers = grep { defined $_ and ($_ ne '')   } ($self->get_string('server1'),	$self->get_string('server2'),	$self->get_string('server3'));
 
 	return @servers;
 }
