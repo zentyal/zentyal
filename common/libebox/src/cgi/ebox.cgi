@@ -1,12 +1,9 @@
 #!/usr/bin/perl
-
 use strict;
 use warnings;
 
 use EBox::Gettext;
 use Error qw(:try);
-use Data::Dumper;
-
 
 
 try {
@@ -16,11 +13,11 @@ try {
 	EBox::init();
 	EBox::CGI::Run->run($ENV{'script'});
 }
-
 otherwise  {
 	 my $ex = shift;
          use Devel::StackTrace;
 	 use CGI qw/:standard/;
+	 use Data::Dumper;
 	
 	 my $trace = Devel::StackTrace->new;
 	 print STDERR $trace->as_string;
