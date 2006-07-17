@@ -12,7 +12,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 package EBox::Apache;
 
 use strict;
@@ -32,6 +31,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Gettext;
 use English qw(-no_match_vars);
+use File::Basename();
 
 sub _create
 {
@@ -65,7 +65,7 @@ sub initd
 
 # restarting apache from inside apache could be problematic, so we fork() and
 # detach the child from the process group.
-sub _daemon # (action) 
+sub _daemon # (action) prove -v Auth.t
 {
 	my $self = shift;
 	my $action = shift;
@@ -150,7 +150,9 @@ sub _writeStartupFile
     my ($self) = @_;
 
     my $startupFile = _startupFile();
-    $self->writeConfFile($startupFile, '/startup.pl.mas' , [], {mode => '0600', uid => $UID, gid => $GID});
+    my ($primaryGid) = split / /, $GID, 2;
+    $self->writeConfFile($startupFile, '/startup.pl.mas' , [], {mode => '0600', uid => $UID, gid => $GID}
+);
 }
 
 
@@ -163,8 +165,9 @@ sub _httpdConfFile
 
 sub _startupFile
 {
-    my $startup = _httpdConfFile(); # startup mus be in the same dir thet the pache conf file
-    $startup =~ s{/.*?$}{startup\.pl};
+  
+    my $startup = File::Basename::dirname( _httpdConfFile() ); # startup mus be in the same dir thet the pache conf file
+    $startup .= '/startup.pl';
     return $startup;
 }
 
