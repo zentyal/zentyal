@@ -150,7 +150,7 @@ sub _writeStartupFile
     my ($self) = @_;
 
     my $startupFile = _startupFile();
-    $self->writeConfFile($startupFile, '/startup.pl.mas' , [], [mode => '0600', uid => $UID, gid => $GID]);
+    $self->writeConfFile($startupFile, '/startup.pl.mas' , [], {mode => '0600', uid => $UID, gid => $GID});
 }
 
 
