@@ -41,5 +41,8 @@ use EBox::CGI::ClientBase;
 
 # other modules
 use Perl6::Junction;
+use Error;
+
+
 
 1;
