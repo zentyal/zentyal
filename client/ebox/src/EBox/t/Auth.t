@@ -156,15 +156,11 @@ sub simultaneousLoginTest
   $auth->authen_ses_key($request, $firstSessionKey); 
 
   # try simultaneous login
-  $request = _newRequest();
-  my $secondSessionKey = $auth->authen_cred($request, $passwd);
-  ok !$auth->authen_ses_key($request, $secondSessionKey), 'Trying a simultaneous login';
-  eq_or_diff $request->subprocess_env, [LoginReason => 'Already'], 'See if apache request subprocess_env field marks the login error';
 
   $request = _newRequest();
-  is $auth->authen_ses_key($request, $firstSessionKey), $user, 'Checking that simultaneous login has not logged of the first user';
-  ok !$request->subprocess_env, 'Checking apache request subprocess_env field is clear ';
-}
+  my $secondSessionKey = $auth->authen_cred($request, $passwd);
+  ok $auth->authen_ses_key($request, $secondSessionKey), 'Trying a simultaneous login';
+ }
 
 
 sub _newRequest
