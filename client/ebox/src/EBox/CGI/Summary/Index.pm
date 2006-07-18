@@ -76,4 +76,9 @@ sub _body
 	$page->html;
 }
 
+
+# for now we override ClientBase _process to avoid missing arguments errors
+sub _process
+{}
+
 1;
