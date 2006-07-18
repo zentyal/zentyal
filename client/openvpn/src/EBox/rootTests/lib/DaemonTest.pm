@@ -64,7 +64,7 @@ sub setupFiles : Test(setup)
     my ($self) = @_;
     my $confDir = $self->_confDir();
    
-    system "mkdir -p $confDir";
+    system "/bin/mkdir -p $confDir";
     ($? == 0) or  die "mkdir -p $confDir: $!";
 
     system "/bin/cp  testdata/*   $confDir/";
