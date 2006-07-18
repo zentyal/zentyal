@@ -179,7 +179,7 @@ sub iface_mac_address
 #
 # Returns:
 #
-#       A string containing the address 
+#       A list of strings containing the addresses
 #
 # Exceptions:
 #
@@ -187,15 +187,22 @@ sub iface_mac_address
 #
 sub iface_addresses
 {
-        my $if = shift;
-        unless (iface_exists($if)) {
-                throw EBox::Exceptions::DataNotFound(
-						data => __('Interface'),
-						value => $if);
-        }
-        my @addrs = `/bin/ip address show $if 2> /dev/null | sed 's/^ *//' |    grep '^inet ' | cut -d ' ' -f 2`;
-        chomp(@addrs);
-        return @addrs;
+  my ($if) = @_;
+  unless (iface_exists($if)) {
+    throw EBox::Exceptions::DataNotFound(
+					 data => __('Interface'),
+					 value => $if);
+  }
+
+  my @output = `/bin/ip -f inet -o address show $if 2> /dev/null`;
+
+  my @addrs = map {  
+    my ($number, $iface, $family,  $ip) =  split /\s+/, $_, 5;
+    $ip =~ s{/.*$}{};
+    return $ip;
+  }  @output;
+	
+  return @addrs;
 }
 
 #
