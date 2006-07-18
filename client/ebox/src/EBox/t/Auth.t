@@ -7,6 +7,7 @@ use Test::MockTime();
 use Test::Differences;
 use Test::MockObject;
 
+use lib '../..';
 use EBox::TestStub;
 use EBox::Global::TestStub;
 use EBox::Config::TestStub;
