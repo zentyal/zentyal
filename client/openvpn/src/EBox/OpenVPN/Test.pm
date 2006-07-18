@@ -4,6 +4,12 @@ use base 'EBox::Test::Class';
 use strict;
 use warnings;
 
+
+BEGIN {
+  use EBox::Sudo::TestStub;
+  EBox::Sudo::TestStub::fake();
+}
+
 use Test::More;
 use Test::Exception;
 use Test::Differences;
@@ -42,15 +48,15 @@ sub setUpConfiguration : Test(setup)
 		  '/ebox/modules/openvpn/conf_dir' => $self->_confDir(),
 		  );
 
-    EBox::GConfModule::Mock::setConfig(@config);
-    EBox::Global::Mock::setEBoxModule('openvpn' => 'EBox::OpenVPN');
+    EBox::GConfModule::TestStub::setConfig(@config);
+    EBox::Global::TestStub::setEBoxModule('openvpn' => 'EBox::OpenVPN');
 
 }
 
 
 sub clearConfiguration : Test(teardown)
 {
-    EBox::GConfModule::Mock::setConfig();
+    EBox::GConfModule::TestStub::setConfig();
 }
 
 

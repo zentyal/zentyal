@@ -5,8 +5,6 @@ use warnings;
 
 use base qw(EBox::Test::Class);
 
-use EBox::GConfModule::Mock;
-use EBox::Global::Mock;
 use EBox::Test;
 use Test::More;
 use Test::Exception;
@@ -53,14 +51,14 @@ sub setUpConfiguration : Test(setup)
 
 		  );
 
-    EBox::GConfModule::Mock::setConfig(@config);
-    EBox::Global::Mock::setEBoxModule('openvpn' => 'EBox::OpenVPN');
+    EBox::GConfModule::TestStub::setConfig(@config);
+    EBox::Global::TestStub::setEBoxModule('openvpn' => 'EBox::OpenVPN');
 }
 
 
 sub clearConfiguration : Test(teardown)
 {
-    EBox::GConfModule::Mock::setConfig();
+    EBox::GConfModule::TestStub::setConfig();
 }
 
 sub _useOkTest : Test
@@ -231,7 +229,7 @@ sub writeConfFileTest : Test(2)
     
     system "cp ../../../../stubs/openvpn.conf.mas $stubDir/openvpn";
     ($? ==0 ) or die "Can not copy templates to stub mock dir";
-    EBox::Config::Mock::setConfigKeys('stubs' => $stubDir, tmp => '/tmp');
+    EBox::Config::TestStub::setConfigKeys('stubs' => $stubDir, tmp => '/tmp');
 
   
     my $server = $self->_newServer('macaco');
