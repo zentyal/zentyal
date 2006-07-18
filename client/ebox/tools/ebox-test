@@ -1,5 +1,0 @@
-#!/usr/bin/perl
-
-print "Testing all modules.";
-
-EBox:Test::testAllModules();
