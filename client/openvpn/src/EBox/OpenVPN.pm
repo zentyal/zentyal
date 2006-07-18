@@ -199,7 +199,7 @@ sub usesPort
      }
 
 
-    if (defined $iface and $iface =~ m/tun\d\d/ ) {  # see if we are asking about openvpn virtual iface
+    if (defined $iface and ($iface =~ m/tun\d\d/ )) {  # see if we are asking about openvpn virtual iface
 	return 1;
     }
 
