@@ -323,7 +323,7 @@ sub run
 		} catch EBox::Exceptions::Internal with {
 			my $error = __("An internal error has ocurred. " . 
 			  	  "This is most probably a bug, relevant ". 
-				  "information can be found in the logs.");
+				  "information can be found in thex logs.");
 			$self->_print_error($error);
 		} otherwise {
 			my $ex = shift;

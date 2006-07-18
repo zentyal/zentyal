@@ -7,7 +7,7 @@ use Test::Exception;
 use lib '../../..';
 
 
-BEGIN { use_ok 'EBox::Config::Mock' }
+BEGIN { use_ok 'EBox::Config::TestStub' }
 
 
 my @configKeys = qw(prefix    etc var user group share libexec locale conf tmp passwd sessionid log logfile stubs cgi templates schemas www css images package version lang );
@@ -19,14 +19,14 @@ setConfigKeysTest();
 
 sub mockBadParametersTest 
 {
-    dies_ok { EBox::Config::Mock::mock(cgi => '/tmp/cgi', monkeyFightDir => '/usr/zoo')  } ' Incorrect parameters call';
+    dies_ok { EBox::Config::TestStub::mock(cgi => '/tmp/cgi', monkeyFightDir => '/usr/zoo')  } ' Incorrect parameters call';
 }
 
 
 sub setConfigKeysBadParametersTest
 {
-    dies_ok { EBox::Config::Mock::setConfigKeys()  } 'No parameters call';
-    dies_ok { EBox::Config::Mock::setConfigKeys(cgi => '/tmp/cgi', monkeyFightDir => '/usr/zoo')  } 'Incorrect parameters call';
+    dies_ok { EBox::Config::TestStub::setConfigKeys()  } 'No parameters call';
+    dies_ok { EBox::Config::TestStub::setConfigKeys(cgi => '/tmp/cgi', monkeyFightDir => '/usr/zoo')  } 'Incorrect parameters call';
 }
 
 
@@ -43,15 +43,15 @@ sub mockTest
     $afterMock{logfile} = '/egypt/baboon.log';
     $afterMock{version} = '-0.4'; 
 
-    dies_ok {EBox::Config::Mock::unmock()} 'Unmocking before the module was mocked';
+    dies_ok {EBox::Config::TestStub::unfake()} 'Unmocking before the module was mocked';
 
 
-    lives_ok { EBox::Config::Mock::mock(prefix => $afterMock{prefix}, user => $afterMock{user}, logfile => $afterMock{logfile}, version => $afterMock{version}) };
+    lives_ok { EBox::Config::TestStub::fake(prefix => $afterMock{prefix}, user => $afterMock{user}, logfile => $afterMock{logfile}, version => $afterMock{version}) };
    can_ok('EBox::Config', @configKeys), 'Checking that the accessor subs are in the mesocked module';
 
     _checkConfigSubs(\%afterMock);
 
-    lives_ok {EBox::Config::Mock::unmock()};
+    lives_ok {EBox::Config::TestStub::unfake()};
      can_ok('EBox::Config', @configKeys), 'Checking that after the unmock the config keys accessors are still here';
 
     diag "Checking results after umocking EBox::Config";
@@ -71,10 +71,10 @@ sub setConfigKeysTest
     $after{css}    = '/home/dessign/css';
     $after{lang}   = 'de';
 
-    dies_ok {  EBox::Config::Mock::setConfigKeys(locale => $after{locale}, group => $after{group}, css => $after{css}, lang => $after{lang}) } 'Calling setConfigKeys without mocking first';
+    dies_ok {  EBox::Config::TestStub::setConfigKeys(locale => $after{locale}, group => $after{group}, css => $after{css}, lang => $after{lang}) } 'Calling setConfigKeys without mocking first';
     
-    EBox::Config::Mock::mock();
-    lives_ok { EBox::Config::Mock::setConfigKeys(locale => $after{locale}, group => $after{group}, css => $after{css}, lang => $after{lang}) };
+    EBox::Config::TestStub::fake();
+    lives_ok { EBox::Config::TestStub::setConfigKeys(locale => $after{locale}, group => $after{group}, css => $after{css}, lang => $after{lang}) };
 
     diag "Checking results after setConfigKeys call";
     _checkConfigSubs(\%after);

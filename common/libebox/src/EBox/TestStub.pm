@@ -1,4 +1,4 @@
-package EBox::Mock;
+package EBox::TestStub;
 # Description:
 # 
 use strict;
@@ -11,7 +11,7 @@ my $mockedEBoxModule;
 my $logLevel;
 
 
-sub mock
+sub fake
 {
     my ($minLogLevel) = @_;
     (defined $minLogLevel) or $minLogLevel = 'debug';
@@ -37,7 +37,7 @@ sub mock
     $logLevel = $logLevelsByName{$minLogLevel};
 }
 
-sub unmock
+sub unfake
 {
     if (!defined $mockedEBoxModule) {
 	die "EBox module not mocked";

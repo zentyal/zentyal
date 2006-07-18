@@ -1,4 +1,4 @@
-package EBox::Config::Mock;
+package EBox::Config::TestStub;
 # Description:
 # 
 use strict;
@@ -10,9 +10,9 @@ use EBox::Config;
 
 # XXX: Derivated paths are ttoally decoupled from their base path (datadir, sysconfdir, localstatedir, libdir)
 # possible solution 1:  rewrite EBox::Config so the derivated elements use a sub to get the needed element
-# possible solution 2: rewrite this package to have specialized mocks for those subs
+# possible solution 2: rewrite this package to have specialized fakes for those subs
 
-my $mockedConfigPackage = undef;
+my $fakedConfigPackage = undef;
 my %config       = _defaultConfig();    # this hash hold the configuration items
 
 sub _defaultConfig
@@ -31,39 +31,39 @@ sub _defaultConfig
 }
 
 
-sub mock
+sub fake
 {
-    my @mockedConfig = @_;
+    my @fakedConfig = @_;
 
 
-    if (defined $mockedConfigPackage) {
+    if (defined $fakedConfigPackage) {
 	return;
     }
 
-    if ( @mockedConfig > 0)  {
-	_checkConfigKeysParameters(@mockedConfig);
+    if ( @fakedConfig > 0)  {
+	_checkConfigKeysParameters(@fakedConfig);
     }
 
-    $mockedConfigPackage = new Test::MockModule('EBox::Config');
+    $fakedConfigPackage = new Test::MockModule('EBox::Config');
 
-    if ( @mockedConfig > 0)  {
-	setConfigKeys(@mockedConfig);
+    if ( @fakedConfig > 0)  {
+	setConfigKeys(@fakedConfig);
     }
 }
 
 
-sub _checkMockParams
+sub _checkFakeParams
 {
     my %params = @_;
     
 
 }
 
-sub unmock
+sub unfake
 {
-    defined $mockedConfigPackage or die "Module was not mocked";
-    $mockedConfigPackage->unmock_all();
-    $mockedConfigPackage = undef;
+    defined $fakedConfigPackage or die "Module was not faked";
+    $fakedConfigPackage->unmock_all();
+    $fakedConfigPackage = undef;
 }
 
 
@@ -86,18 +86,18 @@ sub _checkConfigKeysParameters
 
 sub setConfigKeys
 {
-    my %mockedConfig = @_;
+    my %fakedConfig = @_;
 
-    if (!defined $mockedConfigPackage) {
-	die "Must mock first call EBox::Config::Mock::mock before setting config keys";
+    if (!defined $fakedConfigPackage) {
+	die "Must fake first call EBox::Config::Fake::fake before setting config keys";
     }
 
     _checkConfigKeysParameters(@_);
  
 
-    # mock config keys..
-    while ( my ($configKey, $mockedResult) = each %mockedConfig ) {
-	$mockedConfigPackage->mock($configKey => $mockedResult );
+    # fake config keys..
+    while ( my ($configKey, $fakedResult) = each %fakedConfig ) {
+	$fakedConfigPackage->mock($configKey => $fakedResult );
     }
 }
 

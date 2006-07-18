@@ -1,4 +1,4 @@
-package EBox::Sudo::Mock;
+package EBox::Sudo::TestStub;
 # Description:
 # 
 use strict;
@@ -16,7 +16,7 @@ use EBox::Sudo;
 
 my $oldRootSub = undef;
 
-sub mock
+sub fake
 {
     $oldRootSub = \&EBox::Sudo::root if !defined $oldRootSub;
 
@@ -24,7 +24,7 @@ sub mock
     my $redefinition = '
     sub EBox::Sudo::root
     {
-	return EBox::Sudo::Mock::_mockedRoot(@_);
+	return EBox::Sudo::TestStub::_fakedRoot(@_);
     }';
 
     eval $redefinition;
@@ -36,7 +36,7 @@ sub mock
 
 
 # XXX fix:  restores behaviour but no implementation 
-sub unmock
+sub unfake
 {
     defined $oldRootSub or die "Module was not mocked";
 
@@ -55,7 +55,7 @@ sub unmock
 }
 
 
-sub _mockedRoot
+sub _fakedRoot
 {
     my ($cmd) = @_;
 

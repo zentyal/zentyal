@@ -10,7 +10,7 @@ use Test::Output;
 
 use lib '../..';
 
-BEGIN { use_ok 'EBox::Mock' };
+BEGIN { use_ok 'EBox::TestStub' };
 mockTest();
 
 sub mockTest
@@ -22,7 +22,7 @@ sub mockTest
     } qr/$debugMsg/, 'Checking that debug text is not printed';
     
     
-    EBox::Mock::mock();
+    EBox::TestStub::fake();
 
     stderr_like {
 	lives_ok { EBox::debug($debugMsg)  } 'After mocking any user can use the ebox logger without raising exception';
@@ -33,7 +33,7 @@ sub mockTest
     } qr/$debugMsg/;
 
 
-    EBox::Mock::unmock();
+    EBox::TestStub::unfake();
     stderr_unlike {
 	dies_ok { EBox::debug($debugMsg)  } 'After unmocking we get the same behaviour than before';    } qr/$debugMsg/, 'Checking that debug text is not printed like before';
 }
