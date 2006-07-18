@@ -13,8 +13,8 @@ my $active  = $service ? 'yes' : 'no';
 <%args>
 @servers
 </%args>
-% return if (@servers == 0);
 		<table cellspacing='0' class='dataTable'>
+%               if (@servers > 0) {
 			<thead>
 				<tr>
 					<th width='66%' class='tleft'>
@@ -25,6 +25,7 @@ my $active  = $service ? 'yes' : 'no';
 					</th>
 				</tr>
 			</thead>
+%              }
 			<tbody>
 %			foreach my $server (@servers) {
                         <& .serverRow, server => $server &>
@@ -32,6 +33,7 @@ my $active  = $service ? 'yes' : 'no';
                         <& .addServerRow &>
 			</tbody>
 		</table>
+%              if (@servers > 0) {
 		<br />
 		<table class="legend">
 		<tr>
@@ -44,7 +46,7 @@ my $active  = $service ? 'yes' : 'no';
 			<td style="padding-right: 10px;"><%__('delete')%></td>
 		</tr>
 		</table>
-
+%            }
 </%def>
 
 
