@@ -80,8 +80,7 @@ sub checkModuleInstantiation
 sub activateEBoxTestStubs
 {
     my %params = @_;
-
-    foreach my $stub (EBox Sudo Config GConfModule Global) {
+    foreach my $stub (qw(EBox Sudo Config GConfModule Global)) {
 	 $params{stub} = []  if (!exists $params{$stub});
     }
 
