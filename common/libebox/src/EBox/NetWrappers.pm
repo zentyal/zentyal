@@ -346,6 +346,10 @@ sub mask_from_bits # (bits)
 	return join(".",unpack("CCCC", pack("B*",$mask_binary)));
 }
 
+#
+# Method: list_local_addresses
+#
+# 	Returns a list with all local ipv4 addresses
 
 sub list_local_addresses
 {
