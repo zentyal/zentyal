@@ -1,4 +1,4 @@
-package EBox::GConfModule::Mock;
+package EBox::GConfModule::TestStub;
 # Description:
 # 
 use strict;
@@ -16,7 +16,7 @@ my $mockedModule;
 
 
 
-sub mock
+sub fake
 {
     if (defined $mockedModule) {
 	return;
@@ -28,7 +28,7 @@ sub mock
     $mockedModule->mock('_backup' => sub {} );
 }
 
-sub unmock
+sub unfake
 {
     if (!defined $mockedModule) {
 	die "GConfModule not mocked";

@@ -10,9 +10,9 @@ use File::Basename;
 
 use lib '../../..';
 
-use EBox::Mock;
+use EBox::TestStub;
 
-BEGIN { use_ok 'EBox::GConfModule::Mock' }
+BEGIN { use_ok 'EBox::GConfModule::TestStub' }
 mock();
 createTest();
 setAndGetTest();
@@ -246,7 +246,7 @@ sub _setFakeConfig
 		  '/ebox/modules/forest/trees/pine'                         =>  14, 
 	      );
 
-   EBox::GConfModule::Mock::setConfig(@config);
+   EBox::GConfModule::TestStub::setConfig(@config);
 
 }
 
@@ -254,8 +254,8 @@ sub _setFakeConfig
 
 sub mock
 {
-    EBox::GConfModule::Mock::mock();
-      EBox::Mock::mock();
+    EBox::GConfModule::TestStub::fake();
+      EBox::TestStub::fake();
 }
 
 

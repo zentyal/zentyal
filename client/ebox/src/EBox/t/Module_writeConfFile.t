@@ -14,13 +14,12 @@ use File::Slurp;
 
 use lib '../..';
 
-use EBox::Mock;
-
-use EBox::Config::Mock;
+use EBox::TestStub;
+use EBox::Config::TestStub;
 
 # first mock EBox::Sudo to avoid import problems...
-use EBox::Sudo::Mock;
-EBox::Sudo::Mock::mock();
+use EBox::Sudo::TestStub;
+EBox::Sudo::TestStub::fake();
 
 use_ok ('EBox::Module');
 writeConfFileTest();
@@ -39,7 +38,7 @@ sub writeConfFileTest
 
     # setup..
     filesSetup($testDir, $testFile, $wantedMode);
-    mockSetup($testDir, $testFile);
+    testStubsSetup($testDir, $testFile);
     
     ## Test cases:
 
@@ -82,15 +81,15 @@ sub filesSetup
 }
 
 
-sub mockSetup
+sub testStubsSetup
 {
     my ($testDir, $testFile) = @_;
 
-    EBox::Mock::mock();
-    EBox::Sudo::Mock::mock();
+    EBox::TestStub::fake();
+    EBox::Sudo::TestStub::fake();
 
-    EBox::Config::Mock::mock();
-    EBox::Config::Mock::setConfigKeys(tmp => $testDir);    
+    EBox::Config::TestStub::fake();
+    EBox::Config::TestStub::setConfigKeys(tmp => $testDir);    
 
 #    _mockFileStat();
 

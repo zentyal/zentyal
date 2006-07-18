@@ -9,11 +9,11 @@ use Test::Exception;
 
 use lib '../../..';
 
-use EBox::Mock;
+use EBox::TestStub;
 
-use_ok 'EBox::Global::Mock';
+use_ok 'EBox::Global::TestStub';
 
-mocksSetup();
+testStubsSetup();
 getInstanceTest();
 modInstanceTest();
 changedTest();
@@ -21,11 +21,11 @@ clearTest();
 
 
 
-sub mocksSetup
+sub testStubsSetup
 {
-    EBox::Mock::mock();
-    EBox::Global::Mock::mock();
-    EBox::Global::Mock::setEBoxModule('baboon', 'EBox::Baboon');
+    EBox::TestStub::fake();
+    EBox::Global::TestStub::fake();
+    EBox::Global::TestStub::setEBoxModule('baboon', 'EBox::Baboon');
 
       MOCK_CLASS:{
 	  package EBox::Baboon;
@@ -92,14 +92,14 @@ sub clearTest
 		      '/ebox/unrelatedToGlobal/integer' => 100,
 		      '/anotherApp/string'              => 'a string',
 	  );
-    EBox::GConfModule::Mock::setConfig(%originalConfig); 
+    EBox::GConfModule::TestStub::setConfig(%originalConfig); 
 
-    EBox::Global::Mock::setEBoxModule('baboon', 'EBox::Baboon');
-    EBox::Global::Mock::setEBoxModule('mandrill', 'EBox::Mandrill');
+    EBox::Global::TestStub::setEBoxModule('baboon', 'EBox::Baboon');
+    EBox::Global::TestStub::setEBoxModule('mandrill', 'EBox::Mandrill');
 
 
-    EBox::Global::Mock::clear();
-    my %actualConfig = @{ EBox::GConfModule::Mock::dumpConfig() };
+    EBox::Global::TestStub::clear();
+    my %actualConfig = @{ EBox::GConfModule::TestStub::dumpConfig() };
     is_deeply(\%actualConfig, \%originalConfig, 'Checking that all keys of module global are remvoed from the config and the rest is left untouched');
 }
 

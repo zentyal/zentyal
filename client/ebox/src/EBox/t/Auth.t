@@ -7,9 +7,9 @@ use Test::MockTime();
 use Test::Differences;
 use Test::MockObject;
 
-use EBox::Mock;
-use EBox::Global::Mock;
-use EBox::Config::Mock;
+use EBox::TestStub;
+use EBox::Global::TestStub;
+use EBox::Config::TestStub;
 
 
 use constant {
@@ -36,10 +36,10 @@ sub globalSetUp
 
   my $passwd = "$testDir/passwd";
   my $sessionid = "$testDir/sessionid";
-  EBox::Config::Mock::mock(passwd => $passwd, sessionid => $sessionid );
+  EBox::Config::TestStub::fake(passwd => $passwd, sessionid => $sessionid );
 
-  EBox::Mock::mock();
-  EBox::Global::Mock::mock();
+  EBox::TestStub::fake();
+  EBox::Global::TestStub::fake();
 
 }
 

@@ -20,11 +20,11 @@ use Test::More;
 use Test::Builder;
 use Error qw(:try);
 
-use EBox::Sudo::Mock;
-use EBox::Mock;
-use EBox::Config::Mock;
-use EBox::GConfModule::Mock;
-use EBox::Global::Mock;
+use EBox::Sudo::TestStub;
+use EBox::TestStub;
+use EBox::Config::TestStub;
+use EBox::GConfModule::TestStub;
+use EBox::Global::TestStub;
 
 our @EXPORT_OK = qw(checkModuleInstantiation activateEBoxTestStubs);
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
@@ -85,11 +85,11 @@ sub activateEBoxTestStubs
 	 $params{stub} = []  if (!exists $params{$stub});
     }
 
-    EBox::Mock::mock( @{ $params{EBox} } );
-    EBox::Sudo::Mock::mock( @{ $params{Sudo} } );
-    EBox::Config::Mock::mock( @{ $params{Config} } );
-    EBox::GConfModule::Mock::mock( @{ $params{GConfModule} } );
-    EBox::Global::Mock::mock( @{ $params{Global} } );
+    EBox::TestStub::fake( @{ $params{EBox} } );
+    EBox::Sudo::TestStub::fake( @{ $params{Sudo} } );
+    EBox::Config::TestStub::fake( @{ $params{Config} } );
+    EBox::GConfModule::TestStub::fake( @{ $params{GConfModule} } );
+    EBox::Global::TestStub::fake( @{ $params{Global} } );
 }
 
 

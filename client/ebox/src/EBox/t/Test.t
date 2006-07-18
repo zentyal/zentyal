@@ -8,8 +8,8 @@ use Test::More ;
 
 use  lib '../..';
 
-use EBox::Global::Mock;
-use EBox::Mock;
+use EBox::Global::TestStub;
+use EBox::TestStub;
 use Test::MockObject;
 
 
@@ -19,8 +19,8 @@ checkModuleInstantiationTest();
 
 sub setUp
 {
-    EBox::Global::Mock::mock();
-    EBox::Mock::mock();
+    EBox::Global::TestStub::fake();
+    EBox::TestStub::fake();
 }
 
 
@@ -54,7 +54,7 @@ sub fakeModules
 			       );
 
 
-       EBox::Global::Mock::setAllEBoxModules (badCreate => 'EBox::BadCreate', simple => 'EBox::Simple') ;
+       EBox::Global::TestStub::setAllEBoxModules (badCreate => 'EBox::BadCreate', simple => 'EBox::Simple') ;
     # setUp ended
 
 }
