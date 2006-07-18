@@ -199,13 +199,16 @@ sub usesPort
      }
 
 
-    if ($iface =~ m/tun\d\d/ ) {  # see if we are asking about openvpn virtual iface
+    if (defined $iface and $iface =~ m/tun\d\d/ ) {  # see if we are asking about openvpn virtual iface
 	return 1;
     }
 
     my @servers = $self->activeServers();
-    my $anyIfaceAddr   = any(iface_addresses($iface));
-    @servers = grep { my $lAddr = $_->local(); (!defined $lAddr) or ($lAddr eq  $anyIfaceAddr) } @servers;
+
+    if (defined $iface) {
+      my $anyIfaceAddr   = any(iface_addresses($iface));
+      @servers = grep { my $lAddr = $_->local(); (!defined $lAddr) or ($lAddr eq  $anyIfaceAddr) } @servers;
+    }
 
     my $portsByProto = $self->_portsByProtoFromServers(@servers);
 
