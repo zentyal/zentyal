@@ -84,8 +84,8 @@ sub activateEBoxTestStubs
 	 $params{stub} = []  if (!exists $params{$stub});
     }
 
-    EBox::TestStub::fake( @{ $params{EBox} } );
     EBox::Sudo::TestStub::fake( @{ $params{Sudo} } );
+    EBox::TestStub::fake( @{ $params{EBox} } );
     EBox::Config::TestStub::fake( @{ $params{Config} } );
     EBox::GConfModule::TestStub::fake( @{ $params{GConfModule} } );
     EBox::Global::TestStub::fake( @{ $params{Global} } );

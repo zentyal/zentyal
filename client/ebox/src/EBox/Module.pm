@@ -403,9 +403,9 @@ sub writeConfFile # (file, comp, params)
 	    $gid  = exists $defaults->{gid}  ?  $defaults->{gid}   : 0;
 	}
 
-	root("/bin/mv $tmpfile  $file");
-	root("/bin/chmod $mode $file");
-	root("/bin/chown $uid.$gid $file");
+	EBox::Sudo::root("/bin/mv $tmpfile  $file");
+	EBox::Sudo::root("/bin/chmod $mode $file");
+	EBox::Sudo::root("/bin/chown $uid.$gid $file");
 }
 
 
