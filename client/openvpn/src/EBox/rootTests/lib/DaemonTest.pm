@@ -5,9 +5,9 @@ use strict;
 use warnings;
 use Test::More;
 use Test::Exception;
-use EBox::Global::Mock;
-use EBox::GConfModule::Mock;
-use EBox::Config::Mock;
+use EBox::Global::TestStub;
+use EBox::GConfModule::TestStub;
+use EBox::Config::TestStub;
 
 use EBox::OpenVPN;
 
@@ -53,9 +53,9 @@ sub setupEBoxConf : Test(setup)
 
 		  );
 
-    EBox::GConfModule::Mock::setConfig(@config);
-    EBox::Global::Mock::setEBoxModule('openvpn' => 'EBox::OpenVPN');
-    EBox::Config::Mock::setConfigKeys(tmp => $self->testDir);
+    EBox::GConfModule::TestStub::setConfig(@config);
+    EBox::Global::TestStub::setEBoxModule('openvpn' => 'EBox::OpenVPN');
+    EBox::Config::TestStub::setConfigKeys(tmp => $self->testDir);
 }
 
 
@@ -79,13 +79,13 @@ sub setupStubDir : Test(setup)
     my ($self) = @_;
     my $stubDir  = $self->testDir() . '/stubs';
 
-    system ("mkdir -p $stubDir/openvpn");
+    system ("/bin/mkdir -p $stubDir/openvpn");
     ($? == 0) or die "Error creating  temp test subdir $stubDir: $!";
     
-    system "cp ../../../stubs/openvpn.conf.mas $stubDir/openvpn";
+    system "/bin/cp ../../../stubs/openvpn.conf.mas $stubDir/openvpn";
     ($? ==0 ) or die "Can not copy templates to stub mock dir";
 
-    EBox::Config::Mock::setConfigKeys('stubs' => $stubDir);
+    EBox::Config::TestStub::setConfigKeys('stubs' => $stubDir);
 }
 
 
@@ -98,14 +98,14 @@ sub clearStubDir : Test(teardown)
 {
     my ($self) = @_;
     my $stubDir  = $self->testDir() . '/stubs';
-    system ("rm -rf $stubDir");
+    system ("/bin/rm -rf $stubDir");
     ($? == 0) or die "Error removing  temp test subdir $stubDir: $!";
 }
 
 
 sub clearConfiguration : Test(teardown)
 {
-    EBox::GConfModule::Mock::setConfig();
+    EBox::GConfModule::TestStub::setConfig();
 }
 
 
@@ -143,7 +143,7 @@ sub _addServerToConfig
 		  );
 
     while ( my ($key, $value) = each %extraConfig) {
-	EBox::GConfModule::Mock::setEntry($key, $value);
+	EBox::GConfModule::TestStub::setEntry($key, $value);
     }
 
 }
