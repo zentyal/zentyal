@@ -17,7 +17,7 @@ use EBox::Test ':all';
 
 sub setModuleGlobalConf : Test(startup)
 {
-    EBox::Global::Mock::setAllEBoxModules('ntp' => 'EBox::NTP');
+    EBox::Global::TestStub::setAllEBoxModules('ntp' => 'EBox::NTP');
 }
 
 sub _useAndCreationTest : Test  
