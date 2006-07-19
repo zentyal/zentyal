@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-bin_SCRIPTS = ebox-test ebox-sudoers ebox ebox-runit ebox-sudoers-friendly
+bin_SCRIPTS =  ebox-sudoers ebox ebox-runit ebox-sudoers-friendly
 
 pkglib_SCRIPTS =  ebox-apache-restart 
 
