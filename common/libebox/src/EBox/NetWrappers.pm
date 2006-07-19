@@ -124,6 +124,7 @@ sub iface_is_up
 #
 sub iface_netmask
 {
+  warn "Deprecated sub; use iface_addresses_with_netmask instead";
         my $if = shift;
         unless (iface_exists($if)) {
                 throw EBox::Exceptions::DataNotFound(
@@ -171,7 +172,7 @@ sub iface_mac_address
 #
 # Method: iface_address
 #
-# 	Returns the  address for a given interface (dot format)	
+# 	Returns the  addresses for a given interface (dot format)	
 #
 # Parameters:
 #
@@ -185,20 +186,63 @@ sub iface_mac_address
 #
 #       DataNotFound - If interface does not exists
 #
-sub iface_addresses
+sub iface_address
 {
   my ($if) = @_;
+
+  my @addrs = map {  $_ =~ s{/.*$}{}; $_  }  _ifaceShowAddress($if);
+  return @addrs;
+}
+
+#
+# Method: iface_address
+#
+# 	Returns the  addresses for a given interface (dot format)	
+#
+# Parameters:
+#
+#       iface - Interface's name
+#
+# Returns:
+#
+#       A hash reference wich keys are the ip addresses and the values the address' netmask
+#
+# Exceptions:
+#
+#       DataNotFound - If interface does not exists
+#
+sub iface_address_with_netmask
+{
+  my ($if) = @_;
+  my %netmaskByAddr;
+
+  my @addrs = _ifaceShowAddress($if);
+  foreach my $addr (@addrs) {
+    $addr =~ /^(.*)\/(.*)$/  ; 
+    my $ip = $1; 
+    my $netmask = mask_from_bits($2);
+    $netmaskByAddr{$ip} = $netmask;
+  }
+
+  return \%netmaskByAddr;
+}
+
+
+sub _ifaceShowAddress
+{
+  my ($if) = @_;
+
   unless (iface_exists($if)) {
     throw EBox::Exceptions::DataNotFound(
 					 data => __('Interface'),
 					 value => $if);
   }
 
-  my @output = `/bin/ip -f inet -o address show $if 2> /dev/null`;
+
+ my @output = `/bin/ip -f inet -o address show $if 2> /dev/null`;
 
   my @addrs = map {  
     my ($number, $iface, $family,  $ip) =  split /\s+/, $_, 5;
-    $ip =~ s{/.*$}{};
     return $ip;
   }  @output;
 	
