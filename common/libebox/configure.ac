@@ -111,6 +111,8 @@ src/EBox/Config/Makefile
 src/EBox/Config/t/Makefile
 src/EBox/Sudo/Makefile
 src/EBox/Sudo/t/Makefile
+src/EBox/NetWrappers/Makefile
+src/EBox/NetWrappers/t/Makefile
 conf/Makefile
 conf/eboxlog.conf
 www/Makefile
