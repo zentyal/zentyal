@@ -335,8 +335,15 @@ sub run
 					   "a bug, relevant information can ".
 					   "be found in the logs.");
 				$self->_print_error($error);
-			} else {
-				$logger->error("Unknown exception");
+			} 
+			else {
+			  if ($ex->can('text')) {
+			    $logger->error('Exception: ' . $ex->text());
+			  }
+			  else {
+			    $logger->error("Unknown exception");			    
+			  }
+
 				throw $ex;
 			}
 		};
