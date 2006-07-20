@@ -5,17 +5,24 @@ use strict;
 use warnings;
 
 
-BEGIN {
-  use EBox::Sudo::TestStub;
-  EBox::Sudo::TestStub::fake();
-}
+# BEGIN {
+#   use EBox::NetWrappers::TestStub;
+#   EBox::NetWrappers::TestStub::setFakeIfaces( {
+# 					       eth0 => { up => 1, address => { '192.168.0.100' => '255.255.255.0' } },
+# 					       ppp0 => { up => 1, address => { '192.168.45.233' => '255.255.255.0' } },
+# 					       eth1 => {up  => 1, address => { '192.168.0.233' => '255.255.255.0' }},
+# 					    } );
+# }
 
 use Test::More;
 use Test::Exception;
 use Test::Differences;
 use EBox::Global;
 use EBox::Test qw(checkModuleInstantiation);
+
 use Perl6::Junction qw(all);
+
+use EBox::NetWrappers::TestStub;
 
 use lib '../..';
 
@@ -60,7 +67,7 @@ sub clearConfiguration : Test(teardown)
 }
 
 
-sub newAndRemoveServerTest : Test(24)
+sub newAndRemoveServerTest  : Test(24)
 {
     my $openVPN = EBox::OpenVPN->_create();
 
@@ -99,6 +106,82 @@ sub newAndRemoveServerTest : Test(24)
     
 	dies_ok { $instance = $openVPN->removeServer($name)  } 'Testing that a deleted server can not be deleted agian';
     }
+}
+
+
+sub usesPortTest : Test(16)
+{
+  my ($self) = @_;
+
+  fakeInterfaces();
+
+  # add servers to openvpn (we add only the attr we care for in this testcase
+  my @config = (
+		  '/ebox/modules/openvpn/active'  => 1,
+		  '/ebox/modules/openvpn/openvpn_bin'  => '/usr/sbin/openvpn',
+		  '/ebox/modules/openvpn/user'  => 'nobody',
+		  '/ebox/modules/openvpn/group' => 'nobody',
+		  '/ebox/modules/openvpn/conf_dir' => $self->_confDir(),
+
+		  '/ebox/modules/openvpn/server/macaco/active'    => 1,
+		  '/ebox/modules/openvpn/server/macaco/port'    => 1194,
+		  '/ebox/modules/openvpn/server/macaco/proto'   => 'tcp',
+
+		  '/ebox/modules/openvpn/server/mandril/active'    => 1,
+		  '/ebox/modules/openvpn/server/mandril/port'    => 1200,
+		  '/ebox/modules/openvpn/server/mandril/proto'   => 'tcp',
+		  '/ebox/modules/openvpn/server/mandril/local'   => '192.168.45.233',
+
+		  '/ebox/modules/openvpn/server/gibon/active'    => 1,
+		  '/ebox/modules/openvpn/server/gibon/port'   => 1294,
+		  '/ebox/modules/openvpn/server/gibon/proto'  => 'udp',
+		      );
+  EBox::GConfModule::TestStub::setConfig(@config);
+  
+  my $openVPN = EBox::OpenVPN->_create();
+
+  # regular cases
+  ok $openVPN->usesPort('tcp', 43, 'tun0'), "Checking that tun interface is reported as used";
+   ok $openVPN->usesPort('tcp', 1194), "Checking if a used port is correctly reported";
+  ok $openVPN->usesPort('tcp', 1194, 'ppp0'), "Checking if a used port is correctly reported";
+  ok $openVPN->usesPort('tcp', 1194, 'eth0'), "Checking if a used port is correctly reported";
+  ok $openVPN->usesPort('tcp', 1194, 'eth1'), "Checking if a used port is correctly reported";
+
+  # protocol awareness
+  ok !$openVPN->usesPort('udp', 1194);
+  ok $openVPN->usesPort('udp', 1294);
+  ok !$openVPN->usesPort('tcp', 1294);
+
+  # local address case
+  ok $openVPN->usesPort('tcp', 1200), "Checking if a used port in only one interface is correctly reported";
+  ok $openVPN->usesPort('tcp', 1200, 'ppp0'), "Checking if a used port in only one interface is correctly reported";
+  ok !$openVPN->usesPort('tcp', 1200, 'eth0'), "Checking if a used port in only one interface does not report as used in another interface";
+
+   # unused ports case
+  ok !$openVPN->usesPort('tcp', 1800), "Checking if a unused prot is correctly reported";
+  ok !$openVPN->usesPort('tcp', 1800, 'eth0'), "Checking if a unused port is correctly reported";
+  ok !$openVPN->usesPort('tcp', 1800), "Checking if a unused port is correctly reported";
+
+  # server inactive case
+  EBox::GConfModule::TestStub::setEntry( '/ebox/modules/openvpn/server/macaco/active'    => 0);
+  ok !$openVPN->usesPort('tcp', 1194), "Checking that usesPort does not report  any port for inactive servers";
+
+  # openvpn inacitve case
+  EBox::GConfModule::TestStub::setEntry( '/ebox/modules/openvpn/active'    => 0);
+  ok !$openVPN->usesPort('tcp', 1194), "Checking that usesPort does not report  any port for a inactive OpenVPN module";
+}
+
+
+
+
+sub fakeInterfaces
+{
+  # set fake interfaces
+  EBox::NetWrappers::TestStub::setFakeIfaces( {
+					       eth0 => { up => 1, address => { '192.168.0.100' => '255.255.255.0' } },
+					       ppp0 => { up => 1, address => { '192.168.45.233' => '255.255.255.0' } },
+					       eth1 => {up  => 1, address => { '192.168.0.233' => '255.255.255.0' }},
+					    } );
 }
 
 1;
