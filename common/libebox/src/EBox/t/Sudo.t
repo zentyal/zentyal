@@ -12,8 +12,8 @@ statTest();
 
 sub statTest
 {
-    use EBox::Sudo::Mock;
-    EBox::Sudo::Mock::mock();
+    use EBox::Sudo::TestStub;
+    EBox::Sudo::TestStub::fake();
 
     my @files = qw(/ /usr /bin/true /etc/passwd /dev/hda);
     foreach my $file (@files) {
