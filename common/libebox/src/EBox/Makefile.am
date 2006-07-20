@@ -6,7 +6,7 @@ mods = Validate.pm Gettext.pm Sudo.pm NetWrappers.pm  TestStub.pm
 
 nobase_perl_DATA = $(mods) Config.pm
 
-SUBDIRS = CGI Exceptions Menu Test t Sudo Config
+SUBDIRS = CGI Exceptions Menu Test t Sudo Config NetWrappers
 
 SOURCES = $(nobase_perl_DATA)
 
