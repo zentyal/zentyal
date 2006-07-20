@@ -6,9 +6,9 @@ use Test::More 'no_plan';
 
 use lib '../..';
 use Fatal qw(open close mkdir);
-use EBox::Mock;
+use EBox::TestStub;
 
-EBox::Mock::mock();
+EBox::TestStub::fake();
 use_ok 'EBox::Config';
 configkeyFromFileTest();
 
