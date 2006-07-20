@@ -29,7 +29,7 @@ BEGIN {
 	@ISA = qw(Exporter);
 	@EXPORT = qw();
 	%EXPORT_TAGS  = (all => [qw{    list_ifaces iface_exists iface_is_up 
-					iface_netmask iface_addresses 
+					iface_netmask iface_addresses iface_addresses_with_netmask
 					iface_mac_address list_routes
 					list_local_addresses
 					route_is_up
@@ -186,7 +186,7 @@ sub iface_mac_address
 #
 #       DataNotFound - If interface does not exists
 #
-sub iface_address
+sub iface_addresses
 {
   my ($if) = @_;
 
@@ -195,7 +195,7 @@ sub iface_address
 }
 
 #
-# Method: iface_address
+# Method: iface_addresses_with_netmask
 #
 # 	Returns the  addresses for a given interface (dot format)	
 #
@@ -211,7 +211,7 @@ sub iface_address
 #
 #       DataNotFound - If interface does not exists
 #
-sub iface_address_with_netmask
+sub iface_addresses_with_netmask
 {
   my ($if) = @_;
   my %netmaskByAddr;

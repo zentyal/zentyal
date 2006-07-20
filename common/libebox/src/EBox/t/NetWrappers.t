@@ -11,10 +11,10 @@ use Test::Exception;
 use lib '../..';
 
 use_ok('EBox::NetWrappers');
-iface_address_and_friends_test();
+iface_addresses_and_friends_test();
 netmaskConversionsTests();
 
-sub iface_address_and_friends_test
+sub iface_addresses_and_friends_test
 {
   my %ifaceData = (
 		eth0   => {   
@@ -42,16 +42,16 @@ sub iface_address_and_friends_test
 		     }
 		    );
 
-  dies_ok { EBox::NetWrappers::iface_address('inexistent iface')  } "iface_address called with a inexistent network interface";
+  dies_ok { EBox::NetWrappers::iface_addresses('inexistent iface')  } "iface_addresses called with a inexistent network interface";
   foreach my $iface (keys %ifaceData) {
-    my @result = EBox::NetWrappers::iface_address($iface);
+    my @result = EBox::NetWrappers::iface_addresses($iface);
     eq_or_diff \@result, $ifaceData{$iface}->{addresses}, "Checking result of iface_address call in interface $iface";
   }
 
-  dies_ok { EBox::NetWrappers::iface_address_with_netmask('inexistent iface')  } "iface_address_with_netmask called with a inexistent network interface";
+  dies_ok { EBox::NetWrappers::iface_addresses_with_netmask('inexistent iface')  } "iface_address_with_netmask called with a inexistent network interface";
   foreach my $iface (keys %ifaceData) {
-    my $result = EBox::NetWrappers::iface_address_with_netmask($iface);
-    eq_or_diff $result, $ifaceData{$iface}->{addressesWithNetmask}, "Checking result of iface_address_with_netmask call in interface $iface";
+    my $result = EBox::NetWrappers::iface_addresses_with_netmask($iface);
+    eq_or_diff $result, $ifaceData{$iface}->{addressesWithNetmask}, "Checking result of iface_addresses_with_netmask call in interface $iface";
   }
 
 }
