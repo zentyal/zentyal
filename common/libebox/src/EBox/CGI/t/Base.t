@@ -11,9 +11,9 @@ use lib '../../..';
 use_ok ('EBox::CGI::Base');
 
 use EBox::Test::CGI ':all';
-use EBox::Mock;
+use EBox::TestStub;
 
-EBox::Mock::mock();
+EBox::TestStub::fake();
 
 paramsAsHashTest();
 validateParamsTestWithRegularCases();
