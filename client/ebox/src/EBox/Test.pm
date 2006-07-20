@@ -25,6 +25,7 @@ use EBox::TestStub;
 use EBox::Config::TestStub;
 use EBox::GConfModule::TestStub;
 use EBox::Global::TestStub;
+use EBox::NetWrappers::TestStub;
 
 our @EXPORT_OK = qw(checkModuleInstantiation activateEBoxTestStubs);
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
@@ -80,8 +81,8 @@ sub checkModuleInstantiation
 sub activateEBoxTestStubs
 {
     my %params = @_;
-    foreach my $stub (qw(EBox Sudo Config GConfModule Global)) {
-	 $params{stub} = []  if (!exists $params{$stub});
+    foreach my $stub (qw(EBox Sudo Config GConfModule Global NetWrappers)) {
+	 $params{$stub} = []  if (!exists $params{$stub});
     }
 
     EBox::Sudo::TestStub::fake( @{ $params{Sudo} } );
@@ -89,6 +90,7 @@ sub activateEBoxTestStubs
     EBox::Config::TestStub::fake( @{ $params{Config} } );
     EBox::GConfModule::TestStub::fake( @{ $params{GConfModule} } );
     EBox::Global::TestStub::fake( @{ $params{Global} } );
+    EBox::NetWrappers::TestStub::fake( @{ $params{NetWrappers} } );
 }
 
 
