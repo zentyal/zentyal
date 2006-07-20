@@ -151,8 +151,8 @@ sub _writeStartupFile
 
     my $startupFile = _startupFile();
     my ($primaryGid) = split / /, $GID, 2;
-    $self->writeConfFile($startupFile, '/startup.pl.mas' , [], {mode => '0600', uid => $UID, gid => $GID}
-);
+    $self->writeConfFile($startupFile, '/startup.pl.mas' , [], {mode => '0600', uid => $UID, gid => $primaryGid});
+
 }
 
 
