@@ -132,6 +132,7 @@ sub _checkPortIsNotDuplicate
 
     my $ownName = $self->name();
     my $proto   = $self->proto;
+    defined $proto or throw EBox::Exceptions::Internal 'Protocol must be set before port';
     my @serversNames = grep { $_ ne $ownName } $self->_openvpnModule->serversNames();
 
 
@@ -345,8 +346,8 @@ sub setFundamentalAttributes
 
     $self->setSubnet($params{subnet});
     $self->setSubnetNetmask( $params{subnetNetmask} );
-    $self->setPort($params{port});
     $self->setProto($params{proto});
+    $self->setPort($params{port});
     $self->setCaCertificate($params{caCertificate});
     $self->setServerCertificate($params{serverCertificate});    
     $self->setServerKey($params{serverKey});

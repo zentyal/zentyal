@@ -106,11 +106,14 @@ sub setProtoTest : Test(6)
 }
 
 
-sub setPortTestForSingleServer : Test(18)
+sub setPortTestForSingleServer : Test(19)
 {
     my ($self) = @_;
  
     my $server          = $self->_newServer('macaco');
+    
+    dies_ok {$server->setPort(100)} 'Setting port before protocol must raise a error';
+
     $server->setProto('tcp');
 
     my $portGetter_r    = $server->can('port');
