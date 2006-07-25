@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 use base 'Exporter';
-our @EXPORT_OK   = qw(runCgi setCgiParams cgiErrorOk cgiErrorNotOk  checkCgiError checkMasonParameters);
+our @EXPORT_OK   = qw(runCgi setCgiParams cgiErrorOk cgiErrorNotOk  checkCgiError checkMasonParameters muteHtmlOutput);
 our %EXPORT_TAGS = (all => \@EXPORT_OK  );
 
 use Test::Differences;
@@ -67,6 +67,21 @@ sub _errorInCgi
     my ($cgi) = @_;
     return defined ($cgi->{error}) or defined ($cgi->{olderror});
 }
+
+
+sub muteHtmlOutput
+{
+  my ($class) = @_;
+
+  my $mutePrintHtmlCode = "no warnings; package $class; sub _print {}; ";
+  eval $mutePrintHtmlCode;
+  if ($@) {
+    die "Error when overriding _printHtml with a muted version: $@";
+  }
+          
+}
+  
+
 
 
 sub checkMasonParameters

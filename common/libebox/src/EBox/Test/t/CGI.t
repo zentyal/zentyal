@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 17;
+use Test::More tests => 18;
 use Test::Exception;
 use Test::Builder::Tester ;
 
@@ -18,7 +18,7 @@ use EBox::CGI::Base;
 
 runCgiTest();
 cgiErrorAssertionsTest();
-
+muteHtmlOutputTest();
 
 
 
@@ -79,7 +79,15 @@ sub cgiErrorAssertionsTest
     test_test('Checking negative assertion for cgiErrorOk');
 }
 
+sub muteHtmlOutputTest
+{
+  muteHtmlOutput('EBox::CGI::NoiseCGI');
+  my $cgi = new EBox::CGI::NoiseCGI;
+  runCgi($cgi);
 
+  my $noise = $cgi->noise();
+  is $noise, 0, 'Checking that after muteHtmlOutput the cgi has used the overriden =print sub';
+}
 
 package EBox::CGI::DumbCGI;
 use base 'EBox::CGI::Base';
@@ -118,5 +126,31 @@ sub hasRun
 # to eliminate html output while running cgi:
 sub _print
 {}
+
+package EBox::CGI::NoiseCGI;
+use base 'EBox::CGI::DumbCGI';
+
+my $noise = 0;
+
+sub new
+{
+  my ($class) = shift @_;
+  $noise = 0;
+  return $class->SUPER::new(@_);
+}
+
+
+
+sub _print
+{
+  $noise = 1;
+}
+
+sub noise
+{
+#  defined $noise and return $noise;
+#  return 0;
+  return $noise;
+}
 
 1;
