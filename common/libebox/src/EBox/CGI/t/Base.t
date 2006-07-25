@@ -28,7 +28,9 @@ sub paramsAsHashTest
 		  mono    => 'macaco',
 		  primate => 'gorila',
 		  lemur   => 'indri',
-		  numero  => 34
+		  numero  => 34,
+		  cero    => '0',
+		  numeroCero => 0,
 		  );
 
     setCgiParams($cgi, %params);

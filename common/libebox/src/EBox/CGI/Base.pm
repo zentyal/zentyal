@@ -478,7 +478,10 @@ sub paramsAsHash
     my ($self) = @_;
 
     my @names = @{ $self->params() };
-    my %params = map { $_ => $self->param($_) } @names; 
+    my %params = map { 
+      my $value = $self->param($_) ;
+      $_ => $value
+    } @names; 
 
     return \%params;
 }
