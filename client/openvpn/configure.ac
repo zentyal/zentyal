@@ -55,6 +55,7 @@ fi
 #AM_PO_SUBDIRS
 
 AC_CONFIG_FILES([
+
 src/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile
@@ -65,6 +66,9 @@ src/EBox/rootTests/Makefile
 src/EBox/rootTests/lib/Makefile
 src/EBox/rootTests/testdata/Makefile
 src/EBox/CGI/Makefile
+src/EBox/CGI/t/Makefile
+src/EBox/CGI/OpenVPN/Makefile
+src/EBox/CGI/OpenVPN/Create/Makefile
 src/templates/Makefile
 schemas/Makefile
 stubs/Makefile

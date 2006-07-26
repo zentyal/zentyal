@@ -1,9 +1,8 @@
-SUBDIRS = t OpenVPN
 ## Process this file with automake to produce Makefile.in
 
-perldir = @PERLPATH@/EBox/CGI/OpenVPN
+perldir = @PERLPATH@/EBox/CGI/OpenVPN/Create
 
-nobase_perl_DATA = Index.pm Create.pm Enable.pm Edit.pm Delete.pm
+nobase_perl_DATA = Test.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 
