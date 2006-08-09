@@ -1,0 +1,17 @@
+** System setup
+- First, we must install the openvpn Debian package (# apt-get install openvpn)
+- Next, we remove the symbolic links to /etc/init.d/openvpn in the /etc/rc?.d directories . We do this to avoid that the boot process starts and stop the openvpn servers
+- We had to make sure that both user and group 'nobody' exists, if necessary we create them as system user/group. (In Debian the default is that group 'nobody' does not exist). In case we want to use another group or user we can do it changing the values of the relevant keys in eBox's GConf.
+
+
+** Software dependencies
+Besides  the perl modules  provided by the eBox framework we have none dependency.
+However, to run the tests included we need the Test::File perl module.
+
+
+
+** Configuration and installation
+Now we are ready to follow the normal configuration and installation procedure:
+# ./configure --prefix=/usr --localstatedir=/var --systemconfdir=/etc
+# make install 
+The last command must be executed as root user.
