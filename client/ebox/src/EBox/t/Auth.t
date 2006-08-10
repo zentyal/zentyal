@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More qw(no_plan);
+use Test::More tests => 26;
 use Test::Exception;
 use Test::MockTime();
 use Test::Differences;
@@ -27,6 +27,7 @@ authen_cred_test();
 authen_ses_key_test();
 alreadyLoggedTest();
 simultaneousLoginTest();
+defaultPasswdChangedTest();
 
 sub globalSetUp
 {
@@ -164,6 +165,22 @@ sub simultaneousLoginTest
  }
 
 
+
+sub defaultPasswdChangedTest
+{
+    setUp();
+
+    my $auth        = new EBox::Auth;
+
+    resetDefaultPasswd();
+    is $auth->defaultPasswdChanged(), undef, 'Checking defaultPasswdChanged with default password';
+
+    $auth->setPassword('12345678');
+    is $auth->defaultPasswdChanged(), 1, 'Checking defaultPasswdChanged after changig default passwd';
+
+
+}
+
 sub _newRequest
 {
   my ($host) = @_;
@@ -193,4 +210,16 @@ sub setUp
     }
 }
 
+sub resetDefaultPasswd
+  {
+    my $passwd = 'ebox';
+    open(my $PASSWD_F, "> ". EBox::Config->passwd) or die ('Could not open passwd file');
+    
+    my $md5 = Digest::MD5->new;
+    $md5->add($passwd);
+    my $encpasswd = $md5->hexdigest;
+
+    print $PASSWD_F $encpasswd;
+    close($PASSWD_F);
+}
 1;

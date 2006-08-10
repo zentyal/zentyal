@@ -30,6 +30,8 @@ use EBox::Exceptions::Internal;
 
 #By now, the expiration time for session is hardcoded here
 use constant EXPIRE => 3600; #In seconds  1h
+use constant DEFAULT_PASSWD => 'ebox';
+
 
 sub new 
 {
@@ -236,6 +238,14 @@ sub alreadyLogged
     return 0 if _timeExpired($lastime);
 
     return 1;
+}
+
+
+sub defaultPasswdChanged
+{
+  my ($self) = @_;
+#  return $self->checkPassword(DEFAULT_PASSWD);
+  return $self->checkPassword('ebox') ? undef : 1;
 }
 
 1;
