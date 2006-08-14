@@ -233,9 +233,9 @@ sub revokeAllModules
 }
 
 #
-# Method: revokeAllModules 
+# Method: saveAllModules
 #
-# 	Revoke the changes made in the configuration for all the  modules	
+#      Save changes in all modules 		
 #
 sub saveAllModules
 {
