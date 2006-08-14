@@ -3,24 +3,27 @@ package EBox::NetWrappers::TestStub;
 # 
 use strict;
 use warnings;
-use Test::MockObject;
+use Test::MockModule;
 use EBox::NetWrappers;
 
 my %fakeIfaces;
 my %fakeRoutes;
 
+my $fakedModule;
+
 sub fake
 {
-  Test::MockObject->fake_module('EBox::NetWrappers',
-				iface_exists => \&iface_exists,
-				list_ifaces  => \&list_ifaces,
-				iface_is_up  => \&iface_is_up,
-				iface_mac_address => \&iface_mac_address,
-				iface_addresses => \&iface_addresses,
-				iface_addresses_with_netmask => \&iface_addresses_with_netmask,
-				list_routes  => \&list_routes,
-				route_is_up  => \&route_is_up,
-			       );
+  $fakedModule = new Test::MockModule('EBox::NetWrappers');
+
+				$fakedModule->mock(iface_exists => \&iface_exists);
+				$fakedModule->mock(list_ifaces  => \&list_ifaces);
+				$fakedModule->mock(iface_is_up  => \&iface_is_up);
+				$fakedModule->mock(iface_mac_address => \&iface_mac_address);
+				$fakedModule->mock(iface_addresses => \&iface_addresses);
+				$fakedModule->mock(iface_addresses_with_netmask => \&iface_addresses_with_netmask);
+				$fakedModule->mock(list_routes  => \&list_routes);
+				$fakedModule->mock(route_is_up  => \&route_is_up);
+
 }
 
 
