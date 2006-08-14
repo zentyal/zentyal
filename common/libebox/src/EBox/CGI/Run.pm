@@ -19,9 +19,11 @@ use strict;
 use warnings;
 
 use EBox;
+use EBox::FirstTime;
 use EBox::Gettext;
 use EBox::CGI::Base;
 use CGI;
+
 
 sub run # (url)
 {
@@ -40,8 +42,12 @@ sub run # (url)
 
 	$classname =~ s/::::/::/g;
 	$classname =~ s/::$//;
+	
 
-	if ($classname eq 'EBox::CGI') {
+	if (EBox::FirstTime::isFirstTime()) {
+              $classname = firstTimeClassName($classname);
+	}
+	elsif ($classname eq 'EBox::CGI') {
 		$classname .= '::Summary::Index';
 	}
 
@@ -62,6 +68,20 @@ sub run # (url)
 	}
 
 	$cgi->run;
+}
+
+
+sub firstTimeClassName
+{
+    my ($classname) = @_;
+
+    ### login and logout classes had priority over first time index
+    return $classname if $classname =~ m{::Login::};
+    return $classname if $classname =~ m{::Logout::};
+    ### other first time classes must not be replaced by the firsttime index
+    return $classname if $classname =~ m{::FirstTime::};
+    ### change to firstime index...
+    return 'EBox::CGI::FirstTime::Index' ; 
 }
 
 1;
