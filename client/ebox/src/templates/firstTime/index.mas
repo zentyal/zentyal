@@ -1,0 +1,48 @@
+<%args>
+@tasks
+</%args>
+<%init>
+use EBox::Gettext;
+my $skipAllButtonTitle = __('Use default values');
+
+my @completedTasks;
+my @uncompletedTasks;
+foreach my $task (@tasks) {
+   if ($task->{completed}) {
+      push @completedTasks, $task;
+   }
+   else {
+      push @uncompletedTasks, $task;
+   }
+}
+</%init>
+<& .uncompletedTasksList, tasks => \@uncompletedTasks &>
+<& .completedTasksList,   tasks => \@completedTasks &>
+<form>
+<& /input/submit.mas, name => 'skipAll', value => $skipAllButtonTitle &>
+</form>
+
+<%def .completedTasksList>
+<%args>
+@tasks
+</%args>
+% return if (@tasks == 0);
+<h3>Completed tasks</h3>
+<ul>
+% foreach my $task (@tasks) {
+  <li><% $task->{desc} %>  </li>
+% }
+</ul>
+</%def>
+
+<%def .uncompletedTasksList>
+<%args>
+@tasks
+</%args>
+<h3>Items to configure</h3>
+<ul>
+% foreach my $task (@tasks) {
+  <li><a href="<% $task->{url} %>"> <% $task->{desc} %> </a>  </li> 
+% }
+</ul>
+</%def>

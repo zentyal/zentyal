@@ -1,0 +1,42 @@
+<%init>
+use EBox::Gettext;
+</%init>
+<h3><% __('Change default password') %></h3>
+<div class="help"><% __('Your password must be at least 6 characters long.') %></div>
+	<form action='Passwd' method='POST'>
+		<table class='formTable'><tbody>
+			<tr>
+				<td class='tright'>
+					<span class="ftitle">
+						<% __('New password') %>:
+					</span>
+				</td>
+				<td>
+					<input 	type='password' 
+							name='newpwd1' 
+							class='inputText'
+							size='16'>
+				</td>
+			</tr>
+
+			<tr>
+				<td class='tright'>
+					<span class="ftitle">
+						<% __('Confirm password') %>:
+					</span>
+				</td>
+				<td>
+					<input 	type='password' 
+							name='newpwd2' 
+							class='inputText'
+							size='16'>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<input class='inputButton' type='submit' name='changePasswd' value="<% __('Change') %>">
+				</td>
+			</tr>
+		</tbody></table>
+	</form>

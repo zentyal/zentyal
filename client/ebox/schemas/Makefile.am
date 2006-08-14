@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 schemadir   = @GCONF_SCHEMA_FILE_DIR@
-schema_DATA = global.schemas sysinfo.schemas apache.schemas
+schema_DATA = global.schemas sysinfo.schemas apache.schemas firsttime.schemas
 
 if GCONF_SCHEMAS_INSTALL
 install-data-local:

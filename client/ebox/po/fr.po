@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox 0.3.svn\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-05-17 17:25+0200\n"
+"POT-Creation-Date: 2006-08-10 11:33+0200\n"
 "PO-Revision-Date: 2004-11-02 17:54+0100\n"
 "Last-Translator:  <isaac@sindominio.net>\n"
 "Language-Team: French <cedricduval@free.fr>\n"
@@ -37,6 +37,11 @@ msgstr "Statut"
 msgid "Disabled"
 msgstr ""
 
+#: src/EBox/CGI/Login/Index.pm:56
+#, fuzzy
+msgid "Password Incorrect"
+msgstr "Nouveau mot de passe"
+
 #: src/EBox/CGI/Login/Index.pm:59
 msgid "For security reasons your session has expired due to inactivity"
 msgstr ""
@@ -47,7 +52,7 @@ msgid "You have been logged out because a new session has been opened"
 msgstr ""
 "Vous avez été deconnecté de cette session suite à l'ouverture d'une nouvelle"
 
-#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:38
+#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:40
 msgid "Logout"
 msgstr "Déconnexion"
 
@@ -123,7 +128,7 @@ msgstr "Les nouveaux mots de passe ne correspondent pas."
 msgid "The password must be at least 6 characters long"
 msgstr "Le mot de passe doit comporter un minimum de 6 caractères"
 
-#: src/EBox/CGI/EBox/Password.pm:62
+#: src/EBox/CGI/EBox/Password.pm:62 src/EBox/CGI/FirstTime/Passwd.pm:92
 msgid "The password was changed successfully."
 msgstr "Le mot de passe a été modifié avec succès"
 
@@ -163,6 +168,29 @@ msgstr ""
 msgid "Save configuration"
 msgstr "Sauver la configuration"
 
+#: src/EBox/CGI/FirstTime/Index.pm:29
+#, fuzzy
+msgid "First time configuration"
+msgstr "Restaurer la configuration"
+
+#: src/EBox/CGI/FirstTime/Index.pm:59 src/EBox/CGI/FirstTime/Passwd.pm:72
+msgid "EBox was already initialized"
+msgstr ""
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:38
+#, fuzzy
+msgid "Set password"
+msgstr "Nouveau mot de passe"
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:63
+msgid "Default password was already changed"
+msgstr ""
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:88
+#, fuzzy
+msgid "New passwords do not match"
+msgstr "Les nouveaux mots de passe ne correspondent pas."
+
 #: src/EBox/Backup.pm:300 src/EBox/SysInfo.pm:120
 msgid "Backup"
 msgstr "Copie de sauvegarde"
@@ -179,37 +207,30 @@ msgstr "La copie de sauvegarde est incorrecte ou corrompue"
 msgid "The backup file is corrupt."
 msgstr "La copie de sauvegarde est corrompue."
 
-#: src/EBox/Html.pm:37
+#: src/EBox/Html.pm:39
 #, fuzzy
 msgid "Save changes"
 msgstr "Annuler les modifications"
 
-#: src/EBox/Html.pm:96
-msgid ""
-"Created by <a href='http://www.warp.es'>Warp Networks S.L.</a> in "
-"collaboration with <a href='http://www.dbs.es'>DBS Servicios Informaticos S."
-"L.</a>"
-msgstr ""
-
-#: src/EBox/Apache.pm:47
+#: src/EBox/Apache.pm:48
 msgid ""
 "You must set the httpd_serverroot variable in the ebox configuration file"
 msgstr ""
 "Vous devez positionner la variable httpd_serverroot dans le fichier de "
 "configuration de l'ebox"
 
-#: src/EBox/Apache.pm:57
+#: src/EBox/Apache.pm:58
 msgid "You must set the httpd_init variable in the ebox configuration file"
 msgstr ""
 "Vous devez positionner la variable httpd_init dans le fichier de "
 "configuration de l'ebox"
 
-#: src/EBox/Apache.pm:60
+#: src/EBox/Apache.pm:61
 #, fuzzy
 msgid "The httpd_init script you configured is not executable."
 msgstr "Le script httpd_init que vous avez configuré n'est pas exécutable."
 
-#: src/EBox/Apache.pm:148 src/EBox/Apache.pm:157
+#: src/EBox/Apache.pm:184 src/EBox/Apache.pm:193
 msgid "port"
 msgstr "port"
 
@@ -249,6 +270,10 @@ msgstr ""
 
 #: src/EBox/SysInfo.pm:123
 msgid "Halt/Reboot"
+msgstr ""
+
+#: src/EBox/FirstTime.pm:12
+msgid "EAA"
 msgstr ""
 
 #: src/templates/login/index.mas:26
@@ -316,7 +341,7 @@ msgstr "Il n'y a aucune modification non sauvegardée"
 msgid "Change password"
 msgstr "Modifier le mot de passe"
 
-#: src/templates/password.mas:8
+#: src/templates/password.mas:8 src/templates/firstTime/passwd.mas:6
 #, fuzzy
 msgid "Your password must be at least 6 characters long."
 msgstr "Le mot de passe doit comporter un minimum de 6 caractères"
@@ -325,16 +350,17 @@ msgstr "Le mot de passe doit comporter un minimum de 6 caractères"
 msgid "Current password"
 msgstr "Mot de passe actuel"
 
-#: src/templates/password.mas:30
+#: src/templates/password.mas:30 src/templates/firstTime/passwd.mas:13
 msgid "New password"
 msgstr "Nouveau mot de passe"
 
-#: src/templates/password.mas:45
+#: src/templates/password.mas:45 src/templates/firstTime/passwd.mas:28
 #, fuzzy
 msgid "Confirm password"
 msgstr "Confirmer le nouveau mot de passe"
 
 #: src/templates/password.mas:60 src/templates/port.mas:15
+#: src/templates/firstTime/passwd.mas:42
 msgid "Change"
 msgstr "Modifier"
 
@@ -442,6 +468,16 @@ msgstr ""
 #: src/templates/bug.mas:15
 msgid "Download bug report file"
 msgstr "Charger de fichier de rapport de bug"
+
+#: src/templates/firstTime/passwd.mas:4
+#, fuzzy
+msgid "Change default password"
+msgstr "Modifier le mot de passe"
+
+#: src/templates/footer.mas:8
+#, perl-brace-format
+msgid "{ebox} created by {warp} in collaboration with {dbs}"
+msgstr ""
 
 #, fuzzy
 #~ msgid "Created by "

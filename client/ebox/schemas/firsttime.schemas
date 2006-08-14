@@ -1,0 +1,14 @@
+<!-- vim: ts=4 sw=4 nowrap
+-->
+<gconfschemafile>
+	<schemalist>
+		<schema>
+			<key>/schemas/ebox/firsttime</key>
+			<applyto>/ebox/firsttime</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+			<default>true</default>
+			<locale name="C"/>
+		</schema>
+	</schemalist>
+</gconfschemafile>
