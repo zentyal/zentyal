@@ -4,7 +4,7 @@ perldir = @PERLPATH@/EBox/CGI
 
 nobase_perl_DATA = ClientBase.pm Finish.pm
 
-SUBDIRS = EBox Login Logout Summary
+SUBDIRS = EBox Login Logout Summary FirstTime
 
 SOURCES = $(nobase_perl_DATA)
 

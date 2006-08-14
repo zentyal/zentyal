@@ -244,8 +244,7 @@ sub alreadyLogged
 sub defaultPasswdChanged
 {
   my ($self) = @_;
-#  return $self->checkPassword(DEFAULT_PASSWD);
-  return $self->checkPassword('ebox') ? undef : 1;
+  return EBox::Auth->checkPassword('ebox') ? undef : 1;
 }
 
 1;
