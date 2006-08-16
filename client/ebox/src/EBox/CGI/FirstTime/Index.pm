@@ -37,12 +37,17 @@ sub new # (error=?, msg=?, cgi=?)
 
 sub optionalParameters
 {
-  return ['skipAll'];
+  return ['skipAll', 'msg'];
 }
 
 sub actuate
 {
   my ($self) = @_;
+
+  if ($self->param('msg')) {
+    $self->setMsg($self->param('msg'));
+  }
+
 
   if ($self->param('skipAll')) {
     $self->finishConfiguration();
