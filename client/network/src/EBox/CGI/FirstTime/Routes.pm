@@ -18,7 +18,7 @@ package EBox::CGI::Network::FirstTime::Routes;
 use strict;
 use warnings;
 
-use base 'EBox::CGI::Network::Routes';
+use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::Gettext;

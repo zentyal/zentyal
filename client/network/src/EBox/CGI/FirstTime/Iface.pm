@@ -18,7 +18,7 @@ package EBox::CGI::Network::FirstTime::Iface;
 use strict;
 use warnings;
 
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::Network::Iface';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -35,69 +35,12 @@ sub new # (cgi=?)
 
 sub _process
 {
-	my $self = shift;
-	my $net = EBox::Global->modInstance('network');
+    my $self = shift;
+
+    $self->{redirect} = "FirstTime/Index";
+    $self->{errorchain} = "Network/FirstTime/Ifaces";
 	
-	my $force = undef;
-
-	$self->_requireParam("method", __("method"));
-	$self->_requireParam("ifname", __("network interface"));
-
-
-	$self->{errorchain} = "Network/FirstTime/Ifaces";
-
-	my $iface = $self->param("ifname");
-	my $alias = $self->param("ifalias");
-	my $method = $self->param("method");
-	my $address  = "";
-	my $netmask  = "";
-	my $external = undef;
-	if (defined($self->param('external'))) {
-		$external = 1;
-	}
-
-	$self->{redirect} = "FirstTime/Index";
-
-	if (defined($self->param("cancel"))) {
-		return;
-	} elsif (defined($self->param("force"))) {
-		$force = 1;
-	}
-
-	$self->keepParam('iface');
-	$self->cgi()->param(-name=>'iface', -value=>$iface);
-
-	try {
-		if (defined($alias)) {
-			$net->setIfaceAlias($iface,$alias);
-		}
-		if ($method eq 'static') {
-			$self->_requireParam("if_address", __("ip address"));
-			$self->_requireParam("if_netmask", __("netmask"));
-			$address = $self->param("if_address");
-			$netmask = $self->param("if_netmask");
-			$net->setIfaceStatic($iface, $address, $netmask, 
-					$external, $force);
-		} elsif ($method eq 'dhcp') {
-			$net->setIfaceDHCP($iface, $external, $force);
-		} elsif ($method eq 'trunk') {
-			$net->setIfaceTrunk($iface, $force);
-		} elsif ($method eq 'notset') {
-			$net->unsetIface($iface, $force);
-		}
-		
-		$self->{msg} = __('Network interface configured');
-	} catch EBox::Exceptions::DataInUse with {
-		$self->{template} = 'network/confirm.mas';
-		$self->{redirect} = undef;
-		my @array = ();
-		push(@array, 'iface' => $iface);
-		push(@array, 'method' => $method);
-		push(@array, 'address' => $address);
-		push(@array, 'netmask' => $netmask);
-		push(@array, 'external' => $external);
-		$self->{params} = \@array;
-	};
+    $self->setIface();
 }
 
 1;

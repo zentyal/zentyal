@@ -28,18 +28,25 @@ sub new # (cgi=?)
 	my $class = shift;
 	my $self = $class->SUPER::new(@_);
 	$self->{domain} = 'ebox-network';
-	$self->{redirect} = "Network/Routes";
 	bless($self, $class);
 	return $self;
 }
 
 sub _process
 {
-	my $self = shift;
-	my $net = EBox::Global->modInstance('network');
-
-	$self->_requireParamAllowEmpty('gateway', __('gateway address'));
-	$net->setGateway($self->param("gateway"));
+  my $self = shift;
+  $self->{redirect} = "Network/Routes";
+  $self->setGateway();
 }
+
+sub setGateway
+{
+  my ($self) = @_;
+  my $net = EBox::Global->modInstance('network');
+
+  $self->_requireParamAllowEmpty('gateway', __('gateway address'));
+  $net->setGateway($self->param("gateway"));
+}
+
 
 1;

@@ -26,14 +26,21 @@ use EBox::Gettext;
 
 sub new # (cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new(@_);
-	$self->{domain} = 'ebox-network';
-	$self->{redirect} = "FirstTime/Index";
-	bless($self, $class);
-	return $self;
+  my $class = shift;
+  my $self = $class->SUPER::new(@_);
+  $self->{domain} = 'ebox-network';
+  
+  bless($self, $class);
+  return $self;
 }
 
+
+sub _process
+{
+  my $self = shift;
+  $self->{redirect} = "FirstTime/Index";
+  $self->setGateway();
+}
 
 
 1;

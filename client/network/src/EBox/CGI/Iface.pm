@@ -36,65 +36,78 @@ sub new # (cgi=?)
 sub _process
 {
 	my $self = shift;
-	my $net = EBox::Global->modInstance('network');
-	
-	my $force = undef;
-
-	$self->_requireParam("method", __("method"));
-	$self->_requireParam("ifname", __("network interface"));
 
 	$self->{errorchain} = "Network/Ifaces";
 
+	$self->_requireParam("ifname", __("network interface"));
 	my $iface = $self->param("ifname");
-	my $alias = $self->param("ifalias");
-	my $method = $self->param("method");
-	my $address  = "";
-	my $netmask  = "";
-	my $external = undef;
-	if (defined($self->param('external'))) {
-		$external = 1;
-	}
-
 	$self->{redirect} = "Network/Ifaces?iface=$iface";
 
-	if (defined($self->param("cancel"))) {
-		return;
-	} elsif (defined($self->param("force"))) {
-		$force = 1;
-	}
-
-	$self->keepParam('iface');
-	$self->cgi()->param(-name=>'iface', -value=>$iface);
-
-	try {
-		if (defined($alias)) {
-			$net->setIfaceAlias($iface,$alias);
-		}
-		if ($method eq 'static') {
-			$self->_requireParam("if_address", __("ip address"));
-			$self->_requireParam("if_netmask", __("netmask"));
-			$address = $self->param("if_address");
-			$netmask = $self->param("if_netmask");
-			$net->setIfaceStatic($iface, $address, $netmask, 
-					$external, $force);
-		} elsif ($method eq 'dhcp') {
-			$net->setIfaceDHCP($iface, $external, $force);
-		} elsif ($method eq 'trunk') {
-			$net->setIfaceTrunk($iface, $force);
-		} elsif ($method eq 'notset') {
-			$net->unsetIface($iface, $force);
-		}
-	} catch EBox::Exceptions::DataInUse with {
-		$self->{template} = 'network/confirm.mas';
-		$self->{redirect} = undef;
-		my @array = ();
-		push(@array, 'iface' => $iface);
-		push(@array, 'method' => $method);
-		push(@array, 'address' => $address);
-		push(@array, 'netmask' => $netmask);
-		push(@array, 'external' => $external);
-		$self->{params} = \@array;
-	};
+	$self->setIface();
 }
+
+
+sub setIface
+  {
+    my ($self) = @_;
+
+    my $net = EBox::Global->modInstance('network');
+	
+    my $force = undef;
+
+    $self->_requireParam("method", __("method"));
+    $self->_requireParam("ifname", __("network interface"));
+
+    my $iface = $self->param("ifname");
+    my $alias = $self->param("ifalias");
+    my $method = $self->param("method");
+    my $address  = "";
+    my $netmask  = "";
+    my $external = undef;
+    if (defined($self->param('external'))) {
+      $external = 1;
+    }
+
+
+
+    if (defined($self->param("cancel"))) {
+      return;
+    } elsif (defined($self->param("force"))) {
+      $force = 1;
+    }
+
+    $self->keepParam('iface');
+    $self->cgi()->param(-name=>'iface', -value=>$iface);
+
+    try {
+      if (defined($alias)) {
+	$net->setIfaceAlias($iface,$alias);
+      }
+      if ($method eq 'static') {
+	$self->_requireParam("if_address", __("ip address"));
+	$self->_requireParam("if_netmask", __("netmask"));
+	$address = $self->param("if_address");
+	$netmask = $self->param("if_netmask");
+	$net->setIfaceStatic($iface, $address, $netmask, 
+			     $external, $force);
+      } elsif ($method eq 'dhcp') {
+	$net->setIfaceDHCP($iface, $external, $force);
+      } elsif ($method eq 'trunk') {
+	$net->setIfaceTrunk($iface, $force);
+      } elsif ($method eq 'notset') {
+	$net->unsetIface($iface, $force);
+      }
+    } catch EBox::Exceptions::DataInUse with {
+      $self->{template} = 'network/confirm.mas';
+      $self->{redirect} = undef;
+      my @array = ();
+      push(@array, 'iface' => $iface);
+      push(@array, 'method' => $method);
+      push(@array, 'address' => $address);
+      push(@array, 'netmask' => $netmask);
+      push(@array, 'external' => $external);
+      $self->{params} = \@array;
+    };
+  }
 
 1;
