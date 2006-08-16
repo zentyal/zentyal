@@ -3,12 +3,14 @@
 <gconfschemafile>
 	<schemalist>
 		<schema>
-			<key>/schemas/ebox/firsttime</key>
-			<applyto>/ebox/firsttime</applyto>
+			<key>/schemas/ebox/firsttime/todo</key>
+			<applyto>/ebox/firsttime/todo</applyto>
 			<owner>ebox</owner>
 			<type>bool</type>
 			<default>true</default>
-			<locale name="C"/>
+			<locale name="C">
+				<short>There are first time actions left?</short>
+                        </locale>
 		</schema>
 	</schemalist>
 </gconfschemafile>
