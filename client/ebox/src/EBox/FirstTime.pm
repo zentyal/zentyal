@@ -4,7 +4,6 @@ use strict;
 use warnings;
 use Gnome2::GConf;
 use EBox::Auth;
-use EBox::Global;
 use EBox::Gettext;
 
 
@@ -19,10 +18,6 @@ sub removeFirstTimeMark
 {
     my $client = Gnome2::GConf::Client->get_default;
     $client->set_bool('/ebox/firsttime/todo', 0);
-
-    # commit changes...
-    my $global = EBox::Global::getInstance();
-    $global->restartAllMdoules();
 }
 
 
