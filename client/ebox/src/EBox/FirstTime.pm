@@ -8,10 +8,6 @@ use EBox::Gettext;
 
 
 
-my @firstTimeTasks = (
-	      
-	      { completedCheck => \&EBox::Auth::defaultPasswdChanged, url => '/ebox/FirstTime/Network', desc => __('Configure network')   },
-	    );
 
 sub isFirstTime
 {
