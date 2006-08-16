@@ -13,46 +13,27 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::Network::Nameservers;
+package EBox::CGI::Network::FirstTime::Gateway;
 
 use strict;
 use warnings;
 
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::Network::Gateway';
 
-use EBox::Gettext;
+
 use EBox::Global;
+use EBox::Gettext;
 
 sub new # (cgi=?)
 {
 	my $class = shift;
 	my $self = $class->SUPER::new(@_);
 	$self->{domain} = 'ebox-network';
-	$self->setRedirect();
+	$self->{redirect} = "FirstTime/Index";
 	bless($self, $class);
 	return $self;
 }
 
-sub _process
-{
-	my $self = shift;
-	my $net = EBox::Global->modInstance('network');
-
-	my $dns1 = $self->param("dnsone");
-	my $dns2 = $self->param("dnstwo");
-
-	$dns1 =~ s/^\s+|\s+$//g;
-	$dns2 =~ s/^\s+|\s+$//g;
-
-	$net->setNameservers($dns1, $dns2);
-}
-
-
-sub setRedirect
-{
-  my ($self) = @_;
-  $self->{redirect} = "Network/DNS";
-}
 
 
 1;

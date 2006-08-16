@@ -57,6 +57,8 @@ AC_CONF_EBOX($enable_runtime_tests)
 AM_PO_SUBDIRS
 
 AC_CONFIG_FILES([
+src/EBox/CGI/FirstTime/Makefile
+src/EBox/Network/Makefile
 src/Makefile
 src/EBox/Makefile
 src/EBox/CGI/Makefile

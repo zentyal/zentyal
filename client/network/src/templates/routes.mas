@@ -2,7 +2,8 @@
 -->
 <%args>
 	$gateway
-	@routes
+	@routes     => ()
+	$showRoutes => 1
 </%args>
 <%init>
 use EBox::Gettext;
@@ -11,7 +12,9 @@ use EBox::Gettext;
 <% __('All routers you enter here must be reachable through one of the network interfaces currently configured.') %>
 	<br/>
 	<br/>
-<% __('Having network interfaces configured via DHCP may cause this settings, mostly the default gateway, to be overriden.') %>
+<% $showRoutes ?  __('Having network interfaces configured via DHCP
+may cause this settings, mostly the default gateway, to be
+overriden.') :  __('Having network interfaces configured via DHCP may cause the default gateway to be overriden.') %>
 </div>
 	<form action='Gateway' method='POST'>
 <h3><% __('Default gateway') %></h3>
@@ -19,6 +22,13 @@ use EBox::Gettext;
 				   alt='Default Gateway' value="<% $gateway %>" />
 			<input class='inputButton' type='submit' name='accept' value="<% __("Apply") %>" />
 	</form>
+% if ($showRoutes) {
+<& .routesForm, routes => \@routes &>
+%}
+<%def .routesForm>
+<%args>
+@routes
+</%args>
 	<h3><% __('Static routes') %></h3>
 	<table class='dataTable' cellspacing='0'>
 	<thead>
@@ -80,4 +90,5 @@ use EBox::Gettext;
 		</form>
 	</tr>
 %	}
-	</table>
+ </table>
+</%def>

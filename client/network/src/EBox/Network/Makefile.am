@@ -1,9 +1,8 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = CGI Network
 
-perldir = @PERLPATH@/EBox
+perldir = @PERLPATH@/EBox/Network
 
-nobase_perl_DATA = Network.pm NetworkObserver.pm
+nobase_perl_DATA = FirstTime.pm
 
 DISTCLEANFILES = 
 

@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 schemadir   = @GCONF_SCHEMA_FILE_DIR@
-schema_DATA = network.schemas
+schema_DATA = network.schemas firsttime.schemas
 
 if GCONF_SCHEMAS_INSTALL
 install-data-local:
