@@ -20,6 +20,8 @@ use warnings;
 
 use base 'EBox::CGI::Network::Nameservers';
 
+use EBox::Gettext;
+
 sub new # (cgi=?)
 {
 	my $class = shift;
@@ -35,8 +37,12 @@ sub new # (cgi=?)
 sub _process
 {
   my $self = shift;
-  $self->{redirect} = "FirstTime/Index";
+
+
   $self->setNameServers();
+
+  my $msg = __('DNS configured');
+  $self->{redirect} = "FirstTime/Index?msg=$msg";
 }
 
 

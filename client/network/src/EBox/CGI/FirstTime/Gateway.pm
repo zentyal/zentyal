@@ -38,7 +38,8 @@ sub new # (cgi=?)
 sub _process
 {
   my $self = shift;
-  $self->{redirect} = "FirstTime/Index";
+  my $msg = __('Gateway configured');
+  $self->{redirect} = "FirstTime/Index?msg=$msg";
   $self->setGateway();
 }
 

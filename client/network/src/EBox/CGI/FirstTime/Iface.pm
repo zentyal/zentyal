@@ -37,10 +37,13 @@ sub _process
 {
     my $self = shift;
 
-    $self->{redirect} = "FirstTime/Index";
+
     $self->{errorchain} = "Network/FirstTime/Ifaces";
 	
     $self->setIface();
+
+    my $msg = __('Network interface configured');
+    $self->{redirect} = "FirstTime/Index?msg=$msg";
 }
 
 1;
