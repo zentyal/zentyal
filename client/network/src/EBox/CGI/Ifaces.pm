@@ -37,48 +37,55 @@ sub new # (error=?, msg=?, cgi=?)
 sub _process
 {
 	my $self = shift;
-	$self->{title} = __('Network interfaces');
-	my $net = EBox::Global->modInstance('network');
-	my $ifname = $self->param('iface');
-	($ifname) or $ifname = '';
+	$self->{params} = $self->masonParameters();
+}
 
-	my $tmpifaces = $net->ifaces();
-	my $iface = {};
-	if ($ifname eq '') {
-		$ifname = @{$tmpifaces}[0];
-	}
 
-	my @array = ();
+sub masonParameters
+{
+  my ($self) = @_;
+
+  my $net = EBox::Global->modInstance('network');
+  my $ifname = $self->param('iface');
+  ($ifname) or $ifname = '';
+
+  my $tmpifaces = $net->ifaces();
+  my $iface = {};
+  if ($ifname eq '') {
+    $ifname = @{$tmpifaces}[0];
+  }
+
+  my @params = ();
 	
-	my @ifaces = ();
+  my @ifaces = ();
 
-	foreach (@{$tmpifaces}) {
-		my $ifinfo = {};
-		$ifinfo->{'name'} = $_;
-		$ifinfo->{'alias'} = $net->ifaceAlias($_);
-		push(@ifaces,$ifinfo);
-		($_ eq $ifname) or next;
-		$iface->{'name'} = $_;
-		$iface->{'alias'} = $net->ifaceAlias($_);
-		$iface->{'method'} = $net->ifaceMethod($_);
-		if ($net->ifaceIsExternal($_)){
-			$iface->{'external'} = "yes";
-		} else {
-			$iface->{'external'} = "no";
-		}
-		if ($net->ifaceMethod($_) eq 'static') {
-			$iface->{'address'} = $net->ifaceAddress($_);
-			$iface->{'netmask'} = $net->ifaceNetmask($_);
-			$iface->{'virtual'} = $net->vifacesConf($_);
-		} elsif ($net->ifaceMethod($_) eq 'trunk') {
-			push(@array, 'vlans' => $net->ifaceVlans($_));
-		}
-	}
+  foreach (@{$tmpifaces}) {
+    my $ifinfo = {};
+    $ifinfo->{'name'} = $_;
+    $ifinfo->{'alias'} = $net->ifaceAlias($_);
+    push(@ifaces,$ifinfo);
+    ($_ eq $ifname) or next;
+    $iface->{'name'} = $_;
+    $iface->{'alias'} = $net->ifaceAlias($_);
+    $iface->{'method'} = $net->ifaceMethod($_);
+    if ($net->ifaceIsExternal($_)) {
+      $iface->{'external'} = "yes";
+    } else {
+      $iface->{'external'} = "no";
+    }
+    if ($net->ifaceMethod($_) eq 'static') {
+      $iface->{'address'} = $net->ifaceAddress($_);
+      $iface->{'netmask'} = $net->ifaceNetmask($_);
+      $iface->{'virtual'} = $net->vifacesConf($_);
+    } elsif ($net->ifaceMethod($_) eq 'trunk') {
+      push(@params, 'vlans' => $net->ifaceVlans($_));
+    }
+  }
 
-	push(@array, 'iface' => $iface);
-	push(@array, 'ifaces' => \@ifaces);
+  push(@params, 'iface' => $iface);
+  push(@params, 'ifaces' => \@ifaces);
 
-	$self->{params} = \@array;
+  return \@params;
 }
 
 1;
