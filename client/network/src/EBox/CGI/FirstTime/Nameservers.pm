@@ -20,12 +20,23 @@ use warnings;
 
 use base 'EBox::CGI::Network::Nameservers';
 
-
-
-sub setRedirect
+sub new # (cgi=?)
 {
-  my ($self) = @_;
+	my $class = shift;
+	my $self = $class->SUPER::new(@_);
+	$self->{domain} = 'ebox-network';
+
+	bless($self, $class);
+	return $self;
+}
+
+
+
+sub _process
+{
+  my $self = shift;
   $self->{redirect} = "FirstTime/Index";
+  $self->setNameServers();
 }
 
 

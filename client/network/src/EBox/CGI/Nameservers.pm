@@ -28,30 +28,38 @@ sub new # (cgi=?)
 	my $class = shift;
 	my $self = $class->SUPER::new(@_);
 	$self->{domain} = 'ebox-network';
-	$self->setRedirect();
+
 	bless($self, $class);
 	return $self;
 }
 
 sub _process
 {
-	my $self = shift;
-	my $net = EBox::Global->modInstance('network');
-
-	my $dns1 = $self->param("dnsone");
-	my $dns2 = $self->param("dnstwo");
-
-	$dns1 =~ s/^\s+|\s+$//g;
-	$dns2 =~ s/^\s+|\s+$//g;
-
-	$net->setNameservers($dns1, $dns2);
+  my $self = shift;
+  $self->{redirect} = "Network/DNS";
+  $self->setNameServers();
 }
 
+
+sub setNameServers
+{
+  my ($self) = @_;
+
+  my $net = EBox::Global->modInstance('network');
+  
+  my $dns1 = $self->param("dnsone");
+  my $dns2 = $self->param("dnstwo");
+  
+  $dns1 =~ s/^\s+|\s+$//g;
+  $dns2 =~ s/^\s+|\s+$//g;
+  
+  $net->setNameservers($dns1, $dns2);
+}
 
 sub setRedirect
 {
   my ($self) = @_;
-  $self->{redirect} = "Network/DNS";
+
 }
 
 

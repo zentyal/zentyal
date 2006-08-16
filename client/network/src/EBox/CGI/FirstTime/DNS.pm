@@ -18,7 +18,7 @@ package EBox::CGI::Network::FirstTime::DNS;
 use strict;
 use warnings;
 
-use base 'EBox::CGI::Network::DNS';
+use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -38,6 +38,8 @@ sub new # (error=?, msg=?, cgi=?)
 sub _process
 {
 	my $self = shift;
+	$self->setMsg(__("You can revisit this apge at Network/DNS in the menu"));
+
 	my $net = EBox::Global->modInstance('network');
 
 	my @array = ();
