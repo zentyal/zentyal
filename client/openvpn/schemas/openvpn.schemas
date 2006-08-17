@@ -72,7 +72,7 @@
 			<applyto>/ebox/modules/openvpn/group</applyto>
 			<owner>ebox</owner>
 			<type>string</type>
-			<default>nobody</default>
+			<default>nogroup</default>
 			<locale name="C">
 				<short>Group to which root will drop privileges after starting openvpn</short>
 			</locale>
