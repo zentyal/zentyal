@@ -459,6 +459,19 @@ sub _process
 }
 
 
+sub setMsg
+{
+    my ($self, $msg) = @_;
+    $self->{msg} = $msg;
+}
+
+
+sub setError
+{
+  my ($self, $error) = @_;
+  $self->{error} = $error;
+}
+
 sub setErrorFromException
 {
     my ($self, $ex) = @_;
@@ -471,6 +484,18 @@ sub setErrorFromException
     }
 }
 
+sub setRedirect
+{
+  my ($self, $redirect) = @_;
+  $self->{redirect} = $redirect;
+}
+
+
+sub setErrorchain
+{
+  my ($self, $errorchain) = @_;
+  $self->{errorchain} = $errorchain;
+}
 
 # XXX maybe it will be good idea cache this in some field of the instance
 sub paramsAsHash
@@ -566,11 +591,6 @@ sub requiredParameters
     return [];
 }
 
-sub setMsg
-{
-    my ($self, $msg) = @_;
-    $self->{msg} = $msg;
-}
 
 
 # default actuate behaviour: do nothing
