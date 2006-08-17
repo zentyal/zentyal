@@ -5,14 +5,6 @@ use strict;
 use warnings;
 
 
-# BEGIN {
-#   use EBox::NetWrappers::TestStub;
-#   EBox::NetWrappers::TestStub::setFakeIfaces( {
-# 					       eth0 => { up => 1, address => { '192.168.0.100' => '255.255.255.0' } },
-# 					       ppp0 => { up => 1, address => { '192.168.45.233' => '255.255.255.0' } },
-# 					       eth1 => {up  => 1, address => { '192.168.0.233' => '255.255.255.0' }},
-# 					    } );
-# }
 
 use Test::More;
 use Test::Exception;
@@ -177,6 +169,7 @@ sub usesPortTest : Test(16)
 sub fakeInterfaces
 {
   # set fake interfaces
+  EBox::NetWrappers::TestStub::fake();
   EBox::NetWrappers::TestStub::setFakeIfaces( {
 					       eth0 => { up => 1, address => { '192.168.0.100' => '255.255.255.0' } },
 					       ppp0 => { up => 1, address => { '192.168.45.233' => '255.255.255.0' } },
