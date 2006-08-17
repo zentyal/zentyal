@@ -38,7 +38,7 @@ sub setupEBoxConf : Test(setup)
 		  '/ebox/modules/openvpn/active'  => 1,
 		  '/ebox/modules/openvpn/openvpn_bin'  => '/usr/sbin/openvpn',
 		  '/ebox/modules/openvpn/user'  => 'nobody',
-		  '/ebox/modules/openvpn/group' => 'nobody',
+		  '/ebox/modules/openvpn/group' => 'nogroup',  # in non-Debian systems this will be posssibly 'nobody'
 		  '/ebox/modules/openvpn/conf_dir' => $confDir,
 		  '/ebox/modules/openvpn/dh' => "$confDir/dh1024.pem",
 
@@ -221,27 +221,6 @@ sub _regenConfigTest
 
 
 
-sub _regenConfigTest
-{
-    my %args = @_;
-    my @serversNames = @{ $args{serversNames} };
-
-   my $openVPN = EBox::Global->modInstance('openvpn');
-    defined $openVPN or die "Can not get OPenVPN instance";
-
-
-    my @serviceSequence =  (0, 1, 1, 0, 0);
-    foreach my $service (@serviceSequence) {
-	$openVPN->setService($service);
-	lives_ok { $openVPN->_regenConfig() } "Regenerating service configuration";
-	sleep 1; # to avoid false results
-
-	_checkService($openVPN, $service);
-	foreach my $name (@serversNames) {
-	    _checkDaemon($openVPN, $service, $name);
-	}
-    }
-}
 
 
 
