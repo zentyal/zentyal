@@ -106,6 +106,26 @@ sub setProtoTest : Test(6)
 }
 
 
+sub setProtoTestForMultipleServers : Test(1)
+{
+  my ($self) = @_;
+
+    my $samePort     =  20000;
+    my $distinctPort =  30000;
+    my $sameProto = 'tcp';
+    my $distinctProto = 'udp';
+
+    my $server = $self->_newServer('macaco');
+    $server->setProto($distinctProto);
+    $server->setPort($samePort);
+
+    my $server2  = $self->_newServer('gibon');
+    $server2->setProto($sameProto);
+    $server2->setPort($samePort);
+
+    dies_ok { $server->setProto($sameProto)   } 'Checking that setting protocol is not permitted when we have the same pair of protocol and port in another server';
+}
+
 sub setPortTestForSingleServer : Test(19)
 {
     my ($self) = @_;

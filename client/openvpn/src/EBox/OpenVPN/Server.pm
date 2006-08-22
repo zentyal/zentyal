@@ -97,9 +97,12 @@ sub name
 sub setProto
 {
     my ($self, $proto) = @_;
+
     if ($proto ne 'tcp'  and ($proto ne 'udp') ) {
 	throw EBox::Exceptions::InvalidData(data => "server's protocol", value => $proto, advice => __("The protocol only may be tcp or udp.")  );
     }
+
+    $self->_checkPortIsNotDuplicate($self->port(), $proto);
 
     $self->_setConfString('proto', $proto);
 }
@@ -120,7 +123,7 @@ sub setPort
       throw EBox::Exceptions::InvalidData(data => "server's port", value => $port, advice => __("The port must be a non-privileged port")  );
     }
 
-  $self->_checkPortIsNotDuplicate($port);
+  $self->_checkPortIsNotDuplicate($port, $self->proto());
 
   $self->_setConfInt('port', $port);
 }
@@ -128,10 +131,9 @@ sub setPort
 
 sub _checkPortIsNotDuplicate
 {
-    my ($self, $port) = @_;
+    my ($self, $port, $proto) = @_;
 
     my $ownName = $self->name();
-    my $proto   = $self->proto;
     defined $proto or throw EBox::Exceptions::Internal 'Protocol must be set before port';
     my @serversNames = grep { $_ ne $ownName } $self->_openvpnModule->serversNames();
 
