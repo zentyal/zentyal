@@ -3,6 +3,7 @@
 	%real_ifaces
 	$dnsone => ""
 	$dnstwo => ""
+	@static_routes => ()
 </%args>
 ddns-update-style none;
 
@@ -17,8 +18,22 @@ option domain-name-servers <% $dnsone %>\
 
 default-lease-time 1800;
 max-lease-time 7200;
+<& .staticRoutes, routes => \@staticRoutes &>
 
 %	foreach my $iface (keys(%real_ifaces)) {
 <& dhcp/shared-network.mas, iface => $iface, ifaces => \%ifaces, 
 	vifaces => $real_ifaces{$iface} &>
 %	}
+
+
+<%def .staticRoutes>
+<%args>
+@routes 
+</%args>
+%  return if @routes == 0;
+option static-routes
+% while (my $r = pop @routes ) {
+    <% $r->{dest} %> <% r->{$gw} %><% @routes > 0 ? ',' : ';'; %>
+% }
+</%init>
+</%def>

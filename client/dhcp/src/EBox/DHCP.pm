@@ -170,13 +170,14 @@ sub setDHCPConf
 
 	}
 
-	my @array = ();
-	push(@array, 'dnsone' => $net->nameserverOne);
-	push(@array, 'dnstwo' => $net->nameserverTwo);
-	push(@array, 'ifaces' => \%iflist);
-	push(@array, 'real_ifaces' => \%realifs);
+	my @params = ();
+	push @params, ('dnsone' => $net->nameserverOne);
+	push @params, ('dnstwo' => $net->nameserverTwo);
+	push @params, ('ifaces' => \%iflist);
+	push @params, ('real_ifaces' => \%realifs);
+	push @params, ('static_routes' => $self->staticRoutes());
 
-	$self->writeConfFile(DHCPCONFFILE, "dhcp/dhcpd.conf.mas", \@array);
+	$self->writeConfFile(DHCPCONFFILE, "dhcp/dhcpd.conf.mas", \@params);
 }
 
 #   Function: initRange
@@ -436,6 +437,28 @@ sub nameserver # (iface,number)
 
 	$self->get_string("$iface/nameserver$number");
 }
+
+#   Function: staticRoutes
+#
+#	Gets the static routes. It polls the ebox modules wich implements EBox::DHCP::StaticRouteProvider
+#   Returns:
+#
+#	array ref - contating the static toutes in hash refereces. Each hash holds
+#	the keys 'dest' and 'gw'
+#	
+sub staticRoutes
+{
+  my ($self) = @_;
+  my @staticRoutes;
+
+  my @modules = @{ EBox::Global->modInstancesOfType('EBox::DHCP::StaticRouteProvider') };
+  foreach  my $mod (@modules) {
+    push @staticRoutes, $mod->staticRoutes();
+  }
+
+  return \@staticRoutes;
+}
+
 
 #   Function: addRange
 #
@@ -953,6 +976,8 @@ sub rootCommands
 
 	return @array;
 }
+
+
 
 #   Function: menu 
 #
