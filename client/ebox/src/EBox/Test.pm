@@ -40,7 +40,7 @@ sub checkModuleInstantiation
 
     eval  "use  $modulePackage";
     if ($@) {
-	$Test->ok(0, "$modulePackage failed to load");
+	$Test->ok(0, "$modulePackage failed to load: $@");
 	return;
     }
  
