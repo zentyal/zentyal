@@ -19,6 +19,7 @@ sub _testStubsForFrameworkModules :  Test(startup) {
 
 sub cleanTestDir  : Test(startup) {
     my $testDir = testDir();
+    return if !defined $testDir;
 
     system "rm -rf $testDir"; 
     ($? == 0) or die "Can not clean test dir $testDir";
