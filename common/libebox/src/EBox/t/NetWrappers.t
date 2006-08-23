@@ -3,7 +3,7 @@ package main;
 use strict;
 use warnings;
 
-use Test::More qw(no_plan);
+use Test::More tests => 23;
 use Test::MockObject;
 use Test::Differences;
 use Test::Exception;
@@ -12,21 +12,12 @@ use lib '../..';
 
 use_ok('EBox::NetWrappers');
 iface_addresses_and_friends_test();
+list_local_addresses_and_friends_tests();
 netmaskConversionsTests();
 
-sub iface_addresses_and_friends_test
+sub fakeIfaceShowAddress
 {
-  my %ifaceData = (
-		eth0   => {   
-			   _ifaceShowAddressOutput =>  ['192.168.45.4/24'],
-			   addresses               =>  ['192.168.45.4'],
-			   addressesWithNetmask    =>  {'192.168.45.4' => '255.255.255.0'}			  },
-		vmnet4   => {   
-			     _ifaceShowAddressOutput =>  ['45.34.12.12/8', '129.45.34.12/16'],
-			     addresses               =>   ['45.34.12.12', '129.45.34.12'],
-			     addressesWithNetmask    =>   {'45.34.12.12' => '255.0.0.0', '129.45.34.12' => '255.255.0.0'},
-			    },
-		  );
+  my %ifaceData = @_;
 
 
 
@@ -42,6 +33,48 @@ sub iface_addresses_and_friends_test
 		     }
 		    );
 
+}
+
+
+sub fakeIfaceIsUp
+{
+  my @ifaces = @_;
+
+  Test::MockObject->fake_module('EBox::NetWrappers', 
+		     iface_is_up => sub {
+		       my ($if) = @_;
+		        return scalar grep { $_ eq $if } @ifaces;
+		       }
+		    );
+}
+
+sub fakeListIfaces
+{
+  my @ifaces = @_;
+
+  Test::MockObject->fake_module('EBox::NetWrappers', 
+		     list_ifaces => sub {
+		          return @ifaces;
+		       }
+		    );
+}
+
+sub iface_addresses_and_friends_test
+{
+  my %ifaceData = (
+		eth0   => {   
+			   _ifaceShowAddressOutput =>  ['192.168.45.4/24'],
+			   addresses               =>  ['192.168.45.4'],
+			   addressesWithNetmask    =>  {'192.168.45.4' => '255.255.255.0'}			  },
+		vmnet4   => {   
+			     _ifaceShowAddressOutput =>  ['45.34.12.12/8', '129.45.34.12/16'],
+			     addresses               =>   ['45.34.12.12', '129.45.34.12'],
+			     addressesWithNetmask    =>   {'45.34.12.12' => '255.0.0.0', '129.45.34.12' => '255.255.0.0'},
+			    },
+		  );
+
+  fakeIfaceShowAddress(%ifaceData);
+
   dies_ok { EBox::NetWrappers::iface_addresses('inexistent iface')  } "iface_addresses called with a inexistent network interface";
   foreach my $iface (keys %ifaceData) {
     my @result = EBox::NetWrappers::iface_addresses($iface);
@@ -54,6 +87,39 @@ sub iface_addresses_and_friends_test
     eq_or_diff $result, $ifaceData{$iface}->{addressesWithNetmask}, "Checking result of iface_addresses_with_netmask call in interface $iface";
   }
 
+}
+
+
+sub list_local_addresses_and_friends_tests
+{
+  my %ifaceData = (
+		eth0   => {   
+			   _ifaceShowAddressOutput =>  ['192.168.45.4/24'],
+			   addresses               =>  ['192.168.45.4'],
+			   addressesWithNetmask    =>  {'192.168.45.4' => '255.255.255.0'}			  },
+		vmnet4   => {   
+			     _ifaceShowAddressOutput =>  ['45.34.12.12/8', '129.45.34.12/16'],
+			     addresses               =>   ['45.34.12.12', '129.45.34.12'],
+			     addressesWithNetmask    =>   {'45.34.12.12' => '255.0.0.0', '129.45.34.12' => '255.255.0.0'},
+			    },
+		  );
+
+  fakeIfaceShowAddress(%ifaceData);
+  fakeIfaceIsUp(keys %ifaceData);
+  fakeListIfaces(keys %ifaceData);
+
+  my @localAddressesExpected;
+  push @localAddressesExpected, @{ $_->{addresses} } foreach values %ifaceData;
+  my %localAddressesWithMaskExpected;
+  my @addrTmp;
+  push @addrTmp, %{ $_->{addressesWithNetmask} } foreach values %ifaceData;
+  %localAddressesWithMaskExpected = @addrTmp;
+
+  my @localAddresses= EBox::NetWrappers::list_local_addresses();
+  eq_or_diff \@localAddresses, \@localAddressesExpected, 'Checking list_local_addresses';
+
+  my %localAddressesWithMask = EBox::NetWrappers::list_local_addresses_with_netmask();
+  eq_or_diff \%localAddressesWithMask, \%localAddressesWithMaskExpected, 'Checking list_local_addresses_with_netmask';
 }
 
 sub netmaskConversionsTests
