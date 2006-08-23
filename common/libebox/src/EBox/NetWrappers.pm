@@ -21,6 +21,8 @@ use warnings;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Exceptions::DataNotFound;
+use Perl6::Junction qw(any);
+use EBox::Validate;
 
 BEGIN {
 	use Exporter ();
@@ -29,10 +31,10 @@ BEGIN {
 	@ISA = qw(Exporter);
 	@EXPORT = qw();
 	%EXPORT_TAGS  = (all => [qw{    list_ifaces iface_exists iface_is_up 
-					iface_netmask iface_addresses iface_addresses_with_netmask
+					iface_netmask iface_addresses iface_addresses_with_netmask iface_by_address
 					iface_mac_address list_routes
-					list_local_addresses
-					route_is_up
+					list_local_addresses list_local_addresses_with_netmask
+					route_is_up route_to_reach_network local_ip_to_reach_network
 					ip_network ip_broadcast
 					bits_from_mask mask_from_bits
 				} ],
@@ -194,6 +196,33 @@ sub iface_addresses
   return @addrs;
 }
 
+
+#
+#  Method: iface_by_address
+#
+#  Search a iface by his address
+#
+#  Assumption/Limitation: It assumes that we have not repeated addresses
+#
+#  Returns:
+#    
+#     The iface or undef if there are not any iface with this address
+sub iface_by_address
+{
+  my ($addr) = @_;
+
+  foreach my $if (list_ifaces()) {
+    my @addresses = iface_addresses($if);
+    if ( $addr eq any(@addresses)  ) {
+      return $if;
+    }
+  }
+
+  return undef;
+}
+
+
+
 #
 # Method: iface_addresses_with_netmask
 #
@@ -243,7 +272,7 @@ sub _ifaceShowAddress
 
   my @addrs = map {  
     my ($number, $iface, $family,  $ip) =  split /\s+/, $_, 5;
-    return $ip;
+    $ip;
   }  @output;
 	
   return @addrs;
@@ -254,28 +283,122 @@ sub _ifaceShowAddress
 #
 #   	Rertuns the list of current routes
 #
+#  Parameters:
+#     viaGateway - returns  routes that uses a gateway (default: true)
+#     localSource - returns routes that uses a local source (default: false)
+#
 # Returns:
 #
 #      	An array containing hash references. Each hash contains a route 
 #      	and consists of:
 #	
 #	network -  network destination
-#	router  -  router used to reach the above network
+#	router  -  router used to reach the above network if used
+#       source  -  local ip used to reach the above network if used
 #
 sub list_routes
 {
-        my @array = ();
-        my @routes = `/bin/ip route show 2>/dev/null | grep via`;
-        chomp(@routes);
-        foreach (@routes) {
-                my ($net, $via, $router) = split(/ /,$_);
-                my $elmnt;
-                $elmnt->{router} = $router;
-                $elmnt->{network} = $net;
-                push(@array, $elmnt);
-        }
-        return @array;
+  my ($viaGateway, $localSource) = @_;
+  defined $viaGateway  or $viaGateway = 1;
+  defined $localSource or $localSource = 0;
+
+  my @routes = ();
+  my @ipOutput = `/bin/ip route show 2>/dev/null`;
+  chomp(@ipOutput);
+
+  if ($viaGateway) {
+    my  @gwRoutes = grep { $_ =~ m{via}  } @ipOutput; # select routes with gateway
+    foreach (@gwRoutes) {
+      my ($net, $via, $router) = split(/ /,$_);
+      my $route = {network => $net, router => $router};
+      push(@routes, $route);
+  }
+
+  }
+
+  # get no-gateway routes if instructed to do 
+  if ($localSource) {
+    my @srcRoutes = grep { $_ =~ m{src}  } @ipOutput; 
+    foreach my $r (@srcRoutes) {
+      $r =~ m/^(.*?)\sdev.*?src\s(.*?)$/;
+      my $net = $1;
+      my $source = $2;
+      my $route = { network => $net, source => $source };
+      push(@routes, $route);;
+  } 
+  }
+
+
+  return @routes;
 }
+
+
+# Method: route_to_reach_network
+# 
+#  Returns the route to reach network (it may be the default route)
+#
+# Parameters:
+#         network - network destintation
+#
+# Bugs:
+#    it returns only the first candidate found besides default route
+#
+# Returns:
+#      - route  to reach the network (see list_routes for format). Undef if there is not way to reach the network
+sub route_to_reach_network
+{
+  my ($network) = @_;
+
+  my $defaultRoute = undef;
+
+  foreach  my $route (list_routes(1, 1)) {
+    if ($route->{network} eq $network) {
+      return $route;
+    }
+    elsif ($route->{network} eq 'default') {
+      $defaultRoute = $route;
+    }
+  } 
+
+  return $defaultRoute;
+}
+
+
+# Method: local_ip_to_reach_network
+# 
+#  Searchs for the local ip used to communicate with the given network
+#
+# Parameters:
+#         network - network destintation
+#
+# Bugs:
+#    it depends in gateway_to_network
+#
+# Returns:
+#      - the local ip. Undef if there is not way to reach the network
+sub local_ip_to_reach_network
+{
+  my ($network) = @_;
+
+  my $route = route_to_reach_network($network);
+  if (defined $route->{source}) {  # network reachable directly by local address
+    return $route->{source};
+  }
+
+  my $gw = $route->{router};
+  my %localAddresses =   list_local_addresses_with_netmask();
+  while (my ($localAddr, $netmask) = each %localAddresses) {
+    my $localNetwork = ip_network($localAddr, $netmask);
+    if (EBox::Validate::isIPInNetwork($localNetwork, $netmask, $gw)) {
+      return $localAddr; 
+    }
+  }
+  
+  return undef;
+}
+
+
+
 
 #
 # Method: route_is_up 
@@ -403,5 +526,16 @@ sub list_local_addresses
     return @localAddresses;
 }
 
+#
+# Method: list_local_addresses_with_netmask
+#
+# 	Returns a flat list with pairs of all local ipv4 addresses 
+#       and their netmask 
+sub list_local_addresses_with_netmask
+{
+    my @ifaces = list_ifaces();
+    my @localAddresses = map { iface_is_up($_) ?  %{ iface_addresses_with_netmask($_) } : () } @ifaces;
+    return @localAddresses;
+}
 
 1;
