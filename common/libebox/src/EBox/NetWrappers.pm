@@ -536,7 +536,7 @@ sub to_network_with_mask
 
 
 #
-# Method: to_network_with_mask
+# Method: to_network_without_mask
 #
 # 	Given a  network with embeded mask (form x.x.x.x/n) it returns the network and netmask
 #
