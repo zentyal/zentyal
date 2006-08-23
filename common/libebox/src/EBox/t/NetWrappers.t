@@ -3,7 +3,7 @@ package main;
 use strict;
 use warnings;
 
-use Test::More tests => 38;
+use Test::More tests => 50;
 use Test::MockObject;
 use Test::Differences;
 use Test::Exception;
@@ -16,9 +16,11 @@ diag "WARNING: this tests assume that he following functions are correct: @subsA
 iface_addresses_and_friends_test();
 list_local_addresses_and_friends_tests();
 netmaskConversionsTests();
+networkConversionTests();
 iface_by_address_test();
 route_to_reach_network_test();
 local_ip_to_reach_network_test();
+
 
 sub fakeIfaceShowAddress
 {
@@ -155,6 +157,31 @@ sub netmaskConversionsTests
   while (my ($numericMask, $dottedMask) = each %masks) {
     is EBox::NetWrappers::mask_from_bits($numericMask), $dottedMask, "Checking result of mask_from_bits($numericMask)";
     is EBox::NetWrappers::bits_from_mask($dottedMask), $numericMask, "Checking result of bits_from_mask($dottedMask)";
+  }
+
+}
+
+
+sub networkConversionTests
+{
+  my @cases = (
+	       {with => '192.168.45.0/24', without => '192.168.45.0', netmask => '255.255.255.0'},
+	       {with => '192.168.45.0/30', without => '192.168.45.0', netmask => '255.255.255.252'},
+	       {with => '145.68.0.0/16', without => '145.68.0.0', netmask => '255.255.0.0'},
+	       {with => '10.0.0.0/8', without => '10.0.0.0', netmask => '255.0.0.0'}
+	      );
+
+  foreach my $case (@cases) {
+    my $without = $case->{without};
+    my $with    = $case->{with};
+    my $netmask = $case->{netmask};
+
+    my $newWith = EBox::NetWrappers::to_network_with_mask($without, $netmask);
+    is $newWith, $with, "Checking conversion of net $without netmask $netmask to 'with netask' format";
+
+    my ($newWithout, $newNetmask) = EBox::NetWrappers::to_network_without_mask($with);
+    is $newWithout, $without, "Checking network part of conversion from 'with netmask' format to 'without netmask' format";
+    is $newNetmask, $netmask, "Checking netmask part of conversion from 'with netmask' format to 'without netmask' format";
   }
 
 }

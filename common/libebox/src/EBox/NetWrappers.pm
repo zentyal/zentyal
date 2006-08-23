@@ -36,7 +36,7 @@ BEGIN {
 					list_local_addresses list_local_addresses_with_netmask
 					route_is_up route_to_reach_network local_ip_to_reach_network
 					ip_network ip_broadcast
-					bits_from_mask mask_from_bits
+					bits_from_mask mask_from_bits to_network_with_mask to_network_without_mask
 				} ],
 			);
 	@EXPORT_OK = qw();
@@ -512,6 +512,50 @@ sub mask_from_bits # (bits)
 	my $mask_binary = "1" x $bits . "0" x (32 - $bits);
 	return join(".",unpack("CCCC", pack("B*",$mask_binary)));
 }
+
+#
+# Method: to_network_with_mask
+#
+# 	Given a network and a netmask rerurns the network with embeded mask (form x.x.x.x/n)
+#
+# Parameters:
+#
+#       network - network address
+#	netmask - network mask 
+#
+# Returns:
+#
+#      The network in format  x.x.x.x/m
+#
+sub to_network_with_mask
+{
+  my ($network, $netmask) = @_;
+  my $bits =bits_from_mask($netmask);
+  return "$network/$bits";
+}
+
+
+#
+# Method: to_network_with_mask
+#
+# 	Given a  network with embeded mask (form x.x.x.x/n) it returns the network and netmask
+#
+# Parameters:
+#
+#       networkWithMask - network address in format  x.x.x.x/m
+#
+# Returns:
+#
+#      (network, netmask)
+#
+sub to_network_without_mask
+{
+  my ($networkWithMask) = @_;
+  my ($network, $bits) = split '/', $networkWithMask, 2;
+  my $netmask = mask_from_bits($bits);
+  return ($network, $netmask);
+}
+
 
 #
 # Method: list_local_addresses
