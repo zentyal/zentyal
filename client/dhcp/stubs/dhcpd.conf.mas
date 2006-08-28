@@ -3,8 +3,12 @@
 	%real_ifaces
 	$dnsone => ""
 	$dnstwo => ""
-	@static_routes => ()
 </%args>
+
+# extra options
+# RFC3442 routes
+option rfc3442-classless-static-routes code 121 = array of integer 8;
+
 ddns-update-style none;
 
 %	if(length($dnsone) != 0) {
@@ -24,16 +28,3 @@ max-lease-time 7200;
 <& dhcp/shared-network.mas, iface => $iface, ifaces => \%ifaces, 
 	vifaces => $real_ifaces{$iface} &>
 %	}
-
-
-<%def .staticRoutes>
-<%args>
-@routes 
-</%args>
-%  return if @routes == 0;
-option static-routes
-% while (my $r = pop @routes ) {
-    <% $r->{dest} %> <% r->{$gw} %><% @routes > 0 ? ',' : ';'; %>
-% }
-</%init>
-</%def>

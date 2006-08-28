@@ -1,0 +1,69 @@
+<%args>
+@routes 
+$defaultGw = undef
+</%args>
+<%init>
+use EBox::NetWrappers;
+</%init>
+<& .msStaticRoutes, routes => \@routes &>
+<& .rfc3442StaticRoutes, routes => \@routes, defaultGw => $defaultGw &>
+
+
+<%def .msStaticRoutes>
+<%args>
+@routes 
+</%args>
+option ms-classless-static-routes
+% while (my $r = pop @routes) {
+   <& .route, destination => $r->{destination},   gateway => $r->{gateway}, netmask => $r->{netmask} &><% @routes > 0 ? ',' : ';'  %>
+% }
+</%def>
+
+<%def .rfc3442StaticRoutes>
+<%args>
+@routes 
+</%args>
+</%def>
+option rfc3442-classless-static-routes
+% foreach my $r (@routes) {
+   <& .route, destination => $r->{destination}, gateway => $r->{gateway}, netmask => $r->{netmask} &>,
+% }
+   <& .route, destination => 'default', gateway => $defaultGw &>;  
+<%def .route>
+<%args>
+$destination
+$gateway
+$netmask = undef
+</%args>
+<%init>
+my @route;
+
+#  netmask portion
+if ($destination ne 'default')  {
+   push @route, EBox::NetWrappers::bits_from_mask( $netmask );
+}
+
+# destination portion
+if ($destination eq 'default')  {
+    push @route, 0;
+}
+else {
+    my @destPortions = split '.', $destination, 4;
+    foreach my $p (@destPortions) {
+         last if $p == 0;
+	 push @route, $p;
+    }
+}
+
+# gateway portion
+my @gwPortions = split '.', $gateway, 4;
+push @route, @gwPortions;
+
+# add commas
+@route = map { $_ .= ','  } @route;
+# remove last elemment comma
+$route[-1] =~ s/,$//;
+
+</%init>
+<% "@route" %>
+</%def>

@@ -136,56 +136,104 @@ sub setDHCPConf
 	my $self = shift;
 
 	my $net = EBox::Global->modInstance('network');
-	my $ifaces = $net->allIfaces();
-	my %iflist;
-	foreach (@{$ifaces}) {
-		if($net->ifaceMethod($_) eq 'static') {
-			my $address = $net->ifaceAddress($_);
-			my $netmask = $net->ifaceNetmask($_);
-			my $network = ip_network($address, $netmask);
-
-			$iflist{$_}->{'net'} = $network;
-			$iflist{$_}->{'address'} = $address;
-			$iflist{$_}->{'netmask'} = $netmask;
-			$iflist{$_}->{'ranges'} = $self->ranges($_);
-			$iflist{$_}->{'fixed'} = $self->fixedAddresses($_);
-			my $gateway = $self->defaultGateway($_);
-			if(defined($gateway) and $gateway ne ""){
-				$iflist{$_}->{'gateway'} = $gateway;
-			}else{
-				$iflist{$_}->{'gateway'} = $address;
-			}
-			my $search = $self->searchDomain($_);
-			$iflist{$_}->{'search'} = $search;
-			my $nameserver1 = $self->nameserver($_,1);
-			if(defined($nameserver1) and $nameserver1 ne ""){
-				$iflist{$_}->{'nameserver1'} = $nameserver1;
-			}
-			my $nameserver2 = $self->nameserver($_,2);
-			if(defined($nameserver2) and $nameserver2 ne ""){
-				$iflist{$_}->{'nameserver2'} = $nameserver2;
-			}
-		}
-	}
-
-	my $real_ifaces = $net->ifaces();
-	my %realifs;
-	foreach (@{$real_ifaces}) {
-		if($net->ifaceMethod($_) eq 'static') {
-			$realifs{$_} = $net->vifaceNames($_);
-		}
-
-	}
+	my $staticRoutes_r =  $self->staticRoutes();
 
 	my @params = ();
 	push @params, ('dnsone' => $net->nameserverOne);
 	push @params, ('dnstwo' => $net->nameserverTwo);
-	push @params, ('ifaces' => \%iflist);
-	push @params, ('real_ifaces' => \%realifs);
-	push @params, ('static_routes' => $self->staticRoutes());
+ 	push @params, ('ifaces' => $self->ifacesInfo($staticRoutes_r));
+ 	push @params, ('real_ifaces' => $self->realIfaces());
+	push @params, ('static_routes' => $staticRoutes_r);
 
 	$self->writeConfFile(DHCPCONFFILE, "dhcp/dhcpd.conf.mas", \@params);
 }
+
+sub realIfaces
+{
+  my ($self) = @_;
+  my $net = EBox::Global->modInstance('network');
+ 
+  my $real_ifaces = $net->ifaces();
+  my %realifs;
+  foreach (@{$real_ifaces}) {
+    if ($net->ifaceMethod($_) eq 'static') {
+      $realifs{$_} = $net->vifaceNames($_);
+    }
+ 
+  }
+ 
+  return \%realifs;
+}
+ 
+ 
+sub ifacesInfo
+{
+  my ($self, $staticRoutes_r) = @_;
+ 
+  my $net = EBox::Global->modInstance('network');
+  my $ifaces = $net->allIfaces();
+ 
+  my %iflist;
+  foreach (@{$ifaces}) {
+    if ($net->ifaceMethod($_) eq 'static') {
+      my $address = $net->ifaceAddress($_);
+      my $netmask = $net->ifaceNetmask($_);
+      my $network = ip_network($address, $netmask);
+ 
+      $iflist{$_}->{'net'} = $network;
+      $iflist{$_}->{'address'} = $address;
+      $iflist{$_}->{'netmask'} = $netmask;
+      $iflist{$_}->{'ranges'} = $self->ranges($_);
+      $iflist{$_}->{'fixed'} = $self->fixedAddresses($_);
+      # look if we have static routes for this network
+      $iflist{$)}->{'staticRoutes'} = exists $staticRoutes_r->{$address} ? $staticRoutes_r->{address} : [];
+ 
+      my $gateway = $self->defaultGateway($_);
+      if (defined($gateway) and $gateway ne "") {
+	$iflist{$_}->{'gateway'} = $gateway;
+      } else {
+	$iflist{$_}->{'gateway'} = $address;
+      }
+      my $search = $self->searchDomain($_);
+      $iflist{$_}->{'search'} = $search;
+      my $nameserver1 = $self->nameserver($_,1);
+      if (defined($nameserver1) and $nameserver1 ne "") {
+	$iflist{$_}->{'nameserver1'} = $nameserver1;
+      }
+      my $nameserver2 = $self->nameserver($_,2);
+      if (defined($nameserver2) and $nameserver2 ne "") {
+	$iflist{$_}->{'nameserver2'} = $nameserver2;
+      }
+    }
+  }
+ 
+  return \%iflist;
+}
+ 
+ 
+sub isNetworkManaged
+{
+  my ($self, $network, $netmask ) = @_;
+ 
+  return 0 if !($self->service());
+ 
+  my $net = EBox::Global->modInstance('network');
+  my $ifaces = $net->allIfaces();
+  foreach my $if (@{ $ifaces }) {
+    next if $net->ifaceMethod($if) ne 'static';
+ 
+    my $address = $net->ifaceAddress($_);
+    my $ifNetmask = $net->ifaceNetmask($_);
+    my $ifNetwork = ip_network($address, $netmask);
+ 
+    if (($network eq $ifNetwork) and ($netmask eq $ifNetmask)) {
+      return 1;
+    }
+  }
+ 
+  return 0;
+}
+
 
 #   Function: initRange
 #
