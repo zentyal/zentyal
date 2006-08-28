@@ -803,24 +803,11 @@ sub _configureFirewall {
 sub ifaceMethodChanged # (iface, old_method, new_method)
 {
 	my ($self, $iface, $old_method, $new_method) = @_;
-	($old_method eq 'static') or return 0;
+	return 0 if $old_method ne 'static';
+	return 0 if $new_method eq 'static';
+	return 0 if !$self->service();
 
-	my $nr = @{$self->ranges($iface)};
-	($nr != 0) and return 1;
-
-	my $nf = @{$self->fixedAddresses($iface)};
-	($nf != 0) and return 1;
-
-	my $gateway = $self->defaultGateway($iface);
-	(defined($gateway) and $gateway ne "") and return 1;
-
-	my $nameserver1 = $self->nameserver($iface,1);
-	(defined($nameserver1) and $nameserver1 ne "") and return 1;
-
-	my $nameserver2 = $self->nameserver($iface,2);
-	(defined($nameserver2) and $nameserver2 ne "") and return 1;
-
-	return 0;
+	return 1;
 }
 
 #   Function: vifaceAdded
