@@ -8,6 +8,8 @@
 # extra options
 # RFC3442 routes
 option rfc3442-classless-static-routes code 121 = array of integer 8;
+# MS routes
+option ms-classless-static-routes code 249 = array of integer 8;
 
 ddns-update-style none;
 
@@ -22,9 +24,8 @@ option domain-name-servers <% $dnsone %>\
 
 default-lease-time 1800;
 max-lease-time 7200;
-<& .staticRoutes, routes => \@staticRoutes &>
+
 
 %	foreach my $iface (keys(%real_ifaces)) {
-<& dhcp/shared-network.mas, iface => $iface, ifaces => \%ifaces, 
-	vifaces => $real_ifaces{$iface} &>
+<& dhcp/shared-network.mas, iface => $iface, ifaces => \%ifaces, vifaces => $real_ifaces{$iface} &>
 %	}

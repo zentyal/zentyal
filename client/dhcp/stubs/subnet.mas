@@ -33,7 +33,7 @@
 		}
 %	}
 %       if (@{ $info{'staticRoutes'} } > 0) {
-        <& staticRoutes.mas, routes => $info{'staticRoutes'}, defaultGw	=>  $info{gateway'}   &>
+        <& staticRoutes.mas, routes => $info{'staticRoutes'}, defaultGw	=>  $info{'gateway'}   &>
 %       }
 	}
 %	}

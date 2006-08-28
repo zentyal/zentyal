@@ -104,7 +104,7 @@ sub setService # (enabled)
 
 	if ($active) {
 	  if ($self->nStaticIfaces() == 0) {
-	    throw EBox::Exceptions::External(__("DHCP server can not acitvated because there are not any network interface with a static address. <a href='Network/Ifaces'>Configure one</a> first"));
+	    throw EBox::Exceptions::External(__("DHCP server can not activated because there are not any network interface with a static address. <a href='Network/Ifaces'>Configure one</a> first"));
 	  }
 	}
 
@@ -186,7 +186,7 @@ sub ifacesInfo
       $iflist{$_}->{'ranges'} = $self->ranges($_);
       $iflist{$_}->{'fixed'} = $self->fixedAddresses($_);
       # look if we have static routes for this network
-      $iflist{$)}->{'staticRoutes'} = exists $staticRoutes_r->{$address} ? $staticRoutes_r->{address} : [];
+       $iflist{$_}->{'staticRoutes'} = exists $staticRoutes_r->{$address} ? $staticRoutes_r->{address} : [];
  
       my $gateway = $self->defaultGateway($_);
       if (defined($gateway) and $gateway ne "") {
@@ -498,20 +498,20 @@ sub nameserver # (iface,number)
 #	Gets the static routes. It polls the ebox modules wich implements EBox::DHCP::StaticRouteProvider
 #   Returns:
 #
-#	array ref - contating the static toutes in hash refereces. Each hash holds
-#	the keys 'dest' and 'gw'
+#	hash ref - contating the static toutes in hash refereces. Each key holds a hash rference
+#	with the keys 'destination', 'network' and 'gw'
 #	
 sub staticRoutes
 {
   my ($self) = @_;
-  my @staticRoutes;
+  my @staticRoutes = ();
 
   my @modules = @{ EBox::Global->modInstancesOfType('EBox::DHCP::StaticRouteProvider') };
   foreach  my $mod (@modules) {
     push @staticRoutes, $mod->staticRoutes();
   }
 
-  return \@staticRoutes;
+  return {@staticRoutes};
 }
 
 
