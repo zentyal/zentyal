@@ -101,6 +101,13 @@ sub setService # (enabled)
 
 	($active and $self->service) and return;
 	(!$active and !$self->service) and return;
+
+	if ($active) {
+	  if ($self->nStaticIfaces() == 0) {
+	    throw EBox::Exceptions::External(__("DHCP server can not acitvated because there are not any network interface with a static address. <a href='Network/Ifaces'>Configure one</a> first"));
+	  }
+	}
+
 	$self->set_bool("active", $active);
 	$self->_configureFirewall();
 }
@@ -803,9 +810,9 @@ sub _configureFirewall {
 sub ifaceMethodChanged # (iface, old_method, new_method)
 {
 	my ($self, $iface, $old_method, $new_method) = @_;
+	return 0 if !$self->service();
 	return 0 if $old_method ne 'static';
 	return 0 if $new_method eq 'static';
-	return 0 if !$self->service();
 
 	return 1;
 }
@@ -925,6 +932,11 @@ sub freeIface #( self, iface )
 {
 	my ( $self, $iface ) = @_;
 	$self->delete_dir("$iface");
+
+	my $net = EBox::Global->modInstance('network');
+	if ($net->ifaceMethod($iface) eq 'static') {
+	  $self->_checkStaticIfaces(-1);
+	}
 }
 
 #   Function: freeViface
@@ -936,6 +948,41 @@ sub freeViface #( self, iface, viface )
 {
 	my ( $self, $iface, $viface ) = @_;
 	$self->delete_dir("$iface:$viface");
+
+	my $net = EBox::Global->modInstance('network');
+	if ($net->ifaceMethod($viface) eq 'static') {
+	  $self->_checkStaticIfaces(-1);
+	}
+
+}
+
+
+
+
+sub _checkStaticIfaces
+{
+  my ($self, $adjustNumber) = @_;
+  defined $adjustNumber or $adjustNumber = 0;
+
+  my $nStaticIfaces = $self->nStaticIfaces() + $adjustNumber;
+  if ($nStaticIfaces == 0) {
+    if ($self->service()) {
+      $self->setService(0);
+      EBox::info('DHCP service was deactivated because there was not any static interface left');
+    }
+  }  
+}
+
+
+sub nStaticIfaces
+{
+  my ($self) = @_;
+
+  my $net = EBox::Global->modInstance('network');
+  my $ifaces = $net->allIfaces();
+  my $staticIfaces = grep  { $net->ifaceMethod($_) eq 'static' } @{$ifaces};
+
+  return $staticIfaces;
 }
 
 #   Function: statusSummary 
