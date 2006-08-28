@@ -22,6 +22,6 @@ end => $iface{end}, ranges => \@ranges &>
 <& dhcp/fixed.mas, iface => $iface{name}, fixed => \@fixed &>
 % } else{
 <div class='note'>
-<% __('DHCP server requires a static interface, configure one first') %>
+<% __('DHCP server requires a static interface, <a href="/ebox/Network/Ifaces">configure one</a> first') %>
 </div>
 % }
