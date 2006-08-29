@@ -58,7 +58,7 @@ sub masonParameters
     my %serverAttributes;
     foreach my $attr (@serverPropierties) {
 	my $accessor_r = $server->can($attr);
-	defined $attr or throw EBox::Exceptions::Internal "Can not locate accessor for $attr in server class";
+	defined $accessor_r or throw EBox::Exceptions::Internal "Can not locate accessor for $attr in server class";
 	my $value = $accessor_r->($server);
 	$serverAttributes{$attr} = $value;
     }
