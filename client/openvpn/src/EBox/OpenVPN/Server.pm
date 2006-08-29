@@ -407,7 +407,7 @@ sub staticRoutes
 
     my $destination = $self->subnet();
     my $destinationNetmask = $self->subnetNetmask();
-    ($netWithMask => {destination => $destination, netmask => $destinationNetmask, gateway => $gateway });
+    ($netWithMask => {network => $destination, netmask => $destinationNetmask, gateway => $gateway });
   } @advertisedRoutes;
 
   return @staticRoutes;
