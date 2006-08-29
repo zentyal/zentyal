@@ -1,6 +1,6 @@
 package DaemonTest;
 use base 'EBox::Test::Class';
-# Description:
+
 use strict;
 use warnings;
 use Test::More;
@@ -10,9 +10,14 @@ use Test::MockObject;
 use EBox::Global::TestStub;
 use EBox::GConfModule::TestStub;
 use EBox::Config::TestStub;
+use EBox::NetWrappers::TestStub;
+use EBox::Test ('fakeEBoxModule');
 
 use EBox::Service;
+
+use lib '../../..';
 use EBox::DHCP;
+
 
 my $TEST_IFACE = 'eth1';
 my $TEST_ADDRESS = '192.168.32.1';
@@ -24,6 +29,9 @@ sub notice : Test(startup)
     diag "We need a dhcp3 server installed with runsysv support for executing this test";
     diag "We need a network interface for the test. Now is $TEST_IFACE but it can changed giving another value to \$TEST_IFACE variable";
     diag "The given network interface will given a IP address of $TEST_ADDRESS/$TEST_NETMASK; you can modified this altering the variables \$TEST_ADDRESS and \$TEST_NETMASK";
+
+    system "ifconfig $TEST_IFACE";
+    die "No $TEST_IFACE interface found" if ($? != 0);
 }
 
 sub testDir
@@ -38,7 +46,7 @@ sub _confDir
     return $self->testDir . '/conf';
 }
 
-sub setupEBoxConf : Test(setup)
+sub _setupEBoxConf : Test(setup)
 {
     my ($self) = @_;
     my $confDir = $self->_confDir();
@@ -52,8 +60,8 @@ sub setupEBoxConf : Test(setup)
     EBox::Global::TestStub::setEBoxModule('network' => 'EBox::Network');
     EBox::Config::TestStub::setConfigKeys(tmp => $self->testDir);
 
-  Test::MockObject->fake_module('EBox::DHCP',
-				_configureFirewall => sub {},
+    Test::MockObject->fake_module('EBox::DHCP',
+				_configureFirewall => sub {$TEST_IFACE => {  }},
 			       );
 }
 
@@ -116,12 +124,52 @@ sub clearFiles : Test(teardown)
 }
 
 
-sub daemonTest : Test(10)
+sub setupNetwork : Test(setup)
 {
+  EBox::NetWrappers::TestStub::setFakeIfaces( { $TEST_IFACE => { up => 1, address => $TEST_ADDRESS, netmask => $TEST_NETMASK }  }  );
+  
+  EBox::Global::TestStub::setEBoxModule('network' => 'EBox::Network');
   my $net = EBox::Global->modInstance('network');
   $net->setIfaceStatic($TEST_IFACE, $TEST_ADDRESS, $TEST_NETMASK, 0, 0);
+}
 
+
+sub daemonTest : Test(10)
+{
+  diag "Testing dhcp server with simple configuration";
   my $dhcp = EBox::Global->modInstance('dhcp');
+  _checkService($dhcp);
+}
+
+sub daemonTestWithStaticRoutes : Test(10)
+{
+  diag "Testing dhcp server with static routes";
+  # setup static route provider modules..
+  my @macacoStaticRoutes = (
+			    192.168.4.0 => [ network => '192.168.4.0', netmask => '255.255.255.0', gateway => '192.168.30.4' ],
+			    10.0.4.0  => [ network => '192.168.4.0', netmask => '255.0.0.0', gateway => '192.168.30.15' ],  
+			   );
+
+  my @gibonStaticRoutes = (
+			    192.168.7.0 => [ network => '192.168.4.0', netmask => '255.255.254.0', gateway => '192.168.30.5' ],
+			   );
+
+  fakeEBoxModule(name => 'macacoStaticRoutes', isa => ['EBox::DHCP::StaticRouteProvider'], subs => [ staticRoutes => sub { return [@macacoStaticRoutes]  }  ]);
+  fakeEBoxModule(name => 'gibonStaticRoutes', isa => ['EBox::DHCP::StaticRouteProvider'], subs => [ staticRoutes => sub { return [@gibonStaticRoutes]  }  ]);
+  fakeEBoxModule(name => 'titiNoStaticRoutes');
+  fakeEBoxModule(name => 'mandrillNoStaticRoutes');
+
+  # run the service test
+  my $dhcp = EBox::Global->modInstance('dhcp');
+  _checkService($dhcp);
+}
+
+
+
+
+sub _checkService
+{
+  my ($dhcp) = @_;
 
   my @serviceSequences = qw(0 0 1 1 0);
   foreach my $service (@serviceSequences) {
@@ -132,8 +180,8 @@ sub daemonTest : Test(10)
     is $actualService, $service, 'Checking if service is the expected';
 
   }
-
 }
+
 
 
 1;
