@@ -7,7 +7,7 @@ use warnings;
 use Test::More;
 use Test::Exception;
 use EBox::Global;
-use EBox::Test qw(checkModuleInstantiation);
+use EBox::Test qw(checkModuleInstantiation fakeEBoxModule);
 use Test::MockObject::Extends;
 use Test::Differences;
 use lib '../..';
@@ -79,7 +79,33 @@ sub ifaceMethodChangedTest : Test(32)
 
 }
 
+sub staticRoutes : Test(2)
+{
+  my @macacoStaticRoutes = (
+			    192.168.4.0 => [ network => '192.168.4.0', netmask => '255.255.255.0', gateway => '192.168.30.4' ],
+			    10.0.4.0  => [ network => '192.168.4.0', netmask => '255.0.0.0', gateway => '192.168.30.15' ],  
+			   );
 
+  my @gibonStaticRoutes = (
+			    192.168.7.0 => [ network => '192.168.4.0', netmask => '255.255.254.0', gateway => '192.168.30.5' ],
+			   );
+
+  fakeEBoxModule(name => 'macacoStaticRoutes', isa => ['EBox::DHCP::StaticRouteProvider'], subs => [ staticRoutes => sub { return [@macacoStaticRoutes]  }  ]);
+  fakeEBoxModule(name => 'gibonStaticRoutes', isa => ['EBox::DHCP::StaticRouteProvider'], subs => [ staticRoutes => sub { return [@gibonStaticRoutes]  }  ]);
+  fakeEBoxModule(name => 'titiNoStaticRoutes');
+  fakeEBoxModule(name => 'mandrillNoStaticRoutes');
+
+  my $dhcp = EBox::Global->modInstance('dhcp');
+  my $staticRoutes_r;
+
+  my %expectedRoutes = (
+		@macacoStaticRoutes,
+		@gibonStaticRoutes,
+	       );
+
+  lives_ok { $staticRoutes_r = $dhcp->staticRoutes()  } 'Calling staticRoutes';
+  eq_or_diff $staticRoutes_r, \%expectedRoutes, 'Checking staticRoutes result';
+}
 
 
 1;

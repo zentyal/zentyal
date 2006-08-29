@@ -508,7 +508,7 @@ sub staticRoutes
 
   my @modules = @{ EBox::Global->modInstancesOfType('EBox::DHCP::StaticRouteProvider') };
   foreach  my $mod (@modules) {
-    push @staticRoutes, $mod->staticRoutes();
+    push @staticRoutes, @{ $mod->staticRoutes() };
   }
 
   return {@staticRoutes};
