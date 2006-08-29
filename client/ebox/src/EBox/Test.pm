@@ -18,7 +18,9 @@ use base 'Exporter';
 
 use Test::More;
 use Test::Builder;
+use Test::MockObject::Extends;
 use Error qw(:try);
+
 
 use EBox::Sudo::TestStub;
 use EBox::TestStub;
@@ -27,7 +29,7 @@ use EBox::GConfModule::TestStub;
 use EBox::Global::TestStub;
 use EBox::NetWrappers::TestStub;
 
-our @EXPORT_OK = qw(checkModuleInstantiation activateEBoxTestStubs);
+our @EXPORT_OK = qw(checkModuleInstantiation activateEBoxTestStubs fakeEBoxModule);
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 
 
@@ -40,7 +42,8 @@ sub checkModuleInstantiation
 
     eval  "use  $modulePackage";
     if ($@) {
-	$Test->ok(0, "$modulePackage failed to load: $@");
+	$Test->ok(0, "$modulePackage failed to load");
+	$Test->diag("Error: $@");
 	return;
     }
  
@@ -91,6 +94,34 @@ sub activateEBoxTestStubs
     EBox::GConfModule::TestStub::fake( @{ $params{GConfModule} } );
     EBox::Global::TestStub::fake( @{ $params{Global} } );
     EBox::NetWrappers::TestStub::fake( @{ $params{NetWrappers} } );
+}
+
+
+sub fakeEBoxModule
+{
+  my %params = @_;
+  exists $params{name} or throw EBox::Exceptions::Internal('fakeEBoxModule: lacks name paramater');
+  exists $params{package} or $params{package} =  'EBox::' . ucfirst $params{name};
+
+  my @isa = ('EBox::GConfModule');
+  push @isa, @{ $params{isa} } if exists $params{isa};
+  my $createIsaCode =  'package ' . $params{package} . "; use base qw(@isa);";
+  eval $createIsaCode;
+  die "When creating ISA array $@" if  $@;
+
+
+  Test::MockObject->fake_module($params{package},
+				_create => sub {
+				  my $self = EBox::GConfModule->_create(name => $params{name});
+				  bless $self, $params{package};
+				  return $self;
+				},
+				@{ $params{subs} }
+			       );
+
+
+
+  EBox::Global::TestStub::setEBoxModule($params{name} => $params{package});
 }
 
 
