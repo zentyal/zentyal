@@ -82,12 +82,13 @@ sub ifaceMethodChangedTest : Test(32)
 sub staticRoutes : Test(2)
 {
   my @macacoStaticRoutes = (
-			    192.168.4.0 => [ network => '192.168.4.0', netmask => '255.255.255.0', gateway => '192.168.30.4' ],
-			    10.0.4.0  => [ network => '192.168.4.0', netmask => '255.0.0.0', gateway => '192.168.30.15' ],  
+			    '192.168.30.0/24' => { network => '192.168.4.0', netmask => '255.255.255.0', gateway => '192.168.30.4' },
+			    '10.0.0.8/8' => { network => '192.168.4.0', netmask => '255.255.254.0', gateway => '10.0.10.5' },
+
 			   );
 
   my @gibonStaticRoutes = (
-			    192.168.7.0 => [ network => '192.168.4.0', netmask => '255.255.254.0', gateway => '192.168.30.5' ],
+			    '192.168.30.0/24'    => { network => '192.168.4.0', netmask => '255.0.0.0', gateway => '192.168.30.15' },  
 			   );
 
   fakeEBoxModule(name => 'macacoStaticRoutes', isa => ['EBox::DHCP::StaticRouteProvider'], subs => [ staticRoutes => sub { return [@macacoStaticRoutes]  }  ]);
@@ -99,9 +100,9 @@ sub staticRoutes : Test(2)
   my $staticRoutes_r;
 
   my %expectedRoutes = (
-		@macacoStaticRoutes,
-		@gibonStaticRoutes,
-	       );
+			'192.168.30.0/24' => [ { network => '192.168.4.0', netmask => '255.255.255.0', gateway => '192.168.30.4' }, { network => '192.168.4.0', netmask => '255.0.0.0', gateway => '192.168.30.15' }, ],
+			'10.0.0.8/8' => [ { network => '192.168.4.0', netmask => '255.255.254.0', gateway => '10.0.10.5' } ],
+		       );
 
   lives_ok { $staticRoutes_r = $dhcp->staticRoutes()  } 'Calling staticRoutes';
   eq_or_diff $staticRoutes_r, \%expectedRoutes, 'Checking staticRoutes result';

@@ -186,7 +186,9 @@ sub ifacesInfo
       $iflist{$_}->{'ranges'} = $self->ranges($_);
       $iflist{$_}->{'fixed'} = $self->fixedAddresses($_);
       # look if we have static routes for this network
-       $iflist{$_}->{'staticRoutes'} = exists $staticRoutes_r->{$address} ? $staticRoutes_r->{address} : [];
+      
+      my $netWithMask = EBox::NetWrappers::to_network_with_mask($net, $netmask);
+       $iflist{$_}->{'staticRoutes'} = exists $staticRoutes_r->{$netWithMask} ? $staticRoutes_r->{$netWithMask} : [];
  
       my $gateway = $self->defaultGateway($_);
       if (defined($gateway) and $gateway ne "") {
@@ -498,20 +500,30 @@ sub nameserver # (iface,number)
 #	Gets the static routes. It polls the ebox modules wich implements EBox::DHCP::StaticRouteProvider
 #   Returns:
 #
-#	hash ref - contating the static toutes in hash refereces. Each key holds a hash rference
-#	with the keys 'destination', 'network' and 'gw'
+#	hash ref - contating the static toutes in hash refereces. The key are the subnets in CIDR notations that denotes where is appliable the new route. 
+#	The valkues are  hash rference with the keys 'destination', 'network' and 'gw'
 #	
 sub staticRoutes
 {
   my ($self) = @_;
-  my @staticRoutes = ();
+  my %staticRoutes = ();
 
   my @modules = @{ EBox::Global->modInstancesOfType('EBox::DHCP::StaticRouteProvider') };
   foreach  my $mod (@modules) {
-    push @staticRoutes, @{ $mod->staticRoutes() };
+    my @modStaticRoutes = @{ $mod->staticRoutes() };
+    while (@modStaticRoutes) {
+      my $net   = shift @modStaticRoutes;
+      my $route = shift @modStaticRoutes;
+      if (exists $staticRoutes{$net}) {
+	push  @{$staticRoutes{$net}}, $route;
+      }
+      else {
+	$staticRoutes{$net} = [$route];
+      }
+    }
   }
 
-  return {@staticRoutes};
+  return \%staticRoutes;
 }
 
 
