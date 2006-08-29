@@ -185,9 +185,9 @@ sub ifacesInfo
       $iflist{$_}->{'netmask'} = $netmask;
       $iflist{$_}->{'ranges'} = $self->ranges($_);
       $iflist{$_}->{'fixed'} = $self->fixedAddresses($_);
+
       # look if we have static routes for this network
-      
-      my $netWithMask = EBox::NetWrappers::to_network_with_mask($net, $netmask);
+      my $netWithMask = EBox::NetWrappers::to_network_with_mask($network, $netmask);
        $iflist{$_}->{'staticRoutes'} = exists $staticRoutes_r->{$netWithMask} ? $staticRoutes_r->{$netWithMask} : [];
  
       my $gateway = $self->defaultGateway($_);
