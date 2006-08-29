@@ -75,7 +75,7 @@ sub ifaceMethodChangedTest : Test(32)
   $nStaticIfacesReturnValue = 10;
   $dhcp->setService(1);
   ok !$dhcp->ifaceMethodChanged('eth0', @{ $_ }), 'Testing if dhcp server allows a harmless change in network interface IP method' foreach @harmlessChanges;
-#  ok $dhcp->ifaceMethodChanged('eth0', @{ $_ }), 'Testing if dhcp  server disallows a problematic  change in network interface IP method' foreach @problematicChanges;
+  ok $dhcp->ifaceMethodChanged('eth0', @{ $_ }), 'Testing if dhcp  server disallows a problematic  change in network interface IP method' foreach @problematicChanges;
 
 }
 
