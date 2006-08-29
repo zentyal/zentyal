@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 42;
+use Test::More tests => 49;
 use Test::Exception;
 
 
@@ -53,6 +53,16 @@ sub fakeEBoxModuleTest
   can_ok($mod, keys %subs, qw(domain tableInfo logHelper)); # installed extra subs + EBox::LogObserver subs
   is   EBox::Macaco::Son::Observador::Subs::zero(), 0, "Checking class call of the identity installed sub";
   is $mod->identity('mono'), 'mono', "Checking object call of the identity installed sub";
+
+  my $initializerSub = sub { my ($self) =@_; $self->{partners} = 7  };
+  EBox::Test::fakeEBoxModule(name => 'macacoGroomingPartners', package => 'EBox::Macaco::WithGroomingPartners', isa => ['EBox::Macaco'], subs => [ partners => sub { my $self = shift; return $self->{partners}}], initializer => $initializerSub);
+  $mod = _testModuleBasics('macacoGroomingPartners', 'EBox::Macaco::WithGroomingPartners');
+  isa_ok($mod, 'EBox::Macaco');  
+  can_ok($mod, 'partners'); 
+  is   $mod->partners(), 7, "Checking data initialization via object call of installed sub ";
+
+
+
 }
 
 sub _testModuleBasics
