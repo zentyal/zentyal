@@ -73,6 +73,29 @@ sub _setConfInt
 }
 
 
+sub _confDirExists
+{
+    my ($self, $key) = @_;
+    $key = $self->_confKey($key);
+    return $self->_openvpnModule->dir_exists($key);
+}
+
+sub _allEntriesBase
+{
+    my ($self, $key) = @_;
+    $key = $self->_confKey($key);
+    return $self->_openvpnModule->all_entries_base($key);
+}
+
+
+sub _unsetConf
+{
+    my ($self, $key) = @_;
+    $key = $self->_confKey($key);
+    return $self->_openvpnModule->unset($key);
+}
+
+
 sub _getConfBool
 {
     my ($self, $key) = @_;
@@ -333,6 +356,62 @@ sub service
    return $self->_getConfBool('active');
 }
 
+
+sub advertisedNets
+{
+  my ($self) = @_;
+
+  my @net =  @{ $self->_allConfEntriesBase('advertised_nets') };
+  @net = map {
+    my $net = $_;
+    my $netmask = $self->_getConfString("advertised_nets/$net");
+    [$net, $netmask]
+  } @net;
+    
+  return @net;
+}
+
+
+sub addAdvertisedNet
+{
+  my ($self, $net, $netmask) = @_;
+
+  if ($self->_confDirExists("advertised_nets/$net")) {
+    throw EBox::Exceptions::External(__x("Net {net} is already advertised in this server", net => $net));
+  }
+
+  $self->_setConfString("advertised_nets/$net", $netmask);
+}
+
+sub removeAdvertisedNet
+{
+  my ($self, $net) = @_;
+
+  if (!$self->_confDirExists("advertised_nets/$net")) {
+    throw EBox::Exceptions::External(__x("Net {net} is not advertised in this server", net => $net));
+  }
+
+  $self->_unsetConf("advertised_nets/$net", $netmask);
+}
+
+
+sub staticRoutes
+{
+  my ($self) = @_;
+
+  my @advertisedRoutes  = $self->advertisedNets();
+  my @staticRoutes = map {
+    my ($net, $netmask) = @{$_};
+    my $netWithMask = EBox::NetWrappers::to_network_with_mask($net, $netmask);
+    my $gateway = EBox::NetWrappers::local_ip_to_reach_network($netWithMask) ;
+
+    my $destination = $self->subnet();
+    my $destinationNetmask = $self->subnetNetmask();
+    ($netWithMask => {destination => $destination, netmask => $destinationNetmask, gateway => $gateway });
+  } @advertisedRoutes;
+
+  return @staticRoutes;
+}
 
 sub setFundamentalAttributes
 {
