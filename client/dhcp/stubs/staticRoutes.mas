@@ -1,69 +1,72 @@
 <%args>
 @routes 
-$defaultGw = undef
+$defaultGw => undef
 </%args>
 <%init>
 use EBox::NetWrappers;
 </%init>
 <& .msStaticRoutes, routes => \@routes &>
 <& .rfc3442StaticRoutes, routes => \@routes, defaultGw => $defaultGw &>
-
-
 <%def .msStaticRoutes>
 <%args>
 @routes 
 </%args>
 option ms-classless-static-routes
 % while (my $r = pop @routes) {
-   <& .route, destination => $r->{destination},   gateway => $r->{gateway}, netmask => $r->{netmask} &><% @routes > 0 ? ',' : ';'  %>
+%   my $last =  @routes == 0;
+   <& .route, destination => $r->{network},   gateway => $r->{gateway}, netmask => $r->{netmask}, last => $last &>
 % }
 </%def>
 
 <%def .rfc3442StaticRoutes>
 <%args>
+$defaultGw
 @routes 
 </%args>
-</%def>
 option rfc3442-classless-static-routes
 % foreach my $r (@routes) {
-   <& .route, destination => $r->{destination}, gateway => $r->{gateway}, netmask => $r->{netmask} &>,
+   <& .route, destination => $r->{network}, gateway => $r->{gateway}, netmask => $r->{netmask} &>
 % }
-   <& .route, destination => 'default', gateway => $defaultGw &>;  
+   <& .route, destination => 'default', gateway => $defaultGw, last => 1&>  
+</%def>
 <%def .route>
 <%args>
 $destination
 $gateway
-$netmask = undef
+$netmask => undef
+$last    => 0
 </%args>
 <%init>
-my @route;
+my $route = '';
 
-#  netmask portion
-if ($destination ne 'default')  {
-   push @route, EBox::NetWrappers::bits_from_mask( $netmask );
-}
 
-# destination portion
 if ($destination eq 'default')  {
-    push @route, 0;
+    # netmask and destination portion
+    $route .= '0,';
 }
 else {
-    my @destPortions = split '.', $destination, 4;
-    foreach my $p (@destPortions) {
-         last if $p == 0;
-	 push @route, $p;
-    }
+   # netmask portion
+   $route .= EBox::NetWrappers::bits_from_mask( $netmask );
+   $route .= ',';
+
+   # destination portion
+     $destination =~ s/(\.0)+$//;
+     $destination =~ tr/\./,/;
+     $destination .= ',' unless $destination =~ m/,$/;
+     $route .= $destination ;
 }
 
 # gateway portion
-my @gwPortions = split '.', $gateway, 4;
-push @route, @gwPortions;
+$gateway =~ tr/\./,/;
+$route .= $gateway;
 
-# add commas
-@route = map { $_ .= ','  } @route;
-# remove last elemment comma
-$route[-1] =~ s/,$//;
-
+# add comma or semicolomn depending wether this is the last route or not
+if ($last) {
+   $route .= ';';
+}
+else {
+   $route .= ',';
+}
 </%init>
-<% "@route" %>
+<% $route %>
 </%def>

@@ -18,7 +18,15 @@
 ;
 %               }
 %       }
+
+%       if (exists $info{'staticRoutes'} ) {
+        <& staticRoutes.mas, routes => $info{'staticRoutes'}, defaultGw	=>  $info{'gateway'}   &>
+%       }
+
 	}
+
+
+
 %	my $fixedAddresses = $info{'fixed'};
 %	if(@{$fixedAddresses}){
 	group {
@@ -32,9 +40,6 @@
 			fixed-address <% $fixed->{'ip'} %>;
 		}
 %	}
-%       if (@{ $info{'staticRoutes'} } > 0) {
-        <& staticRoutes.mas, routes => $info{'staticRoutes'}, defaultGw	=>  $info{'gateway'}   &>
-%       }
 	}
 %	}
 

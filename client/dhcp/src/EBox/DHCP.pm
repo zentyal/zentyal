@@ -143,7 +143,6 @@ sub setDHCPConf
 	push @params, ('dnstwo' => $net->nameserverTwo);
  	push @params, ('ifaces' => $self->ifacesInfo($staticRoutes_r));
  	push @params, ('real_ifaces' => $self->realIfaces());
-	push @params, ('static_routes' => $staticRoutes_r);
 
 	$self->writeConfFile(DHCPCONFFILE, "dhcp/dhcpd.conf.mas", \@params);
 }
@@ -188,7 +187,7 @@ sub ifacesInfo
 
       # look if we have static routes for this network
       my $netWithMask = EBox::NetWrappers::to_network_with_mask($network, $netmask);
-       $iflist{$_}->{'staticRoutes'} = exists $staticRoutes_r->{$netWithMask} ? $staticRoutes_r->{$netWithMask} : [];
+       $iflist{$_}->{'staticRoutes'} =  $staticRoutes_r->{$netWithMask} if exists $staticRoutes_r->{$netWithMask};
  
       my $gateway = $self->defaultGateway($_);
       if (defined($gateway) and $gateway ne "") {
@@ -501,7 +500,7 @@ sub nameserver # (iface,number)
 #   Returns:
 #
 #	hash ref - contating the static toutes in hash refereces. The key are the subnets in CIDR notations that denotes where is appliable the new route. 
-#	The valkues are  hash rference with the keys 'destination', 'network' and 'gw'
+#	The valkues are  hash rference with the keys 'destination', 'netmask' and 'gw'
 #	
 sub staticRoutes
 {

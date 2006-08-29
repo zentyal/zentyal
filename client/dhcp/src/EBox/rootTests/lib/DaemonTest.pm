@@ -28,7 +28,7 @@ sub notice : Test(startup)
     diag "This test is designed to be run as root. That is neccesary for try the openvpn daemon execution but it may be a security risk";
     diag "We need a dhcp3 server installed with runsysv support for executing this test";
     diag "We need a network interface for the test. Now is $TEST_IFACE but it can changed giving another value to \$TEST_IFACE variable";
-    diag "The given network interface will given a IP address of $TEST_ADDRESS/$TEST_NETMASK; you can modified this altering the variables \$TEST_ADDRESS and \$TEST_NETMASK";
+    diag "The given network interface will given a IP address of $TEST_ADDRESS/$TEST_NETMASK; please make sure that the ip and the subnet is available in your system";
 
     system "ifconfig $TEST_IFACE";
     die "No $TEST_IFACE interface found" if ($? != 0);
@@ -146,12 +146,12 @@ sub daemonTestWithStaticRoutes : Test(10)
   diag "Testing dhcp server with static routes";
   # setup static route provider modules..
   my @macacoStaticRoutes = (
-			    192.168.4.0 => [ network => '192.168.4.0', netmask => '255.255.255.0', gateway => '192.168.30.4' ],
-			    10.0.4.0  => [ network => '192.168.4.0', netmask => '255.0.0.0', gateway => '192.168.30.15' ],  
+			    '192.168.32.0/24' => { network => '192.168.4.0', netmask => '255.255.255.0', gateway => '192.168.32.4' },
+			    '10.0.4.0/8'  => { network => '192.168.4.0', netmask => '255.0.0.0', gateway => '192.168.30.15' },  
 			   );
 
   my @gibonStaticRoutes = (
-			    192.168.7.0 => [ network => '192.168.4.0', netmask => '255.255.254.0', gateway => '192.168.30.5' ],
+			    '192.168.32.0/24' => { network => '192.168.4.0', netmask => '255.255.255.0', gateway => '192.168.32.5' },
 			   );
 
   fakeEBoxModule(name => 'macacoStaticRoutes', isa => ['EBox::DHCP::StaticRouteProvider'], subs => [ staticRoutes => sub { return [@macacoStaticRoutes]  }  ]);
