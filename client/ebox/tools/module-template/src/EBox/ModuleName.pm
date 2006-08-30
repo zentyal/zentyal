@@ -37,17 +37,17 @@ sub _regenConfig
 
 sub summary
 {
-	my $self = shift;
+	my ($self) = @_;
 	my $item = new EBox::Summary::Module(__("ModuleName stuff"));
 	return $item;
 }
 
 sub rootCommands
 {
-	my $self = shift;
-	my @array = ();
-	push(@array, "/bin/true");
-	return @array;
+	my ($self) = @_;
+	my @commands = ();
+	push(@commands, "/bin/true");
+	return @commands;
 }
 
 1;
