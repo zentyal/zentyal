@@ -21,7 +21,17 @@ use warnings;
 use base 'EBox::GConfModule';
 
 use EBox::Gettext;
+use EBox::Global;
+use EBox::Config;
+use Error qw(:try);
+use File::Slurp  qw(write_file);
 use EBox::Summary::Module;
+
+use Readonly;
+Readonly::Scalar my $GCONF_DUMP_COMMAND => '/usr/bin/gconftool-2 --dump /ebox';
+Readonly::Scalar my $GCONF_LOAD_COMMAND => '/usr/bin/gconftool-2 --load ';
+Readonly::Scalar my $GCONF_DUMP_FILE     => 'gconf.xml';
+
 
 sub _create 
 {
@@ -35,19 +45,81 @@ sub _regenConfig
 {
 }
 
-sub summary
-{
-	my $self = shift;
-	my $item = new EBox::Summary::Module(__("ModuleName stuff"));
-	return $item;
-}
+
 
 sub rootCommands
 {
 	my $self = shift;
-	my @array = ();
-	push(@array, "/bin/true");
-	return @array;
+	my @commands = ();
+	return @commands;
 }
 
+sub backupDir
+{
+  warn "Provisional";
+  return EBox::Config::tmp() . '/backup';
+}
+
+
+
+
+
+sub backupGConf
+{
+  my ($self) = @_;
+
+  my $dir = $self->backupDir();
+  my $oldUmask = umask();
+
+  try {
+    umask '0077';
+
+    my @dumpOutput = `$GCONF_DUMP_COMMAND`;
+    if ($? != 0) {
+      throw EBox::Exceptions::External (__("Error backing up GConf: @dumpOutput"));
+    }
+
+    write_file("$dir/$GCONF_DUMP_FILE", \@dumpOutput);
+  }
+  finally {
+    umask $oldUmask;
+  };
+}
+
+
+sub restoreGConf
+{
+  my ($self) = @_;
+
+  my $dir = $self->backupDir();
+  my $loadOutput =  `$GCONF_LOAD_COMMAND $dir/$GCONF_DUMP_FILE`;
+
+  if ($? != 0) {
+    throw EBox::Exceptions::External (__('Error restoring EBox GConf: ') . $loadOutput);
+  }
+}
+
+
+sub backup
+{
+  #my @mods =  grep { $_->can('backupHelper')   }   @{ EBox::Global->modInstances() }; 
+
+  backupGConf();
+
+}
+
+
+sub restore
+{
+  restoreGConf();
+}
+
+
+
+sub summary
+{
+	my $self = shift;
+	my $item = new EBox::Summary::Module(__("Configuration backup"));
+	return $item;
+}
 1;
