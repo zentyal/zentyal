@@ -17,6 +17,12 @@ Readonly::Scalar my $TEST_DIR => '/tmp/ebox.gconfbackup.test';
 use lib '../../..';
 use EBox::Backup;
 
+
+sub notice : Test(startup)
+{
+  diag "This tests alter the user's GConf data in a no-destructive way. It try to left it after the test unaltered but it may fail";
+}
+
 sub fakeEBox : Test(startup)
 {
   EBox::TestStub::fake();
@@ -31,7 +37,7 @@ sub setupTestDir : Test(setup)
   mkdir EBox::Backup::backupDir();
 }
 
-sub gconfBackupTest : Test(3)
+sub gconfDumpAndRestoreTest : Test(3)
 {
   my $canaryKey = '/ebox/before';
   my $backup = EBox::Backup->_create();
@@ -39,7 +45,7 @@ sub gconfBackupTest : Test(3)
   my $client = Gnome2::GConf::Client->get_default;
   $client->set_bool($canaryKey, 1);
 
-  lives_ok { $backup->backupGConf() } "Backing up GConf";
+  lives_ok { $backup->dumpGConf() } "Dumping GConf";
 
   $client->set_bool($canaryKey, 0);
   if ($client->get_bool($canaryKey)) {
@@ -48,6 +54,8 @@ sub gconfBackupTest : Test(3)
 
   lives_ok { $backup->restoreGConf() } 'Restoring GConf';
   ok $client->get_bool($canaryKey), 'Checking canary GConf entry after restore';
+
+  $client->unset($canaryKey); # try to not poluate user's gconf
 }
 
 1;

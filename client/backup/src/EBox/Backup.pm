@@ -20,6 +20,7 @@ use warnings;
 
 use base 'EBox::GConfModule';
 
+use EBox;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Config;
@@ -60,11 +61,15 @@ sub backupDir
   return EBox::Config::tmp() . '/backup';
 }
 
+sub restoreDir
+{
+  warn "Provisional";
+  return EBox::Config::tmp() . '/restore';
+}
 
 
 
-
-sub backupGConf
+sub dumpGConf
 {
   my ($self) = @_;
 
@@ -100,26 +105,109 @@ sub restoreGConf
 }
 
 
-sub backup
+sub dumpFiles
 {
-  #my @mods =  grep { $_->can('backupHelper')   }   @{ EBox::Global->modInstances() }; 
+  my ($self) = @_;
 
-  backupGConf();
+  $self->dumpGConf();
+  foreach my $bh (_backupHelpers()) {
+    $bh->dumpConf(dir => backupDir());
+  }
 
 }
 
+
+
+
+sub backup
+{
+  my ($self) = @_;
+
+  try {
+    EBox::info('Backup process started');
+    $self->dumpFiles();
+    $self->backupFiles();
+    $self->setLastBackupTime()
+  }
+  otherwise {
+    my $e = shift;
+    EBox::error('Backup attempt failed');
+    $e->throw();
+  };
+}
+
+
+sub backupFiles
+{
+  my ($self) = @_;
+  my $dir = $self->restoreDir();
+
+  warn 'incomplete. We copy all from /tmp/backup for now';
+  system "cp -r  /tmp/backup/* $dir";
+}
+
+
+sub setLastBackupTime
+{
+  my ($self) = @_;
+  my $t = time();
+}
 
 sub restore
 {
-  restoreGConf();
+  my ($self) = @_;
+
+  try {
+    EBox::info('Restoring configuration from backup process started');
+    $self->extractFiles();
+    $self->restoreConf();
+    $self->setLastRestoreTime();
+  }
+  otherwise {
+    my $e = shift;
+    EBox::error('Restoring configuration from backup process failed');
+    $e->throw();
+  };
+}
+
+sub extractFiles
+{
+  my ($self) = @_;
+  my $dir = $self->backupDir();
+
+  warn 'incomplete. We copy all to /tmp/backup for now';
+  system "rm -rf /tmp/backup";
+  system "cp -r $dir/* /tmp/backup";
 }
 
 
+sub restoreConf
+{
+  my ($self) = @_;
+
+  $self->restoreGConf();
+  foreach my $bh (_backupHelpers()) {
+    $bh->restoreConf(dir => restoreDir());
+  }
+}
+
+sub setLastRestoreTime
+{
+  my ($self) = @_;
+}
+
+
+sub _backupHelpers
+{
+  my @helpers    =  map { $_->can('backupHelper') ? $_->backupHelper() : ()  }   @{ EBox::Global->modInstances() };  
+  return @helpers;
+}
 
 sub summary
 {
 	my $self = shift;
 	my $item = new EBox::Summary::Module(__("Configuration backup"));
+	# put last backup time
 	return $item;
 }
 1;
