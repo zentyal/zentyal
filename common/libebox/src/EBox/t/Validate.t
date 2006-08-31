@@ -2,8 +2,9 @@
 use strict;
 use warnings;
 
-use Test::More qw(no_plan);
+use Test::More tests => 93;
 use Test::Exception;
+use Fatal qw(mkdir);
 
 use lib '../..';
 
@@ -11,6 +12,7 @@ BEGIN { use_ok('EBox::Validate') };
 
 checkFilePathTest();
 checkAbsoluteFilePathTest();
+checkIsPrivateDir();
 
 sub checkFilePathTest
 {
@@ -22,6 +24,34 @@ sub checkAbsoluteFilePathTest
 {
     my $checkAbsoluteFilePath_r = \&EBox::Validate::checkAbsoluteFilePath;
     _checkPathSubsTest($checkAbsoluteFilePath_r, 0);
+}
+
+sub checkIsPrivateDir
+{
+  ok !EBox::Validate::isPrivateDir('/macaco'), 'Testing isPrivateDir in a inaccesible dir';
+  dies_ok  { EBox::Validate::isPrivateDir('/macaco', 1) } 'The same  with exceptions';
+
+
+  ok !EBox::Validate::isPrivateDir('/'), 'Testing isPrivateDir in a no-owned and public accesible dir';
+  dies_ok  { EBox::Validate::isPrivateDir('/', 1) } 'The same  with exceptions';
+
+
+  my $dir = '/tmp/ebox.test.validate';
+  system "rm -rf $dir" ;
+  die $! if ($? != 0);
+
+  mkdir($dir, 0777);		# public access
+  ok !EBox::Validate::isPrivateDir($dir), 'Testing isPrivateDir in a owned but public accesible dir';
+  dies_ok  { EBox::Validate::isPrivateDir($dir, 1) } 'The same  with exceptions';
+
+  system "rm -rf $dir";
+  die $! if ($? != 0);
+
+  mkdir ($dir, 0700);
+  ok EBox::Validate::isPrivateDir($dir), 'Testing isPrivateDir in a owned and private dir';
+  lives_ok  { EBox::Validate::isPrivateDir($dir, 1) } 'The same  with exceptions';
+
+  
 }
 
 
@@ -90,5 +120,7 @@ sub _checkPathSubsTest
     }
 
 }
+
+
 
 1;

@@ -21,7 +21,7 @@ use warnings;
 use EBox::Config;
 use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
-use EBox::NetWrappers qw(:all);
+use EBox::NetWrappers qw();
 use Net::IP;
 
 use constant IFNAMSIZ => 16; #Max length name for interfaces
@@ -37,7 +37,7 @@ BEGIN {
 					checkProtocol checkPort
 					checkName checkMAC checkVifaceName
 					checkDomainName isIPInNetwork
-					checkVlanID makePrivateDir isANumber 
+					checkVlanID isPrivateDir isANumber 
 					isAPositiveNumber
 					checkFilePath checkAbsoluteFilePath
 				} ],
@@ -105,9 +105,9 @@ sub checkCIDR # (cidr, name?)
 	if(@values == 2) {
 		my ($address,$mask)  = @values;
 		if(checkIP($address)) {
-			my $netmask = mask_from_bits($mask);
+			my $netmask = EBox::NetWrappers::mask_from_bits($mask);
 			if($netmask){
-				my $network = ip_network($address, $netmask);
+				my $network = EBox::NetWrappers::ip_network($address, $netmask);
     				if ($network eq $address) {
                                         $ip = new Net::IP("$network/$mask");
                                 }
@@ -549,45 +549,40 @@ sub checkDomainName # (domain, name?)
 	}
 	return 1;
 }
-# Method: makePrivateDir
+
+
+# Method: isPrivateDir
 #
-#	Creates of checks a private directory owned by the user running this
-#	process and with private permissions.
+#	Check if the given directory is private and owned by the current user
 #
 # Parameters:
 #
-#	path - The path of the directory to be created, if it exists it must
-#	       already have proper ownership and permissions.
+#	dir - The directory
+#       throwException - wethet to throw a exception if the check fails (default: false)
 #
-# Exceptions:
-#
-#	Internal - The path exists and is not a directory or has wrong
-#		   ownership or permissions. Or it does not exist and 
-#		   cannot be created.
-sub makePrivateDir # (path)
+# Returns
+# 	true if the parameter is a number, undef otherwise.
+# 	
+sub isPrivateDir
 {
-	my $dir = shift;
+  my ($dir, $throwException) = @_;
 
-        if ( -e $dir and not -d $dir) {
-                throw EBox::Exceptions::Internal(
-                        "Cannot create private directory $dir: file exists");
-        }
+  my @stat = stat($dir) ;
+  if (@stat == 0) {
+    throw EBox::Exceptions::External (__x("Cannot stat dir: {dir}. This may mean that the directory does not exist or the permissions forbidde access to it", dir => $dir)) if $throwException;
+    return undef;
+  }
 
-        unless (-e $dir) {
-                mkdir($dir, 0700) or throw EBox::Exceptions::Internal(
-                        "Could not create directory: $dir");
-        }
-
-        my @stat = stat($dir) or throw EBox::Exceptions::Internal(
-                "Cannot stat: $dir");
-        if ($< != $stat[4]) {
-                throw EBox::Exceptions::Internal("Owner mismatch: $dir");
-        }
-        my $perm = sprintf ("%04o\n", $stat[2] & 07777);
-        unless ($perm =~ /.700/) {
-                throw EBox::Exceptions::Internal("Wrong permissions in $dir");
-        }
+  if ($< != $stat[4]) {
+    throw EBox::Exceptions::External(__x("Owner mismatch: {dir}", dir => $dir)) if $throwException; 
+  }
+  my $perm = sprintf ("%04o\n", $stat[2] & 07777);
+  unless ($perm =~ /.700/) {
+    throw EBox::Exceptions::External(("Wrong permissions in {dir}", dir => $dir)) if $throwException;
+    return undef;
+  }
 }
+
 
 # Method: isANumber
 #
