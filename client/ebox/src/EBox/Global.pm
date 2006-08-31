@@ -61,15 +61,7 @@ sub isReadOnly
 	return $self->{ro};
 }
 
-sub makeBackup # (dir) 
-{
-	my ($self, $dir) = @_;
-}
 
-sub restoreBackup # (dir) 
-{
-	my ($self, $dir) = @_;
-}
 
 #
 # Method: modExists 
