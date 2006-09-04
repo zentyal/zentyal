@@ -5,20 +5,22 @@ use warnings;
 
 
 
-sub beforeBackup
-{}
+sub dumpConf
+{
+  throw EBox::Exceptions::Internal ('The EBox::Backup::Helper::dump sub must be overriden');
+}
 
-sub afterBackup
-{}
+sub restoreConf
+{
+  throw EBox::Exceptions::Internal ('The EBox::Backup::Helper::rstore sub must be overriden');
+}
 
-sub beforeRestore
-{}
-
-sub afterRestore
-{}
 
 sub files
-{}
+{
+  throw EBox::Exceptions::Internal ('The EBox::Backup::Helper::files sub must be overriden');
+}
+
 
 
 

@@ -20,7 +20,7 @@ use EBox::Backup;
 
 sub notice : Test(startup)
 {
-  diag "This tests alter the user's GConf data in a no-destructive way. It try to left it after the test unaltered but it may fail";
+  diag "This tests alter the user's GConf data in a no-destructive way. It try to revert it after the test but it may fail";
 }
 
 sub fakeEBox : Test(startup)
@@ -34,7 +34,8 @@ sub setupTestDir : Test(setup)
 {
   system "rm -rf $TEST_DIR";
   mkdir $TEST_DIR;
-  mkdir EBox::Backup::backupDir();
+  mkdir EBox::Backup::dumpDir();
+  mkdir EBox::Backup::restoreDir();
 }
 
 sub gconfDumpAndRestoreTest : Test(3)
@@ -51,6 +52,10 @@ sub gconfDumpAndRestoreTest : Test(3)
   if ($client->get_bool($canaryKey)) {
     die "GConf operation failed";
   }
+
+  # poor man;s backup emulation
+  system 'cp -r ' .  EBox::Backup::dumpDir() . '/* ' . EBox::Backup::restoreDir . '/';
+  die $! if ($? != 0);
 
   lives_ok { $backup->restoreGConf() } 'Restoring GConf';
   ok $client->get_bool($canaryKey), 'Checking canary GConf entry after restore';

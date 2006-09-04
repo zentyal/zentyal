@@ -20,8 +20,101 @@ use warnings;
 
 use base 'EBox::Test::Class';
 
+use Test::MockObject;
+use Test::More;
+use Test::Exception;
+use EBox::Test qw(checkModuleInstantiation fakeEBoxModule);
 use EBox::Gettext;
+use EBox::Config::TestStub;
+use EBox::Global::TestStub;
+use File::Slurp qw(read_file write_file);
+use EBox::FileSystem qw(makePrivateDir);
 
+sub testDir
+{
+  return '/tmp/ebox.backup.test';
+}
+
+
+
+
+sub setupDirs : Test(setup)
+{
+  my ($self) = @_;
+
+  return if !exists $INC{'EBox/Backup.pm'};
+
+  EBox::Config::TestStub::fake( tmp => $self->testDir() );
+
+  my $testDir = $self->testDir();
+  system "rm -rf $testDir";
+
+  makePrivateDir($testDir);
+  makePrivateDir (EBox::Backup::dumpDir());
+  makePrivateDir (EBox::Backup::restoreDir());
+
+  system "rm -rf /tmp/backup";
+  makePrivateDir('/tmp/backup');
+}
+
+sub setupEBoxModules : Test(setup)
+{
+  EBox::Global::TestStub::setEBoxModule('backup' => 'EBox::Backup');
+}
+
+sub _moduleInstantiationTest : Test(1)
+{
+  my ($self) = @_;
+
+  EBox::Config::TestStub::setConfigKeys( tmp => $self->testDir() );
+  checkModuleInstantiation('backup', 'EBox::Backup');
+}
+
+
+
+sub backupAndRestoreTest : Test(3)
+{
+  my ($self) = @_;
+
+  fakeEBoxModule(
+		 name => 'canaryJail',
+		 subs => [
+			  backupHelper => sub {
+			    my ($backup, $dir) = @_;
+			    my $bh = new Test::MockObject;
+			    $bh->mock ( dumpConf => sub {
+					  my ($self, $dir) = @_;
+					  write_file ("$dir/canary", $backup->{canary} );
+					});
+			    $bh->mock ( restoreConf => sub {
+					  my ($self, $dir) = @_;
+					  my $backedUpData =  read_file ("$dir/canary" );
+					  $backup->setCanary($backedUpData);
+					});
+			    return $bh;
+			  },
+
+
+			  setCanary => sub { my ($self, $canary) = @_; $self->{canary} = $canary },
+			  canary => sub { my ($self) = @_; return $self->{canary} },
+			 ],
+		);
+
+
+  my $backup = EBox::Global->modInstance('backup');
+  my $canaryJail = EBox::Global->modInstance('canaryJail');
+  $canaryJail->setCanary('before');
+
+  
+  lives_ok { $backup->backup() } 'backup()';
+
+  $canaryJail->setCanary('after');
+  die 'canary not changed' if $canaryJail->canary() ne 'after';
+
+  lives_ok { $backup->restore() } 'restore()';
+  is $canaryJail->canary(), 'before', 'Checking if canaryJail module state was restored from backup';
+
+}
 
 
 1;

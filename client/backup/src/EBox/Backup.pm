@@ -24,6 +24,8 @@ use EBox;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Config;
+use EBox::Validate qw(isPrivateDir);
+use EBox::FileSystem qw (makePrivateDir);
 use Error qw(:try);
 use File::Slurp  qw(write_file);
 use EBox::Summary::Module;
@@ -55,10 +57,10 @@ sub rootCommands
 	return @commands;
 }
 
-sub backupDir
+sub dumpDir
 {
   warn "Provisional";
-  return EBox::Config::tmp() . '/backup';
+  return EBox::Config::tmp() . '/dump';
 }
 
 sub restoreDir
@@ -73,7 +75,7 @@ sub dumpGConf
 {
   my ($self) = @_;
 
-  my $dir = $self->backupDir();
+  my $dir = dumpDir();
   my $oldUmask = umask();
 
   try {
@@ -96,7 +98,7 @@ sub restoreGConf
 {
   my ($self) = @_;
 
-  my $dir = $self->backupDir();
+  my $dir = $self->restoreDir();
   my $loadOutput =  `$GCONF_LOAD_COMMAND $dir/$GCONF_DUMP_FILE`;
 
   if ($? != 0) {
@@ -110,10 +112,14 @@ sub dumpFiles
   my ($self) = @_;
 
   $self->dumpGConf();
-  foreach my $bh (_backupHelpers()) {
-    $bh->dumpConf(dir => backupDir());
-  }
 
+  my $dumpDir = dumpDir();
+  my $backupHelpersByName_r = $self->_backupHelpersByName();
+  while (my ($modName, $bh) = each %{ $backupHelpersByName_r  }) {
+    my $dir = "$dumpDir/$modName";
+    makePrivateDir($dir);
+    $bh->dumpConf( $dir);
+  }
 }
 
 
@@ -122,9 +128,10 @@ sub dumpFiles
 sub backup
 {
   my ($self) = @_;
-
   try {
     EBox::info('Backup process started');
+    my $dir = $self->dumpDir();
+    isPrivateDir($dir) or throw EBox::Exceptions::Internal('The backup dir is not private');
     $self->dumpFiles();
     $self->backupFiles();
     $self->setLastBackupTime()
@@ -140,10 +147,12 @@ sub backup
 sub backupFiles
 {
   my ($self) = @_;
-  my $dir = $self->restoreDir();
+  my $dir = $self->dumpDir();
 
-  warn 'incomplete. We copy all from /tmp/backup for now';
-  system "cp -r  /tmp/backup/* $dir";
+  warn 'incomplete. We copy all to /tmp/backup for now';
+  system "rm -rf /tmp/backup/*";
+  system "cp -r $dir/* /tmp/backup/";
+
 }
 
 
@@ -156,11 +165,15 @@ sub setLastBackupTime
 sub restore
 {
   my ($self) = @_;
-
   try {
     EBox::info('Restoring configuration from backup process started');
+
+    my $dir = $self->restoreDir();
+    isPrivateDir($dir) or throw EBox::Exceptions::Internal('The restore  dir is not private');
+
     $self->extractFiles();
     $self->restoreConf();
+    $self->setAllModulesChanged();
     $self->setLastRestoreTime();
   }
   otherwise {
@@ -173,11 +186,10 @@ sub restore
 sub extractFiles
 {
   my ($self) = @_;
-  my $dir = $self->backupDir();
+  my $dir = $self->restoreDir();
 
-  warn 'incomplete. We copy all to /tmp/backup for now';
-  system "rm -rf /tmp/backup";
-  system "cp -r $dir/* /tmp/backup";
+  warn 'incomplete. We copy all from /tmp/backup for now';
+  system "cp -r  /tmp/backup/* $dir";
 }
 
 
@@ -186,8 +198,27 @@ sub restoreConf
   my ($self) = @_;
 
   $self->restoreGConf();
-  foreach my $bh (_backupHelpers()) {
-    $bh->restoreConf(dir => restoreDir());
+
+  my $restoreDir = restoreDir();
+  my $backupHelpersByName_r = $self->_backupHelpersByName();
+  while (my ($modName, $bh) = each %{ $backupHelpersByName_r }) {
+    my $dir = "$restoreDir/$modName";
+    makePrivateDir($dir);
+    $bh->restoreConf($dir);
+  }
+
+
+
+}
+
+# mark all modules as changed
+sub setAllModulesChanged
+{
+  my ($self) = @_;
+
+  my $global = EBox::Global->getInstance();
+  foreach my $modName ($global->modNames) {
+    $global->modChange($modName);
   }
 }
 
@@ -197,17 +228,17 @@ sub setLastRestoreTime
 }
 
 
-sub _backupHelpers
+sub _backupHelpersByName
 {
-  my @helpers    =  map { $_->can('backupHelper') ? $_->backupHelper() : ()  }   @{ EBox::Global->modInstances() };  
-  return @helpers;
+  my @helpers    =  map { $_->can('backupHelper') ?  ($_->name(), $_->backupHelper()) : ()  }   @{ EBox::Global->modInstances() };  
+  return {@helpers};
 }
 
 sub summary
 {
 	my $self = shift;
 	my $item = new EBox::Summary::Module(__("Configuration backup"));
-	# put last backup time
+	# TODO: put last backup and resote  time
 	return $item;
 }
 1;
