@@ -360,7 +360,9 @@ sub pidFileRunning
 #	It executes a given mason component with the passed parameters over 
 #	a file. It becomes handy to set configuration files for services. 
 #	Also, its file 	permissions will be kept.
+#       It can be called as class method. (XXX: this design or is a implementation accident?)
 #      XXX : the correct behaviour will be to throw exceptions if file will not be stated and no defualts provided. Instead will provide hardcored defaults because we need to be backwards-compatible
+#
 #
 # Parameters:
 #	
