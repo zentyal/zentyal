@@ -72,7 +72,7 @@ sub _moduleInstantiationTest : Test(1)
 
 
 
-sub backupAndRestoreTest : Test(3)
+sub backupAndRestoreTest : Test(6)
 {
   my ($self) = @_;
 
@@ -81,7 +81,13 @@ sub backupAndRestoreTest : Test(3)
 		 subs => [
 			  backupHelper => sub {
 			    my ($backup, $dir) = @_;
-			    my $bh = new Test::MockObject;
+			    my $bh;
+			    # we must cache the mocked backupHelper  to be able to test it after the backup process
+			    if (!exists $self->{cachedBH}) {
+			       $self->{cachedBH} = new Test::MockObject;
+			    }
+			    $bh =  $self->{cachedBH};
+
 			    $bh->mock ( dumpConf => sub {
 					  my ($self, $dir) = @_;
 					  write_file ("$dir/canary", $backup->{canary} );
@@ -114,6 +120,13 @@ sub backupAndRestoreTest : Test(3)
   lives_ok { $backup->restore() } 'restore()';
   is $canaryJail->canary(), 'before', 'Checking if canaryJail module state was restored from backup';
 
+  # we check if all the backupHelpers where correctly used
+  my @backupHelpers = map { $_->can('backupHelper') ? $_->backupHelper() : ()  }  @{ EBox::Global->modInstances() };
+  foreach my $mockBh (@backupHelpers) {
+    is $mockBh->call_pos(1), 'dumpConf', 'Checking that dumpConf was called in the mocked backupHelper';
+    is $mockBh->call_pos(2), 'restoreConf', 'Checking that restoreConf was called in the mocked backupHelper';
+    is $mockBh->call_pos(3), undef, 'Checking that no more methods upon the backupHelper were called';
+  }
 }
 
 
