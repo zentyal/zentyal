@@ -368,12 +368,13 @@ sub pidFileRunning
 #	the execution
 #	component - mason component
 #	paramas - parameters for the mason component
+#       defaults - a reference to hash with keys mode, uid and gid. Those values will be used when creating a new file. (if the file already exists the existent values of this parameters will be left untouched)
 #
 # Returns:
 #
 #	boolean - True if it's running , otherise false
 #
-sub writeConfFile # (file, comp, params)
+sub writeConfFile # (file, comp, params, defaults)
 {
 	my ($self, $file, $compname, $params, $defaults) = @_;
 	my ($fh,$tmpfile) = tempfile(DIR => EBox::Config::tmp);
