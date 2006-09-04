@@ -2,8 +2,9 @@ package EBox::FileSystem;
 use strict;
 use warnings;
 
+
 use base 'Exporter';
-our @EXPORT_OK = qw(makePrivateDir);
+our @EXPORT_OK = qw(makePrivateDir cleanDir);
 
 use EBox::Validate;
 
@@ -38,6 +39,39 @@ sub makePrivateDir # (path)
 
   mkdir($dir, 0700) or throw EBox::Exceptions::Internal("Could not create directory: $dir");
 
+}
+
+sub cleanDir
+{
+  my @dirs = @_;
+
+  foreach my $d (@dirs) {
+    my $dir;
+    my $mode = 0700;
+
+    if (ref $d eq 'HASH' ) {
+      $dir  = $d->{name};
+      $mode = $d->{mode}
+    }
+    else {
+      $dir = $d;
+    }
+
+    if ( -e $dir) {
+      if (! -d $dir) {
+	throw EBox::Exceptions::Internal("$dir exists and is not a directory");
+      }
+
+      system "rm -rf $dir/*";
+      if ($? != 0) {
+	throw EBox::Exceptions::Internal "Error cleaning $d: $!";
+      }
+    } 
+    else {
+      mkdir ($dir, $mode) or  throw EBox::Exceptions::Internal("Could not create directory: $dir");      
+    }
+
+  }
 }
 
 
