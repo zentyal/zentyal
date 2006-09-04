@@ -2,8 +2,9 @@
 use strict;
 use warnings;
 
-use Test::More qw(no_plan);
+use Test::More tests => 12;
 use Test::Differences;
+use Test::Exception;
 
 use lib  '../..';
 
@@ -15,6 +16,14 @@ sub statTest
     use EBox::Sudo::TestStub;
     EBox::Sudo::TestStub::fake();
 
+    use EBox::TestStub;
+    EBox::TestStub::fake();
+
+    # inexistent file
+    my $sudoStat;
+    lives_ok {$sudoStat = EBox::Sudo::stat('/muchos/monos/salvajes') } 'Calling stat upon a inexistent file';
+    ok !defined $sudoStat, "Checking tha return undef while stat called upon inexistent files";
+
     my @files = qw(/ /usr /bin/true /etc/passwd /dev/hda);
     foreach my $file (@files) {
 	my @perlStat = stat $file;
@@ -24,12 +33,9 @@ sub statTest
 	
 	eq_or_diff \@sudoStatContents, \@perlStat, "Comparing output of EBox::Sudo::stat with output of stat built-in";
 
-
     }
 
-    # inexistent file
-    my $sudoStat = EBox::Sudo::stat('/muchos/monos/salvajes');
-    ok !defined $sudoStat, "Checking tha return undef while stat called upon inexistent files";
+
 
 }
 

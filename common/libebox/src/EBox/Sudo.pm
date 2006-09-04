@@ -121,23 +121,31 @@ sub sudo # (command, user)
 
 sub stat
 {
-    my ($file) = @_;
+  my ($file) = @_;
+  
     my $statCmd = rootCommandForStat($file);
+  my $statOutput;
+  
+  try {
+    $statOutput = root($statCmd);
+  }
+  catch EBox::Exceptions::Internal with {
+    return undef; # inexistent file
+  };
 
-    my $statOutput = root($statCmd);
-    return undef if !exists $statOutput->[0];
+  return undef if !exists $statOutput->[0];
 
-    my @statElements = split '[I\n]', $statOutput->[0];
+  my @statElements = split '[I\n]', $statOutput->[0];
 
-    # convert file mode from hexadecimal...
-    $statElements[2]  = hex ('0x' . $statElements[2]); 
+  # convert file mode from hexadecimal...
+  $statElements[2]  = hex ('0x' . $statElements[2]); 
 
-    # XXX: add the correct value for  '6 rdev     the device identifier (special files only) '
-    # meanwhile we make it undef...
-    $statElements[6] = undef;
+  # XXX: add the correct value for  '6 rdev     the device identifier (special files only) '
+  # meanwhile we make it undef...
+  $statElements[6] = undef;
 
-    my $statObject = File::stat::populate( @statElements );
-    return $statObject;
+  my $statObject = File::stat::populate( @statElements );
+  return $statObject;
 }
 
 
