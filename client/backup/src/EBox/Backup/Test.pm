@@ -76,6 +76,21 @@ sub backupAndRestoreTest : Test(6)
 {
   my ($self) = @_;
 
+  Test::MockObject->fake_module('EBox::Backup',
+			       backupFiles => sub {
+				 my ($self) = @_;
+				 my $dir = $self->dumpDir();
+				 system "rm -rf /tmp/backup/*";
+				 system "cp -r $dir/* /tmp/backup/";
+			       },
+			       restoreFiles => sub {
+				 my ($self) = @_;
+				 my $dir = $self->restoreDir();
+ 				 warn 'incomplete. We copy all from /tmp/backup for now';
+				 system "cp -r  /tmp/backup/* $dir";
+			       }
+			       );
+
   fakeEBoxModule(
 		 name => 'canaryJail',
 		 subs => [
