@@ -30,6 +30,11 @@ use EBox::Global::TestStub;
 use File::Slurp qw(read_file write_file);
 use EBox::FileSystem qw(makePrivateDir);
 
+
+use Readonly;
+Readonly::Scalar my $GCONF_CANARY_KEY => '/ebox/canary';
+
+
 sub testDir
 {
   return '/tmp/ebox.backup.test';
@@ -68,14 +73,13 @@ sub _moduleInstantiationTest : Test(1)
 
   EBox::Config::TestStub::setConfigKeys( tmp => $self->testDir() );
   checkModuleInstantiation('backup', 'EBox::Backup');
+  fakeBackupAndRestoreFileSubs();
 }
 
 
 
-sub backupAndRestoreTest : Test(6)
+sub fakeBackupAndRestoreFileSubs 
 {
-  my ($self) = @_;
-
   Test::MockObject->fake_module('EBox::Backup',
 			       backupFiles => sub {
 				 my ($self) = @_;
@@ -89,6 +93,14 @@ sub backupAndRestoreTest : Test(6)
 				 system "cp -r  /tmp/backup/* $dir";
 			       }
 			       );
+
+}
+
+
+sub setUpCanaryModule
+{
+  my ($self) = @_;
+
 
   fakeEBoxModule(
 		 name => 'canaryJail',
@@ -120,20 +132,40 @@ sub backupAndRestoreTest : Test(6)
 			 ],
 		);
 
+}
 
-  my $backup = EBox::Global->modInstance('backup');
+
+sub setCanaries
+{
+  my ($value) = @_;
+
+  my $client = Gnome2::GConf::Client->get_default;
+  $client->set_string($GCONF_CANARY_KEY, $value);
+  die 'gconf canart not changed' if $client->get_string($GCONF_CANARY_KEY) ne $value;
+
   my $canaryJail = EBox::Global->modInstance('canaryJail');
-  $canaryJail->setCanary('before');
+  $canaryJail->setCanary($value);
+  die 'canary not changed' if $canaryJail->canary() ne $value;
+}
 
-  
-  lives_ok { $backup->backup() } 'backup()';
 
-  $canaryJail->setCanary('after');
-  die 'canary not changed' if $canaryJail->canary() ne 'after';
+sub checkCanaries
+{
+  my ($expectedValue) = @_;  
+  my $value;
 
-  lives_ok { $backup->restore() } 'restore()';
-  is $canaryJail->canary(), 'before', 'Checking if canaryJail module state was restored from backup';
+  my $client = Gnome2::GConf::Client->get_default;
+  $value = $client->get_string($GCONF_CANARY_KEY);
+  is $value, $expectedValue, 'Checking GConf canary';
 
+  my $canaryJail = EBox::Global->modInstance('canaryJail');
+  $value = $canaryJail->canary();
+  is $value, $expectedValue, 'Checking module canary';
+}
+
+
+sub checkBackupHelpers
+{
   # we check if all the backupHelpers where correctly used
   my @backupHelpers = map { $_->can('backupHelper') ? $_->backupHelper() : ()  }  @{ EBox::Global->modInstances() };
   foreach my $mockBh (@backupHelpers) {
@@ -141,6 +173,26 @@ sub backupAndRestoreTest : Test(6)
     is $mockBh->call_pos(2), 'restoreConf', 'Checking that restoreConf was called in the mocked backupHelper';
     is $mockBh->call_pos(3), undef, 'Checking that no more methods upon the backupHelper were called';
   }
+}
+
+sub backupAndRestoreTest : Test(7)
+{
+  my ($self) = @_;
+  fakeBackupAndRestoreFileSubs();
+  $self->setUpCanaryModule();
+
+  my $backup = EBox::Global->modInstance('backup');
+ 
+ 
+  setCanaries('beforeBackup');
+  lives_ok { $backup->backup() } 'backup()';
+
+  setCanaries('afterBackup');
+  lives_ok { $backup->restore() } 'restore()';
+
+  checkCanaries('beforeBackup');
+  
+  checkBackupHelpers();
 }
 
 
@@ -160,7 +212,8 @@ sub gconfDumpAndRestoreTest : Test(3)
   }
 
   # poor man's backup emulation
-  system 'cp -r ' .  EBox::Backup::dumpDir() . '/* ' . EBox::Backup::restoreDir() . '/';
+  
+  system 'cp -r ' .  EBox::Backup::dumpDir() . '/* ' . EBox::Backup::restoreDir() . '/' if EBox::Backup::restoreDir() ne EBox::Backup::dumpDir();
   die $! if ($? != 0);
 
   lives_ok { $backup->restoreGConf() } 'Restoring GConf';
