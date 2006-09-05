@@ -26,6 +26,7 @@ use EBox::Global;
 use EBox::Config;
 use EBox::Validate qw(isPrivateDir);
 use EBox::FileSystem qw (makePrivateDir);
+use EBox::Backup::BackupManager;
 use Error qw(:try);
 use File::Slurp  qw(write_file);
 use EBox::Summary::Module;
@@ -147,9 +148,19 @@ sub backup
 sub backupFiles
 {
   my ($self) = @_;
-  my $dir = $self->dumpDir();
+
+
+#   my @backupManagerParams = qw(dumpDir repositoryRoot, archiveTTL);
+#   @backupManagerParams = map {
+#                                   my $accessor = $self->can($_);
+# 				  my $value    = $accessor->($self)
+# 				  ($_ => $value)
+#                               } @backupManagerParams;
+
+#   EBox::Backup::BackupManager::backup(@backupManagerParams);
 
   warn 'incomplete. We copy all to /tmp/backup for now';
+  my $dir = $self->dumpDir();
   system "rm -rf /tmp/backup/*";
   system "cp -r $dir/* /tmp/backup/";
 
@@ -233,6 +244,9 @@ sub _backupHelpersByName
   my @helpers    =  map { $_->can('backupHelper') ?  ($_->name(), $_->backupHelper()) : ()  }   @{ EBox::Global->modInstances() };  
   return {@helpers};
 }
+
+
+
 
 sub summary
 {

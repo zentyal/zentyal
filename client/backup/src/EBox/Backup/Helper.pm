@@ -1,8 +1,13 @@
 package EBox::Backup::Helper;
-# Description: Helper class used for modules that need special backup treatment
+# Description: Helper class used for modules that have special backup needs
 use strict;
 use warnings;
 
+
+sub version
+{
+  throw EBox::Exceptions::Internal ('The EBox::Backup::Helper::version sub must be overriden to return a version identifier');
+}
 
 
 sub dumpConf

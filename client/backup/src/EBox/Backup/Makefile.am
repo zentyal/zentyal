@@ -1,8 +1,9 @@
+SUBDIRS =  rootTests
 ## Process this file with automake to produce Makefile.in
 
 perldir = @PERLPATH@/EBox/Backup
 
-nobase_perl_DATA = Test.pm
+nobase_perl_DATA = Test.pm BackupManager.pm
 
 DISTCLEANFILES = 
 

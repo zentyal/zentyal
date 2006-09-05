@@ -1,7 +1,7 @@
 AC_INIT([EBox-backup], [0.1])
 
 AC_CONFIG_AUX_DIR([config])
-AC_CONFIG_SRCDIR([src/EBox/ModuleName.pm])
+AC_CONFIG_SRCDIR([src/EBox/Backup.pm])
 
 AM_INIT_AUTOMAKE([foreign])
 
@@ -44,6 +44,13 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	AM_GCONF_SOURCE_2
 
 	AC_CONF_EBOX
+
+	AC_PROG_PERL_MODULES(Readonly, ,
+	  AC_MSG_ERROR(Missing Readonly))
+
+
+	AC_PROG_PERL_MODULES(File::Slurp::Tree, ,
+	  AC_MSG_WARN(Missing test dependency File::Slurp::Tree))
 else
 	GCONF_SCHEMAS_INSTALL_FALSE=
 	GCONF_SCHEMAS_INSTALL_TRUE='#'
@@ -53,6 +60,12 @@ AM_PO_SUBDIRS
 AC_CONFIG_FILES([
 src/Makefile
 src/EBox/Makefile
+src/EBox/t/Makefile
+src/EBox/rootTests/Makefile
+src/EBox/rootTests/lib/Makefile
+src/EBox/Backup/Makefile
+src/EBox/Backup/rootTests/Makefile
+src/EBox/Backup/rootTests/lib/Makefile
 src/EBox/CGI/Makefile
 src/templates/Makefile
 schemas/Makefile
