@@ -57,6 +57,7 @@ sub rootCommands
 {
 	my $self = shift;
 	my @commands = ();
+	push @commands, EBox::Backup::BackupManager::rootCommands();
 	return @commands;
 }
 
