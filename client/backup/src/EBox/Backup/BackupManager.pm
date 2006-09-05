@@ -19,7 +19,7 @@ sub backup
 {
   my (%params) = @_;
 
-  my $bin = delete  $params{bin};
+  my $bin = delete $params{bin};
 
   my $archiveDir = $params{archiveDir};
   EBox::FileSystem::cleanDir($archiveDir);
@@ -27,10 +27,7 @@ sub backup
   writeConfFile(%params);
 
   my $command = backupCommand($bin);
-  my @output = `$command`;
-  if ($? != 0) {
-    throw EBox::Exceptions::External (__x("backup-manager failed. Command {command}. Output {output}", command => $command, output => "@output"));
-  }
+  EBox::Sudo::root($command);
 }
 
 sub backupCommand
@@ -70,6 +67,14 @@ sub confFile
 {
   my $file = EBox::Config::tmp() . "/$CONF_FILE";
   return $file;
+}
+
+
+sub rootCommands
+{
+  my ($class, $bin) = @_;
+  my @commands = ( backupCommand($bin) );
+  return @commands;
 }
 
 

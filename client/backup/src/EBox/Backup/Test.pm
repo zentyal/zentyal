@@ -53,8 +53,8 @@ sub setupDirs : Test(setup)
   system "rm -rf $testDir";
 
   makePrivateDir($testDir);
-  makePrivateDir (EBox::Backup::dumpDir());
-  makePrivateDir (EBox::Backup::restoreDir());
+#  makePrivateDir (EBox::Backup::dumpDir());
+#  makePrivateDir (EBox::Backup::restoreDir());
 
   system "rm -rf /tmp/backup";
   makePrivateDir('/tmp/backup');
@@ -87,7 +87,7 @@ sub fakeBackupAndRestoreFileSubs
 			       },
 			       restoreFiles => sub {
 				 my ($self) = @_;
-				 my $dir = $self->restoreDir();
+				 my $dir = $self->dumpDir();
 				 system "cp -r  /tmp/backup/* $dir";
 			       }
 			       );
@@ -214,6 +214,8 @@ sub gconfDumpAndRestoreTest : Test(3)
 {
   my $backup = EBox::Backup->_create();
 
+  EBox::FileSystem::makePrivateDir($backup->dumpDir());
+
   my $beforeValue = 'beforeDump';
   my $client = Gnome2::GConf::Client->get_default;
   $client->set_string($GCONF_CANARY_KEY, $beforeValue);
@@ -222,10 +224,7 @@ sub gconfDumpAndRestoreTest : Test(3)
 
   $client->set_string($GCONF_CANARY_KEY, 'After dump');
 
-  # poor man's backup emulation
-  
-  system 'cp -r ' .  EBox::Backup::dumpDir() . '/* ' . EBox::Backup::restoreDir() . '/' if EBox::Backup::restoreDir() ne EBox::Backup::dumpDir();
-  die $! if ($? != 0);
+  # do nothing and suppose that a backup has been done...
 
   lives_ok { $backup->restoreGConf() } 'Restoring GConf';
   is $client->get_string($GCONF_CANARY_KEY), $beforeValue, 'Checking canary GConf entry after restore';

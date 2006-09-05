@@ -1,4 +1,4 @@
-test_class = GConfBackupTest.pm
+test_class = FullBackupTest.pm
 
 EXTRA_DIST = $(test_class)
 

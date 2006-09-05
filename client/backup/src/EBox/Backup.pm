@@ -27,6 +27,8 @@ use EBox::Config;
 use EBox::Validate qw(isPrivateDir);
 use EBox::FileSystem qw (makePrivateDir);
 use EBox::Backup::BackupManager;
+use EBox::Backup::TarArchive;
+
 use Error qw(:try);
 use File::Slurp  qw(write_file);
 use EBox::Summary::Module;
@@ -58,19 +60,20 @@ sub rootCommands
 	return @commands;
 }
 
+
+
+
 sub dumpDir
 {
-  warn "Provisional";
   return EBox::Config::tmp() . '/dump';
 }
 
-sub restoreDir
+
+
+sub archiveDir
 {
-  warn "Provisional";
-  return EBox::Config::tmp() . '/restore';
+  return EBox::Config::tmp() . '/archive';
 }
-
-
 
 sub dumpGConf
 {
@@ -99,7 +102,7 @@ sub restoreGConf
 {
   my ($self) = @_;
 
-  my $dir = $self->restoreDir();
+  my $dir = $self->dumpDir();
   my $loadOutput =  `$GCONF_LOAD_COMMAND $dir/$GCONF_DUMP_FILE`;
 
   if ($? != 0) {
@@ -132,7 +135,9 @@ sub backup
   try {
     EBox::info('Backup process started');
     my $dir = $self->dumpDir();
-    isPrivateDir($dir) or throw EBox::Exceptions::Internal('The backup dir is not private');
+    EBox::FileSystem::makePrivateDir($dir);
+    EBox::FileSystem::cleanDir($dir);
+
     $self->dumpFiles();
     $self->backupFiles();
     $self->setLastBackupTime()
@@ -148,24 +153,25 @@ sub backup
 sub backupFiles
 {
   my ($self) = @_;
+  
+  my $archiveDir = archiveDir();
+  EBox::FileSystem::makePrivateDir($archiveDir);
+  EBox::FileSystem::cleanDir($archiveDir);
 
+   my @backupManagerParams = (
+			      bin      => $self->backupManagerBin(),
+			      dumpDir  => dumpDir(),
+			      archiveDir => $archiveDir,
+			     );
 
-#   my @backupManagerParams = qw(dumpDir repositoryRoot, archiveTTL);
-#   @backupManagerParams = map {
-#                                   my $accessor = $self->can($_);
-# 				  my $value    = $accessor->($self)
-# 				  ($_ => $value)
-#                               } @backupManagerParams;
-
-#   EBox::Backup::BackupManager::backup(@backupManagerParams);
-
-  warn 'incomplete. We copy all to /tmp/backup for now';
-  my $dir = $self->dumpDir();
-  system "rm -rf /tmp/backup/*";
-  system "cp -r $dir/* /tmp/backup/";
-
+   EBox::Backup::BackupManager::backup(@backupManagerParams);
 }
 
+
+sub backupManagerBin
+{
+  return '/usr/sbin/backup-manager';
+}
 
 sub setLastBackupTime
 {
@@ -176,13 +182,17 @@ sub setLastBackupTime
 sub restore
 {
   my ($self) = @_;
+
   try {
     EBox::info('Restoring configuration from backup process started');
 
-    my $dir = $self->restoreDir();
+    my $dir = $self->dumpDir();
+    EBox::FileSystem::makePrivateDir($dir);
+    EBox::FileSystem::cleanDir($dir);
+    
     isPrivateDir($dir) or throw EBox::Exceptions::Internal('The restore  dir is not private');
 
-    $self->extractFiles();
+    $self->restoreFiles();
     $self->restoreConf();
     $self->setAllModulesChanged();
     $self->setLastRestoreTime();
@@ -194,13 +204,16 @@ sub restore
   };
 }
 
-sub extractFiles
+sub restoreFiles
 {
   my ($self) = @_;
-  my $dir = $self->restoreDir();
 
-  warn 'incomplete. We copy all from /tmp/backup for now';
-  system "cp -r  /tmp/backup/* $dir";
+  warn 'incomplete. We get the archive form the restore dir';
+  my $dir = $self->archiveDir();
+  my $archiveFile = `/bin/ls $dir/*.tar.gz`;
+  chomp $archiveFile;
+
+  EBox::Backup::TarArchive::restore(archiveFile => $archiveFile);
 }
 
 
@@ -210,10 +223,10 @@ sub restoreConf
 
   $self->restoreGConf();
 
-  my $restoreDir = restoreDir();
+  my $dumpDir = dumpDir();
   my $backupHelpersByName_r = $self->_backupHelpersByName();
   while (my ($modName, $bh) = each %{ $backupHelpersByName_r }) {
-    my $dir = "$restoreDir/$modName";
+    my $dir = "$dumpDir/$modName";
     makePrivateDir($dir);
     $bh->restoreConf($dir);
   }
