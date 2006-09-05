@@ -33,9 +33,10 @@ use Readonly;
 Readonly::Scalar my $BACKUP_MANAGER_BIN => '/usr/sbin/backup-manager';
 
 
-sub _useTest : Test(1)
+sub _useTest : Test(2)
 {
   use_ok('EBox::Backup::BackupManager');
+  use_ok('EBox::Backup::TarArchive');
 }
 
 
@@ -95,7 +96,7 @@ sub backupTest : Test(3)
   my @backupParams = (
 		       bin            => $BACKUP_MANAGER_BIN,
 		       dumpDir        => backedUpDir(),
-		       repositoryRoot => archiveDir(),
+		       archiveDir => archiveDir(),
 		       burn           => 0, # deactivate burning of data
 		     );
   lives_ok { EBox::Backup::BackupManager::backup(@backupParams)  } "backup() called with params @backupParams";
@@ -103,10 +104,10 @@ sub backupTest : Test(3)
 
   EBox::FileSystem::cleanDir(backedUpDir());
   my $lsCommand =  '/bin/ls '  . archiveDir() . '/*.gz';
-  my $tarFile =  `$lsCommand`; 
-  my $tarCommand =  "tar -x -z -C /  -f$tarFile";
-  system $tarCommand;
-  is $?, 0, "Checking extraction of the archive with command $tarCommand";
+  my $tarFile =   `$lsCommand`; 
+  chomp $tarFile;
+
+  lives_ok { EBox::Backup::TarArchive::restore(archiveFile => $tarFile)   } 'Extracting archive file';
 
   my $extractedFileTree = slurp_tree(backedUpDir());
   eq_or_diff $extractedFileTree, \%fileTree, 'Checking extracted files';

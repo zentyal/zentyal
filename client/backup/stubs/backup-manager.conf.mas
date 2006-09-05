@@ -1,6 +1,6 @@
 <%args>
 $dumpDir
-$repositoryRoot => '/var/archives'
+$archiveDir => '/var/archives'
 $archiveTTL => 5
 $burn          => 1
 $burningMedia   => 'DVD'
@@ -10,9 +10,9 @@ $burningMaxSize    => 4200 # this is the size if a DVD
 </%args>
 export BM_DIRECTORIES="<% $dumpDir %>"
 
-export BM_ARCHIVES_REPOSITORY="<% $repositoryRoot %>" 
-export BM_USER="root"
-export BM_GROUP="root"
+export BM_ARCHIVES_REPOSITORY="<% $archiveDir %>" 
+export BM_USER="ebox"
+export BM_GROUP="ebox"
 
 export BM_ARCHIVES_PREFIX="$HOSTNAME"
 export BM_NAME_FORMAT="long"
@@ -21,19 +21,6 @@ export BM_MAX_TIME_TO_LIVE="<% $archiveTTL %>"
 export BM_DUMP_SYMLINKS="false"
 
 
-
-%#export BM_ARCHIVE_PURGEDUPS="true"
-%#export BM_ARCHIVE_TTL="<% $archiveTTL %>"
-%#export BM_ARCHIVE_PREFIX="$HOSTNAME"
-%#
-%#export BM_ARCHIVE_METHOD="tarball"
-%#
-%#export BM_TARBALL_NAMEFORMAT="long"
-%#export BM_TARBALL_FILETYPE="tar.bz2"
-%#export BM_TARBALL_DUMPSYMLINKS="false"
-%#
-%#export BM_TARBALL_DIRECTORIES="<% $dumpDir %>"
-%#
 % if ($burn) {
 export BM_BURNING_MEDIA="<% $burningMedia %>"
 export BM_BURNING_MAXSIZE="<% $burningMaxSize %>"

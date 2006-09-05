@@ -6,6 +6,7 @@ use English qw(-no_match_vars);
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Sudo;
+use EBox::FileSystem;
 use HTML::Mason;
 use Error qw(:try);
 
@@ -19,6 +20,9 @@ sub backup
   my (%params) = @_;
 
   my $bin = delete  $params{bin};
+
+  my $archiveDir = $params{archiveDir};
+  EBox::FileSystem::cleanDir($archiveDir);
 
   writeConfFile(%params);
 
