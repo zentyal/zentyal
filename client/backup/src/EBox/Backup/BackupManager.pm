@@ -1,5 +1,5 @@
 package EBox::Backup::BackupManager;
-# Description: Module to control the Backup Manager program 
+#  Module to control the Backup Manager program 
 use strict;
 use warnings;
 use English qw(-no_match_vars);
