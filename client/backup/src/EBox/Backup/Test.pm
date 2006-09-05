@@ -53,10 +53,9 @@ sub setupDirs : Test(setup)
   system "rm -rf $testDir";
 
   makePrivateDir($testDir);
-#  makePrivateDir (EBox::Backup::dumpDir());
-#  makePrivateDir (EBox::Backup::restoreDir());
 
   system "rm -rf /tmp/backup";
+  ($? == 0) or die $!;
   makePrivateDir('/tmp/backup');
 }
 
