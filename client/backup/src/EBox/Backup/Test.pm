@@ -25,8 +25,6 @@ use Test::More;
 use Test::Exception;
 use EBox::Test qw(checkModuleInstantiation fakeEBoxModule);
 use EBox::Gettext;
-use EBox::Config::TestStub;
-use EBox::Global::TestStub;
 use File::Slurp qw(read_file write_file);
 use EBox::FileSystem qw(makePrivateDir);
 
@@ -175,6 +173,22 @@ sub checkBackupHelpers
   }
 }
 
+sub teardownGConfCanary : Test(teardown)
+{
+  my $client = Gnome2::GConf::Client->get_default;
+  $client->unset($GCONF_CANARY_KEY);  
+}
+
+sub teardownCanaryModule : Test(teardown)
+{
+  my ($self) = @_;
+  delete $self->{cachedBH}; #delete cached backupHelper
+
+  EBox::GConfModule::TestStub::setConfig(); 
+  EBox::Global::TestStub::setEBoxModule('backup' => 'EBox::Backup');
+}
+
+
 sub backupAndRestoreTest : Test(7)
 {
   my ($self) = @_;
@@ -198,18 +212,15 @@ sub backupAndRestoreTest : Test(7)
 
 sub gconfDumpAndRestoreTest : Test(3)
 {
-  my $canaryKey = '/ebox/before';
   my $backup = EBox::Backup->_create();
 
+  my $beforeValue = 'beforeDump';
   my $client = Gnome2::GConf::Client->get_default;
-  $client->set_bool($canaryKey, 1);
+  $client->set_string($GCONF_CANARY_KEY, $beforeValue);
 
   lives_ok { $backup->dumpGConf() } "Dumping GConf";
 
-  $client->set_bool($canaryKey, 0);
-  if ($client->get_bool($canaryKey)) {
-    die "GConf operation failed";
-  }
+  $client->set_string($GCONF_CANARY_KEY, 'After dump');
 
   # poor man's backup emulation
   
@@ -217,9 +228,9 @@ sub gconfDumpAndRestoreTest : Test(3)
   die $! if ($? != 0);
 
   lives_ok { $backup->restoreGConf() } 'Restoring GConf';
-  ok $client->get_bool($canaryKey), 'Checking canary GConf entry after restore';
+  is $client->get_string($GCONF_CANARY_KEY), $beforeValue, 'Checking canary GConf entry after restore';
 
-  $client->unset($canaryKey); # try to not poluate user's gconf
+
 }
 
 1;
