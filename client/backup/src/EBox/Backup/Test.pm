@@ -144,4 +144,29 @@ sub backupAndRestoreTest : Test(6)
 }
 
 
+sub gconfDumpAndRestoreTest : Test(3)
+{
+  my $canaryKey = '/ebox/before';
+  my $backup = EBox::Backup->_create();
+
+  my $client = Gnome2::GConf::Client->get_default;
+  $client->set_bool($canaryKey, 1);
+
+  lives_ok { $backup->dumpGConf() } "Dumping GConf";
+
+  $client->set_bool($canaryKey, 0);
+  if ($client->get_bool($canaryKey)) {
+    die "GConf operation failed";
+  }
+
+  # poor man's backup emulation
+  system 'cp -r ' .  EBox::Backup::dumpDir() . '/* ' . EBox::Backup::restoreDir() . '/';
+  die $! if ($? != 0);
+
+  lives_ok { $backup->restoreGConf() } 'Restoring GConf';
+  ok $client->get_bool($canaryKey), 'Checking canary GConf entry after restore';
+
+  $client->unset($canaryKey); # try to not poluate user's gconf
+}
+
 1;

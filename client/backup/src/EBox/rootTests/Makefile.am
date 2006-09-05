@@ -1,6 +1,6 @@
 SUBDIRS = lib 
 
-test_scripts = GConfBackup.t
+test_scripts = FullBackup.t
 
 EXTRA_DIST = $(test_scripts)
 
