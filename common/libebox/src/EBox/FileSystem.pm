@@ -64,7 +64,7 @@ sub cleanDir
 
       system "rm -rf $dir/*";
       if ($? != 0) {
-	throw EBox::Exceptions::Internal "Error cleaning $d: $!";
+	throw EBox::Exceptions::Internal "Error cleaning $dir: $!";
       }
     } 
     else {
