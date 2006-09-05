@@ -86,7 +86,6 @@ sub backupAndRestoreTest : Test(6)
 			       restoreFiles => sub {
 				 my ($self) = @_;
 				 my $dir = $self->restoreDir();
- 				 warn 'incomplete. We copy all from /tmp/backup for now';
 				 system "cp -r  /tmp/backup/* $dir";
 			       }
 			       );
