@@ -56,7 +56,10 @@ sub _mockedLogger
 
     defined($cat) or $cat = caller;
     unless ($loginit) {
-	Log::Log4perl->easy_init($logLevel);
+	Log::Log4perl->easy_init( {
+				   level  => $logLevel,
+				   layout => '[EBox log]%d %m%n',
+				  } );
 	$loginit = 1;
       }
 
