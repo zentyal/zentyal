@@ -61,7 +61,8 @@ sub _fakedRoot
 
     my @output = `$cmd`;
     unless($? == 0) {
-	_rootCommandException($cmd, $!);
+         my $error = "@output\n$!";
+	_rootCommandException($cmd, $error);
     }
     return \@output;
 }
@@ -71,7 +72,7 @@ sub _fakedRoot
 sub _rootCommandException
 {
     my ($cmd, $error) = @_;
-    throw EBox::Exceptions::Internal("(Mocked EBox::Sudo) Root command $cmd failed. $error");
+    throw EBox::Exceptions::Internal("(Mocked EBox::Sudo) Root command $cmd failed. Comand output: $error");
 }
 
 
