@@ -137,22 +137,40 @@ sub stat
 
   my @statElements = split '[I\n]', $statOutput->[0];
 
-  # convert file mode from hexadecimal...
-  $statElements[2]  = hex ('0x' . $statElements[2]); 
 
-  # XXX: add the correct value for  '6 rdev     the device identifier (special files only) '
-  # meanwhile we make it undef...
-  $statElements[6] = undef;
+
+  # convert file mode from hexadecimal...
+  $statElements[2]  = hex $statElements[2]; 
+
+  # extract minor and major numbers for recereate rdev
+  my $minorNumber =  hex (pop @statElements);
+  my $majorNumber =  hex (pop @statElements);
+
+  $statElements[6] = _makeRdev($majorNumber, $minorNumber);
 
   my $statObject = File::stat::populate( @statElements );
   return $statObject;
 }
 
 
+# XXX maybe this should be constants..
+my $MAJOR_MASK  = 03777400;         
+my $MAJOR_SHIFT = 0000010;          
+my $MINOR_MASK  = 037774000377;     
+my $MINOR_SHIFT = 0000000;
+
+sub _makeRdev
+{
+  my ($major, $minor) = @_;
+  my $rdev =  (($major << $MAJOR_SHIFT) & $MAJOR_MASK) | (($minor << $MINOR_SHIFT) & $MINOR_MASK);
+  return $rdev;
+}
+
+
 sub rootCommandForStat
 {
     my ($file) = @_;
-    return "/usr/bin/stat -c%dI%iI%fI%hI%uI%gItodoI%sI%XI%YI%ZI%oI%b $file";
+    return "/usr/bin/stat -c%dI%iI%fI%hI%uI%gIhI%sI%XI%YI%ZI%oI%bI%tI%T $file";
 }
 
 1;
