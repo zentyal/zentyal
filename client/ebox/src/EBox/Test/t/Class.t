@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 4;
+use Test::More tests => 3;
 use Test::Exception;
 
 use lib '../../..';
@@ -9,7 +9,6 @@ use lib '../../..';
 
 
 use_ok('EBox::Test::Class');
-lives_ok { EBox::Test::Class->runtests()  } 'Checking that runtests method lives';
 
 $INC{'SimpleTest.pm'} = 1;
 lives_ok { SimpleTest->runtests()  } 'Checking that runtests method lives in child class';
@@ -17,7 +16,7 @@ lives_ok { SimpleTest->runtests()  } 'Checking that runtests method lives in chi
 
 package SimpleTest;
 use base 'EBox::Test::Class';
-
+use Test::Simple;
 
 sub simple : Test(1)
 {
