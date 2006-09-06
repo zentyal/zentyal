@@ -85,7 +85,7 @@ sub root # (command)
 	my @output = `$sudocmd`;
 	unless($? == 0) {
 		throw EBox::Exceptions::Internal(
-			__x("Root command '{cmd}' failed", cmd => $cmd));
+			__x("Root command '{cmd}' failed. Command output: {output}", cmd => $cmd, output => "@output"));
 	}
 	return \@output;
 }
