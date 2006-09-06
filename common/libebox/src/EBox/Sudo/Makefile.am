@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-perldir = @PERLPATH@/EBox/NetWrappers
+perldir = @PERLPATH@/EBox/Sudo
 
 nobase_perl_DATA = TestStub.pm
 
