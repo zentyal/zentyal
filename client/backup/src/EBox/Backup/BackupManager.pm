@@ -10,10 +10,17 @@ use EBox::FileSystem;
 use HTML::Mason;
 use Error qw(:try);
 
+use EBox::Backup::OpticalDiscDrives;
+
 use Readonly;
 Readonly::Scalar my  $CONF_FILE => 'backup-manager.conf';
 Readonly::Scalar my  $CONF_FILE_TEMPLATE => '/backup/backup-manager.conf.mas';
 
+my %sizeByMedia = (
+		   'DVD' => 4200,
+		   'CDR'   => 650,
+		   'CDRW'  => 650,
+		  );
 
 sub backup
 {
@@ -24,11 +31,52 @@ sub backup
   my $archiveDir = $params{archiveDir};
   EBox::FileSystem::cleanDir($archiveDir);
 
+
+
+  if (exists $params{media}) {
+    my $media = delete $params{media};
+    my $device = _deviceForMedia($media);
+    $params{burningDevice}  = $device;
+    $params{burningDeviceForced}  = $device;
+    $params{burningMedia}  =  $media;
+    $params{burningMaxSize} = $sizeByMedia{$media};
+  }
+  else {
+    $params{burn} = 0; # deactivate burn option if no media is specified
+  }
+
   writeConfFile(%params);
 
   my $command = backupCommand($bin);
   EBox::Sudo::root($command);
 }
+
+
+sub _deviceForMedia
+{
+  my ($media) = @_;
+
+  if (!exists $sizeByMedia{$media}) {
+    throw EBox::Exceptions::Internal("Media type incorrect: $media");
+  }
+
+  my $mediaSubName = 'writersFor' . $media ;
+  my $mediaSub     = EBox::Backup::OpticalDiscDrives->can($mediaSubName);
+  if (!defined $mediaSub) {
+    throw EBox::Exceptions::Internal("$mediaSubName not implemented in EBox::Backup::OpticalDiscDrives");
+  }
+  
+  my @devices = $mediaSub->();
+  if (@devices == 0) {
+    throw EBox::Exceptions::External(__x("The system had not a writer for a {media}", media => $media));
+  }
+  ### XXX TODO: chose the best writer available
+  my $chosenDevice =shift @devices;  
+  return $chosenDevice;
+}
+
+
+
 
 sub backupCommand
 {

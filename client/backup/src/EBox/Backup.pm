@@ -132,7 +132,12 @@ sub dumpFiles
 
 sub backup
 {
-  my ($self) = @_;
+  my ($self, %params) = @_;
+  
+  my @backupFilesParams;
+  push @backupFilesParams, (media => $params{media}) if exists $params{media};
+  push @backupFilesParams, (burn => $params{burn}) if exists $params{burn};
+
   try {
     EBox::info('Backup process started');
     my $dir = $self->dumpDir();
@@ -140,7 +145,7 @@ sub backup
     EBox::FileSystem::cleanDir($dir);
 
     $self->dumpFiles();
-    $self->backupFiles();
+    $self->backupFiles(@backupFilesParams);
     $self->setLastBackupTime()
   }
   otherwise {
@@ -153,17 +158,20 @@ sub backup
 
 sub backupFiles
 {
-  my ($self) = @_;
+  my ($self, @params) = @_;
   
   my $archiveDir = archiveDir();
   EBox::FileSystem::makePrivateDir($archiveDir);
   EBox::FileSystem::cleanDir($archiveDir);
 
+
    my @backupManagerParams = (
 			      bin      => $self->backupManagerBin(),
 			      dumpDir  => dumpDir(),
 			      archiveDir => $archiveDir,
+			      @params
 			     );
+
 
    EBox::Backup::BackupManager::backup(@backupManagerParams);
 }
@@ -209,7 +217,6 @@ sub restoreFiles
 {
   my ($self) = @_;
 
-  warn 'incomplete. We get the archive form the restore dir';
   my $dir = $self->archiveDir();
   my $archiveFile = `/bin/ls $dir/*.tar.gz`;
   chomp $archiveFile;

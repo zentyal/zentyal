@@ -1,30 +1,34 @@
 package EBox::Backup::Helper;
-# Description: Helper class used for modules that have special backup needs
+# Helper class used for modules that have special backup needs
 use strict;
 use warnings;
+
+# Default backup helper constructor, override if need special parameters
+sub new
+{
+  my ($class) = @_;
+  my $self  = {};
+  bless $self, $class;
+  return $self;
+}
 
 
 sub version
 {
-  throw EBox::Exceptions::Internal ('The EBox::Backup::Helper::version sub must be overriden to return a version identifier');
+  throw EBox::Exceptions::NotImplemented ('The EBox::Backup::Helper::version sub must be overriden to return a version identifier');
 }
 
 
 sub dumpConf
 {
-  throw EBox::Exceptions::Internal ('The EBox::Backup::Helper::dump sub must be overriden');
+  throw EBox::Exceptions::NotImplemented ('The EBox::Backup::Helper::dump sub must be overriden');
 }
 
 sub restoreConf
 {
-  throw EBox::Exceptions::Internal ('The EBox::Backup::Helper::rstore sub must be overriden');
+  throw EBox::Exceptions::NotImplemented ('The EBox::Backup::Helper::rstore sub must be overriden');
 }
 
-
-sub files
-{
-  throw EBox::Exceptions::Internal ('The EBox::Backup::Helper::files sub must be overriden');
-}
 
 
 

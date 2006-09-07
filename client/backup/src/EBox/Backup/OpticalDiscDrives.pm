@@ -35,7 +35,8 @@ sub info
     throw EBox::Exceptions::Internal("Parse error in $CDROM_INFO_PATH: supposed drive name line does not match");
   }
   (undef, undef,  @names) = split '\s+', $driveNameLine; # get the drive names
-  $info{$_} = {} foreach @names; # create entries in  info foreach drive
+  @names = map { '/dev/' . $_ } @names;
+  $info{$_} = {} foreach @names; # create entries in  info foreach drive and append /dev/
 
   foreach my $line (@infoFile) {
     next if $line =~ m{^\s*$};
@@ -54,18 +55,18 @@ sub info
 }
 
 
-sub dvdWriters
+sub writersForDVD
 {
   return _selectByCapability('Can write DVD-R');
 }
 
 
-sub cdrwWriters
+sub writersForCDR
 {
   return _selectByCapability('Can write CD-R');
 }
 
-sub cdrWriters
+sub writersForCDRW
 {
   return _selectByCapability('Can write CD-RW');
 }

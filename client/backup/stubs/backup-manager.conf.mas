@@ -1,40 +1,53 @@
 <%args>
 $dumpDir
-$archiveDir => '/var/archives'
+$archiveDir 
 $archiveTTL => 5
 $burn          => 1
-$burningMedia   => 'DVD'
-$burningDevice => '/dev/cdrom'
-$burningDevForced => undef
-$burningMaxSize    => 4200 # this is the size if a DVD
+$burningMedia   
+$burningDevice 
+$burningDeviceForced => undef
+$burningMaxSize  
 </%args>
-export BM_DIRECTORIES="<% $dumpDir %>"
+# repository section
+export BM_REPOSITORY_ROOT="<% $archiveDir %>" 
+export BM_REPOSITORY_SECURE="true"
+export BM_REPOSITORY_USER="ebox"
+export BM_REPOSITORY_GROUP="ebox"
+export BM_REPOSITORY_CHMOD="770"
 
-export BM_ARCHIVES_REPOSITORY="<% $archiveDir %>" 
-export BM_USER="ebox"
-export BM_GROUP="ebox"
+#archives 
+export BM_ARCHIVE_TTL="<% $archiveTTL %>"
+export BM_ARCHIVE_PREFIX="$HOSTNAME"
+export BM_ARCHIVE_PURGEDUPS="true"
+export BM_ARCHIVE_CHMOD="660"
 
-export BM_ARCHIVES_PREFIX="$HOSTNAME"
-export BM_NAME_FORMAT="long"
-export BM_FILETYPE="tar.gz"
-export BM_MAX_TIME_TO_LIVE="<% $archiveTTL %>"
-export BM_DUMP_SYMLINKS="false"
+#tarballs
+export BM_ARCHIVE_METHOD="tarball"
+export BM_TARBALL_NAMEFORMAT="long"
+export BM_TARBALL_DUMPSYMLINKS="false"
+export  BM_TARBALL_FILETYPE="tar.gz"
+
+export BM_TARBALL_DIRECTORIES="<% $dumpDir %>"
+
+
 
 
 % if ($burn) {
-export BM_BURNING_MEDIA="<% $burningMedia %>"
+export BM_BURNING="true"
+export BM_BURNING_METHOD="<% $burningMedia %>"
+export BM_BURNING_CHKMD5="true"
 export BM_BURNING_MAXSIZE="<% $burningMaxSize %>"
 export BM_BURNING_DEVICE="<% $burningDevice %>"
-%     if (defined $burningDevForced) {
-export BM_BURNING_DEVFORCED="<% $burningDevForced %>"
-export BM_BURNING_CHKMD5="true"
+%     if (defined $burningDeviceForced) {
+export BM_BURNING_DEVFORCED="<% $burningDeviceForced %>"
 %     }
-%     else {
-export BM_BURNING="no"
-%     }
+%  }
+%  else {
+ export BM_BURNING="false"
 % }
 
 
 
-%# export BM_LOGGER="true"
+export BM_LOGGER="true"
+export BM_LOGGER_FACILITY="user"
 
