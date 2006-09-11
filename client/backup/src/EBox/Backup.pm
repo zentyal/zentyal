@@ -30,7 +30,7 @@ use EBox::Backup::BackupManager;
 use EBox::Backup::TarArchive;
 
 use Error qw(:try);
-use File::Slurp  qw(write_file);
+use File::Slurp  qw(write_file read_file);
 use EBox::Summary::Module;
 
 use Readonly;
@@ -123,12 +123,22 @@ sub dumpFiles
   while (my ($modName, $bh) = each %{ $backupHelpersByName_r  }) {
     my $dir = "$dumpDir/$modName";
     makePrivateDir($dir);
+    $self->writeVersionInfo($dir, $bh);
     $bh->dumpConf( $dir);
   }
 }
 
 
+sub writeVersionInfo
+{
+  my ($self,  $dir, $bh) = @_;
 
+  my $file = "$dir/version";
+  my $versionInfo = $bh->version();
+
+  write_file($file, $versionInfo);
+}
+ 
 
 sub backup
 {
@@ -232,13 +242,24 @@ sub restoreConf
   my $backupHelpersByName_r = $self->_backupHelpersByName();
   while (my ($modName, $bh) = each %{ $backupHelpersByName_r }) {
     my $dir = "$dumpDir/$modName";
-    makePrivateDir($dir);
-    $bh->restoreConf($dir);
+    isPrivateDir($dir);
+    my $version = $self->readVersionInfo($dir);
+    $bh->restoreConf($dir, $version);
   }
 
-
-
 }
+
+sub readVersionInfo
+{
+  my ($self, $dir) = @_;
+  my $file = "$dir/version";
+  ( -e $file ) or throw EBox::Exceptions::External(__('No version info file foound'));
+  ( -r $file ) or throw EBox::Exceptions::External(__('Version info file is not redeable'));
+
+  my $version = read_file($file);
+  return $version;
+}
+ 
 
 # mark all modules as changed
 sub setAllModulesChanged

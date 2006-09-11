@@ -31,7 +31,7 @@ use EBox::FileSystem qw(makePrivateDir);
 
 use Readonly;
 Readonly::Scalar my $GCONF_CANARY_KEY => '/ebox/canary';
-
+Readonly::Scalar my $CANARY_MODULE_VERSION => 'canary 0.1';
 
 sub testDir
 {
@@ -116,9 +116,13 @@ sub setUpCanaryModule
 					  write_file ("$dir/canary", $backup->{canary} );
 					});
 			    $bh->mock ( restoreConf => sub {
-					  my ($self, $dir) = @_;
+					  my ($self, $dir, $versionInfo) = @_;
 					  my $backedUpData =  read_file ("$dir/canary" );
 					  $backup->setCanary($backedUpData);
+					  $backup->setVersion($versionInfo);
+					});
+			    $bh->mock (  version => sub {
+					   return $CANARY_MODULE_VERSION;
 					});
 			    return $bh;
 			  },
@@ -126,6 +130,9 @@ sub setUpCanaryModule
 
 			  setCanary => sub { my ($self, $canary) = @_; $self->{canary} = $canary },
 			  canary => sub { my ($self) = @_; return $self->{canary} },
+			  setVersion => sub { my ($self, $version) = @_; $self->{version} = $version },
+			  version => sub { my ($self) = @_; return $self->{version} },
+
 			 ],
 		);
 
@@ -158,6 +165,9 @@ sub checkCanaries
   my $canaryJail = EBox::Global->modInstance('canaryJail');
   $value = $canaryJail->canary();
   is $value, $expectedValue, 'Checking module canary';
+
+  my $version  = $canaryJail->version();
+  is $version, $CANARY_MODULE_VERSION, 'Checking if version information was correctly backed';
 }
 
 
@@ -166,9 +176,10 @@ sub checkBackupHelpers
   # we check if all the backupHelpers where correctly used
   my @backupHelpers = map { $_->can('backupHelper') ? $_->backupHelper() : ()  }  @{ EBox::Global->modInstances() };
   foreach my $mockBh (@backupHelpers) {
-    is $mockBh->call_pos(1), 'dumpConf', 'Checking that dumpConf was called in the mocked backupHelper';
-    is $mockBh->call_pos(2), 'restoreConf', 'Checking that restoreConf was called in the mocked backupHelper';
-    is $mockBh->call_pos(3), undef, 'Checking that no more methods upon the backupHelper were called';
+    is $mockBh->call_pos(1), 'version', 'Checking that version was called in the mocked backupHelper';
+    is $mockBh->call_pos(2), 'dumpConf', 'Checking that dumpConf was called in the mocked backupHelper';
+    is $mockBh->call_pos(3), 'restoreConf', 'Checking that restoreConf was called in the mocked backupHelper';
+    is $mockBh->call_pos(4), undef, 'Checking that no more methods upon the backupHelper were called';
   }
 }
 
@@ -188,7 +199,7 @@ sub teardownCanaryModule : Test(teardown)
 }
 
 
-sub backupAndRestoreTest : Test(7)
+sub backupAndRestoreTest : Test(9)
 {
   my ($self) = @_;
   fakeBackupAndRestoreFileSubs();
