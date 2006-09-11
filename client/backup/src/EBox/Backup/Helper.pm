@@ -21,11 +21,13 @@ sub version
 
 sub dumpConf
 {
+  my ($dir) = @_;
   throw EBox::Exceptions::NotImplemented ('The EBox::Backup::Helper::dump sub must be overriden');
 }
 
 sub restoreConf
 {
+  my ($dir, $version) = @_;
   throw EBox::Exceptions::NotImplemented ('The EBox::Backup::Helper::rstore sub must be overriden');
 }
 
