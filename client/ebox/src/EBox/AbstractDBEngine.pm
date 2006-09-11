@@ -98,4 +98,22 @@ sub query {
 	throw EBox::Exceptions::NotImplemented();		  
 }
 
+# Method: dumpDB
+#
+#         Makes a dump of the database in the specified file
+sub  dumpDB
+{
+  throw EBox::Exceptions::NotImplemented();		  
+}
+
+# Method: restoreDB
+#
+# restore a database from a dump file.
+# 
+sub restoreDB
+{
+  throw EBox::Exceptions::NotImplemented(); 
+}  
+
+
 1;
