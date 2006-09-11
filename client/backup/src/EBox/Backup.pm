@@ -86,6 +86,7 @@ sub dumpGConf
   try {
     umask '0077';
 
+    EBox::info('Dumping GConf data..');
     my @dumpOutput = `$GCONF_DUMP_COMMAND`;
     if ($? != 0) {
       throw EBox::Exceptions::External (__("Error backing up GConf: @dumpOutput"));
@@ -103,6 +104,7 @@ sub restoreGConf
 {
   my ($self) = @_;
 
+  EBox::info("Restoring GConf's configuration...");
   my $dir = $self->dumpDir();
   my $loadOutput =  `$GCONF_LOAD_COMMAND $dir/$GCONF_DUMP_FILE`;
 
@@ -121,6 +123,7 @@ sub dumpFiles
   my $dumpDir = dumpDir();
   my $backupHelpersByName_r = $self->_backupHelpersByName();
   while (my ($modName, $bh) = each %{ $backupHelpersByName_r  }) {
+    EBox::info("Dumping $modName configuration..");
     my $dir = "$dumpDir/$modName";
     makePrivateDir($dir);
     $self->writeVersionInfo($dir, $bh);
@@ -148,21 +151,26 @@ sub backup
   push @backupFilesParams, (media => $params{media}) if exists $params{media};
   push @backupFilesParams, (burn => $params{burn}) if exists $params{burn};
 
+  my $oldLastBackupTime = $self->lastBackupTime();
+
   try {
     EBox::info('Backup process started');
     my $dir = $self->dumpDir();
     EBox::FileSystem::makePrivateDir($dir);
     EBox::FileSystem::cleanDir($dir);
 
+    $self->setLastBackupTime();
     $self->dumpFiles();
     $self->backupFiles(@backupFilesParams);
-    $self->setLastBackupTime()
   }
   otherwise {
     my $e = shift;
     EBox::error('Backup attempt failed');
+    $self->setLastBackupTime($oldLastBackupTime);
     $e->throw();
   };
+  
+  EBox::info('Backup process ended successfully');
 }
 
 
@@ -192,10 +200,23 @@ sub backupManagerBin
   return '/usr/sbin/backup-manager';
 }
 
-sub setLastBackupTime
+
+sub lastBackupTime
 {
   my ($self) = @_;
-  my $t = time();
+  return $self->get_string('last_backup_time'); 
+}
+
+sub setLastBackupTime
+{
+  my ($self, $time) = @_;
+  
+  if (!defined $time) {
+    my ($sec,$min,$hour,$mday,$month,$year) = gmtime(time);
+    $time = "$year-$month-$mday  $hour:$min:$sec";
+  }
+
+  $self->set_string('last_backup_time', $time);   
 }
 
 sub restore
@@ -214,13 +235,14 @@ sub restore
     $self->restoreFiles();
     $self->restoreConf();
     $self->setAllModulesChanged();
-    $self->setLastRestoreTime();
   }
   otherwise {
     my $e = shift;
     EBox::error('Restoring configuration from backup process failed');
     $e->throw();
   };
+
+  EBox::info('Configuration was restored successfully');
 }
 
 sub restoreFiles
@@ -241,6 +263,7 @@ sub restoreConf
   my $dumpDir = dumpDir();
   my $backupHelpersByName_r = $self->_backupHelpersByName();
   while (my ($modName, $bh) = each %{ $backupHelpersByName_r }) {
+    EBox::info('Restoring $modName configuration..');
     my $dir = "$dumpDir/$modName";
     isPrivateDir($dir);
     my $version = $self->readVersionInfo($dir);
@@ -272,10 +295,7 @@ sub setAllModulesChanged
   }
 }
 
-sub setLastRestoreTime
-{
-  my ($self) = @_;
-}
+
 
 
 sub _backupHelpersByName
@@ -289,9 +309,10 @@ sub _backupHelpersByName
 
 sub summary
 {
-	my $self = shift;
-	my $item = new EBox::Summary::Module(__("Configuration backup"));
-	# TODO: put last backup and resote  time
-	return $item;
+  my ($self) = @_;
+  my $backupSummary = new EBox::Summary::Module(__("Configuration backup"));
+  
+  $backupSummary->add(new EBox::Summary::Value(__('Last backup'), $self->lastBackupTime()));
+    return $backupSummary;
 }
 1;
