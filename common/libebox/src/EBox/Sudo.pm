@@ -51,13 +51,19 @@ BEGIN {
 #
 #       Internal  - If command fails
 #
+# Returns:
+# 	array ref - Returns the output of the command in an array
+#
 sub command # (command) 
 {
-	my $cmd = shift;
-	unless (system($cmd) == 0) {
-		throw EBox::Exceptions::Internal(
-			__x("Command '{cmd}' failed", cmd => $cmd));
-	}
+  my ($cmd) = @_;
+  my @output = `$cmd`;
+  if ($? != 0) {
+    throw EBox::Exceptions::Internal(
+				     __x("Command '{cmd}' failed. Output: {output}", cmd => $cmd, output => join "\n", @output));
+  }
+
+  return \@output;
 }
 
 #
