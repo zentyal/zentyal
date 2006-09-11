@@ -1,5 +1,5 @@
 package EBox::Backup::TarArchive;
-# Class to handle an already-created backup in tar.gz format
+# Module to handle an already-created backup in tar.gz format
 use strict;
 use warnings;
 
@@ -28,7 +28,31 @@ sub restore
   };
 }
 
+sub selectArchiveFromDir
+{
+  my ($dir) = @_;
+  (-d $dir) or throw EBox::Exceptions::External(__x("Incorrect directory {dir}", dir => $dir));
+  
 
+  my $lsCommand = "/bin/ls -1 $dir/*-ebox-backup-*.tar.gz";
+  my @candidates = `$lsCommand`;
+  ($? == 0)         or throw EBox::Exceptions::Internal("Command $lsCommand failed. Output: @candidates");
+  (@candidates > 0) or throw EBox::Exceptions::External(__("None archive file found"));
 
+  @candidates = sort @candidates; # due to embedded date in file name this sort ascending by date
+  my $archiveFile = pop @candidates;
+  defined $archiveFile or throw EBox::Exceptions::Internal('Undefined archive file variable');
+  chomp $archiveFile;
+
+  return $archiveFile;
+}
+ 
+sub restoreFromDir
+{
+  my %params = @_;
+  my $dir = delete $params{dir};
+  my $archiveFile = selectArchiveFromDir($dir);
+  return restore(archiveFile => $archiveFile);
+}
 
 1;

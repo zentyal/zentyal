@@ -1,12 +1,12 @@
 <%args>
 $dumpDir
 $archiveDir 
-$archiveTTL => 5
-$burn          => 1
-$burningMedia   
-$burningDevice 
+$archiveTTL     => 5
+$burn           => 1
+$burningMedia   => 'cdrw'
+$burningDevice  => '/dev/cdrom'
 $burningDeviceForced => undef
-$burningMaxSize  
+$burningMaxSize  => 650
 </%args>
 # repository section
 export BM_REPOSITORY_ROOT="<% $archiveDir %>" 
@@ -17,13 +17,13 @@ export BM_REPOSITORY_CHMOD="770"
 
 #archives 
 export BM_ARCHIVE_TTL="<% $archiveTTL %>"
-export BM_ARCHIVE_PREFIX="$HOSTNAME"
+export BM_ARCHIVE_PREFIX="$HOSTNAME-ebox-backup-"
 export BM_ARCHIVE_PURGEDUPS="true"
 export BM_ARCHIVE_CHMOD="660"
 
 #tarballs
 export BM_ARCHIVE_METHOD="tarball"
-export BM_TARBALL_NAMEFORMAT="long"
+export BM_TARBALL_NAMEFORMAT="short"
 export BM_TARBALL_DUMPSYMLINKS="false"
 export  BM_TARBALL_FILETYPE="tar.gz"
 

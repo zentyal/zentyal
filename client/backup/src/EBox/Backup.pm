@@ -218,10 +218,7 @@ sub restoreFiles
   my ($self) = @_;
 
   my $dir = $self->archiveDir();
-  my $archiveFile = `/bin/ls $dir/*.tar.gz`;
-  chomp $archiveFile;
-
-  EBox::Backup::TarArchive::restore(archiveFile => $archiveFile);
+  EBox::Backup::TarArchive::restoreFromDir(dir => $dir);
 }
 
 
