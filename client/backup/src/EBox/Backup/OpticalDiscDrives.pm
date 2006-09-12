@@ -87,4 +87,16 @@ sub _selectByCapability
   return @selectedDevices;
 }
 
+
+sub  allowedMedia
+{
+  my @media;
+  push @media, 'DVD' if writersForDVD() > 0;
+  push @media, 'CDR' if writersForCDR() > 0;
+  push @media, 'CDRW' if writersForCDRW() > 0;
+
+  return @media;
+}
+ 
+
 1;
