@@ -89,7 +89,8 @@ sub dumpGConf
     EBox::info('Dumping GConf data..');
     my @dumpOutput = `$GCONF_DUMP_COMMAND`;
     if ($? != 0) {
-      throw EBox::Exceptions::External (__("Error backing up GConf: @dumpOutput"));
+      EBox::error("$GCONF_DUMP_COMMAND failed. Output: @dumpOutput");
+      throw EBox::Exceptions::External (__("Error dumping GConf"));
     }
 
     write_file("$dir/$GCONF_DUMP_FILE", \@dumpOutput);

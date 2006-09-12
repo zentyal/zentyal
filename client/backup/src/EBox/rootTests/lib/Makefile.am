@@ -1,4 +1,4 @@
-test_class = FullBackupTest.pm
+test_class = BackupTest.pm
 
 EXTRA_DIST = $(test_class)
 

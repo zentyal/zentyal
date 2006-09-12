@@ -1,8 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-perldir = @PERLPATH@/EBox/CGI/#MDOULE#
+perldir = @PERLPATH@/EBox/CGI/Backup
 
-nobase_perl_DATA = 
+nobase_perl_DATA = Index.pm DoBackup.pm DoRestore.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

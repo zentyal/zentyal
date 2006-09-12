@@ -3,7 +3,7 @@ SUBDIRS =  rootTests
 
 perldir = @PERLPATH@/EBox/Backup
 
-nobase_perl_DATA = Test.pm BackupManager.pm  TarArchive.pm OpticalDiscDrives
+nobase_perl_DATA = Test.pm BackupManager.pm  TarArchive.pm OpticalDiscDrives.pm
 
 DISTCLEANFILES = 
 
