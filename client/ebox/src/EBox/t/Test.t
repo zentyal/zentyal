@@ -54,7 +54,7 @@ sub fakeEBoxModuleTest
   is   EBox::Macaco::Son::Observador::Subs::zero(), 0, "Checking class call of the identity installed sub";
   is $mod->identity('mono'), 'mono', "Checking object call of the identity installed sub";
 
-  my $initializerSub = sub { my ($self) =@_; $self->{partners} = 7  };
+  my $initializerSub = sub { my ($self) =@_; $self->{partners} = 7 ; return $self };
   EBox::Test::fakeEBoxModule(name => 'macacoGroomingPartners', package => 'EBox::Macaco::WithGroomingPartners', isa => ['EBox::Macaco'], subs => [ partners => sub { my $self = shift; return $self->{partners}}], initializer => $initializerSub);
   $mod = _testModuleBasics('macacoGroomingPartners', 'EBox::Macaco::WithGroomingPartners');
   isa_ok($mod, 'EBox::Macaco');  

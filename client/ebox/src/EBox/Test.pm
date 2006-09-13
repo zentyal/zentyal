@@ -109,14 +109,14 @@ sub fakeEBoxModule
   eval $createIsaCode;
   die "When creating ISA array $@" if  $@;
 
-  my $initializerSub = exists $params{initializer} ? $params{initializer} : sub {};
+  my $initializerSub = exists $params{initializer} ? $params{initializer} : sub { my ($self) = @_; return $self};
 
 
   Test::MockObject->fake_module($params{package},
 				_create => sub {
 				  my $self = EBox::GConfModule->_create(name => $params{name});
 				  bless $self, $params{package};
-				  $initializerSub->($self);
+				  $self = $initializerSub->($self);
 				  return $self;
 				},
 				@{ $params{subs} }
