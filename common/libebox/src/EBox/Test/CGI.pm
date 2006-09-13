@@ -87,7 +87,6 @@ sub muteHtmlOutput
 sub checkMasonParameters
 {
     my ($cgi, %params) = @_;
-    my $error = undef;
 
     exists $params{wantedParameters} or die "wantedParameters argument not found";
     my $wantedParameters = $params{wantedParameters};
