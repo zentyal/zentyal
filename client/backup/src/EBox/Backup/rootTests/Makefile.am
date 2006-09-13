@@ -1,4 +1,4 @@
-SUB_DIRS=lib
+SUBDIRS = lib
 test_scripts = BackupManager.t
 
 EXTRA_DIST = $(test_scripts)

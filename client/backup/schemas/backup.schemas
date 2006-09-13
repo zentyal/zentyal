@@ -11,12 +11,12 @@
 			<default>EBox::Backup</default>
 			<locale name="C"/>
 		</schema>
-	        		<schema>
+	     	<schema>
 			<key>/schemas/ebox/modules/backup/last_backup_time</key>
 			<applyto>/ebox/modules/backup/last_backup_time</applyto>
 			<owner>ebox</owner>
 			<type>string</type>
-			<default>"never"</default>
+			<default>never</default>
 			<locale name="C">
 				<short>Time of the last successfull backup operation</short>
 			</locale>

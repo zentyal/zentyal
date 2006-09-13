@@ -1,4 +1,5 @@
 ## Process this file with automake to produce Makefile.in
+SUBDIRS = Backup
 
 perldir = @PERLPATH@/EBox/CGI/Backup
 

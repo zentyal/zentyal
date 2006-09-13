@@ -57,7 +57,7 @@ sub rootCommands
 {
 	my $self = shift;
 	my @commands = ();
-	push @commands, EBox::Backup::BackupManager::rootCommands();
+	push @commands, EBox::Backup::BackupManager->rootCommands($self->backupManagerBin()) ;
 	return @commands;
 }
 
@@ -316,4 +316,13 @@ sub summary
   $backupSummary->add(new EBox::Summary::Value(__('Last backup'), $self->lastBackupTime()));
     return $backupSummary;
 }
+
+sub menu
+{
+	my ($self, $root) = @_;
+
+	my $menuItem = new EBox::Menu::Item('url' => 'Backup/Index', 'text' => __('Backup'));
+	$root->add($menuItem);
+}
+
 1;

@@ -3,10 +3,12 @@ SUBDIRS =  rootTests
 
 perldir = @PERLPATH@/EBox/Backup
 
-nobase_perl_DATA = Test.pm BackupManager.pm  TarArchive.pm OpticalDiscDrives.pm
+nobase_perl_DATA = BackupManager.pm  TarArchive.pm OpticalDiscDrives.pm
+
+test_classes = Test.pm
 
 DISTCLEANFILES = 
 
-EXTRA_DIST = $(nobase_perl_DATA)
+EXTRA_DIST = $(nobase_perl_DATA) $(test_classes)
 
 MAINTAINERCLEANFILES = Makefile.in
