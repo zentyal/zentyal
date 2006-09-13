@@ -1,0 +1,36 @@
+<%args>
+$lastBackupTime
+@allowedMedia
+</%args>
+<%init>
+use EBox::Gettext;
+# massage @allowedMedia to use as option parameter for sleect media control
+@allowedMedia = map {
+    my $media = $_;
+    my $mediaPrettyName = __($media);
+    { value => $media, printableValue => $mediaPrettyName }
+ } @allowedMedia;
+</%init>
+<& .lastBackupNotice, time => $lastBackupTime &>
+<form action='backup/doBackup'>
+  <& /input/select.mas, name => 'media', options => \@allowedMedia  &>
+  <& /input/submit.mas, name => 'doBackup', value => __('Backup') &>
+</form>
+<hr/>
+<form action='backup/doRestore'>
+  <& /input/submit.mas, name => 'doRestore', value => __('Restore') &>
+</form>
+<%def .lastBackupNotice>
+<%args> 
+$time 
+</%args>
+% if ($time eq 'never') {
+    <% __("The eBox's configuration was never backed-up") %>
+    <div ='help'>
+      <% __("You should backup your configuration to be sure you can recover your eBox's isntallation quickly") %>
+   </div>
+% }
+% else {
+   <% __x('The last backup was done at {date}', date => $time)%>
+% }
+</%def>
