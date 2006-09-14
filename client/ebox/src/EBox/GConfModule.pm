@@ -135,15 +135,19 @@ sub revokeConfig
 	$self->{ro} = $ro;
 }
 
-sub restoreBackup # (dir) 
+sub restoreBackup # (dir, %options) 
 {
-  my ($self, $dir) = @_;
+  my ($self, $dir, %options) = @_;
 
   $self->_backup();
   
   my $bakFile = $self->_bak_file_from_dir($dir);
   if (-d $bakFile) {
-    $self->_bootstrap_extended_restore($bakFile);
+    $self->_load_from_file($bakFile);
+
+    if ($options{fullRestore}) {
+      $self->_bootstrap_extended_restore($bakFile, %options);
+    }
   }
   else {
     $self->_load_from_file($dir);    
@@ -152,13 +156,10 @@ sub restoreBackup # (dir)
 
 sub _bootstrap_extended_restore
 {
-  my ($self, $dir) = @_;
-
-  $self->_load_from_file($dir);
+  my ($self, $dir, @options) = @_;
 
   my $version = $self->_read_version($dir);
-
-  $self->extendedRestore(dir => $dir, version => $version);
+  $self->extendedRestore(dir => $dir, version => $version, @options);
 }
 
 sub _read_version
@@ -176,12 +177,12 @@ sub _read_version
   return $versionInfo
 }
 
-sub makeBackup # (dir) 
+sub makeBackup # (dir, %options) 
 {
-  my ($self, $dir) = @_;
-  if ($self->can('extendedBackup')) {
+  my ($self, $dir, %options) = @_;
+  if ($self->can('extendedBackup') and $options{fullBackup}) {
     my $backupDir = $self->_setupExtendedBackup($dir);
-    $self->extendedBackup(dir => $backupDir);
+    $self->extendedBackup(dir => $backupDir, %options);
   }
   else {
     $self->_dump_to_file($dir);	  

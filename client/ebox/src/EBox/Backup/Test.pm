@@ -52,7 +52,8 @@ sub setupDirs : Test(setup)
 
   return if !exists $INC{'EBox/Backup.pm'};
 
-  EBox::Config::TestStub::fake( tmp => $self->testDir() );
+#  EBox::Config::TestStub::fake( tmp => $self->testDir() );
+  EBox::Test::setEBoxConfigKeys(conf => testDir(), tmp => $self->testDir());
 
   my $testDir = $self->testDir();
   system "rm -rf $testDir";
@@ -74,7 +75,7 @@ sub _useOkTest : Test(1)
 
 
 
-sub setUpCanaryModule
+sub setUpCanaries : Test(setup)
 {
   my ($self) = @_;
 
@@ -127,7 +128,7 @@ sub setCanaries
 
 sub checkCanaries
 {
-  my ($expectedValue) = @_;  
+  my ($expectedValue, $fullRestore) = @_;  
   my $value;
 
   my $client = Gnome2::GConf::Client->get_default;
@@ -139,7 +140,13 @@ sub checkCanaries
 
   my $canaryExtended = EBox::Global->modInstance('canaryExtended');
   $value = $canaryExtended->canary();
-  is $value, $expectedValue, 'Checking extra data of canary module with extended backup and restore';
+  if ($fullRestore) {
+    is $value, $expectedValue, 'Checking extra data of canary module with extended backup and restore';
+  }
+  else {
+    isnt $value, $expectedValue, 'Checking extra data of canary module was not restored with configuration restore';
+  }
+
 
   my $version  = $canaryExtended->version();
   is $version, $CANARY_MODULE_VERSION, 'Checking if version information was correctly backed';
@@ -162,56 +169,108 @@ sub teardownCanaryModule : Test(teardown)
   EBox::Test::setConfig(); 
 }
 
-
-sub backupAndRestoreTest : Test(7)
+# that counts for 5 tests
+sub checkStraightRestore
 {
-  my ($self) = @_;
-
-  $self->setUpCanaryModule();
-  EBox::Test::setEBoxConfigKeys(conf => testDir(), tmp => $self->testDir());
+  my ($archiveFile, $options_r, $msg) = @_;
 
   my $backup = new EBox::Backup();
-  my $backupArchive;
- 
+  setCanaries('afterBackup');
+  lives_ok { $backup->restoreBackup($archiveFile, @{ $options_r  }) } $msg;
 
-  setCanaries('beforeBackup');
-  lives_ok { $backupArchive = $backup->makeBackup('test backup') } 'makeBackup()';
+  my %options = @{ $options_r  };
+  checkCanaries('beforeBackup', $options{fullRestore});
+}
 
 
+# that counts for 5 tests
+sub checkDeviantRestore
+{
+  my ($archiveFile, $options_r, $msg) = @_;
+
+  my $backup = new EBox::Backup();
+  setCanaries('afterBackup');
+  dies_ok { $backup->restoreBackup($archiveFile, @{ $options_r  }) } $msg;
+  diag "Checking that failed restore has not changed the configuration";
+  checkCanaries('afterBackup', 1);
+}
+
+
+sub invalidArchiveTest : Test(5)
+{
+  my ($self) = @_;
   my $incorrectFile = $self->testDir() . '/incorrect';
   system "cp $0 $incorrectFile";
   ($? == 0) or die "$!";
-  dies_ok{ $backup->restoreBackup($incorrectFile) } 'restoreBackup() called with a incorrect file';
-
-  setCanaries('afterBackup');
-  lives_ok { $backup->restoreBackup($backupArchive) } 'restoreBackup()';
-
-  checkCanaries('beforeBackup');
-  
-
+  checkDeviantRestore($incorrectFile, [], 'restoreBackup() called with a incorrect file');
 }
 
-
-sub gconfDumpAndRestoreTest #: Test(3)
+sub restoreConfigurationBackupTest : Test(12)
 {
-  my $backup = EBox::Backup->_create();
+  my ($self) = @_;
 
-  EBox::FileSystem::makePrivateDir($backup->dumpDir());
+  my $backup = new EBox::Backup();
+  my $configurationBackup;
+  my $fullBackup;
+ 
+  setCanaries('beforeBackup');
+  lives_ok { $configurationBackup = $backup->makeBackup(description => 'test configuration backup') } 'make a configuration backup';
+  checkStraightRestore($configurationBackup, [fullRestore => 0], 'configuration restore from a configuration backup');
 
-  my $beforeValue = 'beforeDump';
-  my $client = Gnome2::GConf::Client->get_default;
-  $client->set_string($GCONF_CANARY_KEY, $beforeValue);
-
-  lives_ok { $backup->dumpGConf() } "Dumping GConf";
-
-  $client->set_string($GCONF_CANARY_KEY, 'After dump');
-
-  # do nothing and suppose that a backup has been done...
-
-  lives_ok { $backup->restoreGConf() } 'Restoring GConf';
-  is $client->get_string($GCONF_CANARY_KEY), $beforeValue, 'Checking canary GConf entry after restore';
-
-
+  setCanaries('beforeBackup');
+  lives_ok { $fullBackup = $backup->makeBackup(description => 'test full backup', fullBackup => 1) } 'make a full backup';
+  checkStraightRestore($fullBackup, [fullRestore => 0], 'configuration restore from a full backup');
 }
+
+sub restoreFullBackupTest : Test(12)
+{
+  my ($self) = @_;
+
+  my $backup = new EBox::Backup();
+  my $configurationBackup;
+  my $fullBackup;
+ 
+  setCanaries('beforeBackup');
+  lives_ok { $configurationBackup = $backup->makeBackup(description => 'test configuration backup', fullBackup => 0) } 'make a configuration backup';
+  checkDeviantRestore($configurationBackup, [fullRestore => 1], 'checking that a full restore is forbidden from a configuration backup' );
+
+  setCanaries('beforeBackup');
+  lives_ok { $fullBackup = $backup->makeBackup(description => 'test full backup', fullBackup => 1) } 'make a full backup';
+  checkStraightRestore($fullBackup, [fullRestore => 1], 'full restore from a full backup');
+}
+
+
+sub listBackupsTest : Test(5)
+{
+  my ($self) = @_;
+  diag "The backup's details of id a are not tested for now. The date detail it is only tested as relative order";
+
+  my $backup = new EBox::Backup();
+  my @backupParams = (
+		      [description => 'configuration backup', fullBackup => 0], 
+		      [description => 'full backup', fullBackup => 1],
+		      );
+ 
+  setCanaries('indiferent configuration');
+  foreach (@backupParams) {
+    $backup->makeBackup(@{ $_ });
+    sleep 1;
+  }
+
+  my @backups = @{$backup->listBackups()};
+  is @backups, @backupParams, 'Checking number of backups listed';
+
+  foreach my $backup (@backups) {
+    my %backupParam = @{ pop @backupParams };
+    my $awaitedDescription = $backupParam{description};
+    my $awaitedType        = $backupParam{fullBackup} ? 'full backup' : 'configuration backup';
+
+    is $backup->{description}, $awaitedDescription, 'Checking backup description';
+    is $backup->{type}, $awaitedType, 'Checking backup type';
+  }
+
+  
+}
+
 
 1;

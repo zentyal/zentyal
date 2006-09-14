@@ -24,11 +24,16 @@ use EBox::Config;
 use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
+use EBox::FileSystem;
 use Error qw(:try);
 use Digest::MD5;
 use EBox::Sudo qw(:all);
 use POSIX qw(strftime);
 use DirHandle;
+
+use Readonly;
+Readonly::Scalar my $FULL_BACKUP_ID  => 'full backup';
+Readonly::Scalar my $CONF_BACKUP_ID  =>'configuration backup';
 
 
 sub new 
@@ -43,7 +48,10 @@ sub new
 # 	string: path to the backup file.
 sub _makeBackup # (description, bug?) 
 {
-	my ($self, $description, $bug) = @_;
+	my ($self, %options) = @_;
+
+	my $bug         = delete $options{bug};
+	my $description = delete $options{description};
 
 	my $time = strftime("%F %T", localtime);
 	my $what =  $bug ? 'bugreport' : 'backup';
@@ -60,9 +68,9 @@ sub _makeBackup # (description, bug?)
 	  mkdir($auxDir) or
 	    throw EBox::Exceptions::Internal("Could not create auxiliar tempdir.");
 	  mkdir($archiveContentsDir) or
-	    throw EBox::Exceptions::Internal("Could not create arvhive tempdir.");
+	    throw EBox::Exceptions::Internal("Could not create archive tempdir.");
 
-	  $self->_dumpModulesBackupData($auxDir);
+	  $self->_dumpModulesBackupData($auxDir, %options);
 
 	  if ($bug) {
 	    $self->_bug($auxDir);
@@ -74,6 +82,7 @@ sub _makeBackup # (description, bug?)
 	  $self->_createMd5DigestForArchive($filesArchive, $archiveContentsDir);
 	  $self->_createDescriptionFile($archiveContentsDir, $description);
 	  $self->_createDateFile($archiveContentsDir, $time);
+	  $self->_createTypeFile($archiveContentsDir, $options{fullBackup});
 
 	  $self->_createBackupArchive($backupArchive, $tempdir, $archiveContentsDirRelative);
 	}
@@ -90,7 +99,7 @@ sub _makeBackup # (description, bug?)
 
 sub _dumpModulesBackupData
 {
-  my ($self, $auxDir) = @_;
+  my ($self, $auxDir, @options) = @_;
 
   my $global = EBox::Global->getInstance();
   my @names = @{$global->modNames};
@@ -98,7 +107,7 @@ sub _dumpModulesBackupData
     my $mod = $global->modInstance($_);
     try {
       EBox::debug("Dumping $_ backup data");
-      $mod->makeBackup($auxDir);
+      $mod->makeBackup($auxDir, @options);
     } 
     catch EBox::Exceptions::Base with {
       my $ex = shift;
@@ -141,6 +150,22 @@ sub  _createDescriptionFile
   }
   print $DESC $description;
   close($DESC);
+} 
+
+sub  _createTypeFile
+{
+  my ($self, $archiveContentsDir, $fullBackup) = @_;
+
+  my $type = $fullBackup ?  $FULL_BACKUP_ID : $CONF_BACKUP_ID;
+  use Smart::Comments;
+  ### typeTpWrite: $type
+
+  my $TYPE_F;
+  unless (open($TYPE_F, "> $archiveContentsDir/type")) {
+    throw EBox::Exceptions::Internal ("Could not create type file.");
+  }
+  print $TYPE_F $type;
+  close($TYPE_F);
 } 
 
 sub _createMd5DigestForArchive
@@ -222,32 +247,35 @@ sub _bug # (dir)
 #
 sub backupDetails # (id) 
 {
-	my ($self, $id) = @_;
-	if ($id =~ m{[./]}) {
+  my ($self, $id) = @_;
+
+  if ($id =~ m{[./]}) {
 		throw EBox::Exceptions::External(
 			__("The input contains invalid characters"));
 	}
-	my $file = EBox::Config::conf . "/backups/$id.tar";
+  my $file = EBox::Config::conf . "/backups/$id.tar";
 
-	my $t = $self->_unpackAndVerify($file);
+  my $t = $self->_unpackAndVerify($file);
 
-	my $entry = {};
-	$entry->{id} = $id;
+  my $entry = {};
+  $entry->{id} = $id;
 
-	unless (open(DATE, "$t/eboxbackup/date")) {
-		`rm -rf $t`;
-		next;
-	}
-	$entry->{date} = <DATE>;
-	close(DATE);
-	unless (open(DESC, "$t/eboxbackup/description")) {
-		`rm -rf $t`;
-		next;
-	}
-	$entry->{description} = <DESC>;
-	close(DESC);
-	`rm -rf $t`;
-	return $entry;
+  my @details = qw(date description type);
+  foreach my $detail (@details) {
+    my $FH;
+    unless (open($FH, "$t/eboxbackup/$detail")) {
+      $entry->{$detail} = __('Unknown');
+      next;
+    }
+
+    my $value = <$FH>;
+    $entry->{$detail} = $value;
+
+    close $FH;
+  }
+
+  `rm -rf $t`;
+  return $entry;
 }
 
 #
@@ -294,6 +322,7 @@ sub deleteBackup # (id)
 #	id - backup's identifier
 #	date - when it was backed up
 #	description - backup's description
+#       type        - type of backup (full or configuration only)
 #
 sub listBackups
 {
@@ -352,8 +381,8 @@ sub makeBackup # (options)
     %options = @_;
   }
   # default values 
-  exists $options{description} or  $options{description} = __('Backup');
-
+  exists $options{description} or $options{description} = __('Backup');
+  exists $options{fullBackup}  or $options{fullBackup} = 0;
 
   my $time = strftime("%F", localtime);
   my $backupdir = EBox::Config::conf . '/backups';
@@ -362,7 +391,7 @@ sub makeBackup # (options)
       ("Could not create backupdir.");
   }
 
-  my $filename = $self->_makeBackup($options{description});
+  my $filename = $self->_makeBackup(%options);
   my $id = int(rand(999999)) . ".tar";
   while (-f "$backupdir/$id") {
     $id = int(rand(999999)) . ".tar";
@@ -380,7 +409,7 @@ sub makeBackup # (options)
 sub makeBugReport
 {
 	my $self = shift;
-	return $self->_makeBackup('Bug report', 1);
+	return $self->_makeBackup(description => 'Bug report', 'bug' => 1);
 }
 
 # unpacks a backup file into a temporary directory and verifies the md5sum
@@ -388,9 +417,9 @@ sub makeBugReport
 # 	string: backup file
 # returns:
 # 	string: path to the temporary directory
-sub _unpackAndVerify # (file) 
+sub _unpackAndVerify # (file, fullRestore) 
 {
-	my ($self, $file) = @_;
+	my ($self, $file, $fullRestore) = @_;
 	($file) or throw EBox::Exceptions::Internal('No backup file provided.');
 	my $tempdir = tempdir(EBox::Config::tmp . "/backup.XXXXXX") or
 		throw EBox::Exceptions::Internal("Could not create tempdir.");
@@ -409,26 +438,8 @@ sub _unpackAndVerify # (file)
 	    throw EBox::Exceptions::External( __('Incorrect or corrupt backup file'));
 	  }
 
-	  my $ARCHIVE;
-	  unless (open($ARCHIVE, "$tempdir/eboxbackup/files.tgz")) {
-	      throw EBox::Exceptions::Internal("Could not open archive.");
-	    }
-	  my $md5 = Digest::MD5->new;
-	  $md5->addfile($ARCHIVE);
-	  my $digest = $md5->hexdigest;
-	  close($ARCHIVE);
-
-	  my $MD5;
-	  unless (open($MD5, "$tempdir/eboxbackup/md5sum")) {
-	    throw EBox::Exceptions::Internal("Could not open the md5sum.");
-	  }
-	  my $olddigest = <$MD5>;
-	  close($MD5);
-
-	  if ($digest ne $olddigest) {
-	    throw EBox::Exceptions::External(
-					     __('The backup file is corrupt.'));
-	  }
+	  $self->_checkArchiveMd5Sum($tempdir);
+	  $self->_checkArchiveType($tempdir, $fullRestore);
 	}
 	otherwise {
 	  my $ex = shift;
@@ -442,6 +453,52 @@ sub _unpackAndVerify # (file)
 	return $tempdir;
 }
 
+sub  _checkArchiveMd5Sum
+{
+  my ($self, $tempdir) = @_;
+
+  my $ARCHIVE;
+  unless (open($ARCHIVE, "$tempdir/eboxbackup/files.tgz")) {
+    throw EBox::Exceptions::Internal("Could not open archive.");
+  }
+  my $md5 = Digest::MD5->new;
+  $md5->addfile($ARCHIVE);
+  my $digest = $md5->hexdigest;
+  close($ARCHIVE);
+
+  my $MD5;
+  unless (open($MD5, "$tempdir/eboxbackup/md5sum")) {
+    throw EBox::Exceptions::Internal("Could not open the md5sum.");
+  }
+  my $olddigest = <$MD5>;
+  close($MD5);
+
+  if ($digest ne $olddigest) {
+    throw EBox::Exceptions::External(
+				     __('The backup file is corrupt.'));
+  }
+}
+
+sub _checkArchiveType
+{
+  my ($self, $tempdir, $fullRestore) = @_;
+
+  if ($fullRestore) {
+    my $TYPE_F;
+    unless (open($TYPE_F, "$tempdir/eboxbackup/type")) {
+      throw EBox::Exceptions::Internal("Could not open the type file.");
+    }
+    my $type = <$TYPE_F>;
+    close($TYPE_F);
+
+    if ($type ne $FULL_BACKUP_ID) {
+      throw EBox::Exceptions::External(__('The archive does not contain a full backup, that made a full restore impossibe. A configuration recovery  may be possible'));
+    }
+  } 
+
+}
+
+ 
 #
 # Method: restoreBackup 
 #
@@ -450,6 +507,8 @@ sub _unpackAndVerify # (file)
 # Parameters:
 #
 #       file - backup's file
+#       options 
+#                   fullRestore  - wether do a full restore or  restore only configuration (default: false)
 #
 # Exceptions:
 #	
@@ -457,40 +516,43 @@ sub _unpackAndVerify # (file)
 #
 sub restoreBackup # (file) 
 {
-	my ($self, $file) = @_;
-	my $global = EBox::Global->getInstance();
+  my ($self, $file, %options) = @_;
+  exists $options{fullRestore}  or $options{fullRestore} = 0;
 
-	my $tempdir = $self->_unpackAndVerify($file);
+  my $tempdir = $self->_unpackAndVerify($file, $options{fullRestore});
 
-	if (`tar xzf $tempdir/eboxbackup/files.tgz -C $tempdir/eboxbackup`) {
-		`rm -rf $tempdir`;
-		throw EBox::Exceptions::External(
-			__('Could not unpack the backup'));
+  try {
+    if (`tar xzf $tempdir/eboxbackup/files.tgz -C $tempdir/eboxbackup`) {
+      `rm -rf $tempdir`;
+      throw EBox::Exceptions::External(
+				       __('Could not unpack the backup'));
+    }
+
+    my $global = EBox::Global->getInstance();
+    my @names = @{$global->modNames};
+    my @restored = ();
+    foreach my $modname (@names) {
+      try {
+	my $mod = $global->modInstance($modname);
+	push(@restored,$modname);
+	if (-e "$tempdir/eboxbackup/$modname.bak") {
+	  EBox::debug("Restoring $modname form backup data");
+	  $mod->restoreBackup("$tempdir/eboxbackup", %options);
 	}
-
-	my @names = @{$global->modNames};
-	my @restored = ();
-	foreach my $modname (@names) {
-		try {
-			my $mod = $global->modInstance($modname);
-			push(@restored,$modname);
-			if (-e "$tempdir/eboxbackup/$modname.bak") {
-			  EBox::debug("Restoring $modname form backup data");
-			  $mod->restoreBackup("$tempdir/eboxbackup");
-			}
-		} 
-		otherwise {
-			my $ex = shift;
-			`rm -rf $tempdir`;
-			foreach my $restname (@restored) {
-				my $restmod = $global->modInstance($restname);
-				$restmod->revokeConfig();
-			}
-			throw $ex;
-		};
-	}
-
-	`rm -rf $tempdir`;
+      } 
+	otherwise {
+	  my $ex = shift;
+	  foreach my $restname (@restored) {
+	    my $restmod = $global->modInstance($restname);
+	    $restmod->revokeConfig();
+	  }
+	  throw $ex;
+	};
+    }
+  }
+  finally {
+      `rm -rf $tempdir`;
+  };
 }
 
 1;
