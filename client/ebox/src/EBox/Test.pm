@@ -29,7 +29,7 @@ use EBox::GConfModule::TestStub;
 use EBox::Global::TestStub;
 use EBox::NetWrappers::TestStub;
 
-our @EXPORT_OK = qw(checkModuleInstantiation activateEBoxTestStubs fakeEBoxModule);
+our @EXPORT_OK = qw(checkModuleInstantiation activateEBoxTestStubs fakeEBoxModule setConfig setConfigKeys);
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 
 
@@ -125,6 +125,22 @@ sub fakeEBoxModule
 
 
   EBox::Global::TestStub::setEBoxModule($params{name} => $params{package});
+}
+
+
+sub setConfig
+{
+  return EBox::GConfModule::TestStub::setConfig(@_); 
+}
+
+sub setEBoxModule
+{
+  return EBox::Global::TestStub::setEBoxModule(@_);
+}
+
+sub setEBoxConfigKeys
+{
+  return EBox::Config::TestStub::setConfigKeys(@_);
 }
 
 
