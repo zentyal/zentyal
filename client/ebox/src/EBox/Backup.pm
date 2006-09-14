@@ -44,92 +44,141 @@ sub new
 sub _makeBackup # (description, bug?) 
 {
 	my ($self, $description, $bug) = @_;
-	my $global = EBox::Global->getInstance();
+
 	my $time = strftime("%F %T", localtime);
-
-	my $what = 'backup';
-	if ($bug) {
-		$what = 'bugreport';
-	}
-
+	my $what =  $bug ? 'bugreport' : 'backup';
 
 	my $confdir = EBox::Config::conf;
 	my $tempdir = tempdir("$confdir/backup.XXXXXX") or
 		throw EBox::Exceptions::Internal("Could not create tempdir.");
+	my $auxDir = "$tempdir/aux";
+	my $archiveContentsDirRelative = "ebox$what";
+	my $archiveContentsDir = "$tempdir/$archiveContentsDirRelative";
+	my $backupArchive = "$confdir/ebox$what.tar";
+	
+	try {
+	  mkdir($auxDir) or
+	    throw EBox::Exceptions::Internal("Could not create auxiliar tempdir.");
+	  mkdir($archiveContentsDir) or
+	    throw EBox::Exceptions::Internal("Could not create arvhive tempdir.");
 
-	mkdir("$tempdir/aux") or
-		throw EBox::Exceptions::Internal("Could not create tempdir.");
-	mkdir("$tempdir/ebox$what") or
-		throw EBox::Exceptions::Internal("Could not create tempdir.");
+	  $self->_dumpModulesBackupData($auxDir);
 
-	my @names = @{$global->modNames};
-	foreach (@names) {
-		my $mod = $global->modInstance($_);
-		try {
-			$mod->makeBackup("$tempdir/aux");
-		} catch EBox::Exceptions::Base with {
-			my $ex = shift;
-			`rm -rf $tempdir`;
-			throw EBox::Exceptions::Internal($ex->text);
-		};
+	  if ($bug) {
+	    $self->_bug($auxDir);
+	  }
+
+
+	  my $filesArchive  = "$archiveContentsDir/files.tgz";
+	  $self->_createFilesArchive($auxDir, $filesArchive);
+	  $self->_createMd5DigestForArchive($filesArchive, $archiveContentsDir);
+	  $self->_createDescriptionFile($archiveContentsDir, $description);
+	  $self->_createDateFile($archiveContentsDir, $time);
+
+	  $self->_createBackupArchive($backupArchive, $tempdir, $archiveContentsDirRelative);
 	}
+	finally {
+	  system "rm -rf $tempdir";
+	  if ($? != 0) {
+	    EBox::error("$auxDir can not be deleted: $!. Please do it manually");
+	  }
+	};
 
-	if ($bug) {
-		$self->_bug("$tempdir/aux");
-	}
-
-	if (`tar czf $tempdir/ebox$what/files.tgz -C $tempdir/aux .`) {
-		`rm -rf $tempdir`;
-		throw EBox::Exceptions::Internal("Could not create archive.");
-	}
-	`rm -rf $tempdir/aux`;
-
-	unless (open(ARCHIVE, "$tempdir/ebox$what/files.tgz")) {
-		`rm -rf $tempdir`;
-		throw EBox::Exceptions::Internal("Could not open archive.");
-	}
-	my $md5 = Digest::MD5->new;
-	$md5->addfile(*ARCHIVE);
-	my $digest = $md5->hexdigest;
-	close(ARCHIVE);
-
-	unless (open(MD5, "> $tempdir/ebox$what/md5sum")) {
-		`rm -rf $tempdir`;
-		throw EBox::Exceptions::Internal("Could not open md5 file.");
-	}
-	print MD5 $digest;
-	close(MD5);
-
-	unless (open(DESC, "> $tempdir/ebox$what/description")) {
-		`rm -rf $tempdir`;
-		throw EBox::Exceptions::Internal
-			("Could not create description file.");
-	}
-	print DESC $description;
-	close(DESC);
-	unless (open(DATE, "> $tempdir/ebox$what/date")) {
-		`rm -rf $tempdir`;
-		throw EBox::Exceptions::Internal
-			("Could not create date file.");
-	}
-	print DATE  $time ;
-	close(DATE);
-
-	if ( -f "$confdir/ebox$what.tar") {
-		if (`rm -f $confdir/ebox$what.tar`) {
-			`rm -rf $tempdir`;
-			throw EBox::Exceptions::Internal
-				("Could not delete old file.");
-		}
-	}
-
-	`tar cf $confdir/ebox$what.tar -C $tempdir ebox$what` and
-		throw EBox::Exceptions::Internal("Could not create archive.");
-
-	`rm -rf $tempdir`;
-
-	return "$confdir/ebox$what.tar";
+	return $backupArchive;
 }
+
+
+sub _dumpModulesBackupData
+{
+  my ($self, $auxDir) = @_;
+
+  my $global = EBox::Global->getInstance();
+  my @names = @{$global->modNames};
+  foreach (@names) {
+    my $mod = $global->modInstance($_);
+    try {
+      EBox::debug("Dumping $_ backup data");
+      $mod->makeBackup($auxDir);
+    } 
+    catch EBox::Exceptions::Base with {
+      my $ex = shift;
+      throw EBox::Exceptions::Internal($ex->text);
+    };
+  }
+
+}
+
+sub  _createFilesArchive
+{
+  my ($self, $auxDir, $filesArchive) = @_;
+
+  if (`tar czf $filesArchive -C $auxDir .`) {
+    throw EBox::Exceptions::Internal("Could not create archive.");
+  }
+  `rm -rf $auxDir`;
+
+} 
+
+sub  _createDateFile
+{
+  my ($self, $archiveContentsDir, $time) = @_;
+
+  my $DATE;
+  unless (open($DATE, "> $archiveContentsDir/date")) {
+    throw EBox::Exceptions::Internal ("Could not create date file.");
+  }
+  print $DATE  $time ;
+  close($DATE);
+} 
+
+sub  _createDescriptionFile
+{
+  my ($self, $archiveContentsDir, $description) = @_;
+
+  my $DESC;
+  unless (open($DESC, "> $archiveContentsDir/description")) {
+    throw EBox::Exceptions::Internal ("Could not create description file.");
+  }
+  print $DESC $description;
+  close($DESC);
+} 
+
+sub _createMd5DigestForArchive
+{
+  my ($self, $filesArchive, $archiveContentsDir) = @_;
+  
+  my $ARCHIVE;
+  unless (open($ARCHIVE, $filesArchive)) {
+    throw EBox::Exceptions::Internal("Could not open files archive.");
+  }
+  my $md5 = Digest::MD5->new;
+#  $md5->addfile(*ARCHIVE);
+  $md5->addfile($ARCHIVE);
+  my $digest = $md5->hexdigest;
+  close($ARCHIVE);
+
+  my $MD5;
+  unless (open($MD5, "> $archiveContentsDir/md5sum")) {
+    throw EBox::Exceptions::Internal("Could not open md5 file.");
+  }
+  print $MD5 $digest;
+  close($MD5);
+}
+
+
+sub  _createBackupArchive
+{
+  my ($self, $backupArchive, $tempdir, $archiveContentsDirRelative) = @_;
+
+  if ( -f $backupArchive) {
+    if (`rm -f $backupArchive`) {
+      throw EBox::Exceptions::Internal	("Could not delete old file.");
+    }
+  }
+
+  `tar cf $backupArchive -C $tempdir $archiveContentsDirRelative`;
+  ($? == 0) or throw EBox::Exceptions::Internal("Could not create archive.");
+} 
 
 sub _bug # (dir) 
 {
@@ -280,33 +329,48 @@ sub listBackups
 #
 # Parameters:
 #
-#       description - backup's description
+#       description - backup's description (backwards compability mode)
+#       --OR--
+#       options     - options lists
+#                   description - backup's description (backwards compability mode)
+#                   fullBackup  - wether do a full backup or  backup only configuration (default: false)
+#                   directlyToCD      - burn directly to Cd the backup and do not store it in the filesystem (default: false)
 #
 # Exceptions:
 #	
 #	Internal - If backup fails
 #
-sub makeBackup # (description?) 
+sub makeBackup # (options) 
 {
-	my ($self, $description) = @_;
-	my $time = strftime("%F", localtime);
-	my $backupdir = EBox::Config::conf . '/backups';
-	unless (-d $backupdir) {
-		mkdir($backupdir) or throw EBox::Exceptions::Internal
-			("Could not create backupdir.");
-	}
-	unless ($description) {
-		my $time = strftime("%F", localtime);
-		$description = __('Backup');
-	}
-	my $filename = $self->_makeBackup($description);
-	my $id = int(rand(999999)) . ".tar";
-	while (-f "$backupdir/$id") {
-		$id = int(rand(999999)) . ".tar";
-	}
-	copy($filename, "$backupdir/$id") or
-		throw EBox::Exceptions::Internal("Could not save the backup.");
-	return $filename;
+  # XXX: remove ugly backwards compaboility stuff ASAP
+  #	my ($self, %options) = @_;
+  my $self = shift;
+  my %options;
+  if (@_ == 1) {
+    $options{description} = shift @_;
+  }
+  else {
+    %options = @_;
+  }
+  # default values 
+  exists $options{description} or  $options{description} = __('Backup');
+
+
+  my $time = strftime("%F", localtime);
+  my $backupdir = EBox::Config::conf . '/backups';
+  unless (-d $backupdir) {
+    mkdir($backupdir) or throw EBox::Exceptions::Internal
+      ("Could not create backupdir.");
+  }
+
+  my $filename = $self->_makeBackup($options{description});
+  my $id = int(rand(999999)) . ".tar";
+  while (-f "$backupdir/$id") {
+    $id = int(rand(999999)) . ".tar";
+  }
+  copy($filename, "$backupdir/$id") or
+    throw EBox::Exceptions::Internal("Could not save the backup.");
+  return $filename;
 }
 
 #
@@ -409,7 +473,8 @@ sub restoreBackup # (file)
 			my $mod = $global->modInstance($modname);
 			push(@restored,$modname);
 			if (-f "$tempdir/eboxbackup/$modname.bak") {
-				$mod->restoreBackup("$tempdir/eboxbackup");
+			  EBox::debug("Restoring $modname form backup data");
+			  $mod->restoreBackup("$tempdir/eboxbackup");
 			}
 		} catch EBox::Exceptions::Base with {
 			my $ex = shift;
