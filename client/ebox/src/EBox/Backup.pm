@@ -152,7 +152,6 @@ sub _createMd5DigestForArchive
     throw EBox::Exceptions::Internal("Could not open files archive.");
   }
   my $md5 = Digest::MD5->new;
-#  $md5->addfile(*ARCHIVE);
   $md5->addfile($ARCHIVE);
   my $digest = $md5->hexdigest;
   close($ARCHIVE);
@@ -395,47 +394,50 @@ sub _unpackAndVerify # (file)
 	($file) or throw EBox::Exceptions::Internal('No backup file provided.');
 	my $tempdir = tempdir(EBox::Config::tmp . "/backup.XXXXXX") or
 		throw EBox::Exceptions::Internal("Could not create tempdir.");
+	try {
+	  unless (copy($file, "$tempdir/eboxbackup.tar")) {
+	    throw EBox::Exceptions::Internal("Could not copy backup into ".
+					     "the tempdir.");
+	  }
 
-	unless (copy($file, "$tempdir/eboxbackup.tar")) {
-		`rm -rf $tempdir`;
-		throw EBox::Exceptions::Internal("Could not copy backup into ".
-						 "the tempdir.");
-	}
+	  if (`tar xf $tempdir/eboxbackup.tar -C $tempdir`) {
+	    throw EBox::Exceptions::External( __("Could not unpack the backup"));
+	  }
 
-	if (`tar xf $tempdir/eboxbackup.tar -C $tempdir`) {
-		`rm -rf $tempdir`;
-		throw EBox::Exceptions::External(
-			__("Could not unpack the backup"));
-	}
+	  unless ( -f "$tempdir/eboxbackup/files.tgz" && 
+		   -f "$tempdir/eboxbackup/md5sum") {
+	    throw EBox::Exceptions::External( __('Incorrect or corrupt backup file'));
+	  }
 
-	unless ( -f "$tempdir/eboxbackup/files.tgz" && 
-		 -f "$tempdir/eboxbackup/md5sum") {
-		`rm -rf $tempdir`;
-		throw EBox::Exceptions::External(
-			__('Incorrect or corrupt backup file'));
-	}
+	  my $ARCHIVE;
+	  unless (open($ARCHIVE, "$tempdir/eboxbackup/files.tgz")) {
+	      throw EBox::Exceptions::Internal("Could not open archive.");
+	    }
+	  my $md5 = Digest::MD5->new;
+	  $md5->addfile($ARCHIVE);
+	  my $digest = $md5->hexdigest;
+	  close($ARCHIVE);
 
-	unless (open(ARCHIVE, "$tempdir/eboxbackup/files.tgz")) {
-		`rm -rf $tempdir`;
-		throw EBox::Exceptions::Internal("Could not open archive.");
-	}
-	my $md5 = Digest::MD5->new;
-	$md5->addfile(*ARCHIVE);
-	my $digest = $md5->hexdigest;
-	close(ARCHIVE);
+	  my $MD5;
+	  unless (open($MD5, "$tempdir/eboxbackup/md5sum")) {
+	    throw EBox::Exceptions::Internal("Could not open the md5sum.");
+	  }
+	  my $olddigest = <$MD5>;
+	  close($MD5);
 
-	unless (open(MD5, "$tempdir/eboxbackup/md5sum")) {
-		`rm -rf $tempdir`;
-		throw EBox::Exceptions::Internal("Could not open the md5sum.");
+	  if ($digest ne $olddigest) {
+	    throw EBox::Exceptions::External(
+					     __('The backup file is corrupt.'));
+	  }
 	}
-	my $olddigest = <MD5>;
-	close(MD5);
+	otherwise {
+	  my $ex = shift;
 
-	if ($digest ne $olddigest) {
-		`rm -rf $tempdir`;
-		throw EBox::Exceptions::External(
-			__('The backup file is corrupt.'));
-	}
+	  system("rm -rf $tempdir");
+	  ($? == 0) or EBox::warning("Unable to remove $tempdir. Please do it manually");
+
+	  $ex->throw();
+	};
 
 	return $tempdir;
 }
@@ -477,7 +479,7 @@ sub restoreBackup # (file)
 			  $mod->restoreBackup("$tempdir/eboxbackup");
 			}
 		} 
-		catch EBox::Exceptions::Base with {
+		otherwise {
 			my $ex = shift;
 			`rm -rf $tempdir`;
 			foreach my $restname (@restored) {

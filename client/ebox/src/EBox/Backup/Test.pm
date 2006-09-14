@@ -163,7 +163,7 @@ sub teardownCanaryModule : Test(teardown)
 }
 
 
-sub backupAndRestoreTest : Test(6)
+sub backupAndRestoreTest : Test(7)
 {
   my ($self) = @_;
 
@@ -177,6 +177,11 @@ sub backupAndRestoreTest : Test(6)
   setCanaries('beforeBackup');
   lives_ok { $backupArchive = $backup->makeBackup('test backup') } 'makeBackup()';
 
+
+  my $incorrectFile = $self->testDir() . '/incorrect';
+  system "cp $0 $incorrectFile";
+  ($? == 0) or die "$!";
+  dies_ok{ $backup->restoreBackup($incorrectFile) } 'restoreBackup() called with a incorrect file';
 
   setCanaries('afterBackup');
   lives_ok { $backup->restoreBackup($backupArchive) } 'restoreBackup()';
