@@ -31,6 +31,7 @@ use EBox::FileSystem qw(makePrivateDir);
 
 use Readonly;
 Readonly::Scalar my $GCONF_CANARY_KEY => '/ebox/modules/canaryGConf/canary';
+Readonly::Scalar my $GCONF_EXTENDED_CANARY_KEY => '/ebox/modules/canaryExtended/key';
 Readonly::Scalar my $CANARY_MODULE_VERSION => 'canary 0.1';
 
 sub testDir
@@ -39,6 +40,10 @@ sub testDir
 }
 
 
+sub notice : Test(startup)
+{
+  diag 'This test use GConf and may left behind some test entries in the tree /ebox'; 
+}
 
 
 sub setupDirs : Test(setup)
@@ -75,13 +80,25 @@ sub setUpCanaryModule
 
 
   fakeEBoxModule(
-		 name => 'canaryJail',
+		 name => 'canaryExtended',
 		 subs => [
 			  setCanary => sub { my ($self, $canary) = @_; $self->{canary} = $canary },
 			  canary => sub { my ($self) = @_; return $self->{canary} },
 			  setVersion => sub { my ($self, $version) = @_; $self->{version} = $version },
 			  version => sub { my ($self) = @_; return $self->{version} },
-
+			  extendedBackup => sub {
+			    my ($self, %params) = @_;
+			    my $dir = $params{dir};
+			    write_file ("$dir/canary", $self->{canary} );
+			  },
+			  extendedRestore => sub {
+			    my ($self, %params) = @_;
+			    my $dir = $params{dir};
+			    my $versionInfo = $params{version};
+			    my $backedUpData =  read_file ("$dir/canary" );
+			    $self->setCanary($backedUpData);
+			    $self->setVersion($versionInfo);
+			  },
 			 ],
 		);
   fakeEBoxModule(
@@ -97,11 +114,14 @@ sub setCanaries
 
   my $client = Gnome2::GConf::Client->get_default;
   $client->set_string($GCONF_CANARY_KEY, $value);
-  die 'gconf canart not changed' if $client->get_string($GCONF_CANARY_KEY) ne $value;
+  die 'gconf canary not changed' if $client->get_string($GCONF_CANARY_KEY) ne $value;
+  $client->set_string($GCONF_EXTENDED_CANARY_KEY, $value);
+  die 'gconf extended canary not changed' if $client->get_string($GCONF_CANARY_KEY) ne $value;
 
-  my $canaryJail = EBox::Global->modInstance('canaryJail');
-  $canaryJail->setCanary($value);
-  die 'canary not changed' if $canaryJail->canary() ne $value;
+  my $canaryExtended = EBox::Global->modInstance('canaryExtended');
+  $canaryExtended->setCanary($value);
+  $canaryExtended->setVersion($CANARY_MODULE_VERSION);
+  die 'canary not changed' if $canaryExtended->canary() ne $value;
 }
 
 
@@ -112,33 +132,26 @@ sub checkCanaries
 
   my $client = Gnome2::GConf::Client->get_default;
   $value = $client->get_string($GCONF_CANARY_KEY);
-  is $value, $expectedValue, 'Checking GConf canary';
+  is $value, $expectedValue, 'Checking GConf data of simple module canary';
 
-  my $canaryJail = EBox::Global->modInstance('canaryJail');
-  $value = $canaryJail->canary();
-  is $value, $expectedValue, 'Checking module canary';
+  $value = $client->get_string($GCONF_EXTENDED_CANARY_KEY);
+  is $value, $expectedValue, 'Checking GConf data of canary module with extended backup and restore';
 
-  my $version  = $canaryJail->version();
+  my $canaryExtended = EBox::Global->modInstance('canaryExtended');
+  $value = $canaryExtended->canary();
+  is $value, $expectedValue, 'Checking extra data of canary module with extended backup and restore';
+
+  my $version  = $canaryExtended->version();
   is $version, $CANARY_MODULE_VERSION, 'Checking if version information was correctly backed';
 }
 
 
-sub checkBackupHelpers
-{
-  # we check if all the backupHelpers where correctly used
-  my @backupHelpers = map { $_->can('backupHelper') ? $_->backupHelper() : ()  }  @{ EBox::Global->modInstances() };
-  foreach my $mockBh (@backupHelpers) {
-    is $mockBh->call_pos(1), 'version', 'Checking that version was called in the mocked backupHelper';
-    is $mockBh->call_pos(2), 'dumpConf', 'Checking that dumpConf was called in the mocked backupHelper';
-    is $mockBh->call_pos(3), 'restoreConf', 'Checking that restoreConf was called in the mocked backupHelper';
-    is $mockBh->call_pos(4), undef, 'Checking that no more methods upon the backupHelper were called';
-  }
-}
 
 sub teardownGConfCanary : Test(teardown)
 {
   my $client = Gnome2::GConf::Client->get_default;
   $client->unset($GCONF_CANARY_KEY);  
+  $client->unset($GCONF_EXTENDED_CANARY_KEY);  
 }
 
 sub teardownCanaryModule : Test(teardown)

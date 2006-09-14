@@ -82,7 +82,7 @@ sub _load_from_file # (dir?, key?)
 	my ($self, $dir, $key) = @_;
 	($dir) or $dir = EBox::Config::conf;
 
-	my $file = "$dir/" . $self->name . ".bak";
+	my $file =  $self->_bak_file_from_dir($dir);
 	-f $file or throw EBox::Exceptions::Internal("Backup file missing: ".
 							"$file.");
 	($key) or $key = $self->_key("");
@@ -92,12 +92,19 @@ sub _load_from_file # (dir?, key?)
 						 "configuration from $file");
 }
 
+sub _bak_file_from_dir
+{
+  my ($self, $dir) = @_;
+  my $file = "$dir/" . $self->name . ".bak";
+  return $file;
+}
+
 sub _dump_to_file # (dir?) 
 {
 	my ($self, $dir) = @_;
 	my $key = "/ebox/modules/" . $self->name;
 	($dir) or $dir = EBox::Config::conf;
-	my $file = "$dir/" . $self->name . ".bak";
+	my $file = $self->_bak_file_from_dir($dir);
 	`/usr/bin/gconftool --dump $key > $file` and
 		throw EBox::Exceptions::Internal("Error while backing up " .
 						 "configuration on $file");
@@ -130,16 +137,90 @@ sub revokeConfig
 
 sub restoreBackup # (dir) 
 {
-	my ($self, $dir) = @_;
-	$self->_backup();
-	$self->_load_from_file($dir);
+  my ($self, $dir) = @_;
+
+  $self->_backup();
+  
+  my $bakFile = $self->_bak_file_from_dir($dir);
+  if (-d $bakFile) {
+    $self->_bootstrap_extended_restore($bakFile);
+  }
+  else {
+    $self->_load_from_file($dir);    
+  }
+}
+
+sub _bootstrap_extended_restore
+{
+  my ($self, $dir) = @_;
+
+  $self->_load_from_file($dir);
+
+  my $version = $self->_read_version($dir);
+
+  $self->extendedRestore(dir => $dir, version => $version);
+}
+
+sub _read_version
+{
+  my ($self, $dir) = @_;
+  my $file = "$dir/version";
+
+  return undef if (! -f $file);
+  
+  open my $FH, "<$file" or throw EBox::Exceptions::Internal("Version info file can not be opened");
+  my @versionInfo = <$FH>;
+  close $FH;
+
+  my $versionInfo = join "\n", @versionInfo;
+  return $versionInfo
 }
 
 sub makeBackup # (dir) 
 {
-	my ($self, $dir) = @_;
-	$self->_dump_to_file($dir);
+  my ($self, $dir) = @_;
+  if ($self->can('extendedBackup')) {
+    my $backupDir = $self->_setupExtendedBackup($dir);
+    $self->extendedBackup(dir => $backupDir);
+  }
+  else {
+    $self->_dump_to_file($dir);	  
+  }
+
 }
+
+sub _setupExtendedBackup
+{
+  my ($self, $dir) = @_;
+  my $name      = $self->name();
+  my $backupDir = $self->_bak_file_from_dir($dir);
+
+  EBox::FileSystem::makePrivateDir($backupDir);
+
+  # save gconf
+  $self->_dump_to_file($backupDir);
+
+  # save version
+  if ($self->can('version')) {
+    $self->_dump_version($backupDir);
+  }
+
+  return $backupDir;
+}
+
+
+sub _dump_version
+{
+  my ($self, $dir) = @_;
+
+  my $file = "$dir/version";
+  my $versionInfo = $self->version();
+
+  open my $FH, ">$file" or throw EBox::Exceptions::Internal('Can not create version backup file');
+  print $FH $versionInfo;
+  close $FH;
+}
+
 
 sub scheduleRestart
 {

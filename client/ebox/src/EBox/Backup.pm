@@ -472,11 +472,12 @@ sub restoreBackup # (file)
 		try {
 			my $mod = $global->modInstance($modname);
 			push(@restored,$modname);
-			if (-f "$tempdir/eboxbackup/$modname.bak") {
+			if (-e "$tempdir/eboxbackup/$modname.bak") {
 			  EBox::debug("Restoring $modname form backup data");
 			  $mod->restoreBackup("$tempdir/eboxbackup");
 			}
-		} catch EBox::Exceptions::Base with {
+		} 
+		catch EBox::Exceptions::Base with {
 			my $ex = shift;
 			`rm -rf $tempdir`;
 			foreach my $restname (@restored) {
