@@ -94,7 +94,6 @@ AC_DEFINE_DIR(PERLPATH, perlpath)
 AM_PO_SUBDIRS
 
 AC_CONFIG_FILES([
-t/Makefile
 stubs/apache.mas
 stubs/Makefile
 tools/Makefile

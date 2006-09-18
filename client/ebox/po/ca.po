@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox 0.3.svn\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-08-10 11:33+0200\n"
+"POT-Creation-Date: 2006-09-18 09:55+0200\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -59,26 +59,46 @@ msgstr "Surt"
 msgid "Configuration backups"
 msgstr "Còpies de seguretat de la configuració"
 
-#: src/EBox/CGI/EBox/Backup.pm:72
-msgid "description"
-msgstr "descripció"
-
-#: src/EBox/CGI/EBox/Backup.pm:81 src/EBox/CGI/EBox/Backup.pm:90
-#: src/EBox/CGI/EBox/Backup.pm:100 src/EBox/CGI/EBox/ConfirmBackup.pm:70
+#: src/EBox/CGI/EBox/Backup.pm:79 src/EBox/CGI/EBox/Backup.pm:88
+#: src/EBox/CGI/EBox/Backup.pm:98 src/EBox/CGI/EBox/ConfirmBackup.pm:70
 msgid "identifier"
 msgstr "identificador"
 
-#: src/EBox/CGI/EBox/Backup.pm:85 src/EBox/CGI/EBox/Backup.pm:94
-#: src/EBox/CGI/EBox/Backup.pm:104 src/EBox/CGI/EBox/ConfirmBackup.pm:75
-#: src/EBox/Backup.pm:180 src/EBox/Backup.pm:222
+#: src/EBox/CGI/EBox/Backup.pm:83 src/EBox/CGI/EBox/Backup.pm:92
+#: src/EBox/CGI/EBox/Backup.pm:102 src/EBox/CGI/EBox/ConfirmBackup.pm:75
+#: src/EBox/Backup.pm:254 src/EBox/Backup.pm:298
 msgid "The input contains invalid characters"
 msgstr "L'entrada conté caràcters invàlids"
 
-#: src/EBox/CGI/EBox/Backup.pm:117
+#: src/EBox/CGI/EBox/Backup.pm:120
+msgid "description"
+msgstr "descripció"
+
+#: src/EBox/CGI/EBox/Backup.pm:121 src/templates/backup.mas:111
+#, fuzzy
+msgid "Backup mode"
+msgstr "Còpia de seguretat"
+
+#: src/EBox/CGI/EBox/Backup.pm:132
+#, perl-brace-format
+msgid "Unknown backup mode: {mode}"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:143 src/templates/backup.mas:141
+#, fuzzy
+msgid "Restore mode"
+msgstr "Restaura"
+
+#: src/EBox/CGI/EBox/Backup.pm:154
+#, perl-brace-format
+msgid "Unknown restore mode: {mode}"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:165
 msgid "Invalid backup file."
 msgstr "El fitxer de còpia de seguretat és invàlid."
 
-#: src/EBox/CGI/EBox/Backup.pm:129
+#: src/EBox/CGI/EBox/Backup.pm:177
 msgid ""
 "Configuration restored succesfully, you should now review it and save it if "
 "you want to keep it."
@@ -131,8 +151,8 @@ msgstr "La contrasenya ha de tenir almenys 6 caràcters"
 msgid "The password was changed successfully."
 msgstr "S'ha canviat la contrasenya amb èxit."
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:55 src/templates/backup.mas:90
-#: src/templates/backup.mas:92 src/templates/backup.mas:94
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:55 src/templates/backup.mas:59
+#: src/templates/backup.mas:61 src/templates/backup.mas:63
 msgid "Delete"
 msgstr "Elimina"
 
@@ -140,8 +160,8 @@ msgstr "Elimina"
 msgid "Please confirm that you want to delete the following backup file:"
 msgstr "Confirmeu que voleu eliminar el següent fitxer de còpia de seguretat:"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:61 src/templates/backup.mas:37
-#: src/templates/backup.mas:72
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:61 src/templates/backup.mas:41
+#: src/templates/backup.mas:145
 msgid "Restore"
 msgstr "Restaura"
 
@@ -165,12 +185,11 @@ msgstr ""
 msgid "Save configuration"
 msgstr "Desa la configuració"
 
-#: src/EBox/CGI/FirstTime/Index.pm:29
-#, fuzzy
-msgid "First time configuration"
-msgstr "Restaura la configuració"
+#: src/EBox/CGI/FirstTime/Index.pm:30
+msgid "Welcome to EBox"
+msgstr ""
 
-#: src/EBox/CGI/FirstTime/Index.pm:59 src/EBox/CGI/FirstTime/Passwd.pm:72
+#: src/EBox/CGI/FirstTime/Index.pm:68 src/EBox/CGI/FirstTime/Passwd.pm:72
 msgid "EBox was already initialized"
 msgstr ""
 
@@ -188,21 +207,31 @@ msgstr ""
 msgid "New passwords do not match"
 msgstr "Les contrasenyes noves no coincideixen."
 
-#: src/EBox/Backup.pm:300 src/EBox/SysInfo.pm:120
+#: src/EBox/Backup.pm:267
+msgid "Unknown"
+msgstr ""
+
+#: src/EBox/Backup.pm:384 src/EBox/SysInfo.pm:120
 msgid "Backup"
 msgstr "Còpia de seguretat"
 
-#: src/EBox/Backup.pm:344 src/EBox/Backup.pm:402
+#: src/EBox/Backup.pm:433 src/EBox/Backup.pm:528
 msgid "Could not unpack the backup"
 msgstr "No s'ha pogut desempaquetar la còpia de seguretat"
 
-#: src/EBox/Backup.pm:351
+#: src/EBox/Backup.pm:438
 msgid "Incorrect or corrupt backup file"
 msgstr "El fitxer de còpia de seguretat és incorrecte o corromput"
 
-#: src/EBox/Backup.pm:373
+#: src/EBox/Backup.pm:478
 msgid "The backup file is corrupt."
 msgstr "El fitxer de còpia de seguretat és corrupte."
+
+#: src/EBox/Backup.pm:495
+msgid ""
+"The archive does not contain a full backup, that made a full restore "
+"impossibe. A configuration recovery  may be possible"
+msgstr ""
 
 #: src/EBox/Html.pm:39
 #, fuzzy
@@ -267,8 +296,36 @@ msgstr ""
 msgid "Halt/Reboot"
 msgstr ""
 
-#: src/EBox/FirstTime.pm:12
-msgid "EAA"
+#: src/EBox/FirstTime.pm:42 src/templates/firstTime/passwd.mas:4
+#, fuzzy
+msgid "Change default password"
+msgstr "Canvia la contrasenya"
+
+#: src/EBox/Backup/BurnFile.pm:47
+#, fuzzy, perl-brace-format
+msgid "{device} can not be found"
+msgstr "No s'ha pogut trobar la pàgina"
+
+#: src/EBox/Backup/BurnFile.pm:56
+#, perl-brace-format
+msgid "{device} is mounted. Please, remove the disk"
+msgstr ""
+
+#: src/EBox/Backup/BurnFile.pm:75
+#, perl-brace-format
+msgid "Device {dev} can not write media of type {media}"
+msgstr ""
+
+#: src/EBox/Backup/OpticalDiscDrives.pm:16
+#, perl-brace-format
+msgid ""
+"Unable to find {path}. Make sure that the cdrom driver is compiled in your "
+"kerner or loaded as module"
+msgstr ""
+
+#: src/EBox/Backup/OpticalDiscDrives.pm:19
+#, perl-brace-format
+msgid "Unable to read {path}."
 msgstr ""
 
 #: src/templates/login/index.mas:26
@@ -357,12 +414,12 @@ msgstr "Nova contrasenya"
 msgid "Change"
 msgstr "Canvia"
 
-#: src/templates/confirm-backup.mas:17 src/templates/backup.mas:50
+#: src/templates/confirm-backup.mas:17 src/templates/backup.mas:19
 msgid "Date"
 msgstr "Data"
 
-#: src/templates/confirm-backup.mas:26 src/templates/backup.mas:18
-#: src/templates/backup.mas:48
+#: src/templates/confirm-backup.mas:26 src/templates/backup.mas:17
+#: src/templates/backup.mas:107
 msgid "Description"
 msgstr "Descripció"
 
@@ -374,25 +431,81 @@ msgstr "Cancel·la"
 msgid "Administration interface TCP port"
 msgstr "Port TCP per a la interfície d'administració"
 
-#: src/templates/backup.mas:10
+#: src/templates/backup.mas:12
+msgid "List of configuration backups"
+msgstr "Llista de còpies de seguretat de la configuració"
+
+#: src/templates/backup.mas:21
+msgid "Actions"
+msgstr "Accions"
+
+#: src/templates/backup.mas:43
+msgid "Restore configuration using this file"
+msgstr "Restaura la configuració fent servir aquest fitxer"
+
+#: src/templates/backup.mas:45
+msgid "Restore from backup"
+msgstr "Restaura des de la còpia de seguretat"
+
+#: src/templates/backup.mas:50 src/templates/backup.mas:52
+#: src/templates/backup.mas:54
+msgid "Download"
+msgstr "Descarrega"
+
+#: src/templates/backup.mas:75
+#, fuzzy
+msgid "download"
+msgstr "Descarrega"
+
+#: src/templates/backup.mas:79
+#, fuzzy
+msgid "delete"
+msgstr "Elimina"
+
+#: src/templates/backup.mas:85
+#, fuzzy
+msgid "restore"
+msgstr "Restaura"
+
+#: src/templates/backup.mas:93
+#, fuzzy
+msgid "Full Backup"
+msgstr "Còpia de seguretat"
+
+#: src/templates/backup.mas:95
+#, fuzzy
+msgid "configurationBackup"
+msgstr "Còpies de seguretat de la configuració"
+
+#: src/templates/backup.mas:99
 msgid "Back up the current configuration"
 msgstr "Fes una còpia de seguretat de la configuració actual"
 
-#: src/templates/backup.mas:13
+#: src/templates/backup.mas:102
 msgid ""
 "Backups will be stored in eBox and then you will be able to download them to "
 "your hard disk"
 msgstr ""
 
-#: src/templates/backup.mas:23
+#: src/templates/backup.mas:115
 msgid "Back up"
 msgstr "Fes una còpia de seguretat"
 
-#: src/templates/backup.mas:28
+#: src/templates/backup.mas:123
+#, fuzzy
+msgid "Full Restore"
+msgstr "Restaura"
+
+#: src/templates/backup.mas:125
+#, fuzzy
+msgid "configurationRestore"
+msgstr "Desa la configuració"
+
+#: src/templates/backup.mas:129
 msgid "Restore configuration"
 msgstr "Restaura la configuració"
 
-#: src/templates/backup.mas:31
+#: src/templates/backup.mas:132
 msgid ""
 "You can upload a backup file from your computer or use one from the list "
 "below"
@@ -400,41 +513,10 @@ msgstr ""
 "Podeu pujar un fitxer de còpia de seguretat des del vostre ordinador o "
 "utilitzar un de la següent llista"
 
-#: src/templates/backup.mas:43
-msgid "List of configuration backups"
-msgstr "Llista de còpies de seguretat de la configuració"
-
-#: src/templates/backup.mas:52
-msgid "Actions"
-msgstr "Accions"
-
-#: src/templates/backup.mas:74
-msgid "Restore configuration using this file"
-msgstr "Restaura la configuració fent servir aquest fitxer"
-
-#: src/templates/backup.mas:76
-msgid "Restore from backup"
-msgstr "Restaura des de la còpia de seguretat"
-
-#: src/templates/backup.mas:81 src/templates/backup.mas:83
-#: src/templates/backup.mas:85
-msgid "Download"
-msgstr "Descarrega"
-
-#: src/templates/backup.mas:106
+#: src/templates/backup.mas:137
 #, fuzzy
-msgid "download"
-msgstr "Descarrega"
-
-#: src/templates/backup.mas:110
-#, fuzzy
-msgid "delete"
-msgstr "Elimina"
-
-#: src/templates/backup.mas:116
-#, fuzzy
-msgid "restore"
-msgstr "Restaura"
+msgid "Backup file"
+msgstr "Còpia de seguretat"
 
 #: src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."
@@ -462,15 +544,19 @@ msgstr ""
 msgid "Download bug report file"
 msgstr "Descarrega un fitxer d'informe d'error"
 
-#: src/templates/firstTime/passwd.mas:4
+#: src/templates/firstTime/index.mas:6
 #, fuzzy
-msgid "Change default password"
-msgstr "Canvia la contrasenya"
+msgid "Use default values"
+msgstr "Configura les regles predeterminades"
 
 #: src/templates/footer.mas:8
 #, perl-brace-format
 msgid "{ebox} created by {warp} in collaboration with {dbs}"
 msgstr ""
+
+#, fuzzy
+#~ msgid "First time configuration"
+#~ msgstr "Restaura la configuració"
 
 #, fuzzy
 #~ msgid "Created by "
@@ -578,9 +664,6 @@ msgstr ""
 
 #~ msgid "Summary"
 #~ msgstr "Resum"
-
-#~ msgid "The page could not be found"
-#~ msgstr "No s'ha pogut trobar la pàgina"
 
 #~ msgid ""
 #~ "An internal error has ocurred. This is most probably a bug, relevant "
@@ -696,9 +779,6 @@ msgstr ""
 #~ "El següent enllaç vos permetrà configurar el comportament per defecte del "
 #~ "filtre de paquets. Podeu seleccionar un objecte i configurar regles i els "
 #~ "serveis als quals pot accedir"
-
-#~ msgid "Configure default rules"
-#~ msgstr "Configura les regles predeterminades"
 
 #~ msgid "Configure rules for a particular object"
 #~ msgstr "Configura les regles per a un objecte particular"

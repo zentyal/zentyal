@@ -56,85 +56,170 @@ sub _print
 	close BACKUP;
 }
 
+sub _mandatoryParameters
+{
+  my ($self) = @_;
+  if ($self->param('backup')) {
+    return [qw(backup description mode)];
+  }
+  elsif ($self->param('restore')) {
+    return [qw(restore backupfile mode)];
+  }
+  elsif ($self->param('download')) {
+    return [qw(download id)];
+  }
+  elsif ($self->param('delete')) {
+    return [qw(delete id)];
+  }
+  elsif ($self->param('restoreId')) {
+    return [qw(restoreId id mode)];
+  }
+  elsif ($self->param('bugReport')) {
+    return [qw(bugReport)];
+  }
+  else {
+    return [];
+  }
+}
+
 sub _process
 {
-	my $self = shift;
-	my $backup = new EBox::Backup;
+  my ($self) = @_;
 
-	# the 'backups' parameter is set here _and_ after processing.
-	# 	here -> in case an exception is raised during processing.
-	#	afterwards -> in case the list changes during processing.
-	my @array = ();
-	push(@array, backups=>$backup->listBackups);
-	$self->{params} = \@array;
+  $self->setMasonParameters();
 
-	if (defined($self->param('backup'))) {
-		$self->_requireParam('description', __('description'));
-		$backup->makeBackup($self->param('description'));
+  if (defined($self->param('backup'))) {
+    $self->_backupAction();
+  } 
+  elsif (defined($self->param('bugreport'))) {
+    my $backup = EBox::Backup->new();
+    $self->{errorchain} = "EBox/Bug";
+    $self->{downfile} = $backup->makeBugReport();
+    $self->{downfilename} = 'eboxbugreport.tar';
 
-	} elsif (defined($self->param('bugreport'))) {
-		$self->{errorchain} = "EBox/Bug";
-		$self->{downfile} = $backup->makeBugReport();
-		$self->{downfilename} = 'eboxbugreport.tar';
+  } 
+  elsif (defined($self->param('delete'))) {
+    my $id = $self->param('id');
+    if ($id =~ m{[./]}) {
+      throw EBox::Exceptions::External(
+				       __("The input contains invalid characters"));
+    }
+    my $backup = EBox::Backup->new();
+    $backup->deleteBackup($id);
+  }
+  elsif (defined($self->param('download'))) {
+    my $id = $self->param('id');
+    if ($id =~ m{[./]}) {
+      throw EBox::Exceptions::External(
+				       __("The input contains invalid characters"));
+    }
+    $self->{downfile} = EBox::Config::conf . "/backups/$id.tar";
+    $self->{downfilename} = 'eboxbackup.tar';
 
-	} elsif (defined($self->param('delete'))) {
-		$self->_requireParam('id', __('identifier'));
-		my $id = $self->param('id');
-		if ($id =~ m{[./]}) {
-			throw EBox::Exceptions::External(
-				__("The input contains invalid characters"));
-		}
-		$backup->deleteBackup($id);
+  } 
+  elsif (defined($self->param('restoreId'))) {
+    my $id = $self->param('id');
+    if ($id =~ m{[./]}) {
+      throw EBox::Exceptions::External(
+				       __("The input contains invalid characters"));
+    }
+    $self->_restoreFromFile(EBox::Config::conf ."/backups/$id.tar");
 
-	} elsif (defined($self->param('download'))) {
-		$self->_requireParam('id', __('identifier'));
-		my $id = $self->param('id');
-		if ($id =~ m{[./]}) {
-			throw EBox::Exceptions::External(
-				__("The input contains invalid characters"));
-		}
-		$self->{downfile} = EBox::Config::conf . "/backups/$id.tar";
-		$self->{downfilename} = 'eboxbackup.tar';
+  }
+  elsif (defined($self->param('restore'))) {
+    $self->_restoreAction();
+  }
 
-	} elsif (defined($self->param('restoreId'))) {
-		$self->_requireParam('id', __('identifier'));
-		my $id = $self->param('id');
-		if ($id =~ m{[./]}) {
-			throw EBox::Exceptions::External(
-				__("The input contains invalid characters"));
-		}
-		$backup->restoreBackup(EBox::Config::conf ."/backups/$id.tar");
 
-	} elsif (defined($self->param('restore'))) {
-		my $dir = EBox::Config::tmp;
-		my ($fh, $filename) = tempfile("backupXXXXXX", DIR=>$dir);
+  $self->setMasonParameters();
+}
 
-		my $upfile = $self->cgi->upload('backupfile');
-		unless ($upfile) {
-			close $fh;
-			`rm -f $filename`;
-			throw EBox::Exceptions::External(
-						__('Invalid backup file.'));
-		}
-		while (<$upfile>) {
-			print $fh $_;
-		}
 
-		close $fh;
-		close $upfile;
+sub setMasonParameters
+{
+  my ($self) = @_;
 
-		my $backup = new EBox::Backup;
-		$backup->restoreBackup($filename);
-		`rm -f $filename`;
-		$self->{msg} = __('Configuration restored succesfully, '.
-			'you should now review it and save it if you want '.
-			'to keep it.');
-	}
+  my $backup = EBox::Backup->new();
 
-	@array = ();
-	push(@array, backups=>$backup->listBackups);
-	$self->{params} = \@array;
+  my @params = ();
+  push @params, (backups => $backup->listBackups());
+  
+  $self->{params} = \@params;
+}
 
+sub  _backupAction
+{
+  my ($self) = @_;
+
+  my $fullBackup;
+  my $mode = $self->param('mode');
+  if ($mode eq 'fullBackup') {
+    $fullBackup = 1;
+  }
+  elsif ($mode eq 'configurationBackup') {
+    $fullBackup = 0;
+  }
+  else {
+    throw EBox::Exceptions::External(__x('Unknown backup mode: {mode}', mode => $mode));
+  }
+
+  my $description = $self->param('description');
+
+
+  my $backup = EBox::Backup->new();
+  $backup->makeBackup(description => $description, fullBackup => $fullBackup);
+} 
+
+
+sub  _restoreAction
+{
+  my ($self) = @_;
+
+
+  my $dir = EBox::Config::tmp;
+  my ($fh, $filename) = tempfile("backupXXXXXX", DIR=>$dir);
+
+  my $upfile = $self->cgi->upload('backupfile');
+  unless ($upfile) {
+    close $fh;
+    `rm -f $filename`;
+    throw EBox::Exceptions::External(
+				     __('Invalid backup file.'));
+  }
+  while (<$upfile>) {
+    print $fh $_;
+  }
+
+  close $fh;
+  close $upfile;
+
+  $self->_restoreFromFile($filename);
+} 
+
+
+sub _restoreFromFile
+{
+  my ($self, $filename) = @_;
+
+
+  my $fullRestore;
+  my $mode = $self->param('mode');
+  if ($mode eq 'fullRestore') {
+    $fullRestore = 1;
+  }
+  elsif ($mode eq 'configurationRestore') {
+    $fullRestore = 0;
+  }
+  else {
+    throw EBox::Exceptions::External(__x('Unknown restore mode: {mode}', mode => $mode));
+  }
+
+  my $backup = new EBox::Backup;
+  $backup->restoreBackup($filename, fullRestore => $fullRestore);
+  `rm -f $filename`;
+  $self->{msg} = __('Configuration restored succesfully, '.
+		    'you should now review it and save it if you want '.
+		    'to keep it.');
 }
 
 1;

@@ -370,16 +370,7 @@ sub listBackups
 #
 sub makeBackup # (options) 
 {
-  # XXX: remove ugly backwards compaboility stuff ASAP
-  #	my ($self, %options) = @_;
-  my $self = shift;
-  my %options;
-  if (@_ == 1) {
-    $options{description} = shift @_;
-  }
-  else {
-    %options = @_;
-  }
+  my ($self, %options) = @_;
   # default values 
   exists $options{description} or $options{description} = __('Backup');
   exists $options{fullBackup}  or $options{fullBackup} = 0;

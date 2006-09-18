@@ -28,11 +28,16 @@ use EBox::Gettext;
 				<% $backup->{'description'} %>
 			</td>
 		</tr>
+	<form action='Backup' method='POST'>
+%		if ($action eq 'restoreId') {
+                              <&.restoreIdRows &>
+%               }
 		<tr>
 			<td></td>
 			<td>
-				<form action='Backup' method='POST'>
+
 					<input type='hidden' name='id' value='<%$backup->{'id'}%>'/>
+
 					<input class='inputButton' type='submit'
 							name='cancel' value="<%__('Cancel')%>" alt="<%__('Cancel')%>"/>
 					<input class='inputButton' type='submit'
@@ -43,3 +48,18 @@ use EBox::Gettext;
 	</tbody>
 </table>
 <br/>
+<%def .restoreIdRows>
+<%init>
+my $modeOptions = [
+     { value => 'fullRestore', printableValue => __('Full Restore') },
+     { value => 'configurationRestore', printableValue => __('Configuration Restore') }
+];
+</%init>
+<tr>
+    <td></td>
+    <td>
+	<label for='mode'> <%  __('Restore mode') %> </label>  
+		<& /input/select.mas, name => 'mode', value => 'configurationRestore', options => $modeOptions &>
+    </td>
+</tr>
+</%def>

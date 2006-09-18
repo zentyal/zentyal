@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox 0.3.svn\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-08-10 11:33+0200\n"
+"POT-Creation-Date: 2006-09-18 09:55+0200\n"
 "PO-Revision-Date: 2004-11-02 17:54+0100\n"
 "Last-Translator:  <isaac@sindominio.net>\n"
 "Language-Team: French <cedricduval@free.fr>\n"
@@ -60,26 +60,46 @@ msgstr "Déconnexion"
 msgid "Configuration backups"
 msgstr "Configuration des copies de sauvegarde"
 
-#: src/EBox/CGI/EBox/Backup.pm:72
-msgid "description"
-msgstr "description"
-
-#: src/EBox/CGI/EBox/Backup.pm:81 src/EBox/CGI/EBox/Backup.pm:90
-#: src/EBox/CGI/EBox/Backup.pm:100 src/EBox/CGI/EBox/ConfirmBackup.pm:70
+#: src/EBox/CGI/EBox/Backup.pm:79 src/EBox/CGI/EBox/Backup.pm:88
+#: src/EBox/CGI/EBox/Backup.pm:98 src/EBox/CGI/EBox/ConfirmBackup.pm:70
 msgid "identifier"
 msgstr "identificateur"
 
-#: src/EBox/CGI/EBox/Backup.pm:85 src/EBox/CGI/EBox/Backup.pm:94
-#: src/EBox/CGI/EBox/Backup.pm:104 src/EBox/CGI/EBox/ConfirmBackup.pm:75
-#: src/EBox/Backup.pm:180 src/EBox/Backup.pm:222
+#: src/EBox/CGI/EBox/Backup.pm:83 src/EBox/CGI/EBox/Backup.pm:92
+#: src/EBox/CGI/EBox/Backup.pm:102 src/EBox/CGI/EBox/ConfirmBackup.pm:75
+#: src/EBox/Backup.pm:254 src/EBox/Backup.pm:298
 msgid "The input contains invalid characters"
 msgstr "L'entrée contient des caractères invalides"
 
-#: src/EBox/CGI/EBox/Backup.pm:117
+#: src/EBox/CGI/EBox/Backup.pm:120
+msgid "description"
+msgstr "description"
+
+#: src/EBox/CGI/EBox/Backup.pm:121 src/templates/backup.mas:111
+#, fuzzy
+msgid "Backup mode"
+msgstr "Copie de sauvegarde"
+
+#: src/EBox/CGI/EBox/Backup.pm:132
+#, perl-brace-format
+msgid "Unknown backup mode: {mode}"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:143 src/templates/backup.mas:141
+#, fuzzy
+msgid "Restore mode"
+msgstr "Restaurer"
+
+#: src/EBox/CGI/EBox/Backup.pm:154
+#, perl-brace-format
+msgid "Unknown restore mode: {mode}"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:165
 msgid "Invalid backup file."
 msgstr "Copie de sauvegarde invalide."
 
-#: src/EBox/CGI/EBox/Backup.pm:129
+#: src/EBox/CGI/EBox/Backup.pm:177
 msgid ""
 "Configuration restored succesfully, you should now review it and save it if "
 "you want to keep it."
@@ -132,8 +152,8 @@ msgstr "Le mot de passe doit comporter un minimum de 6 caractères"
 msgid "The password was changed successfully."
 msgstr "Le mot de passe a été modifié avec succès"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:55 src/templates/backup.mas:90
-#: src/templates/backup.mas:92 src/templates/backup.mas:94
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:55 src/templates/backup.mas:59
+#: src/templates/backup.mas:61 src/templates/backup.mas:63
 msgid "Delete"
 msgstr "Effacer"
 
@@ -143,8 +163,8 @@ msgstr ""
 "Veuillez confirmer votre intention d'effacer le fichier de sauvegarde "
 "suivant :"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:61 src/templates/backup.mas:37
-#: src/templates/backup.mas:72
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:61 src/templates/backup.mas:41
+#: src/templates/backup.mas:145
 msgid "Restore"
 msgstr "Restaurer"
 
@@ -168,12 +188,11 @@ msgstr ""
 msgid "Save configuration"
 msgstr "Sauver la configuration"
 
-#: src/EBox/CGI/FirstTime/Index.pm:29
-#, fuzzy
-msgid "First time configuration"
-msgstr "Restaurer la configuration"
+#: src/EBox/CGI/FirstTime/Index.pm:30
+msgid "Welcome to EBox"
+msgstr ""
 
-#: src/EBox/CGI/FirstTime/Index.pm:59 src/EBox/CGI/FirstTime/Passwd.pm:72
+#: src/EBox/CGI/FirstTime/Index.pm:68 src/EBox/CGI/FirstTime/Passwd.pm:72
 msgid "EBox was already initialized"
 msgstr ""
 
@@ -191,21 +210,31 @@ msgstr ""
 msgid "New passwords do not match"
 msgstr "Les nouveaux mots de passe ne correspondent pas."
 
-#: src/EBox/Backup.pm:300 src/EBox/SysInfo.pm:120
+#: src/EBox/Backup.pm:267
+msgid "Unknown"
+msgstr ""
+
+#: src/EBox/Backup.pm:384 src/EBox/SysInfo.pm:120
 msgid "Backup"
 msgstr "Copie de sauvegarde"
 
-#: src/EBox/Backup.pm:344 src/EBox/Backup.pm:402
+#: src/EBox/Backup.pm:433 src/EBox/Backup.pm:528
 msgid "Could not unpack the backup"
 msgstr "Impossible de désarchiver la copie de sauvegarde"
 
-#: src/EBox/Backup.pm:351
+#: src/EBox/Backup.pm:438
 msgid "Incorrect or corrupt backup file"
 msgstr "La copie de sauvegarde est incorrecte ou corrompue"
 
-#: src/EBox/Backup.pm:373
+#: src/EBox/Backup.pm:478
 msgid "The backup file is corrupt."
 msgstr "La copie de sauvegarde est corrompue."
+
+#: src/EBox/Backup.pm:495
+msgid ""
+"The archive does not contain a full backup, that made a full restore "
+"impossibe. A configuration recovery  may be possible"
+msgstr ""
 
 #: src/EBox/Html.pm:39
 #, fuzzy
@@ -272,8 +301,36 @@ msgstr ""
 msgid "Halt/Reboot"
 msgstr ""
 
-#: src/EBox/FirstTime.pm:12
-msgid "EAA"
+#: src/EBox/FirstTime.pm:42 src/templates/firstTime/passwd.mas:4
+#, fuzzy
+msgid "Change default password"
+msgstr "Modifier le mot de passe"
+
+#: src/EBox/Backup/BurnFile.pm:47
+#, fuzzy, perl-brace-format
+msgid "{device} can not be found"
+msgstr "La page n'a pu être trouvée"
+
+#: src/EBox/Backup/BurnFile.pm:56
+#, perl-brace-format
+msgid "{device} is mounted. Please, remove the disk"
+msgstr ""
+
+#: src/EBox/Backup/BurnFile.pm:75
+#, perl-brace-format
+msgid "Device {dev} can not write media of type {media}"
+msgstr ""
+
+#: src/EBox/Backup/OpticalDiscDrives.pm:16
+#, perl-brace-format
+msgid ""
+"Unable to find {path}. Make sure that the cdrom driver is compiled in your "
+"kerner or loaded as module"
+msgstr ""
+
+#: src/EBox/Backup/OpticalDiscDrives.pm:19
+#, perl-brace-format
+msgid "Unable to read {path}."
 msgstr ""
 
 #: src/templates/login/index.mas:26
@@ -364,12 +421,12 @@ msgstr "Confirmer le nouveau mot de passe"
 msgid "Change"
 msgstr "Modifier"
 
-#: src/templates/confirm-backup.mas:17 src/templates/backup.mas:50
+#: src/templates/confirm-backup.mas:17 src/templates/backup.mas:19
 msgid "Date"
 msgstr "Date"
 
-#: src/templates/confirm-backup.mas:26 src/templates/backup.mas:18
-#: src/templates/backup.mas:48
+#: src/templates/confirm-backup.mas:26 src/templates/backup.mas:17
+#: src/templates/backup.mas:107
 msgid "Description"
 msgstr "Description"
 
@@ -381,25 +438,81 @@ msgstr "Annuler"
 msgid "Administration interface TCP port"
 msgstr "Port TCP de l'interface d'administration"
 
-#: src/templates/backup.mas:10
+#: src/templates/backup.mas:12
+msgid "List of configuration backups"
+msgstr "Liste des copie de sauvegarde de configuration"
+
+#: src/templates/backup.mas:21
+msgid "Actions"
+msgstr "Actions"
+
+#: src/templates/backup.mas:43
+msgid "Restore configuration using this file"
+msgstr "Restaurer la configuration à partir de ce fichier"
+
+#: src/templates/backup.mas:45
+msgid "Restore from backup"
+msgstr "Restaurer à partir de la copie de sauvegarde"
+
+#: src/templates/backup.mas:50 src/templates/backup.mas:52
+#: src/templates/backup.mas:54
+msgid "Download"
+msgstr "Charger"
+
+#: src/templates/backup.mas:75
+#, fuzzy
+msgid "download"
+msgstr "Charger"
+
+#: src/templates/backup.mas:79
+#, fuzzy
+msgid "delete"
+msgstr "Effacer"
+
+#: src/templates/backup.mas:85
+#, fuzzy
+msgid "restore"
+msgstr "Restaurer"
+
+#: src/templates/backup.mas:93
+#, fuzzy
+msgid "Full Backup"
+msgstr "Copie de sauvegarde"
+
+#: src/templates/backup.mas:95
+#, fuzzy
+msgid "configurationBackup"
+msgstr "Configuration des copies de sauvegarde"
+
+#: src/templates/backup.mas:99
 msgid "Back up the current configuration"
 msgstr "Effectuer une copie de sauvegarde de la configuration actuelle"
 
-#: src/templates/backup.mas:13
+#: src/templates/backup.mas:102
 msgid ""
 "Backups will be stored in eBox and then you will be able to download them to "
 "your hard disk"
 msgstr ""
 
-#: src/templates/backup.mas:23
+#: src/templates/backup.mas:115
 msgid "Back up"
 msgstr "Copie de sauvegarde"
 
-#: src/templates/backup.mas:28
+#: src/templates/backup.mas:123
+#, fuzzy
+msgid "Full Restore"
+msgstr "Restaurer"
+
+#: src/templates/backup.mas:125
+#, fuzzy
+msgid "configurationRestore"
+msgstr "Sauver la configuration"
+
+#: src/templates/backup.mas:129
 msgid "Restore configuration"
 msgstr "Restaurer la configuration"
 
-#: src/templates/backup.mas:31
+#: src/templates/backup.mas:132
 msgid ""
 "You can upload a backup file from your computer or use one from the list "
 "below"
@@ -407,41 +520,10 @@ msgstr ""
 "Vous pouvez charger un fichier de sauvegarde depuis votre ordinateur ou "
 "utiliser l'un de ceux de la liste ci-dessous"
 
-#: src/templates/backup.mas:43
-msgid "List of configuration backups"
-msgstr "Liste des copie de sauvegarde de configuration"
-
-#: src/templates/backup.mas:52
-msgid "Actions"
-msgstr "Actions"
-
-#: src/templates/backup.mas:74
-msgid "Restore configuration using this file"
-msgstr "Restaurer la configuration à partir de ce fichier"
-
-#: src/templates/backup.mas:76
-msgid "Restore from backup"
-msgstr "Restaurer à partir de la copie de sauvegarde"
-
-#: src/templates/backup.mas:81 src/templates/backup.mas:83
-#: src/templates/backup.mas:85
-msgid "Download"
-msgstr "Charger"
-
-#: src/templates/backup.mas:106
+#: src/templates/backup.mas:137
 #, fuzzy
-msgid "download"
-msgstr "Charger"
-
-#: src/templates/backup.mas:110
-#, fuzzy
-msgid "delete"
-msgstr "Effacer"
-
-#: src/templates/backup.mas:116
-#, fuzzy
-msgid "restore"
-msgstr "Restaurer"
+msgid "Backup file"
+msgstr "Copie de sauvegarde"
 
 #: src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."
@@ -469,15 +551,19 @@ msgstr ""
 msgid "Download bug report file"
 msgstr "Charger de fichier de rapport de bug"
 
-#: src/templates/firstTime/passwd.mas:4
+#: src/templates/firstTime/index.mas:6
 #, fuzzy
-msgid "Change default password"
-msgstr "Modifier le mot de passe"
+msgid "Use default values"
+msgstr "Configurer les règles par défaut"
 
 #: src/templates/footer.mas:8
 #, perl-brace-format
 msgid "{ebox} created by {warp} in collaboration with {dbs}"
 msgstr ""
+
+#, fuzzy
+#~ msgid "First time configuration"
+#~ msgstr "Restaurer la configuration"
 
 #, fuzzy
 #~ msgid "Created by "
@@ -585,9 +671,6 @@ msgstr ""
 
 #~ msgid "Summary"
 #~ msgstr "Résumé"
-
-#~ msgid "The page could not be found"
-#~ msgstr "La page n'a pu être trouvée"
 
 #~ msgid ""
 #~ "An internal error has ocurred. This is most probably a bug, relevant "
@@ -707,9 +790,6 @@ msgstr ""
 #~ "Le lien ci-dessous vous permettra de configurer le comportement par "
 #~ "défaut du filtre de paquets. Vous pouvez également choisir un objet et "
 #~ "configurer les services auxquels il a accès."
-
-#~ msgid "Configure default rules"
-#~ msgstr "Configurer les règles par défaut"
 
 #~ msgid "Configure rules for a particular object"
 #~ msgstr "Configurer les règles pour un objet particulier"

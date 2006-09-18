@@ -6,32 +6,8 @@
 <%init>
 use EBox::Gettext;
 </%init>
-
-<h3><% __('Back up the current configuration') %></h3>
-<div class='help'>
-	<% __('Backups will be stored in eBox and then you will be able to download them to your hard disk') %>
-</div>
-<p>
-<form action='Backup' method='POST'>
-		<% __('Description') %>:
-		<input type='text' class='inputText' name='description'
-			size='52'>
-		<input class='inputButton' type='submit' name='backup'
-			   value="<% __('Back up') %>" />
-</form>
-</p>
-
-<h3><% __('Restore configuration') %></h3>
-<p>
-	<% __('You can upload a backup file from your computer or use one from the list below') %>:
-</p>
-<form action='Backup' method='POST' enctype="multipart/form-data">
-		<input type='file' name='backupfile'/>
-		<input class='inputButton' type='submit' name='restore'
-			   value="<% __('Restore') %>" />
-</form>
-
-
+<& .backupSection &>
+<& .restoreSection &>
 % if(@backups){
 <h3><% __('List of configuration backups') %></h3>
 <table class='dataTable' cellspacing='0'>
@@ -95,3 +71,47 @@ use EBox::Gettext;
 </tr>
 </table>
 % }
+<%def .backupSection>
+<%init>
+my $modeOptions = [
+     { value => 'fullBackup', printableValue => __('Full Backup') },
+     { value => 'configurationBackup', printableValue => __('Configuration Backup') }
+];
+</%init>
+<h3><% __('Back up the current configuration') %></h3>
+<div class='help'>
+	<% __('Backups will be stored in eBox and then you will be able to download them to your hard disk') %>
+</div>
+<p>
+<form action='Backup' method='POST'>
+		<label for='description'><% __('Description') %>:</label>
+		<input type='text' class='inputText' name='description'
+			size='52' />
+		<label for='mode'> <%  __('Backup mode') %> </label>  
+		<& /input/select.mas, name => 'mode', value => 'configurationBackup', options => $modeOptions &>
+		<input class='inputButton' type='submit' name='backup'
+			   value="<% __('Back up') %>" />
+</form>
+</p>
+</%def>
+<%def .restoreSection>
+<%init>
+my $modeOptions = [
+     { value => 'fullRestore', printableValue => __('Full Restore') },
+     { value => 'configurationRestore', printableValue => __('Configuration Restore') }
+];
+</%init>
+<h3><% __('Restore configuration') %></h3>
+<p>
+	<% __('You can upload a backup file from your computer or use one from the list below') %>:
+</p>
+<form action='Backup' method='POST' enctype="multipart/form-data">
+		<label for='backupfile'><% __('Backup file') %></label>
+		<input type='file' name='backupfile'/>
+
+		<label for='mode'> <%  __('Restore mode') %> </label>  
+		<& /input/select.mas, name => 'mode', value => 'configurationRestore', options => $modeOptions &>
+
+		<input class='inputButton' type='submit' name='restore' value="<% __('Restore') %>" />
+</form>
+</%def>
