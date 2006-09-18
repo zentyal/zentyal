@@ -1,4 +1,4 @@
-package WriteCD;
+package EBox::Backup::FileBurner;
 # Description:
 use strict;
 use warnings;
