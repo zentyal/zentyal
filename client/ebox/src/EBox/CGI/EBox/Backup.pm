@@ -56,31 +56,31 @@ sub _print
 	close BACKUP;
 }
 
-sub mandatoryParameters
-{
-  my ($self) = @_;
-  if ($self->param('backup')) {
-    return [qw(backup description mode)];
-  }
-  elsif ($self->param('restore')) {
-    return [qw(restore backupfile mode)];
-  }
-  elsif ($self->param('download')) {
-    return [qw(download id download.x download.y)];
-  }
-  elsif ($self->param('delete')) {
-    return [qw(delete id)];
-  }
-  elsif ($self->param('restoreId')) {
-    return [qw(restoreId id mode)];
-  }
-  elsif ($self->param('bugReport')) {
-    return [qw(bugReport)];
-  }
-  else {
-    return [];
-  }
-}
+# sub mandatoryParameters
+# {
+#   my ($self) = @_;
+#   if ($self->param('backup')) {
+#     return [qw(backup description mode)];
+#   }
+#   elsif ($self->param('restore')) {
+#     return [qw(restore backupfile mode)];
+#   }
+#   elsif ($self->param('download')) {
+#     return [qw(download id download.x download.y)];
+#   }
+#   elsif ($self->param('delete')) {
+#     return [qw(delete id)];
+#   }
+#   elsif ($self->param('restoreId')) {
+#     return [qw(restoreId id mode)];
+#   }
+#   elsif ($self->param('bugReport')) {
+#     return [qw(bugReport)];
+#   }
+#   else {
+#     return [];
+#   }
+# }
 
 sub _process
 {
