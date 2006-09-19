@@ -56,7 +56,7 @@ sub _print
 	close BACKUP;
 }
 
-sub _mandatoryParameters
+sub mandatoryParameters
 {
   my ($self) = @_;
   if ($self->param('backup')) {
@@ -66,7 +66,7 @@ sub _mandatoryParameters
     return [qw(restore backupfile mode)];
   }
   elsif ($self->param('download')) {
-    return [qw(download id)];
+    return [qw(download id download.x download.y)];
   }
   elsif ($self->param('delete')) {
     return [qw(delete id)];
@@ -86,53 +86,55 @@ sub _process
 {
   my ($self) = @_;
 
-  $self->setMasonParameters();
+ try {
+    if (defined($self->param('backup'))) {
+      $self->_backupAction();
+    } 
+    elsif (defined($self->param('bugreport'))) {
+      my $backup = EBox::Backup->new();
+      $self->{errorchain} = "EBox/Bug";
+      $self->{downfile} = $backup->makeBugReport();
+      $self->{downfilename} = 'eboxbugreport.tar';
 
-  if (defined($self->param('backup'))) {
-    $self->_backupAction();
-  } 
-  elsif (defined($self->param('bugreport'))) {
-    my $backup = EBox::Backup->new();
-    $self->{errorchain} = "EBox/Bug";
-    $self->{downfile} = $backup->makeBugReport();
-    $self->{downfilename} = 'eboxbugreport.tar';
+    } 
+    elsif (defined($self->param('delete'))) {
+      my $id = $self->param('id');
+      if ($id =~ m{[./]}) {
+	throw EBox::Exceptions::External(
+					 __("The input contains invalid characters"));
+      }
+      my $backup = EBox::Backup->new();
+      $backup->deleteBackup($id);
+    } 
+    elsif (defined($self->param('download'))) {
+      my $id = $self->param('id');
+      if ($id =~ m{[./]}) {
+	throw EBox::Exceptions::External(
+					 __("The input contains invalid characters"));
+      }
+      $self->{downfile} = EBox::Config::conf . "/backups/$id.tar";
+      $self->{downfilename} = 'eboxbackup.tar';
 
-  } 
-  elsif (defined($self->param('delete'))) {
-    my $id = $self->param('id');
-    if ($id =~ m{[./]}) {
-      throw EBox::Exceptions::External(
-				       __("The input contains invalid characters"));
+    } 
+    elsif (defined($self->param('restoreId'))) {
+      my $id = $self->param('id');
+      if ($id =~ m{[./]}) {
+	throw EBox::Exceptions::External(
+					 __("The input contains invalid characters"));
+      }
+      $self->_restoreFromFile(EBox::Config::conf ."/backups/$id.tar");
+
+    } 
+    elsif (defined($self->param('restore'))) {
+      $self->_restoreAction();
     }
-    my $backup = EBox::Backup->new();
-    $backup->deleteBackup($id);
   }
-  elsif (defined($self->param('download'))) {
-    my $id = $self->param('id');
-    if ($id =~ m{[./]}) {
-      throw EBox::Exceptions::External(
-				       __("The input contains invalid characters"));
-    }
-    $self->{downfile} = EBox::Config::conf . "/backups/$id.tar";
-    $self->{downfilename} = 'eboxbackup.tar';
-
-  } 
-  elsif (defined($self->param('restoreId'))) {
-    my $id = $self->param('id');
-    if ($id =~ m{[./]}) {
-      throw EBox::Exceptions::External(
-				       __("The input contains invalid characters"));
-    }
-    $self->_restoreFromFile(EBox::Config::conf ."/backups/$id.tar");
-
-  }
-  elsif (defined($self->param('restore'))) {
-    $self->_restoreAction();
-  }
-
-
-  $self->setMasonParameters();
+  finally {
+    $self->setMasonParameters();
+  };
 }
+
+
 
 
 sub setMasonParameters
