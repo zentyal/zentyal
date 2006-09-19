@@ -105,8 +105,8 @@ src/templates/firstTime/Makefile
 src/templates/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile
+src/EBox/interactiveTest/Makefile
 src/EBox/Backup/Makefile
-interactiveTests/Makefile
 src/EBox/Backup/interactiveTest/Makefile
 src/EBox/GConfModule/Makefile
 src/EBox/GConfModule/t/Makefile

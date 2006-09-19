@@ -19,7 +19,7 @@ use strict;
 use warnings;
 
 use File::Temp qw(tempdir);
-use File::Copy qw(copy);
+use File::Copy qw(copy move);
 use EBox::Config;
 use EBox::Global;
 use EBox::Exceptions::Internal;
@@ -30,6 +30,7 @@ use Digest::MD5;
 use EBox::Sudo qw(:all);
 use POSIX qw(strftime);
 use DirHandle;
+use EBox::Backup::FileBurner;
 
 use Readonly;
 Readonly::Scalar my $FULL_BACKUP_ID  => 'full backup';
@@ -157,8 +158,6 @@ sub  _createTypeFile
   my ($self, $archiveContentsDir, $fullBackup) = @_;
 
   my $type = $fullBackup ?  $FULL_BACKUP_ID : $CONF_BACKUP_ID;
-  use Smart::Comments;
-  ### typeTpWrite: $type
 
   my $TYPE_F;
   unless (open($TYPE_F, "> $archiveContentsDir/type")) {
@@ -372,8 +371,9 @@ sub makeBackup # (options)
 {
   my ($self, %options) = @_;
   # default values 
-  exists $options{description} or $options{description} = __('Backup');
-  exists $options{fullBackup}  or $options{fullBackup} = 0;
+  exists $options{description}  or $options{description} = __('Backup');
+  exists $options{fullBackup}   or $options{fullBackup} = 0;
+  exists $options{directlyToCD} or $options{directlyToCD} = 0;
 
   my $time = strftime("%F", localtime);
   my $backupdir = EBox::Config::conf . '/backups';
@@ -383,14 +383,37 @@ sub makeBackup # (options)
   }
 
   my $filename = $self->_makeBackup(%options);
+
+  if ($options{directlyToCD}) {
+    return $self->_moveToCD($filename);
+  }
+  
+  return $self->_moveToArchives($filename, $backupdir);
+}
+
+sub  _moveToArchives
+{
+  my ($self, $filename, $backupdir) = @_;
+
   my $id = int(rand(999999)) . ".tar";
   while (-f "$backupdir/$id") {
     $id = int(rand(999999)) . ".tar";
   }
-  copy($filename, "$backupdir/$id") or
+
+  move($filename, "$backupdir/$id") or
     throw EBox::Exceptions::Internal("Could not save the backup.");
-  return $filename;
-}
+
+  return "$backupdir/$id";
+} 
+
+sub _moveToCD
+{
+  my ($self, $filename) = @_;
+
+  EBox::Backup::FileBurner::burn(file => $filename);
+  unlink $filename;
+  return undef;
+} 
 
 #
 # Method: makeBugReport

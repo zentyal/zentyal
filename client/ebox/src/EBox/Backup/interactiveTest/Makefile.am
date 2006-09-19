@@ -1,4 +1,4 @@
-test_scripts = OpticalDisc.t BurnFile.t;
+test_scripts = OpticalDisc.t FileBurner.t
 
 EXTRA_DIST = $(test_scripts)
 
