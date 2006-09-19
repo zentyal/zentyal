@@ -9,6 +9,18 @@ use Readonly;
 Readonly::Scalar my $DVD_MEDIA_INFO_PATH => '/usr/bin/dvd+rw-mediainfo';
 Readonly::Scalar my $CDRECORD_PATH       => '/usr/bin/cdrecord';
 
+Readonly::Scalar my $CD_SIZE   => 681000000; # we assume 650Mb instead 700 to err in the safe side
+Readonly::Scalar my $DVD_SIZE  => 4380000000; # likewise we assume 4.38 GiB
+
+sub sizeForMedia
+{
+  my ($media) = @_;
+
+  return $CD_SIZE  if ($media eq 'CD-R')  or ($media eq 'CD-RW');
+  return $DVD_SIZE if ($media eq 'DVD-R') or ($media eq 'DVD-RW');
+  
+  throw EBox::Exceptions::Internal("Incorrect media or size data unknown: $media");
+}
 
 # return type or 'no_disc' if device is empey. exception when error
 # 

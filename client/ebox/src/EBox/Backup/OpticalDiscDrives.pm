@@ -61,6 +61,11 @@ sub writersForDVDR
 }
 
 
+sub writersForDVDRW
+{
+  return _selectByCapability('Can write DVD-R');
+}
+
 sub writersForCDR
 {
   return _selectByCapability('Can write CD-R');
