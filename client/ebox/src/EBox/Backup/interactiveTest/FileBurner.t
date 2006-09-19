@@ -10,15 +10,17 @@ use EBox::Test;
 use lib '../../..';
 use_ok(' EBox::Backup::FileBurner');
 
-my $FILE = '/vmlinuz';
+my $FILE = $0;
 
 EBox::Test::activateEBoxTestStubs();
+EBox::Test::setEBoxConfigKeys(tmp => '/tmp');
+
 diag "This test must be run as root otherwise some parts may fail";
 diag "This test burns writable media. It writes on them the file $FILE, change the \$FILE constant if you want burn anothe file";
 
 die "$FILE is no redeable" if (! -r $FILE);
 
-my @supportedMedia = qw(CD-R CD-RW DVD-R DVD-RW no_disc);
+
 
 
 while (1) {

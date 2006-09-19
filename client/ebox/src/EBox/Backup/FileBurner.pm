@@ -17,6 +17,7 @@ Readonly::Scalar my $CDRECORD_PATH=>'/usr/bin/cdrecord';
 Readonly::Scalar my $MKISOFS_PATH=>'/usr/bin/mkisofs';
 Readonly::Scalar my $GROWISOFS_PATH=>'/usr/bin/growisofs';
 Readonly::Scalar my $DVDRWFORMAT_PATH=>'/usr/bin/dvd+rw-format';
+Readonly::Scalar my $EJECT_PATH=>'/usr/bin/eject';
 
 
 sub burn
@@ -25,12 +26,10 @@ sub burn
   my $file   = $params{file};
   my $device = exists $params{device} ? $params{device} : _chooseDevice();
   my $media;
-  
+
   _checkDevice($device);
   $media = EBox::Backup::OpticalDisc::media($device);
-#  use Smart::Comments;
-  ### device: $device
-  ### media: $media
+
   _checkDeviceForMedia($device, $media);
   _checkSize($file, $media);
 
@@ -42,6 +41,7 @@ sub burn
 
   blankMedia($device, $media);
   burnMedia($target, $device, $media);
+  system $EJECT_PATH;
 }
 
 # see #158 for possible problems
@@ -102,13 +102,13 @@ sub _checkDevice
   open my $MTAB, "<$MTAB_PATH";
   try {
     while (my $line = <$MTAB>) {
-       my ($mountedDev) = split '\s', $line, 2;
+       my ($mountedDev) = split '\s+', $line, 2;
        if ($mountedDev eq $device) {
 	 throw EBox::Exceptions::External(__x('{device} is mounted. Please, remove the disk', device => $device))    
        }
     }
   }
-  otherwise {
+  finally {
     close $MTAB;
   };
   
@@ -164,7 +164,7 @@ sub _setupBurningTarget
   my ($file, $media) = @_;
 
   if ( _mediaUsesCdrecord($media) ) {
-    my $isoFile = EBox::Config::tmp() . '/backup.iso';
+    my $isoFile = EBox::Config::tmp() . 'backup.iso';
     my $mkisofsCommand = "$MKISOFS_PATH -V ebox-backup  -R -J  -o $isoFile $file";
     EBox::Sudo::command($mkisofsCommand);
     return $isoFile;
@@ -195,7 +195,7 @@ sub _deviceForCdrecord
   if (0 == $ideDevicesFound) {
     throw EBox::Exceptions::Internal("Can not found the device identified for cdrecord");
   }
-  $device = 'ATA:' . $device;
+
   return $device;
 }
 
@@ -244,6 +244,7 @@ sub burnMedia
 sub rootCommands
 {
   my @commands=();
+  push @commands, EBox::Backup::OpticalDisc::rootCommands();
   return @commands;
 }
 
