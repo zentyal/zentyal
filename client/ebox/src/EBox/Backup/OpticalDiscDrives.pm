@@ -55,7 +55,7 @@ sub info
 }
 
 
-sub writersForDVD
+sub writersForDVDR
 {
   return _selectByCapability('Can write DVD-R');
 }
@@ -91,9 +91,9 @@ sub _selectByCapability
 sub  allowedMedia
 {
   my @media;
-  push @media, 'DVD' if writersForDVD() > 0;
-  push @media, 'CDR' if writersForCDR() > 0;
-  push @media, 'CDRW' if writersForCDRW() > 0;
+  push @media, 'DVD-R' if writersForDVD() > 0;
+  push @media, 'CD-R' if writersForCDR() > 0;
+  push @media, 'CD-RW' if writersForCDRW() > 0;
 
   return @media;
 }

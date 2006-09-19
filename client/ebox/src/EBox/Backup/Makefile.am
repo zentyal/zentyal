@@ -1,3 +1,4 @@
+SUBDIRS = interactiveTest interactiveTests
 ## Process this file with automake to produce Makefile.in
 perldir = @PERLPATH@/EBox/Backup
 
