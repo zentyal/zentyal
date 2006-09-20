@@ -44,6 +44,12 @@ use EBox::Gettext;
 						title="<%__('Download')%>"
 						alt="<%__('Download')%>"/>
 					<img src='/data/images/sep.gif' alt='-'/>
+					<input type='image' name='burn'
+						src='/data/images/burn.gif'
+						value="<%__('Burn')%>"
+						title="<%__('Write backup to disc')%>"
+						alt="<%__('Write backup to disc')%>"/>
+					<img src='/data/images/sep.gif' alt='-'/>
 					<input type='image' name='delete'
 						src='/data/images/delete.gif'
 						value="<%__('Delete')%>"
@@ -61,13 +67,16 @@ use EBox::Gettext;
     <td><img src="/data/images/down.gif" alt=""/></td>
     <td style="padding-right: 10px;"><%__('download')%></td>
 
-    <td><img src="/data/images/delete.gif" alt=""/></td>
-    <td style="padding-right: 10px;"><%__('delete')%></td>
+    <td><img src="/data/images/burn.gif" alt=""/></td>
+    <td style="padding-right: 10px;"><%__('write into disc')%></td>
 </tr>
 
 <tr>
     <td><img src="/data/images/apply.gif" alt=""/></td>
     <td style="padding-right: 10px;"><%__('restore')%></td>
+
+    <td><img src="/data/images/delete.gif" alt=""/></td>
+    <td style="padding-right: 10px;"><%__('delete')%></td>
 </tr>
 </table>
 % }
@@ -91,6 +100,8 @@ my $modeOptions = [
 		<& /input/select.mas, name => 'mode', value => 'configurationBackup', options => $modeOptions &>
 		<input class='inputButton' type='submit' name='backup'
 			   value="<% __('Back up') %>" />
+		<input class='inputButton' type='submit' name='backupToDisc'
+			   value="<% __('Back up to disc') %>" />
 </form>
 </p>
 </%def>
@@ -113,5 +124,7 @@ my $modeOptions = [
 		<& /input/select.mas, name => 'mode', value => 'configurationRestore', options => $modeOptions &>
 
 		<input class='inputButton' type='submit' name='restore' value="<% __('Restore') %>" />
+		<input class='inputButton' type='submit'
+		name='restoreFromDisc' value="<% __('Restore from disc') %>" />
 </form>
 </%def>

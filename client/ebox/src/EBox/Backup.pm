@@ -374,7 +374,7 @@ sub makeBackup # (options)
   # default values 
   exists $options{description}  or $options{description} = __('Backup');
   exists $options{fullBackup}   or $options{fullBackup} = 0;
-  exists $options{directlyToCD} or $options{directlyToCD} = 0;
+  exists $options{directlyToDisc} or $options{directlyToDisc} = 0;
 
   my $time = strftime("%F", localtime);
   my $backupdir = EBox::Config::conf . '/backups';
@@ -385,8 +385,8 @@ sub makeBackup # (options)
 
   my $filename = $self->_makeBackup(%options);
 
-  if ($options{directlyToCD}) {
-    return $self->_moveToCD($filename);
+  if ($options{directlyToDisc}) {
+    return $self->_moveToDisc($filename);
   }
   
   return $self->_moveToArchives($filename, $backupdir);
@@ -407,7 +407,7 @@ sub  _moveToArchives
   return "$backupdir/$id";
 } 
 
-sub _moveToCD
+sub _moveToDisc
 {
   my ($self, $filename) = @_;
 
@@ -513,6 +513,19 @@ sub _checkArchiveType
 
 }
 
+
+sub writeBackupToDisc
+{
+  my ($self, $id) = @_;
+
+  my $backupdir = EBox::Config::conf . '/backups';
+  my $file = "$backupdir/$id";
+  if (! -r $file) {
+    throw EBox::Exceptions::External("Specified backup does not exist");
+  }
+
+  EBox::Backup::FileBurner::burn(file => $file);
+}
  
 #
 # Method: restoreBackup 
