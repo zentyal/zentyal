@@ -4,10 +4,13 @@ use strict;
 use warnings;
 
 use File::Slurp qw(read_file);
+use Perl6::Junction qw(all);
+use EBox::Gettext;
+
 use Readonly;
 Readonly::Scalar my $CDROM_INFO_PATH => '/proc/sys/dev/cdrom/info';
-
-use EBox::Gettext;
+Readonly::Scalar my $FSTAB_PATH      => '/etc/fstab';
+Readonly::Scalar my $MTAB_PATH      => '/etc/mtab';
 
 
 sub info
@@ -61,6 +64,7 @@ sub writersForDVDR
 }
 
 
+# we assume that DVD-R capable are also DVD-RW capable (limitation found in cdrom/info file)
 sub writersForDVDRW
 {
   return _selectByCapability('Can write DVD-R');
@@ -103,5 +107,49 @@ sub  allowedMedia
   return @media;
 }
  
+
+# we searh only in optical disc drives that are user mountable
+# the file is relative to the mount point of the device as are found in fstab
+sub searchFileInDiscs
+{
+  my ($file) = @_;
+
+  my @fstab = read_file($FSTAB_PATH);
+  my @mtab  = read_file($MTAB_PATH);
+  my @devices = keys %{ info() };
+  my $allDevices = all(@devices);
+
+  foreach my $fstabLine (@fstab) {
+    my ($device, $mountPoint, $type, $options) = split '\s+', $fstabLine;
+
+    next if $device ne $allDevices;
+    if ( !($options =~ m/[\s,]user[\s,]/) ) {
+      EBox::debug("device $device skipped because it has no user option set");
+      next;
+    }
+    
+    my $wasMounted = grep {m/^$device/} @mtab;
+    if (!$wasMounted) {
+      system("/bin/mount $mountPoint");
+      next if ($? != 0); 
+    }
+
+    my $filePath = "$mountPoint/$file";
+    if ( -f $filePath) {
+      if ( -r $filePath ) {
+	return { file => $filePath,  device => $device  };
+      }
+      else {
+	EBox::debug("$file found in $filePath but is no tedeable. Skipping");	
+      }
+    }
+
+    if (!$wasMounted) {
+      EBox::Sudo::command("/bin/umount $mountPoint");
+    }
+  }
+
+  return undef;
+}
 
 1;

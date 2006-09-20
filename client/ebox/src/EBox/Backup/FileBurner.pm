@@ -41,7 +41,7 @@ sub burn
 
   blankMedia($device, $media);
   burnMedia($target, $device, $media);
-  system $EJECT_PATH;
+  system "$EJECT_PATH $device";
 }
 
 # see #158 for possible problems

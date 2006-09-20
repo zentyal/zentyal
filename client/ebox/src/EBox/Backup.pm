@@ -31,12 +31,13 @@ use EBox::Sudo qw(:all);
 use POSIX qw(strftime);
 use DirHandle;
 use EBox::Backup::FileBurner;
+use EBox::Backup::OpticalDiscDrives;
 
 use Readonly;
 Readonly::Scalar my $FULL_BACKUP_ID  => 'full backup';
 Readonly::Scalar my $CONF_BACKUP_ID  =>'configuration backup';
-
-
+Readonly::Scalar my $DISC_BACKUP_FILE  => 'eboxbackup.tar';
+Readonly::Scalar my $EJECT_PATH  => '/usr/bin/eject';
 sub new 
 {
 	my $class = shift;
@@ -568,5 +569,27 @@ sub restoreBackup # (file)
       `rm -rf $tempdir`;
   };
 }
+
+
+sub restoreBackupFromDisc
+{
+  my ($self,  %options) = @_;
+
+  my $discFileInfo = EBox::Backup::OpticalDiscDrives::searchFileInDiscs($DISC_BACKUP_FILE);
+  if (!defined $discFileInfo) {
+    throw EBox::Exceptions::External(__('Insert a backup disc and try again, please'));
+  }
+
+  try {
+    $self->restoreBackup($discFileInfo->{file}, %options);
+  }
+  finally {
+      system "$EJECT_PATH  " . $discFileInfo->{device};
+      if ($? != 0) {
+	throw EBox::Exceptions::External(__('Restore completed but the disc wasn;t unmounted and ejected'));
+      }
+  };
+}
+
 
 1;
