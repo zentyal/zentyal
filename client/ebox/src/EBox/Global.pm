@@ -31,7 +31,7 @@ use EBox::Config;
 use EBox::Gettext;
 use Log::Log4perl;
 use POSIX qw(setuid setgid setlocale LC_ALL);
-
+use EBox::Backup::RootCommands;
 
 use Digest::MD5;
 
@@ -645,13 +645,16 @@ sub init
 #
 sub rootCommands
 {
-	my $self = shift;
-	my @array = ();
-	push(@array, '/sbin/halt');
-	push(@array, '/sbin/reboot');
-	push(@array, '/usr/bin/runsvctrl');
-	push(@array, '/usr/bin/runsvstat');
-	return @array;
+  my $self = shift;
+  
+  my @commands = ();
+  push @commands, '/sbin/halt';
+  push @commands, '/sbin/reboot';
+  push @commands, '/usr/bin/runsvctrl';
+  push @commands, '/usr/bin/runsvstat';
+  push @commands, EBox::Backup::RootCommands::rootCommands();
+  
+  return @commands;
 }
 
 1;

@@ -35,7 +35,7 @@ while (1) {
 
 sub discPrompt
 {
-  diag "Insert disc and hit return to coninue or type 'quit' + return to quit\n";
+  print "Insert disc and hit return to coninue or type 'quit' + return to quit\n";
   my $input = <>;
   chomp $input;
   exit 0 if $input eq 'quit';

@@ -2,7 +2,8 @@ SUBDIRS = interactiveTest
 ## Process this file with automake to produce Makefile.in
 perldir = @PERLPATH@/EBox/Backup
 
-nobase_perl_DATA = OpticalDiscDrives.pm OpticalDisc.pm FileBurner.pm
+nobase_perl_DATA = OpticalDiscDrives.pm OpticalDisc.pm FileBurner.pm RootCommands.pm
+
 
 test_classes = Test.pm
 

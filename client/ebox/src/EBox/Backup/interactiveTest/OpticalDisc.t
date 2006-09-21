@@ -31,7 +31,7 @@ while (($expectedMedia = mediaPrompt()) ne 'quit') {
 
 sub mediaPrompt
 {
-  diag "Insert disc and please type in the media used (@supportedMedia) or 'quit' to quit\n";
+  print "Insert disc and please type in the media used (@supportedMedia) or 'quit' to quit\n";
   my $media = <>;
   chomp $media;
   return $media;
@@ -39,7 +39,7 @@ sub mediaPrompt
 
 sub devicePrompt
 {
-  diag "Please type in the recorder device file(ex: /dev/cdrom)\n";
+  print "Please type in the recorder device file(ex: /dev/cdrom)\n";
   my $dev = <>;
   chomp $dev;
   return $dev;

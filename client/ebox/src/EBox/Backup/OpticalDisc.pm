@@ -12,6 +12,8 @@ Readonly::Scalar my $CDRECORD_PATH       => '/usr/bin/cdrecord';
 Readonly::Scalar my $CD_SIZE   => 681000000; # we assume 650Mb instead 700 to err in the safe side
 Readonly::Scalar my $DVD_SIZE  => 4380000000; # likewise we assume 4.38 GiB
 
+
+
 sub sizeForMedia
 {
   my ($media) = @_;
@@ -41,7 +43,9 @@ sub infoFromDvdMediaInfo
 {
   my ($dev) = @_;
 
-  my @output = `$DVD_MEDIA_INFO_PATH $dev 2>&1`;
+  my @output =  @{ EBox::Sudo::rootExceptionSafe("$DVD_MEDIA_INFO_PATH $dev 2>&1")};
+
+
 
   if (grep { m/no media mounted/ }  @output) {
     
@@ -53,7 +57,7 @@ sub infoFromDvdMediaInfo
 
   my ($mountedMediaLine) = grep {m/Mounted Media:/} @output;
   if (!$mountedMediaLine) {
-    throw EBox::Exceptions::External(__('Unable to recognize the mounted DVD media'));
+    throw EBox::Exceptions::External(__("Unable to recognize the mounted DVD media. output @output"));
   }
 
   if ($mountedMediaLine =~ m/(DVD.*?)\s/) {
@@ -103,6 +107,7 @@ sub rootCommands
 {
   my @commands = (
 		  $CDRECORD_PATH,
+		  $DVD_MEDIA_INFO_PATH,
 		 );
 
   return @commands;
