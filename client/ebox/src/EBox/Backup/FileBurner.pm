@@ -17,7 +17,6 @@ Readonly::Scalar my $CDRECORD_PATH=>'/usr/bin/cdrecord';
 Readonly::Scalar my $MKISOFS_PATH=>'/usr/bin/mkisofs';
 Readonly::Scalar my $GROWISOFS_PATH=>'/usr/bin/growisofs';
 Readonly::Scalar my $DVDRWFORMAT_PATH=>'/usr/bin/dvd+rw-format';
-Readonly::Scalar my $EJECT_PATH=>'/usr/bin/eject';
 
 
 sub burn
@@ -41,7 +40,8 @@ sub burn
 
   blankMedia($device, $media);
   burnMedia($target, $device, $media);
-  system "$EJECT_PATH $device";
+
+  EBox::Backup::OpticalDiscDrives::ejectDisc($device);
 }
 
 # see #158 for possible problems

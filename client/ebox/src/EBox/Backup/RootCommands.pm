@@ -6,7 +6,7 @@ use warnings;
 
 sub rootCommands
 {
-  my @commands = qw(/usr/bin/cdrecord /usr/bin/dvd+rw-mediainfo);
+  my @commands = qw(/usr/bin/cdrecord /usr/bin/dvd+rw-mediainfo /usr/bin/eject);
   return @commands;
 }
 

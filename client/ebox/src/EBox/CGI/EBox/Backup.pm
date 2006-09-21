@@ -69,7 +69,7 @@ sub requiredParameters
     return [qw(restore backupfile mode)];
   }
   elsif ($self->param('restoreFromDisc')) {
-    return [qw(restoreFromDisc  mode)];
+    return [qw(restoreFromDisc backupfile mode)];
   }
   elsif ($self->param('download')) {
     return [qw(download id download.x download.y)];

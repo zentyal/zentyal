@@ -38,7 +38,7 @@ use Readonly;
 Readonly::Scalar my $FULL_BACKUP_ID  => 'full backup';
 Readonly::Scalar my $CONF_BACKUP_ID  =>'configuration backup';
 Readonly::Scalar my $DISC_BACKUP_FILE  => 'eboxbackup.tar';
-Readonly::Scalar my $EJECT_PATH  => '/usr/bin/eject';
+
 sub new 
 {
 	my $class = shift;
@@ -249,12 +249,9 @@ sub _bug # (dir)
 sub backupDetails # (id) 
 {
   my ($self, $id) = @_;
+  $self->_checkId($id);
 
-  if ($id =~ m{[./]}) {
-		throw EBox::Exceptions::External(
-			__("The input contains invalid characters"));
-	}
-  my $file = EBox::Config::conf . "/backups/$id.tar";
+  my $file = $self->_backupFileById($id);
 
   my $t = $self->_unpackAndVerify($file);
 
@@ -294,15 +291,11 @@ sub backupDetails # (id)
 sub deleteBackup # (id) 
 {
 	my ($self, $id) = @_;
-	if ($id =~ m{[./]}) {
-		throw EBox::Exceptions::External(
-			__("The input contains invalid characters"));
-	}
-	my $backupdir = EBox::Config::conf . '/backups';
-	unless (-f "$backupdir/$id.tar") {
-		throw EBox::Exceptions::External("Could not find the backup.");
-	}
-	unless (unlink("$backupdir/$id.tar")) {
+	$self->_checkId($id);
+	
+	my $file = $self->_backupFileById($id);
+
+	unless (unlink($file)) {
 		throw EBox::Exceptions::External("Could not delete the backup");
 	}
 }
@@ -518,14 +511,22 @@ sub _checkArchiveType
 sub writeBackupToDisc
 {
   my ($self, $id) = @_;
+  
+  $self->_checkId($id);
+
+  my $file = $self->_backupFileById($id);
 
   my $backupdir = EBox::Config::conf . '/backups';
-  my $file = "$backupdir/$id";
-  if (! -r $file) {
-    throw EBox::Exceptions::External("Specified backup does not exist");
+  my $destFile = "$backupdir/$DISC_BACKUP_FILE";
+  
+  move($file, $destFile) or throw EBox::Exceptions::Internal("Can not rename backup file: @!");
+  
+  try {
+      EBox::Backup::FileBurner::burn(file => $destFile);
   }
-
-  EBox::Backup::FileBurner::burn(file => $file);
+  finally {
+      move($destFile, $file) or throw EBox::Exceptions::External(__x('Can not rename backup file from {newName} to  hisr original name {name}. Error message: {error}', newName => $destFile, name => $file, error => $!));
+  };
 }
  
 #
@@ -598,13 +599,36 @@ sub restoreBackupFromDisc
     $self->restoreBackup($discFileInfo->{file}, %options);
   }
   finally {
-      system "$EJECT_PATH  " . $discFileInfo->{device};
-      if ($? != 0) {
-	throw EBox::Exceptions::External(__('Restore completed but the disc wasn;t unmounted and ejected'));
-      }
+      EBox::Backup::OpticalDiscDrives::ejectDisc($discFileInfo->{device});
+
+#       if ($? != 0) {
+# 	throw EBox::Exceptions::External(__('Restore completed but the disc wasn;t unmounted and ejected'));
+#       }
   };
 }
 
+
+sub _checkId
+{
+  my ($self, $id) = @_;  
+  if ($id =~ m{[./]}) {
+		throw EBox::Exceptions::External(
+			__("The input contains invalid characters"));
+	}
+}
+
+sub _backupFileById
+{
+    my ($self, $id) = @_;
+
+    my $backupdir = EBox::Config::conf . '/backups';
+    my $file = "$backupdir/$id.tar";
+    unless (-f $file) {
+	throw EBox::Exceptions::External("Could not find the backup.");
+    }
+
+    return $file;
+}
 
 
 1;

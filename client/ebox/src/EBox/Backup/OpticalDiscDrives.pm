@@ -6,12 +6,13 @@ use warnings;
 use File::Slurp qw(read_file);
 use Perl6::Junction qw(all);
 use EBox::Gettext;
+use EBox::Sudo;
 
 use Readonly;
 Readonly::Scalar my $CDROM_INFO_PATH => '/proc/sys/dev/cdrom/info';
 Readonly::Scalar my $FSTAB_PATH      => '/etc/fstab';
 Readonly::Scalar my $MTAB_PATH      => '/etc/mtab';
-
+Readonly::Scalar my $EJECT_PATH  => '/usr/bin/eject';
 
 sub info
 {
@@ -150,6 +151,12 @@ sub searchFileInDiscs
   }
 
   return undef;
+}
+
+sub ejectDisc
+{
+    my ($device) = @_;
+    EBox::Sudo::rootExceptionSafe("$EJECT_PATH  " . $device);
 }
 
 1;

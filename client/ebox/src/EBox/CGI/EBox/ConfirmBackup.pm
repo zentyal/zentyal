@@ -61,6 +61,12 @@ sub _process
 		push(@array, actiontext=>__('Restore'));
 		$self->{msg} = __('Please confirm that you want to restore '.
 				'the configuration from this backup file:');
+	} 
+	elsif (defined($self->param('burn'))) {
+		push(@array, action=>'writeBackupToDisc');
+		push(@array, actiontext=>__('Write to disc'));
+		$self->{msg} = __('Please confirm that you want to write'.
+				'this backup file to a CD or DVD disc:');
 
 	} else {
 		$self->{redirect} = "EBox/Backup";
