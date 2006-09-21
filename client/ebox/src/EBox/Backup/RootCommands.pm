@@ -6,7 +6,12 @@ use warnings;
 
 sub rootCommands
 {
-  my @commands = qw(/usr/bin/cdrecord /usr/bin/dvd+rw-mediainfo /usr/bin/eject);
+  my @commands =  (
+   '/usr/bin/cdrecord',
+   '/usr/bin/dvd+rw-mediainfo',
+   '/usr/bin/eject',
+   '/usr/bin/growisofs',
+    );
   return @commands;
 }
 
