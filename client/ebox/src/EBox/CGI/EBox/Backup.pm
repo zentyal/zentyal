@@ -91,10 +91,23 @@ sub requiredParameters
   }
 }
 
+sub optionalParameters
+{
+  my ($self) = @_;
+
+  if ($self->param('cancel')) {
+    return [qw(cancel mode id restoreId download delete writeBackupToDisc)];
+  }   
+
+      return [];
+}
+
+
 sub actuate
 {
   my ($self) = @_;
 
+  $self->param('cancel') and return;
 
   if ($self->param('backup')) {
     $self->_backupAction(directlyToDisc => 0);
