@@ -10,22 +10,29 @@ use EBox::Sudo;
 # XXX There are problems with symbol imporation and Test::MockModule
 # until we found a solution we will use a brute redefiniton
 # XXX Currently i see not way for mocking EBox::Sudo::sudo
-# XXX there are unclaer situation with comamnds containig ';' but this is also de case of EBox::Sudo
+# XXX there are unclear situation with comamnds containig ';' but this is also de case of EBox::Sudo
 
 #my $mockedSudoModule = undef;
 
 my $oldRootSub = undef;
+my $oldRootExceptionSafeSub = undef;
 
 sub fake
 {
     $oldRootSub = \&EBox::Sudo::root if !defined $oldRootSub;
+    $oldRootExceptionSafeSub =  \&EBox::Sudo::rootExceptionSafe if !defined $oldRootExceptionSafeSub;
 
     no warnings 'redefine';
     my $redefinition = '
     sub EBox::Sudo::root
     {
 	return EBox::Sudo::TestStub::_fakedRoot(@_);
-    }';
+    }
+    sub EBox::Sudo::rootExceptionSafe
+    {
+	return EBox::Sudo::TestStub::_fakedRootExceptionSafe(@_);
+    }
+     ';
 
     eval $redefinition;
    if ($@) {
@@ -45,7 +52,12 @@ sub unfake
     my $redefinition = ' sub EBox::Sudo::root
      {
  	return $oldRootSub->(@_);
-     }';
+     }
+      sub EBox::Sudo::rootExceptionSafe
+     {
+ 	return $oldRootExceptionSafeSub->(@_);
+     }
+      ';
 
     eval $redefinition;
     if ($@) {
@@ -67,6 +79,14 @@ sub _fakedRoot
     return \@output;
 }
 
+
+sub _fakedRootExceptionSafe
+{
+    my ($cmd) = @_;
+
+    my @output = `$cmd`;
+    return \@output;
+}
 
 
 sub _rootCommandException

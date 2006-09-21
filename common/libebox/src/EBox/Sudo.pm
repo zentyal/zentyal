@@ -96,6 +96,16 @@ sub root # (command)
 	return \@output;
 }
 
+sub rootExceptionSafe
+{
+  my $cmd = shift;
+  my $sudocmd = "/usr/bin/sudo " . $cmd;
+
+  my @output = `$sudocmd`;
+
+  return \@output;
+}
+
 #
 # Method: sudo 
 #
