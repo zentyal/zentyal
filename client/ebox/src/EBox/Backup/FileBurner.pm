@@ -241,11 +241,6 @@ sub burnMedia
 }
 
 
-sub rootCommands
-{
-  my @commands=();
-  push @commands, EBox::Backup::OpticalDisc::rootCommands();
-  return @commands;
-}
+
 
 1;
