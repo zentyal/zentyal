@@ -91,49 +91,43 @@ sub requiredParameters
   }
 }
 
-# sub actuate
-sub _process
+sub actuate
 {
   my ($self) = @_;
 
- try {
-    if ($self->param('backup')) {
-      $self->_backupAction(directlyToDisc => 0);
+
+  if ($self->param('backup')) {
+    $self->_backupAction(directlyToDisc => 0);
+  } 
+  elsif ($self->param('backupToDisc')) {
+    $self->_backupAction(directlyToDisc => 1);
+  }
+  elsif ($self->param('bugreport')) {
+    $self->_bugreportAction();
     } 
-    elsif ($self->param('backupToDisc')) {
-      $self->_backupAction(directlyToDisc => 1);
-    }
-    elsif ($self->param('bugreport')) {
-      $self->_bugreportAction();
-    } 
-    elsif ($self->param('delete')) {
+  elsif ($self->param('delete')) {
       $self->_deleteAction();
     } 
-    elsif ($self->param('download')) {
-      $self->_downloadAction();
-    } 
-    elsif ($self->param('restoreId')) {
-      $self->_restoreIdAction();
-    } 
-    elsif ($self->param('restore')) {
-      $self->_restoreAction();
-    }
-    elsif ($self->param('writeBackupToDisc')) {
-      $self->_writeBackupToDiscAction();
-    }
-    elsif ($self->param('restoreFromDisc')) {
-      $self->_restoreFromDiscAction();
-    }
+  elsif ($self->param('download')) {
+    $self->_downloadAction();
+  } 
+  elsif ($self->param('restoreId')) {
+    $self->_restoreIdAction();
+  } 
+  elsif ($self->param('restore')) {
+    $self->_restoreAction();
   }
-  finally {
-    $self->setMasonParameters();
-  };
+  elsif ($self->param('writeBackupToDisc')) {
+    $self->_writeBackupToDiscAction();
+  }
+  elsif ($self->param('restoreFromDisc')) {
+    $self->_restoreFromDiscAction();
+  }
 }
 
 
 
-
-sub setMasonParameters
+sub masonParameters
 {
   my ($self) = @_;
 
@@ -142,8 +136,9 @@ sub setMasonParameters
   my @params = ();
   push @params, (backups => $backup->listBackups());
   
-  $self->{params} = \@params;
+  return \@params;
 }
+
 
 sub  _backupAction
 {
