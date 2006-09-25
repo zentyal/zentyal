@@ -41,15 +41,14 @@ sub backupTest
   EBox::Backup::Test::setCanaries('before');
 
   my $backup =  EBox::Backup->new();
-  my $success = lives_ok { $backup->makeBackup(description => 'ea', fullBackup => 1, directlyToCD => 1) } 'Trying backup drectly to cd';
+  my $success = lives_ok { $backup->makeBackup(description => 'ea', fullBackup => 1, directlyToDisc => 1) } 'Trying backup drectly to cd';
   return $success;
 }
 
 
 sub restoreTest
 {
-    diag "We will try to restore from the disc
-";
+    diag "We will try to restore from the disc";
     discPrompt();
 
     my $backup =  EBox::Backup->new();
