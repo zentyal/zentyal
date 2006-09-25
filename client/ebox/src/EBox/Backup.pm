@@ -253,10 +253,35 @@ sub backupDetails # (id)
 
   my $file = $self->_backupFileById($id);
 
+  my $details = $self->_backupDetailsFromFile($file);
+  $details->{id} = $id;
+  
+  return $details;
+}
+
+sub backupDiscDetails
+{
+  my ($self) = @_;
+
+  my $discFileInfo = EBox::Backup::OpticalDiscDrives::searchFileInDiscs($DISC_BACKUP_FILE);
+  if (!defined $discFileInfo) {
+    throw EBox::Exceptions::External(__('Insert a backup disc and try again, please'));
+  }
+
+  my $details = $self->_backupDetailsFromFile($discFileInfo->{file});
+  $details->{id} = __('Backup in disc');
+  
+  return $details;
+}
+
+
+sub _backupDetailsFromFile
+{
+  my ($self, $file) = @_;
+
   my $t = $self->_unpackAndVerify($file);
 
   my $entry = {};
-  $entry->{id} = $id;
 
   my @details = qw(date description type);
   foreach my $detail (@details) {
@@ -600,10 +625,6 @@ sub restoreBackupFromDisc
   }
   finally {
       EBox::Backup::OpticalDiscDrives::ejectDisc($discFileInfo->{device});
-
-#       if ($? != 0) {
-# 	throw EBox::Exceptions::External(__('Restore completed but the disc wasn;t unmounted and ejected'));
-#       }
   };
 }
 

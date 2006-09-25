@@ -157,6 +157,8 @@ sub ejectDisc
 {
     my ($device) = @_;
     EBox::Sudo::rootExceptionSafe("$EJECT_PATH  " . $device);
+    
+    return ($? == 0); #$? was set by rootExceptionSafe
 }
 
 1;

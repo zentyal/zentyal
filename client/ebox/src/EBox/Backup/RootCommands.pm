@@ -10,9 +10,12 @@ sub rootCommands
    '/usr/bin/cdrecord',
    '/usr/bin/dvd+rw-mediainfo',
    '/usr/bin/eject',
-   '/usr/bin/growisofs',
+   '/usr/bin/growisofs-sudo',
     );
   return @commands;
 }
+
+
+
 
 1;

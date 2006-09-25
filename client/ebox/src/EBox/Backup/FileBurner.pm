@@ -15,7 +15,7 @@ use Readonly;
 Readonly::Scalar my $MTAB_PATH=>'/etc/mtab';
 Readonly::Scalar my $CDRECORD_PATH=>'/usr/bin/cdrecord';
 Readonly::Scalar my $MKISOFS_PATH=>'/usr/bin/mkisofs';
-Readonly::Scalar my $GROWISOFS_PATH=>'/usr/bin/growisofs';
+Readonly::Scalar my $GROWISOFS_PATH=>'/usr/bin/growisofs-sudo';
 Readonly::Scalar my $DVDRWFORMAT_PATH=>'/usr/bin/dvd+rw-format';
 
 
@@ -118,6 +118,10 @@ sub _checkDevice
 sub _checkDeviceForMedia
 {
   my ($device, $media) = @_;
+
+  if ($media eq 'no_disc') {
+      throw EBox::Exceptions::External(__('No disc found. Please insert disc and retry'));
+  }
 
   my $normalizedMedia = $media;
   $normalizedMedia =~ s/-//;
