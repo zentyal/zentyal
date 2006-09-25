@@ -10,7 +10,10 @@ my $domain = settextdomain('libebox');
 % if (length($title)) {
 <div id='titlehelp'>
 	<div class='title'><% $title %></div>
-	<div id='helpbutton'><a href="#" onclick="switchHelp(); return false; " title="<% __('Display help notes') %>">(<% __("show help")%>)</a></div>
+	<div id='helpbutton'>
+		<a id='showhelp' href="#" onclick="switchHelp(); return false; " title="<% __('Display help notes') %>">(<% __("show help")%>)</a>
+		<a style='display:none;' id='hidehelp' href="#" onclick="switchHelp(); return false; " title="<% __('Hide help notes') %>">(<% __("hide help")%>)</a>
+	</div>
 </div>
 % }
 

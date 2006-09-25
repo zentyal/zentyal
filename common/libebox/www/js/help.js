@@ -9,6 +9,17 @@ function switchHelp(){
 		}
 		inc++;
 	}
+
+        // Toggle link text
+        var show_link = document.getElementById('showhelp');
+        var hide_link = document.getElementById('hidehelp');
+        if (show_link.style.display != "none") {
+                show_link.style.display = "none";
+                hide_link.style.display = "inline";
+        } else {
+                hide_link.style.display = "none";
+                show_link.style.display = "inline";
+        }
 }
 
 elements=getElementByClass("help");
