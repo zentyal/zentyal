@@ -381,7 +381,7 @@ sub listBackups
 #       options     - options lists
 #                   description - backup's description (backwards compability mode)
 #                   fullBackup  - wether do a full backup or  backup only configuration (default: false)
-#                   directlyToCD      - burn directly to Cd the backup and do not store it in the filesystem (default: false)
+#                   directlyToDisc      - burn directly to Cd the backup and do not store it in the filesystem (default: false)
 #
 # Exceptions:
 #	
