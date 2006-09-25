@@ -55,7 +55,7 @@ sub infoFromDvdMediaInfo
 
   my ($mountedMediaLine) = grep {m/Mounted Media:/} @output;
   if (!$mountedMediaLine) {
-    throw EBox::Exceptions::External(__("Unable to recognize the mounted DVD media. output @output"));
+    throw EBox::Exceptions::External(__("Unable to recognize the mounted DVD media. output {output}", output => "@output"));
   }
 
   if ($mountedMediaLine =~ m/(DVD.*?)\s/) {
