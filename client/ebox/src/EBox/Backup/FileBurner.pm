@@ -5,6 +5,7 @@ use warnings;
 
 use EBox;
 use EBox::Gettext;
+use EBox::Backup::RootCommands;
 use EBox::Backup::OpticalDisc;
 use EBox::Backup::OpticalDiscDrives;
 use Perl6::Junction qw(all any);
@@ -13,11 +14,6 @@ use File::stat;
 
 use Readonly;
 Readonly::Scalar my $MTAB_PATH=>'/etc/mtab';
-Readonly::Scalar my $CDRECORD_PATH=>'/usr/bin/cdrecord';
-Readonly::Scalar my $MKISOFS_PATH=>'/usr/bin/mkisofs';
-Readonly::Scalar my $GROWISOFS_PATH=>'/usr/bin/growisofs-sudo';
-Readonly::Scalar my $DVDRWFORMAT_PATH=>'/usr/bin/dvd+rw-format';
-
 
 sub burn
 {
@@ -169,7 +165,7 @@ sub _setupBurningTarget
 
   if ( _mediaUsesCdrecord($media) ) {
     my $isoFile = EBox::Config::tmp() . 'backup.iso';
-    my $mkisofsCommand = "$MKISOFS_PATH -V ebox-backup  -R -J  -o $isoFile $file";
+    my $mkisofsCommand = "$EBox::Backup::RootCommands::MKISOFS_PATH -V ebox-backup  -R -J  -o $isoFile $file";
     EBox::Sudo::command($mkisofsCommand);
     return $isoFile;
   }
@@ -194,7 +190,7 @@ sub _deviceForCdrecord
 #     return $device if grep { !($_ =~ /\d) \*/ } @output;
 
 
-  my  @output = EBox::Sudo::root("$CDRECORD_PATH dev=ATA: -scanbus");
+  my  @output = EBox::Sudo::root("$EBox::Backup::RootCommands::CDRECORD_PATH dev=ATA: -scanbus");
   my $ideDevicesFound = grep { !($_ =~ /\d\) \*/) } @output;
   if (0 == $ideDevicesFound) {
     throw EBox::Exceptions::Internal("Can not found the device identified for cdrecord");
@@ -209,10 +205,10 @@ sub blankMedia
 
   my $command;
   if ($media eq  'CD-RW') {
-    $command = "$CDRECORD_PATH dev=$device  -tao  blank=fast";
+    $command = "$EBox::Backup::RootCommands::CDRECORD_PATH dev=$device  -tao  blank=fast";
   }
   elsif ($media eq 'DVD-RW') {
-    $command = "$DVDRWFORMAT_PATH --blank $device";
+    $command = "$EBox::Backup::RootCommands::DVDRWFORMAT_PATH --blank $device";
   }
 
   return if (!defined $command);
@@ -228,10 +224,10 @@ sub burnMedia
 
   my $command;
   if ( _mediaUsesCdrecord($media) ) {
-    $command = "$CDRECORD_PATH dev=$device  -tao $target";
+    $command = "$EBox::Backup::RootCommands::CDRECORD_PATH dev=$device  -tao $target";
   }
   elsif ( _mediaUsesGrowisofs($media) ) {
-     $command = "$GROWISOFS_PATH -Z $device -R -J -V ebox-backup $target";
+     $command = "$EBox::Backup::RootCommands::GROWISOFS_PATH -Z $device -R -J -V ebox-backup $target";
   }
   else {
     throw EBox::Excepions::Internal("No burning commands for media $media");    

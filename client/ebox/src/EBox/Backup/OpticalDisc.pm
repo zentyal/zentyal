@@ -5,10 +5,8 @@ use warnings;
 
 use EBox::Sudo;
 use EBox::Gettext;
+use EBox::Backup::RootCommands;
 use Readonly;
-Readonly::Scalar my $DVD_MEDIA_INFO_PATH => '/usr/bin/dvd+rw-mediainfo';
-Readonly::Scalar my $CDRECORD_PATH       => '/usr/bin/cdrecord';
-
 Readonly::Scalar my $CD_SIZE   => 681000000; # we assume 650Mb instead 700 to err in the safe side
 Readonly::Scalar my $DVD_SIZE  => 4380000000; # likewise we assume 4.38 GiB
 
@@ -43,7 +41,7 @@ sub infoFromDvdMediaInfo
 {
   my ($dev) = @_;
 
-  my @output =  @{ EBox::Sudo::rootExceptionSafe("$DVD_MEDIA_INFO_PATH $dev 2>&1")};
+  my @output =  @{ EBox::Sudo::rootExceptionSafe("$EBox::Backup::RootCommands::DVDMEDIAINFO_PATH $dev 2>&1")};
 
 
 
@@ -74,7 +72,7 @@ sub infoFromCdrecord
 {
   my ($dev) = @_;
 
-  my $atipCmd = _cdrecordAtipCommands($dev);
+  my $atipCmd = "$EBox::Backup::RootCommands::CDRECORD_PATH  -atip dev=$dev";
   my @output = @{ EBox::Sudo::root($atipCmd) };
 
 
@@ -97,20 +95,7 @@ sub infoFromCdrecord
     throw EBox::Exceptions::External(__('Can not recognize media'));
 }
 
-sub _cdrecordAtipCommands
-{
-  my ($dev) = @_;
-  return "$CDRECORD_PATH  -atip dev=$dev";
-}
 
-sub rootCommands
-{
-  my @commands = (
-		  $CDRECORD_PATH,
-		  $DVD_MEDIA_INFO_PATH,
-		 );
 
-  return @commands;
-}
  
 1;

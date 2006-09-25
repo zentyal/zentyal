@@ -7,12 +7,13 @@ use File::Slurp qw(read_file);
 use Perl6::Junction qw(all);
 use EBox::Gettext;
 use EBox::Sudo;
+use EBox::Backup::RootCommands;
 
 use Readonly;
 Readonly::Scalar my $CDROM_INFO_PATH => '/proc/sys/dev/cdrom/info';
 Readonly::Scalar my $FSTAB_PATH      => '/etc/fstab';
 Readonly::Scalar my $MTAB_PATH      => '/etc/mtab';
-Readonly::Scalar my $EJECT_PATH  => '/usr/bin/eject';
+
 
 sub info
 {
@@ -123,6 +124,7 @@ sub searchFileInDiscs
   foreach my $fstabLine (@fstab) {
     my ($device, $mountPoint, $type, $options) = split '\s+', $fstabLine;
 
+    
     next if $device ne $allDevices;
     if ( !($options =~ m/[\s,]user[\s,]/) ) {
       EBox::debug("device $device skipped because it has no user option set");
@@ -156,7 +158,7 @@ sub searchFileInDiscs
 sub ejectDisc
 {
     my ($device) = @_;
-    EBox::Sudo::rootExceptionSafe("$EJECT_PATH  " . $device);
+    EBox::Sudo::rootExceptionSafe("$EBox::Backup::RootCommands::EJECT_PATH  " . $device);
     
     return ($? == 0); #$? was set by rootExceptionSafe
 }
