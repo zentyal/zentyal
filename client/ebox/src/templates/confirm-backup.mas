@@ -7,6 +7,8 @@
 </%args>
 <%init>
 use EBox::Gettext;
+use Perl6::Junction qw(any);
+my $restoreAction = $action eq any(qw(restoreFromId restoreFromDisc restoreFromFile));
 </%init>
 
 <br/>
@@ -29,14 +31,13 @@ use EBox::Gettext;
 			</td>
 		</tr>
 	<form action='Backup' method='POST'>
-%		if ($action eq 'restoreId') {
-                              <&.restoreIdRows &>
+%		if ($restoreAction) {
+                              <&.restoreRows &>
 %               }
 		<tr>
 			<td></td>
 			<td>
-
-					<input type='hidden' name='id' value='<%$backup->{'id'}%>'/>
+                                        <& .backupIdentifier, backup => $backup &>
 
 					<input class='inputButton' type='submit'
 							name='cancel' value="<%__('Cancel')%>" alt="<%__('Cancel')%>"/>
@@ -48,7 +49,31 @@ use EBox::Gettext;
 	</tbody>
 </table>
 <br/>
-<%def .restoreIdRows>
+<%def .backupIdentifier >
+<%args>
+$backup
+</%args>
+<%init>
+my $name;
+my $value;
+
+return if exists $backup->{disc};
+
+if (exists $backup->{id}) {
+    $name = 'id';
+    $value = $backup->{id};
+}
+elsif (exists $backup->{file}) {
+   $name = 'backupfile';
+   $value = $backup->{file}
+}
+else {
+   die "bad backup details data";
+}
+</%init>
+<& /input/hidden.mas, name => $name, value => $value &>
+</%def>
+<%def .restoreRows>
 <%init>
 my $modeOptions = [
      { value => 'fullRestore', printableValue => __('Full Restore') },

@@ -32,7 +32,7 @@ use EBox::Gettext;
 					<% $backup->{'date'} %>
 				</td>
 				<td class='tcenter'>
-					<input type='image' name='restore'
+					<input type='image' name='restoreFromId'
 						src='/data/images/apply.gif'
 						value="<%__('Restore')%>"
 						title="<%__('Restore configuration using this file')%>"
@@ -107,23 +107,23 @@ my $modeOptions = [
 </%def>
 <%def .restoreSection>
 <%init>
-my $modeOptions = [
-     { value => 'fullRestore', printableValue => __('Full Restore') },
-     { value => 'configurationRestore', printableValue => __('Configuration Restore') }
-];
+# my $modeOptions = [
+#      { value => 'fullRestore', printableValue => __('Full Restore') },
+#      { value => 'configurationRestore', printableValue => __('Configuration Restore') }
+# ];
 </%init>
 <h3><% __('Restore configuration') %></h3>
 <p>
 	<% __('You can upload a backup file from your computer or use one from the list below') %>:
 </p>
-<form action='Backup' method='POST' enctype="multipart/form-data">
+<form action='ConfirmBackup' method='POST' enctype="multipart/form-data">
 		<label for='backupfile'><% __('Backup file') %></label>
 		<input type='file' name='backupfile'/>
 
-		<label for='mode'> <%  __('Restore mode') %> </label>  
-		<& /input/select.mas, name => 'mode', value => 'configurationRestore', options => $modeOptions &>
+%# 		<label for='mode'> <%  __('Restore mode') %> </label>   
+%# 		<& /input/select.mas, name => 'mode', value => 'configurationRestore', options => $modeOptions &> 
 
-		<input class='inputButton' type='submit' name='restore' value="<% __('Restore') %>" />
+		<input class='inputButton' type='submit' name='restoreFromFile' value="<% __('Restore') %>" />
 		<input class='inputButton' type='submit'
 		name='restoreFromDisc' value="<% __('Restore from disc') %>" />
 </form>
