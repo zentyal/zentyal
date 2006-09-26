@@ -23,7 +23,6 @@ EBox::Backup::Test::setUpCanaries();
 
 diag "This test must be run as root otherwise some parts may fail";
 diag "This test burns writable media.";
-diag "TODO: check restore values";
 
 
 while (1) {
