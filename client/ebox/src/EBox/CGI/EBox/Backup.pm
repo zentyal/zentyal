@@ -21,7 +21,6 @@ use warnings;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Config;
-use File::Temp qw(tempfile);
 use EBox::Backup;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
@@ -58,14 +57,18 @@ sub _print
 
 sub requiredParameters
 {
+  return [];
+
   my ($self) = @_;
+
+
   if ($self->param('backup')) {
     return [qw(backup description mode)];
   }
   elsif ($self->param('backupToDisc')) {
     return [qw(backupToDisc description mode)];
   }
-  elsif ($self->param('restore')) {
+  elsif ($self->param('restoreFromFile')) {
     return [qw(restore backupfile mode)];
   }
   elsif ($self->param('restoreFromDisc')) {
@@ -80,7 +83,7 @@ sub requiredParameters
   elsif ($self->param('delete')) {
     return [qw(delete id)];
   }
-  elsif ($self->param('restoreId')) {
+  elsif ($self->param('restoreFromId')) {
     return [qw(restoreId id mode)];
   }
   elsif ($self->param('bugReport')) {
@@ -99,7 +102,8 @@ sub optionalParameters
     return [qw(cancel mode id restoreId download delete writeBackupToDisc)];
   }   
 
-      return [];
+  return ['.*']; # provisonal
+  #    return [];
 }
 
 
@@ -124,11 +128,11 @@ sub actuate
   elsif ($self->param('download')) {
     $self->_downloadAction();
   } 
-  elsif ($self->param('restoreId')) {
-    $self->_restoreIdAction();
+  elsif ($self->param('restoreFromId')) {
+    $self->_restoreFromIdAction();
   } 
-  elsif ($self->param('restore')) {
-    $self->_restoreAction();
+  elsif ($self->param('restoreFromFile')) {
+    $self->_restoreFromFileAction();
   }
   elsif ($self->param('writeBackupToDisc')) {
     $self->_writeBackupToDiscAction();
@@ -192,32 +196,15 @@ sub _writeBackupToDiscAction
   $self->setMsg(__('Backup was written to disc'));
 }
 
-sub  _restoreAction
+sub  _restoreFromFileAction
 {
   my ($self) = @_;
 
-
-  my $dir = EBox::Config::tmp;
-  my ($fh, $filename) = tempfile("backupXXXXXX", DIR=>$dir);
-
-  my $upfile = $self->cgi->upload('backupfile');
-  unless ($upfile) {
-    close $fh;
-    `rm -f $filename`;
-    throw EBox::Exceptions::External(
-				     __('Invalid backup file.'));
-  }
-  while (<$upfile>) {
-    print $fh $_;
-  }
-
-  close $fh;
-  close $upfile;
-
-  $self->_restoreFromFile($filename);
+  my $filename = $self->param('backupfile');
+  $self->_restore($filename);
 } 
 
-sub _restoreIdAction
+sub _restoreFromIdAction
 {
   my ($self) = @_;
 
@@ -227,7 +214,7 @@ sub _restoreIdAction
 				     __("The input contains invalid characters"));
   }
 
-  $self->_restoreFromFile(EBox::Config::conf ."/backups/$id.tar");
+  $self->_restore(EBox::Config::conf ."/backups/$id.tar");
 }  
 
 sub _restoreFromDiscAction
@@ -241,7 +228,7 @@ sub _restoreFromDiscAction
   $self->_afterRestoreMsg();
 }
 
-sub _restoreFromFile
+sub _restore
 {
   my ($self, $filename) = @_;
 

@@ -38,52 +38,125 @@ sub new # (error=?, msg=?, cgi=?)
 	return $self;
 }
 
+
+
+
 sub _process
 {
-	my $self = shift;
-	my $backup = new EBox::Backup;
-	$self->{errorchain} = "EBox/Backup";
+  my ($self) = @_;
 
-	my @array = ();
+  $self->{errorchain} = "EBox/Backup";
 
-	if (defined($self->param('download'))) {
-		$self->{chain} = 'EBox/Backup';
-		return;
+  if (defined($self->param('download'))) {
+    $self->{chain} = 'EBox/Backup';
+    return;
+  }
 
-	} elsif (defined($self->param('delete'))) {
-		push(@array, action=>'delete');
-		push(@array, actiontext=>__('Delete'));
-		$self->{msg} = __('Please confirm that you want to delete '.
-				'the following backup file:');
+  foreach my $actionParam (qw(delete burn restoreFromId restoreFromDisc restoreFromFile )) {
+    if ($self->param($actionParam)) {
+      my $actionSub = $self->can($actionParam . 'Action');
+      my ($backupAction, $backupActionText, $backupDetails) = $actionSub->($self);
+      $self->{params} = [action => $backupAction, actiontext => $backupActionText, backup => $backupDetails];
+      return;
+    }
+  }
 
-	} elsif (defined($self->param('restore'))) {
-		push(@array, action=>'restoreId');
-		push(@array, actiontext=>__('Restore'));
-		$self->{msg} = __('Please confirm that you want to restore '.
-				'the configuration from this backup file:');
-	} 
-	elsif (defined($self->param('burn'))) {
-		push(@array, action=>'writeBackupToDisc');
-		push(@array, actiontext=>__('Write to disc'));
-		$self->{msg} = __('Please confirm that you want to write'.
-				'this backup file to a CD or DVD disc:');
 
-	} else {
-		$self->{redirect} = "EBox/Backup";
-		return;
-	}
+  # otherwise...
+  $self->{redirect} = "EBox/Backup";
+  return;
+}
 
-	$self->_requireParam('id', __('identifier'));
 
-	my $id = $self->param('id');
-	if ($id =~ m{[./]}) {
-		throw EBox::Exceptions::External(
-			__("The input contains invalid characters"));
-	}
+sub deleteAction
+{
+  my ($self) = @_;
 
-	push(@array, backup=>$backup->backupDetails($id));
+  $self->{msg} = __('Please confirm that you want to delete the following backup file:');
 
-	$self->{params} = \@array;
+  return ('delete', __('Delete'), $self->backupDetailsFromId());
+}
+
+sub  restoreFromIdAction
+{
+  my ($self) = @_;
+
+  $self->{msg} = __('Please confirm that you want to restore the configuration from this backup file:');
+
+  return ('restoreFromId', __('Restore'), $self->backupDetailsFromId());
+} 
+
+
+sub restoreFromDiscAction
+{
+  my ($self) = @_;
+  
+  my $backup = new EBox::Backup;
+  my $backupfileInfo = $backup->searchBackupFileInDiscs();
+  defined $backupfileInfo or throw EBox::Exceptions::External(__('Unable to find a correct backup disc. Please insert a backup disc and retry')); # XXX TODO: discriminate between no disc and disc with no backup
+  
+
+  my $details =  $backup->backupDetailsFromFile($backupfileInfo->{file});
+
+  $self->{msg} = __('Please confirm that you want to restore the configuration from this backup disc:');
+
+  return ('restoreFromDisc', __('Restore'), $details);
+} 
+
+
+sub  restoreFromFileAction
+{
+  my ($self) = @_;
+
+  my $backup = new EBox::Backup;
+  my $dir = EBox::Config::tmp;
+
+  my $upfile = $self->cgi->upload('backupfile');
+  my ($fh, $filename) = tempfile("backupXXXXXX", DIR=>$dir);
+
+  unless ($upfile) {
+    close $fh;
+    `rm -f $filename`;
+    throw EBox::Exceptions::External(
+				     __('Invalid backup file.'));
+  }
+  while (<$upfile>) {
+    print $fh $_;
+  }
+
+  close $fh;
+  close $upfile;
+
+  my $details = $backup->backupDetailsFromFile($filename);
+
+  $self->{msg} = __('Please confirm that you want to restore the configuration from this backup file:');
+
+  return ('restoreFromFile', __('Restore'), $details);
+} 
+
+
+sub  burnAction
+{
+  my ($self) = @_;
+
+  $self->{msg} = __('Please confirm that you want to write this backup file to a CD or DVD disc:');
+
+  return ('writeBackupToDisc', __('Write to disc'), $self->backupDetailsFromId());
+} 
+
+
+sub backupDetailsFromId
+{
+  my ($self) = @_;
+  my $backup = new EBox::Backup;
+
+  my $id = $self->param('id');
+  if ($id =~ m{[./]}) {
+    throw EBox::Exceptions::External(
+				     __("The input contains invalid characters"));
+  }
+
+  return $backup->backupDetails($id);
 }
 
 1;

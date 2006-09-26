@@ -253,7 +253,7 @@ sub backupDetails # (id)
 
   my $file = $self->_backupFileById($id);
 
-  my $details = $self->_backupDetailsFromFile($file);
+  my $details = $self->backupDetailsFromFile($file);
   $details->{id} = $id;
   
   return $details;
@@ -268,14 +268,14 @@ sub backupDiscDetails
     throw EBox::Exceptions::External(__('Insert a backup disc and try again, please'));
   }
 
-  my $details = $self->_backupDetailsFromFile($discFileInfo->{file});
-  $details->{id} = __('Backup in disc');
+  my $details = $self->backupDetailsFromFile($discFileInfo->{file});
+  $details->{disc} = 1;
   
   return $details;
 }
 
 
-sub _backupDetailsFromFile
+sub backupDetailsFromFile
 {
   my ($self, $file) = @_;
 
@@ -297,9 +297,13 @@ sub _backupDetailsFromFile
     close $FH;
   }
 
+  $entry->{file} = $file; 
+
   `rm -rf $t`;
   return $entry;
 }
+
+
 
 #
 # Method: deleteBackup 
@@ -454,7 +458,7 @@ sub makeBugReport
 sub _unpackAndVerify # (file, fullRestore) 
 {
 	my ($self, $file, $fullRestore) = @_;
-	($file) or throw EBox::Exceptions::Internal('No backup file provided.');
+	($file) or throw EBox::Exceptions::External('No backup file provided.');
 	my $tempdir = tempdir(EBox::Config::tmp . "/backup.XXXXXX") or
 		throw EBox::Exceptions::Internal("Could not create tempdir.");
 	try {
@@ -584,25 +588,30 @@ sub restoreBackup # (file)
     }
 
     my $global = EBox::Global->getInstance();
-    my @names = @{$global->modNames};
+    my @names = grep { $_ ne 'global' }  @{$global->modNames};
+    push @names, 'global'; # remember that global can change as result of restore!. So we will put it in last place
+    my @modules =  grep { $_ ne 'global' } @{$global->modInstances};   
     my @restored = ();
     foreach my $modname (@names) {
       try {
 	my $mod = $global->modInstance($modname);
-	push(@restored,$modname);
+
 	if (-e "$tempdir/eboxbackup/$modname.bak") {
+	  push @restored, $modname;
 	  EBox::debug("Restoring $modname form backup data");
 	  $mod->restoreBackup("$tempdir/eboxbackup", %options);
 	}
       } 
 	otherwise {
 	  my $ex = shift;
+	  EBox::debug('Error: revoking restore');
 	  foreach my $restname (@restored) {
 	    my $restmod = $global->modInstance($restname);
 	    $restmod->revokeConfig();
 	  }
 	  throw $ex;
 	};
+      EBox::debug('Restore successful');
     }
   }
   finally {
@@ -611,11 +620,16 @@ sub restoreBackup # (file)
 }
 
 
+sub searchBackupFileInDiscs
+{
+  return EBox::Backup::OpticalDiscDrives::searchFileInDiscs($DISC_BACKUP_FILE);
+}
+
 sub restoreBackupFromDisc
 {
   my ($self,  %options) = @_;
 
-  my $discFileInfo = EBox::Backup::OpticalDiscDrives::searchFileInDiscs($DISC_BACKUP_FILE);
+  my $discFileInfo = searchBackupFileInDiscs();
   if (!defined $discFileInfo) {
     throw EBox::Exceptions::External(__('Insert a backup disc and try again, please'));
   }
