@@ -41,7 +41,7 @@ sub infoFromDvdMediaInfo
 {
   my ($dev) = @_;
 
-  my @output =  @{ EBox::Sudo::rootExceptionSafe("$EBox::Backup::RootCommands::DVDMEDIAINFO_PATH $dev 2>&1")};
+  my @output =  @{ EBox::Sudo::rootWithoutException("$EBox::Backup::RootCommands::DVDMEDIAINFO_PATH $dev 2>&1")};
 
 
 

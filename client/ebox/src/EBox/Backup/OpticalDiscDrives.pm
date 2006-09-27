@@ -158,9 +158,9 @@ sub searchFileInDiscs
 sub ejectDisc
 {
     my ($device) = @_;
-    EBox::Sudo::rootExceptionSafe("$EBox::Backup::RootCommands::EJECT_PATH  " . $device);
+    EBox::Sudo::rootWithoutException("$EBox::Backup::RootCommands::EJECT_PATH  " . $device);
     
-    return ($? == 0); #$? was set by rootExceptionSafe
+    return ($? == 0); #$? was set by rootWithoutException
 }
 
 1;
