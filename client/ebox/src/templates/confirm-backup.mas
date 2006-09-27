@@ -81,9 +81,8 @@ my $modeOptions = [
 ];
 </%init>
 <tr>
-    <td></td>
+    <td>    <span class='ftitle'><% __('Restore mode') %>:</span>   </td>
     <td>
-	<label for='mode'> <%  __('Restore mode') %> </label>  
 		<& /input/select.mas, name => 'mode', value => 'configurationRestore', options => $modeOptions &>
     </td>
 </tr>
