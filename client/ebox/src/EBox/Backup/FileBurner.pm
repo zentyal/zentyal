@@ -20,11 +20,14 @@ sub burn
   my %params = @_;
   my $file   = $params{file};
   my $device = exists $params{device} ? $params{device} : _chooseDevice();
-  my $media;
 
   _checkDevice($device);
-  $media = EBox::Backup::OpticalDisc::media($device);
 
+  my $mediaInfo = EBox::Backup::OpticalDisc::media($device);
+  my $media    = $mediaInfo->{media};
+  my $writable = $mediaInfo->{writable};
+
+  _checkMedia($media, $writable);
   _checkDeviceForMedia($device, $media);
   _checkSize($file, $media);
 
@@ -34,7 +37,10 @@ sub burn
     $device = _deviceForCdrecord($device);
   }
 
-  blankMedia($device, $media);
+  if (!$writable) {
+    blankMedia($device, $media, $writable);
+  }
+
   burnMedia($target, $device, $media);
 
   EBox::Backup::OpticalDiscDrives::ejectDisc($device);
@@ -86,6 +92,29 @@ sub _chooseDevice
   return $candidate;
 }
 
+
+sub _checkMedia
+{
+  my ($media, $writable) = @_;
+
+  if ($media eq 'no_disc') {
+      throw EBox::Exceptions::External(__('No disc found. Please insert disc and retry'));
+  }
+
+  if ($media eq 'DVD-ROM') {
+    throw EBox::Exceptions::External('DVD-ROM can not be written. Insttead use a DVD-R or DVD-RW');
+  }
+
+  if ($media ne all(qw(CD-R CD-RW DVD-R DVD-RW))) {
+    throw EBox::Exceptions::External(__x('{media } is a unsupported media type'), media => $media)
+  }
+
+  if (not $writable) {
+    _mediaIsRewritable($media) or throw EBox::Exceptions::External('Disc is full. Please retry with a blank disc');
+  }
+
+}
+
 sub _checkDevice
 {
   my ($device) = @_;
@@ -115,9 +144,7 @@ sub _checkDeviceForMedia
 {
   my ($device, $media) = @_;
 
-  if ($media eq 'no_disc') {
-      throw EBox::Exceptions::External(__('No disc found. Please insert disc and retry'));
-  }
+
 
   my $normalizedMedia = $media;
   $normalizedMedia =~ s/-//;
@@ -158,6 +185,11 @@ sub _mediaUsesGrowisofs
   return $media eq  any('DVD-R', 'DVD-RW');
 }
 
+sub _mediaIsRewritable
+{
+  my ($media) = @_;
+  return $media eq  any('CD-RW', 'DVD-RW');
+}
 
 sub _setupBurningTarget
 {
@@ -201,17 +233,17 @@ sub _deviceForCdrecord
 
 sub blankMedia
 {
-  my ($device, $media) = @_;
+  my ($device, $media, $writable) = @_;
 
   my $command;
   if ($media eq  'CD-RW') {
-    $command = "$EBox::Backup::RootCommands::CDRECORD_PATH dev=$device  -tao  blank=fast";
+    $command = "$EBox::Backup::RootCommands::CDRECORD_PATH dev=$device --gracetime=2  -tao  blank=fast";
   }
   elsif ($media eq 'DVD-RW') {
     $command = "$EBox::Backup::RootCommands::DVDRWFORMAT_PATH --blank $device";
   }
 
-  return if (!defined $command);
+  (defined $command) or throw EBox::Exceptions::External(__x('No blanking method for {media}  defined. Can not erase it', media => $media));
 
   EBox::info("Blanking media in $device");
   EBox::Sudo::root($command);
@@ -224,7 +256,7 @@ sub burnMedia
 
   my $command;
   if ( _mediaUsesCdrecord($media) ) {
-    $command = "$EBox::Backup::RootCommands::CDRECORD_PATH dev=$device  -tao $target";
+    $command = "$EBox::Backup::RootCommands::CDRECORD_PATH dev=$device --gracetime=2 -tao $target";
   }
   elsif ( _mediaUsesGrowisofs($media) ) {
      $command = "$EBox::Backup::RootCommands::GROWISOFS_PATH -Z $device -R -J -V ebox-backup $target";

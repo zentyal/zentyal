@@ -3,6 +3,7 @@ package EBox::Backup::OpticalDisc;
 use strict;
 use warnings;
 
+use Error qw(:try);
 use EBox::Sudo;
 use EBox::Gettext;
 use EBox::Backup::RootCommands;
@@ -22,18 +23,21 @@ sub sizeForMedia
   throw EBox::Exceptions::Internal("Incorrect media or size data unknown: $media");
 }
 
-# return type or 'no_disc' if device is empey. exception when error
-# 
+# return hash with:
+#   type or 'no_disc' if device is empey. exception when error
+#   writable              if disc is writable
+# XXX: TODO discriminate between closed and appendable discs
 sub media
 {
   my ($dev) = @_;
 
   my $info;
   $info = infoFromDvdMediaInfo($dev);
-  return $info if $info;
+  
+  defined $info or $info = infoFromCdrdao($dev) ;
 
-  $info = infoFromCdrecord($dev);
-  return $info;
+  return  $info;
+
 }
 
 
@@ -43,59 +47,86 @@ sub infoFromDvdMediaInfo
 
   my @output =  @{ EBox::Sudo::rootWithoutException("$EBox::Backup::RootCommands::DVDMEDIAINFO_PATH $dev 2>&1")};
 
-
-
   if (grep { m/no media mounted/ }  @output) {
-    
-    return 'no_disc';
+    return  {media => 'no_disc', writable => 0};
   }
   elsif (grep {m/non-DVD media mounted/} @output) {
     return undef;
   }
 
-  my ($mountedMediaLine) = grep {m/Mounted Media:/} @output;
-  if (!$mountedMediaLine) {
-    throw EBox::Exceptions::External(__x("Unable to recognize the mounted DVD media. output {output}", output => "@output"));
-  }
+  my ($media, $writable);
+  try {
+    my $parseResults_r = _parseOutput(\@output, 'Mounted Media', 'Disc status');
+    defined $parseResults_r or throw EBox::Exceptions::Internal();
+    
+ 
+    if ($parseResults_r->{'Mounted Media'} =~ m/(DVD.*?)(\s|$)/) {
+      $media = $1;
+    }
+    $writable = $parseResults_r->{'Disc status'} eq 'blank' ? 1 : 0;
 
-  if ($mountedMediaLine =~ m/(DVD.*?)\s/) {
-    my $media = $1;
-    return $media;
+    if ((!defined $media) or (!defined $writable)) {
+      throw EBox::Exceptions::Internal();
+    } 
   }
-  else {
-    throw EBox::Exceptions::External(__x('Unable to recognize the mounted DVD media: error parsing mediainfo output'));
-  }
+  otherwise {
+    EBox::error("Error in infoFromDvdMediaInfo.\n media: $media writable: $writable: \ndvd+rw-mediainfo output:\n @output" );
+    throw EBox::Exceptions::External(__('Unable to recognize the mounted DVD media'));
+  };
+
+  return {media => $media, writable => $writable};
 }
 
 
-sub infoFromCdrecord
+sub infoFromCdrdao
 {
   my ($dev) = @_;
 
-  my $atipCmd = "$EBox::Backup::RootCommands::CDRECORD_PATH  -atip dev=$dev";
-  my @output = @{ EBox::Sudo::root($atipCmd) };
+  my $diskInfoCmd = "$EBox::Backup::RootCommands::CDRDAO_PATH disk-info device=$dev";
+  my @output = @{ EBox::Sudo::rootWithoutException($diskInfoCmd) };
 
-
-  if (grep { m/medium not present/ } @output) {
-    return 'no_disc';
+  if (grep { m/Unit not ready/ } @output) {
+    return  {media => 'no_disc', writable => 0};
   }
 
-  if (!grep {m/ATIP info from disk:/} @output) {
-    throw EBox::Exceptions::External(__('Can not recognize media: unable to read ATIP info from disc'));
-  }
+  my $parseResults_r = _parseOutput(\@output, 'CD-RW', 'CD-R empty');
+  if (!defined $parseResults_r) {
+    EBox::error("Error in infoFromCdrdao. crdao output:\n @output" );
+    throw EBox::Exceptions::External(__('Unable to recognize the mounted CD media'));
+  } 
+
+  my ($media, $writable);
+  $media = $parseResults_r->{'CD-RW'} eq 'yes'? 'CD-RW' : 'CD-R';
+  $writable = $parseResults_r->{'CD-R empty'} eq 'yes'? 1 : 0;
   
-  if (grep {m/Is erasable/} @output) {
-    return 'CD-RW';
-  }
-
-  if (grep {m/Is not erasable/} @output) {
-    return 'CD-R';
-  }
-
-    throw EBox::Exceptions::External(__('Can not recognize media'));
+  return {media =>$media, writable => $writable};
 }
 
+sub _parseOutput
+{
+  my ($output_r, @labels) = @_;
+  use Smart::Comments;
+  ### _parseOutput: @_
+  my @output = @{ $output_r };
 
+  my %results;
+  foreach my $label (@labels) {
+    my ($lineFound) = grep {m/\s*$label\s*:/ } @output;
+    $lineFound or return undef;
+    chomp $lineFound;
+    ### lineFound: $lineFound
+
+    my ($labelAgain, $value) = split '\s*:\s*', $lineFound;
+    ### value: $value
+    defined $value or return undef;
+    $results{$label} = $value;
+  }
+
+
+  ### results: %results
+
+  return \%results;
+}
 
  
 1;

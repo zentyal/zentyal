@@ -5,6 +5,7 @@ use warnings;
 
 use Readonly;
 Readonly::Scalar our $CDRECORD_PATH=>'/usr/bin/cdrecord';
+Readonly::Scalar our $CDRDAO_PATH=>'/usr/bin/cdrdao';
 Readonly::Scalar our $MKISOFS_PATH=>'/usr/bin/mkisofs';
 Readonly::Scalar our $GROWISOFS_PATH=>'/usr/bin/growisofs-sudo';
 Readonly::Scalar our $DVDRWFORMAT_PATH=>'/usr/bin/dvd+rw-format';
@@ -15,6 +16,7 @@ sub rootCommands
 {
   my @commands =  (
 		   $CDRECORD_PATH,
+		   $CDRDAO_PATH,
 		   $MKISOFS_PATH,
 		   $GROWISOFS_PATH,
 		   $DVDRWFORMAT_PATH,
