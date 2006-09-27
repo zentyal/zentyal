@@ -24,8 +24,9 @@ sub sizeForMedia
 }
 
 # return hash with:
-#   type or 'no_disc' if device is empey. exception when error
-#   writable              if disc is writable
+#   media: media name or 'no_disc' if device is empty. 
+#   writable              if disc is writable (not full)
+#  may throw exception upon error
 # XXX: TODO discriminate between closed and appendable discs
 sub media
 {
@@ -58,7 +59,6 @@ sub infoFromDvdMediaInfo
   try {
     my $parseResults_r = _parseOutput(\@output, 'Mounted Media', 'Disc status');
     defined $parseResults_r or throw EBox::Exceptions::Internal();
-    
  
     if ($parseResults_r->{'Mounted Media'} =~ m/(DVD.*?)(\s|$)/) {
       $media = $1;
@@ -105,8 +105,6 @@ sub infoFromCdrdao
 sub _parseOutput
 {
   my ($output_r, @labels) = @_;
-  use Smart::Comments;
-  ### _parseOutput: @_
   my @output = @{ $output_r };
 
   my %results;
@@ -114,16 +112,11 @@ sub _parseOutput
     my ($lineFound) = grep {m/\s*$label\s*:/ } @output;
     $lineFound or return undef;
     chomp $lineFound;
-    ### lineFound: $lineFound
 
     my ($labelAgain, $value) = split '\s*:\s*', $lineFound;
-    ### value: $value
     defined $value or return undef;
     $results{$label} = $value;
   }
-
-
-  ### results: %results
 
   return \%results;
 }
