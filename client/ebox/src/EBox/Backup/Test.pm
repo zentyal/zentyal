@@ -113,9 +113,9 @@ sub setCanaries
 {
   my ($value) = @_;
 
+  setGConfCanary($value);
+
   my $client = Gnome2::GConf::Client->get_default;
-  $client->set_string($GCONF_CANARY_KEY, $value);
-  die 'gconf canary not changed' if $client->get_string($GCONF_CANARY_KEY) ne $value;
   $client->set_string($GCONF_EXTENDED_CANARY_KEY, $value);
   die 'gconf extended canary not changed' if $client->get_string($GCONF_CANARY_KEY) ne $value;
 
@@ -126,15 +126,22 @@ sub setCanaries
 }
 
 
+sub setGConfCanary
+{
+  my ($value) = @_;
+  my $client = Gnome2::GConf::Client->get_default;
+  $client->set_string($GCONF_CANARY_KEY, $value);
+  die 'gconf canary not changed' if $client->get_string($GCONF_CANARY_KEY) ne $value;
+}
+
 sub checkCanaries
 {
   my ($expectedValue, $fullRestore) = @_;  
   my $value;
 
-  my $client = Gnome2::GConf::Client->get_default;
-  $value = $client->get_string($GCONF_CANARY_KEY);
-  is $value, $expectedValue, 'Checking GConf data of simple module canary';
+  checkGConfCanary($expectedValue);
 
+  my $client = Gnome2::GConf::Client->get_default;
   $value = $client->get_string($GCONF_EXTENDED_CANARY_KEY);
   is $value, $expectedValue, 'Checking GConf data of canary module with extended backup and restore';
 
@@ -153,6 +160,13 @@ sub checkCanaries
 }
 
 
+sub checkGConfCanary
+{
+  my ($expectedValue) = @_;
+  my $client = Gnome2::GConf::Client->get_default;
+  my $value = $client->get_string($GCONF_CANARY_KEY);
+  is $value, $expectedValue, 'Checking GConf data of simple module canary';
+}
 
 sub teardownGConfCanary : Test(teardown)
 {
@@ -237,6 +251,37 @@ sub restoreFullBackupTest : Test(12)
   setCanaries('beforeBackup');
   lives_ok { $fullBackup = $backup->makeBackup(description => 'test full backup', fullBackup => 1) } 'make a full backup';
   checkStraightRestore($fullBackup, [fullRestore => 1], 'full restore from a full backup');
+}
+
+
+sub restoreWithModulesMismatchTest : Test(9)
+{
+  my ($self) = @_;
+
+  my $backup = new EBox::Backup();
+ 
+  setCanaries('beforeBackup');
+  my $backupFile = $backup->makeBackup(description => 'test configuration backup', fullBackup => 0);
+
+  # add one more module
+  fakeEBoxModule( name => 'suprefluousModule', );
+  
+  checkDeviantRestore($backupFile, [fullRestore => 0], 'checking that a restore with a module mismatch (one more module) fails' );
+
+  # with one less module
+  EBox::Test::setConfig();
+  fakeEBoxModule( name => 'canaryGConf', );
+  setGConfCanary('afterBackup');
+  dies_ok { $backup->restoreBackup($backupFile, fullRestore => 0) } 'checking that a restore with a module mismatch (one less module) fails';
+  checkGConfCanary('afterBackup');
+
+  # with same number but distinct modules
+  EBox::Test::setConfig();
+  fakeEBoxModule( name => 'canaryGConf', );
+  fakeEBoxModule( name => 'suprefluousModule', );
+  setGConfCanary('afterBackup');
+  dies_ok { $backup->restoreBackup($backupFile, fullRestore => 0) } 'checking that a restore with a module mismatch (same nubmer but different modules) fails';
+  checkGConfCanary('afterBackup');
 }
 
 

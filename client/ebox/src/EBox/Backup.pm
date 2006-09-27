@@ -20,6 +20,7 @@ use warnings;
 
 use File::Temp qw(tempdir);
 use File::Copy qw(copy move);
+use File::Slurp qw(read_file write_file);
 use EBox::Config;
 use EBox::Global;
 use EBox::Exceptions::Internal;
@@ -86,6 +87,7 @@ sub _makeBackup # (description, bug?)
 	  $self->_createDescriptionFile($archiveContentsDir, $description);
 	  $self->_createDateFile($archiveContentsDir, $time);
 	  $self->_createTypeFile($archiveContentsDir, $options{fullBackup});
+	  $self->_createModulesListFile($archiveContentsDir);
 
 	  $self->_createBackupArchive($backupArchive, $tempdir, $archiveContentsDirRelative);
 	}
@@ -191,6 +193,17 @@ sub _createMd5DigestForArchive
 }
 
 
+sub  _createModulesListFile
+{
+  my ($self, $archiveContentsDir) = @_;
+
+  my $global = EBox::Global->getInstance();
+  my @modNames = @{ $global->modNames() };
+
+  my $file = "$archiveContentsDir/modules";
+  write_file($file, "@modNames");
+} 
+
 sub  _createBackupArchive
 {
   my ($self, $backupArchive, $tempdir, $archiveContentsDirRelative) = @_;
@@ -204,6 +217,9 @@ sub  _createBackupArchive
   `tar cf $backupArchive -C $tempdir $archiveContentsDirRelative`;
   ($? == 0) or throw EBox::Exceptions::Internal("Could not create archive.");
 } 
+
+
+
 
 sub _bug # (dir) 
 {
@@ -478,6 +494,7 @@ sub _unpackAndVerify # (file, fullRestore)
 
 	  $self->_checkArchiveMd5Sum($tempdir);
 	  $self->_checkArchiveType($tempdir, $fullRestore);
+	  $self->_checkModuleList($tempdir);
 	}
 	otherwise {
 	  my $ex = shift;
@@ -536,6 +553,47 @@ sub _checkArchiveType
 
 }
 
+sub   _checkModuleList
+{
+  my ($self, $tempdir) = @_;
+
+  my $file = "$tempdir/eboxbackup/modules";
+  if (! -e $file) { 
+    throw EBox::Exceptions::External (__('Module list not found, the backup is corrupt or was done with a incompatible previous format'));
+  }
+
+  my @backupModNames;
+  my $fileContents = read_file($file);
+
+  @backupModNames = split '\s+', $fileContents;
+  my %backup    =  map { $_ => 0  }   @backupModNames;
+
+  my $global = EBox::Global->getInstance();
+  my %actual =  map { $_ => 0  }   @{ $global->modNames() };
+
+  foreach my $name (keys %actual) {
+    if (exists $backup{$name}) {
+      delete $actual{$name};
+      delete $backup{$name};
+    }
+  }
+
+  my @backupMissing = keys %backup;
+  my @actualMissing = keys %actual;
+
+
+  if ((@backupMissing > 0) or (@actualMissing > 0)) {
+    my $backupError = @backupMissing ? __x("The following modules are not present in the global module list stored in the backup but they are present in EBox's global list: {modules}\n", modules => "@backupMissing") : '';
+  my $actualError = @actualMissing ? __x("The following modules are  present in the global list stored in the backup but not in EBox's global list: {modules}\n", modules => "@actualMissing") : '';
+
+
+    throw EBox::Exceptions::External (__x("The restore process failed because there is a mismatch between EBox's installed modules and the modules in the backup.\n{backupError}{actualError} If you want to use this backup you will need to install/remove the adequate modules", backupError => $backupError, actualError => $actualError ));
+  }
+
+
+} 
+
+
 
 sub writeBackupToDisc
 {
@@ -592,32 +650,38 @@ sub restoreBackup # (file)
     push @names, 'global'; # remember that global can change as result of restore!. So we will put it in last place
     my @modules =  grep { $_ ne 'global' } @{$global->modInstances};   
     my @restored = ();
-    foreach my $modname (@names) {
-      try {
+    try {
+      foreach my $modname (@names) {
 	my $mod = $global->modInstance($modname);
-
+	
 	if (-e "$tempdir/eboxbackup/$modname.bak") {
 	  push @restored, $modname;
 	  EBox::debug("Restoring $modname form backup data");
 	  $mod->restoreBackup("$tempdir/eboxbackup", %options);
 	}
-      } 
-	otherwise {
-	  my $ex = shift;
-	  EBox::debug('Error: revoking restore');
-	  foreach my $restname (@restored) {
-	    my $restmod = $global->modInstance($restname);
-	    $restmod->revokeConfig();
-	  }
-	  throw $ex;
-	};
-      EBox::debug('Restore successful');
-    }
+      }
+
+
+    } 
+    otherwise {
+      my $ex = shift;
+      EBox::debug('Error caught: revoking restore');
+      foreach my $restname (@restored) {
+	my $restmod = $global->modInstance($restname);
+	$restmod->revokeConfig();
+	EBox::debug("Revoked changes in $restname module");
+      }
+
+      throw $ex;
+    };
+
+    EBox::debug('Restore successful');
   }
   finally {
       `rm -rf $tempdir`;
   };
 }
+
 
 
 sub searchBackupFileInDiscs

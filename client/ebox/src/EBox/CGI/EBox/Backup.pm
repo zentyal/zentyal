@@ -25,7 +25,7 @@ use EBox::Backup;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
-use Error qw(:try);
+
 
 sub new # (error=?, msg=?, cgi=?)
 {
