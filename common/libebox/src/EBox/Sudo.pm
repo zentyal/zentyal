@@ -96,7 +96,7 @@ sub root # (command)
 	return \@output;
 }
 
-sub rootExceptionSafe
+sub rootWithoutException
 {
   my $cmd = shift;
   my $sudocmd = "/usr/bin/sudo " . $cmd;
@@ -106,7 +106,7 @@ sub rootExceptionSafe
   return \@output;
 }
 
-#
+# 
 # Method: sudo 
 #
 #	Executes a command through sudo as a given user. 

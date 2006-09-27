@@ -15,12 +15,12 @@ use EBox::Sudo;
 #my $mockedSudoModule = undef;
 
 my $oldRootSub = undef;
-my $oldRootExceptionSafeSub = undef;
+my $oldRootWithoutExceptionSub = undef;
 
 sub fake
 {
     $oldRootSub = \&EBox::Sudo::root if !defined $oldRootSub;
-    $oldRootExceptionSafeSub =  \&EBox::Sudo::rootExceptionSafe if !defined $oldRootExceptionSafeSub;
+    $oldRootWithoutExceptionSub =  \&EBox::Sudo::rootWithoutException if !defined $oldRootWithoutExceptionSub;
 
     no warnings 'redefine';
     my $redefinition = '
@@ -28,9 +28,9 @@ sub fake
     {
 	return EBox::Sudo::TestStub::_fakedRoot(@_);
     }
-    sub EBox::Sudo::rootExceptionSafe
+    sub EBox::Sudo::rootWithoutException
     {
-	return EBox::Sudo::TestStub::_fakedRootExceptionSafe(@_);
+	return EBox::Sudo::TestStub::_fakedRootWithoutException(@_);
     }
      ';
 
@@ -53,9 +53,9 @@ sub unfake
      {
  	return $oldRootSub->(@_);
      }
-      sub EBox::Sudo::rootExceptionSafe
+      sub EBox::Sudo::rootWithoutException
      {
- 	return $oldRootExceptionSafeSub->(@_);
+ 	return $oldRootWithoutExceptionSub->(@_);
      }
       ';
 
@@ -80,7 +80,7 @@ sub _fakedRoot
 }
 
 
-sub _fakedRootExceptionSafe
+sub _fakedRootWithoutException
 {
     my ($cmd) = @_;
 
