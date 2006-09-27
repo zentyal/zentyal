@@ -87,44 +87,86 @@ my $modeOptions = [
      { value => 'configurationBackup', printableValue => __('Configuration Backup') }
 ];
 </%init>
-<h3><% __('Back up the current configuration') %></h3>
+<h3><% __('Back up the current state') %></h3>
 <div class='help'>
-	<% __('Backups will be stored in eBox and then you will be able to download them to your hard disk') %>
+	<% __("Backups will be stored in eBox and then you will be able to download them to your hard disk or write them into discs. You can store it directly to a disc with the 'Backup to disc' option  ") %>
 </div>
 <p>
-<form action='Backup' method='POST'>
-		<label for='description'><% __('Description') %>:</label>
-		<input type='text' class='inputText' name='description'
-			size='52' />
-		<label for='mode'> <%  __('Backup mode') %> </label>  
-		<& /input/select.mas, name => 'mode', value => 'configurationBackup', options => $modeOptions &>
-		<input class='inputButton' type='submit' name='backup'
-			   value="<% __('Back up') %>" />
-		<input class='inputButton' type='submit' name='backupToDisc'
-			   value="<% __('Back up to disc') %>" />
-</form>
+<table class='formTable'>
+    <tbody>
+       <form action='Backup' method='POST'>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'><% __('Description') %>:</span>
+			</td>
+			<td>
+					<input type='text' class='inputText' name='description' size='52' />
+			</td>
+                </tr>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'><% __('Backup mode') %>:</span>
+			</td>
+			<td>
+	                	<& /input/select.mas, name => 'mode', value => 'configurationBackup', options => $modeOptions &>
+			</td>
+                </tr>
+		<tr>
+			<td class='tright'> </td>
+			<td>
+				<input class='inputButton' type='submit' name='backup' value="<% __('Back up') %>" />
+			   	<input class='inputButton' type='submit' name='backupToDisc' value="<% __('Back up to disc') %>" />
+			</td>
+                </tr>
+	</form>
+    </tbody>
+</table>
 </p>
 </%def>
 <%def .restoreSection>
-<%init>
-# my $modeOptions = [
-#      { value => 'fullRestore', printableValue => __('Full Restore') },
-#      { value => 'configurationRestore', printableValue => __('Configuration Restore') }
-# ];
-</%init>
-<h3><% __('Restore configuration') %></h3>
-<p>
-	<% __('You can upload a backup file from your computer or use one from the list below') %>:
-</p>
-<form action='ConfirmBackup' method='POST' enctype="multipart/form-data">
-		<label for='backupfile'><% __('Backup file') %></label>
-		<input type='file' name='backupfile'/>
+<h3><% __('Restore backup from file') %></h3>
+<div class='help'>
+	<% __('You can  upload a backup file from your computer') %>
+</div>
+  <table class='formTable'>
+    <tbody>
+     <form action='ConfirmBackup' method='POST' enctype="multipart/form-data">
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'><% __('Backup file') %>:</span>
+			</td>
+			<td>
+					<input type='file' name='backupfile'/>
+			</td>
+		</tr>
+		<tr>
+			<td> </td>
+			<td>
 
-%# 		<label for='mode'> <%  __('Restore mode') %> </label>   
-%# 		<& /input/select.mas, name => 'mode', value => 'configurationRestore', options => $modeOptions &> 
+		<input class='inputButton' type='submit' name='restoreFromDisc' value="<% __('Restore from disc') %>" />
+			</td>
+		</tr>
 
-		<input class='inputButton' type='submit' name='restoreFromFile' value="<% __('Restore') %>" />
-		<input class='inputButton' type='submit'
-		name='restoreFromDisc' value="<% __('Restore from disc') %>" />
-</form>
+       </form>
+   </tbody>
+</table>
+
+<h3><% __('Restore backup from disc') %></h3>
+<div class='help'>
+	<% __('You can restore from a backup disc. Please insert the disc before clicking the button') %>
+</div>
+  <table class='formTable'>
+    <tbody>
+     <form action='ConfirmBackup' method='POST' enctype="multipart/form-data">
+		<tr>
+			<td> </td>
+			<td>
+					
+		<input class='inputButton' type='submit' name='restoreFromDisc' value="<% __('Restore from disc') %>" />
+			</td>
+		</tr>
+
+       </form>
+   </tbody>
+</table>
 </%def>

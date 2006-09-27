@@ -30,7 +30,7 @@ use EBox::Exceptions::External;
 sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Configuration backups'),
+	my $self = $class->SUPER::new('title' => __('System backups'),
 				      'template' => '/backup.mas',
 				      @_);
 	$self->{errorchain} = "EBox/Backup";
