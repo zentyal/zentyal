@@ -98,7 +98,7 @@ sub _checkMedia
   my ($media, $writable) = @_;
 
   if ($media eq 'no_disc') {
-      throw EBox::Exceptions::External(__('No disc found. Please insert disc and retry'));
+      throw EBox::Exceptions::External(__('No disk found. Please insert disc and retry'));
   }
 
   if ($media eq 'DVD-ROM') {
@@ -110,7 +110,7 @@ sub _checkMedia
   }
 
   if (not $writable) {
-    _mediaIsRewritable($media) or throw EBox::Exceptions::External('Disc is full. Please retry with a blank disc');
+    _mediaIsRewritable($media) or throw EBox::Exceptions::External('Disk is full. Please retry with a blank disc');
   }
 
 }
@@ -240,7 +240,7 @@ sub blankMedia
     $command = "$EBox::Backup::RootCommands::CDRECORD_PATH dev=$device --gracetime=2  -tao  blank=fast";
   }
   elsif ($media eq 'DVD-RW') {
-    $command = "$EBox::Backup::RootCommands::DVDRWFORMAT_PATH --blank $device";
+    $command = "$EBox::Backup::RootCommands::DVDRWFORMAT_PATH -blank $device";
   }
 
   (defined $command) or throw EBox::Exceptions::External(__x('No blanking method for {media}  defined. Can not erase it', media => $media));

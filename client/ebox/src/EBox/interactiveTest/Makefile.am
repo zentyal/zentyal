@@ -1,4 +1,4 @@
-test_scripts = backupToCD.t
+test_scripts = backupToDisk.t
 
 EXTRA_DIST = $(test_scripts)
 
