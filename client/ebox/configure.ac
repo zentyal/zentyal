@@ -103,6 +103,7 @@ src/templates/login/Makefile
 src/templates/logout/Makefile
 src/templates/firstTime/Makefile
 src/templates/Makefile
+src/growisofs-sudo/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile
 src/EBox/interactiveTest/Makefile
