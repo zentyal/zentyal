@@ -1,7 +1,7 @@
 AC_INIT([EBox-pglogger], [0.7.99])
 
 AC_CONFIG_AUX_DIR([config])
-AC_CONFIG_SRCDIR([src/EBox/Logs.pm])
+AC_CONFIG_SRCDIR([src/EBox/PgDBEngine.pm])
 
 AM_INIT_AUTOMAKE([foreign])
 
