@@ -98,11 +98,11 @@ sub _checkMedia
   my ($media, $writable) = @_;
 
   if ($media eq 'no_disc') {
-      throw EBox::Exceptions::External(__('No disk found. Please insert disc and retry'));
+      throw EBox::Exceptions::External(__('No disk found. Please insert disk and retry'));
   }
 
   if ($media eq 'DVD-ROM') {
-    throw EBox::Exceptions::External('DVD-ROM can not be written. Insttead use a DVD-R or DVD-RW');
+    throw EBox::Exceptions::External('DVD-ROM can not be written. Instead use a DVD-R or DVD-RW');
   }
 
   if ($media ne all(qw(CD-R CD-RW DVD-R DVD-RW))) {
@@ -110,7 +110,7 @@ sub _checkMedia
   }
 
   if (not $writable) {
-    _mediaIsRewritable($media) or throw EBox::Exceptions::External('Disk is full. Please retry with a blank disc');
+    _mediaIsRewritable($media) or throw EBox::Exceptions::External('Disk is full. Please retry with a blank disk');
   }
 
 }

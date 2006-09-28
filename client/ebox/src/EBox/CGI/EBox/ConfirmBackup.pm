@@ -176,7 +176,7 @@ sub  burnAction
 {
   my ($self) = @_;
 
-  $self->{msg} = __('Please confirm that you want to write this backup file to a CD or DVD disc:');
+  $self->{msg} = __('Please confirm that you want to write this backup file to a CD or DVD disk:');
 
   return ('writeBackupToDisc', __('Write to disc'), $self->backupDetailsFromId());
 } 
