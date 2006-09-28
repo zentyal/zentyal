@@ -597,10 +597,16 @@ sub requiredParameters
 sub actuate
 {}
 
-# default : no mason parameters
+# default : established masonParameters
 sub masonParameters
 {
-    return [];
+  my ($self) = @_;
+
+  if (exists $self->{params}) {
+    return $self->{params};
+  }
+
+  return [];
 }
 
 1;
