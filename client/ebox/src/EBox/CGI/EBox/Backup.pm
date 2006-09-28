@@ -57,10 +57,7 @@ sub _print
 
 sub requiredParameters
 {
-  return [];
-
   my ($self) = @_;
-
 
   if ($self->param('backup')) {
     return [qw(backup description mode)];
@@ -69,10 +66,13 @@ sub requiredParameters
     return [qw(backupToDisc description mode)];
   }
   elsif ($self->param('restoreFromFile')) {
-    return [qw(restore backupfile mode)];
+    return [qw(restoreFromFile backupfile mode)];
   }
   elsif ($self->param('restoreFromDisc')) {
-    return [qw(restoreFromDisc backupfile mode)];
+    return [qw(restoreFromDisc mode)];
+  }
+  elsif ($self->param('restoreFromId')) {
+    return [qw(restoreFromId id mode)];
   }
   elsif ($self->param('download')) {
     return [qw(download id download.x download.y)];
@@ -82,9 +82,6 @@ sub requiredParameters
   }
   elsif ($self->param('delete')) {
     return [qw(delete id)];
-  }
-  elsif ($self->param('restoreFromId')) {
-    return [qw(restoreId id mode)];
   }
   elsif ($self->param('bugReport')) {
     return [qw(bugReport)];
@@ -99,11 +96,10 @@ sub optionalParameters
   my ($self) = @_;
 
   if ($self->param('cancel')) {
-    return [qw(cancel mode id restoreId download delete writeBackupToDisc)];
+    return ['.*'];
   }   
 
-  return ['.*']; # provisonal
-  #    return [];
+  return [];
 }
 
 

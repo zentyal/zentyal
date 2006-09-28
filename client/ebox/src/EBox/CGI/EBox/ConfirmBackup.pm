@@ -35,17 +35,43 @@ sub new # (error=?, msg=?, cgi=?)
 				      'template' => '/confirm-backup.mas',
 				      @_);
 	bless($self, $class);
+
+	$self->{errorchain} = "EBox/Backup";
+
 	return $self;
 }
 
 
-
-
-sub _process
+sub requiredParameters
 {
   my ($self) = @_;
+  
+  if ($self->param('download')) {
+    return [qw(download id download.x download.y)];
+  }
+  elsif ($self->param('delete')) {
+    return [qw(delete id delete.x delete.y)];
+  }
+  elsif ($self->param('burn')) {
+    return [qw(burn burn.x burn.y id)]; 
+  } 
+  elsif ($self->param('restoreFromId')) {
+    return [qw(restoreFromId restoreFromId.x restoreFromId.y id)]; 
+  }
+  elsif ($self->param('restoreFromDisc')) {
+    return [qw(restoreFromDisc)];
+  } 
+  elsif ($self->param('restoreFromFile')) {
+    return [qw(restoreFromFile backupfile)];
+  }
 
-  $self->{errorchain} = "EBox/Backup";
+  return [];
+}
+
+
+sub actuate
+{
+  my ($self) = @_;
 
   if (defined($self->param('download'))) {
     $self->{chain} = 'EBox/Backup';
@@ -67,6 +93,17 @@ sub _process
   return;
 }
 
+
+sub masonParameters
+{
+  my ($self) = @_;
+
+  if (exists $self->{params}) {
+    return $self->{params};
+  }
+
+  return [];
+}
 
 sub deleteAction
 {
@@ -93,12 +130,12 @@ sub restoreFromDiscAction
   
   my $backup = new EBox::Backup;
   my $backupfileInfo = $backup->searchBackupFileInDiscs();
-  defined $backupfileInfo or throw EBox::Exceptions::External(__('Unable to find a correct backup disc. Please insert a backup disc and retry')); # XXX TODO: discriminate between no disc and disc with no backup
+  defined $backupfileInfo or throw EBox::Exceptions::External(__('Unable to find a correct backup disc. Please insert a backup disk and retry')); # XXX TODO: discriminate between no disc and disc with no backup
   
 
   my $details =  $backup->backupDetailsFromFile($backupfileInfo->{file});
 
-  $self->{msg} = __('Please confirm that you want to restore the configuration from this backup disc:');
+  $self->{msg} = __('Please confirm that you want to restore the configuration from this backup disk:');
 
   return ('restoreFromDisc', __('Restore'), $details);
 } 

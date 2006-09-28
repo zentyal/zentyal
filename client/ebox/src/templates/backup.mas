@@ -89,7 +89,7 @@ my $modeOptions = [
 </%init>
 <h3><% __('Back up the current state') %></h3>
 <div class='help'>
-	<% __("Backups will be stored in eBox and then you will be able to download them to your hard disk or write them into discs. You can store it directly to a disc with the 'Backup to disc' option  ") %>
+	<% __("Backups will be stored in eBox and then you will be able to download them to your hard disk or write them into disks. You can store it directly to a disc with the 'Backup to disc' option  ") %>
 </div>
 <p>
 <table class='formTable'>
@@ -115,7 +115,7 @@ my $modeOptions = [
 			<td class='tright'> </td>
 			<td>
 				<input class='inputButton' type='submit' name='backup' value="<% __('Back up') %>" />
-			   	<input class='inputButton' type='submit' name='backupToDisc' value="<% __('Back up to disc') %>" />
+			   	<input class='inputButton' type='submit' name='backupToDisc' value="<% __('Back up to disk') %>" />
 			</td>
                 </tr>
 	</form>
@@ -142,8 +142,7 @@ my $modeOptions = [
 		<tr>
 			<td> </td>
 			<td>
-
-		<input class='inputButton' type='submit' name='restoreFromDisc' value="<% __('Restore from disc') %>" />
+                  <input class='inputButton' type='submit' name='restoreFromFile' value="<% __('Restore') %>" /> 
 			</td>
 		</tr>
 
@@ -153,7 +152,7 @@ my $modeOptions = [
 
 <h3><% __('Restore backup from disc') %></h3>
 <div class='help'>
-	<% __('You can restore from a backup disc. Please insert the disc before clicking the button') %>
+	<% __('You can restore from a backup disk. Please insert the disk before clicking the button') %>
 </div>
   <table class='formTable'>
     <tbody>
