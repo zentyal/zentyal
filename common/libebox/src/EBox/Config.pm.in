@@ -81,6 +81,13 @@ sub group
 	return $user;
 }
 
+sub home
+{
+	my $user = user();
+	  my ($name,$passwd,$uid,$gid, $quota,$comment,$gcos,$dir,$shell,$expire) = getpwnam($user);
+	return $dir;
+}
+
 sub prefix 
 {
 	return $ref->{prefix};
