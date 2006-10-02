@@ -378,4 +378,28 @@ sub _sqlStmnt {
 	return $stmt, @params;
 }
 
+
+sub extendedBackup
+{
+  my ($self, %params) = @_;
+  my $dir    = $params{dir};
+  
+  my $dbengine = EBox::DBEngineFactory::DBEngine();
+  my $dumpFile = "$dir/eboxlogs.dump";
+
+  $dbengine->dumpDB($dumpFile);
+}
+
+
+sub extendedRestore
+{
+  my ($self, %params) = @_;
+  my $dir    = $params{dir};
+
+  my $dbengine = EBox::DBEngineFactory::DBEngine();
+  my $dumpFile = "$dir/eboxlogs.dump";
+
+  $dbengine->restoreDB($dumpFile);
+}
+
 1;
