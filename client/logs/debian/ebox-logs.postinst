@@ -22,6 +22,7 @@ local   all         postgres                                        ident sameus
 #
 # Ebox log database
 host    $db_name    $db_user     127.0.0.1       255.255.255.255 md5
+local    $db_name    $db_user                                    md5
 # All IPv4 connections from localhost
 host    all         all         127.0.0.1         255.255.255.255  ident sameuser
 # 
