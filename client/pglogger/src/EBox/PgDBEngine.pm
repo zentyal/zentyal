@@ -21,6 +21,8 @@ use warnings;
 use base qw(EBox::AbstractDBEngine);
 
 use DBI;
+use EBox::Gettext;
+use EBox;
 
 sub new {
 	my $class = shift,
@@ -174,5 +176,47 @@ sub query {
 
 	return $ret;
 }
+
+
+
+
+
+# Method: dumpDB
+#
+#         Makes a dump of the database in the specified file
+sub  dumpDB
+{
+  my ($self, $outputFile) = @_;
+
+  my $dbname = _dbname();
+  my $dbuser = _dbuser();
+  my $eboxHome = EBox::Config::home();
+
+  my $dumpCommand = "HOME=$eboxHome /usr/bin/pg_dump --no-owner --clean --file $outputFile -U $dbuser $dbname";
+  my $output = `$dumpCommand`;
+  if ($? != 0) {
+    EBox::error("The following command raised error: $dumpCommand\nOutput:$output");
+    throw EBox::Exceptions::External(__x("Error dumping the postgresql database {name}", name => _dbname()));
+  }
+}
+
+# Method: restoreDB
+#
+# restore a database from a dump file.
+# WARNING:  This erase all the DB current dara
+sub restoreDB
+{
+  my ($self, $file) = @_;
+  EBox::info('We wil try to restore the database. This will erase your current data' );
+  (-r $file) or throw EBox::Exceptions::External(__x("DB dump file {file} is not readable", file => $file));
+
+  my $dbname = _dbname();
+  my $dbuser = _dbuser();
+  my $eboxHome = EBox::Config::home();
+
+  my $restoreCommand = "HOME=$eboxHome /usr/bin/psql --file $file  -U $dbuser $dbname";
+  EBox::Sudo::command($restoreCommand);
+  EBox::info('Database ' . _dbname() . ' restored' );
+}  
 
 1;
