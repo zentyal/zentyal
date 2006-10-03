@@ -27,6 +27,7 @@ use EBox::Sudo qw( :all );
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
 use EBox::Gettext;
+use EBox::FileSystem;
 use HTML::Mason;
 use File::Temp qw(tempfile);
 use Fcntl qw(:flock);
@@ -296,6 +297,19 @@ sub _bak_file_from_dir
   return $file;
 }
 
+
+
+# override _dump_to_file and _load_from_file to do backups properly
+sub _dump_to_file
+{
+  my ($self, $dir) = @_;
+}
+
+
+sub _load_from_file
+{
+  my ($self, $dir) = @_;
+}
 
 #
 # Method: name 
