@@ -190,13 +190,25 @@ sub makeBackup # (dir, %options)
 
 }
 
+
+sub createBackupDir
+{
+  my ($self, $dir) = @_;
+  my $backupDir = $self->_bak_file_from_dir($dir);
+
+  if (! -d $backupDir) {
+    EBox::FileSystem::makePrivateDir($backupDir);
+  }
+
+  return $backupDir;
+}
+
 sub _setupExtendedBackup
 {
   my ($self, $dir) = @_;
   my $name      = $self->name();
-  my $backupDir = $self->_bak_file_from_dir($dir);
 
-  EBox::FileSystem::makePrivateDir($backupDir);
+  my $backupDir = $self->createBackupDir($dir);
 
   # save gconf
   $self->_dump_to_file($backupDir);
