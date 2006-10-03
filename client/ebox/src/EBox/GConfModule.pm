@@ -92,12 +92,6 @@ sub _load_from_file # (dir?, key?)
 						 "configuration from $file");
 }
 
-sub _bak_file_from_dir
-{
-  my ($self, $dir) = @_;
-  my $file = "$dir/" . $self->name . ".bak";
-  return $file;
-}
 
 sub _dump_to_file # (dir?) 
 {
@@ -135,104 +129,7 @@ sub revokeConfig
 	$self->{ro} = $ro;
 }
 
-sub restoreBackup # (dir, %options) 
-{
-  my ($self, $dir, %options) = @_;
 
-  $self->_backup();
-  
-  my $bakFile = $self->_bak_file_from_dir($dir);
-  if (-d $bakFile) {
-    $self->_load_from_file($bakFile);
-
-    if ($options{fullRestore}) {
-      $self->_bootstrap_extended_restore($bakFile, %options);
-    }
-  }
-  else {
-    $self->_load_from_file($dir);    
-  }
-}
-
-sub _bootstrap_extended_restore
-{
-  my ($self, $dir, @options) = @_;
-
-  my $version = $self->_read_version($dir);
-  $self->extendedRestore(dir => $dir, version => $version, @options);
-}
-
-sub _read_version
-{
-  my ($self, $dir) = @_;
-  my $file = "$dir/version";
-
-  return undef if (! -f $file);
-  
-  open my $FH, "<$file" or throw EBox::Exceptions::Internal("Version info file can not be opened");
-  my @versionInfo = <$FH>;
-  close $FH;
-
-  my $versionInfo = join "\n", @versionInfo;
-  return $versionInfo
-}
-
-sub makeBackup # (dir, %options) 
-{
-  my ($self, $dir, %options) = @_;
-  if ($self->can('extendedBackup') and $options{fullBackup}) {
-    my $backupDir = $self->_setupExtendedBackup($dir);
-    $self->extendedBackup(dir => $backupDir, %options);
-  }
-  else {
-    $self->_dump_to_file($dir);	  
-  }
-
-}
-
-
-sub createBackupDir
-{
-  my ($self, $dir) = @_;
-  my $backupDir = $self->_bak_file_from_dir($dir);
-
-  if (! -d $backupDir) {
-    EBox::FileSystem::makePrivateDir($backupDir);
-  }
-
-  return $backupDir;
-}
-
-sub _setupExtendedBackup
-{
-  my ($self, $dir) = @_;
-  my $name      = $self->name();
-
-  my $backupDir = $self->createBackupDir($dir);
-
-  # save gconf
-  $self->_dump_to_file($backupDir);
-
-  # save version
-  if ($self->can('version')) {
-    $self->_dump_version($backupDir);
-  }
-
-  return $backupDir;
-}
-
-
-sub _dump_version
-{
-  my ($self, $dir) = @_;
-
-  my $file = "$dir/version";
-  my $versionInfo = $self->version();
-
-  open my $FH, ">$file" or throw EBox::Exceptions::Internal('Can not create version backup file');
-  print $FH $versionInfo;
-  close $FH;
-}
 
 
 sub scheduleRestart
