@@ -250,8 +250,6 @@ sub _dump_version
 sub restoreBackup # (dir, %options) 
 {
   my ($self, $dir, %options) = @_;
-
-  $self->_backup();
   
   my $bakFile = $self->_bak_file_from_dir($dir);
   if (-d $bakFile) {

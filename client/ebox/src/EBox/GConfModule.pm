@@ -104,6 +104,14 @@ sub _dump_to_file # (dir?)
 						 "configuration on $file");
 }
 
+sub restoreBackup
+{
+  my $self = shift;
+  $self->_backup();
+
+  $self->SUPER::restoreBackup(@_);
+}
+
 sub isReadOnly
 {
 	my $self = shift;
