@@ -36,7 +36,7 @@ sub configkeyFromFile # (key, file)
 	my $value = undef;
 	open(my $CONF, $file) or 
 		throw EBox::Exceptions::External(
-					__('Could not open the config file.'));
+					__x('Could not open the config file {file}.', file => $file));
 	while (<$CONF>) {
 		$_ =~ s/\s//g;
 		$_ =~ s/#.*//g;
