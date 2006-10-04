@@ -26,6 +26,7 @@ use EBox::Gettext;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
 use EBox::Sudo qw( :all );
+use Error qw(:try);
 use EBox::LdapUserImplementation;
 
 use constant USERSDN	    => 'ou=Users';
@@ -62,7 +63,7 @@ sub _regenConfig
 	my $self = shift;
 	
 	my @array = ();
-	my @acls = ();
+
 	push (@array, 'dn'      => $self->{ldap}->dn);
 	push (@array, 'rootdn'  => $self->{ldap}->rootDn);
 	push (@array, 'rootpw'  => $self->{ldap}->rootPw);
@@ -81,13 +82,17 @@ sub _regenConfig
 sub rootCommands 
 {
 	my $self = shift;
-	my @array = ();
+	my @cmds = ();
 	my $ldapconf = $self->{ldap}->slapdConfFile;
 
-	push(@array, $self->rootCommandsForWriteConfFile($ldapconf));
-	push(@array, "/etc/init.d/slapd *");
+	push(@cmds, $self->rootCommandsForWriteConfFile($ldapconf));
+	push(@cmds, "/etc/init.d/slapd *");
+	push(@cmds, '/usr/sbin/slapcat');
+	push(@cmds, '/usr/sbin/slapadd');
+	push(@cmds, '/bin/chown');
+	push @cmds, $self->_rmLdapDirCmd();
 
-	return @array;
+	return @cmds;
 }
 
 # Method: groupsDn 
@@ -228,7 +233,7 @@ sub _initUser
 {
 	my $self = shift;
 	my $user = shift;
-	
+
 	# Tell modules depending on users and groups
 	# a new new user is created
 	my @mods = @{$self->_modsLdapUserBase()};
@@ -1385,6 +1390,152 @@ sub _ldapModImplementation
 	my $self;
 	
 	return new EBox::LdapUserImplementation();
+}
+
+sub extendedBackup
+{
+  my ($self, %options) = @_;
+  my $dir     = $options{dir};
+
+  $self->_dumpHomedirsFiles($dir);
+}
+
+
+sub _dump_to_file
+{
+  my ($self, $dir) = @_;
+  my $backupDir = $self->createBackupDir($dir);
+
+  $self->_dumpLdapData($backupDir);
+#  $self->_dumpHomedirs($backupDir);
+}
+
+
+sub _load_from_file
+{
+  my ($self, $dir) = @_;
+
+  $self->_loadLdapData($dir);
+#  $self->_loadHomedirs($dir);
+}
+
+sub   _dumpLdapData
+{
+  my ($self, $dir) = @_;
+  
+  my $ldapDir   = EBox::Ldap::dataDir();
+  my $user  = EBox::Config::user();
+  my $group = EBox::Config::group();
+  my $ldifFile = "$dir/ldap.ldif";
+
+  my $slapcatCommand = "/usr/sbin/slapcat -v -f /etc/ldap/slapd.conf -l $ldifFile";
+  my $chownCommand = "/bin/chown $user.$group $ldifFile";
+
+  $self->_pauseLdapAndExecute(cmds => [$slapcatCommand, $chownCommand]);
+} 
+
+# XXX: todo add on error sub
+sub _loadLdapData
+{
+  my ($self, $dir) = @_;
+  
+  my $ldapDir   = EBox::Ldap::dataDir();
+  my $ldifFile = "$dir/ldap.ldif";
+  my $rmCommand = $self->_rmLdapDirCmd();
+  my $slapaddCommand = "/usr/sbin/slapadd -v -c -l $ldifFile -f /etc/ldap/slapd.conf";
+  
+  $self->_pauseLdapAndExecute(cmds => [$rmCommand, $slapaddCommand ]);
+}
+
+
+sub _rmLdapDirCmd
+{
+  my $ldapDir   = EBox::Ldap::dataDir();
+  return "/bin/rm -rf $ldapDir/*";
+}
+
+sub _pauseLdapAndExecute
+{
+  my ($self, %params) = @_;
+  my @cmds = @{ $params{cmds}  };
+  my $onError = $params{onError};
+
+  $self->{ldap}->stop();
+  sleep 4;
+  try {
+    foreach my $cmd (@cmds) {
+      use Smart::Comments;
+      ### cmd: $cmd
+      my $output = EBox::Sudo::root($cmd);
+      # output: $output
+    }
+   }
+  otherwise {
+    if ($onError) {
+      $onError->($self);
+    }
+  }
+  finally {
+    $self->restartService();
+    $self->{ldap}->start();
+    $self->{ldap} = EBox::Ldap->instance();
+    sleep 4;
+  };
+}
+
+sub _dumpHomedirs
+{
+  my ($self, $baseDir) = @_;
+
+  foreach my $user ($self->users()) {
+    my $info_r = $self->userInfo($_);
+    my $homedir =  $info_r->{'homeDirectory'};
+    my $dir = "$baseDir/$homedir";
+    
+    if (! -e $dir) {
+       mkdir $dir or throw EBox::Exceptions::External('Can not make directory');
+       my $chownCommand = "/bin/chown --reference=$homedir $dir";
+       EBox::Sudo::root($chownCommand);
+    }
+    elsif (! -d $dir) {
+      throw EBox::Exceptions::Internal("$dir exists and is not a directory");
+    } 
+
+  }
+
+
+}
+
+sub _loadHomedirs
+{
+  my ($self, $dir) = @_;
+}
+
+
+sub  _dumpHomedirsFiles
+{
+  my ($self, $baseDir) = @_;
+
+  my $DH;
+  opendir ($DH, $baseDir) or throw EBox::Exceptions::Internal("Can not open $baseDir");
+
+  while (my $d = readdir $DH) {
+    my $srcDir = "/$d";
+    my $destDir = "$baseDir/$d";
+    my $cpCommands = "/bin/cp --archive --force $srcDir $destDir";
+    EBox::Sudo::root($cpCommands);
+  }
+
+  closedir $DH;
+} 
+
+
+sub  _loadHomedirsFiles
+{
+  my ($self, $restoreDir) = @_;
+
+
+
 }
 
 1;

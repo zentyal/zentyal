@@ -35,17 +35,24 @@ use Data::Dumper;
 use Encode qw( :all );
 
 use Error qw(:try);
+use File::Slurp qw(read_file);
+
 
 use constant DN            => "dc=ebox";
 use constant LDAPI         => "ldapi://%2fvar%2frun%2fldapi";
 use constant LDAP	   => "ldap://127.0.0.1";
 use constant SLAPDCONFFILE => "/etc/ldap/slapd.conf";
 use constant ROOTDN        => 'cn=admin,' . DN;
+use constant INIT_SCRIPT   => '/etc/init.d/slapd';
+use constant DATA_DIR      => '/var/lib/ebox/ldap';
 
 use base qw (Apache::Singleton);
 
 sub _new_instance {
 	my $class = shift;
+
+	use EBox;
+	EBox::debug('new isntance');
 	
 	my $self = {};
 	$self->{ldap} = undef;
@@ -72,7 +79,8 @@ sub ldapCon {
 	if ($self->{ldap}) {
 		my $mesg = $self->{ldap}->search(
 				base   => "dc=ebox",
-				filter => "(objectClass=*)"
+				filter => "(sub  
+objectClass=*)"
 				);
 
 		if (ldap_error_name($mesg) eq 'LDAP_LOCAL_ERROR') {
@@ -399,5 +407,63 @@ sub _utf8Attrs # (result)
         }
         return $result;
 }
+
+
+
+sub  dataDir
+{
+  my ($self) = @_;
+  return DATA_DIR;
+#   my @conf = read_file(slapdConfFile());
+  
+#   @conf = map { my ($withoutComments) = split '#', $_; $withoutComments    } @conf;
+#   my ($directoryLine) = grep { m/^\s*directory\s+/ } @conf;
+#   chomp $directoryLine;
+#   my ($keyword, $value) = split '\s+', $directoryLine;
+  
+#   $value or throw EBox::Exceptions::External((__('Can not get data directory path from ldap')));
+
+#   return $value;
+
+} 
+
+sub stop
+{
+  my ($self) = @_;
+
+  EBox::Sudo::root(INIT_SCRIPT . ' stop');
+
+
+  $_[0] = $self->refreshLdap();
+
+} 
+
+sub  start
+{
+  my ($self) = @_;
+
+  EBox::Sudo::root(INIT_SCRIPT . ' start');
+
+  $_[0] = $self->refreshLdap();
+} 
+
+
+sub refreshLdap
+{
+  my ($self) = @_;
+
+  my $newLdap = _new_instance('EBox::Ldap');
+  $EBox::Ldap::_instance = $newLdap;
+  $self->{ldap} = undef;
+
+  return $newLdap;
+}
+
+sub  rootCommands
+{
+  my ($self) = @_;
+
+  return (INIT_SCRIPT);
+} 
 
 1;
