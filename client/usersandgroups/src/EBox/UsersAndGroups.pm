@@ -87,10 +87,8 @@ sub rootCommands
 
 	push(@cmds, $self->rootCommandsForWriteConfFile($ldapconf));
 	push(@cmds, "/etc/init.d/slapd *");
-	push(@cmds, '/usr/sbin/slapcat');
-	push(@cmds, '/usr/sbin/slapadd');
-	push(@cmds, '/bin/chown');
-	push @cmds, $self->_rmLdapDirCmd();
+	
+	push @cmds, EBox::Ldap->rootCommands();
 
 	return @cmds;
 }
@@ -1406,8 +1404,12 @@ sub _dump_to_file
   my ($self, $dir) = @_;
   my $backupDir = $self->createBackupDir($dir);
 
-  $self->_dumpLdapData($backupDir);
-#  $self->_dumpHomedirs($backupDir);
+  try {
+    $self->{ldap}->dumpLdapData($backupDir);
+  }
+  finally {
+    $self->{ldap} = EBox::Ldap->instance();
+  };
 }
 
 
@@ -1415,76 +1417,18 @@ sub _load_from_file
 {
   my ($self, $dir) = @_;
 
-  $self->_loadLdapData($dir);
+  try {
+    $self->{ldap}->loadLdapData($dir);
+  }
+  finally {
+    $self->{ldap} = EBox::Ldap->instance();
+  };
+
+
 #  $self->_loadHomedirs($dir);
 }
 
-sub   _dumpLdapData
-{
-  my ($self, $dir) = @_;
-  
-  my $ldapDir       = EBox::Ldap::dataDir();
-  my $slapdConfFile = EBox::Ldap::slapdConfFile();
-  my $user  = EBox::Config::user();
-  my $group = EBox::Config::group();
-  my $ldifFile = "$dir/ldap.ldif";
 
-  my $slapcatCommand = "/usr/sbin/slapcat -v -f $slapdConfFile -l $ldifFile";
-  my $chownCommand = "/bin/chown $user.$group $ldifFile";
-
-  $self->_pauseLdapAndExecute(cmds => [$slapcatCommand, $chownCommand]);
-} 
-
-# XXX: todo add on error sub
-sub _loadLdapData
-{
-  my ($self, $dir) = @_;
-  
-  my $ldapDir   = EBox::Ldap::dataDir();
-  my $slapdConfFile = EBox::Ldap::slapdConfFile();
-  my $ldifFile = "$dir/ldap.ldif";
-  my $rmCommand = $self->_rmLdapDirCmd();
-  my $slapaddCommand = "/usr/sbin/slapadd -v -c -l $ldifFile -f $slapdConfFile";
-  
-  $self->_pauseLdapAndExecute(cmds => [$rmCommand, $slapaddCommand ]);
-}
-
-
-sub _rmLdapDirCmd
-{
-  my $ldapDir   = EBox::Ldap::dataDir();
-  return "/bin/rm -rf $ldapDir/*";
-}
-
-sub _pauseLdapAndExecute
-{
-  my ($self, %params) = @_;
-  my @cmds = @{ $params{cmds}  };
-  my $onError = $params{onError};
-
-
-  $self->{ldap} =  $self->{ldap}->stop();
-  
-  sleep 4;
-  try {
-    foreach my $cmd (@cmds) {
-      use Smart::Comments;
-      ### cmd: $cmd
-      my $output = EBox::Sudo::root($cmd);
-      # output: $output
-    }
-   }
-  otherwise {
-    if ($onError) {
-      $onError->($self);
-    }
-  }
-  finally {
-    $self->restartService();
-    $self->{ldap} = $self->{ldap}->start();
-    sleep 4;
-  };
-}
 
 sub _dumpHomedirs
 {

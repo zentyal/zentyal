@@ -459,11 +459,108 @@ sub refreshLdap
   return $newLdap;
 }
 
+
+
+sub dumpLdapData
+{
+  my ($self, $dir) = @_;
+  
+  my $ldapDir       = EBox::Ldap::dataDir();
+  my $slapdConfFile = EBox::Ldap::slapdConfFile();
+  my $user  = EBox::Config::user();
+  my $group = EBox::Config::group();
+  my $ldifFile = "$dir/ldap.ldif";
+
+  my $slapcatCommand = $self->_slapcatCmd($ldifFile, $slapdConfFile);
+  my $chownCommand = "/bin/chown $user.$group $ldifFile";
+
+  $self->_pauseAndExecute(cmds => [$slapcatCommand, $chownCommand]);
+} 
+
+# XXX: todo add on error sub
+sub loadLdapData
+{
+  my ($self, $dir) = @_;
+  
+  my $ldapDir   = EBox::Ldap::dataDir();
+  my $slapdConfFile = EBox::Ldap::slapdConfFile();
+  my $ldifFile = "$dir/ldap.ldif";
+
+  my $rmCommand = $self->_rmLdapDirCmd($ldapDir);
+  my $slapaddCommand = $self->_slapaddCmd($ldifFile, $slapdConfFile);
+  
+  $self->_pauseAndExecute(cmds => [$rmCommand, $slapaddCommand ]);
+}
+
+
+sub _slapcatCmd
+{
+  my ($self, $ldifFile, $slapdConfFile) = @_;
+  ### XXX TODO: rmove -v
+  return  "/usr/sbin/slapcat -v -f $slapdConfFile -l $ldifFile";
+}
+
+sub _slapaddCmd
+{
+  my ($self, $ldifFile, $slapdConfFile) = @_;
+  ### XXX TODO: rmove -v
+  return  "/usr/sbin/slapadd -v -c -l $ldifFile -f $slapdConfFile";
+}
+
+sub _rmLdapDirCmd
+{
+  my ($self, $ldapDir)   = @_;
+  $ldapDir .= '/*' if  defined $ldapDir ;
+
+  return "/bin/rm -rf $ldapDir";
+}
+
+sub _pauseAndExecute
+{
+  my ($self, %params) = @_;
+  my @cmds = @{ $params{cmds}  };
+  my $onError = $params{onError};
+
+  my $newSelf;
+  $newSelf = $self->stop();
+  
+  sleep 4;
+  try {
+    foreach my $cmd (@cmds) {
+      use Smart::Comments;
+      ### cmd: $cmd
+      my $output = EBox::Sudo::root($cmd);
+      # output: $output
+    }
+   }
+  otherwise {
+    my $ex = shift;
+
+    if ($onError) {
+      $onError->($newSelf);
+    }
+
+    throw $ex;
+  }
+  finally {
+    $newSelf = $newSelf->start();
+    sleep 4;
+  };
+}
+
+
 sub  rootCommands
 {
   my ($self) = @_;
+  my @cmds = (
+	      INIT_SCRIPT,
+	      '/bin/chown * *',
+	      $self->_slapaddCmd('*', '*'),
+	      $self->_slapcatCmd('*', '*'),
+	      $self->_rmLdapDirCmd('*'),
+	     );
 
-  return (INIT_SCRIPT);
+  return @cmds;
 } 
 
 1;
