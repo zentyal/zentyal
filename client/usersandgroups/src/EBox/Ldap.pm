@@ -434,8 +434,7 @@ sub stop
   EBox::Sudo::root(INIT_SCRIPT . ' stop');
 
 
-  $_[0] = $self->refreshLdap();
-
+  return  $self->refreshLdap();
 } 
 
 sub  start
@@ -444,7 +443,7 @@ sub  start
 
   EBox::Sudo::root(INIT_SCRIPT . ' start');
 
-  $_[0] = $self->refreshLdap();
+  return  $self->refreshLdap();
 } 
 
 
@@ -455,6 +454,7 @@ sub refreshLdap
   my $newLdap = _new_instance('EBox::Ldap');
   $EBox::Ldap::_instance = $newLdap;
   $self->{ldap} = undef;
+
 
   return $newLdap;
 }

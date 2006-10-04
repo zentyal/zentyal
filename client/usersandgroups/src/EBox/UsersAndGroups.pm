@@ -1423,12 +1423,13 @@ sub   _dumpLdapData
 {
   my ($self, $dir) = @_;
   
-  my $ldapDir   = EBox::Ldap::dataDir();
+  my $ldapDir       = EBox::Ldap::dataDir();
+  my $slapdConfFile = EBox::Ldap::slapdConfFile();
   my $user  = EBox::Config::user();
   my $group = EBox::Config::group();
   my $ldifFile = "$dir/ldap.ldif";
 
-  my $slapcatCommand = "/usr/sbin/slapcat -v -f /etc/ldap/slapd.conf -l $ldifFile";
+  my $slapcatCommand = "/usr/sbin/slapcat -v -f $slapdConfFile -l $ldifFile";
   my $chownCommand = "/bin/chown $user.$group $ldifFile";
 
   $self->_pauseLdapAndExecute(cmds => [$slapcatCommand, $chownCommand]);
@@ -1440,9 +1441,10 @@ sub _loadLdapData
   my ($self, $dir) = @_;
   
   my $ldapDir   = EBox::Ldap::dataDir();
+  my $slapdConfFile = EBox::Ldap::slapdConfFile();
   my $ldifFile = "$dir/ldap.ldif";
   my $rmCommand = $self->_rmLdapDirCmd();
-  my $slapaddCommand = "/usr/sbin/slapadd -v -c -l $ldifFile -f /etc/ldap/slapd.conf";
+  my $slapaddCommand = "/usr/sbin/slapadd -v -c -l $ldifFile -f $slapdConfFile";
   
   $self->_pauseLdapAndExecute(cmds => [$rmCommand, $slapaddCommand ]);
 }
@@ -1460,7 +1462,9 @@ sub _pauseLdapAndExecute
   my @cmds = @{ $params{cmds}  };
   my $onError = $params{onError};
 
-  $self->{ldap}->stop();
+
+  $self->{ldap} =  $self->{ldap}->stop();
+  
   sleep 4;
   try {
     foreach my $cmd (@cmds) {
@@ -1477,8 +1481,7 @@ sub _pauseLdapAndExecute
   }
   finally {
     $self->restartService();
-    $self->{ldap}->start();
-    $self->{ldap} = EBox::Ldap->instance();
+    $self->{ldap} = $self->{ldap}->start();
     sleep 4;
   };
 }
