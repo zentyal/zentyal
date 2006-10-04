@@ -73,7 +73,7 @@ sub _new_instance {
 #       Internal - If connection can't be created
 sub ldapCon {
 	my $self = shift;
-
+	EBox::debug("begin ldaPCom");
 	# Workaround to detect if connection is broken and force reconnection
 	my $reconnect;
 	if ($self->{ldap}) {
@@ -82,6 +82,8 @@ sub ldapCon {
 				filter => "(sub  
 objectClass=*)"
 				);
+		
+		EBox::debug("ldap mesg: $mesg");
 
 		if (ldap_error_name($mesg) eq 'LDAP_LOCAL_ERROR') {
 			$self->{ldap}->unbind;
@@ -89,13 +91,16 @@ objectClass=*)"
 		}
 	}
 
+
 	if ((not defined $self->{ldap}) or $reconnect) {
+	  EBox::debug("Trying to reconect");
 		$self->{ldap} = Net::LDAP->new (LDAPI) or
 			throw EBox::Exceptions::Internal(
 					"Can't create ldapi connection");
 		$self->{ldap}->bind(ROOTDN, password => getPassword());
 	}
 
+	EBox::debug("end ldaPCom");
 	return $self->{ldap};
 }
 
@@ -451,12 +456,8 @@ sub refreshLdap
 {
   my ($self) = @_;
 
-  my $newLdap = _new_instance('EBox::Ldap');
-  $EBox::Ldap::_instance = $newLdap;
   $self->{ldap} = undef;
-
-
-  return $newLdap;
+  return $self;
 }
 
 

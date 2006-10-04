@@ -1404,12 +1404,7 @@ sub _dump_to_file
   my ($self, $dir) = @_;
   my $backupDir = $self->createBackupDir($dir);
 
-  try {
-    $self->{ldap}->dumpLdapData($backupDir);
-  }
-  finally {
-    $self->{ldap} = EBox::Ldap->instance();
-  };
+  $self->{ldap}->dumpLdapData($backupDir);
 }
 
 
@@ -1417,14 +1412,7 @@ sub _load_from_file
 {
   my ($self, $dir) = @_;
 
-  try {
-    $self->{ldap}->loadLdapData($dir);
-  }
-  finally {
-    $self->{ldap} = EBox::Ldap->instance();
-  };
-
-
+  $self->{ldap}->loadLdapData($dir);
 #  $self->_loadHomedirs($dir);
 }
 
