@@ -36,7 +36,7 @@ use Encode qw( :all );
 
 use Error qw(:try);
 use File::Slurp qw(read_file);
-
+use Perl6::Junction qw(any);
 
 use constant DN            => "dc=ebox";
 use constant LDAPI         => "ldapi://%2fvar%2frun%2fldapi";
@@ -51,9 +51,6 @@ use base qw (Apache::Singleton);
 sub _new_instance {
 	my $class = shift;
 
-	use EBox;
-	EBox::debug('new isntance');
-	
 	my $self = {};
 	$self->{ldap} = undef;
 	bless($self, $class);
@@ -73,19 +70,20 @@ sub _new_instance {
 #       Internal - If connection can't be created
 sub ldapCon {
 	my $self = shift;
-	EBox::debug("begin ldaPCom");
 	# Workaround to detect if connection is broken and force reconnection
+
 	my $reconnect;
 	if ($self->{ldap}) {
 		my $mesg = $self->{ldap}->search(
-				base   => "dc=ebox",
-				filter => "(sub  
-objectClass=*)"
+				base   => 'dc=ebox',
+				scope => 'base',		 
+				filter => "(cn=*)",
 				);
 		
-		EBox::debug("ldap mesg: $mesg");
 
-		if (ldap_error_name($mesg) eq 'LDAP_LOCAL_ERROR') {
+
+		if (ldap_error_name($mesg) ne 'LDAP_SUCCESS' ) { 
+		  EBox::debug("ldap mesg:" . Dumper( $mesg ));  # remove when debug done
 			$self->{ldap}->unbind;
 			$reconnect = 1;
 		}
@@ -93,14 +91,12 @@ objectClass=*)"
 
 
 	if ((not defined $self->{ldap}) or $reconnect) {
-	  EBox::debug("Trying to reconect");
 		$self->{ldap} = Net::LDAP->new (LDAPI) or
 			throw EBox::Exceptions::Internal(
 					"Can't create ldapi connection");
 		$self->{ldap}->bind(ROOTDN, password => getPassword());
 	}
 
-	EBox::debug("end ldaPCom");
 	return $self->{ldap};
 }
 
@@ -448,6 +444,7 @@ sub  start
 
   EBox::Sudo::root(INIT_SCRIPT . ' start');
 
+
   return  $self->refreshLdap();
 } 
 
@@ -525,7 +522,7 @@ sub _pauseAndExecute
   my $newSelf;
   $newSelf = $self->stop();
   
-  sleep 4;
+#  sleep 4;
   try {
     foreach my $cmd (@cmds) {
       use Smart::Comments;
@@ -545,7 +542,7 @@ sub _pauseAndExecute
   }
   finally {
     $newSelf = $newSelf->start();
-    sleep 4;
+#    sleep 4;
   };
 }
 
