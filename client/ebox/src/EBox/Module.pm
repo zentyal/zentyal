@@ -255,7 +255,7 @@ sub restoreBackup # (dir, %options)
   if (-d $bakFile) {
     $self->_load_from_file($bakFile);
 
-    if ($options{fullRestore}) {
+    if ($options{fullRestore} and $self->can('extendedRestore')) {
       $self->_bootstrap_extended_restore($bakFile, %options);
     }
   }
