@@ -26,7 +26,6 @@ use EBox::Gettext;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
 use EBox::Sudo qw( :all );
-use File::Slurp qw(read_file write_file);
 use EBox::FileSystem;
 use Error qw(:try);
 use EBox::LdapUserImplementation;
@@ -89,10 +88,7 @@ sub rootCommands
 
 	push(@cmds, $self->rootCommandsForWriteConfFile($ldapconf));
 	push(@cmds, "/etc/init.d/slapd *");
-	push @cmds, '/bin/tar';
-	push @cmds, '/bin/chown * *';
-	push @cmds, '/bin/mkdir -p  *';
-	push @cmds, EBox::Sudo::rootCommandForStat('*');
+
 
 	push @cmds, EBox::Ldap->rootCommands();
 
