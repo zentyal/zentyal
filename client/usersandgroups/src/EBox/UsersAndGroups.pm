@@ -26,6 +26,8 @@ use EBox::Gettext;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
 use EBox::Sudo qw( :all );
+use File::Slurp qw(read_file write_file);
+use EBox::FileSystem;
 use Error qw(:try);
 use EBox::LdapUserImplementation;
 
@@ -87,7 +89,8 @@ sub rootCommands
 
 	push(@cmds, $self->rootCommandsForWriteConfFile($ldapconf));
 	push(@cmds, "/etc/init.d/slapd *");
-	
+	push @cmds, '/bin/tar';
+
 	push @cmds, EBox::Ldap->rootCommands();
 
 	return @cmds;
@@ -1398,6 +1401,15 @@ sub extendedBackup
   $self->_dumpHomedirsFiles($dir);
 }
 
+sub extendedRestore
+{
+  my ($self, %options) = @_;
+  my $dir     = $options{dir};
+
+  $self->_loadHomedirsFiles($dir);
+}
+
+
 
 sub _dump_to_file
 {
@@ -1405,6 +1417,7 @@ sub _dump_to_file
   my $backupDir = $self->createBackupDir($dir);
 
   $self->{ldap}->dumpLdapData($backupDir);
+  $self->_dumpHomedirsTree($backupDir);
 }
 
 
@@ -1413,55 +1426,79 @@ sub _load_from_file
   my ($self, $dir) = @_;
 
   $self->{ldap}->loadLdapData($dir);
-#  $self->_loadHomedirs($dir);
+  $self->_loadHomedirsTree($dir);
 }
 
 
 
-sub _dumpHomedirs
+sub dirsToBackup
 {
-  my ($self, $baseDir) = @_;
+  my ($self) = @_;
+  my @dirs;
 
   foreach my $user ($self->users()) {
     my $info_r = $self->userInfo($_);
     my $homedir =  $info_r->{'homeDirectory'};
-    my $dir = "$baseDir/$homedir";
-    
-    if (! -e $dir) {
-       mkdir $dir or throw EBox::Exceptions::External('Can not make directory');
-       my $chownCommand = "/bin/chown --reference=$homedir $dir";
-       EBox::Sudo::root($chownCommand);
-    }
-    elsif (! -d $dir) {
-      throw EBox::Exceptions::Internal("$dir exists and is not a directory");
-    } 
 
+    next if grep { EBox::FileSystem::isSubdir($homedir, $_) } @dirs; # ignore if is a subdir of a directory already in the list
+    @dirs = grep { !EBox::FileSystem::isSubdir($_, $homedir)  } @dirs; # remove subdirectories of homedir from the list
+    push @dirs, $homedir;
   }
 
-
+  return @dirs;
 }
 
-sub _loadHomedirs
+sub _dumpHomedirsTree
 {
   my ($self, $dir) = @_;
+
+
+  my @homedirs = map {
+    my $info_r = $self->userInfo($_);  
+    my $homedir =  $info_r->{'homeDirectory'};
+    my $permissions;
+    if (defined $homedir) {
+      my $stat = EBox::Sudo::stat($homedir);
+      $permissions = EBox::FileSystem::permissionsFromStat($stat);
+    }
+    defined $homedir ? ($homedir, $permissions) : ();
+  } $self->users();
+
+
+  write_file($self->_homedirsTreeFile($dir), "@homedirs");
 }
 
+sub _loadHomedirsTree
+{
+  my ($self, $dir) = @_;
+
+  my $contents = read_file($self->_homedirsTreeFile($dir));
+  my %homedirs = split '\s+', $contents;
+  while (my ($dir, $perm) = each %homedirs) {
+    try {
+      mkpath($dir, 0, $perm);
+    }
+    otherwise {
+      throw EBox::Exceptions::External('Error creating directory {dir}: {error}'. dir => $dir, error => $@);
+    };
+  }
+}
+
+sub _homedirsTreeFile
+{
+  my ($self, $dir) = @_;
+  return "$dir/homedirsTree.bak";
+} 
 
 sub  _dumpHomedirsFiles
 {
-  my ($self, $baseDir) = @_;
+  my ($self, $dir) = @_;
 
-  my $DH;
-  opendir ($DH, $baseDir) or throw EBox::Exceptions::Internal("Can not open $baseDir");
+  my @dirs = dirsToBackup();
+  my $tarFile = $self->_homedirsFilesArchive($dir);
 
-  while (my $d = readdir $DH) {
-    my $srcDir = "/$d";
-    my $destDir = "$baseDir/$d";
-    my $cpCommands = "/bin/cp --archive --force $srcDir $destDir";
-    EBox::Sudo::root($cpCommands);
-  }
-
-  closedir $DH;
+  my $tarCommand = "/bin/tar -cf $tarFile --bzip2 --atime-preserve --absolute-names --preserve --same-owner @dirs";
+  EBox::Sudo::root($tarCommand);
 } 
 
 
@@ -1469,8 +1506,19 @@ sub  _loadHomedirsFiles
 {
   my ($self, $restoreDir) = @_;
 
-
-
+  my $tarFile = $self->_homedirsFilesArchive($restoreDir);
+    
+ my $tarCommand = "/bin/tar -xf $tarFile --bzip2 --atime-preserve --absolute-names --preserve --same-owner";
+  EBox::Sudo::root($tarCommand);
 }
+
+
+sub  _homedirsFilesArchive
+{
+  my ($self, $dir) = @_;
+  my $archive = "$dir/homedirs.tar.bz";
+  return $archive;
+} 
+
 
 1;

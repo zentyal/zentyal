@@ -519,30 +519,23 @@ sub _pauseAndExecute
   my @cmds = @{ $params{cmds}  };
   my $onError = $params{onError};
 
-  my $newSelf;
-  $newSelf = $self->stop();
-  
-#  sleep 4;
+  $self->stop();
   try {
     foreach my $cmd (@cmds) {
-      use Smart::Comments;
-      ### cmd: $cmd
-      my $output = EBox::Sudo::root($cmd);
-      # output: $output
+      EBox::Sudo::root($cmd);
     }
    }
   otherwise {
     my $ex = shift;
 
     if ($onError) {
-      $onError->($newSelf);
+      $onError->($self);
     }
 
     throw $ex;
   }
   finally {
-    $newSelf = $newSelf->start();
-#    sleep 4;
+    $self->start();
   };
 }
 
