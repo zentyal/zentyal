@@ -99,7 +99,7 @@ sub isSubdir
 sub permissionsFromStat
 {
   my ($stat) = @_;
-  return sprintf("%04o", $st->mode & 07777); 
+  return sprintf("%04o", $stat->mode & 07777); 
 }
 
 
