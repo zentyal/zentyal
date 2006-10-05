@@ -38,6 +38,8 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Gettext;
+use File::Slurp qw(read_file write_file);
+
 
 use constant SMBCONFFILE          => '/etc/samba/smb.conf';
 use constant LIBNSSLDAPFILE       => '/etc/libnss-ldap.conf';
@@ -211,30 +213,35 @@ sub menu
 sub rootCommands 
 {
 	my $self = shift;
-	my @array = ();
-	push(@array, $self->rootCommandsForWriteConfFile(SMBCONFFILE));
-	push(@array, $self->rootCommandsForWriteConfFile(LIBNSSLDAPFILE));
-	push(@array, $self->rootCommandsForWriteConfFile(SMBLDAPTOOLBINDFILE));
-	push(@array, $self->rootCommandsForWriteConfFile(SMBLDAPTOOLCONFFILE));
-	push(@array, "/bin/mkdir " . USERSPATH . "/*");
-	push(@array, "/bin/chown * " . USERSPATH . "/*");
-	push(@array, "/bin/chmod * " . USERSPATH . "/*");
-	push(@array, "/bin/rm -rf " . USERSPATH. "/*");
-	push(@array, "/bin/mkdir " . GROUPSPATH . "/*");
-	push(@array, "/bin/chown * " . GROUPSPATH . "/*");
-	push(@array, "/bin/chmod * " . GROUPSPATH . "/*");
-	push(@array, "/bin/rm -rf " . GROUPSPATH. "/*");
-	push(@array, "/bin/mkdir " . PROFILESPATH . "/*");
-	push(@array, "/bin/chown * " . PROFILESPATH . "/*");
-	push(@array, "/bin/chmod * " . PROFILESPATH . "/*");
-	push(@array, "/bin/rm -rf " . PROFILESPATH. "/*");
-	push(@array, "/usr/sbin/setquota *");
-	push(@array, "/usr/sbin/smbldap-useradd *");
-	push(@array, "/usr/sbin/smbldap-userdel *");
-	push(@array, "/usr/sbin/smbldap-usermod *");
-	push(@array, "/usr/sbin/setquota *");
+	my @cmds = ();
+	push(@cmds, $self->rootCommandsForWriteConfFile(SMBCONFFILE));
+	push(@cmds, $self->rootCommandsForWriteConfFile(LIBNSSLDAPFILE));
+	push(@cmds, $self->rootCommandsForWriteConfFile(SMBLDAPTOOLBINDFILE));
+	push(@cmds, $self->rootCommandsForWriteConfFile(SMBLDAPTOOLCONFFILE));
+	push(@cmds, "/bin/mkdir " . USERSPATH . "/*");
+	push(@cmds, "/bin/chown * " . USERSPATH . "/*");
+	push(@cmds, "/bin/chmod * " . USERSPATH . "/*");
+	push(@cmds, "/bin/rm -rf " . USERSPATH. "/*");
+	push(@cmds, "/bin/mkdir " . GROUPSPATH . "/*");
+	push(@cmds, "/bin/chown * " . GROUPSPATH . "/*");
+	push(@cmds, "/bin/chmod * " . GROUPSPATH . "/*");
+	push(@cmds, "/bin/rm -rf " . GROUPSPATH. "/*");
+	push(@cmds, "/bin/mkdir " . PROFILESPATH . "/*");
+	push(@cmds, "/bin/chown * " . PROFILESPATH . "/*");
+	push(@cmds, "/bin/chmod * " . PROFILESPATH . "/*");
+	push(@cmds, "/bin/rm -rf " . PROFILESPATH. "/*");
+	push(@cmds, "/usr/sbin/setquota *");
+	push(@cmds, "/usr/sbin/smbldap-useradd *");
+	push(@cmds, "/usr/sbin/smbldap-userdel *");
+	push(@cmds, "/usr/sbin/smbldap-usermod *");
+	push(@cmds, "/usr/sbin/setquota *");
 
-	return @array;
+	push @cmds, '/bin/tar';
+	push @cmds, '/bin/chown * *';
+	push @cmds, '/bin/mkdir -p  *';
+	push @cmds, EBox::Sudo::rootCommandForStat('*');
+
+	return @cmds;
 }
 
 #   Function: service
@@ -749,7 +756,7 @@ sub setPrintersForGroup # (user, printers)
 	my %currconf;
 	for my $conf (@{$self->_printersForGroup($group)}) {
 		$currconf{$conf->{'name'}} = $conf->{'allowed'};
-	}
+	} 
 	my @changes;
 	for my $conf (@{$newconf}) {
 		if ($currconf{$conf->{'name'}} xor $conf->{'allowed'}) {
@@ -857,5 +864,146 @@ sub _sambaPrinterConf
 
 	return \@printers;
 }
+
+
+sub extendedBackup
+{
+  my ($self, %options) = @_;
+  my $dir     = $options{dir};
+
+  $self->_dumpSharesFiles($dir);
+}
+
+sub extendedRestore
+{
+  my ($self, %options) = @_;
+  my $dir     = $options{dir};
+
+  $self->_loadSharesFiles($dir);
+}
+
+sub _dump_to_file
+{
+  my ($self, $dir) = @_;
+  
+  if (defined $dir) {
+    my $backupDir = $self->createBackupDir($dir);
+    $self->SUPER::_dump_to_file($backupDir);
+    $self->_dumpSharesTree($backupDir);
+  }
+  else {
+    $self->SUPER::_dump_to_file();
+  }
+
+}
+
+sub _load_from_file
+{
+  my ($self, $dir) = @_;
+
+  if (defined $dir) {
+    $self->SUPER::_load_from_file($dir);
+    $self->_loadSharesTree($dir);
+  }
+  else {
+    $self->SUPER::_load_from_file();
+  }
+
+}
+
+
+
+
+sub _dumpSharesTree
+{
+  my ($self, $dir) = @_;
+
+  my $sambaLdapUser = new EBox::SambaLdapUser;
+  my @shares = map {
+    my $share = $_;
+    my ($uid, $gid, $permissions);
+    if (defined $share) {
+      my $stat = EBox::Sudo::stat($share);
+      if (defined $stat) {
+	$permissions = EBox::FileSystem::permissionsFromStat($stat) ;
+	$uid = $stat->uid;
+	$gid = $stat->gid;
+      }
+      else {
+	EBox::warn("Can not stat directory $share. This directory will be ignored");
+      }
+    }
+    (defined $share) and (defined $permissions) ? "$share:$uid:$gid:$permissions" : ();
+  } @{ $sambaLdapUser->sharedDirectories() };
+
+
+  write_file($self->_sharesTreeFile($dir), "@shares");
+}
+
+sub _loadSharesTree
+{
+  my ($self, $dir) = @_;
+
+  my $contents = read_file($self->_sharesTreeFile($dir));
+  my @shares = split '\s+', $contents;
+
+
+  foreach my $dirInfo (@shares) {
+    my ($dir, $uid, $gid, $perm) = split ':', $dirInfo;
+    
+    if (!-d $dir) {
+      EBox::Sudo::root("/bin/mkdir -p  $dir");
+    }
+
+    EBox::Sudo::root("/bin/chmod $perm $dir"); # restore permissions
+    EBox::Sudo::root("/bin/chown $uid.$gid $dir");
+
+  } 
+}
+
+
+sub _sharesTreeFile
+{
+  my ($self, $dir) = @_;
+  return "$dir/sharesTree.bak";
+} 
+
+sub  _dumpSharesFiles
+{
+  my ($self, $dir) = @_;
+
+  my $sambaLdapUser = new EBox::SambaLdapUser;
+  my @dirs;
+  foreach my $share ($sambaLdapUser->sharedDirectories()) {
+    next if grep { EBox::FileSystem::isSubdir($share, $_) } @dirs; # ignore if is a subdir of a directory already in the list
+    @dirs = grep { !EBox::FileSystem::isSubdir($_, $share)  } @dirs; # remove subdirectories of share from the list
+    push @dirs, $share;
+  }
+
+  my $tarFile = $self->_sharesFilesArchive($dir);
+
+  my $tarCommand = "/bin/tar -cf $tarFile --bzip2 --atime-preserve --absolute-names --preserve --same-owner @dirs";
+  EBox::Sudo::root($tarCommand);
+} 
+
+
+sub  _loadSharesFiles
+{
+  my ($self, $restoreDir) = @_;
+
+  my $tarFile = $self->_sharesFilesArchive($restoreDir);
+    
+ my $tarCommand = "/bin/tar -xf $tarFile --bzip2 --atime-preserve --absolute-names --preserve --same-owner";
+  EBox::Sudo::root($tarCommand);
+}
+
+
+sub  _sharesFilesArchive
+{
+  my ($self, $dir) = @_;
+  my $archive = "$dir/shares.tar.bz";
+  return $archive;
+} 
+
 
 1;

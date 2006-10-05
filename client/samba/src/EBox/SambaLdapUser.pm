@@ -18,7 +18,6 @@ package EBox::SambaLdapUser;
 use strict;
 use warnings;
 
-
 use EBox::Sudo qw( :all );
 use EBox::Global;
 use EBox::Ldap;
@@ -28,6 +27,8 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Gettext;
+
+
 
 use Crypt::SmbHash qw(nthash ntlmgen);
 
@@ -746,5 +747,25 @@ sub _isSambaObject($$$) {
 
 	return undef;
 }
+
+# return a ref to a list of the paths of all (users and group) shared directories
+sub sharedDirectories
+{
+  my ($self) = @_;
+
+  my @dirs;
+  @dirs = map {
+    $_->{path}
+  } @{ $self->groupShareDirectories() };
+
+  my $users = EBox::Global->modInstance('users');
+  defined $users or throw EBox::Exceptions::Internal('Can not get users and groups module');
+
+  my @homedirs = map {  $_->{homedir}} $users->users();
+  push @dirs, @homedirs;
+  
+  return \@dirs;
+}
+
 
 1;
