@@ -4,7 +4,7 @@ use warnings;
 
 
 use base 'Exporter';
-our @EXPORT_OK = qw(makePrivateDir cleanDir);
+our @EXPORT_OK = qw(makePrivateDir cleanDir isSubdir);
 
 use EBox::Validate;
 
@@ -74,6 +74,27 @@ sub cleanDir
   }
 }
 
+
+sub isSubdir
+{
+  my ($subDir, $parentDir) = @_;
+
+  foreach ($subDir, $parentDir) {
+    if (! EBox::Validate::checkAbsoluteFilePath($_)) {
+      throw EBox::Exceptions::Internal("isSubdir can only called with absolute paths. Argumentes were ($subDir, $parentDir)))");
+    } 
+  }
+
+
+  # normalize paths
+  $subDir .= '/';
+  $parentDir .= '/';
+  $subDir =~ s{/+}{/}g;
+  $parentDir =~ s{/+}{/}g;
+
+  return $subDir =~ m/^$parentDir/;
+  
+}
 
 
 1;

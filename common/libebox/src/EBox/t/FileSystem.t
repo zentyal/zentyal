@@ -3,7 +3,7 @@ package main;
 use strict;
 use warnings;
 
-use Test::More tests => 21;
+use Test::More tests => 34;
 use Test::Exception;
 use Test::File;
 use Fatal qw(mkdir);
@@ -14,6 +14,7 @@ use_ok('EBox::FileSystem');
 
 makePrivateDirTest();
 cleanDirTest();
+isSubdirTest();
 
 sub makePrivateDirTest
 {
@@ -79,6 +80,44 @@ my @cleanDirParams = ("$rootDir/stringParam", { name => "$rootDir/hashParam", mo
     ok ($? != 0), 'Checking that cleaned directory is empty';
   }  
   
+}
+
+
+sub isSubdirTest
+{
+  my @trueCases = (
+		   [qw(/usr/var /)],
+		   [qw(/home/macaco/ /home)],
+		   [qw(/home/macaco/users/private/dir/ /home/macaco) ],
+		   [qw(/var/lib/ebox/ /var/lib/)],
+		   # a dir is a subdir of itself:
+		   [qw(/home/macaco /home/macaco)],
+		  );
+  my @falseCases = (
+		    [qw(/usr/var /home)],
+		   );
+  # add inverted true cases
+  push @falseCases, map {
+    my ($subdir, $dir) = @{ $_ };
+     ($subdir =~ m{$dir/?$}) ? () : [$dir, $subdir]; # discard cases when subDir and dir are the same
+  } @trueCases;
+
+  my @deviantCases = (
+		      [qw(. /usr)],
+		      [qw(/home home/macaco )],
+		      [qw(/usr/../home ../macaco)],
+		     );
+
+
+  foreach my $case_r (@trueCases) {
+    ok EBox::FileSystem::isSubdir(@{ $case_r }), "Checking isSubdir with a true case ( @{$case_r})" ;
+  }
+  foreach my $case_r (@falseCases) {
+    ok !EBox::FileSystem::isSubdir(@{ $case_r }), "Checking isSubdir with a false case ( @{$case_r})" ;
+  }
+  foreach my $case_r (@deviantCases) {
+    dies_ok { EBox::FileSystem::isSubdir(@{ $case_r }) } "Checking isSubdir with a deviant case that must raise error ( @{$case_r})" ;
+  }
 }
 
 1;
