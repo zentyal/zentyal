@@ -90,6 +90,9 @@ sub rootCommands
 	push(@cmds, $self->rootCommandsForWriteConfFile($ldapconf));
 	push(@cmds, "/etc/init.d/slapd *");
 	push @cmds, '/bin/tar';
+	push @cmds, '/bin/chown * *';
+	push @cmds, '/bin/mkdir -p  *';
+	push @cmds, EBox::Sudo::rootCommandForStat('*');
 
 	push @cmds, EBox::Ldap->rootCommands();
 
@@ -1416,8 +1419,8 @@ sub _dump_to_file
   my ($self, $dir) = @_;
   my $backupDir = $self->createBackupDir($dir);
 
-  $self->{ldap}->dumpLdapData($backupDir);
   $self->_dumpHomedirsTree($backupDir);
+  $self->{ldap}->dumpLdapData($backupDir);
 }
 
 
@@ -1437,8 +1440,7 @@ sub dirsToBackup
   my @dirs;
 
   foreach my $user ($self->users()) {
-    my $info_r = $self->userInfo($_);
-    my $homedir =  $info_r->{'homeDirectory'};
+    my $homedir =  $user->{'homeDirectory'};
 
     next if grep { EBox::FileSystem::isSubdir($homedir, $_) } @dirs; # ignore if is a subdir of a directory already in the list
     @dirs = grep { !EBox::FileSystem::isSubdir($_, $homedir)  } @dirs; # remove subdirectories of homedir from the list
@@ -1454,14 +1456,20 @@ sub _dumpHomedirsTree
 
 
   my @homedirs = map {
-    my $info_r = $self->userInfo($_);  
-    my $homedir =  $info_r->{'homeDirectory'};
-    my $permissions;
+    my $homedir =  $_->{'homeDirectory'};
+    my ($uid, $gid, $permissions);
     if (defined $homedir) {
       my $stat = EBox::Sudo::stat($homedir);
-      $permissions = EBox::FileSystem::permissionsFromStat($stat);
+      if (defined $stat) {
+	$permissions = EBox::FileSystem::permissionsFromStat($stat) ;
+	$uid = $stat->uid;
+	$gid = $stat->gid;
+      }
+      else {
+	EBox::warn("Can not stat directory $homedir. This directory will be ignored");
+      }
     }
-    defined $homedir ? ($homedir, $permissions) : ();
+    (defined $homedir) and (defined $permissions) ? "$homedir:$uid:$gid:$permissions" : ();
   } $self->users();
 
 
@@ -1473,16 +1481,20 @@ sub _loadHomedirsTree
   my ($self, $dir) = @_;
 
   my $contents = read_file($self->_homedirsTreeFile($dir));
-  my %homedirs = split '\s+', $contents;
-  while (my ($dir, $perm) = each %homedirs) {
-    try {
-      mkpath($dir, 0, $perm);
+  my @homedirs = split '\s+', $contents;
+  foreach my $dirInfo (@homedirs) {
+    my ($dir, $uid, $gid, $perm) = split ':', $dirInfo;
+    
+    if (!-d $dir) {
+      EBox::Sudo::root("/bin/mkdir -p  $dir");
     }
-    otherwise {
-      throw EBox::Exceptions::External('Error creating directory {dir}: {error}'. dir => $dir, error => $@);
-    };
-  }
+
+    EBox::Sudo::root("/bin/chmod $perm $dir"); # restore permissions
+    EBox::Sudo::root("/bin/chown $uid.$gid $dir");
+
+  } 
 }
+
 
 sub _homedirsTreeFile
 {
