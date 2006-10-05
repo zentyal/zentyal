@@ -887,7 +887,7 @@ sub _dump_to_file
   my ($self, $dir) = @_;
   
   if (defined $dir) {
-    my $backupDir = $self->createBackupDir($dir);
+    my $backupDir = $self->createBackupDir($dir) ;#if !$dir =~ m/\.bak$/; # XXX change for soemthing more pretty
     $self->SUPER::_dump_to_file($backupDir);
     $self->_dumpSharesTree($backupDir);
   }
@@ -974,16 +974,18 @@ sub  _dumpSharesFiles
 
   my $sambaLdapUser = new EBox::SambaLdapUser;
   my @dirs;
-  foreach my $share ($sambaLdapUser->sharedDirectories()) {
+  foreach my $share (@{ $sambaLdapUser->sharedDirectories()}) {
     next if grep { EBox::FileSystem::isSubdir($share, $_) } @dirs; # ignore if is a subdir of a directory already in the list
     @dirs = grep { !EBox::FileSystem::isSubdir($_, $share)  } @dirs; # remove subdirectories of share from the list
     push @dirs, $share;
   }
 
-  my $tarFile = $self->_sharesFilesArchive($dir);
-
-  my $tarCommand = "/bin/tar -cf $tarFile --bzip2 --atime-preserve --absolute-names --preserve --same-owner @dirs";
-  EBox::Sudo::root($tarCommand);
+  if (@dirs > 0) {
+    my $tarFile = $self->_sharesFilesArchive($dir);
+    
+    my $tarCommand = "/bin/tar -cf $tarFile --bzip2 --atime-preserve --absolute-names --preserve --same-owner @dirs";
+    EBox::Sudo::root($tarCommand);
+  }
 } 
 
 
@@ -992,9 +994,11 @@ sub  _loadSharesFiles
   my ($self, $restoreDir) = @_;
 
   my $tarFile = $self->_sharesFilesArchive($restoreDir);
-    
- my $tarCommand = "/bin/tar -xf $tarFile --bzip2 --atime-preserve --absolute-names --preserve --same-owner";
-  EBox::Sudo::root($tarCommand);
+
+  if (-e $tarFile) {
+    my $tarCommand = "/bin/tar -xf $tarFile --bzip2 --atime-preserve --absolute-names --preserve --same-owner";
+    EBox::Sudo::root($tarCommand);
+  }
 }
 
 
