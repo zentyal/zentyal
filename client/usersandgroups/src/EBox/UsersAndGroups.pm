@@ -1396,21 +1396,7 @@ sub _ldapModImplementation
 	return new EBox::LdapUserImplementation();
 }
 
-sub extendedBackup
-{
-  my ($self, %options) = @_;
-  my $dir     = $options{dir};
 
-  $self->_dumpHomedirsFiles($dir);
-}
-
-sub extendedRestore
-{
-  my ($self, %options) = @_;
-  my $dir     = $options{dir};
-
-  $self->_loadHomedirsFiles($dir);
-}
 
 
 
@@ -1419,7 +1405,6 @@ sub _dump_to_file
   my ($self, $dir) = @_;
   my $backupDir = $self->createBackupDir($dir);
 
-  $self->_dumpHomedirsTree($backupDir);
   $self->{ldap}->dumpLdapData($backupDir);
 }
 
@@ -1429,108 +1414,9 @@ sub _load_from_file
   my ($self, $dir) = @_;
 
   $self->{ldap}->loadLdapData($dir);
-  $self->_loadHomedirsTree($dir);
 }
 
 
-
-sub dirsToBackup
-{
-  my ($self) = @_;
-  my @dirs;
-
-  foreach my $user ($self->users()) {
-    my $homedir =  $user->{'homeDirectory'};
-
-    next if grep { EBox::FileSystem::isSubdir($homedir, $_) } @dirs; # ignore if is a subdir of a directory already in the list
-    @dirs = grep { !EBox::FileSystem::isSubdir($_, $homedir)  } @dirs; # remove subdirectories of homedir from the list
-    push @dirs, $homedir;
-  }
-
-  return @dirs;
-}
-
-sub _dumpHomedirsTree
-{
-  my ($self, $dir) = @_;
-
-
-  my @homedirs = map {
-    my $homedir =  $_->{'homeDirectory'};
-    my ($uid, $gid, $permissions);
-    if (defined $homedir) {
-      my $stat = EBox::Sudo::stat($homedir);
-      if (defined $stat) {
-	$permissions = EBox::FileSystem::permissionsFromStat($stat) ;
-	$uid = $stat->uid;
-	$gid = $stat->gid;
-      }
-      else {
-	EBox::warn("Can not stat directory $homedir. This directory will be ignored");
-      }
-    }
-    (defined $homedir) and (defined $permissions) ? "$homedir:$uid:$gid:$permissions" : ();
-  } $self->users();
-
-
-  write_file($self->_homedirsTreeFile($dir), "@homedirs");
-}
-
-sub _loadHomedirsTree
-{
-  my ($self, $dir) = @_;
-
-  my $contents = read_file($self->_homedirsTreeFile($dir));
-  my @homedirs = split '\s+', $contents;
-  foreach my $dirInfo (@homedirs) {
-    my ($dir, $uid, $gid, $perm) = split ':', $dirInfo;
-    
-    if (!-d $dir) {
-      EBox::Sudo::root("/bin/mkdir -p  $dir");
-    }
-
-    EBox::Sudo::root("/bin/chmod $perm $dir"); # restore permissions
-    EBox::Sudo::root("/bin/chown $uid.$gid $dir");
-
-  } 
-}
-
-
-sub _homedirsTreeFile
-{
-  my ($self, $dir) = @_;
-  return "$dir/homedirsTree.bak";
-} 
-
-sub  _dumpHomedirsFiles
-{
-  my ($self, $dir) = @_;
-
-  my @dirs = dirsToBackup();
-  my $tarFile = $self->_homedirsFilesArchive($dir);
-
-  my $tarCommand = "/bin/tar -cf $tarFile --bzip2 --atime-preserve --absolute-names --preserve --same-owner @dirs";
-  EBox::Sudo::root($tarCommand);
-} 
-
-
-sub  _loadHomedirsFiles
-{
-  my ($self, $restoreDir) = @_;
-
-  my $tarFile = $self->_homedirsFilesArchive($restoreDir);
-    
- my $tarCommand = "/bin/tar -xf $tarFile --bzip2 --atime-preserve --absolute-names --preserve --same-owner";
-  EBox::Sudo::root($tarCommand);
-}
-
-
-sub  _homedirsFilesArchive
-{
-  my ($self, $dir) = @_;
-  my $archive = "$dir/homedirs.tar.bz";
-  return $archive;
-} 
 
 
 1;
