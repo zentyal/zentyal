@@ -197,7 +197,7 @@ sub makeBackup # (dir, %options)
     $self->extendedBackup(dir => $backupDir, %options);
   }
   else {
-    $self->_dump_to_file($dir);	  
+    $self->dumpConfig($dir);	  
   }
 
 }
@@ -223,7 +223,7 @@ sub _setupExtendedBackup
   my $backupDir = $self->createBackupDir($dir);
 
   # save basic conf
-  $self->_dump_to_file($backupDir);
+  $self->dumpConfig($backupDir);
 
   # save version
   if ($self->can('version')) {
@@ -253,14 +253,14 @@ sub restoreBackup # (dir, %options)
   
   my $bakFile = $self->_bak_file_from_dir($dir);
   if (-d $bakFile) {
-    $self->_load_from_file($bakFile);
+    $self->restoreConfig($bakFile);
 
     if ($options{fullRestore} and $self->can('extendedRestore')) {
       $self->_bootstrap_extended_restore($bakFile, %options);
     }
   }
   else {
-    $self->_load_from_file($dir);    
+    $self->restoreConfig($dir);    
   }
 }
 
@@ -297,14 +297,19 @@ sub _bak_file_from_dir
 
 
 
-# override _dump_to_file and _load_from_file to do backups properly
-sub _dump_to_file
+# override dumpConfig and restoreConfig to do backups properly
+
+# this must be override to dump the configuration to the directory
+# default implementation: does nothing
+sub dumpConfig
 {
   my ($self, $dir) = @_;
 }
 
+# this must be override to restore the configuration from the files in dir(files produced with dumpConfig)
+# default implementation: does nothing
 
-sub _load_from_file
+sub restoreConfig
 {
   my ($self, $dir) = @_;
 }

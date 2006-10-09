@@ -77,6 +77,13 @@ sub _state
 	$self->{helper} = $self->{state};
 }
 
+
+sub restoreConfig
+{
+  my ($self, $dir) = @_;
+  $self->_load_from_file($dir);
+}
+
 sub _load_from_file # (dir?, key?) 
 {
 	my ($self, $dir, $key) = @_;
@@ -92,6 +99,11 @@ sub _load_from_file # (dir?, key?)
 						 "configuration from $file");
 }
 
+sub dumpConfig
+{
+  my ($self, $dir) = @_;
+  $self->_dump_to_file($dir);
+}
 
 sub _dump_to_file # (dir?) 
 {
@@ -104,6 +116,8 @@ sub _dump_to_file # (dir?)
 						 "configuration on $file");
 }
 
+
+# we had to call _backup before continue the normal restoreBackup process
 sub restoreBackup
 {
   my $self = shift;

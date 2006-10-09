@@ -32,6 +32,7 @@ use EBox::FileSystem qw(makePrivateDir);
 use Readonly;
 Readonly::Scalar my $GCONF_CANARY_KEY => '/ebox/modules/canaryGConf/canary';
 Readonly::Scalar my $GCONF_EXTENDED_CANARY_KEY => '/ebox/modules/canaryExtended/key';
+Readonly::Scalar my $GCONF_MIXEDCONF_CANARY_KEY => '/ebox/modules/canaryMixedConf/key';
 Readonly::Scalar my $CANARY_MODULE_VERSION => 'canary 0.1';
 
 sub testDir
@@ -79,6 +80,21 @@ sub setUpCanaries : Test(setup)
 {
   my ($self) = @_;
 
+  $self->setupGConfCanary();
+  $self->setupExtendedCanary();
+  $self->setupMixedConfCanary();
+}
+
+
+sub setupGConfCanary
+{
+  fakeEBoxModule(
+		 name => 'canaryGConf',
+		);
+}
+
+sub setupExtendedCanary
+{
 
   fakeEBoxModule(
 		 name => 'canaryExtended',
@@ -102,27 +118,44 @@ sub setUpCanaries : Test(setup)
 			  },
 			 ],
 		);
-  fakeEBoxModule(
-		 name => 'canaryGConf',
-		);
 
 }
 
+sub setupMixedConfCanary
+{
+  my ($self) = @_;
+
+ fakeEBoxModule(
+		 name => 'canaryMixedConf',
+		 subs => [
+			  setCanary => sub { my ($self, $canary) = @_; $self->{canary} = $canary },
+			  canary => sub { my ($self) = @_; return $self->{canary} },
+			  setVersion => sub { my ($self, $version) = @_; $self->{version} = $version },
+			  version => sub { my ($self) = @_; return $self->{version} },
+			  dumpConfig => sub {
+			    my ($self, $dir) = @_;
+			    EBox::GConfModule::_dump_to_file($self, $dir);
+			    write_file ("$dir/canary", $self->{canary} );
+			  },
+			  restoreConfig => sub {
+			    my ($self, $dir) = @_;
+			    EBox::GConfModule::_load_from_file($self, $dir);
+			    my $backedUpData =  read_file ("$dir/canary" );
+			    $self->setCanary($backedUpData);
+			  },
+			 ],
+		);
+
+}
+ 
 
 sub setCanaries
 {
   my ($value) = @_;
 
   setGConfCanary($value);
-
-  my $client = Gnome2::GConf::Client->get_default;
-  $client->set_string($GCONF_EXTENDED_CANARY_KEY, $value);
-  die 'gconf extended canary not changed' if $client->get_string($GCONF_CANARY_KEY) ne $value;
-
-  my $canaryExtended = EBox::Global->modInstance('canaryExtended');
-  $canaryExtended->setCanary($value);
-  $canaryExtended->setVersion($CANARY_MODULE_VERSION);
-  die 'canary not changed' if $canaryExtended->canary() ne $value;
+  setExtendedCanary($value);
+  setMixedConfCanary($value);
 }
 
 
@@ -134,14 +167,61 @@ sub setGConfCanary
   die 'gconf canary not changed' if $client->get_string($GCONF_CANARY_KEY) ne $value;
 }
 
+sub setExtendedCanary
+{
+  my ($value) = @_;
+  my $client = Gnome2::GConf::Client->get_default;
+
+  $client->set_string($GCONF_EXTENDED_CANARY_KEY, $value);
+  die 'gconf extended canary not changed' if $client->get_string($GCONF_EXTENDED_CANARY_KEY) ne $value;
+
+  my $canaryExtended = EBox::Global->modInstance('canaryExtended');
+  $canaryExtended->setCanary($value);
+  $canaryExtended->setVersion($CANARY_MODULE_VERSION);
+  die 'canary not changed' if $canaryExtended->canary() ne $value;
+}
+ 
+
+sub setMixedConfCanary
+{
+  my ($value) = @_;
+  my $client = Gnome2::GConf::Client->get_default;
+
+  $client->set_string($GCONF_MIXEDCONF_CANARY_KEY, $value);
+  die 'gconf mixedconf canary not changed' if $client->get_string($GCONF_MIXEDCONF_CANARY_KEY) ne $value;
+
+  my $canaryMixedConf = EBox::Global->modInstance('canaryMixedConf');
+  $canaryMixedConf->setCanary($value);
+  die 'canary not changed' if $canaryMixedConf->canary() ne $value;
+}
+
+
 sub checkCanaries
 {
   my ($expectedValue, $fullRestore) = @_;  
+  my $client = Gnome2::GConf::Client->get_default;
   my $value;
 
   checkGConfCanary($expectedValue);
+  checkExtendedCanary($expectedValue, $fullRestore);
+  checkMixedConfCanary($expectedValue);
+}
 
+
+sub checkGConfCanary
+{
+  my ($expectedValue) = @_;
   my $client = Gnome2::GConf::Client->get_default;
+  my $value = $client->get_string($GCONF_CANARY_KEY);
+  is $value, $expectedValue, 'Checking GConf data of simple module canary';
+}
+
+sub checkExtendedCanary
+{
+  my ($expectedValue, $fullRestore) = @_;
+  my $client = Gnome2::GConf::Client->get_default;
+  my $value;
+
   $value = $client->get_string($GCONF_EXTENDED_CANARY_KEY);
   is $value, $expectedValue, 'Checking GConf data of canary module with extended backup and restore';
 
@@ -154,25 +234,31 @@ sub checkCanaries
     isnt $value, $expectedValue, 'Checking extra data of canary module was not restored with configuration restore';
   }
 
-
   my $version  = $canaryExtended->version();
   is $version, $CANARY_MODULE_VERSION, 'Checking if version information was correctly backed';
 }
 
-
-sub checkGConfCanary
+sub checkMixedConfCanary
 {
   my ($expectedValue) = @_;
   my $client = Gnome2::GConf::Client->get_default;
-  my $value = $client->get_string($GCONF_CANARY_KEY);
-  is $value, $expectedValue, 'Checking GConf data of simple module canary';
+  my $value;
+
+  $value = $client->get_string($GCONF_MIXEDCONF_CANARY_KEY);
+  is $value, $expectedValue, 'Checking GConf configuration data of canary module with mixed config';
+
+  my $canaryMixedConf = EBox::Global->modInstance('canaryMixedConf');
+  $value = $canaryMixedConf->canary();
+  is $value, $expectedValue, 'Checking no-GConf configuration  data of canary module with mixed config'
 }
+
 
 sub teardownGConfCanary : Test(teardown)
 {
   my $client = Gnome2::GConf::Client->get_default;
   $client->unset($GCONF_CANARY_KEY);  
   $client->unset($GCONF_EXTENDED_CANARY_KEY);  
+  $client->unset($GCONF_MIXEDCONF_CANARY_KEY);  
 }
 
 sub teardownCanaryModule : Test(teardown)
@@ -183,7 +269,7 @@ sub teardownCanaryModule : Test(teardown)
   EBox::Test::setConfig(); 
 }
 
-# that counts for 5 tests
+# that counts for 7 tests
 sub checkStraightRestore
 {
   my ($archiveFile, $options_r, $msg) = @_;
@@ -197,7 +283,7 @@ sub checkStraightRestore
 }
 
 
-# that counts for 5 tests
+# that counts for 7 tests
 sub checkDeviantRestore
 {
   my ($archiveFile, $options_r, $msg) = @_;
@@ -210,7 +296,7 @@ sub checkDeviantRestore
 }
 
 
-sub invalidArchiveTest : Test(5)
+sub invalidArchiveTest : Test(7)
 {
   my ($self) = @_;
   my $incorrectFile = $self->testDir() . '/incorrect';
@@ -219,7 +305,7 @@ sub invalidArchiveTest : Test(5)
   checkDeviantRestore($incorrectFile, [], 'restoreBackup() called with a incorrect file');
 }
 
-sub restoreConfigurationBackupTest : Test(12)
+sub restoreConfigurationBackupTest : Test(16)
 {
   my ($self) = @_;
 
@@ -236,7 +322,7 @@ sub restoreConfigurationBackupTest : Test(12)
   checkStraightRestore($fullBackup, [fullRestore => 0], 'configuration restore from a full backup');
 }
 
-sub restoreFullBackupTest : Test(12)
+sub restoreFullBackupTest : Test(16)
 {
   my ($self) = @_;
 
@@ -254,7 +340,7 @@ sub restoreFullBackupTest : Test(12)
 }
 
 
-sub restoreWithModulesMismatchTest : Test(9)
+sub restoreWithModulesMismatchTest : Test(15)
 {
   my ($self) = @_;
 
@@ -270,18 +356,24 @@ sub restoreWithModulesMismatchTest : Test(9)
 
   # with one less module
   EBox::Test::setConfig();
-  fakeEBoxModule( name => 'canaryGConf', );
+  setupGConfCanary();
+  setupMixedConfCanary();
   setGConfCanary('afterBackup');
+  setMixedConfCanary('afterBackup');
   dies_ok { $backup->restoreBackup($backupFile, fullRestore => 0) } 'checking that a restore with a module mismatch (one less module) fails';
   checkGConfCanary('afterBackup');
+  checkMixedConfCanary('afterBackup');
 
   # with same number but distinct modules
   EBox::Test::setConfig();
-  fakeEBoxModule( name => 'canaryGConf', );
+  setupGConfCanary();
+  setupMixedConfCanary();
   fakeEBoxModule( name => 'suprefluousModule', );
   setGConfCanary('afterBackup');
+  setMixedConfCanary('afterBackup');
   dies_ok { $backup->restoreBackup($backupFile, fullRestore => 0) } 'checking that a restore with a module mismatch (same nubmer but different modules) fails';
   checkGConfCanary('afterBackup');
+  checkMixedConfCanary('afterBackup');
 }
 
 
