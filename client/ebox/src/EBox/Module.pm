@@ -207,9 +207,8 @@ sub backupDir
   my ($self, $dir) = @_;
 
   # avoid duplicate paths problem
-  my $modulePathPart = $self->name() . '.bak';
-  $dir =~ s/$modulePathPart.*$/$modulePathPart/;
-
+  my $modulePathPart =  '/' . $self->name() . '.bak';
+  ($dir) = split $modulePathPart, $dir;
 
   my $backupDir = $self->_bak_file_from_dir($dir);
   return $backupDir;
@@ -305,6 +304,7 @@ sub _read_version
 sub _bak_file_from_dir
 {
   my ($self, $dir) = @_;
+  $dir =~ s{/+$}{};
   my $file = "$dir/" . $self->name . ".bak";
   return $file;
 }
