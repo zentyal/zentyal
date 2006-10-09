@@ -366,7 +366,7 @@ sub deleteBackup # (id)
 sub listBackups
 {
 	my $self = shift;
-	my $backupdir = EBox::Config::conf . '/backups';
+	my $backupdir = backupDir();
 	my $bh = new DirHandle($backupdir);
 	my @backups = ();
 	my $backup;
@@ -387,6 +387,13 @@ sub listBackups
 	undef $bh;
 	my @ret = sort {$a->{date} lt $b->{date}} @backups;
 	return \@ret;
+}
+
+
+sub backupDir
+{
+  my $backupdir = EBox::Config::conf . '/backups';
+  return $backupdir;
 }
 
 #
@@ -416,7 +423,7 @@ sub makeBackup # (options)
   exists $options{directlyToDisc} or $options{directlyToDisc} = 0;
 
   my $time = strftime("%F", localtime);
-  my $backupdir = EBox::Config::conf . '/backups';
+  my $backupdir = backupDir();
   unless (-d $backupdir) {
     mkdir($backupdir) or throw EBox::Exceptions::Internal
       ("Could not create backupdir.");
@@ -603,7 +610,7 @@ sub writeBackupToDisc
 
   my $file = $self->_backupFileById($id);
 
-  my $backupdir = EBox::Config::conf . '/backups';
+  my $backupdir = backupDir();
   my $destFile = "$backupdir/$DISC_BACKUP_FILE";
   
   move($file, $destFile) or throw EBox::Exceptions::Internal("Can not rename backup file: @!");
