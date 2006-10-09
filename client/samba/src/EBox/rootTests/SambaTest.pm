@@ -20,7 +20,9 @@ use EBox::Test;
 use Readonly;
 Readonly::Scalar my $TEST_DIR => '/tmp/ebox.samba.root.test';
 Readonly::Scalar my $CONFIG_BACKUP_DIR => "$TEST_DIR/backup";
+Readonly::Scalar my $CONFIG_BACKUP_WO_SHARES_DIR => "$TEST_DIR/backup-wo";
 Readonly::Scalar my $FULL_BACKUP_DIR => "$TEST_DIR/full";
+Readonly::Scalar my $FULL_BACKUP_WO_SHARES_DIR => "$TEST_DIR/full-wo";
 Readonly::Scalar my $TEST_USER         => 'testUser354';
 
 
@@ -43,7 +45,7 @@ sub setupTestDir : Test(startup)
     File::Path::rmtree($TEST_DIR);
   }
 
-  File::Path::mkpath([$TEST_DIR, $CONFIG_BACKUP_DIR, $FULL_BACKUP_DIR]);
+  File::Path::mkpath([$TEST_DIR, $CONFIG_BACKUP_DIR, $FULL_BACKUP_DIR, $CONFIG_BACKUP_WO_SHARES_DIR, $FULL_BACKUP_WO_SHARES_DIR]);
 }
 
 
@@ -56,6 +58,14 @@ sub teardownTestUser : Test(teardown)
   if ($users->userExists($TEST_USER)) {
     $users->delUser($TEST_USER);
   }
+}
+
+
+sub configBackupWithoutSharesTest : Test(2)
+{
+  my $samba = EBox::Global->modInstance('samba');
+  lives_ok { $samba->makeBackup($CONFIG_BACKUP_WO_SHARES_DIR) } 'Config backup without any directory';
+  lives_ok { $samba->restoreBackup($CONFIG_BACKUP_WO_SHARES_DIR) } 'Config restore without any directory';
 }
 
 sub configBackupTest : Test(8)
@@ -91,6 +101,13 @@ sub configBackupTest : Test(8)
 
 }
 
+
+sub fullBackupWithoutSharesTest : Test(2)
+{
+my $samba = EBox::Global->modInstance('samba');
+  lives_ok { $samba->makeBackup($FULL_BACKUP_WO_SHARES_DIR, fullBackup => 1) } 'Full backup without any directory';
+  lives_ok { $samba->restoreBackup($FULL_BACKUP_WO_SHARES_DIR, fullBackup => 1) } 'Full restore without any directory';
+}
 
 sub fullBackupTest : Test(7)
 {
