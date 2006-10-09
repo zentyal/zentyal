@@ -202,11 +202,25 @@ sub makeBackup # (dir, %options)
 
 }
 
+sub backupDir
+{
+  my ($self, $dir) = @_;
 
+  # avoid duplicate paths problem
+  my $modulePathPart = $self->name() . '.bak';
+  $dir =~ s/$modulePathPart.*$/$modulePathPart/;
+
+
+  my $backupDir = $self->_bak_file_from_dir($dir);
+  return $backupDir;
+}
+
+# create a backup dir if needed
+# return: the path of the dir
 sub createBackupDir
 {
   my ($self, $dir) = @_;
-  my $backupDir = $self->_bak_file_from_dir($dir);
+  my $backupDir = $self->backupDir($dir);
 
   if (! -d $backupDir) {
     EBox::FileSystem::makePrivateDir($backupDir);
