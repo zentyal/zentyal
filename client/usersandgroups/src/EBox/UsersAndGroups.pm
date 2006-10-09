@@ -1396,7 +1396,7 @@ sub _ldapModImplementation
 
 
 
-sub _dump_to_file
+sub dumpConfig
 {
   my ($self, $dir) = @_;
   my $backupDir = $self->createBackupDir($dir);
@@ -1405,7 +1405,7 @@ sub _dump_to_file
 }
 
 
-sub _load_from_file
+sub restoreConfig
 {
   my ($self, $dir) = @_;
 
