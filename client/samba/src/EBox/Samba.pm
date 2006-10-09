@@ -20,6 +20,7 @@ use warnings;
 
 use base qw(EBox::GConfModule EBox::LdapModule EBox::FirewallObserver);
 
+
 use EBox::Sudo qw( :all );
 use EBox::Global;
 use EBox::Ldap;
@@ -882,33 +883,23 @@ sub extendedRestore
   $self->_loadSharesFiles($dir);
 }
 
-sub _dump_to_file
+sub dumpConfig
 {
   my ($self, $dir) = @_;
-  
-  if (defined $dir) {
-    my $backupDir = $self->createBackupDir($dir) ;#if !$dir =~ m/\.bak$/; # XXX change for soemthing more pretty
-    $self->SUPER::_dump_to_file($backupDir);
-    $self->_dumpSharesTree($backupDir);
-  }
-  else {
-    $self->SUPER::_dump_to_file();
-  }
 
+  # make sure that will be dumping our configuration in the backup dir
+  my $backupDir = $self->createBackupDir($dir) ;     
+
+  EBox::GConfModule::dumpConfig($self, $backupDir);
+  $self->_dumpSharesTree($backupDir);
 }
 
-sub _load_from_file
+sub restoreConfig
 {
   my ($self, $dir) = @_;
 
-  if (defined $dir) {
-    $self->SUPER::_load_from_file($dir);
-    $self->_loadSharesTree($dir);
-  }
-  else {
-    $self->SUPER::_load_from_file();
-  }
-
+  EBox::GConfModule::restoreConfig($self, $dir);
+  $self->_loadSharesTree($dir);
 }
 
 
