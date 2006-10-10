@@ -21,6 +21,7 @@ use warnings;
 use File::Temp qw(tempdir);
 use File::Copy qw(copy move);
 use File::Slurp qw(read_file write_file);
+use File::Basename;
 use EBox::Config;
 use EBox::Global;
 use EBox::Exceptions::Internal;
@@ -294,31 +295,61 @@ sub backupDiscDetails
 sub backupDetailsFromFile
 {
   my ($self, $file) = @_;
+  my $backupDetails = {};
 
-  my $t = $self->_unpackAndVerify($file);
+  my $tempDir = $self->_unpackDetails($file);
 
-  my $entry = {};
 
   my @details = qw(date description type);
   foreach my $detail (@details) {
     my $FH;
-    unless (open($FH, "$t/eboxbackup/$detail")) {
-      $entry->{$detail} = __('Unknown');
+    unless (open($FH, "$tempDir/$detail")) {
+      $backupDetails->{$detail} = __('Unknown');
       next;
     }
 
     my $value = <$FH>;
-    $entry->{$detail} = $value;
+    $backupDetails->{$detail} = $value;
 
     close $FH;
   }
 
-  $entry->{file} = $file; 
+  $backupDetails->{file} = $file; 
 
-  `rm -rf $t`;
-  return $entry;
+  system "rm -rf $tempDir";
+  return $backupDetails;
 }
 
+
+sub _unpackDetails
+{
+  my ($self, $file, @details) = @_;
+
+  ($file) or throw EBox::Exceptions::External('No backup file provided.');
+
+  my $dir     = dirname($file);
+  my $tempdir = "$dir/eboxbackup";
+  my $detailsFiles = join ' ', map { 'eboxbackup/' . $_  } @details;
+
+  try {
+    
+    my $tarCommand = "/bin/tar xf $file -C $dir $detailsFiles";
+    if (system $tarCommand) {
+      throw EBox::Exceptions::External( __("Could not extract the backup's details"));
+    }
+
+  }
+  otherwise {
+    my $ex = shift;
+    
+    system("rm -rf $tempdir");
+    ($? == 0) or EBox::warning("Unable to remove $tempdir. Please do it manually");
+
+    $ex->throw();
+  };
+
+  return $tempdir;
+}
 
 
 #
