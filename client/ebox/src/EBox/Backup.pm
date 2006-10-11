@@ -681,7 +681,7 @@ sub  _checkSize
   $freeSpace = $dfData[3];
 
   if ($freeSpace < $size) {
-    throw EBox::Exceptions::External(__x("There in not enough space left in the hard disk to complete the backup proccess. {size} Kb required. Free sufficient space and retry", size => $size));
+    throw EBox::Exceptions::External(__x("There in not enough space left in the hard disk to complete the restore proccess. {size} Kb required. Free sufficient space and retry", size => $size));
   }
 
 } 
