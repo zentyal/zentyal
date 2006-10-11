@@ -90,7 +90,11 @@ sub _makeBackup # (description, bug?)
 	  $self->_createTypeFile($archiveContentsDir, $options{fullBackup});
 	  $self->_createModulesListFile($archiveContentsDir);
 
+	  $self->_createSizeFile($archiveContentsDir);
+
 	  $self->_createBackupArchive($backupArchive, $tempdir, $archiveContentsDirRelative);
+
+
 	}
 	finally {
 	  system "rm -rf $tempdir";
@@ -215,10 +219,23 @@ sub  _createBackupArchive
     }
   }
 
-  `tar cf $backupArchive -C $tempdir $archiveContentsDirRelative`;
-  ($? == 0) or throw EBox::Exceptions::Internal("Could not create archive.");
+  my @output = `tar cf $backupArchive -C $tempdir $archiveContentsDirRelative 2>&1`;
+  ($? == 0) or throw EBox::Exceptions::External(__x("Could not create backup archive Command output: {output}}", output => "@output"));
 } 
 
+sub _createSizeFile
+{
+  my ($self,  $archiveContentsDir) = @_;
+  my $size;
+  
+  my $duCommand = "du -b -s -c --block-size=1024 $archiveContentsDir";
+  my $output    = EBox::Sudo::command($duCommand);
+  my ($totalLine) = grep { m/total/  } @{ $output  };
+  ($size) = split '\s', $totalLine; 
+
+  my $sizeFile = "$archiveContentsDir/size";
+  write_file($sizeFile, $size)
+} 
 
 
 
@@ -270,7 +287,7 @@ sub backupDetails # (id)
 
   my $file = $self->_backupFileById($id);
 
-  my $details = $self->backupDetailsFromFile($file);
+  my $details = $self->backupDetailsFromArchive($file);
   $details->{id} = $id;
   
   return $details;
@@ -285,25 +302,25 @@ sub backupDiscDetails
     throw EBox::Exceptions::External(__('Insert a backup disc and try again, please'));
   }
 
-  my $details = $self->backupDetailsFromFile($discFileInfo->{file});
+  my $details = $self->backupDetailsFromArchive($discFileInfo->{file});
   $details->{disc} = 1;
   
   return $details;
 }
 
 
-sub backupDetailsFromFile
+sub backupDetailsFromArchive
 {
-  my ($self, $file) = @_;
+  my ($self, $archive) = @_;
   my $backupDetails = {};
 
-  my $tempDir = $self->_unpackDetails($file);
-
-
   my @details = qw(date description type);
+  my $tempDir = $self->_unpackArchive($archive, @details);
+
+
   foreach my $detail (@details) {
     my $FH;
-    unless (open($FH, "$tempDir/$detail")) {
+    unless (open($FH, "$tempDir/eboxbackup/$detail")) {
       $backupDetails->{$detail} = __('Unknown');
       next;
     }
@@ -314,41 +331,47 @@ sub backupDetailsFromFile
     close $FH;
   }
 
-  $backupDetails->{file} = $file; 
+  $backupDetails->{file} = $archive; 
 
   system "rm -rf $tempDir";
   return $backupDetails;
 }
 
-
-sub _unpackDetails
+# if not specific files are specified all the fiels are  extracted
+sub _unpackArchive
 {
-  my ($self, $file, @details) = @_;
+  my ($self, $archive, @files) = @_;
+  ($archive) or throw EBox::Exceptions::External('No backup archive provided.');
 
-  ($file) or throw EBox::Exceptions::External('No backup file provided.');
+  my $tempDir = tempdir(EBox::Config::tmp . "/backup.XXXXXX") or
+    throw EBox::Exceptions::Internal("Could not create tempdir.");
 
-  my $dir     = dirname($file);
-  my $tempdir = "$dir/eboxbackup";
-  my $detailsFiles = join ' ', map { 'eboxbackup/' . $_  } @details;
+  my $filesWithPath =  @files > 0 ?
+    join ' ', map { 'eboxbackup/' . $_  } @files : '';
 
   try {
     
-    my $tarCommand = "/bin/tar xf $file -C $dir $detailsFiles";
+    my $tarCommand = "/bin/tar xf $archive -C $tempDir $filesWithPath";
     if (system $tarCommand) {
-      throw EBox::Exceptions::External( __("Could not extract the backup's details"));
+      if (@files > 0) {
+	throw EBox::Exceptions::External( __x("Could not extract the requested backup files: {files}", files => "@files"));
+      }
+      else {
+	throw EBox::Exceptions::External( __("Could not unpack the backup"));
+      }
     }
 
   }
   otherwise {
     my $ex = shift;
     
-    system("rm -rf $tempdir");
-    ($? == 0) or EBox::warning("Unable to remove $tempdir. Please do it manually");
+    system("rm -rf $tempDir");
+    ($? == 0) or EBox::warning("Unable to remove $tempDir. Please do it manually");
 
     $ex->throw();
   };
 
-  return $tempdir;
+  return $tempDir;
 }
 
 
@@ -511,39 +534,39 @@ sub makeBugReport
 # 	string: path to the temporary directory
 sub _unpackAndVerify # (file, fullRestore) 
 {
-	my ($self, $file, $fullRestore) = @_;
-	($file) or throw EBox::Exceptions::External('No backup file provided.');
-	my $tempdir = tempdir(EBox::Config::tmp . "/backup.XXXXXX") or
-		throw EBox::Exceptions::Internal("Could not create tempdir.");
-	try {
-	  unless (copy($file, "$tempdir/eboxbackup.tar")) {
-	    throw EBox::Exceptions::Internal("Could not copy backup into ".
-					     "the tempdir.");
-	  }
+  my ($self, $archive, $fullRestore) = @_;
+  ($archive) or throw EBox::Exceptions::External('No backup file provided.');
+  my $tempdir;
 
-	  if (`tar xf $tempdir/eboxbackup.tar -C $tempdir`) {
-	    throw EBox::Exceptions::External( __("Could not unpack the backup"));
-	  }
+  try {
+    # 	  unless (copy($file, "$tempdir/eboxbackup.tar")) {
+    # 	    throw EBox::Exceptions::Internal("Could not copy backup into ".
+    # 					     "the tempdir.");
+    # 	  }
 
-	  unless ( -f "$tempdir/eboxbackup/files.tgz" && 
-		   -f "$tempdir/eboxbackup/md5sum") {
-	    throw EBox::Exceptions::External( __('Incorrect or corrupt backup file'));
-	  }
+    $tempdir = $self->_unpackArchive($archive);
 
-	  $self->_checkArchiveMd5Sum($tempdir);
-	  $self->_checkArchiveType($tempdir, $fullRestore);
-	  $self->_checkModuleList($tempdir);
-	}
-	otherwise {
-	  my $ex = shift;
+    unless ( -f "$tempdir/eboxbackup/files.tgz" && 
+	     -f "$tempdir/eboxbackup/md5sum") {
+      throw EBox::Exceptions::External( __('Incorrect or corrupt backup file'));
+    }
 
-	  system("rm -rf $tempdir");
-	  ($? == 0) or EBox::warning("Unable to remove $tempdir. Please do it manually");
+    $self->_checkArchiveMd5Sum($tempdir);
+    $self->_checkArchiveType($tempdir, $fullRestore);
+    $self->_checkModuleList($tempdir);
+  }
+  otherwise {
+    my $ex = shift;
 
-	  $ex->throw();
-	};
+    if (defined $tempdir) {
+      system("rm -rf $tempdir");
+      ($? == 0) or EBox::warning("Unable to remove $tempdir. Please do it manually");
+    }
 
-	return $tempdir;
+    $ex->throw();
+  };
+
+  return $tempdir;
 }
 
 sub  _checkArchiveMd5Sum
@@ -632,6 +655,37 @@ sub   _checkModuleList
 } 
 
 
+sub  _checkSize
+{
+  my ($self, $archive) = @_;
+
+  my $size;
+  my $freeSpace;
+
+  my $tempDir;
+  try {
+    $tempDir = $self->_unpackArchive($archive, 'size');
+    $size = read_file("$tempDir/eboxbackup/size");
+  }
+  finally {
+    if (defined $tempDir) {
+      system("rm -rf $tempDir");
+      ($? == 0) or EBox::warning("Unable to remove $tempDir. Please do it manually");
+    }
+  };
+
+
+  my $backupDir = $self->backupDir();
+  my @dfOutput = `/bin/df $backupDir`;
+  my @dfData   = split '\s+', $dfOutput[1];
+  $freeSpace = $dfData[3];
+
+  if ($freeSpace < $size) {
+    throw EBox::Exceptions::External(__x("There in not enough space left in the hard disk to complete the backup proccess. {size} Kb required. Free sufficient space and retry", size => $size));
+  }
+
+} 
+
 
 sub writeBackupToDisc
 {
@@ -674,6 +728,7 @@ sub restoreBackup # (file)
   my ($self, $file, %options) = @_;
   exists $options{fullRestore}  or $options{fullRestore} = 0;
 
+  $self->_checkSize($file);
   my $tempdir = $self->_unpackAndVerify($file, $options{fullRestore});
 
   try {

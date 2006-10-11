@@ -133,7 +133,7 @@ sub restoreFromDiscAction
   defined $backupfileInfo or throw EBox::Exceptions::External(__('Unable to find a correct backup disc. Please insert a backup disk and retry')); # XXX TODO: discriminate between no disc and disc with no backup
   
 
-  my $details =  $backup->backupDetailsFromFile($backupfileInfo->{file});
+  my $details =  $backup->backupDetailsFromArchive($backupfileInfo->{file});
 
   $self->{msg} = __('Please confirm that you want to restore the configuration from this backup disk:');
 
@@ -164,7 +164,7 @@ sub  restoreFromFileAction
   close $fh;
   close $upfile;
 
-  my $details = $backup->backupDetailsFromFile($filename);
+  my $details = $backup->backupDetailsFromArchive($filename);
 
   $self->{msg} = __('Please confirm that you want to restore the configuration from this backup file:');
 
