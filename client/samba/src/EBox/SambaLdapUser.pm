@@ -29,7 +29,6 @@ use EBox::Exceptions::DataMissing;
 use EBox::Gettext;
 
 
-
 use Crypt::SmbHash qw(nthash ntlmgen);
 
 # LDAP schema
@@ -480,16 +479,18 @@ sub  sharingName($$) {
 
 # Sets the name for a sharing resource in a group
 sub setSharingName($$$) {
-	my $self  = shift;
-	my $group = shift;
-	my $name  = shift;
-	
+        my ($self, $group, $name)  = @_;
+          	
 	my $users = EBox::Global->modInstance('users');
 
 	unless ($users->groupExists($group)) {
                 throw EBox::Exceptions::DataNotFound('data' => __('group name'),
                                                      'value' => $group);
         }
+
+       if ((not defined $name) or ( $name =~ /^\s*$/)) {
+	 throw EBox::Exceptions::External(__("The share's name is empty"));
+       }
 	
 	my $oldname = $self->sharingName($group);
 	return if ($oldname and $oldname eq $name);
