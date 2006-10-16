@@ -80,9 +80,9 @@ sub setUpCanaries : Test(setup)
 {
   my ($self) = @_;
 
-  $self->setupGConfCanary();
-  $self->setupExtendedCanary();
-  $self->setupMixedConfCanary();
+  setupGConfCanary();
+  setupExtendedCanary();
+  setupMixedConfCanary();
 }
 
 
@@ -123,7 +123,7 @@ sub setupExtendedCanary
 
 sub setupMixedConfCanary
 {
-  my ($self) = @_;
+
 
  fakeEBoxModule(
 		 name => 'canaryMixedConf',
