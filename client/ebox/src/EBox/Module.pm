@@ -192,12 +192,12 @@ sub stopService
 sub makeBackup # (dir, %options) 
 {
   my ($self, $dir, %options) = @_;
+  my $backupDir = $self->createBackupDir($dir);
+
+  $self->aroundDumpConfig($backupDir);
+
   if ($self->can('extendedBackup') and $options{fullBackup}) {
-    my $backupDir = $self->_setupExtendedBackup($dir);
-    $self->extendedBackup(dir => $backupDir, %options);
-  }
-  else {
-    $self->dumpConfig($dir);	  
+    $self->_bootstrapExtendedBackup($backupDir, %options);
   }
 
 }
@@ -228,22 +228,16 @@ sub createBackupDir
   return $backupDir;
 }
 
-sub _setupExtendedBackup
+sub _bootstrapExtendedBackup
 {
-  my ($self, $dir) = @_;
-  my $name      = $self->name();
-
-  my $backupDir = $self->createBackupDir($dir);
-
-  # save basic conf
-  $self->dumpConfig($backupDir);
+  my ($self, $dir, %options) = @_;
 
   # save version
   if ($self->can('version')) {
-    $self->_dump_version($backupDir);
+    $self->_dump_version($dir);
   }
 
-  return $backupDir;
+  $self->extendedBackup(dir => $dir, %options);
 }
 
 
@@ -264,20 +258,17 @@ sub restoreBackup # (dir, %options)
 {
   my ($self, $dir, %options) = @_;
   
-  my $bakFile = $self->_bak_file_from_dir($dir);
-  if (-d $bakFile) {
-    $self->restoreConfig($bakFile);
+  my $backupDir = $self->backupDir($dir);
+  (-d $backupDir) or throw EBox::Exceptions::Internal("$backupDir must be a directory");
 
-    if ($options{fullRestore} and $self->can('extendedRestore')) {
-      $self->_bootstrap_extended_restore($bakFile, %options);
-    }
-  }
-  else {
-    $self->restoreConfig($dir);    
+  $self->aroundRestoreConfig($backupDir);
+
+  if ($options{fullRestore} and $self->can('extendedRestore')) {
+    $self->_bootstrapExtendedRestore($backupDir, %options);
   }
 }
 
-sub _bootstrap_extended_restore
+sub _bootstrapExtendedRestore
 {
   my ($self, $dir, @options) = @_;
 
@@ -320,6 +311,16 @@ sub dumpConfig
   my ($self, $dir) = @_;
 }
 
+
+
+# wraps the dumpConfig call; the purpose of this sub is to allow specila types of modules (GConfModule p.e) to call another method alongside with dumConfig transparently
+# normally ebox modules does not need to override this
+sub aroundDumpConfig
+{
+  my ($self, $dir) = @_;
+  $self->dumpConfig($dir);
+}
+
 # this must be override to restore the configuration from the files in dir(files produced with dumpConfig)
 # default implementation: does nothing
 
@@ -328,6 +329,14 @@ sub restoreConfig
   my ($self, $dir) = @_;
 }
 
+
+# wraps the restoreConfig call; the purpose of this sub is to allow specila types of modules (GConfModule p.e) to call another method alongside with restoreConfig transparently
+# normally ebox modules does not need to override this
+sub aroundRestoreConfig
+{
+  my ($self, $dir) = @_;
+  $self->restoreConfig($dir);
+}
 #
 # Method: name 
 #

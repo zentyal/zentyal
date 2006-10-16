@@ -78,31 +78,37 @@ sub _state
 }
 
 
-sub restoreConfig
+# we override aroundRestoreconfig to save gconf data before dump module config
+sub aroundRestoreConfig
 {
   my ($self, $dir) = @_;
-  $self->_load_from_file($dir);
+  $self->_load_from_file($dir);  
+  $self->restoreConfig($dir);     
 }
+
 
 sub _load_from_file # (dir?, key?) 
 {
-	my ($self, $dir, $key) = @_;
-	($dir) or $dir = EBox::Config::conf;
+  my ($self, $dir, $key) = @_;
+  ($dir) or $dir = EBox::Config::conf;
 
-	my $file =  $self->_bak_file_from_dir($dir);
-	-f $file or throw EBox::Exceptions::Internal("Backup file missing: ".
-							"$file.");
-	($key) or $key = $self->_key("");
-	$self->_delete_dir_internal($key);
-	`/usr/bin/gconftool --load=$file $key` and
-		throw EBox::Exceptions::Internal("Error while restoring " .
-						 "configuration from $file");
+  my $file =  $self->_bak_file_from_dir($dir);
+  -f $file or throw EBox::Exceptions::Internal("Backup file missing: ".
+					       "$file.");
+  ($key) or $key = $self->_key("");
+  $self->_delete_dir_internal($key);
+  `/usr/bin/gconftool --load=$file $key` and
+    throw EBox::Exceptions::Internal("Error while restoring " .
+				     "configuration from $file");
 }
 
-sub dumpConfig
+
+# we override aroundDumpConfig to save gconf data before dump module config
+sub aroundDumpConfig
 {
   my ($self, $dir) = @_;
-  $self->_dump_to_file($dir);
+  $self->_dump_to_file($dir);  
+  $self->dumpConfig($dir);     
 }
 
 sub _dump_to_file # (dir?) 
