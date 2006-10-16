@@ -887,18 +887,13 @@ sub dumpConfig
 {
   my ($self, $dir) = @_;
 
-  # make sure that will be dumping our configuration in the backup dir
-  my $backupDir = $self->createBackupDir($dir) ;     
-
-  EBox::GConfModule::dumpConfig($self, $backupDir);
-  $self->_dumpSharesTree($backupDir);
+  $self->_dumpSharesTree($dir);
 }
 
 sub restoreConfig
 {
   my ($self, $dir) = @_;
 
-  EBox::GConfModule::restoreConfig($self, $dir);
   $self->_loadSharesTree($dir);
 }
 
