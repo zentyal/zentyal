@@ -31,6 +31,7 @@ sub sizeForMedia
 sub media
 {
   my ($dev) = @_;
+  defined  $dev or throw EBox::Exceptions::Internal("device parameter not found");
 
   my $info;
   $info = infoFromDvdMediaInfo($dev);
@@ -82,7 +83,7 @@ sub infoFromCdrdao
 {
   my ($dev) = @_;
 
-  my $diskInfoCmd = "$EBox::Backup::RootCommands::CDRDAO_PATH disk-info device=$dev";
+  my $diskInfoCmd = "$EBox::Backup::RootCommands::CDRDAO_PATH disk-info --device $dev";
   my @output = @{ EBox::Sudo::rootWithoutException($diskInfoCmd) };
 
   if (grep { m/Unit not ready/ } @output) {
@@ -91,7 +92,7 @@ sub infoFromCdrdao
 
   my $parseResults_r = _parseOutput(\@output, 'CD-RW', 'CD-R empty');
   if (!defined $parseResults_r) {
-    EBox::error("Error in infoFromCdrdao. crdao output:\n @output" );
+    EBox::error("Error in infoFromCdrdao. \ncdrdao command: $diskInfoCmd \ncrdao output:\n @output" );
     throw EBox::Exceptions::External(__('Unable to recognize the mounted CD media'));
   } 
 
