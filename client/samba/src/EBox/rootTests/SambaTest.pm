@@ -7,12 +7,9 @@ use base 'Test::Class';
 
 use File::Path;
 use File::stat;
-use File::Slurp::Tree;
 use Test::More;
 use Test::Exception;
-
-
-use lib '../..';
+use Test::File;
 
 use EBox::Samba;
 use EBox::Test;
@@ -50,14 +47,23 @@ sub setupTestDir : Test(startup)
 
 
 
-
-
-sub teardownTestUser : Test(teardown)
+sub _removeTestUser
 {
   my $users = EBox::Global->modInstance('users');
   if ($users->userExists($TEST_USER)) {
     $users->delUser($TEST_USER);
   }
+  EBox::Sudo::root("/bin/rm -rf /home/samba/users/$TEST_USER");
+}
+
+sub teardownTestUser : Test(teardown)
+{
+  _removeTestUser();
+}
+
+sub setupTestUser : Test(setup)
+{
+  _removeTestUser();
 }
 
 
@@ -78,7 +84,8 @@ sub configBackupTest : Test(8)
   $samba->setFileService(1);
   $users->addUser({user => $TEST_USER, fullname => 'aa', password => 'a', comment => 'a'});
   my $homedir = $users->userInfo($TEST_USER)->{homeDirectory};
-  my $homedirStat = stat $homedir;
+  my $homedirStat = stat($homedir);
+  defined $homedirStat or die "Can not get stat object for $homedir";
 
   lives_ok { $samba->makeBackup($CONFIG_BACKUP_DIR) } 'Config backup';
   ok !( -f "$CONFIG_BACKUP_DIR/samba.bak"), 'Checking that configuration data is not stored in the backup root dir';
@@ -92,13 +99,7 @@ sub configBackupTest : Test(8)
 
   ok $samba->fileService(), 'Checking that file service was restored';
 
-  ok -d $homedir, 'Checking if homedir was restored';
-  my $newHomedirStat = stat $homedir;
-  foreach (qw(uid gid mode)) {
-    is $newHomedirStat->$_, $homedirStat->$_, "Checking restored $_";
-  }
-
-
+  _checkRestoredDir($homedir, $homedirStat);
 }
 
 
@@ -118,8 +119,7 @@ sub fullBackupTest : Test(7)
   $samba->setFileService(1);
   $users->addUser({user => $TEST_USER, fullname => 'aa', password => 'a', comment => 'a'});
   my $homedir = $users->userInfo($TEST_USER)->{homeDirectory};
-  my $homedirStat = stat $homedir;
-#  writeFileTree($homedir);
+  my $homedirStat = stat($homedir);
   
   lives_ok { $samba->makeBackup($FULL_BACKUP_DIR, fullBackup => 1) } 'Full backup';
 
@@ -128,42 +128,80 @@ sub fullBackupTest : Test(7)
   EBox::Sudo::root("/bin/rm -rf $homedir");
   (! -e $homedir) or die 'homedir not removed' ;
 
-  lives_ok { $samba->restoreBackup($FULL_BACKUP_DIR, fullBackup => 1) } 'Full restore';
+  lives_ok { $samba->restoreBackup($FULL_BACKUP_DIR, fullRestore => 1) } 'Full restore';
 
   # check restored stuff
   ok $samba->fileService(), 'Checking that file service was restored';
 
-  ok -d $homedir, 'Checking if homedir was restored';
-  my $newHomedirStat = stat $homedir;
-  foreach (qw(uid gid mode)) {
-    is $newHomedirStat->$_, $homedirStat->$_, "Checking restored $_";
+  _checkRestoredDir($homedir, $homedirStat);
+}
+
+sub leftoversWithConfigurationBackupTest : Test(11)
+{
+  _leftoversTest(0);
+}
+
+
+sub leftoversWithFullBackupTest   : Test(11)
+{
+  _leftoversTest(1);
+}
+
+
+# that counts for 4 checks
+sub _checkRestoredDir
+{
+  my ($dir, $previousStat) = @_;
+
+  my $newStat = EBox::Sudo::stat($dir);
+  ok $newStat,  'Checking if dir was restored';
+ SKIP: {
+    skip 3, "Dir not restored so we don't test ownership and permissions" unless defined $newStat;
+
+    foreach (qw(uid gid mode)) {
+      is $newStat->$_, $previousStat->$_, "Checking restored $_";
+    }
   }
-#  checkFileTree($homedir);
 }
 
-
-
-
-Readonly::Scalar my $REF_DIR =>  '..';
-
-
-sub writeFileTree
+# this counts for 11 tests
+sub _leftoversTest 
 {
-  my ($dir) = @_;
+  my ($fullBackup) = @_;
+  my $samba = EBox::Global->modInstance('samba');
+  my $users = EBox::Global->modInstance('users');
+  
+  lives_ok { $samba->makeBackup($FULL_BACKUP_DIR, fullBackup => 1) } 'Full backup';
 
-  my $tree = File::Slurp::Tree::slurp_tree($REF_DIR);
-  File::Slurp::Tree::spew_tree($dir => $tree);
+  # add user after backup
+  $users->addUser({user => $TEST_USER, fullname => 'aa', password => 'a', comment => 'a'});
+  my $homedir = $users->userInfo($TEST_USER)->{homeDirectory};
+  my $homedirFile = "$homedir/canary";
+  EBox::Sudo::root("/bin/touch $homedirFile");
+
+  lives_ok { $samba->restoreBackup($FULL_BACKUP_DIR, fullBackup => 1) } 'Full restore';
+
+  ok !(-d $homedir), 'Checking if homedir was not left in his previous place';
+  
+  my $leftoverDir = $samba->leftoversDir() . '/' . File::Path::basename($homedir);
+  ok -d $leftoverDir, 'Checking if homedir was moved to leftover dir';
+  owner_is ($leftoverDir, 'root', 'Checking that leftover dir is owned by root');
+  group_is($leftoverDir, 'root', 'Checking that leftover dir is owned by root group');
+  file_mode_is($leftoverDir, oct 700, 'Checking that leftover dir has restrictive permissions');
+  
+  my $stat = EBox::Sudo::stat($leftoverDir . '/canary');
+  ok $stat, 'Checking that canary file was not lost';
+ SKIP:{
+    skip 3, "Canary file lost so ownership and permissions tests skipped" unless defined $stat;
+    is $stat->{uid}, 0, 'Checking that file now is owner by root';
+    is $stat->{gid}, 0, 'Checking that file now is owner by root group';
+  
+    my $permissions = EBox::FileSystem::permissionsFromStat($stat);
+    is $permissions, oct 500, 'Checking that canary file has restricitive permissions';
+  }
 }
 
-sub checkFileTree
-{
-  my ($dir) = @_;
 
-  my $expected = File::Slurp::Tree::slurp_tree($REF_DIR);
-  my $actual = File::Slurp::Tree::slurp_tree($REF_DIR);
-
-  is_deeply $actual, $expected, "Checking file tree rooted a $dir";
-}
 
 
 1;
