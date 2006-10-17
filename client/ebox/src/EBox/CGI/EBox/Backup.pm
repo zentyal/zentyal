@@ -65,6 +65,10 @@ sub requiredParameters
   elsif ($self->param('backupToDisc')) {
     return [qw(backupToDisc description mode)];
   }
+  elsif ($self->param('bugreport')) {
+    return [qw(bugreport )];
+  }
+
   elsif ($self->param('restoreFromFile')) {
     return [qw(restoreFromFile backupfile mode)];
   }
