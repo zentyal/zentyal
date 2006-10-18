@@ -301,6 +301,11 @@ sub _bak_file_from_dir
 }
 
 
+sub restoreDependencies
+{
+  my ($self) = @_;
+  return [];
+}
 
 # override dumpConfig and restoreConfig to do backups properly
 

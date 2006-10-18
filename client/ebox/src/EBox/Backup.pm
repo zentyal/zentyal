@@ -32,6 +32,7 @@ use Digest::MD5;
 use EBox::Sudo qw(:all);
 use POSIX qw(strftime);
 use DirHandle;
+use Perl6::Junction qw(any);
 use EBox::Backup::FileBurner;
 use EBox::Backup::OpticalDiscDrives;
 
@@ -282,6 +283,7 @@ sub _bug # (dir)
 #
 #       A hash reference with the details. This hash consists of:
 #	
+#       file - the filename of the archive
 #	id - backup's identifier
 #	date - when it was backed up
 #	description - backup's description
@@ -299,6 +301,28 @@ sub backupDetails # (id)
   return $details;
 }
 
+#
+# Method: backupDiscDetails
+#
+#      Gathers the details from a backup stored in a CD-ROM or DVD-ROM.
+#
+# Limitations:
+#       It is assumed that is only a backup file per disc. If there are multiple disc with backups wich one is selected is not defined
+#
+# Parameters:
+#
+#       
+#
+# Returns:
+#
+#       A hash reference with the details. This hash consists of:
+#	
+#       file - the filename of the archive
+#	date - when it was backed up
+#	description - backup's description
+#       disc - boolean that marks whether the file is into a optical disc or not
+#   	
+#
 sub backupDiscDetails
 {
   my ($self) = @_;
@@ -314,6 +338,23 @@ sub backupDiscDetails
   return $details;
 }
 
+#
+# Method: backupDetailsFromArchive
+#
+#      Gathers the details of the bckup stored in a given file
+#
+#
+# Parameters:
+#       archive - the path to the archive file
+#       
+#
+# Returns:
+#
+#       A hash reference with the details. This hash consists of:
+#	
+#       file - the filename of the archive
+#	date - when it was backed up
+#	description - backup's description
 
 sub backupDetailsFromArchive
 {
@@ -405,6 +446,7 @@ sub deleteBackup # (id)
 	}
 }
 
+
 #
 # Method: listBackups 
 #
@@ -449,7 +491,13 @@ sub listBackups
 	return \@ret;
 }
 
-
+#
+# Method: backupDir  # XXX this not a method
+#
+# Returns: 
+#       the directory used by ebox to store the backup archives 
+#
+# 
 sub backupDir
 {
   my $backupdir = EBox::Config::conf . '/backups';
@@ -463,9 +511,6 @@ sub backupDir
 #
 # Parameters:
 #
-#       description - backup's description (backwards compability mode)
-#       --OR--
-#       options     - options lists
 #                   description - backup's description (backwards compability mode)
 #                   fullBackup  - wether do a full backup or  backup only configuration (default: false)
 #                   directlyToDisc      - burn directly to Cd the backup and do not store it in the filesystem (default: false)
@@ -692,7 +737,15 @@ sub  _checkSize
 
 } 
 
-
+#
+# Method: writeBackupToDisc
+#
+#    writes the archive to a optical disc. The writer device is chosen automatically. The media is also auto-detected
+#
+# Parameters:
+# 
+#    id - the id of the archive file
+#
 sub writeBackupToDisc
 {
   my ($self, $id) = @_;
@@ -721,9 +774,8 @@ sub writeBackupToDisc
 #
 # Parameters:
 #
-#       file - backup's file
-#       options 
-#                   fullRestore  - wether do a full restore or  restore only configuration (default: false)
+#       file - backup's file (as positional parameter)
+#       fullRestore  - wether do a full restore or  restore only configuration (default: false)
 #
 # Exceptions:
 #	
@@ -744,29 +796,26 @@ sub restoreBackup # (file)
 				       __('Could not unpack the backup'));
     }
 
-    my $global = EBox::Global->getInstance();
-    my @names = grep { $_ ne 'global' }  @{$global->modNames};
-    push @names, 'global'; # remember that global can change as result of restore!. So we will put it in last place
-    my @modules =  grep { $_ ne 'global' } @{$global->modInstances};   
+    my @modules  = @{ $self->_modInstancesForRestore() };
     my @restored = ();
     try {
-      foreach my $modname (@names) {
-	my $mod = $global->modInstance($modname);
-	
+      foreach my $mod (@modules) {
+	my $modname = $mod->name();
 	if (-e "$tempdir/eboxbackup/$modname.bak") {
 	  push @restored, $modname;
 	  EBox::debug("Restoring $modname form backup data");
 	  $mod->restoreBackup("$tempdir/eboxbackup", %options);
 	}
+	else {
+	  EBox::error("Restore data not found for module $modname. Skipping $modname restore");
+	}
       }
-
-
     } 
     otherwise {
       my $ex = shift;
       EBox::debug('Error caught: revoking restore');
       foreach my $restname (@restored) {
-	my $restmod = $global->modInstance($restname);
+	my $restmod = EBox::Global->modInstance($restname);
 	$restmod->revokeConfig();
 	EBox::debug("Revoked changes in $restname module");
       }
@@ -782,11 +831,83 @@ sub restoreBackup # (file)
 }
 
 
+# XXX: bug indirect recursive dependencies are not handled
+sub _modInstancesForRestore
+{
+  my ($self) = @_;
+  my $global = EBox::Global->getInstance();
 
+  my @modules   =  grep { $_->name ne 'global' } @{$global->modInstances};   
+  my $anyModulesName = any( map {$_->name()}   @modules);
+
+  my %anyDependencyByModule;
+
+  foreach my $mod (@modules) {
+    my @dependencies = @{$mod->restoreDependencies};
+
+    # check if we have all the dependencies resolved for this modules
+    my $dependenciesResolved = 1;
+    foreach my $dep (@dependencies) {
+      if (not($dep eq $anyModulesName)) {
+	EBox::error("Unresolved restore dependency of module " . $mod->name() . ": $dep not found." . $mod->name() . " will not be restored"  );
+	$dependenciesResolved = 0;
+	last;
+      }
+      elsif ($dep eq $mod->name) {
+	EBox::error($mod->name() . ' depends on it self. Maybe something is wrong in _modInstancesForRestore method?. ' . $mod->name . ' will not be resoted');
+	$dependenciesResolved = 0;
+	last;
+      }
+    }
+    
+    $dependenciesResolved or next;
+    # store mod dependencies for quick access 
+    $anyDependencyByModule{$mod} = any(@dependencies);
+  }
+
+  # we discard modules with unresolved dependencies
+  @modules = grep { exists $anyDependencyByModule{$_} } @modules;
+
+  # we sort the modules list with a restore-safe order
+  @modules = sort {
+    my $aDepends =  ($anyDependencyByModule{$a} eq $b->name()) ? 1 : 0;
+    my $bDepends =  ($anyDependencyByModule{$b} eq $a->name()) ? 1 : 0;
+    $aDepends and $bDepends and throws EBox::Exceptions::Internal('Recursive restore dependency found. Modules: ' . $a->name() . ' ' . $b->name() );
+    $aDepends <=> $bDepends;
+  } @modules;
+
+  push @modules, $global; # we resote global in last place to avoid possible problems 
+
+  return \@modules;
+}
+
+#
+# Method: searchBackupFileInDiscs
+#
+#    searches the CD and DVD disks for a archive file
+#
+# Returns:
+#      the path to the first file found or undef if none is found
+#   	
+# 
 sub searchBackupFileInDiscs
 {
   return EBox::Backup::OpticalDiscDrives::searchFileInDiscs($DISC_BACKUP_FILE);
 }
+
+#
+# Method: restoreBackupFromDisc
+#
+#      restores from a DVD or CD-ROM disk
+#
+# Limitation:
+#
+#   if we have multiples backups in differents disks or in the same disk, we don't know beforehand wich one will be used
+#
+# Parameters:
+#
+#       fullRestore  - wether do a full restore or  restore only configuration (default: false)
+#       
 
 sub restoreBackupFromDisc
 {

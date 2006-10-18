@@ -23,11 +23,12 @@ use base 'EBox::Test::Class';
 use Test::MockObject;
 use Test::More;
 use Test::Exception;
+use Test::Differences;
 use EBox::Test qw(checkModuleInstantiation fakeEBoxModule);
 use EBox::Gettext;
 use File::Slurp qw(read_file write_file);
 use EBox::FileSystem qw(makePrivateDir);
-
+use Perl6::Junction qw(all);
 
 use Readonly;
 Readonly::Scalar my $GCONF_CANARY_KEY => '/ebox/modules/canaryGConf/canary';
@@ -253,6 +254,7 @@ sub checkMixedConfCanary
 }
 
 
+
 sub teardownGConfCanary : Test(teardown)
 {
   my $client = Gnome2::GConf::Client->get_default;
@@ -264,8 +266,6 @@ sub teardownGConfCanary : Test(teardown)
 sub teardownCanaryModule : Test(teardown)
 {
   my ($self) = @_;
-  delete $self->{cachedBH}; #delete cached backupHelper
-
   EBox::Test::setConfig(); 
 }
 
@@ -409,5 +409,113 @@ sub listBackupsTest : Test(5)
   
 }
 
+
+
+sub modInstancesForRestoreTest : Test(19)
+{
+  # straight cases
+  teardownCanaryModule();
+  teardownGConfCanary();
+  
+  _checkModInstancesForRestore( 'with only global module');
+
+  fakeEBoxModule(
+		 name => 'nodeps'
+		);
+  fakeEBoxModule(
+		 name => 'nodeps2',
+		);
+  fakeEBoxModule(
+		 name => 'nodeps3',
+		);
+  _checkModInstancesForRestore( 'with three independent modules');
+  
+  fakeEBoxModule(
+		 name => 'dependsOnNodeps',
+		 subs => [
+			  restoreDependencies => sub { return ['nodeps'] }
+			 ],
+		);
+  _checkModInstancesForRestore( 'with one dpeendent module');
+
+  fakeEBoxModule(
+		 name => 'doubleDependency',
+		 subs => [
+			  restoreDependencies => sub { return ['nodeps', 'dependsOnNodeps'] },
+			 ],
+		);
+  _checkModInstancesForRestore( 'with two dependent modules one of them with doble dependency');
+
+
+  fakeEBoxModule(
+		 name => 'deviant',
+		 subs => [
+			  restoreDependencies => sub {  return ['inexistent']  }
+			 ]
+		);
+    _checkModInstancesForRestore('with a module with unresolved dependency', excluded => ['deviant']);
+
+  fakeEBoxModule(
+		 name => 'deviant',
+		 subs => [
+			  restoreDependencies => sub {  return ['deviant']  }
+			 ]
+		);
+    _checkModInstancesForRestore('with a module with depends on itself', excluded => ['deviant']);
+
+  
+  fakeEBoxModule(
+		 name => 'deviant',
+		 subs => [
+			  restoreDependencies => sub {  return ['deviantRecursive']  }
+			 ]
+		) ;
+  fakeEBoxModule(
+		 name => 'deviantRecursive',
+		 subs => [
+			  restoreDependencies => sub {  return ['deviant']  }
+			 ]
+		) ;
+  my $backup = new EBox::Backup;
+  dies_ok { $backup->_modInstancesForRestore() } 'Checking that simple recursive dependencies raises error';
+}
+
+
+
+sub _checkModInstancesForRestore
+{
+  my ($caseName, %options) = @_;
+  my $backup = new EBox::Backup;
+
+  my @mods = @{ $backup->_modInstancesForRestore() };
+  if (exists $options{excluded}) {
+    my $allModsNames = all( map { $_->name() }  @mods );
+    foreach my $excluded (@{ $options{excluded} } ) {
+      ok $excluded ne $allModsNames, "Checking that module $excluded was excluded by _modInstancesForRestore. Case: $caseName";
+    }
+  }
+	
+  my $lastMod = pop @mods;
+  is $lastMod->name(), 'global', "Checking that _modInstancesForRestore returns global in last place. Case: $caseName";
+  (@mods > 0) or return;
+  
+  foreach my $n (0 .. (@mods -1)) {
+    my $mod = $mods[$n];
+    my $name = $mod->name();
+    
+    my @deps = @{$mod->restoreDependencies()};
+
+    if (@deps and $n == 0) {
+      fail "_modInstancesForRestore incorrectly returned in first place module $name wich has dependencies. Case: $caseName";
+    }
+    foreach my $dep (@deps)  {
+      my @beforeMods =   map {  $_->name() }  @mods[0 .. $n];
+      my $depBeforeMod =  grep { $_ eq $dep } @beforeMods;
+      ok $depBeforeMod, "Checking if module $name is placed after his dependency $dep. Case: $caseName";
+    }
+  }
+
+
+}
 
 1;
