@@ -98,11 +98,12 @@ sub _selectByCapability
   return @selectedDevices;
 }
 
-
+# we assume that DVD-R capable are also DVD-RW capable (limitation found in cdrom/info file)
 sub  allowedMedia
 {
   my @media;
   push @media, 'DVD-R' if writersForDVD() > 0;
+  push @media, 'DVD-RW' if writersForDVD() > 0;
   push @media, 'CD-R' if writersForCDR() > 0;
   push @media, 'CD-RW' if writersForCDRW() > 0;
 
@@ -110,8 +111,26 @@ sub  allowedMedia
 }
  
 
-# we searh only in optical disc drives that are user mountable
-# the file is relative to the mount point of the device as are found in fstab
+
+
+#
+# Function: searchFileInDiscs
+#
+#   	Search a file in the optical drive's disks. If the file is in a unmounted disk, the disk will be mounted and it is developer responsability to unmount it when appropiate.
+#
+# Parameters:
+#
+#    file - target file name, relative to the mount point of the disk's file system
+#
+# Returns:
+#	A hash that contains the following keys:
+#         file   - path to the file
+#         device - the device file of the drive that has the disc where the file resides
+#
+# Limitations:
+#      we search only in optical disc drives that are user mountable
+#      if there are various drives and discs with the target file name, only one of them will be chosen. The choose criteria es undefined.
+# 
 sub searchFileInDiscs
 {
   my ($file) = @_;
@@ -155,6 +174,20 @@ sub searchFileInDiscs
   return undef;
 }
 
+
+#
+# Function: ejectDisc
+#
+#   	tries to eject the disc from the device	
+#
+# Parameters:
+#
+#   $device - device file for the drive
+#
+# Returns:
+#	
+#   true if the operation was successful, false if the operation failed
+# 
 sub ejectDisc
 {
     my ($device) = @_;
