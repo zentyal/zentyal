@@ -15,6 +15,16 @@ use File::stat;
 use Readonly;
 Readonly::Scalar my $MTAB_PATH=>'/etc/mtab';
 
+#
+# Function: burn
+#
+#  writes a file in a optical disc. after 
+#
+# Parameters:
+#
+#   file - file to write in the disc. Mandatory
+#   device - device file of the recorder to use for writing. Optional. If not supplied we will try to choose the recorder available. We use as criteria the number of format the writer can use as proxy for quality
+#
 sub burn
 {
   my %params = @_;
@@ -46,7 +56,16 @@ sub burn
   EBox::Backup::OpticalDiscDrives::ejectDisc($device);
 }
 
-# see #158 for possible problems
+#
+# Function: burningAvailable
+#
+#  Check if we have CD/DVD recorders available
+#
+# Returns:
+#        wether burning capabilities are availble or not	
+#
+#  Limitations:
+#     see #158 for possible problems
 sub burningAvailable
 {
   my %info = %{EBox::Backup::OpticalDiscDrives::info() };
@@ -231,9 +250,19 @@ sub _deviceForCdrecord
   return $device;
 }
 
+#
+# Function: blankMedia
+#
+#   	blanks the optical media	
+#
+# Parameters:
+#
+#  $device - device file of the recorder drive
+#  $media  - media type of the will-be blanked disc
+#
 sub blankMedia
 {
-  my ($device, $media, $writable) = @_;
+  my ($device, $media) = @_;
 
   my $command;
   if ($media eq  'CD-RW') {
@@ -249,7 +278,23 @@ sub blankMedia
   EBox::Sudo::root($command);
 }
 
-
+#
+# Function: burnMedia
+#
+#   begins the burning process	
+#
+# Parameters:
+#
+#  $device - device file of the recorder drive
+#  $media  - media type of the will-be blanked disc
+#  $target - target of the burning process 
+#
+#
+# Limitations:
+#	this function is not intended to be called for the user, use burn instead
+#
+# See also:
+#   burn
 sub burnMedia
 {
   my ($target, $device, $media) = @_;

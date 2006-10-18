@@ -14,7 +14,15 @@ Readonly::Scalar my $CDROM_INFO_PATH => '/proc/sys/dev/cdrom/info';
 Readonly::Scalar my $FSTAB_PATH      => '/etc/fstab';
 Readonly::Scalar my $MTAB_PATH      => '/etc/mtab';
 
-
+#
+# Function: info
+#
+#   Gets data for optical drivers from /proc/sys/dev/cdrom/info
+#
+# Returns:
+#	- A hash with has the device files of the drives as keys and a anonymous hash with information about the drive. The keys and values of the last hash are the same that would be found in /proc/sys/dev/cdrom/info
+#
+# 
 sub info
 {
   if (! -e $CDROM_INFO_PATH) {
@@ -59,24 +67,45 @@ sub info
   return \%info;
 }
 
-
+#
+# Function: writersForDVDR
+#
+# Returns:
+#	- list with the device files of the drivers capable of writing DVD-R
 sub writersForDVDR
 {
   return _selectByCapability('Can write DVD-R');
 }
 
-
-# we assume that DVD-R capable are also DVD-RW capable (limitation found in cdrom/info file)
+#
+# Function: writersForDVDRW
+#
+# Returns:
+#	- list with the device files of the drivers capable of writing DVD-RW
+#
+#  Limitation:
+#         we assume that DVD-R capable are also DVD-RW capable (limitation found in cdrom/info file)
 sub writersForDVDRW
 {
   return _selectByCapability('Can write DVD-R');
 }
 
+#
+# Function: writersForCDR
+#
+# Returns:
+#	- list with the device files of the drivers capable of writing CD-R
+#
 sub writersForCDR
 {
   return _selectByCapability('Can write CD-R');
 }
 
+#
+# Function: writersForCDRW
+#
+# Returns:
+#	- list with the device files of the drivers capable of writing CD-RW
 sub writersForCDRW
 {
   return _selectByCapability('Can write CD-RW');
@@ -98,7 +127,18 @@ sub _selectByCapability
   return @selectedDevices;
 }
 
-# we assume that DVD-R capable are also DVD-RW capable (limitation found in cdrom/info file)
+
+#
+# Function:  allowedMedia
+#
+#    returns the types of optical media witch the drives installed in the computer can write   		
+#
+# Returns:
+#	
+#    list with the types of media allowed
+#
+#  Limitations:
+#     we assume that DVD-R capable are also DVD-RW capable (limitation found in cdrom/info file)
 sub  allowedMedia
 {
   my @media;

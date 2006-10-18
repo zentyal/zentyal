@@ -12,7 +12,23 @@ Readonly::Scalar my $CD_SIZE   => 681000000; # we assume 650Mb instead 700 to er
 Readonly::Scalar my $DVD_SIZE  => 4380000000; # likewise we assume 4.38 GiB
 
 
-
+#
+# Function: sizeForMedia
+#
+#   	This function returns the maximum capacity of a media of this type. Now we can write on empty discs so this wil be return the space availble on the disc	
+#
+# Parameters:
+#
+#    media - media type. (CD-R, CD-RW, DVD-R or DVD-RW)
+#
+# Returns:
+#	
+#   the maximum capacity of a media of this type
+# 
+# Exceptions:
+#   
+#        Internal - unknow media type
+#
 sub sizeForMedia
 {
   my ($media) = @_;
@@ -23,11 +39,21 @@ sub sizeForMedia
   throw EBox::Exceptions::Internal("Incorrect media or size data unknown: $media");
 }
 
-# return hash with:
-#   media: media name or 'no_disc' if device is empty. 
-#   writable              if disc is writable (not full)
-#  may throw exception upon error
-# XXX: TODO discriminate between closed and appendable discs
+
+#
+# Function: media
+#
+#  Parameters:
+#
+#   dev - device file of the CD/DVD writer drive
+#
+#  Returns:
+#     hash with the following fields:
+#     media     - media name or 'no_disc' if device is empty. 
+#    writable  - if disc is writable (not full)
+#
+# todo:
+#  discriminate between closed and appendable discs
 sub media
 {
   my ($dev) = @_;
@@ -42,7 +68,15 @@ sub media
 
 }
 
-
+#
+# Function: infoFromDvdMediaInfo
+#
+#   Used internally by media to get information about possible dvd disks		
+#
+# Parameters:
+#
+#  dev - the device file of the DVD writer drive
+#
 sub infoFromDvdMediaInfo
 {
   my ($dev) = @_;
@@ -78,7 +112,15 @@ sub infoFromDvdMediaInfo
   return {media => $media, writable => $writable};
 }
 
-
+#
+# Function: infoFromCdrdap
+#
+#   Used internally by media to get information about possible CD-ROM disks		
+#
+# Parameters:
+#
+#  dev - the device file of the CD-ROM writer drive
+#
 sub infoFromCdrdao
 {
   my ($dev) = @_;
