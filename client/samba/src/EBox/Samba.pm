@@ -40,7 +40,8 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Gettext;
 use File::Slurp qw(read_file write_file);
-
+use Perl6::Junction;
+use Error qw(:try);
 
 use constant SMBCONFFILE          => '/etc/samba/smb.conf';
 use constant LIBNSSLDAPFILE       => '/etc/libnss-ldap.conf';
@@ -211,39 +212,6 @@ sub menu
                                         'text' => __('File sharing')));
 }
 
-sub rootCommands 
-{
-	my $self = shift;
-	my @cmds = ();
-	push(@cmds, $self->rootCommandsForWriteConfFile(SMBCONFFILE));
-	push(@cmds, $self->rootCommandsForWriteConfFile(LIBNSSLDAPFILE));
-	push(@cmds, $self->rootCommandsForWriteConfFile(SMBLDAPTOOLBINDFILE));
-	push(@cmds, $self->rootCommandsForWriteConfFile(SMBLDAPTOOLCONFFILE));
-	push(@cmds, "/bin/mkdir " . USERSPATH . "/*");
-	push(@cmds, "/bin/chown * " . USERSPATH . "/*");
-	push(@cmds, "/bin/chmod * " . USERSPATH . "/*");
-	push(@cmds, "/bin/rm -rf " . USERSPATH. "/*");
-	push(@cmds, "/bin/mkdir " . GROUPSPATH . "/*");
-	push(@cmds, "/bin/chown * " . GROUPSPATH . "/*");
-	push(@cmds, "/bin/chmod * " . GROUPSPATH . "/*");
-	push(@cmds, "/bin/rm -rf " . GROUPSPATH. "/*");
-	push(@cmds, "/bin/mkdir " . PROFILESPATH . "/*");
-	push(@cmds, "/bin/chown * " . PROFILESPATH . "/*");
-	push(@cmds, "/bin/chmod * " . PROFILESPATH . "/*");
-	push(@cmds, "/bin/rm -rf " . PROFILESPATH. "/*");
-	push(@cmds, "/usr/sbin/setquota *");
-	push(@cmds, "/usr/sbin/smbldap-useradd *");
-	push(@cmds, "/usr/sbin/smbldap-userdel *");
-	push(@cmds, "/usr/sbin/smbldap-usermod *");
-	push(@cmds, "/usr/sbin/setquota *");
-
-	push @cmds, '/bin/tar';
-	push @cmds, '/bin/chown * *';
-	push @cmds, '/bin/mkdir -p  *';
-	push @cmds, EBox::Sudo::rootCommandForStat('*');
-
-	return @cmds;
-}
 
 #   Function: service
 #
@@ -895,9 +863,14 @@ sub restoreConfig
   my ($self, $dir) = @_;
 
   $self->_loadSharesTree($dir);
+  $self->_fixLeftoverSharedDirectories();
 }
 
-
+sub restoreDependencies
+{
+  my ($self) = @_;
+  return ['users'];
+}
 
 
 sub _dumpSharesTree
@@ -972,7 +945,11 @@ sub  _dumpSharesFiles
     my $tarCommand = "/bin/tar -cf $tarFile --bzip2 --atime-preserve --absolute-names --preserve --same-owner @dirs";
     EBox::Sudo::root($tarCommand);
   }
+
+
 } 
+
+
 
 
 sub  _loadSharesFiles
@@ -985,6 +962,8 @@ sub  _loadSharesFiles
     my $tarCommand = "/bin/tar -xf $tarFile --bzip2 --atime-preserve --absolute-names --preserve --same-owner";
     EBox::Sudo::root($tarCommand);
   }
+
+
 }
 
 
@@ -995,5 +974,81 @@ sub  _sharesFilesArchive
   return $archive;
 } 
 
+
+# we look for shared directories leftover from users and groups created between a backup and a recovery. We move them to a leftover directories so the data will be safe and retrevied by root
+# XXX fix this know limitations:
+#   - if already exists a directory it will be silently overwritten
+#   - it does not discriminate between users and groups with the same name, if we have both one of them will ve overwritten
+sub _fixLeftoverSharedDirectories
+{
+  my ($self) = @_;
+
+
+  my @leftovers = $self->_findLeftoverSharedDirectories();
+  my $leftoversDir = $self->leftoversDir();
+
+  if (!(defined EBox::Sudo::stat($leftoversDir))) {
+    EBox::Sudo::root("/bin/mkdir --mode=700 $leftoversDir");
+  }
+  
+  foreach my $leftover (@leftovers) {
+    my $chownCommand = "/bin/chown root.root -R $leftover";
+    EBox::Sudo::root($chownCommand);
+
+    my $chmodDirCommand = "/bin/chmod 755 $leftover";
+    EBox::Sudo::root($chmodDirCommand);
+
+    my $chmodFilesCommand = "/bin/chmod -R og-srwx  $leftover/*";
+    EBox::Sudo::root($chmodFilesCommand);
+
+    my $mvCommand = "/bin/mv -f $leftover $leftoversDir";
+    EBox::Sudo::root($mvCommand);
+    EBox::info("Moved leftover directory $leftover to $leftoversDir");
+  }
+}
+
+
+sub _findLeftoverSharedDirectories
+{
+  my ($self) = @_;
+
+  my $sambaLdapUser = new EBox::SambaLdapUser;
+
+  my @leftovers;
+  my $allShareDirs =  Perl6::Junction::all(@{ $sambaLdapUser->sharedDirectories() }) ;
+
+  my $usersDir =  $sambaLdapUser->usersPath();
+  push @leftovers, $self->_findLeftoversInDir($usersDir, $allShareDirs);
+
+  my $groupsDir = $sambaLdapUser->groupsPath();
+  push @leftovers, $self->_findLeftoversInDir($groupsDir, $allShareDirs);
+
+  EBox::info("Leftovers shared directories found: @leftovers") if @leftovers > 0;
+  return @leftovers;
+}
+
+
+sub _findLeftoversInDir
+{
+  my ($self, $dir, $allShareDirs) = @_;
+
+  my @candidateDirs;
+  try {
+    @candidateDirs = @{ EBox::Sudo::root("/usr/bin/find $dir/* -type d -maxdepth 0 2>&1") };
+  }
+  otherwise { # we catch this because find will be fail if aren't any subdirectories in $dir
+    return ();
+  };
+
+  chomp @candidateDirs;			
+
+  my @leftovers = grep { $_ ne $allShareDirs  } @candidateDirs;
+  return @leftovers;
+}
+
+sub leftoversDir
+{
+  return EBox::SambaLdapUser::basePath() . '/leftovers';
+}
 
 1;

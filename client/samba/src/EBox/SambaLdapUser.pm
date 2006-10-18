@@ -51,6 +51,7 @@ use constant USERSPATH 	       => BASEPATH . '/users';
 use constant GROUPSPATH	       => BASEPATH . '/groups';
 use constant PROFILESPATH      => BASEPATH . '/profiles';
 
+
 BEGIN 
 {
 	use Exporter ();
@@ -768,5 +769,21 @@ sub sharedDirectories
   return \@dirs;
 }
 
+
+sub basePath
+{
+  return BASEPATH;
+}
+
+sub  usersPath
+{
+  return USERSPATH;
+} 
+
+
+sub groupsPath
+{
+  return GROUPSPATH;
+}
 
 1;
