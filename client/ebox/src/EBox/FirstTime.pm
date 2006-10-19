@@ -6,7 +6,11 @@ use Gnome2::GConf;
 use EBox::Auth;
 use EBox::Gettext;
 
-
+#
+# Function:  isFirstTime
+#
+# Returns: wether we have to do the firstime tasks or not
+#	
 sub isFirstTime
 {
   my $client = Gnome2::GConf::Client->get_default;
@@ -14,6 +18,10 @@ sub isFirstTime
   return $ft;
 }
 
+#
+# Function:  removeFirstTimeMark
+#
+#  Mark the firsttime tasks as all done
 sub removeFirstTimeMark
 {
     my $client = Gnome2::GConf::Client->get_default;
@@ -21,6 +29,16 @@ sub removeFirstTimeMark
 }
 
 
+#
+# Function: tasks
+#
+# Returns: 
+#     a list with the first time tasks. Each task is reprented as a anonymous hash with the following keys
+#	 completed - wethet the task is aready done or not
+#        url       - url to the page wher will can complete the task
+#        desc      - user friendly task description
+#       completedCheck - (for internal usage)
+# 
 sub tasks
 {
   my @tasks = modulesTasks();
@@ -36,13 +54,28 @@ sub tasks
 }
 
 
-# this add the base ebox tasks
+
+#
+# Function: baseTasks
+#
+# Returns:
+#	a list of base eboxs tasks with the same format used in modulesTasks
+#
+# 
 sub baseTasks
 {
   return ( { completedCheck => \&EBox::Auth::defaultPasswdChanged, url => '/ebox/FirstTime/Passwd', desc => __('Change default password')   }, );
 }
 
-
+#
+# Function: modulesTasks
+#
+#
+# Returns: a list with the first time tasks required by each installed modules. Each task is represented as an anonymous hash with the following keys and values
+#        url       - url to the page wher will can complete the task
+#        desc      - user friendly task description
+#        completedCheck - sub reference to the function we can use to find out if a task is completed or not
+#	
 sub modulesTasks
 {
   my @tasks;
