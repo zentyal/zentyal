@@ -441,6 +441,13 @@ sub domain
 	return $self->{domain};
 }
 
+
+# Method: _process
+#  process the CGI
+#
+# Default behaviour:
+#     the default behaviour is intended to standarize and ease some common operations so do not override it except for backward compability or special reasons.
+#     The default behaviour validate the peresence or absence or CGI parameters using requiredParameters and optionalParameters method, then it calls the method actuate, where the functionality of CGI resides,  and finally uses masonParameters to get the parameters needed by the html template invocation.
 sub _process
 {
     my ($self) = @_;
@@ -458,20 +465,33 @@ sub _process
     $self->{params} = $self->masonParameters();
 }
 
-
+# Method: setMsg
+#   sets the message attribute
+#
+# Parameters:
+#   $msg - message to be setted 
 sub setMsg
 {
     my ($self, $msg) = @_;
     $self->{msg} = $msg;
 }
 
-
+# Method: setError
+#   set the error message 
+#
+# Parameters:
+#   $error - message to be setted 
 sub setError
 {
   my ($self, $error) = @_;
   $self->{error} = $error;
 }
 
+# Method: setErrorFromException
+#    set the error message eusing the description value found in a exception
+#
+# Parameters:
+#  $ex - exception used to set the error attributer
 sub setErrorFromException
 {
     my ($self, $ex) = @_;
@@ -483,21 +503,35 @@ sub setErrorFromException
 	$self->{error} = $ex;
     }
 }
-
+# Method: setRedirect
+#    set the redirect attribute
+#
+# Parameters:
+#   $redirect - value for the redirect attribute
 sub setRedirect
 {
   my ($self, $redirect) = @_;
   $self->{redirect} = $redirect;
 }
 
-
+# Method: setErrorchain
+#    set the errorchain attribute
+#
+# Parameters:
+#   $errorchain - value for the errorchain attribute
 sub setErrorchain
 {
   my ($self, $errorchain) = @_;
   $self->{errorchain} = $errorchain;
 }
 
-# XXX maybe it will be good idea cache this in some field of the instance
+# Method: paramsAsHash
+#  		
+# Returns:
+#    a reference to a hash wich contains the CGI parameters and his values as keys and values of the hash	
+# 
+# Possible implentation improvements:
+#  maybe it will be good idea cache this in some field of the instance
 sub paramsAsHash
 {
     my ($self) = @_;
@@ -581,11 +615,23 @@ sub _matchParams
     return { matches => \@matchedParams, targetsWithoutMatch => \@targetsWithoutMatch };
 }
 
+# Method:  optionalParameters
+#  	get the optional CGI parameter list. Any parameter that match with this list may be present or absent in the CGI parameters. 	
+#
+# Returns:
+#	the list of matching parameters, it may be a names or a regular expression, in the last case it can not contain the metacharacters ^ and $
+# 
 sub optionalParameters
 {
     return [];
 }
 
+# Method:  requiredParameters
+#  	get the required CGI parameter list. Any parameter that match with this list must be present  in the CGI parameters. 	
+#
+# Returns:
+#	the list of matching parameters, it may be a names or a regular expression, in the last case it can not contain the metacharacters ^ and $
+# 
 sub requiredParameters
 {
     return [];
@@ -593,11 +639,19 @@ sub requiredParameters
 
 
 
-# default actuate behaviour: do nothing
+
+# Method:  actuate
+#  		
+#  This method is the workhouse of the CGI it must be overriden by the different CGIs to achieve their objectives
 sub actuate
 {}
 
-# default : established masonParameters
+# Method: masonParameters
+#   This method must be overriden by the different child to return the adequate template parameter for his state. 
+#
+# Returns:
+#  a  reference to a list which contains the names and values of the different mason parameters
+# 
 sub masonParameters
 {
   my ($self) = @_;
