@@ -199,19 +199,6 @@ sub setPort # (port)
 	$self->set_int('port', $port);
 }
 
-sub rootCommands 
-{
-	my ($self) = @_;
-	my $initd = $self->initd;
-	my $confile = EBox::Config::tmp . "httpd.conf";
-	my $httpdconf = _httpdConfFile();
-
-	my @commands = ();
-	push @commands, $initd;
-	push @commands, "/bin/mv $confile $httpdconf";
-	push @commands, $self->rootCommandsForWriteConfFile(_startupFile());
-	return @commands;
-}
 
 sub logs {
 	my @logs = ();
