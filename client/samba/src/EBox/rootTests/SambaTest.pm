@@ -185,13 +185,13 @@ sub _checkConfig
   _checkRestoredDir($homedir, $status->{homedirStat});
 }
 
-sub leftoversWithConfigurationBackupTest : Test(16)
+sub leftoversWithConfigurationBackupTest : Test(25)
 {
   _leftoversTest($CONFIG_BACKUP_LEFTOVER_DIR, 0);
 }
 
 
-sub leftoversWithFullBackupTest   : Test(16)
+sub leftoversWithFullBackupTest   : Test(25)
 {
   _leftoversTest($FULL_BACKUP_LEFTOVER_DIR, 1);
 }
@@ -213,7 +213,7 @@ sub _checkRestoredDir
   }
 }
 
-# this counts for 16 tests
+# this counts for 25 tests
 sub _leftoversTest 
 {
   my ($backupDir, $fullBackup) = @_;
@@ -233,20 +233,42 @@ sub _leftoversTest
 
   
   # simulate leftover bits from user 
-  my $homedir = EBox::SambaLdapUser::usersPath() . '/leftoverUser';
-  EBox::Sudo::root("/bin/mkdir $homedir");
-  my $homedirFile = "$homedir/canary";
-  EBox::Sudo::root("/bin/touch $homedirFile");
-  EBox::Sudo::root("/bin/chown -R 3000.3000 $homedir"); # arbitray id for simulate lost id
+  my $homedir = EBox::SambaLdapUser::usersPath() . '/leftoverUserTest';
+  _simulateLeftoverDir($homedir);
+  # simulate leftover bits from group
+  my $groupdir = EBox::SambaLdapUser::groupsPath() . '/leftoverGroupTest';
+  _simulateLeftoverDir($groupdir);
 
   _checkRestore($backupDir, $fullBackup);
 
   _checkConfig($status);
 
-  diag "Checking if leftover stuff was correctly reated\n";
-  ok !(-d $homedir), 'Checking if homedir was not left in his previous place';
-  
-  my $leftoverDir = $leftoversBase . '/' . File::Basename::basename($homedir);
+  diag "Checking if leftover stuff was correctly treated\n";
+
+  my $userLeftoverDir = $leftoversBase . '/users/' . File::Basename::basename($homedir);
+  _checkLeftoverDirAfterBackup($homedir, $userLeftoverDir);
+  my $groupLeftoverDir = $leftoversBase . '/groups/' . File::Basename::basename($groupdir);
+  _checkLeftoverDirAfterBackup($groupdir, $groupLeftoverDir);
+
+}
+
+sub _simulateLeftoverDir
+{
+  my ($dir) = @_;
+
+  EBox::Sudo::root("/bin/mkdir $dir");
+  my $dirFile = "$dir/canary";
+  EBox::Sudo::root("/bin/touch $dirFile");
+  EBox::Sudo::root("/bin/chown -R 3000.3000 $dir"); # arbitray id for simulate lost id
+}
+
+sub _checkLeftoverDirAfterBackup
+{
+  my ($previousDir, $leftoverDir) = @_;
+  diag "Case $previousDir $leftoverDir \n";
+
+  ok !(-d $previousDir), 'Checking if homedir was not left in his previous place';
+
 
   my $stDir = EBox::Sudo::stat($leftoverDir);  
   ok $stDir, 'Checking if homedir was moved to leftover dir';
@@ -254,25 +276,22 @@ sub _leftoversTest
     skip 3, "Home dir not moved so ownership and permissions tests skipped" unless defined $stDir;
     is $stDir->uid, 0, 'Checking that file now is owner by root';
     is $stDir->gid, 0, 'Checking that file now is owner by root group';
-  
+	
     my $permissions = EBox::FileSystem::permissionsFromStat($stDir);
     is $permissions,  '0755', 'Checking that user leftover dir has restricitive permissions';
   }
 
-  
   my $stCanary = EBox::Sudo::stat($leftoverDir . '/canary');
   ok $stCanary, 'Checking that canary file was not lost';
  SKIP:{
     skip 3, "Canary file lost so ownership and permissions tests skipped" unless  $stCanary;
     is $stCanary->uid, 0, 'Checking that file now is owner by root';
     is $stCanary->gid, 0, 'Checking that file now is owner by root group';
-  
-    my $permissions = EBox::FileSystem::permissionsFromStat($stCanary);
-    is $permissions,  '0600', 'Checking that canary file has restricitive permissions';
+	
+    my $filePermissions = EBox::FileSystem::permissionsFromStat($stCanary);
+    is $filePermissions,  '0600', 'Checking that canary file has restricitive permissions';
   }
+
 }
-
-
-
 
 1;

@@ -985,10 +985,19 @@ sub _fixLeftoverSharedDirectories
 
 
   my @leftovers = $self->_findLeftoverSharedDirectories();
+  return if @leftovers == 0;
+
   my $leftoversDir = $self->leftoversDir();
 
   if (!(defined EBox::Sudo::stat($leftoversDir))) {
-    EBox::Sudo::root("/bin/mkdir --mode=700 $leftoversDir");
+    EBox::Sudo::root("/bin/mkdir --mode=755 $leftoversDir");
+  }
+
+  my @leftoverTypes = qw(users groups);
+  foreach my $subdir (@leftoverTypes) {
+    if (!(defined EBox::Sudo::stat("$leftoversDir/$subdir"))) {
+      EBox::Sudo::root("/bin/mkdir --mode=755 $leftoversDir/$subdir");
+    } 
   }
   
   foreach my $leftover (@leftovers) {
@@ -1000,11 +1009,52 @@ sub _fixLeftoverSharedDirectories
 
     my $chmodFilesCommand = "/bin/chmod -R og-srwx  $leftover/*";
     EBox::Sudo::root($chmodFilesCommand);
+    
+    my $leftoverNewDir =  $self->_leftoverNewDir($leftover, $leftoversDir);
 
-    my $mvCommand = "/bin/mv -f $leftover $leftoversDir";
+    my $mvCommand = "/bin/mv  $leftover $leftoverNewDir";
     EBox::Sudo::root($mvCommand);
-    EBox::info("Moved leftover directory $leftover to $leftoversDir");
+    EBox::info("Moved leftover directory $leftover to $leftoverNewDir");
   }
+}
+
+
+sub _leftoverNewDir
+{
+  my ($self, $leftover, $leftoversDir) = @_;
+
+  my $usersPath  = EBox::SambaLdapUser::usersPath();
+  my $groupsPath = EBox::SambaLdapUser::groupsPath();
+
+  my $leftoverType;
+  if ($leftover =~ m/^$usersPath/) {
+    $leftoverType = 'users/';
+  } 
+  elsif ($leftover =~ m/^$groupsPath/) {
+    $leftoverType = 'groups/';
+  } 
+  else {
+    EBox::warn("Can not determine the type of leftover $leftover; it will be store it in $leftoversDir");
+    $leftoverType = undef;	
+  }
+
+  my $leftoverNewDir = "$leftoversDir/";
+  $leftoverNewDir .= $leftoverType if defined $leftoverType;  # better to store the leftover in a wrong place than lost it
+  $leftoverNewDir .= File::Basename::basename($leftover);
+
+  if (EBox::Sudo::stat($leftoverNewDir)) {
+    EBox::warn ("$leftoverNewDir already exists, we will choose another dir for this leftover. Please, remove or store away leftover directories" );
+    my $counter = 1;
+    my $oldLeftoverDir =$leftoverNewDir;
+    do  {
+
+      $leftoverNewDir = $oldLeftoverDir . $counter;
+      $counter = $counter +1 ;
+    } while (EBox::Sudo::stat($leftoverNewDir));
+    EBox::warn("The leftover will be stored in $leftoverNewDir");
+  }
+  
+  return $leftoverNewDir;
 }
 
 
