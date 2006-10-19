@@ -185,13 +185,13 @@ sub _checkConfig
   _checkRestoredDir($homedir, $status->{homedirStat});
 }
 
-sub leftoversWithConfigurationBackupTest : Test(25)
+sub leftoversWithConfigurationBackupTest : Test(49)
 {
   _leftoversTest($CONFIG_BACKUP_LEFTOVER_DIR, 0);
 }
 
 
-sub leftoversWithFullBackupTest   : Test(25)
+sub leftoversWithFullBackupTest   : Test(49)
 {
   _leftoversTest($FULL_BACKUP_LEFTOVER_DIR, 1);
 }
@@ -213,7 +213,7 @@ sub _checkRestoredDir
   }
 }
 
-# this counts for 25 tests
+# this counts for 49 tests
 sub _leftoversTest 
 {
   my ($backupDir, $fullBackup) = @_;
@@ -250,6 +250,20 @@ sub _leftoversTest
   my $groupLeftoverDir = $leftoversBase . '/groups/' . File::Basename::basename($groupdir);
   _checkLeftoverDirAfterBackup($groupdir, $groupLeftoverDir);
 
+
+  diag "we will put leftovers and restore again to be sure that the leftover are respected";
+
+  _simulateLeftoverDir($homedir);
+  _simulateLeftoverDir($groupdir);
+
+  _checkRestore($backupDir, $fullBackup);
+
+  _checkConfig($status);
+
+  my $userLeftoverDir2=  "$userLeftoverDir.2";
+  _checkLeftoverDirAfterBackup($homedir, $userLeftoverDir2);
+  my $groupLeftoverDir2=  "$groupLeftoverDir.2";
+  _checkLeftoverDirAfterBackup($groupdir, $groupLeftoverDir2);
 }
 
 sub _simulateLeftoverDir

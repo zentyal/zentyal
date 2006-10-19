@@ -1044,11 +1044,10 @@ sub _leftoverNewDir
 
   if (EBox::Sudo::stat($leftoverNewDir)) {
     EBox::warn ("$leftoverNewDir already exists, we will choose another dir for this leftover. Please, remove or store away leftover directories" );
-    my $counter = 1;
+    my $counter = 2;
     my $oldLeftoverDir =$leftoverNewDir;
     do  {
-
-      $leftoverNewDir = $oldLeftoverDir . $counter;
+      $leftoverNewDir = $oldLeftoverDir . ".$counter";
       $counter = $counter +1 ;
     } while (EBox::Sudo::stat($leftoverNewDir));
     EBox::warn("The leftover will be stored in $leftoverNewDir");
