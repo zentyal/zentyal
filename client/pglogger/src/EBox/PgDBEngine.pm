@@ -184,6 +184,10 @@ sub query {
 # Method: dumpDB
 #
 #         Makes a dump of the database in the specified file
+#
+# Parameters:
+#     $outputFile - output database dump file
+#
 sub  dumpDB
 {
   my ($self, $outputFile) = @_;
@@ -204,6 +208,10 @@ sub  dumpDB
 #
 # restore a database from a dump file.
 # WARNING:  This erase all the DB current dara
+#
+# Parameters:
+#      $file - database dump file
+#
 sub restoreDB
 {
   my ($self, $file) = @_;
