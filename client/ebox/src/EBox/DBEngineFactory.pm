@@ -21,6 +21,13 @@ use warnings;
 use EBox;
 use EBox::PgDBEngine;
 
+#
+# Function: DBEngine
+#
+# Returns:
+#   a instance of the DBEngine to be used	
+#
+# 
 sub DBEngine 
 {
 	return new EBox::PgDBEngine;

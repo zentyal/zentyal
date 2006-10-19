@@ -103,7 +103,7 @@ sub query {
 #         Makes a dump of the database in the specified file
 #
 # Parameters:
-#   $file: the dump file
+#   $outputFike : the output database dump file
 sub  dumpDB
 {
   throw EBox::Exceptions::NotImplemented();		  
@@ -114,7 +114,7 @@ sub  dumpDB
 # restore a database from a dump file.
 # 
 # Parameters:
-#   $file: the dump file
+#   $file - the dump file
 
 sub restoreDB
 {

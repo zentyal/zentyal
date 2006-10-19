@@ -229,6 +229,7 @@ sub _timeExpired
     return $expired;
 }
 
+# XXX not sure if this will be useful, if not remove
 sub alreadyLogged
 {
     my ($self) = @_;
@@ -240,7 +241,12 @@ sub alreadyLogged
     return 1;
 }
 
-
+#
+# Method: defaultPasswdChanged
+#
+# Returns:
+#      bool value signaling wether the default eBox password were changed or not	
+# 
 sub defaultPasswdChanged
 {
   my ($self) = @_;

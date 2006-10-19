@@ -87,6 +87,7 @@ sub aroundRestoreConfig
 }
 
 
+# load GConf entries from a file
 sub _load_from_file # (dir?, key?) 
 {
   my ($self, $dir, $key) = @_;
@@ -111,6 +112,7 @@ sub aroundDumpConfig
   $self->dumpConfig($dir);     
 }
 
+# dumps GConf entries to a file in the dir specified
 sub _dump_to_file # (dir?) 
 {
 	my ($self, $dir) = @_;

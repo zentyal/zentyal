@@ -202,6 +202,15 @@ sub makeBackup # (dir, %options)
 
 }
 
+# Method: backupDir
+#  		
+#
+# Parameters:
+#    $dir - direotory used for the resore/backup operation
+#
+# Returns: 
+#    the path to the directory used by the module to dump or restore his state
+# 
 sub backupDir
 {
   my ($self, $dir) = @_;
@@ -214,8 +223,17 @@ sub backupDir
   return $backupDir;
 }
 
-# create a backup dir if needed
-# return: the path of the dir
+
+# Method: createBackupDir
+#   creates a directory to dump or restore files containig the module state. If there are already a apropiate directory, it simply returns the path of this directory
+#   		
+#
+# Parameters:
+#     $dir - directory used for the restore/backup operation
+#
+# Returns:
+#      the path to the directory used by the module to dump or restore his state
+#
 sub createBackupDir
 {
   my ($self, $dir) = @_;
@@ -253,7 +271,16 @@ sub _dump_version
   close $FH;
 }
 
-
+#
+# Method: restoreBackup
+#
+#   restores the module state from a backup	
+#
+# Parameters:
+#  dir - directory where are located the backup files for the module
+#  (named parameters following)
+#  fullRestore - wether we want to do a full restore as opposed a configuration-only restore
+#
 sub restoreBackup # (dir, %options) 
 {
   my ($self, $dir, %options) = @_;
@@ -300,7 +327,15 @@ sub _bak_file_from_dir
   return $file;
 }
 
-
+#
+# Method: restoreDependencies
+#
+#   this method should be override by any module that depends on another module/s  to be restored from a backup 
+#
+# Returns:
+#	a reference to a list with the names of required eBox modules for a sucesful restore. (default: none)
+#
+# 
 sub restoreDependencies
 {
   my ($self) = @_;
@@ -318,25 +353,46 @@ sub dumpConfig
 
 
 
+
+#
+# Method: aroundDumpConfig
+#
 # wraps the dumpConfig call; the purpose of this sub is to allow specila types of modules (GConfModule p.e) to call another method alongside with dumConfig transparently
-# normally ebox modules does not need to override this
+# Normally, ebox modules does not need to override this  		
+#
+# Parameters:
+#   dir - the directoy where the module configuration is been dumped 
+# 
 sub aroundDumpConfig
 {
   my ($self, $dir) = @_;
   $self->dumpConfig($dir);
 }
 
-# this must be override to restore the configuration from the files in dir(files produced with dumpConfig)
-# default implementation: does nothing
 
+
+#
+# Function:  restoreConfig
+#
+#   this must be override by individuals to restore his configuration from the backup file. Those files are the same were created with dumpConfig
+#
+# Parameters:
+#  dir - directory where are located the backup files 
+#
 sub restoreConfig
 {
   my ($self, $dir) = @_;
 }
 
 
+#  Method: aroundRestoreConfig
+#
 # wraps the restoreConfig call; the purpose of this sub is to allow specila types of modules (GConfModule p.e) to call another method alongside with restoreConfig transparently
 # normally ebox modules does not need to override this
+#
+# Parameters:
+#  dir - directory where are located the backup files
+#
 sub aroundRestoreConfig
 {
   my ($self, $dir) = @_;
