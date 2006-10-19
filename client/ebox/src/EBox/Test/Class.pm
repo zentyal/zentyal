@@ -5,15 +5,16 @@ use strict;
 use warnings;
 
 use base 'Test::Class';
+
 use Test::More;
+use Test::Exception;
 
-use Fatal qw(mkdir);
 
-use EBox::Test qw(activateEBoxTestStubs);
+use EBox::Test;;
 
 
 sub _testStubsForFrameworkModules :  Test(startup) {
-    activateEBoxTestStubs();
+    EBox::Test::activateEBoxTestStubs();
 }
 
 
