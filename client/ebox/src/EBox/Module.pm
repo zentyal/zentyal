@@ -189,6 +189,16 @@ sub stopService
 	};
 }
 
+#
+# Method: makeBackup
+#
+#   restores the module state from a backup	
+#
+# Parameters:
+#  dir - directory used for the backup operation
+#  (named parameters following)
+#  fullRestore - wether we want to do a full restore as opposed a configuration-only restore
+#
 sub makeBackup # (dir, %options) 
 {
   my ($self, $dir, %options) = @_;
@@ -203,10 +213,9 @@ sub makeBackup # (dir, %options)
 }
 
 # Method: backupDir
-#  		
 #
 # Parameters:
-#    $dir - direotory used for the resore/backup operation
+#    $dir - directory used for the restore/backup operation
 #
 # Returns: 
 #    the path to the directory used by the module to dump or restore his state
@@ -277,7 +286,7 @@ sub _dump_version
 #   restores the module state from a backup	
 #
 # Parameters:
-#  dir - directory where are located the backup files for the module
+#  dir - directory used for the restore operation 
 #  (named parameters following)
 #  fullRestore - wether we want to do a full restore as opposed a configuration-only restore
 #
@@ -342,10 +351,15 @@ sub restoreDependencies
   return [];
 }
 
-# override dumpConfig and restoreConfig to do backups properly
 
-# this must be override to dump the configuration to the directory
-# default implementation: does nothing
+
+# Method:  dumpConfig
+#
+#   this must be override by individuals to restore to dump th4e configuration properly
+#
+# Parameters:
+#  dir - directory where the modules's backup files  are dumped
+#
 sub dumpConfig
 {
   my ($self, $dir) = @_;
@@ -372,7 +386,7 @@ sub aroundDumpConfig
 
 
 #
-# Function:  restoreConfig
+# Method:  restoreConfig
 #
 #   this must be override by individuals to restore his configuration from the backup file. Those files are the same were created with dumpConfig
 #
@@ -487,22 +501,6 @@ sub domain
 	}
 }
 
-#
-# Method: rootCommands 
-#
-#	Returns the sudo commands the module will need to execute. 
-#	For security reasons paths and arguments should be as much accurate 
-#	as possible.
-#
-# Returns:
-#
-#      	array ref - each element contains a command 
-#
-sub rootCommands 
-{
-	my @array = ();
-	return @array;
-}
 
 #
 # Method: pidRunning 
@@ -610,22 +608,5 @@ sub writeConfFile # (file, comp, params, defaults)
 }
 
 
-sub rootCommandsForWriteConfFile # (file)
-{
-	my ($self, $file) = @_;
-	my @commands = ();
-	push (@commands, "/bin/mv " . EBox::Config::tmp . "* " . $file);
-	push (@commands, "/bin/chmod * " . $file);
-	push (@commands, "/bin/chown * " . $file);
-	push (@commands, rootCommandForStat($file));
-
-	return @commands;
-}
-
-#sub logs
-#{
-#	my @array = ();
-#	return \@array;
-#}
 
 1;
