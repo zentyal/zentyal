@@ -41,6 +41,12 @@ sub makePrivateDir # (path)
 
 }
 
+# Function: cleanDir
+#       take action to assure that one or more directory have not any file into them. To achieve this files may be delted or directories created
+#   		
+# Parameters:
+#      @dirs - list of directories
+
 sub cleanDir
 {
   my @dirs = @_;
@@ -74,7 +80,16 @@ sub cleanDir
   }
 }
 
-
+# Function: isSubdir
+#   find if a directory is a sub dir of another. A directory is always a subdirectory of itself
+#   		
+# Parameters:
+#    $subDir - the directory wich we want found if it is a sub directory. It must be a abolute path 
+#    $parentDir - the possible parent directory
+#
+# Returns:
+#	wether the first directory is a subdirectory of the second or not
+# 
 sub isSubdir
 {
   my ($subDir, $parentDir) = @_;
@@ -96,6 +111,15 @@ sub isSubdir
   
 }
 
+# Function: permissionsFromStat
+#     examines a File::stat  result object and extract the permissions value
+#   		
+# Parameters:
+#      $stat - stat result object
+#
+# Returns:
+#	the permissions as string
+# 
 sub permissionsFromStat
 {
   my ($stat) = @_;

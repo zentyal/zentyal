@@ -38,7 +38,7 @@ BEGIN {
 }
 
 #
-# Method: command 
+# Function: command 
 #
 #	Executes a command as ebox user 
 #
@@ -67,7 +67,7 @@ sub command # (command)
 }
 
 #
-# Method: root 
+# Function: root 
 #
 #	Executes a command through sudo. Use this to execute privileged
 #	commands. 
@@ -96,6 +96,16 @@ sub root # (command)
 	return \@output;
 }
 
+# Function: rootWithoutException
+#
+#	Executes a command through sudo. This version does not raises exception on error level and must be used _only_ if you take responsability to parse the output or use anorther method to determine success status
+#
+# Parameters:
+#
+#       command - string with the command to execute
+#
+# Returns:
+# 	array ref - Returns the output of the command in an array
 sub rootWithoutException
 {
   my $cmd = shift;
@@ -107,7 +117,7 @@ sub rootWithoutException
 }
 
 # 
-# Method: sudo 
+# Function: sudo 
 #
 #	Executes a command through sudo as a given user. 
 #
@@ -132,14 +142,20 @@ sub sudo # (command, user)
 }
 
 
-# return the same than perl's stat with the exception of:
-#       6 rdev     the device identifier (special files only)   %T <--- UNDEF because is not emulated yet
-
+# Function: stat
+#   stat a file as root user and returns the information as File::stat object
+#   		
+# Parameters:
+#    $file - file we want stat
+#
+# Returns:
+#	a File::Stat object with the file system status for the file
+# 
 sub stat
 {
   my ($file) = @_;
   
-    my $statCmd = rootCommandForStat($file);
+  my $statCmd = _rootCommandForStat($file);
   my $statOutput;
   
   try {
@@ -183,7 +199,7 @@ sub _makeRdev
 }
 
 
-sub rootCommandForStat
+sub _rootCommandForStat
 {
     my ($file) = @_;
     return "/usr/bin/stat -c%dI%iI%fI%hI%uI%gIhI%sI%XI%YI%ZI%oI%bI%tI%T $file";

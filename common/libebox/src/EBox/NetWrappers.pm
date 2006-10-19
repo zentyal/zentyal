@@ -44,7 +44,7 @@ BEGIN {
 	$VERSION = EBox::Config::version;
 }
 
-# Method: iface_exists 
+# Function: iface_exists 
 #
 #	Checks if a given interface exists in the system using *ifconfig*	 
 #
@@ -64,7 +64,7 @@ sub iface_exists #(iface)
 }
 
 #
-# Method: list_ifaces 
+# Function: list_ifaces 
 #
 #   	Returns a list of all real interfaces in the machine via */proc/net/dev*
 #
@@ -80,7 +80,7 @@ sub list_ifaces
 }
 
 #
-# Method: iface_is_up
+# Function: iface_is_up
 #
 #	Checks if a given interface is up.
 #
@@ -108,7 +108,7 @@ sub iface_is_up
 }
 
 #
-# Method: iface_netmask
+# Function: iface_netmask
 #
 # 	Returns the netmask for a given interface (dot format)	
 #
@@ -140,7 +140,7 @@ sub iface_netmask
 }
 
 #
-# Method: iface_mac_address
+# Function: iface_mac_address
 #
 # 	Returns the mac address for a given interface 
 #
@@ -172,7 +172,7 @@ sub iface_mac_address
 }
 
 #
-# Method: iface_address
+# Function: iface_address
 #
 # 	Returns the  addresses for a given interface (dot format)	
 #
@@ -198,7 +198,7 @@ sub iface_addresses
 
 
 #
-#  Method: iface_by_address
+#  Function: iface_by_address
 #
 #  Search a iface by his address
 #
@@ -224,7 +224,7 @@ sub iface_by_address
 
 
 #
-# Method: iface_addresses_with_netmask
+# Function: iface_addresses_with_netmask
 #
 # 	Returns the  addresses for a given interface (dot format)	
 #
@@ -279,7 +279,7 @@ sub _ifaceShowAddress
 }
 
 #
-# Method: list_routes 
+# Function: list_routes 
 #
 #   	Rertuns the list of current routes
 #
@@ -333,7 +333,7 @@ sub list_routes
 }
 
 
-# Method: route_to_reach_network
+# Function: route_to_reach_network
 # 
 #  Returns the route to reach network (it may be the default route)
 #
@@ -364,7 +364,7 @@ sub route_to_reach_network
 }
 
 
-# Method: local_ip_to_reach_network
+# Function: local_ip_to_reach_network
 # 
 #  Searchs for the local ip used to communicate with the given network
 #
@@ -401,7 +401,7 @@ sub local_ip_to_reach_network
 
 
 #
-# Method: route_is_up 
+# Function: route_is_up 
 #
 #	Checks if a given route is already up.
 #
@@ -428,7 +428,7 @@ sub route_is_up # (network, router)
 }
 
 #
-# Method: ip_network
+# Function: ip_network
 #
 # 	Returns the network for an address and netmask	
 #
@@ -450,7 +450,7 @@ sub ip_network # (address, netmask)
 }
 
 #
-# Method: ip_broadcast
+# Function: ip_broadcast
 #
 # 	Returns the broadcast address  for an address and netmask	
 #
@@ -472,7 +472,7 @@ sub ip_broadcast # (address, netmask)
 }
 
 #
-# Method: bits_from_mask 
+# Function: bits_from_mask 
 #
 # 	Given a network mask it returns it in binary format 	
 #
@@ -491,7 +491,7 @@ sub bits_from_mask # (netmask)
 }
 
 #
-# Method: mask_from_bits 
+# Function: mask_from_bits 
 #
 # 	Given a network mask in binary format it returns it in decimal dot notation	
 #
@@ -514,7 +514,7 @@ sub mask_from_bits # (bits)
 }
 
 #
-# Method: to_network_with_mask
+# Function: to_network_with_mask
 #
 # 	Given a network and a netmask rerurns the network with embeded mask (form x.x.x.x/n)
 #
@@ -536,7 +536,7 @@ sub to_network_with_mask
 
 
 #
-# Method: to_network_without_mask
+# Function: to_network_without_mask
 #
 # 	Given a  network with embeded mask (form x.x.x.x/n) it returns the network and netmask
 #
@@ -558,9 +558,10 @@ sub to_network_without_mask
 
 
 #
-# Method: list_local_addresses
+# Function: list_local_addresses
 #
-# 	Returns a list with all local ipv4 addresses
+# Returns:
+# 	 a list with all local ipv4 addresses
 
 sub list_local_addresses
 {
@@ -571,9 +572,10 @@ sub list_local_addresses
 }
 
 #
-# Method: list_local_addresses_with_netmask
+# Function: list_local_addresses_with_netmask
 #
-# 	Returns a flat list with pairs of all local ipv4 addresses 
+# Returns:
+# 	a flat list with pairs of all local ipv4 addresses 
 #       and their netmask 
 sub list_local_addresses_with_netmask
 {

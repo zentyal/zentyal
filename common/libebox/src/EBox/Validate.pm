@@ -48,7 +48,7 @@ BEGIN {
 }
 
 #
-# Method: isIPInNetwork 
+# Function: isIPInNetwork 
 #
 #   Checks if an IP is within a given network address and its masks
 #
@@ -74,7 +74,7 @@ sub isIPInNetwork # net_ip, net_mask, host_ip
 }
 
 # 
-# Method: checkCIDR 
+# Function: checkCIDR 
 #
 #   Checks the validity for a given cidr block 
 #
@@ -128,7 +128,7 @@ sub checkCIDR # (cidr, name?)
 }
 
 # 
-# Method: checkIP
+# Function: checkIP
 #
 #	Checks if the string param that holds an ip address is a valid 
 #	IPv4 address.
@@ -168,7 +168,7 @@ sub checkIP # (ip, name?)
 }
 
 # 
-# Method: checkNetmask
+# Function: checkNetmask
 #
 #	Checks if the string param that holds a network mask is valid .
 #
@@ -217,7 +217,7 @@ sub checkNetmask # (mask, name?)
 }
 
 # 
-# Method: checkIPNetmask
+# Function: checkIPNetmask
 #
 # 	Checks if the IP and the mask are valid and that the IP is not a 
 #	network or  broadcast address with the given mask.
@@ -271,7 +271,7 @@ sub checkIPNetmask # (ip, mask, name_ip?, name_mask?)
 }
 
 #
-# Method: checkPort
+# Function: checkPort
 #
 # 	Checks if the given port is valid
 #
@@ -317,7 +317,7 @@ sub checkPort # (port, name?)
 }
 
 # 
-# Method: checkVlanID
+# Function: checkVlanID
 #
 # 	Checks if the given vlan identifier is valid
 #
@@ -363,7 +363,7 @@ sub checkVlanID # (id, name?)
 }
 
 #
-# Method: checkProtocol 
+# Function: checkProtocol 
 #
 # 	Checks if the given protocol is valid (tcp or udp)
 #
@@ -402,7 +402,7 @@ sub checkProtocol # (protocol, name?)
 }
 
 #
-# Method: checkMAC
+# Function: checkMAC
 #
 # 	Checks if the given mac address  is valid
 #
@@ -440,7 +440,7 @@ sub checkMAC # (mac, name?)
 }
 
 #
-# Method: checkVifaceName
+# Function: checkVifaceName
 #
 # 	Checks if a virtual interface name is correct. The whole name's length
 #	(real + virtual interface) must be no longer than IFMASIZ. Only
@@ -481,7 +481,7 @@ sub checkVifaceName # (real, virtual, name?)
 	return 1;
 }
 
-# Method: checkName 
+# Function: checkName 
 #
 #	Checks if a given name is valid.
 #
@@ -522,7 +522,7 @@ sub _checkDomainName {
 	return 1;
 }
 
-# Method: checkDomainName 
+# Function: checkDomainName 
 #
 #	Checks if a given domain name is valid.
 #
@@ -551,7 +551,7 @@ sub checkDomainName # (domain, name?)
 }
 
 
-# Method: isPrivateDir
+# Function: isPrivateDir
 #
 #	Check if the given directory is private and owned by the current user
 #
@@ -560,7 +560,7 @@ sub checkDomainName # (domain, name?)
 #	dir - The directory
 #       throwException - wethet to throw a exception if the check fails (default: false)
 #
-# Returns
+# Returns:
 # 	true if the parameter is a number, undef otherwise.
 # 	
 sub isPrivateDir
@@ -584,7 +584,7 @@ sub isPrivateDir
 }
 
 
-# Method: isANumber
+# Function: isANumber
 #
 #	Check if the parameter is a number.
 #
@@ -604,7 +604,7 @@ sub isANumber # (value)
 	return undef;
 }
 
-# Method: isAPositiveNumber
+# Function: isAPositiveNumber
 #
 #	Check if the parameter is a positive number.
 #
@@ -612,7 +612,7 @@ sub isANumber # (value)
 #
 #	value - The parameter to test.
 #
-# Returns
+# Returns:
 # 	true if the parameter is a postive number, undef otherwise.
 # 	
 sub isAPositiveNumber # (value)
@@ -624,7 +624,16 @@ sub isAPositiveNumber # (value)
 	return undef;
 }
 
-
+# Function: checkFilePath
+#
+#  checks if a given file path is sintaxically correct
+#   		
+# Parameters:
+#       $filePath - file path to check
+#	$name - if this parameter is present we will throw a exception when given a non-correct path using this as name of the data
+#
+# Returns:
+#  true if the parameter is sintaxically correct, undef otherwise.
 sub checkFilePath # (filePath, name)
 {
     my ($filePath, $name) = @_;
@@ -648,6 +657,16 @@ sub checkFilePath # (filePath, name)
     }
 }
 
+# Function: checkAbsoluteFilePath
+#
+#  checks if a given absolute file path is sintaxically correct
+#   		
+# Parameters:
+#       $filePath - file path to check
+#	$name - if this parameter is present we will throw a exception when given a non-correct path using this as name of the data
+#
+# Returns:
+#  true if the parameter is sintaxically correct and an absolute path, undef otherwise.
 sub checkAbsoluteFilePath 
 {
    my ($filePath, $name) = @_;
