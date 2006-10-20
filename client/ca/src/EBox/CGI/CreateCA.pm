@@ -22,6 +22,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
 use EBox::Global;
+use EBox;
 
 # Method: new
 #
@@ -61,12 +62,20 @@ sub _process
     $self->_requireParam('CAPassphrase', __('Certification Authority Passphrase') );
     $self->_requireParam('CAPassphraseAgain', __('Re-type Passphrase') );
    
-    my ($orgName, $days, $passphrase, $repassphrase) = 
-      qw ($self->param('orgName') $self->param('expiryDays') 
-          $self->param('CAPassphrase') $self->param('CAPassphraseAgain') );
+    my $orgName = $self->param('orgName');
+    my $days = $self->param('expiryDays');
+    my $passphrase = $self->param('CAPassphrase');
+    my $repassphrase = $self->param('CAPassphraseAgain');
+
+    EBox::warn("pass: $passphrase $repassphrase\n");
     
     if($passphrase ne $repassphrase) {
       throw EBox::Exceptions::External(__('Passphrases do NOT match'));
+    }
+
+    if( length($passphrase) < 4 ) {
+      throw EBox::Exceptions::External(__('Passphrases should be at ' 
+					  . 'least 4 characters long'));
     }
 
     $ca->createCA( orgName       => $orgName,

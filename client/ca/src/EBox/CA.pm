@@ -28,6 +28,7 @@ use base 'EBox::GConfModule';
 use EBox::CA::DN;
 use EBox::Gettext;
 use EBox::Config;
+use EBox::Menu::Item;
 use EBox;
 
 # FIXME: Put the correct directory, ask
@@ -1092,7 +1093,7 @@ sub menu {
 #				    'text' => __('Certificate Management')
 #				    ));
 #
-  $root->add(new EBox::Menu::Itme('url'  => 'ca/Index',
+  $root->add(new EBox::Menu::Item('url'  => 'CA/Index',
 				  'text' => __('Certificate Manager')));
 
 }

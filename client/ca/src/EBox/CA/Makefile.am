@@ -4,6 +4,8 @@ perldir = @PERLPATH@/EBox/CA
 
 nobase_perl_DATA = DN.pm
 
-MAINTAINERCLEANFILES = Makefile.in
+DISTCLEANFILES = 
 
 EXTRA_DIST = $(nobase_perl_DATA)
+
+MAINTAINERCLEANFILES = Makefile.in

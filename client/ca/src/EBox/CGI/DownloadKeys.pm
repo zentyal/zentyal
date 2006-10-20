@@ -40,6 +40,7 @@ sub new
 				  @_);
 
     $self->{domain} = "ebox-ca";
+    $self->{redirect} = "CA/Index"
     bless($self, $class);
 
     return $self;

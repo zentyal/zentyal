@@ -40,7 +40,7 @@ sub new
 				  @_);
 
     $self->{domain} = "ebox-ca";
-    $self->{template} = "CA/formRevoke";
+    $self->{template} = "ca/formRevoke.mas";
     bless($self, $class);
 
     return $self;

@@ -36,7 +36,7 @@ sub new
 
     my $class = shift;
 
-    my $self = $class->SUPER::new('title'    => __('Certification Authority Management'),
+    my $self = $class->SUPER::new('title'  => __('Certification Authority Management'),
 				  @_);
 
     $self->{domain} = "ebox-ca";
@@ -59,10 +59,10 @@ sub _process
     my @array = ();
 
     if ( $ca->isCreated() ) {
-      $self->{template} = "CA/index";
+      $self->{'template'} = "ca/index.mas";
       push( @array, 'certs' => $ca->listCertificates() );
     } else {
-      $self->{template} = "CA/createCA";
+      $self->{'template'} = "ca/createCA.mas";
     }
 
     $self->{params} = \@array;

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-10-20 13:21+0200\n"
-"PO-Revision-Date: 2006-10-20 13:22+0200\n"
+"POT-Creation-Date: 2006-10-20 18:22+0200\n"
+"PO-Revision-Date: 2006-10-20 18:24+0200\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team:  <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,22 +25,22 @@ msgstr ""
 msgid "Certification Authority Management"
 msgstr "Gestión de la Autoridad de Certificados"
 
-#: src/EBox/CGI/DownloadKeys.pm:61 src/EBox/CGI/FormRevoke.pm:61
+#: src/EBox/CGI/DownloadKeys.pm:62 src/EBox/CGI/FormRevoke.pm:61
 #: src/EBox/CGI/IssueCertificate.pm:59 src/templates/index.mas:14
 #: src/templates/index.mas:66 src/templates/formRevoke.mas:18
 msgid "Common Name"
 msgstr "Nombre común"
 
-#: src/EBox/CGI/DownloadKeys.pm:73
+#: src/EBox/CGI/DownloadKeys.pm:74
 msgid "Error creating file"
 msgstr "Error creando fichero"
 
-#: src/EBox/CGI/CreateCA.pm:59 src/templates/createCA.mas:16
+#: src/EBox/CGI/CreateCA.pm:59 src/templates/createCA.mas:17
 msgid "Organization Name"
 msgstr "Nombre de Organización"
 
 #: src/EBox/CGI/CreateCA.pm:60 src/templates/index.mas:21
-#: src/templates/formRevoke.mas:27 src/templates/createCA.mas:25
+#: src/templates/formRevoke.mas:27 src/templates/createCA.mas:26
 msgid "Days to expire"
 msgstr "Días para expirar"
 
@@ -51,7 +51,7 @@ msgid "Certification Authority Passphrase"
 msgstr "Contraseña para la Autoridad Certificadora"
 
 #: src/EBox/CGI/CreateCA.pm:62 src/EBox/CGI/IssueCertificate.pm:62
-#: src/templates/index.mas:35 src/templates/createCA.mas:43
+#: src/templates/index.mas:35 src/templates/createCA.mas:44
 #, fuzzy
 msgid "Re-type Passphrase"
 msgstr "Repetir contraseña"
@@ -75,33 +75,33 @@ msgstr "Días para expirar"
 msgid "Key Pair Passphrase"
 msgstr "Contreseña para el par de claves"
 
-#: src/EBox/CA.pm:217 src/EBox/CA.pm:521 src/EBox/CA.pm:885
+#: src/EBox/CA.pm:218 src/EBox/CA.pm:522 src/EBox/CA.pm:886
 msgid "Days set to the maximum allowed: Year 2038 Bug"
 msgstr "Utilizado el máximo de días permitidos: Error de Año 2038"
 
-#: src/EBox/CA.pm:387
+#: src/EBox/CA.pm:388
 msgid "No CA private key password is given"
 msgstr "No se ha dado la contraseña de la clave privada del CA"
 
-#: src/EBox/CA.pm:530
+#: src/EBox/CA.pm:531
 msgid "No CA passpharse to sign a new certificate"
 msgstr "NO hay contraseña CA para firmar un nuevo certificado"
 
-#: src/EBox/CA.pm:564
+#: src/EBox/CA.pm:565
 #, perl-brace-format
 msgid "Private key file {file} does NOT exist"
 msgstr "Fichero con la clave privada {file} NO existe"
 
-#: src/EBox/CA.pm:642 src/EBox/CA.pm:897
+#: src/EBox/CA.pm:643 src/EBox/CA.pm:898
 msgid "No CA passpharse is given to revoke"
 msgstr "NO se ha dado contraseña del CA para revocar"
 
-#: src/EBox/CA.pm:652
+#: src/EBox/CA.pm:653
 #, fuzzy, perl-brace-format
 msgid "Certificate with common name {commonName} does NOT exist"
 msgstr "Certificado con nombre común {commonName} NO existe"
 
-#: src/EBox/CA.pm:656
+#: src/EBox/CA.pm:657
 #, perl-brace-format
 msgid ""
 "Reason {reason} is not an applicable reason.\n"
@@ -110,30 +110,30 @@ msgstr ""
 "La razón {reason} no es una opción aplicable.\n"
 "Opciones:"
 
-#: src/EBox/CA.pm:792
+#: src/EBox/CA.pm:793
 #, perl-brace-format
 msgid "The user {commonName} does NOT exist"
 msgstr "El usuario {commonName} NO existe"
 
-#: src/EBox/CA.pm:823
+#: src/EBox/CA.pm:824
 #, perl-brace-format
 msgid "Private key from {commonName} does NOT exist"
 msgstr "La clave privada {commonName} NO existe"
 
-#: src/EBox/CA.pm:949
-#, fuzzy, perl-brace-format
+#: src/EBox/CA.pm:950
+#, perl-brace-format
 msgid "Common name {cn} does NOT exist in this CA"
-msgstr "Nombre común: {cn} NO existe en la base de datos"
+msgstr "Nombre común {cn} NO existe en la base de datos"
 
-#: src/EBox/CA.pm:1062
+#: src/EBox/CA.pm:1063
 msgid "The CA key passpharse is incorrect"
 msgstr "La contraseña para la clave del CA es incorrecta"
 
-#: src/EBox/CA.pm:1096
+#: src/EBox/CA.pm:1097
 msgid "Certificate Manager"
 msgstr "Gestor de Certificados"
 
-#: src/EBox/CA.pm:1421
+#: src/EBox/CA.pm:1422
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "No se puede comenzar el intérprete para OpenSSL ({errval})"
@@ -198,9 +198,9 @@ msgid "Reason"
 msgstr "Razón"
 
 #: src/templates/createCA.mas:10
-msgid "Create Certification Authority"
-msgstr "Crear Autoridad de Certificación"
+msgid "Create Certification Authority Certificate"
+msgstr "Crear Certificado de la Autoridad de Certificación"
 
-#: src/templates/createCA.mas:54 src/templates/createCA.mas:56
+#: src/templates/createCA.mas:55 src/templates/createCA.mas:57
 msgid "Create"
 msgstr "Crear"
