@@ -1,0 +1,19 @@
+Source: ebox-ca
+Section: web
+Priority: optional
+Maintainer: Enrique J. Hernández <quique@warp.es>
+Build-Depends: debhelper (>= 4.0.0)
+Standards-Version: 3.6.1
+
+Package: ebox-ca
+Architecture: all
+Depends: ebox
+Description: 
+ eBox is a framework for the development and deployment of security-wise
+ network services in small and medium-sized networks, offering a simplified
+ graphical interface to non expert users. It can be set up as a gateway,
+ having some extra features over a usual router.
+ .
+ This module adds a Certification Authority Manager over OpenSSL to issue,
+ revoke and renew certificates, also allowing download the key pair created
+ by this authority.

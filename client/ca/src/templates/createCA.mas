@@ -1,0 +1,55 @@
+<%args>
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<div class="note">
+  <% __('This page only appears once at starting up the Certification
+  Authority') %>
+</div> 
+<h3<% __('Create Certification Authority') %></h3>
+<form action='CreateCA' method='POST'>
+  <table class='formtable>
+     <tr>
+       <td class='tright'>
+         <span class='ftitle'><% __('Organization Name') %>: </span>
+	 </td>
+       <td>
+           <input class='inputText' type='text' name='orgName' />
+       </td>
+     </tr>
+     <tr>
+       <td class='tright'>
+         <span class='ftitle'><% __('Days to expire') %>: </span>
+       </td>
+       <td>
+         <input class='inputText' type='text' name='expiryDays' />
+       </td>
+     </tr>
+     <tr>
+       <td class='tright'>
+         <span class='ftitle'><% __('Certification Authority
+	 Passphrase') %>: </span>
+       </td>
+       <td>
+         <input class='inputText' type='password' name='CAPassphrase' />
+       </td>
+     </tr>
+     <tr>
+       <td class='tright'>
+         <span class='ftitle'><% __('Re-type Passphrase') %>: </span>
+       </td> 
+       <td>
+         <input class='inputText' type='password' name='CAPassphraseAgain' />
+       </td>
+     </tr>
+     <tr>
+       <td></td>
+       <td>
+         <input class='inputButton' type='submit' name='ca'
+	        value="<% __('Create') %>"
+		alt="<% __('Create') %>" />
+       </td>
+     </tr>
+ 
+</form>

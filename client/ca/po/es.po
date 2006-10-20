@@ -1,0 +1,206 @@
+# translation of es.po to
+# Spanish translations for EBox-CA package.
+# Copyright (C) 2006 Warp S.L.
+# This file is distributed under the same license as the EBox-CA package.
+#
+# Enrique Jos�Hern�dez Blasco <ejhernandez@warp.es>, 2006.
+# Enrique Jose Hernandez Blasco <ejhernandez@warp.es>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: es\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2006-10-20 13:21+0200\n"
+"PO-Revision-Date: 2006-10-20 13:22+0200\n"
+"Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
+"Language-Team:  <es@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.2\n"
+
+#: src/EBox/CGI/DownloadKeys.pm:39 src/EBox/CGI/Index.pm:39
+#: src/EBox/CGI/CreateCA.pm:39 src/EBox/CGI/FormRevoke.pm:39
+#: src/EBox/CGI/IssueCertificate.pm:39
+msgid "Certification Authority Management"
+msgstr "Gestión de la Autoridad de Certificados"
+
+#: src/EBox/CGI/DownloadKeys.pm:61 src/EBox/CGI/FormRevoke.pm:61
+#: src/EBox/CGI/IssueCertificate.pm:59 src/templates/index.mas:14
+#: src/templates/index.mas:66 src/templates/formRevoke.mas:18
+msgid "Common Name"
+msgstr "Nombre común"
+
+#: src/EBox/CGI/DownloadKeys.pm:73
+msgid "Error creating file"
+msgstr "Error creando fichero"
+
+#: src/EBox/CGI/CreateCA.pm:59 src/templates/createCA.mas:16
+msgid "Organization Name"
+msgstr "Nombre de Organización"
+
+#: src/EBox/CGI/CreateCA.pm:60 src/templates/index.mas:21
+#: src/templates/formRevoke.mas:27 src/templates/createCA.mas:25
+msgid "Days to expire"
+msgstr "Días para expirar"
+
+#: src/EBox/CGI/CreateCA.pm:61 src/EBox/CGI/IssueCertificate.pm:63
+#: src/templates/formRevoke.mas:43
+#, fuzzy
+msgid "Certification Authority Passphrase"
+msgstr "Contraseña para la Autoridad Certificadora"
+
+#: src/EBox/CGI/CreateCA.pm:62 src/EBox/CGI/IssueCertificate.pm:62
+#: src/templates/index.mas:35 src/templates/createCA.mas:43
+#, fuzzy
+msgid "Re-type Passphrase"
+msgstr "Repetir contraseña"
+
+#: src/EBox/CGI/CreateCA.pm:69 src/EBox/CGI/IssueCertificate.pm:71
+msgid "Passphrases do NOT match"
+msgstr "Las contraseñas NO coinciden"
+
+#: src/EBox/CGI/FormRevoke.pm:68
+#, perl-brace-format
+msgid "Common name: {cn} does NOT exist in database"
+msgstr "Nombre común: {cn} NO existe en la base de datos"
+
+#: src/EBox/CGI/IssueCertificate.pm:60
+#, fuzzy
+msgid "Days to Expire"
+msgstr "Días para expirar"
+
+#: src/EBox/CGI/IssueCertificate.pm:61 src/templates/index.mas:28
+#, fuzzy
+msgid "Key Pair Passphrase"
+msgstr "Contreseña para el par de claves"
+
+#: src/EBox/CA.pm:217 src/EBox/CA.pm:521 src/EBox/CA.pm:885
+msgid "Days set to the maximum allowed: Year 2038 Bug"
+msgstr "Utilizado el máximo de días permitidos: Error de Año 2038"
+
+#: src/EBox/CA.pm:387
+msgid "No CA private key password is given"
+msgstr "No se ha dado la contraseña de la clave privada del CA"
+
+#: src/EBox/CA.pm:530
+msgid "No CA passpharse to sign a new certificate"
+msgstr "NO hay contraseña CA para firmar un nuevo certificado"
+
+#: src/EBox/CA.pm:564
+#, perl-brace-format
+msgid "Private key file {file} does NOT exist"
+msgstr "Fichero con la clave privada {file} NO existe"
+
+#: src/EBox/CA.pm:642 src/EBox/CA.pm:897
+msgid "No CA passpharse is given to revoke"
+msgstr "NO se ha dado contraseña del CA para revocar"
+
+#: src/EBox/CA.pm:652
+#, fuzzy, perl-brace-format
+msgid "Certificate with common name {commonName} does NOT exist"
+msgstr "Certificado con nombre común {commonName} NO existe"
+
+#: src/EBox/CA.pm:656
+#, perl-brace-format
+msgid ""
+"Reason {reason} is not an applicable reason.\n"
+"Options:"
+msgstr ""
+"La razón {reason} no es una opción aplicable.\n"
+"Opciones:"
+
+#: src/EBox/CA.pm:792
+#, perl-brace-format
+msgid "The user {commonName} does NOT exist"
+msgstr "El usuario {commonName} NO existe"
+
+#: src/EBox/CA.pm:823
+#, perl-brace-format
+msgid "Private key from {commonName} does NOT exist"
+msgstr "La clave privada {commonName} NO existe"
+
+#: src/EBox/CA.pm:949
+#, fuzzy, perl-brace-format
+msgid "Common name {cn} does NOT exist in this CA"
+msgstr "Nombre común: {cn} NO existe en la base de datos"
+
+#: src/EBox/CA.pm:1062
+msgid "The CA key passpharse is incorrect"
+msgstr "La contraseña para la clave del CA es incorrecta"
+
+#: src/EBox/CA.pm:1096
+msgid "Certificate Manager"
+msgstr "Gestor de Certificados"
+
+#: src/EBox/CA.pm:1421
+#, perl-brace-format
+msgid "Cannot start OpenSSL shell. ({errval})"
+msgstr "No se puede comenzar el intérprete para OpenSSL ({errval})"
+
+#: src/templates/index.mas:8
+msgid "Issue a new certificate"
+msgstr "Expedir un nuevo certificado"
+
+#: src/templates/index.mas:42
+msgid "Certification Authority"
+msgstr "Autoridad Certificadora"
+
+#: src/templates/index.mas:53 src/templates/index.mas:55
+msgid "Issue"
+msgstr "Expedir"
+
+#: src/templates/index.mas:62
+msgid "Current Certificate List"
+msgstr "Lista de Certificados actual"
+
+#: src/templates/index.mas:68
+msgid "State"
+msgstr "Estado"
+
+#: src/templates/index.mas:70
+msgid "Date"
+msgstr "Fecha"
+
+#: src/templates/index.mas:72 src/templates/index.mas:124
+#: src/templates/index.mas:129 src/templates/index.mas:144
+#: src/templates/index.mas:159
+msgid "Revoke"
+msgstr "Revocar"
+
+#: src/templates/index.mas:74 src/templates/index.mas:139
+#: src/templates/index.mas:154
+msgid "Download Key(s)"
+msgstr "Descargar clave(s)"
+
+#: src/templates/index.mas:76
+msgid "Renew"
+msgstr "Renovar"
+
+#: src/templates/index.mas:90
+msgid "Valid"
+msgstr "Válido"
+
+#: src/templates/index.mas:93
+msgid "Expired"
+msgstr "Expirado"
+
+#: src/templates/index.mas:96
+msgid "Revoked"
+msgstr "Revocado"
+
+#: src/templates/formRevoke.mas:9
+msgid "Revoke a certificate"
+msgstr "Revocar un certificado"
+
+#: src/templates/formRevoke.mas:53
+msgid "Reason"
+msgstr "Razón"
+
+#: src/templates/createCA.mas:10
+msgid "Create Certification Authority"
+msgstr "Crear Autoridad de Certificación"
+
+#: src/templates/createCA.mas:54 src/templates/createCA.mas:56
+msgid "Create"
+msgstr "Crear"

@@ -1,0 +1,65 @@
+<%args>
+  $metaDataCert # A hash reference to the list certificate return element
+  @reasons = qw (unspecified)
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<!-- Form to revoke a certificate -->
+<h3><% __('Revoke a certificate') %></h3>
+<form action="RevokeCertificate" method="POST" >
+  <input type="hidden" name="commonName" value="<%
+  $metaDataCert->{dn}->dnAttribute{'commonName'} %>" >
+  <table class="formTable">
+    <tbody>
+      <tr>
+        <td class="tright">
+	  <span class="ftitle"><% __("Common Name") %>: </span>
+	</td>
+        <td>
+	  <span class="ftitle">
+	    <%$metaDataCert->{dn}->dnAttribute{'commonName'} %>
+          </span>
+        </td>
+	<td class="tright">
+	  <span class="ftitle"><% __("Days to expire") %>: </span>
+	</td>
+	<td>
+	  <span class="ftitle">
+	    <%
+	      sprintf("%04d-%02d-%02d %02d:%02d:%02d", $date->{"year"},
+		      $date->{"month"}, $date->{"day"}, $date->{"hour"},
+		      $date->{"minute"}, $date->{"second"});
+            %>
+	  </span>
+	</td>
+      </tr>
+      <tr>
+        <td class="tright">
+	  <span class="ftitle">
+	    <% __("Certification Authority Passphrase") %>
+	  </span>
+	</td>
+	<td>
+	  <input class="inputText" type="password"
+	         name="CAPassphrase">
+	</td>
+	<td>
+	  <span class="ftitle">
+	    <% __("Reason") %>
+	  </span>
+	</td>
+	<td>
+	  <select name="reason" >
+	    <option selected="selected" value=""></option>
+%	      foreach my $reason (@reasons) {
+                <option value="<% $reason %>" >
+		  <% $reason %>
+	        </option>
+%             }
+	  </select>
+	</td>
+      </tr>
+    </tbody>
+  </table>
+</form>

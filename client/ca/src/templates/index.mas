@@ -1,0 +1,142 @@
+<%args>
+  @certs
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<!-- Issue a new certificate -->
+<h3><% __('Issue a new certificate') %></h3>
+<form action="IssueCertificate" method="POST" >
+  <table class="formTable">
+    <tr>
+      <td class="tright">
+        <span class="ftitle"><% __("Common Name") %>: </span>
+      </td>
+      <td>
+        <input class="inputText" type="text" name="commonName" />
+      </td>
+      <td class="tright">
+        <span class="ftitle"><% __("Days to expire") %>: </span>
+      </td>
+      <td>
+        <input class="inputText" type="text" name="expiryDays" />
+      </td>
+      <td>
+        <span class="ftitle"><% __("Key Pair Passphrase") %>: </span>
+      </td>
+      <td>
+        <input class="inputText" type="password" name="passphrase"/>
+      </td>
+      <td>
+        <span class="ftitle"><% __("Re-type Passphrase") %>: </span>
+      </td>
+        <input class="inputText" type="password" name="repassphrase"
+	/>
+      </td>
+      <td>
+        <span class="ftitle"><% __("Certification Authority" .
+	. "Passphrase") %>: </span>
+      </td>
+      <td>
+        <input class="inputText" type="password" name="CAPassphrase"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input class="inputButton" type="submit" name="certificate"
+	       value="<% __('Issue') %>"
+	       alt="<% __('Issue') %>" />
+      </td>
+    </tr>
+</form>
+
+<!-- List current certificates in a table -->
+<h3><% __("Current Certificate List") %></h3>
+<table class="dataTable">
+  <thead>
+    <th><% __("Common Name") %></th>
+    <th><% __("State") %></th>
+    <th><% __("Date") %></th>
+    <th class="thOptions"><% __("Revoke") %></th>
+    <th class="thOptions"><% __("Download Key(s)") %></th>
+    <th class="thOptions"><% __("Renew") %></th>
+  </thead>
+  <tbody>
+%   foreach my $cert (@certs) {
+    <tr class="border">
+      <td>
+        <% $cert->{'dn'}->dnAttribute{'commmonName'} %>
+      </td>
+      <td>
+<!-- Print the state string -->
+<%perl>
+   my $stateStr = "";
+   if ( $cert->{"state"} eq "V" ) {
+     $stateStr = __("Valid");
+   } elsif ( $cert->{"state"} eq "E" ) {
+     $stateStr = __("Expired");
+   } elsif ( $cert->{"state"} eq "R" ) {
+     $stateStr = __("Revoked");
+   }
+</%perl>
+        <% $stateStr %>
+      </td>
+      <td>
+<!-- Print the expiration or revocation date -->
+<%perl>
+  my $date = undef;
+    if ( $cert->{"state"} =~ m/[VE]/ ) {
+      $date = $cert->{"expiryDate"};
+    } else {
+      $date = $cert->{"revokeDate"};
+    }
+</%perl>
+        <%
+	  sprintf("%04d-%02d-%02d %02d:%02d:%02d", $date->{"year"},
+		  $date->{"month"}, $date->{"day"}, $date->{"hour"},
+		  $date->{"minute"}, $date->{"second"});
+	%>
+      </td>
+      <td>
+%	if ( $cert->{"state"} eq "V" ) {
+        <a
+	href="ShowRevoke?cn=<%$cert->{'dn'}->dnAttribute{'commmonName'}%>
+	>
+	  <img src="/data/images/deny-active.gif"
+	       alt="<% __('Revoke') %>" />
+	</a>   
+%	} else {
+        <img src="/data/images/deny-inactive.gif"
+	     alt="<% __('Revoke') %>" />
+%	}
+      </td>
+      <td>
+%	if ( $cert->{"state"} eq "V" ) {
+        <a
+	href="DownloadKeys?cn=<%$cert->{'dn'}->dnAttribute{'commmonName'}%>
+	>
+	  <img src="/data/images/install.gif"
+	       alt="<% __('Download Key(s)') %>" />
+	</a>   
+%	} else {
+        <img src="/data/images/hide.gif"
+	     alt="<% __('Revoke') %>" />
+%	}
+      </td>
+      <td>
+%	if ( $cert->{"state"} eq "V" ) {
+        <a
+	href="ShowRenew?cn=<%$cert->{'dn'}->dnAttribute{'commonName'}%>
+	>
+	  <img src="/data/images/requeue.gif"
+	       alt="<% __('Download Key(s)') %>" />
+	</a>   
+%	} else {
+        <img src="/data/images/bkgwhite.png"
+	     alt="<% __('Revoke') %>" />
+%	}
+      </td>
+    </tr>
+%   }
+  </tbody>
+</table>
