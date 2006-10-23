@@ -1,0 +1,41 @@
+# Chinese translations for EBox-pglogger package.
+# Copyright (C) 2006 Warp S.L.
+# This file is distributed under the same license as the EBox-pglogger package.
+# Automatically generated, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: EBox-pglogger 0.7.99\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2006-10-23 18:24+0200\n"
+"PO-Revision-Date: 2006-10-23 18:24+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/EBox/PgDBEngine.pm:41
+msgid ""
+"You must set the eboxlogs_dbname variable in the ebox configuration file"
+msgstr ""
+
+#: src/EBox/PgDBEngine.pm:53
+msgid ""
+"You must set the eboxlogs_dbuser variable in the ebox configuration file"
+msgstr ""
+
+#: src/EBox/PgDBEngine.pm:65
+msgid ""
+"You must set the eboxlogs_dbpass variable in the ebox configuration file"
+msgstr ""
+
+#: src/EBox/PgDBEngine.pm:203
+#, perl-brace-format
+msgid "Error dumping the postgresql database {name}"
+msgstr ""
+
+#: src/EBox/PgDBEngine.pm:219
+#, perl-brace-format
+msgid "DB dump file {file} is not readable"
+msgstr ""
