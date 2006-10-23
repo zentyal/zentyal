@@ -222,72 +222,26 @@ sub _requireParamAllowEmpty # (param, display)
 sub run
 {
 	my $self = shift;
-	my $debug = EBox::Config::configkey('debug');
+
 	if (not $self->_loggedIn) {
 		$self->{redirect} = "/ebox/Login/Index";
-	} else { 
-		try {
-			settextdomain($self->domain());
-			$self->_process;
-		} catch EBox::Exceptions::External with {
-			my $ex = shift;
-			$self->{error} = $ex->text;
-			if (defined($self->{redirect})) {
-				$self->{chain} = $self->{redirect};
-			}
-		} catch EBox::Exceptions::Internal with {
-			my $e = shift;
-			if ($debug eq 'yes') {
-				$self->{error} = $e->text;
-				$self->{error} .= '<br/>\n';
-				$self->{error} .= '<pre>\n';
-				$self->{error} .= Dumper($e);
-				$self->{error} .= '</pre>\n';
-				$self->{error} .= '<br/>\n';
-			} else {
-				$self->{error} = __("An internal error has ".
-					"ocurred. This is most probably a ".
-					"bug, relevant information can be ".
-					"found in the logs.");
-			}
-			if (defined($self->{redirect})) {
-				$self->{chain} = $self->{redirect};
-			}
-		} catch EBox::Exceptions::Base with {
-			my $e = shift;
-			if ($debug eq 'yes') {
-				$self->{error} = $e->text;
-				$self->{error} .= '<br/>\n';
-				$self->{error} .= '<pre>\n';
-				$self->{error} .= Dumper($e);
-				$self->{error} .= '</pre>\n';
-				$self->{error} .= '<br/>\n';
-			} else {
-				$self->{error} = __("An unknown internal ".
-					"error has ocurred. This is a bug, ".
-					"relevant information can be found ".
-					"in the logs.");
-			}
-			if (defined($self->{redirect})) {
-				$self->{chain} = $self->{redirect};
-			}
-		} otherwise {
-			my $e = shift;
-			my $logger = EBox::logger;
-			$logger->error(Dumper($e));
-			if ($debug eq 'yes') {
-				$self->{error} = $e->text;
-				$self->{error} .= '<br/>\n';
-				$self->{error} .= '<pre>\n';
-				$self->{error} .= Dumper($e);
-				$self->{error} .= '</pre>\n';
-				$self->{error} .= '<br/>\n';
-			} else {
-				$self->{error} = __("You have just hit a bug ".
-					"in eBox. Please seek technical ".
-					"support.");
-			}
-		};
+	}
+	else { 
+	  try {
+	    settextdomain($self->domain());
+	    $self->_process();
+	  } 
+	  catch EBox::Exceptions::Base with {
+	    my $e = shift;
+	    $self->setErrorFromException($e);
+	    if (defined($self->{redirect})) {
+	      $self->{chain} = $self->{redirect};
+	    }
+	  } 
+	  otherwise {
+	    my $e = shift;
+	    $self->setErrorFromException($e);	 
+	  }
 	}
 	
 	if (defined($self->{error})) {
@@ -495,12 +449,35 @@ sub setError
 sub setErrorFromException
 {
     my ($self, $ex) = @_;
+    my $debug = EBox::Config::configkey('debug');
 
-    if ($ex->can('text') ) {
-	$self->{error} = $ex->text;
+    if ($debug eq 'yes') {
+      $self->{error} = $ex->stringify() if $ex->can('stringify');
+      $self->{error} .= '<br/>\n';
+      $self->{error} .= '<pre>\n';
+      $self->{error} .= Dumper($ex);
+      $self->{error} .= '</pre>\n';
+      $self->{error} .= '<br/>\n';
+    } 
+    elsif ($ex->isa('EBox::Exceptions::External')) {
+      $self->{error} = $ex->stringify();
+    }
+    elsif ($ex->isa('EBox::Exceptions::Internal')) {
+      $self->{error} = __("An internal error has ".
+			  "ocurred. This is most probably a ".
+			  "bug, relevant information can be ".
+			  "found in the logs.");
+    }
+    elsif ($ex->isa('EBox::Exceptions::Base')) {
+      $self->{error} = __("An unexpected internal ".
+			  "error has ocurred. This is a bug, ".
+			  "relevant information can be found ".
+			  "in the logs.");
     }
     else {
-	$self->{error} = $ex;
+	$self->{error} = __("You have just hit a bug ".
+			    "in eBox. Please seek technical ".
+			    "support.");
     }
 }
 # Method: setRedirect
