@@ -12,9 +12,18 @@ use lib '../..';
 
 use_ok('EBox::FileSystem');
 
+checkNoRoot();
 makePrivateDirTest();
 cleanDirTest();
 isSubdirTest();
+
+
+sub checkNoRoot
+{
+  if ($> == 0 ) {
+    die "This test script cannot be run as root";
+  }
+}
 
 sub makePrivateDirTest
 {
