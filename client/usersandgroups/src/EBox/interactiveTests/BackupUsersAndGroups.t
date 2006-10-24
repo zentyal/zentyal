@@ -13,6 +13,10 @@ Readonly::Scalar my $EXTENDED_BACKUP_DIR => "$TEST_DIR/extended";
 
 system "rm -rf $TEST_DIR";
 
+
+use EBox;
+EBox::init();
+
 foreach my $dir ($TEST_DIR, $BACKUP_DIR, $EXTENDED_BACKUP_DIR) {
   mkdir $dir or die "Can not create directory $dir"; 
 }

@@ -135,7 +135,7 @@ sbindir = ${exec_prefix}/sbin
 sharedstatedir = ${prefix}/com
 sysconfdir = /etc
 target_alias = 
-test_scripts = BackupUsersAndGroups.t
+test_scripts = BackupUsersAndGroups.t PauseAndExecute.t
 EXTRA_DIST = $(test_scripts)
 all: all-am
 
