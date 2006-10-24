@@ -1007,8 +1007,15 @@ sub _fixLeftoverSharedDirectories
     my $chmodDirCommand = "/bin/chmod 755 $leftover";
     EBox::Sudo::root($chmodDirCommand);
 
-    my $chmodFilesCommand = "/bin/chmod -R og-srwx  $leftover/*";
-    EBox::Sudo::root($chmodFilesCommand);
+    # change permission to files in dir if dir has files
+    my $filesInDir = 1;
+    try {  EBox::Sudo::root("/bin/ls $leftover/*")  }  otherwise { $filesInDir = 0  } ;
+    
+    if ($filesInDir) {	   
+      my $chmodFilesCommand = "  /bin/chmod -R og-srwx  $leftover/*";
+      EBox::Sudo::root($chmodFilesCommand);
+    }
+
     
     my $leftoverNewDir =  $self->_leftoverNewDir($leftover, $leftoversDir);
 
