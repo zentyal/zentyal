@@ -47,8 +47,8 @@ use EBox::Gettext;
 					<input type='image' name='burn'
 						src='/data/images/writecd.gif'
 						value="<%__('Burn')%>"
-						title="<%__('Write backup to disc')%>"
-						alt="<%__('Write backup to disc')%>"/>
+						title="<%__('Write backup to disk')%>"
+						alt="<%__('Write backup to disk')%>"/>
 					<img src='/data/images/sep.gif' alt='-'/>
 					<input type='image' name='delete'
 						src='/data/images/delete.gif'
@@ -68,7 +68,7 @@ use EBox::Gettext;
     <td style="padding-right: 10px;"><%__('download')%></td>
 
     <td><img src="/data/images/writecd.gif" alt=""/></td>
-    <td style="padding-right: 10px;"><%__('write into disc')%></td>
+    <td style="padding-right: 10px;"><%__('write into disk')%></td>
 </tr>
 
 <tr>
@@ -89,7 +89,7 @@ my $modeOptions = [
 </%init>
 <h3><% __('Back up the current state') %></h3>
 <div class='help'>
-	<% __("Backups will be stored in eBox and then you will be able to download them to your hard disk or write them into disks. You can store it directly to a disc with the 'Backup to disc' option  ") %>
+	<% __("Backups will be stored in eBox and then you will be able to download them to your hard disk or write them into disks. You can store it directly to a disk with the 'Backup to disk' option  ") %>
 </div>
 <p>
 <table class='formTable'>
@@ -150,7 +150,7 @@ my $modeOptions = [
    </tbody>
 </table>
 
-<h3><% __('Restore backup from disc') %></h3>
+<h3><% __('Restore backup from disk') %></h3>
 <div class='help'>
 	<% __('You can restore from a backup disk. Please insert the disk before clicking the button') %>
 </div>
@@ -161,7 +161,7 @@ my $modeOptions = [
 			<td> </td>
 			<td>
 					
-		<input class='inputButton' type='submit' name='restoreFromDisc' value="<% __('Restore from disc') %>" />
+		<input class='inputButton' type='submit' name='restoreFromDisc' value="<% __('Restore from disk') %>" />
 			</td>
 		</tr>
 
