@@ -36,7 +36,7 @@ if (!defined $printableValue) {
 }
 my $selectedAttr = $selected ? 'selected' : '';
 </%init>
-<option value='<% $value %>' <% $selectedAttr %> >
+<option value='<% $value | h %>' <% $selectedAttr | h %> >
 <% $printableValue %>
 </option>
 </%def>

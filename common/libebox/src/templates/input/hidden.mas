@@ -3,4 +3,5 @@ $name
 $value       => ''
 @extraParams => ()
 </%args>
-<input type='hidden'  name='<% $name %>' value='<% $value %>'   <% @extraParams %> />
+<input type='hidden'  name='<% $name %>' value='<% $value | hu%>'
+  <% @extraParams | hu %> />
