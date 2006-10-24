@@ -58,6 +58,7 @@ AM_PO_SUBDIRS
 AC_CONFIG_FILES([
 src/Makefile
 src/EBox/Makefile
+src/EBox/rootTests/Makefile
 src/EBox/CGI/Makefile
 src/templates/Makefile
 schemas/Makefile
