@@ -26,19 +26,17 @@ use HTML::Mason::Interp;
 
 EBox::init();
 
-my $global = EBox::Global->getInstance(1);
-my @cmds = ();
-my @names = @{$global->modNames};
-foreach (@names) {
-	my $mod = EBox::Global->modInstance($_);
-	push(@cmds, $mod->rootCommands);
-}
+my @templateParams;
+
+my $user = EBox::Config::user();
+@templateParams = ( user => $user );
+
 
 my $output;
 my $interp = HTML::Mason::Interp->new(out_method => \$output);
 my $comp = $interp->make_component(comp_file => 
 				(EBox::Config::stubs . '/sudo.mas'));
-my @array = ();
-push(@array, cmds=>\@cmds);
-$interp->exec($comp, @array);
+
+
+$interp->exec($comp, @templateParams);
 print $output;
