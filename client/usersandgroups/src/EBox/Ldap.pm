@@ -494,15 +494,13 @@ sub loadLdapData
 sub _slapcatCmd
 {
   my ($self, $ldifFile, $slapdConfFile) = @_;
-  ### XXX TODO: rmove -v
-  return  "/usr/sbin/slapcat -v -f $slapdConfFile -l $ldifFile";
+  return  "/usr/sbin/slapcat  -f $slapdConfFile -l $ldifFile";
 }
 
 sub _slapaddCmd
 {
   my ($self, $ldifFile, $slapdConfFile) = @_;
-  ### XXX TODO: rmove -v
-  return  "/usr/sbin/slapadd -v -c -l $ldifFile -f $slapdConfFile";
+  return  "/usr/sbin/slapadd  -c -l $ldifFile -f $slapdConfFile";
 }
 
 sub _rmLdapDirCmd
