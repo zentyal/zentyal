@@ -803,7 +803,7 @@ sub restoreBackup # (file)
 	my $modname = $mod->name();
 	if (-e "$tempdir/eboxbackup/$modname.bak") {
 	  push @restored, $modname;
-	  EBox::debug("Restoring $modname form backup data");
+	  EBox::debug("Restoring $modname from backup data");
 	  $mod->restoreBackup("$tempdir/eboxbackup", %options);
 	}
 	else {
