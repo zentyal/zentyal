@@ -130,7 +130,7 @@ sub restoreFromDiscAction
   
   my $backup = new EBox::Backup;
   my $backupfileInfo = $backup->searchBackupFileInDiscs();
-  defined $backupfileInfo or throw EBox::Exceptions::External(__('Unable to find a correct backup disc. Please insert a backup disk and retry')); # XXX TODO: discriminate between no disc and disc with no backup
+  defined $backupfileInfo or throw EBox::Exceptions::External(__('Unable to find a correct backup disk. Please insert a backup disk and retry')); # XXX TODO: discriminate between no disc and disk with no backup
   
 
   my $details =  $backup->backupDetailsFromArchive($backupfileInfo->{file});
@@ -178,7 +178,7 @@ sub  burnAction
 
   $self->{msg} = __('Please confirm that you want to write this backup file to a CD or DVD disk:');
 
-  return ('writeBackupToDisc', __('Write to disc'), $self->backupDetailsFromId());
+  return ('writeBackupToDisc', __('Write to disk'), $self->backupDetailsFromId());
 } 
 
 
