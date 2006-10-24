@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = CGI interactiveTests
+SUBDIRS = CGI rootTests
 
 perldir = @PERLPATH@/EBox
 

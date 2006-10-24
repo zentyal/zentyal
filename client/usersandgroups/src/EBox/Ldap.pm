@@ -434,7 +434,7 @@ sub stop
 
   EBox::Sudo::root(INIT_SCRIPT . ' stop');
 
-
+  sleep 1;  
   return  $self->refreshLdap();
 } 
 
@@ -444,7 +444,7 @@ sub  start
 
   EBox::Sudo::root(INIT_SCRIPT . ' start');
 
-
+  sleep 1;
   return  $self->refreshLdap();
 } 
 
