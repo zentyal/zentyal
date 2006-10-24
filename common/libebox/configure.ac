@@ -57,6 +57,13 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	AC_PROG_PERL_MODULES(Perl6::Junction, ,
 	  AC_MSG_ERROR(Missing Perl6::Junction))
 
+	AC_PROG_PERL_MODULES(Readonly, ,
+	  AC_MSG_ERROR(Missing Readonly))
+
+	AC_PROG_PERL_MODULES(File::Slurp, ,
+	  AC_MSG_ERROR(Missing File::Slurp))
+
+
 	AC_PROG_PERL_MODULES(Test::Exception, ,
 	  AC_MSG_WARN(Missing test dependency Test::Exception))
 
@@ -75,6 +82,8 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	AC_PROG_PERL_MODULES(Test::Output, ,
 	  AC_MSG_WARN(Missing test dependency Test::Output))
 
+	AC_PROG_PERL_MODULES(Test::File, ,
+	  AC_MSG_WARN(Missing test dependency Test::File))
 fi  
 
 if test -z "$perlpath" ; then
@@ -100,6 +109,7 @@ src/templates/ebox/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile
 src/EBox/Exceptions/Makefile
+src/EBox/Exceptions/Sudo/Makefile
 src/EBox/CGI/Makefile
 src/EBox/CGI/t/Makefile
 src/EBox/CGI/EBox/Makefile
