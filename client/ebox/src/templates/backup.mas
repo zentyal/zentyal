@@ -45,7 +45,7 @@ use EBox::Gettext;
 						alt="<%__('Download')%>"/>
 					<img src='/data/images/sep.gif' alt='-'/>
 					<input type='image' name='burn'
-						src='/data/images/burn.gif'
+						src='/data/images/writecd.gif'
 						value="<%__('Burn')%>"
 						title="<%__('Write backup to disc')%>"
 						alt="<%__('Write backup to disc')%>"/>
@@ -67,7 +67,7 @@ use EBox::Gettext;
     <td><img src="/data/images/down.gif" alt=""/></td>
     <td style="padding-right: 10px;"><%__('download')%></td>
 
-    <td><img src="/data/images/burn.gif" alt=""/></td>
+    <td><img src="/data/images/writecd.gif" alt=""/></td>
     <td style="padding-right: 10px;"><%__('write into disc')%></td>
 </tr>
 
