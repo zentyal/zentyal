@@ -228,7 +228,7 @@ sub  _createBackupArchive
   @output = `$cmd`;
   if ($? != 0) {
     EBox::error("Failed command: $cmd. Output: @output");
-    throw EBox::Exceptions::External(__("Could not create backup archive Command output: {output}}"));
+    throw EBox::Exceptions::External(__('Could not create backup archive'));
   }
 
   $cmd = "tar --append -f $backupArchive  -C $tempdir $filesArchive 2>&1";
