@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-10-25 10:35+0200\n"
-"PO-Revision-Date: 2006-10-25 10:59+0200\n"
+"POT-Creation-Date: 2006-10-25 12:15+0200\n"
+"PO-Revision-Date: 2006-10-25 12:19+0200\n"
 "Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -587,7 +587,7 @@ msgid "Download"
 msgstr "Descargar"
 
 #: src/templates/backup.mas:58 src/templates/backup.mas:60
-msgid "Write backup to disk"
+msgid "Write backup to CD/DVD disk"
 msgstr "Grabar backup en CD/DVD"
 
 #: src/templates/backup.mas:80
@@ -596,7 +596,7 @@ msgstr "descargar"
 
 #: src/templates/backup.mas:84
 msgid "write into disk"
-msgstr "Grabar en CD/DVD"
+msgstr "grabar en CD/DVD"
 
 #: src/templates/backup.mas:90
 msgid "restore"
@@ -612,7 +612,7 @@ msgstr "Backup completo"
 
 #: src/templates/backup.mas:104
 msgid "Configuration Backup"
-msgstr "Backupsde la configuración"
+msgstr "Backup de la configuración"
 
 #: src/templates/backup.mas:108
 msgid "Back up the current state"
@@ -623,7 +623,9 @@ msgid ""
 "Backups will be stored in eBox and then you will be able to download them to "
 "your hard disk or write them into CD/DVD disks. Anyway, you can later copy "
 "stored backu "
-msgstr "Los backups se almacenarán en eBox y posteriormente pueden ser descargados a su disco duro o grabarlos en CD o DVD"
+msgstr ""
+"Los backups se almacenarán en eBox y posteriormente pueden ser descargados a "
+"su disco duro o grabados en CD o DVD"
 
 #: src/templates/backup.mas:129
 msgid "Backup mode"
@@ -631,11 +633,11 @@ msgstr "Tipo de backup"
 
 #: src/templates/backup.mas:139
 msgid "Back up to hard disk"
-msgstr "Backup y guarda en el disco duro"
+msgstr "Backup en disco duro"
 
 #: src/templates/backup.mas:141
 msgid "Back up to CD/DVD disk"
-msgstr "Backup y graba en CD/DVD"
+msgstr "Backup en CD/DVD"
 
 #: src/templates/backup.mas:151
 msgid "Restore backup from file"
@@ -643,7 +645,9 @@ msgstr "Restaura backup desde archivo"
 
 #: src/templates/backup.mas:154
 msgid "You can  upload a backup file from your computer"
-msgstr "Puede subir un fichero de backup desde su ordenador o utilizar uno de la lista de abajo"
+msgstr ""
+"Puede subir un fichero de backup desde su ordenador o utilizar uno de la "
+"lista de abajo"
 
 #: src/templates/backup.mas:162
 msgid "Backup file"
@@ -657,7 +661,9 @@ msgstr "Restaurar backup desde CD/DVD"
 msgid ""
 "You can restore from a backup disk. Please insert the disk before clicking "
 "the button"
-msgstr "Puedes restaurar desde un CD o DVD de backup. Por favor, inserte el disco antes de pulsar el botón."
+msgstr ""
+"Puedes restaurar desde un CD o DVD de backup. Por favor, inserte el disco "
+"antes de pulsar el botón."
 
 #: src/templates/backup.mas:194
 msgid "Restore from disk"
