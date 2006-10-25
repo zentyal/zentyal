@@ -221,13 +221,22 @@ sub  _createBackupArchive
   }
 
   my $filesArchive = "$archiveContentsDirRelative/files.tgz";
+  my $cmd;
   my @output;
 
-  @output = `tar cf $backupArchive -C $tempdir $archiveContentsDirRelative  --exclude $filesArchive 2>&1`;
-  ($? == 0) or throw EBox::Exceptions::External(__x("Could not create backup archive Command output: {output}}", output => "@output"));
+  $cmd = "tar cf $backupArchive -C $tempdir $archiveContentsDirRelative  --exclude $filesArchive 2>&1";
+  @output = `$cmd`;
+  if ($? != 0) {
+    EBox::error("Failed command: $cmd. Output: @output");
+    throw EBox::Exceptions::External(__("Could not create backup archive Command output: {output}}"));
+  }
 
-   @output = `tar --append -f $backupArchive  -C $tempdir $filesArchive 2>&1`;
-  ($? == 0) or throw EBox::Exceptions::External(__x("Could not append data to backup archive Command output: {output}}", output => "@output"));
+  $cmd = "tar --append -f $backupArchive  -C $tempdir $filesArchive 2>&1";
+  @output = `$cmd`;
+  if ($? != 0) {
+    EBox::error("Failed command: $cmd. Output: @output");
+    throw EBox::Exceptions::External(__('Could not append data to backup archive'));
+  }
 } 
 
 sub _createSizeFile
