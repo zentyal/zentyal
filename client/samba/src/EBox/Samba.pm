@@ -970,7 +970,7 @@ sub  _loadSharesFiles
 sub  _sharesFilesArchive
 {
   my ($self, $dir) = @_;
-  my $archive = "$dir/shares.tar.bz";
+  my $archive = "$dir/shares.tar.bz2";
   return $archive;
 } 
 
