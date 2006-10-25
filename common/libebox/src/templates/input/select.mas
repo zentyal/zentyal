@@ -2,6 +2,7 @@
 $name
 $value       => ''
 @extraParams => ()
+# Each option is a hash containing value and printableValue as keys
 @options => ();
 </%args>
 <%init>

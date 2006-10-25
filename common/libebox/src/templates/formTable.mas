@@ -37,17 +37,21 @@ if (!defined $printableName ) {
 
 my $inputComponent = "/input/$input.mas";
 </%init>
+% if ( $input ne "hidden" ) {
   <tr>
-      <td class='tright' >
-
-          <& .printableName, printableName => $printableName, input => $input &>
+     <td class='tright' >
+       <span class='ftitle'>
+         <& .printableName, printableName => $printableName, input =>
+	    $input &>
+       </span>
      </td>
      <td>
         <& $inputComponent, name => $name, value => $value, @extraParams &>
      </td>
-     </tr>
-
-  <tr>
+  </tr>
+% } else {
+  <& $inputComponent, name => $name, value => $value, @extraParams &>
+% }
   <& div, type => 'warning', content => $warning &>
   <& div, type => 'note', content => $note &>
   <& div, type => 'help', content => $help &>
@@ -59,7 +63,7 @@ $printableName
 $input
 </%args>
 <%init>
-if ($input eq 'submit') { 
+if ($input eq 'submit') {
    $printableName = '';
 }
 if ($printableName ne '') {
