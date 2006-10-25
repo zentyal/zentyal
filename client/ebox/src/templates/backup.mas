@@ -34,25 +34,25 @@ use EBox::Gettext;
 				<td class='tcenter'>
 					<input type='image' name='restoreFromId'
 						src='/data/images/apply.gif'
-						value="<%__('Restore')%>"
+						value="Restore"
 						title="<%__('Restore configuration using this file')%>"
 						alt="<%__('Restore from backup')%>"/>
 					<img src='/data/images/sep.gif' alt='-'/>
 					<input type='image' name='download'
 						src='/data/images/down.gif'
-						value="<%__('Download')%>"
+						value="Download"
 						title="<%__('Download')%>"
 						alt="<%__('Download')%>"/>
 					<img src='/data/images/sep.gif' alt='-'/>
 					<input type='image' name='burn'
 						src='/data/images/writecd.gif'
-						value="<%__('Burn')%>"
+						value="Burn"
 						title="<%__('Write backup to disk')%>"
 						alt="<%__('Write backup to disk')%>"/>
 					<img src='/data/images/sep.gif' alt='-'/>
 					<input type='image' name='delete'
 						src='/data/images/delete.gif'
-						value="<%__('Delete')%>"
+						value="Delete"
 						title="<%__('Delete')%>"
 						alt="<%__('Delete')%>"/>
 				</td>
@@ -89,7 +89,7 @@ my $modeOptions = [
 </%init>
 <h3><% __('Back up the current state') %></h3>
 <div class='help'>
-	<% __("Backups will be stored in eBox and then you will be able to download them to your hard disk or write them into disks. You can store it directly to a disk with the 'Backup to disk' option  ") %>
+	<% __("Backups will be stored in eBox and then you will be able to download them to your hard disk or write them into CD/DVD disks. Anyway, you can later copy stored backu ") %>
 </div>
 <p>
 <table class='formTable'>
@@ -114,8 +114,8 @@ my $modeOptions = [
 		<tr>
 			<td class='tright'> </td>
 			<td>
-				<input class='inputButton' type='submit' name='backup' value="<% __('Back up') %>" />
-			   	<input class='inputButton' type='submit' name='backupToDisc' value="<% __('Back up to disk') %>" />
+				<input class='inputButton' type='submit' name='backup' value="<% __('Back up to hard disk') %>" />
+			   	<input class='inputButton' type='submit' name='backupToDisc' value="<% __('Back up to CD/DVD disk') %>" />
 			</td>
                 </tr>
 	</form>
