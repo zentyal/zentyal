@@ -47,8 +47,8 @@ use EBox::Gettext;
 					<input type='image' name='burn'
 						src='/data/images/writecd.gif'
 						value="Burn"
-						title="<%__('Write backup to disk')%>"
-						alt="<%__('Write backup to disk')%>"/>
+						title="<%__('Write backup to CD/DVD disk')%>"
+						alt="<%__('Write backup to CD/DVD disk')%>"/>
 					<img src='/data/images/sep.gif' alt='-'/>
 					<input type='image' name='delete'
 						src='/data/images/delete.gif'
