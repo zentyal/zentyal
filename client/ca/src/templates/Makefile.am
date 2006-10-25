@@ -2,7 +2,7 @@
 
 templatedir = @TEMPLATESPATH@/ca
 
-template_DATA = createCA.mas formRevoke.mas index.mas 
+template_DATA = createCA.mas formRenew.mas formRevoke.mas index.mas 
 
 EXTRA_DIST = $(template_DATA)
 

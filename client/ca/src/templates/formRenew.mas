@@ -1,0 +1,46 @@
+<%args>	
+  $metaDataCert # A hash reference to the list certificate returned element
+</%args>
+<%init>
+  use EBox::Gettext;
+  my @renewTable = (
+		    { name  => 'commonName', input => 'hidden',
+		      value => $metaDataCert->{dn}->dnAttribute('commonName') },
+		    { name  => 'isCACert',   input => 'hidden',
+		      value => $metaDataCert->{isCACert} },
+		    { name  => 'expireDays', printableName =>
+		      __('Days to expire'),  input => 'text' },
+		    { name  => 'CAPassphrase', printableName =>
+		      __("Certification Authority Passphrase"),
+		      input => 'password' },
+		    { name => 'renew', input => 'submit', 
+		      value => __('Renew') }
+		   );
+</%init>
+<!-- Form to renew a certificate -->
+<h3><% __('Renew a certificate') | h %></h3>
+% if ( $metaDataCert->{"isCACert"} ) {
+  <div class="warning">
+    <% __("This operation will resign all the issued user certificates
+  with the same expiration date") | h %>
+  </div>
+% }
+<div>
+  <span class="ftitle"><% __("Common Name") | h%>: </span> 
+  <span class="ftitle">
+    <%$metaDataCert->{dn}->dnAttribute('commonName') | h %>
+  </span>
+  <span class="ftitle"><% __("Expiration Date") | h %>: </span>
+  <span class="ftitle">
+% my $date = $metaDataCert->{'expiryDate'};
+  <%
+    sprintf("%04d-%02d-%02d %02d:%02d:%02d", $date->{"year"},
+	    $date->{"month"}, $date->{"day"}, $date->{"hour"},
+	    $date->{"minute"}, $date->{"second"}) | h
+  %>
+  </span>
+</div>
+<br>
+<form action="RenewCertificate" method="post" >
+  <& formTable.mas, elements => \@renewTable &>
+</form>

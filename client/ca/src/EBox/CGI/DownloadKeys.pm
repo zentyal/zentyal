@@ -40,7 +40,7 @@ sub new
 				  @_);
 
     $self->{domain} = "ebox-ca";
-    $self->{redirect} = "CA/Index"
+    $self->{redirect} = "CA/Index";
     bless($self, $class);
 
     return $self;
@@ -59,9 +59,16 @@ sub _process
     # Check if the CA infrastructure has been created
     my @array = ();
 
-    $self->_requireParam('cn', __('Common Name') );
+    my $cn = $self->unsafeParam('cn');
+    # We have to check it manually if it exists
+    if ( not defined($cn) or $cn eq "" ) {
+      throw EBox::Exceptions::DataMissing(data => __('Common Name'));
+    }
 
-    my $cn = $self->param('cn');
+    # Transform %40 in @ 
+    $cn =~ s/%40/@/g;
+    # Transform %20 in space
+    $cn =~ s/%20/ /g;
 
     my $keys = $ca->getKeys($cn);
 
@@ -69,9 +76,16 @@ sub _process
       if ( defined($keys->{privateKey}) );
 
     if ($zipfile) {
-      my $ret = system("tar cvzf $zipfile $keys->{privateKey} $keys->{publicKey}");
+      my $linkPrivate = EBox::Config->tmp() . "private-$cn.pem";
+      my $linkPublic = EBox::Config->tmp() . "public-$cn.pem";
+      link($keys->{privateKey}, $linkPrivate);
+      link($keys->{publicKey}, $linkPublic);
+      # -h to dump what links point to
+      my $ret = system("cd " . EBox::Config->tmp() . "; tar cvzhf $zipfile private-$cn.pem public-$cn.pem");
+      unlink($linkPrivate);
+      unlink($linkPublic);
       if ($ret != 0) {
-	throw EBox::Exceptions::External(__("Error creating file") . ": $!"));
+	throw EBox::Exceptions::External(__("Error creating file") . ": $!");
       }
       $self->{downfile} = $zipfile
     } else {

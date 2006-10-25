@@ -61,14 +61,12 @@ sub _process
     $self->_requireParam('expiryDays', __('Days to expire') );
     $self->_requireParam('CAPassphrase', __('Certification Authority Passphrase') );
     $self->_requireParam('CAPassphraseAgain', __('Re-type Passphrase') );
-   
+
     my $orgName = $self->param('orgName');
     my $days = $self->param('expiryDays');
     my $passphrase = $self->param('CAPassphrase');
     my $repassphrase = $self->param('CAPassphraseAgain');
 
-    EBox::warn("pass: $passphrase $repassphrase\n");
-    
     if($passphrase ne $repassphrase) {
       throw EBox::Exceptions::External(__('Passphrases do NOT match'));
     }
@@ -78,9 +76,17 @@ sub _process
 					  . 'least 4 characters long'));
     }
 
-    $ca->createCA( orgName       => $orgName,
-		   caKeyPassword => $passphrase,
-		   days          => $days);
+    if ( $days <= 0 ) {
+      throw EBox::Exceptions::External(__('Days to expire MUST be a natural number'));
+    }
+
+    my $retVal = $ca->createCA( orgName       => $orgName,
+				caKeyPassword => $passphrase,
+				days          => $days);
+
+    if (not defined($retVal) ) {
+      throw EBox::Exceptions::External(__('Problems creating Certification Authority has happened'));
+    }
 
   }
 

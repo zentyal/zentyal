@@ -3,7 +3,8 @@
 case "$1" in
 	remove)
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
-
+		# Delete the issued certificates
+		rm -rf /var/lib/ebox/CA
 		;;		
 esac
 

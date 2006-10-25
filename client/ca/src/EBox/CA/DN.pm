@@ -16,6 +16,7 @@
 package EBox::CA::DN;
 
 use Storable qw(dclone);
+use EBox;
 
 # Constants
 use constant COUNTRY_DEF => "ES";
@@ -196,6 +197,38 @@ sub dnAttribute
 
   }
 
+# Method: equals
+#
+#       check if two objects contain the same data
+#
+# Parameters:
+#
+#       object - the object to compare with
+#
+# Returns:
+#
+#       true if both object are equal or false otherwise
+
+sub equals # (object) 
+  {
+
+    my ($self, $object) = @_;
+
+    # If two objects are different, returns false
+    if (ref($self) ne ref($object) ) {
+      return 0;
+    }
+
+    foreach my $key (keys %{$self}) {
+      if ( $self->{$key} ne $object->{$key} ) {
+	EBox::warn("self: " . $self->{$key} . " object : " . $object->{$key});
+	return 0
+      }
+    }
+
+    return 1;
+
+  }
 
 
 1;

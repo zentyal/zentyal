@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::CA::ShowRevoke;
+package EBox::CGI::CA::ShowForm;
 
 use strict;
 use warnings;
@@ -22,25 +22,26 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
 use EBox::Global;
+use EBox;
 
 # Method: new
 #
-#       Constructor for ShowRevoke CGI
+#       Constructor for ShowForm CGI.
+#       Show a common form (one for revokation and other for renewal)
 #
 # Returns:
 #
-#       Index - The object recently created
+#       ShowForm - The object recently created
 
 sub new
   {
 
     my $class = shift;
 
-    my $self = $class->SUPER::new('title'    => __('Certification Authority Management'),
+    my $self = $class->SUPER::new('title' => __('Certification Authority Management'),
 				  @_);
 
     $self->{domain} = "ebox-ca";
-    $self->{template} = "ca/formRevoke.mas";
     bless($self, $class);
 
     return $self;
@@ -59,16 +60,29 @@ sub _process
     my @array = ();
 
     $self->_requireParam('cn', __('Common Name'));
+    $self->_requireParam('action', __('Action'));
 
     my $cn = $self->param('cn');
+    my $action = $self->param('action');
 
-    my $arrayRef = $ca->listCertificates($cn);
+    if ($action eq "revoke") {
+      $self->{template} = "ca/formRevoke.mas";
+    } elsif ($action eq "renew") {
+      $self->{template} = "ca/formRenew.mas";
+    } else {
+      throw EBox::Exceptions::External(__('Only revoke and renew actions are performed'));
+    }
 
-    if ($#{$arrayRef} == 0 ) {
+    my $arrayRef = $ca->listCertificates(cn => $cn);
+
+    if ($#{$arrayRef} + 1 == 0 ) {
+      # If the common name does NOT exist sent to Index.pm
+      $self->{errorchain} = "CA/Index";
       throw EBox::Exceptions::External(__x("Common name: {cn} does NOT exist in database"
 					   , cn => $cn));
     }
-    push (@array, $arrayRef->[0]);
+
+    push (@array, metaDataCert => $arrayRef->[0]);
 
     $self->{params} = \@array;
 

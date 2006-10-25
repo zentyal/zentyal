@@ -1,74 +1,60 @@
 <%args>
-  @certs
+  $certs # A reference to the list with all available certificates
+  $caNeeded => undef # set whether the CA certificate is needed to issue
 </%args>
 <%init>
 use EBox::Gettext;
+use EBox::CA::DN;
 </%init>
 <!-- Issue a new certificate -->
-<h3><% __('Issue a new certificate') %></h3>
-<form action="IssueCertificate" method="POST" >
-  <table class="formTable">
-    <tr>
-      <td class="tright">
-        <span class="ftitle"><% __("Common Name") %>: </span>
-      </td>
-      <td>
-        <input class="inputText" type="text" name="commonName" />
-      </td>
-      <td class="tright">
-        <span class="ftitle"><% __("Days to expire") %>: </span>
-      </td>
-      <td>
-        <input class="inputText" type="text" name="expiryDays" />
-      </td>
-      <td>
-        <span class="ftitle"><% __("Key Pair Passphrase") %>: </span>
-      </td>
-      <td>
-        <input class="inputText" type="password" name="passphrase"/>
-      </td>
-      <td>
-        <span class="ftitle"><% __("Re-type Passphrase") %>: </span>
-      </td>
-        <input class="inputText" type="password" name="repassphrase"
-	/>
-      </td>
-      <td>
-        <span class="ftitle"><% __("Certification Authority" .
-	. "Passphrase") %>: </span>
-      </td>
-      <td>
-        <input class="inputText" type="password" name="CAPassphrase"/>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <input class="inputButton" type="submit" name="certificate"
-	       value="<% __('Issue') %>"
-	       alt="<% __('Issue') %>" />
-      </td>
-    </tr>
+<%perl>
+  my @issueTable = (
+		    { name => 'commonName', printableName =>
+		      __('Common Name'),    input => 'text' },
+		    { name => 'expiryDays', printableName => 
+		      __('Days to expire'), input => 'text' },
+		    { name => 'passphrase', printableName =>
+		      __('Key Pair Passphrase'), input => 'password'
+		    },
+		    { name => 'repassphrase', printableName =>
+		      __('Re-type Passphrase'), input => 'password' },
+		    { name => 'CAPassphrase', printableName =>
+		      __('Certification Authority Passphrase'),
+		      input => 'password' },
+		    { name => 'certificate',  value => 
+		      __('Issue'), input => 'submit' },
+		    { name => 'caNeeded', value => $caNeeded,
+		      input => 'hidden' }
+		   );
+</%perl>
+% if (defined($caNeeded) and $caNeeded) {
+  <h3><% __('Issue the Certification Authority Certificate') | h  %></h3>
+% } else {
+  <h3><% __('Issue a new certificate') |h %></h3>
+% }
+<form action="IssueCertificate" method="post" >
+  <& formTable.mas, elements => \@issueTable &>
 </form>
 
 <!-- List current certificates in a table -->
-<h3><% __("Current Certificate List") %></h3>
+<h3><% __("Current Certificate List") |h %></h3>
 <table class="dataTable">
   <thead>
-    <th><% __("Common Name") %></th>
-    <th><% __("State") %></th>
-    <th><% __("Date") %></th>
-    <th class="thOptions"><% __("Revoke") %></th>
-    <th class="thOptions"><% __("Download Key(s)") %></th>
-    <th class="thOptions"><% __("Renew") %></th>
+    <th><% __("Common Name") |h %></th>
+    <th><% __("State") |h %></th>
+    <th><% __("Date") |h %></th>
+    <th class="thOptions"><% __("Revoke") |h%></th>
+    <th class="thOptions"><% __("Download Key(s)") |h%></th>
+    <th class="thOptions"><% __("Renew") |h%></th>
   </thead>
   <tbody>
-%   foreach my $cert (@certs) {
-    <tr class="border">
+%   foreach my $cert (@{$certs}) {
+%   # It is needed to check if it is the CA certificate
+    <tr class="tcenter">
       <td>
-        <% $cert->{'dn'}->dnAttribute{'commmonName'} %>
+        <% $cert->{'dn'}->dnAttribute('commonName') |h %>
       </td>
-      <td>
-<!-- Print the state string -->
+    <!-- Print the state string -->
 <%perl>
    my $stateStr = "";
    if ( $cert->{"state"} eq "V" ) {
@@ -79,12 +65,13 @@ use EBox::Gettext;
      $stateStr = __("Revoked");
    }
 </%perl>
-        <% $stateStr %>
+      <td>
+        <% $stateStr |h %>
       </td>
       <td>
-<!-- Print the expiration or revocation date -->
+  <!-- Print the expiration or revocation date -->
 <%perl>
-  my $date = undef;
+    my $date = undef;
     if ( $cert->{"state"} =~ m/[VE]/ ) {
       $date = $cert->{"expiryDate"};
     } else {
@@ -94,49 +81,51 @@ use EBox::Gettext;
         <%
 	  sprintf("%04d-%02d-%02d %02d:%02d:%02d", $date->{"year"},
 		  $date->{"month"}, $date->{"day"}, $date->{"hour"},
-		  $date->{"minute"}, $date->{"second"});
-	%>
+		  $date->{"minute"}, $date->{"second"}) | h
+ 	%>
       </td>
       <td>
 %	if ( $cert->{"state"} eq "V" ) {
         <a
-	href="ShowRevoke?cn=<%$cert->{'dn'}->dnAttribute{'commmonName'}%>
+	href="ShowForm?action=revoke&cn=<%$cert->{'dn'}->dnAttribute('commonName')
+| u%>"
 	>
 	  <img src="/data/images/deny-active.gif"
-	       alt="<% __('Revoke') %>" />
+	       alt="<% __('Revoke') |h %>" />
 	</a>   
 %	} else {
         <img src="/data/images/deny-inactive.gif"
-	     alt="<% __('Revoke') %>" />
+	     alt="<% __('Revoke') |h%>" />
 %	}
       </td>
       <td>
 %	if ( $cert->{"state"} eq "V" ) {
         <a
-	href="DownloadKeys?cn=<%$cert->{'dn'}->dnAttribute{'commmonName'}%>
+	href="DownloadKeys?cn=<%$cert->{'dn'}->dnAttribute('commonName') | u%>"
 	>
 	  <img src="/data/images/install.gif"
-	       alt="<% __('Download Key(s)') %>" />
+	       alt="<% __('Download Key(s)') |h%>" />
 	</a>   
 %	} else {
         <img src="/data/images/hide.gif"
-	     alt="<% __('Revoke') %>" />
+	     alt="<% __('Download Key(s)') |h%>" />
 %	}
       </td>
       <td>
 %	if ( $cert->{"state"} eq "V" ) {
         <a
-	href="ShowRenew?cn=<%$cert->{'dn'}->dnAttribute{'commonName'}%>
+	href="ShowForm?action=renew&cn=<%$cert->{'dn'}->dnAttribute('commonName')
+	| u%>"
 	>
 	  <img src="/data/images/requeue.gif"
-	       alt="<% __('Download Key(s)') %>" />
+	       alt="<% __('Revoke') |h%>" />
 	</a>   
 %	} else {
         <img src="/data/images/bkgwhite.png"
-	     alt="<% __('Revoke') %>" />
+	     alt="<% __('Revoke') |h%>" />
 %	}
       </td>
-    </tr>
+    </tr>  
 %   }
   </tbody>
 </table>

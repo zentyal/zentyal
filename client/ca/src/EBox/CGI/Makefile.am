@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CGI/CA
 
-nobase_perl_DATA = CreateCA.pm FormRevoke.pm Index.pm IssueCertificate.pm DownloadKeys.pm
+nobase_perl_DATA = CreateCA.pm DownloadKeys.pm Index.pm IssueCertificate.pm RenewCertificate.pm RevokeCertificate.pm ShowForm.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

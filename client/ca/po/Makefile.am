@@ -9,6 +9,7 @@ MAINTAINERCLEANFILES = Makefile.in ebox-modulename.pot
 
 # List of files which contain translatable strings.
 POTFILES_TMPL = \
+ ./src/templates/formRenew.mas \
  ./src/templates/index.mas \
  ./src/templates/formRevoke.mas \
  ./src/templates/createCA.mas \
@@ -16,21 +17,26 @@ POTFILES_TMPL = \
 
 POTFILES_PL = \
  ./src/EBox/CA/DN.pm \
+ ./src/EBox/CGI/ShowForm.pm \
+ ./src/EBox/CGI/RenewCertificate.pm \
  ./src/EBox/CGI/DownloadKeys.pm \
+ ./src/EBox/CGI/RevokeCertificate.pm \
  ./src/EBox/CGI/Index.pm \
  ./src/EBox/CGI/CreateCA.pm \
- ./src/EBox/CGI/FormRevoke.pm \
  ./src/EBox/CGI/IssueCertificate.pm \
  ./src/EBox/CA.pm 
 
 POTFILES = \
  ./src/EBox/CA/DN.pm \
+ ./src/EBox/CGI/ShowForm.pm \
+ ./src/EBox/CGI/RenewCertificate.pm \
  ./src/EBox/CGI/DownloadKeys.pm \
+ ./src/EBox/CGI/RevokeCertificate.pm \
  ./src/EBox/CGI/Index.pm \
  ./src/EBox/CGI/CreateCA.pm \
- ./src/EBox/CGI/FormRevoke.pm \
  ./src/EBox/CGI/IssueCertificate.pm \
  ./src/EBox/CA.pm \
+ ./src/templates/formRenew.mas \
  ./src/templates/index.mas \
  ./src/templates/formRevoke.mas \
  ./src/templates/createCA.mas 
