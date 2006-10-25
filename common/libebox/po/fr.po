@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-26 18:37+0100\n"
+"POT-Creation-Date: 2006-10-25 13:44+0200\n"
 "PO-Revision-Date: 2005-11-29 16:33+0100\n"
 "Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -29,7 +29,7 @@ msgstr "{data} {value} n'existe pas."
 msgid "{data} {value} already exists."
 msgstr "{data} {value} existe déjà."
 
-#: src/EBox/Exceptions/InvalidData.pm:31
+#: src/EBox/Exceptions/InvalidData.pm:32
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
 msgstr "Valeur invalide pour {data}: {value}."
@@ -39,69 +39,130 @@ msgstr "Valeur invalide pour {data}: {value}."
 msgid "{data} is empty."
 msgstr "{data} est vide."
 
-#: src/EBox/CGI/Run.pm:58
-msgid "The page could not be found"
+#: src/EBox/CGI/EBox/PageNotFound.pm:12
+#, fuzzy
+msgid "Page not found"
 msgstr "La page n'a pas pu être trouvée"
 
-#: src/EBox/CGI/Base.pm:166
+#: src/EBox/CGI/Base.pm:167
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
-msgstr "L'entrée contient des caractères invalides. Tous les caractères alphanumériques, plus ceux ci non alphanumériques sont permis: /.?&+:-@ et espaces."
+msgstr ""
+"L'entrée contient des caractères invalides. Tous les caractères "
+"alphanumériques, plus ceux ci non alphanumériques sont permis: /.?&+:-@ et "
+"espaces."
 
-#: src/EBox/CGI/Base.pm:246 src/EBox/CGI/Base.pm:321
+#: src/EBox/CGI/Base.pm:278
+#, fuzzy
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
-"information can be found in the logs."
-msgstr "Une erreur interne s'est produite. C'est probablement un bogue, l'information pertinente peut être trouvé dans les logs."
+"information can be found in thex logs."
+msgstr ""
+"Une erreur interne s'est produite. C'est probablement un bogue, "
+"l'information pertinente peut être trouvé dans les logs."
 
-#: src/EBox/CGI/Base.pm:264
-msgid ""
-"An unknown internal error has ocurred. This is a bug, relevant information "
-"can be found in the logs."
-msgstr "Une erreur interne inconnue s'est produite. C'est un bogue, l'information pertinente peut être trouvé dans les logs."
-
-#: src/EBox/CGI/Base.pm:284
-msgid "You have just hit a bug in eBox. Please seek technical support."
-msgstr "Vous avez trouvé un bogue dans l'eBox. Veuillez contacter votre service de soutien technique."
-
-#: src/EBox/CGI/Base.pm:330
+#: src/EBox/CGI/Base.pm:287
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
-msgstr "Une erreur interne liée à une matrice s'est produite. C'est un bogue, l'information pertinente peut être trouvé dans les logs."
+msgstr ""
+"Une erreur interne liée à une matrice s'est produite. C'est un bogue, "
+"l'information pertinente peut être trouvé dans les logs."
 
-#: src/EBox/NetWrappers.pm:101 src/EBox/NetWrappers.pm:129
-#: src/EBox/NetWrappers.pm:160 src/EBox/NetWrappers.pm:192
+#: src/EBox/CGI/Base.pm:466
+msgid ""
+"An internal error has ocurred. This is most probably a bug, relevant "
+"information can be found in the logs."
+msgstr ""
+"Une erreur interne s'est produite. C'est probablement un bogue, "
+"l'information pertinente peut être trouvé dans les logs."
+
+#: src/EBox/CGI/Base.pm:472
+#, fuzzy
+msgid ""
+"An unexpected internal error has ocurred. This is a bug, relevant "
+"information can be found in the logs."
+msgstr ""
+"Une erreur interne inconnue s'est produite. C'est un bogue, l'information "
+"pertinente peut être trouvé dans les logs."
+
+#: src/EBox/CGI/Base.pm:478
+msgid "You have just hit a bug in eBox. Please seek technical support."
+msgstr ""
+"Vous avez trouvé un bogue dans l'eBox. Veuillez contacter votre service de "
+"soutien technique."
+
+#: src/EBox/CGI/Base.pm:536
+msgid "Unallowed parameters found: "
+msgstr ""
+
+#: src/EBox/CGI/Base.pm:550
+msgid "Mandatory parameters not found: "
+msgstr ""
+
+#: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
+#: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
 msgid "Interface"
 msgstr "Interface"
 
-#: src/EBox/Config.pm.in:40
-msgid "Could not open the config file."
+#: src/EBox/Validate.pm:572
+#, perl-brace-format
+msgid ""
+"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
+"the permissions forbidde access to it"
+msgstr ""
+
+#: src/EBox/Validate.pm:577
+#, perl-brace-format
+msgid "Owner mismatch: {dir}"
+msgstr ""
+
+#: src/EBox/Validate.pm:652
+msgid ""
+"The file path supplied is not valid. (Currently not all of the valid file's  "
+"characters are supported) "
+msgstr ""
+
+#: src/EBox/Validate.pm:680
+msgid "The file path must be absolute"
+msgstr ""
+
+#: src/EBox/Config.pm.in:39
+#, fuzzy, perl-brace-format
+msgid "Could not open the config file {file}."
 msgstr "On n'a pas pu ouvrir le fichier de config."
 
-#: src/EBox/Config.pm.in:73
+#: src/EBox/Config.pm.in:72
 msgid "The ebox user has not been set in the config file."
 msgstr "L'usager d'ebox n'a pas été placé dans le fichier de config."
 
-#: src/EBox/Sudo.pm:57
-#, perl-brace-format
-msgid "Command '{cmd}' failed"
+#: src/EBox/Sudo.pm:68
+#, fuzzy, perl-brace-format
+msgid "Command '{cmd}' failed. Output: {output}"
 msgstr "Commande '{cmd}' échoué"
 
-#: src/EBox/Sudo.pm:86
-#, perl-brace-format
-msgid "Root command '{cmd}' failed"
-msgstr "Commande de root '{cmd}' échoué"
-
-#: src/EBox/Sudo.pm:111
+#: src/EBox/Sudo.pm:178
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "Executant commande '{cmd}' comme {user} échoué"
 
-#: src/templates/title.mas:12
+#: src/templates/title.mas:14
 msgid "Display help notes"
 msgstr "Montrer notes d'aide"
+
+#: src/templates/title.mas:15
+msgid "show help"
+msgstr ""
+
+#: src/templates/title.mas:17
+#, fuzzy
+msgid "Hide help notes"
+msgstr "Montrer notes d'aide"
+
+#: src/templates/title.mas:18
+msgid "hide help"
+msgstr ""
 
 #: src/templates/language.mas:10
 msgid "Language selection"
@@ -111,18 +172,36 @@ msgstr "Selection de langue"
 msgid ""
 "Language changes happen automatically, saving the configuration it's not "
 "needed."
-msgstr "Les changements de langue se produisent automatiquement, il n'est pas nécessaire de garder la configuration."
+msgstr ""
+"Les changements de langue se produisent automatiquement, il n'est pas "
+"nécessaire de garder la configuration."
 
-#: src/templates/language.mas:25 src/templates/enable.mas:27
-#: src/templates/enable.mas:29
+#: src/templates/language.mas:25 src/templates/enable.mas:29
+#: src/templates/enable.mas:31
 msgid "Change"
 msgstr "Changer"
 
-#: src/templates/enable.mas:15 src/templates/enable.mas:20
+#: src/templates/enable.mas:13
+msgid "Service configuration"
+msgstr ""
+
+#: src/templates/enable.mas:17 src/templates/enable.mas:22
 msgid "Disabled"
 msgstr "Désactivé"
 
-#: src/templates/enable.mas:17 src/templates/enable.mas:22
+#: src/templates/enable.mas:19 src/templates/enable.mas:24
 msgid "Enabled"
 msgstr "Activé"
 
+#: src/templates/formTable.mas:79
+#, fuzzy
+msgid "Table is empty"
+msgstr "{data} est vide."
+
+#: src/templates/ebox/pageNotFound.mas:14
+#, fuzzy
+msgid "The page can not be found"
+msgstr "La page n'a pas pu être trouvée"
+
+#~ msgid "Root command '{cmd}' failed"
+#~ msgstr "Commande de root '{cmd}' échoué"

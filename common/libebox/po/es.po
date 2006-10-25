@@ -1,10 +1,10 @@
-# translation of es.po to Español
+# translation of es.po to
 # Isaac Clerencia <isaac@sindominio.net>, 2004, 2005.
 # Jorge Arcas <jarcas@warp.es>, 2005.
 # Isaac Clerencia <isaac@warp.es>, 2005.
 # Dani Baeyens <dani@warp.es>, 2005.
 # Jorge Arcas <jorge@warp.es>, 2006.
-# translation of es.po to
+# Javier Amor Garcia <javier.amor.garcia@warp.es>, 2006.
 # Spanish Warp Team translation of ebox.
 # Copyright (C) 2005 Warp Networks S.L and DBS Servicios Informaticos S.L.
 # This file is distributed under the same license as the PACKAGE package.
@@ -12,14 +12,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-02-01 13:49+0100\n"
-"PO-Revision-Date: 2006-02-01 13:50+0100\n"
-"Last-Translator: Jorge Arcas <jorge@warp.es>\n"
-"Language-Team: Español <ebox-devel@lists.warp.es>\n"
+"POT-Creation-Date: 2006-10-25 13:44+0200\n"
+"PO-Revision-Date: 2006-10-25 13:41+0200\n"
+"Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.1\n"
+"X-Generator: KBabel 1.11.2\n"
 
 #: src/EBox/Exceptions/DataNotFound.pm:30
 #, perl-brace-format
@@ -31,7 +31,7 @@ msgstr "{data} no existente: {value}."
 msgid "{data} {value} already exists."
 msgstr "{data} ya existente: {value}."
 
-#: src/EBox/Exceptions/InvalidData.pm:31
+#: src/EBox/Exceptions/InvalidData.pm:32
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
 msgstr "{data} inválido, valor: {value}."
@@ -41,11 +41,11 @@ msgstr "{data} inválido, valor: {value}."
 msgid "{data} is empty."
 msgstr "Dato vacío: {data}"
 
-#: src/EBox/CGI/Run.pm:58
-msgid "The page could not be found"
+#: src/EBox/CGI/EBox/PageNotFound.pm:12
+msgid "Page not found"
 msgstr "La página no pudo encontrarse"
 
-#: src/EBox/CGI/Base.pm:169
+#: src/EBox/CGI/Base.pm:167
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
@@ -53,27 +53,15 @@ msgstr ""
 "La entrada contiene caracteres inválidos. Todos los caracteres alfanuméricos "
 "más los caracteres /.?'&+:-@ y los espacios están permitidos."
 
-#: src/EBox/CGI/Base.pm:250 src/EBox/CGI/Base.pm:326
+#: src/EBox/CGI/Base.pm:278
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
-"information can be found in the logs."
+"information can be found in thex logs."
 msgstr ""
 "Se ha producido un error interno. Probablemente se trate de un bug, puede "
 "encontrar más información en los logs."
 
-#: src/EBox/CGI/Base.pm:268
-msgid ""
-"An unknown internal error has ocurred. This is a bug, relevant information "
-"can be found in the logs."
-msgstr ""
-"Se ha producido un error interno. Se trata de un bug, puede encontrar más "
-"información en los logs."
-
-#: src/EBox/CGI/Base.pm:288
-msgid "You have just hit a bug in eBox. Please seek technical support."
-msgstr "Acaba de encontrar un bug en eBox. Por favor, consulte a su soporte técnico."
-
-#: src/EBox/CGI/Base.pm:335
+#: src/EBox/CGI/Base.pm:287
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -81,41 +69,101 @@ msgstr ""
 "Se ha producido un error interno relacionado con una plantilla. Se trata de "
 "un bug, puede encontrar más información en los logs."
 
-#: src/EBox/NetWrappers.pm:101 src/EBox/NetWrappers.pm:129
-#: src/EBox/NetWrappers.pm:160 src/EBox/NetWrappers.pm:192
+#: src/EBox/CGI/Base.pm:466
+msgid ""
+"An internal error has ocurred. This is most probably a bug, relevant "
+"information can be found in the logs."
+msgstr ""
+"Se ha producido un error interno. Probablemente se trate de un bug, puede "
+"encontrar más información en los logs."
+
+#: src/EBox/CGI/Base.pm:472
+msgid ""
+"An unexpected internal error has ocurred. This is a bug, relevant "
+"information can be found in the logs."
+msgstr ""
+"Se ha producido un error interno. Se trata de un bug, puede encontrar más "
+"información en los logs."
+
+#: src/EBox/CGI/Base.pm:478
+msgid "You have just hit a bug in eBox. Please seek technical support."
+msgstr ""
+"Acaba de encontrar un bug en eBox. Por favor, consulte a su soporte técnico."
+
+#: src/EBox/CGI/Base.pm:536
+msgid "Unallowed parameters found: "
+msgstr "Se encontraron parametros no permitidos"
+
+#: src/EBox/CGI/Base.pm:550
+msgid "Mandatory parameters not found: "
+msgstr "No se han encontrado parametros obligatorios"
+
+#: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
+#: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
 msgid "Interface"
 msgstr "Interfaz"
 
-#: src/EBox/Config.pm.in:40
-msgid "Could not open the config file."
-msgstr "No se pudo abrir el fichero de configuración"
+#: src/EBox/Validate.pm:572
+#, perl-brace-format
+msgid ""
+"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
+"the permissions forbidde access to it"
+msgstr ""
+"No se puede leer {dir}. Es posible que el directorio no exista o que existan "
+"permisos que impiden acceder a él"
 
-#: src/EBox/Config.pm.in:73
+#: src/EBox/Validate.pm:577
+#, perl-brace-format
+msgid "Owner mismatch: {dir}"
+msgstr "Propietario inadecuado para el directorio {dir}"
+
+#: src/EBox/Validate.pm:652
+msgid ""
+"The file path supplied is not valid. (Currently not all of the valid file's  "
+"characters are supported) "
+msgstr ""
+"La ruta de archivo no es valida. (Actualmente no están soportados todos los "
+"caracteres validos para un nombre de archivo)"
+
+#: src/EBox/Validate.pm:680
+msgid "The file path must be absolute"
+msgstr "La ruta de archivo debe ser absoluta"
+
+#: src/EBox/Config.pm.in:39
+#, perl-brace-format
+msgid "Could not open the config file {file}."
+msgstr "No se pudo abrir el fichero de configuración {file}"
+
+#: src/EBox/Config.pm.in:72
 msgid "The ebox user has not been set in the config file."
-msgstr "El usuario de ebox no ha sido establecido en el fichero de configuración."
+msgstr ""
+"El usuario de ebox no ha sido establecido en el fichero de configuración."
 
-#: src/EBox/Sudo.pm:57
+#: src/EBox/Sudo.pm:68
 #, perl-brace-format
-msgid "Command '{cmd}' failed"
-msgstr "El comando '{cmd}' falló"
+msgid "Command '{cmd}' failed. Output: {output}"
+msgstr "El comando '{cmd}' falló. Salida: {output}"
 
-#: src/EBox/Sudo.pm:86
-#, perl-brace-format
-msgid "Root command '{cmd}' failed"
-msgstr "El comando '{cmd}', ejecutado como root, falló"
-
-#: src/EBox/Sudo.pm:111
+#: src/EBox/Sudo.pm:178
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "El comando '{cmd}', ejecutado como {user}, falló"
 
-#: src/templates/title.mas:12
+#: src/templates/title.mas:14
 msgid "Display help notes"
 msgstr "Ver notas de ayuda"
 
-#: src/templates/title.mas:13
+#: src/templates/title.mas:15
 msgid "show help"
 msgstr "mostrar ayuda"
+
+#: src/templates/title.mas:17
+msgid "Hide help notes"
+msgstr "Ocultar notas de ayuda"
+
+#: src/templates/title.mas:18
+msgid "hide help"
+msgstr "ocultar ayuda"
 
 #: src/templates/language.mas:10
 msgid "Language selection"
@@ -146,3 +194,10 @@ msgstr "Deshabilitado"
 msgid "Enabled"
 msgstr "Habilitado"
 
+#: src/templates/formTable.mas:79
+msgid "Table is empty"
+msgstr "La tabla esta vacía"
+
+#: src/templates/ebox/pageNotFound.mas:14
+msgid "The page can not be found"
+msgstr "La página no pudo encontrarse"
