@@ -193,7 +193,7 @@ sub _writeBackupToDiscAction
   
   $backup->writeBackupToDisc($id);
 
-  $self->setMsg(__('Backup was written to disc'));
+  $self->setMsg(__('Backup was written to CD/DVD disk'));
 }
 
 sub  _restoreFromFileAction
