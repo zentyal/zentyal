@@ -490,7 +490,7 @@ sub setSharingName($$$) {
         }
 
        if ((not defined $name) or ( $name =~ /^\s*$/)) {
-	 throw EBox::Exceptions::External(__("The share's name is empty"));
+	 throw EBox::Exceptions::External(__("A name should be provided for the share"));
        }
 	
 	my $oldname = $self->sharingName($group);
