@@ -1,0 +1,194 @@
+package EBox::TestStubs;
+use base 'Exporter';
+# package: EBox::TestStubs
+#
+#  this package is the global facade to all ebox-base test stubs
+#
+# warning:
+# do not confuse with EBox::TestStub (this package is the teststub for the -package- EBox
+#
+use strict;
+use warnings;
+
+use Test::MockObject::Extends;
+
+use EBox::Sudo::TestStub;
+use EBox::TestStub;
+use EBox::Config::TestStub;
+use EBox::GConfModule::TestStub;
+use EBox::Global::TestStub;
+use EBox::NetWrappers::TestStub;
+
+
+our @EXPORT_OK = qw(activateEBoxTestStubs fakeEBoxModule setConfig setConfigKeys);
+our %EXPORT_TAGS = ( all => \@EXPORT_OK );
+
+#
+# Function: activateTestStubs
+#
+#   Some of the parts of eBox needs to be replaced with tests stubs for ease testing. This sub is for do this setup in only one place.
+#  Please note, test classes created using EBox::Test::Class automatically call this function
+#
+# Parameters:
+#     There are optional parameters  only intended for advanced usage; each of the test stub may be controlled with two parameters.
+#        "fake$componentName" - wether to activate the teststub for this component or not (default: true)
+#        "$componentName"     - a array ref with extra parameters for the component. (optional)
+#
+#
+# See also:
+#     EBox::Test::Class
+#
+# 
+sub activateTestStubs
+{
+    my %params = @_;
+    my @components = qw(EBox Sudo Config GConfModule Global NetWrappers); # they will be faked in this order
+    # set default parameters
+    foreach my $stub (@components) {
+      my $fakeSwitch = "fake$stub";
+      $params{$fakeSwitch} = 1   if (!exists $params{$fakeSwitch});
+      $params{$stub}       = []  if (!exists $params{$stub});
+	 
+    }
+
+    my %fakeByComponent = (
+			   'EBox'        => \&EBox::TestStub::fake,
+			   'Sudo'        => \&EBox::Sudo::TestStub::fake,
+			   'Config'      => \&EBox::Config::TestStub::fake,
+			   'GConfModule' => \&EBox::GConfModule::TestStub::fake,
+			   'Global'      => \&EBox::Global::TestStub::fake,
+			   'NetWrappers' => \&EBox::NetWrappers::TestStub::fake,
+			  );
+
+
+    foreach my $comp (@components) {
+      my $fakeSub_r = $fakeByComponent{$comp};
+      defined $comp or throw EBox::Exceptions::Internal("No fake sub supplied for $comp");
+      my $fakeSwitch = "fake$comp";
+      if ($params{$fakeSwitch}) {
+	my $fakeParams = $params{$comp};
+	$fakeSub_r->(@{ $fakeParams  });
+      }
+    }
+}
+
+
+#
+# Function: setConfig
+#
+#    set EBox config keys. (Currently stored in GConf)
+#    Plese do not confuse this sub with setEBoxConfigKeys
+#
+# Parameters:
+#     the keys and values to be established
+#
+# Prerequisites:
+#      activateEBoxTestStubs must be called to be able to use this function
+# Usage examples:
+#	setConfig(); # clear the current configuration
+#       setConfig(
+# 		  '/ebox/modules/openvpn/user'  => $UID,
+# 		  '/ebox/modules/openvpn/group' =>  $gids[0],
+# 		  '/ebox/modules/openvpn/conf_dir' => $confDir,
+# 		  '/ebox/modules/openvpn/dh' => "$confDir/dh1024.pem",
+#                ); # set some keys	
+# 
+sub setConfig
+{
+  return EBox::GConfModule::TestStub::setConfig(@_); 
+}
+
+#
+# Function: setEBoxModule
+#
+#   Register a ebox module in ebox configuration. This is not needed for modules created with fakeEBoxModule
+#
+# Parameters:
+#   $name     - the name of the module
+#   $package  - the perl package of the module
+#   $depends  - a list refrence with the module dependencies (optional)#
+
+# Prerequisites:
+#      activateEBoxTestStubs must be called to be able to use this function
+# Usage examples:
+#    setEBoxModule('openvpn' => 'EBox::OpenVPN');
+sub setEBoxModule
+{
+  return EBox::Global::TestStub::setEBoxModule(@_);
+}
+
+#
+# Function: setEBoxConfigKeys
+#
+#   Set the keys and values of configuration values accessed via EBox::Config. Don't confuse this configuration vlaues with 'normal' eBox configuration that is retrevied using module methods, for fake those last configuration you can use EBox::Test::setConfig
+#   If you try to establsih a inexistent key, a error will be raised
+#
+#
+# Parameters:
+#    the keys and values to be established, at least you must supply a pair
+#
+# Prerequisites:
+#      activateEBoxTestStubs must be called to be able to use this function
+# Usage examples:
+#    setEboxConfigKeys(locale => 'es', group => 'ebox', css => '/var/ww/css', lang => 'cat') 
+sub setEBoxConfigKeys
+{
+  return EBox::Config::TestStub::setConfigKeys(@_);
+}
+
+
+#
+# Function: fakeEBoxModule
+#
+#    Create on the fly fake eBox modules
+#
+# Parameters:
+#       (named parameters)
+#       name     - the name of the ebox module (required)
+#       package  - the perl package of the ebox module (optional)
+#       isa      - the parents of the package (optional. Default: EBox:GConfModule)
+#       subs     - the subs to be installed in the package; in the form of a reference to a list containig the names and sub references of each sub. (optional)
+#       initalizer - a initializer sub for the module. The module constructor will call this sub passing itself as first parameter. (optional)
+#
+# Prerequisites:
+#      activateEBoxTestStubs must be called to be able to use this function
+# Usage examples:
+#	fakeEBoxModule(name => 'idleModule');
+#       fakeEBoxModules( 
+#                name => 'macaco', package => 'EBox::Macaco', 
+#                subs => [ sayHello => sub { print 'hi'  }  ],
+#       );
+# 
+sub fakeEBoxModule
+{
+  my %params = @_;
+  exists $params{name} or throw EBox::Exceptions::Internal('fakeEBoxModule: lacks name paramater');
+  exists $params{package} or $params{package} =  'EBox::' . ucfirst $params{name};
+
+  my @isa = ('EBox::GConfModule');
+  push @isa, @{ $params{isa} } if exists $params{isa};
+  my $createIsaCode =  'package ' . $params{package} . "; use base qw(@isa);";
+  eval $createIsaCode;
+  die "When creating ISA array $@" if  $@;
+
+  my $initializerSub = exists $params{initializer} ? $params{initializer} : sub { my ($self) = @_; return $self};
+
+
+  Test::MockObject->fake_module($params{package},
+				_create => sub {
+				  my $self = EBox::GConfModule->_create(name => $params{name});
+				  bless $self, $params{package};
+				  $self = $initializerSub->($self);
+				  return $self;
+				},
+				@{ $params{subs} }
+			       );
+
+
+
+  EBox::Global::TestStub::setEBoxModule($params{name} => $params{package});
+}
+
+
+
+1;
