@@ -22,7 +22,11 @@ use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use File::stat qw();
+use File::Slurp;
 use Error qw(:try);
+
+use EBox::Exceptions::Sudo::Command;
+use EBox::Exceptions::Sudo::Wrapper;
 
 BEGIN {
 	use Exporter ();
@@ -37,6 +41,10 @@ BEGIN {
 	$VERSION = EBox::Config::version;
 }
 
+
+use Readonly;
+Readonly::Scalar our $SUDO_PATH   => '/usr/bin/sudo';
+Readonly::Scalar my  $STDERR_FILE => EBox::Config::tmp() . '/stderr';
 #
 # Function: command 
 #
@@ -86,14 +94,51 @@ sub command # (command)
 sub root # (command) 
 {
 	my $cmd = shift;
-	my $sudocmd = "/usr/bin/sudo " . $cmd;
+	my $sudocmd = "$SUDO_PATH $cmd 2> $STDERR_FILE";
 
 	my @output = `$sudocmd`;
-	unless($? == 0) {
-		throw EBox::Exceptions::Internal(
-			__x("Root command '{cmd}' failed. Command output: {output}", cmd => $cmd, output => "@output"));
-	}
+
+	if ($? != 0) {
+	  my @error;
+	  if ( -r $STDERR_FILE) {
+	    @error = read_file($STDERR_FILE);
+	  }
+	  
+	  _rootError($sudocmd, $cmd, $?, \@output, \@error);
+	} 
+
 	return \@output;
+}
+
+
+sub _rootError
+{
+  my ($sudocmd, $cmd, $childError, $output, $error) = @_;
+
+  if ($childError == -1) {
+    throw EBox::Exceptions::Sudo::Wrapper("Failed to execute $sudocmd");
+  }
+  elsif ($childError & 127) {
+    my $signal = ($childError & 127);
+    my $coredump = ($childError & 128) ? 'with coredump' : 'without coredump';
+    throw EBox::Exceptions::Sudo::Wrapper("$sudocmd died with signal $signal $coredump");
+  } 
+
+  my $exitValue =  $childError >>  8;
+
+  if ($exitValue == 1 ) {	# may be a sudo-program error 
+    my $errorText =  join "\n", @{$error};
+
+    if ($errorText =~ m/is not in the sudoers file/) {
+      throw EBox::Exceptions::Sudo::Wrapper("$sudocmd failed because current user (EUID $>) is not in sudoers files. Running ebox-sudoers-friendly maybe can fix this problem");
+    } 
+    elsif ($errorText =~ m/^sudo:/) {
+      throw EBox::Exceptions::Sudo::Wrapper("$sudocmd raised the following sudo error: $errorText");
+    }
+
+    throw EBox::Exceptions::Sudo::Command(cmd => $cmd, output => $output, error => $error,  exitValue => $exitValue)
+  }
+	  
 }
 
 # Function: rootWithoutException
@@ -108,12 +153,18 @@ sub root # (command)
 # 	array ref - Returns the output of the command in an array
 sub rootWithoutException
 {
-  my $cmd = shift;
-  my $sudocmd = "/usr/bin/sudo " . $cmd;
+  my ($cmd) = @_;
+  my $output;
 
-  my @output = `$sudocmd`;
+  try {
+    $output =  root($cmd);
+  }
+  catch EBox::Exceptions::Sudo::Command with { # ignore failed commands
+    my $ex = shift @_;  
+    $output = $ex->output();
+  };
 
-  return \@output;
+  return $output;
 }
 
 # 
@@ -134,7 +185,7 @@ sub rootWithoutException
 sub sudo # (command, user) 
 {
 	my ($cmd, $user) = @_;
-	unless (system("/usr/bin/sudo -u " . $user . " " . $cmd) == 0) {
+	unless (system("$SUDO_PATH -u " . $user . " " . $cmd) == 0) {
 		throw EBox::Exceptions::Internal(
 			__x("Running command '{cmd}' as {user} failed", 
 				cmd => $cmd, user => $user));
@@ -157,15 +208,16 @@ sub stat
   
   my $statCmd = _rootCommandForStat($file);
   my $statOutput;
-  
+
   try {
     $statOutput = root($statCmd);
   }
-  catch EBox::Exceptions::Internal with {
-    return undef; # inexistent file
+  catch EBox::Exceptions::Sudo::Command with {
+    $statOutput = undef;
   };
 
-  return undef if !exists $statOutput->[0];
+
+  return undef if !defined $statOutput;
 
   my @statElements = split '[I\n]', $statOutput->[0];
 
