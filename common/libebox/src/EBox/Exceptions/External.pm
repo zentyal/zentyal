@@ -21,6 +21,7 @@ use EBox::Gettext;
 sub new # (text)
 {
 	my $class = shift;
+	my ($error) = @_;
 
 	local $Error::Depth = $Error::Depth + 1;
 	local $Error::Debug = 1;

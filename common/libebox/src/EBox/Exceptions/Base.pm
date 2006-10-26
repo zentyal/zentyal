@@ -36,7 +36,7 @@ sub new # (text)
 sub toStderr 
 {
 	$self = shift;
-	print STDERR "[EBox::Exceptions] ". $self->text ."\n";
+	print STDERR "[EBox::Exceptions] ". $self->stringify() ."\n";
 }
 
 sub _logfunc # (logger, msg)
@@ -50,7 +50,11 @@ sub log
 	$self = shift;
 	my $log = EBox::logger();
 	$Log::Log4perl::caller_depth +=3;
-	$self->_logfunc($log, $self->text);
+	$self->_logfunc($log, $self->stringify());
 	$Log::Log4perl::caller_depth -=3;
 }
+
+
+
+
 1;
