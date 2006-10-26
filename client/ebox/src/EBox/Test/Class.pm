@@ -13,10 +13,10 @@ use Test::Exception;
 
 
 use EBox::Test;;
-
+use EBox::TestStubs;
 
 sub _testStubsForFrameworkModules :  Test(startup) {
-    EBox::Test::activateEBoxTestStubs();
+    EBox::TestStubs::activateTestStubs();
 }
 
 
