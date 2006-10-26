@@ -27,7 +27,7 @@ use EBox::Global;
 sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Welcome to EBox'),
+	my $self = $class->SUPER::new('title' => __('Welcome to eBox'),
 				      'template' => 'firstTime/index.mas',
 				      @_);
 	bless($self, $class);

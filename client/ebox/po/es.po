@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-10-26 16:05+0200\n"
-"PO-Revision-Date: 2006-10-26 16:08+0200\n"
+"POT-Creation-Date: 2006-10-26 16:14+0200\n"
+"PO-Revision-Date: 2006-10-26 16:16+0200\n"
 "Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -107,12 +107,12 @@ msgid "Halt or reboot"
 msgstr "Apagar o reiniciar"
 
 #: src/EBox/CGI/EBox/Halt.pm:43
-msgid "EBox is going down for halt"
-msgstr "EBox se está apagando"
+msgid "eBox is going down for halt"
+msgstr "eBox se está apagando"
 
 #: src/EBox/CGI/EBox/Halt.pm:46
-msgid "EBox is going down for reboot"
-msgstr "EBox se está reiniciando"
+msgid "eBox is going down for reboot"
+msgstr "eBox se está reiniciando"
 
 #: src/EBox/CGI/EBox/General.pm:30
 msgid "General configuration"
@@ -207,10 +207,10 @@ msgid "Save configuration"
 msgstr "Guardar la configuración"
 
 #: src/EBox/CGI/FirstTime/Index.pm:30
-msgid "Welcome to EBox"
-msgstr "Bienvenido a EBox"
+msgid "Welcome to eBox"
+msgstr "Bienvenido a eBox"
 
-#: src/EBox/CGI/FirstTime/Index.pm:68 src/EBox/CGI/FirstTime/Passwd.pm:72
+#: src/EBox/CGI/FirstTime/Index.pm:68
 msgid "EBox was already initialized"
 msgstr "eBox ya ha sido inicializado"
 
@@ -221,6 +221,10 @@ msgstr "Establezca contraseña"
 #: src/EBox/CGI/FirstTime/Passwd.pm:63
 msgid "Default password was already changed"
 msgstr "La contraseña inicial ya fue cambiada"
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:72
+msgid "eBox was already initialized"
+msgstr "eBox ya ha sido inicializado"
 
 #: src/EBox/CGI/FirstTime/Passwd.pm:88
 msgid "New passwords do not match"
@@ -280,27 +284,27 @@ msgstr ""
 "corrupto o en un formato incompatible"
 
 #: src/EBox/Backup.pm:707
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "The following modules are not present in the global module list stored in "
-"the backup but they are present in EBox's global list: {modules}\n"
+"the backup but they are present in eBox's global list: {modules}\n"
 msgstr ""
 "Los siguientes módulos instalados en eBox no están presentes en el backup: "
 "{modules}\n"
 
 #: src/EBox/Backup.pm:708
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
 "The following modules are  present in the global list stored in the backup "
-"but not in EBox's global list: {modules}\n"
+"but not in eBox's global list: {modules}\n"
 msgstr ""
 "Los siguientes módulos están presentes en el backup pero no están "
 "instaladdos en eBox: {modules}\n"
 
 #: src/EBox/Backup.pm:711
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
-"The restore process failed because there is a mismatch between EBox's "
+"The restore process failed because there is a mismatch between eBox's "
 "installed modules and the modules in the backup.\n"
 "{backupError}{actualError} If you want to use this backup you will need to "
 "install/remove the adequate modules"
@@ -688,7 +692,7 @@ msgid ""
 msgstr ""
 "Esta página le permite generar un fichero con información acerca del estado "
 "de su sistema. El fichero puede ser útil si quiere informar de un bug en "
-"EBox."
+"eBox."
 
 #: src/templates/bug.mas:15
 msgid "Download bug report file"

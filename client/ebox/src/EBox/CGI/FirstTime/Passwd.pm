@@ -69,7 +69,7 @@ sub actuate
     }
   }
   else {
-    $self->{error} = __('EBox was already initialized');
+    $self->{error} = __('eBox was already initialized');
     $self->{errorchain} = 'Summary/Index';
   }
 

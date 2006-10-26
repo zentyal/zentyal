@@ -704,11 +704,11 @@ sub   _checkModuleList
 
 
   if ((@backupMissing > 0) or (@actualMissing > 0)) {
-    my $backupError = @backupMissing ? __x("The following modules are not present in the global module list stored in the backup but they are present in EBox's global list: {modules}\n", modules => "@backupMissing") : '';
-  my $actualError = @actualMissing ? __x("The following modules are  present in the global list stored in the backup but not in EBox's global list: {modules}\n", modules => "@actualMissing") : '';
+    my $backupError = @backupMissing ? __x("The following modules are not present in the global module list stored in the backup but they are present in eBox's global list: {modules}\n", modules => "@backupMissing") : '';
+  my $actualError = @actualMissing ? __x("The following modules are  present in the global list stored in the backup but not in eBox's global list: {modules}\n", modules => "@actualMissing") : '';
 
 
-    throw EBox::Exceptions::External (__x("The restore process failed because there is a mismatch between EBox's installed modules and the modules in the backup.\n{backupError}{actualError} If you want to use this backup you will need to install/remove the adequate modules", backupError => $backupError, actualError => $actualError ));
+    throw EBox::Exceptions::External (__x("The restore process failed because there is a mismatch between eBox's installed modules and the modules in the backup.\n{backupError}{actualError} If you want to use this backup you will need to install/remove the adequate modules", backupError => $backupError, actualError => $actualError ));
   }
 
 
