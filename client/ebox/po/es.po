@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-10-25 12:15+0200\n"
-"PO-Revision-Date: 2006-10-25 12:19+0200\n"
+"POT-Creation-Date: 2006-10-26 16:05+0200\n"
+"PO-Revision-Date: 2006-10-26 16:08+0200\n"
 "Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgid "Disabled"
 msgstr "Deshabilitado"
 
 #: src/EBox/CGI/Login/Index.pm:56
-msgid "Password Incorrect"
+msgid "Incorrect password"
 msgstr "Contraseña incorrecta"
 
 #: src/EBox/CGI/Login/Index.pm:59
@@ -76,7 +76,7 @@ msgid "Backup was written to CD/DVD disk"
 msgstr "El backup fue escrito en el disco CD/DVD correctamente"
 
 #: src/EBox/CGI/EBox/Backup.pm:214 src/EBox/CGI/EBox/Backup.pm:278
-#: src/EBox/CGI/EBox/Backup.pm:291 src/EBox/CGI/EBox/ConfirmBackup.pm:193
+#: src/EBox/CGI/EBox/Backup.pm:291 src/EBox/CGI/EBox/ConfirmBackup.pm:198
 #: src/EBox/Backup.pm:944
 msgid "The input contains invalid characters"
 msgstr "Los datos contienen caracteres inválidos"
@@ -136,7 +136,7 @@ msgstr "La contraseña debe tener al menos 6 caracteres"
 
 #: src/EBox/CGI/EBox/Password.pm:62 src/EBox/CGI/FirstTime/Passwd.pm:92
 msgid "The password was changed successfully."
-msgstr "La contraseña fue cambiada correctamente"
+msgstr "Se ha cambiado la contraseña correctamente"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:34
 msgid "Configuration backups"
@@ -152,7 +152,7 @@ msgid "Delete"
 msgstr "Borrar"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:121
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:169
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:174
 msgid ""
 "Please confirm that you want to restore the configuration from this backup "
 "file:"
@@ -161,8 +161,8 @@ msgstr ""
 "fichero de backup:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:123
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:140
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:171 src/templates/backup.mas:172
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:145
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:176 src/templates/backup.mas:172
 msgid "Restore"
 msgstr "Restaurar"
 
@@ -172,7 +172,7 @@ msgstr ""
 "No se encuentra ningún CD/DVD de backup. Por favor, introduzca un disco de "
 "backup correcto y reintente la operación "
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:138
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:143
 msgid ""
 "Please confirm that you want to restore the configuration from this backup "
 "disk:"
@@ -180,17 +180,17 @@ msgstr ""
 "Por favor, confirme que quiere restaurar la configuración almacenada en este "
 "disco de backup:"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:158
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:163
 msgid "Invalid backup file."
 msgstr "Fichero de backup inválido"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:184
 msgid "Please confirm that you want to write this backup file to a CD or DVD disk:"
 msgstr ""
 "Por favor, confirme que quiere escribir este archivo de backup en un disco "
 "CD/DVD"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:181
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:186
 msgid "Write to disk"
 msgstr "Escribir en disco"
 
