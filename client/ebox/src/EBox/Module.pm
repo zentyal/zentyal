@@ -32,7 +32,7 @@ use HTML::Mason;
 use File::Temp qw(tempfile);
 use Fcntl qw(:flock);
 use Error qw(:try);
-
+use Params::Validate qw(validate_pos validate_with SCALAR HASHREF ARRAYREF);
 
 # Method: _create 
 #
@@ -197,11 +197,15 @@ sub stopService
 # Parameters:
 #  dir - directory used for the backup operation
 #  (named parameters following)
-#  fullRestore - wether we want to do a full restore as opposed a configuration-only restore
+#  fullBackup - wether we want to do a full restore as opposed a configuration-only restore (default: false)
 #
 sub makeBackup # (dir, %options) 
 {
   my ($self, $dir, %options) = @_;
+  defined $dir or throw EBox::Exceptions::InvalidArgument('directory');
+  validate_with ( params => [%options],
+		  spec =>  { fullBackup => { default => 0}   } );
+
   my $backupDir = $self->createBackupDir($dir);
 
   $self->aroundDumpConfig($backupDir);
@@ -223,6 +227,7 @@ sub makeBackup # (dir, %options)
 sub backupDir
 {
   my ($self, $dir) = @_;
+  validate_pos(@_, 1, 1);
 
   # avoid duplicate paths problem
   my $modulePathPart =  '/' . $self->name() . '.bak';
@@ -246,6 +251,8 @@ sub backupDir
 sub createBackupDir
 {
   my ($self, $dir) = @_;
+  validate_pos(@_, 1, 1);
+
   my $backupDir = $self->backupDir($dir);
 
   if (! -d $backupDir) {
@@ -288,11 +295,14 @@ sub _dump_version
 # Parameters:
 #  dir - directory used for the restore operation 
 #  (named parameters following)
-#  fullRestore - wether we want to do a full restore as opposed a configuration-only restore
+#  fullRestore - wether we want to do a full restore as opposed a configuration-only restore (default: false)
 #
 sub restoreBackup # (dir, %options) 
 {
   my ($self, $dir, %options) = @_;
+  defined $dir or throw EBox::Exceptions::InvalidArgument('directory');
+  validate_with ( params => [%options],
+		  spec =>  { fullRestore => { default => 0}   } );
   
   my $backupDir = $self->backupDir($dir);
   (-d $backupDir) or throw EBox::Exceptions::Internal("$backupDir must be a directory");
@@ -363,6 +373,7 @@ sub restoreDependencies
 sub dumpConfig
 {
   my ($self, $dir) = @_;
+  validate_pos(@_, 1, 1);
 }
 
 
@@ -380,6 +391,8 @@ sub dumpConfig
 sub aroundDumpConfig
 {
   my ($self, $dir) = @_;
+  validate_pos(@_, 1, 1);
+
   $self->dumpConfig($dir);
 }
 
@@ -396,6 +409,7 @@ sub aroundDumpConfig
 sub restoreConfig
 {
   my ($self, $dir) = @_;
+  validate_pos(@_, 1, 1);
 }
 
 
@@ -410,6 +424,8 @@ sub restoreConfig
 sub aroundRestoreConfig
 {
   my ($self, $dir) = @_;
+  validate_pos(@_, 1, 1);
+
   $self->restoreConfig($dir);
 }
 #
@@ -565,7 +581,7 @@ sub pidFileRunning
 #	file - file name which will be overwritten with the output of 
 #	the execution
 #	component - mason component
-#	paramas - parameters for the mason component
+#	params - parameters for the mason component
 #       defaults - a reference to hash with keys mode, uid and gid. Those values will be used when creating a new file. (if the file already exists the existent values of this parameters will be left untouched)
 #
 # Returns:
@@ -575,6 +591,8 @@ sub pidFileRunning
 sub writeConfFile # (file, comp, params, defaults)
 {
 	my ($self, $file, $compname, $params, $defaults) = @_;
+	validate_pos(@_, 1, { type =>  SCALAR }, { type => SCALAR }, { type => ARRAYREF }, { type => HASHREF, optional => 1 });
+
 	my ($fh,$tmpfile) = tempfile(DIR => EBox::Config::tmp);
 	unless($fh) {
 		throw EBox::Exceptions::Internal(
