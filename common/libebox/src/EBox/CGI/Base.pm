@@ -533,7 +533,8 @@ sub _validateParams
     
     my @paramsLeft = @{ $params_r };
     if (@paramsLeft ) {
-	throw EBox::Exceptions::External ( __("Unallowed parameters found: ") .  "@paramsLeft");
+      EBox::error("Unallowed parameters found in CGI request: @paramsLeft");
+      throw EBox::Exceptions::External ( __('Your request could not be processed because it had some incorrect parameters'));
     }
 
     return 1;
@@ -547,7 +548,8 @@ sub _validateRequiredParams
     my $matchResult_r = _matchParams($self->requiredParameters(), $params_r);
     my @requiresWithoutMatch =  @{ $matchResult_r->{targetsWithoutMatch} };
     if (@requiresWithoutMatch) {
-	throw EBox::Exceptions::External ( __("Mandatory parameters not found: ") . "@requiresWithoutMatch");
+      EBox::error("Mandatory parameters not found in CGI request: @requiresWithoutMatch");
+      throw EBox::Exceptions::External ( __('Your request could not be processed because it lacked some required parameters'));
     }
     else {
 

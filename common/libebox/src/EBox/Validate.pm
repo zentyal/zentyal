@@ -569,16 +569,16 @@ sub isPrivateDir
 
   my @stat = stat($dir) ;
   if (@stat == 0) {
-    throw EBox::Exceptions::External (__x("Cannot stat dir: {dir}. This may mean that the directory does not exist or the permissions forbidde access to it", dir => $dir)) if $throwException;
+    throw EBox::Exceptions::External (__x("Cannot stat dir: {dir}. This may mean that the directory does not exist or the permissions forbid access to it", dir => $dir)) if $throwException;
     return undef;
   }
 
   if ($< != $stat[4]) {
-    throw EBox::Exceptions::External(__x("Owner mismatch: {dir}", dir => $dir)) if $throwException; 
+    throw EBox::Exceptions::External(__x('The directory {dir} is not private; because it is owned by another user', dir => $dir)) if $throwException; 
   }
   my $perm = sprintf ("%04o\n", $stat[2] & 07777);
   unless ($perm =~ /.700/) {
-    throw EBox::Exceptions::External(("Wrong permissions in {dir}", dir => $dir)) if $throwException;
+    throw EBox::Exceptions::External(('The directory {dir} is not private; because it has not restrictive permissions', dir => $dir)) if $throwException;
     return undef;
   }
 }

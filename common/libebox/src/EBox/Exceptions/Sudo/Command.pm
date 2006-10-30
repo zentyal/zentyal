@@ -12,8 +12,8 @@ sub new
   my $self;
 
   my $cmd    = $params{cmd};
-  my $output = $params{output} ;
-  my $error  = $params{error};
+  my $output = $params{output} or [];
+  my $error  = $params{error} or [];
   my $exitValue = $params{exitValue};
   
 

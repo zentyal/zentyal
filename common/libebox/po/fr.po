@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-10-25 13:44+0200\n"
+"POT-Creation-Date: 2006-10-30 10:15+0100\n"
 "PO-Revision-Date: 2005-11-29 16:33+0100\n"
 "Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -93,12 +93,15 @@ msgstr ""
 "Vous avez trouvé un bogue dans l'eBox. Veuillez contacter votre service de "
 "soutien technique."
 
-#: src/EBox/CGI/Base.pm:536
-msgid "Unallowed parameters found: "
+#: src/EBox/CGI/Base.pm:537
+msgid ""
+"Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:550
-msgid "Mandatory parameters not found: "
+#: src/EBox/CGI/Base.pm:552
+msgid ""
+"Your request could not be processed because it lacked some required "
+"parameters"
 msgstr ""
 
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
@@ -110,12 +113,12 @@ msgstr "Interface"
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
-"the permissions forbidde access to it"
+"the permissions forbid access to it"
 msgstr ""
 
 #: src/EBox/Validate.pm:577
 #, perl-brace-format
-msgid "Owner mismatch: {dir}"
+msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 
 #: src/EBox/Validate.pm:652
@@ -137,12 +140,12 @@ msgstr "On n'a pas pu ouvrir le fichier de config."
 msgid "The ebox user has not been set in the config file."
 msgstr "L'usager d'ebox n'a pas été placé dans le fichier de config."
 
-#: src/EBox/Sudo.pm:68
+#: src/EBox/Sudo.pm:71
 #, fuzzy, perl-brace-format
 msgid "Command '{cmd}' failed. Output: {output}"
 msgstr "Commande '{cmd}' échoué"
 
-#: src/EBox/Sudo.pm:178
+#: src/EBox/Sudo.pm:190
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "Executant commande '{cmd}' comme {user} échoué"

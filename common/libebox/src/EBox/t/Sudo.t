@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 25;
+use Test::More tests => 26;
 use Test::Differences;
 use Test::Exception;
 use Error qw(:try);
@@ -57,9 +57,6 @@ sub statTest
 
     EBox::Sudo::TestStub::fake();
 
-
-
-
     # inexistent file
     lives_and (sub {is EBox::Sudo::stat('/muchos/monos/salvajes'), undef }, "Checking stat return undef while  called upon inexistent files");
 
@@ -78,8 +75,8 @@ sub statTest
       }
     }
 
-
-
+    
+    dies_ok {   EBox::Sudo::stat("/", "/home") } 'Multiple stats not supported';
 }
 
 
