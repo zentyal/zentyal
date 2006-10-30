@@ -6,7 +6,7 @@ use warnings;
 
 use Test::MockModule;
 use EBox::GConfModule::TestStub;
-
+use Params::Validate;
 
 
 sub setAllEBoxModules
@@ -22,6 +22,7 @@ sub setAllEBoxModules
 sub setEBoxModule
 {
     my ($name, $module, $depends) = @_;
+    validate_pos(@_ ,1, 1, 0);
 
     EBox::GConfModule::TestStub::setEntry("/ebox/modules/global/modules/$name/class", $module);
     EBox::GConfModule::TestStub::setEntry("/ebox/modules/global/modules/$name/changed", undef);
