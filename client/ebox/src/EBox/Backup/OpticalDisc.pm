@@ -7,6 +7,8 @@ use Error qw(:try);
 use EBox::Sudo;
 use EBox::Gettext;
 use EBox::Backup::RootCommands;
+use Params::Validate;
+
 use Readonly;
 Readonly::Scalar my $CD_SIZE   => 681000000; # we assume 650Mb instead 700 to err in the safe side
 Readonly::Scalar my $DVD_SIZE  => 4380000000; # likewise we assume 4.38 GiB
@@ -32,6 +34,7 @@ Readonly::Scalar my $DVD_SIZE  => 4380000000; # likewise we assume 4.38 GiB
 sub sizeForMedia
 {
   my ($media) = @_;
+  validate_pos(@_, 1);
 
   return $CD_SIZE  if ($media eq 'CD-R')  or ($media eq 'CD-RW');
   return $DVD_SIZE if ($media eq 'DVD-R') or ($media eq 'DVD-RW');
@@ -57,12 +60,12 @@ sub sizeForMedia
 sub media
 {
   my ($dev) = @_;
-  defined  $dev or throw EBox::Exceptions::Internal("device parameter not found");
+  validate_pos(@_, 1);
 
   my $info;
-  $info = infoFromDvdMediaInfo($dev);
+  $info = _infoFromDvdMediaInfo($dev);
   
-  defined $info or $info = infoFromCdrdao($dev) ;
+  defined $info or $info = _infoFromCdrdao($dev) ;
 
   return  $info;
 
@@ -77,7 +80,7 @@ sub media
 #
 #  dev - the device file of the DVD writer drive
 #
-sub infoFromDvdMediaInfo
+sub _infoFromDvdMediaInfo
 {
   my ($dev) = @_;
 
@@ -121,7 +124,7 @@ sub infoFromDvdMediaInfo
 #
 #  dev - the device file of the CD-ROM writer drive
 #
-sub infoFromCdrdao
+sub _infoFromCdrdao
 {
   my ($dev) = @_;
 

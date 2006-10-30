@@ -28,7 +28,9 @@ Readonly::Scalar my $MTAB_PATH=>'/etc/mtab';
 sub burn
 {
   my %params = @_;
+  
   my $file   = $params{file};
+  defined $file or throw EBox::Exceptions::MissingArgument('file');
   my $device = exists $params{device} ? $params{device} : _chooseDevice();
 
   _checkDevice($device);

@@ -132,16 +132,16 @@ sub restoreFromDiscAction
   my $backupfileInfo = $backup->searchBackupFileInDiscs();
   defined $backupfileInfo or throw EBox::Exceptions::External(__('Unable to find a correct backup disk. Please insert a backup disk and retry')); # XXX TODO: discriminate between no disc and disk with no backup
   
-#  try {
-    my $details =  $backup->backupDetailsFromArchive($backupfileInfo->{file});
-#   }
-#   finally {
-#     $backupfileInfo->{umountSub}->();
-#   };
+  my $details;
 
+  try {
+    $details =  $backup->backupDetailsFromArchive($backupfileInfo->{file});
+  }
+  finally {
+    $backupfileInfo->{umountSub}->();
+  };
 
   $self->{msg} = __('Please confirm that you want to restore using this backup disk:');
-
   return ('restoreFromDisc', __('Restore'), $details);
 } 
 

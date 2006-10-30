@@ -5,6 +5,8 @@ use warnings;
 
 use File::Slurp qw(read_file);
 use Perl6::Junction qw(all);
+use Params::Validate;
+
 use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Backup::RootCommands;
@@ -166,6 +168,7 @@ sub  allowedMedia
 #	A hash that contains the following keys:
 #         file   - path to the file
 #         device - the device file of the drive that has the disc where the file resides
+#         umountSub - sub that umount, if needed, the disc tha contains the file. Except when you umount the disc using another means (ex. eject) you must call this sub
 #
 # Limitations:
 #      we search only in optical disc drives that are user mountable
@@ -174,6 +177,7 @@ sub  allowedMedia
 sub searchFileInDiscs
 {
   my ($file) = @_;
+  validate_pos(@_, 1);
 
   my @fstab = read_file($FSTAB_PATH);
   my @mtab  = read_file($MTAB_PATH);
@@ -191,24 +195,27 @@ sub searchFileInDiscs
     }
     
     my $wasMounted = grep {m/^$device/} @mtab;
+    my $umountSub;
     if (!$wasMounted) {
       system("/bin/mount $mountPoint");
       next if ($? != 0); 
+      $umountSub = sub {       EBox::Sudo::command("/bin/umount $mountPoint") };
+    }
+    else {
+      $umountSub = sub {};
     }
 
     my $filePath = "$mountPoint/$file";
     if ( -f $filePath) {
       if ( -r $filePath ) {
-	return { file => $filePath,  device => $device  };
+	return { file => $filePath,  device => $device, umountSub => $umountSub  };
       }
       else {
-	EBox::debug("$file found in $filePath but is no tedeable. Skipping");	
+	EBox::debug("$file found in $filePath but is no redeable. Skipping");	
       }
     }
 
-    if (!$wasMounted) {
-      EBox::Sudo::command("/bin/umount $mountPoint");
-    }
+    $umountSub->();
   }
 
   return undef;
@@ -231,6 +238,8 @@ sub searchFileInDiscs
 sub ejectDisc
 {
     my ($device) = @_;
+    validate_pos(@_, 1);
+    
     EBox::Sudo::rootWithoutException("$EBox::Backup::RootCommands::EJECT_PATH  " . $device);
     
     return ($? == 0); #$? was set by rootWithoutException
