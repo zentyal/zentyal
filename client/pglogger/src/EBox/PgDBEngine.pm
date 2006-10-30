@@ -22,6 +22,7 @@ use base qw(EBox::AbstractDBEngine);
 
 use DBI;
 use EBox::Gettext;
+use EBox::Validate;
 use EBox;
 
 sub new {
@@ -191,6 +192,7 @@ sub query {
 sub  dumpDB
 {
   my ($self, $outputFile) = @_;
+  validate_pos(@_, 1, 1);
 
   my $dbname = _dbname();
   my $dbuser = _dbuser();
@@ -215,6 +217,8 @@ sub  dumpDB
 sub restoreDB
 {
   my ($self, $file) = @_;
+  validate_pos(@_, 1, 1);
+
   EBox::info('We wil try to restore the database. This will erase your current data' );
   (-r $file) or throw EBox::Exceptions::External(__x("DB dump file {file} is not readable", file => $file));
 
