@@ -6,7 +6,9 @@ use warnings;
 use base 'Exporter';
 our @EXPORT_OK = qw(makePrivateDir cleanDir isSubdir);
 
+use Params::Validate;
 use EBox::Validate;
+
 
 # Method: makePrivateDir
 #
@@ -26,7 +28,7 @@ use EBox::Validate;
 sub makePrivateDir # (path)
 {
   my ($dir) = @_;
-
+  validate_pos(@_, 1);
 
   if (-e $dir) {
     if (  not -d $dir) {
@@ -50,6 +52,11 @@ sub makePrivateDir # (path)
 sub cleanDir
 {
   my @dirs = @_;
+  if (@dirs == 0) {
+    throw EBox::Exceptions::Internal('cleanDir must be supplied at least a dir as parameter');
+  }
+
+  EBox::Validate::checkFilePath($_, 'directory')  foreach  (@dirs);  
 
   foreach my $d (@dirs) {
     my $dir;
