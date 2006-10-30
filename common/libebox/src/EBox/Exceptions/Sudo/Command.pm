@@ -12,8 +12,8 @@ sub new
   my $self;
 
   my $cmd    = $params{cmd};
-  my $output = $params{output} or [];
-  my $error  = $params{error} or [];
+  my $output = exists $params{output} ? $params{output} : [];
+  my $error = exists $params{error} ? $params{error} : [];
   my $exitValue = $params{exitValue};
   
 
