@@ -6,6 +6,7 @@ use warnings;
 
 use Test::MockModule;
 use List::Util qw(first);
+use Params::Validate;
 
 my %config;
 my $mockedModule;
@@ -95,6 +96,8 @@ sub _unsetEntry
 sub setEntry
 {
     my ($key, $value) = @_;
+    validate_pos(@_, 1, 1);
+
     $config{$key} = $value;
 }
 
