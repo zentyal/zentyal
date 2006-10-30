@@ -7,7 +7,7 @@ Standards-Version: 3.6.1
 
 Package: ebox-ca
 Architecture: all
-Depends: ebox
+Depends: ebox, libebox, libfile-slurp-perl, openssl (>= 0.9.7e), tar
 Description: 
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
