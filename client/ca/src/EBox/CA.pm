@@ -186,7 +186,7 @@ sub isCreated
 #       days         : expire day of self signed certificate (Optional)
 #
 # Returns:
-# 
+#
 #       anything else OK, undef error
 
 sub createCA {
@@ -261,14 +261,18 @@ sub createCA {
 			      serialNumber => $serialNumber,
 			      keyFile      => CAPRIVKEY);
 
-  EBox::debug("HOLAAA dn: " . $self->{dn}->stringOpenSSLStyle());
-
+  # OpenSSL v. 0.9.7 Bugs -> Resolved in openssl ca utility later on
   # OpenSSL v. 0.9.7 -> Write down in index.txt
   $self->_putInIndex(dn           => $self->{dn},
 		     certFile     => CACERT,
 		     serialNumber => $serialNumber);
+  # Create the serial file
   if ( not -f SERIALNOFILE ) {
     $self->_writeDownNextSerial(CACERT);
+  }
+  # Create the serial attribute file
+  if ( not -f SERIALNOFILE . ".attr" ) {
+    $self->_writeDownIndexAttr(SERIALNOFILE . ".attr");
   }
 
   # Generate the public key file
@@ -777,8 +781,10 @@ sub listCertificates
     foreach ( @lines ) {
       my @line = split(/\t/);
       my %element;
+
       $element{'state'} = $line[STATE_IDX];
       $element{'dn'} = EBox::CA::DN->parseDN($line[SUBJECT_IDX]);
+
       if ($element{'state'} eq 'V') {
 	$element{'expiryDate'} = $self->_parseDate($line[EXPIRE_DATE_IDX]);
 	$element{'isCACert'} = $self->_isCACert($element{'dn'});
@@ -805,7 +811,10 @@ sub listCertificates
       }
     }
 
-    return \@out;
+    # Sort the array to have CA certs first (put latest first)
+    my @sortedOut = sort { $b->{isCACert} <=> $a->{isCACert} } @out;
+
+    return \@sortedOut;
 
   }
 
@@ -826,7 +835,8 @@ sub listCertificates
 # Exceptions:
 #
 #      External - throw if the keys do NOT exist
-#                 
+#
+
 sub getKeys {
 
   my ($self, $commonName) = @_;
@@ -862,6 +872,9 @@ sub getKeys {
 #
 #       commonName - the common name to identify the private key
 #
+# Returns:
+#
+#       undef if the private key does NOT exist, otherwise 1
 # Exceptions:
 #
 #      External - throw if the private key does NOT exist
@@ -873,12 +886,10 @@ sub removePrivateKey
 
     if (-f PRIVDIR . "$commonName.pem" ) {
       unlink (PRIVDIR . "$commonName.pem");
+      return 1;
     } else {
-      throw EBox::Exceptions::External(__x('Private key from {commonName} does NOT exist'
-					   , commonName => $commonName));
-      # print STDERR "Private key from $commonName does NOT exist";
+      return undef;
     }
-    return;
 
   }
 
@@ -1131,10 +1142,10 @@ sub updateDB
 #       ! - Inexistent
 #
 
-sub currentCACertificateState 
+sub currentCACertificateState
   {
 
-    my $self = @_;
+    my ($self) = @_;
 
     my $serialCert = $self->_obtain(CACERT, 'serial');
 
@@ -1147,6 +1158,24 @@ sub currentCACertificateState
     }
 
 }
+
+# Method: revokeReasons
+#
+#       Return the current list of possible revoke reasons
+#
+# Returns:
+#
+#       A reference to the array containing the current list of possible revoke reasons
+#
+
+sub revokeReasons
+  {
+
+    my ($self) = @_;
+
+    return $self->{reasons};
+
+  }
 
 # _regenConfig is not longer needed 'cause this module doesn't manage a daemon
 
@@ -1288,7 +1317,25 @@ sub _signRequest # (userReqFile, days, userCertFile*, policy*, selfsigned*,
   {
 
     my ($self, %args) = @_;
-    
+
+    # For OpenSSL 0.9.7
+    if ($args{selfsigned}) {
+      my $output = $self->_signSelfSignRequest( userReqFile  => $args{userReqFile},
+						days         => $args{days},
+						userCertFile => $args{userCertFile},
+						policy       => $args{policy},
+						newSubject   => $args{newSubject},
+						endDate      => $args{endDate},
+						keyFile      => CAPRIVKEY);
+      # TODO: Check if it is correct
+      # Put in the index.txt file (update database...)
+      $self->_putInIndex(dn           => $self->{dn},
+			 certFile     => CACERT,
+			 serialNumber => $self->_obtain(CACERT,'serial'));
+      return $output;
+
+    }
+
     my $policy = "policy_anything" unless (defined($args{policy}));
 
     my $endDate = $self->_flatDate($args{endDate}) if defined($args{endDate});
@@ -1324,7 +1371,7 @@ sub _signRequest # (userReqFile, days, userCertFile*, policy*, selfsigned*,
 
 # Sign a self-signed request (compatible with OpenSSL 0.9.7 series)
 sub _signSelfSignRequest # (userReqFile, days*, userCertFile,
-                         # serialNumber newSubject*, endDate*,
+                         # serialNumber, newSubject*, endDate*,
                          # keyFile)
   {
 
@@ -1339,7 +1386,6 @@ sub _signSelfSignRequest # (userReqFile, days*, userCertFile,
     $cmd .= "-passin env:PASS ";
     $cmd .= "-out $args{userCertFile} " if defined($args{userCertFile});
     $cmd .= "-extensions v3_ca " if ( EXTENSIONS_V3);
-    # $cmd .= "-new ";
     $cmd .= "-x509 ";
     $cmd .= "-set_serial \"0x$args{serialNumber}\" " if defined($args{serialNumber});
     $cmd .= "-days $args{days} " if defined($args{days});
@@ -1386,7 +1432,7 @@ sub _commonArgs # (cmd, args)
 sub _obtain # (certFile, attribute)
   {
 
-    my ($self, $certFile, $attribute) = @_;
+    my ($self, $certFile ,$attribute) = @_;
 
     if (not -f $certFile) {
       return undef;
@@ -1403,8 +1449,10 @@ sub _obtain # (certFile, attribute)
     my $ret = $self->_executeCommand(COMMAND => $cmd);
 
     # Remove the attribute name part
-    $arg =~ s/-/ /g;
+    $arg =~ s/-//g;
     $ret =~ s/^$arg=( )*//g;
+
+    chomp($ret);
 
     if ($attribute eq 'DN') {
       return EBox::CA::DN->parseDN($ret);
@@ -1510,7 +1558,7 @@ sub _putInIndex # (EBox::CA::DN dn, String certFile, String
     $row .= "unknown\t";
     # I found that every subject has no final slash
     my $subject = $args{dn}->stringOpenSSLStyle();
-    $subject =~ s/\/$/ /;
+    $subject =~ s/\/$//g;
     $row .= $subject . "\n";
 
     open (my $index, ">>" . INDEXFILE);
@@ -1567,7 +1615,7 @@ sub _isCACert # (EBox::CA::DN dn)
   }
 
 # Write down the next serial to serial file, given a certificate file
-# Only useful under OpenSSL 0.9.7
+# Only useful under OpenSSL 0.9.7, later on fixed
 sub _writeDownNextSerial # (certFile) 
   {
 
@@ -1581,6 +1629,18 @@ sub _writeDownNextSerial # (certFile)
     $cmd .= "-out " . SERIALNOFILE;
 
     $self->_executeCommand(COMMAND => $cmd);
+
+  }
+
+# Write down the serial attribute file
+# Only useful under OpenSSL 0.9.7, later on fixed
+sub _writeDownIndexAttr # (attrFile)
+  {
+    my ($self, $attrFile) = @_;
+
+    open(my $fh, ">" . $attrFile);
+    print $fh "unique_subject = yes\n";
+    close($fh);
 
   }
 

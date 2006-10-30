@@ -40,7 +40,7 @@ sub new
 				  @_);
 
     $self->{domain} = "ebox-ca";
-    $self->{redirect} = "CA/Index";
+    $self->{errorchain} = "CA/Index";
     bless($self, $class);
 
     return $self;
@@ -54,46 +54,62 @@ sub _process
 
     my $self = shift;
 
-    my $ca = EBox::Global->modInstance('ca');
+    $self->{ca} = EBox::Global->modInstance('ca');
 
     # Check if the CA infrastructure has been created
     my @array = ();
 
-    my $cn = $self->unsafeParam('cn');
+    $self->{cn} = $self->unsafeParam('cn');
     # We have to check it manually if it exists
-    if ( not defined($cn) or $cn eq "" ) {
+    if ( not defined($self->{cn}) or ($self->{cn} eq "") ) {
       throw EBox::Exceptions::DataMissing(data => __('Common Name'));
     }
 
-    # Transform %40 in @ 
-    $cn =~ s/%40/@/g;
+    # Transform %40 in @
+    $self->{cn} =~ s/%40/@/g;
     # Transform %20 in space
-    $cn =~ s/%20/ /g;
+    $self->{cn} =~ s/%20/ /g;
 
-    my $keys = $ca->getKeys($cn);
+    my $metaDataCert = $self->{ca}->listCertificates( cn => $self->{cn})->[0];
+    if (not defined($metaDataCert) ) {
+      throw EBox::Exceptions::External(__x("Common name: {cn} does NOT exist in database"
+					   , cn => $self->{cn}));
+    }
+
+    my $keys = {};
+    # If it is the CA certificate, only possibility to download Public Key
+    if ($metaDataCert->{"isCACert"}) {
+      $keys->{publicKey} = $self->{ca}->CAPublicKey();
+    } else {
+      $keys = $self->{ca}->getKeys($self->{cn});
+    }
 
     my $zipfile = EBox::Config->tmp() . "keys.tar.gz"
       if ( defined($keys->{privateKey}) );
 
     if ($zipfile) {
-      my $linkPrivate = EBox::Config->tmp() . "private-$cn.pem";
-      my $linkPublic = EBox::Config->tmp() . "public-$cn.pem";
+      my $linkPrivate = EBox::Config->tmp() . "private-". $self->{cn} . ".pem";
+      my $linkPublic = EBox::Config->tmp() . "public-" . $self->{cn} . ".pem";
       link($keys->{privateKey}, $linkPrivate);
       link($keys->{publicKey}, $linkPublic);
       # -h to dump what links point to
-      my $ret = system("cd " . EBox::Config->tmp() . "; tar cvzhf $zipfile private-$cn.pem public-$cn.pem");
+      my $ret = system("cd " . EBox::Config->tmp() . "; tar cvzhf $zipfile private-" .
+		       $self->{cn} . ".pem public-" . $self->{cn} . ".pem");
       unlink($linkPrivate);
       unlink($linkPublic);
       if ($ret != 0) {
 	throw EBox::Exceptions::External(__("Error creating file") . ": $!");
       }
-      $self->{downfile} = $zipfile
+      $self->{downfile} = $zipfile;
+      $self->{downfilename} = "keys-" . $self->{cn} . ".tar.gz";
     } else {
       $self->{downfile} = $keys->{publicKey};
+      $self->{downfilename} = "public-" . $self->{cn} . ".pem";
     }
 
   }
 
+# Overwrite the _print method to send the file
 sub _print
   {
     my $self = shift;
@@ -107,13 +123,27 @@ sub _print
       or throw EBox::Exceptions::Internal("Could NOT open key file.");
 
     print($self->cgi()->header(-type => 'application/octet-stream',
-			       -attachment => $self->{downfile}));
+			       -attachment => $self->{downfilename}));
 
     while(<$keyFile>) {
       print $_;
     }
 
     close($keyFile);
+
+    $self->_removePrivKey();
+
+
+  }
+
+# Delete the private key from user after sending it
+sub _removePrivKey
+  {
+
+    my ($self) = @_;
+
+    # Remove the private key after download the private key
+    $self->{ca}->removePrivateKey($self->{cn});
 
   }
 

@@ -13,6 +13,9 @@ use EBox::Gettext;
     and the CA Certificate") | h %>
   </div>
 % }
+<div class="help">
+  <% __('Revoke the selected certificate') %>
+</div>
 <div>
   <span class="ftitle"><% __("Common Name") | h%>: </span> 
   <span class="ftitle">

@@ -56,35 +56,54 @@ sub _process
 
     my $ca = EBox::Global->modInstance('ca');
 
-    $self->_requireParam('commonName', __('Common Name') );
-    $self->_requireParam('expiryDays', __('Days to expire') );
-    $self->_requireParam('passphrase', __('Key Pair Passphrase') );
-    $self->_requireParam('repassphrase', __('Re-type Passphrase') );
-    $self->_requireParam('CAPassphrase', __('Certification Authority Passphrase') );
+    my $issueCA = $self->param('caNeeded');
+    $issueCA = 0 unless defined($issueCA);
 
-    my $commonName = $self->param('commonName');
+    if ($issueCA) {
+      $self->_requireParam('name', __('Organization Name') );
+      $self->_requireParam('passphrase', __('Certification Authority Passphrase') );
+    } else {
+      $self->_requireParam('name', __('Common Name') );
+      $self->_requireParam('passphrase', __('Key Pair Passphrase') );
+      $self->_requireParam('repassphrase', __('Re-type Passphrase') );
+      $self->_requireParam('CAPassphrase', __('Certification Authority Passphrase') );
+    }
+    # Common parameters
+    $self->_requireParam('expiryDays', __('Days to expire') );
+
+    my $name = $self->param('name');
     my $days = $self->param('expiryDays');
     my $passphrase = $self->param('passphrase');
     my $repassphrase = $self->param('repassphrase');
     my $caPassphrase = $self->param('CAPassphrase');
 
-    if($passphrase ne $repassphrase) {
-      throw EBox::Exceptions::External(__('Passphrases do NOT match'));
-    }
+    if (not $issueCA) {
+      if($passphrase ne $repassphrase) {
+	throw EBox::Exceptions::External(__('Passphrases do NOT match'));
+      }
 
-    if ( length($passphrase) < 4 or length($caPassphrase) < 4) {
-      throw EBox::Exceptions::External(__('Passphrases should be at ' 
-					  . 'least 4 characters long'));
+      if ( length($passphrase) < 4 or length($caPassphrase) < 4) {
+	throw EBox::Exceptions::External(__('Passphrases should be at ' 
+					    . 'least 4 characters long'));
+      }
+
     }
 
     if ( $days <= 0 ) {
       throw EBox::Exceptions::External(__('Days to expire MUST be a natural number'));
     }
 
-    my $retValue = $ca->issueCertificate( commonName    => $commonName,
-					  days          => $days,
-					  keyPassword   => $passphrase,
-					  caKeyPassword => $caPassphrase);
+    my $retValue;
+    if ($issueCA) {
+      $retValue = $ca->issueCACertificate( orgName    => $name,
+					 days          => $days,
+					 caKeyPassword => $passphrase);
+    } else {
+      $retValue = $ca->issueCertificate( commonName    => $name,
+					 days          => $days,
+					 keyPassword   => $passphrase,
+					 caKeyPassword => $caPassphrase);
+    }
 
     if ( not defined($retValue) ) {
       throw EBox::Exceptions::External(__('The certificate CANNOT be issued'));

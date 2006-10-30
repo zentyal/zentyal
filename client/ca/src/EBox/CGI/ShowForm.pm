@@ -83,6 +83,7 @@ sub _process
     }
 
     push (@array, metaDataCert => $arrayRef->[0]);
+    push (@array, reasons => $ca->revokeReasons());
 
     $self->{params} = \@array;
 

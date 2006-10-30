@@ -64,20 +64,17 @@ sub _process
     if ( $ca->isCreated() ) {
       $self->{'template'} = "ca/index.mas";
       push( @array, 'certs' => $ca->listCertificates() );
-      # Check if a new CA certificate is needed
-      my $caNeeded = $self->param('caNeeded');
-      if ($ca->currentCACertificateState() =~ m/[RE]/
-	  and defined($caNeeded)) {
-	push( @array, 'caNeeded' => $caNeeded);
-      } elsif (defined($caNeeded)) {
-	throw EBox::Exceptions::External(__("CA Certificate is NOT revoked or expired"));
+
+      # Check if a new CA certificate is needed (because of revokation from Revokecertificate)
+      my $currentState = $ca->currentCACertificateState();
+      if ( $currentState =~ m/[RE]/) {
+	push( @array, 'caNeeded' => 1);
       }
     } else {
       $self->{'template'} = "ca/createCA.mas";
     }
 
     $self->{params} = \@array;
-
   }
 
 

@@ -1,6 +1,6 @@
 <%args>
   $certs # A reference to the list with all available certificates
-  $caNeeded => undef # set whether the CA certificate is needed to issue
+  $caNeeded => 0 # set whether the CA certificate is needed to issue
 </%args>
 <%init>
 use EBox::Gettext;
@@ -8,26 +8,51 @@ use EBox::CA::DN;
 </%init>
 <!-- Issue a new certificate -->
 <%perl>
+  # Common args to issueCertificate and issueCACertificate
   my @issueTable = (
-		    { name => 'commonName', printableName =>
-		      __('Common Name'),    input => 'text' },
-		    { name => 'expiryDays', printableName => 
-		      __('Days to expire'), input => 'text' },
-		    { name => 'passphrase', printableName =>
-		      __('Key Pair Passphrase'), input => 'password'
-		    },
-		    { name => 'repassphrase', printableName =>
-		      __('Re-type Passphrase'), input => 'password' },
-		    { name => 'CAPassphrase', printableName =>
-		      __('Certification Authority Passphrase'),
-		      input => 'password' },
-		    { name => 'certificate',  value => 
-		      __('Issue'), input => 'submit' },
-		    { name => 'caNeeded', value => $caNeeded,
-		      input => 'hidden' }
+		    { name => 'caNeeded', input => 'hidden',
+		      value => $caNeeded },
 		   );
+
+my $printableName = __('Organization Name');
+$printableName = __('Common Name') unless ($caNeeded);
+push ( @issueTable, ({ name => 'name',
+		      printableName => $printableName,
+		      input => 'text' },
+		     { name => 'expiryDays',
+		       printableName => __('Days to expire'),
+		       input => 'text' }
+		    )
+       );
+
+# Specify the specific parameters 
+if ($caNeeded) {
+  push( @issueTable, { 
+		      name => 'passphrase', 
+		      printableName => __('Certification Authority Passphrase'), 
+		      input => 'password' }
+	);
+} else {
+  push( @issueTable, (
+		      { name => 'passphrase', 
+			printableName => __('Key Pair Passphrase'), 
+			input => 'password' },
+		      { name => 'repassphrase',
+			printableName => __('Re-type Passphrase'),
+			input => 'password' },
+		      { name => 'CAPassphrase', 
+			printableName => __('Certification Authority Passphrase'),
+			input => 'password' }
+		     )
+      );
+ }
+ push ( @issueTable, { name => 'certificate',
+		       value => __('Issue'),
+		       input => 'submit' }
+	);
+
 </%perl>
-% if (defined($caNeeded) and $caNeeded) {
+% if ($caNeeded) {
   <h3><% __('Issue the Certification Authority Certificate') | h  %></h3>
 % } else {
   <h3><% __('Issue a new certificate') |h %></h3>
@@ -38,6 +63,10 @@ use EBox::CA::DN;
 
 <!-- List current certificates in a table -->
 <h3><% __("Current Certificate List") |h %></h3>
+<div class='help'>
+  <% __("Downloading a key pair from an user certificate provokes the
+  private key erasure from eBox") | h %>
+</div>  
 <table class="dataTable">
   <thead>
     <th><% __("Common Name") |h %></th>

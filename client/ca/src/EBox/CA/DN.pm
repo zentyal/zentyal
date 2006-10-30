@@ -96,12 +96,14 @@ sub parseDN
 
 	  my ($type, $value) = split('=', $field);
 
-	  $self->{countryName} = $value if ($type eq "C");
-	  $self->{stateName} = $value if ($type eq "ST");
-	  $self->{localityName} = $value if ($type eq "L");
-	  $self->{organizationName} = $value if ($type eq "O");
-	  $self->{organizationUnitName} = $value if ($type eq "OU");
-	  $self->{commonName} = $value if ($type eq "CN");
+	  if ($value) {
+	    $self->{countryName} = $value if ($type eq "C");
+	    $self->{stateName} = $value if ($type eq "ST");
+	    $self->{localityName} = $value if ($type eq "L");
+	    $self->{organizationName} = $value if ($type eq "O");
+	    $self->{organizationUnitName} = $value if ($type eq "OU");
+	    $self->{commonName} = $value if ($type eq "CN");
+	  }
 
 	}
 
@@ -144,7 +146,7 @@ sub stringOpenSSLStyle {
 
   $outStr .= "/C=" . $self->{countryName}
     if ($self->{countryName});
- 
+
   $outStr .= "/ST=" . $self->{stateName}
     if ($self->{stateName});
 
@@ -156,7 +158,7 @@ sub stringOpenSSLStyle {
 
   $outStr .= "/OU=" . $self->{organizationNameUnit}
     if ($self->{organizationNameUnit});
-  
+
   $outStr .= "/CN=" . $self->{commonName}
     if ($self->{commonName});
 
@@ -209,7 +211,7 @@ sub dnAttribute
 #
 #       true if both object are equal or false otherwise
 
-sub equals # (object) 
+sub equals # (object)
   {
 
     my ($self, $object) = @_;
@@ -221,7 +223,7 @@ sub equals # (object)
 
     foreach my $key (keys %{$self}) {
       if ( $self->{$key} ne $object->{$key} ) {
-	EBox::warn("self: " . $self->{$key} . " object : " . $object->{$key});
+	EBox::warn("self: " . $self->{$key} . ". object : " . $object->{$key} . ".");
 	return 0
       }
     }

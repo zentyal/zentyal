@@ -74,6 +74,7 @@ sub _process
     my $isCACert = $self->param('isCACert');
     my $reason = $self->param('reason');
     my $caPassphrase = $self->param('CAPassphrase');
+    my @array = ();
 
     my $retValue;
     if ( $isCACert ) {
