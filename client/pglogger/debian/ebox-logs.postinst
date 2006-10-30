@@ -13,6 +13,7 @@ create_db()
 		echo "Creating the $db_name database"
 		su postgres -c "createdb $db_name" > /dev/null 2>&1
 		su postgres -c "createuser -A -D $db_user" > /dev/null 2>&1
+		su postgres -c "GRANT ALL ON DATABASE $db_name TO  $db_user" > /dev/null 2>&1
 		su  postgres -c "psql -d template1 -c \"ALTER USER $db_user WITH PASSWORD \"\"'\"$db_pass\"'\" " > /dev/null 2>&1 || (echo "Cannot set password for database user $db_user" && exit 1)
 
 	cat <<EOF > /etc/postgresql/pg_hba.conf
@@ -20,8 +21,9 @@ create_db()
 # Database administrative login by UNIX sockets
 local   all         postgres                                        ident sameuser
 #
-# Ebox log database
+# eBox log database
 host    $db_name    $db_user     127.0.0.1       255.255.255.255 md5
+local   $db_name    $db_user                                        md5
 # All IPv4 connections from localhost
 host    all         all         127.0.0.1         255.255.255.255  ident sameuser
 # 
