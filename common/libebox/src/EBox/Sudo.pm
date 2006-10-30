@@ -24,6 +24,7 @@ use EBox::Gettext;
 use File::stat qw();
 use File::Slurp;
 use Error qw(:try);
+use Params::Validate;
 
 use EBox::Exceptions::Sudo::Command;
 use EBox::Exceptions::Sudo::Wrapper;
@@ -65,6 +66,8 @@ Readonly::Scalar my  $STDERR_FILE => EBox::Config::tmp() . '/stderr';
 sub command # (command) 
 {
   my ($cmd) = @_;
+  validate_pos(@_, 1);
+
   my @output = `$cmd`;
   if ($? != 0) {
     throw EBox::Exceptions::Internal(
@@ -93,21 +96,23 @@ sub command # (command)
 # 	array ref - Returns the output of the command in an array
 sub root # (command) 
 {
-	my $cmd = shift;
-	my $sudocmd = "$SUDO_PATH $cmd 2> $STDERR_FILE";
+  my ($cmd) = @_;
+  validate_pos(@_, 1);
 
-	my @output = `$sudocmd`;
+  my $sudocmd = "$SUDO_PATH $cmd 2> $STDERR_FILE";
 
-	if ($? != 0) {
-	  my @error;
-	  if ( -r $STDERR_FILE) {
-	    @error = read_file($STDERR_FILE);
-	  }
+  my @output = `$sudocmd`;
+
+  if ($? != 0) {
+    my @error;
+    if ( -r $STDERR_FILE) {
+      @error = read_file($STDERR_FILE);
+    }
 	  
-	  _rootError($sudocmd, $cmd, $?, \@output, \@error);
-	} 
+    _rootError($sudocmd, $cmd, $?, \@output, \@error);
+  } 
 
-	return \@output;
+  return \@output;
 }
 
 
@@ -154,8 +159,9 @@ sub _rootError
 sub rootWithoutException
 {
   my ($cmd) = @_;
-  my $output;
+  validate_pos(@_, 1);
 
+  my $output;
   try {
     $output =  root($cmd);
   }
@@ -185,6 +191,8 @@ sub rootWithoutException
 sub sudo # (command, user) 
 {
 	my ($cmd, $user) = @_;
+	validate_pos(@_, 1 ,1);
+
 	unless (system("$SUDO_PATH -u " . $user . " " . $cmd) == 0) {
 		throw EBox::Exceptions::Internal(
 			__x("Running command '{cmd}' as {user} failed", 
@@ -205,6 +213,7 @@ sub sudo # (command, user)
 sub stat
 {
   my ($file) = @_;
+  validate_pos(@_, 1);
   
   my $statCmd = _rootCommandForStat($file);
   my $statOutput;
