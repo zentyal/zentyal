@@ -25,6 +25,7 @@ use File::Basename;
 use EBox::Config;
 use EBox::Global;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::FileSystem;
 use Error qw(:try);
@@ -35,7 +36,7 @@ use DirHandle;
 use Perl6::Junction qw(any);
 use EBox::Backup::FileBurner;
 use EBox::Backup::OpticalDiscDrives;
-
+use Params::Validate qw(validate_with validate_pos);
 
 use Readonly;
 Readonly::Scalar my $FULL_BACKUP_ID  => 'full backup';
@@ -300,6 +301,8 @@ sub _bug # (dir)
 sub backupDetails # (id) 
 {
   my ($self, $id) = @_;
+  validate_pos(@_, 1, ,1);
+
   $self->_checkId($id);
 
   my $file = $self->_backupFileById($id);
@@ -368,6 +371,8 @@ sub backupDiscDetails
 sub backupDetailsFromArchive
 {
   my ($self, $archive) = @_;
+  validate_pos(@_, 1, 1);
+
   my $backupDetails = {};
 
   my @details = qw(date description type);
@@ -445,14 +450,16 @@ sub _unpackArchive
 #     	External -  If it can't be found or deleted.
 sub deleteBackup # (id) 
 {
-	my ($self, $id) = @_;
-	$self->_checkId($id);
-	
-	my $file = $self->_backupFileById($id);
+  my ($self, $id) = @_;
+  validate_pos(@_, 1, 1);
 
-	unless (unlink($file)) {
-		throw EBox::Exceptions::External("Could not delete the backup");
-	}
+  $self->_checkId($id);
+	
+  my $file = $self->_backupFileById($id);
+
+  unless (unlink($file)) {
+    throw EBox::Exceptions::External("Could not delete the backup");
+  }
 }
 
 
@@ -501,7 +508,7 @@ sub listBackups
 }
 
 #
-# Method: backupDir  # XXX this not a method
+# Procedure: backupDir  
 #
 # Returns: 
 #       the directory used by ebox to store the backup archives 
@@ -531,10 +538,13 @@ sub backupDir
 sub makeBackup # (options) 
 {
   my ($self, %options) = @_;
-  # default values 
-  exists $options{description}  or $options{description} = __('Backup');
-  exists $options{fullBackup}   or $options{fullBackup} = 0;
-  exists $options{directlyToDisc} or $options{directlyToDisc} = 0;
+  validate_with(
+		params => [%options],
+		spec   => {
+			   description => { default =>  __('Backup') },
+			   fullBackup  => { default => 0 },
+			   directlyToDisc  => { default => 0 },
+			  });
 
   my $time = strftime("%F", localtime);
   my $backupdir = backupDir();
@@ -758,6 +768,7 @@ sub  _checkSize
 sub writeBackupToDisc
 {
   my ($self, $id) = @_;
+  validate_pos(@_, 1, 1);
   
   $self->_checkId($id);
 
@@ -790,10 +801,12 @@ sub writeBackupToDisc
 #	
 #	External - If it can't unpack de backup
 #
-sub restoreBackup # (file) 
+sub restoreBackup # (file, %options) 
 {
   my ($self, $file, %options) = @_;
-  exists $options{fullRestore}  or $options{fullRestore} = 0;
+  defined $file or throw EBox::Exceptions::MissingArgument('Backup file');
+  validate_with ( params => [%options], 
+		  spec => { fullRestore => { default => 0 },  });
 
   $self->_checkSize($file);
   my $tempdir = $self->_unpackAndVerify($file, $options{fullRestore});
@@ -891,7 +904,7 @@ sub _modInstancesForRestore
 }
 
 #
-# Method: searchBackupFileInDiscs
+# Procedure: searchBackupFileInDiscs
 #
 #    searches the CD and DVD disks for a archive file
 #
@@ -921,6 +934,8 @@ sub searchBackupFileInDiscs
 sub restoreBackupFromDisc
 {
   my ($self,  %options) = @_;
+  validate_with (params => [%options],
+		 spec => { fullRestore => { default => 0 },  });
 
   my $discFileInfo = searchBackupFileInDiscs();
   if (!defined $discFileInfo) {
