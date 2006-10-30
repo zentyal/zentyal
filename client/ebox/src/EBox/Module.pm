@@ -198,13 +198,16 @@ sub stopService
 #  dir - directory used for the backup operation
 #  (named parameters following)
 #  fullBackup - wether we want to do a full restore as opposed a configuration-only restore (default: false)
+#  directlyToDisc - wether the backup is written directly to a CD
 #
 sub makeBackup # (dir, %options) 
 {
   my ($self, $dir, %options) = @_;
   defined $dir or throw EBox::Exceptions::InvalidArgument('directory');
   validate_with ( params => [%options],
-		  spec =>  { fullBackup => { default => 0}   } );
+		  spec =>  { fullBackup     => { default => 0},  
+			     directlyToDisc => { default => 0},
+			   } );
 
   my $backupDir = $self->createBackupDir($dir);
 
