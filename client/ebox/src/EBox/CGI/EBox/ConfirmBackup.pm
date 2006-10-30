@@ -118,7 +118,7 @@ sub  restoreFromIdAction
 {
   my ($self) = @_;
 
-  $self->{msg} = __('Please confirm that you want to restore the configuration from this backup file:');
+  $self->{msg} = __('Please confirm that you want to restore using this backup file:');
 
   return ('restoreFromId', __('Restore'), $self->backupDetailsFromId());
 } 
@@ -132,10 +132,15 @@ sub restoreFromDiscAction
   my $backupfileInfo = $backup->searchBackupFileInDiscs();
   defined $backupfileInfo or throw EBox::Exceptions::External(__('Unable to find a correct backup disk. Please insert a backup disk and retry')); # XXX TODO: discriminate between no disc and disk with no backup
   
+#  try {
+    my $details =  $backup->backupDetailsFromArchive($backupfileInfo->{file});
+#   }
+#   finally {
+#     $backupfileInfo->{umountSub}->();
+#   };
 
-  my $details =  $backup->backupDetailsFromArchive($backupfileInfo->{file});
 
-  $self->{msg} = __('Please confirm that you want to restore the configuration from this backup disk:');
+  $self->{msg} = __('Please confirm that you want to restore using this backup disk:');
 
   return ('restoreFromDisc', __('Restore'), $details);
 } 
@@ -166,7 +171,7 @@ sub  restoreFromFileAction
 
   my $details = $backup->backupDetailsFromArchive($filename);
 
-  $self->{msg} = __('Please confirm that you want to restore the configuration from this backup file:');
+  $self->{msg} = __('Please confirm that you want to restore using this backup file:');
 
   return ('restoreFromFile', __('Restore'), $details);
 } 

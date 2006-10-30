@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-10-26 16:14+0200\n"
-"PO-Revision-Date: 2006-10-26 16:16+0200\n"
+"POT-Creation-Date: 2006-10-30 10:32+0100\n"
+"PO-Revision-Date: 2006-10-30 10:33+0100\n"
 "Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -153,11 +153,9 @@ msgstr "Borrar"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:121
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:174
-msgid ""
-"Please confirm that you want to restore the configuration from this backup "
-"file:"
+msgid "Please confirm that you want to restore using this backup file:"
 msgstr ""
-"Por favor, confirme que quiere restaurar la configuración almacenada en este "
+"Por favor, confirme que quiere restaurar usando  este "
 "fichero de backup:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:123
@@ -173,12 +171,8 @@ msgstr ""
 "backup correcto y reintente la operación "
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:143
-msgid ""
-"Please confirm that you want to restore the configuration from this backup "
-"disk:"
-msgstr ""
-"Por favor, confirme que quiere restaurar la configuración almacenada en este "
-"disco de backup:"
+msgid "Please confirm that you want to restore using this backup disk:"
+msgstr "Por favor, confirme que quiere restaurar usando este disco de backup:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:163
 msgid "Invalid backup file."
@@ -210,8 +204,8 @@ msgstr "Guardar la configuración"
 msgid "Welcome to eBox"
 msgstr "Bienvenido a eBox"
 
-#: src/EBox/CGI/FirstTime/Index.pm:68
-msgid "EBox was already initialized"
+#: src/EBox/CGI/FirstTime/Index.pm:68 src/EBox/CGI/FirstTime/Passwd.pm:72
+msgid "eBox was already initialized"
 msgstr "eBox ya ha sido inicializado"
 
 #: src/EBox/CGI/FirstTime/Passwd.pm:38
@@ -221,10 +215,6 @@ msgstr "Establezca contraseña"
 #: src/EBox/CGI/FirstTime/Passwd.pm:63
 msgid "Default password was already changed"
 msgstr "La contraseña inicial ya fue cambiada"
-
-#: src/EBox/CGI/FirstTime/Passwd.pm:72
-msgid "eBox was already initialized"
-msgstr "eBox ya ha sido inicializado"
 
 #: src/EBox/CGI/FirstTime/Passwd.pm:88
 msgid "New passwords do not match"
@@ -284,7 +274,7 @@ msgstr ""
 "corrupto o en un formato incompatible"
 
 #: src/EBox/Backup.pm:707
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The following modules are not present in the global module list stored in "
 "the backup but they are present in eBox's global list: {modules}\n"
@@ -293,7 +283,7 @@ msgstr ""
 "{modules}\n"
 
 #: src/EBox/Backup.pm:708
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The following modules are  present in the global list stored in the backup "
 "but not in eBox's global list: {modules}\n"
@@ -302,7 +292,7 @@ msgstr ""
 "instaladdos en eBox: {modules}\n"
 
 #: src/EBox/Backup.pm:711
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The restore process failed because there is a mismatch between eBox's "
 "installed modules and the modules in the backup.\n"
@@ -419,7 +409,7 @@ msgstr "No se encontro ningun CD/DVD. Por favoer, introduzca un disco y reintent
 
 #: src/EBox/Backup/FileBurner.pm:128
 msgid "{media } is a unsupported media type"
-msgstr "{media} es un medio no soportado"
+msgstr "{media} es un tipo de medio no soportado"
 
 #: src/EBox/Backup/FileBurner.pm:142
 #, perl-brace-format

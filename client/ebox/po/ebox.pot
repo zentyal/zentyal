@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-10-25 12:15+0200\n"
+"POT-Creation-Date: 2006-10-30 10:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,7 +37,7 @@ msgid "Disabled"
 msgstr ""
 
 #: src/EBox/CGI/Login/Index.pm:56
-msgid "Password Incorrect"
+msgid "Incorrect password"
 msgstr ""
 
 #: src/EBox/CGI/Login/Index.pm:59
@@ -70,7 +70,7 @@ msgid "Backup was written to CD/DVD disk"
 msgstr ""
 
 #: src/EBox/CGI/EBox/Backup.pm:214 src/EBox/CGI/EBox/Backup.pm:278
-#: src/EBox/CGI/EBox/Backup.pm:291 src/EBox/CGI/EBox/ConfirmBackup.pm:193
+#: src/EBox/CGI/EBox/Backup.pm:291 src/EBox/CGI/EBox/ConfirmBackup.pm:198
 #: src/EBox/Backup.pm:944
 msgid "The input contains invalid characters"
 msgstr ""
@@ -99,11 +99,11 @@ msgid "Halt or reboot"
 msgstr ""
 
 #: src/EBox/CGI/EBox/Halt.pm:43
-msgid "EBox is going down for halt"
+msgid "eBox is going down for halt"
 msgstr ""
 
 #: src/EBox/CGI/EBox/Halt.pm:46
-msgid "EBox is going down for reboot"
+msgid "eBox is going down for reboot"
 msgstr ""
 
 #: src/EBox/CGI/EBox/General.pm:30
@@ -144,15 +144,13 @@ msgid "Delete"
 msgstr ""
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:121
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:169
-msgid ""
-"Please confirm that you want to restore the configuration from this backup "
-"file:"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:174
+msgid "Please confirm that you want to restore using this backup file:"
 msgstr ""
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:123
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:140
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:171 src/templates/backup.mas:172
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:145
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:176 src/templates/backup.mas:172
 msgid "Restore"
 msgstr ""
 
@@ -161,22 +159,20 @@ msgid ""
 "Unable to find a correct backup disk. Please insert a backup disk and retry"
 msgstr ""
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:138
-msgid ""
-"Please confirm that you want to restore the configuration from this backup "
-"disk:"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:143
+msgid "Please confirm that you want to restore using this backup disk:"
 msgstr ""
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:158
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:163
 msgid "Invalid backup file."
 msgstr ""
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:179
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:184
 msgid ""
 "Please confirm that you want to write this backup file to a CD or DVD disk:"
 msgstr ""
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:181
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:186
 msgid "Write to disk"
 msgstr ""
 
@@ -193,11 +189,11 @@ msgid "Save configuration"
 msgstr ""
 
 #: src/EBox/CGI/FirstTime/Index.pm:30
-msgid "Welcome to EBox"
+msgid "Welcome to eBox"
 msgstr ""
 
 #: src/EBox/CGI/FirstTime/Index.pm:68 src/EBox/CGI/FirstTime/Passwd.pm:72
-msgid "EBox was already initialized"
+msgid "eBox was already initialized"
 msgstr ""
 
 #: src/EBox/CGI/FirstTime/Passwd.pm:38
@@ -265,20 +261,20 @@ msgstr ""
 #, perl-brace-format
 msgid ""
 "The following modules are not present in the global module list stored in "
-"the backup but they are present in EBox's global list: {modules}\n"
+"the backup but they are present in eBox's global list: {modules}\n"
 msgstr ""
 
 #: src/EBox/Backup.pm:708
 #, perl-brace-format
 msgid ""
 "The following modules are  present in the global list stored in the backup "
-"but not in EBox's global list: {modules}\n"
+"but not in eBox's global list: {modules}\n"
 msgstr ""
 
 #: src/EBox/Backup.pm:711
 #, perl-brace-format
 msgid ""
-"The restore process failed because there is a mismatch between EBox's "
+"The restore process failed because there is a mismatch between eBox's "
 "installed modules and the modules in the backup.\n"
 "{backupError}{actualError} If you want to use this backup you will need to "
 "install/remove the adequate modules"
