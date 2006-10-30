@@ -30,7 +30,7 @@ use Test::Builder;
 
 use Error qw(:try);
 use EBox::TestStubs;
-
+use Params::Validate;
 
 my @deprecatedSubs = qw(activateEBoxTestStubs fakeEBoxModule setConfig setConfigKeys fakeEBoxModule);
 our @EXPORT_OK = ('checkModuleInstantiation', @deprecatedSubs);
@@ -56,6 +56,7 @@ my $Test = Test::Builder->new;
 sub checkModuleInstantiation 
 {
     my ($moduleName, $modulePackage) = @_;
+    validate_pos(@_, 1, 1);
 
     eval  "use  $modulePackage";
     if ($@) {
