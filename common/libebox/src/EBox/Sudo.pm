@@ -271,6 +271,16 @@ sub _rootCommandForStat
 
 my $anyFileTestPredicate; 
 
+#  Procedure: fileTest
+#
+#    Do a file test as the root user. Implemented as a wrapper around the test program
+#
+#  Parameters:
+#      $test - the file test. File tests allowed: -b -c -d -e -f -g -G  -h  -k -L -O -p -r -s -S -t -u -w -
+#      $file - file to test
+#
+#   Returns:
+#     bool value with the result of the file test
 sub fileTest
 {
   my ($test, $file) = @_;
