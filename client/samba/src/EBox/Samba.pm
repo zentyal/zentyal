@@ -976,9 +976,6 @@ sub  _sharesFilesArchive
 
 
 # we look for shared directories leftover from users and groups created between a backup and a recovery. We move them to a leftover directories so the data will be safe and retrevied by root
-# XXX fix this know limitations:
-#   - if already exists a directory it will be silently overwritten
-#   - it does not discriminate between users and groups with the same name, if we have both one of them will ve overwritten
 sub _fixLeftoverSharedDirectories
 {
   my ($self) = @_;
