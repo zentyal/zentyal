@@ -38,14 +38,15 @@ BEGIN {
 	@EXPORT = qw();
 	%EXPORT_TAGS  = (all => [qw{ root command stat rootCommandForStat} ],
 			);
-	@EXPORT_OK = qw();
+	@EXPORT_OK = qw();;
+
 	Exporter::export_ok_tags('all');
 	$VERSION = EBox::Config::version;
 }
 
 
 use Readonly;
-Readonly::Scalar our $SUDO_PATH   => '/usr/bin/sudo'; # our declaration eases testing
+Readonly::Scalar our $SUDO_PATH   => '/usr/bin/sudo -p sudo:'; # our declaration eases testing
 Readonly::Scalar my  $STDERR_FILE => EBox::Config::tmp() . '/stderr';
 Readonly::Scalar my  $TEST_PATH   => '/usr/bin/test';
 #
