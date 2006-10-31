@@ -49,7 +49,7 @@ Readonly::Scalar our $SUDO_PATH   => '/usr/bin/sudo'; # our declaration eases te
 Readonly::Scalar my  $STDERR_FILE => EBox::Config::tmp() . '/stderr';
 Readonly::Scalar my  $TEST_PATH   => '/usr/bin/test';
 #
-# Function: command 
+# Procedure: command 
 #
 #	Executes a command as ebox user 
 #
@@ -80,7 +80,7 @@ sub command # (command)
 }
 
 #
-# Function: root 
+# Procedure: root 
 #
 #	Executes a command through sudo. Use this to execute privileged
 #	commands. 
@@ -148,7 +148,7 @@ sub _rootError
 	  
 }
 
-# Function: rootWithoutException
+# Procedure: rootWithoutException
 #
 #	Executes a command through sudo. This version does not raises exception on error level and must be used _only_ if you take responsability to parse the output or use anorther method to determine success status
 #
@@ -176,7 +176,7 @@ sub rootWithoutException
 }
 
 # 
-# Function: sudo 
+# Procedure: sudo 
 #
 #	Executes a command through sudo as a given user. 
 #
@@ -203,7 +203,7 @@ sub sudo # (command, user)
 }
 
 
-# Function: stat
+# Procedure: stat
 #   stat a file as root user and returns the information as File::stat object
 #   		
 # Parameters:
@@ -269,7 +269,7 @@ sub _rootCommandForStat
 }
 
 
-my $anyFileTestPredicate; 
+my $anyFileTestPredicate = Perl6::Junction::any(qw(-b -c -d -e -f -g -G  -h  -k -L -O -p -r -s -S -t -u -w -x) );
 
 #  Procedure: fileTest
 #
@@ -286,10 +286,6 @@ sub fileTest
   my ($test, $file) = @_;
   validate_pos(@_, 1, 1);
   
-  if (! defined $anyFileTestPredicate) {
-    $anyFileTestPredicate = Perl6::Junction::any(qw(-b -c -d -e -f -g -G  -h  -k -L -O -p -r -s -S -t -u -w -x) );
-  }   
-
   ($test eq $anyFileTestPredicate) or throw EBox::Exceptions::Internal("Unknown or unsupported test file predicate: $test (upon $file)");
 
   my $testCmd = "$TEST_PATH $test $file";
