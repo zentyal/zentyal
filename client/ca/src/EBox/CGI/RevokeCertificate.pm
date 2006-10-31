@@ -40,7 +40,7 @@ sub new
 				  @_);
 
     $self->{domain} = "ebox-ca";
-    $self->{redirect} = "CA/Index";
+    $self->{chain} = "CA/Index";
     bless($self, $class);
 
     return $self;
@@ -88,6 +88,10 @@ sub _process
 
     if (defined($retValue) ) {
       throw EBox::Exceptions::External(__('The certificate CANNOT be revoked'));
+    } else {
+      my $msg = __("The certificate has been revoked");
+      $msg = __("The new CA certificate has been revoked") if ($isCACert);
+      $self->setMsg($msg);
     }
 
   }

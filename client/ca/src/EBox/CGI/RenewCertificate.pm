@@ -72,7 +72,7 @@ sub _process
     $commonName =~ s/%20/ /g;
 
     my $isCACert = $self->param('isCACert');
-    my $expireDays = $self->param('reason');
+    my $expireDays = $self->param('expireDays');
     my $caPassphrase = $self->param('CAPassphrase');
 
     my $retValue;
@@ -87,6 +87,10 @@ sub _process
 
     if (not defined($retValue) ) {
       throw EBox::Exceptions::External(__('The certificate CANNOT be renewed'));
+    } else {
+      my $msg = __("The certificate has been renewed");
+      $msg = __("The new CA certificate has been renewed") if ($isCACert);
+      $self->setMsg($msg);
     }
 
   }

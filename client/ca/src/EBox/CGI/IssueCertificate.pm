@@ -40,7 +40,7 @@ sub new
 				  @_);
 
     $self->{domain} = "ebox-ca";
-    $self->{redirect} = "CA/Index";
+    $self->{chain} = "CA/Index";
     bless($self, $class);
 
     return $self;
@@ -105,8 +105,12 @@ sub _process
 					 caKeyPassword => $caPassphrase);
     }
 
-    if ( not defined($retValue) ) {
-      throw EBox::Exceptions::External(__('The certificate CANNOT be issued'));
+    if (defined($retValue)) {
+      throw EBox::Exceptions::External($retValue);
+    } else {
+      my $msg = __("The certificate has been issued");
+      $msg = __("The new CA certificate has been issued") if ($issueCA);
+      $self->setMsg($msg);
     }
 
   }

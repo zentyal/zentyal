@@ -22,9 +22,11 @@ use warnings;
 # Dependencies: 
 # File::Slurp package
 # Perl6::Junction package
+# Date::Calc package (which has as a dependency Carp::Clan)
 ####################################
 use File::Slurp;
 use Perl6::Junction qw(any);
+use Date::Calc qw(Delta_Days);
 
 use base 'EBox::GConfModule';
 
@@ -110,6 +112,8 @@ sub _create
 			    "superseded",
 			    "cessationOfOperation",
 			    "certificationHold"];
+	# Expiration CA certificate
+	$self->{caExpiryDays} = $self->_obtain(CACERT, 'days');
 
 	return $self;
 }
@@ -135,6 +139,8 @@ sub new {
 		      "superseded",
 		      "cessationOfOperation",
 		      "certificationHold"];
+  # Expiration CA certificate
+  $self->{caExpiryDays} = $self->_obtain(CACERT, 'days');
 
   return $self;
 
@@ -237,6 +243,9 @@ sub createCA {
     EBox::warn(__("Days set to the maximum allowed: Year 2038 Bug"));
   }
 
+  # Set the CA certificate expiration date
+  $self->{caExpiryDays} = $args{days};
+
   # To create the request the distinguished name is needed
   $self->_createRequest(reqFile     => CAREQ,
 			genKey      => 1,
@@ -331,6 +340,8 @@ sub revokeCACertificate
 					  caKeyPassword => $args{caKeyPassword},
 					  certFile      => CACERT);
 
+    $self->{caExpiryDays} = undef;
+
     return $retVal;
 
   }
@@ -378,6 +389,8 @@ sub issueCACertificate
 				      organizationName     => $args{orgName},
 				      organizationNameUnit => $args{orgNameUnit},
 				      commonName           => $args{commonName});
+
+    $self->{caExpiryDays} = $args{days};
 
     return $self->issueCertificate(commonName     => $self->{dn}->dnAttribute('commonName'),
 				   countryName    => $self->{dn}->dnAttribute('countryName'),
@@ -467,6 +480,8 @@ sub renewCACertificate
 
       }
     }
+    
+    $self->{caExpiryDays} = $args{days};
 
     return $renewedCert;
 
@@ -559,11 +574,18 @@ sub issueCertificate {
     $days = 365 unless $days;
     if ( $days > 11499 ) {
       $days = 11499;
+      # It should be 11499 but OpenSSL 0.9.7 lacks in other point
+      # Another workaround should be, put the enddate explicity
       # Warning -> Year 2038 Bug
       # http://www.mail-archive.com/openssl-users@openssl.org/msg45886.html
       EBox::warn(__("Days set to the maximum allowed: Year 2038 Bug"));
     }
   }
+
+  if ( $days > $self->{caExpiryDays} ) {
+    throw EBox::Exceptions::External(__("Expiration Date longer than CA certificate expiration date"));
+  }
+
 
   if ( defined($args{caKeyPassword}) ) {
     $self->{caKeyPassword} = $args{caKeyPassword};
@@ -630,9 +652,9 @@ sub issueCertificate {
 				    endDate      => $args{endDate}
 				  );
 
-  # TODO: Check the output
-  if ($output) {
-    EBox::debug("OpenSSL output: $output");
+  # Check if something goes wrong
+  if ($output ne "1") {
+    return $output;
   }
 
   # Generate the public key file (if it is a newly created private
@@ -714,11 +736,11 @@ sub revokeCertificate {
 
   # Tell openssl to revoke
   $ENV{'PASS'} = $self->{caKeyPassword};
-  my $ret = $self->_executeCommand(COMMAND => $cmd);
+  my ($retValue, $output) = $self->_executeCommand(COMMAND => $cmd);
   delete ($ENV{'PASS'});
 
   # If any error is shown from revocation, the result is got back
-  return $ret if ($ret ne "1");
+  return $output if ($retValue eq "ERROR");
 
   # Generate a new Certification Revocation List (For now in the same
   # method...)
@@ -743,8 +765,9 @@ sub revokeCertificate {
 
 # Method: listCertificates
 #
-#       List the certificates that are ready on the system
-#       or only one if the serial parameter is provided
+#       List the certificates that are ready on the system sorted
+#       putting the CA certificate first and then valid certificates
+#       or only one if any attribute is provided
 #
 # Parameters:
 #
@@ -763,7 +786,7 @@ sub revokeCertificate {
 #       expiryDate - the expiry date in a Date hash if state valid
 #
 #       revokeDate - the revocation date in a Date hash if state is
-#                    revoked 
+#                    revoked
 #       reason     - reason to revoke if state is revoked
 #       isCACert   - boolean indicating that it is the valid CA certificate
 #
@@ -812,7 +835,7 @@ sub listCertificates
     }
 
     # Sort the array to have CA certs first (put latest first)
-    my @sortedOut = sort { $b->{isCACert} <=> $a->{isCACert} } @out;
+    my @sortedOut = sort { $b->{state} cmp $a->{state} } @out;
 
     return \@sortedOut;
 
@@ -1098,6 +1121,9 @@ sub renewCertificate
 #
 #       caKeyPassword - key passpharse for CA (Optional)
 #
+# Returns:
+#
+#       undef if everything OK, the output if error has occured
 # Exceptions:
 #
 #      External - throw if the passpharse is incorrect
@@ -1120,11 +1146,13 @@ sub updateDB
     $cmd .= "-passin env:PASS ";
 
     $ENV{'PASS'} = $self->{caKeyPassword};
-    my $ret = $self->_executeCommand( COMMAND => $cmd );
+    my ($retVal, $output) = $self->_executeCommand( COMMAND => $cmd );
     delete( $ENV{'PASS'} );
 
-    if ($ret ne "1") {
-      throw EBox::Exceptions::External(__("The CA key passpharse is incorrect"));
+    if ($retVal eq "ERROR") {
+      return $self->_filterErrorFromOpenSSL($output);
+    } else {
+      return undef;
     }
 
   }
@@ -1218,10 +1246,10 @@ sub _getPubKey # (privKeyFile, password, pubKeyFile)
     $cmd .= " -outform PEM -pubout -passin env:PASS";
 
     $ENV{'PASS'} = $password;
-    my $ret = $self->_executeCommand(COMMAND => $cmd);
+    my ($retVal) = $self->_executeCommand(COMMAND => $cmd);
     delete( $ENV{'PASS'} );
 
-    # TODO : Check the output from openssl
+    return undef if ($retVal eq "ERROR");
 
     return $pubKeyFile;
   
@@ -1273,8 +1301,6 @@ sub _findCertFile # (commonName)
 
 # Create a request certificate
 # return undef if any error occurs
-# ?: Optional
-
 sub _createRequest # (reqFile, genKey, privKey, keyPassword, dn)
   {
 
@@ -1302,18 +1328,19 @@ sub _createRequest # (reqFile, genKey, privKey, keyPassword, dn)
     # password
     $ENV{'PASS'} = $args{keyPassword};
     # Execute the command
-    my $ret = $self->_executeCommand(COMMAND => $cmd);
+    my ($retVal) = $self->_executeCommand(COMMAND => $cmd);
     delete( $ENV{'PASS'} );
 
+    return undef if ($retVal eq "ERROR");
     return;
 
   }
 
 # Sign a request
-# returns the certificate in text format
-# * Optional Parameter
-sub _signRequest # (userReqFile, days, userCertFile*, policy*, selfsigned*,
-                 # newSubject*, endDate*)
+# return the output error if any error occurr, nothing otherwise
+# ? Optional Parameter
+sub _signRequest # (userReqFile, days, userCertFile?, policy?, selfsigned?,
+                 # newSubject?, endDate?)
   {
 
     my ($self, %args) = @_;
@@ -1362,10 +1389,11 @@ sub _signRequest # (userReqFile, days, userCertFile*, policy*, selfsigned*,
     $cmd .= "-in $args{userReqFile}";
 
     $ENV{'PASS'} = $self->{caKeyPassword};
-    my $output = $self->_executeCommand(COMMAND => $cmd);
+    my ($retVal, $output) = $self->_executeCommand(COMMAND => $cmd);
     delete ( $ENV{'PASS'} );
 
-    return $output;
+    return $self->_filterErrorFromOpenSSL($output) if ($retVal eq "ERROR");
+    return undef;
 
   }
 
@@ -1398,10 +1426,10 @@ sub _signSelfSignRequest # (userReqFile, days*, userCertFile,
     $cmd .= "-in $args{userReqFile} ";
     
     $ENV{'PASS'} = $self->{caKeyPassword};
-    my $output = $self->_executeCommand(COMMAND => $cmd);
+    my ($retVal, $output) = $self->_executeCommand(COMMAND => $cmd);
     delete ( $ENV{'PASS'} );
 
-    return $output;
+    return ($retVal, $output);
 
   }
 
@@ -1423,10 +1451,11 @@ sub _commonArgs # (cmd, args)
 
   }
 
-# Given a certification file
-# Obtain an attribute from the file
-# attribute => 'DN' return => EBox::CA::DN object
-# attribute => 'serial' return => String containing the serial number
+# Given a certification file Obtain an attribute from the file
+# attribute => 'DN' return => EBox::CA::DN object 
+# attribute => 'serial' return => String containing the serial number 
+# attribute =>'endDate' return => String given by OpenSSL 
+# attribute => 'days' return => number of days from today to expire
 # undef => if certification file does NOT exist
 
 sub _obtain # (certFile, attribute)
@@ -1443,21 +1472,34 @@ sub _obtain # (certFile, attribute)
       $arg = "-subject";
     } elsif ($attribute eq 'serial') {
       $arg = "-serial";
+    } elsif ($attribute eq 'endDate'
+	    or $attribute eq 'days') {
+      $arg = "-enddate";
     }
     my $cmd = "x509 " . $arg . " -in $certFile -noout";
 
-    my $ret = $self->_executeCommand(COMMAND => $cmd);
+    my ($retVal, $output) = $self->_executeCommand(COMMAND => $cmd);
+
+    return undef if ($retVal ne "OK");
 
     # Remove the attribute name part
     $arg =~ s/-//g;
-    $ret =~ s/^$arg=( )*//g;
+    if ($arg eq "-enddate") {
+      $arg = "notAfter";
+    }
+    $output =~ s/^$arg=( )*//g;
 
-    chomp($ret);
+    chomp($output);
 
     if ($attribute eq 'DN') {
-      return EBox::CA::DN->parseDN($ret);
-    } elsif ($attribute eq 'serial') {
-      return $ret;
+      return EBox::CA::DN->parseDN($output);
+    } elsif ($attribute =~ m/(serial)|(endDate)/i ) {
+      return $output;
+    } elsif ($attribute eq 'days') {
+      my ($nowD, $nowM, $nowY) = (localtime)[3,4,5];
+      my $certDate = $self->_parseDate($output);
+      return Delta_Days( $nowY, $nowM, $nowD,
+			 $certDate->{year}, $certDate->{month}, $certDate->{day});
     }
 
   }
@@ -1530,15 +1572,9 @@ sub _putInIndex # (EBox::CA::DN dn, String certFile, String
     
     my ($self, %args) = @_;
 
-    my $cmd = "x509 ";
-    $self->_commonArgs("x509", \$cmd);
-    $cmd .= "-in $args{certFile} ";
-    $cmd .= "-enddate ";
-    $cmd .= "-noout ";
+    my $date = $self->_obtain($args{certFile}, 'endDate');
 
-    my $ret = $self->_executeCommand(COMMAND => $cmd);
-    my @fields = split("=", $ret);
-    my $date = $fields[1];
+    EBox::debug("Date: $date");
 
     my ($monthStr, $day, $hour, $min, $sec, $yyyy) = 
       ($date =~ /(.+) (\d+) (\d+):(\d+):(\d+) (\d+) (.+)/);
@@ -1550,7 +1586,6 @@ sub _putInIndex # (EBox::CA::DN dn, String certFile, String
 		 "day"    => $day,
 		 "month"  => $monthNo,
 		 "year"   => $yyyy);
-
 
     my $row = "V\t";
     $row .= $self->_flatDate(\%date) . "\t\t";
@@ -1641,6 +1676,36 @@ sub _writeDownIndexAttr # (attrFile)
     open(my $fh, ">" . $attrFile);
     print $fh "unique_subject = yes\n";
     close($fh);
+
+  }
+
+# Filter the given OpenSSL output from error to show normal messages
+# Return a normal error message
+# Welcome to the hell
+sub _filterErrorFromOpenSSL # (input)
+  {
+    
+    my ($self, $input) = @_;
+
+    EBox::debug("input: $input");
+
+    if( $input eq "1") {
+      $input = "1";
+    } elsif ( $input =~ m/unable to load CA private key/i ) {
+      $input = __("Unable to sign. Wrong CA passphrase or has CA private key dissappeared?");
+    } elsif ( $input =~ m/invalid expiry date/i ) {
+      $input = __("Database corruption");
+    } elsif ( $input =~ m/TXT_DB error number 2/i ) {
+      $input = __("Identifier duplicated in Database");
+    } else {
+      $input = __("Unknown error. Given the OpenSSL output:") . $/ . $input;
+    }
+
+    EBox::debug("output: $input");
+
+    return $input;
+
+   
 
   }
 
@@ -1741,7 +1806,9 @@ sub _stopShell
     return 1;
 }
 
-sub _executeCommand # (COMMAND, INPUT, HIDE_OUTPUT)
+# Return two values into an array
+# (OK or ERROR, output)
+sub _executeCommand # (COMMAND, INPUT?, HIDE_OUTPUT?)
 {
     my $self = shift;
 
@@ -1749,7 +1816,7 @@ sub _executeCommand # (COMMAND, INPUT, HIDE_OUTPUT)
 
     ## initialize openssl
 
-    return undef if (not $self->_startShell());
+    return ("ERROR", "Error starting shell") if (not $self->_startShell());
 
     ## run command
 
@@ -1764,7 +1831,7 @@ sub _executeCommand # (COMMAND, INPUT, HIDE_OUTPUT)
     if (not print {$self->{OPENSSL}} $command)
     {
       throw EBox::Exceptions::Internal("Cannot write to the OpenSSL shell. ({errval})", errval => $!);
-      return undef;
+      return ("ERROR", "Error writing to the shell");
     }
 
 
@@ -1774,10 +1841,10 @@ sub _executeCommand # (COMMAND, INPUT, HIDE_OUTPUT)
     {
 
       throw EBox::Exceptions::Internal("Cannot write to the OpenSSL shell. ({errval})", errval => $!);
-      return undef;
+      return ("ERROR", "Error writing to the shell");
     }
 
-    return undef if (not $self->_stopShell());
+    return ("ERROR", "Error stopping shell") if (not $self->_stopShell());
 
     ## check for errors
 
@@ -1794,16 +1861,13 @@ sub _executeCommand # (COMMAND, INPUT, HIDE_OUTPUT)
             }
             close(FD);
         }
-
         unlink ("$self->{tmpDir}/${$}_stderr.log");
         if ($ret =~ /error/i)
         {
             unlink ("$self->{tmpDir}/${$}_stdout.log");
-            return undef;
+            return ("ERROR", $ret);
         }
-        
     }
-
     ## load the output
 
     my $ret = 1;
@@ -1825,7 +1889,7 @@ sub _executeCommand # (COMMAND, INPUT, HIDE_OUTPUT)
     my $msg = $ret;
     $msg = "<NOT LOGGED>" if ($keys->{HIDE_OUTPUT});
 
-    return $ret;
+    return ("OK", $ret);
 }
 
 ##############################################################

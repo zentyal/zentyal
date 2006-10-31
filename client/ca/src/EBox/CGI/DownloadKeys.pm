@@ -40,6 +40,7 @@ sub new
 				  @_);
 
     $self->{domain} = "ebox-ca";
+    # To download something, we need errorchain
     $self->{errorchain} = "CA/Index";
     bless($self, $class);
 
@@ -133,7 +134,6 @@ sub _print
 
     $self->_removePrivKey();
 
-
   }
 
 # Delete the private key from user after sending it
@@ -143,7 +143,11 @@ sub _removePrivKey
     my ($self) = @_;
 
     # Remove the private key after download the private key
-    $self->{ca}->removePrivateKey($self->{cn});
+    my $retVal = $self->{ca}->removePrivateKey($self->{cn});
+    # Tell the user the remove has been done
+    if ($retVal) {
+      $self->setMsg(__('The private key has been removed from eBox'));
+    }
 
   }
 

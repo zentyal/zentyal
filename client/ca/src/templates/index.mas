@@ -11,7 +11,7 @@ use EBox::CA::DN;
   # Common args to issueCertificate and issueCACertificate
   my @issueTable = (
 		    { name => 'caNeeded', input => 'hidden',
-		      value => $caNeeded },
+		      value => $caNeeded }
 		   );
 
 my $printableName = __('Organization Name');
@@ -52,6 +52,9 @@ if ($caNeeded) {
 	);
 
 </%perl>
+<div class="help">
+  <% __("Certificate changes will take effect immediately") %>
+</div>
 % if ($caNeeded) {
   <h3><% __('Issue the Certification Authority Certificate') | h  %></h3>
 % } else {
@@ -63,18 +66,19 @@ if ($caNeeded) {
 
 <!-- List current certificates in a table -->
 <h3><% __("Current Certificate List") |h %></h3>
-<div class='help'>
+<div class="help">
   <% __("Downloading a key pair from an user certificate provokes the
-  private key erasure from eBox") | h %>
+  private key erasure from eBox") | h %>.
+  <br/>
+  <% __("Date refers to Expiration Date in Valid/Expired
+  and to Revokation Date in Revoked certificates respectively") | h %>.
 </div>  
 <table class="dataTable">
   <thead>
     <th><% __("Common Name") |h %></th>
     <th><% __("State") |h %></th>
     <th><% __("Date") |h %></th>
-    <th class="thOptions"><% __("Revoke") |h%></th>
-    <th class="thOptions"><% __("Download Key(s)") |h%></th>
-    <th class="thOptions"><% __("Renew") |h%></th>
+    <th class="thOptions"><% __("Actions") |h%></th>
   </thead>
   <tbody>
 %   foreach my $cert (@{$certs}) {
@@ -95,7 +99,7 @@ if ($caNeeded) {
    }
 </%perl>
       <td>
-        <% $stateStr |h %>
+        <% $stateStr | h %>
       </td>
       <td>
   <!-- Print the expiration or revocation date -->
@@ -113,7 +117,7 @@ if ($caNeeded) {
 		  $date->{"minute"}, $date->{"second"}) | h
  	%>
       </td>
-      <td>
+      <td class="tcenter">
 %	if ( $cert->{"state"} eq "V" ) {
         <a
 	href="ShowForm?action=revoke&cn=<%$cert->{'dn'}->dnAttribute('commonName')
@@ -126,8 +130,7 @@ if ($caNeeded) {
         <img src="/data/images/deny-inactive.gif"
 	     alt="<% __('Revoke') |h%>" />
 %	}
-      </td>
-      <td>
+        <img src="/data/images/sep.gif" alt="-" />
 %	if ( $cert->{"state"} eq "V" ) {
         <a
 	href="DownloadKeys?cn=<%$cert->{'dn'}->dnAttribute('commonName') | u%>"
@@ -139,22 +142,30 @@ if ($caNeeded) {
         <img src="/data/images/hide.gif"
 	     alt="<% __('Download Key(s)') |h%>" />
 %	}
-      </td>
-      <td>
+        <img src="/data/images/sep.gif" alt="-" />
 %	if ( $cert->{"state"} eq "V" ) {
         <a
 	href="ShowForm?action=renew&cn=<%$cert->{'dn'}->dnAttribute('commonName')
 	| u%>"
 	>
 	  <img src="/data/images/requeue.gif"
-	       alt="<% __('Revoke') |h%>" />
+	       alt="<% __('Renew') |h%>" />
 	</a>   
-%	} else {
-        <img src="/data/images/bkgwhite.png"
-	     alt="<% __('Revoke') |h%>" />
-%	}
+%	} 
       </td>
     </tr>  
 %   }
   </tbody>
 </table>
+<!-- Put the legend underneath the list -->
+<%perl>
+  my @legendElements = (
+			{ imgFile => "/data/images/deny-active.gif",
+			  imgName => __("Revoke") },
+			{ imgFile => "/data/images/install.gif",
+			  imgName => __("Download Key(s)") },
+			{ imgFile => "/data/images/requeue.gif",
+			  imgName => __("Renew") }
+		       );
+</%perl>
+<& legendTable.mas, elements => \@legendElements, nColumns => 3 &>
