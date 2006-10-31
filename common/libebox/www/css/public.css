@@ -557,3 +557,7 @@ pre {
 }
 
 .bold { font-weight: bold; } 
+
+.legendName { 
+              padding-right: 10px;
+              }

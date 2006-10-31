@@ -1,0 +1,28 @@
+<%args>
+  @elements => (), # An array of elements containing hashes where each element has "imgFile" and "imgName" properties for legend
+  $nColumns => 2   # Number of columns in each row legend table
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+% if ($#elements + 1 > 0) {
+<table class="legend">
+%   my $count = 0;
+%   foreach my $element (@elements) {
+%     if ( $count % $nColumns == 0 ) {
+  <tr>
+%     }
+    <td>
+      <img src="<% $element->{'imgFile'}  | h %>" 
+           alt="<% $element->{'imgName'} | h %>" />
+    </td>
+    <td class="legendName">
+      <% $element->{'imgName'} | h %>
+    </td>
+%     $count++;
+%     if ( $count % $nColumns == 0 ) {
+  </tr>     
+%     }
+%   }
+% }
+</table>
