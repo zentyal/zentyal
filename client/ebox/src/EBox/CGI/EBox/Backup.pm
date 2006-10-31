@@ -236,7 +236,6 @@ sub _restore
 
   my $backup = new EBox::Backup;
   $backup->restoreBackup($filename, fullRestore => $fullRestore);
-  `rm -f $filename`;
 
   $self->_afterRestoreMsg();
 }
