@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 26;
+use Test::More tests => 32;
 use Test::Differences;
 use Test::Exception;
 use Error qw(:try);
@@ -16,7 +16,7 @@ EBox::TestStub::fake(); # to covert log in logfiel to msg into stderr
 exceptionTest();
 rootWithoutExceptionTest();
 statTest();
-
+testFileTest();
 
 sub exceptionTest
 {
@@ -80,6 +80,15 @@ sub statTest
 }
 
 
+sub testFileTest
+{
+  dies_ok  { EBox::Sudo::fileTest('-z', '/')  }, 'Trying testFile with a incorrect test';
 
+  ok EBox::Sudo::fileTest('-r', '/'), "true test: EBox::Sudo::fileTest('-r', '/')";
+  ok !EBox::Sudo::fileTest('-u', '/'), "false test: EBox::Sudo::fileTest('-u', '/')";
+  ok EBox::Sudo::fileTest('-d', '/usr'), "true test: EBox::Sudo::fileTest('-d', '/usr')";
+  ok !EBox::Sudo::fileTest('-f', '/usr'), "false test: EBox::Sudo::fileTest('-f', '/usr')";
+  ok !EBox::Sudo::fileTest('-p', '/nowhere/inexistent-pipe'), "false test: EBox::Sudo::fileTest('-p', '/nowhere/inexistent-pipe')";
+}
 
 1;

@@ -25,6 +25,7 @@ use File::stat qw();
 use File::Slurp;
 use Error qw(:try);
 use Params::Validate;
+use Perl6::Junction;
 
 use EBox::Exceptions::Sudo::Command;
 use EBox::Exceptions::Sudo::Wrapper;
@@ -44,8 +45,9 @@ BEGIN {
 
 
 use Readonly;
-Readonly::Scalar our $SUDO_PATH   => '/usr/bin/sudo';
+Readonly::Scalar our $SUDO_PATH   => '/usr/bin/sudo'; # our declaration eases testing
 Readonly::Scalar my  $STDERR_FILE => EBox::Config::tmp() . '/stderr';
+Readonly::Scalar my  $TEST_PATH   => '/usr/bin/test';
 #
 # Function: command 
 #
@@ -264,6 +266,26 @@ sub _rootCommandForStat
 {
     my ($file) = @_;
     return "/usr/bin/stat -c%dI%iI%fI%hI%uI%gIhI%sI%XI%YI%ZI%oI%bI%tI%T $file";
+}
+
+
+my $anyFileTestPredicate; 
+
+sub fileTest
+{
+  my ($test, $file) = @_;
+  validate_pos(@_, 1, 1);
+  
+  if (! defined $anyFileTestPredicate) {
+    $anyFileTestPredicate = Perl6::Junction::any(qw(-b -c -d -e -f -g -G  -h  -k -L -O -p -r -s -S -t -u -w -x) );
+  }   
+
+  ($test eq $anyFileTestPredicate) or throw EBox::Exceptions::Internal("Unknown or unsupported test file predicate: $test (upon $file)");
+
+  my $testCmd = "$TEST_PATH $test $file";
+  rootWithoutException($testCmd);
+  
+  return ($? == 0);  # $? was set by execution of $testCmd
 }
 
 1;
