@@ -82,7 +82,7 @@ sub statTest
 
 sub testFileTest
 {
-  dies_ok  { EBox::Sudo::fileTest('-z', '/')  }, 'Trying testFile with a incorrect test';
+  dies_ok  { EBox::Sudo::fileTest('-z', '/')  } 'Trying testFile with a incorrect test';
 
   ok EBox::Sudo::fileTest('-r', '/'), "true test: EBox::Sudo::fileTest('-r', '/')";
   ok !EBox::Sudo::fileTest('-u', '/'), "false test: EBox::Sudo::fileTest('-u', '/')";

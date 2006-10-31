@@ -136,12 +136,13 @@ sub _rootError
   if ($exitValue == 1 ) {	# may be a sudo-program error 
     my $errorText =  join "\n", @{$error};
 
-    if ($errorText =~ m/is not in the sudoers file/) {
-      throw EBox::Exceptions::Sudo::Wrapper("$sudocmd failed because current user (EUID $>) is not in sudoers files. Running ebox-sudoers-friendly maybe can fix this problem");
-    } 
-    elsif ($errorText =~ m/^sudo:/) {
+
+    if ($errorText =~ m/^sudo:/m) {
       throw EBox::Exceptions::Sudo::Wrapper("$sudocmd raised the following sudo error: $errorText");
     }
+    elsif ($errorText =~ m/is not in the sudoers file/m) {
+      throw EBox::Exceptions::Sudo::Wrapper("$sudocmd failed because either the current user (EUID $>) is not in sudoers files or it has incorrects settings on it. Running ebox-sudoers-friendly maybe can fix this problem");
+    } 
 
     throw EBox::Exceptions::Sudo::Command(cmd => $cmd, output => $output, error => $error,  exitValue => $exitValue)
   }
