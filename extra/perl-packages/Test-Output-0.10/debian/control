@@ -8,7 +8,7 @@ Standards-Version: 3.7.2
 
 Package: libtest-output-perl
 Architecture: all
-Depends: ${perl:Depends}, ${misc:Depends}, 
+Depends: ${perl:Depends}, ${misc:Depends}, libsub-exporter-perl, 
 Description:  Utilities to test STDOUT and STDERR messages.
  Test::Output provides a simple interface for testing output sent to STDOUT
  or STDERR. A number of different utilies are included to try and be as
