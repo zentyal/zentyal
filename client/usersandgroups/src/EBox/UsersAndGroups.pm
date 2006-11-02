@@ -1399,9 +1399,8 @@ sub _ldapModImplementation
 sub dumpConfig
 {
   my ($self, $dir) = @_;
-  my $backupDir = $self->createBackupDir($dir);
 
-  $self->{ldap}->dumpLdapData($backupDir);
+  $self->{ldap}->dumpLdapData($dir);
 }
 
 
