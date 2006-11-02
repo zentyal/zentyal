@@ -7,13 +7,12 @@ Standards-Version: 3.6.1
 
 Package: ebox-ca
 Architecture: all
-Depends: ebox, libebox, libfile-slurp-perl, openssl (>= 0.9.7e), tar
+Depends: ebox, libebox, openssl (>= 0.9.7e), tar, libfile-slurp-perl, libdate-calc-perl 
 Description: 
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
  graphical interface to non expert users. It can be set up as a gateway,
  having some extra features over a usual router.
- .
  This module adds a Certification Authority Manager over OpenSSL to issue,
  revoke and renew certificates, also allowing download the key pair created
- by this authority.
+ by this authority and adding the possibility to control the issued certificates that are about to expire.
