@@ -1,0 +1,58 @@
+Revision history for Test-Output
+
+0.10    07/18/2005
+        Migrated from Exporter to Sub::Exporter
+
+0.09    11/09/2005
+        New version of Test::Tester added a depth test which was causing
+          tests to fail. Thanks to neildp for the patch.
+        Fixed warning messages during perl Makefile.PL caused by Test::Tester
+          not being loaded first.
+
+0.08    07/19/2005
+        Supressed most warnings caused by newer versions of Test::Tester
+
+0.07    03/26/2005
+        Added methods: combined_is, combined_isnt, combined_like and
+          combined_unlike. This combine STDOUT and STDERR into one
+          filehandle and capture their output for testing.
+
+0.06    03/07/2005
+        Applied patch from David Wheeler to support code blocks within
+          tests as well as coderefs.
+
+0.05    03/04/2005
+        Added chromatic's patch fixing diag messages printing even when
+          tests pass.
+        Updated stdout_unlike.t to test for success.
+        Updated all tests for successful tests to include diag => ''.
+
+0.04    03/02/2005
+        Added methods: output_like, output_unlike
+        Moved output_from stdout_from and stderr_from out of @EXPORT
+          and into @EXPORT_OK.
+        Reworked diag messages for output_is and output_isnt to only show
+          the output that doesn't match.
+        replaced "comment" with "description"
+        More tests
+        Much refactoring
+
+0.03    02/16/2005
+        Reworked entire POD. Thanks to rjbs for his suggestions.
+        Additional POD fixes (date to data thanks to everyone who caught
+          that).
+        New methods: stderr_like, stderr_unlike, stdout_like, stdout_unlike
+        Updated README from the default one created by Module::Starter.
+        Moved private methods _err,_out, and _errandout to stderr_from
+          stdout_from and output_from respectively. Allowing access from
+          the test file. Thanks to rjbs for this suggestion.
+
+0.02    02/12/2005
+        New methods: output_isnt, stderr_inst, stdout_isnt
+        Removed requirement for Filehandle
+        Removed errant leftover Test::Builder::Tester::Color from tests
+        Migrated all tests to Test::Tester (Test::Tester now a prereq)
+
+0.01    02/12/2005
+        First version, released on an unsuspecting world.
+

@@ -1,0 +1,23 @@
+Source: libtest-output-perl
+Section: perl
+Priority: optional
+Build-Depends: debhelper (>= 5.0.0)
+Build-Depends-Indep: perl (>= )
+Maintainer: Javier Amor Garcia <javier.amor.garcia@warp.es>
+Standards-Version: 3.7.2
+
+Package: libtest-output-perl
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends}, 
+Description:  Utilities to test STDOUT and STDERR messages.
+ Test::Output provides a simple interface for testing output sent to STDOUT
+ or STDERR. A number of different utilies are included to try and be as
+ flexible as possible to the tester.
+ .
+ Originally this module was designed not to have external requirements, 
+ however, the features provided by Sub::Exporter over what Exporter
+ provides is just to great to pass up.
+ .
+ Test::Output ties STDOUT and STDERR using Test::Output::Tie.
+ .
+ This description was automagically extracted from the module by dh-make-perl.
