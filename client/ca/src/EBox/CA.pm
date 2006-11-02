@@ -19,14 +19,14 @@ use strict;
 use warnings;
 
 ####################################
-# Dependencies: 
+# Dependencies:
 # File::Slurp package
 # Perl6::Junction package
-# Date::Calc package (which has as a dependency Carp::Clan)
+# Date::Calc::Object  (which has as a dependency Carp::Clan and Bit::Vector)
 ####################################
 use File::Slurp;
 use Perl6::Junction qw(any);
-use Date::Calc qw(Delta_Days);
+use Date::Calc::Object qw(:all);
 
 use base 'EBox::GConfModule';
 
@@ -113,7 +113,7 @@ sub _create
 			    "cessationOfOperation",
 			    "certificationHold"];
 	# Expiration CA certificate
-	$self->{caExpiryDays} = $self->_obtain(CACERT, 'days');
+	$self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
 
 	return $self;
 }
@@ -140,7 +140,7 @@ sub new {
 		      "cessationOfOperation",
 		      "certificationHold"];
   # Expiration CA certificate
-  $self->{caExpiryDays} = $self->_obtain(CACERT, 'days');
+  $self->{caExpirationDate} = $self->_obtain(CACERT, 'enddate');
 
   return $self;
 
@@ -151,7 +151,7 @@ sub new {
 #       Return the gettext domain
 #
 # Returns:
-# 
+#
 #       the gettext domain
 
 sub domain
@@ -174,7 +174,7 @@ sub isCreated
     return (-d CATOPDIR and -f CACERT and -f CAPRIVKEY
 	    and -f CAPUBKEY);
   }
-    
+
 # Method: createCA
 #
 #       Create a Certification Authority with a self-signed certificate
@@ -193,14 +193,22 @@ sub isCreated
 #
 # Returns:
 #
-#       anything else OK, undef error
+#      1 - if everything is newly created
+#      2 - if the CA certificate already exists
+#
+# Exceptions:
+#
+#      EBox::Exceptions::DataMissing - if any required parameter is
+#      missing
 
 sub createCA {
 
   my ($self, %args) = @_;
 
-  return undef unless defined( $args{caKeyPassword} );
-  return undef unless defined( $args{orgName} );
+  throw EBox::Exceptions::DataMissing(data => __('Certification Authority Passphrase'))
+    unless defined( $args{caKeyPassword} );
+  throw EBox::Exceptions::DataMissing(data => __('Organization Name'))
+    unless defined( $args{orgName} );
 
   if ( ! -d CATOPDIR ) {
     # Create the directory hierchary
@@ -243,8 +251,6 @@ sub createCA {
     EBox::warn(__("Days set to the maximum allowed: Year 2038 Bug"));
   }
 
-  # Set the CA certificate expiration date
-  $self->{caExpiryDays} = $args{days};
 
   # To create the request the distinguished name is needed
   $self->_createRequest(reqFile     => CAREQ,
@@ -289,6 +295,9 @@ sub createCA {
 		    $self->{caKeyPassword},
 		    CAPUBKEY);
 
+  # Set the CA certificate expiration date
+  $self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
+
   #unlink (CAREQ);
   return 1;
 
@@ -309,11 +318,11 @@ sub createCA {
 #
 # Returns:
 #
-#       undef if OK, anything else otherwise
+#       undef if OK
 #
 # Exceptions:
 #
-#      External - throw if the certificate doesn't exist
+#       External -
 
 sub revokeCACertificate
   {
@@ -327,7 +336,7 @@ sub revokeCACertificate
       # We ensure not to revoke the CA cert before the others
       if ($element->{state} eq 'V' and
 	  -f ( KEYSDIR . $element->{dn}->dnAttribute('commonName') . ".pem" ) ) {
-	
+
 	$self->revokeCertificate(commonName    => $element->{dn}->dnAttribute('commonName'),
 				 reason        => "cessationOfOperation",
 				 caKeyPassword => $args{caKeyPassword}
@@ -340,7 +349,7 @@ sub revokeCACertificate
 					  caKeyPassword => $args{caKeyPassword},
 					  certFile      => CACERT);
 
-    $self->{caExpiryDays} = undef;
+    $self->{caExpirationDate} = undef;
 
     return $retVal;
 
@@ -348,7 +357,7 @@ sub revokeCACertificate
 
 # Method: issueCACertificate
 #
-#       Issue the self-signed CA certificate
+#       Issue a self-signed CA certificate
 #
 # Parameters:
 #
@@ -366,20 +375,23 @@ sub revokeCACertificate
 #
 # Returns:
 #
-#       the new certificate file path or undef if any error happened
+#       the new certificate file path
 #
 # Exceptions:
 #
 #      External - throw if the CA private key passpharse is NOT
 #                 correct
+#      DataMissing - if any required parameter is missing
 
 sub issueCACertificate 
   {
 
     my ($self, %args) = @_;
 
-    return undef unless defined ($args{caKeyPassword});
-    return undef unless defined($args{orgName});
+    throw EBox::Exceptions::DataMissing(data => __('Certification Authority Passphrase'))
+      unless defined( $args{caKeyPassword} );
+    throw EBox::Exceptions::DataMissing(data => __('Organization Name'))
+      unless defined( $args{orgName} );
 
     # Define the distinguished name -> default values in configuration file
     $args{commonName} = CA_CN_DEF unless ( $args{commonName} );
@@ -390,26 +402,33 @@ sub issueCACertificate
 				      organizationNameUnit => $args{orgNameUnit},
 				      commonName           => $args{commonName});
 
-    $self->{caExpiryDays} = $args{days};
+    # Erase the previous cert request to generate a new key pair
+    unlink (CAREQ);
+    unlink (CAPRIVKEY);
 
-    return $self->issueCertificate(commonName     => $self->{dn}->dnAttribute('commonName'),
-				   countryName    => $self->{dn}->dnAttribute('countryName'),
-				   localityName   => $self->{dn}->dnAttribute('localityName'),
-				   orgName        => $self->{dn}->dnAttribute('orgName'),
-				   orgNameUnit    => $self->{dn}->dnAttribute('orgNameUnit'),
-				   keyPassword    => $args{caKeyPassword},
-				   days           => $args{days},
-				   caKeyPassword  => $args{caKeyPassword},
-				   privateKeyFile => CAPRIVKEY,
-				   requestFile    => CAREQ,
-				   certFile       => CACERT);
+    my $ret = $self->issueCertificate(commonName     => $self->{dn}->dnAttribute('commonName'),
+				      countryName    => $self->{dn}->dnAttribute('countryName'),
+				      localityName   => $self->{dn}->dnAttribute('localityName'),
+				      orgName        => $self->{dn}->dnAttribute('orgName'),
+				      orgNameUnit    => $self->{dn}->dnAttribute('orgNameUnit'),
+				      keyPassword    => $args{caKeyPassword},
+				      days           => $args{days},
+				      caKeyPassword  => $args{caKeyPassword},
+				      privateKeyFile => CAPRIVKEY,
+				      requestFile    => CAREQ,
+				      certFile       => CACERT);
+
+    # Expiration CA certificate
+    $self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
+    return $ret;
 
   }
 
 # Method: renewCACertificate
 #
 #       Renew the self-signed CA certificate. Re-signs all the issued
-#       certificates with the same expiration date.
+#       certificates with the same expiration date or the CA
+#       expiration date if the issued certificate is later.
 #
 #
 # Parameters:
@@ -432,8 +451,9 @@ sub issueCACertificate
 #
 # Exceptions:
 #
-#      External - throw if the CA private key passpharse is NOT
-#                 correct
+#      External - if the CA private key passpharse is NOT correct
+#      DataMissing - if no caKeyPassword is given
+#      
 
 sub renewCACertificate
   {
@@ -441,9 +461,7 @@ sub renewCACertificate
 
     if ( not defined($args{caKeyPassword}) and
 	 not defined($self->{caKeyPassword})) {
-      throw EBox::Exceptions::External(__('No CA private key password is given'));
-      # print STDERR "No CA private key password is given\n";
-      return undef;
+      throw EBox::Exceptions::DataMissing(data => __('Certification Authority Passphrase'));
     }
 
     if (not defined($self->{caKeyPassword}) ) {
@@ -468,20 +486,30 @@ sub renewCACertificate
 					       keyPassword   => $args{caKeyPassword},
 					       overwrite     => "1");
 
+    # Expiration CA certificate
+    $self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
+
     # Re-signs all the issued certificates with the same expiry date
     foreach my $element (@{$listCerts}) {
       # Renew the previous ones that remains valid
       if ($element->{state} eq 'V' and
 	  -f ( KEYSDIR . $element->{dn}->dnAttribute('commonName') . ".pem") ) {
+
+	my $userExpiryDate = $element->{expiryDate};
+	EBox::debug("user expir: $userExpiryDate");
+
+	$userExpiryDate = $self->{caExpirationDate}
+	  if ( $element->{expiryDate} gt $self->{caExpirationDate} );
+
 	$self->renewCertificate( commonName    => $element->{dn}->dnAttribute('commonName'),
-				 endDate       => $element->{expiryDate},
+				 endDate       => $userExpiryDate,
 				 caKeyPassword => $args{caKeyPassword}
 			       );
 
       }
+
     }
-    
-    $self->{caExpiryDays} = $args{days};
+    EBox::debug("Elements: $#{$listCerts}");
 
     return $renewedCert;
 
@@ -501,9 +529,6 @@ sub renewCACertificate
 #       Path to the file which contains the CA Public Key in
 #       PEM format or undef if it was not possible to create
 #
-# Exceptions:
-#
-#       Internal - If the directory creation is not possible
 
 sub CAPublicKey {
 
@@ -541,6 +566,7 @@ sub CAPublicKey {
 #       days - expiration days of certificate (Optional)
 #              Only valid if endDate is not present
 #       endDate - explicity expiration date (Optional)
+#                 A Date::Calc::Object
 #       caKeyPassword - passphrase for CA to sign (Optional)
 #       privateKeyFile - path to the private key file if there is already
 #                        a private key file in the CA (Optional)
@@ -552,12 +578,12 @@ sub CAPublicKey {
 #
 # Returns:
 #
-#       Path where the certificate is left or undef if problem has
-#       happened
+#      undef if no problem happened
 #
 # Exceptions:
-# 
-#       External - throw if the CA passpharse CANNOT be located
+#
+#       External - if the CA passpharse CANNOT be located
+#       DataMissing - if any required parameter is missing
 #
 
 sub issueCertificate {
@@ -565,10 +591,12 @@ sub issueCertificate {
   my ($self, %args) = @_;
 
   # Treat arguments
-  return undef unless (defined($args{commonName}));
-  return undef unless (defined($args{keyPassword}));
+  throw EBox::Exceptions::DataMissing(data => __('Key Pair Passphrase'))
+    unless defined( $args{keyPassword} );
+  throw EBox::Exceptions::DataMissing(data => __('Common Name'))
+    unless defined( $args{commonName} );
 
-  my $days;
+  my $days = undef;
   if (not defined($args{endDate}) ) {
     $days = $args{days};
     $days = 365 unless $days;
@@ -582,8 +610,22 @@ sub issueCertificate {
     }
   }
 
-  if ( $days > $self->{caExpiryDays} ) {
-    throw EBox::Exceptions::External(__("Expiration Date longer than CA certificate expiration date"));
+  # Check the expiration date unless issuing the CA
+  if (not $args{certFile} eq CACERT) {
+    my $userExpDay = undef;
+    if ( defined($days) ) {
+      $userExpDay = Date::Calc::Object->now();
+      $userExpDay += [0, 0, $days, 0, 0, 0];
+    } elsif (defined $args{endDate}) {
+      $userExpDay = $args{endDate};
+    }
+
+    $self->{caExpirationDate} = $self->_obtain(CACERT, "endDate") 
+      unless defined($self->{caExpirationDate});
+    
+    if ( $userExpDay gt $self->{caExpirationDate} ) {
+      throw EBox::Exceptions::External(__("Expiration date later than CA certificate expiration date"));
+    }
   }
 
 
@@ -593,8 +635,6 @@ sub issueCertificate {
 
   if (not defined($self->{caKeyPassword}) ) {
     throw EBox::Exceptions::External(__('No CA passpharse to sign a new certificate')); 
-    # print STDERR "No CA passpharse to sign a new certificate\n";
-    return undef;
   }
 
   # Name the private key and the user requests by common name
@@ -622,16 +662,13 @@ sub issueCertificate {
     if (defined($args{commonName}));
 
   # Create the certificate request
-  my $genKey = "1";
+  my $genKey = 1;
   if ( defined($args{privateKeyFile} )) {
-    if (not -f $args{privateKeyFile} ) {
-      # print STDERR "Not $args{privateKeyFile} found\n";
-      throw EBox::Exceptions::External(__x("Private key file {file} does NOT exist", 
-					   file => $args{privateKeyFile}));
-      return undef;
+    if (-f $args{privateKeyFile} ) {
+      $genKey = 0;
     }
-    $genKey = "0";
   }
+
   $self->_createRequest(reqFile     => $userReq,
 			genKey      => $genKey,
 			privKey     => $privKey,
@@ -653,8 +690,8 @@ sub issueCertificate {
 				  );
 
   # Check if something goes wrong
-  if ($output ne "1") {
-    return $output;
+  if ( defined($output) ) {
+    throw EBox::Exceptions::External($output);
   }
 
   # Generate the public key file (if it is a newly created private
@@ -685,13 +722,14 @@ sub issueCertificate {
 #
 # Returns:
 #
-#       undef if OK, anything else otherwise
+#       undef if OK
 #
 # Exceptions:
 #
-#      External - throw if the certificate does NOT exist
-#                 or the reason is NOT a standard one
-#                 or the CA passpharse CANNOT be located
+#      External - if the certificate does NOT exist
+#                 if the reason is NOT a standard one
+#                 if the CA passpharse CANNOT be located
+#      DataMissing - if any required parameter is missing
 #
 sub revokeCertificate {
 
@@ -701,15 +739,15 @@ sub revokeCertificate {
   my $caKeyPassword = $args{caKeyPassword};
   my $certFile = $args{certFile};
 
-  return "No common name is given" unless defined($commonName);
+  throw EBox::Exceptions::DataMissing(data => __('Common Name') )
+    unless defined($commonName);
 
   if ( defined($caKeyPassword) and not defined($self->{caKeyPassword})) {
     $self->{caKeyPassword} = $caKeyPassword;
   }
 
   if ( not defined($self->{caKeyPassword}) ) {
-    throw EBox::Exceptions::External(__('No CA passpharse is given to revoke')); 
-    # return 'No CA passpharse is given to revoke';
+    throw EBox::Exceptions::DataMissing(data => __('Certification Authority Passphrase'));
   }
 
   # RFC 3280 suggests not to use an unspecified reason when the reason
@@ -740,24 +778,28 @@ sub revokeCertificate {
   delete ($ENV{'PASS'});
 
   # If any error is shown from revocation, the result is got back
-  return $output if ($retValue eq "ERROR");
+  throw EBox::Exceptions::External($self->_filterErrorFromOpenSSL($output))
+    if ($retValue eq "ERROR");
 
   # Generate a new Certification Revocation List (For now in the same
   # method...)
 
   # Localtime -> module NTP
-  (my $day, my $month, my $year) = (localtime)[3..5];
+  (my $day, my $month, my $year) = Date::Calc::Today();
 
   my $date = sprintf("%04d-%02d-%02d", $year+1900, $month+1, $day);
-  
+
   $cmd= "ca";
   $self->_commonArgs("ca", \$cmd);
   $cmd .= "-gencrl -passin env:PASS ";
   $cmd .= "-out " . CRLDIR . $date . "_crl.pem";
 
   $ENV{'PASS'} = $self->{caKeyPassword};
-  $self->_executeCommand(COMMAND => $cmd);
+  ($retValue, $output) = $self->_executeCommand(COMMAND => $cmd);
   delete ($ENV{'PASS'});
+
+  throw EBox::Exceptions::External($self->_filterErrorFromOpenSSL($output))
+    if ($retValue eq "ERROR");
 
   return undef;
 
@@ -783,7 +825,7 @@ sub revokeCertificate {
 #
 #       dn - an EBox::CA::DN object
 #       state - 'V' from Valid, 'R' from Revoked or 'E' from Expired
-#       expiryDate - the expiry date in a Date hash if state valid
+#       expiryDate - the expiry date in a Calc::Date::Object if state valid
 #
 #       revokeDate - the revocation date in a Date hash if state is
 #                    revoked
@@ -858,13 +900,15 @@ sub listCertificates
 # Exceptions:
 #
 #      External - throw if the keys do NOT exist
+#      DataMissing - if any required parameter is missing
 #
 
 sub getKeys {
 
   my ($self, $commonName) = @_;
 
-  return undef unless defined ($commonName);
+  throw EBox::Exceptions::DataMissing(data => __("Common Name"))
+    unless defined ($commonName);
 
   my %keys;
 
@@ -897,10 +941,11 @@ sub getKeys {
 #
 # Returns:
 #
-#       undef if the private key does NOT exist, otherwise 1
+#       1 - If everything OK
+#
 # Exceptions:
 #
-#      External - throw if the private key does NOT exist
+#      Internal - throw if the private key does NOT exist
 sub removePrivateKey
   {
     my ($self, $commonName) = @_;
@@ -911,7 +956,7 @@ sub removePrivateKey
       unlink (PRIVDIR . "$commonName.pem");
       return 1;
     } else {
-      return undef;
+      throw EBox::Exceptions::Internal("Private key does NOT exist");
     }
 
   }
@@ -937,7 +982,8 @@ sub removePrivateKey
 #       days - days to hold the same certificate (Optional)
 #              Only if enddate not appeared
 #       endDate - the exact date when the cert expired (Optional)
-#                 Only if enddate not appeared
+#                 Only if days not appeared
+#                 It is a Date::Calc::Object
 #       caKeyPassword - key passpharse for CA (Optional)
 #       certFile - the certificate file to renew (Optional)
 #       reqFile  - the request certificate file which to renew (Optional)
@@ -951,13 +997,14 @@ sub removePrivateKey
 #
 # Returns:
 #
-#       the new certificate file path or undef if it is not possible
+#       the new certificate file path
 #
 # Exceptions:
 #
-#      External - throw if the user does NOT exist
-#                 or the CA passpharse CANNOT be located
-#                 or the user passpharse is needed and it's NOT present
+# External - if the user does NOT exist or the CA passpharse
+#                 CANNOT be located or the user passpharse is needed
+#                 and it's NOT present 
+# Internal - if any parameter is an unexcepted type
 
 sub renewCertificate
   {
@@ -974,8 +1021,28 @@ sub renewCertificate
       }
     }
 
-    return undef unless defined ($args{commonName})
-      or defined ($args{certFile});
+    throw EBox::Exceptions::Internal("End date parameter is not a Date::Calc object")
+      if (defined($args{endDate}) and not UNIVERSAL::isa($args{endDate}, "Date::Calc"));
+
+    # Check the expiration date unless issuing the CA cert
+    if (not $args{certFile} eq CACERT) {
+      my $userExpDay = undef;
+      if ( defined($args{days}) ) {
+	$userExpDay = Date::Calc::Object->now() + [0, 0, +$args{days}, 0, 0, 0];
+      } elsif ( defined($args{endDate}) ) {
+	$userExpDay = $args{endDate};
+      }
+
+      $self->{caExpirationDate} = $self->_obtain(CACERT, "endDate")
+	unless defined($self->{caExpirationDate});
+
+      if ( $userExpDay gt $self->{caExpirationDate} ) {
+	throw EBox::Exceptions::External(__("Expiration date later than CA certificate expiration date"));
+      }
+    }
+
+    throw EBox::Exceptions::DataMissing(data => __('Common Name') . " or " . __('Certificate file'))
+      unless defined ($args{commonName}) or defined ($args{certFile});
 
     if ( defined($args{caKeyPassword}) and not defined($self->{caKeyPassword})) {
       $self->{caKeyPassword} = $args{caKeyPassword};
@@ -983,7 +1050,6 @@ sub renewCertificate
 
     if ( not defined($self->{caKeyPassword}) ) {
       throw EBox::Exceptions::External(__('No CA passpharse is given to revoke')); 
-      #return undef;
     }
 
     my $overwrite = $args{overwrite} if ($args{certFile});
@@ -999,6 +1065,10 @@ sub renewCertificate
     $selfsigned = "1" if ($userCertFile eq CACERT);
 
     my $userDN = $self->_obtain($userCertFile, 'DN');
+
+    if ( not defined($userDN) ) {
+      throw EBox::Exceptions::External(__("The certificate to renew does NOT exist"));
+    }
 
     my $dnFieldHasChanged = '0';
     if ( defined($args{countryName})
@@ -1036,8 +1106,6 @@ sub renewCertificate
     if (defined($retVal) ) {
       throw EBox::Exceptions::External(__x("Common name {cn} does NOT exist in this CA"
 					   , cn => $userDN->dnAttribute('commonName')));
-      #print STDERR "error revoking. Reason: $retVal\n";
-      #return undef;
     }
     # Sign a new one
     my $userReq;
@@ -1063,14 +1131,18 @@ sub renewCertificate
 	$newSubject = $userDN;
       }
 
-      $self->_signRequest( userReqFile  => $userReq,
-			   days         => $args{days},
-			   userCertFile => $newCertFile,
-			   selfsigned   => $selfsigned,
-			   createSerial => "0",
-			   newSubject   => $newSubject,
-			   endDate      => $args{endDate}
-			 );
+      my $output = $self->_signRequest( userReqFile  => $userReq,
+					days         => $args{days},
+					userCertFile => $newCertFile,
+					selfsigned   => $selfsigned,
+					createSerial => "0",
+					newSubject   => $newSubject,
+					endDate      => $args{endDate}
+				      );
+
+      if (defined($output) ) {
+	throw EBox::Exceptions::External($output);
+      }
 
     } else {
       # If we don't keep the request, we should create a new one with
@@ -1123,7 +1195,7 @@ sub renewCertificate
 #
 # Returns:
 #
-#       undef if everything OK, the output if error has occured
+#       undef if everything OK
 # Exceptions:
 #
 #      External - throw if the passpharse is incorrect
@@ -1150,7 +1222,7 @@ sub updateDB
     delete( $ENV{'PASS'} );
 
     if ($retVal eq "ERROR") {
-      return $self->_filterErrorFromOpenSSL($output);
+      throw EBox::Exceptions::External($self->_filterErrorFromOpenSSL($output));
     } else {
       return undef;
     }
@@ -1234,13 +1306,15 @@ sub menu {
 
 sub _getPubKey # (privKeyFile, password, pubKeyFile)
   {
+
     my ($self, $privKeyFile, $password, $pubKeyFile)  = @_;
+
     # TODO: Check the password is correct
 
     return undef unless (defined($password));
 
     $pubKeyFile = TEMPDIR . "pubKey.pem" unless (defined ($pubKeyFile));
-    
+
     my $cmd = "rsa ";
     $cmd .= "-in $privKeyFile -out $pubKeyFile";
     $cmd .= " -outform PEM -pubout -passin env:PASS";
@@ -1252,7 +1326,7 @@ sub _getPubKey # (privKeyFile, password, pubKeyFile)
     return undef if ($retVal eq "ERROR");
 
     return $pubKeyFile;
-  
+
   }
 
 # Given a serial number, it returns the file path
@@ -1381,7 +1455,7 @@ sub _signRequest # (userReqFile, days, userCertFile?, policy?, selfsigned?,
     $cmd .= "-policy $policy ";
     $cmd .= "-keyfile " . CAPRIVKEY . " ";
     $cmd .= "-days $args{days} " if defined($args{days});
-    $cmd .= "-enddate $endDate " if defined($args{endDate});
+    $cmd .= "-enddate " . $self->_flatDate($args{endDate}) . " " if defined($args{endDate});
     if ( defined($args{newSubject}) ) {
       $cmd .= "-subj \"". $args{newSubject}->stringOpenSSLStyle() . "\" ";
       $cmd .= "-multivalue-rdn " if ( $args{newSubject}->stringOpenSSLStyle() =~ /[^\\](\\\\)*\+/);
@@ -1417,7 +1491,7 @@ sub _signSelfSignRequest # (userReqFile, days*, userCertFile,
     $cmd .= "-x509 ";
     $cmd .= "-set_serial \"0x$args{serialNumber}\" " if defined($args{serialNumber});
     $cmd .= "-days $args{days} " if defined($args{days});
-    $cmd .= "-enddate $endDate " if defined($args{endDate});
+    $cmd .= "-enddate " . $self->_flatDate($args{endDate}) . " " if defined($args{endDate});
     if ( defined($args{newSubject}) ) {
       $cmd .= "-subj \"". $args{newSubject}->stringOpenSSLStyle() . "\" ";
       $cmd .= "-multivalue-rdn " if ( $args{newSubject}->stringOpenSSLStyle() =~ /[^\\](\\\\)*\+/);
@@ -1429,7 +1503,8 @@ sub _signSelfSignRequest # (userReqFile, days*, userCertFile,
     my ($retVal, $output) = $self->_executeCommand(COMMAND => $cmd);
     delete ( $ENV{'PASS'} );
 
-    return ($retVal, $output);
+    return $output if ($retVal eq "ERROR");
+    return undef;
 
   }
 
@@ -1452,9 +1527,9 @@ sub _commonArgs # (cmd, args)
   }
 
 # Given a certification file Obtain an attribute from the file
-# attribute => 'DN' return => EBox::CA::DN object 
-# attribute => 'serial' return => String containing the serial number 
-# attribute =>'endDate' return => String given by OpenSSL 
+# attribute => 'DN' return => EBox::CA::DN object
+# attribute => 'serial' return => String containing the serial number
+# attribute =>'endDate' return => Date::Calc::Object with the date
 # attribute => 'days' return => number of days from today to expire
 # undef => if certification file does NOT exist
 
@@ -1484,28 +1559,37 @@ sub _obtain # (certFile, attribute)
 
     # Remove the attribute name part
     $arg =~ s/-//g;
-    if ($arg eq "-enddate") {
+    if ($arg eq "enddate") {
       $arg = "notAfter";
     }
+
     $output =~ s/^$arg=( )*//g;
 
     chomp($output);
 
     if ($attribute eq 'DN') {
       return EBox::CA::DN->parseDN($output);
-    } elsif ($attribute =~ m/(serial)|(endDate)/i ) {
+    } elsif ($attribute eq 'serial' ) {
       return $output;
+    } elsif ($attribute eq 'endDate' ) {
+      my ($monthStr, $day, $hour, $min, $sec, $yyyy) = 
+	($output =~ /(.+) (\d+) (\d+):(\d+):(\d+) (\d+) (.+)/);
+
+      $monthStr =~ s/ +//g;
+      my $dateObj = Date::Calc->new($yyyy, 
+				    Decode_Month($monthStr),
+				    $day, $hour, $min, $sec);
+      return $dateObj;
     } elsif ($attribute eq 'days') {
-      my ($nowD, $nowM, $nowY) = (localtime)[3,4,5];
       my $certDate = $self->_parseDate($output);
-      return Delta_Days( $nowY, $nowM, $nowD,
-			 $certDate->{year}, $certDate->{month}, $certDate->{day});
+      my $diffDate = $certDate - Date::Calc->Today();
+      return $diffDate->day();
     }
 
   }
 
 # Given the string date from index.txt file
-# obtain the date as a Date hash.
+# obtain the date as a Date::Calc::Object
 
 sub _parseDate
   {
@@ -1515,31 +1599,26 @@ sub _parseDate
 
     $y += 2000;
 	# my $wday = Day_of_Week($y+1999,$mon,$mday);
+    my $date = Date::Calc->new($y, $mon, $mday, $h, $m, $s);
 
-    my %date = ( "second" => $s,
-		 "minute" => $m,
-		 "hour"   => $h,
-		 "day"    => $mday,
-		 "month"  => $mon,
-		 "year"   => $y);
-    return \%date;
+    return $date;
   }
 
-# A private method to flat a Date hash to a OpenSSL form like
+# A private method to flat a Date::Calc::Object to a OpenSSL form like
 # YYMMDDHHMMSSZ 
 sub _flatDate # (date)
   {
     my ($self, $date) = @_;
 
-    my $dateStr =sprintf("%02d%02d%02d%02d%02d%02dZ",
-			 $date->{year} - 2000,
-			 $date->{month},
-			 $date->{day},
-			 $date->{hour},
-			 $date->{minute},
-			 $date->{second});
+    return "" unless ( UNIVERSAL::isa($date, "Date::Calc"));
 
-    # print "\ndateStr: $dateStr\n";
+    my $dateStr =sprintf("%02d%02d%02d%02d%02d%02dZ",
+			 $date->year() - 2000,
+			 $date->month(),
+			 $date->day(),
+			 $date->hours(),
+			 $date->minutes(),
+			 $date->seconds());
 
     return $dateStr;
 
@@ -1569,26 +1648,15 @@ sub _createSerial
 sub _putInIndex # (EBox::CA::DN dn, String certFile, String
                   # serialNumber) 
   {
-    
+
     my ($self, %args) = @_;
 
     my $date = $self->_obtain($args{certFile}, 'endDate');
 
     EBox::debug("Date: $date");
 
-    my ($monthStr, $day, $hour, $min, $sec, $yyyy) = 
-      ($date =~ /(.+) (\d+) (\d+):(\d+):(\d+) (\d+) (.+)/);
-
-    my $monthNo = $self->_monthNo($monthStr);
-    my %date = ( "second" => $sec,
-		 "minute" => $min,
-		 "hour"   => $hour,
-		 "day"    => $day,
-		 "month"  => $monthNo,
-		 "year"   => $yyyy);
-
     my $row = "V\t";
-    $row .= $self->_flatDate(\%date) . "\t\t";
+    $row .= $self->_flatDate($date) . "\t\t";
     $row .= $args{serialNumber} . "\t";
     $row .= "unknown\t";
     # I found that every subject has no final slash
@@ -1599,41 +1667,6 @@ sub _putInIndex # (EBox::CA::DN dn, String certFile, String
     open (my $index, ">>" . INDEXFILE);
     print $index $row;
     close($index);
-
-  }
-
-sub _monthNo # (monthStr)
-  {
-    my ($self, $monthStr) = @_;
-    my $monthNo = 1;
-
-    if ($monthStr eq "Jan") {
-      $monthNo = 1;
-    } elsif ($monthStr eq "Feb") {
-      $monthNo = 2;
-    } elsif ($monthStr eq "Mar") {
-      $monthNo = 3;
-    } elsif ($monthStr eq "Apr") {
-      $monthNo = 4;
-    } elsif ($monthStr eq "May") {
-      $monthNo = 5;
-    } elsif ($monthStr eq "Jun") {
-      $monthNo = 6;
-    } elsif ($monthStr eq "Jul") {
-      $monthNo = 7;
-    } elsif ($monthStr eq "Aug") {
-      $monthNo = 8;
-    } elsif ($monthStr eq "Sep") {
-      $monthNo = 9;
-    } elsif ($monthStr eq "Oct") {
-      $monthNo = 10;
-    } elsif ($monthStr eq "Nov") {
-      $monthNo = 11;
-    } elsif ($monthStr eq "Dic") {
-      $monthNo = 12;
-    }
-    
-    return $monthNo;
 
   }
 

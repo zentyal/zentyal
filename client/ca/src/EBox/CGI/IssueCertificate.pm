@@ -65,11 +65,11 @@ sub _process
     } else {
       $self->_requireParam('name', __('Common Name') );
       $self->_requireParam('passphrase', __('Key Pair Passphrase') );
-      $self->_requireParam('repassphrase', __('Re-type Passphrase') );
       $self->_requireParam('CAPassphrase', __('Certification Authority Passphrase') );
     }
     # Common parameters
     $self->_requireParam('expiryDays', __('Days to expire') );
+    $self->_requireParam('repassphrase', __('Re-type Passphrase') );
 
     my $name = $self->param('name');
     my $days = $self->param('expiryDays');
@@ -77,11 +77,11 @@ sub _process
     my $repassphrase = $self->param('repassphrase');
     my $caPassphrase = $self->param('CAPassphrase');
 
-    if (not $issueCA) {
-      if($passphrase ne $repassphrase) {
-	throw EBox::Exceptions::External(__('Passphrases do NOT match'));
-      }
+    if($passphrase ne $repassphrase) {
+      throw EBox::Exceptions::External(__('Passphrases do NOT match'));
+    }
 
+    if (not $issueCA) {
       if ( length($passphrase) < 4 or length($caPassphrase) < 4) {
 	throw EBox::Exceptions::External(__('Passphrases should be at ' 
 					    . 'least 4 characters long'));
@@ -96,8 +96,8 @@ sub _process
     my $retValue;
     if ($issueCA) {
       $retValue = $ca->issueCACertificate( orgName    => $name,
-					 days          => $days,
-					 caKeyPassword => $passphrase);
+					   days          => $days,
+					   caKeyPassword => $passphrase);
     } else {
       $retValue = $ca->issueCertificate( commonName    => $name,
 					 days          => $days,
@@ -105,13 +105,9 @@ sub _process
 					 caKeyPassword => $caPassphrase);
     }
 
-    if (defined($retValue)) {
-      throw EBox::Exceptions::External($retValue);
-    } else {
-      my $msg = __("The certificate has been issued");
-      $msg = __("The new CA certificate has been issued") if ($issueCA);
-      $self->setMsg($msg);
-    }
+    my $msg = __("The certificate has been issued");
+    $msg = __("The new CA certificate has been issued") if ($issueCA);
+    $self->setMsg($msg);
 
   }
 

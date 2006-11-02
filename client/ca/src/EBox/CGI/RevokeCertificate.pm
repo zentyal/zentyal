@@ -86,13 +86,9 @@ sub _process
 					  caKeyPassword => $caPassphrase);
     }
 
-    if (defined($retValue) ) {
-      throw EBox::Exceptions::External(__('The certificate CANNOT be revoked'));
-    } else {
-      my $msg = __("The certificate has been revoked");
-      $msg = __("The new CA certificate has been revoked") if ($isCACert);
-      $self->setMsg($msg);
-    }
+    my $msg = __("The certificate has been revoked");
+    $msg = __("The CA certificate has been revoked") if ($isCACert);
+    $self->setMsg($msg);
 
   }
 

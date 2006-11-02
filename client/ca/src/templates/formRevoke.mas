@@ -25,9 +25,9 @@ use EBox::Gettext;
   <span class="ftitle">
 % my $date = $metaDataCert->{'expiryDate'};
   <%
-    sprintf("%04d-%02d-%02d %02d:%02d:%02d", $date->{"year"},
-	    $date->{"month"}, $date->{"day"}, $date->{"hour"},
-	    $date->{"minute"}, $date->{"second"}) | h
+    sprintf("%04d-%02d-%02d %02d:%02d:%02d", $date->year(),
+	    $date->month(), $date->day(), $date->hours(),
+	    $date->minutes(), $date->seconds()) | h
   %>
   </span>
 </div>

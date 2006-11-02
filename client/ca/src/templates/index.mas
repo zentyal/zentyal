@@ -27,10 +27,14 @@ push ( @issueTable, ({ name => 'name',
 
 # Specify the specific parameters 
 if ($caNeeded) {
-  push( @issueTable, { 
-		      name => 'passphrase', 
-		      printableName => __('Certification Authority Passphrase'), 
-		      input => 'password' }
+  push( @issueTable, ({ 
+		       name => 'passphrase', 
+		       printableName => __('Certification Authority Passphrase'), 
+		       input => 'password' },
+		      { name => 'repassphrase',
+			printableName => __('Re-type Passphrase'),
+			input => 'password' }
+		     )
 	);
 } else {
   push( @issueTable, (
@@ -112,10 +116,10 @@ if ($caNeeded) {
     }
 </%perl>
         <%
-	  sprintf("%04d-%02d-%02d %02d:%02d:%02d", $date->{"year"},
-		  $date->{"month"}, $date->{"day"}, $date->{"hour"},
-		  $date->{"minute"}, $date->{"second"}) | h
- 	%>
+	  sprintf("%04d-%02d-%02d %02d:%02d:%02d", $date->year(),
+		  $date->month(), $date->day(), $date->hours(),
+		  $date->minutes(), $date->seconds()) | h
+        %>		
       </td>
       <td class="tcenter">
 %	if ( $cert->{"state"} eq "V" ) {
