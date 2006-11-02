@@ -1,0 +1,69 @@
+Revision history for Perl extension Readonly.
+
+1.03  2004 April 20
+	- Changed the prototype for Readonly, to make the usage cleaner.
+	 Unfortunately, this breaks backwards-compatability for this
+	 function.  Users of this function who have Perl 5.8 or later
+	 will have to change their source code.  Also, users of this
+	 function who upgrade to perl 5.8+ will have to change their
+	 usage.  Having discussed this feature change with a number of
+	 people, I felt that breaking compatability was worth the gain
+	 in simplicity of usage.
+	 (Thanks to Damian Conway for the suggestion).
+	 - Removed "use warnings" so the module will work in perl 5.005.
+
+1.02  2003 May 13
+	- If Readonly::XS is installed, Readonly will use it for
+	   making scalars read-only.
+	- Callers are now forbidden to tie variables directly.  This
+	   prevents sneaky callers from reassigning a variable via
+	   tie.
+	- Error messages have been changed to be more like Perl's
+	   own "Modification of a read-only value attempted at..."
+	- Catch and return an error if user tries to pass a constant
+	  to Readonly::Scalar (eg Readonly::Scalar 'hello', 'goodbye')
+	- Include a simple benchmark script.
+	- Add a few more test cases.  You can never have too many.
+	- Add a simple benchmark program.
+
+1.01  2003 February 14
+	- Add some checking to prevent reassignment of Readonly variables.
+	- Changed my email address in the docs.
+
+1.00  2003 January 7
+	- No code changes.  No bugs or suggestions have been reported
+	  for six months, so the version number is changing to 1.00.
+
+0.07  2002 June 25
+	- Clean up the code somewhat; remove redundancies; delay
+	   loading Carp.pm until it's needed.
+	- Fixed the list of EXPORT_OK symbols.
+
+0.06  2002 June 16
+        - Add Readonly function, to provide a unified (and shorter) way to
+          create readonly variables. (Thanks to Slaven Rezic for the idea).
+        - Scalar, Array, and Hash now mark entire data structures as Readonly.
+          Added Scalar1, Array1, and Hash1 for shallow Readonly protection.
+          (Thanks to Ernest Lergon for the idea).
+        - Switch to Test::More and Test::Harness.  134 tests now!
+
+0.05  2002 March 15
+	- Change name from Constant.pm to Readonly.pm, due to file
+	  naming conflict under Windows.
+	- Changed docs to match.
+	- Allow Readonly::Hash to accept a hash reference parameter.
+	- Works better with older versions of Perl.
+	- Add many, many test cases to test.pl.
+
+0.04  2002 March 7
+	- Add top-level Scalar, Array, and Hash functions, so callers
+	  don't have to tie the variables themselves.
+
+0.03  2001 September 9
+	- documentation changes only.
+
+0.02  2001 September 9
+	- documentation changes only.
+
+0.01  2001 August 30
+	- Constant.pm, original version.

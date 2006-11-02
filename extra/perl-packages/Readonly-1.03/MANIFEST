@@ -1,0 +1,18 @@
+Changes
+Makefile.PL
+MANIFEST
+README
+Readonly.pm
+benchmark.pl
+t/array.t
+t/deepa.t
+t/deeph.t
+t/deeps.t
+t/docs.t
+t/hash.t
+t/readonly.t
+t/reassign.t
+t/scalar.t
+t/export.t
+t/tie.t
+META.yml                                 Module meta-data (added by MakeMaker)
