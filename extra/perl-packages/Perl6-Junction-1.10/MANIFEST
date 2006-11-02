@@ -1,0 +1,19 @@
+Makefile.PL
+MANIFEST
+README
+Changes
+Junction.pm
+Junction/All.pm
+Junction/Any.pm
+Junction/None.pm
+Junction/One.pm
+t/all_import.t
+t/all_qualified.t
+t/any_import.t
+t/any_qualified.t
+t/none_import.t
+t/none_qualified.t
+t/one_import.t
+t/one_qualified.t
+t/join.t
+META.yml                                 Module meta-data (added by MakeMaker)
