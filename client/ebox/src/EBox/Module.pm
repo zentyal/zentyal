@@ -209,7 +209,7 @@ sub makeBackup # (dir, %options)
 			     directlyToDisc => { default => 0},
 			   } );
 
-  my $backupDir = $self->createBackupDir($dir);
+  my $backupDir = $self->_createBackupDir($dir);
 
   $self->aroundDumpConfig($backupDir);
 
@@ -241,7 +241,7 @@ sub backupDir
 }
 
 
-# Method: createBackupDir
+# Private method: _createBackupDir
 #   creates a directory to dump or restore files containig the module state. If there are already a apropiate directory, it simply returns the path of this directory
 #   		
 #
@@ -251,7 +251,7 @@ sub backupDir
 # Returns:
 #      the path to the directory used by the module to dump or restore his state
 #
-sub createBackupDir
+sub _createBackupDir
 {
   my ($self, $dir) = @_;
   validate_pos(@_, 1, 1);

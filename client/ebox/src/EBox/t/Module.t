@@ -54,7 +54,7 @@ sub createBackupDirTest
   foreach my $case_r (@cases) {
     my ($dir, $expectedBackupDir) = @{ $case_r };
 
-    lives_and( sub { is $mod->createBackupDir($dir), $expectedBackupDir } , "Testing createBackupDir($dir)" );
+    lives_and( sub { is $mod->_createBackupDir($dir), $expectedBackupDir } , "Testing _createBackupDir($dir)" );
     my $dirExists =  (-d $expectedBackupDir);
     ok $dirExists, "Checking that the backup directory  $dir is in place";
   }
