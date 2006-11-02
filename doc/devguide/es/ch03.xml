@@ -1050,7 +1050,7 @@ $foobar->some_method();]]></programlisting>
 	</section>
 
 	<section id="sect-cfgback">
-		<title>Copia de seguridad de las configuraciones</title>
+        <title>Copia de seguridad de las configuraciones</title>
 
 		<para>Como señalábamos con anterioridad, todos los cambios hechos en
 		las claves almacenadas en gconf son automáticamente guardados la
@@ -1060,71 +1060,74 @@ $foobar->some_method();]]></programlisting>
 		fichero. Por supuesto esto ocurre siempre que se usen las funciones
 		provistas a tal efecto por <classname>EBox::GConfModule</classname>.</para>
 
-		<para>Si su módulo tiene alguna otra cosa que no es almacenada en
-		gconf y necesita un tratamiento especial para realizar su copia de
-		seguridad, deberá reimplementar los métodos
-		<methodname>_dump_to_file</methodname> y
-		<methodname>_load_from_file</methodname>.</para> 
+		<para>Si su módulo tiene parte o la totalidad de su configuración independiente
+                 de GConf, deberá implementar los métodos  <methodname>dumpConfig</methodname> y
+		<methodname>restoreConfig</methodname>.</para>
 
-		<para>El módulo <emphasis>ipsec</emphasis> tiene sus claves RSA fuera
-		de GConf, por lo que cuando llega el momento de realizar una copia de
-		seguridad de éstas, necesita controlarlas de la siguiente manera:</para>
+                <para> Adicionalmente, si aparte de la configuración desea copiar otros tipo de 
+                datos asociados al modulo que no forman parte de su configuración,
+                 como archivos de usuarios .p.e, deberá también implementar
+                los métodos  <methodname>extendedBackup</methodname> y <methodname>extendedRestore</methodname>. 
+                Recuerde que este tipo de información solo sera guardado y restaurado si el usuario lo solicita
+                explicitamente. </para>
+
+		<para>El módulo <emphasis>usersandgroups</emphasis> almacena su configuración (usuarios, grupos,                 contraseñas, ..)      en el servidor de LDAP. Por este motivo deberemos guardar y recuperar luego la información
+                    guardad en openldap para poder realizar copias de seguridad de este modulo correctamente. Veamos como  podemos hacerlo:                   </para>
 		
 		<example>
 			<title>Sobreescribiendo funciones para las copias de seguridad</title>
-				<programlisting><![CDATA[sub _dump_to_file # (dir?)
+				<programlisting><![CDATA[
+sub dumpConfig
 {
-	my ($self, $dir) = @_;
-	$self->SUPER::_dump_to_file($dir);
-	($dir) or $dir = EBox::Config::conf;
-	my $origdir = EBox::Config::conf . "/ipsecrsa";
-	if ( -e "$dir/ipsecrsa.bak") {
-		rmtree("$dir/ipsecrsa.bak") or 
-			throw EBox::Exceptions::Internal(__(
-			  'Error mientras se eliminaba la copia de seguridad de las
-				antiguas claves rsa'));
-	}
-	mkdir("$dir/ipsecrsa.bak", 0700) or 
-		throw EBox::Exceptions::Internal(__(
-		  'Error while making backup dir for rsa keys'));
-	my @keys = @{$self->listRSAKeys()};
-	foreach my $key (@keys) {
-		next unless (-f "$origdir/$key");
-		copy("$origdir/$key", "$dir/ipsecrsa.bak") or
-			throw EBox::Exceptions::Internal(
-				__('Error durante la copia de seguridad de las claves rsa'));
-	}
+  my ($self, $dir) = @_;
+ 
+  $self->{ldap}->dumpLdapData($dir);
 }
 
-sub _load_from_file # (dir?)
+
+sub restoreConfig
 {
-	my ($self, $dir) = @_;
-	$self->SUPER::_load_from_file($dir);
-	($dir) or $dir = EBox::Config::conf;
-	my $destdir = EBox::Config::conf . "/ipsecrsa";
-	( -d "$dir/ipsecrsa.bak") or
-		throw EBox::Exceptions::Internal(
-			__('copia de seguridad de las claves rsa no encontrado'));
-	if ( -e "$destdir") {
-		rmtree($destdir) or throw EBox::Exceptions::Internal(
-			__('Error durante la eliminación de las claves rsa'));
-	}
-	mkdir("$destdir", 0700) or 
-		throw EBox::Exceptions::Internal(__(
-		  'Error durante la creación del directorio para las claves rsa'));
+  my ($self, $dir) = @_;
 
-	my @keys = @{$self->listRSAKeys()};
-	foreach my $key (@keys) {
-		next unless (-f "$dir/ipsecrsa.bak/$key");
-		copy("$dir/ipsecrsa.bak/$key", "$destdir") or
-			throw EBox::Exceptions::Internal(
-				__('Error durante la recuperación de las claves rsa'));
-	}
-}]]></programlisting>
+  $self->{ldap}->loadLdapData($dir);
+}
+]]></programlisting>
 		</example>
-		
-	</section>		
 
+
+
+		<para>El módulo <emphasis>eboxlogs</emphasis> es el encargado de la administración de los logs de eBox. Queremos tener la posibilidad de hacer copia de seguridad de los contenidos de lo mismos; como los contenidos de los logs no forman parte de la configuración del módulo usaremos <emphasis>extendedBackup</emphasis> y  <emphasis>extendedRestore</emphasis>. Recordemos que los datos no pertenecientes a la configuración solo se almacenaran en la copia de seguridad si el usuario lo elige. A continuación mostramos como <emphasis>eboxlogs</emphasis> implementa estas características
+
+                  </para>
+		<example>
+			<title>Sobreescribiendo funciones para las copias de seguridad</title>
+				<programlisting><![CDATA[
+sub extendedBackup
+{
+  my ($self, %params) = @_;
+  my $dir    = $params{dir};
+  
+  my $dbengine = EBox::DBEngineFactory::DBEngine();
+  my $dumpFile = "$dir/eboxlogs.dump";
+
+  $dbengine->dumpDB($dumpFile);
+}
+
+
+sub extendedRestore
+{
+  my ($self, %params) = @_;
+  my $dir    = $params{dir};
+
+  my $dbengine = EBox::DBEngineFactory::DBEngine();
+  my $dumpFile = "$dir/eboxlogs.dump";
+
+  $dbengine->restoreDB($dumpFile);
+}
+         	]]></programlisting>
+	</example>
+	</section>	
 </chapter>
 
  
+

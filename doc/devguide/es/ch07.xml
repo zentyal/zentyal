@@ -1166,7 +1166,7 @@ restrict 127.0.0.1 nomodify]]></programlisting>
 		sea necesario. Veamos su implementación:</para>
 
 		<example>
-			<title>Configuracóon del firewall</title>
+			<title>Configuración del firewall</title>
 			<programlisting><![CDATA[sub _configureFirewall
 {
 	my $self = shift;
