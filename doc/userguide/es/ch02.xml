@@ -98,7 +98,7 @@
 
 	<section id='sect-ebox-backup'>
 		<!-- System->Backup -->
-		<title>Backups de la configuración</title>
+		<title>Backups</title>
 
 		<para>
 		Se accede a la gestión de backups de eBox a través de 
@@ -116,12 +116,40 @@
 		</para>
 
 		<section>
-			<title>Guardar la configuración actual</title>
+			<title>Tipos de copia de seguridad</title>
+                <para>
+                 Existen dos tipos de copias de seguridad; las copias de seguridad de la 
+                 configuración y las copias de seguridad completa.
+                 Difieren en que una copia de seguridad completa contiene además de la
+               configuración de eBox, datos que son gestionados por este pero que no son
+                 necesarios para su funcionamiento. Por ejemplo, los archivos colocados en
+                las carpetas compartidas o los mensajes de log generados por eBox.
+		</para>
+                <para>
+                 Debido a que las copias de seguridad completa contienen toda la información
+                 presente en una copia de seguridad de configuración; se pueden usara también
+                 para restaurar únicamente la configuración.
+                </para>               
+                </section>
+
+		<section>
+			<title>Guardar el estado actual</title>
 			<para>
-			Después de introducir una descripción y guardar los cambios
-			en el formulario aparecera una nueva entrada en la lista de
-			backups de la configuración, indicando la descripción y la fecha
-			de realización de la copia de seguridad. 
+			Después de introducir una descripción y seleccionar el tipo
+                        de copia de seguridad que deseamos hacer, podremos elegir
+                        entre guardar la copia de seguridad en el disco duro o, alternativamente,
+                        en un CD o DVD.
+                        </para>
+                        <para>
+			En el primer caso en el formulario aparecera una nueva entrada en 
+                        la lista de backups, indicando la descripción y la
+                        fecha de realización de la copia de seguridad. 
+                        </para>
+                        <para>
+                        Si guardamos la copia en un CD o DVD tendremos que disponer de
+                        una grabadora en el servidor donde este instalado eBox e introducir
+                        un disco virgen o regrabable. La copia de seguridad residirá en el 
+                         disco y no aparecera entrada alguna en la lista de backups.
 			</para>
 
 			<note>
@@ -134,9 +162,9 @@
 		</section>
 
 		<section>
-			<title>Recuperar la configuración</title>
+			<title>Restaurar desde backup</title>
 			<para>
-			Puede recuperar la configuración cargando un fichero de 
+			Puede restaurar el sistema cargando un fichero de 
 			backup de su disco duro, que puede seleccionar directamente a través de
 			un selector de ficheros que se abrirá al pinchar el botón 
 			correspondiente y presionando en <guilabel>Restaurar</guilabel>. 
@@ -146,13 +174,21 @@
 		</section>
 		
 		<section>
+			<title>Restaurar desde CD/DVD</title>
+			<para>
+                         Esta opción nos permite restaurar el sistema desde un CD
+                         o DVD de backup creado desde esta pagina.
+			</para>
+		</section>
+
+		<section>
 			<title>Lista de backups de la configuración</title>
 			<para>
 			La lista de backups contiene las copias de seguridad de eBox realizadas 
 			durante	el período de funcionamiento.	Las acciones de esta lista, 
-			situadas a la derecha de	cada elemento, permiten restaurar un backup,
-			descargar un fichero con el backup a su disco duro o eliminar un
-			backup de la lista.
+			situadas a la derecha de cada elemento, permiten restaurar un backup,
+			descargar un fichero con el backup a su disco duro, grabarlo en 
+                        un disco CD/DVD o eliminar un backup de la lista.
 			</para>
 		</section>
 	</section>
