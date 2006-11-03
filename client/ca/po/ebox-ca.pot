@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-02 17:14+0100\n"
+"POT-Creation-Date: 2006-11-03 16:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,8 +25,8 @@ msgstr ""
 
 #: src/EBox/CGI/ShowForm.pm:62 src/EBox/CGI/RenewCertificate.pm:66
 #: src/EBox/CGI/DownloadKeys.pm:66 src/EBox/CGI/RevokeCertificate.pm:66
-#: src/EBox/CGI/IssueCertificate.pm:66 src/EBox/CA.pm:596 src/EBox/CA.pm:742
-#: src/EBox/CA.pm:910 src/EBox/CA.pm:1044 src/templates/formRenew.mas:33
+#: src/EBox/CGI/IssueCertificate.pm:66 src/EBox/CA.pm:599 src/EBox/CA.pm:749
+#: src/EBox/CA.pm:917 src/EBox/CA.pm:1055 src/templates/formRenew.mas:33
 #: src/templates/index.mas:19 src/templates/index.mas:95
 #: src/templates/formRevoke.mas:22
 msgid "Common Name"
@@ -57,10 +57,10 @@ msgstr ""
 
 #: src/EBox/CGI/RenewCertificate.pm:61 src/EBox/CGI/RevokeCertificate.pm:61
 #: src/EBox/CGI/CreateCA.pm:62 src/EBox/CGI/IssueCertificate.pm:64
-#: src/EBox/CGI/IssueCertificate.pm:68 src/EBox/CA.pm:208 src/EBox/CA.pm:391
-#: src/EBox/CA.pm:464 src/EBox/CA.pm:750 src/templates/formRenew.mas:15
-#: src/templates/index.mas:35 src/templates/index.mas:55
-#: src/templates/formRevoke.mas:52
+#: src/EBox/CGI/IssueCertificate.pm:68 src/EBox/CA.pm:208 src/EBox/CA.pm:387
+#: src/EBox/CA.pm:462 src/EBox/CA.pm:757 src/EBox/CA.pm:1224
+#: src/templates/formRenew.mas:15 src/templates/index.mas:35
+#: src/templates/index.mas:55 src/templates/formRevoke.mas:52
 msgid "Certification Authority Passphrase"
 msgstr ""
 
@@ -97,7 +97,7 @@ msgid "The CA certificate has been revoked"
 msgstr ""
 
 #: src/EBox/CGI/CreateCA.pm:60 src/EBox/CGI/IssueCertificate.pm:63
-#: src/EBox/CA.pm:210 src/EBox/CA.pm:393 src/templates/index.mas:17
+#: src/EBox/CA.pm:210 src/EBox/CA.pm:389 src/templates/index.mas:17
 #: src/templates/createCA.mas:17
 msgid "Organization Name"
 msgstr ""
@@ -124,86 +124,86 @@ msgstr ""
 msgid "Problems creating Certification Authority has happened"
 msgstr ""
 
-#: src/EBox/CGI/IssueCertificate.pm:67 src/EBox/CA.pm:594
+#: src/EBox/CGI/IssueCertificate.pm:67 src/EBox/CA.pm:597
 #: src/templates/index.mas:47
 msgid "Key Pair Passphrase"
 msgstr ""
 
-#: src/EBox/CGI/IssueCertificate.pm:108
+#: src/EBox/CGI/IssueCertificate.pm:109
 msgid "The certificate has been issued"
 msgstr ""
 
-#: src/EBox/CGI/IssueCertificate.pm:109
+#: src/EBox/CGI/IssueCertificate.pm:110
 msgid "The new CA certificate has been issued"
 msgstr ""
 
-#: src/EBox/CA.pm:251 src/EBox/CA.pm:609 src/EBox/CA.pm:1020
+#: src/EBox/CA.pm:251 src/EBox/CA.pm:612 src/EBox/CA.pm:1031
 msgid "Days set to the maximum allowed: Year 2038 Bug"
 msgstr ""
 
-#: src/EBox/CA.pm:627 src/EBox/CA.pm:1040
+#: src/EBox/CA.pm:633 src/EBox/CA.pm:1051
 msgid "Expiration date later than CA certificate expiration date"
 msgstr ""
 
-#: src/EBox/CA.pm:637
+#: src/EBox/CA.pm:643
 msgid "No CA passpharse to sign a new certificate"
 msgstr ""
 
-#: src/EBox/CA.pm:759
+#: src/EBox/CA.pm:766
 #, perl-brace-format
 msgid "Certificate with common name {commonName} does NOT exist"
 msgstr ""
 
-#: src/EBox/CA.pm:763
+#: src/EBox/CA.pm:770
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
 "Options:"
 msgstr ""
 
-#: src/EBox/CA.pm:923
+#: src/EBox/CA.pm:930
 #, perl-brace-format
 msgid "The user {commonName} does NOT exist"
 msgstr ""
 
-#: src/EBox/CA.pm:1044
+#: src/EBox/CA.pm:1055
 msgid "Certificate file"
 msgstr ""
 
-#: src/EBox/CA.pm:1052
-msgid "No CA passpharse is given to revoke"
+#: src/EBox/CA.pm:1063
+msgid "Certification Authority Passpharse"
 msgstr ""
 
-#: src/EBox/CA.pm:1070
+#: src/EBox/CA.pm:1081
 msgid "The certificate to renew does NOT exist"
 msgstr ""
 
-#: src/EBox/CA.pm:1107
+#: src/EBox/CA.pm:1118
 #, perl-brace-format
 msgid "Common name {cn} does NOT exist in this CA"
 msgstr ""
 
-#: src/EBox/CA.pm:1298
+#: src/EBox/CA.pm:1310
 msgid "Certificate Manager"
 msgstr ""
 
-#: src/EBox/CA.pm:1728
+#: src/EBox/CA.pm:1740
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 
-#: src/EBox/CA.pm:1730
+#: src/EBox/CA.pm:1742
 msgid "Database corruption"
 msgstr ""
 
-#: src/EBox/CA.pm:1732
+#: src/EBox/CA.pm:1744
 msgid "Identifier duplicated in Database"
 msgstr ""
 
-#: src/EBox/CA.pm:1734
+#: src/EBox/CA.pm:1746
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr ""
 
-#: src/EBox/CA.pm:1822
+#: src/EBox/CA.pm:1832
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr ""

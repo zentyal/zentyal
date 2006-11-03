@@ -95,9 +95,10 @@ sub _process
 
     my $retValue;
     if ($issueCA) {
-      $retValue = $ca->issueCACertificate( orgName    => $name,
+      $retValue = $ca->issueCACertificate( orgName       => $name,
 					   days          => $days,
-					   caKeyPassword => $passphrase);
+					   caKeyPassword => $passphrase,
+					   genPair       => 1);
     } else {
       $retValue = $ca->issueCertificate( commonName    => $name,
 					 days          => $days,

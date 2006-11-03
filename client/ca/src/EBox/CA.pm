@@ -34,6 +34,9 @@ use EBox::CA::DN;
 use EBox::Gettext;
 use EBox::Config;
 use EBox::Menu::Item;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::DataMissing;
 use EBox;
 
 use constant TEMPDIR     => EBox::Config->tmp(); # "/tmp/";
@@ -86,7 +89,7 @@ my $openssl;
 if ( defined $ENV{OPENSSL} ) {
   $openssl = $ENV{OPENSSL};
 } else {
-  $openssl = "/usr/bin/openssl";
+  $openssl = OPENSSLPATH;
   $ENV{OPENSSL} = $openssl;
 }
 
@@ -162,12 +165,12 @@ sub domain
 # Method: isCreated
 #
 #       Check whether the Certification Infrastructure has been
-#       created or not 
+#       created or not
 #
 # Returns:
-# 
+#
 #       True, if the Certification Infrastructure has been
-#       created. False, otherwise.
+#       created. Undef, otherwise.
 
 sub isCreated
   {
@@ -320,9 +323,6 @@ sub createCA {
 #
 #       undef if OK
 #
-# Exceptions:
-#
-#       External -
 
 sub revokeCACertificate
   {
@@ -344,7 +344,7 @@ sub revokeCACertificate
       }
     }
 
-    my $retVal = $self->revokeCertificate(commonName    => "unknown",
+    my $retVal = $self->revokeCertificate(commonName    => "",
 					  reason        => $args{reason},
 					  caKeyPassword => $args{caKeyPassword},
 					  certFile      => CACERT);
@@ -372,18 +372,17 @@ sub revokeCACertificate
 #                     (Optional)
 #       days - days to hold the same certificate (Optional)
 #       caKeyPassword - key passpharse for CA
+#       genPair - if you want to generate a new key pair (Optional)
 #
 # Returns:
 #
-#       the new certificate file path
+#      the new certificate file path
 #
 # Exceptions:
 #
-#      External - throw if the CA private key passpharse is NOT
-#                 correct
 #      DataMissing - if any required parameter is missing
 
-sub issueCACertificate 
+sub issueCACertificate
   {
 
     my ($self, %args) = @_;
@@ -403,8 +402,10 @@ sub issueCACertificate
 				      commonName           => $args{commonName});
 
     # Erase the previous cert request to generate a new key pair
-    unlink (CAREQ);
-    unlink (CAPRIVKEY);
+    if ( $args{genPair} ) {
+      unlink (CAREQ);
+      unlink (CAPRIVKEY);
+    }
 
     my $ret = $self->issueCertificate(commonName     => $self->{dn}->dnAttribute('commonName'),
 				      countryName    => $self->{dn}->dnAttribute('countryName'),
@@ -420,6 +421,7 @@ sub issueCACertificate
 
     # Expiration CA certificate
     $self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
+
     return $ret;
 
   }
@@ -451,9 +453,8 @@ sub issueCACertificate
 #
 # Exceptions:
 #
-#      External - if the CA private key passpharse is NOT correct
 #      DataMissing - if no caKeyPassword is given
-#      
+#
 
 sub renewCACertificate
   {
@@ -464,12 +465,8 @@ sub renewCACertificate
       throw EBox::Exceptions::DataMissing(data => __('Certification Authority Passphrase'));
     }
 
-    if (not defined($self->{caKeyPassword}) ) {
-      $self->{caKeyPassword} = $args{caKeyPassword};
-    }
-
-    $args{caKeyPassword} = $self->{caKeyPassword}
-      unless ($args{caKeyPassword});
+    $self->{caKeyPassword} = $args{caKeyPassword}
+      if ($args{caKeyPassword});
 
     my $listCerts = $self->listCertificates();
 
@@ -582,8 +579,13 @@ sub CAPublicKey {
 #
 # Exceptions:
 #
-#       External - if the CA passpharse CANNOT be located
-#       DataMissing - if any required parameter is missing
+# External - if the CA passpharse CANNOT be located 
+#            if the expiration date from certificate to issue is later than CA
+#            certificate expiration date
+#            if any error happens in signing request process
+#
+# DataMissing - if any required parameter
+#                  is missing
 #
 
 sub issueCertificate {
@@ -620,9 +622,9 @@ sub issueCertificate {
       $userExpDay = $args{endDate};
     }
 
-    $self->{caExpirationDate} = $self->_obtain(CACERT, "endDate") 
+    $self->{caExpirationDate} = $self->_obtain(CACERT, "endDate")
       unless defined($self->{caExpirationDate});
-    
+
     if ( $userExpDay gt $self->{caExpirationDate} ) {
       throw EBox::Exceptions::External(__("Expiration date later than CA certificate expiration date"));
     }
@@ -634,7 +636,7 @@ sub issueCertificate {
   }
 
   if (not defined($self->{caKeyPassword}) ) {
-    throw EBox::Exceptions::External(__('No CA passpharse to sign a new certificate')); 
+    throw EBox::Exceptions::External(__('No CA passpharse to sign a new certificate'));
   }
 
   # Name the private key and the user requests by common name
@@ -669,12 +671,16 @@ sub issueCertificate {
     }
   }
 
-  $self->_createRequest(reqFile     => $userReq,
-			genKey      => $genKey,
-			privKey     => $privKey,
-			keyPassword => $args{keyPassword},
-			dn          => $dn
-		       );
+  my $output = $self->_createRequest(reqFile     => $userReq,
+				     genKey      => $genKey,
+				     privKey     => $privKey,
+				     keyPassword => $args{keyPassword},
+				     dn          => $dn
+				    );
+
+  if ( defined($output) ) {
+    throw EBox::Exceptions::External($output);
+  }
 
   # Signs the request
   my $selfSigned = "0";
@@ -682,12 +688,12 @@ sub issueCertificate {
     $selfSigned = $certFile eq CACERT;
   }
 
-  my $output = $self->_signRequest( userReqFile  => $userReq,
-				    days         => $days,
-				    userCertFile => $certFile,
-				    selfsigned   => $selfSigned,
-				    endDate      => $args{endDate}
-				  );
+  $output = $self->_signRequest( userReqFile  => $userReq,
+				 days         => $days,
+				 userCertFile => $certFile,
+				 selfsigned   => $selfSigned,
+				 endDate      => $args{endDate}
+			       );
 
   # Check if something goes wrong
   if ( defined($output) ) {
@@ -728,7 +734,8 @@ sub issueCertificate {
 #
 #      External - if the certificate does NOT exist
 #                 if the reason is NOT a standard one
-#                 if the CA passpharse CANNOT be located
+#                 if any error occurred when revokation is done
+#                 if any error occurred when creating the CRL is done
 #      DataMissing - if any required parameter is missing
 #
 sub revokeCertificate {
@@ -742,7 +749,7 @@ sub revokeCertificate {
   throw EBox::Exceptions::DataMissing(data => __('Common Name') )
     unless defined($commonName);
 
-  if ( defined($caKeyPassword) and not defined($self->{caKeyPassword})) {
+  if ( defined($caKeyPassword) ) {
     $self->{caKeyPassword} = $caKeyPassword;
   }
 
@@ -752,7 +759,7 @@ sub revokeCertificate {
 
   # RFC 3280 suggests not to use an unspecified reason when the reason
   # is unknown.
-  # $reason = "unspecified" unless defined($reason);
+  $reason = "unspecified" unless defined($reason);
 
   $certFile = $self->_findCertFile($commonName) unless defined ($certFile);
 
@@ -762,14 +769,14 @@ sub revokeCertificate {
 
   throw EBox::Exceptions::External(__x("Reason {reason} is NOT an applicable reason.\n"
 				       . "Options:" . $self->{reasons}, reason => $reason))
-    unless $reason == any(@{$self->{reasons}});
+    unless $reason eq any(@{$self->{reasons}});
 
   # TODO: Different kinds of revokations (CACompromise,
   # keyCompromise...) 
   # We can set different arguments regard to revocation reason
   my $cmd = "ca";
   $self->_commonArgs("ca", \$cmd);
-  $cmd .= "-revoke $certFile -passin env:PASS ";
+  $cmd .= "-revoke \'$certFile\' -passin env:PASS ";
   $cmd .= "-crl_reason $reason " if (defined($reason));
 
   # Tell openssl to revoke
@@ -899,7 +906,7 @@ sub listCertificates
 #
 # Exceptions:
 #
-#      External - throw if the keys do NOT exist
+#      External - if the keys do NOT exist
 #      DataMissing - if any required parameter is missing
 #
 
@@ -924,7 +931,7 @@ sub getKeys {
 				      commonName => $commonName))
     unless (-f $keys{publicKey});
 
-  # FIXME: Remove private key when the CGI has sent the private key
+  # Remove private key when the CGI has sent the private key
   # DONE in removePrivateKey method
 
   return \%keys;
@@ -1001,10 +1008,14 @@ sub removePrivateKey
 #
 # Exceptions:
 #
-# External - if the user does NOT exist or the CA passpharse
-#                 CANNOT be located or the user passpharse is needed
-#                 and it's NOT present 
+# External - if the user does NOT exist,
+#            if the CA passpharse CANNOT be located,
+#            if the user passpharse is needed and it's NOT present,
+#            if the expiration date for the certificate to renew is later than CA certificate expiration date
+#            if the certificate to renew does NOT exist
+#            if any error occurred when certificate renewal is done
 # Internal - if any parameter is an unexcepted type
+# DataMissing - if no CA passphrase is given to renew the certificate
 
 sub renewCertificate
   {
@@ -1021,7 +1032,7 @@ sub renewCertificate
       }
     }
 
-    throw EBox::Exceptions::Internal("End date parameter is not a Date::Calc object")
+    throw EBox::Exceptions::Internal("End date parameter (" . ref($args{endDate}) . " is not a Date::Calc object")
       if (defined($args{endDate}) and not UNIVERSAL::isa($args{endDate}, "Date::Calc"));
 
     # Check the expiration date unless issuing the CA cert
@@ -1044,12 +1055,12 @@ sub renewCertificate
     throw EBox::Exceptions::DataMissing(data => __('Common Name') . " or " . __('Certificate file'))
       unless defined ($args{commonName}) or defined ($args{certFile});
 
-    if ( defined($args{caKeyPassword}) and not defined($self->{caKeyPassword})) {
+    if ( defined($args{caKeyPassword}) ) {
       $self->{caKeyPassword} = $args{caKeyPassword};
     }
 
     if ( not defined($self->{caKeyPassword}) ) {
-      throw EBox::Exceptions::External(__('No CA passpharse is given to revoke')); 
+      throw EBox::Exceptions::DataMissing(data => __('Certification Authority Passpharse'));
     }
 
     my $overwrite = $args{overwrite} if ($args{certFile});
@@ -1151,15 +1162,12 @@ sub renewCertificate
       my $privKeyFile = PRIVDIR . $userDN->dnAttribute('commonName') . ".pem";
       $privKeyFile = $args{privateKeyFile} if ($args{privateKeyFile});
       if ( not defined($args{keyPassword}) ) {
-	# print STDERR "The private key passpharse is needed. No
-	#  renewal was made."  . "Call issueCertificate to create a
-	#  new certificate with new keys\n"; 
 	throw EBox::Exceptions::External("The private key passpharse" . 
 					 "is needed to create a new " .
 					 "request. No renewal was made. " .
 					 "Issue a new certificate with " .
 					 "new keys");
-	# return undef;
+
       }
 
       $self->issueCertificate( countryName  => $userDN->dnAttribute('countryName'),
@@ -1198,7 +1206,7 @@ sub renewCertificate
 #       undef if everything OK
 # Exceptions:
 #
-#      External - throw if the passpharse is incorrect
+#      External - throw if the CA passpharse is incorrect
 
 sub updateDB
   {
@@ -1208,10 +1216,14 @@ sub updateDB
     # Manage the parameters
     my $caKeyPassword = $args{caKeyPassword};
 
-    if ( defined($caKeyPassword) and not defined($self->{caKeyPassword})) {
+    if ( defined($caKeyPassword) ) {
       $self->{caKeyPassword} = $caKeyPassword;
     }
-    
+
+    if (not defined($self->{caKeyPassword}) ) {
+      throw EBox::Exceptions::DataMissing(data => __('Certification Authority Passphrase'));
+    }
+
     my $cmd = "ca ";
     $cmd .= "-updatedb ";
     $self->_commonArgs("ca", \$cmd);
@@ -1316,7 +1328,7 @@ sub _getPubKey # (privKeyFile, password, pubKeyFile)
     $pubKeyFile = TEMPDIR . "pubKey.pem" unless (defined ($pubKeyFile));
 
     my $cmd = "rsa ";
-    $cmd .= "-in $privKeyFile -out $pubKeyFile";
+    $cmd .= "-in \'$privKeyFile\' -out \'$pubKeyFile\'";
     $cmd .= " -outform PEM -pubout -passin env:PASS";
 
     $ENV{'PASS'} = $password;
@@ -1383,18 +1395,18 @@ sub _createRequest # (reqFile, genKey, privKey, keyPassword, dn)
     # To create the request the distinguished name is needed
     my $cmd = "req";
     $self->_commonArgs("req", \$cmd);
-    
+
     $cmd .= "-new ";
     $self->_commonArgs("req", \$cmd);
     if ($args{genKey}) {
-      $cmd .= "-keyout $args{privKey} ";
+      $cmd .= "-keyout \'$args{privKey}\' ";
       $cmd .= "-passout env:PASS ";
     } else {
       $cmd .= "-key $args{privKey} ";
       $cmd .= "-passin env:PASS ";
     }
 
-    $cmd .= "-out $args{reqFile} ";
+    $cmd .= "-out \'$args{reqFile}\' ";
     $cmd .= "-subj \"". $args{dn}->stringOpenSSLStyle() . "\" ";
     $cmd .= "-multivalue-rdn " if ( $args{dn}->stringOpenSSLStyle() =~ /[^\\](\\\\)*\+/);
 
@@ -1448,7 +1460,7 @@ sub _signRequest # (userReqFile, days, userCertFile?, policy?, selfsigned?,
     # $cmd .= "-create_serial "if ($args{createSerial});
     $cmd .= "-passin env:PASS ";
     $cmd .= "-outdir " . CERTSDIR . " ";
-    $cmd .= "-out $args{userCertFile} " if defined($args{userCertFile});
+    $cmd .= "-out \'$args{userCertFile}\' " if defined($args{userCertFile});
     $cmd .= "-extensions v3_ca " if ( EXTENSIONS_V3);
     # Only available in OpenSSL 0.9.8
     $cmd .= "-selfsign " if ($args{selfsigned});
@@ -1460,7 +1472,7 @@ sub _signRequest # (userReqFile, days, userCertFile?, policy?, selfsigned?,
       $cmd .= "-subj \"". $args{newSubject}->stringOpenSSLStyle() . "\" ";
       $cmd .= "-multivalue-rdn " if ( $args{newSubject}->stringOpenSSLStyle() =~ /[^\\](\\\\)*\+/);
     }
-    $cmd .= "-in $args{userReqFile}";
+    $cmd .= "-in \'$args{userReqFile}\'";
 
     $ENV{'PASS'} = $self->{caKeyPassword};
     my ($retVal, $output) = $self->_executeCommand(COMMAND => $cmd);
@@ -1486,7 +1498,7 @@ sub _signSelfSignRequest # (userReqFile, days*, userCertFile,
     $self->_commonArgs("req", \$cmd);
     # Only available since OpenSSL 0.9.8
     $cmd .= "-passin env:PASS ";
-    $cmd .= "-out $args{userCertFile} " if defined($args{userCertFile});
+    $cmd .= "-out \'$args{userCertFile}\' " if defined($args{userCertFile});
     $cmd .= "-extensions v3_ca " if ( EXTENSIONS_V3);
     $cmd .= "-x509 ";
     $cmd .= "-set_serial \"0x$args{serialNumber}\" " if defined($args{serialNumber});
@@ -1497,7 +1509,7 @@ sub _signSelfSignRequest # (userReqFile, days*, userCertFile,
       $cmd .= "-multivalue-rdn " if ( $args{newSubject}->stringOpenSSLStyle() =~ /[^\\](\\\\)*\+/);
     }
     $cmd .= "-key $args{keyFile} ";
-    $cmd .= "-in $args{userReqFile} ";
+    $cmd .= "-in \'$args{userReqFile}\' ";
     
     $ENV{'PASS'} = $self->{caKeyPassword};
     my ($retVal, $output) = $self->_executeCommand(COMMAND => $cmd);
@@ -1551,7 +1563,7 @@ sub _obtain # (certFile, attribute)
 	    or $attribute eq 'days') {
       $arg = "-enddate";
     }
-    my $cmd = "x509 " . $arg . " -in $certFile -noout";
+    my $cmd = "x509 " . $arg . " -in \'$certFile\' -noout";
 
     my ($retVal, $output) = $self->_executeCommand(COMMAND => $cmd);
 
@@ -1691,7 +1703,7 @@ sub _writeDownNextSerial # (certFile)
 
     my $cmd = "x509 ";
     $self->_commonArgs("x509", \$cmd);
-    $cmd .= "-in $certFile ";
+    $cmd .= "-in \'$certFile\' ";
     $cmd .= "-noout ";
     $cmd .= "-next_serial ";
     $cmd .= "-out " . SERIALNOFILE;
@@ -1717,7 +1729,7 @@ sub _writeDownIndexAttr # (attrFile)
 # Welcome to the hell
 sub _filterErrorFromOpenSSL # (input)
   {
-    
+
     my ($self, $input) = @_;
 
     EBox::debug("input: $input");
@@ -1730,6 +1742,11 @@ sub _filterErrorFromOpenSSL # (input)
       $input = __("Database corruption");
     } elsif ( $input =~ m/TXT_DB error number 2/i ) {
       $input = __("Identifier duplicated in Database");
+    } elsif ( $input =~ m/Already revoked/i ) {
+      $input = __("Certificate already revoked");
+    } elsif ( $input =~ m/string too long/i ) {
+      # TODO: Put the maximum size here
+      $input = __("ASN1 field length too long. Maximum Size:") ;
     } else {
       $input = __("Unknown error. Given the OpenSSL output:") . $/ . $input;
     }
@@ -1737,8 +1754,6 @@ sub _filterErrorFromOpenSSL # (input)
     EBox::debug("output: $input");
 
     return $input;
-
-   
 
   }
 

@@ -232,5 +232,4 @@ sub equals # (object)
 
   }
 
-
 1;
