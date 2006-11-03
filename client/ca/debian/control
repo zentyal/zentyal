@@ -1,13 +1,13 @@
 Source: ebox-ca
 Section: web
 Priority: optional
-Maintainer: Enrique J. Hernández <quique@warp.es>
+Maintainer: Enrique J. Hernández <ejhernandez@warp.es>
 Build-Depends: debhelper (>= 4.0.0)
 Standards-Version: 3.6.1
 
 Package: ebox-ca
 Architecture: all
-Depends: ebox, libebox, openssl (>= 0.9.7e), tar, libfile-slurp-perl, libdate-calc-perl 
+Depends: ebox, libebox, openssl (>= 0.9.7e), tar, libfile-slurp-perl, libdate-calc-perl, libperl6-junction-perl
 Description: 
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
