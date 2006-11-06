@@ -20,13 +20,12 @@ my $modeOptions = [
      { value => 'fullBackup', printableValue => __('Full Backup') },
      { value => 'configurationBackup', printableValue => __('Configuration Backup') }
 ];
-my $disabledWriteDisk = $writeOpticalDisk ? '0' : '1';
 </%init>
 <h3><% __('Back up the current state') %></h3>
 <div class='help'>
 	<% __("Backups will be stored in eBox and then you will be able to download them to your hard disk or write them into CD/DVD disks. Anyway, you can later copy stored backu ") %>
 </div>
-% if ($disabledWriteDisk) {
+% if (not $writeOpticalDisk) {
   <div class='help'>
 	<% __("'Backup to CD/DVD disk' is disabled, because eBox could not find any recorder drive") %>
   </div>   
@@ -55,7 +54,8 @@ my $disabledWriteDisk = $writeOpticalDisk ? '0' : '1';
 			<td class='tright'> </td>
 			<td>
 				<input class='inputButton' type='submit' name='backup' value="<% __('Back up to hard disk') %>" />
-			   	<input class='inputButton' type='submit' disabled=<% $writeOpticalDisk  %> name='backupToDisc' value="<% __('Back up to CD/DVD disk') %>" />
+			   	<input class='inputButton'
+			   	type='submit' <% $writeOpticalDisk ? '' : 'disabled' %> name='backupToDisc' value="<% __('Back up to CD/DVD disk') %>" />
 			</td>
                 </tr>
 	</form>
@@ -68,9 +68,6 @@ my $disabledWriteDisk = $writeOpticalDisk ? '0' : '1';
 <%args>
 $readOpticalDisk
 </%args>
-<%init>
-my $disabledReadDisk = $readOpticalDisk ? '0' : '1';
-</%init>
 <h3><% __('Restore backup from file') %></h3>
 <div class='help'>
 	<% __('You can  upload a backup file from your computer') %>
@@ -101,7 +98,7 @@ my $disabledReadDisk = $readOpticalDisk ? '0' : '1';
 <div class='help'>
 	<% __('You can restore from a backup disk. Please insert the disk before clicking the button') %>
 </div>
-% if ($disabledReadDisk) {
+% if (not $readOpticalDisk) {
   <div class='help'>
 	<% __("'Restore backup from CD/DVD disk' is disabled, because eBox could not find any reader drive") %>
   </div>   
@@ -113,7 +110,7 @@ my $disabledReadDisk = $readOpticalDisk ? '0' : '1';
 			<td> </td>
 			<td>
 					
-		<input class='inputButton' type='submit' name='restoreFromDisc' disabled=<% $disabledReadDisk %> value="<% __('Restore from disk') %>" />
+		<input class='inputButton' type='submit' name='restoreFromDisc' <% $readOpticalDisk ? '' : 'disabled' %> value="<% __('Restore from disk') %>" />
 			</td>
 		</tr>
 
@@ -129,12 +126,10 @@ my $disabledReadDisk = $readOpticalDisk ? '0' : '1';
 $writeOpticalDisk
 </%args>
 <%init>
-my $disabledWriteToDisk = $writeOpticalDisk ? '0' : '1';
 my $writeToDiskIcon   = $writeOpticalDisk ? '/data/images/writecd.gif': '/data/images/writecd.gif';
-  
 </%init>
 % if(@backups){
-% if ($disabledWriteToDisk) {
+% if (not $writeOpticalDisk) {
   <div class='help'>
 	<% __("'Write backup to CD/DVD disk' is disabled, because eBox could not find any recorder drive") %>
   </div>   
@@ -176,7 +171,7 @@ my $writeToDiskIcon   = $writeOpticalDisk ? '/data/images/writecd.gif': '/data/i
 					<img src='/data/images/sep.gif' alt='-'/>
 					<input type='image' name='burn'
 						src='<% $writeToDiskIcon %>'
-		                                disabled=<% $disabledWriteToDisk %>
+		                                <%  $writeOpticalDisk ? '' : 'disabled' %>
 						value="Burn"
 						title="<%__('Write backup to CD/DVD disk')%>"
 						alt="<%__('Write backup to CD/DVD disk')%>"/>
@@ -199,7 +194,7 @@ my $writeToDiskIcon   = $writeOpticalDisk ? '/data/images/writecd.gif': '/data/i
     <td style="padding-right: 10px;"><%__('download')%></td>
 
     <td><img src="<% $writeToDiskIcon %>" alt=""/></td>
-    <td style="padding-right: 10px;"><% $disabledWriteToDisk ? __('write into disk (disabled)') : __('write into disk')%></td>
+    <td style="padding-right: 10px;"><% $writeOpticalDisk ?  __('write into disk') : __('write into disk (disabled)') %></td>
 </tr>
 
 <tr>

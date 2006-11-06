@@ -20,12 +20,13 @@ use warnings;
 
 use base 'EBox::CGI::ClientBase';
 
+use Error qw(:try);
 use EBox::Config;
 use EBox::Backup;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
-
+use EBox::Backup::OpticalDiscDrives;
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -147,12 +148,25 @@ sub actuate
 sub masonParameters
 {
   my ($self) = @_;
-
-  my $backup = EBox::Backup->new();
-
   my @params = ();
+ 
+  my $backup = EBox::Backup->new();
   push @params, (backups => $backup->listBackups());
-  
+
+  my $readOpticalDisk   = 0;
+  my $writeOpticalDisk = 0;
+  try {
+    my $drivesInfo = EBox::Backup::OpticalDiscDrives::info();
+    $readOpticalDisk =  keys  %{ $drivesInfo } > 0;
+    $writeOpticalDisk = EBox::Backup::OpticalDiscDrives::writersForCDR($drivesInfo) > 0;
+  }
+  otherwise {
+    my $ex = shift;
+    EBox::error("Cannot determine optical disk drivers: " . $ex->text() );
+  };
+
+  push @params, (readOpticalDisk => $readOpticalDisk, writeOpticalDisk => $writeOpticalDisk);
+
   return \@params;
 }
 
