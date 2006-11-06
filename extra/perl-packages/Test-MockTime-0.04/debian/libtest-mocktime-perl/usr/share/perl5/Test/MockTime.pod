@@ -1,0 +1,140 @@
+
+=head1 NAME
+
+Test::MockTime - Replaces actual time with simulated time 
+
+=head1 SYNOPSIS
+
+  use Test::MockTime qw( :all );
+  set_relative_time(-600);
+
+  # do some tests depending on time increasing from 600 seconds ago
+
+  set_absolute_time(0);
+
+  # do some more tests depending on time starting from the epoch
+  # epoch may vary according to platform.  see perlport.
+
+  set_fixed_time(CORE::time());
+
+  # do some more tests depending on time staying at the current actual time
+
+  set_absolute_time('1970-01-01T00:00:00Z');
+
+  # do some tests depending on time starting at Unix epoch time
+
+  set_fixed_time('01/01/1970 00:00:00', '%m/%d/%Y %H:%M:%S');
+
+  # do some tests depending on time staying at the Unix epoch time
+
+  restore_time();
+
+  # resume normal service
+
+=head1 DESCRIPTION
+
+This module was created to enable test suites to test code at specific 
+points in time. Specifically it overrides localtime, gmtime and time at
+compile time and then relies on the user supplying a mock time via 
+set_relative_time, set_absolute_time or set_fixed_time to alter future 
+calls to gmtime,time or localtime.
+
+=head1 Functions
+
+=item set_absolute_time
+
+If given a single, numeric argument, the argument is an absolute time (for
+example, if 0 is supplied, the absolute time will be the epoch), and
+calculates the offset to allow subsequent calls to time, gmtime and localtime
+to reflect this.
+
+for example, in the following code
+
+  Time::Mock::set_absolute_time(0);
+  my ($start) = time;
+  sleep 2;
+  my ($end) = time;
+
+The $end variable should contain 2 seconds past the epoch;
+
+If given two arguments, the first argument is taken to be an absolute time in
+some string format (for example, "01/01/1970 00:00:00").  The second argument
+is taken to be a C<strptime> format string (for example, "%m/%d/%Y %H:%M:%S").
+If a single argument is given, but that argument is not numeric, a
+C<strptime> format string of "%Y-%m-%dT%H:%M:%SZ" is assumed.
+
+for example, in the following code
+
+  Time::Mock::set_absolute_time('1970-01-01T00:00:00Z');
+  my ($start) = time;
+  sleep 2;
+  my ($end) = time;
+
+The $end variable should contain 2 seconds past the Unix epoch;
+
+=item set_relative_time($relative)
+
+takes as an argument an relative value from current time (for example, if -10
+is supplied, current time be converted to actual machine time - 10 seconds)
+and calculates the offset to allow subsequent calls to time,gmtime and localtime
+to reflect this.
+
+for example, in the following code
+
+  my ($start) = time;
+  Time::Mock::set_relative_time(-600);
+  sleep 600;
+  my ($end) = time;
+
+The $end variable should contain either the same or very similar values to the
+$start variable.
+
+=item set_fixed_time
+
+If given a single, numeric argument, the argument is an absolute time (for
+example, if 0 is supplied, the absolute time will be the epoch).  All
+subsequent calls to gmtime, localtime and time will return this value.
+
+for example, in the following code
+
+  Time::Mock::set_fixed_time(time)
+  my ($start) = time;
+  sleep 3;
+  my ($end) = time;
+
+the $end variable and the $start variable will contain the same results
+
+If given two arguments, the first argument is taken to be an absolute time in
+some string format (for example, "01/01/1970 00:00:00").  The second argument
+is taken to be a C<strptime> format string (for example, "%m/%d/%Y %H:%M:%S").
+If a single argument is given, but that argument is not numeric, a
+C<strptime> format string of "%Y-%m-%dT%H:%M:%SZ" is assumed.
+
+=item restore()
+
+restore the default time handling values.  C<restore_time> is an alias. When
+exported with the 'all' tag, this subroutine is exported as C<restore_time>.
+
+=head1 AUTHOR
+
+David Dick <ddick@cpan.org>
+
+=head1 PREREQUISITES
+
+Time::Piece 1.08 or greater
+
+=head1 BUGS
+
+Probably.
+ 
+=head1 COPYRIGHT
+
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut
+
+=head1 ACKNOWLEDGEMENTS
+
+Thanks to a use.perl.org journal entry <http://use.perl.org/~geoff/journal/20660> by 
+Geoffrey Young.
