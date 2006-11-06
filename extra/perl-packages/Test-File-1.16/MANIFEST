@@ -1,0 +1,17 @@
+Changes
+lib/File.pm
+Makefile.PL
+MANIFEST			This list of files
+META.yml			Module meta-data (added by MakeMaker)
+README
+t/links.t
+t/load.t
+t/normalize.t
+t/owner.t
+t/pod.t
+t/pod_coverage.t
+t/prereq.t
+t/setup.t
+t/setup_common
+t/test_files.t
+t/test_manifest

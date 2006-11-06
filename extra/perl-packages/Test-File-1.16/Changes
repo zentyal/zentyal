@@ -1,0 +1,69 @@
+# $Id: Changes,v 1.15 2006/07/08 20:43:07 comdog Exp $
+
+1.16 - Sat Jul  8 15:38:38 2006
+	* updated the plan for links.t to have the right number of tests
+	* no need to upgrade if you already have this installed.
+
+1.15 - Wed May 17 21:42:09 2006
+	* Updated the distro for copyright and kwalitee. No need to upgrade.
+
+1.14 - Wed Mar  8 12:36:22 2006
+	* Added Dylan Martin's test for group_is and group_isnt
+	* No need to upgrade unless you need these features
+
+1.13 - Sat Dec 31 13:34:30 2005
+	* You need the latest Test::Builder::Tester (0.32 right now) to get
+	the owner.t test to pass. I've noted that in the PREREQ_PM.
+	* You don't need to upgrade if you already have Test::File
+	installed. If you run into a test problem, ensure you have
+	the latest Test::Builder::Tester and try again.
+
+1.12 - Sun Dec 25 18:02:58 2005
+	* Added the tests owner_is() and owner_isnt() from Dylan Martin
+
+1.11 - Sun Oct  2 05:42:41 2005
+* Some strings were mistakenly single-quoted. I meant to interpolate but
+didn't use double quotes. Should I lose my Perl license? :)
+
+* Upgrade to get the interpolated error messages.
+
+1.10 - Sun Jun  5 17:34:54 2005
+* Fixed Windows testing with patch from Tom Metro. Now that I have a
+Windows box, I don't need to guess on some of this stuff.
+* There is a minor code change, but you don't need to rush to upgrade
+if you already have an installed version.
+
+1.09 - Tue Mar  8 17:58:28 2005
+* Added POD coverage tests: no need to upgrade
+
+1.08 - Thu Jan  6 17:36:20 2005
+* added a patch from David Wheeler to canonicalize paths for the 
+platform.  If the paths look like unix paths, I split them on /
+and reconstruct them with File::Spec->catdir.
+
+* Some functions don't work with Win32, so I detect that inside
+those functions and automatically skip the test if I think I'm
+on a Windows machine.
+
+1.07 - Mon Jan  3 17:12:51 2005
+Shawn Sorichetti <ssoriche@coloredblocks.net> contributed two new
+funtions: file_mode_is() and file_mode_isnt().  We can now test
+files by their mode.
+
+1.06 - Sun Sep  5 15:59:40 2004
+* Fixed tests that failed if you ran them with root privileges, which 
+don't actually completely depend on file permissions
+
+1.05 - Thu Sep  2 21:27:27 2004
+* fixed a documentation bug dealing with file sizes
+* cleaned up the distribution a bit
+* You don't need to upgrade if you already have this module
+
+0.9 - Sun Jul  4 20:34:50 2004
+* ported tests to Test::More
+* cleaned up dist files, especially Makefile.PL
+* fixed up some doc issues in File.pm
+* no change in functionality
+
+0.06 - initial version
+

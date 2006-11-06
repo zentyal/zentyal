@@ -1,0 +1,27 @@
+$Id: README,v 1.1 2004/09/03 02:24:15 comdog Exp $
+
+You can install this using in the usual Perl fashion
+
+	perl Makefile.PL
+	make
+	make test
+	make install
+	
+The documentation is in the module file.  Once you install
+the file, you can read it with perldoc.
+
+	perldoc Test::File
+	
+If you want to read it before you install it, you can use
+perldoc directly on the module file.
+
+	perldoc lib/File.pm
+	
+This module is also in CVS on SourceForge
+
+	http://sourceforge.net/projects/brian-d-foy/
+
+
+Enjoy, 
+
+brian d foy, bdfoy@cpan.org
