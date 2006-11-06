@@ -24,7 +24,7 @@ use constant LOCALITY_DEF => "Nowhere";
 use constant STATE_DEF   => "Nation";
 
 
-# Method: new
+# Constructor: new
 #
 #       Constructor for DN class.
 #       This class stores and manages the Distinguished Name
@@ -41,7 +41,7 @@ use constant STATE_DEF   => "Nation";
 #
 # Returns:
 #
-#       the recently created object
+#       EBox::CA::DN - the recently created object
 #
 sub new {
 
@@ -76,7 +76,7 @@ sub new {
 #
 # Returns:
 #
-#       the recently created object with the parameters
+#       EBox::CA::DN - the recently created object with the parameters
 #
 sub parseDN
   {
@@ -116,7 +116,7 @@ sub parseDN
 #
 # Returns:
 #
-#       the recently cloned object
+#       EBox::CA::DN - the recently cloned object
 #
 sub copy {
 
@@ -136,7 +136,7 @@ sub copy {
 #
 # Returns:
 #
-#       a String with the following format: /type0=value0/type1=value1/...
+#       string - formatted as /type0=value0/type1=value1/...
 #
 sub stringOpenSSLStyle {
 
@@ -183,7 +183,7 @@ sub stringOpenSSLStyle {
 #
 # Returns:
 #
-#       a String representing the attribute value to set or get
+#       string - representing the attribute value to set or get
 #       or undef if the attribute does NOT exist
 #
 sub dnAttribute
@@ -209,7 +209,7 @@ sub dnAttribute
 #
 # Returns:
 #
-#       true if both object are equal or false otherwise
+#       boolean - true if both object are equal or false otherwise
 
 sub equals # (object)
   {
