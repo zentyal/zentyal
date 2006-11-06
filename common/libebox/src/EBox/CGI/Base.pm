@@ -261,48 +261,64 @@ sub run
 
 	if (defined($self->{chain})) {
 		my $classname = _urlToChain($self->{chain});
-		eval "use $classname";
-		my $chain = $classname->new('error' => $self->{error},
-					    'msg' => $self->{msg},
-					    'cgi'   => $self->{cgi});
-		$chain->run;
-		return;
-	} elsif ((defined($self->{redirect})) && (!defined($self->{error}))) {
-		print($self->cgi()->redirect("/ebox/" . $self->{redirect}));
-		return;
-	} else {
-		try  { 
-			settextdomain('ebox');
-			$self->_print 
-		} catch EBox::Exceptions::Internal with {
-			my $error = __("An internal error has ocurred. " . 
-			  	  "This is most probably a bug, relevant ". 
-				  "information can be found in the logs.");
-			$self->_print_error($error);
-		} otherwise {
-			my $ex = shift;
-			my $logger = EBox::logger;
-			if (isa_mason_exception($ex)) {
-				$logger->error($ex->as_text);
-				my $error = __("An internal error related to ".
-				           "a template has occurred. This is ". 
-					   "a bug, relevant information can ".
-					   "be found in the logs.");
-				$self->_print_error($error);
-			} 
-			else {
-			  if ($ex->can('text')) {
-			    $logger->error('Exception: ' . $ex->text());
-			  }
-			  else {
-			    $logger->error("Unknown exception");			    
-			  }
+		if (not $self->isa($classname)) {
+		  eval "use $classname";
+		  if ($@) {
+		    throw EBox::Exceptions::Internal("Cannot load $classname. Error: $@");
+		  }
+		  my $chain = $classname->new('error' => $self->{error},
+					      'msg' => $self->{msg},
+					      'cgi'   => $self->{cgi});
+		  $chain->run;
+		  return;
+		}
+		
+		EBox::debug("Avoided chain to itself for $classname");
+	} 
 
-				throw $ex;
-			}
-		};
-	}
+	if ((defined($self->{redirect})) && (!defined($self->{error}))) {
+		print($self->cgi()->redirect("/ebox/" . $self->{redirect}));
+		EBox::debug("redirect: " . $self->{redirect});
+		return;
+	} 
+
+
+	EBox::debug("NORMAL PRINT");
+	try  { 
+	  settextdomain('ebox');
+	  $self->_print 
+	} catch EBox::Exceptions::Internal with {
+	  my $error = __("An internal error has ocurred. " . 
+			 "This is most probably a bug, relevant ". 
+			 "information can be found in the logs.");
+	  $self->_print_error($error);
+	} 
+	otherwise {
+	    my $ex = shift;
+	    my $logger = EBox::logger;
+	    if (isa_mason_exception($ex)) {
+	      $logger->error($ex->as_text);
+	      my $error = __("An internal error related to ".
+			     "a template has occurred. This is ". 
+			     "a bug, relevant information can ".
+			     "be found in the logs.");
+	      $self->_print_error($error);
+	    } else {
+	      if ($ex->can('text')) {
+		$logger->error('Exception: ' . $ex->text());
+	      } else {
+		$logger->error("Unknown exception");			    
+	      }
+
+	      throw $ex;
+	    }
+	  };
+
 }
+
+
+
+
 
 sub unsafeParam # (param) 
 {
