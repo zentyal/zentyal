@@ -5,7 +5,7 @@ use warnings;
 
 use File::Slurp qw(read_file);
 use Perl6::Junction qw(all);
-use Params::Validate;
+use Params::Validate qw(validate_pos HASHREF);
 
 use EBox::Gettext;
 use EBox::Sudo;
@@ -72,15 +72,24 @@ sub info
 #
 # Function: writersForDVDR
 #
+# Parameters:
+#    info - Optional. Hash reference getted with info() fucntion, if not supplied info() will be called transparently
+#
 # Returns:
 #	- list with the device files of the drivers capable of writing DVD-R
 sub writersForDVDR
 {
-  return _selectByCapability('Can write DVD-R');
+  my ($info) = @_;
+  validate_pos(@_, { type => HASHREF, optional => 1 });
+  
+  return _selectByCapability($info, 'Can write DVD-R');
 }
 
 #
 # Function: writersForDVDRW
+#
+# Parameters:
+#    info - Optional. Hash reference getted with info() fucntion, if not supplied info() will be called transparently
 #
 # Returns:
 #	- list with the device files of the drivers capable of writing DVD-RW
@@ -89,18 +98,27 @@ sub writersForDVDR
 #         we assume that DVD-R capable are also DVD-RW capable (limitation found in cdrom/info file)
 sub writersForDVDRW
 {
-  return _selectByCapability('Can write DVD-R');
+  my ($info) = @_;
+  validate_pos(@_, { type => HASHREF, optional => 1 });
+
+  return _selectByCapability($info, 'Can write DVD-R');
 }
 
 #
 # Function: writersForCDR
+#
+# Parameters:
+#    info - Optional. Hash reference getted with info() fucntion, if not supplied info() will be called transparently
 #
 # Returns:
 #	- list with the device files of the drivers capable of writing CD-R
 #
 sub writersForCDR
 {
-  return _selectByCapability('Can write CD-R');
+  my ($info) = @_;
+  validate_pos(@_, { type => HASHREF, optional => 1 });
+
+  return _selectByCapability($info, 'Can write CD-R');
 }
 
 #
@@ -110,16 +128,20 @@ sub writersForCDR
 #	- list with the device files of the drivers capable of writing CD-RW
 sub writersForCDRW
 {
-  return _selectByCapability('Can write CD-RW');
+  my ($info) = @_;
+  validate_pos(@_, { type => HASHREF, optional => 1 });
+
+  return _selectByCapability($info, 'Can write CD-RW');
 }
 
 
 sub _selectByCapability
 {
-  my ($capability) = @_;
-  my @selectedDevices;
+  my ($info, $capability) = @_;
+  defined $info or $info = info();
 
-  my %deviceInfo = %{ info()  };
+  my @selectedDevices;
+  my %deviceInfo = %{ $info  };
   while (my ($device, $capabilities_r) = each %deviceInfo) {
     if ($capabilities_r->{$capability}) {
       push @selectedDevices, $device;
