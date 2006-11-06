@@ -1,14 +1,144 @@
 <!-- vim: ts=4 sw=4 nowrap filetype=mason
 -->
 <%args>
-	@backups
+  @backups
+  $readOpticalDisk  => 0
+  $writeOpticalDisk => 0
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
-<& .backupSection &>
-<& .restoreSection &>
+<& .backupSection, writeOpticalDisk => $writeOpticalDisk &>
+<& .restoreSection, readOpticalDisk => $readOpticalDisk &>
+<& .listSection, backups => \@backups,  writeOpticalDisk => $writeOpticalDisk &>
+<%def .backupSection>
+<%args>
+$writeOpticalDisk
+</%args>
+<%init>
+my $modeOptions = [
+     { value => 'fullBackup', printableValue => __('Full Backup') },
+     { value => 'configurationBackup', printableValue => __('Configuration Backup') }
+];
+my $disabledWriteDisk = $writeOpticalDisk ? '0' : '1';
+</%init>
+<h3><% __('Back up the current state') %></h3>
+<div class='help'>
+	<% __("Backups will be stored in eBox and then you will be able to download them to your hard disk or write them into CD/DVD disks. Anyway, you can later copy stored backu ") %>
+</div>
+% if ($disabledWriteDisk) {
+  <div class='help'>
+	<% __("'Backup to CD/DVD disk' is disabled, because eBox could not find any recorder drive") %>
+  </div>   
+% }
+<p>
+<table class='formTable'>
+    <tbody>
+       <form action='Backup' method='POST'>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'><% __('Description') %>:</span>
+			</td>
+			<td>
+					<input type='text' class='inputText' name='description' size='52' />
+			</td>
+                </tr>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'><% __('Backup mode') %>:</span>
+			</td>
+			<td>
+	                	<& /input/select.mas, name => 'mode', value => 'configurationBackup', options => $modeOptions &>
+			</td>
+                </tr>
+		<tr>
+			<td class='tright'> </td>
+			<td>
+				<input class='inputButton' type='submit' name='backup' value="<% __('Back up to hard disk') %>" />
+			   	<input class='inputButton' type='submit' disabled=<% $writeOpticalDisk  %> name='backupToDisc' value="<% __('Back up to CD/DVD disk') %>" />
+			</td>
+                </tr>
+	</form>
+    </tbody>
+</table>
+</p>
+</%def>
+
+<%def .restoreSection>
+<%args>
+$readOpticalDisk
+</%args>
+<%init>
+my $disabledReadDisk = $readOpticalDisk ? '0' : '1';
+</%init>
+<h3><% __('Restore backup from file') %></h3>
+<div class='help'>
+	<% __('You can  upload a backup file from your computer') %>
+</div>
+  <table class='formTable'>
+    <tbody>
+     <form action='ConfirmBackup' method='POST' enctype="multipart/form-data">
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'><% __('Backup file') %>:</span>
+			</td>
+			<td>
+					<input type='file' name='backupfile'/>
+			</td>
+		</tr>
+		<tr>
+			<td> </td>
+			<td>
+                  <input class='inputButton' type='submit' name='restoreFromFile' value="<% __('Restore') %>" /> 
+			</td>
+		</tr>
+
+       </form>
+   </tbody>
+</table>
+
+<h3><% __('Restore backup from disk') %></h3>
+<div class='help'>
+	<% __('You can restore from a backup disk. Please insert the disk before clicking the button') %>
+</div>
+% if ($disabledReadDisk) {
+  <div class='help'>
+	<% __("'Restore backup from CD/DVD disk' is disabled, because eBox could not find any reader drive") %>
+  </div>   
+% }
+  <table class='formTable'>
+    <tbody>
+     <form action='ConfirmBackup' method='POST' enctype="multipart/form-data">
+		<tr>
+			<td> </td>
+			<td>
+					
+		<input class='inputButton' type='submit' name='restoreFromDisc' disabled=<% $disabledReadDisk %> value="<% __('Restore from disk') %>" />
+			</td>
+		</tr>
+
+       </form>
+   </tbody>
+</table>
+</%def>
+
+
+<%def .listSection>
+<%args>
+@backups
+$writeOpticalDisk
+</%args>
+<%init>
+my $disabledWriteToDisk = $writeOpticalDisk ? '0' : '1';
+my $writeToDiskIcon   = $writeOpticalDisk ? '/data/images/writecd.gif': '/data/images/writecd.gif';
+  
+</%init>
 % if(@backups){
+% if ($disabledWriteToDisk) {
+  <div class='help'>
+	<% __("'Write backup to CD/DVD disk' is disabled, because eBox could not find any recorder drive") %>
+  </div>   
+% }
 <h3><% __('List of configuration backups') %></h3>
 <table class='dataTable' cellspacing='0'>
 	<thead>
@@ -45,7 +175,8 @@ use EBox::Gettext;
 						alt="<%__('Download')%>"/>
 					<img src='/data/images/sep.gif' alt='-'/>
 					<input type='image' name='burn'
-						src='/data/images/writecd.gif'
+						src='<% $writeToDiskIcon %>'
+		                                disabled=<% $disabledWriteToDisk %>
 						value="Burn"
 						title="<%__('Write backup to CD/DVD disk')%>"
 						alt="<%__('Write backup to CD/DVD disk')%>"/>
@@ -67,8 +198,8 @@ use EBox::Gettext;
     <td><img src="/data/images/down.gif" alt=""/></td>
     <td style="padding-right: 10px;"><%__('download')%></td>
 
-    <td><img src="/data/images/writecd.gif" alt=""/></td>
-    <td style="padding-right: 10px;"><%__('write into disk')%></td>
+    <td><img src="<% $writeToDiskIcon %>" alt=""/></td>
+    <td style="padding-right: 10px;"><% $disabledWriteToDisk ? __('write into disk (disabled)') : __('write into disk')%></td>
 </tr>
 
 <tr>
@@ -80,92 +211,5 @@ use EBox::Gettext;
 </tr>
 </table>
 % }
-<%def .backupSection>
-<%init>
-my $modeOptions = [
-     { value => 'fullBackup', printableValue => __('Full Backup') },
-     { value => 'configurationBackup', printableValue => __('Configuration Backup') }
-];
-</%init>
-<h3><% __('Back up the current state') %></h3>
-<div class='help'>
-	<% __("Backups will be stored in eBox and then you will be able to download them to your hard disk or write them into CD/DVD disks. Anyway, you can later copy stored backu ") %>
-</div>
-<p>
-<table class='formTable'>
-    <tbody>
-       <form action='Backup' method='POST'>
-		<tr>
-			<td class='tright'>
-				<span class='ftitle'><% __('Description') %>:</span>
-			</td>
-			<td>
-					<input type='text' class='inputText' name='description' size='52' />
-			</td>
-                </tr>
-		<tr>
-			<td class='tright'>
-				<span class='ftitle'><% __('Backup mode') %>:</span>
-			</td>
-			<td>
-	                	<& /input/select.mas, name => 'mode', value => 'configurationBackup', options => $modeOptions &>
-			</td>
-                </tr>
-		<tr>
-			<td class='tright'> </td>
-			<td>
-				<input class='inputButton' type='submit' name='backup' value="<% __('Back up to hard disk') %>" />
-			   	<input class='inputButton' type='submit' name='backupToDisc' value="<% __('Back up to CD/DVD disk') %>" />
-			</td>
-                </tr>
-	</form>
-    </tbody>
-</table>
-</p>
 </%def>
-<%def .restoreSection>
-<h3><% __('Restore backup from file') %></h3>
-<div class='help'>
-	<% __('You can  upload a backup file from your computer') %>
-</div>
-  <table class='formTable'>
-    <tbody>
-     <form action='ConfirmBackup' method='POST' enctype="multipart/form-data">
-		<tr>
-			<td class='tright'>
-				<span class='ftitle'><% __('Backup file') %>:</span>
-			</td>
-			<td>
-					<input type='file' name='backupfile'/>
-			</td>
-		</tr>
-		<tr>
-			<td> </td>
-			<td>
-                  <input class='inputButton' type='submit' name='restoreFromFile' value="<% __('Restore') %>" /> 
-			</td>
-		</tr>
 
-       </form>
-   </tbody>
-</table>
-
-<h3><% __('Restore backup from disk') %></h3>
-<div class='help'>
-	<% __('You can restore from a backup disk. Please insert the disk before clicking the button') %>
-</div>
-  <table class='formTable'>
-    <tbody>
-     <form action='ConfirmBackup' method='POST' enctype="multipart/form-data">
-		<tr>
-			<td> </td>
-			<td>
-					
-		<input class='inputButton' type='submit' name='restoreFromDisc' value="<% __('Restore from disk') %>" />
-			</td>
-		</tr>
-
-       </form>
-   </tbody>
-</table>
-</%def>
