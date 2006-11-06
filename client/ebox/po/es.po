@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-10-30 10:32+0100\n"
-"PO-Revision-Date: 2006-10-30 10:33+0100\n"
+"POT-Creation-Date: 2006-11-06 15:52+0100\n"
+"PO-Revision-Date: 2006-11-06 15:57+0100\n"
 "Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -58,35 +58,35 @@ msgstr "Su sesión ha sido cerrada porque se ha creado una nueva sesión"
 msgid "Logout"
 msgstr "Salir de sesión"
 
-#: src/EBox/CGI/EBox/Backup.pm:33
+#: src/EBox/CGI/EBox/Backup.pm:34
 msgid "System backups"
 msgstr "Backup del sistema"
 
-#: src/EBox/CGI/EBox/Backup.pm:174
+#: src/EBox/CGI/EBox/Backup.pm:188
 #, perl-brace-format
 msgid "Unknown backup mode: {mode}"
 msgstr "Modo de backup desconocido: {mode}"
 
-#: src/EBox/CGI/EBox/Backup.pm:183
+#: src/EBox/CGI/EBox/Backup.pm:197
 msgid "Backup done"
 msgstr "Backup realizado con éxito"
 
-#: src/EBox/CGI/EBox/Backup.pm:196
+#: src/EBox/CGI/EBox/Backup.pm:210
 msgid "Backup was written to CD/DVD disk"
 msgstr "El backup fue escrito en el disco CD/DVD correctamente"
 
-#: src/EBox/CGI/EBox/Backup.pm:214 src/EBox/CGI/EBox/Backup.pm:278
-#: src/EBox/CGI/EBox/Backup.pm:291 src/EBox/CGI/EBox/ConfirmBackup.pm:198
-#: src/EBox/Backup.pm:944
+#: src/EBox/CGI/EBox/Backup.pm:228 src/EBox/CGI/EBox/Backup.pm:291
+#: src/EBox/CGI/EBox/Backup.pm:304 src/EBox/CGI/EBox/ConfirmBackup.pm:198
+#: src/EBox/Backup.pm:959
 msgid "The input contains invalid characters"
 msgstr "Los datos contienen caracteres inválidos"
 
-#: src/EBox/CGI/EBox/Backup.pm:257
+#: src/EBox/CGI/EBox/Backup.pm:270
 #, perl-brace-format
 msgid "Unknown restore mode: {mode}"
 msgstr "Modo de restauración desconocido: {mode}"
 
-#: src/EBox/CGI/EBox/Backup.pm:266
+#: src/EBox/CGI/EBox/Backup.pm:279
 msgid ""
 "Configuration restored succesfully, you should now review it and save it if "
 "you want to keep it."
@@ -146,21 +146,19 @@ msgstr "Backups de la configuración"
 msgid "Please confirm that you want to delete the following backup file:"
 msgstr "Por favor, confirme que quiere borrar este fichero de backup:"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:114 src/templates/backup.mas:66
-#: src/templates/backup.mas:68
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:114 src/templates/backup.mas:210
+#: src/templates/backup.mas:212
 msgid "Delete"
 msgstr "Borrar"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:121
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:174
 msgid "Please confirm that you want to restore using this backup file:"
-msgstr ""
-"Por favor, confirme que quiere restaurar usando  este "
-"fichero de backup:"
+msgstr "Por favor, confirme que quiere restaurar usando  este fichero de backup:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:123
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:145
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:176 src/templates/backup.mas:172
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:176 src/templates/backup.mas:101
 msgid "Restore"
 msgstr "Restaurar"
 
@@ -170,7 +168,7 @@ msgstr ""
 "No se encuentra ningún CD/DVD de backup. Por favor, introduzca un disco de "
 "backup correcto y reintente la operación "
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:143
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:144
 msgid "Please confirm that you want to restore using this backup disk:"
 msgstr "Por favor, confirme que quiere restaurar usando este disco de backup:"
 
@@ -220,44 +218,44 @@ msgstr "La contraseña inicial ya fue cambiada"
 msgid "New passwords do not match"
 msgstr "Las contraseñas no coinciden"
 
-#: src/EBox/Backup.pm:231
+#: src/EBox/Backup.pm:232
 msgid "Could not create backup archive"
 msgstr "No se pudo agregar datos al archivo de backup"
 
-#: src/EBox/Backup.pm:238
+#: src/EBox/Backup.pm:239
 msgid "Could not append data to backup archive"
 msgstr "No se pudo agregar datos al archivo de backup"
 
-#: src/EBox/Backup.pm:341 src/EBox/Backup.pm:927
+#: src/EBox/Backup.pm:344 src/EBox/Backup.pm:942
 msgid "Insert a backup disc and try again, please"
 msgstr "Por favor, inserte un disco de backup y reintente la operación"
 
-#: src/EBox/Backup.pm:380
+#: src/EBox/Backup.pm:385
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: src/EBox/Backup.pm:413
+#: src/EBox/Backup.pm:418
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
 msgstr "No se pudo extraer los archivos requeridos del backup: {files}"
 
-#: src/EBox/Backup.pm:416 src/EBox/Backup.pm:805
+#: src/EBox/Backup.pm:421 src/EBox/Backup.pm:818
 msgid "Could not unpack the backup"
 msgstr "No pudo desempaquetarse el backup"
 
-#: src/EBox/Backup.pm:535 src/EBox/SysInfo.pm:120
+#: src/EBox/Backup.pm:544 src/EBox/SysInfo.pm:120
 msgid "Backup"
 msgstr "Backup"
 
-#: src/EBox/Backup.pm:611
+#: src/EBox/Backup.pm:621
 msgid "Incorrect or corrupt backup file"
 msgstr "Fichero de backup incorrecto o corrupto"
 
-#: src/EBox/Backup.pm:654
+#: src/EBox/Backup.pm:664
 msgid "The backup file is corrupt."
 msgstr "El fichero de backup está corrupto"
 
-#: src/EBox/Backup.pm:671
+#: src/EBox/Backup.pm:681
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
@@ -265,7 +263,7 @@ msgstr ""
 "El archivo solo contiene backup de la configuración, esto imposibilita una "
 "restauración completa. Restaurar la configuración puede ser posible."
 
-#: src/EBox/Backup.pm:683
+#: src/EBox/Backup.pm:693
 msgid ""
 "Module list not found, the backup is corrupt or was done with a incompatible "
 "previous format"
@@ -273,7 +271,7 @@ msgstr ""
 "No se encontró la lista de módulos en el backup; es posible que este "
 "corrupto o en un formato incompatible"
 
-#: src/EBox/Backup.pm:707
+#: src/EBox/Backup.pm:717
 #, perl-brace-format
 msgid ""
 "The following modules are not present in the global module list stored in "
@@ -282,7 +280,7 @@ msgstr ""
 "Los siguientes módulos instalados en eBox no están presentes en el backup: "
 "{modules}\n"
 
-#: src/EBox/Backup.pm:708
+#: src/EBox/Backup.pm:718
 #, perl-brace-format
 msgid ""
 "The following modules are  present in the global list stored in the backup "
@@ -291,7 +289,7 @@ msgstr ""
 "Los siguientes módulos están presentes en el backup pero no están "
 "instaladdos en eBox: {modules}\n"
 
-#: src/EBox/Backup.pm:711
+#: src/EBox/Backup.pm:721
 #, perl-brace-format
 msgid ""
 "The restore process failed because there is a mismatch between eBox's "
@@ -304,7 +302,7 @@ msgstr ""
 " {backupError}{actualError} Si quiere usar este backup deberá instalar y/o "
 "eliminar los módulos adecuados."
 
-#: src/EBox/Backup.pm:744
+#: src/EBox/Backup.pm:754
 #, perl-brace-format
 msgid ""
 "There in not enough space left in the hard disk to complete the restore "
@@ -314,7 +312,7 @@ msgstr ""
 "restauración. {size} Kb requeridos. Por favor, libere suficiente espacio y "
 "reintente"
 
-#: src/EBox/Backup.pm:775
+#: src/EBox/Backup.pm:786
 #, perl-brace-format
 msgid ""
 "Can not rename backup file from {newName} to  hisr original name {name}. "
@@ -385,7 +383,7 @@ msgstr "Apagar o reiniciar"
 msgid "Change default password"
 msgstr "Cambie la contraseña inicial"
 
-#: src/EBox/Backup/OpticalDiscDrives.pm:29
+#: src/EBox/Backup/OpticalDiscDrives.pm:31
 #, perl-brace-format
 msgid ""
 "Unable to find {path}. Make sure that the cdrom driver is compiled in your "
@@ -394,56 +392,56 @@ msgstr ""
 "No se pudo encontrar {path}. Asegúrese de que la controladora de la unidad "
 "de CD/DVD este cargada como modulo o compilada en su kernel."
 
-#: src/EBox/Backup/OpticalDiscDrives.pm:32
+#: src/EBox/Backup/OpticalDiscDrives.pm:34
 #, perl-brace-format
 msgid "Unable to read {path}."
 msgstr "No se pudo leer {path}"
 
-#: src/EBox/Backup/FileBurner.pm:108
+#: src/EBox/Backup/FileBurner.pm:110
 msgid "This system had not any recorder drive"
 msgstr "Este sistema no tiene ninguna unidad grabadora de CD/DVD"
 
-#: src/EBox/Backup/FileBurner.pm:120
+#: src/EBox/Backup/FileBurner.pm:122
 msgid "No disk found. Please insert disk and retry"
 msgstr "No se encontro ningun CD/DVD. Por favoer, introduzca un disco y reintente"
 
-#: src/EBox/Backup/FileBurner.pm:128
+#: src/EBox/Backup/FileBurner.pm:130
 msgid "{media } is a unsupported media type"
 msgstr "{media} es un tipo de medio no soportado"
 
-#: src/EBox/Backup/FileBurner.pm:142
+#: src/EBox/Backup/FileBurner.pm:144
 #, perl-brace-format
 msgid "{device} can not be found"
 msgstr "No se encontro {device}"
 
-#: src/EBox/Backup/FileBurner.pm:151
+#: src/EBox/Backup/FileBurner.pm:153
 #, perl-brace-format
 msgid "{device} is mounted. Please, remove the disk"
 msgstr "{device} esta montada. Por favor, expulse el disco"
 
-#: src/EBox/Backup/FileBurner.pm:175
+#: src/EBox/Backup/FileBurner.pm:177
 #, perl-brace-format
 msgid "Device {dev} can not write media of type {media}"
 msgstr "El dispositivo {dev} no puede grabar discos de tipo {media}"
 
-#: src/EBox/Backup/FileBurner.pm:190
+#: src/EBox/Backup/FileBurner.pm:192
 msgid "The media has not sufficient capabilty for the data"
 msgstr ""
 "El disco no tiene suficiente capacidad para los datos a grabar. Pruebe con "
 "un tipo de disco con más capacidad"
 
-#: src/EBox/Backup/FileBurner.pm:275
+#: src/EBox/Backup/FileBurner.pm:277
 #, perl-brace-format
 msgid "No blanking method for {media}  defined. Can not erase it"
 msgstr ""
 "No puedo borrar el disco debido a que no se ha definido método de borrado "
 "para discos de tipo {media}"
 
-#: src/EBox/Backup/OpticalDisc.pm:109
+#: src/EBox/Backup/OpticalDisc.pm:112
 msgid "Unable to recognize the mounted DVD media"
 msgstr "No se pudo reconocer el CD insertado"
 
-#: src/EBox/Backup/OpticalDisc.pm:138
+#: src/EBox/Backup/OpticalDisc.pm:141
 msgid "Unable to recognize the mounted CD media"
 msgstr "No se pudo reconocer el DVd insertado"
 
@@ -531,12 +529,12 @@ msgstr "Confirmar nueva contraseña"
 msgid "Change"
 msgstr "Cambiar"
 
-#: src/templates/confirm-backup.mas:19 src/templates/backup.mas:19
+#: src/templates/confirm-backup.mas:19 src/templates/backup.mas:162
 msgid "Date"
 msgstr "Fecha"
 
-#: src/templates/confirm-backup.mas:28 src/templates/backup.mas:17
-#: src/templates/backup.mas:120
+#: src/templates/confirm-backup.mas:28 src/templates/backup.mas:44
+#: src/templates/backup.mas:160
 msgid "Description"
 msgstr "Descripción"
 
@@ -560,59 +558,19 @@ msgstr "Tipo de restauración"
 msgid "Administration interface TCP port"
 msgstr "Puerto TCP de la interfaz de administración"
 
-#: src/templates/backup.mas:12
-msgid "List of configuration backups"
-msgstr "Lista de backups de la configuración"
-
-#: src/templates/backup.mas:21
-msgid "Actions"
-msgstr "Acciones"
-
-#: src/templates/backup.mas:42
-msgid "Restore configuration using this file"
-msgstr "Restaurar la configuración utilizando este fichero"
-
-#: src/templates/backup.mas:44
-msgid "Restore from backup"
-msgstr "Restaurar desde backup"
-
-#: src/templates/backup.mas:50 src/templates/backup.mas:52
-msgid "Download"
-msgstr "Descargar"
-
-#: src/templates/backup.mas:58 src/templates/backup.mas:60
-msgid "Write backup to CD/DVD disk"
-msgstr "Grabar backup en CD/DVD"
-
-#: src/templates/backup.mas:80
-msgid "download"
-msgstr "descargar"
-
-#: src/templates/backup.mas:84
-msgid "write into disk"
-msgstr "grabar en CD/DVD"
-
-#: src/templates/backup.mas:90
-msgid "restore"
-msgstr "restaurar"
-
-#: src/templates/backup.mas:94
-msgid "delete"
-msgstr "borrar"
-
-#: src/templates/backup.mas:102
+#: src/templates/backup.mas:20
 msgid "Full Backup"
 msgstr "Backup completo"
 
-#: src/templates/backup.mas:104
+#: src/templates/backup.mas:22
 msgid "Configuration Backup"
 msgstr "Backup de la configuración"
 
-#: src/templates/backup.mas:108
+#: src/templates/backup.mas:26
 msgid "Back up the current state"
 msgstr "Backup del estado actual"
 
-#: src/templates/backup.mas:111
+#: src/templates/backup.mas:29
 msgid ""
 "Backups will be stored in eBox and then you will be able to download them to "
 "your hard disk or write them into CD/DVD disks. Anyway, you can later copy "
@@ -621,37 +579,43 @@ msgstr ""
 "Los backups se almacenarán en eBox y posteriormente pueden ser descargados a "
 "su disco duro o grabados en CD o DVD"
 
-#: src/templates/backup.mas:129
+#: src/templates/backup.mas:34
+msgid ""
+"'Backup to CD/DVD disk' is disabled, because eBox could not find any "
+"recorder drive"
+msgstr "'Backup en CD/DVD' esta desactivado debido a que no se ha encontrado ningún dispositivo de grabación"
+
+#: src/templates/backup.mas:53
 msgid "Backup mode"
 msgstr "Tipo de backup"
 
-#: src/templates/backup.mas:139
+#: src/templates/backup.mas:63
 msgid "Back up to hard disk"
 msgstr "Backup en disco duro"
 
-#: src/templates/backup.mas:141
+#: src/templates/backup.mas:66
 msgid "Back up to CD/DVD disk"
 msgstr "Backup en CD/DVD"
 
-#: src/templates/backup.mas:151
+#: src/templates/backup.mas:80
 msgid "Restore backup from file"
 msgstr "Restaura backup desde archivo"
 
-#: src/templates/backup.mas:154
+#: src/templates/backup.mas:83
 msgid "You can  upload a backup file from your computer"
 msgstr ""
 "Puede subir un fichero de backup desde su ordenador o utilizar uno de la "
 "lista de abajo"
 
-#: src/templates/backup.mas:162
+#: src/templates/backup.mas:91
 msgid "Backup file"
 msgstr "Archivo de backup"
 
-#: src/templates/backup.mas:181
+#: src/templates/backup.mas:110
 msgid "Restore backup from disk"
 msgstr "Restaurar backup desde CD/DVD"
 
-#: src/templates/backup.mas:184
+#: src/templates/backup.mas:113
 msgid ""
 "You can restore from a backup disk. Please insert the disk before clicking "
 "the button"
@@ -659,9 +623,65 @@ msgstr ""
 "Puedes restaurar desde un CD o DVD de backup. Por favor, inserte el disco "
 "antes de pulsar el botón."
 
-#: src/templates/backup.mas:194
+#: src/templates/backup.mas:118
+msgid ""
+"'Restore backup from CD/DVD disk' is disabled, because eBox could not find "
+"any reader drive"
+msgstr "'Restaurar desde CD/DVD' esta desactivado debido a que no se ha encontrado ninguna unidad lectora"
+
+#: src/templates/backup.mas:129
 msgid "Restore from disk"
 msgstr "Restaurar desde CD/DVD "
+
+#: src/templates/backup.mas:151
+msgid ""
+"'Write backup to CD/DVD disk' is disabled, because eBox could not find any "
+"recorder drive"
+msgstr "'Grabar backup aenCD/DVD' esta desactivado debido a que no se ha encontrado ningún dispositivo de grabación"
+
+#: src/templates/backup.mas:155
+msgid "List of configuration backups"
+msgstr "Lista de backups de la configuración"
+
+#: src/templates/backup.mas:164
+msgid "Actions"
+msgstr "Acciones"
+
+#: src/templates/backup.mas:185
+msgid "Restore configuration using this file"
+msgstr "Restaurar la configuración utilizando este fichero"
+
+#: src/templates/backup.mas:187
+msgid "Restore from backup"
+msgstr "Restaurar desde backup"
+
+#: src/templates/backup.mas:193 src/templates/backup.mas:195
+msgid "Download"
+msgstr "Descargar"
+
+#: src/templates/backup.mas:202 src/templates/backup.mas:204
+msgid "Write backup to CD/DVD disk"
+msgstr "Grabar backup en CD/DVD"
+
+#: src/templates/backup.mas:224
+msgid "download"
+msgstr "descargar"
+
+#: src/templates/backup.mas:228
+msgid "write into disk"
+msgstr "grabar en CD/DVD"
+
+#: src/templates/backup.mas:229
+msgid "write into disk (disabled)"
+msgstr "grabar en CD/DVD (desactivado)"
+
+#: src/templates/backup.mas:235
+msgid "restore"
+msgstr "restaurar"
+
+#: src/templates/backup.mas:239
+msgid "delete"
+msgstr "borrar"
 
 #: src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."
