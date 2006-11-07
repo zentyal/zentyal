@@ -295,14 +295,37 @@ sub checkDeviantRestore
   checkCanaries('afterBackup', 1);
 }
 
-
-sub invalidArchiveTest : Test(7)
+# this requires a correct testdata dir
+sub invalidArchiveTest : Test(35)
 {
   my ($self) = @_;
   my $incorrectFile = $self->testDir() . '/incorrect';
   system "cp $0 $incorrectFile";
   ($? == 0) or die "$!";
   checkDeviantRestore($incorrectFile, [], 'restoreBackup() called with a incorrect file');
+
+  my @deviantFiles = (
+		      ['badchecksum.tar', 'restoreBackup() called with a archive with fails checksum'],
+		      ['badsize.tar', 'restoreBackup() called with a archive with uncompressed size exceeds available storage'],
+		      ['missingtype.tar', 'restoreBackup() called with a archive missing type of backup information'],
+		      ['badtype.tar', 'restoreBackup() called with a archive wuth incorrect backup type information'],
+		     );
+
+  foreach my $case (@deviantFiles) {
+    my ($file, $msg) = @{ $case };
+    $file = _testdataDir() . "/$file";
+    (-f $file) or die "Unavailble test data file $file";
+
+    checkDeviantRestore($file, [], $msg);
+  }
+}
+
+sub _testdataDir 
+{
+  my $dir = __FILE__;
+  $dir =~ s/Test\.pm/testdata/;
+
+  return $dir;
 }
 
 sub restoreConfigurationBackupTest : Test(16)

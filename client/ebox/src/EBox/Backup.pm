@@ -33,7 +33,7 @@ use Digest::MD5;
 use EBox::Sudo qw(:all);
 use POSIX qw(strftime);
 use DirHandle;
-use Perl6::Junction qw(any);
+use Perl6::Junction qw(any all);
 use EBox::Backup::FileBurner;
 use EBox::Backup::OpticalDiscDrives;
 use Params::Validate qw(validate_with validate_pos);
@@ -520,6 +520,20 @@ sub backupDir
   return $backupdir;
 }
 
+
+sub _ensureBackupdirExistence
+{
+  my $backupdir = backupDir();
+
+  unless (-d $backupdir) {
+    mkdir($backupdir) or throw EBox::Exceptions::Internal
+      ("Could not create backupdir.");
+  }
+
+  
+} 
+
+
 #
 # Method: makeBackup 
 #
@@ -547,11 +561,9 @@ sub makeBackup # (options)
 			  });
 
   my $time = strftime("%F", localtime);
-  my $backupdir = backupDir();
-  unless (-d $backupdir) {
-    mkdir($backupdir) or throw EBox::Exceptions::Internal
-      ("Could not create backupdir.");
-  }
+ 
+ my $backupdir = backupDir();
+  _ensureBackupdirExistence();
 
   my $filename = $self->_makeBackup(%options);
 
@@ -643,18 +655,24 @@ sub  _checkArchiveMd5Sum
 {
   my ($self, $tempdir) = @_;
 
+
+  my $archiveFile = "$tempdir/eboxbackup/files.tgz";
   my $ARCHIVE;
-  unless (open($ARCHIVE, "$tempdir/eboxbackup/files.tgz")) {
-    throw EBox::Exceptions::Internal("Could not open archive.");
+  unless (open($ARCHIVE, $archiveFile)) {
+    EBox::error("Can not open archive file $archiveFile");
+    throw EBox::Exceptions::External(__("The backup file is corrupt: could not open archive"));
   }
   my $md5 = Digest::MD5->new;
   $md5->addfile($ARCHIVE);
   my $digest = $md5->hexdigest;
   close($ARCHIVE);
 
+
+  my $md5File = "$tempdir/eboxbackup/md5sum";
   my $MD5;
-  unless (open($MD5, "$tempdir/eboxbackup/md5sum")) {
-    throw EBox::Exceptions::Internal("Could not open the md5sum.");
+  unless (open($MD5, $md5File)) {
+    EBox::error("Could not open the md5sum $md5File");
+    throw EBox::Exceptions::External(__("The backup file is corrupt: could not open backup checksum"));
   }
   my $olddigest = <$MD5>;
   close($MD5);
@@ -669,14 +687,21 @@ sub _checkArchiveType
 {
   my ($self, $tempdir, $fullRestore) = @_;
 
-  if ($fullRestore) {
-    my $TYPE_F;
-    unless (open($TYPE_F, "$tempdir/eboxbackup/type")) {
-      throw EBox::Exceptions::Internal("Could not open the type file.");
-    }
-    my $type = <$TYPE_F>;
-    close($TYPE_F);
+  my $typeFile = "$tempdir/eboxbackup/type";
+  my $TYPE_F;
+  unless (open($TYPE_F, $typeFile )) {
+    EBox::error("Can not open type file: $typeFile");
+    throw EBox::Exceptions::External("The backup file is corrupt. Backup type information not found");
+  }
+  my $type = <$TYPE_F>;
+  close($TYPE_F);
+  
+  if ($type ne all($FULL_BACKUP_ID, $CONF_BACKUP_ID)) {
+    throw EBox::Exceptions::External(__("The backup archive has a invalid type. Maybe the file is corrupt or you are using a incompatible eBox version"));
+  }
 
+
+  if ($fullRestore) {
     if ($type ne $FULL_BACKUP_ID) {
       throw EBox::Exceptions::External(__('The archive does not contain a full backup, that made a full restore impossibe. A configuration recovery  may be possible'));
     }
@@ -808,6 +833,7 @@ sub restoreBackup # (file, %options)
   validate_with ( params => [%options], 
 		  spec => { fullRestore => { default => 0 },  });
 
+  _ensureBackupdirExistence();
   $self->_checkSize($file);
   my $tempdir = $self->_unpackAndVerify($file, $options{fullRestore});
 

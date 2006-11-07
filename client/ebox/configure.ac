@@ -112,6 +112,7 @@ src/EBox/t/Makefile
 src/EBox/interactiveTest/Makefile
 src/EBox/Backup/Makefile
 src/EBox/Backup/interactiveTest/Makefile
+src/EBox/Backup/testdata/Makefile
 src/EBox/GConfModule/Makefile
 src/EBox/GConfModule/t/Makefile
 src/EBox/Global/Makefile

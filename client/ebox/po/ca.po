@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox 0.3.svn\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-06 15:52+0100\n"
+"POT-Creation-Date: 2006-11-07 16:58+0100\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -76,7 +76,7 @@ msgstr ""
 
 #: src/EBox/CGI/EBox/Backup.pm:228 src/EBox/CGI/EBox/Backup.pm:291
 #: src/EBox/CGI/EBox/Backup.pm:304 src/EBox/CGI/EBox/ConfirmBackup.pm:198
-#: src/EBox/Backup.pm:959
+#: src/EBox/Backup.pm:985
 msgid "The input contains invalid characters"
 msgstr "L'entrada conté caràcters invàlids"
 
@@ -235,7 +235,7 @@ msgstr "No s'ha pogut desempaquetar la còpia de seguretat"
 msgid "Could not append data to backup archive"
 msgstr "No s'ha pogut desempaquetar la còpia de seguretat"
 
-#: src/EBox/Backup.pm:344 src/EBox/Backup.pm:942
+#: src/EBox/Backup.pm:344 src/EBox/Backup.pm:968
 msgid "Insert a backup disc and try again, please"
 msgstr ""
 
@@ -248,49 +248,65 @@ msgstr ""
 msgid "Could not extract the requested backup files: {files}"
 msgstr ""
 
-#: src/EBox/Backup.pm:421 src/EBox/Backup.pm:818
+#: src/EBox/Backup.pm:421 src/EBox/Backup.pm:844
 msgid "Could not unpack the backup"
 msgstr "No s'ha pogut desempaquetar la còpia de seguretat"
 
-#: src/EBox/Backup.pm:544 src/EBox/SysInfo.pm:120
+#: src/EBox/Backup.pm:558 src/EBox/SysInfo.pm:120
 msgid "Backup"
 msgstr "Còpia de seguretat"
 
-#: src/EBox/Backup.pm:621
+#: src/EBox/Backup.pm:633
 msgid "Incorrect or corrupt backup file"
 msgstr "El fitxer de còpia de seguretat és incorrecte o corromput"
 
-#: src/EBox/Backup.pm:664
+#: src/EBox/Backup.pm:663
+#, fuzzy
+msgid "The backup file is corrupt: could not open archive"
+msgstr "El fitxer de còpia de seguretat és corrupte."
+
+#: src/EBox/Backup.pm:675
+#, fuzzy
+msgid "The backup file is corrupt: could not open backup checksum"
+msgstr "El fitxer de còpia de seguretat és corrupte."
+
+#: src/EBox/Backup.pm:682
 msgid "The backup file is corrupt."
 msgstr "El fitxer de còpia de seguretat és corrupte."
 
-#: src/EBox/Backup.pm:681
+#: src/EBox/Backup.pm:700
+msgid ""
+"The backup archive has a invalid type. Maybe the file is corrupt or you are "
+"using a incompatible eBox version"
+msgstr ""
+
+#: src/EBox/Backup.pm:706
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
 msgstr ""
 
-#: src/EBox/Backup.pm:693
+#: src/EBox/Backup.pm:718
 msgid ""
 "Module list not found, the backup is corrupt or was done with a incompatible "
 "previous format"
 msgstr ""
 
-#: src/EBox/Backup.pm:717
+#: src/EBox/Backup.pm:742
 #, perl-brace-format
 msgid ""
 "The following modules are not present in the global module list stored in "
 "the backup but they are present in eBox's global list: {modules}\n"
 msgstr ""
 
-#: src/EBox/Backup.pm:718
+#: src/EBox/Backup.pm:743
 #, perl-brace-format
 msgid ""
 "The following modules are  present in the global list stored in the backup "
 "but not in eBox's global list: {modules}\n"
 msgstr ""
 
-#: src/EBox/Backup.pm:721
+#: src/EBox/Backup.pm:746
 #, perl-brace-format
 msgid ""
 "The restore process failed because there is a mismatch between eBox's "
@@ -299,14 +315,14 @@ msgid ""
 "install/remove the adequate modules"
 msgstr ""
 
-#: src/EBox/Backup.pm:754
+#: src/EBox/Backup.pm:779
 #, perl-brace-format
 msgid ""
 "There in not enough space left in the hard disk to complete the restore "
 "proccess. {size} Kb required. Free sufficient space and retry"
 msgstr ""
 
-#: src/EBox/Backup.pm:786
+#: src/EBox/Backup.pm:811
 #, perl-brace-format
 msgid ""
 "Can not rename backup file from {newName} to  hisr original name {name}. "
@@ -429,11 +445,11 @@ msgstr ""
 msgid "No blanking method for {media}  defined. Can not erase it"
 msgstr ""
 
-#: src/EBox/Backup/OpticalDisc.pm:112
+#: src/EBox/Backup/OpticalDisc.pm:121
 msgid "Unable to recognize the mounted DVD media"
 msgstr ""
 
-#: src/EBox/Backup/OpticalDisc.pm:141
+#: src/EBox/Backup/OpticalDisc.pm:158
 msgid "Unable to recognize the mounted CD media"
 msgstr ""
 
