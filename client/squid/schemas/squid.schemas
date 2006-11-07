@@ -114,7 +114,7 @@
 			<owner>ebox</owner>
 			<type>list</type>
 			<list_type>string</list_type>
-			<default>[ade,adp,asx,bas,bat,cab,chm,cmd,com,cpl,crt,dll,exe,hlp,ini,hta,inf,ins,isp,lnk,mda,mdb,mde,mdt,mdw,mdz,msc,msi,msp,mst,pcd,pif,prf,reg,scf,scr,sct,sh,shs,shb,sys,url,vb,vbe,vbs,vxd,wsc,wsf,wsh,otf,ops,doc,xls,gz,tar,zip,tgz,bz2,cdr,dmg,smi,sit,sea,bin,hqx,rar,mp3,mpeg,mpg,avi,asf,iso,ogg,wmf,bin,cue]</default>
+			<default>[ade,adp,asx,bas,bat,cab,chm,cmd,com,cpl,crt,dll,exe,hlp,ini,hta,inf,ins,isp,lnk,mda,mdb,mde,mdt,mdw,mdz,msc,msi,msp,mst,pcd,pif,prf,reg,scf,scr,sct,sh,shs,shb,sys,url,vb,vbe,vbs,vxd,wsc,wsf,wsh,otf,ops,doc,xls,gz,tar,zip,tgz,bz2,cdr,dmg,smi,sit,sea,bin,hqx,rar,mp3,mpeg,mpg,avi,asf,iso,ogg,wmf,bin,cue,sxw,stw,stc,sxi,sti,sxd,sxg,odt,ott,ods,ots,odp,otp,odg,otg,odm,odf,odc,odb,odi,pdf]</default>
 			<locale name="C"/>
 		</schema>
 	</schemalist>
