@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 32;
+use Test::More tests => 33;
 use Test::Differences;
 use Test::Exception;
 use Error qw(:try);
@@ -57,9 +57,9 @@ sub statTest
 
     EBox::Sudo::TestStub::fake();
 
-    # inexistent file
-    lives_and (sub {is EBox::Sudo::stat('/muchos/monos/salvajes'), undef }, "Checking stat return undef while  called upon inexistent files");
-
+    # inexistent files
+    lives_and (sub {is EBox::Sudo::stat('/muchos/monos/salvajes'), undef }, "Checking stat return undef while  called upon inexistent files in inexistent dir");
+    lives_and (sub {ok not EBox::Sudo::stat('/inexistentfileBab')}, "Checking stat return undef while  called upon inexistent files in existent dir");
 
     my @files = qw(./Sudo.t / /usr /bin/true /etc/passwd /dev/hda /dev/mem /dev/random /dev/tty0 /dev/snd/timer);
     foreach my $file (@files) {
