@@ -57,8 +57,8 @@ sub _removeTestUsers
   foreach my $user ($TEST_USER, $TEST_USER_LEFTOVER) {
     if ($users->userExists($user)) {
       $users->delUser($user);
-    EBox::Sudo::root('/bin/rm -rf ' . EBox::SambaLdapUser::usersPath() . '/' . $user );
     }
+    EBox::Sudo::root('/bin/rm -rf ' . EBox::SambaLdapUser::usersPath() . '/' . $user );
   }
 
 

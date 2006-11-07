@@ -986,13 +986,13 @@ sub _fixLeftoverSharedDirectories
 
   my $leftoversDir = $self->leftoversDir();
 
-  if (!(defined EBox::Sudo::stat($leftoversDir))) {
+  if (not EBox::Sudo::fileTest('-e', $leftoversDir)) {
     EBox::Sudo::root("/bin/mkdir --mode=755 $leftoversDir");
   }
 
   my @leftoverTypes = qw(users groups);
   foreach my $subdir (@leftoverTypes) {
-    if (!(defined EBox::Sudo::stat("$leftoversDir/$subdir"))) {
+    if (not EBox::Sudo::fileTest('-e', "$leftoversDir/$subdir")) {
       EBox::Sudo::root("/bin/mkdir --mode=755 $leftoversDir/$subdir");
     } 
   }
@@ -1046,14 +1046,14 @@ sub _leftoverNewDir
   $leftoverNewDir .= $leftoverType if defined $leftoverType;  # better to store the leftover in a wrong place than lost it
   $leftoverNewDir .= File::Basename::basename($leftover);
 
-  if (EBox::Sudo::stat($leftoverNewDir)) {
+  if (EBox::Sudo::fileTest('-e', $leftoverNewDir)) {
     EBox::warn ("$leftoverNewDir already exists, we will choose another dir for this leftover. Please, remove or store away leftover directories" );
     my $counter = 2;
     my $oldLeftoverDir =$leftoverNewDir;
     do  {
       $leftoverNewDir = $oldLeftoverDir . ".$counter";
       $counter = $counter +1 ;
-    } while (EBox::Sudo::stat($leftoverNewDir));
+    } while (EBox::Sudo::fileTest('-e', $leftoverNewDir));
     EBox::warn("The leftover will be stored in $leftoverNewDir");
   }
   
@@ -1087,10 +1087,10 @@ sub _findLeftoversInDir
 
   my @candidateDirs;
   try {
-    @candidateDirs = @{ EBox::Sudo::root("/usr/bin/find $dir/* -type d -maxdepth 0 2>&1") };
+    @candidateDirs = @{ EBox::Sudo::root("/usr/bin/find $dir/* -type d -maxdepth 0 ") };
   }
-  otherwise { # we catch this because find will be fail if aren't any subdirectories in $dir
-    return ();
+  catch EBox::Exceptions::Sudo::Command with { # we catch this because find will be fail if aren't any subdirectories in $dir
+    @candidateDirs = ();
   };
 
   chomp @candidateDirs;			
