@@ -668,15 +668,15 @@ sub _command
 	my $cmd = undef;
 
 	if ($service eq 'active') {
-		$cmd = MAILINIT . " " . $action . " 2>&1";
+		$cmd = MAILINIT . " " . $action;
 	} elsif ($service eq 'pop') {
-		$cmd = POPINIT . " " . $action . " 2>&1";
+		$cmd = POPINIT . " " . $action;
 	} elsif ($service eq 'imap') {
-		$cmd = IMAPINIT . " " . $action . " 2>&1";
+		$cmd = IMAPINIT . " " . $action;
 	} elsif ($service eq 'authdaemon') {
-		$cmd = AUTHDAEMONINIT . " " . $action . " 2>&1";
+		$cmd = AUTHDAEMONINIT . " " . $action;
 	} elsif ($service eq 'authldap') {
-		$cmd = AUTHLDAPINIT . " " . $action . " 2>&1";
+		$cmd = AUTHLDAPINIT . " " . $action;
 	} else {
 		throw EBox::Exceptions::Internal("Bad service: $service");
 	}

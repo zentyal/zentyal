@@ -144,9 +144,9 @@ sub _daemon
 {
 	my ($self, $action) = @_;
 
-	my $amaviscmd = AMAVISINIT . " " . $action . " 2>&1";
-	my $sacmd = SAINIT . " " . $action . " 2>&1";
-	my $clamavcmd = CLAMAVINIT . " " . $action . " 2>&1";
+	my $amaviscmd = AMAVISINIT . " " . $action;
+	my $sacmd = SAINIT . " " . $action;
+	my $clamavcmd = CLAMAVINIT . " " . $action;
 	
 	if ( $action eq 'start') {
 		root($clamavcmd);
