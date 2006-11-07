@@ -18,6 +18,13 @@ use EBox::Gettext;
 <div class='note'>
 <% __('Please note that if you set a configuration which prevents you from connecting to the administration interface through the proxy, you must then connect to it directly') %>
 </div>
+<div class='note'>
+  <% __x("In order to work with \"{filter}\" and \"{policy}\", it is necessary to set \"{content}\" at least \"{permissive}\".",
+	 filter => __('Extensions filter'),
+	 policy => __('Policy'), content => __('Content filter threshold'), 
+	 permissive => __('Very permissive'))
+  %>
+</div>
 <br />
 <form action='General' method='POST'>
 <table class='formTable'>

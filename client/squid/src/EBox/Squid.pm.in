@@ -146,6 +146,10 @@ sub _cache_mem
 #       
 #       Implements EBox::ObjectsObserver interface
 #
+# Parameters:
+#
+#       object - 
+#
 sub usesObject # (object)
 {
 	my ($self, $object) = @_;
@@ -157,10 +161,13 @@ sub usesObject # (object)
 
 #
 # Method: freeObject
-#       
+#
 #       Implements EBox::ObjectsObserver interface
 #
-sub freeObject # (object) 
+# Parameters :
+#
+#       object -
+sub freeObject # (object)
 {
 	my ($self, $object) = @_;
 	(defined($object) && $object ne "") or return;
@@ -312,7 +319,7 @@ sub setBans # (\@bans)
 # Method: bans
 #
 #	Returns the list of banned objects.
-# 
+#
 # Returns:
 #
 #	array ref - holding the objects
@@ -344,8 +351,13 @@ sub isBan # ($object)
 	return undef;
 }
 
-#sets authentication 
-#Par: 0 -> boolean
+# Method: setAuth
+#
+#       Set authentication
+#
+# Parameters:
+#
+#       auth - boolean: the authentication 
 sub setAuth # (auth)
 {
 	my ($self, $auth) = @_;
@@ -354,8 +366,14 @@ sub setAuth # (auth)
 	$self->set_bool('auth', $auth);
 }
 
-#returns authentication 
-#ret: boolean
+
+# Method: auth
+#
+#       Return authentication
+#
+# Returns:
+#
+#       boolean - 
 sub auth
 {
 	my $self = shift;
@@ -433,7 +451,7 @@ sub setTransproxy # (enabled)
 #
 sub transproxy
 {
-	my $self = shift;    	
+	my $self = shift;
 	return $self->get_bool('transproxy');
 }
 
@@ -976,7 +994,7 @@ sub bannedExtensions
 	return $self->get_list('banned_extensions');
 }
 
-# Function: setBanExtensions
+# Function: setBannedExtensions
 #
 #	Set the banned  extensions
 #
@@ -990,7 +1008,7 @@ sub setBannedExtensions
 	$self->_setList('banned_extensions', @newban);
 }
 
-# Function: hashedExtension 
+# Function: hashedExtension
 #
 #	Fetch the extensions, both allowed and banned
 #
@@ -999,15 +1017,20 @@ sub setBannedExtensions
 # 	Array ref of hashes containing:
 #
 # 		extension => boolean (allowed or not)
-# 	
+#
 sub hashedExtensions
 {
 	my ($self) = @_;
 
 	my %extents;
-	map { $extents{$_} = 1 } @{$self->allowedExtensions};
-	map { $extents{$_} = undef } @{$self->bannedExtensions};
-	
+	#map { $extents{$_} = 1 } @{$self->allowedExtensions};
+	foreach my $extension (@{$self->allowedExtensions()}) {
+	  $extents{$extension} = 1;
+	}
+	#map { $extents{$_} = undef } @{$self->bannedExtensions};
+	foreach my $extension (@{$self->bannedExtensions()}) {
+	  $extents{$extension} = undef;
+	}
 	return \%extents;
 }
 
