@@ -272,8 +272,6 @@ sub run
 		  $chain->run;
 		  return;
 		}
-		
-		EBox::debug("Avoided chain to itself for $classname");
 	} 
 
 	if ((defined($self->{redirect})) && (!defined($self->{error}))) {
@@ -282,8 +280,8 @@ sub run
 		return;
 	} 
 
+	
 
-	EBox::debug("NORMAL PRINT");
 	try  { 
 	  settextdomain('ebox');
 	  $self->_print 
@@ -497,21 +495,49 @@ sub setErrorFromException
     }
 }
 # Method: setRedirect
-#    set the redirect attribute
+#    sets the redirect attribute. If redirect is set to some value, the parent class will do an HTTP redirect after the _process method returns.
+#
+# An HTTP redirect makes the browser issue a new HTTP request, so all the status data in the old request gets lost, but there are cases when you want to keep that data for the new CGI. This could be done using the setChain method instead
+#
+# When an error happens you don't want redirects at all, as the error message would be lost. If an error happens and redirect has been set, then that value is used as if it was chain.
 #
 # Parameters:
 #   $redirect - value for the redirect attribute
+#
+# See also:
+#  setRedirect, setErrorchain
 sub setRedirect
 {
   my ($self, $redirect) = @_;
   $self->{redirect} = $redirect;
 }
 
+
+# Method: setChain
+#    set the chain attribute. It works exactly the same way as redirect attribute but instead of sending an HTTP response to the browser, the parent class parses the url, instantiates the matching CGI, copies all data into it and runs it. Messages and errors are copied automatically, the parameters in the HTTP request are not, since an error caused by one of#  them could propagate to the next CGI.
+#
+# If you need to keep HTTP parameters you can use the keepParam method in the parent class. It takes the name of the parameter as an argument and adds it to the list of parameters that will be copied to the new CGI if a "chain" is performed.
+#
+#
+# Parameters:
+#   $chain - value for the chain attribute
+#
+# See also:
+#  setRedirect, setErrorchain, keepParam
+sub setChain
+{
+  my ($self, $chain) = @_;
+  $self->{chain} = $chain;
+}
+
 # Method: setErrorchain
-#    set the errorchain attribute
+#    set the errorchain attribute. Sometimes you want to chain to a different CGI if there is an error, for example if the cause of the error is the absence of an input parameter necessary to show the page. If that's the case you can set the errorchain attribute, which will have a higher priority than chain and redirect if there's an error.
 #
 # Parameters:
 #   $errorchain - value for the errorchain attribute
+#
+# See also:
+#  setChain, setRedirect
 sub setErrorchain
 {
   my ($self, $errorchain) = @_;
