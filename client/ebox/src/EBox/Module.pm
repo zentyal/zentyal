@@ -584,7 +584,7 @@ sub pidFileRunning
 #	file - file name which will be overwritten with the output of 
 #	the execution
 #	component - mason component
-#	params - parameters for the mason component
+#	params - parameters for the mason component. Optional. Defaults to no parameters
 #       defaults - a reference to hash with keys mode, uid and gid. Those values will be used when creating a new file. (if the file already exists the existent values of this parameters will be left untouched)
 #
 # Returns:
@@ -594,7 +594,7 @@ sub pidFileRunning
 sub writeConfFile # (file, comp, params, defaults)
 {
 	my ($self, $file, $compname, $params, $defaults) = @_;
-	validate_pos(@_, 1, { type =>  SCALAR }, { type => SCALAR }, { type => ARRAYREF }, { type => HASHREF, optional => 1 });
+	validate_pos(@_, 1, { type =>  SCALAR }, { type => SCALAR }, { type => ARRAYREF, default => [] }, { type => HASHREF, optional => 1 });
 
 	my ($fh,$tmpfile) = tempfile(DIR => EBox::Config::tmp);
 	unless($fh) {

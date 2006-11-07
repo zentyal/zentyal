@@ -3,7 +3,7 @@ package main;
 use strict;
 use warnings;
 
-use Test::More tests => 7;
+use Test::More tests => 9;
 use Test::Exception;
 use Test::File;
 use Test::MockModule;
@@ -54,11 +54,16 @@ sub writeConfFileTest
     my @gids =  split '\s', $GID ;
     my $defaults = { mode => $wantedMode, uid => $UID, gid => $gids[0] };
     lives_ok {  EBox::Module->writeConfFile($testFile, $masonComponent, $masonParams, $defaults) } 'EBox::Module::writeConfFile execution upon a inexistent file';
-  file_exists_ok $testFile;
+    file_exists_ok $testFile;
     file_mode_is ($testFile, oct $wantedMode);
 
-
-
+#    Can not execute this testcase because by default chowns to root!
+#     # called without any optional parameter
+#     my $defaultMode = '0644';
+#     unlink $testFile or die "Cannot unlink test file $testFile";
+#     lives_ok {  EBox::Module->writeConfFile($testFile, $masonComponent) } 'EBox::Module::writeConfFile execution without any optional parameter';
+#     file_exists_ok $testFile;
+#     file_mode_is ($testFile, oct '0644');
 }
 
 
