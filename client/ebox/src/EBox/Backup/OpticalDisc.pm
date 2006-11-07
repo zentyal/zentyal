@@ -84,7 +84,16 @@ sub _infoFromDvdMediaInfo
 {
   my ($dev) = @_;
 
-  my @output =  @{ EBox::Sudo::rootWithoutException("$EBox::Backup::RootCommands::DVDMEDIAINFO_PATH $dev 2>&1")};
+  my @output;
+  try {
+    @output =  @{ EBox::Sudo::root("$EBox::Backup::RootCommands::DVDMEDIAINFO_PATH $dev")};
+  }
+ catch EBox::Exceptions::Sudo::Command with {
+   my $ex = shift;
+   @output = @{ $ex->output };
+   push @output, @{ $ex->error };
+ };
+
 
   if (grep { m/no media mounted/ }  @output) {
     return  {media => 'no_disc', writable => 0};
@@ -129,7 +138,15 @@ sub _infoFromCdrdao
   my ($dev) = @_;
 
   my $diskInfoCmd = "$EBox::Backup::RootCommands::CDRDAO_PATH disk-info --device $dev";
-  my @output = @{ EBox::Sudo::rootWithoutException($diskInfoCmd) };
+  my @output;
+  try {
+    @output =  @{ EBox::Sudo::root($diskInfoCmd)};
+  }
+ catch EBox::Exceptions::Sudo::Command with {
+   my $ex = shift;
+   @output = @{ $ex->output };
+   push @output, @{ $ex->error };
+ };
 
   if (grep { m/Unit not ready/ } @output) {
     return  {media => 'no_disc', writable => 0};
