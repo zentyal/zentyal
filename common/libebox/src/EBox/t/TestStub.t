@@ -1,10 +1,8 @@
-# Description:
-# 
 use strict;
 use warnings;
-#use Smart::Comments; # turn on for debug purposes
 
-use Test::More tests => 9; 
+
+use Test::More tests => 7; 
 use Test::Exception;
 use Test::Output;
 
@@ -33,9 +31,13 @@ sub mockTest
     } qr/$debugMsg/;
 
 
-    EBox::TestStub::unfake();
-    stderr_unlike {
-	dies_ok { EBox::debug($debugMsg)  } 'After unmocking we get the same behaviour than before';    } qr/$debugMsg/, 'Checking that debug text is not printed like before';
-}
+# unfake removed 
+
+  #   EBox::TestStub::unfake();
+#    stderr_unlike {
+# 	dies_ok { EBox::debug($debugMsg)  } 'After unmocking we get the same behaviour than before';   } qr/$debugMsg/, 'Checking that debug text is not printed like before';
+
+
+ }
 
 1;

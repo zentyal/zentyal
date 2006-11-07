@@ -37,15 +37,17 @@ sub fake
     $logLevel = $logLevelsByName{$minLogLevel};
 }
 
-sub unfake
-{
-    if (!defined $mockedEBoxModule) {
-	die "EBox module not mocked";
-    }
 
-    $mockedEBoxModule->unmock_all();
-    $mockedEBoxModule = undef;
-}
+# XX: fix this sub (see TestStub.t)
+# sub unfake
+# {
+#     if (!defined $mockedEBoxModule) {
+# 	die "EBox module not mocked";
+#     }
+
+#     $mockedEBoxModule->unmock_all();
+#     $mockedEBoxModule = undef;
+# }
 
 
 my $loginit;
