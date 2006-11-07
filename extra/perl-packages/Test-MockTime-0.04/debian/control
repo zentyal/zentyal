@@ -1,0 +1,15 @@
+Source: libtest-mocktime-perl
+Section: perl
+Priority: optional
+Build-Depends: debhelper (>= 4.0.2)
+Build-Depends-Indep: perl (>= 5.8.0-7)
+Maintainer: Javier Uruen Val <javi@warp.es>
+Standards-Version: 3.6.1
+
+Package: libtest-mocktime-perl
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends}, 
+Description:  Replaces actual time with simulated time
+ .
+ .
+ This description was automagically extracted from the module by dh-make-perl.

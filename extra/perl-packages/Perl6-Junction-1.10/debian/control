@@ -1,0 +1,27 @@
+Source: libperl6-junction-perl
+Section: perl
+Priority: optional
+Build-Depends: debhelper (>= 4.0.2)
+Build-Depends-Indep: perl (>= 5.8.0-7)
+Maintainer: Javier Uruen Val <javi@warp.es>
+Standards-Version: 3.6.1
+
+Package: libperl6-junction-perl
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends}, 
+Description:  Perl6 style Junction operators in Perl5.
+ This is a lightweight module which provides 'Junction' operators, the most 
+ commonly used being any and all.
+ .
+ Inspired by the Perl6 design docs, 
+ http://dev.perl.org/perl6/doc/design/exe/E06.html.
+ .
+ Provides a limited subset of the functionality of Quantum::Superpositions, 
+ see /"SEE ALSO" for comment.
+ .
+ Notice in the /SYNOPSIS above, that if you want to match against a 
+ regular expression, you must use == or !=. Not =~ or !~. You 
+ must also use a regex object, such as qr/\d/, not a plain regex such as 
+ /\d/.
+ .
+ This description was automagically extracted from the module by dh-make-perl.
