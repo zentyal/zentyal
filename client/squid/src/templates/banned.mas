@@ -2,6 +2,7 @@
 -->
 <%args>
 	@domains
+        $globalPolicy => 'deny'
 </%args>
 <%init>
 use EBox::Gettext;
@@ -9,4 +10,4 @@ use EBox::Gettext;
 
 <& squid/domains.mas, title => __('Banned domains'), description =>
 	__('Add here those domains which you do not want to allow access.'),
-	action => 'Ban', domains => \@domains &>
+	action => 'Ban', domains => \@domains, globalPolicy => $globalPolicy &>

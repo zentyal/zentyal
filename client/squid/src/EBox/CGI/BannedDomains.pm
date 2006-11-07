@@ -42,6 +42,8 @@ sub _process($) {
 
 	my @array = ();
 	push (@array, 'domains' => $squid->bannedDomains);
+	# Add current global policy to http proxy
+	push (@array, 'globalPolicy' => $squid->globalPolicy() );
 	$self->{params} = \@array;
 }
 
