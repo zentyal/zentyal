@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-07 12:56+0100\n"
+"POT-Creation-Date: 2006-11-07 13:25+0100\n"
 "PO-Revision-Date: 2005-11-29 13:24+0100\n"
 "Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -102,34 +102,40 @@ msgstr "Seuil"
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/EBox/Squid.pm.in:1073
+#: src/EBox/Squid.pm.in:1073 src/templates/index.mas:39
+#: src/templates/index.mas:44
 msgid "Enabled"
 msgstr "Activé"
 
-#: src/EBox/Squid.pm.in:1075
+#: src/EBox/Squid.pm.in:1075 src/templates/index.mas:37
+#: src/templates/index.mas:42 src/templates/index.mas:73
+#: src/templates/index.mas:76
 msgid "Disabled"
 msgstr "Désactivé"
 
-#: src/EBox/Squid.pm.in:1077
+#: src/EBox/Squid.pm.in:1077 src/templates/index.mas:30
 msgid "Transparent proxy"
 msgstr "Proxy transparent"
 
-#: src/EBox/Squid.pm.in:1080 src/templates/policy.mas:109
+#: src/EBox/Squid.pm.in:1080 src/templates/index.mas:127
+#: src/templates/index.mas:130 src/templates/policy.mas:109
 #: src/templates/policy.mas:113
 msgid "Allow"
 msgstr "Autoriser"
 
-#: src/EBox/Squid.pm.in:1082
+#: src/EBox/Squid.pm.in:1082 src/templates/index.mas:134
+#: src/templates/index.mas:137
 msgid "Deny"
 msgstr "Interdire"
 
-#: src/EBox/Squid.pm.in:1084 src/templates/policy.mas:55
+#: src/EBox/Squid.pm.in:1084 src/templates/index.mas:141
+#: src/templates/index.mas:144 src/templates/policy.mas:55
 #: src/templates/policy.mas:59 src/templates/policy.mas:119
 #: src/templates/policy.mas:123
 msgid "Filter"
 msgstr "Filtre"
 
-#: src/EBox/Squid.pm.in:1087
+#: src/EBox/Squid.pm.in:1087 src/templates/index.mas:120
 msgid "Global policy"
 msgstr "Politique globale"
 
@@ -213,12 +219,38 @@ msgstr ""
 "connecter à l'interface d'administration par le proxy, vous devez alors vous "
 "connecter à elle directement"
 
-#: src/templates/index.mas:25
-msgid ""
-"In order to work with \"); \n"
-"\n"
-"__("
-msgstr ""
+#: src/templates/index.mas:53
+msgid "Port"
+msgstr "Port"
+
+#: src/templates/index.mas:66
+msgid "Content filter threshold"
+msgstr "Seuil de filtre de contents"
+
+#: src/templates/index.mas:80 src/templates/index.mas:83
+msgid "Very permissive"
+msgstr "Très permissif"
+
+#: src/templates/index.mas:87 src/templates/index.mas:90
+msgid "Permissive"
+msgstr "Permissif"
+
+#: src/templates/index.mas:94 src/templates/index.mas:97
+msgid "Medium"
+msgstr "Moyen"
+
+#: src/templates/index.mas:101 src/templates/index.mas:104
+msgid "Strict"
+msgstr "Strict"
+
+#: src/templates/index.mas:108 src/templates/index.mas:111
+msgid "Very strict"
+msgstr "Très strict"
+
+#: src/templates/index.mas:155 src/templates/index.mas:156
+#: src/templates/extensions.mas:61 src/templates/extensions.mas:63
+msgid "Change"
+msgstr "Changer"
 
 #: src/templates/allowed.mas:12
 msgid "Add here those domains which you want to allow access."
@@ -245,10 +277,6 @@ msgstr ""
 #: src/templates/extensions.mas:48
 msgid "Allow all extensions"
 msgstr ""
-
-#: src/templates/extensions.mas:61 src/templates/extensions.mas:63
-msgid "Change"
-msgstr "Changer"
 
 #: src/templates/policy.mas:14
 msgid ""
@@ -308,27 +336,6 @@ msgstr "Ajouter"
 #: src/templates/domains.mas:71
 msgid "Delete"
 msgstr "Effacer"
-
-#~ msgid "Port"
-#~ msgstr "Port"
-
-#~ msgid "Content filter threshold"
-#~ msgstr "Seuil de filtre de contents"
-
-#~ msgid "Very permissive"
-#~ msgstr "Très permissif"
-
-#~ msgid "Permissive"
-#~ msgstr "Permissif"
-
-#~ msgid "Medium"
-#~ msgstr "Moyen"
-
-#~ msgid "Strict"
-#~ msgstr "Strict"
-
-#~ msgid "Very strict"
-#~ msgstr "Très strict"
 
 #~ msgid "Content filter disabled"
 #~ msgstr "Filtre de contents désactivé"

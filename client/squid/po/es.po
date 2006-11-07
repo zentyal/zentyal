@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-07 12:56+0100\n"
-"PO-Revision-Date: 2006-11-07 12:58+0100\n"
+"POT-Creation-Date: 2006-11-07 13:25+0100\n"
+"PO-Revision-Date: 2006-11-07 13:28+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team:  <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -105,34 +105,40 @@ msgstr "Umbral"
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/EBox/Squid.pm.in:1073
+#: src/EBox/Squid.pm.in:1073 src/templates/index.mas:39
+#: src/templates/index.mas:44
 msgid "Enabled"
 msgstr "Activado"
 
-#: src/EBox/Squid.pm.in:1075
+#: src/EBox/Squid.pm.in:1075 src/templates/index.mas:37
+#: src/templates/index.mas:42 src/templates/index.mas:73
+#: src/templates/index.mas:76
 msgid "Disabled"
 msgstr "Desactivado"
 
-#: src/EBox/Squid.pm.in:1077
+#: src/EBox/Squid.pm.in:1077 src/templates/index.mas:30
 msgid "Transparent proxy"
 msgstr "Proxy transparente"
 
-#: src/EBox/Squid.pm.in:1080 src/templates/policy.mas:109
+#: src/EBox/Squid.pm.in:1080 src/templates/index.mas:127
+#: src/templates/index.mas:130 src/templates/policy.mas:109
 #: src/templates/policy.mas:113
 msgid "Allow"
 msgstr "Permitir"
 
-#: src/EBox/Squid.pm.in:1082
+#: src/EBox/Squid.pm.in:1082 src/templates/index.mas:134
+#: src/templates/index.mas:137
 msgid "Deny"
 msgstr "Denegar"
 
-#: src/EBox/Squid.pm.in:1084 src/templates/policy.mas:55
+#: src/EBox/Squid.pm.in:1084 src/templates/index.mas:141
+#: src/templates/index.mas:144 src/templates/policy.mas:55
 #: src/templates/policy.mas:59 src/templates/policy.mas:119
 #: src/templates/policy.mas:123
 msgid "Filter"
 msgstr "Filtrar"
 
-#: src/EBox/Squid.pm.in:1087
+#: src/EBox/Squid.pm.in:1087 src/templates/index.mas:120
 msgid "Global policy"
 msgstr "Política global"
 
@@ -214,15 +220,38 @@ msgstr ""
 "se conecte al interfaz de administración a través del proxy deberá "
 "conectarse al mismo directamente."
 
-#: src/templates/index.mas:25
-msgid ""
-"In order to work with \"); \n"
-"\n"
-"__("
-msgstr ""
-"Para trabajar con \"); \n"
-"\n"
-"__("
+#: src/templates/index.mas:53
+msgid "Port"
+msgstr "Puerto"
+
+#: src/templates/index.mas:66
+msgid "Content filter threshold"
+msgstr "Umbral de filtrado de contenido"
+
+#: src/templates/index.mas:80 src/templates/index.mas:83
+msgid "Very permissive"
+msgstr "Muy permisivo"
+
+#: src/templates/index.mas:87 src/templates/index.mas:90
+msgid "Permissive"
+msgstr "Permisivo"
+
+#: src/templates/index.mas:94 src/templates/index.mas:97
+msgid "Medium"
+msgstr "Medio"
+
+#: src/templates/index.mas:101 src/templates/index.mas:104
+msgid "Strict"
+msgstr "Estricto"
+
+#: src/templates/index.mas:108 src/templates/index.mas:111
+msgid "Very strict"
+msgstr "Muy estricto"
+
+#: src/templates/index.mas:155 src/templates/index.mas:156
+#: src/templates/extensions.mas:61 src/templates/extensions.mas:63
+msgid "Change"
+msgstr "Cambiar"
 
 #: src/templates/allowed.mas:12
 msgid "Add here those domains which you want to allow access."
@@ -236,9 +265,7 @@ msgstr "Configurar extensiones permitidas"
 msgid ""
 "When the filter content is enabled you can select those file extensions "
 "which are allowed to download"
-msgstr ""
-"Seleccione las extensiones de fichero para permitir su descarga. Cuando el "
-"filtro de contenidos este deshabilitado todas podrán ser descargadas"
+msgstr "Seleccione las extensiones de fichero para permitir su descarga. Cuando el filtro de contenidos este deshabilitado todas podrán ser descargadas"
 
 #: src/templates/extensions.mas:21
 msgid "Extension"
@@ -251,10 +278,6 @@ msgstr "Estado"
 #: src/templates/extensions.mas:48
 msgid "Allow all extensions"
 msgstr "Permitir todas las extensiones"
-
-#: src/templates/extensions.mas:61 src/templates/extensions.mas:63
-msgid "Change"
-msgstr "Cambiar"
 
 #: src/templates/policy.mas:14
 msgid ""

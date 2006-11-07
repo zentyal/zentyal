@@ -7,10 +7,10 @@ use EBox::Gettext;
 </%init>
 
 <h3><% __('Configure allowed extensions') %></h3>
-<p>
+<div class="note">
 	<% __('When the filter content is enabled you can select those file extensions which are allowed to download') %>
-</p>
-
+</div>
+<br/>
 <form id='extensions' action='Extensions' method='POST'>
 	<table class='dataTable'>
 	<thead>

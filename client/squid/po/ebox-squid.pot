@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-11 13:02+0100\n"
+"POT-Creation-Date: 2006-11-07 13:25+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,22 +16,27 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/CGI/BannedDomains.pm:30 src/EBox/CGI/BannedDomains.pm:40
-#: src/EBox/Squid.pm.in:993 src/templates/banned.mas:10
-msgid "Banned domains"
+#: src/EBox/CGI/Ban.pm:40 src/EBox/CGI/Allow.pm:40 src/EBox/Squid.pm.in:639
+#: src/EBox/Squid.pm.in:644 src/EBox/Squid.pm.in:692 src/EBox/Squid.pm.in:697
+msgid "domain name"
+msgstr ""
+
+#: src/EBox/CGI/Ban.pm:41 src/EBox/CGI/Allow.pm:41
+msgid "action"
+msgstr ""
+
+#: src/EBox/CGI/Policy.pm:30 src/EBox/CGI/Policy.pm:54
+#: src/EBox/CGI/SetPolicy.pm:30
+msgid "HTTP proxy policy"
+msgstr ""
+
+#: src/EBox/CGI/ExtensionsUI.pm:30 src/EBox/CGI/ExtensionsUI.pm:40
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Squid.pm.in:1053
+msgid "HTTP Proxy"
 msgstr ""
 
 #: src/EBox/CGI/Enable.pm:42
 msgid "module status"
-msgstr ""
-
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Squid.pm.in:918
-msgid "HTTP Proxy"
-msgstr ""
-
-#: src/EBox/CGI/SetPolicy.pm:30 src/EBox/CGI/Policy.pm:30
-#: src/EBox/CGI/Policy.pm:54
-msgid "HTTP proxy policy"
 msgstr ""
 
 #: src/EBox/CGI/General.pm:42
@@ -42,7 +47,7 @@ msgstr ""
 msgid "transparent proxy"
 msgstr ""
 
-#: src/EBox/CGI/General.pm:48 src/EBox/Squid.pm.in:452
+#: src/EBox/CGI/General.pm:48 src/EBox/Squid.pm.in:477
 msgid "listening port"
 msgstr ""
 
@@ -50,107 +55,144 @@ msgstr ""
 msgid "global policy"
 msgstr ""
 
-#: src/EBox/CGI/Allow.pm:40 src/EBox/CGI/Ban.pm:40 src/EBox/Squid.pm.in:614
-#: src/EBox/Squid.pm.in:619 src/EBox/Squid.pm.in:667 src/EBox/Squid.pm.in:672
-msgid "domain name"
-msgstr ""
-
-#: src/EBox/CGI/Allow.pm:41 src/EBox/CGI/Ban.pm:41
-msgid "action"
+#: src/EBox/CGI/BannedDomains.pm:30 src/EBox/CGI/BannedDomains.pm:40
+#: src/EBox/Squid.pm.in:1129 src/templates/banned.mas:10
+msgid "Banned domains"
 msgstr ""
 
 #: src/EBox/CGI/AllowedDomains.pm:30 src/EBox/CGI/AllowedDomains.pm:40
-#: src/EBox/Squid.pm.in:991 src/templates/allowed.mas:10
+#: src/EBox/Squid.pm.in:1127 src/templates/allowed.mas:10
 msgid "Allowed domains"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:132
+#: src/EBox/Squid.pm.in:139
 msgid "You must set the cache_mem variable in the ebox configuration file"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:204 src/EBox/Squid.pm.in:294
+#: src/EBox/Squid.pm.in:218 src/EBox/Squid.pm.in:308
 msgid "object"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:376
+#: src/EBox/Squid.pm.in:401
 msgid "Squid listening port"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:382
+#: src/EBox/Squid.pm.in:407
 msgid "DansGuardian listening port"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:590
+#: src/EBox/Squid.pm.in:615
 #, perl-brace-format
 msgid "Policy '{policy}' is invalid"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:642 src/EBox/Squid.pm.in:695
+#: src/EBox/Squid.pm.in:667 src/EBox/Squid.pm.in:720
 msgid "domain"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:722
+#: src/EBox/Squid.pm.in:747
 msgid "Threshold"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:932
+#: src/EBox/Squid.pm.in:1067
 msgid "Proxy"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:938 src/templates/index.mas:39
+#: src/EBox/Squid.pm.in:1073 src/templates/index.mas:39
 #: src/templates/index.mas:44
 msgid "Enabled"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:940 src/templates/index.mas:37
-#: src/templates/index.mas:42
+#: src/EBox/Squid.pm.in:1075 src/templates/index.mas:37
+#: src/templates/index.mas:42 src/templates/index.mas:73
+#: src/templates/index.mas:76
 msgid "Disabled"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:942 src/templates/index.mas:30
+#: src/EBox/Squid.pm.in:1077 src/templates/index.mas:30
 msgid "Transparent proxy"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:945 src/templates/index.mas:127
+#: src/EBox/Squid.pm.in:1080 src/templates/index.mas:127
 #: src/templates/index.mas:130 src/templates/policy.mas:109
 #: src/templates/policy.mas:113
 msgid "Allow"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:947 src/templates/index.mas:134
+#: src/EBox/Squid.pm.in:1082 src/templates/index.mas:134
 #: src/templates/index.mas:137
 msgid "Deny"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:949 src/templates/index.mas:141
+#: src/EBox/Squid.pm.in:1084 src/templates/index.mas:141
 #: src/templates/index.mas:144 src/templates/policy.mas:55
 #: src/templates/policy.mas:59 src/templates/policy.mas:119
 #: src/templates/policy.mas:123
 msgid "Filter"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:952 src/templates/index.mas:120
+#: src/EBox/Squid.pm.in:1087 src/templates/index.mas:120
 msgid "Global policy"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:954
+#: src/EBox/Squid.pm.in:1089
 msgid "Listening port"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:986
+#: src/EBox/Squid.pm.in:1122 src/EBox/Squid.pm.in:1154
 msgid "HTTP proxy"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:989
+#: src/EBox/Squid.pm.in:1125
 msgid "General"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:995
+#: src/EBox/Squid.pm.in:1131
+msgid "Extensions filter"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:1133
 msgid "Policy"
 msgstr ""
 
-#: src/templates/allowed.mas:12
-msgid "Add here those domains which you want to allow access."
+#: src/EBox/Squid.pm.in:1140
+msgid "Date"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:1141
+msgid "Host"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:1142
+msgid "URL"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:1143
+msgid "Bytes"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:1144
+msgid "Mime/type"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:1145
+msgid "Event"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:1150
+msgid "Accepted"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:1151 src/templates/policy.mas:29
+msgid "Denied"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:1152 src/templates/policy.mas:26
+msgid "Filtered"
+msgstr ""
+
+#: src/templates/banned.mas:12
+msgid "Add here those domains which you do not want to allow access."
 msgstr ""
 
 #: src/templates/index.mas:15
@@ -176,10 +218,6 @@ msgstr ""
 msgid "Content filter threshold"
 msgstr ""
 
-#: src/templates/index.mas:73 src/templates/index.mas:76
-msgid "Content filter disabled"
-msgstr ""
-
 #: src/templates/index.mas:80 src/templates/index.mas:83
 msgid "Very permissive"
 msgstr ""
@@ -201,37 +239,34 @@ msgid "Very strict"
 msgstr ""
 
 #: src/templates/index.mas:155 src/templates/index.mas:156
+#: src/templates/extensions.mas:61 src/templates/extensions.mas:63
 msgid "Change"
 msgstr ""
 
-#: src/templates/banned.mas:12
-msgid "Add here those domains which you do not want to allow access."
+#: src/templates/allowed.mas:12
+msgid "Add here those domains which you want to allow access."
 msgstr ""
 
-#: src/templates/domains.mas:20
-msgid "Introduce domains in this way: "
+#: src/templates/extensions.mas:9
+msgid "Configure allowed extensions"
 msgstr ""
 
-#: src/templates/domains.mas:22
-msgid "domain.com"
+#: src/templates/extensions.mas:12
+msgid ""
+"When the filter content is enabled you can select those file extensions "
+"which are allowed to download"
 msgstr ""
 
-#: src/templates/domains.mas:28
-msgid "Domain"
+#: src/templates/extensions.mas:21
+msgid "Extension"
 msgstr ""
 
-#: src/templates/domains.mas:30
-msgid "Action"
+#: src/templates/extensions.mas:25
+msgid "State"
 msgstr ""
 
-#: src/templates/domains.mas:48 src/templates/domains.mas:50
-#: src/templates/domains.mas:52
-msgid "Add"
-msgstr ""
-
-#: src/templates/domains.mas:68 src/templates/domains.mas:70
-#: src/templates/domains.mas:72
-msgid "Delete"
+#: src/templates/extensions.mas:48
+msgid "Allow all extensions"
 msgstr ""
 
 #: src/templates/policy.mas:14
@@ -242,14 +277,6 @@ msgstr ""
 
 #: src/templates/policy.mas:23
 msgid "Allowed"
-msgstr ""
-
-#: src/templates/policy.mas:26
-msgid "Filtered"
-msgstr ""
-
-#: src/templates/policy.mas:29
-msgid "Denied"
 msgstr ""
 
 #: src/templates/policy.mas:40 src/templates/policy.mas:66
@@ -271,4 +298,30 @@ msgstr ""
 
 #: src/templates/policy.mas:111
 msgid "Move selected objects to the unfiltered column"
+msgstr ""
+
+#: src/templates/domains.mas:19
+msgid "Introduce domains in this way: "
+msgstr ""
+
+#: src/templates/domains.mas:21
+msgid "domain.com"
+msgstr ""
+
+#: src/templates/domains.mas:27
+msgid "Domain"
+msgstr ""
+
+#: src/templates/domains.mas:29
+msgid "Action"
+msgstr ""
+
+#: src/templates/domains.mas:47 src/templates/domains.mas:49
+#: src/templates/domains.mas:51
+msgid "Add"
+msgstr ""
+
+#: src/templates/domains.mas:67 src/templates/domains.mas:69
+#: src/templates/domains.mas:71
+msgid "Delete"
 msgstr ""
