@@ -6,6 +6,7 @@ use warnings;
 use Test::More tests => 25;
 use Test::Exception;
 use Test::Differences;
+use Data::Dumper; # bug in Test::Differences requires e must load this in order to get normal results
 
 use lib '../../..';
 
@@ -91,7 +92,7 @@ sub routesTest
 			      );
 
   my @actualListedRoutes = sort (EBox::NetWrappers::list_routes());
-  eq_or_diff \@actualListedRoutes, \@expectedListedRoutes, "Checking list_routes()";
+  eq_or_diff [@actualListedRoutes], [@expectedListedRoutes], "Checking list_routes()";
   
   while (my ($net, $router) = each %routes) {
     ok EBox::NetWrappers::route_is_up($net, $router), "Checking route_is_up($net, $router)"
