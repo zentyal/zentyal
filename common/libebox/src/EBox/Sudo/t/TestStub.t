@@ -10,7 +10,7 @@ use EBox::Sudo;
 use EBox::Sudo::TestStub;
 
 
-my $GOOD_SUDO_PATH = '/usr/bin/sudo';
+my $GOOD_SUDO_PATH = $EBox::Sudo::SUDO_PATH;
 
 diag "EBox::Sudo untouched";
 ok not EBox::Sudo::TestStub::isFaked();
