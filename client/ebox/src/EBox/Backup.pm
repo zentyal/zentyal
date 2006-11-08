@@ -871,7 +871,7 @@ sub restoreBackup # (file, %options)
       throw $ex;
     };
 
-    EBox::debug('Restore successful');
+    EBox::info('Restore successful');
   }
   finally {
       `rm -rf $tempdir`;
