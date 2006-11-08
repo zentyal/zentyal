@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 33;
+use Test::More tests => 32;
 use Test::Differences;
 use Test::Exception;
 use Error qw(:try);
@@ -20,8 +20,6 @@ testFileTest();
 
 sub exceptionTest
 {
-  diag "The following check assummes that the current user is not in the sudoers file";
-  throws_ok {  EBox::Sudo::root("/bin/ls /")  } 'EBox::Exceptions::Sudo::Wrapper', "Checking that Wrapper exception is raised when sudo itself failed";
 
   EBox::Sudo::TestStub::fake();
   try {

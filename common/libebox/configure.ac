@@ -1,9 +1,9 @@
-AC_INIT([libeBox], [0.7.1-rc1])
+AC_INIT([libeBox], [0.8-rc1])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox.pm])
 
-AM_INIT_AUTOMAKE([foreign 1.8])
+AM_INIT_AUTOMAKE([foreign 1.8])svp Run.pm 192.168.45.131:/tmp
 
 AM_MAINTAINER_MODE
 
@@ -108,6 +108,7 @@ src/templates/input/Makefile
 src/templates/ebox/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile
+src/EBox/interactiveTests/Makefile
 src/EBox/Exceptions/Makefile
 src/EBox/Exceptions/Sudo/Makefile
 src/EBox/CGI/Makefile
