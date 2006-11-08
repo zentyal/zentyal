@@ -808,40 +808,6 @@ sub summary
 	return $item;
 }
 
-sub rootCommands
-{
-	my $self = shift;
-	my @array = ();
-	push(@array, MAILINIT);
-	push(@array, POPINIT);
-	push(@array, IMAPINIT);
-	push(@array, AUTHDAEMONINIT);
-	push(@array, AUTHLDAPINIT);
-
-	push(@array, $self->rootCommandsForWriteConfFile(MAILMAINCONFFILE));
-	push(@array, $self->rootCommandsForWriteConfFile(MAILMASTERCONFFILE));
-	push(@array, $self->rootCommandsForWriteConfFile(POP3DCONFFILE));
-	push(@array, $self->rootCommandsForWriteConfFile(POP3DSSLCONFFILE));
-	push(@array, $self->rootCommandsForWriteConfFile(IMAPDCONFFILE));
-	push(@array, $self->rootCommandsForWriteConfFile(IMAPDSSLCONFFILE));
-	push(@array, $self->rootCommandsForWriteConfFile(AUTHDAEMONCONFFILE));
-	push(@array, $self->rootCommandsForWriteConfFile(AUTHLDAPCONFFILE));
-	push(@array, $self->rootCommandsForWriteConfFile(SASLAUTHDCONFFILE));
-	push(@array, $self->rootCommandsForWriteConfFile(SASLAUTHDDCONFFILE));
-	push(@array, $self->rootCommandsForWriteConfFile(SMTPDCONFFILE));
-
-	push(@array, "/bin/chmod 2775 /var/mail/");
-	push(@array, "/bin/chown ebox.ebox -R /var/vmail/*");
-	push(@array, "/bin/chown ebox.ebox /var/vmail/*");
-	push(@array, "/bin/mkdir -p /var/vmail*");
-	push(@array, "/usr/bin/maildirmake /var/vmail/*");
-	push(@array, "/bin/rm -rf /var/vmail/*");
-	push(@array, "/usr/bin/mailq");
-	push(@array, "/usr/sbin/postsuper");
-	push(@array, "/usr/sbin/postcat");
-
-	return @array;
-}
 
 sub statusSummary
 {
