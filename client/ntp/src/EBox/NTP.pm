@@ -390,27 +390,6 @@ sub statusSummary
 					$self->isRunning, $self->service);
 }
 
-# Method: rootCommands 
-#
-#       Overrides EBox::Module method.
-#
-sub rootCommands
-{
-	my $self = shift;
-	my @array = ();
-
-	push(@array, $self->rootCommandsForWriteConfFile(NTPCONFFILE));
-	push(@array, "/usr/sbin/ntpdate *");
-	push(@array, "/bin/date");
-	push(@array, "/bin/rm /etc/localtime");
-	push(@array, "/bin/ln -s /usr/share/zoneinfo/* /etc/localtime");
-	push(@array, "/etc/init.d/sysklogd restart");
-	push(@array, "/etc/init.d/klogd restart");
-	push(@array, "/etc/init.d/cron restart");
-
-	push(@array, "/bin/true");
-	return @array;
-}
 
 # Method: menu 
 #
