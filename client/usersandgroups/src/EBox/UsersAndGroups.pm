@@ -76,24 +76,7 @@ sub _regenConfig
 	 		     "/usersandgroups/slapd.conf.mas", \@array);
 }
 
-# Method: _rootCommands
-#
-#       Overrides base method. It regenertates the ldap service configuration
-#
-sub rootCommands 
-{
-	my $self = shift;
-	my @cmds = ();
-	my $ldapconf = $self->{ldap}->slapdConfFile;
 
-	push(@cmds, $self->rootCommandsForWriteConfFile($ldapconf));
-	push(@cmds, "/etc/init.d/slapd *");
-
-
-	push @cmds, EBox::Ldap->rootCommands();
-
-	return @cmds;
-}
 
 # Method: groupsDn 
 #
