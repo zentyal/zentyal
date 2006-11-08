@@ -57,16 +57,6 @@ sub domain
 	return 'ebox-printers';	
 }
 
-sub rootCommands
-{
-	my $self = shift;
-	my @array;
-	push(@array, $self->rootCommandsForWriteConfFile(CUPSPRINTERS));
-	push(@array, "/bin/mv " . EBox::Config::tmp . "* " . CUPSPPD ."*");
-
-	return @array;
-
-}
 
 sub firewallHelper
 {
