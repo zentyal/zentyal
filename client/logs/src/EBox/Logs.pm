@@ -67,16 +67,6 @@ sub cleanup
 	$self->SUPER::revokeConfig();
 }
 
-sub rootCommands
-{
-	my $self = shift;
-
-	my @cmd;
-	push @cmd , (EBox::Config::libexec . 'ebox-kill-pid');
-	push @cmd, (EBox::Config::libexec . 'ebox-loggerd');
-
-	return @cmd;
-}
 
 # Method: menu 
 #
