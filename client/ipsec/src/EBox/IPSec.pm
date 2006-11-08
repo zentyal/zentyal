@@ -1013,24 +1013,6 @@ sub removeRSAKey # (id)
 	command("rm -f  $dir/$file");
 }
 
-# Method: rootCommands 
-#
-#       Overrides EBox::Module method.
-#   
-#    
-sub rootCommands
-{
-	my $self = shift;
-	my @array = ();
-	push(@array, IPSEC);
-	push(@array, IPSECINIT);
-	push(@array, "/bin/mv ". EBox::Config::tmp . "* " .  
-		     EBox::Config::conf . "ipsecrsa/*");
-	push(@array, $self->rootCommandsForWriteConfFile(IPSECCONFFILE));
-	push(@array, $self->rootCommandsForWriteConfFile(IPSECSECRETS));
-	push(@array, "/bin/rm -f " . PLUTOPIDFILE);
-	return @array;
-}
 
 sub statusSummary
 {
