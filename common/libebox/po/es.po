@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-10-30 10:15+0100\n"
+"POT-Creation-Date: 2006-11-08 11:11+0100\n"
 "PO-Revision-Date: 2006-10-30 10:18+0100\n"
 "Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
 "Language-Team: \n"
@@ -21,30 +21,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
 
-#: src/EBox/Exceptions/DataNotFound.pm:30
-#, perl-brace-format
-msgid "{data} {value} does not exist."
-msgstr "{data} no existente: {value}."
-
-#: src/EBox/Exceptions/DataExists.pm:31
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} ya existente: {value}."
-
-#: src/EBox/Exceptions/InvalidData.pm:32
-#, perl-brace-format
-msgid "Invalid value for {data}: {value}."
-msgstr "{data} inválido, valor: {value}."
-
-#: src/EBox/Exceptions/DataMissing.pm:30
-#, perl-brace-format
-msgid "{data} is empty."
-msgstr "Dato vacío: {data}"
-
+#: debian/libebox/usr/share/perl5/EBox/CGI/EBox/PageNotFound.pm:12
 #: src/EBox/CGI/EBox/PageNotFound.pm:12
 msgid "Page not found"
 msgstr "La página no pudo encontrarse"
 
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:167
 #: src/EBox/CGI/Base.pm:167
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
@@ -53,15 +35,18 @@ msgstr ""
 "La entrada contiene caracteres inválidos. Todos los caracteres alfanuméricos "
 "más los caracteres /.?'&+:-@ y los espacios están permitidos."
 
-#: src/EBox/CGI/Base.pm:278
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:289
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:480
+#: src/EBox/CGI/Base.pm:289 src/EBox/CGI/Base.pm:480
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
-"information can be found in thex logs."
+"information can be found in the logs."
 msgstr ""
 "Se ha producido un error interno. Probablemente se trate de un bug, puede "
 "encontrar más información en los logs."
 
-#: src/EBox/CGI/Base.pm:287
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:299
+#: src/EBox/CGI/Base.pm:299
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -69,15 +54,8 @@ msgstr ""
 "Se ha producido un error interno relacionado con una plantilla. Se trata de "
 "un bug, puede encontrar más información en los logs."
 
-#: src/EBox/CGI/Base.pm:466
-msgid ""
-"An internal error has ocurred. This is most probably a bug, relevant "
-"information can be found in the logs."
-msgstr ""
-"Se ha producido un error interno. Probablemente se trate de un bug, puede "
-"encontrar más información en los logs."
-
-#: src/EBox/CGI/Base.pm:472
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:486
+#: src/EBox/CGI/Base.pm:486
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -85,25 +63,54 @@ msgstr ""
 "Se ha producido un error interno. Se trata de un bug, puede encontrar más "
 "información en los logs."
 
-#: src/EBox/CGI/Base.pm:478
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:492
+#: src/EBox/CGI/Base.pm:492
 msgid "You have just hit a bug in eBox. Please seek technical support."
-msgstr "Acaba de encontrar un bug en eBox. Por favor, consulte a su soporte técnico."
+msgstr ""
+"Acaba de encontrar un bug en eBox. Por favor, consulte a su soporte técnico."
 
-#: src/EBox/CGI/Base.pm:537
-msgid "Your request could not be processed because it had some incorrect parameters"
-msgstr "Su petición no pudo ser procesada debido a que contenia parametros incorrectos"
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:579
+#: src/EBox/CGI/Base.pm:579
+msgid ""
+"Your request could not be processed because it had some incorrect parameters"
+msgstr ""
+"Su petición no pudo ser procesada debido a que contenia parametros "
+"incorrectos"
 
-#: src/EBox/CGI/Base.pm:552
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:594
+#: src/EBox/CGI/Base.pm:594
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
-msgstr "Su petición no pudo ser procesada debido a que carece de algún parametro necesario"
+msgstr ""
+"Su petición no pudo ser procesada debido a que carece de algún parametro "
+"necesario"
 
-#: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
-#: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
-msgid "Interface"
-msgstr "Interfaz"
+#: debian/libebox/usr/share/perl5/EBox/Exceptions/InvalidData.pm:32
+#: src/EBox/Exceptions/InvalidData.pm:32
+#, perl-brace-format
+msgid "Invalid value for {data}: {value}."
+msgstr "{data} inválido, valor: {value}."
 
+#: debian/libebox/usr/share/perl5/EBox/Exceptions/DataExists.pm:31
+#: src/EBox/Exceptions/DataExists.pm:31
+#, perl-brace-format
+msgid "{data} {value} already exists."
+msgstr "{data} ya existente: {value}."
+
+#: debian/libebox/usr/share/perl5/EBox/Exceptions/DataNotFound.pm:30
+#: src/EBox/Exceptions/DataNotFound.pm:30
+#, perl-brace-format
+msgid "{data} {value} does not exist."
+msgstr "{data} no existente: {value}."
+
+#: debian/libebox/usr/share/perl5/EBox/Exceptions/DataMissing.pm:30
+#: src/EBox/Exceptions/DataMissing.pm:30
+#, perl-brace-format
+msgid "{data} is empty."
+msgstr "Dato vacío: {data}"
+
+#: debian/libebox/usr/share/perl5/EBox/Validate.pm:572
 #: src/EBox/Validate.pm:572
 #, perl-brace-format
 msgid ""
@@ -113,11 +120,14 @@ msgstr ""
 "No se puede leer {dir}. Es posible que el directorio no exista o que existan "
 "permisos que impiden acceder a él"
 
+#: debian/libebox/usr/share/perl5/EBox/Validate.pm:577
 #: src/EBox/Validate.pm:577
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr "El directorio {dir} no es privado; debido a que pertenece a otro usuario"
+msgstr ""
+"El directorio {dir} no es privado; debido a que pertenece a otro usuario"
 
+#: debian/libebox/usr/share/perl5/EBox/Validate.pm:652
 #: src/EBox/Validate.pm:652
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
@@ -126,49 +136,76 @@ msgstr ""
 "La ruta de archivo no es valida. (Actualmente no están soportados todos los "
 "caracteres validos para un nombre de archivo)"
 
+#: debian/libebox/usr/share/perl5/EBox/Validate.pm:680
 #: src/EBox/Validate.pm:680
 msgid "The file path must be absolute"
 msgstr "La ruta de archivo debe ser absoluta"
 
-#: src/EBox/Config.pm.in:39
-#, perl-brace-format
-msgid "Could not open the config file {file}."
-msgstr "No se pudo abrir el fichero de configuración {file}"
-
-#: src/EBox/Config.pm.in:72
-msgid "The ebox user has not been set in the config file."
-msgstr "El usuario de ebox no ha sido establecido en el fichero de configuración."
-
-#: src/EBox/Sudo.pm:71
+#: debian/libebox/usr/share/perl5/EBox/Sudo.pm:77 src/EBox/Sudo.pm:77
 #, perl-brace-format
 msgid "Command '{cmd}' failed. Output: {output}"
 msgstr "El comando '{cmd}' falló. Salida: {output}"
 
-#: src/EBox/Sudo.pm:190
+#: debian/libebox/usr/share/perl5/EBox/Sudo.pm:201 src/EBox/Sudo.pm:201
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "El comando '{cmd}', ejecutado como {user}, falló"
 
-#: src/templates/title.mas:14
-msgid "Display help notes"
-msgstr "Ver notas de ayuda"
+#: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:104
+#: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:133
+#: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:164
+#: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:266
+#: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
+#: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
+msgid "Interface"
+msgstr "Interfaz"
 
-#: src/templates/title.mas:15
-msgid "show help"
-msgstr "mostrar ayuda"
+#: debian/libebox/usr/share/perl5/EBox/Config.pm:39 src/EBox/Config.pm.in:39
+#, perl-brace-format
+msgid "Could not open the config file {file}."
+msgstr "No se pudo abrir el fichero de configuración {file}"
 
-#: src/templates/title.mas:17
-msgid "Hide help notes"
-msgstr "Ocultar notas de ayuda"
+#: debian/libebox/usr/share/perl5/EBox/Config.pm:72 src/EBox/Config.pm.in:72
+msgid "The ebox user has not been set in the config file."
+msgstr ""
+"El usuario de ebox no ha sido establecido en el fichero de configuración."
 
-#: src/templates/title.mas:18
-msgid "hide help"
-msgstr "ocultar ayuda"
+#: debian/libebox/usr/share/ebox/templates/ebox/pageNotFound.mas:14
+#: src/templates/ebox/pageNotFound.mas:14
+msgid "The page can not be found"
+msgstr "La página no pudo encontrarse"
 
+#: debian/libebox/usr/share/ebox/templates/enable.mas:13
+#: src/templates/enable.mas:13
+msgid "Service configuration"
+msgstr "Configuración del servicio"
+
+#: debian/libebox/usr/share/ebox/templates/enable.mas:17
+#: debian/libebox/usr/share/ebox/templates/enable.mas:22
+#: src/templates/enable.mas:17 src/templates/enable.mas:22
+msgid "Disabled"
+msgstr "Deshabilitado"
+
+#: debian/libebox/usr/share/ebox/templates/enable.mas:19
+#: debian/libebox/usr/share/ebox/templates/enable.mas:24
+#: src/templates/enable.mas:19 src/templates/enable.mas:24
+msgid "Enabled"
+msgstr "Habilitado"
+
+#: debian/libebox/usr/share/ebox/templates/enable.mas:29
+#: debian/libebox/usr/share/ebox/templates/enable.mas:31
+#: debian/libebox/usr/share/ebox/templates/language.mas:25
+#: src/templates/language.mas:25 src/templates/enable.mas:29
+#: src/templates/enable.mas:31
+msgid "Change"
+msgstr "Cambiar"
+
+#: debian/libebox/usr/share/ebox/templates/language.mas:10
 #: src/templates/language.mas:10
 msgid "Language selection"
 msgstr "Selección de idioma"
 
+#: debian/libebox/usr/share/ebox/templates/language.mas:12
 #: src/templates/language.mas:12
 msgid ""
 "Language changes happen automatically, saving the configuration it's not "
@@ -177,28 +214,34 @@ msgstr ""
 "Los cambios de idioma se efectúan de forma automática, no es necesario "
 "guardar la configuración"
 
-#: src/templates/language.mas:25 src/templates/enable.mas:29
-#: src/templates/enable.mas:31
-msgid "Change"
-msgstr "Cambiar"
+#: debian/libebox/usr/share/ebox/templates/title.mas:14
+#: src/templates/title.mas:14
+msgid "Display help notes"
+msgstr "Ver notas de ayuda"
 
-#: src/templates/enable.mas:13
-msgid "Service configuration"
-msgstr "Configuración del servicio"
+#: debian/libebox/usr/share/ebox/templates/title.mas:15
+#: src/templates/title.mas:15
+msgid "show help"
+msgstr "mostrar ayuda"
 
-#: src/templates/enable.mas:17 src/templates/enable.mas:22
-msgid "Disabled"
-msgstr "Deshabilitado"
+#: debian/libebox/usr/share/ebox/templates/title.mas:17
+#: src/templates/title.mas:17
+msgid "Hide help notes"
+msgstr "Ocultar notas de ayuda"
 
-#: src/templates/enable.mas:19 src/templates/enable.mas:24
-msgid "Enabled"
-msgstr "Habilitado"
+#: debian/libebox/usr/share/ebox/templates/title.mas:18
+#: src/templates/title.mas:18
+msgid "hide help"
+msgstr "ocultar ayuda"
 
+#: debian/libebox/usr/share/ebox/templates/formTable.mas:79
 #: src/templates/formTable.mas:79
 msgid "Table is empty"
 msgstr "La tabla esta vacía"
 
-#: src/templates/ebox/pageNotFound.mas:14
-msgid "The page can not be found"
-msgstr "La página no pudo encontrarse"
-
+#~ msgid ""
+#~ "An internal error has ocurred. This is most probably a bug, relevant "
+#~ "information can be found in thex logs."
+#~ msgstr ""
+#~ "Se ha producido un error interno. Probablemente se trate de un bug, puede "
+#~ "encontrar más información en los logs."

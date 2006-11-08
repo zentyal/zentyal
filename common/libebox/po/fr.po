@@ -1,49 +1,31 @@
-# translation of libebox.po to Español
+# translation of fr.po to
 # French translations for PACKAGE package.
 # Copyright (C) 2005 Warp S.L.
 # This file is distributed under the same license as the PACKAGE package.
+#
 # Automatically generated, 2005.
 # Ignacio Correas <icorreas@warp.es>, 2005.
-#
+# Javier Amor Garcia <javier.amor.garcia@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox\n"
+"Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-10-30 10:15+0100\n"
-"PO-Revision-Date: 2005-11-29 16:33+0100\n"
-"Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
-"Language-Team: Español <es@li.org>\n"
+"POT-Creation-Date: 2006-11-08 11:11+0100\n"
+"PO-Revision-Date: 2006-11-08 14:04+0100\n"
+"Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.11.2\n"
 
-#: src/EBox/Exceptions/DataNotFound.pm:30
-#, perl-brace-format
-msgid "{data} {value} does not exist."
-msgstr "{data} {value} n'existe pas."
-
-#: src/EBox/Exceptions/DataExists.pm:31
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} {value} existe déjà."
-
-#: src/EBox/Exceptions/InvalidData.pm:32
-#, perl-brace-format
-msgid "Invalid value for {data}: {value}."
-msgstr "Valeur invalide pour {data}: {value}."
-
-#: src/EBox/Exceptions/DataMissing.pm:30
-#, perl-brace-format
-msgid "{data} is empty."
-msgstr "{data} est vide."
-
+#: debian/libebox/usr/share/perl5/EBox/CGI/EBox/PageNotFound.pm:12
 #: src/EBox/CGI/EBox/PageNotFound.pm:12
-#, fuzzy
 msgid "Page not found"
 msgstr "La page n'a pas pu être trouvée"
 
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:167
 #: src/EBox/CGI/Base.pm:167
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
@@ -53,16 +35,18 @@ msgstr ""
 "alphanumériques, plus ceux ci non alphanumériques sont permis: /.?&+:-@ et "
 "espaces."
 
-#: src/EBox/CGI/Base.pm:278
-#, fuzzy
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:289
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:480
+#: src/EBox/CGI/Base.pm:289 src/EBox/CGI/Base.pm:480
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
-"information can be found in thex logs."
+"information can be found in the logs."
 msgstr ""
 "Une erreur interne s'est produite. C'est probablement un bogue, "
 "l'information pertinente peut être trouvé dans les logs."
 
-#: src/EBox/CGI/Base.pm:287
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:299
+#: src/EBox/CGI/Base.pm:299
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -70,45 +54,60 @@ msgstr ""
 "Une erreur interne liée à une matrice s'est produite. C'est un bogue, "
 "l'information pertinente peut être trouvé dans les logs."
 
-#: src/EBox/CGI/Base.pm:466
-msgid ""
-"An internal error has ocurred. This is most probably a bug, relevant "
-"information can be found in the logs."
-msgstr ""
-"Une erreur interne s'est produite. C'est probablement un bogue, "
-"l'information pertinente peut être trouvé dans les logs."
-
-#: src/EBox/CGI/Base.pm:472
-#, fuzzy
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:486
+#: src/EBox/CGI/Base.pm:486
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
 msgstr ""
-"Une erreur interne inconnue s'est produite. C'est un bogue, l'information "
+"Une erreur interne innatendue s'est produite. C'est un bogue, l'information "
 "pertinente peut être trouvé dans les logs."
 
-#: src/EBox/CGI/Base.pm:478
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:492
+#: src/EBox/CGI/Base.pm:492
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
 "Vous avez trouvé un bogue dans l'eBox. Veuillez contacter votre service de "
 "soutien technique."
 
-#: src/EBox/CGI/Base.pm:537
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:579
+#: src/EBox/CGI/Base.pm:579
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:552
+#: debian/libebox/usr/share/perl5/EBox/CGI/Base.pm:594
+#: src/EBox/CGI/Base.pm:594
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
 
-#: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
-#: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
-msgid "Interface"
-msgstr "Interface"
+#: debian/libebox/usr/share/perl5/EBox/Exceptions/InvalidData.pm:32
+#: src/EBox/Exceptions/InvalidData.pm:32
+#, perl-brace-format
+msgid "Invalid value for {data}: {value}."
+msgstr "Valeur invalide pour {data}: {value}."
 
+#: debian/libebox/usr/share/perl5/EBox/Exceptions/DataExists.pm:31
+#: src/EBox/Exceptions/DataExists.pm:31
+#, perl-brace-format
+msgid "{data} {value} already exists."
+msgstr "{data} {value} existe déjà."
+
+#: debian/libebox/usr/share/perl5/EBox/Exceptions/DataNotFound.pm:30
+#: src/EBox/Exceptions/DataNotFound.pm:30
+#, perl-brace-format
+msgid "{data} {value} does not exist."
+msgstr "{data} {value} n'existe pas."
+
+#: debian/libebox/usr/share/perl5/EBox/Exceptions/DataMissing.pm:30
+#: src/EBox/Exceptions/DataMissing.pm:30
+#, perl-brace-format
+msgid "{data} is empty."
+msgstr "{data} est vide."
+
+#: debian/libebox/usr/share/perl5/EBox/Validate.pm:572
 #: src/EBox/Validate.pm:572
 #, perl-brace-format
 msgid ""
@@ -116,61 +115,88 @@ msgid ""
 "the permissions forbid access to it"
 msgstr ""
 
+#: debian/libebox/usr/share/perl5/EBox/Validate.pm:577
 #: src/EBox/Validate.pm:577
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 
+#: debian/libebox/usr/share/perl5/EBox/Validate.pm:652
 #: src/EBox/Validate.pm:652
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
 msgstr ""
 
+#: debian/libebox/usr/share/perl5/EBox/Validate.pm:680
 #: src/EBox/Validate.pm:680
 msgid "The file path must be absolute"
-msgstr ""
+msgstr "Le chemin du fichier doit être absolute"
 
-#: src/EBox/Config.pm.in:39
-#, fuzzy, perl-brace-format
-msgid "Could not open the config file {file}."
-msgstr "On n'a pas pu ouvrir le fichier de config."
-
-#: src/EBox/Config.pm.in:72
-msgid "The ebox user has not been set in the config file."
-msgstr "L'usager d'ebox n'a pas été placé dans le fichier de config."
-
-#: src/EBox/Sudo.pm:71
-#, fuzzy, perl-brace-format
+#: debian/libebox/usr/share/perl5/EBox/Sudo.pm:77 src/EBox/Sudo.pm:77
+#, perl-brace-format
 msgid "Command '{cmd}' failed. Output: {output}"
-msgstr "Commande '{cmd}' échoué"
+msgstr "Commande '{cmd}' échoué. Sortie: {output}"
 
-#: src/EBox/Sudo.pm:190
+#: debian/libebox/usr/share/perl5/EBox/Sudo.pm:201 src/EBox/Sudo.pm:201
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "Executant commande '{cmd}' comme {user} échoué"
 
-#: src/templates/title.mas:14
-msgid "Display help notes"
-msgstr "Montrer notes d'aide"
+#: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:104
+#: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:133
+#: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:164
+#: debian/libebox/usr/share/perl5/EBox/NetWrappers.pm:266
+#: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
+#: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
+msgid "Interface"
+msgstr "Interface"
 
-#: src/templates/title.mas:15
-msgid "show help"
-msgstr ""
+#: debian/libebox/usr/share/perl5/EBox/Config.pm:39 src/EBox/Config.pm.in:39
+#, perl-brace-format
+msgid "Could not open the config file {file}."
+msgstr "On n'a pas pu ouvrir le fichier de configuration {file}."
 
-#: src/templates/title.mas:17
-#, fuzzy
-msgid "Hide help notes"
-msgstr "Montrer notes d'aide"
+#: debian/libebox/usr/share/perl5/EBox/Config.pm:72 src/EBox/Config.pm.in:72
+msgid "The ebox user has not been set in the config file."
+msgstr "L'usager d'ebox n'a pas été placé dans le fichier de config."
 
-#: src/templates/title.mas:18
-msgid "hide help"
-msgstr ""
+#: debian/libebox/usr/share/ebox/templates/ebox/pageNotFound.mas:14
+#: src/templates/ebox/pageNotFound.mas:14
+msgid "The page can not be found"
+msgstr "La page n'a pas pu être trouvée"
 
+#: debian/libebox/usr/share/ebox/templates/enable.mas:13
+#: src/templates/enable.mas:13
+msgid "Service configuration"
+msgstr "Configuration du service"
+
+#: debian/libebox/usr/share/ebox/templates/enable.mas:17
+#: debian/libebox/usr/share/ebox/templates/enable.mas:22
+#: src/templates/enable.mas:17 src/templates/enable.mas:22
+msgid "Disabled"
+msgstr "Désactivé"
+
+#: debian/libebox/usr/share/ebox/templates/enable.mas:19
+#: debian/libebox/usr/share/ebox/templates/enable.mas:24
+#: src/templates/enable.mas:19 src/templates/enable.mas:24
+msgid "Enabled"
+msgstr "Activé"
+
+#: debian/libebox/usr/share/ebox/templates/enable.mas:29
+#: debian/libebox/usr/share/ebox/templates/enable.mas:31
+#: debian/libebox/usr/share/ebox/templates/language.mas:25
+#: src/templates/language.mas:25 src/templates/enable.mas:29
+#: src/templates/enable.mas:31
+msgid "Change"
+msgstr "Changer"
+
+#: debian/libebox/usr/share/ebox/templates/language.mas:10
 #: src/templates/language.mas:10
 msgid "Language selection"
 msgstr "Selection de langue"
 
+#: debian/libebox/usr/share/ebox/templates/language.mas:12
 #: src/templates/language.mas:12
 msgid ""
 "Language changes happen automatically, saving the configuration it's not "
@@ -179,32 +205,27 @@ msgstr ""
 "Les changements de langue se produisent automatiquement, il n'est pas "
 "nécessaire de garder la configuration."
 
-#: src/templates/language.mas:25 src/templates/enable.mas:29
-#: src/templates/enable.mas:31
-msgid "Change"
-msgstr "Changer"
+#: debian/libebox/usr/share/ebox/templates/title.mas:14
+#: src/templates/title.mas:14
+msgid "Display help notes"
+msgstr "Montrer notes d'aide"
 
-#: src/templates/enable.mas:13
-msgid "Service configuration"
-msgstr ""
+#: debian/libebox/usr/share/ebox/templates/title.mas:15
+#: src/templates/title.mas:15
+msgid "show help"
+msgstr "montrez l'aide"
 
-#: src/templates/enable.mas:17 src/templates/enable.mas:22
-msgid "Disabled"
-msgstr "Désactivé"
+#: debian/libebox/usr/share/ebox/templates/title.mas:17
+#: src/templates/title.mas:17
+msgid "Hide help notes"
+msgstr "Cachez notes d'aide"
 
-#: src/templates/enable.mas:19 src/templates/enable.mas:24
-msgid "Enabled"
-msgstr "Activé"
+#: debian/libebox/usr/share/ebox/templates/title.mas:18
+#: src/templates/title.mas:18
+msgid "hide help"
+msgstr "Cachez l'aide"
 
+#: debian/libebox/usr/share/ebox/templates/formTable.mas:79
 #: src/templates/formTable.mas:79
-#, fuzzy
 msgid "Table is empty"
-msgstr "{data} est vide."
-
-#: src/templates/ebox/pageNotFound.mas:14
-#, fuzzy
-msgid "The page can not be found"
-msgstr "La page n'a pas pu être trouvée"
-
-#~ msgid "Root command '{cmd}' failed"
-#~ msgstr "Commande de root '{cmd}' échoué"
+msgstr "Table est vide."
