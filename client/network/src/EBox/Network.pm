@@ -2124,28 +2124,5 @@ sub menu
 	$root->add($folder);
 }
 
-# Method: menu 
-#
-#       Overrides EBox::Module method.
-#   
-#
-sub rootCommands
-{
-	my $self = shift;
-	my @array = ();
-	push(@array, "/sbin/ifdown");
-	push(@array, "/sbin/ifup");
-	push(@array, "/sbin/ip");
-	push(@array, "/sbin/vconfig");
-	push(@array, "/sbin/modprobe 8021q");
-	push(@array, "/sbin/mii-tool");
-	push(@array, "/bin/ip");
-	push(@array, "/bin/mv " . EBox::Config::tmp . 
-		"resolv.conf /etc/resolv.conf");
-	push(@array, "/bin/cp /etc/network/interfaces " . EBox::Config::tmp .
-		"interfaces");
-	push(@array, "/bin/chown * " . EBox::Config::tmp .  "interfaces");
-	return @array;
-}
 
 1;
