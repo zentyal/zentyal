@@ -42,12 +42,5 @@ sub summary
 	return $item;
 }
 
-sub rootCommands
-{
-	my ($self) = @_;
-	my @commands = ();
-	push(@commands, "/bin/true");
-	return @commands;
-}
 
 1;
