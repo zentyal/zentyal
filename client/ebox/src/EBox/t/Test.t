@@ -82,7 +82,7 @@ sub checkModuleInstantiationTest
   test_out("not ok 1 - Can not create a instance of the EBox's module unknown");
   test_fail(+1);
   checkModuleInstantiation('unknown', 'EBox::Unknown');
-  test_test('checkModuleInstantiation for a unknown module');
+  test_test(title => 'checkModuleInstantiation for a unknown module', skip_err => 1);
 
   # module that loads but  EBox::Global is not aware of it
   test_out("not ok 1 - The instance returned of badCreate is not of type EBox::BadCreate instead is a EBox::Macaco");

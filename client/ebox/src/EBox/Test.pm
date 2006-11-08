@@ -61,7 +61,6 @@ sub checkModuleInstantiation
     eval  "use  $modulePackage";
     if ($@) {
 	$Test->ok(0, "$modulePackage failed to load");
-	$Test->diag("Error: $@");
 	return;
     }
  
