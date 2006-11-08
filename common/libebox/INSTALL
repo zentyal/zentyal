@@ -18,11 +18,11 @@ DEPENDENCIES
 	+ gettext
         + libfile-slurp-perl
 
-+ modules from cpan
++ modules from CPAN
 
 	+ Perl6::Junction
         + Readonly
-        + Readonly::Xs (recommended)
+        + Readonly::XS (recommended)
 
 INSTALATION
 -----------

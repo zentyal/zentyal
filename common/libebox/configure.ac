@@ -1,4 +1,4 @@
-AC_INIT([libeBox], [0.8-rc1])
+AC_INIT([libeBox], [0.7.99])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox.pm])
@@ -8,7 +8,7 @@ AM_INIT_AUTOMAKE([foreign 1.8])svp Run.pm 192.168.45.131:/tmp
 AM_MAINTAINER_MODE
 
 AC_DEFINE_DIR(DATADIR, datadir)
-AC_DEFINE_DIR(SYSCONFDIR, sysconfdir)
+AC_DEFINE_DIR(SYSCONFDIR, sysconfdir)debian/
 AC_DEFINE_DIR(LOCALSTATEDIR, localstatedir)
 AC_DEFINE_DIR(LIBDIR, libdir)
 

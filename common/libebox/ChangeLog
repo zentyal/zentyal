@@ -1,4 +1,4 @@
-0.8
+0.7.99
 	+ Add test stubs for ease testing
 	+ Add setters for EBox::CGI::Base
 	+ Add default _process with parameters validation behaviour to EBox::CGI::Base
