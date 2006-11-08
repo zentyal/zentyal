@@ -1091,23 +1091,6 @@ sub summary
 	return $item;
 }
 
-# Method: rootCommands 
-#
-#       Overrides EBox::Module method.
-#   
-#     
-sub rootCommands 
-{
-	my $self = shift;
-	my @array = ();
-	push(@array, $self->rootCommandsForWriteConfFile(SQUIDCONFFILE));
-	push(@array, $self->rootCommandsForWriteConfFile(DGDIR . "/dansguardian.conf"));
-	push(@array, $self->rootCommandsForWriteConfFile(DGDIR . "/dansguardianf1.conf"));
-	push(@array, $self->rootCommandsForWriteConfFile(DGDIR . "/bannedsitelist"));
-	push(@array, $self->rootCommandsForWriteConfFile(DGDIR . "/exceptionsitelist"));
-	push(@array, $self->rootCommandsForWriteConfFile(DGDIR . "/bannedextensionlist"));
-	return @array;
-}
 
 
 # Method: menu 
