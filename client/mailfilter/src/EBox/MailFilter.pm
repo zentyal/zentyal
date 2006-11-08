@@ -743,25 +743,6 @@ sub menu
 	$root->add($folder);
 }
 
-#
-# Method: rootCommands
-#
-#	Creates an array with the full path of commands with their parameters
-#	that the module need to run with superuser privileges.
-#
-# Returns:
-#
-#	array with the commands.
-#
-sub rootCommands
-{
-	my $self = shift;
-	my @array = ();
-	push(@array, AMAVISINIT);
-	push(@array, SAINIT);
-	push(@array, CLAMAVINIT);
-	return @array;
-}
 
 # Method: _vdomainModImplementation
 #
