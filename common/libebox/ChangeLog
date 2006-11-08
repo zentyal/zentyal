@@ -1,3 +1,12 @@
+0.8
+	+ Add test stubs for ease testing
+	+ Add setters for EBox::CGI::Base
+	+ Add default _process with parameters validation behaviour to EBox::CGI::Base
+	+ New sudo handling with custom exceptions
+	+ Mason templates for common controls and form tables
+	+ Some API extensions and bug-fixing
+	+ Refactored and increased test coverture
+
 0.7.1
 	+ GUI improvements
 	+ Change "save changes" button color when changes are
