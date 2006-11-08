@@ -1087,7 +1087,7 @@ sub summary
 	return $item;
 }
 
-# Method: rootCommands 
+# Method: menu
 #
 #       Overrides EBox::Module method.
 #   
