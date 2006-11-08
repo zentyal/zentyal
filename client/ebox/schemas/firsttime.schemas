@@ -7,7 +7,9 @@
 			<applyto>/ebox/firsttime/todo</applyto>
 			<owner>ebox</owner>
 			<type>bool</type>
-			<default>true</default>
+<!--   see #204 -->
+<!-- 			<default>true</default> -->
+                        <default>false</default>
 			<locale name="C">
 				<short>There are first time actions left?</short>
                         </locale>
