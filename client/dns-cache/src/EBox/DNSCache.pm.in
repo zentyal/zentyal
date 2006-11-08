@@ -144,21 +144,6 @@ sub statusSummary
 		EBox::Service::running('bind9'), $self->service);
 }
 
-# Method: rootCommands
-#
-#       Overrides EBox::Module method.
-#
-sub rootCommands
-{
-	my $self = shift;
-	my @array = ();
- 
-	push(@array, $self->rootCommandsForWriteConfFile(BIND9CONFFILE));
-	push(@array, $self->rootCommandsForWriteConfFile(BIND9CONFOPTIONSFILE));
-	push(@array, $self->rootCommandsForWriteConfFile(BIND9CONFLOCALFILE));
-	
-	return @array;
-}
 
 # Method: menu 
 #
