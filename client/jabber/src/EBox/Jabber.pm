@@ -298,17 +298,6 @@ sub statusSummary
 		EBox::Service::running('jabber-c2s'), $self->service);
 }
 
-# Method: rootCommands
-#
-#       Overrides EBox::Module method.
-sub rootCommands
-{
-	my $self = shift;
-	my @array = ();
-	push(@array, $self->rootCommandsForWriteConfFile(JABBERC2SCONFFILE));
-	push(@array, $self->rootCommandsForWriteConfFile(JABBERSMCONFFILE));
-	return @array;
-}
 
 # Method: menu
 #
