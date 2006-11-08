@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::OpenVPN;
-use base qw(EBox::GConfModule EBox::FirewallObserver);
+use base qw(EBox::GConfModule EBox::FirewallObserver EBox::DHCP::StaticRouteProvider);
 
 use strict;
 use warnings;
@@ -305,14 +305,13 @@ sub _stopDaemon
 
 sub rootCommandForStartDaemon
 {
-    my ($self, $target, $name) = @_;
+    my ($self, $file, $name) = @_;
 
     my $bin     = $self->openvpnBin();
     my $confDir = $self->confDir();
-    my $file = ($target eq 'rootCommands') ? '*' : $target;
 
     my $confOption = "--config $confDir/$file";
-    my $daemonOption = ($target eq 'rootCommands') ? '*' : " --daemon $name";
+    my $daemonOption =  " --daemon $name";
 
     return "$bin $daemonOption $confOption";
 }
@@ -331,17 +330,18 @@ sub _stopService
 }
 
 
-sub rootCommands
+
+
+
+
+sub staticRoutes
 {
-	my ($self) = @_;
-	my @commands = ();
-	push @commands, $self->rootCommandsForWriteConfFile($self->confDir . '/*');
-	push @commands, $self->rootCommandForStartDaemon('rootCommands');
-	push @commands, $self->rootCommandForStopDaemon();
+  my ($self) = @_;
+  my @servers =  grep { $_->service } $self->servers();
+  my @staticRoutes = map { $_->staticRoutes()  } @servers;
 
-	return @commands;
+  return @staticRoutes;
 }
-
 
 # Method: menu 
 #
