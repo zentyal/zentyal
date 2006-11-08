@@ -538,18 +538,5 @@ sub _pauseAndExecute
 }
 
 
-sub  rootCommands
-{
-  my ($self) = @_;
-  my @cmds = (
-	      INIT_SCRIPT,
-	      '/bin/chown * *',
-	      $self->_slapaddCmd('*', '*'),
-	      $self->_slapcatCmd('*', '*'),
-	      $self->_rmLdapDirCmd('*'),
-	     );
-
-  return @cmds;
-} 
 
 1;
