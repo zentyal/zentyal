@@ -16,10 +16,13 @@ DEPENDENCIES
 	+ libdevel-stacktrace-perl
 	+ libhtml-mason-perl
 	+ gettext
+        + libfile-slurp-perl
 
 + modules from cpan
 
-	none currently
+	+ Perl6::Junction
+        + Readonly
+        + Readonly::Xs (recommended)
 
 INSTALATION
 -----------

@@ -1,9 +1,9 @@
 package EBox::TestStub;
-# Description:
+# Description: Test stub for EBox package. It change the log process to use stdout instead a file only writable by ebox
 # 
 use strict;
 use warnings;
-#use Smart::Comments; # turn on for debug purposes
+
 use Test::MockModule;
 use Log::Log4perl qw(:easy);
 

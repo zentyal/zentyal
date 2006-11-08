@@ -70,6 +70,9 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	AC_PROG_PERL_MODULES(Test::MockModule, ,
 	  AC_MSG_WARN(Missing test dependency Test::MockModule))
 
+	AC_PROG_PERL_MODULES(Test::MockObject, ,
+	  AC_MSG_WARN(Missing test dependency Test::MockObject))
+
 	AC_PROG_PERL_MODULES(Test::Builder, ,
 	  AC_MSG_WARN(Missing test dependency Test::Builder))
 
