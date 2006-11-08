@@ -311,21 +311,6 @@ sub setAutomaticUpdates # (auto)
 	$self->set_bool('automatic', $auto);
 }
 
-#   Function: rootCommands
-#
-#       Overrides EBox::Module method.
-#   
-# 
-sub rootCommands
-{
-	my $self = shift;
-	my @array = ();
-
-	push(@array, '/usr/bin/apt-get');
-	push(@array, '/usr/bin/dpkg');
-   
-	return @array;
-}
 
 #   Function: menu 
 #
