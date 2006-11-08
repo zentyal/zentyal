@@ -576,22 +576,21 @@ sub pidFileRunning
 #	a file. It becomes handy to set configuration files for services. 
 #	Also, its file 	permissions will be kept.
 #       It can be called as class method. (XXX: this design or is a implementation accident?)
-#      XXX : the correct behaviour will be to throw exceptions if file will not be stated and no defualts provided. Instead will provide hardcored defaults because we need to be backwards-compatible
+#      XXX : the correct behaviour will be to throw exceptions if file will not be stated and no defaults are provided. It will provide hardcored defaults instead because we need to be backwards-compatible
 #
 #
 # Parameters:
 #	
-#	file - file name which will be overwritten with the output of 
-#	the execution
+#	file - file name which will be overwritten with the execution output
 #	component - mason component
 #	params - parameters for the mason component. Optional. Defaults to no parameters
-#       defaults - a reference to hash with keys mode, uid and gid. Those values will be used when creating a new file. (if the file already exists the existent values of this parameters will be left untouched)
+#       defaults - a reference to hash with keys mode, uid and gid. Those values will be used when creating a new file. (If the file already exists the existent values of these parameters will be left untouched)
 #
 # Returns:
 #
-#	boolean - True if it's running , otherise false
+#	boolean - True if it's running , false otherwise
 #
-sub writeConfFile # (file, comp, params, defaults)
+sub writeConfFile # (file, component, params, defaults)
 {
 	my ($self, $file, $compname, $params, $defaults) = @_;
 	validate_pos(@_, 1, { type =>  SCALAR }, { type => SCALAR }, { type => ARRAYREF, default => [] }, { type => HASHREF, optional => 1 });
