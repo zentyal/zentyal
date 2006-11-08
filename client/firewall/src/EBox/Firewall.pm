@@ -1647,19 +1647,6 @@ sub ObjectNames
 	return $self->all_dirs_base("objects");
 }
 
-# Method: rootCommands
-#
-#       Overrides EBox::Module method.
-#   
-#
-sub rootCommands
-{
-	my $self = shift;
-	my @array = ();
-	push(@array, '/sbin/iptables');
-	push(@array, '/sbin/sysctl -q -w net.ipv4.ip_forward*');
-	return @array;
-}
 
 # Method: menu 
 #
