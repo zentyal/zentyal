@@ -84,6 +84,8 @@ sub _infoFromDvdMediaInfo
 {
   my ($dev) = @_;
 
+  EBox::Backup::RootCommands::checkExecutable($EBox::Backup::RootCommands::DVDMEDIAINFO_PATH, 'dvd+rw tools');
+
   my @output;
   try {
     @output =  @{ EBox::Sudo::root("$EBox::Backup::RootCommands::DVDMEDIAINFO_PATH $dev")};
@@ -136,6 +138,8 @@ sub _infoFromDvdMediaInfo
 sub _infoFromCdrdao
 {
   my ($dev) = @_;
+
+  EBox::Backup::RootCommands::checkExecutable($EBox::Backup::RootCommands::CDRDAO_PATH, 'cdrdao');
 
   my $diskInfoCmd = "$EBox::Backup::RootCommands::CDRDAO_PATH disk-info --device $dev";
   my @output;

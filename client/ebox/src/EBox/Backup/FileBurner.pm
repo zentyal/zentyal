@@ -217,6 +217,8 @@ sub _setupBurningTarget
   my ($file, $media) = @_;
 
   if ( _mediaUsesCdrecord($media) ) {
+    EBox::Backup::RootCommands::checkExecutable($EBox::Backup::RootCommands::MKISOFS_PATH, 'mkisofs');
+
     my $isoFile = EBox::Config::tmp() . 'backup.iso';
     my $mkisofsCommand = "$EBox::Backup::RootCommands::MKISOFS_PATH -V ebox-backup  -R -J  -o $isoFile $file";
     EBox::Sudo::command($mkisofsCommand);
@@ -242,7 +244,7 @@ sub _deviceForCdrecord
 #   my @output = EBox::Sudo::root("$CDRECORD_PATH -scanbus");
 #     return $device if grep { !($_ =~ /\d) \*/ } @output;
 
-
+  EBox::Backup::RootCommands::checkExecutable($EBox::Backup::RootCommands::CDRECORD_PATH, 'cdrecord');
   my  @output = EBox::Sudo::root("$EBox::Backup::RootCommands::CDRECORD_PATH dev=ATA: -scanbus");
   my $ideDevicesFound = grep { !($_ =~ /\d\) \*/) } @output;
   if (0 == $ideDevicesFound) {
@@ -268,9 +270,13 @@ sub blankMedia
 
   my $command;
   if ($media eq  'CD-RW') {
+    EBox::Backup::RootCommands::checkExecutable($EBox::Backup::RootCommands::CDRECORD_PATH, 'cdrecord');
+
     $command = "$EBox::Backup::RootCommands::CDRECORD_PATH dev=$device --gracetime=2  -tao  blank=fast";
   }
   elsif ($media eq 'DVD-RW') {
+    EBox::Backup::RootCommands::checkExecutable($EBox::Backup::RootCommands::DVDRWFORMAT_PATH, 'dvd+rw tools');
+
     $command = "$EBox::Backup::RootCommands::DVDRWFORMAT_PATH -blank $device";
   }
 
@@ -303,9 +309,13 @@ sub burnMedia
 
   my $command;
   if ( _mediaUsesCdrecord($media) ) {
+    EBox::Backup::RootCommands::checkExecutable($EBox::Backup::RootCommands::CDRECORD_PATH, 'cdrecord');
+
     $command = "$EBox::Backup::RootCommands::CDRECORD_PATH dev=$device --gracetime=2 -tao $target";
   }
   elsif ( _mediaUsesGrowisofs($media) ) {
+    EBox::Backup::RootCommands::checkExecutable($EBox::Backup::RootCommands::GROWISOFS_PATH, 'growisofs');
+
      $command = "$EBox::Backup::RootCommands::GROWISOFS_PATH -Z $device -R -J -V ebox-backup $target";
   }
   else {
