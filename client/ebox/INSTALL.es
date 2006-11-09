@@ -23,6 +23,20 @@ DEPENDENCIAS
 + componentes de eBox:
 	libebox
 
+RECOMENDADO
+----------
+
++ Paquetes Debian:
+
+# apt-get install <package>
+	+ eject
+        + cdrdao
+	+ mkisofs
+	+ cdrecord
+	+ dvd+rw-tools
+
+
+
 INSTALACION
 -----------
 

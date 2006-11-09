@@ -134,7 +134,6 @@ sub _deprecated
   
   my $msg = "$subName is deprecated. Use $newSubModule::$newSubName instead";
   warn $msg;
-  EBox::warn($msg);
  
 
   my $sub_r = $newSubModule->can( $newSubName);

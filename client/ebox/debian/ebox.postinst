@@ -18,6 +18,13 @@ case "$1" in
 			adduser --system --home /var/lib/ebox/ --no-create-home \
 				--disabled-password --ingroup ebox ebox
 
+		# add the stderr file needed by sudo
+		STDERR_FILE=`perl -MEBox::Config -e'print EBox::Config::tmp() . 'stderr'; 1'`;
+		touch ${STDERR_FILE}
+		chmod 0600 ${STDERR_FILE}
+		chown ebox.ebox ${STDERR_FILE}
+
+
 		#change the /var/lib/ebox/ user
 		chown -R ebox.ebox /var/lib/ebox
 

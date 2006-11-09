@@ -1,4 +1,4 @@
-AC_INIT([EBox], [0.7.1])
+AC_INIT([EBox], [0.7.99])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Module.pm])
@@ -65,20 +65,11 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	AC_PROG_PERL_MODULES(Test::Deep, ,
 	  AC_MSG_WARN(Missing test dependency Test::Deep))
 
-	AC_PROG_PERL_MODULES(Test::File, ,
-	  AC_MSG_WARN(Missing test dependency Test::File))
-
-	AC_PROG_PERL_MODULES(Test::MockObject, ,
-	  AC_MSG_WARN(Missing test dependency Test::MockObject))
 
 	AC_PROG_PERL_MODULES(Test::MockTime, ,
 	  AC_MSG_WARN(Missing test dependency Test::MockTime))
 
-	AC_PROG_PERL_MODULES(File::Slurp, ,
-	  AC_MSG_WARN(Missing test dependency File::Slurp))
-	  
-	AC_PROG_PERL_MODULES(List::Util, ,
-	  AC_MSG_WARN(Missing test dependency List::Util))
+
 else
 	GCONF_SCHEMAS_INSTALL_FALSE=
 	GCONF_SCHEMAS_INSTALL_TRUE='#'

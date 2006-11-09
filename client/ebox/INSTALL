@@ -23,6 +23,21 @@ DEPENDENCIES
 + eBox components:
 	libebox
 
+
+RECOMMENDED 
+-----------
+
++ Debian packages:
+
+# apt-get install <package>
+	+ eject
+        + cdrdao
+	+ mkisofs
+	+ cdrecord
+	+ dvd+rw-tools
+
+
+
 INSTALLATION
 -----------
 
