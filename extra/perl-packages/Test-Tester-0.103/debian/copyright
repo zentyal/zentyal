@@ -1,0 +1,18 @@
+This is the debian package for the Test-Tester module.
+It was created by javier <javier@localhost.localdomain> using dh-make-perl.
+
+This copyright info was automatically extracted from the perl module.
+It may not be accurate, so you better check the module sources
+if don't want to get into legal troubles.
+
+The upstream author is: 
+
+This module is copyright 2005 Fergal Daly <fergal@esatclear.ie>, some parts
+are based on other people's work.
+
+Plan handling lifted from Test::More. written by Michael G Schwern
+<schwern@pobox.com>.
+
+Test::Tester::Capture is a cut down and hacked up version of Test::Builder.
+Test::Builder was written by chromatic <chromatic@wgz.org> and Michael G
+Schwern <schwern@pobox.com>..

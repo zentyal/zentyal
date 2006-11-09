@@ -1,0 +1,31 @@
+Source: libtest-deep-perl
+Section: perl
+Priority: optional
+Build-Depends: debhelper (>= 4.0.2)
+Build-Depends-Indep: perl (>= 5.8.0-7)
+Maintainer: Javier Amor Garcia <javier.amor.garcia@warp.es>
+Standards-Version: 3.6.1
+
+Package: libtest-deep-perl
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends}, libtest-tester-perl, libtest-nowarnings-perl
+Description:  Extremely flexible deep comparison
+ If you don't know anything about automated testing in Perl then you should
+ probably read about Test::Simple and Test::More before preceding.
+ Test::Deep uses the Test::Builder framework.
+ .
+ Test::Deep gives you very flexible ways to check that the result you got is
+ the result you were expecting. At it's simplest it compares two structures
+ by going through each level, ensuring that the values match, that arrays and
+ hashes have the same elements and that references are blessed into the
+ correct class. It also handles circular data structures without getting
+ caught in an infinite loop.
+ .
+ Where it becomes more interesting is in allowing you to do something besides
+ simple exact comparisons. With strings, the eq operator checks that 2
+ strings are exactly equal but sometimes that's not what you want. When you
+ don't know exactly what the string should be but you do know some things
+ about how it should look, eq is no good and you must use pattern matching
+ instead. Test::Deep provides pattern matching for complex data structures
+ .
+ This description was automagically extracted from the module by dh-make-perl.
