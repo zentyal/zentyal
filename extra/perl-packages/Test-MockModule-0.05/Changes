@@ -1,0 +1,20 @@
+Revision history for Test::MockModule
+$Id: Changes,v 1.5 2005/03/24 22:23:38 simonflack Exp $
+
+v0.05 2004-03-24
+    - unmock() accepts a list of subroutines to unmock. Thanks to David Wheeler
+      for the suggestion and patch
+    - Added t/pod_coverage.t
+
+v0.04  2004-12-12
+    - You can now mock a subroutine with a scalar value or a reference
+      (install sub that returns the value). Thanks to Ovid for the suggestion.
+
+v0.03  2004-12-05
+    - Restores subs/methods that previously didn't exist (undefine them)
+
+v0.02  2004-11-28
+    - Fixed restoring inherited methods
+
+v0.01  2004-11-28
+    - Initial revision

@@ -1,0 +1,17 @@
+Test::MockModule - mock subroutines in a module
+
+See the LICENSE section in lib/Test/MockObject.pm for usage and distribution
+rights
+
+QUICK START:
+
+commands in the source directory:
+
+    perl Makefile.PL
+    make
+    make test
+    make install
+    Then delete the source directory tree since it's no longer needed.
+
+    run 'perldoc Test::MockModule' to read the full documentation.
+

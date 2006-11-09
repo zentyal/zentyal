@@ -1,0 +1,21 @@
+Source: libtest-mockmodule-perl
+Section: perl
+Priority: optional
+Build-Depends: debhelper (>= 4.0.2)
+Build-Depends-Indep: perl (>= 5.8.0-7)
+Maintainer: Javier Amor Garcia <javier.amor.garcia@warp.es>
+Standards-Version: 3.6.1
+
+Package: libtest-mockmodule-perl
+Architecture: all
+Depends: ${perl:Depends}, ${misc:Depends}, 
+Description:  Override subroutines in a module for unit testing
+ Test::MockModule lets you temporarily redefine subroutines in other packages
+ for the purposes of unit testing.
+ .
+ A Test::MockModule object is set up to mock subroutines for a given
+ module. The object remembers the original subroutine so it can be easily
+ restored. This happens automatically when all MockModule objects for the given
+ module go out of scope, or when you unmock() the subroutine.
+ .
+ This description was automagically extracted from the module by dh-make-perl.
