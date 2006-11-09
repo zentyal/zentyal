@@ -22,7 +22,7 @@ lives_ok {EBox::Backup::OpticalDiscDrives::ejectDisc($dev) } 'Trying to eject me
 diag "We try now to eject a mounted disc";
 mediaPrompt();
 system "mount $dev";
-$? == 0 or die "Can not mount $dev";
+$? == 0 or die "Cannot mount $dev";
 lives_ok {EBox::Backup::OpticalDiscDrives::ejectDisc($dev) } 'Trying to eject a mounted media';
 
 

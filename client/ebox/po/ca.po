@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox 0.3.svn\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-07 16:58+0100\n"
+"POT-Creation-Date: 2006-11-09 11:29+0100\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -16,127 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/Summary/Status.pm:44
-#, fuzzy
-msgid "Restart"
-msgstr "Restaura"
-
-#: src/EBox/Summary/Status.pm:47
-msgid "Running"
-msgstr ""
-
-#: src/EBox/Summary/Status.pm:50
-msgid "Stopped"
-msgstr ""
-
-#: src/EBox/Summary/Status.pm:52
-#, fuzzy
-msgid "Start"
-msgstr "Estat"
-
-#: src/EBox/Summary/Status.pm:54
-msgid "Disabled"
-msgstr ""
-
-#: src/EBox/CGI/Login/Index.pm:56
-#, fuzzy
-msgid "Incorrect password"
-msgstr "Contrasenya incorrecta."
-
-#: src/EBox/CGI/Login/Index.pm:59
-msgid "For security reasons your session has expired due to inactivity"
-msgstr "Per raons de seguretat, la vostra sessió ha caducat per inactivitat"
-
-#: src/EBox/CGI/Login/Index.pm:62
-msgid "You have been logged out because a new session has been opened"
-msgstr "Heu sortit perque s'ha iniciat una nova sessió"
-
-#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:40
-msgid "Logout"
-msgstr "Surt"
-
-#: src/EBox/CGI/EBox/Backup.pm:34
-#, fuzzy
-msgid "System backups"
-msgstr "Restaura des de la còpia de seguretat"
-
-#: src/EBox/CGI/EBox/Backup.pm:188
-#, perl-brace-format
-msgid "Unknown backup mode: {mode}"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Backup.pm:197
-#, fuzzy
-msgid "Backup done"
-msgstr "Còpia de seguretat"
-
-#: src/EBox/CGI/EBox/Backup.pm:210
-msgid "Backup was written to CD/DVD disk"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Backup.pm:228 src/EBox/CGI/EBox/Backup.pm:291
-#: src/EBox/CGI/EBox/Backup.pm:304 src/EBox/CGI/EBox/ConfirmBackup.pm:198
-#: src/EBox/Backup.pm:985
-msgid "The input contains invalid characters"
-msgstr "L'entrada conté caràcters invàlids"
-
-#: src/EBox/CGI/EBox/Backup.pm:270
-#, perl-brace-format
-msgid "Unknown restore mode: {mode}"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Backup.pm:279
-msgid ""
-"Configuration restored succesfully, you should now review it and save it if "
-"you want to keep it."
-msgstr ""
-"S'ha restaurat la configuració amb èxit, haurieu de revisar-la i desar-la si "
-"voleu preservar-la."
-
-#: src/EBox/CGI/EBox/RestartService.pm:48
-#, fuzzy
-msgid "module name"
-msgstr "Nom del servidor"
-
-#: src/EBox/CGI/EBox/RestartService.pm:52
-msgid "The module was restarted correctly."
-msgstr ""
-
-#: src/EBox/CGI/EBox/Halt.pm:30
-msgid "Halt or reboot"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Halt.pm:43
-msgid "eBox is going down for halt"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Halt.pm:46
-msgid "eBox is going down for reboot"
-msgstr ""
-
-#: src/EBox/CGI/EBox/General.pm:30
-msgid "General configuration"
-msgstr "Configuració general"
-
 #: src/EBox/CGI/EBox/Bug.pm:29 src/EBox/SysInfo.pm:126
 msgid "Bug report"
 msgstr "Informe d'error"
-
-#: src/EBox/CGI/EBox/Password.pm:49
-msgid "Incorrect password."
-msgstr "Contrasenya incorrecta."
-
-#: src/EBox/CGI/EBox/Password.pm:54
-msgid "New passwords do not match."
-msgstr "Les contrasenyes noves no coincideixen."
-
-#: src/EBox/CGI/EBox/Password.pm:58
-msgid "The password must be at least 6 characters long"
-msgstr "La contrasenya ha de tenir almenys 6 caràcters"
-
-#: src/EBox/CGI/EBox/Password.pm:62 src/EBox/CGI/FirstTime/Passwd.pm:92
-msgid "The password was changed successfully."
-msgstr "S'ha canviat la contrasenya amb èxit."
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:34
 msgid "Configuration backups"
@@ -191,17 +73,105 @@ msgstr "Confirmeu que voleu eliminar el següent fitxer de còpia de seguretat:"
 msgid "Write to disk"
 msgstr ""
 
-#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
-msgid "Status"
-msgstr "Estat"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:198 src/EBox/CGI/EBox/Backup.pm:228
+#: src/EBox/CGI/EBox/Backup.pm:291 src/EBox/CGI/EBox/Backup.pm:304
+#: src/EBox/Backup.pm:985
+msgid "The input contains invalid characters"
+msgstr "L'entrada conté caràcters invàlids"
 
-#: src/EBox/CGI/Summary/Index.pm:47
-msgid "Error"
+#: src/EBox/CGI/EBox/Password.pm:49
+msgid "Incorrect password."
+msgstr "Contrasenya incorrecta."
+
+#: src/EBox/CGI/EBox/Password.pm:54
+msgid "New passwords do not match."
+msgstr "Les contrasenyes noves no coincideixen."
+
+#: src/EBox/CGI/EBox/Password.pm:58
+msgid "The password must be at least 6 characters long"
+msgstr "La contrasenya ha de tenir almenys 6 caràcters"
+
+#: src/EBox/CGI/EBox/Password.pm:62 src/EBox/CGI/FirstTime/Passwd.pm:92
+msgid "The password was changed successfully."
+msgstr "S'ha canviat la contrasenya amb èxit."
+
+#: src/EBox/CGI/EBox/Backup.pm:34
+#, fuzzy
+msgid "System backups"
+msgstr "Restaura des de la còpia de seguretat"
+
+#: src/EBox/CGI/EBox/Backup.pm:188
+#, perl-brace-format
+msgid "Unknown backup mode: {mode}"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:197
+#, fuzzy
+msgid "Backup done"
+msgstr "Còpia de seguretat"
+
+#: src/EBox/CGI/EBox/Backup.pm:210
+msgid "Backup was written to CD/DVD disk"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:270
+#, perl-brace-format
+msgid "Unknown restore mode: {mode}"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:279
+msgid ""
+"Configuration restored succesfully, you should now review it and save it if "
+"you want to keep it."
+msgstr ""
+"S'ha restaurat la configuració amb èxit, haurieu de revisar-la i desar-la si "
+"voleu preservar-la."
+
+#: src/EBox/CGI/EBox/RestartService.pm:48
+#, fuzzy
+msgid "module name"
+msgstr "Nom del servidor"
+
+#: src/EBox/CGI/EBox/RestartService.pm:52
+msgid "The module was restarted correctly."
+msgstr ""
+
+#: src/EBox/CGI/EBox/General.pm:30
+msgid "General configuration"
+msgstr "Configuració general"
+
+#: src/EBox/CGI/EBox/Halt.pm:30
+msgid "Halt or reboot"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Halt.pm:43
+msgid "eBox is going down for halt"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Halt.pm:46
+msgid "eBox is going down for reboot"
 msgstr ""
 
 #: src/EBox/CGI/Finish.pm:29
 msgid "Save configuration"
 msgstr "Desa la configuració"
+
+#: src/EBox/CGI/Login/Index.pm:56
+#, fuzzy
+msgid "Incorrect password"
+msgstr "Contrasenya incorrecta."
+
+#: src/EBox/CGI/Login/Index.pm:59
+msgid "For security reasons your session has expired due to inactivity"
+msgstr "Per raons de seguretat, la vostra sessió ha caducat per inactivitat"
+
+#: src/EBox/CGI/Login/Index.pm:62
+msgid "You have been logged out because a new session has been opened"
+msgstr "Heu sortit perque s'ha iniciat una nova sessió"
+
+#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:40
+msgid "Logout"
+msgstr "Surt"
 
 #: src/EBox/CGI/FirstTime/Index.pm:30
 msgid "Welcome to eBox"
@@ -224,6 +194,124 @@ msgstr ""
 #, fuzzy
 msgid "New passwords do not match"
 msgstr "Les contrasenyes noves no coincideixen."
+
+#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
+msgid "Status"
+msgstr "Estat"
+
+#: src/EBox/CGI/Summary/Index.pm:47
+msgid "Error"
+msgstr ""
+
+#: src/EBox/Backup/OpticalDisc.pm:123
+msgid "Unable to recognize the mounted DVD media"
+msgstr ""
+
+#: src/EBox/Backup/OpticalDisc.pm:162
+msgid "Unable to recognize the mounted CD media"
+msgstr ""
+
+#: src/EBox/Backup/RootCommands.pm:25
+#, perl-brace-format
+msgid ""
+"This system need {program} installed to perform the requested action. Please "
+"install it and retry"
+msgstr ""
+
+#: src/EBox/Backup/OpticalDiscDrives.pm:31
+#, perl-brace-format
+msgid ""
+"Unable to find {path}. Make sure that the cdrom driver is compiled in your "
+"kerner or loaded as module"
+msgstr ""
+
+#: src/EBox/Backup/OpticalDiscDrives.pm:34
+#, perl-brace-format
+msgid "Unable to read {path}."
+msgstr ""
+
+#: src/EBox/Backup/FileBurner.pm:110
+msgid "This system had not any recorder drive"
+msgstr ""
+
+#: src/EBox/Backup/FileBurner.pm:122
+msgid "No disk found. Please insert disk and retry"
+msgstr ""
+
+#: src/EBox/Backup/FileBurner.pm:130
+msgid "{media } is a unsupported media type"
+msgstr ""
+
+#: src/EBox/Backup/FileBurner.pm:144
+#, fuzzy, perl-brace-format
+msgid "{device} cannot be found"
+msgstr "No s'ha pogut trobar la pàgina"
+
+#: src/EBox/Backup/FileBurner.pm:153
+#, perl-brace-format
+msgid "{device} is mounted. Please, remove the disk"
+msgstr ""
+
+#: src/EBox/Backup/FileBurner.pm:177
+#, perl-brace-format
+msgid "Device {dev} cannot write media of type {media}"
+msgstr ""
+
+#: src/EBox/Backup/FileBurner.pm:192
+msgid "The media has not sufficient capabilty for the data"
+msgstr ""
+
+#: src/EBox/Backup/FileBurner.pm:283
+#, perl-brace-format
+msgid "No blanking method for {media}  defined. Cannot erase it"
+msgstr ""
+
+#: src/EBox/SysInfo.pm:57
+msgid "Services"
+msgstr "Serveis"
+
+#: src/EBox/SysInfo.pm:74
+msgid "General information"
+msgstr "Informació general"
+
+#: src/EBox/SysInfo.pm:82
+msgid "Time"
+msgstr "Temps"
+
+#: src/EBox/SysInfo.pm:83
+msgid "Host name"
+msgstr "Nom del servidor"
+
+#: src/EBox/SysInfo.pm:85
+#, fuzzy
+msgid "eBox version"
+msgstr "Versió d'Ebox"
+
+#: src/EBox/SysInfo.pm:88
+msgid "System load"
+msgstr "Càrrega del sistema"
+
+#: src/EBox/SysInfo.pm:113
+#, fuzzy
+msgid "System"
+msgstr "Càrrega del sistema"
+
+#: src/EBox/SysInfo.pm:117
+msgid "General"
+msgstr ""
+
+#: src/EBox/SysInfo.pm:120 src/EBox/Backup.pm:558
+msgid "Backup"
+msgstr "Còpia de seguretat"
+
+#: src/EBox/SysInfo.pm:123
+msgid "Halt/Reboot"
+msgstr ""
+
+#: src/EBox/Html.pm:39
+#, fuzzy
+msgid "Save changes"
+msgstr "Descarta els canvis"
 
 #: src/EBox/Backup.pm:232
 #, fuzzy
@@ -251,10 +339,6 @@ msgstr ""
 #: src/EBox/Backup.pm:421 src/EBox/Backup.pm:844
 msgid "Could not unpack the backup"
 msgstr "No s'ha pogut desempaquetar la còpia de seguretat"
-
-#: src/EBox/Backup.pm:558 src/EBox/SysInfo.pm:120
-msgid "Backup"
-msgstr "Còpia de seguretat"
 
 #: src/EBox/Backup.pm:633
 msgid "Incorrect or corrupt backup file"
@@ -325,14 +409,9 @@ msgstr ""
 #: src/EBox/Backup.pm:811
 #, perl-brace-format
 msgid ""
-"Can not rename backup file from {newName} to  hisr original name {name}. "
-"Error message: {error}"
+"Cannot rename backup file from {newName} to his original name {name}. Error "
+"message: {error}"
 msgstr ""
-
-#: src/EBox/Html.pm:39
-#, fuzzy
-msgid "Save changes"
-msgstr "Descarta els canvis"
 
 #: src/EBox/Apache.pm:48
 msgid ""
@@ -354,42 +433,26 @@ msgstr "El script httpd_init que heu configurat no és executable."
 msgid "port"
 msgstr "port"
 
-#: src/EBox/SysInfo.pm:57
-msgid "Services"
-msgstr "Serveis"
-
-#: src/EBox/SysInfo.pm:74
-msgid "General information"
-msgstr "Informació general"
-
-#: src/EBox/SysInfo.pm:82
-msgid "Time"
-msgstr "Temps"
-
-#: src/EBox/SysInfo.pm:83
-msgid "Host name"
-msgstr "Nom del servidor"
-
-#: src/EBox/SysInfo.pm:85
+#: src/EBox/Summary/Status.pm:44
 #, fuzzy
-msgid "eBox version"
-msgstr "Versió d'Ebox"
+msgid "Restart"
+msgstr "Restaura"
 
-#: src/EBox/SysInfo.pm:88
-msgid "System load"
-msgstr "Càrrega del sistema"
-
-#: src/EBox/SysInfo.pm:113
-#, fuzzy
-msgid "System"
-msgstr "Càrrega del sistema"
-
-#: src/EBox/SysInfo.pm:117
-msgid "General"
+#: src/EBox/Summary/Status.pm:47
+msgid "Running"
 msgstr ""
 
-#: src/EBox/SysInfo.pm:123
-msgid "Halt/Reboot"
+#: src/EBox/Summary/Status.pm:50
+msgid "Stopped"
+msgstr ""
+
+#: src/EBox/Summary/Status.pm:52
+#, fuzzy
+msgid "Start"
+msgstr "Estat"
+
+#: src/EBox/Summary/Status.pm:54
+msgid "Disabled"
 msgstr ""
 
 #: src/EBox/FirstTime.pm:67 src/templates/firstTime/passwd.mas:4
@@ -397,61 +460,29 @@ msgstr ""
 msgid "Change default password"
 msgstr "Canvia la contrasenya"
 
-#: src/EBox/Backup/OpticalDiscDrives.pm:31
-#, perl-brace-format
-msgid ""
-"Unable to find {path}. Make sure that the cdrom driver is compiled in your "
-"kerner or loaded as module"
-msgstr ""
+#: src/templates/firstTime/index.mas:6
+#, fuzzy
+msgid "Use default values"
+msgstr "Configura les regles predeterminades"
 
-#: src/EBox/Backup/OpticalDiscDrives.pm:34
-#, perl-brace-format
-msgid "Unable to read {path}."
-msgstr ""
+#: src/templates/firstTime/passwd.mas:6 src/templates/password.mas:8
+#, fuzzy
+msgid "Your password must be at least 6 characters long."
+msgstr "La contrasenya ha de tenir almenys 6 caràcters"
 
-#: src/EBox/Backup/FileBurner.pm:110
-msgid "This system had not any recorder drive"
-msgstr ""
+#: src/templates/firstTime/passwd.mas:13 src/templates/password.mas:30
+msgid "New password"
+msgstr "Nova contrasenya"
 
-#: src/EBox/Backup/FileBurner.pm:122
-msgid "No disk found. Please insert disk and retry"
-msgstr ""
+#: src/templates/firstTime/passwd.mas:28 src/templates/password.mas:45
+#, fuzzy
+msgid "Confirm password"
+msgstr "Nova contrasenya"
 
-#: src/EBox/Backup/FileBurner.pm:130
-msgid "{media } is a unsupported media type"
-msgstr ""
-
-#: src/EBox/Backup/FileBurner.pm:144
-#, fuzzy, perl-brace-format
-msgid "{device} can not be found"
-msgstr "No s'ha pogut trobar la pàgina"
-
-#: src/EBox/Backup/FileBurner.pm:153
-#, perl-brace-format
-msgid "{device} is mounted. Please, remove the disk"
-msgstr ""
-
-#: src/EBox/Backup/FileBurner.pm:177
-#, perl-brace-format
-msgid "Device {dev} can not write media of type {media}"
-msgstr ""
-
-#: src/EBox/Backup/FileBurner.pm:192
-msgid "The media has not sufficient capabilty for the data"
-msgstr ""
-
-#: src/EBox/Backup/FileBurner.pm:277
-#, perl-brace-format
-msgid "No blanking method for {media}  defined. Can not erase it"
-msgstr ""
-
-#: src/EBox/Backup/OpticalDisc.pm:121
-msgid "Unable to recognize the mounted DVD media"
-msgstr ""
-
-#: src/EBox/Backup/OpticalDisc.pm:158
-msgid "Unable to recognize the mounted CD media"
-msgstr ""
+#: src/templates/firstTime/passwd.mas:42 src/templates/password.mas:60
+#: src/templates/port.mas:15
+msgid "Change"
+msgstr "Canvia"
 
 #: src/templates/login/index.mas:26
 #, fuzzy
@@ -469,18 +500,13 @@ msgid ""
 "with <a href='http://www.dbs.es'>DBS Servicios Informaticos</a>"
 msgstr ""
 
-#: src/templates/logout/index.mas:11
-msgid "There are unsaved changes, if you log out now they will be lost."
-msgstr "Hi ha canvis sense desar, si sortiu ara es perdran."
+#: src/templates/password.mas:6
+msgid "Change password"
+msgstr "Canvia la contrasenya"
 
-#: src/templates/logout/index.mas:16
-#, fuzzy
-msgid "There are no unsaved changes in this session."
-msgstr "No hi ha canvis sense desar."
-
-#: src/templates/logout/index.mas:21
-msgid "Exit"
-msgstr "Surt"
+#: src/templates/password.mas:15
+msgid "Current password"
+msgstr "Contrasenya actual"
 
 #: src/templates/finish.mas:11
 msgid ""
@@ -511,33 +537,6 @@ msgstr "Descarta els canvis"
 #: src/templates/finish.mas:30
 msgid "There are no unsaved changes."
 msgstr "No hi ha canvis sense desar."
-
-#: src/templates/password.mas:6
-msgid "Change password"
-msgstr "Canvia la contrasenya"
-
-#: src/templates/password.mas:8 src/templates/firstTime/passwd.mas:6
-#, fuzzy
-msgid "Your password must be at least 6 characters long."
-msgstr "La contrasenya ha de tenir almenys 6 caràcters"
-
-#: src/templates/password.mas:15
-msgid "Current password"
-msgstr "Contrasenya actual"
-
-#: src/templates/password.mas:30 src/templates/firstTime/passwd.mas:13
-msgid "New password"
-msgstr "Nova contrasenya"
-
-#: src/templates/password.mas:45 src/templates/firstTime/passwd.mas:28
-#, fuzzy
-msgid "Confirm password"
-msgstr "Nova contrasenya"
-
-#: src/templates/password.mas:60 src/templates/port.mas:15
-#: src/templates/firstTime/passwd.mas:42
-msgid "Change"
-msgstr "Canvia"
 
 #: src/templates/confirm-backup.mas:19 src/templates/backup.mas:162
 msgid "Date"
@@ -570,6 +569,18 @@ msgstr "Restaura"
 #: src/templates/port.mas:9
 msgid "Administration interface TCP port"
 msgstr "Port TCP per a la interfície d'administració"
+
+#: src/templates/halt.mas:10
+msgid "You might lose your Internet connection if this machine is halted."
+msgstr ""
+
+#: src/templates/halt.mas:15
+msgid "Halt"
+msgstr ""
+
+#: src/templates/halt.mas:18
+msgid "Reboot"
+msgstr ""
 
 #: src/templates/backup.mas:20
 #, fuzzy
@@ -704,16 +715,22 @@ msgstr "Restaura"
 msgid "delete"
 msgstr "Elimina"
 
-#: src/templates/halt.mas:10
-msgid "You might lose your Internet connection if this machine is halted."
-msgstr ""
+#: src/templates/logout/index.mas:11
+msgid "There are unsaved changes, if you log out now they will be lost."
+msgstr "Hi ha canvis sense desar, si sortiu ara es perdran."
 
-#: src/templates/halt.mas:15
-msgid "Halt"
-msgstr ""
+#: src/templates/logout/index.mas:16
+#, fuzzy
+msgid "There are no unsaved changes in this session."
+msgstr "No hi ha canvis sense desar."
 
-#: src/templates/halt.mas:18
-msgid "Reboot"
+#: src/templates/logout/index.mas:21
+msgid "Exit"
+msgstr "Surt"
+
+#: src/templates/footer.mas:8
+#, perl-brace-format
+msgid "{ebox} created by {warp} in collaboration with {dbs}"
 msgstr ""
 
 #: src/templates/bug.mas:9
@@ -729,16 +746,6 @@ msgstr ""
 #: src/templates/bug.mas:15
 msgid "Download bug report file"
 msgstr "Descarrega un fitxer d'informe d'error"
-
-#: src/templates/firstTime/index.mas:6
-#, fuzzy
-msgid "Use default values"
-msgstr "Configura les regles predeterminades"
-
-#: src/templates/footer.mas:8
-#, perl-brace-format
-msgid "{ebox} created by {warp} in collaboration with {dbs}"
-msgstr ""
 
 #, fuzzy
 #~ msgid "Password Incorrect"

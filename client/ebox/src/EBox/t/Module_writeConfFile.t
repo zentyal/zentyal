@@ -57,7 +57,7 @@ sub writeConfFileTest
     file_exists_ok $testFile;
     file_mode_is ($testFile, oct $wantedMode);
 
-#    Can not execute this testcase because by default chowns to root!
+#    Cannot execute this testcase because by default chowns to root!
 #     # called without any optional parameter
 #     my $defaultMode = '0644';
 #     unlink $testFile or die "Cannot unlink test file $testFile";
@@ -73,14 +73,14 @@ sub filesSetup
     my ($testDir, $testFile, $wantedMode) = @_;
 
     system "rm -rf $testDir"; 
-    ($? == 0) or die "Can not clean test dir $testDir";
+    ($? == 0) or die "Cannot clean test dir $testDir";
 
     mkdir $testDir;
 
     system "touch $testFile";
-    ($? == 0) or die "Can not create testFile $testFile";
+    ($? == 0) or die "Cannot create testFile $testFile";
     system "chmod $wantedMode $testFile";
-    ($? == 0) or die "Can not change mode of test file $testFile";
+    ($? == 0) or die "Cannot change mode of test file $testFile";
 
  
 }

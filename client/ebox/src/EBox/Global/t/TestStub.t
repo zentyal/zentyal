@@ -75,7 +75,7 @@ sub getInstanceTest
 sub changedTest
 {
     my  $baboonModule = EBox::Global->modInstance('baboon');
-    defined $baboonModule or die "Can not get a baboon module";
+    defined $baboonModule or die "Cannot get a baboon module";
     my $global = EBox::Global->getInstance();
 
     $global->modChange('baboon');

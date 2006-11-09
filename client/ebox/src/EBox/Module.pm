@@ -285,7 +285,7 @@ sub _dump_version
   my $file = "$dir/version";
   my $versionInfo = $self->version();
 
-  open my $FH, ">$file" or throw EBox::Exceptions::Internal('Can not create version backup file');
+  open my $FH, ">$file" or throw EBox::Exceptions::Internal('Cannot create version backup file');
   print $FH $versionInfo;
   close $FH;
 }
@@ -332,7 +332,7 @@ sub _read_version
 
   return undef if (! -f $file);
   
-  open my $FH, "<$file" or throw EBox::Exceptions::Internal("Version info file can not be opened");
+  open my $FH, "<$file" or throw EBox::Exceptions::Internal("Version info file cannot be opened");
   my @versionInfo = <$FH>;
   close $FH;
 

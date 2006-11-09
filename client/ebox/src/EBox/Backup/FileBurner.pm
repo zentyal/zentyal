@@ -123,7 +123,7 @@ sub _checkMedia
   }
 
   if ($media eq 'DVD-ROM') {
-    throw EBox::Exceptions::External('DVD-ROM can not be written. Instead use a DVD-R or DVD-RW');
+    throw EBox::Exceptions::External('DVD-ROM cannot be written. Instead use a DVD-R or DVD-RW');
   }
 
   if ($media ne all(qw(CD-R CD-RW DVD-R DVD-RW))) {
@@ -141,7 +141,7 @@ sub _checkDevice
   my ($device) = @_;
 
   if (!-e $device) {
-    throw EBox::Exceptions::External(__x('{device} can not be found', device => $device))
+    throw EBox::Exceptions::External(__x('{device} cannot be found', device => $device))
   }
 
 
@@ -174,7 +174,7 @@ sub _checkDeviceForMedia
   defined $writersForMediaSub or throw EBox::Exceptions::Internal("'$media' is a unknown or non supported media type");
   my @writersForMedia = $writersForMediaSub->();
   if ($device ne all(@writersForMedia)) {
-    throw EBox::Exceptions::External(__x('Device {dev} can not write media of type {media}', dev => $device, media => $media));
+    throw EBox::Exceptions::External(__x('Device {dev} cannot write media of type {media}', dev => $device, media => $media));
   }
 
 }
@@ -183,7 +183,7 @@ sub _checkSize
 {
   my ($file, $media) = @_;
   my $st = stat($file) ;
-  defined $st or throw EBox::Exceptions::Internal("Can not stat $file");
+  defined $st or throw EBox::Exceptions::Internal("Cannot stat $file");
 
   my $size = $st->size();
   my $mediaSize = EBox::Backup::OpticalDisc::sizeForMedia($media);
@@ -248,7 +248,7 @@ sub _deviceForCdrecord
   my  @output = EBox::Sudo::root("$EBox::Backup::RootCommands::CDRECORD_PATH dev=ATA: -scanbus");
   my $ideDevicesFound = grep { !($_ =~ /\d\) \*/) } @output;
   if (0 == $ideDevicesFound) {
-    throw EBox::Exceptions::Internal("Can not found the device identified for cdrecord");
+    throw EBox::Exceptions::Internal("Cannot found the device identified for cdrecord");
   }
 
   return $device;
@@ -280,7 +280,7 @@ sub blankMedia
     $command = "$EBox::Backup::RootCommands::DVDRWFORMAT_PATH -blank $device";
   }
 
-  (defined $command) or throw EBox::Exceptions::External(__x('No blanking method for {media}  defined. Can not erase it', media => $media));
+  (defined $command) or throw EBox::Exceptions::External(__x('No blanking method for {media}  defined. Cannot erase it', media => $media));
 
   EBox::info("Blanking media in $device");
   EBox::Sudo::root($command);

@@ -65,7 +65,7 @@ sub checkModuleInstantiation
     }
  
     my $global = EBox::Global->getInstance();
-    defined $global or die "Can not get a instance of the global module";
+    defined $global or die "Cannot get a instance of the global module";
 	
     my $instance;
     my $modInstanceError = 0;
@@ -78,7 +78,7 @@ sub checkModuleInstantiation
     };
     
     if ($modInstanceError or !defined $instance) {
-	$Test->ok(0, "Can not create a instance of the EBox's module $moduleName");
+	$Test->ok(0, "Cannot create an instance of the EBox's module $moduleName");
 	return;
     }
 
@@ -138,7 +138,7 @@ sub _deprecated
  
 
   my $sub_r = $newSubModule->can( $newSubName);
-  defined $sub_r or die "Can not found $newSubModule\:\:$newSubName to replace deprecated sub $subName";
+  defined $sub_r or die "Cannot found $newSubModule\:\:$newSubName to replace deprecated sub $subName";
   return $sub_r->(@subParams);
 }
 

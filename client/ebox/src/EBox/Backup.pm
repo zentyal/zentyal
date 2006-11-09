@@ -101,7 +101,7 @@ sub _makeBackup # (description, bug?)
 	finally {
 	  system "rm -rf $tempdir";
 	  if ($? != 0) {
-	    EBox::error("$auxDir can not be deleted: $!. Please do it manually");
+	    EBox::error("$auxDir cannot be deleted: $!. Please do it manually");
 	  }
 	};
 
@@ -659,7 +659,7 @@ sub  _checkArchiveMd5Sum
   my $archiveFile = "$tempdir/eboxbackup/files.tgz";
   my $ARCHIVE;
   unless (open($ARCHIVE, $archiveFile)) {
-    EBox::error("Can not open archive file $archiveFile");
+    EBox::error("Cannot open archive file $archiveFile");
     throw EBox::Exceptions::External(__("The backup file is corrupt: could not open archive"));
   }
   my $md5 = Digest::MD5->new;
@@ -690,7 +690,7 @@ sub _checkArchiveType
   my $typeFile = "$tempdir/eboxbackup/type";
   my $TYPE_F;
   unless (open($TYPE_F, $typeFile )) {
-    EBox::error("Can not open type file: $typeFile");
+    EBox::error("Cannot open type file: $typeFile");
     throw EBox::Exceptions::External("The backup file is corrupt. Backup type information not found");
   }
   my $type = <$TYPE_F>;
@@ -802,13 +802,13 @@ sub writeBackupToDisc
   my $backupdir = backupDir();
   my $destFile = "$backupdir/$DISC_BACKUP_FILE";
   
-  move($file, $destFile) or throw EBox::Exceptions::Internal("Can not rename backup file: @!");
+  move($file, $destFile) or throw EBox::Exceptions::Internal("Cannot rename backup file: @!");
   
   try {
       EBox::Backup::FileBurner::burn(file => $destFile);
   }
   finally {
-      move($destFile, $file) or throw EBox::Exceptions::External(__x('Can not rename backup file from {newName} to  hisr original name {name}. Error message: {error}', newName => $destFile, name => $file, error => $!));
+      move($destFile, $file) or throw EBox::Exceptions::External(__x('Cannot rename backup file from {newName} to his original name {name}. Error message: {error}', newName => $destFile, name => $file, error => $!));
   };
 }
  
