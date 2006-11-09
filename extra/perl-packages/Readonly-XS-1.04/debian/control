@@ -3,12 +3,12 @@ Section: perl
 Priority: optional
 Build-Depends: debhelper (>= 4.0.2)
 Build-Depends-Indep: perl (>= 5.8.0-7)
-Maintainer: Javier Uruen Val <javi@warp.es>
+Maintainer: Javier Amor Garcia <javier.amor.garcia@warp.es>
 Standards-Version: 3.6.1
 
 Package: libreadonly-xs-perl
 Architecture: any
-Depends: ${perl:Depends}, ${shlibs:Depends}, ${misc:Depends}, 
+Depends: ${perl:Depends}, ${shlibs:Depends}, ${misc:Depends}, libreadonly-perl
 Description:  Companion module for Readonly.pm, to speed up read-only
  The Readonly module (q.v.) is an effective way to create
  non-modifiable variables.  However, it's relatively slow.

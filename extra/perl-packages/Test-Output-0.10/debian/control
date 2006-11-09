@@ -3,12 +3,12 @@ Section: perl
 Priority: optional
 Build-Depends: debhelper (>= 4.0.2)
 Build-Depends-Indep: perl (>= 5.8.0-7)
-Maintainer: Javier Uruen Val <javi@warp.es>
+Maintainer: Javier Amor Garcia <javier.amor.garcia@warp.es>
 Standards-Version: 3.6.1
 
 Package: libtest-output-perl
 Architecture: all
-Depends: ${perl:Depends}, ${misc:Depends}, 
+Depends: ${perl:Depends}, ${misc:Depends}, libsub-exporter-perl,
 Description:  Utilities to test STDOUT and STDERR messages.
  Test::Output provides a simple interface for testing output sent to STDOUT
  or STDERR. A number of different utilies are included to try and be as
