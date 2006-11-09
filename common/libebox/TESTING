@@ -8,6 +8,7 @@ TEST DEPENDENCIES
 	+ libtest-exception-perl
 	+ libtest-builder-tester-perl
         + libtest-mockobject-perl
+	+ libtest-differences-perl
 
 + modules from cpan
 
