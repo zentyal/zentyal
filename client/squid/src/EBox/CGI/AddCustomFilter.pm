@@ -66,11 +66,13 @@ sub _process($)
 
 	# MIME type case is quite difficult
 	if ( $attrName eq "mimeType" ) {
-	  if ( $name !~ m/\w\/\w/ ) {
+	  if ( $name !~ m/^((\w|-)+)\/((\w|-)+)$/ ) {
 	    throw EBox::Exceptions::External(__x('The {type} SHOULD have the following syntax: "word/word"',
 						type => __("MIME type")));
 	  }
-	  my ($type, $subtype) = $name =~ m/(\w+)\/(\w+)/;
+
+	  # Check the name is form of type/subtype where type and subtype can have alphanumeric elements and -
+	  my ($type, $subtype) = $name =~ m/^((\w|-)+)\/((\w|-)+)$/;
 
 	  if ( not grep { $type =~ m/$_/ } @{$squid->ianaMimeTypes()} ) {
 	    throw EBox::Exceptions::External(__x('The {type} SHOULD be in IANA type. ' .
