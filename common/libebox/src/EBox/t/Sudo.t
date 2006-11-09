@@ -6,13 +6,22 @@ use Test::More tests => 32;
 use Test::Differences;
 use Test::Exception;
 use Error qw(:try);
+use File::Path;
 
 use lib  '../..';
 
 use EBox::Sudo::TestStub;
 use EBox::TestStub;
+use EBox::Config::TestStub;
+
+# setup testdir
+my $testDir = '/tmp/ebox.sudo.test';
+File::Path::rmtree($testDir) if (-e $testDir);
+mkdir $testDir;
 
 EBox::TestStub::fake(); # to covert log in logfiel to msg into stderr
+EBox::Config::TestStub::fake(tmp => $testDir);
+
 exceptionTest();
 rootWithoutExceptionTest();
 statTest();

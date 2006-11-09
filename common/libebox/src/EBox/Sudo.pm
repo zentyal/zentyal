@@ -47,7 +47,7 @@ BEGIN {
 
 use Readonly;
 Readonly::Scalar our $SUDO_PATH   => '/usr/bin/sudo -p sudo:'; # our declaration eases testing
-Readonly::Scalar my  $STDERR_FILE => EBox::Config::tmp() . '/stderr';
+Readonly::Scalar my  $STDERR_FILE => 'stderr';
 Readonly::Scalar my  $TEST_PATH   => '/usr/bin/test';
 #
 # Procedure: command 
@@ -102,14 +102,16 @@ sub root # (command)
   my ($cmd) = @_;
   validate_pos(@_, 1);
 
-  my $sudocmd = "$SUDO_PATH $cmd 2> $STDERR_FILE";
+  my $stderrFile =  EBox::Config::tmp() . $STDERR_FILE;
+
+  my $sudocmd = "$SUDO_PATH $cmd 2> $stderrFile";
 
   my @output = `$sudocmd`;
 
   if ($? != 0) {
     my @error;
-    if ( -r $STDERR_FILE) {
-      @error = read_file($STDERR_FILE);
+    if ( -r $stderrFile) {
+      @error = read_file($stderrFile);
     }
 	  
     _rootError($sudocmd, $cmd, $?, \@output, \@error);
