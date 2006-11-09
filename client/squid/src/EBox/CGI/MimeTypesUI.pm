@@ -1,4 +1,4 @@
-# Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2006 Warp Networks S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::Squid::ExtensionsUI;
+package EBox::CGI::Squid::MimeTypesUI;
 
 use strict;
 use warnings;
@@ -37,21 +37,23 @@ sub new {
 
 sub _process($) {
 	my $self = shift;
-	$self->{title} = __('HTTP Proxy');
 
 	my $squid = EBox::Global->modInstance('squid');
-	my @array;
-	# Elements to filter
-	push (@array, 'elements'       => $squid->hashedExtensions());
-	# The title for the list
-	push (@array, 'title'          => __("Configure allowed extensions"));
-	# CGI to call to change filters
-	push (@array, 'name'           => "extension");
-	# Name of attribute to filter (Internationalized)
-	push (@array, 'printableName'  => __("Extension"));
-	# Help message
-	push (@array, 'helpMessage'    => __('Add a new file extension without dot. Like "pdf"'));
-	$self->{params} = \@array;
+	my @filterParam;
+	push (@filterParam, 'elements'      => $squid->hashedMimeTypes());
+	push (@filterParam, 'title'         => __("Configure allowed MIME types"));
+	push (@filterParam, 'name'          => "mimeType");
+	push (@filterParam, 'printableName' => __("MIME type"));
+
+	my @mimeTypes = @{$squid->ianaMimeTypes()};
+	pop( @mimeTypes );
+	my $mimeTypesStr = join(', ', @mimeTypes);
+	$mimeTypesStr .= __(' or something starting with "x-".');
+	push (@filterParam, 'helpMessage'   => __x("Add a new MIME type with the following syntax: type/subtype " .
+						   "Where type can be: {types}",
+						   types => $mimeTypesStr));
+
+	$self->{params} = \@filterParam;
 }
 
 1;

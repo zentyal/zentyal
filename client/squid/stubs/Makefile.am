@@ -3,7 +3,8 @@
 Stubdir = @STUBSPATH@/squid
 
 nobase_Stub_DATA = squid.conf.mas bannedsitelist.mas dansguardian.conf.mas \
-	dansguardianf1.conf.mas exceptionsitelist.mas bannedextensionlist.mas
+	dansguardianf1.conf.mas exceptionsitelist.mas bannedextensionlist.mas \
+	bannedmimetypelist.mas
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 

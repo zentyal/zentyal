@@ -4,7 +4,7 @@ perldir = @PERLPATH@/EBox/CGI/Squid
 
 nobase_perl_DATA = AllowedDomains.pm Allow.pm BannedDomains.pm Ban.pm \
 	Enable.pm General.pm Index.pm Policy.pm SetPolicy.pm ExtensionsUI.pm \
-	Extensions.pm
+	MimeTypesUI.pm SetFilterList.pm AddCustomFilter.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

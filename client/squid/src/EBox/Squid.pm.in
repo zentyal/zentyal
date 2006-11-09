@@ -52,7 +52,7 @@ use constant DGPORT => '3129';
 use constant DGDIR => '/etc/dansguardian';
 
 
-sub _create 
+sub _create
 {
 	my $class = shift;
 	my $self  = $class->SUPER::_create(name => 'squid', 
@@ -121,13 +121,13 @@ sub _stopService
 
 # Method: _regenConfig
 #
-#       Overrides base method. It regenertates the configuration
+#       Overrides base method. It regenerates the configuration
 #       for squid and dansguardian.
 #
 sub _regenConfig 
 {
 	my $self = shift;
-	$self->_setSquidConf;
+	$self->_setSquidConf();
 	$self->_doDaemon();
 	$self->_doDGDaemon();
 }
@@ -874,21 +874,21 @@ sub _squidAndDG
 		$squidpolicy = "deny";
 		push(@exceptions, @{$self->unfiltered});
 	}
-	
+
 	foreach my $aux (@exceptions) {
 		foreach my $addr (@{$ob->ObjectAddresses($aux)}) {
 			$objects .= "acl objects src  $addr\n";
 		}
 	}
 
-	my @array = ();
-	push(@array, 'port'  => $self->port);
-	push(@array, 'transparent'  => $trans);
-	push(@array, 'policy'  => $squidpolicy);
-	push(@array, 'objects' => $objects);
-	push(@array, 'memory' => $self->_cache_mem);
+	my @writeParam = ();
+	push(@writeParam, 'port'  => $self->port);
+	push(@writeParam, 'transparent'  => $trans);
+	push(@writeParam, 'policy'  => $squidpolicy);
+	push(@writeParam, 'objects' => $objects);
+	push(@writeParam, 'memory' => $self->_cache_mem);
 
-	$self->writeConfFile(SQUIDCONFFILE, "squid/squid.conf.mas", \@array);
+	$self->writeConfFile(SQUIDCONFFILE, "squid/squid.conf.mas", \@writeParam);
 
 	my $locale = EBox::locale();
 	my $lang = 'ukenglish';
@@ -898,33 +898,38 @@ sub _squidAndDG
 		$lang = 'french';
 	}
 
-	@array = ();
+	@writeParam = ();
 	# FIXME - get a proper lang name for the current locale
-	push(@array, 'port'  => DGPORT);
-	push(@array, 'lang'  => $lang);
-	push(@array, 'squidport'  => $self->port);
-	$self->writeConfFile(DGDIR . "/dansguardian.conf", 
-				"squid/dansguardian.conf.mas", \@array);
+	push(@writeParam, 'port'  => DGPORT);
+	push(@writeParam, 'lang'  => $lang);
+	push(@writeParam, 'squidport'  => $self->port);
+	$self->writeConfFile(DGDIR . "/dansguardian.conf",
+				"squid/dansguardian.conf.mas", \@writeParam);
 
-	@array = ();
-	push(@array, 'threshold'  => $threshold);
-	$self->writeConfFile(DGDIR . "/dansguardianf1.conf", 
-				"squid/dansguardianf1.conf.mas", \@array);
+	@writeParam = ();
+	push(@writeParam, 'threshold'  => $threshold);
+	$self->writeConfFile(DGDIR . "/dansguardianf1.conf",
+				"squid/dansguardianf1.conf.mas", \@writeParam);
 
-	@array = ();
-	push(@array, 'block_ip'  => $block_ip);
-	push(@array, 'domains'  => $banned);
-	$self->writeConfFile(DGDIR . "/bannedsitelist", 
-				"squid/bannedsitelist.mas", \@array);
+	@writeParam = ();
+	push(@writeParam, 'block_ip'  => $block_ip);
+	push(@writeParam, 'domains'  => $banned);
+	$self->writeConfFile(DGDIR . "/bannedsitelist",
+				"squid/bannedsitelist.mas", \@writeParam);
 
-	@array = ();
-	push(@array, 'domains'  => $allowed);
-	$self->writeConfFile(DGDIR . "/exceptionsitelist", 
-				"squid/exceptionsitelist.mas", \@array);
-	@array = ();
-	push(@array, 'extensions'  => $self->bannedExtensions);
-	$self->writeConfFile(DGDIR . "/bannedextensionlist", 
-				"squid/bannedextensionlist.mas", \@array);
+	@writeParam = ();
+	push(@writeParam, 'domains'  => $allowed);
+	$self->writeConfFile(DGDIR . "/exceptionsitelist",
+				"squid/exceptionsitelist.mas", \@writeParam);
+	@writeParam = ();
+	push(@writeParam, 'extensions'  => $self->bannedExtensions());
+	$self->writeConfFile(DGDIR . "/bannedextensionlist",
+				"squid/bannedextensionlist.mas", \@writeParam);
+	# Write down the banned mime type list
+	@writeParam = ();
+	push(@writeParam, 'mimeTypes' => $self->bannedMimeTypes());
+	$self->writeConfFile(DGDIR . "/bannedmimetypelist",
+			     "squid/bannedmimetypelist.mas", \@writeParam);
 
 }
 
@@ -1034,6 +1039,116 @@ sub hashedExtensions
 	return \%extents;
 }
 
+# Function: ianaMimeTypes
+#
+#	Return the current types established by IANA. 
+#       A MIME type follows this syntax: type/subtype
+#       The current registrated types are: <http://www.iana.org/assignments/media-types/index.html>
+#
+# Returns:
+#
+# 	Array ref - containing this mime types
+sub ianaMimeTypes
+  {
+    my ($self) = @_;
+
+    my $types = ["application",
+		 "audio",
+		 "example",
+		 "image",
+		 "message",
+		 "model",
+		 "multipart",
+		 "text",
+		 "video",
+		 "[Xx]-.*" ];
+
+    return $types;
+  }
+
+
+# Function: allowedMimeTypes
+#
+#	Fetch the allowed mime type list
+#
+# Returns:
+#
+# 	Array ref - containing the mime types
+sub allowedMimeTypes
+{
+	my ($self) = @_;
+
+	return $self->get_list('allowed_mimetype');
+}
+
+
+# Function: setAllowedMimeTypes
+#
+#	Set the allowed mime type list
+#
+# Parameters:
+#
+# 	Array  - containing the mime types
+sub setAllowedMimeTypes
+{
+	my ($self, @newallow) = @_;
+
+	$self->_setList('allowed_mimetype', @newallow);
+}
+
+# Function: bannedMimeTypes
+#
+#	Fetch the banned mime type list
+#
+# Returns:
+#
+# 	Array ref - containing the mime types
+sub bannedMimeTypes
+{
+	my ($self) = @_;
+
+	return $self->get_list('banned_mimetype');
+}
+
+# Function: setBannedMimeTypes
+#
+#	Set the banned mime type list
+#
+# Parameters:
+#
+# 	Array  - containing the mime types
+sub setBannedMimeTypes
+{
+	my ($self, @newban) = @_;
+
+	$self->_setList('banned_mimetype', @newban);
+}
+
+# Function: hashedMimeTypes
+#
+#	Fetch the mime types, both allowed and banned
+#
+# Returns:
+#
+# 	Array ref of hashes containing:
+#
+# 		mimeType => boolean (allowed or not)
+#
+sub hashedMimeTypes
+{
+	my ($self) = @_;
+
+	my %extents;
+	foreach my $mimeType (@{$self->allowedMimeTypes()}) {
+	  $extents{$mimeType} = 1;
+	}
+	foreach my $mimeType (@{$self->bannedMimeTypes()}) {
+	  $extents{$mimeType} = undef;
+	}
+	return \%extents;
+}
+
+
 sub firewallHelper 
 {
 	my $self = shift;
@@ -1096,8 +1211,8 @@ sub summary
 # Method: menu 
 #
 #       Overrides EBox::Module method.
-#   
-#     
+#
+#
 sub menu
 {
         my ($self, $root) = @_;
@@ -1112,6 +1227,8 @@ sub menu
                                           'text' => __('Banned domains')));
 	$folder->add(new EBox::Menu::Item('url' => 'Squid/ExtensionsUI',
                                           'text' => __('Extensions filter')));
+	$folder->add(new EBox::Menu::Item('url' => 'Squid/MimeTypesUI',
+					  'text' => __('Mime Type filter')));
         $folder->add(new EBox::Menu::Item('url' => 'Squid/Policy',
                                           'text' => __('Policy')));
         $root->add($folder);

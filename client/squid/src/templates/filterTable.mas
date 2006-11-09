@@ -1,0 +1,111 @@
+<%args>
+	%elements => ()  # Elements to filter
+        $title           # Filter list title
+        $name            # CGI to call to change filter (params: bool-{name} booleans)
+        $printableName   # Attribute name to filter with (Internationalized)
+        $helpMessage     # Help message to add attr
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<h3><% $title | h %></h3>
+<div class="note">
+	<% __x('When the filter content is enabled you can select those
+file {name} which are allowed to download', name => ($name eq
+"extension" ? __("extensions") : __("MIME types") )) | h %>
+</div>
+<h4></h4>
+<div class="help">
+  <% $helpMessage | h %>
+</div>
+<form action='AddCustomFilter' method='post'>
+  <input type='hidden' name='attrName' value='<% $name %>' />
+  <table class='dataTable'>
+    <thead>
+      <tr>
+        <th class="tleft" colspan="4">
+          <% __("Add") . " " . $printableName | h %>
+        </th>
+      </tr>
+    </thead>    
+    <tbody>
+      <tr>
+        <td class="tleft">
+	  <% __("Name"). ":" %>
+	</td>
+	<td class="tleft">
+	  <& /input/text.mas, name => "name" &>
+	</td>
+	<td class="tleft">
+	  <% __("Deny") . ":" %>
+	</td>
+	<td class="tleft">
+	  <& /input/checkbox.mas, name => "deny" &>
+	</td>
+	<td class="tright" width="55%">
+	  <& /input/submit.mas, name => "Add", value => __("Add") &>
+	</td> 
+      </tr>
+    </tbody>
+  </table>
+</form>
+<br/>
+<form id='formFilter' action='SetFilterList' method='post'>
+	<table class='dataTable'>
+	<thead>
+		<tr>
+			<th width=85%" class="tleft">
+				<% $printableName | h %>
+			</th>
+			<th class="thOptionsFwd">
+				<% __('State') | h %>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<input type='hidden' name='attrName' value='<% $name %>' />
+		<tr class="trimp">
+			<td>
+				<strong><% __("Allow all") . " " . ($name eq
+				"extension" ? __("extensions") :
+				__("MIME types") ) | h %></strong>
+			</td>
+			<td class='tcenter'>
+				<input type='checkbox' value='on'
+					onclick='checkAll("formFilter");'
+					name='allbox'/>
+			</td>
+		</tr>
+%       foreach my $element (sort keys %elements) {
+		<tr class="border">
+			<td><% $element %></td>
+			<td class="tcenter">
+%				my $checked = "";
+%				my $val = 0;
+%				if($elements{$element}) {
+%					$checked = 'checked="checked"';
+%					$val = 1;
+%				}
+			<input type='hidden' name='<% "bool-" . $element %>' value='<% $val %>'/>
+			<input type='checkbox'
+onclick="updateCheckbox(this,'bool-<% $element %>')" <% $checked | h %> />
+			</td>
+		</tr>
+%		}
+</tbody>
+</table>
+<input type='submit' name='change'
+	value='<% __("Change") %>'
+	alt='<% __("Change") %>' />
+</form>
+
+<script type="text/javascript"><!--
+function updateCheckbox(checkbox, name) {
+    if (checkbox.checked) {
+        checkbox.form[name].value='1';
+    } else {
+        checkbox.form[name].value='0';
+    }
+}
+//--></script>

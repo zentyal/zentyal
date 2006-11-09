@@ -12,8 +12,8 @@ use EBox::Gettext;
 </%init>
 % if ($globalPolicy eq "deny" or $globalPolicy eq "allow") {
 <div class="note">
-  <% __x('This list will only take effect if "{globalPolicy}" is set
-  to "{filter}"', globalPolicy => __("Global policy"), filter => __("Filter"))
+  <% __x("This list will only take effect if {globalPolicy} is set
+  to {filter}", globalPolicy => __("Global policy"), filter => __("Filter"))
    %>
 </div>
 % }

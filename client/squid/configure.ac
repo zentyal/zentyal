@@ -62,6 +62,7 @@ src/Makefile
 src/EBox/Makefile
 src/EBox/Squid.pm
 src/EBox/CGI/Makefile
+src/EBox/t/Makefile
 src/templates/Makefile
 schemas/Makefile
 stubs/Makefile

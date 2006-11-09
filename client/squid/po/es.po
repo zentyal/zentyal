@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-07 13:25+0100\n"
-"PO-Revision-Date: 2006-11-07 13:28+0100\n"
+"POT-Creation-Date: 2006-11-09 17:46+0100\n"
+"PO-Revision-Date: 2006-11-09 17:30+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team:  <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -38,9 +38,44 @@ msgid "HTTP proxy policy"
 msgstr "Política del Proxy HTTP"
 
 #: src/EBox/CGI/ExtensionsUI.pm:30 src/EBox/CGI/ExtensionsUI.pm:40
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Squid.pm.in:1053
+#: src/EBox/CGI/MimeTypesUI.pm:30 src/EBox/CGI/Index.pm:30
+#: src/EBox/CGI/Index.pm:40 src/EBox/Squid.pm.in:1168
 msgid "HTTP Proxy"
 msgstr "Proxy HTTP"
+
+#: src/EBox/CGI/ExtensionsUI.pm:47
+msgid "Configure allowed extensions"
+msgstr "Configurar extensiones permitidas"
+
+#: src/EBox/CGI/ExtensionsUI.pm:51 src/EBox/CGI/AddCustomFilter.pm:59
+msgid "Extension"
+msgstr "Extensión"
+
+#: src/EBox/CGI/ExtensionsUI.pm:53
+msgid "Add a new file extension without dot. Like \"pdf\""
+msgstr "Añade una nueva extensión de fichero sin punto. Por ejemplo \"pdf\""
+
+#: src/EBox/CGI/MimeTypesUI.pm:44
+msgid "Configure allowed MIME types"
+msgstr "Configurar tipos MIME permitidos"
+
+#: src/EBox/CGI/MimeTypesUI.pm:46 src/EBox/CGI/AddCustomFilter.pm:59
+#: src/EBox/CGI/AddCustomFilter.pm:71 src/EBox/CGI/AddCustomFilter.pm:78
+msgid "MIME type"
+msgstr "tipo MIME"
+
+#: src/EBox/CGI/MimeTypesUI.pm:51
+msgid " or something starting with \"x-\"."
+msgstr " o algo que comience con \"x-\""
+
+#: src/EBox/CGI/MimeTypesUI.pm:52
+#, perl-brace-format
+msgid ""
+"Add a new MIME type with the following syntax: type/subtype Where type can "
+"be: {types}"
+msgstr ""
+"Añade un nuevo tipo MIME con la siguiente sintaxis: tipo/subtipo. Donde el "
+"tipo puede ser: {types}"
 
 #: src/EBox/CGI/Enable.pm:42
 msgid "module status"
@@ -62,19 +97,66 @@ msgstr "puerto de escucha"
 msgid "global policy"
 msgstr "política global"
 
+#: src/EBox/CGI/AddCustomFilter.pm:41 src/EBox/CGI/SetFilterList.pm:41
+msgid "Attribute Name"
+msgstr "Nombre del atributo"
+
+#: src/EBox/CGI/AddCustomFilter.pm:42 src/templates/filterTable.mas:38
+msgid "Name"
+msgstr "Nombre"
+
+#: src/EBox/CGI/AddCustomFilter.pm:43 src/EBox/Squid.pm.in:1197
+#: src/templates/filterTable.mas:45 src/templates/index.mas:134
+#: src/templates/index.mas:137
+msgid "Deny"
+msgstr "Denegar"
+
+#: src/EBox/CGI/AddCustomFilter.pm:58
+#, perl-brace-format
+msgid "New {type} SHOULD be lower than {number} characters"
+msgstr "El nuevo {type} DEBE ser menor de {number} caracteres"
+
+#: src/EBox/CGI/AddCustomFilter.pm:70
+#, perl-brace-format
+msgid "The {type} SHOULD have the following syntax: \"word/word\""
+msgstr "El {type} DEBERíA tener la siguiente sintaxis: \"word/word\""
+
+#: src/EBox/CGI/AddCustomFilter.pm:76
+#, perl-brace-format
+msgid "The {type} SHOULD be in IANA type. Check this link: {url} for details"
+msgstr ""
+"El {type} DEBERÍA ser un tipo IANA. Visita el enlace {url} para más detalles"
+
+#: src/EBox/CGI/AddCustomFilter.pm:96
+msgid "File extension added correctly"
+msgstr "Extensión de fichero añadida correctamente"
+
+#: src/EBox/CGI/AddCustomFilter.pm:98
+msgid "File extension is already in the list"
+msgstr "Extensión de fichero ya está en la lista"
+
+#: src/EBox/CGI/AddCustomFilter.pm:114
+msgid "MIME type added correctly"
+msgstr "Tipo MIME añadido correctamente"
+
+#: src/EBox/CGI/AddCustomFilter.pm:116
+msgid "MIME type is already in the list"
+msgstr "El tipo MIME ya está en la lista"
+
 #: src/EBox/CGI/BannedDomains.pm:30 src/EBox/CGI/BannedDomains.pm:40
-#: src/EBox/Squid.pm.in:1129 src/templates/banned.mas:10
+#: src/EBox/Squid.pm.in:1244 src/templates/banned.mas:11
 msgid "Banned domains"
 msgstr "Dominios prohibidos"
 
 #: src/EBox/CGI/AllowedDomains.pm:30 src/EBox/CGI/AllowedDomains.pm:40
-#: src/EBox/Squid.pm.in:1127 src/templates/allowed.mas:10
+#: src/EBox/Squid.pm.in:1242 src/templates/allowed.mas:11
 msgid "Allowed domains"
 msgstr "Dominios permitidos"
 
 #: src/EBox/Squid.pm.in:139
 msgid "You must set the cache_mem variable in the ebox configuration file"
-msgstr "Debe establecer la variable cache_mem en el fichero de configuración de eBox"
+msgstr ""
+"Debe establecer la variable cache_mem en el fichero de configuración de eBox"
 
 #: src/EBox/Squid.pm.in:218 src/EBox/Squid.pm.in:308
 msgid "object"
@@ -101,104 +183,131 @@ msgstr "dominio"
 msgid "Threshold"
 msgstr "Umbral"
 
-#: src/EBox/Squid.pm.in:1067
+#: src/EBox/Squid.pm.in:1182
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/EBox/Squid.pm.in:1073 src/templates/index.mas:39
+#: src/EBox/Squid.pm.in:1188 src/templates/index.mas:39
 #: src/templates/index.mas:44
 msgid "Enabled"
 msgstr "Activado"
 
-#: src/EBox/Squid.pm.in:1075 src/templates/index.mas:37
+#: src/EBox/Squid.pm.in:1190 src/templates/index.mas:37
 #: src/templates/index.mas:42 src/templates/index.mas:73
 #: src/templates/index.mas:76
 msgid "Disabled"
 msgstr "Desactivado"
 
-#: src/EBox/Squid.pm.in:1077 src/templates/index.mas:30
+#: src/EBox/Squid.pm.in:1192 src/templates/index.mas:30
 msgid "Transparent proxy"
 msgstr "Proxy transparente"
 
-#: src/EBox/Squid.pm.in:1080 src/templates/index.mas:127
+#: src/EBox/Squid.pm.in:1195 src/templates/index.mas:127
 #: src/templates/index.mas:130 src/templates/policy.mas:109
 #: src/templates/policy.mas:113
 msgid "Allow"
 msgstr "Permitir"
 
-#: src/EBox/Squid.pm.in:1082 src/templates/index.mas:134
-#: src/templates/index.mas:137
-msgid "Deny"
-msgstr "Denegar"
-
-#: src/EBox/Squid.pm.in:1084 src/templates/index.mas:141
+#: src/EBox/Squid.pm.in:1199 src/templates/index.mas:141
 #: src/templates/index.mas:144 src/templates/policy.mas:55
 #: src/templates/policy.mas:59 src/templates/policy.mas:119
-#: src/templates/policy.mas:123
+#: src/templates/policy.mas:123 src/templates/domains.mas:17
 msgid "Filter"
 msgstr "Filtrar"
 
-#: src/EBox/Squid.pm.in:1087 src/templates/index.mas:120
+#: src/EBox/Squid.pm.in:1202 src/templates/index.mas:120
+#: src/templates/domains.mas:16
 msgid "Global policy"
 msgstr "Política global"
 
-#: src/EBox/Squid.pm.in:1089
+#: src/EBox/Squid.pm.in:1204
 msgid "Listening port"
 msgstr "Puerto de escucha"
 
-#: src/EBox/Squid.pm.in:1122 src/EBox/Squid.pm.in:1154
+#: src/EBox/Squid.pm.in:1237 src/EBox/Squid.pm.in:1271
 msgid "HTTP proxy"
 msgstr "Proxy HTTP"
 
-#: src/EBox/Squid.pm.in:1125
+#: src/EBox/Squid.pm.in:1240
 msgid "General"
 msgstr "General"
 
-#: src/EBox/Squid.pm.in:1131
+#: src/EBox/Squid.pm.in:1246
 msgid "Extensions filter"
 msgstr "Filtro de extensiones"
 
-#: src/EBox/Squid.pm.in:1133
+#: src/EBox/Squid.pm.in:1248
+msgid "Mime Type filter"
+msgstr "Filtro de tipos MIME"
+
+#: src/EBox/Squid.pm.in:1250
 msgid "Policy"
 msgstr "Política"
 
-#: src/EBox/Squid.pm.in:1140
+#: src/EBox/Squid.pm.in:1257
 msgid "Date"
 msgstr "Fecha"
 
-#: src/EBox/Squid.pm.in:1141
+#: src/EBox/Squid.pm.in:1258
 msgid "Host"
 msgstr "Máquina"
 
-#: src/EBox/Squid.pm.in:1142
+#: src/EBox/Squid.pm.in:1259
 msgid "URL"
 msgstr "Dirección"
 
-#: src/EBox/Squid.pm.in:1143
+#: src/EBox/Squid.pm.in:1260
 msgid "Bytes"
 msgstr "Bytes"
 
-#: src/EBox/Squid.pm.in:1144
+#: src/EBox/Squid.pm.in:1261
 msgid "Mime/type"
 msgstr "Mime/tipo"
 
-#: src/EBox/Squid.pm.in:1145
+#: src/EBox/Squid.pm.in:1262
 msgid "Event"
 msgstr "Evento"
 
-#: src/EBox/Squid.pm.in:1150
+#: src/EBox/Squid.pm.in:1267
 msgid "Accepted"
 msgstr "Aceptado"
 
-#: src/EBox/Squid.pm.in:1151 src/templates/policy.mas:29
+#: src/EBox/Squid.pm.in:1268 src/templates/policy.mas:29
 msgid "Denied"
 msgstr "Denegado"
 
-#: src/EBox/Squid.pm.in:1152 src/templates/policy.mas:26
+#: src/EBox/Squid.pm.in:1269 src/templates/policy.mas:26
 msgid "Filtered"
 msgstr "Filtrado"
 
-#: src/templates/banned.mas:12
+#: src/templates/filterTable.mas:16 src/templates/filterTable.mas:79
+msgid "extensions"
+msgstr "extensiones"
+
+#: src/templates/filterTable.mas:17 src/templates/filterTable.mas:81
+msgid "MIME types"
+msgstr "tipos MIME"
+
+#: src/templates/filterTable.mas:30 src/templates/filterTable.mas:52
+#: src/templates/domains.mas:56 src/templates/domains.mas:58
+#: src/templates/domains.mas:60
+msgid "Add"
+msgstr "Añadir"
+
+#: src/templates/filterTable.mas:68
+msgid "State"
+msgstr "Estado"
+
+#: src/templates/filterTable.mas:77
+msgid "Allow all"
+msgstr "Permitir a todos"
+
+#: src/templates/filterTable.mas:109 src/templates/filterTable.mas:111
+#: src/templates/index.mas:155 src/templates/index.mas:156
+msgid "Change"
+msgstr "Cambiar"
+
+#: src/templates/banned.mas:13
 msgid "Add here those domains which you do not want to allow access."
 msgstr "Añada aquí los dominos a los que no quiere permitir acceso"
 
@@ -248,36 +357,9 @@ msgstr "Estricto"
 msgid "Very strict"
 msgstr "Muy estricto"
 
-#: src/templates/index.mas:155 src/templates/index.mas:156
-#: src/templates/extensions.mas:61 src/templates/extensions.mas:63
-msgid "Change"
-msgstr "Cambiar"
-
-#: src/templates/allowed.mas:12
+#: src/templates/allowed.mas:13
 msgid "Add here those domains which you want to allow access."
 msgstr "Añada aquí los dominios a los que quiere permitir acceso"
-
-#: src/templates/extensions.mas:9
-msgid "Configure allowed extensions"
-msgstr "Configurar extensiones permitidas"
-
-#: src/templates/extensions.mas:12
-msgid ""
-"When the filter content is enabled you can select those file extensions "
-"which are allowed to download"
-msgstr "Seleccione las extensiones de fichero para permitir su descarga. Cuando el filtro de contenidos este deshabilitado todas podrán ser descargadas"
-
-#: src/templates/extensions.mas:21
-msgid "Extension"
-msgstr "Extensión"
-
-#: src/templates/extensions.mas:25
-msgid "State"
-msgstr "Estado"
-
-#: src/templates/extensions.mas:48
-msgid "Allow all extensions"
-msgstr "Permitir todas las extensiones"
 
 #: src/templates/policy.mas:14
 msgid ""
@@ -312,29 +394,23 @@ msgstr "Mover los objetos seleccionados a la columna de baneados"
 msgid "Move selected objects to the unfiltered column"
 msgstr "Mover los objetos seleccionados a la columna de no filtrados"
 
-#: src/templates/domains.mas:19
+#: src/templates/domains.mas:28
 msgid "Introduce domains in this way: "
 msgstr "Introduzca los dominios de la siguiente forma:"
 
-#: src/templates/domains.mas:21
+#: src/templates/domains.mas:30
 msgid "domain.com"
 msgstr "dominio.com"
 
-#: src/templates/domains.mas:27
+#: src/templates/domains.mas:36
 msgid "Domain"
 msgstr "Dominio"
 
-#: src/templates/domains.mas:29
+#: src/templates/domains.mas:38
 msgid "Action"
 msgstr "Acción"
 
-#: src/templates/domains.mas:47 src/templates/domains.mas:49
-#: src/templates/domains.mas:51
-msgid "Add"
-msgstr "Añadir"
-
-#: src/templates/domains.mas:67 src/templates/domains.mas:69
-#: src/templates/domains.mas:71
+#: src/templates/domains.mas:76 src/templates/domains.mas:78
+#: src/templates/domains.mas:80
 msgid "Delete"
 msgstr "Borrar"
-
