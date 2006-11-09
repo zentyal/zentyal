@@ -21,7 +21,8 @@ case "$1" in
 		;;
 	remove)
 		if [ -z "$2" ]; then
-			perl -e 'use EBox::Squid; 
+			perl -e 'use EBox::Squid; use EBox;
+                                EBox::init(); 
 				my $sq = EBox::Global->modInstance("squid");
 				$sq->stopService();'
 		fi
