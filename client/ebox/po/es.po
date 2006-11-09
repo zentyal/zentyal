@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-07 16:58+0100\n"
-"PO-Revision-Date: 2006-11-07 17:01+0100\n"
+"POT-Creation-Date: 2006-11-09 10:29+0100\n"
+"PO-Revision-Date: 2006-11-09 10:33+0100\n"
 "Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -267,7 +267,9 @@ msgstr "El fichero de backup está corrupto"
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible eBox version"
-msgstr "El archivo de backup tiene un tipo incorrecta. Es posible que el archivo este corrupto o que este usando una versión de eBox incompatible"
+msgstr ""
+"El archivo de backup tiene un tipo incorrecta. Es posible que el archivo "
+"este corrupto o que este usando una versión de eBox incompatible"
 
 #: src/EBox/Backup.pm:706
 msgid ""
@@ -411,6 +413,13 @@ msgstr ""
 msgid "Unable to read {path}."
 msgstr "No se pudo leer {path}"
 
+#: src/EBox/Backup/RootCommands.pm:24
+#, perl-brace-format
+msgid ""
+"This system need {program} installed to perform the requested action. Please "
+"install it and retry"
+msgstr "El sistema necesita que {program} este instalado para realizar la acción requerida. Por favor, instalelo e intente de nuevo"
+
 #: src/EBox/Backup/FileBurner.pm:110
 msgid "This system had not any recorder drive"
 msgstr "Este sistema no tiene ninguna unidad grabadora de CD/DVD"
@@ -444,18 +453,18 @@ msgstr ""
 "El disco no tiene suficiente capacidad para los datos a grabar. Pruebe con "
 "un tipo de disco con más capacidad"
 
-#: src/EBox/Backup/FileBurner.pm:277
+#: src/EBox/Backup/FileBurner.pm:283
 #, perl-brace-format
 msgid "No blanking method for {media}  defined. Can not erase it"
 msgstr ""
 "No puedo borrar el disco debido a que no se ha definido método de borrado "
 "para discos de tipo {media}"
 
-#: src/EBox/Backup/OpticalDisc.pm:121
+#: src/EBox/Backup/OpticalDisc.pm:123
 msgid "Unable to recognize the mounted DVD media"
 msgstr "No se pudo reconocer el CD insertado"
 
-#: src/EBox/Backup/OpticalDisc.pm:158
+#: src/EBox/Backup/OpticalDisc.pm:162
 msgid "Unable to recognize the mounted CD media"
 msgstr "No se pudo reconocer el DVd insertado"
 
