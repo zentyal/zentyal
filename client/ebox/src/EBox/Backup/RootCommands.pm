@@ -4,6 +4,7 @@ package EBox::Backup::RootCommands;
 use strict;
 use warnings;
 use EBox::Sudo;
+use EBox::Gettext;
 
 use Readonly;
 Readonly::Scalar our $CDRECORD_PATH=>'/usr/bin/cdrecord';
