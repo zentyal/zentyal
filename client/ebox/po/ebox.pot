@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-09 11:29+0100\n"
+"POT-Creation-Date: 2006-11-10 10:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -428,39 +428,48 @@ msgstr ""
 msgid "Disabled"
 msgstr ""
 
-#: src/EBox/FirstTime.pm:67 src/templates/firstTime/passwd.mas:4
+#: src/EBox/FirstTime.pm:67 po/templates/src/templates/firstTime/passwd.mas:4
+#: src/templates/firstTime/passwd.mas:4
 msgid "Change default password"
 msgstr ""
 
+#: po/templates/src/templates/firstTime/index.mas:6
 #: src/templates/firstTime/index.mas:6
 msgid "Use default values"
 msgstr ""
 
+#: po/templates/src/templates/firstTime/passwd.mas:7
 #: src/templates/firstTime/passwd.mas:6 src/templates/password.mas:8
 msgid "Your password must be at least 6 characters long."
 msgstr ""
 
+#: po/templates/src/templates/firstTime/passwd.mas:15
 #: src/templates/firstTime/passwd.mas:13 src/templates/password.mas:30
 msgid "New password"
 msgstr ""
 
+#: po/templates/src/templates/firstTime/passwd.mas:31
 #: src/templates/firstTime/passwd.mas:28 src/templates/password.mas:45
 msgid "Confirm password"
 msgstr ""
 
+#: po/templates/src/templates/firstTime/passwd.mas:46
 #: src/templates/firstTime/passwd.mas:42 src/templates/password.mas:60
 #: src/templates/port.mas:15
 msgid "Change"
 msgstr ""
 
+#: po/templates/src/templates/login/index.mas:26
 #: src/templates/login/index.mas:26
 msgid "Password"
 msgstr ""
 
+#: po/templates/src/templates/login/index.mas:34
 #: src/templates/login/index.mas:33
 msgid "Enter"
 msgstr ""
 
+#: po/templates/src/templates/login/index.mas:42
 #: src/templates/login/index.mas:40
 msgid ""
 "Created by <a href='http://www.warp.es'>Warp Networks</a> in collaboration "
@@ -557,7 +566,7 @@ msgstr ""
 msgid ""
 "Backups will be stored in eBox and then you will be able to download them to "
 "your hard disk or write them into CD/DVD disks. Anyway, you can later copy "
-"stored backu "
+"back stored backup."
 msgstr ""
 
 #: src/templates/backup.mas:34

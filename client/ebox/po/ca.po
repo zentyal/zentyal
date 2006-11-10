@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox 0.3.svn\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-09 11:29+0100\n"
+"POT-Creation-Date: 2006-11-10 10:55+0100\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -455,45 +455,54 @@ msgstr "Estat"
 msgid "Disabled"
 msgstr ""
 
-#: src/EBox/FirstTime.pm:67 src/templates/firstTime/passwd.mas:4
+#: src/EBox/FirstTime.pm:67 po/templates/src/templates/firstTime/passwd.mas:4
+#: src/templates/firstTime/passwd.mas:4
 #, fuzzy
 msgid "Change default password"
 msgstr "Canvia la contrasenya"
 
+#: po/templates/src/templates/firstTime/index.mas:6
 #: src/templates/firstTime/index.mas:6
 #, fuzzy
 msgid "Use default values"
 msgstr "Configura les regles predeterminades"
 
+#: po/templates/src/templates/firstTime/passwd.mas:7
 #: src/templates/firstTime/passwd.mas:6 src/templates/password.mas:8
 #, fuzzy
 msgid "Your password must be at least 6 characters long."
 msgstr "La contrasenya ha de tenir almenys 6 caràcters"
 
+#: po/templates/src/templates/firstTime/passwd.mas:15
 #: src/templates/firstTime/passwd.mas:13 src/templates/password.mas:30
 msgid "New password"
 msgstr "Nova contrasenya"
 
+#: po/templates/src/templates/firstTime/passwd.mas:31
 #: src/templates/firstTime/passwd.mas:28 src/templates/password.mas:45
 #, fuzzy
 msgid "Confirm password"
 msgstr "Nova contrasenya"
 
+#: po/templates/src/templates/firstTime/passwd.mas:46
 #: src/templates/firstTime/passwd.mas:42 src/templates/password.mas:60
 #: src/templates/port.mas:15
 msgid "Change"
 msgstr "Canvia"
 
+#: po/templates/src/templates/login/index.mas:26
 #: src/templates/login/index.mas:26
 #, fuzzy
 msgid "Password"
 msgstr "Nova contrasenya"
 
+#: po/templates/src/templates/login/index.mas:34
 #: src/templates/login/index.mas:33
 #, fuzzy
 msgid "Enter"
 msgstr "Extern"
 
+#: po/templates/src/templates/login/index.mas:42
 #: src/templates/login/index.mas:40
 msgid ""
 "Created by <a href='http://www.warp.es'>Warp Networks</a> in collaboration "
@@ -601,7 +610,7 @@ msgstr "Fes una còpia de seguretat de la configuració actual"
 msgid ""
 "Backups will be stored in eBox and then you will be able to download them to "
 "your hard disk or write them into CD/DVD disks. Anyway, you can later copy "
-"stored backu "
+"back stored backup."
 msgstr ""
 
 #: src/templates/backup.mas:34
