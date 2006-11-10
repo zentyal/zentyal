@@ -12,7 +12,7 @@ use EBox::Gettext;
 <link href="/data/css/login.css" type="text/css" rel="stylesheet">
 <script src="/data/js/common.js" type="text/javascript">//</SCRIPT>
 </head>
-<body>
+<body onload="document.getElementById('credential_0').focus();">
 <center>
 	<div id='login'>
 	<div id='loginin'>
@@ -26,6 +26,7 @@ use EBox::Gettext;
 			<dt><% __('Password') %>:</dt>
 			<dd><input  class='inputTextLogin' type='password' 
 					name='credential_0' 
+					id='credential_0'
 					size='14' /></dd>
 				<input  type='hidden' name='destination' 
 					value='/ebox/Summary/Index' />
