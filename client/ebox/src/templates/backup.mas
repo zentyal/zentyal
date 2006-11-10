@@ -188,23 +188,20 @@ my $writeToDiskIcon   = $writeOpticalDisk ? '/data/images/writecd.gif': '/data/i
 	</tbody>
 </table>
 <br />
-<table class="legend">
-<tr>
-    <td><img src="/data/images/down.gif" alt=""/></td>
-    <td style="padding-right: 10px;"><%__('download')%></td>
-
-    <td><img src="<% $writeToDiskIcon %>" alt=""/></td>
-    <td style="padding-right: 10px;"><% $writeOpticalDisk ?  __('write into disk') : __('write into disk (disabled)') %></td>
-</tr>
-
-<tr>
-    <td><img src="/data/images/apply.gif" alt=""/></td>
-    <td style="padding-right: 10px;"><%__('restore')%></td>
-
-    <td><img src="/data/images/delete.gif" alt=""/></td>
-    <td style="padding-right: 10px;"><%__('delete')%></td>
-</tr>
-</table>
+<!-- Put the legend underneath the list -->
+<%perl>
+  my @legendElements = (
+                        { imgFile => "/data/images/down.gif",
+			  imgName => __('download') },
+			{ imgFile => $writeToDiskIcon,
+			  imgName => $writeOpticalDisk ?  __('write into disk') : __('write into disk (disabled)') },
+			{ imgFile => "/data/images/apply.gif",
+			  imgName => __('restore') },
+			{ imgFile => "/data/images/delete.gif",
+			  imgName => __('delete') }
+		       );
+</%perl>
+<& legendTable.mas, elements => \@legendElements, nColumns => 2 &>
 % }
 </%def>
 
