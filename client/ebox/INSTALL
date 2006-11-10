@@ -18,7 +18,7 @@ DEPENDENCIES
 
 + modules from cpan
 
-	none currently
+	+ libreadonly-perl
 
 + eBox components:
 	libebox
@@ -35,7 +35,7 @@ RECOMMENDED
 	+ mkisofs
 	+ cdrecord
 	+ dvd+rw-tools
-
+	+ libreadonly-xs-perl
 
 
 INSTALLATION

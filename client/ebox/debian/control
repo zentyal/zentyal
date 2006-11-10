@@ -8,8 +8,8 @@ Standards-Version: 3.6.1
 
 Package: ebox
 Architecture: all
-Depends: libebox, apache-perl, libapache-mod-ssl, libapache-singleton-perl, libapache-authcookie-perl, gconf2, libgnome2-gconf-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl, runit, libapache-reload-perl (= 0.07-5warp.es)
-Recommends: eject, cdrdao, mkisofs, cdrecord, dvd+rw-tools
+Depends: libebox, apache-perl, libapache-mod-ssl, libapache-singleton-perl, libapache-authcookie-perl, gconf2, libgnome2-gconf-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl, runit, libapache-reload-perl (= 0.07-5warp.es), libreadonly-perl
+Recommends: eject, cdrdao, mkisofs, cdrecord, dvd+rw-tools, libreadonly-xs-perl
 Replaces: ebox (<< 0.7.0.99)
 Conflicts: ebox (<< 0.7.0.99)
 Description: Base framework
