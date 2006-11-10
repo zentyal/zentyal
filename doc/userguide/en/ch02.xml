@@ -79,46 +79,124 @@
 
 	<section id='sect-ebox-backup'>
 		<!-- System->Backup -->
-		<title>Configuration Backup</title>
+		<title>Backup</title>
 
 		<para>You can get eBox backups management through
 			<menuchoice>
 				<guimenu>System</guimenu>
-				<guimenuitem>Backups</guimenuitem>
+				<guimenuitem>Backup</guimenuitem>
 			</menuchoice>
 		from the left menu.
  		</para>
 
-		<para>From the backups page, you can make a copy of the last saved
-		eBox configuration or restore previous saved backups.</para>
+		<para>From the backup page, you can make a copy of the last saved
+		eBox state or restore previous saved backups. Two
+		backup modes are available in eBox which are described
+		below.</para>
 
 		<section>
-			<title>Saving your current configuration</title>
-			<para>After entering a description and saving the changes in
-			the form, a new entry will appear on the backups list, showing
-			date and description of the backup.</para>
+		  <title>Backup modes</title>
+		  <variablelist>
+		    <varlistentry>
+		      <term>Configuration Backup</term>
+		      <listitem>
+			<para>Backs up only the configuration from
+			eBox including all managed services. Its size
+			could be a few KBs.</para>
+		      </listitem>
+		    </varlistentry>
+		    <varlistentry>
+		      <term>Full Backup</term>
+		      <listitem>
+			<para>Backs up the eBox configuration and
+			other data which are not necessary for eBox to
+			work. For example, it stores files from shared
+			directories or log messages. Its size is larger than
+			previous mode and can occupy GBs and it can be
+			used to restore only configuration part
+			because it is wrapped.</para>
+		      </listitem>
+		    </varlistentry>
+		  </variablelist>
+		</section>
+
+		<section>
+			<title>Saving your current state</title>
+			<para>Both backup modes need a description and
+			can be stored in hard disk or in a removable
+			device such as CD and DVD.</para>
+			
+			<para>In first case, when backup is done,
+			a new entry will appear on the backups
+			list, showing date, description and possible
+			actions related to the recent backup.</para>
+
+			<para>If you want to save a copy in a CD/DVD, you
+			should have a writer installed in your eBox
+			machine and enter a blank or re-writable
+			disk. This backup will be stored in the disk
+			and it won't appear in backup list
+			anymore.</para>
+
 			<note>
-				<para>It's important to remember that the
-				configuration which is backuped is the last saved
-				configuration, though the corresponding link at the
-				horizontal upper menu.</para>
+				<para>It is important to remember that the
+				backed up configuration is the last saved
+				configuration through the top-right
+				"Save changes" button.</para>
 			</note>
 		</section>
-
 		<section>
-			<title>Restore configuration</title> 
-			<para>You can recover one configuration selecting a backup
-			file from your hard disk and pressing
-			<guilabel>recover</guilabel> button. This option is useful to
-			restore backups exported to other storage devices.</para>
+			<title>Backup Restore</title> 
+			<para>There are three different ways to
+			restore a backup.</para>
+			<orderedlist>
+			  <listitem>
+			    <para>You can recover an eBox backup from
+			    a file browsing in your own system
+			    clicking <guilabel>Browse...</guilabel> and
+			    do restore after setting an eBox backup
+			    file.</para>
+			  </listitem>
+			  <listitem>
+			    <para>The eBox backup can be stored
+			    in a removable disk as well. With
+			    <guilabel>Restore from disk</guilabel> the
+			    eBox saved state in this kind of
+			    storage devices can be restored.</para>
+			  </listitem>
+			  <listitem>
+			    <para>Finally, an eBox backup can be
+			    restored from the list of backups which is
+			    explained in detail <xref
+			    linkend="backupList" />.</para>
+			  </listitem>
+			</orderedlist>
+			<para>In order to restore a backup, two
+			different restore mode can be done:</para>
+			<orderedlist>
+			  <listitem>
+			    <para>Full Restore: Available from a full
+			    backup mode, everything kept in
+			    this backup can be restored. </para>
+			  </listitem>
+			  <listitem>
+			    <para>Configuration Restore: Available
+			    from both backup modes. It just restores
+			    the configuration state for eBox.</para>
+			  </listitem>
+			</orderedlist>
+			<para>Then, you should check it to see if it
+			is all correct or make the appropriate changes
+			and save it.</para>
 		</section>
-
-		<section>
+		<section id="backupList">
 			<title>Configuration backups list</title>
-			<para>Backups list has the eBox backups made during its
-			working period. Actions on that list, located at the right of
-			each element, let restore a backup, download a file with a
-			backup or remove a backup from the list.</para>
+			<para>Backup list has the eBox backups made during its
+			working period. Actions on each element from
+			that list, located at the right, let restore a
+			backup, download a file with a backup, store
+			the backup a removable device (CD/DVD) or
+			remove a backup from the eBox.</para>
 		</section>
 	</section>
 
