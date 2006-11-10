@@ -23,8 +23,8 @@ my $modeOptions = [
 </%init>
 <h3><% __('Back up the current state') %></h3>
 <div class='help'>
-	<% __("Backups will be stored in eBox and then you will be able to download them to your hard disk or write them into CD/DVD disks. Anyway, you can later copy stored backu ") %>
-</div>
+	<% __("Backups will be stored in eBox and then you will be able to download them to your hard disk or write them into CD/DVD disks. Anyway, you can later copy back stored backup") %>
+</div>	
 % if (not $writeOpticalDisk) {
   <div class='help'>
 	<% __("'Backup to CD/DVD disk' is disabled, because eBox could not find any recorder drive") %>
@@ -147,16 +147,16 @@ my $writeToDiskIcon   = $writeOpticalDisk ? '/data/images/writecd.gif': '/data/i
 %		foreach my $backup (@backups) {
 		<tr class='border'>
 			<form method='POST' action='ConfirmBackup'>
-				<td>
+				<td class="tleft" width="35%">
 					<input type='hidden'
 						name='id'
 						value="<%$backup->{'id'}%>"/>
 					<% $backup->{'description'} %>
 				</td>
-				<td class='tcenter'>
+				<td class='tcenter' width="40%">
 					<% $backup->{'date'} %>
 				</td>
-				<td class='tcenter'>
+				<td class='tcenter' width="15%">
 					<input type='image' name='restoreFromId'
 						src='/data/images/apply.gif'
 						value="Restore"
