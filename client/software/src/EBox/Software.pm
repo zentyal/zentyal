@@ -18,7 +18,7 @@ package EBox::Software;
 use strict;
 use warnings;
 
-use base 'EBox::GConfModule';
+use base qw(EBox::GConfModule);
 
 use EBox::Config;
 use EBox::Gettext;
@@ -102,36 +102,20 @@ sub listEBoxPkgs
 sub installPkgs # (@pkgs)
 {
 	my ($self, @pkgs) = @_;
-	my $cmd ='/usr/bin/apt-get install --no-download -q --yes --no-remove ';
-	$cmd .= join(" ", @pkgs);
-	my $exec = undef;
 	my $pid;
 
-	if (grep(/^apache-perl$/,@pkgs) or grep(/^ebox$/,@pkgs)) {
-		$exec = 1;	
+	unless (defined($pid = fork())) {
+		throw EBox::Exceptions::Internal("Cannot fork().");
 	}
-	if($exec) {
-		unless (defined($pid = fork())) {
-			throw EBox::Exceptions::Internal("Cannot fork().");
-		}
-		if ($pid) {
-			return; # parent returns immediately
-		}
-		POSIX::setsid();
-		close(STDOUT);
-		close(STDERR);
-		open(STDOUT, "> /dev/null");
-		open(STDERR, "> /dev/null");
-		exec("sudo $cmd");
-	} else {
-		try {
-			root($cmd);
-		} catch EBox::Exceptions::Internal with {
-			throw EBox::Exceptions::External(__('An error ocurred while '.
-				'installing components. If the error persists or eBox '.
-				'stops working properly, seek technical support.'));
-		};
+	if ($pid) {
+		return; # parent returns immediately
 	}
+	POSIX::setsid();
+	close(STDOUT);
+	close(STDERR);
+	open(STDOUT, "> /dev/null");
+	open(STDERR, "> /dev/null");
+	exec(EBox::Config::libexec . "../ebox-software/ebox-update-packages @pkgs");
 }
 
 # Method: removePkgs 
@@ -331,5 +315,6 @@ sub menu
                                           'text' => __('Configuration')));
         $root->add($folder);
 }
+
 
 1;

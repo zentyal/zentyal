@@ -50,7 +50,7 @@ sub _process($) {
 		return;
 	}
 	if (defined($self->param('upgrade'))) {
-		$self->{chain} = "Software/Updates";
+		$self->{chain} = "Software/EBox";
 		delete $self->{'template'};
 		$action = 'install';
 		$doit = 'yes';
@@ -76,7 +76,8 @@ sub _process($) {
 		if ($action eq 'install') {
 			$software->installPkgs(@pkgs);
 			$self->{msg} = 
-				__('The packages were installed successfully');
+				__('The packages are being installed, please refrain from using the application until the update is done');
+			$self->{chain} = "Software/Upgrading";
 		} else {
 			$software->removePkgs(@pkgs);
 			$self->{msg} = 

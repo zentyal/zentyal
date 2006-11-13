@@ -2,7 +2,7 @@
 
 templatedir = @TEMPLATESPATH@/software
 
-template_DATA = del.mas ebox.mas updates.mas config.mas
+template_DATA = del.mas ebox.mas updates.mas config.mas upgrading.mas
 
 EXTRA_DIST = $(template_DATA)
 

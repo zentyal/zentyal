@@ -1,0 +1,28 @@
+#!/usr/bin/perl
+
+use strict;
+use EBox::Config;
+
+my $file = EBox::Config::tmp . "ebox-update-log";
+sub writeToFile($)
+{
+	my $txt = shift;
+	(length($txt) > 0) or return;
+	
+	open (FD, ">$file") or die "I couldn't open $file";
+	print FD $txt;
+	close (FD);
+}
+
+
+writeToFile("starting");
+
+foreach my $pkg (@ARGV) {
+	writeToFile($pkg);
+	my $cmd ='/usr/bin/apt-get install --no-download -q --yes --no-remove';
+	system("sudo $cmd $pkg");
+}
+
+system("sudo /etc/init.d/ebox apache restart");
+
+writeToFile("done");
