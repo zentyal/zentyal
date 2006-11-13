@@ -233,7 +233,7 @@ sub stat
 
   return undef if !defined $statOutput;
 
-  my @statElements = split '[I\n]', $statOutput->[0];
+  my @statElements = split '[I\n]', $statOutput->[0]; # this may cause a warning in implementation of stat. See next comment
 
   # the stat id is for systems where stat does not return a different exit code when stating a inexistent file
   my $statId = shift @statElements;
