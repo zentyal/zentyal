@@ -214,7 +214,9 @@ sub  _restoreFromFileAction
 {
   my ($self) = @_;
 
-  my $filename = $self->param('backupfile');
+  my $filename = $self->unsafeParam('backupfile');
+  # poor man decode html entity for '/'
+  $filename =~ s{%2F}{/}g;
   $self->_restore($filename);
 } 
 
