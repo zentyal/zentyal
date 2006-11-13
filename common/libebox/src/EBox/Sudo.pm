@@ -48,6 +48,8 @@ BEGIN {
 use Readonly;
 Readonly::Scalar our $SUDO_PATH   => '/usr/bin/sudo -p sudo:'; # our declaration eases testing
 Readonly::Scalar our  $STDERR_FILE =>  EBox::Config::tmp() . 'stderr';
+
+Readonly::Scalar my $STAT_CMD => '/usr/bin/stat -cSTI%dI%iI%fI%hI%uI%gIhI%sI%XI%YI%ZI%oI%bI%tI%T';
 Readonly::Scalar my  $TEST_PATH   => '/usr/bin/test';
 #
 # Procedure: command 
@@ -218,7 +220,7 @@ sub stat
   my ($file) = @_;
   validate_pos(@_, 1);
   
-  my $statCmd = _rootCommandForStat($file);
+  my $statCmd = "$STAT_CMD $file";
   my $statOutput;
 
   try {
@@ -233,7 +235,11 @@ sub stat
 
   my @statElements = split '[I\n]', $statOutput->[0];
 
-
+  # the stat id is for systems where stat does not return a different exit code when stating a inexistent file
+  my $statId = shift @statElements;
+  if ($statId ne 'ST') {
+    return undef;
+  }
 
   # convert file mode from hexadecimal...
   $statElements[2]  = hex $statElements[2]; 
@@ -262,12 +268,6 @@ sub _makeRdev
   return $rdev;
 }
 
-
-sub _rootCommandForStat
-{
-    my ($file) = @_;
-    return "/usr/bin/stat -c%dI%iI%fI%hI%uI%gIhI%sI%XI%YI%ZI%oI%bI%tI%T $file";
-}
 
 
 my $anyFileTestPredicate = Perl6::Junction::any(qw(-b -c -d -e -f -g -G  -h  -k -L -O -p -r -s -S -t -u -w -x) );
