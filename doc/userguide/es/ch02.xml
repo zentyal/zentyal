@@ -168,11 +168,12 @@
 			</para>
 
 			<note>
-				<para>
-				Es importante recordar que la configuración de la que se hace 
-				copia de seguridad es la última guardada a través del enlace
-				correspondiente en el menú horizontal superior.
-				</para>
+			  <para>Es importante recordar que la configuración de la que se hace 
+			  copia de seguridad es la última guardada a través del enlace
+			  correspondiente en el menú horizontal superior.</para>
+			  <para>Si insertas un CD/DVD regrabable, el
+			  contenido que hubiese en el disco, sería
+			  reemplazado por la copia de seguridad de eBox.</para>
 			</note>
 		</section>
 
@@ -191,11 +192,12 @@
 			  </listitem>
 			  <listitem>
 			    <para>La copia de seguridad de eBox también se
-			    puede almacenar en un disco CD/DVD. Con
-			    <guilabel>Restaurar desde
-			    CD/DVD</guilabel> el estado almacenado en
-			    este tipo de dispositivos puede
-			    recuperarse.</para>
+			    puede almacenar en un disco CD/DVD. Tras
+			    insertar el CD/DVD con una copia de
+			    seguridad de eBox, con <guilabel>Restaurar
+			    desde CD/DVD</guilabel> el estado
+			    almacenado en este tipo de dispositivos
+			    puede recuperarse.</para>
 			  </listitem>
 			  <listitem>
 			    <para>Para finalizar, una copia de
@@ -226,7 +228,7 @@
 		</section>
 
 		<section id="listaBackup">
-			<title>Lista de backups de la configuración</title>
+			<title>Lista de backups</title>
 			<para>
 			La lista de backups contiene las copias de seguridad de eBox realizadas 
 			durante	el período de funcionamiento. Las acciones de esta lista, 

@@ -112,9 +112,9 @@
 			other data which are not necessary for eBox to
 			work. For example, it stores files from shared
 			directories or log messages. Its size is larger than
-			previous mode and can occupy GBs and it can be
+			previous mode and can occupy GBs. It can be
 			used to restore only configuration part
-			because it is wrapped.</para>
+			because it is wrapped inside.</para>
 		      </listitem>
 		    </varlistentry>
 		  </variablelist>
@@ -127,7 +127,7 @@
 			device such as CD and DVD.</para>
 			
 			<para>In first case, when backup is done,
-			a new entry will appear on the backups
+			a new entry will appear on the backups'
 			list, showing date, description and possible
 			actions related to the recent backup.</para>
 
@@ -143,6 +143,10 @@
 				backed up configuration is the last saved
 				configuration through the top-right
 				"Save changes" button.</para>
+				<para>If you insert a re-writable
+				CD/DVD, the content which remained
+				inside would be replaced with the eBox
+				backup.</para>
 			</note>
 		</section>
 		<section>
@@ -159,15 +163,17 @@
 			  </listitem>
 			  <listitem>
 			    <para>The eBox backup can be stored
-			    in a removable disk as well. With
-			    <guilabel>Restore from disk</guilabel> the
-			    eBox saved state in this kind of
-			    storage devices can be restored.</para>
+			    in a removable disk as well. After
+			    inserting a CD/DVD with an eBox backup,
+			    with <guilabel>Restore from
+			    disk</guilabel> the eBox saved state in
+			    this kind of storage devices can be
+			    restored.</para>
 			  </listitem>
 			  <listitem>
 			    <para>Finally, an eBox backup can be
-			    restored from the list of backups which is
-			    explained in detail <xref
+			    restored from the backups' list which is
+			    explained in detail in <xref
 			    linkend="backupList" />.</para>
 			  </listitem>
 			</orderedlist>
@@ -187,11 +193,11 @@
 			</orderedlist>
 			<para>Then, you should check it to see if it
 			is all correct or make the appropriate changes
-			and save it.</para>
+			and, finally, save it.</para>
 		</section>
 		<section id="backupList">
-			<title>Configuration backups list</title>
-			<para>Backup list has the eBox backups made during its
+			<title>Backups' list</title>
+			<para>Backups' list has the eBox backups made during its
 			working period. Actions on each element from
 			that list, located at the right, let restore a
 			backup, download a file with a backup, store
