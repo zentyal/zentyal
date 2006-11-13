@@ -1,0 +1,206 @@
+# translation of ebox-samba.po to
+# Copyright (C) YEAR Warp S.L.
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-samba\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2005-11-11 13:10+0100\n"
+"PO-Revision-Date: 2006-10-18 23:30-0200\n"
+"Last-Translator: junior\n"
+"Language-Team:  <en@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+
+#: src/EBox/CGI/ActiveSharing.pm:44 src/EBox/CGI/ActivePrinting.pm:47
+#: src/EBox/SambaLdapUser.pm:450 src/EBox/SambaLdapUser.pm:480
+#: src/EBox/SambaLdapUser.pm:527
+msgid "group name"
+msgstr "Nome do Grupo"
+
+#: src/EBox/CGI/ActiveSharing.pm:47
+msgid "sharing name"
+msgstr "Nome do compartilhamento"
+
+#: src/EBox/CGI/ActiveSharing.pm:65 src/EBox/CGI/ActivePrinting.pm:43
+msgid "user name"
+msgstr "Nome de usuário"
+
+#: src/EBox/CGI/ActiveSharing.pm:68
+msgid "active"
+msgstr "ativo"
+
+#: src/EBox/CGI/Enable.pm:42
+msgid "module status"
+msgstr "status do módulo"
+
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:170
+#: src/EBox/Samba.pm:178
+msgid "File sharing"
+msgstr "Compartilhamento de Arquivos"
+
+#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:307
+msgid "netbios"
+msgstr "netbios"
+
+#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:345
+msgid "working group"
+msgstr "Grupo de Trabalho"
+
+#: src/EBox/CGI/SambaConf.pm:44 src/EBox/Samba.pm:326
+msgid "description"
+msgstr "Descrição"
+
+#: src/EBox/CGI/SambaConf.pm:45
+msgid "user quota"
+msgstr "Quota de Usuário"
+
+#: src/EBox/SambaLdapUser.pm:183
+msgid "This user has a sharing directory associated which conatins data"
+msgstr "Este usuário tem um diretório compartilhado que contém dados"
+
+#: src/EBox/SambaLdapUser.pm:244
+msgid "This group has a sharing directory associatedwhich conatins data"
+msgstr "Este Grupo tem um diretório compartilhado que contém dados"
+
+#: src/EBox/SambaLdapUser.pm:489
+msgid "sharing resource"
+msgstr "Compartilhando Recursos"
+
+#: src/EBox/SambaLdapUser.pm:597 src/EBox/Samba.pm:652 src/EBox/Samba.pm:682
+msgid "group"
+msgstr "Grupo"
+
+#: src/EBox/Samba.pm:235 src/EBox/Samba.pm:280
+msgid "listening port"
+msgstr "escutando a porta"
+
+#: src/EBox/Samba.pm:364
+msgid "quota"
+msgstr "cota"
+
+#: src/EBox/Samba.pm:649 src/EBox/Samba.pm:668
+msgid "user"
+msgstr "usuário"
+
+#: src/EBox/Samba.pm:655
+msgid "printer"
+msgstr "impressora"
+
+#: src/templates/delete.mas:10
+msgid "Deleting group"
+msgstr "Deletando Grupo"
+
+#: src/templates/delete.mas:12
+msgid ""
+"The group you tried to delete has a directory which contains data, if you "
+"remove it all its data will be removed. Please confirm that you want to "
+"delete it."
+msgstr "O grupo que você tentou deletar tem um diretorio que contém dados, se você removê-lo todos esses dados serão removidos. Por Favor confirme se você realmente quer deletá-los"
+
+#: src/templates/delete.mas:20 src/templates/samba.mas:61
+#: src/templates/samba.mas:63
+msgid "Delete"
+msgstr "Deletar"
+
+#: src/templates/delete.mas:24
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: src/templates/samba.mas:11
+msgid "Sharing user directory"
+msgstr "Compartilhando diretório do usuário"
+
+#: src/templates/samba.mas:17 src/templates/samba.mas:22
+msgid "Disabled"
+msgstr "Desabilitado"
+
+#: src/templates/samba.mas:19 src/templates/samba.mas:24
+msgid "Enabled"
+msgstr "Habilitado"
+
+#: src/templates/samba.mas:29 src/templates/samba.mas:31
+msgid "Ok"
+msgstr "Ok"
+
+#: src/templates/samba.mas:37
+msgid ""
+"You can set a share directory for this group, but you should keep in mind "
+"that Microsoft Windows 98 and Millenium will not be able to see names longer "
+"than 12 characters"
+msgstr "Você pode compartilhar um diretório para esse grupo, mas você deve saber Windows 98 e Millenium não conseguirão visualizar nomes com mais de 12 caracteres"
+
+#: src/templates/samba.mas:44
+msgid "This resource name is longer than 12 charcters."
+msgstr "O nome do recurso tem mais de 12 caracteres"
+
+#: src/templates/samba.mas:48
+msgid "Sharing name"
+msgstr "Nome do compartilhamento"
+
+#: src/templates/samba.mas:56 src/templates/samba.mas:58
+#: src/templates/samba.mas:126 src/templates/samba.mas:128
+#: src/templates/index.mas:67 src/templates/index.mas:69
+msgid "Change"
+msgstr "Mudar"
+
+#: src/templates/samba.mas:67 src/templates/samba.mas:69
+msgid "Add"
+msgstr "Adicionar"
+
+#: src/templates/samba.mas:77
+msgid "Printers"
+msgstr "Impressoras"
+
+#: src/templates/samba.mas:79
+msgid "Select the printers this user will have access to."
+msgstr "Selecione a impressora que o usuário terá acesso"
+
+#: src/templates/samba.mas:90
+msgid "Printer"
+msgstr "Impressora"
+
+#: src/templates/samba.mas:92
+msgid "Allow"
+msgstr "Aceitar"
+
+#: src/templates/samba.mas:113
+msgid "Allow all printers"
+msgstr "Aceitar todas impressoras"
+
+#: src/templates/index.mas:15
+msgid "File sharing service status"
+msgstr "Status do serviço de compatilhamento de Arquivos"
+
+#: src/templates/index.mas:19
+msgid "General Settings"
+msgstr "Configurações gerais"
+
+#: src/templates/index.mas:22
+msgid "To allow unlimited disk usage to users, just set zero as user quota limit."
+msgstr "Para permitir o uso ilimitado do Disco aos usuários, apenas coloque zero com limite de cota"
+
+#: src/templates/index.mas:29
+msgid "Working group"
+msgstr "Grupo de Trabalho"
+
+#: src/templates/index.mas:39
+msgid "Netbios name"
+msgstr "Nome Netbios"
+
+#: src/templates/index.mas:48
+msgid "Description"
+msgstr "Descrição"
+
+#: src/templates/index.mas:56
+msgid "Quota limit"
+msgstr "Limite de cota"
+
+#: stubs/smb.conf.mas:44
+msgid "Home Directories"
+msgstr "Diretórios Home"
+
