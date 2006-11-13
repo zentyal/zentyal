@@ -79,7 +79,7 @@ INSTALLATION
 	chown ebox.ebox /var/lib/ebox/gconf
 
 7.- Remove the link to /etc/init.d/apache-perl from /etc/rc2.d/, the ebox script
-     will handle apache starts/stops through runit. To nstall runit scripts:
+     will handle apache starts/stops through runit. To install runit scripts:
 
     ebox-runit
 
@@ -97,7 +97,16 @@ EB:2:once:/etc/init.d/ebox start
     cat /etc/ebox/ssl.crt/ebox.cert \
         /etc/ebox/ssl.key/ebox.key > /etc/ebox/ssl.pem/ebox.pem
 
-10.- Start ebox:
+10.- Create the stderr file in tmp directory
+	See the 4th step for the location of the tmp directory, usually it will be /var/lib/ebox/tmp.
+	The stderr file must be writable by ebox user
+
+	touch /var/lib/ebox/tmp/stderr
+	chmod 0600 /var/lib/ebox/tmp/stderr
+	chown ebox.ebox /var/lib/ebox/tmp/stderr
+
+
+11.- Start ebox:
 	
 	/etc/init.d/ebox start
 
