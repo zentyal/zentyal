@@ -9,6 +9,7 @@ DEPENDENCIES
 	+ libapache-mod-perl
 	+ libapache-mod-ssl
 	+ libapache-authcookie-perl
+	+ libapache-reload-perl
 	+ libgnome2-gconf-perl
 	+ libsys-cpu-perl
 	+ libsys-cpuload-perl
@@ -16,9 +17,6 @@ DEPENDENCIES
 	+ libapache-singleton-perl
 	+ runit
 
-+ modules from cpan
-
-	+ libreadonly-perl
 
 + eBox components:
 	libebox
