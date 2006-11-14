@@ -92,6 +92,7 @@ sub routesTest
 			      );
 
   my @actualListedRoutes = sort (EBox::NetWrappers::list_routes());
+  diag 'The following test may return a false negative'; # amybe this is a bug in Test::Difference
   eq_or_diff [@actualListedRoutes], [@expectedListedRoutes], "Checking list_routes()";
   
   while (my ($net, $router) = each %routes) {
