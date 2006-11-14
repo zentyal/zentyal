@@ -89,7 +89,8 @@ INSTALLATION
 
 
 8.- Remove the link to /etc/init.d/apache-perl from /etc/rc2.d/, the ebox script
-     will handle apache starts/stops through runit. To install runit scripts:
+     will handle apache starts/stops through runit. To install runit scripts go
+     to the source directory and execute ebox-runit
 
     ebox-runit
 
