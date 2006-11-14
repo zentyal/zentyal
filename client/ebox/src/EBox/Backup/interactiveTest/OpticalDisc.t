@@ -8,7 +8,7 @@ use Perl6::Junction qw(all);
 use EBox::Test;
 
 use lib '../../..';
-use_ok(' EBox::Backup::OpticalDisc');
+use_ok('EBox::Backup::OpticalDisc');
 
 EBox::Test::activateEBoxTestStubs();
 diag "This test must be run as root otherwise some parts may fail";
