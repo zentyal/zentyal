@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# Start syslog
+/etc/init.d/sysklogd start
+
+# Start postgresql
+/etc/init.d/postgresql start
+
+# Start ldap
+/etc/init.d/slapd start
+
+# Samba dirs
+mkdir -p /home/samba/users
+mkdir  /home/samba/groups
+mkdir /home/samba/netlogon
+mkdir /home/samba/profiles
+
+# Intialise squid cache
+/usr/sbin/squid -z
+
+# Mount postfix' spool over tmpfs to avoid messing around with unionfs
+mv /var/spool/postfix /tmp/postfix
+mkdir /var/spool/postfix
+mount -t tmpfs tmpfs /var/spool/postfix
+mv /tmp/postfix/* /var/spool/postfix/
+rm -rf /tmp/postfix
+
+# Create log files
+touch /var/log/squid/access.log
+chown proxy.proxy /var/log/squid/access.log
+touch /var/log/dansguardian/access.log
+chown dansguardian.dansguardian /var/log/dansguardian/access.log
+
+# Start runit 
+/usr/bin/runsvdir /var/service&
+
+# Setting locale
+if [ -f /etc/locale.gen ]; then
+	. /etc/environment
+	rm /etc/locale.gen
+	locale-gen
+	language=`echo $LANG | sed -e 's/@.*/.UTF-8/'`
+	echo "$language UTF-8" > /etc/locale.gen
+	locale-gen
+	export LC_ALL="$language"
+	export LANG="$language"
+	echo "LANG=$language" > /etc/environment
+	perl -e "use EBox; EBox::setLocale('$language')"
+fi
+
+# Start ebox
+/etc/init.d/ebox start
