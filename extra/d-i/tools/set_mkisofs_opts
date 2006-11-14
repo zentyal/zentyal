@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# Copyright 1999 Raphaël Hertzog <hertzog@debian.org>
+# See the README file for the license.
+
+# This script does output additionnal mkisofs options
+# depending on the ARCH and the CD number.
+
+# Type can be "bin" or "src"
+TYPE=$1
+# The CD number
+CD=$2
+
+# No additional options by default
+OPTS=
+
+case "$ARCH" in
+  i386) 
+    OPTS="-J"
+    ;;
+  amd64) 
+    OPTS="-J"
+    ;;
+  alpha)
+    OPTS="-J"
+    ;;
+  *)
+    #No options by default
+    ;;
+esac
+
+echo -n "$OPTS "
+

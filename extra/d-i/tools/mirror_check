@@ -1,0 +1,69 @@
+#!/usr/bin/perl -w 
+
+use Digest::MD5;
+
+my $mirror = shift || $ENV{'MIRROR'};
+my $nonus = shift || $ENV{'NONUS'};
+my $security = shift || $ENV{'SECURITY'};
+my ($p, $filename, $size, $md5sum, $file) = ('', '', 0, '', '');
+
+my $ok = 1;
+my ($ctx, $digest);
+
+$/=''; # Browse paragraph by paragraph
+
+while (defined($_ = <>)) {
+	# Get the infos about a package
+	m/^Package: (\S+)/mi  and $p = $1;
+	m/^Size: (\d+)/mi     and $size = $1;
+	m/^Filename: (\S+)/mi and $filename = $1;
+	m/^MD5sum: (\S+)/mi   and $md5sum = $1;
+
+	next if not $p;
+	
+	$file = ( ( -e "$mirror/$filename" ) ? "$mirror/$filename" :
+		  ( exists $ENV{LOCALDEBS} && -e "$ENV{LOCALDEBS}/$filename" ) ? "$ENV{LOCALDEBS}/$filename" :
+		  ( -e "$nonus/$filename" ) ? "$nonus/$filename" :
+		  "$security/$filename" );
+	
+	# Check if the file exists
+	if (! -e $file) {
+		print STDERR "File $filename can't be found ...\n";
+		$ok = 0;
+		next;
+	}
+	
+	# Check for the size
+	if (-s _ != $size) {
+		print STDERR "The size doesn't match for $file.\n";
+		print STDERR "It's `@{ [ -s _ ]}' instead of `$size'.\n";
+		$ok = 0;
+	}
+
+	# Compute the MD5sum
+	open(FILE, "< $file") || die "Can't open $file : $!\n";
+	$ctx = Digest::MD5->new;
+	$ctx->addfile(*FILE);
+	$digest = $ctx->hexdigest;
+	undef $ctx;
+	close FILE;
+	
+	# Check the MD5sum
+	if ($digest ne $md5sum) {
+		print STDERR "MD5sum does not match for $file ...\n";
+		print STDERR "It's `$digest' instead of `$md5sum'.\n";
+		$ok = 0;
+	}
+}
+
+if ($ok) {
+	exit 0;
+} else {
+	print STDERR <<EOF;
+	
+The mirror has some problems. Please correct them before trying to build
+Debian CDs. To do so you could sync your mirror from one of the primary
+mirror sites listed on the Debian web pages.
+EOF
+	exit 1;
+}

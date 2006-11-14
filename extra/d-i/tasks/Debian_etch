@@ -1,0 +1,23 @@
+/*
+ *
+ * This file will be used to build official complete set of Etch CD
+ *
+ */
+
+#if (FORCENONUSONCD1 == 1)
+#include "Debian_etch_nonUS"
+#endif
+
+/* Packages that should really be on CD1 */
+#include <debian-installer+kernel-etch>
+#include <base-etch>
+#include <forcd1>
+#include <task-essential-etch>
+
+/* Other interesting packages */
+#include <interesting-fromcd23>
+#include <task-full-etch>
+
+/* The rest ordered by popularity */
+#include <popularity-contest-etch>
+

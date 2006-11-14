@@ -1,0 +1,27 @@
+# These udebs are in the d-i cdrom initrd and the cd-drivers+root floppies. 
+# As such, there is no reason to keep another copy of them on the CD
+# in udeb form.
+isa-pnp-modules-*
+socket-modules-*
+console-keymaps-at
+console-keymaps-usb
+floppy-modules-*
+discover-data-udeb
+discover-udeb
+discover1-data-udeb
+discover1-udeb
+cdrom-core-modules-*
+cdrom-modules-*
+ide-modules-*
+ide-core-modules-*
+input-modules-*
+fb-modules-*
+kbd-chooser
+usb-modules-*
+usb-storage-modules-*
+scsi-core-modules-*
+# Not needed with the 2.4 kernel on i386.
+userdevfs
+# The speakup kernel modules are not useful unless the access images are
+# provided.
+*-speakup-di

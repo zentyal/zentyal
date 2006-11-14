@@ -1,0 +1,35 @@
+#!/bin/bash
+#
+# post-boot-mips
+#
+# Do post-image-building tasks for mips, to make CDs bootable.
+#
+# $1 is the CD number
+# $2 is the temporary CD build dir
+# $3 is the image file
+
+set -e
+
+N=$1
+CDROOT=$2
+CDIMAGE=$3
+
+cd $CDROOT/..
+
+# Only disk 1* bootable
+if [ $N != 1 -a $N != 1_NONUS ]; then
+	exit 0
+fi
+
+for sub in r4k-ip22 r5k-ip22; do
+	_start=$(isoinfo -i $CDIMAGE -lR |grep -A 10 'Directory listing of /install' |grep ${sub}-boot.img |awk '{print $10 * 4}')
+	_size=$(isoinfo -i $CDIMAGE -lR |grep -A 10 'Directory listing of /install' |grep ${sub}-boot.img |awk '{OFMT="%.0f"; print int(($5 + 2047) / 2048) * 2048}')
+	_bootfiles="${_bootfiles} ${sub}:${_start},${_size}"
+done
+_start=$(isoinfo -i $CDIMAGE -lR |grep -A 10 'Directory listing of /install' |grep $r4k-ip22-boot.img |awk '{print $10 * 4}')
+_size=$(isoinfo -i $CDIMAGE -lR |grep -A 10 'Directory listing of /install' |grep $r4k-ip22-boot.img |awk '{OFMT="%.0f"; print int(($5 + 2047) / 2048) * 2048}')
+_bootfiles="${_bootfiles} sashARCS:${_start},${_size}"
+
+echo Bootfiles: ${_bootfiles}
+
+genisovh $CDIMAGE ${_bootfiles}

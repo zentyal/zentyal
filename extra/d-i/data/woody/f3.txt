@@ -1,0 +1,24 @@
+0fBOOT METHODS07
+
+The Rescue disk can be used for system recovery as well as for installation.
+The 0frescue07 method will mount an existing root partition, while the other
+methods will give you a small, standalone root system.
+
+0fAvailable boot methods:07
+0flinux07 or 0fidepci07
+  Start the installation -- this is the default.
+0fbf2407
+  Start the installation with a Linux 2.4 kernel.
+0fcompact07
+  Start the installation with a kernel including PCI SCSI and IDE drivers.
+0fvanilla07
+  Start the installation with a kernel including many drivers for
+  older hardware (such as systems with ISA-based hardware).
+0frescue07
+  Boot and mount any root filesystem. The root filesystem must be given at
+  the prompt, so e.g., type 0frescue root=/dev/hda107.  (You can also use
+  0frescbf2407, 0fresccomp07, or 0frescvanl07.)
+
+Press <09ENTER07> or type boot method, arguments, and <09ENTER07> to boot.
+Press function key <09F107> for the help index.
+

@@ -1,0 +1,209 @@
+#!/bin/bash
+#
+# boot-i386 v 1.13 (c) Steve McIntyre <stevem@chiark.greenend.org.uk>
+# Released under GPL 31 Mar 1999
+# 06-10-99 jjw Added $CODENAME and $CODENAME_STATUS support 
+#
+# Heavily hacked by Raphaël Hertzog <hertzog@debian.org> for
+# YACS (the new debian-cd in potato)
+# 12MAR00  updated for current i386 bootdisks  --jwest
+# 02JAN01  cd1=default-kern, cd2=compact-kern, cd3=idepci-kern --jwest
+#
+# Do install stuff for i386, including making bootable CDs
+#
+# $1 is the CD number
+# $2 is the temporary CD build dir
+
+. $BASEDIR/tools/boot/$CODENAME/common.sh
+
+set -e
+
+N=$1
+CDDIR=$2
+BOOTDIR=
+
+cd $CDDIR/..
+
+#
+# This script is called with $1 (now $N) as the CD to 
+# make bootable.  N may be in the form "n" or "n_NONUS"
+# There may be more than 4 disks...support extras.
+
+# Strip NONUS part of disk number
+# NN will be 1...N so it can be used as an index
+#
+NN=`echo $N | sed -e 's/_NONUS//'`
+
+
+# what kernel-type to put on what disk?
+# a null "" value will use the default boot-disk kernel
+#
+KTYPE[1]="bf2.4" #multiboot in fact
+KTYPE[2]="" #vanilla
+KTYPE[3]="compact"
+KTYPE[4]="idepci"
+KTYPE[5]="bf2.4"
+KTYPE[6]=""
+KTYPE[7]=""
+KTYPE[8]=""
+
+# Show user what is going on.
+#
+THISTYPE=${KTYPE[$NN]}
+
+# Put boot images on CD1...CD(N)
+#
+
+if [ "${ISOLINUX:-0}" != "0" ] && [ "$NN" = "1" ]; then
+    echo "Using ISOLINUX boot-disks image on CD$N"
+    mkdir -p boot$N/isolinux
+    cp -f $BASEDIR/data/woody/isolinux.bin boot$N/isolinux/
+    cp -lf CD1/dists/$CODENAME/main/disks-$ARCH/current/images-1.44/root.bin boot$N/isolinux/
+    cp -lf CD1/dists/$CODENAME/main/disks-$ARCH/current/images-1.44/bf2.4/root.bin boot$N/isolinux/bf24.bin
+    cp -lf CD1/dists/$CODENAME/main/disks-$ARCH/current/images-1.44/compact/root.bin boot$N/isolinux/compact.bin
+    cp -lf CD1/dists/$CODENAME/main/disks-$ARCH/current/images-1.44/idepci/root.bin boot$N/isolinux/idepci.bin
+    echo -n "-cache-inodes -J -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table " > $N.mkisofs_opts
+else
+    echo "Using ${THISTYPE:-vanilla} boot-disks image on CD$N"
+    mkdir -p boot$N/boot
+    cp -lf CD1/dists/$CODENAME/main/disks-$ARCH/current/images-2.88/${THISTYPE}/rescue.bin boot$N/boot/
+    echo -n "-cache-inodes -J -b boot/rescue.bin "  > $N.mkisofs_opts
+fi
+
+install_languages $CDDIR
+
+# Only disk one gets the extra files installed
+#
+if [ "$N" = "1" ] || [ "$N" = "1_NONUS" ] ; then
+
+
+# populate the install directory as well
+(cd $CDDIR/dists/$CODENAME/main/disks-$ARCH/current/ ; \
+	cp -lf images-1.44/resc*.bin $CDDIR/install ; \
+	cp -lf linux.bin $CDDIR/install/linux ; \
+	cp -lf compact/linux.bin $CDDIR/install/lincompt ; \
+	cp -lf idepci/linux.bin $CDDIR/install/linpci ; \
+	cp -lf bf2.4/linux.bin $CDDIR/install/lin24 ; \
+	cp -lf images-1.44/root.bin $CDDIR/install ; \
+        cp -lf images-1.44/bf2.4/root.bin $CDDIR/install/bf24.bin; \
+        cp -lf images-1.44/compact/root.bin $CDDIR/install/compact.bin; \
+        cp -lf images-1.44/idepci/root.bin $CDDIR/install/idepci.bin)
+
+
+# Tools for disc 1
+# and include the legacy DOS stuff 
+
+if [ "${ISOLINUX:-0}" != "0" ]; then
+    # Include Smart Boot Manager image for people where isolinux doesn't
+    # work
+    gzip -dc $BASEDIR/data/$CODENAME/sbm.bin.gz > $CDDIR/install/sbm.bin
+    # Keep the original file timestamp
+    touch -r $BASEDIR/data/$CODENAME/sbm.bin.gz $CDDIR/install/sbm.bin
+    cp -p $BASEDIR/data/$CODENAME/README.sbm $CDDIR/install/
+    # Isolinux config files
+    cp -f $BASEDIR/data/$CODENAME/isolinux.txt $BASEDIR/data/$CODENAME/f*.txt boot$N/isolinux/
+    cat > boot$N/isolinux/isolinux.cfg <<EOF
+DEFAULT /install/linpci
+APPEND root=/dev/ram ro initrd=idepci.bin ramdisk_size=16384 disksize=1.44 flavor=idepci
+LABEL linux
+  kernel /install/linpci
+LABEL idepci
+  kernel /install/linpci
+LABEL compact
+  kernel /install/lincompt
+  append root=/dev/ram ro initrd=compact.bin ramdisk_size=16384 disksize=1.44 flavor=compact
+LABEL vanilla
+  kernel /install/linux
+  append root=/dev/ram ro initrd=root.bin ramdisk_size=16384 disksize=1.44 TERM=vt102
+LABEL bf24
+  kernel /install/lin24
+  append root=/dev/ram ro initrd=bf24.bin ramdisk_size=16384 disksize=1.44 flavor=bf2.4
+LABEL rescue
+  kernel /install/linpci
+  append noinitrd
+LABEL resccomp
+  kernel /install/lincompt
+  append noinitrd
+LABEL rescvanl
+  kernel /install/linux
+  append noinitrd
+LABEL rescbf24
+  kernel /install/lin24
+  append noinitrd
+DISPLAY isolinux.txt
+TIMEOUT 0
+PROMPT 1
+F1 f1.txt
+F2 f2.txt
+F3 f3.txt
+F4 f4.txt
+F5 f5.txt
+F6 f6.txt
+F7 f7.txt
+F8 f8.txt
+F9 f9.txt
+F0 f10.txt
+EOF
+fi
+
+cp -pf $CDDIR/dists/$CODENAME/main/disks-$ARCH/current/dosutils/* $CDDIR/install/
+
+(echo "Tools for DOS :" ; \
+	echo "lodlin/         load Linux kernel from DOS" ;\
+	echo "rawrite2/       rawrite 2.0 : create disks from disk images (*.bin)"; \
+	) |todos > $CDDIR/tools/README.tools
+
+(cat <<EOF;
+@ echo off
+rem Flush any write-cached disk blocks before we leave DOS. 
+If your system does not use smartdrv an error message will appear, 
+you can safely ignore that.
+smartdrv /c
+
+echo Please choose a linux kernel now
+echo 1= IDEPCI kernel                 (2.2)
+echo 2= compact (SCSI) kernel         (2.2)
+echo 3= 2.4.x kernel                  (2.4)
+echo 4= vanilla (standard) kernel     (2.2)
+
+choice /c:1234
+if errorlevel 4 goto FOUR
+if errorlevel 3 goto THREE
+if errorlevel 2 goto TWO
+if errorlevel 1 goto ONE
+
+echo doing default somehow and going to ONE
+goto ONE
+
+:ONE
+echo using IDEPCI kernel
+loadlin.exe linpci root=/dev/ram ro initrd=root.bin ramdisk_size=16384 disksize=1.44 flavor=idepci
+
+:TWO
+echo using compact (SCSI) kernel
+loadlin.exe lincompt root=/dev/ram ro initrd=compact.bin ramdisk_size=16384 disksize=1.44 flavor=compact
+
+:THREE
+echo using 2.4.x kernel
+loadlin.exe lin24 root=/dev/ram ro initrd=bf24.bin ramdisk_size=16384 disksize=1.44 flavor=bf2.4
+
+:FOUR
+echo using standard (vanilla) kernel
+loadlin.exe linux root=/dev/ram ro initrd=root.bin ramdisk_size=16384 disksize=1.44 TERM=vt102
+
+EOF
+) |todos > $CDDIR/install/boot.bat
+
+fi
+
+
+
+# write final lines to mkisofs_opts
+if [ "${ISOLINUX:-0}" != "0" ] && [ "$NN" = "1" ]; then
+    echo -n "boot$N " >> $N.mkisofs_opts
+else
+    echo -n "-c boot/boot.catalog boot$N "  >> $N.mkisofs_opts
+fi
+
+
+# th,th, thats all

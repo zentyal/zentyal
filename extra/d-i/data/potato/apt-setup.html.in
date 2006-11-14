@@ -1,0 +1,256 @@
+
+First of all, comment out every line of <tt>/etc/apt/sources.list</tt> by
+placing a hash sign (`<tt>#</tt>') in front of it (if it isn't already
+there). 
+
+<P>
+
+Then you need to add new "<tt>deb</tt>" lines describing the location(s)
+where apt will get the new packages from. You can add "<tt>deb</tt>" lines
+for a packages mirror on a local harddisk, and/or FTP/HTTP mirrors, and/or
+(a set of)  CD-ROMs. `Apt' will consider all packages that can be found
+via any "<tt>deb</tt>" line, and use the one with the highest version
+number, giving priority to the first mentioned lines. (So, in case of
+multiple mirror locations, you'd typically first name a local harddisk,
+then CD-ROMs, and finally FTP/HTTP mirrors.) 
+
+<P>
+<UL>
+<LI>
+For an archive on a local harddisk, that for example has these directories,
+
+#if OUTPUTtext
+<PRE>
+
+         /var/ftp/debian/dists/potato/main/binary-ARCH/...
+         /var/ftp/debian/dists/potato/contrib/binary-ARCH/...
+         ---------------       ------     |\ 
+               \________          \_      | \___
+       add:             \           \     |     \ 
+                  --------------- ------  |      \ 
+         deb file:/var/ftp/debian potato main contrib
+
+</PRE>
+#endif
+#if OUTPUThtml
+<PRE>
+  /var/ftp/debian/dists/potato/main/binary-ARCH/...
+  /var/ftp/debian/dists/potato/contrib/binary-ARCH/...
+  ---------------       ------     |\ 
+        \________          \_      | \___
+add:             \           \     |     \ 
+           --------------- ------  |      \ 
+  deb file:/var/ftp/debian potato main contrib
+</PRE>
+#endif
+
+  As shown, the `<tt>dists</tt>' is added implicitly, and the 3rd
+  and following arguments are used to expand the path into multiple
+  directories.
+
+<BR>&nbsp;<BR>
+
+  If you have a complete mirror that also has non-free and non-US, you
+  typically have to add lines like these:
+
+<BR>&nbsp;<BR>
+
+<tt>&nbsp;
+    deb file:/var/ftp/debian potato main contrib non-free <BR>
+&nbsp;
+    deb file:/var/ftp/debian-non-US potato/non-US main contrib non-free
+</tt>
+
+<BR>&nbsp;<BR>
+
+  If you don't have such a structure, other description lines  are
+  possible, see the <tt>sources.list</tt>
+#if MANPAGEseebelow
+  manpage (see below).
+#else
+  manpage.
+#endif
+
+</LI>
+<BR>&nbsp;<BR>
+<LI>
+
+FTP and HTTP packages mirror addresses can be found on
+
+#if CDROMreadme
+#if OUTPUTtext
+this CD in README.mirrors.txt, or on
+#endif
+#if OUTPUThtml
+this CD in <a href="README.mirrors.html">README.mirrors.html</a>, or on
+#endif
+#endif
+
+#if OUTPUTtext
+  http://www.debian.org/distrib/ftplist,
+#endif
+#if OUTPUThtml
+  <a href="http://www.debian.org/distrib/ftplist">http://www.debian.org/distrib/ftplist</a>,
+#endif
+  look at the "Full list of mirrors".
+
+<BR>&nbsp;<BR>
+
+  If the mirror has these directories:
+
+#if OUTPUTtext
+<PRE>
+
+         ftp://some-server/debian/dists/potato/main/binary-ARCH/...
+         ftp://some-server/debian/dists/potato/contrib/binary-ARCH/...
+         ------------------------       ------ |   |
+                     \___                 /    |   |
+       add:              \               /     |   |
+             ------------------------ ------   |   |
+         deb ftp://some-server/debian potato main contrib
+
+</PRE>
+#endif
+#if OUTPUThtml
+<PRE>
+  ftp://some-server/debian/dists/potato/main/binary-ARCH/...
+  ftp://some-server/debian/dists/potato/contrib/binary-ARCH/...
+  ------------------------       ------ |   |
+              \___                 /    |   |
+add:              \               /     |   |
+      ------------------------ ------   |   |
+  deb ftp://some-server/debian potato main contrib
+</PRE>
+#endif
+
+  As shown, the `<tt>dists</tt>' is added implicitly, and the 3rd
+  and following arguments are used to expand the path into multiple
+  directories.
+
+<BR>&nbsp;<BR>
+
+  If you use a complete mirror that also has non-free and non-US, you
+  typically have to add lines like these:
+
+<BR>&nbsp;<BR>
+
+<tt>&nbsp;
+    deb ftp://some-server/debian potato main contrib non-free <BR>
+&nbsp;
+    deb ftp://some-server/debian-non-US potato/non-US main contrib non-free
+</tt>
+
+<BR>&nbsp;<BR>
+
+  If the mirror doesn't have such a structure, other description lines are
+  possible, see the <tt>sources.list</tt>
+#if MANPAGEseebelow
+  manpage (see below).
+#else
+  manpage.
+#endif
+
+#if UPGRADING
+<BR>&nbsp;<BR>
+
+  NOTE: if you're using the static versions of `apt' and `dpkg' from this
+  directory, the hostname-lookup is "broken" (which is one reason to just
+  use slink's `apt'). The solution is to simply put the mirrors' IP address
+  in the "<tt>deb</tt>" line. (Hint: "<tt>nslookup some-server</tt>")
+#endif
+
+</LI>
+<BR>&nbsp;<BR>
+<LI>
+
+If you use (one or more) CD-ROMs, do _not_ add any lines to sources.list
+  manually.
+
+<BR>&nbsp;<BR>
+
+  Instead, first make sure there is a line in <tt>/etc/fstab</tt> that
+  connects the <tt>/cdrom</tt> mount point with your CD-ROM drive (the
+  exact `<tt>/cdrom</tt>' mount point is "required" for apt). For example,
+  if
+#if ARCHi386
+<tt>/dev/hdc</tt>
+#else
+<tt>/dev/scd0</tt>
+#endif
+  is your CD-ROM drive, <tt>/etc/fstab</tt> should
+  contain a line
+
+#if ARCHi386
+#if OUTPUTtext
+<PRE>
+
+         /dev/hdc      /cdrom     auto    defaults,noauto,ro     0   0
+
+</PRE>
+#endif
+#if OUTPUThtml
+<PRE>
+  /dev/hdc      /cdrom     auto    defaults,noauto,ro     0   0
+</PRE>
+#endif
+#else
+#if OUTPUTtext
+<PRE>
+
+         /dev/scd0     /cdrom     auto    defaults,noauto,ro     0   0
+
+</PRE>
+#endif
+#if OUTPUThtml
+<PRE>
+  /dev/scd0     /cdrom     auto    defaults,noauto,ro     0   0
+</PRE>
+#endif
+#endif
+
+  To test this, insert a CD-ROM and give commands
+
+<BR>&nbsp;<BR>
+
+    <tt>&nbsp; mount /cdrom</tt><BR>
+    <tt>&nbsp; ls -alF /cdrom &nbsp;&nbsp;&nbsp;</tt>
+                            (this should show the CD-ROM's root directory)<BR>
+    <tt>&nbsp; umount /cdrom</tt>
+
+<BR>&nbsp;<BR>
+
+  Then, use the command
+
+<BR>&nbsp;<BR>
+
+<tt>&nbsp;
+    apt-cdrom add
+</tt>
+
+<BR>&nbsp;<BR>
+
+  to add the data of each CD-ROM to apt's internal database.
+  This command will ask for one CD-ROM per run, and mount/unmount the
+  CD-ROM automatically. You should repeat this command for all 2.2 `Binary'
+  CD-ROMs you have.
+
+#if UPGRADING
+(`Source' CD-ROMs can be added as well, but only with the
+  latest version of `apt' from this directory, and they are not needed for
+  the upgrade anyway.)
+#endif
+
+</LI>
+</UL>
+<P>
+
+When the <tt>sources.list</tt> is correct,
+the final step of the preparation is to update apt's internal database
+with the command
+
+<P>
+
+<tt>&nbsp;
+  apt-get update
+</tt>
+

@@ -1,0 +1,62 @@
+#!/bin/bash -e
+# 
+# boot-sparc v 2.00 (c) Steve Dunham <dunham@cse.msu.edu>, Eric
+# Delaunay <delaunay@lix.polytechnique.fr>, Steve McIntyre
+# <stevem@chiark.greenend.org.uk>, Ben Collins <bcollins@debian.org>
+# Released under GPL 31 Mar 1999
+# See the file COPYING for license details
+# Released as part of the slink_cd package, not much use standalone
+#
+# Do install stuff for sparc, including making first CD bootable
+
+. $BASEDIR/tools/boot/$CODENAME/common.sh
+
+set -e
+
+N=$1
+CDDIR=$2
+
+cd $CDDIR/..
+
+:> $N.mkisofs_opts
+
+# Only disc 1* bootable
+if [ $N != 1 -a $N != 1_NONUS ]; then 
+	exit 0; 
+fi
+
+install_languages $CDDIR
+
+echo "-silo-boot boot/second.b -s /boot/silo.conf -S boot/cd.b boot1" > $N.mkisofs_opts
+rm -rf boot1
+
+inst=boot1
+
+# Setup directories
+mkdir -p $inst/boot
+
+silo_deb=`ls -t $MIRROR/pool/main/s/silo/silo_*.deb | tail -1`
+# put the relevant parts of SILO boot loader
+(ar p $silo_deb data.tar.gz | \
+	tar zxf - -C $inst/ ./boot/{cd,second}.b)
+
+if [ ! -e $inst/boot/cd.b ] ; then
+    echo "no cd.b found! exiting"
+    exit 1
+fi
+
+if [ ! -e $inst/boot/second.b ] ; then
+    echo "no second.b found! exiting"
+    exit 1
+fi
+
+# Some custom etc files
+cp -f -p $BASEDIR/data/sparc/etc/{debian.txt,silo.conf} \
+	$inst/boot/
+
+cp CD1/dists/$CODENAME/main/disks-$ARCH/current/sun4cdm/vmlinuz \
+	$inst/boot/sparc32.gz
+# Sparc64 kernel is so big, that uncompressing it corrupts SILO memory, so
+# uncompress it before hand.
+zcat CD1/dists/$CODENAME/main/disks-$ARCH/current/sun4u/vmlinuz \
+	>$inst/boot/sparc64

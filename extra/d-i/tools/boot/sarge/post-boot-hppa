@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# post-boot-hppa
+#
+# Do post-image-building tasks for hppa, to make CDs bootable.
+#
+# $1 is the CD number
+# $2 is the temporary CD build dir
+# $3 is the image file
+
+set -e
+
+N=$1
+CDROOT=$2
+CDIMAGE=$3
+
+cd $CDROOT/..
+
+# Only disk 1* bootable
+if [ $N != 1 -a $N != 1_NONUS ]; then
+	exit 0
+fi
+
+K32=$(ls $CDROOT/install/vmlinux-*-32|head -1)
+K64=$(ls $CDROOT/install/vmlinux-*-64|head -1)
+/sbin/palo \
+     --commandline="0/vmlinux root=/dev/ram initrd=0/ramdisk ramdisk_size=16384 init=/linuxrc" \
+     --recoverykernel="$K32" \
+     --recoverykernel="$K64" \
+     --bootloader="$CDROOT/install/iplboot" \
+     --ramdisk="$CDROOT/install/initrd.gz" \
+     --init-cdrom=$CDIMAGE --configfile=/dev/null

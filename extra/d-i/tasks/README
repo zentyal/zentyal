@@ -1,0 +1,107 @@
+
+NOTE: In these lists, package names should be on one line by itself.
+      No spaces/tabs/comments on the same line.
+
+cpp does not remove spaces/tabs, and perl apparently considers literally
+everything between \n and \n as package name. So, it's best to have no
+spaces/tabs at all outside the comment delimiters.
+
+The exclude/unexclude lists are NOT preprocessed, so comments there are
+not supported.
+
+-----
+
+THE "USEFUL CD 1 PROJECT" RATIONALE                  J.A. Bezemer, Jan-Apr 2001
+                                                     costar@panic.et.tudelft.nl
+
+Quite many Debian users do not have the Complete Official CD set, but only
+one (or sometimes two) CDs. They expect that CD to be as useful as
+possibe, that is, to contain as much useful packages as possible.
+
+We have four means to determine the usefulness of a (set of) package(s):
+the Popularity Contest (see above), the task-* packages, packages included
+on the official CDs of other distributions, and our own experience.
+
+We can distinguish two main groups of people that will use a single Debian CD:
+1. People paying nothing
+2. People wanting to pay as little as possible
+
+ad 1. This happens mostly at tradeshows/expos/conferences. We can further
+subdivide this group into two opposites:
+a. Complete Linux newbies that want to use Debian as their first
+   distribution.
+b. Well-experienced Linux users that want to compare Debian to other
+   distributions, mostly with the pre-determined intent to either switch
+   to the "best" distribution for their own personal use, or employ the
+   "best" distribution for some specific project in their company.
+
+ad 2. This occurs mostly by people ordering CDs from regular vendors.
+While groups a. and b. are also present here, there is another group that
+deserves attention:
+c. Relatively experienced Debian users with a reasonably fast and cheap
+   Internet connection that order CD1 to get the bulk of the upgrades, and
+   fetch the rest from online repositories.
+
+The mentioned groups each have specific expectations from their single CD.
+
+ad a. Newbies often start using a Linux system guided by some manual or
+other piece of literature that may, or may not, be Debian-specific. Many
+introductory Linux books describe/demonstrate the same utilities and
+programs; however several of these examples don't have much to do with the
+daily routine of a more experienced user.
+
+What they do use:
+- install tools
+- "easy" packages, like task-newbie-help, task-dialup(-isdn), X, Gnome
+
+What they don't use:
+- "difficult to learn" packages, like task-sgml, task-fortran
+- development packages (well, they may want to compile a new kernel)
+
+ad b. When comparing Linux distributions, quite often either a simple
+install without much packages is tried, to see "what it looks like", or a
+more elaborate install that mimics one's currently working system, to find
+out "what it feels like." Once Debian is recognized as the truly best
+distribution, a complete CD set will be bought which will be used to
+set-up the production system(s).
+
+What they do use:
+- install tools
+- "easy" packages
+- to compare distributions: packages found in their current distribution /
+  other distributions from which they have collected CDs
+
+What they don't use:
+- packages that require much setup/tuning, or just "a long time to get
+  functional", like task-database-*, task-news-server,
+  task-parallel-computing-node
+- "heavy development" packages, like task-sgml-dev, task-objc-dev
+(maybe they are interested in these packages, but they will recognize
+them as being "advanced", and not expect them on the "most popular" CD)
+
+ad c. Upgrading as much packages as possible from a single CD means that
+the most-used packages on Debian systems should be present on that CD.
+
+What they do use:
+- packages used on at least 5% of all Debian systems (which happens to be
+  the top 5% of the Popularity Contest results)
+
+What they don't use:
+- the rest
+
+Keeping all this in mind, a solution was developed that (implicitly) uses
+all mentioned "rating methods" to create a CD 1 that should answer the
+stated demands as well as possible. The lists were entered, tested, verified,
+cross-checked and adjusted, until an acceptable result was reached.
+
+
+Further work/Recommendations:
+
+The described procedure has resulted in a drastically reduced number of
+task-* packages that are forced to go on the first CD. But since the
+Popularity Contest can't handle task-* packages very well, most of them
+will be moved to the last CD in the set, while in many cases all of their
+"contents" are available on "more popular" CDs. It would make more sense
+if a task package is included as soon as, say, 50-70% of it's dependencies
+are included. Since all APT tools are available during CD image creation,
+this can probably be automated entirely.

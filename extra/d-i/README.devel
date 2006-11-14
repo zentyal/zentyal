@@ -1,0 +1,81 @@
+README for those who want to hack on yacs/debian-cd
+---------------------------------------------------
+
+Organisation :
+--------------
+
+The main source is in the Debian CVS. If you want to hack on debian-cd
+and if you want to send me patches, please work on the latest version
+available in the CVS.
+
+http://cvs.debian.org/debian-cd/
+
+$ cvs -d :pserver:anonymous@cvs.debian.org:/cvs/debian-boot co debian-cd
+
+If you want to discuss anything related to the debian-cd development, you
+can contact me directly or, better, you can mail the
+debian-cd@lists.debian.org mailing list where all people interested in the
+debian-cd development are subscribed.
+
+Technical details :
+-------------------
+
+The Makefile which is the main directory will be used to launch
+each step of the install process. Try to comment each target of
+the makefile so that other can know why it's here. If you need
+specific programs (perl or shell scripts), please put them
+in the tools directory.
+
+The tasks directory will contain files listing packages (the
+order in which package are listed is important, each package
+added will be added to the current CD until it's full).
+
+The data dir will contains useful data (not directly task 
+related) like the master file from boot-floppies and so on.
+
+Each tool is self-documented, if you want to know what it
+does read the sources (they are scripts).
+
+Debugging YACS :
+----------------
+
+If you want to read more about what YACS is doing you can set
+the VERBOSE environment variable to 1, 2 or 3 depending on the
+level of noise that you want.
+
+Some scripts generates their own log files in the temp dir. You 
+can take a look at them if you want to check for warnings 
+and so on.
+Log files :
+- $TDIR/$CODENAME-$ARCH/log.list2cds
+- $TDIR/$CODENAME-SRC/log.cds2src
+
+TODO list :
+-----------
++ put the doc directory only on the first binary CD
++ a way to force the inclusion of packages (even broken)
++ possibility to add project/* to the last CD
++ check the source files on the mirror (with Sources.gz)
+  when doing make mirrorcheck
+
+Bugs / Problems :
+-----------------
+* make list will not add contrib packages if you do not
+  select NONFREE too. That's because contrib is broken
+  without non-free. And the building process only allow
+  functional packages to be added.
+
+Technical choices :
+-------------------
+
+For the multiboot on the first CD of an i386 CD set, we had two options
+isolinux and el-torito native multiboot. We selected isolinux
+because it works well and it lets you display information to the user.
+The el-torito multiboot just displays a menu with each item
+being the same "2.88Mb boot image". Both multiboot mechanism may
+not work on older hardware with very old BIOSes however the el-torito
+one works a bit better because it's usually able to boot the first choice
+without displaying the menu then. This is a non-issue since people
+may still boot on CD 2,3,4,5 with the usual boot method if the multiboot
+doesn't work.
+

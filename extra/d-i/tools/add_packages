@@ -1,0 +1,74 @@
+#!/usr/bin/perl -w
+
+use strict;
+
+my $dir = shift;
+
+if (! -d $dir) { 
+	die "$dir is not a directory ..."; 
+}
+
+my $mirror  = $ENV{'MIRROR'}  || die "Set the MIRROR var ...\n";
+my $localdebs = $ENV{'LOCALDEBS'} || $mirror;
+my $security = $ENV{'SECURITY'} || $mirror;
+my $nonus   = $ENV{'NONUS'}   || '';
+my $basedir = $ENV{'BASEDIR'} || die "Set the BASEDIR var ...\n";
+
+require "$basedir/tools/link.pl";
+
+open (LIST, "$basedir/tools/apt-selection cache show @ARGV |") 
+					|| die "Can't fork : $!\n";
+
+$/ = ''; # Browse by paragraph
+
+my ($p, $file, $arch, $d, $realfile, $source, $section, $name);
+while (defined($_ = <LIST>)) {
+	m/^Package: (\S+)/m and $p = $1;
+	m/^Filename: (\S+)/mi and $file = $1;
+	m/^Architecture: (\S+)/m and $arch = $1;
+	m/^Section: (\S+)/m and $section = $1;
+
+	$source = ($section =~ /non-US/i) ? $nonus : $mirror;
+
+	# This is a hack to allow the local debs to be located elsewhere.
+	$source=$localdebs if $file=~m:local/:;
+        $source=$security if $file=~m:updates/:;
+
+	# If arch=all and filename points to binary-all then create
+	# a symbolic link in binary-$ARCH or if arch=all and filename is a
+	# symbolic link we suppose that the link points to
+	# .../binary-all/...  and we reproduce a similar setup on the CD
+	if ($arch eq "all" and (-l "$source/$file" or 
+	    			$file =~ m#/binary-all/#)) {
+	    $file =~ s#/binary-all/#/binary-$ENV{'ARCH'}/#g;
+	    
+	    # Check that the directory where the link will be created does
+	    # exist
+	    my $pdir = "$dir/$file";
+	    $pdir =~ s#[^/]+$##g;
+	    if (! -d $pdir)
+	    {
+		system("mkdir -p $pdir");
+	    }
+
+	    # Create the symlink from binary-$arch to binary-all
+	    if ($section =~ /non-US/ || $file =~ /updates/ ) {
+		$file =~ m#/([^/]+)$# and $name = $1;
+		symlink ("../binary-all/$name", "$dir/$file") ||
+		  die "Can't symlink $dir/$file to ../binary-all/$name: $!";
+	    } else {
+		$file =~ m#/([^/]+/[^/]+)$# and $name = $1;
+		symlink ("../../binary-all/$name", "$dir/$file") ||
+		  die "Can't symlink $dir/$file to ../../binary-all/$name: $!";
+	    }
+	    $file =~ s#/binary-$ENV{'ARCH'}/#/binary-all/#g;
+	}
+	
+	# And we put the file in the CD tree (with a (hard) link)
+	$realfile = real_file ("$source/$file");
+	good_link ($realfile, "$dir/$file");
+}
+
+close LIST or die "Something went wrong with apt-cache : $@ ($!)\n";
+
+

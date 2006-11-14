@@ -1,0 +1,104 @@
+#!/bin/bash
+#
+# Do install stuff for alpha, including making bootable CDs
+# Works with debian-installer
+#
+#Vorlon:
+#
+#The following pieces are still missing:
+#
+#- MILO bootloader & images.  I have no way to test this directly, and
+#  haven't used MILO for years, so I'm giving this a pass on the first
+#  run.
+#- Floppy images.  Currently, debian-installer claims not to support
+#  the floppy target on alpha, which is arbitrary, but there may just not
+#  be any reason to continue supporting this install method.  Another
+#  decision that can be made later.
+#
+# $1 is the CD number
+# $2 is the temporary CD build dir
+
+. $BASEDIR/tools/boot/$DI_CODENAME/common.sh
+
+set -e
+
+N=$1
+CDDIR=$2
+BOOTDIR=
+if [ "$DI_WWW_HOME" = "default" ];then
+   DI_WWW_HOME="http://people.debian.org/~vorlon/d-i/alpha/daily/cdrom/"
+   if [ -n "$DI_DIR" ];then
+      DI_DIR="$DI_DIR/~${DI_WWW_HOME#*~}"
+      DI_WWW_HOME=""                     
+   fi
+fi
+if [ ! "$DI_DIST" ]; then
+   DI_DIST="$DI_CODENAME"
+fi
+
+cd $CDDIR/..
+
+#
+# This script is called with $1 (now $N) as the CD to 
+# make bootable.  N may be in the form "n" or "n_NONUS"
+# There may be more than 4 disks...support extras.
+
+# Strip NONUS part of disk number
+# NN will be 1...N so it can be used as an index
+#
+NN=`echo $N | sed -e 's/_NONUS//'`
+
+mkdir boot$N
+ab_deb=`ls $MIRROR/pool/main/a/aboot/aboot-base_*.deb | tail -1`
+ar p $ab_deb data.tar.gz | tar zxf - -C boot$N/ ./boot/bootlx
+
+# Download boot images
+# XXX: Driver floppies?  Any alpha that /has/ a CDROM should be able to
+# boot from it, so this would be pure convenience of distribution.
+#for image in cd_drivers-image.img cdrom-image.img cdrom-initrd.gz floppy-image.img floppy-initrd.gz net_drivers-image.img netboot-initrd.gz vmlinuz ; do
+
+for image in initrd.gz vmlinuz; do
+    if [ ! -e "$image" ]; then
+	if [ ! "$DI_WWW_HOME" ];then
+		if [ ! "$DI_DIR" ];then
+		   DI_DIR="$MIRROR/dists/$DI_DIST/main/installer-$ARCH/current/images/cdrom"
+		fi
+		cp "$DI_DIR/$image" .
+	else
+	# XXX: not really 'daily'...
+		wget "$DI_WWW_HOME/$image"
+	fi
+    fi
+done
+
+if [ $NN = 1 ]; then
+    echo "Using $THISTYPE boot-disks image on CD$N"
+    mkdir -p boot$N/boot
+    cp initrd.gz vmlinuz boot$N/boot/
+
+    mkdir -p boot$N/etc
+    cat <<EOF > boot$N/etc/aboot.conf
+0:boot/vmlinuz ramdisk_size=16384 initrd=/boot/initrd.gz root=/dev/ram devfs=mount,dall
+1:boot/vmlinuz ramdisk_size=16384 initrd=/boot/initrd.gz root=/dev/ram devfs=mount,dall console=ttyS0
+2:boot/vmlinuz ramdisk_size=16384 initrd=/boot/initrd.gz root=/dev/ram devfs=mount,dall console=ttyS1
+EOF
+
+    echo -n "-cache-inodes -J -l "  > $N.mkisofs_opts
+    mkdir -p boot$N/milo
+    # XXX: we need to build milo first.
+    #cp linload.exe ldmilo.exe boot$N/milo
+    #cp -f $(ls MILO/milo_*.bin | sed 's,\(.*\)milo_\(.*\).bin,\1\2,') \
+    #     boot$N/milo/
+
+    # XXX: populate the install directory as well, if we want floppies.
+    #cp -lf *.img $CDDIR/install
+    #cp -lf floppy-initrd.gz $CDDIR/install
+
+    # write final lines to mkisofs_opts
+    echo -n "boot$N " >> $N.mkisofs_opts
+
+else
+    echo -n "-cache-inodes -J -l "  > $N.mkisofs_opts
+fi
+
+#install_languages $CDDIR

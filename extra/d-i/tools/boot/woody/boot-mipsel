@@ -1,0 +1,53 @@
+#!/bin/bash
+#
+# boot-mipsel - (C) 2002 by Karsten Merker <merker@debian.org>
+#
+# You may copy, modify and distribute this under the terms of the GNU
+# General Public License as published by the Free Software Foundation; 
+# either version 2 of the License, or (at your option) any later version.
+#
+# Using this script on any architecture other than mipsel requires
+# having binutils-multiarch installed, as it uses objcopy (a part
+# of binutils) which is platform dependent. The binutils-multiarch 
+# package contains an objcopy which is capable of dealing with other 
+# arches' binary formats.
+#
+# $1 is the CD number
+# $2 is the temporary CD build dir
+
+. $BASEDIR/tools/boot/$CODENAME/common.sh
+
+N=$1
+CDROOT=$2
+
+# Strip NONUS part of disk number
+# NN will be 1...N so it can be used as an index
+#
+NN=`echo $N | sed -e 's/_NONUS//'`
+
+cd $CDROOT/..
+
+:> $1.mkisofs_opts
+
+KTYPE[1]="r3k-kn02"
+KTYPE[2]="r4k-kn04"
+KTYPE[3]=""
+KTYPE[4]=""
+KTYPE[5]=""
+KTYPE[6]=""
+KTYPE[7]=""
+KTYPE[8]=""
+
+# Only disks 1 and 2 bootable
+if [ $NN != 1 -a $NN != 2 ]; then
+	exit 0
+fi
+
+install_languages $CDROOT
+
+mkdir -p $CDROOT/cdboot
+
+objcopy -O binary CD1/dists/$CODENAME/main/disks-$ARCH/current/tftpimage-${KTYPE[$NN]} $CDROOT/cdboot/tftpimage-${KTYPE[$NN]}.raw
+
+exit 0
+

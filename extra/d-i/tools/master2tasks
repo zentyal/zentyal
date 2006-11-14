@@ -1,0 +1,100 @@
+#!/usr/bin/perl -w
+
+# Copyright 1999 Raphaël Hertzog <hertzog@debian.org>
+# See the README file for the license
+#
+# This script will automatically generate files in the tasks dir
+# from the tasks & profiles from the boot disks (for the initial
+# install). The tasks will be placed in arch-specific directories
+# since they may differ.
+
+# Configuration
+my $codename = $ENV{'CODENAME'};
+my $basedir = $ENV{'BASEDIR'};
+my @archs = qw(alpha arm i386 m68k powerpc sparc);
+my $master = "$basedir/data/$codename/master";
+my $slice = "/usr/bin/slice";
+
+# Creating master.* files
+chdir $ENV{'TDIR'};
+system "$slice $master";
+
+# Loop over all archs
+my $arch;
+
+foreach $arch (@archs) {
+	my (%tasks, %profiles);
+	open (MASTER, "<master.$arch") || 
+	          die "Can't open file master.$arch : $!\n";
+	# Getting rid of first lines
+	while (defined($_ = <MASTER>)) {
+		last if /^--- Tasks:/
+	}
+	# Reading the tasks names
+	while (defined($_ = <MASTER>)) {
+		if (/^(\S+):/) {
+			$tasks{$1} = [];
+		}
+		last if /^--- Profiles:/;
+	}
+	# Reading the profiles names
+	while (defined($_ = <MASTER>)) {
+		if (/^(\S+):/) {
+			$profiles{$1} = [];
+		}
+		last if /^--- Packages:/;
+	}
+	# Affecting the packages to tasks & profiles
+	my ($package, $t, $p);
+	while (defined($_ = <MASTER>)) {
+		next if /^\s*$/;
+		next if not /^(\S+): Tasks: (.*),?\s*Profiles: (.*)\s*$/;
+		$package = $1;
+		$t = $2;       $p = $3;
+		$t =~ s/\s//g; $p =~ s/\s//g;
+		foreach (split(/,/, $t)) {
+			push(@{$tasks{$_}}, $package) if ($_);
+		}
+		foreach (split(/,/, $p)) {
+			push(@{$profiles{$_}}, $package) if ($_);
+		}
+	}
+	close MASTER;
+	# We have all the datas
+	# Create tasks and profiles
+	if (! -d "$basedir/tasks/$codename/$arch") {
+		mkdir "$basedir/tasks/$codename", 0775;
+		mkdir "$basedir/tasks/$codename/$arch", 0775;
+	}
+	foreach $t (keys %tasks) {
+		open (TASK, "> $basedir/tasks/$codename/$arch/Task_$t")
+		     || die "Cannot write Task_$t : $!\n";
+		foreach (@{$tasks{$t}}) {
+			print TASK "$_\n" if not m/^#/;
+		}
+		close TASK;
+	}
+	foreach $p (keys %profiles) {
+		open (PROF, "> $basedir/tasks/$codename/$arch/Profile_$p") ||
+		                        die "Cannot write Profile_$p : $!\n";
+		foreach (@{$profiles{$p}}) {
+			print PROF "$_\n" if not m/^#/;
+		}
+		close PROF;
+	}
+	# Create Task_ALL and Profile_ALL
+	open (TASKALL, "> $basedir/tasks/$codename/$arch/Task_ALL") ||
+	 	die "Couldn't create Task_ALL : $!\n";
+	foreach (keys %tasks) {
+		print TASKALL "#include <$codename/$arch/Task_$_>\n";
+	}
+	close TASKALL;
+	open (PROFALL, "> $basedir/tasks/$codename/$arch/Profile_ALL") ||
+	 	die "Couldn't create Profile_ALL : $!\n";
+	foreach (keys %profiles) {
+		print PROFALL "#include <$codename/$arch/Profile_$_>\n";
+	}
+	close PROFALL;
+	# END
+	unlink "master.$arch";
+}

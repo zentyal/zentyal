@@ -1,0 +1,61 @@
+#!/usr/bin/perl -w
+
+# First arg, the root of the destination
+# Second arg, the root of the source
+# Other args, the directories/files to copy (relative to the root source)
+
+use strict;
+use File::Find;
+
+my $basedir = $ENV{'BASEDIR'} || die;
+require "$basedir/tools/link.pl";
+
+my $rootdest = shift || die ;
+my $rootsrc = shift || die ;
+my @files = @ARGV;
+my $verbose = $ENV{'VERBOSE'} || 0;
+
+chdir $rootsrc;
+
+sub relative ($) {
+	my $file = shift;
+	$file =~ s#^/*$rootsrc/##;
+	return $file;
+}
+
+sub mkdirs {
+	if (-d and not -l) {
+		my $dir = "$rootdest/" . relative($File::Find::name);
+		return if -d $dir;
+		print "Creating $dir directory ...\n" if ($verbose >= 2);
+		
+		if (not mkdir ($dir, 0775)) {
+			print STDERR "Cannot mkdir $dir : $!\n";
+		}
+	}
+}
+
+sub add_files {
+	if (-f and not -l) {
+	   good_link ("$rootsrc/" . relative($File::Find::name), 
+	              "$rootdest/" . relative($File::Find::name));
+	} elsif (-l) {
+		 #Check if the link is valid in the desttree otherwise
+		 #hardlink it
+		 my $file = $File::Find::name;
+		 $file =~ s#/[^/]+$##;
+		 $file .= "/" . readlink;
+		 if (-e "$rootdest/" . relative($file)) {
+	   		good_link ("$rootsrc/" . relative($File::Find::name), 
+	              		   "$rootdest/" . relative($File::Find::name));
+		 } else {
+		 	$file = real_file ("$rootsrc/$File::Find::name");
+			good_link ($file,
+			           "$rootdest/" . relative($File::Find::name));
+		 }
+	}
+}
+
+find (\&mkdirs, @files);
+find (\&add_files, @files);
+

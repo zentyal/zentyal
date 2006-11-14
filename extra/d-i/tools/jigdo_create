@@ -1,0 +1,44 @@
+#! /bin/sh
+
+# Copyright 2003 Richard Atterer (atterer@d.o)
+# See the README file for the license
+
+# This script is called by the Makefile to create .jigdo and .template
+# files for images. The image data is either supplied in a file or on
+# stdin.
+
+image="$1"    # Input image data, either a filename or "-" for stdin
+jigdo="$2"    # Name of output .jigdo file
+template="$3" # Name of output .template file
+merge="$4"    # Name of file to include in output .jigdo, created by jigdo_header
+
+opts="--label Debian=$MIRROR"
+if test -n "$NONUS"; then
+    opts="$opts --label Non-US=$NONUS"
+fi
+
+if test -n "$JIGDOFALLBACKPATH"; then
+    matchexec='--match-exec=mkdir -p "$JIGDOFALLBACKPATH/$LABEL/$MATCHPATH" && ln -f "$FILE" "$JIGDOFALLBACKPATH/$LABEL/$MATCHPATH$LEAF"'
+else
+    matchexec="--"
+fi
+
+echo $JIGDOCMD make-template \
+  --force \
+  --files-from="$TDIR/jigdofilelist" \
+  --image="$image" --jigdo="$jigdo" --template="$template" \
+  --merge="$merge" \
+  --no-servers-section \
+  --report=noprogress \
+  $opts \
+  "$matchexec"
+
+$JIGDOCMD make-template \
+  --force \
+  --files-from="$TDIR/jigdofilelist" \
+  --image="$image" --jigdo="$jigdo" --template="$template" \
+  --merge="$merge" \
+  --no-servers-section \
+  --report=noprogress \
+  $opts \
+  "$matchexec"

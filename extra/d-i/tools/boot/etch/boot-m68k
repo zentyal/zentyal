@@ -1,0 +1,113 @@
+#!/bin/bash
+#
+# Do install stuff for m68k, including making bootable CDs for bvme6000
+# Works with debian-installer
+#
+# $1 is the CD number
+# $2 is the temporary CD build dir
+
+. $BASEDIR/tools/boot/$DI_CODENAME/common.sh
+
+set -e
+
+N=$1
+CDDIR=$2
+INSTALLDIR=$CDDIR/install
+
+if [ "$DI_WWW_HOME" = "default" ];then
+   DI_WWW_HOME="http://people.debian.org/~smarenka/d-i/images-m68k/daily/"
+   if [ -n "$DI_DIR" ];then
+      DI_DIR="$DI_DIR/~${DI_WWW_HOME#*~}"
+      DI_WWW_HOME=""                     
+   fi
+elif [ "$DI_WWW_HOME" = "test" ];then
+   DI_WWW_HOME="http://people.debian.org/~smarenka/d-i/test/cd/"
+fi
+if [ ! "$DI_DIST" ]; then
+   DI_DIST="$DI_CODENAME"
+fi
+
+DI_BOOTLOADER="http://people.debian.org/~smarenka/d-i"
+
+cd $CDDIR/..
+
+echo -n "--netatalk -J -hfs -probe -map $BASEDIR/data/hfs.map" \
+        > $N.mkisofs_opts
+
+# Only disk 1 bootable
+if [ $N != 1 ]; then
+	exit 0
+fi
+
+echo "DI_WWW_HOME: $DI_WWW_HOME"
+echo "DI_BOOTLOADER: $DI_BOOTLOADER"
+echo "DI_DIR: $DI_DIR"
+
+install_languages $CDDIR
+
+# remove i386 stuff
+rm -rf $CDDIR/tools
+
+
+cd $INSTALLDIR
+
+# This setup is designed to automatically use whatever subarchs are 
+# available to build the cd.
+
+if [ ! "$DI_WWW_HOME" ];then
+	if [ ! $DI_DIR ]; then
+		DI_DIR="$MIRROR/dists/$DI_DIST/main/installer-$ARCH/current/images"
+	fi
+	cp -a $DI_DIR/* .
+else
+	wget -q -np -nH --cut-dirs=4 -r -l 3 -R '.gif,.log,stats.txt,index*' "$DI_WWW_HOME"
+fi
+
+SUBARCHS=`grep vmlinu MANIFEST | cut -d'-' -f3 | sort -u | awk '{printf "%s ", $1}'`
+# grab unpackged stuff
+if [ -d tools ]; then
+	cd tools
+fi
+for subarch in $SUBARCHS; do
+	TARF="bootloaders-$subarch.tar.bz2"
+	if `wget -q -O $TARF "$DI_BOOTLOADER/$TARF"` ; then
+		tar -xjf $TARF
+	fi
+	rm -f $TARF
+done
+
+
+# amiga specific stuff
+if [ "" != "`echo $SUBARCHS | grep amiga`" ]; then
+	# Amiboot and dmesg need to be executable
+	chmod a+x amiga/amiboot-5.6
+	chmod a+x amiga/dmesg
+
+	# Setup amiga icons
+	cp amiga/amiga.info  $CDDIR/install.info
+	if [ -d $INSTALLDIR/tools ]; then
+		cp amiga/amiga.info  $INSTALLDIR/tools.info
+	fi
+	mv amiga/amiga.info  .
+fi
+
+cd $INSTALLDIR
+
+# bvme6000 specific stuff
+if [ "" != "`echo $SUBARCHS | grep bvme6000`" ]; then
+	if [ -f bvme6000/cdrom-boot.img.gz ]; then
+		mkdir -p $CDDIR/boot1/boot
+		cp bvme6000/cdrom-boot.img.gz $CDDIR/boot1/boot/boot.bin
+		echo -n " -b boot/boot.bin -c boot/boot.catalog boot1" \
+    		>> $N.mkisofs_opts
+	elif [ -f cdrom/bvme6000-boot.img.gz ]; then
+		mkdir -p $CDDIR/boot1/boot
+		cp cdrom/bvme6000-boot.img.gz $CDDIR/boot1/boot/boot.bin
+		echo -n " -b boot/boot.bin -c boot/boot.catalog boot1" \
+    		>> $N.mkisofs_opts
+	else
+		echo "bvme6000 not bootable"
+	fi
+fi
+
+##-----------------------------< end of file >------------------------------##

@@ -1,0 +1,63 @@
+#!/bin/bash
+#
+# post-boot-mipsel - (C) 2002 by Karsten Merker <merker@debian.org>
+#
+# Do post-image-building tasks for mipsel, to make CDs bootable.
+# requires mkdecbootcd >= 0.2
+#
+# You may copy, modify and distribute this under the terms of the GNU
+# General Public License as published by the Free Software Foundation;
+# either version 2 of the License, or (at your option) any later version.
+#
+# Using this script on any architecture other than mipsel requires
+# having binutils-multiarch installed, as it uses objdump (a part
+# of binutils) which is platform dependent. The binutils-multiarch
+# package contains an objdump which is capable of dealing with other
+# arches' binary formats.
+#
+# $1 is the CD number
+# $2 is the temporary CD build dir
+# $3 is the image file
+
+set -e
+
+N=$1
+CDROOT=$2
+CDIMAGE=$3
+
+echo "post-boot-mipsel called"
+echo "pwd=${PWD}, N=$N, CDROOT=${CDROOT}, CDIMAGE=${CDIMAGE}"
+
+
+# Strip NONUS part of disk number
+# NN will be 1...N so it can be used as an index
+#
+NN=`echo $N | sed -e 's/_NONUS//'`
+
+cd $CDROOT/..
+
+# Only disks 1 and 2 bootable
+if [ $NN != 1 -a $NN != 2 ]; then
+        exit 0
+fi
+
+KTYPE[1]="r3k-kn02"
+KTYPE[2]="r4k-kn04"
+KTYPE[3]=""
+KTYPE[4]=""
+KTYPE[5]=""
+KTYPE[6]=""
+KTYPE[7]=""
+KTYPE[8]=""
+
+LINE=$(isoinfo -i ${CDIMAGE} -lR |grep tftpimage-${KTYPE[$NN]}.raw)
+CDSTARTEXTEND=$(echo $LINE | cut -d "[" -f 2 | cut -d "]" -f 1 | awk '{print $1}')
+CDNUMBLOCKS=$((($(echo $LINE |tr -s " "| cut -f 5 -d " ") + 2047)/2048))
+KERNEL_ENTRY=$(objdump -f CD1/dists/$CODENAME/main/disks-$ARCH/current/tftpimage-${KTYPE[$NN]} | grep "start address" | cut -f 3 -d " ")
+# echo "LINE=${LINE}"
+# echo "CDSTARTEXTEND=${CDSTARTEXTEND}"
+# echo "CDNUMBLOCKS=${CDNUMBLOCKS}"
+# echo "KERNEL_ENTRY=${KERNEL_ENTRY}"
+mkdecbootcd -m ${CDSTARTEXTEND} ${CDNUMBLOCKS} ${CDIMAGE} ${KERNEL_ENTRY}
+
+exit 0

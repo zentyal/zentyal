@@ -1,0 +1,31 @@
+
+/*
+   This file lists task packages from potato that can be useful to many
+   people without taking up too much space on the first CD.
+   The first CD is meant to be as useful as possible for "normal" users
+   of the type that only develop in C/C++ (if at all), so tasks that
+   are too "advanced" are not listed here.
+   Anyone installing a heavy server or the like is supposed to have the
+   money and/or bandwidth to buy/download the complete distribution.
+*/
+
+task-dialup
+task-dialup-isdn
+task-newbie-help
+task-gnome-desktop
+/* task-gnome-games	sorry, nice but too big */
+task-gnome-net
+task-gnome-apps
+task-samba
+/* task-games		sorry, nice but too big */
+task-laptop
+task-debian-devel
+task-devel-common
+task-c-dev
+task-c++-dev
+task-x-window-system-core
+task-x-window-system
+task-dns-server
+task-imap
+task-python
+

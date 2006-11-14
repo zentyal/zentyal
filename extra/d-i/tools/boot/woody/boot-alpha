@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+# boot-alpha v 1.13 (c) Steve McIntyre <stevem@chiark.greenend.org.uk>
+# and Loic Prylli <Loic.Prylli@ens-lyon.fr>
+# Released under GPL 31 Mar 1999
+# See the file COPYING for license details
+# Released as part of the debian-cd package, not much use standalone
+#
+# Do install stuff for alpha, including making bootable CDs
+#
+
+. $BASEDIR/tools/boot/$CODENAME/common.sh
+
+set -e
+
+N=$1
+CDDIR=$2
+
+cd $CDDIR/..
+
+# Only disc 1 bootable
+if [ $N != 1 -a $N != 1_NONUS ]; then 
+	echo "-J" > $N.mkisofs_opts
+	exit 0; 
+fi
+
+install_languages $CDDIR
+
+echo -n "-J boot1" > $N.mkisofs_opts
+
+mkdir -p boot1/boot
+
+FLOPPIES=$CDDIR/dists/$CODENAME/main/disks-alpha/current/
+
+# Use the generic linux image
+cp -f $FLOPPIES/linux.bin boot1/boot/linux
+cp -f $FLOPPIES/jensen/linux.bin boot1/boot/jensen
+
+# Copy over the subarch boot-loaders
+mkdir -p boot1/milo
+cp -f $FLOPPIES/MILO/linload.exe boot1/milo/
+cp -f $FLOPPIES/MILO/ldmilo.exe  boot1/milo/
+cp -f $(ls $FLOPPIES/MILO/milo_*.bin | sed 's,\(.*\)milo_\(.*\).bin,\1\2,') \
+	 boot1/milo/
+
+# Now the APB stuff
+if [ -d "$FLOPPIES/APB" ]; then
+    mkdir -p boot1/apb
+    cp -f $FLOPPIES/APB/* boot1/apb/
+fi
+
+# Prepare aboot stuff.  The bootloader itself will be installed in
+# boot-alpha-post via isomarkboot.
+
+mkdir -p boot1/etc
+cat <<EOF > boot1/etc/aboot.conf
+0:boot/linux root=/dev/ram initrd=boot/root.bin
+1:boot/linux root=/dev/ram initrd=boot/root.bin console=ttyS0
+2:boot/linux root=/dev/ram initrd=boot/root.bin console=ttyS1
+3:boot/jensen root=/dev/ram initrd=boot/root.bin
+4:boot/jensen root=/dev/ram initrd=boot/root.bin console=ttyS0
+5:boot/jensen root=/dev/ram initrd=boot/root.bin console=ttyS1
+EOF
+
+cp -f $FLOPPIES/images-1.44/root.bin boot1/boot/root.bin
+
+exit 0

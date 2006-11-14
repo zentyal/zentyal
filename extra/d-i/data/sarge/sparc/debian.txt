@@ -1,0 +1,16 @@
+
+                  Welcome to Debian GNU/Linux ${DEBIAN_VERSION}!
+
+This is a Debian installation ${MEDIA_TYPE}, built on ${BUILD_DATE}.
+Keep it once you have installed your system, as you can boot from it
+to repair the system on your hard disk if that ever becomes necessary.
+
+WARNING: You should completely back up all of your hard disks before
+  proceeding. The installation procedure can completely and irreversibly
+  erase them! If you haven't made backups yet, remove the rescue CD from
+  the drive and press L1-A to get back to the OpenBoot prompt.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent permitted
+by applicable law.
+
+[ ENTER - Boot install ]   [ Type "rescue" - Boot into rescue mode ]

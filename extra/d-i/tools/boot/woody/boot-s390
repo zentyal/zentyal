@@ -1,0 +1,120 @@
+#!/bin/bash
+#
+# boot-s390 version 0.1
+#
+# (C) 2001 Jochen Röhrig <jr@debian.org>
+#
+# Released under the GNU general Public License.
+# See the copyright file for license details.
+# Released as part of the debian_cd package, not much use stand alone.
+#
+# Install stuff for booting an s390 system from VM-reader, tape,
+# FTP-server, CD-ROM  or emulated tape.
+#
+# $1 is the CD number
+# $2 is the temporary CD build dir
+
+. $BASEDIR/tools/boot/$CODENAME/common.sh
+
+set -e
+
+N=$1
+CDDIR=$2
+
+cd $CDDIR/..
+
+if [ $N != "1" ] && [ $N != "1_NONUS" ] ; then
+	echo "-J" > $N.mkisofs_opts
+	exit 0
+fi
+
+mkdir -p boot$N/boot
+
+install_languages $CDDIR
+
+#
+# Install the two kernel images, the ramdisk and the parameter file
+#
+
+# image for booting from VM-reader
+
+ln $CDDIR/dists/$CODENAME/main/disks-$ARCH/current/vmrdr/kernel.debian \
+	boot$N/boot/linux_vm
+
+# image for booting from tape
+
+ln $CDDIR/dists/$CODENAME/main/disks-$ARCH/current/tape/kernel.debian \
+	boot$N/boot/linux_tp
+
+# image for booting from emulated tape (nolabel)
+
+ln $CDDIR/dists/$CODENAME/main/disks-$ARCH/current/tape/kernel.debian-nolabel \
+	boot$N/boot/linux_nl
+
+# initrd
+
+ln $CDDIR/dists/$CODENAME/main/disks-$ARCH/current/tape/initrd.debian \
+	boot$N/boot/root.bin
+
+# parmfile
+
+ln $CDDIR/dists/$CODENAME/main/disks-$ARCH/current/tape/parmfile.debian \
+	boot$N/boot/parmfile
+
+
+#
+# Create the .ins-files for booting from CD-ROM or FTP-Server
+#
+
+cat > boot$N/boot/d390.ins <<EOF
+* Debian GNU/Linux for S/390 (boot from CD-ROM or FTP-Server)
+linux_vm 0x00000000
+parmfile 0x00010480
+root.bin 0x00800000
+EOF
+
+# The following is provided as an example. It will not work when
+# installing from the official Debian CD-ROM since the object-code-
+# only-modules-ramdisk (oco.bin) is not included in the CD-ROM.
+
+cat > boot$N/boot/d390oco.ins <<EOF
+* Debian GNU/Linux for S/390 (boot from CD-ROM or FTP-Server with OCO-Modules)
+linux_vm 0x00000000
+parmfile 0x00010480
+root.bin 0x00800000
+oco.bin 0x00c00000
+EOF
+
+
+#
+# Create the tape description files for booting from emulated tape
+#
+
+cat > boot$N/boot/d390.tdf <<EOF
+@TDF
+H:\BOOT\LINUX_TP  UNDEFINED RECSIZE 1024
+H:\BOOT\PARMFILE  UNDEFINED RECSIZE 1024
+H:\BOOT\ROOT.BIN  UNDEFINED RECSIZE 1024
+TM
+TM
+EOT
+EOF
+
+# The following is provided as an example. It will not work when the
+# tape is emulated from the official Debian CD-ROM since the object-
+# code-only-modules-ramdisk (oco.bin) is not included in the CD-ROM.
+
+cat > boot$N/boot/d390oco.tdf <<EOF
+@TDF
+H:\BOOT\LINUX_TP  UNDEFINED RECSIZE 1024
+H:\BOOT\PARMFILE  UNDEFINED RECSIZE 1024
+H:\BOOT\ROOT.BIN  UNDEFINED RECSIZE 1024
+H:\BOOT\OCO.BIN   UNDEFINED RECSIZE 1024
+TM
+TM
+EOT
+EOF
+
+# include boot$N/-tree into iso-image
+
+echo -n "-J boot$N "  >> $N.mkisofs_opts

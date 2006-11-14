@@ -1,0 +1,318 @@
+#!/usr/bin/perl -w
+#
+# Copyright 1999 Raphaël Hertzog <hertzog@debian.org>
+# See the README file for the license.
+#
+# This script will dispatch the source packages on different CD. 
+# It will include all the sources corresponding to the binary
+# packages that are included in the binary CDs.
+#
+# In general, I'll follow the same rules than list2cds ...
+
+use strict;
+
+my $deflimit = $ENV{'SRCSIZELIMIT'} || $ENV{'SIZELIMIT'} || shift || 629145600;
+my $limit = $ENV{'SRCSIZELIMIT1'} || $deflimit;
+
+my $nonfree = $ENV{'NONFREE'} || 0;
+my $extranonfree = $ENV{'EXTRANONFREE'} || 0;
+my $nonus = $ENV{'NONUS'} || 0;
+my $forcenonusoncd1 = $ENV{'FORCENONUSONCD1'} || 0;
+my $contrib = $ENV{'CONTRIB'} || 0;
+my $complete = $ENV{'COMPLETE'} || 0;
+my $local = $ENV{'LOCAL'} || 0;
+
+my $bdir = "$ENV{'TDIR'}/$ENV{'CODENAME'}-$ENV{'ARCH'}";
+my $sdir = "$ENV{'TDIR'}/$ENV{'CODENAME'}-src";
+my $verbose = $ENV{'VERBOSE'} || 0;
+
+my $mirror = $ENV{'MIRROR'};
+my $localdebs = $ENV{'LOCALDEBS'} || $mirror;
+my $codename = $ENV{'CODENAME'};
+
+$| = 1;
+
+open(LOG, ">$sdir/log.cds2src") || die "Can't write in $sdir/log.cds2src !\n";
+
+sub msg {
+	my $level= shift;
+	if ($verbose >= $level) {
+		print @_;
+	}
+	print LOG @_;
+}
+
+my %bin2src;
+my %sources;
+my %included;
+my %excluded;
+my @nonuslist=();
+my %includesrc;
+
+# Get the information from the good Sources.gz files
+my @SOURCES = ("$mirror/dists/$codename/main/source/Sources.gz");
+
+if ($contrib) {
+     push @SOURCES, "$mirror/dists/$codename/contrib/source/Sources.gz";
+}
+
+if ($nonus) {
+	push @SOURCES, "$nonus/dists/$codename/non-US/main/source/Sources.gz";
+        if ($contrib) {
+             push @SOURCES, 
+                 "$nonus/dists/$codename/non-US/contrib/source/Sources.gz";
+        }
+} 
+if ($nonfree or $extranonfree) {
+	push @SOURCES, "$mirror/dists/$codename/non-free/source/Sources.gz";
+	if ($nonus) {
+	  push @SOURCES,
+               "$nonus/dists/$codename/non-US/non-free/source/Sources.gz";
+	}
+}
+
+if ($local and -e "$localdebs/dists/$codename/local/source/Sources.gz")
+{
+	push @SOURCES, "$localdebs/dists/$codename/local/source/Sources.gz";
+}
+
+foreach (@SOURCES) {
+	die "File `$_' cannot be found ..." if not -f;
+}
+
+my $oldrs = $/;
+$/ = '';
+my ($re, $p, $bin, $file, $size);
+open (SOURCES, "zcat @SOURCES |") || die "Can't fork: $!\n";
+while (defined($_ = <SOURCES>)) {
+	# General information about the source package
+	next if not m/^Package: (\S+)\s*$/m;
+	$p = $1;
+	$included{$p} = 0;
+	$sources{$p}{"Package"} = $p;
+	foreach $re (qw/Binary Version Section Directory/) {
+		(m/^$re: (.*?)\s*$/m and $sources{$p}{$re} = $1)
+		|| msg(1, "Header field '$re' missing for source '$p'\n");
+	}
+	# Avoid a perl warning for sources packages without section header
+	if (! exists $sources{$p}{"Section"})
+	{
+		$sources{$p}{"Section"} = "No section";
+	}
+	# Generate the list of non-free source packages to exclude
+	if ((! $nonfree) and ($sources{$p}{"Section"} =~ /non-free/))
+	{
+		$excluded{$p} = "nonfree";
+	} else {
+		$excluded{$p} = 0;
+	}
+	# Generate the list of non-US source packages
+	if (($sources{$p}{"Directory"} =~ /non-US/)) 
+	{
+	    push @nonuslist, $p;
+	}
+	# Match between source & binary packages
+	foreach $bin (split (/,\s+/, $sources{$p}{"Binary"})) {
+		$bin2src{$bin} = $p;
+	}
+	$sources{$p}{"Files"} = [];
+	# Get the file list with the size
+	if (not m/^Files:\s*\n/mgc) {
+		msg(0,"ERROR: Cannot found Files field ...\n");
+	}
+	while (m/\G^\s+([\da-fA-F]+)\s+(\d+)\s+(\S+)\s*\n/mgc) {
+		$file = $3; $size = $2;
+		$file = "$sources{$p}{'Directory'}/$file";
+		push @{$sources{$p}{"Files"}}, [ $file, $size ];
+	}
+	if (not @{$sources{$p}{"Files"}}) {
+		msg(0, "ERROR: Source package $p has no files ...\n");
+	}
+}
+
+$/ = $oldrs;
+
+
+# Get the list of excluded packages
+my $exclude = $ENV{'SRCEXCLUDE'} || "sorry-no-srcexclude";
+if (-e $exclude) {    
+        open (EXCL, "< $exclude") || die "Can't open $exclude : $!\n";
+        while (defined($_=<EXCL>)) {
+                chomp;
+                if (not exists $sources{$_}) {
+                        msg(1, "INIT: Source '$_' is in srcexcluded but " .
+                               "doesn't exist. Ignored.\n");
+                        next;
+                }
+                $excluded{$_} = 'user choice';
+        }
+        close EXCL;
+}
+
+
+# Get the list of included packages
+my @list = ();
+my $i = 1;
+my $infile;
+while (-e "$bdir/$i.packages") {
+    my $nonusfile = sprintf("%s/%d_NONUS.packages", $bdir, $i);
+    if(-e "$nonusfile") {
+        $infile = $nonusfile;
+    } else {
+        $infile = "$bdir/$i.packages";
+    }
+
+    print "Using package file $infile\n";
+    open (LIST, "< $infile") || die "Can't open $infile ...\n";
+
+    while (defined($_ = <LIST>)) {
+        chomp;
+        push @list, $_;
+    }
+    close LIST;
+    $i++;
+}
+msg(0, "ERROR: No source packages for the CD !\n") if not @list;
+
+# Calculate what files go on which CD
+my (%cds);
+my ($cd, $cd_size, $total_size, $src) = (1, 0, 0);
+
+# Add non-US stuff to CD#1 first if we have been asked to...
+# "complete" means also add non-US sources that don't have binary packages...
+if($forcenonusoncd1) {
+    if(!$complete) {
+        foreach (@list) {
+	  if(not exists $bin2src{$_}) {
+	      next;
+	  }
+	  $includesrc{$bin2src{$_}} = 1;
+        }
+    }
+
+    foreach $src (@nonuslist) 
+    {
+        if (! ($complete or $includesrc{$src}))
+        {
+	  msg(1, "Non-US source package $src doesn't need to be included !\n");
+	  next;
+        }
+        msg(1, "Asked to add non-US source $src to source CD#1\n");
+        if (not exists $included{$src}) {
+	  msg(0, "ERROR: Non-US source `$src' does not exist ... (ignored)\n");
+	  next;
+        }
+        if ($excluded{$src}) {
+	  msg(1, "...but not doing so - $excluded{$src}\n");
+	  next;
+        }
+        next if $included{$src};
+        add_src ($src);
+    }
+}
+
+# And then the rest
+foreach $p (@list) {
+	if (not exists $bin2src{$p}) {
+		msg(1, "WARNING: Package `$p' has no sources ... (ignored)\n");
+		next;
+	}
+	$src = $bin2src{$p};
+	if (not exists $included{$src}) {
+		msg(0, "ERROR: Source `$src' does not exist ... (ignored)\n");
+		next;
+	}
+	next if $excluded{$src};
+	next if $included{$src};
+	add_src ($src);
+}
+
+# And now any remaining sources that don't have binary packages
+if ($complete) {
+    msg(0, "Now we'll add the sources not yet included ...\n");
+    foreach $p (sort { ($sources{$a}{"Section"} cmp $sources{$b}{"Section"})
+                       || ($a cmp $b) }
+                grep { not ($included{$_} or $excluded{$_}) } keys %sources) 
+    {
+	add_src ($p);
+    }
+}
+msg(0, "CD $cd will only be filled with $cd_size bytes ...\n");
+
+# Now generate the extra non-free CD
+if ($extranonfree and (! $nonfree))
+{
+	my ($p, @toinclude);
+	
+	# Finally accept non-free packages
+	foreach $p (grep { $excluded{$_} eq "nonfree" } (keys %sources))
+	{
+		$excluded{$p} = 0;
+		push @toinclude, $p;
+	}
+
+	# Start a new CD
+	$cd++;
+	$cd_size = 0;
+	$limit = $ENV{"SRCSIZELIMIT$cd"} || $deflimit;
+	msg(0, "Limit for non-free source CD $cd is $limit.\n");
+
+	# Include non-free source packages
+	foreach $p (@toinclude)
+	{
+		add_src ($p);
+	}
+
+	msg(0, "CD $cd will only be filled with $cd_size bytes ...\n");
+}
+
+# Now write the lists down
+foreach (sort {$a <=> $b} keys %cds) {
+        my $count = 0;
+        open(CDLIST, "> $sdir/$_.sources") 
+                        || die "Can't write in $sdir/$_.sources: $!\n";
+        foreach (@{$cds{$_}}) {
+                print CDLIST "$_\n";
+                $count++;
+        }
+        close CDLIST;
+        msg(0, "CD $_ will have $count files from source packages.\n");
+}
+
+close LOG;
+
+## END OF MAIN
+
+sub add_src {
+	my $src = shift;
+	my @files = ();
+	$size = 0;
+	msg(2, "+ Trying to add $src ...\n");
+	foreach (@{$sources{$src}{"Files"}}) {
+		$size += $_->[1];
+		push @files, $_->[0];
+	}
+	if ($cd_size + $size > $limit) {
+		msg(0, "Source CD $cd filled with $cd_size bytes ...",
+		       " (limit was $limit)\n");
+		$cd++;
+		$cd_size = 0;
+		# New limit
+		$limit = $ENV{"SRCSIZELIMIT$cd"} || $deflimit;
+		msg(1, "Limit for CD $cd is $limit\n");
+	}
+	$cd_size += $size;
+	$total_size += $size;
+
+	add_to_cd ($cd, \@files);
+	msg(1, "  size: $size\n");
+	$included{$src} = $cd;
+}
+
+sub add_to_cd {
+	my $cd = shift;
+	my $tab = shift;
+	$cds{$cd} = [] if not ref $cds{$cd};
+	msg(1, "Adding to CD $cd : @{$tab}\n");
+	push (@{$cds{$cd}}, @{$tab});
+}

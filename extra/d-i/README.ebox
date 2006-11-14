@@ -1,0 +1,21 @@
+GENERATING eBox CD IMAGES
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In order to generate a CD using the d-i infrastructure it is
+necessary to execute the 'create-di' script. This assumes that
+the following directories are present:
+
+o /root/stuff/mirror    <-- sarge mirror
+o /root/stuff/ebox-debs <-- ebox packages
+
+This folder is a copy of /usr/share/debian-cd with the following
+extra files:
+
+o ./create-di
+o ./create-cd
+o ./ebox/inittab
+o ./ebox/locale.gen
+o ./ebox/preseed
+o ./ebox/sources.list
+o ./tasks/ebox
+o ./tasks/exclude-ebox

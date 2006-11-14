@@ -1,0 +1,92 @@
+# These udebs build the d-i cdrom initrd. As such, there is no reason
+# to keep another copy of them on the CD in udeb form.
+# 
+# This duplicates data found in the file build/pkg-lists/kernel, in d-i cvs
+kernel-image-*
+# build/pkg-lists/base in d-i cvs
+rootskel
+main-menu
+cdebconf-udeb
+udpkg
+anna
+di-utils-shell
+di-utils-reboot
+lowmemcheck
+# build/pkg-lists/cdrom/common, in d-i cvs (also included in the
+# root+cd-drivers floppies)
+busybox-cvs-udeb
+rootskel-locale
+languagechooser
+countrychooser
+iso-3166-udeb
+hw-detect
+cdrom-detect
+cdrom-retriever
+load-cdrom
+cdrom-checker
+bogl-bterm-udeb
+di-utils-terminfo
+cdebconf-priority
+cdebconf-newt-udeb
+usb-discover
+preseed-common
+initrd-preseed
+file-preseed
+nano-udeb
+floppy-retriever
+libfribidi0-udeb
+# Already on the initrd, thanks to library reduction.
+libdebconfclient0-udeb
+# A reduced version is on the initrd. Nothing currently needs the full
+# version.
+slang1a-utf8-udeb
+# These udebs are only useful in building the boot floppy image.
+busybox-cvs-floppy-udeb
+di-utils-bootfloppy
+rootskel-bootfloppy
+# Until someone gets the gtk cdebconf frontend going, all this is not worth
+# including.
+cdebconf-gtk-udeb
+fontconfig-udeb
+libatk1.0-udeb
+libdirectfb-0.9-19-udeb
+libexpat1-udeb
+libfreetype6-udeb
+libglib2.0-udeb
+libgtk+2.0-directfb0-udeb
+libpango1.0-udeb
+libpng12-0-udeb
+ttf-freefont-udeb
+# This udeb is not in good shape and is largely supersceded by
+# cdebconf-newt-udeb
+cdebconf-slang-udeb
+# We're currently using busybox's own shell, and do not need this one.
+dash-udeb
+# These dhcp clients are not the currently preferred one.
+dhcp3-client-udeb
+pump-udeb
+# This package is only useful in the d-i-demo.
+di-utils-exit-installer
+# No need for these loaders.
+load-installer
+download-installer
+load-floppy
+# Only useful in the hd-media initrd.
+iso-scan
+load-iso
+# We're using busybox's modutils these days.
+modutils-basic
+modutils-full
+# Nothing currently depends on this, and it seems not useful on its own.
+reiserfsprogs-udeb
+# These are not really needed, the regular netcfg subsumes them.
+netcfg-static
+netcfg-dhcp
+# skolelinux stuff, not for the stock CDs
+debian-edu-install-udeb
+debian-edu-profile-udeb
+# If needed, will be on the initrd already.
+module-init-tools-udeb
+rescue-check
+# Not used yet. When it is, will go in the initrd.
+localechooser

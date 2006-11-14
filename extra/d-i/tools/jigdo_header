@@ -1,0 +1,45 @@
+#! /bin/sh
+
+# Copyright 2003 Richard Atterer (atterer@d.o)
+# See the README file for the license
+
+# This script is called by the Makefile to output to stdout data which
+# is to be included in the .jigdo file for each CD/DVD. The data is
+# read by jigdo-file. jigdo-file adds some further lines (a [Jigdo]
+# section and a [Parts] section) before writing everything to the
+# final .jigdo output file.
+
+iso="$1" # Output .iso file
+template="$2" # URL for .template file, can be relative URL
+discinfo="$3" # "Debian GNU/Linux 3.0 r1 "Woody" - Unofficial i386 Binary-1"
+
+# Output image section with info about the file
+echo "[Image]"
+echo "Filename=$iso"
+echo "Template=$template"
+echo "Template-MD5Sum=" # jigdo-file will append the checksum later
+echo "ShortInfo='$discinfo'"
+echo "Info='Generated on `date -R`'"
+
+# If some include URLs were specified, add them here. Typically, this
+# will be used to fetch an up-to-date list of Debian servers.
+if test -n "$JIGDOINCLUDEURLS"; then
+    echo
+    for url in $JIGDOINCLUDEURLS; do
+	echo "[Include $url]"
+    done
+fi
+
+# If some fallbacks were specified, output a servers section with the
+# URLs. The entries of the variable are expected to be already of the
+# form "Label=http://some.url/"
+if test -n "$JIGDOFALLBACKURLS"; then
+    echo
+    echo "[Servers]"
+    for url in $JIGDOFALLBACKURLS; do
+	# The --try-last switch assigns a lower priority to the URL,
+	# so it will only be used if other server entries (without the
+	# --try-last) have already been tried without success.
+	echo "$url --try-last"
+    done
+fi

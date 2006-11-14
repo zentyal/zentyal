@@ -1,0 +1,110 @@
+#!/bin/sh
+
+# This is a little shell script that will launch apt-get in dry-run mode
+# to find all the dependencies of a specific package
+
+# There's not set -e here because this script may fail !
+# Apt doesn't always work ... 
+# set -e
+
+# Get the configuration information if necessary
+if [ -z "$CODENAME" -o -z "$ARCH" -o -z "$APTTMP" ]; then
+	if [ -e CONF.sh ]; then
+		source CONF.sh
+	else
+		echo "Please set the good environment variables before "
+		echo "launching this program ..."
+		echo "Current values are :"
+		echo "CODENAME=$CODENAME"
+		echo "ARCH=$ARCH"
+		echo "APTTMP=$APTTMP"
+	fi
+fi
+
+options=" -q -o Dir::State::status=$APTTMP/$CODENAME-$ARCH/status \
+          -o Dir::State=$APTTMP/$CODENAME-$ARCH/apt-state/ \
+	  -o Dir::Cache=$APTTMP/$CODENAME-$ARCH/apt-cache/ \
+	  -o Dir::Etc=$APTTMP/$CODENAME-$ARCH/apt/ \
+	  -o APT::Cache::AllVersions=0 \
+	  -o APT::Architecture=$ARCH "
+
+sections=main
+if [ "${NONFREE:-0}" != "0" -o "${EXTRANONFREE:-0}" != "0" ]; then
+	sections="$sections non-free"
+fi
+if [ "${CONTRIB:-0}" != "0" ]; then
+	sections="$sections contrib"
+fi
+
+# Check for the necessary dirs and files ...
+if [ ! -d "$APTTMP/$CODENAME-$ARCH/apt-state/lists/partial" ]; then
+	mkdir -p "$APTTMP/$CODENAME-$ARCH/apt-state/lists/partial"
+fi
+if [ ! -d "$APTTMP/$CODENAME-$ARCH/apt-cache/archives/partial" ]; then
+	mkdir -p "$APTTMP/$CODENAME-$ARCH/apt-cache/archives/partial"
+fi
+if [ ! -d "$APTTMP/$CODENAME-$ARCH/apt" ]; then
+	mkdir -p "$APTTMP/$CODENAME-$ARCH/apt"
+fi
+if [ ! -e "$APTTMP/$CODENAME-$ARCH/apt/sources.list" ]; then
+	# Generating a correct sources.list file
+	echo "deb file:$MIRROR $CODENAME $sections" \
+	> $APTTMP/$CODENAME-$ARCH/apt/sources.list
+	if [ -n "$NONUS" ]; then
+	     echo "deb file:$NONUS $CODENAME/non-US $sections" \
+	     >> $APTTMP/$CODENAME-$ARCH/apt/sources.list
+	fi
+	# Local packages ...
+	if [ -n "$LOCAL" ]; then
+	  echo "deb file:${LOCALDEBS:-$MIRROR} $CODENAME local" \
+	  >> $APTTMP/$CODENAME-$ARCH/apt/sources.list
+	fi
+        # Security mirror ...
+        if [ -n "$SECURITY" ]; then
+	  echo "deb file:${SECURITY:-$MIRROR} $CODENAME/updates $sections" \
+	  >> $APTTMP/$CODENAME-$ARCH/apt/sources.list
+        fi
+	# Debian-installer
+	if [ -e "$MIRROR/dists/$DI_CODENAME/main/debian-installer" ]; then
+	  echo "deb file:$MIRROR $DI_CODENAME main/debian-installer" \
+	  >> $APTTMP/$CODENAME-$ARCH/apt/sources.list
+	fi
+	if [ -n "$LOCAL" -a -e "${LOCALDEBS:-$MIRROR}/dists/$DI_CODENAME/local/debian-installer" ]; then
+	  echo "deb file:${LOCALDEBS:-$MIRROR} $DI_CODENAME local/debian-installer" \
+	  >> $APTTMP/$CODENAME-$ARCH/apt/sources.list
+	fi
+fi
+
+temp=$APTTMP/$CODENAME-$ARCH/temp.apt-selection
+
+# Launch the command
+if [ "$1" = "update" -o "$1" = "check" ]; then
+	apt-get $options $@
+	exit $?
+elif [ "$1" = "cache" ]; then
+	shift
+	apt-cache $options $@
+	exit $?
+elif [ "$1" = "deselected" ]; then
+	shift
+	apt-get $options -s $@ > $temp
+	num=$?
+	#if [ $num -ne 0 ]; then 
+	    #echo ": Param: apt-selection deselected $@" >&2; 
+	    #exit $num;  
+	#fi
+	perl -ne 'print "$1\n" if /^Remv (\S+).*/' $temp | sort
+elif [ "$1" = "selected" ]; then
+	shift
+	apt-get $options -s $@ > $temp 
+	num=$?
+	#if [ $num -ne 0 ]; then 
+	#    echo "ERROR: Param: apt-selection selected $@" >&2; 
+	#    exit $num;  
+	#fi
+	perl -ne 'print "$1\n" if /^Inst (\S+).*/' $temp | sort
+else
+	apt-get $options -s $@
+	exit $?
+fi
+

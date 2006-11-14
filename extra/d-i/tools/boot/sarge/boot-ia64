@@ -1,0 +1,58 @@
+#!/bin/bash
+#
+# boot-ia64
+#
+# $1 is the CD number
+# $2 is the temporary CD build dir
+
+. $BASEDIR/tools/boot/$DI_CODENAME/common.sh
+
+set -e
+set -x
+
+N=$1
+CDDIR=$2
+BOOTDIR=
+if [ "$DI_WWW_HOME" = "default" ];then
+   DI_WWW_HOME="http://people.debian.org/~jbailey/d-i/ia64/daily"
+   if [ -n "$DI_DIR" ];then
+      DI_DIR="$DI_DIR/~${DI_WWW_HOME#*~}"
+      DI_WWW_HOME=""                     
+   fi
+fi
+if [ ! "$DI_DIST" ]; then
+   DI_DIST="$DI_CODENAME"
+fi
+
+cd $CDDIR/..
+
+# Only disc 1 bootable
+if [ $N != 1 -a $N != 1_NONUS ]; then 
+	echo "-J" > $N.mkisofs_opts
+	exit 0; 
+fi
+
+# Download boot images
+for image in boot.img; do
+    if [ ! -e "$image" ]; then
+	if [ ! "$DI_WWW_HOME" ];then
+        	if [ ! "$DI_DIR" ];then
+		   DI_DIR="$MIRROR/dists/$DI_DIST/main/installer-$ARCH/current/images"
+		fi
+		cp "$DI_DIR/cdrom/$image" . || \
+		cp "$DI_DIR/$image" .
+	else
+		wget "$DI_WWW_HOME/cdrom/$image" || \
+		wget "$DI_WWW_HOME/$image"
+	fi
+    fi
+done
+
+install_languages $CDDIR
+
+mkdir -p boot$N/boot
+cp -f boot.img boot$N/boot/
+echo -n "-no-emul-boot -J -b boot/boot.img -c boot/boot.catalog boot$N"  > $N.mkisofs_opts
+
+# done
+
