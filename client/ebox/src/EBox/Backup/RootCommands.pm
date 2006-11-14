@@ -22,7 +22,7 @@ sub checkExecutable
 
   if (not EBox::Sudo::fileTest('-x', $execPath) ) {
     EBox::error("Cannot found or is not executable: $execPath");
-    thow EBox::Exceptions::External(__x('This system need {program} installed to perform the requested action. Please install it and retry', program => $program));
+    throw EBox::Exceptions::External(__x('This system need {program} installed to perform the requested action. Please install it and retry', program => $program));
   }  
 }
 
