@@ -16,6 +16,17 @@ TEST DEPENDENCIES
         + Test::Output
         + Test::File
 
+
+TEST DEPENDENCIES WITH EBOX
+---------------------------
+
+The following libebox's tests need  ebox installed to run:
+
++  src/EBox/t/Sudo.t
++  src/EBox/Config/t/TestStub.t
+ 
+
+
 TEST DIRECTORIES
 -----------
 
