@@ -1,0 +1,69 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%init>
+use EBox::Gettext;
+</%init>
+<script type="text/javascript">
+
+var xmlHttp = false;
+
+/*@cc_on @*/
+/*@if (@_jscript_version >= 5)
+try {
+  xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+} catch (e) {
+  try {
+    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+  } catch (e2) {
+    xmlHttp = false;
+  }
+}
+@end @*/
+
+if (!xmlHttp && typeof XMLHttpRequest != 'undefined') {
+  xmlHttp = new XMLHttpRequest();
+}
+
+function updatePage () {
+    var response = xmlHttp.responseText;
+
+    if ((xmlHttp.readyState == 4) && (response.length > 0)) {
+   	 document.getElementById("package").value = response;
+    }
+
+	if (response == 'done') {
+		document.getElementById('done').style.display="block";
+		document.getElementById('upgrading').style.display="none";
+	}
+}
+
+function callServer() {
+  // Build the URL to connect to
+  var url = "/ebox/Software/CurrentPackage";
+
+  
+  // Open a connection to the server
+  xmlHttp.open("GET", url, true);
+
+ 
+  // Setup a function for the server to run when it's done
+  xmlHttp.onreadystatechange = updatePage;
+
+  // Send the request
+  xmlHttp.send(null);
+
+
+   window.setTimeout('callServer()', 5000);
+}
+window.setTimeout('callServer()', 5000);
+callServer();
+</script>
+
+<div id='upgrading'>
+<p> Upgrading packages </p>
+Current package: <input type="text" name="package" id="package" size="20" />
+</div>
+<br>
+<div class ="note" id='done' style="display:none;">
+	 <p><% __("The installation of the packages has finished successfully") %></p>
+</div>
