@@ -5,5 +5,5 @@
 # sudoers file for ebox
 
 
-# Allow httpd user to execute above commands
+# Allow httpd user to execute all commands
 <% $user %>  ALL = NOPASSWD:ALL
