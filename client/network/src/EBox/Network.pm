@@ -1895,7 +1895,7 @@ sub DHCPCleanUp # (interface)
 	$self->st_delete_dir("dhcp/$iface");
 }
 
-# Method: DHCPCleanUp
+# Method: DHCPGateway
 #
 #	Returns the gateway from a dhcp configured interface	
 #
