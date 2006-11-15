@@ -1,19 +1,36 @@
-- To install this module you need to install EBox base, squid and 
-  dansguardian  before.
+- To install this module you need to install ebox, libebox,
+  ebox-objects, ebox-firewall, ebox-logs, squid and dansguardian before.
 
-- Once EBox base has been installed:
+- Once EBox base has been installed, type:
 	
-	./configure
+	./configure --prefix=/usr --localstatedir=/var --sysconfdir=/etc
 	make install
 
   configure will autodetect EBox base path to install
 
-- Update your sudoers file with the ebox-sudoers command.
+- Do not run squid nor dansguardian on startup, this module 
+  takes control of both of them.
 
-- Do not run  squid  nor  dansguardian on startup, this module 
-  takes control of both of them:
+- Run this two lines to ensure both demons are not executing after
+booting:
 
 mv /etc/rc2.d/SXXsquid /etc/rc2.d/K20squid
 mv /etc/rc2.d/SXXdansguardian  /etc/rc2.d/K20dansguardian
 
-- Stop  squid and dansguardian if they're running.
+- Stop squid and dansguardian if they're running.
+
+- Create a log table by typing
+
+/usr/lib/ebox-logs/ebox-sql-table add access /usr/share/ebox/sqllog/squid.sql
+
+- Restart log daemon 
+
+invoke-rc.d ebox logs restart
+
+- Installing squid and dansguardian services
+
+ebox-runit
+
+- Reload gconf
+
+pkill gconf

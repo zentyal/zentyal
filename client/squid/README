@@ -4,4 +4,5 @@ This eBox module provides the following functionalities:
 		  * Transparent proxy.
 		  * Content filter.
 		  * Object access policies.
-		  * Banned domains.
+		  * Banned and allowed domains.
+		  * Custom MIME type and file extension fiter.
