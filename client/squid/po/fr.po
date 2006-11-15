@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-10 10:22+0100\n"
+"POT-Creation-Date: 2006-11-15 13:19+0100\n"
 "PO-Revision-Date: 2005-11-29 13:24+0100\n"
 "Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -34,7 +34,7 @@ msgstr "Politique du proxy HTTP"
 
 #: src/EBox/CGI/ExtensionsUI.pm:30 src/EBox/CGI/ExtensionsUI.pm:40
 #: src/EBox/CGI/MimeTypesUI.pm:30 src/EBox/CGI/Index.pm:30
-#: src/EBox/CGI/Index.pm:40 src/EBox/Squid.pm.in:1168
+#: src/EBox/CGI/Index.pm:40 src/EBox/Squid.pm.in:1170
 msgid "HTTP Proxy"
 msgstr "Proxy HTTP"
 
@@ -99,7 +99,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: src/EBox/CGI/AddCustomFilter.pm:43 src/EBox/Squid.pm.in:1197
+#: src/EBox/CGI/AddCustomFilter.pm:43 src/EBox/Squid.pm.in:1199
 #: src/templates/filterTable.mas:45 src/templates/index.mas:134
 #: src/templates/index.mas:137
 msgid "Deny"
@@ -137,12 +137,12 @@ msgid "MIME type is already in the list"
 msgstr ""
 
 #: src/EBox/CGI/BannedDomains.pm:30 src/EBox/CGI/BannedDomains.pm:40
-#: src/EBox/Squid.pm.in:1227 src/templates/banned.mas:11
+#: src/EBox/Squid.pm.in:1229 src/templates/banned.mas:11
 msgid "Banned domains"
 msgstr "Domaines exclus"
 
 #: src/EBox/CGI/AllowedDomains.pm:30 src/EBox/CGI/AllowedDomains.pm:40
-#: src/EBox/Squid.pm.in:1225 src/templates/allowed.mas:11
+#: src/EBox/Squid.pm.in:1227 src/templates/allowed.mas:11
 msgid "Allowed domains"
 msgstr "Domaines autorisés"
 
@@ -177,101 +177,101 @@ msgstr "domaine"
 msgid "Threshold"
 msgstr "Seuil"
 
-#: src/EBox/Squid.pm.in:1182
+#: src/EBox/Squid.pm.in:1184
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/EBox/Squid.pm.in:1188 src/templates/index.mas:39
+#: src/EBox/Squid.pm.in:1190 src/templates/index.mas:39
 #: src/templates/index.mas:44
 msgid "Enabled"
 msgstr "Activé"
 
-#: src/EBox/Squid.pm.in:1190 src/templates/index.mas:37
+#: src/EBox/Squid.pm.in:1192 src/templates/index.mas:37
 #: src/templates/index.mas:42 src/templates/index.mas:73
 #: src/templates/index.mas:76
 msgid "Disabled"
 msgstr "Désactivé"
 
-#: src/EBox/Squid.pm.in:1192 src/templates/index.mas:30
+#: src/EBox/Squid.pm.in:1194 src/templates/index.mas:30
 msgid "Transparent proxy"
 msgstr "Proxy transparent"
 
-#: src/EBox/Squid.pm.in:1195 src/templates/index.mas:127
+#: src/EBox/Squid.pm.in:1197 src/templates/index.mas:127
 #: src/templates/index.mas:130 src/templates/policy.mas:109
 #: src/templates/policy.mas:113
 msgid "Allow"
 msgstr "Autoriser"
 
-#: src/EBox/Squid.pm.in:1199 src/templates/index.mas:141
+#: src/EBox/Squid.pm.in:1201 src/templates/index.mas:141
 #: src/templates/index.mas:144 src/templates/policy.mas:55
 #: src/templates/policy.mas:59 src/templates/policy.mas:119
 #: src/templates/policy.mas:123 src/templates/domains.mas:17
 msgid "Filter"
 msgstr "Filtre"
 
-#: src/EBox/Squid.pm.in:1202 src/templates/index.mas:120
+#: src/EBox/Squid.pm.in:1204 src/templates/index.mas:120
 #: src/templates/domains.mas:16
 msgid "Global policy"
 msgstr "Politique globale"
 
-#: src/EBox/Squid.pm.in:1204
+#: src/EBox/Squid.pm.in:1206
 msgid "Listening port"
 msgstr "Port d'écoute"
 
-#: src/EBox/Squid.pm.in:1220 src/EBox/Squid.pm.in:1254
+#: src/EBox/Squid.pm.in:1222 src/EBox/Squid.pm.in:1256
 msgid "HTTP proxy"
 msgstr "Proxy HTTP "
 
-#: src/EBox/Squid.pm.in:1223
+#: src/EBox/Squid.pm.in:1225
 msgid "General"
 msgstr "Paramètres généraux"
 
-#: src/EBox/Squid.pm.in:1229
+#: src/EBox/Squid.pm.in:1231
 msgid "Extensions filter"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:1231
+#: src/EBox/Squid.pm.in:1233
 msgid "Mime Type filter"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:1233
+#: src/EBox/Squid.pm.in:1235
 msgid "Policy"
 msgstr "Politique"
 
-#: src/EBox/Squid.pm.in:1240
+#: src/EBox/Squid.pm.in:1242
 #, fuzzy
 msgid "Date"
 msgstr "Effacer"
 
-#: src/EBox/Squid.pm.in:1241
+#: src/EBox/Squid.pm.in:1243
 msgid "Host"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:1242
+#: src/EBox/Squid.pm.in:1244
 msgid "URL"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:1243
+#: src/EBox/Squid.pm.in:1245
 msgid "Bytes"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:1244
+#: src/EBox/Squid.pm.in:1246
 msgid "Mime/type"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:1245
+#: src/EBox/Squid.pm.in:1247
 msgid "Event"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:1250
+#: src/EBox/Squid.pm.in:1252
 msgid "Accepted"
 msgstr ""
 
-#: src/EBox/Squid.pm.in:1251 src/templates/policy.mas:29
+#: src/EBox/Squid.pm.in:1253 src/templates/policy.mas:29
 msgid "Denied"
 msgstr "Interdit"
 
-#: src/EBox/Squid.pm.in:1252 src/templates/policy.mas:26
+#: src/EBox/Squid.pm.in:1254 src/templates/policy.mas:26
 msgid "Filtered"
 msgstr "Filtré"
 
