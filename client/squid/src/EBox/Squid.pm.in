@@ -933,27 +933,29 @@ sub _squidAndDG
 
 }
 
-sub _setList # ($listname, $newlist)
+sub _setList # ($listName, $newList)
 {
-	my ($self, $listname, @newlist) = @_;
+	my ($self, $listName, @newList) = @_;
 
-	my @list= sort @{$self->get_list($listname)};
-	@newlist = sort @newlist;
+	my @list= sort @{$self->get_list($listName)};
+	@newList = sort @newList;
 
 	my $changed = undef;
-	if (@list ne @newlist) {
+
+	if ($#list == $#newList) {
 	 	my $i;
-		for my $val (@newlist) {
+		for my $val (@newList) {
 			if ($val ne $list[$i]) {
 				$changed = 1;
 				last;
 			}
+			$i++;
 		}
 	} else {
 		$changed = 1;
 	}
 
-	$self->set_list($listname, 'string', \@newlist) if ($changed);
+	$self->set_list($listName, 'string', \@newList) if ($changed);
 }
 
 # Function: allowedExtensions

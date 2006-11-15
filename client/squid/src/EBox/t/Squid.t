@@ -34,35 +34,29 @@ isa_ok( $squid, 'EBox::Squid' );
 my $allowed = $squid->allowedMimeTypes();
 my $oldN = scalar (@{$allowed});
 
-print "Allowed mime types: " . @{$allowed} . $/;
-
-my @res = grep { /application\/octet-stream/ } @{$allowed};
+#print "Allowed mime types: " . @{$allowed} . $/;
 
 my $mimeType = "application/octet-stream";
 
 push ( @{$allowed}, $mimeType );
 
-print @{$allowed};
+#print @{$allowed};
 
 $squid->setAllowedMimeTypes(@{$allowed});
 
 $allowed = $squid->allowedMimeTypes();
 my $n = scalar (@{$allowed});
 
-cmp_ok ( $n, "==", $oldN + 1, 'allowed mime type added correctly');
+# 3
+cmp_ok ( $n, "==", $oldN + 1, 'allowed mime type added');
 
 # Restoring old values
-pop ( @{$allowed} );
+@{$allowed} = grep {!/application\/octet-stream/} @{$allowed};
 $squid->setAllowedMimeTypes(@{$allowed});
 
 # Controlling banned
 my $banned = $squid->bannedMimeTypes();
 $oldN = scalar (@{$banned});
-
-print "Banned mime types: " . @{$banned} . $/;
-print @{$banned};
-
-@res = grep { /image\/pipeg/ } @{$banned};
 
 $mimeType = "image/pipeg";
 
@@ -73,20 +67,21 @@ $squid->setBannedMimeTypes(@{$banned});
 $banned = $squid->bannedMimeTypes();
 $n = scalar (@{$banned});
 
-cmp_ok ( $n, "==", $oldN + 1, 'banned mime type added correctly');
+# 4
+cmp_ok ( $n, "==", $oldN + 1, 'banned mime type added');
 
 # Restoring old values
-pop ( @{$banned} );
+@{$banned} = grep {!/image\/pipeg/} @{$banned};
 $squid->setBannedMimeTypes(@{$banned});
 
 # Compare with hashed
 my $hashed = $squid->hashedMimeTypes();
 my ($cAllowed, $cBanned ) = (0, 0);
-foreach my $value (values %{$hashed}) {
+while ( my ($key, $value) = each %{$hashed} ) {
   # Do you like perl conditional commands? XD
   $cAllowed++ if ($value);
   $cBanned++  unless ($value);
 }
 
-cmp_ok ( $cAllowed, "==", scalar(@{$allowed}), '');
-cmp_ok ( $cBanned, "==", scalar(@{$banned}), '');
+cmp_ok ( $cAllowed, "==", scalar(@{$allowed}), 'All allowed mime types remain the same');
+cmp_ok ( $cBanned, "==", scalar(@{$banned}), 'All allowed mime types remain the same');
