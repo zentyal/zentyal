@@ -1670,6 +1670,11 @@ sub _regenConfig
 			if (scalar(@servers) > 0) {
 				$skipdns = 1;
 			}
+		} else {
+			#clean up dhcp state if interface is not DHCP
+			#it should be done by the dhcp hook, but sometimes
+			#cruft is left
+			$self->DHCPCleanUp($if);
 		}
 	}
 
