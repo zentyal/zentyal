@@ -20,7 +20,6 @@ use strict;
 use warnings;
 
 use EBox;
-use EBox::Global;
 use EBox::Config;
 use HTML::Mason::Interp;
 
