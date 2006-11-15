@@ -41,6 +41,16 @@ case "$1" in
 		. /usr/share/debconf/confmodule.sh
 		db_set debconf/priority critical
 		db_set debconf/frontend noninteractive
+	
+		# Add ebox security source
+		SECURITY_LINE="deb http://ebox-platform.com/debian/sarge/stable/ security/"
+
+		if grep "^$SECURITY_LINE" /etc/apt/sources.list; then
+			echo "Security source already exists"
+		else
+			echo "Adding security source"
+			echo "$SECURITY_LINE" >> /etc/apt/sources.list
+		fi
 
 		invoke-rc.d ebox software restart
 esac
