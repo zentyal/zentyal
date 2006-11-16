@@ -23,6 +23,8 @@ sudo mv with_eboxfudge.iso ebox-livecd.iso
 
 La práctica:
 
+* Se provee un script sencillo (makelivecd) que generara la iso final del livecd asi como las de los pasos intermedios. 
+
 * Si se hacen modificaciones es util usar el comando xmlstarlet para validar los archivos xml. Si son ficheros xml incorrectos morphmini y mmaker indicaran discretamente el error pero continuaran con la operacion, obteniendo modulos que no funcionaran como esperabamos.
 
 Ejemplo de invocacion de xmlstarlet:

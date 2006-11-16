@@ -1,0 +1,67 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+my ($morphixBaseIso) = @ARGV;
+defined $morphixBaseIso or die "You must give as first argument the path to a morphix base iso";
+
+my $mainmod = 'ebox-icewm';
+my @minimods = qw(ebox-desktop ebox-fudge);
+
+print "The morphix base iso is located at $morphixBaseIso\n";
+print "The main mod will be $mainmod\n";
+print "The live-cd will have the following minmods: @minimods\n";
+
+my $newIso;
+$newIso = mainmod($mainmod,$morphixBaseIso );
+foreach my $mini (@minimods) {
+  $newIso = minimod($mini, $newIso);
+}
+
+my $mvCommand = "mv $newIso livecd.iso";
+execCmds($mvCommand);
+
+sub mainmod
+{
+  my ($mainmod, $isoBase) = @_;
+  my $newIso = "with_$mainmod.iso";
+
+  my $mmakerCmd       = "mmaker $mainmod.xml $mainmod.mod";
+  my $isomorphCommand = "isomorph --add main $mainmod.mod $isoBase $newIso";
+  
+  execCmds($mmakerCmd, $isomorphCommand);
+
+  return $newIso;
+}
+
+
+sub minimod
+{
+  my ($minimod, $iso) = @_;
+  my $newIso = "with_$minimod.iso";
+
+  my $morphminiCmd     = "morphmini $minimod.xml $minimod.mod";
+  my $isomorphCommand = "isomorph --add mini $minimod.mod $iso $newIso";
+  
+  execCmds($morphminiCmd, $isomorphCommand);
+
+  return $newIso;
+}
+
+
+sub execCmds
+{
+  my @cmds = @_;
+  foreach my $cmd (@cmds) {
+    my @output = `$cmd 2>&1`;
+    if ($? != 0) {
+      die "Command failed: $cmd\nCommand output: @output\nExit value: $?";
+    }
+    else {
+      print "Command successful: $cmd\n";
+      print "Command output: @output\n";
+    }
+  }
+}
+
+1;
