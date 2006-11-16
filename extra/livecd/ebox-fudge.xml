@@ -6,31 +6,6 @@
                  <maintag>ALL</maintag>
                  <root>
                     <files>
-                       <remote>
-
-                          <from>https://svn.warp.es/ebox-platform/trunk/client/samba/schemas/ebox.schema</from>
-                          <to>/etc/ldap/schema</to>
-                       </remote>
-                       <remote>
-                          <from>https://svn.warp.es/ebox-platform/trunk/client/samba/schemas/samba.schema</from>
-                          <to>/etc/ldap/schema</to>
-                       </remote>
-                       <remote>
-                          <from>https://svn.warp.es/ebox-platform/trunk/client/jabber/schemas/jabber.schema</from>
-                          <to>/etc/ldap/schema</to>
-                       </remote>
-                       <remote>
-                          <from>https://svn.warp.es/ebox-platform/trunk/client/mail/schemas/eboxmail.schema</from>
-                          <to>/etc/ldap/schema</to>
-                       </remote>
-                       <remote>
-                          <from>https://svn.warp.es/ebox-platform/trunk/client/mail/schemas/authldap.schema</from>
-                          <to>/etc/ldap/schema</to>
-                       </remote>
-                       <remote>
-                          <from>https://svn.warp.es/ebox-platform/trunk/client/mailfiler/schemas/eboxfilter.schema</from>
-                          <to>/etc/ldap/schema</to>
-                       </remote>
 
                         <remote>
                           <from>https://svn.warp.es/ebox-platform/trunk/client/usersandgroups/debian/ebox-usersandgroups.postinst</from>
