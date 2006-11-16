@@ -52,6 +52,7 @@ fi
 AM_PO_SUBDIRS
 
 AC_CONFIG_FILES([
+conf/Makefile
 src/Makefile
 src/libexec/Makefile
 src/EBox/Makefile
