@@ -158,7 +158,7 @@
 				<para>Automatic backups: the first time a key's value is changed,
 				a backup of the configuration tree for the whole module is made.
 				When the configuration is saved, the backup is automatically
-				deleted, when the config changes are revoked the backup is
+				deleted, when the configuration changes are revoked the backup is
 				automatically restored. <classname>EBox::GConfModule</classname>
 				implements the <methodname>makeBackup</methodname>,
 				<methodname>restoreBackup</methodname> and
@@ -632,23 +632,23 @@ $self->set_int("fwdrules/$id/order", $order);]]></programlisting>
 		configuration of a given service, a module's backend is in charge of
 		making that service work. Typically, the service will be some sort of
 		daemon that offers some functionality across the network after reading
-		a config file. So your module needs to generate the config file and
+		a configuration file. So your module needs to generate the configuration file and
 		start/stop/restart the daemon at the right times.</para>
 
 		<section id='sect-configfiles'>
-			<title>Config file generation</title>
+			<title>Configuration file generation</title>
 
-			<para>The easiest way to generate config files is using the
+			<para>The easiest way to generate configuration files is using the
 			<application>mason</application> templating engine which is also used
 			in the web front-end. Using mason templates is documented in <xref
 			linkend='sect-mason'/> so we won't repeat it here.</para>
 
-			<para>Mason templates for config files are installed in the
+			<para>Mason templates for configuration files are installed in the
 			<filename>stubs</filename> directory under the shared directory
 			for eBox. In the module source tree they are usually placed in
 			directory of their own called <filename>stubs</filename> too. The
 			<filename>Makefile.am</filename> in the <filename>stubs</filename>
-			directory for the dnscache module looks like this:</para>
+			directory for the dns-cache module looks like this:</para>
 
 			<programlisting><![CDATA[Stubdir = @STUBSPATH@/dns-cache
 
@@ -672,7 +672,7 @@ MAINTAINERCLEANFILES = Makefile.in]]></programlisting>
 
 			<itemizedlist>
 				<listitem>
-					<para>The path of the config file that's going to be generated.
+					<para>The path of the configuration file that's going to be generated.
 					</para>
 				</listitem>
 
@@ -687,7 +687,7 @@ MAINTAINERCLEANFILES = Makefile.in]]></programlisting>
 				</listitem>
 			</itemizedlist>
 
-			<para><methodname>writeConfFile</methodname> will generate the config
+			<para><methodname>writeConfFile</methodname> will generate the configuration
 			file in a temporary location and then copy it on top of the desired
 			destination, keeping its original permissions and ownership.</para>
 
@@ -736,7 +736,7 @@ include <%$includedir%>]]></programlisting>
 			by calling the <methodname>restartService</methodname> or
 			<methodname>save</methodname> methods on a module instance, however
 			those methods are implemented by <classname>EBox::Module</classname>
-			and should normally not be overriden, since they takes
+			and should normally not be overridden, since they takes
 			care of logging and/or saving the configuration changes.
 			Both of these methods call an abstract method when they
 			need to actually start/restart the service. This method is
@@ -977,76 +977,95 @@ $foobar->some_method();]]></programlisting>
 	</section>
 
 	<section id="sect-cfgback">
-		<title>Configuration backups</title>
+		<title>Backups</title>
 
 		<para>As we pointed out earlier, all changes made on the keys stored
 		in gconf are automatically backed up the first time a write or delete
-		operation is carried on. In consequence, all theses changes could be
+		operation is carried on. Consequently, all these changes could be
 		restored automatically if the user wishes to dismiss or restore them
-		from a file. Of course, this is true as long as you use the methods
-		provided by <classname>EBox::GConfModule</classname>.</para>
+		from a file.This is actually true as long as you use the methods
+		provided by <classname>EBox::GConfModule</classname> to do so.</para>
 
-		<para>If your module has some other stuff which is not stored in
-		gconf and needs some special treatment to be backed up you will have
-		to override the methods <methodname>_dump_to_file</methodname> and
-		<methodname>_load_from_file</methodname>.</para>
-
-		<para>The <emphasis>ipsec</emphasis> module keeps RSA keys outside
-		of gconf, so when it is time to do a backup it needs to take care of
-		them:</para>
+		<para>If your module has at least some part
+		independent from GConf, it must override methods
+		<methodname>dumpConfig</methodname> and
+		<methodname>restoreConfig</methodname>.</para>
 		
+		<para>Additionally, apart from module configuration if
+		you want to add some other data concerned to the module
+		which comprise user files, log content and so on; it
+		must implement the methods
+		<methodname>extendedBackup</methodname> and
+		<methodname>extendedRestore</methodname>. Remember all
+		these information will just save and restore whether
+		user requests it explicitly. Let's show how with an
+		example:</para>
+
 		<example>
-			<title>Overriding backup methods</title>
-				<programlisting><![CDATA[sub _dump_to_file # (dir?)
+		  <title>Overriding backup functions</title>
+		  <programlisting><![CDATA[
+sub dumpConfig
 {
-	my ($self, $dir) = @_;
-	$self->SUPER::_dump_to_file($dir);
-	($dir) or $dir = EBox::Config::conf;
-	my $origdir = EBox::Config::conf . "/ipsecrsa";
-	if ( -e "$dir/ipsecrsa.bak") {
-		rmtree("$dir/ipsecrsa.bak") or 
-			throw EBox::Exceptions::Internal(__(
-			  'Error while removing old rsa keys backup'));
-	}
-	mkdir("$dir/ipsecrsa.bak", 0700) or 
-		throw EBox::Exceptions::Internal(__(
-		  'Error while making backup dir for rsa keys'));
-	my @keys = @{$self->listRSAKeys()};
-	foreach my $key (@keys) {
-		next unless (-f "$origdir/$key");
-		copy("$origdir/$key", "$dir/ipsecrsa.bak") or
-			throw EBox::Exceptions::Internal(
-				__('Error while backing up rsa keys'));
-	}
+  my ($self, $dir) = @_;
+ 
+  $self->{ldap}->dumpLdapData($dir);
 }
 
-sub _load_from_file # (dir?)
-{
-	my ($self, $dir) = @_;
-	$self->SUPER::_load_from_file($dir);
-	($dir) or $dir = EBox::Config::conf;
-	my $destdir = EBox::Config::conf . "/ipsecrsa";
-	( -d "$dir/ipsecrsa.bak") or
-		throw EBox::Exceptions::Internal(
-			__('rsa keys backup not found'));
-	if ( -e "$destdir") {
-		rmtree($destdir) or throw EBox::Exceptions::Internal(
-			__('Error while removing rsa keys'));
-	}
-	mkdir("$destdir", 0700) or 
-		throw EBox::Exceptions::Internal(__(
-		  'Error while making dir for rsa keys'));
 
-	my @keys = @{$self->listRSAKeys()};
-	foreach my $key (@keys) {
-		next unless (-f "$dir/ipsecrsa.bak/$key");
-		copy("$dir/ipsecrsa.bak/$key", "$destdir") or
-			throw EBox::Exceptions::Internal(
-				__('Error while restoring rsa keys'));
-	}
-}]]></programlisting>
+sub restoreConfig
+{
+  my ($self, $dir) = @_;
+
+  $self->{ldap}->loadLdapData($dir);
+}
+]]></programlisting>
 		</example>
-		
+
+		<para><emphasis>ebox-logs</emphasis> module is
+		intended to administer eBox logs. We wish to have the
+		chance to back up its contents. As module
+		configuration does not include these data, we are
+		going to use <methodname>extendedBackup</methodname>
+		and <methodname>extendedRestore</methodname>. Remember
+		that this kind of data is only stored if user chooses
+		it.</para>
+
+		explicitly.
+
+		The next example shows how
+		<emphasis>ebox-logs</emphasis> implement these
+		features:
+
+		<example>
+		  <title>Overriding functions for extended
+		  backups</title>
+		  <programlisting>
+<![CDATA[
+sub extendedBackup
+{
+  my ($self, %params) = @_;
+  my $dir    = $params{dir};
+  
+  my $dbengine = EBox::DBEngineFactory::DBEngine();
+  my $dumpFile = "$dir/eboxlogs.dump";
+
+  $dbengine->dumpDB($dumpFile);
+}
+
+
+sub extendedRestore
+{
+  my ($self, %params) = @_;
+  my $dir    = $params{dir};
+
+  my $dbengine = EBox::DBEngineFactory::DBEngine();
+  my $dumpFile = "$dir/eboxlogs.dump";
+
+  $dbengine->restoreDB($dumpFile);
+}
+]]>
+		  </programlisting>
+		</example>
 	</section>		
 
 </chapter>

@@ -113,7 +113,7 @@
 		clase <classname>Ebox::Module</classname> tiene una función abstracta
 		llamada <methodname>rootCommands</methodname>. Los módulos implementan
 		esta función si quieren añadir nuevos comandos al fichero
-		<filename>/etc/sudoers</filename>. Devolverá un array cuyos elementos
+		<filename>/etc/sudoers</filename>. Devolverá un vector cuyos elementos
 		serán los comandos que se deseen ejecutar. La implementación de este
 		método en el módulo del firewall es algo así:</para>
 
@@ -1050,7 +1050,7 @@ $foobar->some_method();]]></programlisting>
 	</section>
 
 	<section id="sect-cfgback">
-        <title>Copia de seguridad de las configuraciones</title>
+        <title>Copia de seguridad</title>
 
 		<para>Como señalábamos con anterioridad, todos los cambios hechos en
 		las claves almacenadas en gconf son automáticamente guardados la
@@ -1061,18 +1061,26 @@ $foobar->some_method();]]></programlisting>
 		provistas a tal efecto por <classname>EBox::GConfModule</classname>.</para>
 
 		<para>Si su módulo tiene parte o la totalidad de su configuración independiente
-                 de GConf, deberá implementar los métodos  <methodname>dumpConfig</methodname> y
+                 de GConf, deberá implementar los métodos <methodname>dumpConfig</methodname> y
 		<methodname>restoreConfig</methodname>.</para>
 
-                <para> Adicionalmente, si aparte de la configuración desea copiar otros tipo de 
-                datos asociados al modulo que no forman parte de su configuración,
-                 como archivos de usuarios .p.e, deberá también implementar
-                los métodos  <methodname>extendedBackup</methodname> y <methodname>extendedRestore</methodname>. 
-                Recuerde que este tipo de información solo sera guardado y restaurado si el usuario lo solicita
-                explicitamente. </para>
+                <para>Adicionalmente, si aparte de la configuración
+		desea copiar otros tipo de datos asociados al modulo
+		que no forman parte de su configuración, como archivos
+		de usuarios p.e., deberá también implementar los
+		métodos <methodname>extendedBackup</methodname> y
+		<methodname>extendedRestore</methodname>. Recuerde que
+		este tipo de información sólo será guardada y
+		restaurada si el usuario lo solicita
+		explícitamente. </para> 
 
-		<para>El módulo <emphasis>usersandgroups</emphasis> almacena su configuración (usuarios, grupos,                 contraseñas, ..)      en el servidor de LDAP. Por este motivo deberemos guardar y recuperar luego la información
-                    guardad en openldap para poder realizar copias de seguridad de este modulo correctamente. Veamos como  podemos hacerlo:                   </para>
+		<para>El módulo <emphasis>usersandgroups</emphasis>
+		almacena su configuración (usuarios, grupos,
+		contraseñas, ..) en el servidor de LDAP. Por este
+		motivo deberemos guardar y recuperar posteriormente la
+		información guardada en <emphasis>openldap</emphasis>
+		para poder realizar copias de seguridad de este módulo
+		correctamente. Veamos como podemos hacerlo:</para>
 		
 		<example>
 			<title>Sobreescribiendo funciones para las copias de seguridad</title>
@@ -1094,11 +1102,24 @@ sub restoreConfig
 ]]></programlisting>
 		</example>
 
+		<para>El módulo <emphasis>eboxlogs</emphasis> es el
+		encargado de la administración de los registros de
+		eBox. Deseamos tener la posibilidad de hacer copia de
+		seguridad de sus contenidos. Como dichos contenidos no
+		forman parte de la configuración del módulo usaremos
+		<emphasis>extendedBackup</emphasis> y
+		<emphasis>extendedRestore</emphasis>.
+		</para>
+		<note>
+		  Los datos no pertenecientes a la
+		  configuración sólo se almacenarán en la copia de
+		  seguridad si el usuario así lo elige.
+		</note>
 
+		A continuación, mostramos como
+		<emphasis>eboxlogs</emphasis> implementa estas
+		características:
 
-		<para>El módulo <emphasis>eboxlogs</emphasis> es el encargado de la administración de los logs de eBox. Queremos tener la posibilidad de hacer copia de seguridad de los contenidos de lo mismos; como los contenidos de los logs no forman parte de la configuración del módulo usaremos <emphasis>extendedBackup</emphasis> y  <emphasis>extendedRestore</emphasis>. Recordemos que los datos no pertenecientes a la configuración solo se almacenaran en la copia de seguridad si el usuario lo elige. A continuación mostramos como <emphasis>eboxlogs</emphasis> implementa estas características
-
-                  </para>
 		<example>
 			<title>Sobreescribiendo funciones para las copias de seguridad</title>
 				<programlisting><![CDATA[
