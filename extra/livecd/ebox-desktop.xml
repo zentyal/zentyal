@@ -1,0 +1,15 @@
+              <comps>
+               <group>
+                <minimod>
+                 <description>Minimod for opening deskto apps in eboxlivecd</description>
+                 <minitag>ebox-desktop</minitag>
+                 <maintag>ALL</maintag>
+                 <commandlist>
+                  <X>
+                   <command>firefox  https://localhost &amp; </command> <!-- &amp;
+              is xml format for & -->
+<!--                    <command>xterm &amp; </command>  -->
+                  </X>
+                 </commandlist>
+                </minimod>
+               </group> </comps>

@@ -1,0 +1,18 @@
+              <comps>
+               <group>
+                <minimod>
+                 <description>Minimod for ebox fudge</description>
+                 <minitag>ebox-fudge</minitag>
+                 <maintag>ALL</maintag>
+                 <commandlist>
+                 <preX>
+                   <command>touch /var/lib/ebox/log/ebox.log /var/lib/ebox/log/error.log /var/lib/ebox/log/access.log; </command>
+                  <command>touch /var/lib/ebox/conf/network.bak;</command>
+                  <command>runsvdir /var/service &amp; </command>
+                   <command>chown -R ebox.ebox /var/lib/ebox;</command>
+                   <command>pkill gconf;</command>
+                   <command>/etc/init.d/ebox start</command>
+                  </preX>
+                 </commandlist>
+                </minimod>
+               </group> </comps>

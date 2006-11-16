@@ -4,9 +4,9 @@
   <id>ebox-icewm</id>
   <name>eBox icewm</name>
   <repositorylist>
-    <repository type="debian">http://127.0.0.1/debian</repository> 
-    <repository type="plain">http://127.0.0.1/morphix</repository>
-    <repository type="plain">http://127.0.0.1/ebox</repository>
+    <repository type="debian">http://192.168.45.62/debian</repository> 
+    <repository type="plain">http://192.168.45.62/morphix</repository>
+    <repository type="plain">http://192.168.45.62/ebox</repository>
   </repositorylist>
   <description>eBox icewm mainmodule</description>
   <type>mainmod</type>
@@ -72,10 +72,6 @@
 <packagereq>ebox-software</packagereq>
 <packagereq>ebox-squid</packagereq>
 </packagelist>
-<commandlist>
-	<!--<command>rm -rf /var/lib/ebox/tmp/*.bak</command> -->
-	<command>chown -R ebox.ebox /var/lib/ebox</command> <!-- no hace nada -->
-</commandlist>
 
 </group>
 </comps>
