@@ -3,6 +3,8 @@ Receta del liveCD:
 Ingredientes:
 
 - ebox-icewm.xml     <- mainmod de ebox, lleva icewm, firefox y ebox básicamente
+- ebox-fudge.xml     <- minmod de ebox que parchea el mainmod para que las cosas se ejecuten correctamente
+- ebox-desktop.xml   <- minmod de ebox para ejecutar aplicaciones cuando aparexca el escritorio
 - base.iso           <- base iso de morphix, lista para que le añadas un mainmod
 - mirror de sarge    <- acelerará el proceso
 - mirror de morphix  <- acelerará el proceso
@@ -10,20 +12,21 @@ Ingredientes:
 La teoría:
 
 sudo mmaker ebox-icewm.xml ebox-icewm.mod
-sudo isomorph --add main ebox-icewm.mod base.iso out.iso
-sudo mv out.iso ebox-icewm.iso
+sudo isomorph --add main ebox-icewm.mod base.iso with_eboxmain.iso
+sudo morphmini     ebox-desktop.xml ebox-desktop.mod
+sudo isomorph --add mini ebox-desktop.mod with_eboxmain.iso with_eboxdesktop.iso
+sudo morphmini     ebox-fudge.xml ebox-fudge.mod
+sudo isomorph --add mini ebox-fudge.mod with_eboxmain.iso with_eboxfudge.iso
+
+
+sudo mv with_eboxfudge.iso ebox-livecd.iso
 
 La práctica:
 
-Ninguno de los comandos dará error, hay una movida con unionfs y /var/lib/ebox
-que impedirá que el cd arranque. Verás líneas del device cloop quejándose. La
-solución pasa por hacer una ñapa que "rompe" el proceso automatizado de la
-gente de morphix: Cuando el ebox-icewm.mod está hecho, lo descomprimes con
-``module-extractor'' y tienes q añadir el fichero ebox en este mismo dir
-a este path: /path/to/extracted.mod/morphix/init.d/
-y luego hacer un
+* Si se hacen modificaciones es util usar el comando xmlstarlet para validar los archivos xml. Si son ficheros xml incorrectos morphmini y mmaker indicaran discretamente el error pero continuaran con la operacion, obteniendo modulos que no funcionaran como esperabamos.
 
-ln -s /path/to/extracted.mod/morphix/init.d/ebox \ 
-	/path/to/extracted.mod/morphix/rc.m/K07ebox
+Ejemplo de invocacion de xmlstarlet:
 
-Probablemente te surjan más movidas, con esto tienes pa empezar.
+xmlstarlet val ebox-fudge.xml
+
+* Si modificamos algun minmod no seamos panolis y perdamos el tiempo reconstruyendolo todo, anyadamos secuencialmente lo que falta. (esta es la razon por la que en la descripcion del proceso se van dejando archivos iso intermedios)
