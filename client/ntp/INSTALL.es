@@ -1,17 +1,17 @@
-- Antes de instalar este modulo es necesario instalar ebox-base y ntp-server
+- Antes de instalar este modulo es necesario instalar ebox, libebox, ebox-firewall,
+  ntpdate y ntp-server
 
 - Una vez ebox está instalado:
 	
-	./configure
+	./configure --prefix=/usr --localstatedir=/var --sysconfdir=/etc
 	make install
 
   el script configure autodetecta la instalación de ebox y de ntp-server.
 
-- Actualice el fichero de configuracion de sudo con el comando ebox-sudoers
+- Ejecute el script /usr/lib/ebox-ntp/ebox-timezone-import con
+  permisos de administrador.
 
-- Ejecute el script tools/ebox-timezone-import como root.
-
-- No ejecute ntp-server en el arranque, este modulo toma el control de
+- No ejecute ntp-server en el arranque, este módulo toma el control de
   ntp-server usando runit:
 
 mv /etc/rc2.d/SXXntp-server /etc/rc2.d/KXXntp-server

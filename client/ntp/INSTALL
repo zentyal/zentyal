@@ -1,4 +1,5 @@
-- To install this module you need to install EBox base, ntpdate and ntp-server.
+- To install this module you need to install ebox, libebox,
+  ebox-firewall, ntpdate and ntp-server.
 
 - Once EBox base has been installed:
 	
@@ -7,9 +8,7 @@
 
   configure will autodetect EBox base path to install
 
-- Update your sudoers file with the ebox-sudoers command.
-
-- Execute tools/ebox-timezone-import script as root.
+- Execute /usr/lib/ebox-ntp/ebox-timezone-import script as root.
 
 - Do not run ntp-server on startup, this module takes control of ntp-server
 using runit:

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-11 13:15+0100\n"
+"POT-Creation-Date: 2006-11-16 13:25+0100\n"
 "PO-Revision-Date: 2006-04-13 16:43-0300\n"
 "Last-Translator: jc junior <slackjr@gmail.com>\n"
 "Language-Team: portuguese <en@li.org>\n"
@@ -24,11 +24,12 @@ msgstr "Configurações de data e hora"
 msgid "first ntp server"
 msgstr "Primeiro servidor ntp"
 
-#: src/EBox/CGI/AddServers.pm:45 src/templates/servers.mas:18
+#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:199
+#: src/templates/servers.mas:18
 msgid "Primary server"
 msgstr "Servidor primário"
 
-#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:222
+#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:213
 #: src/templates/servers.mas:30
 msgid "Secondary server"
 msgstr "Servidor Secundário"
@@ -85,53 +86,65 @@ msgstr "País"
 msgid "continent"
 msgstr "Continente"
 
-#: src/EBox/NTP.pm:194
-msgid "primary server IP address"
-msgstr "Endereço IP do servidor primário"
+#: src/EBox/NTP.pm:201
+#, fuzzy
+msgid "primary server"
+msgstr "Servidor primário"
 
-#: src/EBox/NTP.pm:197
-msgid "primary server name "
-msgstr "Nome servidor Primário "
+#: src/EBox/NTP.pm:206 src/EBox/NTP.pm:225
+msgid "Primary and secondary server must be different"
+msgstr ""
 
-#: src/EBox/NTP.pm:203
-msgid "secondary server IP address"
+#: src/EBox/NTP.pm:209
+#, fuzzy
+msgid "secondary server"
+msgstr "Servidor Secundário"
+
+#: src/EBox/NTP.pm:222
+msgid "Primary and tertiary server must be different"
+msgstr ""
+
+#: src/EBox/NTP.pm:228
+#, fuzzy
+msgid "tertiary server"
+msgstr "Servidor Terciário"
+
+#: src/EBox/NTP.pm:244
+#, fuzzy, perl-brace-format
+msgid "{name} IP address"
 msgstr "Endereço IP do Servidor Secundário"
 
-#: src/EBox/NTP.pm:206
-msgid "secondary server name"
-msgstr "Nome Servidor Secundário"
+#: src/EBox/NTP.pm:247
+#, perl-brace-format
+msgid "{name} host name"
+msgstr ""
 
-#: src/EBox/NTP.pm:211
-msgid "tertiary server IP address"
-msgstr "Endereço IP do Servidor Terciário"
-
-#: src/EBox/NTP.pm:214
-msgid "tertiary server name"
-msgstr "Nome do Servidor Terciário"
-
-#: src/EBox/NTP.pm:366
+#: src/EBox/NTP.pm:389
 msgid "NTP local server"
 msgstr "Servidor Local de NTP"
 
-#: src/EBox/NTP.pm:400
+#: src/EBox/NTP.pm:402
 msgid "System"
 msgstr "Sistema"
 
-#: src/EBox/NTP.pm:403
+#: src/EBox/NTP.pm:405
 msgid "Date/time"
 msgstr "Data/Hora"
 
-#: src/EBox/NTP.pm:406 src/templates/timezone.mas:15
+#: src/EBox/NTP.pm:408 src/templates/timezone.mas:15
 msgid "Time zone"
 msgstr "Fusorário"
 
-#: src/EBox/NTP.pm:410
+#: src/EBox/NTP.pm:412
 msgid "NTP server"
 msgstr "Servidor NTP"
 
 #: src/templates/date.mas:10
-msgid "A change in the date or time will cause all eBox services to be restarted"
-msgstr "Uma Mudança na data ou hora vai fazer com que o eBox reinicie todos os serviços"
+msgid ""
+"A change in the date or time will cause all eBox services to be restarted"
+msgstr ""
+"Uma Mudança na data ou hora vai fazer com que o eBox reinicie todos os "
+"serviços"
 
 #: src/templates/date.mas:16
 msgid "Date"
@@ -204,7 +217,9 @@ msgstr ""
 msgid ""
 "You should remember to set up your timezone to have synchronization behaving "
 "correctly."
-msgstr "Você deve se lembrar de configurar o seu fusorário para que a sincronização funcione corretamente"
+msgstr ""
+"Você deve se lembrar de configurar o seu fusorário para que a sincronização "
+"funcione corretamente"
 
 #: src/templates/synch.mas:11 src/templates/synch.mas:16
 msgid "Disabled"
@@ -220,7 +235,8 @@ msgstr "Status do Servidor NTP"
 
 #: src/templates/timezone.mas:19
 msgid "A time zone change will cause all eBox services to be restarted"
-msgstr "Uma mudança no Fusoráriovai fazer com que o Ebox reinicie todos os serviços"
+msgstr ""
+"Uma mudança no Fusoráriovai fazer com que o Ebox reinicie todos os serviços"
 
 #: src/templates/datetime.mas:13
 msgid "Time synchronization with NTP servers"
@@ -234,3 +250,17 @@ msgstr "Servidores NTP externos"
 msgid "Change Date and Time"
 msgstr "Mudar Data e Hora"
 
+#~ msgid "primary server IP address"
+#~ msgstr "Endereço IP do servidor primário"
+
+#~ msgid "primary server name "
+#~ msgstr "Nome servidor Primário "
+
+#~ msgid "secondary server name"
+#~ msgstr "Nome Servidor Secundário"
+
+#~ msgid "tertiary server IP address"
+#~ msgstr "Endereço IP do Servidor Terciário"
+
+#~ msgid "tertiary server name"
+#~ msgstr "Nome do Servidor Terciário"
