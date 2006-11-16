@@ -1050,7 +1050,7 @@ $foobar->some_method();]]></programlisting>
 	</section>
 
 	<section id="sect-cfgback">
-        <title>Copia de seguridad</title>
+        <title>Copias de seguridad</title>
 
 		<para>Como señalábamos con anterioridad, todos los cambios hechos en
 		las claves almacenadas en gconf son automáticamente guardados la
@@ -1065,9 +1065,9 @@ $foobar->some_method();]]></programlisting>
 		<methodname>restoreConfig</methodname>.</para>
 
                 <para>Adicionalmente, si aparte de la configuración
-		desea copiar otros tipo de datos asociados al modulo
-		que no forman parte de su configuración, como archivos
-		de usuarios p.e., deberá también implementar los
+		desea copiar otros tipo de datos asociados al módulo
+		que no forman parte de su configuración, como por
+		ejemplo ficheros de usuarios, deberá también implementar los
 		métodos <methodname>extendedBackup</methodname> y
 		<methodname>extendedRestore</methodname>. Recuerde que
 		este tipo de información sólo será guardada y
@@ -1102,26 +1102,22 @@ sub restoreConfig
 ]]></programlisting>
 		</example>
 
-		<para>El módulo <emphasis>eboxlogs</emphasis> es el
+		<para>El módulo <emphasis>ebox-logs</emphasis> es el
 		encargado de la administración de los registros de
 		eBox. Deseamos tener la posibilidad de hacer copia de
 		seguridad de sus contenidos. Como dichos contenidos no
 		forman parte de la configuración del módulo usaremos
-		<emphasis>extendedBackup</emphasis> y
-		<emphasis>extendedRestore</emphasis>.
+		<methodname>extendedBackup</methodname> y
+		<methodname>extendedRestore</methodname>. Los datos no
+		pertenecientes a la configuración sólo se almacenarán
+		en la copia de seguridad si el usuario así lo elige.
 		</para>
-		<note>
-		  Los datos no pertenecientes a la
-		  configuración sólo se almacenarán en la copia de
-		  seguridad si el usuario así lo elige.
-		</note>
 
 		A continuación, mostramos como
-		<emphasis>eboxlogs</emphasis> implementa estas
-		características:
+		<emphasis>ebox-logs</emphasis> implementa estas	características:
 
 		<example>
-			<title>Sobreescribiendo funciones para las copias de seguridad</title>
+			<title>Sobreescribiendo funciones para las copias de seguridad extendidas</title>
 				<programlisting><![CDATA[
 sub extendedBackup
 {
