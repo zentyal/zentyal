@@ -3,7 +3,7 @@ AC_INIT([libeBox], [0.7.99])
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox.pm])
 
-AM_INIT_AUTOMAKE([foreign 1.8])svp Run.pm 192.168.45.131:/tmp
+AM_INIT_AUTOMAKE([foreign 1.8])
 
 AM_MAINTAINER_MODE
 
