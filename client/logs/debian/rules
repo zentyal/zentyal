@@ -51,6 +51,8 @@ install-indep: build config.status
 	GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=yes DESTDIR=$(CURDIR)/debian/ebox-logs/ \
 	DESTDIR=$(CURDIR)/debian/ebox-logs/ \
 		$(MAKE) install schemadir=usr/share/gconf/schemas
+	install -d $(CURDIR)/debian/ebox-logs/var/lib/ebox/
+	install -m 0600 conf/pgpass $(CURDIR)/debian/ebox-logs/var/lib/ebox/.pgpass
 
 binary-indep: install-indep
 	dh_testdir

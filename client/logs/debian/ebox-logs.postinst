@@ -59,6 +59,9 @@ case "$1" in
 		ebox-sudoers-friendly
 		chmod 0440 /etc/sudoers
 
+		chmod 0600 /var/lib/ebox/.pgpass
+		chown ebox.ebox /var/lib/ebox/.pgpass
+
 		#Create user and database
 		create_db
 		

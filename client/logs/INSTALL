@@ -1,1 +1,5 @@
 libfile-tail-perl
+
+ * Set permission 0666 for /etc/ebox/90eboxpglogger.conf
+ * Copy pgpass from conf/pgpass to .pgpass in /var/lib/ebox/ with perms 0600 and
+   owner ebox.ebox

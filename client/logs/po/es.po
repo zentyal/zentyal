@@ -1,4 +1,3 @@
-# translation of logs-es.po to Español
 # translation of es.po to
 # Spanish translations for EBox-logs package
 # Traducciones al español para el paquete EBox-logs.
@@ -8,50 +7,61 @@
 # Automatically generated, 2005.
 # Javier Uruen Val <juruen@warp.es>, 2005.
 # Jorge Arcas <jorge@warp.es>, 2006.
+# Enrique Jose Hernandez Blasco <ejhernandez@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: logs-es\n"
+"Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-01-30 18:04+0100\n"
-"PO-Revision-Date: 2006-01-30 18:25+0100\n"
-"Last-Translator: Jorge Arcas <jorge@warp.es>\n"
-"Language-Team: Español <ebox-devel@lists.warp.es>\n"
+"POT-Creation-Date: 2006-11-16 17:01+0100\n"
+"PO-Revision-Date: 2006-11-16 17:04+0100\n"
+"Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
+"Language-Team:  <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.11.1\n"
+"X-Generator: KBabel 1.11.2\n"
 
-#: src/EBox/CGI/Index.pm:35 src/EBox/Logs.pm:90
+#: src/EBox/CGI/Index.pm:35 src/EBox/Logs.pm:80
 msgid "Logs"
-msgstr "Logs"
+msgstr "Registros"
 
-#: src/EBox/Logs.pm:234
-msgid "Table {$table} does not exist"
-msgstr "Tabla {$table} no existe"
-
-#: src/EBox/Logs.pm:249
-#, perl-brace-format
-msgid "Field {field} does not exist"
-msgstr "Campo {field} no existe"
-
-#: src/EBox/PgDBEngine.pm:39
+#: src/EBox/PgDBEngine.pm:42
 msgid "You must set the eboxlogs_dbname variable in the ebox configuration file"
 msgstr ""
 "Debes de asignar un valor a la variable eboxlogs_dbname en el archivo de "
 "configuración de ebox"
 
-#: src/EBox/PgDBEngine.pm:51
+#: src/EBox/PgDBEngine.pm:54
 msgid "You must set the eboxlogs_dbuser variable in the ebox configuration file"
 msgstr ""
 "Debe de asignar un valor a la variable eboxlogs_dbuser en el archivo de "
 "configuración de ebox"
 
-#: src/EBox/PgDBEngine.pm:63
+#: src/EBox/PgDBEngine.pm:66
 msgid "You must set the eboxlogs_dbpass variable in the ebox configuration file"
 msgstr ""
 "Debe de asignar un valor a la variable eboxlogs_dbpass en el archivo de "
 "configuración de ebox"
+
+#: src/EBox/PgDBEngine.pm:205
+#, perl-brace-format
+msgid "Error dumping the postgresql database {name}"
+msgstr "Error volcando la base de datos postgresql {name}"
+
+#: src/EBox/PgDBEngine.pm:223
+#, perl-brace-format
+msgid "DB dump file {file} is not readable"
+msgstr "Fichero de volcado DB {file} no se puede leer"
+
+#: src/EBox/Logs.pm:224
+msgid "Table {$table} does not exist"
+msgstr "Tabla {$table} no existe"
+
+#: src/EBox/Logs.pm:239
+#, perl-brace-format
+msgid "Field {field} does not exist"
+msgstr "Campo {field} no existe"
 
 #: src/templates/index.mas:19
 msgid "Last hour logs will be showed when selecting a component"
