@@ -3,7 +3,7 @@ SUBDIRS = CGI
 
 perldir = @PERLPATH@/EBox
 
-nobase_perl_DATA = Loggerd.pm Logs.pm LogHelper.pm
+nobase_perl_DATA = Loggerd.pm Logs.pm LogHelper.pm PgDBEngine.pm
 
 DISTCLEANFILES = 
 
