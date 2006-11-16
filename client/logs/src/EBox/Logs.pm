@@ -31,7 +31,6 @@ use EBox::Exceptions::External;
 use EBox::DBEngineFactory;
 use POSIX qw(ceil);
 
-use constant IMAGEPATH => EBox::Config::tmp . '/varimages';
 use constant PIDPATH => EBox::Config::tmp . '/pids/';
 
 
