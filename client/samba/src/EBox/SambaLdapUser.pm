@@ -351,8 +351,8 @@ sub _setUserQuota($$){
 	my $quota = shift;
 
 	#FIXME
-	use constant INSOFT => 10000;
-	use constant INHARD => 10000;
+	use constant INSOFT => 0;
+	use constant INHARD => 0;
 	
 	$quota = $quota * 1024; #~Blocks
 	root("/usr/sbin/setquota -u $uid $quota $quota " . INSOFT . " " . INHARD . " -a");
