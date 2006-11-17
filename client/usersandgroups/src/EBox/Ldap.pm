@@ -83,9 +83,8 @@ sub ldapCon {
 
 
 		if (ldap_error_name($mesg) ne 'LDAP_SUCCESS' ) { 
-		  EBox::debug("ldap mesg:" . Dumper( $mesg ));  # remove when debug done
-			$self->{ldap}->unbind;
-			$reconnect = 1;
+		  $self->{ldap}->unbind;
+		  $reconnect = 1;
 		}
 	}
 
@@ -382,7 +381,7 @@ sub _errorOnLdap
         if ($result->is_error){
                 if ($args) {
 			use Data::Dumper;
-			print STDERR Dumper($args);
+			EBox::error( Dumper($args) );
                 }
                 throw EBox::Exceptions::Internal("Unknown error at " .
 						$frames[3] . " " .
