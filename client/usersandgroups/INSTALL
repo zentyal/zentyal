@@ -1,13 +1,14 @@
 DEPENDENCIES
 ------------
 
-+ Debian packages:
++ eBox components
+	
+	+ ebox
 
-# apt-get install <package>
++ Debian packages (apt-get install <package>)
+
 	+ slapd
 	+ libnet-ldap-perl
-
-+ To install this module you need to install EBox base before.
 
 INSTALLATION
 ------------
@@ -17,16 +18,7 @@ INSTALLATION
 	./configure
 	make install
 
-  configure will autodetect EBox base path to install
+  configure will autodetect eBox base path to install
 
-- Update your sudoers file with the ebox-sudoers command.
-
-- LDAP Server installation
-
-	To install OpenLDAP:
-
-        # aptitude install slapd
-
-	Enter tools directory and execute:
-
-	./ebox-conf-ldap
+- See debian/ebox-usersandgroups.postinst from ebox-usersandgroups deb
+  package for details about LDAP configuration

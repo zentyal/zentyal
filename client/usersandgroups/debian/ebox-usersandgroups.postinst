@@ -41,10 +41,9 @@ case "$1" in
 
 
 		# sudo configuration
-		ebox-sudoers-friendly
-		chmod 0440 /etc/sudoers
-		
-		
+#		ebox-sudoers-friendly
+#		chmod 0440 /etc/sudoers
+			
 		# Init ldap data base
 		PASS="ebox$RANDOM$RANDOM"
 		CRYPTPASS=`create_password_hash "$PASS"`;

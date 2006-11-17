@@ -1,3 +1,7 @@
+0.7.99
+        + Add extended backup support for LDAP
+	+ Performance tuning to slapd
+	+ Some minor code improvements
 0.7.1
 	+ Add delObjectclass (useful for ldap clean actions)
 	+ Detect and recover when ldap connection is broken (#25)
