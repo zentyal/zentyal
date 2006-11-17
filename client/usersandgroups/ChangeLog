@@ -2,6 +2,7 @@
         + Add extended backup support for LDAP
 	+ Performance tuning to slapd
 	+ Some minor code improvements
+	+ Quota now allows unlimited space and i-nodes number
 0.7.1
 	+ Add delObjectclass (useful for ldap clean actions)
 	+ Detect and recover when ldap connection is broken (#25)
