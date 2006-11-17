@@ -14,4 +14,5 @@ Description: Service logs
  graphical interface to non expert users. It can be set up as a gateway,
  having some extra features over a usual router.
  .
- This module adds support for the logging infrastructure
+ This module adds support for the logging infrastructure. Logs can be now
+ backed up from eBox.

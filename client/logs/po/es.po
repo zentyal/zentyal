@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-16 17:01+0100\n"
+"POT-Creation-Date: 2006-11-17 10:17+0100\n"
 "PO-Revision-Date: 2006-11-16 17:04+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team:  <es@li.org>\n"
@@ -22,24 +22,27 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.2\n"
 
-#: src/EBox/CGI/Index.pm:35 src/EBox/Logs.pm:80
+#: src/EBox/CGI/Index.pm:35 src/EBox/Logs.pm:79
 msgid "Logs"
 msgstr "Registros"
 
 #: src/EBox/PgDBEngine.pm:42
-msgid "You must set the eboxlogs_dbname variable in the ebox configuration file"
+msgid ""
+"You must set the eboxlogs_dbname variable in the ebox configuration file"
 msgstr ""
 "Debes de asignar un valor a la variable eboxlogs_dbname en el archivo de "
 "configuración de ebox"
 
 #: src/EBox/PgDBEngine.pm:54
-msgid "You must set the eboxlogs_dbuser variable in the ebox configuration file"
+msgid ""
+"You must set the eboxlogs_dbuser variable in the ebox configuration file"
 msgstr ""
 "Debe de asignar un valor a la variable eboxlogs_dbuser en el archivo de "
 "configuración de ebox"
 
 #: src/EBox/PgDBEngine.pm:66
-msgid "You must set the eboxlogs_dbpass variable in the ebox configuration file"
+msgid ""
+"You must set the eboxlogs_dbpass variable in the ebox configuration file"
 msgstr ""
 "Debe de asignar un valor a la variable eboxlogs_dbpass en el archivo de "
 "configuración de ebox"
@@ -54,11 +57,11 @@ msgstr "Error volcando la base de datos postgresql {name}"
 msgid "DB dump file {file} is not readable"
 msgstr "Fichero de volcado DB {file} no se puede leer"
 
-#: src/EBox/Logs.pm:224
+#: src/EBox/Logs.pm:223
 msgid "Table {$table} does not exist"
 msgstr "Tabla {$table} no existe"
 
-#: src/EBox/Logs.pm:239
+#: src/EBox/Logs.pm:238
 #, perl-brace-format
 msgid "Field {field} does not exist"
 msgstr "Campo {field} no existe"
@@ -175,4 +178,3 @@ msgstr "siguiente"
 #: src/templates/dbtable.mas:109 src/templates/dbtable.mas:111
 msgid "last"
 msgstr "última"
-

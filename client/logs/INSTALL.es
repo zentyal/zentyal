@@ -1,41 +1,44 @@
-* In order to install this eBox module you need to install
-	+ eBox components
+* Para instalar este módulo eBox necesitas instalar:
+	+ componentes eBox
 	  ebox
-	+ Debian packages
+	+ Paquetes debian
 	  postgresql
 	  libdb-pg-perl
 	  libfile-tail-perl
 
-* Once dependencies have been installed, type:
+* Una vez que las dependencias se han instalado, ejecutar:
 	
-	./configure
+	./configure --sysconfdir=/etc --localstatedir=/var --prefix=/usr
 	make install
 
-  configure will autodetect EBox base path to install
+  configure detectará la ruta de ebox para instalarse
 
-* Kill gconf daemon
+* Matar el demonio gconf
 
   pkill gconf
 
-* Set permission 0666 for /etc/ebox/90eboxpglogger.conf
+* Poner los permisos 0666 para /etc/ebox/90eboxpglogger.conf
 
-* Copy pgpass from conf/pgpass to .pgpass in /var/lib/ebox/ with perms 0600 and
-   owner ebox.ebox
+* Copiar pgpass de conf/pgpass a .pgpass en /var/lib/ebox con permisos
+  0600 y propietario ebox.ebox
 
-* You should create now the database in postgresql DBMS in order to store logs:
+* Deberías crear la base de datos en el gestor postgresql
 
-  * Run the following commands into the DBMS if eboxlogs database doesn't exist:
-	
-	# Enter as a postgres user in the DBMS
+  * Ejecuta los siguientes comandos 
+
+	# Entre como usuario postgres en el SGBD
     $ su postgres -c "psql template1"
 	# Create an eboxlogs database
     > CREATE DATABASE eboxlogs;
 	# Create an eboxlogs user
     > CREATE USER eboxlogs PASSWORD 'eboxlogs';
     > GRANT ALL ON DATABASE eboxlogs TO eboxlogs;
+    > \q
+
  
- * You should create /etc/postgresql/pg_hba.conf with the following content:
-<FILE>
+ * Se debería crear el fichero /etc/postgresql/pg_hba.conf con el
+   siguiente contenido:
+<FICHERO>
 # TYPE  DATABASE    USER        IP-ADDRESS        IP-MASK           METHOD
 # Database administrative login by UNIX sockets
 local   all         postgres                                        ident sameuser
@@ -52,6 +55,6 @@ host    all         all         ::ffff:127.0.0.1/128                ident sameus
 # 
 # reject all other connection attempts
 host    all         all         0.0.0.0           0.0.0.0           reject
-<EOF>
+<FIN DE FICHERO>
 
-* Stop postgresql if it is running
+* Para el demonio postgresql si está ejecutándose

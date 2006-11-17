@@ -56,8 +56,8 @@ case "$1" in
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
 		#sudo configuration
-		ebox-sudoers-friendly
-		chmod 0440 /etc/sudoers
+#		ebox-sudoers-friendly
+#		chmod 0440 /etc/sudoers
 
 		chmod 0600 /var/lib/ebox/.pgpass
 		chown ebox.ebox /var/lib/ebox/.pgpass

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-16 17:01+0100\n"
+"POT-Creation-Date: 2006-11-17 10:17+0100\n"
 "PO-Revision-Date: 2005-11-30 13:42+0100\n"
 "Last-Translator: Javier Uruen Val <juruen@warp.es>\n"
 "Language-Team:  <en@li.org>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: KBabel 1.10.2\n"
 
-#: src/EBox/CGI/Index.pm:35 src/EBox/Logs.pm:80
+#: src/EBox/CGI/Index.pm:35 src/EBox/Logs.pm:79
 msgid "Logs"
 msgstr "Logs"
 
@@ -56,11 +56,11 @@ msgstr ""
 msgid "DB dump file {file} is not readable"
 msgstr ""
 
-#: src/EBox/Logs.pm:224
+#: src/EBox/Logs.pm:223
 msgid "Table {$table} does not exist"
 msgstr "La table {$table} n'existe pas"
 
-#: src/EBox/Logs.pm:239
+#: src/EBox/Logs.pm:238
 #, perl-brace-format
 msgid "Field {field} does not exist"
 msgstr "Le fichier {field} n'existe pas"
