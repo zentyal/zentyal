@@ -3,7 +3,7 @@
 remove_gconf_schemas(){
 	# remove gconf schemas
 	SCHEMA_LOCATION=/usr/share/gconf/schemas
-	SCHEMA_FILES="printers.schemas "
+	SCHEMA_FILES="printers.schemas"
 	for SCHEMA in $SCHEMA_FILES; do
 	if [ -e $SCHEMA_LOCATION/$SCHEMA ]; then
 		HOME=/var/lib/ebox GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` \
