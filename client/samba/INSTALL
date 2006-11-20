@@ -40,6 +40,10 @@ INSTALLATION
 
 		/etc/init.d/slapd restart
 
+	Kill gconf daemon
+
+		pkill gconf
+
 	Now you must generate  smb.conf file and  libnss-ldap.conf. 
 	Use ebox-samba-ldap in tools:
 

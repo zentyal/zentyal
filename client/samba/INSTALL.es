@@ -41,6 +41,10 @@ INSTALACIÓN
 
   /etc/init.d/slapd restart
 
++ Matar al demonio de gconf
+
+  pkill gconf
+
 + Generar smb.conf file y libnss-ldap.conf. 
 
   $prefix/ebox-samba/ebox-samba-ldap genconfig
