@@ -84,51 +84,53 @@
 	<section id="sect-rootcmds">
 		<title>Root commands</title>
 
-		<para>The apache server under which eBox runs, and any perl script
+		<para>The apache server under which eBox runs, and any Perl script
 		that uses the eBox API run under a dedicated user id, the user is
 		typically called <quote>ebox</quote>. eBox modules need to execute
 		certain commands and write certain files with root privileges, this
-		is done using <application>sudo</application>. The sudo configuration
-		file, <filename>/etc/sudoers</filename> contains a list of the commands
-		that sudo will let the <quote>ebox</quote> user execute as root.</para>
+		is done using <application>sudo</application>
+                </para>
 
-		<para> Whenever a module is installed, removed or updated, this list
-		of commands needs to be brought up to date. eBox provides the command
-		<command>ebox-sudoers</command> to generate the file easily, the
-		command is meant to be called by package maintainers in their post
-		installation and removal scripts.</para>
 
-		<para>For <command>ebox-sudoers</command> to work, eBox needs to know
-		what commands are needed by each of its modules. For that purpose
-		<classname>EBox::Module</classname> has an abstract method called
-		<methodname>rootCommands</methodname>. Modules implement this method
-		if they want to add commands to the <filename>/etc/sudoers</filename>
-		file. It returns an array whose elements are the desired commands.
-		The implementation of this method in the firewall module looks like
-		this:</para>
-
-		<example>
-			<title>Defining commands to be executed as root</title>
-			<programlisting><![CDATA[sub rootCommands
-{
-	my $self = shift;
-	my @array = ();
-	push(@array, '/sbin/iptables');
-	push(@array, '/sbin/sysctl -q -w net.ipv4.ip_forward*');
-	return @array;
-}]]></programlisting>
-		</example>
-
-		<para>Once you have all the commands you need to execute as root
-		defined in the <methodname>rootCommands</methodname> method, you
-		can invoke those commands using the <methodname>root()</methodname>
-		function in the <classname>EBox::Sudo</classname> perl module. If the
-		command fails, <methodname>root()</methodname> throws an internal
+		<para>You can invoke any command using the 
+                <methodname>root()</methodname>
+		function in the <classname>EBox::Sudo</classname> Perl module. If the
+		command fails, <methodname>root()</methodname> throws a sudo command
 		exception, so make sure you catch it if it's OK for the command to
-		fail or you want to inform the user in a different way, see <xref
-		linkend='sect-exceptions'/> for details.</para>
+		fail or if you want to inform the user in a different way, you can use 
+                the output, error and exit value methods found in the exception class. 
+                In the rare cases when the sudo program itself fails the
+                exception raised is a sudo wrapper exception.
+                </para>
 
-		<!-- FIXME - example -->
+			<example>
+				<title>Using EBox::Sudo::root()</title>
+				<programlisting><![CDATA[try {
+  EBox::Sudo::root("/usr/bin/eject -t");
+}
+catch EBox::Exceptions::Sudo::Wrapper with {
+  throw EBox::Exceptions::Internal("sudo program failed");
+}
+catch EBox::Exceptions::Sudo::Command with {
+  my ($ex) = @_;
+  EBox::debug("/usr/bin/eject failed. Stderr was " . (join "\n", @{ $ex->error() })) ;
+  throw EBox::Exceptions::External("Cannot close CD-ROM tray. Please close it manually" );
+}
+]]></programlisting>
+			</example>
+
+                <para> 
+                 <classname>EBox::Sudo</classname> also provides
+                 wrappers for frequent used
+                 commands executed with root
+                 privileges. <methodname>stat</methodname> provides a
+                 stat wrapper, useful to get file system information
+                 for any file. If you need a more concise file
+                 information you can use
+                 <methodname>fileTest</methodname> to check files for
+                 simples queries like does the <application>/usr/bin/test</application>
+                </para>
+
 
 	</section>
 
