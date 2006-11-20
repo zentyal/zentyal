@@ -253,7 +253,7 @@ sub _restore
   my $backup = new EBox::Backup;
   $backup->restoreBackup($filename, fullRestore => $fullRestore);
 
-  $self->_afterRestoreMsg();
+  $self->_afterRestoreMsg($fullRestore);
 }
 
 sub _fullRestoreMode
@@ -277,10 +277,18 @@ sub _fullRestoreMode
 
 sub _afterRestoreMsg
 {
-  my ($self) =@_;
-  $self->setMsg( __('Configuration restored succesfully, '.
-		    'you should now review it and save it if you want '.
-		    'to keep it.'));
+  my ($self, $fullRestore) =@_;
+
+  if ($fullRestore) {
+    $self->setMsg( __('Full backup restored succesfully. '.
+		      'You should now review your configuration and save it if you want '.
+		      'to keep it.'));
+  }
+  else {
+    $self->setMsg( __('Configuration restored succesfully, '.
+		      'you should now review it and save it if you want '.
+		      'to keep it.'));
+  }
 }
 
 sub  _downloadAction
