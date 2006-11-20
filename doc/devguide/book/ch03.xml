@@ -94,19 +94,19 @@
 
 		<para>You can invoke any command using the 
                 <methodname>root()</methodname>
-		function in the <classname>EBox::Sudo</classname> Perl module. If the
-		command fails, <methodname>root()</methodname> throws a 
-		exception of type <classname>EBox::Exceptions::Sudo::Command</classname>, so make sure you catch it if it's OK for the command to
+		function within the <classname>EBox::Sudo</classname> Perl module. If the
+		command fails, <methodname>root()</methodname> throws an 
+		<classname>EBox::Exceptions::Sudo::Command</classname> exception, so make sure you catch it if it is OK for the command to
 		fail or if you want to inform the user in a different
-                way. In any case you can use 
+                way. Anyway, you can use 
                 the <methodname>output</methodname>,
                 <methodname>error</methodname> and
                 <methodname>exitValue</methodname> exception methods
                 to gather more information about the command failure. 
                 In the rare cases when the sudo program itself fails the
-                exception raised is of type
-                <classname>EBox::Exceptions::Sudo::Wrapper</classname>
-                and the last methods aren't available.
+                exception raised is one of the
+                <classname>EBox::Exceptions::Sudo::Wrapper</classname> kind
+                and the last methods are not available.
                 </para>
 
 			<example>
@@ -134,7 +134,7 @@ catch EBox::Exceptions::Sudo::Command with {
                  for any file. If you need a more concise file
                  information you can use
                  <methodname>fileTest</methodname> to check files for
-                 simples queries like does the <application>/usr/bin/test</application>
+                 simples queries like <application>/usr/bin/test</application> does.
                 </para>
 
 
