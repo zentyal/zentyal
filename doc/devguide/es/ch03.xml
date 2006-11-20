@@ -97,49 +97,42 @@
 		dedicado. El usuario es normalmente llamado <quote>ebox</quote>. Los
 		módulos de eBox necesitan ejecutar ciertos comandos y escribir ciertos
 		ficheros con privilegios de root, esto se hace usando
-		<application>sudo</application>. El fichero de configuración de
-		<application>sudo</application>, <filename>/etc/sudoers</filename>
-		contiene una lista de los comandos que <application>sudo</application>
-		permitirá al usuario ejecutar como root.</para>
+		<application>sudo</application>. 
 
-		<para>Cuando un módulo se instala, se borra o se actualiza, la lista
-		de comandos se ha de poner al día. eBox tiene el comando
-		<command>ebox-sudoers</command> para generar fácilmente el fichero. El
-		comando existe para ser llamado por los mantenedores de los paquetes
-		en los scripts de post instalación o de desinstalación.</para>
 
-		<para>Para que <command>ebox-sudoers</command> funcione, eBox necesita
-		saber que comandos necesita cada uno de sus módulos. Para esto, la
-		clase <classname>Ebox::Module</classname> tiene una función abstracta
-		llamada <methodname>rootCommands</methodname>. Los módulos implementan
-		esta función si quieren añadir nuevos comandos al fichero
-		<filename>/etc/sudoers</filename>. Devolverá un vector cuyos elementos
-		serán los comandos que se deseen ejecutar. La implementación de este
-		método en el módulo del firewall es algo así:</para>
 
-		<example>
-			<title>Definiendo comandos para ser ejecutados como root</title>
-			<programlisting><![CDATA[sub rootCommands
-{
-	my $self = shift;
-	my @array = ();
-	push(@array, '/sbin/iptables');
-	push(@array, '/sbin/sysctl -q -w net.ipv4.ip_forward*');
-	return @array;
-}]]></programlisting>
-		</example>
-
-		<para>Una vez que tiene definidos todos los comandos que necesita
-		ejecutar como root en la función
-		<methodname>rootCommands</methodname>, puede llamar a esos comandos
-		utilizando la función <methodname>root()</methodname> en el módulo
+		<para>Se puede llamar a cualquier comando utilizando la función <methodname>root()</methodname> en el paquete
 		perl <classname>EBox::Sudo</classname>. Si el comando falla,
-		<methodname>root()</methodname> lanza una excepción interna, para
-		asegurarse de que sea capturada si es correcto que el comando falle o
-		si desea informar al usuario de una forma distinta. Consulte la sección
-		<xref linkend='sect-exceptions'/> para más detalles.</para>
+		<methodname>root()</methodname> lanza una excepción de tipo <classname>EBox::Exceptions::Sudo::Command</classname>, asegúrese de que sea capturada si es correcto que el comando falle o
+		si desea informar al usuario de una forma distinta. En cualquier caso se pueden usar los métodos <methodname>output</methodname>,
+                <methodname>error</methodname> y   <methodname>exitValue</methodname> para obtener más información sobre el fallo de comando. En los raros casos en lo que el propio programa sudo falla la excepción levantada es del tipo <classname>EBox::Exceptions::Sudo::Wrapper</classname> y los últimos métodos no estarán disponibles.
+                </para>
 
-		<!-- FIXME - example -->
+			<example>
+				<title>Using EBox::Sudo::root()</title>
+				<programlisting><![CDATA[try {
+  EBox::Sudo::root("/usr/bin/eject -t");
+}
+catch EBox::Exceptions::Sudo::Wrapper with {
+  throw EBox::Exceptions::Internal("sudo program failed");
+}
+catch EBox::Exceptions::Sudo::Command with {
+  my ($ex) = @_;
+  EBox::debug("/usr/bin/eject failed. Stderr was " . (join "\n", @{ $ex->error() })) ;
+  throw EBox::Exceptions::External("Cannot close CD-ROM tray. Please close it manually" );
+}
+]]></programlisting>
+			</example>
+
+                <para> 
+                 <classname>EBox::Sudo</classname> provee funciones de interfaz con comandos
+                  frecuentemente ejecutados con privilegios de superusuario.
+                 <methodname>stat</methodname> propociona interfaz con el programa stat, resulta 
+                 util para obtener informacion sobre cualquier archivo. Si necesitas una infromacion mas concisa sobre el archivo puedes usar <methodname>fileTest</methodname> para
+                 realizar comprobaciones simples sobre archivos, como hace el programa <application>/usr/bin/test</application>.
+
+                </para>
+
 
 	</section>
 
