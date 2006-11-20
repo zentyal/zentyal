@@ -409,6 +409,19 @@ sub domain
 	return $self->{domain};
 }
 
+# Method: setTemplate
+#   set the html template used by the CGI. The template can also be set in the constructor/
+#
+# Parameters:
+#   $template - the template path relative to the template root
+#
+# See also:
+#    new
+sub setTemplate
+{
+  my ($self, $template) = @_;
+  $self->{template} = $template;
+}
 
 # Method: _process
 #  process the CGI
