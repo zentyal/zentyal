@@ -45,6 +45,10 @@ INSTALACIÓN
 
   pkill gconf
 
++ Ejecutar ebox-runit
+
+  ebox-runit
+
 + Generar smb.conf file y libnss-ldap.conf. 
 
   $prefix/ebox-samba/ebox-samba-ldap genconfig
