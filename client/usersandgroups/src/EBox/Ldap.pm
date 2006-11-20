@@ -36,7 +36,6 @@ use Encode qw( :all );
 
 use Error qw(:try);
 use File::Slurp qw(read_file);
-use Perl6::Junction qw(any);
 
 use constant DN            => "dc=ebox";
 use constant LDAPI         => "ldapi://%2fvar%2frun%2fldapi";
