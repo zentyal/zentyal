@@ -1,11 +1,18 @@
-- Antes de instalar este modulo debe instalar:
-     + componentes eBox 
-        libebox
-        ebox
-        network
-        firewall
-     + paquetes Debian
-        bind9
+DEPENDENCIAS
+------------
+
++ Componentes eBox
+	
+	+ ebox
+	+ ebox-network
+	+ ebox-firewall
+
++ Paquetes Debian (apt-get install <package>)
+
+	+ bind9
+
+INSTALLACIÓN
+------------
 
 - Una vez que las dependencias se han cumplido, escriba:
 	
@@ -13,8 +20,6 @@
 	make install
 
   configure detectara automaticamente el path de instalacion de eBox
-
-- Actualice su fichero /etc/sudoers con el comando ebox-sudoers
 
 - No ejecute bind9 al arrancar, este modulo toma su control:
 

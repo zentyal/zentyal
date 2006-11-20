@@ -1,19 +1,22 @@
 DEPENDENCIES
 ------------
 
-+ EBox modules:
-	- Users and Groups
-	
-+ Debian packages:
++ eBox components 
 
-# apt-get install <package>
+	+ ebox
+	+ ebox-usersandgroups
+	
++ Debian packages (apt-get install <package>)
+
 	+ samba
 	+ libnss-ldap
 	+ libcrypt-smbhash-perl
 	+ quota
 	+ smbldap-tools
 
-+ Support for quotas in kernel
++ Others
+
+	+ a Linux kernel with support for quotas
 
 INSTALLATION
 ------------
@@ -25,8 +28,6 @@ INSTALLATION
 
 	Please it is necessary to perform all the steps below
 	in strict sequence:
-	
-	Update your sudoers file with the ebox-sudoers command.
 	
 	Copy samba.schema and ebox.schema from directory 'schemas' to
 	/etc/ldap/schema .

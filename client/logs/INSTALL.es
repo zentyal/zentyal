@@ -1,10 +1,18 @@
-* Para instalar este módulo eBox necesitas instalar:
-	+ componentes eBox
-	  ebox
-	+ Paquetes debian
-	  postgresql
-	  libdb-pg-perl
-	  libfile-tail-perl
+DEPENDENCIAS
+------------
+
++ Componentes eBox
+
+	+ ebox
+
++ Paquetes Debian (apt-get install <paquete>)
+
+	+ postgresql
+	+ libdb-pg-perl
+	+ libfile-tail-perl
+	
+INSTALACIÓN
+-----------
 
 * Una vez que las dependencias se han instalado, ejecutar:
 	

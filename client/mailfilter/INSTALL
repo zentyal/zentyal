@@ -1,14 +1,35 @@
-apt-get install:
- spamassassin
- clamav
- clamav-freshclam
- amavisd-new
+DEPENDENCIES
+------------
 
-Añadimos al usuario ebox a los grupos amavis y clamav (como root):
- addgroup ebox amavis
- addgroup ebox clamav
- 
-Copiar el schema de tool/eboxfilter.schema a /etc/ldap/schema (como root)
++ eBox components
 
-Regenarar la configuracion de ldap
-sudo /usr/local/lib/ebox-usersandgroups/ebox-init-ldap genconfig
+	+ ebox
+	+ ebox-mail
+
++ Debian packages (apt-get install <package>)
+
+	+ spamassassin
+	+ clamav
+	+ clamav-freshclam
+	+ amavisd-new
+
+INSTALLATION
+------------
+
+- Once all dependencies has been installed:
+	
+	./configure
+	make install
+
+  configure will autodetect EBox base path to install
+
+- Add user ebox to groups amavis and clamav (as a root):
+
+  addgroup ebox amavis
+  addgroup ebox clamav
+
+- Copy schema from schema/mailfilter.schema to /etc/ldap/schema (as a root)
+
+- Regenerate LDAP configuration (as a root)
+
+$prefix/lib/ebox-usersandgroups/ebox-init-ldap genconfig

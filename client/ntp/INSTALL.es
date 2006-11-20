@@ -1,5 +1,18 @@
-- Antes de instalar este modulo es necesario instalar ebox, libebox, ebox-firewall,
-  ntpdate y ntp-server
+DEPENDENCIAS
+------------
+
++ Componentes eBox
+
+	+ ebox
+	+ ebox-firewall
+
++ Paquetes Debian (apt-get install <paquete>)
+	
+	+ ntpdate 
+	+ ntp-server
+
+INSTALACIÓN
+-----------
 
 - Una vez ebox está instalado:
 	

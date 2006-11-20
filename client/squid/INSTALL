@@ -1,5 +1,20 @@
-- To install this module you need to install ebox, libebox,
-  ebox-objects, ebox-firewall, ebox-logs, squid and dansguardian before.
+DEPENDENCIES
+------------
+
++ eBox components
+	
+	+ ebox
+	+ ebox-objects
+	+ ebox-firewall
+	+ ebox-logs
+
++ Debian packages (apt-get install <package>)
+
+	+ squid
+	+ dansguardian
+
+INSTALLATION
+------------
 
 - Once EBox base has been installed, type:
 	

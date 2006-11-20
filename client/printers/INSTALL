@@ -1,18 +1,25 @@
-- To install this module you need to install:
-     + eBox components
-        libebox
-        ebox
-        network
-        firewall
-	usersandgroups
-	samba
-     + Debian packages
-        cupsys
-	libnet-cups-perl
-	foomatic-db
-	foomatic-db-engine
-	foomatic-filters
-	foomatic-filters-ppds
+DEPENDENCIES
+------------
+
++ eBox components
+
+	+ ebox
+	+ ebox-network
+	+ ebox-firewall
+	+ ebox-usersandgroups
+	+ ebox-samba
+
++ Debian packages (apt-get install <package>)
+
+	+ cupsys
+	+ libnet-cups-perl
+	+ foomatic-db
+	+ foomatic-db-engine
+	+ foomatic-filters
+	+ foomatic-filters-ppds
+
+INSTALLATION
+------------
 
 - Once EBox base has been installed:
 	
@@ -23,10 +30,9 @@
 
 - Add ebox to lpadmin group
 
-- Update your sudoers file with the ebox-sudoers command.
-
 - Do not run cupsys on startup, this module takes control of it:
 
 mv /etc/rc2.d/SXXcupssys /etc/rc2.d/K20cupsys
+ebox-runit
 
 - Stop cupsys if it's running.

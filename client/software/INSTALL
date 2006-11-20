@@ -1,4 +1,16 @@
-- To install this module you need to install EBox base and libapt-pkg-perl.
+DEPENDENCIES
+------------
+
++ eBox components
+
+	+ ebox
+
++ Debian packages (apt-get install <package>)
+	
+	+ libapt-pkg-perl
+
+INSTALLATION
+------------
 
 - Once EBox base has been installed:
 	
@@ -6,8 +18,6 @@
 	make install
 
   configure will autodetect EBox base path to install
-
-- Update your sudoers file with the ebox-sudoers command.
 
 - You should configure debconf and ucf not to ask questions when
   installing/upgrading a package.

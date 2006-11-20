@@ -1,18 +1,26 @@
-- Antes de instalar este modulo debe instalar:
-     + componentes eBox 
-        libebox
-	ebox
-	network
-	objects
-     + paquetes Debian
-        iptables
-     + kernel linux con Netfilter
+DEPENDENCIAS
+------------
+
++ Componentes eBox
+
+	+ ebox
+	+ ebox-network
+	+ ebox-objects
+
++ Paquetes Debian (apt-get install <paquete>)
+
+	+ iptables
+
++ Otros
+
+	+ Un núcleo Linux con Netfilter habilitado
+
+INSTALACIÓN
+-----------
 
 - Una vez que todas las dependencias se han cumplido, escriba:
 	
 	./configure
 	make install
 
-  configure detectara automaticamente el path de instacion de eBox
-
-- Actualice su fichro /etc/sudoers con el comando ebox-sudoers
+  configure detectará automáticamente la ruta de instalación de eBox

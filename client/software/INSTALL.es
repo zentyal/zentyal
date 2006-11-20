@@ -1,5 +1,16 @@
-- Para instalar este modulo es necesario tener instalado previamente eBox base y
-  libapt-pkg-perl
+DEPENDENCIAS
+------------
+
++ Componentes eBox
+
+	+ ebox
+
++ Paquetes Debian  (apt-get install <package>)
+	
+	+ libapt-pkg-perl
+
+INSTALLACIÓN
+------------
 
 - Una vez se tenga eBox base instalado:
 	
@@ -7,8 +18,6 @@
 	make install
 
   configure autodetectará la ruta donde está instalado eBox base.
-
-- Actualiza el fichero sudoers con el comando ebox-sudoers.
 
 - Debconf y ucf deberían estar configurados para no hacer preguntas de forma
   interactiva al instalar/actualizar un paquete.

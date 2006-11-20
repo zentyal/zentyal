@@ -1,9 +1,11 @@
 DEPENDENCIES
 ------------
 
-+ Debian packages:
++ eBox components:
 
-# apt-get install <package>
+	+ libebox
+
++ Debian packages (apt-get install <package>)
 
 	+ apache-perl
 	+ libapache-mod-perl
@@ -18,22 +20,20 @@ DEPENDENCIES
 	+ runit
 
 
-+ eBox components:
-	libebox
-
-
 RECOMMENDED 
 -----------
 
-+ Debian packages:
++ Debian packages (apt-get install <package>)
 
-# apt-get install <package>
 	+ eject
         + cdrdao
 	+ mkisofs
 	+ cdrecord
 	+ dvd+rw-tools
-	+ libreadonly-xs-perl
+
++ Modules from CPAN
+
+	+ Readonly::XS
 
 
 INSTALLATION

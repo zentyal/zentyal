@@ -5,7 +5,7 @@ DEPENDENCIAS
 	
 	+ ebox
 
-+ Paquetes debian (apt-get install <paquete>)
++ Paquetes Debian (apt-get install <paquete>)
 
 	+ slapd
 	+ libnet-ldap-perl

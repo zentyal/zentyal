@@ -1,17 +1,17 @@
-DEPENDENCIES
+DEPENDENCIAS
 ------------
 
-+ eBox components
++ Componentes eBox
 	
 	+ ebox
 
-+ Debian packages (apt-get install <package>)
++ Paquetes Debian (apt-get install <package>)
 
 	+ openssl (>= 0.9.7e)
 	+ libdate-calc-perl
 	+ libfile-slurp-perl
 
-+ CPAN Modules
++ Módulos del CPAN 
 
 	+ Perl6::Junction
 

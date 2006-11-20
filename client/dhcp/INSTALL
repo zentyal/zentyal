@@ -1,11 +1,18 @@
-- To install this module you need to install:
-     + eBox components
-        libebox
-        ebox
-        network
-        firewall
-     + Debian packages
-        dhcp3-server
+DEPENDENCIES
+------------
+
++ eBox components
+
+	+ ebox
+	+ ebox-network
+	+ ebox-firewall
+
++ Debian packages (apt-get install <package>)
+	
+	+ dhcp3-server
+
+INSTALLATION
+------------
 
 - Once EBox base has been installed:
 	
@@ -13,8 +20,6 @@
 	make install
 
   configure will autodetect EBox base path to install
-
-- Update your sudoers file with the ebox-sudoers command.
 
 - Do not run dhcp3-server on startup, this module takes control of it
   using runit:

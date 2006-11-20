@@ -1,7 +1,13 @@
-- Antes de instalar este modulo debe instalar:
-     + componentes eBox
-        libebox
-        ebox
+DEPENDENCIAS
+------------
+
++ Componentes eBox
+
+	+ ebox
+	+ ebox-firewall
+
+INSTALACIÓN
+-----------
 
 - Una vez que todas las dependencias se han cumplido, escriba:
 	

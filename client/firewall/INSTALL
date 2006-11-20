@@ -1,12 +1,22 @@
-- To install this module you need to install:
-     + eBox components
-        libebox
-	ebox
-	network
-	objects
-     + Debian packages
-        iptables
-     + a Netfilter enabled linux kernel
+DEPENDENCIES
+------------
+
++ eBox components
+
+	+ ebox
+	+ ebox-network
+	+ ebox-objects
+
++ Debian packages (apt-get install <package>)
+	
+	+ iptables
+
++ Others:
+
+	+ a Netfilter enabled linux kernel
+
+INSTALLATION
+------------
 
 - Once all dependencies are satisfied, type:
 	
@@ -14,5 +24,3 @@
 	make install
 
   configure will autodetect eBox base path to install
-
-- Update your sudoers file with the ebox-sudoers command.

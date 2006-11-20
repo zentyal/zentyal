@@ -1,13 +1,23 @@
-- To install this module you need to install:
-     + eBox components
-        libebox
-        ebox
-     + Debian packages
-	dhcp3-client
-        iproute
-        vlan
-	net-tools
-     + VLAN (801.q) enabled linux kernel
+DEPENDENCIES
+------------
+
++ eBox components
+
+	+ ebox
+
++ Debian packages (apt-get install <package>)
+
+	+ dhcp3-client
+	+ iproute
+        + vlan
+	+ net-tools
+
++ Others
+
+	+ a VLAN (801.q) enabled Linux kernel
+
+INSTALLATION
+------------
 
 - Once all dependencies are satisfied, type:
 	
@@ -16,7 +26,6 @@
 
   configure will autodetect eBox base path to install
 
-- Update your /etc/sudoers file with the ebox-sudoers command.
-
 - You can import your current network configuration into eBox
-using ebox-netcfg-import
+ 
+  $prefix/ebox-network/ebox-netcfg-import

@@ -1,9 +1,11 @@
 DEPENDENCIAS
 ------------
 
-+ Paquetes debian
++ Componentes de eBox
 
-# apt-get install <package>
+	+ libebox
+
++ Paquetes Debian (apt-get install <package>)
 
 	+ apache-perl
 	+ libapache-mod-perl
@@ -16,40 +18,38 @@ DEPENDENCIAS
 	+ libapache-singleton-perl
 	+ runit
 
-+ modulos de cpan
++ Módulos de CPAN 
 
-	+ libreadonly-perl
-
-+ componentes de eBox:
-	libebox
+	+ Readonly
 
 RECOMENDADO
-----------
+-----------
 
-+ Paquetes Debian:
-
-# apt-get install <package>
++ Paquetes Debian (apt-get install <package>)
 	+ eject
         + cdrdao
 	+ mkisofs
 	+ cdrecord
 	+ dvd+rw-tools
-	+ libreadonly-xs-perl
+
++ Módulos de CPAN
+
+	+ Readonly::XS
 
 
-INSTALACION
+INSTALACIÓN
 -----------
 
-1.- Configuracion:
+1.- Configuración:
 
     $ ./configure <arguments>
 
-    Acepta los argumentos estandar de los configure de GNU. Ejecutar
+    Acepta los argumentos estándar de los configure de GNU. Ejecutar
     ./configure --help para obtener una lista.
 
     Apache y libebox se autodetectan.
 
-2.- Instalacion, como root:
+2.- Instalación, como superusuario:
 
     $ make install
 
@@ -61,14 +61,15 @@ INSTALACION
 		--disabled-password --ingroup ebox ebox
 
 4.- Crear los directorios log y tmp en $prefix/var/lib/ebox o /var/lib/ebox
-    si se utilizo --localstatedir=/var y cambiar el propietario del directorio
+    si se utilizó --localstatedir=/var y cambiar el propietario del directorio
     completo al usuario ebox:
 
     mkdir -p /var/lib/ebox/tmp
     mkdir -p /var/lib/ebox/log
     chown -R ebox.ebox /var/lib/ebox
 
-5.- Permitir al usuario de apache ejecutar comandos como root utilizando sudo.
+5.- Permitir al usuario de apache ejecutar comandos como superusuario
+    utilizando sudo.
     Para ello redirigir la salida del comando ebox-sudoers al fichero 
     /etc/sudoers.
 
@@ -80,13 +81,13 @@ INSTALACION
 	mkdir /var/lib/ebox/gconf
 	chown ebox.ebox /var/lib/ebox/gconf
 
-7.- Eliminar el link a /etc/init.d/apache-perl de /rc2.d/, el script ebox
-    se encargara de arrancar y parar el apache a través de runit. Para
-    insalar los scripts de runit:
+7.- Eliminar el enlace a /etc/init.d/apache-perl de /rc2.d/, el script ebox
+    se encargará de arrancar y parar el apache a través de runit. Para
+    instalar los scripts de runit:
 
     ebox-runit
  
-8.- Para que ebox se inicie en el arranque de la maquina:
+8.- Para que ebox se inicie en el arranque de la máquina:
 
     cp tools/ebox /etc/init.d
 
@@ -105,14 +106,14 @@ EB:2:once:/etc/init.d/ebox start
 	
 	/etc/init.d/ebox start
 
-EJECUCION
+EJECUCIÓN
 ---------
 
-La url del interface de administracion es:
+La url de la interfaz de administración es:
 
 https://<ip address>/
 
-La clave por defecto es 'ebox'. Se puede cambiar en la seccion general de
-configuracion.
+La clave por defecto es 'ebox'. Se puede cambiar en la sección general de
+configuración.
 
-Los logs de ebox y de apache se encuentran en $localstatedir/ebox/log
+Los registros de ebox y de apache se encuentran en $localstatedir/ebox/log
