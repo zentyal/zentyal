@@ -6,6 +6,7 @@ DEPENDENCIAS
 	+ ebox
 	+ ebox-network
 	+ ebox-firewall
+	+ ebox-logs
 
 + Paquetes Debian (apt-get install <paquete>)
 
