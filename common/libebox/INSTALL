@@ -1,9 +1,7 @@
 DEPENDENCIES
 ------------
 
-+ Debian packages:
-
-# apt-get install <package>
++ Debian packages (apt-get install <package>)
 
 	+ perl
 	+ perl-modules
@@ -24,8 +22,8 @@ DEPENDENCIES
         + Readonly
         + Readonly::XS (recommended)
 
-INSTALATION
------------
+INSTALLATION
+------------
 
 1.- Configure:
 

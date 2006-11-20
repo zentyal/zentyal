@@ -1,9 +1,7 @@
 DEPENDENCIAS
 ------------
 
-+ Paquetes Debian:
-
-# apt-get install <paquete>
++ Paquetes Debian (apt-get install <paquete>)
 
 	+ perl
 	+ perl-modules
@@ -18,13 +16,13 @@ DEPENDENCIAS
 	+ gettext
         + libfile-slurp-perl
 
-+ modulos del CPAN
++ Módulos del CPAN
 
 	+ Perl6::Junction
         + Readonly
         + Readonly::XS (recommended)
 
-INSTALATION
+INSTALACIÓN
 -----------
 
 1.- Configurar:
