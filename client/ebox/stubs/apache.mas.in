@@ -113,7 +113,7 @@ SSLCertificateKeyFile @ETCPATH@/ssl.key/ebox.key
 Alias /data/ @WWWPATH@
 ScriptAlias /ebox/ @CGIPATH@
 
-PerlInitHandler	Apache::Reload
+# PerlInitHandler	Apache::Reload
 
 PerlWarn On
 
