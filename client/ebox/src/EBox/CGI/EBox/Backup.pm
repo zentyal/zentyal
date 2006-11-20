@@ -241,7 +241,7 @@ sub _restoreFromDiscAction
 
   my $backup = new EBox::Backup;
   $backup->restoreBackupFromDisc(fullRestore => $fullRestore);
-  $self->_afterRestoreMsg();
+  $self->_afterRestoreMsg($fullRestore);
 }
 
 sub _restore
