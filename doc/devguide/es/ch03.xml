@@ -98,7 +98,7 @@
 		módulos de eBox necesitan ejecutar ciertos comandos y escribir ciertos
 		ficheros con privilegios de root, esto se hace usando
 		<application>sudo</application>. 
-
+                 </para>
 
 
 		<para>Se puede llamar a cualquier comando utilizando la función <methodname>root()</methodname> en el paquete
