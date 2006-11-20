@@ -24,12 +24,13 @@ sub new
   my $errorMsg = _errorMsg($cmd, $error, $output, $exitValue);
 
   $Log::Log4perl::caller_depth += 1;
-  $self = $class->SUPER::new($errorMsg, value => $exitValue);
+  $self = $class->SUPER::new($errorMsg);
   $Log::Log4perl::caller_depth -= 1;
   
   bless ($self, $class);
   $self->{output} = $output;
   $self->{error}  = $error;
+  $self->{exitValue} = $exitValue;
 
   return $self;
 }
@@ -57,5 +58,12 @@ sub error
   my ($self) = @_;
   return $self->{error};
 } 
+
+sub exitValue
+{
+  my ($self) = @_;
+  return $self->{exitValue};
+} 
+
 
 1;
