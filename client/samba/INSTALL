@@ -5,6 +5,8 @@ DEPENDENCIES
 
 	+ ebox
 	+ ebox-usersandgroups
+	+ ebox-network
+	+ ebox-firewall
 	
 + Debian packages (apt-get install <package>)
 

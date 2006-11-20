@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-10-25 12:59+0200\n"
+"POT-Creation-Date: 2006-11-20 14:33+0100\n"
 "PO-Revision-Date: 2006-10-25 13:00+0200\n"
 "Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
 "Language-Team: \n"
@@ -21,6 +21,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.2\n"
+
+#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:436
+msgid "netbios"
+msgstr "netbios"
+
+#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:474
+msgid "working group"
+msgstr "grupo de trabajo"
+
+#: src/EBox/CGI/SambaConf.pm:44
+msgid "working mode"
+msgstr "modo de trabajo"
+
+#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:455
+msgid "description"
+msgstr "descripción"
+
+#: src/EBox/CGI/SambaConf.pm:46
+msgid "user quota"
+msgstr "cuota de usuario"
 
 #: src/EBox/CGI/ActivePrinting.pm:43 src/EBox/CGI/ActiveSharing.pm:66
 msgid "user name"
@@ -37,7 +57,7 @@ msgid "module status"
 msgstr "estado del módulo"
 
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:204
-#: src/EBox/Samba.pm:212 src/EBox/Sa,ba.pm:204 src/EBox/Sa,ba.pm:212
+#: src/EBox/Samba.pm:212
 msgid "File sharing"
 msgstr "Compartir ficheros"
 
@@ -49,29 +69,34 @@ msgstr "nombre del recurso compartido"
 msgid "active"
 msgstr "activo"
 
-#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:436 src/EBox/Sa,ba.pm:436
-msgid "netbios"
-msgstr "netbios"
+#: src/EBox/Samba.pm:251 src/EBox/Samba.pm:296
+msgid "listening port"
+msgstr "Puerto de escucha"
 
-#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:474 src/EBox/Sa,ba.pm:474
-msgid "working group"
-msgstr "grupo de trabajo"
+#: src/EBox/Samba.pm:334
+msgid "Domain Name"
+msgstr "Nombre del Dominio"
 
-#: src/EBox/CGI/SambaConf.pm:44
-msgid "working mode"
-msgstr "modo de trabajo"
+#: src/EBox/Samba.pm:493
+msgid "quota"
+msgstr "cuota"
 
-#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:455 src/EBox/Sa,ba.pm:455
-msgid "description"
-msgstr "descripción"
+#: src/EBox/Samba.pm:778 src/EBox/Samba.pm:797
+msgid "user"
+msgstr "usuario"
 
-#: src/EBox/CGI/SambaConf.pm:46
-msgid "user quota"
-msgstr "cuota de usuario"
+#: src/EBox/Samba.pm:781 src/EBox/Samba.pm:811 src/EBox/SambaLdapUser.pm:609
+msgid "group"
+msgstr "grupo"
+
+#: src/EBox/Samba.pm:784
+msgid "printer"
+msgstr "impresora"
 
 #: src/EBox/SambaLdapUser.pm:193
 msgid "This user has a sharing directory associated which conatins data"
-msgstr "Este usuario tiene asociado un directorio compartido que contiene datos"
+msgstr ""
+"Este usuario tiene asociado un directorio compartido que contiene datos"
 
 #: src/EBox/SambaLdapUser.pm:254
 msgid "This group has a sharing directory associatedwhich conatins data"
@@ -85,32 +110,59 @@ msgstr "Se debe proporcionar un nombre para el directorio compartido"
 msgid "sharing resource"
 msgstr "recurso compartido"
 
-#: src/EBox/SambaLdapUser.pm:609 src/EBox/Samba.pm:781 src/EBox/Samba.pm:811
-#: src/EBox/Sa,ba.pm:781 src/EBox/Sa,ba.pm:811
-msgid "group"
-msgstr "grupo"
+#: src/templates/index.mas:16
+msgid "PDC/File sharing service status"
+msgstr "Estado del servicio de compartición de ficheros o del PDC"
 
-#: src/EBox/Samba.pm:251 src/EBox/Samba.pm:296 src/EBox/Sa,ba.pm:251
-#: src/EBox/Sa,ba.pm:296
-msgid "listening port"
-msgstr "Puerto de escucha"
+#: src/templates/index.mas:20
+msgid "General Settings"
+msgstr "Configuración general"
 
-#: src/EBox/Samba.pm:334 src/EBox/Sa,ba.pm:334
-msgid "Domain Name"
-msgstr "Nombre del Dominio"
+#: src/templates/index.mas:23
+msgid ""
+"To allow unlimited disk usage to users, just set zero as user quota limit."
+msgstr ""
+"Para permitir uso de disco ilimitado a los usuarios simplemente ponga su "
+"límite de cuota a cero."
 
-#: src/EBox/Samba.pm:493 src/EBox/Sa,ba.pm:493
-msgid "quota"
-msgstr "cuota"
+#: src/templates/index.mas:30
+msgid "Working mode"
+msgstr "Modo de trabajo"
 
-#: src/EBox/Samba.pm:778 src/EBox/Samba.pm:797 src/EBox/Sa,ba.pm:778
-#: src/EBox/Sa,ba.pm:797
-msgid "user"
-msgstr "usuario"
+#: src/templates/index.mas:36 src/templates/index.mas:41
+msgid "File server"
+msgstr "Servidor de ficheros"
 
-#: src/EBox/Samba.pm:784 src/EBox/Sa,ba.pm:784
-msgid "printer"
-msgstr "impresora"
+#: src/templates/index.mas:38 src/templates/index.mas:43
+msgid "PDC"
+msgstr "PDC"
+
+#: src/templates/index.mas:52
+msgid "Domain name"
+msgstr "Nombre del dominio"
+
+#: src/templates/index.mas:55
+msgid "Working group"
+msgstr "Grupo de trabajo"
+
+#: src/templates/index.mas:66
+msgid "Netbios name"
+msgstr "Nombre de netbios"
+
+#: src/templates/index.mas:75
+msgid "Description"
+msgstr "Descripción"
+
+#: src/templates/index.mas:83
+msgid "Quota limit"
+msgstr "Límite de cuota"
+
+#: src/templates/index.mas:94 src/templates/index.mas:96
+#: src/templates/samba.mas:54 src/templates/samba.mas:56
+#: src/templates/samba.mas:88 src/templates/samba.mas:90
+#: src/templates/samba.mas:158 src/templates/samba.mas:160
+msgid "Change"
+msgstr "Cambiar"
 
 #: src/templates/delete.mas:10
 msgid "Deleting group"
@@ -154,13 +206,6 @@ msgstr "Habilitado"
 #: src/templates/samba.mas:39
 msgid "Administration rights"
 msgstr "Privilegios de administrador"
-
-#: src/templates/samba.mas:54 src/templates/samba.mas:56
-#: src/templates/samba.mas:88 src/templates/samba.mas:90
-#: src/templates/samba.mas:158 src/templates/samba.mas:160
-#: src/templates/index.mas:94 src/templates/index.mas:96
-msgid "Change"
-msgstr "Cambiar"
 
 #: src/templates/samba.mas:65
 msgid "Sharing directory for this group"
@@ -208,53 +253,6 @@ msgstr "Permitir"
 msgid "Allow all printers"
 msgstr "Permitir todas las impresoras"
 
-#: src/templates/index.mas:16
-msgid "PDC/File sharing service status"
-msgstr "Estado del servicio de compartición de ficheros o del PDC"
-
-#: src/templates/index.mas:20
-msgid "General Settings"
-msgstr "Configuración general"
-
-#: src/templates/index.mas:23
-msgid "To allow unlimited disk usage to users, just set zero as user quota limit."
-msgstr ""
-"Para permitir uso de disco ilimitado a los usuarios simplemente ponga su "
-"límite de cuota a cero."
-
-#: src/templates/index.mas:30
-msgid "Working mode"
-msgstr "Modo de trabajo"
-
-#: src/templates/index.mas:36 src/templates/index.mas:41
-msgid "File server"
-msgstr "Servidor de ficheros"
-
-#: src/templates/index.mas:38 src/templates/index.mas:43
-msgid "PDC"
-msgstr "PDC"
-
-#: src/templates/index.mas:52
-msgid "Domain name"
-msgstr "Nombre del dominio"
-
-#: src/templates/index.mas:55
-msgid "Working group"
-msgstr "Grupo de trabajo"
-
-#: src/templates/index.mas:66
-msgid "Netbios name"
-msgstr "Nombre de netbios"
-
-#: src/templates/index.mas:75
-msgid "Description"
-msgstr "Descripción"
-
-#: src/templates/index.mas:83
-msgid "Quota limit"
-msgstr "Límite de cuota"
-
 #: stubs/smb.conf.mas:90
 msgid "Home Directories"
 msgstr "Directorios de usuario"
-

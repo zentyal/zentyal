@@ -2,4 +2,8 @@ This eBox module provides the following functionalities:
 
 	* SAMBA server providing:
 		+ User authentication against eBox.
-		+ Shared network storage devive.
+		+ Shared network storage device.
+  
+	* Backup from this module provides:
+		+ Configuration backup
+		+ Shared files
