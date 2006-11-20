@@ -53,7 +53,7 @@ sub _backupCanaryTest
   ok $usersAndGroups->userExists($CANARY_USER), 'Checking that canry was added';
 
 
-  lives_ok { $usersAndGroups->restoreBackup($BACKUP_DIR, fullBackup => 0)  }  "Configuration restore";
+  lives_ok { $usersAndGroups->restoreBackup($BACKUP_DIR, fullRestore => 0)  }  "Configuration restore";
   ok !$usersAndGroups->userExists($CANARY_USER), 'Checking that canary is not here';
 }
 
