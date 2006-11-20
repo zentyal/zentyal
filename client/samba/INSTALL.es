@@ -18,8 +18,8 @@ DEPENDENCIAS
 
 	+ un núcleo Linux con soporte para cuotas
 
-INSTALLACIÓN
-------------
+INSTALACIÓN
+-----------
 
 + Una vez las dependencias han sido satisfechas, escribir:
 	

@@ -11,8 +11,8 @@ DEPENDENCIAS
 
 	+ bind9
 
-INSTALLACIÓN
-------------
+INSTALACIÓN
+-----------
 
 - Una vez que las dependencias se han cumplido, escriba:
 	

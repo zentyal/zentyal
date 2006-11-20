@@ -13,8 +13,8 @@ DEPENDENCIAS
 	+ clamav-freshclam
 	+ amavisd-new
 
-INSTALLACIÓN
-------------
+INSTALACIÓN
+-----------
 
 - Una vez que todas las dependencias se hayan instalado, escribir:
 	

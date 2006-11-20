@@ -25,8 +25,8 @@ DEPENDENCIAS
 	+ libsasl2
 	+ sasl2-bin
 
-INSTALLACIÓN
-------------
+INSTALACIÓN
+-----------
 
 - Una vez todos las dependencias se hayan instalado, escribir:
 	

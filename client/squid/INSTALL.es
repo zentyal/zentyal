@@ -13,8 +13,8 @@ DEPENDENCIAS
 	+ squid
 	+ dansguardian
 
-INSTALLACIÓN
-------------
+INSTALACIÓN
+-----------
 
 - Una vez ebox está instalado, ejecuta:
 	

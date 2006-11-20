@@ -9,8 +9,8 @@ DEPENDENCIAS
 	
 	+ libapt-pkg-perl
 
-INSTALLACIÓN
-------------
+INSTALACIÓN
+-----------
 
 - Una vez se tenga eBox base instalado:
 	

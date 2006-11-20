@@ -19,8 +19,8 @@ DEPENDENCIAS
 	+ foomatic-filters
 	+ foomatic-filters-ppds
 
-INSTALLACIÓN
-------------
+INSTALACIÓN
+-----------
 
 - Una vez todas las dependencias han sido satisfechas, ejecutar:
 	
