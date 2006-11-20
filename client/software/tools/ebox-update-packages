@@ -24,5 +24,7 @@ foreach my $pkg (@ARGV) {
 }
 
 system("sudo /etc/init.d/ebox apache restart");
+system("sudo apt-get install -f");
+system("sudo /etc/cron.daily/ebox-software");
 
 writeToFile("done");
