@@ -25,6 +25,8 @@ use EBox::Gettext;
 use EBox::Validate;
 use EBox;
 
+use Params::Validate qw(validate_pos);
+
 sub new {
 	my $class = shift,
 	my $self = {};
