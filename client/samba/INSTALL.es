@@ -25,13 +25,18 @@ INSTALACIÓN
 
 + Una vez las dependencias han sido satisfechas, escribir:
 	
-	./configure
-	make install
+  ./configure
+  make install
   
-  configure detectará la ruta de eBox
+  + configure detectará la ruta de eBox
 
 + Copiar samba.schema and ebox.schema del directorio 'schemas' a
   /etc/ldap/schema .
+
++ Crear un directorio "spool" para samba con los permisos correctos
+
+  mkdir /var/spool/samba
+  chmod 1777 /var/spool/samba
 
 + Ejecutar 
 

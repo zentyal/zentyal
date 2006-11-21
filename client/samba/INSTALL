@@ -34,6 +34,11 @@ INSTALLATION
 	Copy samba.schema and ebox.schema from directory 'schemas' to
 	/etc/ldap/schema .
 
+	Create spool dir for samba with correct permissions
+
+		mkdir /var/spool/samba
+		chmod 1777 /var/spool/samba
+
 	Execute 'ebox-init-ldap genconfig' from ebox-usersandgroups
 
 	Restart slapd
@@ -52,18 +57,6 @@ INSTALLATION
 	Use ebox-samba-ldap in tools:
 
 		ebox-samba-ldap genconfig
-	
-	Now you must change your /etc/nsswitch.conf file to add
-	ldap support:
-
-		passwd:         files ldap
-		group:          files ldap
-		shadow:         files ldap
-	
-	Now you  have to update the current ldap database with samba
-	objects:
-
-		ebox-samba-ldap update
 
 	You need to create some  directories:
 
@@ -72,10 +65,21 @@ INSTALLATION
 		mkdir /home/samba/profiles
 		mkdir /home/samba/logon
 
+	Now you must change your /etc/nsswitch.conf file to add
+	ldap support:
 
+		passwd:         files ldap
+		group:          files ldap
+		shadow:         files ldap
+	
 	Set the samba admin password to your ldap admin password:
 
 		smbpasswd -w YOUR_LDAP_ADMIN_PASSWORD
+
+	Now you  have to update the current ldap database with samba
+	objects:
+
+		ebox-samba-ldap update
 	
 	Quota support:
 	
@@ -89,3 +93,9 @@ INSTALLATION
 		Remount the partition or reboot
 		
 		quotaon -u "mounting point for home directories"
+
+		invoke-rc.d quota restart
+
+	Restart all daemons:
+
+		invoke-rc.d ebox samba restart

@@ -25,8 +25,8 @@ case "$1" in
 		invoke-rc.d samba stop
 
 		#sudo configuration
-		ebox-sudoers-friendly
-		chmod 0440 /etc/sudoers
+#		ebox-sudoers-friendly
+#		chmod 0440 /etc/sudoers
 		
 		# create spool
 		test -d /var/spool/samba || mkdir /var/spool/samba \
