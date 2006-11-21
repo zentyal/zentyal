@@ -14,7 +14,8 @@ DEPENDENCIAS
 	+ libnss-ldap
 	+ libcrypt-smbhash-perl
 	+ quota
-	+ smbldap-tools
+	+ smbldap-tools 
+	+ bzip2
 
 + Otros
 
