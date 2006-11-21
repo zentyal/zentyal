@@ -61,6 +61,7 @@ case "$1" in
 		if [ ! -d /var/lib/ebox/ldap ]; then
 
 		mkdir /var/lib/ebox/ldap
+		chmod 755 /var/lib/ebox/ldap
  cat <<EOF | slapadd
 dn: dc=ebox
 objectClass: top
