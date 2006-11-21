@@ -38,9 +38,9 @@
 				</listitem>
 			</varlistentry>
 			<varlistentry>
-				<term>Content redirection</term>
+				<term>Content filter threshold</term>
 				<listitem>
-					<para>You can stablish a restriction level to contents with explicit sex and
+					<para>You can establish a restriction level to contents with explicit sex and
 					violence items, which will be filtered by the proxy.
 					</para>
 				</listitem>
@@ -50,7 +50,7 @@
 				<listitem>
 					<para>It is the default policy for the proxy users. Free access, filter
 					contents or deny access can be selected. Later, this policy can be modified
-					for each user and domain where you need an specific behaviour, as it's
+					for each user and domain where you need an specific behavior, as it's
 					explained on next sections.
 					</para>
 				</listitem>
@@ -59,7 +59,7 @@
 		</para>
 		
 		<warning>
-		<para>If you stablish a configuration which denies access to
+		<para>If you establish a configuration which denies access to
 		administration interface from the machines connected to eBox, you
 		should allow the host where you want to connect from, or you could
 		lose the connection with the web interface.
@@ -83,13 +83,14 @@
 			<guimenuitem>Denied domains</guimenuitem>
 		</menuchoice>
 	        you can choose the allowed or denied domains for each eBox
-	        user. Classification of each domain on the lists is applied before any
+	        user. The global policy of the proxy must be in
+	        'filter' mode for this list had any effect; classification of each domain on the lists is applied before any
 	        other proxy option.
 		</para>
 
 		<para>So, you just need to add, to the deny access list or allow access
 	        list, the desired domains, to apply this option. Write the full domain
-	        name, whose default behaviour you need to modify, and make click on
+	        name, whose default behavior you need to modify, and make click on
 	        the "Add" action icon. You need to write correctly the domain name, a
 	        correct example could be: "warp.es".
 		</para>
@@ -110,11 +111,63 @@
 			<guimenu>Proxy</guimenu>
 			<guimenuitem>Policy</guimenuitem>
 		</menuchoice>
-	        it's possible to establish one conection policy for one <link
+	        it's possible to establish one connection policy for one <link
 		linkend='ch-objects'>network object</link>, allowing a different
 		configuration for each newly created objects. This configuration will
 		be applied previously to the eBox global policy for the selected
 		objects.</para>
+	</section>
+
+	<section id='sect-proxy-extensions-filter'>
+		<!-- Proxy->ExtensionsFilter -->
+		<title>Extensions filter</title>
+
+		<para>At
+		<menuchoice>
+			<guimenu>Proxy</guimenu>
+			<guimenuitem>Extensions filter</guimenuitem>
+		</menuchoice>
+	        you can choose which file extensions are disallowed to be
+	        downloaded through the HTTP proxy.</para>
+                <para>
+                     To disallow extensions you must check the box in the
+                     'disallow' column. A special "All extensions" line
+                     exists to disallow all extensions at once.
+                </para>
+                <para>
+                 If you are missing any extension, you can add it with
+                 the "Add extension" form.
+                </para>
+                <para>
+                 Any extension not listed is  allowed. In futures
+                 releases this behavior may change.
+                </para>
+	</section>
+
+	<section id='sect-proxy-mime-type-filter'>
+		<!-- Proxy->MimeTypeFilter -->
+		<title>Mime type filter</title>
+                <para> At
+		<menuchoice>
+			<guimenu>Proxy</guimenu>
+			<guimenuitem>Mime Type filter</guimenuitem>
+		</menuchoice> you can select which file MIME types are
+			disallowed to be downloaded through the HTTP
+			proxy.
+                </para>
+                <para>
+                     To disallow types you must check the box in the
+                     'disallow' column. A special "All types" line
+                     exists to disallow all types at once.
+                </para>
+                <para>
+                 If you are missing any extension, you can add it with
+                 the "Add MIME type" form.
+                </para>
+                <para>
+                 Any type not listed is  allowed. In futures
+                 releases this behavior may change.
+                </para>
 	</section>
 
 </chapter>
