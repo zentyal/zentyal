@@ -124,7 +124,7 @@ sub new
 sub _process
 {
 	my $self = shift;
-	$self->{template} = 'hello/world.mas';
+	$self->setTemplate('hello/world.mas');
 }]]></programlisting>
 		</example>
 
@@ -163,7 +163,20 @@ sub _process
 		the <structfield>error</structfield> attribute, since it will be
 		overwritten if if an exception is caught by the parent class.</para>
 
-		<!-- FIXME example -->
+		<example>
+			<title>Setting the 'msg' attribute</title>
+			<programlisting><![CDATA[sub _writeBackupToDiscAction
+{
+  my ($self) = @_;
+
+  my $backup = new EBox::Backup;
+  my $id     = $self->param('id');
+  
+  $backup->writeBackupToDisc($id);
+
+  $self->setMsg(__('Backup was written to CD/DVD disk'));
+}]]></programlisting>
+		</example>
 
 		<para>Reading arguments sent in the HTTP request is very straight
 		forward. The parent class uses the <classname>CGI</classname> perl
@@ -219,7 +232,7 @@ sub _process
 	my $class = shift;
 	my $self = $class->SUPER::new(@_);
 	bless($self, $class);
-	$self->{redirect} = "EBox/General";
+	$self->setRedirect("EBox/General");
 	return $self;
 }]]></programlisting>
 		</example>
