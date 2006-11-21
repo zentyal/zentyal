@@ -131,16 +131,16 @@
 	        downloaded through the HTTP proxy.</para>
                 <para>
                      To disallow extensions you must check the box in the
-                     'disallow' column. A special "All extensions" line
-                     exists to disallow all extensions at once.
+                     'deny' column. A special "All extensions" line
+                     exists to deny all extensions at once.
                 </para>
                 <para>
-                 If you are missing any extension, you can add it with
-                 the "Add extension" form.
+                 If you are missing any extension, you can add it through
+                 "Add extension" form.
                 </para>
                 <para>
-                 Any extension not listed is  allowed. In futures
-                 releases this behavior may change.
+                 Any extension not listed here is, by default, allowed. In future
+                 releases, this behavior may change.
                 </para>
 	</section>
 
@@ -152,21 +152,21 @@
 			<guimenu>Proxy</guimenu>
 			<guimenuitem>Mime Type filter</guimenuitem>
 		</menuchoice> you can select which file MIME types are
-			disallowed to be downloaded through the HTTP
+			denied to be downloaded through the HTTP
 			proxy.
                 </para>
                 <para>
-                     To disallow types you must check the box in the
-                     'disallow' column. A special "All types" line
-                     exists to disallow all types at once.
+                     To deny types you must check the box in the
+                     'deny' column. A special "All types" line
+                     exists to deny all types at once.
                 </para>
                 <para>
-                 If you are missing any extension, you can add it with
-                 the "Add MIME type" form.
+                 If you are missing any extension, you can add it through
+                 "Add MIME type" form.
                 </para>
                 <para>
-                 Any type not listed is  allowed. In futures
-                 releases this behavior may change.
+                 Any type not listed here is, by default, allowed. In future
+                 releases, this behavior may change.
                 </para>
 	</section>
 
