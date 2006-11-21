@@ -49,7 +49,7 @@ use Readonly;
 Readonly::Scalar our $SUDO_PATH   => '/usr/bin/sudo -p sudo:'; # our declaration eases testing
 Readonly::Scalar our  $STDERR_FILE =>  EBox::Config::tmp() . 'stderr';
 
-Readonly::Scalar my $STAT_CMD => '/usr/bin/stat -cSTI%dI%iI%fI%hI%uI%gIhI%sI%XI%YI%ZI%oI%bI%tI%T';
+Readonly::Scalar my $STAT_CMD => '/usr/bin/stat -c%dI%iI%fI%hI%uI%gIhI%sI%XI%YI%ZI%oI%bI%tI%T';
 Readonly::Scalar my  $TEST_PATH   => '/usr/bin/test';
 #
 # Procedure: command 
@@ -233,13 +233,9 @@ sub stat
 
   return undef if !defined $statOutput;
 
-  my @statElements = split '[I\n]', $statOutput->[0]; # this may cause a warning in implementation of stat. See next comment
+  return undef if !defined $statOutput->[0]; # this is  for systems where stat does not return a different exit code when stating a inexistent file
 
-  # the stat id is for systems where stat does not return a different exit code when stating a inexistent file
-  my $statId = shift @statElements;
-  if ($statId ne 'ST') {
-    return undef;
-  }
+  my @statElements = split '[I\n]', $statOutput->[0]; 
 
   # convert file mode from hexadecimal...
   $statElements[2]  = hex $statElements[2]; 
