@@ -35,29 +35,14 @@ INSTALLATION
 	Copy samba.schema and ebox.schema from directory 'schemas' to
 	/etc/ldap/schema .
 
-	Create spool dir for samba with correct permissions
-
-		mkdir /var/spool/samba
-		chmod 1777 /var/spool/samba
-
-	Execute 'ebox-init-ldap genconfig' from ebox-usersandgroups
-
-	Restart slapd
-
-		/etc/init.d/slapd restart
-
 	Kill gconf daemon
 
 		pkill gconf
 
-	Executing ebox-runit
+	Create spool dir for samba with correct permissions
 
-		ebox-runit
-
-	Now you must generate  smb.conf file and  libnss-ldap.conf. 
-	Use ebox-samba-ldap in tools:
-
-		ebox-samba-ldap genconfig
+		mkdir /var/spool/samba
+		chmod 1777 /var/spool/samba
 
 	You need to create some  directories:
 
@@ -72,15 +57,36 @@ INSTALLATION
 		passwd:         files ldap
 		group:          files ldap
 		shadow:         files ldap
+
+	Execute 'ebox-init-ldap genconfig' from ebox-usersandgroups
+
+	Restart slapd
+
+		/etc/init.d/slapd restart
+
+	Now you  have to update the current ldap database with samba
+	user objects:
+
+		ebox-samba-ldap update-users
+
+	Executing ebox-runit
+
+		ebox-runit
+
+	Now you must generate  smb.conf file and  libnss-ldap.conf. 
+	Use ebox-samba-ldap in tools:
+
+		ebox-samba-ldap genconfig
+
 	
 	Set the samba admin password to your ldap admin password:
 
 		smbpasswd -w YOUR_LDAP_ADMIN_PASSWORD
 
 	Now you  have to update the current ldap database with samba
-	objects:
+	pdc objects:
 
-		ebox-samba-ldap update
+		ebox-samba-ldap update-pdc
 	
 	Quota support:
 	
