@@ -57,17 +57,33 @@ function showMenu(name){
 	shownMenu = name;
 }
 
+/*
+Function: checkAll
 
-function checkAll(id){
-	form=document.getElementById(id);
+        Check all checkboxes within a HTML element. When the all element
+        is checked, the remain elements get disabled. When the all
+        element is unchecked, the remain elements get enabled.
+
+Parameters:
+
+        id - identifier where all checkboxs should be checked
+        allElementName - name for the all check box 
+
+*/
+function checkAll(id, allElementName){
+
+        var form = document.getElementById(id);
+	var allbox = form.elements[allElementName];
 	for (var i=0;i<form.elements.length;i++)
 	{
 		var e=form.elements[i];
-		if ((e.name != 'allbox') && (e.type=='checkbox')) {
-			e.checked=form.allbox.checked;
+		if ((e.name != allElementName) && (e.type=='checkbox')) {
+			e.checked = allbox.checked;
+			e.disabled = allbox.checked;
 		}
 	}
 }
+
 
 function stripe(theclass,evenColor,oddColor) {
     var tables = getElementByClass(theclass);
