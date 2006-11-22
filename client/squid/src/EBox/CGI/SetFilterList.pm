@@ -36,8 +36,8 @@ sub new {
 sub _process($) 
 {
 	my $self = shift;
-	my $squid = EBox::Global->modInstance('squid');
 
+	my $squid = EBox::Global->modInstance('squid');
 	$self->_requireParam('attrName', __("Attribute Name"));
 
 	my $attrName = $self->param('attrName');
@@ -49,22 +49,30 @@ sub _process($)
 
 	for my $attr (@attrs) {
 		if ($self->param("bool-$attr")) {
-			push @allow, $attr;
-		} else {
 			push @ban, $attr;
+		} else {
+			push @allow, $attr;
 		}
 	}
 
+	EBox::debug('Banned: ' . "@ban");
+	EBox::debug('Allowed: ' . "@allow");
+	EBox::debug('attrName: ' . $attrName);
+
 	if($attrName eq "extension") {
 	  $self->{redirect} = "Squid/ExtensionsUI";
+	  EBox::debug("la");
 	  $squid->setAllowedExtensions(@allow);
+	  EBox::debug("la");
 	  $squid->setBannedExtensions(@ban);
+	  EBox::debug("la");
 	} elsif ($attrName eq "mimeType") {
 	  $self->{redirect} = "Squid/MimeTypesUI";
 	  $squid->setAllowedMimeTypes(@allow);
 	  $squid->setBannedMimeTypes(@ban);
 	}
 
+	EBox::debug($self->{redirect});
 }
 
 1;

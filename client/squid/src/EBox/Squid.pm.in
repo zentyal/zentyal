@@ -935,16 +935,19 @@ sub _squidAndDG
 
 sub _setList # ($listName, $newList)
 {
-	my ($self, $listName, @newList) = @_;
+	my ($self, $listName, $newList) = @_;
 
 	my @list= sort @{$self->get_list($listName)};
-	@newList = sort @newList;
+	my @newTempList = sort @{$newList};
+
+	EBox::debug("list: @list");
+	EBox::debug("newTempList: @newTempList");
 
 	my $changed = undef;
 
-	if ($#list == $#newList) {
-	 	my $i;
-		for my $val (@newList) {
+	if ($#list == $#newTempList) {
+	 	my $i = 0;
+		foreach my $val (@newTempList) {
 			if ($val ne $list[$i]) {
 				$changed = 1;
 				last;
@@ -955,7 +958,7 @@ sub _setList # ($listName, $newList)
 		$changed = 1;
 	}
 
-	$self->set_list($listName, 'string', \@newList) if ($changed);
+	$self->set_list($listName, 'string', \@newTempList) if ($changed);
 }
 
 # Function: allowedExtensions
@@ -984,7 +987,9 @@ sub setAllowedExtensions
 {
 	my ($self, @newallow) = @_;
 
-	$self->_setList('allowed_extensions', @newallow);
+	$self->_setList('allowed_extensions', \@newallow);
+#	$self->set_list('allowed_extensions', 'string', \@newallow);
+
 }
 
 # Function: bannedExtensions
@@ -1012,7 +1017,9 @@ sub setBannedExtensions
 {
 	my ($self, @newban) = @_;
 
-	$self->_setList('banned_extensions', @newban);
+	$self->_setList('banned_extensions', \@newban);
+	#$self->set_list('banned_extensions', 'string', \@newban);
+
 }
 
 # Function: hashedExtension
@@ -1095,7 +1102,7 @@ sub setAllowedMimeTypes
 {
 	my ($self, @newallow) = @_;
 
-	$self->_setList('allowed_mimetype', @newallow);
+	$self->_setList('allowed_mimetype', \@newallow);
 }
 
 # Function: bannedMimeTypes
@@ -1123,7 +1130,7 @@ sub setBannedMimeTypes
 {
 	my ($self, @newban) = @_;
 
-	$self->_setList('banned_mimetype', @newban);
+	$self->_setList('banned_mimetype', \@newban);
 }
 
 # Function: hashedMimeTypes

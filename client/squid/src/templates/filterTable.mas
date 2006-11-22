@@ -12,7 +12,7 @@ use EBox::Gettext;
 <h3><% $title | h %></h3>
 <div class="note">
 	<% __x('When the filter content is enabled you can select those
-file {name} which are allowed to download', name => ($name eq
+file {name} which are denied to download', name => ($name eq
 "extension" ? __("extensions") : __("MIME types") )) | h %>
 </div>
 <h4></h4>
@@ -59,7 +59,7 @@ file {name} which are allowed to download', name => ($name eq
 				<% $printableName | h %>
 			</th>
 			<th class="thOptionsFwd">
-				<% __('State') | h %>
+				<% __('Deny') | h %>
 			</th>
 		</tr>
 	</thead>
@@ -67,32 +67,48 @@ file {name} which are allowed to download', name => ($name eq
 		<input type='hidden' name='attrName' value='<% $name %>' />
 		<tr class="trimp">
 			<td>
-				<strong><% __("Allow all") . " " . ($name eq
-				"extension" ? __("extensions") :
-				__("MIME types") ) | h %></strong>
+			  <strong>
+			    <% ($name eq "extension" ? 
+                                __("All extensions") :
+				__("All MIME types") ) | h 
+                            %>
+			  </strong>
 			</td>
 			<td class='tcenter'>
 				<input type='checkbox' value='on'
-					onclick='checkAll("formFilter");'
+					onclick='checkAll("formFilter", "allbox"); switchAll("formFilter", "allbox");'
 					name='allbox'/>
 			</td>
 		</tr>
+%       my $allTrue = 1;
 %       foreach my $element (sort keys %elements) {
 		<tr class="border">
 			<td><% $element %></td>
 			<td class="tcenter">
-%				my $checked = "";
-%				my $val = 0;
-%				if($elements{$element}) {
-%					$checked = 'checked="checked"';
-%					$val = 1;
-%				}
+<%perl>
+				my $checked = "";
+				my $val = 0;
+                                # Element is true, it is an allow
+				# filtering
+				if(not $elements{$element}) {
+					$checked = 'checked="checked"';
+ 					$val = 1;
+                                } else {
+                                        $allTrue = undef;
+                                }
+</%perl>
 			<input type='hidden' name='<% "bool-" . $element %>' value='<% $val %>'/>
 			<input type='checkbox'
 onclick="updateCheckbox(this,'bool-<% $element %>')" <% $checked | h %> />
 			</td>
 		</tr>
-%		}
+%	}
+%       if ($allTrue) {
+                <script>
+                  document.getElementById("formFilter").elements["allbox"].checked=true;
+                  checkAll("formFilter", "allbox");
+                </script>
+%       }
 </tbody>
 </table>
 <input type='submit' name='change'
@@ -107,5 +123,35 @@ function updateCheckbox(checkbox, name) {
     } else {
         checkbox.form[name].value='0';
     }
+}
+/*
+Function: switchAll 
+
+  Switch the boolean which goes with the checkbox
+
+Parameters:
+
+  id - form which contains the booleans
+  allElementName - name for the all check box
+
+*/
+function switchAll(id, allElementName) {
+
+  var form = document.getElementById(id);
+  var allBox = form.elements[allElementName];
+  for( var i = 0; i < form.elements.length; i++ ) {
+    var element = form.elements[i];
+    // Check values which starts with bool-
+    if (element.type == 'hidden' && element.name.substring(0,5) == 'bool-' ) {
+      if ( allBox.checked ) {
+        element.value = "1";
+      } else {
+        element.value = "0";
+      } 
+    }
+    
+
+  }
+
 }
 //--></script>
