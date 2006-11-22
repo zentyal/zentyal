@@ -331,9 +331,11 @@ unless ($#ARGV == 0) {
 	usage();
 }
 
-if ($ARGV[0] eq 'update') {
+if ($ARGV[0] eq 'update-users') {
 	update();
+} elsif ($ARGV[0] eq 'update-pdc') {
 	_addPDCStuff();
+}
 } elsif ($ARGV[0] eq 'genconfig') {
 	gen_config();
 } elsif ($ARGV[0] eq 'clean') {
