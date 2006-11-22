@@ -150,14 +150,14 @@
                 <para> At
 		<menuchoice>
 			<guimenu>HTTP Proxy</guimenu>
-			<guimenuitem>Mime Type filter</guimenuitem>
+			<guimenuitem>MIME Type filter</guimenuitem>
 		</menuchoice> you can select which file MIME types are
 			denied to be downloaded through the HTTP
 			proxy.
                 </para>
                 <para>
                      To deny types you must check the box in the
-                     'deny' column. A special "All types" item
+                     'deny' column. A special "All MIME types" item
                      exists to deny all types at once.
                 </para>
                 <para>
@@ -165,7 +165,7 @@
                  "Add MIME type" form.
                 </para>
                 <para>
-                 Any type not listed here is, by default, allowed. In future
+                 Any MIME type not listed here is, by default, allowed. In future
                  releases, this behavior may change.
                 </para>
 	</section>
