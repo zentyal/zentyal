@@ -108,7 +108,7 @@
 
 		<para>Through 
 		<menuchoice>
-			<guimenu>Proxy</guimenu>
+			<guimenu>HTTP Proxy</guimenu>
 			<guimenuitem>Policy</guimenuitem>
 		</menuchoice>
 	        it's possible to establish one connection policy for one <link
@@ -124,14 +124,14 @@
 
 		<para>At
 		<menuchoice>
-			<guimenu>Proxy</guimenu>
+			<guimenu>HTTP Proxy</guimenu>
 			<guimenuitem>Extensions filter</guimenuitem>
 		</menuchoice>
 	        you can choose which file extensions are disallowed to be
 	        downloaded through the HTTP proxy.</para>
                 <para>
                      To disallow extensions you must check the box in the
-                     'deny' column. A special "All extensions" line
+                     'deny' column. A special "All extensions" item
                      exists to deny all extensions at once.
                 </para>
                 <para>
@@ -149,7 +149,7 @@
 		<title>Mime type filter</title>
                 <para> At
 		<menuchoice>
-			<guimenu>Proxy</guimenu>
+			<guimenu>HTTP Proxy</guimenu>
 			<guimenuitem>Mime Type filter</guimenuitem>
 		</menuchoice> you can select which file MIME types are
 			denied to be downloaded through the HTTP
@@ -157,7 +157,7 @@
                 </para>
                 <para>
                      To deny types you must check the box in the
-                     'deny' column. A special "All types" line
+                     'deny' column. A special "All types" item
                      exists to deny all types at once.
                 </para>
                 <para>
