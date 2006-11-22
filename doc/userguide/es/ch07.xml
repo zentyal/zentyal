@@ -6,7 +6,7 @@
 
 	<section id='sect-proxy-general'>
 		<!-- Proxy->General -->
-		<title>ConfiguraciÃ³n general</title>
+		<title>Configuración general</title>
 
 		<para>
 		Mediante
@@ -14,25 +14,25 @@
 			<guimenu>Proxy HTTP</guimenu>
 			<guimenuitem>General</guimenuitem>
 		</menuchoice>
-		se accede a la configuraciÃ³n general del proxy-cachÃ© HTTP de
+		se accede a la configuración general del proxy-caché HTTP de
 		eBox. 
 		</para>
 
 		<para>
-		En la ventana de configuraciÃ³n es posible habilitar
-		o deshabilitar el proxy utilizando el menu desplegable
-		superior. El resto de opciones se detallan a continuaciÃ³n:
+		En la ventana de configuración es posible habilitar
+		o deshabilitar el proxy utilizando el menú desplegable
+		superior. El resto de opciones se detallan a continuación:
 		<variablelist>
 			<varlistentry>
 				<term>Proxy transparente</term>
 				<listitem>
 					<para>
-					Si el proxy transparente estÃ¡ habilitado, todos
-					los usuarios de eBox utilizarÃ¡n el proxy
+					Si el proxy transparente está habilitado, todos
+					los usuarios de eBox utilizarán el proxy
 					obligatoriamente y sin darse cuenta. Si se
-					deshabilita, habrÃ­a que configurar los navegadores
+					deshabilita, habría que configurar los navegadores
 					de cada uno de los usuarios para que se conectaran
-					a travÃ©s del proxy.
+					a través del proxy.
 					</para>
 				</listitem>
 			</varlistentry>
@@ -40,17 +40,17 @@
 				<term>Puerto</term>
 				<listitem>
 					<para>
-					Asigna el nÃºmero de puerto al que se conectarÃ¡n 
-					los navegadores para acceder a internet a travÃ©s
+					Asigna el número de puerto al que se conectarán 
+					los navegadores para acceder a internet a través
 					del proxy, cuando funciona de forma no transparente.
 					</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
-				<term>RestricciÃ³n de contenidos</term>
+				<term>Restricción de contenidos</term>
 				<listitem>
 					<para>
-					Permite establecer un nivel de restricciÃ³n para
+					Permite establecer un nivel de restricción para
 					contenidos que tienen que ver con sexo y violencia
 					en aquellos elementos que se encuentren filtrados 
 					por el proxy.
@@ -58,18 +58,18 @@
 				</listitem>
 			</varlistentry>
 			<varlistentry>
-				<term>PolÃ­tica global</term>
+				<term>Política global</term>
 				<listitem>
 					<para>
-					Corresponde a la polÃ­tica que tendrÃ¡n por defecto los 
+					Corresponde a la política que tendrán por defecto los 
 					usuarios que utilicen el proxy. Se puede elegir entre
 					permitir el acceso libre y sin restricciones,
-					filtrar el acceso con la restricciÃ³n de contenidos
+					filtrar el acceso con la restricción de contenidos
 					explicada en el apartado anterior o denegar el acceso
-					completamente. Posteriormente esta polÃ­tica puede
+					completamente. Posteriormente esta política puede
 					ser modificada para cada uno de los casos concretos de
 					usuarios y dominios para los cuales se desea un
-					comportamiento especÃ­fico, tal y como se explica en
+					comportamiento específico, tal y como se explica en
 					las siguientes secciones.
 					</para>
 				</listitem>
@@ -79,10 +79,10 @@
 		
 		<warning>
 		<para>
-		Si se estableciera una configuraciÃ³n que denegara el acceso al 
-		interfaz de administraciÃ³n desde las mÃ¡quinas que utilicen
-		eBox, se tendrÃ­a que conectar a dicho interfaz desde esas mÃ¡quinas
-		directamente,	evitando la mediaciÃ³n del proxy.
+		Si se estableciera una configuración que denegara el acceso al 
+		interfaz de administración desde las máquinas que utilicen
+		eBox, se tendría que conectar a dicho interfaz desde esas máquinas
+		directamente,	evitando la mediación del proxy.
 		</para>
 		</warning>
 	</section>
@@ -103,23 +103,24 @@
 			<guimenuitem>Dominios denegados</guimenuitem>
 		</menuchoice>
 		se pueden especificar los dominios que se desean 
-		permitir o denegar para todos los usuarios de eBox.
-		La clasificaciÃ³n de los distintos dominios en estas listas
-		es prioritaria sobre cualquier otra configuraciÃ³n del proxy.
+		permitir o denegar para todos los usuarios de eBox. Para que estas listas
+                tengan efecto la política global del proxy debe estar establecida a "filtrar"
+		; la clasificación de los distintos dominios en estas listas
+		es prioritaria sobre cualquier otra configuración del proxy.
 		</para>
 
 		<para>
-		Para ello sÃ³lo es necesario agregar a la lista correspondiente 
+		Para ello sólo es necesario agregar a la lista correspondiente 
 		los dominios a los que se desea permitir o denegar el acceso.
 		Simplemente hay que escribir el nombre completo del dominio del
 		que se desea modificar el comportamiento por defecto y hacer click
-		en el boton de acciÃ³n aÃ±adir. El formato correcto para el nombre
-		del dominio es dominio.extension, por ejemplo: "warp.es".
+		en el botón de acción añadir. El formato correcto para el nombre
+		del dominio es dominio.extensión, por ejemplo: "warp.es".
 		</para>
 
 		<para>
 		Si se desea eliminar un dominio de cualquiera de las listas basta 
-		con	utilizar el botÃ³n de acciÃ³n de <guibutton>borrar</guibutton> 
+		con utilizar el botón de acción de <guibutton>borrar</guibutton> 
 		correspondiente al dominio que se desea suprimir de la lista.
 		</para>
 		
@@ -127,20 +128,66 @@
 
 	<section id='sect-proxy-content-policy'>
 		<!-- Proxy->Policy -->
-		<title>Establecimiento de polÃ­ticas</title>
+		<title>Establecimiento de políticas</title>
 
 		<para>
 		Por medio de
 		<menuchoice>
 			<guimenu>Proxy HTTP</guimenu>
-			<guimenuitem>PolÃ­ticas</guimenuitem>
+			<guimenuitem>Políticas</guimenuitem>
 		</menuchoice>
-		es posible establecer una polÃ­tica de conexiÃ³n especÃ­fica para un 
+		es posible establecer una política de conexión específica para un 
 		<link linkend='ch-objects'>objeto de red</link> concreto, permitiendo
-		asÃ­ una configuraciÃ³n distinta para cada uno de los objetos	creados 
-		en eBox. Esta configuraciÃ³n se antepondrÃ¡ a la polÃ­tica	global del 
+		así una configuración distinta para cada uno de los objetos	creados 
+		en eBox. Esta configuración se antepondrá a la política	global del 
 		proxy de eBox para los objetos seleccionados.
 		</para>
+	</section>
+
+	<section id='sect-proxy-extensions-filter'>
+		<!-- Proxy->ExtensionsFilter -->
+		<title>Filtro de extensiones</title>
+
+		<para>Por medio de 
+		<menuchoice>
+			<guimenu>Proxy HTTP</guimenu>
+			<guimenuitem>Filtro de extensiones</guimenuitem>
+		</menuchoice>
+		se puede seleccionar que extensiones de archivo tendrán su descarga bloqueada
+                a través del proxy HTTP.
+               </para>
+                <para>
+	              Para bloquear extensiones se debe activar la caja de selección en la columna "denegar". Existe un elemento especial "Todas las extensiones" para denegar todas las extensiones a la vez.
+                </para>
+                <para>
+                 Si se echa en falta alguna extensión, se puede añadir usando el formulario "Añadir extensión".
+                </para>
+                <para>
+		 Se permite la descarga de cualquier extensión que no esta listada. En funciones versiones es posible que este comportamiento cambie.
+                </para>
+	</section>
+
+	<section id='sect-proxy-mime-type-filter'>
+		<!-- Proxy->MimeTypeFilter -->
+			<title>Filtro de tipos MIME</title>
+
+		<para>Por medio de 
+		<menuchoice>
+			<guimenu>Proxy HTTP</guimenu>
+			<guimenuitem>Filtro de tipos MIME</guimenuitem>
+		</menuchoice>
+		se puede seleccionar que tipos MIME tendrán su descarga bloqueada
+                a través del proxy HTTP.
+               </para>
+                <para>
+	              Para bloquear tipos MIME se debe activar la caja de selección en la columna "denegar". Existe un elemento especial "Todos los tipos MIME" para denegar todas las extensiones a la vez.
+                </para>
+                <para>
+                 Si se echa en falta algún tipo MIME, se puede añadir usando el formulario "Añadir tipo MIME".
+                </para>
+                <para>
+		 Se permite la descarga de cualquier tipo MIME que no este listado. En futuras versiones es posible que este comportamiento cambie.
+                </para>
 	</section>
 
 </chapter>
