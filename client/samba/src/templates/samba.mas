@@ -123,7 +123,7 @@ settextdomain('ebox-samba');
 					</td>
 					<td class='tcenter'>
 						<input type='checkbox' value='on'
-							onclick='checkAll("printers");'
+							onclick='checkAll("printers", "allbox");'
 							name='allbox'/>
 					</td>
 				</tr>

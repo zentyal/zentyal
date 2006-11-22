@@ -1,4 +1,4 @@
-<!-- vim: ts=4 sw=4 filetype=mason
+!-- vim: ts=4 sw=4 filetype=mason
 -->
 <%args>
 	@upgradables => ()
@@ -34,7 +34,7 @@ use EBox::Gettext;
 				</td>
 				<td class='tcenter'>
 					<input type='checkbox' value='on'
-						onclick="checkAll('updates');"
+						onclick="checkAll('updates', 'allbox');"
 						name='allbox'>
 				</td>
 			</tr>
