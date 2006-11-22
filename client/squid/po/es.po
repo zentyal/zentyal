@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-22 11:57+0100\n"
-"PO-Revision-Date: 2006-11-09 17:30+0100\n"
+"POT-Creation-Date: 2006-11-22 12:39+0100\n"
+"PO-Revision-Date: 2006-11-22 12:40+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team:  <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -124,8 +124,7 @@ msgstr "El {type} DEBERíA tener la siguiente sintaxis: \"word/word\""
 #: src/EBox/CGI/AddCustomFilter.pm:78
 #, perl-brace-format
 msgid "The {type} SHOULD be in IANA type. Check this link: {url} for details"
-msgstr ""
-"El {type} DEBERÍA ser un tipo IANA. Visita el enlace {url} para más detalles"
+msgstr "El {type} DEBERÍA ser un tipo IANA. Visita el enlace {url} para más detalles"
 
 #: src/EBox/CGI/AddCustomFilter.pm:98
 msgid "File extension added correctly"
@@ -155,8 +154,7 @@ msgstr "Dominios permitidos"
 
 #: src/EBox/Squid.pm.in:139
 msgid "You must set the cache_mem variable in the ebox configuration file"
-msgstr ""
-"Debe establecer la variable cache_mem en el fichero de configuración de eBox"
+msgstr "Debe establecer la variable cache_mem en el fichero de configuración de eBox"
 
 #: src/EBox/Squid.pm.in:218 src/EBox/Squid.pm.in:308
 msgid "object"
@@ -295,14 +293,12 @@ msgid "Add"
 msgstr "Añadir"
 
 #: src/templates/filterTable.mas:79
-#, fuzzy
 msgid "All extensions"
-msgstr "extensiones"
+msgstr "Todas las extensiones"
 
 #: src/templates/filterTable.mas:81
-#, fuzzy
 msgid "All MIME types"
-msgstr "tipos MIME"
+msgstr "Todos los tipos MIME"
 
 #: src/templates/filterTable.mas:124 src/templates/filterTable.mas:126
 #: src/templates/index.mas:155 src/templates/index.mas:156
@@ -417,8 +413,3 @@ msgstr "Acción"
 msgid "Delete"
 msgstr "Borrar"
 
-#~ msgid "State"
-#~ msgstr "Estado"
-
-#~ msgid "Allow all"
-#~ msgstr "Permitir a todos"
