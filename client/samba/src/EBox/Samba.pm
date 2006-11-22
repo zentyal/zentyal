@@ -40,7 +40,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Gettext;
 use File::Slurp qw(read_file write_file);
-use Perl6::Junction;
+use Perl6::Junction qw(all);
 use Error qw(:try);
 
 use constant SMBCONFFILE          => '/etc/samba/smb.conf';
@@ -1068,13 +1068,19 @@ sub _findLeftoverSharedDirectories
   my $sambaLdapUser = new EBox::SambaLdapUser;
 
   my @leftovers;
-  my $allShareDirs =  Perl6::Junction::all(@{ $sambaLdapUser->sharedDirectories() }) ;
+  my $sharedDirs = $sambaLdapUser->sharedDirectories();
+  return () if @{ $sharedDirs } == 0;
+
+#  my $allShareDirs =  all(@{ $sharedDirs }) ;
+
 
   my $usersDir =  $sambaLdapUser->usersPath();
-  push @leftovers, $self->_findLeftoversInDir($usersDir, $allShareDirs);
+  push @leftovers, $self->_findLeftoversInDir($usersDir, $sharedDirs);
+# push @leftovers, $self->_findLeftoversInDir($usersDir, $allShareDirs);
 
   my $groupsDir = $sambaLdapUser->groupsPath();
-  push @leftovers, $self->_findLeftoversInDir($groupsDir, $allShareDirs);
+#  push @leftovers, $self->_findLeftoversInDir($groupsDir, $allShareDirs);
+  push @leftovers, $self->_findLeftoversInDir($groupsDir, $sharedDirs);
 
   EBox::info("Leftovers shared directories found: @leftovers") if @leftovers > 0;
   return @leftovers;
@@ -1083,7 +1089,9 @@ sub _findLeftoverSharedDirectories
 
 sub _findLeftoversInDir
 {
-  my ($self, $dir, $allShareDirs) = @_;
+#  my ($self, $dir, $allShareDirs) = @_;
+  my ($self, $dir, $sharedDirs) = @_;
+  my $allShareDirs =  all(@{ $sharedDirs }) ;
 
   my @candidateDirs;
   try {
