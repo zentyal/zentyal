@@ -34,10 +34,27 @@ INSTALACIÓN
 + Copiar samba.schema and ebox.schema del directorio 'schemas' a
   /etc/ldap/schema .
 
++ Matar al demonio de gconf
+
+  pkill gconf
+
 + Crear un directorio "spool" para samba con los permisos correctos
 
   mkdir /var/spool/samba
   chmod 1777 /var/spool/samba
+
++ Crear algunos subdirectorios:
+
+  mkdir -p /home/samba/users
+  mkdir /home/samba/groups
+  mkdir /home/samba/profiles
+  mkdir /home/samba/logon
+
++ Cambiar tu fichero /etc/nsswitch.conf para añadir soporte a LDAP:
+
+		passwd:         files ldap
+		group:          files ldap
+		shadow:         files ldap
 
 + Ejecutar 
 
@@ -47,9 +64,10 @@ INSTALACIÓN
 
   /etc/init.d/slapd restart
 
-+ Matar al demonio de gconf
++ Ahora debes actualizar la base de datos actual de LDAP con los
+  objetos usuarios samba:
 
-  pkill gconf
+  ebox-samba-ldap update-users
 
 + Ejecutar ebox-runit
 
@@ -58,30 +76,16 @@ INSTALACIÓN
 + Generar smb.conf file y libnss-ldap.conf. 
 
   $prefix/ebox-samba/ebox-samba-ldap genconfig
-	
-+ Cambiar tu fichero /etc/nsswitch.conf para añadir soporte a LDAP:
-
-		passwd:         files ldap
-		group:          files ldap
-		shadow:         files ldap
-	
-+ Actualizar las bases de datos actuales de LDAP con los objectos
-  samba:
-
-  $prefix/ebox-samba/ebox-samba-ldap update
-
-+ Crear algunos subdirectorios:
-
-  mkdir -p /home/samba/users
-  mkdir /home/samba/groups
-  mkdir /home/samba/profiles
-  mkdir /home/samba/logon
-
 
 + Poner la contraseña de administrador de samba con tu contraseña de
   administrador de LDAP:
 
   smbpasswd -w YOUR_LDAP_ADMIN_PASSWORD
+		
++ Actualizar las bases de datos actuales de LDAP con los objetos PDC
+  samba:
+
+  $prefix/ebox-samba/ebox-samba-ldap update-pdc
 	
 + Soporte para cuotas:
 
@@ -96,4 +100,12 @@ grpquota) en tu punto de montaje para los directorios home:
 		
   + Ejecutar:
 
-  quotaon -u "mounting point for home directories"
+    quotaon -u "mounting point for home directories"
+
+  + Reiniciar el demonio quota
+ 
+    invoke-rc.d quota restart
+
++ Reiniciar todos los demonios:
+
+  invoke-rc.d ebox samba restart 

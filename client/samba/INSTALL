@@ -39,12 +39,12 @@ INSTALLATION
 
 		pkill gconf
 
-	Create spool dir for samba with correct permissions
+	Create spool directory for samba with correct permissions
 
 		mkdir /var/spool/samba
 		chmod 1777 /var/spool/samba
 
-	You need to create some  directories:
+	You need to create some directories:
 
 		mkdir -p /home/samba/users
 		mkdir /home/samba/groups
@@ -64,7 +64,7 @@ INSTALLATION
 
 		/etc/init.d/slapd restart
 
-	Now you  have to update the current ldap database with samba
+	Now you  have to update the current LDAP database with samba
 	user objects:
 
 		ebox-samba-ldap update-users
@@ -83,8 +83,8 @@ INSTALLATION
 
 		smbpasswd -w YOUR_LDAP_ADMIN_PASSWORD
 
-	Now you  have to update the current ldap database with samba
-	pdc objects:
+	Now you  have to update the current LDAP database with samba
+	PDC objects:
 
 		ebox-samba-ldap update-pdc
 	
