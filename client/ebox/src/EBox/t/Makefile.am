@@ -2,5 +2,7 @@ test_scripts = TestStubs.t Test.t Module_writeConfFile.t Auth.t FirstTime.t Back
 
 EXTRA_DIST = $(test_scripts)
 
+MAINTAINERCLEANFILES = Makefile.in
+
 check:
 	prove

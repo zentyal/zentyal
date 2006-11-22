@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-10 10:55+0100\n"
+"POT-Creation-Date: 2006-11-22 11:52+0100\n"
 "PO-Revision-Date: 2006-11-10 10:56+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team:  <es@li.org>\n"
@@ -43,7 +43,8 @@ msgstr "Borrar"
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:121
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:174
 msgid "Please confirm that you want to restore using this backup file:"
-msgstr "Por favor, confirme que quiere restaurar usando  este fichero de backup:"
+msgstr ""
+"Por favor, confirme que quiere restaurar usando  este fichero de backup:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:123
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:145
@@ -52,7 +53,8 @@ msgid "Restore"
 msgstr "Restaurar"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:133
-msgid "Unable to find a correct backup disk. Please insert a backup disk and retry"
+msgid ""
+"Unable to find a correct backup disk. Please insert a backup disk and retry"
 msgstr ""
 "No se encuentra ningún CD/DVD de backup. Por favor, introduzca un disco de "
 "backup correcto y reintente la operación "
@@ -66,7 +68,8 @@ msgid "Invalid backup file."
 msgstr "Fichero de backup inválido"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:184
-msgid "Please confirm that you want to write this backup file to a CD or DVD disk:"
+msgid ""
+"Please confirm that you want to write this backup file to a CD or DVD disk:"
 msgstr ""
 "Por favor, confirme que quiere escribir este archivo de backup en un disco "
 "CD/DVD"
@@ -75,8 +78,8 @@ msgstr ""
 msgid "Write to disk"
 msgstr "Escribir en disco"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:198 src/EBox/CGI/EBox/Backup.pm:228
-#: src/EBox/CGI/EBox/Backup.pm:291 src/EBox/CGI/EBox/Backup.pm:304
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:198 src/EBox/CGI/EBox/Backup.pm:230
+#: src/EBox/CGI/EBox/Backup.pm:301 src/EBox/CGI/EBox/Backup.pm:314
 #: src/EBox/Backup.pm:985
 msgid "The input contains invalid characters"
 msgstr "Los datos contienen caracteres inválidos"
@@ -114,12 +117,21 @@ msgstr "Backup realizado con éxito"
 msgid "Backup was written to CD/DVD disk"
 msgstr "El backup fue escrito en el disco CD/DVD correctamente"
 
-#: src/EBox/CGI/EBox/Backup.pm:270
+#: src/EBox/CGI/EBox/Backup.pm:272
 #, perl-brace-format
 msgid "Unknown restore mode: {mode}"
 msgstr "Modo de restauración desconocido: {mode}"
 
-#: src/EBox/CGI/EBox/Backup.pm:279
+#: src/EBox/CGI/EBox/Backup.pm:283
+#, fuzzy
+msgid ""
+"Full backup restored succesfully. You should now review your configuration "
+"and save it if you want to keep it."
+msgstr ""
+"La configuración se ha cargado correctamente, ahora debería revisarla y "
+"guardarla si quiere conservarla."
+
+#: src/EBox/CGI/EBox/Backup.pm:288
 msgid ""
 "Configuration restored succesfully, you should now review it and save it if "
 "you want to keep it."
@@ -207,7 +219,7 @@ msgstr "No se pudo reconocer el CD insertado"
 msgid "Unable to recognize the mounted CD media"
 msgstr "No se pudo reconocer el DVd insertado"
 
-#: src/EBox/Backup/RootCommands.pm:25
+#: src/EBox/Backup/RootCommands.pm:26
 #, perl-brace-format
 msgid ""
 "This system need {program} installed to perform the requested action. Please "
@@ -236,7 +248,8 @@ msgstr "Este sistema no tiene ninguna unidad grabadora de CD/DVD"
 
 #: src/EBox/Backup/FileBurner.pm:122
 msgid "No disk found. Please insert disk and retry"
-msgstr "No se encontró ningún CD/DVD. Por favor, introduzca un disco y reintente"
+msgstr ""
+"No se encontró ningún CD/DVD. Por favor, introduzca un disco y reintente"
 
 #: src/EBox/Backup/FileBurner.pm:130
 msgid "{media } is a unsupported media type"
@@ -349,7 +362,8 @@ msgstr "El fichero de backup está corrupto. "
 
 #: src/EBox/Backup.pm:675
 msgid "The backup file is corrupt: could not open backup checksum"
-msgstr "El fichero de backup está corrupto: no se pudo abrir el checksum del backup"
+msgstr ""
+"El fichero de backup está corrupto: no se pudo abrir el checksum del backup"
 
 #: src/EBox/Backup.pm:682
 msgid "The backup file is corrupt."
@@ -430,14 +444,16 @@ msgstr ""
 "{name}. Mensaje de error: {error}"
 
 #: src/EBox/Apache.pm:48
-msgid "You must set the httpd_serverroot variable in the ebox configuration file"
+msgid ""
+"You must set the httpd_serverroot variable in the ebox configuration file"
 msgstr ""
 "Debe establecer la variable httpd_serverroot en el fichero de configuración "
 "de ebox"
 
 #: src/EBox/Apache.pm:58
 msgid "You must set the httpd_init variable in the ebox configuration file"
-msgstr "Debe establecer la variable httpd_init en el fichero de configuración de ebox"
+msgstr ""
+"Debe establecer la variable httpd_init en el fichero de configuración de ebox"
 
 #: src/EBox/Apache.pm:61
 msgid "The httpd_init script you configured is not executable."
@@ -467,49 +483,40 @@ msgstr "Arrancar"
 msgid "Disabled"
 msgstr "Deshabilitado"
 
-#: src/EBox/FirstTime.pm:67 po/templates/src/templates/firstTime/passwd.mas:4
-#: src/templates/firstTime/passwd.mas:4
+#: src/EBox/FirstTime.pm:67 src/templates/firstTime/passwd.mas:4
 msgid "Change default password"
 msgstr "Cambie la contraseña inicial"
 
-#: po/templates/src/templates/firstTime/index.mas:6
 #: src/templates/firstTime/index.mas:6
 msgid "Use default values"
 msgstr "Usar valores de fábrica"
 
-#: po/templates/src/templates/firstTime/passwd.mas:7
 #: src/templates/firstTime/passwd.mas:6 src/templates/password.mas:8
 msgid "Your password must be at least 6 characters long."
 msgstr "La contraseña debe tener al menos 6 caracteres"
 
-#: po/templates/src/templates/firstTime/passwd.mas:15
 #: src/templates/firstTime/passwd.mas:13 src/templates/password.mas:30
 msgid "New password"
 msgstr "Nueva contraseña"
 
-#: po/templates/src/templates/firstTime/passwd.mas:31
 #: src/templates/firstTime/passwd.mas:28 src/templates/password.mas:45
 msgid "Confirm password"
 msgstr "Confirmar nueva contraseña"
 
-#: po/templates/src/templates/firstTime/passwd.mas:46
 #: src/templates/firstTime/passwd.mas:42 src/templates/password.mas:60
 #: src/templates/port.mas:15
 msgid "Change"
 msgstr "Cambiar"
 
-#: po/templates/src/templates/login/index.mas:26
 #: src/templates/login/index.mas:26
 msgid "Password"
 msgstr "Contraseña"
 
-#: po/templates/src/templates/login/index.mas:34
-#: src/templates/login/index.mas:33
+#: src/templates/login/index.mas:34
 msgid "Enter"
 msgstr "Entrar"
 
-#: po/templates/src/templates/login/index.mas:42
-#: src/templates/login/index.mas:40
+#: src/templates/login/index.mas:41
 msgid ""
 "Created by <a href='http://www.warp.es'>Warp Networks</a> in collaboration "
 "with <a href='http://www.dbs.es'>DBS Servicios Informaticos</a>"
@@ -610,10 +617,11 @@ msgid "Back up the current state"
 msgstr "Backup del estado actual"
 
 #: src/templates/backup.mas:29
+#, fuzzy
 msgid ""
 "Backups will be stored in eBox and then you will be able to download them to "
 "your hard disk or write them into CD/DVD disks. Anyway, you can later copy "
-"back stored backup."
+"back stored backup"
 msgstr ""
 "Los backups se almacenarán en eBox y posteriormente pueden ser descargados a "
 "su disco duro o grabados en CD o DVD."
@@ -708,7 +716,7 @@ msgstr "Descargar"
 msgid "Write backup to CD/DVD disk"
 msgstr "Grabar backup en CD/DVD"
 
-#: src/templates/backup.mas:224
+#: src/templates/backup.mas:225
 msgid "download"
 msgstr "descargar"
 
@@ -720,11 +728,11 @@ msgstr "grabar en CD/DVD"
 msgid "write into disk (disabled)"
 msgstr "grabar en CD/DVD (desactivado)"
 
-#: src/templates/backup.mas:235
+#: src/templates/backup.mas:232
 msgid "restore"
 msgstr "restaurar"
 
-#: src/templates/backup.mas:239
+#: src/templates/backup.mas:235
 msgid "delete"
 msgstr "borrar"
 
@@ -757,4 +765,3 @@ msgstr ""
 #: src/templates/bug.mas:15
 msgid "Download bug report file"
 msgstr "Descargar informe de error"
-
