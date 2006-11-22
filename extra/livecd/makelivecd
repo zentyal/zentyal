@@ -53,14 +53,14 @@ sub execCmds
 {
   my @cmds = @_;
   foreach my $cmd (@cmds) {
-    my @output = `$cmd 2>&1`;
+    print "Executing $cmd...\n\n";
+    system $cmd;
     if ($? != 0) {
-      die "Command failed: $cmd\nCommand output: @output\nExit value: $?";
+      die "Command failed: $cmd\nExit value: $?\n";
     }
     else {
       print "Command successful: $cmd\n";
-      print "Command output: @output\n";
-    }
+     }
   }
 }
 
