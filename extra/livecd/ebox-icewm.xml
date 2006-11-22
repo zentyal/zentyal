@@ -4,9 +4,10 @@
   <id>ebox-icewm</id>
   <name>eBox icewm</name>
   <repositorylist>
-    <repository type="debian">http://192.168.45.62/debian</repository> 
-    <repository type="plain">http://192.168.45.62/morphix</repository>
-    <repository type="plain">http://192.168.45.62/ebox</repository>
+    <repository type="debian">http://192.168.45.91/debian</repository> 
+    <repository type="plain">http://192.168.45.91/morphix</repository>
+    <repository type="plain">http://ebox-platform.com/debian/morphix-sarge</repository>
+
   </repositorylist>
   <description>eBox icewm mainmodule</description>
   <type>mainmod</type>
@@ -71,6 +72,14 @@
 <packagereq>ebox-samba</packagereq>
 <packagereq>ebox-software</packagereq>
 <packagereq>ebox-squid</packagereq>
+
+<!-- recommended packages by eBox -->
+<packagereq>eject</packagereq>
+<packagereq>cdrdao</packagereq>
+<packagereq>mkisofs</packagereq>
+<packagereq>cdrecord</packagereq>
+<packagereq>dvd+rw-tools</packagereq>
+
 </packagelist>
 
 </group>
