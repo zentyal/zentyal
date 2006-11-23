@@ -14,7 +14,6 @@ use Test::File;
 
 use EBox::Samba;
 use EBox::UsersAndGroups;
-use EBox::Test;
 
 use Readonly;
 Readonly::Scalar my $TEST_DIR => '/tmp/ebox.samba.root.test';
@@ -307,5 +306,8 @@ sub _checkLeftoverDirAfterBackup
   }
 
 }
+
+
+
 
 1;
