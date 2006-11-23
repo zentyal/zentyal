@@ -29,10 +29,8 @@ use Test::More;
 use Test::Builder;
 
 use Error qw(:try);
-use EBox::TestStubs;
 use Params::Validate;
 
-my @deprecatedSubs = qw(activateEBoxTestStubs fakeEBoxModule setConfig setConfigKeys fakeEBoxModule);
 our @EXPORT_OK = ('checkModuleInstantiation', @deprecatedSubs);
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 
@@ -98,47 +96,5 @@ sub checkModuleInstantiation
 
 
 
-
-
-
-
-# deprecated subs:
-sub activateEBoxTestStubs
-{
-  _deprecated('activateEBoxTestStubs', 'EBox::TestStubs', 'activateTestStubs', @_);
-}
-
-sub setEBoxModule
-{
-  _deprecated('setEBoxModule', 'EBox::TestStubs', 'setEBoxModule', @_);
-}
-
-sub setConfig
-{
-  _deprecated('setConfig', 'EBox::TestStubs', 'setConfig', @_);
-}
-
-sub setEBoxConfigKeys
-{
-  _deprecated('setEBoxConfigKeys', 'EBox::TestStubs', 'setEBoxConfigKeys', @_);
-}
-
-sub fakeEBoxModule
-{
-  _deprecated('fakeEBoxModule', 'EBox::TestStubs', 'fakeEBoxModule', @_);
-}
-
-sub _deprecated
-{
-  my ($subName, $newSubModule, $newSubName, @subParams) = @_;
-  
-  my $msg = "$subName is deprecated. Use $newSubModule::$newSubName instead";
-  warn $msg;
- 
-
-  my $sub_r = $newSubModule->can( $newSubName);
-  defined $sub_r or die "Cannot found $newSubModule\:\:$newSubName to replace deprecated sub $subName";
-  return $sub_r->(@subParams);
-}
 
 1;
