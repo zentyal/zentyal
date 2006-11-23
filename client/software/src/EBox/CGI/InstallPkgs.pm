@@ -69,8 +69,14 @@ sub _process($) {
 		return;
 	}
 
-	my @pkgs = grep(s/^pkg-//, @{$self->params()});
-	(@pkgs == 0) and throw EBox::Exceptions::External(__('There were no packages to update'));
+	# Take the packages
+	my @pkgs;
+	if (not $self->param('allbox') ) {
+	  @pkgs = grep(s/^pkg-//, @{$self->params()});
+	  (@pkgs == 0) and throw EBox::Exceptions::External(__('There were no packages to update'));
+	} else {
+	  @pkgs = @{$software->listUpgradablePkgs()};
+	}
 
 	if ($doit eq 'yes') {
 		if ($action eq 'install') {
