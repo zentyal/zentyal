@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox-logs 0.7.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-10-23 18:24+0200\n"
+"POT-Creation-Date: 2006-11-23 16:52+0100\n"
 "PO-Revision-Date: 2006-10-23 18:24+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,15 +15,40 @@ msgstr ""
 "Content-Type: text/plain; charset=ASCII\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/CGI/Index.pm:35 src/EBox/Logs.pm:90
+#: src/EBox/CGI/Index.pm:35 src/EBox/Logs.pm:79
 msgid "Logs"
 msgstr ""
 
-#: src/EBox/Logs.pm:234
+#: src/EBox/PgDBEngine.pm:44
+msgid ""
+"You must set the eboxlogs_dbname variable in the ebox configuration file"
+msgstr ""
+
+#: src/EBox/PgDBEngine.pm:56
+msgid ""
+"You must set the eboxlogs_dbuser variable in the ebox configuration file"
+msgstr ""
+
+#: src/EBox/PgDBEngine.pm:68
+msgid ""
+"You must set the eboxlogs_dbpass variable in the ebox configuration file"
+msgstr ""
+
+#: src/EBox/PgDBEngine.pm:207
+#, perl-brace-format
+msgid "Error dumping the postgresql database {name}"
+msgstr ""
+
+#: src/EBox/PgDBEngine.pm:225
+#, perl-brace-format
+msgid "DB dump file {file} is not readable"
+msgstr ""
+
+#: src/EBox/Logs.pm:223
 msgid "Table {$table} does not exist"
 msgstr ""
 
-#: src/EBox/Logs.pm:249
+#: src/EBox/Logs.pm:238
 #, perl-brace-format
 msgid "Field {field} does not exist"
 msgstr ""

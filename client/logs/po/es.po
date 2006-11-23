@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-17 10:17+0100\n"
+"POT-Creation-Date: 2006-11-23 16:52+0100\n"
 "PO-Revision-Date: 2006-11-16 17:04+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team:  <es@li.org>\n"
@@ -26,33 +26,33 @@ msgstr ""
 msgid "Logs"
 msgstr "Registros"
 
-#: src/EBox/PgDBEngine.pm:42
+#: src/EBox/PgDBEngine.pm:44
 msgid ""
 "You must set the eboxlogs_dbname variable in the ebox configuration file"
 msgstr ""
 "Debes de asignar un valor a la variable eboxlogs_dbname en el archivo de "
 "configuración de ebox"
 
-#: src/EBox/PgDBEngine.pm:54
+#: src/EBox/PgDBEngine.pm:56
 msgid ""
 "You must set the eboxlogs_dbuser variable in the ebox configuration file"
 msgstr ""
 "Debe de asignar un valor a la variable eboxlogs_dbuser en el archivo de "
 "configuración de ebox"
 
-#: src/EBox/PgDBEngine.pm:66
+#: src/EBox/PgDBEngine.pm:68
 msgid ""
 "You must set the eboxlogs_dbpass variable in the ebox configuration file"
 msgstr ""
 "Debe de asignar un valor a la variable eboxlogs_dbpass en el archivo de "
 "configuración de ebox"
 
-#: src/EBox/PgDBEngine.pm:205
+#: src/EBox/PgDBEngine.pm:207
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr "Error volcando la base de datos postgresql {name}"
 
-#: src/EBox/PgDBEngine.pm:223
+#: src/EBox/PgDBEngine.pm:225
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr "Fichero de volcado DB {file} no se puede leer"

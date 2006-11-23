@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox 0.3.svn\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-22 11:52+0100\n"
+"POT-Creation-Date: 2006-11-10 10:55+0100\n"
 "PO-Revision-Date: 2004-11-02 17:54+0100\n"
 "Last-Translator:  <isaac@sindominio.net>\n"
 "Language-Team: French <cedricduval@free.fr>\n"
@@ -76,8 +76,8 @@ msgstr ""
 msgid "Write to disk"
 msgstr ""
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:198 src/EBox/CGI/EBox/Backup.pm:230
-#: src/EBox/CGI/EBox/Backup.pm:301 src/EBox/CGI/EBox/Backup.pm:314
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:198 src/EBox/CGI/EBox/Backup.pm:228
+#: src/EBox/CGI/EBox/Backup.pm:291 src/EBox/CGI/EBox/Backup.pm:304
 #: src/EBox/Backup.pm:985
 msgid "The input contains invalid characters"
 msgstr "L'entrée contient des caractères invalides"
@@ -117,21 +117,12 @@ msgstr "Copie de sauvegarde"
 msgid "Backup was written to CD/DVD disk"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:272
+#: src/EBox/CGI/EBox/Backup.pm:270
 #, perl-brace-format
 msgid "Unknown restore mode: {mode}"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:283
-#, fuzzy
-msgid ""
-"Full backup restored succesfully. You should now review your configuration "
-"and save it if you want to keep it."
-msgstr ""
-"La configuration a été restaurée avec succès. Vous devriez maintenant la "
-"vérifier et la sauver si vous souhaitez la conserver."
-
-#: src/EBox/CGI/EBox/Backup.pm:288
+#: src/EBox/CGI/EBox/Backup.pm:279
 msgid ""
 "Configuration restored succesfully, you should now review it and save it if "
 "you want to keep it."
@@ -225,7 +216,7 @@ msgstr ""
 msgid "Unable to recognize the mounted CD media"
 msgstr ""
 
-#: src/EBox/Backup/RootCommands.pm:26
+#: src/EBox/Backup/RootCommands.pm:25
 #, perl-brace-format
 msgid ""
 "This system need {program} installed to perform the requested action. Please "
@@ -471,46 +462,55 @@ msgstr "Statut"
 msgid "Disabled"
 msgstr ""
 
-#: src/EBox/FirstTime.pm:67 src/templates/firstTime/passwd.mas:4
+#: src/EBox/FirstTime.pm:67 po/templates/src/templates/firstTime/passwd.mas:4
+#: src/templates/firstTime/passwd.mas:4
 #, fuzzy
 msgid "Change default password"
 msgstr "Modifier le mot de passe"
 
+#: po/templates/src/templates/firstTime/index.mas:6
 #: src/templates/firstTime/index.mas:6
 #, fuzzy
 msgid "Use default values"
 msgstr "Configurer les règles par défaut"
 
+#: po/templates/src/templates/firstTime/passwd.mas:7
 #: src/templates/firstTime/passwd.mas:6 src/templates/password.mas:8
 #, fuzzy
 msgid "Your password must be at least 6 characters long."
 msgstr "Le mot de passe doit comporter un minimum de 6 caractères"
 
+#: po/templates/src/templates/firstTime/passwd.mas:15
 #: src/templates/firstTime/passwd.mas:13 src/templates/password.mas:30
 msgid "New password"
 msgstr "Nouveau mot de passe"
 
+#: po/templates/src/templates/firstTime/passwd.mas:31
 #: src/templates/firstTime/passwd.mas:28 src/templates/password.mas:45
 #, fuzzy
 msgid "Confirm password"
 msgstr "Confirmer le nouveau mot de passe"
 
+#: po/templates/src/templates/firstTime/passwd.mas:46
 #: src/templates/firstTime/passwd.mas:42 src/templates/password.mas:60
 #: src/templates/port.mas:15
 msgid "Change"
 msgstr "Modifier"
 
+#: po/templates/src/templates/login/index.mas:26
 #: src/templates/login/index.mas:26
 #, fuzzy
 msgid "Password"
 msgstr "Nouveau mot de passe"
 
-#: src/templates/login/index.mas:34
+#: po/templates/src/templates/login/index.mas:34
+#: src/templates/login/index.mas:33
 #, fuzzy
 msgid "Enter"
 msgstr "Externe"
 
-#: src/templates/login/index.mas:41
+#: po/templates/src/templates/login/index.mas:42
+#: src/templates/login/index.mas:40
 msgid ""
 "Created by <a href='http://www.warp.es'>Warp Networks</a> in collaboration "
 "with <a href='http://www.dbs.es'>DBS Servicios Informaticos</a>"
@@ -617,7 +617,7 @@ msgstr "Effectuer une copie de sauvegarde de la configuration actuelle"
 msgid ""
 "Backups will be stored in eBox and then you will be able to download them to "
 "your hard disk or write them into CD/DVD disks. Anyway, you can later copy "
-"back stored backup"
+"back stored backup."
 msgstr ""
 
 #: src/templates/backup.mas:34
@@ -708,7 +708,7 @@ msgstr "Charger"
 msgid "Write backup to CD/DVD disk"
 msgstr ""
 
-#: src/templates/backup.mas:225
+#: src/templates/backup.mas:224
 #, fuzzy
 msgid "download"
 msgstr "Charger"
@@ -721,12 +721,12 @@ msgstr ""
 msgid "write into disk (disabled)"
 msgstr ""
 
-#: src/templates/backup.mas:232
+#: src/templates/backup.mas:235
 #, fuzzy
 msgid "restore"
 msgstr "Restaurer"
 
-#: src/templates/backup.mas:235
+#: src/templates/backup.mas:239
 #, fuzzy
 msgid "delete"
 msgstr "Effacer"
@@ -764,6 +764,14 @@ msgstr ""
 #: src/templates/bug.mas:15
 msgid "Download bug report file"
 msgstr "Charger de fichier de rapport de bug"
+
+#, fuzzy
+#~ msgid ""
+#~ "Full backup restored succesfully. You should now review your "
+#~ "configuration and save it if you want to keep it."
+#~ msgstr ""
+#~ "La configuration a été restaurée avec succès. Vous devriez maintenant la "
+#~ "vérifier et la sauver si vous souhaitez la conserver."
 
 #, fuzzy
 #~ msgid "Password Incorrect"
