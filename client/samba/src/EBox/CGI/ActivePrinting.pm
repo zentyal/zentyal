@@ -36,6 +36,7 @@ sub new {
 }
 
 sub _process($) {
+
         my $self = shift;
 
 	my ($user, $group);
@@ -48,14 +49,23 @@ sub _process($) {
          	$group = $self->param('group');
         }
 
-        	
+
 	my $samba = EBox::Global->modInstance('samba');
 	my @newconf;
+
 	for my $printer (@{$samba->printers()}) {
-		push (@newconf,	 { 
-				'name' => $printer, 
-				'allowed' => $self->param($printer) ? 1 : undef 
-				 });
+	  if (not $self->param('allbox') ) {
+	    push (@newconf, {
+			     'name' => $printer,
+			     'allowed' => $self->param($printer) ? 1 : undef
+			    });
+	  } else {
+	    # If all selected, done!
+	    push (@newconf, {
+			     'name'    => $printer,
+			     'allowed' => 1
+			    });
+	  }
 	}
 
 	if ($user) {
@@ -65,7 +75,7 @@ sub _process($) {
 		$samba->setPrintersForGroup($group, \@newconf);
         	$self->{redirect} = "UsersAndGroups/Group?group=$group";
 	}
-		
+
 }
 
 1;

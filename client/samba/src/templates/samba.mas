@@ -103,6 +103,7 @@ settextdomain('ebox-samba');
 				</tr>
 			</thead>
 			<tbody>
+%                               my $allTrue = 1;
 %				foreach my $printer (@{$params->{printers}}) {
 				<tr>
 					<td><% $printer->{'name'} %></td>
@@ -111,6 +112,7 @@ settextdomain('ebox-samba');
 							<input type='checkbox' checked name='<% $printer->{'name'} %>' value='<% $printer->{'name'} %>'>
 						</td>
 %					} else {
+%                                               $allTrue = undef;
 						<td class='tcenter'>
 							<input type='checkbox' name='<% $printer->{'name'} %>' value='<% $printer->{'name'} %>'>
 						</td>
@@ -127,6 +129,13 @@ settextdomain('ebox-samba');
 							name='allbox'/>
 					</td>
 				</tr>
+%                               if ($allTrue) {
+                                  <script>
+                                     document.getElementById("printers").elements["allbox"].checked=true;
+				     checkAll("printers", "allbox");
+				  </script>
+%                               }
+
 			</tbody>
 			</table>
 		<p>
