@@ -5,15 +5,15 @@ use warnings;
 use Test::More qw(no_plan);
 use Test::Exception;
 use Perl6::Junction qw(all);
-use EBox::Test;
+use EBox::TestStubs;
 
 use lib '../../..';
 use_ok(' EBox::Backup::FileBurner');
 
 my $FILE = $0;
 
-EBox::Test::activateEBoxTestStubs();
-EBox::Test::setEBoxConfigKeys(tmp => '/tmp');
+EBox::TestStubs::activateTestStubs();
+EBox::TestStubs::setEBoxConfigKeys(tmp => '/tmp');
 
 diag "This test must be run as root otherwise some parts may fail";
 diag "This test burns writable media. It writes on them the file $FILE, change the \$FILE constant if you want burn anothe file";

@@ -5,12 +5,12 @@ use warnings;
 use Test::More qw(no_plan);
 use Test::Exception;
 use Perl6::Junction qw(all);
-use EBox::Test;
+use EBox::TestStubs;
 
 use lib '../../..';
 use_ok(' EBox::Backup::OpticalDiscDrives');
 
-EBox::Test::activateEBoxTestStubs();
+EBox::TestStubs::activateTestStubs();
 diag "This test must be run as root otherwise some parts may fail";
 
 
