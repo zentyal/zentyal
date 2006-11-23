@@ -5,7 +5,7 @@ use warnings;
 use Test::More qw(no_plan);
 use Test::Exception;
 use Perl6::Junction qw(all);
-use EBox::Test;
+use EBox::TestStubs;
 
 use lib '../..';
 
@@ -17,8 +17,8 @@ system "rm -rf $TEST_DIR";
 mkdir $TEST_DIR or die "$!";
 
 
-EBox::Test::activateEBoxTestStubs();
-EBox::Test::setEBoxConfigKeys(tmp =>  $TEST_DIR, conf => $TEST_DIR);
+EBox::TestStubs::activateTestStubs();
+EBox::TestStubs::setEBoxConfigKeys(tmp =>  $TEST_DIR, conf => $TEST_DIR);
 EBox::Backup::Test::setUpCanaries();
 
 diag "This test must be run as root otherwise some parts may fail";
@@ -40,7 +40,7 @@ sub backupTest
   EBox::Backup::Test::setCanaries('before');
 
   my $backup =  EBox::Backup->new();
-  my $success = lives_ok { $backup->makeBackup(description => 'ea', fullBackup => 1, directlyToDisc => 1) } 'Trying backup drectly to cd';
+  my $success = lives_ok { $backup->makeBackup(description => 'ea', fullBackup => 1, directlyToDisc => 1) } 'Trying backup directly to cd';
   return $success;
 }
 
