@@ -24,7 +24,8 @@ use Test::MockObject;
 use Test::More;
 use Test::Exception;
 use Test::Differences;
-use EBox::Test qw(checkModuleInstantiation fakeEBoxModule);
+use EBox::Test qw(checkModuleInstantiation);
+use EBox::TestStubs qw(fakeEBoxModule);
 use EBox::Gettext;
 use File::Slurp qw(read_file write_file);
 use EBox::FileSystem qw(makePrivateDir);
@@ -55,7 +56,7 @@ sub setupDirs : Test(setup)
   return if !exists $INC{'EBox/Backup.pm'};
 
 #  EBox::Config::TestStub::fake( tmp => $self->testDir() );
-  EBox::Test::setEBoxConfigKeys(conf => testDir(), tmp => $self->testDir());
+  EBox::TestStubs::setEBoxConfigKeys(conf => testDir(), tmp => $self->testDir());
 
   my $testDir = $self->testDir();
   system "rm -rf $testDir";
@@ -200,8 +201,6 @@ sub setMixedConfCanary
 sub checkCanaries
 {
   my ($expectedValue, $fullRestore) = @_;  
-  my $client = Gnome2::GConf::Client->get_default;
-  my $value;
 
   checkGConfCanary($expectedValue);
   checkExtendedCanary($expectedValue, $fullRestore);
@@ -266,7 +265,7 @@ sub teardownGConfCanary : Test(teardown)
 sub teardownCanaryModule : Test(teardown)
 {
   my ($self) = @_;
-  EBox::Test::setConfig(); 
+  EBox::TestStubs::setConfig(); 
 }
 
 # that counts for 7 tests
@@ -378,7 +377,7 @@ sub restoreWithModulesMismatchTest : Test(15)
   checkDeviantRestore($backupFile, [fullRestore => 0], 'checking that a restore with a module mismatch (one more module) fails' );
 
   # with one less module
-  EBox::Test::setConfig();
+  EBox::TestStubs::setConfig();
   setupGConfCanary();
   setupMixedConfCanary();
   setGConfCanary('afterBackup');
@@ -388,7 +387,7 @@ sub restoreWithModulesMismatchTest : Test(15)
   checkMixedConfCanary('afterBackup');
 
   # with same number but distinct modules
-  EBox::Test::setConfig();
+  EBox::TestStubs::setConfig();
   setupGConfCanary();
   setupMixedConfCanary();
   fakeEBoxModule( name => 'suprefluousModule', );

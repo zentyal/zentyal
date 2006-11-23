@@ -6,10 +6,10 @@ use Test::Exception;
 
 use lib '../..';
 use EBox::Module;
-use EBox::Test qw(fakeEBoxModule);
+use EBox::TestStubs qw(fakeEBoxModule);
 
 
-EBox::Test::activateEBoxTestStubs();
+EBox::TestStubs::activateTestStubs();
 fakeEBoxModule(name => 'testMod');
 backupDirTest();
 createBackupDirTest();
