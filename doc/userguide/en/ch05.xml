@@ -8,7 +8,14 @@
 		<title>Firewall in eBox</title>
 
 		<para>
-		<!--TODO-->
+		  One of the most important features in eBox is its firewall
+		  module. You can access it through
+		  <menuchoice>
+		    <guimenu>Firewall</guimenu>
+		  </menuchoice>
+		  . There you can make packet filtering (<xref
+		  linkend='sect-fw-filter' />) or port
+		  redirection (<xref linkend='sect-fw-redirects'/>).
 		</para>
 
 		<para>
