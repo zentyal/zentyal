@@ -12,6 +12,8 @@ print "The morphix base iso is located at $morphixBaseIso\n";
 print "The main mod will be $mainmod\n";
 print "The live-cd will have the following minmods: @minimods\n";
 
+cleanUp();
+
 my $newIso;
 $newIso = mainmod($mainmod,$morphixBaseIso );
 foreach my $mini (@minimods) {
@@ -20,6 +22,16 @@ foreach my $mini (@minimods) {
 
 my $mvCommand = "mv $newIso livecd.iso";
 execCmds($mvCommand);
+
+
+sub cleanUp
+{
+  my @toClean = qw(sshd postgres dansguardian squid slapd);
+  foreach my $program (@toClean) {
+    system "pkill $program";
+  }
+
+}
 
 sub mainmod
 {

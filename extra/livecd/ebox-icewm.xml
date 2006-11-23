@@ -35,7 +35,6 @@
 <packagereq>module-init-tools</packagereq> <!-- necessary for kernels 2.5+ -->
 <packagereq>most</packagereq>
 <packagereq>mozilla-firefox</packagereq>
-<!--<packagereq>mozilla-thunderbird</packagereq>-->
 <packagereq>mtools</packagereq>
 <packagereq>pcmcia-cs</packagereq>
 <packagereq>ssh</packagereq>
@@ -53,6 +52,15 @@
 <packagereq>morphix-background</packagereq>
 <packagereq>morphix-tools</packagereq>
 <packagereq>morphix-manual</packagereq>
+
+<!-- recommended packages by eBox -->
+<packagereq>eject</packagereq>
+<packagereq>cdrdao</packagereq>
+<packagereq>mkisofs</packagereq>
+<packagereq>cdrecord</packagereq>
+<packagereq>dvd+rw-tools</packagereq>
+
+
 <!-- eBox stuff -->
 <packagereq>libebox</packagereq>
 <packagereq>ebox</packagereq>
@@ -64,7 +72,6 @@
 <packagereq>ebox-firewall</packagereq>
 <packagereq>ebox-jabber</packagereq>
 <packagereq>ebox-logs</packagereq>
-
 <packagereq>ebox-mail</packagereq>
 <packagereq>ebox-network</packagereq>
 <packagereq>ebox-ntp</packagereq>
@@ -73,12 +80,6 @@
 <packagereq>ebox-software</packagereq>
 <packagereq>ebox-squid</packagereq>
 
-<!-- recommended packages by eBox -->
-<packagereq>eject</packagereq>
-<packagereq>cdrdao</packagereq>
-<packagereq>mkisofs</packagereq>
-<packagereq>cdrecord</packagereq>
-<packagereq>dvd+rw-tools</packagereq>
 
 </packagelist>
 
