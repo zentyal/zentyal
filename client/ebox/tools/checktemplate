@@ -2,8 +2,9 @@
 
 awk '
 BEGIN {
-	in_args = 0
-	in_init = 0
+	in_args = 0         # Inside an argument tag
+	in_init = 0         # Inside an init tag
+        in_perl = 0         # Inside a perl tag
 	print "use strict;"
 }
 
@@ -18,6 +19,11 @@ BEGIN {
 		in_init= 0
 		next
 	}
+        if ($0 ~ /^<\/%perl>/)
+        {
+                in_perl = 0
+                next
+        }
 	if (in_args == 1)
 	{
 		print "my " $1 ";"
@@ -28,6 +34,11 @@ BEGIN {
 		print
 		next
 	}
+        if (in_perl == 1) 
+        {
+                print
+                next
+        }
 	if ($0 ~ /^<%args>/)
 	{
 		in_args = 1
@@ -38,7 +49,12 @@ BEGIN {
 		in_init = 1
 		next
 	}
-	if (in_args == 0)
+        if ($0 ~ /^<%perl>/)
+	{
+		in_perl = 1
+		next
+	}
+	if (in_args == 0 && in_perl == 0)
 	{
 		perlline = ($0 ~ /^%/)
 		if (perlline)
@@ -50,8 +66,8 @@ BEGIN {
 		{
 			str = $0
 			sub(/^.*?<%/,"",str)
-			gsub(/%>.*?<%/,";",str)
-			sub(/%>.*?$/,";",str)
+			gsub(/(\|.*?)?%>.*?<%/,";",str)
+			sub(/(\|.*?)?%>.*?$/,";",str)
 			print str
 		}
 	}
