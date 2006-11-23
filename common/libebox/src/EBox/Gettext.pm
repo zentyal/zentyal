@@ -140,6 +140,7 @@ $langs->{'es_ES.UTF-8'} = 'Castellano';
 $langs->{'ca_ES.UTF-8'} = 'Català';
 $langs->{'C'} = 'English';
 $langs->{'fr_FR.UTF-8'} = 'Français';
+$langs->{'pt_BR.UTF-8'} = 'Português';
 no utf8;
 
 # Method:  langname
