@@ -1,4 +1,4 @@
-AC_INIT([EBox-DHCP], [0.7.1])
+AC_INIT([EBox-DHCP], [0.7.99])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/DHCP.pm])
@@ -56,13 +56,9 @@ AC_DEFINE_DIR(PERLPATH, perlpath)
 AM_PO_SUBDIRS
 
 AC_CONFIG_FILES([
-src/EBox/t/Makefile
-src/EBox/DHCP/Makefile
 src/Makefile
 src/EBox/Makefile
 src/EBox/CGI/Makefile
-src/EBox/rootTests/Makefile
-src/EBox/rootTests/lib/Makefile
 src/templates/Makefile
 schemas/Makefile
 stubs/Makefile
