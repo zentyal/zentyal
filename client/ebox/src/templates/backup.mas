@@ -26,7 +26,7 @@ my $modeOptions = [
 	<% __("Backups will be stored in eBox and then you will be able to download them to your hard disk or write them into CD/DVD disks. Anyway, you can later copy back stored backup") %>
 </div>	
 % if (not $writeOpticalDisk) {
-  <div class='help'>
+  <div class='warning'>
 	<% __("'Backup to CD/DVD disk' is disabled, because eBox could not find any recorder drive") %>
   </div>   
 % }
