@@ -1,4 +1,4 @@
 deb http://ftp.de.debian.org/debian/ sarge main
-deb http://security.debian.org/ sarge/updates main
 deb http://ebox-platform.com/debian/stable/ ebox/
 deb http://ebox-platform.com/debian/stable/ extra/
+deb http://ebox-platform.com/debian/sarge/stable/ security/
