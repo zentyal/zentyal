@@ -139,7 +139,7 @@ base-config    apt-setup/non-free      boolean false
 base-config    apt-setup/contrib      boolean false
 
 # Habilitar actualizaciones de seguridad.
-base-config    apt-setup/security-updates      boolean true
+base-config    apt-setup/security-updates      boolean false
 
 debconf        debconf/priority	select high
 
