@@ -11,9 +11,10 @@ use EBox::Gettext;
 
 <h3><% $title | h %></h3>
 <div class="note">
-	<% __x('When the filter content is enabled you can select those
-file {name} which are denied to download', name => ($name eq
-"extension" ? __("extensions") : __("MIME types") )) | h %>
+	<%
+	 __x('When the filter content is enabled you can select those file {name} which are denied to download',
+	     name => ($name eq "extension" ?  __("extensions") : __("MIME types"))) | h
+        %>
 </div>
 <h4></h4>
 <div class="help">

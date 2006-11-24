@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-22 12:39+0100\n"
+"POT-Creation-Date: 2006-11-24 09:32+0100\n"
 "PO-Revision-Date: 2006-10-19 00:21-0200\n"
 "Last-Translator: junior\n"
 "Language-Team:  <en@li.org>\n"
@@ -92,12 +92,12 @@ msgstr "política global"
 msgid "Attribute Name"
 msgstr ""
 
-#: src/EBox/CGI/AddCustomFilter.pm:42 src/templates/filterTable.mas:38
+#: src/EBox/CGI/AddCustomFilter.pm:42 src/templates/filterTable.mas:40
 msgid "Name"
 msgstr ""
 
 #: src/EBox/CGI/AddCustomFilter.pm:43 src/EBox/Squid.pm.in:1206
-#: src/templates/filterTable.mas:45 src/templates/filterTable.mas:68
+#: src/templates/filterTable.mas:47 src/templates/filterTable.mas:70
 #: src/templates/index.mas:134 src/templates/index.mas:137
 msgid "Deny"
 msgstr "Negar"
@@ -200,12 +200,12 @@ msgstr "Aceitar"
 #: src/EBox/Squid.pm.in:1208 src/templates/index.mas:141
 #: src/templates/index.mas:144 src/templates/policy.mas:55
 #: src/templates/policy.mas:59 src/templates/policy.mas:119
-#: src/templates/policy.mas:123 src/templates/domains.mas:17
+#: src/templates/policy.mas:123 src/templates/domains.mas:18
 msgid "Filter"
 msgstr "Filtrar"
 
 #: src/EBox/Squid.pm.in:1211 src/templates/index.mas:120
-#: src/templates/domains.mas:16
+#: src/templates/domains.mas:17
 msgid "Global policy"
 msgstr "Política Global"
 
@@ -270,29 +270,36 @@ msgstr "Negado"
 msgid "Filtered"
 msgstr "Filtrado"
 
-#: src/templates/filterTable.mas:16
-msgid "extensions"
+#: src/templates/filterTable.mas:15
+#, perl-brace-format
+msgid ""
+"When the filter content is enabled you can select those file {name} which "
+"are denied to download"
 msgstr ""
 
 #: src/templates/filterTable.mas:17
+msgid "extensions"
+msgstr ""
+
+#: src/templates/filterTable.mas:18
 msgid "MIME types"
 msgstr ""
 
-#: src/templates/filterTable.mas:30 src/templates/filterTable.mas:52
-#: src/templates/domains.mas:56 src/templates/domains.mas:58
-#: src/templates/domains.mas:60
+#: src/templates/filterTable.mas:32 src/templates/filterTable.mas:54
+#: src/templates/domains.mas:57 src/templates/domains.mas:59
+#: src/templates/domains.mas:61
 msgid "Add"
 msgstr "Adicionar"
 
-#: src/templates/filterTable.mas:79
+#: src/templates/filterTable.mas:81
 msgid "All extensions"
 msgstr ""
 
-#: src/templates/filterTable.mas:81
+#: src/templates/filterTable.mas:83
 msgid "All MIME types"
 msgstr ""
 
-#: src/templates/filterTable.mas:124 src/templates/filterTable.mas:126
+#: src/templates/filterTable.mas:126 src/templates/filterTable.mas:128
 #: src/templates/index.mas:155 src/templates/index.mas:156
 msgid "Change"
 msgstr "Mudar"
@@ -384,24 +391,29 @@ msgstr "Mova os objetos selecionados para a coluna de Banidos"
 msgid "Move selected objects to the unfiltered column"
 msgstr "Mova os objetos selecionados para a coluna de não-filtrados"
 
-#: src/templates/domains.mas:28
+#: src/templates/domains.mas:16
+#, perl-brace-format
+msgid "This list will only take effect if {globalPolicy} is set to {filter}"
+msgstr ""
+
+#: src/templates/domains.mas:29
 msgid "Introduce domains in this way: "
 msgstr "Introduza Domínios dessa maneira:"
 
-#: src/templates/domains.mas:30
+#: src/templates/domains.mas:31
 msgid "domain.com"
 msgstr "domino.com"
 
-#: src/templates/domains.mas:36
+#: src/templates/domains.mas:37
 msgid "Domain"
 msgstr "Domínio"
 
-#: src/templates/domains.mas:38
+#: src/templates/domains.mas:39
 msgid "Action"
 msgstr "Ação"
 
-#: src/templates/domains.mas:76 src/templates/domains.mas:78
-#: src/templates/domains.mas:80
+#: src/templates/domains.mas:77 src/templates/domains.mas:79
+#: src/templates/domains.mas:81
 msgid "Delete"
 msgstr "Deletar"
 

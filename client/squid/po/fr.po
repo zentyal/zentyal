@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-22 12:39+0100\n"
+"POT-Creation-Date: 2006-11-24 09:32+0100\n"
 "PO-Revision-Date: 2005-11-29 13:24+0100\n"
 "Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -95,12 +95,12 @@ msgstr "politique globale"
 msgid "Attribute Name"
 msgstr ""
 
-#: src/EBox/CGI/AddCustomFilter.pm:42 src/templates/filterTable.mas:38
+#: src/EBox/CGI/AddCustomFilter.pm:42 src/templates/filterTable.mas:40
 msgid "Name"
 msgstr ""
 
 #: src/EBox/CGI/AddCustomFilter.pm:43 src/EBox/Squid.pm.in:1206
-#: src/templates/filterTable.mas:45 src/templates/filterTable.mas:68
+#: src/templates/filterTable.mas:47 src/templates/filterTable.mas:70
 #: src/templates/index.mas:134 src/templates/index.mas:137
 msgid "Deny"
 msgstr "Interdire"
@@ -205,12 +205,12 @@ msgstr "Autoriser"
 #: src/EBox/Squid.pm.in:1208 src/templates/index.mas:141
 #: src/templates/index.mas:144 src/templates/policy.mas:55
 #: src/templates/policy.mas:59 src/templates/policy.mas:119
-#: src/templates/policy.mas:123 src/templates/domains.mas:17
+#: src/templates/policy.mas:123 src/templates/domains.mas:18
 msgid "Filter"
 msgstr "Filtre"
 
 #: src/EBox/Squid.pm.in:1211 src/templates/index.mas:120
-#: src/templates/domains.mas:16
+#: src/templates/domains.mas:17
 msgid "Global policy"
 msgstr "Politique globale"
 
@@ -275,33 +275,40 @@ msgstr "Interdit"
 msgid "Filtered"
 msgstr "Filtré"
 
-#: src/templates/filterTable.mas:16
+#: src/templates/filterTable.mas:15
+#, perl-brace-format
+msgid ""
+"When the filter content is enabled you can select those file {name} which "
+"are denied to download"
+msgstr ""
+
+#: src/templates/filterTable.mas:17
 #, fuzzy
 msgid "extensions"
 msgstr "Autoriser"
 
-#: src/templates/filterTable.mas:17
+#: src/templates/filterTable.mas:18
 #, fuzzy
 msgid "MIME types"
 msgstr "Autoriser"
 
-#: src/templates/filterTable.mas:30 src/templates/filterTable.mas:52
-#: src/templates/domains.mas:56 src/templates/domains.mas:58
-#: src/templates/domains.mas:60
+#: src/templates/filterTable.mas:32 src/templates/filterTable.mas:54
+#: src/templates/domains.mas:57 src/templates/domains.mas:59
+#: src/templates/domains.mas:61
 msgid "Add"
 msgstr "Ajouter"
 
-#: src/templates/filterTable.mas:79
+#: src/templates/filterTable.mas:81
 #, fuzzy
 msgid "All extensions"
 msgstr "Autoriser"
 
-#: src/templates/filterTable.mas:81
+#: src/templates/filterTable.mas:83
 #, fuzzy
 msgid "All MIME types"
 msgstr "Autoriser"
 
-#: src/templates/filterTable.mas:124 src/templates/filterTable.mas:126
+#: src/templates/filterTable.mas:126 src/templates/filterTable.mas:128
 #: src/templates/index.mas:155 src/templates/index.mas:156
 msgid "Change"
 msgstr "Changer"
@@ -394,24 +401,29 @@ msgstr "Déplacez les objets choisis à la colonne interdite"
 msgid "Move selected objects to the unfiltered column"
 msgstr "Déplacez les objets choisis à la colonne non filtrée"
 
-#: src/templates/domains.mas:28
+#: src/templates/domains.mas:16
+#, perl-brace-format
+msgid "This list will only take effect if {globalPolicy} is set to {filter}"
+msgstr ""
+
+#: src/templates/domains.mas:29
 msgid "Introduce domains in this way: "
 msgstr "Introduire les domaines de cette manière : "
 
-#: src/templates/domains.mas:30
+#: src/templates/domains.mas:31
 msgid "domain.com"
 msgstr "domain.com"
 
-#: src/templates/domains.mas:36
+#: src/templates/domains.mas:37
 msgid "Domain"
 msgstr "Domaine"
 
-#: src/templates/domains.mas:38
+#: src/templates/domains.mas:39
 msgid "Action"
 msgstr "Action"
 
-#: src/templates/domains.mas:76 src/templates/domains.mas:78
-#: src/templates/domains.mas:80
+#: src/templates/domains.mas:77 src/templates/domains.mas:79
+#: src/templates/domains.mas:81
 msgid "Delete"
 msgstr "Effacer"
 
