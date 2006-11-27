@@ -49,7 +49,8 @@ sub _process
 		push(@array, 'objects' => $objects->ObjectsArray);
 
 	if (defined $self->param("objectname")) {
-		push(@array, 'objectname' => $self->param('objectname'));
+
+	    push(@array, 'objectname' => $self->param('objectname'));
 	}
 
 	$self->{params} = \@array;
