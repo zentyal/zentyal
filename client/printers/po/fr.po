@@ -205,7 +205,9 @@ msgstr "Imprimantes"
 msgid ""
 "The printer's name contains characters not valid.Only alphanumeric "
 "characters are allowed"
-msgstr "Le nom de l'imprimante contient des caractères pas valids.Seulement des caractères alphanumériques sont permis"
+msgstr ""
+"Le nom de l'imprimante contient des caractères pas valids.Seulement des "
+"caractères alphanumériques sont permis"
 
 #: src/EBox/Printers.pm:482 src/templates/printer.mas:73
 #: src/templates/addprinter.mas:16 src/templates/printers.mas:19
@@ -341,6 +343,7 @@ msgid "This printer has no pending job in queue at the moment"
 msgstr "Cette imprimante n'a aucun travail en attente à ce moment"
 
 #: src/templates/addprinter.mas:10
+#, fuzzy
 msgid "Add a new printer"
 msgstr "Ajouter une nouvelle imprimante"
 
@@ -412,3 +415,30 @@ msgstr "Administrer"
 msgid "Manage this printer"
 msgstr "Administrer cette imprimante"
 
+#, fuzzy
+#~ msgid "Add a new printer (II)"
+#~ msgstr "Ajouter une nouvelle imprimante"
+
+#, fuzzy
+#~ msgid "Add a new printer (III)"
+#~ msgstr "Ajouter une nouvelle imprimante"
+
+#, fuzzy
+#~ msgid "Add a new printer (I)"
+#~ msgstr "Ajouter une nouvelle imprimante"
+
+#, fuzzy
+#~ msgid "Add a new printer (IV)"
+#~ msgstr "Ajouter une nouvelle imprimante"
+
+#, fuzzy
+#~ msgid "Add a new printer (VI)"
+#~ msgstr "Ajouter une nouvelle imprimante"
+
+#, fuzzy
+#~ msgid "Queued"
+#~ msgstr "Queue de Travaux"
+
+#, fuzzy
+#~ msgid "Canceled"
+#~ msgstr "Annuler"
