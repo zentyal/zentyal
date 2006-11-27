@@ -4,26 +4,17 @@ package EBox::TestStub;
 use strict;
 use warnings;
 
-use Test::MockModule;
+use EBox;
+use Test::MockObject;
 use Log::Log4perl qw(:easy);
 
-my $mockedEBoxModule;
-my $logLevel;
 
+my $logLevel;
 
 sub fake
 {
     my ($minLogLevel) = @_;
     (defined $minLogLevel) or $minLogLevel = 'debug';
-
-    if (defined $mockedEBoxModule) {
-	return;
-    }
-
-
-    $mockedEBoxModule = new Test::MockModule('EBox');
-    $mockedEBoxModule->mock('logger', \&_mockedLogger);
-
 
     my %logLevelsByName = (
 		     'debug' => $DEBUG,
@@ -35,19 +26,22 @@ sub fake
 
     (exists $logLevelsByName{$minLogLevel}) or die "Incorrect log level: $minLogLevel";    
     $logLevel = $logLevelsByName{$minLogLevel};
+
+
+    Test::MockObject->fake_module('EBox',
+				  logger => \&_mockedLogger,
+				 );
+
 }
 
 
-# XX: fix this sub (see TestStub.t)
-# sub unfake
-# {
-#     if (!defined $mockedEBoxModule) {
-# 	die "EBox module not mocked";
-#     }
 
-#     $mockedEBoxModule->unmock_all();
-#     $mockedEBoxModule = undef;
-# }
+sub unfake
+{
+  delete $INC{'EBox.pm'};
+  eval 'use EBox';
+  ($@) and die "Error unfacking EBox: $@";
+}
 
 
 my $loginit;
