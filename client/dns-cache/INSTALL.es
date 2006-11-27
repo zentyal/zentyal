@@ -19,10 +19,10 @@ INSTALACIÓN
 	./configure
 	make install
 
-  configure detectara automaticamente el path de instalacion de eBox
+  configure detectará automáticamente la ruta de instalación de eBox
 
-- No ejecute bind9 al arrancar, este modulo toma su control:
+- No ejecute bind9 al arrancar, este módulo toma su control:
 
 mv /etc/rc2.d/SXXbind9 /etc/rc2.d/KXXbind9
 
-- Pare bind9 si esta en ejecucion
+- Pare bind9 si está en ejecución

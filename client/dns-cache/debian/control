@@ -7,7 +7,7 @@ Standards-Version: 3.6.1
 
 Package: ebox-dns-cache
 Architecture: all
-Depends: ebox, ebox-network, ebox-firewall, bind9
+Depends: ebox (>= 0.7.99), ebox-network, ebox-firewall, bind9
 Description: DNS cache
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
