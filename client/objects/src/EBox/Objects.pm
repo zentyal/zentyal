@@ -206,7 +206,7 @@ sub addObject # (description)
 	foreach my $object (@{ $self->ObjectNames() }) {
 	    my $otherDesc = $self->ObjectDescription($object);
 	    if ($desc eq $otherDesc) {
-		throw EBox::Exceptions::External __x('There are already a object named {name}' ,name => $desc);
+		throw EBox::Exceptions::External __x("The name '{name}' is already used to identify another object. Please choose another name" ,name => $desc);
 	    }
 	}
 

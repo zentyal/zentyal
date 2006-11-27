@@ -1,29 +1,37 @@
 # translation of es.po to
-# translation of es.po to Spanish
-# Spanish Warp Team translation of ebox.
-# Copyright (C) 2005 Warp Networks S.L and DBS Servicios Informaticos S.L.
-# This file is distributed under the same license as the PACKAGE package.
 # Isaac Clerencia <isaac@sindominio.net>, 2004, 2005.
 # Jorge Arcas <jarcas@warp.es>, 2005.
 # Isaac Clerencia <isaac@warp.es>, 2005.
 # Dani Baeyens <dani@warp.es>, 2005.
+# Javier Amor Garcia <javier.amor.garcia@warp.es>, 2006.
+# Spanish Warp Team translation of ebox.
+# Copyright (C) 2005 Warp Networks S.L and DBS Servicios Informaticos S.L.
+# This file is distributed under the same license as the PACKAGE package.
 msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-11 13:18+0100\n"
-"PO-Revision-Date: 2005-11-11 13:19+0100\n"
-"Last-Translator: Dani Baeyens <dani@warp.es>\n"
-"Language-Team:  <es@li.org>\n"
+"POT-Creation-Date: 2006-11-27 10:12+0100\n"
+"PO-Revision-Date: 2006-11-27 10:14+0100\n"
+"Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
+"X-Generator: KBabel 1.11.2\n"
 
-#: src/EBox/CGI/Del.pm:42 src/EBox/CGI/DelFrom.pm:41 src/EBox/CGI/AddTo.pm:41
-#: src/EBox/CGI/Edit.pm:42 src/EBox/CGI/Add.pm:41 src/EBox/Objects.pm:198
+#: src/EBox/CGI/DelFrom.pm:41 src/EBox/CGI/Del.pm:42 src/EBox/CGI/Edit.pm:42
+#: src/EBox/CGI/Add.pm:41 src/EBox/CGI/AddTo.pm:41 src/EBox/Objects.pm:198
 msgid "Object name"
 msgstr "Nombre del objeto"
+
+#: src/EBox/CGI/Edit.pm:29 src/EBox/CGI/Edit.pm:39
+msgid "Edit Object"
+msgstr "Editar Objeto"
+
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:41 src/EBox/Objects.pm:385
+msgid "Objects"
+msgstr "Objetos"
 
 #: src/EBox/CGI/AddTo.pm:45 src/templates/edit.mas:18
 msgid "IP address"
@@ -38,21 +46,42 @@ msgstr "Máscara de red"
 msgid "Name"
 msgstr "Nombre"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:41 src/EBox/Objects.pm:372
-msgid "Objects"
-msgstr "Objetos"
-
-#: src/EBox/CGI/Edit.pm:29 src/EBox/CGI/Edit.pm:39
-msgid "Edit Object"
-msgstr "Editar Objeto"
-
-#: src/EBox/Objects.pm:100 src/EBox/Objects.pm:279 src/EBox/Objects.pm:319
+#: src/EBox/Objects.pm:100 src/EBox/Objects.pm:292 src/EBox/Objects.pm:332
 msgid "Object"
 msgstr "Objeto"
 
-#: src/EBox/Objects.pm:292
+#: src/EBox/Objects.pm:209
+#, perl-brace-format
+msgid ""
+"The name '{name}' is already used to identify another object. Please choose "
+"another name"
+msgstr "El nombre {name} ya esta en uso para identificar otro objeto. Por favor, elija otro nombre"
+
+#: src/EBox/Objects.pm:305
 msgid "network address"
 msgstr "dirección de red"
+
+#: src/templates/delete.mas:10
+msgid "Deleting object"
+msgstr "Borrando objeto"
+
+#: src/templates/delete.mas:13
+msgid ""
+"The object you tried to delete is being used by some modules, please confirm "
+"that you want to delete it."
+msgstr ""
+"El objeto que ha intentado borrar está siendo usado por algunos módulos, por "
+"favor, confirme que desea borrarlo."
+
+#: src/templates/delete.mas:23 src/templates/edit.mas:97
+#: src/templates/edit.mas:99 src/templates/edit.mas:101
+#: src/templates/index.mas:54 src/templates/index.mas:56
+msgid "Delete"
+msgstr "Borrar"
+
+#: src/templates/delete.mas:27
+msgid "Cancel"
+msgstr "Cancelar"
 
 #: src/templates/edit.mas:11
 #, perl-brace-format
@@ -71,12 +100,6 @@ msgstr "Acción"
 #: src/templates/edit.mas:66
 msgid "Add"
 msgstr "Añadir"
-
-#: src/templates/edit.mas:97 src/templates/edit.mas:99
-#: src/templates/edit.mas:101 src/templates/index.mas:54
-#: src/templates/index.mas:56 src/templates/delete.mas:23
-msgid "Delete"
-msgstr "Borrar"
 
 #: src/templates/edit.mas:111
 msgid "Delete Object"
@@ -123,20 +146,4 @@ msgstr "editar"
 #: src/templates/index.mas:73
 msgid "delete"
 msgstr "borrar"
-
-#: src/templates/delete.mas:10
-msgid "Deleting object"
-msgstr "Borrando objeto"
-
-#: src/templates/delete.mas:13
-msgid ""
-"The object you tried to delete is being used by some modules, please confirm "
-"that you want to delete it."
-msgstr ""
-"El objeto que ha intentado borrar está siendo usado por algunos módulos, por "
-"favor, confirme que desea borrarlo."
-
-#: src/templates/delete.mas:27
-msgid "Cancel"
-msgstr "Cancelar"
 
