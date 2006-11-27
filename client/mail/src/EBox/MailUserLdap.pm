@@ -73,7 +73,6 @@ sub setUserAccount () {
 														'value' => $email);
    }
 
-	print STDERR "SIZE: $mdsize\n";
 	unless (isAPositiveNumber($mdsize)) {
 		throw EBox::Exceptions::InvalidData(
 			'data'	=> __('maildir size'),

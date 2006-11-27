@@ -42,7 +42,6 @@ sub _process($) {
 	$self->_requireParam('qid', __('Queue ID'));
 	my $qid = $self->param('qid');
 
-	print STDERR "GO TO REQUEUE: $qid\n";
 	requeueMail($qid);
 }
 
