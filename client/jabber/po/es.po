@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jabber-es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-01-31 17:55+0100\n"
+"POT-Creation-Date: 2006-11-23 16:53+0100\n"
 "PO-Revision-Date: 2006-01-31 17:57+0100\n"
 "Last-Translator: Jorge Arcas <jorge@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
@@ -42,7 +42,7 @@ msgstr "nombre de usuario"
 msgid "listening port"
 msgstr "puerto"
 
-#: src/EBox/Jabber.pm:320
+#: src/EBox/Jabber.pm:309
 msgid "Jabber Service"
 msgstr "Servicio Jabber"
 
@@ -124,5 +124,5 @@ msgstr "Aplicar Cambios"
 
 #: stubs/c2s.xml.mas:75
 msgid "Enter a username and password to register with this server."
-msgstr "Escriba un nombre de usuario y una contraseña para entrar a este servidor"
-
+msgstr ""
+"Escriba un nombre de usuario y una contraseña para entrar a este servidor"
