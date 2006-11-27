@@ -7,15 +7,21 @@ the following directories are present:
 
 o /root/stuff/mirror    <-- sarge mirror
 o /root/stuff/ebox-debs <-- ebox packages
+o /root/stuff/out       <-- where the image is left finally
 
 This folder is a copy of /usr/share/debian-cd with the following
 extra files:
 
-o ./create-di
-o ./create-cd
-o ./ebox/inittab
-o ./ebox/locale.gen
-o ./ebox/preseed
-o ./ebox/sources.list
-o ./tasks/ebox
-o ./tasks/exclude-ebox
+o ./create-di             -> Create an standard debian installer
+o ./create-cd             -> Create an eBox debian installer
+o ./ebox/inittab          -> ???
+o ./ebox/locale.gen       -> All locales ready to use in eBox
+o ./ebox/preseed          -> eBox configuration stuff
+o ./ebox/sources.list     -> Repository list
+o ./tasks/ebox            -> What packages should be included from eBox
+o ./tasks/exclude-ebox    -> What packages should be excluded from eBox
+
+Throughout all process the logs are stored in log.list2cds and
+installed packages are noted down in 1.packages.
+
+o /root/stuff/tmp/sarge-i386 <- Where logs are stored for sarge i386 arch
