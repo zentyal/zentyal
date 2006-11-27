@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-11 13:01+0100\n"
+"POT-Creation-Date: 2006-11-27 14:50+0100\n"
 "PO-Revision-Date: 2006-10-19 00:02-0200\n"
 "Last-Translator: junior\n"
 "Language-Team:  <en@li.org>\n"
@@ -109,7 +109,9 @@ msgstr "porta de destino"
 #: src/EBox/Firewall.pm:238
 #, perl-brace-format
 msgid "Port {port} is being used by a service or port redirection."
-msgstr "A Porta {port} está sendo usadapor um serviço ou pelo redirecionamento de porta"
+msgstr ""
+"A Porta {port} está sendo usadapor um serviço ou pelo redirecionamento de "
+"porta"
 
 #: src/EBox/Firewall.pm:330 src/EBox/Firewall.pm:485 src/EBox/Firewall.pm:529
 #: src/EBox/Firewall.pm:561 src/EBox/Firewall.pm:611 src/EBox/Firewall.pm:656
@@ -152,15 +154,15 @@ msgstr "endereço fonte"
 msgid "Rule not found"
 msgstr "Regra não encontrada"
 
-#: src/EBox/Firewall.pm:1673
+#: src/EBox/Firewall.pm:1660
 msgid "Firewall"
 msgstr "Firewall"
 
-#: src/EBox/Firewall.pm:1677
+#: src/EBox/Firewall.pm:1664
 msgid "Packet Filter"
 msgstr "Filtro de Pacotes"
 
-#: src/EBox/Firewall.pm:1680
+#: src/EBox/Firewall.pm:1667
 msgid "Redirects"
 msgstr "Redirecionamentos"
 
@@ -174,13 +176,19 @@ msgid ""
 "below. The policy is applied to connections that leave eBox through an "
 "external network interface. If you want to allow traffic between internal "
 "networks you need to create explicit rules for that."
-msgstr "As políticas de estado não foram explicitamente encontradas anteriormente. A plítica é aplicada a conecções que deixam o eBox através da interface externa de rede. Se você quer aceitar tráfego entre redes internas, você precisa criar explicitamente uma regra para isso."
+msgstr ""
+"As políticas de estado não foram explicitamente encontradas anteriormente. A "
+"plítica é aplicada a conecções que deixam o eBox através da interface "
+"externa de rede. Se você quer aceitar tráfego entre redes internas, você "
+"precisa criar explicitamente uma regra para isso."
 
 #: src/templates/object.mas:21
 msgid ""
 "Choosing global will make the firewall fall back to the <a href='Object?"
 "object=_global'>default configuration</a>."
-msgstr "Escolhendo global você fará com que o firewall volte para <a href='Object? object=_global'> a configuração padrão</a>."
+msgstr ""
+"Escolhendo global você fará com que o firewall volte para <a href='Object? "
+"object=_global'> a configuração padrão</a>."
 
 #: src/templates/object.mas:32 src/templates/object.mas:35
 #: src/templates/object.mas:61
@@ -248,7 +256,11 @@ msgid ""
 "Protocol, port and destination address are optional. The rules will be "
 "applied in order, from top to bottom, you can reorder them once they are "
 "added. Rules can also be disabled without deleting them."
-msgstr "Protocolo, porta e endereços de destino são opcionais. As regras serão aplicadas na ordem, do topo para baixo, você pode reordená-las assim que elas forem adicionadas. Regras também podem ser desabilitadas sem a necessidade de deletá-las"
+msgstr ""
+"Protocolo, porta e endereços de destino são opcionais. As regras serão "
+"aplicadas na ordem, do topo para baixo, você pode reordená-las assim que "
+"elas forem adicionadas. Regras também podem ser desabilitadas sem a "
+"necessidade de deletá-las"
 
 #: src/templates/object.mas:163
 msgid ""
@@ -256,7 +268,11 @@ msgid ""
 "that leave eBox through an external network interface. You may flag network "
 "interfaces as external in the <a href='../Network/Ifaces'>Network "
 "Interfaces</a> configuration page."
-msgstr "Regras sem um destino específico serão aplicadas aos pacotes que deixam a máquina através de uma interface de rede externa. Voce pode querer marcar alguma interface de rede como externa  na <a href='..Network/ifaces'>página de configuração</a>"
+msgstr ""
+"Regras sem um destino específico serão aplicadas aos pacotes que deixam a "
+"máquina através de uma interface de rede externa. Voce pode querer marcar "
+"alguma interface de rede como externa  na <a href='..Network/ifaces'>página "
+"de configuração</a>"
 
 #: src/templates/object.mas:169 src/templates/fwdrules.mas:20
 #: src/templates/fwdrules.mas:182 src/templates/fwdruleedit.mas:32
@@ -296,15 +312,18 @@ msgid "Down"
 msgstr "Abaixo"
 
 #: src/templates/filter.mas:11
+msgid "Deny action"
+msgstr "Ação de Negar"
+
+#: src/templates/filter.mas:14
 msgid ""
 "This will tell the firewall what to do when discarding network packets.  If "
 "you choose Reject, a packet will be sent back to the sender, choosing Drop "
 "will make the firewall drop the packet silently."
-msgstr "Isto irá dizer ao firewall o que fazer quando estiver descartando pacotes de rede. Se você escolher REJECT, um pacote será enviar ao remetente, Escolhendo DROP fará com que o firewall delete o pacote silenciosamente."
-
-#: src/templates/filter.mas:15
-msgid "Deny action"
-msgstr "Ação de Negar"
+msgstr ""
+"Isto irá dizer ao firewall o que fazer quando estiver descartando pacotes de "
+"rede. Se você escolher REJECT, um pacote será enviar ao remetente, "
+"Escolhendo DROP fará com que o firewall delete o pacote silenciosamente."
 
 #: src/templates/filter.mas:20 src/templates/filter.mas:27
 msgid "Drop packets"
@@ -326,7 +345,9 @@ msgstr "Regras de Filtragem"
 msgid ""
 "This link will let you set up filtering rules that will take precedence over "
 "the ones you set up for network objects further below."
-msgstr "Este link permite que você configure regrtas de filtragem que terão precendência sobre as que você setar para os objetos mais abaixo"
+msgstr ""
+"Este link permite que você configure regrtas de filtragem que terão "
+"precendência sobre as que você setar para os objetos mais abaixo"
 
 #: src/templates/filter.mas:42
 msgid "Forwarding rules"
@@ -343,7 +364,12 @@ msgid ""
 "may access. These rules are meant to control access from internal network "
 "interfaces to external ones, they provide a simpler way to control access to "
 "the internet."
-msgstr "O link abaixo permite que você sete o comportamento padrão do filtro de pacotes. Você também pode escolher um objeto e configurar regras e serviços que ele pode acessar. Essa regras são relativas ao controle de acesso da rede interna para as externas, elas fornecem uma maneira simples de controle de acesso à internet"
+msgstr ""
+"O link abaixo permite que você sete o comportamento padrão do filtro de "
+"pacotes. Você também pode escolher um objeto e configurar regras e serviços "
+"que ele pode acessar. Essa regras são relativas ao controle de acesso da "
+"rede interna para as externas, elas fornecem uma maneira simples de controle "
+"de acesso à internet"
 
 #: src/templates/filter.mas:53
 msgid "Configure default rules"
@@ -362,7 +388,11 @@ msgid ""
 "Protocol, ports and addresses are optional. The rules will be applied in "
 "order, from top to bottom, you can reorder them once they are added. Rules "
 "can also be disabled without deleting them."
-msgstr "Protocolos, portas e endereços são opcionais. As Regras serão aplicadas em ordem, do topo para baixo, você pode reordená-las assim que elas forem adicionádas. Regras podem também de desabilitadas sem que seja necessário deletá-las."
+msgstr ""
+"Protocolos, portas e endereços são opcionais. As Regras serão aplicadas em "
+"ordem, do topo para baixo, você pode reordená-las assim que elas forem "
+"adicionádas. Regras podem também de desabilitadas sem que seja necessário "
+"deletá-las."
 
 #: src/templates/fwdrules.mas:13
 msgid "New rule"
@@ -479,4 +509,3 @@ msgstr "Porta Externa"
 #: src/templates/redirects.mas:20
 msgid "IP address"
 msgstr "Endereço IP"
-

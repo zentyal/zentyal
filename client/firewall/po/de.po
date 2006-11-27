@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: ebox-firewall 0.7.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-11 13:01+0100\n"
+"POT-Creation-Date: 2006-11-27 14:50+0100\n"
 "PO-Revision-Date: 2005-11-11 13:01+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -151,15 +151,15 @@ msgstr ""
 msgid "Rule not found"
 msgstr ""
 
-#: src/EBox/Firewall.pm:1673
+#: src/EBox/Firewall.pm:1660
 msgid "Firewall"
 msgstr ""
 
-#: src/EBox/Firewall.pm:1677
+#: src/EBox/Firewall.pm:1664
 msgid "Packet Filter"
 msgstr ""
 
-#: src/EBox/Firewall.pm:1680
+#: src/EBox/Firewall.pm:1667
 msgid "Redirects"
 msgstr ""
 
@@ -295,14 +295,14 @@ msgid "Down"
 msgstr ""
 
 #: src/templates/filter.mas:11
+msgid "Deny action"
+msgstr ""
+
+#: src/templates/filter.mas:14
 msgid ""
 "This will tell the firewall what to do when discarding network packets.  If "
 "you choose Reject, a packet will be sent back to the sender, choosing Drop "
 "will make the firewall drop the packet silently."
-msgstr ""
-
-#: src/templates/filter.mas:15
-msgid "Deny action"
 msgstr ""
 
 #: src/templates/filter.mas:20 src/templates/filter.mas:27

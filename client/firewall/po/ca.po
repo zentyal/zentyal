@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox 0.3.svn\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-11 13:01+0100\n"
+"POT-Creation-Date: 2006-11-27 14:50+0100\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -155,16 +155,16 @@ msgstr "adreça de xarxa"
 msgid "Rule not found"
 msgstr ""
 
-#: src/EBox/Firewall.pm:1673
+#: src/EBox/Firewall.pm:1660
 msgid "Firewall"
 msgstr ""
 
-#: src/EBox/Firewall.pm:1677
+#: src/EBox/Firewall.pm:1664
 #, fuzzy
 msgid "Packet Filter"
 msgstr "Filtrat de paquets"
 
-#: src/EBox/Firewall.pm:1680
+#: src/EBox/Firewall.pm:1667
 #, fuzzy
 msgid "Redirects"
 msgstr "Redireccions de ports"
@@ -309,6 +309,11 @@ msgstr "Avall"
 
 #: src/templates/filter.mas:11
 #, fuzzy
+msgid "Deny action"
+msgstr "port de destinació"
+
+#: src/templates/filter.mas:14
+#, fuzzy
 msgid ""
 "This will tell the firewall what to do when discarding network packets.  If "
 "you choose Reject, a packet will be sent back to the sender, choosing Drop "
@@ -317,11 +322,6 @@ msgstr ""
 "Això li dirà al tallafocs què fer quan es descarten paquets de xarxa. Si "
 "trieu «Rebutja», es tornarà el paquet a l'originador, i triar «Descarta» "
 "farà que el tallafocs descarte el paquet silenciosament."
-
-#: src/templates/filter.mas:15
-#, fuzzy
-msgid "Deny action"
-msgstr "port de destinació"
 
 #: src/templates/filter.mas:20 src/templates/filter.mas:27
 msgid "Drop packets"

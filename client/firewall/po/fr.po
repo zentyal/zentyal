@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-11 13:01+0100\n"
+"POT-Creation-Date: 2006-11-27 14:50+0100\n"
 "PO-Revision-Date: 2005-11-29 12:11+0100\n"
 "Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -154,15 +154,15 @@ msgstr "adresse source"
 msgid "Rule not found"
 msgstr "Règle non trouvée"
 
-#: src/EBox/Firewall.pm:1673
+#: src/EBox/Firewall.pm:1660
 msgid "Firewall"
 msgstr "Parefeu"
 
-#: src/EBox/Firewall.pm:1677
+#: src/EBox/Firewall.pm:1664
 msgid "Packet Filter"
 msgstr "Filtrage de paquets"
 
-#: src/EBox/Firewall.pm:1680
+#: src/EBox/Firewall.pm:1667
 msgid "Redirects"
 msgstr "Redirections de port"
 
@@ -176,7 +176,12 @@ msgid ""
 "below. The policy is applied to connections that leave eBox through an "
 "external network interface. If you want to allow traffic between internal "
 "networks you need to create explicit rules for that."
-msgstr "La politique précise quoi faire sur des paquets de réseau pas explicitement correspondus ci-dessous. La politique est appliquée aux raccordements qui laissent l'eBox par une interface externe de réseau. Si vous voulez permettre le trafic entre les réseaux internes vous devez créer des règles explicites pour cela."
+msgstr ""
+"La politique précise quoi faire sur des paquets de réseau pas explicitement "
+"correspondus ci-dessous. La politique est appliquée aux raccordements qui "
+"laissent l'eBox par une interface externe de réseau. Si vous voulez "
+"permettre le trafic entre les réseaux internes vous devez créer des règles "
+"explicites pour cela."
 
 #: src/templates/object.mas:21
 msgid ""
@@ -253,10 +258,10 @@ msgid ""
 "applied in order, from top to bottom, you can reorder them once they are "
 "added. Rules can also be disabled without deleting them."
 msgstr ""
-"L'adresse de destination, le port et le protocol sont optionnels. Les règles seront appliquées dans "
-"l'ordre, du haut vers le bas. Vous pouvez modifier l'ordre après qu'elles "
-"aient été ajoutées. Les règles peuvent également être désactivées sans être "
-"effacées."
+"L'adresse de destination, le port et le protocol sont optionnels. Les règles "
+"seront appliquées dans l'ordre, du haut vers le bas. Vous pouvez modifier "
+"l'ordre après qu'elles aient été ajoutées. Les règles peuvent également être "
+"désactivées sans être effacées."
 
 #: src/templates/object.mas:163
 msgid ""
@@ -264,7 +269,11 @@ msgid ""
 "that leave eBox through an external network interface. You may flag network "
 "interfaces as external in the <a href='../Network/Ifaces'>Network "
 "Interfaces</a> configuration page."
-msgstr "Les règles sans adresse de destination explicite seront appliquées aux paquets qui quittent eBox par une interface de réseau.externe. Vous pouvez marquer les interfaces de réseau comme externes dans la page de configuration d'<a href='../Network/Ifaces'>Interfaces de Réseau</a>."
+msgstr ""
+"Les règles sans adresse de destination explicite seront appliquées aux "
+"paquets qui quittent eBox par une interface de réseau.externe. Vous pouvez "
+"marquer les interfaces de réseau comme externes dans la page de "
+"configuration d'<a href='../Network/Ifaces'>Interfaces de Réseau</a>."
 
 #: src/templates/object.mas:169 src/templates/fwdrules.mas:20
 #: src/templates/fwdrules.mas:182 src/templates/fwdruleedit.mas:32
@@ -304,17 +313,19 @@ msgid "Down"
 msgstr "Désactivée"
 
 #: src/templates/filter.mas:11
+msgid "Deny action"
+msgstr "Déniez l'action"
+
+#: src/templates/filter.mas:14
 msgid ""
 "This will tell the firewall what to do when discarding network packets.  If "
 "you choose Reject, a packet will be sent back to the sender, choosing Drop "
 "will make the firewall drop the packet silently."
 msgstr ""
-"Cela informera le parefeu l'attitude à adopter lorsque des paquets sont rejetés. Si vous choisissez \"Rejeter\", un paquet sera renvoyé à "
-"l'expéditeur. Avec \"Ignorer\", le paquet sera ignoré silencieusement par le parefeu."
-
-#: src/templates/filter.mas:15
-msgid "Deny action"
-msgstr "Déniez l'action"
+"Cela informera le parefeu l'attitude à adopter lorsque des paquets sont "
+"rejetés. Si vous choisissez \"Rejeter\", un paquet sera renvoyé à "
+"l'expéditeur. Avec \"Ignorer\", le paquet sera ignoré silencieusement par le "
+"parefeu."
 
 #: src/templates/filter.mas:20 src/templates/filter.mas:27
 msgid "Drop packets"
@@ -336,7 +347,10 @@ msgstr "Règles de filtrage"
 msgid ""
 "This link will let you set up filtering rules that will take precedence over "
 "the ones you set up for network objects further below."
-msgstr "Ce lien vous laissera installer les règles de filtrage qui auront la priorité au-dessus de celles que vous installez pour des objets de réseau ci-dessous."
+msgstr ""
+"Ce lien vous laissera installer les règles de filtrage qui auront la "
+"priorité au-dessus de celles que vous installez pour des objets de réseau ci-"
+"dessous."
 
 #: src/templates/filter.mas:42
 msgid "Forwarding rules"
@@ -353,7 +367,12 @@ msgid ""
 "may access. These rules are meant to control access from internal network "
 "interfaces to external ones, they provide a simpler way to control access to "
 "the internet."
-msgstr "Le lien ci-dessous vous permettra de configurer le comportement par défaut du filtre de paquets. Vous pouvez également choisir un objet et configurer les règles et services auxquels il a accès. Ces règles sont destinées à controler l'accès des interfaces de réseau internes aux externes, elles fournissent une manière plus simple de controler l'accès à l'Internet."
+msgstr ""
+"Le lien ci-dessous vous permettra de configurer le comportement par défaut "
+"du filtre de paquets. Vous pouvez également choisir un objet et configurer "
+"les règles et services auxquels il a accès. Ces règles sont destinées à "
+"controler l'accès des interfaces de réseau internes aux externes, elles "
+"fournissent une manière plus simple de controler l'accès à l'Internet."
 
 #: src/templates/filter.mas:53
 msgid "Configure default rules"
@@ -373,8 +392,10 @@ msgid ""
 "order, from top to bottom, you can reorder them once they are added. Rules "
 "can also be disabled without deleting them."
 msgstr ""
-"Le protocol, le port et l'adresse sont optionnels. Les règles seront appliquées dans l'ordre, du haut vers le bas. Vous pouvez modifier l'ordre après qu'elles "
-"aient été ajoutées. Les règles peuvent également être désactivées sans être effacées."
+"Le protocol, le port et l'adresse sont optionnels. Les règles seront "
+"appliquées dans l'ordre, du haut vers le bas. Vous pouvez modifier l'ordre "
+"après qu'elles aient été ajoutées. Les règles peuvent également être "
+"désactivées sans être effacées."
 
 #: src/templates/fwdrules.mas:13
 msgid "New rule"
@@ -491,4 +512,3 @@ msgstr "Port externe"
 #: src/templates/redirects.mas:20
 msgid "IP address"
 msgstr "Adresse IP"
-
