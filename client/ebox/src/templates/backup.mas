@@ -134,7 +134,7 @@ my $writeToDiskIcon   = $writeOpticalDisk ? '/data/images/writecd.gif': '/data/i
 	<% __("'Write backup to CD/DVD disk' is disabled, because eBox could not find any recorder drive") %>
   </div>   
 % }
-<h3><% __('List of configuration backups') %></h3>
+<h3><% __("Backups' list") %></h3>
 <table class='dataTable' cellspacing='0'>
 	<thead>
 		<tr>
