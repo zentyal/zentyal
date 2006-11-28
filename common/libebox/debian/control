@@ -7,8 +7,7 @@ Standards-Version: 3.6.1
 
 Package: libebox
 Architecture: all
-Depends: sudo, liblog-dispatch-perl, liblog-log4perl-perl, libhtml-mason-perl, liblocale-gettext-perl, liberror-perl, libdevel-stacktrace-perl, libintl-perl, libnet-ip-perl, gettext, libfile-slurp-perl, libreadonly-perl, libperl6-junction-perl
-Recommends: libreadonly-xs-perl
+Depends: sudo, liblog-dispatch-perl, liblog-log4perl-perl, libhtml-mason-perl, liblocale-gettext-perl, liberror-perl, libdevel-stacktrace-perl, libintl-perl, libnet-ip-perl, gettext, libfile-slurp-perl, libreadonly-perl, libreadonly-xs-perl, libperl6-junction-perl
 Replaces: ebox (<< 0.6)
 Conflicts: ebox (<< 0.7.99)
 Description: eBox common library for server and client
