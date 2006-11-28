@@ -8,7 +8,7 @@ use base qw(EBox::Test::Class);
 use EBox::Test;
 use Test::More;
 use Test::Exception;
-use Test::MockModule;
+use Test::MockObject;
 use Test::File;
 use Test::Differences;
 
@@ -183,7 +183,6 @@ sub setPortTestForMultipleServers : Test(4)
 sub setLocalTest : Test(12)
 {
     my ($self) = @_;
-    my $mockedNetWrappersModule = new Test::MockModule('EBox::NetWrappers');
 
     my $server          = $self->_newServer('macaco');
     my $localGetter_r    =  $server->can('local');
@@ -192,7 +191,7 @@ sub setLocalTest : Test(12)
     my $incorrectLocals = [ qw(21 'ea' 192.168.5.22)];
 
     
-    $mockedNetWrappersModule->mock('list_local_addresses' => sub { return @{ $correctLocals  } } );
+    Test::MockObject->fake_module('EBox::NetWrappers', 'list_local_addresses' => sub { return @{ $correctLocals  } } );
 
     setterAndGetterTest(
 			  object         => $server,
@@ -203,7 +202,6 @@ sub setLocalTest : Test(12)
 			  propierty      => "Server\'s IP local address",
 			);
 
-    $mockedNetWrappersModule->unmock_all();
 }
 
 
