@@ -112,6 +112,7 @@ src/EBox/t/Makefile
 src/EBox/interactiveTests/Makefile
 src/EBox/Exceptions/Makefile
 src/EBox/Exceptions/Sudo/Makefile
+src/EBox/Exceptions/Sudo/t/Makefile
 src/EBox/CGI/Makefile
 src/EBox/CGI/t/Makefile
 src/EBox/CGI/EBox/Makefile
