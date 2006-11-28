@@ -4,12 +4,12 @@ package EBox::GConfModule::TestStub;
 use strict;
 use warnings;
 
-use Test::MockModule;
+use Test::MockObject;
 use List::Util qw(first);
 use Params::Validate;
+use EBox::GConfModule;
 
 my %config;
-my $mockedModule;
 
 # TODO:
 # -defaults and schemas not supported
@@ -19,24 +19,18 @@ my $mockedModule;
 
 sub fake
 {
-    if (defined $mockedModule) {
-	return;
-    }
-
-    $mockedModule = new Test::MockModule('EBox::GConfModule');
-    $mockedModule->mock('_gconf_wrapper' => \&_mockedGConfWrapper);
-    $mockedModule->mock('_delete_dir_internal' => \&_mockedDeleteDirInternal );
-    $mockedModule->mock('_backup' => sub {} );
+    Test::MockObject->fake_module('EBox::GConfModule',
+		 '_gconf_wrapper' => \&_mockedGConfWrapper,
+		 '_delete_dir_internal' => \&_mockedDeleteDirInternal ,
+		 '_backup' => sub {} ,
+		);
 }
 
 sub unfake
 {
-    if (!defined $mockedModule) {
-	die "GConfModule not mocked";
-    }
-
-    $mockedModule->unmock_all();
-    $mockedModule = undef;
+  delete $INC{'EBox/GConfModule.pm'};
+  eval 'use EBox::GConfModule';
+  $@ and die "Error reloading EBox::GConfModule: $@";
 }
 
 

@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 137;
+use Test::More tests => 139;
 use Test::Exception;
 use Test::Deep qw(cmp_bag cmp_deeply);
 use File::Basename;
@@ -21,6 +21,7 @@ dirExistsTest();
 allEntriesTest();
 allDirsTest();
 deleteDirTest();
+unfakeTest();
 
 sub createTest
 {
@@ -255,9 +256,23 @@ sub _setFakeConfig
 sub mock
 {
     EBox::GConfModule::TestStub::fake();
-      EBox::TestStub::fake();
+    EBox::TestStub::fake();
 }
 
+
+sub unfakeTest
+{
+  _setFakeConfig();
+  my $gconfModule = EBox::GConfModule::_create('EBox::Mandrill', name => 'mandrill');
+
+  defined $gconfModule->get_string('status') or die 'Error faking module';
+
+  lives_ok {   EBox::GConfModule::TestStub::unfake();  } 'Unfake EBox::GConfModule';
+
+
+  is $gconfModule->get_string('status'), undef, 'Checking that we cannot longer access to faked gconf data';
+
+}
 
 # dummy class for testing
 package EBox::Mandrill;
