@@ -7,7 +7,7 @@
 # Ésta orden se ejecuta justamente antes de que finalize la instalación,
 # pero cuando todavía existe un directorio /target usable:
 #d-i    preseed/late_command            string rm -f /target/usr/sbin/sendmail ; /target/usr/bin/dpkg-deb --fsys-tarfile /cdrom/dists/local/local/binary-i386/postfix_*_i386.deb | tar x -C /target ./usr/sbin/sendmail ; cp /cdrom/inittab /target/etc/inittab.ebox
-d-i    preseed/late_command            string rm -f /target/usr/sbin/sendmail ; /target/usr/bin/dpkg-deb --fsys-tarfile /cdrom/dists/local/local/binary-i386/postfix_*_i386.deb | tar x -C /target ./usr/sbin/sendmail ; cp /cdrom/ebox/inittab /target/etc/inittab ; cp /cdrom/ebox/locale.gen /target/var/tmp/ ; cp /cdrom/ebox/sources.list /target/etc/apt/sources.list.ebox ; cp /cdrom/dists/sarge/local/binary-i386/ebox-*.deb /target/var/tmp/
+d-i    preseed/late_command            string rm -f /target/usr/sbin/sendmail ; /target/usr/bin/dpkg-deb --fsys-tarfile /cdrom/dists/local/local/binary-i386/postfix_*_i386.deb | tar x -C /target ./usr/sbin/sendmail ; cp /cdrom/ebox/inittab /target/etc/inittab ; cp /cdrom/ebox/locale.gen /target/var/tmp/ ; cp /cdrom/ebox/config-base.sh /target/var/tmp/ ; cp /cdrom/ebox/sources.list /target/etc/apt/sources.list.ebox ; cp /cdrom/dists/sarge/local/binary-i386/ebox-*.deb /target/var/tmp/
 
 #
 # Ésta orden se ejecuta tan pronto como se inicie base-config:
@@ -17,7 +17,7 @@ d-i    preseed/late_command            string rm -f /target/usr/sbin/sendmail ; 
 # antes de presentar el indicador «login:». Ésta es una buena forma de
 # instalar el conjunto de paquetes que desea, o de modificar la
 # configuración del sistema:
-base-config    base-config/late_command        string DEBIAN_FRONTEND=noninteractive apt-get -y install "^ebox-.*" ssh ; cp /etc/apt/sources.list.ebox /etc/apt/sources.list ; mv /var/tmp/ebox-*.deb /var/cache/apt/archives/ ; ebox-software ; mv /var/tmp/locale.gen /etc/locale.gen ; /usr/sbin/locale-gen ; /usr/sbin/locale-gen
+base-config    base-config/late_command        string sh /var/tmp/config-base.sh && rm -f /var/tmp/config-base.sh
 
 #### Configuración de red.
 
