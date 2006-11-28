@@ -6,7 +6,6 @@ use warnings;
 use Test::More tests => 7;
 use Test::Exception;
 use Test::File;
-use Test::MockModule;
 use Test::MockObject;
 
 use English qw( -no_match_vars ) ;  # Avoids regex performance penalty
@@ -103,7 +102,6 @@ sub testStubsSetup
  }
 
 MOCK_MASON: {
-    my $mockedMasonInterpModule;
     my $fileToCreate;
 
     sub _newMasonInterpObject
@@ -125,9 +123,7 @@ MOCK_MASON: {
 
     sub _mockMasonInterp
     {
-	$mockedMasonInterpModule = new Test::MockModule ('HTML::Mason::Interp');
-	defined $mockedMasonInterpModule or die "Unable to mock HTML::Mason::Interp";
-	$mockedMasonInterpModule->mock('new' => \&_newMasonInterpObject );
+	Test::MockObject->fake_module('HTML::Mason::Interp', 'new' => \&_newMasonInterpObject );
     }
 
     sub _setMasonOutpuFile
