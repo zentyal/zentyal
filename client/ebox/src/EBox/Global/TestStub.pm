@@ -4,7 +4,6 @@ package EBox::Global::TestStub;
 use strict;
 use warnings;
 
-use Test::MockModule;
 use EBox::GConfModule::TestStub;
 use Params::Validate;
 
@@ -44,26 +43,15 @@ sub clear
 
 
 
-my $globalModuleFaked;
+
 sub fake
 {
-    if (defined $globalModuleFaked) {
-	return;
-    }
-
-    EBox::GConfModule::TestStub::fake();
-    $globalModuleFaked = new Test::MockModule('EBox::Global');
-
+  EBox::GConfModule::TestStub::fake(); # just to be sure..
 }
 
+# only for interface completion
 sub unfake
 {
-    if (!defined $globalModuleFaked) {
-	die "Module not mocked" ;
-    }
-
-    $globalModuleFaked->unmock_all();
-    $globalModuleFaked = undef;
 }
 
 
