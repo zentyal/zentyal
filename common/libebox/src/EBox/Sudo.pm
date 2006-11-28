@@ -29,6 +29,7 @@ use Perl6::Junction;
 
 use EBox::Exceptions::Sudo::Command;
 use EBox::Exceptions::Sudo::Wrapper;
+use EBox::Exceptions::Command;
 
 BEGIN {
 	use Exporter ();
@@ -73,13 +74,38 @@ sub command # (command)
   my ($cmd) = @_;
   validate_pos(@_, 1);
 
-  my @output = `$cmd`;
+  my @output = `$cmd 2> $STDERR_FILE`;
+
   if ($? != 0) {
-    throw EBox::Exceptions::Internal(
-				     __x("Command '{cmd}' failed. Output: {output}", cmd => $cmd, output => join "\n", @output));
-  }
+    my @error;
+    if ( -r $STDERR_FILE) {
+      @error = read_file($STDERR_FILE);
+    }
+	  
+    _commandError($cmd, $?, \@output, \@error);
+  } 
+
+
 
   return \@output;
+}
+
+
+sub _commandError
+{
+  my ($cmd, $childError, $output, $error) = @_;
+
+  if ($childError == -1) {
+    throw EBox::Exceptions::Internal("Failed to execute child process $cmd");
+  }
+  elsif ($childError & 127) {
+    my $signal = ($childError & 127);
+    my $coredump = ($childError & 128) ? 'with coredump' : 'without coredump';
+    throw EBox::Exceptions::Internal("$cmd died with signal $signal $coredump");
+  } 
+
+  my $exitValue =  $childError >>  8;
+  throw EBox::Exceptions::Command(cmd => $cmd, output => $output, error => $error,  exitValue => $exitValue);
 }
 
 #

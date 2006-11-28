@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 32;
+use Test::More tests => 40;
 use Test::Differences;
 use Test::Exception;
 use Error qw(:try);
@@ -26,6 +26,7 @@ exceptionTest();
 rootWithoutExceptionTest();
 statTest();
 testFileTest();
+commandTest();
 
 sub exceptionTest
 {
@@ -58,6 +59,49 @@ sub rootWithoutExceptionTest
     EBox::Sudo::TestStub::unfake();
   };
 }
+
+
+sub commandTest
+{
+  EBox::Sudo::TestStub::fake();
+  try {
+    my $output ='macacos sonrientes';
+    my $errorOutput = 'error';
+
+    my $okCommand   = "perl -e 'print q{$output}; exit 0'";
+    my $failCommand = "perl -e 'print q{$output}; print STDERR q{$errorOutput} ; exit 1'";
+    
+    my $expectedOutput = [$output];
+    my $expectedErrorOutput = [$errorOutput];
+
+    my $actualOutput;
+    lives_ok { $actualOutput = EBox::Sudo::command($okCommand) } 'Invoking a succeeding command with EBox::Sudo::command';
+    is_deeply $actualOutput, $expectedOutput, 'Checking output of succeeding command';
+
+    my $ex;
+
+    my $testName = "Invoking a command which fails with EBox::Sudo::command";
+    try {
+      EBox::Sudo::command($failCommand);
+      fail $testName;
+    }
+    otherwise {
+      $ex = shift @_;
+      pass $testName;
+    };
+
+    isa_ok($ex, 'EBox::Exceptions::Command');
+    is $ex->cmd(), $failCommand, 'Checking command attribute of command wich fails';
+    is_deeply $ex->output(), $expectedOutput, 'Checking output of command wich fails';
+    is_deeply $ex->error(), $expectedErrorOutput, 'Checking error output of command wich fails';
+    is $ex->exitValue(), 1, 'Checking exit value of command wich fails';
+      
+  }
+  finally {
+    EBox::Sudo::TestStub::unfake();
+  };
+}
+
 
 sub statTest
 {
@@ -97,5 +141,6 @@ sub testFileTest
   ok !EBox::Sudo::fileTest('-f', '/usr'), "false test: EBox::Sudo::fileTest('-f', '/usr')";
   ok !EBox::Sudo::fileTest('-p', '/nowhere/inexistent-pipe'), "false test: EBox::Sudo::fileTest('-p', '/nowhere/inexistent-pipe')";
 }
+
 
 1;
