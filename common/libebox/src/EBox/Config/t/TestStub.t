@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 80;
+use Test::More tests => 78;
 use Test::Exception;
 
 use lib '../../..';
@@ -43,8 +43,6 @@ sub mockTest
     $afterMock{logfile} = '/egypt/baboon.log';
     $afterMock{version} = '-0.4'; 
 
-    dies_ok {EBox::Config::TestStub::unfake()} 'Unmocking before the module was mocked';
-
 
     lives_ok { EBox::Config::TestStub::fake(prefix => $afterMock{prefix}, user => $afterMock{user}, logfile => $afterMock{logfile}, version => $afterMock{version}) };
    can_ok('EBox::Config', @configKeys), 'Checking that the accessor subs are in the mesocked module';
@@ -71,7 +69,6 @@ sub setConfigKeysTest
     $after{css}    = '/home/dessign/css';
     $after{lang}   = 'de';
 
-    dies_ok {  EBox::Config::TestStub::setConfigKeys(locale => $after{locale}, group => $after{group}, css => $after{css}, lang => $after{lang}) } 'Calling setConfigKeys without mocking first';
     
     EBox::Config::TestStub::fake();
     lives_ok { EBox::Config::TestStub::setConfigKeys(locale => $after{locale}, group => $after{group}, css => $after{css}, lang => $after{lang}) };

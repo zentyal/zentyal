@@ -4,7 +4,7 @@ package EBox::Config::TestStub;
 use strict;
 use warnings;
 
-use Test::MockModule;
+use Test::MockObject;
 use Perl6::Junction qw(all);
 use EBox::Config;
 
@@ -12,7 +12,7 @@ use EBox::Config;
 # possible solution 1:  rewrite EBox::Config so the derivated elements use a sub to get the needed element
 # possible solution 2: rewrite this package to have specialized fakes for those subs
 
-my $fakedConfigPackage = undef;
+
 my %config       = _defaultConfig();    # this hash hold the configuration items
 
 sub _defaultConfig
@@ -31,24 +31,15 @@ sub _defaultConfig
 }
 
 
+
 sub fake
 {
-    my @fakedConfig = @_;
+  my @fakedConfig = @_;
 
+  if ( @fakedConfig > 0)  {
+    setConfigKeys(@fakedConfig);
+  }
 
-    if (defined $fakedConfigPackage) {
-	return;
-    }
-
-    if ( @fakedConfig > 0)  {
-	_checkConfigKeysParameters(@fakedConfig);
-    }
-
-    $fakedConfigPackage = new Test::MockModule('EBox::Config');
-
-    if ( @fakedConfig > 0)  {
-	setConfigKeys(@fakedConfig);
-    }
 }
 
 
@@ -61,9 +52,10 @@ sub _checkFakeParams
 
 sub unfake
 {
-    defined $fakedConfigPackage or die "Module was not faked";
-    $fakedConfigPackage->unmock_all();
-    $fakedConfigPackage = undef;
+  delete $INC{'EBox/Config.pm'};
+  eval 'use EBox::Config';
+
+  $@ and die "Error reloading EBox::Config: $@";
 }
 
 
@@ -88,17 +80,14 @@ sub setConfigKeys
 {
     my %fakedConfig = @_;
 
-    if (!defined $fakedConfigPackage) {
-	die "Must fake first call EBox::Config::Fake::fake before setting config keys";
-    }
-
     _checkConfigKeysParameters(@_);
  
-
-    # fake config keys..
+    my @fakeSubs;;
     while ( my ($configKey, $fakedResult) = each %fakedConfig ) {
-	$fakedConfigPackage->mock($configKey => $fakedResult );
+      push @fakeSubs, ($configKey => sub { return $fakedResult });
     }
+
+    Test::MockObject->fake_module('EBox::Config', @fakeSubs );
 }
 
 
