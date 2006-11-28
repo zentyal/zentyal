@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 25;
+use Test::More tests => 27;
 use Test::Exception;
 use Test::Differences;
 use Data::Dumper; # bug in Test::Differences requires e must load this in order to get normal results
@@ -19,6 +19,7 @@ BEGIN { use_ok 'EBox::NetWrappers::TestStub'; }
 EBox::NetWrappers::TestStub::fake();
 ifaceTest();
 routesTest();
+unfakeTest();
 
 sub ifaceTest
 {
@@ -53,7 +54,7 @@ sub ifaceTest
 
   EBox::NetWrappers::TestStub::setFakeIfaces(\%fakeIfaces);
   
-  eq_or_diff [EBox::NetWrappers::TestStub::list_ifaces()], [keys %fakeIfaces ], "Checking list_ifaces()";
+  eq_or_diff [EBox::NetWrappers::list_ifaces()], [keys %fakeIfaces ], "Checking list_ifaces()";
 
     ok !EBox::NetWrappers::iface_exists('macacoInterfaz'), 'Testing negative result of iface_exists';
   foreach my $iface  (keys %fakeIfaces) {
@@ -110,4 +111,42 @@ sub routesTest
   }
 }
 
+
+
+sub unfakeTest
+{
+  my $fakeIface = 'warp35';
+
+  my %fakeIfaces = (
+		    $fakeIface => {
+			        up => 1,
+			        address => {
+					    '192.193.194.195' => '255.255.255.0',
+					    },
+			       mac_address => 'ww:ww:ww:ww:ww:ww',
+
+			      },
+
+		   );
+
+  EBox::NetWrappers::TestStub::setFakeIfaces(\%fakeIfaces);
+
+  my @ifaces;
+  @ifaces = EBox::NetWrappers::list_ifaces();
+  
+  if ((@ifaces != 1) or ($ifaces[0] ne $fakeIface)) {
+    die "setFakeIfaces failed";
+  } 
+
+  lives_ok {  EBox::NetWrappers::TestStub::unfake() } 'Unfaking EBox::NetWrappers';
+  
+  @ifaces = EBox::NetWrappers::list_ifaces();
+  if ((@ifaces != 1) or ($ifaces[0] ne $fakeIface)) {
+    ok 1, 'EBox::NetWrappers was unfaked correctly';
+  } 
+  else {
+    ok 0, 'EBox::NetWrappers was not unfaked';
+  }
+
+}
 1;
