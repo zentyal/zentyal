@@ -75,7 +75,10 @@ sub _process($) {
 	  @pkgs = grep(s/^pkg-//, @{$self->params()});
 	  (@pkgs == 0) and throw EBox::Exceptions::External(__('There were no packages to update'));
 	} else {
-	  @pkgs = @{$software->listUpgradablePkgs()};
+	  # Take the name from upgradable package list
+	  foreach my $pkg (@{$software->listUpgradablePkgs()}) {
+	    push (@pkgs, $pkg->{name} );
+	  }
 	}
 
 	if ($doit eq 'yes') {
