@@ -657,7 +657,7 @@ sub issueCertificate {
   }
 
   if (not defined($self->{caKeyPassword}) ) {
-    throw EBox::Exceptions::External(__('No CA passpharse to sign a new certificate'));
+    throw EBox::Exceptions::External(__('No CA passphrase to sign a new certificate'));
   }
 
   # Name the private key and the user requests by common name

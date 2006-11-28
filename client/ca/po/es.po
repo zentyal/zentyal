@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-06 16:01+0100\n"
-"PO-Revision-Date: 2006-11-06 15:16+0100\n"
+"POT-Creation-Date: 2006-11-28 16:44+0100\n"
+"PO-Revision-Date: 2006-11-28 16:48+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team:  <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -108,7 +108,6 @@ msgstr "Nombre de Organización"
 #: src/EBox/CGI/CreateCA.pm:63 src/EBox/CGI/IssueCertificate.pm:72
 #: src/templates/index.mas:39 src/templates/index.mas:51
 #: src/templates/createCA.mas:44
-#, fuzzy
 msgid "Re-type Passphrase"
 msgstr "Repetir contraseña"
 
@@ -154,28 +153,27 @@ msgstr ""
 "certificado"
 
 #: src/EBox/CA.pm:650 src/EBox/CA.pm:1074
-#, fuzzy
 msgid "Expiration date later than CA certificate expiration date"
 msgstr ""
 "La fecha de caducidad del certificado es mayor que la del certificado de la "
 "Autoridad de Certificación"
 
 #: src/EBox/CA.pm:660
-msgid "No CA passpharse to sign a new certificate"
+msgid "No CA passphrase to sign a new certificate"
 msgstr "NO hay contraseña CA para firmar un nuevo certificado"
 
 #: src/EBox/CA.pm:787
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Certificate with common name {commonName} does NOT exist"
 msgstr "Certificado con nombre común {commonName} NO existe"
 
 #: src/EBox/CA.pm:791
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
 "Options:"
 msgstr ""
-"La razón {reason} no es una opción aplicable.\n"
+"La razón {reason} NO es una opción aplicable.\n"
 "Opciones:"
 
 #: src/EBox/CA.pm:950
@@ -192,7 +190,6 @@ msgid "Certificate file"
 msgstr "Certificado"
 
 #: src/EBox/CA.pm:1088
-#, fuzzy
 msgid "Certification Authority Passpharse"
 msgstr "Contraseña de la Autoridad Certificadora"
 
@@ -331,3 +328,4 @@ msgstr "Crear Certificado de la Autoridad de Certificación"
 #: src/templates/createCA.mas:55 src/templates/createCA.mas:57
 msgid "Create"
 msgstr "Crear"
+

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox-CA 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-06 16:01+0100\n"
+"POT-Creation-Date: 2006-11-28 16:44+0100\n"
 "PO-Revision-Date: 2006-11-06 16:01+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -151,7 +151,7 @@ msgid "Expiration date later than CA certificate expiration date"
 msgstr ""
 
 #: src/EBox/CA.pm:660
-msgid "No CA passpharse to sign a new certificate"
+msgid "No CA passphrase to sign a new certificate"
 msgstr ""
 
 #: src/EBox/CA.pm:787
