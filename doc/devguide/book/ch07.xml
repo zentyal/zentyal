@@ -416,8 +416,7 @@
 					<varname>command</varname> variable and a call is made to the
 					<function>root</function> function that executes it. This
 					command must be run as root using <command>sudo</command>, that's
-					why we don't run it directly. We'll se how to add this command to
-					the <filename>/etc/sudoers</filename> file later.</para>
+					why we don't run it directly.</para>
 
 					<para>When the system time changes, some system services and eBox
 					modules need to be restarted. This is implemented in the

@@ -426,9 +426,7 @@
 					<varname>$command</varname> y realizamos una llamada al
 					método <methodname>root($command)</methodname> con el comando
 					formado. Este comando ha de ser llamado como root mediante sudo
-					y es por eso que no lo ejecutamos directamente. Mas adelante
-					veremos como podemos añadir este comando al fichero sudoers
-					mediante el método <methodname>rootCommands</methodname>.</para>
+					y es por eso que no lo ejecutamos directamente.</para>
 
 					<para>Tras un cambio de hora en el sistema es necesario
 					reiniciar ciertos servicios como módulos de eBox y logs del
