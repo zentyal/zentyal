@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dns-cache-es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-01-30 12:29+0100\n"
+"POT-Creation-Date: 2006-11-27 12:41+0100\n"
 "PO-Revision-Date: 2006-01-30 18:14+0100\n"
 "Last-Translator: Jorge Arcas <jorge@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
@@ -30,11 +30,10 @@ msgstr "estado del modulo"
 msgid "DNS cache"
 msgstr "Cache DNS"
 
-#: src/EBox/DNSCache.pm.in:171
+#: src/EBox/DNSCache.pm.in:156
 msgid "DNS Cache"
 msgstr "Cache DNS"
 
 #: src/templates/index.mas:11
 msgid "DNS Cache service status"
 msgstr "Estado del servicio DNS Caché"
-

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns-cache\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-07-18 20:21+0200\n"
+"POT-Creation-Date: 2006-11-27 12:41+0100\n"
 "PO-Revision-Date: 2006-10-18 19:03-0200\n"
 "Last-Translator: junior\n"
 "Language-Team:  <en@li.org>\n"
@@ -21,15 +21,17 @@ msgid "module status"
 msgstr "Status do Módulo"
 
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40
-#: src/EBox/DNSCache.pm.in:169
+#: src/EBox/DNSCache.pm.in:143
 msgid "DNS cache"
 msgstr "Cache de DNS"
 
-#: src/EBox/DNSCache.pm.in:204
+#: src/EBox/DNSCache.pm.in:156
 msgid "DNS Cache"
 msgstr "Cache de DNS"
 
 #: src/templates/index.mas:11
-msgid "Enable the DNS Cache"
-msgstr "Habilitar o Cache de DNS"
+msgid "DNS Cache service status"
+msgstr ""
 
+#~ msgid "Enable the DNS Cache"
+#~ msgstr "Habilitar o Cache de DNS"
