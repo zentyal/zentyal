@@ -1,3 +1,7 @@
+0.7.99
+	* fix bug to wait until the upgrading or installing process is done.
+	  Use Ajax to check if the upgrading taking place has finished
+	* restart apache when a package is installed
 0.7.1
 	* GUI improvements
 	* Use of ebox-sudoers-friendly
