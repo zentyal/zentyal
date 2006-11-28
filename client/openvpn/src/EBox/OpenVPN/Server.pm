@@ -391,7 +391,7 @@ sub removeAdvertisedNet
     throw EBox::Exceptions::External(__x("Net {net} is not advertised in this server", net => $net));
   }
 
-  $self->_unsetConf("advertised_nets/$net", $netmask);
+  $self->_unsetConf("advertised_nets/$net");
 }
 
 
