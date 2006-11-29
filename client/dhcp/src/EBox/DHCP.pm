@@ -1056,19 +1056,6 @@ sub statusSummary
 		EBox::Service::running(SERVICE), $self->service);	
 }
 
-#   Function: rootCommands
-#
-#	Overrides EBox::Module method.
-#   
-#
-sub rootCommands
-{
-	my $self = shift;
-	my @array = ();
-	push(@array,$self->rootCommandsForWriteConfFile(DHCPCONFFILE));
-
-	return @array;
-}
 
 
 
