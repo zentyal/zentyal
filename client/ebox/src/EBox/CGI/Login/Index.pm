@@ -91,14 +91,16 @@ sub _requestDestination
   my $method  = $r->method;
   my $protocol = $r->protocol;
 
-  my ($destination) = ($request =~ m/$method\s*(.*?)\s*$protocol/  );
+  my ($destination) = ($request =~ m/$method\s*(.*?)\s*$protocol/  ); 
 
   defined $destination or return $DEFAULT_DESTINATION;	       
   		       
-  if ($destination =~ m{^/*ebox/+Login/+Index$}) {
+  if ($destination =~ m{^/*ebox/+Login/+Index$}) { 
+    # /Login/Index is the standard location from login, his destination must be the default destination
     return $DEFAULT_DESTINATION;
   }		       
-  elsif (not $destination =~ m{^/*ebox}) {
+  elsif (not $destination =~ m{^/*ebox}) { 
+    # url wich does not follow the normal ebox pattern must use the default destination
     return $DEFAULT_DESTINATION;
   }
 
