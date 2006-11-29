@@ -11,6 +11,7 @@ $clientToClient   => 0
 $user
 $group
 $dh
+@advertisedNets => ()
 </%args>
 
 # EBox OpenVPN 2.0 config file for            #
@@ -131,6 +132,9 @@ verb 3
 # sequential messages of the same message
 # category will be output to the log.
 ;mute 20
+<& advertisedNets, nets => \@advertisedNets &>
+
+
 
 
 <%def valueEntry>
@@ -150,5 +154,15 @@ $value
 </%args>
 % if ($value) {
 <% $entry %>
+%}
+</%def>
+
+<%def advertisedNets>
+<%args>
+@nets
+</%args>
+% foreach my $net (@nets) {
+%   my ($net, $netmask) = @{ $net  };
+   push "route <% $net %> <% $netmask %>"
 %}
 </%def>

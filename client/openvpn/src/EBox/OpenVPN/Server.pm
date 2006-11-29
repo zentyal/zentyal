@@ -80,7 +80,7 @@ sub _confDirExists
     return $self->_openvpnModule->dir_exists($key);
 }
 
-sub _allEntriesBase
+sub _allConfEntriesBase
 {
     my ($self, $key) = @_;
     $key = $self->_confKey($key);
@@ -200,7 +200,7 @@ sub local
 
 # XXX certificates: 
 # - existence control
-# - file permision c9ntrol (specially server key)
+# - file permision control (specially server key)
 
 sub setCaCertificate
 {
@@ -335,6 +335,8 @@ sub writeConfFile
 	push @templateParams, ($param => $value);
     }
 
+    my @advertisedNets =  $self->advertisedNets();
+    push @templateParams, ( advertisedNets => \@advertisedNets);
 
     EBox::GConfModule->writeConfFile($confFilePath, $templatePath, \@templateParams, $defaults);
 }
