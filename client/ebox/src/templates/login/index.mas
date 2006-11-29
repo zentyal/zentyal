@@ -1,7 +1,8 @@
 <!-- vim: ts=4 sw=4 nowrap filetype=mason
 -->
 <%args>
-	$reason => ""
+  $reason => ""
+  $destination 
 </%args>
 <%init>
 use EBox::Gettext;
@@ -29,7 +30,7 @@ use EBox::Gettext;
 					id='credential_0'
 					size='14' /></dd>
 				<input  type='hidden' name='destination' 
-					value='/ebox/Summary/Index' />
+					value='<% $destination %>' />
 		<dd><input class='inputButton' type='submit' value="<% __('Enter') %>"/></dd>
 		</dl>
 	</form>

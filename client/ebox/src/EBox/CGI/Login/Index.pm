@@ -22,6 +22,9 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Gettext;
 use Apache;
 
+use Readonly;
+Readonly::Scalar my $DEFAULT_DESTINATION => '/ebox/Summary/Index';
+
 sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
@@ -50,6 +53,8 @@ sub _process
 		$envre = $r->prev->subprocess_env("LoginReason");
 		$authreason = $r->prev->subprocess_env('AuthCookieReason');
 	}
+
+	my $destination = _requestDestination($r);
 	
 	my $reason;
 	if ((defined $authreason) and ($authreason  eq 'bad_credentials')){
@@ -62,9 +67,42 @@ sub _process
 		$reason = __('You have been logged out because ' . 
 			     'a new session has been opened');
 	}
-	my @array = ();
-	push (@array, 'reason' => $reason);
-	$self->{params} = \@array;
+	
+
+	my @htmlParams = (
+			  'destination' => $destination,
+			  'reason'      => $reason,
+			 );
+
+	$self->{params} = \@htmlParams;
+}
+
+
+sub _requestDestination
+{
+  my ($r) = @_;
+
+  if ($r->prev) {
+    return _requestDestination($r->prev);
+  }
+
+
+  my $request = $r->the_request;
+  my $method  = $r->method;
+  my $protocol = $r->protocol;
+
+  my ($destination) = ($request =~ m/$method\s*(.*?)\s*$protocol/  );
+
+  defined $destination or return $DEFAULT_DESTINATION;	       
+  		       
+  if ($destination =~ m{^/*ebox/+Login/+Index$}) {
+    return $DEFAULT_DESTINATION;
+  }		       
+  elsif (not $destination =~ m{^/*ebox}) {
+    return $DEFAULT_DESTINATION;
+  }
+
+  return $destination;
 }
 
 sub _top
