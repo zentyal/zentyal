@@ -31,7 +31,7 @@ debianInstLANG=$(echo $LANG | cut -c1-5)
 # match such as en_US or es_AR).
 
 # Get eBox supported locales
-locales=`grep UTF-8 /var/tmp/locale.gen | cut -d\. -f 1`
+locales=$(grep UTF-8 /var/tmp/locale.gen | cut -d\. -f 1)
 
 if echo $locales | grep -q $debianInstLANG
     then
