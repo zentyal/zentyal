@@ -32,6 +32,9 @@ debianInstLANG=$(echo $LANG | cut -c1-5)
 (grep UTF-8 /var/tmp/locale.gen | cut -d\. -f 1 | grep -q $debianInstLANG) \
  && echo -n $debianInstLANG.UTF-8 > /var/lib/ebox/conf/locale
 
+# Change owner to ebox to let eBox change it
+chown ebox.ebox /var/lib/ebox/conf/locale
+
 # Remove undesirable stuff
 rm -f /var/tmp/locale.gen
 
