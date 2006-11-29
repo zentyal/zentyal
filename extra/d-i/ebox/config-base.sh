@@ -28,12 +28,17 @@ cat /var/tmp/locale.gen >> /etc/locale.gen
 debianInstLANG=$(echo $LANG | cut -c1-5)
 
 # Find locale supported by eBox (only ISO 639-1 acceptable and exact
-# match such as en_US or es_AR.
-(grep UTF-8 /var/tmp/locale.gen | cut -d\. -f 1 | grep -q $debianInstLANG) \
- && echo -n $debianInstLANG.UTF-8 > /var/lib/ebox/conf/locale
+# match such as en_US or es_AR).
 
-# Change owner to ebox to let eBox change it
-chown ebox.ebox /var/lib/ebox/conf/locale
+# Get eBox supported locales
+locales=`grep UTF-8 /var/tmp/locale.gen | cut -d\. -f 1`
+
+if echo $locales | grep -q $debianInstLANG
+    then
+    echo -n $debianInstLANG.UTF-8 > /var/lib/ebox/conf/locale
+    # Change owner to make accessible by eBox
+    chown ebox.ebox /var/lib/ebox/conf/locale
+fi    
 
 # Remove undesirable stuff
 rm -f /var/tmp/locale.gen
