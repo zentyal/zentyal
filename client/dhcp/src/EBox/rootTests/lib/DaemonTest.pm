@@ -11,7 +11,7 @@ use EBox::Global::TestStub;
 use EBox::GConfModule::TestStub;
 use EBox::Config::TestStub;
 use EBox::NetWrappers::TestStub;
-use EBox::Test ('fakeEBoxModule');
+use EBox::TestStubs ('fakeEBoxModule');
 
 use EBox::Service;
 

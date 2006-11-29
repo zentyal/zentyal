@@ -7,7 +7,9 @@ use warnings;
 use Test::More;
 use Test::Exception;
 use EBox::Global;
-use EBox::Test qw(checkModuleInstantiation fakeEBoxModule);
+use EBox::Test qw(checkModuleInstantiation);
+use EBox::TestStubs qw(fakeEBoxModule);
+
 use Test::MockObject::Extends;
 use Test::Differences;
 use lib '../..';
