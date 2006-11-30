@@ -1,0 +1,112 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use EBox;
+use EBox::Validate;
+use English qw(-no-match-variables);
+
+use constant GCONFTOOL_PATH => '/usr/bin/gconftool';
+
+checkRootUser();
+my ($name, $protocol, $port) = getCmdParams();
+
+notice();
+
+EBox::init();
+checkGconftool();
+addService($name, $protocol, $port);
+
+
+sub notice 
+{
+  print "Please note that this script only add the service to the firewall's services list\n";
+  print "If you want to allow or deny access to the service you must do it later through eBox's web interface\n";
+  print "Remember that, for now, the services in firewall's service list only may be accesed though internal network interfaces\n\n";
+}
+
+
+sub addService
+{
+  my ($name, $protocol, $port) = @_;
+
+  my $serviceDirectory = "/ebox/modules/firewall/services/$name";
+
+  my @gconftoolParams = (
+			 " --type string --set $serviceDirectory/name '$name'",
+			 " --type string --set $serviceDirectory/protocol '$protocol'",
+			 " --type integer  --set $serviceDirectory/port '$port'",	 
+			 " --type boolean --set $serviceDirectory/internal 'false'",
+			);
+
+  foreach my $params (@gconftoolParams) {
+    my $cmd = GCONFTOOL_PATH . $params;
+    print "Executing $cmd..\n";
+    system $cmd;
+    if ($? != 0) {
+      print STDERR "Error updating GConf. Trying to clean it..\n";
+      my $cmd = GCONFTOOL_PATH . " --recursive-unset $serviceDirectory";
+      system $cmd;
+      ($? == 0) or print STDERR "Clean up failed. Please do it manually\n";
+      
+      die "Service addition failed";
+    }
+  }
+
+  print "Service $name added to firewall's service list\n";
+}
+
+
+
+sub getCmdParams
+{
+  if (@ARGV != 3) {
+    print STDERR "Incorrect parameters number\n";
+    usage();
+  }
+  
+  my ($name, $protocol, $port) = @ARGV;
+  
+  if (not EBox::Validate::checkProtocol($protocol)) {
+    print STDERR "Incorrect protocol parameter: $protocol. It must be 'tcp' or 'udp'\n";
+    usage();
+  }
+
+  if (not EBox::Validate::checkPort($port)) {
+    print STDERR "Invalid port number: $port. The port number must be a number between 0 and 65535\n";
+    usage();
+  }
+
+
+  return ($name, $protocol, $port) ;
+}
+
+
+
+sub usage
+{
+  print "Usage:\n";
+  print "\tadd-service-to-firewall NAME PROTOCOL PORT\n";
+  print "Usage example:\n";
+  print "\tadd-service-tool http tcp 80\n";
+
+  exit 1;
+}
+
+
+sub checkRootUser
+{
+  if ($EUID != 0) {
+    die "This script must be executed by the root user";
+  }
+}
+
+
+sub checkGconftool
+{
+  if (not -x GCONFTOOL_PATH) {
+    die "Unable to find gconftool-2 application. The script looked in the path " . GCONFTOOL_PATH . "\n";
+  }
+}
+
+
+1;
