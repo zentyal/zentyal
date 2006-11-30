@@ -87,7 +87,7 @@ sub usage
   print "Usage:\n";
   print "\tadd-service-to-firewall NAME PROTOCOL PORT\n";
   print "Usage example:\n";
-  print "\tadd-service-tool http tcp 80\n";
+  print "\tadd-service-to-firewall http tcp 80\n";
 
   exit 1;
 }
