@@ -79,10 +79,6 @@ use EBox::Gettext;
 
 % if ($menu eq 'settings') {
 
-<div class="help">
-		<% __('A value of 0 for the maximum message size and maximum mail account size stands for no size limitation.') %>
-</div>
-
 <form action='MailConf' method='POST'>
 	<input type='hidden' name='menu' value='<% $menu %>'/>
 	<h3><% __('IP address of smarthost to send mail') %></h3>
@@ -93,6 +89,10 @@ use EBox::Gettext;
 		value="<% __('Change') %>"
 		alt="<% __('Change') %>">
 </form>
+
+<div class="help">
+		<% __('A value of 0 for the maximum message size and maximum mail account size stands for no size limitation.') %>
+</div>
 
 <form action='SetQuota' method='POST'>
 	<input type='hidden' name='menu' value='<% $menu %>'/>
