@@ -57,10 +57,13 @@ use EBox::Gettext;
 	<thead>
 		<tr>
 			<th width=85%" class="tleft">
-				<% $printableName | h %>
+			  <% $printableName | h %>
 			</th>
 			<th class="thOptionsFwd">
-				<% __('Deny') | h %>
+			  <% __('Deny') | h %>
+			</th>
+			<th class"thOptions">
+			  <% __('Actions') | h %>
 			</th>
 		</tr>
 	</thead>
@@ -78,8 +81,28 @@ use EBox::Gettext;
 			<td class='tcenter'>
 				<input type='checkbox' value='on'
 					onclick='checkAll("formFilter", "allbox"); switchAll("formFilter", "allbox");'
-					name='allbox'/>
+					name='allbox'
+%				if (scalar(%elements) == 0) {
+					disabled='disabled'
+%				}
+
+				/>
 			</td>
+			<td class="tcenter">
+%                    if (scalar(%elements) > 0) {
+			  <input type='image' 
+			         name='<% "delete-all" | h %>'
+			         value='<% "delete-all" | h %>'
+			         title='<% __("Delete them all") | h %>'
+				 alt='<% __("Delete them all") | h %>'
+				 onclick='return confirm("<% $name eq "extension" ?
+                                        __("Are you sure you want to delete all file extensions?") :
+				        __("Are you sure you want to delete all MIME types?")| h
+				      %>");'
+			  />
+%                    }
+			</td>
+
 		</tr>
 %       my $allTrue = 1;
 %       foreach my $element (sort keys %elements) {
@@ -98,14 +121,29 @@ use EBox::Gettext;
                                         $allTrue = undef;
                                 }
 </%perl>
-			<input type='hidden' name='<% "bool-" . $element %>' value='<% $val %>'/>
-			<input type='checkbox'
-onclick="updateCheckbox(this,'bool-<% $element %>')" <% $checked | h %> />
+	                  <input type='hidden' 
+			         name='<% "bool-" . $element | h %>' 
+			         value='<% $val %>'/>
+			  <input type='checkbox'
+			         onclick="updateCheckbox(this,'bool-<%
+				 $element | h %>')"
+			    <% $checked | h %> 
+			  />
+			</td>
+			<td class="tcenter">
+			  <input type='image' 
+			         name='<% "delete-" . $element | h %>'
+			         src='/data/images/delete.gif'
+			         value='<% "delete-" . $element | h %>'
+			         title='<% __("Delete") | h %>'
+			       alt='<% __("Delete") | h %>'
+			  />
 			</td>
 		</tr>
 %	}
 %       if ($allTrue) {
-                <script>
+%          # If all checkboxes are true at the beginning set the all checkbox
+                <script type="text/javascript">
                   document.getElementById("formFilter").elements["allbox"].checked=true;
                   checkAll("formFilter", "allbox");
                 </script>
@@ -151,7 +189,6 @@ function switchAll(id, allElementName) {
       } 
     }
     
-
   }
 
 }

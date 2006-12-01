@@ -33,7 +33,7 @@ sub new {
 	return $self;
 }
 
-sub _process($) 
+sub _process($)
 {
 	my $self = shift;
 
@@ -48,31 +48,39 @@ sub _process($)
 	my @ban;
 
 	for my $attr (@attrs) {
-		if ($self->param("bool-$attr")) {
-			push @ban, $attr;
-		} else {
-			push @allow, $attr;
-		}
+	  # If the deletion is done, don't push in any list
+	  if (not $self->param("delete-$attr")) {
+	    if ($self->param("bool-$attr")) {
+	      push @ban, $attr;
+	    } else {
+	      push @allow, $attr;
+	    }
+	  } else {
+	    $self->setMsg(__x("{attr} has been deleted successfully",
+			     attr => $attr));
+	  }
 	}
 
-	EBox::debug('Banned: ' . "@ban");
-	EBox::debug('Allowed: ' . "@allow");
-	EBox::debug('attrName: ' . $attrName);
+	if ( $self->param("delete-all") eq "delete-all") {
+	  @ban = ();
+	  @allow = ();
+	  if ( $attrName eq "extension" ) {
+	    $self->setMsg(__("All file extensions have been deleted"));
+	  } else {
+	    $self->setMsg(__("All MIME types have been deleted"));
+	  }
+	}
 
 	if($attrName eq "extension") {
-	  $self->{redirect} = "Squid/ExtensionsUI";
-	  EBox::debug("la");
+	  $self->{chain} = "Squid/ExtensionsUI";
 	  $squid->setAllowedExtensions(@allow);
-	  EBox::debug("la");
 	  $squid->setBannedExtensions(@ban);
-	  EBox::debug("la");
 	} elsif ($attrName eq "mimeType") {
-	  $self->{redirect} = "Squid/MimeTypesUI";
+	  $self->{chain} = "Squid/MimeTypesUI";
 	  $squid->setAllowedMimeTypes(@allow);
 	  $squid->setBannedMimeTypes(@ban);
 	}
 
-	EBox::debug($self->{redirect});
 }
 
 1;

@@ -33,7 +33,7 @@ sub new {
 	return $self;
 }
 
-sub _process($) 
+sub _process($)
 {
 	my $self = shift;
 	my $squid = EBox::Global->modInstance('squid');
@@ -95,9 +95,11 @@ sub _process($)
 	      push( @{$allowExt}, $name );
 	      $squid->setAllowedExtensions(@{$allowExt});
 	    }
-	    $self->setMsg(__("File extension added correctly"));
+	    $self->setMsg(__x("File extension {name} added correctly",
+			     name => $name));
 	  } else {
-	    $self->setError(__("File extension is already in the list"));
+	    $self->setError(__x("File extension {name} is already in the list",
+			       name => $name));
 	  }
 	} elsif ( $attrName eq "mimeType" ) {
 	  my $banMT = $squid->bannedMimeTypes();
@@ -113,9 +115,11 @@ sub _process($)
 	      push( @{$allMT}, $name );
 	      $squid->setAllowedMimeTypes(@{$allMT});
 	    }
-	    $self->setMsg(__("MIME type added correctly"));
+	    $self->setMsg(__("MIME type {name} added correctly",
+			    name => $name));
 	  } else {
-	    $self->setError(__("MIME type is already in the list"));
+	    $self->setError(__("MIME type {name} is already in the list",
+			      name => $name));
 	  }
 	}
       }

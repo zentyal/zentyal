@@ -940,9 +940,6 @@ sub _setList # ($listName, $newList)
 	my @list= sort @{$self->get_list($listName)};
 	my @newTempList = sort @{$newList};
 
-	EBox::debug("list: @list");
-	EBox::debug("newTempList: @newTempList");
-
 	my $changed = undef;
 
 	if ($#list == $#newTempList) {
@@ -988,7 +985,6 @@ sub setAllowedExtensions
 	my ($self, @newallow) = @_;
 
 	$self->_setList('allowed_extensions', \@newallow);
-#	$self->set_list('allowed_extensions', 'string', \@newallow);
 
 }
 
@@ -1018,7 +1014,6 @@ sub setBannedExtensions
 	my ($self, @newban) = @_;
 
 	$self->_setList('banned_extensions', \@newban);
-	#$self->set_list('banned_extensions', 'string', \@newban);
 
 }
 
@@ -1037,11 +1032,11 @@ sub hashedExtensions
 	my ($self) = @_;
 
 	my %extents;
-	#map { $extents{$_} = 1 } @{$self->allowedExtensions};
+
 	foreach my $extension (@{$self->allowedExtensions()}) {
 	  $extents{$extension} = 1;
 	}
-	#map { $extents{$_} = undef } @{$self->bannedExtensions};
+
 	foreach my $extension (@{$self->bannedExtensions()}) {
 	  $extents{$extension} = undef;
 	}
