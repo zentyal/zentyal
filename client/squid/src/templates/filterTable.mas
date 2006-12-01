@@ -93,6 +93,7 @@ use EBox::Gettext;
 			  <input type='image' 
 			         name='<% "delete-all" | h %>'
 			         value='<% "delete-all" | h %>'
+				 src='/data/images/delete.gif'
 			         title='<% __("Delete them all") | h %>'
 				 alt='<% __("Delete them all") | h %>'
 				 onclick='return confirm("<% $name eq "extension" ?
