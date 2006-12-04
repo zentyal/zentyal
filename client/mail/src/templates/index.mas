@@ -171,9 +171,9 @@ use EBox::Gettext;
 
 <h3><% __('Relay policy for objects') %></h3>
 <div class="help">
-	<% __('You should move to allowed column those objects that do you want to allow send mail through this module.') %>
+	<% __('You should move to allowed column those objects you want to allow sending mail through this module.') %>
 	<br/><br/>
-	<% __('Choose the object whose state you want to change and click in the arrow to move it to the desired column.') %>
+	<% __('Choose the object whose state you want to change and click on the arrow to move it to the desired column.') %>
 </div>
 
 <form action='SetAllowed' method='POST'>
