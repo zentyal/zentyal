@@ -2,7 +2,7 @@
 use EBox::Gettext;
 </%init>
 
-<h3><% __('OpenvPN server creation') %> </h3>
+<h3><% __('OpenVPN server creation') %> </h3>
 <form action=Create' method='POST'>
 <& /openvpn/serverProperties.mas, nameEditable => 1, submitName => 'create', submitValue => __('Create') &>
 </form>
