@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-28 16:44+0100\n"
+"POT-Creation-Date: 2006-12-04 12:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,7 +28,7 @@ msgstr ""
 #: src/EBox/CGI/IssueCertificate.pm:66 src/EBox/CA.pm:614 src/EBox/CA.pm:770
 #: src/EBox/CA.pm:939 src/EBox/CA.pm:981 src/EBox/CA.pm:1078
 #: src/templates/formRenew.mas:33 src/templates/index.mas:19
-#: src/templates/index.mas:95 src/templates/formRevoke.mas:22
+#: src/templates/index.mas:92 src/templates/formRevoke.mas:22
 msgid "Common Name"
 msgstr ""
 
@@ -76,12 +76,8 @@ msgstr ""
 msgid "The new CA certificate has been renewed"
 msgstr ""
 
-#: src/EBox/CGI/DownloadKeys.pm:102
+#: src/EBox/CGI/DownloadKeys.pm:103
 msgid "Error creating file"
-msgstr ""
-
-#: src/EBox/CGI/DownloadKeys.pm:149
-msgid "The private key has been removed from eBox"
 msgstr ""
 
 #: src/EBox/CGI/RevokeCertificate.pm:60 src/templates/formRevoke.mas:56
@@ -232,8 +228,8 @@ msgstr ""
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr ""
 
-#: src/templates/formRenew.mas:19 src/templates/index.mas:180
-#: src/templates/index.mas:199
+#: src/templates/formRenew.mas:19 src/templates/index.mas:177
+#: src/templates/index.mas:196
 msgid "Renew"
 msgstr ""
 
@@ -265,37 +261,43 @@ msgstr ""
 msgid "Current Certificate List"
 msgstr ""
 
-#: src/templates/index.mas:97
+#: src/templates/index.mas:87
+msgid ""
+"Date refers to Expiration Date in Valid/Expired and to Revokation Date in "
+"Revoked certificates respectively"
+msgstr ""
+
+#: src/templates/index.mas:94
 msgid "State"
 msgstr ""
 
-#: src/templates/index.mas:99
+#: src/templates/index.mas:96
 msgid "Date"
 msgstr ""
 
-#: src/templates/index.mas:101
+#: src/templates/index.mas:98
 msgid "Actions"
 msgstr ""
 
-#: src/templates/index.mas:115
+#: src/templates/index.mas:112
 msgid "Valid"
 msgstr ""
 
-#: src/templates/index.mas:118
+#: src/templates/index.mas:115
 msgid "Expired"
 msgstr ""
 
-#: src/templates/index.mas:121
+#: src/templates/index.mas:118
 msgid "Revoked"
 msgstr ""
 
-#: src/templates/index.mas:151 src/templates/index.mas:156
-#: src/templates/index.mas:193 src/templates/formRevoke.mas:61
+#: src/templates/index.mas:148 src/templates/index.mas:153
+#: src/templates/index.mas:190 src/templates/formRevoke.mas:61
 msgid "Revoke"
 msgstr ""
 
-#: src/templates/index.mas:165 src/templates/index.mas:170
-#: src/templates/index.mas:196
+#: src/templates/index.mas:162 src/templates/index.mas:167
+#: src/templates/index.mas:193
 msgid "Download Key(s)"
 msgstr ""
 
