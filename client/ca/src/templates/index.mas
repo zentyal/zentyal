@@ -71,11 +71,7 @@ if ($caNeeded) {
 <!-- List current certificates in a table -->
 <h3><% __("Current Certificate List") |h %></h3>
 <div class="help">
-  <% __("Downloading a key pair from an user certificate provokes the
-  private key erasure from eBox") | h %>.
-  <br/>
-  <% __("Date refers to Expiration Date in Valid/Expired
-  and to Revokation Date in Revoked certificates respectively") | h %>.
+  <% __("Date refers to Expiration Date in Valid/Expired and to Revokation Date in Revoked certificates respectively") | h %>.
 </div>  
 <table class="dataTable">
   <thead>

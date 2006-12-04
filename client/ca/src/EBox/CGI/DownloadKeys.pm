@@ -89,6 +89,7 @@ sub _process
       if ( defined($keys->{privateKey}) );
 
     if ($zipfile) {
+      unlink($zipfile);
       my $linkPrivate = EBox::Config->tmp() . "private-". $self->{cn} . ".pem";
       my $linkPublic = EBox::Config->tmp() . "public-" . $self->{cn} . ".pem";
       link($keys->{privateKey}, $linkPrivate);
@@ -132,22 +133,6 @@ sub _print
 
     close($keyFile);
 
-    $self->_removePrivKey();
-
-  }
-
-# Delete the private key from user after sending it
-sub _removePrivKey
-  {
-
-    my ($self) = @_;
-
-    # Remove the private key after download the private key
-    my $retVal = $self->{ca}->removePrivateKey($self->{cn});
-    # Tell the user the remove has been done
-    if ($retVal) {
-      $self->setMsg(__('The private key has been removed from eBox'));
-    }
 
   }
 
