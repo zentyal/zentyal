@@ -1,0 +1,17 @@
+Source: ebox-openvpn
+Section: web
+Priority: optional
+Maintainer: Javier Amor Garcia <javier.amor.garcia@warp.es>
+Build-Depends: debhelper (>= 5), autotools-dev
+Standards-Version: 3.7.2
+
+Package: ebox-openvpn
+Architecture: any
+Depends:  openvpn, ebox-firewall, ebox-ca, ebox-dhcp
+Description: OpenVPN server
+ eBox is a framework for the development and deployment of security-wise
+ network services in small and medium-sized networks, offering a simplified
+ graphical interface to non expert users. It can be set up as a gateway,
+ having some extra features over a usual router.
+ .
+ This module adds a OpenVPN server to eBox.
