@@ -66,9 +66,8 @@ use constant SERIALNOFILE => CATOPDIR . "serial";
 use constant CAPRIVKEY   => PRIVDIR . "cakey.pem";
 use constant CAPUBKEY    => KEYSDIR . "capubkey.pem";
 
-# Directory and file modes
+# Directory mode to allow only owner
 use constant DIRMODE     => 00700;
-use constant FILEMODE    => 00600;
 
 # Use Certification Version 3
 use constant EXTENSIONS_V3 => "1";
@@ -174,16 +173,37 @@ sub domain
 #       Check whether the Certification Infrastructure has been
 #       created or not
 #
+# Parameters:
+#
+#       name - Name used when throwing an exception (Optional)
+#
 # Returns:
 #
 #       boolean - True, if the Certification Infrastructure has been
 #       created. Undef, otherwise.
+#
+# Exceptions:
+#
+#	If name is passed an exception could be raised
+#
+#	Internal - if CA infrastructure has NOT been created
+#
 
 sub isCreated
   {
+    my ($self, $name) = @_;
 
-    return ((-d CATOPDIR) and (-f CACERT) and (-f CAPRIVKEY)
-	    and (-f CAPUBKEY));
+    my $retValue = (-d CATOPDIR) and (-f CACERT) and (-f CAPRIVKEY)
+      and (-f CAPUBKEY);
+
+    if (not $retValue) {
+      if ($name) {
+	throw EBox::Exceptions::Internal($name);
+      }
+    }
+
+    return $retValue;
+
   }
 
 # Method: createCA
@@ -852,14 +872,15 @@ sub revokeCertificate {
 #       A reference to an array containing hashes which the following
 #       elements
 #
-#       - dn - an <EBox::CA::DN> object
-#       - state - 'V' from Valid, 'R' from Revoked or 'E' from Expired
+#       - dn         - an <EBox::CA::DN> object
+#       - state      - 'V' from Valid, 'R' from Revoked or 'E' from Expired
 #       - expiryDate - the expiry date in a <Calc::Date::Object> if state valid
 #
 #       - revokeDate - the revocation date in a Date hash if state is
 #                    revoked
 #       - reason     - reason to revoke if state is revoked
 #       - isCACert   - boolean indicating that it is the valid CA certificate
+#       - path       - certificate path
 #
 sub listCertificates
   {
@@ -876,9 +897,11 @@ sub listCertificates
       my @line = split(/\t/);
       my %element;
 
+      # Get current state
       $element{'state'} = $line[STATE_IDX];
       $element{'dn'} = EBox::CA::DN->parseDN($line[SUBJECT_IDX]);
 
+      # Set paramaters regarding to certificate validity
       if ($element{'state'} eq 'V') {
 	$element{'expiryDate'} = $self->_parseDate($line[EXPIRE_DATE_IDX]);
 	$element{'isCACert'} = $self->_isCACert($element{'dn'});
@@ -887,6 +910,13 @@ sub listCertificates
 	my ($revDate, $reason) = split(',', $field);
 	$element{'revokeDate'} = $self->_parseDate($revDate);
 	$element{'reason'} = $reason;
+      }
+
+      # Setting certificate path
+      if ($element{'isCACert'}) {
+	$element{'path'} = CACERT;
+      } else {
+	$element{'path'} = CERTSDIR . $line[SERIAL_IDX] . ".pem";
       }
 
       if( defined($cnToSearch) ) {
@@ -1333,6 +1363,95 @@ sub revokeReasons
     return $self->{reasons};
 
   }
+
+# Method: getCACertificate
+#
+#       Return the current metadata related to the valid Certification
+#       Authority.
+#
+#
+# Returns:
+#
+#    - A reference to a hash which the following elements
+#
+#       - dn         - an <EBox::CA::DN> object
+#       - expiryDate - the expiry date in a <Calc::Date::Object> if state valid
+#       - path       - certificate path
+#
+#    - Undef if the CA is expired or inexistent -> Check state
+#      calling to <EBox::CA::currentCACertificateState>
+#
+sub getCACertificate
+  {
+
+    my ($self) = @_;
+
+    my $certsRef = $self->listCertificates();
+
+    # Find the CA certificate in the list
+    my ($CACert) = grep { $_->{'isCACert'} } @{$certsRef} ;
+
+    return $CACert;
+
+  }
+
+# Method: getCertificates
+#
+#       Return all certificates minus the valid CA one
+#
+# Parameters:
+#
+#      - state - R, V or E in order to show only revoked, valid or
+#      expired certificates. All are included by default.
+#
+# Returns:
+#
+#    - A reference to an array containing hashes which the
+#    following elements
+#
+#       - dn         - an <EBox::CA::DN> object
+#       - state      - 'V' from Valid, 'R' from Revoked or 'E' from Expired
+#       - expiryDate - the expiry date in a <Calc::Date::Object> if state valid
+#
+#       - revokeDate - the revocation date in a Date hash if state is
+#                    revoked
+#       - reason     - reason to revoke if state is revoked
+#       - path       - certificate path
+#
+# Exceptions:
+#
+#       Internal - if state is not one of the desired
+sub getCertificates
+  {
+
+    my ($self, $state) = @_;
+
+    # Check parameter state is correct (R, V or E)
+    if (defined($state) and $state !~ m/[RVE]/ ) {
+      throw EBox::Exceptions::Internal("State should be R, V or E");
+    }
+
+    my $certsRef = $self->listCertificates();
+
+    # Gets the other certificates
+    my @states = ('R', 'V', 'E');
+    my @certs;
+    if ( defined($state) ) {
+       @certs = grep { not $_->{'isCACert'} and 
+			 $_->{'state'} eq $state
+		     }
+	        @{$certsRef} ;
+     } else {
+       @certs = grep { not $_->{'isCACert'} and
+			 $_->{'state'} eq any(@states) 
+		       }
+	        @{$certsRef} ;
+     }
+
+    return \@certs;
+
+  }
+
 
 # _regenConfig is not longer needed 'cause this module doesn't manage a daemon
 

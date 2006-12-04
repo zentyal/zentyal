@@ -17,9 +17,10 @@
 
 # A module to test CA module
 
-use Test::More tests => 28;
+use Test::More tests => 34;
 use Test::Exception;
 use Date::Calc::Object qw (:all);
+use Data::Dumper;
 
 diag ( 'Starting EBox::CA test' );
 
@@ -38,11 +39,16 @@ is ( $ca->domain(), 'ebox-ca', 'is a gettext domain');
 
 ok ( ! $ca->isCreated(), 'not created' );
 
+throws_ok { $ca->isCreated("foo") } "EBox::Exceptions::Internal",
+  "Checking CA infrastructure is NOT created (raising an exception)";
+
 throws_ok { $ca->createCA() } "EBox::Exceptions::DataMissing", "data missing error";
 
 is ( $ca->createCA(orgName => "Warp",
 		   caKeyPassword => "mama",
 		   commonName => "lalala"), 1, 'creating CA' );
+
+ok ( $ca->getCACertificate(), "getting current valid CA" );
 
 throws_ok { $ca->revokeCACertificate(reason => 'affiliationChanged',
 				     caKeyPassword => 'papa') }
@@ -98,11 +104,11 @@ ok ( ! defined($ca->revokeCertificate(commonName => 'dos',
 
 my $listCerts = $ca->listCertificates(cn => 'uno 1');
 
-cmp_ok ( $#{$listCerts}, '==', 0, 'one certificate with cn="uno 1"');
+cmp_ok ( scalar(@{$listCerts}), '==', 1, 'one certificate with cn="uno 1"');
 
 $listCerts = $ca->listCertificates();
 
-cmp_ok ( $#{$listCerts} + 1, '==', 5, 'listing certificates (revoked + valid)' );
+cmp_ok ( scalar(@{$listCerts}), '==', 5, 'listing certificates (revoked + valid)' );
 
 throws_ok { $ca->renewCertificate(commonName    => 'uno 1',
 			   countryName   => 'Canary Islands',
@@ -111,6 +117,18 @@ throws_ok { $ca->renewCertificate(commonName    => 'uno 1',
 			   caKeyPassword => 'papa')}
 	      "EBox::Exceptions::External",
      'Renewing a certificate';
+
+$listCerts = $ca->getCertificates();
+
+cmp_ok ( scalar(@{$listCerts}), '==', 4, 'getting all certificates apart from CA' );
+
+# Get only the valid ones
+$listCerts = $ca->getCertificates('V');
+
+cmp_ok ( scalar(@{$listCerts}), '==', 1, 'getting valid certificates' );
+
+throws_ok { $ca->getCertificates('A') } "EBox::Exceptions::Internal",
+  "getting certificates from an unknown state";
 
 throws_ok { $ca->getKeys('tres') } "EBox::Exceptions::External",
   'getting unexistent key pair';
@@ -133,7 +151,14 @@ ok ( ! defined($ca->revokeCACertificate(reason => 'CACompromise',
 
 is ( $ca->currentCACertificateState(), 'R', 'checking final CA certificate state');
 
+cmp_ok ( $ca->getCACertificate(), '==', 0, "not getting a valid CA" );
+
 cmp_ok( scalar(@{$ca->revokeReasons()}), '==', 7, 'revoking reasons count');
 
 lives_ok { $ca->updateDB() } 'updating database';
 
+
+my $list_ref = $ca->listCertificates();
+
+diag( "Printing Certificate List" );
+diag( Dumper($list_ref) );
