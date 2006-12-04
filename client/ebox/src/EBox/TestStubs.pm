@@ -191,4 +191,78 @@ sub fakeEBoxModule
 
 
 
+#
+# Function: setFakeIfaces
+#
+#    set fake computer network interfaces. This ifaces will used by EBox::NetWrappers functions
+#
+# Parameters:
+#     a list with pairs of interfaces names and attributes. The name is a string and the attributes is a hash ref with the following elements:
+#           up - boolean value
+#           address - hash reference  to a hash with IP address as keys and netmasks as values
+#           mac_address - string with the mac address
+#
+# Prerequisites:
+#      activateEBoxTestStubs must be called to be able to use this function
+# Usage examples:
+#   my @fakeIfaces = (
+# 		    'eth0' => {
+# 			        up => 1,
+# 			        address => {
+# 					    '192.168.3.4' => '255.255.255.0',
+# 					    },
+# 			       mac_address => '00:EE:11:CC:CE:8D',
+#
+# 			      },
+# 		    'eth1' => {
+# 			        up => 1,
+# 			        address => {
+# 					    '192.168.45.4' => '255.255.255.0',
+# 					    '10.0.0.7'     => '255.0.0.0',
+# 					    },
+# 			       mac_address => '00:11:11:CC:CE:8D',
+#
+# 			      },
+# 		    'eth2' => {
+# 			        up => 0,
+# 			        address => {
+# 					    '142.120.45.4' => '255.255.255.0',
+# 					    '44.0.0.7'     => '255.0.0.0',
+# 					    },
+# 			       mac_address => '00:11:11:CC:AA:8D',
+# 			      },
+#
+# 		   );
+#
+#   EBox::TestStubs::setFakeIfaces(@fakeIfaces);
+sub setFakeIfaces
+{
+  EBox::NetWrappers::TestStub::setFakeIfaces(@_);
+}
+
+
+#
+# Function: setFakeRoutes
+#
+#    set fake computer network routes. This fake routes will used by EBox::NetWrappers functions
+#
+# Parameters:
+#     a list with pairs of  network destination and gateways
+#
+# Prerequisites:
+#      activateEBoxTestStubs must be called to be able to use this function
+# Usage example:
+#  my @routes = (
+#		'192.168.45.0' => '0.0.0.0',
+#		'0.0.0.0'      => '10.0.1.100',
+#		'10.0.0.0'     => '192.168.45.123',
+#	       );
+#
+#  EBox::TestStubs::setFakeRoutes(@routes);
+sub setFakeRoutes
+{
+  EBox::NetWrappers::TestStub::setFakeRoutes(@_);
+}
+
+
 1;
