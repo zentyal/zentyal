@@ -245,8 +245,8 @@ sub addUser # (user, system)
 
 	if (length($user->{'user'}) > MAXUSERLENGTH) {
 		throw EBox::Exceptions::External(
-			__("Username must not be longer than " . MAXUSERLENGTH .
-			   "characters"));
+			__x("Username must not be longer than {maxuserlength} characters",
+			   maxuserlength => MAXUSERLENGTH));
 	}
 	unless (_checkName($user->{'user'})) {
 		throw EBox::Exceptions::InvalidData(
@@ -630,8 +630,8 @@ sub addGroup # (group, comment, system)
 
 	if (length($group) > MAXGROUPLENGTH) {
 		throw EBox::Exceptions::External(
-			__("Groupname must not be longer than ".MAXGROUPLENGTH .
-			   "characters"));
+			__x("Groupname must not be longer than {maxGroupLength} characters",
+			   maxGroupLength => MAXGROUPLENGTH));
 	}
 	
 	if (($group eq DEFAULTGROUP) and (not $system)) {
@@ -1169,8 +1169,8 @@ sub _checkPwdLength($$)
 	
 	if (length($pwd) > MAXPWDLENGTH) {
 		throw EBox::Exceptions::External(
-			__("Password must not be longer than " . MAXPWDLENGTH .
-			   "characters"));
+			__x("Password must not be longer than {maxPwdLength} characters",
+			   maxPwdLength => MAXPWDLENGTH));
 	}
 }
 
