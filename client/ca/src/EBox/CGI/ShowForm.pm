@@ -73,16 +73,16 @@ sub _process
       throw EBox::Exceptions::External(__('Only revoke and renew actions are performed'));
     }
 
-    my $arrayRef = $ca->listCertificates(cn => $cn);
+    my $cert = $ca->getCertificate(cn => $cn);
 
-    if ($#{$arrayRef} + 1 == 0 ) {
+    if (not defined($cert) ) {
       # If the common name does NOT exist sent to Index.pm
       $self->{errorchain} = "CA/Index";
       throw EBox::Exceptions::External(__x("Common name: {cn} does NOT exist in database"
 					   , cn => $cn));
     }
 
-    push (@array, metaDataCert => $arrayRef->[0]);
+    push (@array, metaDataCert => $cert);
     push (@array, reasons => $ca->revokeReasons());
 
     $self->{params} = \@array;

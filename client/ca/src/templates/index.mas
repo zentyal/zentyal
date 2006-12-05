@@ -85,7 +85,7 @@ if ($caNeeded) {
 %   # It is needed to check if it is the CA certificate
     <tr class="tcenter">
       <td>
-        <% $cert->{'dn'}->dnAttribute('commonName') |h %>
+        <% $cert->{'dn'}->attribute('commonName') |h %>
       </td>
     <!-- Print the state string -->
 <%perl>
@@ -120,7 +120,7 @@ if ($caNeeded) {
       <td class="tcenter">
 %	if ( $cert->{"state"} eq "V" ) {
         <a
-	href="ShowForm?action=revoke&cn=<%$cert->{'dn'}->dnAttribute('commonName')
+	href="ShowForm?action=revoke&cn=<%$cert->{'dn'}->attribute('commonName')
 | u%>"
 	>
 	  <img src="/data/images/deny-active.gif"
@@ -133,7 +133,7 @@ if ($caNeeded) {
         <img src="/data/images/sep.gif" alt="-" />
 %	if ( $cert->{"state"} eq "V" ) {
         <a
-	href="DownloadKeys?cn=<%$cert->{'dn'}->dnAttribute('commonName') | u%>"
+	href="DownloadKeys?cn=<%$cert->{'dn'}->attribute('commonName') | u%>"
 	>
 	  <img src="/data/images/install.gif"
 	       alt="<% __('Download Key(s)') |h%>" />
@@ -145,7 +145,7 @@ if ($caNeeded) {
         <img src="/data/images/sep.gif" alt="-" />
 %	if ( $cert->{"state"} eq "V" ) {
         <a
-	href="ShowForm?action=renew&cn=<%$cert->{'dn'}->dnAttribute('commonName')
+	href="ShowForm?action=renew&cn=<%$cert->{'dn'}->attribute('commonName')
 	| u%>"
 	>
 	  <img src="/data/images/requeue.gif"

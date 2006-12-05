@@ -19,7 +19,7 @@ use EBox::Gettext;
 <div>
   <span class="ftitle"><% __("Common Name") | h%>: </span> 
   <span class="ftitle">
-    <%$metaDataCert->{dn}->dnAttribute('commonName') | h %>
+    <%$metaDataCert->{dn}->attribute('commonName') | h %>
   </span>
   <span class="ftitle"><% __("Expiration Date") | h %>: </span>
   <span class="ftitle">
@@ -41,7 +41,7 @@ use EBox::Gettext;
   }
   my @revokeTable = (
 		     { name  => 'commonName', input => 'hidden',
-		       value =>  $metaDataCert->{dn}->dnAttribute('commonName') },
+		       value =>  $metaDataCert->{dn}->attribute('commonName') },
 		     { name  => 'isCACert',   input => 'hidden',
 		       value =>  $metaDataCert->{isCACert} },
 		     { name  => 'CAPassphrase',   printableName =>

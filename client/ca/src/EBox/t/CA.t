@@ -17,7 +17,7 @@
 
 # A module to test CA module
 
-use Test::More tests => 34;
+use Test::More tests => 33;
 use Test::Exception;
 use Date::Calc::Object qw (:all);
 use Data::Dumper;
@@ -35,12 +35,9 @@ my $ca = EBox::CA->new();
 
 isa_ok ( $ca , "EBox::CA");
 
-is ( $ca->domain(), 'ebox-ca', 'is a gettext domain');
+is ( $ca->domain(), 'ebox-ca', 'is in gettext domain');
 
 ok ( ! $ca->isCreated(), 'not created' );
-
-throws_ok { $ca->isCreated("foo") } "EBox::Exceptions::Internal",
-  "Checking CA infrastructure is NOT created (raising an exception)";
 
 throws_ok { $ca->createCA() } "EBox::Exceptions::DataMissing", "data missing error";
 
@@ -102,9 +99,11 @@ ok ( ! defined($ca->revokeCertificate(commonName => 'dos',
 				      caKeyPassword => 'papa')),
      , "revoking 2nd certificate");
 
-my $listCerts = $ca->listCertificates(cn => 'uno 1');
+my $listCerts;
 
-cmp_ok ( scalar(@{$listCerts}), '==', 1, 'one certificate with cn="uno 1"');
+my $cert = $ca->getCertificate(cn => 'uno 1');
+
+cmp_ok ( $cert->{dn}->attribute('commonName'), "eq", "uno 1" , 'certificate with cn="uno 1"');
 
 $listCerts = $ca->listCertificates();
 
@@ -118,16 +117,16 @@ throws_ok { $ca->renewCertificate(commonName    => 'uno 1',
 	      "EBox::Exceptions::External",
      'Renewing a certificate';
 
-$listCerts = $ca->getCertificates();
+$listCerts = $ca->listCertificates(excludeCA => 1);
 
 cmp_ok ( scalar(@{$listCerts}), '==', 4, 'getting all certificates apart from CA' );
 
 # Get only the valid ones
-$listCerts = $ca->getCertificates('V');
+$listCerts = $ca->listCertificates(state => 'V', excludeCA => 1);
 
 cmp_ok ( scalar(@{$listCerts}), '==', 1, 'getting valid certificates' );
 
-throws_ok { $ca->getCertificates('A') } "EBox::Exceptions::Internal",
+throws_ok { $ca->listCertificates(state => 'A') } "EBox::Exceptions::Internal",
   "getting certificates from an unknown state";
 
 throws_ok { $ca->getKeys('tres') } "EBox::Exceptions::External",

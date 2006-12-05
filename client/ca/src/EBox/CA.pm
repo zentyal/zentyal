@@ -173,20 +173,10 @@ sub domain
 #       Check whether the Certification Infrastructure has been
 #       created or not
 #
-# Parameters:
-#
-#       name - Name used when throwing an exception (Optional)
-#
 # Returns:
 #
 #       boolean - True, if the Certification Infrastructure has been
 #       created. Undef, otherwise.
-#
-# Exceptions:
-#
-#	If name is passed an exception could be raised
-#
-#	Internal - if CA infrastructure has NOT been created
 #
 
 sub isCreated
@@ -195,12 +185,6 @@ sub isCreated
 
     my $retValue = (-d CATOPDIR) and (-f CACERT) and (-f CAPRIVKEY)
       and (-f CAPUBKEY);
-
-    if (not $retValue) {
-      if ($name) {
-	throw EBox::Exceptions::Internal($name);
-      }
-    }
 
     return $retValue;
 
@@ -367,9 +351,9 @@ sub revokeCACertificate
       # Revoked only valid ones
       # We ensure not to revoke the CA cert before the others
       if ($element->{state} eq 'V' and
-	  -f ( KEYSDIR . $element->{dn}->dnAttribute('commonName') . ".pem" ) ) {
+	  -f ( KEYSDIR . $element->{dn}->attribute('commonName') . ".pem" ) ) {
 
-	$self->revokeCertificate(commonName    => $element->{dn}->dnAttribute('commonName'),
+	$self->revokeCertificate(commonName    => $element->{dn}->attribute('commonName'),
 				 reason        => "cessationOfOperation",
 				 caKeyPassword => $args{caKeyPassword}
 				);
@@ -444,11 +428,11 @@ sub issueCACertificate
       unlink (CAPRIVKEY);
     }
 
-    my $ret = $self->issueCertificate(commonName     => $self->{dn}->dnAttribute('commonName'),
-				      countryName    => $self->{dn}->dnAttribute('countryName'),
-				      localityName   => $self->{dn}->dnAttribute('localityName'),
-				      orgName        => $self->{dn}->dnAttribute('orgName'),
-				      orgNameUnit    => $self->{dn}->dnAttribute('orgNameUnit'),
+    my $ret = $self->issueCertificate(commonName     => $self->{dn}->attribute('commonName'),
+				      countryName    => $self->{dn}->attribute('countryName'),
+				      localityName   => $self->{dn}->attribute('localityName'),
+				      orgName        => $self->{dn}->attribute('orgName'),
+				      orgNameUnit    => $self->{dn}->attribute('orgNameUnit'),
 				      keyPassword    => $args{caKeyPassword},
 				      days           => $args{days},
 				      caKeyPassword  => $args{caKeyPassword},
@@ -527,7 +511,7 @@ sub renewCACertificate
     foreach my $element (@{$listCerts}) {
       # Renew the previous ones that remains valid
       if ($element->{state} eq 'V' and
-	  -f ( KEYSDIR . $element->{dn}->dnAttribute('commonName') . ".pem") ) {
+	  -f ( KEYSDIR . $element->{dn}->attribute('commonName') . ".pem") ) {
 
 	my $userExpiryDate = $element->{expiryDate};
 	EBox::debug("user expir: $userExpiryDate");
@@ -535,7 +519,7 @@ sub renewCACertificate
 	$userExpiryDate = $self->{caExpirationDate}
 	  if ( $element->{expiryDate} gt $self->{caExpirationDate} );
 
-	$self->renewCertificate( commonName    => $element->{dn}->dnAttribute('commonName'),
+	$self->renewCertificate( commonName    => $element->{dn}->attribute('commonName'),
 				 endDate       => $userExpiryDate,
 				 caKeyPassword => $args{caKeyPassword}
 			       );
@@ -691,17 +675,17 @@ sub issueCertificate {
   # Define the distinguished name
   # We take the default values from CA dn
   my $dn = $self->{dn}->copy();
-  $dn->dnAttribute("countryName", $args{countryName})
+  $dn->attribute("countryName", $args{countryName})
     if (defined($args{countryName}));
-  $dn->dnAttribute("stateName", $args{stateName})
+  $dn->attribute("stateName", $args{stateName})
     if (defined($args{stateName}));
-  $dn->dnAttribute("localityName", $args{localityName})
+  $dn->attribute("localityName", $args{localityName})
     if (defined($args{localityName}));
-  $dn->dnAttribute("orgName", $args{orgName})
+  $dn->attribute("orgName", $args{orgName})
     if (defined($args{orgName}));
-  $dn->dnAttribute("orgNameUnit", $args{orgNameUnit})
+  $dn->attribute("orgNameUnit", $args{orgNameUnit})
     if (defined($args{orgNameUnit}));
-  $dn->dnAttribute("commonName", $args{commonName})
+  $dn->attribute("commonName", $args{commonName})
     if (defined($args{commonName}));
 
   # Create the certificate request
@@ -856,20 +840,22 @@ sub revokeCertificate {
 # Method: listCertificates
 #
 #       List the certificates that are ready on the system sorted
-#       putting the CA certificate first and then valid certificates
-#       or only one if any attribute is provided
+#       putting the CA certificate first and then valid certificates.
+#       This list can be filtered according to an state, including or
+#       not the CA certificate.
 #
 # Parameters:
 #
-#       cn - Common Name to list a certificate metadata 
-#                    from a particular user (Optional)
+#       state - 'R', 'V' or 'E' in order to show only revoked, valid
+#               or expired certificates. All are included if not set this
+#               attribute (Optional)
 #
-#       serial - Serial number to list a certificate metadata
-#                from a particular certificate (Optional)
+#       excludeCA - boolean indicating whether the valid CA certificate
+#                   should be excluded in the response (Optional)
 #
 # Returns:
 #
-#       A reference to an array containing hashes which the following
+#       A reference to an array containing hashes which have the following
 #       elements
 #
 #       - dn         - an <EBox::CA::DN> object
@@ -881,14 +867,20 @@ sub revokeCertificate {
 #       - reason     - reason to revoke if state is revoked
 #       - isCACert   - boolean indicating that it is the valid CA certificate
 #       - path       - certificate path
+#       - serialNumber - serial number within CA
 #
 sub listCertificates
   {
 
     my ($self, %args) = @_;
 
-    my $cnToSearch = $args{'cn'};
-    my $serial = $args{'serial'};
+    # Getting the arguments
+    my $state = $args{'state'};
+    my $excludeCA = $args{'excludeCA'};
+    # Check parameter state is correct (R, V or E)
+    if (defined($state) and $state !~ m/[RVE]/ ) {
+      throw EBox::Exceptions::Internal("State should be R, V or E");
+    }
 
     my @lines = read_file( INDEXFILE );
     my @out = ();
@@ -900,6 +892,7 @@ sub listCertificates
       # Get current state
       $element{'state'} = $line[STATE_IDX];
       $element{'dn'} = EBox::CA::DN->parseDN($line[SUBJECT_IDX]);
+      $element{'serialNumber'} = $line[SERIAL_IDX];
 
       # Set paramaters regarding to certificate validity
       if ($element{'state'} eq 'V') {
@@ -919,20 +912,18 @@ sub listCertificates
 	$element{'path'} = CERTSDIR . $line[SERIAL_IDX] . ".pem";
       }
 
-      if( defined($cnToSearch) ) {
-	if ($element{'dn'}->dnAttribute('commonName') eq $cnToSearch
-	    and $element{'state'} eq 'V') {
-	  push (@out, \%element);
-	  last; # The last iteration
-	}
-      } elsif (defined($serial) ) {
-	if ($serial eq $line[SERIAL_IDX] ) {
-	  push (@out, \%element);
-	  last;
-	}
-      } else {
-	push (@out, \%element);
-      }
+      push (@out, \%element);
+
+    }
+
+    # Setting the filters
+    if ( defined($state) ) {
+      # Filter according to state
+      @out = grep { $_->{state} eq $state } @out;
+    }
+    if ( $excludeCA ) {
+      # Filter the valid CA certificate
+      @out = grep { not $_->{isCACert} } @out;
     }
 
     # Sort the array to have CA certs first (put latest first)
@@ -941,6 +932,104 @@ sub listCertificates
     return \@sortedOut;
 
   }
+
+# Method: getCertificate
+#
+#       Given an attribute to filter, returns an unique certificate.
+#       JUST ONE parameter can be passed.  To return the CA
+#       certificate, it is recommend to use <getCACertificate>.
+#
+# Parameters:
+#
+#       cn - Common Name (Optional)
+#       dn - EBox::CA::DN Distinguished Name (Optional)
+#       serialNumber - A serial number within CA (Optional)
+#
+# Returns:
+#
+#       A reference to a hash with the following elements
+#
+#       - dn         - an <EBox::CA::DN> object
+#       - state      - 'V' from Valid, 'R' from Revoked or 'E' from Expired
+#       - expiryDate - the expiry date in a <Calc::Date::Object> if state valid
+#
+#       - revokeDate - the revocation date in a Date hash if state is
+#                    revoked
+#       - reason     - reason to revoke if state is revoked
+#       - path       - certificate path
+#       - serialNumber - serial number within CA
+#
+# Exceptions:
+#
+#      DataMissing - if any required parameter is missing
+
+sub getCertificate
+  {
+    my ($self, %args) = @_;
+
+    if (scalar(keys %args) == 0) {
+      throw EBox::Exceptions::DataMissing(data => 
+        __("Neither common name, distinguished name nor serial number has been passed")
+					 );
+    } elsif ( scalar(keys %args) > 1 ) {
+      throw EBox::Exceptions::Internal("Only one parameter is necessary");
+    } elsif ( defined($args{'dn'}) 
+	      and not $args{'dn'}->isa('EBox::CA::DN') ) {
+      throw EBox::Exceptions::Internal("dn parameter should be an instance of EBox::CA::DN");
+    }
+
+    my $cn = $args{'cn'};
+    my $dn = $args{'dn'};
+    my $serialNumber = $args{'serialNumber'};
+
+    my $listCertsRef = $self->listCertificates();
+    my $retCert;
+
+    if (defined($cn)) {
+      # Looking for a particular cn
+      ($retCert) = grep { $_->{'dn'}->attribute('commonName') eq $cn } @{$listCertsRef};
+    } elsif(defined($dn)) {
+      # Looking for a particular dn
+      ($retCert) = grep { $_->{'dn'}->equals($dn) } @{$listCertsRef};
+    } elsif( defined($serialNumber) ) {
+      ($retCert) = grep { $_->{'serialNumber'} eq $serialNumber } @{$listCertsRef};
+    }
+
+    return $retCert;
+
+  }
+
+# Method: getCACertificate
+#
+#       Return the current metadata related to the valid Certification
+#       Authority.
+#
+#
+# Returns:
+#
+#    - A reference to a hash which the following elements
+#
+#       - dn         - an <EBox::CA::DN> object
+#       - expiryDate - the expiry date in a <Calc::Date::Object> if state valid
+#       - path       - certificate path
+#
+#    - Undef if the CA is expired or inexistent -> Check state
+#      calling to <EBox::CA::currentCACertificateState>
+#
+sub getCACertificate
+  {
+
+    my ($self) = @_;
+
+    my $certsRef = $self->listCertificates();
+
+    # Find the CA certificate in the list
+    my ($CACert) = grep { $_->{'isCACert'} } @{$certsRef} ;
+
+    return $CACert;
+
+  }
+
 
 # Method: getKeys
 #
@@ -1138,47 +1227,47 @@ sub renewCertificate
 
     my $dnFieldHasChanged = '0';
     if ( defined($args{countryName})
-	 and $args{countryName} ne $userDN->dnAttribute('countryName')) {
+	 and $args{countryName} ne $userDN->attribute('countryName')) {
       $dnFieldHasChanged = "1";
-      $userDN->dnAttribute('countryName', $args{countryName});
+      $userDN->attribute('countryName', $args{countryName});
     }
     if (defined($args{stateName}) 
-	and $args{stateName} ne $userDN->dnAttribute('stateName')) {
+	and $args{stateName} ne $userDN->attribute('stateName')) {
       $dnFieldHasChanged = "1" ;
-      $userDN->dnAttribute('stateName', $args{stateName});
+      $userDN->attribute('stateName', $args{stateName});
     }
     if (defined($args{localityName})
-	and $args{localityName} ne $userDN->dnAttribute('localityName')) {
+	and $args{localityName} ne $userDN->attribute('localityName')) {
       $dnFieldHasChanged = "1" ;
-      $userDN->dnAttribute('localityName', $args{localityName});
+      $userDN->attribute('localityName', $args{localityName});
     }
     if (defined($args{orgName})
-	and $args{orgName} ne $userDN->dnAttribute('orgName')) {
+	and $args{orgName} ne $userDN->attribute('orgName')) {
       $dnFieldHasChanged = "1" ;
-      $userDN->dnAttribute('orgName', $args{orgName});
+      $userDN->attribute('orgName', $args{orgName});
     }
     if (defined($args{orgNameUnit})
-	and $args{orgNameUnit} ne $userDN->dnAttribute('orgNameUnit')) {
+	and $args{orgNameUnit} ne $userDN->attribute('orgNameUnit')) {
       $dnFieldHasChanged = "1" ;
-      $userDN->dnAttribute('orgNameUnit', $args{orgNameUnit});
+      $userDN->attribute('orgNameUnit', $args{orgNameUnit});
     }
 
     # Revoke old certificate
-    my $retVal = $self->revokeCertificate(commonName    => $userDN->dnAttribute('commonName'),
+    my $retVal = $self->revokeCertificate(commonName    => $userDN->attribute('commonName'),
 					  reason        => "superseded",
 					  certFile      => $userCertFile,
 					  caKeyPassword => $args{caKeyPassword});
 
     if (defined($retVal) ) {
       throw EBox::Exceptions::External(__x("Common name {cn} does NOT exist in this CA"
-					   , cn => $userDN->dnAttribute('commonName')));
+					   , cn => $userDN->attribute('commonName')));
     }
     # Sign a new one
     my $userReq;
     if ( defined($args{reqFile}) ) {
       $userReq = $args{reqFile};
     } else {
-      $userReq = REQDIR . $userDN->dnAttribute('commonName') . ".pem";
+      $userReq = REQDIR . $userDN->attribute('commonName') . ".pem";
     }
 
     # Overwrite the current certificate? Useful?
@@ -1196,7 +1285,7 @@ sub renewCertificate
       if ( $dnFieldHasChanged ) {
 	$newSubject = $userDN;
 	# For OpenSSL 0.9.7, we need to create the request
-	my $privKeyFile = PRIVDIR . $userDN->dnAttribute('commonName') . ".pem";
+	my $privKeyFile = PRIVDIR . $userDN->attribute('commonName') . ".pem";
 	$privKeyFile = $args{privateKeyFile} if ($args{privateKeyFile});
 	throw EBox::Exceptions::External(__("The private key passpharse needed to create a new request. No renewal was made. Issue a new certificate with new keys"))
 	  if ( not defined($args{keyPassword}) );
@@ -1233,7 +1322,7 @@ sub renewCertificate
       # If we don't keep the request, we should create a new one with
       # the private key if exists. If not, we need to recreate all...
       # by using issuing a new certificate with a new request
-      my $privKeyFile = PRIVDIR . $userDN->dnAttribute('commonName') . ".pem";
+      my $privKeyFile = PRIVDIR . $userDN->attribute('commonName') . ".pem";
       $privKeyFile = $args{privateKeyFile} if ($args{privateKeyFile});
       if ( not defined($args{keyPassword}) ) {
 	throw EBox::Exceptions::External("The private key passpharse" . 
@@ -1244,12 +1333,12 @@ sub renewCertificate
 
       }
 
-      $self->issueCertificate( countryName  => $userDN->dnAttribute('countryName'),
-			       stateName    => $userDN->dnAttribute('stateName'),
-			       localityName => $userDN->dnAttribute('localityName'),
-			       orgName      => $userDN->dnAttribute('orgName'),
-			       orgNameUnit  => $userDN->dnAttribute('orgNameUnit'),
-			       commonName   => $userDN->dnAttribute('commonName'),
+      $self->issueCertificate( countryName  => $userDN->attribute('countryName'),
+			       stateName    => $userDN->attribute('stateName'),
+			       localityName => $userDN->attribute('localityName'),
+			       orgName      => $userDN->attribute('orgName'),
+			       orgNameUnit  => $userDN->attribute('orgNameUnit'),
+			       commonName   => $userDN->attribute('commonName'),
 			       keyPassword  => $args{keyPassword},
 			       days         => $args{days},
 			       privateKeyFile => $privKeyFile,
@@ -1259,7 +1348,7 @@ sub renewCertificate
     }
 
     if (not defined($newCertFile) ) {
-      $newCertFile = $self->_findCertFile($userDN->dnAttribute('commonName'));
+      $newCertFile = $self->_findCertFile($userDN->attribute('commonName'));
     }
 
     return $newCertFile;
@@ -1336,12 +1425,12 @@ sub currentCACertificateState
 
     my $serialCert = $self->_obtain(CACERT, 'serial');
 
-    my $listRef = $self->listCertificates(serial => $serialCert);
+    my $certRef = $self->getCertificate(serialNumber => $serialCert);
 
-    if ( $#{$listRef} + 1 == 0 ) {
+    if ( not defined($certRef) ) {
       return "!";
     } else {
-      return ${$listRef}[0]->{'state'};
+      return $certRef->{'state'};
     }
 
 }
@@ -1363,95 +1452,6 @@ sub revokeReasons
     return $self->{reasons};
 
   }
-
-# Method: getCACertificate
-#
-#       Return the current metadata related to the valid Certification
-#       Authority.
-#
-#
-# Returns:
-#
-#    - A reference to a hash which the following elements
-#
-#       - dn         - an <EBox::CA::DN> object
-#       - expiryDate - the expiry date in a <Calc::Date::Object> if state valid
-#       - path       - certificate path
-#
-#    - Undef if the CA is expired or inexistent -> Check state
-#      calling to <EBox::CA::currentCACertificateState>
-#
-sub getCACertificate
-  {
-
-    my ($self) = @_;
-
-    my $certsRef = $self->listCertificates();
-
-    # Find the CA certificate in the list
-    my ($CACert) = grep { $_->{'isCACert'} } @{$certsRef} ;
-
-    return $CACert;
-
-  }
-
-# Method: getCertificates
-#
-#       Return all certificates minus the valid CA one
-#
-# Parameters:
-#
-#      - state - R, V or E in order to show only revoked, valid or
-#      expired certificates. All are included by default.
-#
-# Returns:
-#
-#    - A reference to an array containing hashes which the
-#    following elements
-#
-#       - dn         - an <EBox::CA::DN> object
-#       - state      - 'V' from Valid, 'R' from Revoked or 'E' from Expired
-#       - expiryDate - the expiry date in a <Calc::Date::Object> if state valid
-#
-#       - revokeDate - the revocation date in a Date hash if state is
-#                    revoked
-#       - reason     - reason to revoke if state is revoked
-#       - path       - certificate path
-#
-# Exceptions:
-#
-#       Internal - if state is not one of the desired
-sub getCertificates
-  {
-
-    my ($self, $state) = @_;
-
-    # Check parameter state is correct (R, V or E)
-    if (defined($state) and $state !~ m/[RVE]/ ) {
-      throw EBox::Exceptions::Internal("State should be R, V or E");
-    }
-
-    my $certsRef = $self->listCertificates();
-
-    # Gets the other certificates
-    my @states = ('R', 'V', 'E');
-    my @certs;
-    if ( defined($state) ) {
-       @certs = grep { not $_->{'isCACert'} and 
-			 $_->{'state'} eq $state
-		     }
-	        @{$certsRef} ;
-     } else {
-       @certs = grep { not $_->{'isCACert'} and
-			 $_->{'state'} eq any(@states) 
-		       }
-	        @{$certsRef} ;
-     }
-
-    return \@certs;
-
-  }
-
 
 # _regenConfig is not longer needed 'cause this module doesn't manage a daemon
 
@@ -1537,7 +1537,7 @@ sub _findCertFile # (commonName)
       if ( $fields[STATE_IDX] eq 'V') {
 	# Extract cn from subject
 	my $subject = EBox::CA::DN->parseDN($fields[SUBJECT_IDX]);
-	$found = $subject->dnAttribute("commonName") eq $commonName;
+	$found = $subject->attribute("commonName") eq $commonName;
 	if ($found) {
 	  $certFile = CERTSDIR . $fields[SERIAL_IDX] . ".pem";
 	  return $certFile;

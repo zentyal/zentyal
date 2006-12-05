@@ -71,7 +71,7 @@ sub _process
     # Transform %20 in space
     $self->{cn} =~ s/%20/ /g;
 
-    my $metaDataCert = $self->{ca}->listCertificates( cn => $self->{cn})->[0];
+    my $metaDataCert = $self->{ca}->getCertificate( cn => $self->{cn});
     if (not defined($metaDataCert) ) {
       throw EBox::Exceptions::External(__x("Common name: {cn} does NOT exist in database"
 					   , cn => $self->{cn}));
