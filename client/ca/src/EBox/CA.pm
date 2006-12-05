@@ -397,6 +397,7 @@ sub revokeCACertificate
 # Exceptions:
 #
 #      DataMissing - if any required parameter is missing
+#      External    - if a CA certificate is already valid
 
 sub issueCACertificate
   {
@@ -608,7 +609,8 @@ sub CAPublicKey {
 #                  is missing
 #
 
-sub issueCertificate {
+sub issueCertificate 
+  {
 
   my ($self, %args) = @_;
 
@@ -886,6 +888,7 @@ sub listCertificates
     my @out = ();
 
     foreach ( @lines ) {
+      # Parse line with a tab
       my @line = split(/\t/);
       my %element;
 
@@ -1817,11 +1820,7 @@ sub _createSerial
 
     my $serial = sprintf("%08X", int(rand(hex('0xFFFFFFFF'))));
 
-    # print STDERR $serial;
-
     $serial .= sprintf("%08X", int(rand(hex('0xFFFFFFFF'))));
-
-    # print STDERR "$serial\n";
 
     return $serial;
 
