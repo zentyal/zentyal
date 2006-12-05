@@ -123,7 +123,7 @@ sub copy {
   my $self = shift;
 
   my $copy = Storable::dclone($self);
-  
+
   return $copy;
 
 }
@@ -169,10 +169,9 @@ sub stringOpenSSLStyle {
 }
 
 
-# Method: dnAttribute
+# Method: attribute
 #
-#       set and get method for an attribute in a
-#       distinguished name
+#       set and get method for an attribute in a distinguished name
 #
 # Parameters:
 #
@@ -186,7 +185,7 @@ sub stringOpenSSLStyle {
 #       string - representing the attribute value to set or get
 #       or undef if the attribute does NOT exist
 #
-sub dnAttribute
+sub attribute
   {
 
     my ($self, $attrName, $value) = @_;
