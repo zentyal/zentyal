@@ -1057,6 +1057,8 @@ sub getCACertificate
 sub getKeys {
 
   my ($self, $commonName) = @_;
+  use Smart::Comments;
+  ### getKeys: 'unfake'
 
   throw EBox::Exceptions::DataMissing(data => __("Common Name"))
     unless defined ($commonName);
