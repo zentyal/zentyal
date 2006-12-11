@@ -32,9 +32,9 @@ use constant STATE_DEF   => "Nation";
 #
 # Parameters:
 #
-#       countryName - the country name {2 letter code}
-#       stateName   - the state name
-#       localityName    - the locality name
+#       countryName - the country name {2 letter code} (Optional)
+#       stateName   - the state name (Optional)
+#       localityName    - the locality name (Optional)
 #       organizationName - the Organization Name
 #       organizationNameUnit -  the Organization Unit Name
 #       commonName - the common name
