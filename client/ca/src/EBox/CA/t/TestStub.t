@@ -17,7 +17,7 @@
 
 # A module to test faked CA module
 
-use Test::More tests => 25;
+use Test::More tests => 27;
 use Test::Exception;
 use Date::Calc::Object qw (:all);
 use Data::Dumper;
@@ -58,6 +58,8 @@ ok ( $ca->renewCACertificate(localityName => 'La Juani',
 			     days => 100),
      "renewing CA certificate");
 
+ok ( $ca->CAPublicKey(), "getting CA public key" );
+
 ok ( $ca->issueCertificate(commonName => 'uno 1',
 			   endDate    => Date::Calc->new(2006, 12, 31, 23, 59, 59)),
      "issuing 1st certificate");
@@ -83,14 +85,20 @@ $listCerts = $ca->listCertificates();
 cmp_ok ( scalar(@{$listCerts}), '==', 5, 'listing certificates (revoked + valid)' );
 
 throws_ok { $ca->renewCertificate(commonName    => 'uno 1',
-			   countryName   => 'Canary Islands',
-			   endDate       => Date::Calc->new(2010,5,10,00,00,00))}
+				  countryName   => 'Canary Islands',
+				  endDate       => Date::Calc->new(2010,5,10,00,00,00))}
 	      "EBox::Exceptions::External",
-		'Renewing a certificate';
+		'renewing a wrong certificate';
+
+ok ( $ca->renewCertificate(commonName  => 'uno 1',
+			   countryName => 'Canary Islands',
+			   days        => 12,
+			   privateKeyFile => 'foo.pem'),
+     'renewing a right certificate');
 
 $listCerts = $ca->listCertificates(excludeCA => 1);
 
-cmp_ok ( scalar(@{$listCerts}), '==', 4, 'getting all certificates apart from CA' );
+cmp_ok ( scalar(@{$listCerts}), '==', 5, 'getting all certificates apart from CA' );
 
 # Get only the valid ones
 $listCerts = $ca->listCertificates(state => 'V', excludeCA => 1);
@@ -138,7 +146,8 @@ $ca->setInitialState ( [ { state      => 'V',
 			   dn         => '/C=ES/ST=Nation/L=Nowhere/O=ACV/CN=oaoa',
 			   expiryDate => Date::Calc::Object->now()
 			 },
-			 { dn         => '/C=ES/ST=Nation/L=Nowhere/O=foobar/CN=aaa'
+			 { dn         => '/C=ES/ST=Nation/L=Nowhere/O=foobar/CN=aaa',
+			   keys       => [ "foo-pubkey.pem", "bar-privkey.pem" ]
 			 }
 		       ]
 		     );

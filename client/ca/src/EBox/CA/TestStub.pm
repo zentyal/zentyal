@@ -36,9 +36,11 @@ sub fake
 				  revokeCACertificate => \&revokeCACertificate,
 				  issueCACertificate  => \&issueCACertificate,
 				  renewCACertificate  => \&renewCACertificate,
+				  CAPublicKey         => \&CAPublicKey,
 				  issueCertificate    => \&issueCertificate,
 				  revokeCertificate   => \&revokeCertificate,
 				  listCertificates    => \&listCertificates,
+				  getKeys             => \&getKeys,
 				  renewCertificate    => \&renewCertificate,
 				  currentCACertificateState => \&currentCACertificateState,
 				  destroyCA           => \&destroyCA,
@@ -82,6 +84,7 @@ sub _create {
   # reason -> if revoked, a reason
   # path   -> faked path
   # serial -> a serial number
+  # keys -> [publicKeyPath, privateKeyPath ]
   $self->{certs} = {};
   $self->{created} = 0;
 
@@ -171,6 +174,8 @@ sub createCA
     $self->{certs}->{ca}->{expiryDate} = Date::Calc::Object->now() + [0, 0, $days, 0, 0, 0];
     $self->{certs}->{ca}->{serial} = $self->_createSerial();
     $self->{certs}->{ca}->{path} = "ca.cert";
+    # Set keys
+    $self->{certs}->{ca}->{keys} = [ "capubkey.pem", "caprivkey.pem" ];
 
     return 1;
 
@@ -257,6 +262,7 @@ sub issueCACertificate
       $self->{certs}->{$oldSerial}->{state} = $self->{certs}->{ca}->{state};
       $self->{certs}->{$oldSerial}->{revokeDate} = $self->{certs}->{ca}->{revokeDate};
       $self->{certs}->{$oldSerial}->{path} = $self->{certs}->{ca}->{path};
+      $self->{certs}->{$oldSerial}->{keys} = $self->{certs}->{ca}->{keys};
     }
 
     # Define the distinguished name -> default values in configuration file
@@ -275,6 +281,8 @@ sub issueCACertificate
     $self->{certs}->{ca}->{expiryDate} = Date::Calc::Object->now() + [0, 0, $days, 0, 0, 0];;
     $self->{certs}->{ca}->{serial} = $self->_createSerial();
     $self->{certs}->{ca}->{path} = "ca.cert";
+    # Set keys
+    $self->{certs}->{ca}->{keys} = [ "capubkey.pem", "caprivkey.pem" ];
 
     return $self->{certs}->{ca}->{path};
 
@@ -319,6 +327,8 @@ sub renewCACertificate
     $self->{certs}->{$self->{certs}->{ca}->{serial}}->{reason} = 'superseded';
     $self->{certs}->{$self->{certs}->{ca}->{serial}}->{path} = $self->{certs}->{ca}->{serial} . ".cert";
     $self->{certs}->{$self->{certs}->{ca}->{serial}}->{serial} = $self->{certs}->{ca}->{serial};
+    $self->{certs}->{$self->{certs}->{ca}->{serial}}->{keys} = [ $self->{certs}->{ca}->{serial} . "-pubkey.pem",
+								 $self->{certs}->{ca}->{serial} . "-privkey.pem" ];
 
     $self->{certs}->{ca}->{state} = 'V';
     $self->{certs}->{ca}->{dn} = EBox::CA::DN->new ( countryName => $args{countryName},
@@ -349,6 +359,30 @@ sub renewCACertificate
 
   }
 
+# Method: CAPublicKey
+#
+#       Fake EBox::CA::CAPublicKey method
+#
+# Parameters:
+#
+#       caKeyPassword - the passphrase to access to private key
+#       (*NOT WORKING*)
+#
+# Returns:
+#
+#       Path to the file which contains the CA Public Key in
+#       PEM format or undef if it was not possible to create
+#
+sub CAPublicKey
+  {
+
+  my ($self, $caKeyPassword) = @_;
+
+  return $self->{certs}->{ca}->{keys}[0];
+
+}
+
+
 # Method: issueCertificate 
 #
 #       Fake CA::issueCertificate method
@@ -371,7 +405,7 @@ sub renewCACertificate
 #
 #       caKeyPassword - passphrase for CA to sign (*NOT WORKING*)
 #       privateKeyFile - path to the private key file if there is already
-#                        a private key file in the CA (*NOT WORKING*)
+#                        a private key file in the CA (Optional)
 #
 #       requestFile - path to save the new certificate request
 #                    (*NOT WORKING*) 
@@ -431,6 +465,12 @@ sub issueCertificate
     $self->{certs}->{$serial}->{state} = 'V';
     $self->{certs}->{$serial}->{dn} = $dn;
     $self->{certs}->{$serial}->{serial} = $serial;
+
+    # Setting keys
+    my $privKeyPath = $args{privateKeyFile};
+    $privKeyPath = $serial . "-privkey.pem";
+    $self->{certs}->{$serial}->{keys} = [ $serial . "-pubkey.pem",
+					  $privKeyPath ];
 
   }
 
@@ -568,6 +608,48 @@ sub listCertificates
 
   }
 
+# Method: getKeys
+#
+#       Fake EBox::CA::getKeys method
+#
+# Parameters:
+#
+#       commonName - the common name to identify the key
+#
+# Returns:
+#
+#       a reference to a hash containing the public and private key file
+#       paths (*privateKey* and *publicKey*) stored in _PEM_ format
+#
+# Exceptions:
+#
+#      External - if the keys do NOT exist
+#      DataMissing - if any required parameter is missing
+#
+sub getKeys
+  {
+    my ($self, $commonName) = @_;
+
+    throw EBox::Exceptions::DataMissing(data => __("Common Name"))
+      unless defined ($commonName);
+
+    my %keys;
+
+    my ($cert) = grep { $_->{dn}->attribute('commonName') eq $commonName }
+      values %{$self->{certs}};
+
+    if ($cert) {
+      $keys{publicKey} = $cert->{keys}[0];
+      $keys{privateKey} = $cert->{keys}[1];
+    } else {
+      throw EBox::Exceptions::External(__x("The user {commonName} does NOT exist",
+					   commonName => $commonName))
+    }
+
+    return \%keys;
+
+  }
+
 # Method: renewCertificate
 #
 #       Fake CA::renewCertificate method
@@ -593,7 +675,7 @@ sub listCertificates
 #       certFile - the certificate file to renew (*NOT WORKING*)
 #       reqFile  - the request certificate file which to renew (*NOT WORKING*)
 #
-#       privateKeyFile - the private key file (*NOT WORKING*Optional)
+#       privateKeyFile - the private key file (Optional)
 #       keyPassword - the private key passpharse. Only necessary when
 #       a new request is issued (*NOT WORKING*)
 #
@@ -640,8 +722,8 @@ sub renewCertificate
 
     # User cert
     # Find the cert
-    my ($cert) = grep { $_->{dn}->attribute('commonName') eq $args{commonName} } 
-                  %{$self->{certs}};
+    my ($cert) = grep { $_->{dn}->attribute('commonName') eq $args{commonName} }
+      values %{$self->{certs}};
 
     # Check if a change in DN is needed
     my $userDN = $cert->{dn}->copy();
@@ -675,9 +757,9 @@ sub renewCertificate
     $self->revokeCertificate(commonName => $userDN->attribute('commonName'),
 			     reason     => "superseded");
 
-    $self->issueCertificate(commonName => $userDN->attribute('commonName'),
-			    endDate => $args{endDate});
-
+    $self->issueCertificate(commonName     => $userDN->attribute('commonName'),
+			    endDate        => $args{endDate},
+			    privateKeyFile => $args{privateKeyFile});
 
   }
 
@@ -722,8 +804,9 @@ sub currentCACertificateState
 #         - revokeDate  -> EBox::Date::Object revokation date (Optional)
 #         - reason      -> if revoked, a reason (Optional)
 #         - isCACert    -> boolean indicating if it's a valid CA certificate
-#                       -> Just ONE can have this attribute on
+#                       -> Just ONE can have this attribute on (Optional)
 #         - path        -> string with the certificate path (Optional)
+#         - keys        -> path for keys as an array reference, first element is the public one and second one is the private one
 #
 sub setInitialState
   {
@@ -766,6 +849,12 @@ sub setInitialState
       $certRef->{path} = $serial . ".cert" unless ($argCertRef->{path});
       $certRef->{path} = $argCertRef->{path} if ($argCertRef->{path});
       $certRef->{serial} = $serial;
+      if ($argCertRef->{keys}) {
+	$certRef->{keys} = $argCertRef->{keys};
+      } else {
+	$certRef->{keys} = [ $serial . "-pubkey.pem",
+			     $serial . "-privkey.pem" ];
+      }
 
     }
 
