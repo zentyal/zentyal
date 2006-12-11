@@ -7,7 +7,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Gettext;
 use EBox::Global;
 use EBox::OpenVPN;
-
+use EBox::CA;
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -25,7 +25,7 @@ sub requiredParameters
 {
     my ($self) = @_;
     if ($self->param('create')) {
-	[qw(service create name subnet subnetNetmask port proto caCertificate serverCertificate serverKey )];
+	[qw(service create name subnet subnetNetmask port proto  serverCertificate )];
     }
     else {
 	return [];
@@ -49,7 +49,16 @@ sub optionalParameters
 sub masonParameters
 {
     my ($self) = @_;
-    return [];
+
+    my $ca = EBox::Global->modInstance('ca');
+    my $disabled = $ca->isCreated > 0 : 1;
+
+    my $openvpn = EBox::Global->modInstance('openvpn');
+
+    return [
+	    availableCertificates => $openvpn->availableCertificates(),
+	    disabled              => $disabled,
+	   ];
 }
 
 sub actuate
@@ -67,12 +76,14 @@ sub actuate
 	    delete $params{$key};
 	}
 
-	$openVPN->newServer($name, %params);
     
 	$self->setMsg(__x("New server {name} created", name => $name) );
 	$self->{redirect} = 'OpenVPN/Index';
     }
 }
+
+
+
 
 1;
 

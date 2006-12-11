@@ -1,15 +1,20 @@
 <%args>
 $name
 %serverAttrs
+@availableCertificates
+$disabled => 0
 </%args>
 
 <%init>
 use EBox::Gettext;
 </%init>
+% if (not $disabled) {
 <h3><% __x('Configuration of server {name}', name => $name) %></h3>
 <form action='Edit' method='POST'>
-<& /openvpn/serverProperties.mas, properties => \%serverAttrs, submitName => 'edit', submitValue => __('Save changes') &>
+<& /openvpn/serverProperties.mas, properties => \%serverAttrs, availableCertificates => \@availableCertificates, submitName => 'edit', submitValue => __('Save changes') &>
 <input type='hidden' name='name' value='<% $name %>' />
 </form>
-
-
+%  }
+% else  {
+  <& /openvpn/caRequired.mas &>
+% }

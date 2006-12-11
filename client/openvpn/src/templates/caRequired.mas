@@ -1,0 +1,6 @@
+<%init>
+use EBox::Gettext;
+</%init>
+<div class='note'>
+<% __('OpenVPN server requires a certification authority, <a href="/ebox/CA/Index">create one</a> first') %>
+</div>

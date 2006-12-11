@@ -1,14 +1,19 @@
 <%args>
 $service
 @servers
+$disabled => 0
 </%args>
 <%init>
 use EBox::Gettext;
 my $active  = $service ? 'yes' : 'no';
 </%init>
+% if (not $disabled) {
 <& enable.mas, title => __('OpenVPN service status'), active => $active &>
 <& serversList, servers => \@servers &>
-
+%   }
+% else {
+  <& /openvpn/caRequired.mas &>
+% }
 <%def serversList>
 <%args>
 @servers
@@ -28,9 +33,9 @@ my $active  = $service ? 'yes' : 'no';
 %              }
 			<tbody>
 %			foreach my $server (@servers) {
-                        <& .serverRow, server => $server &>
+                        <& .serverRow, server => $server, disabled => $disabled &>
 %			}
-                        <& .addServerRow &>
+                        <& .addServerRow, disabled => $disabled &>
 			</tbody>
 		</table>
 %              if (@servers > 0) {

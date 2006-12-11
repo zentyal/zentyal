@@ -2,9 +2,9 @@
 $local            => undef
 $port  
 $proto
-$caCertificate
-$serverCertificate
-$serverKey
+$caCertificatePath
+$certificatePath
+$key
 $subnet
 $subnetNetmask
 $clientToClient   => 0
@@ -35,9 +35,9 @@ dev tun
 
 # SSL/TLS root certificate (ca), certificate
 # (cert), and private key (key). 
-<& valueEntry, entry => 'ca', value => $caCertificate  &>
-<& valueEntry, entry => 'cert', value => $serverCertificate  &>
-<& valueEntry, entry => 'key', value => $serverKey  &> # This file should be kept secret
+<& valueEntry, entry => 'ca', value => $caCertificatePath  &>
+<& valueEntry, entry => 'cert', value => $certificatePath  &>
+<& valueEntry, entry => 'key', value => $key  &> # This file should be kept secret
 
 # Diffie hellman parameters.
 # Generate your own with:

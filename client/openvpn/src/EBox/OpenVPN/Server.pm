@@ -5,9 +5,11 @@ use warnings;
 
 use EBox::Validate qw(checkPort checkAbsoluteFilePath checkIP checkNetmask);
 use EBox::NetWrappers;
+use EBox::CA;
 use Perl6::Junction qw(all);
+use List::Util qw(first);
 use EBox::Gettext;
-
+use Params::Validate qw(validate_pos SCALAR);
 
 sub new
 {
@@ -48,13 +50,6 @@ sub _setConfString
     my ($self, $key, $value) = @_;
     $key = $self->_confKey($key);
     $self->_openvpnModule->set_string($key, $value);
-}
-
-sub _setConfPath
-{
-    my ($self, $key, $value, $name) = @_;
-    checkAbsoluteFilePath($value, $name);
-    $self->_setConfString($key, $value);
 }
 
 
@@ -202,41 +197,89 @@ sub local
 # - existence control
 # - file permision control (specially server key)
 
-sub setCaCertificate
+
+
+
+sub caCertificatePath
 {
-    my ($self, $caCertificate) = @_;
-    $self->_setConfPath('ca_certificate', $caCertificate, 'CA Certificate');
+  my ($self) = @_;
+
+  my $global = EBox::Global->instance();
+  my $ca = $global->modInstance('ca');
+
+  my $caCertificate = $ca->getCACertificate;
+  defined $caCertificate or throw EBox::Exceptions::Internal('No CA certificate' );
+
+  return $caCertificate->{path};
 }
 
-sub caCertificate
+
+
+sub setCertificate
+{
+  my ($self, $certificateCN) = @_;
+  validate_pos(@_, 1, 1);
+
+  $self->_checkCertificate($certificateCN);
+  
+  $self->_setConfString('server_certificate', $certificateCN, 'Server certificate');
+}
+
+sub certificate
 {
     my ($self) = @_;
-    return $self->_getConfString('ca_certificate');
+    my $cn = $self->_getConfString('server_certificate');
+    return $cn;
 }
 
-sub setServerCertificate
+
+sub _checkCertificate
 {
-    my ($self, $serverCertificate) = @_;
-    $self->_setConfPath('server_certificate', $serverCertificate, 'Server certificate');
+  my ($self, $cn) = @_;
+
+  my $ca = EBox::Global->modInstance('ca');
+  my $cert_r = $ca->getCertificate(cn => $cn);
+
+  if (not defined $cert_r) {
+    throw EBox::Exceptions::External(__x('The certificate {cn} does not exist', cn => $cn));
+  }
+  elsif ($cert_r->{state} eq 'E') {
+    throw EBox::Exceptions::External(__x('The certificate {cn} has expired', cn => $cn));
+  }
+  elsif ($cert_r->{state} eq 'R') {
+    throw EBox::Exceptions::External(__x('The certificate {cn} has been revoked', cn => $cn));
+  }
+
+  return $cert_r;
 }
 
-sub serverCertificate
+sub certificatePath
+{
+  my ($self) = @_;
+
+  my $cn = $self->certificate();
+  ($cn) or throw EBox::Exceptions::External(__x('The server {name} has not certificate assigned', name => $self->name));
+
+  my $certificate_r = $self->_checkCertificate($cn);
+  return $certificate_r->{path};
+}
+
+
+
+
+sub key
 {
     my ($self) = @_;
-    return $self->_getConfString('server_certificate');
-}
 
+    my $certificateCN = $self->certificate();
+    ($certificateCN) or throw EBox::Exceptions::External(__x('Can not get key of server {name} because it has not any certificate assigned', name => $self->name));
 
-sub setServerKey
-{
-    my ($self, $serverKey) = @_;
-    $self->_setConfPath('server_key', $serverKey, 'Server key');
-}
+    $self->_checkCertificate($certificateCN);
 
-sub serverKey
-{
-    my ($self) = @_;
-    return $self->_getConfString('server_key');
+    my $ca = EBox::Global->modInstance('ca');
+    my $keys = $ca->getKeys($certificateCN);
+
+    return $keys->{privateKey};
 }
 
 
@@ -326,7 +369,7 @@ sub writeConfFile
 	mode => '0400',
     };
 
-    my @paramsNeeded = qw(subnet subnetNetmask local port caCertificate serverCertificate serverKey clientToClient user group proto dh);
+    my @paramsNeeded = qw(subnet subnetNetmask local port caCertificatePath certificatePath key clientToClient user group proto dh);
     foreach  my $param (@paramsNeeded) {
 	my $accessor_r = $self->can($param);
 	defined $accessor_r or die "Can not found accesoor for param $param";
@@ -423,17 +466,14 @@ sub setFundamentalAttributes
     (exists $params{subnetNetmask}) or throw EBox::Exceptions::External __("The server needs a submask for his VPN net");
     (exists $params{port} ) or throw EBox::Exceptions::External __("The server needs a port number");
     (exists $params{proto}) or throw EBox::Exceptions::External __("A IP protocol must be specified for the server");
-    (exists $params{caCertificate}) or throw EBox::Exceptions::External __("A path to a CA certificate must be specified");
-    (exists $params{serverCertificate}) or throw EBox::Exceptions::External __("A path to the server certificate must be specified");
-    (exists $params{serverKey}) or throw EBox::Exceptions::External __("A path to the server key must be specified");
+    (exists $params{certificate}) or throw EBox::Exceptions::External __("A path to the server certificate must be specified");
+
 
     $self->setSubnet($params{subnet});
     $self->setSubnetNetmask( $params{subnetNetmask} );
     $self->setProto($params{proto});
     $self->setPort($params{port});
-    $self->setCaCertificate($params{caCertificate});
-    $self->setServerCertificate($params{serverCertificate});    
-    $self->setServerKey($params{serverKey});
+    $self->setServerCertificate($params{certificate});    
 
     my @noFundamentalAttrs = qw(local clientToClient service);
     foreach my $attr (@noFundamentalAttrs)  {

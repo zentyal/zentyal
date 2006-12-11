@@ -25,6 +25,7 @@ use EBox::Sudo;
 use Perl6::Junction qw(any);
 use EBox::OpenVPN::Server;
 use EBox::OpenVPN::FirewallHelper;
+use EBox::CA;
 use EBox::NetWrappers qw();
 use Error qw(:try);
 
@@ -240,8 +241,16 @@ sub firewallHelper
 sub setService # (active)
 {
     my ($self, $active) = @_;
-    ($active and $self->service)   and return;
-    (!$active and !$self->service) and return;
+
+    if ($active) {
+      $self->service and return;
+
+      my $ca = EBox::Global->modInstance('ca');
+      $ca->isCreated() or throw EBox::Exceptions::Internal('Tying to activate OpenVPN service when there is not certification authority created');
+    }
+    else {
+      (not $active) and return;
+    }
 
     $self->set_bool('active', $active);
 }
@@ -250,7 +259,17 @@ sub setService # (active)
 sub service
 {
    my ($self) = @_;
-   return $self->get_bool('active');
+   my $service =  $self->get_bool('active');
+
+   if ($service) {
+      my $ca = EBox::Global->modInstance('ca');
+      if (! $ca->isCreated()) {
+	EBox::warn('OpenVPN service disbled because certification authority is not setted up');
+	return 0;
+      }
+   }
+
+   return $service;
 }
 
 sub _doDaemon
@@ -286,6 +305,7 @@ sub running
 sub _startDaemon
 {
     my ($self) = @_;
+
     my @servers =  grep { $_->service } $self->servers();
     foreach my $server (@servers) {
 	my $command = $self->rootCommandForStartDaemon($server->confFile, $server->name);
@@ -330,13 +350,27 @@ sub _stopService
 }
 
 
+sub availableCertificates
+{
+  my ($self) = @_;
+  
+  my $ca = EBox::Global->modInstance('ca');
+  my $certificates_r = $ca->listCertificates(state => 'V', excludeCA => 1);
+  my @certificatesCN = map {
+    $_->{dn}->attribute('commonName');
+  } @{$certificates_r};
 
+  return \@certificatesCN;
+}
 
 
 
 sub staticRoutes
 {
   my ($self) = @_;
+
+  $self->service() or return ();
+
   my @servers =  grep { $_->service } $self->servers();
   my @staticRoutes = map { $_->staticRoutes()  } @servers;
 

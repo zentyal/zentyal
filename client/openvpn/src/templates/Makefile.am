@@ -2,7 +2,7 @@
 
 templatedir = @TEMPLATESPATH@/openvpn
 
-template_DATA =  index.mas create.mas edit.mas delete.mas serverProperties.mas
+template_DATA =  index.mas create.mas edit.mas delete.mas serverProperties.mas caRequired.mas
 
 EXTRA_DIST = $(template_DATA)
 

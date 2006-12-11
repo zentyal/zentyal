@@ -1,6 +1,7 @@
 <%args>
 $nameEditable   => 0
 %properties     => ()
+@availableCertificates
 $submitName
 $submitValue
 </%args>
@@ -19,9 +20,13 @@ my @tableElements  = (
 					       printableValue => 'UDP' },
                                          ], ], 
        },					 
-      { name => 'caCertificate',     printableName => __('CA certificate'), },
-      { name => 'serverCertificate', printableName => __('Server certificate'), }, 
-      { name => 'serverKey',         printableName => __('Server key'), }, 
+      { name => 'serverCertificate', printableName => __('Server certificate'),
+	       input => 'select', extraParams => [ options => [
+							map { 
+							  { value => $_ };  
+							} @availableCertificates       
+                                         ], ], 
+      }, 
       { name => 'clientToClient',    printableName => __('Allow client-to-client connections'), input => 'checkbox' }, 
       { name => 'local',             printableName => __('Local address to listen on'), 
       help => __("If not local address to listen on is provided, the server will

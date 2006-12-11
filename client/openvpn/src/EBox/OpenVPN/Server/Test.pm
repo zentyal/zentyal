@@ -14,6 +14,7 @@ use Test::Differences;
 
 use lib '../../../';
 use EBox::OpenVPN;
+use EBox::CA::TestStub;
 
 use English qw(-no_match_vars);
 
@@ -22,17 +23,24 @@ sub testDir
     return  '/tmp/ebox.openvpn.test';
 }
 
+sub fakeCA : Test(startup)
+{
+  EBox::CA::TestStub::fake();
+}
 
 sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
+ 
     my $confDir = $self->_confDir();
 
     $self->{openvpnModInstance} = EBox::OpenVPN->_create();
 
     my @gids = split '\s', $GID;
 
-        my @config = (
+    my $macacoCertificateCN ='macacoCertificate';
+
+    my @config = (
 		  '/ebox/modules/openvpn/user'  => $UID,
 		  '/ebox/modules/openvpn/group' =>  $gids[0],
 		  '/ebox/modules/openvpn/conf_dir' => $confDir,
@@ -40,9 +48,7 @@ sub setUpConfiguration : Test(setup)
 
 		  '/ebox/modules/openvpn/server/macaco/port'    => 1194,
 		  '/ebox/modules/openvpn/server/macaco/proto'   => 'tcp',
-		  '/ebox/modules/openvpn/server/macaco/ca_certificate'   => 'monos.crt',
-		  '/ebox/modules/openvpn/server/macaco/server_certificate'   => 'macaco.crt',
-		  '/ebox/modules/openvpn/server/macaco/server_key'   => 'macaco.key',
+		  '/ebox/modules/openvpn/server/macaco/server_certificate'   => $macacoCertificateCN,
 		  '/ebox/modules/openvpn/server/macaco/vpn_net'     => '10.0.8.0',
 		  '/ebox/modules/openvpn/server/macaco/vpn_netmask' => '255.255.255.0',
 
@@ -53,12 +59,35 @@ sub setUpConfiguration : Test(setup)
 
     EBox::GConfModule::TestStub::setConfig(@config);
     EBox::Global::TestStub::setEBoxModule('openvpn' => 'EBox::OpenVPN');
+    EBox::Global::TestStub::setEBoxModule('ca' => 'EBox::CA');
+
+    my $ca    = EBox::Global->modInstance('ca');
+    
+
+    #setup certificates
+    my @certificates = (
+			{
+			 dn => 'CN=monos',
+			 isCACert => 1,
+			},
+			{
+			 dn => "CN=$macacoCertificateCN",
+			 path => 'macaco.crt',
+			 keys => [qw(macaco.pub macaco.key)],
+			},
+		       );
+
+    $ca->setInitialState(\@certificates);
+    
 }
 
 
 sub clearConfiguration : Test(teardown)
 {
     EBox::GConfModule::TestStub::setConfig();
+
+    my $ca    = EBox::Global->modInstance('ca');
+    $ca->destroyCA();
 }
 
 sub _useOkTest : Test
@@ -85,20 +114,71 @@ sub newServerTest : Test(6)
 }
 
 
+sub setCertificateTest : Test(10)
+{
+  my ($self) = @_;
+
+    my $ca    = EBox::Global->modInstance('ca');
+    my @certificates = (
+			{
+			 dn => 'CN=monos',
+			 isCACert => 1,
+			},
+			{
+			 dn => 'CN=certificate1',
+			 path => '/certificate1.crt',
+			},
+			{
+			 dn    => 'CN=certificate2',
+			 path => '/certificate2.crt',
+			},
+			{
+			 dn    => 'CN=expired',
+			 state => 'E',
+			 path => '/certificate2.crt',
+			},
+			{
+			 dn    => 'CN=revoked',
+			 state => 'R',
+			 path => '/certificate2.crt',
+			},
+		       );
+  $ca->setInitialState(\@certificates);
+
+    my $server          = $self->_newServer('macaco');
+    my $certificateGetter_r    =  $server->can('certificate');
+    my $certificateSetter_r    =  $server->can('setCertificate');
+    my $correctCertificates   = [qw(certificate1 certificate2)];
+    my $incorrectCertificates = [qw(inexistentCertificate expired revoked)];
+
+    setterAndGetterTest(
+			  object         => $server,
+			  getter         => $certificateGetter_r,
+			  setter         => $certificateSetter_r,
+			  straightValues => $correctCertificates,
+			  deviantValues  => $incorrectCertificates,
+			  propierty      => "Server\'s certificate",
+			);
+
+#   my $certificates[0]->{state} = 'E';
+#   dies_ok($certificateSetter_r->($server, 'certificate1'))
+}
+
+
 sub setProtoTest : Test(6)
 {
     my ($self) = @_;
  
     my $server          = $self->_newServer('macaco');
-    my $portGetter_r    =  $server->can('proto');
-    my $portSetter_r    =  $server->can('setProto');
+    my $protoGetter_r    =  $server->can('proto');
+    my $protoSetter_r    =  $server->can('setProto');
     my $correctProtos   = [qw(tcp udp)];
     my $incorrectProtos = [qw(mkkp)];
 
     setterAndGetterTest(
 			  object         => $server,
-			  getter         => $portGetter_r,
-			  setter         => $portSetter_r,
+			  getter         => $protoGetter_r,
+			  setter         => $protoSetter_r,
 			  straightValues => $correctProtos,
 			  deviantValues  => $incorrectProtos,
 			  propierty      => "Server\'s IP protocol",
@@ -204,6 +284,18 @@ sub setLocalTest : Test(12)
 
 }
 
+
+sub keyTest : Test(2)
+{
+  my ($self) = @_;
+  
+  my $server          = $self->_newServer('macaco');
+
+  lives_ok { $server->key() } 'key' ;
+
+  EBox::TestStubs::setConfigKey('/ebox/modules/openvpn/server/macaco/server_certificate' => undef);
+  dies_ok {  $server->key()  } 'Checking that trying to get the key from a server without certificate raises error';
+}
 
 sub setterAndGetterTest
 {
@@ -315,30 +407,6 @@ sub setSubnetNetmaskTest : Test(6)
 }
 
 
-sub setCACertificateTest : Test(6)
-{
-    my ($self) = @_;
-    my $server                   = $self->_newServer('macaco');
-    my $caCertificateGetter_r    = $server->can('caCertificate');
-    my $caCertificateSetter_r    = $server->can('setCaCertificate');
-    my $correctCaCertificates    = [
-				    '/etc/openvpn/certs/ca.cert',
-				    ];
-    my $incorrectCaCertificates  = [
-				    'openvpn/certs/ca.cert',
-				    '/etc/../certs/ca.cert',
-				    ];
-
-    setterAndGetterTest(
-			  object         => $server,
-			  getter         => $caCertificateGetter_r,
-			  setter         => $caCertificateSetter_r,
-			  straightValues => $correctCaCertificates,
-			  deviantValues  => $incorrectCaCertificates,
-			  propierty      => "Server\'s caCertificate",
-			);
-
-}
 
 sub _confDir
 {
