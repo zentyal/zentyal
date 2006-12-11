@@ -41,6 +41,7 @@ sub fake
 				  listCertificates    => \&listCertificates,
 				  renewCertificate    => \&renewCertificate,
 				  currentCACertificateState => \&currentCACertificateState,
+				  destroyCA           => \&destroyCA,
 				  setInitialState     => \&setInitialState
 				  );
   }
@@ -58,11 +59,11 @@ sub unfake
 
 # Method: _create
 #
-#       Construct CA mocked object
+#       Fake CA::_create constructor
 #
 # Returns:
 #
-#       Nothing interesting, a mocked EBox::CA object
+#       A mocked EBox::CA object
 sub _create {
 
   my $class = shift;
@@ -87,15 +88,27 @@ sub _create {
   return $self;
 
 }
+
+# Method: destroyCA
+#
+#         Destroy current structure from a CA
+#
+sub destroyCA
+  {
+
+    my ($self) = @_;
+
+    # Destroy everything created -> not created and no certificates
+    $self->{certs} = {};
+    $self->{created} = 0;
+
+    return 1;
+
+  }
+
 # Method: isCreated
 #
-#       Check whether the Certification Infrastructure has been
-#       created or not. (FAKE)
-#
-# Returns:
-#
-#       boolean - True, if the Certification Infrastructure has been
-#       created. Undef, otherwise.
+#       Fake CA::isCreated method
 #
 sub isCreated
   {
@@ -106,8 +119,7 @@ sub isCreated
 
 # Method: createCA
 #
-#       Create a Certification Authority with a self-signed certificate
-#       and if it not setup, create the directory hierarchy for the CA. (FAKE)
+#       Fake CA::createCA method
 #
 # Parameters:
 #
@@ -117,6 +129,7 @@ sub isCreated
 #       orgName       - organization name (eg, company name)
 #       orgNameUnit  - organizational unit name (eg, section name) (Optional)
 #       commonName    - common name from the CA (Optional)
+#       caKeyPassword - passphrase for generating keys (*NOT WORKING*)
 #       days         - expire day of self signed certificate (Optional)
 #
 # Returns:
@@ -126,8 +139,7 @@ sub isCreated
 #
 # Exceptions:
 #
-#      EBox::Exceptions::DataMissing - if any required parameter is
-#      missing
+#      EBox::Exceptions::DataMissing - if any required parameter is missing
 
 sub createCA
   {
@@ -166,8 +178,7 @@ sub createCA
 
 # Method: revokeCACertificate
 #
-#       Revoke the self-signed CA certificate and subsequently all the
-#       issued certificates. (FAKE)
+#       Fake CA::revokeCACertificate method
 #
 # Parameters:
 #
@@ -175,6 +186,7 @@ sub createCA
 #                unspecified, keyCompromise, CACompromise,
 #                affiliationChanged, superseeded, cessationOfOperation
 #                or certificationHold (Optional)
+#       caKeyPassword - the CA passphrase (*NOT WORKING*)
 #
 # Returns:
 #
@@ -200,7 +212,7 @@ sub revokeCACertificate
 
 # Method: issueCACertificate
 #
-#       Issue a self-signed CA certificate. (FAKE)
+#       Fake CA::issueCACertificate method
 #
 # Parameters:
 #
@@ -214,6 +226,8 @@ sub revokeCACertificate
 #       orgNameUnit - organizational unit name (eg, section)
 #                     (Optional)
 #       days - days to hold the same certificate (Optional)
+#       caKeyPassword - key passpharse for CA (*NOT WORKING*)
+#       genPair - if you want to generate a new key pair (*NOT WORKING*)
 #
 # Returns:
 #
@@ -233,6 +247,16 @@ sub issueCACertificate
     if ($self->{certs}->{ca}->{state} eq 'V') {
       throw EBox::Exceptions::External(
 	 __('The CA certificates should be revoked  or has expired before issuing a new certificate'));
+    }
+
+    # Copy revoked if exists
+    my $oldSerial = $self->{certs}->{ca}->{serial};
+    if ($oldSerial) {
+      $self->{certs}->{$oldSerial}->{serial} = $oldSerial;
+      $self->{certs}->{$oldSerial}->{dn} = $self->{certs}->{ca}->{dn}->copy();
+      $self->{certs}->{$oldSerial}->{state} = $self->{certs}->{ca}->{state};
+      $self->{certs}->{$oldSerial}->{revokeDate} = $self->{certs}->{ca}->{revokeDate};
+      $self->{certs}->{$oldSerial}->{path} = $self->{certs}->{ca}->{path};
     }
 
     # Define the distinguished name -> default values in configuration file
@@ -258,10 +282,7 @@ sub issueCACertificate
 
 # Method: renewCACertificate
 #
-#       Renew the self-signed CA certificate. Re-signs all the issued
-#       certificates with the same expiration date or the CA
-#       expiration date if the issued certificate is later. (FAKE)
-#
+#       Fake CA::renewCACertificate
 #
 # Parameters:
 #
@@ -275,6 +296,7 @@ sub issueCACertificate
 #       orgNameUnit - organizational unit name (eg, section)
 #                     (Optional)
 #       days - days to hold the same certificate (Optional)
+#       caKeyPassword - key passpharse for CA (*NOT WORKING*)
 #
 # Returns:
 #
@@ -323,11 +345,13 @@ sub renewCACertificate
       }
     }
 
+    return $self->{certs}->{ca}->{path};
+
   }
 
-# Method: issueCertificate (FAKE)
+# Method: issueCertificate 
 #
-#       Create a new certificate for an requester
+#       Fake CA::issueCertificate method
 #
 # Parameters:
 #
@@ -345,6 +369,14 @@ sub renewCACertificate
 #              Only valid if endDate is not present
 #       endDate - expiration date Date::Calc::Object (Optional)
 #
+#       caKeyPassword - passphrase for CA to sign (*NOT WORKING*)
+#       privateKeyFile - path to the private key file if there is already
+#                        a private key file in the CA (*NOT WORKING*)
+#
+#       requestFile - path to save the new certificate request
+#                    (*NOT WORKING*) 
+#       certFile - path to store the new certificate file (*NOT WORKING*)
+#
 # Returns:
 #
 #      undef if no problem has happened
@@ -352,13 +384,13 @@ sub renewCACertificate
 # Exceptions:
 #
 # External - if the expiration date from certificate to issue is later than CA
-#            certificate expiration date
-#            if any error happens in signing request process
+#            certificate expiration date (*NOT WORKING*)
+#            if any error happens in signing request process (*NOT WORKING*)
 #
 # DataMissing - if any required parameter is missing
 #
 
-sub issueCertificate 
+sub issueCertificate
   {
 
     my ($self, %args) = @_;
@@ -404,7 +436,7 @@ sub issueCertificate
 
 # Method: revokeCertificate
 #
-#       Revoke a certificate given the common name. (FAKE)
+#       Fake CA::revokeCertificate method
 #
 # Parameters:
 #
@@ -413,6 +445,8 @@ sub issueCertificate
 #                unspecified, keyCompromise, CACompromise,
 #                affiliationChanged, superseeded, cessationOfOperation
 #                or certificationHold (Optional)
+#       caKeyPassword - the CA passpharse (*NOT WORKING*)
+#       certFile - the Certificate to revoke (*NOT WORKING*)
 #
 # Returns:
 #
@@ -444,6 +478,10 @@ sub revokeCertificate
     }
   }
 
+  if (not $cert) {
+    throw EBox::Exceptions::External("not certificate found");
+  }
+
   $cert->{state} = 'R';
   $cert->{reason} = $reason;
 
@@ -451,10 +489,7 @@ sub revokeCertificate
 
 # Method: listCertificates
 #
-#       List the certificates that are ready on the system sorted
-#       putting the CA certificate first and then valid certificates.
-#       This list can be filtered according to an state, including or
-#       not the CA certificate. (FAKE)
+#       Fake CA::listCertificates method
 #
 # Parameters:
 #
@@ -535,8 +570,7 @@ sub listCertificates
 
 # Method: renewCertificate
 #
-#       Renew a certificate from a user.
-#       If any Distinguished Name is needed to change, it is done. (FAKE)
+#       Fake CA::renewCertificate method
 #
 # Parameters:
 #
@@ -553,8 +587,19 @@ sub listCertificates
 #       days - days to hold the same certificate (Optional)
 #              Only if enddate not appeared
 #       endDate - the exact date when the cert expired (Optional)
-#                 Only if days not appeared
-#                 It is a Date::Calc::Object
+#                 Only if days not appeared.It is a Date::Calc::Object.
+#
+#       caKeyPassword - key passpharse for CA (*NOT WORKING*)
+#       certFile - the certificate file to renew (*NOT WORKING*)
+#       reqFile  - the request certificate file which to renew (*NOT WORKING*)
+#
+#       privateKeyFile - the private key file (*NOT WORKING*Optional)
+#       keyPassword - the private key passpharse. Only necessary when
+#       a new request is issued (*NOT WORKING*)
+#
+#       overwrite - overwrite the current certificate file. Only if
+#       the certFile is passed (*NOT WORKING*)
+#
 # Returns:
 #
 #       the new certificate file path
@@ -589,7 +634,7 @@ sub renewCertificate
     $userExpDay = Date::Calc::Object->now() + [0, 0, $args{days}, 0, 0, 0]
       unless ($userExpDay);
 
-    if ( $userExpDay gt $self->{caExpirationDate} ) {
+    if ( $userExpDay gt $self->{certs}->{ca}->{expiryDate} ) {
       throw EBox::Exceptions::External(__("Expiration date later than CA certificate expiration date"));
     }
 
@@ -638,7 +683,7 @@ sub renewCertificate
 
 # Method: currentCACertificateState
 #
-#       Return the current state for the CA Certificate. (FAKE)
+#       Fake CA::currentCACertificateState method
 #
 # Returns:
 #
@@ -668,16 +713,17 @@ sub currentCACertificateState
 #       Set a serie of certs for a CA
 #
 # Parameters
-# 
+#
 #       listCert - a list reference of hashes with cert metadata. The
 #       hash should have the following elements:
-#         - state       -> 'V', 'R' or 'E'
-#         - dn          -> EBox::CA::DN
-#         - expiryDate  -> EBox::Date::Object expiration date
-#         - revokeDate  -> EBox::Date::Object revokation date
-#         - reason      -> if revoked, a reason
+#         - state       -> 'V', 'R' or 'E' (Optional)
+#         - dn          -> EBox::CA::DN or an String formatted as /type0=value0/type1=value1/...
+#         - expiryDate  -> EBox::Date::Object expiration date (Optional)
+#         - revokeDate  -> EBox::Date::Object revokation date (Optional)
+#         - reason      -> if revoked, a reason (Optional)
 #         - isCACert    -> boolean indicating if it's a valid CA certificate
-#                       -> Just ONE
+#                       -> Just ONE can have this attribute on
+#         - path        -> string with the certificate path (Optional)
 #
 sub setInitialState
   {
@@ -685,6 +731,7 @@ sub setInitialState
     my ($self, $listCerts) = @_;
 
     my $caCertShown = 0;
+    $self->{certs} = {};
 
     foreach my $argCertRef (@{$listCerts}) {
       my $serial = $self->_createSerial();
@@ -693,18 +740,33 @@ sub setInitialState
       if (not $caCertShown and $argCertRef->{isCACert}) {
 	$self->{certs}->{ca} = {};
 	$certRef = $self->{certs}->{ca};
+	$caCertShown = 1;
+	$self->{created} = 1;
       } else {
 	$self->{certs}->{$serial} = {};
 	$certRef = $self->{certs}->{$serial};
       }
       # Copying all remainder data
-      $certRef->{state} = $argCertRef->{state};
-      $certRef->{dn} = $argCertRef->{dn};
-      $certRef->{expiryDate} = $argCertRef->{expiryDate};
-      $certRef->{revokeDate} = $argCertRef->{revokeDate};
-      $certRef->{reason} = $argCertRef->{reason};
-      $certRef->{path} = $serial . ".cert";
-      $certRef->{reason} = $serial;
+      $certRef->{state} = 'V' unless ($argCertRef->{state});
+      $certRef->{state} = $argCertRef->{state} if ($argCertRef->{state});
+      if (UNIVERSAL::isa($argCertRef->{dn}, "EBox::CA::DN") ) {
+	$certRef->{dn} = $argCertRef->{dn};
+      } else {
+	# I assume an string is passed
+	$certRef->{dn} = EBox::CA::DN->parseDN($argCertRef->{dn});
+      }
+      if ($certRef->{state} eq 'V' or $certRef->{state} eq 'E') {
+	$certRef->{expiryDate} = Date::Calc::Object->now() + [0,0,+365] unless ($argCertRef->{expiryDate});
+	$certRef->{expiryDate} = $argCertRef->{expiryDate} if ($argCertRef->{expiryDate});
+      } elsif ($certRef->{state} eq 'R') {
+	$certRef->{revokeDate} = $argCertRef->{revokeDate} if ($argCertRef->{revokeDate});
+	$certRef->{revokeDate} = Date::Calc::Object->now();
+	$certRef->{reason} = $argCertRef->{reason};
+      }
+      $certRef->{path} = $serial . ".cert" unless ($argCertRef->{path});
+      $certRef->{path} = $argCertRef->{path} if ($argCertRef->{path});
+      $certRef->{serial} = $serial;
+
     }
 
     return;

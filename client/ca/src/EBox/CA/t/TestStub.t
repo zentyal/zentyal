@@ -17,11 +17,12 @@
 
 # A module to test faked CA module
 
-use Test::More qw(no_plan);
+use Test::More tests => 25;
 use Test::Exception;
 use Date::Calc::Object qw (:all);
 use Data::Dumper;
 use EBox::Global;
+use EBox::CA::DN;
 
 diag ( 'Starting EBox::CA::TestStub test' );
 
@@ -37,9 +38,9 @@ my $ca = EBox::Global->modInstance('ca');
 
 isa_ok ( $ca , "EBox::CA");
 
-ok ( ! $ca->isCreated(), 'not created' );
+ok ( ! $ca->isCreated(), 'not created');
 
-throws_ok { $ca->createCA() } "EBox::Exceptions::DataMissing", "data missing error";
+throws_ok { $ca->createCA() } 'EBox::Exceptions::DataMissing', 'data missing error';
 
 cmp_ok ( $ca->createCA(orgName => "Warp",
 		   commonName => "lalala"), 
@@ -57,11 +58,6 @@ ok ( $ca->renewCACertificate(localityName => 'La Juani',
 			     days => 100),
      "renewing CA certificate");
 
-throws_ok { $ca->issueCertificate(commonName => 'uno 1',
-				 endDate => Date::Calc->new(2010, 10, 20, 00, 00, 00),
-				 days => 10) }
-  'EBox::Exceptions::External', "issuing a certificate with later date than CA";
-
 ok ( $ca->issueCertificate(commonName => 'uno 1',
 			   endDate    => Date::Calc->new(2006, 12, 31, 23, 59, 59)),
      "issuing 1st certificate");
@@ -69,12 +65,6 @@ ok ( $ca->issueCertificate(commonName => 'uno 1',
 ok ( $ca->issueCertificate(commonName => 'dos',
 			   days => 15), 
      "issuing 2nd certificate");
-
-# Check a very long name
-
-throws_ok { $ca->issueCertificate(commonName => 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-			   days => 10) } "EBox::Exceptions::External" ,
-     "issuing a very long certificate";
 
 throws_ok { $ca->revokeCertificate(commonName => 'tres') } "EBox::Exceptions::External", 
      "revoking an unexistent certificate";
@@ -119,12 +109,44 @@ is ( $ca->currentCACertificateState(), 'R', 'checking final CA certificate state
 
 cmp_ok ( $ca->getCACertificate(), '==', 0, "not getting a valid CA" );
 
-cmp_ok( scalar(@{$ca->revokeReasons()}), '==', 7, 'revoking reasons count');
-
 my $list_ref = $ca->listCertificates();
 
-diag( "Printing Certificate List" );
-diag( Dumper($list_ref) );
+# Testing SetInitialState
+my $dn = EBox::CA::DN->new(organizationName     => 'foo',
+			   organizationNameUnit => 'bar',
+			   commonName           => 'foobar');
+
+my $date = Date::Calc->new(2010, 10, 10, 23, 59, 59);
+
+$ca->setInitialState ( [ { state      => 'V',
+			   dn         => $dn,
+			   expiryDate => $date,
+			   isCACert   => 1
+			 },
+			 { state      => 'V',
+			   dn         => $dn,
+			   expiryDate => $date + [0,0,-1],
+			   path       => 'foo.cert'
+			 },
+			 { state      => 'R',
+			   dn         => $dn,
+			   revokeDate => Date::Calc::Object->now(),
+			   reason     => 'cessationOfOperation',
+			   path       => 'bar.cert'
+			 },
+			 { state      => 'E',
+			   dn         => '/C=ES/ST=Nation/L=Nowhere/O=ACV/CN=oaoa',
+			   expiryDate => Date::Calc::Object->now()
+			 },
+			 { dn         => '/C=ES/ST=Nation/L=Nowhere/O=foobar/CN=aaa'
+			 }
+		       ]
+		     );
+
+cmp_ok ( scalar(@{$ca->listCertificates()}), '==', 5, 'setting initial state');
+
+# Destroy it!
+ok( $ca->destroyCA(), "destroying CA structure");
 
 # Unfake the module
 EBox::CA::TestStub->unfake();
