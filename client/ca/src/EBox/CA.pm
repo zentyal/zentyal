@@ -515,7 +515,6 @@ sub renewCACertificate
 	  -f ( KEYSDIR . $element->{dn}->attribute('commonName') . ".pem") ) {
 
 	my $userExpiryDate = $element->{expiryDate};
-	EBox::debug("user expir: $userExpiryDate");
 
 	$userExpiryDate = $self->{caExpirationDate}
 	  if ( $element->{expiryDate} gt $self->{caExpirationDate} );
@@ -1036,7 +1035,7 @@ sub getCACertificate
 
 # Method: getKeys
 #
-#       Get the keys (public and private) from CA given an specific user.
+#       Get the keys (public and private) from CA given an specific common name.
 #       Remove the private key from eBox.
 #
 # Parameters:
@@ -1057,8 +1056,6 @@ sub getCACertificate
 sub getKeys {
 
   my ($self, $commonName) = @_;
-  use Smart::Comments;
-  ### getKeys: 'unfake'
 
   throw EBox::Exceptions::DataMissing(data => __("Common Name"))
     unless defined ($commonName);
@@ -1071,7 +1068,7 @@ sub getKeys {
 
   $keys{publicKey} = KEYSDIR . "$commonName.pem";
 
-  throw EBox::Exceptions::External(__x("The user {commonName} does NOT exist",
+  throw EBox::Exceptions::External(__x("The certificate with common name {commonName} does NOT exist",
 				      commonName => $commonName))
     unless (-f $keys{publicKey});
 
@@ -1264,7 +1261,7 @@ sub renewCertificate
 					  caKeyPassword => $args{caKeyPassword});
 
     if (defined($retVal) ) {
-      throw EBox::Exceptions::External(__x("Common name {cn} does NOT exist in this CA"
+      throw EBox::Exceptions::External(__x("Certificate with this common name {cn} does NOT exist in this CA"
 					   , cn => $userDN->attribute('commonName')));
     }
     # Sign a new one

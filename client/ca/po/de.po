@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox-CA 0.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-12-04 17:26+0100\n"
+"POT-Creation-Date: 2006-12-05 12:07+0100\n"
 "PO-Revision-Date: 2006-11-06 16:01+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -25,8 +25,8 @@ msgstr ""
 
 #: src/EBox/CGI/ShowForm.pm:62 src/EBox/CGI/RenewCertificate.pm:66
 #: src/EBox/CGI/DownloadKeys.pm:66 src/EBox/CGI/RevokeCertificate.pm:66
-#: src/EBox/CGI/IssueCertificate.pm:66 src/EBox/CA.pm:634 src/EBox/CA.pm:790
-#: src/EBox/CA.pm:969 src/EBox/CA.pm:1011 src/EBox/CA.pm:1108
+#: src/EBox/CGI/IssueCertificate.pm:66 src/EBox/CA.pm:618 src/EBox/CA.pm:774
+#: src/EBox/CA.pm:1058 src/EBox/CA.pm:1100 src/EBox/CA.pm:1197
 #: src/templates/formRenew.mas:33 src/templates/index.mas:19
 #: src/templates/index.mas:92 src/templates/formRevoke.mas:22
 msgid "Common Name"
@@ -57,8 +57,8 @@ msgstr ""
 
 #: src/EBox/CGI/RenewCertificate.pm:61 src/EBox/CGI/RevokeCertificate.pm:61
 #: src/EBox/CGI/CreateCA.pm:62 src/EBox/CGI/IssueCertificate.pm:64
-#: src/EBox/CGI/IssueCertificate.pm:68 src/EBox/CA.pm:239 src/EBox/CA.pm:422
-#: src/EBox/CA.pm:502 src/EBox/CA.pm:798 src/EBox/CA.pm:1299
+#: src/EBox/CGI/IssueCertificate.pm:68 src/EBox/CA.pm:223 src/EBox/CA.pm:406
+#: src/EBox/CA.pm:486 src/EBox/CA.pm:782 src/EBox/CA.pm:1388
 #: src/templates/formRenew.mas:15 src/templates/index.mas:35
 #: src/templates/index.mas:55 src/templates/formRevoke.mas:52
 msgid "Certification Authority Passphrase"
@@ -93,7 +93,7 @@ msgid "The CA certificate has been revoked"
 msgstr ""
 
 #: src/EBox/CGI/CreateCA.pm:60 src/EBox/CGI/IssueCertificate.pm:63
-#: src/EBox/CA.pm:241 src/EBox/CA.pm:424 src/templates/index.mas:17
+#: src/EBox/CA.pm:225 src/EBox/CA.pm:408 src/templates/index.mas:17
 #: src/templates/createCA.mas:17
 msgid "Organization Name"
 msgstr ""
@@ -120,7 +120,7 @@ msgstr ""
 msgid "Problems creating Certification Authority has happened"
 msgstr ""
 
-#: src/EBox/CGI/IssueCertificate.pm:67 src/EBox/CA.pm:632
+#: src/EBox/CGI/IssueCertificate.pm:67 src/EBox/CA.pm:616
 #: src/templates/index.mas:47
 msgid "Key Pair Passphrase"
 msgstr ""
@@ -133,63 +133,68 @@ msgstr ""
 msgid "The new CA certificate has been issued"
 msgstr ""
 
-#: src/EBox/CA.pm:282 src/EBox/CA.pm:651 src/EBox/CA.pm:1083
+#: src/EBox/CA.pm:266 src/EBox/CA.pm:635 src/EBox/CA.pm:1172
 msgid "Days set to the maximum allowed: Year 2038 Bug"
 msgstr ""
 
-#: src/EBox/CA.pm:438
+#: src/EBox/CA.pm:422
 msgid ""
 "The CA certificates should be revoked  or has expired before issuing a new "
 "certificate"
 msgstr ""
 
-#: src/EBox/CA.pm:670 src/EBox/CA.pm:1104
+#: src/EBox/CA.pm:654 src/EBox/CA.pm:1193
 msgid "Expiration date later than CA certificate expiration date"
 msgstr ""
 
-#: src/EBox/CA.pm:680
+#: src/EBox/CA.pm:664
 msgid "No CA passphrase to sign a new certificate"
 msgstr ""
 
-#: src/EBox/CA.pm:807
+#: src/EBox/CA.pm:791
 #, perl-brace-format
 msgid "Certificate with common name {commonName} does NOT exist"
 msgstr ""
 
-#: src/EBox/CA.pm:811
+#: src/EBox/CA.pm:795
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
 "Options:"
 msgstr ""
 
-#: src/EBox/CA.pm:980
+#: src/EBox/CA.pm:972
+msgid ""
+"Neither common name, distinguished name nor serial number has been passed"
+msgstr ""
+
+#: src/EBox/CA.pm:1069
 #, perl-brace-format
 msgid "The user {commonName} does NOT exist"
 msgstr ""
 
-#: src/EBox/CA.pm:1109
+#: src/EBox/CA.pm:1198
 msgid "or"
 msgstr ""
 
-#: src/EBox/CA.pm:1110
+#: src/EBox/CA.pm:1199
 msgid "Certificate file"
 msgstr ""
 
-#: src/EBox/CA.pm:1118
+#: src/EBox/CA.pm:1207
 msgid "Certification Authority Passpharse"
 msgstr ""
 
-#: src/EBox/CA.pm:1136
+#: src/EBox/CA.pm:1225
 msgid "The certificate to renew does NOT exist"
 msgstr ""
 
-#: src/EBox/CA.pm:1173
+#: src/EBox/CA.pm:1262
 #, perl-brace-format
 msgid "Common name {cn} does NOT exist in this CA"
 msgstr ""
 
-#: src/EBox/CA.pm:1201
+#: src/EBox/CA.pm:1290
 msgid ""
 "The private key passpharse needed to create a new request. No renewal was "
 "made. Issue a new certificate with new keys"

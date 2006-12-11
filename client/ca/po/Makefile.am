@@ -11,35 +11,35 @@ MAINTAINERCLEANFILES = Makefile.in ebox-modulename.pot
 POTFILES_TMPL = \
  ./src/templates/formRenew.mas \
  ./src/templates/index.mas \
- ./src/templates/createCA.mas \
  ./src/templates/formRevoke.mas \
+ ./src/templates/createCA.mas \
  ./tools 
 
 POTFILES_PL = \
- ./src/EBox/CGI/DownloadKeys.pm \
+ ./src/EBox/CA/DN.pm \
  ./src/EBox/CGI/ShowForm.pm \
+ ./src/EBox/CGI/RenewCertificate.pm \
+ ./src/EBox/CGI/DownloadKeys.pm \
+ ./src/EBox/CGI/RevokeCertificate.pm \
  ./src/EBox/CGI/Index.pm \
  ./src/EBox/CGI/CreateCA.pm \
  ./src/EBox/CGI/IssueCertificate.pm \
- ./src/EBox/CGI/RevokeCertificate.pm \
- ./src/EBox/CGI/RenewCertificate.pm \
- ./src/EBox/CA/DN.pm \
  ./src/EBox/CA.pm 
 
 POTFILES = \
- ./src/EBox/CGI/DownloadKeys.pm \
+ ./src/EBox/CA/DN.pm \
  ./src/EBox/CGI/ShowForm.pm \
+ ./src/EBox/CGI/RenewCertificate.pm \
+ ./src/EBox/CGI/DownloadKeys.pm \
+ ./src/EBox/CGI/RevokeCertificate.pm \
  ./src/EBox/CGI/Index.pm \
  ./src/EBox/CGI/CreateCA.pm \
  ./src/EBox/CGI/IssueCertificate.pm \
- ./src/EBox/CGI/RevokeCertificate.pm \
- ./src/EBox/CGI/RenewCertificate.pm \
- ./src/EBox/CA/DN.pm \
  ./src/EBox/CA.pm \
  ./src/templates/formRenew.mas \
  ./src/templates/index.mas \
- ./src/templates/createCA.mas \
- ./src/templates/formRevoke.mas 
+ ./src/templates/formRevoke.mas \
+ ./src/templates/createCA.mas 
 
 # Usually the message domain is the same as the package name.
 DOMAIN = $(PACKAGE)
