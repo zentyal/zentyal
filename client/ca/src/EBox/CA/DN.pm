@@ -178,7 +178,7 @@ sub stringOpenSSLStyle {
 #       attributeName - the attribute name (It can be one of the
 #       following: countryName, stateName, localityName,
 #       OrganizationName, OrganizationNameUnit, commonName
-#       value - the new common name (Optional)
+#       value - the new attribute's value (Optional)
 #
 # Returns:
 #
