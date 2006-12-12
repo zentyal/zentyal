@@ -160,8 +160,7 @@ sub setCertificateTest : Test(10)
 			  propierty      => "Server\'s certificate",
 			);
 
-#   my $certificates[0]->{state} = 'E';
-#   dies_ok($certificateSetter_r->($server, 'certificate1'))
+
 }
 
 

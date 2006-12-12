@@ -473,7 +473,7 @@ sub setFundamentalAttributes
     $self->setSubnetNetmask( $params{subnetNetmask} );
     $self->setProto($params{proto});
     $self->setPort($params{port});
-    $self->setServerCertificate($params{certificate});    
+    $self->setCertificate($params{certificate});    
 
     my @noFundamentalAttrs = qw(local clientToClient service);
     foreach my $attr (@noFundamentalAttrs)  {

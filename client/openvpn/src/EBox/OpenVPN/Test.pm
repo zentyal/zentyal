@@ -15,6 +15,7 @@ use EBox::Test qw(checkModuleInstantiation);
 use Perl6::Junction qw(all);
 
 use EBox::NetWrappers::TestStub;
+use EBox::CA::TestStub;
 
 use lib '../..';
 
@@ -35,6 +36,13 @@ sub _moduleInstantiationTest : Test
     checkModuleInstantiation('openvpn', 'EBox::OpenVPN');
 }
 
+
+
+sub fakeCA : Test(startup)
+{
+  EBox::CA::TestStub::fake();
+}
+
 sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
@@ -49,7 +57,7 @@ sub setUpConfiguration : Test(setup)
 
     EBox::GConfModule::TestStub::setConfig(@config);
     EBox::Global::TestStub::setEBoxModule('openvpn' => 'EBox::OpenVPN');
-
+    EBox::Global::TestStub::setEBoxModule('ca' => 'EBox::CA');
 }
 
 
@@ -61,18 +69,34 @@ sub clearConfiguration : Test(teardown)
 
 sub newAndRemoveServerTest  : Test(24)
 {
-    my $openVPN = EBox::OpenVPN->_create();
 
-    my @serversNames = qw(server1 sales staff_vpn );
-    my %serversParams = (
-			 server1 => [service => 1, subnet => '10.8.0.0', subnetNetmask => '255.255.255.0', port => 3000, proto => 'tcp',  serverCertificate => '/etc/cert/server.cert',  type => 'one2many'],
-			 sales => [service => 0, subnet => '10.8.0.0', subnetNetmask => '255.255.255.0', port => 3001, proto => 'tcp',  serverCertificate => '/etc/cert/server.cert',  type => 'one2many'],
-			 staff_vpn => [service => 1, subnet => '10.8.0.0', subnetNetmask => '255.255.255.0', port => 3002, proto => 'tcp',  serverCertificate => '/etc/cert/server.cert',  type => 'one2many'],
+  my $ca = EBox::Global->modInstance('ca');
+  my @fakeCertificates = (
+			  {
+			   dn => 'CN=monos',
+			   isCACert => 1,
+			  },
+			  {
+			   dn => "CN=serverCertificate",
+			   path => 'certificate.crt',
+			   keys => [qw(certificate.pub certificate.key)],
+			  },
+			 );
+  $ca->setInitialState(\@fakeCertificates);
+
+
+  my $openVPN = EBox::OpenVPN->_create();
+  
+  my @serversNames = qw(server1 sales staff_vpn );
+  my %serversParams = (
+			 server1 => [service => 1, subnet => '10.8.0.0', subnetNetmask => '255.255.255.0', port => 3000, proto => 'tcp',  certificate => 'serverCertificate',  type => 'one2many'],
+			 sales => [service => 0, subnet => '10.8.0.0', subnetNetmask => '255.255.255.0', port => 3001, proto => 'tcp',  certificate => 'serverCertificate',  type => 'one2many'],
+			 staff_vpn => [service => 1, subnet => '10.8.0.0', subnetNetmask => '255.255.255.0', port => 3002, proto => 'tcp',  certificate => 'serverCertificate',  type => 'one2many'],
 
 			 );
 
     dies_ok { $openVPN->removeServer($serversNames[0]) } "Checking that removal of server when the server list is empty raises error";
-    dies_ok {  $openVPN->newServer('incorrect-dot', $serversParams{server1})  } 'Testing addition of incorrect named server';
+    dies_ok {  $openVPN->newServer('incorrect-dot', @{ $serversParams{server1} })  } 'Testing addition of incorrect named server';
 
     foreach my $name (@serversNames) {
 	my $instance;
