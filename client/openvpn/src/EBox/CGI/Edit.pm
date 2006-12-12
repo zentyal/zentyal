@@ -9,7 +9,7 @@ use EBox::Global;
 use EBox::OpenVPN;
 use Perl6::Junction qw(any);
 
-my @serverPropierties = qw(subnet subnetNetmask port proto serverCertificate  clientToClient local service);
+my @serverPropierties = qw(subnet subnetNetmask port proto certificate  clientToClient local service);
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -63,8 +63,7 @@ sub masonParameters
 	$serverAttributes{$attr} = $value;
     }
 
-    my $ca = EBox::Global->modInstance('ca');
-    my $disabled = $ca->isCreated ? 0 : 1;
+    my $disabled = $openVPN->CAIsCreated() ? 0 : 1;
 
     return [name => $name, 
 	    serverAttrs => \%serverAttributes,
@@ -79,12 +78,18 @@ sub masonParameters
 
 sub actuate
 {
-    my ($self) = @_;
-    if ($self->param('edit')) {
-	$self->_doEdit();
-    }
+  my ($self) = @_;
+
+  my $openVPN = EBox::Global->modInstance('openvpn');
+  $openVPN->CAIsCreated() or return;
+
+  if ($self->param('edit')) {
+    $self->_doEdit();
+  }
 
 }
+
+
 
 
 sub _doEdit

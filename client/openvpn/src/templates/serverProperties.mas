@@ -8,7 +8,7 @@ $submitValue
 <%init>
 use EBox::Gettext;
 my @tableElements  = (
-      { name => 'service',           printableName => __('Service active'), input => 'checkbox' },
+      { name => 'service',           printableName => __('Active'), input => 'checkbox' },
       { name => 'port',              printableName => __('Port'),},
       { name => 'subnet',            printableName => __('VPN subnet'),}, 
       { name => 'subnetNetmask',     printableName => __('VPN subnet netmask'),}, 
@@ -20,7 +20,7 @@ my @tableElements  = (
 					       printableValue => 'UDP' },
                                          ], ], 
        },					 
-      { name => 'serverCertificate', printableName => __('Server certificate'),
+      { name => 'certificate', printableName => __('Server certificate'),
 	       input => 'select', extraParams => [ options => [
 							map { 
 							  { value => $_ };  

@@ -26,6 +26,7 @@ use Perl6::Junction qw(any);
 use EBox::OpenVPN::Server;
 use EBox::OpenVPN::FirewallHelper;
 use EBox::CA;
+use EBox::CA::DN;
 use EBox::NetWrappers qw();
 use Error qw(:try);
 
@@ -238,6 +239,12 @@ sub firewallHelper
 }
 
 
+sub CAIsCreated
+{
+  my $ca = EBox::Global->modInstance('ca');
+  return $ca->isCreated;
+}
+
 sub setService # (active)
 {
     my ($self, $active) = @_;
@@ -245,8 +252,7 @@ sub setService # (active)
     if ($active) {
       $self->service and return;
 
-      my $ca = EBox::Global->modInstance('ca');
-      $ca->isCreated() or throw EBox::Exceptions::Internal('Tying to activate OpenVPN service when there is not certification authority created');
+      $self->CAIsCreated() or throw EBox::Exceptions::Internal('Tying to activate OpenVPN service when there is not certification authority created');
     }
     else {
       (not $active) and return;
@@ -262,8 +268,7 @@ sub service
    my $service =  $self->get_bool('active');
 
    if ($service) {
-      my $ca = EBox::Global->modInstance('ca');
-      if (! $ca->isCreated()) {
+      if (! $self->CAIsCreated()) {
 	EBox::warn('OpenVPN service disbled because certification authority is not setted up');
 	return 0;
       }
@@ -358,7 +363,7 @@ sub availableCertificates
   my $certificates_r = $ca->listCertificates(state => 'V', excludeCA => 1);
   my @certificatesCN = map {
     $_->{dn}->attribute('commonName');
-  } @{$certificates_r};
+  } @{ $certificates_r };
 
   return \@certificatesCN;
 }

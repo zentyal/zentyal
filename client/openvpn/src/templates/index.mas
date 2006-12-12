@@ -33,9 +33,9 @@ my $active  = $service ? 'yes' : 'no';
 %              }
 			<tbody>
 %			foreach my $server (@servers) {
-                        <& .serverRow, server => $server, disabled => $disabled &>
+                        <& .serverRow, server => $server&>
 %			}
-                        <& .addServerRow, disabled => $disabled &>
+                        <& .addServerRow &>
 			</tbody>
 		</table>
 %              if (@servers > 0) {
