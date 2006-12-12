@@ -64,11 +64,11 @@ sub masonParameters
     }
 
     my $ca = EBox::Global->modInstance('ca');
-    my $disabled = $ca->isCreated > 0 : 1;
+    my $disabled = $ca->isCreated ? 0 : 1;
 
     return [name => $name, 
 	    serverAttrs => \%serverAttributes,
-	    availableCertificates => $openVPN->availableCertificates()
+	    availableCertificates => $openVPN->availableCertificates(),
 	    disabled              => $disabled,
 	   ];
 }

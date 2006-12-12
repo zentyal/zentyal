@@ -51,7 +51,7 @@ sub masonParameters
     my ($self) = @_;
 
     my $ca = EBox::Global->modInstance('ca');
-    my $disabled = $ca->isCreated > 0 : 1;
+    my $disabled = $ca->isCreated ? 0 : 1;
 
     my $openvpn = EBox::Global->modInstance('openvpn');
 
