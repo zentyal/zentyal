@@ -15,6 +15,7 @@ sub new # (error=?, msg=?, cgi=?)
 	my $self = $class->SUPER::new('title' => __('OpenVPN'),
 				      'template' => '/openvpn/create.mas',
 				      @_);
+
 	$self->{domain} = 'ebox-openvpn';
 	bless($self, $class);
 	return $self;
@@ -25,7 +26,7 @@ sub requiredParameters
 {
     my ($self) = @_;
     if ($self->param('create')) {
-	[qw(service create name subnet subnetNetmask port proto  serverCertificate )];
+	[qw(service create name subnet subnetNetmask port proto  certificate )];
     }
     else {
 	return [];
@@ -71,10 +72,13 @@ sub actuate
 	my %params = %{ $self->paramsAsHash() };
 	my $name   = delete $params{name};
 
+	# remove blank parameters
 	while (my ($key, $value) = each %params) {
 	    next if $value ne '';
 	    delete $params{$key};
 	}
+
+	$openVPN->newServer($name, %params);
 
     
 	$self->setMsg(__x("New server {name} created", name => $name) );

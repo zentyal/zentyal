@@ -9,8 +9,9 @@ use EBox::Test::CGI qw(:all);
 use EBox::Global;
 
 
-use lib '../../..';
+use lib '../../../..';
 use EBox::OpenVPN;
+use EBox::CA::TestStub;
 
 sub newCGI 
 {
@@ -29,6 +30,11 @@ sub _confDir
   my ($self) = @_;
 
   return testDir() . '/conf'
+}
+
+sub fakeCA : Test(startup)
+{
+  EBox::CA::TestStub::fake();
 }
 
 sub muteOutput : Test(startup)
@@ -51,6 +57,21 @@ sub eboxConfSetup : Test(setup)
 
   EBox::GConfModule::TestStub::setConfig(@config);
   EBox::Global::TestStub::setEBoxModule('openvpn' => 'EBox::OpenVPN');
+  EBox::Global::TestStub::setEBoxModule('ca' => 'EBox::CA');
+
+     #setup certificates
+    my $ca    = EBox::Global->modInstance('ca');
+    my @certificates = (
+			{
+			 dn => 'CN=monos',
+			 isCACert => 1,
+			},
+			{
+			 dn => "CN=serverCertificate",
+			},
+		       );
+
+    $ca->setInitialState(\@certificates);
 }
 
 sub eboxConfTearDown : Test(teardown)
@@ -77,9 +98,9 @@ sub runWithoutParamTest :  Test(1)
 sub createTest : Test(9)
 {
   my @straightCases = (
-		       [ name => 'macaco', create => 1, service => 1, subnet => '10.8.0.0', subnetNetmask => '255.255.255.0', port => 3000, proto => 'tcp', caCertificate => '/etc/cert/ca.cert', serverCertificate => '/etc/cert/server.cert', serverKey => '/etc/cert/server.key', ],
-			 [ name => 'gibon', create => 1, service => 0, subnet => '10.8.0.0', subnetNetmask => '255.255.255.0', port => 3001, proto => 'tcp', caCertificate => '/etc/cert/ca.cert', serverCertificate => '/etc/cert/server.cert', serverKey => '/etc/cert/server.key', ],
-			 [ name => 'titi',  create => 1, service => 1, subnet => '10.8.0.0', subnetNetmask => '255.255.255.0', port => 3002, proto => 'tcp', caCertificate => '/etc/cert/ca.cert', serverCertificate => '/etc/cert/server.cert', serverKey => '/etc/cert/server.key', ],
+		       [ name => 'macaco', create => 1, service => 1, subnet => '10.8.0.0', subnetNetmask => '255.255.255.0', port => 3000, proto => 'tcp', certificate => 'serverCertificate', ],
+			 [ name => 'gibon', create => 1, service => 0, subnet => '10.8.0.0', subnetNetmask => '255.255.255.0', port => 3001, proto => 'tcp', certificate => 'serverCertificate', ],
+			 [ name => 'titi',  create => 1, service => 1, subnet => '10.8.0.0', subnetNetmask => '255.255.255.0', port => 3002, proto => 'tcp', certificate => 'serverCertificate', ],
 
 		      );
 
@@ -97,7 +118,7 @@ sub createTest : Test(9)
 
     my $openVPN = EBox::Global->modInstance('openvpn');
     my $server;
-    lives_ok { $server =  $openVPN->server($nameParam) } ;
+    lives_ok { $server =  $openVPN->server($nameParam) } 'Checking that server was correctly created';
 
   }
 }
