@@ -516,11 +516,6 @@ sub renewCACertificate
   {
     my ($self, %args) = @_;
 
-    if ( not defined($args{caKeyPassword}) and
-	 not defined($self->{caKeyPassword})) {
-      throw EBox::Exceptions::DataMissing(data => __('Certification Authority Passphrase'));
-    }
-
     $self->{caKeyPassword} = $args{caKeyPassword};
 
     my $listCerts = $self->listCertificates();
