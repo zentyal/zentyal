@@ -99,6 +99,24 @@ sub setConfig
 }
 
 #
+# Function: setConfigKey
+#
+#    set a EBox config key and his value. (Currently stored in GConf)
+#    Plese do not confuse this sub with setEBoxConfigKeys
+#
+# Parameters:
+#     the key and value to be established
+#
+# Prerequisites:
+#      activateEBoxTestStubs must be called to be able to use this function
+# Usage examples:
+#       setConfigKey( '/ebox/modules/openvpn/user'  => $UID)
+sub setConfigKey
+{
+  return EBox::GConfModule::TestStub::setEntry(@_); 
+}
+
+#
 # Function: setEBoxModule
 #
 #   Register a ebox module in ebox configuration. This is not needed for modules created with fakeEBoxModule
