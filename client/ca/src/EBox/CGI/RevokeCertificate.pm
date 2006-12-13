@@ -58,7 +58,6 @@ sub _process
 
     $self->_requireParam('isCACert', __('Boolean indicating Certification Authority Certificate') );
     $self->_requireParam('reason', __('Reason') );
-    $self->_requireParam('CAPassphrase', __('Certification Authority Passphrase') );
 
     my $commonName = $self->unsafeParam('commonName');
     # We have to check it manually
@@ -73,17 +72,14 @@ sub _process
 
     my $isCACert = $self->param('isCACert');
     my $reason = $self->param('reason');
-    my $caPassphrase = $self->param('CAPassphrase');
     my @array = ();
 
     my $retValue;
     if ( $isCACert ) {
-      $retValue = $ca->revokeCACertificate( reason => $reason,
-					    caKeyPassword => $caPassphrase);
+      $retValue = $ca->revokeCACertificate( reason => $reason);
     } else {
       $retValue = $ca->revokeCertificate( commonName    => $commonName,
-					  reason        => $reason,
-					  caKeyPassword => $caPassphrase);
+					  reason        => $reason);
     }
 
     my $msg = __("The certificate has been revoked");

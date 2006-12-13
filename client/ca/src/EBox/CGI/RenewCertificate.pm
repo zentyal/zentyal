@@ -58,7 +58,6 @@ sub _process
 
     $self->_requireParam('isCACert', __('Boolean indicating Certification Authority Certificate') );
     $self->_requireParam('expireDays', __('Days to expire') );
-    $self->_requireParam('CAPassphrase', __('Certification Authority Passphrase') );
 
     my $commonName = $self->unsafeParam('commonName');
     # We have to check it manually
@@ -73,16 +72,13 @@ sub _process
 
     my $isCACert = $self->param('isCACert');
     my $expireDays = $self->param('expireDays');
-    my $caPassphrase = $self->param('CAPassphrase');
 
     my $retValue;
     if ( $isCACert ) {
-      $retValue = $ca->renewCACertificate( days          => $expireDays,
-					   caKeyPassword => $caPassphrase);
+      $retValue = $ca->renewCACertificate( days          => $expireDays);
     } else {
       $retValue = $ca->renewCertificate( commonName    => $commonName,
-					  days          => $expireDays,
-					  caKeyPassword => $caPassphrase);
+					  days          => $expireDays);
     }
 
     if (not defined($retValue) ) {

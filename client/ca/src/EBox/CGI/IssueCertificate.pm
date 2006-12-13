@@ -61,33 +61,14 @@ sub _process
 
     if ($issueCA) {
       $self->_requireParam('name', __('Organization Name') );
-      $self->_requireParam('passphrase', __('Certification Authority Passphrase') );
     } else {
       $self->_requireParam('name', __('Common Name') );
-      $self->_requireParam('passphrase', __('Key Pair Passphrase') );
-      $self->_requireParam('CAPassphrase', __('Certification Authority Passphrase') );
     }
     # Common parameters
     $self->_requireParam('expiryDays', __('Days to expire') );
-    $self->_requireParam('repassphrase', __('Re-type Passphrase') );
 
     my $name = $self->param('name');
     my $days = $self->param('expiryDays');
-    my $passphrase = $self->param('passphrase');
-    my $repassphrase = $self->param('repassphrase');
-    my $caPassphrase = $self->param('CAPassphrase');
-
-    if($passphrase ne $repassphrase) {
-      throw EBox::Exceptions::External(__('Passphrases do NOT match'));
-    }
-
-    if (not $issueCA) {
-      if ( length($passphrase) < 4 or length($caPassphrase) < 4) {
-	throw EBox::Exceptions::External(__('Passphrases should be at ' 
-					    . 'least 4 characters long'));
-      }
-
-    }
 
     if ( $days <= 0 ) {
       throw EBox::Exceptions::External(__('Days to expire MUST be a natural number'));
@@ -97,13 +78,10 @@ sub _process
     if ($issueCA) {
       $retValue = $ca->issueCACertificate( orgName       => $name,
 					   days          => $days,
-					   caKeyPassword => $passphrase,
 					   genPair       => 1);
     } else {
       $retValue = $ca->issueCertificate( commonName    => $name,
-					 days          => $days,
-					 keyPassword   => $passphrase,
-					 caKeyPassword => $caPassphrase);
+					 days          => $days);
     }
 
     my $msg = __("The certificate has been issued");
