@@ -39,8 +39,9 @@ use EBox::Backup::OpticalDiscDrives;
 use Params::Validate qw(validate_with validate_pos);
 
 use Readonly;
-Readonly::Scalar my $FULL_BACKUP_ID  => 'full backup';
-Readonly::Scalar my $CONF_BACKUP_ID  =>'configuration backup';
+Readonly::Scalar our $FULL_BACKUP_ID  => 'full backup';
+Readonly::Scalar our $CONFIGURATION_BACKUP_ID  =>'configuration backup';
+Readonly::Scalar our $BUGREPORT_BACKUP_ID  =>'bugreport configuration dump';
 Readonly::Scalar my $DISC_BACKUP_FILE  => 'eboxbackup.tar';
 
 sub new 
@@ -61,15 +62,14 @@ sub _makeBackup # (description, bug?)
 	my $description = delete $options{description};
 
 	my $time = strftime("%F %T", localtime);
-	my $what =  $bug ? 'bugreport' : 'backup';
 
 	my $confdir = EBox::Config::conf;
 	my $tempdir = tempdir("$confdir/backup.XXXXXX") or
 		throw EBox::Exceptions::Internal("Could not create tempdir.");
 	my $auxDir = "$tempdir/aux";
-	my $archiveContentsDirRelative = "ebox$what";
+	my $archiveContentsDirRelative = "eboxbackup";
 	my $archiveContentsDir = "$tempdir/$archiveContentsDirRelative";
-	my $backupArchive = "$confdir/ebox$what.tar";
+	my $backupArchive = "$confdir/eboxbackup.tar";
 	
 	try {
 	  mkdir($auxDir) or
@@ -89,7 +89,7 @@ sub _makeBackup # (description, bug?)
 	  $self->_createMd5DigestForArchive($filesArchive, $archiveContentsDir);
 	  $self->_createDescriptionFile($archiveContentsDir, $description);
 	  $self->_createDateFile($archiveContentsDir, $time);
-	  $self->_createTypeFile($archiveContentsDir, $options{fullBackup});
+	  $self->_createTypeFile($archiveContentsDir, $options{fullBackup}, $bug);
 	  $self->_createModulesListFile($archiveContentsDir);
 
 	  $self->_createSizeFile($archiveContentsDir);
@@ -166,9 +166,11 @@ sub  _createDescriptionFile
 
 sub  _createTypeFile
 {
-  my ($self, $archiveContentsDir, $fullBackup) = @_;
+  my ($self, $archiveContentsDir, $fullBackup, $bug) = @_;
 
-  my $type = $fullBackup ?  $FULL_BACKUP_ID : $CONF_BACKUP_ID;
+  my $type =    $bug        ? $BUGREPORT_BACKUP_ID 
+              : $fullBackup ?  $FULL_BACKUP_ID 
+	      :	$CONFIGURATION_BACKUP_ID;
 
   my $TYPE_F;
   unless (open($TYPE_F, "> $archiveContentsDir/type")) {
@@ -696,7 +698,7 @@ sub _checkArchiveType
   my $type = <$TYPE_F>;
   close($TYPE_F);
   
-  if ($type ne all($FULL_BACKUP_ID, $CONF_BACKUP_ID)) {
+  if ($type ne all($FULL_BACKUP_ID, $CONFIGURATION_BACKUP_ID, $BUGREPORT_BACKUP_ID)) {
     throw EBox::Exceptions::External(__("The backup archive has a invalid type. Maybe the file is corrupt or you are using a incompatible eBox version"));
   }
 

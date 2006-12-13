@@ -344,6 +344,26 @@ sub restoreConfigurationBackupTest : Test(16)
   checkStraightRestore($fullBackup, [fullRestore => 0], 'configuration restore from a full backup');
 }
 
+
+sub restoreBugreportTest : Test(15)
+{
+  my ($self) = @_;
+
+  my $backup = new EBox::Backup();
+  my $bugReportBackup;
+  my $fullBackup;
+ 
+  setCanaries('beforeBackup');
+  lives_ok { $bugReportBackup = $backup->makeBugReport() } 'make a bug report';
+  checkStraightRestore($bugReportBackup, [fullRestore => 0], 'configuration restore from a bugreport');
+
+  setCanaries('beforeBackup');
+  checkDeviantRestore($fullBackup, [fullRestore => 1], 'full restore not allowed from a bug report');
+}
+
+
+
+
 sub restoreFullBackupTest : Test(16)
 {
   my ($self) = @_;
@@ -502,6 +522,46 @@ sub modInstancesForRestoreTest : Test(19)
   dies_ok { $backup->_modInstancesForRestore() } 'Checking that simple recursive dependencies raises error';
 }
 
+
+sub backupDetailsFromArchiveTest : Test(9)
+{
+  setCanaries('beforeBackup');
+  
+  my $configurationBackupDescription = 'test configuration backup for detail test';
+  my $configurationBackup = EBox::Backup->makeBackup(description => $configurationBackupDescription, fullBackup => 0) ;
+
+  my $fullBackupDescription = 'test full backup for detail test';
+  my $fullBackup = EBox::Backup->makeBackup(description => $fullBackupDescription, fullBackup => 1);
+
+  my $bugreportBackupDescription = 'Bug report'; # string foun in EBox::Backup::makeBugReport
+  my $bugreportBackup = EBox::Backup->makeBugReport();
+
+  # XXX date detail IS NOT checked
+  my %detailsExpectedByFile = (
+			 $configurationBackup => {
+						  description => $configurationBackupDescription,
+						  type        => $EBox::Backup::CONFIGURATION_BACKUP_ID,
+						 },
+			 $fullBackup => {
+						  description => $fullBackupDescription,
+						  type        => $EBox::Backup::FULL_BACKUP_ID,
+						 },
+			 $bugreportBackup => {
+						  description => $bugreportBackupDescription,
+						  type        => $EBox::Backup::BUGREPORT_BACKUP_ID,
+						 },
+			);
+
+  foreach my $file (keys %detailsExpectedByFile) {
+    my $details_r;
+    lives_ok { $details_r = EBox::Backup->backupDetailsFromArchive($file)  } 'Getting details from file';
+    
+    my $detailsExpected_r = $detailsExpectedByFile{$file};
+    while (my ($detail, $value) = each %{ $detailsExpected_r }) {
+      is $details_r->{$detail}, $value, "Checking value of backup detail $detail";
+    }
+  }
+}
 
 
 sub _checkModInstancesForRestore
