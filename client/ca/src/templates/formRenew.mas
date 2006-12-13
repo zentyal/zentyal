@@ -10,9 +10,6 @@
 		      value => $metaDataCert->{isCACert} },
 		    { name  => 'expireDays', printableName =>
 		      __('Days to expire'),  input => 'text' },
-		    { name  => 'CAPassphrase', printableName =>
-		      __("Certification Authority Passphrase"),
-		      input => 'password' },
 		    { name => 'renew', input => 'submit', 
 		      value => __('Renew') }
 		   );

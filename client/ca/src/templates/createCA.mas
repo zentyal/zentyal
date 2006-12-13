@@ -28,23 +28,6 @@ use EBox::Gettext;
          </td>
        </tr>
        <tr>
-         <td class='tright'>
-           <span class='ftitle'><% __('Certification Authority
-  	 Passphrase') %>: </span>
-         </td>
-         <td>
-           <input class='inputText' type='password' name='CAPassphrase' />
-         </td>
-       </tr>
-       <tr>
-         <td class='tright'>
-           <span class='ftitle'><% __('Re-type Passphrase') %>: </span>
-         </td> 
-         <td>
-           <input class='inputText' type='password' name='CAPassphraseAgain' />
-         </td>
-       </tr>
-       <tr>
          <td></td>
          <td>
            <input class='inputButton' type='submit' name='ca'

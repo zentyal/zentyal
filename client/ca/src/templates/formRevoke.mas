@@ -44,9 +44,6 @@ use EBox::Gettext;
 		       value =>  $metaDataCert->{dn}->attribute('commonName') },
 		     { name  => 'isCACert',   input => 'hidden',
 		       value =>  $metaDataCert->{isCACert} },
-		     { name  => 'CAPassphrase',   printableName =>
-		       __("Certification Authority Passphrase"),
-		       input => 'password' },
 		     { name  => 'reason', printableName =>
 		       __('Reason'),
 		       input => 'select', extraParams => [ options =>

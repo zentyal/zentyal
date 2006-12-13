@@ -25,35 +25,10 @@ push ( @issueTable, ({ name => 'name',
 		    )
        );
 
-# Specify the specific parameters 
-if ($caNeeded) {
-  push( @issueTable, ({ 
-		       name => 'passphrase', 
-		       printableName => __('Certification Authority Passphrase'), 
-		       input => 'password' },
-		      { name => 'repassphrase',
-			printableName => __('Re-type Passphrase'),
-			input => 'password' }
-		     )
-	);
-} else {
-  push( @issueTable, (
-		      { name => 'passphrase', 
-			printableName => __('Key Pair Passphrase'), 
-			input => 'password' },
-		      { name => 'repassphrase',
-			printableName => __('Re-type Passphrase'),
-			input => 'password' },
-		      { name => 'CAPassphrase', 
-			printableName => __('Certification Authority Passphrase'),
-			input => 'password' }
-		     )
-      );
- }
- push ( @issueTable, { name => 'certificate',
-		       value => __('Issue'),
-		       input => 'submit' }
-	);
+push ( @issueTable, { name => 'certificate',
+		      value => __('Issue'),
+		      input => 'submit' }
+     );
 
 </%perl>
 <div class="help">
