@@ -17,6 +17,7 @@ POTFILES_TMPL = \
 
 POTFILES_PL = \
  ./src/EBox/CA/DN.pm \
+ ./src/EBox/CA/TestStub.pm \
  ./src/EBox/CGI/ShowForm.pm \
  ./src/EBox/CGI/RenewCertificate.pm \
  ./src/EBox/CGI/DownloadKeys.pm \
@@ -28,6 +29,7 @@ POTFILES_PL = \
 
 POTFILES = \
  ./src/EBox/CA/DN.pm \
+ ./src/EBox/CA/TestStub.pm \
  ./src/EBox/CGI/ShowForm.pm \
  ./src/EBox/CGI/RenewCertificate.pm \
  ./src/EBox/CGI/DownloadKeys.pm \
@@ -46,7 +48,7 @@ DOMAIN = $(PACKAGE)
 
 # These options get passed to xgettext.
 XGETTEXT_OPTIONS = \
-  --language Perl -k__ -k__x --flag=__:1:pass-perl-format --flag=__:1:pass-perl-brace-format
+  --language Perl -k__ -k__x -k__d --flag=__:1:pass-perl-format --flag=__:1:pass-perl-brace-format
 
 # This is the copyright holder that gets inserted into the header of the
 # $(DOMAIN).pot file.  Set this to the copyright holder of the surrounding
@@ -149,11 +151,12 @@ $(DOMAIN).pot-update: $(POTFILES_DEPS) remove-potcdate.sed
 	  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
 	  --copyright-holder='$(COPYRIGHT_HOLDER)' \
 	  --msgid-bugs-address='$(MSGID_BUGS_ADDRESS)' \
+	  --from-code=utf-8 \
 	  $(POTFILES_PL)
 	mkdir -p templates
 	for tmpl in $(POTFILES_TMPL); do \
 		mkdir -p templates/`dirname $$tmpl` ; \
-		ebox-tmpl-parse ../$$tmpl > \
+		../tools/ebox-tmpl-parse ../$$tmpl > \
 			templates/`dirname $$tmpl`/`basename $$tmpl` ; \
 	done
 	$(XGETTEXT) --default-domain=$(DOMAIN) --directory=templates \
@@ -300,7 +303,8 @@ EXTRA_DIST = remove-potcdate.sin LINGUAS $(DOMAIN).pot stamp-po $(POFILES) $(GMO
 # Hidden from automake, but really activated. Works around an automake-1.5 bug.
 #distdir: distdir1
 distdir1:
-	$(MAKE) update-po
+
+#	$(MAKE) update-po
 
 update-po: Makefile
 	$(MAKE) $(DOMAIN).pot-update
