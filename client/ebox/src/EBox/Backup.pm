@@ -298,6 +298,7 @@ sub _bug # (dir)
 #       file - the filename of the archive
 #	id - backup's identifier
 #	date - when it was backed up
+#       type - the type of backup
 #	description - backup's description
 #
 sub backupDetails # (id) 
@@ -369,7 +370,7 @@ sub backupDiscDetails
 #       file - the filename of the archive
 #	date - when it was backed up
 #	description - backup's description
-
+#       type        - the type of backup contained by the archive
 sub backupDetailsFromArchive
 {
   my ($self, $archive) = @_;

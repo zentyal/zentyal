@@ -135,7 +135,7 @@ sub restoreFromDiscAction
   my $details;
 
   try {
-    $details =  $backup->backupDetailsFromArchive($backupfileInfo->{file});
+    $details =  $self->backupDetailsFromFile($backupfileInfo->{file});
   }
   finally {
     $backupfileInfo->{umountSub}->();
@@ -150,7 +150,6 @@ sub  restoreFromFileAction
 {
   my ($self) = @_;
 
-  my $backup = new EBox::Backup;
   my $dir = EBox::Config::tmp;
 
   my $upfile = $self->cgi->upload('backupfile');
@@ -169,7 +168,7 @@ sub  restoreFromFileAction
   close $fh;
   close $upfile;
 
-  my $details = $backup->backupDetailsFromArchive($filename);
+  my $details = $self->backupDetailsFromFile($filename);
 
   $self->{msg} = __('Please confirm that you want to restore using this backup file:');
 
@@ -198,7 +197,45 @@ sub backupDetailsFromId
 				     __("The input contains invalid characters"));
   }
 
-  return $backup->backupDetails($id);
+  my $details =  $backup->backupDetails($id);
+  $self->setPrintabletype($details);
+
+  return $details;
 }
+
+
+sub backupDetailsFromFile
+{
+  my ($self, $filename) = @_;
+  my $details = EBox::Backup->backupDetailsFromArchive($filename);
+
+  $self->setPrintabletype($details);
+
+  return $details;
+}
+
+
+sub setPrintabletype
+{
+  my ($self, $details_r) = @_;
+
+  my $type = $details_r->{type};
+  my $printableType;
+
+  if ($type eq $EBox::Backup::CONFIGURATION_BACKUP_ID) {
+    $printableType = __('Configuration backup');
+  }
+  elsif ($type eq $EBox::Backup::FULL_BACKUP_ID) {
+    $printableType = __('Full data and configutarion backup');
+  }  
+  elsif ($type eq $EBox::Backup::BUGREPORT_BACKUP_ID) {
+    $printableType = __('Bug-report configuration dump');
+  }  
+
+
+  $details_r->{printableType} = $printableType;
+  return $details_r;
+}
+
 
 1;

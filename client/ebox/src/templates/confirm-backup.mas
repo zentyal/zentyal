@@ -8,7 +8,16 @@
 <%init>
 use EBox::Gettext;
 use Perl6::Junction qw(any);
-my $restoreAction = $action eq any(qw(restoreFromId restoreFromDisc restoreFromFile));
+use EBox::Backup;
+my $restoreAction = $action eq any(qw(restoreFromId restoreFromDisc
+				      restoreFromFile));
+
+my $fullRestoreAvailable;
+if ($restoreAction) {
+  $fullRestoreAvailable = $backup->{type} eq $EBox::Backup::FULL_BACKUP_ID;
+}
+
+
 </%init>
 
 <br/>
@@ -30,9 +39,17 @@ my $restoreAction = $action eq any(qw(restoreFromId restoreFromDisc restoreFromF
 				<% $backup->{'description'} %>
 			</td>
 		</tr>
+		<tr>
+			<td class='tright'>
+				<span class='ftitle'><% __('Type') %>:</span>
+			</td>
+			<td>
+				<% $backup->{'printableType'} %>
+			</td>
+		</tr>
 	<form action='Backup' method='POST'>
 %		if ($restoreAction) {
-                              <&.restoreRows &>
+                              <&.restoreRows, fullRestoreAvailable => $fullRestoreAvailable &>
 %               }
 		<tr>
 			<td></td>
@@ -74,16 +91,25 @@ else {
 <& /input/hidden.mas, name => $name, value => $value &>
 </%def>
 <%def .restoreRows>
+<%args>
+$fullRestoreAvailable
+</%args>
 <%init>
+my $configurationRestoreValue = 'configurationRestore';
 my $modeOptions = [
      { value => 'fullRestore', printableValue => __('Full Restore') },
-     { value => 'configurationRestore', printableValue => __('Configuration Restore') }
+     { value => $configurationRestoreValue , printableValue => __('Configuration Restore') }
 ];
 </%init>
+% if ($fullRestoreAvailable) {
 <tr>
     <td>    <span class='ftitle'><% __('Restore mode') %>:</span>   </td>
     <td>
-		<& /input/select.mas, name => 'mode', value => 'configurationRestore', options => $modeOptions &>
+		<& /input/select.mas, name => 'mode', value => 'fullRestore', options => $modeOptions &>
     </td>
 </tr>
+% }
+% else {
+ <& /input/hidden.mas, name => 'mode', value => $configurationRestoreValue &>
+% }
 </%def>
