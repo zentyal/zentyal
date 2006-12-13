@@ -17,7 +17,7 @@
 
 # A module to test CA module
 
-use Test::More tests => 33;
+use Test::More tests => 43;
 use Test::Exception;
 use Date::Calc::Object qw (:all);
 use Data::Dumper;
@@ -29,6 +29,7 @@ BEGIN {
     or die;
 }
 
+# Destroy anything related to this stuff
 system('rm -r /var/lib/ebox/CA');
 
 my $ca = EBox::CA->new();
@@ -41,9 +42,12 @@ ok ( ! $ca->isCreated(), 'not created' );
 
 throws_ok { $ca->createCA() } "EBox::Exceptions::DataMissing", "data missing error";
 
-is ( $ca->createCA(orgName => "Warp",
+diag( 'Creating a password-aware CA' );
+
+cmp_ok ( $ca->createCA(orgName => "Warp",
 		   caKeyPassword => "mama",
-		   commonName => "lalala"), 1, 'creating CA' );
+		   commonName => "lalala"), 
+	 '==', 1, 'creating CA' );
 
 ok ( $ca->getCACertificate(), "getting current valid CA" );
 
@@ -156,8 +160,45 @@ cmp_ok( scalar(@{$ca->revokeReasons()}), '==', 7, 'revoking reasons count');
 
 lives_ok { $ca->updateDB() } 'updating database';
 
+cmp_ok( $ca->destroyCA(), "==", 1, 'destroying CA' );
 
-my $list_ref = $ca->listCertificates();
+diag( 'Creating a password-unaware CA' );
 
-diag( "Printing Certificate List" );
-diag( Dumper($list_ref) );
+cmp_ok ( $ca->createCA(orgName => 'Warp-no-passwd'),
+	 '==', 1, 'creating passwordless CA' );
+
+ok (! defined($ca->revokeCACertificate(reason => 'affiliationChanged')),
+    'revoking passwordless CA');
+
+ok ( $ca->issueCACertificate(orgName => 'Warp-no-no',
+			     genPair => 1),
+     "issuing passwordless CA certificate");
+
+ok ( $ca->CAPublicKey, "Retrieving the CA public key");
+
+ok ( $ca->issueCertificate(commonName => 'sin-pass',
+			   endDate    => Date::Calc->new(2006, 12, 31, 23, 59, 59)
+			  ),
+     "issuing passwordless certificate");
+
+ok ( $ca->issueCertificate(commonName  => 'con-pass',
+			   days        => 22,
+			   keyPassword => 'aaaa'
+			  ),
+     "issuing password certificate");
+
+ok ( ! defined($ca->revokeCertificate(commonName => 'sin-pass')),
+     , "revoking passwordless certificate");
+
+
+ok ( $ca->renewCertificate(commonName  => 'con-pass',
+			   countryName => 'EU',
+			   days        => 20,
+			   keyPassword => 'aaaa'),
+     'Renewing password certificate' );
+
+$listCerts = $ca->listCertificates();
+
+cmp_ok ( scalar(@{$listCerts}), '==', 5, 'listing current certificates');
+
+
