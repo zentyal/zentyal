@@ -100,11 +100,8 @@ sub output
 		}
 	}
 	if ($mail->service()) {
-		foreach my $exifc (@exifaces) {
-			$r = "-m state --state NEW -o $exifc  ".
-				"-p tcp --dport 25 -j ACCEPT";
-			push(@rules, $r);
-		}
+		$r = "-m state --state NEW -p tcp --dport 25 -j ACCEPT";
+		push(@rules, $r);
 	}
 	
 	return \@rules;
