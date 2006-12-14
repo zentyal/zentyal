@@ -17,6 +17,10 @@ case "$1" in
 
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
+                # add a tun device if not exists
+                [ -e /dev/net ] || mkdir -m 755 /dev/net
+                [ -d /dev/net -a ! -e /dev/net/tun ] && /bin/mknod /dev/net/tun c 10 200
+
 		# don't start NTP server with its script	
 		update-rc.d -f openvpn remove
 
