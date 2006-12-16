@@ -57,7 +57,7 @@ sub _create # (name, domain?)
 	my $self = {};
 	$self->{name} = delete $opts{name};
 	$self->{domain} = delete $opts{domain};
-	$self->{title} = delete $opts{domain};
+	$self->{title} = delete $opts{title};
 	unless (defined($self->{name})) {
 		use Devel::StackTrace;
 		my $trace = Devel::StackTrace->new;
