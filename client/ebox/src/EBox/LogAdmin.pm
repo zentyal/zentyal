@@ -91,7 +91,7 @@ sub rollbackPending
 sub pendingActions
 {
 	my $dbengine = EBox::DBEngineFactory::DBEngine();
-	my $ret = $dbengine->query("SELECT * FROM admin WHERE committed = 'false' ORDER BY module,timestamp");
+	my $ret = $dbengine->query("SELECT * FROM admin WHERE committed = 'false' ORDER BY timestamp, module");
 
 	my $global = EBox::Global->getInstance(1);
 
