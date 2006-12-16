@@ -39,9 +39,15 @@ sub _create
 					@_);
 
 	$self->{'actions'} = {};
-	$self->{'actions'}->{'add_object'} = __n('Added object {name}');
+	$self->{'actions'}->{'add_object'} = __n('Added object {object}');
 	$self->{'actions'}->{'add_to_object'} = 
 		__n('Added {nname} ({ip}/{mask} [{mac}]) to object {object}');
+	$self->{'actions'}->{'remove_object'} = __n('Removed object {object}');
+	$self->{'actions'}->{'remove_object_force'} = 
+		__n('Forcefully removed object {object}');
+	$self->{'actions'}->{'remove_from_object'} =
+		__n('Removed {nname} from object {object}');
+
 
 	bless($self, $class);
 	return $self;
@@ -224,7 +230,7 @@ sub addObject # (description)
 	my $id = $self->get_unique_id("x");
 
 	$self->set_string("$id/description", $desc);
-	logAdminDeferred('objects',"add_object,name=$desc");
+	logAdminDeferred('objects',"add_object,object=$desc");
 	return $id;
 }
 
@@ -253,12 +259,16 @@ sub _removeObject  # (object)
 #
 sub removeObjectForce # (object) 
 {
+	#action: remove_object_force
+	
 	my ($self, $object)  = @_;
 	my $global = EBox::Global->getInstance();
 	my @mods = @{$global->modInstancesOfType('EBox::ObjectsObserver')};
 	foreach my $mod (@mods) {
 		$mod->freeObject($object);
 	}
+	my $oname = $self->get_string("$object/description");
+	logAdminDeferred('objects',"remove_object_force,object=$oname");
 	return $self->_removeObject($object);
 }
 
@@ -277,10 +287,14 @@ sub removeObjectForce # (object)
 #
 sub removeObject # (object) 
 {
+	#action: remove_object
+	
 	my ($self, $object)  = @_;
 	if ($self->objectInUse($object)) {
 		throw EBox::Exceptions::DataInUse();
 	} else {
+		my $oname = $self->get_string("$object/description");
+		logAdminDeferred('objects',"remove_object,object=$oname");
 		return $self->_removeObject($object);
 	}
 }
@@ -354,7 +368,7 @@ sub removeFromObject  # (object, id)
 		my $nname = $self->get_string("$object/$id/nname");
 		my $oname = $self->get_string("$object/description");
 		$self->delete_dir("$object/$id");
-		logAdminDeferred('objects',"remove_from_object,nname=$nname,oname=$oname");
+		logAdminDeferred('objects',"remove_from_object,nname=$nname,object=$oname");
 		return 1;
 	} else {
 		return undef;
