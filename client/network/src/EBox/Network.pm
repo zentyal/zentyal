@@ -50,8 +50,12 @@ sub _create
 {
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'network',
+					title => __n('Network'),
 					domain => 'ebox-network',
 					@_);
+	$self->{'actions'} = {};
+	$self->{'actions'}->{'set_iface_static'} = __n("Configure interface {iface} as static (external? = {external}) with address {address}/{netmask}");
+
 	bless($self, $class);
 	return $self;
 }
@@ -825,6 +829,8 @@ sub setIfaceDHCP # (interface, external, force)
 #
 sub setIfaceStatic # (interface, address, netmask, external, force) 
 {
+	#action: set_iface_static
+	
 	my ($self, $name, $address, $netmask, $ext, $force) = @_;
 	$self->ifaceExists($name) or
 		throw EBox::Exceptions::DataNotFound(data => __('Interface'),
@@ -891,6 +897,8 @@ sub setIfaceStatic # (interface, address, netmask, external, force)
 	$self->set_string("interfaces/$name/address", $address);
 	$self->set_string("interfaces/$name/netmask", $netmask);
 	$self->set_bool("interfaces/$name/changed", 'true');
+
+	logAdminDeferred('network',"set_iface_static,iface=$name,external=$ext,address=$address,netmask=$netmask");
 }
 
 sub _checkStatic # (iface, force)
