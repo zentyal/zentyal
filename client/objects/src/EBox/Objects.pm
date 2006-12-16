@@ -28,11 +28,13 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
 use EBox::Gettext;
+use EBox::LogAdmin qw(:all);
 
 sub _create 
 {
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'objects',
+					title => __n('Objects'),
 					domain => 'ebox-objects',
 					@_);
 	bless($self, $class);
@@ -214,6 +216,7 @@ sub addObject # (description)
 	my $id = $self->get_unique_id("x");
 
 	$self->set_string("$id/description", $desc);
+	logAdminDeferred('objects',__x('Added object {name}', name =>$desc));
 	return $id;
 }
 
@@ -382,7 +385,7 @@ sub menu
 {
 	my ($self, $root) = @_;
 	my $item = new EBox::Menu::Item('url' => 'Objects/Index',
-					'text' => __('Objects'),
+					'text' => $self->title,
 					'order' => 3);
 	$root->add($item);
 }
