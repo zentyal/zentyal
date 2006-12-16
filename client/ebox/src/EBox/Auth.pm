@@ -128,7 +128,7 @@ sub setPassword # (password)
 
     print $PASSWD_F $encpasswd;
     close($PASSWD_F);
-    logAdminNow('ebox','password changed');
+    logAdminNow('ebox',__n('Password changed'),'');
 }
 
 

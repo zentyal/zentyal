@@ -46,7 +46,7 @@ BEGIN {
 #
 sub _logAdmin
 {
-	my ($module, $message, $committed) = @_;
+	my ($module, $action, $params, $committed) = @_;
 	
 	my $req = Apache->request();
 	my $client = $req->get_remote_host();
@@ -54,23 +54,23 @@ sub _logAdmin
 	my $dbengine = EBox::DBEngineFactory::DBEngine();
 
 	my $time = localtime();
-	my $data = { 'timestamp' => $time, 'clientaddress' => $client,
-		'module' => $module, 'message' => $message, 'committed' => $committed };
+	my $data = { 'timestamp' => $time, 'source' => $client,
+		'module' => $module, 'action' => $action, 'params' => $params, 'committed' => $committed };
 	$dbengine->insert('admin', $data);
 }
 
 # Method: logAdminDeferred
 sub logAdminDeferred
 {
-	my ($module, $message) = @_;
-	_logAdmin($module, $message, 'false');
+	my ($module, $action, $params) = @_;
+	_logAdmin($module, $action, $params, 'false');
 }
 
 # Method: logAdminNow
 sub logAdminNow
 {
-	my ($module, $message) = @_;
-	_logAdmin($module, $message, 'true');
+	my ($module, $action, $params) = @_;
+	_logAdmin($module, $action, $params, 'true');
 }
 
 # Method: rollbackPending
@@ -106,14 +106,14 @@ sub pendingActions
 			#TODO: create a function out of these lines and put it
 			#somewhere where it can be used from here and as a 
 			#filter for logviewer for the admin table
-			my @arr = split(',', $action->{'message'});
-			my $msg = shift(@arr);
-			@arr = map {
+			my $action = $action->{'action'};
+			my @params = split(',', $action->{'params'});
+			@params = map {
 				my @field = split("=",$_);
 				defined($field[1]) or $field[1] = '';
 				$field[0] => $field[1];
-			} @arr;
-			$action->{'message'} = __x($mod->actionMessage($msg),@arr);
+			} @params;
+			$action->{'message'} = __x($mod->actionMessage($action),@params);
 			settextdomain($domain);
 		} else {
 			$action->{'modtitle'} = $modname;

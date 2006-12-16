@@ -397,11 +397,12 @@ sub tableInfo {
 	my $titles = { 'timestamp' => __('Date'),
 		'clientaddress' => __('Client Address'),
 		'module' => __('Module'),
-		'message' => __('Message'),
+		'action' => __('Action'),
+		'params' => __('Params'),
 		'committed' => __('Committed')
 	};
 	my @order = ('timestamp', 'clientaddress', 'module',
-		'message', 'committed');
+		'action', 'params', 'committed');
 	return {
 		'name' => __('Admin'),
 		'index' => 'admin',

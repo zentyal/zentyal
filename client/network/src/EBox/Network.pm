@@ -898,7 +898,7 @@ sub setIfaceStatic # (interface, address, netmask, external, force)
 	$self->set_string("interfaces/$name/netmask", $netmask);
 	$self->set_bool("interfaces/$name/changed", 'true');
 
-	logAdminDeferred('network',"set_iface_static,iface=$name,external=$ext,address=$address,netmask=$netmask");
+	logAdminDeferred('network',"set_iface_static","iface=$name,external=$ext,address=$address,netmask=$netmask");
 }
 
 sub _checkStatic # (iface, force)
