@@ -1,6 +1,0 @@
-#!/usr/bin/perl
-
-use EBox::Loggerd;
-my $l = new EBox::Loggerd(); 
- 
-$l->run;
