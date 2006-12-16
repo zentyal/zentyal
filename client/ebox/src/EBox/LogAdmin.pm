@@ -106,10 +106,10 @@ sub pendingActions
 			#TODO: create a function out of these lines and put it
 			#somewhere where it can be used from here and as a 
 			#filter for logviewer for the admin table
-			my @arr = split('\\|', $action->{'message'});
+			my @arr = split(',', $action->{'message'});
 			my $msg = shift(@arr);
 			@arr = map {
-				my @field = split(",",$_);
+				my @field = split("=",$_);
 				defined($field[1]) or $field[1] = '';
 				$field[0] => $field[1];
 			} @arr;

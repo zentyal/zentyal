@@ -1,7 +1,7 @@
 <!-- vim: ts=4 sw=4 nowrap filetype=mason
 -->
 <%args>
-	@actions
+	@actions => undef
 	$unsaved => 'no'
 </%args>
 <%init>

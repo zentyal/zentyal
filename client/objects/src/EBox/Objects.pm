@@ -224,7 +224,7 @@ sub addObject # (description)
 	my $id = $self->get_unique_id("x");
 
 	$self->set_string("$id/description", $desc);
-	logAdminDeferred('objects',"add_object|name,$desc");
+	logAdminDeferred('objects',"add_object,name=$desc");
 	return $id;
 }
 
@@ -297,6 +297,8 @@ sub removeObject # (object)
 #	description - description *optional*
 sub addToObject  # (object, ip, mask, mac?, description?) 
 {
+	#action: add_to_object
+
 	my ( $self, $object, $ip, $mask, $mac, $nname ) = @_;
 
 	$self->dir_exists($object) or 
@@ -325,7 +327,7 @@ sub addToObject  # (object, ip, mask, mac?, description?)
 	$self->set_int("$object/$id/mask", $mask);
 
 	my $oname = $self->get_string("$object/description");
-	logAdminDeferred('objects',"add_to_object|nname,$nname|ip,$ip|mask,$mask|mac,$mac|object,$oname");
+	logAdminDeferred('objects',"add_to_object,nname=$nname,ip=$ip,mask=$mask,mac=$mac,object=$oname");
 	
 	return 0;
 }
@@ -340,6 +342,8 @@ sub addToObject  # (object, ip, mask, mac?, description?)
 #   	id - memeber's identifier
 sub removeFromObject  # (object, id)
 {
+	#action: remove_from_object
+
 	my ( $self, $object, $id )  = @_;
 
 	$self->dir_exists($object) or 
@@ -347,7 +351,10 @@ sub removeFromObject  # (object, id)
 						     'value' => $object);
 
 	if($self->dir_exists("$object/$id")) {
+		my $nname = $self->get_string("$object/$id/nname");
+		my $oname = $self->get_string("$object/description");
 		$self->delete_dir("$object/$id");
+		logAdminDeferred('objects',"remove_from_object,nname=$nname,oname=$oname");
 		return 1;
 	} else {
 		return undef;
