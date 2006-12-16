@@ -96,21 +96,16 @@ sub pendingActions
 	my $global = EBox::Global->getInstance(1);
 
 	# group the actions by module and add the title of the module
-	my $actions = {};
+	my $actions = [];
 	foreach my $action (@{$ret}) {
 		my $modname = $action->{'module'};
-		if(!defined($actions->{$modname})) {
-			$actions->{$modname} = {};
-			$actions->{$modname}->{'actions'} = [];
-		}
-
 		if($global->modExists($modname)) {
 			my $mod = EBox::Global->modInstance($modname);
-			$action->{$modname}->{'title'} = __d($mod->title(), $mod->domain());
+			$action->{'modtitle'} = __d($mod->title(), $mod->domain());
 		} else {
-			$action->{$modname}->{'title'} = $modname;
+			$action->{'modtitle'} = $modname;
 		}
-		push(@{$actions->{$modname}}, $action);
+		push(@{$actions}, $action);
 	}
 	return $actions;
 }

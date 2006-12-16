@@ -1,7 +1,7 @@
 <!-- vim: ts=4 sw=4 nowrap filetype=mason
 -->
 <%args>
-	%actions
+	@actions
 	$unsaved => 'no'
 </%args>
 <%init>
@@ -14,12 +14,23 @@ use EBox::Gettext;
 	<br/>
 	<%__('If you made changes to the network interfaces or the administration port, you may need to manually rewrite the url in order to access this administration interface again.') %>
 </div>
-%	foreach my $module (keys %actions) {
-		<h2><% $actions{$module}->{'title'} %></h2>	
-%		foreach my $action (@{$actions{$module}->{'actions'}}) {
-			<% $action->{'message'} %>	
-%		}
+<table class='dataTable' cellspacing='0'>
+	<thead>
+		<tr>
+			<th class='tleft'><% __('Date') %></th>
+			<th class='tleft'><% __('Module') %></th>
+			<th class='tleft'><% __('Message') %></th>
+		</tr>
+	</thead>
+	<tbody>
+%	foreach my $action (@actions) {
+	<tr>
+		<td><% $action->{'timestamp'} %></td>
+		<td><% $action->{'modtitle'} %></td>
+		<td><% $action->{'message'} %></td>
+	</tr>
 %	}
+</table>
 <form action='Finish' method='POST'>
 	<p>
 		<input class='inputButton' type='submit' name='save'
