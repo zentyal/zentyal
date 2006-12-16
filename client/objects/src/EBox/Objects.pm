@@ -37,6 +37,12 @@ sub _create
 					title => __n('Objects'),
 					domain => 'ebox-objects',
 					@_);
+
+	$self->{'actions'} = {};
+	$self->{'actions'}->{'add_object'} = __n('Added object {name}');
+	$self->{'actions'}->{'add_to_object'} = 
+		__n('Added {nname} ({ip}/{mask} [{mac}]) to object {object}');
+
 	bless($self, $class);
 	return $self;
 }
@@ -193,6 +199,8 @@ sub objectExists # (name)
 #
 sub addObject # (description) 
 {
+	#action: add_object
+
 	my ($self, $desc ) = @_;
 	
 	unless (defined($desc) && $desc ne "") {
@@ -216,7 +224,7 @@ sub addObject # (description)
 	my $id = $self->get_unique_id("x");
 
 	$self->set_string("$id/description", $desc);
-	logAdminDeferred('objects',__x('Added object {name}', name =>$desc));
+	logAdminDeferred('objects',"add_object|name,$desc");
 	return $id;
 }
 
@@ -315,6 +323,8 @@ sub addToObject  # (object, ip, mask, mac?, description?)
 	$self->set_string("$object/$id/ip", $ip);
 	$self->set_string("$object/$id/mac", $mac);
 	$self->set_int("$object/$id/mask", $mask);
+
+	logAdminDeferred('objects',"add_to_object|nname,$nname|ip,$ip|mask,$mask|mac,$mac|object,$object");
 	
 	return 0;
 }

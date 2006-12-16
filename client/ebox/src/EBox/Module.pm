@@ -475,7 +475,7 @@ sub setName # (name)
 #
 sub title
 {
-	my $self = shift;
+	my ($self) = @_;
 	if(defined($self->{title})) {
 		return $self->{title};
 	} else {
@@ -494,9 +494,26 @@ sub title
 #
 sub setTitle # (title) 
 {
-	my $self = shift;
-	my $title = shift;
+	my ($self,$title) = @_;
 	$self->{title} = $title;
+}
+
+#
+# Method: actionMessage
+#
+#	Gets the action message for an action
+#
+# Parameters:
+#
+# 	action - action name
+sub actionMessage
+{
+	my ($self,$action) = @_;
+	if(defined($self->{'actions'})) {
+		return $self->{'actions'}->{$action};
+	} else {
+		return $action;
+	}
 }
 
 #

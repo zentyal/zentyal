@@ -43,6 +43,7 @@ use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Sudo qw( :all );
 use EBox::Gettext;
+use EBox::LogAdmin qw( :all );
 use File::Basename;
 
 sub _create 
