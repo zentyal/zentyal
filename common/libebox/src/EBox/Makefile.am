@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox
 
-mods = Validate.pm Gettext.pm Sudo.pm NetWrappers.pm  TestStub.pm FileSystem.pm
+mods = AbstractDaemon.pm Validate.pm Gettext.pm Sudo.pm NetWrappers.pm  TestStub.pm FileSystem.pm
 
 nobase_perl_DATA = $(mods) Config.pm
 

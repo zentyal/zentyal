@@ -24,7 +24,7 @@ BEGIN {
 	our ($VERSION, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
 
 	@ISA = qw(Exporter);
-	@EXPORT = qw{ __ __x __d settextdomain gettextdomain langs };
+	@EXPORT = qw{ __ __n __x __d settextdomain gettextdomain langs };
 	%EXPORT_TAGS = ( DEFAULT => \@EXPORT );
 	@EXPORT_OK = qw();
 	$VERSION = EBox::Config::version;
@@ -72,6 +72,12 @@ sub __ # (text)
 	my $string = gettext(shift);
 	_unset_packagedomain();
 	_utf8_on($string);
+	return $string;
+}
+
+sub __n # (text)
+{
+	my $string = shift;
 	return $string;
 }
 
