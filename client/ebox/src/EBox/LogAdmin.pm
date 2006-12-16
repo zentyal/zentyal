@@ -108,7 +108,11 @@ sub pendingActions
 			#filter for logviewer for the admin table
 			my @arr = split('\\|', $action->{'message'});
 			my $msg = shift(@arr);
-			@arr = map { split(",",$_) } @arr;
+			@arr = map {
+				my @field = split(",",$_);
+				defined($field[1]) or $field[1] = '';
+				$field[0] => $field[1];
+			} @arr;
 			$action->{'message'} = __x($mod->actionMessage($msg),@arr);
 			settextdomain($domain);
 		} else {
