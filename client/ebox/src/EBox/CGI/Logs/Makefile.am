@@ -1,10 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-perldir = @PERLPATH@/EBox/CGI
+perldir = @PERLPATH@/EBox/CGI/Logs
 
-nobase_perl_DATA = ClientBase.pm Finish.pm
-
-SUBDIRS = EBox Login Logout Logs Summary FirstTime
+nobase_perl_DATA = Index.pm
 
 SOURCES = $(nobase_perl_DATA)
 

@@ -57,6 +57,7 @@ sub _create # (name, domain?)
 	my $self = {};
 	$self->{name} = delete $opts{name};
 	$self->{domain} = delete $opts{domain};
+	$self->{title} = delete $opts{domain};
 	unless (defined($self->{name})) {
 		use Devel::StackTrace;
 		my $trace = Devel::StackTrace->new;
@@ -431,6 +432,7 @@ sub aroundRestoreConfig
 
   $self->restoreConfig($dir);
 }
+
 #
 # Method: name 
 #
@@ -460,6 +462,41 @@ sub setName # (name)
 	my $self = shift;
 	my $name = shift;
 	$self->{name} = $name;
+}
+
+#
+# Method: title
+#
+#	Returns the module title of the current module instance   
+#
+# Returns:
+#
+#      	string - title or name if title was not provided
+#
+sub title
+{
+	my $self = shift;
+	if(defined($self->{title})) {
+		return $self->{title};
+	} else {
+		return $self->{name};
+	}
+}
+
+#
+# Method: setTitle
+#
+#	Sets the module title for the current module instance
+#
+# Parameters:
+#
+#      	title - module title
+#
+sub setTitle # (title) 
+{
+	my $self = shift;
+	my $title = shift;
+	$self->{title} = $title;
 }
 
 #

@@ -12,6 +12,12 @@ case "$1" in
 		fi
 		;;
 	purge)
+		#postgresql and logs
+		db_name="eboxlogs"
+		db_user="eboxlogs"
+		su postgres -c "dropdb $db_name" || true
+		su postgres -c "dropuser $db_user" || true
+
 		if grep '#-- ebox begin' /etc/inittab >/dev/null; then
 			echo 'Removing eBox inittab entry...'
 			rm -f /etc/inittab'{new}'
@@ -27,3 +33,5 @@ case "$1" in
 esac
 
 #DEBHELPER#
+
+exit 0

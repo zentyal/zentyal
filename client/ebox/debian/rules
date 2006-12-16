@@ -40,6 +40,7 @@ install-indep: build config.status
 	install -m 755 tools/ebox $(CURDIR)/debian/ebox/etc/init.d/ebox
 	install -m 644 $(CURDIR)/conf/.gconf.path \
 		$(CURDIR)/debian/ebox/var/lib/ebox/
+	install -m 600 conf/pgpass $(CURDIR)/debian/ebox/var/lib/ebox/.pgpass
 	install -d -m 755 $(CURDIR)/debian/ebox/etc/ebox/ssl.crt/
 	install -d -m 755 $(CURDIR)/debian/ebox/etc/ebox/ssl.key/
 	install -d -m 755 $(CURDIR)/debian/ebox/etc/ebox/ssl.pem/

@@ -2,10 +2,11 @@
 
 perldir = @PERLPATH@/EBox
 
-mods = Module.pm Html.pm Global.pm SysInfo.pm GConfModule.pm \
-	Auth.pm Order.pm GConfHelper.pm GConfState.pm GConfConfig.pm \
-	Apache.pm Backup.pm AbstractDaemon.pm Service.pm AbstractDBEngine.pm \
-	DBEngineFactory.pm LogObserver.pm Test.pm TestStubs.pm FirstTime.pm
+mods = AbstractDBEngine.pm Apache.pm Auth.pm Backup.pm DBEngineFactory.pm \
+       FirstTime.pm GConfConfig.pm GConfHelper.pm GConfModule.pm GConfState.pm \
+       Global.pm Html.pm LogAdmin.pm LogHelper.pm LogObserver.pm Loggerd.pm \
+       Logs.pm Module.pm Order.pm PgDBEngine.pm Service.pm SysInfo.pm Test.pm \
+       TestStubs.pm
 
 nobase_perl_DATA = $(mods)
 

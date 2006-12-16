@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 Etcdir = $(sysconfdir)/ebox
-Etc_DATA = 80eboxclient.conf
+Etc_DATA = 80eboxclient.conf 90eboxpglogger.conf
 
 SSLCertdir = $(sysconfdir)/ebox/ssl.crt
 SSLCert_DATA = ebox.cert
@@ -12,7 +12,7 @@ SSLKey_DATA = ebox.key
 Passwddir = $(localstatedir)/lib/ebox/conf
 Passwd_DATA = ebox.passwd
 
-EXTRA_DIST = $(Passwd_DATA) $(Etc_DATA) $(SSLCert_DATA) $(SSLKey_DATA)
+EXTRA_DIST = $(Passwd_DATA) $(Etc_DATA) $(SSLCert_DATA) $(SSLKey_DATA) pgpass
 
 MAINTAINERCLEANFILES = Makefile.in
 

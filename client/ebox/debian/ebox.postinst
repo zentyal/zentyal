@@ -2,6 +2,44 @@
 
 webserver=apache-perl
 
+create_db() 
+{
+	db_name="eboxlogs"
+	db_user="eboxlogs"
+	db_pass="eboxlogs"
+
+	su postgres -c 'psql -Alt' | grep -q '^$db_name|' && db_exists=1 || db_exists=0
+	if [ $db_exists -eq 0 ]; then
+		echo "Creating the $db_name database"
+		su postgres -c "createdb $db_name" > /dev/null 2>&1
+		su postgres -c "createuser -A -D $db_user" > /dev/null 2>&1
+		su postgres -c "GRANT ALL ON DATABASE $db_name TO  $db_user" > /dev/null 2>&1
+		su  postgres -c "psql -d template1 -c \"ALTER USER $db_user WITH PASSWORD \"\"'\"$db_pass\"'\" " > /dev/null 2>&1 || (echo "Cannot set password for database user $db_user" && exit 1)
+
+	cat <<EOF > /etc/postgresql/pg_hba.conf
+# TYPE  DATABASE    USER        IP-ADDRESS        IP-MASK           METHOD
+# Database administrative login by UNIX sockets
+local   all         postgres                                        ident sameuser
+#
+# eBox log database
+host    $db_name    $db_user     127.0.0.1       255.255.255.255 md5
+local   $db_name    $db_user                                        md5
+# All IPv4 connections from localhost
+host    all         all         127.0.0.1         255.255.255.255  ident sameuser
+# 
+# All IPv6 localhost connections
+host    all         all         ::1               ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff        ident sameuser
+host    all         all         ::ffff:127.0.0.1/128                ident sameuser
+# 
+# reject all other connection attempts
+host    all         all         0.0.0.0           0.0.0.0           reject
+EOF
+
+	fi
+
+	invoke-rc.d postgresql  restart
+}
+
 case "$1" in
 	configure)
 
@@ -30,7 +68,7 @@ case "$1" in
 
 		# install gconf schemas
 		SCHEMA_LOCATION=/usr/share/gconf/schemas
-		SCHEMA_FILES="global.schemas sysinfo.schemas apache.schemas "
+		SCHEMA_FILES="global.schemas sysinfo.schemas apache.schemas logs.schemas "
 		for SCHEMA in $SCHEMA_FILES; do
 			if [ -e $SCHEMA_LOCATION/$SCHEMA ]; then
 				HOME=/var/lib/ebox GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` \
@@ -78,12 +116,22 @@ EOT
 			mv -f /etc/inittab'{new}' /etc/inittab
 		fi
 
+		#postgresql and logs
+		chmod 0600 /var/lib/ebox/.pgpass
+		chown ebox.ebox /var/lib/ebox/.pgpass
+
+		#Create user and database
+		create_db
+
+		/usr/lib/ebox/ebox-sql-table add admin /usr/share/ebox/sqllog/admin.sql
+
 		/etc/init.d/ebox start
 
 		if [ -n "$2" ] && dpkg --compare-versions "$2" lt 0.7.1;
 		then
 			/etc/init.d/ebox apache restart
 		fi
+
 		;;
 esac
 

@@ -2,9 +2,9 @@
 
 bin_SCRIPTS =  ebox-sudoers ebox ebox-runit ebox-sudoers-friendly
 
-pkglib_SCRIPTS =  ebox-apache-restart 
+pkglib_SCRIPTS =  ebox-apache-restart ebox-sql-table
 
-SUBDIRS =
+SUBDIRS = sqllog
 
 MAINTAINERCLEANFILES = Makefile.in
 

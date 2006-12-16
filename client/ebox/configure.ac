@@ -92,13 +92,16 @@ AC_CONFIG_FILES([
 stubs/apache.mas
 stubs/Makefile
 tools/Makefile
+tools/sqllog/Makefile
 doc/Makefile
 src/Makefile
 src/libexec/Makefile
 src/templates/login/Makefile
 src/templates/logout/Makefile
+src/templates/logs/Makefile
 src/templates/firstTime/Makefile
 src/templates/Makefile
+src/libexec/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile
 src/EBox/interactiveTest/Makefile
@@ -115,6 +118,7 @@ src/EBox/CGI/Makefile
 src/EBox/CGI/EBox/Makefile
 src/EBox/CGI/Login/Makefile
 src/EBox/CGI/Logout/Makefile
+src/EBox/CGI/Logs/Makefile
 src/EBox/CGI/Summary/Makefile
 src/EBox/CGI/FirstTime/Makefile
 src/EBox/Summary/Makefile

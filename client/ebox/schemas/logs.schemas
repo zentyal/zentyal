@@ -1,0 +1,16 @@
+<!-- vim: ts=4 sw=4 nowrap
+-->
+
+<gconfschemafile>
+	<schemalist>
+		<schema>
+			<key>/schemas/ebox/modules/global/modules/logs/class</key>
+			<applyto>/ebox/modules/global/modules/logs/class</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>EBox::Logs</default>
+			<locale name="C"/>
+		</schema>
+
+	</schemalist>
+</gconfschemafile>
