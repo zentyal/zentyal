@@ -101,7 +101,6 @@ src/templates/logout/Makefile
 src/templates/logs/Makefile
 src/templates/firstTime/Makefile
 src/templates/Makefile
-src/libexec/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile
 src/EBox/interactiveTest/Makefile
