@@ -324,7 +324,8 @@ sub addToObject  # (object, ip, mask, mac?, description?)
 	$self->set_string("$object/$id/mac", $mac);
 	$self->set_int("$object/$id/mask", $mask);
 
-	logAdminDeferred('objects',"add_to_object|nname,$nname|ip,$ip|mask,$mask|mac,$mac|object,$object");
+	my $oname = $self->get_string("$object/description");
+	logAdminDeferred('objects',"add_to_object|nname,$nname|ip,$ip|mask,$mask|mac,$mac|object,$oname");
 	
 	return 0;
 }
