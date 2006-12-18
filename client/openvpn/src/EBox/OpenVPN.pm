@@ -375,11 +375,15 @@ sub staticRoutes
   my ($self) = @_;
 
   $self->service() or return ();
-
+  
   my @servers =  grep { $_->service } $self->servers();
-  my @staticRoutes = map { $_->staticRoutes()  } @servers;
 
-  return @staticRoutes;
+  my @staticRoutes;
+  foreach my $server (@servers) {
+    push @staticRoutes, $server->staticRoutes(); 
+  }
+
+  return \@staticRoutes;
 }
 
 # Method: menu 
