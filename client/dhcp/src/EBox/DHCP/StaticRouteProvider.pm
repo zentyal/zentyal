@@ -18,9 +18,27 @@ package EBox::DHCP::StaticRouteProvider;
 use strict;
 use warnings;
 
+use EBox::Global;
+
+#  Method: staticRoutes
+#
+#    The static routes provider must use this method to return the static routes which must be pushed out by the dhcp server
+#
+#  Returns:
+#   the reference to a list with net and routes pairs. The net is provided in CIDR notation and the route is a hash reference with the following fields: network, dnetmask, gatewat
 sub staticRoutes
 {
   throw EBox::Exceptions::Internal ('staticRoutes not implemented');
 }
+
+#  Method: notifyStaticRoutesChange
+#
+#    This must be called by the static routes providers when their routes change
+sub notifyStaticRoutesChange
+{
+  my $dhcp = EBox::Global->modInstance('dhcp');
+  $dhcp->notifyStaticRoutesChange();
+}
+
 
 1;

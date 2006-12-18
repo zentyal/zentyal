@@ -526,6 +526,15 @@ sub staticRoutes
 }
 
 
+
+
+sub notifyStaticRoutesChange
+{
+  my ($self) = @_;
+  $self->markAsChanged();
+}
+
+
 #   Function: addRange
 #
 #	Adds a range for a given interface
