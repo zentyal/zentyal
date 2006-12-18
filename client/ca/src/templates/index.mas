@@ -108,7 +108,7 @@ use EBox::CA::DN;
 	href="DownloadFiles?cn=<%$cert->{'dn'}->attribute('commonName') | u%>"
 	>
 	  <img src="/data/images/install.gif"
-	       alt="<% __('Download Key(s)') |h%>" />
+	       alt="<% __('Download Key(s) and Certificate') |h%>" />
 	</a>   
 %	} else {
         <img src="/data/images/hide.gif"
@@ -135,7 +135,7 @@ use EBox::CA::DN;
 			{ imgFile => "/data/images/deny-active.gif",
 			  imgName => __("Revoke") },
 			{ imgFile => "/data/images/install.gif",
-			  imgName => __("Download Key(s)") },
+			  imgName => __("Download Key(s) and Certificate") },
 			{ imgFile => "/data/images/requeue.gif",
 			  imgName => __("Renew") }
 		       );

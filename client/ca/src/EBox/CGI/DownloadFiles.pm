@@ -94,7 +94,7 @@ sub _process
     if ( $metaDataCert->{"isCACert"} ) {
       $zipfile = EBox::Config->tmp() . "CA-key-and-cert.tar.gz";
     } else {
-      $zipfile = EBox::Config->tmp() . "keys-and-cert.tar.gz";
+      $zipfile = EBox::Config->tmp() . "keys-and-cert-" . $self->{cn} . ".tar.gz";
     }
 
     unlink($zipfile);
