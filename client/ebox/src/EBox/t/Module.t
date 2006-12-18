@@ -13,6 +13,7 @@ EBox::TestStubs::activateTestStubs();
 fakeEBoxModule(name => 'testMod');
 backupDirTest();
 createBackupDirTest();
+markAsChangedTest();
 
 sub backupDirTest
 {
@@ -59,6 +60,25 @@ sub createBackupDirTest
     ok $dirExists, "Checking that the backup directory  $dir is in place";
   }
 
+}
+
+sub markAsChangedTest
+{
+  EBox::TestStubs::setEBoxModule('global' => 'EBox::Global');
+
+  my $global = EBox::Global->getInstance();
+  (! $global->modIsChanged('testMod')) or die "Module must not be changed";
+
+  lives_and (
+
+	     sub {  
+	       my $mod = $global->modInstance('testMod');
+	       $mod->markAsChanged();
+
+	       ok $global->modIsChanged('testMod');
+	     },
+	     'Module was marked as changed'
+	    );
 }
 
 

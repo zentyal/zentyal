@@ -190,6 +190,25 @@ sub stopService
 	};
 }
 
+
+# Method: markAsChanged
+#
+#   Sets the module as changed
+#
+sub markAsChanged
+{
+  my ($self) = @_;
+  my $name = $self->name;
+
+  my $global = EBox::Global->getInstance();
+
+  return if $global->modIsChanged($name);
+
+  $global->modChange($name);
+}
+
+
+
 #
 # Method: makeBackup
 #
