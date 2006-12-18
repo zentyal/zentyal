@@ -207,7 +207,7 @@ sub caCertificatePath
   my $global = EBox::Global->instance();
   my $ca = $global->modInstance('ca');
 
-  my $caCertificate = $ca->getCACertificate;
+  my $caCertificate = $ca->getCACertificateMetadata;
   defined $caCertificate or throw EBox::Exceptions::Internal('No CA certificate' );
 
   return $caCertificate->{path};
@@ -238,7 +238,7 @@ sub _checkCertificate
   my ($self, $cn) = @_;
 
   my $ca = EBox::Global->modInstance('ca');
-  my $cert_r = $ca->getCertificate(cn => $cn);
+  my $cert_r = $ca->getCertificateMetadata(cn => $cn);
 
   if (not defined $cert_r) {
     throw EBox::Exceptions::External(__x('The certificate {cn} does not exist', cn => $cn));
