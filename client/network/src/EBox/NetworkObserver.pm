@@ -50,7 +50,7 @@ sub new
 # Returns:
 #
 #	boolean - true if module's configuration becomes inconsistent, otherwise
-#	fasle
+#	false
 sub staticIfaceAddressChanged # (iface, oldaddr, oldmask, newaddr, newmask)
 {
         return undef;
@@ -99,7 +99,7 @@ sub ifaceMethodChanged # (iface, oldmethod, newmethod)
 # Returns:
 #
 #	boolean - true if module's configuration becomes inconsistent, otherwise
-#	fasle
+#	false
 sub vifaceDelete # (iface, viface)
 {
         return undef;
@@ -123,7 +123,7 @@ sub vifaceDelete # (iface, viface)
 # Returns:
 #
 #	boolean - true if module's configuration becomes inconsistent, otherwise
-#	fasle
+#	false
 sub vifaceAdded # (iface, viface, address, netmask)
 {
         return undef;
@@ -143,7 +143,7 @@ sub vifaceAdded # (iface, viface, address, netmask)
 # Returns:
 #
 #	boolean - true if module's configuration becomes inconsistent, otherwise
-#	fasle
+#	false
 sub freeIface # (iface)
 {
         # default empty implementation. Subclasses should override this as
@@ -165,7 +165,7 @@ sub freeIface # (iface)
 # Returns:
 #
 #	boolean - true if module's configuration becomes inconsistent, otherwise
-#	fasle
+#	false
 sub freeViface # (iface, viface)
 {
         # default empty implementation. Subclasses should override this as
