@@ -426,6 +426,8 @@ sub addAdvertisedNet
   }
 
   $self->_setConfString("advertised_nets/$net", $netmask);
+
+  $self->_notifyStaticRoutesChange();
 }
 
 sub removeAdvertisedNet
@@ -437,8 +439,17 @@ sub removeAdvertisedNet
   }
 
   $self->_unsetConf("advertised_nets/$net");
+
+  $self->_notifyStaticRoutesChange();
 }
 
+
+sub _notifyStaticRoutesChange
+{
+  my ($self) = @_;
+
+  $self->_openvpnModule()->notifyStaticRoutesChange();
+}
 
 sub staticRoutes
 {
