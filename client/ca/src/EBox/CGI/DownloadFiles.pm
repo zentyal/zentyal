@@ -13,7 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::CA::DownloadKeys;
+package EBox::CGI::CA::DownloadFiles;
+
+# CGI to download key pair and certificates from a specific user or
+# to download public key and certificate from Certification Authority
 
 use strict;
 use warnings;
@@ -25,11 +28,11 @@ use EBox::Global;
 
 # Method: new
 #
-#       Constructor for DownloadKeys CGI
+#       Constructor for DownloadFiles CGI
 #
 # Returns:
 #
-#       DownloadKeys - The object recently created
+#       DownloadFiles - The object recently created
 
 sub new
   {
@@ -71,43 +74,61 @@ sub _process
     # Transform %20 in space
     $self->{cn} =~ s/%20/ /g;
 
-    my $metaDataCert = $self->{ca}->getCertificate( cn => $self->{cn});
+    my $metaDataCert = $self->{ca}->getCertificateMetadata( cn => $self->{cn});
     if (not defined($metaDataCert) ) {
       throw EBox::Exceptions::External(__x("Common name: {cn} does NOT exist in database"
 					   , cn => $self->{cn}));
     }
 
-    my $keys = {};
-    # If it is the CA certificate, only possibility to download Public Key
+    my $files = {};
+    # If it is the CA certificate, only possibility to download Public Key and certificate
     if ($metaDataCert->{"isCACert"}) {
-      $keys->{publicKey} = $self->{ca}->CAPublicKey();
+      $files->{publicKey}   = $self->{ca}->CAPublicKey();
+      $files->{certificate} = $self->{ca}->getCACertificateMetadata()->{path};
     } else {
-      $keys = $self->{ca}->getKeys($self->{cn});
+      $files = $self->{ca}->getKeys($self->{cn});
+      $files->{certificate} = $self->{ca}->getCertificateMetadata(cn => $self->{cn})->{path};
     }
 
-    my $zipfile = EBox::Config->tmp() . "keys.tar.gz"
-      if ( defined($keys->{privateKey}) );
-
-    if ($zipfile) {
-      unlink($zipfile);
-      my $linkPrivate = EBox::Config->tmp() . "private-". $self->{cn} . ".pem";
-      my $linkPublic = EBox::Config->tmp() . "public-" . $self->{cn} . ".pem";
-      link($keys->{privateKey}, $linkPrivate);
-      link($keys->{publicKey}, $linkPublic);
-      # -h to dump what links point to
-      my $ret = system("cd " . EBox::Config->tmp() . "; tar cvzhf $zipfile private-" .
-		       $self->{cn} . ".pem public-" . $self->{cn} . ".pem");
-      unlink($linkPrivate);
-      unlink($linkPublic);
-      if ($ret != 0) {
-	throw EBox::Exceptions::External(__("Error creating file") . ": $!");
-      }
-      $self->{downfile} = $zipfile;
-      $self->{downfilename} = "keys-" . $self->{cn} . ".tar.gz";
+    my $zipfile;
+    if ( $metaDataCert->{"isCACert"} ) {
+      $zipfile = EBox::Config->tmp() . "CA-key-and-cert.tar.gz";
     } else {
-      $self->{downfile} = $keys->{publicKey};
-      $self->{downfilename} = "public-" . $self->{cn} . ".pem";
+      $zipfile = EBox::Config->tmp() . "keys-and-cert.tar.gz";
     }
+
+    unlink($zipfile);
+    # We make symbolic links in order to make dir-plained tar file
+    my ($linkPrivate, $linkPublic, $linkCert);
+    if ( $metaDataCert->{"isCACert"} ) {
+      $linkPublic = "caPublicKey.pem";
+      $linkCert = "caCert.pem";
+    } else {
+      $linkPrivate = "private-". $self->{cn} . ".pem";
+      $linkPublic = "public-" . $self->{cn} . ".pem";
+      $linkCert = "cert-" . $self->{cn} . ".pem";
+    }
+
+    link($files->{privateKey}, EBox::Config->tmp() . $linkPrivate)
+      if (EBox::Config->tmp() . $linkPrivate);
+    link($files->{publicKey}, EBox::Config->tmp() . $linkPublic);
+    link($files->{certificate}, EBox::Config->tmp() . $linkCert);
+    # -h to dump what links point to
+    my $ret = system("cd " . EBox::Config->tmp() . "; tar cvzhf $zipfile $linkPrivate " .
+		     "$linkPublic $linkCert");
+
+    unlink(EBox::Config->tmp() . $linkPrivate) if ($linkPrivate);
+    unlink(EBox::Config->tmp() . $linkPublic);
+    unlink(EBox::Config->tmp() . $linkCert);
+    if ($ret != 0) {
+      throw EBox::Exceptions::External(__("Error creating file") . ": $!");
+    }
+
+    # Setting the file
+    $self->{downfile} = $zipfile;
+    # Remove trailing slashes, only name
+    $zipfile =~ s/^.+\///;
+    $self->{downfilename} = $zipfile;
 
   }
 

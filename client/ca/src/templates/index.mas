@@ -14,22 +14,19 @@ use EBox::CA::DN;
 		      value => $caNeeded }
 		   );
 
-my $printableName = __('Organization Name');
-$printableName = __('Common Name') unless ($caNeeded);
-push ( @issueTable, ({ name => 'name',
-		      printableName => $printableName,
-		      input => 'text' },
-		     { name => 'expiryDays',
-		       printableName => __('Days to expire'),
-		       input => 'text' }
-		    )
+  my $printableName = __('Organization Name');
+  $printableName = __('Common Name') unless ($caNeeded);
+  push ( @issueTable, ({ name => 'name',
+			 printableName => $printableName,
+			 input => 'text' },
+		       { name => 'expiryDays',
+			 printableName => __('Days to expire'),
+			 input => 'text' },
+		       { name => 'certificate',
+			 value => __('Issue'),
+			 input => 'submit' }
+		      )
        );
-
-push ( @issueTable, { name => 'certificate',
-		      value => __('Issue'),
-		      input => 'submit' }
-     );
-
 </%perl>
 <div class="help">
   <% __("Certificate changes will take effect immediately") %>
@@ -108,7 +105,7 @@ push ( @issueTable, { name => 'certificate',
         <img src="/data/images/sep.gif" alt="-" />
 %	if ( $cert->{"state"} eq "V" ) {
         <a
-	href="DownloadKeys?cn=<%$cert->{'dn'}->attribute('commonName') | u%>"
+	href="DownloadFiles?cn=<%$cert->{'dn'}->attribute('commonName') | u%>"
 	>
 	  <img src="/data/images/install.gif"
 	       alt="<% __('Download Key(s)') |h%>" />

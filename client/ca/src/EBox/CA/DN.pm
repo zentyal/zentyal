@@ -222,7 +222,6 @@ sub equals # (object)
 
     foreach my $key (keys %{$self}) {
       if ( $self->{$key} ne $object->{$key} ) {
-	EBox::warn("self: " . $self->{$key} . ". object : " . $object->{$key} . ".");
 	return 0
       }
     }

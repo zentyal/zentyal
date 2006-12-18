@@ -73,7 +73,7 @@ sub _process
       throw EBox::Exceptions::External(__('Only revoke and renew actions are performed'));
     }
 
-    my $cert = $ca->getCertificate(cn => $cn);
+    my $cert = $ca->getCertificateMetadata(cn => $cn);
 
     if (not defined($cert) ) {
       # If the common name does NOT exist sent to Index.pm

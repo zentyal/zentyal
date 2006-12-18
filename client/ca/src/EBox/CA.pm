@@ -562,7 +562,8 @@ sub renewCACertificate
 
 # Method: CAPublicKey
 #
-#       Return the public key from the Certificate Authority
+#       Return the public key and certificate file from the
+#       Certificate Authority
 #
 # Parameters:
 #
@@ -571,8 +572,8 @@ sub renewCACertificate
 #
 # Returns:
 #
-#       Path to the file which contains the CA Public Key in
-#       PEM format or undef if it was not possible to create
+#       Path to the file which contains the CA Public Key in PEM
+#       format or undef if it was not possible to retrieve
 #
 
 sub CAPublicKey {
@@ -961,11 +962,11 @@ sub listCertificates
 
   }
 
-# Method: getCertificate
+# Method: getCertificateMetadata
 #
-#       Given an attribute to filter, returns an unique certificate.
+#       Given an attribute to filter, returns an unique certificate metadata.
 #       JUST ONE parameter can be passed.  To return the CA
-#       certificate, it is recommend to use <getCACertificate>.
+#       certificate, it is recommended to use <getCACertificateMetadata>.
 #
 # Parameters:
 #
@@ -991,13 +992,13 @@ sub listCertificates
 #
 #      DataMissing - if any required parameter is missing
 
-sub getCertificate
+sub getCertificateMetadata
   {
     my ($self, %args) = @_;
 
     if (scalar(keys %args) == 0) {
-      throw EBox::Exceptions::DataMissing(data => 
-        __("Neither common name, distinguished name nor serial number has been passed")
+      throw EBox::Exceptions::DataMissing(data =>
+        __("Either common name, distinguished name or serial number has been passed")
 					 );
     } elsif ( scalar(keys %args) > 1 ) {
       throw EBox::Exceptions::Internal("Only one parameter is necessary");
@@ -1011,8 +1012,8 @@ sub getCertificate
     my $serialNumber = $args{'serialNumber'};
 
     my $listCertsRef = $self->listCertificates();
-    my $retCert;
 
+    my $retCert = undef;
     if (defined($cn)) {
       # Looking for a particular cn
       ($retCert) = grep { $_->{'dn'}->attribute('commonName') eq $cn } @{$listCertsRef};
@@ -1027,7 +1028,7 @@ sub getCertificate
 
   }
 
-# Method: getCACertificate
+# Method: getCACertificateMetadata
 #
 #       Return the current metadata related to the valid Certification
 #       Authority.
@@ -1044,7 +1045,7 @@ sub getCertificate
 #    - Undef if the CA is expired or inexistent -> Check state
 #      calling to <EBox::CA::currentCACertificateState>
 #
-sub getCACertificate
+sub getCACertificateMetadata
   {
 
     my ($self) = @_;
@@ -1438,7 +1439,7 @@ sub currentCACertificateState
 
     my $serialCert = $self->_obtain(CACERT, 'serial');
 
-    my $certRef = $self->getCertificate(serialNumber => $serialCert);
+    my $certRef = $self->getCertificateMetadata(serialNumber => $serialCert);
 
     if ( not defined($certRef) ) {
       return "!";

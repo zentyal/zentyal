@@ -49,7 +49,7 @@ cmp_ok ( $ca->createCA(orgName => "Warp",
 		   commonName => "lalala"), 
 	 '==', 1, 'creating CA' );
 
-ok ( $ca->getCACertificate(), "getting current valid CA" );
+ok ( $ca->getCACertificateMetadata(), "getting current valid CA" );
 
 throws_ok { $ca->revokeCACertificate(reason => 'affiliationChanged',
 				     caKeyPassword => 'papa') }
@@ -105,7 +105,7 @@ ok ( ! defined($ca->revokeCertificate(commonName => 'dos',
 
 my $listCerts;
 
-my $cert = $ca->getCertificate(cn => 'uno 1');
+my $cert = $ca->getCertificateMetadata(cn => 'uno 1');
 
 cmp_ok ( $cert->{dn}->attribute('commonName'), "eq", "uno 1" , 'certificate with cn="uno 1"');
 
@@ -154,7 +154,7 @@ ok ( ! defined($ca->revokeCACertificate(reason => 'CACompromise',
 
 is ( $ca->currentCACertificateState(), 'R', 'checking final CA certificate state');
 
-cmp_ok ( $ca->getCACertificate(), '==', 0, "not getting a valid CA" );
+cmp_ok ( $ca->getCACertificateMetadata(), '==', 0, "not getting a valid CA" );
 
 cmp_ok( scalar(@{$ca->revokeReasons()}), '==', 7, 'revoking reasons count');
 
