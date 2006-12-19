@@ -182,11 +182,41 @@ sub usesPortTest : Test(16)
   EBox::GConfModule::TestStub::setEntry( '/ebox/modules/openvpn/server/macaco/active'    => 0);
   ok !$openVPN->usesPort('tcp', 1194), "Checking that usesPort does not report  any port for inactive servers";
 
-  # openvpn inacitve case
+  # openvpn inactive case
   EBox::GConfModule::TestStub::setEntry( '/ebox/modules/openvpn/active'    => 0);
   ok !$openVPN->usesPort('tcp', 1194), "Checking that usesPort does not report  any port for a inactive OpenVPN module";
 }
 
+sub setServiceTest : Tests(5)
+{
+  my $ca = EBox::Global->modInstance('ca');
+  $ca->destroyCA();
+  # the test begins with inactive service and no CA created
+  EBox::TestStubs::setConfigKey( '/ebox/modules/openvpn/active'  => 0,);
+  my $openVPN = EBox::OpenVPN->_create();
+
+  dies_ok { $openVPN->setService(1)  } 'Checking if enabling server without Certification authority in place raises error';
+
+  # create CA
+
+  my @fakeCertificates = (
+			  {
+			   dn => 'CN=monos',
+			   isCACert => 1,
+			  },
+			 );
+  $ca->setInitialState(\@fakeCertificates);
+
+  foreach my $serviceExpected (0, 1, 1, 0,) {
+    my $oldService = $openVPN->service();
+    lives_and( 
+	      sub { 
+		$openVPN->setService($serviceExpected);
+		is $openVPN->service, $serviceExpected;
+	      },  
+	      "Checking if OpenVPN service is correctly changed from $oldService to $serviceExpected")
+  }
+}
 
 
 
@@ -200,5 +230,8 @@ sub fakeInterfaces
 					       eth1 => {up  => 1, address => { '192.168.0.233' => '255.255.255.0' }},
 					    } );
 }
+
+
+
 
 1;
