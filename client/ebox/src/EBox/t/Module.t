@@ -13,7 +13,7 @@ EBox::TestStubs::activateTestStubs();
 fakeEBoxModule(name => 'testMod');
 backupDirTest();
 createBackupDirTest();
-markAsChangedTest();
+setAsChangedTest();
 
 sub backupDirTest
 {
@@ -62,7 +62,7 @@ sub createBackupDirTest
 
 }
 
-sub markAsChangedTest
+sub setAsChangedTest
 {
   EBox::TestStubs::setEBoxModule('global' => 'EBox::Global');
 
@@ -73,7 +73,7 @@ sub markAsChangedTest
 
 	     sub {  
 	       my $mod = $global->modInstance('testMod');
-	       $mod->markAsChanged();
+	       $mod->setAsChanged();
 
 	       ok $global->modIsChanged('testMod');
 	     },

@@ -191,11 +191,11 @@ sub stopService
 }
 
 
-# Method: markAsChanged
+# Method: setAsChanged
 #
 #   Sets the module as changed
 #
-sub markAsChanged
+sub setAsChanged
 {
   my ($self) = @_;
   my $name = $self->name;

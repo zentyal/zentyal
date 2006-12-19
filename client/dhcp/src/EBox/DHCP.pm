@@ -531,7 +531,7 @@ sub staticRoutes
 sub notifyStaticRoutesChange
 {
   my ($self) = @_;
-  $self->markAsChanged();
+  $self->setAsChanged();
 }
 
 
