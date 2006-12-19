@@ -376,7 +376,7 @@ sub staticRoutes
 {
   my ($self) = @_;
 
-  $self->service() or return ();
+  $self->service() or return [];
   
   my @servers =  grep { $_->service } $self->servers();
 
