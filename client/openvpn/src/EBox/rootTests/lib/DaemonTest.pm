@@ -8,8 +8,10 @@ use Test::Exception;
 use EBox::Global::TestStub;
 use EBox::GConfModule::TestStub;
 use EBox::Config::TestStub;
+use EBox::CA::TestStub;
 
 use EBox::OpenVPN;
+
 
 
 sub notice : Test(startup)
@@ -30,6 +32,18 @@ sub _confDir
     return $self->testDir . '/conf';
 }
 
+
+sub fakeCA : Test(startup)
+{
+  EBox::CA::TestStub::fake();
+}
+
+sub clearTestDir: Test(startup)
+{
+  my ($self) = @_;
+  system "rm -rf " . $self->testDir();
+}
+
 sub setupEBoxConf : Test(setup)
 {
     my ($self) = @_;
@@ -46,9 +60,7 @@ sub setupEBoxConf : Test(setup)
 		  '/ebox/modules/openvpn/server/macaco/active'    => 1,
 		  '/ebox/modules/openvpn/server/macaco/port'    => 1194,
 		  '/ebox/modules/openvpn/server/macaco/proto'   => 'tcp',
-		  '/ebox/modules/openvpn/server/macaco/ca_certificate'   => "$confDir/tmp-ca.crt",
-		  '/ebox/modules/openvpn/server/macaco/server_certificate'   => "$confDir/server.crt",
-		  '/ebox/modules/openvpn/server/macaco/server_key'   => "$confDir/server.key",
+		  '/ebox/modules/openvpn/server/macaco/server_certificate'   => "serverCertificate",
 		  '/ebox/modules/openvpn/server/macaco/vpn_net'     => '10.0.8.0',
 		  '/ebox/modules/openvpn/server/macaco/vpn_netmask' => '255.255.255.0',
 
@@ -56,7 +68,29 @@ sub setupEBoxConf : Test(setup)
 
     EBox::GConfModule::TestStub::setConfig(@config);
     EBox::Global::TestStub::setEBoxModule('openvpn' => 'EBox::OpenVPN');
+    EBox::Global::TestStub::setEBoxModule('ca' => 'EBox::CA');
+
     EBox::Config::TestStub::setConfigKeys(tmp => $self->testDir);
+
+
+
+     #setup certificates
+    my $ca    = EBox::Global->modInstance('ca');
+    my @certificates = (
+			{
+			 dn => 'CN=monos',
+			 isCACert => 1,
+			 path => "$confDir/tmp-ca.crt",
+			},
+			{
+			 dn => "CN=serverCertificate",
+			 path => "$confDir/server.crt",
+			 keys => ["$confDir/inexistent", "$confDir/server.key"],
+			},
+		       );
+
+    $ca->setInitialState(\@certificates);
+    
 }
 
 
@@ -90,7 +124,7 @@ sub setupStubDir : Test(setup)
 }
 
 
-sub killDaemons : Test(setup)
+sub killDaemons : Test(setup)  
 {
     system "pkill openvpn";
 }
@@ -121,7 +155,7 @@ sub clearFiles : Test(teardown)
     }
 }
 
-sub daemonTest : Test(35)
+sub daemonTest : Test(25)
 {
      _regenConfigTest(serversNames => [qw(macaco )]);
 }
@@ -149,7 +183,7 @@ sub _addServerToConfig
 
 }
 
-sub multipleDaemonTest : Test(50)
+sub multipleDaemonTest #: Test(50)
 {
     my ($self) = @_;
     $self->_addServerToConfig();
@@ -182,7 +216,7 @@ sub daemonDisabledTest : Test(10)
 }
 
 
-sub daemonsDisabledAndEnabledTest : Test(35)
+sub daemonsDisabledAndEnabledTest #: Test(35)
 {
     my ($self) = @_;
     $self->_addServerToConfig();
@@ -235,8 +269,7 @@ sub _checkService
     my $running = $openVPN->running ? 1 : 0;
 
     is $foundProcess, $running, "Checking if pgrep and  running method results are coherent";
-    is $foundProcess, $service, "Checking pgrep output when querying for openvpn";
-    is $running, $foundProcess, "Checking if running output is coherent with pgrep output";
+    is $running, $service, "Checking if running and service status are in sync";
 }
 
 
@@ -250,9 +283,8 @@ sub _checkDaemon
     my $foundDaemonProccess      = ($?==0) ? 1 : 0;
     my $running = $server->running ? 1 : 0;
 
-    is $foundDaemonProccess, $running, "Checking if pgrep and running method of  server $daemonName  results are coherent";
-    is $foundDaemonProccess, $service, "Checking pgrep output when querying for openvpn server $daemonName";
-    is $running, $foundDaemonProccess, "Checking if daemon\'s running output is coherent with pgrep output";
+    is $foundDaemonProccess, $running, "Checking if pgrep output and running method of  server $daemonName  results are coherent";
+    is $running, $service, "Checking if running and service statua are coherent";
 
 }
 

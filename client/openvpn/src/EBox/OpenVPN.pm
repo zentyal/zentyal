@@ -249,13 +249,15 @@ sub setService # (active)
 {
     my ($self, $active) = @_;
 
+    my $actualService   = $self->service;
+
     if ($active) {
-      $self->service and return;
+      $actualService and return;
 
       $self->CAIsCreated() or throw EBox::Exceptions::Internal('Tying to activate OpenVPN service when there is not certification authority created');
     }
     else {
-      (not $active) and return;
+      (not $actualService) and return;
     }
 
     $self->set_bool('active', $active);
