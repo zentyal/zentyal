@@ -120,7 +120,8 @@ sub _create
 			    "affiliationChanged",
 			    "superseded",
 			    "cessationOfOperation",
-			    "certificationHold"];
+			    "certificateHold",
+			    "removeFromCRL"];
 	# Expiration CA certificate
 	$self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
 
@@ -147,7 +148,8 @@ sub new {
 		      "affiliationChanged",
 		      "superseded",
 		      "cessationOfOperation",
-		      "certificationHold"];
+		      "certificateHold",
+		      "removeFromCRL"];
   # Expiration CA certificate
   $self->{caExpirationDate} = $self->_obtain(CACERT, 'enddate');
 
@@ -370,16 +372,26 @@ sub destroyCA
 #                affiliationChanged, superseeded, cessationOfOperation
 #                or certificationHold (Optional)
 #       caKeyPassword - the CA passpharse (Optional)
+#       force  - Force the revokation (Optional)
 #
 # Returns:
 #
 #       undef if OK
 #
+# Exceptions:
+#
+#       EBox::Exceptions::DataInUse - if the CA certificate is being
+#       used by other modules
 
 sub revokeCACertificate
   {
 
     my ($self, %args) = @_;
+
+    # Check certificates is not in used
+    if ( $self->_certsInUse(undef, 1) and not $args{force}) {
+      throw EBox::Exceptions::DataInUse;
+    }
 
     # Revoked all issued and valid certificates
     my $listCerts = $self->listCertificates();
@@ -774,6 +786,7 @@ sub issueCertificate
 #                or certificationHold (Optional)
 #       caKeyPassword - the CA passpharse (Optional)
 #       certFile - the Certificate to revoke (Optional)
+#       force    - Force the revokation (Optional)
 #
 # Returns:
 #
@@ -781,11 +794,14 @@ sub issueCertificate
 #
 # Exceptions:
 #
-#      External - if the certificate does NOT exist
-#                 if the reason is NOT a standard one
-#                 if any error occurred when revokation is done
-#                 if any error occurred when creating the CRL is done
-#      DataMissing - if any required parameter is missing
+#      EBox::Exceptions::External - if the certificate does NOT exist
+#           if the reason is NOT a standard one
+#           if any error occurred when revokation is done
+#           if any error occurred when creating the CRL is done
+#      EBox::Exceptions::DataMissing - if any required
+#           parameter is missing
+#      EBox::Exceptions::DataInUse - if the
+#           certificate to revoke is being used by other modules
 #
 sub revokeCertificate {
 
@@ -797,6 +813,13 @@ sub revokeCertificate {
 
   throw EBox::Exceptions::DataMissing(data => __('Common Name') )
     unless defined($commonName);
+
+  my $isCACert = $self->{dn}->attribute('commonName') eq $commonName;
+
+  if ( $self->_certsInUse($commonName, $isCACert)
+       and not $args{force}) {
+    throw EBox::Exceptions::DataInUse;
+  }
 
   if ( defined($caKeyPassword) ) {
     $self->{caKeyPassword} = $caKeyPassword;
@@ -1386,7 +1409,7 @@ sub renewCertificate
 #
 # Exceptions:
 #
-#      External - if the CA passpharse is incorrect
+#      EBox::Exceptions::External - if the CA passpharse is incorrect
 
 sub updateDB
   {
@@ -1400,6 +1423,8 @@ sub updateDB
       $self->{caKeyPassword} = $caKeyPassword;
     }
 
+    my @expiredCertsBefore = $self->listCertificates(state => 'E');
+
     my $cmd = "ca";
     $self->_commonArgs("ca", \$cmd);
     $cmd .= "-updatedb ";
@@ -1410,6 +1435,24 @@ sub updateDB
     $ENV{'PASS'} = $self->{caKeyPassword};
     my ($retVal, $output) = $self->_executeCommand( COMMAND => $cmd );
     delete( $ENV{'PASS'} );
+
+    my @expiredCertsAfter = $self->listCertificates(state => 'E');
+    # Finding elements in one array but not another
+    # T. Christiansen & N. Torkington, Perl Cookbook 2nd edition, pg. 126
+    my %seen;
+    @seen {@expiredCertsAfter} = ();
+    delete @seen {@expiredCertsBefore};
+
+    my @diff = keys %seen;
+    # Tells other modules the following certs have expired
+    my $global = EBox::Global->getInstance();
+    my @mods = @{$global->modInstancesOfType('EBox::CA::Observer')};
+    foreach my $cert (@diff) {
+      foreach my $mod (@mods) {
+	$mod->certificateExpired($cert->{dn}->attribute('commonName'),
+				 $cert->{isCACert});
+      }
+    }
 
     if ($retVal eq "ERROR") {
       throw EBox::Exceptions::External($self->_filterErrorFromOpenSSL($output));
@@ -1953,6 +1996,31 @@ sub _filterErrorFromOpenSSL # (input)
     EBox::debug("output: $input");
 
     return $input;
+
+  }
+
+# Check none of other eBox modules uses the certificate
+# Return true if there's any module using it
+sub _certsInUse # (cn?, isCACert?)
+  {
+    my ($self, $cn, $isCACert) = @_;
+
+    if ( not (defined($cn) and defined($isCACert)) ) {
+      return undef;
+    }
+
+    $cn = $self->{dn}->attribute('commonName')
+      if ($isCACert);
+
+    my $global = EBox::Global->getInstance();
+    my @mods = @{$global->modInstancesOfType('EBox::CA::Observer')};
+    foreach my $mod (@mods) {
+      if( $mod->certificateRevoked($cn, $isCACert) ){
+	return 1;
+      }
+    }
+
+    return undef;
 
   }
 

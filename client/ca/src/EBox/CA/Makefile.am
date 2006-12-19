@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CA
 
-nobase_perl_DATA = DN.pm TestStub.pm
+nobase_perl_DATA = DN.pm TestStub.pm Observer.pm
 
 DISTCLEANFILES = 
 

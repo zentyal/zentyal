@@ -1,0 +1,39 @@
+<%args>
+  $commonName
+  $isCACert => 1
+  reason    => "unknown"
+</%args>
+<%init>
+  use EBox::Gettext;
+</%init>
+<h3>
+<%perl>
+if ( $isCACert ) {
+  print __("Revoking CA certificate");
+} else {
+  print __("Revoking certificate");
+}
+</%perl>
+</h3>
+  <div class="warning">
+    <% __x("The certificate whose common name is {cn} you tried to revoke is being used by some module, please confirm you are sure to revoke and leave the service(s) instable or disabled",
+           cn => $commonName) %>
+  </div>
+
+  <p>
+    <form action="RevokeCertificate" method="post">
+      <input type="hidden" name="commonName"
+             value="<% $commonName %>" />
+      <input type="hidden" name="isCACert"
+             value="<% $isCACert %>" />
+      <input type="hidden" name="reason"
+             value="<% $reason %>" />
+      <input class="inputButton" type="submit"
+             name="revokeForce"
+	     value='<% __("Revoke") %>' />
+      <input class="inputButton" type="submit"
+             name="cancel"
+	     value='<% __("Cancel") %>' />
+    </form>
+  </p>
+    

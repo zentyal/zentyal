@@ -22,6 +22,8 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
 use EBox::Global;
+# For exceptions
+use Error qw(:try);
 
 # Method: new
 #
@@ -48,11 +50,19 @@ sub new
   }
 
 # Process the HTTP query
+# Templates that come from: forceRevoke.mas and formRevoke.mas
 
 sub _process
   {
 
     my $self = shift;
+
+    # If comes from forceRevoke with a cancel button
+    if ( defined($self->param("cancel")) ) {
+      $self->{chain} = "CA/Index";
+      $self->setMsg( __("The certificate has NOT been revoked") );
+      return;
+    }
 
     my $ca = EBox::Global->modInstance('ca');
 
@@ -75,11 +85,34 @@ sub _process
     my @array = ();
 
     my $retValue;
-    if ( $isCACert ) {
-      $retValue = $ca->revokeCACertificate( reason => $reason);
+
+
+    if ( defined($self->param("revokeForce")) ) {
+    # If comes from a forceRevoke with forceRevoke button
+      if ( $isCACert ) {
+	$ca->revokeCACertificate(reason => $reason,
+				 force  => 1);
+      } else {
+	$ca->revokeCertificate(commonName => $commonName,
+			       reason     => $reason,
+			       force      => 1);
+      }
     } else {
-      $retValue = $ca->revokeCertificate( commonName    => $commonName,
-					  reason        => $reason);
+      # If comes from a formRevoke.mas
+      try {
+	if ( $isCACert ) {
+	  $retValue = $ca->revokeCACertificate( reason => $reason);
+	} else {
+	  $retValue = $ca->revokeCertificate( commonName    => $commonName,
+					      reason        => $reason);
+	}
+      } catch EBox::Exceptions::DataInUse with {
+	$self->{template} = '/ca/forceRevoke.mas';
+	push (@array, 'commonName' => $commonName);
+	push (@array, 'isCACert'   => $isCACert);
+	push (@array, 'reason'     => $reason);
+	$self->{params} = \@array;
+      }
     }
 
     my $msg = __("The certificate has been revoked");

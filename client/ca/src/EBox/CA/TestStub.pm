@@ -192,6 +192,7 @@ sub createCA
 #                affiliationChanged, superseeded, cessationOfOperation
 #                or certificationHold (Optional)
 #       caKeyPassword - the CA passphrase (*NOT WORKING*)
+#       force         - Force the revokation (*NOT WORKING*)
 #
 # Returns:
 #
@@ -487,6 +488,7 @@ sub issueCertificate
 #                or certificationHold (Optional)
 #       caKeyPassword - the CA passpharse (*NOT WORKING*)
 #       certFile - the Certificate to revoke (*NOT WORKING*)
+#       force    - Force the revokation (*NOT WORKING*)
 #
 # Returns:
 #
