@@ -43,7 +43,7 @@ case "$1" in
 		db_set debconf/frontend noninteractive
 	
 		# Add ebox debian sources
-cat <<EOF | /etc/apt/sources.list 
+cat > /etc/apt/sources.list <<EOF
 deb http://ebox-platform.com/debian/stable/ ebox/
 deb http://ebox-platform.com/debian/stable/ extra/
 deb http://ebox-platform.com/debian/sarge/stable/ main/
