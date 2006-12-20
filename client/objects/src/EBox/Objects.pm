@@ -230,7 +230,7 @@ sub addObject # (description)
 	my $id = $self->get_unique_id("x");
 
 	$self->set_string("$id/description", $desc);
-	logAdminDeferred('objects',"add_object","object=$desc");
+	logAdminDeferred($self->name,"add_object","object=$desc");
 	return $id;
 }
 
@@ -268,7 +268,7 @@ sub removeObjectForce # (object)
 		$mod->freeObject($object);
 	}
 	my $oname = $self->get_string("$object/description");
-	logAdminDeferred('objects',"remove_object_force","object=$oname");
+	logAdminDeferred($self->name,"remove_object_force","object=$oname");
 	return $self->_removeObject($object);
 }
 
@@ -294,7 +294,7 @@ sub removeObject # (object)
 		throw EBox::Exceptions::DataInUse();
 	} else {
 		my $oname = $self->get_string("$object/description");
-		logAdminDeferred('objects',"remove_object","object=$oname");
+		logAdminDeferred($self->name,"remove_object","object=$oname");
 		return $self->_removeObject($object);
 	}
 }
@@ -341,7 +341,7 @@ sub addToObject  # (object, ip, mask, mac?, description?)
 	$self->set_int("$object/$id/mask", $mask);
 
 	my $oname = $self->get_string("$object/description");
-	logAdminDeferred('objects',"add_to_object","nname=$nname,ip=$ip,mask=$mask,mac=$mac,object=$oname");
+	logAdminDeferred($self->name,"add_to_object","nname=$nname,ip=$ip,mask=$mask,mac=$mac,object=$oname");
 	
 	return 0;
 }
@@ -368,7 +368,7 @@ sub removeFromObject  # (object, id)
 		my $nname = $self->get_string("$object/$id/nname");
 		my $oname = $self->get_string("$object/description");
 		$self->delete_dir("$object/$id");
-		logAdminDeferred('objects',"remove_from_object","nname=$nname,object=$oname");
+		logAdminDeferred($self->name,"remove_from_object","nname=$nname,object=$oname");
 		return 1;
 	} else {
 		return undef;
