@@ -1152,10 +1152,10 @@ my $self = $class->SUPER::_create(name => 'objects',
 	    <programlisting>
 <![CDATA[
 $self->{'actions'} = {};
-$self->{'actions'}->{'add_object'} = __n('Added object {object}');
-$self->{'actions'}->{'add_to_object'} =
-        __n('Added {nname} ({ip}/{mask} [{mac}]) to object {object}');
-$self->{'actions'}->{'remove_object'} = __n('Removed object {object}');
+$self->{'actions'}->{'addObject'} = __n('Added object {object}');
+$self->{'actions'}->{'addToObject'} =
+        __n('Added {name} ({ip}/{mask} [{mac}]) to object {object}');
+$self->{'actions'}->{'removeObject'} = __n('Removed object {object}');
 ]]>
 	    </programlisting>
 	  </example>
@@ -1173,7 +1173,7 @@ $self->{'actions'}->{'remove_object'} = __n('Removed object {object}');
 	      <programlisting>
 sub addObject # (description)
 {
-    #action: add_object
+    #action: addObject
 	      </programlisting>
 	    </listitem>
 	    <listitem>
@@ -1187,7 +1187,7 @@ sub addObject # (description)
 		changes the actions are removed.
 	      </para>
 	      <para>
-		<method>logAdminNow</method> puts the action in the database with the field 
+		<methodname>logAdminNow</methodname> puts the action in the database with the field 
 		<emphasis>committed</emphasis> set to <emphasis>true</emphasis>, and should be used 
 		for actions that take effect immediately like changing the password or adding a user.
 	      </para>
@@ -1206,12 +1206,12 @@ logAdminNow(module,action,params)
 		<title>Calling <methodname>logAdminDeferred</methodname> method</title>
 		<programlisting>
 $self->set_string("$id/description", $desc);
-logAdminDeferred('objects',"add_object","object=$desc");
+logAdminDeferred('objects',"addObject","object=$desc");
 return $id;
                 </programlisting>
 	      </example>
 	      <para>
-		As it is shown, the database stores <emphasis>add_object</emphasis>, 
+		As it is shown, the database stores <emphasis>addObject</emphasis>, 
 		<emphasis>object=objname"</emphasis>, the displaying code creates the string which 
 		should be displayed and translates it to the right language.
 	      </para>

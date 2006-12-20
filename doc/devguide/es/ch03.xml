@@ -1214,10 +1214,10 @@ my $self = $class->SUPER::_create(name => 'objects',
 	    <programlisting>
 <![CDATA[
 $self->{'actions'} = {};
-$self->{'actions'}->{'add_object'} = __n('Added object {object}');
-$self->{'actions'}->{'add_to_object'} =
-        __n('Added {nname} ({ip}/{mask} [{mac}]) to object {object}');
-$self->{'actions'}->{'remove_object'} = __n('Removed object {object}');
+$self->{'actions'}->{'addObject'} = __n('Added object {object}');
+$self->{'actions'}->{'addToObject'} =
+        __n('Added {name} ({ip}/{mask} [{mac}]) to object {object}');
+$self->{'actions'}->{'removeObject'} = __n('Removed object {object}');
 ]]>
 	    </programlisting>
 	  </example>
@@ -1235,7 +1235,7 @@ $self->{'actions'}->{'remove_object'} = __n('Removed object {object}');
 	      <programlisting>
 sub addObject # (description)
 {
-    #action: add_object
+    #action: addObject
 	      </programlisting>
 	    </listitem>
 	    <listitem>
@@ -1249,7 +1249,7 @@ sub addObject # (description)
 		si reviertes los cambios estas acciones se borran.
 	      </para>
 	      <para>
-		<method>logAdminNow</method> pone la acción en la base de datos con el campo
+		<methodname>logAdminNow</methodname> pone la acción en la base de datos con el campo
 		<emphasis>confirmado</emphasis> a <emphasis>verdadero</emphasis>, y debería ser
 		usado por acción que tengan efecto inmediato como cambiar la contraseña o
 		añadir un usuario.
@@ -1269,12 +1269,12 @@ logAdminNow(module,action,params)
 		<title>Llamando al método <methodname>logAdminDeferred</methodname></title>
 		<programlisting>
 $self->set_string("$id/description", $desc);
-logAdminDeferred('objects',"add_object","object=$desc");
+logAdminDeferred('objects',"addObject","object=$desc");
 return $id;
                 </programlisting>
 	      </example>
 	      <para>
-		Como se muestra, la base de datos guarda <emphasis>add_object</emphasis>, 
+		Como se muestra, la base de datos guarda <emphasis>addObject</emphasis>, 
 		<emphasis>object=objname"</emphasis>, el código mostrado crea la cadena
 		que debería mostrarse y traducirse al lenguaje concreto.
 	      </para>
