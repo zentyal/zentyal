@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 49;
+use Test::More tests => 60;
 use Test::Exception;
 
 
@@ -19,11 +19,11 @@ sub fakeEBoxModuleTest
   EBox::TestStubs::fakeEBoxModule(name => 'macaco');
   _testModuleBasics('macaco', 'EBox::Macaco');
   
-  EBox::TestStubs::fakeEBoxModule(name => 'macacoAnidado', package => 'EBox::Macaco::Macaco');
-  _testModuleBasics('macacoAnidado', 'EBox::Macaco::Macaco');
+  EBox::TestStubs::fakeEBoxModule(name => 'eboxModuleAnidado', package => 'EBox::Module::Module');
+  _testModuleBasics('eboxModuleAnidado', 'EBox::Module::Module');
   
-  EBox::TestStubs::fakeEBoxModule(name => 'macacoObservador', package => 'EBox::Macaco::Observador', isa => ['EBox::LogObserver']);
-  $mod = _testModuleBasics('macacoObservador', 'EBox::Macaco::Observador');
+  EBox::TestStubs::fakeEBoxModule(name => 'idleObserver', package => 'EBox::Idle::Observer', isa => ['EBox::LogObserver']);
+  $mod = _testModuleBasics('idleObserver', 'EBox::Idle::Observer');
   isa_ok($mod, 'EBox::LogObserver');
 
   EBox::TestStubs::fakeEBoxModule(name => 'macacoSon', package => 'EBox::Macaco::Son', isa => ['EBox::Macaco']);
@@ -61,8 +61,9 @@ sub fakeEBoxModuleTest
   can_ok($mod, 'partners'); 
   is   $mod->partners(), 7, "Checking data initialization via object call of installed sub ";
 
-
-
+  _testModInstancesOfType('EBox::Macaco::Son::Son', 1);
+  _testModInstancesOfType('EBox::Macaco', 6); 
+ 
 }
 
 sub _testModuleBasics
@@ -81,6 +82,29 @@ sub _testModuleBasics
   isa_ok($mod, $package);
  
   return $mod;
+}
+
+
+sub _testModInstancesOfType
+{
+  my ($type, $instancesExpected) = @_;
+
+  my $global =  EBox::Global->getInstance();
+  my @instances;
+  lives_ok{  @instances =  @{$global->modInstancesOfType($type) }  } 'EBox::Global::modInstancesOfType';
+
+  is @instances, $instancesExpected, 'Checking wether modInstancesOfType returns the expected numer of modules intances';
+
+
+ SKIP:{
+    skip $instancesExpected, 'modInstancesOfType has not returned the expected dunmber of instances so we skip the instances checks' if @instances != $instancesExpected;
+
+    foreach my $mod (@instances) {
+      isa_ok ($mod, $type);
+    }
+
+  }
+
 }
 
 
