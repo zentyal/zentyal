@@ -35,6 +35,7 @@ use base 'EBox::GConfModule';
 use EBox::CA::DN;
 use EBox::Gettext;
 use EBox::Config;
+use EBox::LogAdmin qw ( :all );
 use EBox::Menu::Item;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
@@ -106,9 +107,13 @@ sub _create
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'ca',
 					  domain => 'ebox-ca',
+					  title => __n('Certification Authority'),
 					  @_);
 
 	bless($self, $class);
+
+	# Setting admin actions
+	$self->_setLogAdminActions();
 
 	# OpenSSL environment stuff
 	$self->{tmpDir} = TEMPDIR;
@@ -320,6 +325,11 @@ sub createCA {
   # Set the CA certificate expiration date
   $self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
 
+  # Logging the action
+  logAdminNow($self->name, "createCA",
+	      "orgName=". $self->{dn}->attribute('orgName') . ",days=" . $args{days}
+	      );
+
   #unlink (CAREQ);
   return 1;
 
@@ -352,6 +362,11 @@ sub destroyCA
       throw EBox::Exceptions::External(__("The remove operation cannot be finished. Reason: ")
 				       . $!);
     }
+
+    # Logging the action
+    logAdminNow($self->name, "destroyCA",
+		"orgName=". $self->{dn}->attribute('orgName')
+	       );
 
     # Set internal attribute to undefined
     $self->{dn} = undef;
@@ -416,6 +431,12 @@ sub revokeCACertificate
 					  certFile      => CACERT);
 
     $self->{caExpirationDate} = undef;
+
+    # Logging the action
+    logAdminNow($self->name, "revokeCACertificate",
+		"reason=" . $args{reason} . ",force=$force"
+	       );
+
 
     return $retVal;
 
@@ -491,6 +512,11 @@ sub issueCACertificate
 
     # Expiration CA certificate
     $self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
+
+    # Logging the action
+    logAdminNow($self->name, "issueCACertificate",
+		"orgName=" . $self->{dn}->attribute("orgName") . ",days=" . $args{days}
+	       );
 
     return $ret;
 
@@ -569,6 +595,11 @@ sub renewCACertificate
       }
 
     }
+
+    # Logging the action
+    logAdminNow($self->name, "reneweCACertificate",
+		"orgName=" . $self->{dn}->attribute("orgName") . ",days=" . $args{days}
+	       );
 
     return $renewedCert;
 
@@ -771,6 +802,11 @@ sub issueCertificate
 				   $args{keyPassword});
   }
 
+  # Logging the action
+  logAdminNow($self->name, "issueCertificate",
+		"cn=" . $args{commonName} . ",days=" . $args{days}
+	       );
+
   return $self->_findCertFile($args{"commonName"});
 
 }
@@ -885,6 +921,11 @@ sub revokeCertificate {
 
   throw EBox::Exceptions::External($self->_filterErrorFromOpenSSL($output))
     if ($retValue eq "ERROR");
+
+  # Logging the action
+  logAdminNow($self->name, "revokeCertificate",
+		"cn=" . $args{commonName} . ",reason=" . $args{reason} . ",force=$force"
+	       );
 
   return undef;
 
@@ -1392,6 +1433,12 @@ sub renewCertificate
       $newCertFile = $self->_findCertFile($userDN->attribute('commonName'));
     }
 
+    # Logging the action
+    logAdminNow($self->name, "renewCertificate",
+		"cn=" . $args{commonName} . ",days=" . $args{days}
+	       );
+
+
     return $newCertFile;
 
   }
@@ -1458,9 +1505,14 @@ sub updateDB
 
     if ($retVal eq "ERROR") {
       throw EBox::Exceptions::External($self->_filterErrorFromOpenSSL($output));
-    } else {
-      return undef;
     }
+
+    # Logging the action
+    logAdminNow($self->name, "updateDB",
+		"number=" . scalar(@diff)
+	       );
+
+    return undef;
 
   }
 
@@ -2073,6 +2125,36 @@ sub _certsInUse # (cn?, isCACert?)
     return undef;
 
   }
+
+# Setting logAdmin actions
+sub _setLogAdminActions
+  {
+
+    my ($self) = @_;
+
+    $self->{actions} = {};
+    $self->{actions}->{createCA} =
+      __n("Created Certification Authority with organization name {orgName} and validity for {days} days");
+    $self->{actions}->{destroyCA} =
+      __n("Destroyed Certification Authority with organization name {orgName}");
+    $self->{actions}->{revokeCACertificate} =
+      __n("Revoked CA certificate because of {reason} forced: {force}");
+    $self->{actions}->{issueCACertificate} =
+      __n("Issued CA certificate with organization name {orgName} and validity for {days} days");
+    $self->{actions}->{renewCACertificate} =
+      __n("Renewed CA certificate with organization name {orgName} and validity for {days} days");
+    $self->{actions}->{issueCertificate} =
+      __n("Issued certificate with common name {cn} and validity for {days} days");
+    $self->{actions}->{revokeCertificate} =
+      __n("Revoked certificate with common name {cn} because of {reason} forced: {force}");
+    $self->{actions}->{renewCertificate} =
+      __n("Renewed certificate with common name {cn} and validity for {days} days");
+    $self->{actions}->{updateDB} =
+      __n("Updated certificate database. {number} certificates has expired");
+
+    return;
+
+}
 
 
 ## OpenSSL execution environment provided by OpenCA::OpenSSL
