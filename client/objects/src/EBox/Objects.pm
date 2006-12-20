@@ -417,7 +417,7 @@ sub menu
 {
 	my ($self, $root) = @_;
 	my $item = new EBox::Menu::Item('url' => 'Objects/Index',
-					'text' => $self->title,
+					'text' => __($self->title),
 					'order' => 3);
 	$root->add($item);
 }
