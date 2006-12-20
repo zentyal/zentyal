@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 60;
+use Test::More tests => 62;
 use Test::Exception;
 
 
@@ -61,6 +61,7 @@ sub fakeEBoxModuleTest
   can_ok($mod, 'partners'); 
   is   $mod->partners(), 7, "Checking data initialization via object call of installed sub ";
 
+  _testModInstancesOfType('EBox::Inexistent', 0);
   _testModInstancesOfType('EBox::Macaco::Son::Son', 1);
   _testModInstancesOfType('EBox::Macaco', 6); 
  
