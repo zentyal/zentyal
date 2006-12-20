@@ -138,9 +138,9 @@ my $writeToDiskIcon   = $writeOpticalDisk ? '/data/images/writecd.gif': '/data/i
 <table class='dataTable' cellspacing='0'>
 	<thead>
 		<tr>
-			<th class="tleft"><%__('Description')%></th>
+			<th class="tleft"><%__('Description') | h %></th>
 			<th><%__('Date')%></th>
-			<th class="thOptions"><%__('Actions')%></th>
+			<th class="thOptions"><%__('Actions') | h %></th>
 		</tr>
 	</thead>
 	<tbody>
