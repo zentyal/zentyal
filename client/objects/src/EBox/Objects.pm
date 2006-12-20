@@ -39,13 +39,13 @@ sub _create
 					@_);
 
 	$self->{'actions'} = {};
-	$self->{'actions'}->{'add_object'} = __n('Added object {object}');
-	$self->{'actions'}->{'add_to_object'} = 
+	$self->{'actions'}->{'addObject'} = __n('Added object {object}');
+	$self->{'actions'}->{'addToObject'} = 
 		__n('Added {nname} ({ip}/{mask} [{mac}]) to object {object}');
-	$self->{'actions'}->{'remove_object'} = __n('Removed object {object}');
-	$self->{'actions'}->{'remove_object_force'} = 
+	$self->{'actions'}->{'removeObject'} = __n('Removed object {object}');
+	$self->{'actions'}->{'removeObjectForce'} = 
 		__n('Forcefully removed object {object}');
-	$self->{'actions'}->{'remove_from_object'} =
+	$self->{'actions'}->{'removeFromObject'} =
 		__n('Removed {nname} from object {object}');
 
 
@@ -205,7 +205,7 @@ sub objectExists # (name)
 #
 sub addObject # (description) 
 {
-	#action: add_object
+	#action: addObject
 
 	my ($self, $desc ) = @_;
 	
@@ -230,7 +230,7 @@ sub addObject # (description)
 	my $id = $self->get_unique_id("x");
 
 	$self->set_string("$id/description", $desc);
-	logAdminDeferred($self->name,"add_object","object=$desc");
+	logAdminDeferred($self->name,"addObject","object=$desc");
 	return $id;
 }
 
@@ -259,7 +259,7 @@ sub _removeObject  # (object)
 #
 sub removeObjectForce # (object) 
 {
-	#action: remove_object_force
+	#action: removeObjectForce
 	
 	my ($self, $object)  = @_;
 	my $global = EBox::Global->getInstance();
@@ -268,7 +268,7 @@ sub removeObjectForce # (object)
 		$mod->freeObject($object);
 	}
 	my $oname = $self->get_string("$object/description");
-	logAdminDeferred($self->name,"remove_object_force","object=$oname");
+	logAdminDeferred($self->name,"removeObjectForce","object=$oname");
 	return $self->_removeObject($object);
 }
 
@@ -287,14 +287,14 @@ sub removeObjectForce # (object)
 #
 sub removeObject # (object) 
 {
-	#action: remove_object
+	#action: removeObject
 	
 	my ($self, $object)  = @_;
 	if ($self->objectInUse($object)) {
 		throw EBox::Exceptions::DataInUse();
 	} else {
 		my $oname = $self->get_string("$object/description");
-		logAdminDeferred($self->name,"remove_object","object=$oname");
+		logAdminDeferred($self->name,"removeObject","object=$oname");
 		return $self->_removeObject($object);
 	}
 }
@@ -311,7 +311,7 @@ sub removeObject # (object)
 #	description - description *optional*
 sub addToObject  # (object, ip, mask, mac?, description?) 
 {
-	#action: add_to_object
+	#action: addToObject
 
 	my ( $self, $object, $ip, $mask, $mac, $nname ) = @_;
 
@@ -341,7 +341,7 @@ sub addToObject  # (object, ip, mask, mac?, description?)
 	$self->set_int("$object/$id/mask", $mask);
 
 	my $oname = $self->get_string("$object/description");
-	logAdminDeferred($self->name,"add_to_object","nname=$nname,ip=$ip,mask=$mask,mac=$mac,object=$oname");
+	logAdminDeferred($self->name,"addToObject","nname=$nname,ip=$ip,mask=$mask,mac=$mac,object=$oname");
 	
 	return 0;
 }
@@ -356,7 +356,7 @@ sub addToObject  # (object, ip, mask, mac?, description?)
 #   	id - memeber's identifier
 sub removeFromObject  # (object, id)
 {
-	#action: remove_from_object
+	#action: removeFromObject
 
 	my ( $self, $object, $id )  = @_;
 
@@ -368,7 +368,7 @@ sub removeFromObject  # (object, id)
 		my $nname = $self->get_string("$object/$id/nname");
 		my $oname = $self->get_string("$object/description");
 		$self->delete_dir("$object/$id");
-		logAdminDeferred($self->name,"remove_from_object","nname=$nname,object=$oname");
+		logAdminDeferred($self->name,"removeFromObject","nname=$nname,object=$oname");
 		return 1;
 	} else {
 		return undef;
