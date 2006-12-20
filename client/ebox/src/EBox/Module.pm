@@ -392,7 +392,8 @@ sub restoreDependencies
 #   configuration properly
 #
 # Parameters:
-#  dir - directory where the modules backup files are dumped
+#   dir - directory where the modules backup files are
+#         dumped (without trailing slash)
 #
 sub dumpConfig
 {
@@ -406,12 +407,15 @@ sub dumpConfig
 #
 # Method: aroundDumpConfig
 #
-# wraps the dumpConfig call; the purpose of this sub is to allow specila types of modules (GConfModule p.e) to call another method alongside with dumConfig transparently
-# Normally, ebox modules does not need to override this  		
+# Wraps the dumpConfig call; the purpose of this sub is to allow
+# specila types of modules (GConfModule p.e) to call another method
+# alongside with dumConfig transparently.
+#
+# Normally, ebox modules does not need to override this
 #
 # Parameters:
-#   dir - the directoy where the module configuration is been dumped 
-# 
+#   dir - Directoy where the module configuration is been dumped
+#
 sub aroundDumpConfig
 {
   my ($self, $dir) = @_;
@@ -425,10 +429,13 @@ sub aroundDumpConfig
 #
 # Method:  restoreConfig
 #
-#   this must be override by individuals to restore his configuration from the backup file. Those files are the same were created with dumpConfig
+#   This must be override by individuals to restore its configuration
+#   from the backup file. Those files are the same were created with
+#   dumpConfig
 #
-# Parameters:
-#  dir - directory where are located the backup files 
+# Parameters: 
+#  dir - Directory where are located the backup files
+#        (without the trailing slash)
 #
 sub restoreConfig
 {
