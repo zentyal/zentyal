@@ -1,4 +1,4 @@
-test_scripts = CA.t
+test_scripts = CA.t CertObserver.t
 
 EXTRA_DIST = $(test_scripts)
 
