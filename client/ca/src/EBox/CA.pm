@@ -23,10 +23,12 @@ use warnings;
 # File::Slurp package
 # Perl6::Junction package
 # Date::Calc::Object  (which has as a dependency Carp::Clan and Bit::Vector)
+# File::Copy::Recursive
 ####################################
 use File::Slurp;
 use Perl6::Junction qw(any);
 use Date::Calc::Object qw(:all);
+use File::Copy::Recursive qw(dircopy fcopy);
 
 use base 'EBox::GConfModule';
 
@@ -1531,6 +1533,54 @@ sub menu {
 				  'text' => __('Certificate Manager')));
 
 }
+
+# Method: dumpConfig
+#
+#       Dump CA configuration and certificates
+#
+# Parameters:
+#
+#       dir - Directory where the modules backup files are dumped
+#
+sub dumpConfig
+  {
+
+    my ($self, $dir) = @_;
+
+    EBox::debug("dir: $dir");
+
+    # Call super
+    $self->SUPER::dumpConfig($dir);
+    # Storing all OpenSSL directory tree where Certs/keys and DB are stored
+    dircopy(CATOPDIR, $dir . "/CA");
+    # Storing OpenSSL config file
+    fcopy(SSLCONFFILE, $dir . "/openssl.cnf");
+
+  }
+
+# Method:  restoreConfig
+#
+#   Restore its configuration from the backup file. Those files are
+#   the same were created with dumpConfig
+#
+# Parameters:
+#  dir - Directory where are located the backup files
+#
+sub restoreConfig
+  {
+
+    my ($self, $dir) = @_;
+
+    # Call super
+    $self->SUPER::restoreConfig($dir);
+    # Destroy previous CA
+    $self->destroyCA();
+    # Restoring all OpenSSL directory tree where Certs/keys and DB are stored
+    dircopy($dir . "/CA", CATOPDIR);
+    # Restoring OpenSSL config file
+    fcopy($dir . "/openssl.cnf", SSLCONFFILE);
+
+  }
 
 # Obtain the public key given the private key 
 #
