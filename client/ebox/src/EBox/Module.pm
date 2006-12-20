@@ -388,10 +388,11 @@ sub restoreDependencies
 
 # Method:  dumpConfig
 #
-#   this must be override by individuals to restore to dump th4e configuration properly
+#   this must be override by individuals to restore to dump the
+#   configuration properly
 #
 # Parameters:
-#  dir - directory where the modules's backup files  are dumped
+#  dir - directory where the modules backup files are dumped
 #
 sub dumpConfig
 {
