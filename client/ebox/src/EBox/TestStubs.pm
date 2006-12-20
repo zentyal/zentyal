@@ -5,7 +5,7 @@ use base 'Exporter';
 #  this package is the global facade to all ebox-base test stubs
 #
 # warning:
-# do not confuse with EBox::TestStub (this package is the teststub for the -package- EBox
+# do NOT confuse with EBox::TestStub (this package is the teststub for the -package- EBox)
 #
 use strict;
 use warnings;
@@ -26,17 +26,23 @@ our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 #
 # Function: activateTestStubs
 #
-#   Some of the parts of eBox needs to be replaced with tests stubs for ease testing. This sub is for do this setup in only one place.
-#  Please note, test classes created using EBox::Test::Class automatically call this function
+#   Some of the parts of eBox need to be replaced with tests stubs for
+#   an easy testing. This sub is intended for do this setup in only
+#   one place. Please notice test classes created using
+#   EBox::Test::Class automatically call this function
 #
-# Parameters:
-#     There are optional parameters  only intended for advanced usage; each of the test stub may be controlled with two parameters.
-#        "fake$componentName" - wether to activate the teststub for this component or not (default: true)
-#        "$componentName"     - a array ref with extra parameters for the component. (optional)
+# Parameters: 
+#     There are optional parameters only intended for advanced
+#     usage; each of the test stub may be controlled with two
+#     parameters.
 #
+#        "fake$componentName" - whether to activate the teststub for
+#        this component or not (default: true)
+#        "$componentName" - an array ref with extra parameters for the
+#        component. (optional) 
 #
 # See also:
-#     EBox::Test::Class
+#     <EBox::Test::Class>
 #
 # 
 sub activateTestStubs
@@ -76,8 +82,8 @@ sub activateTestStubs
 #
 # Function: setConfig
 #
-#    set EBox config keys. (Currently stored in GConf)
-#    Plese do not confuse this sub with setEBoxConfigKeys
+#    Set EBox config keys. (Currently stored in GConf)
+#    Please do NOT confuse this sub with setEBoxConfigKeys
 #
 # Parameters:
 #     the keys and values to be established
@@ -92,7 +98,7 @@ sub activateTestStubs
 # 		  '/ebox/modules/openvpn/conf_dir' => $confDir,
 # 		  '/ebox/modules/openvpn/dh' => "$confDir/dh1024.pem",
 #                ); # set some keys	
-# 
+#
 sub setConfig
 {
   return EBox::GConfModule::TestStub::setConfig(@_); 
@@ -119,13 +125,14 @@ sub setConfigKey
 #
 # Function: setEBoxModule
 #
-#   Register a ebox module in ebox configuration. This is not needed for modules created with fakeEBoxModule
+#   Register an eBox module in eBox configuration. This is not needed
+#   for modules created with fakeEBoxModule
 #
 # Parameters:
-#   $name     - the name of the module
-#   $package  - the perl package of the module
-#   $depends  - a list refrence with the module dependencies (optional)#
-
+#   $name     - the module name
+#   $package  - the perl module package
+#   $depends  - a list reference with the module
+#               dependencies (optional)
 # Prerequisites:
 #      activateEBoxTestStubs must be called to be able to use this function
 # Usage examples:
@@ -138,8 +145,12 @@ sub setEBoxModule
 #
 # Function: setEBoxConfigKeys
 #
-#   Set the keys and values of configuration values accessed via EBox::Config. Don't confuse this configuration vlaues with 'normal' eBox configuration that is retrevied using module methods, for fake those last configuration you can use EBox::Test::setConfig
-#   If you try to establsih a inexistent key, a error will be raised
+#   Set the keys and values of configuration values accessed via
+#   EBox::Config. Don't confuse this configuration values with
+#   ''normal'' eBox configuration that is retrevied using module
+#   methods, for fake those last configuration you can use
+#   EBox::Test::setConfig
+#   If you try to establish an inexistent key, an error will be raised
 #
 #
 # Parameters:
@@ -148,7 +159,7 @@ sub setEBoxModule
 # Prerequisites:
 #      activateEBoxTestStubs must be called to be able to use this function
 # Usage examples:
-#    setEboxConfigKeys(locale => 'es', group => 'ebox', css => '/var/ww/css', lang => 'cat') 
+#    setEboxConfigKeys(locale => 'es', group => 'ebox', css => '/var/www/css', lang => 'cat') 
 sub setEBoxConfigKeys
 {
   return EBox::Config::TestStub::setConfigKeys(@_);
@@ -165,8 +176,13 @@ sub setEBoxConfigKeys
 #       name     - the name of the ebox module (required)
 #       package  - the perl package of the ebox module (optional)
 #       isa      - the parents of the package (optional. Default: EBox:GConfModule)
-#       subs     - the subs to be installed in the package; in the form of a reference to a list containig the names and sub references of each sub. (optional)
-#       initalizer - a initializer sub for the module. The module constructor will call this sub passing itself as first parameter. (optional)
+#       subs - the subs to be installed in the package; in the form of
+#       a reference to a list containing the names and sub references
+#       of each sub. (optional)
+#       initializer - a initializer sub for the module. The module
+#       constructor will call this sub passing itself as first
+#       parameter. (optional)
+#
 #
 # Prerequisites:
 #      activateEBoxTestStubs must be called to be able to use this function
@@ -176,7 +192,7 @@ sub setEBoxConfigKeys
 #                name => 'macaco', package => 'EBox::Macaco', 
 #                subs => [ sayHello => sub { print 'hi'  }  ],
 #       );
-# 
+#
 sub fakeEBoxModule
 {
   my %params = @_;
@@ -212,13 +228,19 @@ sub fakeEBoxModule
 #
 # Function: setFakeIfaces
 #
-#    set fake computer network interfaces. This ifaces will used by EBox::NetWrappers functions
+#    Set fake computer network interfaces. This ifaces will used by
+#    EBox::NetWrappers methods
 #
 # Parameters:
-#     a list with pairs of interfaces names and attributes. The name is a string and the attributes is a hash ref with the following elements:
-#           up - boolean value
-#           address - hash reference  to a hash with IP address as keys and netmasks as values
-#           mac_address - string with the mac address
+#
+#     a list with pairs of interfaces names and
+#     attributes. The name is a string and the attributes is a hash
+#     ref with the following elements:
+#
+#       up - boolean value 
+#       address - hash reference to a hash with IP
+#                 addresses as keys and netmasks as values
+#       mac_address - string with the mac address
 #
 # Prerequisites:
 #      activateEBoxTestStubs must be called to be able to use this function
@@ -262,10 +284,11 @@ sub setFakeIfaces
 #
 # Function: setFakeRoutes
 #
-#    set fake computer network routes. This fake routes will used by EBox::NetWrappers functions
+#   Set fake computer network routes. This fake routes will used by
+#   EBox::NetWrappers functions 
 #
 # Parameters:
-#     a list with pairs of  network destination and gateways
+#     a list with pairs of network destination and gateways
 #
 # Prerequisites:
 #      activateEBoxTestStubs must be called to be able to use this function
@@ -281,6 +304,5 @@ sub setFakeRoutes
 {
   EBox::NetWrappers::TestStub::setFakeRoutes(@_);
 }
-
 
 1;
