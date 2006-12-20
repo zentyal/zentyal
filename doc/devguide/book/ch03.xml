@@ -130,7 +130,7 @@ catch EBox::Exceptions::Sudo::Command with {
                  wrappers for frequent used
                  commands executed with root
                  privileges. <methodname>stat</methodname> provides a
-                 stat wrapper, useful to get file system information
+                 statistic wrapper, useful to get file system information
                  for any file. If you need a more concise file
                  information you can use
                  <methodname>fileTest</methodname> to check files for
@@ -218,7 +218,7 @@ catch EBox::Exceptions::Sudo::Command with {
 				read-only instances. This kind of information is not subject to
 				configuration saving and revoking. It is status information,
 				like the name servers or IP address given to the system by an
-				external dhcp server. A separate namespace is provided for this
+				external DHCP server. A separate namespace is provided for this
 				kind of information, and again it is automatically kept out of the
 				backup/save/revoke operations mentioned earlier. The methods use to
 				access this namespace are identical to the usual ones, they just
@@ -703,7 +703,7 @@ MAINTAINERCLEANFILES = Makefile.in]]></programlisting>
 				<title>Generating a configuration file</title>
 
 				<para>This is the code that generates the configuration file in the
-				ntp module:</para>
+				NTP module:</para>
 
 				<programlisting>
 <![CDATA[
@@ -1104,5 +1104,119 @@ sub extendedRestore
 		  </programlisting>
 		</example>
 	</section>		
+	<section id="sect-logAdmin">
+	  <title>Administrative logging</title>
+	  
+	  <para>
+	    eBox can log every change made through its administrative interface,
+	    which is useful to know when something was changed or who changed it.
+	    Every eBox module should report every log message to give a comprehensive
+	    administrative logging support.
+	  </para>
+
+	  <para>
+	    In order to do so, you must include a new package from eBox core 
+	    <classname>EBox::LogAdmin</classname> in your module.
+	  </para>
+	  
+	  <example>
+	    <title>Including LogAdmin package</title>
+	    <programlisting><![CDATA[
+use EBox::LogAdmin qw ( :all );
+]]></programlisting>
+	  </example>
+
+	  <para>
+	    A new module attribute named <emphasis>title</emphasis> is used,
+	    you must add it to the <emphasis>create</emphasis> call. For instance:
+	  </para>
+	  
+	  <example>
+	    <title>Creating an object with administrative logging support</title>
+	    <programlisting><![CDATA[
+my $self = $class->SUPER::_create(name => 'objects',
+                    title => __n('Objects'),
+                    domain => 'ebox-objects',
+                    @_);
+]]></programlisting>
+	  </example>
+
+	  <para>
+	    Furthermore, a hash is needed in the constructor with the actions your module
+	    will report with a nicely formatted message. 
+	    Following the same example in <classname>EBox::Objects</classname> module:
+	  </para>
+	  
+	  <example>
+	    <title>Adding actions to log</title>
+	    <programlisting>
+<![CDATA[
+$self->{'actions'} = {};
+$self->{'actions'}->{'add_object'} = __n('Added object {object}');
+$self->{'actions'}->{'add_to_object'} =
+        __n('Added {nname} ({ip}/{mask} [{mac}]) to object {object}');
+$self->{'actions'}->{'remove_object'} = __n('Removed object {object}');
+]]>
+	    </programlisting>
+	  </example>
+		  
+	  <para>
+	    For each action you want to log, which should be everything that can be done 
+	    from web interface, you should follow these steps:
+	  </para>
+	  
+	  <orderedlist>
+	    <listitem>
+	      <para>
+		Add an action mark to the function, like:
+	      </para>
+	      <programlisting>
+sub addObject # (description)
+{
+    #action: add_object
+	      </programlisting>
+	    </listitem>
+	    <listitem>
+	      <para>
+		Call <methodname>logAdminDeferred</methodname> or 
+		<methodname>logAdminNow</methodname>. <methodname>logAdminDeferred</methodname>
+		puts the action in the database with the field <emphasis>committed</emphasis> set to 
+		<emphasis>false</emphasis>, and should be called for actions that don't take place 
+		until the changes are saved, that is, anything that gets stored in gconf.
+		When you save changes, the actions are marked as committed, if you revert 
+		changes the actions are removed.
+	      </para>
+	      <para>
+		<method>logAdminNow</method> puts the action in the database with the field 
+		<emphasis>committed</emphasis> set to <emphasis>true</emphasis>, and should be used 
+		for actions that take effect immediately like changing the password or adding a user.
+	      </para>
+	      <para>
+		Both functions have the same signature:
+	      </para>
+	      <programlisting>
+logAdminDeferred(module,action,params)
+logAdminNow(module,action,params)
+	      </programlisting>
+	      <para>
+		You should call it only when you're sure that the action has taken place, for 
+		example, for <methodname>addObject</methodname>:
+	      </para>
+	      <example>
+		<title>Calling <methodname>logAdminDeferred</methodname> method</title>
+		<programlisting>
+$self->set_string("$id/description", $desc);
+logAdminDeferred('objects',"add_object","object=$desc");
+return $id;
+                </programlisting>
+	      </example>
+	      <para>
+		As it is shown, the database stores <emphasis>add_object</emphasis>, 
+		<emphasis>object=objname"</emphasis>, the displaying code creates the string which 
+		should be displayed and translates it to the right language.
+	      </para>
+	    </listitem>
+	  </orderedlist>
+	</section>
 
 </chapter>

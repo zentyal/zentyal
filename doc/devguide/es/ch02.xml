@@ -344,6 +344,22 @@ print __x("Edit {group} members", group => $group); #correcto
 			de tal modo que el traductor puede incluir la variable
 			<varname>group</varname> en el lugar apropiado de la frase.</para>
 
+			<para>Si quieres marcar una cadena como traducible pero decidiendo
+			no traducirla, deberías usar la función <methodname>__n</methodname>.
+			Un ejemplo de uso es el siguiente:
+
+			<example>
+			  <title>Usando la función <methodname>__n</methodname></title>
+			  <programlisting>
+my $options = [__n('Foo'), __n('Bar'), __n('Foobaz') ]; # As many as you want
+print __($options[$index]);
+			  </programlisting>
+			</example>
+
+			<para>El ejemplo mostrado antes da la oportunidad al traductor
+			de traducir únicamente la opción elegida dejando a las demás posibles
+			opciones (normalmente un alto número) sin una traducción.</para>
+
 			<para>Si se siguen correctamente estas reglas, el sistema de
 			compilación de eBox generará automáticamente los ficheros PO
 			de los módulos conteniendo todas las cadenas incluidas en los

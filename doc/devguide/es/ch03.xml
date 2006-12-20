@@ -754,7 +754,7 @@ MAINTAINERCLEANFILES = Makefile.in]]></programlisting>
 				<title>Generando un fichero de configuración</title>
 
 				<para>Este es el código que genera el fichero de
-				configuración en el módulo ntp:</para>
+				configuración en el módulo NTP:</para>
 
 				<programlisting>
 <![CDATA[
@@ -1166,6 +1166,122 @@ sub extendedRestore
          	]]></programlisting>
 	</example>
 	</section>	
+	<section id="sect-logAdmin">
+	  <title>Registro administrativo</title>
+	  
+	  <para>
+	    eBox puede registrar cada cambio realizado a través de interfaz
+	    administrativo, lo que es útil para saber cuando se ha cambiado o 
+	    quién lo ha hecho. Cada módulo eBox debería dar parte de cada mensaje
+	    de registro para dar un soporte completo al registro administrativo.
+	  </para>
+
+	  <para>
+	    Para conseguirlo, debes incluir un nuevo paquete del núcleo eBox
+	    <classname>EBox::LogAdmin</classname> en tu módulo.
+	  </para>
+	  
+	  <example>
+	    <title>Incluyendo el paquete LogAdmin</title>
+	    <programlisting><![CDATA[
+use EBox::LogAdmin qw ( :all );
+]]></programlisting>
+	  </example>
+
+	  <para>
+	    Se usa un nuevo atributo del módulo, <emphasis>title</emphasis>,
+	    debes añadirlo a la llamada de creación del módulo. Por ejemplo:
+	  </para>
+	  
+	  <example>
+	    <title>Creando un objeto con soporte a registro administrativo</title>
+	    <programlisting><![CDATA[
+my $self = $class->SUPER::_create(name => 'objects',
+                    title => __n('Objects'),
+                    domain => 'ebox-objects',
+                    @_);
+]]></programlisting>
+	  </example>
+
+	  <para>
+	    Además, se necesita una tabla hash en el constructor con las actiones que 
+	    tu módulo reportará con una formato de mensaje bonito.
+	    Siguiendo el mismo ejemplo en el módulo <classname>EBox::Objects</classname>:
+	  </para>
+	  
+	  <example>
+	    <title>Añadiendo acciones para el registro</title>
+	    <programlisting>
+<![CDATA[
+$self->{'actions'} = {};
+$self->{'actions'}->{'add_object'} = __n('Added object {object}');
+$self->{'actions'}->{'add_to_object'} =
+        __n('Added {nname} ({ip}/{mask} [{mac}]) to object {object}');
+$self->{'actions'}->{'remove_object'} = __n('Removed object {object}');
+]]>
+	    </programlisting>
+	  </example>
+		  
+	  <para>
+	    Para cada acción que quieras registrar, que debería ser todas que puedan
+	    hacerse desde el interfaz web, deberás seguir estos pasos:
+	  </para>
+	  
+	  <orderedlist>
+	    <listitem>
+	      <para>
+		Añadir una marca de acción a la función, como:
+	      </para>
+	      <programlisting>
+sub addObject # (description)
+{
+    #action: add_object
+	      </programlisting>
+	    </listitem>
+	    <listitem>
+	      <para>
+		Llama los métodos <methodname>logAdminDeferred</methodname> or 
+		<methodname>logAdminNow</methodname>. <methodname>logAdminDeferred</methodname>
+		pone la acción en la base de datos con el campo <emphasis>confirmado</emphasis> a 
+		<emphasis>falso</emphasis>, y debería ser llamado para acciones que no tengan
+		lugar hasta que los cambios sean guardados, esto es, todo que se guarda
+		en gconf. Cuando salves los cambios, las acciones se marcan como confirmadas,
+		si reviertes los cambios estas acciones se borran.
+	      </para>
+	      <para>
+		<method>logAdminNow</method> pone la acción en la base de datos con el campo
+		<emphasis>confirmado</emphasis> a <emphasis>verdadero</emphasis>, y debería ser
+		usado por acción que tengan efecto inmediato como cambiar la contraseña o
+		añadir un usuario.
+	      </para>
+	      <para>
+		Ambas funciones tiene la misma firma:
+	      </para>
+	      <programlisting>
+logAdminDeferred(module,action,params)
+logAdminNow(module,action,params)
+	      </programlisting>
+	      <para>
+		Deberías llamarlo sólo cuando estés seguro que la acción ha tenido lugar, por
+		ejemplo, para <methodname>addObject</methodname>.
+	      </para>
+	      <example>
+		<title>Llamando al método <methodname>logAdminDeferred</methodname></title>
+		<programlisting>
+$self->set_string("$id/description", $desc);
+logAdminDeferred('objects',"add_object","object=$desc");
+return $id;
+                </programlisting>
+	      </example>
+	      <para>
+		Como se muestra, la base de datos guarda <emphasis>add_object</emphasis>, 
+		<emphasis>object=objname"</emphasis>, el código mostrado crea la cadena
+		que debería mostrarse y traducirse al lenguaje concreto.
+	      </para>
+	    </listitem>
+	  </orderedlist>
+	</section>
+
 </chapter>
 
  
