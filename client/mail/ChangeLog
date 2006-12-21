@@ -1,13 +1,13 @@
 0.8 
-	* Small GUI fix
-	* Added firewall rule to access smtp hosts for all interfaces
+	+ Small GUI fix
+	+ Added firewall rule to access smtp hosts for all interfaces
 0.7.99
-	* New release
+	+ New release
 0.7.1
-	* GUI improvements
-	* Added queue managment support
-	* Use EBox::LDAP singleton
-	* Added update/clean actions to ebox-mail-ldap
-	* Use of ebox-sudoers-friendly 
+	+ GUI improvements
+	+ Added queue managment support
+	+ Use EBox::LDAP singleton
+	+ Added update/clean actions to ebox-mail-ldap
+	+ Use of ebox-sudoers-friendly 
 0.7
-	* First public release 
+	+ First public release 

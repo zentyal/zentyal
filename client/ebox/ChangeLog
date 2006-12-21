@@ -10,12 +10,12 @@
 	+ added test class in the spirit of Test::Class
 	+ Html.pm now uses mason templates
 0.7.1
-	* use Apache::Reload to reload modules when changed
-	* GUI consistency (#12)
-	* Fixed a bug for passwords longer than 16 chars
-	* ebox-sudoers-friendly added to not overwrite /etc/sudoers each time
+	+ use Apache::Reload to reload modules when changed
+	+ GUI consistency (#12)
+	+ Fixed a bug for passwords longer than 16 chars
+	+ ebox-sudoers-friendly added to not overwrite /etc/sudoers each time
 0.7
-	* First public release
+	+ First public release
 0.6
 	+ Move to client
 	+ Remove obsolete TODO list
@@ -28,7 +28,7 @@
 	+ API documented using naturaldocs
 	+ Update INSTALL
 	+ Use a new method to get configkeys, now configkey reads every
-	  [0-9][0-9]*.conf file from the EBox::Config::etc() dir and 
+	  [0-9][0-9]+.conf file from the EBox::Config::etc() dir and 
 	  tries to get the value from the files in order.
 	+ Display date in the correct languae in Summary
 	+ Update debian scripts

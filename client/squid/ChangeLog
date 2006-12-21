@@ -10,17 +10,17 @@
 	+ Dansguardian does not start when it shouldn't
 
 0.7.1
-	* Add support to configure banned extension list in dansguardian
-	* GUI consitency
-	* Use of ebox-sudoers-friendly
+	+ Add support to configure banned extension list in dansguardian
+	+ GUI consitency
+	+ Use of ebox-sudoers-friendly
 	
 0.7
-	* First public release
+	+ First public release
 0.6
-	* move to client
-	* API documented using naturaldocs
-	* Update install
-	* Update debian scripts
+	+ move to client
+	+ API documented using naturaldocs
+	+ Update install
+	+ Update debian scripts
 
 0.5.2
 	+ Fix some packaging issues

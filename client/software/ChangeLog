@@ -1,28 +1,28 @@
 0.8
-	* ebox-software truncates /etc/apt/sources.list and
+	+ ebox-software truncates /etc/apt/sources.list and
 	  add  all apt sources from ebox-platform.com
 0.7.99
-	* fix bug to wait until the upgrading or installing process is done.
+	+ fix bug to wait until the upgrading or installing process is done.
 	  Use Ajax to check if the upgrading taking place has finished
-	* restart apache when a package is installed
+	+ restart apache when a package is installed
 0.7.1
-	* GUI improvements
-	* Use of ebox-sudoers-friendly
-	* Fix an error which uninstalls upgradable packages
+	+ GUI improvements
+	+ Use of ebox-sudoers-friendly
+	+ Fix an error which uninstalls upgradable packages
 0.7
-	* First public release
+	+ First public release
 0.6
-	* move to client
-	* API documented using naturaldocs
-	* Update install
-	* Update debian scripts
-	* Implements usesPort
+	+ move to client
+	+ API documented using naturaldocs
+	+ Update install
+	+ Update debian scripts
+	+ Implements usesPort
 
 0.5.2
-	* Fix some packaging issues
+	+ Fix some packaging issues
 
 0.5.1
-	* Convert module to new menu system
+	+ Convert module to new menu system
 
 0.5
-	* Initial release
+	+ Initial release

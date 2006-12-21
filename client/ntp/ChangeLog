@@ -5,18 +5,18 @@
 	+ Fix bugs giving a more robust support for adding NTP servers
 
 0.6
-	* Move to client
-	* API documented using naturaldocs
-	* Update install
-	* Update debian scripts
-	* Fix ebox-timezone-import
-	* Use of ebox-sudoers-friendly
+	+ Move to client
+	+ API documented using naturaldocs
+	+ Update install
+	+ Update debian scripts
+	+ Fix ebox-timezone-import
+	+ Use of ebox-sudoers-friendly
 
 0.5.2
-	* Fix some packaging issues
+	+ Fix some packaging issues
 
 0.5.1
-	* Convert module to new menu system
+	+ Convert module to new menu system
 
 0.5
-	* Initial release
+	+ Initial release

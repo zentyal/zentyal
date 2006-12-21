@@ -1,22 +1,22 @@
 0.8
-	* dns-cache depends on network. Now when an interface configuration
+	+ dns-cache depends on network. Now when an interface configuration
 	  changes bind is restarted to listen on the new IP
 0.7.99
-        * Add Portuguese translation
+        + Add Portuguese translation
 
 0.7.1	
-	* Allow TCP queries
-	* Use of ebox-sudoers-friendly
+	+ Allow TCP queries
+	+ Use of ebox-sudoers-friendly
 0.7	
-	* First public release
+	+ First public release
 0.6
-	* API documented using natarualdocs
-	* Update install and depends
+	+ API documented using natarualdocs
+	+ Update install and depends
 0.5.2
-	* Fix some packaging issues
+	+ Fix some packaging issues
 
 0.5.1
-	* Convert module to new menu system
+	+ Convert module to new menu system
 
 0.5
-	* Initial release
+	+ Initial release

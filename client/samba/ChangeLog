@@ -1,38 +1,38 @@
 0.8
-	* New release
+	+ New release
 0.7.99
-	* Full backup mode stores shared files
-	* Unlimited i-node quota
-	* Various bug-fixes
-	* Portuguese translation
+	+ Full backup mode stores shared files
+	+ Unlimited i-node quota
+	+ Various bug-fixes
+	+ Portuguese translation
  
 0.7.1
-	* Initial support for PDC
-	* GUI improvements
-	* Added update/clean actions to eobx-samba-ldap
-	* Use EBox::LDAP singleton
-	* Debian package fixes
-	* Fetch SID from configuration file
-	* Use of ebox-sudoers-friendly
+	+ Initial support for PDC
+	+ GUI improvements
+	+ Added update/clean actions to eobx-samba-ldap
+	+ Use EBox::LDAP singleton
+	+ Debian package fixes
+	+ Fetch SID from configuration file
+	+ Use of ebox-sudoers-friendly
 
 0.7
-	* First public release
+	+ First public release
 0.6
-	* move to client
-	* API documented using naturaldocs
-	* Update install
-	* Update debian scripts
-	* Enable/disable printer sharing and file sharing independentely
-	* Use new syntax to define ACLs in slapd.conf
-	* Implements usesPort
-	* Add full support for printers
-	* Several bugfixes
+	+ move to client
+	+ API documented using naturaldocs
+	+ Update install
+	+ Update debian scripts
+	+ Enable/disable printer sharing and file sharing independentely
+	+ Use new syntax to define ACLs in slapd.conf
+	+ Implements usesPort
+	+ Add full support for printers
+	+ Several bugfixes
 
 0.5.2
-	* Fix some packaging issues
+	+ Fix some packaging issues
 
 0.5.1
-	* Convert module to new menu system
+	+ Convert module to new menu system
 
 0.5
-	* Initial release
+	+ Initial release
