@@ -22,7 +22,7 @@ use EBox::Gettext;
 			<div id='reason'><% $reason %></div>
 %		}
 	
-	<form action='/LOGIN' method='post'>
+	<form name='login' action='/LOGIN' method='post'>
 		<dl>
 			<dt><% __('Password') %>:</dt>
 			<dd><input  class='inputTextLogin' type='password' 
