@@ -25,7 +25,7 @@ use EBox::Gettext;
 	<form action='/LOGIN' method='post'>
 		<dl>
 			<dt><% __('Password') %>:</dt>
-			<dd><input name='login' class='inputTextLogin' type='password' 
+			<dd><input  class='inputTextLogin' type='password' 
 					name='credential_0' 
 					id='credential_0'
 					size='14' /></dd>
