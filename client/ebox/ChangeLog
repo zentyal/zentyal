@@ -1,3 +1,6 @@
+0.8
+	+ Fix backup issue related to bug reports
+	+ Improved backup GUI
 0.7.99
         + changed sudo stub to be more permissive
 	+ added startup file to apache web server
@@ -6,8 +9,6 @@
 	+ added test stubs to simplify testing
 	+ added test class in the spirit of Test::Class
 	+ Html.pm now uses mason templates
-	
-
 0.7.1
 	* use Apache::Reload to reload modules when changed
 	* GUI consistency (#12)

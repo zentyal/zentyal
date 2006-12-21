@@ -1,3 +1,6 @@
+0.8
+	* ebox-software truncates /etc/apt/sources.list and
+	  add  all apt sources from ebox-platform.com
 0.7.99
 	* fix bug to wait until the upgrading or installing process is done.
 	  Use Ajax to check if the upgrading taking place has finished

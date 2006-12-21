@@ -1,3 +1,6 @@
+0.8
+	* dns-cache depends on network. Now when an interface configuration
+	  changes bind is restarted to listen on the new IP
 0.7.99
         * Add Portuguese translation
 
