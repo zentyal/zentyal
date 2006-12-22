@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-12-04 10:06+0100\n"
+"POT-Creation-Date: 2006-12-22 13:55+0100\n"
 "PO-Revision-Date: 2006-12-04 10:08+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team:  <es@li.org>\n"
@@ -102,6 +102,7 @@ msgid "Virtual domain name"
 msgstr "Nombre de dominio virtual"
 
 #: src/EBox/CGI/QueueManager.pm:33 src/EBox/CGI/QueueManager.pm:50
+#: src/EBox/Mail.pm:833
 msgid "Queue Management"
 msgstr "Gestión de cola"
 

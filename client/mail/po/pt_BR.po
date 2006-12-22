@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-12-04 10:06+0100\n"
+"POT-Creation-Date: 2006-12-22 13:55+0100\n"
 "PO-Revision-Date: 2006-10-18 19:02-0200\n"
 "Last-Translator: junior\n"
 "Language-Team:  <en@li.org>\n"
@@ -97,6 +97,7 @@ msgid "Virtual domain name"
 msgstr "Nome do Domínio Virtual"
 
 #: src/EBox/CGI/QueueManager.pm:33 src/EBox/CGI/QueueManager.pm:50
+#: src/EBox/Mail.pm:833
 msgid "Queue Management"
 msgstr ""
 

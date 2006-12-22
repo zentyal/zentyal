@@ -830,7 +830,7 @@ sub menu
 			'text' => __('Virtual domains')));
 
 	$folder->add(new EBox::Menu::Item('url' => 'Mail/QueueManager',
-			'text' => 'Queue Management'));
+			'text' => __('Queue Management')));
 
 	$root->add($folder);
 }
