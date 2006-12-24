@@ -107,7 +107,7 @@ sub _chooseDevice
   }
 
   if (!defined $candidate) {
-    throw EBox::Exceptions::External(__('This system had not any recorder drive'));
+    throw EBox::Exceptions::External(__('This system does not have a recorder drive'));
   }
   
   return $candidate;
