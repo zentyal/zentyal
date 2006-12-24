@@ -32,7 +32,7 @@ case "$1" in
 		
 
 		# create log table
-		/usr/lib/ebox-logs/ebox-sql-table add jobs /usr/share/ebox/sqllog/printers.sql	
+		/usr/lib/ebox/ebox-sql-table add jobs /usr/share/ebox/sqllog/printers.sql	
 	
 		# restart logs
 		invoke-rc.d ebox logs restart || true

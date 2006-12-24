@@ -8,7 +8,6 @@ DEPENDENCIAS
 	+ ebox-firewall
 	+ ebox-usersandgroups
 	+ ebox-samba
-	+ ebox-logs
 
 + Paquetes Debian  (apt-get install <package>)
 

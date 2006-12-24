@@ -6,7 +6,6 @@ DEPENDENCIAS
 	+ ebox
 	+ ebox-objects
 	+ ebox-firewall
-	+ ebox-logs
 
 + Paquetes Debian (apt-get install <package>)
 
@@ -36,7 +35,7 @@ mv /etc/rc2.d/SXXdansguardian /etc/rc2.d/K20dansguardian
 
 - Cree una tabla de registro escribiendo:
 
-/usr/lib/ebox-logs/ebox-sql-table add access /usr/share/ebox/sqllog/squid.sql
+/usr/lib/ebox/ebox-sql-table add access /usr/share/ebox/sqllog/squid.sql
 
 - Reinicie el demonio de log
 	

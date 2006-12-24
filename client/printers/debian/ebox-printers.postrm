@@ -15,7 +15,7 @@ case "$1" in
 
 		;;		
 	purge)
-                /usr/lib/ebox-logs/ebox-sql-table drop jobs || true
+                /usr/lib/ebox/ebox-sql-table drop jobs || true
 
 	        ;;    
 esac

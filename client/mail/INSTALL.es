@@ -8,7 +8,6 @@ DEPENDENCIAS
 	+ ebox-firewall
 	+ ebox-objects
 	+ ebox-usersandgroups
-	+ ebox-logs
 
 + Paquetes Debian testing (apt-get install <package>)
 

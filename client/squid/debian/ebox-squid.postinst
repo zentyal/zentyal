@@ -29,7 +29,7 @@ case "$1" in
 		chmod 0440 /etc/sudoers
 	
 		# create log table
-                /usr/lib/ebox-logs/ebox-sql-table add access /usr/share/ebox/sqllog/squid.sql
+                /usr/lib/ebox/ebox-sql-table add access /usr/share/ebox/sqllog/squid.sql
 
 		# restart logs
 		invoke-rc.d ebox logs restart || true
