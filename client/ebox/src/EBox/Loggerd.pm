@@ -18,6 +18,7 @@ package EBox::Loggerd;
 use base qw(EBox::AbstractDaemon);
 
 use EBox;
+use EBox::Global;
 use EBox::Sudo qw( :all );
 use EBox::Gettext;
 use EBox::DBEngineFactory;
