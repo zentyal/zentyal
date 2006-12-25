@@ -1,7 +1,0 @@
-Changes in 1.10
-
-	Bugfix: error in none() and one() when comparing a Regexp object with !=
-
-Changes in 1.00
-
-	Initial release, includes test suite.

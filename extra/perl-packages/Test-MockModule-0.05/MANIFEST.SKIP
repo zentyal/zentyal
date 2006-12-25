@@ -1,8 +1,0 @@
-^blib
-^bak
-~$
-(?:^|/)[Mm]akefile(?:\.old)?$
-(?:^|/)pm_to_blib$
-^Test-MockModule-\d+\.\d+\.(zip|tar\.gz|tgz)$
-[Cc][Vv][Ss]/
-^\.releaserc
