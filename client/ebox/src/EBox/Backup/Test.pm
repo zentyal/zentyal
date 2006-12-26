@@ -47,6 +47,7 @@ sub testDir
 sub notice : Test(startup)
 {
   diag 'This test use GConf and may left behind some test entries in the tree /ebox'; 
+  diag 'Remember you need the special GConf packages from eBox repository. Otherwise this tests will fail in weird ways';
 }
 
 
