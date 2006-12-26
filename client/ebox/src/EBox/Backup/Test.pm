@@ -43,6 +43,7 @@ sub testDir
 }
 
 
+
 sub notice : Test(startup)
 {
   diag 'This test use GConf and may left behind some test entries in the tree /ebox'; 
@@ -164,18 +165,14 @@ sub setCanaries
 sub setGConfCanary
 {
   my ($value) = @_;
-  my $client = Gnome2::GConf::Client->get_default;
-  $client->set_string($GCONF_CANARY_KEY, $value);
-  die 'gconf canary not changed' if $client->get_string($GCONF_CANARY_KEY) ne $value;
+  _setGConfString($GCONF_CANARY_KEY, $value);
 }
 
 sub setExtendedCanary
 {
   my ($value) = @_;
-  my $client = Gnome2::GConf::Client->get_default;
 
-  $client->set_string($GCONF_EXTENDED_CANARY_KEY, $value);
-  die 'gconf extended canary not changed' if $client->get_string($GCONF_EXTENDED_CANARY_KEY) ne $value;
+  _setGConfString($GCONF_EXTENDED_CANARY_KEY, $value);
 
   my $canaryExtended = EBox::Global->modInstance('canaryExtended');
   $canaryExtended->setCanary($value);
@@ -187,14 +184,27 @@ sub setExtendedCanary
 sub setMixedConfCanary
 {
   my ($value) = @_;
-  my $client = Gnome2::GConf::Client->get_default;
 
-  $client->set_string($GCONF_MIXEDCONF_CANARY_KEY, $value);
-  die 'gconf mixedconf canary not changed' if $client->get_string($GCONF_MIXEDCONF_CANARY_KEY) ne $value;
+  _setGConfString($GCONF_MIXEDCONF_CANARY_KEY, $value);
+
 
   my $canaryMixedConf = EBox::Global->modInstance('canaryMixedConf');
   $canaryMixedConf->setCanary($value);
   die 'canary not changed' if $canaryMixedConf->canary() ne $value;
+}
+
+sub _setGConfString
+{
+  my ($key, $value) = @_;
+  defined $key or die "Not key supplied";
+  defined $value or die "Not value supplied for key $key";
+
+  my $client = Gnome2::GConf::Client->get_default;
+  defined $client or die "Can not retrieve GConf client";
+
+  $client->set_string($key, $value);
+
+  die "gconf key $key not changed" if $client->get_string($key) ne $value;
 }
 
 
@@ -211,6 +221,7 @@ sub checkCanaries
 sub checkGConfCanary
 {
   my ($expectedValue) = @_;
+
   my $client = Gnome2::GConf::Client->get_default;
   my $value = $client->get_string($GCONF_CANARY_KEY);
   is $value, $expectedValue, 'Checking GConf data of simple module canary';
@@ -256,6 +267,7 @@ sub checkMixedConfCanary
 
 sub teardownGConfCanary : Test(teardown)
 {
+
   my $client = Gnome2::GConf::Client->get_default;
   $client->unset($GCONF_CANARY_KEY);  
   $client->unset($GCONF_EXTENDED_CANARY_KEY);  
@@ -351,14 +363,13 @@ sub restoreBugreportTest : Test(15)
 
   my $backup = new EBox::Backup();
   my $bugReportBackup;
-  my $fullBackup;
  
   setCanaries('beforeBackup');
   lives_ok { $bugReportBackup = $backup->makeBugReport() } 'make a bug report';
+
   checkStraightRestore($bugReportBackup, [fullRestore => 0], 'configuration restore from a bugreport');
 
-  setCanaries('beforeBackup');
-  checkDeviantRestore($fullBackup, [fullRestore => 1], 'full restore not allowed from a bug report');
+  checkDeviantRestore($bugReportBackup, [fullRestore => 1], 'full restore not allowed from a bug report');
 }
 
 
