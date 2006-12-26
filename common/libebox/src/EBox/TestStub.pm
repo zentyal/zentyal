@@ -40,7 +40,7 @@ sub unfake
 {
   delete $INC{'EBox.pm'};
   eval 'use EBox';
-  ($@) and die "Error unfacking EBox: $@";
+  ($@) and die "Error unfaking EBox: $@";
 }
 
 
