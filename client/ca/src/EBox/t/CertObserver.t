@@ -17,12 +17,14 @@ use strict;
 use warnings;
 
 use EBox::TestStubs;
+use Data::Dumper;
+use EBox::Global;
 
 # Activating eBox test stubs to fake a module
 EBox::TestStubs::activateTestStubs();
 
 # Fake a CA observer
-EBox::TestStubs::fakeEBoxModule(name    => 'cert-user',
+EBox::TestStubs::fakeEBoxModule(name    => 'certuser',
 				package => 'EBox::CA::CertUser',
 				isa     => ['EBox::CA::Observer'],
 				subs    => [ certificateRevoked => \&certificateRevoked,
@@ -30,10 +32,17 @@ EBox::TestStubs::fakeEBoxModule(name    => 'cert-user',
 					     freeCertificate    => \&freeCertificate ]
 			       );
 
+EBox::TestStubs::fakeEBoxModule(name => 'foobaz');
+
 # Loading package
-use EBox::CA::CertUser;
+# use EBox::CA::CertUser;
 # Creating a module instance
-EBox::Global->modInstance('cert-user');
+my $anObject = EBox::Global->modInstance('certuser');
+# Checking observers
+my $global = EBox::Global->getInstance();
+print Data::Dumper->Dump($global->modNames()) . $/;
+print Data::Dumper->Dump($global->modInstancesOfType('EBox::CA::Observer')) . $/;
+
 
 # Observer methods
 sub certificateRevoked

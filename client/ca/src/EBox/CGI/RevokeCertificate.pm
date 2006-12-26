@@ -112,7 +112,7 @@ sub _process
 	push (@array, 'isCACert'   => $isCACert);
 	push (@array, 'reason'     => $reason);
 	$self->{params} = \@array;
-      }
+      };
     }
 
     my $msg = __("The certificate has been revoked");

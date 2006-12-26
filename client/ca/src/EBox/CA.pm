@@ -35,7 +35,7 @@ use base 'EBox::GConfModule';
 use EBox::CA::DN;
 use EBox::Gettext;
 use EBox::Config;
-use EBox::LogAdmin qw ( :all );
+#use EBox::LogAdmin qw ( :all );
 use EBox::Menu::Item;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
@@ -107,13 +107,13 @@ sub _create
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'ca',
 					  domain => 'ebox-ca',
-					  title => __n('Certification Authority'),
+#					  title => __n('Certification Authority'),
 					  @_);
 
 	bless($self, $class);
 
 	# Setting admin actions
-	$self->_setLogAdminActions();
+#	$self->_setLogAdminActions();
 
 	# OpenSSL environment stuff
 	$self->{tmpDir} = TEMPDIR;
@@ -326,9 +326,9 @@ sub createCA {
   $self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
 
   # Logging the action
-  logAdminNow($self->name, "createCA",
-	      "orgName=". $self->{dn}->attribute('orgName') . ",days=" . $args{days}
-	      );
+#  logAdminNow($self->name, "createCA",
+#	      "orgName=". $self->{dn}->attribute('orgName') . ",days=" . $args{days}
+#	      );
 
   #unlink (CAREQ);
   return 1;
@@ -433,9 +433,9 @@ sub revokeCACertificate
     $self->{caExpirationDate} = undef;
 
     # Logging the action
-    logAdminNow($self->name, "revokeCACertificate",
-		"reason=" . $args{reason} . ",force=$force"
-	       );
+#    logAdminNow($self->name, "revokeCACertificate",
+#		"reason=" . $args{reason} . ",force=$force"
+#	       );
 
 
     return $retVal;
@@ -514,9 +514,9 @@ sub issueCACertificate
     $self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
 
     # Logging the action
-    logAdminNow($self->name, "issueCACertificate",
-		"orgName=" . $self->{dn}->attribute("orgName") . ",days=" . $args{days}
-	       );
+#    logAdminNow($self->name, "issueCACertificate",
+#		"orgName=" . $self->{dn}->attribute("orgName") . ",days=" . $args{days}
+#	       );
 
     return $ret;
 
@@ -597,9 +597,9 @@ sub renewCACertificate
     }
 
     # Logging the action
-    logAdminNow($self->name, "reneweCACertificate",
-		"orgName=" . $self->{dn}->attribute("orgName") . ",days=" . $args{days}
-	       );
+#    logAdminNow($self->name, "reneweCACertificate",
+#		"orgName=" . $self->{dn}->attribute("orgName") . ",days=" . $args{days}
+#	       );
 
     return $renewedCert;
 
@@ -803,10 +803,10 @@ sub issueCertificate
   }
 
   # Logging the action
-  logAdminNow($self->name, "issueCertificate",
-		"cn=" . $args{commonName} . ",days=" . $args{days}
-	       );
-
+#  logAdminNow($self->name, "issueCertificate",
+#		"cn=" . $args{commonName} . ",days=" . $args{days}
+#	       );
+#
   return $self->_findCertFile($args{"commonName"});
 
 }
@@ -923,9 +923,9 @@ sub revokeCertificate {
     if ($retValue eq "ERROR");
 
   # Logging the action
-  logAdminNow($self->name, "revokeCertificate",
-		"cn=" . $args{commonName} . ",reason=" . $args{reason} . ",force=$force"
-	       );
+#  logAdminNow($self->name, "revokeCertificate",
+#		"cn=" . $args{commonName} . ",reason=" . $args{reason} . ",force=$force"
+#	       );
 
   return undef;
 
@@ -1434,10 +1434,9 @@ sub renewCertificate
     }
 
     # Logging the action
-    logAdminNow($self->name, "renewCertificate",
-		"cn=" . $args{commonName} . ",days=" . $args{days}
-	       );
-
+#    logAdminNow($self->name, "renewCertificate",
+#		"cn=" . $args{commonName} . ",days=" . $args{days}
+#	       );
 
     return $newCertFile;
 
@@ -1508,9 +1507,9 @@ sub updateDB
     }
 
     # Logging the action
-    logAdminNow($self->name, "updateDB",
-		"number=" . scalar(@diff)
-	       );
+#    logAdminNow($self->name, "updateDB",
+#		"number=" . scalar(@diff)
+#	       );
 
     return undef;
 
