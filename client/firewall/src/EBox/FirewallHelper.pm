@@ -30,69 +30,69 @@ sub new
 
 # Method: prerouting
 # 
-# 	Rules returned by this method are added to the PREROUTING chain in 
-#	the nat table. You can use them to do NAT on the destination 
+# 	Rules returned by this method are added to the PREROUTING chain in
+#	the NAT table. You can use them to do NAT on the destination
 #	address of packets.
 #
 # Returns:
 #
-#	array ref - containg the rules
+#	array ref - containing prerouting rules
 sub prerouting
 {
 	return [];
 }
 
 # Method: postrouting
-# 
-# 	Rules returned by this method are added to the POSTROUTING chain in 
-#	the nat table. You can use them to do NAT on the source 
+#
+# 	Rules returned by this method are added to the POSTROUTING chain in
+#	the NAT table. You can use them to do NAT on the source
 #	address of packets.
 #
 # Returns:
 #
-#	array ref - containg the rules
+#	array ref - containing postrouting rules
 sub postrouting
 {
 	return [];
 }
 
-# Method: forward 
-# 
-# 	Rules returned by this method are added to the FORWARD chain in 
+# Method: forward
+#
+# 	Rules returned by this method are added to the FORWARD chain in
 #	the filter table. You can use them to filter packets passing through
 #	the firewall.
 #
 # Returns:
 #
-#	array ref - containg the rules
+#	array ref - containing forward rules
 sub forward
 {
 	return [];
 }
 
-# Method: input 
-# 
-# 	Rules returned by this method are added to the INPUT chain in 
+# Method: input
+#
+# 	Rules returned by this method are added to the INPUT chain in
 #	the filter table. You can use them to filter packets directed at
 #	the firewall itself.
 #
 # Returns:
 #
-#	array ref - containg the rules
+#	array ref - containing input rules
 sub input
 {
 	return [];
 }
 
-# Method: OUTPUT 
-# 
+# Method: output
+#
 # 	Rules returned by this method are added to the OUTPUT chain in 
 #	the filter table. You can use them to filter packets originated 
-#	int the firewall itself.
+#	within the firewall.
 #
 # Returns:
 #
-#	array ref - containg the rules
+#	array ref - containing output rules
 sub output
 {
 	return [];

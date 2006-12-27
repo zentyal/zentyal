@@ -54,7 +54,7 @@ sub firewallHelper
 # Parameters:
 #
 #   	protocol - protocol (tcp|udp)
-#	port - port numer
+#	port - port number
 #	iface - interface
 #
 # Returns:

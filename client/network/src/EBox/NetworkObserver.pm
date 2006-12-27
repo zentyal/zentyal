@@ -75,14 +75,14 @@ sub staticIfaceAddressChanged # (iface, oldaddr, oldmask, newaddr, newmask)
 # Returns:
 #
 #	boolean - true if module's configuration becomes inconsistent, otherwise
-#	fasle
+#	false
 sub ifaceMethodChanged # (iface, oldmethod, newmethod)
 {
         return undef;
 }
 
 #
-# Method: vifaceDelete 
+# Method: vifaceDelete
 #
 #	Invoked when a  virtual interface is going to be removed. Its 
 #	arguments are the real interface  which it's going to be removed from, 
@@ -132,8 +132,8 @@ sub vifaceAdded # (iface, viface, address, netmask)
 #
 # Method: freeIface
 #
-#	Invoked when a interface is going to be removed. Its argument 
-#	is the name of the real interface. It works exactly 
+#	Invoked when a interface is going to be removed. Its argument
+#	is the name of the real interface. It works exactly
 #	the same way as the three methods above.
 #
 #   Parameteres:
@@ -153,8 +153,8 @@ sub freeIface # (iface)
 #
 # Method: freeViface
 #
-#	Invoked when a virtual interface is going to be removed. Its arguments 
-#	are the names of the real and virtual interfaces. It works exactly 
+#	Invoked when a virtual interface is going to be removed. Its arguments
+#	are the names of the real and virtual interfaces. It works exactly
 #	the same way as the three methods above.
 #
 #   Parameteres:
