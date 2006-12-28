@@ -3,6 +3,7 @@
 awk '
 BEGIN {
 	in_args = 0         # Inside an argument tag
+	in_attr = 0         # Inside an attributes tag
 	in_init = 0         # Inside an init tag
         in_perl = 0         # Inside a perl tag
 	print "use strict;"
@@ -12,6 +13,11 @@ BEGIN {
 	if ($0 ~ /^<\/%args>/)
 	{
 		in_args = 0
+		next
+	}
+	if ($0 ~ /^<\/%attr>/)
+	{
+		in_attr = 0
 		next
 	}
 	if ($0 ~ /^<\/%init>/)
@@ -44,6 +50,11 @@ BEGIN {
 		in_args = 1
 		next
 	}
+	if ($0 ~ /^<%attr>/)
+	{
+		in_attr = 1
+		next
+	}
 	if ($0 ~ /^<%init>/)
 	{
 		in_init = 1
@@ -54,7 +65,7 @@ BEGIN {
 		in_perl = 1
 		next
 	}
-	if (in_args == 0 && in_perl == 0)
+	if (in_args == 0 && in_perl == 0 && in_attr == 0)
 	{
 		perlline = ($0 ~ /^%/)
 		if (perlline)
