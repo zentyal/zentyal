@@ -1,5 +1,6 @@
 package EBox::TestStub;
-# Description: Test stub for EBox package. It change the log process to use stdout instead a file only writable by ebox
+# Description: Test stub for EBox perl package.
+# It changes the log process to use stdout instead of a file just writable by ebox
 # 
 use strict;
 use warnings;

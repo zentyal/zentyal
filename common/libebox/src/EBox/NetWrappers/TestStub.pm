@@ -33,8 +33,6 @@ sub unfake
 }
 
 
-
-
 sub setFakeIfaces
 {
   my ($fakeIfaces_r) = @_;
