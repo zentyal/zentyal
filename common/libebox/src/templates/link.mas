@@ -1,0 +1,23 @@
+<%doc>
+Component for HTML hyperlinks
+</%doc>
+<%args>
+$text => ''
+$href
+$image => undef
+</%args>
+<%init>
+if (!$text && !$image) {
+    $text = $href;
+}
+</%init>
+<a href='<% $href  %>'>  
+% if (defined $image) {
+   <img src=<% $image %>
+     title="<% $text %>"
+     alt="<%   $text  %>"/>
+% }
+% else {
+     <% $text %>
+% }
+</a>
