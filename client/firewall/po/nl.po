@@ -1,0 +1,481 @@
+# Dutch translations for PACKAGE package.
+# Copyright (C) 2006 Warp S.L.
+# This file is distributed under the same license as the PACKAGE package.
+# Automatically generated, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2006-11-27 14:50+0100\n"
+"PO-Revision-Date: 2006-11-27 14:50+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/EBox/CGI/ObjectService.pm:41 src/EBox/CGI/Object.pm:46
+#: src/EBox/CGI/Object.pm:51 src/EBox/CGI/ObjectRule.pm:41
+#: src/EBox/CGI/ObjectPolicy.pm:41
+msgid "Object"
+msgstr ""
+
+#: src/EBox/CGI/ObjectService.pm:46 src/EBox/CGI/ObjectService.pm:52
+#: src/EBox/Firewall.pm:490
+msgid "service"
+msgstr ""
+
+#: src/EBox/CGI/ObjectService.pm:47 src/EBox/CGI/ObjectPolicy.pm:43
+#: src/EBox/Firewall.pm:817 src/EBox/Firewall.pm:926 src/EBox/Firewall.pm:1282
+#: src/EBox/Firewall.pm:1373
+msgid "policy"
+msgstr ""
+
+#: src/EBox/CGI/Object.pm:62
+msgid "Global firewall configuration"
+msgstr ""
+
+#: src/EBox/CGI/Object.pm:64
+#, perl-brace-format
+msgid "Firewall configuration: {desc}"
+msgstr ""
+
+#: src/EBox/CGI/Deny.pm:41 src/EBox/CGI/ObjectRule.pm:48
+#: src/EBox/CGI/ObjectRule.pm:65 src/EBox/CGI/FwdRule.pm:44
+#: src/EBox/CGI/FwdRule.pm:68 src/EBox/Firewall.pm:182
+#: src/EBox/Firewall.pm:998 src/EBox/Firewall.pm:1186
+msgid "action"
+msgstr ""
+
+#: src/EBox/CGI/ObjectRule.pm:56 src/EBox/CGI/ObjectRule.pm:64
+#: src/EBox/CGI/ObjectRule.pm:75 src/EBox/CGI/ObjectRule.pm:79
+#: src/EBox/CGI/FwdRuleEdit.pm:45 src/EBox/CGI/FwdRule.pm:60
+#: src/EBox/CGI/FwdRule.pm:67 src/EBox/CGI/FwdRule.pm:86
+#: src/EBox/CGI/FwdRule.pm:89 src/EBox/CGI/FwdRule.pm:92
+msgid "rule"
+msgstr ""
+
+#: src/EBox/CGI/FwdRules.pm:30 src/EBox/CGI/FwdRules.pm:42
+#: src/templates/object.mas:156
+msgid "Rules"
+msgstr ""
+
+#: src/EBox/CGI/Redirects.pm:31 src/EBox/CGI/Redirects.pm:42
+msgid "Port redirections"
+msgstr ""
+
+#: src/EBox/CGI/FwdRuleEdit.pm:30 src/EBox/CGI/FwdRuleEdit.pm:42
+msgid "Edit rule"
+msgstr ""
+
+#: src/EBox/CGI/Filter.pm:31 src/EBox/CGI/Filter.pm:42
+msgid "Packet filtering"
+msgstr ""
+
+#: src/EBox/CGI/Redirection.pm:43 src/EBox/CGI/Redirection.pm:54
+#: src/EBox/CGI/Redirection.pm:61 src/EBox/CGI/Redirection.pm:68
+#: src/EBox/Firewall.pm:231 src/EBox/Firewall.pm:264 src/EBox/Firewall.pm:486
+#: src/EBox/Firewall.pm:562 src/EBox/Firewall.pm:929 src/EBox/Firewall.pm:1001
+#: src/EBox/Firewall.pm:1123 src/EBox/Firewall.pm:1148
+#: src/EBox/Firewall.pm:1189 src/EBox/Firewall.pm:1285
+msgid "protocol"
+msgstr ""
+
+#: src/EBox/CGI/Redirection.pm:44 src/EBox/CGI/Redirection.pm:56
+#: src/EBox/CGI/Redirection.pm:63 src/EBox/CGI/Redirection.pm:67
+msgid "network interface"
+msgstr ""
+
+#: src/EBox/CGI/Redirection.pm:45 src/EBox/CGI/Redirection.pm:55
+#: src/EBox/CGI/Redirection.pm:62 src/EBox/CGI/Redirection.pm:69
+#: src/EBox/Firewall.pm:233 src/EBox/Firewall.pm:265
+msgid "external port"
+msgstr ""
+
+#: src/EBox/CGI/Redirection.pm:46 src/EBox/CGI/Redirection.pm:64
+#: src/EBox/CGI/Redirection.pm:70 src/EBox/Firewall.pm:232
+msgid "destination address"
+msgstr ""
+
+#: src/EBox/CGI/Redirection.pm:47 src/EBox/CGI/Redirection.pm:65
+#: src/EBox/CGI/Redirection.pm:71 src/EBox/Firewall.pm:234
+#: src/EBox/Firewall.pm:1014 src/EBox/Firewall.pm:1020
+#: src/EBox/Firewall.pm:1202 src/EBox/Firewall.pm:1208
+msgid "destination port"
+msgstr ""
+
+#: src/EBox/Firewall.pm:238
+#, perl-brace-format
+msgid "Port {port} is being used by a service or port redirection."
+msgstr ""
+
+#: src/EBox/Firewall.pm:330 src/EBox/Firewall.pm:485 src/EBox/Firewall.pm:529
+#: src/EBox/Firewall.pm:561 src/EBox/Firewall.pm:611 src/EBox/Firewall.pm:656
+#: src/EBox/Firewall.pm:680 src/EBox/Firewall.pm:773
+#, perl-brace-format
+msgid "Name '{name}' is invalid"
+msgstr ""
+
+#: src/EBox/Firewall.pm:487 src/EBox/Firewall.pm:563 src/EBox/Firewall.pm:612
+#: src/EBox/Firewall.pm:936 src/EBox/Firewall.pm:1124
+#: src/EBox/Firewall.pm:1149 src/EBox/Firewall.pm:1292
+msgid "port"
+msgstr ""
+
+#: src/EBox/Firewall.pm:788 src/EBox/Firewall.pm:821 src/EBox/Firewall.pm:1303
+#: src/EBox/Firewall.pm:1349 src/EBox/Firewall.pm:1378
+msgid "object"
+msgstr ""
+
+#: src/EBox/Firewall.pm:931 src/EBox/Firewall.pm:1006
+#: src/EBox/Firewall.pm:1194 src/EBox/Firewall.pm:1287
+msgid "Port cannot be set if no protocol is selected."
+msgstr ""
+
+#: src/EBox/Firewall.pm:939 src/EBox/Firewall.pm:1296
+msgid "address"
+msgstr ""
+
+#: src/EBox/Firewall.pm:1011 src/EBox/Firewall.pm:1017
+#: src/EBox/Firewall.pm:1199 src/EBox/Firewall.pm:1205
+msgid "source port"
+msgstr ""
+
+#: src/EBox/Firewall.pm:1024 src/EBox/Firewall.pm:1027
+#: src/EBox/Firewall.pm:1212 src/EBox/Firewall.pm:1215
+msgid "source address"
+msgstr ""
+
+#: src/EBox/Firewall.pm:1582
+msgid "Rule not found"
+msgstr ""
+
+#: src/EBox/Firewall.pm:1660
+msgid "Firewall"
+msgstr ""
+
+#: src/EBox/Firewall.pm:1664
+msgid "Packet Filter"
+msgstr ""
+
+#: src/EBox/Firewall.pm:1667
+msgid "Redirects"
+msgstr ""
+
+#: src/templates/object.mas:13 src/templates/object.mas:97
+msgid "Policy"
+msgstr ""
+
+#: src/templates/object.mas:16
+msgid ""
+"The policy states what to do on network packets not explicitly matched "
+"below. The policy is applied to connections that leave eBox through an "
+"external network interface. If you want to allow traffic between internal "
+"networks you need to create explicit rules for that."
+msgstr ""
+
+#: src/templates/object.mas:21
+msgid ""
+"Choosing global will make the firewall fall back to the <a href='Object?"
+"object=_global'>default configuration</a>."
+msgstr ""
+
+#: src/templates/object.mas:32 src/templates/object.mas:35
+#: src/templates/object.mas:61
+msgid "Global"
+msgstr ""
+
+#: src/templates/object.mas:41 src/templates/object.mas:44
+#: src/templates/object.mas:56 src/templates/object.mas:81
+#: src/templates/object.mas:118 src/templates/object.mas:123
+#: src/templates/object.mas:219 src/templates/object.mas:294
+#: src/templates/object.mas:299 src/templates/fwdrules.mas:44
+#: src/templates/fwdruleedit.mas:69 src/templates/fwdruleedit.mas:74
+msgid "Deny"
+msgstr ""
+
+#: src/templates/object.mas:49 src/templates/object.mas:52
+#: src/templates/object.mas:58 src/templates/object.mas:83
+#: src/templates/object.mas:116 src/templates/object.mas:121
+#: src/templates/object.mas:217 src/templates/object.mas:292
+#: src/templates/object.mas:297 src/templates/fwdrules.mas:42
+#: src/templates/fwdruleedit.mas:67 src/templates/fwdruleedit.mas:72
+msgid "Allow"
+msgstr ""
+
+#: src/templates/object.mas:69
+msgid "Services"
+msgstr ""
+
+#: src/templates/object.mas:87 src/templates/object.mas:229
+#: src/templates/object.mas:231 src/templates/object.mas:233
+#: src/templates/fwdrules.mas:166 src/templates/redirects.mas:63
+#: src/templates/redirects.mas:65 src/templates/redirects.mas:67
+msgid "Add"
+msgstr ""
+
+#: src/templates/object.mas:95
+msgid "Service"
+msgstr ""
+
+#: src/templates/object.mas:99 src/templates/object.mas:179
+#: src/templates/fwdrules.mas:192 src/templates/redirects.mas:24
+msgid "Actions"
+msgstr ""
+
+#: src/templates/object.mas:131 src/templates/object.mas:133
+#: src/templates/object.mas:135 src/templates/object.mas:315
+#: src/templates/object.mas:317 src/templates/object.mas:319
+#: src/templates/fwdruleedit.mas:223 src/templates/fwdruleedit.mas:225
+#: src/templates/fwdruleedit.mas:227 src/templates/redirects.mas:134
+#: src/templates/redirects.mas:136 src/templates/redirects.mas:138
+msgid "Change"
+msgstr ""
+
+#: src/templates/object.mas:141 src/templates/object.mas:143
+#: src/templates/object.mas:145 src/templates/object.mas:324
+#: src/templates/object.mas:326 src/templates/object.mas:328
+#: src/templates/fwdrules.mas:315 src/templates/fwdrules.mas:317
+#: src/templates/fwdrules.mas:319 src/templates/redirects.mas:143
+#: src/templates/redirects.mas:145 src/templates/redirects.mas:147
+msgid "Delete"
+msgstr ""
+
+#: src/templates/object.mas:159
+msgid ""
+"Protocol, port and destination address are optional. The rules will be "
+"applied in order, from top to bottom, you can reorder them once they are "
+"added. Rules can also be disabled without deleting them."
+msgstr ""
+
+#: src/templates/object.mas:163
+msgid ""
+"Rules without an explicit destination address will be applied to packets "
+"that leave eBox through an external network interface. You may flag network "
+"interfaces as external in the <a href='../Network/Ifaces'>Network "
+"Interfaces</a> configuration page."
+msgstr ""
+
+#: src/templates/object.mas:169 src/templates/fwdrules.mas:20
+#: src/templates/fwdrules.mas:182 src/templates/fwdruleedit.mas:32
+#: src/templates/redirects.mas:18
+msgid "Protocol"
+msgstr ""
+
+#: src/templates/object.mas:171 src/templates/fwdrules.mas:186
+#: src/templates/fwdrules.mas:190 src/templates/redirects.mas:22
+msgid "Port"
+msgstr ""
+
+#: src/templates/object.mas:173 src/templates/fwdrules.mas:108
+#: src/templates/fwdruleedit.mas:153
+msgid "Destination address"
+msgstr ""
+
+#: src/templates/object.mas:175 src/templates/fwdrules.mas:36
+#: src/templates/fwdruleedit.mas:60
+msgid "Action"
+msgstr ""
+
+#: src/templates/object.mas:177
+msgid "Active"
+msgstr ""
+
+#: src/templates/object.mas:333 src/templates/object.mas:335
+#: src/templates/object.mas:337 src/templates/fwdrules.mas:324
+#: src/templates/fwdrules.mas:326 src/templates/fwdrules.mas:328
+msgid "Up"
+msgstr ""
+
+#: src/templates/object.mas:342 src/templates/object.mas:344
+#: src/templates/object.mas:346 src/templates/fwdrules.mas:333
+#: src/templates/fwdrules.mas:335 src/templates/fwdrules.mas:337
+msgid "Down"
+msgstr ""
+
+#: src/templates/filter.mas:11
+msgid "Deny action"
+msgstr ""
+
+#: src/templates/filter.mas:14
+msgid ""
+"This will tell the firewall what to do when discarding network packets.  If "
+"you choose Reject, a packet will be sent back to the sender, choosing Drop "
+"will make the firewall drop the packet silently."
+msgstr ""
+
+#: src/templates/filter.mas:20 src/templates/filter.mas:27
+msgid "Drop packets"
+msgstr ""
+
+#: src/templates/filter.mas:22 src/templates/filter.mas:25
+msgid "Reject packets"
+msgstr ""
+
+#: src/templates/filter.mas:31
+msgid "Apply"
+msgstr ""
+
+#: src/templates/filter.mas:35
+msgid "Filtering Rules"
+msgstr ""
+
+#: src/templates/filter.mas:38
+msgid ""
+"This link will let you set up filtering rules that will take precedence over "
+"the ones you set up for network objects further below."
+msgstr ""
+
+#: src/templates/filter.mas:42
+msgid "Forwarding rules"
+msgstr ""
+
+#: src/templates/filter.mas:46
+msgid "Rules for internet access"
+msgstr ""
+
+#: src/templates/filter.mas:49
+msgid ""
+"The link below will let you set up the default behavior of the packet "
+"filter. You may also choose an object and set up rules and the services it "
+"may access. These rules are meant to control access from internal network "
+"interfaces to external ones, they provide a simpler way to control access to "
+"the internet."
+msgstr ""
+
+#: src/templates/filter.mas:53
+msgid "Configure default rules"
+msgstr ""
+
+#: src/templates/filter.mas:59
+msgid "Configure rules for a particular object"
+msgstr ""
+
+#: src/templates/filter.mas:68
+msgid "Go"
+msgstr ""
+
+#: src/templates/fwdrules.mas:10
+msgid ""
+"Protocol, ports and addresses are optional. The rules will be applied in "
+"order, from top to bottom, you can reorder them once they are added. Rules "
+"can also be disabled without deleting them."
+msgstr ""
+
+#: src/templates/fwdrules.mas:13
+msgid "New rule"
+msgstr ""
+
+#: src/templates/fwdrules.mas:53 src/templates/fwdruleedit.mas:84
+msgid "Source address"
+msgstr ""
+
+#: src/templates/fwdrules.mas:59 src/templates/fwdrules.mas:91
+#: src/templates/fwdrules.mas:114 src/templates/fwdrules.mas:146
+#: src/templates/fwdruleedit.mas:91 src/templates/fwdruleedit.mas:96
+#: src/templates/fwdruleedit.mas:128 src/templates/fwdruleedit.mas:133
+#: src/templates/fwdruleedit.mas:160 src/templates/fwdruleedit.mas:165
+#: src/templates/fwdruleedit.mas:197 src/templates/fwdruleedit.mas:202
+msgid "is not"
+msgstr ""
+
+#: src/templates/fwdrules.mas:61 src/templates/fwdrules.mas:93
+#: src/templates/fwdrules.mas:116 src/templates/fwdrules.mas:148
+#: src/templates/fwdruleedit.mas:93 src/templates/fwdruleedit.mas:98
+#: src/templates/fwdruleedit.mas:130 src/templates/fwdruleedit.mas:135
+#: src/templates/fwdruleedit.mas:162 src/templates/fwdruleedit.mas:167
+#: src/templates/fwdruleedit.mas:199 src/templates/fwdruleedit.mas:204
+msgid "is"
+msgstr ""
+
+#: src/templates/fwdrules.mas:85 src/templates/fwdruleedit.mas:121
+msgid "Source port"
+msgstr ""
+
+#: src/templates/fwdrules.mas:98 src/templates/fwdrules.mas:153
+#: src/templates/fwdruleedit.mas:142 src/templates/fwdruleedit.mas:211
+msgid "to"
+msgstr ""
+
+#: src/templates/fwdrules.mas:140 src/templates/fwdruleedit.mas:190
+msgid "Destination port"
+msgstr ""
+
+#: src/templates/fwdrules.mas:176
+msgid "Rule list"
+msgstr ""
+
+#: src/templates/fwdrules.mas:184
+msgid "Source"
+msgstr ""
+
+#: src/templates/fwdrules.mas:188
+msgid "Destination"
+msgstr ""
+
+#: src/templates/fwdrules.mas:208 src/templates/fwdrules.mas:210
+#: src/templates/fwdrules.mas:351 src/templates/fwdrules.mas:353
+msgid "allow"
+msgstr ""
+
+#: src/templates/fwdrules.mas:214 src/templates/fwdrules.mas:216
+#: src/templates/fwdrules.mas:378 src/templates/fwdrules.mas:380
+msgid "allow (disabled)"
+msgstr ""
+
+#: src/templates/fwdrules.mas:220 src/templates/fwdrules.mas:222
+#: src/templates/fwdrules.mas:356 src/templates/fwdrules.mas:358
+msgid "deny"
+msgstr ""
+
+#: src/templates/fwdrules.mas:226 src/templates/fwdrules.mas:228
+#: src/templates/fwdrules.mas:383 src/templates/fwdrules.mas:385
+msgid "deny (disabled)"
+msgstr ""
+
+#: src/templates/fwdrules.mas:239 src/templates/fwdrules.mas:241
+#: src/templates/fwdrules.mas:260 src/templates/fwdrules.mas:262
+#: src/templates/fwdrules.mas:273 src/templates/fwdrules.mas:275
+#: src/templates/fwdrules.mas:294 src/templates/fwdrules.mas:296
+#: src/templates/fwdrules.mas:371 src/templates/fwdrules.mas:373
+msgid "inverse match"
+msgstr ""
+
+#: src/templates/fwdrules.mas:306 src/templates/fwdrules.mas:308
+#: src/templates/fwdrules.mas:310
+msgid "Edit"
+msgstr ""
+
+#: src/templates/fwdrules.mas:361 src/templates/fwdrules.mas:363
+msgid "delete"
+msgstr ""
+
+#: src/templates/fwdrules.mas:366 src/templates/fwdrules.mas:368
+msgid "edit"
+msgstr ""
+
+#: src/templates/fwdrules.mas:388 src/templates/fwdrules.mas:390
+msgid "move up"
+msgstr ""
+
+#: src/templates/fwdrules.mas:393 src/templates/fwdrules.mas:395
+msgid "move down"
+msgstr ""
+
+#: src/templates/fwdruleedit.mas:15
+msgid "Enabled"
+msgstr ""
+
+#: src/templates/redirects.mas:14
+msgid "Interface"
+msgstr ""
+
+#: src/templates/redirects.mas:16
+msgid "External port"
+msgstr ""
+
+#: src/templates/redirects.mas:20
+msgid "IP address"
+msgstr ""
