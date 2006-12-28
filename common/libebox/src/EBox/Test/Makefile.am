@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/Test
 
-nobase_perl_DATA = CGI.pm
+nobase_perl_DATA = CGI.pm Mason.pm
 
 SUBDIRS = t
 
