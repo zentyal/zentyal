@@ -120,7 +120,7 @@ sub _setList
 sub _allEntries
 {
     my ($key) = @_;
-    my @entries = grep { m{^$key/\w+$}   } keys %config; 
+    my @entries = grep { m{^$key/[^/\s]+$}   } keys %config;  
     @entries = _removeModulePrefix($key, @entries);
  
     return @entries;
@@ -130,7 +130,7 @@ sub _allDirs
 {
     my ($key) = @_;
     my @dirs    = map  { 
-	if ( m{^($key/\w+)/\w+}  ) {
+	if ( m{^($key/[^/\s]+)/[^/\s]+}  ) {    
 	     $1;
 	}
 	else {
@@ -158,7 +158,7 @@ sub _removeModulePrefix
 
     defined $prefix or die "Not correct prefix found in key $dir";
 
-    @entries = map { s{^/ebox(-ro)?/$prefix/\w+/}{}; $_  } @entries;
+    @entries = map { s{^/ebox(-ro)?/$prefix/[^/\s]+/}{}; $_  } @entries;   
 
     return @entries;
 }
@@ -168,7 +168,7 @@ sub _dirExists
     my ($key) = @_;
 
     my $dirExists;
-    $dirExists = first { m{$key/\w+}  } keys %config;
+    $dirExists = first { m{$key/[^/\s]+}  } keys %config;  
 
     return defined $dirExists ? 1 : 0;
 }

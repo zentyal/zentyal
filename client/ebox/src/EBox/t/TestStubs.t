@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 62;
+use Test::More tests => 78;
 use Test::Exception;
 
 
@@ -46,8 +46,8 @@ sub fakeEBoxModuleTest
 	      'zero'     => sub { return 0  },
 	     );
 
-  EBox::TestStubs::fakeEBoxModule(name => 'macacoObservadorSonSubs', package => 'EBox::Macaco::Son::Observador::Subs', isa => ['EBox::Macaco', 'EBox::LogObserver'], subs => [%subs]);
-  $mod = _testModuleBasics('macacoObservadorSonSubs', 'EBox::Macaco::Son::Observador::Subs');
+  EBox::TestStubs::fakeEBoxModule(name => 'macacoObservadorSon-withSubs', package => 'EBox::Macaco::Son::Observador::Subs', isa => ['EBox::Macaco', 'EBox::LogObserver'], subs => [%subs]);
+  $mod = _testModuleBasics('macacoObservadorSon-withSubs', 'EBox::Macaco::Son::Observador::Subs');
   isa_ok($mod, 'EBox::Macaco');  
   isa_ok($mod, 'EBox::LogObserver');
   can_ok($mod, keys %subs, qw(domain tableInfo logHelper)); # installed extra subs + EBox::LogObserver subs
@@ -76,12 +76,32 @@ sub _testModuleBasics
   eval "use $package";
   ok !$@, "Checking loading of $package $@";
 
+  my $global = EBox::Global->getInstance();
+
+  ok $global->modExists($module), "Checking wether global module is aware of the existence of $module";
+
   my $mod;
   lives_ok {  $mod = EBox::Global->modInstance($module) } "Checking creation of a module instance using the global module";
 
   isa_ok($mod, 'EBox::GConfModule');
   isa_ok($mod, $package);
+
+
+  
+  my @modNames = @{ $global->modNames()  };
+  my $nameFound = grep { $module eq $_ } @modNames;
+  ok $nameFound, "checking wether EBox::Global::modNames returns correclty the module's name";
  
+
+  if (! $nameFound) {
+    my @modules = @ {$global->modNames() };
+    diag "DEBUG. EBox::Global->modNames() -> @modules\n";
+    my @alldirsBase = @{ $global->all_dirs_base('modules')   };
+    diag "DEBUG. EBox::Global->allDirsBase() -> @alldirsBase\n";
+    my @alldirs =  $global->all_dirs('modules')  ;
+    diag "DEBUG. EBox::Global->allDirs() -> @alldirs\n";
+  }
+
   return $mod;
 }
 
@@ -94,7 +114,16 @@ sub _testModInstancesOfType
   my @instances;
   lives_ok{  @instances =  @{$global->modInstancesOfType($type) }  } 'EBox::Global::modInstancesOfType';
 
-  is @instances, $instancesExpected, 'Checking wether modInstancesOfType returns the expected numer of modules intances';
+  is @instances, $instancesExpected, 'Checking wether modInstancesOfType returns the expected number of modules intances';
+
+  if (@instances != $instancesExpected) {
+    my @modules = @ {$global->modNames() };
+    diag "DEBUG. EBox::Global->modNames() -> @modules\n";
+    my @alldirsBase = @{ $global->all_dirs_base('modules')   };
+    diag "DEBUG. EBox::Global->allDirsBase() -> @alldirsBase\n";
+    my @alldirs =  $global->all_dirs('modules')  ;
+    diag "DEBUG. EBox::Global->allDirs() -> @alldirs\n";
+  }
 
 
  SKIP:{
