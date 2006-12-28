@@ -1,0 +1,103 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use Getopt::Long;
+use HTML::Mason;
+use Cwd qw(abs_path);
+use File::Basename;
+
+
+my $verbose = 0;
+my @comp_root_cli = ();
+my $only_check = 0;
+my $mason_cli_params = undef;
+
+my @options = (
+	       'verbose'   => \$verbose,
+	       'comp-root=s' => \@comp_root_cli,
+	       'only-check'  => \$only_check,
+	       'params=s'     => \$mason_cli_params,	       
+	      );
+
+GetOptions(@options);
+my ($template) = @ARGV;
+defined $template or die "Not mason file provided";
+
+my $comp_root = _comp_root($template, \@comp_root_cli, $verbose);
+
+
+my $mason_params = _eval_params($mason_cli_params);
+
+exec_component(
+	       template     => $template,
+	       comp_root    => $comp_root,
+	       verbose      => $verbose,
+	       mason_params => $mason_params
+	      );  
+
+
+
+sub exec_component
+{
+  my %args = @_;
+  my $template  = $args{template};
+  my $comp_root = $args{comp_root};
+  my $verbose   = $args{verbose};
+  
+  my @params = @{ $args{mason_params} };
+
+  my $interp = HTML::Mason::Interp->new(comp_root => $comp_root);
+
+  my $comp = $interp->make_component(comp_file => $template);
+
+  print "\nComponent output:\n'n" if $verbose;
+  $interp->exec($comp, @params);
+  
+  print "\n";
+}
+
+
+
+sub _eval_params
+{
+  my ($mason_cli_params) = @_;
+  
+  if (! $mason_cli_params) {
+    return [];
+  }
+
+  my @params;
+  eval "\@params = ( $mason_cli_params ) ";
+
+
+  if ($@) {
+    die "Wrong template params. $@";
+  }
+
+  return \@params;
+}
+
+sub _comp_root
+{
+  my ($template, $root_paths_r, $verbose) = @_;
+  my @root_paths = @{ $root_paths_r };
+  
+  my $main_root = abs_path ($template);
+  $main_root = dirname $main_root;
+ 
+  my $i = 0; # counter to generate comp_root ids
+  my @roots = map { 
+    $i++;  
+    [ "user-$i" => $_ ] } 
+    @root_paths;
+
+  unshift @roots, [ MAIN => $main_root ];
+
+  print "Component root: $main_root @root_paths\n" if $verbose;
+
+  return \@roots;
+}
+
+
+1;
