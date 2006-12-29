@@ -298,10 +298,14 @@ sub removePortRedirectionOnIface # (interface)
 # Method: services
 #
 #       Returns all the configured services
-#   
+#
 # Parameters:
-#       
-#       array ref - FIXME
+#
+#       array ref - Contains hash reference whose elements are:
+#          - protocol - the protocol
+#          - name     - service name
+#          - port     - port service where service is listening
+#          - external - is service external?
 #
 sub services
 {
@@ -312,7 +316,7 @@ sub services
 # Method: service
 #
 #	Given a service it returns its configuration
-#   
+#
 # Parameters:
 #
 # 	service - string: the name of a service
@@ -322,7 +326,7 @@ sub services
 #	undef if service does not exists. Otherwise it returns
 #	a hash holding these keys: 'protocol', 'name', 'port',
 #	'external'
-sub service # (name) 
+sub service # (name)
 {
 	my ($self, $name) = @_;
 	checkName($name) or
@@ -848,7 +852,7 @@ sub removeObjectRule # (object, rule_id)
 }
 
 # Method: removeFwdPolicy
-#	
+#
 #	Removes a rule form the forward chain
 #
 # Parameters:
@@ -865,7 +869,7 @@ sub removeFwdRule # (rule_id)
 }
 
 # Method: ObjectRuleExists
-#	
+#
 #	Checks if a given object contains a certain rule
 #
 # Parameters:
@@ -903,9 +907,9 @@ sub FwdRuleExists # (rule_id)
 	return $self->dir_exists("fwdrules/$rule");
 }
 
-# Method: changeObjectRule 
-#	
-#	Changes a certain rule for an object	
+# Method: changeObjectRule
+#
+#	Changes a certain rule for an object
 #
 # Parameters:
 #
@@ -966,9 +970,12 @@ sub changeObjectRule #(object, rule, action, protocol, port, addr, mask, active)
 	}
 }
 
-# Method: changeFwdtRule 
-#	
-#	Changes a certain forward rule 
+# Method: changeFwdRule
+#
+#	Changes a certain forward rule. *n* parameters indicate the
+#	analogous parameter without *n* will be treated as the
+#	complementary. I.e. if sport is set to 22 and nsport is set on,
+#	the forward rule will be applied to all ports apart from 22.
 #
 # Parameters:
 #
@@ -982,12 +989,13 @@ sub changeObjectRule #(object, rule, action, protocol, port, addr, mask, active)
 #	dmask - destination network mask 
 #	dportfrom - destination port from
 #	dportto - destination port to
-#	nsaddr - FIXME  source address
-#	nsport - FIXME source port
-#	ndaddr - FIXME destiantion address
-#	ndport - FIXME destination port
+#	nsaddr - Complementary to source address
+#	nsport - Complementary to source port
+#	ndaddr - Complementary to destiantion address
+#	ndport - Complementary to destination port
 # 	action - string: action (deny|allow)
 #	active - string: active (yes|no)
+#       (Positional parameters)
 #
 sub changeFwdRule # ()
 {
@@ -1097,7 +1105,9 @@ sub changeFwdRule # ()
 #
 # Return:
 #
-#	array ref - each element contains FIXME
+#	array ref - each element contains the following elements:
+#            - protocol - string: protocol (tcp|udp)
+# 	     - port - string: port number
 sub OutputRules
 {
 	my $self = shift;
@@ -1156,9 +1166,12 @@ sub addOutputRule # (protocol, port)
 	$self->set_int("rules/output/$id/port", $port);
 }
 
-# Method: addFwdRule 
-#	
-#	Add a forward rule
+# Method: addFwdRule
+#
+#	Add a forward rule. *n* parameters indicate the analogous
+#	parameter without *n* will be treated as the
+#	complementary. I.e. if sport is set to 22 and nsport is set on,
+#	the forward rule will be applied to all ports apart from 22.
 #
 # Parameters:
 #
@@ -1171,10 +1184,10 @@ sub addOutputRule # (protocol, port)
 #	dmask - destination network mask 
 #	dportfrom - destination port from
 #	dportto - destination port to
-#	nsaddr - FIXME source address
-#	nsport - FIXME  source port
-#	ndaddr - FIXME destiantion address
-#	ndport - FIXME destination port
+#	nsaddr - Set complementary to source address
+#	nsport - Set complementary to source port
+#	ndaddr - Set complementary to destiantion address
+#	ndport - Set complementary to destination port
 # 	action - string: action (deny|allow)
 #	active - string: active (yes|no)
 #
@@ -1551,9 +1564,12 @@ sub ObjectRules # (object)
 	return \@array;
 }
 
-# Method: FwdRule 
+# Method: FwdRule
 #
-#	Returns the configuration for a given rule
+#	Returns the configuration for a given rule. *n* entries
+#	indicate the analogous entry without *n* will be treated as the
+#	complementary. I.e. if sport is set to 22 and nsport is set on,
+#	the forward rule will be applied to all ports apart from 22.
 #
 # Returns:
 #
@@ -1568,10 +1584,10 @@ sub ObjectRules # (object)
 #	dmask - destination network mask 
 #	dportfrom - destination port from
 #	dportto - destination port to
-#	nsaddr - FIXME source address
-#	nsport - FIXME  source port
-#	ndaddr - FIXME destiantion address
-#	ndport - FIXME destination port
+#	nsaddr - Complementary to source address
+#	nsport - Complementary to source port
+#	ndaddr - Complementary to destiantion address
+#	ndport - Complementary to destination port
 # 	action - string: action (deny|allow)
 #	active - string: active (yes|no)
 #
