@@ -14,6 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Iptables;
+# Package to manage iptables command utility
 
 use EBox::Firewall;
 use EBox::Global;
@@ -23,11 +24,16 @@ use EBox::Network;
 use EBox::Exceptions::Internal;
 use EBox::Sudo qw( :all );
 
-
 my $new = " -m state --state NEW ";
 
-
-sub new 
+# Constructor: new
+#
+#      Create a new EBox::Iptables object
+#
+# Returns:
+#
+#      A recently created EBox::Iptables object
+sub new
 {
 	my $class = shift;
 	my $self = {};
@@ -39,24 +45,63 @@ sub new
 	return $self;
 }
 
-sub pf # (options) 
+# Method: pf
+#
+#       Execute iptables command with options
+#
+# Parameters:
+#
+#       opts - options passed to iptables
+#
+# Returns:
+#
+#       array ref - the output of iptables command in an array
+#
+sub pf # (options)
 {
 	my $opts = shift;
-	root("/sbin/iptables $opts");
+	return root("/sbin/iptables $opts");
 }
 
+# Method: startIPForward
+#
+#       Change kernel to do IPv4 forwarding (default)
+#
+# Returns:
+#
+#       array ref - the output of sysctl command in an array
+#
 sub startIPForward
 {
 	root('/sbin/sysctl -q -w net.ipv4.ip_forward="1"');
 }
 
+# Method: stopIPForward
+#
+#       Change kernel to stop doing IPv4 forwarding
+#
+# Returns:
+#
+#       array ref - the output of sysctl command in an array
+#
 sub stopIPForward
 {
 	root('/sbin/sysctl -q -w net.ipv4.ip_forward="0"');
 }
 
-
-sub clearTables # (policy) 
+# Method: clearTables
+#
+#       Clear all tables (user defined and nat), set a policy to
+#       OUTPUT, INPUT and FORWARD chains and allow always traffic
+#       from/to loopback interface.
+#
+# Parameters:
+#
+#       policy - It can be a target
+#       (ACCEPT|DROP|REJECT|QUEUE|RETURN|user-defined chain)
+#       See iptables TARGETS section
+#
+sub clearTables # (policy)
 {
 	my $self = shift;
 	my $policy = shift;
@@ -74,6 +119,15 @@ sub clearTables # (policy)
 	pf "-P FORWARD $policy";
 }
 
+# Method: doFwdRules
+#
+#       Set forwarding rules ready in kernel via iptables
+#
+# Parameters:
+#
+#       rules - an array of hashes with the same
+#       structure than <EBox::Firewall::FwdRule> return value
+#
 sub doFwdRules # (rules)
 {
 	my ($self, $rules) = @_;
@@ -155,7 +209,15 @@ sub doFwdRules # (rules)
 	}
 }
 
-sub Object # (object) 
+# Method: Object
+#
+#       Set the object infrastructure for firewall
+#
+# Parameters:
+#
+#       object - the name of an <EBox::Object> or *_global*
+
+sub Object # (object)
 {
 	my $self = shift;
 	my $object = shift;
@@ -240,7 +302,7 @@ sub Object # (object)
 			}
 		}
 	}
-	
+
 	my $policy = $self->{firewall}->ObjectPolicy($object);
 	my $aux;
 	my $ipolicy = undef;
@@ -261,6 +323,10 @@ sub Object # (object)
 	pf "-A $fchain $new $aux";
 }
 
+# Method: setStructure
+#
+#       Set structure to Firewall module to work
+#
 sub setStructure
 {
 	my $self = shift;
@@ -271,7 +337,6 @@ sub setStructure
 	pf '-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT';
 	pf '-A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT';
 
-	
 	pf '-A OUTPUT -p icmp ! -f -j ACCEPT';
 	pf '-A INPUT -p icmp ! -f -j ACCEPT';
 	pf '-A FORWARD -p icmp ! -f -j ACCEPT';
@@ -329,7 +394,15 @@ sub setStructure
 	pf "-A fdrop -j " . $self->{deny};
 }
 
-sub setDNS # (dns) 
+# Method: setDNS
+#
+#       Set DNS traffic for forwarding and output with destination dns
+#
+# Parameters:
+#
+#       dns - address/[mask] destination to accept DNS traffic
+#
+sub setDNS # (dns)
 {
 	my $self = shift;
 	my $dns = shift;
@@ -337,7 +410,21 @@ sub setDNS # (dns)
 	pf "-A fdns $new -p udp --dport 53 -d $dns -j ACCEPT";
 }
 
-sub nospoof # (interface, \@addresses) 
+# Method: nospoof
+#
+#       Set no IP spoofing (forged) for the given addresses to the
+#       interface given
+#
+# Parameters:
+#
+# interface - the allowed interface for the addresses 
+# addresses - An array ref with the address to allow traffic from
+#             the given interface. Each slot has the following
+#             fields:
+#                - address - the IP address
+#                - netmask - the IP network mask
+
+sub nospoof # (interface, \@addresses)
 {
 	my $self = shift;
 	my ($iface, $addreses) = @_;
@@ -350,7 +437,20 @@ sub nospoof # (interface, \@addresses)
 	}
 }
 
-sub redirect # (protocol, ext_port, address, interface, dest_port) 
+# Method: redirect
+#
+#       Redirect traffic (protocol/port) via an specific
+#       interface to an address and port. In fact, do a NAT.
+#
+# Parameters:
+#
+#       protocol  - the protocol to redirect 
+#       inport    - the port from traffic gets in
+#       address   - the destination address
+#       interface - the destination interface
+#       dport     - the destination port
+#       (Positional parameters)
+sub redirect # (protocol, ext_port, address, interface, dest_port)
 {
 	my $self = shift;
 	my ($proto, $inport, $address, $iface, $dport) = @_;
@@ -366,6 +466,11 @@ sub redirect # (protocol, ext_port, address, interface, dest_port)
 	    $iface . " -j ACCEPT";
 }
 
+# Method: localRedirects
+#
+#       Do effective local redirections. Done via
+#       <EBox::Firewall::addLocalRedirect> using NAT.
+#
 sub localRedirects
 {
 	my $self = shift;
@@ -382,12 +487,22 @@ sub localRedirects
 			pf "-t nat -A PREROUTING -i $ifc -p $protocol ".
 			   "-d ! $addr --dport $eport " .
 			   "-j REDIRECT --to-ports $dport";
-			
 		}
 	}
 }
 
-sub doService # (service) 
+# Method: doService
+#
+#       Set available an specific internal service
+#
+# Parameters:
+#
+#       service - a hash containing the following elements:
+#           - port     - destination port
+#           - protocol - destination protocol
+#           - name     - name of service
+#
+sub doService # (service)
 {
 	my ($self, $srv) = @_;
 	my $port = $srv->{port};
@@ -398,6 +513,11 @@ sub doService # (service)
 	}
 }
 
+# Method: stop
+#
+#       Stop iptables service, stop forwarding from kernel
+#       and free all tables
+#
 sub stop
 {
 	my $self = shift;
@@ -405,17 +525,33 @@ sub stop
 	$self->clearTables("ACCEPT");
 }
 
-sub vifaceRealname # (viface) 
+# Method: vifaceRealname
+#
+#       Return the real name from a virtual interface
+#
+# Parameters:
+#
+#       viface - Virtual interface
+#
+# Returns:
+#
+#       string - The real name from the given virtual interface
+#
+sub vifaceRealname # (viface)
 {
 	my $virtual = shift;
 	$virtual =~ s/:.*$//;
 	return $virtual;
 }
 
+# Method: start
+#
+#       Start firewall service
+#
 sub start
 {
 	my $self = shift;
-	
+
 	$self->setStructure();
 
 	my @dns = @{$self->{net}->nameservers()};

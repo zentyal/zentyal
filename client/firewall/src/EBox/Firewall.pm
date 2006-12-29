@@ -27,7 +27,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Order;
 use EBox::Gettext;
 
-sub _create 
+sub _create
 {
 	my $class = shift;
 	my $self =$class->SUPER::_create(name => 'firewall',
@@ -39,7 +39,7 @@ sub _create
 
 ## internal utility functions
 
-sub _checkPolicy # (policy, name?) 
+sub _checkPolicy # (policy, name?)
 {
 	my $i = shift;
 	my $name = shift;
@@ -54,7 +54,7 @@ sub _checkPolicy # (policy, name?)
 	}
 }
 
-sub _checkAction # (action, name?) 
+sub _checkAction # (action, name?)
 {
 	my $i = shift;
 	my $name = shift;
@@ -301,7 +301,7 @@ sub removePortRedirectionOnIface # (interface)
 #   
 # Parameters:
 #       
-#       array ref -
+#       array ref - FIXME
 #
 sub services
 {
@@ -1552,8 +1552,8 @@ sub ObjectRules # (object)
 }
 
 # Method: FwdRule 
-#	
-#	Returns the configuration for a given rule	
+#
+#	Returns the configuration for a given rule
 #
 # Returns:
 #
@@ -1590,7 +1590,9 @@ sub FwdRule # (rule)
 #
 # Return:
 #
-#	array ref - each element contains FIXME
+#	array ref - each element contains the same output hash as
+#	<FwdRule> return value.
+#
 sub FwdRules
 {
 	my $self = shift;
