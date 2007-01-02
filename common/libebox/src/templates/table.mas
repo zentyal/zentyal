@@ -47,7 +47,7 @@ my $thClass    =  $m->base_comp->attr('thClass');
  <thead <% _class($theadClass)  %> >
 %   foreach my $title (@columnTitles) {
     <& SELF:th, text => $title, thClass => $thClass &>
-%   my $ea = 4445;  }
+%   }
  </thead>
 </%method>
 
