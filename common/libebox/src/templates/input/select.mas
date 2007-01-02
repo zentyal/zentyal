@@ -1,3 +1,21 @@
+<%doc>
+  Component for HTMl select input
+
+   Parameters:
+       $name  - name of the input
+       $value - value of the input
+       @options - this list contains all the available select's
+  options. Each option is rpresented a hash reference with this
+  keys:
+        value - the value of the option
+        printableValue - the string who represent the value in the
+  GUI. Defaults to value
+
+   @extraParams - for compability with other input templates. You can
+   pass the options here (with a 'options' keys) but the @options
+   parameter has precedence.
+  
+</%doc>
 <%args>
 $name
 $value       => ''
