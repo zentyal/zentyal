@@ -39,7 +39,7 @@ sub checkTemplateExecution
   }
   otherwise {
     my $ex = shift @_;
-    my $templateError = "$ex";
+    $templateError = "$ex";
     $templateOutput = \$templateError; # templateOutput msut be a scalar ref to be in the same form that the return value of executeTemplate
   };
 
