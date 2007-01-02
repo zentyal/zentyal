@@ -37,7 +37,8 @@ sub checkTemplateExecution
   }
   otherwise {
     my $ex = shift @_;
-    $templateOutput = "$ex";
+    my $exText = "$ex";
+    $templateOutput = \$exText; # templateOutput msut be a scalar ref to be in the same form that the return value of executeTemplate
   };
 
   ok $templateExecutionOk, "Testing if execution of template $template with params @$templateParams was sucessdul";
