@@ -41,7 +41,7 @@ sub checkTemplateExecution
     $templateOutput = \$exText; # templateOutput msut be a scalar ref to be in the same form that the return value of executeTemplate
   };
 
-  ok $templateExecutionOk, "Testing if execution of template $template with params @$templateParams was sucessdul";
+  ok $templateExecutionOk, "Testing if execution of template $template with params @$templateParams was sucessful";
   
   if ($printOutput) {
     diag "Template $template with parameters @$templateParams output:\n$$templateOutput\n";
