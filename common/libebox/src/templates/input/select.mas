@@ -5,9 +5,9 @@
        $name  - name of the input
        $value - value of the input
        @options - this list contains all the available select's
-  options. Each option is rpresented a hash reference with this
+  options. Each option is represented a hash reference with this
   keys:
-        value - the value of the option
+        value          - the value of the option
         printableValue - the string who represent the value in the
   GUI. Defaults to value
 
