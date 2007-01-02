@@ -1,0 +1,24 @@
+<%doc>
+A element to call flexibly one or more components.
+If the argument list is a list of references to list it will treat
+each list as a component call.
+Otherwise, it will be handled as a single component call.
+
+Mixed list are interpreted as the type of the first element
+
+TODO: sanity check when the first element is ARRAYREF and the rest isn't
+TODO: optional argument to force the type of list?
+</%doc>
+<%args>
+@calls
+</%args>
+% return if @calls == 0;
+% my $refType = ref $calls[0];
+% if ($refType eq 'ARRAY') {
+%    foreach my $call_r (@calls) {
+        <& @{ $call_r }  &>
+%    }
+% }
+% else { # single component call
+   <& @calls  &>
+% }

@@ -7,7 +7,7 @@ $href
 $image => undef
 </%args>
 <%init>
-if (!$text && !$image) {
+if ($text eq '') {
     $text = $href;
 }
 </%init>

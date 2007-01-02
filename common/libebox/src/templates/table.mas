@@ -1,0 +1,109 @@
+<%doc>
+General purpose table component
+</%doc>
+<%args>
+@columnTitles => ()
+@rows         => ()
+@additionalComponents => ()
+</%args>
+<%attr>
+ tableClass => undef
+ theadClass => undef
+ thClass    => undef
+ tbodyClass => undef
+ tdClass    => undef
+</%attr>
+<%init>
+sub _class { my ($class) = @_; defined $class ?  "class=$class'" : "" }
+</%init>
+<& SELF:table, columnTitles => \@columnTitles, rows => \@rows,
+additionalComponents => \@additionalComponents &>
+
+
+<%method table>
+<%args>
+@columnTitles => ()
+@rows
+@additionalComponents => ()
+</%args>
+<%init>
+my $tableClass =  $m->base_comp->attr('tableClass');
+</%init>
+<table <% _class($tableClass) %> >
+  <& SELF:thead, columnTitles => \@columnTitles &>
+  <& SELF:tbody, rows => \@rows, additionalComponents =>
+  \@additionalComponents &>
+</table>
+</%method>
+
+<%method thead>
+<%args>
+@columnTitles => ()
+</%args>
+<%init>
+my $theadClass =  $m->base_comp->attr('theadClass');
+my $thClass    =  $m->base_comp->attr('thClass');
+</%init>
+ <thead <% _class($theadClass)  %> >
+%   foreach my $title (@columnTitles) {
+    <& SELF:th, text => $title, thClass => $thClass &>
+%   my $ea = 4445;  }
+ </thead>
+</%method>
+
+
+<%method th>
+<%args>
+$text
+$thClass => undef
+</%args>
+ <th <% _class($thClass) %> >
+  <% $text %>
+ </th>
+</%method>
+
+<%method tbody>
+<%args>
+@rows
+@additionalComponents => ()
+</%args>
+<%init>
+my $tbodyClass =  $m->base_comp->attr('tbodyClass');
+</%init>
+ <tbody <% _class($tbodyClass) %> >
+     <& SELF:rows, rows => \@rows &>
+     <& SELF:additionalComponents, components =>
+     \@additionalComponents &>
+ </tbody>
+</%method>
+
+<%method rows>
+<%args>
+@rows
+</%args>
+<%init>
+my $tdClass =  $m->base_comp->attr('tdClass');
+</%init>
+% foreach my $row_r (@rows) {
+    <tr>
+%   foreach my $element (@{ $row_r } ) {
+       <& SELF:td, element => $element, tdClass => $tdClass &>
+%    }
+   </tr>
+% }
+</%method>
+
+<%method td>
+<%args>
+$element
+$tdClass => undef
+</%args>
+<td <% _class($tdClass) %>> <% $element %>  </td>
+</%method>
+
+<%method additionalComponents>
+<%args>
+@components => ()
+</%args>
+<& componentCall.mas, calls => \@components &>
+</%method>

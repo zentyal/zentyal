@@ -9,7 +9,7 @@ use EBox::Test::Mason;
 
 use Test::More tests => 4;
 
-my $printOutput = 1;
+my $printOutput = 0;
 my $outputFile  = '/tmp/link.html';
 system "rm -rf $outputFile";
 
