@@ -1,5 +1,12 @@
 <%doc>
-General purpose table component
+HTML table component
+Parameters:
+  @columnTitles         - The titles of the columns
+  @rows                 - The rows f the table. Each row is a array
+  reference which contains his elements
+  @additionalComponents - Additional mason components to add to the
+  table. Remember to wrap elements between  <tr> and </tr> if you want the
+  component inside of the table's rows
 </%doc>
 <%args>
 @columnTitles => ()
