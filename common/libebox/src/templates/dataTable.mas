@@ -1,0 +1,77 @@
+<%doc>
+Create a table data which conforms wit the following specifications:
+ tabla data rows with simple contents and a cell with
+action icons. 
+
+The actions cells  must be hash references with the following fields
+   url 
+   name
+   icon
+
+Finally, some arbitary component can be added using the
+additionalComponents parameters 
+</%doc>
+<%flags>
+inherit => 'table.mas'
+</%flags>
+<%args>
+@columnTitles  => ()  
+@rows          => ()
+@additionalComponents => ()
+</%args>
+<%attr>
+ tableClass => 'dataTable'
+ thClass    => 'tleft'
+</%attr>
+<%init>
+use EBox::Gettext;
+
+</%init>
+<& SELF:table, columnTitles => \@columnTitles, rows => \@rows,
+additionalComponents => \@additionalComponents &>
+
+
+<%method theadContent>
+<%args>
+@columnTitles => ()
+</%args>
+<%init>
+my $actionColumnTitle = pop @columnTitles;
+</%init>
+   <&  table.mas:theadContent, columnTitles => \@columnTitles &>    
+   <th class='thOptions'>
+         <% $actionColumnTitle %>
+  </th>
+</%method>
+
+<%method trContent>
+<%args>
+@row
+</%args>
+<%init>
+ my $actionsCellContent = pop @row;
+</%init>
+  <& table.mas:trContent, row => \@row &>
+  <& SELF:tdAction, actions =>$actionsCellContent &>
+</%method>
+
+
+
+<%method tdAction>
+<%args>
+@actions
+</%args>
+<td class='tcenter'>
+% while ( my $action_r = shift @actions)  {
+   <& link.mas, href => $action_r->{url}, text => $action_r->{text}, image => $action_r->{icon}  &>
+%   if (@actions) {
+   <img src='/data/images/sep.gif' alt='-'/>
+%   }   
+% }
+</td>
+</%method>
+
+
+
+
+

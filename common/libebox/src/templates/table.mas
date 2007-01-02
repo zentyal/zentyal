@@ -42,15 +42,24 @@ my $tableClass =  $m->base_comp->attr('tableClass');
 </%args>
 <%init>
 my $theadClass =  $m->base_comp->attr('theadClass');
-my $thClass    =  $m->base_comp->attr('thClass');
 </%init>
  <thead <% _class($theadClass)  %> >
-%   foreach my $title (@columnTitles) {
-    <& SELF:th, text => $title, thClass => $thClass &>
-%   }
+     <& SELF:theadContent, columnTitles => \@columnTitles &>
  </thead>
 </%method>
 
+
+<%method theadContent>
+<%args>
+@columnTitles => ()
+</%args>
+<%init>
+my $thClass =  $m->base_comp->attr('thClass');
+</%init>
+%   foreach my $title (@columnTitles) {
+    <& SELF:th, text => $title, thClass => $thClass &>
+%   }
+</%method>
 
 <%method th>
 <%args>
@@ -81,16 +90,30 @@ my $tbodyClass =  $m->base_comp->attr('tbodyClass');
 <%args>
 @rows
 </%args>
+% foreach my $row_r (@rows) {
+    <& SELF:tr, row => $row_r &>
+% }
+</%method>
+
+<%method tr>
+<%args>
+@row
+</%args>
+<tr>
+<& SELF:trContent, row => \@row &>
+</tr>
+</%method>
+
+<%method trContent>
+<%args>
+@row
+</%args>
 <%init>
 my $tdClass =  $m->base_comp->attr('tdClass');
 </%init>
-% foreach my $row_r (@rows) {
-    <tr>
-%   foreach my $element (@{ $row_r } ) {
+%   foreach my $element ( @row ) {
        <& SELF:td, element => $element, tdClass => $tdClass &>
 %    }
-   </tr>
-% }
 </%method>
 
 <%method td>
