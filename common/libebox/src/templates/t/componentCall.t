@@ -1,5 +1,3 @@
-package main;
-# package:
 use strict;
 use warnings;
 
