@@ -22,10 +22,12 @@ sub checkTemplateExecution
   my $templateParams = exists $args{templateParams} ? $args{templateParams} : [];
   my $compRoot      =  exists $args{compRoot}       ? $args{compRoot } : [];
 
+  my $testName       = exists $args{name} ? $args{name} : "Testing if execution of template $template with params @$templateParams was sucessful";
   my $printOutput    = $args{printOutput};
   my $outputFile     = exists $args{outputFile} ? $args{outputFile} : '/tmp/' . basename $template;
 
   my $templateOutput;
+  my $templateError;
 
   my $templateExecutionOk = 0;
   try { 
@@ -37,13 +39,13 @@ sub checkTemplateExecution
   }
   otherwise {
     my $ex = shift @_;
-    my $exText = "$ex";
-    $templateOutput = \$exText; # templateOutput msut be a scalar ref to be in the same form that the return value of executeTemplate
+    my $templateError = "$ex";
+    $templateOutput = \$templateError; # templateOutput msut be a scalar ref to be in the same form that the return value of executeTemplate
   };
 
-  ok $templateExecutionOk, "Testing if execution of template $template with params @$templateParams was sucessful";
+  ok $templateExecutionOk, $testName;
   
-  if ($printOutput) {
+  if ($printOutput || $templateError) {
     diag "Template $template with parameters @$templateParams output:\n$$templateOutput\n";
   }
   if ($outputFile) {
