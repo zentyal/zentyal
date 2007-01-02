@@ -9,15 +9,18 @@ use EBox::Test::Mason;
 
 use Test::More tests => 4;
 
+my $printOutput = 1;
 my $outputFile  = '/tmp/link.html';
-my $printOutput = 0;
+system "rm -rf $outputFile";
+
+
 my $linkTemplate =   getcwd() . '/../link.mas';
 
 my @cases = (
-	     q{'href => "http://www.google.com"'},
-	     q{'href => "http://www.google.com", text => "simple link title"'},
-	     q{'href => "http://www.google.com", image => "/www/simple.jpg"'},
-	     q{'href => "http://www.google.com", text => "simple link title", image => "/www/simple/jpg"'},
+	     [href => "http://www.google.com"],
+	     [href => "http://www.google.com", text => "simple link title"],
+	     [href => "http://www.google.com", image => "/www/simple.jpg"],
+	     [href => "http://www.google.com", text => "simple link title", image => "/www/simple/jpg"],
 	    );
 
 

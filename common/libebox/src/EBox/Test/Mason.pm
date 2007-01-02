@@ -10,36 +10,88 @@ use warnings;
 
 use File::Slurp;
 use File::Basename;
-
+use HTML::Mason;
+use Cwd qw(abs_path);
 use Test::More;
+use Error qw(:try);
 
 sub checkTemplateExecution
 {
   my %args = @_;
   my $template       = $args{template};
-  my $templateParams = exists $args{templateParams} ? '--params ' . $args{templateParams} : '';
-  my @compRoot      =  exists $args{compRoot} ? @{ $args{compRoot }} : ();
+  my $templateParams = exists $args{templateParams} ? $args{templateParams} : [];
+  my $compRoot      =  exists $args{compRoot}       ? $args{compRoot } : [];
+
   my $printOutput    = $args{printOutput};
   my $outputFile     = exists $args{outputFile} ? $args{outputFile} : '/tmp/' . basename $template;
 
-  my @compRootParams = map { "--comp-root $_" } @compRoot;
+  my $templateOutput;
 
+  my $templateExecutionOk = 0;
+  try { 
+    $templateOutput = executeTemplate(template       => $template, 
+				      templateParams => $templateParams,
+				      compRoot       => $compRoot,
+				     );
+    $templateExecutionOk = 1;
+  }
+  otherwise {
+    my $ex = shift @_;
+    $templateOutput = "$ex";
+  };
 
-  
-  my $cmd = "exec-mason-template  $templateParams @compRootParams $template";
-  my @templateOutput = `$cmd`;
-  my $cmdOk =  ($? == 0);
-  
-  ok $cmdOk, "Testing if execution of template $template with params $templateParams was sucessdul";
+  ok $templateExecutionOk, "Testing if execution of template $template with params @$templateParams was sucessdul";
   
   if ($printOutput) {
-    diag "Template $template with parameters $templateParams output:\n@templateOutput\n";
+    diag "Template $template with parameters @$templateParams output:\n$$templateOutput\n";
   }
   if ($outputFile) {
-    _printOutputFile($outputFile, \@templateOutput);
+    _printOutputFile($outputFile, $templateOutput);
   }
 }
 
+
+sub executeTemplate
+{
+  my %args = @_;
+  my $template        = $args{template};
+  my @params          = exists $args{templateParams} ?  @{ $args{templateParams} } : ();
+  my $additionalRoots = exists $args{compRoot}       ?  $args{compRoot}            : [];
+
+  my $comp_root = _comp_root($template, $additionalRoots);
+  my $templateOutput;
+
+  my $interp = HTML::Mason::Interp->new(comp_root => $comp_root, out_method => \$templateOutput);
+
+  my $comp = $interp->make_component(comp_file => $template);
+
+
+  $interp->exec($comp, @params);
+  
+  return \$templateOutput;
+}
+
+
+
+sub _comp_root
+{
+  my ($template, $root_paths_r) = @_;
+  my @root_paths = @{ $root_paths_r } ;
+  
+  my $main_root = abs_path ($template);
+  $main_root = dirname $main_root;
+ 
+  my $i = 0; # counter to generate comp_root ids
+  my @roots = map { 
+    $i++;  
+    [ "user-$i" => $_ ] } 
+    @root_paths;
+
+  unshift @roots, [ MAIN => $main_root ];
+
+
+  return \@roots;
+}
 
 sub _printOutputFile
 {

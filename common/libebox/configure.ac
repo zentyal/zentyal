@@ -105,6 +105,7 @@ doc/Makefile
 src/cgi/Makefile
 src/Makefile
 src/templates/Makefile
+src/templates/t/Makefile
 src/templates/input/Makefile
 src/templates/ebox/Makefile
 src/EBox/Makefile
