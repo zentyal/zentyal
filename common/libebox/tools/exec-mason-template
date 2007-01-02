@@ -23,7 +23,7 @@ GetOptions(@options);
 my ($template) = @ARGV;
 defined $template or die "Not mason file provided";
 
-_print_compo_root($template, \@comp_root) if $verbose;
+_print_comp_root($template, \@comp_root) if $verbose;
 
 
 my $mason_params = _eval_params($mason_cli_params);
@@ -35,7 +35,7 @@ my $output_r = EBox::Test::Mason::executeTemplate(
 	      );  
 
 
-print "\nComponent output:\n'n" if $verbose;
+print "\nComponent output:\n\n" if $verbose;
 print $$output_r;  
 print "\n";
 
