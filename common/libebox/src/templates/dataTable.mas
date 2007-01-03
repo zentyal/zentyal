@@ -38,7 +38,7 @@ additionalComponents => \@additionalComponents &>
 <%init>
 my $actionColumnTitle = pop @columnTitles;
 </%init>
-   <&  table.mas:theadContent, columnTitles => \@columnTitles &>    
+   <&  PARENT:theadContent, columnTitles => \@columnTitles &>    
    <th class='thOptions'>
          <% $actionColumnTitle %>
   </th>
@@ -51,7 +51,7 @@ my $actionColumnTitle = pop @columnTitles;
 <%init>
  my $actionsCellContent = pop @row;
 </%init>
-  <& table.mas:trContent, row => \@row &>
+  <& PARENT:trContent, row => \@row &>
   <& SELF:tdAction, actions =>$actionsCellContent &>
 </%method>
 
