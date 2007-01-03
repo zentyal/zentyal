@@ -7,7 +7,7 @@ use EBox::Test::Mason;
 
 use Test::More qw(no_plan);
 
-my $printOutput = 1;
+my $printOutput = 0;
 my $outputFile  = '/tmp/serverProperties.html';
 system "rm -rf $outputFile";
 

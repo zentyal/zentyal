@@ -2,19 +2,88 @@
 $name
 %serverAttrs
 @availableCertificates
+@advertisedNets     => ()
 $disabled => 0
 </%args>
 
 <%init>
 use EBox::Gettext;
 </%init>
-% if (not $disabled) {
+% if ( !$disabled and @availableCertificates) {
 <h3><% __x('Configuration of server {name}', name => $name) %></h3>
 <form action='Edit' method='POST'>
 <& /openvpn/serverProperties.mas, properties => \%serverAttrs, availableCertificates => \@availableCertificates, submitName => 'edit', submitValue => __('Save changes') &>
 <input type='hidden' name='name' value='<% $name %>' />
 </form>
+<& .advertisedNetsSection, serverName => $name, nets => \@advertisedNets &>
 %  }
-% else  {
-  <& /openvpn/caRequired.mas &>
+% elsif (!$disabled and  @availableCertificates > 0) {
+   <& /openvpn/caRequired.mas, caCreated => 1 &>
 % }
+% else  {
+  <& /openvpn/caRequired.mas, caCreated => 0 &>
+% }
+
+
+
+<%def .advertisedNetsSection>
+<%args>
+$serverName
+@nets
+</%args>
+<h3> <% __('Advertised networks') %>
+% if (@nets) {
+   <& .advertisedNetsList, serverName => $serverName, nets => \@nets &>
+% }
+<&   .addAdvertisedNet, serverName => $serverName &>
+</%def>
+
+<%def .advertisedNetsList>
+<%args>
+$serverName
+@nets
+</%args>
+<%init>
+
+my @columnTitles = (__('Net address'),  __('Net mask'), __('Action')
+);
+
+my $deleteActionIcon  = '/data/images/delete.gif';
+my $deleteActionTitle = __('Delete');
+my @rows = map { 
+	            my $address = $_->{'address'};
+		    my $netmask = $_->{'netmask'};
+		    my $deleteUrl = "DeleteAdvertisedNet?server=$serverName?net=$address";
+		    my $actions = [
+		                       {
+                			   icon => $deleteActionIcon, 
+		        		   text => $deleteActionTitle,  
+			           	   url  => $deleteUrl,
+				        }
+			         ];
+
+                  [ $address, $netmask,  $actions]
+              } @nets;
+
+</%init>
+<& dataTable.mas, columnTitles => \@columnTitles,  rows => \@rows, &>
+</%def>
+
+<%def .addAdvertisedNet>
+<%args>
+$serverName
+</%args>
+<%init>
+my @formTableElements  = (
+                             [ name => 'network', printableName => __('Network') ],
+                             [ name => 'netmask', printableName => __('Netmask') ],
+                             [ input => 'submit', name => 'add', value => __('Add nerwork') ],
+                          );
+</%init>
+<h4><% __('Add network') %></h4>
+
+  <form action='AddAdvertisedNetwork' method='POST'>
+    <& formTable.mas, rows => \@formTableElements &>
+  </form>
+
+</%def>
