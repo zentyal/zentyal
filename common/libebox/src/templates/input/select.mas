@@ -20,20 +20,28 @@
 $name
 $value       => ''
 @extraParams => ()
-# Each option is a hash containing value and printableValue as keys
 @options => ();
 </%args>
 <%init>
-my %params = @extraParams;
+my %params = @extraParams; # temporal variable to ease extraParams manipulation
+
+# extract options from extraParams if needed
+my $optionsInExtraParameters_r = delete $params{options};
 if (@options == 0) {
-   if (exists $params{options} ) {
-       @options = @{ $params{options} };
+   if (defined $optionsInExtraParameters_r ) {
+       @options = @{ $optionsInExtraParameters_r };
    }
 }
 
+# disable the control if  isn't  any option
+if (@options == 0) {
+  $params{disabled} = 'disabled';
+}
+
+@extraParams  = %params;
 
 </%init>
-<select name='<% $name %>' <% @options == 0 ? 'disabled="disabled"' : ''  %>  >
+<select name='<% $name %>' <% "@extraParams"  %>  >
 % foreach my $option (@options) {
 %  my $optionValue = $option->{value};
 %  $option->{selected} = ($value eq $optionValue) ? 1 : 0;

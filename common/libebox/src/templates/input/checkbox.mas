@@ -6,5 +6,5 @@ $value       => ''
 <%init>
 my $checked = $value ? 'checked' : '';
 </%init>
-<input type='checkbox' class='inputText' name='<% $name %>' value=1 <%$checked %> <% @extraParams %> />
+<input type='checkbox' class='inputText' name='<% $name %>' value=1 <%$checked %> <% "@extraParams" %> />
 <input type='hidden'  name='<% $name %>' value=0  />
