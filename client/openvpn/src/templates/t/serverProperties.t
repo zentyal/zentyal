@@ -22,7 +22,7 @@ my @submitParams = (
 
 my @certificates = ('macaco certificate', 'baboon certificate');
 
-my %propierties = (
+my %properties = (
 		   service => 1,
 		   port    => 10000,
 		   subnet  => '192.168.132',
@@ -36,7 +36,7 @@ my %propierties = (
 my @cases = (
 	     [ @submitParams, availableCertificates => [], ],  # minimal arguments case with NO certifcates
 	     [ @submitParams, availableCertificates => \@certificates, ],  # minimal arguments case with  certificates
-	     [ @submitParams, availableCertificates => \@certificates, properties => \%propierties],  
+	     [ @submitParams, availableCertificates => \@certificates, properties => \%properties],  
 
 	    );
 
