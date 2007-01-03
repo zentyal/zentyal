@@ -71,7 +71,7 @@ sub _title
 {
 	my $self = shift;
 	my $filename = EBox::Config::templates . '/title.mas';
-	my $interp = HTML::Mason::Interp->new(comp_root => EBox::Config::templates);
+	my $interp = $self->_masonInterp();
 	my $comp = $interp->make_component(comp_file => $filename);
 	my @params = ();
 	
@@ -94,8 +94,7 @@ sub _print_error # (text)
 	$text or return;
 	($text ne "") or return;
 	my $filename = EBox::Config::templates . '/error.mas';
-	my $interp = HTML::Mason::Interp->new(comp_root => 
-						EBox::Config::templates);
+	my $interp = $self->_masonInterp();
 	my $comp = $interp->make_component(comp_file => $filename);
 	my @params = ();
 	push(@params, 'error' => $text);
@@ -114,7 +113,7 @@ sub _msg
 	my $self = shift;
 	defined($self->{msg}) or return;
 	my $filename = EBox::Config::templates . '/msg.mas';
-	my $interp = HTML::Mason::Interp->new(comp_root => EBox::Config::templates);
+	my $interp = $self->_masonInterp();
 	my $comp = $interp->make_component(comp_file => $filename);
 	my @params = ();
 	push(@params, 'msg' => $self->{msg});
@@ -127,10 +126,31 @@ sub _body
 	defined($self->{template}) or return;
 
 	my $filename = EBox::Config::templates . $self->{template};
-	my $interp = HTML::Mason::Interp->new(comp_root => EBox::Config::templates);
+	my $interp = $self->_masonInterp();
 	my $comp = $interp->make_component(comp_file => $filename);
 	$interp->exec($comp, @{$self->{params}});
 }
+
+
+
+MASON_INTERP: {
+  my $masonInterp;
+
+  sub _masonInterp
+    {
+      my ($self) = @_;
+     
+      return $masonInterp if defined $masonInterp;
+
+      $masonInterp = HTML::Mason::Interp->new(
+					      comp_root => EBox::Config::templates,
+					      default_escape_flags => 'h',
+					     );
+
+      return $masonInterp;
+    }
+
+};
 
 sub _footer
 {}
