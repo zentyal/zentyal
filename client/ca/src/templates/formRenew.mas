@@ -39,5 +39,5 @@
 </div>
 <br>
 <form action="RenewCertificate" method="post" >
-  <& formTable.mas, elements => \@renewTable &>
+  <& formTable.mas, rows => \@renewTable &>
 </form>

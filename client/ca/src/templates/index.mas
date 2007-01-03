@@ -37,7 +37,7 @@ use EBox::CA::DN;
   <h3><% __('Issue a new certificate') |h %></h3>
 % }
 <form action="IssueCertificate" method="post" >
-  <& formTable.mas, elements => \@issueTable &>
+  <& formTable.mas, rows => \@issueTable &>
 </form>
 
 <!-- List current certificates in a table -->

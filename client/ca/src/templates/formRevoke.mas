@@ -53,5 +53,5 @@ use EBox::Gettext;
 		     );
 </%perl>
 <form action="RevokeCertificate" method="post" >
-  <& formTable.mas, elements => \@revokeTable &>
+  <& formTable.mas, rows => \@revokeTable &>
 </form>
