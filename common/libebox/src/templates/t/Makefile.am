@@ -1,4 +1,4 @@
-test_scripts = link.t table.t componentCall.t
+test_scripts = link.t  componentCall.t table.t dataTable.t formTable.t
 
 EXTRA_DIST = $(test_scripts)
 

@@ -1,29 +1,36 @@
+<%flags>
+inherit => 'table.mas'
+</%flags>
 <%args>
-@elements  => (),
-$emptyMsg  => undef
+@rows  => (),
+@additionalComponents => ()
 </%args>
+<%attr>
+ tableClass => 'formTable'
+</%attr>
 <%init>
 use EBox::Gettext;
 </%init>
-% if (@elements) {
-<table class='formTable' >
-<tbody>
-% foreach my $element (@elements) {
-% my @tableRowParams = %{$element};
-<& .tableRow, @tableRowParams &>
-% }
-</tbody>
-</table>
-% }
-% else {
-    <& .emptyMsg, msg => $emptyMsg &>
-%}
-<%def .tableRow>
+<& SELF:table,  rows => \@rows, additionalComponents => \@additionalComponents &>
+
+
+<%method rows>
 <%args>
-$name
+@rows
+</%args>
+% foreach my $row_r (@rows) {
+    <& SELF:tr, @{ $row_r } &>
+% }
+</%method>
+
+<%method tr>
+<%args>
 $printableName => undef
+$component     => undef
 $input         => 'text'
-$value         => ''
+
+$name          => undef
+$value         => undef
 $warning       => undef
 $note          => undef
 $help          => undef
@@ -32,61 +39,59 @@ $help          => undef
 <%init>
 # adjust default printable name if needed
 if (!defined $printableName ) {
-   $printableName = $name;
+   $printableName = defined $name ? $name : '';
+}
+if ($input eq 'submit') {
+  $printableName = '';
+}
+# adjust imput component
+my $inputComponent;
+if (defined $component) {
+  $inputComponent = $component;
+}
+else {
+  $inputComponent = "/input/$input.mas";
 }
 
-my $inputComponent = "/input/$input.mas";
+# get component parameters
+my @componentParams = @extraParams;
+push @componentParams, (name => $name) if defined $name;
+push @componentParams, (value => $value) if defined $value;
 </%init>
-% if ( $input ne "hidden" ) {
+% if (not $inputComponent =~ m/hidden\.mas$/ ) {
   <tr>
-     <td class='tright' >
-       <span class='ftitle'>
-         <& .printableName, printableName => $printableName, input =>
-	    $input &>
-       </span>
-     </td>
+       <& .labelTd, printableName => $printableName &>
      <td>
-        <& $inputComponent, name => $name, value => $value, @extraParams &>
+        <& $inputComponent, @componentParams &>
      </td>
+  <& div, type => 'warning', content => $warning &>
+  <& div, type => 'note', content => $note &>
+  <& div, type => 'help', content => $help &>
   </tr>
 % } else {
   <& $inputComponent, name => $name, value => $value, @extraParams &>
 % }
-  <& div, type => 'warning', content => $warning &>
-  <& div, type => 'note', content => $note &>
-  <& div, type => 'help', content => $help &>
-</%def>
 
-<%def .printableName>
+</%method>
+
+<%def .labelTd>
 <%args>
 $printableName
-$input
 </%args>
 <%init>
-if ($input eq 'submit') {
-   $printableName = '';
-}
 if ($printableName ne '') {
     $printableName .= ':';
 }
 </%init>
-<% "$printableName" %>
+     <td class='tright' >
+       <span class='ftitle'>
+         <% "$printableName" %>
+       </span>
+     </td>
 </%def>
 
 
-<%def .emptyMsg>
-<%args>
-$msg
-</%args>
-<%init>
-if (!defined $msg) {
-  $msg = __('Table is empty');
-}
-</%init>
-<div class='note'>
-   <% $msg %>
-</div>
-</%def>
+
 
 
 <%def div> 
