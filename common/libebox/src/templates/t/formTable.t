@@ -5,9 +5,9 @@ use Cwd;
 use lib '../..';
 use EBox::Test::Mason;
 
-use Test::More qw(no_plan);
+use Test::More tests => 4;
 
-my $printOutput = 1;
+my $printOutput = 0;
 my $outputFile  = '/tmp/formTable.html';
 system "rm -rf $outputFile";
 
@@ -25,11 +25,6 @@ my @noHiddenFields = (
 		      [ name => 'withHelpcomponent', help => 'This is component help'],
 		     );
 
-my @form = (
-	    
-	    
-
-	   );
 
 my @additionalComponents = (
 		       'input/text.mas', name => 'numbers', value => 'Write new number here',
