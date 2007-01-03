@@ -1,6 +1,21 @@
+<%args>
+$caCreated => 0
+</%args>
 <%init>
 use EBox::Gettext;
+my $caUrl = '/ebox/CA/Index';
+
+my $adviceText;
+if ($caCreated) {
+  $adviceText = __('OpenVPN servers require at least one client certificate. Create it first');
+}
+else {
+    $adviceText = __('OpenVPN servers require a certification
+authority and at least one client certificate. Create them first');
+}
+
+my $text = "<a href=$caUrl>$adviceText</a>";
 </%init>
 <div class='note'>
-<% __('OpenVPN server requires a certification authority, <a href="/ebox/CA/Index">create one</a> first') %>
+<% $text %>
 </div>

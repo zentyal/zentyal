@@ -1,4 +1,4 @@
-test_scripts = serverProperties.t
+test_scripts = serverProperties.t create.t
 
 EXTRA_DIST = $(test_scripts)
 
