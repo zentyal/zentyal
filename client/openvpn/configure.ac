@@ -70,6 +70,7 @@ src/EBox/CGI/t/Makefile
 src/EBox/CGI/OpenVPN/Makefile
 src/EBox/CGI/OpenVPN/Create/Makefile
 src/templates/Makefile
+src/templates/t/Makefile
 schemas/Makefile
 stubs/Makefile
 www/Makefile

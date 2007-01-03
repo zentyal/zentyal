@@ -7,44 +7,57 @@ $submitValue
 </%args>
 <%init>
 use EBox::Gettext;
+
+my @certificateOptions = map { { value => $_ } } @availableCertificates; 
+my $certificateInput =  [ 
+			 name => 'certificate', 
+			 printableName => __('Server certificate'), 
+			 input => 'select', 
+			 extraParams => [ options =>  \@certificateOptions , ], 
+			];
+
 my @tableElements  = (
-      { name => 'service',           printableName => __('Active'), input => 'checkbox' },
-      { name => 'port',              printableName => __('Port'),},
-      { name => 'subnet',            printableName => __('VPN subnet'),}, 
-      { name => 'subnetNetmask',     printableName => __('VPN subnet netmask'),}, 
-      { name => 'proto',             printableName => __('Protocol'), 
+      [ name => 'service',           printableName => __('Active'), input => 'checkbox' ],
+      [ name => 'port',              printableName => __('Port'),],
+      [ name => 'subnet',            printableName => __('VPN subnet'),], 
+      [ name => 'subnetNetmask',     printableName => __('VPN subnet netmask'),], 
+      [ name => 'proto',             printableName => __('Protocol'), 
        input => 'select', extraParams => [ options => [
                                                { value => 'tcp',
 					       printableValue => 'TCP' },
                                                { value => 'udp',
 					       printableValue => 'UDP' },
                                          ], ], 
-       },					 
-      { name => 'certificate', printableName => __('Server certificate'),
-	       input => 'select', extraParams => [ options => [
-							map { 
-							  { value => $_ };  
-							} @availableCertificates       
-                                         ], ], 
-      }, 
-      { name => 'clientToClient',    printableName => __('Allow client-to-client connections'), input => 'checkbox' }, 
-      { name => 'local',             printableName => __('Local address to listen on'), 
+       ],					 
+      $certificateInput,	      
+      [ name => 'clientToClient',    printableName => __('Allow client-to-client connections'), input => 'checkbox' ], 
+      [ name => 'local',             printableName => __('Local address to listen on'), 
       help => __("If not local address to listen on is provided, the server will
 listen in all local addresses"),
-      },
+      ],
      );
 if ($nameEditable) {
-   unshift @tableElements, { name => 'name', printableName =>    __('Server name') };
+   unshift @tableElements, [ name => 'name', printableName =>    __('Server name') ];
 }
 # set values if required..
-foreach my $tableElement_r (@tableElements) {
-   my $propierty = $tableElement_r->{name};
-   if (exists $properties{$propierty}) {
-       $tableElement_r->{value} =  $properties{$propierty};
-   }
-}
 
-push @tableElements, { name => $submitName, value => $submitValue, input => 'submit' };
+
+
+@tableElements = map  {
+  my %element = @{ $_ };
+
+  my $propierty = $element{name};
+  if (exists $properties{$propierty}) {
+    $element{value} =  $properties{$propierty};
+  }
+   
+
+  [ %element ]
+} @tableElements;
+
+
+
+push @tableElements, [ name => $submitName, value => $submitValue, input => 'submit' ];
 
 </%init>
-<& /formTable.mas, elements => \@tableElements &>
+<& /formTable.mas, rows => \@tableElements &>
