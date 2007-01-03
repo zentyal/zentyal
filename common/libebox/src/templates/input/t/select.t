@@ -16,8 +16,8 @@ my $template =   getcwd() . '/../select.mas';
 
 my @options = (
 	       { value => 'baboon' },
-	       { value => 'mandrill', printableValue => 'mandrill printable vlaue'},
-	       { value => 'gibon', printableValue => 'gibon printable vlaue'},
+	       { value => 'mandrill', printableValue => 'mandrill printable value'},
+	       { value => 'gibon', printableValue => 'gibon printable value'},
 	      );
 
 
