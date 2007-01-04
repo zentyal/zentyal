@@ -10,6 +10,7 @@ DEPENDENCIES
 	+ openssl (>= 0.9.7e)
 	+ libdate-calc-perl
 	+ libfile-slurp-perl
+        + libfile-copy-recursive-perl
 
 + CPAN Modules
 
