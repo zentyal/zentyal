@@ -2,6 +2,7 @@
 
 use strict;
 use EBox::Config;
+use EBox::Global;
 
 my $file = EBox::Config::tmp . "ebox-update-log";
 sub writeToFile($)
@@ -28,3 +29,12 @@ system("sudo apt-get install -f");
 system("sudo /etc/cron.daily/ebox-software");
 
 writeToFile("done");
+
+EBox::init();
+my $global = EBox::Global->getInstance(1);
+my $software = $global->modInstance('software');
+
+#causes the cache to be generated
+$software->listUpgradablePkgs(1);
+#call also listEBoxPkgs to regen the cache
+$software->listEBoxPkgs(1);

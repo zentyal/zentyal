@@ -92,9 +92,6 @@ sub _process($) {
 			$self->{msg} = 
 				__('The packages were removed successfully');
 		}
-		#regen the cache
-		$software->listUpgradablePkgs(1);
-		$software->listEBoxPkgs(1);
 		delete $self->{'template'};
 		return;
 	}
