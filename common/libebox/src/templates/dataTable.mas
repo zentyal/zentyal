@@ -22,6 +22,7 @@ inherit => 'table.mas'
 <%attr>
  tableClass => 'dataTable'
  thClass    => 'tleft'
+ trClass    => 'border'
 </%attr>
 <%init>
 use EBox::Gettext;

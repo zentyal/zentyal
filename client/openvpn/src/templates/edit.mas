@@ -31,7 +31,7 @@ use EBox::Gettext;
 $serverName
 @nets
 </%args>
-<h3> <% __('Advertised networks') %>
+<h3> <% __('Advertised networks') %></h3>
 % if (@nets) {
    <& .advertisedNetsList, serverName => $serverName, nets => \@nets &>
 % }
@@ -51,9 +51,8 @@ my @columnTitles = (__('Net address'),  __('Net mask'), __('Action')
 my $deleteActionIcon  = '/data/images/delete.gif';
 my $deleteActionTitle = __('Delete');
 my @rows = map { 
-	            my $address = $_->{'address'};
-		    my $netmask = $_->{'netmask'};
-		    my $deleteUrl = "DeleteAdvertisedNet?server=$serverName?net=$address";
+                    my ($address, $netmask) = @{ $_  };
+		    my $deleteUrl = "RemoveAdvertisedNet?name=$serverName&network=$address";
 		    my $actions = [
 		                       {
                 			   icon => $deleteActionIcon, 
@@ -65,8 +64,12 @@ my @rows = map {
                   [ $address, $netmask,  $actions]
               } @nets;
 
+my @legendElements = (
+		      { imgName => $deleteActionTitle, imgFile => $deleteActionIcon },
+		     );
 </%init>
 <& dataTable.mas, columnTitles => \@columnTitles,  rows => \@rows, &>
+<& legendTable.mas, elements => \@legendElements &>
 </%def>
 
 <%def .addAdvertisedNet>
@@ -74,15 +77,17 @@ my @rows = map {
 $serverName
 </%args>
 <%init>
-my @formTableElements  = (
-                             [ name => 'network', printableName => __('Network') ],
-                             [ name => 'netmask', printableName => __('Netmask') ],
-                             [ input => 'submit', name => 'add', value => __('Add nerwork') ],
+  my @formTableElements  = (
+			    [ name => 'name', input => 'hidden',
+			      value => $serverName ], 
+			    [ name => 'network', printableName => __('Network') ],
+			    [ name => 'netmask', printableName => __('Netmask') ],
+			    [ input => 'submit', name => 'submit', value => __('Add nerwork') ],
                           );
 </%init>
-<h4><% __('Add network') %></h4>
+<h3><% __('Add network') %></h3>
 
-  <form action='AddAdvertisedNetwork' method='POST'>
+  <form action='AddAdvertisedNet' method='POST'>
     <& formTable.mas, rows => \@formTableElements &>
   </form>
 

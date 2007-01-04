@@ -38,12 +38,17 @@ sub requiredParameters
 sub optionalParameters
 {
     my ($self) = @_;
+ 
+    my @optional;
+
+    # we add the parameters from the scripts which redirect here
+    @optional = qw(name network netmask submit);
+
     if ($self->param('edit')) {
-	return \@serverPropierties;
+	push @optional, @serverPropierties;
     }
-    else {
-	return [];
-    }
+
+    return \@optional;
 }
 
 
@@ -64,11 +69,14 @@ sub masonParameters
     }
 
     my $disabled = $openVPN->CAIsCreated() ? 0 : 1;
+    my @advertisedNets = $server->advertisedNets();
 
-    return [name => $name, 
+    return [
+	    name => $name, 
 	    serverAttrs => \%serverAttributes,
 	    availableCertificates => $openVPN->availableCertificates(),
 	    disabled              => $disabled,
+	    advertisedNets        => \@advertisedNets,	   
 	   ];
 }
 
