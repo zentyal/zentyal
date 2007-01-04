@@ -144,7 +144,7 @@ MASON_INTERP: {
 
       $masonInterp = HTML::Mason::Interp->new(
 					      comp_root => EBox::Config::templates,
-					      default_escape_flags => 'h',
+#					      default_escape_flags => 'h',
 					     );
 
       return $masonInterp;
