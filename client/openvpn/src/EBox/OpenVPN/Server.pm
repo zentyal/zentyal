@@ -407,21 +407,49 @@ sub advertisedNets
   my ($self) = @_;
 
   my @net =  @{ $self->_allConfEntriesBase('advertised_nets') };
+  use Test::More;
+  diag "ENTRIES: @net\n";
   @net = map {
     my $net = $_;
     my $netmask = $self->_getConfString("advertised_nets/$net");
     [$net, $netmask]
   } @net;
     
+  diag "ADVERTISED NETS: @net\n";
   return @net;
 }
 
+
+sub setAdvertisedNets
+{
+  my ($self, $advertisedNets_r)  =  @_;
+  
+  foreach my $net_r (@{ $advertisedNets_r }) {
+    my ($address, $netmask)= @{ $net_r };
+
+    checkIP($address, __('network address'));
+    checkNetmask($netmask, __('network mask'));
+
+    my $confEntry = "advertised_nets/$address";
+
+    if ($self->_confDirExists($confEntry)) {
+      EBox::warning("Repeated net: $address.  Overwriting it ");
+    }
+
+    $self->_setConfString($confEntry, $netmask);
+  }
+
+  $self->_notifyStaticRoutesChange();
+}
 
 sub addAdvertisedNet
 {
   my ($self, $net, $netmask) = @_;
 
-  if ($self->_confDirExists("advertised_nets/$net")) {
+  checkIP($net, __('network address'));
+  checkNetmask($netmask, __('network mask'));
+
+  if ($self->_getConfString("advertised_nets/$net")) {
     throw EBox::Exceptions::External(__x("Net {net} is already advertised in this server", net => $net));
   }
 
@@ -434,7 +462,9 @@ sub removeAdvertisedNet
 {
   my ($self, $net) = @_;
 
-  if (!$self->_confDirExists("advertised_nets/$net")) {
+  EBox::Validate::checkIP($net,  __('network address'));
+
+  if (!$self->_getConfString("advertised_nets/$net")) {
     throw EBox::Exceptions::External(__x("Net {net} is not advertised in this server", net => $net));
   }
 
@@ -486,7 +516,7 @@ sub setFundamentalAttributes
     $self->setPort($params{port});
     $self->setCertificate($params{certificate});    
 
-    my @noFundamentalAttrs = qw(local clientToClient service);
+    my @noFundamentalAttrs = qw(local clientToClient service advertisedNets);
     foreach my $attr (@noFundamentalAttrs)  {
 	if (exists $params{$attr} ) {
 	    my $mutator_r = $self->can("set\u$attr");

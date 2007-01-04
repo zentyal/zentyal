@@ -28,6 +28,13 @@ sub fakeCA : Test(startup)
   EBox::CA::TestStub::fake();
 }
 
+sub fakeServer : Test(startup)
+{
+  Test::MockObject->fake_module ( 'EBox::OpenVPN::Server',
+				  _notifyStaticRoutesChange => sub {},
+				);
+}
+
 sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
@@ -406,6 +413,60 @@ sub setSubnetNetmaskTest : Test(6)
 }
 
 
+sub addAndRemoveAdvertisedNet : Test(18)
+{
+  my ($self) = @_;
+  my $server = $self->_newServer('macaco');
+
+  my @straightNets = (
+	      ['192.168.24.1', '255.255.255.0'],
+	      ['192.168.86.0', '255.255.255.0'],
+	      ['10.0.0.0', '255.0.0.0'],
+	     );
+
+  my ($address, $mask);
+  my @nets;
+  my $netCount = 0;
+  my $netFound;
+
+  foreach my $net (@straightNets) {
+    ($address, $mask)= @{ $net };
+    lives_ok { $server->addAdvertisedNet($address, $mask)  }, 'Adding advertised net to the server';
+    $netCount += 1;
+
+    @nets = $server->advertisedNets();
+    is @nets, $netCount, 'Checking if the net count is coherent';
+    diag "NETS: @nets\n";
+
+    $netFound = _advertisedNetFound($address, $mask, @nets);
+    ok $netFound, 'Checking wether net was correctly reported by the server as used';
+  }
+
+    foreach  my $net (@straightNets) {
+     ($address, $mask)= @{ $net };
+    lives_ok { $server->removeAdvertisedNet($address, $mask)  }, 'Removing advertised net from the server';
+
+    $netCount -= 1;
+
+     @nets = $server->advertisedNets();
+    is @nets, $netCount, 'Checking if the net count is coherent';
+
+     $netFound = _advertisedNetFound($address, $mask, @nets);
+    ok !$netFound, 'Checked wether net was correctly removed from the server';
+  }
+}
+
+sub _advertisedNetFound
+ {
+   my ($address, $mask, @advertisedNets) = @_;
+
+    my $netFound = grep {
+      my ($address2, $mask2) = @{ $_ };
+      ($address2 eq $address) and ($mask eq $mask2)
+    } @advertisedNets;
+
+   return $netFound;
+}
 
 sub _confDir
 {
