@@ -31,7 +31,8 @@ case "$1" in
 		chmod 0440 /etc/sudoers
 
 		# create directory for saslauthdaemon
-		mkdir -p /var/spool/postfix/var/run/saslauthd
+		SASLAUTHD="/var/spool/postfix/var/run/saslauthd"
+		test -d $SASLAUTHD || mkdir -p $SASLAUTHD
 
 		# regenerate slapd.conf
 		/usr/lib/ebox-usersandgroups/ebox-init-ldap genconfig
