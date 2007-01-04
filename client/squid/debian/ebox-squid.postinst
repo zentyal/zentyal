@@ -23,6 +23,9 @@ case "$1" in
 
 		# stop squid 
 		invoke-rc.d squid stop
+
+		# create swap directory
+		/usr/sbin/squid -z
 		
 		#sudo configuration
 		ebox-sudoers-friendly
