@@ -30,6 +30,9 @@ case "$1" in
 		ebox-sudoers-friendly
 		chmod 0440 /etc/sudoers
 
+		# create directory for saslauthdaemon
+		mkdir -p /var/spool/postfix/var/run/saslauthd
+
 		# regenerate slapd.conf
 		/usr/lib/ebox-usersandgroups/ebox-init-ldap genconfig
 
@@ -39,7 +42,12 @@ case "$1" in
 		# populate ldap
 		/usr/lib/ebox-mail/ebox-mail-ldap update
 
+		# restart mail to generate configuration files
 		invoke-rc.d ebox mail restart
+
+		# restart saslauthdaemon
+		invoke-rc.d saslauthd restart
+
 		# create log table
 		/usr/lib/ebox-logs/ebox-sql-table add message /usr/share/ebox/sqllog/mail.sql
 
