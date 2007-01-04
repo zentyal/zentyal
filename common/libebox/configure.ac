@@ -107,6 +107,7 @@ src/Makefile
 src/templates/Makefile
 src/templates/t/Makefile
 src/templates/input/Makefile
+src/templates/input/t/Makefile
 src/templates/ebox/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile
