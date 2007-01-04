@@ -413,7 +413,7 @@ sub setSubnetNetmaskTest : Test(6)
 }
 
 
-sub addAndRemoveAdvertisedNet : Test(18)
+sub addAndRemoveAdvertisedNet : Test(24)
 {
   my ($self) = @_;
   my $server = $self->_newServer('macaco');
@@ -429,9 +429,11 @@ sub addAndRemoveAdvertisedNet : Test(18)
   my $netCount = 0;
   my $netFound;
 
+  # add straight cases 
+
   foreach my $net (@straightNets) {
     ($address, $mask)= @{ $net };
-    lives_ok { $server->addAdvertisedNet($address, $mask)  }, 'Adding advertised net to the server';
+    lives_ok { $server->addAdvertisedNet($address, $mask)  } 'Adding advertised net to the server';
     $netCount += 1;
 
     @nets = $server->advertisedNets();
@@ -442,18 +444,30 @@ sub addAndRemoveAdvertisedNet : Test(18)
     ok $netFound, 'Checking wether net was correctly reported by the server as used';
   }
 
-    foreach  my $net (@straightNets) {
-     ($address, $mask)= @{ $net };
-    lives_ok { $server->removeAdvertisedNet($address, $mask)  }, 'Removing advertised net from the server';
+  # add deviant cases 
+  dies_ok { $server->addAdvertisedNet($address, $mask)  } 'Expecting error when adding a duplicate net';
+  dies_ok { $server->addAdvertisedNet('10.0.0.0.0', '255.255.255.0')  } 'Expecting error when adding a net with a incorrect address';
+  dies_ok { $server->addAdvertisedNet('10.0.0.0', '256.255.255.0')  } 'Expecting error when adding a net with a incorrect netmask';
+  dies_ok { $server->addAdvertisedNet('10.0.0.0.1111', '0.255.255.0')  } 'Expecting error when adding a net with both a incorrect address and netmask';
+
+  # remove straight cases 
+  
+  foreach my $net (@straightNets) {
+    ($address, $mask)= @{ $net };
+    lives_ok { $server->removeAdvertisedNet($address, $mask)  } 'Removing advertised net from the server';
 
     $netCount -= 1;
 
-     @nets = $server->advertisedNets();
+    @nets = $server->advertisedNets();
     is @nets, $netCount, 'Checking if the net count is coherent';
 
-     $netFound = _advertisedNetFound($address, $mask, @nets);
+    $netFound = _advertisedNetFound($address, $mask, @nets);
     ok !$netFound, 'Checked wether net was correctly removed from the server';
   }
+
+  # remove deviant cases
+  dies_ok { $server->removeAdvertisedNet('192.168.45.0', '255.255.255.0')  } 'Expecting error when removing a inexistent net';
+  throws_ok { $server->removeAdvertisedNet('10.0.0.0.0', '255.255.255.0')  } 'EBox::Exceptions::InvalidData', 'Expecting error when removing a net with a incorrect address';
 }
 
 sub _advertisedNetFound

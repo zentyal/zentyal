@@ -407,15 +407,12 @@ sub advertisedNets
   my ($self) = @_;
 
   my @net =  @{ $self->_allConfEntriesBase('advertised_nets') };
-  use Test::More;
-  diag "ENTRIES: @net\n";
   @net = map {
     my $net = $_;
     my $netmask = $self->_getConfString("advertised_nets/$net");
     [$net, $netmask]
   } @net;
     
-  diag "ADVERTISED NETS: @net\n";
   return @net;
 }
 
