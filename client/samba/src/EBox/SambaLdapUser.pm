@@ -335,9 +335,11 @@ sub _createDir {
 	my $gid  = shift;
 	my $chmod = shift;
 
-	unless (-d $path) {
-		root ("/bin/mkdir \'$path\'");
+	if (-d $path) {
+		return;
 	}
+
+	root ("/bin/mkdir \'$path\'");
 	root ("/bin/chown $uid:$gid \'$path\'");
 
 	if ($chmod) {
