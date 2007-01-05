@@ -1,5 +1,6 @@
 0.8.1
-	+ New release
+	+ Minor workaround. Create slapd run directory in case it does not
+	  exist
 0.8
 	+ Fix message
 0.7.99
