@@ -45,7 +45,9 @@ case "$1" in
 		sed  -i -e 's/^\(group:.*\)/\1 ldap/' /etc/nsswitch.conf
 		sed  -i -e 's/^\(shadow:.*\)/\1 ldap/' /etc/nsswitch.conf
 
-	 
+		# create slapd pid directory 
+		test -d /var/run/slapd || mkdir /var/run/slapd
+
 	 	# regenerate slapd.conf
 		/usr/lib/ebox-usersandgroups/ebox-init-ldap genconfig
 				
