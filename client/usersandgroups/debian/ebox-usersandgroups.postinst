@@ -52,6 +52,9 @@ case "$1" in
                 chmod 0440 /var/lib/ebox/conf/ebox-ldap.passwd
                 chown ebox.ebox /var/lib/ebox/conf/ebox-ldap.passwd
 
+		# create slapd pid directory
+		test -d /var/run/slapd || mkdir /var/run/slapd
+
 		# generate slapd.conf
 		/usr/lib/ebox-usersandgroups/ebox-init-ldap genconfig
 		
