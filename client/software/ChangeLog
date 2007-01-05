@@ -1,3 +1,6 @@
+0.8.1
+	+ fix bug to avoid calling endlessly ebox-software 
+	  after installing a package when automatic update was enable.
 0.8
 	+ ebox-software truncates /etc/apt/sources.list and
 	  add  all apt sources from ebox-platform.com

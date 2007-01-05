@@ -1,3 +1,5 @@
+0.8.1
+	+ New release
 0.8
 	+ dns-cache depends on network. Now when an interface configuration
 	  changes bind is restarted to listen on the new IP
