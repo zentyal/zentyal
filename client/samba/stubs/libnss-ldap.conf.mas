@@ -9,7 +9,7 @@
 </%args>
 	
 # network or connect timeouts (see bind_timelimit).
-host 127.0.0.1
+# host 127.0.0.1
 
 # The distinguished name of the search base.
 base <% $basedc %>
