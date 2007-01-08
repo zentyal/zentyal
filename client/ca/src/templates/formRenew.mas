@@ -4,14 +4,14 @@
 <%init>
   use EBox::Gettext;
   my @renewTable = (
-		    { name  => 'commonName', input => 'hidden',
-		      value => $metaDataCert->{dn}->attribute('commonName') },
-		    { name  => 'isCACert',   input => 'hidden',
-		      value => $metaDataCert->{isCACert} },
-		    { name  => 'expireDays', printableName =>
-		      __('Days to expire'),  input => 'text' },
-		    { name => 'renew', input => 'submit', 
-		      value => __('Renew') }
+		    [ name  => 'commonName', input => 'hidden',
+		      value => $metaDataCert->{dn}->attribute('commonName') ],
+		    [ name  => 'isCACert',   input => 'hidden',
+		      value => $metaDataCert->{isCACert} ],
+		    [ name  => 'expireDays', printableName =>
+		      __('Days to expire'),  input => 'text' ],
+		    [ name => 'renew', input => 'submit', 
+		      value => __('Renew') ],
 		   );
 </%init>
 <!-- Form to renew a certificate -->

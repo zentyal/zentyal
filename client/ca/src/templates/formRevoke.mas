@@ -40,16 +40,16 @@ use EBox::Gettext;
 			  });
   }
   my @revokeTable = (
-		     { name  => 'commonName', input => 'hidden',
-		       value =>  $metaDataCert->{dn}->attribute('commonName') },
-		     { name  => 'isCACert',   input => 'hidden',
-		       value =>  $metaDataCert->{isCACert} },
-		     { name  => 'reason', printableName =>
+		     [ name  => 'commonName', input => 'hidden',
+		       value =>  $metaDataCert->{dn}->attribute('commonName') ],
+		     [ name  => 'isCACert',   input => 'hidden',
+		       value =>  $metaDataCert->{isCACert} ],
+		     [ name  => 'reason', printableName =>
 		       __('Reason'),
 		       input => 'select', extraParams => [ options =>
-							   \@selectOptions ]},
-		     { name  => 'revoke', input => 'submit',
-		       value => __('Revoke') }
+							   \@selectOptions ]],
+		     [ name  => 'revoke', input => 'submit',
+		       value => __('Revoke') ],
 		     );
 </%perl>
 <form action="RevokeCertificate" method="post" >

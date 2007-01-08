@@ -10,21 +10,21 @@ use EBox::CA::DN;
 <%perl>
   # Common args to issueCertificate and issueCACertificate
   my @issueTable = (
-		    { name => 'caNeeded', input => 'hidden',
-		      value => $caNeeded }
+		    [ name => 'caNeeded', input => 'hidden',
+		      value => $caNeeded ],
 		   );
 
   my $printableName = __('Organization Name');
   $printableName = __('Common Name') unless ($caNeeded);
-  push ( @issueTable, ({ name => 'name',
+  push ( @issueTable, ([ name => 'name',
 			 printableName => $printableName,
-			 input => 'text' },
-		       { name => 'expiryDays',
+			 input => 'text' ],
+		       [ name => 'expiryDays',
 			 printableName => __('Days to expire'),
-			 input => 'text' },
-		       { name => 'certificate',
+			 input => 'text' ],
+		       [ name => 'certificate',
 			 value => __('Issue'),
-			 input => 'submit' }
+			 input => 'submit' ],
 		      )
        );
 </%perl>
