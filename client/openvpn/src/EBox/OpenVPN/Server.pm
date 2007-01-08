@@ -424,22 +424,27 @@ sub setAdvertisedNets
   foreach my $net_r (@{ $advertisedNets_r }) {
     my ($address, $netmask)= @{ $net_r };
 
-    checkIP($address, __('network address'));
-    checkNetmask($netmask, __('network mask'));
+    $self->_checkAdvertisedNet($address, $netmask);
 
-    my $confEntry = "advertised_nets/$address";
-
-    if ($self->_confDirExists($confEntry)) {
-      EBox::warning("Repeated net: $address.  Overwriting it ");
-    }
-
-    $self->_setConfString($confEntry, $netmask);
+    $self->_setConfString("advertised_nets/$address", $netmask);
   }
 
   $self->_notifyStaticRoutesChange();
 }
 
 sub addAdvertisedNet
+{
+  my ($self, $net, $netmask) = @_;
+
+  $self->_checkAdvertisedNet($net, $netmask);
+
+  $self->_setConfString("advertised_nets/$net", $netmask);
+
+  $self->_notifyStaticRoutesChange();
+}
+
+
+sub _checkAdvertisedNet
 {
   my ($self, $net, $netmask) = @_;
 
@@ -450,10 +455,26 @@ sub addAdvertisedNet
     throw EBox::Exceptions::External(__x("Net {net} is already advertised in this server", net => $net));
   }
 
-  $self->_setConfString("advertised_nets/$net", $netmask);
 
-  $self->_notifyStaticRoutesChange();
+ if (! _EBoxIsGateway()) {
+    throw EBox::Exceptions::External(__('EBox must be configured as gateway to be able to give client access to networks via OpenVPN'));
+  }
+
+
+  my $cidrAddress = EBox::NetWrappers::to_network_with_mask($net, $netmask);
+  if (! defined EBox::NetWrappers::route_to_reach_network($cidrAddress)) {
+    throw EBox::Exceptions::External(__('The OpenVPN server can not grant access to a network which can not be reached by eBox'))
+  }
+
+  
 }
+
+
+sub _EBoxIsGateway
+{
+  return 1;
+}
+ 
 
 sub removeAdvertisedNet
 {
