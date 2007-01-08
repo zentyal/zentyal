@@ -360,6 +360,11 @@ sub route_to_reach_network
     }
   } 
 
+
+  if (network_is_private_class($network)) {
+    return undef;
+  }
+
   return $defaultRoute;
 }
 
@@ -383,6 +388,11 @@ sub local_ip_to_reach_network
   my $route = route_to_reach_network($network);
   if (defined $route->{source}) {  # network reachable directly by local address
     return $route->{source};
+  }
+
+  # if the network is of a private class we can not relay in the default gateway
+  if (network_is_private_class($network)) {
+    return undef;
   }
 
   my $gw = $route->{router};
@@ -582,6 +592,32 @@ sub list_local_addresses_with_netmask
     my @ifaces = list_ifaces();
     my @localAddresses = map { iface_is_up($_) ?  %{ iface_addresses_with_netmask($_) } : () } @ifaces;
     return @localAddresses;
+}
+
+
+sub network_is_private_class
+{
+  my ($network) = @_;
+
+
+
+  if ($network eq '10.0.0.0/8') {
+       return 1;
+  }
+  elsif ($network =~ m{^172[.]16[.](\d)+[.]0[/]12$}) {
+    my $partialNetId = $1;
+    if (($partialNetId >= 0 ) && ($partialNetId <= 32) ) {
+      return 1;
+    }
+  }
+  elsif ($network =~ m{^192[.]168[.]\d+[.]0[/]24$}) {
+       return 1;
+  }
+  elsif ($network eq '169.254.0.0/16') {
+       return 1;
+  }
+
+  return 0;
 }
 
 1;
