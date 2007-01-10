@@ -15,6 +15,10 @@
 
 package EBox::CA::DN;
 
+use strict;
+use warnings;
+
+
 use Storable qw(dclone);
 use EBox;
 
