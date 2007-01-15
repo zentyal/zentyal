@@ -338,7 +338,7 @@ sub list_routes
 #  Returns the route to reach network (it may be the default route)
 #
 # Parameters:
-#         network - network destintation
+#         network - network destintation (plain notation without netmask)
 #
 # Bugs:
 #    it returns only the first candidate found besides default route
