@@ -338,7 +338,7 @@ sub list_routes
 #  Returns the route to reach network (it may be the default route)
 #
 # Parameters:
-#         network - network destintation (plain notation without netmask)
+#         network - network destintation (CIDR notation)
 #
 # Bugs:
 #    it returns only the first candidate found besides default route
@@ -348,11 +348,12 @@ sub list_routes
 sub route_to_reach_network
 {
   my ($network) = @_;
+  my ($net) = to_network_without_mask($network);
 
   my $defaultRoute = undef;
 
   foreach  my $route (list_routes(1, 1)) {
-    if ($route->{network} eq $network) {
+    if ($route->{network} eq $net) {
       return $route;
     }
     elsif ($route->{network} eq 'default') {

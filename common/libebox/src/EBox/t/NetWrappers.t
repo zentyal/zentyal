@@ -70,6 +70,13 @@ sub fakeListRoutes
 {
   my @routes = @_;
 
+  @routes = map {
+    my $cidrNetwork = $_->{network};
+    my ($net) = EBox::NetWrappers::to_network_without_mask($cidrNetwork);
+    $_->{network} = $net;
+    $_;
+  } @routes;
+
   Test::MockObject->fake_module('EBox::NetWrappers', 
 		     list_routes => sub {
 		          return @routes;
@@ -235,9 +242,9 @@ sub route_to_reach_network_test
 		  );
 
   my @routesData = (
-		    {network => 'default', router => '192.168.45.254'},
-		    {network => '192.168.45.0/24', source => '192.168.45.4'},
-		    {network => '192.168.0.0/24', router  => '192.168.45.1' },
+		    {network => 'default', router => '192.168.201.254'},
+		    {network => '192.168.201.0/24', source => '192.168.201.4'},
+		    {network => '192.168.0.0/24', router  => '192.168.201.1' },
 		    {network => '45.0.0.0/8', source => '45.34.12.12'},
 		    {network => '129.45.0.0/16', source => '129.45.34.12' },
 		   );
