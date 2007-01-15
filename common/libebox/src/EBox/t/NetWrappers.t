@@ -70,12 +70,6 @@ sub fakeListRoutes
 {
   my @routes = @_;
 
-  @routes = map {
-    my $cidrNetwork = $_->{network};
-    my ($net) = EBox::NetWrappers::to_network_without_mask($cidrNetwork);
-    $_->{network} = $net;
-    $_;
-  } @routes;
 
   Test::MockObject->fake_module('EBox::NetWrappers', 
 		     list_routes => sub {

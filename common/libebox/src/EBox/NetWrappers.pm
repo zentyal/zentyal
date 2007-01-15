@@ -348,12 +348,11 @@ sub list_routes
 sub route_to_reach_network
 {
   my ($network) = @_;
-  my ($net) = to_network_without_mask($network);
 
   my $defaultRoute = undef;
 
   foreach  my $route (list_routes(1, 1)) {
-    if ($route->{network} eq $net) {
+    if ($route->{network} eq $network) {
       return $route;
     }
     elsif ($route->{network} eq 'default') {
