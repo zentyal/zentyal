@@ -424,6 +424,25 @@ sub addAndRemoveAdvertisedNet : Test(24)
 	      ['10.0.0.0', '255.0.0.0'],
 	     );
 
+  # assure straights nets can be reached using fake routes
+  EBox::TestStubs::setFakeIfaces(
+				 'eth0' => {
+					    up => 1,
+					    address => {
+					    '192.168.34.21' => '255.255.255.0',
+						       }
+					   },
+				) ;
+  my @fakeRoutes = map {
+    my $addr = $_->[0];
+     ( $addr => '192.168.34.21')  # (route, gateway)
+  } @straightNets;
+
+  EBox::TestStubs::setFakeRoutes(@fakeRoutes);
+
+
+
+  # varaibles to control the tests' results
   my ($address, $mask);
   my @nets;
   my $netCount = 0;
@@ -438,8 +457,7 @@ sub addAndRemoveAdvertisedNet : Test(24)
 
     @nets = $server->advertisedNets();
     is @nets, $netCount, 'Checking if the net count is coherent';
-    diag "NETS: @nets\n";
-
+    
     $netFound = _advertisedNetFound($address, $mask, @nets);
     ok $netFound, 'Checking wether net was correctly reported by the server as used';
   }

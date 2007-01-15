@@ -461,8 +461,7 @@ sub _checkAdvertisedNet
   }
 
 
-  my $cidrAddress = EBox::NetWrappers::to_network_with_mask($net, $netmask);
-  if (! defined EBox::NetWrappers::route_to_reach_network($cidrAddress)) {
+  if (! defined EBox::NetWrappers::route_to_reach_network($net)) {
     throw EBox::Exceptions::External(__('The OpenVPN server can not grant access to a network which can not be reached by eBox'))
   }
 
@@ -555,5 +554,37 @@ sub running
     return ($? == 0) ? 1 : 0;
 }
 
+
+sub certificateRevoked # (commonName, isCACert)
+{
+  my ($self, $commonName, $isCACert) = @_;
+
+  return 1 if $isCACert;
+  return ($commonName eq $self->certificate()) ;
+}
+
+
+
+sub certificateExpired
+{
+  my ($self, $commonName, $isCACert) = @_;
+
+  if ($isCACert or  ($commonName eq $self->certificate())) {
+    EBox::msg('Server ' . $self->name . ' is now inactive becasuse of certificate expiration issues');
+    $self->setService(0);
+    $self->_doDaemon();
+  } 
+}
+
+sub freeCertificate
+{
+  my ($self, $commonName) = @_;
+
+  if ($commonName eq $self->certificate()) {
+    EBox::msg('Server ' . $self->name . ' is now inactive because server certificate expired or was revoked');
+    $self->setService(0);
+    $self->_doDaemon();
+  } 
+}
 
 1;
