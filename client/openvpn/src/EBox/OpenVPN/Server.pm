@@ -3,6 +3,8 @@ package EBox::OpenVPN::Server;
 use strict;
 use warnings;
 
+use base qw(EBox::OpenVPN::ModulePartition);
+
 use EBox::Validate qw(checkPort checkAbsoluteFilePath checkIP checkNetmask);
 use EBox::NetWrappers;
 use EBox::CA;
@@ -20,90 +22,22 @@ sub new
 	throw EBox::Exceptions::Internal("Tried to instantiate a server with a name not found in module configuration: $name");
     }
 
-    my $self = { name => $name,  openvpnModule => $openvpnModule, confKeysBase => $confKeysBase   };
+
+    my $self = $class->SUPER::new($confKeysBase, $openvpnModule);
+    $self->{name} = $name;
+      
     bless $self, $class;
 
     return $self;
 }
 
-sub _confKey
-{
-    my ($self, $key) = @_;
-    return $self->{confKeysBase} . "/$key";
-}
 
 sub _openvpnModule
 {
     my ($self) = @_;
-    return $self->{openvpnModule};
+    return $self->fullModule();
 }
 
-sub _getConfString
-{
-    my ($self, $key) = @_;
-    $key = $self->_confKey($key);
-    $self->_openvpnModule->get_string($key);
-}
-
-sub _setConfString
-{
-    my ($self, $key, $value) = @_;
-    $key = $self->_confKey($key);
-    $self->_openvpnModule->set_string($key, $value);
-}
-
-
-sub _getConfInt
-{
-    my ($self, $key) = @_;
-    $key = $self->_confKey($key);
-    $self->_openvpnModule->get_int($key);
-}
-
-sub _setConfInt
-{
-    my ($self, $key, $value) = @_;
-    $key = $self->_confKey($key);
-    $self->_openvpnModule->set_int($key, $value);
-}
-
-
-sub _confDirExists
-{
-    my ($self, $key) = @_;
-    $key = $self->_confKey($key);
-    return $self->_openvpnModule->dir_exists($key);
-}
-
-sub _allConfEntriesBase
-{
-    my ($self, $key) = @_;
-    $key = $self->_confKey($key);
-    return $self->_openvpnModule->all_entries_base($key);
-}
-
-
-sub _unsetConf
-{
-    my ($self, $key) = @_;
-    $key = $self->_confKey($key);
-    return $self->_openvpnModule->unset($key);
-}
-
-
-sub _getConfBool
-{
-    my ($self, $key) = @_;
-    $key = $self->_confKey($key);
-    $self->_openvpnModule->get_bool($key);
-}
-
-sub _setConfBool
-{
-    my ($self, $key, $value) = @_;
-    $key = $self->_confKey($key);
-    $self->_openvpnModule->set_bool($key, $value);
-}
 
 
 sub name
@@ -122,13 +56,13 @@ sub setProto
 
     $self->_checkPortIsNotDuplicate($self->port(), $proto);
 
-    $self->_setConfString('proto', $proto);
+    $self->setConfString('proto', $proto);
 }
 
 sub proto
 {
     my ($self) = @_;
-    return $self->_getConfString('proto');
+    return $self->getConfString('proto');
 }
 
 
@@ -143,7 +77,7 @@ sub setPort
 
   $self->_checkPortIsNotDuplicate($port, $self->proto());
 
-  $self->_setConfInt('port', $port);
+  $self->setConfInt('port', $port);
 }
 
 
@@ -169,7 +103,7 @@ sub _checkPortIsNotDuplicate
 sub port
 {
     my ($self) = @_;
-    return $self->_getConfInt('port');
+    return $self->getConfInt('port');
 }
 
 sub setLocal
@@ -183,13 +117,13 @@ sub setLocal
  throw EBox::Exceptions::InvalidData(data => "Local IP address that will be listenned by server", value => $localIP, advice => __("This address does not correspond to any local address")  );
   }
 
-  $self->_setConfString('local', $localIP);
+  $self->setConfString('local', $localIP);
 }
 
 sub local
 {
     my ($self) = @_;
-    return $self->_getConfString('local');
+    return $self->getConfString('local');
 }
 
 
@@ -216,13 +150,13 @@ sub setCertificate
 
   $self->_checkCertificate($certificateCN);
   
-  $self->_setConfString('server_certificate', $certificateCN, 'Server certificate');
+  $self->setConfString('server_certificate', $certificateCN, 'Server certificate');
 }
 
 sub certificate
 {
     my ($self) = @_;
-    my $cn = $self->_getConfString('server_certificate');
+    my $cn = $self->getConfString('server_certificate');
     return $cn;
 }
 
@@ -282,13 +216,13 @@ sub setSubnet
     my ($self, $net) = @_;
 
     checkIP($net, 'VPN subnet');
-    $self->_setConfString('vpn_net', $net);
+    $self->setConfString('vpn_net', $net);
 }
 
 sub subnet
 {
     my ($self) = @_;
-    my $net = $self->_getConfString('vpn_net');
+    my $net = $self->getConfString('vpn_net');
     return $net;
 }
 
@@ -297,14 +231,14 @@ sub setSubnetNetmask
 {
     my ($self, $netmask) = @_;
     checkNetmask($netmask, "VPN net\'s netmask");
-    $self->_setConfString('vpn_netmask', $netmask);
+    $self->setConfString('vpn_netmask', $netmask);
 }
 
 
 sub subnetNetmask
 {
     my ($self) = @_;
-    my $netmask = $self->_getConfString('vpn_netmask');
+    my $netmask = $self->getConfString('vpn_netmask');
     return $netmask;
 }
 
@@ -312,13 +246,13 @@ sub subnetNetmask
 sub setClientToClient
 {
     my ($self, $clientToClientAllowed) = @_;
-    $self->_setConfBool('client_to_client', $clientToClientAllowed);
+    $self->setConfBool('client_to_client', $clientToClientAllowed);
 }
 
 sub clientToClient
 {
     my ($self) = @_;
-    return $self->_getConfBool('client_to_client');
+    return $self->getConfBool('client_to_client');
 }
 
 
@@ -391,14 +325,14 @@ sub setService # (active)
     $self->_checkCertificate($certificate);
   }
 
-  $self->_setConfBool('active', $active);
+  $self->setConfBool('active', $active);
 }
 
 
 sub service
 {
    my ($self) = @_;
-   return $self->_getConfBool('active');
+   return $self->getConfBool('active');
 }
 
 
@@ -406,10 +340,10 @@ sub advertisedNets
 {
   my ($self) = @_;
 
-  my @net =  @{ $self->_allConfEntriesBase('advertised_nets') };
+  my @net =  @{ $self->allConfEntriesBase('advertised_nets') };
   @net = map {
     my $net = $_;
-    my $netmask = $self->_getConfString("advertised_nets/$net");
+    my $netmask = $self->getConfString("advertised_nets/$net");
     [$net, $netmask]
   } @net;
     
@@ -426,7 +360,7 @@ sub setAdvertisedNets
 
     $self->_checkAdvertisedNet($address, $netmask);
 
-    $self->_setConfString("advertised_nets/$address", $netmask);
+    $self->setConfString("advertised_nets/$address", $netmask);
   }
 
   $self->_notifyStaticRoutesChange();
@@ -438,7 +372,7 @@ sub addAdvertisedNet
 
   $self->_checkAdvertisedNet($net, $netmask);
 
-  $self->_setConfString("advertised_nets/$net", $netmask);
+  $self->setConfString("advertised_nets/$net", $netmask);
 
   $self->_notifyStaticRoutesChange();
 }
@@ -451,7 +385,7 @@ sub _checkAdvertisedNet
   checkIP($net, __('network address'));
   checkNetmask($netmask, __('network mask'));
 
-  if ($self->_getConfString("advertised_nets/$net")) {
+  if ($self->getConfString("advertised_nets/$net")) {
     throw EBox::Exceptions::External(__x("Net {net} is already advertised in this server", net => $net));
   }
 
@@ -482,11 +416,11 @@ sub removeAdvertisedNet
 
   EBox::Validate::checkIP($net,  __('network address'));
 
-  if (!$self->_getConfString("advertised_nets/$net")) {
+  if (!$self->getConfString("advertised_nets/$net")) {
     throw EBox::Exceptions::External(__x("Net {net} is not advertised in this server", net => $net));
   }
 
-  $self->_unsetConf("advertised_nets/$net");
+  $self->unsetConf("advertised_nets/$net");
 
   $self->_notifyStaticRoutesChange();
 }
@@ -591,7 +525,7 @@ sub freeCertificate
 sub _invalidateCertificate
 {
   my ($self) = @_;
-  $self->_unsetConf('server_certificate');
+  $self->unsetConf('server_certificate');
   $self->setService(0);
 }
 
