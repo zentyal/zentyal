@@ -44,8 +44,9 @@ sub actuate
     my ($self) = @_;
 
     my $serverName  = $self->param('name');
+    $self->keepParam('name');
 
-    my $editServerUrl = "OpenVPN/Edit?name=$serverName";
+    my $editServerUrl = "OpenVPN/Edit"; 
     $self->setChain($editServerUrl);
     $self->setErrorchain($editServerUrl);
     
@@ -71,5 +72,8 @@ sub optionalParameters
 {
     return [ 'submit']; # change is the parameter related to the input button
 }
+
+
+
 
 1;

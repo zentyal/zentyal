@@ -57,6 +57,8 @@ sub masonParameters
     my ($self) = @_;
 
     my $name = $self->param('name');
+    $name or throw EBox::Exceptions::External('No server name provided');
+
     my $openVPN = EBox::Global->modInstance('openvpn');
     my $server = $openVPN->server($name);
 
@@ -68,8 +70,10 @@ sub masonParameters
 	$serverAttributes{$attr} = $value;
     }
 
-    my $disabled = $openVPN->CAIsCreated() ? 0 : 1;
+
     my @advertisedNets = $server->advertisedNets();
+
+   my $disabled = $openVPN->CAIsCreated() ? 0 : 1;
 
     return [
 	    name => $name, 
