@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::OpenVPN;
-use base qw(EBox::GConfModule EBox::FirewallObserver EBox::DHCP::StaticRouteProvider);
+use base qw(EBox::GConfModule EBox::FirewallObserver EBox::DHCP::StaticRouteProvider EBox::CA::Observer);
 
 use strict;
 use warnings;
@@ -386,6 +386,34 @@ sub staticRoutes
   }
 
   return \@staticRoutes;
+}
+
+
+sub certificateRevoked
+{
+  my $self = shift @_;
+  $self->_invokeOnServers('certificateRevoked', @_);
+}
+
+sub certificateExpired
+{
+  my $self = shift @_;
+  $self->_invokeOnServers('certificateExpired', @_);
+}
+
+sub freeCertificate
+{
+  my $self = shift @_;
+  $self->_invokeOnServers('freeCertificate', @_);
+}
+
+sub _invokeOnServers
+{
+  my ($self, $method, @methodParams) = @_;
+  foreach my $server ($self->servers()) {
+    my $method_r = $server->can($method);
+    $method_r->($server, @methodParams);
+  }
 }
 
 # Method: menu 

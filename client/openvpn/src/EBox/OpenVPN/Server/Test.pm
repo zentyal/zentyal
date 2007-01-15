@@ -489,6 +489,92 @@ sub addAndRemoveAdvertisedNet : Test(25)
   throws_ok { $server->removeAdvertisedNet('10.0.0.0.0', '255.255.255.0')  } 'EBox::Exceptions::InvalidData', 'Expecting error when removing a net with a incorrect address';
 }
 
+
+sub certificateRevokedTest : Test(4)
+{
+  my ($self) = @_;
+
+  my $server = $self->_newServer('macaco');
+  my $serverCertificate = $server->certificate();
+  my $otherCertificate  = 'no-' . $serverCertificate;
+
+
+  my @trueCases = (
+		   [$otherCertificate, 1],
+		   [$serverCertificate, 1],
+		   [$serverCertificate, 0],
+		  );
+
+  my @falseCases = (
+		    [$otherCertificate, 0],
+		   );
+
+  foreach my $case_r (@trueCases) {
+    ok $server->certificateRevoked(@{ $case_r  }), 'Checking wether certificateRevoked returns true';
+  }
+  foreach my $case_r (@falseCases) {
+    ok !$server->certificateRevoked(@{ $case_r  }), 'Checking wether certificateRevoked returs false' ;
+  }
+}
+
+sub certificateExpiredTest : Test(12)
+{
+  my ($self) = @_;
+
+  my $server = $self->_newServer('macaco');
+  $server->setService(1);
+  my $serverCertificate = $server->certificate();
+  my $otherCertificate  = 'no-' . $serverCertificate;
+
+  my @innocuousCases = (
+		    [$otherCertificate, 0],
+		   );
+  
+  my @invalidateCertificateCases = (
+		   [$otherCertificate, 1],
+		   [$serverCertificate, 1],
+		   [$serverCertificate, 0],
+		  );
+
+  foreach my $case_r (@innocuousCases) {
+    lives_ok { $server->certificateExpired( @{ $case_r } ) } 'Notifying server of innocuous certificate expiration';
+    is $server->certificate(), $serverCertificate, 'Checking wether server certificate was left unchanged';
+    ok $server->service(), 'Checking wether service status of the server was left untouched';
+  }
+
+  foreach my $case_r (@invalidateCertificateCases) {
+    lives_ok { $server->certificateExpired( @{ $case_r } ) } 'Notifying server of  certificate expiration';
+
+    ok !$server->certificate(), 'Checking wether the server certificate was invalided';
+    ok !$server->service(), 'Checking wether the server was disabled';
+
+    # restoring server state
+    $self->setUpConfiguration();
+    $server = $self->_newServer('macaco');
+    $server->setService(1);
+  }
+}
+
+
+sub freeCertificateTest : Test(6)
+{
+  my ($self) = @_;
+
+  my $server = $self->_newServer('macaco');
+  $server->setService(1);
+  my $serverCertificate = $server->certificate();
+  my $otherCertificate  = 'no-' . $serverCertificate;
+
+  lives_ok {  $server->freeCertificate($otherCertificate) } 'Forcing server to free a certificate which does not uses';
+  is $server->certificate(), $serverCertificate, 'Checking wether server certificate was left unchanged';
+  ok $server->service(), 'Checking wether service status of the server was left untouched';
+
+  lives_ok { $server->freeCertificate($serverCertificate) } 'Forcing serve to release his certificate';
+  ok !$server->certificate(), 'Checking wether the server certificate was invalided';
+  ok !$server->service(), 'Checking wether the server was disabled';
+
+}
+
 sub _advertisedNetFound
  {
    my ($address, $mask, @advertisedNets) = @_;

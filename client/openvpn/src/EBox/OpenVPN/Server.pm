@@ -193,12 +193,6 @@ sub local
 }
 
 
-# XXX certificates: 
-# - existence control
-# - file permision control (specially server key)
-
-
-
 
 sub caCertificatePath
 {
@@ -387,11 +381,17 @@ sub writeConfFile
 
 sub setService # (active)
 {
-    my ($self, $active) = @_;
-    ($active and $self->service)   and return;
-    (!$active and !$self->service) and return;
+  my ($self, $active) = @_;
+  ($active and $self->service)   and return;
+  (!$active and !$self->service) and return;
 
-    $self->_setConfBool('active', $active);
+  # servers with certificate trouble must not be activated
+  if ($active) {  
+    my $certificate = $self->certificate();
+    $self->_checkCertificate($certificate);
+  }
+
+  $self->_setConfBool('active', $active);
 }
 
 
@@ -534,7 +534,9 @@ sub setFundamentalAttributes
     $self->setPort($params{port});
     $self->setCertificate($params{certificate});    
 
-    my @noFundamentalAttrs = qw(local clientToClient service advertisedNets);
+    my @noFundamentalAttrs = qw(local clientToClient advertisedNets); 
+    push @noFundamentalAttrs, 'service'; # service must be always the last attr so if there is a error before the server is not activated
+
     foreach my $attr (@noFundamentalAttrs)  {
 	if (exists $params{$attr} ) {
 	    my $mutator_r = $self->can("set\u$attr");
@@ -571,9 +573,8 @@ sub certificateExpired
   my ($self, $commonName, $isCACert) = @_;
 
   if ($isCACert or  ($commonName eq $self->certificate())) {
-    EBox::msg('Server ' . $self->name . ' is now inactive becasuse of certificate expiration issues');
-    $self->setService(0);
-    $self->_doDaemon();
+    EBox::info('Server ' . $self->name . ' is now inactive becasuse of certificate expiration issues');
+    $self->_invalidateCertificate();
   } 
 }
 
@@ -582,10 +583,17 @@ sub freeCertificate
   my ($self, $commonName) = @_;
 
   if ($commonName eq $self->certificate()) {
-    EBox::msg('Server ' . $self->name . ' is now inactive because server certificate expired or was revoked');
-    $self->setService(0);
-    $self->_doDaemon();
+    EBox::info('Server ' . $self->name . ' is now inactive because server certificate expired or was revoked');
+    $self->_invalidateCertificate();
   } 
 }
+
+sub _invalidateCertificate
+{
+  my ($self) = @_;
+  $self->_unsetConf('server_certificate');
+  $self->setService(0);
+}
+
 
 1;
