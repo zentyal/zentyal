@@ -413,7 +413,7 @@ sub setSubnetNetmaskTest : Test(6)
 }
 
 
-sub addAndRemoveAdvertisedNet : Test(24)
+sub addAndRemoveAdvertisedNet : Test(25)
 {
   my ($self) = @_;
   my $server = $self->_newServer('macaco');
@@ -434,7 +434,7 @@ sub addAndRemoveAdvertisedNet : Test(24)
 					   },
 				) ;
   my @fakeRoutes = map {
-    my $addr = $_->[0];
+    my $addr = EBox::NetWrappers::to_network_with_mask(@{ $_ });
      ( $addr => '192.168.34.21')  # (route, gateway)
   } @straightNets;
 
@@ -467,6 +467,7 @@ sub addAndRemoveAdvertisedNet : Test(24)
   dies_ok { $server->addAdvertisedNet('10.0.0.0.0', '255.255.255.0')  } 'Expecting error when adding a net with a incorrect address';
   dies_ok { $server->addAdvertisedNet('10.0.0.0', '256.255.255.0')  } 'Expecting error when adding a net with a incorrect netmask';
   dies_ok { $server->addAdvertisedNet('10.0.0.0.1111', '0.255.255.0')  } 'Expecting error when adding a net with both a incorrect address and netmask';
+   dies_ok { $server->addAdvertisedNet('192.168.34.0', '255.255.255.0')  } 'Expecting error when adding a private net not reacheable by eBox'; 
 
   # remove straight cases 
   

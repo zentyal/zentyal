@@ -461,7 +461,8 @@ sub _checkAdvertisedNet
   }
 
 
-  if (! defined EBox::NetWrappers::route_to_reach_network($net)) {
+  my $CIDRNet = EBox::NetWrappers::to_network_with_mask($net, $netmask);
+  if (! defined EBox::NetWrappers::route_to_reach_network($CIDRNet)) {
     throw EBox::Exceptions::External(__('The OpenVPN server can not grant access to a network which can not be reached by eBox'))
   }
 
