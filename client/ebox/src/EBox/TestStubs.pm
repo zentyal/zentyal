@@ -277,7 +277,8 @@ sub fakeEBoxModule
 #   EBox::TestStubs::setFakeIfaces(@fakeIfaces);
 sub setFakeIfaces
 {
-  EBox::NetWrappers::TestStub::setFakeIfaces(@_);
+  my $params_r = { @_ };
+  EBox::NetWrappers::TestStub::setFakeIfaces($params_r);
 }
 
 
@@ -302,7 +303,8 @@ sub setFakeIfaces
 #  EBox::TestStubs::setFakeRoutes(@routes);
 sub setFakeRoutes
 {
-  EBox::NetWrappers::TestStub::setFakeRoutes(@_);
+  my $params_r = { @_ };
+  EBox::NetWrappers::TestStub::setFakeRoutes($params_r);
 }
 
 1;
