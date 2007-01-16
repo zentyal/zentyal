@@ -7,7 +7,7 @@
 # Ésta orden se ejecuta justamente antes de que finalize la instalación,
 # pero cuando todavía existe un directorio /target usable:
 #d-i    preseed/late_command            string rm -f /target/usr/sbin/sendmail ; /target/usr/bin/dpkg-deb --fsys-tarfile /cdrom/dists/local/local/binary-i386/postfix_*_i386.deb | tar x -C /target ./usr/sbin/sendmail ; cp /cdrom/inittab /target/etc/inittab.ebox
-d-i    preseed/late_command            string rm -f /target/usr/sbin/sendmail ; /target/usr/bin/dpkg-deb --fsys-tarfile /cdrom/dists/local/local/binary-i386/postfix_*_i386.deb | tar x -C /target ./usr/sbin/sendmail ; cp /cdrom/ebox/inittab /target/etc/inittab ; cp /cdrom/ebox/locale.gen /target/var/tmp/ ; cp /cdrom/ebox/config-base.sh /target/var/tmp/ ; cp /cdrom/ebox/sources.list /target/etc/apt/sources.list.ebox ; cp /cdrom/dists/sarge/local/binary-i386/ebox-*.deb /target/var/tmp/
+d-i    preseed/late_command            string rm -f /target/usr/sbin/sendmail ; /target/usr/bin/dpkg-deb --fsys-tarfile /cdrom/dists/local/local/binary-i386/postfix_*_i386.deb | tar x -C /target ./usr/sbin/sendmail ; cp /cdrom/ebox/inittab /target/etc/inittab ; cp /cdrom/ebox/locale.gen /target/var/tmp/ ; cp /cdrom/ebox/config-base.sh /target/var/tmp/ ; cp /cdrom/ebox/sources.list /target/etc/apt/sources.list.ebox ; cp /cdrom/dists/sarge/local/binary-i386/ebox-*.deb /target/var/tmp/; cat /cdrom/ebox/motd >> /target/etc/motd
 
 #
 # Ésta orden se ejecuta tan pronto como se inicie base-config:
