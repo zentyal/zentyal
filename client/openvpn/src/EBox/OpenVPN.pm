@@ -24,6 +24,7 @@ use EBox::Summary::Module;
 use EBox::Sudo;
 use Perl6::Junction qw(any);
 use EBox::OpenVPN::Server;
+use EBox::OpenVPN::Client;
 use EBox::OpenVPN::FirewallHelper;
 use EBox::CA;
 use EBox::CA::DN;
@@ -44,7 +45,7 @@ sub _regenConfig
 {
     my ($self) = @_;
 
-    $self->_writeServersConfFiles();
+    $self->_writeConfFiles();
     $self->_doDaemon();
 }
 
@@ -62,18 +63,50 @@ sub openvpnBin
 }
 
 
-sub _writeServersConfFiles
+sub _writeConfFiles
 {
     my ($self) = @_;
 
     my $confDir = $self->confDir;
 
-    my @servers = $self->servers();
-    foreach my $server (@servers) {
-	$server->writeConfFile($confDir);
+    my @daemons = $self->daemons();
+    foreach my $daemon (@daemons) {
+	$daemon->writeConfFile($confDir);
     }
 }
 
+
+
+# all openvpn daemons related methods
+sub daemons
+{
+  my ($self) = @_;
+  return (
+	  $self->servers(),
+	  $self->clients(),
+	 );
+}
+
+
+sub activeDaemons
+{
+    my ($self) = @_;
+    return grep { $_->service } $self->daemons();
+}
+
+sub daemonsNames
+{
+    my ($self) = @_;
+    
+    my @daemonsNames = (
+			$self->serversNames(),
+			$self->clientsNames(),
+		       );
+    return @daemonsNames;
+}
+
+
+# server-relate method
 
 sub servers
 {
@@ -109,21 +142,14 @@ sub server
 
 
 
+
 sub newServer
 {
     my ($self, $name, %params) = @_;
     my $type = exists $params{type} ? delete $params{type} : 'one2many'; # type is ignored for now.. Now we use only a type of server
-    my $service = exists $params{service} ? $params{service} : 1;
 
-
-    unless ( $name =~ m{^\w+$} ) {
-	throw EBox::Exceptions::External (__x("{name} is a invalid name for a server. Only alphanumerics and underscores are allowed", name => $name) );
-    }
-
-    my @serversNames = $self->serversNames();
-    if ($name eq any(@serversNames)) {
-	throw EBox::Exceptions::DataExists(data => "OpenVPN server", value => $name  );
-    }
+    $self->_checkName($name);
+ 
     
     $self->set_string("server/$name/type" => $type);
     my $server;
@@ -141,6 +167,9 @@ sub newServer
 }
 
 
+
+
+
 sub removeServer
 {
     my ($self, $name) = @_;
@@ -152,6 +181,115 @@ sub removeServer
 
 	
     $self->delete_dir($serverDir);
+}
+
+sub _portsByProtoFromServers
+{
+    my ($self, @servers) = @_;
+    
+    my %ports;
+    foreach my $proto (qw(tcp udp)) {
+	my @protoServers = grep { $_->proto eq $proto  } @servers;
+	my @ports        = map  { $_->port } @protoServers;
+
+	$ports{$proto} = \@ports;
+    }
+
+    return \%ports;
+}
+
+
+
+## clients
+
+sub clients
+{
+    my ($self) = @_;
+    my @clients = $self->clientsNames();
+    @clients = map { $self->client($_) } @clients;
+    return @clients;
+}
+
+
+sub activeClients
+{
+    my ($self) = @_;
+    return grep { $_->service } $self->clients();
+}
+
+sub clientsNames
+{
+    my ($self) = @_;
+    
+    my @clientsNames = @{ $self->all_dirs_base('client') };
+    return @clientsNames;
+}
+
+
+sub removeClient
+{
+    my ($self, $name) = @_;
+    my $clientDir = "client/$name";
+
+    if (! $self->dir_exists($clientDir)) {
+	throw EBox::Exceptions::External __x("Unable to remove because there is not a openvpn client named {name}", name => $name);
+    }
+
+	
+    $self->delete_dir($clientDir);
+}
+
+sub newClient
+{
+    my ($self, $name, %params) = @_;
+
+
+    $self->_checkName($name);
+ 
+    my $holderKey = "client/$name/holder";
+    $self->set_string($holderKey => 1); # we have to  set some data to bootstrap the client because we can not create empty conf dirs
+    my $client;
+    try {
+	$client = $self->client($name);
+	$client->init(%params);
+	$self->unset($holderKey);
+    }
+    otherwise {
+	my  $ex = shift;
+	$self->delete_dir("client/$name");
+	$ex->throw();
+    };
+
+    return $client;
+}
+
+
+# a object client cache may be a good idea?
+sub client
+{
+    my ($self, $name) = @_;
+    
+    my $client = new EBox::OpenVPN::Client ($name, $self);
+    return $client;
+}
+
+
+
+
+
+sub _checkName
+{
+  my ($self, $name) = @_;
+
+   unless ( $name =~ m{^\w+$} ) {
+	throw EBox::Exceptions::External (__x("{name} is a invalid name for a OpenVPN instance. Only alphanumerics and underscores are allowed", name => $name) );
+    }
+
+  my @names = ($self->serversNames(), $self->clientsNames());
+  if ($name eq any(@names)) {
+      throw EBox::Exceptions::DataExists(data => "OpenVPN instance's name", value => $name  );
+    }
+
 }
 
 sub user
@@ -174,20 +312,6 @@ sub dh
 }
 
 
-sub _portsByProtoFromServers
-{
-    my ($self, @servers) = @_;
-    
-    my %ports;
-    foreach my $proto (qw(tcp udp)) {
-	my @protoServers = grep { $_->proto eq $proto  } @servers;
-	my @ports        = map  { $_->port } @protoServers;
-
-	$ports{$proto} = \@ports;
-    }
-
-    return \%ports;
-}
 
 
 
@@ -313,9 +437,9 @@ sub _startDaemon
 {
     my ($self) = @_;
 
-    my @servers =  grep { $_->service } $self->servers();
-    foreach my $server (@servers) {
-	my $command = $self->rootCommandForStartDaemon($server->confFile, $server->name);
+    my @daemons =  grep { $_->service } $self->daemons();
+    foreach my $daemon (@daemons) {
+	my $command = $self->rootCommandForStartDaemon($daemon->confFile, $daemon->name);
 	EBox::Sudo::root($command);
     }
 }
@@ -388,6 +512,9 @@ sub staticRoutes
   return \@staticRoutes;
 }
 
+
+
+# ca observer stuff
 
 sub certificateRevoked
 {

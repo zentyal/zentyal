@@ -53,6 +53,11 @@ sub group
     return $self->_openvpnModule->group();
 }
 
+sub dh
+{
+    my ($self) = @_;
+    return $self->_openvpnModule->dh();
+}
 
 sub confFile
 {
@@ -91,6 +96,17 @@ sub confFileTemplate
 sub confFileParams
 {
   throw EBox::Exceptions::NotImplemented();
+}
+
+sub running
+{
+    my ($self) = @_;
+    my $bin = $self->_openvpnModule->openvpnBin;
+    my $name = $self->name;
+
+    system "/usr/bin/pgrep -f $bin.*$name";
+
+    return ($? == 0) ? 1 : 0;
 }
 
 

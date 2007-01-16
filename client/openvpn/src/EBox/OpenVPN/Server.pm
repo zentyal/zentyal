@@ -238,18 +238,6 @@ sub clientToClient
 }
 
 
-
-
-sub dh
-{
-    my ($self) = @_;
-    return $self->_openvpnModule->dh();
-}
-
-
-
-
-
 sub confFileTemplate
 {
   my ($self) = @_;
@@ -374,6 +362,14 @@ sub _EBoxIsGateway
 }
  
 
+
+
+
+
+
+
+
+
 sub removeAdvertisedNet
 {
   my ($self, $net) = @_;
@@ -423,7 +419,7 @@ sub setFundamentalAttributes
     (exists $params{subnetNetmask}) or throw EBox::Exceptions::External __("The server needs a submask for his VPN net");
     (exists $params{port} ) or throw EBox::Exceptions::External __("The server needs a port number");
     (exists $params{proto}) or throw EBox::Exceptions::External __("A IP protocol must be specified for the server");
-    (exists $params{certificate}) or throw EBox::Exceptions::External __("A path to the server certificate must be specified");
+    (exists $params{certificate}) or throw EBox::Exceptions::External __("A  server certificate must be specified");
 
 
     $self->setSubnet($params{subnet});
@@ -444,16 +440,7 @@ sub setFundamentalAttributes
     }
 }
 
-sub running
-{
-    my ($self) = @_;
-    my $bin = $self->_openvpnModule->openvpnBin;
-    my $name = $self->name;
 
-    system "/usr/bin/pgrep -f $bin.*$name";
-
-    return ($? == 0) ? 1 : 0;
-}
 
 
 sub certificateRevoked # (commonName, isCACert)

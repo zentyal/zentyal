@@ -67,6 +67,35 @@ sub clearConfiguration : Test(teardown)
 }
 
 
+
+sub newAndRemoveClientTest : Test(3)
+{
+  my $openVPN = EBox::OpenVPN->_create();
+  
+  my @clientsNames = qw(client1 );
+  my %clientsParams = (
+		       client1 =>  [ 
+				    proto => 'tcp',
+				    caCertificatePath => '/etc/openvpn/ca.pem',
+				    certificatePath   => '/etc/openvpn/client.pem',
+				    certificateKey    => '/etc/openvpn/client.key',
+				    servers           => [
+							  ['192.168.55.21' => 1040],
+							 ],
+				    service           => 1,
+				   ],
+		      );
+
+    foreach my $name (@clientsNames) {
+	my $instance;
+	my @params = @{ $clientsParams{$name} };
+	lives_ok { $instance = $openVPN->newClient($name, @params)  } 'Testing addition of new client';
+	isa_ok $instance, 'EBox::OpenVPN::Client', 'Checking that newClient has returned a client instance';
+	dies_ok { $instance  = $openVPN->newClient($name, @params)  } 'Checking that the clients cannot be added a second time';
+    }
+  
+}
+
 sub newAndRemoveServerTest  : Test(24)
 {
 

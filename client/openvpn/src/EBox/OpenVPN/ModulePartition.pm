@@ -69,6 +69,14 @@ sub confDirExists
     return $self->fullModule->dir_exists($key);
 }
 
+
+sub deleteConfDir
+
+{    my ($self, $key) = @_;
+    $key = $self->confKey($key);
+    return $self->fullModule->delete_dir($key);
+}
+
 sub allConfEntriesBase
 {
     my ($self, $key) = @_;
