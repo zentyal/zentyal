@@ -3,7 +3,7 @@ package EBox::OpenVPN::Server;
 use strict;
 use warnings;
 
-use base qw(EBox::OpenVPN::ModulePartition);
+use base qw(EBox::OpenVPN::Daemon);
 
 use EBox::Validate qw(checkPort checkAbsoluteFilePath checkIP checkNetmask);
 use EBox::NetWrappers;
@@ -16,35 +16,17 @@ use Params::Validate qw(validate_pos SCALAR);
 sub new
 {
     my ($class, $name, $openvpnModule) = @_;
-    
-    my $confKeysBase = "server/$name";
-    if (!$openvpnModule->dir_exists($confKeysBase) ) {
-	throw EBox::Exceptions::Internal("Tried to instantiate a server with a name not found in module configuration: $name");
-    }
+   
+    my $prefix= 'server';
 
-
-    my $self = $class->SUPER::new($confKeysBase, $openvpnModule);
-    $self->{name} = $name;
-      
-    bless $self, $class;
+    my $self = $class->SUPER::new($name, $prefix, $openvpnModule);
+      bless $self, $class;
 
     return $self;
 }
 
 
-sub _openvpnModule
-{
-    my ($self) = @_;
-    return $self->fullModule();
-}
 
-
-
-sub name
-{
-    my ($self) = @_;
-    return $self->{name};
-}
 
 sub setProto
 {
@@ -256,18 +238,7 @@ sub clientToClient
 }
 
 
-sub user
-{
-    my ($self) = @_;
-    return $self->_openvpnModule->user();
-}
 
-
-sub group
-{
-    my ($self) = @_;
-    return $self->_openvpnModule->group();
-}
 
 sub dh
 {
@@ -275,41 +246,34 @@ sub dh
     return $self->_openvpnModule->dh();
 }
 
-sub confFile
-{
-    my ($self, $confDir) = @_;
-    my $confFile = $self->name() . '.conf';
-    my $confFilePath = defined $confDir ? "$confDir/$confFile" : $confFile;
 
-    return $confFilePath;
+
+
+
+sub confFileTemplate
+{
+  my ($self) = @_;
+  return "openvpn/openvpn.conf.mas";
 }
 
-sub writeConfFile
+sub confFileParams
 {
-    my ($self, $confDir) = @_;
+  my ($self) = @_;
+  my @templateParams;
 
-    my $confFilePath = $self->confFile($confDir);
-    my $templatePath = "openvpn/openvpn.conf.mas";
-    my @templateParams;
-    my $defaults     = {
-	uid  => $self->user,
-	gid  => $self->group,
-	mode => '0400',
-    };
+  my @paramsNeeded = qw(subnet subnetNetmask local port caCertificatePath certificatePath key clientToClient user group proto dh);
+  foreach  my $param (@paramsNeeded) {
+    my $accessor_r = $self->can($param);
+    defined $accessor_r or die "Can not found accesoor for param $param";
+    my $value = $accessor_r->($self);
+    defined $value or next;
+    push @templateParams, ($param => $value);
+  }
 
-    my @paramsNeeded = qw(subnet subnetNetmask local port caCertificatePath certificatePath key clientToClient user group proto dh);
-    foreach  my $param (@paramsNeeded) {
-	my $accessor_r = $self->can($param);
-	defined $accessor_r or die "Can not found accesoor for param $param";
-	my $value = $accessor_r->($self);
-	defined $value or next;
-	push @templateParams, ($param => $value);
-    }
+  my @advertisedNets =  $self->advertisedNets();
+  push @templateParams, ( advertisedNets => \@advertisedNets);
 
-    my @advertisedNets =  $self->advertisedNets();
-    push @templateParams, ( advertisedNets => \@advertisedNets);
-
-    EBox::GConfModule->writeConfFile($confFilePath, $templatePath, \@templateParams, $defaults);
+  return \@templateParams;
 }
 
 
