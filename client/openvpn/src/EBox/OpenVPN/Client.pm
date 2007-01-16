@@ -138,7 +138,8 @@ sub confFileParams
 
   push @templateParams, (servers =>  $self->servers() );
 
-  return @templateParams;
+
+  return \@templateParams;
 }
 
 sub servers

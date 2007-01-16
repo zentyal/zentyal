@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Server t
+SUBDIRS = Server Client  t
 
 perldir = @PERLPATH@/EBox/OpenVPN
 

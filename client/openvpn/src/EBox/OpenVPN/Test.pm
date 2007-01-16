@@ -68,11 +68,11 @@ sub clearConfiguration : Test(teardown)
 
 
 
-sub newAndRemoveClientTest : Test(3)
+sub newAndRemoveClientTest : Test(15)
 {
   my $openVPN = EBox::OpenVPN->_create();
   
-  my @clientsNames = qw(client1 );
+  my @clientsNames = qw(client1 client2);
   my %clientsParams = (
 		       client1 =>  [ 
 				    proto => 'tcp',
@@ -84,6 +84,18 @@ sub newAndRemoveClientTest : Test(3)
 							 ],
 				    service           => 1,
 				   ],
+
+		       client2 =>  [ 
+				    proto => 'tcp',
+				    caCertificatePath => '/etc/openvpn/ca.pem',
+				    certificatePath   => '/etc/openvpn/client.pem',
+				    certificateKey    => '/etc/openvpn/client.key',
+				    servers           => [
+							  ['192.168.55.21' => 1040],
+							  ['192.168.55.23' => 1041],
+							 ],
+				    service           => 1,
+				   ],
 		      );
 
     foreach my $name (@clientsNames) {
@@ -92,6 +104,23 @@ sub newAndRemoveClientTest : Test(3)
 	lives_ok { $instance = $openVPN->newClient($name, @params)  } 'Testing addition of new client';
 	isa_ok $instance, 'EBox::OpenVPN::Client', 'Checking that newClient has returned a client instance';
 	dies_ok { $instance  = $openVPN->newClient($name, @params)  } 'Checking that the clients cannot be added a second time';
+    }
+
+    my @actualClientsNames = $openVPN->clientsNames();
+    eq_or_diff [sort @actualClientsNames], [sort @clientsNames], "Checking returned test names";
+
+    # removal cases..
+ 
+	
+    foreach my $name (@clientsNames) {
+	my $instance;
+	lives_ok { $instance = $openVPN->removeClient($name)  } 'Testing client removal';
+	dies_ok  { $openVPN->client($name) } 'Testing that can not get the client object that represents the deleted client ';
+
+	my @actualClientsNames = $openVPN->clientsNames();
+	ok $name ne all(@actualClientsNames), "Checking that deleted clients name does not appear longer in serves names list";
+    
+	dies_ok { $instance = $openVPN->removeClient($name)  } 'Testing that a deleted client can not be deleted agian';
     }
   
 }
