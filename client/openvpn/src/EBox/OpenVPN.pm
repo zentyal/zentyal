@@ -518,20 +518,26 @@ sub staticRoutes
 
 sub certificateRevoked
 {
-  my $self = shift @_;
-  $self->_invokeOnServers('certificateRevoked', @_);
+  my ($self, @params) = @_;
+  foreach my $server ($self->servers()) {
+    if ($server->certificateRevoked()) {
+      return 1;
+    }
+  }
+
+  return 0;
 }
 
 sub certificateExpired
 {
-  my $self = shift @_;
-  $self->_invokeOnServers('certificateExpired', @_);
+  my ($self, @params) = @_;
+  $self->_invokeOnServers('certificateExpired', @params);
 }
 
 sub freeCertificate
 {
-  my $self = shift @_;
-  $self->_invokeOnServers('freeCertificate', @_);
+  my ($self, @params) = @_;
+  $self->_invokeOnServers('freeCertificate', @params);
 }
 
 sub _invokeOnServers
@@ -539,7 +545,8 @@ sub _invokeOnServers
   my ($self, $method, @methodParams) = @_;
   foreach my $server ($self->servers()) {
     my $method_r = $server->can($method);
-    $method_r->($server, @methodParams);
+    defined $method_r or throw EBox::Exceptions::Internal("No such method $method");
+     $method_r->($server, @methodParams);
   }
 }
 
