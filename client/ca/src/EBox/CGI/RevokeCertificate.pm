@@ -85,7 +85,7 @@ sub _process
     my @array = ();
 
     my $retValue;
-
+    my $retFromCatch = undef;
 
     if ( defined($self->param("revokeForce")) ) {
     # If comes from a forceRevoke with forceRevoke button
@@ -108,16 +108,20 @@ sub _process
 	}
       } catch EBox::Exceptions::DataInUse with {
 	$self->{template} = '/ca/forceRevoke.mas';
+	$self->{chain} = undef;
 	push (@array, 'commonName' => $commonName);
 	push (@array, 'isCACert'   => $isCACert);
 	push (@array, 'reason'     => $reason);
 	$self->{params} = \@array;
+	$retFromCatch = 1;
       };
     }
 
-    my $msg = __("The certificate has been revoked");
-    $msg = __("The CA certificate has been revoked") if ($isCACert);
-    $self->setMsg($msg);
+    if (not $retFromCatch) {
+      my $msg = __("The certificate has been revoked");
+      $msg = __("The CA certificate has been revoked") if ($isCACert);
+      $self->setMsg($msg);
+    }
 
   }
 

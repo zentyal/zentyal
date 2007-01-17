@@ -75,7 +75,7 @@ sub certificateExpired # (commonName, isCACert)
 # 	Tells this module that an certificate is going to be revoked or has expired,
 #       so that it can remove it from its configuration.
 #
-# Parameteres:
+# Parameters:
 #
 #       commonName - common name which identifies the certificate
 #

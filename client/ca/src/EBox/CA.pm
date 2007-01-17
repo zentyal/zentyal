@@ -1,4 +1,4 @@
-# Copyright (C) 2006 Warp Networks S.L.
+ # Copyright (C) 2006 Warp Networks S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -406,8 +406,11 @@ sub revokeCACertificate
     my ($self, %args) = @_;
 
     # Check certificates is not in used
-    if ( $self->_certsInUse(undef, 1) and not $args{force}) {
-      throw EBox::Exceptions::DataInUse;
+    if ($args{force}) {
+      $self->_freeCert(undef, 1);
+    }
+    elsif( $self->_certsInUse(undef, 1) ){
+      throw EBox::Exceptions::DataInUse();
     }
 
     # Revoked all issued and valid certificates
@@ -852,13 +855,6 @@ sub revokeCertificate {
   throw EBox::Exceptions::DataMissing(data => __('Common Name') )
     unless defined($commonName);
 
-  my $isCACert = $self->{dn}->attribute('commonName') eq $commonName;
-
-  if ( $self->_certsInUse($commonName, $isCACert)
-       and not $args{force}) {
-    throw EBox::Exceptions::DataInUse;
-  }
-
   if ( defined($caKeyPassword) ) {
     $self->{caKeyPassword} = $caKeyPassword;
   }
@@ -876,6 +872,16 @@ sub revokeCertificate {
   throw EBox::Exceptions::External(__x("Reason {reason} is NOT an applicable reason.\n"
 				       . "Options:" . $self->{reasons}, reason => $reason))
     unless $reason eq any(@{$self->{reasons}});
+
+  # Tell observers the following certificate will be revoked
+  my $isCACert = $self->{dn}->attribute('commonName') eq $commonName;
+
+  if ( $args{force} ) {
+    $self->_freeCert($commonName, $isCACert);
+  }
+  elsif ( $self->_certsInUse($commonName, $isCACert) ) {
+    throw EBox::Exceptions::DataInUse();
+  }
 
   # TODO: Different kinds of revokations (CACompromise,
   # keyCompromise...) 
@@ -901,7 +907,7 @@ sub revokeCertificate {
   # Generate a new Certification Revocation List (For now in the same
   # method...)
 
-  # Localtime -> module NTP
+  # Localtime
   (my $day, my $month, my $year) = Date::Calc::Today();
 
   my $date = sprintf("%04d-%02d-%02d", $year+1900, $month+1, $day);
@@ -1598,8 +1604,6 @@ sub dumpConfig
 
     my ($self, $dir) = @_;
 
-    EBox::debug("dir: $dir");
-
     # Call super
     $self->SUPER::dumpConfig($dir);
     # Storing all OpenSSL directory tree where Certs/keys and DB are stored
@@ -2008,8 +2012,6 @@ sub _putInIndex # (EBox::CA::DN dn, String certFile, String
 
     my $date = $self->_obtain($args{certFile}, 'endDate');
 
-    EBox::debug("Date: $date");
-
     my $row = "V\t";
     $row .= $self->_flatDate($date) . "\t\t";
     $row .= $args{serialNumber} . "\t";
@@ -2075,8 +2077,6 @@ sub _filterErrorFromOpenSSL # (input)
 
     my ($self, $input) = @_;
 
-    EBox::debug("input: $input");
-
     if( $input eq "1") {
       $input = "1";
     } elsif ( $input =~ m/unable to load CA private key/i ) {
@@ -2093,8 +2093,6 @@ sub _filterErrorFromOpenSSL # (input)
     } else {
       $input = __("Unknown error. Given the OpenSSL output:") . $/ . $input;
     }
-
-    EBox::debug("output: $input");
 
     return $input;
 
@@ -2114,14 +2112,32 @@ sub _certsInUse # (cn?, isCACert?)
       if ($isCACert);
 
     my $global = EBox::Global->getInstance();
-    my @mods = @{$global->modInstancesOfType('EBox::CA::Observer')};
-    foreach my $mod (@mods) {
-      if( $mod->certificateRevoked($cn, $isCACert) ){
+    my @observers = @{$global->modInstancesOfType('EBox::CA::Observer')};
+    foreach my $obs (@observers) {
+      if( $obs->certificateRevoked($cn, $isCACert) ){
 	return 1;
       }
     }
 
     return undef;
+
+  }
+
+# Force observers to free this certificate
+sub _freeCert # (cn?, isCACert?)
+  {
+
+    my ($self, $cn, $isCACert) = @_;
+
+    $cn = $self->{dn}->attribute('commonName') if ($isCACert);
+
+    my $global = EBox::Global->getInstance();
+    my @observers = @{$global->modInstancesOfType('EBox::CA::Observer')};
+    foreach my $obs (@observers) {
+      if( $obs->freeCertificate($cn) ){
+	return 1;
+      }
+    }
 
   }
 

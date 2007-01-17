@@ -52,7 +52,7 @@ DOMAIN = $(PACKAGE)
 
 # These options get passed to xgettext.
 XGETTEXT_OPTIONS = \
-  --language Perl -k__ -k__x -k__d --flag=__:1:pass-perl-format --flag=__:1:pass-perl-brace-format
+  --language Perl -k__ -k__x -k__n -k__d --flag=__:1:pass-perl-format --flag=__:1:pass-perl-brace-format
 
 # This is the copyright holder that gets inserted into the header of the
 # $(DOMAIN).pot file.  Set this to the copyright holder of the surrounding

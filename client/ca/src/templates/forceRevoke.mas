@@ -1,7 +1,7 @@
 <%args>
   $commonName
   $isCACert => 1
-  reason    => "unknown"
+  $reason    => "unknown"
 </%args>
 <%init>
   use EBox::Gettext;
