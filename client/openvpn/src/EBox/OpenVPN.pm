@@ -520,7 +520,7 @@ sub certificateRevoked
 {
   my ($self, @params) = @_;
   foreach my $server ($self->servers()) {
-    if ($server->certificateRevoked()) {
+    if ($server->certificateRevoked(@params)) {
       return 1;
     }
   }
