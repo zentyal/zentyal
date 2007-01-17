@@ -1,0 +1,14 @@
+<%args>
+$name
+%clientAttrs
+</%args>
+
+<%init>
+use EBox::Gettext;
+</%init>
+
+<h3><% __x('Configuration of client {name}', name => $name) %></h3>
+<form action='EditClient' method='POST'>
+<& /openvpn/clientProperties.mas, properties => \%clientAttrs, submitName => 'edit', submitValue => __('Save changes') &>
+<input type='hidden' name='name' value='<% $name %>' />
+</form>

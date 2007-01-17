@@ -1,0 +1,57 @@
+<%args>
+$nameEditable   => 0
+%properties     => ()
+$submitName
+$submitValue
+</%args>
+<%init>
+use EBox::Gettext;
+
+my @tableElements  = (
+      [ name => 'service',           printableName => __('Active'), input => 'checkbox' ],
+					 
+      # server portion (if we support someday multiple servers the
+      # protocol would be part of cleint portion
+      [ name => 'serverAddr',            printableName => __("Server's address"),], 
+      [ name => 'proto',             printableName => __("Server's
+  protocol"), 
+       input => 'select', extraParams => [ options => [
+                                               { value => 'tcp',
+					       printableValue => 'TCP' },
+                                               { value => 'udp',
+					       printableValue => 'UDP' },
+                                         ], ], 
+       ],
+      [ name => 'serverPort',            printableName => __("Server's Port"),],
+
+      # certificates stuff      
+      [ name => 'caCertificatePath',            printableName => __("CA certificate path"),],		      
+      [ name => 'certificatePath',            printableName => __("Client's certificate path"),],		      
+      [ name => 'certificateKey',            printableName => __("Client's certificate key path"),],		      
+		      
+     );
+if ($nameEditable) {
+   unshift @tableElements, [ name => 'name', printableName =>    __('Client name') ];
+}
+# set values if required..
+
+
+
+@tableElements = map  {
+  my %element = @{ $_ };
+
+  my $propierty = $element{name};
+  if (exists $properties{$propierty}) {
+    $element{value} =  $properties{$propierty};
+  }
+   
+
+  [ %element ]
+} @tableElements;
+
+
+
+push @tableElements, [ name => $submitName, value => $submitValue, input => 'submit' ];
+
+</%init>
+<& /formTable.mas, rows => \@tableElements &>

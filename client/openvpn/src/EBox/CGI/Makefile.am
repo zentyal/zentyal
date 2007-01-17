@@ -3,7 +3,8 @@ SUBDIRS = t OpenVPN
 
 perldir = @PERLPATH@/EBox/CGI/OpenVPN
 
-nobase_perl_DATA = Index.pm Create.pm Enable.pm Edit.pm Delete.pm AddAdvertisedNet.pm  RemoveAdvertisedNet.pm
+nobase_perl_DATA = Index.pm Create.pm Enable.pm Edit.pm Delete.pm AddAdvertisedNet.pm  RemoveAdvertisedNet.pm CreateClient.pm EditClient.pm DeleteClient.pm
+
 
 MAINTAINERCLEANFILES = Makefile.in
 

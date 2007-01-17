@@ -1,6 +1,7 @@
 <%args>
 $service
 @servers
+@clients
 $disabled => 0
 </%args>
 <%init>
@@ -10,6 +11,7 @@ my $active  = $service ? 'yes' : 'no';
 % if (not $disabled) {
 <& enable.mas, title => __('OpenVPN service status'), active => $active &>
 <& serversList, servers => \@servers &>
+<& clientsList, clients => \@clients &>
 %   }
 % else {
   <& /openvpn/caRequired.mas &>
@@ -18,6 +20,7 @@ my $active  = $service ? 'yes' : 'no';
 <%args>
 @servers
 </%args>
+   <h3><% __('Servers') %></h3>
 		<table cellspacing='0' class='dataTable'>
 %               if (@servers > 0) {
 			<thead>
@@ -44,8 +47,7 @@ my $active  = $service ? 'yes' : 'no';
 		<tr>
 			<td><img src="/data/images/edit.gif" alt=""/></td>
 			<td style="padding-right: 10px;"><%__('edit')%></td>
-		</tr>
-
+		</tr> 
 		<tr>
 			<td><img src="/data/images/delete.gif" alt=""/></td>
 			<td style="padding-right: 10px;"><%__('delete')%></td>
@@ -85,3 +87,46 @@ $server
 </td>
 </tr>
 </%def>
+
+<%def clientsList>
+<%args>
+@clients
+</%args>
+<%init>
+my @columnTitles = (__('Name'), __('Actions'));
+my $deleteText = __('Delete');
+my $deleteIcon ='/data/images/delete.gif';
+my $editText = __('Edit');
+my $editIcon = '/data/images/edit.gif';
+my @rows = map {
+    my $clientName = $_;
+    my $deleteUrl = "DeleteClient?name=$clientName";
+    my $editUrl = "EditClient?name=$clientName";
+    my @actions = (
+	   {  url => $editUrl, text => $editText, icon => $editIcon },
+	   {  url => $deleteUrl, text => $deleteText, icon => $deleteIcon },
+    );
+    [$clientName, \@actions]
+} @clients;
+
+my  @columnTitlesParam = @clients > 0 ? (columnTitles => \@columnTitles) : ();
+</%init>
+<h3> <% __('Clients') %> </h3>
+<& dataTable.mas,  , rows => \@rows, @columnTitlesParam, additionalComponents => [qw(/openvpn/index.mas:.addClientRow)] &>
+
+</%def>
+
+<%method .addClientRow >
+ <tr class='border'>
+<td/>
+<td class='tcenter'>
+<form action='CreateClient' method='POST'>
+		<input class='inputButton' type='submit' name='submit' 
+			   value="<% __('Create new client') %>"
+			   alt="<% __('Create new client') %>">
+</form>
+</td>
+</tr>
+</%method>
+
+

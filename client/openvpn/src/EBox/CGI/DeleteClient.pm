@@ -1,4 +1,4 @@
-package EBox::CGI::OpenVPN::Delete;
+package EBox::CGI::OpenVPN::DeleteClient;
 # Description:
 use strict;
 use warnings;
@@ -34,16 +34,16 @@ sub optionalParameters
 }
 
 
+
+
 sub masonParameters
 {
     my ($self) = @_;
 
     my $name = $self->param('name');
-    my $type = __('Server');
-    return [name => $name, type => $type, action => 'Delete'];
+    my $type = __('Client');
+    return [name => $name, type => $type, action => 'DeleteClient'];
 }
-
-
 
 
 
@@ -69,9 +69,9 @@ sub _doDelete
 
     my $name = $self->param('name');
     my $openVPN = EBox::Global->modInstance('openvpn');
-    $openVPN->removeServer($name);
+    $openVPN->removeClient($name);
 
-    $self->setMsg(__x("Server {name} removed", name => $name) );
+    $self->setMsg(__x("Client {name} removed", name => $name) );
  }
 
 1;

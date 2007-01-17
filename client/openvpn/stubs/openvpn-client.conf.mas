@@ -31,7 +31,7 @@ dev tun
 # The hostname/IP and port of the server.
 # You can have multiple remote entries
 # to load balance between the servers.
-<& .remote, servers => @servers &>
+<& .remote, servers => \@servers &>
 
 # Choose a random host from the remote
 # list for load-balancing.  Otherwise

@@ -35,11 +35,11 @@ sub masonParameters
     my $openVPN = EBox::Global->modInstance('openvpn');
     my $service = $openVPN->service();
     my @servers = $openVPN->serversNames();
-
+    my @clients = $openVPN->clientsNames();
     
     my $disabled = $openVPN->CAIsCreated() ? 0 : 1;
 
-    return [ service => $service, servers => \@servers, disabled => $disabled  ];
+    return [ service => $service, servers => \@servers, clients => \@clients, disabled => $disabled  ];
 }
 
 sub actuate

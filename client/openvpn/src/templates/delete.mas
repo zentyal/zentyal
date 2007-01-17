@@ -1,24 +1,25 @@
 <%args>
 $name
+$type
+$action
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
-<h3><% __('Deleting OpenVPN server') %>:</h3>
+<h3><% __x('Deleting OpenVPN {type}', type => $type) %>:</h3>
 <div class='warning'>
-<% __x("Are you sure you want delete the server {name}.?\nThis action
-can not be undone.", name => $name) %>
+<% __x("Are you sure you want delete the {type} {name}.?\nThis action can not be undone.", name => $name, type => $type) %>
 </div>
 
 <p>
-<form action='Delete' method='POST'>
+<form action='<% $action %>' method='POST'>
 	<input type='hidden' name='name'
 		   value='<% $name %>'/>
 	<input class='inputButton'
 		   type='submit' name='deleteConfirmed'
-		   value="<% __('Delete') %>">
+		   value="<% __('Delete') %>" />
 	<input class='inputButton'
 		   type='submit' name='cancel'
-		   value="<% __('Cancel') %>">
+		   value="<% __('Cancel') %>" />
 </form>
 </p>

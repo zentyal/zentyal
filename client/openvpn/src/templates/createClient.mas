@@ -1,0 +1,7 @@
+<%init>
+use EBox::Gettext;
+</%init>
+           <h3><% __('OpenVPN client creation') %> </h3>
+	   <form action=CreateClient' method='POST'>
+              <& /openvpn/clientProperties.mas,  nameEditable => 1,   submitName => 'create', submitValue => __('Create') &>
+           </form>
