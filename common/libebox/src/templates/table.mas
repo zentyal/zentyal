@@ -22,7 +22,7 @@ Parameters:
  tdClass    => undef
 </%attr>
 <%init>
-sub _class { my ($class) = @_; defined $class ?  "class=$class'" : "" }
+sub _class { my ($class) = @_; defined $class ?  "class='$class'" : "" }
 </%init>
 <& SELF:table, columnTitles => \@columnTitles, rows => \@rows,
 additionalComponents => \@additionalComponents &>
