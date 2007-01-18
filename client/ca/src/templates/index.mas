@@ -53,9 +53,16 @@ use EBox::CA::DN;
     <th class="thOptions"><% __("Actions") |h%></th>
   </thead>
   <tbody>
-%   foreach my $cert (@{$certs}) {
-%   # It is needed to check if it is the CA certificate
-    <tr class="tcenter">
+<%perl>
+   foreach my $cert (@{$certs}) {
+   # It is needed to check if it is the CA certificate
+     if ( $cert->{'isCACert'} and $cert->{'state'} eq 'V' ) {
+       print '<tr class="highlight tcenter">';
+     }
+     else {
+       print '<tr class="tcenter">';
+     }
+</%perl>
       <td>
         <% $cert->{'dn'}->attribute('commonName') |h %>
       </td>
