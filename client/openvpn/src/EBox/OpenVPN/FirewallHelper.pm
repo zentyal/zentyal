@@ -7,10 +7,10 @@ use warnings;
 sub new 
 {
         my ($class, %opts) = @_;
-	my $ports_r = delete $opts{portsByProto};
 
         my $self = $class->SUPER::new(%opts);
-	$self->{portsByProto} = $ports_r;
+	$self->{portsByProto}     =  delete $opts{portsByProto};
+	$self->{serversToConnect} =  delete $opts{serversToConnect};
 
         bless($self, $class);
         return $self;
@@ -23,7 +23,11 @@ sub portsByProto
     return $self->{portsByProto};
 }
 
-
+sub serversToConnect
+{
+    my ($self) = @_;
+    return $self->{serversToConnect};
+}
 
 sub input
 {
@@ -55,6 +59,12 @@ sub output
 	    my $rule = "--protocol $proto --source-port $port -j ACCEPT";
 	    push @rules, $rule;
 	}
+    }
+
+    foreach my $server_r (@{ $self->serversToConnect() }) {
+      my ($serverProto, $server, $serverPort) = @{ $server_r };
+      my $connectRule =  "--protocol $serverProto --destination $server --destination-port $serverPort -j ACCEPT";
+      push @rules, $connectRule;
     }
 
     return \@rules;

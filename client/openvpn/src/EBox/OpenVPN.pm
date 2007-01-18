@@ -264,7 +264,7 @@ sub newClient
 }
 
 
-# a object client cache may be a good idea?
+
 sub client
 {
     my ($self, $name) = @_;
@@ -273,8 +273,27 @@ sub client
     return $client;
 }
 
+# return a ref to a list of [proto server port]
+sub _serversToConnect
+{
+  my ($self) = @_;
+  my @clients = $self->activeClients();
 
+  my @servers = map {
+    my $client = $_;
+    my $proto = $client->proto();
 
+    my @serversForClient;
+    foreach my $server_r (@{ $client->servers() } ) {
+      my ($server, $serverPort) = @{ $server_r };
+      push @serversForClient, [$proto, $server, $serverPort];
+    }
+
+    @serversForClient;
+  } @clients;
+
+  return \@servers;
+}
 
 
 sub _checkName
@@ -357,8 +376,12 @@ sub firewallHelper
      }
 
     my $portsByProto = $self->_portsByProtoFromServers($self->activeServers); 
+    my $serversToConnect = $self->_serversToConnect();
 
-    my $firewallHelper = new EBox::OpenVPN::FirewallHelper (portsByProto => $portsByProto);
+    my $firewallHelper = new EBox::OpenVPN::FirewallHelper (
+							    portsByProto     => $portsByProto,
+							    serversToConnect => $serversToConnect,
+							   );
     return $firewallHelper;
 }
 
