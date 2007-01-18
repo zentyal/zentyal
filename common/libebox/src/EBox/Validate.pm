@@ -528,7 +528,8 @@ sub _checkDomainName {
 #
 # Parameters:
 #
-#	name - name to check       
+#	domain - domain to check
+#	name - Data's name to be used when throwing an Exception    
 #
 # Returns:
 #
@@ -551,6 +552,32 @@ sub checkDomainName # (domain, name?)
 }
 
 
+# Function: checkHost
+#
+#	Checks if a given host is valid. It is considered valid either a valid no-CIDR IP address or a valid hostname
+#
+# Parameters:
+#
+#	host - host to check       
+#	name - Data's name to be used when throwing an Exception.     
+#
+# Returns:
+#
+#	boolean - True if it is a valid domain name, false otherwise 
+#
+sub checkHost # (domain, name?)
+{
+  my ($host, $name) = @_;
+# if the host is made only of numbers and points we checki it as a IP address otherwise we check it as a hostname
+   if ( $host =~ m/^[\d.]+$/ ) {  
+    return checkIP($host, $name);
+  }
+  else {
+    return checkDomainName($host, $name);
+  }
+
+}
+
 # Function: isPrivateDir
 #
 #	Check if the given directory is private and owned by the current user
@@ -558,7 +585,7 @@ sub checkDomainName # (domain, name?)
 # Parameters:
 #
 #	dir - The directory
-#       throwException - wethet to throw a exception if the check fails (default: false)
+#       throwException - wether to throw a exception if the check fails (default: false)
 #
 # Returns:
 # 	true if the parameter is a number, undef otherwise.

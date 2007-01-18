@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 93;
+use Test::More tests => 100;
 use Test::Exception;
 use Fatal qw(mkdir);
 
@@ -13,6 +13,7 @@ BEGIN { use_ok('EBox::Validate') };
 checkFilePathTest();
 checkAbsoluteFilePathTest();
 checkIsPrivateDir();
+checkHostTest();
 
 sub checkFilePathTest
 {
@@ -121,6 +122,31 @@ sub _checkPathSubsTest
 
 }
 
+
+sub checkHostTest
+{
+  my @straightCases  = (
+                          'macaco.monos.org',  # valid hostname
+                          'isolatedMonkey',    # valid stand-alone hostname
+                          '192.168.45.21',     # valid ip address
+		       );
+  my @deviantCases  = (
+		       '198.23.423.12',  # invalid ip address
+		       'badhost_.a.com', # invalid hostname
+
+		      );
+
+    foreach my $case (@straightCases) {
+	my $name = "checking validation for straight case: $case";
+	ok EBox::Validate::checkHost($case), $name;
+    }
+
+    foreach my $case (@deviantCases) {
+	my $name = "checking validation error for deviant case: $case";
+	ok ! EBox::Validate::checkHost($case), $name;
+	dies_ok {  EBox::Validate::checkHost($case, $name) } "$name (with name parameter)";
+    }
+}
 
 
 1;
