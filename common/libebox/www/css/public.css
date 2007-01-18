@@ -243,6 +243,10 @@
 
 .dataTable { background: #787878; }
 
+.dataTable tr.highlight { background: #E58A22; }
+
+.dataTable tr.highlight:hover { background: #F2A349; }
+
 .iptable {
 	font-size: 11px;
 	margin-left: 25px;
