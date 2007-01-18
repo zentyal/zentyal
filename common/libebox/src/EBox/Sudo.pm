@@ -37,7 +37,7 @@ BEGIN {
 
 	@ISA = qw(Exporter);
 	@EXPORT = qw();
-	%EXPORT_TAGS  = (all => [qw{ root command stat rootCommandForStat} ],
+	%EXPORT_TAGS  = (all => [qw{ root command stat fileStat} ],
 			);
 	@EXPORT_OK = qw();;
 
