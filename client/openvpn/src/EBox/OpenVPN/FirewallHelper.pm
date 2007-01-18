@@ -52,15 +52,6 @@ sub output
     my ($self) = @_;
     my @rules = ('-i tun+ -j ACCEPT'); # do not firewall openvpn virtual iface
     
-    my $portsByProto = $self->portsByProto;
-    foreach my $proto (keys %{$portsByProto}) {
-	my @ports = @{ $portsByProto->{$proto} };
-	foreach my $port (@ports) {
-	    my $rule = "--protocol $proto --source-port $port -j ACCEPT";
-	    push @rules, $rule;
-	}
-    }
-
     foreach my $server_r (@{ $self->serversToConnect() }) {
       my ($serverProto, $server, $serverPort) = @{ $server_r };
       my $connectRule =  "--protocol $serverProto --destination $server --destination-port $serverPort -j ACCEPT";
