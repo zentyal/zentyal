@@ -36,7 +36,8 @@ BEGIN {
 					checkIPNetmask	
 					checkProtocol checkPort
 					checkName checkMAC checkVifaceName
-					checkDomainName isIPInNetwork
+					checkDomainName  checkHost
+                                        isIPInNetwork
 					checkVlanID isPrivateDir isANumber 
 					isAPositiveNumber
 					checkFilePath checkAbsoluteFilePath
