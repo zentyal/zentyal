@@ -101,12 +101,12 @@ sub _process
     # We make symbolic links in order to make dir-plained tar file
     my ($linkPrivate, $linkPublic, $linkCert);
     if ( $metaDataCert->{"isCACert"} ) {
-      $linkPublic = "caPublicKey.pem";
-      $linkCert = "caCert.pem";
+      $linkPublic = "ca-public-key.pem";
+      $linkCert = "ca-cert.pem";
     } else {
-      $linkPrivate = "private-". $self->{cn} . ".pem";
-      $linkPublic = "public-" . $self->{cn} . ".pem";
-      $linkCert = "cert-" . $self->{cn} . ".pem";
+      $linkPrivate = $self->{cn} . "-private-key.pem";
+      $linkPublic  = $self->{cn} . "-public-key.pem";
+      $linkCert    = $self->{cn} . "-cert.pem";
     }
 
     link($files->{privateKey}, EBox::Config->tmp() . $linkPrivate)

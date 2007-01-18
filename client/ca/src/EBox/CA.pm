@@ -59,7 +59,7 @@ use constant NEWCERTSDIR => CATOPDIR . "newcerts/";
 use constant CERTSDIR    => CATOPDIR . "certs/";
 # Place to put the public keys
 use constant KEYSDIR      => CATOPDIR . "keys/";
-use constant CAREQ        => REQDIR . "careq.pem";
+use constant CAREQ        => REQDIR   . "careq.pem";
 use constant CACERT       => CATOPDIR . "cacert.pem";
 use constant INDEXFILE    => CATOPDIR . "index.txt";
 use constant CRLNOFILE    => CATOPDIR . "crlnumber";
