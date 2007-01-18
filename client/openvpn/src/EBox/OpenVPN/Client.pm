@@ -5,11 +5,9 @@ use warnings;
 
 use base qw(EBox::OpenVPN::Daemon);
 
-use EBox::Validate qw(checkPort checkAbsoluteFilePath checkIP checkDomainName);
+use EBox::Validate qw(checkPort checkAbsoluteFilePath checkHost);
 use EBox::NetWrappers;
-use EBox::CA;
-use Perl6::Junction qw(all);
-use List::Util qw(first);
+use EBox::Sudo;
 use EBox::Gettext;
 use Params::Validate qw(validate_pos SCALAR);
 
@@ -28,11 +26,16 @@ sub new
 
 
 
-sub _setConfPath
+sub _setConfFilePath
 {
   my ($self, $key, $path, $prettyName) = @_;
 
   checkAbsoluteFilePath($path, __($prettyName));
+
+  if (!EBox::Sudo::fileTest('-f', $path)) {
+    throw EBox::Exceptions::External(__x('Inexistent file {path}', path => $path));
+  }
+
   $self->setConfString($key, $path);
 }
 
@@ -65,7 +68,7 @@ sub setCaCertificatePath
 {
   my ($self, $path) = @_;
   my $prettyName = q{Certification Authority's certificate};
-  $self->_setConfPath('caCertificatePath', $path, $prettyName);
+  $self->_setConfFilePath('caCertificatePath', $path, $prettyName);
 }
 
 
@@ -79,7 +82,7 @@ sub setCertificatePath
 {
   my ($self, $path) = @_;
   my $prettyName = q{client's certificate};
-  $self->_setConfPath('certificatePath', $path, $prettyName);
+  $self->_setConfFilePath('certificatePath', $path, $prettyName);
 }
 
 
@@ -93,7 +96,7 @@ sub setCertificateKey
 {
   my ($self, $path) = @_;
   my $prettyName = q{certificate's key};
-  $self->_setConfPath('certificateKey', $path, $prettyName);
+  $self->_setConfFilePath('certificateKey', $path, $prettyName);
 }
 
 
@@ -175,13 +178,7 @@ sub addServer
 {
   my ($self, $addr, $port) = @_;
 
-  if (!checkDomainName($addr) && !checkIP($addr)) {
-    throw EBox::Exceptions::InvalidData(
-					data => __('Server address'), 
-					value => $addr,
-				       );
-  }
-
+  checkHost($addr, __(q{Server's address}));
   checkPort($port, __(q{Server's port}));
 
   $self->setConfInt("servers/$addr", $port);

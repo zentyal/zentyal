@@ -130,9 +130,12 @@ sub _doEdit
     }
 
     if ($self->param('serverAddr') ||  $self->param('serverPort')) {
-      my ($serverAddr, $serverPort) = $self->_getServerPropierties($client);
-      my $newServerAddr = defined $self->param('serverAddr') ? $self->param('serverAddr') : $serverAddr;
-      my $newServerPort = defined $self->param('serverPort') ? $self->param('serverPort') : $serverPort;
+      my ($newServerAddr, $newServerPort) = ($self->param('serverAddr'), $self->param('serverPort'));
+      my ($oldServerAddr, $oldServerPort) = $self->_getServerPropierties($client);
+
+      my $serverAddr  = defined $newServerAddr ? $newServerAddr : $oldServerAddr;
+      my $serverPort  = defined $newServerPort ? $newServerPort : $oldServerPort;
+
       my @newServers = ([$serverAddr, $serverPort],);
       $client->setServers(\@newServers);
     }
@@ -153,6 +156,9 @@ sub _getServerPropierties
 {
   my ($self, $client) = @_;
   my @servers = @{ $client->servers()  };
+
+  return (undef, undef) if (@servers == 0);
+
   my ($serverAddr, $serverPort) = @{ $servers[0] };
   return ($serverAddr, $serverPort);
 }
