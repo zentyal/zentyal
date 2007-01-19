@@ -105,11 +105,8 @@ use EBox::CA::DN;
 	  <img src="/data/images/deny-active.gif"
 	       alt="<% __('Revoke') |h %>" />
 	</a>   
-%	} else {
-        <img src="/data/images/deny-inactive.gif"
-	     alt="<% __('Revoke') |h%>" />
-%	}
         <img src="/data/images/sep.gif" alt="-" />
+%	} 
 %	if ( $cert->{"state"} eq "V" ) {
         <a
 	href="DownloadFiles?cn=<%$cert->{'dn'}->attribute('commonName') | u%>"
@@ -117,19 +114,17 @@ use EBox::CA::DN;
 	  <img src="/data/images/install.gif"
 	       alt="<% __('Download Key(s) and Certificate') |h%>" />
 	</a>   
-%	} else {
-        <img src="/data/images/hide.gif"
-	     alt="<% __('Download Key(s)') |h%>" />
-%	}
         <img src="/data/images/sep.gif" alt="-" />
+%	} 
 %	if ( $cert->{"state"} eq "V" ) {
         <a
 	href="ShowForm?action=renew&cn=<%$cert->{'dn'}->attribute('commonName')
 	| u%>"
 	>
-	  <img src="/data/images/requeue.gif"
+	  <img src="/data/images/reload.gif"
 	       alt="<% __('Renew') |h%>" />
 	</a>   
+        <img src="/data/images/sep.gif" alt="-" />
 %	} 
       </td>
     </tr>  
