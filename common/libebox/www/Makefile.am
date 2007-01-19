@@ -7,7 +7,8 @@ nobase_www_DATA = images/delete.gif images/show.gif \
   images/up.gif images/down.gif images/add.gif images/left.gif \
   images/sep.gif images/apply.gif images/warning.gif images/right.gif \
   images/error.gif images/msg.gif js/csshover.htc js/common.js \
-  js/help.js images/key-point_bl.gif images/key-point_tl.gif \
+  js/help.js js/ajax-helper.js js/prototype.js \
+  images/key-point_bl.gif images/key-point_tl.gif \
   images/menu_back.gif images/menu_br.gif images/menu_tr.gif \
   images/edit.gif images/view.gif images/r_arrow.gif images/cmenu.gif \
   images/allow-active.gif images/allow-inactive.gif \

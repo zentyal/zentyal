@@ -238,10 +238,11 @@
 	font-family: Verdana, 'Bitstream Vera Sans', sans-serif;
 	padding: 6px;
 	color: #fff;
+	background: #787878;
 	vertical-align: bottom;
 }
 
-.dataTable { background: #787878; }
+.dataTable { background: #FFF; }
 
 .dataTable tr.highlight { background: #E58A22; }
 

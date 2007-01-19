@@ -110,11 +110,15 @@ src/EBox/Backup/testdata/Makefile
 src/EBox/GConfModule/Makefile
 src/EBox/GConfModule/t/Makefile
 src/EBox/Global/Makefile
+src/EBox/Model/Makefile
 src/EBox/Global/t/Makefile
+src/EBox//t/Makefile
 src/EBox/Test/Makefile
 src/EBox/Test/t/Makefile
 src/EBox/CGI/Makefile
 src/EBox/CGI/EBox/Makefile
+src/EBox/CGI/EBox/Controller/Makefile
+src/EBox/CGI/EBox/View/Makefile
 src/EBox/CGI/Login/Makefile
 src/EBox/CGI/Logout/Makefile
 src/EBox/CGI/Logs/Makefile

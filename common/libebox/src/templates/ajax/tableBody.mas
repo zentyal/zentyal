@@ -1,0 +1,170 @@
+<%args>
+	@data => ()
+	$dataTable
+</%args>
+<%init>
+use EBox::Gettext;
+use HTML::Prototype;
+
+my $prototype = new HTML::Prototype;
+my @tableHead = @{$dataTable->{'tableDescription'}};
+# TODO share vars with header component
+my @tableFields = map { $_->{'fieldName'} } @tableHead;
+my $tableFields = '[';
+foreach my $field (@tableFields) {
+	$tableFields .= "'$field',";
+}
+chop($tableFields);
+$tableFields .= ']';
+
+</%init>		 		
+
+				<tr class='border'>
+				
+%	foreach my $td (@tableHead) {
+					<td>
+%		if ($td->{'type'} eq 'text' or $td->{'type'} eq 'int') {
+
+						<& .inputText, ( 'tableName' => "$dataTable->{'tableName'}", 'fieldName' => "$td->{'fieldName'}", 'size' => "$td->{'size'}") &> <% $td->{'trailingText'} %>
+
+%		} elsif ($td->{'type'} eq 'select') {
+						
+						<& /input/select.mas,  name => "$dataTable->{'tableName'}_$td->{'fieldName'}" , 
+											   value => '', options => $td->{'selectOptions'},
+											   extraParams => [ "id='$dataTable->{'tableName'}_$td->{'fieldName'}'" ] &>
+	
+%		} elsif ($td->{'type'} eq 'checkbox') {
+					
+						<& .checkbox, ( 'tableName' => "$dataTable->{'tableName'}", 'fieldName' => "$td->{'fieldName'}") &>
+
+%		}
+
+					
+					</td>
+% 	}
+						<td class='tcenter'>
+							<input class='inputButton' type='image' name='add'
+									value="Add" title="Add"
+									alt="Add" src='/data/images/add.gif'
+									onClick="addNewRow('<% $dataTable->{"actions"}->{"add"} %>', '<% $dataTable->{"tableName"} %>', <% $tableFields %>, '<% $dataTable->{"gconfdir"} %>'); return false"/>
+						</td>
+
+
+					</tr>
+
+
+%	foreach my $row (@data) {
+				<tr class='border'>
+				
+%		foreach my $td (@tableHead) {
+				<td>
+%			my $id = $dataTable->{'tableName'} . '_' . $row->{'id'} . '_' . $td->{'fieldName'};
+%					if ($td->{'type'} eq 'text' or $td->{'type'} eq 'int') {
+
+							<span id='<% $id %>'><% $row->{$td->{'fieldName'}} %></span> <% $td->{'trailingText'} %>
+
+
+%					} elsif ($td->{'type'} eq 'select') {
+						
+
+						<& /input/select.mas,  name => $id, value => $row->{$td->{'fieldName'}},
+							options => $td->{'selectOptions'}, 
+							extraParams => [ 
+								   			"onChange=\"sendCheckboxChange(
+                                            '$row->{'id'}',
+                                            '$dataTable->{'actions'}->{'editField'}',
+											'$dataTable->{'tableName'}',
+                                            '$dataTable->{'tableName'}_$row->{'id'}_',
+                                            $tableFields,
+                                            '$td->{'fieldName'}',
+											'$dataTable->{'gconfdir'}')\"",
+											"id='$id'" ] &>
+									
+%					} elsif ($td->{'type'} eq 'checkbox') {
+						
+						<& /input/checkbox.mas, name => $id, value => $row->{$td->{'fieldName'}},
+						   extraParams => [
+						   			"onClick=\"sendCheckboxChange(
+                                            '$row->{'id'}',
+                                            '$dataTable->{'actions'}->{'editField'}',
+											'$dataTable->{'tableName'}',
+                                            '$dataTable->{'tableName'}_$row->{'id'}_',
+                                            $tableFields,
+                                            '$td->{'fieldName'}',
+											'$dataTable->{'gconfdir'}')\"",
+									"id='$id'" ]
+						&>
+%					}
+				</td>
+% 		}
+%
+				<td class='tcenter'>
+%			my $del = $dataTable->{'actions'}->{'del'};
+%			if ($del) {
+					<input  class='inputButton' type='image' name='del'
+					value="Del" title="Del"
+					alt="Del" src='/data/images/delete.gif'
+					onClick='actionClicked("<% $del %>", "<% $dataTable->{"tableName"} %>",  "&action=del&id=<% $row->{"id"} %>", "<% $dataTable->{"gconfdir"} %>")' />
+			
+%			}
+		
+%			if ($dataTable->{'order'} == 1) {
+					<input  class='inputButton' type='image' name='up'
+					value="Up" title="Del"
+					alt="Up" src='/data/images/up.gif' onClick='actionClicked("<% $dataTable->{"actions"}->{"move"} %>", "<% $dataTable->{"tableName"} %>",  "action=move&dir=up&id=<% $row->{"id"} %>",  "<% $dataTable->{"gconfdir"} %>")'/>
+
+					<input  class='inputButton' type='image' name='down'
+					value="Down" title="Down"
+					alt="Down" src='/data/images/down.gif' onClick='actionClicked("<% $dataTable->{"actions"}->{"move"} %>", "<% $dataTable->{"tableName"} %>",  "action=move&dir=down&id=<% $row->{"id"} %>",  "<% $dataTable->{"gconfdir"} %>")'/>
+
+% 			}
+				</td>
+
+				</tr>
+% 	}	
+
+<script>
+
+%	foreach my $row (@data) {
+%		foreach my $td (@tableHead) {
+%					if ($td->{'type'} eq 'text' or $td->{'type'} eq 'int') {
+							newInPlaceEditor(
+									'<% $row->{"id"} %>',
+									'<% $dataTable->{"actions"}->{"editField"} %>',
+									'<% $dataTable->{'tableName'} %>',
+									"<% $dataTable->{'tableName'} . '_' . $row->{'id'} . '_' %>",
+									<% $tableFields %>,
+									"<% $td->{'fieldName'} %>",
+									"<% $dataTable->{'gconfdir'} %>"
+									);
+						
+%					} 
+% 		}
+%	}
+
+</script>
+
+
+<%def .inputText>
+<%args>
+$tableName
+$fieldName
+$size
+$value => ''
+</%args>
+					<input type="text" class="inputText"
+						size="<% $size %>" id='<% $tableName . '_' . $fieldName %>' name='<% $fieldName %>' /> 
+</%def>
+
+<%def .checkbox>
+<%args>
+$tableName
+$fieldName
+</%args>
+	
+					<& /input/checkbox.mas, name => "$fieldName", extraParams => ("id='$tableName" .'_' ."$fieldName'") &>
+</%def>
+
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+

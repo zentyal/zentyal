@@ -2,7 +2,10 @@
 
 perldir = @PERLPATH@/EBox/CGI
 
-nobase_perl_DATA = ClientBase.pm Finish.pm
+nobase_perl_DATA = ClientBase.pm ClientRawBase.pm Finish.pm DataTableView.pm \
+		  DataTableController.pm DataTableControllerAdd.pm \
+		  DataTableControllerUpdate.pm DataTableControllerMove.pm \
+		  DataTableControllerDel.pm
 
 SUBDIRS = EBox Login Logout Logs Summary FirstTime
 

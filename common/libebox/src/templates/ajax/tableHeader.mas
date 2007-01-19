@@ -1,0 +1,52 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	@data
+	$dataTable
+</%args>
+<%init>
+use EBox::Gettext;
+use HTML::Prototype;
+my $proto = new HTML::Prototype;
+my @tableHead = @{$dataTable->{'tableDescription'}};
+</%init>
+<script type="text/javascript" src="/data/js/ajax-helper.js">//</script>
+<script type="text/javascript" src="/data/js/prototype.js">//</script>
+
+<div class="help">
+<% $dataTable->{'help'} %>
+</div>
+
+
+	<h3><% $dataTable->{'printableTableName'} %></h3>
+	<div id='error_<% $dataTable->{'tableName'} %>'></div>
+		<table cellspacing='0' class='<% $dataTable->{'class'} %>'>
+			
+			<thead>
+			
+%	foreach my $th (@tableHead) {
+				<th class='<% $th->{'class'} %>'>
+					<% $th->{'printableName'} %>
+				</th>
+%	}
+
+				<th class='thOptions'>
+					<% __('Action') %>
+				</th>
+			</thead>
+
+			<tbody id="<% $dataTable->{'tableName'} %>">			
+
+					<& /ajax/tableBody.mas, 
+									'data' => \@data,
+									'dataTable' => $dataTable, &>
+
+			</tbody>
+
+		</table>
+
+
+
+
+
+
