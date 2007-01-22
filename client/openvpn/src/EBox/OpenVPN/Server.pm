@@ -132,7 +132,7 @@ sub setCertificate
 
   $self->_checkCertificate($certificateCN);
   
-  $self->setConfString('server_certificate', $certificateCN, 'Server certificate');
+  $self->setConfString('server_certificate', $certificateCN);
 }
 
 sub certificate
@@ -238,6 +238,28 @@ sub clientToClient
 }
 
 
+
+sub tlsRemote
+{
+  my ($self) = @_;
+  $self->getConfString('tlsRemote');
+}
+
+
+sub setTlsRemote
+{
+  my ($self, $clientCN) = @_;
+
+  if (!$clientCN) {   # disabling access by cn
+    $self->unsetConf('tlsRemote');
+    return;
+  }
+
+  $self->_checkCertificate($clientCN);
+  $self->setConfString('tlsRemote', $clientCN);
+}
+
+
 sub confFileTemplate
 {
   my ($self) = @_;
@@ -249,7 +271,7 @@ sub confFileParams
   my ($self) = @_;
   my @templateParams;
 
-  my @paramsNeeded = qw(subnet subnetNetmask local port caCertificatePath certificatePath key clientToClient user group proto dh);
+  my @paramsNeeded = qw(subnet subnetNetmask local port caCertificatePath certificatePath key clientToClient user group proto dh tlsRemote);
   foreach  my $param (@paramsNeeded) {
     my $accessor_r = $self->can($param);
     defined $accessor_r or die "Can not found accesoor for param $param";
@@ -428,7 +450,7 @@ sub setFundamentalAttributes
     $self->setPort($params{port});
     $self->setCertificate($params{certificate});    
 
-    my @noFundamentalAttrs = qw(local clientToClient advertisedNets); 
+    my @noFundamentalAttrs = qw(local clientToClient advertisedNets tlsRemote); 
     push @noFundamentalAttrs, 'service'; # service must be always the last attr so if there is a error before the server is not activated
 
     foreach my $attr (@noFundamentalAttrs)  {

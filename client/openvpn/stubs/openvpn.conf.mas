@@ -11,6 +11,7 @@ $clientToClient   => 0
 $user
 $group
 $dh
+$tlsRemote      => undef
 @advertisedNets => ()
 </%args>
 
@@ -70,6 +71,10 @@ ifconfig-pool-persist ipp.txt
 # messages to be sent back and forth over
 keepalive 10 120
 
+
+# client certificate common name authentication
+<& valueEntry, entry=> 'tls-remote', value => $tlsRemote &>
+
 # For extra security beyond that provided
 # by SSL/TLS, create an "HMAC firewall"
 # to help block DoS attacks and UDP port flooding.
@@ -116,8 +121,7 @@ status openvpn-status.log
 # "log" will truncate the log file on OpenVPN startup,
 # while "log-append" will append to it.  Use one
 # or the other (but not both).
-;log         openvpn.log
-;log-append  openvpn.log
+log-append  openvpn.log
 
 # Set the appropriate level of log
 # file verbosity.

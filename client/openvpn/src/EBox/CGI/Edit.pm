@@ -9,7 +9,8 @@ use EBox::Global;
 use EBox::OpenVPN;
 use Perl6::Junction qw(any);
 
-my @serverPropierties = qw(subnet subnetNetmask port proto certificate  clientToClient local service);
+my @serverPropierties = qw(subnet subnetNetmask port proto certificate  clientToClient local service tlsRemote);
+
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -45,7 +46,7 @@ sub optionalParameters
     @optional = qw(name network netmask submit);
 
     if ($self->param('edit')) {
-	push @optional, @serverPropierties;
+      push @optional, @serverPropierties;
     }
 
     return \@optional;

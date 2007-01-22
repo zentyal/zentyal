@@ -67,6 +67,8 @@ sub _writeConfFiles
 {
     my ($self) = @_;
 
+    $self->_wrtiteARPDaemonConf(); # XXX ARP stuff
+
     my $confDir = $self->confDir;
 
     my @daemons = $self->daemons();
@@ -460,6 +462,8 @@ sub _startDaemon
 {
     my ($self) = @_;
 
+    $self->_startARPDaemon(); # XXX ARP stuff
+
     my @daemons =  grep { $_->service } $self->daemons();
     foreach my $daemon (@daemons) {
 	my $command = $self->rootCommandForStartDaemon($daemon->confFile, $daemon->name);
@@ -470,6 +474,9 @@ sub _startDaemon
 sub _stopDaemon
 {
     my ($self) = @_;
+
+    $self->_startARPDaemon(); # XXX ARP stuff
+
     my $stopCommand = $self->rootCommandForStopDaemon();
     EBox::Sudo::root($stopCommand);
 }
@@ -503,6 +510,23 @@ sub _stopService
     EBox::Service::manage('openvpn','stop');
 }
 
+
+
+sub _startARPDaemon
+{
+
+}
+
+
+sub _stopARPDaemon
+{
+
+}
+
+sub _wrtiteARPDaemonConf
+{
+
+}
 
 sub availableCertificates
 {

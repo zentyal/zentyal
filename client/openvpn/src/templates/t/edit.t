@@ -23,6 +23,7 @@ my %serverAttrs = (
 		   proto         => 'tcp',
 		   clientToClient => 0,
 		   local          => '192.168.133.41',
+		   tlsRemote      => undef,
 		  );
 
 my @advertisedNets = (

@@ -16,6 +16,15 @@ my $certificateInput =  [
 			 extraParams => [ options =>  \@certificateOptions , ], 
 			];
 
+my @tlsRemoteOptions = ( { value =>  0,printableValue => __('disabled'), } , @certificateOptions);
+my $tlsRemoteInput = [
+		      name => 'tlsRemote',
+		      printableName => __('Client authentication by common name'),
+		      input => 'select',
+		      extraParams => [ options => \@tlsRemoteOptions ], 
+		      warning        => __('Any common name with this value as prefix will also be authorized'),
+		     ];
+
 my @tableElements  = (
       [ name => 'service',           printableName => __('Active'), input => 'checkbox' ],
       [ name => 'port',              printableName => __('Port'),],
@@ -29,7 +38,8 @@ my @tableElements  = (
 					       printableValue => 'UDP' },
                                          ], ], 
        ],					 
-      $certificateInput,	      
+      $certificateInput,	
+      $tlsRemoteInput,		      
       [ name => 'clientToClient',    printableName => __('Allow client-to-client connections'), input => 'checkbox' ], 
       [ name => 'local',             printableName => __('Local address to listen on'), 
       help => __("If not local address to listen on is provided, the server will

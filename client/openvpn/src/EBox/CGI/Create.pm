@@ -39,7 +39,7 @@ sub optionalParameters
 {
     my ($self) = @_;
     if ($self->param('create')) {
-	[qw(local clientToClient service advertisedNets)];
+	[qw(local clientToClient service advertisedNets tlsRemote)];
     }
     else {
 	return [qw(createFromIndex)];
@@ -77,6 +77,11 @@ sub actuate
 	    next if $value ne '';
 	    delete $params{$key};
 	}
+
+	if (exists $params{tlsRemote} and !$params{tlsRemote}) {
+	  delete $params{tlsRemote};
+	}
+
 
 	$openVPN->newServer($name, %params);
 

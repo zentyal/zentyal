@@ -171,6 +171,61 @@ sub setCertificateTest : Test(10)
 }
 
 
+
+sub setTlsRemoteTest : Test(12)
+{
+  my ($self) = @_;
+
+    my $ca    = EBox::Global->modInstance('ca');
+    my @certificates = (
+			{
+			 dn => 'CN=monos',
+			 isCACert => 1,
+			},
+			{
+			 dn => 'CN=certificate1',
+			 path => '/certificate1.crt',
+			},
+			{
+			 dn    => 'CN=certificate2',
+			 path => '/certificate2.crt',
+			},
+			{
+			 dn    => 'CN=expired',
+			 state => 'E',
+			 path => '/certificate2.crt',
+			},
+			{
+			 dn    => 'CN=revoked',
+			 state => 'R',
+			 path => '/certificate2.crt',
+			},
+		       );
+  $ca->setInitialState(\@certificates);
+
+    my $server          = $self->_newServer('macaco');
+    my $certificateGetter_r    =  $server->can('tlsRemote');
+    my $certificateSetter_r    =  $server->can('setTlsRemote');
+    my $correctCertificates   = [qw(certificate1 certificate2)];
+    my $incorrectCertificates = [qw(inexistentCertificate expired revoked)];
+
+    setterAndGetterTest(
+			  object         => $server,
+			  getter         => $certificateGetter_r,
+			  setter         => $certificateSetter_r,
+			  straightValues => $correctCertificates,
+			  deviantValues  => $incorrectCertificates,
+			  propierty      => "Server\'s tls-remote option",
+			);
+
+
+  $server->tlsRemote() or die "Must return a tlsRemote or something it is rotten";
+  
+  lives_ok { $server->setTlsRemote(0) } 'Trying to disable tls-remote option';
+  ok !$server->tlsRemote(), "Checking wether tls-remote option was disabled";
+}
+
+
 sub setProtoTest : Test(6)
 {
     my ($self) = @_;
