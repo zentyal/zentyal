@@ -166,10 +166,16 @@ sub setServers
   my @servers = @{ $servers_r };
   (@servers > 0) or throw EBox::Exceptions::External(__('You must supply at least one server for the client'));
 
+
+  foreach my $serverParams_r (@servers) {
+    $self->_checkServer(@{  $serverParams_r  });
+  }
+
   $self->deleteConfDir('servers');
 
   foreach my $serverParams_r (@servers) {
-    $self->addServer(@{  $serverParams_r  });
+    my ($addr, $port) = @{  $serverParams_r  };
+    $self->setConfInt("servers/$addr", $port);
   }
 }
 
@@ -178,10 +184,19 @@ sub addServer
 {
   my ($self, $addr, $port) = @_;
 
-  checkHost($addr, __(q{Server's address}));
-  checkPort($port, __(q{Server's port}));
+  $self->_checkServer($addr, $port);
 
   $self->setConfInt("servers/$addr", $port);
+}
+
+
+
+sub _checkServer
+{
+  my ($self, $addr, $port) = @_;
+
+  checkHost($addr, __(q{Server's address}));
+  checkPort($port, __(q{Server's port}));
 }
 
 sub removeServer

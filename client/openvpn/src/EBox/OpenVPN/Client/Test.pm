@@ -141,6 +141,51 @@ sub setterAndGetterTest
 }
 
 
+sub setServersTest : Test(12)
+{
+    my ($self) = @_;
+ 
+    my $client          = $self->_newClient();
+
+    my @correctServers   = (
+			     [ 
+			      ['192.168.34.24', 10005],   
+			     ],
+			     [ 
+			      ['openvpn.antropoides.com', 10007],   
+			     ],
+			     [ 
+			      ['10.40.34.24',   5004],   
+			      ['openvpn.monos.org', 10001],   
+			     ],
+			    );
+
+    my @incorrectServers = (
+			     [ 
+			      ['192.168.34.257', 10005],   # bad ip address
+			     ],
+			     [ 
+			      ['openvpn_antropoides.com', 10007],  # bad hostname 
+			     ],
+			     [ 
+			      ['10.40.34.24',   5004],         # bad second server
+			      ['', 10001],   
+			     ],
+
+			    );
+
+    foreach my $servers_r (@correctServers) {
+      lives_ok { $client->setServers($servers_r) } 'Setting correct servers';
+      eq_or_diff $client->servers(), $servers_r, 'Checking wether servers were correctly stored';
+    }
+
+    foreach my $servers_r (@incorrectServers) {
+      my $actualServers_r = $client->servers();
+      dies_ok { $client->setServers($servers_r) } 'Checking wether trying to set incorrect server raises error';
+      eq_or_diff $client->servers(), $actualServers_r, 'Checking wether stored server were left untouched after faield attempt of settign them';
+    }
+}
+
 
 sub writeConfFileTest : Test(2)
 {
