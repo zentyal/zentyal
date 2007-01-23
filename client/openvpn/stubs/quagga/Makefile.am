@@ -1,10 +1,9 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = quagga
 
-Stubdir = @STUBSPATH@/openvpn
+Stubdir = @STUBSPATH@/quagga
 
 
-nobase_Stub_DATA = openvpn.conf.mas openvpn-client.conf.mas
+nobase_Stub_DATA = zebra.conf.mas ripd.conf.mas daemons.mas debian.conf.mas
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 

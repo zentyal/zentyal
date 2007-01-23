@@ -27,8 +27,7 @@ my @tableElements  = (
       # certificates stuff      
       [ name => 'caCertificatePath',            printableName => __("CA certificate path"),],		      
       [ name => 'certificatePath',            printableName => __("Client's certificate path"),],		      
-      [ name => 'certificateKey',            printableName => __("Client's certificate key path"),],		      
-		      
+      [ name => 'certificateKey',            printableName =>      __("Client's certificate key path"),], 
      );
 if ($nameEditable) {
    unshift @tableElements, [ name => 'name', printableName =>    __('Client name') ];

@@ -40,6 +40,23 @@ sub name
 }
 
 
+sub  ifaceNumber
+{
+  my ($self) = @_;
+  return $self->getConfInt('iface_number');
+}
+
+
+sub iface
+{
+  my ($self) = @_;
+
+  my $ifaceType = 'tap';
+  my $number    = $self->ifaceNumber();
+  return "$ifaceType$number";
+} 
+
+
 sub user
 {
     my ($self) = @_;
@@ -97,6 +114,15 @@ sub confFileParams
 {
   throw EBox::Exceptions::NotImplemented();
 }
+
+# XXX RIP/quagga stuff
+sub ripDaemon
+{
+  throw EBox::Exceptions::NotImplemented();
+}
+
+
+
 
 sub running
 {

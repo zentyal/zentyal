@@ -71,14 +71,18 @@ sub clearConfiguration : Test(teardown)
 sub newAndRemoveClientTest : Test(15)
 {
   my $openVPN = EBox::OpenVPN->_create();
-  
+ 
+  my @mockCertFiles = qw(/tmp/ca.pem /tmp/client.pem /tmp/client.key);
+  system "touch @mockCertFiles";
+  ($? == 0) or die "Can not  create mock certification files in /tmp: $!";
+ 
   my @clientsNames = qw(client1 client2);
   my %clientsParams = (
 		       client1 =>  [ 
 				    proto => 'tcp',
-				    caCertificatePath => '/etc/openvpn/ca.pem',
-				    certificatePath   => '/etc/openvpn/client.pem',
-				    certificateKey    => '/etc/openvpn/client.key',
+				    caCertificatePath => '/tmp/ca.pem',
+				    certificatePath   => '/tmp/client.pem',
+				    certificateKey    => '/tmp/client.key',
 				    servers           => [
 							  ['192.168.55.21' => 1040],
 							 ],
@@ -87,9 +91,9 @@ sub newAndRemoveClientTest : Test(15)
 
 		       client2 =>  [ 
 				    proto => 'tcp',
-				    caCertificatePath => '/etc/openvpn/ca.pem',
-				    certificatePath   => '/etc/openvpn/client.pem',
-				    certificateKey    => '/etc/openvpn/client.key',
+				    caCertificatePath => '/tmp/ca.pem',
+				    certificatePath   => '/tmp/client.pem',
+				    certificateKey    => '/tmp/client.key',
 				    servers           => [
 							  ['192.168.55.21' => 1040],
 							  ['192.168.55.23' => 1041],
@@ -123,6 +127,8 @@ sub newAndRemoveClientTest : Test(15)
 	dies_ok { $instance = $openVPN->removeClient($name)  } 'Testing that a deleted client can not be deleted agian';
     }
   
+  system "rm @mockCertFiles";
+  ($? == 0) or die "Can not  remove mock certification files in /tmp: $!";
 }
 
 sub newAndRemoveServerTest  : Test(24)

@@ -32,6 +32,7 @@ use EBox::NetWrappers qw();
 use Error qw(:try);
 
 
+use constant  MAX_IFACE_NUMBER => 999999; # this is the last number which prints correctly in ifconfig
 
 sub _create 
 {
@@ -67,7 +68,7 @@ sub _writeConfFiles
 {
     my ($self) = @_;
 
-    $self->_wrtiteARPDaemonConf(); # XXX ARP stuff
+    $self->_writeRIPDaemonConf(); # XXX RIP stuff
 
     my $confDir = $self->confDir;
 
@@ -148,12 +149,9 @@ sub server
 sub newServer
 {
     my ($self, $name, %params) = @_;
-    my $type = exists $params{type} ? delete $params{type} : 'one2many'; # type is ignored for now.. Now we use only a type of server
 
-    $self->_checkName($name);
- 
-    
-    $self->set_string("server/$name/type" => $type);
+    $self->_createDaemonSkeleton($name, 'server');
+
     my $server;
     try {
 	$server = $self->server($name);
@@ -245,16 +243,12 @@ sub newClient
 {
     my ($self, $name, %params) = @_;
 
+    $self->_createDaemonSkeleton($name, 'client');
 
-    $self->_checkName($name);
- 
-    my $holderKey = "client/$name/holder";
-    $self->set_string($holderKey => 1); # we have to  set some data to bootstrap the client because we can not create empty conf dirs
     my $client;
     try {
 	$client = $self->client($name);
 	$client->init(%params);
-	$self->unset($holderKey);
     }
     otherwise {
 	my  $ex = shift;
@@ -312,6 +306,19 @@ sub _checkName
     }
 
 }
+
+
+sub _createDaemonSkeleton
+{
+  my ($self, $name, $prefix) = @_;
+
+  $self->_checkName($name);
+
+  my $ifaceNumber    = $self->_newIfaceNumber();  
+  my $ifaceNumberKey = "$prefix/$name/iface_number";
+  $self->set_string($ifaceNumberKey, $ifaceNumber); 
+}
+
 
 sub user
 {
@@ -450,32 +457,43 @@ sub _doDaemon
 }
 
 sub running
-{
+  {
     my ($self) = @_;
+
     my $bin = $self->openvpnBin;
     system "/usr/bin/pgrep -f $bin";
-    return ($? == 0) ? 1 : 0;
-}
+    if ($? == 0) {
+      return 1;
+    } 
+   else {
+      my @activeDaemons = $self->activeDaemons();
+      return @activeDaemons ? 1 : 0;      
+    }
+    
+  }
 
 
 sub _startDaemon
 {
-    my ($self) = @_;
+  my ($self) = @_;
 
-    $self->_startARPDaemon(); # XXX ARP stuff
-
+  try {
     my @daemons =  grep { $_->service } $self->daemons();
     foreach my $daemon (@daemons) {
-	my $command = $self->rootCommandForStartDaemon($daemon->confFile, $daemon->name);
-	EBox::Sudo::root($command);
+      my $command = $self->rootCommandForStartDaemon($daemon->confFile, $daemon->name);
+      EBox::Sudo::root($command);
     }
+  }
+ finally {
+   $self->_startRIPDaemon(); # XXX RIP stuff
+ };
 }
 
 sub _stopDaemon
 {
     my ($self) = @_;
 
-    $self->_startARPDaemon(); # XXX ARP stuff
+    $self->_stopRIPDaemon(); # XXX RIP stuff
 
     my $stopCommand = $self->rootCommandForStopDaemon();
     EBox::Sudo::root($stopCommand);
@@ -505,27 +523,129 @@ sub rootCommandForStopDaemon
 }
 
 
+
+
+
 sub _stopService
 {
     EBox::Service::manage('openvpn','stop');
 }
 
-
-
-sub _startARPDaemon
+#  rip daemon/quagga stuff
+sub ripDaemon
 {
+  my ($self) = @_;
+
+  my @ifaces;
+  my $redistribute;
+
+  foreach my $daemon ($self->daemons()) {
+    my $rip = $daemon->ripDaemon();
+    if (defined $rip) {
+      push @ifaces, $rip->{iface};
+      if ( (exists $rip->{redistribute}) && $rip->{redistribute}) {
+	$redistribute = 1;
+      }
+    }
+  }
+
+  if (@ifaces) {
+    return { ifaces => \@ifaces, redistribute => $redistribute  };
+  }
+  else {
+    return undef;    
+  }
 
 }
 
 
-sub _stopARPDaemon
+sub ripDaemonService
 {
+  my ($self) = @_;
 
+  foreach my $daemon ($self->activeDaemons()) {
+    my $rip = $daemon->ripDaemon();
+    if (defined $rip) {
+      return 1;
+    }
+  }
+
+  return undef;
 }
 
-sub _wrtiteARPDaemonConf
-{
 
+sub _startRIPDaemon
+{
+  my ($self) = @_;
+
+  $self->ripDaemonService() or return;
+
+  my $cmd = '/etc/init.d/quagga start';
+  EBox::Sudo::root($cmd);
+}
+
+
+sub _stopRIPDaemon
+{
+  my ($self) = @_;
+
+  $self->ripDaemonService() or return;
+
+  my $cmd = '/etc/init.d/quagga stop';
+  EBox::Sudo::root($cmd);
+}
+
+sub _writeRIPDaemonConf
+{
+  my ($self) = @_;
+
+  my $ripDaemon =  $self->ripDaemon();
+  defined $ripDaemon or return;
+
+  my $ifaces       = $ripDaemon->{ifaces};
+  my $redistribute = $ripDaemon->{redistribute};
+
+  my $confDir = '/etc/quagga';
+  my ($quaggaUser, $quaggaPasswd, $quaggaUid, $quaggaGid) = getpwnam('quagga');
+  defined $quaggaUser or throw EBox::Exceptions::Internal('No quagga user found in the system');
+
+
+  my $fileAttrs = {
+		  uid  => $quaggaUid,
+		  gid  => $quaggaGid,
+		  mode => '0400',
+		 };
+
+
+  $self->writeConfFile("$confDir/debian.conf", '/quagga/debian.conf.mas', [], $fileAttrs);
+  $self->writeConfFile("$confDir/daemons", '/quagga/daemons.mas', [], $fileAttrs);
+  $self->writeConfFile("$confDir/zebra.conf", '/quagga/zebra.conf.mas', [], $fileAttrs);
+
+  my @ripdConfParams = (
+			ifaces       => $ifaces,
+			redistribute => $redistribute,
+		       );
+  $self->writeConfFile("$confDir/ripd.conf", '/quagga/ripd.conf.mas', \@ripdConfParams, $fileAttrs);
+ 
+}
+
+
+sub _newIfaceNumber
+{
+  my ($self) = @_;
+  my $number = $self->get_int('interface_count');
+
+  if ($number > MAX_IFACE_NUMBER) {
+    # XXX reuse unused numbers
+
+    throw EBox::Exceptions::Internal('Maximum interface count reached. Contact your eBox support');
+  }
+  else {
+    my $newNumber = $number + 1;
+    $self->set_int($newNumber);
+  }
+
+  return $number;
 }
 
 sub availableCertificates

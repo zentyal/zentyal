@@ -76,6 +76,7 @@ src/templates/Makefile
 src/templates/t/Makefile
 schemas/Makefile
 stubs/Makefile
+stubs/quagga/Makefile
 www/Makefile
 Makefile
 ])

@@ -39,7 +39,10 @@ my @tableElements  = (
                                          ], ], 
        ],					 
       $certificateInput,	
-      $tlsRemoteInput,		      
+      $tlsRemoteInput,
+      [ name => 'pullRoutes', printableName => __('Pull routes from
+      eBox clients'), input => 'checkbox', help => __("If you want to create a tunnel between two eBoxyou will need this option. Don't forget to advertise routes to the cliebt")],
+		      
       [ name => 'clientToClient',    printableName => __('Allow client-to-client connections'), input => 'checkbox' ], 
       [ name => 'local',             printableName => __('Local address to listen on'), 
       help => __("If not local address to listen on is provided, the server will

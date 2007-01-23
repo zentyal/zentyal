@@ -88,5 +88,16 @@
 			</locale>
 		</schema>
 
+		<schema>
+			<key>/schemas/ebox/modules/openvpn/interface_count</key>
+			<applyto>/ebox/modules/openvpn/interface_count</applyto>
+			<owner>ebox</owner>
+			<type>int</type>
+			<default>0</default>
+			<locale name="C">
+				<short>Keeps the count of device number for new openvpn daemons</short>
+			</locale>
+		</schema>
+
 	</schemalist>
 </gconfschemafile>

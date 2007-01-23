@@ -1,4 +1,5 @@
 <%args>
+$dev
 $proto
 @servers
 $caCertificatePath
@@ -17,9 +18,9 @@ $group
 # from the server.
 client
 
-# "dev tun" will create a routed IP tunnel
-dev tun
 
+# virtual device
+<& valueEntry, entry => 'dev', value => $dev  &>
 
 
 # Are we connecting to a TCP or
@@ -107,6 +108,15 @@ persist-tun
 # Don't enable this unless it is also
 # enabled in the server config file.
 comp-lzo
+
+# By default, log messages will go to the syslog (or
+# on Windows, if running as a service, they will go to
+# the "\Program Files\OpenVPN\log" directory).
+# Use log or log-append to override this default.
+# "log" will truncate the log file on OpenVPN startup,
+# while "log-append" will append to it.  Use one
+# or the other (but not both).
+log-append  <% "openvpn-$dev.log" %>
 
 # Set log file verbosity.
 verb 3

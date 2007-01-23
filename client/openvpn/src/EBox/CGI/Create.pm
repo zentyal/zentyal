@@ -39,7 +39,7 @@ sub optionalParameters
 {
     my ($self) = @_;
     if ($self->param('create')) {
-	[qw(local clientToClient service advertisedNets tlsRemote)];
+	[qw(local clientToClient service advertisedNets tlsRemote pullRoutes)];
     }
     else {
 	return [qw(createFromIndex)];

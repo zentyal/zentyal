@@ -242,7 +242,7 @@ sub clientToClient
 sub tlsRemote
 {
   my ($self) = @_;
-  $self->getConfString('tlsRemote');
+  $self->getConfString('tls_remote');
 }
 
 
@@ -251,14 +251,36 @@ sub setTlsRemote
   my ($self, $clientCN) = @_;
 
   if (!$clientCN) {   # disabling access by cn
-    $self->unsetConf('tlsRemote');
+    $self->unsetConf('tls_remote');
     return;
   }
 
   $self->_checkCertificate($clientCN);
-  $self->setConfString('tlsRemote', $clientCN);
+  $self->setConfString('tls_remote', $clientCN);
 }
 
+
+sub pullRoutes
+{
+  my ($self) = @_;
+  return $self->getConfBool('pull_routes');
+}
+
+sub setPullRoutes
+{
+  my ($self, $value) = @_;
+  return $self->setConfBool('pull_routes', $value);
+}
+
+sub ripDaemon
+{
+  my ($self) = @_;
+  
+  $self->pullRoutes() or return undef;
+
+  my $iface = $self->iface();
+  return { iface => $iface };
+}
 
 sub confFileTemplate
 {
@@ -270,6 +292,8 @@ sub confFileParams
 {
   my ($self) = @_;
   my @templateParams;
+
+  push @templateParams, (dev => $self->iface());
 
   my @paramsNeeded = qw(subnet subnetNetmask local port caCertificatePath certificatePath key clientToClient user group proto dh tlsRemote);
   foreach  my $param (@paramsNeeded) {
@@ -450,7 +474,7 @@ sub setFundamentalAttributes
     $self->setPort($params{port});
     $self->setCertificate($params{certificate});    
 
-    my @noFundamentalAttrs = qw(local clientToClient advertisedNets tlsRemote); 
+    my @noFundamentalAttrs = qw(local clientToClient advertisedNets tlsRemote pullRoutes); 
     push @noFundamentalAttrs, 'service'; # service must be always the last attr so if there is a error before the server is not activated
 
     foreach my $attr (@noFundamentalAttrs)  {

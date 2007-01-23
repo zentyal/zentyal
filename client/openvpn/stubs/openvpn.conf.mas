@@ -1,5 +1,5 @@
 <%args>
-$local            => undef
+$dev
 $port  
 $proto
 $caCertificatePath
@@ -7,6 +7,7 @@ $certificatePath
 $key
 $subnet
 $subnetNetmask
+$local            => undef
 $clientToClient   => 0
 $user
 $group
@@ -14,7 +15,6 @@ $dh
 $tlsRemote      => undef
 @advertisedNets => ()
 </%args>
-
 # EBox OpenVPN 2.0 config file for            #
 # multi-client server.                          #
 #                                               #
@@ -31,8 +31,8 @@ $tlsRemote      => undef
 # TCP or UDP server?
 <& valueEntry, entry => 'proto', value => $proto  &>
 
-# "dev tun" will create a routed IP tunnel,
-dev tun
+# virtual device
+<& valueEntry, entry => 'dev', value => $dev  &>
 
 # SSL/TLS root certificate (ca), certificate
 # (cert), and private key (key). 
@@ -121,7 +121,7 @@ status openvpn-status.log
 # "log" will truncate the log file on OpenVPN startup,
 # while "log-append" will append to it.  Use one
 # or the other (but not both).
-log-append  openvpn.log
+log-append  <% "openvpn-$dev.log" %>
 
 # Set the appropriate level of log
 # file verbosity.

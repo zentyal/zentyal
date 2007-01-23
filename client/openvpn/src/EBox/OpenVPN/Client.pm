@@ -130,6 +130,8 @@ sub confFileParams
   my ($self) = @_;
   my @templateParams;
 
+  push @templateParams, (dev => $self->iface);
+
   my @paramsNeeded = qw(caCertificatePath certificatePath certificateKey  user group proto );
   foreach my $param (@paramsNeeded) {
     my $accessor_r = $self->can($param);
@@ -236,5 +238,12 @@ sub init
 }
 
 
+sub ripDaemon
+{
+  my ($self) = @_;
+  
+  my $iface = $self->iface();
+  return { iface => $iface, redistribute => 1 };
+}
 
 1;
