@@ -5,7 +5,7 @@ use Cwd;
 use lib '../..';
 use EBox::Test::Mason;
 
-use Test::More qw(no_plan);
+use Test::More tests => 4;
 
 my $printOutput = 0;
 my $outputFile  = '/tmp/edit.html';
@@ -27,8 +27,8 @@ my %serverAttrs = (
 		  );
 
 my @advertisedNets = (
-		      { address => '192.168.134.0', netmask => '255.255.255.0' },
-		      { address => '192.168.141.64', netmask => '255.255.255.192' },
+		      [ address => '192.168.134.0', netmask => '255.255.255.0' ],
+		      [ address => '192.168.141.64', netmask => '255.255.255.192' ],
 		     );
 
 my @certificates = ('macaco certificate', 'baboon certificate');
@@ -37,7 +37,7 @@ my @cases = (
 	     [ @name,  disabled => 1, availableCertificates => \@certificates, serverAttrs => \%serverAttrs, ],# disabled
 	     [ @name,  disabled => 0, availableCertificates => [], serverAttrs => \%serverAttrs,],            # enabled with NO certificates
 	     [ @name,  disabled => 0, availableCertificates => \@certificates, serverAttrs => \%serverAttrs,],# enabled
-	     [ @name,  disabled => 0, availableCertificates => \@certificates, serverAttrs => \%serverAttrs, advertisedNets => \@advertisedNets ],# enabled
+	     [ @name,  disabled => 0, availableCertificates => \@certificates, serverAttrs => \%serverAttrs, advertisedNets => \@advertisedNets ],# enabled with advertised nets
 	    );
 
 
