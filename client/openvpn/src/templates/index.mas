@@ -12,6 +12,9 @@ my $active  = $service ? 'yes' : 'no';
 <& enable.mas, title => __('OpenVPN service status'), active => $active &>
 <& serversList, servers => \@servers &>
 <& clientsList, clients => \@clients &>
+% if (@servers or @clients) {
+      <& .legend &>
+% }
 %   }
 % else {
   <& /openvpn/caRequired.mas &>
@@ -20,62 +23,32 @@ my $active  = $service ? 'yes' : 'no';
 <%args>
 @servers
 </%args>
-   <h3><% __('Servers') %></h3>
-		<table cellspacing='0' class='dataTable'>
-%               if (@servers > 0) {
-			<thead>
-				<tr>
-					<th width='66%' class='tleft'>
-						<% __('Name') %>
-					</th>
-					<th class='thOptions'>
-						<% __('Action') %>
-					</th>
-				</tr>
-			</thead>
-%              }
-			<tbody>
-%			foreach my $server (@servers) {
-                        <& .serverRow, server => $server&>
-%			}
-                        <& .addServerRow &>
-			</tbody>
-		</table>
-%              if (@servers > 0) {
-		<br />
-		<table class="legend">
-		<tr>
-			<td><img src="/data/images/edit.gif" alt=""/></td>
-			<td style="padding-right: 10px;"><%__('edit')%></td>
-		</tr> 
-		<tr>
-			<td><img src="/data/images/delete.gif" alt=""/></td>
-			<td style="padding-right: 10px;"><%__('delete')%></td>
-		</tr>
-		</table>
-%            }
+<%init>
+my @columnTitles = (__('Name'), __('Actions'));
+my $deleteText = __('Delete');
+my $deleteIcon ='/data/images/delete.gif';
+my $editText = __('Edit');
+my $editIcon = '/data/images/edit.gif';
+my @rows = map {
+    my $serverName = $_;
+    my $deleteUrl = "Delete?name=$serverName";
+    my $editUrl = "Edit?name=$serverName";
+    my @actions = (
+	   {  url => $editUrl, text => $editText, icon => $editIcon },
+	   {  url => $deleteUrl, text => $deleteText, icon => $deleteIcon },
+    );
+    [$serverName, \@actions]
+} @servers;
+
+my  @columnTitlesParam = @servers > 0 ? (columnTitles => \@columnTitles) : ();
+</%init>
+<h3> <% __('Servers') %> </h3>
+<& dataTable.mas,  , rows => \@rows, @columnTitlesParam, additionalComponents => [qw(/openvpn/index.mas:.addServerRow)] &>
 </%def>
 
 
-<%def .serverRow>
-<%args>
-$server
-</%args>
- <tr class='border'>
-    <td><% $server %></td>
-    <td class='tcenter'>
-         <a href="Edit?name=<% $server %>">
-        <img src='/data/images/edit.gif' alt="<% __('Edit') %>" title="<% __('Edit') %>" /></a>
-				<img src='/data/images/sep.gif' alt='-'/>
-						<a href='Delete?name=<% $server %>'>
-						<img src='/data/images/delete.gif' 
-							title="<% __('Delete') %>"
-							alt="<% __('Delete') %>"/></a>
-					</td>
-				</tr>
-</%def>
 
-<%def .addServerRow >
+<%method .addServerRow >
  <tr class='border'>
 <td/>
 <td class='tcenter'>
@@ -86,7 +59,7 @@ $server
 </form>
 </td>
 </tr>
-</%def>
+</%method>
 
 <%def clientsList>
 <%args>
@@ -113,7 +86,6 @@ my  @columnTitlesParam = @clients > 0 ? (columnTitles => \@columnTitles) : ();
 </%init>
 <h3> <% __('Clients') %> </h3>
 <& dataTable.mas,  , rows => \@rows, @columnTitlesParam, additionalComponents => [qw(/openvpn/index.mas:.addClientRow)] &>
-
 </%def>
 
 <%method .addClientRow >
@@ -128,5 +100,20 @@ my  @columnTitlesParam = @clients > 0 ? (columnTitles => \@columnTitles) : ();
 </td>
 </tr>
 </%method>
+
+<%def .legend>
+		<br />
+		<table class="legend">
+		<tr>
+			<td><img src="/data/images/edit.gif" alt=""/></td>
+			<td style="padding-right: 10px;"><%__('edit')%></td>
+		</tr> 
+		<tr>
+			<td><img src="/data/images/delete.gif" alt=""/></td>
+			<td style="padding-right: 10px;"><%__('delete')%></td>
+		</tr>
+		</table>
+		<br/>
+</%def>
 
 
