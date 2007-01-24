@@ -471,7 +471,7 @@ sub running
     } 
    else {
       my @activeDaemons = $self->activeDaemons();
-      return @activeDaemons ? 1 : 0;      
+      return @activeDaemons == 0 ? 1 : 0;      
     }
     
   }
