@@ -4,11 +4,13 @@ use base 'EBox::FirewallHelper';
 use strict;
 use warnings;
 
+
 sub new 
 {
         my ($class, %opts) = @_;
 
         my $self = $class->SUPER::new(%opts);
+	$self->{ifaces}           =  delete $opts{ifaces};
 	$self->{portsByProto}     =  delete $opts{portsByProto};
 	$self->{serversToConnect} =  delete $opts{serversToConnect};
 
@@ -16,6 +18,13 @@ sub new
         return $self;
 }
 
+
+
+sub ifaces
+{
+    my ($self) = @_;
+    return $self->{ifaces};
+}
 
 sub portsByProto
 {
@@ -32,8 +41,12 @@ sub serversToConnect
 sub input
 {
     my ($self) = @_;
+    my @rules;
 
-    my @rules = ('-i tun+ -j ACCEPT'); # do not firewall openvpn virtual iface
+    # do not firewall openvpn virtual ifaces
+    foreach my $iface (@{ $self->ifaces() }) {
+      push @rules, "-i $iface -j ACCEPT";
+    }
 
     my $portsByProto = $self->portsByProto;
     foreach my $proto (keys %{$portsByProto}) {
@@ -44,19 +57,27 @@ sub input
 	}
     }
 
+
     return \@rules;
 }
 
 sub output
 {
     my ($self) = @_;
-    my @rules = ('-i tun+ -j ACCEPT'); # do not firewall openvpn virtual iface
+    my @rules;
+
+    # do not firewall openvpn virtual ifaces
+    foreach my $iface (@{ $self->ifaces() }) {
+      push @rules, "-o $iface -j ACCEPT";
+    }
     
     foreach my $server_r (@{ $self->serversToConnect() }) {
       my ($serverProto, $server, $serverPort) = @{ $server_r };
       my $connectRule =  "--protocol $serverProto --destination $server --destination-port $serverPort -j ACCEPT";
       push @rules, $connectRule;
     }
+
+
 
     return \@rules;
 }
@@ -65,7 +86,14 @@ sub output
 sub forward
 {
     my ($self) = @_;
-    my @rules = ('-i tun+ -j ACCEPT'); # do not firewall openvpn virtual iface
+    my @rules;
+
+    # do not firewall openvpn virtual ifaces
+    foreach my $iface (@{ $self->ifaces() }) {
+      push @rules, "-i $iface -j ACCEPT";
+      push @rules, "-o $iface -j ACCEPT";
+    }
+
     return \@rules;
 }
 

@@ -29,8 +29,10 @@ case "$1" in
 		    openssl dhparam -out $DH_FILE 1024
 		fi
 
-		# don't start NTP server with its script	
+		# don't start openvpn services 
 		update-rc.d -f openvpn remove
+		# XXX quagga don't start quagga services
+		update-rc.d -f quagga remove
 
 		invoke-rc.d ebox openvpn restart
 esac

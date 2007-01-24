@@ -5,7 +5,9 @@ $redistribute
 hostname ebox
 password ripd
 enable password ripd
-interface tap0
+% foreach my $iface (@ifaces) {
+interface <% $iface %>
+% }
 no ip rip authentication mode
 router rip
 % foreach my $iface (@ifaces) {

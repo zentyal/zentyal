@@ -384,10 +384,16 @@ sub firewallHelper
 	 return undef;
      }
 
+
+    my @ifaces = map {
+      $_->iface()
+    }  $self->activeDaemons() ;
+
     my $portsByProto = $self->_portsByProtoFromServers($self->activeServers); 
     my $serversToConnect = $self->_serversToConnect();
 
     my $firewallHelper = new EBox::OpenVPN::FirewallHelper (
+							    ifaces           => \@ifaces,
 							    portsByProto     => $portsByProto,
 							    serversToConnect => $serversToConnect,
 							   );
@@ -460,9 +466,7 @@ sub running
   {
     my ($self) = @_;
 
-    my $bin = $self->openvpnBin;
-    system "/usr/bin/pgrep -f $bin";
-    if ($? == 0) {
+    if ($self->_runningInstances()) {
       return 1;
     } 
    else {
@@ -493,13 +497,25 @@ sub _stopDaemon
 {
     my ($self) = @_;
 
+    
     $self->_stopRIPDaemon(); # XXX RIP stuff
 
-    my $stopCommand = $self->rootCommandForStopDaemon();
-    EBox::Sudo::root($stopCommand);
+    if ($self->_runningInstances()) {  # the service may be running but no daemon running
+      my $stopCommand = $self->rootCommandForStopDaemon();
+      EBox::Sudo::root($stopCommand);
+    }
+
 }
 
 
+sub _runningInstances
+{
+  my ($self) = @_;
+  my $bin = $self->openvpnBin;
+
+  system "/usr/bin/pgrep -f $bin";
+  return ($? == 0);
+}
 
 
 sub rootCommandForStartDaemon
@@ -591,8 +607,14 @@ sub _stopRIPDaemon
 
   $self->ripDaemonService() or return;
 
-  my $cmd = '/etc/init.d/quagga stop';
-  EBox::Sudo::root($cmd);
+  system "pgrep ripd";
+  system "pgrep zebra" if $? != 0;
+
+  if ($? == 0) {
+    my $cmd = '/etc/init.d/quagga stop';
+    EBox::Sudo::root($cmd);
+  }
+
 }
 
 sub _writeRIPDaemonConf
