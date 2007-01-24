@@ -316,7 +316,7 @@ sub _createDaemonSkeleton
 
   my $ifaceNumber    = $self->_newIfaceNumber();  
   my $ifaceNumberKey = "$prefix/$name/iface_number";
-  $self->set_string($ifaceNumberKey, $ifaceNumber); 
+  $self->set_int($ifaceNumberKey, $ifaceNumber); 
 }
 
 
@@ -664,7 +664,7 @@ sub _newIfaceNumber
   }
   else {
     my $newNumber = $number + 1;
-    $self->set_int($newNumber);
+    $self->set_int('interface_count', $newNumber);
   }
 
   return $number;
