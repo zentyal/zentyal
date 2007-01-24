@@ -544,7 +544,8 @@ sub rootCommandForStopDaemon
 
 sub _stopService
 {
-    EBox::Service::manage('openvpn','stop');
+  my ($self) = @_;
+  $self->_stopDaemon();
 }
 
 #  rip daemon/quagga stuff
@@ -605,8 +606,7 @@ sub _stopRIPDaemon
 {
   my ($self) = @_;
 
-  $self->ripDaemonService() or return;
-
+  # check for ripd and zebra daemons
   system "pgrep ripd";
   system "pgrep zebra" if $? != 0;
 
