@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::OpenVPN;
-use base qw(EBox::GConfModule EBox::FirewallObserver EBox::DHCP::StaticRouteProvider EBox::CA::Observer);
+use base qw(EBox::GConfModule EBox::FirewallObserver EBox::DHCP::StaticRouteProvider EBox::CA::Observer EBox::NetworkObserver);
 
 use strict;
 use warnings;

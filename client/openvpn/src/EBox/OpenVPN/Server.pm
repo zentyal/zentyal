@@ -106,7 +106,9 @@ sub _checkLocal
   my ($self, $iface)  = @_;
 
   my $network = EBox::Global->modInstance('network');
-  if (! $network->ifaceIsExternal($iface)) {
+
+  # XXX the ifaceMethod call is needed for #395
+  if ((!$network->ifaceIsExternal($iface)) || ($network->ifaceMethod($iface) eq 'notset')) {
     if ($network->ifaceExists($iface)) {
       throw EBox::Exceptions::External(__x('OpenVPN can only listen on a external interface. The interface {iface} does not exist'), iface => $iface);
     } 

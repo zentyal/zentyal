@@ -69,6 +69,7 @@ sub fakeNetworkModule
 			  ifaceExists     => $ifaceExistsSub_r,
 			  ExternalIfaces  => sub { return \@externalIfaces },
 			  InternalIfaces  => sub { return \@internalIfaces },
+			  ifaceMethod     => sub { return 'anythingButNonSet' }, # this if for bug #395
 			 ],
 		);
 
