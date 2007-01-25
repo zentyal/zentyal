@@ -28,6 +28,15 @@ my $tlsRemoteInput = [
 
 my @localOptions = map { { value => $_ } } @localInterfaces; 
 push @localOptions,  { value => '', printableValue => __('All interfaces'), };
+# if the lcoal interfa does not exist (was removed by force) put in
+# int the options to avoid confusion about the actual value
+if ($properties{local}) {
+  my $localIface = $properties{local};
+  if (! grep { $_ eq $localIface } @localInterfaces) {
+    push @localOptions, { value => $localIface };
+  }
+}
+
 my $localInput   =  [
 		     name => 'local', printableName => __('Interface to listen on'), 
 		     input => 'select', extraParams => [ options => \@localOptions], 
