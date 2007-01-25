@@ -739,6 +739,48 @@ sub _invokeOnServers
   }
 }
 
+sub _anyServerReturnsTrue
+{
+  my ($self, $method, @methodParams) = @_;
+  foreach my $server ($self->servers()) {
+    my $method_r = $server->can($method);
+    defined $method_r or throw EBox::Exceptions::Internal("No such method $method");
+    if ($method_r->($server, @methodParams)) {
+      return 1;
+    } 
+  }
+
+  return undef;
+}
+
+
+sub ifaceMethodChanged
+{
+  my ($self, @params) = @_;
+  return $self->_anyServerReturnsTrue('ifaceMethodChanged', @params);
+}
+
+
+sub vifaceDelete
+{
+  my ($self, @params) = @_;
+  return $self->_anyServerReturnsTrue('vifaceDelete', @params);
+}
+
+
+sub freeIface
+{
+  my ($self, @params) = @_;
+  return $self->_invokeOnServers('freeIface', @params);
+}
+
+sub freeViface
+{
+  my ($self, @params) = @_;
+  return $self->_invokeOnServers('freeViface', @params);
+}
+
+
 # Method: menu 
 #
 #       Overrides EBox::Module method.

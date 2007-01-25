@@ -41,8 +41,11 @@ sub fakeServer : Test(startup)
 
 sub fakeNetworkModule
 {
-  my @externalIfaces = qw(eth0 eth2);
-  my @internalIfaces = qw(eth1 eth3);
+  my ($externalIfaces_r, $internalIfaces_r) = @_;
+
+  my @externalIfaces = defined $externalIfaces_r ? @{ $externalIfaces_r } :  qw(eth0 eth2);
+  my @internalIfaces = defined $internalIfaces_r ? @{ $internalIfaces_r } : ('eth1', 'eth3');
+
   my $anyExternalIfaces = any(@externalIfaces);
   my $anyInternalIfaces = any(@internalIfaces);
 
@@ -57,12 +60,15 @@ sub fakeNetworkModule
   };
 
 
+
   fakeEBoxModule(
 		 name => 'network',
 		 package => 'EBox::Network',
 		 subs => [
 			  ifaceIsExternal => $ifaceIsExternalSub_r,
 			  ifaceExists     => $ifaceExistsSub_r,
+			  ExternalIfaces  => sub { return \@externalIfaces },
+			  InternalIfaces  => sub { return \@internalIfaces },
 			 ],
 		);
 
@@ -119,7 +125,7 @@ sub setUpConfiguration : Test(setup)
 		       );
 
     $ca->setInitialState(\@certificates);
-    
+    fakeNetworkModule();
 }
 
 
@@ -358,8 +364,6 @@ sub setPortTestForMultipleServers : Test(4)
 sub setLocalTest : Test(14)
 {
     my ($self) = @_;
-
-    fakeNetworkModule();
 
     my $server          = $self->_newServer('macaco');
     my $localGetter_r    =  $server->can('local');
@@ -668,6 +672,197 @@ sub freeCertificateTest : Test(6)
 
 }
 
+
+sub ifaceMethodChangedTest : Test(6)
+{
+  my ($self) = @_;
+
+  my $server = $self->_newServer();
+
+  $server->setLocal('eth0');
+  ok !$server->ifaceMethodChanged('eth0', 'whatever', 'whateverMethod'), "Checking wether changing the iface method to a non-'nonset' method is not considered disruptive even where done in the local inerface";
+
+  $server->setLocal('');
+  ok !$server->ifaceMethodChanged('eth0', 'whatever', 'nonset'), "Checking wether changing the iface method to 'nonset' is not considered disruptive where are ifaces left and the interface is not the local interface";
+
+  $server->setLocal('eth0');
+  ok !$server->ifaceMethodChanged('eth0', 'whatever', 'nonset'), "Checking wether changing the iface method to 'nonset' is considered disruptive if the interface is the local interface";
+
+
+  fakeNetworkModule(['eth0'], []);
+  $server->setLocal('');  
+  ok !$server->ifaceMethodChanged('eth0', 'whatever', 'nonset'), "Checking wether changing the iface method to 'nonset' is  considered disruptive where are only one interface left";
+
+  $server->setLocal('eth0');
+  ok !$server->ifaceMethodChanged('eth0', 'whatever', 'nonset'), "Checking wether changing the iface method to 'nonset' is  considered disruptive where are only one interface lef0 and adittionally the change is in the local interface";
+  ok !$server->ifaceMethodChanged('eth0', 'whatever', 'whateverMethod'), "Checking wether changing the iface method to a non-'nonset' method is not considered disruptive even where done in the local inerface and with only one interface left";
+}
+
+sub vifaceDeleteTest : Test(4)
+{
+  my ($self) = @_;
+
+  my $server = $self->_newServer();
+
+  ok !$server->vifaceDelete('eth0', 'eth2'), 'Checking wether deleting a virtual interface is not reported as disruptive if the interface is not the local interface and there are interfaces left';
+
+  $server->setLocal('eth2');
+  ok $server->vifaceDelete('eth0', 'eth2'), 'Checking wether deleting a virtual interface is reported as disruptive when the interface is the local interface';  
+
+  fakeNetworkModule(['eth2'], []);
+
+  $server->setLocal('');  
+  ok $server->vifaceDelete('eth0', 'eth2'), 'Checking wether deleting a virtual interface is reported as disruptive when the interface is the only interfaces left';  
+
+  $server->setLocal('eth2');
+  ok $server->vifaceDelete('eth0', 'eth2'), 'Checking wether deleting a virtual interface is reported as disruptive when the interface is the local interface and there is no interfaces left';  
+}
+
+
+sub freeIfaceTest : Test(4)
+{
+  my ($self) = @_;
+
+  my $server = $self->_newServer();
+  $server->setService(1);
+
+  $server->setLocal('');
+  $server->freeIface('eth8'); 
+  ok $server->service(), 'Checking wether freeing a interface which is not the local interface in a system which has more interfaces available does not deactivate the server';
+
+  $server->setLocal('eth0');
+  $server->freeIface('eth0'); 
+  ok !$server->service(), 'Checking wether freeing a interface which is the local interface in a system which has more interfaces available  deactivates the server';
+
+
+  fakeNetworkModule(['eth2'], []);
+
+  $server->setLocal('');  
+  $server->setService(1);
+  $server->freeIface('eth2');
+  ok !$server->service(), 'Checking wether freeing a interface which is not the local interface in a system which has only this  interface available  deactivates the server';
+
+  $server->setLocal('eth2');
+  $server->setService(1);
+  $server->freeIface('eth2');
+  ok !$server->service(), 'Checking wether freeing a interface which is the local interface in a system which has only this  interface available  deactivates the server';
+}
+
+sub freeVifaceTest : Test(4)
+{
+  my ($self) = @_;
+
+  my $server = $self->_newServer();
+  $server->setService(1);
+
+  $server->setLocal('');
+  $server->freeViface('eth0', 'eth8'); 
+  ok $server->service(), 'Checking wether freeing a virtual interface which is not the local virtual interface in a system which has more virtual interfaces available does not deactivate the server';
+
+  $server->setLocal('eth2');
+  $server->freeViface('eth8', 'eth2'); 
+  ok !$server->service(), 'Checking wether freeing a virtual interface which is the local virtual interface in a system which has more virtual interfaces available  deactivates the server';
+
+
+  fakeNetworkModule(['eth2'], []);
+
+  $server->setLocal('');  
+  $server->setService(1);
+  $server->freeViface('eth0', 'eth2');
+  ok !$server->service(), 'Checking wether freeing a virtual interface which is not the local virtual interface in a system which has only this  virtual interface available  deactivates the server';
+
+  $server->setLocal('eth2');
+  $server->setService(1);
+  $server->freeViface('eth0', 'eth2');
+  ok !$server->service(), 'Checking wether freeing a virtual interface which is the local virtual interface in a system which has only this  virtual interface available  deactivates the server';
+}
+
+sub otherNetworkObserverMethodsTest : Test(2)
+{
+  my ($self) = @_;
+  my $server = $self->_newServer();
+
+  ok !$server->staticIfaceAddressChanged('eth0', '192.168.45.4', '255.255.255.0', '10.0.0.1', '255.0.0.0'), 'Checking wether server notifies that is not disrupted after staticIfaceAddressChanged invokation';
+
+  ok !$server->vifaceAdded('eth0', 'eth0:1', '10.0.0.1', '255.0.0.0'), 'Checking wether server notifies that is not disrupted after staticIfaceAddressChanged invokation';
+}
+
+
+sub setServiceTest : Test(56)
+{
+  my ($self) = @_;
+  my $server = $self->_newServer();
+  $server->setService(0);
+
+  my @serviceStates = ('0', '1', '1', '0');
+  
+  diag 'Server in correct state';
+  foreach my $newService (@serviceStates) {
+    lives_ok { $server->setService($newService) } "Setting server service to $newService";
+    is $server->service() ? 1 : 0, $newService, 'Checking wether service was correctly setted';
+  }
+
+  diag 'Setting local interface to listen on to a inexistent interface';
+  $server->setConfString('local', 'fw5');
+  $self->_checkSetServiceeWithBadStatus($server, 'using a inexistent interface as local interface to listen on');
+
+  diag 'Setting local interface to listen on to a internal interface';
+  $server->setConfString('local', 'eth1');
+  $self->_checkSetServiceeWithBadStatus($server, 'using a internal interface as local interface to listen on');
+
+  diag 'Setting server to listen in all interfaces but with no interfaces left';
+  $server->unsetConf('local');
+  fakeNetworkModule([], []);
+  $self->_checkSetServiceeWithBadStatus($server, 'no networks interfaces available');
+  fakeNetworkModule();
+
+  # certificates bad states
+  my $ca    = EBox::Global->modInstance('ca');
+  my @certificates = (
+		      {
+		       dn    => 'CN=expired',
+		       state => 'E',
+		       path => '/certificate2.crt',
+		      },
+		      {
+		       dn    => 'CN=revoked',
+		       state => 'R',
+		       path => '/certificate2.crt',
+		      },
+		     );
+  $ca->setInitialState(\@certificates);
+  
+
+  diag 'Setting server to use a inexistent certificate';
+  $server->setConfString('inexistent');
+  $self->_checkSetServiceeWithBadStatus($server, 'using a inexistent certificate');
+
+  diag 'Setting server to use a expired certificate';
+  $server->setConfString('expired');
+  $self->_checkSetServiceeWithBadStatus($server, 'using a expired certificate');
+
+  diag 'Setting server to use a revoked certificate';
+  $server->setConfString('revoked');
+  $self->_checkSetServiceeWithBadStatus($server, 'using a revoked certificate');
+}
+
+sub _checkSetServiceeWithBadStatus
+{
+  my ($self, $server, $badState) = @_;
+
+  my @serviceStates = ('0', '1', '1', '0');
+  foreach my $newService (@serviceStates) {
+    if ($newService) {
+      dies_ok { $server->setService($newService) } 'Changing wether activating service with bad state: $badState';
+      ok !$server->service, 'Checking wether the client continues inactive';
+    }
+    else {
+      lives_ok { $server->setService($newService) } 'Changing service status to inactive';
+      is $server->service() ? 1 : 0, $newService, 'Checking wether the service change was done';
+    }
+  }
+}
+
 sub _advertisedNetFound
  {
    my ($address, $mask, @advertisedNets) = @_;
@@ -689,6 +884,8 @@ sub _confDir
 sub _newServer
 {
     my ($self, $name) = @_;
+    defined $name or $name = 'macaco';
+
     my $openVpnMod = $self->{openvpnModInstance};
     my $server =  new EBox::OpenVPN::Server($name, $openVpnMod);
     

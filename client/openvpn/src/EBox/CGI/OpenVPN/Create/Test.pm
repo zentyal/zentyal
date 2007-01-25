@@ -6,6 +6,7 @@ use warnings;
 use Test::More;
 use Test::Exception;
 use EBox::Test::CGI qw(:all);
+use EBox::TestStubs qw(fakeEBoxModule);
 use EBox::Global;
 
 
@@ -53,6 +54,7 @@ sub eboxConfSetup : Test(setup)
 		  '/ebox/modules/openvpn/user'  => 'nobody',
 		  '/ebox/modules/openvpn/group' => 'nobody',
 		  '/ebox/modules/openvpn/conf_dir' => $self->_confDir(),
+		  '/ebox/modules/openvpn/interface_count' => 0,
 	       );
 
   EBox::GConfModule::TestStub::setConfig(@config);
@@ -72,6 +74,23 @@ sub eboxConfSetup : Test(setup)
 		       );
 
     $ca->setInitialState(\@certificates);
+
+  mockNetworkModule();
+}
+
+sub mockNetworkModule 
+{
+  my ($self, $ifaces_r) = @_;
+  my @ifaces = defined $ifaces_r ? @{ $ifaces_r } : ('eth1', 'eth2') ;
+
+  EBox::TestStubs::fakeEBoxModule(
+				  name => 'network',
+				  module => 'EBox::Network',
+				  subs => [
+					   ExternalIfaces => sub { return \@ifaces },
+					   InternalIfaces => sub { return [] },
+					  ],
+				 );
 }
 
 sub eboxConfTearDown : Test(teardown)

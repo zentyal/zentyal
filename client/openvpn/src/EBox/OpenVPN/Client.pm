@@ -108,6 +108,12 @@ sub setService # (active)
   ($active and $self->service)   and return;
   (!$active and !$self->service) and return;
 
+  if ($active) {
+    if ($self->_availableIfaces() == 0) {
+      throw EBox::Exceptions::External('Can not activate OpenVPN clients because there is not any netowrk interface available');
+    }
+  }
+
   $self->setConfBool('active', $active);
 }
 
@@ -245,5 +251,55 @@ sub ripDaemon
   my $iface = $self->iface();
   return { iface => $iface, redistribute => 1 };
 }
+
+sub ifaceMethodChanged
+{
+  my ($self, $iface, $oldmethod, $newmethod) = @_;
+  if ($newmethod eq 'nonset') {
+    return 1 if $self->_availableIfaces() == 1;
+  }
+
+  return undef;
+}
+
+
+sub vifaceDelete
+{
+  my ($self, $iface, $viface) = @_;
+
+  return 1 if $self->_availableIfaces() == 1;
+  return undef;
+}
+
+
+sub freeIface
+{
+  my ($self, $iface) = @_;
+  my $ifaces = $self->_availableIfaces();
+  if ($ifaces == 1) {
+    $self->setService(0);
+    EBox::warn("OpenVPN client " . $self->name . " was deactivated because there is not any network interfaces available");
+  }
+}
+
+sub freeViface
+{
+  my ($self, $iface, $viface) = @_;
+  $self->freeIface($viface); 
+}
+
+
+sub _availableIfaces
+{
+  my ($self) = @_;
+
+  my $network = EBox::Global->modInstance('network');
+  my @ifaces = @{ $network->ExternalIfaces };
+  # XXX it should care of internal ifaces only until we close #391
+  push @ifaces, @{ $network->InternalIfaces };
+
+  return scalar @ifaces;
+}
+
 
 1;

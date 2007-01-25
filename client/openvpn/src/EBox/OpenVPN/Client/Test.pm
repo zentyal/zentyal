@@ -6,6 +6,7 @@ use warnings;
 use base qw(EBox::Test::Class);
 
 use EBox::Test;
+use EBox::TestStubs;
 use Test::More;
 use Test::Exception;
 use Test::MockObject;
@@ -23,6 +24,21 @@ sub testDir
     return  '/tmp/ebox.openvpn.test';
 }
 
+
+sub mockNetworkModule 
+{
+  my ($self, $ifaces_r) = @_;
+  my @ifaces = defined $ifaces_r ? @{ $ifaces_r } : ('eth1', 'eth2') ;
+
+  EBox::TestStubs::fakeEBoxModule(
+				  name => 'network',
+				  module => 'EBox::Network',
+				  subs => [
+					   ExternalIfaces => sub { return \@ifaces },
+					   InternalIfaces => sub { return [] },
+					  ],
+				 );
+}
 
 
 sub setUpConfiguration : Test(setup)
@@ -54,7 +70,7 @@ sub setUpConfiguration : Test(setup)
     EBox::Global::TestStub::setEBoxModule('openvpn' => 'EBox::OpenVPN');
     EBox::Global::TestStub::setEBoxModule('ca' => 'EBox::CA');
 
-
+    $self->mockNetworkModule();
 }
 
 
@@ -213,8 +229,92 @@ sub writeConfFileTest : Test(2)
 }
 
 
+sub setServiceTest : Test(16)
+{
+  my ($self) = @_;
+  my @service = (0, 1, 1, 0);
+  
+  my $client = $self->_newClient();
+  $client->setService(0); # set up client for te tests
+
+  foreach my $newService (@service) {
+    lives_ok { $client->setService($newService) } 'Changing service status';
+    is $client->service() ? 1 : 0, $newService, 'Checking wether the service change was done';
+  }
+
+  $self->mockNetworkModule([]);
+  foreach my $newService (@service) {
+    if ($newService) {
+      dies_ok { $client->setService($newService) } 'Changing wether activating service with bad interfaces states is unallowed';
+      ok !$client->service, 'Checking wether the client continues inactive';
+    }
+    else {
+      lives_ok { $client->setService($newService) } 'Changing service status to inactive';
+      is $client->service() ? 1 : 0, $newService, 'Checking wether the service change was done';
+    }
+
+  }
+}
 
 
+sub ifaceMethodChangedTest : Test(3)
+{
+  my ($self) = @_;
+  my $client = $self->_newClient();
+
+  ok !$client->ifaceMethodChanged('eth0', 'anyPreviousState', 'anyMethod'), "checking wether changes which state is not setted to 'nonset' are considered non-disruptive";
+
+  ok !$client->ifaceMethodChanged('eth0', 'anyPreviousState', 'nonset'), "Checking wether a change to 'non-set is not considered disruptive if there is more than one interface left" ;
+
+  $self->mockNetworkModule(['eth0']);
+  ok $client->ifaceMethodChanged('eth0', 'anyPreviousState', 'nonset'), "Checking wether a change to 'non-set is considered disruptive if there is only one interface left ";
+}
+
+
+
+sub vifaceDeleteTest : Test(2)
+{
+  my ($self) = @_;
+  my $client = $self->_newClient();
+
+  ok !$client->vifaceDelete('wathever', 'eth0'), "Checking wether deleting a viface is not considered disruptive if there are interfaces left";
+
+
+  $self->mockNetworkModule(['eth0']);
+  ok $client->vifaceDelete('wathever', 'eth0'), "Checking wether deleting a viface is considered disruptive if this is the only interface elft";
+}
+
+sub freeIfaceAndFreeVifaceTest : Test(4)
+{
+  my ($self) = @_;
+
+  my $client = $self->_newClient();
+  $client->setService(1);
+
+  $client->freeIface('eth3');
+  ok $client->service(), 'Checking wether client is active after deleteing a iface';
+
+  $client->freeViface('eth4', 'eth5');
+  ok $client->service(), 'Checking wether client is active after deleteing a viface';
+
+  $self->mockNetworkModule(['eth0']);
+  $client->freeIface('eth0');
+  ok !$client->service(), 'Checking wether client was disabled after removing the last interface';
+
+  $client->setService(1);
+  $client->freeViface('eth0', 'eth1');
+  ok !$client->service(), 'Checking wether client was disabled after removing the last interface (the last interface happened to be a virtual interface)';
+}
+
+sub otherNetworkObserverMethodsTest : Test(2)
+{
+  my ($self) = @_;
+  my $client = $self->_newClient();
+
+  ok !$client->staticIfaceAddressChanged('eth0', '192.168.45.4', '255.255.255.0', '10.0.0.1', '255.0.0.0'), 'Checking wether client notifies that is not disrupted after staticIfaceAddressChanged invokation';
+
+  ok !$client->vifaceAdded('eth0', 'eth0:1', '10.0.0.1', '255.0.0.0'), 'Checking wether client notifies that is not disrupted after staticIfaceAddressChanged invokation';
+}
 
 sub _confDir
 {

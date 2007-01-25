@@ -93,19 +93,26 @@ sub setLocal
   my ($self, $iface) = @_;
 
   if ($iface) {
-    my $network = EBox::Global->modInstance('network');
-    if (! $network->ifaceIsExternal($iface)) {
-      if ($network->ifaceExists($iface)) {
-	throw EBox::Exceptions::External(__x('OpenVPN can only listen on a external interface. The interface {iface} does not exist'), iface => $iface);
-      } else {
-	throw EBox::Exceptions::External(__x('OpenVPN can only listen on a external interface. The interface {iface} is  internal'), iface => $iface);
-      }
-    }
-
+    $self->_checkLocal($iface);
     $self->setConfString('local', $iface);
   }
   else {
     $self->unsetConf('local');
+  }
+}
+
+sub _checkLocal
+{
+  my ($self, $iface)  = @_;
+
+  my $network = EBox::Global->modInstance('network');
+  if (! $network->ifaceIsExternal($iface)) {
+    if ($network->ifaceExists($iface)) {
+      throw EBox::Exceptions::External(__x('OpenVPN can only listen on a external interface. The interface {iface} does not exist'), iface => $iface);
+    } 
+    else {
+      throw EBox::Exceptions::External(__x('OpenVPN can only listen on a external interface. The interface {iface} is  internal'), iface => $iface);
+    }
   }
 }
 
@@ -352,10 +359,27 @@ sub setService # (active)
   ($active and $self->service)   and return;
   (!$active and !$self->service) and return;
 
-  # servers with certificate trouble must not be activated
+
   if ($active) {  
+    # servers with certificate trouble must not be activated
     my $certificate = $self->certificate();
     $self->_checkCertificate($certificate);
+
+    # servers  with iface trouble shuld not activated
+    my $local = $self->local();
+    if ($local) {
+      $self->_checkLocal($local)
+    }
+    else {
+      # we need at least one interface
+      my $network = EBox::Global->modInstance('network');
+      my @ifaces = @{ $network->ExternalIfaces };
+      # XXX it should care of internal ifaces only until we close #391
+      push @ifaces, @{ $network->InternalIfaces };
+      if (@ifaces == 0) {
+	throw EBox::Exceptions::External(__x('OpenVPN server {name} can not be activated because there is not any network interfaces available', name => $self->name));
+      }
+    }
   }
 
   $self->setConfBool('active', $active);
@@ -442,14 +466,6 @@ sub _EBoxIsGateway
   return 1;
 }
  
-
-
-
-
-
-
-
-
 
 sub removeAdvertisedNet
 {
@@ -561,5 +577,62 @@ sub _invalidateCertificate
   $self->setService(0);
 }
 
+
+sub ifaceMethodChanged
+{
+  my ($self, $iface, $oldmethod, $newmethod) = @_;
+
+  if ($self->_onlyListenOnIface($iface)) {
+    return 1 if $newmethod eq 'notset';
+  }
+
+  return undef;
+}
+
+
+sub vifaceDelete
+{
+  my ($self, $iface, $viface) = @_;
+  return $self->_onlyListenOnIface($viface);
+}
+
+
+sub freeIface
+{
+  my ($self, $iface) = @_;
+
+  if ($self->_onlyListenOnIface($iface)) {
+    $self->setService(0);
+    EBox::warn('Server ' . $self->name . " was deactivated because it depends on the interface $iface");
+  }
+}
+
+sub freeViface
+{
+  my ($self, $iface, $viface) = @_;
+  $self->freeIface($viface);
+}
+
+sub _onlyListenOnIface
+{
+  my ($self, $iface) = @_;
+
+  if ($iface eq $self->local()) {
+    return 1;
+  }
+  else { 
+    # the server listens in all ifaces...
+    my $network = EBox::Global->modInstance('network');
+    my @ifaces = @{ $network->ExternalIfaces };
+    # XXX it should care of internal ifaces only until we close #391
+    push @ifaces, @{ $network->InternalIfaces };
+
+    if (@ifaces == 1) {
+      return 1;
+    }
+  }
+
+  return undef;
+}
 
 1;

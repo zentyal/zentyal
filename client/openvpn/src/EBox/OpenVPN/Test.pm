@@ -11,8 +11,9 @@ use Test::Exception;
 use Test::Differences;
 use EBox::Global;
 use EBox::Test qw(checkModuleInstantiation);
+use EBox::TestStubs qw(fakeEBoxModule);
 
-use Perl6::Junction qw(all);
+use Perl6::Junction qw(all any);
 
 use EBox::NetWrappers::TestStub;
 use EBox::CA::TestStub;
@@ -58,6 +59,8 @@ sub setUpConfiguration : Test(setup)
     EBox::GConfModule::TestStub::setConfig(@config);
     EBox::Global::TestStub::setEBoxModule('openvpn' => 'EBox::OpenVPN');
     EBox::Global::TestStub::setEBoxModule('ca' => 'EBox::CA');
+
+    fakeInterfaces();
 }
 
 
@@ -193,7 +196,6 @@ sub usesPortTest : Test(16)
 {
   my ($self) = @_;
 
-  fakeInterfaces();
 
   # add servers to openvpn (we add only the attr we care for in this testcase
   my @config = (
@@ -293,6 +295,36 @@ sub fakeInterfaces
 					       ppp0 => { up => 1, address => { '192.168.45.233' => '255.255.255.0' } },
 					       eth1 => {up  => 1, address => { '192.168.0.233' => '255.255.255.0' }},
 					    } );
+
+  # fake network module..
+  my @externalIfaces = qw(eth0 ppp0 eth1);
+  my @internalIfaces = ();
+
+  my $anyExternalIfaces = any(@externalIfaces);
+  my $anyInternalIfaces = any(@internalIfaces);
+
+  my $ifaceExistsSub_r = sub {
+    my ($self, $iface) = @_;
+    return ($iface eq $anyInternalIfaces) or ($iface eq $anyExternalIfaces);
+  };
+
+  my $ifaceIsExternalSub_r = sub {
+    my ($self, $iface) = @_;
+    return  ($iface eq $anyExternalIfaces);
+  };
+
+
+  fakeEBoxModule(
+		 name => 'network',
+		 package => 'EBox::Network',
+		 subs => [
+			  ifaceIsExternal => $ifaceIsExternalSub_r,
+			  ifaceExists     => $ifaceExistsSub_r,
+			  ExternalIfaces  => sub { return \@externalIfaces },
+			  InternalIfaces  => sub { return \@internalIfaces },
+			 ],
+		);
+
 }
 
 
