@@ -94,7 +94,6 @@ sub ifaceMethodChanged # (iface, oldmethod, newmethod)
 #
 #	iface - interface name
 #	viface - virtual interface to be removed
-#	newmethod - newmethod
 #
 # Returns:
 #
