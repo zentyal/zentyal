@@ -5,7 +5,7 @@ use Cwd;
 use lib '../..';
 use EBox::Test::Mason;
 
-use Test::More tests => 4;
+use Test::More tests => 6;
 
 my $printOutput = 0;
 my $outputFile  = '/tmp/edit.html';
@@ -22,7 +22,7 @@ my %serverAttrs = (
 		   subnetNetmask => '255.255.255.0',
 		   proto         => 'tcp',
 		   clientToClient => 0,
-		   local          => '192.168.133.41',
+		   local          => undef,
 		   tlsRemote      => undef,
 		  );
 
@@ -32,12 +32,18 @@ my @advertisedNets = (
 		     );
 
 my @certificates = ('macaco certificate', 'baboon certificate');
+my @localInterfaces = qw(eth0 iw0);
+
+my %serverAttrsWithEth0Local = %serverAttrs;
+$serverAttrsWithEth0Local{local} = 'eth0';
 
 my @cases = (  
 	     [ @name,  disabled => 1, availableCertificates => \@certificates, serverAttrs => \%serverAttrs, ],# disabled
 	     [ @name,  disabled => 0, availableCertificates => [], serverAttrs => \%serverAttrs,],            # enabled with NO certificates
 	     [ @name,  disabled => 0, availableCertificates => \@certificates, serverAttrs => \%serverAttrs,],# enabled
 	     [ @name,  disabled => 0, availableCertificates => \@certificates, serverAttrs => \%serverAttrs, advertisedNets => \@advertisedNets ],# enabled with advertised nets
+	     [ @name,  disabled => 0, availableCertificates => \@certificates, serverAttrs => \%serverAttrs, localInterfaces => \@localInterfaces, advertisedNets => \@advertisedNets ],# enabled with advertised nets and interfaces
+	     [ @name,  disabled => 0, availableCertificates => \@certificates, serverAttrs => \%serverAttrsWithEth0Local, localInterfaces => \@localInterfaces, advertisedNets => \@advertisedNets ],# enabled with advertised nets, interfaces  and local = eth0
 	    );
 
 

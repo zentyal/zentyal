@@ -2,6 +2,7 @@
 $nameEditable   => 0
 %properties     => ()
 @availableCertificates
+@localInterfaces => ()
 $submitName
 $submitValue
 </%args>
@@ -25,6 +26,14 @@ my $tlsRemoteInput = [
 		      warning        => __('Any common name with this value as prefix will also be authorized'),
 		     ];
 
+my @localOptions = map { { value => $_ } } @localInterfaces; 
+push @localOptions,  { value => '', printableValue => __('All interfaces'), };
+my $localInput   =  [
+		     name => 'local', printableName => __('Interface to listen on'), 
+		     input => 'select', extraParams => [ options => \@localOptions], 
+		    ];				       
+
+
 my @tableElements  = (
       [ name => 'service',           printableName => __('Active'), input => 'checkbox' ],
       [ name => 'port',              printableName => __('Port'),],
@@ -44,10 +53,7 @@ my @tableElements  = (
       eBox clients'), input => 'checkbox', help => __("If you want to create a tunnel between two eBoxyou will need this option. Don't forget to advertise routes to the cliebt")],
 		      
       [ name => 'clientToClient',    printableName => __('Allow client-to-client connections'), input => 'checkbox' ], 
-      [ name => 'local',             printableName => __('Local address to listen on'), 
-      help => __("If not local address to listen on is provided, the server will
-listen in all local addresses"),
-      ],
+      $localInput,		      
      );
 if ($nameEditable) {
    unshift @tableElements, [ name => 'name', printableName =>    __('Server name') ];

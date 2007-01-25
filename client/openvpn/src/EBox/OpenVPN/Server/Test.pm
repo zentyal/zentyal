@@ -6,15 +6,18 @@ use warnings;
 use base qw(EBox::Test::Class);
 
 use EBox::Test;
+use EBox::TestStubs qw(fakeEBoxModule);
 use Test::More;
 use Test::Exception;
 use Test::MockObject;
 use Test::File;
 use Test::Differences;
+use Perl6::Junction qw(any);
 
 use lib '../../../';
 use EBox::OpenVPN;
 use EBox::CA::TestStub;
+
 
 use English qw(-no_match_vars);
 
@@ -34,6 +37,37 @@ sub fakeServer : Test(startup)
 				  _notifyStaticRoutesChange => sub {},
 				);
 }
+
+
+sub fakeNetworkModule
+{
+  my @externalIfaces = qw(eth0 eth2);
+  my @internalIfaces = qw(eth1 eth3);
+  my $anyExternalIfaces = any(@externalIfaces);
+  my $anyInternalIfaces = any(@internalIfaces);
+
+  my $ifaceExistsSub_r = sub {
+    my ($self, $iface) = @_;
+    return ($iface eq $anyInternalIfaces) or ($iface eq $anyExternalIfaces);
+  };
+
+  my $ifaceIsExternalSub_r = sub {
+    my ($self, $iface) = @_;
+    return  ($iface eq $anyExternalIfaces);
+  };
+
+
+  fakeEBoxModule(
+		 name => 'network',
+		 package => 'EBox::Network',
+		 subs => [
+			  ifaceIsExternal => $ifaceIsExternalSub_r,
+			  ifaceExists     => $ifaceExistsSub_r,
+			 ],
+		);
+
+}
+
 
 sub setUpConfiguration : Test(setup)
 {
@@ -321,15 +355,17 @@ sub setPortTestForMultipleServers : Test(4)
 }
 
 
-sub setLocalTest : Test(12)
+sub setLocalTest : Test(14)
 {
     my ($self) = @_;
+
+    fakeNetworkModule();
 
     my $server          = $self->_newServer('macaco');
     my $localGetter_r    =  $server->can('local');
     my $localSetter_r    =  $server->can('setLocal');
-    my $correctLocals   = [qw(192.168.5.21 127.0.0.1 68.45.32.43) ];
-    my $incorrectLocals = [ qw(21 'ea' 192.168.5.22)];
+    my $correctLocals   = [qw(eth0 eth2) ];
+    my $incorrectLocals = [ qw(inx1 eth1 inx2 eth3)];
 
     
     Test::MockObject->fake_module('EBox::NetWrappers', 'list_local_addresses' => sub { return @{ $correctLocals  } } );
@@ -343,6 +379,8 @@ sub setLocalTest : Test(12)
 			  propierty      => "Server\'s IP local address",
 			);
 
+    lives_ok { $server->setLocal('')  } 'Unsetting local (i.e: all interfaces)';
+    ok !$server->local(), 'Cechking wether local value was unsetted';
 }
 
 

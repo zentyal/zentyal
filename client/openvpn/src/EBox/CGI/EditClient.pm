@@ -143,7 +143,7 @@ sub _doEdit
     
     if ($changed) {
 	$self->setMsg(__x("Client {name} configuration updated", name => $name) );
-	$self->{redirect} = 'OpenVPN/Index';
+	$self->{chain} = 'OpenVPN/Index';
     }
     else {
 	$self->setMsg( __('There are no changes to be saved'));

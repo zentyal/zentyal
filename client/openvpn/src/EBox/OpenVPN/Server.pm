@@ -90,16 +90,23 @@ sub port
 
 sub setLocal
 {
-  my ($self, $localIP) = @_;
+  my ($self, $iface) = @_;
 
-  checkIP($localIP, "Local IP address that will be listenned by server");
+  if ($iface) {
+    my $network = EBox::Global->modInstance('network');
+    if (! $network->ifaceIsExternal($iface)) {
+      if ($network->ifaceExists($iface)) {
+	throw EBox::Exceptions::External(__x('OpenVPN can only listen on a external interface. The interface {iface} does not exist'), iface => $iface);
+      } else {
+	throw EBox::Exceptions::External(__x('OpenVPN can only listen on a external interface. The interface {iface} is  internal'), iface => $iface);
+      }
+    }
 
-  my @localAddresses = EBox::NetWrappers::list_local_addresses();
-  if ($localIP ne all(@localAddresses)) {
- throw EBox::Exceptions::InvalidData(data => "Local IP address that will be listenned by server", value => $localIP, advice => __("This address does not correspond to any local address")  );
+    $self->setConfString('local', $iface);
   }
-
-  $self->setConfString('local', $localIP);
+  else {
+    $self->unsetConf('local');
+  }
 }
 
 sub local
@@ -295,7 +302,7 @@ sub confFileParams
 
   push @templateParams, (dev => $self->iface());
 
-  my @paramsNeeded = qw(subnet subnetNetmask local port caCertificatePath certificatePath key clientToClient user group proto dh tlsRemote);
+  my @paramsNeeded = qw(subnet subnetNetmask  port caCertificatePath certificatePath key clientToClient user group proto dh tlsRemote);
   foreach  my $param (@paramsNeeded) {
     my $accessor_r = $self->can($param);
     defined $accessor_r or die "Can not found accesoor for param $param";
@@ -303,6 +310,9 @@ sub confFileParams
     defined $value or next;
     push @templateParams, ($param => $value);
   }
+ 
+  # local parameter needs special mapping from iface -> ip
+  push @templateParams, $self->_confFileLocalParam();
 
   my @advertisedNets =  $self->advertisedNets();
   push @templateParams, ( advertisedNets => \@advertisedNets);
@@ -310,6 +320,31 @@ sub confFileParams
   return \@templateParams;
 }
 
+
+sub _confFileLocalParam
+{
+  my ($self) = @_;
+
+  my $localParamValue;
+  my $localIface = $self->local();
+  if ($localIface) {
+    # translate local iface to a local ip 
+    my $network = EBox::Global->modInstance('network');
+    my $ifaceAddresses_r = $network->ifaceAddresses($localIface);
+    my @addresses = @{ $ifaceAddresses_r };
+    if (@addresses == 0) {
+      throw EBox::Exceptions::External(__x('No IP address found for interface {iface}', iface => $localIface));
+    }
+
+    my $selectedAddress =  shift @addresses; # XXX may be we have to look up a better address resolution method
+    $localParamValue = $selectedAddress->{address};
+  }
+  else {
+    $localParamValue = undef;
+  }
+
+  return (local => $localParamValue);
+}
 
 sub setService # (active)
 {

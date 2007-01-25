@@ -57,6 +57,8 @@ sub masonParameters
 {
     my ($self) = @_;
 
+    
+
     my $name = $self->param('name');
     $name or throw EBox::Exceptions::External('No server name provided');
 
@@ -76,11 +78,15 @@ sub masonParameters
 
    my $disabled = $openVPN->CAIsCreated() ? 0 : 1;
 
+    my $network = EBox::Global->modInstance('network');
+    my $externalIfaces = $network->ExternalIfaces();
+
     return [
 	    name => $name, 
 	    serverAttrs => \%serverAttributes,
 	    availableCertificates => $openVPN->availableCertificates(),
 	    disabled              => $disabled,
+	    localInterfaces       => $externalIfaces,
 	    advertisedNets        => \@advertisedNets,	   
 	   ];
 }
@@ -121,7 +127,6 @@ sub _doEdit
 
     foreach my $attr (@mutatorsParams) {
 	my $value = $self->param($attr);
-	next if $value eq '';
 
 	if ($server->$attr() ne $attr) {
 	    my $mutatorName = "set\u$attr";
@@ -136,7 +141,7 @@ sub _doEdit
     
     if ($changed) {
 	$self->setMsg(__x("Server {name} configuration updated", name => $name) );
-	$self->{redirect} = 'OpenVPN/Index';
+	$self->{chain} = 'OpenVPN/Index';
     }
     else {
 	$self->setMsg( __('There are no changes to be saved'));

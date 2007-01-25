@@ -97,7 +97,7 @@ sub actuate
 
     
 	$self->setMsg(__x("New client {name} created", name => $name) );
-	$self->{redirect} = 'OpenVPN/Index';
+	$self->{chain} = 'OpenVPN/Index';
     }
 }
 

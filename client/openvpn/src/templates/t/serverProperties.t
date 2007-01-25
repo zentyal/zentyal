@@ -5,7 +5,7 @@ use Cwd;
 use lib '../..';
 use EBox::Test::Mason;
 
-use Test::More tests => 4;
+use Test::More tests => 6;
 
 my $printOutput = 0;
 my $outputFile  = '/tmp/serverProperties.html';
@@ -44,12 +44,18 @@ my %propiertiesWithTlsRemote = (
 		   tlsRemote      => 'macaco certificate',
 		  );
 
+my @localInterfaces = qw(eth0 iw0);
+
+my %propiertiesWithEth0Local = %propiertiesWithTlsRemote;
+$propiertiesWithEth0Local{local} = 'eth0';
 
 my @cases = (
 	     [ @submitParams, availableCertificates => [], ],  # minimal arguments case with NO certifcates
 	     [ @submitParams, availableCertificates => \@certificates, ],  # minimal arguments case with  certificates
 	     [ @submitParams, availableCertificates => \@certificates, properties => \%properties],  
 	     [ @submitParams, availableCertificates => \@certificates, properties => \%propiertiesWithTlsRemote],  
+	     [ @submitParams, availableCertificates => \@certificates, localInterfaces => \@localInterfaces, properties => \%propiertiesWithTlsRemote],  
+	     [ @submitParams, availableCertificates => \@certificates, localInterfaces => \@localInterfaces, properties => \%propiertiesWithEth0Local],  
 	    );
 
 

@@ -56,8 +56,12 @@ sub masonParameters
 
     my $openvpn = EBox::Global->modInstance('openvpn');
 
+    my $network = EBox::Global->modInstance('network');
+    my $externalIfaces = $network->ExternalIfaces();
+
     return [
 	    availableCertificates => $openvpn->availableCertificates(),
+	    localInterfaces       => $externalIfaces,
 	    disabled              => $disabled,
 	   ];
 }
@@ -85,9 +89,11 @@ sub actuate
 
 	$openVPN->newServer($name, %params);
 
-    
+        my $cgiQuery = $self->{cgi};
+	$cgiQuery->delete_all();    
+
 	$self->setMsg(__x("New server {name} created", name => $name) );
-	$self->{redirect} = 'OpenVPN/Index';
+	$self->{chain} = 'OpenVPN/Index';
     }
 }
 

@@ -24,7 +24,8 @@ sub new # (error=?, msg=?, cgi=?)
 sub optionalParameters
 {
     return [
-	    'setService'
+	    'setService',
+	    '.*', # XXX bad fix for optional  parameters in redirects. Remove in next iterattion
 	   ];
 }
 
