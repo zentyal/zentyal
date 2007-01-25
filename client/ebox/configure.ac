@@ -117,8 +117,8 @@ src/EBox/Test/Makefile
 src/EBox/Test/t/Makefile
 src/EBox/CGI/Makefile
 src/EBox/CGI/EBox/Makefile
-src/EBox/CGI/EBox/Controller/Makefile
-src/EBox/CGI/EBox/View/Makefile
+src/EBox/CGI/Controller/Makefile
+src/EBox/CGI/View/Makefile
 src/EBox/CGI/Login/Makefile
 src/EBox/CGI/Logout/Makefile
 src/EBox/CGI/Logs/Makefile
