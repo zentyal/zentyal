@@ -139,10 +139,6 @@ sub vifaceAdded # (iface, viface, address, netmask)
 #
 #	iface - interface name
 #
-# Returns:
-#
-#	boolean - true if module's configuration becomes inconsistent, otherwise
-#	false
 sub freeIface # (iface)
 {
         # default empty implementation. Subclasses should override this as
@@ -161,10 +157,6 @@ sub freeIface # (iface)
 #	iface - interface name
 #	viface - virtual interface to be removed
 #
-# Returns:
-#
-#	boolean - true if module's configuration becomes inconsistent, otherwise
-#	false
 sub freeViface # (iface, viface)
 {
         # default empty implementation. Subclasses should override this as
