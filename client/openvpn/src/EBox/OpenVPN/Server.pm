@@ -209,12 +209,39 @@ sub key
 }
 
 
+sub setSubnetAndMask
+{
+  my ($self, $net, $mask) = @_;
+  $self->_checkSubnetAndMask($net, $mask);
+
+  checkIP($net, 'VPN subnet');
+  checkNetmask($mask, "VPN net\'s netmask");
+
+  $self->setConfString('vpn_net', $net);
+  $self->setConfString('vpn_netmask', $mask);
+}
+
+sub _checkSubnetAndMask
+{
+  my ($self, $net, $mask) = @_;
+
+  # XXX ugly change it when we have #396
+  checkIP($net, 'VPN subnet');
+  checkNetmask($mask, "VPN net\'s netmask");
+
+  if (EBox::Validate::checkIPNetmask($net, $mask)) {
+    throw EBox::Exceptions::External(__x('Net address {net} with netmask {mask} is not a valid net', net => $net, mask => $mask));
+  }
+
+}
+
 sub setSubnet
 {
-    my ($self, $net) = @_;
+  my ($self, $net) = @_;
+  
+  $self->_checkSubnetAndMask($net, $self->subnetNetmask);
 
-    checkIP($net, 'VPN subnet');
-    $self->setConfString('vpn_net', $net);
+  $self->setConfString('vpn_net', $net);
 }
 
 sub subnet
@@ -228,7 +255,9 @@ sub subnet
 sub setSubnetNetmask
 {
     my ($self, $netmask) = @_;
-    checkNetmask($netmask, "VPN net\'s netmask");
+
+    $self->_checkSubnetAndMask($self->subnet(), $netmask);
+
     $self->setConfString('vpn_netmask', $netmask);
 }
 
@@ -520,9 +549,8 @@ sub setFundamentalAttributes
     (exists $params{proto}) or throw EBox::Exceptions::External __("A IP protocol must be specified for the server");
     (exists $params{certificate}) or throw EBox::Exceptions::External __("A  server certificate must be specified");
 
+    $self->setSubnetAndMask($params{subnet}, $params{subnetNetmask});
 
-    $self->setSubnet($params{subnet});
-    $self->setSubnetNetmask( $params{subnetNetmask} );
     $self->setProto($params{proto});
     $self->setPort($params{port});
     $self->setCertificate($params{certificate});    

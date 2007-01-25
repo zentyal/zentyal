@@ -10,7 +10,7 @@ use EBox::OpenVPN;
 use Perl6::Junction qw(any);
 
 my @serverPropierties = qw(subnet subnetNetmask port proto certificate  clientToClient local service tlsRemote pullRoutes);
-
+my @regularAccessorsAndMutators =  qw(port proto certificate  clientToClient local service tlsRemote pullRoutes);
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -120,10 +120,10 @@ sub _doEdit
     my $server = $openVPN->server($name);
     my $changed = 0;
 
-    my $anyPropiertyParam = any @serverPropierties;
-
+    my $anyPropiertyParam = any @regularAccessorsAndMutators;
     my @mutatorsParams = grep { $_ eq $anyPropiertyParam } @{ $self->params() };
     
+    $changed = 1 if $self->_editSubnetAndMask();
 
     foreach my $attr (@mutatorsParams) {
 	my $value = $self->param($attr);
@@ -149,6 +149,25 @@ sub _doEdit
 }
 
 
+sub _editSubnetAndMask
+{
+  my ($self) = @_;
+
+  my $name = $self->param('name');
+  my $openVPN = EBox::Global->modInstance('openvpn');
+  my $server = $openVPN->server($name);
+
+  my $subnet = $self->param('subnet');
+  my $subnetNetmask = $self->param('subnetNetmask');
+
+  if (($subnet eq $server->subnet()) and ($subnetNetmask eq $server->subnetNetmask)) {
+    return 0;
+  }
+
+  $server->setSubnetAndMask($subnet, $subnetNetmask);
+
+  return 1;
+}
 
 1;
 

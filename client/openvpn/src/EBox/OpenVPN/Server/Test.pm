@@ -484,31 +484,67 @@ sub setSubnetTest : Test(6)
   
 }
 
-
-sub setSubnetNetmaskTest : Test(6)
+sub setSubnetAndMaskTest : Test(18)
 {
     my ($self) = @_;
-    my $server = $self->_newServer('macaco');
-    my $subnetNetmaskGetter_r    = $server->can('subnetNetmask');
-    my $subnetNetmaskSetter_r    = $server->can('setSubnetNetmask');
-    my $straightValues            = [
-				    '255.255.255.0',
-				    ];
-    my $deviantValues             = [
-				    '255.0.255.0',
-				    '311.255.255.0',
-				    ];
+    my $server = $self->_newServer();
 
-    setterAndGetterTest(
-			  object         => $server,
-			  getter         => $subnetNetmaskGetter_r,
-			  setter         => $subnetNetmaskSetter_r,
-			  straightValues => $straightValues,
-			  deviantValues  => $deviantValues,
-			  propierty      => "Server\'s VPN subnet netmask",
-			);
+    my @goodCases = (
+		     ['192.168.4.0', '255.255.255.0'],
+		     ['10.0.0.0', '255.0.0.0'],
+		    );
 
+    my @badCases = (
+		    ['192.168.257.0', '255.255.255.0'],  # bad address
+		     ['10.0.0.0', '255.0.0.1'],        # bad mask
+		     ['192.168.4.1', '255.255.255.0'], # host, not net
+		     ['10.0.1.0', '255.0.0.0'],        # host, not net
+		    );
+
+
+    foreach my $case_r (@goodCases) {
+      my ($addr, $mask) = @{ $case_r };
+      lives_ok { $server->setSubnetAndMask($addr, $mask) } 'Calling setSubnetAndMask with good arguments';
+      is $server->subnet(), $addr, 'Checking wether net address was correctly changed';
+      is $server->subnetNetmask(), $mask, 'Checking wether netmask was correctly changed';
+    }
+
+    foreach my $case_r (@badCases) {
+      my ($addr, $mask) = @{ $case_r };
+      my $oldAddr = $server->subnet();
+      my $oldMask = $server->subnetNetmask();
+
+      dies_ok { $server->setSubnetAndMask($addr, $mask) } 'Calling setSubnetAndMask with bad arguments';
+      is $server->subnet(), $oldAddr, 'Checking wether net address was preserved';
+      is $server->subnetNetmask(), $oldMask, 'Checking wether netmask was preserved';
+    }
 }
+
+
+# sub setSubnetNetmaskTest : Test(6)
+# {
+#     my ($self) = @_;
+#     my $server = $self->_newServer('macaco');
+#     my $subnetNetmaskGetter_r    = $server->can('subnetNetmask');
+#     my $subnetNetmaskSetter_r    = $server->can('setSubnetNetmask');
+#     my $straightValues            = [
+# 				    '255.255.255.0',
+# 				    ];
+#     my $deviantValues             = [
+# 				    '255.0.255.0',
+# 				    '311.255.255.0',
+# 				    ];
+
+#     setterAndGetterTest(
+# 			  object         => $server,
+# 			  getter         => $subnetNetmaskGetter_r,
+# 			  setter         => $subnetNetmaskSetter_r,
+# 			  straightValues => $straightValues,
+# 			  deviantValues  => $deviantValues,
+# 			  propierty      => "Server\'s VPN subnet netmask",
+# 			);
+
+# }
 
 
 sub addAndRemoveAdvertisedNet : Test(25)
