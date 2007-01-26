@@ -1,19 +1,19 @@
-# Language =de translations for PACKAGE package.
-# Copyright (C) 2006 Warp S.L.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2006.
+# German translations for PACKAGE package.
+# Copyright (C) 2007 Warp S.L.
+# This file is distributed under the same license as the ebox-usersandgroups package.
+# Automatically generated, 2007.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-logs 0.7.99\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"Project-Id-Version: ebox-usersandgroups 0.7.99"
 "POT-Creation-Date: 2007-01-26 15:03+0100\n"
-"PO-Revision-Date: 2005-11-11 12:55+0100\n"
+"PO-Revision-Date: 2007-01-26 15:03+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ASCII\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
 #: src/EBox/UsersAndGroups.pm:645 src/EBox/UsersAndGroups.pm:650
