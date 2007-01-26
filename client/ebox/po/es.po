@@ -14,14 +14,87 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-12-14 19:31+0100\n"
-"PO-Revision-Date: 2006-12-14 19:39+0100\n"
-"Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2007-01-26 15:01+0100\n"
+"PO-Revision-Date: 2006-11-10 10:56+0100\n"
+"Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
+"Language-Team:  <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
+
+#: src/EBox/Backup/RootCommands.pm:26
+#, perl-brace-format
+msgid ""
+"This system need {program} installed to perform the requested action. Please "
+"install it and retry"
+msgstr ""
+"El sistema necesita que {program} esté instalado para realizar la acción "
+"requerida. Por favor, instalelo e intente de nuevo"
+
+#: src/EBox/Backup/OpticalDiscDrives.pm:31
+#, perl-brace-format
+msgid ""
+"Unable to find {path}. Make sure that the cdrom driver is compiled in your "
+"kerner or loaded as module"
+msgstr ""
+"No se pudo encontrar {path}. Asegúrese de que la controladora de la unidad "
+"de CD/DVD esté cargada como módulo o compilada en su kernel."
+
+#: src/EBox/Backup/OpticalDiscDrives.pm:34
+#, perl-brace-format
+msgid "Unable to read {path}."
+msgstr "No se pudo leer {path}"
+
+#: src/EBox/Backup/FileBurner.pm:110
+#, fuzzy
+msgid "This system does not have a recorder drive"
+msgstr "Este sistema no tiene ninguna unidad grabadora de CD/DVD"
+
+#: src/EBox/Backup/FileBurner.pm:122
+msgid "No disk found. Please insert disk and retry"
+msgstr ""
+"No se encontró ningún CD/DVD. Por favor, introduzca un disco y reintente"
+
+#: src/EBox/Backup/FileBurner.pm:130
+msgid "{media } is a unsupported media type"
+msgstr "{media} es un tipo de medio no soportado"
+
+#: src/EBox/Backup/FileBurner.pm:144
+#, perl-brace-format
+msgid "{device} cannot be found"
+msgstr "No se encontró {device}"
+
+#: src/EBox/Backup/FileBurner.pm:153
+#, perl-brace-format
+msgid "{device} is mounted. Please, remove the disk"
+msgstr "{device} está montado. Por favor, expulse el disco"
+
+#: src/EBox/Backup/FileBurner.pm:177
+#, perl-brace-format
+msgid "Device {dev} cannot write media of type {media}"
+msgstr "El dispositivo {dev} no puede grabar discos de tipo {media}"
+
+#: src/EBox/Backup/FileBurner.pm:192
+msgid "The media has not sufficient capabilty for the data"
+msgstr ""
+"El disco no tiene suficiente capacidad para los datos a grabar. Pruebe con "
+"un tipo de disco con más capacidad"
+
+#: src/EBox/Backup/FileBurner.pm:283
+#, perl-brace-format
+msgid "No blanking method for {media}  defined. Cannot erase it"
+msgstr ""
+"No puedo borrar el disco debido a que no se ha definido método de borrado "
+"para discos de tipo {media}"
+
+#: src/EBox/Backup/OpticalDisc.pm:123
+msgid "Unable to recognize the mounted DVD media"
+msgstr "No se pudo reconocer el CD insertado"
+
+#: src/EBox/Backup/OpticalDisc.pm:162
+msgid "Unable to recognize the mounted CD media"
+msgstr "No se pudo reconocer el DVd insertado"
 
 #: src/EBox/Summary/Status.pm:44
 msgid "Restart"
@@ -43,6 +116,35 @@ msgstr "Arrancar"
 msgid "Disabled"
 msgstr "Deshabilitado"
 
+#: src/EBox/CGI/Logs/Index.pm:33 src/EBox/Logs.pm:387
+#, fuzzy
+msgid "Logs"
+msgstr "Salir de sesión"
+
+#: src/EBox/CGI/FirstTime/Index.pm:30
+msgid "Welcome to eBox"
+msgstr "Bienvenido a eBox"
+
+#: src/EBox/CGI/FirstTime/Index.pm:68 src/EBox/CGI/FirstTime/Passwd.pm:72
+msgid "eBox was already initialized"
+msgstr "eBox ya ha sido inicializado"
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:38
+msgid "Set password"
+msgstr "Establezca contraseña"
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:63
+msgid "Default password was already changed"
+msgstr "La contraseña inicial ya fue cambiada"
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:88
+msgid "New passwords do not match"
+msgstr "Las contraseñas no coinciden"
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:92 src/EBox/CGI/EBox/Password.pm:62
+msgid "The password was changed successfully."
+msgstr "Se ha cambiado la contraseña correctamente"
+
 #: src/EBox/CGI/Login/Index.pm:61
 msgid "Incorrect password"
 msgstr "Contraseña incorrecta"
@@ -58,6 +160,22 @@ msgstr "Su sesión ha sido cerrada porque se ha creado una nueva sesión"
 #: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:40
 msgid "Logout"
 msgstr "Salir de sesión"
+
+#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
+msgid "Status"
+msgstr "Estado"
+
+#: src/EBox/CGI/Summary/Index.pm:47
+msgid "Error"
+msgstr "Error"
+
+#: src/EBox/CGI/EBox/RestartService.pm:48
+msgid "module name"
+msgstr "Nombre de módulo"
+
+#: src/EBox/CGI/EBox/RestartService.pm:52
+msgid "The module was restarted correctly."
+msgstr "El módulo se ha reiniciado correctamente."
 
 #: src/EBox/CGI/EBox/Backup.pm:34
 msgid "System backups"
@@ -92,8 +210,8 @@ msgid ""
 "Full backup restored succesfully. You should now review your configuration "
 "and save it if you want to keep it."
 msgstr ""
-"La configuración y los datos se han cargado correctamente. Ahora debería revisar la configuración  y "
-"guardarla si quiere conservarla."
+"La configuración y los datos se han cargado correctamente. Ahora debería "
+"revisar la configuración  y guardarla si quiere conservarla."
 
 #: src/EBox/CGI/EBox/Backup.pm:288
 msgid ""
@@ -102,14 +220,6 @@ msgid ""
 msgstr ""
 "La configuración se ha cargado correctamente, ahora debería revisarla y "
 "guardarla si quiere conservarla."
-
-#: src/EBox/CGI/EBox/RestartService.pm:48
-msgid "module name"
-msgstr "Nombre de módulo"
-
-#: src/EBox/CGI/EBox/RestartService.pm:52
-msgid "The module was restarted correctly."
-msgstr "El módulo se ha reiniciado correctamente."
 
 #: src/EBox/CGI/EBox/Halt.pm:30
 msgid "Halt or reboot"
@@ -123,13 +233,13 @@ msgstr "eBox se está apagando"
 msgid "eBox is going down for reboot"
 msgstr "eBox se está reiniciando"
 
-#: src/EBox/CGI/EBox/General.pm:30
-msgid "General configuration"
-msgstr "Configuración general"
-
 #: src/EBox/CGI/EBox/Bug.pm:29 src/EBox/SysInfo.pm:126
 msgid "Bug report"
 msgstr "Informe de error"
+
+#: src/EBox/CGI/EBox/General.pm:30
+msgid "General configuration"
+msgstr "Configuración general"
 
 #: src/EBox/CGI/EBox/Password.pm:49
 msgid "Incorrect password."
@@ -142,10 +252,6 @@ msgstr "Las contraseñas no coinciden"
 #: src/EBox/CGI/EBox/Password.pm:58
 msgid "The password must be at least 6 characters long"
 msgstr "La contraseña debe tener al menos 6 caracteres"
-
-#: src/EBox/CGI/EBox/Password.pm:62 src/EBox/CGI/FirstTime/Passwd.pm:92
-msgid "The password was changed successfully."
-msgstr "Se ha cambiado la contraseña correctamente"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:34
 msgid "Configuration backups"
@@ -163,7 +269,8 @@ msgstr "Borrar"
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:121
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:173
 msgid "Please confirm that you want to restore using this backup file:"
-msgstr "Por favor, confirme que quiere restaurar usando  este fichero de backup:"
+msgstr ""
+"Por favor, confirme que quiere restaurar usando  este fichero de backup:"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:123
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:145
@@ -172,7 +279,8 @@ msgid "Restore"
 msgstr "Restaurar"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:133
-msgid "Unable to find a correct backup disk. Please insert a backup disk and retry"
+msgid ""
+"Unable to find a correct backup disk. Please insert a backup disk and retry"
 msgstr ""
 "No se encuentra ningún CD/DVD de backup. Por favor, introduzca un disco de "
 "backup correcto y reintente la operación "
@@ -186,7 +294,8 @@ msgid "Invalid backup file."
 msgstr "Fichero de backup inválido"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:183
-msgid "Please confirm that you want to write this backup file to a CD or DVD disk:"
+msgid ""
+"Please confirm that you want to write this backup file to a CD or DVD disk:"
 msgstr ""
 "Por favor, confirme que quiere escribir este archivo de backup en un disco "
 "CD/DVD"
@@ -207,37 +316,84 @@ msgstr "Backup completo de configuración y datos"
 msgid "Bug-report configuration dump"
 msgstr "Volcado de configuración para informe de fallo"
 
-#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
-msgid "Status"
-msgstr "Estado"
-
-#: src/EBox/CGI/Summary/Index.pm:47
-msgid "Error"
-msgstr "Error"
-
-#: src/EBox/CGI/Finish.pm:29
+#: src/EBox/CGI/Finish.pm:30
 msgid "Save configuration"
 msgstr "Guardar la configuración"
 
-#: src/EBox/CGI/FirstTime/Index.pm:30
-msgid "Welcome to eBox"
-msgstr "Bienvenido a eBox"
+#: src/EBox/CGI/ClientRawBase.pm:134
+msgid ""
+"An internal error has ocurred. This is most probably a bug, relevant "
+"information can be found in the logs."
+msgstr ""
 
-#: src/EBox/CGI/FirstTime/Index.pm:68 src/EBox/CGI/FirstTime/Passwd.pm:72
-msgid "eBox was already initialized"
-msgstr "eBox ya ha sido inicializado"
+#: src/EBox/CGI/ClientRawBase.pm:144
+msgid ""
+"An internal error related to a template has occurred. This is a bug, "
+"relevant information can be found in the logs."
+msgstr ""
 
-#: src/EBox/CGI/FirstTime/Passwd.pm:38
-msgid "Set password"
-msgstr "Establezca contraseña"
+#: src/EBox/Apache.pm:48
+msgid ""
+"You must set the httpd_serverroot variable in the ebox configuration file"
+msgstr ""
+"Debe establecer la variable httpd_serverroot en el fichero de configuración "
+"de ebox"
 
-#: src/EBox/CGI/FirstTime/Passwd.pm:63
-msgid "Default password was already changed"
-msgstr "La contraseña inicial ya fue cambiada"
+#: src/EBox/Apache.pm:58
+msgid "You must set the httpd_init variable in the ebox configuration file"
+msgstr ""
+"Debe establecer la variable httpd_init en el fichero de configuración de ebox"
 
-#: src/EBox/CGI/FirstTime/Passwd.pm:88
-msgid "New passwords do not match"
-msgstr "Las contraseñas no coinciden"
+#: src/EBox/Apache.pm:61
+msgid "The httpd_init script you configured is not executable."
+msgstr "El script httpd_init configurado no es ejecutable."
+
+#: src/EBox/Apache.pm:184 src/EBox/Apache.pm:193
+msgid "port"
+msgstr "puerto"
+
+#: src/EBox/Logs.pm:229
+msgid "Table {$table} does not exist"
+msgstr ""
+
+#: src/EBox/Logs.pm:244
+#, perl-brace-format
+msgid "Field {field} does not exist"
+msgstr ""
+
+#: src/EBox/Logs.pm:397 src/templates/confirm-backup.mas:28
+#: src/templates/backup.mas:162 src/templates/finish.mas:22
+msgid "Date"
+msgstr "Fecha"
+
+#: src/EBox/Logs.pm:398
+msgid "Client Address"
+msgstr ""
+
+#: src/EBox/Logs.pm:399 src/templates/finish.mas:24
+msgid "Module"
+msgstr ""
+
+#: src/EBox/Logs.pm:400
+#, fuzzy
+msgid "Action"
+msgstr "Acciones"
+
+#: src/EBox/Logs.pm:401
+msgid "Params"
+msgstr ""
+
+#: src/EBox/Logs.pm:402
+msgid "Committed"
+msgstr ""
+
+#: src/EBox/Logs.pm:407
+msgid "Admin"
+msgstr ""
+
+#: src/EBox/Html.pm:39
+msgid "Save changes"
+msgstr "Guardar cambios"
 
 #: src/EBox/Backup.pm:234
 msgid "Could not create backup archive"
@@ -278,7 +434,8 @@ msgstr "El fichero de backup está corrupto. "
 
 #: src/EBox/Backup.pm:678
 msgid "The backup file is corrupt: could not open backup checksum"
-msgstr "El fichero de backup está corrupto: no se pudo abrir el checksum del backup"
+msgstr ""
+"El fichero de backup está corrupto: no se pudo abrir el checksum del backup"
 
 #: src/EBox/Backup.pm:685
 msgid "The backup file is corrupt."
@@ -358,27 +515,9 @@ msgstr ""
 "No pude renombrar el archivo de backup {newName} a su nombre original "
 "{name}. Mensaje de error: {error}"
 
-#: src/EBox/Html.pm:39
-msgid "Save changes"
-msgstr "Guardar cambios"
-
-#: src/EBox/Apache.pm:48
-msgid "You must set the httpd_serverroot variable in the ebox configuration file"
-msgstr ""
-"Debe establecer la variable httpd_serverroot en el fichero de configuración "
-"de ebox"
-
-#: src/EBox/Apache.pm:58
-msgid "You must set the httpd_init variable in the ebox configuration file"
-msgstr "Debe establecer la variable httpd_init en el fichero de configuración de ebox"
-
-#: src/EBox/Apache.pm:61
-msgid "The httpd_init script you configured is not executable."
-msgstr "El script httpd_init configurado no es ejecutable."
-
-#: src/EBox/Apache.pm:184 src/EBox/Apache.pm:193
-msgid "port"
-msgstr "puerto"
+#: src/EBox/FirstTime.pm:67 src/templates/firstTime/passwd.mas:4
+msgid "Change default password"
+msgstr "Cambie la contraseña inicial"
 
 #: src/EBox/SysInfo.pm:57
 msgid "Services"
@@ -416,80 +555,178 @@ msgstr "General"
 msgid "Halt/Reboot"
 msgstr "Apagar o reiniciar"
 
-#: src/EBox/FirstTime.pm:67 src/templates/firstTime/passwd.mas:4
-msgid "Change default password"
-msgstr "Cambie la contraseña inicial"
+#: src/EBox/Auth.pm:131
+#, fuzzy
+msgid "Password changed"
+msgstr "Contraseña"
 
-#: src/EBox/Backup/OpticalDiscDrives.pm:31
-#, perl-brace-format
+#: src/EBox/PgDBEngine.pm:42
+#, fuzzy
 msgid ""
-"Unable to find {path}. Make sure that the cdrom driver is compiled in your "
-"kerner or loaded as module"
+"You must set the eboxlogs_dbname variable in the ebox configuration file"
 msgstr ""
-"No se pudo encontrar {path}. Asegúrese de que la controladora de la unidad "
-"de CD/DVD esté cargada como módulo o compilada en su kernel."
+"Debe establecer la variable httpd_init en el fichero de configuración de ebox"
 
-#: src/EBox/Backup/OpticalDiscDrives.pm:34
-#, perl-brace-format
-msgid "Unable to read {path}."
-msgstr "No se pudo leer {path}"
-
-#: src/EBox/Backup/RootCommands.pm:26
-#, perl-brace-format
+#: src/EBox/PgDBEngine.pm:54
+#, fuzzy
 msgid ""
-"This system need {program} installed to perform the requested action. Please "
-"install it and retry"
+"You must set the eboxlogs_dbuser variable in the ebox configuration file"
 msgstr ""
-"El sistema necesita que {program} esté instalado para realizar la acción "
-"requerida. Por favor, instalelo e intente de nuevo"
+"Debe establecer la variable httpd_serverroot en el fichero de configuración "
+"de ebox"
 
-#: src/EBox/Backup/FileBurner.pm:110
-msgid "This system had not any recorder drive"
-msgstr "Este sistema no tiene ninguna unidad grabadora de CD/DVD"
-
-#: src/EBox/Backup/FileBurner.pm:122
-msgid "No disk found. Please insert disk and retry"
-msgstr "No se encontró ningún CD/DVD. Por favor, introduzca un disco y reintente"
-
-#: src/EBox/Backup/FileBurner.pm:130
-msgid "{media } is a unsupported media type"
-msgstr "{media} es un tipo de medio no soportado"
-
-#: src/EBox/Backup/FileBurner.pm:144
-#, perl-brace-format
-msgid "{device} cannot be found"
-msgstr "No se encontró {device}"
-
-#: src/EBox/Backup/FileBurner.pm:153
-#, perl-brace-format
-msgid "{device} is mounted. Please, remove the disk"
-msgstr "{device} está montado. Por favor, expulse el disco"
-
-#: src/EBox/Backup/FileBurner.pm:177
-#, perl-brace-format
-msgid "Device {dev} cannot write media of type {media}"
-msgstr "El dispositivo {dev} no puede grabar discos de tipo {media}"
-
-#: src/EBox/Backup/FileBurner.pm:192
-msgid "The media has not sufficient capabilty for the data"
+#: src/EBox/PgDBEngine.pm:66
+#, fuzzy
+msgid ""
+"You must set the eboxlogs_dbpass variable in the ebox configuration file"
 msgstr ""
-"El disco no tiene suficiente capacidad para los datos a grabar. Pruebe con "
-"un tipo de disco con más capacidad"
+"Debe establecer la variable httpd_init en el fichero de configuración de ebox"
 
-#: src/EBox/Backup/FileBurner.pm:283
+#: src/EBox/PgDBEngine.pm:213
 #, perl-brace-format
-msgid "No blanking method for {media}  defined. Cannot erase it"
+msgid "Error dumping the postgresql database {name}"
 msgstr ""
-"No puedo borrar el disco debido a que no se ha definido método de borrado "
-"para discos de tipo {media}"
 
-#: src/EBox/Backup/OpticalDisc.pm:123
-msgid "Unable to recognize the mounted DVD media"
-msgstr "No se pudo reconocer el CD insertado"
+#: src/EBox/PgDBEngine.pm:231
+#, perl-brace-format
+msgid "DB dump file {file} is not readable"
+msgstr ""
 
-#: src/EBox/Backup/OpticalDisc.pm:162
-msgid "Unable to recognize the mounted CD media"
-msgstr "No se pudo reconocer el DVd insertado"
+#: src/templates/logs/index.mas:19
+msgid "Last hour logs will be showed when selecting a component"
+msgstr ""
+
+#: src/templates/logs/index.mas:21
+msgid "Select available logs"
+msgstr ""
+
+#: src/templates/logs/index.mas:34 src/templates/logs/index.mas:36
+#: src/templates/logs/index.mas:38
+msgid "View"
+msgstr ""
+
+#: src/templates/logs/index.mas:46
+msgid "Custom query"
+msgstr ""
+
+#: src/templates/logs/index.mas:53
+msgid "From date:"
+msgstr ""
+
+#: src/templates/logs/index.mas:66 src/templates/logs/index.mas:136
+msgid "January"
+msgstr ""
+
+#: src/templates/logs/index.mas:67 src/templates/logs/index.mas:137
+msgid "February"
+msgstr ""
+
+#: src/templates/logs/index.mas:68 src/templates/logs/index.mas:138
+msgid "March"
+msgstr ""
+
+#: src/templates/logs/index.mas:69 src/templates/logs/index.mas:139
+msgid "April"
+msgstr ""
+
+#: src/templates/logs/index.mas:70 src/templates/logs/index.mas:140
+msgid "May"
+msgstr ""
+
+#: src/templates/logs/index.mas:71 src/templates/logs/index.mas:141
+msgid "June"
+msgstr ""
+
+#: src/templates/logs/index.mas:72 src/templates/logs/index.mas:142
+msgid "July"
+msgstr ""
+
+#: src/templates/logs/index.mas:73 src/templates/logs/index.mas:143
+msgid "August"
+msgstr ""
+
+#: src/templates/logs/index.mas:74 src/templates/logs/index.mas:144
+msgid "September"
+msgstr ""
+
+#: src/templates/logs/index.mas:75 src/templates/logs/index.mas:145
+msgid "October"
+msgstr ""
+
+#: src/templates/logs/index.mas:76 src/templates/logs/index.mas:146
+msgid "November"
+msgstr ""
+
+#: src/templates/logs/index.mas:77 src/templates/logs/index.mas:147
+msgid "December"
+msgstr ""
+
+#: src/templates/logs/index.mas:123
+msgid "To date:"
+msgstr ""
+
+#: src/templates/logs/index.mas:203
+#, fuzzy
+msgid "Event"
+msgstr "Entrar"
+
+#: src/templates/logs/index.mas:206
+msgid "Any"
+msgstr ""
+
+#: src/templates/logs/index.mas:221 src/templates/logs/index.mas:223
+msgid "Search"
+msgstr ""
+
+#: src/templates/logs/index.mas:237
+msgid "No logs matching current criteria"
+msgstr ""
+
+#: src/templates/logs/dbtable.mas:72 src/templates/logs/dbtable.mas:74
+msgid "first"
+msgstr ""
+
+#: src/templates/logs/dbtable.mas:78 src/templates/logs/dbtable.mas:80
+msgid "prev"
+msgstr ""
+
+#: src/templates/logs/dbtable.mas:88 src/templates/logs/dbtable.mas:91
+#, fuzzy
+msgid "Page"
+msgstr "Cambiar"
+
+#: src/templates/logs/dbtable.mas:92
+msgid "of"
+msgstr ""
+
+#: src/templates/logs/dbtable.mas:103 src/templates/logs/dbtable.mas:105
+msgid "next"
+msgstr ""
+
+#: src/templates/logs/dbtable.mas:109 src/templates/logs/dbtable.mas:111
+msgid "last"
+msgstr ""
+
+#: src/templates/firstTime/passwd.mas:6 src/templates/password.mas:8
+msgid "Your password must be at least 6 characters long."
+msgstr "La contraseña debe tener al menos 6 caracteres"
+
+#: src/templates/firstTime/passwd.mas:13 src/templates/password.mas:30
+msgid "New password"
+msgstr "Nueva contraseña"
+
+#: src/templates/firstTime/passwd.mas:28 src/templates/password.mas:45
+msgid "Confirm password"
+msgstr "Confirmar nueva contraseña"
+
+#: src/templates/firstTime/passwd.mas:42 src/templates/password.mas:60
+#: src/templates/port.mas:15
+msgid "Change"
+msgstr "Cambiar"
+
+#: src/templates/firstTime/index.mas:6
+msgid "Use default values"
+msgstr "Usar valores de fábrica"
 
 #: src/templates/login/index.mas:27
 msgid "Password"
@@ -520,65 +757,6 @@ msgstr "No hay cambios sin guardar en esta sesión"
 msgid "Exit"
 msgstr "Salir"
 
-#: src/templates/finish.mas:11
-msgid ""
-"There are unsaved changes in one or more modules, you can save or discard "
-"those changes."
-msgstr ""
-"Hay cambios no guardados en uno o más módulos, puedes guardar o descartar "
-"los cambios."
-
-#: src/templates/finish.mas:15
-msgid ""
-"If you made changes to the network interfaces or the administration port, "
-"you may need to manually rewrite the url in order to access this "
-"administration interface again."
-msgstr ""
-"Si ha hecho cambios en los interfaces de red o en el puerto del panel de "
-"administración, es posible que necesite reescribir la url manualmente para "
-"volver a acceder al panel de administración."
-
-#: src/templates/finish.mas:21
-msgid "Save"
-msgstr "Guardar"
-
-#: src/templates/finish.mas:24
-msgid "Discard changes"
-msgstr "Descartar cambios"
-
-#: src/templates/finish.mas:30
-msgid "There are no unsaved changes."
-msgstr "No hay cambios sin guardar"
-
-#: src/templates/password.mas:6
-msgid "Change password"
-msgstr "Cambiar contraseña"
-
-#: src/templates/password.mas:8 src/templates/firstTime/passwd.mas:6
-msgid "Your password must be at least 6 characters long."
-msgstr "La contraseña debe tener al menos 6 caracteres"
-
-#: src/templates/password.mas:15
-msgid "Current password"
-msgstr "Contraseña actual"
-
-#: src/templates/password.mas:30 src/templates/firstTime/passwd.mas:13
-msgid "New password"
-msgstr "Nueva contraseña"
-
-#: src/templates/password.mas:45 src/templates/firstTime/passwd.mas:28
-msgid "Confirm password"
-msgstr "Confirmar nueva contraseña"
-
-#: src/templates/password.mas:60 src/templates/port.mas:15
-#: src/templates/firstTime/passwd.mas:42
-msgid "Change"
-msgstr "Cambiar"
-
-#: src/templates/confirm-backup.mas:28 src/templates/backup.mas:162
-msgid "Date"
-msgstr "Fecha"
-
 #: src/templates/confirm-backup.mas:37 src/templates/backup.mas:44
 #: src/templates/backup.mas:160
 msgid "Description"
@@ -604,9 +782,13 @@ msgstr "Restauración de la configuración"
 msgid "Restore mode"
 msgstr "Tipo de restauración"
 
-#: src/templates/port.mas:9
-msgid "Administration interface TCP port"
-msgstr "Puerto TCP de la interfaz de administración"
+#: src/templates/password.mas:6
+msgid "Change password"
+msgstr "Cambiar contraseña"
+
+#: src/templates/password.mas:15
+msgid "Current password"
+msgstr "Contraseña actual"
 
 #: src/templates/backup.mas:20
 msgid "Full Backup"
@@ -693,7 +875,7 @@ msgid ""
 "'Write backup to CD/DVD disk' is disabled, because eBox could not find any "
 "recorder drive"
 msgstr ""
-"'Grabar backup en CD/DVD' está desactivado debido a que no se ha encontrado "
+"'Grabar backup aenCD/DVD' está desactivado debido a que no se ha encontrado "
 "ningún dispositivo de grabación"
 
 #: src/templates/backup.mas:155
@@ -740,18 +922,6 @@ msgstr "restaurar"
 msgid "delete"
 msgstr "borrar"
 
-#: src/templates/halt.mas:10
-msgid "You might lose your Internet connection if this machine is halted."
-msgstr "Si apaga está máquina perderá, posiblemente, la conexión a Internet."
-
-#: src/templates/halt.mas:15
-msgid "Halt"
-msgstr "Apagar"
-
-#: src/templates/halt.mas:18
-msgid "Reboot"
-msgstr "Reiniciar"
-
 #: src/templates/bug.mas:9
 msgid ""
 "This page lets you generate a file with information about the state of your "
@@ -765,12 +935,63 @@ msgstr ""
 msgid "Download bug report file"
 msgstr "Descargar informe de error"
 
-#: src/templates/firstTime/index.mas:6
-msgid "Use default values"
-msgstr "Usar valores de fábrica"
+#: src/templates/finish.mas:12
+msgid ""
+"There are unsaved changes in one or more modules, you can save or discard "
+"those changes."
+msgstr ""
+"Hay cambios no guardados en uno o más módulos, puedes guardar o descartar "
+"los cambios."
+
+#: src/templates/finish.mas:16
+msgid ""
+"If you made changes to the network interfaces or the administration port, "
+"you may need to manually rewrite the url in order to access this "
+"administration interface again."
+msgstr ""
+"Si ha hecho cambios en los interfaces de red o en el puerto del panel de "
+"administración, es posible que necesite reescribir la url manualmente para "
+"volver a acceder al panel de administración."
+
+#: src/templates/finish.mas:26
+msgid "Message"
+msgstr ""
+
+#: src/templates/finish.mas:42
+msgid "Save"
+msgstr "Guardar"
+
+#: src/templates/finish.mas:45
+msgid "Discard changes"
+msgstr "Descartar cambios"
+
+#: src/templates/finish.mas:51
+msgid "There are no unsaved changes."
+msgstr "No hay cambios sin guardar"
+
+#: src/templates/port.mas:9
+msgid "Administration interface TCP port"
+msgstr "Puerto TCP de la interfaz de administración"
+
+#: src/templates/halt.mas:10
+msgid "You might lose your Internet connection if this machine is halted."
+msgstr "Si apaga está máquina perderá, posiblemente, la conexión a Internet."
+
+#: src/templates/halt.mas:15
+msgid "Halt"
+msgstr "Apagar"
+
+#: src/templates/halt.mas:18
+msgid "Reboot"
+msgstr "Reiniciar"
 
 #: src/templates/footer.mas:8
 #, perl-brace-format
 msgid "{ebox} created by {warp} in collaboration with {dbs}"
 msgstr "{ebox} creado por {warp} en colaboración con {dbs}"
 
+#~ msgid "This system had not any recorder drive"
+#~ msgstr "Este sistema no tiene ninguna unidad grabadora de CD/DVD"
+
+#~ msgid "List of configuration backups"
+#~ msgstr "Lista de backups de la configuración"

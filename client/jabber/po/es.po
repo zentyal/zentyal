@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-23 16:53+0100\n"
+"POT-Creation-Date: 2007-01-26 15:01+0100\n"
 "PO-Revision-Date: 2006-11-28 14:15+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team:  <es@li.org>\n"
@@ -22,10 +22,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: KBabel 1.11.2\n"
 
-#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:232
-msgid "domain"
-msgstr "dominio"
-
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
 msgstr "estado del módulo"
@@ -33,6 +29,10 @@ msgstr "estado del módulo"
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:297
 msgid "Jabber"
 msgstr "Jabber"
+
+#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:232
+msgid "domain"
+msgstr "dominio"
 
 #: src/EBox/CGI/JabberUserOptions.pm:44
 msgid "username"
@@ -124,5 +124,5 @@ msgstr "Aplicar Cambios"
 
 #: stubs/c2s.xml.mas:75
 msgid "Enter a username and password to register with this server."
-msgstr "Escriba un nombre de usuario y una contraseña para entrar a este servidor"
-
+msgstr ""
+"Escriba un nombre de usuario y una contraseña para entrar a este servidor"

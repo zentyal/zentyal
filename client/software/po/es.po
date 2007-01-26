@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-10-18 05:23+0200\n"
+"POT-Creation-Date: 2007-01-26 15:03+0100\n"
 "PO-Revision-Date: 2006-11-13 17:55+0100\n"
 "Last-Translator: Javier Uruen Val <juruen@warp.es>\n"
 "Language-Team:  <info@ebox-platform.com>\n"
@@ -19,26 +19,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
 
-#: src/EBox/CGI/InstallPkgs.pm:73
-msgid "There were no packages to update"
-msgstr "No hay paquetes para actualizar"
-
-#: src/EBox/CGI/InstallPkgs.pm:79
-msgid ""
-"The packages are being installed, please refrain from using the application "
-"until the update is done"
-msgstr "Los paquetes se están actualizando, por favor no use la aplicación hasta que la actualización se complete"
-
-#: src/EBox/CGI/InstallPkgs.pm:84
-msgid "The packages were removed successfully"
-msgstr "Los paquetes se han eliminado correctamente"
-
-#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr "Actualizaciones automáticas de software"
-
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:328
+#: src/EBox/Software.pm:313
 msgid "System updates"
 msgstr "Actualizaciones del sistema"
 
@@ -50,15 +32,35 @@ msgstr "Las actualizaciones de software se gestionan automáticamente"
 msgid "The system is up to date"
 msgstr "El sistema está al día"
 
+#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "Actualizaciones automáticas de software"
+
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
 msgstr "configuración de las actualizaciones automáticas"
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:326
+#: src/EBox/CGI/InstallPkgs.pm:76
+msgid "There were no packages to update"
+msgstr "No hay paquetes para actualizar"
+
+#: src/EBox/CGI/InstallPkgs.pm:88
+msgid ""
+"The packages are being installed, please refrain from using the application "
+"until the update is done"
+msgstr ""
+"Los paquetes se están actualizando, por favor no use la aplicación hasta que "
+"la actualización se complete"
+
+#: src/EBox/CGI/InstallPkgs.pm:93
+msgid "The packages were removed successfully"
+msgstr "Los paquetes se han eliminado correctamente"
+
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:311
 msgid "eBox components"
 msgstr "Componentes eBox"
 
-#: src/EBox/CGI/Upgrading.pm:30 src/EBox/CGI/CurrentPackage.pm:31
+#: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/Upgrading.pm:30
 msgid "Upgrading"
 msgstr "Actualizando"
 
@@ -70,11 +72,11 @@ msgstr ""
 "Se ha producido un error al instalar componentes. Si el error persiste o "
 "eBox deja de funcionar correctamente pida soporte técnico."
 
-#: src/EBox/Software.pm:323 src/EBox/PackageDescriptions.pm:16
+#: src/EBox/Software.pm:308 src/EBox/PackageDescriptions.pm:15
 msgid "Software management"
 msgstr "Gestión de software"
 
-#: src/EBox/Software.pm:330
+#: src/EBox/Software.pm:315
 msgid "Configuration"
 msgstr "Configuración"
 
@@ -106,45 +108,67 @@ msgstr "VPN IPSec"
 msgid "Instant messaging (Jabber)"
 msgstr "Mensajería instantánea (Jabber)"
 
-#: src/EBox/PackageDescriptions.pm:8 src/EBox/PackageDescriptions.pm:13
-msgid "Service logs"
-msgstr "Servicio de Logs"
-
-#: src/EBox/PackageDescriptions.pm:9
+#: src/EBox/PackageDescriptions.pm:8
 msgid "Mail server"
 msgstr "Servidor de Correo"
 
-#: src/EBox/PackageDescriptions.pm:10
+#: src/EBox/PackageDescriptions.pm:9
 msgid "Network configuration"
 msgstr "Configuración de red"
 
-#: src/EBox/PackageDescriptions.pm:11
+#: src/EBox/PackageDescriptions.pm:10
 msgid "NTP server"
 msgstr "Servidor NTP"
 
-#: src/EBox/PackageDescriptions.pm:12
+#: src/EBox/PackageDescriptions.pm:11
 msgid "Object management"
 msgstr "Gestión de objetos"
 
-#: src/EBox/PackageDescriptions.pm:14
+#: src/EBox/PackageDescriptions.pm:12
+#, fuzzy
+msgid "OpenVPN server"
+msgstr "Servidor NTP"
+
+#: src/EBox/PackageDescriptions.pm:13
 msgid "Printer sharing"
 msgstr "Compartición de impresoras"
 
-#: src/EBox/PackageDescriptions.pm:15
+#: src/EBox/PackageDescriptions.pm:14
 msgid "File sharing"
 msgstr "Compartición de ficheros"
 
-#: src/EBox/PackageDescriptions.pm:17
+#: src/EBox/PackageDescriptions.pm:16
 msgid "Proxy cache and content filter"
 msgstr "Caché HTTP y filtro de contenidos"
 
-#: src/EBox/PackageDescriptions.pm:18
+#: src/EBox/PackageDescriptions.pm:17
 msgid "User and Group management"
 msgstr "Gestión de usuarios y grupos"
 
+#: src/templates/upgrading.mas:68
+msgid "The installation of the packages has finished successfully"
+msgstr "Los paquetes se han instalado correctamente "
+
+#: src/templates/del.mas:14
+msgid "The following packages will be installed"
+msgstr "Se instalarán los siguientes paquetes"
+
+#: src/templates/del.mas:17
+msgid "The following packages will be removed"
+msgstr "Los siguientes paquetes serán borrados"
+
+#: src/templates/del.mas:34
+msgid "Ok"
+msgstr "Aceptar"
+
+#: src/templates/del.mas:36
+msgid "Cancel"
+msgstr "Cancelar"
+
 #: src/templates/updates.mas:10
 msgid "Updates are available for the following system components"
-msgstr "Hay actualizaciones disponibles para los siguientes componentes del sistema"
+msgstr ""
+"Hay actualizaciones disponibles para los siguientes componentes del sistema"
 
 #: src/templates/updates.mas:16 src/templates/ebox.mas:14
 msgid "Component"
@@ -174,22 +198,6 @@ msgstr ""
 msgid "Upgrade"
 msgstr "Actualizar"
 
-#: src/templates/del.mas:14
-msgid "The following packages will be installed"
-msgstr "Se instalarán los siguientes paquetes"
-
-#: src/templates/del.mas:17
-msgid "The following packages will be removed"
-msgstr "Los siguientes paquetes serán borrados"
-
-#: src/templates/del.mas:34
-msgid "Ok"
-msgstr "Aceptar"
-
-#: src/templates/del.mas:36
-msgid "Cancel"
-msgstr "Cancelar"
-
 #: src/templates/config.mas:9
 msgid "Perform automatic security updates"
 msgstr "Instalar automáticamente parches de seguridad"
@@ -218,7 +226,5 @@ msgstr "ninguna"
 msgid "Remove"
 msgstr "Eliminar"
 
-#: src/templates/upgrading.mas:52
-msgid "The installation of the packages has finished successfully"
-msgstr "Los paquetes se han instalado correctamente "
-
+#~ msgid "Service logs"
+#~ msgstr "Servicio de Logs"

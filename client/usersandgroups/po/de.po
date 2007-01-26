@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-logs 0.7.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-11 12:55+0100\n"
+"POT-Creation-Date: 2007-01-26 15:03+0100\n"
 "PO-Revision-Date: 2005-11-11 12:55+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,13 +15,17 @@ msgstr ""
 "Content-Type: text/plain; charset=ASCII\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/CGI/DelUserFromGroup.pm:45 src/EBox/CGI/AddUserToGroup.pm:44
-#: src/EBox/CGI/Group.pm:45
-msgid "group"
+#: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
+#: src/EBox/UsersAndGroups.pm:645 src/EBox/UsersAndGroups.pm:650
+#: src/EBox/UsersAndGroups.pm:755 src/EBox/UsersAndGroups.pm:882
+#: src/EBox/UsersAndGroups.pm:919 src/EBox/UsersAndGroups.pm:993
+#: src/EBox/UsersAndGroups.pm:1099
+msgid "group name"
 msgstr ""
 
-#: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/AddUserToGroup.pm:49
-msgid "user"
+#: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
+#: src/EBox/CGI/AddUser.pm:49
+msgid "comment"
 msgstr ""
 
 #: src/EBox/CGI/Del.pm:65
@@ -40,25 +44,21 @@ msgstr ""
 msgid "Group removed successfully"
 msgstr ""
 
-#: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:657 src/EBox/UsersAndGroups.pm:662
-#: src/EBox/UsersAndGroups.pm:767 src/EBox/UsersAndGroups.pm:894
-#: src/EBox/UsersAndGroups.pm:931 src/EBox/UsersAndGroups.pm:1005
-#: src/EBox/UsersAndGroups.pm:1111
-msgid "group name"
+#: src/EBox/CGI/DelUserFromGroup.pm:45 src/EBox/CGI/AddUserToGroup.pm:44
+#: src/EBox/CGI/Group.pm:45
+msgid "group"
 msgstr ""
 
-#: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
-#: src/EBox/CGI/AddUser.pm:49
-msgid "comment"
+#: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/AddUserToGroup.pm:49
+msgid "user"
 msgstr ""
 
 #: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
-#: src/EBox/UsersAndGroups.pm:265 src/EBox/UsersAndGroups.pm:271
-#: src/EBox/UsersAndGroups.pm:357 src/EBox/UsersAndGroups.pm:411
-#: src/EBox/UsersAndGroups.pm:442 src/EBox/UsersAndGroups.pm:731
-#: src/EBox/UsersAndGroups.pm:796 src/EBox/UsersAndGroups.pm:889
-#: src/EBox/UsersAndGroups.pm:926 src/EBox/UsersAndGroups.pm:963
+#: src/EBox/UsersAndGroups.pm:253 src/EBox/UsersAndGroups.pm:259
+#: src/EBox/UsersAndGroups.pm:345 src/EBox/UsersAndGroups.pm:399
+#: src/EBox/UsersAndGroups.pm:430 src/EBox/UsersAndGroups.pm:719
+#: src/EBox/UsersAndGroups.pm:784 src/EBox/UsersAndGroups.pm:877
+#: src/EBox/UsersAndGroups.pm:914 src/EBox/UsersAndGroups.pm:951
 msgid "user name"
 msgstr ""
 
@@ -86,40 +86,40 @@ msgstr ""
 msgid "Edit group"
 msgstr ""
 
-#: src/EBox/CGI/User.pm:30
-msgid "Edit user"
-msgstr ""
-
-#: src/EBox/CGI/User.pm:45
-msgid "username"
-msgstr ""
-
-#: src/EBox/CGI/Groups.pm:30 src/EBox/UsersAndGroups.pm:1379
-msgid "Groups"
-msgstr ""
-
-#: src/EBox/CGI/Users.pm:31 src/EBox/UsersAndGroups.pm:1377
+#: src/EBox/CGI/User.pm:42 src/EBox/CGI/Users.pm:31
+#: src/EBox/UsersAndGroups.pm:1365
 msgid "Users"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:260
-msgid "Username must not be longer than "
+#: src/EBox/CGI/User.pm:46
+msgid "username"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:280 src/EBox/UsersAndGroups.pm:671
+#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1367
+msgid "Groups"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:248
+#, perl-brace-format
+msgid "Username must not be longer than {maxuserlength} characters"
+msgstr ""
+
+#: src/EBox/UsersAndGroups.pm:268 src/EBox/UsersAndGroups.pm:659
 msgid "Maximum number of system users reached"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:645
-msgid "Groupname must not be longer than "
+#: src/EBox/UsersAndGroups.pm:633
+#, perl-brace-format
+msgid "Groupname must not be longer than {maxGroupLength} characters"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:651
+#: src/EBox/UsersAndGroups.pm:639
 msgid "The group name is not valid because it is used internally"
 msgstr ""
 
-#: src/EBox/UsersAndGroups.pm:1184
-msgid "Password must not be longer than "
+#: src/EBox/UsersAndGroups.pm:1172
+#, perl-brace-format
+msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr ""
 
 #: src/EBox/LdapUserImplementation.pm:42
@@ -134,15 +134,15 @@ msgstr ""
 
 #: src/templates/users.mas:13 src/templates/groups.mas:13
 msgid ""
-"Changes related to printing and file sharing do need to be saved in order to "
-"be effective."
+"Changes related to printing, file sharing and Jabber service do need to be "
+"saved in order to be effective."
 msgstr ""
 
 #: src/templates/users.mas:16
 msgid "Add User"
 msgstr ""
 
-#: src/templates/users.mas:22
+#: src/templates/users.mas:22 src/templates/users.mas:86
 msgid "User name"
 msgstr ""
 
@@ -163,21 +163,33 @@ msgstr ""
 msgid "Retype password"
 msgstr ""
 
-#: src/templates/users.mas:66
-msgid "Group"
-msgstr ""
-
-#: src/templates/users.mas:84 src/templates/users.mas:86
+#: src/templates/users.mas:71 src/templates/users.mas:73
 #: src/templates/groups.mas:48 src/templates/groups.mas:50
 msgid "Create"
 msgstr ""
 
-#: src/templates/users.mas:95
+#: src/templates/users.mas:82
 msgid "Edit User"
 msgstr ""
 
-#: src/templates/users.mas:105 src/templates/groups.mas:69
+#: src/templates/users.mas:88 src/templates/groups.mas:65
+msgid "Actions"
+msgstr ""
+
+#: src/templates/users.mas:101 src/templates/users.mas:103
+#: src/templates/groups.mas:78 src/templates/groups.mas:80
 msgid "Edit"
+msgstr ""
+
+#: src/templates/users.mas:110 src/templates/users.mas:112
+#: src/templates/users.mas:114 src/templates/group.mas:66
+#: src/templates/groups.mas:87 src/templates/groups.mas:89
+#: src/templates/groups.mas:91
+msgid "Remove"
+msgstr ""
+
+#: src/templates/users.mas:130
+msgid "Group"
 msgstr ""
 
 #: src/templates/del.mas:13
@@ -231,24 +243,24 @@ msgstr ""
 msgid "Users not in group"
 msgstr ""
 
-#: src/templates/group.mas:61
-msgid "Remove"
+#: src/templates/group.mas:57 src/templates/group.mas:97
+msgid "Empty list"
 msgstr ""
 
-#: src/templates/group.mas:65
+#: src/templates/group.mas:70
 msgid "Remove users from group"
 msgstr ""
 
-#: src/templates/group.mas:74 src/templates/group.mas:78
+#: src/templates/group.mas:79 src/templates/group.mas:83
 msgid "Add users to group"
 msgstr ""
 
-#: src/templates/group.mas:103 src/templates/group.mas:113
-#: src/templates/group.mas:115
+#: src/templates/group.mas:113 src/templates/group.mas:123
+#: src/templates/group.mas:125
 msgid "Delete group"
 msgstr ""
 
-#: src/templates/group.mas:106
+#: src/templates/group.mas:116
 msgid ""
 "If you remove this group all its data within its shared directory will be "
 "deleted"
@@ -273,7 +285,7 @@ msgstr ""
 msgid "Add Group"
 msgstr ""
 
-#: src/templates/groups.mas:23
+#: src/templates/groups.mas:23 src/templates/groups.mas:63
 msgid "Group name"
 msgstr ""
 

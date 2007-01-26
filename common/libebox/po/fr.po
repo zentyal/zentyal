@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-23 16:39+0100\n"
+"POT-Creation-Date: 2007-01-26 15:00+0100\n"
 "PO-Revision-Date: 2006-11-08 14:04+0100\n"
 "Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
 "Language-Team: \n"
@@ -20,11 +20,31 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: KBabel 1.11.2\n"
 
+#: src/EBox/Exceptions/DataExists.pm:31
+#, perl-brace-format
+msgid "{data} {value} already exists."
+msgstr "{data} {value} existe déjà."
+
+#: src/EBox/Exceptions/InvalidData.pm:32
+#, perl-brace-format
+msgid "Invalid value for {data}: {value}."
+msgstr "Valeur invalide pour {data}: {value}."
+
+#: src/EBox/Exceptions/DataNotFound.pm:30
+#, perl-brace-format
+msgid "{data} {value} does not exist."
+msgstr "{data} {value} n'existe pas."
+
+#: src/EBox/Exceptions/DataMissing.pm:30
+#, perl-brace-format
+msgid "{data} is empty."
+msgstr "{data} est vide."
+
 #: src/EBox/CGI/EBox/PageNotFound.pm:12
 msgid "Page not found"
 msgstr "La page n'a pas pu être trouvée"
 
-#: src/EBox/CGI/Base.pm:167
+#: src/EBox/CGI/Base.pm:187
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
@@ -33,7 +53,7 @@ msgstr ""
 "alphanumériques, plus ceux ci non alphanumériques sont permis: /.?&+:-@ et "
 "espaces."
 
-#: src/EBox/CGI/Base.pm:289 src/EBox/CGI/Base.pm:493
+#: src/EBox/CGI/Base.pm:309 src/EBox/CGI/Base.pm:513
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -41,7 +61,7 @@ msgstr ""
 "Une erreur interne s'est produite. C'est probablement un bogue, "
 "l'information pertinente peut être trouvé dans les logs."
 
-#: src/EBox/CGI/Base.pm:299
+#: src/EBox/CGI/Base.pm:319
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -49,7 +69,7 @@ msgstr ""
 "Une erreur interne liée à une matrice s'est produite. C'est un bogue, "
 "l'information pertinente peut être trouvé dans les logs."
 
-#: src/EBox/CGI/Base.pm:499
+#: src/EBox/CGI/Base.pm:519
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -57,18 +77,18 @@ msgstr ""
 "Une erreur interne innatendue s'est produite. C'est un bogue, l'information "
 "pertinente peut être trouvé dans les logs."
 
-#: src/EBox/CGI/Base.pm:505
+#: src/EBox/CGI/Base.pm:525
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
 "Vous avez trouvé un bogue dans l'eBox. Veuillez contacter votre service de "
 "soutien technique."
 
-#: src/EBox/CGI/Base.pm:592
+#: src/EBox/CGI/Base.pm:612
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:607
+#: src/EBox/CGI/Base.pm:627
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
@@ -79,54 +99,7 @@ msgstr ""
 msgid "Interface"
 msgstr "Interface"
 
-#: src/EBox/Exceptions/DataNotFound.pm:30
-#, perl-brace-format
-msgid "{data} {value} does not exist."
-msgstr "{data} {value} n'existe pas."
-
-#: src/EBox/Exceptions/DataExists.pm:31
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} {value} existe déjà."
-
-#: src/EBox/Exceptions/DataMissing.pm:30
-#, perl-brace-format
-msgid "{data} is empty."
-msgstr "{data} est vide."
-
-#: src/EBox/Exceptions/InvalidData.pm:32
-#, perl-brace-format
-msgid "Invalid value for {data}: {value}."
-msgstr "Valeur invalide pour {data}: {value}."
-
-#: src/EBox/Validate.pm:572
-#, perl-brace-format
-msgid ""
-"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
-"the permissions forbid access to it"
-msgstr ""
-
-#: src/EBox/Validate.pm:577
-#, perl-brace-format
-msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr ""
-
-#: src/EBox/Validate.pm:652
-msgid ""
-"The file path supplied is not valid. (Currently not all of the valid file's  "
-"characters are supported) "
-msgstr ""
-
-#: src/EBox/Validate.pm:680
-msgid "The file path must be absolute"
-msgstr "Le chemin du fichier doit être absolute"
-
-#: src/EBox/Sudo.pm:79
-#, perl-brace-format
-msgid "Command '{cmd}' failed. Output: {output}"
-msgstr "Commande '{cmd}' échoué. Sortie: {output}"
-
-#: src/EBox/Sudo.pm:203
+#: src/EBox/Sudo.pm:229
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "Executant commande '{cmd}' comme {user} échoué"
@@ -140,30 +113,35 @@ msgstr "On n'a pas pu ouvrir le fichier de configuration {file}."
 msgid "The ebox user has not been set in the config file."
 msgstr "L'usager d'ebox n'a pas été placé dans le fichier de config."
 
+#: src/EBox/Validate.pm:600
+#, perl-brace-format
+msgid ""
+"Cannot stat dir: {dir}. This may mean that the directory does not exist or "
+"the permissions forbid access to it"
+msgstr ""
+
+#: src/EBox/Validate.pm:605
+#, perl-brace-format
+msgid "The directory {dir} is not private; because it is owned by another user"
+msgstr ""
+
+#: src/EBox/Validate.pm:680
+msgid ""
+"The file path supplied is not valid. (Currently not all of the valid file's  "
+"characters are supported) "
+msgstr ""
+
+#: src/EBox/Validate.pm:708
+msgid "The file path must be absolute"
+msgstr "Le chemin du fichier doit être absolute"
+
+#: src/templates/ajax/tableBody.mas:115
+msgid "Action"
+msgstr ""
+
 #: src/templates/ebox/pageNotFound.mas:14
 msgid "The page can not be found"
 msgstr "La page n'a pas pu être trouvée"
-
-#: src/templates/enable.mas:13
-msgid "Service configuration"
-msgstr "Configuration du service"
-
-#: src/templates/enable.mas:17 src/templates/enable.mas:22
-msgid "Disabled"
-msgstr "Désactivé"
-
-#: src/templates/enable.mas:19 src/templates/enable.mas:24
-msgid "Enabled"
-msgstr "Activé"
-
-#: src/templates/enable.mas:29 src/templates/enable.mas:31
-#: src/templates/language.mas:25
-msgid "Change"
-msgstr "Changer"
-
-#: src/templates/formTable.mas:83
-msgid "Table is empty"
-msgstr "Table est vide."
 
 #: src/templates/title.mas:14
 msgid "Display help notes"
@@ -192,3 +170,26 @@ msgid ""
 msgstr ""
 "Les changements de langue se produisent automatiquement, il n'est pas "
 "nécessaire de garder la configuration."
+
+#: src/templates/language.mas:25 src/templates/enable.mas:29
+#: src/templates/enable.mas:31
+msgid "Change"
+msgstr "Changer"
+
+#: src/templates/enable.mas:13
+msgid "Service configuration"
+msgstr "Configuration du service"
+
+#: src/templates/enable.mas:17 src/templates/enable.mas:22
+msgid "Disabled"
+msgstr "Désactivé"
+
+#: src/templates/enable.mas:19 src/templates/enable.mas:24
+msgid "Enabled"
+msgstr "Activé"
+
+#~ msgid "Table is empty"
+#~ msgstr "Table est vide."
+
+#~ msgid "Command '{cmd}' failed. Output: {output}"
+#~ msgstr "Commande '{cmd}' échoué. Sortie: {output}"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: EBox-network 0.7.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2005-11-11 13:12+0100\n"
+"POT-Creation-Date: 2007-01-26 15:02+0100\n"
 "PO-Revision-Date: 2005-11-11 13:12+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,33 +15,39 @@ msgstr ""
 "Content-Type: text/plain; charset=ASCII\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/CGI/Gateway.pm:41 src/EBox/CGI/Route.pm:47
-msgid "gateway address"
+#: src/EBox/CGI/FirstTime/DNS.pm:41
+msgid "You can revisit this apge at Network/DNS in the menu"
 msgstr ""
 
-#: src/EBox/CGI/Vlan.pm:40 src/EBox/CGI/Iface.pm:44 src/EBox/CGI/VIface.pm:43
-msgid "network interface"
+#: src/EBox/CGI/FirstTime/Iface.pm:45
+msgid "Network interface configured"
 msgstr ""
 
-#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1006
-#: src/EBox/Network.pm:1035 src/templates/ifaces.mas:163
-msgid "VLAN Id"
+#: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
+#: src/EBox/Network.pm:2067
+msgid "Network interfaces"
 msgstr ""
 
-#: src/EBox/CGI/Iface.pm:43
-msgid "method"
+#: src/EBox/CGI/FirstTime/Ifaces.pm:25
+msgid ""
+"After the initial config you can revisit this page at Network/Interfaces in "
+"the menu"
 msgstr ""
 
-#: src/EBox/CGI/Iface.pm:74 src/EBox/Network.pm:1441
-msgid "ip address"
+#: src/EBox/CGI/FirstTime/Nameservers.pm:44
+msgid "DNS configured"
 msgstr ""
 
-#: src/EBox/CGI/Iface.pm:75 src/EBox/CGI/Route.pm:42 src/EBox/CGI/VIface.pm:63
-msgid "netmask"
+#: src/EBox/CGI/FirstTime/Gateway.pm:41
+msgid "Gateway configured"
 msgstr ""
 
-#: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1440
-msgid "network address"
+#: src/EBox/CGI/FirstTime/Routes.pm:29
+msgid "Set default gateway"
+msgstr ""
+
+#: src/EBox/CGI/FirstTime/Routes.pm:43
+msgid "You can change later the gateway at Network/Routes menus item"
 msgstr ""
 
 #: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
@@ -52,19 +58,36 @@ msgstr ""
 msgid "Host"
 msgstr ""
 
-#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2041
+#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2055
 msgid "host name"
+msgstr ""
+
+#: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/VIface.pm:43
+#: src/EBox/CGI/Vlan.pm:40
+msgid "network interface"
+msgstr ""
+
+#: src/EBox/CGI/Iface.pm:58
+msgid "method"
+msgstr ""
+
+#: src/EBox/CGI/Iface.pm:87 src/EBox/Network.pm:1450
+msgid "ip address"
+msgstr ""
+
+#: src/EBox/CGI/Iface.pm:88 src/EBox/CGI/VIface.pm:63 src/EBox/CGI/Route.pm:42
+msgid "netmask"
 msgstr ""
 
 #: src/EBox/CGI/VIface.pm:44
 msgid "virtual interface action"
 msgstr ""
 
-#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:541 src/EBox/Network.pm:546
-#: src/EBox/Network.pm:833 src/EBox/Network.pm:854 src/EBox/Network.pm:1365
-#: src/EBox/Network.pm:1399 src/EBox/Network.pm:1863 src/EBox/Network.pm:1878
-#: src/EBox/Network.pm:1980 src/EBox/Network.pm:2098
-#: src/templates/ifaces.mas:104 src/templates/ifaces.mas:232
+#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:546 src/EBox/Network.pm:551
+#: src/EBox/Network.pm:840 src/EBox/Network.pm:861 src/EBox/Network.pm:1374
+#: src/EBox/Network.pm:1408 src/EBox/Network.pm:1877 src/EBox/Network.pm:1892
+#: src/EBox/Network.pm:1994 src/EBox/Network.pm:2112
+#: src/templates/ifaces.mas:104 src/templates/ifaces.mas:233
 msgid "IP address"
 msgstr ""
 
@@ -72,103 +95,182 @@ msgstr ""
 msgid "virtual interface name"
 msgstr ""
 
+#: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1449
+msgid "network address"
+msgstr ""
+
+#: src/EBox/CGI/Route.pm:47 src/EBox/CGI/Gateway.pm:47
+msgid "gateway address"
+msgstr ""
+
+#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1015
+#: src/EBox/Network.pm:1044 src/templates/ifaces.mas:164
+msgid "VLAN Id"
+msgstr ""
+
 #: src/EBox/CGI/Routes.pm:29 src/EBox/CGI/Routes.pm:40
-#: src/EBox/Network.pm:2121
+#: src/EBox/Network.pm:2135
 msgid "Routes"
 msgstr ""
 
-#: src/EBox/CGI/Ifaces.pm:29 src/EBox/CGI/Ifaces.pm:40
-#: src/EBox/Network.pm:2053
-msgid "Network interfaces"
+#: src/EBox/Network/FirstTime.pm:14
+msgid "Configure network interfaces"
 msgstr ""
 
-#: src/EBox/Network.pm:538 src/EBox/Network.pm:542
+#: src/EBox/Network/FirstTime.pm:15
+msgid "Configure name servers"
+msgstr ""
+
+#: src/EBox/Network/FirstTime.pm:16
+msgid "Configure default gateway"
+msgstr ""
+
+#: src/EBox/Network.pm:543 src/EBox/Network.pm:547
 msgid "Virtual interface name"
 msgstr ""
 
-#: src/EBox/Network.pm:541 src/EBox/Network.pm:833 src/EBox/Network.pm:1863
-#: src/templates/ifaces.mas:118 src/templates/ifaces.mas:234
+#: src/EBox/Network.pm:546 src/EBox/Network.pm:840 src/EBox/Network.pm:1877
+#: src/templates/ifaces.mas:118 src/templates/ifaces.mas:235
 msgid "Netmask"
 msgstr ""
 
-#: src/EBox/Network.pm:634 src/EBox/Network.pm:666 src/EBox/Network.pm:711
-#: src/EBox/Network.pm:745 src/EBox/Network.pm:770 src/EBox/Network.pm:829
-#: src/EBox/Network.pm:932 src/EBox/Network.pm:1127 src/EBox/Network.pm:1187
-#: src/EBox/Network.pm:1222 src/EBox/Network.pm:1258 src/EBox/Network.pm:1291
-#: src/EBox/Network.pm:1861 src/EBox/Network.pm:1893 src/EBox/Network.pm:1936
-#: src/EBox/Network.pm:1956 src/EBox/Network.pm:1977 src/EBox/Network.pm:2000
+#: src/EBox/Network.pm:639 src/EBox/Network.pm:671 src/EBox/Network.pm:716
+#: src/EBox/Network.pm:750 src/EBox/Network.pm:775 src/EBox/Network.pm:836
+#: src/EBox/Network.pm:941 src/EBox/Network.pm:1136 src/EBox/Network.pm:1196
+#: src/EBox/Network.pm:1231 src/EBox/Network.pm:1267 src/EBox/Network.pm:1300
+#: src/EBox/Network.pm:1875 src/EBox/Network.pm:1907 src/EBox/Network.pm:1950
+#: src/EBox/Network.pm:1970 src/EBox/Network.pm:1991 src/EBox/Network.pm:2014
 msgid "Interface"
 msgstr ""
 
-#: src/EBox/Network.pm:937
+#: src/EBox/Network.pm:946
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr ""
 
-#: src/EBox/Network.pm:982
+#: src/EBox/Network.pm:991
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
 msgstr ""
 
-#: src/EBox/Network.pm:1015
+#: src/EBox/Network.pm:1024
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
 
-#: src/EBox/Network.pm:1400 src/EBox/Network.pm:1442
-#: src/templates/routes.mas:33
+#: src/EBox/Network.pm:1409 src/EBox/Network.pm:1451
+#: src/templates/routes.mas:43
 msgid "Gateway"
 msgstr ""
 
-#: src/EBox/Network.pm:1796
+#: src/EBox/Network.pm:1810
 msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
 msgstr ""
 
-#: src/EBox/Network.pm:1825
+#: src/EBox/Network.pm:1839
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
 msgstr ""
 
-#: src/EBox/Network.pm:2022
+#: src/EBox/Network.pm:2036
 msgid "Host name"
 msgstr ""
 
-#: src/EBox/Network.pm:2072
+#: src/EBox/Network.pm:2086
 msgid "down"
 msgstr ""
 
-#: src/EBox/Network.pm:2078
+#: src/EBox/Network.pm:2092
 msgid "up"
 msgstr ""
 
-#: src/EBox/Network.pm:2082
+#: src/EBox/Network.pm:2096
 msgid "link ok"
 msgstr ""
 
-#: src/EBox/Network.pm:2084
+#: src/EBox/Network.pm:2098
 msgid "no link"
 msgstr ""
 
-#: src/EBox/Network.pm:2087
+#: src/EBox/Network.pm:2101
 msgid "Status"
 msgstr ""
 
-#: src/EBox/Network.pm:2092
+#: src/EBox/Network.pm:2106
 msgid "MAC address"
 msgstr ""
 
-#: src/EBox/Network.pm:2113 src/templates/routes.mas:31
+#: src/EBox/Network.pm:2127 src/templates/routes.mas:41
 msgid "Network"
 msgstr ""
 
-#: src/EBox/Network.pm:2117
+#: src/EBox/Network.pm:2131
 msgid "Interfaces"
 msgstr ""
 
-#: src/EBox/Network.pm:2123
+#: src/EBox/Network.pm:2137
 msgid "Diagnosis"
+msgstr ""
+
+#: src/templates/routes.mas:12
+msgid ""
+"All routers you enter here must be reachable through one of the network "
+"interfaces currently configured."
+msgstr ""
+
+#: src/templates/routes.mas:18
+msgid ""
+"Having network interfaces configured via DHCP may cause the default gateway "
+"to be overriden."
+msgstr ""
+
+#: src/templates/routes.mas:22
+msgid "Default gateway"
+msgstr ""
+
+#: src/templates/routes.mas:26 src/templates/dns.mas:45
+msgid "Apply"
+msgstr ""
+
+#: src/templates/routes.mas:36
+msgid "Static routes"
+msgstr ""
+
+#: src/templates/routes.mas:45 src/templates/ifaces.mas:168
+#: src/templates/ifaces.mas:237
+msgid "Action"
+msgstr ""
+
+#: src/templates/routes.mas:74 src/templates/routes.mas:76
+#: src/templates/routes.mas:78 src/templates/ifaces.mas:185
+#: src/templates/ifaces.mas:187 src/templates/ifaces.mas:189
+#: src/templates/ifaces.mas:274 src/templates/ifaces.mas:276
+#: src/templates/ifaces.mas:278
+msgid "Add"
+msgstr ""
+
+#: src/templates/routes.mas:97 src/templates/routes.mas:99
+#: src/templates/routes.mas:101 src/templates/ifaces.mas:207
+#: src/templates/ifaces.mas:209 src/templates/ifaces.mas:211
+#: src/templates/ifaces.mas:304 src/templates/ifaces.mas:306
+#: src/templates/ifaces.mas:308
+msgid "Delete"
+msgstr ""
+
+#: src/templates/dns.mas:11
+msgid ""
+"Having network interfaces configured via DHCP may cause this settings to be "
+"overriden."
+msgstr ""
+
+#: src/templates/dns.mas:20
+msgid "Primary"
+msgstr ""
+
+#: src/templates/dns.mas:32
+msgid "Secondary"
 msgstr ""
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:20
@@ -191,86 +293,6 @@ msgstr ""
 msgid "Output"
 msgstr ""
 
-#: src/templates/dns.mas:11
-msgid ""
-"Having network interfaces configured via DHCP may cause this settings to be "
-"overriden."
-msgstr ""
-
-#: src/templates/dns.mas:20
-msgid "Primary"
-msgstr ""
-
-#: src/templates/dns.mas:32
-msgid "Secondary"
-msgstr ""
-
-#: src/templates/dns.mas:45 src/templates/routes.mas:23
-msgid "Apply"
-msgstr ""
-
-#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:14
-msgid ""
-"The change you are trying to make will affect the configuration of one or "
-"more modules that use references to this network interface."
-msgstr ""
-
-#: src/templates/confirmremove.mas:15 src/templates/confirm.mas:18
-msgid ""
-"If you choose to continue, all modules that make use of the current "
-"configuration of this network interface will delete the relevant parts of "
-"their configuration. Choose "
-msgstr ""
-
-#: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
-msgid "Ok"
-msgstr ""
-
-#: src/templates/confirmremove.mas:29 src/templates/confirm.mas:36
-msgid "Cancel"
-msgstr ""
-
-#: src/templates/routes.mas:11
-msgid ""
-"All routers you enter here must be reachable through one of the network "
-"interfaces currently configured."
-msgstr ""
-
-#: src/templates/routes.mas:15
-msgid ""
-"Having network interfaces configured via DHCP may cause this settings, "
-"mostly the default gateway, to be overriden."
-msgstr ""
-
-#: src/templates/routes.mas:19
-msgid "Default gateway"
-msgstr ""
-
-#: src/templates/routes.mas:26
-msgid "Static routes"
-msgstr ""
-
-#: src/templates/routes.mas:35 src/templates/ifaces.mas:167
-#: src/templates/ifaces.mas:236
-msgid "Action"
-msgstr ""
-
-#: src/templates/routes.mas:64 src/templates/routes.mas:66
-#: src/templates/routes.mas:68 src/templates/ifaces.mas:184
-#: src/templates/ifaces.mas:186 src/templates/ifaces.mas:188
-#: src/templates/ifaces.mas:273 src/templates/ifaces.mas:275
-#: src/templates/ifaces.mas:277
-msgid "Add"
-msgstr ""
-
-#: src/templates/routes.mas:87 src/templates/routes.mas:89
-#: src/templates/routes.mas:91 src/templates/ifaces.mas:206
-#: src/templates/ifaces.mas:208 src/templates/ifaces.mas:210
-#: src/templates/ifaces.mas:303 src/templates/ifaces.mas:305
-#: src/templates/ifaces.mas:307
-msgid "Delete"
-msgstr ""
-
 #: src/templates/ifaces.mas:13
 msgid ""
 "Remember that changing the network interfaces configuration may cause you to "
@@ -284,7 +306,7 @@ msgid ""
 "interfaces."
 msgstr ""
 
-#: src/templates/ifaces.mas:30 src/templates/ifaces.mas:230
+#: src/templates/ifaces.mas:30 src/templates/ifaces.mas:231
 msgid "Name"
 msgstr ""
 
@@ -308,18 +330,39 @@ msgstr ""
 msgid "External"
 msgstr ""
 
-#: src/templates/ifaces.mas:148
+#: src/templates/ifaces.mas:149
 msgid "Change"
 msgstr ""
 
-#: src/templates/ifaces.mas:157
+#: src/templates/ifaces.mas:158
 msgid "VLAN List"
 msgstr ""
 
-#: src/templates/ifaces.mas:165
+#: src/templates/ifaces.mas:166
 msgid "Description"
 msgstr ""
 
-#: src/templates/ifaces.mas:224
+#: src/templates/ifaces.mas:225
 msgid "Virtual interfaces"
+msgstr ""
+
+#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:14
+msgid ""
+"The change you are trying to make will affect the configuration of one or "
+"more modules that use references to this network interface."
+msgstr ""
+
+#: src/templates/confirmremove.mas:15 src/templates/confirm.mas:18
+msgid ""
+"If you choose to continue, all modules that make use of the current "
+"configuration of this network interface will delete the relevant parts of "
+"their configuration. Choose "
+msgstr ""
+
+#: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
+msgid "Ok"
+msgstr ""
+
+#: src/templates/confirmremove.mas:29 src/templates/confirm.mas:36
+msgid "Cancel"
 msgstr ""

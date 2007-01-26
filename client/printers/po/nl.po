@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-27 15:26+0100\n"
+"POT-Creation-Date: 2007-01-26 15:02+0100\n"
 "PO-Revision-Date: 2006-11-27 15:26+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -67,11 +67,11 @@ msgstr ""
 
 #: src/EBox/CGI/SambaPrinterUI.pm:54 src/EBox/CGI/USBPrinterUI.pm:54
 #: src/EBox/CGI/NetworkPrinterUI.pm:53 src/EBox/CGI/ParallelPrinterUI.pm:54
-#: src/EBox/CGI/DrvoptsUI.pm:53 src/templates/printerback.mas:187
-#: src/templates/printerback.mas:189 src/templates/models.mas:22
-#: src/templates/models.mas:24 src/templates/manufacturer.mas:22
-#: src/templates/manufacturer.mas:24 src/templates/driver.mas:22
-#: src/templates/driver.mas:24 src/templates/addprinter.mas:44
+#: src/EBox/CGI/DrvoptsUI.pm:53 src/templates/models.mas:22
+#: src/templates/models.mas:24 src/templates/printerback.mas:187
+#: src/templates/printerback.mas:189 src/templates/driver.mas:22
+#: src/templates/driver.mas:24 src/templates/manufacturer.mas:22
+#: src/templates/manufacturer.mas:24 src/templates/addprinter.mas:44
 #: src/templates/addprinter.mas:46 src/templates/drivers.mas:36
 #: src/templates/drivers.mas:38
 msgid "Next"
@@ -85,18 +85,18 @@ msgstr ""
 msgid "Shared resource"
 msgstr ""
 
-#: src/EBox/CGI/SambaPrinter.pm:53 src/templates/printerback.mas:131
-#: src/templates/samba.mas:34
+#: src/EBox/CGI/SambaPrinter.pm:53 src/templates/samba.mas:34
+#: src/templates/printerback.mas:131
 msgid "Authentication"
 msgstr ""
 
-#: src/EBox/CGI/SambaPrinter.pm:61 src/templates/printerback.mas:166
-#: src/templates/samba.mas:69
+#: src/EBox/CGI/SambaPrinter.pm:61 src/templates/samba.mas:69
+#: src/templates/printerback.mas:166
 msgid "User"
 msgstr ""
 
-#: src/EBox/CGI/SambaPrinter.pm:62 src/templates/printerback.mas:176
-#: src/templates/samba.mas:79
+#: src/EBox/CGI/SambaPrinter.pm:62 src/templates/samba.mas:79
+#: src/templates/printerback.mas:176
 msgid "Password"
 msgstr ""
 
@@ -132,13 +132,13 @@ msgstr ""
 msgid "Add a new printer (I)"
 msgstr ""
 
-#: src/EBox/CGI/Driver.pm:40 src/templates/printerback.mas:40
-#: src/templates/printer.mas:164
+#: src/EBox/CGI/Driver.pm:40 src/templates/printer.mas:164
+#: src/templates/printerback.mas:40
 msgid "Driver"
 msgstr ""
 
 #: src/EBox/CGI/Manufacturer.pm:40 src/EBox/Printers.pm:726
-#: src/templates/printerback.mas:22 src/templates/printer.mas:146
+#: src/templates/printer.mas:146 src/templates/printerback.mas:22
 msgid "Manufacturer"
 msgstr ""
 
@@ -180,8 +180,8 @@ msgid "Add a new printer (VI)"
 msgstr ""
 
 #: src/EBox/CGI/Model.pm:40 src/EBox/Printers.pm:765 src/EBox/Printers.pm:805
-#: src/templates/printerback.mas:16 src/templates/printerback.mas:31
-#: src/templates/printer.mas:155
+#: src/templates/printer.mas:155 src/templates/printerback.mas:16
+#: src/templates/printerback.mas:31
 msgid "Model"
 msgstr ""
 
@@ -270,46 +270,15 @@ msgstr ""
 msgid "Canceled"
 msgstr ""
 
-#: src/templates/printerback.mas:51 src/templates/printerback.mas:53
-msgid "Go"
-msgstr ""
-
-#: src/templates/printerback.mas:62 src/templates/drvopts.mas:14
+#: src/templates/drvopts.mas:14 src/templates/printerback.mas:62
 msgid "Driver options"
 msgstr ""
 
-#: src/templates/printerback.mas:103 src/templates/printerback.mas:105
-#: src/templates/printerback.mas:225 src/templates/printerback.mas:227
 #: src/templates/printer.mas:32 src/templates/printer.mas:175
-#: src/templates/printer.mas:177
+#: src/templates/printer.mas:177 src/templates/printerback.mas:103
+#: src/templates/printerback.mas:105 src/templates/printerback.mas:225
+#: src/templates/printerback.mas:227
 msgid "Change"
-msgstr ""
-
-#: src/templates/printerback.mas:115
-msgid "Samba shared printer configurationr"
-msgstr ""
-
-#: src/templates/printerback.mas:122 src/templates/samba.mas:25
-msgid "Share resource"
-msgstr ""
-
-#: src/templates/printerback.mas:138 src/templates/printerback.mas:141
-#: src/templates/samba.mas:41 src/templates/samba.mas:44
-msgid "Anonymous"
-msgstr ""
-
-#: src/templates/printerback.mas:146 src/templates/printerback.mas:149
-#: src/templates/samba.mas:49 src/templates/samba.mas:52
-msgid "Guest"
-msgstr ""
-
-#: src/templates/printerback.mas:154 src/templates/printerback.mas:157
-#: src/templates/samba.mas:57 src/templates/samba.mas:60
-msgid "User/Password"
-msgstr ""
-
-#: src/templates/printerback.mas:198
-msgid "Remote printer configuration"
 msgstr ""
 
 #: src/templates/printer.mas:62
@@ -347,6 +316,25 @@ msgstr ""
 msgid "Samba shared printer configuration"
 msgstr ""
 
+#: src/templates/samba.mas:25 src/templates/printerback.mas:122
+msgid "Share resource"
+msgstr ""
+
+#: src/templates/samba.mas:41 src/templates/samba.mas:44
+#: src/templates/printerback.mas:138 src/templates/printerback.mas:141
+msgid "Anonymous"
+msgstr ""
+
+#: src/templates/samba.mas:49 src/templates/samba.mas:52
+#: src/templates/printerback.mas:146 src/templates/printerback.mas:149
+msgid "Guest"
+msgstr ""
+
+#: src/templates/samba.mas:57 src/templates/samba.mas:60
+#: src/templates/printerback.mas:154 src/templates/printerback.mas:157
+msgid "User/Password"
+msgstr ""
+
 #: src/templates/del.mas:12
 #, perl-brace-format
 msgid "Are you sure you want to delete the printer '{name}'?"
@@ -356,8 +344,16 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/templates/manufacturer.mas:12
-msgid "Choose manufacturer"
+#: src/templates/printerback.mas:51 src/templates/printerback.mas:53
+msgid "Go"
+msgstr ""
+
+#: src/templates/printerback.mas:115
+msgid "Samba shared printer configurationr"
+msgstr ""
+
+#: src/templates/printerback.mas:198
+msgid "Remote printer configuration"
 msgstr ""
 
 #: src/templates/printers.mas:10
@@ -394,6 +390,10 @@ msgstr ""
 
 #: src/templates/driver.mas:12
 msgid "Choose a driver for the printer"
+msgstr ""
+
+#: src/templates/manufacturer.mas:12
+msgid "Choose manufacturer"
 msgstr ""
 
 #: src/templates/addprinter.mas:10
