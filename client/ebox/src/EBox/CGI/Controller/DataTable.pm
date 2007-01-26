@@ -45,30 +45,32 @@ sub getParams
 	my %params;
 	foreach my $field (@{$tableDesc}) {
 
-		my $type = $field->{'type'};
-		my $fieldName = $field->{'fieldName'};
-		my $value = $self->param($fieldName);
-		
-		if ($field->{'optional'} == 1 and $type  ne 'checkbox') {
-			if (not defined($value)) {
-				$value = "";
-			}
-				
-		} else {
+		my $type = $field->type();
 
-			if ($field->{'type'} ne 'checkbox') {
-				$self->_requireParam($fieldName,
-						$field->{'printableName'});
+		foreach my $fieldName ($field->fields()) {
+			my $value = $self->param($fieldName);
+		
+			if ($field->{'optional'} == 1 and $type  ne 'boolean') {
+				if (not defined($value)) {
+					$value = "";
+				}
+				
 			} else {
-				if ($value) {
-					$value = 1;
+
+				if ($type ne 'boolean') {
+					$self->_requireParam($fieldName,
+						$field->printableName());
 				} else {
-					$value = 0;
+					if ($value) {
+						$value = 1;
+					} else {
+						$value = 0;
+					}
 				}
 			}
-		}
 
-		$params{$fieldName} = $value;
+			$params{$fieldName} = $value;
+		}
 	}
 
 	$params{'id'} = $self->param('id');
@@ -154,6 +156,9 @@ sub refreshTable
 	my @params;
 	push(@params, 'data' => $model->rows() );
 	push(@params, 'dataTable' => $model->tableInfo());
+	push(@params, 'action' => $self->{'action'});
+	push(@params, 'editid' => $self->param('editid'));
+	
 
 	$self->{'params'} = \@params;
 
@@ -165,10 +170,12 @@ sub _process
 
 	$self->_requireParam('action');
 	my $action = $self->param('action');
+	$self->{'action'} = $action;
 
 	if ($action eq 'edit') {
 
 		$self->editField();
+		$self->refreshTable();
 
 	} elsif ($action eq 'add') {
 		
@@ -183,6 +190,18 @@ sub _process
 	} elsif ($action eq 'move') {
 
 		$self->moveRow();
+		$self->refreshTable();
+
+	} elsif ($action eq 'changeAdd') {
+		
+		$self->refreshTable();
+		
+	} elsif ($action eq 'changeList') {
+
+		$self->refreshTable();
+
+	} elsif ($action eq 'changeEdit') {
+	
 		$self->refreshTable();
 
 	}

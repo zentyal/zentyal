@@ -20,33 +20,11 @@ my @tableHead = @{$dataTable->{'tableDescription'}};
 
 	<h3><% $dataTable->{'printableTableName'} %></h3>
 	<div id='error_<% $dataTable->{'tableName'} %>'></div>
-		<table cellspacing='0' class='<% $dataTable->{'class'} %>'>
-			
-			<thead>
-			
-%	foreach my $th (@tableHead) {
-				<th class='<% $th->{'class'} %>'>
-					<% $th->{'printableName'} %>
-				</th>
-%	}
 
-				<th class='thOptions'>
-					<% __('Action') %>
-				</th>
-			</thead>
+	<div id="<% $dataTable->{'tableName'} %>">
+	
+		<& /ajax/tableBody.mas, 
+						'data' => \@data,
+						'dataTable' => $dataTable, &>
 
-			<tbody id="<% $dataTable->{'tableName'} %>">			
-
-					<& /ajax/tableBody.mas, 
-									'data' => \@data,
-									'dataTable' => $dataTable, &>
-
-			</tbody>
-
-		</table>
-
-
-
-
-
-
+	</div>

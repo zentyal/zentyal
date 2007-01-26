@@ -20,6 +20,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::NotImplemented;
+use Clone qw(clone);
 
 use strict;
 use warnings;
@@ -200,59 +201,95 @@ sub addRow
 	my $dir = $self->{'directory'};
 	my $gconfmod = $self->{'gconfmodule'};
 	
-	$self->_checkAllFieldsExist(@_);
-	
 	$self->validateRow(@_);
 
-	foreach my $field (@{$self->table()->{'tableDescription'}}) {
-		my $value = $params{$field->{'fieldName'}};
+	my @userData;
+	foreach my $type (@{$self->table()->{'tableDescription'}}) {
+		my $data = clone($type);
+		$data->setMemValue(\%params);
 
-		if ($field->{'unique'} == 1) {
-			$self->_checkFieldIsUnique($field->{'fieldName'}, 
-					$value, 
-					$field->{'printableName'});	
+		if ($data->unique()) {
+			$self->_checkFieldIsUnique($data);	
 		}
+
+		push (@userData, $data);
+
 	}
 	
 	my $id = $gconfmod->get_unique_id($self->{'leading_text'}, 
 				      $dir);
 	
-	foreach my $field (@{$self->table()->{'tableDescription'}}) {
-		my $value = $params{$field->{'fieldName'}};
-
-		my $key = "$dir/$id/$field->{'fieldName'}";
-		if ($field->{'type'} eq 'text') {
-			
-			$gconfmod->set_string($key, $value);
-
-		} elsif ($field->{'type'} eq 'int') {
-
-			$gconfmod->set_int($key, $value);
-
-		} elsif ($field->{'type'} eq 'select') {
-		
-			$gconfmod->set_string($key, $value);
-		
-		} elsif ($field->{'type'} eq 'checkbox') {
-
-			$gconfmod->set_bool($key, $value);	
-
-		}
+	foreach my $data (@userData) {
+		$data->storeInGconf($gconfmod, "$dir/$id");
 	}
 
-	
 	if ($self->table()->{'order'}) {
 		$self->_insertPos($id, 0);
 	}
+	
+	my $row = {};
+	$row->{'id'} = $id;
+	$row->{'order'} = $self->_rowOrder($id);
+	$row->{'values'} = \@userData;
 
 	
-	my %notifyParams = %{$gconfmod->hash_from_dir("$dir/$id")};
-	$notifyParams{'id'}  = $id;
-	$notifyParams{'order'} = 0;
-	$self->addedRowNotify(%notifyParams);
+	$self->addedRowNotify($row);
 }
 
+# Method: row
+#
+#	Return a given row
+#
+# Parameters:
+#
+# 	id - row id
+# 	
+# Returns:
+#
+#	Hash reference containing:
+#	
+#		'id' =>  row id
+#		'order' => row order
+#		'data' => array ref containing objects 
+#			  implementing EBox::Types::Abstract interface
+#
+sub row
+{
+	my ($self, $id)  = @_;
+	
+	my $dir = $self->{'directory'};
+	my $gconfmod = $self->{'gconfmodule'};
+	my $row = {};
+	
+	unless (defined($id)) {
+		return undef;
+	}
 
+	unless ($gconfmod->dir_exists("$dir/$id")) {
+		return undef;
+	}
+
+
+	my @values;
+	foreach my $type (@{$self->table()->{'tableDescription'}}) {
+		my $data = clone($type);
+		$data->restoreFromHash($gconfmod->hash_from_dir("$dir/$id"));
+	
+		
+		if ($data->type() eq 'select') {
+			$data->addOptions(
+				$self->selectOptions($data->fieldName()));	
+		}
+		
+		push (@values, $data);
+	}
+	
+	$row->{'id'} = $id;
+	$row->{'order'} = $self->_rowOrder($id);
+	$row->{'values'} = \@values;
+
+	return $row;
+}
 
 sub moveUp
 {
@@ -267,7 +304,7 @@ sub moveUp
 
 	$self->_swapPos($pos, $pos - 1);
 
-	$self->movedUpRowNotify(%{$self->_hashFromDir($id)});
+	$self->movedUpRowNotify($self->row($id));
 }
 
 sub moveDown
@@ -284,7 +321,7 @@ sub moveDown
 
 	$self->_swapPos($pos, $pos + 1);
 
-	$self->movedDownRowNotify(%{$self->_hashFromDir($id)});
+	$self->movedDownRowNotify($self->row($id));
 }
 
 # Method: removeRow
@@ -300,14 +337,14 @@ sub removeRow
 	my ($self, $id) = @_;
 
 	$self->_checkRowExist($id, '');
-	my $row = $self->_hashFromDir($id);
+	my $row = $self->row($id);
 	$self->{'gconfmodule'}->delete_dir("$self->{'directory'}/$id");
 	
 	if ($self->table()->{'order'}) {
 		$self->_removeOrderId($id);
 	}
 
-	$self->deletedRowNotify(%{$row});
+	$self->deletedRowNotify($row);
 }
 
 # Method: setRow
@@ -325,79 +362,33 @@ sub setRow
 	my $id = delete $params{'id'};
 	$self->_checkRowExist($id, '');
 	
-	my $tableName = $self->table()->{'tableName'};
 	my $dir = $self->{'directory'};
 	my $gconfmod = $self->{'gconfmodule'};
 	
-
 	$self->validateRow(@_);
-
-	my $oldrow = $gconfmod->hash_from_dir("$dir/$id");
 	
-	foreach my $field (@{$self->table()->{'tableDescription'}}) {
-		my $fieldType = $field->{'type'};
-		my $fieldName = $field->{'fieldName'};
-		my $value = $params{$fieldName};
-
+	my $oldrow = $self->row($id);
+	my @newValues = @{$self->table()->{'tableDescription'}};
+	my @oldValues = @{$oldrow->{'values'}};
+	for (my $i = 0; $i < @newValues ; $i++) {
+		my $newData = clone($newValues[$i]);
+		$newData->setMemValue(\%params);
 		
-		# FIXME If we compare stuff as strings we get rid of this ifs
-		my $sameValue;
-		if ($fieldType eq 'checkbox' or $fieldType eq 'int') {
-		
-			$sameValue = ($oldrow->{$fieldName} 
-					== $params{$fieldName});
-		} else {
-
-			$sameValue = ($oldrow->{$fieldName} 
-					eq $params{$fieldName});
-		}
-	
-		
-		if (($fieldType eq 'text') and $sameValue) {
-
-			next;
-
-		} elsif (($fieldType eq 'int') and $sameValue) {
-
-			next;
-
-		} elsif (($fieldType eq 'select') and $sameValue) {
-
-			next;
-
-		} elsif (($fieldType eq 'checkbox') and $sameValue) {
-
+		if ($oldValues[$i]->isEqualTo($newData)) {
 			next;
 		}
-		    
-		if ($field->{'unique'} == 1) {
-			$self->_checkFieldIsUnique($fieldName, 
-					$value, 
-					$field->{'printableName'});	
+
+		if ($newData->unique()) {
+			$self->_checkFieldIsUnique($newData);
 		}
-		
-		my $key = "$dir/$id/$fieldName";
-		if ($field->{'type'} eq 'text') {
-			
-			$gconfmod->set_string($key, $value);
 
-		} if ($field->{'type'} eq 'int') {
-			
-			$gconfmod->set_int($key, $value);
+		$newData->storeInGconf($gconfmod, "$dir/$id");
 
-		
-		} elsif ($field->{'type'} eq 'select') {
-		
-			$gconfmod->set_string($key, $value);
-		
-		} elsif ($field->{'type'} eq 'checkbox') {
-
-			$gconfmod->set_bool($key, $value);	
-
-		}
 	}
-	
-	$self->updatedRowNotify(%{$self->_hashFromDir($id)});	
+
+	$oldrow->{'values'} = \@newValues;
+
+	$self->updatedRowNotify($oldrow);	
 }
 
 sub _addSelectOptionsToHash
@@ -448,13 +439,12 @@ sub rows
 	my @rows;
 	for my $id (@{$gconfmod->all_dirs_base($self->{'directory'})}) {
 		my $hash = $gconfmod->hash_from_dir("$self->{'directory'}/$id");
-		$hash->{'id'} = $id;
-		#$self->_addSelectOptionsToHash($hash);
+		my $row = $self->row($id);
 		if (%order) {
 			$hash->{'order'} = $order{$id};
-			$rows[$order{$id}] = $hash;
+			$rows[$order{$id}] = $row;
 		} else {
-			push(@rows, $hash);
+			push(@rows, $row);
 		}
 	}
 
@@ -519,18 +509,30 @@ sub tableInfo
 	my $self = shift;
 
 	my $table = $self->table();
+	my @parameters;
 
 	foreach my $field (@{$table->{'tableDescription'}}) {
+
+		push (@parameters, $field->fields());
 	
-		if ($field->{'type'} ne 'select') {
+		if ($field->type() ne 'select') {
 			next;
 		}
 
-		$field->{'selectOptions'} = $self->selectOptions($field->{'fieldName'});	
+		$field->addOptions($self->selectOptions($field->{'fieldName'}));	
 	}
 
-	$table->{'gconfdir'} = $self->{'gconfdir'};
 
+
+	my $paramsArray = '[' . "'" . pop(@parameters) . "'";
+	foreach my $param (@parameters) {
+		$paramsArray .= ', ' . "'" . $param . "'";
+	}
+	$paramsArray .= ']';
+	
+	$table->{'gconfdir'} = $self->{'gconfdir'};
+	$table->{'paramArrayString'} = $paramsArray;
+	
 	return $table;
 }
 
@@ -565,7 +567,8 @@ sub fields
 #
 sub _checkFieldIsUnique
 {
-	my ($self, $key, $value, $text) = @_;
+	my ($self, $newData) = @_;
+
 
 	my $gconfmod = $self->{'gconfmodule'};
 	my $dir = $self->{'directory'};
@@ -578,10 +581,11 @@ sub _checkFieldIsUnique
 
 	foreach my $id (@ids) {
 		my $hash = $gconfmod->hash_from_dir($id);
-		if ($hash->{$key} eq $value)  {
+
+		if ($newData->compareToHash($hash))  {
 			throw EBox::Exceptions::DataExists(
-					'data' => $text,
-					'value' => $value);
+					'data' => $newData->printableName(),
+					'value' => $newData->printableValue());
 
 		}
 	}
@@ -592,12 +596,15 @@ sub _checkFieldIsUnique
 
 sub _checkAllFieldsExist
 {
-	my $self = shift;
-	my %params = @_;
+	my ($self, $params) = @_;
 
-	foreach my $field (@{$self->fields()}) {
-		unless (exists $params{$field}) {
-			throw Exceptions::MissingArgument($field);
+	my $types = $self->table()->{'tableDescription'};
+
+	foreach my $field (@{$types}) {
+
+		unless ($field->paramExist($params)) {
+			throw
+			 Exceptions::MissingArgument($field->printableName());
 		}
 	}
 }
