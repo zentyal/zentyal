@@ -10,14 +10,14 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-01-26 15:00+0100\n"
-"PO-Revision-Date: 2006-11-28 16:48+0100\n"
-"Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
-"Language-Team:  <es@li.org>\n"
+"PO-Revision-Date: 2007-01-26 15:04+0000\n"
+"Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
+"Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.11.2\n"
+"X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/CreateCA.pm:40
 #: src/EBox/CGI/Index.pm:39 src/EBox/CGI/DownloadFiles.pm:42
@@ -226,6 +226,8 @@ msgid ""
 "Created Certification Authority with organization name {orgName} and "
 "validity for {days} days"
 msgstr ""
+"Creada autoridad de certificación con nombre de organización {orgName} y "
+"validez durante {days} días"
 
 #: src/EBox/CA.pm:2154
 #, fuzzy, perl-brace-format
