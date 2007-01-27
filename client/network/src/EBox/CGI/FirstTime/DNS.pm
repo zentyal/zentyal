@@ -38,7 +38,7 @@ sub new # (error=?, msg=?, cgi=?)
 sub _process
 {
 	my $self = shift;
-	$self->setMsg(__("You can revisit this apge at Network/DNS in the menu"));
+	$self->setMsg(__("You can revisit this page at Network/DNS in the menu"));
 
 	my $net = EBox::Global->modInstance('network');
 
