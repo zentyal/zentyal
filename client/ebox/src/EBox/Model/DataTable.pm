@@ -275,7 +275,18 @@ sub row
 		my $data = clone($type);
 		$data->restoreFromHash($gconfmod->hash_from_dir("$dir/$id"));
 	
-		
+		# TODO Rework the union select options thing
+		#      this code just sucks. Modify Types to do something
+		#      nicer 
+		if ($data->type() eq 'union') {
+			foreach my $subtype (@{$data->subtypes()}) {
+				next unless ($subtype->type() eq 'select');
+				$subtype->addOptions(
+					$self->selectOptions(
+						$subtype->fieldName()));	
+
+			}
+		}
 		if ($data->type() eq 'select') {
 			$data->addOptions(
 				$self->selectOptions($data->fieldName()));	
@@ -511,15 +522,24 @@ sub tableInfo
 	my $table = $self->table();
 	my @parameters;
 
-	foreach my $field (@{$table->{'tableDescription'}}) {
+	foreach my $data (@{$table->{'tableDescription'}}) {
 
-		push (@parameters, $field->fields());
-	
-		if ($field->type() ne 'select') {
-			next;
+		push (@parameters, $data->fields());
+
+		if ($data->type() eq 'union') {
+			foreach my $subtype (@{$data->subtypes()}) {
+				next unless ($subtype->type() eq 'select');
+				$subtype->addOptions(
+					$self->selectOptions(
+						$subtype->fieldName()));	
+
+			}
+		}
+		if ($data->type() eq 'select') {
+			$data->addOptions(
+				$self->selectOptions($data->fieldName()));	
 		}
 
-		$field->addOptions($self->selectOptions($field->{'fieldName'}));	
 	}
 
 

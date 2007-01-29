@@ -1,3 +1,8 @@
+# TODO 
+# 	Document this class
+#	Fix the method naming, some names such as
+#	setMemValue and memValue are so broken!!!
+#
 package EBox::Types::Abstract;
 use strict;
 use warnings;
@@ -68,6 +73,20 @@ sub printableValue
 	my ($self) = @_;
 
 	return $self->{'value'};
+}
+
+sub trailingText
+{
+	my ($self) = @_;
+
+	return $self->{'trailingText'};
+}
+
+sub leadingText
+{
+	my ($self) = @_;
+
+	return $self->{'leadingText'};
 }
 
 sub paramExist

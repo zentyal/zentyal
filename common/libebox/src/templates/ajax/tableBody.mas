@@ -100,6 +100,9 @@ if ($rowEdit) {
 					</tbody>
 				</table>
 %	}
+
+
+% if (@data) {
 		
 		<table cellspacing='0' class='<% $dataTable->{'class'} %>'>
 			
@@ -167,12 +170,13 @@ if ($rowEdit) {
 			</tbody>
 
 		</table>
+% }
 
 <%def .textViewer>
 <%args>
 $data
 </%args>
-	<span ><% $data->printableValue() %></span>
+	<span ><% $data->printableValue() %></span> <% $data->trailingText %>
 </%def>
 
 <%def .booleanViewer>
@@ -184,6 +188,49 @@ $data
 %   } else {
 		<img src="/data/images/deny-active.gif" alt="no"/>
 %   }
+</%def>
+
+<%def .unionSetter>
+<%args>
+$tableName
+$data 
+</%args>
+<%init>
+my $id = $tableName . '_' . $data->fieldName() . '_selected';
+my @options;
+foreach my $type (@{$data->subtypes()}) {
+	push (@options, { 
+						'value' => $type->fieldName(),
+						'printableValue' => $type->printableName()
+					});
+}
+</%init>
+<table class='formTable'>
+	<tbody>
+		<tr>
+			<td>
+			<& /input/select.mas,  
+					'name' => "$id" , 
+				    'value' => $data->selectedType(), options => \@options,
+					'extraParams' => [ "id='$id'" ],
+					&>
+			</td>
+			<td>
+			</td>
+		</tr>
+%	foreach my $type (@{$data->{'subtypes'}}) {
+		<tr>
+			<td>	
+								<% $type->printableName() %>
+			</td>
+%								my $HTMLSetter = '.' . $type->HTMLSetter();
+			<td>
+								<& $HTMLSetter, 'data' => $type, 'tableName' => $tableName &> <br>
+			</td>
+		</tr>
+% 	}
+	</tbody>
+</table>
 </%def>
 
 
@@ -225,6 +272,7 @@ $data
 				    'value' => $data->printableValue(), options => $data->options(),
 					'extraParams' => [ "id='$id'" ],
 					&>
+					<% $data->trailingText() %>
 
 </%def>
 
@@ -239,6 +287,7 @@ $data
 
 					<input type="text" class="inputText" value="<% $data->printableValue() %>"
 						size="<% $data->size() %>" id='<% $id %>' name='<% $id %>' /> 
+						<% $data->trailingText() %>
 </%def>
 
 <%def .booleanSetter>
@@ -249,6 +298,7 @@ $data
 % my $id = $tableName . '_' . $data->fieldName();
 
 					<& /input/checkbox.mas, name => $id, value => $data->printableValue(), extraParams => ("id='$id'") &>
+						<% $data->trailingText() %>
 </%def>
 
 
