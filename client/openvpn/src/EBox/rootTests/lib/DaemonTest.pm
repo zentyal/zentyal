@@ -16,6 +16,8 @@ use EBox::OpenVPN;
 
 sub notice : Test(startup)
 {
+  die "This test is broken, don't run it";
+
     diag "This test is designed to be run as root. That is neccesary for try the openvpn daemon execution but it may be a security risk";
     diag "Make sure that the tun device is created!.";
 }
