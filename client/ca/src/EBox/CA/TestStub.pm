@@ -45,7 +45,7 @@ sub fake
 				  currentCACertificateState => \&currentCACertificateState,
 				  destroyCA           => \&destroyCA,
 				  setInitialState     => \&setInitialState,
-				  getCurrentCRL       => \&getCurrentURL,
+				  getCurrentCRL       => \&getCurrentCRL,
 				  );
   }
 
