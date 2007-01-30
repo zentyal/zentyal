@@ -1,4 +1,3 @@
-# translation of es.po to
 # Spanish translations for EBox-printers package
 # Copyright (C) 2005 Warp S.L.
 # This file is distributed under the same license as the EBox-printers package.
@@ -41,12 +40,12 @@ msgstr "Identificador del trabajo"
 
 #: src/EBox/CGI/CancelJob.pm:54
 msgid "Job was successfully canceled"
-msgstr "El trabajo fue cancelado con éxito"
+msgstr "El trabajo fue cancelado con Ã©xito"
 
 #: src/EBox/CGI/SambaPrinterUI.pm:30 src/EBox/CGI/USBPrinterUI.pm:30
 #: src/EBox/CGI/NetworkPrinterUI.pm:30 src/EBox/CGI/ParallelPrinterUI.pm:30
 msgid "Add a new printer (II)"
-msgstr "Añadir nueva impresora (II)"
+msgstr "AÃ±adir nueva impresora (II)"
 
 #: src/EBox/CGI/SambaPrinterUI.pm:46 src/EBox/CGI/SambaPrinter.pm:40
 #: src/EBox/CGI/DriverUI.pm:46 src/EBox/CGI/ManagePrinterUI.pm:46
@@ -86,7 +85,7 @@ msgstr "Siguiente"
 
 #: src/EBox/CGI/Enable.pm:42
 msgid "module status"
-msgstr "estado del módulo"
+msgstr "estado del mÃ³dulo"
 
 #: src/EBox/CGI/SambaPrinter.pm:52
 msgid "Shared resource"
@@ -95,7 +94,7 @@ msgstr "Recurso compartido"
 #: src/EBox/CGI/SambaPrinter.pm:53 src/templates/samba.mas:34
 #: src/templates/printerback.mas:131
 msgid "Authentication"
-msgstr "Autenticación"
+msgstr "AutenticaciÃ³n"
 
 #: src/EBox/CGI/SambaPrinter.pm:61 src/templates/samba.mas:69
 #: src/templates/printerback.mas:166
@@ -105,11 +104,11 @@ msgstr "Usuario"
 #: src/EBox/CGI/SambaPrinter.pm:62 src/templates/samba.mas:79
 #: src/templates/printerback.mas:176
 msgid "Password"
-msgstr "Contraseña"
+msgstr "ContraseÃ±a"
 
 #: src/EBox/CGI/DriverUI.pm:30
 msgid "Add a new printer (V)"
-msgstr "Añadir nueva impresora (V)"
+msgstr "AÃ±adir nueva impresora (V)"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:30
 msgid "Manage printer"
@@ -125,7 +124,7 @@ msgstr "Opciones del driver"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:60
 msgid "Configuration options"
-msgstr "Opciones de configuración"
+msgstr "Opciones de configuraciÃ³n"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:61
 msgid "Jobs Queue"
@@ -133,11 +132,11 @@ msgstr "Trabajos pendientes"
 
 #: src/EBox/CGI/ManufacturerUI.pm:30
 msgid "Add a new printer (III)"
-msgstr "Añadir nueva impresora (III)"
+msgstr "AÃ±adir nueva impresora (III)"
 
 #: src/EBox/CGI/AddPrinterUI.pm:30
 msgid "Add a new printer (I)"
-msgstr "Añadir nueva impresora (I)"
+msgstr "AÃ±adir nueva impresora (I)"
 
 #: src/EBox/CGI/Driver.pm:40 src/templates/printer.mas:164
 #: src/templates/printerback.mas:40
@@ -152,11 +151,11 @@ msgstr "Fabricante"
 #: src/EBox/CGI/AddPrinter.pm:41 src/EBox/Printers.pm:472
 #: src/EBox/Printers.pm:560 src/templates/addprinter.mas:25
 msgid "Method"
-msgstr "Método"
+msgstr "MÃ©todo"
 
 #: src/EBox/CGI/AddPrinter.pm:43
 msgid "Printer description"
-msgstr "Descripción de la impresora"
+msgstr "DescripciÃ³n de la impresora"
 
 #: src/EBox/CGI/ManagePrinter.pm:51
 msgid "The printer has been deleted successfully"
@@ -180,11 +179,11 @@ msgstr "Dispositivo"
 
 #: src/EBox/CGI/ModelUI.pm:30
 msgid "Add a new printer (IV)"
-msgstr "Añadir nueva impresora (IV)"
+msgstr "AÃ±adir nueva impresora (IV)"
 
 #: src/EBox/CGI/DrvoptsUI.pm:30
 msgid "Add a new printer (VI)"
-msgstr "Añadir nueva impresora (VI)"
+msgstr "AÃ±adir nueva impresora (VI)"
 
 #: src/EBox/CGI/Model.pm:40 src/EBox/Printers.pm:765 src/EBox/Printers.pm:805
 #: src/templates/printer.mas:155 src/templates/printerback.mas:16
@@ -206,15 +205,15 @@ msgstr "Impresoras"
 
 #: src/EBox/Printers.pm:271
 msgid "Add printer"
-msgstr "Añadir impresora"
+msgstr "AÃ±adir impresora"
 
 #: src/EBox/Printers.pm:468
 msgid ""
 "The printer's name contains characters not valid.Only alphanumeric "
 "characters are allowed"
 msgstr ""
-"El nombre de la impresora contiene caracteres no válidos. Sólo se permiten "
-"caracteres alfanuméricos"
+"El nombre de la impresora contiene caracteres no vÃ¡lidos. SÃ³lo se permiten "
+"caracteres alfanumÃ©ricos"
 
 #: src/EBox/Printers.pm:477 src/templates/printer.mas:73
 #: src/templates/printers.mas:19 src/templates/addprinter.mas:16
@@ -223,7 +222,7 @@ msgstr "Nombre"
 
 #: src/EBox/Printers.pm:485
 msgid "The given name is alreaday used as "
-msgstr "El nombre de la impresora está siendo usado por un "
+msgstr "El nombre de la impresora estÃ¡ siendo usado por un "
 
 #: src/EBox/Printers.pm:507 src/EBox/Printers.pm:1002
 #: src/EBox/Printers.pm:1046
@@ -248,12 +247,12 @@ msgstr "No es una impresora samba"
 
 #: src/EBox/Printers.pm:910 src/EBox/Printers.pm:936
 msgid "is not a valid option"
-msgstr "no es una opción válida"
+msgstr "no es una opciÃ³n vÃ¡lida"
 
 #: src/EBox/Printers.pm:1024
 #, perl-brace-format
 msgid "Parameter '{name}' does not exist"
-msgstr "Parámetro {name} no existe"
+msgstr "ParÃ¡metro {name} no existe"
 
 #: src/EBox/Printers.pm:1166 src/templates/printer.mas:69
 msgid "Job ID"
@@ -296,15 +295,15 @@ msgstr "Trabajos pendientes "
 
 #: src/templates/printer.mas:75
 msgid "Size(KB)"
-msgstr "Tamaño(KB)"
+msgstr "TamaÃ±o(KB)"
 
 #: src/templates/printer.mas:77
 msgid "Creation time"
-msgstr "Fecha de creación"
+msgstr "Fecha de creaciÃ³n"
 
 #: src/templates/printer.mas:79
 msgid "Action"
-msgstr "Acción"
+msgstr "AcciÃ³n"
 
 #: src/templates/printer.mas:119 src/templates/printer.mas:121
 #: src/templates/printer.mas:123 src/templates/del.mas:22
@@ -315,7 +314,7 @@ msgstr "Eliminar"
 
 #: src/templates/printer.mas:132
 msgid "This printer has no pending job in queue at the moment"
-msgstr "Esta impresora no tiene ningún trabajo pendiente en estos momentos"
+msgstr "Esta impresora no tiene ningÃºn trabajo pendiente en estos momentos"
 
 #: src/templates/models.mas:13
 msgid "Choose a printer model"
@@ -323,7 +322,7 @@ msgstr "Elija un modelo de impresora"
 
 #: src/templates/samba.mas:17
 msgid "Samba shared printer configuration"
-msgstr "Configuración de impresora compartida por samba"
+msgstr "ConfiguraciÃ³n de impresora compartida por samba"
 
 #: src/templates/samba.mas:25 src/templates/printerback.mas:122
 msgid "Share resource"
@@ -332,7 +331,7 @@ msgstr "Recurso compartido"
 #: src/templates/samba.mas:41 src/templates/samba.mas:44
 #: src/templates/printerback.mas:138 src/templates/printerback.mas:141
 msgid "Anonymous"
-msgstr "Anónimo"
+msgstr "AnÃ³nimo"
 
 #: src/templates/samba.mas:49 src/templates/samba.mas:52
 #: src/templates/printerback.mas:146 src/templates/printerback.mas:149
@@ -342,12 +341,12 @@ msgstr "Invitado"
 #: src/templates/samba.mas:57 src/templates/samba.mas:60
 #: src/templates/printerback.mas:154 src/templates/printerback.mas:157
 msgid "User/Password"
-msgstr "Usuario/Contraseña"
+msgstr "Usuario/ContraseÃ±a"
 
 #: src/templates/del.mas:12
 #, perl-brace-format
 msgid "Are you sure you want to delete the printer '{name}'?"
-msgstr "¿Está seguro de que quiere eliminar la impresora '{name}'?"
+msgstr "Â¿EstÃ¡ seguro de que quiere eliminar la impresora '{name}'?"
 
 #: src/templates/del.mas:26
 msgid "Cancel"
@@ -359,11 +358,11 @@ msgstr "Seguir"
 
 #: src/templates/printerback.mas:115
 msgid "Samba shared printer configurationr"
-msgstr "Configuración de impresora compartida por samba"
+msgstr "ConfiguraciÃ³n de impresora compartida por samba"
 
 #: src/templates/printerback.mas:198
 msgid "Remote printer configuration"
-msgstr "Configuración de impresora remota"
+msgstr "ConfiguraciÃ³n de impresora remota"
 
 #: src/templates/printers.mas:10
 msgid "Printer sharing status"
@@ -375,7 +374,7 @@ msgstr "Lista de impresoras"
 
 #: src/templates/printers.mas:21
 msgid "Description"
-msgstr "Descripción"
+msgstr "DescripciÃ³n"
 
 #: src/templates/printers.mas:23
 msgid "Actions"
@@ -391,7 +390,7 @@ msgstr "Administrar esta impresora"
 
 #: src/templates/usb.mas:15
 msgid "Local USB printer configuration"
-msgstr "Configuración de impresora USB local"
+msgstr "ConfiguraciÃ³n de impresora USB local"
 
 #: src/templates/network.mas:16
 msgid "Configure remote printer"
@@ -407,7 +406,7 @@ msgstr "Elija un fabricante"
 
 #: src/templates/addprinter.mas:10
 msgid "Set printer name and method"
-msgstr "Seleccione nombre de la impresora y método"
+msgstr "Seleccione nombre de la impresora y mÃ©todo"
 
 #: src/templates/addprinter.mas:31
 msgid "Parallel"
@@ -423,7 +422,7 @@ msgstr "Samba"
 
 #: src/templates/parallel.mas:15
 msgid "Local parallel printer configuration"
-msgstr "Configuración de impresora paralela local"
+msgstr "ConfiguraciÃ³n de impresora paralela local"
 
 #: src/templates/drivers.mas:13
 msgid "Choose a dirver for the printer"
