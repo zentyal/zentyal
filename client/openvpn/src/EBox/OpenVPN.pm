@@ -415,7 +415,6 @@ sub setService # (active)
 
     if ($active) {
       $actualService and return;
-
       $self->CAIsCreated() or throw EBox::Exceptions::Internal('Tying to activate OpenVPN service when there is not certification authority created');
     }
     else {
@@ -452,13 +451,23 @@ sub _doDaemon
 	    $self->_startDaemon();
 	}
 	else {
-	    $self->_startDaemon();
+
+	  # XXX rip stuff to assure that quagga is in good state
+	  if ($self->ripDaemonRunning) { # tame leftover rip daemons
+	    $self->_stopRIPDaemon();
+	  }
+
+	  $self->_startDaemon();
 	}
     }
     else {
 	if ($running) {
 	    $self->_stopDaemon();
 	  }
+	# XXX rip stuff to assure that quagga is stopped
+	elsif ($self->ripDaemonRunning) { # tame leftover rip daemons
+	  $self->_stopRIPDaemon();
+	}
     }
 }
 
@@ -477,9 +486,11 @@ sub running
   }
 
 
+
 sub _startDaemon
 {
   my ($self) = @_;
+
 
   try {
     my @daemons =  grep { $_->service } $self->daemons();
@@ -489,14 +500,13 @@ sub _startDaemon
     }
   }
  finally {
-   $self->_startRIPDaemon(); # XXX RIP stuff
+   $self->_startRIPDaemon() ; # XXX RIP stuff
  };
 }
 
 sub _stopDaemon
 {
     my ($self) = @_;
-
     
     $self->_stopRIPDaemon(); # XXX RIP stuff
 
@@ -591,11 +601,25 @@ sub ripDaemonService
 }
 
 
+sub ripDaemonRunning
+{
+  my ($self) = @_;
+
+  # check for ripd and zebra daemons
+  system "pgrep ripd";
+  system "pgrep zebra" if $? != 0;
+
+  return 1 if ($? == 0);
+  return undef;
+}
+
+
 sub _startRIPDaemon
 {
   my ($self) = @_;
 
-  $self->ripDaemonService() or return;
+  $self->ripDaemonService()  or return;
+  $self->_runningInstances() or return; # if there are not openvpn instances running (surely for error) don't bother to start daemon
 
   my $cmd = '/etc/init.d/quagga start';
   EBox::Sudo::root($cmd);
@@ -606,14 +630,11 @@ sub _stopRIPDaemon
 {
   my ($self) = @_;
 
-  # check for ripd and zebra daemons
-  system "pgrep ripd";
-  system "pgrep zebra" if $? != 0;
-
-  if ($? == 0) {
+  if ($self->ripDaemonRunning()) {
     my $cmd = '/etc/init.d/quagga stop';
     EBox::Sudo::root($cmd);
   }
+
 
 }
 
