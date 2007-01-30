@@ -17,7 +17,7 @@
 
 # A module to test CA module
 
-use Test::More tests => 43;
+use Test::More tests => 45;
 use Test::Exception;
 use Date::Calc::Object qw (:all);
 use Data::Dumper;
@@ -51,6 +51,9 @@ cmp_ok ( $ca->createCA(orgName => "Warp",
 
 ok ( $ca->getCACertificateMetadata(), "getting current valid CA" );
 
+# Tests there's no CRL
+is ( $ca->getCurrentCRL(), undef, "no CRL to get");
+
 throws_ok { $ca->revokeCACertificate(reason => 'affiliationChanged',
 				     caKeyPassword => 'papa') }
   "EBox::Exceptions::External", "error revokation with wrong password";
@@ -58,6 +61,9 @@ throws_ok { $ca->revokeCACertificate(reason => 'affiliationChanged',
 ok ( ! defined($ca->revokeCACertificate(reason => 'affiliationChanged',
 					caKeyPassword => 'mama')),
      "revoking CA certificate");
+
+# Tests there's is CRL
+ok ( $ca->getCurrentCRL(), "getting CRL" );
 
 ok ( $ca->issueCACertificate(orgName => "Warpera",
 			     caKeyPassword => 'papa',
@@ -156,7 +162,7 @@ is ( $ca->currentCACertificateState(), 'R', 'checking final CA certificate state
 
 cmp_ok ( $ca->getCACertificateMetadata(), '==', 0, "not getting a valid CA" );
 
-cmp_ok( scalar(@{$ca->revokeReasons()}), '==', 7, 'revoking reasons count');
+cmp_ok( scalar(@{$ca->revokeReasons()}), '==', 8, 'revoking reasons count');
 
 lives_ok { $ca->updateDB() } 'updating database';
 

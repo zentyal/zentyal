@@ -44,7 +44,8 @@ sub fake
 				  renewCertificate    => \&renewCertificate,
 				  currentCACertificateState => \&currentCACertificateState,
 				  destroyCA           => \&destroyCA,
-				  setInitialState     => \&setInitialState
+				  setInitialState     => \&setInitialState,
+				  getCurrentCRL       => \&getCurrentURL,
 				  );
   }
 
@@ -61,7 +62,7 @@ sub unfake
 
 # Method: _create
 #
-#       Fake CA::_create constructor
+#       Fake <EBox::CA::_create> constructor
 #
 # Returns:
 #
@@ -73,7 +74,7 @@ sub _create {
 
   bless($self, $class);
 
-  # Certs is a hash with the following elements
+  # certs is a hash with the following elements
   # ca -> metadata CA cert
   # other certs metadata indexed by serial number
   # Each metadata is comprised:
@@ -87,6 +88,7 @@ sub _create {
   # keys -> [publicKeyPath, privateKeyPath ]
   $self->{certs} = {};
   $self->{created} = 0;
+  $self->{crl} = undef;
 
   return $self;
 
@@ -104,6 +106,7 @@ sub destroyCA
     # Destroy everything created -> not created and no certificates
     $self->{certs} = {};
     $self->{created} = 0;
+    $self->{crl} = undef;
 
     return 1;
 
@@ -111,7 +114,7 @@ sub destroyCA
 
 # Method: isCreated
 #
-#       Fake CA::isCreated method
+#       Fake <EBox::CA::isCreated> method
 #
 sub isCreated
   {
@@ -122,7 +125,7 @@ sub isCreated
 
 # Method: createCA
 #
-#       Fake CA::createCA method
+#       Fake <EBox::CA::createCA> method
 #
 # Parameters:
 #
@@ -142,7 +145,7 @@ sub isCreated
 #
 # Exceptions:
 #
-#      EBox::Exceptions::DataMissing - if any required parameter is missing
+#      <EBox::Exceptions::DataMissing> - if any required parameter is missing
 
 sub createCA
   {
@@ -183,7 +186,7 @@ sub createCA
 
 # Method: revokeCACertificate
 #
-#       Fake CA::revokeCACertificate method
+#       Fake <EBox::CA::revokeCACertificate> method
 #
 # Parameters:
 #
@@ -211,6 +214,7 @@ sub revokeCACertificate
       $self->{certs}->{$key}->{reason} = "cessationOfOperation";
       $self->{certs}->{$key}->{revokeDate} = Date::Calc::Object->now();
     }
+    $self->{crl} = "lastest-crl.pem";
 
     return undef;
 
@@ -218,7 +222,7 @@ sub revokeCACertificate
 
 # Method: issueCACertificate
 #
-#       Fake CA::issueCACertificate method
+#       Fake <EBox::CA::issueCACertificate> method
 #
 # Parameters:
 #
@@ -291,7 +295,7 @@ sub issueCACertificate
 
 # Method: renewCACertificate
 #
-#       Fake CA::renewCACertificate
+#       Fake <EBox::CA::renewCACertificate>
 #
 # Parameters:
 #
@@ -362,7 +366,7 @@ sub renewCACertificate
 
 # Method: CAPublicKey
 #
-#       Fake EBox::CA::CAPublicKey method
+#       Fake <EBox::CA::CAPublicKey> method
 #
 # Parameters:
 #
@@ -384,9 +388,9 @@ sub CAPublicKey
 }
 
 
-# Method: issueCertificate 
+# Method: issueCertificate
 #
-#       Fake CA::issueCertificate method
+#       Fake <EBox::CA::issueCertificate> method
 #
 # Parameters:
 #
@@ -409,7 +413,7 @@ sub CAPublicKey
 #                        a private key file in the CA (Optional)
 #
 #       requestFile - path to save the new certificate request
-#                    (*NOT WORKING*) 
+#                    (*NOT WORKING*)
 #       certFile - path to store the new certificate file (*NOT WORKING*)
 #
 # Returns:
@@ -477,7 +481,7 @@ sub issueCertificate
 
 # Method: revokeCertificate
 #
-#       Fake CA::revokeCertificate method
+#       Fake <EBox::CA::revokeCertificate> method
 #
 # Parameters:
 #
@@ -527,11 +531,14 @@ sub revokeCertificate
   $cert->{state} = 'R';
   $cert->{reason} = $reason;
 
+  # Create the Certification Revokation List
+  $self->{crl} = "lastest-crl.pem";
+
   }
 
 # Method: listCertificates
 #
-#       Fake CA::listCertificates method
+#       Fake <EBox::CA::listCertificates> method
 #
 # Parameters:
 #
@@ -612,7 +619,7 @@ sub listCertificates
 
 # Method: getKeys
 #
-#       Fake EBox::CA::getKeys method
+#       Fake <EBox::CA::getKeys> method
 #
 # Parameters:
 #
@@ -654,7 +661,7 @@ sub getKeys
 
 # Method: renewCertificate
 #
-#       Fake CA::renewCertificate method
+#       Fake <EBox::CA::renewCertificate> method
 #
 # Parameters:
 #
@@ -767,7 +774,7 @@ sub renewCertificate
 
 # Method: currentCACertificateState
 #
-#       Fake CA::currentCACertificateState method
+#       Fake <EBox::CA::currentCACertificateState> method
 #
 # Returns:
 #
@@ -801,9 +808,9 @@ sub currentCACertificateState
 #       listCert - a list reference of hashes with cert metadata. The
 #       hash should have the following elements:
 #         - state       -> 'V', 'R' or 'E' (Optional)
-#         - dn          -> EBox::CA::DN or an String formatted as /type0=value0/type1=value1/...
-#         - expiryDate  -> EBox::Date::Object expiration date (Optional)
-#         - revokeDate  -> EBox::Date::Object revokation date (Optional)
+#         - dn          -> <EBox::CA::DN> or an String formatted as /type0=value0/type1=value1/...
+#         - expiryDate  -> <Date::Calc::Object> expiration date (Optional)
+#         - revokeDate  -> <Date::Calc::Object> revokation date (Optional)
 #         - reason      -> if revoked, a reason (Optional)
 #         - isCACert    -> boolean indicating if it's a valid CA certificate
 #                       -> Just ONE can have this attribute on (Optional)
@@ -858,9 +865,29 @@ sub setInitialState
 			     $serial . "-privkey.pem" ];
       }
 
+      # Check if the CRL should be created (any R)
+      $self->{crl} = "lastest-crl.pem" if ( $certRef->{state} eq 'R' );
+
     }
 
     return;
+
+  }
+
+# Method: getCurrentCRL
+#
+#       Fake <EBox::CA::getCurrentCRL> method
+#
+# Returns:
+#
+#       Path to the current CRL or undef if there is no CRL
+#
+sub getCurrentCRL
+  {
+
+    my ($self) = @_;
+
+    return $self->{crl};
 
   }
 

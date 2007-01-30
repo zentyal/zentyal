@@ -30,6 +30,7 @@ use Perl6::Junction qw(any);
 use Date::Calc::Object qw(:all);
 use File::Copy::Recursive qw(dircopy fcopy);
 
+# CA inherits from GConfModule
 use base 'EBox::GConfModule';
 
 use EBox::CA::DN;
@@ -64,6 +65,7 @@ use constant CACERT       => CATOPDIR . "cacert.pem";
 use constant INDEXFILE    => CATOPDIR . "index.txt";
 use constant CRLNOFILE    => CATOPDIR . "crlnumber";
 use constant SERIALNOFILE => CATOPDIR . "serial";
+use constant LASTESTCRL   => CRLDIR   . "latest.pem";
 
 # Keys from CA
 use constant CAPRIVKEY   => PRIVDIR . "cakey.pem";
@@ -364,9 +366,9 @@ sub destroyCA
     }
 
     # Logging the action
-    logAdminNow($self->name, "destroyCA",
-		"orgName=". $self->{dn}->attribute('orgName')
-	       );
+#    logAdminNow($self->name, "destroyCA",
+#		"orgName=". $self->{dn}->attribute('orgName')
+#	       );
 
     # Set internal attribute to undefined
     $self->{dn} = undef;
@@ -835,13 +837,13 @@ sub issueCertificate
 #
 # Exceptions:
 #
-#      EBox::Exceptions::External - if the certificate does NOT exist
+#      <EBox::Exceptions::External> - if the certificate does NOT exist
 #           if the reason is NOT a standard one
 #           if any error occurred when revokation is done
 #           if any error occurred when creating the CRL is done
-#      EBox::Exceptions::DataMissing - if any required
+#      <EBox::Exceptions::DataMissing> - if any required
 #           parameter is missing
-#      EBox::Exceptions::DataInUse - if the
+#      <EBox::Exceptions::DataInUse> - if the
 #           certificate to revoke is being used by other modules
 #
 sub revokeCertificate {
@@ -918,7 +920,7 @@ sub revokeCertificate {
   if ( defined($self->{caKeyPassword}) ){
     $cmd .= "-passin env:PASS ";
   }
-  $cmd .= "-out " . CRLDIR . $date . "_crl.pem";
+  $cmd .= "-out " . CRLDIR . $date . "-crl.pem";
 
   $ENV{'PASS'} = $self->{caKeyPassword}
     if (defined($self->{caKeyPassword}));
@@ -927,6 +929,13 @@ sub revokeCertificate {
 
   throw EBox::Exceptions::External($self->_filterErrorFromOpenSSL($output))
     if ($retValue eq "ERROR");
+
+  # Set the link to the last
+  unlink (LASTESTCRL) if ( -e LASTESTCRL );
+  symlink ( CRLDIR . $date . "-crl.pem", LASTESTCRL );
+
+  # Mark this module as changed
+  $self->setAsChanged();
 
   # Logging the action
 #  logAdminNow($self->name, "revokeCertificate",
@@ -1559,7 +1568,6 @@ sub currentCACertificateState
 #
 #       A reference to the array containing the current list of possible revoke reasons
 #
-
 sub revokeReasons
   {
 
@@ -1568,6 +1576,29 @@ sub revokeReasons
     return $self->{reasons};
 
   }
+
+# Method: getCurrentCRL
+#
+#       Return the current Certification Revokation List (CRL)
+#
+# Returns:
+#
+#       Path to the current CRL or undef if there is no CRL
+#
+sub getCurrentCRL
+  {
+
+    my ($self) = @_;
+
+    if ( -e LASTESTCRL ) {
+      return LASTESTCRL;
+    }
+    else {
+      return undef;
+    }
+
+  }
+
 
 # _regenConfig is not longer needed 'cause this module doesn't manage a daemon
 
