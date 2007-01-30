@@ -209,6 +209,14 @@ sub key
 }
 
 
+sub crlVerify
+{
+  my ($self) = @_;
+
+  my $ca = EBox::Global->modInstance('ca');
+  return $ca->getCurrentCRL();
+}
+
 sub setSubnetAndMask
 {
   my ($self, $net, $mask) = @_;
@@ -340,15 +348,17 @@ sub confFileParams
 
   push @templateParams, (dev => $self->iface());
 
-  my @paramsNeeded = qw(subnet subnetNetmask  port caCertificatePath certificatePath key clientToClient user group proto dh tlsRemote);
+  my @paramsNeeded = qw(subnet subnetNetmask  port caCertificatePath certificatePath key crlVerify clientToClient user group proto dh tlsRemote);
   foreach  my $param (@paramsNeeded) {
     my $accessor_r = $self->can($param);
-    defined $accessor_r or die "Can not found accesoor for param $param";
+    defined $accessor_r or die "Can not found accesor for param $param";
     my $value = $accessor_r->($self);
     defined $value or next;
     push @templateParams, ($param => $value);
   }
- 
+
+  
+
   # local parameter needs special mapping from iface -> ip
   push @templateParams, $self->_confFileLocalParam();
 
