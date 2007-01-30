@@ -6,28 +6,31 @@
 # Javier Amor Garcia <javier.amor.garcia@warp.es>, 2006.
 # Spanish Warp Team translation of ebox.
 # Copyright (C) 2005 Warp Networks S.L and DBS Servicios Informaticos S.L.
-# This file is distributed under the same license as the ebox-network package.
+# This file is distributed under the same license as the PACKAGE package.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.7.99"
+"Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-01-26 15:02+0100\n"
-"PO-Revision-Date: 2006-11-28 14:08+0100\n"
-"Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
+"POT-Creation-Date: 2007-01-27 22:07+0100\n"
+"PO-Revision-Date: 2007-01-27 17:29+0000\n"
+"Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
+"X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/CGI/FirstTime/DNS.pm:41
-msgid "You can revisit this apge at Network/DNS in the menu"
+msgid "You can revisit this page at Network/DNS in the menu"
 msgstr ""
 
 #: src/EBox/CGI/FirstTime/Iface.pm:45
-#, fuzzy
 msgid "Network interface configured"
-msgstr "Interfaces de red"
+msgstr "Interfaces de red configurados"
+
+#: src/EBox/CGI/FirstTime/Nameservers.pm:44
+msgid "DNS configured"
+msgstr ""
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
 #: src/EBox/Network.pm:2067
@@ -40,14 +43,6 @@ msgid ""
 "the menu"
 msgstr ""
 
-#: src/EBox/CGI/FirstTime/Nameservers.pm:44
-msgid "DNS configured"
-msgstr ""
-
-#: src/EBox/CGI/FirstTime/Gateway.pm:41
-msgid "Gateway configured"
-msgstr ""
-
 #: src/EBox/CGI/FirstTime/Routes.pm:29
 #, fuzzy
 msgid "Set default gateway"
@@ -55,6 +50,10 @@ msgstr "Ruta por defecto"
 
 #: src/EBox/CGI/FirstTime/Routes.pm:43
 msgid "You can change later the gateway at Network/Routes menus item"
+msgstr ""
+
+#: src/EBox/CGI/FirstTime/Gateway.pm:41
+msgid "Gateway configured"
 msgstr ""
 
 #: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41

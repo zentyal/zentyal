@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.7.99"
+"Project-Id-Version: EBox-network 0.7.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-01-26 15:02+0100\n"
+"POT-Creation-Date: 2007-01-27 22:07+0100\n"
 "PO-Revision-Date: 2005-11-11 13:12+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,11 +17,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/EBox/CGI/FirstTime/DNS.pm:41
-msgid "You can revisit this apge at Network/DNS in the menu"
+msgid "You can revisit this page at Network/DNS in the menu"
 msgstr ""
 
 #: src/EBox/CGI/FirstTime/Iface.pm:45
 msgid "Network interface configured"
+msgstr ""
+
+#: src/EBox/CGI/FirstTime/Nameservers.pm:44
+msgid "DNS configured"
 msgstr ""
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
@@ -35,20 +39,16 @@ msgid ""
 "the menu"
 msgstr ""
 
-#: src/EBox/CGI/FirstTime/Nameservers.pm:44
-msgid "DNS configured"
-msgstr ""
-
-#: src/EBox/CGI/FirstTime/Gateway.pm:41
-msgid "Gateway configured"
-msgstr ""
-
 #: src/EBox/CGI/FirstTime/Routes.pm:29
 msgid "Set default gateway"
 msgstr ""
 
 #: src/EBox/CGI/FirstTime/Routes.pm:43
 msgid "You can change later the gateway at Network/Routes menus item"
+msgstr ""
+
+#: src/EBox/CGI/FirstTime/Gateway.pm:41
+msgid "Gateway configured"
 msgstr ""
 
 #: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41

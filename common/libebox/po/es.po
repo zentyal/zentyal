@@ -7,12 +7,12 @@
 # Javier Amor Garcia <javier.amor.garcia@warp.es>, 2006.
 # Spanish Warp Team translation of ebox.
 # Copyright (C) 2005 Warp Networks S.L and DBS Servicios Informaticos S.L.
-# This file is distributed under the same license as the libebox package.
+# This file is distributed under the same license as the PACKAGE package.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.7.99"
+"Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-01-26 15:00+0100\n"
+"POT-Creation-Date: 2007-01-30 19:13+0100\n"
 "PO-Revision-Date: 2006-10-30 10:18+0100\n"
 "Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
 "Language-Team: \n"
@@ -144,7 +144,7 @@ msgstr ""
 msgid "The file path must be absolute"
 msgstr "La ruta de archivo debe ser absoluta"
 
-#: src/templates/ajax/tableBody.mas:115
+#: src/templates/ajax/tableBody.mas:118
 msgid "Action"
 msgstr ""
 

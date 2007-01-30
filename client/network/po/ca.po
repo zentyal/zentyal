@@ -6,9 +6,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.7.99"
+"Project-Id-Version: EBox 0.3.svn\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-01-26 15:02+0100\n"
+"POT-Creation-Date: 2007-01-27 22:07+0100\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -17,13 +17,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/EBox/CGI/FirstTime/DNS.pm:41
-msgid "You can revisit this apge at Network/DNS in the menu"
+msgid "You can revisit this page at Network/DNS in the menu"
 msgstr ""
 
 #: src/EBox/CGI/FirstTime/Iface.pm:45
 #, fuzzy
 msgid "Network interface configured"
 msgstr "Interfícies de xarxa"
+
+#: src/EBox/CGI/FirstTime/Nameservers.pm:44
+msgid "DNS configured"
+msgstr ""
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
 #: src/EBox/Network.pm:2067
@@ -36,14 +40,6 @@ msgid ""
 "the menu"
 msgstr ""
 
-#: src/EBox/CGI/FirstTime/Nameservers.pm:44
-msgid "DNS configured"
-msgstr ""
-
-#: src/EBox/CGI/FirstTime/Gateway.pm:41
-msgid "Gateway configured"
-msgstr ""
-
 #: src/EBox/CGI/FirstTime/Routes.pm:29
 #, fuzzy
 msgid "Set default gateway"
@@ -51,6 +47,10 @@ msgstr "Pasarel·la per defecte"
 
 #: src/EBox/CGI/FirstTime/Routes.pm:43
 msgid "You can change later the gateway at Network/Routes menus item"
+msgstr ""
+
+#: src/EBox/CGI/FirstTime/Gateway.pm:41
+msgid "Gateway configured"
 msgstr ""
 
 #: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41

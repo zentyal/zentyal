@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Warp S.L.
-# This file is distributed under the same license as the ebox-openvpn package.
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-openvpn 0.1"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-01-26 15:02+0100\n"
+"POT-Creation-Date: 2007-01-30 19:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -135,70 +135,70 @@ msgid ""
 "Can not get key of server {name} because it has not any certificate assigned"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:233
+#: src/EBox/OpenVPN/Server.pm:241
 #, perl-brace-format
 msgid "Net address {net} with netmask {mask} is not a valid net"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:374
+#: src/EBox/OpenVPN/Server.pm:384
 #, perl-brace-format
 msgid "No IP address found for interface {iface}"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:411
+#: src/EBox/OpenVPN/Server.pm:421
 #, perl-brace-format
 msgid ""
 "OpenVPN server {name} can not be activated because there is not any network "
 "interfaces available"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:473 src/EBox/OpenVPN/Server.pm:505
+#: src/EBox/OpenVPN/Server.pm:483 src/EBox/OpenVPN/Server.pm:515
 msgid "network address"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:474
+#: src/EBox/OpenVPN/Server.pm:484
 msgid "network mask"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:477
+#: src/EBox/OpenVPN/Server.pm:487
 #, perl-brace-format
 msgid "Net {net} is already advertised in this server"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:482
+#: src/EBox/OpenVPN/Server.pm:492
 msgid ""
 "EBox must be configured as gateway to be able to give client access to "
 "networks via OpenVPN"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:488
+#: src/EBox/OpenVPN/Server.pm:498
 msgid ""
 "The OpenVPN server can not grant access to a network which can not be "
 "reached by eBox"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:508
+#: src/EBox/OpenVPN/Server.pm:518
 #, perl-brace-format
 msgid "Net {net} is not advertised in this server"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:546
+#: src/EBox/OpenVPN/Server.pm:556
 msgid "The server needs a subnet address for the VPN"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:547
+#: src/EBox/OpenVPN/Server.pm:557
 msgid "The server needs a submask for his VPN net"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:548
+#: src/EBox/OpenVPN/Server.pm:558
 msgid "The server needs a port number"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:549 src/EBox/OpenVPN/Client.pm:228
+#: src/EBox/OpenVPN/Server.pm:559 src/EBox/OpenVPN/Client.pm:228
 msgid "A IP protocol must be specified for the server"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:550
+#: src/EBox/OpenVPN/Server.pm:560
 msgid "A  server certificate must be specified"
 msgstr ""
 
@@ -252,43 +252,43 @@ msgid ""
 "underscores are allowed"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:793
+#: src/EBox/OpenVPN.pm:814
 msgid "OpenVPN server"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:800
+#: src/EBox/OpenVPN.pm:821
 msgid "OpenVPN servers"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:805
+#: src/EBox/OpenVPN.pm:826
 msgid "Enabled"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:805
+#: src/EBox/OpenVPN.pm:826
 msgid "Disabled"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:806
+#: src/EBox/OpenVPN.pm:827
 msgid "Service"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:808
+#: src/EBox/OpenVPN.pm:829
 msgid "Running"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:808
+#: src/EBox/OpenVPN.pm:829
 msgid "Stopped"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:809
+#: src/EBox/OpenVPN.pm:830
 msgid "Daemon status"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:812 src/templates/serverProperties.mas:57
+#: src/EBox/OpenVPN.pm:833 src/templates/serverProperties.mas:57
 msgid "VPN subnet"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:824
+#: src/EBox/OpenVPN.pm:845
 msgid "OpenVPN service"
 msgstr ""
 
