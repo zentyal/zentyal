@@ -99,11 +99,11 @@ if ($printableName ne '') {
 <%args>
 $content
 $type
+$colspan => 2
 </%args>
 % if (defined $content) {
 <tr>
-   <td></td>
-   <td>
+   <td colspan = '<% $colspan %>'>
    <div class ='<% $type %>'>
    <% $content %>
    </div>
