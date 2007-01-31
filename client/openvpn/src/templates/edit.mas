@@ -13,7 +13,7 @@ use EBox::Gettext;
 % if ( !$disabled and @availableCertificates) {
 <h3><% __x('Configuration of server {name}', name => $name) %></h3>
 <form action='Edit' method='POST'>
-<& /openvpn/serverProperties.mas, properties => \%serverAttrs, availableCertificates => \@availableCertificates, localInterfaces => \@localInterfaces, submitName => 'edit', submitValue => __('Save changes') &>
+<& /openvpn/serverProperties.mas, properties => \%serverAttrs, availableCertificates => \@availableCertificates, localInterfaces => \@localInterfaces, submitName => 'edit', submitValue => __('Change') &>
 <input type='hidden' name='name' value='<% $name %>' />
 </form>
 <& .advertisedNetsSection, serverName => $name, nets => \@advertisedNets &>
@@ -46,7 +46,7 @@ $serverName
 </%args>
 <%init>
 
-my @columnTitles = (__('Net address'),  __('Net mask'), __('Action')
+my @columnTitles = (__('Net address'),  __('Netmask'), __('Action')
 );
 
 my $deleteActionIcon  = '/data/images/delete.gif';
@@ -83,10 +83,10 @@ $serverName
 			      value => $serverName ], 
 			    [ name => 'network', printableName => __('Network') ],
 			    [ name => 'netmask', printableName => __('Netmask') ],
-			    [ input => 'submit', name => 'submit', value => __('Add nerwork') ],
+			    [ input => 'submit', name => 'submit', value => __('Add network') ],
                           );
 </%init>
-<h3><% __('Add network') %></h3>
+<h4><% __('Add network') %></h4>
 
   <form action='AddAdvertisedNet' method='POST'>
     <& formTable.mas, rows => \@formTableElements &>
