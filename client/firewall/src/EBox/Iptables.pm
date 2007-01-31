@@ -357,6 +357,7 @@ sub setStructure
 	pf '-N ftoexternalonly';
 
 	pf '-N inospoof';
+	pf '-N iexternalmodules';
 	pf '-N inoexternal';
 	pf '-N imodules';
 	pf '-N iintservs';
@@ -381,6 +382,7 @@ sub setStructure
 	pf '-A FORWARD -j fdrop';
 
 	pf '-A INPUT -j inospoof';
+	pf '-A INPUT -j iexternalmodules';
 	pf '-A INPUT -j inoexternal';
 	pf '-A INPUT -j imodules';
 	pf '-A INPUT -j iintservs';
@@ -608,6 +610,10 @@ sub start
 			pf "-t nat -A POSTROUTING -o $if -j MASQUERADE";
 		}
 	}
+
+	$self->_iexternalmodulesInit();
+
+
 	pf "-A ftoexternalonly -j fdrop";
 
 	my $rules = $self->{firewall}->OutputRules();
@@ -644,6 +650,7 @@ sub start
 		$self->_doRuleset('nat', 'premodules', $helper->prerouting);
 		$self->_doRuleset('nat', 'postmodules', $helper->postrouting);
 		$self->_doRuleset('filter', 'fmodules', $helper->forward);
+		$self->_doRuleset('filter', 'iexternalmodules', $helper->externalInput);
 		$self->_doRuleset('filter', 'imodules', $helper->input);
 		$self->_doRuleset('filter', 'omodules', $helper->output);
 	}
@@ -658,5 +665,15 @@ sub _doRuleset # (table, chain, \@rules)
 	}
 }
 
+
+sub _iexternalmodulesInit
+{
+  my ($self) = @_;
+  
+  my @internalIfaces = @{$self->{net}->InternalIfaces()};
+  foreach my $if (@internalIfaces) {
+    pf "-A iexternalmodules -i $if -j RETURN";
+  }
+}
 
 1;

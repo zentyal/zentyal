@@ -99,4 +99,20 @@ sub output
 }
 
 
+
+# Method: externalInput
+#
+# 	Rules returned by this method are added to the INPUT for EXTERNAL interfaces chain in
+#	the filter table. You can use them to filter packets directed at
+#	the firewall itself.
+#
+# Returns:
+#
+#	array ref - containing input rules
+sub externalInput
+{
+	return [];
+}
+
+
 1;
