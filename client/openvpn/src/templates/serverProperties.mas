@@ -12,9 +12,11 @@ use EBox::Gettext;
 my @certificateOptions = map { { value => $_ } } @availableCertificates; 
 my $certificateInput =  [ 
 			 name => 'certificate', 
-			 printableName => __('Server certificate'), 
+			 printableName => __('Certificate'), 
 			 input => 'select', 
-			 extraParams => [ options =>  \@certificateOptions , ], 
+			 extraParams => [ options =>
+					  \@certificateOptions , ], 
+			 help => __('This certificate will be used by the server to authenticate itself'),
 			];
 
 my @tlsRemoteOptions = ( { value =>  0,printableValue => __('disabled'), } , @certificateOptions);
@@ -23,12 +25,12 @@ my $tlsRemoteInput = [
 		      printableName => __('Client authentication by common name'),
 		      input => 'select',
 		      extraParams => [ options => \@tlsRemoteOptions ], 
-		      warning        => __('Any common name with this value as prefix will also be authorized'),
+		      help        => __("Only clients with this value as full common name's prefix will will be authorized"),
 		     ];
 
 my @localOptions = map { { value => $_ } } @localInterfaces; 
 push @localOptions,  { value => '', printableValue => __('All external interfaces'), };
-# if the lcoal interfa does not exist (was removed by force) put in
+# if the local interface does not exist (was removed by force) put in
 # int the options to avoid confusion about the actual value
 if ($properties{local}) {
   my $localIface = $properties{local};
@@ -38,8 +40,9 @@ if ($properties{local}) {
 }
 
 my $localInput   =  [
-		     name => 'local', printableName => __('Interface to listen on'), 
+		     name  => 'local', printableName => __('Interface to listen on'), 
 		     input => 'select', extraParams => [ options => \@localOptions], 
+		     help  => __('The server will be listen only in all external interfaces or only in the interface selected'),
 		    ];				       
 
 
@@ -58,10 +61,16 @@ my @tableElements  = (
        ],					 
       $certificateInput,	
       $tlsRemoteInput,
-      [ name => 'pullRoutes', printableName => __('Pull routes from
-      eBox clients'), input => 'checkbox', help => __("If you want to create a tunnel between two eBoxyou will need this option. Don't forget to advertise routes to the cliebt")],
+      [ name => 'pullRoutes', 
+	printableName => __('Pull routes from eBox clients'), 
+	input => 'checkbox', 
+	help => __("If you want to create a tunnel between two eBox you will need this option. Don't forget to advertise routes to the client"),
+      ],
 		      
-      [ name => 'clientToClient',    printableName => __('Allow client-to-client connections'), input => 'checkbox' ], 
+      [ name => 'clientToClient',    printableName => __('Allow client-to-client connections'), 
+	input => 'checkbox' ,
+	help => __('Allow clients to connect each other within OpenVPN subnet'),
+      ], 
       $localInput,		      
      );
 if ($nameEditable) {
