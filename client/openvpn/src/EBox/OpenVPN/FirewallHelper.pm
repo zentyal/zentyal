@@ -38,7 +38,7 @@ sub serversToConnect
     return $self->{serversToConnect};
 }
 
-sub input
+sub externalInput
 {
     my ($self) = @_;
     my @rules;
