@@ -59,14 +59,15 @@ push @componentParams, (name => $name) if defined $name;
 push @componentParams, (value => $value) if defined $value;
 </%init>
 % if (not $inputComponent =~ m/hidden\.mas$/ ) {
+  <& .div, type => 'warning', content => $warning &>
+  <& .div, type => 'note', content => $note &>
+  <& .div, type => 'help', content => $help &>
   <tr>
        <& .labelTd, printableName => $printableName &>
      <td>
         <& $inputComponent, @componentParams &>
      </td>
-  <& div, type => 'warning', content => $warning &>
-  <& div, type => 'note', content => $note &>
-  <& div, type => 'help', content => $help &>
+
   </tr>
 % } else {
   <& $inputComponent, name => $name, value => $value, @extraParams &>
@@ -94,17 +95,19 @@ if ($printableName ne '') {
 
 
 
-<%def div> 
+<%def .div> 
 <%args>
 $content
 $type
 </%args>
 % if (defined $content) {
-<tr><td/>
-<td> 
-<div class ='<% $type %>'>
-<% $content %>
-</div>
-</td>
+<tr>
+   <td></td>
+   <td>
+   <div class ='<% $type %>'>
+   <% $content %>
+   </div>
+   </td>
+</tr>
 % }
 </%def>
