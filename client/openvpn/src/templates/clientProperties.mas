@@ -11,7 +11,7 @@ my @tableElements  = (
       [ name => 'service',           printableName => __('Active'), input => 'checkbox' ],
 					 
       # server portion (if we support someday multiple servers the
-      # protocol would be part of cleint portion
+      # protocol would be part of client portion
       [ name => 'serverAddr',            printableName => __("Server's address"),], 
       [ name => 'proto',             printableName => __("Server's
   protocol"), 
@@ -25,9 +25,18 @@ my @tableElements  = (
       [ name => 'serverPort',            printableName => __("Server's Port"),],
 
       # certificates stuff      
-      [ name => 'caCertificatePath',            printableName => __("CA certificate path"),],		      
-      [ name => 'certificatePath',            printableName => __("Client's certificate path"),],		      
-      [ name => 'certificateKey',            printableName =>      __("Client's certificate key path"),], 
+      [ name          => 'caCertificatePath',            
+	printableName => __("CA certificate path"),
+	help          => __('Certificate of the Certification Authority. Must be the same than the server'),
+      ],		      
+      [ name => 'certificatePath',            
+	printableName => __("Client's certificate path"),
+	help => __('Certificate used by the client to identify itself. It must be signed by the Certification Authority'),
+      ],		      
+      [ name => 'certificateKey',         
+	printableName =>      __("Client's private key path"),
+	help => __("File which contains the private key used to create the client's certificate"),
+      ], 
      );
 if ($nameEditable) {
    unshift @tableElements, [ name => 'name', printableName =>    __('Client name') ];
