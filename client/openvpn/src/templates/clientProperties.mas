@@ -3,9 +3,11 @@ $nameEditable   => 0
 %properties     => ()
 $submitName
 $submitValue
+%overridePrintableNames => ()
 </%args>
 <%init>
 use EBox::Gettext;
+use Perl6::Junction qw(any);
 
 my @tableElements  = (
       [ name => 'service',           printableName => __('Active'), input => 'checkbox' ],
@@ -25,32 +27,51 @@ my @tableElements  = (
       [ name => 'serverPort',            printableName => __("Server's Port"),],
 
       # certificates stuff      
-      [ name          => 'caCertificatePath',            
-	printableName => __("CA certificate path"),
+      [ 
+        name          => 'caCertificatePath',          
+	input         => 'file',  
+	printableName => __("CA's certificate"),
 	help          => __('Certificate of the Certification Authority. Must be the same than the server'),
       ],		      
-      [ name => 'certificatePath',            
-	printableName => __("Client's certificate path"),
+      [ 
+        name  => 'certificatePath',    
+	input => 'file',        
+	printableName => __("Client's certificate"),
 	help => __('Certificate used by the client to identify itself. It must be signed by the Certification Authority'),
       ],		      
-      [ name => 'certificateKey',         
-	printableName =>      __("Client's private key path"),
+      [ 
+        name  => 'certificateKey',     
+	input => 'file',
+	printableName =>      __("Client's private key"),
 	help => __("File which contains the private key used to create the client's certificate"),
       ], 
      );
 if ($nameEditable) {
    unshift @tableElements, [ name => 'name', printableName =>    __('Client name') ];
 }
+
+
+
 # set values if required..
 
-
+my $anyUpload = any(qw(caCertificatePath certificatePath certificateKey)) ;
 
 @tableElements = map  {
   my %element = @{ $_ };
 
   my $propierty = $element{name};
+
+  if ($propierty eq $anyUpload) {
+     delete $properties{$propierty};
+  }
+
   if (exists $properties{$propierty}) {
     $element{value} =  $properties{$propierty};
+  }
+
+
+  if (exists $overridePrintableNames{$propierty}) {
+    $element{printableName} = $overridePrintableNames{$propierty};
   }
    
 

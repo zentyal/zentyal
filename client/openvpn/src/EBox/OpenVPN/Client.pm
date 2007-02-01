@@ -10,7 +10,8 @@ use EBox::NetWrappers;
 use EBox::Sudo;
 use EBox::Gettext;
 use Params::Validate qw(validate_pos SCALAR);
-
+use File::Basename;
+use Error qw(:try);
 
 sub new
 {
@@ -26,18 +27,18 @@ sub new
 
 
 
-sub _setConfFilePath
-{
-  my ($self, $key, $path, $prettyName) = @_;
+# sub _setConfFilePath
+# {
+#   my ($self, $key, $path, $prettyName) = @_;
 
-  checkAbsoluteFilePath($path, __($prettyName));
+#   checkAbsoluteFilePath($path, __($prettyName));
 
-  if (!EBox::Sudo::fileTest('-f', $path)) {
-    throw EBox::Exceptions::External(__x('Inexistent file {path}', path => $path));
-  }
+#   if (!EBox::Sudo::fileTest('-f', $path)) {
+#     throw EBox::Exceptions::External(__x('Inexistent file {path}', path => $path));
+#   }
 
-  $self->setConfString($key, $path);
-}
+#   $self->setConfString($key, $path);
+# }
 
 
 sub setProto
@@ -68,7 +69,8 @@ sub setCaCertificatePath
 {
   my ($self, $path) = @_;
   my $prettyName = q{Certification Authority's certificate};
-  $self->_setConfFilePath('caCertificatePath', $path, $prettyName);
+#  $self->_setConfFilePath('caCertificatePath', $path, $prettyName);
+  $self->_setPrivateFile('caCertificatePath', $path, $prettyName);
 }
 
 
@@ -82,7 +84,8 @@ sub setCertificatePath
 {
   my ($self, $path) = @_;
   my $prettyName = q{client's certificate};
-  $self->_setConfFilePath('certificatePath', $path, $prettyName);
+#  $self->_setConfFilePath('certificatePath', $path, $prettyName);
+ $self->_setPrivateFile('certificatePath', $path, $prettyName);
 }
 
 
@@ -96,7 +99,54 @@ sub setCertificateKey
 {
   my ($self, $path) = @_;
   my $prettyName = q{certificate's key};
-  $self->_setConfFilePath('certificateKey', $path, $prettyName);
+#  $self->_setConfFilePath('certificateKey', $path, $prettyName);
+  $self->_setPrivateFile('certificateKey', $path, $prettyName);
+}
+
+
+sub privateDir
+{
+  my ($self) = @_;
+
+  my $openVPNConfDir = $self->_openvpnModule->confDir();
+  my $dir = $self->confFile($openVPNConfDir) . '.d';
+
+  if (not EBox::Sudo::fileTest('-d', $dir)) {
+    # create dir if it does not exist
+    EBox::Sudo::root("mkdir --mode 0500  $dir");
+    EBox::Sudo::root('chown '. $self->user . '.' . $self->group . " $dir");
+  } 
+
+  return $dir;
+}
+
+sub _setPrivateFile
+{
+  my ($self, $type, $path, $prettyName) = @_;
+
+  # basic file check
+  checkAbsoluteFilePath($path, __($prettyName));
+  if (!EBox::Sudo::fileTest('-f', $path)) {
+    throw EBox::Exceptions::External(__x('Inexistent file {path}', path => $path));
+  }
+
+  my $privateDir = $self->privateDir();
+  
+  my $newPath = "$privateDir/$type"; 
+
+  try {
+    EBox::Sudo::root("chmod 0400 $path");
+    EBox::Sudo::root('chown '. $self->user . '.' . $self->group . " $path");
+    EBox::Sudo::root("mv $path $newPath");
+  }
+  otherwise {
+    EBox::Sudo::root("rm -f $newPath");
+    EBox::Sudo::root("rm -f $path");
+  };
+
+  $self->setConfString($type, $newPath);
+
+
 }
 
 

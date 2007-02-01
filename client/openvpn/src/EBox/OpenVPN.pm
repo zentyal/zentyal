@@ -47,6 +47,7 @@ sub _regenConfig
     my ($self) = @_;
 
     $self->_writeConfFiles();
+    $self->_cleanConfigDir();
     $self->_doDaemon();
 }
 
@@ -78,6 +79,34 @@ sub _writeConfFiles
     }
 }
 
+
+sub _cleanConfigDir
+{
+    my ($self) = @_;
+
+    my @privateDir    = map { $_->privateDir()  } $self->clients();
+    my $anyPrivateDir = any @privateDir;
+
+    my $confDir = $self->confDir;
+    opendir my $DH, $confDir or throw EBox::Exceptions::Internal("Can not open $confDir: $!");
+    my @dirContents =  readdir $DH;
+#    EBox::debug("_cleanConfigDir contents: @dirContents");
+    closedir $DH;
+
+    foreach (@dirContents) {
+      next if $_ =~ m/^[.]+$/;
+
+      my $file = "$confDir/$_";
+#      EBox::debug("_cleanConfigDir $file");
+      if (EBox::Sudo::fileTest('-d', $file)) {
+	next if ($file eq $anyPrivateDir);
+
+	EBox::info("OpenVPN's leftover dir found: $file. It will be removed");
+	EBox::Sudo::root("rm -rf $file");
+      }
+    }
+
+}
 
 
 # all openvpn daemons related methods
@@ -235,7 +264,6 @@ sub removeClient
 	throw EBox::Exceptions::External __x("Unable to remove because there is not a openvpn client named {name}", name => $name);
     }
 
-	
     $self->delete_dir($clientDir);
 }
 
@@ -811,7 +839,7 @@ sub menu
         my ($self, $root) = @_;
     
         my $item = new EBox::Menu::Item('url' => 'OpenVPN/Index',
-                                        'text' => __('OpenVPN server'));
+                                        'text' => __('OpenVPN'));
 	$root->add($item);
 }
 
@@ -854,12 +882,7 @@ sub summary
 	  # XXX only one server supported now!
 	  my ($addr, $port) = @{ $servers[0]  };
 	  my $server = $addr . ':' . $port;
-	  if ($client->running) {
-	    $section->add(new EBox::Summary::Value (__('Connected to'), $server));
-	  }
-	  else {
-	    $section->add(new EBox::Summary::Value (__('Will connect to'), $server));
-	  }
+	  $section->add(new EBox::Summary::Value (__('Connection target'), $server));
 
 	  $summary->add($section);
 	}
