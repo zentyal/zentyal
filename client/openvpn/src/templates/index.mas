@@ -51,7 +51,7 @@ my  @columnTitlesParam = @servers > 0 ? (columnTitles => \@columnTitles) : ();
 <%method .addServerRow >
  <tr class='border'>
 <td/>
-<td class='tcenter'>
+<td class='tright'>
 <form action='Create' method='POST'>
 		<input class='inputButton' type='submit' name='createFromIndex' 
 			   value="<% __('Create new server') %>"
@@ -91,7 +91,7 @@ my  @columnTitlesParam = @clients > 0 ? (columnTitles => \@columnTitles) : ();
 <%method .addClientRow >
  <tr class='border'>
 <td/>
-<td class='tcenter'>
+<td class='tright'>
 <form action='CreateClient' method='POST'>
 		<input class='inputButton' type='submit' name='submit' 
 			   value="<% __('Create new client') %>"
