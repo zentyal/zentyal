@@ -818,23 +818,51 @@ sub menu
 sub summary
 {
 	my ($self) = @_;
-	my $summary = new EBox::Summary::Module(__("OpenVPN servers"));
+	my $summary = new EBox::Summary::Module(__('OpenVPN daemons'));
 
 	foreach my $server ($self->servers) {
-	    my $section = new EBox::Summary::Section($server->name);
+	    my $section = new EBox::Summary::Section(__x('Server {name}', name => $server->name));
 
 	    my $service = $server->service ? __('Enabled') : __('Disabled');
-	    $section->add(new EBox::Summary::Value (__("Service"), $service));
+	    $section->add(new EBox::Summary::Value (__('Service'), $service));
 
 	    my $running = $server->running ? __('Running') : __('Stopped');
-	    $section->add(new EBox::Summary::Value (__("Daemon status"), $running));
+	    $section->add(new EBox::Summary::Value (__('Daemon status'), $running));
+
+	    my $proto   = $server->proto();
+	    my $port    = $server->port();
+	    my $portAndProtocol = "$port/\U$proto";
+	    $section->add(new EBox::Summary::Value (__('Port'), $portAndProtocol));
 
 	    my $subnet  = $server->subnet . '/' . $server->subnetNetmask;
-	    $section->add(new EBox::Summary::Value (__("VPN subnet"), $subnet));
+	    $section->add(new EBox::Summary::Value (__('VPN subnet'), $subnet));
 
 	    $summary->add($section);
 	}
 				    
+
+	foreach my $client ($self->clients) {
+	  my $section = new EBox::Summary::Section(__x('Client {name}', name => $client->name));
+
+	  my $service = $client->service ? __('Enabled') : __('Disabled');
+	  $section->add(new EBox::Summary::Value (__('Service'), $service));
+
+	  my $running = $client->running ? __('Running') : __('Stopped');
+	  $section->add(new EBox::Summary::Value (__('Daemon status'), $running));
+
+	  my @servers = @{  $client->servers  };
+	  # XXX only one server supported now!
+	  my ($addr, $port) = @{ $servers[0]  };
+	  my $server = $addr . ':' . $port;
+	  if ($client->running) {
+	    $section->add(new EBox::Summary::Value (__('Connected to'), $server));
+	  }
+	  else {
+	    $section->add(new EBox::Summary::Value (__('Will connect to'), $server));
+	  }
+
+	  $summary->add($section);
+	}
 
 	return $summary;
 }
