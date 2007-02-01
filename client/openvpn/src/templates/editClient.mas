@@ -12,9 +12,9 @@ my %overridePrintableNames = (
 			     );
 </%init>
 
-<h3><% __x('Configuration of client {name}', name => $name) %></h3>
+<h3><% __x("Client {name} configuration", name => $name) %></h3>
 <form action='EditClient' method='POST' enctype='multipart/form-data'>
-<div ='note'>
+<div class='note'>
   <% __('Changes in certificates and key files can not be discarded.')  %>
 </div>
 <& /openvpn/clientProperties.mas, properties => \%clientAttrs,

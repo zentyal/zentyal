@@ -11,7 +11,7 @@ $disabled => 0
 use EBox::Gettext;
 </%init>
 % if ( !$disabled and @availableCertificates) {
-<h3><% __x('Configuration of server {name}', name => $name) %></h3>
+<h3><% __x("Server {name} configuration", name => $name) %></h3>
 <form action='Edit' method='POST'>
 <& /openvpn/serverProperties.mas, properties => \%serverAttrs, availableCertificates => \@availableCertificates, localInterfaces => \@localInterfaces, submitName => 'edit', submitValue => __('Change') &>
 <input type='hidden' name='name' value='<% $name %>' />
