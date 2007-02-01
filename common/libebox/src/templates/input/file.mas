@@ -1,0 +1,16 @@
+<%args>
+$name
+$value       => ''
+@extraParams => ()
+</%args>
+<%init>
+my %extra = @extraParams;
+
+
+my $accept = undef;
+if (exists $extra{accept}) {
+    
+}
+
+</%init>
+<input type='file' class='inputText' name='<% $name |h %>'  <% @extraParams | h %> />
