@@ -18,3 +18,16 @@ DEPENDENCIES
 
 INSTALLATION
 ------------
+
+- Once eBox base has been installed, type:
+	
+	./configure --prefix=/usr --localstatedir=/var --sysconfdir=/etc
+	make install
+
+  configure will autodetect eBox base path to install
+
+- Reload gconf
+
+	pkill gconf
+
+- All new certificates will be stored at /var/lib/ebox/CA

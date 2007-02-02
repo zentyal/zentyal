@@ -2196,7 +2196,7 @@ sub _setLogAdminActions
     $self->{actions}->{renewCertificate} =
       __n("Renewed certificate with common name {cn} and validity for {days} days");
     $self->{actions}->{updateDB} =
-      __n("Updated certificate database. {number} certificates has expired");
+      __n("Updated certificate database. {number} certificates have expired");
 
     return;
 
@@ -2314,7 +2314,7 @@ sub _executeCommand # (COMMAND, INPUT?, HIDE_OUTPUT?)
     ## run command
 
     my $command = $keys->{COMMAND};
-    EBox::debug("Command: $command") ;
+#   EBox::debug("Command: $command") ;
 
     my $input  = undef;
     $input   = $keys->{INPUT} if (exists $keys->{INPUT});
@@ -2350,7 +2350,7 @@ sub _executeCommand # (COMMAND, INPUT?, HIDE_OUTPUT?)
         {
             while( my $tmp = <FD> ) {
 	        $ret .= $tmp;
-		EBox::debug( $tmp );
+#		EBox::debug( $tmp );
             }
             close(FD);
         }

@@ -1,0 +1,8 @@
+This eBox module provides the following functionalities:
+
+  * Certification Authority.
+	* Create a Certification Authority
+	* Issue, revoke and renew X.509 certificates
+	* List all managed certificates' metadata
+	* Get certificates and their keys
+	* Generate and get Certification Revokation Lists
