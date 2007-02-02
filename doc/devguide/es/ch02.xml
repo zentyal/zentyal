@@ -347,7 +347,7 @@ print __x("Edit {group} members", group => $group); #correcto
 			<para>Si quieres marcar una cadena como traducible pero decidiendo
 			no traducirla, deberías usar la función <methodname>__n</methodname>.
 			Un ejemplo de uso es el siguiente:
-
+			</para>
 			<example>
 			  <title>Usando la función <methodname>__n</methodname></title>
 			  <programlisting>
@@ -365,7 +365,7 @@ print __($options[$index]);
 			de los módulos conteniendo todas las cadenas incluidas en los
 			mismos. Estos ficheros podrán ser traducidos comodamente por los
 			traductores, como se explica en la siguiente subsección.</para>
-
+			
 		</section>
 
 		<section id="sect-i18n-translators">
