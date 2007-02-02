@@ -1,13 +1,13 @@
 # translation of ebox.po to
 # Copyright (C) YEAR Warp S.L.
-# This file is distributed under the same license as the ebox-ebox package.
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ebox 0.8.99"
+"Project-Id-Version: ebox\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-01-26 15:01+0100\n"
+"POT-Creation-Date: 2007-02-02 11:54+0100\n"
 "PO-Revision-Date: 2006-10-19 00:54-0200\n"
 "Last-Translator: junior\n"
 "Language-Team:  <en@li.org>\n"
@@ -354,7 +354,8 @@ msgid "port"
 msgstr "porta"
 
 #: src/EBox/Logs.pm:229
-msgid "Table {$table} does not exist"
+#, perl-brace-format
+msgid "Table {table} does not exist"
 msgstr ""
 
 #: src/EBox/Logs.pm:244
@@ -548,36 +549,20 @@ msgstr "Desligar/Reiniciar"
 msgid "Password changed"
 msgstr "Senha"
 
-#: src/EBox/PgDBEngine.pm:42
-#, fuzzy
-msgid ""
-"You must set the eboxlogs_dbname variable in the ebox configuration file"
+#: src/EBox/PgDBEngine.pm:42 src/EBox/PgDBEngine.pm:55
+#: src/EBox/PgDBEngine.pm:68
+#, fuzzy, perl-brace-format
+msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr ""
 "Você precisar especificar a variável httpd_init no arquivo de configuração "
 "do EBox"
 
-#: src/EBox/PgDBEngine.pm:54
-#, fuzzy
-msgid ""
-"You must set the eboxlogs_dbuser variable in the ebox configuration file"
-msgstr ""
-"Você precisa especificar a variável httpd_serverroot no arquivo de "
-"configuração do EBox"
-
-#: src/EBox/PgDBEngine.pm:66
-#, fuzzy
-msgid ""
-"You must set the eboxlogs_dbpass variable in the ebox configuration file"
-msgstr ""
-"Você precisar especificar a variável httpd_init no arquivo de configuração "
-"do EBox"
-
-#: src/EBox/PgDBEngine.pm:213
+#: src/EBox/PgDBEngine.pm:216
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr ""
 
-#: src/EBox/PgDBEngine.pm:231
+#: src/EBox/PgDBEngine.pm:234
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr ""
@@ -669,7 +654,7 @@ msgid "Search"
 msgstr ""
 
 #: src/templates/logs/index.mas:237
-msgid "No logs matching current criteria"
+msgid "No logs matching current criterion"
 msgstr ""
 
 #: src/templates/logs/dbtable.mas:72 src/templates/logs/dbtable.mas:74
@@ -978,6 +963,27 @@ msgstr "Reiniciar"
 #, perl-brace-format
 msgid "{ebox} created by {warp} in collaboration with {dbs}"
 msgstr "{ebox} creado por {warp} em colaboração com {dbs}"
+
+#, fuzzy
+#~ msgid ""
+#~ "You must set the eboxlogs_dbname variable in the ebox configuration file"
+#~ msgstr ""
+#~ "Você precisar especificar a variável httpd_init no arquivo de "
+#~ "configuração do EBox"
+
+#, fuzzy
+#~ msgid ""
+#~ "You must set the eboxlogs_dbuser variable in the ebox configuration file"
+#~ msgstr ""
+#~ "Você precisa especificar a variável httpd_serverroot no arquivo de "
+#~ "configuração do EBox"
+
+#, fuzzy
+#~ msgid ""
+#~ "You must set the eboxlogs_dbpass variable in the ebox configuration file"
+#~ msgstr ""
+#~ "Você precisar especificar a variável httpd_init no arquivo de "
+#~ "configuração do EBox"
 
 #~ msgid "Password Incorrect"
 #~ msgstr "Senha Incorreta"

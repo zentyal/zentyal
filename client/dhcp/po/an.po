@@ -1,15 +1,15 @@
-# Aragonese translations for ebox-dhcp package.
+# Aragonese translations for PACKAGE package.
 # Copyright (C) 2006 Warp S.L.
-# This file is distributed under the same license as the ebox-dhcp package.
+# This file is distributed under the same license as the PACKAGE package.
 # Automatically generated, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dhcp 0.8.99"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-01-26 15:01+0100\n"
-"PO-Revision-Date: 2007-01-27 20:19+0000\n"
-"Last-Translator: Guillermo Fras Marn <espanyoldebarna@hotmail.com>\n"
+"POT-Creation-Date: 2007-01-30 19:13+0100\n"
+"PO-Revision-Date: 2007-01-31 23:34+0000\n"
+"Last-Translator: Guillermo Frías Marín <espanyoldebarna@hotmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,7 +24,7 @@ msgstr ""
 #: src/EBox/DHCP.pm:654 src/EBox/DHCP.pm:685 src/EBox/DHCP.pm:720
 #: src/EBox/DHCP.pm:821 src/EBox/DHCP.pm:1089
 msgid "Interface"
-msgstr ""
+msgstr "Interfaz"
 
 #: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
 #: src/templates/fixed.mas:9 src/templates/ranges.mas:58
@@ -33,15 +33,15 @@ msgstr "Nombre"
 
 #: src/EBox/CGI/AddRange.pm:44 src/templates/ranges.mas:60
 msgid "From"
-msgstr ""
+msgstr "Dende"
 
 #: src/EBox/CGI/AddRange.pm:45 src/templates/ranges.mas:62
 msgid "To"
-msgstr ""
+msgstr "Dica"
 
 #: src/EBox/CGI/Enable.pm:39
 msgid "module status"
-msgstr ""
+msgstr "estato d'o modulo"
 
 #: src/EBox/CGI/AddFixed.pm:43 src/EBox/DHCP.pm:730 src/EBox/DHCP.pm:1090
 #: src/templates/fixed.mas:11
@@ -54,91 +54,96 @@ msgstr "Adreza IP"
 
 #: src/EBox/CGI/Status.pm:42
 msgid "Module Status"
-msgstr ""
+msgstr "Estato d'o modulo"
 
 #: src/EBox/DHCP.pm:107
 msgid ""
 "DHCP server can not activated because there are not any network interface "
 "with a static address. <a href='Network/Ifaces'>Configure one</a> first"
 msgstr ""
+"O serbidor DHCP no puede estar autibato porque no bi ha interfazes de rete "
+"confeguratos con una adreza estatica. <a href='Network/Ifaces'>Confegure "
+"una</a> antis"
 
 #: src/EBox/DHCP.pm:315 src/EBox/DHCP.pm:355 src/EBox/DHCP.pm:386
 #: src/EBox/DHCP.pm:422 src/EBox/DHCP.pm:453 src/EBox/DHCP.pm:490
 #: src/EBox/DHCP.pm:569 src/EBox/DHCP.pm:726
 #, perl-brace-format
 msgid "{iface} is not static"
-msgstr ""
+msgstr "{iface} no ye estatica"
 
 #: src/EBox/DHCP.pm:320
 msgid "Gateway IP address"
-msgstr ""
+msgstr "Adreza IP d'a puerta d'enlaze"
 
 #: src/EBox/DHCP.pm:323
 #, perl-brace-format
 msgid "{gateway} is not in the current network"
-msgstr ""
+msgstr "{gateway} no se i troba en o rete autual"
 
 #: src/EBox/DHCP.pm:391 src/templates/options.mas:32
 msgid "Search domain"
-msgstr ""
+msgstr "Dominio de busca"
 
 #: src/EBox/DHCP.pm:458
 msgid "Nameserver IP address"
-msgstr ""
+msgstr "Adreza IP d'o serbidor de nombres"
 
 #: src/EBox/DHCP.pm:573
 msgid "\"From\" IP address"
-msgstr ""
+msgstr "Adreza IP \"Dende\""
 
 #: src/EBox/DHCP.pm:574
 msgid "\"To\" IP address"
-msgstr ""
+msgstr "Adreza IP \"Dica\""
 
 #: src/EBox/DHCP.pm:579
 #, perl-brace-format
 msgid "{from}-{to} is an invalid range"
-msgstr ""
+msgstr "{from}-{to} ye un ran imbalido"
 
 #: src/EBox/DHCP.pm:588
 #, perl-brace-format
 msgid "Range {from}-{to} is not in network {net}"
-msgstr ""
+msgstr "O ran {from}-{to} no ye en o rete {net}"
 
 #: src/EBox/DHCP.pm:596
 #, perl-brace-format
 msgid "Range {new_from}-{new_to} includes interface IP address: {iface_ip}"
-msgstr ""
+msgstr "O ran {new_from}-{new_to} encluye l'adreza IP d'a interfaz: {iface_ip}"
 
 #: src/EBox/DHCP.pm:607
 #, perl-brace-format
 msgid ""
 "Range {new_from}-{new_to} overlaps with range '{range}': {old_from}-{old_to}"
 msgstr ""
+"O ran {new_from}-{new_to} coinzide con o ran '{range}': {old_from}-{old_to}"
 
 #: src/EBox/DHCP.pm:621
 #, perl-brace-format
 msgid "Range {new_from}-{new_to} includes fixed address '{name}': {fixed_ip}"
 msgstr ""
+"O ran {new_from}-{new_to} encluye l'asinnazión estatica '{name}': {fixed_ip}"
 
 #: src/EBox/DHCP.pm:741
 #, perl-brace-format
 msgid "IP address {ip} is not in network {net}"
-msgstr ""
+msgstr "L'adreza IP {ip} no ye en o rete {net}"
 
 #: src/EBox/DHCP.pm:749
 #, perl-brace-format
 msgid "The selected IP is the interface IP address: {iface_ip}"
-msgstr ""
+msgstr "A IP trigata ye l'adreza IP d'a interfaz: {iface_ip}"
 
 #: src/EBox/DHCP.pm:759
 #, perl-brace-format
 msgid "IP address {ip} is in range '{range}': {old_from}-{old_to}"
-msgstr ""
+msgstr "L'adreza {ip} ye en o ran '{range}': {old_from}-{old_to}"
 
 #: src/EBox/DHCP.pm:777
 #, perl-brace-format
 msgid "IP address {ip} is already added as fixed address '{name}'"
-msgstr ""
+msgstr "L'adreza IP {ip} ya s'ha adibito como l'asinnazión estatica '{name}'"
 
 #: src/EBox/DHCP.pm:786
 #, perl-brace-format
@@ -146,6 +151,8 @@ msgid ""
 "MAC address {mac} is already added as fixed address '{name}' for interface "
 "'{iface}'"
 msgstr ""
+"L'adreza MAC {mac} ya s'ha adibito como l'asinnazión estatica '{name}' ta la "
+"interfaz '{iface}'"
 
 #: src/EBox/DHCP.pm:908
 #, perl-brace-format
@@ -154,6 +161,10 @@ msgid ""
 "by the DHCP range '{range}' in the interface '{iface}'. Please, remove it "
 "before trying to add a virtual interface using it."
 msgstr ""
+"L'adreza IP d'a interfaz birtual que ye intentando adibir ye estando "
+"emplegata por o ran DHCP '{range}' en a interfaz '{iface}'. Por fabor, "
+"elimine o rango antis d'intentar adibir una interfaz birtual que emplegue "
+"ixa IP."
 
 #: src/EBox/DHCP.pm:922
 #, perl-brace-format
@@ -162,105 +173,112 @@ msgid ""
 "by the DHCP fixed address '{fixed}' in the interface '{iface}'. Please, "
 "remove it before trying to add a virtual interface using it."
 msgstr ""
+"L'adreza IP d'a interfaz birtual que ye intentando adibir ye estando "
+"emplegata por l'asinnazión estatica de DHCP '{fixed}' en a interfaz "
+"'{iface}'. Por fabor, elimine l'asinnazión estatica antis d'intentar adibir "
+"una interfaz birtual que emplegue ixa IP."
 
 #: src/EBox/DHCP.pm:1088
 msgid "Date"
-msgstr ""
+msgstr "Calendata"
 
 #: src/EBox/DHCP.pm:1091
 msgid "IP"
-msgstr ""
+msgstr "IP"
 
 #: src/EBox/DHCP.pm:1092
 msgid "Event"
-msgstr ""
+msgstr "Ebento"
 
 #: src/EBox/DHCP.pm:1095
 msgid "Leased"
-msgstr ""
+msgstr "Zedita"
 
 #: src/EBox/DHCP.pm:1095
 msgid "Released"
-msgstr ""
+msgstr "Liberata"
 
 #: src/EBox/DHCP.pm:1098
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: src/templates/index.mas:16
 msgid "DHCP server status"
-msgstr ""
+msgstr "Estato d'o serbidor DHCP"
 
 #: src/templates/index.mas:26
 msgid "DHCP server requires a static interface, <a href="
 msgstr ""
+"O serbidor DHCP ha menester d'una interfaz estatica, confegure-la primero"
 
 #: src/templates/options.mas:8
 msgid "Options"
-msgstr ""
+msgstr "Ozions"
 
 #: src/templates/options.mas:11
 msgid ""
 "You can leave empty the Default Gateway field to use eBox as default gateway "
 "for this subnet"
 msgstr ""
+"Puede dixar bazío lo campo \"Puerta d'enlaze por defeuto\" ta emplegar eBox "
+"como a puerta d'enlaze por defeuto ta iste subrete"
 
 #: src/templates/options.mas:20
 msgid "Default gateway"
-msgstr ""
+msgstr "Puerta d'enlaze por defeuto"
 
 #: src/templates/options.mas:45
 msgid "Primary nameserver"
-msgstr ""
+msgstr "Serbidor de nombres primario"
 
 #: src/templates/options.mas:57
 msgid "Secondary nameserver"
-msgstr ""
+msgstr "Serbidor de nombres secundario"
 
 #: src/templates/options.mas:70
 msgid "Apply"
-msgstr ""
+msgstr "Aplicar"
 
 #: src/templates/fixed.mas:5
 msgid "Fixed addresses"
-msgstr ""
+msgstr "Asinnazions estaticas"
 
 #: src/templates/fixed.mas:15 src/templates/ranges.mas:64
 msgid "Action"
-msgstr ""
+msgstr "Aizión"
 
 #: src/templates/fixed.mas:39 src/templates/fixed.mas:43
 #: src/templates/fixed.mas:45 src/templates/ranges.mas:83
 #: src/templates/ranges.mas:85 src/templates/ranges.mas:87
 msgid "Add"
-msgstr ""
+msgstr "Adibir"
 
 #: src/templates/fixed.mas:59 src/templates/fixed.mas:62
 #: src/templates/fixed.mas:64
 msgid "Remove"
-msgstr ""
+msgstr "Eliminar"
 
 #: src/templates/ranges.mas:15
 msgid "DHCP ranges"
-msgstr ""
+msgstr "Rans DHCP"
 
 #: src/templates/ranges.mas:21
 msgid "Subnet"
-msgstr ""
+msgstr "Subrete"
 
 #: src/templates/ranges.mas:32
 msgid "Subnet netmask"
-msgstr ""
+msgstr "Mascaruta de subrete"
 
 #: src/templates/ranges.mas:43
 msgid "Available range"
-msgstr ""
+msgstr "Ran disponible"
 
 #: src/templates/ranges.mas:53
 msgid "Ranges"
-msgstr ""
+msgstr "Rans"
 
 #: src/templates/ranges.mas:103 src/templates/ranges.mas:105
 #: src/templates/ranges.mas:107
 msgid "Delete"
-msgstr ""
+msgstr "Eliminar"

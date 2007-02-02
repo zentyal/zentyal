@@ -11,17 +11,17 @@
 # Javier Uruen Val <juruen@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mail 0.8.99"
+"Project-Id-Version: mail-es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-01-26 15:01+0100\n"
-"PO-Revision-Date: 2006-01-31 17:59+0100\n"
-"Last-Translator: Jorge Arcas <jorge@warp.es>\n"
+"POT-Creation-Date: 2007-01-30 19:14+0100\n"
+"PO-Revision-Date: 2007-02-02 09:35+0000\n"
+"Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: KBabel 1.11.1\n"
+"X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/CGI/SetQuota.pm:46
 msgid "Message size limit"
@@ -153,15 +153,15 @@ msgstr "IP remota"
 
 #: src/EBox/Mail.pm:261
 msgid " is not a valid ip address"
-msgstr ""
+msgstr "no es una dirección IP válida"
 
 #: src/EBox/Mail.pm:267
 msgid " cannot be reached by any configured interface"
-msgstr ""
+msgstr "no puede ser alcanzado por ninguna interfaz configurada"
 
 #: src/EBox/Mail.pm:273
 msgid " can be reached by more than one configured interface"
-msgstr ""
+msgstr "puede ser alcanzado por más de una interfaz configurada"
 
 #: src/EBox/Mail.pm:326
 msgid "smarthost ip"

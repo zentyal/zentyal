@@ -1,13 +1,13 @@
-# Aragonese translations for ebox-ebox package.
+# Aragonese translations for PACKAGE package.
 # Copyright (C) 2006 Warp S.L.
-# This file is distributed under the same license as the ebox-ebox package.
+# This file is distributed under the same license as the PACKAGE package.
 # Automatically generated, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ebox 0.8.99"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-01-26 15:01+0100\n"
+"POT-Creation-Date: 2007-02-02 11:54+0100\n"
 "PO-Revision-Date: 2007-01-27 21:44+0000\n"
 "Last-Translator: Guillermo Frías Marín <espanyoldebarna@hotmail.com>\n"
 "Language-Team: none\n"
@@ -329,7 +329,8 @@ msgid "port"
 msgstr ""
 
 #: src/EBox/Logs.pm:229
-msgid "Table {$table} does not exist"
+#, perl-brace-format
+msgid "Table {table} does not exist"
 msgstr ""
 
 #: src/EBox/Logs.pm:244
@@ -514,27 +515,18 @@ msgstr ""
 msgid "Password changed"
 msgstr ""
 
-#: src/EBox/PgDBEngine.pm:42
-msgid ""
-"You must set the eboxlogs_dbname variable in the ebox configuration file"
+#: src/EBox/PgDBEngine.pm:42 src/EBox/PgDBEngine.pm:55
+#: src/EBox/PgDBEngine.pm:68
+#, perl-brace-format
+msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr ""
 
-#: src/EBox/PgDBEngine.pm:54
-msgid ""
-"You must set the eboxlogs_dbuser variable in the ebox configuration file"
-msgstr ""
-
-#: src/EBox/PgDBEngine.pm:66
-msgid ""
-"You must set the eboxlogs_dbpass variable in the ebox configuration file"
-msgstr ""
-
-#: src/EBox/PgDBEngine.pm:213
+#: src/EBox/PgDBEngine.pm:216
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr ""
 
-#: src/EBox/PgDBEngine.pm:231
+#: src/EBox/PgDBEngine.pm:234
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr ""
@@ -625,7 +617,7 @@ msgid "Search"
 msgstr ""
 
 #: src/templates/logs/index.mas:237
-msgid "No logs matching current criteria"
+msgid "No logs matching current criterion"
 msgstr ""
 
 #: src/templates/logs/dbtable.mas:72 src/templates/logs/dbtable.mas:74

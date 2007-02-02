@@ -6,13 +6,13 @@
 # Javier Amor Garcia <javier.amor.garcia@warp.es>, 2006.
 # Spanish Warp Team translation of ebox.
 # Copyright (C) 2005 Warp Networks S.L and DBS Servicios Informaticos S.L.
-# This file is distributed under the same license as the ebox-network package.
+# This file is distributed under the same license as the PACKAGE package.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.8.99"
+"Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-01-27 22:07+0100\n"
-"PO-Revision-Date: 2007-01-27 17:29+0000\n"
+"POT-Creation-Date: 2007-01-30 19:14+0100\n"
+"PO-Revision-Date: 2007-02-02 09:46+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: src/EBox/CGI/FirstTime/DNS.pm:41
 msgid "You can revisit this page at Network/DNS in the menu"
-msgstr ""
+msgstr "Puede volver a visitar esta página en el menú a través de Red/DNS"
 
 #: src/EBox/CGI/FirstTime/Iface.pm:45
 msgid "Network interface configured"
@@ -30,7 +30,7 @@ msgstr "Interfaces de red configurados"
 
 #: src/EBox/CGI/FirstTime/Nameservers.pm:44
 msgid "DNS configured"
-msgstr ""
+msgstr "DNS configurado"
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
 #: src/EBox/Network.pm:2067
@@ -42,19 +42,20 @@ msgid ""
 "After the initial config you can revisit this page at Network/Interfaces in "
 "the menu"
 msgstr ""
+"Tras la configuración inicia puede volver a visitar esta página en el menú "
+"Red/Interfaces"
 
 #: src/EBox/CGI/FirstTime/Routes.pm:29
-#, fuzzy
 msgid "Set default gateway"
-msgstr "Ruta por defecto"
+msgstr "Establecer ruta por defecto"
 
 #: src/EBox/CGI/FirstTime/Routes.pm:43
 msgid "You can change later the gateway at Network/Routes menus item"
-msgstr ""
+msgstr "Puedes cambiar más tarde la gateway a través del menú Red/Rutas"
 
 #: src/EBox/CGI/FirstTime/Gateway.pm:41
 msgid "Gateway configured"
-msgstr ""
+msgstr "Gateway configurada"
 
 #: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
 msgid "Network diagnosis"
@@ -120,18 +121,16 @@ msgid "Routes"
 msgstr "Rutas"
 
 #: src/EBox/Network/FirstTime.pm:14
-#, fuzzy
 msgid "Configure network interfaces"
-msgstr "interfaz de red"
+msgstr "Configurar interfaces de red"
 
 #: src/EBox/Network/FirstTime.pm:15
 msgid "Configure name servers"
-msgstr ""
+msgstr "Configurar los servidores de nombre"
 
 #: src/EBox/Network/FirstTime.pm:16
-#, fuzzy
 msgid "Configure default gateway"
-msgstr "Ruta por defecto"
+msgstr "Configurar gateway por defecto"
 
 #: src/EBox/Network.pm:543 src/EBox/Network.pm:547
 msgid "Virtual interface name"
@@ -238,13 +237,12 @@ msgstr ""
 "uno de los interfaces de red que haya configurado."
 
 #: src/templates/routes.mas:18
-#, fuzzy
 msgid ""
 "Having network interfaces configured via DHCP may cause the default gateway "
 "to be overriden."
 msgstr ""
-"Esta configuración podría ser ignorada si tiene interfaces de red "
-"configurados por DHCP."
+"Teniendo interfaces de red configurados vía DHCP quizá causen que la gateway "
+"por defecto sea sobreescrita."
 
 #: src/templates/routes.mas:22
 msgid "Default gateway"

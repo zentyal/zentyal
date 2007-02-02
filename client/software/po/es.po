@@ -8,16 +8,16 @@
 # Javier Uruen Val <juruen@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.8.99"
+"Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-01-26 15:03+0100\n"
-"PO-Revision-Date: 2006-11-13 17:55+0100\n"
-"Last-Translator: Javier Uruen Val <juruen@warp.es>\n"
-"Language-Team:  <info@ebox-platform.com>\n"
+"POT-Creation-Date: 2007-01-30 19:15+0100\n"
+"PO-Revision-Date: 2007-02-02 09:48+0000\n"
+"Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
+"Language-Team: <info@ebox-platform.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
+"X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 #: src/EBox/Software.pm:313
@@ -125,9 +125,8 @@ msgid "Object management"
 msgstr "Gestión de objetos"
 
 #: src/EBox/PackageDescriptions.pm:12
-#, fuzzy
 msgid "OpenVPN server"
-msgstr "Servidor NTP"
+msgstr "Servidor OpenVPN"
 
 #: src/EBox/PackageDescriptions.pm:13
 msgid "Printer sharing"

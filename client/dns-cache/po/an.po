@@ -1,33 +1,34 @@
-# Aragonese translations for ebox-dns-cache package.
+# Aragonese translations for PACKAGE package.
 # Copyright (C) 2006 Warp S.L.
-# This file is distributed under the same license as the ebox-dns-cache package.
+# This file is distributed under the same license as the PACKAGE package.
 # Automatically generated, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dns-cache 0.8.99"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2006-11-27 12:41+0100\n"
-"PO-Revision-Date: 2006-11-27 12:41+0100\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2007-01-30 19:13+0100\n"
+"PO-Revision-Date: 2007-01-31 23:36+0000\n"
+"Last-Translator: Guillermo Frías Marín <espanyoldebarna@hotmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
-msgstr ""
+msgstr "estato d'o modulo"
 
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40
 #: src/EBox/DNSCache.pm.in:143
 msgid "DNS cache"
-msgstr ""
+msgstr "Cache DNS"
 
 #: src/EBox/DNSCache.pm.in:156
 msgid "DNS Cache"
-msgstr ""
+msgstr "Cache DNS"
 
 #: src/templates/index.mas:11
 msgid "DNS Cache service status"
-msgstr ""
+msgstr "Estato d'o serbizio DNS Cache"
