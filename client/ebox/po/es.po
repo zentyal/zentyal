@@ -13,10 +13,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.8.99\n"
-
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 11:54+0100\n"
-"PO-Revision-Date: 2007-02-02 10:51+0000\n"
+"POT-Creation-Date: 2007-02-02 15:03+0100\n"
+"PO-Revision-Date: 2007-02-02 14:08+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -358,7 +357,7 @@ msgstr "puerto"
 #: src/EBox/Logs.pm:229
 #, perl-brace-format
 msgid "Table {table} does not exist"
-msgstr ""
+msgstr "La tabla {table} no existe"
 
 #: src/EBox/Logs.pm:244
 #, perl-brace-format
@@ -564,10 +563,10 @@ msgstr "Contraseña cambiada"
 
 #: src/EBox/PgDBEngine.pm:42 src/EBox/PgDBEngine.pm:55
 #: src/EBox/PgDBEngine.pm:68
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr ""
-"Debe establecer la variable httpd_init en el fichero de configuración de ebox"
+"Debe establecer la variable {variable} en el fichero de configuración de ebox"
 
 #: src/EBox/PgDBEngine.pm:216
 #, perl-brace-format
@@ -667,7 +666,7 @@ msgstr "Búsqueda"
 
 #: src/templates/logs/index.mas:237
 msgid "No logs matching current criterion"
-msgstr ""
+msgstr "Ningún log concuerda con el criterio actual"
 
 #: src/templates/logs/dbtable.mas:72 src/templates/logs/dbtable.mas:74
 msgid "first"
