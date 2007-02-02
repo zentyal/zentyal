@@ -1,0 +1,6 @@
+#!/bin/bash
+# This line removes iproute2 rules containing fwmarks
+
+for pref in $(ip rule list | grep fwmark | cut -d':' -f 1); do
+	ip rule del pref $pref
+done

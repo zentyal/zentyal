@@ -20,6 +20,7 @@ use warnings;
 
 use base 'EBox::GConfModule';
 
+use constant RTTABLES_CONF_FILE => '/etc/iproute2/rt_tables';
 # Interfaces list which will be ignored
 use constant ALLIFACES => qw(sit tun tap lo irda eth wlan vlan); 
 use constant IGNOREIFACES => qw(sit tun tap lo irda); 
@@ -43,20 +44,31 @@ use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Sudo qw( :all );
 use EBox::Gettext;
-use EBox::LogAdmin qw( :all );
+#use EBox::LogAdmin qw( :all );
 use File::Basename;
+use EBox::Network::Model::GatewayDataTable;
+use EBox::Network::Model::MultiGwRulesDataTable;
 
 sub _create 
 {
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'network',
-					title => __n('Network'),
+					title => __('Network'),
 					domain => 'ebox-network',
 					@_);
 	$self->{'actions'} = {};
-	$self->{'actions'}->{'set_iface_static'} = __n("Configure interface {iface} as static (external? = {external}) with address {address}/{netmask}");
-
+	$self->{'gatewayModel'} = new EBox::Network::Model::GatewayDataTable(
+					'gconfmodule' => $self,
+					'directory' => 'gatewaytable',
+					);
+	
+	$self->{'multigwrulesModel'} = 
+				new EBox::Network::Model::MultiGwRulesDataTable(
+					'gconfmodule' => $self,
+					'directory' => 'multigwrulestable',
+					);
 	bless($self, $class);
+	
 	return $self;
 }
 
@@ -898,7 +910,7 @@ sub setIfaceStatic # (interface, address, netmask, external, force)
 	$self->set_string("interfaces/$name/netmask", $netmask);
 	$self->set_bool("interfaces/$name/changed", 'true');
 
-	logAdminDeferred('network',"set_iface_static","iface=$name,external=$ext,address=$address,netmask=$netmask");
+	#logAdminDeferred('network',"set_iface_static","iface=$name,external=$ext,address=$address,netmask=$netmask");
 }
 
 sub _checkStatic # (iface, force)
@@ -1388,27 +1400,8 @@ sub setNameservers # (one, two)
 sub gateway
 {
 	my $self = shift;
-	return $self->get_string("gateway");
-}
 
-# Method: setGateway
-#   	
-#   	Sets the default gateway   	
-#
-# Parameters:
-#   
-# 	address - the default gateway's ip address
-sub setGateway # (address) 
-{
-	my ($self, $gw) = @_;
-	if (defined($self->gateway) and ($gw eq $self->gateway)) {
-		return;
-	}
-	unless (length($gw) == 0) {
-		checkIP($gw, __("IP address"));
-		$self->_gwReachable($gw, __("Gateway"));
-	}
-	$self->set_string("gateway", $gw);
+	return  $self->gatewayModel()->defaultGateway();
 }
 
 # Method: routes
@@ -1629,6 +1622,36 @@ sub _generateRoutes
 	}
 }
 
+sub _multigwRoutes
+{
+	my $self = shift;
+	
+
+	my $ids = $self->gatewayModel()->iproute2TableIds();
+	my @params = ('ids' => $ids);
+	$self->writeConfFile(RTTABLES_CONF_FILE,
+				'network/rt_tables.mas',
+				\@params);
+
+	root(EBox::Config::libexec . "../ebox-network/ebox-flush-fwmarks");
+
+	my $marks = $self->marksForRouters();
+	my $routers = $self->gateways();
+	for my $router (@{$routers}) {
+		my $mark = $marks->{$router->{'id'}};
+		my $ip = $router->{'ip'};
+		root("/sbin/ip rule add fwmark $mark table $mark");
+		root("/sbin/ip route flush table $mark");
+		root("/sbin/ip route add default via $ip table $mark");
+	}
+
+	root("/sbin/iptables -t mangle -F");
+	for my $rule (@{$self->multigwrulesModel()->iptablesRules()}) {
+		root("/sbin/iptables $rule");
+	}
+	 
+}
+
 # Method: _regenConfig
 #       
 #       Overrides base method. It regenertates the network  configuration.
@@ -1652,6 +1675,8 @@ sub _regenConfig
 	} catch EBox::Exceptions::Internal with {};
 
 	my $dhcpgw = $self->DHCPGateway();
+	use EBox;
+	EBox::debug("co dhcpgw:$dhcpgw'");
 	unless ($dhcpgw and ($dhcpgw ne '')) {
 		try {
 			root("/sbin/ip route del default");
@@ -1726,6 +1751,7 @@ sub _regenConfig
 	}
 
 	$self->_generateRoutes();
+	$self->_multigwRoutes();
 	$self->_cleanupVlanIfaces();
 }
 
@@ -1782,9 +1808,9 @@ sub _routersReachableIfChange # (interface, newaddress?, newmask?)
 	foreach my $route (@routes) {
 		push(@gws, $route->{gateway});
 	}
-	my $default = $self->gateway();
-	if ($default and ($default ne '')) {
-		push(@gws, $default);
+
+	foreach my $gw (@{$self->gatewayModel()->gateways()}) {
+		push (@gws, $gw->{'ip'});
 	}
 
 	foreach my $gw (@gws) {
@@ -1906,6 +1932,16 @@ sub DHCPCleanUp # (interface)
 	$self->ifaceExists($iface) or
 		throw EBox::Exceptions::DataNotFound(data => __('Interface'),
 						     value => $iface);
+	
+	my $gw = $self->DHCPGateway();
+	if ($gw) {
+		my $host = $self->DHCPAddress($iface);
+		my $mask = $self->DHCPNetmask($iface);
+		if (isIPInNetwork($host, $mask, "$gw/$mask")) {
+			$self->DHCPGatewayCleanUp();
+		}
+	}
+
 	$self->st_delete_dir("dhcp/$iface");
 }
 
@@ -2135,8 +2171,81 @@ sub menu
 					  'text' => __('Routes')));
 	$folder->add(new EBox::Menu::Item('url' => 'Network/Diag',
 					  'text' => __('Diagnosis')));
+	$folder->add(new EBox::Menu::Item('url' => 
+						'Network/View/GatewayDataTable',
+					  'text' => __('Gateways')));
+	$folder->add(new EBox::Menu::Item('url' => 
+						'Network/View/MultiGwRulesDataTable',
+					  'text' => __('Multigateway rules')));
+
 	$root->add($folder);
 }
 
+
+# Method: gatewayModel
+#
+# 	Return the model associated to the gateway table
+#
+# Returns:
+#
+# 	GatewayTableModel
+#
+sub gatewayModel {
+	
+	my $self = shift;
+
+	return $self->{'gatewayModel'};
+}
+
+# Method: multigwrulesModel
+#
+# 	Return the model associated to the multi gateway rules table 
+#
+# Returns:
+#
+# 	MultiGwRuleTableModel
+#
+sub multigwrulesModel {
+	
+	my $self = shift;
+
+	return $self->{'multigwrulesModel'};
+}
+
+
+# Method: gateways
+#
+# 	Return the gateways available
+#
+# Returns:
+#
+# 	array ref of hash refs containing name, ip, upload/download link,
+# 	if it is the default gateway or not and the id  for the gateway.
+#
+#	Example:
+#	
+#	[ 
+#	  { 
+#	    name => 'gw1', ip => '192.168.1.1' , 
+#	    upload => '128',  download => '1024', defalut => '1',
+#	    id => 'foo1234'
+#	  } 
+#	]
+# 	
+sub gateways
+{
+	my $self = shift;
+
+	my $gatewayModel = $self->gatewayModel();
+
+	return $gatewayModel->gateways();
+
+}
+
+sub marksForRouters
+{
+	my $self = shift;
+	my $marks = $self->gatewayModel()->marksForRouters();
+}
 
 1;

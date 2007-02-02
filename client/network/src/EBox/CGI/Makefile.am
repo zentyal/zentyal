@@ -1,4 +1,4 @@
-SUBDIRS = FirstTime
+SUBDIRS = FirstTime Controller View
 ## Process this file with automake to produce Makefile.in
 
 perldir = @PERLPATH@/EBox/CGI/Network

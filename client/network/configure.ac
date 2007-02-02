@@ -61,10 +61,14 @@ src/EBox/CGI/FirstTime/Makefile
 src/EBox/Network/Makefile
 src/Makefile
 src/EBox/Makefile
+src/EBox/Model/Makefile
 src/EBox/CGI/Makefile
+src/EBox/CGI/Controller/Makefile
+src/EBox/CGI/View/Makefile
 src/templates/Makefile
 schemas/Makefile
 src/libexec/Makefile
+stubs/Makefile
 tools/Makefile
 Makefile
 ])

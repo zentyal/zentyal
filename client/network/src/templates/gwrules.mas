@@ -1,0 +1,23 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+@data
+$dataTable
+$routersAvailable
+</%args>
+	
+<%init>
+use EBox::Gettext;
+</%init>
+
+% if (not $routersAvailable) {
+
+	<div class='note'>
+	<% __('To be able to use this feature, you need, at least, two gateways. You can add them <a href="/ebox/Network/View/GatewayDataTable">here</a> first') %>
+	</div>
+
+% } else {
+
+	<& '/ajax/tableHeader.mas', ('data' => \@data, 
+								  'dataTable' => $dataTable) &>
+% }

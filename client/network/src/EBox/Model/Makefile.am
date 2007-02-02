@@ -1,9 +1,8 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = CGI Network Model
 
-perldir = @PERLPATH@/EBox
+perldir = @PERLPATH@/EBox/Network/Model
 
-nobase_perl_DATA = Network.pm NetworkObserver.pm NetworkUtil.pm
+nobase_perl_DATA = GatewayDataTable.pm MultiGwRulesDataTable.pm
 
 DISTCLEANFILES = 
 

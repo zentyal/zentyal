@@ -16,12 +16,6 @@ use EBox::Gettext;
 may cause this settings, mostly the default gateway, to be
 overriden.') :  __('Having network interfaces configured via DHCP may cause the default gateway to be overriden.') %>
 </div>
-	<form action='Gateway' method='POST'>
-<h3><% __('Default gateway') %></h3>
-			<input class='inputText' type='text' name='gateway'
-				   alt='Default Gateway' value="<% $gateway %>" />
-			<input class='inputButton' type='submit' name='accept' value="<% __("Apply") %>" />
-	</form>
 % if ($showRoutes) {
 <& .routesForm, routes => \@routes &>
 %}
