@@ -15,12 +15,12 @@ DEPENDENCIES
 INSTALLATION
 ------------
 
-- Once EBox base has been installed, type:
+- Once eBox base has been installed, type:
 	
 	./configure --prefix=/usr --localstatedir=/var --sysconfdir=/etc
 	make install
 
-  configure will autodetect EBox base path to install
+  configure will autodetect eBox base path to install
 
 - Do not run squid nor dansguardian on startup, this module 
   takes control of both of them.

@@ -21,7 +21,7 @@ INSTALLATION
 	./configure
 	make install
 
- configure will autodetect EBox base path to install
+ configure will autodetect eBox base path to install
 
 - Copy schema/jabber.schema /etc/ldap/schemas/
 

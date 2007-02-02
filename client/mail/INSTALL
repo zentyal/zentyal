@@ -32,7 +32,7 @@ INSTALLATION
 	./configure
 	make install
 
-  configure will autodetect EBox base path to install
+  configure will autodetect eBox base path to install
 
 - Copy conf/*.pem to /etc/postfix/sasl/, creating the directory if needed
 

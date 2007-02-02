@@ -14,12 +14,12 @@ DEPENDENCIES
 INSTALLATION
 ------------
 
-- Once EBox base has been installed:
+- Once eBox base has been installed:
 	
 	./configure
 	make install
 
-  configure will autodetect EBox base path to install
+  configure will autodetect eBox base path to install
 
 - Execute /usr/lib/ebox-ntp/ebox-timezone-import script as root.
 
