@@ -20,13 +20,13 @@ msgstr ""
 msgid "module status"
 msgstr "status module"
 
-#: src/EBox/CGI/ActivePrinting.pm:43 src/EBox/CGI/ActiveSharing.pm:66
+#: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:66
 msgid "user name"
 msgstr "naam gebruiker"
 
-#: src/EBox/CGI/ActivePrinting.pm:47 src/EBox/CGI/ActiveSharing.pm:44
-#: src/EBox/SambaLdapUser.pm:460 src/EBox/SambaLdapUser.pm:488
-#: src/EBox/SambaLdapUser.pm:539
+#: src/EBox/CGI/ActivePrinting.pm:48 src/EBox/CGI/ActiveSharing.pm:44
+#: src/EBox/SambaLdapUser.pm:462 src/EBox/SambaLdapUser.pm:490
+#: src/EBox/SambaLdapUser.pm:541
 msgid "group name"
 msgstr "naam groep"
 
@@ -79,7 +79,7 @@ msgstr "quota"
 msgid "user"
 msgstr "gebruiker"
 
-#: src/EBox/Samba.pm:781 src/EBox/Samba.pm:811 src/EBox/SambaLdapUser.pm:609
+#: src/EBox/Samba.pm:781 src/EBox/Samba.pm:811 src/EBox/SambaLdapUser.pm:611
 msgid "group"
 msgstr "groep"
 
@@ -95,11 +95,11 @@ msgstr "Deze gebruker heeft een gedeelde map die gegevens bevat"
 msgid "This group has a sharing directory associatedwhich conatins data"
 msgstr "Deze groep  heeft een gedeelde map die gegevens bevat"
 
-#: src/EBox/SambaLdapUser.pm:493
+#: src/EBox/SambaLdapUser.pm:495
 msgid "A name should be provided for the share"
 msgstr "De gedeelde map moet een naam hebben"
 
-#: src/EBox/SambaLdapUser.pm:501
+#: src/EBox/SambaLdapUser.pm:503
 msgid "sharing resource"
 msgstr "Bron delen"
 
@@ -145,10 +145,10 @@ msgstr "Ingeschakeld"
 msgid "Administration rights"
 msgstr "Beheersrechten"
 
-#: src/templates/index.mas:94 src/templates/index.mas:96
 #: src/templates/samba.mas:54 src/templates/samba.mas:56
 #: src/templates/samba.mas:88 src/templates/samba.mas:90
-#: src/templates/samba.mas:158 src/templates/samba.mas:160
+#: src/templates/samba.mas:167 src/templates/samba.mas:169
+#: src/templates/index.mas:94 src/templates/index.mas:96
 msgid "Change"
 msgstr "Wijzigen"
 
@@ -193,7 +193,7 @@ msgstr "Printer"
 msgid "Allow"
 msgstr "Toestaan"
 
-#: src/templates/samba.mas:145
+#: src/templates/samba.mas:147
 msgid "Allow all printers"
 msgstr "Alle printers toestaan"
 

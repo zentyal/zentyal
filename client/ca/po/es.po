@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.8.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 15:02+0100\n"
-"PO-Revision-Date: 2007-02-02 09:31+0000\n"
+"POT-Creation-Date: 2007-02-02 17:44+0100\n"
+"PO-Revision-Date: 2007-02-02 18:09+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -279,7 +279,7 @@ msgstr "Renovado certificado con nombre común {cn} y validez para {days} días"
 
 #: src/EBox/CA.pm:2199
 #, perl-brace-format
-msgid "Updated certificate database. {number} certificates has expired"
+msgid "Updated certificate database. {number} certificates have expired"
 msgstr ""
 "Actualizada base de datos de certificados. {number} certificados han expirado"
 
@@ -401,6 +401,11 @@ msgstr "Revocar un certificado"
 #: src/templates/formRevoke.mas:18
 msgid "Revoke the selected certificate"
 msgstr "Revoca el certificado seleccionado"
+
+#~ msgid "Updated certificate database. {number} certificates has expired"
+#~ msgstr ""
+#~ "Actualizada base de datos de certificados. {number} certificados han "
+#~ "expirado"
 
 #~ msgid "Certification Authority Passphrase"
 #~ msgstr "Contraseña de la Autoridad Certificadora"

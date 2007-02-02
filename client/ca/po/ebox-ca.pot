@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.8.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 15:29+0100\n"
+"POT-Creation-Date: 2007-02-02 19:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -251,7 +251,7 @@ msgstr ""
 
 #: src/EBox/CA.pm:2199
 #, perl-brace-format
-msgid "Updated certificate database. {number} certificates has expired"
+msgid "Updated certificate database. {number} certificates have expired"
 msgstr ""
 
 #: src/EBox/CA.pm:2282

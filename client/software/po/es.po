@@ -9,10 +9,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.8.99\n"
-
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-01-30 19:15+0100\n"
-"PO-Revision-Date: 2007-02-02 09:48+0000\n"
+"POT-Creation-Date: 2007-02-02 18:54+0100\n"
+"PO-Revision-Date: 2007-02-02 18:12+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: <info@ebox-platform.com>\n"
 "MIME-Version: 1.0\n"
@@ -90,8 +89,8 @@ msgid "DHCP server"
 msgstr "Servidor DHCP"
 
 #: src/EBox/PackageDescriptions.pm:3
-msgid "DNS cache"
-msgstr "Caché DNS"
+msgid "eBox DNS server"
+msgstr "Servidor DNS para eBox"
 
 #: src/EBox/PackageDescriptions.pm:4
 msgid "Base framework"
@@ -225,6 +224,9 @@ msgstr "ninguna"
 #: src/templates/ebox.mas:64
 msgid "Remove"
 msgstr "Eliminar"
+
+#~ msgid "DNS cache"
+#~ msgstr "Caché DNS"
 
 #~ msgid "Service logs"
 #~ msgstr "Servicio de Logs"

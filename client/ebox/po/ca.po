@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.8.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 15:03+0100\n"
+"POT-Creation-Date: 2007-02-02 17:44+0100\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -148,14 +148,6 @@ msgstr "Heu sortit perque s'ha iniciat una nova sessió"
 #: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:40
 msgid "Logout"
 msgstr "Surt"
-
-#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
-msgid "Status"
-msgstr "Estat"
-
-#: src/EBox/CGI/Summary/Index.pm:47
-msgid "Error"
-msgstr ""
 
 #: src/EBox/CGI/EBox/RestartService.pm:48
 #, fuzzy
@@ -312,6 +304,14 @@ msgstr "Llista de còpies de seguretat de la configuració"
 #, fuzzy
 msgid "Bug-report configuration dump"
 msgstr "Restaura la configuració"
+
+#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
+msgid "Status"
+msgstr "Estat"
+
+#: src/EBox/CGI/Summary/Index.pm:47
+msgid "Error"
+msgstr ""
 
 #: src/EBox/CGI/Finish.pm:30
 msgid "Save configuration"

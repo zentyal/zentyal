@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/CGI/AddGroup.pm:45 src/EBox/CGI/ModifyGroup.pm:40
+#: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
 #: src/EBox/UsersAndGroups.pm:645 src/EBox/UsersAndGroups.pm:650
 #: src/EBox/UsersAndGroups.pm:755 src/EBox/UsersAndGroups.pm:882
 #: src/EBox/UsersAndGroups.pm:919 src/EBox/UsersAndGroups.pm:993
@@ -24,8 +24,8 @@ msgstr ""
 msgid "group name"
 msgstr "Naam groep"
 
-#: src/EBox/CGI/ModifyUser.pm:48 src/EBox/CGI/AddUser.pm:49
-#: src/EBox/CGI/ModifyGroup.pm:47
+#: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
+#: src/EBox/CGI/AddUser.pm:49
 msgid "comment"
 msgstr "Commentaar"
 
@@ -45,12 +45,12 @@ msgstr "Gebruiker succesvol verwijderd"
 msgid "Group removed successfully"
 msgstr "Groep succesvol verwijderd"
 
-#: src/EBox/CGI/Group.pm:45 src/EBox/CGI/AddUserToGroup.pm:44
-#: src/EBox/CGI/DelUserFromGroup.pm:45
+#: src/EBox/CGI/DelUserFromGroup.pm:45 src/EBox/CGI/AddUserToGroup.pm:44
+#: src/EBox/CGI/Group.pm:45
 msgid "group"
 msgstr "groep"
 
-#: src/EBox/CGI/AddUserToGroup.pm:49 src/EBox/CGI/DelUserFromGroup.pm:50
+#: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/AddUserToGroup.pm:49
 msgid "user"
 msgstr "gebruiker"
 
@@ -127,7 +127,7 @@ msgstr ""
 msgid "This group contains users"
 msgstr "Deze groep bavat gebruikers"
 
-#: src/templates/groups.mas:11 src/templates/users.mas:11
+#: src/templates/users.mas:11 src/templates/groups.mas:11
 msgid ""
 "Changes in user accounts take effect inmediately, they do not need to be "
 "saved."
@@ -135,7 +135,7 @@ msgstr ""
 "Wijzigingen in gebruikers instellingen worden onmiddelijk aangepast en "
 "moeten niet worden opgeslagen."
 
-#: src/templates/groups.mas:13 src/templates/users.mas:13
+#: src/templates/users.mas:13 src/templates/groups.mas:13
 msgid ""
 "Changes related to printing, file sharing and Jabber service do need to be "
 "saved in order to be effective."
@@ -151,25 +151,25 @@ msgstr "Gebruiker toevoegen"
 msgid "User name"
 msgstr "Gebruikersnaam"
 
-#: src/templates/user.mas:30 src/templates/users.mas:31
+#: src/templates/users.mas:31 src/templates/user.mas:30
 msgid "Full name"
 msgstr "Volledige naam"
 
-#: src/templates/groups.mas:34 src/templates/group.mas:23
-#: src/templates/user.mas:19 src/templates/users.mas:40
+#: src/templates/users.mas:40 src/templates/group.mas:23
+#: src/templates/user.mas:19 src/templates/groups.mas:34
 msgid "Comment"
 msgstr "Commentaar"
 
-#: src/templates/user.mas:41 src/templates/users.mas:49
+#: src/templates/users.mas:49 src/templates/user.mas:41
 msgid "Password"
 msgstr "Paswoord"
 
-#: src/templates/user.mas:52 src/templates/users.mas:57
+#: src/templates/users.mas:57 src/templates/user.mas:52
 msgid "Retype password"
 msgstr "Paswoord herhalen"
 
-#: src/templates/groups.mas:48 src/templates/groups.mas:50
 #: src/templates/users.mas:71 src/templates/users.mas:73
+#: src/templates/groups.mas:48 src/templates/groups.mas:50
 msgid "Create"
 msgstr "Aanmaken"
 
@@ -177,19 +177,19 @@ msgstr "Aanmaken"
 msgid "Edit User"
 msgstr "Gebruiker wijzigen"
 
-#: src/templates/groups.mas:65 src/templates/users.mas:88
+#: src/templates/users.mas:88 src/templates/groups.mas:65
 msgid "Actions"
 msgstr "Acties"
 
-#: src/templates/groups.mas:78 src/templates/groups.mas:80
 #: src/templates/users.mas:101 src/templates/users.mas:103
+#: src/templates/groups.mas:78 src/templates/groups.mas:80
 msgid "Edit"
 msgstr "Wijzigen"
 
-#: src/templates/groups.mas:87 src/templates/groups.mas:89
-#: src/templates/groups.mas:91 src/templates/group.mas:66
 #: src/templates/users.mas:110 src/templates/users.mas:112
-#: src/templates/users.mas:114
+#: src/templates/users.mas:114 src/templates/group.mas:66
+#: src/templates/groups.mas:87 src/templates/groups.mas:89
+#: src/templates/groups.mas:91
 msgid "Remove"
 msgstr "Verwijderen"
 
@@ -311,14 +311,11 @@ msgstr "Optionele waarde"
 msgid "Edit Group"
 msgstr "Groep wijzigen"
 
-#: src/EBox/UsersAndGroups.pm:248
-msgid "Username must not be longer than "
-msgstr "Gebruikersnaam mag niet langer zijn dan"
+#~ msgid "Username must not be longer than "
+#~ msgstr "Gebruikersnaam mag niet langer zijn dan"
 
-#: src/EBox/UsersAndGroups.pm:633
-msgid "Groupname must not be longer than "
-msgstr "Naam groep mag niet langer zijn dan"
+#~ msgid "Groupname must not be longer than "
+#~ msgstr "Naam groep mag niet langer zijn dan"
 
-#: src/EBox/UsersAndGroups.pm:1172
-msgid "Password must not be longer than "
-msgstr "Paswoorden mogen niet langer zijn dan"
+#~ msgid "Password must not be longer than "
+#~ msgstr "Paswoorden mogen niet langer zijn dan"

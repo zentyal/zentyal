@@ -6,9 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.8.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 15:04+0100\n"
+"POT-Creation-Date: 2007-02-02 18:54+0100\n"
 "PO-Revision-Date: 2005-11-29 12:45+0100\n"
 "Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -89,7 +88,7 @@ msgid "DHCP server"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:3
-msgid "DNS cache"
+msgid "eBox DNS server"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:4

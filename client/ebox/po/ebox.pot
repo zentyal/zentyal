@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.8.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 15:30+0100\n"
+"POT-Creation-Date: 2007-02-02 19:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -141,14 +141,6 @@ msgstr ""
 
 #: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:40
 msgid "Logout"
-msgstr ""
-
-#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
-msgid "Status"
-msgstr ""
-
-#: src/EBox/CGI/Summary/Index.pm:47
-msgid "Error"
 msgstr ""
 
 #: src/EBox/CGI/EBox/RestartService.pm:48
@@ -287,6 +279,14 @@ msgstr ""
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:232
 msgid "Bug-report configuration dump"
+msgstr ""
+
+#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
+msgid "Status"
+msgstr ""
+
+#: src/EBox/CGI/Summary/Index.pm:47
+msgid "Error"
 msgstr ""
 
 #: src/EBox/CGI/Finish.pm:30

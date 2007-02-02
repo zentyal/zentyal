@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.8.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 15:03+0100\n"
+"POT-Creation-Date: 2007-02-02 17:44+0100\n"
 "PO-Revision-Date: 2006-10-19 00:54-0200\n"
 "Last-Translator: junior\n"
 "Language-Team:  <en@li.org>\n"
@@ -148,14 +148,6 @@ msgstr "Você foi Desconectado porque outra sessão foi aberta."
 #: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:40
 msgid "Logout"
 msgstr "Desconectar"
-
-#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
-msgid "Status"
-msgstr "Status"
-
-#: src/EBox/CGI/Summary/Index.pm:47
-msgid "Error"
-msgstr "Erro"
 
 #: src/EBox/CGI/EBox/RestartService.pm:48
 msgid "module name"
@@ -315,6 +307,14 @@ msgstr "Lista de Configuração de Backups"
 #, fuzzy
 msgid "Bug-report configuration dump"
 msgstr "Restaurar Configuração"
+
+#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
+msgid "Status"
+msgstr "Status"
+
+#: src/EBox/CGI/Summary/Index.pm:47
+msgid "Error"
+msgstr "Erro"
 
 #: src/EBox/CGI/Finish.pm:30
 msgid "Save configuration"
