@@ -1,6 +1,6 @@
 <chapter id="ch-openvpn">
   <title>OpenVPN Service</title>
-  <section>
+  <section id="sect-vpn">
     <title>Virtual Private Network service</title>
     <para>
       You can get to Virtual Private Network (VPN) configuration at 
@@ -24,7 +24,7 @@
       configured.
     </para>
   </section>
-  <section>
+  <section id="sect-typical-scenarios">
     <title>Typical scenarios</title>
     <para>
       Since VPN is a quite complicated service, we illustrate with two typical
@@ -40,7 +40,7 @@
 	  protected LAN via VPN service. The following figure could
 	  show a better picture:
 	</para>
-	<figure>
+	<figure id="fig-roadwarrior">
 	  <title>Road warrior scenario</title>
 	  <mediaobject>
 	    <imageobject>
@@ -102,7 +102,7 @@
 	  Now it is high time to configure clients. An OpenVPN
 	  client can be configured with the following example file:
 	</para>
-	<example>
+	<example id="example-conf-file">
 	  <title>OpenVPN client configuration example file</title>
 	  <programlisting><![CDATA[
 client
@@ -156,7 +156,7 @@ nobind
 	client and another as a server. The following figure tries to
 	make clearer the situation:
       </para>
-      <figure>
+      <figure id="fig-ebox-vs-ebox">
 	<title>eBox OpenVPN server vs. eBox OpenVPN client</title>
 	<mediaobject>
 	  <imageobject>

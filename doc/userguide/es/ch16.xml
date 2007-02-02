@@ -1,6 +1,6 @@
 <chapter id="ch-openvpn">
   <title>Servicio OpenVPN</title>
-  <section>
+  <section id="sect-vpn">
     <title>Servicio de Redes Privadas Virtuales</title>
     <para>
       Puedes acceder a la configuración de Redes Privadas Virtuales (VPN) en
@@ -24,7 +24,7 @@
     clientes/servidores como queramos.
     </para>
   </section>
-  <section>
+  <section id="sect-typical-scenarios">
     <title>Escenarios típicos</title>
     <para>
       Como VPN es un servicio bastante complicado, ilustramos con dos
@@ -40,7 +40,7 @@
 	  (road warriors) conectarse a dicha red local vía servicio
 	  VPN. La siguiente figura puede dar una mejor visión:
 	</para>
-	<figure>
+	<figure id="fig-roadwarrior">
 	  <title>Escenario "Road Warrior"</title>
 	  <mediaobject>
 	    <imageobject>
@@ -106,7 +106,7 @@
 	  puede configurarse con el siguiente fichero de configuración
 	  de ejemplo:
 	</para>
-	<example>
+	<example id="example-conf-file">
 	  <title>Fichero ejemplo de configuración de un cliente
 	    OpenVPN</title>
 	  <programlisting><![CDATA[
@@ -162,7 +162,7 @@ nobind
 	OpenVPN y otra como servidora. La siguiente imagen trata de 
 	aclarar la situación:
       </para>
-      <figure>
+      <figure id="fig-ebox-vs-ebox">
 	<title>eBox como servidor OpenVPN vs. eBox como cliente OpenVPN </title>
 	<mediaobject>
 	  <imageobject>
