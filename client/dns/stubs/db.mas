@@ -1,0 +1,30 @@
+<%args>
+	%domain
+</%args>
+<%init>
+my @time = localtime();
+my $date = sprintf("%04d%02d%02d%02d",$time[5]+1900,$time[4]+1,$time[3],$time[2]);
+</%init>
+$TTL 3D
+@	IN	SOA	ns.<% $domain{'name'} %>.	admin.warp.es (
+			<% $date %>	;serial number
+			8H		;refresh
+			2H		;retry
+			4W		;expiration
+			1D )		;
+;
+		NS	ns.<% $domain{'name'} %>.	;nameserver
+;
+ns		A	127.0.0.1
+%	my @hosts = @{$domain{'hosts'}};
+%	if(@hosts != 0) {
+%		foreach my $host (@hosts) {
+<% $host->{'name'} %>		A	<% $host->{'ip'} %>
+%			my @aliases = @{$host->{'aliases'}};
+%			if (@aliases != 0) {
+%				foreach my $alias (@aliases) {
+<% $alias->{'name'} %>		CNAME	<% $host->{'name'} %>
+%				}
+%			}
+%		}
+%	}

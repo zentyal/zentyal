@@ -1,0 +1,379 @@
+# Copyright (C) 2005  Warp Networks S.L., DBS Servicios Informaticos S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+package EBox::DNS;
+
+use strict;
+use warnings;
+
+use base 'EBox::GConfModule';
+
+use EBox::Objects;
+use EBox::Gettext;
+use EBox::Service;
+use EBox::Summary::Module;
+use EBox::Summary::Status;
+use EBox::Menu::Item;
+use EBox::Sudo qw( :all );
+use EBox::Validate qw( :all );
+
+use constant BIND9CONFDIR => "@BIND9CONFDIR@";
+use constant BIND9CONFFILE => "@BIND9CONF@";
+use constant BIND9CONFOPTIONSFILE => "@BIND9CONFOPTIONS@";
+use constant BIND9CONFLOCALFILE => "@BIND9CONFLOCAL@";
+use constant BIND9INIT     => "@BIND9_INIT@";
+use constant PIDFILE       => "/var/run/bind/run/named.pid";
+
+sub _create 
+{
+	my $class = shift;
+	my $self = $class->SUPER::_create(name => 'dns', 
+						domain => 'ebox-dns',
+						@_);
+	bless($self, $class);
+	return $self;
+}
+
+sub domainFromId # (domid)
+{
+	my ($self,$domid) = @_;
+	my $domdata;
+	if (!$self->dir_exists("$domid")) {
+		throw EBox::Exceptions::DataNotFound(data => __('Domain'),
+			value => "$domid");
+	}
+	$domdata->{'id'} = $domid;
+	$domdata->{'name'} = $self->get_string("$domid/name");
+	return $domdata;
+}
+
+sub addDomain # (domainname)
+{
+	my ($self, $domain) = @_;
+	unless (defined($domain) && $domain ne "") {
+		throw EBox::Exceptions::DataMissing
+			('data' => __('Domain name'));
+	}
+	
+	checkDomainName($domain, __('Domain name'));
+
+	foreach my $dom (@{$self->domains()}) {
+		if ($dom->{'name'} eq $domain) {
+			throw EBox::Exceptions::External __x("The domain '{name}' is already used. Please choose another domain name", name => $domain);
+		}
+	}
+
+	my $id = $self->get_unique_id("d");
+	$self->set_string("$id/name", $domain);
+	return $id;
+}
+
+sub removeDomain # (domainid)
+{
+	my ($self, $domainid) = @_;
+	unless (defined($domainid) && $domainid ne "") {
+		return;
+	}
+	if ($self->dir_exists($domainid)) {
+		$self->delete_dir($domainid);
+		return 1;
+	} else {
+		return undef;
+	}
+}
+
+sub domains
+{
+	my $self = shift;
+	my @array = ();
+	my @doms = @{$self->all_dirs_base("")};
+	for my $dom (@doms) {
+		my $domdata;
+		$domdata->{'id'} = $dom;
+		$domdata->{'name'} = $self->get_string("$dom/name");
+		push(@array, $domdata);
+	}
+	return \@array;
+}
+
+sub completeDomain # (domid)
+{
+	my ($self, $domid) = @_;
+	if (!$self->dir_exists("$domid")) {
+		throw EBox::Exceptions::DataNotFound(data => __('Domain'),
+			value => "$domid");
+	}
+	my $domdata;
+	$domdata->{'id'} = $domid;
+	$domdata->{'name'} = $self->get_string("$domid/name");
+	$domdata->{'hosts'} = $self->hostnames("$domid");
+	return $domdata;
+}
+
+sub addHostname # (domid, hostname, ip)
+{
+	my ($self, $domid, $hostname, $ip) = @_;
+	unless (defined($hostname) && $hostname ne "") {
+		throw EBox::Exceptions::DataMissing
+			('data' => __('Host name'));
+	}
+	checkIP($ip, __("IP address"));
+	if($hostname =~/\./) {
+		throw EBox::Exceptions::External(__("Host name can't contain dots"));
+	}
+	checkDomainName($hostname, __('Host name'));
+
+	foreach my $host (@{$self->hostnames($domid)}) {
+		if ($host->{'name'} eq $hostname) {
+			throw EBox::Exceptions::External __x("The host name '{name}' is already used. Please choose another host name", name => $hostname);
+		}
+		if ($host->{'ip'} eq $ip) {
+			throw EBox::Exceptions::External __x("The IP address '{ip}' is already used. Please choose another IP address", ip => $ip);
+		}
+	}
+
+	my $id = $self->get_unique_id("h",$domid);
+	$self->set_string("$domid/$id/name", $hostname);
+	$self->set_string("$domid/$id/ip", $ip);
+	return $id;
+}
+
+sub removeHostname # (domid, hostid)
+{
+	my ($self, $domid, $hostid) = @_;
+	unless (defined($domid) && $domid ne "") {
+		return;
+	}
+	unless (defined($hostid) && $hostid ne "") {
+		return;
+	}
+	if ($self->dir_exists("$domid/$hostid")) {
+		$self->delete_dir("$domid/$hostid");
+		return 1;
+	} else {
+		return undef;
+	}
+}
+
+sub hostnames # (domid)
+{
+	my ($self,$domid) = @_;
+	my @array = ();
+	my @hosts = @{$self->all_dirs_base("$domid")};
+	for my $host (@hosts) {
+		my $hostdata;
+		$hostdata->{'id'} = $host;
+		$hostdata->{'name'} = $self->get_string("$domid/$host/name");
+		$hostdata->{'ip'} = $self->get_string("$domid/$host/ip");
+		$hostdata->{'aliases'} = $self->aliases($domid,$host);
+		push(@array, $hostdata);
+	}
+	return \@array;
+}
+
+sub addAlias # (domid, hostid, alias)
+{
+	my ($self, $domid, $hostid, $alias) = @_;
+	unless (defined($hostid) && $hostid ne "") {
+		throw EBox::Exceptions::DataMissing
+			('data' => __('Host name'));
+	}
+	unless (defined($alias) && $alias ne "") {
+		throw EBox::Exceptions::DataMissing
+			('data' => __('Alias'));
+	}
+	if($alias =~/\./) {
+		throw EBox::Exceptions::External(__("An alias can't contain dots"));
+	}
+	checkDomainName($alias, __('Alias'));
+
+	my @hosts = @{$self->hostnames($domid)};
+	foreach my $host (@hosts) {
+		if ($host->{'name'} eq $alias) {
+			throw EBox::Exceptions::External __x("The alias '{name}' is already used as a host name. Please choose another alias", name => $alias);
+		}
+		foreach my $hostalias (@{$self->aliases($domid,$host->{'id'})}) {
+			if ($hostalias->{'name'} eq $alias) {
+				throw EBox::Exceptions::External __x("The alias '{name}' is already used as alias in the host '{host}'. Please choose another alias", name => $alias, host => $host->{'name'});
+			}
+		}
+	}
+
+	my $id = $self->get_unique_id("a","$domid/$hostid");
+	$self->set_string("$domid/$hostid/$id/name", $alias);
+	return $id;
+}
+
+sub removeAlias # (domid, hostid, aliasid)
+{
+	my ($self, $domid, $hostid, $aliasid) = @_;
+	unless (defined($domid) && $domid ne "") {
+		return;
+	}
+	unless (defined($hostid) && $hostid ne "") {
+		return;
+	}
+	unless (defined($aliasid) && $aliasid ne "") {
+		return;
+	}
+	if ($self->dir_exists("$domid/$hostid/$aliasid")) {
+		$self->delete_dir("$domid/$hostid/$aliasid");
+		return 1;
+	} else {
+		return undef;
+	}
+}
+
+sub aliases # (domid, hostid)
+{
+	my ($self,$domid, $hostid) = @_;
+	my @array = ();
+	my @aliases = @{$self->all_dirs_base("$domid/$hostid")};
+	for my $alias (@aliases) {
+		my $aliasdata;
+		$aliasdata->{'id'} = $alias;
+		$aliasdata->{'name'} = $self->get_string("$domid/$hostid/$alias/name");
+		push(@array, $aliasdata);
+	}
+	return \@array;
+}
+
+sub _doDaemon
+{
+	my $self = shift;
+
+	if ($self->service and EBox::Service::running('bind9')) {
+		EBox::Service::manage('bind9','restart');
+	} elsif ($self->service) {
+		EBox::Service::manage('bind9','start');
+	} elsif (EBox::Service::running('bind9')) {
+		EBox::Service::manage('bind9','stop');
+	}
+}
+
+sub _stopService
+{
+	EBox::Service::manage('bind9','stop');
+}
+
+sub _configureFirewall($){
+	my $self = shift;
+	my $fw = EBox::Global->modInstance('firewall');
+
+	if ($self->service) {
+		$fw->addService('dns', 'udp', 53, 0);
+		$fw->addOutputRule('udp', 53);
+		$fw->addOutputRule('tcp', 53);
+		$fw->setObjectService('_global', 'dns', 'allow');
+	} else {
+		$fw->removeService('dns');
+	}
+}
+
+# Method: setService 
+#
+#       Sets the dns service as enabled
+#
+# Parameters:
+#
+#       enabled - boolean. True enable, undef disable
+#
+sub setService
+{
+	my ($self, $active) = @_;
+	($active and $self->service) and return;
+	(!$active and !$self->service) and return;
+	$self->set_bool('active', $active);
+	$self->_configureFirewall;
+}
+
+# Method: service 
+
+#
+#       Returns if the dns service is enabled  
+#
+# Returns:
+#
+#       boolean - true if enabled, otherwise undef      
+
+sub service
+{
+	my $self = shift;
+	return $self->get_bool('active');
+}
+
+
+# Method: _regenConfig
+#
+#       Overrides base method. It regenertates the dhcp service configuration
+#
+sub _regenConfig
+{
+	my $self = shift;
+
+	$self->_setBindConf;
+	$self->_doDaemon();
+}
+
+sub _setBindConf
+{
+	my $self = shift;
+	my @array = ();
+
+	$self->writeConfFile(BIND9CONFFILE, 
+				"dns/named.conf.mas", 
+				\@array);
+	$self->writeConfFile(BIND9CONFOPTIONSFILE, 
+				"dns/named.conf.options.mas", 
+				\@array);
+
+	my @domains = @{$self->domains()};
+	push(@array, 'domains' => \@domains);
+	$self->writeConfFile(BIND9CONFLOCALFILE, 
+				"dns/named.conf.local.mas", 
+				\@array);
+
+	root("/bin/rm -rf " . BIND9CONFDIR . "/zones/");
+	root("/bin/mkdir " . BIND9CONFDIR . "/zones/");
+
+	foreach my $domain (@domains) {
+		my $domdata = $self->completeDomain($domain->{'id'});
+		my $file = BIND9CONFDIR . "/zones/db." . $domdata->{'name'};
+		@array = ();
+		push(@array,'domain' => $domdata);
+		$self->writeConfFile($file,"dns/db.mas",\@array);
+	}
+}
+
+sub statusSummary
+{
+	my $self = shift;
+	return new EBox::Summary::Status('dns', __('DNS'),
+		EBox::Service::running('bind9'), $self->service);
+}
+
+
+# Method: menu 
+#
+#       Overrides EBox::Module method.
+#
+sub menu
+{
+        my ($self, $root) = @_;
+        $root->add(new EBox::Menu::Item('url' => 'DNS/Index',
+                                        'text' => __('DNS')));
+}
+
+1;

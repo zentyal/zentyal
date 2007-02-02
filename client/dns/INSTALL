@@ -1,0 +1,28 @@
+DEPENDENCIES
+------------
+
++ eBox components
+	
+	+ ebox
+	+ ebox-network
+	+ ebox-firewall
+
++ Debian packages (apt-get install <package>)
+
+	+ bind9
+
+INSTALLATION
+------------
+
+- Once the dependencies have been installed, type:
+	
+	./configure
+	make install
+
+  configure will autodetect eBox base path to install
+
+- Do not run bind9 on startup, this module takes control of bind9:
+
+	mv /etc/rc2.d/SXXbind9 /etc/rc2.d/KXXbind9
+
+- Stop bind9 if it's running.

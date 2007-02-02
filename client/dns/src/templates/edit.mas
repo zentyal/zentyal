@@ -1,0 +1,116 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+    $domain
+	@hostnames
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<div>
+<h3><% __x('Host list for domain {domain}', domain => $domain->{'name'}) %></h3>
+	<table cellspacing='0' class='dataTable'>
+		<thead>
+		<tr>
+			<th class='tleft'>
+			<% __('IP') %>
+			</th>
+			<th class='tleft'>
+			<% __('Host name') %>
+			</th>
+			<th class='thOptions'>
+			<% __('Action') %>
+			</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+		<form action='AddHostname' method='post'>
+			<td>
+				<input class='inputText' size="15" type="text" name="ip"/>
+				<input type="hidden" name="domain" value="<% $domain->{'id'} %>"/>
+			</td>
+			<td>
+				<input class='inputText' size="14" type="text" name="hostname"/>
+			</td>
+			<td class='tcenter'>
+				<input class='inputButton' type='image' name='add'
+					src='/data/images/add.gif'
+					value="<% __('Add') %>"
+					title="<% __('Add') %>"
+					alt="<% __('Add') %>">
+			</td>
+		</form>
+		</tr>
+% if(@hostnames != 0) {
+%		foreach my $host (@hostnames) {
+			<tr class='border'>
+				<td><% $host->{'ip'} %></td>
+				<td><% $host->{'name'} %></td>
+				<td class='tcenter'>
+					<a href='DelHostname?domain=<% $domain->{'id'} %>&hostname=<% $host->{'id'} %>'>
+					<img src='/data/images/delete.gif'
+						title="<% __('Delete') %>"
+						alt="<% __('Delete') %>"/></a>
+				</td>
+			</tr>
+			<tr class='border'>
+				<td colspan="3">
+					<table class='iptable'>
+					<tr>
+					<form action='AddAlias' method='post'>
+					<td>
+						<%__('Alias') %>
+						<input type="hidden" name="domain" value="<% $domain->{'id'} %>"/>
+						<input type="hidden" name="hostname" value="<% $host->{'id'} %>"/>
+					</td>
+					<td>
+						<input class='inputText' size="14" type="text" name="alias"/>
+					</td>
+					<td class='tcenter'>
+						<input class='inputButton' type='image' name='add'
+							src='/data/images/add.gif'
+							value="<% __('Add') %>"
+							title="<% __('Add') %>"
+							alt="<% __('Add') %>"/>
+					</td>
+					</form>
+					</tr>
+%			my @aliases = @{$host->{'aliases'}};
+%			if(@aliases != 0) {
+%				foreach my $alias (@aliases) {
+					<tr class='border'>
+						<td>
+							<%__('Alias') %>
+						</td>
+						<td>
+							<% $alias->{'name'} %>
+						</td>
+						<td class='tcenter'>
+							<a href='DelAlias?domain=<% $domain->{'id'} %>&hostname=<% $host->{'id'} %>&alias=<% $alias->{'id'} %>'>
+							<img src='/data/images/delete.gif'
+								title="<% __('Delete') %>"
+								alt="<% __('Delete') %>"/></a>
+						</td>
+					</tr>
+%				}
+%			}
+					</table>
+				</td>
+			</tr>
+%		}
+%	}
+		</tbody>
+	</table>
+	<br />
+	<table class="legend">
+	<tr>
+		<td><img src="/data/images/delete.gif" alt=""/></td>
+		<td style="padding-right: 10px;"><%__('delete')%></td>
+	</tr>
+	</table>
+</div>
+<script type="text/javascript"><!--
+setDefault();
+//--></script>

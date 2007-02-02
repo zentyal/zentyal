@@ -1,0 +1,76 @@
+<!-- vim: ts=4 sw=4 filetype=mason
+-->
+<%args>
+    $active
+	@domains
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<div class='dns-cachenew'>
+<& enable.mas, title => __('DNS service status'), active => $active &>
+</div>
+
+<div>
+<h3><% __('Domain list') %></h3>
+	<table cellspacing='0' class='dataTable'>
+		<thead>
+		<tr>
+			<th width='66%' class='tleft'>
+			<% __('Name') %>
+			</th>
+			<th class='thOptions'>
+			<% __('Action') %>
+			</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+		<form action='AddDomain' method='post'>
+			<td>
+				<input class='inputText' size="20" type="text" name="domain"/>
+			</td>
+			<td class='tcenter'>
+				<input class='inputButton' type='image' name='add'
+					src='/data/images/add.gif'
+					value="<% __('Add') %>"
+					title="<% __('Add') %>"
+					alt="<% __('Add') %>">
+			</td>
+		</form>
+		</tr>
+% if(@domains != 0) {
+%		foreach my $dom (@domains) {
+			<tr class='border'>
+				<td><% $dom->{'name'} %></td>
+				<td class='tcenter'>
+					<a href="Edit?domain=<% $dom->{'id'} %>">
+					<img src='/data/images/edit.gif' alt="<% __('Edit') %>" title="<% __('Edit') %>" /></a>
+					<img src='/data/images/sep.gif' alt='-'/>
+					<a href='DelDomain?domain=<% $dom->{'id'} %>'>
+					<img src='/data/images/delete.gif'
+						title="<% __('Delete') %>"
+						alt="<% __('Delete') %>"/></a>
+				</td>
+			</tr>
+%		}
+%	}
+		</tbody>
+	</table>
+	<br />
+	<table class="legend">
+	<tr>
+		<td><img src="/data/images/edit.gif" alt=""/></td>
+		<td style="padding-right: 10px;"><%__('edit')%></td>
+	</tr>
+
+	<tr>
+		<td><img src="/data/images/delete.gif" alt=""/></td>
+		<td style="padding-right: 10px;"><%__('delete')%></td>
+	</tr>
+	</table>
+</div>
+<script type="text/javascript"><!--
+setDefault();
+//--></script>
