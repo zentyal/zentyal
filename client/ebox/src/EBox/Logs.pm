@@ -226,7 +226,7 @@ sub search {
 	
 	unless (defined $tableinfo) {
 		   throw  EBox::Exceptions::External( __x(
-		   'Table {$table} does not exist', 'table' => $table));
+		   'Table {table} does not exist', 'table' => $table));
 	}
 	
 	

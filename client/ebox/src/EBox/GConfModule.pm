@@ -818,7 +818,7 @@ sub _array_from_dir # (key)
 }
 
 #
-# Method: array_from_dir 
+# Method: array_from_dir
 #
 #	Given a key it returns an array using a hash reference to
 #       contain in each element the directories under the key. Also, the
@@ -827,13 +827,13 @@ sub _array_from_dir # (key)
 #
 # Parameters:
 #
-#	key -
+#	key - the key to extract the array from
 #
 # Returns:
 #
-#	hash ref - it contains entries/values. key '_dir' contains the directorie's name
+#	array ref - An array which contains entries/values. key '_dir' contains the directory's name
 #
-sub array_from_dir # (key) 
+sub array_from_dir # (key)
 {
 	my ($self, $dir) = @_;
 	$self->_config;

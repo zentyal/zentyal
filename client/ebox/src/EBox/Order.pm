@@ -19,9 +19,9 @@ use strict;
 use warnings;
 
 #
-# Method: new 
+# Method: new
 #
-#   	Construct for EBox::Oder. This class is useful to order elements stored
+#   	Construct for EBox::Order. This class is useful to order elements stored
 #	in gconf
 #
 # Parameters:
