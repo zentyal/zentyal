@@ -198,6 +198,6 @@ use Data::Dumper;
 				page => $page , selected => $selected, fromdate => \@fromdate,
 				todate => \@todate, tpages => $tpages, filters => $filters &>
 %	} else {
-		<div class='note'><% __('No logs matching current criteria') %></div>
+		<div class='note'><% __('No logs matching current criterion') %></div>
 %	}
 % }
