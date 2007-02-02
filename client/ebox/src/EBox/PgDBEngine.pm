@@ -39,8 +39,9 @@ sub new {
 sub _dbname {
 	my $root = EBox::Config::configkey('eboxlogs_dbname');
 	($root) or
-	throw EBox::Exceptions::External(__('You must set the '.
-			'eboxlogs_dbname variable in the ebox configuration file'));
+	throw EBox::Exceptions::External(__x('You must set the {variable} ' .
+					     'variable in the ebox configuration file',
+					     variable => 'eboxlogs_dbname'));
 	return $root;
 }
 
@@ -51,8 +52,9 @@ sub _dbname {
 sub _dbuser {
 	my $root = EBox::Config::configkey('eboxlogs_dbuser');
 	($root) or
-	throw EBox::Exceptions::External(__('You must set the '.
-			'eboxlogs_dbuser variable in the ebox configuration file'));
+	throw EBox::Exceptions::External(__x('You must set the {variable} ' .
+					     'variable in the ebox configuration file',
+					    variable => 'eboxlogs_dbuser'));
 	return $root;
 }
 
@@ -63,8 +65,9 @@ sub _dbuser {
 sub _dbpass {
 	my $root = EBox::Config::configkey('eboxlogs_dbpass');
 	($root) or
-	throw EBox::Exceptions::External(__('You must set the '.
-			'eboxlogs_dbpass variable in the ebox configuration file'));
+	throw EBox::Exceptions::External(__x('You must set the {variable} ' .
+					     'variable in the ebox configuration file',
+					     variable => 'eboxlogs_dbpass'));
 	return $root;
 }
 
