@@ -41,8 +41,14 @@ sub size
 sub storeInGconf
 {
         my ($self, $gconfmod, $key) = @_;
- 
-        $gconfmod->set_string("$key/" . $self->fieldName(), $self->memValue());
+	
+	my $keyField = "$key/" . $self->fieldName();
+	
+	if ($self->memValue()) {
+        	$gconfmod->set_string($keyField, $self->memValue());
+	} else {
+		$gconfmod->unset($keyField);
+	}
 }
 
 sub HTMLSetter

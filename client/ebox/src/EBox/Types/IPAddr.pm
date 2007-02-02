@@ -1,5 +1,8 @@
 package EBox::Types::IPAddr;
 
+use EBox::Validate qw(:all);
+use EBox::Gettext;
+
 use strict;
 use warnings;
 
@@ -32,26 +35,30 @@ sub setMemValue
 {
 	my ($self, $params) = @_;
 	
+
+	if ($self->optional() == 0) {
+		unless ($self->paramExist($params)) {
+			throw EBox::Exceptions::MissingArgument(
+						$self->printableName());
+		}
+	}
+	
+	$self->paramIsValid($params);
+
 	my $ip =  $self->fieldName() . '_ip';
  	my $mask =  $self->fieldName() . '_mask';
-	
-	unless ($self->paramExist($params)) {
-		throw EBox::Exceptions::MissingArgument($self->printableName());
-	}
-	
-	unless ($self->paramExist($params)) {
-		throw EBox::Exceptions::MissingArgument($self->printableName());
-	}
 
 	$self->{'ip'} = $params->{$ip};
 	$self->{'mask'} = $params->{$mask};
+
+
 }
 
 sub printableValue
 {
 	my ($self) = @_;
 
-	if (exists($self->{'ip'}) and exists($self->{'mask'})) {
+	if (defined($self->{'ip'}) and defined($self->{'mask'})) {
 		return "$self->{'ip'}/$self->{'mask'}";
 	} else   {
 		return "";
@@ -62,6 +69,18 @@ sub printableValue
 sub paramIsValid
 {
 	my ($self, $params) = @_;
+
+	my $ip =  $self->fieldName() . '_ip';
+ 	my $mask =  $self->fieldName() . '_mask';
+
+	if ($self->optional() == 1 and $params->{$ip} eq '') {
+		return 1;
+	}
+
+	if (exists $params->{$ip}) {
+		 checkIP($params->{$ip}, __($self->printableName()));
+	}
+
 
 	return 1;
 
@@ -81,8 +100,13 @@ sub storeInGconf
  	my $ipKey = "$key/" . $self->fieldName() . '_ip';
  	my $maskKey = "$key/" . $self->fieldName() . '_mask';
 	
-        $gconfmod->set_string($ipKey, $self->{'ip'});
-        $gconfmod->set_string($maskKey, $self->{'mask'});
+	if ($self->{'ip'}) {
+        	$gconfmod->set_string($ipKey, $self->{'ip'});
+        	$gconfmod->set_string($maskKey, $self->{'mask'});
+	} else {
+		$gconfmod->unset($ipKey);
+		$gconfmod->unset($maskKey);
+	}
 }
 
 sub compareToHash

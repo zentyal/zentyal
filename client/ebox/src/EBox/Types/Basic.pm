@@ -28,8 +28,11 @@ sub setMemValue
 {
 	my ($self, $params) = @_;
 
-	unless ($self->paramExist($params)) {
-		throw EBox::Exceptions::MissingArgument($self->printableName());
+	if ($self->optional() == 0) {
+		unless ($self->paramExist($params)) {
+			throw EBox::Exceptions::MissingArgument(
+						$self->printableName());
+		}
 	}
 
 	$self->{'value'} = $params->{$self->fieldName()};

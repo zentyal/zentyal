@@ -75,6 +75,13 @@ sub printableValue
 	return $self->{'value'};
 }
 
+sub value
+{
+	my ($self) = @_;
+
+	return $self->{'value'};
+}
+
 sub trailingText
 {
 	my ($self) = @_;
@@ -87,6 +94,13 @@ sub leadingText
 	my ($self) = @_;
 
 	return $self->{'leadingText'};
+}
+
+sub optional
+{
+	my ($self) = @_;
+
+	return $self->{'optional'};
 }
 
 sub paramExist

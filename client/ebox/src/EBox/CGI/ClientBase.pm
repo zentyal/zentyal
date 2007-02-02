@@ -37,6 +37,7 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
 	$tmp =~ s/^.*?::.*?::(.*?)::(.*)//;
 	$self->{module} = $1;
 	$self->{cginame} = $2;
+	$self->{cginame} =~ s|::|/|g;
 	if (defined($self->{cginame})) {
 		$self->{url} = $self->{module} . "/" . $self->{cginame};
 	} else {

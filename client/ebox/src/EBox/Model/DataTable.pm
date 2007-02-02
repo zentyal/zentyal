@@ -293,6 +293,7 @@ sub row
 		}
 		
 		push (@values, $data);
+		$row->{'valueHash'}->{$type->fieldName()} = $data;
 	}
 	
 	$row->{'id'} = $id;

@@ -3,7 +3,7 @@
 perldir = @PERLPATH@/EBox/Types
 
 nobase_perl_DATA = Abstract.pm  Basic.pm  Boolean.pm  Int.pm  Text.pm \
-		   Select.pm IPAddr.pm Union.pm
+		   Select.pm IPAddr.pm Union.pm MatchIPAddr.pm
 
 SOURCES = $(nobase_perl_DATA)
 

@@ -269,7 +269,7 @@ $data
 
 			<& /input/select.mas,  
 					'name' => "$id" , 
-				    'value' => $data->printableValue(), options => $data->options(),
+				    'value' => $data->value(), options => $data->options(),
 					'extraParams' => [ "id='$id'" ],
 					&>
 					<% $data->trailingText() %>

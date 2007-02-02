@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use base 'EBox::Types::Basic';
+use EBox;
 
 
 sub new
@@ -64,6 +65,27 @@ sub options
 	my ($self) = @_;
 
 	return $self->{'options'};
+}
+
+sub printableValue
+{
+	my ($self) = @_;
+
+	return '' unless (defined($self->{'options'}));
+
+	foreach my $option (@{$self->options()}) {
+		if ($option->{'value'} eq $self->{'value'}) {
+			return $option->{'printableValue'};
+		}
+	}
+	
+}
+
+sub value
+{
+	my ($self) = @_;
+
+	return $self->{'value'};
 }
 
 sub HTMLViewer

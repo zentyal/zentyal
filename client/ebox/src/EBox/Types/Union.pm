@@ -21,6 +21,21 @@ sub new
         return $self;
 }
 
+sub subtype
+{
+	my ($self) = @_;
+	
+	my $selected = $self->selectedType();
+	
+	foreach my $type (@{$self->{'subtypes'}}) {
+		if ($type->fieldName() eq $selected) {
+			return $type;
+		}
+	}
+
+	return "";
+
+}
 
 sub selectedType
 {

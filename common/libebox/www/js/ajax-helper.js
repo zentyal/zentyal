@@ -1,9 +1,13 @@
-
+function cleanError(table)
+{
+	$('error_' + table).innerHTML = "";
+}
 
 function addNewRow(url, table, fields, directory)
 {
 	var pars = 'action=add&tablename=' + table + '&directory=' + directory + '&';
 	
+	cleanError(table);
 
 	for (var i = 0; i < fields.length; i++) {
 		var field = fields[i];
@@ -15,6 +19,7 @@ function addNewRow(url, table, fields, directory)
 			pars += field + '=' + value;
 		}
 	}
+
 
 	var MyAjax = new Ajax.Updater(
 		{
@@ -36,6 +41,8 @@ function changeRow(url, table, fields, directory, id)
 	var pars = 'action=edit&tablename=' + table + '&directory=' + directory + '&id=' + id + '&';
 	
 
+	cleanError(table);
+	
 	for (var i = 0; i < fields.length; i++) {
 		var field = fields[i];
 		var value = $F(table + '_' + field);
@@ -65,6 +72,8 @@ function changeRow(url, table, fields, directory, id)
 function actionClicked(url, table, pars, directory) {
 	pars = pars +  '&directory=' + directory + '&tablename=' + table;
 
+	cleanError(table);
+	
 	var MyAjax = new Ajax.Updater(
 	    {
 		success: table,
@@ -84,6 +93,8 @@ function actionClicked(url, table, pars, directory) {
 function changeView(url, table, directory, action, id)
 {
 	var pars = 'action=' + action + '&tablename=' + table + '&directory=' + directory + '&editid=' + id;
+	
+	cleanError(table);
 	
 	var MyAjax = new Ajax.Updater(
 		{

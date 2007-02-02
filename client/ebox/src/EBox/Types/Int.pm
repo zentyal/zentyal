@@ -46,7 +46,13 @@ sub storeInGconf
 {
 	my ($self, $gconfmod, $key) = @_;
 
-	$gconfmod->set_int("$key/" . $self->fieldName(), $self->memValue());
+	my $fieldKey ="$key/" . $self->fieldName();
+
+	if (defined($self->memValue()) and $self->memValue() ne '') {
+		$gconfmod->set_int($fieldKey, $self->memValue());
+	} else {
+		$gconfmod->unset($fieldKey);
+	}
 }
 
 sub HTMLSetter

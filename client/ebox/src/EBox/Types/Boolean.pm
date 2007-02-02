@@ -28,7 +28,12 @@ sub storeInGconf
 {
         my ($self, $gconfmod, $key) = @_;
  
-        $gconfmod->set_bool("$key/" . $self->fieldName(), $self->memValue());
+	if (defined($self->memValue())) {
+        	$gconfmod->set_bool("$key/" . $self->fieldName(), 
+			$self->memValue());
+	} else {
+		$gconfmod->unset("$key/" . $self->fieldName());
+	}
 }
 
 sub HTMLSetter
