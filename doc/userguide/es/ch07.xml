@@ -6,7 +6,7 @@
 
 	<section id='sect-proxy-general'>
 		<!-- Proxy->General -->
-		<title>ConfiguraciÛn general</title>
+		<title>Configuraci√≥n general</title>
 
 		<para>
 		Mediante
@@ -14,25 +14,25 @@
 			<guimenu>Proxy HTTP</guimenu>
 			<guimenuitem>General</guimenuitem>
 		</menuchoice>
-		se accede a la configuraciÛn general del proxy-cachÈ HTTP de
+		se accede a la configuraci√≥n general del proxy-cach√© HTTP de
 		eBox. 
 		</para>
 
 		<para>
-		En la ventana de configuraciÛn es posible habilitar
-		o deshabilitar el proxy utilizando el men˙ desplegable
-		superior. El resto de opciones se detallan a continuaciÛn:
+		En la ventana de configuraci√≥n es posible habilitar
+		o deshabilitar el proxy utilizando el men√∫ desplegable
+		superior. El resto de opciones se detallan a continuaci√≥n:
 		<variablelist>
 			<varlistentry>
 				<term>Proxy transparente</term>
 				<listitem>
 					<para>
-					Si el proxy transparente est· habilitado, todos
-					los usuarios de eBox utilizar·n el proxy
+					Si el proxy transparente est√° habilitado, todos
+					los usuarios de eBox utilizar√°n el proxy
 					obligatoriamente y sin darse cuenta. Si se
-					deshabilita, habrÌa que configurar los navegadores
+					deshabilita, habr√≠a que configurar los navegadores
 					de cada uno de los usuarios para que se conectaran
-					a travÈs del proxy.
+					a trav√©s del proxy.
 					</para>
 				</listitem>
 			</varlistentry>
@@ -40,17 +40,17 @@
 				<term>Puerto</term>
 				<listitem>
 					<para>
-					Asigna el n˙mero de puerto al que se conectar·n 
-					los navegadores para acceder a internet a travÈs
+					Asigna el n√∫mero de puerto al que se conectar√°n 
+					los navegadores para acceder a internet a trav√©s
 					del proxy, cuando funciona de forma no transparente.
 					</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
-				<term>RestricciÛn de contenidos</term>
+				<term>Restricci√≥n de contenidos</term>
 				<listitem>
 					<para>
-					Permite establecer un nivel de restricciÛn para
+					Permite establecer un nivel de restricci√≥n para
 					contenidos que tienen que ver con sexo y violencia
 					en aquellos elementos que se encuentren filtrados 
 					por el proxy.
@@ -58,18 +58,18 @@
 				</listitem>
 			</varlistentry>
 			<varlistentry>
-				<term>PolÌtica global</term>
+				<term>Pol√≠tica global</term>
 				<listitem>
 					<para>
-					Corresponde a la polÌtica que tendr·n por defecto los 
+					Corresponde a la pol√≠tica que tendr√°n por defecto los 
 					usuarios que utilicen el proxy. Se puede elegir entre
 					permitir el acceso libre y sin restricciones,
-					filtrar el acceso con la restricciÛn de contenidos
+					filtrar el acceso con la restricci√≥n de contenidos
 					explicada en el apartado anterior o denegar el acceso
-					completamente. Posteriormente esta polÌtica puede
+					completamente. Posteriormente esta pol√≠tica puede
 					ser modificada para cada uno de los casos concretos de
 					usuarios y dominios para los cuales se desea un
-					comportamiento especÌfico, tal y como se explica en
+					comportamiento espec√≠fico, tal y como se explica en
 					las siguientes secciones.
 					</para>
 				</listitem>
@@ -79,10 +79,10 @@
 		
 		<warning>
 		<para>
-		Si se estableciera una configuraciÛn que denegara el acceso al 
-		interfaz de administraciÛn desde las m·quinas que utilicen
-		eBox, se tendrÌa que conectar a dicho interfaz desde esas m·quinas
-		directamente,	evitando la mediaciÛn del proxy.
+		Si se estableciera una configuraci√≥n que denegara el acceso al 
+		interfaz de administraci√≥n desde las m√°quinas que utilicen
+		eBox, se tendr√≠a que conectar a dicho interfaz desde esas m√°quinas
+		directamente,	evitando la mediaci√≥n del proxy.
 		</para>
 		</warning>
 	</section>
@@ -104,23 +104,23 @@
 		</menuchoice>
 		se pueden especificar los dominios que se desean 
 		permitir o denegar para todos los usuarios de eBox. Para que estas listas
-                tengan efecto la polÌtica global del proxy debe estar establecida a "filtrar"
-		; la clasificaciÛn de los distintos dominios en estas listas
-		es prioritaria sobre cualquier otra configuraciÛn del proxy.
+                tengan efecto la pol√≠tica global del proxy debe estar establecida a "filtrar"
+		; la clasificaci√≥n de los distintos dominios en estas listas
+		es prioritaria sobre cualquier otra configuraci√≥n del proxy.
 		</para>
 
 		<para>
-		Para ello sÛlo es necesario agregar a la lista correspondiente 
+		Para ello s√≥lo es necesario agregar a la lista correspondiente 
 		los dominios a los que se desea permitir o denegar el acceso.
 		Simplemente hay que escribir el nombre completo del dominio del
 		que se desea modificar el comportamiento por defecto y hacer click
-		en el botÛn de acciÛn aÒadir. El formato correcto para el nombre
-		del dominio es dominio.extensiÛn, por ejemplo: "warp.es".
+		en el bot√≥n de acci√≥n a√±adir. El formato correcto para el nombre
+		del dominio es dominio.extensi√≥n, por ejemplo: "warp.es".
 		</para>
 
 		<para>
 		Si se desea eliminar un dominio de cualquiera de las listas basta 
-		con utilizar el botÛn de acciÛn de <guibutton>borrar</guibutton> 
+		con utilizar el bot√≥n de acci√≥n de <guibutton>borrar</guibutton> 
 		correspondiente al dominio que se desea suprimir de la lista.
 		</para>
 		
@@ -128,18 +128,18 @@
 
 	<section id='sect-proxy-content-policy'>
 		<!-- Proxy->Policy -->
-		<title>Establecimiento de polÌticas</title>
+		<title>Establecimiento de pol√≠ticas</title>
 
 		<para>
 		Por medio de
 		<menuchoice>
 			<guimenu>Proxy HTTP</guimenu>
-			<guimenuitem>PolÌticas</guimenuitem>
+			<guimenuitem>Pol√≠ticas</guimenuitem>
 		</menuchoice>
-		es posible establecer una polÌtica de conexiÛn especÌfica para un 
+		es posible establecer una pol√≠tica de conexi√≥n espec√≠fica para un 
 		<link linkend='ch-objects'>objeto de red</link> concreto, permitiendo
-		asÌ una configuraciÛn distinta para cada uno de los objetos	creados 
-		en eBox. Esta configuraciÛn se antepondr· a la polÌtica	global del 
+		as√≠ una configuraci√≥n distinta para cada uno de los objetos	creados 
+		en eBox. Esta configuraci√≥n se antepondr√° a la pol√≠tica	global del 
 		proxy de eBox para los objetos seleccionados.
 		</para>
 	</section>
@@ -153,17 +153,17 @@
 			<guimenu>Proxy HTTP</guimenu>
 			<guimenuitem>Filtro de extensiones</guimenuitem>
 		</menuchoice>
-		se puede seleccionar que extensiones de archivo tendr·n su descarga bloqueada
-                a travÈs del proxy HTTP.
+		se puede seleccionar que extensiones de archivo tendr√°n su descarga bloqueada
+                a trav√©s del proxy HTTP.
                </para>
                 <para>
-	              Para bloquear extensiones se debe activar la caja de selecciÛn en la columna "denegar". Existe un elemento especial "Todas las extensiones" para denegar todas las extensiones a la vez.
+	              Para bloquear extensiones se debe activar la caja de selecci√≥n en la columna "denegar". Existe un elemento especial "Todas las extensiones" para denegar todas las extensiones a la vez.
                 </para>
                 <para>
-                 Si se echa en falta alguna extensiÛn, se puede aÒadir usando el formulario "AÒadir extensiÛn".
+                 Si se echa en falta alguna extensi√≥n, se puede a√±adir usando el formulario "A√±adir extensi√≥n".
                 </para>
                 <para>
-		 Se permite la descarga de cualquier extensiÛn que no esta listada. En funciones versiones es posible que este comportamiento cambie.
+		 Se permite la descarga de cualquier extensi√≥n que no esta listada. En funciones versiones es posible que este comportamiento cambie.
                 </para>
 	</section>
 
@@ -176,14 +176,14 @@
 			<guimenu>Proxy HTTP</guimenu>
 			<guimenuitem>Filtro de tipos MIME</guimenuitem>
 		</menuchoice>
-		se puede seleccionar que tipos MIME tendr·n su descarga bloqueada
-                a travÈs del proxy HTTP.
+		se puede seleccionar que tipos MIME tendr√°n su descarga bloqueada
+                a trav√©s del proxy HTTP.
                </para>
                 <para>
-	              Para bloquear tipos MIME se debe activar la caja de selecciÛn en la columna "denegar". Existe un elemento especial "Todos los tipos MIME" para denegar todas las extensiones a la vez.
+	              Para bloquear tipos MIME se debe activar la caja de selecci√≥n en la columna "denegar". Existe un elemento especial "Todos los tipos MIME" para denegar todas las extensiones a la vez.
                 </para>
                 <para>
-                 Si se echa en falta alg˙n tipo MIME, se puede aÒadir usando el formulario "AÒadir tipo MIME".
+                 Si se echa en falta alg√∫n tipo MIME, se puede a√±adir usando el formulario "A√±adir tipo MIME".
                 </para>
                 <para>
 		 Se permite la descarga de cualquier tipo MIME que no este listado. En futuras versiones es posible que este comportamiento cambie.
