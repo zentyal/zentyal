@@ -1,6 +1,7 @@
 #!/bin/bash
-# This line removes iproute2 rules containing fwmarks
 
-for pref in $(ip rule list | grep fwmark | cut -d':' -f 1); do
-	ip rule del pref $pref
+for i in $(ip rule ls | cut -d: -f 1); do 
+	if [ $i -gt 0 -a $i -le 32765 ]; then
+		ip rule del pref $i; 
+	fi; 
 done

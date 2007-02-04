@@ -291,9 +291,9 @@ sub iptablesRules
 
 	my @rules;
 	for my $row (@{$self->rows()}) {
-		my $rule = $self->_buildIptablesRule($row);
-		if ($rule) {
-			push (@rules, $rule);
+		my @rule = $self->_buildIptablesRule($row);
+		if (@rule) {
+			push (@rules, @rule);
 		}
 	}
 
@@ -394,8 +394,10 @@ sub _buildIptablesRule
 				if ($rdst ne '') {
 					$rule .= " -d $rdst";
 				}
-				$rule .= " -j MARK --set-mark  $marks->{$gw}";
-				return "$rule";
+				my $ruleMark  = "$rule -j MARK "
+						. "--set-mark  $marks->{$gw}";
+				my $ruleAccept = "$rule -j ACCEPT";
+				return ($ruleMark, $ruleAccept) ;
 			}
 		}
 	}

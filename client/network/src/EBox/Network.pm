@@ -21,6 +21,7 @@ use warnings;
 use base 'EBox::GConfModule';
 
 use constant RTTABLES_CONF_FILE => '/etc/iproute2/rt_tables';
+use constant DHCLIENT_CONF_FILE => '/etc/dhcp3/dhclient.conf';
 # Interfaces list which will be ignored
 use constant ALLIFACES => qw(sit tun tap lo irda eth wlan vlan); 
 use constant IGNOREIFACES => qw(sit tun tap lo irda); 
@@ -1618,7 +1619,7 @@ sub _generateRoutes
 		if (route_is_up($net, $router)) {
 			root("/sbin/ip route del $net via $router");
 		}
-		root("/sbin/ip route add $net via $router || true");
+		root("/sbin/ip route add $net via $router table default || true");
 	}
 }
 
@@ -1634,6 +1635,13 @@ sub _multigwRoutes
 				\@params);
 
 	root(EBox::Config::libexec . "../ebox-network/ebox-flush-fwmarks");
+	
+	@params = ('script' => 
+		EBox::Config::libexec . "../ebox-network/dhclient-script");
+	
+	$self->writeConfFile(DHCLIENT_CONF_FILE,
+				'network/dhclient.conf.mas',
+				\@params);
 
 	my $marks = $self->marksForRouters();
 	my $routers = $self->gateways();
@@ -1644,7 +1652,8 @@ sub _multigwRoutes
 		root("/sbin/ip route flush table $mark");
 		root("/sbin/ip route add default via $ip table $mark");
 	}
-
+	root("/sbin/ip rule add table main");
+	
 	root("/sbin/iptables -t mangle -F");
 	for my $rule (@{$self->multigwrulesModel()->iptablesRules()}) {
 		root("/sbin/iptables $rule");
@@ -1679,7 +1688,7 @@ sub _regenConfig
 	EBox::debug("co dhcpgw:$dhcpgw'");
 	unless ($dhcpgw and ($dhcpgw ne '')) {
 		try {
-			root("/sbin/ip route del default");
+			root("/sbin/ip route del default table default");
 		} catch EBox::Exceptions::Internal with {};
 	}
 
@@ -1742,7 +1751,8 @@ sub _regenConfig
 
 	if ($gateway) {
 		try {
-			root("/sbin/ip route add default via $gateway");
+			my $table = 'table default';
+			root("/sbin/ip route add default via $gateway $table");
 		} catch EBox::Exceptions::Internal with {
 			throw EBox::Exceptions::External("An error happened ".
 			"trying to set the default gateway. Make sure the ".
