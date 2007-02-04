@@ -26,6 +26,9 @@ use EBox::Types::Boolean;
 use EBox::Types::Select;
 use EBox::Types::IPAddr;
 use EBox::Types::Union;
+use EBox::Sudo;
+
+use Net::ARP;
 
 use strict;
 use warnings;
@@ -241,11 +244,25 @@ sub gateways()
 					'interface' => $ifce,
 					'upload' => $up,
 					'download' => $down,
-					'default' => $def
+					'default' => $def,
 				});
 	}
 
 	return \@gateways;
+}
+
+sub gatewaysWithMac
+{
+	my ($self) = @_;
+
+	my $gws = $self->gateways();
+
+	foreach my $gw (@{$gws}) {
+		
+		$gw->{'mac'} = _getRouterMac($gw->{'ip'});
+	}
+
+	return $gws;
 }
 
 sub deletedRowNotify()
@@ -256,4 +273,13 @@ sub deletedRowNotify()
 	my $multigwRules = $network->multigwrulesModel();
 	$multigwRules->removeRulesUsingRouter($row->{'id'});
 }
+
+sub _getRouterMac
+{
+	my ($ip) = @_;
+	my $macif = '';
+	system("ping -c 1 -W 1 $ip > /dev/null");
+	return  Net::ARP::arp_lookup($macif, $ip);
+}
+
 1;

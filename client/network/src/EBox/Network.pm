@@ -20,7 +20,6 @@ use warnings;
 
 use base 'EBox::GConfModule';
 
-use constant RTTABLES_CONF_FILE => '/etc/iproute2/rt_tables';
 use constant DHCLIENT_CONF_FILE => '/etc/dhcp3/dhclient.conf';
 # Interfaces list which will be ignored
 use constant ALLIFACES => qw(sit tun tap lo irda eth wlan vlan); 
@@ -1623,28 +1622,53 @@ sub _generateRoutes
 	}
 }
 
-sub _multigwRoutes
+sub _generateDHCPClientConf
 {
 	my $self = shift;
 	
-
-	my $ids = $self->gatewayModel()->iproute2TableIds();
-	my @params = ('ids' => $ids);
-	$self->writeConfFile(RTTABLES_CONF_FILE,
-				'network/rt_tables.mas',
-				\@params);
-
-	root(EBox::Config::libexec . "../ebox-network/ebox-flush-fwmarks");
-	
-	@params = ('script' => 
+	my @params = ('script' => 
 		EBox::Config::libexec . "../ebox-network/dhclient-script");
 	
 	$self->writeConfFile(DHCLIENT_CONF_FILE,
 				'network/dhclient.conf.mas',
 				\@params);
+}
 
+sub _multigwRoutes
+{
+	my $self = shift;
+	
+
+	
+	# Flush the rules
+	#
+	# Add a rule to match every fwmark to pass through its
+	# corresponding table. 
+	# 
+	# Each table only has a default
+	# gateway, and there are as many tables as routers the user
+	# has added.
+	#
+	# To route packets towards local networks, the highest
+	# priority rule points to the main table. Note that
+	# we do not have a default route in the main table, otherwise
+	# we could not do the multipath stuff. Instead, we set the
+	# default route within the default table.
+	#
+	#
+	# We enclose iptables rules containing CONNMARK target 
+	# within a try/catch block because
+	# kernels < 2.6.12 do not include such module.
+	#
+	# 
+	# We modify the dhclient script behaviour to add the
+	# default route where we need it.
+
+	$self->_generateDHCPClientConf();
+	
+	root(EBox::Config::libexec . "../ebox-network/ebox-flush-fwmarks");
 	my $marks = $self->marksForRouters();
-	my $routers = $self->gateways();
+	my $routers = $self->gatewaysWithMac();
 	for my $router (@{$routers}) {
 		my $mark = $marks->{$router->{'id'}};
 		my $ip = $router->{'ip'};
@@ -1655,10 +1679,29 @@ sub _multigwRoutes
 	root("/sbin/ip rule add table main");
 	
 	root("/sbin/iptables -t mangle -F");
+	try {
+		root("/sbin/iptables -t mangle -A PREROUTING "
+		     . "-j CONNMARK --restore-mark");
+	} catch EBox::Exceptions::Internal with {};
+	foreach my $router (@{$routers}) {
+		my $mac = $router->{'mac'};
+		next if ( $mac eq 'unknown');
+		root("/sbin/iptables -t mangle -A PREROUTING  "
+		 . "-m mark --mark 0 -m mac --mac-source $mac "
+		 . "-m conntrack --ctstate NEW " 
+		 . "-j MARK --set-mark $marks->{$router->{'id'}}");		
+	}
+	root("/sbin/iptables -t mangle -A PREROUTING -m mark ! --mark 0 -j ACCEPT");
+
+	
 	for my $rule (@{$self->multigwrulesModel()->iptablesRules()}) {
 		root("/sbin/iptables $rule");
 	}
 	 
+	try {
+		root("/sbin/iptables -t mangle -A PREROUTING "
+			."-j CONNMARK --save-mark");
+	} catch EBox::Exceptions::Internal with {};
 }
 
 # Method: _regenConfig
@@ -1944,11 +1987,13 @@ sub DHCPCleanUp # (interface)
 						     value => $iface);
 	
 	my $gw = $self->DHCPGateway();
-	if ($gw) {
+	if ($gw and $gw ne '') {
 		my $host = $self->DHCPAddress($iface);
 		my $mask = $self->DHCPNetmask($iface);
-		if (isIPInNetwork($host, $mask, "$gw/$mask")) {
-			$self->DHCPGatewayCleanUp();
+		if (($host and $host ne '') and ($mask and $mask ne '')) {
+			if (isIPInNetwork($host, $mask, "$gw/$mask")) {
+				$self->DHCPGatewayCleanUp();
+			}
 		}
 	}
 
@@ -2249,6 +2294,35 @@ sub gateways
 	my $gatewayModel = $self->gatewayModel();
 
 	return $gatewayModel->gateways();
+
+}
+
+# Method: gatewaysWithMac
+#
+# 	Return the gateways available and its mac address
+#
+# Returns:
+#
+# 	array ref of hash refs containing name, ip, upload/download link,
+# 	if it is the default gateway or not and the id  for the gateway.
+#
+#	Example:
+#	
+#	[ 
+#	  { 
+#	    name => 'gw1', ip => '192.168.1.1' , 
+#	    upload => '128',  download => '1024', defalut => '1',
+#	    id => 'foo1234', mac => '00:00:fa:ba:da'
+#	  } 
+#	]
+# 	
+sub gatewaysWithMac
+{
+	my $self = shift;
+
+	my $gatewayModel = $self->gatewayModel();
+
+	return $gatewayModel->gatewaysWithMac();
 
 }
 

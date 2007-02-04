@@ -7,7 +7,7 @@ Standards-Version: 3.6.1
 
 Package: ebox-network
 Architecture: all
-Depends: ebox, iproute, vlan, net-tools, dnsutils, libnet-ip-perl, dhcp3-client
+Depends: ebox, iproute, vlan, net-tools, dnsutils, libnet-ip-perl, dhcp3-client, iptables, libnet-arp-perl
 Replaces: ebox (<< 0.6)
 Conflicts: ebox (<< 0.6)
 Description: Network configuration
