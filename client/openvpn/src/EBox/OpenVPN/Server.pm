@@ -494,7 +494,7 @@ sub _checkAdvertisedNet
 
 
  if (! _EBoxIsGateway()) {
-    throw EBox::Exceptions::External(__('EBox must be configured as gateway to be able to give client access to networks via OpenVPN'));
+    throw EBox::Exceptions::External(__('eBox must be configured as gateway to be able to give client access to networks via OpenVPN'));
   }
 
 

@@ -275,10 +275,10 @@ sub init
     my ($self, %params) = @_;
 
     (exists $params{proto}) or throw EBox::Exceptions::External __("A IP protocol must be specified for the server");
-    (exists $params{caCertificatePath}) or throw EBox::Exceptions::External __("A path to the CA certificate must be specified");
-    (exists $params{certificatePath}) or throw EBox::Exceptions::External __("A path to the client certificate must be specified");
-    (exists $params{certificateKey}) or throw EBox::Exceptions::External __("A path to the client certificate key must be specified");
-    (exists $params{servers}) or throw EBox::Exceptions::External __("Servers msut be supplied yo yhe client");
+    (exists $params{caCertificatePath}) or throw EBox::Exceptions::External __("The CA certificate is needed");
+    (exists $params{certificatePath}) or throw EBox::Exceptions::External __("The client certificate must be specified");
+    (exists $params{certificateKey}) or throw EBox::Exceptions::External __("The client private key must be specified");
+    (exists $params{servers}) or throw EBox::Exceptions::External __("Servers must be supplied to the client");
     exists $params{service} or $params{service} = 0;
 
 

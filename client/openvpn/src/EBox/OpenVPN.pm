@@ -90,14 +90,13 @@ sub _cleanConfigDir
     my $confDir = $self->confDir;
     opendir my $DH, $confDir or throw EBox::Exceptions::Internal("Can not open $confDir: $!");
     my @dirContents =  readdir $DH;
-#    EBox::debug("_cleanConfigDir contents: @dirContents");
     closedir $DH;
 
     foreach (@dirContents) {
       next if $_ =~ m/^[.]+$/;
 
       my $file = "$confDir/$_";
-#      EBox::debug("_cleanConfigDir $file");
+
       if (EBox::Sudo::fileTest('-d', $file)) {
 	next if ($file eq $anyPrivateDir);
 
@@ -205,7 +204,7 @@ sub removeServer
     my $serverDir = "server/$name";
 
     if (! $self->dir_exists($serverDir)) {
-	throw EBox::Exceptions::External __x("Unable to remove because there is not a openvpn server named {name}", name => $name);
+	throw EBox::Exceptions::External __x("Unable to remove server {name} because it does not exist", name => $name);
     }
 
 	
@@ -261,7 +260,7 @@ sub removeClient
     my $clientDir = "client/$name";
 
     if (! $self->dir_exists($clientDir)) {
-	throw EBox::Exceptions::External __x("Unable to remove because there is not a openvpn client named {name}", name => $name);
+	throw EBox::Exceptions::External __x("Unable to remove client {name} because it does not exist", name => $name);
     }
 
     $self->delete_dir($clientDir);
@@ -325,7 +324,7 @@ sub _checkName
   my ($self, $name) = @_;
 
    unless ( $name =~ m{^\w+$} ) {
-	throw EBox::Exceptions::External (__x("{name} is a invalid name for a OpenVPN instance. Only alphanumerics and underscores are allowed", name => $name) );
+	throw EBox::Exceptions::External (__x("{name} is a invalid name for a OpenVPN daemon. Only alphanumerics and underscores are allowed", name => $name) );
     }
 
   my @names = ($self->serversNames(), $self->clientsNames());
@@ -850,12 +849,16 @@ sub _externalAddresses
 sub summary
 {
 	my ($self) = @_;
+
+	if ( $self->daemons()  == 0) {
+	  return undef;
+	}
+
+
 	my $summary = new EBox::Summary::Module(__('OpenVPN daemons'));
 
        # prefetch data for servers summary
 	my $externalAddresses = $self->_externalAddresses();
-	use Data::Dumper;
-	EBox::debug("external addr: " . Dumper $externalAddresses);
 
 	foreach my $server ($self->servers) {
 	    my $section = new EBox::Summary::Section(__x('Server {name}', name => $server->name));

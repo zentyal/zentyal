@@ -64,7 +64,6 @@ sub actuate
 	my %params;
 
 	foreach my $param (@{ $self->params() }) {
-	  EBox::debug("param $param");
 	  if ($param eq 'name') {
 	    $name = $self->param('name');
 	    next;
