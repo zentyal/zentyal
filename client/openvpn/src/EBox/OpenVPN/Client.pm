@@ -136,7 +136,7 @@ sub _setPrivateFile
 
   try {
     EBox::Sudo::root("chmod 0400 $path");
-    EBox::Sudo::root('chown '. $self->user . '.' . $self->group . " $path");
+    EBox::Sudo::root("chown 0.0 $path");
     EBox::Sudo::root("mv $path $newPath");
   }
   otherwise {

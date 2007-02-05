@@ -369,11 +369,11 @@ sub confFileParams
 }
 
 
-sub _confFileLocalParam
+sub localAddress
 {
   my ($self) = @_;
 
-  my $localParamValue;
+ my $localAddress;
   my $localIface = $self->local();
   if ($localIface) {
     # translate local iface to a local ip 
@@ -385,12 +385,19 @@ sub _confFileLocalParam
     }
 
     my $selectedAddress =  shift @addresses; # XXX may be we have to look up a better address resolution method
-    $localParamValue = $selectedAddress->{address};
+    $localAddress = $selectedAddress->{address};
   }
   else {
-    $localParamValue = undef;
+    $localAddress = undef;
   }
+}
 
+
+sub _confFileLocalParam
+{
+  my ($self) = @_;
+
+  my $localParamValue = $self->localAddress();
   return (local => $localParamValue);
 }
 
@@ -461,7 +468,6 @@ sub setAdvertisedNets
     $self->setConfString("advertised_nets/$address", $netmask);
   }
 
-  $self->_notifyStaticRoutesChange();
 }
 
 sub addAdvertisedNet
@@ -472,7 +478,6 @@ sub addAdvertisedNet
 
   $self->setConfString("advertised_nets/$net", $netmask);
 
-  $self->_notifyStaticRoutesChange();
 }
 
 
@@ -520,34 +525,10 @@ sub removeAdvertisedNet
 
   $self->unsetConf("advertised_nets/$net");
 
-  $self->_notifyStaticRoutesChange();
 }
 
 
-sub _notifyStaticRoutesChange
-{
-  my ($self) = @_;
 
-  $self->_openvpnModule()->notifyStaticRoutesChange();
-}
-
-sub staticRoutes
-{
-  my ($self) = @_;
-
-  my @advertisedRoutes  = $self->advertisedNets();
-  my @staticRoutes = map {
-    my ($net, $netmask) = @{$_};
-    my $netWithMask = EBox::NetWrappers::to_network_with_mask($net, $netmask);
-    my $gateway = EBox::NetWrappers::local_ip_to_reach_network($netWithMask) ;
-
-    my $destination = $self->subnet();
-    my $destinationNetmask = $self->subnetNetmask();
-    ($netWithMask => {network => $destination, netmask => $destinationNetmask, gateway => $gateway });
-  } @advertisedRoutes;
-
-  return @staticRoutes;
-}
 
 sub setFundamentalAttributes
 {

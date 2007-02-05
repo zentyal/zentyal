@@ -94,8 +94,8 @@ sub writeConfFile
     my $templateParams = $self->confFileParams();
 
     my $defaults     = {
-	uid  => $self->user,
-	gid  => $self->group,
+	uid  => 0,
+	gid  => 0,
 	mode => '0400',
     };
 

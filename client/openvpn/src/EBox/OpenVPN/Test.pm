@@ -38,6 +38,68 @@ sub _moduleInstantiationTest : Test
 }
 
 
+# XXX replace with #419 when it is done
+sub ignoreChownRootCommand : Test(startup)
+{
+  my $root_r = EBox::Sudo->can('root');
+
+  my $rootIgnoreChown_r = sub {
+    my ($cmd) = @_;
+    my ($cmdWithoutParams) = split '\s+', $cmd;
+    if (($cmdWithoutParams eq 'chown') or ($cmdWithoutParams eq '/bin/chown')) {
+      return [];  
+    }
+
+    return $root_r->($cmd);
+  };
+
+
+  defined $root_r or die 'Can not get root sub from EBox::Sudo';
+
+  Test::MockObject->fake_module(
+				'EBox::Sudo',
+				root => $rootIgnoreChown_r,
+			       )
+}
+
+
+
+sub fakeNetworkModule
+{
+  my ($externalIfaces_r, $internalIfaces_r) = @_;
+
+  my @externalIfaces = defined $externalIfaces_r ? @{ $externalIfaces_r } :  qw(eth0 eth2);
+  my @internalIfaces = defined $internalIfaces_r ? @{ $internalIfaces_r } : ('eth1', 'eth3');
+
+  my $anyExternalIfaces = any(@externalIfaces);
+  my $anyInternalIfaces = any(@internalIfaces);
+
+  my $ifaceExistsSub_r = sub {
+    my ($self, $iface) = @_;
+    return ($iface eq $anyInternalIfaces) or ($iface eq $anyExternalIfaces);
+  };
+
+  my $ifaceIsExternalSub_r = sub {
+    my ($self, $iface) = @_;
+    return  ($iface eq $anyExternalIfaces);
+  };
+
+
+
+  fakeEBoxModule(
+		 name => 'network',
+		 package => 'EBox::Network',
+		 subs => [
+			  ifaceIsExternal => $ifaceIsExternalSub_r,
+			  ifaceExists     => $ifaceExistsSub_r,
+			  ExternalIfaces  => sub { return \@externalIfaces },
+			  InternalIfaces  => sub { return \@internalIfaces },
+			  ifaceMethod     => sub { return 'anythingButNonSet' }, # this if for bug #395
+			 ],
+		);
+
+}
+
 
 sub fakeCA : Test(startup)
 {

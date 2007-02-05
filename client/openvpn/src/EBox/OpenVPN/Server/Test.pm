@@ -31,12 +31,31 @@ sub fakeCA : Test(startup)
   EBox::CA::TestStub::fake();
 }
 
-sub fakeServer : Test(startup)
+
+# XXX replace with #419 when it is done
+sub ignoreChownRootCommand : Test(startup)
 {
-  Test::MockObject->fake_module ( 'EBox::OpenVPN::Server',
-				  _notifyStaticRoutesChange => sub {},
-				);
+  my $root_r = EBox::Sudo->can('root');
+
+  my $rootIgnoreChown_r = sub {
+    my ($cmd) = @_;
+    my ($cmdWithoutParams) = split '\s+', $cmd;
+    if (($cmdWithoutParams eq 'chown') or ($cmdWithoutParams eq '/bin/chown')) {
+      return [];  
+    }
+
+    return $root_r->($cmd);
+  };
+
+
+  defined $root_r or die 'Can not get root sub from EBox::Sudo';
+
+  Test::MockObject->fake_module(
+				'EBox::Sudo',
+				root => $rootIgnoreChown_r,
+			       )
 }
+
 
 
 sub fakeNetworkModule

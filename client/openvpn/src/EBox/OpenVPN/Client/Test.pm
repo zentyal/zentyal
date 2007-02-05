@@ -41,6 +41,31 @@ sub mockNetworkModule
 }
 
 
+# XXX replace with #419 when it is done
+sub ignoreChownRootCommand : Test(startup)
+{
+  my $root_r = EBox::Sudo->can('root');
+
+  my $rootIgnoreChown_r = sub {
+    my ($cmd) = @_;
+    my ($cmdWithoutParams) = split '\s+', $cmd;
+    if (($cmdWithoutParams eq 'chown') or ($cmdWithoutParams eq '/bin/chown')) {
+      return [];  
+    }
+
+    return $root_r->($cmd);
+  };
+
+
+  defined $root_r or die 'Can not get root sub from EBox::Sudo';
+
+  Test::MockObject->fake_module(
+				'EBox::Sudo',
+				root => $rootIgnoreChown_r,
+			       )
+}
+
+
 sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
