@@ -37,8 +37,6 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 
 	AC_CONF_EBOX
 
-	AC_PROG_PERL_MODULES(Test::File, ,
-	  AC_MSG_WARN(Missing test dependency Test::File))
 
 else
 	GCONF_SCHEMAS_INSTALL_FALSE=
