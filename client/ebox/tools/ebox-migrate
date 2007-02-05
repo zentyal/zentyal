@@ -1,0 +1,17 @@
+#!/usr/bin/perl
+
+if (@ARGV != 1) {
+	print "Usage: $0 migration-path";
+	exit 1;
+}
+
+my $dirh;
+my $path = $ARGV[0];
+
+opendir ($dirh, $path) or die "can't open directory $path";
+
+foreach my $file (readdir($dirh)) {
+	next unless ( -e "$path/$file" );
+	next unless ($file =~ /\d\d\d\d\.pl/);
+	system("$path/$file");
+}

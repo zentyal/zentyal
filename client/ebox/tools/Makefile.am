@@ -2,7 +2,7 @@
 
 bin_SCRIPTS =  ebox-sudoers ebox ebox-runit ebox-sudoers-friendly 
 
-pkglib_SCRIPTS =  ebox-apache-restart ebox-sql-table
+pkglib_SCRIPTS =  ebox-apache-restart ebox-sql-table ebox-migrate
 
 SUBDIRS = sqllog
 

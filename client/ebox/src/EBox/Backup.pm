@@ -856,6 +856,7 @@ sub restoreBackup # (file, %options)
 	  push @restored, $modname;
 	  EBox::debug("Restoring $modname from backup data");
 	  $mod->restoreBackup("$tempdir/eboxbackup", %options);
+	  $self->_migratePackage($mod->package());
 	}
 	else {
 	  EBox::error("Restore data not found for module $modname. Skipping $modname restore");
@@ -881,6 +882,20 @@ sub restoreBackup # (file, %options)
   };
 }
 
+sub _migratePackage
+{
+	my ($self, $package) = @_;
+	my $migrationdir = EBox::Config::lib() . "/$package/migration";
+	
+	if (-d $migrationdir) {
+		my $migration = EBox::Config::libexec() . '/ebox-migrate';
+		try {
+			EBox::Sudo::command("$migration $migrationdir");
+		} catch EBox::Exceptions::Internal with {
+			EBox::debug("Failed to migrate $package");
+		};
+	}
+}
 
 # XXX: bug indirect recursive dependencies are not handled
 sub _modInstancesForRestore
