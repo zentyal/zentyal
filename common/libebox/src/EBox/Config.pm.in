@@ -98,6 +98,11 @@ sub share
 	return $ref->{datadir};
 }
 
+sub lib
+{
+	return $ref->{libdir};
+}
+
 sub libexec 
 {
 	return $ref->{libdir} . "ebox/";
