@@ -1,0 +1,6 @@
+This eBox module provides VPN functionality using OpenVPN. 
+It has the following feature:
+ * Multiple OpenVPN servers
+ * Routes can be advertised to road warriors
+ * Multiple clients can connect to another eBox server to create tunnels
+ * Certificate managament using eBox's CA module

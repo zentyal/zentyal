@@ -1,17 +1,56 @@
+DEPENDENCIES
+------------
+
++ eBox components 
+
+	+ ebox
+	+ ebox-network
+	+ ebox-firewall
+
++ Debian packages (apt-get install <package>)
+
+	+ openvpn
+	+ quagga
+
+
+INSTALLATION
+-----------
+
 ** System setup
-- First, we must install the openvpn Debian package (# apt-get install openvpn)
-- Next, we remove the symbolic links to /etc/init.d/openvpn in the /etc/rc?.d directories . We do this to avoid that the boot process starts and stop the openvpn servers
-- We had to make sure that both user and group 'nobody' exists, if necessary we create them as system user/group. (In Debian the default is that group 'nobody' does not exist). In case we want to use another group or user we can do it changing the values of the relevant keys in eBox's GConf.
 
+  1.- install the openvpn package
+    $ apt-get install openvpn
+   
+    If the debian package has not added a tun device in /dev/net, we must do it ourselves:
 
-** Software dependencies
-Besides  the perl modules  provided by the eBox framework we have none dependency.
-However, to run the tests included we need the Test::File perl module.
+    $ [ -e /dev/net ] || mkdir -m 755 /dev/net	
+    $ [ -d /dev/net -a ! -e /dev/net/tun ] && /bin/mknod /dev/net/tun c 10 200
 
+ 
+  We must remove the symbolic links to /etc/init.d/openvpn in the /etc/rc?.d directories . We do this to avoid that the boot process starts and stop the openvpn servers
+   
+  $ update-rc.d -f openvpn remove
 
+ 2.- install the quagga package
+     $ apt-get install quagga
 
-** Configuration and installation
-Now we are ready to follow the normal configuration and installation procedure:
-# ./configure --prefix=/usr --localstatedir=/var --systemconfdir=/etc
-# make install 
+  As we had done before with openvpn, ee must remove the links used by the system to start quagga automatically
+     $ update-rc.d -f quagga remove
+
+  3.- Create Diffie-Hellaman parametes      
+    The diffie-hellman parameters file is located at /etc/openvpn/dh1024.pem. You can acreate it with openSSL   
+
+   $ openssl dhparam -out /etc/openvpn/dh1024.pem 1024
+
+  4.- Setup nobody user and nogroup group 
+
+    We had to make sure 'nobody' user and 'nogroup' group exists, if necessary we create them as system user/group.  In case we want to use another group or user we can do it changing the values of the relevant keys in eBox's GConf.
+
+ 5.- Module installation
+
+    Now we are ready to follow the normal configuration and installation procedure:
+    
+	$ ./configure --prefix=/usr --localstatedir=/var --systemconfdir=/etc
+	$ make install 
+
 The last command must be executed as root user.
