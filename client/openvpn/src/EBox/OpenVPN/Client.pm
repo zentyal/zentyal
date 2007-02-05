@@ -114,7 +114,6 @@ sub privateDir
   if (not EBox::Sudo::fileTest('-d', $dir)) {
     # create dir if it does not exist
     EBox::Sudo::root("mkdir --mode 0500  $dir");
-    EBox::Sudo::root('chown '. $self->user . '.' . $self->group . " $dir");
   } 
 
   return $dir;
