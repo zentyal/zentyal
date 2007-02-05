@@ -144,6 +144,22 @@ sub save
 	};
 }
 
+# Method: saveConfig
+#
+#	Save module config, but do not call _regenConfig
+#
+sub saveConfig
+{
+	my $self = shift;
+
+	$self->_lock();
+	my $global = EBox::Global->getInstance();
+	my $log = EBox::logger;
+	$log->info("Restarting service for module: " . $self->name);
+	$self->_saveConfig();
+	$self->_unlock();
+}
+
 sub _unlock
 {
 	my $self = shift;
@@ -601,6 +617,22 @@ sub domain
 	}
 }
 
+# Method: package 
+#
+#	Returns the package name 
+#
+# Returns:
+#
+#      	strings - package name 
+#
+# TODO Change domain  for package which
+# is more general. But we must ensure no module uses it directly
+sub package
+{
+	my $self = shift;
+
+	return $self->domain();
+}
 
 #
 # Method: pidRunning 
