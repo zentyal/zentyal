@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::OpenVPN;
-use base qw(EBox::GConfModule EBox::FirewallObserver EBox::DHCP::StaticRouteProvider EBox::CA::Observer EBox::NetworkObserver);
+use base qw(EBox::GConfModule EBox::NetworkObserver EBox::FirewallObserver EBox::CA::Observer);
 
 use strict;
 use warnings;
@@ -734,22 +734,6 @@ sub availableCertificates
 
 
 
-sub staticRoutes
-{
-  my ($self) = @_;
-
-  $self->service() or return [];
-  
-  my @servers =  grep { $_->service } $self->servers();
-
-  my @staticRoutes;
-  foreach my $server (@servers) {
-    push @staticRoutes, $server->staticRoutes(); 
-  }
-
-  return \@staticRoutes;
-}
-
 
 
 # ca observer stuff
@@ -843,10 +827,35 @@ sub menu
 	$root->add($item);
 }
 
+
+sub _externalAddresses
+{
+  my ($self) = @_;
+
+  my $network = EBox::Global->modInstance('network');
+
+  my @externalAddr = map {
+    my $ifaceAddresses_r = $network->ifaceAddresses($_);
+    @{  $ifaceAddresses_r }
+  }  @{ $network->ExternalIfaces };
+
+  # massage to a readable way
+  @externalAddr  =  map {
+      $_->{address} . '/' . $_->{netmask};
+    } @externalAddr;
+
+  return \@externalAddr;
+}
+
 sub summary
 {
 	my ($self) = @_;
 	my $summary = new EBox::Summary::Module(__('OpenVPN daemons'));
+
+       # prefetch data for servers summary
+	my $externalAddresses = $self->_externalAddresses();
+	use Data::Dumper;
+	EBox::debug("external addr: " . Dumper $externalAddresses);
 
 	foreach my $server ($self->servers) {
 	    my $section = new EBox::Summary::Section(__x('Server {name}', name => $server->name));
@@ -856,6 +865,8 @@ sub summary
 
 	    my $running = $server->running ? __('Running') : __('Stopped');
 	    $section->add(new EBox::Summary::Value (__('Daemon status'), $running));
+
+	    $self->_addServerAddressesToServerSection( $section, $server, $externalAddresses);
 
 	    my $proto   = $server->proto();
 	    my $port    = $server->port();
@@ -888,6 +899,29 @@ sub summary
 	}
 
 	return $summary;
+}
+
+
+
+
+
+sub _addServerAddressesToServerSection
+{
+  my ($self, $section, $server, $externalAddr_r) = @_;
+
+  my @serverAddress;
+  my $localAddress = $server->localAddress();
+  if ($localAddress) {
+    push @serverAddress, $localAddress;
+  } 
+  else {
+    @serverAddress = @{ $externalAddr_r };
+  }
+
+  foreach my $addr (@serverAddress) {
+    $section->add(new EBox::Summary::Value (__('Local address'), $addr));
+  }
+
 }
 
 sub statusSummary
