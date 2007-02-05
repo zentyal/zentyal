@@ -7,7 +7,15 @@ $certificatePath
 $certificateKey
 $user
 $group
+$logDir => undef
 </%args>
+<%init>
+use EBox::Config;
+if (! defined $logDir) {
+$logDir = EBox::Config::log();
+}
+my $logFile = "$logDir/openvpn-$dev.log";
+</%init>
 # eBox client-side OpenVPN 2.0 config file #
 # for connecting to multi-client server.     #
 
@@ -116,7 +124,7 @@ comp-lzo
 # "log" will truncate the log file on OpenVPN startup,
 # while "log-append" will append to it.  Use one
 # or the other (but not both).
-log-append  <% "openvpn-$dev.log" %>
+log-append  <% $logFile %>
 
 # Set log file verbosity.
 verb 3

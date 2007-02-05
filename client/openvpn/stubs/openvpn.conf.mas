@@ -14,8 +14,16 @@ $user
 $group
 $dh
 $tlsRemote      => undef
+$logDir         => undef
 @advertisedNets => ()
 </%args>
+<%init>
+use EBox::Config;
+if (! defined $logDir) {
+$logDir = EBox::Config::log();
+}
+my $logFile = "$logDir/openvpn-$dev.log";
+</%init>
 # EBox OpenVPN 2.0 config file for            #
 # multi-client server.                          #
 #                                               #
@@ -125,7 +133,7 @@ status openvpn-status.log
 # "log" will truncate the log file on OpenVPN startup,
 # while "log-append" will append to it.  Use one
 # or the other (but not both).
-log-append  <% "openvpn-$dev.log" %>
+log-append  <% $logFile %>
 
 # Set the appropriate level of log
 # file verbosity.
