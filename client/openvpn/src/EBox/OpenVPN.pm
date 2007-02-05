@@ -889,10 +889,11 @@ sub summary
 	  my $running = $client->running ? __('Running') : __('Stopped');
 	  $section->add(new EBox::Summary::Value (__('Daemon status'), $running));
 
+	  my $proto   = $client->proto();
 	  my @servers = @{  $client->servers  };
 	  # XXX only one server supported now!
 	  my ($addr, $port) = @{ $servers[0]  };
-	  my $server = $addr . ':' . $port;
+	  my $server = "$addr $port/\U$proto";
 	  $section->add(new EBox::Summary::Value (__('Connection target'), $server));
 
 	  $summary->add($section);
