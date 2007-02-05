@@ -7,7 +7,7 @@ Standards-Version: 3.7.2
 
 Package: ebox-openvpn
 Architecture: any
-Depends:  openvpn, ebox-firewall, ebox-ca, ebox-dhcp, quagga
+Depends:  openvpn, ebox-firewall, ebox-ca, quagga
 Description: OpenVPN server
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
