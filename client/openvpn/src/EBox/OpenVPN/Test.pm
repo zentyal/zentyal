@@ -38,6 +38,23 @@ sub _moduleInstantiationTest : Test
 }
 
 
+sub _setupDirs : Test(startup)
+{
+  my ($self) = @_;
+
+  my $testDir = $self->testDir();
+  my $confDir = $self->_confDir();
+
+  foreach my $dir ($testDir, $confDir) {
+    system "rm -rf $dir";
+    ($? == 0) or die "$!";
+    system "mkdir -p $dir";
+    ($? == 0) or die "$!";
+  }
+
+}
+
+
 # XXX replace with #419 when it is done
 sub ignoreChownRootCommand : Test(startup)
 {
@@ -110,12 +127,19 @@ sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
    
+    my $confDir = $self->_confDir();
+    if (! -d $confDir) {
+      system "mkdir -p $confDir" or die "$!";
+    }
+
+
     my @config = (
 		  '/ebox/modules/openvpn/active'  => 1,
 		  '/ebox/modules/openvpn/openvpn_bin'  => '/usr/sbin/openvpn',
 		  '/ebox/modules/openvpn/user'  => 'nobody',
 		  '/ebox/modules/openvpn/group' => 'nobody',
-		  '/ebox/modules/openvpn/conf_dir' => $self->_confDir(),
+		  '/ebox/modules/openvpn/conf_dir' => $confDir,
+		  '/ebox/modules/openvpn/interface_count' => 0,
 		  );
 
     EBox::GConfModule::TestStub::setConfig(@config);
@@ -133,13 +157,22 @@ sub clearConfiguration : Test(teardown)
 
 
 
+sub _createMockCertFiles
+{
+  my (@mockCertFiles) = @_;
+
+  system "touch @mockCertFiles";
+  ($? == 0) or die "Can not create mock certification files in /tmp: $!";
+  system "chmod u+w @mockCertFiles";
+  ($? == 0) or die "Can not chmod mock certification files in /tmp: $!";
+}
+
 sub newAndRemoveClientTest : Test(15)
 {
   my $openVPN = EBox::OpenVPN->_create();
  
   my @mockCertFiles = qw(/tmp/ca.pem /tmp/client.pem /tmp/client.key);
-  system "touch @mockCertFiles";
-  ($? == 0) or die "Can not  create mock certification files in /tmp: $!";
+
  
   my @clientsNames = qw(client1 client2);
   my %clientsParams = (
@@ -168,8 +201,11 @@ sub newAndRemoveClientTest : Test(15)
 		      );
 
     foreach my $name (@clientsNames) {
-	my $instance;
 	my @params = @{ $clientsParams{$name} };
+
+	_createMockCertFiles(@mockCertFiles);
+
+	my $instance;
 	lives_ok { $instance = $openVPN->newClient($name, @params)  } 'Testing addition of new client';
 	isa_ok $instance, 'EBox::OpenVPN::Client', 'Checking that newClient has returned a client instance';
 	dies_ok { $instance  = $openVPN->newClient($name, @params)  } 'Checking that the clients cannot be added a second time';
@@ -182,6 +218,8 @@ sub newAndRemoveClientTest : Test(15)
  
 	
     foreach my $name (@clientsNames) {
+      _createMockCertFiles(@mockCertFiles);
+
 	my $instance;
 	lives_ok { $instance = $openVPN->removeClient($name)  } 'Testing client removal';
 	dies_ok  { $openVPN->client($name) } 'Testing that can not get the client object that represents the deleted client ';
@@ -192,7 +230,7 @@ sub newAndRemoveClientTest : Test(15)
 	dies_ok { $instance = $openVPN->removeClient($name)  } 'Testing that a deleted client can not be deleted agian';
     }
   
-  system "rm @mockCertFiles";
+  system "rm -f @mockCertFiles";
   ($? == 0) or die "Can not  remove mock certification files in /tmp: $!";
 }
 
@@ -260,12 +298,13 @@ sub usesPortTest : Test(16)
 
 
   # add servers to openvpn (we add only the attr we care for in this testcase
+  my $confDir = $self->_confDir();
   my @config = (
 		  '/ebox/modules/openvpn/active'  => 1,
 		  '/ebox/modules/openvpn/openvpn_bin'  => '/usr/sbin/openvpn',
 		  '/ebox/modules/openvpn/user'  => 'nobody',
 		  '/ebox/modules/openvpn/group' => 'nobody',
-		  '/ebox/modules/openvpn/conf_dir' => $self->_confDir(),
+		  '/ebox/modules/openvpn/conf_dir' => $confDir,
 
 		  '/ebox/modules/openvpn/server/macaco/active'    => 1,
 		  '/ebox/modules/openvpn/server/macaco/port'    => 1194,
