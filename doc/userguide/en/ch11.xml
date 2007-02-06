@@ -1,5 +1,3 @@
-	<!-- vim: ts=2 sw=2 tw=75
--->
 <chapter id="ch-files">
 
 	<title>File sharing</title>
@@ -45,7 +43,7 @@
 				<term>Quota limit</term>
 				<listitem>
 					<para>Quota disk limit on MB to use for each
-					user. If you don't want to set any quota is ok
+					user. If you don't want to set any quota is OK
 					to fill this field with zero value.</para>
 				</listitem>
 			</varlistentry>

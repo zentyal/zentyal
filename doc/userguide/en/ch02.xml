@@ -1,5 +1,3 @@
-	<!-- vim: ts=2 sw=2 tw=75
--->
 <chapter id="ch-system">
 	<title>System configuration</title>
 
@@ -15,7 +13,7 @@
 		from the left menu.
 		</para>
 
-		<para>From this section you can make three significative changes over
+		<para>From this section you can make three major changes over
 		the eBox management interface:</para>
 			
 		<variablelist>
@@ -261,14 +259,14 @@
 			</menuchoice>
 		, you can adjust eBox date and time. There are two different options
 		to adjust date and time correctly: by hand, setting as "Disabled" NTP
-		Server sinchronization, and using an external NTP Server, setting as
-		"Enabled" NTP sinchronization.
+		Server synchronization, and using an external NTP Server, setting as
+		"Enabled" NTP synchronization.
 
 		<variablelist>
 			<varlistentry>
 				<term>By hand</term>
 				<listitem>
-					<para>If sinchronization with other NTP server
+					<para>If synchronization with other NTP server
 					is disabled, date and time adjust will be
 					manual. Selecting corresponding values, shown
 					in the page, for system date and time values.
@@ -278,7 +276,7 @@
 			<varlistentry>
 				<term>Using another NTP Server</term>
 				<listitem>
-					<para>If date/time sinchronization with a NTP
+					<para>If date/time synchronization with a NTP
 					Server is enabled, another configuration will
 					be shown, where you can specify until a
 					maximum of three NTP Servers where eBox will

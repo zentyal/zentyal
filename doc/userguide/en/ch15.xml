@@ -1,5 +1,3 @@
-	<!-- vim: ts=2 sw=2 tw=75
--->
 <chapter id="ch-jabber">
 
 	<title>Jabber Server</title>
@@ -21,7 +19,7 @@
 		page and select, from the upper part, "Enabled" option from the
 		selection list.</para>
 
-		<para>You can configure Jabber server behaviour by setting these options:
+		<para>You can configure Jabber server behavior by setting these options:
 			<variablelist>
 				<varlistentry>
 					<term>Domain Name</term>
@@ -38,7 +36,7 @@
 					<listitem>
 						<para>Jabber server can be part of the planet-wide Jabber network;
 						or work as a stand-alone server on a corporative network. This
-						option allows to select its behaviour.</para>
+						option allows to select its behavior.</para>
 					</listitem>
 				</varlistentry>
 				<varlistentry>
@@ -55,7 +53,7 @@
 								<listitem>
 									<para>Second option, "Optional". It allows
 									the user to choose if communication with the
-									server should be encripted, with SSL, or
+									server should be encrypted, with SSL, or
 									plain.</para> 
 								</listitem>
 								<listitem>

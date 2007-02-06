@@ -1,5 +1,3 @@
-	<!-- vim: ts=2 sw=2 tw=75
--->
 <chapter id="ch-dhcp">
 
 	<title>DHCP Server</title>
@@ -32,7 +30,7 @@
 				<term>Options</term>
 				<listitem>
 					<para>These options are not required, and
-					leave them blank is ok. They are used to
+					leave them blank is OK. They are used to
 					define the default gateway and two Name
 					Servers in the network.</para>
 				</listitem>
@@ -43,10 +41,10 @@
 					<para>Range lists can be created with some
 					values you could like to assign to network
 					hosts. This lists must not have matches
-					between them and every allocatable adresses
+					between them and every allocatable addresses
 					must belong to the available range shown above
 					the ranges list. If no list is created, every
-					range will be used to assign adresses to the
+					range will be used to assign addresses to the
 					network.</para>
 				</listitem>
 			</varlistentry>
@@ -54,10 +52,10 @@
 				<term>Static assignments</term>
 				<listitem>
 					<para>A fixed IP can be assigned (if belongs
-					to the available range) to a MAC adress from
+					to the available range) to a MAC address from
 					the network. You just need to create an
 					item at the static assignation list which has
-					the MAC adress and the required IP adress.</para>
+					the MAC address and the required IP address.</para>
 				</listitem>
 			</varlistentry>
 		</variablelist>

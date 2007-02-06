@@ -1,5 +1,3 @@
-	<!-- vim: ts=2 sw=2 tw=75
--->
 <chapter id="ch-intro">
 
 	<title>Introduction</title>
@@ -21,7 +19,7 @@
 			<para>This guide does not include general
 			information about network services,
 			communication protocols nor its
-			application. These could be neccesary to fully
+			application. These could be needed to fully
 			understand the eBox, and its modules, way of
 			working and utility.</para>
 		</note>
@@ -59,7 +57,7 @@ eBox?--></para>
 		<para>Default URL to access to eBox administration
 		interface is <ulink
 		url="#">https://hostname/eBox</ulink>, where
-		<emphasis>hostname</emphasis> is the IP adress or the
+		<emphasis>hostname</emphasis> is the IP address or the
 		hostname where eBox is installed.</para>
 
 		<para>User interface is divided on three main parts:</para>
@@ -120,7 +118,7 @@ eBox?--></para>
 			</para>
 		</warning>
 
-		<para>There are some excepciones when it's not necessary to "Save
+		<para>There are some exceptions when it's not necessary to "Save
 		Changes". Just enough doing an action on the form where we are will
 		make the work. These are the cases:
 
@@ -130,7 +128,7 @@ eBox?--></para>
 						<listitem>
 							<para>
 							To add, modify or delete users
-							or groups are inmediate
+							or groups are immediate
 							actions, and it's not
 							necessary to "Save Changes" to
 							make them effective.</para>

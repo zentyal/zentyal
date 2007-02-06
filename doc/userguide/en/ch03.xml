@@ -1,5 +1,3 @@
-	<!-- vim: ts=2 sw=2 tw=75
--->
 <!-- PARA JORGE -->
 <chapter id="ch-network">
 
@@ -26,12 +24,12 @@
 			<varlistentry>
 				<term>Static</term>
 				<listitem>
-					<para>It will assign permanently an IP adress
+					<para>It will assign permanently an IP address
 					to the network interface. Once you have
-					choosen the configuration, you can set if
+					chosen the configuration, you can set if
 					this network interface is
 					external<footnote><para><!--FIXME--></para></footnote>,
-					its IP adress and its network mask.</para>
+					its IP address and its network mask.</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
@@ -39,7 +37,7 @@
 				<listitem>
 					<para>When you select this option for
 					configuration, the network interface will be
-					configured dinamically if a DHCP Server exists
+					configured dynamically if a DHCP Server exists
 					on the network. The only configuration
 					parameter is the ability to be an external
 					interface.</para>
@@ -65,7 +63,7 @@
 			any interface configured as static.</para>
 			<para>Once you have configured static interface, a form will
 			be shown to add virtual interfaces, where you can assign their
-			name, IP adress and network mask.
+			name, IP address and network mask.
 			</para>
 		</section>
 
@@ -75,7 +73,7 @@
 		<!-- Network->DNS -->
 		<title>DNS Servers</title>
 
-		<para>You can set IP adresses for the DNS Server that you want to use
+		<para>You can set IP addresses for the DNS Server that you want to use
 		to solve host names. You have to remember that, if your network
 		interfaces are configured with DHCP, your network settings could be
 		overwritten.</para>
@@ -95,7 +93,7 @@
 		<section>
 			<title>Default gateway</title> 
 			<para>Default gateway will be,
-			usually, your router IP adress.</para>
+			usually, your router IP address.</para>
 		</section>
 
 		<section>

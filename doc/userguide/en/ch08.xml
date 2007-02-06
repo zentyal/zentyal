@@ -1,5 +1,3 @@
-	<!-- vim: ts=2 sw=2 tw=75
--->
 <chapter id="ch-time">
 
 	<title>NTP Server</title>
@@ -16,7 +14,7 @@
 		.
 		</para>
 
-		<para>If it's "Enabled", clients with eBox as NTP Server will have its
+		<para>If it's <emphasis>"Enabled"</emphasis>, clients with eBox as NTP Server will have its
 		date/time configuration synchronized with eBox one, whose
 		configuration can be configured following the instructions at <link
 		linkend='sect-ebox-datetime'>Date/time configuration</link>

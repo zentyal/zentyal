@@ -1,5 +1,3 @@
-	<!-- vim: ts=2 sw=2 tw=75
--->
 <chapter id="ch-mail">
 
 	<title>Mail server</title>
@@ -24,7 +22,7 @@
 					<para>Choosing services tab, we can enable or
 					disable mail server, ask for authentication
 					to mail users or allow free access, and use
-					(or not) TLS to cypher communications between
+					(or not) TLS to cipher communications between
 					server and client. Also, you can enable POP3
 					and IMAP requiring users to use SSL, just
 					allowing them the decision or deny SSL use.
@@ -36,7 +34,7 @@
 				<listitem>
 					<para>The configuration shown below this tab,
 					allow to set a relay server, simply using its
-					IP adress. It also allows to set a maximum
+					IP address. It also allows to set a maximum
 					message limit, accepted by the server, and a
 					default size limit for the new mail
 					accounts. At the bottom, you can set the relay
@@ -52,7 +50,7 @@
 					external filter to control eBox mail
 					messages. To enable it, we need to set a port
 					on eBox system to establish communications,
-					and know IP adress and port where the filter
+					and know IP address and port where the filter
 					is located.</para>
 				</listitem>
 			</varlistentry>
@@ -92,7 +90,7 @@
 			<guimenu>Users</guimenu>
 		</menuchoice>
 		and editing our desired user, where you can also set
-		an alias for the user mail adress. Check <link
+		an alias for the user mail address. Check <link
 		linkend='sect-users-users'>User accounts</link> to
 		know more about the eBox user configuration.</para>
 

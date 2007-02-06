@@ -1,5 +1,3 @@
-	<!-- vim: ts=2 sw=2 tw=75
--->
 <chapter id="ch-printers">
 
 	<title>Printers</title>
@@ -63,7 +61,7 @@
 				<term>Driver options</term>
 				<listitem>
 					<para>Configuration options depends on the
-					installed driver. eBox will show, frecuently,
+					installed driver. eBox will show, frequently,
 					a list with the possible values for each
 					option, making easier the configuration, and
 					avoiding incorrect values of configured parameters.
