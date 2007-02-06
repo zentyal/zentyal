@@ -21,6 +21,7 @@ use warnings;
 
 use EBox::Gettext;
 use EBox::Summary::Module;
+use EBox::Summary::Status;
 use EBox::Sudo;
 use Perl6::Junction qw(any);
 use EBox::OpenVPN::Server;
