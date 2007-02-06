@@ -1,3 +1,5 @@
+0.8.99
+	+ New release
 0.8.1
 	+ fix bug to avoid calling endlessly ebox-software 
 	  after installing a package when automatic update was enable.
