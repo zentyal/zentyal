@@ -111,6 +111,7 @@ src/EBox/GConfModule/Makefile
 src/EBox/GConfModule/t/Makefile
 src/EBox/Global/Makefile
 src/EBox/Model/Makefile
+src/EBox/Types/Makefile
 src/EBox/Global/t/Makefile
 src/EBox//t/Makefile
 src/EBox/Test/Makefile
