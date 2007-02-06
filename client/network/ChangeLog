@@ -1,3 +1,7 @@
+0.8.99
+	+ Support multigateway configuration
+	+ Remove old default router configuration
+	+ Add migration script from version 0 to 1
 O.8.1
 	+ New release
 0.8
