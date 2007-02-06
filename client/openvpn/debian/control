@@ -2,7 +2,7 @@ Source: ebox-openvpn
 Section: web
 Priority: optional
 Maintainer: Javier Amor Garcia <javier.amor.garcia@warp.es>
-Build-Depends: debhelper (>= 5), autotools-dev
+Build-Depends: debhelper (>= 4.0.0), autotools-dev
 Standards-Version: 3.7.2
 
 Package: ebox-openvpn
