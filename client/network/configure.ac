@@ -66,6 +66,7 @@ src/EBox/CGI/Makefile
 src/EBox/CGI/Controller/Makefile
 src/EBox/CGI/View/Makefile
 src/templates/Makefile
+migration/Makefile
 schemas/Makefile
 src/libexec/Makefile
 stubs/Makefile
