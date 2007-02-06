@@ -21,7 +21,7 @@ INSTALLATION
   1.- install the openvpn package
     $ apt-get install openvpn
    
-    If the debian package has not added a tun device in /dev/net, we must do it ourselves:
+    If the Debian package has not added a tun device in /dev/net, we must do it ourselves:
 
     $ [ -e /dev/net ] || mkdir -m 755 /dev/net	
     $ [ -d /dev/net -a ! -e /dev/net/tun ] && /bin/mknod /dev/net/tun c 10 200
@@ -37,15 +37,15 @@ INSTALLATION
   As we had done before with openvpn, we must remove the links used by the system to start quagga automatically
      $ update-rc.d -f quagga remove
 
-  3.- Create Diffie-Hellaman parametes      
-    The diffie-hellman parameters file is located at /etc/openvpn/dh1024.pem. You can acreate it with openSSL   
+  3.- Create Diffie-Hellaman parameters      
+    The Diffie-Hellman parameters file is located at /etc/openvpn/dh1024.pem. You can create it with OpenSSL   
 
    $ openssl dhparam -out /etc/openvpn/dh1024.pem 1024
 
   4.- Setup nobody user and nogroup group 
 
-    We had to make sure 'nobody' user and 'nogroup' group exists, if necessary we create them as system user/group.  In case we want to use another group or user we can do it changing the values of the relevant keys in eBox's GConf
-.
+    We had to make sure 'nobody' user and 'nogroup' group exists, if necessary we create them as system user/group.  In case we want to use another group or user we can do it changing the values of the relevant keys in eBox's GConf.
+
  5.- Module installation
 
     Now we are ready to follow the normal configuration and installation procedure:
