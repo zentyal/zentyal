@@ -50,7 +50,7 @@ case "$1" in
 		invoke-rc.d saslauthd restart
 
 		# create log table
-		/usr/lib/ebox-logs/ebox-sql-table add message /usr/share/ebox/sqllog/mail.sql
+		/usr/lib/ebox/ebox-sql-table add message /usr/share/ebox/sqllog/mail.sql
 
                 # restart logs
                 invoke-rc.d ebox logs restart || true
