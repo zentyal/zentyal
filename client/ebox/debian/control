@@ -8,7 +8,7 @@ Standards-Version: 3.6.1
 
 Package: ebox
 Architecture: all
-Depends: libebox (>= 0.8.99), ebox (<< 0.9.99) apache-perl, libapache-mod-ssl, libapache-reload-perl, libapache-singleton-perl, libapache-authcookie-perl, gconf2, libgnome2-gconf-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl, runit, libapache-reload-perl (= 0.07-5warp.es), eject, cdrdao, mkisofs, cdrecord, dvd+rw-tools, postgresql, libdbd-pg-perl, libfile-tail-perl, libclone-perl
+Depends: libebox (>= 0.8.99), ebox (<< 0.9.99), apache-perl, libapache-mod-ssl, libapache-reload-perl, libapache-singleton-perl, libapache-authcookie-perl, gconf2, libgnome2-gconf-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl, runit, libapache-reload-perl (= 0.07-5warp.es), eject, cdrdao, mkisofs, cdrecord, dvd+rw-tools, postgresql, libdbd-pg-perl, libfile-tail-perl, libclone-perl
 Replaces: ebox (<< 0.7.0.99), ebox-logs
 Conflicts: ebox-dhcp  (<< 0.8.99), ebox-dns-cache (<< 0.8.99), ebox-firewall (<< 0.8.99), ebox-jabber (<< 0.8.99), ebox-mail (<< 0.8.99), ebox-network (<< 0.8.99), ebox-ntp (<< 0.8.99), ebox-objects (<< 0.8.99), ebox-printers (<< 0.8.99), ebox-samba (<< 0.8.99), ebox-software (<< 0.8.99), ebox-squid (<< 0.8.99), ebox-usersandgroups (<< 0.8.99), ebox-logs
 Description: Base framework
