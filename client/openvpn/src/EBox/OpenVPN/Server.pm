@@ -33,7 +33,7 @@ sub setProto
     my ($self, $proto) = @_;
 
     if ($proto ne 'tcp'  and ($proto ne 'udp') ) {
-	throw EBox::Exceptions::InvalidData(data => "server's protocol", value => $proto, advice => __("The protocol only may be tcp or udp.")  );
+	throw EBox::Exceptions::InvalidData(data => "server's protocol", value => $proto, advice => __("The protocol only may be TCP or UDP.")  );
     }
 
     $self->_checkPortIsNotDuplicate($self->port(), $proto);

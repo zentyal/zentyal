@@ -22,7 +22,7 @@ my $certificateInput =  [
 my @tlsRemoteOptions = ( { value =>  0,printableValue => __('disabled'), } , @certificateOptions);
 my $tlsRemoteInput = [
 		      name => 'tlsRemote',
-		      printableName => __('Client authentication by common name'),
+		      printableName => __('Client authorization by common name'),
 		      input => 'select',
 		      extraParams => [ options => \@tlsRemoteOptions ], 
 		      help        => __("Only clients with this value as full common name's prefix will will be authorized"),
@@ -64,12 +64,12 @@ my @tableElements  = (
       [ name => 'pullRoutes', 
 	printableName => __('Pull routes from eBox clients'), 
 	input => 'checkbox', 
-	help => __("If you want to create a tunnel between two eBox you will need this option. Don't forget to advertise routes to the client"),
+	help => __("If you want to create a tunnel between two eBox, you will need this option to be able to connect to the network in the client side"),
       ],
 		      
       [ name => 'clientToClient',    printableName => __('Allow client-to-client connections'), 
 	input => 'checkbox' ,
-	help => __('Allow clients to connect each other within OpenVPN subnet'),
+	help => __('Allow clients to connect each other within the VPN'),
       ], 
       $localInput,		      
      );
