@@ -6,8 +6,6 @@
 </%args>
 <%init>
 use EBox::Gettext;
-use HTML::Prototype;
-my $proto = new HTML::Prototype;
 my @tableHead = @{$dataTable->{'tableDescription'}};
 </%init>
 <script type="text/javascript" src="/data/js/ajax-helper.js">//</script>

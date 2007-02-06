@@ -6,9 +6,7 @@
 </%args>
 <%init>
 use EBox::Gettext;
-use HTML::Prototype;
 use Data::Dumper;
-my $prototype = new HTML::Prototype;
 
 
 my @tableHead = @{$dataTable->{'tableDescription'}};
