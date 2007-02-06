@@ -29,6 +29,9 @@ case "$1" in
 		fi
 
 
+		# Migrate data if needed
+		/usr/lib/ebox/ebox-migrate /usr/lib/ebox-network/migration/
+
 		invoke-rc.d ebox network restart
 	;;
 esac
