@@ -1,5 +1,3 @@
-<!-- vim: ts=2 sw=2 tw=75
--->
 <chapter id="ch-intro">
 
 	<title>Introduction</title>
@@ -58,7 +56,7 @@
 
 		<para>The system is based on Linux and has been developed on top of
 		Debian, no support is provided for other Linux distributions as there
-		are some debianisms in some of the modules. Porting to other Linux
+		are some "debianisms" in some of the modules. Porting to other Linux
 		distributions should be quite easy, and porting to other Unix like
 		operating systems such as OpenBSD would take a little more work but it
 		should still be doable, and worth it.</para>
@@ -106,7 +104,7 @@
 				<listitem>
 
 					<para>The web interface is served by apache, we usually use the
-					apache-perl debian package.</para>
+					apache-perl Debian package.</para>
 
 				</listitem>
 			</varlistentry>
@@ -228,7 +226,7 @@
 		<para> This separation between the GUI and the backend opens the
 		possibility for other means of changing the config. One such means
 		is through perl scripts, these is useful when making packages for a
-		distro, the package maintainer can write a simple script to import the
+		distribution, the package maintainer can write a simple script to import the
 		current system config into eBox, or set up some default values. Another
 		use of the API is for other modules, the firewall module is the most
 		used case, almost all modules need tell the firewall to open some port
