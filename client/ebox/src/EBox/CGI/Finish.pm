@@ -52,7 +52,8 @@ sub _process
 		if ($global->unsaved) {
 			my @array = ();
 			push(@array, 'unsaved' => 'yes');
-			push(@array, 'actions' => pendingActions());
+			#FIXME: uncomment to enable logadmin stuff
+			#push(@array, 'actions' => pendingActions());
 			$self->{params} = \@array;
 		}
 	}

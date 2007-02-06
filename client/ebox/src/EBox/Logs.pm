@@ -18,7 +18,9 @@ package EBox::Logs;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::LogObserver);
+#FIXME: readd EBox::LogObserver to have logadmin working
+#use base qw(EBox::GConfModule EBox::LogObserver);
+use base qw(EBox::GConfModule);
 
 use EBox::Global;
 use EBox::Gettext;
