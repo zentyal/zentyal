@@ -1,0 +1,242 @@
+# Basque translations for ebox-ntp package.
+# Copyright (C) 2007 Warp S.L.
+# This file is distributed under the same license as the ebox-ntp package.
+# Automatically generated, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-ntp 0.8.99"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2007-02-02 19:15+0100\n"
+"PO-Revision-Date: 2007-02-02 19:15+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr ""
+
+#: src/EBox/CGI/Enable.pm:41
+msgid "module status"
+msgstr ""
+
+#: src/EBox/CGI/Index.pm:30
+msgid "NTP Server"
+msgstr ""
+
+#: src/EBox/CGI/Timezone.pm:30
+msgid "Timezone settings"
+msgstr ""
+
+#: src/EBox/CGI/Datetime.pm:30
+msgid "Date and time settings"
+msgstr ""
+
+#: src/EBox/CGI/ChangeTimeZone.pm:41
+msgid "country"
+msgstr ""
+
+#: src/EBox/CGI/ChangeTimeZone.pm:42
+msgid "continent"
+msgstr ""
+
+#: src/EBox/CGI/AddServers.pm:42
+msgid "first ntp server"
+msgstr ""
+
+#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:199
+#: src/templates/servers.mas:18
+msgid "Primary server"
+msgstr ""
+
+#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:213
+#: src/templates/servers.mas:30
+msgid "Secondary server"
+msgstr ""
+
+#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:42
+msgid "Tertiary server"
+msgstr ""
+
+#: src/EBox/CGI/ChangeDate.pm:41
+msgid "Day"
+msgstr ""
+
+#: src/EBox/CGI/ChangeDate.pm:42
+msgid "Month"
+msgstr ""
+
+#: src/EBox/CGI/ChangeDate.pm:43
+msgid "Year"
+msgstr ""
+
+#: src/EBox/CGI/ChangeDate.pm:44
+msgid "Hour"
+msgstr ""
+
+#: src/EBox/CGI/ChangeDate.pm:45
+msgid "Minutes"
+msgstr ""
+
+#: src/EBox/CGI/ChangeDate.pm:46
+msgid "Seconds"
+msgstr ""
+
+#: src/EBox/NTP.pm:201
+msgid "primary server"
+msgstr ""
+
+#: src/EBox/NTP.pm:206 src/EBox/NTP.pm:225
+msgid "Primary and secondary server must be different"
+msgstr ""
+
+#: src/EBox/NTP.pm:209
+msgid "secondary server"
+msgstr ""
+
+#: src/EBox/NTP.pm:222
+msgid "Primary and tertiary server must be different"
+msgstr ""
+
+#: src/EBox/NTP.pm:228
+msgid "tertiary server"
+msgstr ""
+
+#: src/EBox/NTP.pm:244
+#, perl-brace-format
+msgid "{name} IP address"
+msgstr ""
+
+#: src/EBox/NTP.pm:247
+#, perl-brace-format
+msgid "{name} host name"
+msgstr ""
+
+#: src/EBox/NTP.pm:389
+msgid "NTP local server"
+msgstr ""
+
+#: src/EBox/NTP.pm:402
+msgid "System"
+msgstr ""
+
+#: src/EBox/NTP.pm:405
+msgid "Date/time"
+msgstr ""
+
+#: src/EBox/NTP.pm:408 src/templates/timezone.mas:15
+msgid "Time zone"
+msgstr ""
+
+#: src/EBox/NTP.pm:412
+msgid "NTP server"
+msgstr ""
+
+#: src/templates/synch.mas:11 src/templates/synch.mas:16
+msgid "Disabled"
+msgstr ""
+
+#: src/templates/synch.mas:13 src/templates/synch.mas:18
+msgid "Enabled"
+msgstr ""
+
+#: src/templates/synch.mas:23 src/templates/synch.mas:25
+#: src/templates/servers.mas:55 src/templates/timezone.mas:37
+#: src/templates/timezone.mas:39 src/templates/date.mas:111
+#: src/templates/date.mas:113
+msgid "Change"
+msgstr ""
+
+#: src/templates/index.mas:11
+msgid "NTP server status"
+msgstr ""
+
+#: src/templates/servers.mas:7
+msgid "NTP servers"
+msgstr ""
+
+#: src/templates/servers.mas:11
+msgid ""
+"You should remember to set up your timezone to have synchronization behaving "
+"correctly."
+msgstr ""
+
+#: src/templates/timezone.mas:19
+msgid "A time zone change will cause all eBox services to be restarted"
+msgstr ""
+
+#: src/templates/datetime.mas:13
+msgid "Time synchronization with NTP servers"
+msgstr ""
+
+#: src/templates/datetime.mas:18
+msgid "External NTP servers"
+msgstr ""
+
+#: src/templates/datetime.mas:23
+msgid "Change Date and Time"
+msgstr ""
+
+#: src/templates/date.mas:10
+msgid ""
+"A change in the date or time will cause all eBox services to be restarted"
+msgstr ""
+
+#: src/templates/date.mas:16
+msgid "Date"
+msgstr ""
+
+#: src/templates/date.mas:32
+msgid "January"
+msgstr ""
+
+#: src/templates/date.mas:33
+msgid "February"
+msgstr ""
+
+#: src/templates/date.mas:34
+msgid "March"
+msgstr ""
+
+#: src/templates/date.mas:35
+msgid "April"
+msgstr ""
+
+#: src/templates/date.mas:36
+msgid "May"
+msgstr ""
+
+#: src/templates/date.mas:37
+msgid "June"
+msgstr ""
+
+#: src/templates/date.mas:38
+msgid "July"
+msgstr ""
+
+#: src/templates/date.mas:39
+msgid "August"
+msgstr ""
+
+#: src/templates/date.mas:40
+msgid "September"
+msgstr ""
+
+#: src/templates/date.mas:41
+msgid "October"
+msgstr ""
+
+#: src/templates/date.mas:42
+msgid "November"
+msgstr ""
+
+#: src/templates/date.mas:43
+msgid "December"
+msgstr ""
+
+#: src/templates/date.mas:69
+msgid "Time"
+msgstr ""
