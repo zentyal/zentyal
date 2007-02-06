@@ -1,3 +1,8 @@
+0.8.99
+	+ Add data table model for generic Ajax tables
+	+ Add types to be used by models
+	+ Add MigrationBase and ebox-migrate to upgrade data models
+	+ Some English fixes
 0.8.1
 	+ New release
 0.8
