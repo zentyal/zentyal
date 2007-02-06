@@ -9,7 +9,7 @@ Package: libebox
 Architecture: all
 Depends: sudo, iproute, liblog-dispatch-perl, liblog-log4perl-perl, libhtml-mason-perl, liblocale-gettext-perl, liberror-perl, libdevel-stacktrace-perl, libintl-perl, libnet-ip-perl, gettext, libfile-slurp-perl, libreadonly-perl, libreadonly-xs-perl, libperl6-junction-perl
 Replaces: ebox (<< 0.6)
-Conflicts: ebox (<< 0.7.99)
+Conflicts: ebox (<< 0.8.99), ebox(>= 0.9.99)
 Description: eBox common library for server and client
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified

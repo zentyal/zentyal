@@ -8,7 +8,7 @@ Standards-Version: 3.6.1
 
 Package: ebox-objects
 Architecture: all
-Depends: ebox (>= 0.7.99), libnet-ip-perl
+Depends: ebox (>= 0.8.99), ebox (<< 0.9.99), libnet-ip-perl
 Replaces: ebox (<< 0.6)
 Conflicts: ebox (<< 0.6)
 Description: Object management

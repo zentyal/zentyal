@@ -7,7 +7,7 @@ Standards-Version: 3.6.1
 
 Package: ebox-ca
 Architecture: all
-Depends: ebox, openssl (>= 0.9.7e), libdate-calc-perl, libfile-copy-recursive-perl
+Depends: ebox (>= 0.8.99), ebox (<< 0.9.99), openssl (>= 0.9.7e), libdate-calc-perl, libfile-copy-recursive-perl
 Description: Certificate Authority Manager for eBox
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
