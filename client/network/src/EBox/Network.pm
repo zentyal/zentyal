@@ -1727,8 +1727,6 @@ sub _regenConfig
 	} catch EBox::Exceptions::Internal with {};
 
 	my $dhcpgw = $self->DHCPGateway();
-	use EBox;
-	EBox::debug("co dhcpgw:$dhcpgw'");
 	unless ($dhcpgw and ($dhcpgw ne '')) {
 		try {
 			root("/sbin/ip route del default table default");
