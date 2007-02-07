@@ -50,7 +50,8 @@ sub runGConf
 	}
 	
 	$network->set_string(BASE_KEY . '/ip', $gw);
-	$network->set_string(BASE_KEY . '/interface', $gw);
+	$network->set_string(BASE_KEY . '/interface', $iface);
+	$network->set_string(BASE_KEY . '/name', DEFAULT_NAME);
 	$network->set_bool(BASE_KEY . '/default', 1);
 	$network->set_int(BASE_KEY . '/upload', DEFAULT_UPLOAD);
 	$network->set_int(BASE_KEY . '/download', DEFAULT_DOWNLOAD);
