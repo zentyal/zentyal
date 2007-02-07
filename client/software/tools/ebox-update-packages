@@ -20,12 +20,13 @@ writeToFile("starting");
 
 foreach my $pkg (@ARGV) {
 	writeToFile($pkg);
-	my $cmd ='/usr/bin/apt-get install --no-download -q --yes --no-remove';
+	my $cmd ='/usr/bin/apt-get install --no-download -q --yes';
 	system("sudo $cmd $pkg");
 }
 
 system("sudo /etc/init.d/ebox apache restart");
 system("sudo apt-get install -f");
+
 
 writeToFile("done");
 
