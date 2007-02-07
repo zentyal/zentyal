@@ -33,7 +33,7 @@
     </para>
   </section>
   <section id="sect-create-ca">				      
-    <title>Cf's certificate creation</title>
+    <title>CA's certificate creation</title>
     <para>
       Firstly, in order to use certificate, issuing the CA's certificate
       is needed signing by itself. This certificate is used to
