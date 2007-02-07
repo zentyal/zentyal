@@ -10,6 +10,8 @@ case "$1" in
 
                 # Restart slapd
                 invoke-rc.d slapd restart
+
+		/usr/bin/ebox-clean-gconf jabber || true
 		;;		
 esac
 
