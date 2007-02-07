@@ -11,6 +11,7 @@ case "$1" in
 		# Restart slapd
 		invoke-rc.d slapd restart
 
+		/usr/bin/ebox-clean-gconf samba || true
 		;;		
 	purge)
 	 	test -d /home/samba && rm -rf /home/samba
