@@ -23,28 +23,26 @@
     </para>
 
     <para>
-     El propósito del Gestor de Certificados es permitir la creación
+     El propósito del módulo de Gestión de la Autoridad de Certificados es permitir la creación
      de certificados para su uso por otros módulos eBox o por aplicaciones externas. 
     </para>
     <para>
-     Los certificados se crean usando un certificado de la autoridad de certificación
-     que sera creado con este módulo.
+     Los certificados se crean usando un certificado de la autoridad de certificación (<acronym>CA</acronym> : "Certification Authority")      que sera creado con este módulo.
     </para>
   </section>
 
   <section id="sect-create-ca">				
     <title>Creación del certificado de la autoridad de certificación</title>
     <para>
-      Para poder usar este módulo, el primer paso es crear el
-      certificado de la autoridad de certificación.
-      El certificado de la autoridad de certificación es necesaria para
-      expedir certificados; así que el resto de funcionalidad del módulo
+      Primero, es necesario expedir el certificado de la CA, que sera auto-firmado.
+      El certificado de la CA es necesaria para expedir certificados;
+      así que el resto de funcionalidad del módulo
       no estará disponible hasta que esta sea creada.
     </para>
     <para>
-      Para crearla simplemente entraremos en la pagina del módulo y nos
+      Para crearlo simplemente entraremos en la pagina del módulo y nos
       encontraremos ante el formulario para crear el certificado de la
-      autoridad de certificación.
+      CA.
       Nos serán requeridos el nombre de la organización y el numero de
       días que transcurrirán antes de la expiración del certificado.
     </para>
@@ -64,7 +62,7 @@
   <section id="sect-create-certificate">
     <title>Creación de certificados </title>
     <para>
-      Una vez creado el certificado de la autoridad de certificación, seremos capaces de
+      Una vez creado el certificado de la CA, seremos capaces de
       generar certificados con él.
     </para>
     <para>
@@ -74,7 +72,7 @@
       Los datos necesarios son el nombre común del certificado y los
       días que permanecerá activo antes de expirar. Este ultimo dato
       esta limitado por el hecho de que ningún certificado puede
-      expirar mas tarde que el certificado de la autoridad de certificación.
+      expirar mas tarde que el certificado de la CA.
     </para>
     <para>
       Una vez el certificado halla sido creado, aparecerá en la lista
@@ -88,7 +86,10 @@
     <para>
       A través de la lista de certificados podemos acceder a distintas
       acciones que realizar con ellas. 
-      Las acciones disponibles son descargar archivos, revocar y renovar.
+      Las acciones disponibles son <link
+      linkend="sect-certificate-actions-download">descargar archivos</link>, 
+      <link linkend="sect-certificate-actions-revoke">revocar</link> 
+      y <link linkend="sect-certificate-actions-renew">renovar.</link>
     </para>
 
     <section id="sect-certificate-actions-download">
@@ -118,8 +119,8 @@
       </para>
       <warning>
 	<para>
-	  Si el certificado revocado es el certificado de la autoridad
-	  de certificación, todos los certificados generados con él serán
+	  Si el certificado revocado es el certificado de la CA, 
+	  todos los certificados generados con él serán
 	  automáticamente revocados
 	</para>
       </warning>
@@ -140,8 +141,9 @@
       <warning>
 	<para>
 	  Si renovamos el certificado de la autoridad de certificación,
-	  se renovaran automáticamente todos los certificados generados
-	  con él.
+	  se renovaran automáticamente todos los certificados generados	<!---->
+	  con él. La duración de los certificados renovados automáticamente sera hasta la
+	  fecha de expiración del certificado de CA
 	</para>
       </warning>
     </section>
