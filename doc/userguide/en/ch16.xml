@@ -1,7 +1,20 @@
 <chapter id="ch-ca">
   <title>Certification Authority Management</title>
+
+  <section id="sect-ca-prereq">
+    <title>Prerequisites</title>
+    <para>
+      A basic knowledge of public key infrastructures is needed to 
+      understand this module.
+      You can find a good introduction in <ulink
+      url="http://es.wikipedia.org/wiki/PKI">the wikipedia article
+      about PKI.</ulink>
+    </para>
+  </section>
+
+
   <section id="sect-ca-overview">
-    <title>Certification Authority Management</title>
+    <title>Overview of Certification Authority Management</title>
     <para>
       You can get to Certification Authority (<acronym>CA</acronym>) 
       Management at
