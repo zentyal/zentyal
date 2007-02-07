@@ -17,8 +17,22 @@
 		</para>
 
 		<para>
+                 The firewall has different behaviour depen with 
+		external or inter
 		<!--TODO: qué hace eBox con los interfaces externos-->
 		</para>
+
+                <para>
+                 The internal interfaces are connected to local
+                 networks. They had not restricitons as the
+                 external interfaces have.
+                </para>
+
+                <para>
+                The external interfaces are connected to external
+                networks and eBox only allows redirects through them.
+                However eBox modules can open ports normally.
+               </para>
 
 		<para>
 		<!--TODO: qué tráficos se aplican para objetos y reglas-->
