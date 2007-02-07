@@ -13,6 +13,7 @@ case "$1" in
 		# Restart slapd
 		invoke-rc.d slapd restart
 
+		/usr/bin/ebox-clean-gconf printers || true
 		;;		
 	purge)
                 /usr/lib/ebox/ebox-sql-table drop jobs || true
