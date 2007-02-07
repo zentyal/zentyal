@@ -15,11 +15,11 @@
      de certificados para su uso por otros módulos eBox o por aplicaciones externas. 
     </para>
     <para>
-     Los certificados se crean usando una autoridad de certificación
-     que es creada por el usuario.
+     Los certificados se crean usando un certificado de la autoridad de certificación
+     que sera creado con este módulo.
     </para>
   </section>
-  <section id="sect-create-ca">				       <!---->
+  <section id="sect-create-ca">				
     <title>Creación del certificado de la autoridad de certificación</title>
     <para>
       Para poder usar este módulo, el primer paso es crear la autoridad
