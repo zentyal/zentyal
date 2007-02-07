@@ -19,6 +19,8 @@ case "$1" in
 		# restart logs
                 invoke-rc.d ebox logs restart || true
 
+		/usr/bin/ebox-clean-gconf mail || true
+
 		;;		
 
 	purge)
