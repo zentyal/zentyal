@@ -170,7 +170,15 @@ void listEBoxPkgs() {
 		if(!strncmp(P.Name(),"ebox",4)) {
 			name = P.Name();
 			removable = !((name == "ebox") || (name=="ebox-software"));
+			//if there are no versions at all, continue
 			if(P.VersionList() == 0) continue;
+
+			//if the only version available is a removed one ( ==
+			// there are no candidates and P.CurrentVer() is null),
+			// continue
+
+			pkgCache::VerIterator curverObject = Plcy->GetCandidateVer(P);
+			if (!P.CurrentVer() && (curverObject.end() == true)) continue;
 			std::cout << "{";
 			std::cout << "'name' => '" << name << "'," << std::endl;
 			if(removable) {
@@ -180,11 +188,11 @@ void listEBoxPkgs() {
 			}
 			std::string curver;
 			if(P.CurrentVer()) {
+				//get current package version
 				curver = P.CurrentVer().VerStr();
 				version = curver;
 				std::cout << "'version' => '" << curver << "'," << std::endl;
 			}
-			pkgCache::VerIterator curverObject = Plcy->GetCandidateVer(P);
 			if (curverObject.end() != true) {
 				curver = curverObject.VerStr();
 			}
