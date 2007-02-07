@@ -1,5 +1,17 @@
 <chapter id="ch-ca">
   <title>Gestión de la Autoridad de Certificados</title>
+
+  <section id="sect-ca-prereq">
+    <title>Requisitos previos</title>
+    <para>
+      Es necesario un conocimiento básico de infraestructuras de clave
+      publica para el uso del módulo de CA. 
+      Un buen sitio para empezar a iniciarse en el tema puede ser
+      <ulink  url="http://es.wikipedia.org/wiki/PKI">el articulo de wikipedia sobre PKI</ulink>
+    </para>
+  </section>
+
+
   <section id="sect-ca-overview">
     <title>Gestión de la Autoridad de Certificados</title>
     <para>
@@ -19,12 +31,14 @@
      que sera creado con este módulo.
     </para>
   </section>
+
   <section id="sect-create-ca">				
     <title>Creación del certificado de la autoridad de certificación</title>
     <para>
-      Para poder usar este módulo, el primer paso es crear la autoridad
-      de certificación.La autoridad de certificación es necesaria para
-      crear certificados; así que el resto de funcionalidad del módulo
+      Para poder usar este módulo, el primer paso es crear el
+      certificado de la autoridad de certificación.
+      El certificado de la autoridad de certificación es necesaria para
+      expedir certificados; así que el resto de funcionalidad del módulo
       no estará disponible hasta que esta sea creada.
     </para>
     <para>
@@ -36,13 +50,13 @@
     </para>
     <warning>
       <para>
-	A la hora de establecer la duración del certificado hay que tener
+	A la hora de establecer la duración del certificado  hay que tener
 	en cuenta que su expiración revocara todos los certificados
-	expedidos por la autoridad de certificación.
+	expedidos por él.
 	Esto supondrá la parada de los servicios
 	dependientes de la infraestructura de certificación hasta que
 	sea restablecida.
-      </para>						       <!---->
+      </para>				
     </warning>
     
   </section>
@@ -50,8 +64,8 @@
   <section id="sect-create-certificate">
     <title>Creación de certificados </title>
     <para>
-      Una vez creada la autoridad de certificación, seremos capaces de
-      generar certificados con ella.
+      Una vez creado el certificado de la autoridad de certificación, seremos capaces de
+      generar certificados con él.
     </para>
     <para>
       Para generarlos tan solo tendremos que usar el formulario que
@@ -74,11 +88,11 @@
     <para>
       A través de la lista de certificados podemos acceder a distintas
       acciones que realizar con ellas. 
-      Las acciones disponibles son descargar, revocar y renovar.
+      Las acciones disponibles son descargar archivos, revocar y renovar.
     </para>
 
     <section id="sect-certificate-actions-download">
-      <title>Descarga de certificado y claves</title>
+      <title>Descargar archivos</title>
       <para>
 	Pulsando en el icono de descargar obtendremos un archivo
 	comprimido en el que podemos encontrar tanto el certificado como sus
@@ -89,7 +103,7 @@
     </section>
       
     <section id="sect-certificate-actions-revoke">
-      <title>Revocación de certificado</title>
+      <title>Revocar</title>
       <para>
 	Mediante el icono de revocar, podemos revocar cualquier
 	certificado. 
@@ -112,14 +126,16 @@
     </section>
 
     <section id="sect-certificate-actions-renew">
-      <title>Renovación de certificado</title>
+      <title>Renovar</title>
       <para>
 	Es posible renovar un certificado usando el icono de
-	renovar. 
+	renovar. Te sera pedida la nueva duración del certificado.
+      </para>
+      <para>
 	Para renovar un certificado, primero se revoca y a
 	continuación se expide uno nuevo.
-	Por este motivo cualquier servicio que use el certificado
-	resultara detenido a renovar un certificado.
+	Los módulos de eBox serán capaces de obtener el nuevo
+	certificado pero tendrás que suministrarselo manualmente a las aplicaciones externas.
       </para>
       <warning>
 	<para>
