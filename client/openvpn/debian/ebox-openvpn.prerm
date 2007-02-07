@@ -21,6 +21,6 @@ case "$1" in
 		;;
 	remove)
 		remove_gconf_schemas
-		pkill openvpn || true
+		pkill -f /usr/sbin/openvpn || true
 		;;	
 esac 
