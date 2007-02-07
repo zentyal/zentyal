@@ -108,6 +108,7 @@ sub installPkgs # (@pkgs)
 		throw EBox::Exceptions::Internal("Cannot fork().");
 	}
 	if ($pid) {
+		truncate(EBox::Config::tmp() . "/ebox-update-log", 0);
 		return; # parent returns immediately
 	}
 	POSIX::setsid();
