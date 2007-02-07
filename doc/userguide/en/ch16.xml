@@ -3,42 +3,41 @@
   <section id="sect-ca-overview">
     <title>Certification Authority Management</title>
     <para>
-      You can get to Certification Authority Management at
+      You can get to Certification Authority (<acronym>CA</acronym>) 
+      Management at
       <menuchoice>
 	<guimenu>Certificate Manager</guimenu>
       </menuchoice>
     </para>
 
     <para>
-      The purpose of the Certification Authority Management is to
-      allow the issue of certificates which can be used by another
-      eBox's modules or external applications.
+      The CA Management purpose is to allow the issue of certificates, 
+      which can be used by another eBox modules or external applications.
     </para>
     <para>
-      The certificates are issued using a certificate authority's
+      The certificates are issued using a Cf's
       certificate which will be created with this module.
     </para>
   </section>
   <section id="sect-create-ca">				      
-    <title>Creation of certification authority's certificate</title>
+    <title>Cf's certificate creation</title>
     <para>
-      The first step, to use certificate is to issue the certificate
-      of the certification authority. This certificate is needed to
+      Firstly, in order to use certificate, issuing the CA's certificate
+      is needed signing by itself. This certificate is used to
       issue 'normal' certificates, so the other module's features would
       not be available until it exists.
     </para>
     
     <para>
-       To issue it we will enter in the module's page and we will
-       found a form for create the certification authority's
-       certificate.
-       The form will require the organisation's name and the number of
-       day until certificate's expiration.
+       To achieve so, we enter in the module's page and we find
+       a form to create the CA's certificate.
+       The form requires the organization's name and the number of
+       days till the certificate expires.
     </para>
     <warning>
       <para>
-	When establishing certificate's duration we have to keep in
-	mind that his expiration will also expire any certificate
+	Establishing certificate's life, we have to keep in
+	mind that its expiration will also expire any certificate
 	issued with it.
 	This would stop any service which depends on the revoked certificates.
       </para> 
@@ -49,29 +48,31 @@
   <section id="sect-create-certificate">
     <title>Certificates creation</title>
     <para>
-      Once the certificate authority's certificate is in place, we be
-      able to issue certificates with it.
+      Once the CA's certificate is in place, we are
+      able to issue new certificates with it.
     </para>
     <para>
-      To issue them we will fill the form which appears in the top of
+      In order to do so, we fill the form which appears on the top of
       the module's page.
-      The necessary data are the certificate's common name and the
-      number of days until expiration. This last value is limited by
-      the duration of the certification authority's certificate.
+      The mandatory data are the certificate's common name and the
+      number of days until its expiration. This last value is limited by
+      the duration of the CA's certificate.
     </para>
     <para>
-      When the certificate has been issued it will appear in the
-      certificate's list and it will be available to the eBox's
-      modules which use certificates.
+      When the certificate has been issued, it will appear in the
+      certificate's list and it will be available to the remainder eBox
+      modules to use it.
     </para>
   </section>
       
   <section id="sect-certificate-actions">
     <title>Actions upon certificates</title>
     <para>
-      Though the certificate's list we can access to actions which can
+      Through the certificate's list we can access to actions which can
       be done upon each certificate.
-      The actions available are download files, revoke and renew.
+      The actions available are <link linkend="sect-certificate-actions-download">download files</link>, 
+      <link linkend="sect-certificate-actions-revoke">revoke</link> 
+      and <link linkend="sect-certificate-actions-renew">renew</link>.
     </para>
 
     <section id="sect-certificate-actions-download">
@@ -88,8 +89,8 @@
     <section id="sect-certificate-actions-revoke">
       <title>Revoke</title>
       <para>
-	Though the revoke icon, we can revoke any certificate.
-	After clicking it, we will found another form in which we can
+	Through the revoke icon, we can revoke any certificate.
+	After clicking it, we find another form in which we can
 	specify the revocation reason or cancel the action.
       </para>
       <para>
@@ -99,9 +100,9 @@
       </para>
       <warning>
 	<para>
-	  In case the revoked certificate is the certification
-	  authority's certificate, all certificates generated with the
-	  certificate will be automatically revoked.
+	  In case the revoked certificate is the CA's certificate, 
+	  all certificates generated with the certificate will be 
+	  automatically revoked.
 	</para>
       </warning>
     </section>
@@ -109,19 +110,20 @@
     <section id="sect-certificate-actions-renew">
       <title>Renew</title>
       <para>
-	You can renew certificates using the renew icon. You will be
-	asked the new certificate's duration.
+	You can renew certificates using the renew icon. You are
+	asked about the new certificate's duration.
       </para>
       <para>
-	When renewing a certificate, first is revoked and then a new
-	certificate with the same data is issued.
+	When renewing a certificate, a revocation and an issue of the new
+	certificate with the same data is done.
 	The eBox modules will be automatically get the new certificate
 	but you will need to supply it manually to external applications.
       </para>
       <warning>
 	<para>
-	  If you renew the certification authority's certificate all
-	  the certificates created with it will be also automatically renewed.
+	  If you renew the CA's certificate, all
+	  the certificates created with it will be also automatically renewed
+	  until at much the CA's certificate expiration date.
 	</para>
       </warning>
     </section>

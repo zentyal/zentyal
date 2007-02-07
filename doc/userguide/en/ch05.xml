@@ -17,20 +17,20 @@
 		</para>
 
 		<para>
-                 The firewall has different behaviour with 
+                 The firewall has different behavior with 
 		external or internal network interfaces.
 		<!--TODO: qué hace eBox con los interfaces externos-->
 		</para>
 
                 <para>
                  The internal interfaces are connected to local
-                 networks. They had not restricitons as the
+                 networks. They had not restrictions as the
                  external interfaces have.
                 </para>
 
                 <para>
                 The external interfaces are connected to external
-                networks and eBox only allows redirects through them.
+                networks and eBox only allows redirections from them.
                </para>
 
 		<para>
