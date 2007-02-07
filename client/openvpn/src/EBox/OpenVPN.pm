@@ -500,18 +500,19 @@ sub _doDaemon
 }
 
 sub running
-  {
-    my ($self) = @_;
-
-    if ($self->_runningInstances()) {
-      return 1;
-    } 
-   else {
-      my @activeDaemons = $self->activeDaemons();
-      return @activeDaemons == 0 ? 1 : 0;      
-    }
-    
+{
+  my ($self) = @_;
+  
+  if ($self->_runningInstances()) {
+    return 1;
+  } 
+  elsif ($self->service) {
+    my @activeDaemons = $self->activeDaemons();
+    return @activeDaemons == 0 ? 1 : 0;      
   }
+  
+  return 0;
+}
 
 
 
