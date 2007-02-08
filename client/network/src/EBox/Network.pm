@@ -1726,6 +1726,7 @@ sub _regenConfig
 		root("/sbin/vconfig set_name_type VLAN_PLUS_VID_NO_PAD");
 	} catch EBox::Exceptions::Internal with {};
 
+	$self->DHCPGatewayCleanUpFix();
 	my $dhcpgw = $self->DHCPGateway();
 	unless ($dhcpgw and ($dhcpgw ne '')) {
 		try {
@@ -2019,6 +2020,24 @@ sub DHCPGatewayCleanUp
 {
 	my ($self) = @_;
 	$self->st_unset("dhcp/gateway");
+}
+
+# Method: DHCPGatewayCleanUpFix
+#
+#	Remove gateway if there's a dhcp gateway and no ifaces 
+#	configured via dhcp
+#
+# XXX: rant: This module has turned into a pile of evil hacks and methods
+#	     We should schedule it for surgery -total rework- ASAP
+sub DHCPGatewayCleanUpFix
+{
+	my ($self) = @_;
+	
+	return unless ($self->DHCPGateway());
+
+	unless ($self->st_all_dirs("dhcp")) {
+		$self->DHCPGatewayCleanUp();
+	}
 }
 
 # Method: DHCPAddress
