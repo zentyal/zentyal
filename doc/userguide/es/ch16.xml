@@ -4,13 +4,13 @@
   <section id="sect-ca-prereq">
     <title>Requisitos previos</title>
     <para>
-      Es necesario un conocimiento básico de infraestructuras de clave
-      publica para el uso del módulo de CA. 
+      Es necesario un conocimiento básico de la infraestructura de clave
+      pública (<acronym>PKI</acronym>) para el uso del módulo de
+      Gestión de Certificados. 
       Un buen sitio para empezar a iniciarse en el tema puede ser
-      <ulink  url="http://es.wikipedia.org/wiki/PKI">el articulo de wikipedia sobre PKI</ulink>
+      <ulink  url="http://es.wikipedia.org/wiki/PKI">el artículo de Wikipedia sobre PKI</ulink>
     </para>
   </section>
-
 
   <section id="sect-ca-overview">
     <title>Gestión de la Autoridad de Certificados</title>
@@ -27,29 +27,32 @@
      de certificados para su uso por otros módulos eBox o por aplicaciones externas. 
     </para>
     <para>
-     Los certificados se crean usando un certificado de la autoridad de certificación (<acronym>CA</acronym> : "Certification Authority")      que sera creado con este módulo.
+     Los certificados se crean usando un certificado de la autoridad
+     de certificación (<acronym>CA</acronym> : "Certification
+     Authority") que será creado con este módulo.
     </para>
   </section>
 
   <section id="sect-create-ca">				
     <title>Creación del certificado de la autoridad de certificación</title>
     <para>
-      Primero, es necesario expedir el certificado de la CA, que sera auto-firmado.
-      El certificado de la CA es necesaria para expedir certificados;
-      así que el resto de funcionalidad del módulo
-      no estará disponible hasta que esta sea creada.
+      Primero, es necesario expedir el certificado de la CA, que es
+      firmado por sí mismo.
+      El certificado de la CA es necesario para expedir nuevos
+      certificados; así que el resto de funcionalidad del módulo
+      no estará disponible hasta que ésta sea creada.
     </para>
     <para>
-      Para crearlo simplemente entraremos en la pagina del módulo y nos
+      Para crearlo simplemente entraremos en la página del módulo y nos
       encontraremos ante el formulario para crear el certificado de la
       CA.
-      Nos serán requeridos el nombre de la organización y el numero de
+      Se requerirán el nombre de la organización y el número de
       días que transcurrirán antes de la expiración del certificado.
     </para>
     <warning>
       <para>
-	A la hora de establecer la duración del certificado  hay que tener
-	en cuenta que su expiración revocara todos los certificados
+	A la hora de establecer la duración del certificado hay que tener
+	en cuenta que su expiración revocará todos los certificados
 	expedidos por él.
 	Esto supondrá la parada de los servicios
 	dependientes de la infraestructura de certificación hasta que
@@ -66,18 +69,18 @@
       generar certificados con él.
     </para>
     <para>
-      Para generarlos tan solo tendremos que usar el formulario que
-      aparece en la parte superior de la pagina de la autoridad de
+      Para generarlos tan sólo tendremos que usar el formulario que
+      aparece en la parte superior de la página de la autoridad de
       certificación.
       Los datos necesarios son el nombre común del certificado y los
-      días que permanecerá activo antes de expirar. Este ultimo dato
-      esta limitado por el hecho de que ningún certificado puede
-      expirar mas tarde que el certificado de la CA.
+      días que permanecerá activo antes de expirar. Este último dato
+      está limitado por el hecho de que ningún certificado puede
+      ser válido más tiempo que el certificado de la CA.
     </para>
     <para>
-      Una vez el certificado halla sido creado, aparecerá en la lista
+      Una vez el certificado haya sido creado, aparecerá en la lista
       de certificados y estará disponible para los módulos de eBox que
-      usen certificados.
+      usen certificados y las demás aplicaciones externas.
     </para>
   </section>
       
@@ -99,7 +102,7 @@
 	comprimido en el que podemos encontrar tanto el certificado como sus
 	claves publicas y privado.
 	En el caso del certificado de la propia autoridad de
-	certificación, la clave privada no se encontrara en el archivo.
+	certificación, la clave privada no se encontrará en el archivo.
       </para>
     </section>
       
@@ -113,7 +116,7 @@
 	que nos ha llevado a revocarlo o cancelar la acción.
       </para>
       <para>
-	Una vez revocado un certificado, continuara apareciendo en la
+	Una vez revocado un certificado, continuará apareciendo en la
 	lista pero marcado como revocado. Sin embargo, no podrá ser usado ni
 	por eBox ni por ninguna aplicación externa.
       </para>
@@ -130,20 +133,22 @@
       <title>Renovar</title>
       <para>
 	Es posible renovar un certificado usando el icono de
-	renovar. Te sera pedida la nueva duración del certificado.
+	renovar. Será solicitada la nueva duración del certificado.
       </para>
       <para>
 	Para renovar un certificado, primero se revoca y a
 	continuación se expide uno nuevo.
 	Los módulos de eBox serán capaces de obtener el nuevo
-	certificado pero tendrás que suministrarselo manualmente a las aplicaciones externas.
+	certificado pero se tendrá que suministrar manualmente a las
+	aplicaciones externas.
       </para>
       <warning>
 	<para>
 	  Si renovamos el certificado de la autoridad de certificación,
-	  se renovaran automáticamente todos los certificados generados	<!---->
-	  con él. La duración de los certificados renovados automáticamente sera hasta la
-	  fecha de expiración del certificado de CA
+	  se renovaran automáticamente todos los certificados
+	  generados con él. La duración de los certificados renovados
+	  automáticamente será hasta la fecha de expiración del
+	  certificado de CA.
 	</para>
       </warning>
     </section>
