@@ -754,32 +754,32 @@ sub certificateRevoked
 sub certificateExpired
 {
   my ($self, @params) = @_;
-  $self->_invokeOnServers('certificateExpired', @params);
+  $self->_invokeOnDaemons('certificateExpired', @params);
 }
 
 sub freeCertificate
 {
   my ($self, @params) = @_;
-  $self->_invokeOnServers('freeCertificate', @params);
+  $self->_invokeOnDaemons('freeCertificate', @params);
 }
 
-sub _invokeOnServers
+sub _invokeOnDaemons
 {
   my ($self, $method, @methodParams) = @_;
-  foreach my $server ($self->servers()) {
-    my $method_r = $server->can($method);
+  foreach my $daemon ($self->daemons()) {
+    my $method_r = $daemon->can($method);
     defined $method_r or throw EBox::Exceptions::Internal("No such method $method");
-     $method_r->($server, @methodParams);
+     $method_r->($daemon, @methodParams);
   }
 }
 
-sub _anyServerReturnsTrue
+sub _anyDaemonReturnsTrue
 {
   my ($self, $method, @methodParams) = @_;
-  foreach my $server ($self->servers()) {
-    my $method_r = $server->can($method);
+  foreach my $daemon ($self->daemons()) {
+    my $method_r = $daemon->can($method);
     defined $method_r or throw EBox::Exceptions::Internal("No such method $method");
-    if ($method_r->($server, @methodParams)) {
+    if ($method_r->($daemon, @methodParams)) {
       return 1;
     } 
   }
