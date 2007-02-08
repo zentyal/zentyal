@@ -5,6 +5,9 @@ case "$1" in
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
 		/usr/bin/ebox-clean-gconf network || true
+
+		# restore script in dhclient.conf
+		sed -i 's/^script .*/#script/'  /etc/dhcp3/dhclient.conf || true
 		;;		
 	purge)
 
