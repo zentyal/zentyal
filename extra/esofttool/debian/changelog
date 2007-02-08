@@ -1,3 +1,9 @@
+esofttool (0.3) unstable; urgency=low
+
+  * Skip rc packages which are not available
+
+ -- Javier Uruen Val <javi@warp.es>  Thu,  8 Feb 2007 14:27:45 +0100
+
 esofttool (0.2-1) unstable; urgency=low
 
   * Bug with 's fixed
