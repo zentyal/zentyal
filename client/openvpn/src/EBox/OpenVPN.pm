@@ -791,14 +791,14 @@ sub _anyDaemonReturnsTrue
 sub ifaceMethodChanged
 {
   my ($self, @params) = @_;
-  return $self->_anyServerReturnsTrue('ifaceMethodChanged', @params);
+  return $self->_anyDaemonReturnsTrue('ifaceMethodChanged', @params);
 }
 
 
 sub vifaceDelete
 {
   my ($self, @params) = @_;
-  return $self->_anyServerReturnsTrue('vifaceDelete', @params);
+  return $self->_anyDaemonReturnsTrue('vifaceDelete', @params);
 }
 
 
