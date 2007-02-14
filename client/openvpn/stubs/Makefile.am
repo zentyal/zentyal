@@ -4,7 +4,7 @@ SUBDIRS = quagga
 Stubdir = @STUBSPATH@/openvpn
 
 
-nobase_Stub_DATA = openvpn.conf.mas openvpn-client.conf.mas
+nobase_Stub_DATA = openvpn.conf.mas openvpn-client.conf.mas noebox-openvpn-client.conf.mas
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 

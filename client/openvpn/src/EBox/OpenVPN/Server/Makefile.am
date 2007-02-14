@@ -1,5 +1,13 @@
+SUBDIRS = ClientBundleGenerator
+
+perldir = @PERLPATH@/EBox/OpenVPN/Server
+
+nobase_perl_DATA = ClientBundleGenerator.pm
+
 test_classes = Test.pm
 
-EXTRA_DIST = $(test_classes)
+DISTCLEANFILES = 
+
+EXTRA_DIST = $(nobase_perl_DATA) $(test_classes)
 
 MAINTAINERCLEANFILES = Makefile.in

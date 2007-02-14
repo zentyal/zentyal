@@ -8,10 +8,14 @@ use base qw(EBox::OpenVPN::Daemon);
 use EBox::Validate qw(checkPort checkAbsoluteFilePath checkIP checkNetmask);
 use EBox::NetWrappers;
 use EBox::CA;
-use Perl6::Junction qw(all);
+use EBox::FileSystem;
+use Perl6::Junction qw(any);
 use List::Util qw(first);
 use EBox::Gettext;
 use Params::Validate qw(validate_pos SCALAR);
+
+use EBox::OpenVPN::Server::ClientBundleGenerator::Linux;
+use EBox::OpenVPN::Server::ClientBundleGenerator::Windows;
 
 sub new
 {
@@ -27,7 +31,13 @@ sub new
 
 
 
-
+# Method: setProto
+#
+#   Set the protocol used by the server
+#
+#  Parametes:
+#        $proto   - protocol. Must be 'tcp' or 'udp'
+#        @params      - initialization parameters, may be different for each daemon type
 sub setProto
 {
     my ($self, $proto) = @_;
@@ -41,13 +51,24 @@ sub setProto
     $self->setConfString('proto', $proto);
 }
 
+# Method: proto
+#
+#  Returns:
+#    the protocol used by the server
+#
 sub proto
 {
     my ($self) = @_;
     return $self->getConfString('proto');
 }
 
-
+# Method: setPort
+#
+#   Sets the port used by the server to receive conenctions. It must be a port
+#    not used by another openvpn daemon
+#
+#  Parametes:
+#        $port   - port number 
 sub setPort
 {
   my ($self, $port) = @_;
@@ -81,13 +102,25 @@ sub _checkPortIsNotDuplicate
     }
 }
 
-
+# Method: port
+#
+#  Returns:
+#   the port used by the server to receive conenctions. 
 sub port
 {
     my ($self) = @_;
     return $self->getConfInt('port');
 }
 
+
+# Method: setLocal
+#
+#  Sets the local network interface where the server will listen or
+#   sets the server to listen in all interfaces
+#
+# Returns:
+#   undef if the server will listen in all interfaces or
+#    the interface name
 sub setLocal
 {
   my ($self, $iface) = @_;
@@ -118,6 +151,13 @@ sub _checkLocal
   }
 }
 
+# Method: local
+#
+#  Gets the local network interface where the server will listen 
+#
+#   Returns:
+#      undef if the server listens in all interfaces or
+#        the interface name where it listens
 sub local
 {
     my ($self) = @_;
@@ -125,7 +165,10 @@ sub local
 }
 
 
-
+# Method: caCertificatePath
+#
+#   Returns:
+#      the path to the CA's certificate
 sub caCertificatePath
 {
   my ($self) = @_;
@@ -140,7 +183,12 @@ sub caCertificatePath
 }
 
 
-
+# Method: setCertificate
+#
+#  Sets the certificate used by the server to identify itself
+#
+#   parameters:
+#      certificateCN - the common name of the certificate
 sub setCertificate
 {
   my ($self, $certificateCN) = @_;
@@ -151,6 +199,12 @@ sub setCertificate
   $self->setConfString('server_certificate', $certificateCN);
 }
 
+# Method: certificate
+#
+#  Gets the certificate used by the server to identify itself
+#
+#   returns:
+#      the common name of the certificate
 sub certificate
 {
     my ($self) = @_;
@@ -179,6 +233,10 @@ sub _checkCertificate
   return $cert_r;
 }
 
+# Method: certificatePath
+#
+# Returns:
+#  the path to the certificate file
 sub certificatePath
 {
   my ($self) = @_;
@@ -192,7 +250,10 @@ sub certificatePath
 
 
 
-
+# Method: key
+#
+# Returns:
+#  the path to the private key for the server's certificate
 sub key
 {
     my ($self) = @_;
@@ -208,7 +269,12 @@ sub key
     return $keys->{privateKey};
 }
 
-
+# Method: crlVerify
+#
+#   returns the value needed for the crlVerify openvpn's option
+#
+# Returns:
+#  the path to the current certificates revoked list
 sub crlVerify
 {
   my ($self) = @_;
@@ -217,6 +283,13 @@ sub crlVerify
   return $ca->getCurrentCRL();
 }
 
+# Method: setSubnetAndMask
+#
+#   sets the subnet and the netmask of the VPN provided by the server
+#
+# Parameters:
+#   net  - the network address
+#   mask - the network netmask
 sub setSubnetAndMask
 {
   my ($self, $net, $mask) = @_;
@@ -252,6 +325,10 @@ sub setSubnet
   $self->setConfString('vpn_net', $net);
 }
 
+# Method: subnet
+#
+# Returns:
+#  the address of the VPN provided by the server
 sub subnet
 {
     my ($self) = @_;
@@ -269,7 +346,10 @@ sub setSubnetNetmask
     $self->setConfString('vpn_netmask', $netmask);
 }
 
-
+# Method: subnetNetmask
+#
+# Returns:
+#  the netmask of the VPN provided by the server
 sub subnetNetmask
 {
     my ($self) = @_;
@@ -277,13 +357,22 @@ sub subnetNetmask
     return $netmask;
 }
 
-
+# Method: setClientToClientAllowed
+# 
+#  sets wether connection is alloweb bettween clients though the VPN or not
+#
+# Parameters:
+#  clientToClientAllowed - true if it is allowed, false otherwise
 sub setClientToClient
 {
     my ($self, $clientToClientAllowed) = @_;
     $self->setConfBool('client_to_client', $clientToClientAllowed);
 }
 
+# Method: clientToClientAllowed
+#
+# Returns:
+#  wether conenction is alloweb bettween clients though the VPN or not
 sub clientToClient
 {
     my ($self) = @_;
@@ -291,14 +380,20 @@ sub clientToClient
 }
 
 
-
+# Method: tlsRemote
+#
+# Returns:
+#  value of the openvpn's tlsRemote option
 sub tlsRemote
 {
   my ($self) = @_;
   $self->getConfString('tls_remote');
 }
 
-
+# Method: tlsRemote
+#
+# Returns:
+#  value of the openvpn's tlsRemote option
 sub setTlsRemote
 {
   my ($self, $clientCN) = @_;
@@ -313,12 +408,19 @@ sub setTlsRemote
 }
 
 
+# Method: pullRoutes
+#
+# Returns:
+#  wether the server may pull routes from client or not
 sub pullRoutes
 {
   my ($self) = @_;
   return $self->getConfBool('pull_routes');
 }
 
+# Method: setPullRoutes
+#
+#  sets wether the server may pull routes from client or not
 sub setPullRoutes
 {
   my ($self, $value) = @_;
@@ -368,7 +470,11 @@ sub confFileParams
   return \@templateParams;
 }
 
-
+# Method: localAddress
+#
+# Returns:
+#  the ip address where the server will listen or undef if it
+# listens in all network interfaces
 sub localAddress
 {
   my ($self) = @_;
@@ -440,7 +546,12 @@ sub service
    return $self->getConfBool('active');
 }
 
-
+# Method: advertisedNets
+#
+#  gets the nets wich will be advertised to client as reacheable thought the server
+#
+# Returns:
+#  a list of references to a lists containing the net addres and netmask pair
 sub advertisedNets
 {
   my ($self) = @_;
@@ -455,7 +566,13 @@ sub advertisedNets
   return @net;
 }
 
-
+# Method: setAdvertisedNets
+#
+#  sets the server's advertised nets
+#
+# Parameters:
+#    advertisedNets_r - the list of advertised net. Each net is a list
+#  reference to a net address and netmask pair
 sub setAdvertisedNets
 {
   my ($self, $advertisedNets_r)  =  @_;
@@ -470,6 +587,13 @@ sub setAdvertisedNets
 
 }
 
+# Method: addAdvertisedNet
+#
+#  add a net to the advertised nets list
+#
+# Parameters:
+#  net     - network address
+#  netmask - network's netmask
 sub addAdvertisedNet
 {
   my ($self, $net, $netmask) = @_;
@@ -512,7 +636,13 @@ sub _EBoxIsGateway
   return 1;
 }
  
-
+# Method: removeAdvertisedNet
+#
+#  remove a net from  the advertised nets list
+#
+# Parameters:
+#  net     - network address
+#  netmask - network's netmask
 sub removeAdvertisedNet
 {
   my ($self, $net) = @_;
@@ -529,8 +659,22 @@ sub removeAdvertisedNet
 
 
 
-
-sub setFundamentalAttributes
+# Method: init
+#
+#  initialisation method
+#
+# Parameters:
+#  service        - wether rhe server is active or not
+#  subnet         - address of VPN net
+#  subnetNetmask  - netmask of VPN net
+#  port           - server's port
+#  proto          - server's proto
+#  certificate    - CN of server's certificate
+#  local          - local interface to listen on (optional)
+#  advertisedNets - advertised nets 
+#  tlsRemote      - tls remote option
+#  pullRoutes     - wether pull routes from clientes or not
+sub init
 {
     my ($self, %params) = @_;
 
@@ -557,6 +701,22 @@ sub setFundamentalAttributes
 	}
     }
 }
+
+
+
+sub clientBundle
+{
+  my ($self, $os, $clientCertificate) = @_;
+
+  if ( !($os eq any('linux', 'windows')) ) {
+    throw EBox::Exceptions::External('Unsupported operative system: {os}', os => $os);
+  }
+
+  my $class = 'EBox::OpenVPN::Server::ClientBundleGenerator::' . ucfirst $os;
+
+  return $class->clientBundle($self, $clientCertificate);
+}
+
 
 
 
@@ -655,5 +815,41 @@ sub _onlyListenOnIface
 
   return undef;
 }
+
+# Method: summary
+#
+#  returns the contents which will be used to create a summary section
+#
+sub summary
+{
+  my ($self) = @_;
+
+  my @summary;
+  push @summary, __x('Server {name}', name => $self->name);
+
+  my $service = $self->service ? __('Enabled') : __('Disabled');
+  push @summary, (__('Service'), $service);
+
+  my $running = $self->running ? __('Running') : __('Stopped');
+  push @summary,(__('Daemon status'), $running);
+
+
+  my $localAddress = $self->localAddress();
+  defined $localAddress or $localAddress = __('All external interfaces');
+  push @summary, (__('Local address'), $localAddress);
+  
+
+  my $proto   = $self->proto();
+  my $port    = $self->port();
+  my $portAndProtocol = "$port/\U$proto";
+  push @summary,(__('Port'), $portAndProtocol);
+
+  my $subnet  = $self->subnet . '/' . $self->subnetNetmask;
+  push @summary,(__('VPN subnet'), $subnet);
+
+
+  return @summary;
+}
+
 
 1;

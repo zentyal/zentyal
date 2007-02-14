@@ -29,11 +29,15 @@ my $deleteText = __('Delete');
 my $deleteIcon ='/data/images/delete.gif';
 my $editText = __('Edit');
 my $editIcon = '/data/images/edit.gif';
+my $bundleText = __(q{Download client's file bundle});
+my $bundleIcon = '/data/images/install.gif';
 my @rows = map {
     my $serverName = $_;
     my $deleteUrl = "Delete?name=$serverName";
     my $editUrl = "Edit?name=$serverName";
+    my $bundleUrl = "ClientBundle?name=$serverName";
     my @actions = (
+	   {  url => $bundleUrl, text => $bundleText, icon => $bundleIcon },
 	   {  url => $editUrl, text => $editText, icon => $editIcon },
 	   {  url => $deleteUrl, text => $deleteText, icon => $deleteIcon },
     );

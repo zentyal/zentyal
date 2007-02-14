@@ -5,6 +5,18 @@ use strict;
 use warnings;
 use EBox::GConfModule;
 
+#
+# Constructor: new
+#
+#   Creates a new module partition
+#
+#  Parametes:
+#        $base        - the portion of configuration namespace used for the partition
+#        $fullModule  - a instance of the GConfModule to which belongs the partition
+#
+# Returns:
+#
+#    a blessed instance of the partition
 sub new
 {
     my ($class, $base, $fullModule) = @_;
@@ -26,10 +38,33 @@ sub confKey
     return $self->{confKeysBase} . "/$key";
 }
 
+#
+# Method: fullModule
+#
+#   gets the module which contains the partition
+#
+# Returns:
+#
+#    the module which contais the partition
 sub fullModule
 {
     my ($self) = @_;
     return $self->{fullModule};
+}
+
+
+#
+# Method: confKeysBase
+#
+#   gets the configuration directory where the partition's configuration resides
+#
+# Returns:
+#
+#    the partition's configuration directory as string
+sub confKeysBase
+{
+  my ($self, $key) = @_;
+  return $self->{confKeysBase};
 }
 
 sub getConfString

@@ -62,7 +62,7 @@ my @tableElements  = (
       $certificateInput,	
       $tlsRemoteInput,
       [ name => 'pullRoutes', 
-	printableName => __('Pull routes from eBox clients'), 
+	printableName => __('Allow eBox-to-eBox tunnels'), 
 	input => 'checkbox', 
 	help => __("If you want to create a tunnel between two eBox, you will need this option to be able to connect to the network in the client side"),
       ],

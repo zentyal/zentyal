@@ -35,6 +35,9 @@ use Error qw(:try);
 
 use constant  MAX_IFACE_NUMBER => 999999; # this is the last number which prints correctly in ifconfig
 
+my @daemonTypes   = qw(server client); # in the daemons method they will appear in this order
+my $anyDaemonType = any @daemonTypes;
+
 sub _create 
 {
 	my $class = shift;
@@ -48,17 +51,35 @@ sub _regenConfig
     my ($self) = @_;
 
     $self->_writeConfFiles();
-    $self->_cleanConfigDir();
+    $self->_cleanFiles();
     $self->_doDaemon();
 }
 
+
+#
+# Method: confDir
+#
+#    returns the directory used to store OpenVPN's configuration files   
+#
+# Returns:
+#
+#   the directory path as string
+#
 sub confDir
 {
     my ($self) = @_;
     return $self->get_string('conf_dir');
 }
 
-
+#
+# Method: confDir
+#
+#    returns the localtion of the OpenVPN's binary    
+#
+# Returns:
+#
+#   the path to the OpenVPn program
+#
 sub openvpnBin
 {
    my ($self) = @_;
@@ -81,65 +102,152 @@ sub _writeConfFiles
 }
 
 
-sub _cleanConfigDir
+sub _cleanFiles
 {
     my ($self) = @_;
-
-    my @privateDir    = map { $_->privateDir()  } $self->clients();
-    my $anyPrivateDir = any @privateDir;
-
     my $confDir = $self->confDir;
-    opendir my $DH, $confDir or throw EBox::Exceptions::Internal("Can not open $confDir: $!");
-    my @dirContents =  readdir $DH;
-    closedir $DH;
+    
+    
+    $self->dir_exists('toDelete') or return;
 
-    foreach (@dirContents) {
-      next if $_ =~ m/^[.]+$/;
+    my @rmTargets = map { "$confDir/$_"  } @{ $self->all_entries_base('toDelete') };
+    EBox::Sudo::root(" rm -rf @rmTargets");
 
-      my $file = "$confDir/$_";
+    $self->delete_dir('toDelete');
+    
+    # this is to avoid that the above deletion
+    # XXX TODO: reimplement using ebox state
+    my $global = EBox::Global->getInstance();
+    $global->modRestarted('openvpn');
+}
 
-      if (EBox::Sudo::fileTest('-d', $file)) {
-	next if ($file eq $anyPrivateDir);
+sub deleteOnRestart
+{
+  my ($self, @files) = @_;
+  @files or throw EBox::Exceptions::MissingArgument("one or more files to delete on restart");
+  $self  or throw EBox::Exceptions::MissingArgument("you must call this on a object");
 
-	EBox::info("OpenVPN's leftover dir found: $file. It will be removed");
-	EBox::Sudo::root("rm -rf $file");
-      }
-    }
-
+  foreach my $file (@files) {
+    $self->set_string("toDelete/$file", "");
+  }
 }
 
 
 # all openvpn daemons related methods
+
+#
+# Method: daemons
+#
+#       return all daemons registered in the module
+#
+#
+# Returns:
+#
+#   a list with daemons objects
+#
 sub daemons
 {
   my ($self) = @_;
-  return (
-	  $self->servers(),
-	  $self->clients(),
-	 );
+  my @daemons;
+
+  foreach my $type (@daemonTypes) {
+    my $listSub = $type . 's';
+    push @daemons, $self->$listSub();
+  }
+
+  return @daemons;
 }
 
-
+#
+# Method: activeDaemons
+#
+#  return all active daemons registered in the module
+#
+#
+# Returns:
+#
+#   a list with daemons objects
+#
 sub activeDaemons
 {
     my ($self) = @_;
     return grep { $_->service } $self->daemons();
 }
 
+#
+# Method: daemonsNames
+#
+#  return  the names of all daemons registered in the module
+#
+#
+# Returns:
+#
+#   a list with daemons names
+#
 sub daemonsNames
 {
-    my ($self) = @_;
-    
-    my @daemonsNames = (
-			$self->serversNames(),
-			$self->clientsNames(),
-		       );
-    return @daemonsNames;
+  my ($self) = @_;
+  my @daemonsNames;
+
+  foreach my $type (@daemonTypes) {
+    my $nameSub = $type . 'sNames';
+    push @daemonsNames, $self->$nameSub();
+  }
+
+  return @daemonsNames;
 }
 
 
-# server-relate method
 
+sub _newDaemon
+{
+    my ($self, $type, $name, @initParams) = @_;
+
+    ($type eq $anyDaemonType) or throw EBox::Exceptions::Internal("Unsupported daemon type: $type");
+    $self->_checkName($name);
+    
+    $self->_createDaemonSkeleton($type, $name);
+
+    my $daemon;
+    try {
+	$daemon = $self->$type($name);
+	$daemon->init(@initParams);
+    }
+    otherwise {
+	my  $ex = shift;
+	$self->delete_dir("$type/$name");
+	$ex->throw();
+    };
+
+    return $daemon;
+}
+
+sub _removeDaemon
+{
+    my ($self, $type, $name) = @_;
+    ($type eq $anyDaemonType) or throw EBox::Exceptions::Internal("Unsupported daemon type: $type");
+
+    my $daemon = $self->$type($name);
+    if (! $daemon) {
+	throw EBox::Exceptions::External __x("Unable to remove daemon {name} of type {type} because it does not exist", name => $name, type => $type);
+    }
+
+    $daemon->delete(); # the daemon has to be able to delete itself
+}
+
+
+# server-related methods
+
+#
+# Method: servers
+#
+#  lists all servers registered in the module
+#
+#
+# Returns:
+#
+#   a list with  servers objects
+#
 sub servers
 {
     my ($self) = @_;
@@ -148,13 +256,32 @@ sub servers
     return @servers;
 }
 
-
+#
+# Method: activeServers
+#
+#  lists all active servers registered in the module
+#
+#
+# Returns:
+#
+#   a list with active servers objects
+#
 sub activeServers
 {
     my ($self) = @_;
     return grep { $_->service } $self->servers();
 }
 
+#
+# Method: serverNames
+#
+#  lists the names of all daemons registered in the module
+#
+#
+# Returns:
+#
+#   a list with servers names
+#
 sub serversNames
 {
     my ($self) = @_;
@@ -164,6 +291,20 @@ sub serversNames
 }
 
 # a object server cache may be a good idea?
+
+#
+# Method: server
+#
+#    returns the object representing the given server
+#
+# Parameters:
+#
+#    name - the servers name
+#
+# Returns:
+#
+#   the server object
+#
 sub server
 {
     my ($self, $name) = @_;
@@ -174,42 +315,39 @@ sub server
 
 
 
-
+#
+# Method: newServer
+#
+#    creates a new server
+#
+# Parameters:
+#
+#    $name       - the server's name
+#    @initParams - the parameters for server initialisation
+#
+# Returns:
+#
+#   the server object
+#
 sub newServer
 {
-    my ($self, $name, %params) = @_;
-
-    $self->_createDaemonSkeleton($name, 'server');
-
-    my $server;
-    try {
-	$server = $self->server($name);
-	$server->setFundamentalAttributes(%params);
-    }
-    otherwise {
-	my  $ex = shift;
-	$self->delete_dir("server/$name");
-	$ex->throw();
-    };
-
-    return $server;
+    my ($self, $name, @initParams) = @_;
+    return $self->_newDaemon('server', $name, @initParams);
 }
 
-
-
-
-
+#
+# Method: removeServer
+#
+#    removes the given server from the module
+#
+# Parameters:
+#
+#    $name       - the servers name
+#
 sub removeServer
 {
     my ($self, $name) = @_;
-    my $serverDir = "server/$name";
-
-    if (! $self->dir_exists($serverDir)) {
-	throw EBox::Exceptions::External __x("Unable to remove server {name} because it does not exist", name => $name);
-    }
-
-	
-    $self->delete_dir($serverDir);
+    $self->_removeDaemon('server', $name);
 }
 
 sub _portsByProtoFromServers
@@ -231,6 +369,16 @@ sub _portsByProtoFromServers
 
 ## clients
 
+#
+# Method: clients
+#
+#  lists all clients registered in the module
+#
+#
+# Returns:
+#
+#   a list with  clients objects
+#
 sub clients
 {
     my ($self) = @_;
@@ -239,13 +387,32 @@ sub clients
     return @clients;
 }
 
-
+#
+# Method: activeClients
+#
+#  lists all active clients registered in the module
+#
+#
+# Returns:
+#
+#   a list with active clients objects
+#
 sub activeClients
 {
     my ($self) = @_;
     return grep { $_->service } $self->clients();
 }
 
+#
+# Method: clientNames
+#
+#  lists the names of all daemons registered in the module
+#
+#
+# Returns:
+#
+#   a list with clients names
+#
 sub clientsNames
 {
     my ($self) = @_;
@@ -254,41 +421,19 @@ sub clientsNames
     return @clientsNames;
 }
 
-
-sub removeClient
-{
-    my ($self, $name) = @_;
-    my $clientDir = "client/$name";
-
-    if (! $self->dir_exists($clientDir)) {
-	throw EBox::Exceptions::External __x("Unable to remove client {name} because it does not exist", name => $name);
-    }
-
-    $self->delete_dir($clientDir);
-}
-
-sub newClient
-{
-    my ($self, $name, %params) = @_;
-
-    $self->_createDaemonSkeleton($name, 'client');
-
-    my $client;
-    try {
-	$client = $self->client($name);
-	$client->init(%params);
-    }
-    otherwise {
-	my  $ex = shift;
-	$self->delete_dir("client/$name");
-	$ex->throw();
-    };
-
-    return $client;
-}
-
-
-
+#
+# Method: client
+#
+#    returns the object representing the given client
+#
+# Parameters:
+#
+#    name - the clients name
+#
+# Returns:
+#
+#   the client object
+#
 sub client
 {
     my ($self, $name) = @_;
@@ -296,6 +441,47 @@ sub client
     my $client = new EBox::OpenVPN::Client ($name, $self);
     return $client;
 }
+
+#
+# Method: newClient
+#
+#    creates a new client
+#
+# Parameters:
+#
+#    $name       - the client's name
+#    @initParams - the parameters for client initialisation
+#
+# Returns:
+#
+#   the client object
+#
+sub newClient
+{
+  my ($self, $name, @initParams) = @_;
+
+  return $self->_newDaemon('client', $name, @initParams);
+}
+
+
+#
+# Method: removeClient
+#
+#    removes the given client from the module
+#
+# Parameters:
+#
+#    $name       - the clients name
+#
+sub removeClient
+{
+  my ($self, $name) = @_;
+  $self->_removeDaemon('client', $name);
+}
+
+
+
+
 
 # return a ref to a list of [proto server port]
 sub _serversToConnect
@@ -338,36 +524,60 @@ sub _checkName
 
 sub _createDaemonSkeleton
 {
-  my ($self, $name, $prefix) = @_;
-
-  $self->_checkName($name);
+  my ($self, $type, $name) = @_;
 
   my $ifaceNumber    = $self->_newIfaceNumber();  
-  my $ifaceNumberKey = "$prefix/$name/iface_number";
+  my $ifaceNumberKey = "$type/$name/iface_number";
   $self->set_int($ifaceNumberKey, $ifaceNumber); 
 }
 
-
+#
+# Method: user
+#
+#    gets the user will be used to run openvpn daemon 
+#    after root drops privileges
+#
+# Returns:
+#
+#    the user's name
+#
 sub user
 {
     my ($self) = @_;
     return $self->get_string('user');
 }
 
+#
+# Method: group
+#
+#    gets the group will be used to run openvpn daemon 
+#    after root drops privileges
+#
+# Returns:
+#
+#    the group's name
+#
 sub group
 {
     my ($self) = @_;
     return $self->get_string('group');
 }
 
-
+#
+# Method: dh
+#
+#    gets the path to the diffie-hellman
+#    parameters file used by openvpn server
+#
+# Returns:
+#
+#    the path to the diffie-hellman parameters file
+#
 sub dh
 {
     my ($self) = @_;
     return $self->get_string('dh');
 }
-
-
 
 
 
@@ -552,7 +762,7 @@ sub _runningInstances
   my ($self) = @_;
   my $bin = $self->openvpnBin;
 
-  system "/usr/bin/pgrep -f $bin";
+  `/usr/bin/pgrep -f $bin`;
   return ($? == 0);
 }
 
@@ -588,6 +798,21 @@ sub _stopService
 }
 
 #  rip daemon/quagga stuff
+
+#
+# Method: ripDaemons
+#
+#    gets the parameters of the RIP daemon
+#    if the OpenVPN module needs one     
+#
+# Returns:
+#
+#    undef if not RIP daemon is neccessary
+#    if RIP is neccessary a hash ref with RIP daemosn parameters:
+#          ifaces      - list of ifaces to use by RIP daemon
+#          redistribute - bool parameters which signal if routes 
+#                           redistribution is required
+#
 sub ripDaemon
 {
   my ($self) = @_;
@@ -614,7 +839,14 @@ sub ripDaemon
 
 }
 
-
+#
+# Method: ripDaemonService
+#
+#   checks wether a RIP daemon is neccesay or not
+#
+# Returns:
+#
+#    bool
 sub ripDaemonService
 {
   my ($self) = @_;
@@ -629,14 +861,21 @@ sub ripDaemonService
   return undef;
 }
 
-
+#
+# Method: ripDaemonRunning
+#
+#   checks wether a RIP daemon is running or not
+#
+# Returns:
+#
+#    bool
 sub ripDaemonRunning
 {
   my ($self) = @_;
 
   # check for ripd and zebra daemons
-  system "pgrep ripd";
-  system "pgrep zebra" if $? != 0;
+  `pgrep ripd`;
+  `pgrep zebra` if $? != 0;
 
   return 1 if ($? == 0);
   return undef;
@@ -720,6 +959,14 @@ sub _newIfaceNumber
   return $number;
 }
 
+#
+# Method: availableCertificates
+#
+#   gets the certificates which are available for use with OpenVPN
+#
+# Returns:
+#
+#    a  reference to a lsit with the common names of available certificates
 sub availableCertificates
 {
   my ($self) = @_;
@@ -754,14 +1001,48 @@ sub certificateRevoked
 sub certificateExpired
 {
   my ($self, @params) = @_;
-  $self->_invokeOnDaemons('certificateExpired', @params);
+  $self->_invokeOnServers('certificateExpired', @params);
 }
 
 sub freeCertificate
 {
   my ($self, @params) = @_;
-  $self->_invokeOnDaemons('freeCertificate', @params);
+  $self->_invokeOnServers('freeCertificate', @params);
 }
+
+
+
+
+# netwoek observer stuff
+
+sub ifaceMethodChanged
+{
+  my ($self, @params) = @_;
+  return $self->_anyDaemonReturnsTrue('ifaceMethodChanged', @params);
+}
+
+
+sub vifaceDelete
+{
+  my ($self, @params) = @_;
+  return $self->_anyDaemonReturnsTrue('vifaceDelete', @params);
+}
+
+
+sub freeIface
+{
+  my ($self, @params) = @_;
+  return $self->_invokeOnDaemons('freeIface', @params);
+}
+
+sub freeViface
+{
+  my ($self, @params) = @_;
+  return $self->_invokeOnDaemons('freeViface', @params);
+}
+
+
+# common listeners helpers..
 
 sub _invokeOnDaemons
 {
@@ -787,34 +1068,6 @@ sub _anyDaemonReturnsTrue
   return undef;
 }
 
-
-sub ifaceMethodChanged
-{
-  my ($self, @params) = @_;
-  return $self->_anyDaemonReturnsTrue('ifaceMethodChanged', @params);
-}
-
-
-sub vifaceDelete
-{
-  my ($self, @params) = @_;
-  return $self->_anyDaemonReturnsTrue('vifaceDelete', @params);
-}
-
-
-sub freeIface
-{
-  my ($self, @params) = @_;
-  return $self->_invokeOnServers('freeIface', @params);
-}
-
-sub freeViface
-{
-  my ($self, @params) = @_;
-  return $self->_invokeOnServers('freeViface', @params);
-}
-
-
 # Method: menu 
 #
 #       Overrides EBox::Module method.
@@ -829,106 +1082,43 @@ sub menu
 }
 
 
-sub _externalAddresses
-{
-  my ($self) = @_;
-
-  my $network = EBox::Global->modInstance('network');
-
-  my @externalAddr = map {
-    my $ifaceAddresses_r = $network->ifaceAddresses($_);
-    @{  $ifaceAddresses_r }
-  }  @{ $network->ExternalIfaces };
-
-  # massage to a readable way
-  @externalAddr  =  map {
-      $_->{address} . '/' . $_->{netmask};
-    } @externalAddr;
-
-  return \@externalAddr;
-}
 
 sub summary
 {
-	my ($self) = @_;
+  my ($self) = @_;
 
-	if ( $self->daemons()  == 0) {
-	  return undef;
-	}
+  my @daemons = $self->daemons();
+
+  if ( @daemons == 0 ) {
+    return undef;
+  }
+
+  my $summary = new EBox::Summary::Module(__('OpenVPN daemons'));
+
+  foreach my $daemon (@daemons) {
+    my @daemonSummary = $daemon->summary();
+    @daemonSummary or next;
+	  
+    my $name = shift @daemonSummary;
+    my $section = new EBox::Summary::Section($name);
+
+    while (@daemonSummary) {
+      my ($valueName, $valueData) = splice(@daemonSummary, 0, 2);
+      $section->add(new EBox::Summary::Value ($valueName, $valueData));
+    }
 
 
-	my $summary = new EBox::Summary::Module(__('OpenVPN daemons'));
+    $summary->add($section);
+  }
 
-       # prefetch data for servers summary
-	my $externalAddresses = $self->_externalAddresses();
 
-	foreach my $server ($self->servers) {
-	    my $section = new EBox::Summary::Section(__x('Server {name}', name => $server->name));
-
-	    my $service = $server->service ? __('Enabled') : __('Disabled');
-	    $section->add(new EBox::Summary::Value (__('Service'), $service));
-
-	    my $running = $server->running ? __('Running') : __('Stopped');
-	    $section->add(new EBox::Summary::Value (__('Daemon status'), $running));
-
-	    $self->_addServerAddressesToServerSection( $section, $server, $externalAddresses);
-
-	    my $proto   = $server->proto();
-	    my $port    = $server->port();
-	    my $portAndProtocol = "$port/\U$proto";
-	    $section->add(new EBox::Summary::Value (__('Port'), $portAndProtocol));
-
-	    my $subnet  = $server->subnet . '/' . $server->subnetNetmask;
-	    $section->add(new EBox::Summary::Value (__('VPN subnet'), $subnet));
-
-	    $summary->add($section);
-	}
-				    
-
-	foreach my $client ($self->clients) {
-	  my $section = new EBox::Summary::Section(__x('Client {name}', name => $client->name));
-
-	  my $service = $client->service ? __('Enabled') : __('Disabled');
-	  $section->add(new EBox::Summary::Value (__('Service'), $service));
-
-	  my $running = $client->running ? __('Running') : __('Stopped');
-	  $section->add(new EBox::Summary::Value (__('Daemon status'), $running));
-
-	  my $proto   = $client->proto();
-	  my @servers = @{  $client->servers  };
-	  # XXX only one server supported now!
-	  my ($addr, $port) = @{ $servers[0]  };
-	  my $server = "$addr $port/\U$proto";
-	  $section->add(new EBox::Summary::Value (__('Connection target'), $server));
-
-	  $summary->add($section);
-	}
-
-	return $summary;
+  return $summary;
 }
 
 
 
 
 
-sub _addServerAddressesToServerSection
-{
-  my ($self, $section, $server, $externalAddr_r) = @_;
-
-  my @serverAddress;
-  my $localAddress = $server->localAddress();
-  if ($localAddress) {
-    push @serverAddress, $localAddress;
-  } 
-  else {
-    @serverAddress = @{ $externalAddr_r };
-  }
-
-  foreach my $addr (@serverAddress) {
-    $section->add(new EBox::Summary::Value (__('Local address'), $addr));
-  }
-
-}
 
 sub statusSummary
 {

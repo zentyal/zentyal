@@ -1,0 +1,67 @@
+<%args>
+$name
+$disabled
+@availableCertificates
+</%args>
+<%init>
+use EBox::Gettext;
+
+my @certificateOptions = map { { value => $_ } } @availableCertificates; 
+my $certificateInput =  [ 
+			 name => 'clientCertificate', 
+			 printableName => __(q{Client's certificate}), 
+			 input => 'select', 
+			 extraParams => [ options =>
+					  \@certificateOptions , ], 
+			 help => __('This certificate will be used by the client to authenticate itself to the server'),
+			];
+
+my $osInput = [
+			 name => 'os', 
+			 printableName => __(q{Client's operative system}), 
+			 input => 'select', 
+			 extraParams => [ options =>
+					  [ {value => 'windows', printableValue =>'Windows'}, 
+					    {value => 'linux',   printableValue =>'Linux'} ] , 
+					], 
+			 help => __('This should match the operative
+			 system running in the client computer'),
+			];
+
+
+my @formElements = (
+                     [ 
+		        name => 'name', value => $name, input =>'hidden',
+		     ],
+                     $osInput,
+		     $certificateInput,
+#		     [ 
+#		       name => 'confDir', input => 'text',
+#		       printableName => __(q{Client's OpenVPN configuration folder}),
+#		       help => __('You must type in the folder in the client machine where the configuration and certificates files will be placed'),
+#		     ],
+		     [ 
+		       name => 'download', input => 'submit',
+		       value => __(q{Download client's files}),
+		     ],
+                    ); 
+</%init>
+%# environment check..
+
+% if ($disabled)  {
+  <& /openvpn/caRequired.mas, caCreated => 0 &>
+% return;
+% }
+% elsif (@availableCertificates == 0) {
+   <& /openvpn/caRequired.mas, caCreated => 1 &>
+%  return;
+% }
+
+<h3><% __x('Client files for server {name}', name => $name) %></h3>
+<div class='note'>
+<% __('You can download a archive with all the required files to set up a OpenVPN client. Remember to copy those files to the client machine config directory') %>
+</div>
+<form  method='POST' >
+<& /formTable.mas, rows => \@formElements &>
+</form>
+<a href='Index'> <% __(q{Return to the OpenVPN's main page}) %></a>

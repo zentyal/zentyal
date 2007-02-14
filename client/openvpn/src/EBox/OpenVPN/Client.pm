@@ -27,20 +27,12 @@ sub new
 
 
 
-# sub _setConfFilePath
-# {
-#   my ($self, $key, $path, $prettyName) = @_;
-
-#   checkAbsoluteFilePath($path, __($prettyName));
-
-#   if (!EBox::Sudo::fileTest('-f', $path)) {
-#     throw EBox::Exceptions::External(__x('Inexistent file {path}', path => $path));
-#   }
-
-#   $self->setConfString($key, $path);
-# }
-
-
+# Method: setProto
+#
+#  sets the client's protocol
+#
+# Parameters:
+#    proto - protocol. Must be 'tcp' or 'udp'
 sub setProto
 {
     my ($self, $proto) = @_;
@@ -52,58 +44,95 @@ sub setProto
     $self->setConfString('proto', $proto);
 }
 
+# Method: proto
+#
+# Returns:
+#  returns the client's protocol
 sub proto
 {
     my ($self) = @_;
     return $self->getConfString('proto');
 }
 
-
+# Method: caCertificatePath
+#
+# Returns:
+#  returns the path to the CA certificate
 sub caCertificatePath
 {
   my ($self) = @_;
   return $self->getConfString('caCertificatePath');
 }
 
+# Method: setCaCertificatePath
+#
+#  sets a new CA certificate for the client.
+#    the old one, if exists, will be deleted
+#
+# Parameters:
+#  path - path to the new CA certificate
 sub setCaCertificatePath
 {
   my ($self, $path) = @_;
   my $prettyName = q{Certification Authority's certificate};
-#  $self->_setConfFilePath('caCertificatePath', $path, $prettyName);
   $self->_setPrivateFile('caCertificatePath', $path, $prettyName);
 }
 
-
+# Method: certificatePath
+#
+# Returns:
+#  returns the path to the certificate
 sub certificatePath
 {
   my ($self) = @_;
   return $self->getConfString('certificatePath');
 }
 
+# Method: setCertificatePath
+#
+#  sets a new  certificate for the client.
+#    the old one, if exists, will be deleted
+#
+# Parameters:
+#  path - path to the new client's certificate
 sub setCertificatePath
 {
   my ($self, $path) = @_;
   my $prettyName = q{client's certificate};
-#  $self->_setConfFilePath('certificatePath', $path, $prettyName);
  $self->_setPrivateFile('certificatePath', $path, $prettyName);
 }
 
-
+# Method: certificateKey
+#
+# Returns:
+#  returns the path to the private key
 sub certificateKey
 {
   my ($self) = @_;
   return $self->getConfString('certificateKey');
 }
 
+# Method: setCertificateKey
+#
+#  sets a new  private key for the client.
+#    the old one, if exists, will be deleted
+#
+# Parameters:
+#  path - path to the new client's private key
 sub setCertificateKey
 {
   my ($self, $path) = @_;
   my $prettyName = q{certificate's key};
-#  $self->_setConfFilePath('certificateKey', $path, $prettyName);
   $self->_setPrivateFile('certificateKey', $path, $prettyName);
 }
 
-
+# Method: privateDir
+#
+#  gets the private dir used by the client ot store his certificates
+#   and keys if it does not exists it will be created
+#
+# Returns:
+#  returns the client's protocol
 sub privateDir
 {
   my ($self) = @_;
@@ -149,6 +178,15 @@ sub _setPrivateFile
 }
 
 
+sub daemonFiles
+{
+  my ($self) = @_;
+
+  my @files = $self->SUPER::daemonFiles();
+  push @files, basename $self->privateDir();
+
+  return @files;
+}
 
 
 sub setService # (active)
@@ -202,6 +240,14 @@ sub confFileParams
   return \@templateParams;
 }
 
+# Method: servers
+#
+# gets the servers to which the client will try to connecet
+#
+# Returns:
+#  a reference to the list of server. Each item in the list of 
+#  servers is a reference to a list which contains the IP address
+#  and port of one server
 sub servers
 {
   my ($self) = @_;
@@ -216,7 +262,14 @@ sub servers
   return \@servers;
 }
 
-
+# Method: setServers
+#
+# sets the servers to which the client will try to connecet
+#
+# Parameters:
+#  servers_r: a reference to the list of server. Each item in the list of 
+#  servers is a reference to a list which contains the  address
+#  and port of one server
 sub setServers
 {
   my ($self, $servers_r) = @_;
@@ -237,6 +290,13 @@ sub setServers
 }
 
 
+# Method: addServer
+#
+# adds a server to the list of servers 
+#
+# Parameters:
+#       addr - address of the server
+#       port - server's port
 sub addServer
 {
   my ($self, $addr, $port) = @_;
@@ -256,6 +316,14 @@ sub _checkServer
   checkPort($port, __(q{Server's port}));
 }
 
+# Method: removeServer
+#
+# removes a server from the list of servers 
+#
+# Parameters:
+#       addr - address of the server
+# Todo:
+#   it must use address AND port to discriminate between servers
 sub removeServer
 {
   my ($self, $addr) = @_;
@@ -270,6 +338,18 @@ sub removeServer
   $self->unsetConf($serverKey);
 }
 
+
+# Method: init
+#
+#  initialisation method
+#
+# Parameters:
+#  servers           -  servers list
+#  proto             - 
+#  caCertificatePath -
+#  certificatePath   -
+#  certificateKey    -
+#  service           -
 sub init
 {
     my ($self, %params) = @_;
@@ -348,6 +428,28 @@ sub _availableIfaces
   push @ifaces, @{ $network->InternalIfaces };
 
   return scalar @ifaces;
+}
+
+sub summary
+{
+  my ($self) = @_;
+  my @summary;
+  push @summary, __x('Client {name}', name => $self->name);
+
+  my $service = $self->service ? __('Enabled') : __('Disabled');
+  push @summary,__('Service'), $service;
+
+  my $running = $self->running ? __('Running') : __('Stopped');
+  push @summary,__('Daemon status'), $running;
+
+  my $proto   = $self->proto();
+  my @servers = @{  $self->servers  };
+  # XXX only one server supported now!
+  my ($addr, $port) = @{ $servers[0]  };
+  my $server = "$addr $port/\U$proto";
+  push @summary,__('Connection target'), $server;
+
+  return @summary;
 }
 
 
