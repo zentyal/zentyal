@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 
-use Test::More tests => 60;
+use Test::More tests => 72;
 use Test::Exception;
 
 use lib '../../..';
@@ -117,7 +117,8 @@ sub processTest
 	my @cgiParams = @{ $case_r };
 	my @expectedMasonParametes = @cgiParams;
 
-	lives_ok { runCgi($cgi, @cgiParams) } "Checking error-free cgi run";
+	setCgiParams($cgi, @cgiParams);
+	lives_ok { $cgi->_process() } "Checking error-free cgi run";
 	cgiErrorNotOk($cgi, 'Checking that not error has been found in the cgi');
 	checkMasonParameters($cgi, wantedParameters => {@expectedMasonParametes});
     }
@@ -128,7 +129,7 @@ sub processTest
 			# then add forceError parameter in all parameters correct cases
 			map {
 			    my %case = @{$_};
-			    $case{errorFound} = 1;
+			    $case{forceError} = 1;
 			    [%case]
 			} @{ cgiParametersCorrectCases() },
 			);
@@ -138,19 +139,44 @@ sub processTest
 	my @cgiParams = @{ $case_r };
 	my @expectedMasonParametes =  (@cgiParams, errorFound => 1);
 
-	lives_ok { runCgi($cgi, @cgiParams) } 'Checking that cgi with error does not throw any exception';
+	setCgiParams($cgi, @cgiParams);
+	lives_ok { $cgi->_process() } 'Checking that cgi with error does not throw any exception';
 	cgiErrorOk($cgi, 'Checking that error is correctly marked');
 	checkMasonParameters($cgi, wantedParameters => {@expectedMasonParametes}, testName => 'Checking mason parameters for CGI with error');
     }
     
+
+    # masonParameter dies case
+    my @deviantMasonCases = map   {    
+                                   my @case = @{ $_ };
+                                   push @case, (masonFails =>  1); 
+				   [ @case ];  
+				 } (
+				    # exception only in masonParameters
+				    @correctCases[0, 1], 
+				    # exception both in actuate and in  masonParameters
+				    @deviantCases[-1, -2],  # we pick the last two because they have good cgi parameters
+				   );
+
+    foreach my $case_r (@deviantMasonCases) {
+	my $cgi = new EBox::CGI::DumbCGI;
+	my @cgiParams = @{ $case_r };
+
+	setCgiParams($cgi, @cgiParams);
+	lives_ok { $cgi->_process() } 'Checking that cgi with masonParameters error  does not throw any exception';
+	cgiErrorOk($cgi, 'Checking wether error is correctly marked');
+	checkMasonParameters($cgi, wantedParameters => { }, testName => 'Checking mason parameters for CGI with masonParameters aborted ');
+    }
+
+
 }
 
 
 sub cgiParametersCorrectCases
 {
 
-  my @requiredParams = @{ EBox::CGI::DumbCGI::requiredParameters() };
-  my @optionalParams = grep  { $_ ne 'forceError'   }  @{ EBox::CGI::DumbCGI::optionalParameters() };
+  my @requiredParams = @{   EBox::CGI::DumbCGI::requiredParameters() };
+  my @optionalParams = grep  { ($_ ne 'forceError') and ($_ ne 'masonFails') }  @{ EBox::CGI::DumbCGI::optionalParameters() };
 
  my @correctCases = (
 			[ map { $_ => 'req'  } @requiredParams ] ,
@@ -166,7 +192,7 @@ sub cgiParametersCorrectCases
 sub cgiParametersDeviantCases
 {
   my @requiredParams = @{ EBox::CGI::DumbCGI::requiredParameters() };
-  my @optionalParams = @{ EBox::CGI::DumbCGI::optionalParameters() };
+  my @optionalParams = grep { $_ ne 'masonFails'  } @{  EBox::CGI::DumbCGI::optionalParameters() };
 
    my @deviantCases = (
 			# no parameters
@@ -183,7 +209,9 @@ sub cgiParametersDeviantCases
 }
 
 package EBox::CGI::DumbCGI;
+use lib '../../..';
 use base 'EBox::CGI::Base';
+use Test::More;
 
 sub new 
 {
@@ -209,7 +237,7 @@ sub actuate
 
 sub optionalParameters
 {
-    return [qw(forceError optional1 optional2)];
+    return [qw(forceError optional1 optional2 masonFails)];
 }
 
 sub requiredParameters
@@ -218,11 +246,18 @@ sub requiredParameters
 }
 
 # echoes the cgi parameters as mason parameters and adds (errorFound => 1) if cgi has any error
+#  with masonFails  parameter it eill throw exception (regardless of his value)
 sub masonParameters
 {
     my ($self) = @_;
 
     my @names = @{ $self->params() };
+
+    my $masonFails = grep { $_ eq 'masonFails' } @names;
+    if ($masonFails) {
+      throw EBox::Exceptions::External 'masonParameters failed';
+    }
+
     my @params = map { $_ => $self->param($_) } @names; 
 
     my $error    = $self->{error};

@@ -463,7 +463,16 @@ sub _process
 
     };
 
-    $self->{params} = $self->masonParameters();
+  try {
+      $self->{params} = $self->masonParameters();
+    }
+    otherwise {
+      my $e = shift;
+      
+      EBox::error("Error in masonParameters");
+      $self->setErrorFromException($e) if !exists $self->{error};
+
+    };
 }
 
 # Method: setMsg
