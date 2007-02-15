@@ -59,11 +59,11 @@ sub _regenConfig
 #
 # Method: confDir
 #
-#    returns the directory used to store OpenVPN's configuration files   
+#    Return the directory used to store OpenVPN's configuration files
 #
 # Returns:
 #
-#   the directory path as string
+#   String - the directory path
 #
 sub confDir
 {
@@ -74,11 +74,11 @@ sub confDir
 #
 # Method: confDir
 #
-#    returns the localtion of the OpenVPN's binary    
+#    Return the OpenVPN's binary location
 #
 # Returns:
 #
-#   the path to the OpenVPn program
+#   String - path to the OpenVPN program
 #
 sub openvpnBin
 {
@@ -161,12 +161,12 @@ sub daemons
 #
 # Method: activeDaemons
 #
-#  return all active daemons registered in the module
+#  Return all active daemons registered in the module
 #
 #
 # Returns:
 #
-#   a list with daemons objects
+#   array - a list with daemons objects
 #
 sub activeDaemons
 {
@@ -182,7 +182,7 @@ sub activeDaemons
 #
 # Returns:
 #
-#   a list with daemons names
+#   array - a list with daemons names
 #
 sub daemonsNames
 {
@@ -241,12 +241,12 @@ sub _removeDaemon
 #
 # Method: servers
 #
-#  lists all servers registered in the module
+#   List all servers registered in the module
 #
 #
 # Returns:
 #
-#   a list with  servers objects
+#   array - a list with servers objects
 #
 sub servers
 {
@@ -259,12 +259,12 @@ sub servers
 #
 # Method: activeServers
 #
-#  lists all active servers registered in the module
+#   List all active servers registered in the module
 #
 #
 # Returns:
 #
-#   a list with active servers objects
+#   array - a list with active servers objects
 #
 sub activeServers
 {
@@ -275,12 +275,12 @@ sub activeServers
 #
 # Method: serverNames
 #
-#  lists the names of all daemons registered in the module
+#   List the names of all daemons registered in the module
 #
 #
 # Returns:
 #
-#   a list with servers names
+#   array - a list with servers names
 #
 sub serversNames
 {
@@ -295,7 +295,7 @@ sub serversNames
 #
 # Method: server
 #
-#    returns the object representing the given server
+#     Return the object representing the given server
 #
 # Parameters:
 #
@@ -303,7 +303,7 @@ sub serversNames
 #
 # Returns:
 #
-#   the server object
+#   <EBox::OpenVPN::Server> - the server object
 #
 sub server
 {
@@ -318,7 +318,7 @@ sub server
 #
 # Method: newServer
 #
-#    creates a new server
+#     Create a new server
 #
 # Parameters:
 #
@@ -327,7 +327,7 @@ sub server
 #
 # Returns:
 #
-#   the server object
+#   <EBox::OpenVPN::Server> - the server object
 #
 sub newServer
 {
@@ -338,11 +338,11 @@ sub newServer
 #
 # Method: removeServer
 #
-#    removes the given server from the module
+#     Remove the given server from the module
 #
 # Parameters:
 #
-#    $name       - the servers name
+#     name       - the server's name
 #
 sub removeServer
 {
@@ -372,12 +372,12 @@ sub _portsByProtoFromServers
 #
 # Method: clients
 #
-#  lists all clients registered in the module
+#   List all clients registered in the module
 #
 #
 # Returns:
 #
-#   a list with  clients objects
+#   array - a list with client's objects
 #
 sub clients
 {
@@ -390,12 +390,12 @@ sub clients
 #
 # Method: activeClients
 #
-#  lists all active clients registered in the module
+#   List all active clients registered in the module
 #
 #
 # Returns:
 #
-#   a list with active clients objects
+#   array - a list with active client's objects
 #
 sub activeClients
 {
@@ -406,12 +406,12 @@ sub activeClients
 #
 # Method: clientNames
 #
-#  lists the names of all daemons registered in the module
+#   List the names of all daemons registered in the module
 #
 #
 # Returns:
 #
-#   a list with clients names
+#   array - a list with client's names
 #
 sub clientsNames
 {
@@ -424,15 +424,15 @@ sub clientsNames
 #
 # Method: client
 #
-#    returns the object representing the given client
+#    Return the object representing the given client
 #
 # Parameters:
 #
-#    name - the clients name
+#    name - the client's name
 #
 # Returns:
 #
-#   the client object
+#   <EBox::OpenVPN::Client> - the client object
 #
 sub client
 {
@@ -445,16 +445,16 @@ sub client
 #
 # Method: newClient
 #
-#    creates a new client
+#    Create a new client
 #
 # Parameters:
 #
-#    $name       - the client's name
-#    @initParams - the parameters for client initialisation
+#    name       - the client's name
+#    initParams - the parameters for client initialisation
 #
 # Returns:
 #
-#   the client object
+#   <EBox::OpenVPN::Client> - the client object
 #
 sub newClient
 {
@@ -467,11 +467,11 @@ sub newClient
 #
 # Method: removeClient
 #
-#    removes the given client from the module
+#    Remove the given client from the module
 #
 # Parameters:
 #
-#    $name       - the clients name
+#    name       - the client's name
 #
 sub removeClient
 {
@@ -534,12 +534,12 @@ sub _createDaemonSkeleton
 #
 # Method: user
 #
-#    gets the user will be used to run openvpn daemon 
+#    Get the user will be used to run openvpn daemon
 #    after root drops privileges
 #
 # Returns:
 #
-#    the user's name
+#    String - the user's name
 #
 sub user
 {
@@ -550,12 +550,12 @@ sub user
 #
 # Method: group
 #
-#    gets the group will be used to run openvpn daemon 
+#    Get the group will be used to run openvpn daemon
 #    after root drops privileges
 #
 # Returns:
 #
-#    the group's name
+#    String - the group's name
 #
 sub group
 {
@@ -566,12 +566,12 @@ sub group
 #
 # Method: dh
 #
-#    gets the path to the diffie-hellman
+#    Get the path to the Diffie-Hellman
 #    parameters file used by openvpn server
 #
 # Returns:
 #
-#    the path to the diffie-hellman parameters file
+#    String - the path to the Diffie-Hellman parameters file
 #
 sub dh
 {
@@ -802,13 +802,13 @@ sub _stopService
 #
 # Method: ripDaemons
 #
-#    gets the parameters of the RIP daemon
-#    if the OpenVPN module needs one     
+#    Get the parameters of the RIP daemon
+#    if the OpenVPN module needs one
 #
 # Returns:
 #
-#    undef if not RIP daemon is neccessary
-#    if RIP is neccessary a hash ref with RIP daemosn parameters:
+#    - undef if not RIP daemon is neccessary
+#    - if RIP is neccessary a hash ref with RIP daemosn parameters:
 #          ifaces      - list of ifaces to use by RIP daemon
 #          redistribute - bool parameters which signal if routes 
 #                           redistribution is required
@@ -842,7 +842,7 @@ sub ripDaemon
 #
 # Method: ripDaemonService
 #
-#   checks wether a RIP daemon is neccesay or not
+#   Check whether a RIP daemon is neccesary or not
 #
 # Returns:
 #
@@ -864,7 +864,7 @@ sub ripDaemonService
 #
 # Method: ripDaemonRunning
 #
-#   checks wether a RIP daemon is running or not
+#   Check whether a RIP daemon is running or not
 #
 # Returns:
 #
@@ -962,11 +962,11 @@ sub _newIfaceNumber
 #
 # Method: availableCertificates
 #
-#   gets the certificates which are available for use with OpenVPN
+#   Get the certificates which are available to use with OpenVPN
 #
 # Returns:
 #
-#    a  reference to a lsit with the common names of available certificates
+#    array ref -  a list with the common names of available certificates
 sub availableCertificates
 {
   my ($self) = @_;
@@ -1013,7 +1013,7 @@ sub freeCertificate
 
 
 
-# netwoek observer stuff
+# network observer stuff
 
 sub ifaceMethodChanged
 {
@@ -1070,7 +1070,7 @@ sub _anyDaemonReturnsTrue
 
 # Method: menu 
 #
-#       Overrides EBox::Module method.
+#       Overrides <EBox::Module::menu> method.
 #
 sub menu
 {
