@@ -1,0 +1,12 @@
+<%doc>
+Formats the named parameters list as HTML attributes. 
+The quoting character used is ["] so don't use it in the value.
+</%doc>
+<%init>
+my $attrString = '';
+while (my ($key, $value) = each %ARGS) {
+   $attrString .= qq{$key="$value" };
+}
+$m->print($attrString);
+return 
+</%init>
