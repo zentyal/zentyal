@@ -12,7 +12,7 @@
   GUI. Defaults to value
 
    @extraParams - for compability with other input templates. You can
-   pass the options here (with a 'options' keys) but the @options
+   pass the options here (with a 'options' key) but the @options
    parameter has precedence.
   
 </%doc>
@@ -41,7 +41,7 @@ if (@options == 0) {
 @extraParams  = %params;
 
 </%init>
-<select name='<% $name %>' <% "@extraParams"  %>  >
+<select name="<% $name %>" <& /htmlAttributes.mas, @extraParams &>  >
 % foreach my $option (@options) {
 %  my $optionValue = $option->{value};
 %  $option->{selected} = ($value eq $optionValue) ? 1 : 0;

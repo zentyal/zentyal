@@ -4,6 +4,7 @@ use Cwd;
 
 use lib '../..';
 use EBox::Test::Mason;
+use File::Basename;
 
 use Test::More tests => 7;
 
@@ -11,7 +12,8 @@ my $printOutput = 0;
 my $outputFile  = '/tmp/select.html';
 system "rm -rf $outputFile";
 
-my $template =   getcwd() . '/../select.mas';
+my $compRoot =   dirname dirname getcwd();
+my $template =   (dirname getcwd()) . '/select.mas';
 
 
 my @options = (
@@ -36,7 +38,7 @@ my @cases = (
 
 
 foreach my $params (@cases) {
-  EBox::Test::Mason::checkTemplateExecution(template => $template, templateParams => $params, printOutput => $printOutput, outputFile => $outputFile);
+  EBox::Test::Mason::checkTemplateExecution(template => $template, templateParams => $params, compRoot => [$compRoot], printOutput => $printOutput, outputFile => $outputFile);
 }
 
 1;
