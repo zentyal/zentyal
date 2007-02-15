@@ -7,6 +7,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Gettext;
 use EBox::Global;
 use EBox::OpenVPN;
+use EBox::Config;
 use Perl6::Junction qw(any);
 use File::Slurp;
 use File::Basename;
@@ -71,7 +72,7 @@ sub actuate
 
 	  my $paramValue;
 	  if ($param eq $anyParamWithUpload) {
-	    $paramValue = $self->_upload($param);
+	    $paramValue = $self->upload(uploadParam => $param, destDir => EBox::Config::tmp);
 	  }
 	  else {
 	    $paramValue = $self->param($param);
@@ -103,32 +104,6 @@ sub actuate
 }
 
 
-sub _upload
-{
-  my ($self, $param) = @_;
-
-  my $path = $self->cgi->param($param);
-  $path or return;
-
-  my $newFile = '/tmp/' . basename $path;
-
-
-  # get upload contents
-  my $UPLOAD_FH = $self->cgi->upload($param);
-  if (not $UPLOAD_FH) {
-    throw EBox::Exceptions::External( __('Invalid file.'));
-  }
-
-  my $fileContent = read_file($UPLOAD_FH, scalar_ref => 1);
-  close $UPLOAD_FH;
-
-  # write to destination file
-  EBox::Sudo::command(" touch $newFile");
-  EBox::Sudo::command("chmod 0600 $newFile");
-  write_file ($newFile, $fileContent);
-  
-  return $newFile;
-}
 
 
 1;

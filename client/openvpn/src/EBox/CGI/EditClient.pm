@@ -6,12 +6,11 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Config;
 use EBox::OpenVPN;
 use Perl6::Junction qw(any);
 use File::Basename;
 use File::Slurp qw(read_file write_file);
-
-use EBox::CGI::OpenVPN::CreateClient; # XXX fix with ticket #412
 
 my @clientPropierties = qw(proto caCertificatePath certificatePath certificateKey  service);
 my @serverPropierties  = qw(serverAddr serverPort); # this special treatment is due because the module is ready to use more than one server but no the CGIs.
@@ -119,8 +118,14 @@ sub _doEdit
     my $anyParamWithUpload = any(qw(caCertificatePath certificatePath certificateKey));  
 
     foreach my $attr (@mutatorsParams) {
-	my $value  = $attr eq $anyParamWithUpload ?
-	                        $self->_upload($attr)    : $self->param($attr);
+	my $value;
+	if ($attr eq $anyParamWithUpload) {
+	  $value = $self->upload(uploadParam => $attr, destDir => EBox::Config::tmp());
+	}  
+	else {
+	  $value = $self->param($attr);
+	}
+
 	next if $value eq '';
 
 	if ($client->$attr() ne $attr) {
@@ -169,12 +174,6 @@ sub _getServerPropierties
 
 
 
-sub _upload
-{
-  my ($self, $param) = @_;
-
-  return EBox::CGI::OpenVPN::CreateClient::_upload(@_);
-}
 
 
 1;
