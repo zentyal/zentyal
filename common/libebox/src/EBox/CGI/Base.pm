@@ -31,7 +31,7 @@ use Error qw(:try);
 use Encode qw(:all);
 use Data::Dumper;
 use Perl6::Junction qw(all);
-
+use File::Slurp qw(read_file write_file);
 
 ## arguments
 ##		title [optional]
@@ -725,5 +725,41 @@ sub masonParameters
 
   return [];
 }
+
+
+sub upload
+{
+  my ($self, %params) = @_;
+  # get parameters..
+  my $uploadParam = $params{uploadParam};
+  defined $uploadParam or throw EBox::Exceptions::MissingArgument('uploadParam');
+  my $destDir = $params{destDir};
+  defined $destDir or throw EBox::Exceptions::MissingArgument('destDir');
+
+  # upload parameter..
+  my $uploadParamValue = $self->cgi->param($uploadParam);
+  defined $uploadParamValue or return undef;
+
+  # get dest path..
+  my $destFile  = basename $uploadParamValue;
+  my $destPath = "$destDir/$destFile";
+
+  # get upload contents
+  my $UPLOAD_FH = $self->cgi->upload($uploadParam);
+  if (not $UPLOAD_FH) {
+    throw EBox::Exceptions::External( __('Invalid upload file.'));
+  }
+
+  my $fileContent = read_file($UPLOAD_FH, scalar_ref => 1);
+  close $UPLOAD_FH;
+
+  # write file with restrictive permissions
+  EBox::Sudo::command("touch $destPath");
+  EBox::Sudo::command("chmod 0600 $destPath");
+  write_file ($destPath, $fileContent);
+  
+  return $destPath;
+}
+
 
 1;
