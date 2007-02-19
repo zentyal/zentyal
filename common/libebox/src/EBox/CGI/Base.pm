@@ -678,12 +678,17 @@ sub _matchParams
     return { matches => \@matchedParams, targetsWithoutMatch => \@targetsWithoutMatch };
 }
 
-# Method:  optionalParameters
-#  	get the optional CGI parameter list. Any parameter that match with this list may be present or absent in the CGI parameters. 	
+# Method: optionalParameters
+#
+#       Get the optional CGI parameter list. Any
+#  	parameter that match with this list may be present or absent
+#  	in the CGI parameters.
 #
 # Returns:
-#	the list of matching parameters, it may be a names or a regular expression, in the last case it can not contain the metacharacters ^ and $
-# 
+#       the list of matching parameters, it may be a names or a
+#	regular expression, in the last case it cannot contain the
+#	metacharacters ^ and $
+#
 sub optionalParameters
 {
     return [];
