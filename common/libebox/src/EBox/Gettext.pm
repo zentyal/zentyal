@@ -142,10 +142,12 @@ sub _unset_packagedomain
 
 use utf8;
 my $langs;
+$langs->{'an_ES.UTF-8'} = 'Aragonés';
 $langs->{'es_ES.UTF-8'} = 'Castellano';
 $langs->{'ca_ES.UTF-8'} = 'Català';
 $langs->{'C'} = 'English';
 $langs->{'fr_FR.UTF-8'} = 'Français';
+$langs->{'nl_BE.UTF-8'} = 'Nederlands';
 $langs->{'pt_BR.UTF-8'} = 'Português';
 no utf8;
 
