@@ -83,9 +83,9 @@ if ($nameEditable) {
 @tableElements = map  {
   my %element = @{ $_ };
 
-  my $propierty = $element{name};
-  if (exists $properties{$propierty}) {
-    $element{value} =  $properties{$propierty};
+  my $property = $element{name};
+  if (exists $properties{$property}) {
+    $element{value} =  $properties{$property};
   }
    
 
