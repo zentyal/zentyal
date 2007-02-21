@@ -497,29 +497,32 @@ sub modInstance # (module)
 	if ($name eq 'global') {
 		return $global;
 	}
-	if (defined($global->{'mod_instances'}->{$name})) {
-		return $global->{'mod_instances'}->{$name};
-	} else {
-		$global->modExists($name) or return undef;
-		my $classname = $global->get_string("modules/$name/class");
-		unless ($classname) {
-			throw EBox::Exceptions::Internal("Module '$name' ".
-					"declared, but it has no classname.");
+	my $modInstance  = $global->{'mod_instances'}->{$name};
+	if (defined($modInstance)) {
+		if (not ($global->isReadOnly() xor $modInstance->{'ro'})) {
+			return $modInstance;
 		}
-		eval "use $classname";
-		if ($@) {
-			throw EBox::Exceptions::Internal("Error loading ".
-							 "class: $classname");
-		}
-		if ($global->isReadOnly()) {
-			$global->{'mod_instances'}->{$name} =
-						$classname->_create(ro => 1);
-		} else {
-			$global->{'mod_instances'}->{$name} =
-							$classname->_create;
-		}
-		return $global->{'mod_instances'}->{$name};
 	}
+	
+	$global->modExists($name) or return undef;
+	my $classname = $global->get_string("modules/$name/class");
+	unless ($classname) {
+		throw EBox::Exceptions::Internal("Module '$name' ".
+				"declared, but it has no classname.");
+	}
+	eval "use $classname";
+	if ($@) {
+		throw EBox::Exceptions::Internal("Error loading ".
+						 "class: $classname");
+	}
+	if ($global->isReadOnly()) {
+		$global->{'mod_instances'}->{$name} =
+					$classname->_create(ro => 1);
+	} else {
+		$global->{'mod_instances'}->{$name} =
+						$classname->_create;
+	}
+	return $global->{'mod_instances'}->{$name};
 
 }
 
