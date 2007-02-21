@@ -39,7 +39,7 @@ var pe = new PeriodicalExecuter(callServer, 5);
 
 <div id='upgrading'>
 <p> Upgrading packages </p>
-<% __("Current package") %><strong><span id="package"><% __("Starting...") %></span></strong>
+<% __("Current package") %>: <strong><span id="package"><% __("Starting...") %></span></strong>
 </div>
 <br>
 <div class ="note" id='done' style="display:none;">
