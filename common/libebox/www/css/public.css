@@ -35,15 +35,10 @@
 	line-height: 16px;
 	padding: 25px 15px 5px 15px;
    	text-decoration: none;
-	background: #ececec;
 }
 
 #hmenu #m { background-color: #b5d448; }
 #hmenu #m:hover { background-color: #C5E64E; }
-#hmenu #changes { background-color: #BBDF39; }
-#hmenu #changes:hover { background-color: #CBF23E; }
-#hmenu #notchanges { background-color: #F60000; }
-#hmenu #notchanges:hover { background-color: #FF2424; }
 
 
 #top {
@@ -546,6 +541,22 @@ pre {
 	color: #EAEAEA;
 	border: 1px solid #BABABA;
 	padding: 10px;
+}
+
+.notchanged {
+	background-color: #BBDF39; 
+}
+
+a.notchanged:hover { 
+	background-color: #CBF23E; 
+}
+
+.changed {
+	background-color: #F60000; 
+}
+
+a.changed:hover { 
+        background-color: #FF2424; 
 }
 
 .comment {
