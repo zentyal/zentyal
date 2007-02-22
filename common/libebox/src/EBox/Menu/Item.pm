@@ -55,7 +55,7 @@ sub html
 
 	my $idcurrent = "";
 	if ($current eq $url) {
-		$idcurrent="id='current'";
+		$idcurrent="id='currentmenuentry'";
 	}
 
 	if (defined($self->{style})) {
