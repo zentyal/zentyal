@@ -1,6 +1,22 @@
+// TODO 
+//      - Use Form.serialize stuff to get params
+//      - Refactor addNewRow and actionClicked, they do almost the same
+//      - Implement a generic function for the onComplete stage
+
+
 function cleanError(table)
 {
 	$('error_' + table).innerHTML = "";
+}
+
+function checkSaveChanges()
+{
+	new Ajax.Request('/ebox/HasChanged', 
+		{ onSuccess: function (r) 
+			{
+			  $('changes_menu').className = r.responseText;
+			 }
+		});
 }
 
 function addNewRow(url, table, fields, directory)
@@ -32,7 +48,7 @@ function addNewRow(url, table, fields, directory)
 			parameters: pars,
 			asyncrhonous: false,
 			evalScripts: true,
-			onComplete: function(t) { stripe('dataTable', '#ecf5da', '#ffffff'); }
+			onComplete: function(t) { checkSaveChanges(); stripe('dataTable', '#ecf5da', '#ffffff'); }
 		});
 }
 
@@ -65,7 +81,7 @@ function changeRow(url, table, fields, directory, id)
 			parameters: pars,
 			asyncrhonous: false,
 			evalScripts: true,
-			onComplete: function(t) { stripe('dataTable', '#ecf5da', '#ffffff'); }
+			onComplete: function(t) { checkSaveChanges(); stripe('dataTable', '#ecf5da', '#ffffff'); }
 		});
 }
 
@@ -85,7 +101,7 @@ function actionClicked(url, table, pars, directory) {
 		parameters: pars,
 		asyncrhonous: false,
 		evalScripts: true,
-		onComplete: function(t) {stripe('dataTable', '#ecf5da', '#ffffff'); }
+		onComplete: function(t) {checkSaveChanges(); stripe('dataTable', '#ecf5da', '#ffffff'); }
 	    });
 
 }
@@ -107,6 +123,6 @@ function changeView(url, table, directory, action, id)
 			parameters: pars,
 			asyncrhonous: false,
 			evalScripts: true,
-			onComplete: function(t) { stripe('dataTable', '#ecf5da', '#ffffff'); }
+			onComplete: function(t) { checkSaveChanges(); stripe('dataTable', '#ecf5da', '#ffffff'); }
 		});
 }
