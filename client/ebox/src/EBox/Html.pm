@@ -40,15 +40,15 @@ sub title
 	my $logout = __('Logout');
 
 	my $global = EBox::Global->getInstance();
-	my $finishId;
+	my $finishClass;
 	if ($global->unsaved) {
-		$finishId = "notchanges";
+		$finishClass = "changed";
 	} else {
-		$finishId = "changes";
+		$finishClass = "notchanged";
 	}
 
 
-	my $html = _makeHtml('headTitle.mas', save => $save, logout => $logout, finishId => $finishId  );
+	my $html = _makeHtml('headTitle.mas', save => $save, logout => $logout, finishClass => $finishClass  );
 	return $html;
 }
 
