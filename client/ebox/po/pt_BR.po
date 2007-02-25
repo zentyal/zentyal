@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox 0.8.99\n"
+"Project-Id-Version: ebox 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 17:44+0100\n"
+"POT-Creation-Date: 2007-02-25 12:45+0100\n"
 "PO-Revision-Date: 2006-10-19 00:54-0200\n"
 "Last-Translator: junior\n"
 "Language-Team:  <en@li.org>\n"
@@ -101,7 +101,7 @@ msgstr "Iniciar"
 msgid "Disabled"
 msgstr "Desabilitado"
 
-#: src/EBox/CGI/Logs/Index.pm:33 src/EBox/Logs.pm:387
+#: src/EBox/CGI/Logs/Index.pm:33 src/EBox/Logs.pm:389
 #, fuzzy
 msgid "Logs"
 msgstr "Desconectar"
@@ -149,6 +149,14 @@ msgstr "Você foi Desconectado porque outra sessão foi aberta."
 msgid "Logout"
 msgstr "Desconectar"
 
+#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
+msgid "Status"
+msgstr "Status"
+
+#: src/EBox/CGI/Summary/Index.pm:47
+msgid "Error"
+msgstr "Erro"
+
 #: src/EBox/CGI/EBox/RestartService.pm:48
 msgid "module name"
 msgstr "nome do módulo"
@@ -178,7 +186,7 @@ msgstr ""
 
 #: src/EBox/CGI/EBox/Backup.pm:230 src/EBox/CGI/EBox/Backup.pm:301
 #: src/EBox/CGI/EBox/Backup.pm:314 src/EBox/CGI/EBox/ConfirmBackup.pm:197
-#: src/EBox/Backup.pm:988
+#: src/EBox/Backup.pm:1003
 msgid "The input contains invalid characters"
 msgstr "A Entrada contém caracteres inválidos"
 
@@ -308,14 +316,6 @@ msgstr "Lista de Configuração de Backups"
 msgid "Bug-report configuration dump"
 msgstr "Restaurar Configuração"
 
-#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
-msgid "Status"
-msgstr "Status"
-
-#: src/EBox/CGI/Summary/Index.pm:47
-msgid "Error"
-msgstr "Erro"
-
 #: src/EBox/CGI/Finish.pm:30
 msgid "Save configuration"
 msgstr "Salvar a configuração"
@@ -353,43 +353,43 @@ msgstr "O script httpd_init que você configurou não é executável."
 msgid "port"
 msgstr "porta"
 
-#: src/EBox/Logs.pm:229
+#: src/EBox/Logs.pm:231
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr ""
 
-#: src/EBox/Logs.pm:244
+#: src/EBox/Logs.pm:246
 #, perl-brace-format
 msgid "Field {field} does not exist"
 msgstr ""
 
-#: src/EBox/Logs.pm:397 src/templates/confirm-backup.mas:28
-#: src/templates/backup.mas:162 src/templates/finish.mas:22
+#: src/EBox/Logs.pm:399 src/templates/confirm-backup.mas:28
+#: src/templates/backup.mas:162 src/templates/finish.mas:23
 msgid "Date"
 msgstr "Data"
 
-#: src/EBox/Logs.pm:398
+#: src/EBox/Logs.pm:400
 msgid "Client Address"
 msgstr ""
 
-#: src/EBox/Logs.pm:399 src/templates/finish.mas:24
+#: src/EBox/Logs.pm:401 src/templates/finish.mas:25
 msgid "Module"
 msgstr ""
 
-#: src/EBox/Logs.pm:400
+#: src/EBox/Logs.pm:402
 #, fuzzy
 msgid "Action"
 msgstr "Ações"
 
-#: src/EBox/Logs.pm:401
+#: src/EBox/Logs.pm:403
 msgid "Params"
 msgstr ""
 
-#: src/EBox/Logs.pm:402
+#: src/EBox/Logs.pm:404
 msgid "Committed"
 msgstr ""
 
-#: src/EBox/Logs.pm:407
+#: src/EBox/Logs.pm:409
 msgid "Admin"
 msgstr ""
 
@@ -407,7 +407,7 @@ msgstr "Não foi possível descompactar o Backup"
 msgid "Could not append data to backup archive"
 msgstr "Não foi possível descompactar o Backup"
 
-#: src/EBox/Backup.pm:347 src/EBox/Backup.pm:971
+#: src/EBox/Backup.pm:347 src/EBox/Backup.pm:986
 msgid "Insert a backup disc and try again, please"
 msgstr ""
 
@@ -549,20 +549,20 @@ msgstr "Desligar/Reiniciar"
 msgid "Password changed"
 msgstr "Senha"
 
-#: src/EBox/PgDBEngine.pm:42 src/EBox/PgDBEngine.pm:55
-#: src/EBox/PgDBEngine.pm:68
+#: src/EBox/PgDBEngine.pm:43 src/EBox/PgDBEngine.pm:56
+#: src/EBox/PgDBEngine.pm:69
 #, fuzzy, perl-brace-format
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr ""
 "Você precisar especificar a variável httpd_init no arquivo de configuração "
 "do EBox"
 
-#: src/EBox/PgDBEngine.pm:216
+#: src/EBox/PgDBEngine.pm:217
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
 msgstr ""
 
-#: src/EBox/PgDBEngine.pm:234
+#: src/EBox/PgDBEngine.pm:235
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr ""
@@ -926,19 +926,19 @@ msgstr ""
 "você precisa reescrever manualmente a url para acessar essa interface de "
 "administração novamente."
 
-#: src/templates/finish.mas:26
+#: src/templates/finish.mas:27
 msgid "Message"
 msgstr ""
 
-#: src/templates/finish.mas:42
+#: src/templates/finish.mas:44
 msgid "Save"
 msgstr "Salvar"
 
-#: src/templates/finish.mas:45
+#: src/templates/finish.mas:47
 msgid "Discard changes"
 msgstr "Descartar Mudanças"
 
-#: src/templates/finish.mas:51
+#: src/templates/finish.mas:53
 msgid "There are no unsaved changes."
 msgstr "Não existem mudanças não salvas"
 

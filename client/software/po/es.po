@@ -1,6 +1,5 @@
-# Spanish translations for ebox-printers package
-# Copyright (C) 2005 Warp S.L.
-# This file is distributed under the same license as the ebox-printers package.
+# translation of es.po to
+#
 #
 # Guillermo Ontañón <gontanon@warp.es>, 2005.
 # Isaac Clerencia <isaac@warp.es>, 2005.
@@ -9,9 +8,9 @@
 # Javier Uruen Val <juruen@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.8.99\n"
+"Project-Id-Version: ebox-software 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 18:54+0100\n"
+"POT-Creation-Date: 2007-02-25 12:47+0100\n"
 "PO-Revision-Date: 2007-02-02 18:12+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: <info@ebox-platform.com>\n"
@@ -21,7 +20,7 @@ msgstr ""
 "X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:313
+#: src/EBox/Software.pm:314
 msgid "System updates"
 msgstr "Actualizaciones del sistema"
 
@@ -57,7 +56,7 @@ msgstr ""
 msgid "The packages were removed successfully"
 msgstr "Los paquetes se han eliminado correctamente"
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:311
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:312
 msgid "eBox components"
 msgstr "Componentes eBox"
 
@@ -65,7 +64,7 @@ msgstr "Componentes eBox"
 msgid "Upgrading"
 msgstr "Actualizando"
 
-#: src/EBox/Software.pm:136
+#: src/EBox/Software.pm:137
 msgid ""
 "An error ocurred while removing components. If the error persists or eBox "
 "stops working properly, seek technical support."
@@ -73,11 +72,11 @@ msgstr ""
 "Se ha producido un error al instalar componentes. Si el error persiste o "
 "eBox deja de funcionar correctamente pida soporte técnico."
 
-#: src/EBox/Software.pm:308 src/EBox/PackageDescriptions.pm:15
+#: src/EBox/Software.pm:309 src/EBox/PackageDescriptions.pm:15
 msgid "Software management"
 msgstr "Gestión de software"
 
-#: src/EBox/Software.pm:315
+#: src/EBox/Software.pm:316
 msgid "Configuration"
 msgstr "Configuración"
 
@@ -145,7 +144,15 @@ msgstr "Caché HTTP y filtro de contenidos"
 msgid "User and Group management"
 msgstr "Gestión de usuarios y grupos"
 
-#: src/templates/upgrading.mas:68
+#: src/templates/upgrading.mas:42
+msgid "Current package"
+msgstr ""
+
+#: src/templates/upgrading.mas:43
+msgid "Starting..."
+msgstr ""
+
+#: src/templates/upgrading.mas:48
 msgid "The installation of the packages has finished successfully"
 msgstr "Los paquetes se han instalado correctamente "
 

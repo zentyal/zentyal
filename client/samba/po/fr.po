@@ -6,9 +6,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-samba 0.8.99\n"
+"Project-Id-Version: ebox-samba 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 15:04+0100\n"
+"POT-Creation-Date: 2007-02-25 13:14+0100\n"
 "PO-Revision-Date: 2005-11-29 19:58+0100\n"
 "Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -174,7 +174,8 @@ msgstr ""
 "des noms plus longs que 12 caractères"
 
 #: src/templates/samba.mas:76
-msgid "This resource name is longer than 12 charcters."
+#, fuzzy
+msgid "This resource name is longer than 12 characters."
 msgstr "Le nom de cette ressource est plus long de 12 caractères"
 
 #: src/templates/samba.mas:80
@@ -260,6 +261,9 @@ msgstr "Limite de quota"
 #: stubs/smb.conf.mas:90
 msgid "Home Directories"
 msgstr "Répertoires home"
+
+#~ msgid "This resource name is longer than 12 charcters."
+#~ msgstr "Le nom de cette ressource est plus long de 12 caractères"
 
 #~ msgid "Ok"
 #~ msgstr "Ok"

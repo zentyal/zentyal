@@ -6,9 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.8.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 18:54+0100\n"
+"POT-Creation-Date: 2007-02-25 12:47+0100\n"
 "PO-Revision-Date: 2005-11-29 12:45+0100\n"
 "Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -19,7 +18,7 @@ msgstr ""
 "X-Generator: KBabel 1.10.2\n"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:313
+#: src/EBox/Software.pm:314
 msgid "System updates"
 msgstr "Actualisations du système"
 
@@ -54,7 +53,7 @@ msgstr ""
 msgid "The packages were removed successfully"
 msgstr "Les paquets ont été enlevés avec succès"
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:311
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:312
 msgid "eBox components"
 msgstr "Composantes d'eBox"
 
@@ -63,7 +62,7 @@ msgstr "Composantes d'eBox"
 msgid "Upgrading"
 msgstr "Étendre"
 
-#: src/EBox/Software.pm:136
+#: src/EBox/Software.pm:137
 msgid ""
 "An error ocurred while removing components. If the error persists or eBox "
 "stops working properly, seek technical support."
@@ -72,11 +71,11 @@ msgstr ""
 "persiste ou eBox cesse de fonctionner correctement, cherchez le soutien "
 "technique."
 
-#: src/EBox/Software.pm:308 src/EBox/PackageDescriptions.pm:15
+#: src/EBox/Software.pm:309 src/EBox/PackageDescriptions.pm:15
 msgid "Software management"
 msgstr "Gestion du logiciel"
 
-#: src/EBox/Software.pm:315
+#: src/EBox/Software.pm:316
 msgid "Configuration"
 msgstr "Configuration"
 
@@ -146,7 +145,15 @@ msgstr ""
 msgid "User and Group management"
 msgstr ""
 
-#: src/templates/upgrading.mas:68
+#: src/templates/upgrading.mas:42
+msgid "Current package"
+msgstr ""
+
+#: src/templates/upgrading.mas:43
+msgid "Starting..."
+msgstr ""
+
+#: src/templates/upgrading.mas:48
 #, fuzzy
 msgid "The installation of the packages has finished successfully"
 msgstr "Les paquets ont été installés avec succès"

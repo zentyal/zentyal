@@ -10,9 +10,9 @@
 # Javier Amor Garcia <javier.amor.garcia@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-samba 0.8.99\n"
+"Project-Id-Version: ebox-samba 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 15:04+0100\n"
+"POT-Creation-Date: 2007-02-25 13:14+0100\n"
 "PO-Revision-Date: 2006-10-25 13:00+0200\n"
 "Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
 "Language-Team: \n"
@@ -175,7 +175,8 @@ msgstr ""
 "los nombres de más de 12 caracteres"
 
 #: src/templates/samba.mas:76
-msgid "This resource name is longer than 12 charcters."
+#, fuzzy
+msgid "This resource name is longer than 12 characters."
 msgstr "El nombre del recurso compartido no puede superar 12 carácteres."
 
 #: src/templates/samba.mas:80
@@ -256,3 +257,6 @@ msgstr "Límite de cuota"
 #: stubs/smb.conf.mas:90
 msgid "Home Directories"
 msgstr "Directorios de usuario"
+
+#~ msgid "This resource name is longer than 12 charcters."
+#~ msgstr "El nombre del recurso compartido no puede superar 12 carácteres."

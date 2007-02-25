@@ -5,11 +5,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ca 0.8.99\n"
+"Project-Id-Version: ebox-ca 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-02-02 17:44+0100\n"
-"PO-Revision-Date: 2007-01-31 11:34+0000\n"
-"Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
+"PO-Revision-Date: 2007-02-20 19:27+0000\n"
+"Last-Translator: Guillermo Frías Marín <espanyoldebarna@hotmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -229,12 +229,13 @@ msgstr ""
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
 msgstr ""
-"Destruyata autoridá de zertificazión con nombre d'organizazión {orgName}"
+"Destruyita autoridá de zertificazión con nombre d'organizazión {orgName}"
 
 #: src/EBox/CA.pm:2187
 #, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
 msgstr ""
+"Rebocato zertificato de l'autoridá á causa de {reason} aforzato: {force}"
 
 #: src/EBox/CA.pm:2189
 #, perl-brace-format
@@ -242,6 +243,8 @@ msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr ""
+"Espediato zertificato de l'autoridá con nombre d'organizazión {orgName} y "
+"balidura ta {days} diyas"
 
 #: src/EBox/CA.pm:2191
 #, perl-brace-format
@@ -249,120 +252,129 @@ msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr ""
+"Esbiellato zertificato de l'autoriddá con nombre d'organizazión {orgName} y "
+"balidura ta {days} diyas"
 
 #: src/EBox/CA.pm:2193
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
-msgstr ""
+msgstr "Espediato zertificato con nombre común {cn} y balidura ta {days} diyas"
 
 #: src/EBox/CA.pm:2195
 #, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
 msgstr ""
+"Rebocato zertificato con nombre común {cn} debito á {reason} aforzato: "
+"{force}"
 
 #: src/EBox/CA.pm:2197
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr ""
+"Esbiellato zertificato con nombre común {cn} y balidura ta {days} diyas"
 
 #: src/EBox/CA.pm:2199
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr ""
+"Actualizato alazet de datos de zertificatos. {number} zertificatos han "
+"espirato"
 
 #: src/EBox/CA.pm:2282
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
-msgstr ""
+msgstr "No se puede encomenzar o entrepite ta OpenSSL ({errval})"
 
 #: src/templates/formRenew.mas:15 src/templates/index.mas:143
 #: src/templates/index.mas:163
 msgid "Renew"
-msgstr ""
+msgstr "Esbiellar"
 
 #: src/templates/formRenew.mas:20
 msgid "Renew a certificate"
-msgstr ""
+msgstr "Esbiellar un zertificato"
 
 #: src/templates/formRenew.mas:34 src/templates/formRevoke.mas:27
 msgid "Expiration Date"
-msgstr ""
+msgstr "Calendata d'espirazión"
 
 #: src/templates/createCA.mas:10
 msgid "Create Certification Authority Certificate"
-msgstr ""
+msgstr "Creyar Zertificato de l'Autoridá de Zertificazión"
 
 #: src/templates/createCA.mas:37 src/templates/createCA.mas:39
 msgid "Create"
-msgstr ""
+msgstr "Creyar"
 
 #: src/templates/index.mas:29
 msgid "Issue"
-msgstr ""
+msgstr "Espediar"
 
 #: src/templates/index.mas:36
 msgid "Certificate changes will take effect immediately"
-msgstr ""
+msgstr "Os cambeos en os zertificatos abrán efeuto de traza inmeyata"
 
 #: src/templates/index.mas:40
 msgid "Issue the Certification Authority Certificate"
-msgstr ""
+msgstr "Espediar o Zertificato de l'Autoridá de Zertificazión"
 
 #: src/templates/index.mas:43
 msgid "Issue a new certificate"
-msgstr ""
+msgstr "Espediar un nuebo zertificato"
 
 #: src/templates/index.mas:51
 msgid "Current Certificate List"
-msgstr ""
+msgstr "Lista de Zertificatos autual"
 
 #: src/templates/index.mas:54
 msgid ""
 "Date refers to Expiration Date in Valid/Expired and to Revokation Date in "
 "Revoked certificates respectively"
 msgstr ""
+"A calendata se refiere á Calendata d'Espirazión en zertificatos Balius u "
+"Caducatos y á Calendata de Rebocazión en os zertificatos rebocatos"
 
 #: src/templates/index.mas:61
 msgid "State"
-msgstr ""
+msgstr "Estato"
 
 #: src/templates/index.mas:63
 msgid "Date"
-msgstr ""
+msgstr "Calendata"
 
 #: src/templates/index.mas:65
 msgid "Actions"
-msgstr ""
+msgstr "Aizions"
 
 #: src/templates/index.mas:86
 msgid "Valid"
-msgstr ""
+msgstr "Baliu"
 
 #: src/templates/index.mas:89
 msgid "Expired"
-msgstr ""
+msgstr "Espirato"
 
 #: src/templates/index.mas:92
 msgid "Revoked"
-msgstr ""
+msgstr "Rebocato"
 
 #: src/templates/index.mas:122 src/templates/index.mas:157
 #: src/templates/forceRevoke.mas:36 src/templates/formRevoke.mas:57
 msgid "Revoke"
-msgstr ""
+msgstr "Rebocar"
 
 #: src/templates/index.mas:132 src/templates/index.mas:160
 msgid "Download Key(s) and Certificate"
-msgstr ""
+msgstr "Escargar clau(s) y zertificato"
 
 #: src/templates/forceRevoke.mas:12
 msgid "Revoking CA certificate"
-msgstr ""
+msgstr "Rebocar zertificato de l'autoridá de zertificazión"
 
 #: src/templates/forceRevoke.mas:15
 msgid "Revoking certificate"
-msgstr ""
+msgstr "Rebocar un zertificato"
 
 #: src/templates/forceRevoke.mas:21
 #, perl-brace-format
@@ -371,15 +383,18 @@ msgid ""
 "by some module, please confirm you are sure to revoke and leave the service"
 "(s) instable or disabled"
 msgstr ""
+"O zertificato cualo nombre común ye {cn} que has intentato rebocar ye "
+"estando emplegato por atro modulo, por fabor confirma que yes seguro de "
+"rebocar y dixar dito(s) serbizio(s) inestables u amortatos"
 
 #: src/templates/forceRevoke.mas:40
 msgid "Cancel"
-msgstr ""
+msgstr "Canzelar"
 
 #: src/templates/formRevoke.mas:9
 msgid "Revoke a certificate"
-msgstr ""
+msgstr "Rebocar un zertificato"
 
 #: src/templates/formRevoke.mas:18
 msgid "Revoke the selected certificate"
-msgstr ""
+msgstr "Rebocar o zertificato trigato"

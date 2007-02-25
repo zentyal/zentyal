@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 0.8.99\n"
+"Project-Id-Version: ebox-usersandgroups 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-02-02 15:04+0100\n"
-"PO-Revision-Date: 2007-01-28 14:58+0000\n"
+"PO-Revision-Date: 2007-02-18 11:23+0000\n"
 "Last-Translator: Guillermo Frías Marín <espanyoldebarna@hotmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -163,108 +163,114 @@ msgstr "Comentario"
 
 #: src/templates/users.mas:49 src/templates/user.mas:41
 msgid "Password"
-msgstr ""
+msgstr "Parabra de paso"
 
 #: src/templates/users.mas:57 src/templates/user.mas:52
 msgid "Retype password"
-msgstr ""
+msgstr "Confirme parabra de paso"
 
 #: src/templates/users.mas:71 src/templates/users.mas:73
 #: src/templates/groups.mas:48 src/templates/groups.mas:50
 msgid "Create"
-msgstr ""
+msgstr "Creyar"
 
 #: src/templates/users.mas:82
 msgid "Edit User"
-msgstr ""
+msgstr "Editar usuario"
 
 #: src/templates/users.mas:88 src/templates/groups.mas:65
 msgid "Actions"
-msgstr ""
+msgstr "Aizions"
 
 #: src/templates/users.mas:101 src/templates/users.mas:103
 #: src/templates/groups.mas:78 src/templates/groups.mas:80
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: src/templates/users.mas:110 src/templates/users.mas:112
 #: src/templates/users.mas:114 src/templates/group.mas:66
 #: src/templates/groups.mas:87 src/templates/groups.mas:89
 #: src/templates/groups.mas:91
 msgid "Remove"
-msgstr ""
+msgstr "Tirar"
 
 #: src/templates/users.mas:130
 msgid "Group"
-msgstr ""
+msgstr "Grupo"
 
 #: src/templates/del.mas:13
 msgid "Deleting user"
-msgstr ""
+msgstr "Eliminar usuario"
 
 #: src/templates/del.mas:16
 msgid ""
 "The user you tried to delete contains data in the following modules. Please "
 "confirm you want to remove it and all its related data"
 msgstr ""
+"L'usuario que ha intentato eliminar contiene datos en dibersos modulos. Por "
+"fabor confirme que deseya eliminar-lo y toz os suyos datos relazionatos"
 
 #: src/templates/del.mas:20
 msgid "Deleting group"
-msgstr ""
+msgstr "Borrar grupo"
 
 #: src/templates/del.mas:23
 msgid ""
 "The group you tried to delete contains data in the following modules. Please "
 "confirm you want to remove it and all its related data"
 msgstr ""
+"O grupo que ha intentato eliminar contiene datos en dibersos modulos. Por "
+"fabor confirme que deseya eliminar-lo y toz os suyos datos relazionatos"
 
 #: src/templates/del.mas:47
 msgid "Delete"
-msgstr ""
+msgstr "Eliminar"
 
 #: src/templates/del.mas:51
 msgid "Cancel"
-msgstr ""
+msgstr "Canzelar"
 
 #: src/templates/group.mas:12
 msgid "Administration of group "
-msgstr ""
+msgstr "Almenistrazión d'o grupo"
 
 #: src/templates/group.mas:16
 msgid ""
 "There are no users the moment. You need at least one  to manage this group "
 "properly"
 msgstr ""
+"No bi ha dengún usuario en iste inte. Ha menester á lo menos d'uno ta "
+"chestionar o grupo"
 
 #: src/templates/group.mas:28 src/templates/group.mas:30
 #: src/templates/user.mas:65 src/templates/user.mas:67
 msgid "Change"
-msgstr ""
+msgstr "Cambeo"
 
 #: src/templates/group.mas:37
 msgid "Users in group"
-msgstr ""
+msgstr "Usuarios en o grupo"
 
 #: src/templates/group.mas:40
 msgid "Users not in group"
-msgstr ""
+msgstr "Usuarios difuera d'o grupo"
 
 #: src/templates/group.mas:57 src/templates/group.mas:97
 msgid "Empty list"
-msgstr ""
+msgstr "Lista bazia"
 
 #: src/templates/group.mas:70
 msgid "Remove users from group"
-msgstr ""
+msgstr "Eliminar usuarios d'o grupo"
 
 #: src/templates/group.mas:79 src/templates/group.mas:83
 msgid "Add users to group"
-msgstr ""
+msgstr "Adibir usuarios á lo grupo"
 
 #: src/templates/group.mas:113 src/templates/group.mas:123
 #: src/templates/group.mas:125
 msgid "Delete group"
-msgstr ""
+msgstr "Borrar grupo"
 
 #: src/templates/group.mas:116
 msgid ""

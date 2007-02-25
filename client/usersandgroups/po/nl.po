@@ -5,16 +5,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 0.8.99\n"
+"Project-Id-Version: ebox-usersandgroups 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-02-02 15:04+0100\n"
-"PO-Revision-Date: 2006-11-17 17:38+0100\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2007-02-14 11:59+0000\n"
+"Last-Translator: Steven Pauwels <stevenpauwels@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
 #: src/EBox/UsersAndGroups.pm:645 src/EBox/UsersAndGroups.pm:650
@@ -103,7 +104,7 @@ msgstr "Groepen"
 #: src/EBox/UsersAndGroups.pm:248
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
-msgstr ""
+msgstr "Gebruikersnaam mag niet langer zijn dan {maxuserlenght} tekens"
 
 #: src/EBox/UsersAndGroups.pm:268 src/EBox/UsersAndGroups.pm:659
 msgid "Maximum number of system users reached"
@@ -112,7 +113,7 @@ msgstr "Maximum aantal gebruikers voor systeem bereikt"
 #: src/EBox/UsersAndGroups.pm:633
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
-msgstr ""
+msgstr "Groepnaam mag niet langer zijn dan {maxGroupLenght} tekens"
 
 #: src/EBox/UsersAndGroups.pm:639
 msgid "The group name is not valid because it is used internally"
@@ -121,7 +122,7 @@ msgstr "De naam van de groep is niet geldig omdat hij gereserveerd is"
 #: src/EBox/UsersAndGroups.pm:1172
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
-msgstr ""
+msgstr "Paswoord mag niet langer zijn dan {maxPwdLenght} tekens"
 
 #: src/EBox/LdapUserImplementation.pm:42
 msgid "This group contains users"
@@ -239,6 +240,8 @@ msgid ""
 "There are no users the moment. You need at least one  to manage this group "
 "properly"
 msgstr ""
+"Er zijn nog geen gebruikers. Er moet minstens één gebruiker zijn om deze "
+"groep te kunnen beheren"
 
 #: src/templates/group.mas:28 src/templates/group.mas:30
 #: src/templates/user.mas:65 src/templates/user.mas:67

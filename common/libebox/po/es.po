@@ -9,9 +9,9 @@
 # This file is distributed under the same license as the libebox package.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.8.99\n"
+"Project-Id-Version: libebox 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 15:02+0100\n"
+"POT-Creation-Date: 2007-02-25 12:44+0100\n"
 "PO-Revision-Date: 2007-02-02 10:51+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: \n"
@@ -52,7 +52,7 @@ msgstr ""
 "La entrada contiene caracteres inválidos. Todos los caracteres alfanuméricos "
 "más los caracteres /.?'&+:-@ y los espacios están permitidos."
 
-#: src/EBox/CGI/Base.pm:309 src/EBox/CGI/Base.pm:513
+#: src/EBox/CGI/Base.pm:309 src/EBox/CGI/Base.pm:522
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -68,7 +68,7 @@ msgstr ""
 "Se ha producido un error interno relacionado con una plantilla. Se trata de "
 "un bug, puede encontrar más información en los logs."
 
-#: src/EBox/CGI/Base.pm:519
+#: src/EBox/CGI/Base.pm:528
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -76,25 +76,29 @@ msgstr ""
 "Se ha producido un error interno. Se trata de un bug, puede encontrar más "
 "información en los logs."
 
-#: src/EBox/CGI/Base.pm:525
+#: src/EBox/CGI/Base.pm:534
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
 "Acaba de encontrar un bug en eBox. Por favor, consulte a su soporte técnico."
 
-#: src/EBox/CGI/Base.pm:612
+#: src/EBox/CGI/Base.pm:621
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Su petición no pudo ser procesada debido a que contenia parametros "
 "incorrectos"
 
-#: src/EBox/CGI/Base.pm:627
+#: src/EBox/CGI/Base.pm:636
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
 "Su petición no pudo ser procesada debido a que carece de algún parametro "
 "necesario"
+
+#: src/EBox/CGI/Base.pm:755
+msgid "Invalid upload file."
+msgstr ""
 
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
 #: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
@@ -143,7 +147,7 @@ msgstr ""
 msgid "The file path must be absolute"
 msgstr "La ruta de archivo debe ser absoluta"
 
-#: src/templates/ajax/tableBody.mas:118
+#: src/templates/ajax/tableBody.mas:116
 msgid "Action"
 msgstr "Acción"
 

@@ -6,9 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.8.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 17:45+0100\n"
+"POT-Creation-Date: 2007-02-25 12:46+0100\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -17,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:64
-#: src/EBox/Model/MultiGwRulesDataTable.pm:415
+#: src/EBox/Model/MultiGwRulesDataTable.pm:416
 msgid "any"
 msgstr ""
 
@@ -26,13 +25,13 @@ msgid "Protocol"
 msgstr ""
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:104
-#: src/EBox/Model/GatewayDataTable.pm:86 src/EBox/Network.pm:651
+#: src/EBox/Model/GatewayDataTable.pm:89 src/EBox/Network.pm:651
 #: src/EBox/Network.pm:683 src/EBox/Network.pm:728 src/EBox/Network.pm:762
 #: src/EBox/Network.pm:787 src/EBox/Network.pm:848 src/EBox/Network.pm:953
 #: src/EBox/Network.pm:1148 src/EBox/Network.pm:1208 src/EBox/Network.pm:1243
-#: src/EBox/Network.pm:1279 src/EBox/Network.pm:1312 src/EBox/Network.pm:1901
-#: src/EBox/Network.pm:1933 src/EBox/Network.pm:1986 src/EBox/Network.pm:2006
-#: src/EBox/Network.pm:2027 src/EBox/Network.pm:2050
+#: src/EBox/Network.pm:1279 src/EBox/Network.pm:1312 src/EBox/Network.pm:1953
+#: src/EBox/Network.pm:1985 src/EBox/Network.pm:2058 src/EBox/Network.pm:2078
+#: src/EBox/Network.pm:2099 src/EBox/Network.pm:2122
 msgid "Interface"
 msgstr "Interfície"
 
@@ -74,7 +73,7 @@ msgstr "Pasarel·la"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:205
 #: src/EBox/CGI/Controller/MultiGwRulesDataTable.pm:30
-#: src/EBox/CGI/View/MultiGwRulesDataTable.pm:31 src/EBox/Network.pm:2179
+#: src/EBox/CGI/View/MultiGwRulesDataTable.pm:31 src/EBox/Network.pm:2251
 #, fuzzy
 msgid "Multigateway rules"
 msgstr "adreça de la pasarel·la"
@@ -100,46 +99,46 @@ msgstr ""
 msgid "Port cannot be set if no protocol is selected"
 msgstr ""
 
-#: src/EBox/Model/GatewayDataTable.pm:68 src/templates/ifaces.mas:30
+#: src/EBox/Model/GatewayDataTable.pm:71 src/templates/ifaces.mas:30
 #: src/templates/ifaces.mas:231
 msgid "Name"
 msgstr "Nom"
 
-#: src/EBox/Model/GatewayDataTable.pm:77
+#: src/EBox/Model/GatewayDataTable.pm:80
 #, fuzzy
 msgid "IP Address"
 msgstr "Adreça IP"
 
-#: src/EBox/Model/GatewayDataTable.pm:95
+#: src/EBox/Model/GatewayDataTable.pm:98
 msgid "Upload"
 msgstr ""
 
-#: src/EBox/Model/GatewayDataTable.pm:105
+#: src/EBox/Model/GatewayDataTable.pm:108
 msgid "Download"
 msgstr ""
 
-#: src/EBox/Model/GatewayDataTable.pm:115
+#: src/EBox/Model/GatewayDataTable.pm:118
 #, fuzzy
 msgid "Default"
 msgstr "Pasarel·la per defecte"
 
-#: src/EBox/Model/GatewayDataTable.pm:129
+#: src/EBox/Model/GatewayDataTable.pm:132
 #, fuzzy
 msgid "Gateway list"
 msgstr "Pasarel·la"
 
-#: src/EBox/Model/GatewayDataTable.pm:147
+#: src/EBox/Model/GatewayDataTable.pm:150
 msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
 "split your internet traffic through serveral links."
 msgstr ""
 
-#: src/EBox/Model/GatewayDataTable.pm:159 src/EBox/CGI/Iface.pm:87
+#: src/EBox/Model/GatewayDataTable.pm:162 src/EBox/CGI/Iface.pm:87
 #: src/EBox/Network.pm:1443
 msgid "ip address"
 msgstr "adreça ip"
 
-#: src/EBox/Model/GatewayDataTable.pm:174
+#: src/EBox/Model/GatewayDataTable.pm:177
 #, fuzzy
 msgid "There is already a default gateway"
 msgstr "Pasarel·la per defecte"
@@ -149,7 +148,7 @@ msgstr "Pasarel·la per defecte"
 #: src/EBox/CGI/Controller/GatewayDataTableMove.pm:30
 #: src/EBox/CGI/Controller/GatewayDataTableAdd.pm:30
 #: src/EBox/CGI/Controller/GatewayDataTable.pm:30
-#: src/EBox/CGI/View/GatewayDataTable.pm:30 src/EBox/Network.pm:2176
+#: src/EBox/CGI/View/GatewayDataTable.pm:30 src/EBox/Network.pm:2248
 #, fuzzy
 msgid "Gateways"
 msgstr "Pasarel·la"
@@ -168,7 +167,7 @@ msgid "DNS configured"
 msgstr ""
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
-#: src/EBox/Network.pm:2103
+#: src/EBox/Network.pm:2175
 msgid "Network interfaces"
 msgstr "Interfícies de xarxa"
 
@@ -200,7 +199,7 @@ msgstr "Interfícies de xarxa"
 msgid "Host"
 msgstr ""
 
-#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2091
+#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2163
 msgid "host name"
 msgstr ""
 
@@ -223,8 +222,8 @@ msgstr "acció d'interfície virtual"
 
 #: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:558 src/EBox/Network.pm:563
 #: src/EBox/Network.pm:852 src/EBox/Network.pm:873 src/EBox/Network.pm:1386
-#: src/EBox/Network.pm:1903 src/EBox/Network.pm:1918 src/EBox/Network.pm:2030
-#: src/EBox/Network.pm:2148 src/templates/ifaces.mas:104
+#: src/EBox/Network.pm:1955 src/EBox/Network.pm:1970 src/EBox/Network.pm:2102
+#: src/EBox/Network.pm:2220 src/templates/ifaces.mas:104
 #: src/templates/ifaces.mas:233
 msgid "IP address"
 msgstr "Adreça IP"
@@ -247,7 +246,7 @@ msgid "VLAN Id"
 msgstr ""
 
 #: src/EBox/CGI/Routes.pm:29 src/EBox/CGI/Routes.pm:40
-#: src/EBox/Network.pm:2171
+#: src/EBox/Network.pm:2243
 msgid "Routes"
 msgstr "Rutes"
 
@@ -265,12 +264,12 @@ msgstr ""
 msgid "Configure default gateway"
 msgstr "Pasarel·la per defecte"
 
-#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:1865
+#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:1917
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
 msgstr "No es pot accedir a la pasarel·la {gw}"
 
-#: src/EBox/Network.pm:56 src/EBox/Network.pm:2163 src/templates/routes.mas:33
+#: src/EBox/Network.pm:56 src/EBox/Network.pm:2235 src/templates/routes.mas:33
 msgid "Network"
 msgstr "Xarxa"
 
@@ -278,7 +277,7 @@ msgstr "Xarxa"
 msgid "Virtual interface name"
 msgstr "Nom de la interfície virtual"
 
-#: src/EBox/Network.pm:558 src/EBox/Network.pm:852 src/EBox/Network.pm:1903
+#: src/EBox/Network.pm:558 src/EBox/Network.pm:852 src/EBox/Network.pm:1955
 #: src/templates/ifaces.mas:118 src/templates/ifaces.mas:235
 msgid "Netmask"
 msgstr "Màscara de xarxa"
@@ -298,46 +297,46 @@ msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
 
-#: src/EBox/Network.pm:1836
+#: src/EBox/Network.pm:1888
 msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
 msgstr ""
 
-#: src/EBox/Network.pm:2072
+#: src/EBox/Network.pm:2144
 msgid "Host name"
 msgstr ""
 
-#: src/EBox/Network.pm:2122
+#: src/EBox/Network.pm:2194
 msgid "down"
 msgstr "avall"
 
-#: src/EBox/Network.pm:2128
+#: src/EBox/Network.pm:2200
 msgid "up"
 msgstr "amunt"
 
-#: src/EBox/Network.pm:2132
+#: src/EBox/Network.pm:2204
 msgid "link ok"
 msgstr ""
 
-#: src/EBox/Network.pm:2134
+#: src/EBox/Network.pm:2206
 msgid "no link"
 msgstr ""
 
-#: src/EBox/Network.pm:2137
+#: src/EBox/Network.pm:2209
 msgid "Status"
 msgstr "Estat"
 
-#: src/EBox/Network.pm:2142
+#: src/EBox/Network.pm:2214
 msgid "MAC address"
 msgstr "Adreça MAC"
 
-#: src/EBox/Network.pm:2167
+#: src/EBox/Network.pm:2239
 #, fuzzy
 msgid "Interfaces"
 msgstr "Interfície"
 
-#: src/EBox/Network.pm:2173
+#: src/EBox/Network.pm:2245
 msgid "Diagnosis"
 msgstr ""
 

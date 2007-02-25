@@ -5,16 +5,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox 0.8.99\n"
+"Project-Id-Version: ebox 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 17:44+0100\n"
-"PO-Revision-Date: 2006-11-10 10:55+0100\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2007-02-25 12:45+0100\n"
+"PO-Revision-Date: 2007-02-14 12:22+0000\n"
+"Last-Translator: Steven Pauwels <stevenpauwels@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/Backup/RootCommands.pm:26
 #, perl-brace-format
@@ -41,7 +42,7 @@ msgstr "Kan {path} niet lezen."
 
 #: src/EBox/Backup/FileBurner.pm:110
 msgid "This system does not have a recorder drive"
-msgstr ""
+msgstr "Er is geen schijf brander gevonden op dit systeem"
 
 #: src/EBox/Backup/FileBurner.pm:122
 msgid "No disk found. Please insert disk and retry"
@@ -49,7 +50,7 @@ msgstr "Geen schijf gevonden. Laad een schijf en probeer opnieuw"
 
 #: src/EBox/Backup/FileBurner.pm:130
 msgid "{media } is a unsupported media type"
-msgstr ""
+msgstr "{media } is van een niet ondersteund type"
 
 #: src/EBox/Backup/FileBurner.pm:144
 #, perl-brace-format
@@ -103,9 +104,9 @@ msgstr "Start"
 msgid "Disabled"
 msgstr "Uitgeschakeld"
 
-#: src/EBox/CGI/Logs/Index.pm:33 src/EBox/Logs.pm:387
+#: src/EBox/CGI/Logs/Index.pm:33 src/EBox/Logs.pm:389
 msgid "Logs"
-msgstr ""
+msgstr "Logs"
 
 #: src/EBox/CGI/FirstTime/Index.pm:30
 msgid "Welcome to eBox"
@@ -147,6 +148,14 @@ msgstr "Je bent uitgelogd omdat er een nieuwe sessie is geopend"
 msgid "Logout"
 msgstr "Uitloggen"
 
+#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
+msgid "Status"
+msgstr "Status"
+
+#: src/EBox/CGI/Summary/Index.pm:47
+msgid "Error"
+msgstr "Fout"
+
 #: src/EBox/CGI/EBox/RestartService.pm:48
 msgid "module name"
 msgstr "naam module"
@@ -174,7 +183,7 @@ msgstr "Backup is naar CD/DVD geschreven"
 
 #: src/EBox/CGI/EBox/Backup.pm:230 src/EBox/CGI/EBox/Backup.pm:301
 #: src/EBox/CGI/EBox/Backup.pm:314 src/EBox/CGI/EBox/ConfirmBackup.pm:197
-#: src/EBox/Backup.pm:988
+#: src/EBox/Backup.pm:1003
 msgid "The input contains invalid characters"
 msgstr "De ingegeven tekst bevat ongeldige tekens"
 
@@ -188,6 +197,8 @@ msgid ""
 "Full backup restored succesfully. You should now review your configuration "
 "and save it if you want to keep it."
 msgstr ""
+"Volledige backup succesvol hersteld, kijk de configuratie na en sla op als "
+"je ze wenst te behouden."
 
 #: src/EBox/CGI/EBox/Backup.pm:288
 msgid ""
@@ -199,11 +210,11 @@ msgstr ""
 
 #: src/EBox/CGI/EBox/Halt.pm:30
 msgid "Halt or reboot"
-msgstr "Uit zetten of herstarten"
+msgstr "Uitschakelen of herstarten"
 
 #: src/EBox/CGI/EBox/Halt.pm:43
 msgid "eBox is going down for halt"
-msgstr "eBox wordt onbereikbaar door uit zetten"
+msgstr "eBox wordt onbereikbaar door uitschakelen"
 
 #: src/EBox/CGI/EBox/Halt.pm:46
 msgid "eBox is going down for reboot"
@@ -281,23 +292,15 @@ msgstr "Naar schijf schrijven"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:226
 msgid "Configuration backup"
-msgstr ""
+msgstr "Configuratie backup"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:229
 msgid "Full data and configutarion backup"
-msgstr ""
+msgstr "Volledige gegevens en configuratie backup"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:232
 msgid "Bug-report configuration dump"
-msgstr ""
-
-#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
-msgid "Status"
-msgstr "Status"
-
-#: src/EBox/CGI/Summary/Index.pm:47
-msgid "Error"
-msgstr "Fout"
+msgstr "Fout-rapport configuratie dump"
 
 #: src/EBox/CGI/Finish.pm:30
 msgid "Save configuration"
@@ -308,12 +311,16 @@ msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
 msgstr ""
+"Er is een interne fout opgetreden. Dit is waarschijnlijk een 'bug'. "
+"Relevante informatie kan in de logs teruggevonden worden."
 
 #: src/EBox/CGI/ClientRawBase.pm:144
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
 msgstr ""
+"Er is een interne fout m.b.t. een template opgetreden. Dit is een 'bug'. "
+"Relevante informatie kan in de logs teruggevonden worden."
 
 #: src/EBox/Apache.pm:48
 msgid ""
@@ -335,44 +342,44 @@ msgstr "Het httpd_init bestand dat je geconfigureerd hebt is niet uitvoerbaar."
 msgid "port"
 msgstr "poort"
 
-#: src/EBox/Logs.pm:229
+#: src/EBox/Logs.pm:231
 #, perl-brace-format
 msgid "Table {table} does not exist"
-msgstr ""
+msgstr "Tabel {table} bestaat niet"
 
-#: src/EBox/Logs.pm:244
+#: src/EBox/Logs.pm:246
 #, perl-brace-format
 msgid "Field {field} does not exist"
-msgstr ""
+msgstr "Veld {field} bestaat niet"
 
-#: src/EBox/Logs.pm:397 src/templates/confirm-backup.mas:28
-#: src/templates/backup.mas:162 src/templates/finish.mas:22
+#: src/EBox/Logs.pm:399 src/templates/confirm-backup.mas:28
+#: src/templates/backup.mas:162 src/templates/finish.mas:23
 msgid "Date"
 msgstr "Datum"
 
-#: src/EBox/Logs.pm:398
-msgid "Client Address"
-msgstr ""
-
-#: src/EBox/Logs.pm:399 src/templates/finish.mas:24
-msgid "Module"
-msgstr ""
-
 #: src/EBox/Logs.pm:400
-msgid "Action"
-msgstr ""
+msgid "Client Address"
+msgstr "Client adres"
 
-#: src/EBox/Logs.pm:401
-msgid "Params"
-msgstr ""
+#: src/EBox/Logs.pm:401 src/templates/finish.mas:25
+msgid "Module"
+msgstr "Module"
 
 #: src/EBox/Logs.pm:402
-msgid "Committed"
-msgstr ""
+msgid "Action"
+msgstr "Actie"
 
-#: src/EBox/Logs.pm:407
+#: src/EBox/Logs.pm:403
+msgid "Params"
+msgstr "Param."
+
+#: src/EBox/Logs.pm:404
+msgid "Committed"
+msgstr "Bevestigd"
+
+#: src/EBox/Logs.pm:409
 msgid "Admin"
-msgstr ""
+msgstr "Admin"
 
 #: src/EBox/Html.pm:39
 msgid "Save changes"
@@ -386,7 +393,7 @@ msgstr "Kon geen backup archief aanmaken"
 msgid "Could not append data to backup archive"
 msgstr "Kan de gegevens niet aan het backup archief toevoegen"
 
-#: src/EBox/Backup.pm:347 src/EBox/Backup.pm:971
+#: src/EBox/Backup.pm:347 src/EBox/Backup.pm:986
 msgid "Insert a backup disc and try again, please"
 msgstr "Voer een backup schijf in en probeer opnieuw AUB"
 
@@ -534,140 +541,143 @@ msgstr "Algemeen"
 
 #: src/EBox/SysInfo.pm:123
 msgid "Halt/Reboot"
-msgstr "Uitzetten/Herstarten"
+msgstr "Uitschakelen/Herstarten"
 
 #: src/EBox/Auth.pm:131
 msgid "Password changed"
-msgstr ""
+msgstr "Paswoord veranderd"
 
-#: src/EBox/PgDBEngine.pm:42 src/EBox/PgDBEngine.pm:55
-#: src/EBox/PgDBEngine.pm:68
+#: src/EBox/PgDBEngine.pm:43 src/EBox/PgDBEngine.pm:56
+#: src/EBox/PgDBEngine.pm:69
 #, perl-brace-format
 msgid "You must set the {variable} variable in the ebox configuration file"
 msgstr ""
+"Je moet de {variable} variabele instellen in het eBox configuratie bestand"
 
-#: src/EBox/PgDBEngine.pm:216
+#: src/EBox/PgDBEngine.pm:217
 #, perl-brace-format
 msgid "Error dumping the postgresql database {name}"
-msgstr ""
+msgstr "Fout bij dumpt van de postgresql database {name}"
 
-#: src/EBox/PgDBEngine.pm:234
+#: src/EBox/PgDBEngine.pm:235
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
-msgstr ""
+msgstr "DB dump bestand {file} is niet leesbaar"
 
 #: src/templates/logs/index.mas:19
 msgid "Last hour logs will be showed when selecting a component"
 msgstr ""
+"Logs van de laatste uren worden getoond als er een component wordt "
+"geselecteerd."
 
 #: src/templates/logs/index.mas:21
 msgid "Select available logs"
-msgstr ""
+msgstr "Selecteer beschikbare logs"
 
 #: src/templates/logs/index.mas:34 src/templates/logs/index.mas:36
 #: src/templates/logs/index.mas:38
 msgid "View"
-msgstr ""
+msgstr "Bekijken"
 
 #: src/templates/logs/index.mas:46
 msgid "Custom query"
-msgstr ""
+msgstr "Eigen selectie"
 
 #: src/templates/logs/index.mas:53
 msgid "From date:"
-msgstr ""
+msgstr "Van datum:"
 
 #: src/templates/logs/index.mas:66 src/templates/logs/index.mas:136
 msgid "January"
-msgstr ""
+msgstr "Januari"
 
 #: src/templates/logs/index.mas:67 src/templates/logs/index.mas:137
 msgid "February"
-msgstr ""
+msgstr "Februari"
 
 #: src/templates/logs/index.mas:68 src/templates/logs/index.mas:138
 msgid "March"
-msgstr ""
+msgstr "Maart"
 
 #: src/templates/logs/index.mas:69 src/templates/logs/index.mas:139
 msgid "April"
-msgstr ""
+msgstr "April"
 
 #: src/templates/logs/index.mas:70 src/templates/logs/index.mas:140
 msgid "May"
-msgstr ""
+msgstr "Mei"
 
 #: src/templates/logs/index.mas:71 src/templates/logs/index.mas:141
 msgid "June"
-msgstr ""
+msgstr "Juni"
 
 #: src/templates/logs/index.mas:72 src/templates/logs/index.mas:142
 msgid "July"
-msgstr ""
+msgstr "Juli"
 
 #: src/templates/logs/index.mas:73 src/templates/logs/index.mas:143
 msgid "August"
-msgstr ""
+msgstr "Augustus"
 
 #: src/templates/logs/index.mas:74 src/templates/logs/index.mas:144
 msgid "September"
-msgstr ""
+msgstr "September"
 
 #: src/templates/logs/index.mas:75 src/templates/logs/index.mas:145
 msgid "October"
-msgstr ""
+msgstr "October"
 
 #: src/templates/logs/index.mas:76 src/templates/logs/index.mas:146
 msgid "November"
-msgstr ""
+msgstr "November"
 
 #: src/templates/logs/index.mas:77 src/templates/logs/index.mas:147
 msgid "December"
-msgstr ""
+msgstr "December"
 
 #: src/templates/logs/index.mas:123
 msgid "To date:"
-msgstr ""
+msgstr "Tot datum:"
 
 #: src/templates/logs/index.mas:203
 msgid "Event"
-msgstr ""
+msgstr "Gebeurtenis"
 
 #: src/templates/logs/index.mas:206
 msgid "Any"
-msgstr ""
+msgstr "Elk"
 
 #: src/templates/logs/index.mas:221 src/templates/logs/index.mas:223
 msgid "Search"
-msgstr ""
+msgstr "Zoeken"
 
 #: src/templates/logs/index.mas:237
 msgid "No logs matching current criterion"
-msgstr ""
+msgstr "Geen logs voldoen aan huidige criteria"
 
 #: src/templates/logs/dbtable.mas:72 src/templates/logs/dbtable.mas:74
 msgid "first"
-msgstr ""
+msgstr "eerste"
 
 #: src/templates/logs/dbtable.mas:78 src/templates/logs/dbtable.mas:80
 msgid "prev"
-msgstr ""
+msgstr "vorige"
 
 #: src/templates/logs/dbtable.mas:88 src/templates/logs/dbtable.mas:91
 msgid "Page"
-msgstr ""
+msgstr "Pagina"
 
 #: src/templates/logs/dbtable.mas:92
 msgid "of"
-msgstr ""
+msgstr "van"
 
 #: src/templates/logs/dbtable.mas:103 src/templates/logs/dbtable.mas:105
 msgid "next"
-msgstr ""
+msgstr "volgende"
 
 #: src/templates/logs/dbtable.mas:109 src/templates/logs/dbtable.mas:111
 msgid "last"
-msgstr ""
+msgstr "laatste"
 
 #: src/templates/firstTime/passwd.mas:6 src/templates/password.mas:8
 msgid "Your password must be at least 6 characters long."
@@ -727,7 +737,7 @@ msgstr "Omschrijving"
 
 #: src/templates/confirm-backup.mas:46
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: src/templates/confirm-backup.mas:63 src/templates/confirm-backup.mas:64
 msgid "Cancel"
@@ -771,6 +781,9 @@ msgid ""
 "your hard disk or write them into CD/DVD disks. Anyway, you can later copy "
 "back stored backup"
 msgstr ""
+"Backups worden bewaard in eBox waarna je ze kan naar je harde schijf kan "
+"laden of op CD/DVD schrijven. Al deze backups kunnen later terug geplaatst "
+"worden"
 
 #: src/templates/backup.mas:34
 msgid ""
@@ -838,7 +851,7 @@ msgstr ""
 
 #: src/templates/backup.mas:155
 msgid "Backups' list"
-msgstr ""
+msgstr "Backup lijst"
 
 #: src/templates/backup.mas:164
 msgid "Actions"
@@ -866,11 +879,11 @@ msgstr "downoaden"
 
 #: src/templates/backup.mas:228
 msgid "write into disk"
-msgstr ""
+msgstr "naar harde schijf schrijven"
 
 #: src/templates/backup.mas:229
 msgid "write into disk (disabled)"
-msgstr ""
+msgstr "naar harde schijf schrijven (uitgeschakeld)"
 
 #: src/templates/backup.mas:232
 msgid "restore"
@@ -910,19 +923,19 @@ msgstr ""
 "het zijn dat je de url handmatig moet invoeren om terug met de administatie "
 "pagina verbinding te kunnen maken. "
 
-#: src/templates/finish.mas:26
+#: src/templates/finish.mas:27
 msgid "Message"
-msgstr ""
+msgstr "Bericht"
 
-#: src/templates/finish.mas:42
+#: src/templates/finish.mas:44
 msgid "Save"
 msgstr "Opslaan"
 
-#: src/templates/finish.mas:45
+#: src/templates/finish.mas:47
 msgid "Discard changes"
 msgstr "Wijzigingen negeren"
 
-#: src/templates/finish.mas:51
+#: src/templates/finish.mas:53
 msgid "There are no unsaved changes."
 msgstr "Er zijn geen niet opgeslagen wijzigingen"
 

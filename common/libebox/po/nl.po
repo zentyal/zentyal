@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.8.99\n"
+"Project-Id-Version: libebox 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 15:02+0100\n"
+"POT-Creation-Date: 2007-02-25 12:44+0100\n"
 "PO-Revision-Date: 2006-11-23 16:39+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -46,7 +46,7 @@ msgid ""
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:309 src/EBox/CGI/Base.pm:513
+#: src/EBox/CGI/Base.pm:309 src/EBox/CGI/Base.pm:522
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -58,25 +58,29 @@ msgid ""
 "relevant information can be found in the logs."
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:519
+#: src/EBox/CGI/Base.pm:528
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:525
+#: src/EBox/CGI/Base.pm:534
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:612
+#: src/EBox/CGI/Base.pm:621
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:627
+#: src/EBox/CGI/Base.pm:636
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
+msgstr ""
+
+#: src/EBox/CGI/Base.pm:755
+msgid "Invalid upload file."
 msgstr ""
 
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
@@ -120,7 +124,7 @@ msgstr ""
 msgid "The file path must be absolute"
 msgstr ""
 
-#: src/templates/ajax/tableBody.mas:118
+#: src/templates/ajax/tableBody.mas:116
 msgid "Action"
 msgstr ""
 
