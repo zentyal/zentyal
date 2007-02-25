@@ -62,7 +62,7 @@ settextdomain('ebox-samba');
     <input type="hidden" name="group" value="<% $params->{'groupname'} %>">
 %           if (length($params->{'sharename'}) > 12) {
                 <div class='warning'>
-                <%   __("This resource name is longer than 12 charcters.") %>
+                <%   __("This resource name is longer than 12 characters.") %>
                 </div>
 %           }
     <span class="ftitle"><% __('Directory name')%>:</span>
