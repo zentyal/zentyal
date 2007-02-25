@@ -59,7 +59,7 @@ my @formElements = (
 
 <h3><% __x('Client files for server {name}', name => $name) %></h3>
 <div class='note'>
-<% __('You can download a archive with all the required files to set up a OpenVPN client. Remember to copy those files to the client machine config directory') %>
+<% __('You can download an archive with all the required files to set up an OpenVPN client. Remember to copy these files to the client machine configuration directory') %>
 </div>
 <form  method='POST' >
 <& /formTable.mas, rows => \@formElements &>
