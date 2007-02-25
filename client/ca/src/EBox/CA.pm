@@ -134,6 +134,10 @@ sub _create
 	# Expiration CA certificate
 	$self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
 
+	# Set a maximum to establish the certificate expiration
+	# Related to Year 2038 bug
+	$self->{maxDays} = $self->_maxDays();
+
 	return $self;
 }
 
@@ -268,11 +272,12 @@ sub createCA {
 
   # Make the CA certificate
   $args{days} = 3650 unless ( defined ($args{days}) );
-  if ( $args{days} > 11499 ) {
-    $args{days} = 11499;
+  if ( $args{days} > $self->{maxDays} ) {
+    $args{days} = $self->{maxDays};
     # Warning -> Year 2038 Bug
     # http://www.mail-archive.com/openssl-users@openssl.org/msg45886.html
-    EBox::warn(__("Days set to the maximum allowed: Year 2038 Bug"));
+    EBox::warn(__x("Days set to the maximum allowed {days}: Year 2038 Bug",
+		   days => $self->{maxDays}));
   }
 
 
@@ -703,13 +708,14 @@ sub issueCertificate
   if (not defined($args{endDate}) ) {
     $days = $args{days};
     $days = 365 unless $days;
-    if ( $days > 11499 ) {
-      $days = 11499;
-      # It should be 11499 but OpenSSL 0.9.7 lacks in other point
+    if ( $days > $self->{maxDays} ) {
+      $days = $self->{maxDays};
+      # It should be $self->{maxDays} but OpenSSL 0.9.7 lacks in other point
       # Another workaround should be, put the enddate explicity
       # Warning -> Year 2038 Bug
       # http://www.mail-archive.com/openssl-users@openssl.org/msg45886.html
-      EBox::warn(__("Days set to the maximum allowed: Year 2038 Bug"));
+      EBox::warn(__x("Days set to the maximum allowed {days}: Year 2038 Bug",
+		     days => $self->{maxDays}));
     }
   }
 
@@ -1273,11 +1279,12 @@ sub renewCertificate
 
     if (not defined($args{endDate}) ) {
       $args{days} = 365 unless defined ($args{days});
-      if ( $args{days} > 11499 ) {
-	$args{days} = 11499;
+      if ( $args{days} > $self->{maxDays} ) {
+	$args{days} = $self->{maxDays};
 	# Warning -> Year 2038 Bug
 	# http://www.mail-archive.com/openssl-users@openssl.org/msg45886.html
-	EBox::warn(__("Days set to the maximum allowed: Year 2038 Bug"));
+	EBox::warn(__x("Days set to the maximum allowed {days}: Year 2038 Bug",
+		       days => $self->{maxDays}));
       }
     }
 
@@ -2031,6 +2038,23 @@ sub _createSerial
     $serial .= sprintf("%08X", int(rand(hex('0xFFFFFFFF'))));
 
     return $serial;
+
+  }
+
+# Get the maximum number of days to apply to a certificate expiration.
+# This is the Year 2038 Bug, explained here -> 
+# http://www.mail-archive.com/openssl-users@openssl.org/msg45886.html
+sub _maxDays
+  {
+
+    my ($self) = @_;
+
+    my $now = Date::Calc::Object->now();
+    # The final day is 2038 19th 04:14:07 :-O
+    my $year2038 = Date::Calc::Object->new(2038, 1, 19, 4, 14, 7);
+    my $diff = $year2038 - $now;
+
+    return $diff->day();
 
   }
 
