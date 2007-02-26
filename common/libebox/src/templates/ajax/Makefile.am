@@ -7,9 +7,10 @@
 #
 
 templatedir = $(datadir)/ebox/templates/ajax
-template_DATA = tableHeader.mas tableBody.mas 
+template_DATA = tableHeader.mas tableBody.mas tableSelector.mas
 
 EXTRA_DIST = $(template_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
 # List of files which contain translatable st
+

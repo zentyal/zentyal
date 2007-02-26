@@ -111,3 +111,30 @@ function stripe(theclass,evenColor,oddColor) {
         }
     }
 }
+
+/*
+Function: selectDefault
+
+        Given a select identifier determine
+        whether user has select default option or not.
+
+Parameters:
+
+	selectId - select identifier
+
+Returns:
+
+        true - if user has selected the default value
+	false - otherwise
+
+*/
+function selectDefault (selectId) {
+
+  if ( $(selectId).selectedIndex == 0 ) {
+    return true;
+  }
+  else {
+    return false;
+  }
+
+}

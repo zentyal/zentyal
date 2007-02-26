@@ -577,3 +577,8 @@ a.changed:hover {
 .legendName { 
               padding-right: 10px;
               }
+
+.hidden { 
+          display: none;
+ }
+

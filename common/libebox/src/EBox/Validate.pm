@@ -49,7 +49,7 @@ BEGIN {
 }
 
 #
-# Function: isIPInNetwork 
+# Function: isIPInNetwork
 #
 #   Checks if an IP is within a given network address and its masks
 #
@@ -128,24 +128,24 @@ sub checkCIDR # (cidr, name?)
 	return 1;
 }
 
-# 
+#
 # Function: checkIP
 #
-#	Checks if the string param that holds an ip address is a valid 
+#	Checks if the string param that holds an ip address is a valid
 #	IPv4 address.
 #
 # Parameters:
 #
-#       ip - IPv4 address 
+#       ip - IPv4 address
 #	name - ip's name to be used when throwing an Exception (optional)
 #
 # Returns:
-#	
-#	boolean - True if it is a valid IPv4 address, false otherwise 
+#
+#	boolean - True if it is a valid IPv4 address, false otherwise
 #
 # Exceptions:
 #
-#	If name is passed an exception could be raised	
+#	If name is passed an exception could be raised
 #
 #	InvalidData - IP is invalid
 #
@@ -282,12 +282,12 @@ sub checkIPNetmask # (ip, mask, name_ip?, name_mask?)
 #	name - Data's name to be used when throwing an Exception
 #
 # Returns:
-#	
-#	boolean - True if it is a valid port, false otherwise 
+#
+#	boolean - True if it is a valid port, false otherwise
 #
 # Exceptions:
 #
-#	If name is passed an exception could be raised	
+#	If name is passed an exception could be raised
 #
 #	InvalidData - ip/mask is incorrect
 #
@@ -364,7 +364,7 @@ sub checkVlanID # (id, name?)
 }
 
 #
-# Function: checkProtocol 
+# Function: checkProtocol
 #
 # 	Checks if the given protocol is valid (tcp or udp)
 #
@@ -374,16 +374,16 @@ sub checkVlanID # (id, name?)
 #	name - Data's name to be used when throwing an Exception
 #
 # Returns:
-#	
-#	boolean - True if it is a valid protocol , false otherwise 
+#
+#	boolean - True if it is a valid protocol , false otherwise
 #
 # Exceptions:
 #
-#	If name is passed an exception could be raised	
+#	If name is passed an exception could be raised
 #
 #	InvalidData - protocol is incorrect
 #
-sub checkProtocol # (protocol, name?) 
+sub checkProtocol # (protocol, name?)
 {
 	my $proto = shift;
 	my $name = shift;
@@ -413,12 +413,12 @@ sub checkProtocol # (protocol, name?)
 #	name - Data's name to be used when throwing an Exception
 #
 # Returns:
-#	
-#	boolean - True if it is a valid mac address, false otherwise 
+#
+#	boolean - True if it is a valid mac address, false otherwise
 #
 # Exceptions:
 #
-#	If name is passed an exception could be raised	
+#	If name is passed an exception could be raised
 #
 #	InvalidData - protocol is incorrect
 #

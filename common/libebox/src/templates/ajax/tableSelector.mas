@@ -1,0 +1,62 @@
+<%doc>
+Table selector. It shows a selection to choose a table. None of the
+options is selected by default. When one is selected, the table
+associated to that option is shown.
+</%doc>
+<%args>
+  $multiTableModel_ref
+</%args>
+<%init>
+  use EBox::Gettext;
+my $helpMessage = $multiTableModel_ref->helpMessage();
+if ( $helpMessage eq '' ) {
+  # Write a default message
+  $helpMessage = __('Choose one of the options to show the associated table');
+}
+</%init>
+<script type="text/javascript" src="/data/js/common.js">//</script>
+<script type="text/javascript" src="/data/js/table-helper.js">//</script>
+<script type="text/javascript" src="/data/js/prototype.js">//</script>
+
+<div class="help">
+  <% $helpMessage %>
+</div>
+
+<h3> <% $multiTableModel_ref->printableName() %> </h3>
+
+<%perl>
+  my @selectOptions;
+
+# Push the default one
+push ( @selectOptions, { value          => '0',
+			 printableValue => __('Choose one...'),
+		       });
+
+foreach my $option (@{$multiTableModel_ref->selectOptions()}) {
+  push (@selectOptions, { value          => $option->{id},
+			  printableValue => $option->{printableId},
+			}
+       );
+}
+</%perl>
+<div id="errorMultiTable">
+</div>
+<!-- FIXME: Put the table in a formTable -->
+<form id="selector">
+  <& /input/select.mas, name          => 'tableSelection',
+		        value         => '0',
+		        options       => \@selectOptions,
+		        extraParams   => [
+					  id => 'tableSelection',
+					  onchange => "if ( ! selectDefault('tableSelection'))" .
+					  	      "{ hangTable('table', 'errorMultiTable', " .
+					   	      "'" . $multiTableModel_ref->action('select') . "'" .
+					              ", 'selector');" .
+					              "}",
+					 ],
+  &>
+  <span id="loadingTable"></span>
+</form>
+
+<div id="table">
+</div>

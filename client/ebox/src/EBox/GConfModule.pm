@@ -403,7 +403,7 @@ sub _all_entries # (key)
 #
 # Returns:
 #
-#       A ref to an array of strings - Each string contains a entry
+#       A ref to an array of strings - Each string contains an entry
 #
 #
 sub all_entries # (key) 
@@ -840,7 +840,7 @@ sub array_from_dir # (key)
 	return $self->_array_from_dir($dir);
 }
 
-sub st_array_from_dir # (key) 
+sub st_array_from_dir # (key)
 {
 	my ($self, $dir) = @_;
 	$self->_state;

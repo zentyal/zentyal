@@ -61,11 +61,11 @@ sub selectOptions
 	return \@options;
 }
 
-sub table
+sub _table
 {
 	my @tableHead = 
 	 ( 
-			
+
 		new EBox::Types::Text(
 					'fieldName' => 'name',
 					'printableName' => __('Name'),
@@ -147,7 +147,9 @@ sub table
 			'tableDescription' => \@tableHead,
 			'class' => 'dataTable',
 			'order' => 0,
-			'help' => __('You can add as many gateways as you want. This is very useful if you want to split your internet traffic through serveral links.')
+			'help' => __('You can add as many gateways as you want. This is very useful if you want to split your internet traffic through serveral links.'),
+		        'rowUnique' => 0,
+		        'printableRowName' => __('Gateway'),
 		};
 
 	return $dataTable;
@@ -234,7 +236,7 @@ sub gateways()
 		my $ifce = $row->{'valueHash'}->{'interface'}->printableValue();
 		my $ip = $row->{'valueHash'}->{'ip'}->printableValue();
 		my $up = $row->{'valueHash'}->{'upload'}->printableValue();
-		my $down = $row->{'valueHash'}->{'upload'}->printableValue();
+		my $down = $row->{'valueHash'}->{'download'}->printableValue();
 		my $def = $row->{'valueHash'}->{'default'}->printableValue();
 	
 		push (@gateways, { 
@@ -283,3 +285,4 @@ sub _getRouterMac
 }
 
 1;
+

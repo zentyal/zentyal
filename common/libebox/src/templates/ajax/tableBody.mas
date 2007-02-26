@@ -33,8 +33,7 @@ if ($rowEdit) {
 	@formData = @tableHead;
 }
 
-</%init>		 		
-
+</%init>
 %	if ($action ne 'changeAdd' and $action ne 'changeEdit') {
 	<div>
 
@@ -43,9 +42,9 @@ if ($rowEdit) {
 					value="Add" title="Add"
 					alt="Add" src='/data/images/add.gif'
 					onClick='changeView("<% $changeView %>", "<% $dataTable->{"tableName"} %>",  "<% $dataTable->{"gconfdir"} %>", "changeAdd")' />
+					<% __("Add new") %>
 %			}
-	
-		Add new
+        <span id="creatingForm"></span> 	
 	</div>
 	<br>
 % 	}
@@ -72,7 +71,8 @@ if ($rowEdit) {
 %		}
 					
 						<tr>
-							<td>
+						        <td class="tright" id="applyChanges"></td>
+							<td id="buttons">
 %				if ($action eq 'changeAdd') {
 
 								<input class='inputButton' type='submit' name='add'
@@ -86,8 +86,6 @@ if ($rowEdit) {
 										onClick="changeRow('<% $dataTable->{"actions"}->{"editField"} %>', '<% $dataTable->{"tableName"} %>', <% $tableFields %>, '<% $dataTable->{"gconfdir"} %>', '<% $editid %>'); return false"/>
 
 %				}
-							</td>
-							<td>
 %							if ($changeView) {
 									<input  class='inputButton' type='submit' name='cancel'
 									value="Cancel" title="Cancel"
@@ -122,8 +120,9 @@ if ($rowEdit) {
 			<tbody>			
 
 
-%	foreach my $row (@data) {
-				<tr class='border'>
+%	for ( my $idx; $idx < scalar(@data); $idx++) {
+%           my  $row = $data[$idx];
+				<tr class='border' id="<% $row->{"id"} %>">
 				
 %		foreach my $td (@{$row->{'values'}}) {
 				<td class='tcenter'>
@@ -135,14 +134,14 @@ if ($rowEdit) {
 				</td>
 % 		}
 %
-				<td class='tcenter'>
+				<td class='tcenter' id='actionsCell_<% $row->{id} %>'>
 %			my $del = $dataTable->{'actions'}->{'del'};
 
 %			if ($del) {
 					<input  class='inputButton' type='image' name='del'
 					value="Del" title="Del"
 					alt="Del" src='/data/images/delete.gif'
-					onClick='actionClicked("<% $del %>", "<% $dataTable->{"tableName"} %>",  "&action=del&id=<% $row->{"id"} %>", "<% $dataTable->{"gconfdir"} %>")' />
+					onClick='actionClicked("<% $del %>", "<% $dataTable->{"tableName"} %>", "del", "<% $row->{"id"} %>", "", "<% $dataTable->{"gconfdir"} %>")' />
 			
 %			}
 %			if ($changeView) {
@@ -152,14 +151,16 @@ if ($rowEdit) {
 %			}
 		
 %			if ($dataTable->{'order'} == 1) {
+%                         if ( $idx != 0 ) {
 					<input  class='inputButton' type='image' name='up'
 					value="Up" title="Del"
-					alt="Up" src='/data/images/up.gif' onClick='actionClicked("<% $dataTable->{"actions"}->{"move"} %>", "<% $dataTable->{"tableName"} %>",  "action=move&dir=up&id=<% $row->{"id"} %>",  "<% $dataTable->{"gconfdir"} %>")'/>
-
+					alt="Up" src='/data/images/up.gif' onClick='actionClicked("<% $dataTable->{"actions"}->{"move"} %>", "<% $dataTable->{"tableName"} %>", "move", "<% $row->{"id"} %>", "dir=up",  "<% $dataTable->{"gconfdir"} %>")'/>
+%                         }
+%                         if ( $idx != $#data ) {
 					<input  class='inputButton' type='image' name='down'
 					value="Down" title="Down"
-					alt="Down" src='/data/images/down.gif' onClick='actionClicked("<% $dataTable->{"actions"}->{"move"} %>", "<% $dataTable->{"tableName"} %>",  "action=move&dir=down&id=<% $row->{"id"} %>",  "<% $dataTable->{"gconfdir"} %>")'/>
-
+					alt="Down" src='/data/images/down.gif' onClick='actionClicked("<% $dataTable->{"actions"}->{"move"} %>", "<% $dataTable->{"tableName"} %>", "move", "<% $row->{"id"} %>", "dir=down",  "<% $dataTable->{"gconfdir"} %>")'/>
+%                         }
 % 			}
 				</td>
 
@@ -174,7 +175,13 @@ if ($rowEdit) {
 <%args>
 $data
 </%args>
-	<span ><% $data->printableValue() %></span> <% $data->trailingText %>
+% if ( defined ( $data->printableValue() )) {
+	<span ><% $data->printableValue() %></span>
+	  <%$data->trailingText %>
+% }
+% else {
+        <span>--</span>
+% }
 </%def>
 
 <%def .booleanViewer>
@@ -191,51 +198,54 @@ $data
 <%def .unionSetter>
 <%args>
 $tableName
-$data 
+$data
+$cssClass => ''
 </%args>
 <%init>
 my $id = $tableName . '_' . $data->fieldName() . '_selected';
 my @options;
 foreach my $type (@{$data->subtypes()}) {
-	push (@options, { 
+	push (@options, {
 						'value' => $type->fieldName(),
 						'printableValue' => $type->printableName()
 					});
 }
 </%init>
-<table class='formTable'>
-	<tbody>
-		<tr>
-			<td>
-			<& /input/select.mas,  
-					'name' => "$id" , 
-				    'value' => $data->selectedType(), options => \@options,
-					'extraParams' => [ "id='$id'" ],
-					&>
-			</td>
-			<td>
-			</td>
-		</tr>
-%	foreach my $type (@{$data->{'subtypes'}}) {
-		<tr>
-			<td>	
-								<% $type->printableName() %>
-			</td>
-%								my $HTMLSetter = '.' . $type->HTMLSetter();
-			<td>
-								<& $HTMLSetter, 'data' => $type, 'tableName' => $tableName &> <br>
-			</td>
-		</tr>
-% 	}
-	</tbody>
-</table>
+<span class='<% $cssClass %>'>
+  <& /input/select.mas,
+                       'name'        => "$id" ,
+                       'value'       => $data->selectedType(),
+                       'options'     => \@options,
+                       'extraParams' => [ id => "$id",
+				          onchange => " showSelected('" . $id . "'," .
+						      "'selectValues_" . $id . "', '" . $tableName . "');",
+					],
+   &>
+			<span id="selectValues_<% $id %>">
+<%perl>
+                         if ( not defined ( $data->selectedType() )) {
+			   # If there's no selected data, set one
+			   $data->setSelectedType($data->subtypes()->[0]->fieldName());
+			 }
+                         foreach my $type (@{$data->{'subtypes'}}) {
+                             	my $HTMLSetter = '.' . $type->HTMLSetter();
+				my $cssClass = '';
+				if ( $type->fieldName() ne $data->selectedType() ) {
+				  $cssClass = 'hidden';
+				}
+</%perl>
+			  <& $HTMLSetter, 'data' => $type, 'tableName' => $tableName, 'cssClass' => $cssClass &>
+%                         }
+			</span>
+</span>
 </%def>
 
 
 <%def .ipaddrSetter>
 <%args>
 $tableName
-$data 
+$data
+$cssClass => ''
 </%args>
 <%init>
 my @options;
@@ -246,29 +256,36 @@ for my $mask (32, 30, 29, 28, 27, 26, 25, 24, 16, 8) {
 </%init>
 % my $id = $tableName . '_' . $data->fieldName();
 
-
-					<input type="text" class="inputText" value="<% $data->ip() %>"
-						size="16" id='<% $id . '_ip' %>' name='<% $id . '_ip' %>' />/
+<span id="<% $id %>">
+					<input type="text" class="inputText <% $cssClass %>" value="<% $data->ip() %>"
+						size="16" id='<% $id . '_ip' %>' name='<% $id . '_ip' %>' />
+					<span class="<% $cssClass %>">/</span>
 
 					<& /input/select.mas,  
 							'name' => $id . '_ip' , 
 							'value' => $data->mask(), options => \@options,
-							'extraParams' => [ "id='$id" . "_mask'" ],
+							'extraParams' => [ id => "$id" . "_mask",
+									   class => "$cssClass",
+									 ],
 							&>
+</span>
 
 </%def>
 
 <%def .selectSetter>
 <%args>
 $tableName
-$data 
+$data
+$cssClass => ''
 </%args>
 % my $id = $tableName . '_' . $data->fieldName();
 
-			<& /input/select.mas,  
-					'name' => "$id" , 
-				    'value' => $data->value(), options => $data->options(),
-					'extraParams' => [ "id='$id'" ],
+			<& /input/select.mas,
+			                     'name' => "$id" , 
+					     'value' => $data->value(), options => $data->options(),
+					     'extraParams' => [ id => "$id",
+							        class => "$cssClass",
+							      ],
 					&>
 					<% $data->trailingText() %>
 
@@ -279,11 +296,12 @@ $data
 <%def .textSetter>
 <%args>
 $tableName
-$data 
+$data
+$cssClass => ''
 </%args>
 % my $id = $tableName . '_' . $data->fieldName();
 
-					<input type="text" class="inputText" value="<% $data->printableValue() %>"
+					<input type="text" class="inputText <% $cssClass %>" value="<% $data->printableValue() %>"
 						size="<% $data->size() %>" id='<% $id %>' name='<% $id %>' /> 
 						<% $data->trailingText() %>
 </%def>
@@ -292,10 +310,16 @@ $data
 <%args>
 $tableName
 $data
+$cssClass => ''
 </%args>
 % my $id = $tableName . '_' . $data->fieldName();
 
-					<& /input/checkbox.mas, name => $id, value => $data->printableValue(), extraParams => ("id='$id'") &>
+					<& /input/checkbox.mas,
+					 'name' => "$id", 
+                                         'value' => $data->printableValue(),
+					 'extraParams' => [id => "$id",
+							   class => "$cssClass",
+							  ] &>
 						<% $data->trailingText() %>
 </%def>
 
@@ -318,9 +342,5 @@ $fieldName
 $value => 0
 </%args>
 	
-					<& /input/checkbox.mas, name => "$fieldName", value => $value, extraParams => ("id='$tableName" .'_' ."$fieldName'") &>
+					<& /input/checkbox.mas, name => "$fieldName", value => $value, extraParams => [ id => "$tableName" .'_' ."$fieldName"] &>
 </%def>
-
-<!-- vim: ts=4 sw=4 nowrap filetype=mason
--->
-

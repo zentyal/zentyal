@@ -22,8 +22,8 @@ use base 'EBox::GConfModule';
 
 use constant DHCLIENT_CONF_FILE => '/etc/dhcp3/dhclient.conf';
 # Interfaces list which will be ignored
-use constant ALLIFACES => qw(sit tun tap lo irda eth wlan vlan); 
-use constant IGNOREIFACES => qw(sit tun tap lo irda); 
+use constant ALLIFACES => qw(sit tun tap lo irda eth wlan vlan);
+use constant IGNOREIFACES => qw(sit tun tap lo irda);
 use constant IFNAMSIZ => 16; #Max length name for interfaces
 
 use Net::IP;
@@ -49,7 +49,7 @@ use File::Basename;
 use EBox::Network::Model::GatewayDataTable;
 use EBox::Network::Model::MultiGwRulesDataTable;
 
-sub _create 
+sub _create
 {
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'network',
@@ -182,15 +182,15 @@ sub ifaceExists # (interface)
 # Parameters:
 #
 # 	interface - the name of a network interface
-# 
+#
 # Returns:
 #
 # 	boolean - true, if the interface is external, otherwise false
-sub ifaceIsExternal # (interface) 
+sub ifaceIsExternal # (interface)
 {
 	my ($self, $iface) = @_;
 	defined($iface) or return undef;
-	
+
 	if ($self->vifaceExists($iface)) {
 		my @aux = $self->_viface2array($iface);
 		$iface = $aux[0];
@@ -292,11 +292,11 @@ sub _ifaces
 
 # Method: ifaces
 #
-#  	Returns the name of all real interfaces, including vlan interfaces	
+#  	Returns the name of all real interfaces, including vlan interfaces
 #
 # Returns:
 #
-#  	array ref - holding the names	
+#  	array ref - holding the names
 sub ifaces
 {
 	my $self = shift;
@@ -310,7 +310,7 @@ sub ifaces
 #	removed when the configuration is saved)
 # Returns:
 #
-#  	array ref - holding the names	
+#  	array ref - holding the names
 sub ifacesWithRemoved
 {
 	my $self = shift;
@@ -785,8 +785,8 @@ sub setIfaceDHCP # (interface, external, force)
 	my ($self, $name, $ext, $force) = @_;
 	$self->ifaceExists($name) or
 		throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-						     value => $name);	
-	
+						     value => $name);
+
 	$self->_routersReachableIfChange($name);
 
 	my $oldm = $self->ifaceMethod($name);
@@ -799,13 +799,28 @@ sub setIfaceDHCP # (interface, external, force)
 		$self->_checkStatic($name, $force);
 	}
 
+	my $global = EBox::Global->getInstance();
+	my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
+
+	if ($ext != $self->ifaceIsExternal($name) ) {
+	  # Tell observers the interface way has changed
+	  foreach my $obs (@observers) {
+	    if ($obs->ifaceExternalChanged($name, $ext)) {
+	      if ($force) {
+		$obs->changeIfaceExternalProperty($name, $ext);
+	      }
+	      else {
+		throw EBox::Exceptions::DataInUse();
+	      }
+	    }
+	  }
+	}
 	if ($oldm ne 'dhcp') {
-		my $global = EBox::Global->getInstance();
-		my @mods = @{$global->modInstancesOfType('EBox::NetworkObserver')};
-		foreach my $mod (@mods) {
-			if ($mod->ifaceMethodChanged($name, $oldm, 'dhcp')) {
+	  	# Tell observers the method interface has changed
+		foreach my $obs (@observers) {
+			if ($obs->ifaceMethodChanged($name, $oldm, 'dhcp')) {
 				if ($force) {
-					$mod->freeIface($name);
+					$obs->freeIface($name);
 				} else {
 					throw EBox::Exceptions::DataInUse();
 				}
@@ -813,7 +828,7 @@ sub setIfaceDHCP # (interface, external, force)
 		}
 	} else {
 		my $oldm = $self->ifaceIsExternal($name);
-		
+
 		if ((defined($oldm) and defined($ext)) and ($oldm == $ext)) {
 			return;
 		}
@@ -830,19 +845,19 @@ sub setIfaceDHCP # (interface, external, force)
 #
 #	Configure with a static ip address 
 #
-# Parameters: 
+# Parameters:
 #
 # 	interface - the name of a network interface
 #	address - IPv4 address
 #	netmask - network mask
-#	external - boolean to indicate if it's  a external interface
+#	external - boolean to indicate if it's an external interface
 #	force - boolean to indicate if an exception should be raised when
-#	method is changed or it should be forced 
+#	method is changed or it should be forced
 #
-sub setIfaceStatic # (interface, address, netmask, external, force) 
+sub setIfaceStatic # (interface, address, netmask, external, force)
 {
 	#action: set_iface_static
-	
+
 	my ($self, $name, $address, $netmask, $ext, $force) = @_;
 	$self->ifaceExists($name) or
 		throw EBox::Exceptions::DataNotFound(data => __('Interface'),
@@ -856,7 +871,7 @@ sub setIfaceStatic # (interface, address, netmask, external, force)
 	my $oldmask = $self->ifaceNetmask($name);
 	my $oldext = $self->ifaceIsExternal($name);
 
-	if (($oldm eq 'static') and 
+	if (($oldm eq 'static') and
 	    ($oldaddr eq $address) and
 	    ($oldmask eq $netmask) and
 	    (! ($oldext xor $ext))) {
@@ -876,27 +891,43 @@ sub setIfaceStatic # (interface, address, netmask, external, force)
 
 	$self->_routersReachableIfChange($name, $address, $netmask);
 
+	# Calling observers
 	my $global = EBox::Global->getInstance();
-	my @mods = @{$global->modInstancesOfType('EBox::NetworkObserver')};
+	my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
+
+	if ($ext != $self->ifaceIsExternal($name) ) {
+	  # Tell observers the interface way has changed
+	  foreach my $obs (@observers) {
+	    if ($obs->ifaceExternalChanged($name, $ext)) {
+	      if ($force) {
+		$obs->changeIfaceExternalProperty($name, $ext);
+	      }
+	      else {
+		throw EBox::Exceptions::DataInUse();
+	      }
+	    }
+	  }
+	}
+
 	if ($oldm ne 'static') {
-		foreach my $mod (@mods) {
-			if ($mod->ifaceMethodChanged($name, $oldm, 'static')) {
+		foreach my $obs (@observers) {
+			if ($obs->ifaceMethodChanged($name, $oldm, 'static')) {
 				if ($force) {
-					$mod->freeIface($name);
+					$obs->freeIface($name);
 				} else {
 					throw EBox::Exceptions::DataInUse();
 				}
 			}
 		}
 	} else {
-		foreach my $mod (@mods) {
-			if ($mod->staticIfaceAddressChanged($name, 
+		foreach my $obs (@observers) {
+			if ($obs->staticIfaceAddressChanged($name, 
 							$oldaddr, 
 							$oldmask, 
 							$address, 
 							$netmask)) {
 				if ($force) {
-					$mod->freeIface($name);
+					$obs->freeIface($name);
 				} else {
 					throw EBox::Exceptions::DataInUse();
 				}
@@ -939,11 +970,11 @@ sub _checkStatic # (iface, force)
 #	configures an interface in trunk mode, making it possible to create vlan
 # 	interfaces on it.
 #
-# Parameters: 
+# Parameters:
 #
 # 	interface - the name of a network interface
 #	force - boolean to indicate if an exception should be raised when
-#	method is changed or it should be forced 
+#	method is changed or it should be forced
 #
 sub setIfaceTrunk # (iface, force)
 {
@@ -2217,7 +2248,7 @@ sub summary
 		my @ips = iface_addresses($iface);
 		foreach my $ip (@ips) {
 			$section->add(new EBox::Summary::Value
-				(__("IP address"), "$ip"));
+				(__("IP address"), $ip));
 		}
 	}
 	return $item;
@@ -2252,7 +2283,6 @@ sub menu
 
 	$root->add($folder);
 }
-
 
 # Method: gatewayModel
 #
@@ -2298,8 +2328,8 @@ sub multigwrulesModel {
 #	
 #	[ 
 #	  { 
-#	    name => 'gw1', ip => '192.168.1.1' , 
-#	    upload => '128',  download => '1024', defalut => '1',
+#	    name => 'gw1', ip => '192.168.1.1' , interface => 'eth0',
+#	    upload => '128',  download => '1024', default => '1',
 #	    id => 'foo1234'
 #	  } 
 #	]

@@ -41,7 +41,9 @@ sub new # (arg, type)
     local $Error::Debug = 1;
 
     $Log::Log4perl::caller_depth++;
-    $self = $class->SUPER::new("Invalid type for argument: $arg. It should be this type: $type");
+    $self = $class->SUPER::new("Invalid type for argument: $arg with type " .
+			       blessed($arg) . ", which should be this type: " .
+			       $type);
     $Log::Log4perl::caller_depth--;
 
     bless ($self, $class);

@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/Model
 
-mods = DataTable.pm
+mods = DataTable.pm DataMultiTable.pm
 
 nobase_perl_DATA = $(mods)
 

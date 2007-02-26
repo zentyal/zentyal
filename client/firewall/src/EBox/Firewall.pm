@@ -69,20 +69,20 @@ sub _checkAction # (action, name?)
 	}
 }
 
-sub _purgeEmptyObject # (object) 
+sub _purgeEmptyObject # (object)
 {
 	my ($self, $object) = @_;
 
 	if ($object eq '_global') {
 		return;
 	}
-	
+
 	my @array;
 	@array = $self->all_dirs("objects/$object/rules");
 	(scalar(@array) eq 0) or return;
 	@array = $self->all_dirs("objects/$object/services");
 	(scalar(@array) eq 0) or return;
-	
+
 	if ($self->ObjectPolicy($object) eq 'global') {
 		$self->delete_dir("objects/$object");
 	}
@@ -123,10 +123,10 @@ sub _stopService
 
 #
 # Method: usesObject
-#   	
+#
 #   	Implements EBox::ObjectsObserver interface
 #
-sub usesObject # (object) 
+sub usesObject # (object)
 {
 	my ($self, $object) = @_;
 	defined($object) or return undef;
@@ -136,7 +136,7 @@ sub usesObject # (object)
 
 #
 # Method: freeObject
-#   	
+#
 #   	Implements EBox::ObjectsObserver interface
 #
 sub freeObject # (object) 
@@ -513,8 +513,8 @@ sub addService # (name, protocol, port, internal?)
 #	Removes a service.
 #
 # Parameters:
-#       
-#	name - string: name of a service, must nor already exist
+#
+#	name - string: name of a service, it must NOT exist
 #
 # Returns:
 #

@@ -20,6 +20,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::NotImplemented;
+
 use Clone qw(clone);
 
 use strict;
@@ -32,32 +33,53 @@ sub new
         my %opts = @_;
         my $gconfmodule = delete $opts{'gconfmodule'};
 	my $directory = delete $opts{'directory'};
-	my $tableName = delete $opts{'tablename'};
-        my $self = 
+
+        my $self =
 		{
 			'gconfmodule' => $gconfmodule,
 			'gconfdir' => $directory,
 			'directory' => "$directory/keys",
 			'order' => "$directory/order",
-			'leading_text' => 'todo', # TODO
-			'tableName' => $tableName
+		        'table' => undef,
 		};
 
-
         bless($self, $class);
-	
 
         return $self;
 }
 
 # Method: table
-#	
-#	Override this method to describe your table
+#
+#       Get the table description. It must NOT be overrided.
 #
 # Returns:
 #
-# 	table description. See example.
+#       hash ref with the table description
+#
 sub table
+  {
+
+    my ($self) = @_;
+
+    # It's a singleton method
+    unless( defined( $self->{'table'} ) ){
+      $self->{'table'} = $self->_table();
+    }
+
+    return $self->{'table'};
+
+  }
+
+# Method: _table
+#
+#	Override this method to describe your table.
+#       This method is (PROTECTED)
+#
+# Returns:
+#
+# 	table description. See example on <EBox::Network::Model::GatewayDataTable::_table>.
+#
+sub _table
 {
 	
 	throw EBox::Exceptions::NotImplemented();
@@ -200,7 +222,7 @@ sub addRow
 	my $tableName = $self->table()->{'tableName'};
 	my $dir = $self->{'directory'};
 	my $gconfmod = $self->{'gconfmodule'};
-	
+
 	$self->validateRow(@_);
 
 	my @userData;
@@ -209,31 +231,41 @@ sub addRow
 		$data->setMemValue(\%params);
 
 		if ($data->unique()) {
-			$self->_checkFieldIsUnique($data);	
+			$self->_checkFieldIsUnique($data);
 		}
 
 		push (@userData, $data);
 
 	}
-	
-	my $id = $gconfmod->get_unique_id($self->{'leading_text'}, 
-				      $dir);
-	
+
+	# Check if the new row is unique
+	if ( $self->rowUnique() ) {
+	  $self->_checkRowIsUnique(undef, \@userData);
+	}
+
+	my $leadingText = substr( $self->table()->{'tablename'}, 0, 4);
+	# Changing text to be lowercase
+	$leadingText = "\L$leadingText";
+
+	my $id = $gconfmod->get_unique_id(
+					  $leadingText,
+					  $dir
+					 );
+
 	foreach my $data (@userData) {
 		$data->storeInGconf($gconfmod, "$dir/$id");
-	}
+	      }
 
 	if ($self->table()->{'order'}) {
 		$self->_insertPos($id, 0);
 	}
-	
-	my $row = {};
-	$row->{'id'} = $id;
-	$row->{'order'} = $self->_rowOrder($id);
-	$row->{'values'} = \@userData;
 
-	
-	$self->addedRowNotify($row);
+#	my $row = {};
+#	$row->{'id'} = $id;
+#	$row->{'order'} = $self->_rowOrder($id);
+#	$row->{'values'} = \@userData;
+
+	$self->addedRowNotify($self->row($id));
 }
 
 # Method: row
@@ -243,15 +275,17 @@ sub addRow
 # Parameters:
 #
 # 	id - row id
-# 	
+#
 # Returns:
 #
 #	Hash reference containing:
-#	
-#		'id' =>  row id
-#		'order' => row order
-#		'data' => array ref containing objects 
-#			  implementing EBox::Types::Abstract interface
+#
+#		- 'id' =>  row id
+#		- 'order' => row order
+#		- 'values' => array ref containing objects
+#			    implementing <EBox::Types::Abstract> interface
+#               - 'valueHash' => hash ref containing the same objects as
+#                                'values' but indexed by 'fieldName'
 #
 sub row
 {
@@ -338,20 +372,28 @@ sub moveDown
 
 # Method: removeRow
 #
-#	Remove a row 
+#	Remove a row
 #
 # Parameters:
-# 	
+#
 # 	'id' - row id
 #
-sub removeRow 
+# Exceptions:
+#
+#       <EBox::Exceptions::MissingArgument> - throw if any mandatory
+#       argument is missing
+#
+sub removeRow
 {
 	my ($self, $id) = @_;
+
+	throw EBox::Exceptions::MissingArgument("Missing row identifier to remove")
+	  unless defined ( $id );
 
 	$self->_checkRowExist($id, '');
 	my $row = $self->row($id);
 	$self->{'gconfmodule'}->delete_dir("$self->{'directory'}/$id");
-	
+
 	if ($self->table()->{'order'}) {
 		$self->_removeOrderId($id);
 	}
@@ -381,6 +423,12 @@ sub setRow
 	
 	my $oldrow = $self->row($id);
 	my @newValues = @{$self->table()->{'tableDescription'}};
+
+	# Check if the new row is unique
+	if ( $self->rowUnique() ) {
+	  $self->_checkRowIsUnique($id, \@newValues);
+	}
+
 	my @oldValues = @{$oldrow->{'values'}};
 	for (my $i = 0; $i < @newValues ; $i++) {
 		my $newData = clone($newValues[$i]);
@@ -469,7 +517,7 @@ sub rows
 #	Use this method to set the current table name. This method
 #	comes in handy to manage several tables with same model
 #
-# Paramters:
+# Parameters:
 #
 # 	tablename - string containing the name
 #
@@ -491,7 +539,7 @@ sub setTableName
 #	Use this method to set the current directory. This method
 #	comes in handy to manage several tables with same model
 #
-# Paramters:
+# Parameters:
 #
 # 	directory - string containing the name
 #
@@ -504,13 +552,84 @@ sub setDirectory
 	}
 
 	$self->{'directory'} = "$dir/keys";
-	$self->{'order'} = "$dir/keys";
-	
+	$self->{'order'} = "$dir/order";
+
 }
+
+# Method: directory
+#
+#        Get the current directory. This method is handy to manage
+#        several tables with the same model
+#
+# Returns:
+#
+#        String - Containing the directory
+#
+sub directory
+  {
+
+    my ($self) = @_;
+
+    return $self->{'directory'};
+
+  }
+
+# Method: order
+#
+#     Get the keys order in an array ref
+#
+# Returns:
+#
+#     array ref - the key order where each element is the key
+#     identifier
+#
+sub order
+  {
+
+    my ($self) = @_;
+
+    return $self->{'gconfmodule'}->get_list( $self->{'order'} );
+
+  }
+
+# Method: rowUnique
+#
+#     Get if the model must have each row different
+#
+# Returns:
+#
+#     true  - if each row is unique
+#     false - otherwise
+#
+sub rowUnique
+  {
+
+    my ($self) = @_;
+
+    return $self->table()->{'rowUnique'};
+
+  }
+
+# Method: printableRowName
+#
+#     Get the printable row name
+#
+# Returns:
+#
+#     String - containing the i18n name for the row
+#
+sub printableRowName
+  {
+
+    my ($self) = @_;
+
+    return $self->table()->{'printableRowName'};
+
+  }
 
 # Method: tableInfo
 #
-# 	Resturn the table info. 
+# 	Return the table info.
 #
 # Returns:
 #
@@ -613,6 +732,40 @@ sub _checkFieldIsUnique
 
 	return 0;
 }
+
+# Check the new row to add/set is unique
+# rowId can be undef if the call comes from an addition
+# An array ref of types is passing in
+# throw <EBox::Exceptions::DataExists> if not unique
+sub _checkRowIsUnique # (rowId, row_ref)
+  {
+
+    my ($self, $rowId, $row_ref) = @_;
+
+    my @rowIds = $self->{'gconfmodule'}->all_dirs($self->{'directory'});
+
+    foreach my $aRowId (@rowIds) {
+      # Compare if the row identifier is different
+      next if (defined ($rowId)) and ($aRowId == $rowId);
+
+      my $hash = $self->{'gconfmodule'}->hash_from_dir($aRowId);
+      # Check every field
+      my $equal = 'equal';
+      foreach my $field (@{$row_ref}) {
+	next if ($field->compareToHash($hash));
+	$equal = undef;
+	last;
+      }
+      if ($equal) {
+	throw EBox::Exceptions::DataExists(
+					   'data'  => $self->printableRowName(),
+					   'value' => ''
+					  );
+      }
+    }
+
+  }
+
 
 
 sub _checkAllFieldsExist
@@ -743,3 +896,4 @@ sub _hashFromDir
 }
 
 1;
+

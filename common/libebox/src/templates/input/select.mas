@@ -1,5 +1,5 @@
 <%doc>
-  Component for HTMl select input
+  Component for HTML select input
 
    Parameters:
        $name  - name of the input
@@ -32,8 +32,7 @@ if (@options == 0) {
        @options = @{ $optionsInExtraParameters_r };
    }
 }
-
-# disable the control if  isn't  any option
+# disable the control if it isn't any option
 if (@options == 0) {
   $params{disabled} = 'disabled';
 }

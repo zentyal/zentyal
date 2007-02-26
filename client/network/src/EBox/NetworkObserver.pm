@@ -82,6 +82,31 @@ sub ifaceMethodChanged # (iface, oldmethod, newmethod)
 }
 
 #
+# Method: ifaceExternalChanged
+#
+#	Invoked when a iface is going to change from external to
+#	internal and viceversa. Its argument is the name of the real
+#	interface. As with the previous function, a return value of
+#	true will prevent the change from being made. You should override this
+#	method if you need to.
+#
+#   Parameteres:
+#
+#       iface - interface name
+#
+#       external - boolean indicating if the property is gonna set to
+#       *external*
+#
+# Returns:
+#
+#	boolean - true if module's configuration becomes inconsistent, otherwise
+#	false
+sub ifaceExternalChanged # (iface)
+{
+  return undef;
+}
+
+#
 # Method: vifaceDelete
 #
 #	Invoked when a  virtual interface is going to be removed. Its 
@@ -129,9 +154,32 @@ sub vifaceAdded # (iface, viface, address, netmask)
 }
 
 #
+# Method: changeIfaceExternalProperty
+#
+#        Invoked when an interface is going to change from external to
+#        internal. Its argument is the name of the real interface. It
+#        works exactly the same way as two methods above.
+#
+# Parameters:
+#
+#       iface    - interface name
+#       external - boolean indicating in which way external is going to change
+#
+# Returns:
+#
+#       boolean - true if module's configuration becomes inconsistent, otherwise
+#	false
+#
+sub changeIfaceExternalProperty # (iface, external)
+  {
+        # default empty implementation. Subclasses should override this as
+        # needed.
+  }
+
+#
 # Method: freeIface
 #
-#	Invoked when a interface is going to be removed. Its argument
+#	Invoked when an interface is going to be removed. Its argument
 #	is the name of the real interface. It works exactly
 #	the same way as the three methods above.
 #
@@ -150,7 +198,7 @@ sub freeIface # (iface)
 #
 #	Invoked when a virtual interface is going to be removed. Its arguments
 #	are the names of the real and virtual interfaces. It works exactly
-#	the same way as the three methods above.
+#	the same way as the four methods above.
 #
 #   Parameteres:
 #

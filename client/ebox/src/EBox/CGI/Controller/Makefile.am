@@ -4,10 +4,11 @@ perldir = @PERLPATH@/EBox/CGI/Controller
 
 nobase_perl_DATA = DataTable.pm DataTableAdd.pm \
 		  DataTableUpdate.pm DataTableMove.pm \
-		  DataTableDel.pm
+		  DataTableDel.pm DataMultiTable.pm
 
 SOURCES = $(nobase_perl_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
 
 EXTRA_DIST = $(nobase_perl_DATA)
+

@@ -1,5 +1,5 @@
 AC_INIT([libeBox], [0.9])
-
+		   
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox.pm])
 

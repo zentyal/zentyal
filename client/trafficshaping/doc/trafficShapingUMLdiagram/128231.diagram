@@ -1,0 +1,168 @@
+format 27
+
+classcanvas 128089 class_ref 128089 // QDisc::Base
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default shadow default
+  xyz 446 899 2000
+classcanvas 128094 class_ref 128094 // TreeBuilder::Abstract
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default shadow default
+  xyz 345 443 2000
+classcanvas 128103 class_ref 128231 // TrafficShaping
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default shadow default
+  xyz 370 201 2000
+classcanvas 128487 class_ref 128487 // Network
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default shadow default
+  xyz 102 278 2000
+classcanvas 128743 class_ref 128615 // GConfModule
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default shadow default
+  xyz 293 28 2000
+classcanvas 128985 class_ref 128217 // TC
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default shadow default
+  xyz 727 251 2000
+classcanvas 128999 class_ref 128871 // NetworkObserver
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default shadow default
+  xyz 557 9 2000
+classcanvas 129630 class_ref 128222 // TreeBuilder::HTB
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default shadow default
+  xyz 367 607 2000
+classcanvas 129758 class_ref 128350 // TreeBuilder::HFSC
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default shadow default
+  xyz 543 621 2005
+classcanvas 129895 class_ref 128999 // Node
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default shadow default
+  xyz 237 740 2000
+classcanvas 130151 class_ref 129127 // QDisc::Root
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default shadow default
+  xyz 473 1074 2000
+classcanvas 130910 class_ref 128478 // QueueDiscipline::Abstract
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default shadow default
+  xyz 747 835 2000
+classcanvas 131175 class_ref 129511 // Class
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default shadow default
+  xyz 21 908 2000
+classcanvas 131806 class_ref 128606 // QueueDiscipline::FIFO
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default shadow default
+  xyz 930 1319 2000
+classcanvas 132062 class_ref 128734 // TreeBuilder::Default
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default shadow default
+  xyz 146 628 2005
+classcanvas 132071 class_ref 129895 // Filter::Fw
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default shadow default
+  xyz 197 1200 2000
+classcanvas 132583 class_ref 130151 // QueueDiscipline::SFQ
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default shadow default
+  xyz 484 1223 2000
+classcanvas 133351 class_ref 130535 // QueueDiscipline::PFIFO_FAST
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default shadow default
+  xyz 934 981 2000
+classcanvas 134631 class_ref 130791 // QueueDiscipline::HTB
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default shadow default
+  xyz 798 1116 2000
+classcanvas 134759 class_ref 130919 // QueueDiscipline::HFSC
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default shadow default
+  xyz 619 1313 2005
+relationcanvas 128172 relation_ref 128172 // discipline
+  from ref 129895 z 1999 label "discipline" italic xyz 574 804 1999 to ref 130910
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+relationcanvas 128217 relation_ref 128089 // <realization>
+  from ref 128089 z 1999 to ref 129895
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+relationcanvas 128300 relation_ref 128300 // 
+  from ref 128089 z 1999 to ref 131175
+  role_a_pos 273 942 3000 role_b_pos 328 942 3000
+  multiplicity_a_pos 273 975 3000 multiplicity_b_pos 426 975 3000
+relationcanvas 128322 relation_ref 128194 // <unidirectional association>
+  from ref 128103 z 1999 to ref 128985
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+relationcanvas 128345 relation_ref 128217 // <generalisation>
+  from ref 130151 z 1999 to ref 128089
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+relationcanvas 128350 relation_ref 128222 // <directional aggregation>
+  from ref 128103 z 1999 to ref 128094
+  no_role_a no_role_b
+  multiplicity_a_pos 425 418 3000 no_multiplicity_b
+relationcanvas 128473 relation_ref 128345 // <association>
+  from ref 128089 z 1999 to ref 132071
+  no_role_a no_role_b
+  multiplicity_a_pos 357 1175 3000 no_multiplicity_b
+relationcanvas 128478 relation_ref 128094 // <aggregation>
+  from ref 128103 z 1999 to ref 128094
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+relationcanvas 128556 relation_ref 128556 // <realization>
+  from ref 131175 z 1999 to ref 129895
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+relationcanvas 128615 relation_ref 128359 // <dependency>
+  from ref 128103 z 1999 to ref 128487
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+relationcanvas 128684 relation_ref 128684 // childrenClasses
+  from ref 131175 z 1999 label "childrenClasses" italic xyz 36 1115 1999 to point 118 1089
+  line 129196 z 1999 to point 52 1089
+  line 128940 z 1999 to ref 131175
+  no_role_a no_role_b
+  multiplicity_a_pos 77 1033 3000 no_multiplicity_b
+relationcanvas 129127 relation_ref 128487 // <generalisation>
+  from ref 128103 z 1999 to ref 128743
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+relationcanvas 129502 relation_ref 128350 // components
+  geometry HVH unfixed
+  from ref 128094 z 1999 label "components" italic xyz 611 486 1999 stereotype "<<list>>" xyz 621 511 3000 to point 741 506
+  line 130654 z 1999 to point 741 783
+  line 130782 z 1999 to ref 129895
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+relationcanvas 129580 relation_ref 128812 // contains
+  from ref 128089 z 1999 label "contains" italic xyz 294 1074 1999 to point 294 1076
+  line 129708 z 1999 to ref 131175
+  no_role_a no_role_b
+  multiplicity_a_pos 232 1040 3000 no_multiplicity_b
+relationcanvas 129767 relation_ref 128999 // <realization>
+  from ref 128103 z 1999 to ref 128999
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+relationcanvas 129886 relation_ref 128478 // <generalisation>
+  from ref 129630 z 1999 to ref 128094
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+relationcanvas 130014 relation_ref 128606 // <generalisation>
+  from ref 129758 z 1999 to ref 128094
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+relationcanvas 131038 relation_ref 128734 // <generalisation>
+  from ref 133351 z 1999 to ref 130910
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+relationcanvas 131166 relation_ref 128862 // <generalisation>
+  from ref 132583 z 1999 to ref 130910
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+relationcanvas 131294 relation_ref 128990 // <generalisation>
+  from ref 134759 z 1999 to ref 130910
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+relationcanvas 131422 relation_ref 129118 // <generalisation>
+  from ref 134631 z 1999 to ref 130910
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+relationcanvas 131934 relation_ref 129502 // <generalisation>
+  from ref 131806 z 1999 to ref 130910
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+relationcanvas 132190 relation_ref 129630 // <generalisation>
+  from ref 132062 z 1999 to ref 128094
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+relationcanvas 135271 relation_ref 132199 // parent
+  geometry HVH unfixed
+  from ref 131175 z 1999 to point 11 964
+  line 129246 z 1999 label "parent" italic xyz 23 840 1999 to point 11 783
+  line 129374 z 1999 to ref 129895
+  no_role_a no_role_b
+  multiplicity_a_pos 217 794 3000 no_multiplicity_b
+end
