@@ -47,25 +47,30 @@ use EBox::CA::DN;
 </div>  
 <table class="dataTable">
   <thead>
-    <th><% __("Common Name") |h %></th>
+    <th><% __("Name") |h %></th>
     <th><% __("State") |h %></th>
     <th><% __("Date") |h %></th>
     <th class="thOptions"><% __("Actions") |h%></th>
   </thead>
   <tbody>
-<%perl>
-   foreach my $cert (@{$certs}) {
-   # It is needed to check if it is the CA certificate
-     if ( $cert->{'isCACert'} and $cert->{'state'} eq 'V' ) {
-       print '<tr class="highlight tcenter">';
-     }
-     else {
-       print '<tr class="tcenter">';
-     }
-</%perl>
-      <td>
-        <% $cert->{'dn'}->attribute('commonName') |h %>
-      </td>
+%   foreach my $cert (@{$certs}) {
+%   # It is needed to check if it is the CA certificate
+%     if ( $cert->{'isCACert'} and $cert->{'state'} eq 'V' ) {
+       <tr class="highlight tcenter">
+%     }
+%     else {
+       <tr class="tcenter">
+%     }
+	 <td>
+%     if ( $cert->{'isCACert'} ) {
+	    <% $cert->{'dn'}->attribute('commonName') | h %>
+	    <% __('from') %>
+            <% $cert->{'dn'}->attribute('organizationName') | h %>
+%     }
+%     else {
+            <% $cert->{'dn'}->attribute('commonName') |h %>
+%     }
+         </td>
     <!-- Print the state string -->
 <%perl>
    my $stateStr = "";
@@ -138,7 +143,7 @@ use EBox::CA::DN;
 			  imgName => __("Revoke") },
 			{ imgFile => "/data/images/install.gif",
 			  imgName => __("Download Key(s) and Certificate") },
-			{ imgFile => "/data/images/requeue.gif",
+			{ imgFile => "/data/images/reload.gif",
 			  imgName => __("Renew") }
 		       );
 </%perl>

@@ -1,5 +1,5 @@
 <%args>
-  $commonName
+  $metaDataCert
   $isCACert => 1
   $reason    => "unknown"
 </%args>
@@ -16,8 +16,12 @@ if ( $isCACert ) {
 </%perl>
 </h3>
   <div class="warning">
-    <% __x("The certificate whose common name is {cn} you tried to revoke is being used by some module, please confirm you are sure to revoke and leave the service(s) instable or disabled",
-           cn => $commonName) %>
+%   if ( $isCACert ) {
+      <% __x('This revokation can affect the functionality from other modules, please confirm you are very sure to revoke the whole certification authority from {on} and leave the service(s) unstable or disabled', on => $metaDataCert->{dn}->attribute('organizationName')) %>
+%   }
+%   else {
+      <% __x("The certificate whose common name is {cn} you tried to revoke is being used by some module, please confirm you are sure to revoke and leave the service(s) unstable or disabled", cn => $metaDataCert->{dn}->attribute('commonName')) %>
+%   }
   </div>
 
   <p>

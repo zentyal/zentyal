@@ -17,10 +17,18 @@ use EBox::Gettext;
   <% __('Revoke the selected certificate') %>
 </div>
 <div>
+% if ( $metaDataCert->{'isCACert'} ) {
+  <span class="ftitle"><% __('Organization Name') | h %>: </span>
+  <span class="ftitle">
+    <% $metaDataCert->{dn}->attribute('organizationName') | h %>
+  </span>
+% }
+% else {
   <span class="ftitle"><% __("Common Name") | h%>: </span> 
   <span class="ftitle">
     <%$metaDataCert->{dn}->attribute('commonName') | h %>
   </span>
+% }
   <span class="ftitle"><% __("Expiration Date") | h %>: </span>
   <span class="ftitle">
 % my $date = $metaDataCert->{'expiryDate'};
@@ -46,8 +54,8 @@ use EBox::Gettext;
 		       value =>  $metaDataCert->{isCACert} ],
 		     [ name  => 'reason', printableName =>
 		       __('Reason'),
-		       input => 'select', extraParams => [ options =>
-							   \@selectOptions ]],
+		       input => 'select',
+		       extraParams => [ options => \@selectOptions ]],
 		     [ name  => 'revoke', input => 'submit',
 		       value => __('Revoke') ],
 		     );

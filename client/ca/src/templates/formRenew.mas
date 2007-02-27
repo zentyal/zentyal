@@ -10,23 +10,31 @@
 		      value => $metaDataCert->{isCACert} ],
 		    [ name  => 'expireDays', printableName =>
 		      __('Days to expire'),  input => 'text' ],
-		    [ name => 'renew', input => 'submit', 
+		    [ name => 'renew', input => 'submit',
 		      value => __('Renew') ],
 		   );
 </%init>
 <!-- Form to renew a certificate -->
 <h3><% __('Renew a certificate') | h %></h3>
-% if ( $metaDataCert->{"isCACert"} ) {
+% if ( $metaDataCert->{'isCACert'} ) {
   <div class="warning">
-    <% __("This operation will resign all the issued user certificates
-  with the same expiration date") | h %>
+    <% __('This operation will resign all the issued user certificates
+  with the same expiration date') | h %>
   </div>
 % }
 <div>
+% if ( $metaDataCert->{'isCACert'} ) {
+  <span class="ftitle"><% __('Organization Name') | h %>: </span>
+  <span class="ftitle">
+    <% $metaDataCert->{dn}->attribute('organizationName') | h %>
+  </span>
+% }
+% else {
   <span class="ftitle"><% __("Common Name") | h%>: </span> 
   <span class="ftitle">
     <%$metaDataCert->{dn}->attribute('commonName') | h %>
   </span>
+% }
   <span class="ftitle"><% __("Expiration Date") | h %>: </span>
   <span class="ftitle">
 % my $date = $metaDataCert->{'expiryDate'};

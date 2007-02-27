@@ -109,7 +109,8 @@ sub _process
       } catch EBox::Exceptions::DataInUse with {
 	$self->{template} = '/ca/forceRevoke.mas';
 	$self->{chain} = undef;
-	push (@array, 'commonName' => $commonName);
+	my $cert = $ca->getCertificateMetadata( cn => $commonName );
+	push (@array, 'metaDataCert' => $cert);
 	push (@array, 'isCACert'   => $isCACert);
 	push (@array, 'reason'     => $reason);
 	$self->{params} = \@array;

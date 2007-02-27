@@ -1620,14 +1620,15 @@ sub getCurrentCRL
 #       root - the <EBox::Menu::Root> where to leave our items
 #
 
-sub menu {
+sub menu
+  {
 
   my ($self, $root) = @_;
 
   $root->add(new EBox::Menu::Item('url'  => 'CA/Index',
 				  'text' => __('Certificate Manager')));
 
-}
+  }
 
 # Method: dumpConfig
 #

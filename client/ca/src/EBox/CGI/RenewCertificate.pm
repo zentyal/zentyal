@@ -56,6 +56,10 @@ sub _process
 
     my $ca = EBox::Global->modInstance('ca');
 
+    if ( $self->param('cancel') ) {
+      return;
+    }
+
     $self->_requireParam('isCACert', __('Boolean indicating Certification Authority Certificate') );
     $self->_requireParam('expireDays', __('Days to expire') );
 
