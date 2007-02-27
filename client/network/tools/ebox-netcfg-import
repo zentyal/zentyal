@@ -9,6 +9,12 @@ use EBox::Sudo qw(:all);
 
 use constant INTERFACES => '/etc/network/interfaces';
 use constant RESOLV     => '/etc/resolv.conf';
+use constant DEFAULT_IFACE => 'eth0';
+use constant DEFAULT_UPLOAD => '1024';
+use constant DEFAULT_DOWNLOAD => '1024';
+use constant DEFAULT_NAME => 'default';
+use constant BASE_KEY => 'gatewaytable/keys/todo1111';
+
 
 EBox::init();
 my $global = EBox::Global->getInstance();
@@ -82,7 +88,17 @@ foreach my $iface (get_interfaces) {
 					 $iface->{'netmask'}, undef, 1);
 		
 		if ($iface->{'gateway'}){
-			$network->setGateway($iface->{'gateway'});
+			$network->set_string(BASE_KEY . '/ip',
+				$iface->{'address'});
+			$network->set_string(BASE_KEY . '/interface', 
+				$iface->{'name'});
+			$network->set_string(BASE_KEY . '/name', 
+				DEFAULT_NAME);
+			$network->set_bool(BASE_KEY . '/default', 1);
+			$network->set_int(BASE_KEY . '/upload', 
+				DEFAULT_UPLOAD);
+			$network->set_int(BASE_KEY . '/download', 
+				DEFAULT_DOWNLOAD);
 		}
 		
 	} elsif ($iface->{'method'} eq 'dhcp') {
