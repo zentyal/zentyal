@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 17:44+0100\n"
+"POT-Creation-Date: 2007-02-27 10:56+0100\n"
 "PO-Revision-Date: 2007-02-02 18:09+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -19,23 +19,53 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/CreateCA.pm:40
-#: src/EBox/CGI/Index.pm:39 src/EBox/CGI/DownloadFiles.pm:42
-#: src/EBox/CGI/IssueCertificate.pm:39 src/EBox/CGI/RevokeCertificate.pm:41
-#: src/EBox/CGI/RenewCertificate.pm:39
-msgid "Certification Authority Management"
-msgstr "Gestión de la Autoridad de Certificados"
+#: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254
+#: src/EBox/CGI/CreateCA.pm:60 src/EBox/CGI/IssueCertificate.pm:63
+#: src/EBox/CA.pm:238 src/EBox/CA.pm:488 src/templates/formRenew.mas:30
+#: src/templates/index.mas:17 src/templates/formRevoke.mas:23
+#: src/templates/createCA.mas:17
+msgid "Organization Name"
+msgstr "Nombre de Organización"
 
-#: src/EBox/CGI/ShowForm.pm:62 src/EBox/CGI/DownloadFiles.pm:69
-#: src/EBox/CGI/IssueCertificate.pm:65 src/EBox/CGI/RevokeCertificate.pm:75
-#: src/EBox/CGI/RenewCertificate.pm:65 src/EBox/CA/TestStub.pm:438
-#: src/EBox/CA/TestStub.pm:516 src/EBox/CA/TestStub.pm:642 src/EBox/CA.pm:695
-#: src/EBox/CA.pm:857 src/EBox/CA.pm:1168 src/EBox/CA.pm:1210
-#: src/EBox/CA.pm:1305 src/templates/formRenew.mas:29
-#: src/templates/index.mas:19 src/templates/index.mas:59
-#: src/templates/formRevoke.mas:22
+#: src/EBox/CA/TestStub.pm:259 src/EBox/CA.pm:502
+msgid ""
+"The CA certificates should be revoked  or has expired before issuing a new "
+"certificate"
+msgstr ""
+"El certificado CA debe estar revocado o caducado antes de expedir un nuevo "
+"certificado"
+
+#: src/EBox/CA/TestStub.pm:438 src/EBox/CA/TestStub.pm:516
+#: src/EBox/CA/TestStub.pm:642 src/EBox/CGI/ShowForm.pm:62
+#: src/EBox/CGI/RenewCertificate.pm:69 src/EBox/CGI/RevokeCertificate.pm:75
+#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CGI/IssueCertificate.pm:65
+#: src/EBox/CA.pm:700 src/EBox/CA.pm:863 src/EBox/CA.pm:1174
+#: src/EBox/CA.pm:1216 src/EBox/CA.pm:1312 src/templates/formRenew.mas:37
+#: src/templates/index.mas:19 src/templates/formRevoke.mas:30
 msgid "Common Name"
 msgstr "Nombre común"
+
+#: src/EBox/CA/TestStub.pm:654
+#, perl-brace-format
+msgid "The user {commonName} does NOT exist"
+msgstr "El usuario {commonName} NO existe"
+
+#: src/EBox/CA/TestStub.pm:720
+msgid "Days set to the maximum allowed: Year 2038 Bug"
+msgstr "Utilizado el máximo de días permitidos: Error de Año 2038"
+
+#: src/EBox/CA/TestStub.pm:729 src/EBox/CA.pm:737 src/EBox/CA.pm:1308
+msgid "Expiration date later than CA certificate expiration date"
+msgstr ""
+"La fecha de caducidad del certificado es mayor que la del certificado de la "
+"Autoridad de Certificación"
+
+#: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/RenewCertificate.pm:39
+#: src/EBox/CGI/RevokeCertificate.pm:41 src/EBox/CGI/Index.pm:39
+#: src/EBox/CGI/CreateCA.pm:40 src/EBox/CGI/DownloadFiles.pm:42
+#: src/EBox/CGI/IssueCertificate.pm:39
+msgid "Certification Authority Management"
+msgstr "Gestión de la Autoridad de Certificados"
 
 #: src/EBox/CGI/ShowForm.pm:63
 msgid "Action"
@@ -50,17 +80,43 @@ msgstr "Sólo se realizan las acciones \"revoke\" y \"renew\""
 msgid "Common name: {cn} does NOT exist in database"
 msgstr "Nombre común: {cn} NO existe en la base de datos"
 
-#: src/EBox/CGI/CreateCA.pm:60 src/EBox/CGI/IssueCertificate.pm:63
-#: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254 src/EBox/CA.pm:234
-#: src/EBox/CA.pm:483 src/templates/createCA.mas:17 src/templates/index.mas:17
-msgid "Organization Name"
-msgstr "Nombre de Organización"
+#: src/EBox/CGI/RenewCertificate.pm:63 src/EBox/CGI/RevokeCertificate.pm:69
+msgid "Boolean indicating Certification Authority Certificate"
+msgstr "Booleano indicando si es Certificado de la Autoridad de Certificación"
 
-#: src/EBox/CGI/CreateCA.pm:61 src/EBox/CGI/IssueCertificate.pm:68
-#: src/EBox/CGI/RenewCertificate.pm:60 src/templates/formRenew.mas:12
-#: src/templates/createCA.mas:26 src/templates/index.mas:25
+#: src/EBox/CGI/RenewCertificate.pm:64 src/EBox/CGI/CreateCA.pm:61
+#: src/EBox/CGI/IssueCertificate.pm:68 src/templates/formRenew.mas:12
+#: src/templates/index.mas:25 src/templates/createCA.mas:26
 msgid "Days to expire"
 msgstr "Días para expirar"
+
+#: src/EBox/CGI/RenewCertificate.pm:89
+msgid "The certificate CANNOT be renewed"
+msgstr "El certificado NO se puede renovar"
+
+#: src/EBox/CGI/RenewCertificate.pm:91
+msgid "The certificate has been renewed"
+msgstr "El certificado se ha renovado"
+
+#: src/EBox/CGI/RenewCertificate.pm:92
+msgid "The new CA certificate has been renewed"
+msgstr "El nuevo certificado de la Entidad Certificadora se ha renovado"
+
+#: src/EBox/CGI/RevokeCertificate.pm:63
+msgid "The certificate has NOT been revoked"
+msgstr "El certificado NO se ha revocado"
+
+#: src/EBox/CGI/RevokeCertificate.pm:70 src/templates/formRevoke.mas:61
+msgid "Reason"
+msgstr "Razón"
+
+#: src/EBox/CGI/RevokeCertificate.pm:122
+msgid "The certificate has been revoked"
+msgstr "El certificado se ha revocado"
+
+#: src/EBox/CGI/RevokeCertificate.pm:123
+msgid "The CA certificate has been revoked"
+msgstr "El certificado de la autoridad se ha revocado"
 
 #: src/EBox/CGI/CreateCA.pm:67 src/EBox/CGI/IssueCertificate.pm:74
 msgid "Days to expire MUST be a natural number"
@@ -82,72 +138,21 @@ msgstr "El certificado se ha expedido"
 msgid "The new CA certificate has been issued"
 msgstr "El nuevo certificado de Autoridad de Certificación se ha expedido"
 
-#: src/EBox/CGI/RevokeCertificate.pm:63
-msgid "The certificate has NOT been revoked"
-msgstr "El certificado NO se ha revocado"
-
-#: src/EBox/CGI/RevokeCertificate.pm:69 src/EBox/CGI/RenewCertificate.pm:59
-msgid "Boolean indicating Certification Authority Certificate"
-msgstr "Booleano indicando si es Certificado de la Autoridad de Certificación"
-
-#: src/EBox/CGI/RevokeCertificate.pm:70 src/templates/formRevoke.mas:52
-msgid "Reason"
-msgstr "Razón"
-
-#: src/EBox/CGI/RevokeCertificate.pm:121
-msgid "The certificate has been revoked"
-msgstr "El certificado se ha revocado"
-
-#: src/EBox/CGI/RevokeCertificate.pm:122
-msgid "The CA certificate has been revoked"
-msgstr "El certificado de la autoridad se ha revocado"
-
-#: src/EBox/CGI/RenewCertificate.pm:85
-msgid "The certificate CANNOT be renewed"
-msgstr "El certificado NO se puede renovar"
-
-#: src/EBox/CGI/RenewCertificate.pm:87
-msgid "The certificate has been renewed"
-msgstr "El certificado se ha renovado"
-
-#: src/EBox/CGI/RenewCertificate.pm:88
-msgid "The new CA certificate has been renewed"
-msgstr "El nuevo certificado de la Entidad Certificadora se ha renovado"
-
-#: src/EBox/CA/TestStub.pm:259 src/EBox/CA.pm:497
-msgid ""
-"The CA certificates should be revoked  or has expired before issuing a new "
-"certificate"
-msgstr ""
-"El certificado CA debe estar revocado o caducado antes de expedir un nuevo "
-"certificado"
-
-#: src/EBox/CA/TestStub.pm:654
-#, perl-brace-format
-msgid "The user {commonName} does NOT exist"
-msgstr "El usuario {commonName} NO existe"
-
-#: src/EBox/CA/TestStub.pm:720 src/EBox/CA.pm:275 src/EBox/CA.pm:712
-#: src/EBox/CA.pm:1280
-msgid "Days set to the maximum allowed: Year 2038 Bug"
+#: src/EBox/CA.pm:279 src/EBox/CA.pm:717 src/EBox/CA.pm:1286
+#, fuzzy, perl-brace-format
+msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
 msgstr "Utilizado el máximo de días permitidos: Error de Año 2038"
 
-#: src/EBox/CA/TestStub.pm:729 src/EBox/CA.pm:731 src/EBox/CA.pm:1301
-msgid "Expiration date later than CA certificate expiration date"
-msgstr ""
-"La fecha de caducidad del certificado es mayor que la del certificado de la "
-"Autoridad de Certificación"
-
-#: src/EBox/CA.pm:364
+#: src/EBox/CA.pm:369
 msgid "The remove operation cannot be finished. Reason: "
 msgstr "La operación de borrado no puede completarse. Razón: "
 
-#: src/EBox/CA.pm:870 src/EBox/CA.pm:1179
+#: src/EBox/CA.pm:876 src/EBox/CA.pm:1185
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
 msgstr "Certificado con nombre común {cn} NO existe"
 
-#: src/EBox/CA.pm:874
+#: src/EBox/CA.pm:880
 #, perl-brace-format
 msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
@@ -156,32 +161,32 @@ msgstr ""
 "La razón {reason} NO es una opción aplicable.\n"
 "Opciones:"
 
-#: src/EBox/CA.pm:1082
+#: src/EBox/CA.pm:1088
 msgid "Either common name, distinguished name or serial number has been passed"
 msgstr ""
 "No se han pasado ni el nombre común, el nombre distinguido ni el número de "
 "serie"
 
-#: src/EBox/CA.pm:1306
+#: src/EBox/CA.pm:1313
 msgid "or"
 msgstr "o"
 
-#: src/EBox/CA.pm:1307
+#: src/EBox/CA.pm:1314
 msgid "Certificate file"
 msgstr "Fichero del certificado"
 
-#: src/EBox/CA.pm:1329
+#: src/EBox/CA.pm:1336
 msgid "The certificate to renew does NOT exist"
 msgstr "El certificado a renovar NO existe"
 
-#: src/EBox/CA.pm:1366
+#: src/EBox/CA.pm:1373
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
 msgstr ""
 "El certificado con este nombre común {cn} NO existe en esta autoridad de "
 "certificación"
 
-#: src/EBox/CA.pm:1394
+#: src/EBox/CA.pm:1401
 msgid ""
 "The private key passpharse needed to create a new request. No renewal was "
 "made. Issue a new certificate with new keys"
@@ -190,37 +195,37 @@ msgstr ""
 "No se ha creado la renovación. Expediendo un nuevo certificado con nuevas "
 "claves"
 
-#: src/EBox/CA.pm:1621
+#: src/EBox/CA.pm:1629
 msgid "Certificate Manager"
 msgstr "Gestor de certificados"
 
-#: src/EBox/CA.pm:2114
+#: src/EBox/CA.pm:2139
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
 "Imposible firmar. Contraseña del CA incorrecta o la clave privada del CA ha "
 "desaparecido."
 
-#: src/EBox/CA.pm:2116
+#: src/EBox/CA.pm:2141
 msgid "Database corruption"
 msgstr "Corrupción en la Base de Datos"
 
-#: src/EBox/CA.pm:2118
+#: src/EBox/CA.pm:2143
 msgid "Identifier duplicated in Database"
 msgstr "Identificador duplicado en la Base de Datos"
 
-#: src/EBox/CA.pm:2120
+#: src/EBox/CA.pm:2145
 msgid "Certificate already revoked"
 msgstr "El certificado ya se revocó"
 
-#: src/EBox/CA.pm:2123
+#: src/EBox/CA.pm:2148
 msgid "ASN1 field length too long. Maximum Size:"
 msgstr "Longitud de un campo ASN1 demasiado extenso. Máximo tamaño de:"
 
-#: src/EBox/CA.pm:2125
+#: src/EBox/CA.pm:2150
 msgid "Unknown error. Given the OpenSSL output:"
 msgstr "Error desconocido. Se ofrece la salida de OpenSSL:"
 
-#: src/EBox/CA.pm:2183
+#: src/EBox/CA.pm:2208
 #, perl-brace-format
 msgid ""
 "Created Certification Authority with organization name {orgName} and "
@@ -229,19 +234,19 @@ msgstr ""
 "Creada autoridad de certificación con nombre de organización {orgName} y "
 "validez durante {days} días"
 
-#: src/EBox/CA.pm:2185
+#: src/EBox/CA.pm:2210
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
 msgstr ""
 "Destruída autoridad de certificación con nombre de organización {orgName}"
 
-#: src/EBox/CA.pm:2187
+#: src/EBox/CA.pm:2212
 #, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
 msgstr ""
 "Revocado certificado de la autoridad a causa de {reason} forzado: {force}"
 
-#: src/EBox/CA.pm:2189
+#: src/EBox/CA.pm:2214
 #, perl-brace-format
 msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
@@ -250,7 +255,7 @@ msgstr ""
 "Expedido certificado de la autoridad con nombre de organización {orgName} y "
 "validez para {days} días"
 
-#: src/EBox/CA.pm:2191
+#: src/EBox/CA.pm:2216
 #, perl-brace-format
 msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
@@ -259,12 +264,12 @@ msgstr ""
 "Renovado certificado de la autoridad con nombre de organización {orgName} y "
 "validez para {days} días"
 
-#: src/EBox/CA.pm:2193
+#: src/EBox/CA.pm:2218
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr "Expedido certificado con nombre común {cn} y validez para {days} días"
 
-#: src/EBox/CA.pm:2195
+#: src/EBox/CA.pm:2220
 #, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
@@ -272,24 +277,24 @@ msgstr ""
 "Revocado certificado con nombre común {cn} a causa de {reason} forzado: "
 "{force}"
 
-#: src/EBox/CA.pm:2197
+#: src/EBox/CA.pm:2222
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr "Renovado certificado con nombre común {cn} y validez para {days} días"
 
-#: src/EBox/CA.pm:2199
+#: src/EBox/CA.pm:2224
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr ""
 "Actualizada base de datos de certificados. {number} certificados han expirado"
 
-#: src/EBox/CA.pm:2282
+#: src/EBox/CA.pm:2307
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "No se puede comenzar el intérprete para OpenSSL ({errval})"
 
-#: src/templates/formRenew.mas:15 src/templates/index.mas:143
-#: src/templates/index.mas:163
+#: src/templates/formRenew.mas:15 src/templates/index.mas:149
+#: src/templates/index.mas:169
 msgid "Renew"
 msgstr "Renovar"
 
@@ -297,17 +302,9 @@ msgstr "Renovar"
 msgid "Renew a certificate"
 msgstr "Renovar un certificado"
 
-#: src/templates/formRenew.mas:34 src/templates/formRevoke.mas:27
+#: src/templates/formRenew.mas:43 src/templates/formRevoke.mas:36
 msgid "Expiration Date"
 msgstr "Fecha de expiración"
-
-#: src/templates/createCA.mas:10
-msgid "Create Certification Authority Certificate"
-msgstr "Crear Certificado de la Autoridad de Certificación"
-
-#: src/templates/createCA.mas:37 src/templates/createCA.mas:39
-msgid "Create"
-msgstr "Crear"
 
 #: src/templates/index.mas:29
 msgid "Issue"
@@ -338,6 +335,10 @@ msgstr ""
 "Caducados y a Fecha de Revocación en los certificados revocados "
 "respectivamente"
 
+#: src/templates/index.mas:59
+msgid "Name"
+msgstr ""
+
 #: src/templates/index.mas:61
 msgid "State"
 msgstr "Estado"
@@ -350,26 +351,38 @@ msgstr "Fecha"
 msgid "Actions"
 msgstr "Acciones"
 
-#: src/templates/index.mas:86
+#: src/templates/index.mas:80
+msgid "from"
+msgstr ""
+
+#: src/templates/index.mas:92
 msgid "Valid"
 msgstr "Válido"
 
-#: src/templates/index.mas:89
+#: src/templates/index.mas:95
 msgid "Expired"
 msgstr "Expirado"
 
-#: src/templates/index.mas:92
+#: src/templates/index.mas:98
 msgid "Revoked"
 msgstr "Revocado"
 
-#: src/templates/index.mas:122 src/templates/index.mas:157
-#: src/templates/forceRevoke.mas:36 src/templates/formRevoke.mas:57
+#: src/templates/index.mas:128 src/templates/index.mas:163
+#: src/templates/formRevoke.mas:66 src/templates/forceRevoke.mas:41
 msgid "Revoke"
 msgstr "Revocar"
 
-#: src/templates/index.mas:132 src/templates/index.mas:160
+#: src/templates/index.mas:138 src/templates/index.mas:166
 msgid "Download Key(s) and Certificate"
 msgstr "Descargar clave(s) y certificado"
+
+#: src/templates/formRevoke.mas:9
+msgid "Revoke a certificate"
+msgstr "Revocar un certificado"
+
+#: src/templates/formRevoke.mas:18
+msgid "Revoke the selected certificate"
+msgstr "Revoca el certificado seleccionado"
 
 #: src/templates/forceRevoke.mas:12
 msgid "Revoking CA certificate"
@@ -379,28 +392,39 @@ msgstr "Revocar certificado de la autoridad de certificación"
 msgid "Revoking certificate"
 msgstr "Revocar certificado"
 
-#: src/templates/forceRevoke.mas:21
-#, perl-brace-format
+#: src/templates/forceRevoke.mas:22
+#, fuzzy, perl-brace-format
 msgid ""
-"The certificate whose common name is {cn} you tried to revoke is being used "
-"by some module, please confirm you are sure to revoke and leave the service"
-"(s) instable or disabled"
+"This revokation can affect the functionality from other modules, please "
+"confirm you are very sure to revoke the whole certification authority from "
+"{on} and leave the service(s) unstable or disabled"
 msgstr ""
 "El certificado cuyo nombre común es {cn} que has tratado de revocar está "
 "siendo usado por otro módulo, por favor confirma que estás seguro de revocar "
 "y dejar dicho(s) servicio(s) inestables o apagados"
 
-#: src/templates/forceRevoke.mas:40
+#: src/templates/forceRevoke.mas:26
+#, fuzzy, perl-brace-format
+msgid ""
+"The certificate whose common name is {cn} you tried to revoke is being used "
+"by some module, please confirm you are sure to revoke and leave the service"
+"(s) unstable or disabled"
+msgstr ""
+"El certificado cuyo nombre común es {cn} que has tratado de revocar está "
+"siendo usado por otro módulo, por favor confirma que estás seguro de revocar "
+"y dejar dicho(s) servicio(s) inestables o apagados"
+
+#: src/templates/forceRevoke.mas:45
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: src/templates/formRevoke.mas:9
-msgid "Revoke a certificate"
-msgstr "Revocar un certificado"
+#: src/templates/createCA.mas:10
+msgid "Create Certification Authority Certificate"
+msgstr "Crear Certificado de la Autoridad de Certificación"
 
-#: src/templates/formRevoke.mas:18
-msgid "Revoke the selected certificate"
-msgstr "Revoca el certificado seleccionado"
+#: src/templates/createCA.mas:37 src/templates/createCA.mas:39
+msgid "Create"
+msgstr "Crear"
 
 #~ msgid "Updated certificate database. {number} certificates has expired"
 #~ msgstr ""
