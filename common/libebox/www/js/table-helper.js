@@ -1,7 +1,7 @@
-+// TODO 
-+//      - Use Form.serialize stuff to get params
-+//      - Refactor addNewRow and actionClicked, they do almost the same
-+//      - Implement a generic function for the onComplete stage
+// TODO 
+//      - Use Form.serialize stuff to get params
+//      - Refactor addNewRow and actionClicked, they do almost the same
+//      - Implement a generic function for the onComplete stage
 
 function cleanError(table)
 {
@@ -38,8 +38,8 @@ function addNewRow(url, table, fields, directory)
 
 	var MyAjax = new Ajax.Updater(
 		{
-			success: table,
-			failure: 'error_' + table 
+		success: table,
+		failure: 'error_' + table 
 		},
 		url,
 		{
@@ -50,10 +50,13 @@ function addNewRow(url, table, fields, directory)
 			onComplete: function(t) {
 			  checkSaveChanges();
 			  stripe('dataTable', '#ecf5da', '#ffffff'); 
+			},
+			onFailure: function(t) {
+			  restoreHidden('buttons');
 			}
 		});
 
-	setLoading('buttons');
+	setLoading('buttons', true);
 
 }
 
@@ -91,10 +94,12 @@ function changeRow(url, table, fields, directory, id)
 			  highlightRow( id, false);
 			  stripe('dataTable', '#ecf5da', '#ffffff');
 			},
+			onFailure: function(t) {
+			  restoreHidden('buttons');
+			}
 		});
 
-	 setLoading('buttons');
-	 //disableInput('buttons');
+	 setLoading('buttons', true);
 
 }
 
@@ -142,6 +147,9 @@ function actionClicked(url, table, action, rowId, paramsAction, directory) {
 		onComplete: function(t) {
 		  checkSaveChanges();
 		  stripe('dataTable', '#ecf5da', '#ffffff');
+		},
+		onFailure: function(t) {
+		  restoreHidden('actionsCell_' + rowId);
 		}
 	    });
 
@@ -177,15 +185,29 @@ function changeView(url, table, directory, action, id)
 			  highlightRow(id, true);
 			  // Stripe again the table
 			  stripe('dataTable', '#ecf5da', '#ffffff');
-			  restoreHidden('actionsCell_' + id);
+			  if ( action == 'changeEdit' ) {
+			    restoreHidden('actionsCell_' + id);
+			  }
+			},
+			onFailure: function(t) {
+			  if ( action == 'changeAdd' ) {
+			    restoreHidden('creatingForm');
+			  }
+			  else if ( action == 'changeList' ) {
+			    restoreHidden('buttons');
+			  }
+			  else if ( action == 'changeEdit' ) {
+			    restoreHidden('actionsCell_' + id);
+			  }
 			}
+			
 		});
 
 	if ( action == 'changeAdd' ) {
-	  setLoading('creatingForm');
+	  setLoading('creatingForm', true);
 	}
 	else if ( action == 'changeList' ) {
-	  setLoading('buttons');
+	  setLoading('buttons', true);
 	}
 	else if ( action == 'changeEdit' ) {
 	  setLoading('actionsCell_' + id, true);
