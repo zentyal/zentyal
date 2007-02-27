@@ -753,6 +753,9 @@ sub issueCertificate
 
   # Define the distinguished name
   # We take the default values from CA dn
+  if ( not defined ( $self->{dn} ) ) {
+    $self->{dn} = $self->_obtain(CACERT, 'DN');
+  }
   my $dn = $self->{dn}->copy();
   $dn->attribute("countryName", $args{countryName})
     if (defined($args{countryName}));
@@ -882,6 +885,9 @@ sub revokeCertificate {
     unless $reason eq any(@{$self->{reasons}});
 
   # Tell observers the following certificate will be revoked
+  if ( not defined ( $self->{dn} ) ) {
+    $self->{dn} = $self->_obtain(CACERT, 'DN');
+  }
   my $isCACert = $self->{dn}->attribute('commonName') eq $commonName;
 
   if ( $args{force} ) {
@@ -2164,6 +2170,9 @@ sub _certsInUse # (cn?, isCACert?)
       return undef;
     }
 
+    if ( not defined ( $self->{dn} ) ) {
+      $self->{dn} = $self->_obtain(CACERT, 'DN');
+    }
     $cn = $self->{dn}->attribute('commonName')
       if ($isCACert);
 
@@ -2184,6 +2193,10 @@ sub _freeCert # (cn?, isCACert?)
   {
 
     my ($self, $cn, $isCACert) = @_;
+
+    if ( not defined ( $self->{dn} ) ) {
+      $self->{dn} = $self->_obtain(CACERT, 'DN');
+    }
 
     $cn = $self->{dn}->attribute('commonName') if ($isCACert);
 
