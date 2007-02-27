@@ -1,6 +1,21 @@
++// TODO 
++//      - Use Form.serialize stuff to get params
++//      - Refactor addNewRow and actionClicked, they do almost the same
++//      - Implement a generic function for the onComplete stage
+
 function cleanError(table)
 {
 	$('error_' + table).innerHTML = "";
+}
+
+function checkSaveChanges()
+{
+	new Ajax.Request('/ebox/HasChanged', 
+		{ onSuccess: function (r) 
+			{
+			  $('changes_menu').className = r.responseText;
+			 }
+		});
 }
 
 function addNewRow(url, table, fields, directory)
@@ -33,6 +48,7 @@ function addNewRow(url, table, fields, directory)
 			asyncrhonous: false,
 			evalScripts: true,
 			onComplete: function(t) {
+			  checkSaveChanges();
 			  stripe('dataTable', '#ecf5da', '#ffffff'); 
 			}
 		});
@@ -71,6 +87,7 @@ function changeRow(url, table, fields, directory, id)
 			asyncrhonous: false,
 			evalScripts: true,
 			onComplete: function(t) { 
+			  checkSaveChanges();
 			  highlightRow( id, false);
 			  stripe('dataTable', '#ecf5da', '#ffffff');
 			},
@@ -122,7 +139,10 @@ function actionClicked(url, table, action, rowId, paramsAction, directory) {
 		parameters: pars,
 		asyncrhonous: false,
 		evalScripts: true,
-		onComplete: function(t) {stripe('dataTable', '#ecf5da', '#ffffff'); }
+		onComplete: function(t) {
+		  checkSaveChanges();
+		  stripe('dataTable', '#ecf5da', '#ffffff');
+		}
 	    });
 
   if ( action == 'del' ) {
@@ -152,6 +172,7 @@ function changeView(url, table, directory, action, id)
 			asyncrhonous: false,
 			evalScripts: true,
 			onComplete: function(t) { 
+			  checkSaveChanges();
 			  // Highlight the element
 			  highlightRow(id, true);
 			  // Stripe again the table
