@@ -234,6 +234,13 @@ is found, the lowest priority is zero."
 	
 	
       end
+
+      classrelation 128010 // <unidirectional association>
+	relation 128010 --->
+	  a role_name "" multiplicity "" protected
+	    classrelation_ref 128010 // <unidirectional association>
+	  b parent class_ref 128010 // Iptables
+      end
     end
 
     class 128487 "Network"cpp_decl ""
@@ -568,7 +575,9 @@ Returns a hash ref containing the following attributes
       idl_decl ""
       explicit_switch_type ""
       
-      comment "It should extendable to all kinds of filter but we use iptables filter. So it will be a fw filter."
+      comment "It should extendable to all kinds of filter but we use iptables filter. So it will be a fw filter.
+
+If neither fPort nor fProtocol are provided, the default redundant mark will be applied"
       attribute 128008 "flowId"
 	protected explicit_type "Hash"
 	cpp_decl ""
@@ -667,6 +676,22 @@ It returns only the arguments."
 	comment "Dump iptables commands needed to run to make the filter ready in iptables.
 
 It returns an array ref containing the iptables arguments to execute"
+      end
+
+      attribute 128010 "fPort"
+	protected explicit_type "int"
+	cpp_decl ""
+	java_decl ""
+	idl_decl ""
+	comment "the source and destination port"
+      end
+
+      attribute 128138 "fProtocol"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	idl_decl ""
+	comment "the protocol to do filtering"
       end
     end
 
@@ -1221,6 +1246,14 @@ Returns: the output of iptables command in an array
 	
 	comment "Execute a serie of tc commands"
       end
+    end
+
+    class 128010 "Iptables"cpp_decl ""
+      java_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "The Iptables wrapper class"
     end
   end
 end
