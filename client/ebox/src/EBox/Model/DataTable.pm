@@ -26,6 +26,20 @@ use Clone qw(clone);
 use strict;
 use warnings;
 
+#
+# Caching:
+# 	
+# 	To speed up the process of returning rows, the access to the
+# 	data stored in gconf is now cached. To keep data coherence amongst
+# 	the several apache processes, we add a mark in the gconf structure
+# 	whenever a write operation takes place. This mark is fetched by
+# 	a process returning its rows, if it has changed then it has
+# 	a old copy, otherwise its cached data can be returned.
+#
+# 	Note that this caching process is very basic. Next step could be
+# 	caching at row level, and keeping coherence at that level, modifying
+# 	just the affected rows in the memory stored structure.
+#
 
 sub new
 {
@@ -41,6 +55,7 @@ sub new
 			'directory' => "$directory/keys",
 			'order' => "$directory/order",
 		        'table' => undef,
+			'cachedVersion' => undef
 		};
 
         bless($self, $class);
@@ -266,6 +281,8 @@ sub addRow
 #	$row->{'values'} = \@userData;
 
 	$self->addedRowNotify($self->row($id));
+	
+	$self->_increaseStoredVersion();
 }
 
 # Method: row
@@ -305,9 +322,11 @@ sub row
 
 
 	my @values;
+	$self->{'cacheOptions'} = {};
+	my $gconfData = $gconfmod->hash_from_dir("$dir/$id");
 	foreach my $type (@{$self->table()->{'tableDescription'}}) {
 		my $data = clone($type);
-		$data->restoreFromHash($gconfmod->hash_from_dir("$dir/$id"));
+		$data->restoreFromHash($gconfData);
 	
 		# TODO Rework the union select options thing
 		#      this code just sucks. Modify Types to do something
@@ -316,14 +335,14 @@ sub row
 			foreach my $subtype (@{$data->subtypes()}) {
 				next unless ($subtype->type() eq 'select');
 				$subtype->addOptions(
-					$self->selectOptions(
+					$self->_selectOptions(
 						$subtype->fieldName()));	
 
 			}
 		}
 		if ($data->type() eq 'select') {
 			$data->addOptions(
-				$self->selectOptions($data->fieldName()));	
+				$self->_selectOptions($data->fieldName()));	
 		}
 		
 		push (@values, $data);
@@ -335,6 +354,17 @@ sub row
 	$row->{'values'} = \@values;
 
 	return $row;
+}
+
+sub _selectOptions
+{
+	my ($self, $field) = @_;
+
+	my $cached = $self->{'cacheOptions'}->{$field};
+
+	$self->{'cacheOptions'}->{$field} = $self->selectOptions($field);
+	return $self->{'cacheOptions'}->{$field};
+	
 }
 
 sub moveUp
@@ -351,6 +381,7 @@ sub moveUp
 	$self->_swapPos($pos, $pos - 1);
 
 	$self->movedUpRowNotify($self->row($id));
+	
 }
 
 sub moveDown
@@ -368,6 +399,33 @@ sub moveDown
 	$self->_swapPos($pos, $pos + 1);
 
 	$self->movedDownRowNotify($self->row($id));
+}	
+
+sub _reorderCachedRows
+{
+	my ($self, $posa, $posb) = @_;
+
+
+	unless ($self->{'cachedRows'})  {
+		return;
+	}
+
+	my $storedVersion = $self->_storedVersion();
+	if ($self->{'cachedVersion'} + 1  != $storedVersion) {
+		return;
+	}
+	
+	my $rows = $self->{'cachedRows'};
+	
+	my $auxrow = @{$rows}[$posa];
+	my $ordera = @{$rows}[$posa]->{'order'};
+	$auxrow->{'order'} = @{$rows}[$posb]->{'order'};
+	@{$rows}[$posb]->{'order'} = $ordera;
+	@{$rows}[$posa] = @{$rows}[$posb];
+	@{$rows}[$posb] = $auxrow;
+
+	$self->{'cachedRows'} = $rows;
+	$self->{'cachedVersion'} = $storedVersion;
 }
 
 # Method: removeRow
@@ -399,6 +457,8 @@ sub removeRow
 	}
 
 	$self->deletedRowNotify($row);
+
+	$self->_increaseStoredVersion();
 }
 
 # Method: setRow
@@ -430,6 +490,7 @@ sub setRow
 	}
 
 	my @oldValues = @{$oldrow->{'values'}};
+	my $modified = undef;
 	for (my $i = 0; $i < @newValues ; $i++) {
 		my $newData = clone($newValues[$i]);
 		$newData->setMemValue(\%params);
@@ -443,10 +504,14 @@ sub setRow
 		}
 
 		$newData->storeInGconf($gconfmod, "$dir/$id");
-
+		$modified = 1;
 	}
 
 	$oldrow->{'values'} = \@newValues;
+
+	if ($modified) {
+		$self->_increaseStoredVersion();
+	}
 
 	$self->updatedRowNotify($oldrow);	
 }
@@ -473,6 +538,17 @@ sub _addSelectOptionsToHash
 	}
 		
 }
+sub _storedVersion
+{
+	my ($self) = @_;
+	
+	my $gconfmod = $self->{'gconfmodule'};
+	my $storedVerKey = $self->{'directory'} . '/version';
+	
+	return ($gconfmod->get_int($storedVerKey));
+}
+
+
 
 # Method: rows
 #
@@ -482,6 +558,36 @@ sub _addSelectOptionsToHash
 #
 #	Array ref containing the rows 
 sub rows
+{
+	my $self = shift;
+	
+	# The method which takes care of loading the rows
+	# from gconf is _rows(). 
+	#
+	# rows() tries to cache the data to avoid extra access
+	# to gconf
+	my $gconfmod = $self->{'gconfmodule'};
+	my $storedVersion = $self->_storedVersion();
+	my $cachedVersion = $self->{'cachedVersion'};
+
+	if (not defined($storedVersion)) {
+		$storedVersion = 0;
+	}
+	
+	if (not defined($cachedVersion)) {
+		$self->{'cachedRows'} = $self->_rows();
+		$self->{'cachedVersion'} = 0;
+	} else {
+		if ($storedVersion != $cachedVersion) {
+			$self->{'cachedRows'} = $self->_rows();
+			$self->{'cachedVersion'} = $storedVersion;
+		}
+	}
+
+	return $self->{'cachedRows'};
+}
+
+sub _rows
 {
 	my $self = shift;
 	my $gconfmod = $self->{'gconfmodule'};
@@ -510,6 +616,42 @@ sub rows
 
 
 	return \@rows;
+}
+
+sub _increaseStoredVersion
+{
+	my $self = shift;
+
+	my $gconfmod = $self->{'gconfmodule'};
+	my $storedVerKey = $self->{'directory'} . '/version';
+	my $storedVersion = $gconfmod->get_int($storedVerKey);
+	my $newVersion;
+
+	if (defined($storedVersion)) {
+		$newVersion = $storedVersion + 1;
+	} else {
+		$newVersion = 1;
+	}
+
+	$gconfmod->set_int($storedVerKey, $newVersion);
+}
+sub _increaseStoredAndCachedVersion
+{
+	my $self = shift;
+
+	my $gconfmod = $self->{'gconfmodule'};
+	my $storedVerKey = $self->{'directory'} . '/version';
+	my $storedVersion = $gconfmod->get_int($storedVerKey);
+	my $newVersion;
+
+	if (defined($storedVersion)) {
+		$newVersion = $storedVersion + 1;
+	} else {
+		$newVersion = 1;
+	}
+
+	$gconfmod->set_int($storedVerKey, $newVersion);
+	$self->{'cachedVersion'} = $newVersion;
 }
 
 # Method: setTableName
@@ -843,6 +985,8 @@ sub _swapPos
 	$order[$posB] = $temp;
 	
 	$gconfmod->set_list($self->{'order'}, 'string', \@order);
+	$self->_increaseStoredVersion();
+	$self->_reorderCachedRows($posA, $posB);
 }
 
 sub _orderHash
