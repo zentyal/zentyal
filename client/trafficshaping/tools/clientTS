@@ -26,12 +26,22 @@ BIND_HOST=192.168.45.114
 readonly SERVER_ADDR PORT PROTOCOL
 
 iperf --client $SERVER_ADDR --port=$PORT --format=k \
-      --bind=$BIND_HOST --time=60 --interval=1 --bandwidth=100k > \
-      shaper-traffic &
+      --bind=$BIND_HOST --time=60 --interval=1 --bandwidth=400k > \
+      shaper-traffic-1 &
 
 iperf --client $SERVER_ADDR --port=$(($PORT + 1)) --format=k \
       --bind=$BIND_HOST --time=60 --interval=1 --bandwidth=400k > \
+     shaper-traffic-2 &
+
+iperf --client $SERVER_ADDR --port=$(($PORT + 2)) --format=k \
+      --bind=$BIND_HOST --time=60 --interval=1 --bandwidth=400k > \
+     shaper-traffic-3 &
+
+iperf --client $SERVER_ADDR --port=$(($PORT + 3)) --format=k \
+      --bind=$BIND_HOST --time=60 --interval=1 --bandwidth=10000k > \
      other-traffic &
+
+
 
 
 

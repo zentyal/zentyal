@@ -24,5 +24,7 @@ PROTOCOL=UDP
 readonly INTERFACE PORT PROTOCOL
 
 iperf --server --udp --port=$PORT --format=k $SERVER_ADDR &
-iperf --server --udp --port=$(($PORT + 1)) --format=k $SERVER_ADDR
+iperf --server --udp --port=$(($PORT + 1)) --format=k $SERVER_ADDR &
+iperf --server --udp --port=$(($PORT + 2)) --format=k $SERVER_ADDR &
+iperf --server --udp --port=$(($PORT + 3)) --format=k $SERVER_ADDR
 
