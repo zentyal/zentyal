@@ -35,8 +35,10 @@ if ($rowEdit) {
 
 </%init>
 %	if ($action ne 'changeAdd' and $action ne 'changeEdit') {
-	<div>
 
+	<h3><% $dataTable->{'printableTableName'} %></h3>
+
+	<div>
 %			if ($changeView) {
 					<input  class='inputButton' type='image' name='add'
 					value="Add" title="Add"
@@ -49,11 +51,20 @@ if ($rowEdit) {
 	<br>
 % 	}
 
-
-
-
 %	if ($action eq 'changeAdd' or $action eq 'changeEdit') {
-				<table class='formTable'>	
+%          if ( $action eq 'changeAdd' ) {
+              <h3><%
+		__x('Adding a new {row}',
+		     row => $dataTable->{'printableRowName'})
+              %></h3>
+%          }
+%          elsif ( $action eq 'changeEdit' ) {
+              <h3><%
+                __x('Editing {row}',
+		    row => $dataTable->{'printableRowName'})
+	      %></h3>
+%          }
+				<table class='formTable'>
 					<tbody>
 
 %		foreach my $type (@formData) {
@@ -99,6 +110,9 @@ if ($rowEdit) {
 
 
 % if (@data) {
+%    if ( $action eq 'changeAdd' or $action eq 'changeEdit' ) {
+	        <h3><% $dataTable->{'printableTableName'} %></h3>
+%    }
 		
 		<table cellspacing='0' class='<% $dataTable->{'class'} %>'>
 			

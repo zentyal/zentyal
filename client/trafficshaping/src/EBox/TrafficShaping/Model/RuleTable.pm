@@ -174,7 +174,7 @@ sub _table
 						'rate allowed. No limited rate or zero means unlimited rate ' .
 					        'in terms of bandwidth link'),
 		     'rowUnique'          => 1,  # Set each row is unique
-		     'printableRowName'   => __('Rule'), # Set the name printed when two rows are equal
+		     'printableRowName' => __('rule'),
 		     };
 
     return $dataTable;

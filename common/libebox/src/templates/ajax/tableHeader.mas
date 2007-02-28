@@ -19,7 +19,6 @@ my @tableHead = @{$dataTable->{'tableDescription'}};
 </div>
 
 
-	<h3><% $dataTable->{'printableTableName'} %></h3>
 	<div id='error_<% $dataTable->{'tableName'} %>'></div>
 
 	<div id="<% $dataTable->{'tableName'} %>">

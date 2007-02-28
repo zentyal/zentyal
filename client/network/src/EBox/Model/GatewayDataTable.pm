@@ -143,13 +143,12 @@ sub _table
 				'changeView' =>
 				  '/ebox/Network/Controller/GatewayDataTable', 
 				},
-				
 			'tableDescription' => \@tableHead,
 			'class' => 'dataTable',
 			'order' => 0,
 			'help' => __('You can add as many gateways as you want. This is very useful if you want to split your internet traffic through serveral links.'),
 		        'rowUnique' => 0,
-		        'printableRowName' => __('Gateway'),
+		        'printableRowName' => __('gateway'),
 		};
 
 	return $dataTable;
