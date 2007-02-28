@@ -56,12 +56,9 @@ use EBox::CA::DN;
 %   foreach my $cert (@{$certs}) {
 %   # It is needed to check if it is the CA certificate
 %     if ( $cert->{'isCACert'} and $cert->{'state'} eq 'V' ) {
-       <tr class="highlight tcenter">
+       <tr class="highlight">
 %     }
-%     else {
-       <tr class="tcenter">
-%     }
-	 <td>
+	 <td class="tleft">
 %     if ( $cert->{'isCACert'} ) {
 	    <% $cert->{'dn'}->attribute('commonName') | h %>
 	    <% __('from') %>
@@ -82,7 +79,7 @@ use EBox::CA::DN;
      $stateStr = __("Revoked");
    }
 </%perl>
-      <td>
+      <td class="tcenter">
         <% $stateStr | h %>
       </td>
       <td>
