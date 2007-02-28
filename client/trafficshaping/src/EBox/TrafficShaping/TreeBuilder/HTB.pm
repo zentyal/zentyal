@@ -234,7 +234,7 @@ sub buildRule
       if ($args{guaranteedRate} < $self->_minimumAllowedQuantum() or
 	  $args{guaranteedRate} > $self->_maximumAllowedQuantum()) {
 	throw EBox::Exceptions::External(__x('Guaranteed Rate must be in this interval: ( {minRate}, ' .
-					     '{maxRate} ) kbit/s -> gR:{rate}kbit/s',
+					     '{maxRate} ) kbit/s',
 					     minRate => $self->_minimumAllowedQuantum(),
 					     maxRate => $self->_maximumAllowedQuantum(),
 					     rate => $args{guaranteedRate},

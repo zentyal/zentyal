@@ -13,9 +13,8 @@ my @certificateOptions = map { { value => $_ } } @availableCertificates;
 my $certificateInput =  [ 
 			 name => 'certificate', 
 			 printableName => __('Certificate'), 
-			 input => 'select', 
-			 extraParams => [ options =>
-					  \@certificateOptions , ], 
+			 input => 'select',
+			 options => \@certificateOptions,
 			 help => __('This certificate will be used by the server to authenticate itself'),
 			];
 

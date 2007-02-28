@@ -546,18 +546,11 @@ sub vifaceRealname # (viface)
 	return $virtual;
 }
 
-<<<<<<< .copia-de-trabajo
-# Method: start
-#
-#       Start firewall service
-#
-=======
 # Method: start
 #
 #       Start firewall service setting up the structure and the rules
 #       to work with iptables.
 #
->>>>>>> .derecha-combinacion.r6830
 sub start
 {
 	my $self = shift;
