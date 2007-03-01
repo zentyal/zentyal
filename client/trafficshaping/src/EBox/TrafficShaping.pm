@@ -225,7 +225,7 @@ sub addRule
     $self->_createBuilders();
 
     # It can throw External exceptions if not possible to build the rule
-    my $classId = $self->_buildRule($iface, \%ruleParams, undef);
+#    my $classId = $self->_buildRule($iface, \%ruleParams, undef);
 
     # Store class identifier in GConf
 #    $self->_setClassId($iface, $ruleId, $classId);
