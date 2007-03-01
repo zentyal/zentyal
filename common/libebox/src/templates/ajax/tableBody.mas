@@ -3,10 +3,10 @@
 	$dataTable
 	$action => 'view'
 	$editid => ''
+	$hasChanged => 1
 </%args>
 <%init>
 use EBox::Gettext;
-use Data::Dumper;
 
 
 my @tableHead = @{$dataTable->{'tableDescription'}};
@@ -184,6 +184,18 @@ if ($rowEdit) {
 
 		</table>
 % }
+
+<script>
+<%perl>
+my $className;
+if ($hasChanged) {
+	$className = 'changed';
+} else {
+	$className = 'notChanged';
+}
+</%perl>
+$('changes_menu').className = '<% $className %>';
+</script>
 
 <%def .textViewer>
 <%args>

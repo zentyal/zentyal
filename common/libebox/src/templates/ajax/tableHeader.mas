@@ -1,13 +1,13 @@
 <%args>
 	@data
 	$dataTable
+	$hasChanged
 </%args>
 <%init>
 use EBox::Gettext;
 my @tableHead = @{$dataTable->{'tableDescription'}};
 </%init>
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
-<script type="text/javascript" src="/data/js/prototype.js">//</script>
 
 <!-- Element to hide the elements while Asynchronous request are -->
 <!-- working. Find more information at "table-helper.js" and -->
@@ -25,6 +25,7 @@ my @tableHead = @{$dataTable->{'tableDescription'}};
 	
 		<& /ajax/tableBody.mas, 
 						'data' => \@data,
-						'dataTable' => $dataTable, &>
+						'dataTable' => $dataTable,
+						'hasChanged' => $hasChanged &>
 
 	</div>

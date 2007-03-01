@@ -152,12 +152,14 @@ sub refreshTable
 	my $self = shift;
 
 	my $model = $self->{'tableModel'};
+	my $global = EBox::Global->getInstance(); 
 
 	my @params;
 	push(@params, 'data' => $model->rows() );
 	push(@params, 'dataTable' => $model->tableInfo());
 	push(@params, 'action' => $self->{'action'});
 	push(@params, 'editid' => $self->param('editid'));
+	push(@params, 'hasChanged' => $global->unsaved());
 	
 
 	$self->{'params'} = \@params;

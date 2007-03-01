@@ -40,9 +40,11 @@ sub _process
 {
 	my $self = shift;
 
+	my $global = EBox::Global->getInstance();
 	my @params;
 	push(@params, 'data' => $self->{'tableModel'}->rows());
 	push(@params, 'dataTable' => $self->{'tableModel'}->tableInfo());
+	push(@params, 'hasChanged' => $global->unsaved());
 
 	$self->{'params'} = \@params;
 }
