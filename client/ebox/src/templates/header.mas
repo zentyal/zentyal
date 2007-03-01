@@ -8,5 +8,6 @@ $title
 <title>eBox - <% $title %></title>
 <link href="/data/css/public.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="/data/js/common.js">//</script>
+<script type="text/javascript" src="/data/js/prototype.js">//</script>
 </head>
 <body>
