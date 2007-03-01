@@ -1651,10 +1651,16 @@ sub dumpConfig
 
     # Call super
     $self->SUPER::dumpConfig($dir);
-    # Storing all OpenSSL directory tree where Certs/keys and DB are stored
-    dircopy(CATOPDIR, $dir . "/CA");
-    # Storing OpenSSL config file
-    fcopy(SSLCONFFILE, $dir . "/openssl.cnf");
+
+    if ( -d CATOPDIR ) {
+      # Storing all OpenSSL directory tree where Certs/keys and DB are stored
+      dircopy(CATOPDIR, $dir . "/CA");
+    }
+
+    if ( -f SSLCONFFILE ) {
+      # Storing OpenSSL config file
+      fcopy(SSLCONFFILE, $dir . "/openssl.cnf");
+    }
 
   }
 
