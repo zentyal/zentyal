@@ -1,0 +1,27 @@
+<%args>
+	$warning
+	$url
+	$params
+</%args>
+<%init>
+use EBox::Gettext;
+use Data::Dumper;
+my $table = delete $params->{'tablename'};
+my $action = delete $params->{'action'};
+my $directory = delete $params->{'directory'};
+my $rowId = delete $params->{'id'};
+</%init>
+
+
+<div class='warning'>
+<% $warning %> 
+</div>
+
+<input class='inputButton' type='submit' name='change'
+	value="Change" title="Change"
+	onClick="actionClicked('<% $url %>', '<% $table %>', '<% $action %>', '<% $rowId %>', 'force=1', '<% $directory %>'); return false"/>
+	
+<input  class='inputButton' type='submit' name='cancel'
+		value="Cancel" title="Cancel"
+		onClick='changeView("<% $url %>", "<% $table %>", "<% $directory %>", "changeList")' />
+

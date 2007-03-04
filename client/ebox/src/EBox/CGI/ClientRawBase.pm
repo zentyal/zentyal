@@ -24,6 +24,7 @@ use Apache;
 use Error qw(:try);
 
 use constant ERROR_STATUS => '500';
+use constant DATA_IN_USE_STATUS => '501';
 
 ## arguments
 ##		title [optional]
@@ -99,6 +100,44 @@ sub _print_error
 	$interp->exec($comp, @params);
 }
 
+sub _print_warning
+{
+	my ($self, $text) = @_;
+	$text or return;
+	($text ne "") or return;
+
+	# We send a WARNING_STATUS code. 
+	my $r = Apache->request();
+	$r->status(DATA_IN_USE_STATUS);
+	$r->custom_response(DATA_IN_USE_STATUS, "");
+
+	my $filename = EBox::Config::templates . '/dataInUse.mas';
+	my $interp = HTML::Mason::Interp->new(comp_root => 
+						EBox::Config::templates);
+	my $comp = $interp->make_component(comp_file => $filename);
+	my @params = ();
+	push(@params, 'warning' => $text);
+	push(@params, 'url' => _requestURL());
+	push(@params, 'params' => $self->paramsAsHash());
+	$interp->exec($comp, @params);
+
+}
+
+# TODO Refactor this stuff as it's used in the auth process too
+sub _requestURL
+{
+	my $r = Apache->request();
+	return unless($r);
+
+	my $request = $r->the_request();
+	my $method = $r->method();
+	my $protocol = $r->protocol();
+
+	my ($destination) = ($request =~ m/$method\s*(.*?)\s*$protocol/ );
+
+	return $destination;
+}
+
 sub run
 {
 	my $self = shift;
@@ -112,6 +151,10 @@ sub run
 	    settextdomain($self->domain());
 	    $self->_process();
 
+	  } catch EBox::Exceptions::DataInUse with {
+	  	my $e = shift;
+		$self->_print_warning($e->text());
+		$finish = 1;
 	  } catch EBox::Exceptions::Base with {
 		  my $e = shift;
 		  $self->setErrorFromException($e);	 
