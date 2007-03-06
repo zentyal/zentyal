@@ -433,7 +433,8 @@ sub updateRule
     # access in memory is done
     $self->_createBuilders();
 
-    $self->_updateRule( $iface, $ruleId, $ruleParams_ref );
+    # Already done by _createBuilders
+#    $self->_updateRule( $iface, $ruleId, $ruleParams_ref );
 
     # Update priorities to be coherent with the remainders
     $self->_correctPriorities($iface);
