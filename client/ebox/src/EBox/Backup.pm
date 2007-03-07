@@ -43,6 +43,7 @@ Readonly::Scalar our $FULL_BACKUP_ID  => 'full backup';
 Readonly::Scalar our $CONFIGURATION_BACKUP_ID  =>'configuration backup';
 Readonly::Scalar our $BUGREPORT_BACKUP_ID  =>'bugreport configuration dump';
 Readonly::Scalar my $DISC_BACKUP_FILE  => 'eboxbackup.tar';
+my $RECURSIVE_DEPENDENCY_THRESHOLD = 3;
 
 sub new 
 {
@@ -638,7 +639,6 @@ sub _unpackAndVerify # (file, fullRestore)
 
     $self->_checkArchiveMd5Sum($tempdir);
     $self->_checkArchiveType($tempdir, $fullRestore);
-    $self->_checkModuleList($tempdir);
   }
   otherwise {
     my $ex = shift;
@@ -712,45 +712,6 @@ sub _checkArchiveType
 
 }
 
-sub   _checkModuleList
-{
-  my ($self, $tempdir) = @_;
-
-  my $file = "$tempdir/eboxbackup/modules";
-  if (! -e $file) { 
-    throw EBox::Exceptions::External (__('Module list not found, the backup is corrupt or was done with a incompatible previous format'));
-  }
-
-  my @backupModNames;
-  my $fileContents = read_file($file);
-
-  @backupModNames = split '\s+', $fileContents;
-  my %backup    =  map { $_ => 0  }   @backupModNames;
-
-  my $global = EBox::Global->getInstance();
-  my %actual =  map { $_ => 0  }   @{ $global->modNames() };
-
-  foreach my $name (keys %actual) {
-    if (exists $backup{$name}) {
-      delete $actual{$name};
-      delete $backup{$name};
-    }
-  }
-
-  my @backupMissing = keys %backup;
-  my @actualMissing = keys %actual;
-
-
-  if ((@backupMissing > 0) or (@actualMissing > 0)) {
-    my $backupError = @backupMissing ? __x("The following modules are not present in the global module list stored in the backup but they are present in eBox's global list: {modules}\n", modules => "@backupMissing") : '';
-  my $actualError = @actualMissing ? __x("The following modules are  present in the global list stored in the backup but not in eBox's global list: {modules}\n", modules => "@actualMissing") : '';
-
-
-    throw EBox::Exceptions::External (__x("The restore process failed because there is a mismatch between eBox's installed modules and the modules in the backup.\n{backupError}{actualError} If you want to use this backup you will need to install/remove the adequate modules", backupError => $backupError, actualError => $actualError ));
-  }
-
-
-} 
 
 
 sub  _checkSize
@@ -897,54 +858,68 @@ sub _migratePackage
 	}
 }
 
-# XXX: bug indirect recursive dependencies are not handled
+
 sub _modInstancesForRestore
 {
   my ($self) = @_;
   my $global = EBox::Global->getInstance();
 
-  my @modules   =  grep { $_->name ne 'global' } @{$global->modInstances};   
-  my $anyModulesName = any( map {$_->name()}   @modules);
+  # we remove global module because it will be the last to be restored
+  my @modules   =  grep { $_->name ne 'global' } @{$global->modInstances() };   
 
-  my %anyDependencyByModule;
-
+  # check modules dependencies
   foreach my $mod (@modules) {
-    my @dependencies = @{$mod->restoreDependencies};
-
-    # check if we have all the dependencies resolved for this modules
-    my $dependenciesResolved = 1;
-    foreach my $dep (@dependencies) {
-      if (not($dep eq $anyModulesName)) {
-	EBox::error("Unresolved restore dependency of module " . $mod->name() . ": $dep not found." . $mod->name() . " will not be restored"  );
-	$dependenciesResolved = 0;
-	last;
-      }
-      elsif ($dep eq $mod->name) {
-	EBox::error($mod->name() . ' depends on it self. Maybe something is wrong in _modInstancesForRestore method?. ' . $mod->name . ' will not be resoted');
-	$dependenciesResolved = 0;
-	last;
-      }
-    }
-    
-    $dependenciesResolved or next;
-    # store mod dependencies for quick access 
-    $anyDependencyByModule{$mod} = any(@dependencies);
+    $self->_checkModDeps($mod->name);
   }
 
-  # we discard modules with unresolved dependencies
-  @modules = grep { exists $anyDependencyByModule{$_} } @modules;
-
   # we sort the modules list with a restore-safe order
-  @modules = sort {
-    my $aDepends =  ($anyDependencyByModule{$a} eq $b->name()) ? 1 : 0;
-    my $bDepends =  ($anyDependencyByModule{$b} eq $a->name()) ? 1 : 0;
-    $aDepends and $bDepends and throws EBox::Exceptions::Internal('Recursive restore dependency found. Modules: ' . $a->name() . ' ' . $b->name() );
-    $aDepends <=> $bDepends;
+  my %anyDependencyByModule = map {
+    my $mod = $_;
+    my $anyDependency = any(  @{ $mod->restoreDependencies() } );
+    ($mod => $anyDependency);
   } @modules;
 
-  push @modules, $global; # we resote global in last place to avoid possible problems 
+
+  @modules = sort {
+    my $aDependsB =  $anyDependencyByModule{$a} eq $b->name() ? 1 : 0;
+    my $bDependsA =  $anyDependencyByModule{$b} eq $a->name() ? 1 : 0;
+
+    $aDependsB <=> $bDependsA;
+  } @modules;
+
+  # we restore global in last place to avoid possible problems 
+  push @modules, $global; 
 
   return \@modules;
+}
+
+
+
+
+sub _checkModDeps
+{
+  my ($self, $modName, $level) = @_;
+  defined $level or $level = 0;
+ 
+  if ($level >= $RECURSIVE_DEPENDENCY_THRESHOLD) {
+    throw EBox::Exceptions::Internal('Recursive restore dependency found.');
+  }
+
+  my $global = EBox::Global->getInstance();
+  my $mod = $global->modInstance($modName);
+
+  if (not defined $mod) {
+    throw EBox::Exceptions::External __x('Unresolved restore dependency: {modName} is not installed', modName => $modName  );
+  }
+
+  my @dependencies = @{$mod->restoreDependencies};
+  foreach my $dep (@dependencies) {
+    if ($dep eq $modName) {
+      throw EBox::Exceptions::Internal ("$modName depends on it self. Maybe something is wrong in _modInstancesForRestore method?. $modName will not be restored");
+    }
+
+    $self->_checkModDeps($dep, $level +1);
+  }
 }
 
 #

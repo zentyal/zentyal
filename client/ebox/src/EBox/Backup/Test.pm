@@ -18,6 +18,8 @@ package EBox::Backup::Test;
 use strict;
 use warnings;
 
+use lib '../..';
+
 use base 'EBox::Test::Class';
 
 use Test::MockObject;
@@ -57,7 +59,6 @@ sub setupDirs : Test(setup)
 
   return if !exists $INC{'EBox/Backup.pm'};
 
-#  EBox::Config::TestStub::fake( tmp => $self->testDir() );
   EBox::TestStubs::setEBoxConfigKeys(conf => testDir(), tmp => $self->testDir());
 
   my $testDir = $self->testDir();
@@ -303,6 +304,7 @@ sub checkDeviantRestore
   my $backup = new EBox::Backup();
   setCanaries('afterBackup');
   dies_ok { $backup->restoreBackup($archiveFile, @{ $options_r  }) } $msg;
+
   diag "Checking that failed restore has not changed the configuration";
   checkCanaries('afterBackup', 1);
 }
@@ -394,40 +396,100 @@ sub restoreFullBackupTest : Test(16)
 }
 
 
-sub restoreWithModulesMismatchTest : Test(15)
+sub restoreWithModulesMissmatchTest : Test(6)
 {
   my ($self) = @_;
 
   my $backup = new EBox::Backup();
  
   setCanaries('beforeBackup');
-  my $backupFile = $backup->makeBackup(description => 'test configuration backup', fullBackup => 0);
-
-  # add one more module
-  fakeEBoxModule( name => 'suprefluousModule', );
+  my $backupFile = $backup->makeBackup(description => 'test configuration backup', fullBackup => 0);  
   
-  checkDeviantRestore($backupFile, [fullRestore => 0], 'checking that a restore with a module mismatch (one more module) fails' );
+  my @straightCases;
 
-  # with one less module
-  EBox::TestStubs::setConfig();
-  setupGConfCanary();
-  setupMixedConfCanary();
-  setGConfCanary('afterBackup');
-  setMixedConfCanary('afterBackup');
-  dies_ok { $backup->restoreBackup($backupFile, fullRestore => 0) } 'checking that a restore with a module mismatch (one less module) fails';
-  checkGConfCanary('afterBackup');
-  checkMixedConfCanary('afterBackup');
+  # one more module
+  push @straightCases, sub {
+    fakeEBoxModule( name => 'superfluousModule', );
+  };
 
-  # with same number but distinct modules
-  EBox::TestStubs::setConfig();
-  setupGConfCanary();
-  setupMixedConfCanary();
-  fakeEBoxModule( name => 'suprefluousModule', );
-  setGConfCanary('afterBackup');
-  setMixedConfCanary('afterBackup');
-  dies_ok { $backup->restoreBackup($backupFile, fullRestore => 0) } 'checking that a restore with a module mismatch (same nubmer but different modules) fails';
-  checkGConfCanary('afterBackup');
-  checkMixedConfCanary('afterBackup');
+  # additional module with met dependencies
+  push @straightCases, sub {
+    fakeEBoxModule( name => 'superfluousModule', 
+		    subs => [
+			     restoreDependencies => sub { return ['canaryGConf'] },
+			    ],
+		  );
+  };
+
+  # two additional modules with met dependencies between them
+  push @straightCases, sub {
+    fakeEBoxModule( name => 'superfluousModule1', );
+    fakeEBoxModule( name => 'superfluousModule2', 
+		    subs => [
+			     restoreDependencies => sub { return ['superfluousModule1'] },
+			    ],
+		  );
+  };
+
+
+  my @deviantCases;
+
+  # with a additional module with unmet dependencies
+  push @deviantCases, sub {
+    fakeEBoxModule( name => 'unmetDepModule', 
+		    subs => [
+			     restoreDependencies => sub { return ['inexistentModule'] },
+			    ],
+		  );
+  };
+  # with a recursive dependency
+  push @deviantCases, sub {
+    fakeEBoxModule( name => 'recursiveDepModule1', 
+		    subs => [
+			     restoreDependencies => sub { return ['recursiveDepModule2'] },
+			    ],
+		  );
+    fakeEBoxModule( name => 'recursiveDepModule2', 
+		    subs => [
+			     restoreDependencies => sub { return ['recursiveDepModule1'] },
+			    ],
+		  );
+  };
+  # with a module which depends on itself
+  push @deviantCases, sub {
+    fakeEBoxModule( name => 'depOnItselfModule', 
+		    subs => [
+			     restoreDependencies => sub { return ['depOnItselfModule'] },
+			    ],
+		  );
+  };
+  
+  foreach my $case (@straightCases) {
+    setUpCanaries();
+    setGConfCanary('afterBackup');
+    setMixedConfCanary('afterBackup');
+
+    $case->();
+
+    lives_ok { $backup->restoreBackup($backupFile, fullRestore => 0)  }, 'checking restore without dependencies problems';
+
+    teardownGConfCanary();
+  }
+
+
+  foreach my $case (@deviantCases) {
+    setUpCanaries();
+    setGConfCanary('afterBackup');
+    setMixedConfCanary('afterBackup');
+
+    $case->();
+
+    dies_ok { $backup->restoreBackup($backupFile, fullRestore => 0)  }, 'checking wether restore with unmet depndencies raises error',
+
+    teardownGConfCanary();
+  }
+  
+
 }
 
 
@@ -465,74 +527,6 @@ sub listBackupsTest : Test(5)
 
 
 
-sub modInstancesForRestoreTest : Test(19)
-{
-  # straight cases
-  teardownCanaryModule();
-  teardownGConfCanary();
-  
-  _checkModInstancesForRestore( 'with only global module');
-
-  fakeEBoxModule(
-		 name => 'nodeps'
-		);
-  fakeEBoxModule(
-		 name => 'nodeps2',
-		);
-  fakeEBoxModule(
-		 name => 'nodeps3',
-		);
-  _checkModInstancesForRestore( 'with three independent modules');
-  
-  fakeEBoxModule(
-		 name => 'dependsOnNodeps',
-		 subs => [
-			  restoreDependencies => sub { return ['nodeps'] }
-			 ],
-		);
-  _checkModInstancesForRestore( 'with one dpeendent module');
-
-  fakeEBoxModule(
-		 name => 'doubleDependency',
-		 subs => [
-			  restoreDependencies => sub { return ['nodeps', 'dependsOnNodeps'] },
-			 ],
-		);
-  _checkModInstancesForRestore( 'with two dependent modules one of them with doble dependency');
-
-
-  fakeEBoxModule(
-		 name => 'deviant',
-		 subs => [
-			  restoreDependencies => sub {  return ['inexistent']  }
-			 ]
-		);
-    _checkModInstancesForRestore('with a module with unresolved dependency', excluded => ['deviant']);
-
-  fakeEBoxModule(
-		 name => 'deviant',
-		 subs => [
-			  restoreDependencies => sub {  return ['deviant']  }
-			 ]
-		);
-    _checkModInstancesForRestore('with a module with depends on itself', excluded => ['deviant']);
-
-  
-  fakeEBoxModule(
-		 name => 'deviant',
-		 subs => [
-			  restoreDependencies => sub {  return ['deviantRecursive']  }
-			 ]
-		) ;
-  fakeEBoxModule(
-		 name => 'deviantRecursive',
-		 subs => [
-			  restoreDependencies => sub {  return ['deviant']  }
-			 ]
-		) ;
-  my $backup = new EBox::Backup;
-  dies_ok { $backup->_modInstancesForRestore() } 'Checking that simple recursive dependencies raises error';
-}
 
 
 sub backupDetailsFromArchiveTest : Test(9)
@@ -576,40 +570,5 @@ sub backupDetailsFromArchiveTest : Test(9)
 }
 
 
-sub _checkModInstancesForRestore
-{
-  my ($caseName, %options) = @_;
-  my $backup = new EBox::Backup;
-
-  my @mods = @{ $backup->_modInstancesForRestore() };
-  if (exists $options{excluded}) {
-    my $allModsNames = all( map { $_->name() }  @mods );
-    foreach my $excluded (@{ $options{excluded} } ) {
-      ok $excluded ne $allModsNames, "Checking that module $excluded was excluded by _modInstancesForRestore. Case: $caseName";
-    }
-  }
-	
-  my $lastMod = pop @mods;
-  is $lastMod->name(), 'global', "Checking that _modInstancesForRestore returns global in last place. Case: $caseName";
-  (@mods > 0) or return;
-  
-  foreach my $n (0 .. (@mods -1)) {
-    my $mod = $mods[$n];
-    my $name = $mod->name();
-    
-    my @deps = @{$mod->restoreDependencies()};
-
-    if (@deps and $n == 0) {
-      fail "_modInstancesForRestore incorrectly returned in first place module $name wich has dependencies. Case: $caseName";
-    }
-    foreach my $dep (@deps)  {
-      my @beforeMods =   map {  $_->name() }  @mods[0 .. $n];
-      my $depBeforeMod =  grep { $_ eq $dep } @beforeMods;
-      ok $depBeforeMod, "Checking if module $name is placed after his dependency $dep. Case: $caseName";
-    }
-  }
-
-
-}
 
 1;
