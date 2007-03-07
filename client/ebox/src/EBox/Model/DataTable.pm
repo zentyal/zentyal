@@ -884,9 +884,9 @@ sub _checkRowIsUnique # (rowId, row_ref)
 
     my ($self, $rowId, $row_ref) = @_;
 
-    my @rowIds = $self->{'gconfmodule'}->all_dirs($self->{'directory'});
+    my $rowIds_ref = $self->{'gconfmodule'}->all_dirs($self->{'directory'});
 
-    foreach my $aRowId (@rowIds) {
+    foreach my $aRowId (@{$rowIds_ref}) {
       # Compare if the row identifier is different
       next if (defined ($rowId)) and ($aRowId == $rowId);
 
