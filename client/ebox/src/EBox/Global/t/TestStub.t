@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 20;
+use Test::More tests => 21;
 use Test::Exception;
 
 
@@ -14,6 +14,7 @@ use EBox::TestStub;
 use_ok 'EBox::Global::TestStub';
 
 testStubsSetup();
+modExistsTest();
 getInstanceTest();
 modInstanceTest();
 changedTest();
@@ -43,7 +44,11 @@ sub testStubsSetup
 
 
 
-
+sub modExistsTest
+{
+  my $global = EBox::Global->getInstance();
+  ok $global->modExists('baboon'), 'Checking Global modExists method agaisnt a fake module';
+}
 
 sub modInstanceTest
 {
