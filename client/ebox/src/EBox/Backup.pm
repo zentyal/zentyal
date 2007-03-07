@@ -898,8 +898,12 @@ sub _modInstancesForRestore
 
 sub _checkModDeps
 {
-  my ($self, $modName, $level) = @_;
+  my ($self, $modName, $level, $topModule) = @_;
   defined $level or $level = 0;
+
+  if ($level == 0) {
+    $topModule = $modName;
+  }
  
   if ($level >= $RECURSIVE_DEPENDENCY_THRESHOLD) {
     throw EBox::Exceptions::Internal('Recursive restore dependency found.');
@@ -909,7 +913,12 @@ sub _checkModDeps
   my $mod = $global->modInstance($modName);
 
   if (not defined $mod) {
-    throw EBox::Exceptions::External __x('Unresolved restore dependency: {modName} is not installed', modName => $modName  );
+    if ($level == 0) {
+      throw EBox::Exceptions::Internal ("$topModule can not be created again");
+    }
+    else {
+      throw EBox::Exceptions::External __x('Unresolved restore dependency for module {topModule}: {modName} is not installed', topModule => $topModule, modName => $modName  );
+    }
   }
 
   my @dependencies = @{$mod->restoreDependencies};
@@ -918,7 +927,7 @@ sub _checkModDeps
       throw EBox::Exceptions::Internal ("$modName depends on it self. Maybe something is wrong in _modInstancesForRestore method?. $modName will not be restored");
     }
 
-    $self->_checkModDeps($dep, $level +1);
+    $self->_checkModDeps($dep, $level +1, $topModule);
   }
 }
 
