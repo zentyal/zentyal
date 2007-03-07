@@ -396,7 +396,7 @@ sub restoreFullBackupTest : Test(16)
 }
 
 
-sub restoreWithModulesMissmatchTest : Test(6)
+sub restoreWithModulesMissmatchTest : Test(42)
 {
   my ($self) = @_;
 
@@ -471,7 +471,8 @@ sub restoreWithModulesMissmatchTest : Test(6)
 
     $case->();
 
-    lives_ok { $backup->restoreBackup($backupFile, fullRestore => 0)  }, 'checking restore without dependencies problems';
+#    lives_ok { $backup->restoreBackup($backupFile, fullRestore => 0)  }, 'checking restore without dependencies problems';
+    checkStraightRestore($backupFile, [ fullRestore => 0 ], 'checking restore without dependencies problems' );
 
     teardownGConfCanary();
   }
@@ -484,7 +485,7 @@ sub restoreWithModulesMissmatchTest : Test(6)
 
     $case->();
 
-    dies_ok { $backup->restoreBackup($backupFile, fullRestore => 0)  }, 'checking wether restore with unmet depndencies raises error',
+    checkDeviantRestore($backupFile, [ fullRestore => 0], , 'checking wether restore with unmet depndencies raises error');
 
     teardownGConfCanary();
   }
