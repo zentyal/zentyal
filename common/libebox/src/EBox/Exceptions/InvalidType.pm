@@ -40,9 +40,12 @@ sub new # (arg, type)
     local $Error::Depth = $Error::Depth + 1;
     local $Error::Debug = 1;
 
+    my $argType = ref ($arg);
+    $argType = 'scalar' unless ( $argType );
+
     $Log::Log4perl::caller_depth++;
     $self = $class->SUPER::new("Invalid type for argument: $arg with type " .
-			       blessed($arg) . ", which should be this type: " .
+			       $argType . ', which should be this type: ' .
 			       $type);
     $Log::Log4perl::caller_depth--;
 
