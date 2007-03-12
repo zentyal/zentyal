@@ -8,16 +8,6 @@ function cleanError(table)
 	$('error_' + table).innerHTML = "";
 }
 
-function checkSaveChanges()
-{
-	new Ajax.Request('/ebox/HasChanged', 
-		{ onSuccess: function (r) 
-			{
-			  $('changes_menu').className = r.responseText;
-			 }
-		});
-}
-
 function addNewRow(url, table, fields, directory)
 {
 	var pars = 'action=add&tablename=' + table + '&directory=' + directory + '&';
@@ -48,7 +38,6 @@ function addNewRow(url, table, fields, directory)
 			asyncrhonous: false,
 			evalScripts: true,
 			onComplete: function(t) {
-			  checkSaveChanges();
 			  stripe('dataTable', '#ecf5da', '#ffffff'); 
 			},
 			onFailure: function(t) {
@@ -90,7 +79,6 @@ function changeRow(url, table, fields, directory, id)
 			asyncrhonous: false,
 			evalScripts: true,
 			onComplete: function(t) { 
-			  checkSaveChanges();
 			  highlightRow( id, false);
 			  stripe('dataTable', '#ecf5da', '#ffffff');
 			},
@@ -145,7 +133,6 @@ function actionClicked(url, table, action, rowId, paramsAction, directory) {
 		asyncrhonous: false,
 		evalScripts: true,
 		onComplete: function(t) {
-		  checkSaveChanges();
 		  stripe('dataTable', '#ecf5da', '#ffffff');
 		},
 		onFailure: function(t) {
@@ -180,7 +167,6 @@ function changeView(url, table, directory, action, id)
 			asyncrhonous: false,
 			evalScripts: true,
 			onComplete: function(t) { 
-			  checkSaveChanges();
 			  // Highlight the element
 			  highlightRow(id, true);
 			  // Stripe again the table
