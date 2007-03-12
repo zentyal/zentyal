@@ -57,6 +57,7 @@ sub _process
 
       push ( @tplParams, 'data'      => $ruleModel->rows() );
       push ( @tplParams, 'dataTable' => $ruleModel->tableInfo() );
+      push ( @tplParams, 'hasChanged' => $global->unsaved() );
 
       $self->{params} = \@tplParams;
     }
