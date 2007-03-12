@@ -884,13 +884,13 @@ sub _checkRowIsUnique # (rowId, row_ref)
 
     my ($self, $rowId, $row_ref) = @_;
 
-    my $rowIds_ref = $self->{'gconfmodule'}->all_dirs($self->{'directory'});
+    my $rowIds_ref = $self->{'gconfmodule'}->all_dirs_base($self->{'directory'});
 
     foreach my $aRowId (@{$rowIds_ref}) {
       # Compare if the row identifier is different
-      next if (defined ($rowId)) and ($aRowId == $rowId);
+      next if (defined ($rowId)) and ($aRowId eq $rowId);
 
-      my $hash = $self->{'gconfmodule'}->hash_from_dir($aRowId);
+      my $hash = $self->{'gconfmodule'}->hash_from_dir($self->{'directory'} . '/' . $aRowId);
       # Check every field
       my $equal = 'equal';
       foreach my $field (@{$row_ref}) {
