@@ -92,6 +92,11 @@ sub _getIfacesForAddress {
 	my $net = EBox::Global->modInstance('network');
 	my @ifaces = ();
 
+	# check if it is a loopback address
+	if (EBox::Validate::isIPInNetwork('127.0.0.1', '255.0.0.0', $ip)) {
+	  return ['lo'];
+	}
+
 	foreach my $iface (@{$net->InternalIfaces()}) {
 		foreach my $addr (@{$net->ifaceAddresses($iface)}) {
 			if (isIPInNetwork($addr->{'address'}, $addr->{'netmask'}, $ip)) {
@@ -258,19 +263,21 @@ sub setIPFilter
 	unless (checkIP($ip)) {
 		throw EBox::Exceptions::InvalidData(
 			'data'	=> __('remote IP'),
-			'value'	=> __($ip.' is not a valid ip address'));
+			'value'	=> __x('{ip} is not a valid ip address', ip => $ip));
 	}
 	
-	unless (defined(@{$self->_getIfacesForAddress($ip)})) {
-		throw EBox::Exceptions::InvalidData(
-			'data'	=> __('remote IP'),
-			'value'	=> __($ip.' cannot be reached by any configured interface'));
-	}
+
 	
-	unless ($#{$self->_getIfacesForAddress($ip)} = 1) {
+	my $nIfaces = @{$self->_getIfacesForAddress($ip)};
+	if ($nIfaces == 0) {
 		throw EBox::Exceptions::InvalidData(
 			'data'	=> __('remote IP'),
-			'value'	=> __($ip.' can be reached by more than one configured interface'));
+			'value'	=> __x('{ip} cannot be reached by any configured interface', ip => $ip));
+	}
+	elsif ($nIfaces > 1) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('remote IP'),
+			'value'	=> __x('{ip} can be reached by more than one configured interface', ip => $ip));
 	}
 	
 	$self->set_string('ipfilter', $ip);
