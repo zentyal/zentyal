@@ -114,7 +114,7 @@ remote <iface_address> <port>
 proto <protocol>
 
 ####
-# All certificates should be download from eBox Certification
+# All certificates should be downloaded from eBox Certification
 # Authority interface and then upload to the client machines.
 # Each user certificate created should match with only one machine.
 ####
