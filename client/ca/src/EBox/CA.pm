@@ -72,7 +72,7 @@ use constant CAPRIVKEY   => PRIVDIR . "cakey.pem";
 use constant CAPUBKEY    => KEYSDIR . "capubkey.pem";
 
 # Directory mode to allow only owner and readable from others
-use constant DIRMODE     => 00704;
+use constant DIRMODE     => 00705;
 
 # Use Certification Version 3
 use constant EXTENSIONS_V3 => "1";
