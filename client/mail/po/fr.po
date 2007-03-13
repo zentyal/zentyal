@@ -3,11 +3,11 @@
 # This file is distributed under the same license as the ebox-mail package.
 # Automatically generated, 2005.
 # Ignacio Correas <icorreas@warp.es>, 2005.
-#
 msgid ""
 msgstr ""
+"Project-Id-Version: ebox-mail 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 15:03+0100\n"
+"POT-Creation-Date: 2007-03-13 16:53+0100\n"
 "PO-Revision-Date: 2005-11-30 11:25+0100\n"
 "Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -30,8 +30,8 @@ msgstr "vdomain"
 msgid "Virtual domain name"
 msgstr "Nom de domaine virtuel"
 
-#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:797
-#: src/EBox/Mail.pm:824 src/EBox/Mail.pm:866
+#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:804
+#: src/EBox/Mail.pm:831 src/EBox/Mail.pm:873
 msgid "Mail"
 msgstr "Courrier"
 
@@ -65,7 +65,7 @@ msgid "mail alias"
 msgstr "alias de courrier"
 
 #: src/EBox/CGI/QueueManager.pm:33 src/EBox/CGI/QueueManager.pm:50
-#: src/EBox/Mail.pm:833
+#: src/EBox/Mail.pm:840
 msgid "Queue Management"
 msgstr ""
 
@@ -79,7 +79,7 @@ msgid "Mail address"
 msgstr "Adresse de courrier"
 
 #: src/EBox/CGI/VDomains.pm:29 src/EBox/CGI/VDomains.pm:39
-#: src/EBox/Mail.pm:830
+#: src/EBox/Mail.pm:837
 msgid "Virtual domains"
 msgstr "domaines virtuels"
 
@@ -113,9 +113,9 @@ msgstr "statut du système de courrier"
 
 #: src/EBox/MailVDomainsLdap.pm:68 src/EBox/MailVDomainsLdap.pm:74
 #: src/EBox/MailVDomainsLdap.pm:249 src/EBox/MailVDomainsLdap.pm:255
-#: src/EBox/MailUserLdap.pm:78 src/EBox/MailUserLdap.pm:84
-#: src/EBox/MailUserLdap.pm:391 src/EBox/MailUserLdap.pm:397
-#: src/EBox/Mail.pm:391 src/EBox/Mail.pm:397
+#: src/EBox/Mail.pm:398 src/EBox/Mail.pm:404 src/EBox/MailUserLdap.pm:78
+#: src/EBox/MailUserLdap.pm:84 src/EBox/MailUserLdap.pm:391
+#: src/EBox/MailUserLdap.pm:397
 msgid "maildir size"
 msgstr "taille de maildir"
 
@@ -131,6 +131,136 @@ msgstr "compte de courrier"
 msgid "mail alias account"
 msgstr "compte d'alias de courrier"
 
+#: src/EBox/Mail.pm:236 src/EBox/Mail.pm:307
+msgid "port"
+msgstr "port"
+
+#: src/EBox/Mail.pm:265 src/EBox/Mail.pm:274 src/EBox/Mail.pm:279
+msgid "remote IP"
+msgstr "IP distante"
+
+#: src/EBox/Mail.pm:266
+#, perl-brace-format
+msgid "{ip} is not a valid ip address"
+msgstr ""
+
+#: src/EBox/Mail.pm:275
+#, perl-brace-format
+msgid "{ip} cannot be reached by any configured interface"
+msgstr ""
+
+#: src/EBox/Mail.pm:280
+#, perl-brace-format
+msgid "{ip} can be reached by more than one configured interface"
+msgstr ""
+
+#: src/EBox/Mail.pm:333
+msgid "smarthost ip"
+msgstr "IP de smarthost"
+
+#: src/EBox/Mail.pm:362 src/EBox/Mail.pm:368
+msgid "message size"
+msgstr "taille de message"
+
+#: src/EBox/Mail.pm:807
+msgid "POP3 service"
+msgstr "Service POP3"
+
+#: src/EBox/Mail.pm:809
+msgid "IMAP service"
+msgstr "Service IMAP"
+
+#: src/EBox/Mail.pm:822
+msgid "Mail system"
+msgstr "Système de courrier"
+
+#: src/EBox/Mail.pm:834 src/templates/menutabs.mas:10
+#: src/templates/menutabs.mas:13
+msgid "General"
+msgstr "Général"
+
+#: src/EBox/Mail.pm:847 src/templates/qmanager.mas:23
+#, fuzzy
+msgid "Date"
+msgstr "Effacer"
+
+#: src/EBox/Mail.pm:848
+#, fuzzy
+msgid "Message ID"
+msgstr "taille de message"
+
+#: src/EBox/Mail.pm:849
+msgid "From"
+msgstr ""
+
+#: src/EBox/Mail.pm:850
+msgid "To"
+msgstr ""
+
+#: src/EBox/Mail.pm:851
+msgid "From hostname"
+msgstr ""
+
+#: src/EBox/Mail.pm:852
+#, fuzzy
+msgid "From host ip"
+msgstr "IP de smarthost"
+
+#: src/EBox/Mail.pm:853 src/templates/qmanager.mas:21
+msgid "Size (bytes)"
+msgstr ""
+
+#: src/EBox/Mail.pm:854
+msgid "Relay"
+msgstr "Relais"
+
+#: src/EBox/Mail.pm:855 src/templates/index.mas:289
+msgid "Status"
+msgstr "Statut"
+
+#: src/EBox/Mail.pm:856
+msgid "Event"
+msgstr ""
+
+#: src/EBox/Mail.pm:857
+msgid "Aditional Info"
+msgstr ""
+
+#: src/EBox/Mail.pm:863
+msgid "Successful messages"
+msgstr ""
+
+#: src/EBox/Mail.pm:864
+#, fuzzy
+msgid "Maximum message size exceeded"
+msgstr "Taille maximale de message admise par le serveur de courrier (MB):"
+
+#: src/EBox/Mail.pm:865
+msgid "User quote exceeded"
+msgstr ""
+
+#: src/EBox/Mail.pm:866
+msgid "Relay access denied"
+msgstr ""
+
+#: src/EBox/Mail.pm:867
+#, fuzzy
+msgid "Account do not exists"
+msgstr "Nom de compte"
+
+#: src/EBox/Mail.pm:868
+msgid "Host unreachable"
+msgstr ""
+
+#: src/EBox/Mail.pm:869
+#, fuzzy
+msgid "Authentication error"
+msgstr "Demander authentification"
+
+#: src/EBox/Mail.pm:870
+msgid "Other events"
+msgstr ""
+
 #: src/EBox/MailUserLdap.pm:226
 msgid "This group has a mail alias"
 msgstr "Ce groupe a un alias de courrier"
@@ -138,133 +268,6 @@ msgstr "Ce groupe a un alias de courrier"
 #: src/EBox/MailUserLdap.pm:248
 msgid "This user has a mail account"
 msgstr "Cet usager a une compte de courrier"
-
-#: src/EBox/Mail.pm:231 src/EBox/Mail.pm:300
-msgid "port"
-msgstr "port"
-
-#: src/EBox/Mail.pm:260 src/EBox/Mail.pm:266 src/EBox/Mail.pm:272
-msgid "remote IP"
-msgstr "IP distante"
-
-#: src/EBox/Mail.pm:261
-msgid " is not a valid ip address"
-msgstr ""
-
-#: src/EBox/Mail.pm:267
-msgid " cannot be reached by any configured interface"
-msgstr ""
-
-#: src/EBox/Mail.pm:273
-msgid " can be reached by more than one configured interface"
-msgstr ""
-
-#: src/EBox/Mail.pm:326
-msgid "smarthost ip"
-msgstr "IP de smarthost"
-
-#: src/EBox/Mail.pm:355 src/EBox/Mail.pm:361
-msgid "message size"
-msgstr "taille de message"
-
-#: src/EBox/Mail.pm:800
-msgid "POP3 service"
-msgstr "Service POP3"
-
-#: src/EBox/Mail.pm:802
-msgid "IMAP service"
-msgstr "Service IMAP"
-
-#: src/EBox/Mail.pm:815
-msgid "Mail system"
-msgstr "Système de courrier"
-
-#: src/EBox/Mail.pm:827 src/templates/menutabs.mas:10
-#: src/templates/menutabs.mas:13
-msgid "General"
-msgstr "Général"
-
-#: src/EBox/Mail.pm:840 src/templates/qmanager.mas:23
-#, fuzzy
-msgid "Date"
-msgstr "Effacer"
-
-#: src/EBox/Mail.pm:841
-#, fuzzy
-msgid "Message ID"
-msgstr "taille de message"
-
-#: src/EBox/Mail.pm:842
-msgid "From"
-msgstr ""
-
-#: src/EBox/Mail.pm:843
-msgid "To"
-msgstr ""
-
-#: src/EBox/Mail.pm:844
-msgid "From hostname"
-msgstr ""
-
-#: src/EBox/Mail.pm:845
-#, fuzzy
-msgid "From host ip"
-msgstr "IP de smarthost"
-
-#: src/EBox/Mail.pm:846 src/templates/qmanager.mas:21
-msgid "Size (bytes)"
-msgstr ""
-
-#: src/EBox/Mail.pm:847
-msgid "Relay"
-msgstr "Relais"
-
-#: src/EBox/Mail.pm:848 src/templates/index.mas:289
-msgid "Status"
-msgstr "Statut"
-
-#: src/EBox/Mail.pm:849
-msgid "Event"
-msgstr ""
-
-#: src/EBox/Mail.pm:850
-msgid "Aditional Info"
-msgstr ""
-
-#: src/EBox/Mail.pm:856
-msgid "Successful messages"
-msgstr ""
-
-#: src/EBox/Mail.pm:857
-#, fuzzy
-msgid "Maximum message size exceeded"
-msgstr "Taille maximale de message admise par le serveur de courrier (MB):"
-
-#: src/EBox/Mail.pm:858
-msgid "User quote exceeded"
-msgstr ""
-
-#: src/EBox/Mail.pm:859
-msgid "Relay access denied"
-msgstr ""
-
-#: src/EBox/Mail.pm:860
-#, fuzzy
-msgid "Account do not exists"
-msgstr "Nom de compte"
-
-#: src/EBox/Mail.pm:861
-msgid "Host unreachable"
-msgstr ""
-
-#: src/EBox/Mail.pm:862
-#, fuzzy
-msgid "Authentication error"
-msgstr "Demander authentification"
-
-#: src/EBox/Mail.pm:863
-msgid "Other events"
-msgstr ""
 
 #: src/templates/warnvd.mas:12
 msgid "Deleting virtual domain"

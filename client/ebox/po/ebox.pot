@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-25 13:13+0100\n"
+"POT-Creation-Date: 2007-03-13 17:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -99,6 +99,10 @@ msgstr ""
 msgid "Disabled"
 msgstr ""
 
+#: src/EBox/Model/DataMultiTable.pm:168 src/EBox/Logs.pm:402
+msgid "Action"
+msgstr ""
+
 #: src/EBox/CGI/Logs/Index.pm:33 src/EBox/Logs.pm:389
 msgid "Logs"
 msgstr ""
@@ -178,7 +182,7 @@ msgstr ""
 
 #: src/EBox/CGI/EBox/Backup.pm:230 src/EBox/CGI/EBox/Backup.pm:301
 #: src/EBox/CGI/EBox/Backup.pm:314 src/EBox/CGI/EBox/ConfirmBackup.pm:197
-#: src/EBox/Backup.pm:1003
+#: src/EBox/Backup.pm:987
 msgid "The input contains invalid characters"
 msgstr ""
 
@@ -293,13 +297,13 @@ msgstr ""
 msgid "Save configuration"
 msgstr ""
 
-#: src/EBox/CGI/ClientRawBase.pm:134
+#: src/EBox/CGI/ClientRawBase.pm:180
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
 msgstr ""
 
-#: src/EBox/CGI/ClientRawBase.pm:144
+#: src/EBox/CGI/ClientRawBase.pm:190
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
@@ -345,10 +349,6 @@ msgstr ""
 msgid "Module"
 msgstr ""
 
-#: src/EBox/Logs.pm:402
-msgid "Action"
-msgstr ""
-
 #: src/EBox/Logs.pm:403
 msgid "Params"
 msgstr ""
@@ -365,36 +365,36 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
-#: src/EBox/Backup.pm:234
+#: src/EBox/Backup.pm:235
 msgid "Could not create backup archive"
 msgstr ""
 
-#: src/EBox/Backup.pm:241
+#: src/EBox/Backup.pm:242
 msgid "Could not append data to backup archive"
 msgstr ""
 
-#: src/EBox/Backup.pm:347 src/EBox/Backup.pm:986
+#: src/EBox/Backup.pm:348 src/EBox/Backup.pm:970
 msgid "Insert a backup disc and try again, please"
 msgstr ""
 
-#: src/EBox/Backup.pm:388
+#: src/EBox/Backup.pm:389
 msgid "Unknown"
 msgstr ""
 
-#: src/EBox/Backup.pm:421
+#: src/EBox/Backup.pm:422
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
 msgstr ""
 
-#: src/EBox/Backup.pm:424 src/EBox/Backup.pm:847
+#: src/EBox/Backup.pm:425 src/EBox/Backup.pm:808
 msgid "Could not unpack the backup"
 msgstr ""
 
-#: src/EBox/Backup.pm:561 src/EBox/SysInfo.pm:120
+#: src/EBox/Backup.pm:562 src/EBox/SysInfo.pm:120
 msgid "Backup"
 msgstr ""
 
-#: src/EBox/Backup.pm:636
+#: src/EBox/Backup.pm:637
 msgid "Incorrect or corrupt backup file"
 msgstr ""
 
@@ -422,47 +422,25 @@ msgid ""
 "impossibe. A configuration recovery  may be possible"
 msgstr ""
 
-#: src/EBox/Backup.pm:721
-msgid ""
-"Module list not found, the backup is corrupt or was done with a incompatible "
-"previous format"
-msgstr ""
-
-#: src/EBox/Backup.pm:745
-#, perl-brace-format
-msgid ""
-"The following modules are not present in the global module list stored in "
-"the backup but they are present in eBox's global list: {modules}\n"
-msgstr ""
-
-#: src/EBox/Backup.pm:746
-#, perl-brace-format
-msgid ""
-"The following modules are  present in the global list stored in the backup "
-"but not in eBox's global list: {modules}\n"
-msgstr ""
-
-#: src/EBox/Backup.pm:749
-#, perl-brace-format
-msgid ""
-"The restore process failed because there is a mismatch between eBox's "
-"installed modules and the modules in the backup.\n"
-"{backupError}{actualError} If you want to use this backup you will need to "
-"install/remove the adequate modules"
-msgstr ""
-
-#: src/EBox/Backup.pm:782
+#: src/EBox/Backup.pm:743
 #, perl-brace-format
 msgid ""
 "There in not enough space left in the hard disk to complete the restore "
 "proccess. {size} Kb required. Free sufficient space and retry"
 msgstr ""
 
-#: src/EBox/Backup.pm:814
+#: src/EBox/Backup.pm:775
 #, perl-brace-format
 msgid ""
 "Cannot rename backup file from {newName} to his original name {name}. Error "
 "message: {error}"
+msgstr ""
+
+#: src/EBox/Backup.pm:920
+#, perl-brace-format
+msgid ""
+"Unresolved restore dependency for module {topModule}: {modName} is not "
+"installed"
 msgstr ""
 
 #: src/EBox/FirstTime.pm:67 src/templates/firstTime/passwd.mas:4

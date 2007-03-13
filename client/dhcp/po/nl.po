@@ -2,12 +2,11 @@
 # Copyright (C) 2006 Warp S.L.
 # This file is distributed under the same license as the ebox-dhcp package.
 # Automatically generated, 2006.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-06 10:19+0100\n"
+"POT-Creation-Date: 2007-03-13 13:44+0100\n"
 "PO-Revision-Date: 2006-08-29 12:57+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,6 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Translate Toolkit 0.10.1\n"
 
 #: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/AddFixed.pm:39
 #: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39

@@ -2,18 +2,19 @@
 # Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the ebox-jabber package.
 # Automatically generated, 2007.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 15:03+0100\n"
+"POT-Creation-Date: 2007-03-13 13:45+0100\n"
 "PO-Revision-Date: 2006-11-23 16:53+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Translate Toolkit 0.10.1\n"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"

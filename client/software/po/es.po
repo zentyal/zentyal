@@ -1,6 +1,4 @@
 # translation of es.po to
-#
-#
 # Guillermo Ontañón <gontanon@warp.es>, 2005.
 # Isaac Clerencia <isaac@warp.es>, 2005.
 # Jorge Arcas <jarcas@warp.es>, 2005.
@@ -10,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-25 12:47+0100\n"
+"POT-Creation-Date: 2007-03-13 13:47+0100\n"
 "PO-Revision-Date: 2007-02-02 18:12+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: <info@ebox-platform.com>\n"
@@ -18,6 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 0.10.1\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 #: src/EBox/Software.pm:314
@@ -141,6 +140,10 @@ msgid "Proxy cache and content filter"
 msgstr "Caché HTTP y filtro de contenidos"
 
 #: src/EBox/PackageDescriptions.pm:17
+msgid "Traffic shaper for eBox"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:18
 msgid "User and Group management"
 msgstr "Gestión de usuarios y grupos"
 

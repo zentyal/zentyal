@@ -2,12 +2,11 @@
 # Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the ebox-trafficshaping package.
 # Automatically generated, 2007.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-trafficshaping 0.1\n"
+"Project-Id-Version: ebox-trafficshaping 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-13 13:41+0100\n"
+"POT-Creation-Date: 2007-03-13 17:40+0100\n"
 "PO-Revision-Date: 2007-01-09 15:15+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,9 +14,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Translate Toolkit 0.10.1\n"
 
-#: src/EBox/CGI/View/RuleTable.pm:40 src/EBox/CGI/View/RuleMultiTable.pm:34
 #: src/EBox/CGI/Controller/RuleTable.pm:30
+#: src/EBox/CGI/View/RuleMultiTable.pm:34 src/EBox/CGI/View/RuleTable.pm:40
 msgid "Traffic Shaping rules"
 msgstr ""
 
@@ -25,12 +25,18 @@ msgstr ""
 msgid "Traffic Shaping Management"
 msgstr ""
 
-#: src/EBox/TC.pm:69
-msgid "options"
+#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:63
+msgid "Rules lists per interface"
 msgstr ""
 
-#: src/EBox/TC.pm:107
-msgid "interface"
+#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:67
+msgid ""
+"Select an external interface with gateways associated to add traffic shaping "
+"rules"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:69
+msgid "Choose an external interface to shape"
 msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:116
@@ -80,23 +86,9 @@ msgstr ""
 msgid "rule"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:63
-msgid "Rules lists per interface"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:67
-msgid ""
-"Select an external interface with gateways associated to add traffic shaping "
-"rules"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:69
-msgid "Choose an external interface to shape"
-msgstr ""
-
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:229
 #, perl-brace-format
-msgid "Guaranteed Rate excedeed the allowed rate: {rate} kbit/s"
+msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
 msgstr ""
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:236
@@ -123,7 +115,7 @@ msgstr ""
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:405
 #, perl-brace-format
-msgid "Guaranteed Rate excedeed the allowed rate: {rate}"
+msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
 msgstr ""
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:433
@@ -131,6 +123,14 @@ msgstr ""
 msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
 "maximum allowed traffic"
+msgstr ""
+
+#: src/EBox/TC.pm:69
+msgid "options"
+msgstr ""
+
+#: src/EBox/TC.pm:107
+msgid "interface"
 msgstr ""
 
 #: src/EBox/TrafficShaping.pm:63 src/EBox/TrafficShaping.pm:135
@@ -159,7 +159,7 @@ msgstr ""
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
-"order to to add a new one"
+"order to add a new one"
 msgstr ""
 
 #: src/EBox/TrafficShaping.pm:898
@@ -232,6 +232,18 @@ msgstr ""
 msgid "Update rule under interface: {iface} for the following values:{values}"
 msgstr ""
 
-#: src/templates/index.mas:15 src/templates/index.mas:27
-msgid "Traffic Shaping is applied only to external "
+#: src/templates/index.mas:15
+#, perl-brace-format
+msgid ""
+"Traffic Shaping is applied only to external interfaces. In order to use this "
+"feature create an external interface at {openhref}Network->Interfaces"
+"{closehref}"
+msgstr ""
+
+#: src/templates/index.mas:24
+#, perl-brace-format
+msgid ""
+"Traffic Shaping is applied only to external interfaces which have gateways "
+"with an upload rate set. In order to do so, create a gateway at {openhref}"
+"Network->Gateways{closehref} setting as interface an external one."
 msgstr ""

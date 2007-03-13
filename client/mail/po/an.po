@@ -2,18 +2,19 @@
 # Copyright (C) 2006 Warp S.L.
 # This file is distributed under the same license as the ebox-mail package.
 # Automatically generated, 2006.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 15:03+0100\n"
+"POT-Creation-Date: 2007-03-13 13:45+0100\n"
 "PO-Revision-Date: 2006-12-22 13:55+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Translate Toolkit 0.10.1\n"
 
 #: src/EBox/CGI/SetQuota.pm:46
 msgid "Message size limit"
@@ -28,8 +29,8 @@ msgstr ""
 msgid "Virtual domain name"
 msgstr ""
 
-#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:797
-#: src/EBox/Mail.pm:824 src/EBox/Mail.pm:866
+#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:804
+#: src/EBox/Mail.pm:831 src/EBox/Mail.pm:873
 msgid "Mail"
 msgstr ""
 
@@ -61,7 +62,7 @@ msgid "mail alias"
 msgstr ""
 
 #: src/EBox/CGI/QueueManager.pm:33 src/EBox/CGI/QueueManager.pm:50
-#: src/EBox/Mail.pm:833
+#: src/EBox/Mail.pm:840
 msgid "Queue Management"
 msgstr ""
 
@@ -75,7 +76,7 @@ msgid "Mail address"
 msgstr ""
 
 #: src/EBox/CGI/VDomains.pm:29 src/EBox/CGI/VDomains.pm:39
-#: src/EBox/Mail.pm:830
+#: src/EBox/Mail.pm:837
 msgid "Virtual domains"
 msgstr ""
 
@@ -109,9 +110,9 @@ msgstr ""
 
 #: src/EBox/MailVDomainsLdap.pm:68 src/EBox/MailVDomainsLdap.pm:74
 #: src/EBox/MailVDomainsLdap.pm:249 src/EBox/MailVDomainsLdap.pm:255
-#: src/EBox/MailUserLdap.pm:78 src/EBox/MailUserLdap.pm:84
-#: src/EBox/MailUserLdap.pm:391 src/EBox/MailUserLdap.pm:397
-#: src/EBox/Mail.pm:391 src/EBox/Mail.pm:397
+#: src/EBox/Mail.pm:398 src/EBox/Mail.pm:404 src/EBox/MailUserLdap.pm:78
+#: src/EBox/MailUserLdap.pm:84 src/EBox/MailUserLdap.pm:391
+#: src/EBox/MailUserLdap.pm:397
 msgid "maildir size"
 msgstr ""
 
@@ -127,133 +128,136 @@ msgstr ""
 msgid "mail alias account"
 msgstr ""
 
+#: src/EBox/Mail.pm:236 src/EBox/Mail.pm:307
+msgid "port"
+msgstr ""
+
+#: src/EBox/Mail.pm:265 src/EBox/Mail.pm:274 src/EBox/Mail.pm:279
+msgid "remote IP"
+msgstr ""
+
+#: src/EBox/Mail.pm:266
+#, perl-brace-format
+msgid "{ip} is not a valid ip address"
+msgstr ""
+
+#: src/EBox/Mail.pm:275
+#, perl-brace-format
+msgid "{ip} cannot be reached by any configured interface"
+msgstr ""
+
+#: src/EBox/Mail.pm:280
+#, perl-brace-format
+msgid "{ip} can be reached by more than one configured interface"
+msgstr ""
+
+#: src/EBox/Mail.pm:333
+msgid "smarthost ip"
+msgstr ""
+
+#: src/EBox/Mail.pm:362 src/EBox/Mail.pm:368
+msgid "message size"
+msgstr ""
+
+#: src/EBox/Mail.pm:807
+msgid "POP3 service"
+msgstr ""
+
+#: src/EBox/Mail.pm:809
+msgid "IMAP service"
+msgstr ""
+
+#: src/EBox/Mail.pm:822
+msgid "Mail system"
+msgstr ""
+
+#: src/EBox/Mail.pm:834 src/templates/menutabs.mas:10
+#: src/templates/menutabs.mas:13
+msgid "General"
+msgstr ""
+
+#: src/EBox/Mail.pm:847 src/templates/qmanager.mas:23
+msgid "Date"
+msgstr ""
+
+#: src/EBox/Mail.pm:848
+msgid "Message ID"
+msgstr ""
+
+#: src/EBox/Mail.pm:849
+msgid "From"
+msgstr ""
+
+#: src/EBox/Mail.pm:850
+msgid "To"
+msgstr ""
+
+#: src/EBox/Mail.pm:851
+msgid "From hostname"
+msgstr ""
+
+#: src/EBox/Mail.pm:852
+msgid "From host ip"
+msgstr ""
+
+#: src/EBox/Mail.pm:853 src/templates/qmanager.mas:21
+msgid "Size (bytes)"
+msgstr ""
+
+#: src/EBox/Mail.pm:854
+msgid "Relay"
+msgstr ""
+
+#: src/EBox/Mail.pm:855 src/templates/index.mas:289
+msgid "Status"
+msgstr ""
+
+#: src/EBox/Mail.pm:856
+msgid "Event"
+msgstr ""
+
+#: src/EBox/Mail.pm:857
+msgid "Aditional Info"
+msgstr ""
+
+#: src/EBox/Mail.pm:863
+msgid "Successful messages"
+msgstr ""
+
+#: src/EBox/Mail.pm:864
+msgid "Maximum message size exceeded"
+msgstr ""
+
+#: src/EBox/Mail.pm:865
+msgid "User quote exceeded"
+msgstr ""
+
+#: src/EBox/Mail.pm:866
+msgid "Relay access denied"
+msgstr ""
+
+#: src/EBox/Mail.pm:867
+msgid "Account do not exists"
+msgstr ""
+
+#: src/EBox/Mail.pm:868
+msgid "Host unreachable"
+msgstr ""
+
+#: src/EBox/Mail.pm:869
+msgid "Authentication error"
+msgstr ""
+
+#: src/EBox/Mail.pm:870
+msgid "Other events"
+msgstr ""
+
 #: src/EBox/MailUserLdap.pm:226
 msgid "This group has a mail alias"
 msgstr ""
 
 #: src/EBox/MailUserLdap.pm:248
 msgid "This user has a mail account"
-msgstr ""
-
-#: src/EBox/Mail.pm:231 src/EBox/Mail.pm:300
-msgid "port"
-msgstr ""
-
-#: src/EBox/Mail.pm:260 src/EBox/Mail.pm:266 src/EBox/Mail.pm:272
-msgid "remote IP"
-msgstr ""
-
-#: src/EBox/Mail.pm:261
-msgid " is not a valid ip address"
-msgstr ""
-
-#: src/EBox/Mail.pm:267
-msgid " cannot be reached by any configured interface"
-msgstr ""
-
-#: src/EBox/Mail.pm:273
-msgid " can be reached by more than one configured interface"
-msgstr ""
-
-#: src/EBox/Mail.pm:326
-msgid "smarthost ip"
-msgstr ""
-
-#: src/EBox/Mail.pm:355 src/EBox/Mail.pm:361
-msgid "message size"
-msgstr ""
-
-#: src/EBox/Mail.pm:800
-msgid "POP3 service"
-msgstr ""
-
-#: src/EBox/Mail.pm:802
-msgid "IMAP service"
-msgstr ""
-
-#: src/EBox/Mail.pm:815
-msgid "Mail system"
-msgstr ""
-
-#: src/EBox/Mail.pm:827 src/templates/menutabs.mas:10
-#: src/templates/menutabs.mas:13
-msgid "General"
-msgstr ""
-
-#: src/EBox/Mail.pm:840 src/templates/qmanager.mas:23
-msgid "Date"
-msgstr ""
-
-#: src/EBox/Mail.pm:841
-msgid "Message ID"
-msgstr ""
-
-#: src/EBox/Mail.pm:842
-msgid "From"
-msgstr ""
-
-#: src/EBox/Mail.pm:843
-msgid "To"
-msgstr ""
-
-#: src/EBox/Mail.pm:844
-msgid "From hostname"
-msgstr ""
-
-#: src/EBox/Mail.pm:845
-msgid "From host ip"
-msgstr ""
-
-#: src/EBox/Mail.pm:846 src/templates/qmanager.mas:21
-msgid "Size (bytes)"
-msgstr ""
-
-#: src/EBox/Mail.pm:847
-msgid "Relay"
-msgstr ""
-
-#: src/EBox/Mail.pm:848 src/templates/index.mas:289
-msgid "Status"
-msgstr ""
-
-#: src/EBox/Mail.pm:849
-msgid "Event"
-msgstr ""
-
-#: src/EBox/Mail.pm:850
-msgid "Aditional Info"
-msgstr ""
-
-#: src/EBox/Mail.pm:856
-msgid "Successful messages"
-msgstr ""
-
-#: src/EBox/Mail.pm:857
-msgid "Maximum message size exceeded"
-msgstr ""
-
-#: src/EBox/Mail.pm:858
-msgid "User quote exceeded"
-msgstr ""
-
-#: src/EBox/Mail.pm:859
-msgid "Relay access denied"
-msgstr ""
-
-#: src/EBox/Mail.pm:860
-msgid "Account do not exists"
-msgstr ""
-
-#: src/EBox/Mail.pm:861
-msgid "Host unreachable"
-msgstr ""
-
-#: src/EBox/Mail.pm:862
-msgid "Authentication error"
-msgstr ""
-
-#: src/EBox/Mail.pm:863
-msgid "Other events"
 msgstr ""
 
 #: src/templates/warnvd.mas:12

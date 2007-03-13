@@ -2,19 +2,19 @@
 # This file is distributed under the same license as the ebox-dhcp package.
 # Copyright (C) YEAR Warp S.L.
 # jc junior <slackjr@gmail.com>, 2006.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-06 10:19+0100\n"
+"POT-Creation-Date: 2007-03-13 13:44+0100\n"
 "PO-Revision-Date: 2006-10-18 18:16-0200\n"
 "Last-Translator: \n"
-"Language-Team:  <en@li.org>\n"
+"Language-Team: <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/AddFixed.pm:39
 #: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
@@ -203,7 +203,7 @@ msgid "DHCP server status"
 msgstr "Status do Servidor DHCP"
 
 #: src/templates/index.mas:26
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "DHCP server requires a static interface, {openhref}configure one{closehref} "
 "first"

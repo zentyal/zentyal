@@ -2,12 +2,11 @@
 # Copyright (C) 2006 Warp S.L.
 # This file is distributed under the same license as the ebox-samba package.
 # Automatically generated, 2006.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-25 13:14+0100\n"
+"POT-Creation-Date: 2007-03-13 13:47+0100\n"
 "PO-Revision-Date: 2007-02-05 20:38+0000\n"
 "Last-Translator: Steven Pauwels <stevenpauwels@gmail.com>\n"
 "Language-Team: none\n"
@@ -167,8 +166,9 @@ msgstr ""
 "Millenium herkennen geen namen langer dan 12 tekens"
 
 #: src/templates/samba.mas:76
+#, fuzzy
 msgid "This resource name is longer than 12 characters."
-msgstr ""
+msgstr "De naam van deze bron is langer dan 12 tekens."
 
 #: src/templates/samba.mas:80
 msgid "Directory name"

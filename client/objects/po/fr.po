@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the EBox package.
 #  <isaac@sindominio.net>, 2004.
 # Ignacio Correas <icorreas@warp.es>, 2005.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 15:04+0100\n"
+"POT-Creation-Date: 2007-03-13 13:46+0100\n"
 "PO-Revision-Date: 2005-11-28 19:40+0100\n"
 "Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -16,6 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.10.2\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: src/EBox/CGI/Del.pm:42 src/EBox/CGI/Edit.pm:42 src/EBox/CGI/Add.pm:41
 #: src/EBox/CGI/DelFrom.pm:41 src/EBox/CGI/AddTo.pm:41 src/EBox/Objects.pm:214

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-25 13:13+0100\n"
+"POT-Creation-Date: 2007-03-13 17:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:64
-#: src/EBox/Model/MultiGwRulesDataTable.pm:416
+#: src/EBox/Model/MultiGwRulesDataTable.pm:418
 msgid "any"
 msgstr ""
 
@@ -28,11 +28,11 @@ msgstr ""
 #: src/EBox/Model/MultiGwRulesDataTable.pm:104
 #: src/EBox/Model/GatewayDataTable.pm:89 src/EBox/Network.pm:651
 #: src/EBox/Network.pm:683 src/EBox/Network.pm:728 src/EBox/Network.pm:762
-#: src/EBox/Network.pm:787 src/EBox/Network.pm:848 src/EBox/Network.pm:953
-#: src/EBox/Network.pm:1148 src/EBox/Network.pm:1208 src/EBox/Network.pm:1243
-#: src/EBox/Network.pm:1279 src/EBox/Network.pm:1312 src/EBox/Network.pm:1953
-#: src/EBox/Network.pm:1985 src/EBox/Network.pm:2058 src/EBox/Network.pm:2078
-#: src/EBox/Network.pm:2099 src/EBox/Network.pm:2122
+#: src/EBox/Network.pm:787 src/EBox/Network.pm:863 src/EBox/Network.pm:984
+#: src/EBox/Network.pm:1179 src/EBox/Network.pm:1239 src/EBox/Network.pm:1274
+#: src/EBox/Network.pm:1310 src/EBox/Network.pm:1343 src/EBox/Network.pm:1984
+#: src/EBox/Network.pm:2016 src/EBox/Network.pm:2089 src/EBox/Network.pm:2109
+#: src/EBox/Network.pm:2130 src/EBox/Network.pm:2153
 msgid "Interface"
 msgstr ""
 
@@ -65,14 +65,14 @@ msgstr ""
 msgid "Destination object"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:191 src/EBox/Network.pm:1444
+#: src/EBox/Model/MultiGwRulesDataTable.pm:191 src/EBox/Network.pm:1475
 #: src/templates/routes.mas:35
 msgid "Gateway"
 msgstr ""
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:205
 #: src/EBox/CGI/Controller/MultiGwRulesDataTable.pm:30
-#: src/EBox/CGI/View/MultiGwRulesDataTable.pm:31 src/EBox/Network.pm:2251
+#: src/EBox/CGI/View/MultiGwRulesDataTable.pm:31 src/EBox/Network.pm:2282
 msgid "Multigateway rules"
 msgstr ""
 
@@ -85,15 +85,19 @@ msgid ""
 "port or an IP address, then the rule will match all of them"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:237
+#: src/EBox/Model/MultiGwRulesDataTable.pm:225
+msgid "rule"
+msgstr ""
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:239
 msgid "Destination port"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:242
+#: src/EBox/Model/MultiGwRulesDataTable.pm:244
 msgid "Source port"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:252
+#: src/EBox/Model/MultiGwRulesDataTable.pm:254
 msgid "Port cannot be set if no protocol is selected"
 msgstr ""
 
@@ -122,18 +126,22 @@ msgstr ""
 msgid "Gateway list"
 msgstr ""
 
-#: src/EBox/Model/GatewayDataTable.pm:150
+#: src/EBox/Model/GatewayDataTable.pm:149
 msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
 "split your internet traffic through serveral links."
 msgstr ""
 
-#: src/EBox/Model/GatewayDataTable.pm:162 src/EBox/CGI/Iface.pm:87
-#: src/EBox/Network.pm:1443
+#: src/EBox/Model/GatewayDataTable.pm:151
+msgid "gateway"
+msgstr ""
+
+#: src/EBox/Model/GatewayDataTable.pm:163 src/EBox/CGI/Iface.pm:87
+#: src/EBox/Network.pm:1474
 msgid "ip address"
 msgstr ""
 
-#: src/EBox/Model/GatewayDataTable.pm:177
+#: src/EBox/Model/GatewayDataTable.pm:178
 msgid "There is already a default gateway"
 msgstr ""
 
@@ -142,7 +150,7 @@ msgstr ""
 #: src/EBox/CGI/Controller/GatewayDataTableMove.pm:30
 #: src/EBox/CGI/Controller/GatewayDataTableAdd.pm:30
 #: src/EBox/CGI/Controller/GatewayDataTable.pm:30
-#: src/EBox/CGI/View/GatewayDataTable.pm:30 src/EBox/Network.pm:2248
+#: src/EBox/CGI/View/GatewayDataTable.pm:30 src/EBox/Network.pm:2279
 msgid "Gateways"
 msgstr ""
 
@@ -159,7 +167,7 @@ msgid "DNS configured"
 msgstr ""
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
-#: src/EBox/Network.pm:2175
+#: src/EBox/Network.pm:2206
 msgid "Network interfaces"
 msgstr ""
 
@@ -189,7 +197,7 @@ msgstr ""
 msgid "Host"
 msgstr ""
 
-#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2163
+#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2194
 msgid "host name"
 msgstr ""
 
@@ -211,9 +219,9 @@ msgid "virtual interface action"
 msgstr ""
 
 #: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:558 src/EBox/Network.pm:563
-#: src/EBox/Network.pm:852 src/EBox/Network.pm:873 src/EBox/Network.pm:1386
-#: src/EBox/Network.pm:1955 src/EBox/Network.pm:1970 src/EBox/Network.pm:2102
-#: src/EBox/Network.pm:2220 src/templates/ifaces.mas:104
+#: src/EBox/Network.pm:867 src/EBox/Network.pm:888 src/EBox/Network.pm:1417
+#: src/EBox/Network.pm:1986 src/EBox/Network.pm:2001 src/EBox/Network.pm:2133
+#: src/EBox/Network.pm:2251 src/templates/ifaces.mas:104
 #: src/templates/ifaces.mas:233
 msgid "IP address"
 msgstr ""
@@ -222,7 +230,7 @@ msgstr ""
 msgid "virtual interface name"
 msgstr ""
 
-#: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1442
+#: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1473
 msgid "network address"
 msgstr ""
 
@@ -230,13 +238,13 @@ msgstr ""
 msgid "gateway address"
 msgstr ""
 
-#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1027
-#: src/EBox/Network.pm:1056 src/templates/ifaces.mas:164
+#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1058
+#: src/EBox/Network.pm:1087 src/templates/ifaces.mas:164
 msgid "VLAN Id"
 msgstr ""
 
 #: src/EBox/CGI/Routes.pm:29 src/EBox/CGI/Routes.pm:40
-#: src/EBox/Network.pm:2243
+#: src/EBox/Network.pm:2274
 msgid "Routes"
 msgstr ""
 
@@ -252,12 +260,12 @@ msgstr ""
 msgid "Configure default gateway"
 msgstr ""
 
-#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:1917
+#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:1948
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
 msgstr ""
 
-#: src/EBox/Network.pm:56 src/EBox/Network.pm:2235 src/templates/routes.mas:33
+#: src/EBox/Network.pm:56 src/EBox/Network.pm:2266 src/templates/routes.mas:33
 msgid "Network"
 msgstr ""
 
@@ -265,65 +273,65 @@ msgstr ""
 msgid "Virtual interface name"
 msgstr ""
 
-#: src/EBox/Network.pm:558 src/EBox/Network.pm:852 src/EBox/Network.pm:1955
+#: src/EBox/Network.pm:558 src/EBox/Network.pm:867 src/EBox/Network.pm:1986
 #: src/templates/ifaces.mas:118 src/templates/ifaces.mas:235
 msgid "Netmask"
 msgstr ""
 
-#: src/EBox/Network.pm:958
+#: src/EBox/Network.pm:989
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr ""
 
-#: src/EBox/Network.pm:1003
+#: src/EBox/Network.pm:1034
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
 msgstr ""
 
-#: src/EBox/Network.pm:1036
+#: src/EBox/Network.pm:1067
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
 
-#: src/EBox/Network.pm:1888
+#: src/EBox/Network.pm:1919
 msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
 msgstr ""
 
-#: src/EBox/Network.pm:2144
+#: src/EBox/Network.pm:2175
 msgid "Host name"
 msgstr ""
 
-#: src/EBox/Network.pm:2194
+#: src/EBox/Network.pm:2225
 msgid "down"
 msgstr ""
 
-#: src/EBox/Network.pm:2200
+#: src/EBox/Network.pm:2231
 msgid "up"
 msgstr ""
 
-#: src/EBox/Network.pm:2204
+#: src/EBox/Network.pm:2235
 msgid "link ok"
 msgstr ""
 
-#: src/EBox/Network.pm:2206
+#: src/EBox/Network.pm:2237
 msgid "no link"
 msgstr ""
 
-#: src/EBox/Network.pm:2209
+#: src/EBox/Network.pm:2240
 msgid "Status"
 msgstr ""
 
-#: src/EBox/Network.pm:2214
+#: src/EBox/Network.pm:2245
 msgid "MAC address"
 msgstr ""
 
-#: src/EBox/Network.pm:2239
+#: src/EBox/Network.pm:2270
 msgid "Interfaces"
 msgstr ""
 
-#: src/EBox/Network.pm:2245
+#: src/EBox/Network.pm:2276
 msgid "Diagnosis"
 msgstr ""
 

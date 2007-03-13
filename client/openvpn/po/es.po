@@ -2,13 +2,12 @@
 # Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the EBox-openvpn package.
 # Automatically generated, 2007.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-25 12:46+0100\n"
-"PO-Revision-Date: 2007-01-27 21:06+0000\n"
+"POT-Creation-Date: 2007-03-13 13:46+0100\n"
+"PO-Revision-Date: 2007-02-25 15:33+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -92,19 +91,20 @@ msgstr "Nuevo servidor {name} creado"
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:35
 msgid "Can't get address for this server: no external interfaces present"
 msgstr ""
+"No se puede obtener la dirección para este servidor: no hay interfaces "
+"externas"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:40
 msgid "Can't get address for this server"
-msgstr ""
+msgstr "No se puede obtener la dirección para este servidor"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:107
-#, fuzzy
 msgid "The client certificate can't be the same than the server"
-msgstr "Un certificado de cliente debe ser establecido"
+msgstr "El certificado del cliente no puede ser el mismo que el del servidor"
 
 #: src/EBox/OpenVPN/Server.pm:46
 msgid "The protocol only may be TCP or UDP."
-msgstr "El protocolo solo puede ser TCP o UDP"
+msgstr "El protocolo sólo puede ser TCP o UDP"
 
 #: src/EBox/OpenVPN/Server.pm:78
 msgid "The port must be a non-privileged port"
@@ -260,7 +260,7 @@ msgstr "Detenido"
 msgid "Daemon status"
 msgstr "Estado del demonio"
 
-#: src/EBox/OpenVPN/Server.pm:838 src/templates/serverProperties.mas:37
+#: src/EBox/OpenVPN/Server.pm:838 src/templates/serverProperties.mas:36
 msgid "All external interfaces"
 msgstr "Todas las interfaces externas"
 
@@ -268,11 +268,11 @@ msgstr "Todas las interfaces externas"
 msgid "Local address"
 msgstr "Dirección local"
 
-#: src/EBox/OpenVPN/Server.pm:845 src/templates/serverProperties.mas:60
+#: src/EBox/OpenVPN/Server.pm:845 src/templates/serverProperties.mas:59
 msgid "Port"
 msgstr "Puerto"
 
-#: src/EBox/OpenVPN/Server.pm:848 src/templates/serverProperties.mas:62
+#: src/EBox/OpenVPN/Server.pm:848 src/templates/serverProperties.mas:61
 msgid "VPN subnet"
 msgstr "Red VPN"
 
@@ -323,9 +323,9 @@ msgid "Connection target"
 msgstr "Blanco de la conexión"
 
 #: src/EBox/OpenVPN.pm:232
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Unable to remove daemon {name} of type {type} because it does not exist"
-msgstr "No se puede eliminar el cliente {name} debido a que no existe"
+msgstr "No se puede borrar el demonio {name} del tipo {type} porque no existe"
 
 #: src/EBox/OpenVPN.pm:514
 #, perl-brace-format
@@ -379,19 +379,19 @@ msgstr "Cancelar"
 msgid "Certificate"
 msgstr "Certificado"
 
-#: src/templates/serverProperties.mas:20
+#: src/templates/serverProperties.mas:19
 msgid "This certificate will be used by the server to authenticate itself"
 msgstr "Este certificado sera usado por el servidor para identificarse"
 
-#: src/templates/serverProperties.mas:24
+#: src/templates/serverProperties.mas:23
 msgid "disabled"
 msgstr "desactivado"
 
-#: src/templates/serverProperties.mas:28
+#: src/templates/serverProperties.mas:27
 msgid "Client authorization by common name"
 msgstr "Autorizar al cliente por su nombre común"
 
-#: src/templates/serverProperties.mas:32
+#: src/templates/serverProperties.mas:31
 msgid ""
 "Only clients with this value as full common name's prefix will will be "
 "authorized"
@@ -399,11 +399,11 @@ msgstr ""
 "Solo clientes que tengan este valor como nombre común o como prefijo de este "
 "serán autorizados."
 
-#: src/templates/serverProperties.mas:49
+#: src/templates/serverProperties.mas:48
 msgid "Interface to listen on"
 msgstr "Interfaz en la que escuchar"
 
-#: src/templates/serverProperties.mas:52
+#: src/templates/serverProperties.mas:51
 msgid ""
 "The server will be listen only in all external interfaces or only in the "
 "interface selected"
@@ -411,23 +411,23 @@ msgstr ""
 "El servidor escuchara en todas las interfaces externas o solo en la interfaz "
 "seleccionada"
 
-#: src/templates/serverProperties.mas:58 src/templates/clientProperties.mas:13
+#: src/templates/serverProperties.mas:57 src/templates/clientProperties.mas:13
 msgid "Active"
 msgstr "Activo"
 
-#: src/templates/serverProperties.mas:64
+#: src/templates/serverProperties.mas:63
 msgid "VPN subnet netmask"
 msgstr "Mascara de red de la VPN"
 
-#: src/templates/serverProperties.mas:66
+#: src/templates/serverProperties.mas:65
 msgid "Protocol"
 msgstr "Protocolo"
 
-#: src/templates/serverProperties.mas:78
+#: src/templates/serverProperties.mas:77
 msgid "Allow eBox-to-eBox tunnels"
-msgstr ""
+msgstr "Permitir túneles eBox a eBox"
 
-#: src/templates/serverProperties.mas:81
+#: src/templates/serverProperties.mas:80
 msgid ""
 "If you want to create a tunnel between two eBox, you will need this option "
 "to be able to connect to the network in the client side"
@@ -435,15 +435,15 @@ msgstr ""
 "Si quieres crear un túnel entre dos eBox, necesitas esta opción para poder "
 "conectar con la red en el lado del cliente"
 
-#: src/templates/serverProperties.mas:85
+#: src/templates/serverProperties.mas:84
 msgid "Allow client-to-client connections"
 msgstr "Permitir conexiones cliente-cliente"
 
-#: src/templates/serverProperties.mas:88
+#: src/templates/serverProperties.mas:87
 msgid "Allow clients to connect each other within the VPN"
 msgstr "Permite a los clientes conectarse entre si mediante la VPN"
 
-#: src/templates/serverProperties.mas:94
+#: src/templates/serverProperties.mas:93
 msgid "Server name"
 msgstr "Nombre del servidor"
 
@@ -555,27 +555,31 @@ msgid "delete"
 msgstr "borrar"
 
 #: src/templates/clientBundle.mas:16
-#, fuzzy
 msgid ""
 "This certificate will be used by the client to authenticate itself to the "
 "server"
-msgstr "Este certificado sera usado por el servidor para identificarse"
+msgstr ""
+"Este certificado será usado por el cliente para identificarse ante el "
+"servidor"
 
 #: src/templates/clientBundle.mas:42
 msgid ""
 "You must type in the folder in the client machine where the configuration "
 "and certificates files will be placed"
 msgstr ""
+"Debes escribir en la carpeta de la máquina cliente donde los ficheros de "
+"configuración y certificación se almacenarán"
 
 #: src/templates/clientBundle.mas:62
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Client files for server {name}"
-msgstr "Cliente {name}"
+msgstr "Ficheros cliente para el servidor {name}"
 
 #: src/templates/clientBundle.mas:65
 msgid ""
-"You can download a archive with all the required files to set up a OpenVPN "
-"client. Remember to copy those files to the client machine config directory"
+"You can download an archive with all the required files to set up an OpenVPN "
+"client. Remember to copy these files to the client machine configuration "
+"directory"
 msgstr ""
 
 #: src/templates/clientProperties.mas:29

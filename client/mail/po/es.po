@@ -4,7 +4,6 @@
 # Traducciones al español para el paquete EBox-mail.
 # Copyright (C) 2005 Warp S.L.
 # This file is distributed under the same license as the EBox-mail package.
-#
 # Automatically generated, 2005.
 # Ricardo Muñoz <richi@warp.es>, 2005.
 # Jorge Arcas <jorge@warp.es>, 2006.
@@ -13,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 15:03+0100\n"
+"POT-Creation-Date: 2007-03-13 13:45+0100\n"
 "PO-Revision-Date: 2007-02-02 09:35+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
@@ -36,8 +35,8 @@ msgstr "dominio virtual"
 msgid "Virtual domain name"
 msgstr "Nombre de dominio virtual"
 
-#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:797
-#: src/EBox/Mail.pm:824 src/EBox/Mail.pm:866
+#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:804
+#: src/EBox/Mail.pm:831 src/EBox/Mail.pm:873
 msgid "Mail"
 msgstr "Correo"
 
@@ -69,7 +68,7 @@ msgid "mail alias"
 msgstr "Alias de correo"
 
 #: src/EBox/CGI/QueueManager.pm:33 src/EBox/CGI/QueueManager.pm:50
-#: src/EBox/Mail.pm:833
+#: src/EBox/Mail.pm:840
 msgid "Queue Management"
 msgstr "Gestión de cola"
 
@@ -83,7 +82,7 @@ msgid "Mail address"
 msgstr "Dirección de correo"
 
 #: src/EBox/CGI/VDomains.pm:29 src/EBox/CGI/VDomains.pm:39
-#: src/EBox/Mail.pm:830
+#: src/EBox/Mail.pm:837
 msgid "Virtual domains"
 msgstr "Dominio virtual"
 
@@ -117,9 +116,9 @@ msgstr "estado del sistema de correo"
 
 #: src/EBox/MailVDomainsLdap.pm:68 src/EBox/MailVDomainsLdap.pm:74
 #: src/EBox/MailVDomainsLdap.pm:249 src/EBox/MailVDomainsLdap.pm:255
-#: src/EBox/MailUserLdap.pm:78 src/EBox/MailUserLdap.pm:84
-#: src/EBox/MailUserLdap.pm:391 src/EBox/MailUserLdap.pm:397
-#: src/EBox/Mail.pm:391 src/EBox/Mail.pm:397
+#: src/EBox/Mail.pm:398 src/EBox/Mail.pm:404 src/EBox/MailUserLdap.pm:78
+#: src/EBox/MailUserLdap.pm:84 src/EBox/MailUserLdap.pm:391
+#: src/EBox/MailUserLdap.pm:397
 msgid "maildir size"
 msgstr "tamaño del buzón de correo"
 
@@ -135,6 +134,130 @@ msgstr "cuenta de correo"
 msgid "mail alias account"
 msgstr "alias de cuenta de correo"
 
+#: src/EBox/Mail.pm:236 src/EBox/Mail.pm:307
+msgid "port"
+msgstr "puerto "
+
+#: src/EBox/Mail.pm:265 src/EBox/Mail.pm:274 src/EBox/Mail.pm:279
+msgid "remote IP"
+msgstr "IP remota"
+
+#: src/EBox/Mail.pm:266
+#, perl-brace-format
+msgid "{ip} is not a valid ip address"
+msgstr "no es una dirección IP válida"
+
+#: src/EBox/Mail.pm:275
+#, perl-brace-format
+msgid "{ip} cannot be reached by any configured interface"
+msgstr "no puede ser alcanzado por ninguna interfaz configurada"
+
+#: src/EBox/Mail.pm:280
+#, perl-brace-format
+msgid "{ip} can be reached by more than one configured interface"
+msgstr "puede ser alcanzado por más de una interfaz configurada"
+
+#: src/EBox/Mail.pm:333
+msgid "smarthost ip"
+msgstr "IP smarthost"
+
+#: src/EBox/Mail.pm:362 src/EBox/Mail.pm:368
+msgid "message size"
+msgstr "tamaño del mensaje"
+
+#: src/EBox/Mail.pm:807
+msgid "POP3 service"
+msgstr "servicio POP3"
+
+#: src/EBox/Mail.pm:809
+msgid "IMAP service"
+msgstr "servicio IMAP"
+
+#: src/EBox/Mail.pm:822
+msgid "Mail system"
+msgstr "Sistema de correo"
+
+#: src/EBox/Mail.pm:834 src/templates/menutabs.mas:10
+#: src/templates/menutabs.mas:13
+msgid "General"
+msgstr "General"
+
+#: src/EBox/Mail.pm:847 src/templates/qmanager.mas:23
+msgid "Date"
+msgstr "Fecha"
+
+#: src/EBox/Mail.pm:848
+msgid "Message ID"
+msgstr "ID de Mensaje"
+
+#: src/EBox/Mail.pm:849
+msgid "From"
+msgstr "De"
+
+#: src/EBox/Mail.pm:850
+msgid "To"
+msgstr "Para"
+
+#: src/EBox/Mail.pm:851
+msgid "From hostname"
+msgstr "Desde nombre de máquina"
+
+#: src/EBox/Mail.pm:852
+msgid "From host ip"
+msgstr "Desde ip de la máquina"
+
+#: src/EBox/Mail.pm:853 src/templates/qmanager.mas:21
+msgid "Size (bytes)"
+msgstr "Tamaños (bytes)"
+
+#: src/EBox/Mail.pm:854
+msgid "Relay"
+msgstr "Relay"
+
+#: src/EBox/Mail.pm:855 src/templates/index.mas:289
+msgid "Status"
+msgstr "Estado"
+
+#: src/EBox/Mail.pm:856
+msgid "Event"
+msgstr "Evento"
+
+#: src/EBox/Mail.pm:857
+msgid "Aditional Info"
+msgstr "Información adicional"
+
+#: src/EBox/Mail.pm:863
+msgid "Successful messages"
+msgstr "Mensajes satisfactorios"
+
+#: src/EBox/Mail.pm:864
+msgid "Maximum message size exceeded"
+msgstr "Tamaño máximo de mensaje excecido"
+
+#: src/EBox/Mail.pm:865
+msgid "User quote exceeded"
+msgstr "Cuota de usuario excedida"
+
+#: src/EBox/Mail.pm:866
+msgid "Relay access denied"
+msgstr "Acceso de Relay denegado"
+
+#: src/EBox/Mail.pm:867
+msgid "Account do not exists"
+msgstr "La cuenta no existe"
+
+#: src/EBox/Mail.pm:868
+msgid "Host unreachable"
+msgstr "Máquina inalcanzable"
+
+#: src/EBox/Mail.pm:869
+msgid "Authentication error"
+msgstr "Error de autenticación"
+
+#: src/EBox/Mail.pm:870
+msgid "Other events"
+msgstr "Otros eventos"
+
 #: src/EBox/MailUserLdap.pm:226
 msgid "This group has a mail alias"
 msgstr "Este grupo tiene una cuenta alias de correo"
@@ -142,127 +265,6 @@ msgstr "Este grupo tiene una cuenta alias de correo"
 #: src/EBox/MailUserLdap.pm:248
 msgid "This user has a mail account"
 msgstr "Este usuario tiene cuenta de correo"
-
-#: src/EBox/Mail.pm:231 src/EBox/Mail.pm:300
-msgid "port"
-msgstr "puerto "
-
-#: src/EBox/Mail.pm:260 src/EBox/Mail.pm:266 src/EBox/Mail.pm:272
-msgid "remote IP"
-msgstr "IP remota"
-
-#: src/EBox/Mail.pm:261
-msgid " is not a valid ip address"
-msgstr "no es una dirección IP válida"
-
-#: src/EBox/Mail.pm:267
-msgid " cannot be reached by any configured interface"
-msgstr "no puede ser alcanzado por ninguna interfaz configurada"
-
-#: src/EBox/Mail.pm:273
-msgid " can be reached by more than one configured interface"
-msgstr "puede ser alcanzado por más de una interfaz configurada"
-
-#: src/EBox/Mail.pm:326
-msgid "smarthost ip"
-msgstr "IP smarthost"
-
-#: src/EBox/Mail.pm:355 src/EBox/Mail.pm:361
-msgid "message size"
-msgstr "tamaño del mensaje"
-
-#: src/EBox/Mail.pm:800
-msgid "POP3 service"
-msgstr "servicio POP3"
-
-#: src/EBox/Mail.pm:802
-msgid "IMAP service"
-msgstr "servicio IMAP"
-
-#: src/EBox/Mail.pm:815
-msgid "Mail system"
-msgstr "Sistema de correo"
-
-#: src/EBox/Mail.pm:827 src/templates/menutabs.mas:10
-#: src/templates/menutabs.mas:13
-msgid "General"
-msgstr "General"
-
-#: src/EBox/Mail.pm:840 src/templates/qmanager.mas:23
-msgid "Date"
-msgstr "Fecha"
-
-#: src/EBox/Mail.pm:841
-msgid "Message ID"
-msgstr "ID de Mensaje"
-
-#: src/EBox/Mail.pm:842
-msgid "From"
-msgstr "De"
-
-#: src/EBox/Mail.pm:843
-msgid "To"
-msgstr "Para"
-
-#: src/EBox/Mail.pm:844
-msgid "From hostname"
-msgstr "Desde nombre de máquina"
-
-#: src/EBox/Mail.pm:845
-msgid "From host ip"
-msgstr "Desde ip de la máquina"
-
-#: src/EBox/Mail.pm:846 src/templates/qmanager.mas:21
-msgid "Size (bytes)"
-msgstr "Tamaños (bytes)"
-
-#: src/EBox/Mail.pm:847
-msgid "Relay"
-msgstr "Relay"
-
-#: src/EBox/Mail.pm:848 src/templates/index.mas:289
-msgid "Status"
-msgstr "Estado"
-
-#: src/EBox/Mail.pm:849
-msgid "Event"
-msgstr "Evento"
-
-#: src/EBox/Mail.pm:850
-msgid "Aditional Info"
-msgstr "Información adicional"
-
-#: src/EBox/Mail.pm:856
-msgid "Successful messages"
-msgstr "Mensajes satisfactorios"
-
-#: src/EBox/Mail.pm:857
-msgid "Maximum message size exceeded"
-msgstr "Tamaño máximo de mensaje excecido"
-
-#: src/EBox/Mail.pm:858
-msgid "User quote exceeded"
-msgstr "Cuota de usuario excedida"
-
-#: src/EBox/Mail.pm:859
-msgid "Relay access denied"
-msgstr "Acceso de Relay denegado"
-
-#: src/EBox/Mail.pm:860
-msgid "Account do not exists"
-msgstr "La cuenta no existe"
-
-#: src/EBox/Mail.pm:861
-msgid "Host unreachable"
-msgstr "Máquina inalcanzable"
-
-#: src/EBox/Mail.pm:862
-msgid "Authentication error"
-msgstr "Error de autenticación"
-
-#: src/EBox/Mail.pm:863
-msgid "Other events"
-msgstr "Otros eventos"
 
 #: src/templates/warnvd.mas:12
 msgid "Deleting virtual domain"
@@ -654,6 +656,15 @@ msgstr "Características"
 #: src/templates/mailtabs.mas:23 src/templates/mailtabs.mas:26
 msgid "External Filter"
 msgstr "Filtrado externo"
+
+#~ msgid " is not a valid ip address"
+#~ msgstr "no es una dirección IP válida"
+
+#~ msgid " cannot be reached by any configured interface"
+#~ msgstr "no puede ser alcanzado por ninguna interfaz configurada"
+
+#~ msgid " can be reached by more than one configured interface"
+#~ msgstr "puede ser alcanzado por más de una interfaz configurada"
 
 #~ msgid ""
 #~ "You should move to allowed column those objects that do you want to allow "

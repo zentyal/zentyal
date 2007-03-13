@@ -2,12 +2,11 @@
 # This file is distributed under the same license as the ebox-ntp package.
 # Copyright (C) YEAR Warp S.L.
 # jc junior <slackjr@gmail.com>, 2006.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 15:04+0100\n"
+"POT-Creation-Date: 2007-03-13 13:46+0100\n"
 "PO-Revision-Date: 2006-04-13 16:43-0300\n"
 "Last-Translator: jc junior <slackjr@gmail.com>\n"
 "Language-Team: portuguese <en@li.org>\n"
@@ -15,6 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.10.2\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: src/EBox/CGI/Synch.pm:41
 msgid "external synchronize status"
@@ -110,7 +110,7 @@ msgid "tertiary server"
 msgstr "Servidor Terciário"
 
 #: src/EBox/NTP.pm:244
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{name} IP address"
 msgstr "Endereço IP do Servidor Secundário"
 
@@ -159,8 +159,9 @@ msgid "NTP server status"
 msgstr "Status do Servidor NTP"
 
 #: src/templates/servers.mas:7
+#, fuzzy
 msgid "NTP servers"
-msgstr ""
+msgstr "Servidor NTP"
 
 #: src/templates/servers.mas:11
 msgid ""
