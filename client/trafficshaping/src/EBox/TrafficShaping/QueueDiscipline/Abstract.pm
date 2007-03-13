@@ -69,13 +69,7 @@ sub setAttribute # (attrName, attrValue)
 
     my ($self, $attrName, $attrValue) = @_;
 
-    if ( defined($self->{$attrName})) {
-      $self->{$attrName} = $attrValue;
-    }
-    else {
-      throw EBox::Exceptions::Internal("Attribute $attrName does NOT exist in " .
-				       blessed($self) . " queue discipline");
-    }
+    $self->{$attrName} = $attrValue;
 
   }
 

@@ -175,7 +175,7 @@ sub _table
 					        'in terms of bandwidth link'),
 		     'rowUnique'          => 1,  # Set each row is unique
 		     'printableRowName' => __('rule'),
-		     };
+		    };
 
     return $dataTable;
 

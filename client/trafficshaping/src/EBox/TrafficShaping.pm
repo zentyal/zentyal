@@ -50,6 +50,10 @@ use EBox::TrafficShaping::Model::RuleMultiTable;
 # To do try and catch
 use Error qw( :try );
 
+# We set rule identifiers among 256 and 512
+use constant MIN_ID_VALUE => 256; # 0x100
+use constant MAX_ID_VALUE => 65280; # 0xFF00
+
 # Constructor for traffic shaping module
 sub _create
   {
@@ -152,7 +156,7 @@ sub menu # (root)
 #
 # Returns:
 #
-#       String - the unique identifier which identifies the added rule
+#       Nothing
 #
 # Exceptions:
 #
@@ -217,8 +221,8 @@ sub addRule
 
     my $ruleId = $self->_getRuleId($iface, \%ruleParams);
     # Get only the number
-    $ruleId = $self->_getNumber($ruleId);
-    $ruleParams{identifier} = $ruleId;
+    # $ruleId = $self->_getNumber($ruleId);
+    # $ruleParams{identifier} = $ruleId;
 
     # Create builders ( Disc -> Memory ) Mandatory every time an
     # access in memory is done
@@ -337,7 +341,7 @@ sub enableRule # (interface, ruleId, enabled)
     $self->_createBuilders();
 
     # Update builder tree
-    $self->_enableRule($iface, $ruleId);
+#    $self->_enableRule($iface, $ruleId);
 
     # Admin log stuff
     my %entries = %{$self->_ruleParams( $iface, $ruleId )};
@@ -497,6 +501,14 @@ sub checkRule
     $ruleParams{guaranteedRate} = 0 if $ruleParams{guaranteedRate} eq '';
     $ruleParams{limitedRate} = 0 unless defined ( $ruleParams{limitedRate} );
     $ruleParams{limitedRate} = 0 if $ruleParams{limitedRate} eq '';
+
+    # Check rule avalaibility
+    if ( ($self->_nextMap(undef, 'test') == MAX_ID_VALUE) and
+         (not defined ($ruleParams{ruleId}))) {
+      throw EBox::Exceptions::External(__x('The maximum rule account {max} is reached, ' .
+					   'please delete at least one in order to to add a new one',
+					   max => MAX_ID_VALUE));
+    }
 
     # Check interface to be external
     $self->_checkInterface( $ruleParams{interface} );
@@ -823,7 +835,7 @@ sub _correctPriorities # (iface)
       my $priority = 0;
       foreach my $ruleId (@{$order_ref}) {
 	#my $leafClassId = $self->_getClassIdFromRule($iface, $ruleId);
-	my $leafClassId = $self->_getNumber($ruleId);
+	my $leafClassId = $self->_mapRuleToClassId($ruleId);
 	$self->{builders}->{$iface}->updateRule(
 						identifier  => $leafClassId,
 						priority    => $priority,
@@ -998,6 +1010,10 @@ sub _areRulesActive # (iface)
 
     my $rules_ref = $self->array_from_dir($dir);
 
+    use Data::Dumper;
+    EBox::debug($dir);
+    EBox::debug(Dumper($rules_ref));
+
     if ( scalar(@{$rules_ref}) != 0 ) {
       # Check if there's any enabled TODO
 #      foreach my $rule_ref (@{$rules_ref}) {
@@ -1143,7 +1159,8 @@ sub _buildGConfRules # (iface)
       # FIXME when enabled property will be on
       #      next unless ( $rule_ref->{enabled} );
 
-      $rule_ref->{identifier} = $rule_ref->{_dir};
+      # $rule_ref->{identifier} = $rule_ref->{_dir};
+      $rule_ref->{identifier} = $self->_nextMap($rule_ref->{_dir});
       # Transform from gconf to camelCase and set if they're null
       # since they're optional parameters
       $rule_ref->{guaranteedRate} = delete ($rule_ref->{guaranteed_rate});
@@ -1309,7 +1326,8 @@ sub _destroyRule # (iface, ruleId, params_ref?)
 #								);
 #   }
 
-   my $minorNumber = $self->_getNumber($ruleId);
+   # my $minorNumber = $self->_getNumber($ruleId);
+   my $minorNumber = $self->_mapRuleToClassId($ruleId);
    $self->{builders}->{$iface}->destroyRule($minorNumber);
 
    # If no more rules are active, build a default tree builder
@@ -1347,7 +1365,8 @@ sub _updateRule # (iface, ruleId, ruleParams_ref?, test?)
     my ($self, $iface, $ruleId, $ruleParams_ref, $test) = @_;
 
 #    my $leafClassId = $self->_getClassIdFromRule($iface, $ruleId);
-    my $minorNumber = $self->_getNumber($ruleId);
+    # my $minorNumber = $self->_getNumber($ruleId);
+    my $minorNumber = $self->_mapRuleToClassId($ruleId);
     # Update the rule stating the same leaf class id (If test not do)
     $self->{builders}->{$iface}->updateRule(
 					    identifier     => $minorNumber,
@@ -1399,6 +1418,52 @@ sub _getNumber # (id)
     $tmpId =~ s/.*?(\d+)/$1/;
 
     return $tmpId;
+
+  }
+
+# Set the identifiers to the correct intervals with this function
+# (Ticket #481)
+# Returns a Int among MIN_ID_VALUE and MAX_ID_VALUE
+sub _nextMap # (ruleId?, test?)
+  {
+
+    my ($self, $ruleId, $test) = @_;
+
+    if ( not defined ( $self->{nextIdentifier} ) ) {
+      $self->{nextIdentifier} = MIN_ID_VALUE;
+      $self->{classIdMap} = {};
+    }
+
+    my $retValue = $self->{nextIdentifier};
+
+    if ( defined ( $ruleId ) and not $test ) {
+      # We store at a hash the ruleId vs. class id
+      $self->{classIdMap}->{$ruleId} = $retValue;
+    }
+
+    if ( $self->{nextIdentifier} < MAX_ID_VALUE and
+        (not $test)) {
+      # Sums min id value -> 0x100
+      $self->{nextIdentifier} += MIN_ID_VALUE;
+    }
+
+    return $retValue;
+
+  }
+
+# Returns the class id mapped at a rule identifier
+# Undef if no map has been created
+sub _mapRuleToClassId # (ruleId)
+  {
+
+    my ($self, $ruleId) = @_;
+
+    if ( defined ( $self->{classIdMap} )) {
+      return $self->{classIdMap}->{$ruleId};
+    }
+    else {
+      return undef;
+    }
 
   }
 

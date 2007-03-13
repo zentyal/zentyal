@@ -24,6 +24,8 @@ use EBox::Exceptions::InvalidData;
 
 use EBox::TrafficShaping;
 
+use constant MARK_MASK => '0xFF00';
+
 # Constructor: new
 #
 #       Constructor for FwFilter class. It should extendable to all
@@ -262,7 +264,10 @@ sub dumpIptablesCommands
 
     my $shaperChain = EBox::TrafficShaping->ShaperChain();
 
-    my $mark = $self->{mark};
+    # Getting the mask number
+    my $mask = hex ( MARK_MASK );
+    # Applying the mask
+    my $mark = $self->{mark} & $mask;
     my $protocol = $self->{fProtocol};
     my $sport = $self->{fPort};
     my $dport = $self->{fPort};
