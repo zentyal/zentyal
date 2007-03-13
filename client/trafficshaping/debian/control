@@ -7,7 +7,7 @@ Standards-Version: 3.6.1
 
 Package: ebox-trafficshaping
 Architecture: all
-Depends: ebox, ebox-network, ebox-firewall, libtree-perl
+Depends: ebox (>= 0.9), ebox-network, ebox-firewall, libtree-perl
 Description: Traffic shaper for eBox
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
