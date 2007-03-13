@@ -2,7 +2,6 @@
 
 case "$1" in
 	remove)
-	        ebox-clean-gconf trafficshaping
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 		;;		
 esac

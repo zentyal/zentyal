@@ -20,6 +20,7 @@ case "$1" in
 		remove_gconf_schemas
 		;;
 	remove)
+	        ebox-clean-gconf trafficshaping
 		remove_gconf_schemas
 		;;	
 esac 
