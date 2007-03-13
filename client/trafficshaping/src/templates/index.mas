@@ -12,10 +12,7 @@ external interfaces that leave out in the machine
 </%init>
 % if (not $areExternalIfaces ) {
 <div class='note'>
-  <% __x('Traffic Shaping is applied only to external ' .
-	 'interfaces. In order to use this feature create an ' .
-	 'external interface at ' .
-	 '{openhref}Network->Interfaces{closehref}',
+  <% __x('Traffic Shaping is applied only to external interfaces. In order to use this feature create an external interface at {openhref}Network->Interfaces{closehref}',
 	 openhref  => '<a href="/ebox/Network/Ifaces">',
          closehref => '</a>')
       %>
@@ -23,11 +20,7 @@ external interfaces that leave out in the machine
 % }
 % elsif (not $areGateways) {
 <div class='note'>
-  <% __x('Traffic Shaping is applied only to external ' .
-         'interfaces which have gateways with an upload rate set.' .
-	 'In order to do so, create a gateway at ' .
-	 '{openhref}Network->Gateways{closehref} setting as ' .
-	 'interface an external one.',
+  <% __x('Traffic Shaping is applied only to external interfaces which have gateways with an upload rate set. In order to do so, create a gateway at {openhref}Network->Gateways{closehref} setting as interface an external one.',
 	 openhref => '<a href="/ebox/Network/View/GatewayDataTable">',
 	 closehref => '</a>') %>
 % }

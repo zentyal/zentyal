@@ -506,7 +506,7 @@ sub checkRule
     if ( ($self->_nextMap(undef, 'test') == MAX_ID_VALUE) and
          (not defined ($ruleParams{ruleId}))) {
       throw EBox::Exceptions::External(__x('The maximum rule account {max} is reached, ' .
-					   'please delete at least one in order to to add a new one',
+					   'please delete at least one in order to add a new one',
 					   max => MAX_ID_VALUE));
     }
 
@@ -1009,10 +1009,6 @@ sub _areRulesActive # (iface)
     my $dir = $self->_ruleDirectory($iface);
 
     my $rules_ref = $self->array_from_dir($dir);
-
-    use Data::Dumper;
-    EBox::debug($dir);
-    EBox::debug(Dumper($rules_ref));
 
     if ( scalar(@{$rules_ref}) != 0 ) {
       # Check if there's any enabled TODO

@@ -226,7 +226,7 @@ sub buildRule
 
     # Check guaranteed rate
     if (not $self->_canSupportGuaranteedRate( $args{guaranteedRate} )){
-      throw EBox::Exceptions::External(__x('Guaranteed Rate excedeed the allowed rate: {rate} kbit/s',
+      throw EBox::Exceptions::External(__x('Guaranteed Rate exceeds the allowed rate: {rate} kbit/s',
 					   rate => $self->_allowedGuaranteedRate()));
     }
 
@@ -402,12 +402,12 @@ sub updateRule
     # Check guaranteed rate
     if ( defined ( $args{guaranteedRate} ) ) {
       if (not $self->_canSupportGuaranteedRate( $args{guaranteedRate} - $prevGuaranteedRate )){
-	throw EBox::Exceptions::External(__x("Guaranteed Rate excedeed the allowed rate: {rate}",
+	throw EBox::Exceptions::External(__x("Guaranteed Rate exceeded the allowed rate: {rate}",
 					     rate => $self->_allowedGuaranteedRate()));
       }
     }
 
-    if ($args{guaranteedRate} != 0 ) {
+    if ( defined ( $args{guaranteedRate} ) and $args{guaranteedRate} != 0 ) {
       if ($args{guaranteedRate} < $self->_minimumAllowedQuantum() or
 	  $args{guaranteedRate} > $self->_maximumAllowedQuantum()) {
 	throw EBox::Exceptions::External(__x('Guaranteed Rate must be in this interval: ( {minRate}, ' .
