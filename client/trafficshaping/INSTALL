@@ -3,17 +3,31 @@ DEPENDENCIES
 
 + eBox components
 
-	+ <Add an eBox module>
+	+ ebox
+	+ ebox-network
+	+ ebox-firewall
 
 + Debian packages (apt-get install <package>)
 
-	+ <Add a debian package name>
+	+ libtree-perl
+	+ iptables
+	+ iproute
 
 + Others
 
-	+ <Add if any other support is needed, e.g. in Linux kernel>
+	+ a Netfilter enabled Linux kernel
+	+ a QoS enabled Linux kernel
 
 INSTALLATION
 ------------
 
-+ <Add instructions for installation and configuration>
+- Once all dependencies are satisfied, type:
+	
+	./configure
+	make install
+
+  configure will autodetect eBox base path to install
+
+- Reload apache daemon
+
+        pkill apache
