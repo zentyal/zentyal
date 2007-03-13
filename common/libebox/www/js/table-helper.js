@@ -238,7 +238,7 @@ function hangTable(successId, errorId, url, formId)
       }
   );
  
-  setLoading('loadingTable', true);
+  setLoading('loadingTable');
  
 }
 
