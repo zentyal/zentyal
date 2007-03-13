@@ -22,6 +22,9 @@ use EBox::Gettext;
 use EBox::Html;
 use Apache;
 use Error qw(:try);
+use HTML::Mason::Exceptions;
+use EBox::Exceptions::DataInUse;
+use EBox::Exceptions::Base;
 
 use constant ERROR_STATUS => '500';
 use constant DATA_IN_USE_STATUS => '501';
