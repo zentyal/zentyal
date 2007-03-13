@@ -30,7 +30,7 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Gettext;
 use EBox::LogAdmin qw(:all);
 
-sub _create 
+sub _create
 {
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'objects',
@@ -77,7 +77,7 @@ sub ObjectsArray
 	return \@array;
 }
 
-# Method: ObjectMemberss
+# Method: ObjectMembers
 #
 #   	Returns the members belonging to an object
 #
@@ -85,7 +85,7 @@ sub ObjectsArray
 #
 #   	array ref - each element contains a hash with the member keys 'nname' 
 #   	(member's name), 'ip' (ip's member), 'mask' (network mask's member),
-#   	'mac', (mac adress' member)
+#   	'mac', (mac address' member)
 sub ObjectMembers # (object) 
 {
 	my ( $self, $object ) = @_;
@@ -306,7 +306,7 @@ sub removeObject # (object)
 # Parameters:
 #
 #   	object - object name
-#   	ip - memeber's IPv4 address
+#   	ip - member's IPv4 address
 #	mac - member's mac *optional*
 #	description - description *optional*
 sub addToObject  # (object, ip, mask, mac?, description?) 
@@ -353,7 +353,7 @@ sub addToObject  # (object, ip, mask, mac?, description?)
 # Parameters:
 #
 #   	object - object name
-#   	id - memeber's identifier
+#   	id - member's identifier
 sub removeFromObject  # (object, id)
 {
 	#action: removeFromObject
@@ -377,7 +377,7 @@ sub removeFromObject  # (object, id)
 
 # Method: alreadyInObject
 #
-#   	Checks if a member (i.e: its ip and mask) are already in some object	
+#   	Checks if a member (i.e: its ip and mask) are already in some object
 #
 # Parameters:
 #
