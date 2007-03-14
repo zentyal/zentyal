@@ -1164,7 +1164,7 @@ sub _buildGConfRules # (iface)
       $rule_ref->{limitedRate} = delete ($rule_ref->{limited_rate});
       $rule_ref->{limitedRate} = 0 unless defined ($rule_ref->{limitedRate});
       # Get priority from order
-      $rule_ref->{priority} = $order{$rule_ref->{identifier}};
+      $rule_ref->{priority} = $order{$rule_ref->{_dir}};
 
       $self->_buildANewRule( $iface, $rule_ref, undef );
 
