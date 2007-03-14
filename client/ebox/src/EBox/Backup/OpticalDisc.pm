@@ -103,6 +103,9 @@ sub _infoFromDvdMediaInfo
   elsif (grep {m/non-DVD media mounted/} @output) {
     return undef;
   }
+   elsif (grep {m/not a DVD unit/} @output) {
+    return undef;
+  }
 
   my ($media, $writable);
   try {
@@ -162,9 +165,16 @@ sub _infoFromCdrdao
     throw EBox::Exceptions::External(__('Unable to recognize the mounted CD media'));
   } 
 
+
+
+
   my ($media, $writable);
-  $media = $parseResults_r->{'CD-RW'} eq 'yes'? 'CD-RW' : 'CD-R';
+  $media = $parseResults_r->{'CD-RW'} eq 'yes'? 'CD-RW' : undef;
   $writable = $parseResults_r->{'CD-R empty'} eq 'yes'? 1 : 0;
+
+  if (!( defined $media ) ) {
+    $media = $parseResults_r->{'CD-R empty'} eq 'yes'? 'CD-R' : 'CD-ROM';
+  }
   
   return {media =>$media, writable => $writable};
 }

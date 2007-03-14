@@ -13,7 +13,7 @@ use_ok('EBox::Backup::OpticalDisc');
 EBox::TestStubs::activateTestStubs();
 diag "This test must be run as root otherwise some parts may fail";
 
-my @supportedMedia = qw(CD-R CD-RW DVD-R DVD-ROM DVD-RW no_disc);
+my @supportedMedia = qw(CD-ROM CD-R CD-RW DVD-R DVD-ROM DVD-RW no_disc);
 
 my $dev = devicePrompt();
 my $expectedMedia;
