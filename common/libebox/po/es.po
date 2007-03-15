@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-13 13:44+0100\n"
+"POT-Creation-Date: 2007-03-15 15:30+0100\n"
 "PO-Revision-Date: 2007-02-02 10:51+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: \n"
@@ -20,26 +20,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 0.10.1\n"
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
-
-#: src/EBox/Exceptions/DataExists.pm:31
-#, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} ya existente: {value}."
-
-#: src/EBox/Exceptions/InvalidData.pm:32
-#, perl-brace-format
-msgid "Invalid value for {data}: {value}."
-msgstr "{data} inválido, valor: {value}."
-
-#: src/EBox/Exceptions/DataNotFound.pm:30
-#, perl-brace-format
-msgid "{data} {value} does not exist."
-msgstr "{data} no existente: {value}."
-
-#: src/EBox/Exceptions/DataMissing.pm:30
-#, perl-brace-format
-msgid "{data} is empty."
-msgstr "Dato vacío: {data}"
 
 #: src/EBox/CGI/EBox/PageNotFound.pm:12
 msgid "Page not found"
@@ -106,20 +86,25 @@ msgstr ""
 msgid "Interface"
 msgstr "Interfaz"
 
-#: src/EBox/Sudo.pm:229
+#: src/EBox/Exceptions/DataNotFound.pm:30
 #, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "El comando '{cmd}', ejecutado como {user}, falló"
+msgid "{data} {value} does not exist."
+msgstr "{data} no existente: {value}."
 
-#: src/EBox/Config.pm.in:39
+#: src/EBox/Exceptions/DataExists.pm:31
 #, perl-brace-format
-msgid "Could not open the config file {file}."
-msgstr "No se pudo abrir el fichero de configuración {file}"
+msgid "{data} {value} already exists."
+msgstr "{data} ya existente: {value}."
 
-#: src/EBox/Config.pm.in:72
-msgid "The ebox user has not been set in the config file."
-msgstr ""
-"El usuario de ebox no ha sido establecido en el fichero de configuración."
+#: src/EBox/Exceptions/DataMissing.pm:30
+#, perl-brace-format
+msgid "{data} is empty."
+msgstr "Dato vacío: {data}"
+
+#: src/EBox/Exceptions/InvalidData.pm:32
+#, perl-brace-format
+msgid "Invalid value for {data}: {value}."
+msgstr "{data} inválido, valor: {value}."
 
 #: src/EBox/Validate.pm:600
 #, perl-brace-format
@@ -147,6 +132,21 @@ msgstr ""
 #: src/EBox/Validate.pm:708
 msgid "The file path must be absolute"
 msgstr "La ruta de archivo debe ser absoluta"
+
+#: src/EBox/Sudo.pm:229
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "El comando '{cmd}', ejecutado como {user}, falló"
+
+#: src/EBox/Config.pm.in:39
+#, perl-brace-format
+msgid "Could not open the config file {file}."
+msgstr "No se pudo abrir el fichero de configuración {file}"
+
+#: src/EBox/Config.pm.in:72
+msgid "The ebox user has not been set in the config file."
+msgstr ""
+"El usuario de ebox no ha sido establecido en el fichero de configuración."
 
 #: src/templates/ajax/tableBody.mas:47
 msgid "Add new"
@@ -178,6 +178,23 @@ msgstr ""
 msgid "The page can not be found"
 msgstr "La página no pudo encontrarse"
 
+#: src/templates/enable.mas:13
+msgid "Service configuration"
+msgstr "Configuración del servicio"
+
+#: src/templates/enable.mas:17 src/templates/enable.mas:22
+msgid "Disabled"
+msgstr "Deshabilitado"
+
+#: src/templates/enable.mas:19 src/templates/enable.mas:24
+msgid "Enabled"
+msgstr "Habilitado"
+
+#: src/templates/enable.mas:29 src/templates/enable.mas:31
+#: src/templates/language.mas:25
+msgid "Change"
+msgstr "Cambiar"
+
 #: src/templates/title.mas:14
 msgid "Display help notes"
 msgstr "Ver notas de ayuda"
@@ -205,23 +222,6 @@ msgid ""
 msgstr ""
 "Los cambios de idioma se efectúan de forma automática, no es necesario "
 "guardar la configuración"
-
-#: src/templates/language.mas:25 src/templates/enable.mas:29
-#: src/templates/enable.mas:31
-msgid "Change"
-msgstr "Cambiar"
-
-#: src/templates/enable.mas:13
-msgid "Service configuration"
-msgstr "Configuración del servicio"
-
-#: src/templates/enable.mas:17 src/templates/enable.mas:22
-msgid "Disabled"
-msgstr "Deshabilitado"
-
-#: src/templates/enable.mas:19 src/templates/enable.mas:24
-msgid "Enabled"
-msgstr "Habilitado"
 
 #~ msgid "Table is empty"
 #~ msgstr "La tabla esta vacía"
