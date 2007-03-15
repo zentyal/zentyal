@@ -74,8 +74,8 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 	AC_PROG_PERL_MODULES(Test::Builder, ,
 	  AC_MSG_WARN(Missing test dependency Test::Builder))
 
-	AC_PROG_PERL_MODULES(Test::Builder::Tester, ,
-	  AC_MSG_WARN(Missing test dependency Test::Builder::Tester))
+	AC_PROG_PERL_MODULES(Test::Tester, ,
+	  AC_MSG_WARN(Missing test dependency Test::Tester))
 
 	AC_PROG_PERL_MODULES(Test::Differences, ,
 	  AC_MSG_WARN(Missing test dependency Test::Differences))

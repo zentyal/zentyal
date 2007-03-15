@@ -2,10 +2,10 @@
 use strict;
 use warnings;
 
-use Test::More tests => 18;
+use Test::Tester ;
+use Test::More tests => 38;
 use Test::Exception;
-use Test::Builder::Tester ;
-
+#use Test::Builder::Tester;
 
 
 use lib '../../..';
@@ -54,29 +54,45 @@ sub runCgiTest
 
 sub cgiErrorAssertionsTest
 {
+  my $testName;
     my $errorFreeCgi = new EBox::CGI::DumbCGI;
     my $errorRiddenCgi = new EBox::CGI::DumbCGI;
     $errorRiddenCgi->{error} = 'a error';
     
     # cgiErrorNotOk..
-    test_out("ok 1 - errorFreeCgi");
-    cgiErrorNotOk($errorFreeCgi, 'errorFreeCgi');    
-    test_test('Checking positive assertion for cgiErrorNotOk');
 
-    test_out("not ok 1 - errorRiddenCgi");
-    test_fail(+1);
-    cgiErrorNotOk($errorRiddenCgi, 'errorRiddenCgi');
-    test_test('Checking negative assertion for cgiErrorNotOk');
+  $testName = 'Checking positive assertion for cgiErrorNotOk';
+
+    check_test(
+	      sub {
+		cgiErrorNotOk($errorFreeCgi, $testName);
+	      },
+	      {
+	       ok => 1,
+	       name =>  $testName,  
+	      }
+	     );
+
+
+  $testName = 'Checking negative assertion for cgiErrorNotOk';
+    check_test( 
+	       sub { cgiErrorNotOk($errorRiddenCgi, $testName); }, 
+	       { ok => 0, name =>  $testName },  
+	      );
 
     # cgiErrorOk..
-    test_out("ok 1 - errorRiddenCgi");
-    cgiErrorOk($errorRiddenCgi, 'errorRiddenCgi');
-    test_test('Checking positive assertion for cgiErrorOk');
+  $testName = 'Checking positive assertion for cgiErrorOk';
+  check_test( 
+	     sub { cgiErrorOk($errorRiddenCgi, $testName) },
+	     { ok => 1, name =>  $testName },  
+	    );
 
-    test_out("not ok 1 - errorFreeCgi");
-    test_fail(+1);
-    cgiErrorOk($errorFreeCgi, 'errorFreeCgi');
-    test_test('Checking negative assertion for cgiErrorOk');
+
+    $testName  = 'Checking negative assertion for cgiErrorOk';
+    check_test( 
+	       sub { cgiErrorOk($errorFreeCgi, $testName); } 
+		, { ok => 0, name =>  $testName },  
+	      );
 }
 
 sub muteHtmlOutputTest

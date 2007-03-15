@@ -6,7 +6,7 @@ TEST DEPENDENCIES
 # apt-get install <package>
 
 	+ libtest-exception-perl
-	+ libtest-builder-tester-perl
+	+ libtest-tester-perl
         + libtest-mockobject-perl
 	+ libtest-differences-perl
 
