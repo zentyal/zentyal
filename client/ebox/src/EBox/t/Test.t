@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::Builder::Tester tests => 5;
+use Test::Tester tests => 21;
 use Test::More ;
 
 
@@ -67,28 +67,35 @@ sub checkModuleInstantiationTest
 
 
   # straight case
-  test_out("ok 1 - simple instantiated correctly");
-  checkModuleInstantiation('simple', 'EBox::Simple');
-  test_test('checkModuleInstantiation for a simple module');
+#   test_out("ok 1 - simple instantiated correctly");
+#   checkModuleInstantiation('simple', 'EBox::Simple');
+#   test_test('checkModuleInstantiation for a simple module');
+  check_test (
+	      sub { checkModuleInstantiation('simple', 'EBox::Simple');  },
+	      { ok => 1 },
+	     );
 
 
   # inexistent module
-  test_out("not ok 1 - EBox::Inexistent failed to load");
-  test_fail(+1);
-  checkModuleInstantiation('inexistent', 'EBox::Inexistent');
-  test_test('checkModuleInstantiation for a inexistent module');
+  diag('checkModuleInstantiation for a inexistent module');
+  check_test (
+	      sub {   checkModuleInstantiation('inexistent', 'EBox::Inexistent');  },
+	      { ok => 0 },
+	     );
     
-  # module that loads but  EBox::Global is not aware of it
-  test_out("not ok 1 - Cannot create an instance of the EBox's module unknown");
-  test_fail(+1);
-  checkModuleInstantiation('unknown', 'EBox::Unknown');
-  test_test(title => 'checkModuleInstantiation for a unknown module', skip_err => 1);
+  # unknown module
+  diag('checkModuleInstantiation for a unknown by EBox::Global module');
+  check_test (
+	      sub {  checkModuleInstantiation('unknown', 'EBox::Unknown');  },
+	      { ok => 0 },
+	     );
 
   # module that loads but  EBox::Global is not aware of it
-  test_out("not ok 1 - The instance returned of badCreate is not of type EBox::BadCreate instead is a EBox::Macaco");
-  test_fail(+1);
-  checkModuleInstantiation('badCreate', 'EBox::BadCreate');
-  test_test('checkModuleInstantiation for a unknown module');
+  diag('checkModuleInstantiation for a unknown module which fails in instatiaton');
+  check_test (
+	      sub {   checkModuleInstantiation('badCreate', 'EBox::BadCreate');  },
+	      { ok => 0 },
+	     );
 }
 
 
