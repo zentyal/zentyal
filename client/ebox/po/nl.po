@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-13 13:45+0100\n"
+"POT-Creation-Date: 2007-03-15 09:54+0100\n"
 "PO-Revision-Date: 2007-02-14 12:22+0000\n"
 "Last-Translator: Steven Pauwels <stevenpauwels@gmail.com>\n"
 "Language-Team: none\n"
@@ -75,11 +75,11 @@ msgstr "De media heeft niet genoeg capaciteit voor de gegevens"
 msgid "No blanking method for {media}  defined. Cannot erase it"
 msgstr "Geen wis-methode voor {media} gedefinieerd. Kan niet wissen"
 
-#: src/EBox/Backup/OpticalDisc.pm:123
+#: src/EBox/Backup/OpticalDisc.pm:126
 msgid "Unable to recognize the mounted DVD media"
 msgstr "Kan de geladen DVD media niet herkennen"
 
-#: src/EBox/Backup/OpticalDisc.pm:162
+#: src/EBox/Backup/OpticalDisc.pm:165
 msgid "Unable to recognize the mounted CD media"
 msgstr "Kan de geladen CD media niet herkennen"
 

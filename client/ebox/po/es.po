@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-13 13:45+0100\n"
+"POT-Creation-Date: 2007-03-15 09:54+0100\n"
 "PO-Revision-Date: 2007-02-02 14:08+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -88,11 +88,11 @@ msgstr ""
 "No puedo borrar el disco debido a que no se ha definido método de borrado "
 "para discos de tipo {media}"
 
-#: src/EBox/Backup/OpticalDisc.pm:123
+#: src/EBox/Backup/OpticalDisc.pm:126
 msgid "Unable to recognize the mounted DVD media"
 msgstr "No se pudo reconocer el CD insertado"
 
-#: src/EBox/Backup/OpticalDisc.pm:162
+#: src/EBox/Backup/OpticalDisc.pm:165
 msgid "Unable to recognize the mounted CD media"
 msgstr "No se pudo reconocer el DVd insertado"
 
