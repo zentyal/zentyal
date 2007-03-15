@@ -6,6 +6,11 @@ use Test::Exception;
 
 use lib '../../..';
 
+use EBox::TestStub;
+use Error qw(:try);
+
+EBox::TestStub::fake();
+
 
 BEGIN { use_ok 'EBox::Config::TestStub' }
 
@@ -39,18 +44,17 @@ sub mockTest
     my %afterMock = %beforeMock;
 
     $afterMock{prefix}  = '/macaco';
-    $afterMock{user}    = 'rhesus';
     $afterMock{logfile} = '/egypt/baboon.log';
     $afterMock{version} = '-0.4'; 
 
 
-    lives_ok { EBox::Config::TestStub::fake(prefix => $afterMock{prefix}, user => $afterMock{user}, logfile => $afterMock{logfile}, version => $afterMock{version}) };
-   can_ok('EBox::Config', @configKeys), 'Checking that the accessor subs are in the mesocked module';
+    lives_ok { EBox::Config::TestStub::fake(prefix => $afterMock{prefix}, user => $afterMock{user}, logfile => $afterMock{logfile}, version => $afterMock{version}) } 'mocking EBox::Config';
+   can_ok('EBox::Config', @configKeys);#, 'Checking that the accessor subs are in the mocked module';
 
     _checkConfigSubs(\%afterMock);
 
     lives_ok {EBox::Config::TestStub::unfake()};
-     can_ok('EBox::Config', @configKeys), 'Checking that after the unmock the config keys accessors are still here';
+     can_ok('EBox::Config', @configKeys);#, 'Checking that after the unmock the config keys accessors are still here';
 
     diag "Checking results after umocking EBox::Config";
 
@@ -65,13 +69,13 @@ sub setConfigKeysTest
     my %after = %before;
 
     $after{locale} = 'de';
-    $after{group}  = 'macacos';
+    $after{libexec}  = '/usr/bin/macacos';
     $after{css}    = '/home/dessign/css';
     $after{lang}   = 'de';
 
     
     EBox::Config::TestStub::fake();
-    lives_ok { EBox::Config::TestStub::setConfigKeys(locale => $after{locale}, group => $after{group}, css => $after{css}, lang => $after{lang}) };
+    lives_ok { EBox::Config::TestStub::setConfigKeys(libexec => $after{libexec}, group => $after{group}, css => $after{css}, lang => $after{lang}, locale => $after{locale}) };
 
     diag "Checking results after setConfigKeys call";
     _checkConfigSubs(\%after);
@@ -83,19 +87,40 @@ sub _checkConfigSubs
     my ($expectedResultsBySub_r) = @_;
 
     while (my ($subName, $expectedResult) = each %{$expectedResultsBySub_r}) {
-#	my $sub_r = EBox::Config::can($subName);
 	my $sub_r = UNIVERSAL::can('EBox::Config', $subName);
 	defined $sub_r or next;# die 'Sub not found';
 
-	my $actualResult =  $sub_r->();
-	is $actualResult, $expectedResult, "Checking result of $subName (was: $actualResult expected: $expectedResult)";
-    }
+      SKIP: {
+	  my $actualResult;
+	  try {
+	    $actualResult =  $sub_r->();
+	  }
+	    otherwise {
+	      skip 1, "To retrieve key $subName is needed a eBox full installation";
+	      next;
+	    };
+	  
+	  is $actualResult, $expectedResult, "Checking result of $subName (was: $actualResult expected: $expectedResult)";
+	}
+      }
 }
 
 sub _getConfigKeysAndValues
 {
     my @keyNames = @configKeys;
-    return map { $_ => (EBox::Config->can($_))->() }  @keyNames;
+    return map {
+      my $getter = EBox::Config->can($_);
+      my $value;
+      try {
+	$value = $getter->();
+      }
+      otherwise {
+	diag "can not get the vaule of $_ because it needs a eBox's full installation";
+	$value = undef;
+      };
+
+	($_ => $value)
+    }  @keyNames;
 }
 
 
