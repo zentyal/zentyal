@@ -5,6 +5,7 @@ use Test::More tests => 26;
 use Test::Exception;
 use Test::MockTime();
 use Test::Differences;
+
 use Test::MockObject;
 
 use lib '../..';
@@ -20,7 +21,7 @@ use constant {
 
 use lib '../..';
 
-use_ok('EBox::Auth');
+useOkTest();
 globalSetUp();
 setAndCheckPasswdTest();
 authen_cred_test();
@@ -29,8 +30,24 @@ alreadyLoggedTest();
 simultaneousLoginTest();
 defaultPasswdChangedTest();
 
+sub useOkTest
+{
+ Test::MockObject->fake_module('EBox::LogAdmin',
+				logAdminNow      => sub {},
+				logAdminDeferred => sub {},
+				commitPending    => sub {},
+				rollbackPending  => sub {},
+				pendingActions   => sub {},
+			       );
+
+ eval 'use EBox::Auth';
+ ok !$@, 'Module use test';
+}
+
+
 sub globalSetUp
 {
+ 
   my $testDir = '/tmp/ebox.auth.test';
   system "rm -rf $testDir";
   ($? == 0) or die "Error deleting $testDir: $!";

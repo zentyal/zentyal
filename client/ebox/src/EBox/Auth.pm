@@ -27,7 +27,7 @@ use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::Internal;
-use EBox::LogAdmin qw(:all);
+use EBox::LogAdmin;
 
 #By now, the expiration time for session is hardcoded here
 use constant EXPIRE => 3600; #In seconds  1h
@@ -128,7 +128,7 @@ sub setPassword # (password)
 
     print $PASSWD_F $encpasswd;
     close($PASSWD_F);
-    logAdminNow('ebox',__n('Password changed'),'');
+    EBox::LogAdmin::logAdminNow('ebox',__n('Password changed'),'');
 }
 
 
