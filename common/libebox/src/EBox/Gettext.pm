@@ -145,6 +145,7 @@ my $langs;
 $langs->{'an_ES.UTF-8'} = 'Aragonés';
 $langs->{'es_ES.UTF-8'} = 'Castellano';
 $langs->{'ca_ES.UTF-8'} = 'Català';
+$langs->{'de_DE.UTF-8'} = 'Deutsch';
 $langs->{'C'} = 'English';
 $langs->{'fr_FR.UTF-8'} = 'Français';
 $langs->{'nl_BE.UTF-8'} = 'Nederlands';

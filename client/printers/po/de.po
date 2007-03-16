@@ -1,9 +1,18 @@
+# #-#-#-#-#  de.po (ebox-printers 0.9)  #-#-#-#-#
 # Language =de translations for ebox-printers package.
 # Copyright (C) 2006 Warp S.L.
 # This file is distributed under the same license as the ebox-printers package.
 # Automatically generated, 2006.
+# #-#-#-#-#  de.po (ebox-printers 0.8.99)  #-#-#-#-#
+# Language =de translations for ebox-printers package.
+# Copyright (C) 2006 Warp S.L.
+# This file is distributed under the same license as the ebox-printers package.
+# Automatically generated, 2006.
+#
+#, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  de.po (ebox-printers 0.9)  #-#-#-#-#\n"
 "Project-Id-Version: ebox-printers 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-03-16 11:36+0100\n"
@@ -15,17 +24,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
+"#-#-#-#-#  de.po (ebox-printers 0.8.99)  #-#-#-#-#\n"
+"Project-Id-Version: ebox-printers 0.8.99\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2007-02-02 15:04+0100\n"
+"PO-Revision-Date: 2007-03-04 20:03+0100\n"
+"Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 
-#: src/EBox/CGI/Model.pm:39 src/EBox/CGI/USBPrinter.pm:40
-#: src/EBox/CGI/DriverUI.pm:46 src/EBox/CGI/SambaPrinterUI.pm:46
-#: src/EBox/CGI/ParallelPrinterUI.pm:46 src/EBox/CGI/DrvoptsUI.pm:46
-#: src/EBox/CGI/ManagePrinter.pm:40 src/EBox/CGI/USBPrinterUI.pm:46
+#: src/EBox/CGI/SambaPrinterUI.pm:46 src/EBox/CGI/SambaPrinter.pm:40
+#: src/EBox/CGI/DriverUI.pm:46 src/EBox/CGI/ManagePrinterUI.pm:46
+#: src/EBox/CGI/ManufacturerUI.pm:46 src/EBox/CGI/USBPrinterUI.pm:46
+#: src/EBox/CGI/NetworkPrinterUI.pm:46 src/EBox/CGI/Driver.pm:39
+#: src/EBox/CGI/Manufacturer.pm:39 src/EBox/CGI/ManagePrinter.pm:40
+#: src/EBox/CGI/NetworkPrinter.pm:40 src/EBox/CGI/USBPrinter.pm:40
+#: src/EBox/CGI/ModelUI.pm:46 src/EBox/CGI/ParallelPrinterUI.pm:46
+#: src/EBox/CGI/DrvoptsUI.pm:46 src/EBox/CGI/Model.pm:39
 #: src/EBox/CGI/DeleteUI.pm:46 src/EBox/CGI/ParallelPrinter.pm:40
-#: src/EBox/CGI/SambaPrinter.pm:40 src/EBox/CGI/ManagePrinterUI.pm:46
-#: src/EBox/CGI/NetworkPrinterUI.pm:46 src/EBox/CGI/Drvopts.pm:39
-#: src/EBox/CGI/ModelUI.pm:46 src/EBox/CGI/Manufacturer.pm:39
-#: src/EBox/CGI/Driver.pm:39 src/EBox/CGI/ManufacturerUI.pm:46
-#: src/EBox/CGI/NetworkPrinter.pm:40 src/EBox/Printers.pm:235
+#: src/EBox/CGI/Drvopts.pm:39 src/EBox/Printers.pm:235
 #: src/EBox/Printers.pm:363 src/EBox/Printers.pm:376 src/EBox/Printers.pm:393
 #: src/EBox/Printers.pm:449 src/EBox/Printers.pm:503 src/EBox/Printers.pm:539
 #: src/EBox/Printers.pm:556 src/EBox/Printers.pm:578 src/EBox/Printers.pm:604
@@ -38,32 +57,32 @@ msgstr ""
 #: src/EBox/Printers.pm:1136 src/EBox/Printers.pm:1167
 #: src/templates/printer.mas:138
 msgid "Printer"
-msgstr ""
+msgstr "Drucker"
 
 #: src/EBox/CGI/Model.pm:40 src/EBox/Printers.pm:765 src/EBox/Printers.pm:805
-#: src/templates/printerback.mas:16 src/templates/printerback.mas:31
-#: src/templates/printer.mas:155
+#: src/templates/printer.mas:155 src/templates/printerback.mas:16
+#: src/templates/printerback.mas:31
 msgid "Model"
-msgstr ""
+msgstr "Modell"
 
 #: src/EBox/CGI/AddPrinterUI.pm:30
 msgid "Add a new printer (I)"
-msgstr ""
+msgstr "Drucker hinzufügen (I)"
 
 #: src/EBox/CGI/USBPrinter.pm:41 src/EBox/CGI/ParallelPrinter.pm:41
-#: src/EBox/Printers.pm:584 src/EBox/Printers.pm:610
-#: src/templates/parallel.mas:19 src/templates/usb.mas:19
+#: src/EBox/Printers.pm:584 src/EBox/Printers.pm:610 src/templates/usb.mas:19
+#: src/templates/parallel.mas:19
 msgid "Device"
-msgstr ""
+msgstr "Gerät"
 
 #: src/EBox/CGI/DriverUI.pm:30
 msgid "Add a new printer (V)"
-msgstr ""
+msgstr "Drucker hinzufügen (V)"
 
-#: src/EBox/CGI/SambaPrinterUI.pm:30 src/EBox/CGI/ParallelPrinterUI.pm:30
-#: src/EBox/CGI/USBPrinterUI.pm:30 src/EBox/CGI/NetworkPrinterUI.pm:30
+#: src/EBox/CGI/SambaPrinterUI.pm:30 src/EBox/CGI/USBPrinterUI.pm:30
+#: src/EBox/CGI/NetworkPrinterUI.pm:30 src/EBox/CGI/ParallelPrinterUI.pm:30
 msgid "Add a new printer (II)"
-msgstr ""
+msgstr "Drucker hinzufügen (II)"
 
 #: src/EBox/CGI/SambaPrinterUI.pm:54 src/EBox/CGI/ParallelPrinterUI.pm:54
 #: src/EBox/CGI/DrvoptsUI.pm:53 src/EBox/CGI/USBPrinterUI.pm:54
@@ -74,352 +93,414 @@ msgstr ""
 #: src/templates/manufacturer.mas:24 src/templates/driver.mas:22
 #: src/templates/driver.mas:24 src/templates/models.mas:22
 #: src/templates/models.mas:24
+#, fuzzy
 msgid "Next"
 msgstr ""
+"#-#-#-#-#  de.po (ebox-printers 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-printers 0.8.99)  #-#-#-#-#\n"
+"Nächster"
 
 #: src/EBox/CGI/DrvoptsUI.pm:30
 msgid "Add a new printer (VI)"
-msgstr ""
+msgstr "Drucker hinzufügen (VI)"
 
 #: src/EBox/CGI/ManagePrinter.pm:51
 msgid "The printer has been deleted successfully"
-msgstr ""
+msgstr "Der Drucker wurde erfolgreich gelöscht"
 
 #: src/EBox/CGI/DeleteUI.pm:30
 msgid "Delete printer"
-msgstr ""
+msgstr "Drucker löschen"
 
-#: src/EBox/CGI/AddPrinter.pm:40 src/EBox/CGI/CancelJob.pm:40
+#: src/EBox/CGI/CancelJob.pm:40 src/EBox/CGI/AddPrinter.pm:40
 msgid "Printer's name"
-msgstr ""
+msgstr "Name des Druckers"
 
 #: src/EBox/CGI/AddPrinter.pm:41 src/EBox/Printers.pm:472
 #: src/EBox/Printers.pm:560 src/templates/addprinter.mas:25
 msgid "Method"
-msgstr ""
+msgstr "Methode"
 
 #: src/EBox/CGI/AddPrinter.pm:43
 msgid "Printer description"
-msgstr ""
+msgstr "Beschreibung des Druckers"
 
 #: src/EBox/CGI/Enable.pm:42
 msgid "module status"
-msgstr ""
+msgstr "Status des Moduls"
 
 #: src/EBox/CGI/SambaPrinter.pm:52
+#, fuzzy
 msgid "Shared resource"
 msgstr ""
+"#-#-#-#-#  de.po (ebox-printers 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-printers 0.8.99)  #-#-#-#-#\n"
+"Geteilte Ressource"
 
-#: src/EBox/CGI/SambaPrinter.pm:53 src/templates/printerback.mas:131
-#: src/templates/samba.mas:34
+#: src/EBox/CGI/SambaPrinter.pm:53 src/templates/samba.mas:34
+#: src/templates/printerback.mas:131
 msgid "Authentication"
-msgstr ""
+msgstr "Anmeldung"
 
-#: src/EBox/CGI/SambaPrinter.pm:61 src/templates/printerback.mas:166
-#: src/templates/samba.mas:69
+#: src/EBox/CGI/SambaPrinter.pm:61 src/templates/samba.mas:69
+#: src/templates/printerback.mas:166
 msgid "User"
-msgstr ""
+msgstr "Benutzer"
 
-#: src/EBox/CGI/SambaPrinter.pm:62 src/templates/printerback.mas:176
-#: src/templates/samba.mas:79
+#: src/EBox/CGI/SambaPrinter.pm:62 src/templates/samba.mas:79
+#: src/templates/printerback.mas:176
 msgid "Password"
-msgstr ""
+msgstr "Passwort"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:30
 msgid "Manage printer"
-msgstr ""
+msgstr "Drucker verwalten"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:58
 msgid "Printer details"
-msgstr ""
+msgstr "Details zu diesem Drucker"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:59
 msgid "Driver Options"
-msgstr ""
+msgstr "Treiberoptionen"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:60
 msgid "Configuration options"
-msgstr ""
+msgstr "Konfigurationsoptionen"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:61
 msgid "Jobs Queue"
-msgstr ""
+msgstr "Druckwarteschlange"
 
 #: src/EBox/CGI/CancelJob.pm:41
 msgid "Printer's id"
-msgstr ""
+msgstr "ID des Druckers"
 
 #: src/EBox/CGI/CancelJob.pm:42
 msgid "Job id"
-msgstr ""
+msgstr "ID des Druckauftrags"
 
 #: src/EBox/CGI/CancelJob.pm:54
 msgid "Job was successfully canceled"
-msgstr ""
+msgstr "Druckauftrag wurde erfolgreich abgebrochen"
 
 #: src/EBox/CGI/ModelUI.pm:30
 msgid "Add a new printer (IV)"
-msgstr ""
+msgstr "Drucker hinzufügen (IV)"
 
 #: src/EBox/CGI/Manufacturer.pm:40 src/EBox/Printers.pm:726
-#: src/templates/printerback.mas:22 src/templates/printer.mas:146
+#: src/templates/printer.mas:146 src/templates/printerback.mas:22
 msgid "Manufacturer"
-msgstr ""
+msgstr "Hersteller"
 
-#: src/EBox/CGI/Driver.pm:40 src/templates/printerback.mas:40
-#: src/templates/printer.mas:164
+#: src/EBox/CGI/Driver.pm:40 src/templates/printer.mas:164
+#: src/templates/printerback.mas:40
 msgid "Driver"
-msgstr ""
+msgstr "Treiber"
 
 #: src/EBox/CGI/ManufacturerUI.pm:30
 msgid "Add a new printer (III)"
-msgstr ""
+msgstr "Drucker hinzufügen (III)"
 
 #: src/EBox/CGI/ShowPrintersUI.pm:30 src/EBox/Printers.pm:333
 msgid "Manage printers"
-msgstr ""
+msgstr "Drucker verwalten"
 
 #: src/EBox/CGI/NetworkPrinter.pm:41 src/EBox/Printers.pm:635
-#: src/templates/network.mas:24 src/templates/printerback.mas:205
+#: src/templates/printerback.mas:205 src/templates/network.mas:24
 msgid "IP"
-msgstr ""
+msgstr "IP-Adresse"
 
 #: src/EBox/CGI/NetworkPrinter.pm:42 src/EBox/Printers.pm:636
-#: src/templates/network.mas:33 src/templates/printerback.mas:214
+#: src/templates/printerback.mas:214 src/templates/network.mas:33
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: src/EBox/Printers.pm:138
 msgid "Printer sharing"
-msgstr ""
+msgstr "Drucker teilen"
 
 #: src/EBox/Printers.pm:268 src/EBox/Printers.pm:1176
 msgid "Printers"
-msgstr ""
+msgstr "Drucker"
 
 #: src/EBox/Printers.pm:271
 msgid "Add printer"
-msgstr ""
+msgstr "Drucker hinzufügen"
 
 #: src/EBox/Printers.pm:468
 msgid ""
 "The printer's name contains characters not valid.Only alphanumeric "
 "characters are allowed"
 msgstr ""
+"Der Name des Druckers enthält ungültige Zeichen. Nur die Buchstaben A-z sind "
+"erlaubt"
 
 #: src/EBox/Printers.pm:477 src/templates/printer.mas:73
-#: src/templates/addprinter.mas:16 src/templates/printers.mas:19
+#: src/templates/printers.mas:19 src/templates/addprinter.mas:16
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: src/EBox/Printers.pm:485
 msgid "The given name is alreaday used as "
-msgstr ""
+msgstr "Der angegebene Name wird bereits verwendet als"
 
 #: src/EBox/Printers.pm:507 src/EBox/Printers.pm:1002
 #: src/EBox/Printers.pm:1046
 msgid "Printer not configured"
-msgstr ""
+msgstr "Drucker nicht konfiguriert"
 
 #: src/EBox/Printers.pm:589
 msgid "It is not a usb printer"
-msgstr ""
+msgstr "Das ist kein USB-Drucker"
 
 #: src/EBox/Printers.pm:615
 msgid "It is not a parallel printer"
-msgstr ""
+msgstr "Das ist kein Parallel-Drucker"
 
 #: src/EBox/Printers.pm:641
 msgid "It is not a network printer"
-msgstr ""
+msgstr "Das ist kein Netzwerk-Drucker"
 
 #: src/EBox/Printers.pm:670
 msgid "It is not a samba printer"
-msgstr ""
+msgstr "Das ist kein Samba-Drucker"
 
 #: src/EBox/Printers.pm:910 src/EBox/Printers.pm:936
 msgid "is not a valid option"
-msgstr ""
+msgstr "ist keine gültige Option"
 
 #: src/EBox/Printers.pm:1024
 #, perl-brace-format
 msgid "Parameter '{name}' does not exist"
-msgstr ""
+msgstr "Den Parameter \"{name}\" gibt es nicht"
 
 #: src/EBox/Printers.pm:1166 src/templates/printer.mas:69
+#, fuzzy
 msgid "Job ID"
 msgstr ""
+"#-#-#-#-#  de.po (ebox-printers 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-printers 0.8.99)  #-#-#-#-#\n"
+"ID des Druckauftrags"
 
 #: src/EBox/Printers.pm:1168 src/templates/printer.mas:71
 msgid "Owner"
-msgstr ""
+msgstr "Besitzer"
 
 #: src/EBox/Printers.pm:1169
+#, fuzzy
 msgid "Queued at"
 msgstr ""
+"#-#-#-#-#  de.po (ebox-printers 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-printers 0.8.99)  #-#-#-#-#\n"
+"In die Warteschlange gestellt am"
 
 #: src/EBox/Printers.pm:1170
 msgid "Event"
-msgstr ""
+msgstr "Ereignis"
 
 #: src/EBox/Printers.pm:1173
+#, fuzzy
 msgid "Queued"
 msgstr ""
+"#-#-#-#-#  de.po (ebox-printers 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-printers 0.8.99)  #-#-#-#-#\n"
+"In die Warteschlange gestellt"
 
 #: src/EBox/Printers.pm:1173
 msgid "Canceled"
-msgstr ""
+msgstr "Abgebrochen"
 
 #: src/templates/network.mas:16
+#, fuzzy
 msgid "Configure remote printer"
 msgstr ""
+"#-#-#-#-#  de.po (ebox-printers 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-printers 0.8.99)  #-#-#-#-#\n"
+"Entfernten Drucker konfigurieren"
 
 #: src/templates/del.mas:12
 #, perl-brace-format
 msgid "Are you sure you want to delete the printer '{name}'?"
-msgstr ""
+msgstr "Möchten Sie den Drucker \"{name}\" wirklich löschen?"
 
-#: src/templates/del.mas:22 src/templates/printer.mas:119
-#: src/templates/printer.mas:121 src/templates/printer.mas:123
+#: src/templates/printer.mas:119 src/templates/printer.mas:121
+#: src/templates/printer.mas:123 src/templates/del.mas:22
 #: src/templates/printers.mas:52 src/templates/printers.mas:54
 #: src/templates/printers.mas:56
 msgid "Delete"
-msgstr ""
+msgstr "Löschen"
 
 #: src/templates/del.mas:26
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: src/templates/printerback.mas:51 src/templates/printerback.mas:53
+#, fuzzy
 msgid "Go"
 msgstr ""
+"#-#-#-#-#  de.po (ebox-printers 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-printers 0.8.99)  #-#-#-#-#\n"
+"Los"
 
-#: src/templates/printerback.mas:62 src/templates/drvopts.mas:14
+#: src/templates/drvopts.mas:14 src/templates/printerback.mas:62
 msgid "Driver options"
-msgstr ""
+msgstr "Treiberoptionen"
 
-#: src/templates/printerback.mas:103 src/templates/printerback.mas:105
-#: src/templates/printerback.mas:225 src/templates/printerback.mas:227
 #: src/templates/printer.mas:32 src/templates/printer.mas:175
-#: src/templates/printer.mas:177
+#: src/templates/printer.mas:177 src/templates/printerback.mas:103
+#: src/templates/printerback.mas:105 src/templates/printerback.mas:225
+#: src/templates/printerback.mas:227
 msgid "Change"
-msgstr ""
+msgstr "Ändern"
 
 #: src/templates/printerback.mas:115
+#, fuzzy
 msgid "Samba shared printer configurationr"
 msgstr ""
+"#-#-#-#-#  de.po (ebox-printers 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-printers 0.8.99)  #-#-#-#-#\n"
+"Konfiguration für über Samba freigegebene Drucker"
 
 #: src/templates/printerback.mas:122 src/templates/samba.mas:25
+#, fuzzy
 msgid "Share resource"
 msgstr ""
+"#-#-#-#-#  de.po (ebox-printers 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-printers 0.8.99)  #-#-#-#-#\n"
+"Drucker freigeben"
 
-#: src/templates/printerback.mas:138 src/templates/printerback.mas:141
 #: src/templates/samba.mas:41 src/templates/samba.mas:44
+#: src/templates/printerback.mas:138 src/templates/printerback.mas:141
 msgid "Anonymous"
-msgstr ""
+msgstr "Anonym"
 
-#: src/templates/printerback.mas:146 src/templates/printerback.mas:149
 #: src/templates/samba.mas:49 src/templates/samba.mas:52
+#: src/templates/printerback.mas:146 src/templates/printerback.mas:149
 msgid "Guest"
-msgstr ""
+msgstr "Gast"
 
-#: src/templates/printerback.mas:154 src/templates/printerback.mas:157
 #: src/templates/samba.mas:57 src/templates/samba.mas:60
+#: src/templates/printerback.mas:154 src/templates/printerback.mas:157
 msgid "User/Password"
-msgstr ""
+msgstr "Benutzer/Passwort"
 
 #: src/templates/printerback.mas:198
+#, fuzzy
 msgid "Remote printer configuration"
 msgstr ""
+"#-#-#-#-#  de.po (ebox-printers 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-printers 0.8.99)  #-#-#-#-#\n"
+"Konfiguration für entfernte Drucker"
 
 #: src/templates/parallel.mas:15
 msgid "Local parallel printer configuration"
-msgstr ""
+msgstr "Konfiguration des lokalen Parallel-Druckers"
 
 #: src/templates/printer.mas:62
 msgid "Job queue"
-msgstr ""
+msgstr "Druckwarteschlange"
 
 #: src/templates/printer.mas:75
 msgid "Size(KB)"
-msgstr ""
+msgstr "Grösse (in KB)"
 
 #: src/templates/printer.mas:77
+#, fuzzy
 msgid "Creation time"
 msgstr ""
+"#-#-#-#-#  de.po (ebox-printers 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-printers 0.8.99)  #-#-#-#-#\n"
+"Erstellzeit"
 
 #: src/templates/printer.mas:79
 msgid "Action"
-msgstr ""
+msgstr "Aktion"
 
 #: src/templates/printer.mas:132
 msgid "This printer has no pending job in queue at the moment"
-msgstr ""
+msgstr "Dieser Drucker hat im Moment keine wartenden Druckaufträge"
 
 #: src/templates/addprinter.mas:10
+#, fuzzy
 msgid "Set printer name and method"
 msgstr ""
+"#-#-#-#-#  de.po (ebox-printers 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-printers 0.8.99)  #-#-#-#-#\n"
+"Wählen Sie den Druckernamen und die Druckmethode"
 
 #: src/templates/addprinter.mas:31
 msgid "Parallel"
-msgstr ""
+msgstr "Parallel"
 
 #: src/templates/addprinter.mas:33
 msgid "Network printer"
-msgstr ""
+msgstr "Netzwerkdrucker"
 
 #: src/templates/addprinter.mas:35
 msgid "Samba"
-msgstr ""
+msgstr "Samba"
 
 #: src/templates/drivers.mas:13
 msgid "Choose a dirver for the printer"
-msgstr ""
+msgstr "Wählen Sie einen Druckertreiber"
 
 #: src/templates/drivers.mas:21
 msgid "driver"
-msgstr ""
+msgstr "Treiber"
 
 #: src/templates/manufacturer.mas:12
 msgid "Choose manufacturer"
-msgstr ""
+msgstr "Wählen Sie einen Hersteller"
 
 #: src/templates/usb.mas:15
+#, fuzzy
 msgid "Local USB printer configuration"
 msgstr ""
+"#-#-#-#-#  de.po (ebox-printers 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-printers 0.8.99)  #-#-#-#-#\n"
+"Konfiguration der lokalen USB-Drucker"
 
 #: src/templates/driver.mas:12
 msgid "Choose a driver for the printer"
-msgstr ""
+msgstr "Wählen Sie einen Druckertreiber"
 
 #: src/templates/samba.mas:17
+#, fuzzy
 msgid "Samba shared printer configuration"
 msgstr ""
+"#-#-#-#-#  de.po (ebox-printers 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-printers 0.8.99)  #-#-#-#-#\n"
+"Konfiguration für über Samba freigegebene Drucker"
 
 #: src/templates/models.mas:13
 msgid "Choose a printer model"
-msgstr ""
+msgstr "Wählen Sie ein Druckermodell"
 
 #: src/templates/printers.mas:10
+#, fuzzy
 msgid "Printer sharing status"
 msgstr ""
+"#-#-#-#-#  de.po (ebox-printers 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-printers 0.8.99)  #-#-#-#-#\n"
+"Status der freigegebenen Drucker"
 
 #: src/templates/printers.mas:14
 msgid "List of printers"
-msgstr ""
+msgstr "Druckerliste"
 
 #: src/templates/printers.mas:21
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 #: src/templates/printers.mas:23
 msgid "Actions"
-msgstr ""
+msgstr "Aktionen"
 
 #: src/templates/printers.mas:43
 msgid "Manage"
-msgstr ""
+msgstr "Verwalten"
 
 #: src/templates/printers.mas:45 src/templates/printers.mas:47
 msgid "Manage this printer"
-msgstr ""
+msgstr "Diesen Drucker verwalten"
