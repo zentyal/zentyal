@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-13 17:40+0100\n"
+"POT-Creation-Date: 2007-03-16 11:38+0100\n"
 "PO-Revision-Date: 2007-01-09 15:15+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural= (n > 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
 
+#: src/EBox/CGI/View/RuleTable.pm:40 src/EBox/CGI/View/RuleMultiTable.pm:34
 #: src/EBox/CGI/Controller/RuleTable.pm:30
-#: src/EBox/CGI/View/RuleMultiTable.pm:34 src/EBox/CGI/View/RuleTable.pm:40
 msgid "Traffic Shaping rules"
 msgstr ""
 
@@ -25,18 +25,12 @@ msgstr ""
 msgid "Traffic Shaping Management"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:63
-msgid "Rules lists per interface"
+#: src/EBox/TC.pm:69
+msgid "options"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:67
-msgid ""
-"Select an external interface with gateways associated to add traffic shaping "
-"rules"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:69
-msgid "Choose an external interface to shape"
+#: src/EBox/TC.pm:107
+msgid "interface"
 msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:116
@@ -86,6 +80,20 @@ msgstr ""
 msgid "rule"
 msgstr ""
 
+#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:63
+msgid "Rules lists per interface"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:67
+msgid ""
+"Select an external interface with gateways associated to add traffic shaping "
+"rules"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:69
+msgid "Choose an external interface to shape"
+msgstr ""
+
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:229
 #, perl-brace-format
 msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
@@ -123,14 +131,6 @@ msgstr ""
 msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
 "maximum allowed traffic"
-msgstr ""
-
-#: src/EBox/TC.pm:69
-msgid "options"
-msgstr ""
-
-#: src/EBox/TC.pm:107
-msgid "interface"
 msgstr ""
 
 #: src/EBox/TrafficShaping.pm:63 src/EBox/TrafficShaping.pm:135

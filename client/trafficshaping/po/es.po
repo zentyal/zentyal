@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-13 17:40+0100\n"
+"POT-Creation-Date: 2007-03-16 11:38+0100\n"
 "PO-Revision-Date: 2007-03-13 16:45+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: none\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: Pootle 0.10.1\n"
 
+#: src/EBox/CGI/View/RuleTable.pm:40 src/EBox/CGI/View/RuleMultiTable.pm:34
 #: src/EBox/CGI/Controller/RuleTable.pm:30
-#: src/EBox/CGI/View/RuleMultiTable.pm:34 src/EBox/CGI/View/RuleTable.pm:40
 msgid "Traffic Shaping rules"
 msgstr "Reglas de moldeado de red"
 
@@ -25,21 +25,13 @@ msgstr "Reglas de moldeado de red"
 msgid "Traffic Shaping Management"
 msgstr "Gestión del moldeado de red"
 
-#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:63
-msgid "Rules lists per interface"
-msgstr "Listas de reglas por interfaz"
+#: src/EBox/TC.pm:69
+msgid "options"
+msgstr "opciones"
 
-#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:67
-msgid ""
-"Select an external interface with gateways associated to add traffic shaping "
-"rules"
-msgstr ""
-"Selecciona un interfaz externo con puertas de enlace asociadas para añadir "
-"reglas de moldeado de red"
-
-#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:69
-msgid "Choose an external interface to shape"
-msgstr "Elije un interfaz externo para moldear"
+#: src/EBox/TC.pm:107
+msgid "interface"
+msgstr "interfaz"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:116
 #: src/EBox/TrafficShaping.pm:179 src/EBox/TrafficShaping.pm:199
@@ -92,6 +84,22 @@ msgstr ""
 msgid "rule"
 msgstr "regla"
 
+#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:63
+msgid "Rules lists per interface"
+msgstr "Listas de reglas por interfaz"
+
+#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:67
+msgid ""
+"Select an external interface with gateways associated to add traffic shaping "
+"rules"
+msgstr ""
+"Selecciona un interfaz externo con puertas de enlace asociadas para añadir "
+"reglas de moldeado de red"
+
+#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:69
+msgid "Choose an external interface to shape"
+msgstr "Elije un interfaz externo para moldear"
+
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:229
 #, perl-brace-format
 msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
@@ -139,14 +147,6 @@ msgid ""
 msgstr ""
 "La tasa límite {lR} kbit/s debe ser menor que {maxLR} o debes incrementar el "
 "máximo tráfico permitido"
-
-#: src/EBox/TC.pm:69
-msgid "options"
-msgstr "opciones"
-
-#: src/EBox/TC.pm:107
-msgid "interface"
-msgstr "interfaz"
 
 #: src/EBox/TrafficShaping.pm:63 src/EBox/TrafficShaping.pm:135
 msgid "Traffic Shaping"

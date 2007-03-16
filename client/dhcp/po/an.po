@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-13 13:44+0100\n"
+"POT-Creation-Date: 2007-03-16 11:44+0100\n"
 "PO-Revision-Date: 2007-01-31 23:34+0000\n"
 "Last-Translator: Guillermo Frías Marín <espanyoldebarna@hotmail.com>\n"
 "Language-Team: none\n"
@@ -27,7 +27,7 @@ msgid "Interface"
 msgstr "Interfaz"
 
 #: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
-#: src/templates/fixed.mas:9 src/templates/ranges.mas:58
+#: src/templates/ranges.mas:58 src/templates/fixed.mas:9
 msgid "Name"
 msgstr "Nombre"
 
@@ -38,10 +38,6 @@ msgstr "Dende"
 #: src/EBox/CGI/AddRange.pm:45 src/templates/ranges.mas:62
 msgid "To"
 msgstr "Dica"
-
-#: src/EBox/CGI/Enable.pm:39
-msgid "module status"
-msgstr "estato d'o modulo"
 
 #: src/EBox/CGI/AddFixed.pm:43 src/EBox/DHCP.pm:730 src/EBox/DHCP.pm:1090
 #: src/templates/fixed.mas:11
@@ -55,6 +51,10 @@ msgstr "Adreza IP"
 #: src/EBox/CGI/Status.pm:42
 msgid "Module Status"
 msgstr "Estato d'o modulo"
+
+#: src/EBox/CGI/Enable.pm:39
+msgid "module status"
+msgstr "estato d'o modulo"
 
 #: src/EBox/DHCP.pm:107
 msgid ""
@@ -202,18 +202,6 @@ msgstr "Liberata"
 msgid "DHCP"
 msgstr "DHCP"
 
-#: src/templates/index.mas:16
-msgid "DHCP server status"
-msgstr "Estato d'o serbidor DHCP"
-
-#: src/templates/index.mas:26
-#, perl-brace-format
-msgid ""
-"DHCP server requires a static interface, {openhref}configure one{closehref} "
-"first"
-msgstr ""
-"O serbidor DHCP ha menester d'una interfaz estatica, confegure-la primero"
-
 #: src/templates/options.mas:8
 msgid "Options"
 msgstr "Ozions"
@@ -242,25 +230,6 @@ msgstr "Serbidor de nombres secundario"
 msgid "Apply"
 msgstr "Aplicar"
 
-#: src/templates/fixed.mas:5
-msgid "Fixed addresses"
-msgstr "Asinnazions estaticas"
-
-#: src/templates/fixed.mas:15 src/templates/ranges.mas:64
-msgid "Action"
-msgstr "Aizión"
-
-#: src/templates/fixed.mas:39 src/templates/fixed.mas:43
-#: src/templates/fixed.mas:45 src/templates/ranges.mas:83
-#: src/templates/ranges.mas:85 src/templates/ranges.mas:87
-msgid "Add"
-msgstr "Adibir"
-
-#: src/templates/fixed.mas:59 src/templates/fixed.mas:62
-#: src/templates/fixed.mas:64
-msgid "Remove"
-msgstr "Eliminar"
-
 #: src/templates/ranges.mas:15
 msgid "DHCP ranges"
 msgstr "Rans DHCP"
@@ -281,9 +250,41 @@ msgstr "Ran disponible"
 msgid "Ranges"
 msgstr "Rans"
 
+#: src/templates/ranges.mas:64 src/templates/fixed.mas:15
+msgid "Action"
+msgstr "Aizión"
+
+#: src/templates/ranges.mas:83 src/templates/ranges.mas:85
+#: src/templates/ranges.mas:87 src/templates/fixed.mas:39
+#: src/templates/fixed.mas:43 src/templates/fixed.mas:45
+msgid "Add"
+msgstr "Adibir"
+
 #: src/templates/ranges.mas:103 src/templates/ranges.mas:105
 #: src/templates/ranges.mas:107
 msgid "Delete"
+msgstr "Eliminar"
+
+#: src/templates/index.mas:16
+msgid "DHCP server status"
+msgstr "Estato d'o serbidor DHCP"
+
+#: src/templates/index.mas:26
+#, perl-brace-format
+msgid ""
+"DHCP server requires a static interface, {openhref}configure one{closehref} "
+"first"
+msgstr ""
+"O serbidor DHCP ha menester d'una interfaz estatica, {openhref}confegure-la "
+"primero{closehref}"
+
+#: src/templates/fixed.mas:5
+msgid "Fixed addresses"
+msgstr "Asinnazions estaticas"
+
+#: src/templates/fixed.mas:59 src/templates/fixed.mas:62
+#: src/templates/fixed.mas:64
+msgid "Remove"
 msgstr "Eliminar"
 
 #, fuzzy

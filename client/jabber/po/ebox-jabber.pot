@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Warp S.L.
-# This file is distributed under the same license as the ebox-jabber package.
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-jabber 0.9\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-15 12:53+0100\n"
+"POT-Creation-Date: 2007-03-16 11:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,16 +16,16 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:232
+msgid "domain"
+msgstr ""
+
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
 msgstr ""
 
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:297
 msgid "Jabber"
-msgstr ""
-
-#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:232
-msgid "domain"
 msgstr ""
 
 #: src/EBox/CGI/JabberUserOptions.pm:44

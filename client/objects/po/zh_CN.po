@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-13 13:46+0100\n"
+"POT-Creation-Date: 2007-03-16 11:35+0100\n"
 "PO-Revision-Date: 2005-11-11 13:18+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,17 +16,9 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
 
-#: src/EBox/CGI/Del.pm:42 src/EBox/CGI/Edit.pm:42 src/EBox/CGI/Add.pm:41
-#: src/EBox/CGI/DelFrom.pm:41 src/EBox/CGI/AddTo.pm:41 src/EBox/Objects.pm:214
+#: src/EBox/CGI/Del.pm:42 src/EBox/CGI/DelFrom.pm:41 src/EBox/CGI/AddTo.pm:41
+#: src/EBox/CGI/Edit.pm:42 src/EBox/CGI/Add.pm:41 src/EBox/Objects.pm:214
 msgid "Object name"
-msgstr ""
-
-#: src/EBox/CGI/Edit.pm:29 src/EBox/CGI/Edit.pm:39
-msgid "Edit Object"
-msgstr ""
-
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:41 src/EBox/Objects.pm:37
-msgid "Objects"
 msgstr ""
 
 #: src/EBox/CGI/AddTo.pm:45 src/templates/edit.mas:18
@@ -40,6 +32,14 @@ msgstr ""
 #: src/EBox/CGI/AddTo.pm:47 src/templates/edit.mas:16
 #: src/templates/index.mas:32
 msgid "Name"
+msgstr ""
+
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:41 src/EBox/Objects.pm:37
+msgid "Objects"
+msgstr ""
+
+#: src/EBox/CGI/Edit.pm:29 src/EBox/CGI/Edit.pm:39
+msgid "Edit Object"
 msgstr ""
 
 #: src/EBox/Objects.pm:42
@@ -82,26 +82,6 @@ msgstr ""
 msgid "network address"
 msgstr ""
 
-#: src/templates/delete.mas:10
-msgid "Deleting object"
-msgstr ""
-
-#: src/templates/delete.mas:13
-msgid ""
-"The object you tried to delete is being used by some modules, please confirm "
-"that you want to delete it."
-msgstr ""
-
-#: src/templates/delete.mas:23 src/templates/edit.mas:97
-#: src/templates/edit.mas:99 src/templates/edit.mas:101
-#: src/templates/index.mas:54 src/templates/index.mas:56
-msgid "Delete"
-msgstr ""
-
-#: src/templates/delete.mas:27
-msgid "Cancel"
-msgstr ""
-
 #: src/templates/edit.mas:11
 #, perl-brace-format
 msgid "Edit <span class='stitle'>{description}</span> members"
@@ -118,6 +98,12 @@ msgstr ""
 #: src/templates/edit.mas:63 src/templates/edit.mas:64
 #: src/templates/edit.mas:66
 msgid "Add"
+msgstr ""
+
+#: src/templates/edit.mas:97 src/templates/edit.mas:99
+#: src/templates/edit.mas:101 src/templates/index.mas:54
+#: src/templates/index.mas:56 src/templates/delete.mas:23
+msgid "Delete"
 msgstr ""
 
 #: src/templates/edit.mas:111
@@ -162,4 +148,18 @@ msgstr ""
 
 #: src/templates/index.mas:73
 msgid "delete"
+msgstr ""
+
+#: src/templates/delete.mas:10
+msgid "Deleting object"
+msgstr ""
+
+#: src/templates/delete.mas:13
+msgid ""
+"The object you tried to delete is being used by some modules, please confirm "
+"that you want to delete it."
+msgstr ""
+
+#: src/templates/delete.mas:27
+msgid "Cancel"
 msgstr ""

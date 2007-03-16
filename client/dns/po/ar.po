@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-13 13:44+0100\n"
+"POT-Creation-Date: 2007-03-15 15:54+0100\n"
 "PO-Revision-Date: 2006-11-27 12:41+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,8 +17,23 @@ msgstr ""
 "3 : n>=11 && n<=99 ? 4 : 5;\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
 
-#: src/EBox/CGI/Edit.pm:30 src/EBox/CGI/Edit.pm:40 src/EBox/CGI/Index.pm:30
-#: src/EBox/CGI/Index.pm:40 src/EBox/DNS.pm.in:363 src/EBox/DNS.pm.in:376
+#: src/EBox/CGI/DelHostname.pm:41 src/EBox/CGI/AddAlias.pm:41
+#: src/EBox/CGI/DelAlias.pm:41 src/EBox/CGI/AddDomain.pm:41
+#: src/EBox/CGI/DelDomain.pm:41 src/EBox/CGI/AddHostname.pm:41
+msgid "domain name"
+msgstr ""
+
+#: src/EBox/CGI/DelHostname.pm:45 src/EBox/CGI/AddAlias.pm:45
+#: src/EBox/CGI/DelAlias.pm:45 src/EBox/CGI/AddHostname.pm:45
+msgid "host name"
+msgstr ""
+
+#: src/EBox/CGI/Enable.pm:41
+msgid "module status"
+msgstr ""
+
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/CGI/Edit.pm:30
+#: src/EBox/CGI/Edit.pm:40 src/EBox/DNS.pm.in:363 src/EBox/DNS.pm.in:376
 msgid "DNS"
 msgstr ""
 
@@ -26,29 +41,14 @@ msgstr ""
 msgid "domain"
 msgstr ""
 
-#: src/EBox/CGI/Enable.pm:41
-msgid "module status"
-msgstr ""
-
-#: src/EBox/CGI/AddHostname.pm:41 src/EBox/CGI/DelDomain.pm:41
-#: src/EBox/CGI/DelAlias.pm:41 src/EBox/CGI/AddDomain.pm:41
-#: src/EBox/CGI/AddAlias.pm:41 src/EBox/CGI/DelHostname.pm:41
-msgid "domain name"
-msgstr ""
-
-#: src/EBox/CGI/AddHostname.pm:45 src/EBox/CGI/DelAlias.pm:45
-#: src/EBox/CGI/AddAlias.pm:45 src/EBox/CGI/DelHostname.pm:45
-msgid "host name"
+#: src/EBox/CGI/AddAlias.pm:46 src/EBox/CGI/DelAlias.pm:46
+#: src/EBox/DNS.pm.in:195 src/EBox/DNS.pm.in:200 src/templates/edit.mas:73
+#: src/templates/edit.mas:98
+msgid "Alias"
 msgstr ""
 
 #: src/EBox/CGI/AddHostname.pm:46 src/EBox/DNS.pm.in:132
 msgid "IP address"
-msgstr ""
-
-#: src/EBox/CGI/DelAlias.pm:46 src/EBox/CGI/AddAlias.pm:46
-#: src/EBox/DNS.pm.in:195 src/EBox/DNS.pm.in:200 src/templates/edit.mas:73
-#: src/templates/edit.mas:98
-msgid "Alias"
 msgstr ""
 
 #: src/EBox/DNS.pm.in:54 src/EBox/DNS.pm.in:115
