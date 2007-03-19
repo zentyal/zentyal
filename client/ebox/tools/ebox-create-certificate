@@ -1,0 +1,218 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use English '-no_match_vars';
+
+
+my $RSA_LENGTH = 1024;
+
+my %COMPROMISED_FILES_SUMS = (
+			'key' => '554056bd16e9f34db567dfd613b706bd',
+			'crt'=> 'c2b7b96aa141f8e0e415f6a977193433',
+			'pem' => '9b51c428fe86e6ac03fc1427c5bc0958',
+		       );
+
+
+_checkCredentials();
+_checkPrograms();
+
+my ($sysconfDir) = @ARGV;
+
+$sysconfDir or $sysconfDir = '/etc';
+if (not -d $sysconfDir ) {
+  die "System configuration $sysconfDir is not a directory.";
+}
+
+my $eboxDir  = _eboxDir($sysconfDir);
+
+my $keyFile  = _generateRSAKey($eboxDir, $RSA_LENGTH);
+my $certFile = _generateCert($eboxDir, $keyFile);
+_generatePem($eboxDir, $certFile, $keyFile);
+print "All server's certificate files generated\n\n";
+
+sub _checkCredentials
+{
+  if ($EUID != 0) {
+    die "This script can only be run by root";
+  }
+  
+  my ($gid) = split '\s', $EGID;
+  if ($gid != 0) {
+    die "To run this script your primary group must be set to root";
+  }
+}
+
+sub _checkPrograms
+{
+  my @programs = qw(openssl md5sum);
+  foreach (@programs) {
+    system "which $_";
+    if ($? != 0) {
+      die "$_ program not found in the path. Make sure it is installed";
+    }
+  }
+}
+
+sub _generateRSAKey
+{
+  my ($eboxDir, $length) = @_;
+
+  my $type    = 'key';
+  my $keyFile = _generateFileInfraestructure($type, $eboxDir);
+
+  return if not  $keyFile;
+
+  my @cmds = (
+	      "openssl genrsa $RSA_LENGTH > $keyFile",
+	      "chmod 0400 $keyFile",
+	     );
+
+  foreach (@cmds) {
+    system $_;
+    if ($? != 0) {
+      die "Generation of RSA key failed";
+    }
+  }
+
+  print "New key file generated\n";
+  return $keyFile;
+}
+
+
+sub _eboxDir
+{
+  my ($sysconfDir) = @_;
+  
+  my $eboxDir = "$sysconfDir/ebox";
+  if (not -d $eboxDir) {
+    die "eBox's directory $eboxDir not found";
+  }
+  
+
+  return $eboxDir;
+}
+
+
+sub _generateCert
+{
+  my ($eboxDir, $keyFile) = @_;
+
+  my $type = 'crt';
+  my $certFile = _generateFileInfraestructure($type, $eboxDir, 'cert');
+
+  return if not $certFile;
+
+  my $subject = q{/CN=eBox\'s\ Server/};
+
+  my @cmds = (
+	      "openssl req -new -x509 -batch -subj $subject  -sha1 -days 3650 -key $keyFile > $certFile",
+	      "chmod 0400 $certFile",
+	     );
+
+  foreach (@cmds) {
+    system $_;
+    if ($? != 0) {
+      die "Generation of CERT file failed";
+    }
+  }
+
+  print "New certificate file generated\n";
+  return $certFile;
+}
+
+
+sub _generatePem
+{
+  my ($eboxDir, $certFile, $keyFile,) = @_;
+
+  my $type = 'pem';
+  my $pemFile = _generateFileInfraestructure($type, $eboxDir);
+
+  return if not $pemFile;
+
+  my @cmds = (
+	      "cat $certFile $keyFile > $pemFile",
+	      "chmod 0400 $pemFile",
+	     );
+
+  foreach (@cmds) {
+    system $_;
+    if ($? != 0) {
+      die "Generation of PEM file failed";
+    }
+  }
+
+  print "New PEM file generated\n";
+}
+
+
+sub _generateFileInfraestructure
+{
+  my ($type, $eboxDir, $extension) = @_;
+  $extension or $extension = $type;
+
+  my $sslDir  = _sslDir($eboxDir, $type);
+  my $file     = "$sslDir/ebox.$extension";
+
+  if (_correctFileExists($type, $file)) {
+    print "$file already exists. Skipping generation\n";
+    return undef;
+  }
+
+  my  @cmds =  (
+		"touch $file",
+		 "chmod 0600 $file",
+		 );
+
+
+  foreach (@cmds) {
+    system $_;
+    if ($? != 0) {
+      die "Generation of $type file failed";
+    }
+  }
+
+  return $file;
+}
+
+sub _sslDir
+{
+  my ($eboxDir, $postfix) = @_;
+
+  my $sslDir = "$eboxDir/ssl.$postfix";
+  if (not -d $sslDir) {
+    print "Creating eBox's ssl.$postfix directory\n";
+    mkdir $sslDir, 0600;
+  }
+
+  return $sslDir;
+}
+
+
+
+sub _correctFileExists
+{
+  my ($type, $file) = @_;
+
+  if ( -e $file) {
+    my $compromisedSum = $COMPROMISED_FILES_SUMS{$type};
+    if (not $compromisedSum) {
+      warn "md5sum for type $type not found. For safety we assume it was compromised";
+    }
+    else {
+      my $md5sumOutput = `md5sum $file`;
+      ($? == 0) or die "Error calculating md5 sum of file $file";
+
+      my ($fileSum) = split '\s', $md5sumOutput; # removing file name
+      return 1 if $fileSum ne $compromisedSum;
+    }
+
+    
+    print "File $file was compromissed. Removing it\n";
+    unlink $file or die "Unable to remove $file";
+  }
+
+  return 0;
+}
+
+1;
