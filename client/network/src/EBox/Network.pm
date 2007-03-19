@@ -1718,11 +1718,11 @@ sub _multigwRoutes
 		my $mac = $router->{'mac'};
 		next if ( $mac eq 'unknown');
 		root("/sbin/iptables -t mangle -A PREROUTING  "
-		 . "-m mark --mark 0 -m mac --mac-source $mac "
+		 . "-m mark --mark 0/0xff -m mac --mac-source $mac "
 		 . "-m conntrack --ctstate NEW " 
 		 . "-j MARK --set-mark $marks->{$router->{'id'}}");		
 	}
-	root("/sbin/iptables -t mangle -A PREROUTING -m mark ! --mark 0 -j ACCEPT");
+	root("/sbin/iptables -t mangle -A PREROUTING -m mark ! --mark 0/0xff -j ACCEPT");
 
 	
 	for my $rule (@{$self->multigwrulesModel()->iptablesRules()}) {

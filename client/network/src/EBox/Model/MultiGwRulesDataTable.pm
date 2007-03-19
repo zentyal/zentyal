@@ -396,7 +396,8 @@ sub _buildIptablesRule
 				if ($rdst ne '') {
 					$rule .= " -d $rdst";
 				}
-				my $ruleMark  = "$rule -m mark --mark 0 -j MARK"
+				my $ruleMark  = "$rule -m mark --mark 0/0xff "
+						. "-j MARK"
 						. " --set-mark  $marks->{$gw}";
 				return ($ruleMark) ;
 			}
