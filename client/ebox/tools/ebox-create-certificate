@@ -25,10 +25,10 @@ if (not -d $sysconfDir ) {
 
 my $eboxDir  = _eboxDir($sysconfDir);
 
-my $keyFile  = _generateRSAKey($eboxDir, $RSA_LENGTH);
-my $certFile = _generateCert($eboxDir, $keyFile);
-_generatePem($eboxDir, $certFile, $keyFile);
-print "All server's certificate files generated\n\n";
+my ($keyFile, $keyUpdated)  = _generateRSAKey($eboxDir, $RSA_LENGTH);
+my $certFile = _generateCert($eboxDir, $keyFile, $keyUpdated);
+_generatePem($eboxDir, $certFile, $keyFile, $keyUpdated);
+print "All server's certificate files in place\n\n";
 
 sub _checkCredentials
 {
@@ -58,9 +58,9 @@ sub _generateRSAKey
   my ($eboxDir, $length) = @_;
 
   my $type    = 'key';
-  my $keyFile = _generateFileInfraestructure($type, $eboxDir);
+  my ($keyFile, $alreadyExists) = _generateFileInfraestructure($type, $eboxDir);
 
-  return if not  $keyFile;
+  return  ($keyFile, 0)  if   $alreadyExists;
 
   my @cmds = (
 	      "openssl genrsa $RSA_LENGTH > $keyFile",
@@ -75,7 +75,7 @@ sub _generateRSAKey
   }
 
   print "New key file generated\n";
-  return $keyFile;
+  return ($keyFile, 1);
 }
 
 
@@ -95,12 +95,12 @@ sub _eboxDir
 
 sub _generateCert
 {
-  my ($eboxDir, $keyFile) = @_;
+  my ($eboxDir, $keyFile, $keyUpdated) = @_;
 
   my $type = 'crt';
-  my $certFile = _generateFileInfraestructure($type, $eboxDir, 'cert');
+  my ($certFile, $alreadyExists) = _generateFileInfraestructure($type, $eboxDir, $keyUpdated, 'cert');
 
-  return if not $certFile;
+  return $certFile if $alreadyExists;
 
   my $subject = q{/CN=eBox\'s\ Server/};
 
@@ -123,12 +123,12 @@ sub _generateCert
 
 sub _generatePem
 {
-  my ($eboxDir, $certFile, $keyFile,) = @_;
+  my ($eboxDir, $certFile, $keyFile, $keyUpdated) = @_;
 
   my $type = 'pem';
-  my $pemFile = _generateFileInfraestructure($type, $eboxDir);
+  my ($pemFile, $alreadyExists) = _generateFileInfraestructure($type, $eboxDir, $keyUpdated);
 
-  return if not $pemFile;
+  return $pemFile if $alreadyExists;
 
   my @cmds = (
 	      "cat $certFile $keyFile > $pemFile",
@@ -148,15 +148,16 @@ sub _generatePem
 
 sub _generateFileInfraestructure
 {
-  my ($type, $eboxDir, $extension) = @_;
-  $extension or $extension = $type;
+  my ($type, $eboxDir, $alwaysDelete, $extension) = @_;
+  defined $alwaysDelete or $alwaysDelete = 0;
+  $extension            or $extension    = $type;
 
   my $sslDir  = _sslDir($eboxDir, $type);
   my $file     = "$sslDir/ebox.$extension";
 
-  if (_correctFileExists($type, $file)) {
+  if (_correctFileExists($type, $file, $alwaysDelete)) {
     print "$file already exists. Skipping generation\n";
-    return undef;
+    return ($file, 1);
   }
 
   my  @cmds =  (
@@ -172,7 +173,7 @@ sub _generateFileInfraestructure
     }
   }
 
-  return $file;
+  return ($file, 0);
 }
 
 sub _sslDir
@@ -192,7 +193,7 @@ sub _sslDir
 
 sub _correctFileExists
 {
-  my ($type, $file) = @_;
+  my ($type, $file, $alwaysDelete) = @_;
 
   if ( -e $file) {
     my $compromisedSum = $COMPROMISED_FILES_SUMS{$type};
@@ -204,11 +205,20 @@ sub _correctFileExists
       ($? == 0) or die "Error calculating md5 sum of file $file";
 
       my ($fileSum) = split '\s', $md5sumOutput; # removing file name
-      return 1 if $fileSum ne $compromisedSum;
+
+      if ($fileSum eq $compromisedSum) {
+	print "File $file was compromissed. Removing it\n";
+      }
+      elsif ($alwaysDelete) {
+	print "File $file is not updated. Removing it\n";
+      }
+      else {
+	# left file untouched...
+	return 1;
+      }
+
     }
 
-    
-    print "File $file was compromissed. Removing it\n";
     unlink $file or die "Unable to remove $file";
   }
 
