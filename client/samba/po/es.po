@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-16 11:36+0100\n"
+"POT-Creation-Date: 2007-03-20 11:04+0100\n"
 "PO-Revision-Date: 2006-10-25 13:00+0200\n"
 "Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
 "Language-Team: \n"
@@ -20,6 +20,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: KBabel 1.11.2\n"
+
+#: src/EBox/CGI/Enable.pm:42
+msgid "module status"
+msgstr "estado del módulo"
+
+#: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:66
+msgid "user name"
+msgstr "nombre de usuario"
+
+#: src/EBox/CGI/ActivePrinting.pm:48 src/EBox/CGI/ActiveSharing.pm:44
+#: src/EBox/SambaLdapUser.pm:462 src/EBox/SambaLdapUser.pm:490
+#: src/EBox/SambaLdapUser.pm:541
+msgid "group name"
+msgstr "nombre del grupo"
+
+#: src/EBox/CGI/ActiveSharing.pm:47
+msgid "sharing name"
+msgstr "nombre del recurso compartido"
+
+#: src/EBox/CGI/ActiveSharing.pm:69
+msgid "active"
+msgstr "activo"
+
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:204
+#: src/EBox/Samba.pm:212
+msgid "File sharing"
+msgstr "Compartir ficheros"
 
 #: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:436
 msgid "netbios"
@@ -40,33 +67,6 @@ msgstr "descripción"
 #: src/EBox/CGI/SambaConf.pm:46
 msgid "user quota"
 msgstr "cuota de usuario"
-
-#: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:66
-msgid "user name"
-msgstr "nombre de usuario"
-
-#: src/EBox/CGI/ActivePrinting.pm:48 src/EBox/CGI/ActiveSharing.pm:44
-#: src/EBox/SambaLdapUser.pm:462 src/EBox/SambaLdapUser.pm:490
-#: src/EBox/SambaLdapUser.pm:541
-msgid "group name"
-msgstr "nombre del grupo"
-
-#: src/EBox/CGI/Enable.pm:42
-msgid "module status"
-msgstr "estado del módulo"
-
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:204
-#: src/EBox/Samba.pm:212
-msgid "File sharing"
-msgstr "Compartir ficheros"
-
-#: src/EBox/CGI/ActiveSharing.pm:47
-msgid "sharing name"
-msgstr "nombre del recurso compartido"
-
-#: src/EBox/CGI/ActiveSharing.pm:69
-msgid "active"
-msgstr "activo"
 
 #: src/EBox/Samba.pm:251 src/EBox/Samba.pm:296
 msgid "listening port"
@@ -108,6 +108,102 @@ msgstr "Se debe proporcionar un nombre para el directorio compartido"
 #: src/EBox/SambaLdapUser.pm:503
 msgid "sharing resource"
 msgstr "recurso compartido"
+
+#: src/templates/delete.mas:10
+msgid "Deleting group"
+msgstr "Eliminar grupo"
+
+#: src/templates/delete.mas:12
+msgid ""
+"The group you tried to delete has a directory which contains data, if you "
+"remove it all its data will be removed. Please confirm that you want to "
+"delete it."
+msgstr ""
+"El grupo que ha intentado eliminiar tiene un directorio asociado el cual "
+"contiene dato, si lo elimina se perderán esos datos. Por favor confirme que "
+"desea eliminarlo"
+
+#: src/templates/delete.mas:20 src/templates/samba.mas:93
+#: src/templates/samba.mas:95
+msgid "Delete"
+msgstr "Eliminar"
+
+#: src/templates/delete.mas:24
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: src/templates/samba.mas:11
+msgid "PDC/File sharing account"
+msgstr "Cuenta de compartición de ficheros o de PDC"
+
+#: src/templates/samba.mas:18
+msgid "User account"
+msgstr "Cuenta de usuario"
+
+#: src/templates/samba.mas:24 src/templates/samba.mas:29
+msgid "Disabled"
+msgstr "Deshabilitado"
+
+#: src/templates/samba.mas:26 src/templates/samba.mas:31
+msgid "Enabled"
+msgstr "Habilitado"
+
+#: src/templates/samba.mas:39
+msgid "Administration rights"
+msgstr "Privilegios de administrador"
+
+#: src/templates/samba.mas:54 src/templates/samba.mas:56
+#: src/templates/samba.mas:88 src/templates/samba.mas:90
+#: src/templates/samba.mas:167 src/templates/samba.mas:169
+#: src/templates/index.mas:94 src/templates/index.mas:96
+msgid "Change"
+msgstr "Cambiar"
+
+#: src/templates/samba.mas:65
+msgid "Sharing directory for this group"
+msgstr "Directorio compartido para este grupo"
+
+#: src/templates/samba.mas:69
+msgid ""
+"You can set a share directory for this group, but you should keep in mind "
+"that Microsoft Windows 98 and Millenium will not be able to see names longer "
+"than 12 characters"
+msgstr ""
+"Es posible establecer un directorio compartido para este grupo, pero debería "
+"tener en cuenta que en Microsoft Windows 98 y Millenium no es posible ver "
+"los nombres de más de 12 caracteres"
+
+#: src/templates/samba.mas:76
+msgid "This resource name is longer than 12 characters."
+msgstr "El nombre del recurso es mayor de 12 carácteres."
+
+#: src/templates/samba.mas:80
+msgid "Directory name"
+msgstr "Nombre del directorio"
+
+#: src/templates/samba.mas:99 src/templates/samba.mas:101
+msgid "Add"
+msgstr "Añadir"
+
+#: src/templates/samba.mas:109
+msgid "Printers"
+msgstr "Impresoras"
+
+#: src/templates/samba.mas:111
+msgid "Select the printers this user will have access to."
+msgstr "Seleccione las impresoras a las que tendrá acceso este usuario."
+
+#: src/templates/samba.mas:122
+msgid "Printer"
+msgstr "Impresora"
+
+#: src/templates/samba.mas:124
+msgid "Allow"
+msgstr "Permitir"
+
+#: src/templates/samba.mas:147
+msgid "Allow all printers"
+msgstr "Permitir todas las impresoras"
 
 #: src/templates/index.mas:16
 msgid "PDC/File sharing service status"
@@ -155,103 +251,6 @@ msgstr "Descripción"
 #: src/templates/index.mas:83
 msgid "Quota limit"
 msgstr "Límite de cuota"
-
-#: src/templates/index.mas:94 src/templates/index.mas:96
-#: src/templates/samba.mas:54 src/templates/samba.mas:56
-#: src/templates/samba.mas:88 src/templates/samba.mas:90
-#: src/templates/samba.mas:167 src/templates/samba.mas:169
-msgid "Change"
-msgstr "Cambiar"
-
-#: src/templates/delete.mas:10
-msgid "Deleting group"
-msgstr "Eliminar grupo"
-
-#: src/templates/delete.mas:12
-msgid ""
-"The group you tried to delete has a directory which contains data, if you "
-"remove it all its data will be removed. Please confirm that you want to "
-"delete it."
-msgstr ""
-"El grupo que ha intentado eliminiar tiene un directorio asociado el cual "
-"contiene dato, si lo elimina se perderán esos datos. Por favor confirme que "
-"desea eliminarlo"
-
-#: src/templates/delete.mas:20 src/templates/samba.mas:93
-#: src/templates/samba.mas:95
-msgid "Delete"
-msgstr "Eliminar"
-
-#: src/templates/delete.mas:24
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: src/templates/samba.mas:11
-msgid "PDC/File sharing account"
-msgstr "Cuenta de compartición de ficheros o de PDC"
-
-#: src/templates/samba.mas:18
-msgid "User account"
-msgstr "Cuenta de usuario"
-
-#: src/templates/samba.mas:24 src/templates/samba.mas:29
-msgid "Disabled"
-msgstr "Deshabilitado"
-
-#: src/templates/samba.mas:26 src/templates/samba.mas:31
-msgid "Enabled"
-msgstr "Habilitado"
-
-#: src/templates/samba.mas:39
-msgid "Administration rights"
-msgstr "Privilegios de administrador"
-
-#: src/templates/samba.mas:65
-msgid "Sharing directory for this group"
-msgstr "Directorio compartido para este grupo"
-
-#: src/templates/samba.mas:69
-msgid ""
-"You can set a share directory for this group, but you should keep in mind "
-"that Microsoft Windows 98 and Millenium will not be able to see names longer "
-"than 12 characters"
-msgstr ""
-"Es posible establecer un directorio compartido para este grupo, pero debería "
-"tener en cuenta que en Microsoft Windows 98 y Millenium no es posible ver "
-"los nombres de más de 12 caracteres"
-
-#: src/templates/samba.mas:76
-#, fuzzy
-msgid "This resource name is longer than 12 characters."
-msgstr "El nombre del recurso compartido no puede superar 12 carácteres."
-
-#: src/templates/samba.mas:80
-msgid "Directory name"
-msgstr "Nombre del directorio"
-
-#: src/templates/samba.mas:99 src/templates/samba.mas:101
-msgid "Add"
-msgstr "Añadir"
-
-#: src/templates/samba.mas:109
-msgid "Printers"
-msgstr "Impresoras"
-
-#: src/templates/samba.mas:111
-msgid "Select the printers this user will have access to."
-msgstr "Seleccione las impresoras a las que tendrá acceso este usuario."
-
-#: src/templates/samba.mas:122
-msgid "Printer"
-msgstr "Impresora"
-
-#: src/templates/samba.mas:124
-msgid "Allow"
-msgstr "Permitir"
-
-#: src/templates/samba.mas:147
-msgid "Allow all printers"
-msgstr "Permitir todas las impresoras"
 
 #: stubs/smb.conf.mas:90
 msgid "Home Directories"
