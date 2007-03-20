@@ -141,35 +141,6 @@ sub _create
 	return $self;
 }
 
-sub new {
-
-  my $class = shift;
-  my $self = {};
-
-  bless($self, $class);
-
-  # OpenSSL environment stuff
-  $self->{tmpDir} = TEMPDIR;
-  $self->{shell} = OPENSSLPATH;
-
-  # The CA DN
-  $self->{dn} = $self->_obtain(CACERT, 'DN');
-  # Reasons to revoke
-  $self->{reasons} = ["unspecified",
-		      "keyCompromise",
-		      "CACompromise",
-		      "affiliationChanged",
-		      "superseded",
-		      "cessationOfOperation",
-		      "certificateHold",
-		      "removeFromCRL"];
-  # Expiration CA certificate
-  $self->{caExpirationDate} = $self->_obtain(CACERT, 'enddate');
-
-  return $self;
-
-}
-
 # Method: domain
 #
 #       Return the gettext domain

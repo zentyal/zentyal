@@ -30,9 +30,9 @@ BEGIN {
 }
 
 # Destroy anything related to this stuff
-system('rm -r /var/lib/ebox/CA');
+system("rm -r /var/lib/ebox/CA");
 
-my $ca = EBox::CA->new();
+my $ca = EBox::CA->_create();
 
 isa_ok ( $ca , "EBox::CA");
 
