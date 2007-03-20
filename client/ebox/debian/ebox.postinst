@@ -49,11 +49,14 @@ case "$1" in
 		# stop apache-perl
 		invoke-rc.d apache-perl stop
 
+		# create ebox's' apache certificates
+		ebox-create-certificate
+
 		#add the ebox group and user
 		touch /tmp/test.$$
 		chgrp ebox /tmp/test.$$ >/dev/null 2>&1 || addgroup --system ebox
 		chown ebox /tmp/test.$$ >/dev/null 2>&1 || 
-			adduser --system --home /var/lib/ebox/ --no-create-home \
+		adduser --system --home /var/lib/ebox/ --no-create-home \
 				--disabled-password --ingroup ebox ebox
 
 		# add the stderr file needed by sudo

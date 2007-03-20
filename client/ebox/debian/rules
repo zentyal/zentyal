@@ -41,17 +41,6 @@ install-indep: build config.status
 	install -m 644 $(CURDIR)/conf/.gconf.path \
 		$(CURDIR)/debian/ebox/var/lib/ebox/
 	install -m 600 conf/pgpass $(CURDIR)/debian/ebox/var/lib/ebox/.pgpass
-	install -d -m 755 $(CURDIR)/debian/ebox/etc/ebox/ssl.crt/
-	install -d -m 755 $(CURDIR)/debian/ebox/etc/ebox/ssl.key/
-	install -d -m 755 $(CURDIR)/debian/ebox/etc/ebox/ssl.pem/
-	install -m 600 $(CURDIR)/conf/ebox.cert \
-		$(CURDIR)/debian/ebox/etc/ebox/ssl.crt/
-	install -m 600 $(CURDIR)/conf/ebox.key \
-		$(CURDIR)/debian/ebox/etc/ebox/ssl.key/
-	cat $(CURDIR)/debian/ebox/etc/ebox/ssl.crt/ebox.cert \
-		$(CURDIR)/debian/ebox/etc/ebox/ssl.key/ebox.key > \
-		$(CURDIR)/debian/ebox/etc/ebox/ssl.pem/ebox.pem
-	chmod 600 $(CURDIR)/debian/ebox/etc/ebox/ssl.pem/ebox.pem
 	if [ -d tools/runit ] ; then \
 		pushd tools/runit ; \
 		for serv in * ; do \
