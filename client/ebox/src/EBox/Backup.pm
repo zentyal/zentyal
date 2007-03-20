@@ -816,8 +816,10 @@ sub restoreBackup # (file, %options)
 	if (-e "$tempdir/eboxbackup/$modname.bak") {
 	  push @restored, $modname;
 	  EBox::debug("Restoring $modname from backup data");
+	  $mod->setAsChanged(); # we set as cahnged first because it is not guaranteed that
 	  $mod->restoreBackup("$tempdir/eboxbackup", %options);
 	  $self->_migratePackage($mod->package());
+
 	}
 	else {
 	  EBox::error("Restore data not found for module $modname. Skipping $modname restore");
@@ -830,11 +832,17 @@ sub restoreBackup # (file, %options)
       foreach my $restname (@restored) {
 	my $restmod = EBox::Global->modInstance($restname);
 	$restmod->revokeConfig();
+	# XXX remember no-gconf changes are not revoked!
 	EBox::debug("Revoked changes in $restname module");
       }
 
       throw $ex;
     };
+
+    # all resotred modules are marked as changed
+    foreach my $mod (@modules) {
+      $mod->setAsChanged();
+    }
 
     EBox::info('Restore successful');
   }
