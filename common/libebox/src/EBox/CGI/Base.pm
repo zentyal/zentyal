@@ -752,7 +752,7 @@ sub upload
   # get upload contents
   my $UPLOAD_FH = $self->cgi->upload($uploadParam);
   if (not $UPLOAD_FH) {
-    throw EBox::Exceptions::External( __('Invalid upload file.'));
+    throw EBox::Exceptions::External( __('Invalid uploaded file.'));
   }
 
   my $fileContent = read_file($UPLOAD_FH, scalar_ref => 1);
