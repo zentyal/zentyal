@@ -24,6 +24,7 @@ use EBox::Gettext;
 use EBox::Global;
 # For exceptions
 use Error qw(:try);
+use EBox::Exceptions::DataInUse;
 
 # Method: new
 #
