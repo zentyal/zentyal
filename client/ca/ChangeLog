@@ -1,3 +1,13 @@
+0.9
+	+ Added German translation
+	+ Added Aragonese translation
+	+ Added Dutch translation
+	+ Fixed CRL permission issue related to ebox-openvpn module
+	+ Fixed bug related to back up configuration and create a bug
+	report when the certification authority has not created yet
+	+ Fixed random error issuing certificates
+	+ Make Organization Name visible at the GUI
+
 0.8.99	
 	+ Initial release
       
