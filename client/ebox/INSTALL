@@ -18,6 +18,12 @@ DEPENDENCIES
 	+ libproc-process-perl
 	+ libapache-singleton-perl
 	+ runit
+        + postgresql
+        + libdbd-pg-perl
+        + libfile-tail-perl
+        + libclone-perl
+        + openssl
+      
 
 
 RECOMMENDED 
@@ -75,6 +81,7 @@ INSTALLATION
 6.- Copy conf/.gconf.path to the home directory of the ebox user 
     ( /var/lib/ebox/ if the previous steps have been followed) and:
 	
+	chown ebox.ebox /var/lib/ebox/.gconf.path
 	mkdir /var/lib/ebox/gconf
 	chown ebox.ebox /var/lib/ebox/gconf
 
@@ -88,28 +95,77 @@ INSTALLATION
 
 
 
-8.- Remove the link to /etc/init.d/apache-perl from /etc/rc2.d/, the ebox script
-     will handle apache starts/stops through runit. To install runit scripts go
+8.- Remove the link to /etc/init.d/apache-perl from /etc/rc?.d/ directories, the ebox script
+     will handle apache starts/stops through runit. To remove them execute update-rc.d
+
+     update-rc.d -f apache-perl remove	
+
+	To install runit scripts go
      to the source directory and execute ebox-runit
 
     ebox-runit
 
-9.- To make ebox run on startup:
+9.- To make ebox run on startup execute , in the source directory:
 
-    cp tools/ebox /etc/init.d
+    cp tools/ebox /etc/init.d 
 
     Add a line like:
 EB:2:once:/etc/init.d/ebox start
     at the end (after the runit lines) of /etc/inittab
 
-10.- Create ebox.pem mixing ssl.cert and ssl.key:
-    
-    mkdir /etc/ebox/ssl.pem
-    cat /etc/ebox/ssl.crt/ebox.cert \
-        /etc/ebox/ssl.key/ebox.key > /etc/ebox/ssl.pem/ebox.pem
+10.-   Execute  the ebox-create-certificate script found in the tools directory. 
+       
+       ebox-create-certificate
+	
+
+11.- Copy conf/pgpass to the eBox home directory as .pgpass and change permissions and ownerhip.
+
+	cp conf/pgpass /var/lib/ebox/.pgpass
+        chmod 0600 /var/lib/ebox/.pgpass
+        chown ebox.ebox /var/lib/ebox/.pgpass
+
+12.- Create the database
+
+   db_name="eboxlogs"
+   db_user="eboxlogs"
+   db_pass="eboxlogs"
+
+   su postgres -c "createdb $db_name" 
+   su postgres -c "createuser -A -D $db_user" 
+   su postgres -c "GRANT ALL ON DATABASE $db_name TO  $db_user" 
+   su  postgres -c "psql -d template1 -c \"ALTER USER $db_user WITH PASSWORD \"\"'\"$db_pass\"'\" " 
+	cat <<EOF > /etc/postgresql/pg_hba.conf
+# TYPE  DATABASE    USER        IP-ADDRESS        IP-MASK           METHOD
+# Database administrative login by UNIX sockets
+local   all         postgres                                        ident sameuser
+#
+# eBox log database
+host    $db_name    $db_user     127.0.0.1       255.255.255.255 md5
+local   $db_name    $db_user                                        md5
+# All IPv4 connections from localhost
+host    all         all         127.0.0.1         255.255.255.255  ident sameuser
+# 
+# All IPv6 localhost connections
+host    all         all         ::1               ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff        ident sameuser
+host    all         all         ::ffff:127.0.0.1/128                ident sameuser
+# 
+# reject all other connection attempts
+host    all         all         0.0.0.0           0.0.0.0           reject
+EOF
 
 
-11.- Start ebox:
+13.-  Restart the database
+  
+  invoke-rc.d postgresql  restart
+
+
+14.- Create the admin user for database 
+
+
+		/usr/lib/ebox/ebox-sql-table add admin /usr/share/ebox/sqllog/admin.sql
+
+
+15.- Start ebox:
 	
 	/etc/init.d/ebox start
 
