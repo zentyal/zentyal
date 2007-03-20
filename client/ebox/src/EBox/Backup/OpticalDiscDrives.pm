@@ -193,7 +193,7 @@ sub  allowedMedia
 #         umountSub - sub that umount, if needed, the disc tha contains the file. Except when you umount the disc using another means (ex. eject) you must call this sub
 #
 # Limitations:
-#      we search only in optical disc drives that are user mountable
+#      we search only in optical disc drives that are user mountable. 
 #      if there are various drives and discs with the target file name, only one of them will be chosen. The choose criteria es undefined.
 # 
 sub searchFileInDiscs
@@ -211,7 +211,7 @@ sub searchFileInDiscs
 
     
     next if $device ne $allDevices;
-    if ( !($options =~ m/[\s,]user[\s,]/) ) {
+    if ( !($options =~ m/^|,user,|$/) ) {
       EBox::debug("device $device skipped because it has no user option set");
       next;
     }
