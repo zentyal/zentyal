@@ -1563,25 +1563,25 @@ sub _setLogAdminActions
     my ($self) = @_;
 
     $self->{actions} = {};
-    $self->{actions}->{addRule} = __n("Added rule under interface: {iface} with protocol: " .
-				      "{protocol} port: {port} guaranteed " .
-				      "rate: {gRate} limited rate to: {lRate} ".
-				      "priority: {priority} enabled: {enabled}");
-    $self->{actions}->{removeRule} = __n("Removed rule under interface: {iface} with protocol: " .
-					 "{protocol} port: {port} guaranteed " .
-					 "rate: {gRate} limited rate to: {lRate} ".
-					 "priority: {priority} enabled: {enabled}");
-    $self->{actions}->{enableRule} = __n("Enabled rule under interface: {iface} with protocol: " .
-					 "{protocol} port: {port} guaranteed " .
-					 "rate: {gRate} limited rate to: {lRate} ".
-					 "priority: {priority}");
-    $self->{actions}->{disableRule} = __n("Disabled rule under interface: {iface} with protocol: " .
-					 "{protocol} port: {port} guaranteed " .
-					 "rate: {gRate} limited rate to: {lRate} ".
-					 "priority: {priority}");
-
-    $self->{actions}->{updateRule} = __n("Update rule under interface: {iface} for the following " .
-					 "values:{values}");
+#    $self->{actions}->{addRule} = __n("Added rule under interface: {iface} with protocol: " .
+#				      "{protocol} port: {port} guaranteed " .
+#				      "rate: {gRate} limited rate to: {lRate} ".
+#				      "priority: {priority} enabled: {enabled}");
+#    $self->{actions}->{removeRule} = __n("Removed rule under interface: {iface} with protocol: " .
+#					 "{protocol} port: {port} guaranteed " .
+#					 "rate: {gRate} limited rate to: {lRate} ".
+#					 "priority: {priority} enabled: {enabled}");
+#    $self->{actions}->{enableRule} = __n("Enabled rule under interface: {iface} with protocol: " .
+#					 "{protocol} port: {port} guaranteed " .
+#					 "rate: {gRate} limited rate to: {lRate} ".
+#					 "priority: {priority}");
+#    $self->{actions}->{disableRule} = __n("Disabled rule under interface: {iface} with protocol: " .
+#					 "{protocol} port: {port} guaranteed " .
+#					 "rate: {gRate} limited rate to: {lRate} ".
+#					 "priority: {priority}");
+#
+#    $self->{actions}->{updateRule} = __n("Update rule under interface: {iface} for the following " .
+#					 "values:{values}");
 
   }
 

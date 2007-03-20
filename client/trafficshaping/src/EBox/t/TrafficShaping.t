@@ -51,9 +51,8 @@ lives_ok { $ruleModel = $ts->ruleModel('eth1') }
 lives_ok { $ruleModel->addRow(
 			      protocol        => 'tcp',
 			      port            => 80,
-			      guaranteed_rate => 10,
-			      limited_rate    => 11,
-			      enabled         => 1,
+			      guaranteed_rate => 60,
+			      limited_rate    => 61,
 			     );
 	 }
   'Adding a correct rule';
@@ -178,7 +177,7 @@ lives_ok { $ruleModel->setRow(
 			      id              => $ruleId,
 			      protocol        => 'tcp',
 			      port            => 21,
-			      guaranteed_rate => 10,
+			      guaranteed_rate => 100,
 			      limited_rate    => 0,
 			     );
 	 }
@@ -204,8 +203,8 @@ cmp_deeply(
 lives_ok { $ruleModel->addRow(
 			protocol        => 'tcp',
 			port            => 82,
-			guaranteed_rate => 10,
-			limited_rate    => 12,
+			guaranteed_rate => 100,
+			limited_rate    => 120,
 #			enabled         => 1,
 		       )
 	 }
@@ -222,8 +221,8 @@ foreach my $rule_ref (@{$rules_ref}) {
   $ruleId = $rule_ref->{ruleId};
   last if ($rule_ref->{protocol} eq 'tcp' and
 	   $rule_ref->{port} == 82 and
-	   $rule_ref->{guaranteed_rate} == 10 and
-	   $rule_ref->{limited_rate} == 12
+	   $rule_ref->{guaranteed_rate} == 100 and
+	   $rule_ref->{limited_rate} == 120
 	  );
 }
 
