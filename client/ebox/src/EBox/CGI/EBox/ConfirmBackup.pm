@@ -226,7 +226,7 @@ sub setPrintabletype
     $printableType = __('Configuration backup');
   }
   elsif ($type eq $EBox::Backup::FULL_BACKUP_ID) {
-    $printableType = __('Full data and configutarion backup');
+    $printableType = __('Full data and configuration backup');
   }  
   elsif ($type eq $EBox::Backup::BUGREPORT_BACKUP_ID) {
     $printableType = __('Bug-report configuration dump');
