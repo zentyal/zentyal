@@ -1930,22 +1930,41 @@ sub _gwReachable # (address, name?)
 	my $gw   = shift;
 	my $name = shift;
 
+	my $reachableByNoStaticIface = undef;
+
 	my $cidr_gw = "$gw/32";
-	foreach (@{$self->allIfaces()}) {
-		my $host = $self->ifaceAddress($_);
-		my $mask = $self->ifaceNetmask($_);
-		my $meth = $self->ifaceMethod($_);
-		checkIPNetmask($gw, $mask) or next;
-		($meth eq 'static') or next;
+	foreach my $iface (@{$self->allIfaces()}) {
+		my $host = $self->ifaceAddress($iface);
+		my $mask = $self->ifaceNetmask($iface);
+		EBox::debug("h $host mask $mask");
+
 		(defined($host) and defined($mask)) or next;
+
+		checkIPNetmask($gw, $mask) or next;
+
 		if (isIPInNetwork($host,$mask,$cidr_gw)) {
-			return 1;
+		  my $meth = $self->ifaceMethod($iface);
+		  EBox::debug("iface $iface method $meth");
+		  if ($meth ne 'static') {
+		    $reachableByNoStaticIface = $iface;
+		    next; 
+		  }
+
+		  return 1;
 		}
 	}
 
 	if ($name) {
-		   throw EBox::Exceptions::External(
-			   __x("Gateway {gw} not reachable", gw => $gw));
+	  EBox::debug("reacheableBuN: $reachableByNoStaticIface");
+	  if (not $reachableByNoStaticIface) {
+	    throw EBox::Exceptions::External(
+					     __x("Gateway {gw} not reachable", gw => $gw));
+	  }
+	  else {
+	    throw EBox::Exceptions::External(
+					     __x("Gateway {gw} must be reacheable by a static interface. Currently is reacheable by {iface} which is not static", gw => $gw, iface => $reachableByNoStaticIface) );
+	  }
+
         } else {
 		return undef;
 	}
