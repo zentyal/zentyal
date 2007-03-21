@@ -60,7 +60,6 @@ src/EBox/Makefile
 src/EBox/CGI/Makefile
 src/templates/Makefile
 src/libexec/Makefile
-src/libexec/ebox
 schemas/Makefile
 Makefile
 ])
