@@ -1936,7 +1936,6 @@ sub _gwReachable # (address, name?)
 	foreach my $iface (@{$self->allIfaces()}) {
 		my $host = $self->ifaceAddress($iface);
 		my $mask = $self->ifaceNetmask($iface);
-		EBox::debug("h $host mask $mask");
 
 		(defined($host) and defined($mask)) or next;
 
@@ -1944,7 +1943,6 @@ sub _gwReachable # (address, name?)
 
 		if (isIPInNetwork($host,$mask,$cidr_gw)) {
 		  my $meth = $self->ifaceMethod($iface);
-		  EBox::debug("iface $iface method $meth");
 		  if ($meth ne 'static') {
 		    $reachableByNoStaticIface = $iface;
 		    next; 
@@ -1955,7 +1953,6 @@ sub _gwReachable # (address, name?)
 	}
 
 	if ($name) {
-	  EBox::debug("reacheableBuN: $reachableByNoStaticIface");
 	  if (not $reachableByNoStaticIface) {
 	    throw EBox::Exceptions::External(
 					     __x("Gateway {gw} not reachable", gw => $gw));
