@@ -69,6 +69,7 @@ src/templates/Makefile
 migration/Makefile
 schemas/Makefile
 src/libexec/Makefile
+src/libexec/ebox
 stubs/Makefile
 tools/Makefile
 Makefile
