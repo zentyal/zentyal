@@ -6,7 +6,8 @@ ebox_bound() {
 	$libexec/dhcp-address.pl $interface $new_ip_address $new_subnet_mask
 	$libexec/dhcp-nameservers.pl $interface $new_domain_name_servers
 	$libexec/dhcp-gateway.pl $new_routers
-	if [ [ -x $firewall_script] ] ; then
+
+	if ( [ -x $firewall_script ] ); then
 	    $firewall_script
 	fi;
 }
@@ -31,7 +32,8 @@ ebox_renew() {
 		$libexec/dhcp-gateway.pl $new_routers
 	fi
 	if [ "$change" == "yes" ] ; then
-	    if [ [ -x $firewall_script] ] ; then
+
+	if ( [ -x $firewall_script ] ); then
 		$firewall_script
 	    fi;
 	fi
@@ -43,7 +45,7 @@ ebox_expire() {
 		$libexec/dhcp-clear-gateway.pl
 	fi
 
-	if [ [ -x $firewall_script] ] ; then
+	if ( [ -x $firewall_script ] ); then
 		$firewall_script $interface
 	fi;
 	
