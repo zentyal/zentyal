@@ -1,3 +1,9 @@
+0.9
+        + Added Aragonese translation
+	+ Added German translation
+	+ Removed dependency: dhcp-hooks don't require firewall module
+	anymore to operate correctly
+
 0.8.99
 	+ Support multigateway configuration
 	+ Remove old default router configuration
