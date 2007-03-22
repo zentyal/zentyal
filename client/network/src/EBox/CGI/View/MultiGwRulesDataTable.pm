@@ -40,13 +40,16 @@ sub new # (cgi=?)
 sub _process
 {
 	my $self = shift;
-	my $network = EBox::Global->modInstance('network');
+
+	my $global = EBox::Global->getInstance();
+	my $network = $global->modInstance('network');
 	my $model = $network->multigwrulesModel();
 	my @gateways = @{$network->gateways()};
 
 	my @params;
 	push(@params, 'data' => $model->rows());
 	push(@params, 'dataTable' => $model->tableInfo());
+	push(@params, 'hasChanged' => $global->unsaved());
 	
 	my $routersAvailable = 0;
 	if (@gateways > 1) {

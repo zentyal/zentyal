@@ -4,6 +4,7 @@
 @data
 $dataTable
 $routersAvailable
+$hasChanged
 </%args>
 	
 <%init>
@@ -19,5 +20,6 @@ use EBox::Gettext;
 % } else {
 
 	<& '/ajax/tableHeader.mas', ('data' => \@data, 
-								  'dataTable' => $dataTable) &>
+				     'dataTable' => $dataTable, 
+				     'hasChanged' => $hasChanged) &>
 % }
