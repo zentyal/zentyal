@@ -1,3 +1,8 @@
+0.9
+        + Added Aragonese translation
+	+ Added German translation
+	+ dhcp-hooks script will be installed by network module
+
 0.8.99
 	+ Add externalInput to FirewallObserver to provide rules for
 	  external interfaces
