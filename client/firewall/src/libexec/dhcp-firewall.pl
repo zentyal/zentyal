@@ -14,7 +14,7 @@ my $timeout = 60;
 my $global = EBox::Global->getInstance(1);
 $global->modExists("firewall") or exit(0);
 my $fw = $global->modInstance("firewall");
-my $logger = $global->logger;
+
 
 while ($timeout) {
 	try {
@@ -26,5 +26,5 @@ while ($timeout) {
 	};
 }
 
-$logger->error("DHCP hook: Firewall module has been locked for 60 seconds, ".
+EBox::error("DHCP hook: Firewall module has been locked for 60 seconds, ".
 		"I give up.");
