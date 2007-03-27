@@ -23,13 +23,8 @@ case "$1" in
 		
 		# stop cups
 		invoke-rc.d cupsys stop
-		
-                #sudo configuration
-		ebox-sudoers-friendly
-                chmod 0440 /etc/sudoers
 
 		adduser --quiet ebox lpadmin
-		
 
 		# create log table
 		/usr/lib/ebox/ebox-sql-table add jobs /usr/share/ebox/sqllog/printers.sql	
