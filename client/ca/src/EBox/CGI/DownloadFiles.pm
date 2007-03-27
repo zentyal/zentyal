@@ -113,9 +113,12 @@ sub _process
       if (EBox::Config->tmp() . $linkPrivate);
     link($files->{publicKey}, EBox::Config->tmp() . $linkPublic);
     link($files->{certificate}, EBox::Config->tmp() . $linkCert);
+
+    my $tarArgs = qq{'$zipfile' };
+    $tarArgs .= qq{'$linkPrivate' } if ( $linkPrivate );
+    $tarArgs .= qq{'$linkPublic' '$linkCert'};
     # -h to dump what links point to
-    my $ret = system("cd " . EBox::Config->tmp() . "; tar cvzhf $zipfile $linkPrivate " .
-		     "$linkPublic $linkCert");
+    my $ret = system("cd " . EBox::Config->tmp() . '; tar cvzhf ' . $tarArgs);
 
     unlink(EBox::Config->tmp() . $linkPrivate) if ($linkPrivate);
     unlink(EBox::Config->tmp() . $linkPublic);

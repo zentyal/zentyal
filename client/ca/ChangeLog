@@ -6,6 +6,7 @@
 	+ Fixed bug related to back up configuration and create a bug
 	report when the certification authority has not created yet
 	+ Fixed random error issuing certificates
+	+ Fixed names to accept all input valid parameters except for '/'
 	+ Make Organization Name visible at the GUI
 
 0.8.99	

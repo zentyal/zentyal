@@ -74,6 +74,14 @@ sub _process
       throw EBox::Exceptions::External(__('Days to expire MUST be a natural number'));
     }
 
+    # Only valid chars minus '/' --> security risk
+    unless ( index ( $name, '/' ) == -1 ) {
+      throw EBox::Exceptions::External(__('The input contains invalid ' .
+					  'characters. All alphanumeric characters, ' .
+					  'plus these non alphanumeric chars: .?&+:\@ ' .
+					  'and spaces are allowed.'));
+    }
+
     my $retValue;
     if ($issueCA) {
       $retValue = $ca->issueCACertificate( orgName       => $name,

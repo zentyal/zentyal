@@ -1,4 +1,4 @@
- # Copyright (C) 2006 Warp Networks S.L.
+# Copyright (C) 2006 Warp Networks S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -1127,7 +1127,6 @@ sub getCACertificateMetadata
 # Method: getKeys
 #
 #       Get the keys (public and private) from CA given an specific common name.
-#       Remove the private key from eBox.
 #
 # Parameters:
 #
@@ -1729,10 +1728,10 @@ sub _findCertFile # (commonName)
 	  return $certFile;
 	}
       }
- 
+
     }
     return $certFile;
-    
+
   }
 
 # Create a request certificate
@@ -1743,30 +1742,32 @@ sub _createRequest # (reqFile, genKey, privKey, keyPassword, dn, needPass?)
     my ($self, %args) = @_;
 
     # To create the request the distinguished name is needed
-    my $cmd = "req";
-    $self->_commonArgs("req", \$cmd);
+    my $cmd = 'req';
+    $self->_commonArgs('req', \$cmd);
 
-    $cmd .= "-new ";
-    $self->_commonArgs("req", \$cmd);
+    $cmd .= '-new ';
+    $self->_commonArgs('req', \$cmd);
     if ($args{genKey}) {
-      $cmd .= "-keyout \'$args{privKey}\' ";
+      $cmd .= qq{-keyout '$args{privKey}' };
       if (defined($args{keyPassword})) {
-	$cmd .= "-passout env:PASS ";
+	$cmd .= '-passout env:PASS ';
       } else {
 	# If the password is undefined, the keys are created and left
 	# unencrypted
-	$cmd .= "-nodes ";
+	$cmd .= '-nodes ';
       }
     } else {
-      $cmd .= "-key \'$args{privKey}\' ";
+      $cmd .= qq{-key '$args{privKey}' };
       if ($args{needPass}) {
-	$cmd .= "-passin env:PASS ";
+	$cmd .= '-passin env:PASS ';
       }
     }
 
-    $cmd .= "-out \'$args{reqFile}\' ";
-    $cmd .= "-subj \"". $args{dn}->stringOpenSSLStyle() . "\" ";
-    $cmd .= "-multivalue-rdn " if ( $args{dn}->stringOpenSSLStyle() =~ /[^\\](\\\\)*\+/);
+    $cmd .= qq{-out '$args{reqFile}' };
+    $cmd .= "-subj '" . $args{dn}->stringOpenSSLStyle() . "' ";
+    # Not implemented till 0.9.8
+    # $cmd .= '-multivalue-rdn ' if ( $args{dn}->stringOpenSSLStyle()
+    # =~ /[^\\](\\\\)*\+/);
 
     # We have to define the environment variable PASS to pass the
     # password
@@ -1775,7 +1776,7 @@ sub _createRequest # (reqFile, genKey, privKey, keyPassword, dn, needPass?)
     my ($retVal, $output) = $self->_executeCommand(COMMAND => $cmd);
     delete( $ENV{'PASS'} );
 
-    return $output if ($retVal eq "ERROR");
+    return $output if ($retVal eq 'ERROR');
     return;
 
   }
@@ -2329,7 +2330,7 @@ sub _executeCommand # (COMMAND, INPUT?, HIDE_OUTPUT?)
     ## run command
 
     my $command = $keys->{COMMAND};
-#   EBox::debug("Command: $command") ;
+   EBox::debug("Command: $command") ;
 
     my $input  = undef;
     $input   = $keys->{INPUT} if (exists $keys->{INPUT});
