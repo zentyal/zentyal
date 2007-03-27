@@ -4,6 +4,7 @@ use warnings;
 use Test::More tests => 10;
 use Test::Exception;
 use Error qw(:try);
+use EBox::Sudo;
 
 use lib '../..';
 
@@ -50,7 +51,7 @@ sub _backupCanaryTest
 
   $usersAndGroups->addUser ({user => $CANARY_USER, fullname => 'ea', password => 'ea', comment => 'ea'}, 0);
 
-  ok $usersAndGroups->userExists($CANARY_USER), 'Checking that canry was added';
+  ok $usersAndGroups->userExists($CANARY_USER), 'Checking that canary was added';
 
 
   lives_ok { $usersAndGroups->restoreBackup($BACKUP_DIR, fullRestore => 0)  }  "Configuration restore";
@@ -64,7 +65,7 @@ sub checkLdap
   system 'pgrep slapd';
   ok ($? == 0), 'Checking that slapd is active';
 
-  lives_ok { $usersAndGroups->users() } 'Checking tha we can get user list from ldap via users and groups';
+  lives_ok { $usersAndGroups->users() } 'Checking that we can get user list from ldap via users and groups';
 }
 
 
