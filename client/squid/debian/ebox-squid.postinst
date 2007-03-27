@@ -27,10 +27,6 @@ case "$1" in
 		# create swap directory
 		/usr/sbin/squid -z
 		
-		#sudo configuration
-		ebox-sudoers-friendly
-		chmod 0440 /etc/sudoers
-	
 		# create log table
                 /usr/lib/ebox/ebox-sql-table add access /usr/share/ebox/sqllog/squid.sql
 
