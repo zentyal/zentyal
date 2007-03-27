@@ -40,9 +40,6 @@ case "$1" in
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
 
-		# sudo configuration
-#		ebox-sudoers-friendly
-#		chmod 0440 /etc/sudoers
 			
 		# Init ldap data base
 		PASS="ebox$RANDOM$RANDOM"
