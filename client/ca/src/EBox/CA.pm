@@ -2330,7 +2330,7 @@ sub _executeCommand # (COMMAND, INPUT?, HIDE_OUTPUT?)
     ## run command
 
     my $command = $keys->{COMMAND};
-   EBox::debug("Command: $command") ;
+#   EBox::debug("Command: $command") ;
 
     my $input  = undef;
     $input   = $keys->{INPUT} if (exists $keys->{INPUT});
