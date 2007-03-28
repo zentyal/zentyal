@@ -130,9 +130,9 @@ sub _set_packagedomain
 }
 
 # Method: _unset_packagedomain
-# 
+#
 #	Restore de previous domain
-# 	
+#
 sub _unset_packagedomain
 {
 	if ($old_domain) {
@@ -147,6 +147,7 @@ $langs->{'es_ES.UTF-8'} = 'Castellano';
 $langs->{'ca_ES.UTF-8'} = 'Català';
 $langs->{'de_DE.UTF-8'} = 'Deutsch';
 $langs->{'C'} = 'English';
+$langs->{'eu_ES.UTF-8'} = 'Euskara';
 $langs->{'fr_FR.UTF-8'} = 'Français';
 $langs->{'nl_BE.UTF-8'} = 'Nederlands';
 $langs->{'pt_BR.UTF-8'} = 'Português';
