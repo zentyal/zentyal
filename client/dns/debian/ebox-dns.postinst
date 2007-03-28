@@ -23,10 +23,6 @@ case "$1" in
 		# stop bind9
 		invoke-rc.d bind9 stop
 
-		#sudo configuration
-		ebox-sudoers-friendly
-		chmod 0440 /etc/sudoers
-
 		invoke-rc.d ebox dns restart
 esac
 
