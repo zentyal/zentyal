@@ -25,6 +25,8 @@ use Data::Dumper;
 use EBox::Global;
 use EBox;
 
+use lib '../..';
+
 diag ( 'Starting EBox::TrafficShaping test' );
 
 BEGIN {
