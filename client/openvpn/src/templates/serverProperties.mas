@@ -14,7 +14,7 @@ my $certificateInput =  [
 			 name => 'certificate', 
 			 printableName => __('Certificate'), 
 			 input => 'select',
-			 options => \@certificateOptions,
+			 extraParams => [ options => \@certificateOptions] ,
 			 help => __('This certificate will be used by the server to authenticate itself'),
 			];
 
