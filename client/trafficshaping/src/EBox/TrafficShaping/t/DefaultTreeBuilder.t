@@ -25,11 +25,14 @@ use Test::Exception;
 use Test::Deep;
 use Data::Dumper;
 use Tree;
+
+use lib '../../..';
+
 diag ( 'Starting tc default tree structure test' );
 
 # Create a default builder and dump tc commands
 BEGIN {
-  use_ok( 'EBox::TrafficShaping::DefaultTreeBuilder' )
+  use_ok( 'EBox::TrafficShaping::TreeBuilder::Default' )
     or die;
 }
 
@@ -38,9 +41,9 @@ my $tcTree;
 my $rootValue;
 
 # Create default builder
-lives_ok { $builder = EBox::TrafficShaping::DefaultTreeBuilder->new( 'eth0' ) }
+lives_ok { $builder = EBox::TrafficShaping::TreeBuilder::Default->new( 'eth0' ) }
   'Creating default tree';
-isa_ok($builder, 'EBox::TrafficShaping::DefaultTreeBuilder' );
+isa_ok($builder, 'EBox::TrafficShaping::TreeBuilder::Default' );
 
 # Build root
 lives_ok { $tcTree = $builder->buildRoot() }
@@ -50,9 +53,9 @@ isa_ok($tcTree, 'Tree');
 # Check structure
 cmp_ok($tcTree->height(), '==', 1, 'Only 1 level tree');
 $rootValue = $tcTree->root()->value();
-isa_ok($rootValue, 'EBox::TrafficShaping::RootQDisc');
+isa_ok($rootValue, 'EBox::TrafficShaping::QDisc::Root');
 my $qd = $rootValue->getQueueDiscipline(); 
-isa_ok($qd, 'EBox::TrafficShaping::PFIFO_FAST');
+isa_ok($qd, 'EBox::TrafficShaping::QueueDiscipline::PFIFO_FAST');
 
 # Dump tc commands
 my @commands;
