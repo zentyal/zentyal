@@ -35,7 +35,8 @@ sub requiredParameters
 sub optionalParameters
 {
     my ($self) = @_;
-    if ($self->param('download')) {
+    # we use unsafeParam because download is free text and we don't use the value; only we check if the param is present
+    if ($self->unsafeParam('download')) {
 	[qw(download os clientCertificate )];
     }
     else {
@@ -68,7 +69,8 @@ sub actuate
 {
     my ($self) = @_;
  
-    if ($self->param('download')) {
+    # we use unsafeParam because download is free text and we don't use the value; only we check if the param is present
+    if ($self->unsafeParam('download')) {
 	my $openvpn = EBox::Global->modInstance('openvpn');
 
 	my $name              = $self->param('name');
