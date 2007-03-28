@@ -1,3 +1,4 @@
 deb http://ebox-platform.com/debian/stable/ ebox/
 deb http://ebox-platform.com/debian/stable/ extra/
-deb http://ebox-platform.com/debian/sarge/stable/ main/ security/
+deb http://ebox-platform.com/debian/sarge/stable/ main/
+deb http://ebox-platform.com/debian/sarge/stable/ security/
