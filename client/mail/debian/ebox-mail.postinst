@@ -26,10 +26,6 @@ case "$1" in
 		update-rc.d -f courier-pop remove
 		update-rc.d -f courier-pop-ssl remove
 
-		# sudo configuration
-		ebox-sudoers-friendly
-		chmod 0440 /etc/sudoers
-
 		# create directory for saslauthdaemon
 		SASLAUTHD="/var/spool/postfix/var/run/saslauthd"
 		test -d $SASLAUTHD || mkdir -p $SASLAUTHD
