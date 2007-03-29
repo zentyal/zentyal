@@ -1,20 +1,19 @@
-# German translations for ebox-trafficshaping package.
+# Arabic translations for ebox-trafficshaping package.
 # Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the ebox-trafficshaping package.
 # Automatically generated, 2007.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-03-29 23:14+0200\n"
-"PO-Revision-Date: 2007-01-09 15:15+0100\n"
+"PO-Revision-Date: 2007-03-16 11:38+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
 
 #: src/EBox/CGI/Controller/RuleTable.pm:30
 #: src/EBox/CGI/View/RuleMultiTable.pm:34 src/EBox/CGI/View/RuleTable.pm:40
