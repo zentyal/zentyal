@@ -61,8 +61,8 @@ eBox?--></para>
 		<para>
 		La dirección predeterminada para acceder al interfaz de
 		administración de eBox es <ulink url="#">https://hostname/eBox</ulink>,
-		donde <emphasis>hostname</emphasis> es la dirección IP o el nombre del 
-		host donde está instalado eBox.
+		donde <emphasis>hostname</emphasis> es la dirección IP
+		o el nombre de la máquina donde está instalado eBox.
 		</para>
 
 		<para>
@@ -94,8 +94,8 @@ eBox?--></para>
 					<para>
 					El menú horizontal, ubicado en la parte superior, contiene las 
 					<emphasis>opciones generales</emphasis> que sirven para guardar los cambios 
-					realizados en la parte de contenido y hacerlos efectivos,
-					para mostrar la ayuda y para salir de la aplicación.
+					realizados en la parte de contenido y hacerlos efectivos y para 
+				        salir de la aplicación.
 					</para>
 					<!-- FIXME: top menu screenshot -->
 				</listitem>
@@ -106,9 +106,9 @@ eBox?--></para>
 					<para>
 					El contenido, que ocupa la parte central, comprende uno o varios 
 					formularios con información acerca de la <emphasis>configuración del 
-					servicio seleccionado</emphasis> a traves del menú vertical izquierdo y sus submenús. 
+					servicio seleccionado</emphasis> a través del menú vertical izquierdo y sus submenús. 
 					En ocasiones, en la parte superior, aparecerá una barra de pestañas en la que
-					cada pestaña representará una subsección diferente de la seción a la que hemos accedido.
+					cada pestaña representará una subsección diferente de la sección a la que hemos accedido.
 					</para>
 					<!-- FIXME: content screenshot -->
 				</listitem>
@@ -160,6 +160,14 @@ eBox?--></para>
 							El ajuste de fecha y zona horaria del sistema
 							tampoco requiere guardar los cambios.
 							</para>
+						</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Gestión de certificados</term>
+						<listitem>
+							<para>
+							La creación, revocación y renovación de certificados por la autoridad
+							de certificación se realizará de manera directa.</para>
 						</listitem>
 				</varlistentry>
 				<varlistentry>

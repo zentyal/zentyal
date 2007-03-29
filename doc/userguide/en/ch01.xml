@@ -79,7 +79,7 @@ eBox?--></para>
 				<term>Horizontal upper menu</term>
 				<listitem>
 					<para>Horizontal menu, located at the upper zone, has links to save the new
-					changed made on contents part and make them real, to show the help and to
+					changed made on contents part and make them real and to
 					log out from the application.</para>
 					<!-- FIXME: top menu screenshot -->
 				</listitem>
@@ -140,6 +140,16 @@ eBox?--></para>
 							<para>Date and time zone
 							adjust for our system does not
 							require changes save, either.
+							</para>
+						</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Certificate Management</term>
+						<listitem>
+							<para>The creation,revokation
+							and renewal of certificates from
+							the Certification Authority is done
+							directly.
 							</para>
 						</listitem>
 				</varlistentry>
