@@ -59,6 +59,14 @@
 
 		<section>
 			<title>Virtual interfaces</title>
+			<para>
+			A virtual interface is the one which is
+			attached to a real one, and it is used to
+			listen or serve another IP address apart from
+			the real one, that is, the real interface can
+			assist two or more networks just creating as
+			many virtual interfaces as needed.
+			</para>
 			<para>It's possible to create new virtual interfaces bound to
 			any interface configured as static.</para>
 			<para>Once you have configured static interface, a form will

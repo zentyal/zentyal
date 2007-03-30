@@ -31,8 +31,9 @@
 				<listitem>
 					<para>These options are not required, and
 					leave them blank is OK. They are used to
-					define the default gateway and two Name
-					Servers in the network.</para>
+					define the default gateway, name domain search
+					and primary and secondary Name Servers 
+					in the network.</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>

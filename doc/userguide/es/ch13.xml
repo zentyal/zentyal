@@ -1,5 +1,3 @@
-	<!-- vim: ts=2 sw=2 tw=75
--->
 <chapter id="ch-dhcp">
 
 	<title>Servidor DHCP</title>
@@ -41,8 +39,9 @@
 				<listitem>
 					<para>
 					Estos apartados son opcionales, pudiendo quedar en blanco.
-					Se usan para especificar el router por defecto y dos 
-					servidores de nombres para la red.
+					Se usan para especificar la puerta de enlace por defecto, el
+					dominio de búsqueda de nombre y el servidor primario y secundario
+					de nombres para la red.
 					</para>
 				</listitem>
 			</varlistentry>

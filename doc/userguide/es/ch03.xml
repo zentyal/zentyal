@@ -69,8 +69,10 @@
 			<para>
 			Una interfaz virtual es aquella que se adjunta a una interfaz real, 
 			y se utiliza para escuchar o servir una dirección IP extra a la real, 
-			es decir podemos hacer que nuestra interfaz real atienda dos redes 
-			diferentes con sólo crear o agregar una interfaz virtual.
+			es decir podemos hacer que nuestra interfaz
+			real atienda dos o más redes diferentes con
+			sólo crear o agregar tantas
+			interfaces virtuales como necesitemos.
 			</para>
 			<para>
 			Es posible crear interfaces virtuales asociadas a cualquier
