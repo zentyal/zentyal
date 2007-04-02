@@ -8,8 +8,6 @@ case "$1" in
 
 		# restore script in dhclient.conf
 		sed -i 's/^script .*/#script/'  /etc/dhcp3/dhclient.conf || true
-		# remove exit-hook dhcp script
-#		rm -f /etc/dhcp3/dhclient-exit-hooks.d/ebox
 		;;		
 	purge)
 
