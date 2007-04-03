@@ -23,9 +23,6 @@ case "$1" in
 		# stop jabberd2-ldap-bdb  if it's running as a normal service
 		invoke-rc.d jabberd2-ldap-bdb  stop
 
-		# sudo configuration
-		ebox-sudoers-friendly
-		chmod 0440 /etc/sudoers
 
 		# regenerate slapd.conf
 		/usr/lib/ebox-usersandgroups/ebox-init-ldap genconfig
