@@ -25,7 +25,7 @@ foreach my $pkg (@ARGV) {
 }
 
 system("sudo /etc/init.d/ebox apache restart");
-system("sudo apt-get install -f");
+system("sudo apt-get install -f --yes");
 
 
 writeToFile("done");
