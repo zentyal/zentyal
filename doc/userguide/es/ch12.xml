@@ -1,5 +1,3 @@
-	<!-- vim: ts=2 sw=2 tw=75
--->
 <chapter id="ch-mail">
 
 	<title>Servidor de correo</title>
@@ -71,7 +69,7 @@
 		En 
 		<menuchoice>
 			<guimenu>Correo</guimenu>
-			<guimenuitem>Dominios Virtuales</guimenuitem>
+			<guimenuitem>Dominio Virtual</guimenuitem>
 		</menuchoice>
 		se pueden administrar los dominios virtuales, que dan nombre
 		de dominio a las cuentas de correo de los distintos

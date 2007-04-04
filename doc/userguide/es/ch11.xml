@@ -1,68 +1,123 @@
-	<!-- vim: ts=2 sw=2 tw=75
--->
 <chapter id="ch-files">
 
 	<title>Servidor de ficheros</title>
 	<!-- File Sharing -->
 
-	<section>
-		<title>Servidor de ficheros</title>
+	<section id='sect-files'>
+	  <title>Servidor de ficheros</title>
 
-		<para>
-		Se accede a la configuración del servidor de ficheros
-		a traves de 
-			<menuchoice>
-				<guimenu>Compartir ficheros</guimenu>
-			</menuchoice>
-		.
-		Para activar el servidor de ficheros simplemente seleccione
-		de la lista desplegable de estados, en la parte superior
-		de la ventana de configuración, el estado habilitado y acepte
-		el cambio pulsando en cambiar.
-		</para>
+	  <para>
+	    Se accede a la configuración de la compartición de ficheros
+	    a través de 
+	    <menuchoice>
+	      <guimenu>Compartir ficheros</guimenu>
+	    </menuchoice>
+	    .
+	    Para activar la compartición de ficheros simplemente seleccione
+	    de la lista desplegable de estados, en la parte superior
+	    de la ventana de configuración, el estado habilitado y acepte
+	    el cambio pulsando en cambiar.
+	  </para>
+	  
+	  <para>
+	    Hay dos modos de funcionamiento para este módulo. Se puede
+	    comportar como un simple servidor de ficheros usando el
+	    protocolo SMB/CIFS o también como un método de
+	    autenticación centralizado usando Primary Domain
+	    Controller (PDC) para entrar en sistemas basados en
+	    Windows NT.
+	  </para>
 
-		<para>
-		Para que el servidor de ficheros funcione correctamente,
-		además de habilitarlo, tendrá que configurar los siguientes
-		campos:
-		<variablelist>
-			<varlistentry>
-				<term>Grupo de trabajo</term>
-				<listitem>
-					<para>
-					Sólo los usuarios que pertenezcan al mismo grupo de 
-					trabajo pueden compartir sus ficheros entre sí.
-					</para>
-				</listitem>
-			</varlistentry>
-			<varlistentry>
-				<term>Nombre de netbios</term>
-				<listitem>
-					<para>
-					Nombre que tendrá la máquina dentro de la red.
-					</para>
-				</listitem>
-			</varlistentry>
-			<varlistentry>
-				<term>Descripción</term>
-				<listitem>
-					<para>
-					Descripción de la máquina.
-					</para>
-				</listitem>
-			</varlistentry>
-			<varlistentry>
-				<term>Quota limit</term>
-				<listitem>
-					<para>
-					Límite de tamaño de disco en MB a usar por cada uno 
-					de los usuarios. Si no se quieren imponer restricciones
-					de tamaño es suficiente poner en este campo un cero.
-					</para>
-				</listitem>
-			</varlistentry>
-		</variablelist>
-		</para>
+	  <para>
+	    Ambos modos de funcionamiento necesitan tener los
+	    siguientes campos configurados:
+	    <variablelist>
+	      <varlistentry>
+		<term>Nombre de dominio</term>
+		<listitem>
+		  <para>
+		    Sólo las máquinas y usuarios que pertenezcan al
+		    mismo dominio pueden compartir sus ficheros entre
+		    ellos. Con este nombre eBox será reconocido dentro
+		    de la red de área local.
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>Nombre de netbios</term>
+		<listitem>
+		  <para>
+		    Nombre aplicado al entorno antiguo NetBIOS que
+		    hace a eBox tener un nombre dentro del entorno Windows.
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>Descripción</term>
+		<listitem>
+		  <para>
+		    Descripción de la máquina eBox que se situa junto
+		    al nombre de Netbios para dar una detallada
+		    descripción dentro de los recursos de la red.
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>Límite de couta</term>
+		<listitem>
+		  <para>
+		    Límite de tamaño de disco en MB a usar por cada uno 
+		    de los usuarios. Si no se quieren imponer restricciones
+		    de tamaño es suficiente poner en este campo un cero.
+		  </para>
+		</listitem>
+	      </varlistentry>
+	    </variablelist>
+	  </para>
 	</section>
 
+	<section id='sect-shared-files'>
+	  <title>
+	    Directorios compartidos para usuarios y grupos
+	  </title>
+	  <para>
+	    Si el módulo de compartir ficheros está instalado y
+	    habilitado en eBox, quizá quieras compartir ficheros entre
+	    usuarios del mismo grupo o publicar ficheros dentro de la
+	    red de área local. Para conseguirlo, deberías ir a 
+	    <menuchoice>
+	      <guimenu>Usuarios</guimenu>
+	    </menuchoice>
+	    y editar al usuario que pueda publicar ficheros en la red
+	    local. Allí, se puede habilitar al usuario para hacerlo y,
+	    lo que es más, darle derechos de administrador para que
+	    pueda añadir máquinas al dominio, si el modo de
+	    funcionamiento es <emphasis>PDC</emphasis>. Visita la
+	    sección de <link
+	    linkend='sect-users-users'>usuarios</link> para saber más
+	    sobre la configuración de usuarios eBox.
+	  </para>
+
+	  <para>
+	    Si quieres compartir un directorio entre los usuarios
+	    dentro de un mismo grupo, debes ir a 
+	    <menuchoice>
+	      <guimenu>Grupos</guimenu>
+	    </menuchoice>
+	    y editar el grupo que quieras. Allí puedes poner un nombre
+	    para ese directorio.
+	  </para>
+
+	  <note>
+	    <para>
+	      Los permisos actuales para los ficheros permiten leer,
+	      escribir y ejecutar al propietario y leer y escribir a
+	      los usuarios del grupo. Respecto a los subdirectorios,
+	      el bit setgid está puesto, así que el propio de los
+	      subdirectorios del grupo será el propio grupo. Además,
+	      el acceso será total para el grupo.
+	    </para>
+	  </note>
+	</section>
+	
 </chapter>
