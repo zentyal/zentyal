@@ -146,7 +146,7 @@ sub _table
 			'tableDescription' => \@tableHead,
 			'class' => 'dataTable',
 			'order' => 0,
-			'help' => __('You can add as many gateways as you want. This is very useful if you want to split your internet traffic through serveral links.<br>The download and upload fields must be set as much rate as you have to your connection towards the gateway. The correct value of this fields is critical to ensure a correct functionality of the traffic shaping module'),
+			'help' => __x('You can add as many gateways as you want. This is very useful if you want to split your Internet traffic through several links.{br}The download and upload fields must be set as much rate as you have to your connection towards the gateway. The correct value of these fields is critical to ensure a correct functionality of the traffic shaping module', br => '<br>'),
 		        'rowUnique' => 0,
 		        'printableRowName' => __('gateway'),
 		};
