@@ -20,7 +20,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 20;
+use Test::More tests => 22;
 use Test::Exception;
 use Test::Deep;
 use Data::Dumper;
@@ -30,17 +30,23 @@ diag ( 'Starting tc HTB tree structure test' );
 
 # Create a HTB builder and dump tc commands
 BEGIN {
-  use_ok( 'EBox::TrafficShaping::HTBTreeBuilder' )
+  use_ok( 'EBox::TrafficShaping::TreeBuilder::HTB' )
+    or die;
+  use_ok( 'EBox::TrafficShaping' ) 
     or die;
 }
 
 my $builder;
 my $tcTree;
 my $rootValue;
+my $tsInstance;
 
-lives_ok { $builder = EBox::TrafficShaping::HTBTreeBuilder->new('eth0') }
+lives_ok { $tsInstance = EBox::TrafficShaping->_create() }
+  'Creating a Traffic Shaping module instance';
+
+lives_ok { $builder = EBox::TrafficShaping::TreeBuilder::HTB->new('eth0', $tsInstance) }
   'Creating builder';
-isa_ok($builder, 'EBox::TrafficShaping::HTBTreeBuilder' );
+isa_ok($builder, 'EBox::TrafficShaping::TreeBuilder::HTB' );
 
 # Build root
 throws_ok { $builder->buildRoot() } 'EBox::Exceptions::MissingArgument',
@@ -54,14 +60,14 @@ isa_ok($tcTree, 'Tree');
 # Check structure
 cmp_ok($tcTree->height(), '==', 3, 'Checking height');
 $rootValue = $tcTree->root()->value();
-isa_ok($rootValue, 'EBox::TrafficShaping::RootQDisc');
-isa_ok($rootValue->getQueueDiscipline(), 'EBox::TrafficShaping::HTB');
+isa_ok($rootValue, 'EBox::TrafficShaping::QDisc::Root');
+isa_ok($rootValue->getQueueDiscipline(), 'EBox::TrafficShaping::QueueDiscipline::HTB');
 
 # Checking child class
 my ($childNode) = $tcTree->root()->children();
 my $childValue = $childNode->value();
 
-isa_ok($childValue, 'EBox::TrafficShaping::ClassTS');
+isa_ok($childValue, 'EBox::TrafficShaping::Class');
 cmp_deeply($childValue->getIdentifier(),
 	   {
 	    major => 1,
@@ -73,10 +79,10 @@ cmp_deeply($childValue->getIdentifier(),
 my ($leafNode) = $childNode->children();
 my $leafValue = $leafNode->value();
 
-isa_ok($leafValue, 'EBox::TrafficShaping::ClassTS');
+isa_ok($leafValue, 'EBox::TrafficShaping::Class');
 my $qDisc = $leafValue->getAttachedQDisc();
-isa_ok($qDisc, 'EBox::TrafficShaping::QDisc');
-isa_ok($qDisc->getQueueDiscipline(), 'EBox::TrafficShaping::SFQ');
+isa_ok($qDisc, 'EBox::TrafficShaping::QDisc::Base');
+isa_ok($qDisc->getQueueDiscipline(), 'EBox::TrafficShaping::QueueDiscipline::SFQ');
 cmp_deeply(
 	   $qDisc->getIdentifier(),
 	   {
@@ -89,7 +95,7 @@ cmp_deeply(
 # Add another rule
 lives_ok { $builder->buildRule( protocol       => "tcp",
 				port           => 21,
-				guaranteedRate => 10,
+				guaranteedRate => 60,
 				limitedRate    => 0,
 				priority       => 2,
 			 );
@@ -128,5 +134,3 @@ lives_ok { @commands = @{$builder->dumpIptablesCommands()} }
   'Dumping iptables commands';
 
 diag("iptables commands: " . Dumper(\@commands));
-
-
