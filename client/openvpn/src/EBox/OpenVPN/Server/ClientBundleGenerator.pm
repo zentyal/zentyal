@@ -33,7 +33,7 @@ sub _generateClientConf
   else {
     my $network = EBox::Global->modInstance('network');
     my @addrs = map { $network->ifaceAddress($_) } @{ $network->ExternalIfaces( )};
-    @addrs  or throw Box::Exceptions::External(__(q{Can't get address for this server: no external interfaces present}));
+    @addrs  or throw EBox::Exceptions::External(__(q{Can't get address for this server: no external interfaces present}));
 
     @servers  = map { [$_, $port] } @addrs;
   }
