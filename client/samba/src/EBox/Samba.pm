@@ -69,12 +69,42 @@ sub domain
 	return 'ebox-samba';
 }
 
+
+# return interface upon samba should listen as a comma-separated string
+# XXX this is a quick fix for this version. See #529
+sub _interfacesToListenOn
+{
+  my ($self) = @_;
+  my $interfaces;
+  
+  my $global = EBox::Global->getInstance();
+
+  my $net = $global->modInstance('network');
+  my $internalIfaces = $net->InternalIfaces;
+
+  my @moduleGeneratedIfaces = ();
+
+  # XXX temporal  fix until #529 is fixed
+  if ($global->modExists('openvpn')) {
+    my $openvpn = $global->modInstance('openvpn');
+    my @openvpnServers = $openvpn->activeServers();
+    my @openvpnIfaces  = map { $_->iface() }  @openvpnServers;
+
+    push @moduleGeneratedIfaces, @openvpnIfaces;
+  }
+
+
+  $interfaces = join (',', @{$internalIfaces}, @moduleGeneratedIfaces, 'lo');
+  return $interfaces;
+}
+
 sub _setSambaConf
 {
 	my $self = shift;
 	
 	my $net = EBox::Global->modInstance('network');
-	my $interfaces = join (',', @{$net->InternalIfaces}, 'lo');
+	my $interfaces = $self->_interfacesToListenOn();
+
 	my $ldap = EBox::Ldap->instance();
 	my $smbimpl = new EBox::SambaLdapUser;
 	
