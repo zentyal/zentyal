@@ -5,6 +5,7 @@ use warnings;
 
 use EBox::Global;
 use EBox::Config;
+use EBox::Gettext;
 use EBox::FileSystem;
 use English qw(-no_match_vars);
 use File::Basename;
