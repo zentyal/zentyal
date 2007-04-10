@@ -7,7 +7,7 @@ Standards-Version: 3.6.1
 
 Package: ebox-usersandgroups
 Architecture: all
-Depends:  ebox (>= 0.8.99), ebox (<< 0.9.99), slapd (>=2.2.23-5), libnet-ldap-perl
+Depends:  ebox (>= 0.9), ebox (<< 0.9.99), slapd (>=2.2.23-5), libnet-ldap-perl
 Conflicts: ebox-samba (<< 0.7.0.99), ebox-mail (<< 0.7.0.99), ebox-jabber (<= 0.7.0.99)
 Description: User and Group management
  eBox is a framework for the development and deployment of security-wise
