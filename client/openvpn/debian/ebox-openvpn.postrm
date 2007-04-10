@@ -4,8 +4,8 @@ case "$1" in
 	remove)
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
-		# samba may be listtening on openvpn interface. We need a more general way to do this, see #529
-                /etc/init.d/ebox samba restart   || true # the true is here because samba module may not be installed
+		# openvpn changes network interfaces so we must restart network module to propagate the changes
+                /etc/init.d/ebox network restart   || true 
 		;;		
 esac
 
