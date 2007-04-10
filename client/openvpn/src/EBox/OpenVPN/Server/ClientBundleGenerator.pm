@@ -12,12 +12,12 @@ use File::Basename;
 use Error qw(:try);
 use Params::Validate qw(validate_pos);
 use File::Slurp qw(read_file);
-
+use EBox::Validate;
 
 
 sub _generateClientConf
 {
-  my ($class, $server, $file, $certificatesPath_r) = @_;
+  my ($class, $server, $file, $certificatesPath_r, $serversAddr_r) = @_;
 
   my @confParams;
   
@@ -26,9 +26,13 @@ sub _generateClientConf
 		     proto => $server->proto() ,
 		    );
   
-  my @servers = $class->_serversAddr($server);
-
-  @servers or throw EBox::Exceptions::External(__(q{Can't get address for this server}));
+  my $port      = $server->port();
+  my $checkLabel = __(q{Server's address});
+  my @servers =  map  {  
+                          EBox::Validate::checkIP($_, $checkLabel);
+                         [$_, $port] 
+		       }   @{ $serversAddr_r };
+  @servers or throw EBox::Exceptions::External(__x('You must provide at least one address for the server {name}', name => $server->name));
   push @confParams, (servers => \@servers);
 
   my %certificates = %{ $certificatesPath_r };
@@ -53,9 +57,10 @@ sub _generateClientConf
 }
 
 
-sub _serversAddr
+sub serversAddr
 {
   my ($class, $server,) = @_;
+  validate_pos(@_, 1, 1);
 
   # get local addresses 
   my @localAddr;
@@ -71,9 +76,8 @@ sub _serversAddr
   my @externalAddr = $class->_resolveExternalAddr(@localAddr);
   @externalAddr or  throw EBox::Exceptions::External(__x(q{Can't get external address for this server: Internet is not reacheable or {url} is down}, url => IPResolvUrl()));
 
-  my $port      = $server->port();
-  my @servers = map  {  [$_, $port] } @externalAddr;
-  return @servers;
+
+  return \@externalAddr;
 }
 
 
@@ -152,8 +156,8 @@ sub _clientCertificatesPaths
 #  XXX may be change the bundle so it call its destructor automatically when it falls out of scope
 sub clientBundle
 {
-  my ($class, $server, $clientCertificate) = @_;
-  validate_pos(@_, 1, 1, 1);
+  my ($class, $server, $clientCertificate, $serversAddr_r) = @_;
+  validate_pos(@_, 1, 1, 1, 1);
   
   ($clientCertificate ne $server->certificate()) or throw EBox::Exceptions::External(__(q{The client certificate can't be the same than the server}));
   
@@ -167,7 +171,7 @@ sub clientBundle
 
     # client configuration file
     my $confFile = $class->_confFile($server, $tmpDir);
-    $class->_generateClientConf($server, $confFile, $certificatesPath_r);
+    $class->_generateClientConf($server, $confFile, $certificatesPath_r, $serversAddr_r);
 
     $class->_copyCertFilesToDir($certificatesPath_r, $tmpDir);
     

@@ -706,7 +706,7 @@ sub init
 
 sub clientBundle
 {
-  my ($self, $os, $clientCertificate) = @_;
+  my ($self, $os, $clientCertificate, $addresses) = @_;
 
   if ( !($os eq any('linux', 'windows')) ) {
     throw EBox::Exceptions::External('Unsupported operative system: {os}', os => $os);
@@ -714,7 +714,7 @@ sub clientBundle
 
   my $class = 'EBox::OpenVPN::Server::ClientBundleGenerator::' . ucfirst $os;
 
-  return $class->clientBundle($self, $clientCertificate);
+  return $class->clientBundle($self, $clientCertificate, $addresses);
 }
 
 

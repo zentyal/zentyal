@@ -1068,6 +1068,24 @@ sub _anyDaemonReturnsTrue
   return undef;
 }
 
+
+#  XXX this ugly override is to assure than changes in openvpn. mark network as changed
+#  this is necessary because network-dependent modules must be aware of the network interface
+#  changes that openvpn provokes (the _backup method is used to mark the modules as changed)
+# XXX we do not usae it because the order of initialization rends it useless.. for the moment
+# sub _backup
+# {
+#   my ($self) = @_;
+
+#   my $network = EBox::Global->modInstance('network');
+#   $network->setAsChanged();
+
+#   # continue normal invokation..
+#   $self->SUPER::_backup();
+# }
+
+
+
 # Method: menu 
 #
 #       Overrides <EBox::Module::menu> method.

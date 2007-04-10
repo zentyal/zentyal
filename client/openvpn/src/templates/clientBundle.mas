@@ -2,6 +2,7 @@
 $name
 $disabled
 @availableCertificates
+@addresses
 </%args>
 <%init>
 use EBox::Gettext;
@@ -29,17 +30,38 @@ my $osInput = [
 			];
 
 
+
+
+my $nInputs = @addresses;
+$nInputs = 2 if $nInputs < 2;
+my @addressesInputs = ();
+foreach my $i (0 .. $nInputs) {
+  my $name = "ip$i";
+  my $value = $i > @addresses ? '' : $addresses[$i];
+
+  my $printableName;
+  my $help;
+  if ($i == 0) {
+    $printableName = __(q{Server's IP address});
+    $help          = __('This should be the IP address used to reach the server.');
+  }
+  else {
+    $printableName = __(q{Additional server's IP address (optional)});
+    $help          = __('An addtional address to reach the server can be specified here');
+   }
+  
+  my $input = [  name => $name, value => $value, printableName => $printableName, help => $help ];
+  push @addressesInputs, $input;
+}
+
+
 my @formElements = (
                      [ 
 		        name => 'name', value => $name, input =>'hidden',
 		     ],
                      $osInput,
 		     $certificateInput,
-#		     [ 
-#		       name => 'confDir', input => 'text',
-#		       printableName => __(q{Client's OpenVPN configuration folder}),
-#		       help => __('You must type in the folder in the client machine where the configuration and certificates files will be placed'),
-#		     ],
+		     @addressesInputs,
 		     [ 
 		       name => 'download', input => 'submit',
 		       value => __(q{Download client's files}),
