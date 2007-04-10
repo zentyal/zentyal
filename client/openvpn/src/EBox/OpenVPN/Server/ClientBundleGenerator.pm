@@ -11,6 +11,8 @@ use English qw(-no_match_vars);
 use File::Basename;
 use Error qw(:try);
 use Params::Validate qw(validate_pos);
+use File::Slurp qw(read_file);
+
 
 
 sub _generateClientConf
@@ -24,19 +26,7 @@ sub _generateClientConf
 		     proto => $server->proto() ,
 		    );
   
-  my @servers;
-  my $port      = $server->port();
-  my $localAddr = $server->localAddress();
-  if ($localAddr) {
-    @servers = ([$localAddr, $port]);
-  }
-  else {
-    my $network = EBox::Global->modInstance('network');
-    my @addrs = map { $network->ifaceAddress($_) } @{ $network->ExternalIfaces( )};
-    @addrs  or throw EBox::Exceptions::External(__(q{Can't get address for this server: no external interfaces present}));
-
-    @servers  = map { [$_, $port] } @addrs;
-  }
+  my @servers = $class->_serversAddr($server);
 
   @servers or throw EBox::Exceptions::External(__(q{Can't get address for this server}));
   push @confParams, (servers => \@servers);
@@ -62,11 +52,71 @@ sub _generateClientConf
   EBox::GConfModule->writeConfFile($file, 'openvpn/noebox-openvpn-client.conf.mas', \@confParams, $fileOptions);
 }
 
+
+sub _serversAddr
+{
+  my ($class, $server,) = @_;
+
+  # get local addresses 
+  my @localAddr;
+  if ($server->localAddress()) {
+    push @localAddr, $server->localAddress();
+  }
+  else {
+    my $network = EBox::Global->modInstance('network');
+    @localAddr = map { $network->ifaceAddress($_) } @{ $network->ExternalIfaces( )};
+    @localAddr  or throw EBox::Exceptions::External(__(q{Can't get address for this server: no external interfaces present}));
+  }
+
+  my @externalAddr = $class->_resolveExternalAddr(@localAddr);
+  @externalAddr or  throw EBox::Exceptions::External(__x(q{Can't get external address for this server: Internet is not reacheable or {url} is down}, url => IPResolvUrl()));
+
+  my $port      = $server->port();
+  my @servers = map  {  [$_, $port] } @externalAddr;
+  return @servers;
+}
+
+
+sub IPResolvUrl
+{
+  my ($onlyHost) = @_;
+
+  return 'www.showmyip.com' if $onlyHost;
+  return 'http://www.showmyip.com/simple/';
+}
+
 sub confFileExtraParameters
 {
   return ();
 }
 
+
+sub _resolveExternalAddr
+{
+  my ($class, @localAddr) = @_;
+
+  my $addrFile = EBox::Config::tmp() . '/openvpn-wget.html';
+  if (-e $addrFile) {
+    unlink $addrFile or throw EBox::Exceptions::Internal("Cannot remove temporal file $addrFile");
+  }
+
+  my %externalAddr;
+  foreach my $local (@localAddr) {
+    my $cmd = "wget -O $addrFile --bind-address=$local " . IPResolvUrl();
+    system $cmd;
+    if ($? == 0)  {
+      my $contents = read_file($addrFile);
+      my ($ipAddr) = split '\s', $contents, 2;
+      $externalAddr{$ipAddr} = 1;
+    } 
+    
+    if (-e $addrFile) {
+      unlink $addrFile or throw EBox::Exceptions::Internal("Cannot remove temporal file $addrFile");
+    }
+  }
+
+  return keys %externalAddr;
+}
 
 sub _copyCertFilesToDir
 {
