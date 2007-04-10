@@ -31,10 +31,22 @@ my $osInput = [
 
 
 
+my @formElements = (
+                     [ 
+		        name => 'name', value => $name, input =>'hidden',
+		     ],
+                     $osInput,
+		     $certificateInput,
+
+                    ); 
+
+
+my @addressesInputs = ();
+
 
 my $nInputs = @addresses;
 $nInputs = 2 if $nInputs < 2;
-my @addressesInputs = ();
+
 foreach my $i (0 .. $nInputs) {
   my $name = "ip$i";
   my $value = $i > @addresses ? '' : $addresses[$i];
@@ -55,18 +67,15 @@ foreach my $i (0 .. $nInputs) {
 }
 
 
-my @formElements = (
-                     [ 
-		        name => 'name', value => $name, input =>'hidden',
-		     ],
-                     $osInput,
-		     $certificateInput,
-		     @addressesInputs,
-		     [ 
+push @formElements, @addressesInputs;
+
+# the submit button must be after the addresses
+push @formElements, [ 
 		       name => 'download', input => 'submit',
 		       value => __(q{Download client's files}),
-		     ],
-                    ); 
+		     ];
+
+
 </%init>
 %# environment check..
 
@@ -82,8 +91,16 @@ my @formElements = (
 <h3><% __x('Client files for server {name}', name => $name) %></h3>
 <div class='note'>
 <% __('You can download an archive with all the required files to set up an OpenVPN client. Remember to copy these files to the client machine configuration directory') %>
+<p>
+% if (@addresses) {
+<%  __(q{eBox  has guessed for you the values of the addresses' fields. If those values are incorrect or you want another ones, change them}) %>
+% }
+% else {
+<%  __(q{eBox was unable to guess for you the values of the server's address. Please, enter the value manually or check your internet connection and try again}) %>
+% } 
 </div>
 <form  method='POST' >
 <& /formTable.mas, rows => \@formElements &>
 </form>
 <a href='Index'> <% __(q{Return to the OpenVPN's main page}) %></a>
+

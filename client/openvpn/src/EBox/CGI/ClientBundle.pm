@@ -80,7 +80,7 @@ sub _serverAddresses
   
   my $addrs = $self->_addressesFromParams();
 
-  if (@{ $addrs  } = 0) {
+  if (@{ $addrs  } == 0) {
     $addrs = EBox::OpenVPN::Server::ClientBundleGenerator->serversAddr($server);
   }
 

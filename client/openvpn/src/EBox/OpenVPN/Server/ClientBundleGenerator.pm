@@ -74,9 +74,6 @@ sub serversAddr
   }
 
   my @externalAddr = $class->_resolveExternalAddr(@localAddr);
-  @externalAddr or  throw EBox::Exceptions::External(__x(q{Can't get external address for this server: Internet is not reacheable or {url} is down}, url => IPResolvUrl()));
-
-
   return \@externalAddr;
 }
 
@@ -106,7 +103,7 @@ sub _resolveExternalAddr
 
   my %externalAddr;
   foreach my $local (@localAddr) {
-    my $cmd = "wget -O $addrFile --bind-address=$local " . IPResolvUrl();
+    my $cmd = "wget -O $addrFile --bind-address=$local --timeout=6 " . IPResolvUrl();
     system $cmd;
     if ($? == 0)  {
       my $contents = read_file($addrFile);
