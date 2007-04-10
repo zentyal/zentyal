@@ -112,6 +112,21 @@ sub _regenConfig
     }
   }
 
+# Method: _stopService
+#
+#     Call every time the module is stopped
+#
+sub _stopService
+  {
+    my $self = shift;
+
+    my $ifaces_ref = $self->all_dirs_base('/ebox/modules/trafficshaping');
+
+    foreach my $iface (@{$ifaces_ref}) {
+      $self->_deleteChain($iface);
+    }
+  }
+
 # Method: summary
 #
 sub summary
