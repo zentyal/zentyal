@@ -65,7 +65,6 @@ schemas/Makefile
 stubs/Makefile
 stubs/slapd.conf.mas
 tools/Makefile
-tools/ebox-conf-ldap
 Makefile
 ])
 

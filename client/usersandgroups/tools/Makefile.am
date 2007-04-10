@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
-pkglib_SCRIPTS =  ebox-init-ldap ebox-conf-ldap
+pkglib_SCRIPTS =  ebox-init-ldap 
 
-MAINTAINERCLEANFILES = Makefile.in ebox-conf-ldap
+MAINTAINERCLEANFILES = Makefile.in 
 
 EXTRA_DIST = $(pkglib_SCRIPTS)
