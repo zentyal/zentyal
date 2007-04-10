@@ -87,8 +87,8 @@ sub _interfacesToListenOn
   # XXX temporal  fix until #529 is fixed
   if ($global->modExists('openvpn')) {
     my $openvpn = $global->modInstance('openvpn');
-    my @openvpnServers = $openvpn->activeServers();
-    my @openvpnIfaces  = map { $_->iface() }  @openvpnServers;
+    my @openvpnDaemons = $openvpn->activeDaemons();
+    my @openvpnIfaces  = map { $_->iface() }  @openvpnDaemons;
 
     push @moduleGeneratedIfaces, @openvpnIfaces;
   }
