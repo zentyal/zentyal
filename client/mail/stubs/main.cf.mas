@@ -21,6 +21,11 @@
 use EBox::Gettext;
 </%init>
 
+# require helo
+smtpd_delay_reject  = yes 
+smtpd_helo_required = yes
+
+
 smtpd_banner = eBox ESMTP
 biff = no
 
