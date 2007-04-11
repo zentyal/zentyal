@@ -10,6 +10,7 @@ sub new
         my ($class, %opts) = @_;
 
         my $self = $class->SUPER::new(%opts);
+	$self->{service}          =  delete $opts{service};
 	$self->{ifaces}           =  delete $opts{ifaces};
 	$self->{portsByProto}     =  delete $opts{portsByProto};
 	$self->{serversToConnect} =  delete $opts{serversToConnect};
@@ -19,6 +20,11 @@ sub new
 }
 
 
+sub service
+{
+    my ($self) = @_;
+    return $self->{service};
+}
 
 sub ifaces
 {
@@ -43,6 +49,8 @@ sub externalInput
     my ($self) = @_;
     my @rules;
 
+    $self->service() or return [];
+
     # do not firewall openvpn virtual ifaces
     foreach my $iface (@{ $self->ifaces() }) {
       push @rules, "-i $iface -j ACCEPT";
@@ -66,16 +74,19 @@ sub output
     my ($self) = @_;
     my @rules;
 
+    if ($self->service()) {
     # do not firewall openvpn virtual ifaces
-    foreach my $iface (@{ $self->ifaces() }) {
-      push @rules, "-o $iface -j ACCEPT";
-    }
+      foreach my $iface (@{ $self->ifaces() }) {
+	push @rules, "-o $iface -j ACCEPT";
+      }
     
-    foreach my $server_r (@{ $self->serversToConnect() }) {
-      my ($serverProto, $server, $serverPort) = @{ $server_r };
-      my $connectRule =  "--protocol $serverProto --destination $server --destination-port $serverPort -j ACCEPT";
-      push @rules, $connectRule;
+      foreach my $server_r (@{ $self->serversToConnect() }) {
+	my ($serverProto, $server, $serverPort) = @{ $server_r };
+	my $connectRule =  "--protocol $serverProto --destination $server --destination-port $serverPort -j ACCEPT";
+	push @rules, $connectRule;
+      }
     }
+
 
     # we need HTTP access for client bundle generation (need to resolve external address)
     my $httpRule = "--protocol tcp  --destination-port 80 -j ACCEPT";
@@ -89,6 +100,8 @@ sub forward
 {
     my ($self) = @_;
     my @rules;
+
+    $self->service() or return [];
 
     # do not firewall openvpn virtual ifaces
     foreach my $iface (@{ $self->ifaces() }) {

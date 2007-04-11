@@ -618,10 +618,7 @@ sub firewallHelper
 {
     my ($self) = @_;
 
-    if (!$self->service) {
-	 return undef;
-     }
-
+    my $service = $self->service();
 
     my @ifaces = map {
       $_->iface()
@@ -631,6 +628,7 @@ sub firewallHelper
     my $serversToConnect = $self->_serversToConnect();
 
     my $firewallHelper = new EBox::OpenVPN::FirewallHelper (
+							    service          => $service,
 							    ifaces           => \@ifaces,
 							    portsByProto     => $portsByProto,
 							    serversToConnect => $serversToConnect,
