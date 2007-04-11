@@ -6,144 +6,27 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.9\n"
-"es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-04-11 15:56+0200\n"
+"POT-Creation-Date: 2007-04-11 19:11+0200\n"
 "PO-Revision-Date: 2007-04-05 15:54+0000\n"
 "Last-Translator: Krzysztof Kubanek <krzysztof.kubanek@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"es\n"
 "Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 0.10.1\n"
 
+#: src/EBox/CGI/View/RuleTable.pm:40 src/EBox/CGI/View/RuleMultiTable.pm:34
 #: src/EBox/CGI/Controller/RuleTable.pm:30
-#: src/EBox/CGI/View/RuleMultiTable.pm:34 src/EBox/CGI/View/RuleTable.pm:40
 msgid "Traffic Shaping rules"
 msgstr "Reguły kierowania ruchu"
 
 #: src/EBox/CGI/Index.pm:40
 msgid "Traffic Shaping Management"
 msgstr "Zarządzanie kierowaniem ruchu"
-
-#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:63
-msgid "Rules lists per interface"
-msgstr "Lista reguł dla interfejsu"
-
-#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:67
-msgid ""
-"Select an external interface with gateways associated to add traffic shaping "
-"rules"
-msgstr ""
-"Wybierz interfejs zewnętrzny wraz z powiązanymi bramami, aby dodać "
-"mechanizmy kierowania ruchu."
-
-#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:69
-msgid "Choose an external interface to shape"
-msgstr "Wybierz interfejs zewnętrzny aby kierować ruchem"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:116
-#: src/EBox/TrafficShaping.pm:194 src/EBox/TrafficShaping.pm:214
-#: src/EBox/TrafficShaping.pm:422 src/EBox/TrafficShaping.pm:504
-#: src/EBox/TrafficShaping.pm:531 src/EBox/TrafficShaping.pm:1563
-msgid "Protocol"
-msgstr "Protokół"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:126
-#: src/EBox/TrafficShaping.pm:196 src/EBox/TrafficShaping.pm:216
-#: src/EBox/TrafficShaping.pm:426 src/EBox/TrafficShaping.pm:506
-#: src/EBox/TrafficShaping.pm:533 src/EBox/TrafficShaping.pm:1564
-msgid "Port"
-msgstr "Port"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:136
-#: src/EBox/TrafficShaping.pm:218 src/EBox/TrafficShaping.pm:430
-#: src/EBox/TrafficShaping.pm:535 src/EBox/TrafficShaping.pm:1565
-msgid "Guaranteed Rate"
-msgstr "Gwarantowana przepustowość"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:142
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:153
-msgid "Kbit/s"
-msgstr "Kbit/s"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:147
-#: src/EBox/TrafficShaping.pm:219 src/EBox/TrafficShaping.pm:434
-#: src/EBox/TrafficShaping.pm:536 src/EBox/TrafficShaping.pm:1566
-msgid "Limited Rate"
-msgstr "Ograniczona przepustowość"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:160
-msgid "Rules list"
-msgstr "Lista reguł"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:171
-msgid ""
-"Adding a rule to the interface should be done following maximum rate allowed "
-"to that interface and the sum of the different guaranteed rates should be at "
-"much as the total rate allowed. No limited rate or zero means unlimited rate "
-"in terms of bandwidth link"
-msgstr ""
-"Dodawanie reguły do interfejsu powinno poprzedzać określenie maksymalnej "
-"przepustowości na interfejsie i określeniem sumy reguł gwarantujących "
-"przepustowość. Brak reguł, lub wpisanie 0 (zero) oznacza ustawienie "
-"nieograniczonej przepustowości."
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:177
-msgid "rule"
-msgstr "reguła"
-
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:229
-#, perl-brace-format
-msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
-msgstr "Gwarantowana przepustowość przewyższa dozwoloną: {rate} kbit/s"
-
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:236
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:413
-#, perl-brace-format
-msgid ""
-"Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
-msgstr ""
-"Gwarantowana przepustowość musi zawierać się w przedziale: ( {minRate}, "
-"{maxRate} ) kbit/s "
-
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:248
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:425
-#, perl-brace-format
-msgid ""
-"Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
-msgstr ""
-"Ograniczona przepustowość {lR} kbit/s powinna być większa niż gwarantowana "
-"{gR} kbit/s"
-
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:255
-#, perl-brace-format
-msgid ""
-"Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
-"increase maximum upload traffic to the gateways associated to this external "
-"interface"
-msgstr ""
-"Ograniczenie przepustowości {IR} kbit/s powinno być niższe niż {maxLR}kbit/s "
-"lub należy ustawić wyższą prędkość maksymalną pobierania z bram(-y) "
-"przypisanych do interfejsu zewnętrznego."
-
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:405
-#, perl-brace-format
-msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
-msgstr ""
-"Gwarantowana przepustowość przewyższa maksymalną dopuszczalną szybkości: "
-"{rate}"
-
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:433
-#, perl-brace-format
-msgid ""
-"Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
-"maximum allowed traffic"
-msgstr ""
-"Ograniczenie {IR} kbit/s powinno zostać ustawione na niższym poziomie niż "
-"{maxLR} kbit/s lub powinieneś podnieść maksymalną dopuszczalną szybkość."
 
 #: src/EBox/TC.pm:69
 msgid "options"
@@ -163,9 +46,35 @@ msgstr "Kształtowanie Ruchu"
 msgid "Interface"
 msgstr "Interfejs"
 
+#: src/EBox/TrafficShaping.pm:194 src/EBox/TrafficShaping.pm:214
+#: src/EBox/TrafficShaping.pm:422 src/EBox/TrafficShaping.pm:504
+#: src/EBox/TrafficShaping.pm:531 src/EBox/TrafficShaping.pm:1563
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:116
+msgid "Protocol"
+msgstr "Protokół"
+
+#: src/EBox/TrafficShaping.pm:196 src/EBox/TrafficShaping.pm:216
+#: src/EBox/TrafficShaping.pm:426 src/EBox/TrafficShaping.pm:506
+#: src/EBox/TrafficShaping.pm:533 src/EBox/TrafficShaping.pm:1564
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:126
+msgid "Port"
+msgstr "Port"
+
 #: src/EBox/TrafficShaping.pm:201 src/EBox/TrafficShaping.pm:511
 msgid "Guaranteed rate or limited rate"
 msgstr "Gwarantowana lub ograniczona przepustowość"
+
+#: src/EBox/TrafficShaping.pm:218 src/EBox/TrafficShaping.pm:430
+#: src/EBox/TrafficShaping.pm:535 src/EBox/TrafficShaping.pm:1565
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:136
+msgid "Guaranteed Rate"
+msgstr "Gwarantowana przepustowość"
+
+#: src/EBox/TrafficShaping.pm:219 src/EBox/TrafficShaping.pm:434
+#: src/EBox/TrafficShaping.pm:536 src/EBox/TrafficShaping.pm:1566
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:147
+msgid "Limited Rate"
+msgstr "Ograniczona przepustowość"
 
 #: src/EBox/TrafficShaping.pm:345 src/EBox/TrafficShaping.pm:411
 msgid "Identifier"
@@ -224,6 +133,97 @@ msgid ""
 msgstr ""
 "Interfejs {iface} powinien mieć ustawioną maksymalna przepustowość w celu "
 "wykonywania kształtowanie ruchu."
+
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:229
+#, perl-brace-format
+msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
+msgstr "Gwarantowana przepustowość przewyższa dozwoloną: {rate} kbit/s"
+
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:236
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:413
+#, perl-brace-format
+msgid ""
+"Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
+msgstr ""
+"Gwarantowana przepustowość musi zawierać się w przedziale: ( {minRate}, "
+"{maxRate} ) kbit/s "
+
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:248
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:425
+#, perl-brace-format
+msgid ""
+"Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
+msgstr ""
+"Ograniczona przepustowość {lR} kbit/s powinna być większa niż gwarantowana "
+"{gR} kbit/s"
+
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:255
+#, perl-brace-format
+msgid ""
+"Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
+"increase maximum upload traffic to the gateways associated to this external "
+"interface"
+msgstr ""
+"Ograniczenie przepustowości {lR} kbit/s powinno być niższe niż {maxLR}kbit/s "
+"lub należy ustawić wyższą prędkość maksymalną pobierania z bram(-y) "
+"przypisanych do interfejsu zewnętrznego."
+
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:405
+#, perl-brace-format
+msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
+msgstr ""
+"Gwarantowana przepustowość przewyższa maksymalną dopuszczalną szybkości: "
+"{rate}"
+
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:433
+#, perl-brace-format
+msgid ""
+"Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
+"maximum allowed traffic"
+msgstr ""
+"Ograniczenie {lR} kbit/s powinno zostać ustawione na niższym poziomie niż "
+"{maxLR} kbit/s lub powinieneś podnieść maksymalną dopuszczalną szybkość."
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:142
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:153
+msgid "Kbit/s"
+msgstr "Kbit/s"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:160
+msgid "Rules list"
+msgstr "Lista reguł"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:171
+msgid ""
+"Adding a rule to the interface should be done following maximum rate allowed "
+"to that interface and the sum of the different guaranteed rates should be at "
+"much as the total rate allowed. No limited rate or zero means unlimited rate "
+"in terms of bandwidth link"
+msgstr ""
+"Dodawanie reguły do interfejsu powinno poprzedzać określenie maksymalnej "
+"przepustowości na interfejsie i określeniem sumy reguł gwarantujących "
+"przepustowość. Brak reguł, lub wpisanie 0 (zero) oznacza ustawienie "
+"nieograniczonej przepustowości."
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:177
+msgid "rule"
+msgstr "reguła"
+
+#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:63
+msgid "Rules lists per interface"
+msgstr "Lista reguł dla interfejsu"
+
+#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:67
+msgid ""
+"Select an external interface with gateways associated to add traffic shaping "
+"rules"
+msgstr ""
+"Wybierz interfejs zewnętrzny wraz z powiązanymi bramami, aby dodać "
+"mechanizmy kierowania ruchu."
+
+#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:69
+msgid "Choose an external interface to shape"
+msgstr "Wybierz interfejs zewnętrzny aby kierować ruchem"
 
 #: src/templates/index.mas:15
 #, perl-brace-format
