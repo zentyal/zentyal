@@ -59,7 +59,7 @@ foreach my $i (0 .. $nInputs) {
   }
   else {
     $printableName = __(q{Additional server's IP address (optional)});
-    $help          = __('An addtional address to reach the server can be specified here');
+    $help          = __('An additional address to reach the server can be specified here');
    }
   
   my $input = [  name => $name, value => $value, printableName => $printableName, help => $help ];
