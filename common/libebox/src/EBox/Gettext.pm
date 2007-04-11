@@ -149,6 +149,7 @@ $langs->{'de_DE.UTF-8'} = 'Deutsch';
 $langs->{'C'} = 'English';
 $langs->{'eu_ES.UTF-8'} = 'Euskara';
 $langs->{'fr_FR.UTF-8'} = 'Français';
+$langs->{'it_IT.UTF-8'} = 'Italiano';
 $langs->{'nl_BE.UTF-8'} = 'Nederlands';
 $langs->{'pl_PL.UTF-8'} = 'Polski';
 $langs->{'pt_BR.UTF-8'} = 'Português';
