@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-28 16:04+0200\n"
+"POT-Creation-Date: 2007-04-11 19:01+0200\n"
 "PO-Revision-Date: 2007-03-16 11:42+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -19,18 +19,68 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural= (n > 1);\n"
 "X-Generator: KBabel 1.11.2\n"
 
-#: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
+#: src/EBox/UsersAndGroups.pm:248
+#, perl-brace-format
+msgid "Username must not be longer than {maxuserlength} characters"
+msgstr "Le nom d'usager ne peut pas être plus long de {maxuserlength}"
+
+#: src/EBox/UsersAndGroups.pm:253 src/EBox/UsersAndGroups.pm:259
+#: src/EBox/UsersAndGroups.pm:345 src/EBox/UsersAndGroups.pm:399
+#: src/EBox/UsersAndGroups.pm:430 src/EBox/UsersAndGroups.pm:719
+#: src/EBox/UsersAndGroups.pm:784 src/EBox/UsersAndGroups.pm:877
+#: src/EBox/UsersAndGroups.pm:914 src/EBox/UsersAndGroups.pm:951
+#: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
+msgid "user name"
+msgstr "nom d'usager"
+
+#: src/EBox/UsersAndGroups.pm:268 src/EBox/UsersAndGroups.pm:659
+msgid "Maximum number of system users reached"
+msgstr "Nombre maximum d'usagers de système atteint"
+
+#: src/EBox/UsersAndGroups.pm:633
+#, perl-brace-format
+msgid "Groupname must not be longer than {maxGroupLength} characters"
+msgstr "Le nom du group ne peut pas être plus long de {maxGroupLength}"
+
+#: src/EBox/UsersAndGroups.pm:639
+msgid "The group name is not valid because it is used internally"
+msgstr ""
+"Le nom du group n'est pas valide parce qu'il est employé intérieurement"
+
 #: src/EBox/UsersAndGroups.pm:645 src/EBox/UsersAndGroups.pm:650
 #: src/EBox/UsersAndGroups.pm:755 src/EBox/UsersAndGroups.pm:882
 #: src/EBox/UsersAndGroups.pm:919 src/EBox/UsersAndGroups.pm:993
-#: src/EBox/UsersAndGroups.pm:1099
+#: src/EBox/UsersAndGroups.pm:1099 src/EBox/CGI/AddGroup.pm:45
+#: src/EBox/CGI/ModifyGroup.pm:40
 msgid "group name"
 msgstr "nom de groupe"
 
-#: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
-#: src/EBox/CGI/AddUser.pm:49
-msgid "comment"
-msgstr "commenter"
+#: src/EBox/UsersAndGroups.pm:1172
+#, perl-brace-format
+msgid "Password must not be longer than {maxPwdLength} characters"
+msgstr "Le mot de passe ne peut pas être plus long de {maxPwdLength}"
+
+#: src/EBox/UsersAndGroups.pm:1365 src/EBox/CGI/User.pm:42
+#: src/EBox/CGI/Users.pm:31
+msgid "Users"
+msgstr "Usagers"
+
+#: src/EBox/UsersAndGroups.pm:1367 src/EBox/CGI/Groups.pm:43
+msgid "Groups"
+msgstr "Groupes"
+
+#: src/EBox/CGI/User.pm:46
+msgid "username"
+msgstr "nom d'usager"
+
+#: src/EBox/CGI/AddUserToGroup.pm:44 src/EBox/CGI/DelUserFromGroup.pm:45
+#: src/EBox/CGI/Group.pm:45
+msgid "group"
+msgstr "groupe"
+
+#: src/EBox/CGI/AddUserToGroup.pm:49 src/EBox/CGI/DelUserFromGroup.pm:50
+msgid "user"
+msgstr "usager"
 
 #: src/EBox/CGI/Del.pm:65
 msgid "object name"
@@ -48,27 +98,14 @@ msgstr "Usager enlevé avec succès"
 msgid "Group removed successfully"
 msgstr "Groupe enlevé avec succès"
 
-#: src/EBox/CGI/DelUserFromGroup.pm:45 src/EBox/CGI/AddUserToGroup.pm:44
-#: src/EBox/CGI/Group.pm:45
-msgid "group"
-msgstr "groupe"
-
-#: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/AddUserToGroup.pm:49
-msgid "user"
-msgstr "usager"
-
-#: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
-#: src/EBox/UsersAndGroups.pm:253 src/EBox/UsersAndGroups.pm:259
-#: src/EBox/UsersAndGroups.pm:345 src/EBox/UsersAndGroups.pm:399
-#: src/EBox/UsersAndGroups.pm:430 src/EBox/UsersAndGroups.pm:719
-#: src/EBox/UsersAndGroups.pm:784 src/EBox/UsersAndGroups.pm:877
-#: src/EBox/UsersAndGroups.pm:914 src/EBox/UsersAndGroups.pm:951
-msgid "user name"
-msgstr "nom d'usager"
-
 #: src/EBox/CGI/ModifyUser.pm:47 src/EBox/CGI/AddUser.pm:46
 msgid "full name"
 msgstr "nom complet"
+
+#: src/EBox/CGI/ModifyUser.pm:48 src/EBox/CGI/AddUser.pm:49
+#: src/EBox/CGI/ModifyGroup.pm:47
+msgid "comment"
+msgstr "commenter"
 
 #: src/EBox/CGI/ModifyUser.pm:49 src/EBox/CGI/AddUser.pm:47
 msgid "password"
@@ -89,43 +126,6 @@ msgstr "reécrire le mot de passe"
 #: src/EBox/CGI/Group.pm:30
 msgid "Edit group"
 msgstr "Éditer groupe"
-
-#: src/EBox/CGI/User.pm:42 src/EBox/CGI/Users.pm:31
-#: src/EBox/UsersAndGroups.pm:1365
-msgid "Users"
-msgstr "Usagers"
-
-#: src/EBox/CGI/User.pm:46
-msgid "username"
-msgstr "nom d'usager"
-
-#: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1367
-msgid "Groups"
-msgstr "Groupes"
-
-#: src/EBox/UsersAndGroups.pm:248
-#, perl-brace-format
-msgid "Username must not be longer than {maxuserlength} characters"
-msgstr "Le nom d'usager ne peut pas être plus long de "
-
-#: src/EBox/UsersAndGroups.pm:268 src/EBox/UsersAndGroups.pm:659
-msgid "Maximum number of system users reached"
-msgstr "Nombre maximum d'usagers de système atteint"
-
-#: src/EBox/UsersAndGroups.pm:633
-#, perl-brace-format
-msgid "Groupname must not be longer than {maxGroupLength} characters"
-msgstr "Le nom du group ne peut pas être plus long de "
-
-#: src/EBox/UsersAndGroups.pm:639
-msgid "The group name is not valid because it is used internally"
-msgstr ""
-"Le nom du group n'est pas valide parce qu'il est employé intérieurement"
-
-#: src/EBox/UsersAndGroups.pm:1172
-#, perl-brace-format
-msgid "Password must not be longer than {maxPwdLength} characters"
-msgstr "Le mot de passe ne peut pas être plus long de "
 
 #: src/EBox/LdapUserImplementation.pm:42
 msgid "This group contains users"
@@ -160,8 +160,8 @@ msgstr "Nom d'usager"
 msgid "Full name"
 msgstr "Nom complet"
 
-#: src/templates/users.mas:40 src/templates/group.mas:23
-#: src/templates/user.mas:19 src/templates/groups.mas:34
+#: src/templates/users.mas:40 src/templates/groups.mas:34
+#: src/templates/group.mas:23 src/templates/user.mas:19
 msgid "Comment"
 msgstr "Commenter"
 
@@ -192,9 +192,9 @@ msgid "Edit"
 msgstr "Éditer"
 
 #: src/templates/users.mas:110 src/templates/users.mas:112
-#: src/templates/users.mas:114 src/templates/group.mas:66
-#: src/templates/groups.mas:87 src/templates/groups.mas:89
-#: src/templates/groups.mas:91
+#: src/templates/users.mas:114 src/templates/groups.mas:87
+#: src/templates/groups.mas:89 src/templates/groups.mas:91
+#: src/templates/group.mas:66
 msgid "Remove"
 msgstr "Enlever"
 
@@ -202,39 +202,21 @@ msgstr "Enlever"
 msgid "Group"
 msgstr "Groupe"
 
-#: src/templates/del.mas:13
-msgid "Deleting user"
-msgstr "En train d'effacer usager"
+#: src/templates/groups.mas:16
+msgid "Add Group"
+msgstr "Ajouter Groupe"
 
-#: src/templates/del.mas:16
-msgid ""
-"The user you tried to delete contains data in the following modules. Please "
-"confirm you want to remove it and all its related data"
-msgstr ""
-"L'usager que vous essayez de supprimer contient des données dans les modules "
-"suivants. Veuillez confirmer que vous voulez l'enlever et toutes ses données "
-"liées"
+#: src/templates/groups.mas:23 src/templates/groups.mas:63
+msgid "Group name"
+msgstr "Nom de groupe"
 
-#: src/templates/del.mas:20
-msgid "Deleting group"
-msgstr "En train d'effacer groupe"
+#: src/templates/groups.mas:40
+msgid "Optional value"
+msgstr "Valeur optionale"
 
-#: src/templates/del.mas:23
-msgid ""
-"The group you tried to delete contains data in the following modules. Please "
-"confirm you want to remove it and all its related data"
-msgstr ""
-"L'usager que vous essayez de supprimer contient des données dans les modules "
-"suivants. Veuillez confirmer que vous voulez l'enlever et toutes ses données "
-"liées"
-
-#: src/templates/del.mas:47
-msgid "Delete"
-msgstr "Effacer"
-
-#: src/templates/del.mas:51
-msgid "Cancel"
-msgstr "Annuler"
+#: src/templates/groups.mas:59
+msgid "Edit Group"
+msgstr "Éditer Groupe"
 
 #: src/templates/group.mas:12
 msgid "Administration of group "
@@ -303,21 +285,39 @@ msgstr ""
 "Cette opération causera l'enlèvement de l'usager et de toutes ses "
 "dépendances ; comme des comptes de courrier, données d'usager..."
 
-#: src/templates/groups.mas:16
-msgid "Add Group"
-msgstr "Ajouter Groupe"
+#: src/templates/del.mas:13
+msgid "Deleting user"
+msgstr "En train d'effacer usager"
 
-#: src/templates/groups.mas:23 src/templates/groups.mas:63
-msgid "Group name"
-msgstr "Nom de groupe"
+#: src/templates/del.mas:16
+msgid ""
+"The user you tried to delete contains data in the following modules. Please "
+"confirm you want to remove it and all its related data"
+msgstr ""
+"L'usager que vous essayez de supprimer contient des données dans les modules "
+"suivants. Veuillez confirmer que vous voulez l'enlever et toutes ses données "
+"liées"
 
-#: src/templates/groups.mas:40
-msgid "Optional value"
-msgstr "Valeur optionale"
+#: src/templates/del.mas:20
+msgid "Deleting group"
+msgstr "En train d'effacer groupe"
 
-#: src/templates/groups.mas:59
-msgid "Edit Group"
-msgstr "Éditer Groupe"
+#: src/templates/del.mas:23
+msgid ""
+"The group you tried to delete contains data in the following modules. Please "
+"confirm you want to remove it and all its related data"
+msgstr ""
+"L'usager que vous essayez de supprimer contient des données dans les modules "
+"suivants. Veuillez confirmer que vous voulez l'enlever et toutes ses données "
+"liées"
+
+#: src/templates/del.mas:47
+msgid "Delete"
+msgstr "Effacer"
+
+#: src/templates/del.mas:51
+msgid "Cancel"
+msgstr "Annuler"
 
 #~ msgid "Username must not be longer than "
 #~ msgstr "Le nom d'usager ne peut pas être plus long de "
