@@ -80,9 +80,6 @@ sub serversAddr
 
 sub IPResolvUrl
 {
-  my ($onlyHost) = @_;
-
-  return 'www.showmyip.com' if $onlyHost;
   return 'http://www.showmyip.com/simple/';
 }
 

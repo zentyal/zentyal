@@ -78,8 +78,7 @@ sub output
     }
 
     # we need HTTP access for client bundle generation (need to resolve external address)
-    my $url      = EBox::OpenVPN::Server::ClientBundleGenerator::IPResolvUrl(1);
-    my $httpRule = "--protocol tcp --destination $url --destination-port 80 -j ACCEPT";
+    my $httpRule = "--protocol tcp  --destination-port 80 -j ACCEPT";
     push @rules, $httpRule;
 
     return \@rules;
