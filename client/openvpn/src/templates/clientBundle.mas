@@ -25,7 +25,7 @@ my $osInput = [
 					  [ {value => 'windows', printableValue =>'Windows'}, 
 					    {value => 'linux',   printableValue =>'Linux'} ] , 
 					], 
-			 help => __('This should match the operative
+			 help => __('This selection should match the operative
 			 system running in the client computer'),
 			];
 
@@ -55,7 +55,7 @@ foreach my $i (0 .. $nInputs) {
   my $help;
   if ($i == 0) {
     $printableName = __(q{Server's IP address});
-    $help          = __('This should be the IP address used to reach the server.');
+    $help          = __('This address should be the one used to reach the server.');
   }
   else {
     $printableName = __(q{Additional server's IP address (optional)});
