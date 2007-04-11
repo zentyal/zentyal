@@ -19,8 +19,9 @@ case "$1" in
 	upgrade)
 		remove_gconf_schemas
 		;;
-	remove)
+        remove)
 	        ebox-clean-gconf trafficshaping
+		/etc/init.d/ebox trafficshaping stop
 		remove_gconf_schemas
 		;;	
 esac 
