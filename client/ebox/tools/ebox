@@ -12,7 +12,7 @@ my $global = EBox::Global->getInstance(1);
 
 sub usage {
 	print "Usage: $0 start|stop|restart\n";
-	print "       $0 <module> restart\n";
+	print "       $0 <module> start|stop|restart\n";
 	exit 1;
 }
 
@@ -39,6 +39,10 @@ sub moduleAction
 {
   my ($modname, $action, $actionName) = @_;
   my $mod = EBox::Global->modInstance($modname);
+  if (!defined $mod) {
+    print STDERR "$modname is not a valid module name\n";
+    exit 2;
+  }
 
   my $success;
   my $errorMsg;
@@ -84,33 +88,31 @@ sub tabs
 
 sub moduleRestart {
   my ($modname) = @_;
-  
-  if ($global->modExists($modname)) {
-    moduleAction($modname, 'restartService', 'restart');
-  }
-  else {
-    print STDERR "$modname is not a valid module name\n";
-    exit 2;
-  }
 
+  moduleAction($modname, 'restartService', 'restart');
 }
 
+sub moduleStop {
+  my ($modname) = @_;
+ 
+  moduleAction($modname, 'stopService', 'stop');
+}
 
 sub main
 {
   if (@ARGV == 1) {
-    if ($ARGV[0] eq "start") {
+    if ($ARGV[0] eq 'start') {
       start();
     } 
-    elsif ($ARGV[0] eq "restart") {
+    elsif ($ARGV[0] eq 'restart') {
       stop();
       start();
     }
-    elsif ($ARGV[0] eq "force-reload") {
+    elsif ($ARGV[0] eq 'force-reload') {
       stop();
       start();
     } 
-    elsif ($ARGV[0] eq "stop") {
+    elsif ($ARGV[0] eq 'stop') {
       stop();
     } 
     else {
@@ -118,9 +120,15 @@ sub main
     }
   } 
   elsif (@ARGV == 2) {
-    if ($ARGV[1] eq ("restart")) {
-      moduleRestart($ARGV[0]);
+    # action upon one module mode
+    my ($modName, $action) = @ARGV;
+
+    if (($action eq 'restart') or ($action eq 'start')) {
+      moduleRestart($modName);
     } 
+    elsif ($action eq 'stop') {
+      moduleStop($modName);
+    }
     else {
       usage();
     }
