@@ -59,7 +59,15 @@ sub masonParameters
 
     my @clientCertificates = grep { $_ ne $serverCert  } @{ $openvpn->availableCertificates() };
 
-    my $addresses = $self->_serverAddresses();
+
+    my $addresses;
+    try {
+      $addresses = $self->_serverAddresses();
+    }
+    otherwise {
+      $addresses = [];
+    };
+
 
     return [
 	    name                  => $serverName,
