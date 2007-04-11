@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-15 15:30+0100\n"
+"POT-Creation-Date: 2007-03-28 16:00+0200\n"
 "PO-Revision-Date: 2006-11-08 14:04+0100\n"
 "Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
 "Language-Team: \n"
@@ -18,6 +18,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural= (n > 1);\n"
 "X-Generator: KBabel 1.11.2\n"
+
+#: src/EBox/Exceptions/DataExists.pm:31
+#, perl-brace-format
+msgid "{data} {value} already exists."
+msgstr "{data} {value} existe déjà."
+
+#: src/EBox/Exceptions/InvalidData.pm:32
+#, perl-brace-format
+msgid "Invalid value for {data}: {value}."
+msgstr "Valeur invalide pour {data}: {value}."
+
+#: src/EBox/Exceptions/DataNotFound.pm:30
+#, perl-brace-format
+msgid "{data} {value} does not exist."
+msgstr "{data} {value} n'existe pas."
+
+#: src/EBox/Exceptions/DataMissing.pm:30
+#, perl-brace-format
+msgid "{data} is empty."
+msgstr "{data} est vide."
 
 #: src/EBox/CGI/EBox/PageNotFound.pm:12
 msgid "Page not found"
@@ -74,7 +94,7 @@ msgid ""
 msgstr ""
 
 #: src/EBox/CGI/Base.pm:755
-msgid "Invalid upload file."
+msgid "Invalid uploaded file."
 msgstr ""
 
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
@@ -82,25 +102,19 @@ msgstr ""
 msgid "Interface"
 msgstr "Interface"
 
-#: src/EBox/Exceptions/DataNotFound.pm:30
+#: src/EBox/Sudo.pm:229
 #, perl-brace-format
-msgid "{data} {value} does not exist."
-msgstr "{data} {value} n'existe pas."
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "Executant commande '{cmd}' comme {user} échoué"
 
-#: src/EBox/Exceptions/DataExists.pm:31
+#: src/EBox/Config.pm.in:39
 #, perl-brace-format
-msgid "{data} {value} already exists."
-msgstr "{data} {value} existe déjà."
+msgid "Could not open the config file {file}."
+msgstr "On n'a pas pu ouvrir le fichier de configuration {file}."
 
-#: src/EBox/Exceptions/DataMissing.pm:30
-#, perl-brace-format
-msgid "{data} is empty."
-msgstr "{data} est vide."
-
-#: src/EBox/Exceptions/InvalidData.pm:32
-#, perl-brace-format
-msgid "Invalid value for {data}: {value}."
-msgstr "Valeur invalide pour {data}: {value}."
+#: src/EBox/Config.pm.in:72
+msgid "The ebox user has not been set in the config file."
+msgstr "L'usager d'ebox n'a pas été placé dans le fichier de config."
 
 #: src/EBox/Validate.pm:600
 #, perl-brace-format
@@ -123,20 +137,6 @@ msgstr ""
 #: src/EBox/Validate.pm:708
 msgid "The file path must be absolute"
 msgstr "Le chemin du fichier doit être absolute"
-
-#: src/EBox/Sudo.pm:229
-#, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "Executant commande '{cmd}' comme {user} échoué"
-
-#: src/EBox/Config.pm.in:39
-#, perl-brace-format
-msgid "Could not open the config file {file}."
-msgstr "On n'a pas pu ouvrir le fichier de configuration {file}."
-
-#: src/EBox/Config.pm.in:72
-msgid "The ebox user has not been set in the config file."
-msgstr "L'usager d'ebox n'a pas été placé dans le fichier de config."
 
 #: src/templates/ajax/tableBody.mas:47
 msgid "Add new"
@@ -168,23 +168,6 @@ msgstr ""
 msgid "The page can not be found"
 msgstr "La page n'a pas pu être trouvée"
 
-#: src/templates/enable.mas:13
-msgid "Service configuration"
-msgstr "Configuration du service"
-
-#: src/templates/enable.mas:17 src/templates/enable.mas:22
-msgid "Disabled"
-msgstr "Désactivé"
-
-#: src/templates/enable.mas:19 src/templates/enable.mas:24
-msgid "Enabled"
-msgstr "Activé"
-
-#: src/templates/enable.mas:29 src/templates/enable.mas:31
-#: src/templates/language.mas:25
-msgid "Change"
-msgstr "Changer"
-
 #: src/templates/title.mas:14
 msgid "Display help notes"
 msgstr "Montrer notes d'aide"
@@ -212,6 +195,23 @@ msgid ""
 msgstr ""
 "Les changements de langue se produisent automatiquement, il n'est pas "
 "nécessaire de garder la configuration."
+
+#: src/templates/language.mas:25 src/templates/enable.mas:29
+#: src/templates/enable.mas:31
+msgid "Change"
+msgstr "Changer"
+
+#: src/templates/enable.mas:13
+msgid "Service configuration"
+msgstr "Configuration du service"
+
+#: src/templates/enable.mas:17 src/templates/enable.mas:22
+msgid "Disabled"
+msgstr "Désactivé"
+
+#: src/templates/enable.mas:19 src/templates/enable.mas:24
+msgid "Enabled"
+msgstr "Activé"
 
 #~ msgid "Table is empty"
 #~ msgstr "Table est vide."

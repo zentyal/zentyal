@@ -11,15 +11,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-20 11:03+0100\n"
-"PO-Revision-Date: 2005-11-11 13:04+0100\n"
-"Last-Translator: Dani Baeyens <dani@warp.es>\n"
+"POT-Creation-Date: 2007-03-28 16:01+0200\n"
+"PO-Revision-Date: 2007-04-04 07:49+0000\n"
+"Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
+"X-Generator: Pootle 0.10.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/EBox/CGI/Redirects.pm:31 src/EBox/CGI/Redirects.pm:42
 msgid "Port redirections"
@@ -269,7 +269,7 @@ msgstr "Reglas de filtrado"
 
 #: src/templates/filter.mas:46
 msgid "Rules for internet access"
-msgstr "Reglas para acceso a internet"
+msgstr "Reglas para acceso a Internet"
 
 #: src/templates/filter.mas:49
 msgid ""
@@ -284,7 +284,7 @@ msgstr ""
 "reglas y los servicios a los que podrá acceder. Estas reglas están pensadas "
 "para controlar el acceso desde los interfaces de la red interna a los de la "
 "externa. Éstas proveen una forma más sencilla de controlar el acceso a "
-"internet."
+"Internet."
 
 #: src/templates/filter.mas:53
 msgid "Configure default rules"

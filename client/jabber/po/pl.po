@@ -5,115 +5,120 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-jabber 0.9"
+"Project-Id-Version: ebox-jabber 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-16 11:10+0100\n"
-"PO-Revision-Date: 2007-03-16 11:10+0100\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2007-03-28 16:01+0200\n"
+"PO-Revision-Date: 2007-04-05 20:25+0000\n"
+"Last-Translator: Mariusz Gruszka <golden@interia.pl>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-
-#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:232
-msgid "domain"
-msgstr ""
+"X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
-msgstr ""
+msgstr "status modułu"
 
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:297
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
+
+#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:232
+msgid "domain"
+msgstr "domena"
 
 #: src/EBox/CGI/JabberUserOptions.pm:44
 msgid "username"
-msgstr ""
+msgstr "użytkownik"
 
 #: src/EBox/Jabber.pm:197
 msgid "listening port"
-msgstr ""
+msgstr "port nasłuchu"
 
 #: src/EBox/Jabber.pm:309
 msgid "Jabber Service"
-msgstr ""
+msgstr "Serwis Jabber"
 
 #: src/templates/jabber.mas:8
 msgid "Jabber account"
-msgstr ""
+msgstr "Konto jabber"
 
 #: src/templates/jabber.mas:10
 msgid "Password for Jabber service is the user password"
-msgstr ""
+msgstr "Hasło do Serwisu Jabber jest hasłem użytkownika"
 
 #: src/templates/jabber.mas:17
 msgid "User account"
-msgstr ""
+msgstr "Konto użytkownika"
 
 #: src/templates/jabber.mas:23 src/templates/jabber.mas:28
 msgid "Disabled"
-msgstr ""
+msgstr "Wyłączone"
 
 #: src/templates/jabber.mas:25 src/templates/jabber.mas:30
 msgid "Enabled"
-msgstr ""
+msgstr "Włączone"
 
 #: src/templates/jabber.mas:38
 msgid "Administration rights"
-msgstr ""
+msgstr "Prawa administratora"
 
 #: src/templates/jabber.mas:53 src/templates/jabber.mas:55
 msgid "Change"
-msgstr ""
+msgstr "Zmień"
 
 #: src/templates/index.mas:14
 msgid "Jabber Service status"
-msgstr ""
+msgstr "Status Serwisu Jabber"
 
 #: src/templates/index.mas:18
 msgid "General Settings"
-msgstr ""
+msgstr "Główne Ustawienia"
 
 #: src/templates/index.mas:21
 msgid ""
 "Domain name should be available on the network. Otherwise, you may not be "
 "able to use this service. This applies for internal and external connections."
 msgstr ""
+"Nazwa domeny powinna być dostępna w sieci. W innym wypadku serwis może nie "
+"działać. Dotyczy to wewnętrznych i zewnętrznych połączeń."
 
 #: src/templates/index.mas:28
 msgid "Domain name"
-msgstr ""
+msgstr "Nazwa domeny"
 
 #: src/templates/index.mas:37
 msgid "Connect to global Jabber network"
-msgstr ""
+msgstr "Połącz z globalną siecią Jabber"
 
 #: src/templates/index.mas:50
 msgid "SSL Support"
-msgstr ""
+msgstr "Wsparcie dla SSL"
 
 #: src/templates/index.mas:56 src/templates/index.mas:63
 #: src/templates/index.mas:70
 msgid "No"
-msgstr ""
+msgstr "Nie"
 
 #: src/templates/index.mas:58 src/templates/index.mas:65
 #: src/templates/index.mas:72
 msgid "Optional"
-msgstr ""
+msgstr "Opcionalne"
 
 #: src/templates/index.mas:60 src/templates/index.mas:67
 #: src/templates/index.mas:74
 msgid "Required"
-msgstr ""
+msgstr "Wymagane"
 
 #: src/templates/index.mas:84 src/templates/index.mas:86
 msgid "Apply Changes"
-msgstr ""
+msgstr "Zatwierdź Zmiany"
 
 #: stubs/c2s.xml.mas:75
 msgid "Enter a username and password to register with this server."
 msgstr ""
+"Wprowadź nazwę użytkownika i hasło w celu zarejestrowania się na tym "
+"serwerze."

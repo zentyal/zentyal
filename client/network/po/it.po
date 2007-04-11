@@ -2,12 +2,11 @@
 # Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the ebox-network package.
 # Automatically generated, 2007.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.9"
+"Project-Id-Version: ebox-network 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-15 12:54+0100\n"
+"POT-Creation-Date: 2007-04-09 16:01+0200\n"
 "PO-Revision-Date: 2007-03-15 12:54+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,9 +14,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Translate Toolkit 0.10.1\n"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:64
-#: src/EBox/Model/MultiGwRulesDataTable.pm:418
+#: src/EBox/Model/MultiGwRulesDataTable.pm:419
 msgid "any"
 msgstr ""
 
@@ -30,9 +30,9 @@ msgstr ""
 #: src/EBox/Network.pm:683 src/EBox/Network.pm:728 src/EBox/Network.pm:762
 #: src/EBox/Network.pm:787 src/EBox/Network.pm:863 src/EBox/Network.pm:984
 #: src/EBox/Network.pm:1179 src/EBox/Network.pm:1239 src/EBox/Network.pm:1274
-#: src/EBox/Network.pm:1310 src/EBox/Network.pm:1343 src/EBox/Network.pm:1984
-#: src/EBox/Network.pm:2016 src/EBox/Network.pm:2089 src/EBox/Network.pm:2109
-#: src/EBox/Network.pm:2130 src/EBox/Network.pm:2153
+#: src/EBox/Network.pm:1310 src/EBox/Network.pm:1343 src/EBox/Network.pm:2000
+#: src/EBox/Network.pm:2032 src/EBox/Network.pm:2105 src/EBox/Network.pm:2125
+#: src/EBox/Network.pm:2146 src/EBox/Network.pm:2169
 msgid "Interface"
 msgstr ""
 
@@ -72,7 +72,7 @@ msgstr ""
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:205
 #: src/EBox/CGI/Controller/MultiGwRulesDataTable.pm:30
-#: src/EBox/CGI/View/MultiGwRulesDataTable.pm:31 src/EBox/Network.pm:2282
+#: src/EBox/CGI/View/MultiGwRulesDataTable.pm:31 src/EBox/Network.pm:2298
 msgid "Multigateway rules"
 msgstr ""
 
@@ -127,9 +127,13 @@ msgid "Gateway list"
 msgstr ""
 
 #: src/EBox/Model/GatewayDataTable.pm:149
+#, perl-brace-format
 msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
-"split your internet traffic through serveral links."
+"split your Internet traffic through several links.{br}The download and "
+"upload fields must be set as much rate as you have to your connection "
+"towards the gateway. The correct value of these fields is critical to ensure "
+"a correct functionality of the traffic shaping module"
 msgstr ""
 
 #: src/EBox/Model/GatewayDataTable.pm:151
@@ -150,7 +154,7 @@ msgstr ""
 #: src/EBox/CGI/Controller/GatewayDataTableMove.pm:30
 #: src/EBox/CGI/Controller/GatewayDataTableAdd.pm:30
 #: src/EBox/CGI/Controller/GatewayDataTable.pm:30
-#: src/EBox/CGI/View/GatewayDataTable.pm:30 src/EBox/Network.pm:2279
+#: src/EBox/CGI/View/GatewayDataTable.pm:30 src/EBox/Network.pm:2295
 msgid "Gateways"
 msgstr ""
 
@@ -167,7 +171,7 @@ msgid "DNS configured"
 msgstr ""
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
-#: src/EBox/Network.pm:2206
+#: src/EBox/Network.pm:2222
 msgid "Network interfaces"
 msgstr ""
 
@@ -197,7 +201,7 @@ msgstr ""
 msgid "Host"
 msgstr ""
 
-#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2194
+#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2210
 msgid "host name"
 msgstr ""
 
@@ -220,8 +224,8 @@ msgstr ""
 
 #: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:558 src/EBox/Network.pm:563
 #: src/EBox/Network.pm:867 src/EBox/Network.pm:888 src/EBox/Network.pm:1417
-#: src/EBox/Network.pm:1986 src/EBox/Network.pm:2001 src/EBox/Network.pm:2133
-#: src/EBox/Network.pm:2251 src/templates/ifaces.mas:104
+#: src/EBox/Network.pm:2002 src/EBox/Network.pm:2017 src/EBox/Network.pm:2149
+#: src/EBox/Network.pm:2267 src/templates/ifaces.mas:104
 #: src/templates/ifaces.mas:233
 msgid "IP address"
 msgstr ""
@@ -244,7 +248,7 @@ msgid "VLAN Id"
 msgstr ""
 
 #: src/EBox/CGI/Routes.pm:29 src/EBox/CGI/Routes.pm:40
-#: src/EBox/Network.pm:2274
+#: src/EBox/Network.pm:2290
 msgid "Routes"
 msgstr ""
 
@@ -260,12 +264,12 @@ msgstr ""
 msgid "Configure default gateway"
 msgstr ""
 
-#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:1948
+#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:1958
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
 msgstr ""
 
-#: src/EBox/Network.pm:56 src/EBox/Network.pm:2266 src/templates/routes.mas:33
+#: src/EBox/Network.pm:56 src/EBox/Network.pm:2282 src/templates/routes.mas:33
 msgid "Network"
 msgstr ""
 
@@ -273,7 +277,7 @@ msgstr ""
 msgid "Virtual interface name"
 msgstr ""
 
-#: src/EBox/Network.pm:558 src/EBox/Network.pm:867 src/EBox/Network.pm:1986
+#: src/EBox/Network.pm:558 src/EBox/Network.pm:867 src/EBox/Network.pm:2002
 #: src/templates/ifaces.mas:118 src/templates/ifaces.mas:235
 msgid "Netmask"
 msgstr ""
@@ -299,39 +303,46 @@ msgid ""
 "unreachable. Please remove it first if you really want to make this change."
 msgstr ""
 
-#: src/EBox/Network.pm:2175
+#: src/EBox/Network.pm:1962
+#, perl-brace-format
+msgid ""
+"Gateway {gw} must be reacheable by a static interface. Currently is "
+"reacheable by {iface} which is not static"
+msgstr ""
+
+#: src/EBox/Network.pm:2191
 msgid "Host name"
 msgstr ""
 
-#: src/EBox/Network.pm:2225
+#: src/EBox/Network.pm:2241
 msgid "down"
 msgstr ""
 
-#: src/EBox/Network.pm:2231
+#: src/EBox/Network.pm:2247
 msgid "up"
 msgstr ""
 
-#: src/EBox/Network.pm:2235
+#: src/EBox/Network.pm:2251
 msgid "link ok"
 msgstr ""
 
-#: src/EBox/Network.pm:2237
+#: src/EBox/Network.pm:2253
 msgid "no link"
 msgstr ""
 
-#: src/EBox/Network.pm:2240
+#: src/EBox/Network.pm:2256
 msgid "Status"
 msgstr ""
 
-#: src/EBox/Network.pm:2245
+#: src/EBox/Network.pm:2261
 msgid "MAC address"
 msgstr ""
 
-#: src/EBox/Network.pm:2270
+#: src/EBox/Network.pm:2286
 msgid "Interfaces"
 msgstr ""
 
-#: src/EBox/Network.pm:2276
+#: src/EBox/Network.pm:2292
 msgid "Diagnosis"
 msgstr ""
 
@@ -372,6 +383,24 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+#: src/templates/dns.mas:11
+msgid ""
+"Having network interfaces configured via DHCP may cause this settings to be "
+"overriden."
+msgstr ""
+
+#: src/templates/dns.mas:20
+msgid "Primary"
+msgstr ""
+
+#: src/templates/dns.mas:32
+msgid "Secondary"
+msgstr ""
+
+#: src/templates/dns.mas:45
+msgid "Apply"
+msgstr ""
+
 #: src/templates/diag.mas:13 src/templates/diag.mas:20
 msgid "Ping"
 msgstr ""
@@ -392,25 +421,7 @@ msgstr ""
 msgid "Output"
 msgstr ""
 
-#: src/templates/dns.mas:11
-msgid ""
-"Having network interfaces configured via DHCP may cause this settings to be "
-"overriden."
-msgstr ""
-
-#: src/templates/dns.mas:20
-msgid "Primary"
-msgstr ""
-
-#: src/templates/dns.mas:32
-msgid "Secondary"
-msgstr ""
-
-#: src/templates/dns.mas:45
-msgid "Apply"
-msgstr ""
-
-#: src/templates/gwrules.mas:16
+#: src/templates/gwrules.mas:17
 msgid ""
 "To be able to use this feature, you need, at least, two gateways. You can "
 "add them <a href="

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-15 17:24+0100\n"
+"POT-Creation-Date: 2007-03-28 16:01+0200\n"
 "PO-Revision-Date: 2007-01-27 21:44+0000\n"
 "Last-Translator: Guillermo Frías Marín <espanyoldebarna@hotmail.com>\n"
 "Language-Team: none\n"
@@ -15,220 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 0.10.1\n"
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
-
-#: src/EBox/CGI/EBox/Bug.pm:29 src/EBox/SysInfo.pm:126
-msgid "Bug report"
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:34
-msgid "Configuration backups"
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:112
-msgid "Please confirm that you want to delete the following backup file:"
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:114 src/templates/backup.mas:210
-#: src/templates/backup.mas:212
-msgid "Delete"
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:121
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:173
-msgid "Please confirm that you want to restore using this backup file:"
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:123
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:145
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:175 src/templates/backup.mas:101
-msgid "Restore"
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:133
-msgid ""
-"Unable to find a correct backup disk. Please insert a backup disk and retry"
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:144
-msgid "Please confirm that you want to restore using this backup disk:"
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:162
-msgid "Invalid backup file."
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:183
-msgid ""
-"Please confirm that you want to write this backup file to a CD or DVD disk:"
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:185
-msgid "Write to disk"
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:197 src/EBox/CGI/EBox/Backup.pm:230
-#: src/EBox/CGI/EBox/Backup.pm:301 src/EBox/CGI/EBox/Backup.pm:314
-#: src/EBox/Backup.pm:987
-msgid "The input contains invalid characters"
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:226
-msgid "Configuration backup"
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:229
-msgid "Full data and configutarion backup"
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:232
-msgid "Bug-report configuration dump"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Password.pm:49
-msgid "Incorrect password."
-msgstr ""
-
-#: src/EBox/CGI/EBox/Password.pm:54
-msgid "New passwords do not match."
-msgstr ""
-
-#: src/EBox/CGI/EBox/Password.pm:58
-msgid "The password must be at least 6 characters long"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Password.pm:62 src/EBox/CGI/FirstTime/Passwd.pm:92
-msgid "The password was changed successfully."
-msgstr ""
-
-#: src/EBox/CGI/EBox/Backup.pm:34
-msgid "System backups"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Backup.pm:188
-#, perl-brace-format
-msgid "Unknown backup mode: {mode}"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Backup.pm:197
-msgid "Backup done"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Backup.pm:210
-msgid "Backup was written to CD/DVD disk"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Backup.pm:272
-#, perl-brace-format
-msgid "Unknown restore mode: {mode}"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Backup.pm:283
-msgid ""
-"Full backup restored succesfully. You should now review your configuration "
-"and save it if you want to keep it."
-msgstr ""
-
-#: src/EBox/CGI/EBox/Backup.pm:288
-msgid ""
-"Configuration restored succesfully, you should now review it and save it if "
-"you want to keep it."
-msgstr ""
-
-#: src/EBox/CGI/EBox/RestartService.pm:48
-msgid "module name"
-msgstr ""
-
-#: src/EBox/CGI/EBox/RestartService.pm:52
-msgid "The module was restarted correctly."
-msgstr ""
-
-#: src/EBox/CGI/EBox/General.pm:30
-msgid "General configuration"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Halt.pm:30
-msgid "Halt or reboot"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Halt.pm:43
-msgid "eBox is going down for halt"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Halt.pm:46
-msgid "eBox is going down for reboot"
-msgstr ""
-
-#: src/EBox/CGI/Logs/Index.pm:33 src/EBox/Logs.pm:389
-msgid "Logs"
-msgstr ""
-
-#: src/EBox/CGI/Finish.pm:30
-msgid "Save configuration"
-msgstr ""
-
-#: src/EBox/CGI/ClientRawBase.pm:180
-msgid ""
-"An internal error has ocurred. This is most probably a bug, relevant "
-"information can be found in the logs."
-msgstr ""
-
-#: src/EBox/CGI/ClientRawBase.pm:190
-msgid ""
-"An internal error related to a template has occurred. This is a bug, "
-"relevant information can be found in the logs."
-msgstr ""
-
-#: src/EBox/CGI/Login/Index.pm:61
-msgid "Incorrect password"
-msgstr ""
-
-#: src/EBox/CGI/Login/Index.pm:64
-msgid "For security reasons your session has expired due to inactivity"
-msgstr ""
-
-#: src/EBox/CGI/Login/Index.pm:67
-msgid "You have been logged out because a new session has been opened"
-msgstr ""
-
-#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:40
-msgid "Logout"
-msgstr ""
-
-#: src/EBox/CGI/FirstTime/Index.pm:30
-msgid "Welcome to eBox"
-msgstr ""
-
-#: src/EBox/CGI/FirstTime/Index.pm:68 src/EBox/CGI/FirstTime/Passwd.pm:72
-msgid "eBox was already initialized"
-msgstr ""
-
-#: src/EBox/CGI/FirstTime/Passwd.pm:38
-msgid "Set password"
-msgstr ""
-
-#: src/EBox/CGI/FirstTime/Passwd.pm:63
-msgid "Default password was already changed"
-msgstr ""
-
-#: src/EBox/CGI/FirstTime/Passwd.pm:88
-msgid "New passwords do not match"
-msgstr ""
-
-#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
-msgid "Status"
-msgstr ""
-
-#: src/EBox/CGI/Summary/Index.pm:47
-msgid "Error"
-msgstr ""
-
-#: src/EBox/Backup/OpticalDisc.pm:126
-msgid "Unable to recognize the mounted DVD media"
-msgstr ""
-
-#: src/EBox/Backup/OpticalDisc.pm:165
-msgid "Unable to recognize the mounted CD media"
-msgstr ""
 
 #: src/EBox/Backup/RootCommands.pm:26
 #, perl-brace-format
@@ -291,56 +77,298 @@ msgstr ""
 msgid "No blanking method for {media}  defined. Cannot erase it"
 msgstr ""
 
-#: src/EBox/SysInfo.pm:57
-msgid "Services"
+#: src/EBox/Backup/OpticalDisc.pm:126
+msgid "Unable to recognize the mounted DVD media"
 msgstr ""
 
-#: src/EBox/SysInfo.pm:74
-msgid "General information"
+#: src/EBox/Backup/OpticalDisc.pm:165
+msgid "Unable to recognize the mounted CD media"
 msgstr ""
 
-#: src/EBox/SysInfo.pm:82
-msgid "Time"
+#: src/EBox/Summary/Status.pm:44
+msgid "Restart"
 msgstr ""
 
-#: src/EBox/SysInfo.pm:83
-msgid "Host name"
+#: src/EBox/Summary/Status.pm:47
+msgid "Running"
 msgstr ""
 
-#: src/EBox/SysInfo.pm:85
-msgid "eBox version"
+#: src/EBox/Summary/Status.pm:50
+msgid "Stopped"
 msgstr ""
 
-#: src/EBox/SysInfo.pm:88
-msgid "System load"
+#: src/EBox/Summary/Status.pm:52
+msgid "Start"
 msgstr ""
 
-#: src/EBox/SysInfo.pm:113
-msgid "System"
-msgstr ""
-
-#: src/EBox/SysInfo.pm:117
-msgid "General"
-msgstr ""
-
-#: src/EBox/SysInfo.pm:120 src/EBox/Backup.pm:562
-msgid "Backup"
-msgstr ""
-
-#: src/EBox/SysInfo.pm:123
-msgid "Halt/Reboot"
+#: src/EBox/Summary/Status.pm:54
+msgid "Disabled"
 msgstr ""
 
 #: src/EBox/Model/DataMultiTable.pm:168 src/EBox/Logs.pm:402
 msgid "Action"
 msgstr ""
 
-#: src/EBox/Html.pm:39
-msgid "Save changes"
+#: src/EBox/CGI/Logs/Index.pm:33 src/EBox/Logs.pm:389
+msgid "Logs"
 msgstr ""
 
-#: src/EBox/Auth.pm:131
-msgid "Password changed"
+#: src/EBox/CGI/FirstTime/Index.pm:30
+msgid "Welcome to eBox"
+msgstr ""
+
+#: src/EBox/CGI/FirstTime/Index.pm:68 src/EBox/CGI/FirstTime/Passwd.pm:72
+msgid "eBox was already initialized"
+msgstr ""
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:38
+msgid "Set password"
+msgstr ""
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:63
+msgid "Default password was already changed"
+msgstr ""
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:88
+msgid "New passwords do not match"
+msgstr ""
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:92 src/EBox/CGI/EBox/Password.pm:62
+msgid "The password was changed successfully."
+msgstr ""
+
+#: src/EBox/CGI/Login/Index.pm:61
+msgid "Incorrect password"
+msgstr ""
+
+#: src/EBox/CGI/Login/Index.pm:64
+msgid "For security reasons your session has expired due to inactivity"
+msgstr ""
+
+#: src/EBox/CGI/Login/Index.pm:67
+msgid "You have been logged out because a new session has been opened"
+msgstr ""
+
+#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:40
+msgid "Logout"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:34
+msgid "System backups"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:188
+#, perl-brace-format
+msgid "Unknown backup mode: {mode}"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:197
+msgid "Backup done"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:210
+msgid "Backup was written to CD/DVD disk"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:230 src/EBox/CGI/EBox/Backup.pm:301
+#: src/EBox/CGI/EBox/Backup.pm:314 src/EBox/CGI/EBox/ConfirmBackup.pm:197
+#: src/EBox/Backup.pm:995
+msgid "The input contains invalid characters"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:272
+#, perl-brace-format
+msgid "Unknown restore mode: {mode}"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:283
+msgid ""
+"Full backup restored succesfully. You should now review your configuration "
+"and save it if you want to keep it."
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:288
+msgid ""
+"Configuration restored succesfully, you should now review it and save it if "
+"you want to keep it."
+msgstr ""
+
+#: src/EBox/CGI/EBox/RestartService.pm:48
+msgid "module name"
+msgstr ""
+
+#: src/EBox/CGI/EBox/RestartService.pm:52
+msgid "The module was restarted correctly."
+msgstr ""
+
+#: src/EBox/CGI/EBox/Halt.pm:30
+msgid "Halt or reboot"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Halt.pm:43
+msgid "eBox is going down for halt"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Halt.pm:46
+msgid "eBox is going down for reboot"
+msgstr ""
+
+#: src/EBox/CGI/EBox/General.pm:30
+msgid "General configuration"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Bug.pm:29 src/EBox/SysInfo.pm:126
+msgid "Bug report"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Password.pm:49
+msgid "Incorrect password."
+msgstr ""
+
+#: src/EBox/CGI/EBox/Password.pm:54
+msgid "New passwords do not match."
+msgstr ""
+
+#: src/EBox/CGI/EBox/Password.pm:58
+msgid "The password must be at least 6 characters long"
+msgstr ""
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:34
+msgid "Configuration backups"
+msgstr ""
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:112
+msgid "Please confirm that you want to delete the following backup file:"
+msgstr ""
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:114 src/templates/backup.mas:210
+#: src/templates/backup.mas:212
+msgid "Delete"
+msgstr ""
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:121
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:173
+msgid "Please confirm that you want to restore using this backup file:"
+msgstr ""
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:123
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:145
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:175 src/templates/backup.mas:101
+msgid "Restore"
+msgstr ""
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:133
+msgid ""
+"Unable to find a correct backup disk. Please insert a backup disk and retry"
+msgstr ""
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:144
+msgid "Please confirm that you want to restore using this backup disk:"
+msgstr ""
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:162
+msgid "Invalid backup file."
+msgstr ""
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:183
+msgid ""
+"Please confirm that you want to write this backup file to a CD or DVD disk:"
+msgstr ""
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:185
+msgid "Write to disk"
+msgstr ""
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:226
+msgid "Configuration backup"
+msgstr ""
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:229
+msgid "Full data and configuration backup"
+msgstr ""
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:232
+msgid "Bug-report configuration dump"
+msgstr ""
+
+#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
+msgid "Status"
+msgstr ""
+
+#: src/EBox/CGI/Summary/Index.pm:47
+msgid "Error"
+msgstr ""
+
+#: src/EBox/CGI/Finish.pm:30
+msgid "Save configuration"
+msgstr ""
+
+#: src/EBox/CGI/ClientRawBase.pm:180
+msgid ""
+"An internal error has ocurred. This is most probably a bug, relevant "
+"information can be found in the logs."
+msgstr ""
+
+#: src/EBox/CGI/ClientRawBase.pm:190
+msgid ""
+"An internal error related to a template has occurred. This is a bug, "
+"relevant information can be found in the logs."
+msgstr ""
+
+#: src/EBox/Apache.pm:48
+msgid ""
+"You must set the httpd_serverroot variable in the ebox configuration file"
+msgstr ""
+
+#: src/EBox/Apache.pm:58
+msgid "You must set the httpd_init variable in the ebox configuration file"
+msgstr ""
+
+#: src/EBox/Apache.pm:61
+msgid "The httpd_init script you configured is not executable."
+msgstr ""
+
+#: src/EBox/Apache.pm:184 src/EBox/Apache.pm:193
+msgid "port"
+msgstr ""
+
+#: src/EBox/Logs.pm:231
+#, perl-brace-format
+msgid "Table {table} does not exist"
+msgstr ""
+
+#: src/EBox/Logs.pm:246
+#, perl-brace-format
+msgid "Field {field} does not exist"
+msgstr ""
+
+#: src/EBox/Logs.pm:399 src/templates/confirm-backup.mas:28
+#: src/templates/backup.mas:162 src/templates/finish.mas:23
+msgid "Date"
+msgstr ""
+
+#: src/EBox/Logs.pm:400
+msgid "Client Address"
+msgstr ""
+
+#: src/EBox/Logs.pm:401 src/templates/finish.mas:25
+msgid "Module"
+msgstr ""
+
+#: src/EBox/Logs.pm:403
+msgid "Params"
+msgstr ""
+
+#: src/EBox/Logs.pm:404
+msgid "Committed"
+msgstr ""
+
+#: src/EBox/Logs.pm:409
+msgid "Admin"
+msgstr ""
+
+#: src/EBox/Html.pm:39
+msgid "Save changes"
 msgstr ""
 
 #: src/EBox/Backup.pm:235
@@ -351,7 +379,7 @@ msgstr ""
 msgid "Could not append data to backup archive"
 msgstr ""
 
-#: src/EBox/Backup.pm:348 src/EBox/Backup.pm:970
+#: src/EBox/Backup.pm:348 src/EBox/Backup.pm:978
 msgid "Insert a backup disc and try again, please"
 msgstr ""
 
@@ -366,6 +394,10 @@ msgstr ""
 
 #: src/EBox/Backup.pm:425 src/EBox/Backup.pm:808
 msgid "Could not unpack the backup"
+msgstr ""
+
+#: src/EBox/Backup.pm:562 src/EBox/SysInfo.pm:120
+msgid "Backup"
 msgstr ""
 
 #: src/EBox/Backup.pm:637
@@ -410,28 +442,55 @@ msgid ""
 "message: {error}"
 msgstr ""
 
-#: src/EBox/Backup.pm:920
+#: src/EBox/Backup.pm:928
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
 "installed"
 msgstr ""
 
-#: src/EBox/Apache.pm:48
-msgid ""
-"You must set the httpd_serverroot variable in the ebox configuration file"
+#: src/EBox/FirstTime.pm:67 src/templates/firstTime/passwd.mas:4
+msgid "Change default password"
 msgstr ""
 
-#: src/EBox/Apache.pm:58
-msgid "You must set the httpd_init variable in the ebox configuration file"
+#: src/EBox/SysInfo.pm:57
+msgid "Services"
 msgstr ""
 
-#: src/EBox/Apache.pm:61
-msgid "The httpd_init script you configured is not executable."
+#: src/EBox/SysInfo.pm:74
+msgid "General information"
 msgstr ""
 
-#: src/EBox/Apache.pm:184 src/EBox/Apache.pm:193
-msgid "port"
+#: src/EBox/SysInfo.pm:82
+msgid "Time"
+msgstr ""
+
+#: src/EBox/SysInfo.pm:83
+msgid "Host name"
+msgstr ""
+
+#: src/EBox/SysInfo.pm:85
+msgid "eBox version"
+msgstr ""
+
+#: src/EBox/SysInfo.pm:88
+msgid "System load"
+msgstr ""
+
+#: src/EBox/SysInfo.pm:113
+msgid "System"
+msgstr ""
+
+#: src/EBox/SysInfo.pm:117
+msgid "General"
+msgstr ""
+
+#: src/EBox/SysInfo.pm:123
+msgid "Halt/Reboot"
+msgstr ""
+
+#: src/EBox/Auth.pm:131
+msgid "Password changed"
 msgstr ""
 
 #: src/EBox/PgDBEngine.pm:43 src/EBox/PgDBEngine.pm:56
@@ -448,65 +507,6 @@ msgstr ""
 #: src/EBox/PgDBEngine.pm:235
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
-msgstr ""
-
-#: src/EBox/Logs.pm:231
-#, perl-brace-format
-msgid "Table {table} does not exist"
-msgstr ""
-
-#: src/EBox/Logs.pm:246
-#, perl-brace-format
-msgid "Field {field} does not exist"
-msgstr ""
-
-#: src/EBox/Logs.pm:399 src/templates/finish.mas:23
-#: src/templates/confirm-backup.mas:28 src/templates/backup.mas:162
-msgid "Date"
-msgstr ""
-
-#: src/EBox/Logs.pm:400
-msgid "Client Address"
-msgstr ""
-
-#: src/EBox/Logs.pm:401 src/templates/finish.mas:25
-msgid "Module"
-msgstr ""
-
-#: src/EBox/Logs.pm:403
-msgid "Params"
-msgstr ""
-
-#: src/EBox/Logs.pm:404
-msgid "Committed"
-msgstr ""
-
-#: src/EBox/Logs.pm:409
-msgid "Admin"
-msgstr ""
-
-#: src/EBox/Summary/Status.pm:44
-msgid "Restart"
-msgstr ""
-
-#: src/EBox/Summary/Status.pm:47
-msgid "Running"
-msgstr ""
-
-#: src/EBox/Summary/Status.pm:50
-msgid "Stopped"
-msgstr ""
-
-#: src/EBox/Summary/Status.pm:52
-msgid "Start"
-msgstr ""
-
-#: src/EBox/Summary/Status.pm:54
-msgid "Disabled"
-msgstr ""
-
-#: src/EBox/FirstTime.pm:67 src/templates/firstTime/passwd.mas:4
-msgid "Change default password"
 msgstr ""
 
 #: src/templates/logs/index.mas:19
@@ -622,10 +622,6 @@ msgstr ""
 msgid "last"
 msgstr ""
 
-#: src/templates/firstTime/index.mas:6
-msgid "Use default values"
-msgstr ""
-
 #: src/templates/firstTime/passwd.mas:6 src/templates/password.mas:8
 msgid "Your password must be at least 6 characters long."
 msgstr ""
@@ -643,6 +639,10 @@ msgstr ""
 msgid "Change"
 msgstr ""
 
+#: src/templates/firstTime/index.mas:6
+msgid "Use default values"
+msgstr ""
+
 #: src/templates/login/index.mas:27
 msgid "Password"
 msgstr ""
@@ -657,41 +657,16 @@ msgid ""
 "with <a href='http://www.dbs.es'>DBS Servicios Informaticos</a>"
 msgstr ""
 
-#: src/templates/password.mas:6
-msgid "Change password"
+#: src/templates/logout/index.mas:11
+msgid "There are unsaved changes, if you log out now they will be lost."
 msgstr ""
 
-#: src/templates/password.mas:15
-msgid "Current password"
+#: src/templates/logout/index.mas:16
+msgid "There are no unsaved changes in this session."
 msgstr ""
 
-#: src/templates/finish.mas:12
-msgid ""
-"There are unsaved changes in one or more modules, you can save or discard "
-"those changes."
-msgstr ""
-
-#: src/templates/finish.mas:16
-msgid ""
-"If you made changes to the network interfaces or the administration port, "
-"you may need to manually rewrite the url in order to access this "
-"administration interface again."
-msgstr ""
-
-#: src/templates/finish.mas:27
-msgid "Message"
-msgstr ""
-
-#: src/templates/finish.mas:44
-msgid "Save"
-msgstr ""
-
-#: src/templates/finish.mas:47
-msgid "Discard changes"
-msgstr ""
-
-#: src/templates/finish.mas:53
-msgid "There are no unsaved changes."
+#: src/templates/logout/index.mas:21
+msgid "Exit"
 msgstr ""
 
 #: src/templates/confirm-backup.mas:37 src/templates/backup.mas:44
@@ -719,20 +694,12 @@ msgstr ""
 msgid "Restore mode"
 msgstr ""
 
-#: src/templates/port.mas:9
-msgid "Administration interface TCP port"
+#: src/templates/password.mas:6
+msgid "Change password"
 msgstr ""
 
-#: src/templates/halt.mas:10
-msgid "You might lose your Internet connection if this machine is halted."
-msgstr ""
-
-#: src/templates/halt.mas:15
-msgid "Halt"
-msgstr ""
-
-#: src/templates/halt.mas:18
-msgid "Reboot"
+#: src/templates/password.mas:15
+msgid "Current password"
 msgstr ""
 
 #: src/templates/backup.mas:20
@@ -854,23 +821,6 @@ msgstr ""
 msgid "delete"
 msgstr ""
 
-#: src/templates/logout/index.mas:11
-msgid "There are unsaved changes, if you log out now they will be lost."
-msgstr ""
-
-#: src/templates/logout/index.mas:16
-msgid "There are no unsaved changes in this session."
-msgstr ""
-
-#: src/templates/logout/index.mas:21
-msgid "Exit"
-msgstr ""
-
-#: src/templates/footer.mas:8
-#, perl-brace-format
-msgid "{ebox} developed by {warp}"
-msgstr ""
-
 #: src/templates/bug.mas:9
 msgid ""
 "This page lets you generate a file with information about the state of your "
@@ -879,4 +829,54 @@ msgstr ""
 
 #: src/templates/bug.mas:15
 msgid "Download bug report file"
+msgstr ""
+
+#: src/templates/finish.mas:12
+msgid ""
+"There are unsaved changes in one or more modules, you can save or discard "
+"those changes."
+msgstr ""
+
+#: src/templates/finish.mas:16
+msgid ""
+"If you made changes to the network interfaces or the administration port, "
+"you may need to manually rewrite the url in order to access this "
+"administration interface again."
+msgstr ""
+
+#: src/templates/finish.mas:27
+msgid "Message"
+msgstr ""
+
+#: src/templates/finish.mas:44
+msgid "Save"
+msgstr ""
+
+#: src/templates/finish.mas:47
+msgid "Discard changes"
+msgstr ""
+
+#: src/templates/finish.mas:53
+msgid "There are no unsaved changes."
+msgstr ""
+
+#: src/templates/port.mas:9
+msgid "Administration interface TCP port"
+msgstr ""
+
+#: src/templates/halt.mas:10
+msgid "You might lose your Internet connection if this machine is halted."
+msgstr ""
+
+#: src/templates/halt.mas:15
+msgid "Halt"
+msgstr ""
+
+#: src/templates/halt.mas:18
+msgid "Reboot"
+msgstr ""
+
+#: src/templates/footer.mas:8
+#, perl-brace-format
+msgid "{ebox} created by {warp} in collaboration with {dbs}"
 msgstr ""

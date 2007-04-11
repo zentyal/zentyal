@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-16 11:35+0100\n"
+"POT-Creation-Date: 2007-03-28 16:02+0200\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -17,10 +17,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
 
-#: src/EBox/CGI/Del.pm:42 src/EBox/CGI/DelFrom.pm:41 src/EBox/CGI/AddTo.pm:41
-#: src/EBox/CGI/Edit.pm:42 src/EBox/CGI/Add.pm:41 src/EBox/Objects.pm:214
+#: src/EBox/CGI/Del.pm:42 src/EBox/CGI/Edit.pm:42 src/EBox/CGI/Add.pm:41
+#: src/EBox/CGI/DelFrom.pm:41 src/EBox/CGI/AddTo.pm:41 src/EBox/Objects.pm:214
 msgid "Object name"
 msgstr "Nom de l'objecte"
+
+#: src/EBox/CGI/Edit.pm:29 src/EBox/CGI/Edit.pm:39
+#, fuzzy
+msgid "Edit Object"
+msgstr "Objecte"
+
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:41 src/EBox/Objects.pm:37
+msgid "Objects"
+msgstr "Objectes"
 
 #: src/EBox/CGI/AddTo.pm:45 src/templates/edit.mas:18
 msgid "IP address"
@@ -34,15 +43,6 @@ msgstr "Màscara de xarxa"
 #: src/templates/index.mas:32
 msgid "Name"
 msgstr "Nom"
-
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:41 src/EBox/Objects.pm:37
-msgid "Objects"
-msgstr "Objectes"
-
-#: src/EBox/CGI/Edit.pm:29 src/EBox/CGI/Edit.pm:39
-#, fuzzy
-msgid "Edit Object"
-msgstr "Objecte"
 
 #: src/EBox/Objects.pm:42
 #, perl-brace-format
@@ -84,6 +84,28 @@ msgstr ""
 msgid "network address"
 msgstr "adreça de xarxa"
 
+#: src/templates/delete.mas:10
+msgid "Deleting object"
+msgstr "S'està eliminant l'objecte"
+
+#: src/templates/delete.mas:13
+msgid ""
+"The object you tried to delete is being used by some modules, please confirm "
+"that you want to delete it."
+msgstr ""
+"L'objecte que heu intentat eliminar està sent utilitzar per alguns mòduls. "
+"Confirmeu que voleu eliminar-lo."
+
+#: src/templates/delete.mas:23 src/templates/edit.mas:97
+#: src/templates/edit.mas:99 src/templates/edit.mas:101
+#: src/templates/index.mas:54 src/templates/index.mas:56
+msgid "Delete"
+msgstr "Elimina"
+
+#: src/templates/delete.mas:27
+msgid "Cancel"
+msgstr "Cancel·la"
+
 #: src/templates/edit.mas:11
 #, perl-brace-format
 msgid "Edit <span class='stitle'>{description}</span> members"
@@ -101,12 +123,6 @@ msgstr "Acció"
 #: src/templates/edit.mas:66
 msgid "Add"
 msgstr "Afegeix"
-
-#: src/templates/edit.mas:97 src/templates/edit.mas:99
-#: src/templates/edit.mas:101 src/templates/index.mas:54
-#: src/templates/index.mas:56 src/templates/delete.mas:23
-msgid "Delete"
-msgstr "Elimina"
 
 #: src/templates/edit.mas:111
 #, fuzzy
@@ -159,19 +175,3 @@ msgstr "Surt"
 #, fuzzy
 msgid "delete"
 msgstr "Elimina"
-
-#: src/templates/delete.mas:10
-msgid "Deleting object"
-msgstr "S'està eliminant l'objecte"
-
-#: src/templates/delete.mas:13
-msgid ""
-"The object you tried to delete is being used by some modules, please confirm "
-"that you want to delete it."
-msgstr ""
-"L'objecte que heu intentat eliminar està sent utilitzar per alguns mòduls. "
-"Confirmeu que voleu eliminar-lo."
-
-#: src/templates/delete.mas:27
-msgid "Cancel"
-msgstr "Cancel·la"

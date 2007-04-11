@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-16 11:37+0100\n"
+"POT-Creation-Date: 2007-03-28 16:03+0200\n"
 "PO-Revision-Date: 2005-11-29 13:24+0100\n"
 "Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -17,78 +17,15 @@ msgstr ""
 "X-Generator: KBabel 1.10.2\n"
 "Plural-Forms: nplurals=2; plural= (n > 1);\n"
 
-#: src/EBox/CGI/Ban.pm:40 src/EBox/CGI/Allow.pm:40 src/EBox/Squid.pm.in:639
-#: src/EBox/Squid.pm.in:644 src/EBox/Squid.pm.in:692 src/EBox/Squid.pm.in:697
-msgid "domain name"
-msgstr "nom de domaine"
-
-#: src/EBox/CGI/Ban.pm:41 src/EBox/CGI/Allow.pm:41
-msgid "action"
-msgstr "action"
-
-#: src/EBox/CGI/Policy.pm:30 src/EBox/CGI/Policy.pm:54
-#: src/EBox/CGI/SetPolicy.pm:30
-msgid "HTTP proxy policy"
-msgstr "Politique du proxy HTTP"
-
-#: src/EBox/CGI/ExtensionsUI.pm:30 src/EBox/CGI/ExtensionsUI.pm:40
-#: src/EBox/CGI/MimeTypesUI.pm:30 src/EBox/CGI/Index.pm:30
-#: src/EBox/CGI/Index.pm:40 src/EBox/Squid.pm.in:1172
-msgid "HTTP Proxy"
-msgstr "Proxy HTTP"
-
-#: src/EBox/CGI/ExtensionsUI.pm:47
-msgid "Configure allowed extensions"
-msgstr ""
-
-#: src/EBox/CGI/ExtensionsUI.pm:51 src/EBox/CGI/AddCustomFilter.pm:59
-msgid "Extension"
-msgstr ""
-
-#: src/EBox/CGI/ExtensionsUI.pm:53
-msgid "Add a new file extension without dot. Like \"pdf\""
-msgstr ""
-
-#: src/EBox/CGI/MimeTypesUI.pm:44
-msgid "Configure allowed MIME types"
-msgstr ""
-
-#: src/EBox/CGI/MimeTypesUI.pm:46 src/EBox/CGI/AddCustomFilter.pm:59
-#: src/EBox/CGI/AddCustomFilter.pm:71 src/EBox/CGI/AddCustomFilter.pm:80
-#, fuzzy
-msgid "MIME type"
-msgstr "Autoriser"
-
-#: src/EBox/CGI/MimeTypesUI.pm:51
-msgid " or something starting with \"x-\"."
-msgstr ""
-
-#: src/EBox/CGI/MimeTypesUI.pm:52
-#, perl-brace-format
-msgid ""
-"Add a new MIME type with the following syntax: type/subtype Where type can "
-"be: {types}"
-msgstr ""
-
 #: src/EBox/CGI/Enable.pm:42
 msgid "module status"
 msgstr "statut du module"
 
-#: src/EBox/CGI/General.pm:42
-msgid "content filter threshold"
-msgstr "seuil de filtre de contents"
-
-#: src/EBox/CGI/General.pm:45
-msgid "transparent proxy"
-msgstr "proxy transparent"
-
-#: src/EBox/CGI/General.pm:48 src/EBox/Squid.pm.in:477
-msgid "listening port"
-msgstr "port d'écoute"
-
-#: src/EBox/CGI/General.pm:51
-msgid "global policy"
-msgstr "politique globale"
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40
+#: src/EBox/CGI/MimeTypesUI.pm:30 src/EBox/CGI/ExtensionsUI.pm:30
+#: src/EBox/CGI/ExtensionsUI.pm:40 src/EBox/Squid.pm.in:1172
+msgid "HTTP Proxy"
+msgstr "Proxy HTTP"
 
 #: src/EBox/CGI/AddCustomFilter.pm:41 src/EBox/CGI/SetFilterList.pm:41
 msgid "Attribute Name"
@@ -99,8 +36,8 @@ msgid "Name"
 msgstr ""
 
 #: src/EBox/CGI/AddCustomFilter.pm:43 src/EBox/Squid.pm.in:1201
-#: src/templates/filterTable.mas:47 src/templates/filterTable.mas:70
 #: src/templates/index.mas:134 src/templates/index.mas:137
+#: src/templates/filterTable.mas:47 src/templates/filterTable.mas:70
 msgid "Deny"
 msgstr "Interdire"
 
@@ -108,6 +45,16 @@ msgstr "Interdire"
 #, perl-brace-format
 msgid "New {type} SHOULD be lower than {number} characters"
 msgstr ""
+
+#: src/EBox/CGI/AddCustomFilter.pm:59 src/EBox/CGI/ExtensionsUI.pm:51
+msgid "Extension"
+msgstr ""
+
+#: src/EBox/CGI/AddCustomFilter.pm:59 src/EBox/CGI/AddCustomFilter.pm:71
+#: src/EBox/CGI/AddCustomFilter.pm:80 src/EBox/CGI/MimeTypesUI.pm:46
+#, fuzzy
+msgid "MIME type"
+msgstr "Autoriser"
 
 #: src/EBox/CGI/AddCustomFilter.pm:70
 #, perl-brace-format
@@ -139,15 +86,49 @@ msgstr ""
 msgid "MIME type {name} is already in the list"
 msgstr ""
 
-#: src/EBox/CGI/BannedDomains.pm:30 src/EBox/CGI/BannedDomains.pm:40
-#: src/EBox/Squid.pm.in:1231 src/templates/banned.mas:11
-msgid "Banned domains"
-msgstr "Domaines exclus"
+#: src/EBox/CGI/MimeTypesUI.pm:44
+msgid "Configure allowed MIME types"
+msgstr ""
 
-#: src/EBox/CGI/AllowedDomains.pm:30 src/EBox/CGI/AllowedDomains.pm:40
-#: src/EBox/Squid.pm.in:1229 src/templates/allowed.mas:11
-msgid "Allowed domains"
-msgstr "Domaines autorisés"
+#: src/EBox/CGI/MimeTypesUI.pm:51
+msgid " or something starting with \"x-\"."
+msgstr ""
+
+#: src/EBox/CGI/MimeTypesUI.pm:52
+#, perl-brace-format
+msgid ""
+"Add a new MIME type with the following syntax: type/subtype Where type can "
+"be: {types}"
+msgstr ""
+
+#: src/EBox/CGI/SetPolicy.pm:30 src/EBox/CGI/Policy.pm:30
+#: src/EBox/CGI/Policy.pm:54
+msgid "HTTP proxy policy"
+msgstr "Politique du proxy HTTP"
+
+#: src/EBox/CGI/ExtensionsUI.pm:47
+msgid "Configure allowed extensions"
+msgstr ""
+
+#: src/EBox/CGI/ExtensionsUI.pm:53
+msgid "Add a new file extension without dot. Like \"pdf\""
+msgstr ""
+
+#: src/EBox/CGI/General.pm:42
+msgid "content filter threshold"
+msgstr "seuil de filtre de contents"
+
+#: src/EBox/CGI/General.pm:45
+msgid "transparent proxy"
+msgstr "proxy transparent"
+
+#: src/EBox/CGI/General.pm:48 src/EBox/Squid.pm.in:477
+msgid "listening port"
+msgstr "port d'écoute"
+
+#: src/EBox/CGI/General.pm:51
+msgid "global policy"
+msgstr "politique globale"
 
 #: src/EBox/CGI/SetFilterList.pm:59
 #, perl-brace-format
@@ -162,6 +143,25 @@ msgstr ""
 #, fuzzy
 msgid "All MIME types have been deleted"
 msgstr "Autoriser"
+
+#: src/EBox/CGI/Allow.pm:40 src/EBox/CGI/Ban.pm:40 src/EBox/Squid.pm.in:639
+#: src/EBox/Squid.pm.in:644 src/EBox/Squid.pm.in:692 src/EBox/Squid.pm.in:697
+msgid "domain name"
+msgstr "nom de domaine"
+
+#: src/EBox/CGI/Allow.pm:41 src/EBox/CGI/Ban.pm:41
+msgid "action"
+msgstr "action"
+
+#: src/EBox/CGI/BannedDomains.pm:30 src/EBox/CGI/BannedDomains.pm:40
+#: src/EBox/Squid.pm.in:1231 src/templates/banned.mas:11
+msgid "Banned domains"
+msgstr "Domaines exclus"
+
+#: src/EBox/CGI/AllowedDomains.pm:30 src/EBox/CGI/AllowedDomains.pm:40
+#: src/EBox/Squid.pm.in:1229 src/templates/allowed.mas:11
+msgid "Allowed domains"
+msgstr "Domaines autorisés"
 
 #: src/EBox/Squid.pm.in:139
 msgid "You must set the cache_mem variable in the ebox configuration file"
@@ -220,9 +220,9 @@ msgid "Allow"
 msgstr "Autoriser"
 
 #: src/EBox/Squid.pm.in:1203 src/templates/index.mas:141
-#: src/templates/index.mas:144 src/templates/policy.mas:55
-#: src/templates/policy.mas:59 src/templates/policy.mas:119
-#: src/templates/policy.mas:123 src/templates/domains.mas:18
+#: src/templates/index.mas:144 src/templates/domains.mas:18
+#: src/templates/policy.mas:55 src/templates/policy.mas:59
+#: src/templates/policy.mas:119 src/templates/policy.mas:123
 msgid "Filter"
 msgstr "Filtre"
 
@@ -292,67 +292,6 @@ msgstr "Interdit"
 msgid "Filtered"
 msgstr "Filtré"
 
-#: src/templates/filterTable.mas:15
-#, perl-brace-format
-msgid ""
-"When the filter content is enabled you can select those file {name} which "
-"are denied to download"
-msgstr ""
-
-#: src/templates/filterTable.mas:17
-#, fuzzy
-msgid "extensions"
-msgstr "Autoriser"
-
-#: src/templates/filterTable.mas:18
-#, fuzzy
-msgid "MIME types"
-msgstr "Autoriser"
-
-#: src/templates/filterTable.mas:32 src/templates/filterTable.mas:54
-#: src/templates/domains.mas:57 src/templates/domains.mas:59
-#: src/templates/domains.mas:61
-msgid "Add"
-msgstr "Ajouter"
-
-#: src/templates/filterTable.mas:74
-#, fuzzy
-msgid "Actions"
-msgstr "Action"
-
-#: src/templates/filterTable.mas:85
-#, fuzzy
-msgid "All extensions"
-msgstr "Autoriser"
-
-#: src/templates/filterTable.mas:87
-#, fuzzy
-msgid "All MIME types"
-msgstr "Autoriser"
-
-#: src/templates/filterTable.mas:108 src/templates/filterTable.mas:110
-msgid "Delete them all"
-msgstr ""
-
-#: src/templates/filterTable.mas:113
-msgid "Are you sure you want to delete all file extensions?"
-msgstr ""
-
-#: src/templates/filterTable.mas:115
-msgid "Are you sure you want to delete all MIME types?"
-msgstr ""
-
-#: src/templates/filterTable.mas:154 src/templates/filterTable.mas:156
-#: src/templates/domains.mas:77 src/templates/domains.mas:79
-#: src/templates/domains.mas:81
-msgid "Delete"
-msgstr "Effacer"
-
-#: src/templates/filterTable.mas:172 src/templates/filterTable.mas:174
-#: src/templates/index.mas:155 src/templates/index.mas:156
-msgid "Change"
-msgstr "Changer"
-
 #: src/templates/banned.mas:13
 msgid "Add here those domains which you do not want to allow access."
 msgstr ""
@@ -404,9 +343,91 @@ msgstr "Strict"
 msgid "Very strict"
 msgstr "Très strict"
 
+#: src/templates/index.mas:155 src/templates/index.mas:156
+#: src/templates/filterTable.mas:172 src/templates/filterTable.mas:174
+msgid "Change"
+msgstr "Changer"
+
 #: src/templates/allowed.mas:13
 msgid "Add here those domains which you want to allow access."
 msgstr "Ajoutez ici les domaines auxquels vous souhaitez autoriser l'accès"
+
+#: src/templates/domains.mas:16
+#, perl-brace-format
+msgid "This list will only take effect if {globalPolicy} is set to {filter}"
+msgstr ""
+
+#: src/templates/domains.mas:29
+msgid "Introduce domains in this way: "
+msgstr "Introduire les domaines de cette manière : "
+
+#: src/templates/domains.mas:31
+msgid "domain.com"
+msgstr "domain.com"
+
+#: src/templates/domains.mas:37
+msgid "Domain"
+msgstr "Domaine"
+
+#: src/templates/domains.mas:39
+msgid "Action"
+msgstr "Action"
+
+#: src/templates/domains.mas:57 src/templates/domains.mas:59
+#: src/templates/domains.mas:61 src/templates/filterTable.mas:32
+#: src/templates/filterTable.mas:54
+msgid "Add"
+msgstr "Ajouter"
+
+#: src/templates/domains.mas:77 src/templates/domains.mas:79
+#: src/templates/domains.mas:81 src/templates/filterTable.mas:154
+#: src/templates/filterTable.mas:156
+msgid "Delete"
+msgstr "Effacer"
+
+#: src/templates/filterTable.mas:15
+#, perl-brace-format
+msgid ""
+"When the filter content is enabled you can select those file {name} which "
+"are denied to download"
+msgstr ""
+
+#: src/templates/filterTable.mas:17
+#, fuzzy
+msgid "extensions"
+msgstr "Autoriser"
+
+#: src/templates/filterTable.mas:18
+#, fuzzy
+msgid "MIME types"
+msgstr "Autoriser"
+
+#: src/templates/filterTable.mas:74
+#, fuzzy
+msgid "Actions"
+msgstr "Action"
+
+#: src/templates/filterTable.mas:85
+#, fuzzy
+msgid "All extensions"
+msgstr "Autoriser"
+
+#: src/templates/filterTable.mas:87
+#, fuzzy
+msgid "All MIME types"
+msgstr "Autoriser"
+
+#: src/templates/filterTable.mas:108 src/templates/filterTable.mas:110
+msgid "Delete them all"
+msgstr ""
+
+#: src/templates/filterTable.mas:113
+msgid "Are you sure you want to delete all file extensions?"
+msgstr ""
+
+#: src/templates/filterTable.mas:115
+msgid "Are you sure you want to delete all MIME types?"
+msgstr ""
 
 #: src/templates/policy.mas:14
 msgid ""
@@ -440,27 +461,6 @@ msgstr "Déplacez les objets choisis à la colonne interdite"
 #: src/templates/policy.mas:111
 msgid "Move selected objects to the unfiltered column"
 msgstr "Déplacez les objets choisis à la colonne non filtrée"
-
-#: src/templates/domains.mas:16
-#, perl-brace-format
-msgid "This list will only take effect if {globalPolicy} is set to {filter}"
-msgstr ""
-
-#: src/templates/domains.mas:29
-msgid "Introduce domains in this way: "
-msgstr "Introduire les domaines de cette manière : "
-
-#: src/templates/domains.mas:31
-msgid "domain.com"
-msgstr "domain.com"
-
-#: src/templates/domains.mas:37
-msgid "Domain"
-msgstr "Domaine"
-
-#: src/templates/domains.mas:39
-msgid "Action"
-msgstr "Action"
 
 #, fuzzy
 #~ msgid "Allow all"

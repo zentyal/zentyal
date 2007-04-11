@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Warp S.L.
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the ebox-ntp package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: ebox-ntp 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-16 11:18+0100\n"
+"POT-Creation-Date: 2007-04-11 16:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,8 +16,32 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: src/EBox/CGI/Synch.pm:41
+msgid "external synchronize status"
+msgstr ""
+
+#: src/EBox/CGI/Enable.pm:41
+msgid "module status"
+msgstr ""
+
+#: src/EBox/CGI/Index.pm:30
+msgid "NTP Server"
+msgstr ""
+
+#: src/EBox/CGI/Timezone.pm:30
+msgid "Timezone settings"
+msgstr ""
+
 #: src/EBox/CGI/Datetime.pm:30
 msgid "Date and time settings"
+msgstr ""
+
+#: src/EBox/CGI/ChangeTimeZone.pm:41
+msgid "country"
+msgstr ""
+
+#: src/EBox/CGI/ChangeTimeZone.pm:42
+msgid "continent"
 msgstr ""
 
 #: src/EBox/CGI/AddServers.pm:42
@@ -36,18 +60,6 @@ msgstr ""
 
 #: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:42
 msgid "Tertiary server"
-msgstr ""
-
-#: src/EBox/CGI/Synch.pm:41
-msgid "external synchronize status"
-msgstr ""
-
-#: src/EBox/CGI/Enable.pm:41
-msgid "module status"
-msgstr ""
-
-#: src/EBox/CGI/Index.pm:30
-msgid "NTP Server"
 msgstr ""
 
 #: src/EBox/CGI/ChangeDate.pm:41
@@ -72,18 +84,6 @@ msgstr ""
 
 #: src/EBox/CGI/ChangeDate.pm:46
 msgid "Seconds"
-msgstr ""
-
-#: src/EBox/CGI/Timezone.pm:30
-msgid "Timezone settings"
-msgstr ""
-
-#: src/EBox/CGI/ChangeTimeZone.pm:41
-msgid "country"
-msgstr ""
-
-#: src/EBox/CGI/ChangeTimeZone.pm:42
-msgid "continent"
 msgstr ""
 
 #: src/EBox/NTP.pm:201
@@ -134,6 +134,51 @@ msgstr ""
 
 #: src/EBox/NTP.pm:412
 msgid "NTP server"
+msgstr ""
+
+#: src/templates/synch.mas:11 src/templates/synch.mas:16
+msgid "Disabled"
+msgstr ""
+
+#: src/templates/synch.mas:13 src/templates/synch.mas:18
+msgid "Enabled"
+msgstr ""
+
+#: src/templates/synch.mas:23 src/templates/synch.mas:25
+#: src/templates/servers.mas:55 src/templates/timezone.mas:37
+#: src/templates/timezone.mas:39 src/templates/date.mas:111
+#: src/templates/date.mas:113
+msgid "Change"
+msgstr ""
+
+#: src/templates/index.mas:11
+msgid "NTP server status"
+msgstr ""
+
+#: src/templates/servers.mas:7
+msgid "NTP servers"
+msgstr ""
+
+#: src/templates/servers.mas:11
+msgid ""
+"You should remember to set up your timezone to have synchronization behaving "
+"correctly."
+msgstr ""
+
+#: src/templates/timezone.mas:19
+msgid "A time zone change will cause all eBox services to be restarted"
+msgstr ""
+
+#: src/templates/datetime.mas:13
+msgid "Time synchronization with NTP servers"
+msgstr ""
+
+#: src/templates/datetime.mas:18
+msgid "External NTP servers"
+msgstr ""
+
+#: src/templates/datetime.mas:23
+msgid "Change Date and Time"
 msgstr ""
 
 #: src/templates/date.mas:10
@@ -195,49 +240,4 @@ msgstr ""
 
 #: src/templates/date.mas:69
 msgid "Time"
-msgstr ""
-
-#: src/templates/date.mas:111 src/templates/date.mas:113
-#: src/templates/servers.mas:55 src/templates/synch.mas:23
-#: src/templates/synch.mas:25 src/templates/timezone.mas:37
-#: src/templates/timezone.mas:39
-msgid "Change"
-msgstr ""
-
-#: src/templates/servers.mas:7
-msgid "NTP servers"
-msgstr ""
-
-#: src/templates/servers.mas:11
-msgid ""
-"You should remember to set up your timezone to have synchronization behaving "
-"correctly."
-msgstr ""
-
-#: src/templates/synch.mas:11 src/templates/synch.mas:16
-msgid "Disabled"
-msgstr ""
-
-#: src/templates/synch.mas:13 src/templates/synch.mas:18
-msgid "Enabled"
-msgstr ""
-
-#: src/templates/index.mas:11
-msgid "NTP server status"
-msgstr ""
-
-#: src/templates/timezone.mas:19
-msgid "A time zone change will cause all eBox services to be restarted"
-msgstr ""
-
-#: src/templates/datetime.mas:13
-msgid "Time synchronization with NTP servers"
-msgstr ""
-
-#: src/templates/datetime.mas:18
-msgid "External NTP servers"
-msgstr ""
-
-#: src/templates/datetime.mas:23
-msgid "Change Date and Time"
 msgstr ""

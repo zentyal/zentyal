@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-16 11:36+0100\n"
+"POT-Creation-Date: 2007-04-11 15:56+0200\n"
 "PO-Revision-Date: 2007-02-05 20:38+0000\n"
 "Last-Translator: Steven Pauwels <stevenpauwels@gmail.com>\n"
 "Language-Team: none\n"
@@ -16,25 +16,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:436
-msgid "netbios"
-msgstr "netbios"
-
-#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:474
-msgid "working group"
-msgstr "werkgroep"
-
-#: src/EBox/CGI/SambaConf.pm:44
-msgid "working mode"
-msgstr "werkgroep mode"
-
-#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:455
-msgid "description"
-msgstr "omschrijving"
-
-#: src/EBox/CGI/SambaConf.pm:46
-msgid "user quota"
-msgstr "gebruikers quota"
+#: src/EBox/CGI/Enable.pm:42
+msgid "module status"
+msgstr "status module"
 
 #: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:66
 msgid "user name"
@@ -46,15 +30,6 @@ msgstr "naam gebruiker"
 msgid "group name"
 msgstr "naam groep"
 
-#: src/EBox/CGI/Enable.pm:42
-msgid "module status"
-msgstr "status module"
-
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:204
-#: src/EBox/Samba.pm:212
-msgid "File sharing"
-msgstr "Bestanden delen"
-
 #: src/EBox/CGI/ActiveSharing.pm:47
 msgid "sharing name"
 msgstr "naam gedeelde map"
@@ -63,27 +38,52 @@ msgstr "naam gedeelde map"
 msgid "active"
 msgstr "actief"
 
-#: src/EBox/Samba.pm:251 src/EBox/Samba.pm:296
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:234
+#: src/EBox/Samba.pm:242
+msgid "File sharing"
+msgstr "Bestanden delen"
+
+#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:466
+msgid "netbios"
+msgstr "netbios"
+
+#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:504
+msgid "working group"
+msgstr "werkgroep"
+
+#: src/EBox/CGI/SambaConf.pm:44
+msgid "working mode"
+msgstr "werkgroep mode"
+
+#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:485
+msgid "description"
+msgstr "omschrijving"
+
+#: src/EBox/CGI/SambaConf.pm:46
+msgid "user quota"
+msgstr "gebruikers quota"
+
+#: src/EBox/Samba.pm:281 src/EBox/Samba.pm:326
 msgid "listening port"
 msgstr "luistert op poort"
 
-#: src/EBox/Samba.pm:334
+#: src/EBox/Samba.pm:364
 msgid "Domain Name"
 msgstr "Naam domein"
 
-#: src/EBox/Samba.pm:493
+#: src/EBox/Samba.pm:523
 msgid "quota"
 msgstr "quota"
 
-#: src/EBox/Samba.pm:778 src/EBox/Samba.pm:797
+#: src/EBox/Samba.pm:808 src/EBox/Samba.pm:827
 msgid "user"
 msgstr "gebruiker"
 
-#: src/EBox/Samba.pm:781 src/EBox/Samba.pm:811 src/EBox/SambaLdapUser.pm:611
+#: src/EBox/Samba.pm:811 src/EBox/Samba.pm:841 src/EBox/SambaLdapUser.pm:611
 msgid "group"
 msgstr "groep"
 
-#: src/EBox/Samba.pm:784
+#: src/EBox/Samba.pm:814
 msgid "printer"
 msgstr "printer"
 
@@ -102,6 +102,100 @@ msgstr "De gedeelde map moet een naam hebben"
 #: src/EBox/SambaLdapUser.pm:503
 msgid "sharing resource"
 msgstr "Bron delen"
+
+#: src/templates/delete.mas:10
+msgid "Deleting group"
+msgstr "Groep een het verwijderen"
+
+#: src/templates/delete.mas:12
+msgid ""
+"The group you tried to delete has a directory which contains data, if you "
+"remove it all its data will be removed. Please confirm that you want to "
+"delete it."
+msgstr ""
+"De groep die je wil verwijderen heeft een map met gegevens. De gegevens gaan "
+"verloren als je de groep verwijdert. Bevestig de verwijdering AUB."
+
+#: src/templates/delete.mas:20 src/templates/samba.mas:93
+#: src/templates/samba.mas:95
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: src/templates/delete.mas:24
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: src/templates/samba.mas:11
+msgid "PDC/File sharing account"
+msgstr "PDC/File sharing account"
+
+#: src/templates/samba.mas:18
+msgid "User account"
+msgstr "Gebruikers account"
+
+#: src/templates/samba.mas:24 src/templates/samba.mas:29
+msgid "Disabled"
+msgstr "Uitgeschakeld"
+
+#: src/templates/samba.mas:26 src/templates/samba.mas:31
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+#: src/templates/samba.mas:39
+msgid "Administration rights"
+msgstr "Beheersrechten"
+
+#: src/templates/samba.mas:54 src/templates/samba.mas:56
+#: src/templates/samba.mas:88 src/templates/samba.mas:90
+#: src/templates/samba.mas:167 src/templates/samba.mas:169
+#: src/templates/index.mas:94 src/templates/index.mas:96
+msgid "Change"
+msgstr "Wijzigen"
+
+#: src/templates/samba.mas:65
+msgid "Sharing directory for this group"
+msgstr "Gedeelde map voor deze groep"
+
+#: src/templates/samba.mas:69
+msgid ""
+"You can set a share directory for this group, but you should keep in mind "
+"that Microsoft Windows 98 and Millenium will not be able to see names longer "
+"than 12 characters"
+msgstr ""
+"Je kan een gedeelde map aanmaken voor deze groep. Microsoft Windows 98 en "
+"Millenium herkennen geen namen langer dan 12 tekens"
+
+#: src/templates/samba.mas:76
+msgid "This resource name is longer than 12 characters."
+msgstr "De naam van deze resource is langer dan 12 tekens."
+
+#: src/templates/samba.mas:80
+msgid "Directory name"
+msgstr "Naam map"
+
+#: src/templates/samba.mas:99 src/templates/samba.mas:101
+msgid "Add"
+msgstr "Toevoegen"
+
+#: src/templates/samba.mas:109
+msgid "Printers"
+msgstr "Printers"
+
+#: src/templates/samba.mas:111
+msgid "Select the printers this user will have access to."
+msgstr "Selecteer de printers waarop deze gebruiker toegang heeft."
+
+#: src/templates/samba.mas:122
+msgid "Printer"
+msgstr "Printer"
+
+#: src/templates/samba.mas:124
+msgid "Allow"
+msgstr "Toestaan"
+
+#: src/templates/samba.mas:147
+msgid "Allow all printers"
+msgstr "Alle printers toestaan"
 
 #: src/templates/index.mas:16
 msgid "PDC/File sharing service status"
@@ -148,101 +242,6 @@ msgstr "Omschrijving"
 #: src/templates/index.mas:83
 msgid "Quota limit"
 msgstr "Limiet quota"
-
-#: src/templates/index.mas:94 src/templates/index.mas:96
-#: src/templates/samba.mas:54 src/templates/samba.mas:56
-#: src/templates/samba.mas:88 src/templates/samba.mas:90
-#: src/templates/samba.mas:167 src/templates/samba.mas:169
-msgid "Change"
-msgstr "Wijzigen"
-
-#: src/templates/delete.mas:10
-msgid "Deleting group"
-msgstr "Groep een het verwijderen"
-
-#: src/templates/delete.mas:12
-msgid ""
-"The group you tried to delete has a directory which contains data, if you "
-"remove it all its data will be removed. Please confirm that you want to "
-"delete it."
-msgstr ""
-"De groep die je wil verwijderen heeft een map met gegevens. De gegevens gaan "
-"verloren als je de groep verwijdert. Bevestig de verwijdering AUB."
-
-#: src/templates/delete.mas:20 src/templates/samba.mas:93
-#: src/templates/samba.mas:95
-msgid "Delete"
-msgstr "Verwijderen"
-
-#: src/templates/delete.mas:24
-msgid "Cancel"
-msgstr "Annuleren"
-
-#: src/templates/samba.mas:11
-msgid "PDC/File sharing account"
-msgstr "PDC/File sharing account"
-
-#: src/templates/samba.mas:18
-msgid "User account"
-msgstr "Gebruikers account"
-
-#: src/templates/samba.mas:24 src/templates/samba.mas:29
-msgid "Disabled"
-msgstr "Uitgeschakeld"
-
-#: src/templates/samba.mas:26 src/templates/samba.mas:31
-msgid "Enabled"
-msgstr "Ingeschakeld"
-
-#: src/templates/samba.mas:39
-msgid "Administration rights"
-msgstr "Beheersrechten"
-
-#: src/templates/samba.mas:65
-msgid "Sharing directory for this group"
-msgstr "Gedeelde map voor deze groep"
-
-#: src/templates/samba.mas:69
-msgid ""
-"You can set a share directory for this group, but you should keep in mind "
-"that Microsoft Windows 98 and Millenium will not be able to see names longer "
-"than 12 characters"
-msgstr ""
-"Je kan een gedeelde map aanmaken voor deze groep. Microsoft Windows 98 en "
-"Millenium herkennen geen namen langer dan 12 tekens"
-
-#: src/templates/samba.mas:76
-#, fuzzy
-msgid "This resource name is longer than 12 characters."
-msgstr "De naam van deze bron is langer dan 12 tekens."
-
-#: src/templates/samba.mas:80
-msgid "Directory name"
-msgstr "Naam map"
-
-#: src/templates/samba.mas:99 src/templates/samba.mas:101
-msgid "Add"
-msgstr "Toevoegen"
-
-#: src/templates/samba.mas:109
-msgid "Printers"
-msgstr "Printers"
-
-#: src/templates/samba.mas:111
-msgid "Select the printers this user will have access to."
-msgstr "Selecteer de printers waarop deze gebruiker toegang heeft."
-
-#: src/templates/samba.mas:122
-msgid "Printer"
-msgstr "Printer"
-
-#: src/templates/samba.mas:124
-msgid "Allow"
-msgstr "Toestaan"
-
-#: src/templates/samba.mas:147
-msgid "Allow all printers"
-msgstr "Alle printers toestaan"
 
 #: stubs/smb.conf.mas:90
 msgid "Home Directories"

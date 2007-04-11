@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-15 15:30+0100\n"
+"POT-Creation-Date: 2007-03-28 16:00+0200\n"
 "PO-Revision-Date: 2005-11-26 18:37+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,6 +15,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
+
+#: src/EBox/Exceptions/DataExists.pm:31
+#, perl-brace-format
+msgid "{data} {value} already exists."
+msgstr ""
+
+#: src/EBox/Exceptions/InvalidData.pm:32
+#, perl-brace-format
+msgid "Invalid value for {data}: {value}."
+msgstr ""
+
+#: src/EBox/Exceptions/DataNotFound.pm:30
+#, perl-brace-format
+msgid "{data} {value} does not exist."
+msgstr ""
+
+#: src/EBox/Exceptions/DataMissing.pm:30
+#, perl-brace-format
+msgid "{data} is empty."
+msgstr ""
 
 #: src/EBox/CGI/EBox/PageNotFound.pm:12
 msgid "Page not found"
@@ -60,7 +80,7 @@ msgid ""
 msgstr ""
 
 #: src/EBox/CGI/Base.pm:755
-msgid "Invalid upload file."
+msgid "Invalid uploaded file."
 msgstr ""
 
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
@@ -68,24 +88,18 @@ msgstr ""
 msgid "Interface"
 msgstr ""
 
-#: src/EBox/Exceptions/DataNotFound.pm:30
+#: src/EBox/Sudo.pm:229
 #, perl-brace-format
-msgid "{data} {value} does not exist."
+msgid "Running command '{cmd}' as {user} failed"
 msgstr ""
 
-#: src/EBox/Exceptions/DataExists.pm:31
+#: src/EBox/Config.pm.in:39
 #, perl-brace-format
-msgid "{data} {value} already exists."
+msgid "Could not open the config file {file}."
 msgstr ""
 
-#: src/EBox/Exceptions/DataMissing.pm:30
-#, perl-brace-format
-msgid "{data} is empty."
-msgstr ""
-
-#: src/EBox/Exceptions/InvalidData.pm:32
-#, perl-brace-format
-msgid "Invalid value for {data}: {value}."
+#: src/EBox/Config.pm.in:72
+msgid "The ebox user has not been set in the config file."
 msgstr ""
 
 #: src/EBox/Validate.pm:600
@@ -108,20 +122,6 @@ msgstr ""
 
 #: src/EBox/Validate.pm:708
 msgid "The file path must be absolute"
-msgstr ""
-
-#: src/EBox/Sudo.pm:229
-#, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr ""
-
-#: src/EBox/Config.pm.in:39
-#, perl-brace-format
-msgid "Could not open the config file {file}."
-msgstr ""
-
-#: src/EBox/Config.pm.in:72
-msgid "The ebox user has not been set in the config file."
 msgstr ""
 
 #: src/templates/ajax/tableBody.mas:47
@@ -154,23 +154,6 @@ msgstr ""
 msgid "The page can not be found"
 msgstr ""
 
-#: src/templates/enable.mas:13
-msgid "Service configuration"
-msgstr ""
-
-#: src/templates/enable.mas:17 src/templates/enable.mas:22
-msgid "Disabled"
-msgstr ""
-
-#: src/templates/enable.mas:19 src/templates/enable.mas:24
-msgid "Enabled"
-msgstr ""
-
-#: src/templates/enable.mas:29 src/templates/enable.mas:31
-#: src/templates/language.mas:25
-msgid "Change"
-msgstr ""
-
 #: src/templates/title.mas:14
 msgid "Display help notes"
 msgstr ""
@@ -195,4 +178,21 @@ msgstr ""
 msgid ""
 "Language changes happen automatically, saving the configuration it's not "
 "needed."
+msgstr ""
+
+#: src/templates/language.mas:25 src/templates/enable.mas:29
+#: src/templates/enable.mas:31
+msgid "Change"
+msgstr ""
+
+#: src/templates/enable.mas:13
+msgid "Service configuration"
+msgstr ""
+
+#: src/templates/enable.mas:17 src/templates/enable.mas:22
+msgid "Disabled"
+msgstr ""
+
+#: src/templates/enable.mas:19 src/templates/enable.mas:24
+msgid "Enabled"
 msgstr ""

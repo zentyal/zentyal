@@ -14,15 +14,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-20 11:02+0100\n"
-"PO-Revision-Date: 2007-02-02 14:08+0000\n"
+"POT-Creation-Date: 2007-03-28 16:01+0200\n"
+"PO-Revision-Date: 2007-04-09 13:20+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 0.10.1\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/EBox/Backup/RootCommands.pm:26
 #, perl-brace-format
@@ -164,22 +164,6 @@ msgstr "Su sesión ha sido cerrada porque se ha creado una nueva sesión"
 msgid "Logout"
 msgstr "Salir de sesión"
 
-#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
-msgid "Status"
-msgstr "Estado"
-
-#: src/EBox/CGI/Summary/Index.pm:47
-msgid "Error"
-msgstr "Error"
-
-#: src/EBox/CGI/EBox/RestartService.pm:48
-msgid "module name"
-msgstr "Nombre de módulo"
-
-#: src/EBox/CGI/EBox/RestartService.pm:52
-msgid "The module was restarted correctly."
-msgstr "El módulo se ha reiniciado correctamente."
-
 #: src/EBox/CGI/EBox/Backup.pm:34
 msgid "System backups"
 msgstr "Backup del sistema"
@@ -199,7 +183,7 @@ msgstr "El backup fue escrito en el disco CD/DVD correctamente"
 
 #: src/EBox/CGI/EBox/Backup.pm:230 src/EBox/CGI/EBox/Backup.pm:301
 #: src/EBox/CGI/EBox/Backup.pm:314 src/EBox/CGI/EBox/ConfirmBackup.pm:197
-#: src/EBox/Backup.pm:987
+#: src/EBox/Backup.pm:995
 msgid "The input contains invalid characters"
 msgstr "Los datos contienen caracteres inválidos"
 
@@ -224,6 +208,14 @@ msgstr ""
 "La configuración se ha cargado correctamente, ahora debería revisarla y "
 "guardarla si quiere conservarla."
 
+#: src/EBox/CGI/EBox/RestartService.pm:48
+msgid "module name"
+msgstr "Nombre de módulo"
+
+#: src/EBox/CGI/EBox/RestartService.pm:52
+msgid "The module was restarted correctly."
+msgstr "El módulo se ha reiniciado correctamente."
+
 #: src/EBox/CGI/EBox/Halt.pm:30
 msgid "Halt or reboot"
 msgstr "Apagar o reiniciar"
@@ -236,13 +228,13 @@ msgstr "eBox se está apagando"
 msgid "eBox is going down for reboot"
 msgstr "eBox se está reiniciando"
 
-#: src/EBox/CGI/EBox/Bug.pm:29 src/EBox/SysInfo.pm:126
-msgid "Bug report"
-msgstr "Informe de error"
-
 #: src/EBox/CGI/EBox/General.pm:30
 msgid "General configuration"
 msgstr "Configuración general"
+
+#: src/EBox/CGI/EBox/Bug.pm:29 src/EBox/SysInfo.pm:126
+msgid "Bug report"
+msgstr "Informe de error"
 
 #: src/EBox/CGI/EBox/Password.pm:49
 msgid "Incorrect password."
@@ -312,12 +304,20 @@ msgid "Configuration backup"
 msgstr "Backup de la configuración"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:229
-msgid "Full data and configutarion backup"
+msgid "Full data and configuration backup"
 msgstr "Backup completo de configuración y datos"
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:232
 msgid "Bug-report configuration dump"
 msgstr "Volcado de configuración para informe de fallo"
+
+#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
+msgid "Status"
+msgstr "Estado"
+
+#: src/EBox/CGI/Summary/Index.pm:47
+msgid "Error"
+msgstr "Error"
 
 #: src/EBox/CGI/Finish.pm:30
 msgid "Save configuration"
@@ -406,7 +406,7 @@ msgstr "No se pudo agregar datos al archivo de backup"
 msgid "Could not append data to backup archive"
 msgstr "No se pudo agregar datos al archivo de backup"
 
-#: src/EBox/Backup.pm:348 src/EBox/Backup.pm:970
+#: src/EBox/Backup.pm:348 src/EBox/Backup.pm:978
 msgid "Insert a backup disc and try again, please"
 msgstr "Por favor, inserte un disco de backup y reintente la operación"
 
@@ -479,7 +479,7 @@ msgstr ""
 "No pude renombrar el archivo de backup {newName} a su nombre original "
 "{name}. Mensaje de error: {error}"
 
-#: src/EBox/Backup.pm:920
+#: src/EBox/Backup.pm:928
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
@@ -945,6 +945,9 @@ msgstr "Reiniciar"
 #, perl-brace-format
 msgid "{ebox} created by {warp} in collaboration with {dbs}"
 msgstr "{ebox} creado por {warp} en colaboración con {dbs}"
+
+#~ msgid "Full data and configutarion backup"
+#~ msgstr "Backup completo de configuración y datos"
 
 #~ msgid ""
 #~ "Module list not found, the backup is corrupt or was done with a "

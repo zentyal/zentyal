@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-16 11:35+0100\n"
+"POT-Creation-Date: 2007-04-11 16:15+0200\n"
 "PO-Revision-Date: 2007-01-08 10:05+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
 
-#: src/EBox/CGI/EditClient.pm:21 src/EBox/CGI/Delete.pm:15
-#: src/EBox/CGI/Create.pm:15 src/EBox/CGI/Index.pm:16
-#: src/EBox/CGI/DeleteClient.pm:15 src/EBox/CGI/Edit.pm:18
-#: src/EBox/CGI/CreateClient.pm:18 src/EBox/CGI/ClientBundle.pm:18
-#: src/EBox/OpenVPN.pm:1080
+#: src/EBox/CGI/EditClient.pm:21 src/EBox/CGI/Edit.pm:18
+#: src/EBox/CGI/Index.pm:16 src/EBox/CGI/ClientBundle.pm:19
+#: src/EBox/CGI/DeleteClient.pm:15 src/EBox/CGI/CreateClient.pm:18
+#: src/EBox/CGI/Delete.pm:15 src/EBox/CGI/Create.pm:15
+#: src/EBox/OpenVPN.pm:1098
 msgid "OpenVPN"
 msgstr ""
 
@@ -31,6 +31,47 @@ msgstr ""
 
 #: src/EBox/CGI/EditClient.pm:158 src/EBox/CGI/Edit.pm:147
 msgid "There are no changes to be saved"
+msgstr ""
+
+#: src/EBox/CGI/Edit.pm:143
+#, perl-brace-format
+msgid "Server {name} configuration updated"
+msgstr ""
+
+#: src/EBox/CGI/Enable.pm:52
+msgid "active parameter"
+msgstr ""
+
+#: src/EBox/CGI/Enable.pm:52
+msgid "It only may be 'yes' or 'no'"
+msgstr ""
+
+#: src/EBox/CGI/Index.pm:57
+msgid "OpenVPN service status changed"
+msgstr ""
+
+#: src/EBox/CGI/AddAdvertisedNet.pm:61
+#, perl-brace-format
+msgid "Server now grants access to {network}"
+msgstr ""
+
+#: src/EBox/CGI/RemoveAdvertisedNet.pm:56
+#, perl-brace-format
+msgid "Server no longer grants access to {network}"
+msgstr ""
+
+#: src/EBox/CGI/DeleteClient.pm:44
+msgid "Client"
+msgstr ""
+
+#: src/EBox/CGI/DeleteClient.pm:74
+#, perl-brace-format
+msgid "Client {name} removed"
+msgstr ""
+
+#: src/EBox/CGI/CreateClient.pm:101
+#, perl-brace-format
+msgid "New client {name} created"
 msgstr ""
 
 #: src/EBox/CGI/Delete.pm:42
@@ -47,131 +88,22 @@ msgstr ""
 msgid "New server {name} created"
 msgstr ""
 
-#: src/EBox/CGI/Enable.pm:52
-msgid "active parameter"
-msgstr ""
-
-#: src/EBox/CGI/Enable.pm:52
-msgid "It only may be 'yes' or 'no'"
-msgstr ""
-
-#: src/EBox/CGI/Index.pm:57
-msgid "OpenVPN service status changed"
-msgstr ""
-
-#: src/EBox/CGI/DeleteClient.pm:44
-msgid "Client"
-msgstr ""
-
-#: src/EBox/CGI/DeleteClient.pm:74
-#, perl-brace-format
-msgid "Client {name} removed"
-msgstr ""
-
-#: src/EBox/CGI/AddAdvertisedNet.pm:61
-#, perl-brace-format
-msgid "Server now grants access to {network}"
-msgstr ""
-
-#: src/EBox/CGI/Edit.pm:143
-#, perl-brace-format
-msgid "Server {name} configuration updated"
-msgstr ""
-
-#: src/EBox/CGI/CreateClient.pm:101
-#, perl-brace-format
-msgid "New client {name} created"
-msgstr ""
-
-#: src/EBox/CGI/RemoveAdvertisedNet.pm:56
-#, perl-brace-format
-msgid "Server no longer grants access to {network}"
-msgstr ""
-
-#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:35
-msgid "Can't get address for this server: no external interfaces present"
-msgstr ""
-
-#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:40
-msgid "Can't get address for this server"
-msgstr ""
-
-#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:107
-msgid "The client certificate can't be the same than the server"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:41
-msgid "The protocol only may be tcp or udp."
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:158
-#, perl-brace-format
-msgid "Inexistent file {path}"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:277
-msgid "You must supply at least one server for the client"
-msgstr ""
-
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:30
 #: src/EBox/OpenVPN/Client.pm:315 src/templates/clientProperties.mas:18
 msgid "Server's address"
 msgstr ""
 
-#: src/EBox/OpenVPN/Client.pm:316
-msgid "Server's port"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:357 src/EBox/OpenVPN/Server.pm:684
-msgid "A IP protocol must be specified for the server"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:358
-msgid "The CA certificate is needed"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:359
-msgid "The client certificate must be specified"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:360
-msgid "The client private key must be specified"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:361
-msgid "Servers must be supplied to the client"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:437
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:35
 #, perl-brace-format
-msgid "Client {name}"
+msgid "You must provide at least one address for the server {name}"
 msgstr ""
 
-#: src/EBox/OpenVPN/Client.pm:439 src/EBox/OpenVPN/Server.pm:830
-msgid "Enabled"
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:73
+msgid "Can't get address for this server: no external interfaces present"
 msgstr ""
 
-#: src/EBox/OpenVPN/Client.pm:439 src/EBox/OpenVPN/Server.pm:830
-msgid "Disabled"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:440 src/EBox/OpenVPN/Server.pm:831
-msgid "Service"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:442 src/EBox/OpenVPN/Server.pm:833
-msgid "Running"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:442 src/EBox/OpenVPN/Server.pm:833
-msgid "Stopped"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:443 src/EBox/OpenVPN/Server.pm:834
-msgid "Daemon status"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:450
-msgid "Connection target"
+#: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:156
+msgid "The client certificate can't be the same than the server"
 msgstr ""
 
 #: src/EBox/OpenVPN/Server.pm:46
@@ -281,6 +213,10 @@ msgstr ""
 msgid "The server needs a port number"
 msgstr ""
 
+#: src/EBox/OpenVPN/Server.pm:684 src/EBox/OpenVPN/Client.pm:357
+msgid "A IP protocol must be specified for the server"
+msgstr ""
+
 #: src/EBox/OpenVPN/Server.pm:685
 msgid "A  server certificate must be specified"
 msgstr ""
@@ -288,6 +224,30 @@ msgstr ""
 #: src/EBox/OpenVPN/Server.pm:828
 #, perl-brace-format
 msgid "Server {name}"
+msgstr ""
+
+#: src/EBox/OpenVPN/Server.pm:830 src/EBox/OpenVPN/Client.pm:439
+msgid "Enabled"
+msgstr ""
+
+#: src/EBox/OpenVPN/Server.pm:830 src/EBox/OpenVPN/Client.pm:439
+msgid "Disabled"
+msgstr ""
+
+#: src/EBox/OpenVPN/Server.pm:831 src/EBox/OpenVPN/Client.pm:440
+msgid "Service"
+msgstr ""
+
+#: src/EBox/OpenVPN/Server.pm:833 src/EBox/OpenVPN/Client.pm:442
+msgid "Running"
+msgstr ""
+
+#: src/EBox/OpenVPN/Server.pm:833 src/EBox/OpenVPN/Client.pm:442
+msgid "Stopped"
+msgstr ""
+
+#: src/EBox/OpenVPN/Server.pm:834 src/EBox/OpenVPN/Client.pm:443
+msgid "Daemon status"
 msgstr ""
 
 #: src/EBox/OpenVPN/Server.pm:838 src/templates/serverProperties.mas:36
@@ -306,6 +266,48 @@ msgstr ""
 msgid "VPN subnet"
 msgstr ""
 
+#: src/EBox/OpenVPN/Client.pm:41
+msgid "The protocol only may be tcp or udp."
+msgstr ""
+
+#: src/EBox/OpenVPN/Client.pm:158
+#, perl-brace-format
+msgid "Inexistent file {path}"
+msgstr ""
+
+#: src/EBox/OpenVPN/Client.pm:277
+msgid "You must supply at least one server for the client"
+msgstr ""
+
+#: src/EBox/OpenVPN/Client.pm:316
+msgid "Server's port"
+msgstr ""
+
+#: src/EBox/OpenVPN/Client.pm:358
+msgid "The CA certificate is needed"
+msgstr ""
+
+#: src/EBox/OpenVPN/Client.pm:359
+msgid "The client certificate must be specified"
+msgstr ""
+
+#: src/EBox/OpenVPN/Client.pm:360
+msgid "The client private key must be specified"
+msgstr ""
+
+#: src/EBox/OpenVPN/Client.pm:361
+msgid "Servers must be supplied to the client"
+msgstr ""
+
+#: src/EBox/OpenVPN/Client.pm:437
+#, perl-brace-format
+msgid "Client {name}"
+msgstr ""
+
+#: src/EBox/OpenVPN/Client.pm:450
+msgid "Connection target"
+msgstr ""
+
 #: src/EBox/OpenVPN.pm:232
 #, perl-brace-format
 msgid "Unable to remove daemon {name} of type {type} because it does not exist"
@@ -318,59 +320,33 @@ msgid ""
 "underscores are allowed"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1096
+#: src/EBox/OpenVPN.pm:1114
 msgid "OpenVPN daemons"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1126
+#: src/EBox/OpenVPN.pm:1144
 msgid "OpenVPN service"
 msgstr ""
 
-#: src/templates/edit.mas:14
+#: src/templates/delete.mas:9
 #, perl-brace-format
-msgid "Server {name} configuration"
+msgid "Deleting OpenVPN {type}"
 msgstr ""
 
-#: src/templates/edit.mas:17 src/templates/editClient.mas:26
-msgid "Change"
+#: src/templates/delete.mas:12
+#, perl-brace-format
+msgid ""
+"Are you sure you want delete the {type} {name}.?\n"
+"This action can not be undone."
 msgstr ""
 
-#: src/templates/edit.mas:37
-msgid "Advertised networks"
-msgstr ""
-
-#: src/templates/edit.mas:40
-msgid "You can manage which networks will be made accessible to clients"
-msgstr ""
-
-#: src/templates/edit.mas:56
-msgid "Net address"
-msgstr ""
-
-#: src/templates/edit.mas:57 src/templates/edit.mas:97
-msgid "Netmask"
-msgstr ""
-
-#: src/templates/edit.mas:58
-msgid "Action"
-msgstr ""
-
-#: src/templates/edit.mas:63 src/templates/index.mas:31
-#: src/templates/index.mas:84 src/templates/delete.mas:22
+#: src/templates/delete.mas:22 src/templates/edit.mas:63
+#: src/templates/index.mas:31 src/templates/index.mas:84
 msgid "Delete"
 msgstr ""
 
-#: src/templates/edit.mas:95
-msgid "Network"
-msgstr ""
-
-#: src/templates/edit.mas:99 src/templates/edit.mas:103
-msgid "Add network"
-msgstr ""
-
-#: src/templates/caRequired.mas:10
-msgid ""
-"OpenVPN servers require at least one client certificate. Create it first"
+#: src/templates/delete.mas:26
+msgid "Cancel"
 msgstr ""
 
 #: src/templates/createClient.mas:4
@@ -379,6 +355,10 @@ msgstr ""
 
 #: src/templates/createClient.mas:7 src/templates/create.mas:15
 msgid "Create"
+msgstr ""
+
+#: src/templates/create.mas:11
+msgid "OpenVPN server creation"
 msgstr ""
 
 #: src/templates/serverProperties.mas:15
@@ -447,44 +427,67 @@ msgstr ""
 msgid "Server name"
 msgstr ""
 
-#: src/templates/create.mas:11
-msgid "OpenVPN server creation"
+#: src/templates/editClient.mas:9
+msgid "Change CA's certificate"
 msgstr ""
 
-#: src/templates/clientProperties.mas:29
-msgid "Server's Port"
+#: src/templates/editClient.mas:11
+msgid "Change client's certificate"
 msgstr ""
 
-#: src/templates/clientProperties.mas:36
-msgid "CA's certificate"
+#: src/templates/editClient.mas:13
+msgid "Change client's private key"
 msgstr ""
 
-#: src/templates/clientProperties.mas:38
+#: src/templates/editClient.mas:18
+#, perl-brace-format
+msgid "Client {name} configuration"
+msgstr ""
+
+#: src/templates/editClient.mas:22
+msgid "Changes in certificates and key files can not be discarded."
+msgstr ""
+
+#: src/templates/editClient.mas:26 src/templates/edit.mas:17
+msgid "Change"
+msgstr ""
+
+#: src/templates/caRequired.mas:10
 msgid ""
-"Certificate of the Certification Authority. Must be the same used in the "
-"server"
+"OpenVPN servers require at least one client certificate. Create it first"
 msgstr ""
 
-#: src/templates/clientProperties.mas:44
-msgid "Client's certificate"
+#: src/templates/edit.mas:14
+#, perl-brace-format
+msgid "Server {name} configuration"
 msgstr ""
 
-#: src/templates/clientProperties.mas:46
-msgid ""
-"Certificate used by the client to identify itself. It must be signed by the "
-"Certification Authority"
+#: src/templates/edit.mas:37
+msgid "Advertised networks"
 msgstr ""
 
-#: src/templates/clientProperties.mas:52
-msgid "Client's private key"
+#: src/templates/edit.mas:40
+msgid "You can manage which networks will be made accessible to clients"
 msgstr ""
 
-#: src/templates/clientProperties.mas:54
-msgid "Private key used to create the client's certificate"
+#: src/templates/edit.mas:56
+msgid "Net address"
 msgstr ""
 
-#: src/templates/clientProperties.mas:59
-msgid "Client name"
+#: src/templates/edit.mas:57 src/templates/edit.mas:97
+msgid "Netmask"
+msgstr ""
+
+#: src/templates/edit.mas:58
+msgid "Action"
+msgstr ""
+
+#: src/templates/edit.mas:95
+msgid "Network"
+msgstr ""
+
+#: src/templates/edit.mas:99 src/templates/edit.mas:103
+msgid "Add network"
 msgstr ""
 
 #: src/templates/index.mas:12
@@ -527,63 +530,64 @@ msgstr ""
 msgid "delete"
 msgstr ""
 
-#: src/templates/editClient.mas:9
-msgid "Change CA's certificate"
-msgstr ""
-
-#: src/templates/editClient.mas:11
-msgid "Change client's certificate"
-msgstr ""
-
-#: src/templates/editClient.mas:13
-msgid "Change client's private key"
-msgstr ""
-
-#: src/templates/editClient.mas:18
-#, perl-brace-format
-msgid "Client {name} configuration"
-msgstr ""
-
-#: src/templates/editClient.mas:22
-msgid "Changes in certificates and key files can not be discarded."
-msgstr ""
-
-#: src/templates/delete.mas:9
-#, perl-brace-format
-msgid "Deleting OpenVPN {type}"
-msgstr ""
-
-#: src/templates/delete.mas:12
-#, perl-brace-format
-msgid ""
-"Are you sure you want delete the {type} {name}.?\n"
-"This action can not be undone."
-msgstr ""
-
-#: src/templates/delete.mas:26
-msgid "Cancel"
-msgstr ""
-
-#: src/templates/clientBundle.mas:16
+#: src/templates/clientBundle.mas:17
 msgid ""
 "This certificate will be used by the client to authenticate itself to the "
 "server"
 msgstr ""
 
-#: src/templates/clientBundle.mas:42
-msgid ""
-"You must type in the folder in the client machine where the configuration "
-"and certificates files will be placed"
+#: src/templates/clientBundle.mas:59
+msgid "This address should be the one used to reach the server."
 msgstr ""
 
-#: src/templates/clientBundle.mas:62
+#: src/templates/clientBundle.mas:64
+msgid "An additional address to reach the server can be specified here"
+msgstr ""
+
+#: src/templates/clientBundle.mas:94
 #, perl-brace-format
 msgid "Client files for server {name}"
 msgstr ""
 
-#: src/templates/clientBundle.mas:65
+#: src/templates/clientBundle.mas:97
 msgid ""
 "You can download an archive with all the required files to set up an OpenVPN "
 "client. Remember to copy these files to the client machine configuration "
 "directory"
+msgstr ""
+
+#: src/templates/clientProperties.mas:29
+msgid "Server's Port"
+msgstr ""
+
+#: src/templates/clientProperties.mas:36
+msgid "CA's certificate"
+msgstr ""
+
+#: src/templates/clientProperties.mas:38
+msgid ""
+"Certificate of the Certification Authority. Must be the same used in the "
+"server"
+msgstr ""
+
+#: src/templates/clientProperties.mas:44
+msgid "Client's certificate"
+msgstr ""
+
+#: src/templates/clientProperties.mas:46
+msgid ""
+"Certificate used by the client to identify itself. It must be signed by the "
+"Certification Authority"
+msgstr ""
+
+#: src/templates/clientProperties.mas:52
+msgid "Client's private key"
+msgstr ""
+
+#: src/templates/clientProperties.mas:54
+msgid "Private key used to create the client's certificate"
+msgstr ""
+
+#: src/templates/clientProperties.mas:59
+msgid "Client name"
 msgstr ""

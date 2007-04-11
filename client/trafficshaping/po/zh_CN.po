@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-29 23:14+0200\n"
+"POT-Creation-Date: 2007-04-11 15:56+0200\n"
 "PO-Revision-Date: 2007-01-09 15:15+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -40,22 +40,22 @@ msgid "Choose an external interface to shape"
 msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:116
-#: src/EBox/TrafficShaping.pm:179 src/EBox/TrafficShaping.pm:199
-#: src/EBox/TrafficShaping.pm:407 src/EBox/TrafficShaping.pm:489
-#: src/EBox/TrafficShaping.pm:516 src/EBox/TrafficShaping.pm:1548
+#: src/EBox/TrafficShaping.pm:194 src/EBox/TrafficShaping.pm:214
+#: src/EBox/TrafficShaping.pm:422 src/EBox/TrafficShaping.pm:504
+#: src/EBox/TrafficShaping.pm:531 src/EBox/TrafficShaping.pm:1563
 msgid "Protocol"
 msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:126
-#: src/EBox/TrafficShaping.pm:181 src/EBox/TrafficShaping.pm:201
-#: src/EBox/TrafficShaping.pm:411 src/EBox/TrafficShaping.pm:491
-#: src/EBox/TrafficShaping.pm:518 src/EBox/TrafficShaping.pm:1549
+#: src/EBox/TrafficShaping.pm:196 src/EBox/TrafficShaping.pm:216
+#: src/EBox/TrafficShaping.pm:426 src/EBox/TrafficShaping.pm:506
+#: src/EBox/TrafficShaping.pm:533 src/EBox/TrafficShaping.pm:1564
 msgid "Port"
 msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:136
-#: src/EBox/TrafficShaping.pm:203 src/EBox/TrafficShaping.pm:415
-#: src/EBox/TrafficShaping.pm:520 src/EBox/TrafficShaping.pm:1550
+#: src/EBox/TrafficShaping.pm:218 src/EBox/TrafficShaping.pm:430
+#: src/EBox/TrafficShaping.pm:535 src/EBox/TrafficShaping.pm:1565
 msgid "Guaranteed Rate"
 msgstr ""
 
@@ -65,8 +65,8 @@ msgid "Kbit/s"
 msgstr ""
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:147
-#: src/EBox/TrafficShaping.pm:204 src/EBox/TrafficShaping.pm:419
-#: src/EBox/TrafficShaping.pm:521 src/EBox/TrafficShaping.pm:1551
+#: src/EBox/TrafficShaping.pm:219 src/EBox/TrafficShaping.pm:434
+#: src/EBox/TrafficShaping.pm:536 src/EBox/TrafficShaping.pm:1566
 msgid "Limited Rate"
 msgstr ""
 
@@ -133,64 +133,64 @@ msgstr ""
 msgid "interface"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:63 src/EBox/TrafficShaping.pm:135
+#: src/EBox/TrafficShaping.pm:63 src/EBox/TrafficShaping.pm:150
 msgid "Traffic Shaping"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:177 src/EBox/TrafficShaping.pm:282
-#: src/EBox/TrafficShaping.pm:328 src/EBox/TrafficShaping.pm:394
-#: src/EBox/TrafficShaping.pm:487 src/EBox/TrafficShaping.pm:664
+#: src/EBox/TrafficShaping.pm:192 src/EBox/TrafficShaping.pm:297
+#: src/EBox/TrafficShaping.pm:343 src/EBox/TrafficShaping.pm:409
+#: src/EBox/TrafficShaping.pm:502 src/EBox/TrafficShaping.pm:679
 msgid "Interface"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:186 src/EBox/TrafficShaping.pm:496
+#: src/EBox/TrafficShaping.pm:201 src/EBox/TrafficShaping.pm:511
 msgid "Guaranteed rate or limited rate"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:330 src/EBox/TrafficShaping.pm:396
+#: src/EBox/TrafficShaping.pm:345 src/EBox/TrafficShaping.pm:411
 msgid "Identifier"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:332
+#: src/EBox/TrafficShaping.pm:347
 msgid "Enabled"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:508
+#: src/EBox/TrafficShaping.pm:523
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
 "order to add a new one"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:898
+#: src/EBox/TrafficShaping.pm:913
 #, perl-brace-format
 msgid ""
 "Traffic shaping can be only done in external interface and {iface} is not"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:910
+#: src/EBox/TrafficShaping.pm:925
 msgid ""
 "Traffic shaping can be only done in external interfaces which have gateways "
 "associated to"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:930
+#: src/EBox/TrafficShaping.pm:945
 msgid "Traffic Shaping Rule"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:960
+#: src/EBox/TrafficShaping.pm:975
 msgid "Rule"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:994 src/EBox/TrafficShaping.pm:1552
+#: src/EBox/TrafficShaping.pm:1009 src/EBox/TrafficShaping.pm:1567
 msgid "Priority"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:1102
+#: src/EBox/TrafficShaping.pm:1117
 msgid "type"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:1121
+#: src/EBox/TrafficShaping.pm:1136
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "

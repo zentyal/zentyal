@@ -5,225 +5,233 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.9"
+"Project-Id-Version: ebox-software 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-15 12:54+0100\n"
-"PO-Revision-Date: 2007-03-15 12:54+0100\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2007-03-28 16:03+0200\n"
+"PO-Revision-Date: 2007-04-03 14:25+0000\n"
+"Last-Translator: Mariusz Zawadzki <majdom@gmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 #: src/EBox/Software.pm:314
 msgid "System updates"
-msgstr ""
+msgstr "Aktualizacje systemu"
 
 #: src/EBox/CGI/Updates.pm:45
 msgid "Software updates are being handled automatically"
-msgstr ""
+msgstr "Aktualizacje systemu odbywają się automatycznie"
 
 #: src/EBox/CGI/Updates.pm:52
 msgid "The system is up to date"
-msgstr ""
+msgstr "System jest zaktualizowany"
 
 #: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
 msgid "Automatic software updates"
-msgstr ""
+msgstr "Automatyczne aktualizacje systemu"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
-msgstr ""
+msgstr "konfiguracja automatycznej aktualizacji"
 
 #: src/EBox/CGI/InstallPkgs.pm:76
 msgid "There were no packages to update"
-msgstr ""
+msgstr "Nie było pakietów do aktualizacji"
 
 #: src/EBox/CGI/InstallPkgs.pm:88
 msgid ""
 "The packages are being installed, please refrain from using the application "
 "until the update is done"
 msgstr ""
+"Aktualizacje są właśnie instalowane, powstrzymaj się przed dalszymi "
+"zmianami, aż do końca aktualizacji"
 
 #: src/EBox/CGI/InstallPkgs.pm:93
 msgid "The packages were removed successfully"
-msgstr ""
+msgstr "Pakiety zostały pomyślnie usunięte"
 
 #: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:312
 msgid "eBox components"
-msgstr ""
+msgstr "komponenty eBox"
 
 #: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/Upgrading.pm:30
 msgid "Upgrading"
-msgstr ""
+msgstr "Uaktualniam"
 
 #: src/EBox/Software.pm:137
 msgid ""
 "An error ocurred while removing components. If the error persists or eBox "
 "stops working properly, seek technical support."
 msgstr ""
+"Wystąpił błąd podczas usuwania komponentów. Jeśli błąd będzie często "
+"występował lub eBox przestanie działać poprawnie, zasięgnij pomocy "
+"technicznej."
 
 #: src/EBox/Software.pm:309 src/EBox/PackageDescriptions.pm:15
 msgid "Software management"
-msgstr ""
+msgstr "Zarządzanie Oprogramowaniem"
 
 #: src/EBox/Software.pm:316
 msgid "Configuration"
-msgstr ""
+msgstr "Konfiguracja"
 
 #: src/EBox/PackageDescriptions.pm:1
 msgid "Certificate Authority Manager for eBox"
-msgstr ""
+msgstr "Menedżer Autorytetów i Certyfikatów dla eBox"
 
 #: src/EBox/PackageDescriptions.pm:2
 msgid "DHCP server"
-msgstr ""
+msgstr "Serwer DHCP"
 
 #: src/EBox/PackageDescriptions.pm:3
 msgid "eBox DNS server"
-msgstr ""
+msgstr "Serwer DNS eBoxa"
 
 #: src/EBox/PackageDescriptions.pm:4
 msgid "Base framework"
-msgstr ""
+msgstr "Podstawowe pliki "
 
 #: src/EBox/PackageDescriptions.pm:5
 msgid "Firewall"
-msgstr ""
+msgstr "Firewall"
 
 #: src/EBox/PackageDescriptions.pm:6
 msgid "IPsec VPNs"
-msgstr ""
+msgstr "IPsec VPNs"
 
 #: src/EBox/PackageDescriptions.pm:7
 msgid "Instant messaging (Jabber)"
-msgstr ""
+msgstr "Obsługa komunikatora (Jabber)"
 
 #: src/EBox/PackageDescriptions.pm:8
 msgid "Mail server"
-msgstr ""
+msgstr "Serwer Poczty"
 
 #: src/EBox/PackageDescriptions.pm:9
 msgid "Network configuration"
-msgstr ""
+msgstr "Konfiguracja Sieci"
 
 #: src/EBox/PackageDescriptions.pm:10
 msgid "NTP server"
-msgstr ""
+msgstr "Serwer NTP"
 
 #: src/EBox/PackageDescriptions.pm:11
 msgid "Object management"
-msgstr ""
+msgstr "Menedżer obiektów"
 
 #: src/EBox/PackageDescriptions.pm:12
 msgid "OpenVPN server"
-msgstr ""
+msgstr "Serwer OpenVPN"
 
 #: src/EBox/PackageDescriptions.pm:13
 msgid "Printer sharing"
-msgstr ""
+msgstr "Współdzielenie drukarki"
 
 #: src/EBox/PackageDescriptions.pm:14
 msgid "File sharing"
-msgstr ""
+msgstr "Współdzielenie plików"
 
 #: src/EBox/PackageDescriptions.pm:16
 msgid "Proxy cache and content filter"
-msgstr ""
+msgstr "Proxy i filtr treści"
 
 #: src/EBox/PackageDescriptions.pm:17
 msgid "Traffic shaper for eBox"
-msgstr ""
+msgstr "Zarządzanie ruchem dla eBoxa"
 
 #: src/EBox/PackageDescriptions.pm:18
 msgid "User and Group management"
-msgstr ""
+msgstr "Zarządzanie Użytkownikami i Grupami"
 
 #: src/templates/upgrading.mas:42
 msgid "Current package"
-msgstr ""
+msgstr "Aktualny pakiet"
 
 #: src/templates/upgrading.mas:43
 msgid "Starting..."
-msgstr ""
+msgstr "Startuaje..."
 
 #: src/templates/upgrading.mas:48
 msgid "The installation of the packages has finished successfully"
-msgstr ""
+msgstr "Instalacja pakietu odbyła się pomyślnie"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
-msgstr ""
+msgstr "Następujące pakiety zostaną zainstalowane"
 
 #: src/templates/del.mas:17
 msgid "The following packages will be removed"
-msgstr ""
+msgstr "Następujące pakiety zostaną usunięte"
 
 #: src/templates/del.mas:34
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: src/templates/del.mas:36
 msgid "Cancel"
-msgstr ""
+msgstr "Anuluj"
 
 #: src/templates/updates.mas:10
 msgid "Updates are available for the following system components"
-msgstr ""
+msgstr "Dostępne są aktualizacje dla następujących komponentów"
 
 #: src/templates/updates.mas:16 src/templates/ebox.mas:14
 msgid "Component"
-msgstr ""
+msgstr "Komponenty"
 
 #: src/templates/updates.mas:18
 msgid "Description"
-msgstr ""
+msgstr "Opis"
 
 #: src/templates/updates.mas:20 src/templates/ebox.mas:31
 msgid "Update"
-msgstr ""
+msgstr "Uaktualnij"
 
 #: src/templates/updates.mas:37 src/templates/ebox.mas:82
 msgid "Update all packages"
-msgstr ""
+msgstr "Uaktualnij wszystkie pakiety"
 
 #: src/templates/updates.mas:49
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
+"Operacja ta może zająć trochę czasu nie martw się jeśli eBox przestanie na "
+"chwilę odpowiadać po naciśnięciu przycisku Zaktualizuj."
 
 #: src/templates/updates.mas:53
 msgid "Upgrade"
-msgstr ""
+msgstr "Zaktualizuj"
 
 #: src/templates/config.mas:9
 msgid "Perform automatic security updates"
-msgstr ""
+msgstr "Automatycznie wykonuj aktualizacje zabezpieczeń"
 
 #: src/templates/ebox.mas:16
 msgid "Installed version "
-msgstr ""
+msgstr "Zainstalowana wersja"
 
 #: src/templates/ebox.mas:18
 msgid "Latest version"
-msgstr ""
+msgstr "Najnowsza wersja"
 
 #: src/templates/ebox.mas:20
 msgid "Actions"
-msgstr ""
+msgstr "Czynności"
 
 #: src/templates/ebox.mas:38
 msgid "Install"
-msgstr ""
+msgstr "Zainstaluj"
 
 #: src/templates/ebox.mas:41
 msgid "none"
-msgstr ""
+msgstr "żadne"
 
 #: src/templates/ebox.mas:64
 msgid "Remove"
-msgstr ""
+msgstr "Usuń"

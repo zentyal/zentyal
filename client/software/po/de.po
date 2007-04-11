@@ -8,44 +8,37 @@
 # Copyright (C) 2006 Warp S.L.
 # This file is distributed under the same license as the ebox-software package.
 # Automatically generated, 2006.
-#
 #, fuzzy
 msgid ""
 msgstr ""
-"#-#-#-#-#  de.po (ebox-software 0.9)  #-#-#-#-#\n"
 "Project-Id-Version: ebox-software 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-16 11:37+0100\n"
-"PO-Revision-Date: 2005-11-11 13:07+0100\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
-"#-#-#-#-#  de.po (ebox-software 0.8.99)  #-#-#-#-#\n"
-"Project-Id-Version: ebox-software 0.8.99\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 18:54+0100\n"
+"POT-Creation-Date: 2007-03-28 16:03+0200\n"
 "PO-Revision-Date: 2007-03-04 20:38+0100\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural= (n != 1);\n"
+"X-Generator: Translate Toolkit 0.10.1\n"
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:311
-msgid "eBox components"
-msgstr "eBox-Komponenten"
+#: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
+#: src/EBox/Software.pm:314
+msgid "System updates"
+msgstr "Systemaktualisierungen"
 
-#: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/Upgrading.pm:30
-#, fuzzy
-msgid "Upgrading"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-software 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-software 0.8.99)  #-#-#-#-#\n"
-"Wird Aktualisiert"
+#: src/EBox/CGI/Updates.pm:45
+msgid "Software updates are being handled automatically"
+msgstr "Softwareaktualisierungen werden automatisch durchgeführt"
+
+#: src/EBox/CGI/Updates.pm:52
+msgid "The system is up to date"
+msgstr "Das System ist auf dem aktuellsten Stand"
+
+#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "Automatische Softwareaktualisierungen"
 
 #: src/EBox/CGI/Enable.pm:41
 #, fuzzy
@@ -74,22 +67,34 @@ msgstr ""
 msgid "The packages were removed successfully"
 msgstr "Die Pakete wurden erfolgreich entfernt"
 
-#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr "Automatische Softwareaktualisierungen"
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:312
+msgid "eBox components"
+msgstr "eBox-Komponenten"
 
-#: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:313
-msgid "System updates"
-msgstr "Systemaktualisierungen"
+#: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/Upgrading.pm:30
+#, fuzzy
+msgid "Upgrading"
+msgstr ""
+"#-#-#-#-#  de.po (ebox-software 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-software 0.8.99)  #-#-#-#-#\n"
+"Wird Aktualisiert"
 
-#: src/EBox/CGI/Updates.pm:45
-msgid "Software updates are being handled automatically"
-msgstr "Softwareaktualisierungen werden automatisch durchgeführt"
+#: src/EBox/Software.pm:137
+msgid ""
+"An error ocurred while removing components. If the error persists or eBox "
+"stops working properly, seek technical support."
+msgstr ""
+"Ein Fehler trat beim Entfernen einiger Komponenten auf. Falls der Fehler "
+"weiterhin auftritt oder die eBox nicht mehr richtig funktioniert, ziehen Sie "
+"technische Unterstützung bei"
 
-#: src/EBox/CGI/Updates.pm:52
-msgid "The system is up to date"
-msgstr "Das System ist auf dem aktuellsten Stand"
+#: src/EBox/Software.pm:309 src/EBox/PackageDescriptions.pm:15
+msgid "Software management"
+msgstr "Softwareverwaltung"
+
+#: src/EBox/Software.pm:316
+msgid "Configuration"
+msgstr "Konfiguration"
 
 #: src/EBox/PackageDescriptions.pm:1
 msgid "Certificate Authority Manager for eBox"
@@ -147,34 +152,45 @@ msgstr "Druckerfreigabe"
 msgid "File sharing"
 msgstr "Dateifreigabe"
 
-#: src/EBox/Software.pm:308 src/EBox/PackageDescriptions.pm:15
-msgid "Software management"
-msgstr "Softwareverwaltung"
-
 #: src/EBox/PackageDescriptions.pm:16
 msgid "Proxy cache and content filter"
 msgstr "HTTP-Proxy und -Filter"
 
 #: src/EBox/PackageDescriptions.pm:17
 msgid "Traffic shaper for eBox"
-msgstr ""
+msgstr "Bandbreitennutzung für eBox"
 
-#: src/EBox/PackageDescriptions.pm:17
+#: src/EBox/PackageDescriptions.pm:18
 msgid "User and Group management"
 msgstr "Benutzer- und Gruppenverwaltung"
 
-#: src/EBox/Software.pm:136
-msgid ""
-"An error ocurred while removing components. If the error persists or eBox "
-"stops working properly, seek technical support."
-msgstr ""
-"Ein Fehler trat beim Entfernen einiger Komponenten auf. Falls der Fehler "
-"weiterhin auftritt oder die eBox nicht mehr richtig funktioniert, ziehen Sie "
-"technische Unterstützung bei"
+#: src/templates/upgrading.mas:42
+msgid "Current package"
+msgstr "Aktuelles Paket"
 
-#: src/EBox/Software.pm:315
-msgid "Configuration"
-msgstr "Konfiguration"
+#: src/templates/upgrading.mas:43
+msgid "Starting..."
+msgstr "Wird gestartet..."
+
+#: src/templates/upgrading.mas:48
+msgid "The installation of the packages has finished successfully"
+msgstr "Die Installation der Pakete ist erfolgreich abgelaufen"
+
+#: src/templates/del.mas:14
+msgid "The following packages will be installed"
+msgstr "Die folgenden Pakete werden installiert"
+
+#: src/templates/del.mas:17
+msgid "The following packages will be removed"
+msgstr "Die folgenden Pakete werden entfernt"
+
+#: src/templates/del.mas:34
+msgid "Ok"
+msgstr "OK"
+
+#: src/templates/del.mas:36
+msgid "Cancel"
+msgstr "Abbrechen"
 
 #: src/templates/updates.mas:10
 msgid "Updates are available for the following system components"
@@ -219,34 +235,6 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-software 0.9)  #-#-#-#-#\n"
 "#-#-#-#-#  de.po (ebox-software 0.8.99)  #-#-#-#-#\n"
 "Aktualisieren"
-
-#: src/templates/del.mas:14
-msgid "The following packages will be installed"
-msgstr "Die folgenden Pakete werden installiert"
-
-#: src/templates/del.mas:17
-msgid "The following packages will be removed"
-msgstr "Die folgenden Pakete werden entfernt"
-
-#: src/templates/del.mas:34
-msgid "Ok"
-msgstr "OK"
-
-#: src/templates/del.mas:36
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#: src/templates/upgrading.mas:42
-msgid "Current package"
-msgstr ""
-
-#: src/templates/upgrading.mas:43
-msgid "Starting..."
-msgstr ""
-
-#: src/templates/upgrading.mas:68
-msgid "The installation of the packages has finished successfully"
-msgstr "Die Installation der Pakete ist erfolgreich abgelaufen"
 
 #: src/templates/config.mas:9
 #, fuzzy

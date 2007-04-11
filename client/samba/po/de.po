@@ -8,52 +8,24 @@
 # Copyright (C) 2006 Warp S.L.
 # This file is distributed under the same license as the ebox-samba package.
 # Automatically generated, 2006.
-#
 #, fuzzy
 msgid ""
 msgstr ""
-"#-#-#-#-#  de.po (ebox-samba 0.9)  #-#-#-#-#\n"
 "Project-Id-Version: ebox-samba 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-16 11:36+0100\n"
-"PO-Revision-Date: 2005-11-11 13:10+0100\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
-"#-#-#-#-#  de.po (ebox-samba 0.8.99)  #-#-#-#-#\n"
-"Project-Id-Version: ebox-samba 0.8.99\n"
-"Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-02-02 15:04+0100\n"
+"POT-Creation-Date: 2007-04-11 15:56+0200\n"
 "PO-Revision-Date: 2007-03-04 20:27+0100\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural= (n != 1);\n"
+"X-Generator: Translate Toolkit 0.10.1\n"
 
-#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:436
-msgid "netbios"
-msgstr "NetBIOS"
-
-#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:474
-msgid "working group"
-msgstr "Arbeitsgruppe"
-
-#: src/EBox/CGI/SambaConf.pm:44
-msgid "working mode"
-msgstr "Arbeitsmodus"
-
-#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:455
-msgid "description"
-msgstr "Beschreibung"
-
-#: src/EBox/CGI/SambaConf.pm:46
-msgid "user quota"
-msgstr "Speicherlimite für Benutzer"
+#: src/EBox/CGI/Enable.pm:42
+msgid "module status"
+msgstr "Status des Moduls"
 
 #: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:66
 msgid "user name"
@@ -65,15 +37,6 @@ msgstr "Benutzername"
 msgid "group name"
 msgstr "Gruppenname"
 
-#: src/EBox/CGI/Enable.pm:42
-msgid "module status"
-msgstr "Status des Moduls"
-
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:204
-#: src/EBox/Samba.pm:212
-msgid "File sharing"
-msgstr "Dateifreigabe"
-
 #: src/EBox/CGI/ActiveSharing.pm:47
 msgid "sharing name"
 msgstr "Name der Freigabe"
@@ -82,7 +45,32 @@ msgstr "Name der Freigabe"
 msgid "active"
 msgstr "Aktiv"
 
-#: src/EBox/Samba.pm:251 src/EBox/Samba.pm:296
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:234
+#: src/EBox/Samba.pm:242
+msgid "File sharing"
+msgstr "Dateifreigabe"
+
+#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:466
+msgid "netbios"
+msgstr "NetBIOS"
+
+#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:504
+msgid "working group"
+msgstr "Arbeitsgruppe"
+
+#: src/EBox/CGI/SambaConf.pm:44
+msgid "working mode"
+msgstr "Arbeitsmodus"
+
+#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:485
+msgid "description"
+msgstr "Beschreibung"
+
+#: src/EBox/CGI/SambaConf.pm:46
+msgid "user quota"
+msgstr "Speicherlimite für Benutzer"
+
+#: src/EBox/Samba.pm:281 src/EBox/Samba.pm:326
 #, fuzzy
 msgid "listening port"
 msgstr ""
@@ -90,7 +78,7 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-samba 0.8.99)  #-#-#-#-#\n"
 "Auf diesen Port hören"
 
-#: src/EBox/Samba.pm:334
+#: src/EBox/Samba.pm:364
 #, fuzzy
 msgid "Domain Name"
 msgstr ""
@@ -98,19 +86,19 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-samba 0.8.99)  #-#-#-#-#\n"
 "Domänenname"
 
-#: src/EBox/Samba.pm:493
+#: src/EBox/Samba.pm:523
 msgid "quota"
 msgstr "Speicherlimite"
 
-#: src/EBox/Samba.pm:778 src/EBox/Samba.pm:797
+#: src/EBox/Samba.pm:808 src/EBox/Samba.pm:827
 msgid "user"
 msgstr "Benutzer"
 
-#: src/EBox/Samba.pm:781 src/EBox/Samba.pm:811 src/EBox/SambaLdapUser.pm:611
+#: src/EBox/Samba.pm:811 src/EBox/Samba.pm:841 src/EBox/SambaLdapUser.pm:611
 msgid "group"
 msgstr "Gruppe"
 
-#: src/EBox/Samba.pm:784
+#: src/EBox/Samba.pm:814
 msgid "printer"
 msgstr "Drucker"
 
@@ -129,60 +117,6 @@ msgstr "Ein Name sollte für die Freigabe angegeben werden"
 #: src/EBox/SambaLdapUser.pm:503
 msgid "sharing resource"
 msgstr "Ressource freigegeben"
-
-#: src/templates/index.mas:16
-msgid "PDC/File sharing service status"
-msgstr "Status des Domänencontroller-/Freigabedienstes"
-
-#: src/templates/index.mas:20
-msgid "General Settings"
-msgstr "Allgemeine Einstellungen"
-
-#: src/templates/index.mas:23
-msgid ""
-"To allow unlimited disk usage to users, just set zero as user quota limit."
-msgstr ""
-"Um Benutzern unbeschränkten Speicherplatz zu gewähren, setzen Sie das "
-"Speicherlimit auf null"
-
-#: src/templates/index.mas:30
-msgid "Working mode"
-msgstr "Arbeitsmodus"
-
-#: src/templates/index.mas:36 src/templates/index.mas:41
-msgid "File server"
-msgstr "Dateiserver"
-
-#: src/templates/index.mas:38 src/templates/index.mas:43
-msgid "PDC"
-msgstr "Domänencontroller"
-
-#: src/templates/index.mas:52
-msgid "Domain name"
-msgstr "Domänenname"
-
-#: src/templates/index.mas:55
-msgid "Working group"
-msgstr "Arbeitsgruppe"
-
-#: src/templates/index.mas:66
-msgid "Netbios name"
-msgstr "NetBIOS-Name"
-
-#: src/templates/index.mas:75
-msgid "Description"
-msgstr "Beschreibung"
-
-#: src/templates/index.mas:83
-msgid "Quota limit"
-msgstr "Speicherlimit"
-
-#: src/templates/samba.mas:54 src/templates/samba.mas:56
-#: src/templates/samba.mas:88 src/templates/samba.mas:90
-#: src/templates/samba.mas:167 src/templates/samba.mas:169
-#: src/templates/index.mas:94 src/templates/index.mas:96
-msgid "Change"
-msgstr "Ändern"
 
 #: src/templates/delete.mas:10
 msgid "Deleting group"
@@ -234,6 +168,13 @@ msgstr "Aktiviert"
 msgid "Administration rights"
 msgstr "Administrationsrechte"
 
+#: src/templates/samba.mas:54 src/templates/samba.mas:56
+#: src/templates/samba.mas:88 src/templates/samba.mas:90
+#: src/templates/samba.mas:167 src/templates/samba.mas:169
+#: src/templates/index.mas:94 src/templates/index.mas:96
+msgid "Change"
+msgstr "Ändern"
+
 #: src/templates/samba.mas:65
 msgid "Sharing directory for this group"
 msgstr "Freigegebener Ordner für diese Gruppe"
@@ -252,8 +193,9 @@ msgstr ""
 "anzeigen"
 
 #: src/templates/samba.mas:76
+#, fuzzy
 msgid "This resource name is longer than 12 characters."
-msgstr ""
+msgstr "Der Name dieser Ressource ist länger als 12 Zeichen"
 
 #: src/templates/samba.mas:80
 msgid "Directory name"
@@ -287,10 +229,56 @@ msgstr "Erlauben"
 msgid "Allow all printers"
 msgstr "Alle Drucker erlauben"
 
+#: src/templates/index.mas:16
+msgid "PDC/File sharing service status"
+msgstr "Status des Domänencontroller-/Freigabedienstes"
+
+#: src/templates/index.mas:20
+msgid "General Settings"
+msgstr "Allgemeine Einstellungen"
+
+#: src/templates/index.mas:23
+msgid ""
+"To allow unlimited disk usage to users, just set zero as user quota limit."
+msgstr ""
+"Um Benutzern unbeschränkten Speicherplatz zu gewähren, setzen Sie das "
+"Speicherlimit auf null"
+
+#: src/templates/index.mas:30
+msgid "Working mode"
+msgstr "Arbeitsmodus"
+
+#: src/templates/index.mas:36 src/templates/index.mas:41
+msgid "File server"
+msgstr "Dateiserver"
+
+#: src/templates/index.mas:38 src/templates/index.mas:43
+msgid "PDC"
+msgstr "Domänencontroller"
+
+#: src/templates/index.mas:52
+msgid "Domain name"
+msgstr "Domänenname"
+
+#: src/templates/index.mas:55
+msgid "Working group"
+msgstr "Arbeitsgruppe"
+
+#: src/templates/index.mas:66
+msgid "Netbios name"
+msgstr "NetBIOS-Name"
+
+#: src/templates/index.mas:75
+msgid "Description"
+msgstr "Beschreibung"
+
+#: src/templates/index.mas:83
+msgid "Quota limit"
+msgstr "Speicherlimit"
+
 #: stubs/smb.conf.mas:90
 msgid "Home Directories"
 msgstr "Eigener Ordner"
 
-#: src/templates/samba.mas:76
-msgid "This resource name is longer than 12 charcters."
-msgstr "Der Name dieser Ressource ist länger als 12 Zeichen"
+#~ msgid "This resource name is longer than 12 charcters."
+#~ msgstr "Der Name dieser Ressource ist länger als 12 Zeichen"

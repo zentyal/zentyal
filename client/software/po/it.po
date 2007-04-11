@@ -2,12 +2,11 @@
 # Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the ebox-software package.
 # Automatically generated, 2007.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.9"
+"Project-Id-Version: ebox-software 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-15 12:54+0100\n"
+"POT-Creation-Date: 2007-03-28 16:03+0200\n"
 "PO-Revision-Date: 2007-03-15 12:54+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,6 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Translate Toolkit 0.10.1\n"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 #: src/EBox/Software.pm:314

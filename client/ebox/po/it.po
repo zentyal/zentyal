@@ -2,12 +2,11 @@
 # Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the ebox package.
 # Automatically generated, 2007.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ebox 0.9"
+"Project-Id-Version: ebox 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-15 12:53+0100\n"
+"POT-Creation-Date: 2007-03-28 16:01+0200\n"
 "PO-Revision-Date: 2007-03-15 12:53+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,6 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Translate Toolkit 0.10.1\n"
 
 #: src/EBox/Backup/RootCommands.pm:26
 #, perl-brace-format
@@ -147,22 +147,6 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
-msgid "Status"
-msgstr ""
-
-#: src/EBox/CGI/Summary/Index.pm:47
-msgid "Error"
-msgstr ""
-
-#: src/EBox/CGI/EBox/RestartService.pm:48
-msgid "module name"
-msgstr ""
-
-#: src/EBox/CGI/EBox/RestartService.pm:52
-msgid "The module was restarted correctly."
-msgstr ""
-
 #: src/EBox/CGI/EBox/Backup.pm:34
 msgid "System backups"
 msgstr ""
@@ -182,7 +166,7 @@ msgstr ""
 
 #: src/EBox/CGI/EBox/Backup.pm:230 src/EBox/CGI/EBox/Backup.pm:301
 #: src/EBox/CGI/EBox/Backup.pm:314 src/EBox/CGI/EBox/ConfirmBackup.pm:197
-#: src/EBox/Backup.pm:987
+#: src/EBox/Backup.pm:995
 msgid "The input contains invalid characters"
 msgstr ""
 
@@ -203,6 +187,14 @@ msgid ""
 "you want to keep it."
 msgstr ""
 
+#: src/EBox/CGI/EBox/RestartService.pm:48
+msgid "module name"
+msgstr ""
+
+#: src/EBox/CGI/EBox/RestartService.pm:52
+msgid "The module was restarted correctly."
+msgstr ""
+
 #: src/EBox/CGI/EBox/Halt.pm:30
 msgid "Halt or reboot"
 msgstr ""
@@ -215,12 +207,12 @@ msgstr ""
 msgid "eBox is going down for reboot"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Bug.pm:29 src/EBox/SysInfo.pm:126
-msgid "Bug report"
-msgstr ""
-
 #: src/EBox/CGI/EBox/General.pm:30
 msgid "General configuration"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Bug.pm:29 src/EBox/SysInfo.pm:126
+msgid "Bug report"
 msgstr ""
 
 #: src/EBox/CGI/EBox/Password.pm:49
@@ -286,11 +278,19 @@ msgid "Configuration backup"
 msgstr ""
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:229
-msgid "Full data and configutarion backup"
+msgid "Full data and configuration backup"
 msgstr ""
 
 #: src/EBox/CGI/EBox/ConfirmBackup.pm:232
 msgid "Bug-report configuration dump"
+msgstr ""
+
+#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
+msgid "Status"
+msgstr ""
+
+#: src/EBox/CGI/Summary/Index.pm:47
+msgid "Error"
 msgstr ""
 
 #: src/EBox/CGI/Finish.pm:30
@@ -373,7 +373,7 @@ msgstr ""
 msgid "Could not append data to backup archive"
 msgstr ""
 
-#: src/EBox/Backup.pm:348 src/EBox/Backup.pm:970
+#: src/EBox/Backup.pm:348 src/EBox/Backup.pm:978
 msgid "Insert a backup disc and try again, please"
 msgstr ""
 
@@ -436,7 +436,7 @@ msgid ""
 "message: {error}"
 msgstr ""
 
-#: src/EBox/Backup.pm:920
+#: src/EBox/Backup.pm:928
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
