@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ntp 0.9\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-28 16:02+0200\n"
+"POT-Creation-Date: 2007-04-11 19:07+0200\n"
 "PO-Revision-Date: 2007-03-16 11:34+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -20,10 +20,6 @@ msgstr ""
 #: src/EBox/CGI/Synch.pm:41
 msgid "external synchronize status"
 msgstr "Status de sincronização externa"
-
-#: src/EBox/CGI/Enable.pm:41
-msgid "module status"
-msgstr "Status do Módulo"
 
 #: src/EBox/CGI/Index.pm:30
 msgid "NTP Server"
@@ -44,24 +40,6 @@ msgstr "País"
 #: src/EBox/CGI/ChangeTimeZone.pm:42
 msgid "continent"
 msgstr "Continente"
-
-#: src/EBox/CGI/AddServers.pm:42
-msgid "first ntp server"
-msgstr "Primeiro servidor ntp"
-
-#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:199
-#: src/templates/servers.mas:18
-msgid "Primary server"
-msgstr "Servidor primário"
-
-#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:213
-#: src/templates/servers.mas:30
-msgid "Secondary server"
-msgstr "Servidor Secundário"
-
-#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:42
-msgid "Tertiary server"
-msgstr "Servidor Terciário"
 
 #: src/EBox/CGI/ChangeDate.pm:41
 msgid "Day"
@@ -86,6 +64,28 @@ msgstr "Minutos"
 #: src/EBox/CGI/ChangeDate.pm:46
 msgid "Seconds"
 msgstr "Segundos"
+
+#: src/EBox/CGI/AddServers.pm:42
+msgid "first ntp server"
+msgstr "Primeiro servidor ntp"
+
+#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:199
+#: src/templates/servers.mas:18
+msgid "Primary server"
+msgstr "Servidor primário"
+
+#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:213
+#: src/templates/servers.mas:30
+msgid "Secondary server"
+msgstr "Servidor Secundário"
+
+#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:42
+msgid "Tertiary server"
+msgstr "Servidor Terciário"
+
+#: src/EBox/CGI/Enable.pm:41
+msgid "module status"
+msgstr "Status do Módulo"
 
 #: src/EBox/NTP.pm:201
 #, fuzzy
@@ -113,7 +113,7 @@ msgstr "Servidor Terciário"
 #: src/EBox/NTP.pm:244
 #, perl-brace-format
 msgid "{name} IP address"
-msgstr "Endereço IP do Servidor Secundário"
+msgstr ""
 
 #: src/EBox/NTP.pm:247
 #, perl-brace-format
@@ -140,24 +140,17 @@ msgstr "Fusorário"
 msgid "NTP server"
 msgstr "Servidor NTP"
 
-#: src/templates/synch.mas:11 src/templates/synch.mas:16
-msgid "Disabled"
-msgstr "Desabilitado"
+#: src/templates/datetime.mas:13
+msgid "Time synchronization with NTP servers"
+msgstr "Sincronização de horário com os Servidores NTP"
 
-#: src/templates/synch.mas:13 src/templates/synch.mas:18
-msgid "Enabled"
-msgstr "Habilitado"
+#: src/templates/datetime.mas:18
+msgid "External NTP servers"
+msgstr "Servidores NTP externos"
 
-#: src/templates/synch.mas:23 src/templates/synch.mas:25
-#: src/templates/servers.mas:55 src/templates/timezone.mas:37
-#: src/templates/timezone.mas:39 src/templates/date.mas:111
-#: src/templates/date.mas:113
-msgid "Change"
-msgstr "Servidores NTP"
-
-#: src/templates/index.mas:11
-msgid "NTP server status"
-msgstr "Status do Servidor NTP"
+#: src/templates/datetime.mas:23
+msgid "Change Date and Time"
+msgstr "Mudar Data e Hora"
 
 #: src/templates/servers.mas:7
 #, fuzzy
@@ -172,22 +165,21 @@ msgstr ""
 "Você deve se lembrar de configurar o seu fusorário para que a sincronização "
 "funcione corretamente"
 
+#: src/templates/servers.mas:55 src/templates/timezone.mas:37
+#: src/templates/timezone.mas:39 src/templates/date.mas:111
+#: src/templates/date.mas:113 src/templates/synch.mas:23
+#: src/templates/synch.mas:25
+msgid "Change"
+msgstr "Servidores NTP"
+
 #: src/templates/timezone.mas:19
 msgid "A time zone change will cause all eBox services to be restarted"
 msgstr ""
 "Uma mudança no Fusoráriovai fazer com que o Ebox reinicie todos os serviços"
 
-#: src/templates/datetime.mas:13
-msgid "Time synchronization with NTP servers"
-msgstr "Sincronização de horário com os Servidores NTP"
-
-#: src/templates/datetime.mas:18
-msgid "External NTP servers"
-msgstr "Servidores NTP externos"
-
-#: src/templates/datetime.mas:23
-msgid "Change Date and Time"
-msgstr "Mudar Data e Hora"
+#: src/templates/index.mas:11
+msgid "NTP server status"
+msgstr "Status do Servidor NTP"
 
 #: src/templates/date.mas:10
 msgid ""
@@ -251,6 +243,14 @@ msgstr "Dezembro"
 #: src/templates/date.mas:69
 msgid "Time"
 msgstr "Hora"
+
+#: src/templates/synch.mas:11 src/templates/synch.mas:16
+msgid "Disabled"
+msgstr "Desabilitado"
+
+#: src/templates/synch.mas:13 src/templates/synch.mas:18
+msgid "Enabled"
+msgstr "Habilitado"
 
 #~ msgid "primary server IP address"
 #~ msgstr "Endereço IP do servidor primário"
