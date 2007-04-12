@@ -123,7 +123,10 @@ sub _stopService
     my $ifaces_ref = $self->all_dirs_base('/ebox/modules/trafficshaping');
 
     foreach my $iface (@{$ifaces_ref}) {
+      # Cleaning iptables
       $self->_deleteChain($iface);
+      # Cleaning tc
+      $self->{tc}->reset($iface);
     }
   }
 
