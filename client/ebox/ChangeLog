@@ -1,4 +1,5 @@
 0.9
+	+ Added Polish translation
         + Bug in recognition of old CD-R writting devices fixed
 	+ Added Aragonese translation
 	+ Added Dutch translation
@@ -42,7 +43,8 @@
 	+ API documented using naturaldocs
 	+ Update INSTALL
 	+ Use a new method to get configkeys, now configkey reads every
-	  [0-9][0-9]+.conf file from the EBox::Config::etc() dir and 
+	  [0.9
+	+ Added Polish translation][0-9]+.conf file from the EBox::Config::etc() dir and 
 	  tries to get the value from the files in order.
 	+ Display date in the correct languae in Summary
 	+ Update debian scripts
