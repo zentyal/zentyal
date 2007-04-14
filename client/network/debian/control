@@ -8,7 +8,7 @@ Standards-Version: 3.6.1
 Package: ebox-network
 Architecture: all
 Depends: ebox (>= 0.9), ebox (<< 0.9.99), ebox-objects, iproute, vlan, net-tools, dnsutils, libnet-ip-perl, dhcp3-client, iptables, libnet-arp-perl
-Replaces: ebox (<< 0.6)
+Replaces: ebox (<< 0.6), ebox-firewall (<= 0.8.99)
 Conflicts: ebox (<< 0.6)
 Description: Network configuration
  eBox is a framework for the development and deployment of security-wise
