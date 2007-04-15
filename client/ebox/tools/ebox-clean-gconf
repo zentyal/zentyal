@@ -33,7 +33,7 @@ sleep 1;
 foreach my $conf ($globalConf, $moduleConf) {
   system "$gconftool --dir-exists $conf";
   my $returnValue = ($? >> 8);
-  ($returnValue == 2) or die "Can not remove gconf directory $conf";
+  ($returnValue == 2) or die "Cannot remove gconf directory $conf";
 }
 
 1;
