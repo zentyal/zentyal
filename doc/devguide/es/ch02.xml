@@ -405,7 +405,7 @@ msgstr ""
 
 			<para>Si la cadena a traducir necesita incluir el valor de una
 			variable al ser presentada en la interfaz de usuario, encontrará en
-			el fichero PO una entrada similar a esta:
+			el fichero PO una entrada similar a ésta:
 			<programlisting>
 msgid "Edit {group} members"
 			</programlisting>

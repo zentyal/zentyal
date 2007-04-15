@@ -228,7 +228,7 @@
 					eBox, con él permitiremos que un cliente de nuestra red pueda
 					sincronizar su fecha y hora con eBox.</para>
 
-					<para>Veamos mas a fondo cómo esta implementado este
+					<para>Veamos mas a fondo cómo está implementado este
 					método:</para>
 					
 					<example>
@@ -491,7 +491,7 @@
 					enfrenten a una diferencia temporal, vamos a implementar este
 					método que reiniciara los sistemas de logs y módulos eBox que
 					ahora se lanzarán con la nueva fecha y hora del sistema. Veamos
-					como esta implementado:</para>
+					como está implementado:</para>
 
 					<example>
 						<title>Reiniciar módulos y servicios del sistema</title>
@@ -725,7 +725,7 @@ sub _process
 		<classname>EBox::CGI::NTP::Enable</classname> con lo que cumplimos este
 		requerimiento.</para>
 
-		<para>En este momento nos queda por ver como estan implementados los
+		<para>En este momento nos queda por ver como están implementados los
 		CGIs para cambiar la fecha y hora del sistema de manera manual, cambio
 		de la zona horaria y el establecimiento del servicio de sincronización
 		mediante servidores externos junto con sus plantillas en mason. La
@@ -733,7 +733,7 @@ sub _process
 		ver el código puede ir al repositorio de subversion y descargarlo
 		libremente. El lector podrá realizar una lectura del código sin
 		problemas asi que no entraremos a explicar el código en profundidad y
-		simplemente explicaremos cómo estan relacionados y que es lo que hace
+		simplemente explicaremos cómo están relacionados y que es lo que hace
 		cada uno de los ficheros.</para>
 
 		<para>Tenemos dos partes bien diferenciadas, por un lado vamos
@@ -782,12 +782,12 @@ sub _process
 		que recibe toda información del CGI <filename>Datetime</filename>,
 		carga la plantilla mason <filename>synch.mas</filename> que ofrece
 		la posibilidad de arrancar o no el servicio de sincronización
-		externa y, dependiendo de si esta activado o no, mostrará la
+		externa y, dependiendo de si está activado o no, mostrará la
 		plantilla de selección de servidores ntp externos a los que
 		sincronizarse(<filename>servers.mas</filename>) o permitirá cambiar
 		manualmente la fecha y hora del sistema mediante otra plantilla
 		(<filename>date.mas</filename>) si el servicio de sincronización
-		externa esta habilitado.</para>
+		externa está habilitado.</para>
 
 		<example>
 			<title>Código de plantilla mason de selección de plantillas</title>
@@ -824,7 +824,7 @@ synchronized => $synchronized &>
 		dentro de la clase del módulo que nos estemos implementando. En él
 		que recibimos una instancia de <classname>EBox::Menu::Root</classname>
 		a la que añadiremos la nueva sección ntp y las subsecciones: Servidor
-		NTP, Fecha/Hora y Zona Horaria. Veamos como esta implementado este
+		NTP, Fecha/Hora y Zona Horaria. Veamos como está implementado este
 		método:</para>
 
 		<example>
@@ -925,8 +925,8 @@ synchronized => $synchronized &>
 		añadimos a la variable <varname>array</varname> los parámetros que
 		queremos pasar a la plantilla mason, en nuestro caso le pasamos el
 		parámetro <parameter>active</parameter> que indicará si el servicio
-		de sincronización a clientes de nuestra red esta activo o no, el
-		parámetro <parameter>synchronized</parameter> que indicará si esta
+		de sincronización a clientes de nuestra red está activo o no, el
+		parámetro <parameter>synchronized</parameter> que indicará si está
 		activado el servicio de sincronización externa y un último parámetro
 		<parameter>servers</parameter> que es un array con la lista de
 		servidores externos a los que podemos tratar de sincronizarnos. Por
@@ -1001,7 +1001,7 @@ restrict 127.0.0.1 nomodify]]></programlisting>
 		relanzan los servicios eBox o cuando se salvan datos del
 		módulo. Su función generar los ficheros de configuración y
 		es por ello que ha de realizar una llamada al método visto
-		anteriormente <methodname>_setNTPConf</methodname>. Veamos como esta
+		anteriormente <methodname>_setNTPConf</methodname>. Veamos como está
 		implementado:</para>
 
 		<example>
@@ -1020,7 +1020,7 @@ restrict 127.0.0.1 nomodify]]></programlisting>
 		<methodname>_doDaemon</methodname>. Éste y los métodos:
 		<methodname>_daemon</methodname>, <methodname>_stopService</methodname>
 		y <methodname>isRunning</methodname> realizarán todo el control sobre
-		el demonio. Veamos uno a uno cómo estan implementados, empezando por
+		el demonio. Veamos uno a uno cómo están implementados, empezando por
 		<methodname>_doDaemon</methodname>:</para>
 
 		<example>
@@ -1082,10 +1082,10 @@ restrict 127.0.0.1 nomodify]]></programlisting>
 		implementación veremos a continuación, con la acción que
 		queramos realizar: start o stop. Lo único que debemos tener
 		en cuenta es que si el servicio de sincronización mediante
-		servidores externos esta activado, debemos tratar de sincronizarnos
+		servidores externos está activado, debemos tratar de sincronizarnos
 		con el primero de los servidores ntp mediante el comando
 		<command>/usr/sbin/ntpdate</command>, antes de arrancar el servicio con
-		la llamada a <methodname>$self->_daemon('start')</methodname> esta es
+		la llamada a <methodname>$self->_daemon('start')</methodname> ésta es
 		una práctica recomendada antes de lanzar un demonio de ntp.</para>
 
 		<para>Veamos ahora el método <methodname>_daemon</methodname>,
@@ -1121,7 +1121,7 @@ restrict 127.0.0.1 nomodify]]></programlisting>
 		método abstracto de la clase base <classname>EBox::Module</classname>
 		<methodname>_stopService</methodname> que simplemente parará el
 		servicio, y el método <methodname>isRunning</methodname> que nos dirá
-		si el servicio esta en ejecución o no a través de su identificador de
+		si el servicio está en ejecución o no a través de su identificador de
 		proceso o PID.</para>
 
 		<example>
@@ -1138,7 +1138,7 @@ restrict 127.0.0.1 nomodify]]></programlisting>
 		</example>
 
 		<example>
-			<title>Método para saber si el servicio esta ejecutándose.</title>
+			<title>Método para saber si el servicio está ejecutándose.</title>
 			<programlisting><![CDATA[sub isRunning
 {
 	my $self = shift;
@@ -1191,7 +1191,7 @@ restrict 127.0.0.1 nomodify]]></programlisting>
 		obtener una instancia del módulo firewall a través de
 		<methodname>EBox::Global->modInstance('firewall')</methodname>.
 		Después dependiendo de si el servicio de sincronización
-		externa esta activado añadiremos o eliminaremos la regla
+		externa está activado añadiremos o eliminaremos la regla
 		de salida al puerto udp 123 de eBox mediante las llamadas
 		a los métodos: <methodname>addOutputRule</methodname> o
 		<methodname>removeOutputRule</methodname> del módulo firewall.</para>

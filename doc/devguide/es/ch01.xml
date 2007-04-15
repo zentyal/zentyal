@@ -1,5 +1,3 @@
-	<!-- vim: ts=2 sw=2 tw=75
--->
 <chapter id="ch-intro">
 
 	<title>Introducción</title>
@@ -7,12 +5,12 @@
 	<section id='sect-audience'>
 		<title>¿A quién va dirigido?</title>
 
-		<para>Esta guía esta escrita para desarrolladores interesados
+		<para>Esta guía está escrita para desarrolladores interesados
 		en programar nuevos módulos con nuevas funcionalidades para
 		<application>eBox</application>, y para aquellos que necesitan cambiar
 		o extender la framework base eBox.</para>
 
-    <para><application>eBox</application> esta escrita en perl y esta
+    <para><application>eBox</application> está escrita en perl y está
     mayoritariamente orientada a objetos. Se asume que los lectores
     saben realizar programas orientados a objetos en perl. Muchas de
     las características del lenguaje o de las librerias usadas en eBox
@@ -45,7 +43,7 @@
 			todos los servicios de una manera consistente y fácil de usar. El
 			objetivo es que pueda ser usada por personas no expertas. </para>
 
-			<para>eBox esta orientada a instalarse sobre una máquina dedicada,
+			<para>eBox está orientada a instalarse sobre una máquina dedicada,
 			todas las tareas de configuración son realizadas a traés de la
 			interface web de eBox. Esto significa que la configuración de los
 			servicios subyacentes es unidireccional: los módulos eBox generan
@@ -63,14 +61,14 @@
 			existentes mediante un módulo de gestón de software, el cual es
 			también a su vez independiente del paquete base eBox. </para>
 
-			<para>El sistema esta basado en Linux y ha sido desarrollado sobre
+			<para>El sistema está basado en Linux y ha sido desarrollado sobre
 			Debian, como hay algún "debianismo" sobre algún módulo, no se
 			ofrece soporte sobre otras distribuciones Linux. Portar eBox a otras
 			distribuciones Linux debería ser sencillo sobre otros sistemas
 			operativos Unix como OpenBSD puede tomar un poco mas de trabajo pero
 			debería seguir siendo factible. </para>
 
-			<para>eBox esta basada en unos pocos paquetes de software, los cuales
+			<para>eBox está basada en unos pocos paquetes de software, los cuales
 			son usados para diferentes propósitos: </para>
 
 			<variablelist>
@@ -80,8 +78,8 @@
 					<listitem>
 
 						<para>eBox hace uso de algunas características ofrecidas por
-						el kernel, algunas de ellas estan disponibles sólo en la
-						serie 2.6. Entre esas caraterísticas estan netfilter (para el
+						el kernel, algunas de ellas están disponibles sólo en la
+						serie 2.6. Entre esas caraterísticas están netfilter (para el
 						firewall), 802.1q (para VLANs) e ipsec. </para>
 
 					</listitem>
@@ -91,7 +89,7 @@
 					<term>perl y mod_perl</term>
 					<listitem>
 
-						<para>Todos los módulos eBox estan implementados en perl, el
+						<para>Todos los módulos eBox están implementados en perl, el
 						interfaz web corre sobre mod_perl por razones de rendimiento.
 						</para>
 

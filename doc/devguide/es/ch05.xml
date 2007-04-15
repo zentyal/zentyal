@@ -647,7 +647,7 @@ use EBox::Gettext;
 		al menú es simplemente implementar la función
 		<methodname>menu</methodname> en el módulo. Esta función toma una
 		instancia <classname>EBox::Menu::Root</classname> como argumento, y
-		puede añadir tantos elementos y carpetas como se quieran. Esta es la
+		puede añadir tantos elementos y carpetas como se quieran. Ésta es la
 		función <methodname>menu</methodname> para el módulo firewall:</para>		
 
 		<example>

@@ -143,7 +143,7 @@ ldap admin dn = cn=admin,dc=ebox
 		<para><classname>EBox::LdapUserBase</classname> proporciona
 		los métodos abstractos que necesitas implementar dependiendo de tus 
 		necesidades. Solo deberás implementar aquellos  métodos que sean de 
-		tu interés. Al heredar de esta clase harás  saber a 
+		tu interés. Al heredar de esta clase harás saber a 
 		<classname>EBox::UsersAndGroups</classname> que tu módulo es un
 		<emphasis>Observador</emphasis> de ciertas operaciones que tienen lugar
 		en el.</para>
@@ -336,7 +336,7 @@ return new EBox::SambaLdapUser();
 				<para>Lo que hace <classname>EBox::UsersAndGroups</classname>
 				en el citado ejemplo, es llamar a la implementación de
 				<methodname>_groupAddOns()</methodname> en el módulo samba pasándole
-				el nombre del grupo que se esta editando. El módulo samba devolverá la
+				el nombre del grupo que se está editando. El módulo samba devolverá la
 				plantilla <emphasis>mason</emphasis> y sus argumentos.</para>
 	
 				<example>
