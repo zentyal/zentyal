@@ -895,15 +895,17 @@ sub setIfaceStatic # (interface, address, netmask, external, force)
 	my $global = EBox::Global->getInstance();
 	my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
 
-	if ($ext != $self->ifaceIsExternal($name) ) {
-	  # Tell observers the interface way has changed
-	  foreach my $obs (@observers) {
-	    if ($obs->ifaceExternalChanged($name, $ext)) {
-	      if ($force) {
-		$obs->changeIfaceExternalProperty($name, $ext);
-	      }
-	      else {
-		throw EBox::Exceptions::DataInUse();
+	if ( defined ( $ext ) ){
+	  # External attribute is not set by ebox-netcfg-import script
+	  if ($ext != $self->ifaceIsExternal($name) ) {
+	    # Tell observers the interface way has changed
+	    foreach my $obs (@observers) {
+	      if ($obs->ifaceExternalChanged($name, $ext)) {
+		if ($force) {
+		  $obs->changeIfaceExternalProperty($name, $ext);
+		} else {
+		  throw EBox::Exceptions::DataInUse();
+		}
 	      }
 	    }
 	  }
