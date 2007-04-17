@@ -32,8 +32,8 @@ install-indep: build config.status
 	dh_clean -k 
 	dh_installdirs
 
-	GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=yes DESTDIR=$(CURDIR)/debian/ebox-mail/ \
-	DESTDIR=$(CURDIR)/debian/ebox-mail/ \
+	GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=yes DESTDIR=$(CURDIR)/debian/ebox-mailfilter/ \
+	DESTDIR=$(CURDIR)/debian/ebox-mailfilter/ \
 		$(MAKE) install schemadir=usr/share/gconf/schemas
 
 binary-indep: install-indep
