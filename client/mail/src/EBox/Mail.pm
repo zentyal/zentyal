@@ -126,6 +126,7 @@ sub _setMailConf {
 		}
 	}
 
+	push (@array, fqdn => $self->_fqdn());
 	push(@array, 'ldapi', $self->{vdomains}->{ldap}->ldapConf->{ldap});
 	push(@array, 'vdomainDN', $self->{vdomains}->vdomainDn());
 	push(@array, 'relay', $self->relay());
@@ -181,6 +182,19 @@ sub _setMailConf {
 	$self->writeConfFile(SASLAUTHDDCONFFILE, "mail/saslauthd.conf.mas",\@array);
 	$self->writeConfFile(SASLAUTHDCONFFILE, "mail/saslauthd.mas",\@array);
 	$self->writeConfFile(SMTPDCONFFILE, "mail/smtpd.conf.mas",\@array);
+}
+
+
+sub _fqdn
+{
+  my $fqdn = `hostname --fqdn`;
+  if ($? != 0) {
+    throw EBox::Exceptions::Internal('eBox was unable to get the full wualified domain name (FQDN) fot his host/' .
+	'Please, check than your resolver and /etc/hosts file are propely configured.'
+				    )
+  }
+
+  return $fqdn;
 }
 
 # Method: isRunning
