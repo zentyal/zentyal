@@ -3,6 +3,7 @@
 	$group
 	$user
 	$serverroot
+        $debug => 'no'
 </%args>
 
 ServerType standalone
@@ -113,8 +114,9 @@ SSLCertificateKeyFile @ETCPATH@/ssl.key/ebox.key
 Alias /data/ @WWWPATH@
 ScriptAlias /ebox/ @CGIPATH@
 
-# PerlInitHandler	Apache::Reload
-
+% if ($debug eq 'yes') {
+PerlInitHandler	Apache::Reload
+% }
 PerlWarn On
 
 PerlRequire "startup.pl"

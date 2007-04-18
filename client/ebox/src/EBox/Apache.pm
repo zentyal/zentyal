@@ -30,6 +30,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Gettext;
+use EBox::Config;
 use English qw(-no_match_vars);
 use File::Basename();
 
@@ -128,12 +129,16 @@ sub _writeHttpdConfFile
 	my $interp = HTML::Mason::Interp->new(out_method => \$output);
 	my $comp = $interp->make_component(
 			comp_file => (EBox::Config::stubs . '/apache.mas'));
-	my @array = ();
-	push(@array, port=>$self->port);
-	push(@array, user=>EBox::Config::user);
-	push(@array, group=>EBox::Config::group);
-	push(@array, serverroot=>$self->serverroot);
-	$interp->exec($comp, @array);
+
+	my @confFileParams = ();
+	push @confFileParams, ( port => $self->port);
+	push @confFileParams, ( user => EBox::Config::user);
+	push @confFileParams, ( group => EBox::Config::group);
+	push @confFileParams, ( serverroot => $self->serverroot);
+	push @confFileParams, ( debug => EBox::Config::configkey('debug'));
+
+	$interp->exec($comp, @confFileParams);
+
 	my $confile = EBox::Config::tmp . "httpd.conf";
 	unless (open(HTTPD, "> $confile")) {
 		throw EBox::Exceptions::Internal("Could not write to $confile");
