@@ -210,7 +210,7 @@ sub  dumpDB
   my $dbuser = _dbuser();
   my $eboxHome = EBox::Config::home();
 
-  my $dumpCommand = "HOME=$eboxHome /usr/bin/pg_dump --no-owner --clean --file $outputFile -U $dbuser $dbname";
+  my $dumpCommand = "HOME=$eboxHome /usr/bin/pg_dump --host=127.0.0.1 --no-owner --clean --file $outputFile -U $dbuser $dbname";
   my $output = `$dumpCommand`;
   if ($? != 0) {
     EBox::error("The following command raised error: $dumpCommand\nOutput:$output");
