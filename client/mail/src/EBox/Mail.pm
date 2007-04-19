@@ -189,8 +189,8 @@ sub _fqdn
 {
   my $fqdn = `hostname --fqdn`;
   if ($? != 0) {
-    throw EBox::Exceptions::Internal('eBox was unable to get the full wualified domain name (FQDN) fot his host/' .
-	'Please, check than your resolver and /etc/hosts file are propely configured.'
+    throw EBox::Exceptions::Internal('eBox was unable to get the full qualified domain name (FQDN) for his host/' .
+	'Please, check than your resolver and /etc/hosts file are properly configured.'
 				    )
   }
 
