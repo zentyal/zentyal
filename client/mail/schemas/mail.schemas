@@ -113,7 +113,7 @@
 		<applyto>/ebox/modules/mail/ipfilter</applyto>
 		<owner>ebox</owner>
 		<type>string</type>
-		<default>192.168.0.1</default>
+		<default>127.0.0.1</default>
 		<locale name="C"/>
 	</schema>
 	<schema>

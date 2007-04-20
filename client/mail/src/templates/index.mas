@@ -261,17 +261,17 @@ use EBox::Gettext;
 </tr>
 
 <tr>
-	<td class='tright'><% __('Local port') %>:</td>
+	<td class='tright'><% __("Mail forward port") %>:</td>
 	<td><input type='text' class='inputText' name='fwport' 
 			id='fwport' value=<% $fwport %>></td>
 </tr>
 <tr>
-	<td class='tright'><% __('Remote IP address') %>:</td>
+	<td class='tright'><% __("Filter's IP address") %>:</td>
 	<td><input type='text' class='inputText' name='ipfilter' 
 			id='ipfilter' value=<% $ipfilter %>></td>
 </tr>
 <tr>
-	<td class='tright'><% __('Remote Port') %>:</td>
+	<td class='tright'><% __("Filter's Port") %>:</td>
 	<td><input type='text' class='inputText' name='portfilter'
 			id='portfilter' value=<% $portfilter %>></td>
 </tr>
