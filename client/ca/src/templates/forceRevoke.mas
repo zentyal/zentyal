@@ -27,7 +27,7 @@ if ( $isCACert ) {
   <p>
     <form action="RevokeCertificate" method="post">
       <input type="hidden" name="commonName"
-             value="<% $commonName %>" />
+             value="<% $metaDataCert->{dn}->attribute('commonName') %>" />
       <input type="hidden" name="isCACert"
              value="<% $isCACert %>" />
       <input type="hidden" name="reason"
