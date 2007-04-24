@@ -41,6 +41,7 @@ use EBox::Menu::Item;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::DataInUse;
 use EBox;
 
 use constant TEMPDIR     => EBox::Config->tmp(); # "/tmp/";
@@ -512,17 +513,18 @@ sub issueCACertificate
 #
 # Parameters:
 #
-#       commonName - the CA common name (Optional)
-#       countryName - country name {2 letter code} (eg, ES) (Optional)
-#       stateName - state or province name (eg, Zaragoza) (Optional)
-#       localityName - locality name (eg, Zaragoza) (Optional)
+#       commonName - the CA common name *(Optional)*
+#       countryName - country name {2 letter code} (eg, ES) *(Optional)*
+#       stateName - state or province name (eg, Zaragoza) *(Optional)*
+#       localityName - locality name (eg, Zaragoza) *(Optional)*
 #
-#       orgName - organization name (eg, company) (Optional)
+#       orgName - organization name (eg, company) *(Optional)*
 #
 #       orgNameUnit - organizational unit name (eg, section)
-#                     (Optional)
-#       days - days to hold the same certificate (Optional)
-#       caKeyPassword - key passpharse for CA (Optional)
+#                     *(Optional)*
+#       days - days to hold the same certificate *(Optional)*
+#       caKeyPassword - key passpharse for CA *(Optional)*
+#       force - forcing the renewal of all the certificates *(Optional)*
 #
 # Returns:
 #
@@ -552,7 +554,9 @@ sub renewCACertificate
 					       reqFile       => CAREQ,
 					       privateKeyFile => CAPRIVKEY,
 					       keyPassword   => $args{caKeyPassword},
-					       overwrite     => "1");
+					       overwrite     => "1",
+					       force         => $args{force},
+					     );
 
     # Expiration CA certificate
     $self->{caExpirationDate} = $self->_obtain(CACERT, 'endDate');
@@ -570,7 +574,8 @@ sub renewCACertificate
 
 	$self->renewCertificate( commonName    => $element->{dn}->attribute('commonName'),
 				 endDate       => $userExpiryDate,
-				 caKeyPassword => $args{caKeyPassword}
+				 caKeyPassword => $args{caKeyPassword},
+				 force         => $args{force},
 			       );
 
       }
@@ -865,7 +870,7 @@ sub revokeCertificate {
     $self->_freeCert($commonName, $isCACert);
   }
   elsif ( $self->_certsInUse($commonName, $isCACert) ) {
-    throw EBox::Exceptions::DataInUse();
+    throw EBox::Exceptions::DataInUse("Certificate $commonName in use");
   }
 
   # TODO: Different kinds of revokations (CACompromise,
@@ -1209,31 +1214,33 @@ sub removePrivateKey
 # Parameters:
 #
 #       commonName - the common name from the user. Not needed
-#                    if a certificate file is given (Optional)
+#                    if a certificate file is given *(Optional)*
 #
-#       countryName - country name {2 letter code} (eg, ES) (Optional)
-#       stateName - state or province name (eg, Zaragoza) (Optional)
-#       localityName - locality name (eg, Zaragoza) (Optional)
+#       countryName - country name {2 letter code} (eg, ES) *(Optional)*
+#       stateName - state or province name (eg, Zaragoza) *(Optional)*
+#       localityName - locality name (eg, Zaragoza) *(Optional)*
 #
-#       orgName - organization name (eg, company) (Optional) 
+#       orgName - organization name (eg, company) *(Optional)*
 #
 #       orgNameUnit - organizational unit name (eg, section)
-#                     (Optional)
-#       days - days to hold the same certificate (Optional)
+#                     *(Optional)*
+#       days - days to hold the same certificate *(Optional)*
 #              Only if enddate not appeared
-#       endDate - the exact date when the cert expired (Optional)
+#       endDate - the exact date when the cert expired *(Optional)*
 #                 Only if days not appeared
 #                 It is a Date::Calc::Object
-#       caKeyPassword - key passpharse for CA (Optional)
-#       certFile - the certificate file to renew (Optional)
-#       reqFile  - the request certificate file which to renew (Optional)
+#       caKeyPassword - key passpharse for CA *(Optional)*
+#       certFile - the certificate file to renew *(Optional)*
+#       reqFile  - the request certificate file which to renew *(Optional)*
 #
-#       privateKeyFile - the private key file (Optional)
+#       privateKeyFile - the private key file *(Optional)*
 #       keyPassword - the private key passpharse. It is used when
-#       a new request is issued, not compulsory anyway. (Optional)
+#       a new request is issued, not compulsory anyway. *(Optional)*
 #
 #       overwrite - overwrite the current certificate file. Only if
-#       the certFile is passed (Optional)
+#       the certFile is passed *(Optional)*
+#
+#       force - this forces the revokation pass to do the renewal *(Optional)*
 #
 # Returns:
 #
@@ -1241,12 +1248,14 @@ sub removePrivateKey
 #
 # Exceptions:
 #
-# External - if the user does NOT exist,
-#            if the expiration date for the certificate to renew is later than CA certificate expiration date
-#            if the certificate to renew does NOT exist
-#            if any error occurred when certificate renewal is done
-# Internal - if any parameter is an unexcepted type
-# DataMissing - if no CA passphrase is given to renew the certificate
+# <EBox::Exceptions::External> - if the user does NOT exist,
+#                                if the expiration date for the certificate to renew is later than CA certificate expiration date
+#                                if the certificate to renew does NOT exist
+#                                if any error occurred when certificate renewal is done
+# <EBox::Exceptions::Internal> - if any parameter is an unexcepted type
+# <EBox::Exceptions::DataMissing> - if no CA passphrase is given to renew the certificate
+# <EBox::Exceptions::DataInUse> - if the certificate to renew is in use and no forcing is done
+#
 
 sub renewCertificate
   {
@@ -1343,7 +1352,9 @@ sub renewCertificate
     my $retVal = $self->revokeCertificate(commonName    => $userDN->attribute('commonName'),
 					  reason        => "superseded",
 					  certFile      => $userCertFile,
-					  caKeyPassword => $args{caKeyPassword});
+					  caKeyPassword => $args{caKeyPassword},
+					  force         => $args{force},
+					 );
 
     if (defined($retVal) ) {
       throw EBox::Exceptions::External(__x("Certificate with this common name {cn} does NOT exist in this CA"
