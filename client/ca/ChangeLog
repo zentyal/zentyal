@@ -1,3 +1,8 @@
+0.9.1
+	+ Fixed a bug related to renew or revoke currently used
+	certificates by other modules
+	+ Added Cancel buttons where they are necessary
+	
 0.9
 	+ Added Polish translation
 	+ Added German translation
