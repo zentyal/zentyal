@@ -1042,6 +1042,16 @@ sub freeViface
 
 # common listeners helpers..
 
+sub _invokeOnServers
+{
+  my ($self, $method, @methodParams) = @_;
+  foreach my $server ($self->servers()) {
+    my $method_r = $server->can($method);
+    defined $method_r or throw EBox::Exceptions::Internal("No such method $method");
+     $method_r->($server, @methodParams);
+  }
+}
+
 sub _invokeOnDaemons
 {
   my ($self, $method, @methodParams) = @_;
