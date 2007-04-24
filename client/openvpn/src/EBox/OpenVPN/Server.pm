@@ -242,7 +242,7 @@ sub certificatePath
   my ($self) = @_;
 
   my $cn = $self->certificate();
-  ($cn) or throw EBox::Exceptions::External(__x('The server {name} has not certificate assigned', name => $self->name));
+  ($cn) or throw EBox::Exceptions::External(__x('The server {name} does not have certificate assigned', name => $self->name));
 
   my $certificate_r = $self->_checkCertificate($cn);
   return $certificate_r->{path};
@@ -259,7 +259,7 @@ sub key
     my ($self) = @_;
 
     my $certificateCN = $self->certificate();
-    ($certificateCN) or throw EBox::Exceptions::External(__x('Can not get key of server {name} because it has not any certificate assigned', name => $self->name));
+    ($certificateCN) or throw EBox::Exceptions::External(__x('Cannot get key of server {name} because it does not have any certificate assigned', name => $self->name));
 
     $self->_checkCertificate($certificateCN);
 
