@@ -72,7 +72,7 @@ sub forward
 
 # Method: input
 #
-# 	Rules returned by this method are added to the INPUT chain in
+# 	Rules returned by this method are added to the INPUT chain for INTERNAL ifaces in
 #	the filter table. You can use them to filter packets directed at
 #	the firewall itself.
 #
