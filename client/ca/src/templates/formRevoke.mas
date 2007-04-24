@@ -56,8 +56,13 @@ use EBox::Gettext;
 		       __('Reason'),
 		       input => 'select',
 		       extraParams => [ options => \@selectOptions ]],
-		     [ name  => 'revoke', input => 'submit',
-		       value => __('Revoke') ],
+		     [ printableName => '', name => 'inputs',
+		       component => '/ca/forceRenew.mas:buttons',
+		       extraParams => {
+				       action          => 'revoke',
+				       printableAction => __('Revoke')
+				      },
+		     ],
 		     );
 </%perl>
 <form action="RevokeCertificate" method="post" >

@@ -58,7 +58,7 @@ sub _process
 
     my $self = shift;
 
-    # If comes from forceRevoke with a cancel button
+    # If it comes from forceRevoke with a cancel button
     if ( defined($self->param("cancel")) ) {
       $self->{chain} = "CA/Index";
       $self->setMsg( __("The certificate has NOT been revoked") );
@@ -99,7 +99,7 @@ sub _process
 			       force      => 1);
       }
     } else {
-      # If comes from a formRevoke.mas
+      # If it comes from a formRevoke.mas
       try {
 	if ( $isCACert ) {
 	  $retValue = $ca->revokeCACertificate( reason => $reason);

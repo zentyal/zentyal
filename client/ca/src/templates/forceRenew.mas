@@ -1,0 +1,73 @@
+<%doc>
+Template used to ask for forcing the renewal of a certificate which is
+currently in used by some other module.
+</%doc>
+<%args>
+  $metaDataCert
+  $expireDays
+</%args>
+<%init>
+  use EBox::Gettext;
+  # We're using a hack to show a cancel button (We can inherit from
+  # formTable to do so...)
+  my @forceRenewTable = (
+			 [ name => 'commonName', input => 'hidden',
+			   value =>
+			   $metaDataCert->{dn}->attribute('commonName') ],
+			 [ name => 'isCACert', input => 'hidden',
+			   value => $metaDataCert->{isCACert} ],
+			 [ name => 'expireDays', input => 'hidden',
+			   value => $expireDays ],
+			 [ name => 'renewForced', input => 'hidden',
+			   value => 'true' ],
+			 [ printableName => '', name => 'inputs',
+			   component => '/ca/forceRenew.mas:buttons',
+			   extraParams => {
+					   action          => 'renew',
+					   printableAction => __('Renew')
+					  },
+			 ],
+			);
+</%init>
+<h3>
+<%perl>
+if ( $metaDataCert->{isCACert} ) {
+  print __("Renewing CA certificate");
+} else {
+  print __("Renewing certificate");
+}
+</%perl>
+</h3>
+  <div class="warning">
+%   if ( $metaDataCert->{isCACert} ) {
+      <% __x('This renewal can affect the functionality from other modules, please confirm you are very sure to renew the whole certification authority from {on} and leave the service(s) unstable or disabled', on => $metaDataCert->{dn}->attribute('organizationName')) %>
+%   }
+%   else {
+      <% __x("The certificate whose common name is {cn} you tried to renew is being used by some module, please confirm you are sure to renew and leave the service(s) unstable or disabled", cn => $metaDataCert->{dn}->attribute('commonName')) %>
+%   }
+  </div>
+
+  <p>
+    <form action="RenewCertificate" method="post">
+      <& formTable.mas, rows => \@forceRenewTable &>
+    </form>
+  </p>
+
+<%method buttons>
+<%doc>
+The input buttons one after one
+</%doc>
+<%args>
+  $action
+  $printableAction => undef
+</%args>
+<%init>
+  if ( not defined ( $printableAction )) {
+    $printableAction = $action;
+  }   
+</%init>
+
+<& /input/submit.mas, name => $action, value => $printableAction &>
+<& /input/submit.mas, name => 'cancel', value => __('Cancel') &>
+
+</%method>

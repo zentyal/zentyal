@@ -22,6 +22,9 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
 use EBox::Global;
+# For exceptions
+use Error qw(:try);
+use EBox::Exceptions::DataInUse;
 
 # Method: new
 #
@@ -40,7 +43,7 @@ sub new
 				  @_);
 
     $self->{domain} = "ebox-ca";
-    $self->{redirect} = "CA/Index";
+    $self->{chain} = "CA/Index";
     bless($self, $class);
 
     return $self;
@@ -57,6 +60,8 @@ sub _process
     my $ca = EBox::Global->modInstance('ca');
 
     if ( $self->param('cancel') ) {
+      $self->{chain} = 'CA/Index';
+      $self->setMsg( __("The certificate has NOT been renewed") );
       return;
     }
 
@@ -78,19 +83,47 @@ sub _process
     my $expireDays = $self->param('expireDays');
 
     my $retValue;
-    if ( $isCACert ) {
-      $retValue = $ca->renewCACertificate( days          => $expireDays);
-    } else {
-      $retValue = $ca->renewCertificate( commonName    => $commonName,
-					  days          => $expireDays);
+    my $retFromCatch;
+    if ( defined ($self->param('renewForced')) ) {
+	if ( $isCACert ) {
+	  $retValue = $ca->renewCACertificate( days => $expireDays,
+					       force => 'true',
+					     );
+	} else {
+	  $retValue = $ca->renewCertificate( commonName => $commonName,
+					     days       => $expireDays,
+					     force      => 'true',
+					   );
+	}
+    }
+    else {
+      try {
+      if ( $isCACert ) {
+	  $retValue = $ca->renewCACertificate( days => $expireDays);
+	} else {
+	  $retValue = $ca->renewCertificate( commonName    => $commonName,
+					     days          => $expireDays);
+	}
+      } catch EBox::Exceptions::DataInUse with {
+	$self->{template} = '/ca/forceRenew.mas';
+	$self->{chain} = undef;
+	my $cert = $ca->getCertificateMetadata( cn => $commonName );
+	my @array;
+	push (@array, 'metaDataCert' => $cert);
+	push (@array, 'expireDays'   => $expireDays);
+	$self->{params} = \@array;
+	$retFromCatch = 1;
+      };
     }
 
-    if (not defined($retValue) ) {
-      throw EBox::Exceptions::External(__('The certificate CANNOT be renewed'));
-    } else {
-      my $msg = __("The certificate has been renewed");
-      $msg = __("The new CA certificate has been renewed") if ($isCACert);
-      $self->setMsg($msg);
+    if ( not $retFromCatch ) {
+      if (not defined($retValue) ) {
+	throw EBox::Exceptions::External(__('The certificate CANNOT be renewed'));
+      } else {
+	my $msg = __("The certificate has been renewed");
+	$msg = __("The new CA certificate has been renewed") if ($isCACert);
+	$self->setMsg($msg);
+      }
     }
 
   }
