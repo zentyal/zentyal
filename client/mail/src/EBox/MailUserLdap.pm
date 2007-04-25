@@ -113,7 +113,7 @@ sub setUserAccount () {
 	}
 }
 
-# Method: setUserAccount
+# Method: delUserAccount
 #
 #  This method removes a mail account to a user
 #
