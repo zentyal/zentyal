@@ -992,6 +992,9 @@ sub  _loadSharesFiles
     my $tarCommand = "/bin/tar -xf $tarFile --bzip2 --atime-preserve --absolute-names --preserve --same-owner";
     EBox::Sudo::root($tarCommand);
   }
+  else {
+    EBox::error("Share's files archive not found at $tarFile. Share's files will NOT be restored.\n Resuming restoring process..")
+  }
 
 
 }
