@@ -3,10 +3,19 @@
 <%args>
 	@ifaces
 	@redirections => ()
+        $externalIfaceAvailable
 </%args>
 <%init>
 use EBox::Gettext;
+my $disableAttr = (not $externalIfaceAvailable) ? 'disabled' : '';
 </%init>
+% if (not $externalIfaceAvailable) {
+<div class='warning'>
+% my $msg = q{The following controls are disabled because they would not affect your system};
+% $msg .= q{ if you hadn't any network interface marked as external};
+<% __($msg) %>
+</div>
+% }
 	<br />
 	<table class='dataTable' cellspacing='0'>
 		<thead>
@@ -22,7 +31,7 @@ use EBox::Gettext;
 		<tbody>
 			<tr class='border'><form action='Redirection' method='POST'>
 				<td>
-					<select name='iface'>
+					<select name='iface' <% $disableAttr %> >
 						<option selected value=''>    </option>
 %						foreach my $iface (@ifaces) {
 							<option value="<% $iface->{name} %>">
@@ -33,22 +42,28 @@ use EBox::Gettext;
 				</td>
 
 				<td class='tcenter'>
-					<input type='text' class='inputText' name='eport' size='5'>
+					<input type='text' class='inputText' name='eport' 
+					size='5' <% $disableAttr %> 
+					/>
 				</td>
 
 				<td class='tcenter' >
-					<select name='proto'>
+					<select name='proto' <% $disableAttr %> >
 						<option selected value='tcp'>TCP</option>
 						<option value='udp'>UDP</option>
 					</select>
 				</td>
 
 				<td class='tcenter' >
-					<input type='text' class='inputText' name='address' size='15'>
+					<input type='text' class='inputText' name='address' size='15' 
+					<% $disableAttr %> 
+					/>
 				</td>
 
 				<td class='tcenter' >
-					<input type='text' class='inputText' name='dport' size='5'>
+					<input type='text' class='inputText' name='dport' size='5'
+					 <% $disableAttr %>
+					  />
 				</td>
 
 				<td class='tcenter' >
@@ -56,7 +71,10 @@ use EBox::Gettext;
 						   src='/data/images/add.gif'
 						   value="<% __('Add') %>"
 						   title="<% __('Add') %>"
-						   alt="<% __('Add') %>">
+						   alt="<% __('Add') %>"
+						   $disableAttr
+					/>
+						   
 				</td>
 
 			</form> </tr>
@@ -77,14 +95,14 @@ use EBox::Gettext;
 						   value='<% $redirect->{'dport'} %>'>
 
 					<td>
-						<select name='iface'>
+						<select name='iface' <% $disableAttr %> >
 %							foreach my $iface (@ifaces) {
 %								if($iface->{'name'} eq $redirect->{'iface'}){
-							<option selected value='<% $iface->{'name'} %>'>
+							<option selected value='<% $iface->{'name'} %>' <% $disableAttr %> >
 								<% $iface->{'name'} %>
 							</option>
 %								}else{
-							<option value='<% $iface->{'name'} %>'>
+							<option value='<% $iface->{'name'} %>' <% $disableAttr %> >
 								<% $iface->{'name'} %>
 							</option>
 %								}
@@ -94,10 +112,12 @@ use EBox::Gettext;
 					<td class='tcenter'>
 						<input type='text' class='inputText'
 							   value='<% $redirect->{'eport'} %>' name='eport'
-							   size='5'>
+							   size='5'
+							   <% $disableAttr %>					   
+					        />
 					</td>
 
-					<td class='tcenter'> <select name='proto'>
+					<td class='tcenter'> <select name='proto' <% $disableAttr %> >
 %						if($redirect->{'protocol'} eq 'tcp'){
 							<option selected value='tcp'>TCP</option>
 							<option value='udp'>UDP</option>
@@ -110,13 +130,15 @@ use EBox::Gettext;
 					<td class='tcenter'>
 						<input type='text' class='inputText'
 							   value='<% $redirect->{'ip'} %>' name='address'
-							   size='15'>
+							   size='15' <% $disableAttr %> 
+					        />
 					</td>
 
 					<td class='tcenter'>
 						<input type='text' class='inputText'
 							   value='<% $redirect->{'dport'} %>' name='dport'
-							   size='5'>
+							   size='5' <% $disableAttr %> 
+                                               />
 					</td>
 
 					<td class='tcenter'>
@@ -124,13 +146,17 @@ use EBox::Gettext;
 							   src='/data/images/apply.gif'
 							   value="<% __('Change') %>"
 							   title="<% __('Change') %>"
-							   alt="<% __('Change') %>" >
+							   alt="<% __('Change') %>" 
+							   <% $disableAttr %> 
+			                        />
 						<img src='/data/images/sep.gif' alt='-'/>
 						<input class='inputButton' type='image' name='delete'
 							   src='/data/images/delete.gif'
 							   value="<% __('Delete') %>"
 							   title="<% __('Delete') %>"
-							   alt="<% __('Delete') %>">
+							   alt="<% __('Delete') %>"
+							   <% $disableAttr %> 
+					       />
 					</td>
 				</form>
 			</tr>

@@ -57,6 +57,7 @@ sub _process
 	}
 
 	push(@array, 'ifaces' => \@ifaces);
+	push(@array, 'externalIfaceAvailable' => $firewall->externalIfaceExists);
 	$self->{params} = \@array;
 }
 

@@ -37,22 +37,56 @@ sub _create
 	return $self;
 }
 
+
+# utility used by CGI
+
+sub externalIfaceExists
+{
+  my $network = EBox::Global->modInstance('network');
+  my $externalIfaceExists = @{$network->ExternalIfaces()  } > 0;
+  
+  return $externalIfaceExists;
+}
+
 ## internal utility functions
 
-sub _checkPolicy # (policy, name?)
+sub _checkObjectPolicy # (policy, object, name?)
 {
-	my $i = shift;
-	my $name = shift;
-	if ($i eq "deny" || $i eq "allow" || $i eq "global") {
+       my ($i, $object, $name) = @_;
+
+       
+	if ($i eq 'deny' || $i eq 'allow' ) {
 		return 1;
 	}
-	if (defined($name)) {
+        elsif ($i eq 'global') {
+	  my $allowGlobalPolicy = $object ne '_global';
+	  return 1 if $allowGlobalPolicy;
+        }
+	
+       if (defined($name)) {
 		throw EBox::Exceptions::InvalidData('data' => $name,
 						    'value' => $i);
 	} else {
 		return 0;
 	}
 }
+
+sub _checkObject
+{
+  my ($object) = @_;
+
+  if ($object ne '_global') {
+    my $objects = EBox::Global->modInstance('objects');
+    $objects->objectExists($object) or
+      throw EBox::Exceptions::DataNotFound(
+					 'data' => __("object"),
+					 'value' => $object);
+  }
+
+  return 1;
+}
+
+
 
 sub _checkAction # (action, name?)
 {
@@ -816,18 +850,14 @@ sub _createObject # (object)
 sub setObjectPolicy # (object, policy) 
 {
 	my ($self, $object, $policy) = @_;
-	my $objects = EBox::Global->modInstance('objects');
 
-	_checkPolicy($policy, __("policy"));
-	if ($object ne '_global') {
-		$objects->objectExists($object) or
-			throw EBox::Exceptions::DataNotFound(
-							'data' => __("object"),
-							'value' => $object);
-	}
+	_checkObjectPolicy($policy, $object, __("policy"));
+	_checkObject($object);
+
 	if ($policy eq $self->ObjectPolicy($object)) {
 		return;
 	}
+
 	$self->set_string("objects/$object/policy", $policy);
 	$self->_purgeEmptyObject($object);
 }

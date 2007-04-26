@@ -92,6 +92,8 @@ sub _process
 	push(@array, 'object' => $objname);
 	push(@array, 'services' => $servs);
 	push(@array, 'policy' => $policy);
+	push(@array, 'externalIfaceAvailable' => $firewall->externalIfaceExists);
+	
 
 	$self->{params} = \@array;
 }

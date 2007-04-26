@@ -194,7 +194,7 @@ use EBox::Gettext;
 %						}
 					</td>
 
-					<td><% $rule->{'protocol'} %></td>
+					<td><& .value, $rule->{'protocol'} &></td>
 
 					<td>
 %						if (defined($rule->{'saddress'}) and $rule->{'saddress'} ne '') {
@@ -205,6 +205,9 @@ use EBox::Gettext;
 %							}
 							<% $rule->{'saddress'} %>/<% $rule->{'smask'} %>
 %						}
+%                                               else {
+                                                   <& .value, '' &>
+%                                               }  
 					</td>
 
 					<td>
@@ -223,7 +226,7 @@ use EBox::Gettext;
 										 alt="<%__('inverse match')%>" />
 %								}
 %						}
-						<% $rule->{'sportfrom'} %><% $colon %><% $rule->{'sportto'} %>
+						<& .value, $rule->{'sportfrom'} . $colon . $rule->{'sportto'} &>
 					</td>
 
 					<td>
@@ -235,6 +238,9 @@ use EBox::Gettext;
 %							}
 							<% $rule->{'daddress'} %>/<% $rule->{'dmask'} %>
 %						}
+%                                               else {
+                                                   <& .value, '' &>
+%                                               }                                                
 					</td>
 
 					<td>
@@ -253,7 +259,7 @@ use EBox::Gettext;
 										 alt="<%__('inverse match')%>" />
 %								}
 %						}
-						<% $rule->{'dportfrom'} %><% $colon %><% $rule->{'dportto'} %>
+						<& .value, $rule->{'dportfrom'} . $colon . $rule->{'dportto'} &>
 					</td>
 
 
@@ -324,3 +330,14 @@ use EBox::Gettext;
 </table><br/>
 
 % }
+
+<%def .value>
+<%init>
+my ($v) = @_;
+if (not $v) {
+   $v =  __('any');
+}
+$m->print($v);
+return;
+</%init>
+</%def>
