@@ -100,9 +100,7 @@ sub _doDaemon
 {
         my $self = shift;
 
-	# So far, this module depends on samba module.
-	my $samba = EBox::Global->modInstance('samba');
-	my $service = $samba->service();
+	my $service = $self->service();
 
         if ($service and $self->isRunning) {
                 EBox::Service::manage('cups','restart');
