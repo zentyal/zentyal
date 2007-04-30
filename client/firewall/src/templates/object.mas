@@ -3,18 +3,12 @@
 <%args>
 	$object
 	$policy
-	@services
 	@rules => ()
-	@servicepol => ()
         $externalIfaceAvailable
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
-
-<& services, object => $object, services => \@services, 
-  servicepol => \@servicepol &>
-<hr/>
 % # the following is dependent on the existence of external ifaces
 % # XXX TODO: do the same with the portion dependent on _internal_ ifaces
 % my $disabled =  not $externalIfaceAvailable;
@@ -281,80 +275,3 @@ my $disabledAttr = $disabled ? 'disabled' : '';
 	</form>
 </%def>
 
-<%def services>
-<%args>
-$object
-@services
-@servicepol
-</%args>
-% if (@services) {
-<h3><% __('Services') %></h3>
-<form action='ObjectService' method='post'>
-	<input type='hidden' name='object' value='<% $object %>' />
-	<select name='service'>
-%		foreach my $serv (@services) {
-			<option value='<% $serv->{'name'} %>'>
-				<% $serv->{'name'} %>
-			</option>
-%		}
-	</select>
-	<select name='policy'>
-		<option value="deny"><% __('Deny') %></option>
-		<option value="allow"><% __('Allow') %></option>
-	</select>
-	<input class='inputButton' type='submit' name='add'
-		   value="<% __('Add') %>" />
-</form>
-% }
-% if (@servicepol) {
-<table class='dataTable' cellspacing='0'>
-	<thead>
-		<tr>
-			<th class='tleft'><% __('Service') %></th>
-			<th><% __('Policy') %></th>
-			<th class='thOptions'><% __('Actions') %></th>
-		</tr>
-	</thead>
-	<tbody>
-%		foreach my $spol (@servicepol) {
-			<form action='ObjectService' method='post'>
-				<input type='hidden' name='object' value='<% $object %>' />
-				<input type='hidden' name='service'
-					   value='<% $spol->{'name'} %>' />
-				<tr class='border'>
-					<td>
-						<% $spol->{'name'} %>
-					</td>
-					<td class='tcenter'>
-						<select name='policy'>
-%							if ($spol->{'policy'} eq 'allow') {
-								<option selected value="allow"><% __('Allow') %></option>
-								<option value="deny"><% __('Deny') %></option>
-%							} else {
-								<option value="allow"><% __('Allow') %></option>
-								<option selected value="deny"><% __('Deny') %></option>
-%							}
-						</select>
-					</td>
-					<td class='tcenter'>
-				<input class='inputButton' type='image' name='change'
-						src='/data/images/apply.gif'
-						title="<% __('Change') %>"
-						alt="<% __('Change') %>"
-						value="<% __('Change') %>" />
-%			if ($spol->{'name'} ne 'administration' or $object ne '_global') {
-				<img src='/data/images/sep.gif' alt='-' />
-				<input class='inputButton' type='image' name='delete'
-						src='/data/images/delete.gif'
-						alt="<% __('Delete') %>"
-						title="<% __('Delete') %>"
-					   	value="<% __('Delete') %>" />
-%			}
-					</td>
-				</tr>
-			</form>
-%		}
-	</tbody>
-</table>
-% }
-</%def>

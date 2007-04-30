@@ -66,31 +66,17 @@ sub _process
 	}
 
 	my $object = $firewall->Object($objname);
-	my $servs = $firewall->services();
 	my $rules = $firewall->ObjectRules($objname);
-	my $objectservs = $firewall->ObjectServices($objname);
 	my $policy = $firewall->ObjectPolicy($objname);
 
-	my @tmp = ();
-	foreach (@{$servs}) {
-		delete($_->{protocol});
-		delete($_->{port});
-		if (defined($_->{dnatport})) {
-			delete($_->{dnatport});
-		}
-		unless ($firewall->serviceIsInternal($_->{name})) {
-			push(@tmp, $_)
-		}
-	}
-	$servs = \@tmp;
+
 
 	my @array = ();
 
 	defined($rules) and push(@array, 'rules' => $rules);
-	defined($objectservs) and push(@array, 'servicepol' => $objectservs);
+
 
 	push(@array, 'object' => $objname);
-	push(@array, 'services' => $servs);
 	push(@array, 'policy' => $policy);
 	push(@array, 'externalIfaceAvailable' => $firewall->externalIfaceExists);
 	

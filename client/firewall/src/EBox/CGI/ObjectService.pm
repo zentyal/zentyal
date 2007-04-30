@@ -21,39 +21,101 @@ use warnings;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
+use EBox::Firewall;
+use EBox::Objects;
 use EBox::Gettext;
+use EBox::Exceptions::DataNotFound;
 
-sub new # (cgi=?)
+sub new # (error=?, msg=?, cgi=?)
 {
 	my $class = shift;
-	my $self = $class->SUPER::new(@_);
-	$self->{domain} = 'ebox-firewall';
+	my $self = $class->SUPER::new('template' => '/firewall/objectService.mas',
+				      @_);
+	$self->{domain} = 'ebox-firewall';	
+	$self->{errorchain} = "Firewall/Filter";
 	bless($self, $class);
 	return $self;
 }
 
-sub _process
+
+
+sub requiredParameters
+{
+  return [qw(object)];
+}
+
+sub optionalParameters
+{
+  return [qw(configobject)];
+}
+
+
+
+sub _react
 {
 	my $self = shift;
-	my $firewall = EBox::Global->modInstance('firewall');
-
-	$self->{errorchain} = "Firewall/Filter";
-	$self->_requireParam('object', __('Object'));
-	$self->{redirect} = "Firewall/Object?object=". $self->param("object");
 
 
-	if (defined($self->param('add')) || defined($self->param('change'))) {
-		$self->_requireParam('service', __('service'));
-		$self->_requireParam('policy', __('policy'));
-		$firewall->setObjectService($self->param("object"),
-					 $self->param("service"),
-					 $self->param("policy"));
-	} elsif (defined($self->param('delete'))) {
-		$self->_requireParam('service', __('service'));
-		$firewall->removeObjectService($self->param("object"),
-					    $self->param("service"));
+	my $objname = $self->_objname();
+
+	if ($objname eq "_global") {
+		$self->{title} = __(q{Global services' filtering rules});
+	} 
+	else {
+	  my $objects = EBox::Global->modInstance('objects');
+	  my $description = $objects->ObjectDescription($objname);
+	  $self->{title} = __x(q{Services' filtering rules {desc}}, 
+					desc => $description);
 	}
 
+
 }
+
+
+
+sub masonParameters
+{
+  my ($self) = @_;
+
+  my $firewall = EBox::Global->modInstance('firewall');
+
+
+  my @servs = @{ $firewall->services() };
+  my $objname = $self->_objname;
+  my $objectservs = $firewall->ObjectServices($objname);
+
+  
+  @servs = grep {  not $firewall->serviceIsInternal($_->{name}) } @servs; # get rid of internal services
+  @servs = map  {  $_->{name} } @servs; # we just want the service name
+
+
+  my @params = ();
+  defined($objectservs) and push @params, ('servicepol' => $objectservs);
+  
+  push @params, ('object' => $self->_objname());
+  push @params, ('services' => \@servs);
+  
+  
+  return \@params;
+}
+
+
+sub _objname
+{
+  my ($self) = @_;
+
+  my $objname = $self->param('object');
+
+  return $objname if $objname eq '_global';
+
+  my $objects = EBox::Global->modInstance('objects');
+  unless ($objects->objectExists($objname)|| $objname eq "_global") {
+    throw EBox::Exceptions::DataNotFound('data' => __('Object'),
+					 'value' => $objname);
+  }
+
+  return $objname;
+}
+
 
 1;

@@ -25,24 +25,46 @@ use EBox::Gettext;
 		<input class='inputButton' type='submit' name='accept' value="<% __('Apply') %>">
 	</form>
 </p>
-<h3><%__('Filtering Rules')%></h3>
-<div class='help'>
-	<% __('This link will let you set up filtering rules that will take precedence over the ones you set up for network objects further below.') %>
-</div>
-	<p>
-		<a href="FwdRules"><% __('Forwarding rules') %></a>
-	</p>
 
-<h3><%__('Rules for internet access')%></h3>
+
+<h3><%__('Filtering rules for internet access')%></h3>
 <div class='help'>
 	<% __('The link below will let you set up the default behavior of the packet filter. You may also choose an object and set up rules and the services it may access. These rules are meant to control access from internal network interfaces to external ones, they provide a simpler way to control access to the internet.') %>
 </div>
 	<p>
 		<a href="Object?object=_global"><% __('Configure default rules') %></a>
 	</p>
+	<& .perObjectForm, action => 'Object', objects => \@objects &>
+<& .servicesSection, objects => \@objects &>
+<h3><%__('Filtering Rules between internal networks')%></h3>
+<div class='help'>
+	<% __('This link will let you set up forwarding rules between
+	internal networks') %>
+</div>
+	<p>
+		<a href="FwdRules"><% __('Configure rules') %></a>
+	</p>
+
+
+<%def .servicesSection>
+<%args>
+@objects
+</%args>
+<h3><% __(q{Filtering rules for eBox's services}) %></h3>
+	<p>
+		<a href="ObjectService?object=_global"><% __('Configure default rules') %></a>
+	</p>
+	<& .perObjectForm, action => 'ObjectService', objects => \@objects &>
+</%def>
+
+<%def .perObjectForm>
+<%args>
+$action
+@objects
+</%args>
 %	if(@objects){
 	<p>
-	<form action='Object' method='post'>
+	<form action='<% $action %>' method='post'>
 	<% __('Configure rules for a particular object') %>:
 		<select name='object'>
 %			foreach my $obj (@objects){
@@ -55,3 +77,4 @@ use EBox::Gettext;
 	</form>
 	</p>
 %	}
+</%def>

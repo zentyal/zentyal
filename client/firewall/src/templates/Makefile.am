@@ -2,7 +2,7 @@
 
 templatedir = @TEMPLATESPATH@/firewall
 
-template_DATA = filter.mas fwdruleedit.mas fwdrules.mas object.mas redirects.mas
+template_DATA = filter.mas fwdruleedit.mas fwdrules.mas object.mas objectService.mas redirects.mas
 
 EXTRA_DIST = $(template_DATA)
 
