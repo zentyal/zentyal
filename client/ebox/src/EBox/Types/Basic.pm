@@ -27,6 +27,11 @@ sub new
 	my %opts = @_;
 	my $self = $class->SUPER::new(@_);
 
+	# Setting as non-optional, if no optional value is passed
+	if ( not defined ( $self->optional() ) ) {
+	  $self->setOptional(0);
+	}
+
         bless($self, $class);
         return $self;
 }
@@ -49,6 +54,8 @@ sub setMemValue
 						$self->printableName());
 		}
 	}
+
+	$self->paramIsValid($params);
 
 	$self->{'value'} = $params->{$self->fieldName()};
 }
@@ -80,6 +87,11 @@ sub isEqualTo
 
 	my $oldValue = $self->{'value'};
 	my $newValue = $newObject->memValue();
+
+	if ( not defined ( $oldValue ) or
+	     not defined ( $newValue )) {
+	  return 0;
+	}
 
 	return ($oldValue eq $newValue);
 }

@@ -20,6 +20,7 @@ use warnings;
 use base 'EBox::CGI::Base';
 use EBox::Gettext;
 use EBox::Html;
+use HTML::Mason::Exceptions;
 use Apache;
 use Error qw(:try);
 use HTML::Mason::Exceptions;

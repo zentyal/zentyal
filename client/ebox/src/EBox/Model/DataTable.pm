@@ -21,6 +21,8 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::NotImplemented;
 
+use Error qw(:try);
+
 use Clone qw(clone);
 
 use strict;
@@ -96,13 +98,13 @@ sub table
 #
 sub _table
 {
-	
+
 	throw EBox::Exceptions::NotImplemented();
-	
+
 }
 
-# Method: selectOptions 
-#	
+# Method: selectOptions
+#
 #	Override this method to return your select options
 #	for the given select
 #
@@ -128,15 +130,18 @@ sub selectOptions
 	
 }
 
-# Method: validateRow 
-#	
-#	Override this method to add your custom checks for 
+# Method: validateRow
+#
+#	Override this method to add your custom checks for
 #	the table fields. It will be called whenever a row
 #	is added/updated
 #
 # Arguments:
 #
-# 	hash containing fields names and their values	
+#       action - String containing the action to be performed
+#                after validating this row.
+#                Current options: 'add', 'update'
+# 	params - hash ref containing fields names and their values
 #
 # Returns:
 #
@@ -145,7 +150,7 @@ sub selectOptions
 # Exceptions:
 #
 # 	You must throw an excpetion whenever a field value does not
-# 	fullfill your requirements
+# 	fulfill your requirements
 #
 sub validateRow
 {
@@ -234,11 +239,11 @@ sub addRow
 	my $self = shift;
 	my %params = @_;
 
-	my $tableName = $self->table()->{'tableName'};
+	my $tableName = $self->tableName();
 	my $dir = $self->{'directory'};
 	my $gconfmod = $self->{'gconfmodule'};
 
-	$self->validateRow(@_);
+	$self->validateRow('add', @_);
 
 	my @userData;
 	foreach my $type (@{$self->table()->{'tableDescription'}}) {
@@ -258,7 +263,7 @@ sub addRow
 	  $self->_checkRowIsUnique(undef, \@userData);
 	}
 
-	my $leadingText = substr( $self->table()->{'tablename'}, 0, 4);
+	my $leadingText = substr( $tableName, 0, 4);
 	# Changing text to be lowercase
 	$leadingText = "\L$leadingText";
 
@@ -479,7 +484,7 @@ sub setRow
 	my $dir = $self->{'directory'};
 	my $gconfmod = $self->{'gconfmodule'};
 	
-	$self->validateRow(@_);
+	$self->validateRow('update', @_);
 	
 	my $oldrow = $self->row($id);
 	my @newValues = @{$self->table()->{'tableDescription'}};
@@ -584,7 +589,18 @@ sub rows
 		}
 	}
 
-	return $self->{'cachedRows'};
+	if ( $self->order() == 1) {
+	  return $self->{'cachedRows'};
+	}
+	# Try to launch the _tailoredOrder function
+	else {
+	  try {
+	    return $self->_tailoredOrder($self->{'cachedRows'});
+	  } catch EBox::Exceptions::NotImplemented with {
+	    # If no tailored version of ordering is set, do not order
+	    return $self->{'cachedRows'};
+	  };
+	}
 }
 
 sub _rows
@@ -654,6 +670,33 @@ sub _increaseStoredAndCachedVersion
 	$self->{'cachedVersion'} = $newVersion;
 }
 
+# Method: _tailoredOrder
+#
+#       Function to be overriden by the subclasses in order to do
+#       ordering in a different way as normal order is done.  It's
+#       functional if only if <EBox::Model::DataTable::order> is set
+#       to 1.
+#
+# Parameters:
+#
+#       rows - an array ref with the hashes with the rows to order
+#
+# Returns:
+#
+#       an array ref with the order from the current model with a
+#       hash ref of every row
+#
+sub _tailoredOrder # (rows)
+  {
+
+    throw EBox::Exceptions::NotImplemented( 
+					   '_tailoredOrder',
+					    'EBox::Model::DataTable'
+					  );
+
+  }
+
+
 # Method: setTableName
 #
 #	Use this method to set the current table name. This method
@@ -697,6 +740,23 @@ sub setDirectory
 	$self->{'order'} = "$dir/order";
 
 }
+
+# Method: tableName
+#
+#        Get the table name associated to this model
+#
+# Returns:
+#
+#        String - containing the table name
+#
+sub tableName
+  {
+
+    my ($self) = @_;
+
+    return $self->table()->{'tableName'};
+
+  }
 
 # Method: directory
 #

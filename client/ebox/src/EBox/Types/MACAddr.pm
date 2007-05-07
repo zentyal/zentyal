@@ -13,15 +13,24 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Types::Text;
+package EBox::Types::MACAddr;
+
+use EBox::Validate qw( checkMAC );
+use EBox::Gettext;
 
 use strict;
 use warnings;
 
-use base 'EBox::Types::Basic';
+use base 'EBox::Types::Text';
 
-use EBox;
-
+# Constructor: new
+#
+#      The constructor for the <EBox::Types::MACAddr>
+#
+# Returns:
+#
+#      the recently created <EBox::Types::MACAddr> object
+#
 sub new
 {
         my $class = shift;
@@ -32,51 +41,40 @@ sub new
         return $self;
 }
 
-
+# Method: paramIsValid
+#
+#     Check if the params has a correct MAC address
+#     Overrides <EBox::Types::Text::paramIsValid> method.
+#
+# Parameters:
+#
+#     params - the HTTP parameters with contained the type
+#
+# Returns:
+#
+#     true - if the parameter is a correct MAC address
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::InvalidData> - throw if it's not a correct
+#                                       MAC address
+#
 sub paramIsValid
 {
 	my ($self, $params) = @_;
 
 	my $value = $params->{$self->fieldName()};
 
-	unless (defined($value)) {
-		return 0;
+	if ($self->optional() == 1 and $value eq '') {
+	  return 1;
+	}
+
+	if (defined ( $value )) {
+	  checkMAC($value, $self->printableName());
 	}
 
 	return 1;
 
-}
-
-sub size
-{
-	my ($self) = @_;
-
-	return $self->{'size'};
-}
-
-sub storeInGconf
-{
-        my ($self, $gconfmod, $key) = @_;
-
-	my $keyField = "$key/" . $self->fieldName();
-
-	if ($self->memValue()) {
-        	$gconfmod->set_string($keyField, $self->memValue());
-	} else {
-		$gconfmod->unset($keyField);
-	}
-}
-
-sub HTMLSetter
-{
-
-        return 'textSetter';
-
-}
-
-sub HTMLViewer
-{
-	return 'textViewer';
 }
 
 1;

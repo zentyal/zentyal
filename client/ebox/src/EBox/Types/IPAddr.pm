@@ -17,6 +17,7 @@ package EBox::Types::IPAddr;
 
 use EBox::Validate qw(:all);
 use EBox::Gettext;
+use EBox::Exceptions::MissingArgument;
 
 use strict;
 use warnings;
@@ -203,7 +204,7 @@ sub _ipNetmask
 	my ($self) = @_;
 
 	return ($self->{'ip'}, $self->{'mask'});
-	
+
 }
 
 

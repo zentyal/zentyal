@@ -111,6 +111,15 @@ sub leadingText
 	return $self->{'leadingText'};
 }
 
+sub setOptional # (optional)
+  {
+
+    my ($self, $optional) = @_;
+
+    $self->{'optional'} = $optional;
+
+  }
+
 sub optional
 {
 	my ($self) = @_;
