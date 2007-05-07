@@ -228,12 +228,16 @@ sub _table
 	return $dataTable;
 }
 
+# Method: validateRow
+#
+#      Override <EBox::Model::DataTable::validateRow> method
+#
 sub validateRow()
 {
 	my $self = shift;
+	my $action = shift;
 	my %params = @_;
 
-	
 	if (defined ($params{'destination_port'}) and 
 	    $params{'destination_port'} ne '') {
 		checkPort($params{'destination_port'}, __('Destination port'));
@@ -257,7 +261,9 @@ sub validateRow()
 	}
 }
 
-
+# Get the objects from Objects module
+# Return an array ref with a hash
+# ref within each element with the attributes value and printableValue
 sub _objects
 {
 	my $self = shift;

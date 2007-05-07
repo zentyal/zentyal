@@ -154,9 +154,14 @@ sub _table
 	return $dataTable;
 }
 
+# Method: validateRow
+#
+#      Override <EBox::Model::DataTable::validateRow> method
+#
 sub validateRow()
 {
 	my $self = shift;
+	my $action = shift;
 	my %params = @_;
 
 	my $network = EBox::Global->modInstance('network');
