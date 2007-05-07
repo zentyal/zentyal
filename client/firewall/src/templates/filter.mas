@@ -29,7 +29,7 @@ use EBox::Gettext;
 
 <h3><%__('Filtering rules for internet access')%></h3>
 <div class='help'>
-	<% __('The link below will let you set up the default behavior of the packet filter. You may also choose an object and set up rules and the services it may access. These rules are meant to control access from internal network interfaces to external ones, they provide a simpler way to control access to the internet.') %>
+	<% __('The link below will let you set up the default behavior of the packet filter.  These rules are meant to control access from internal network interfaces to external ones, they provide a simpler way to control access to the internet. You may also choose an object and set up its own rules') %>
 </div>
 	<p>
 		<a href="Object?object=_global"><% __('Configure default rules') %></a>
@@ -51,6 +51,11 @@ use EBox::Gettext;
 @objects
 </%args>
 <h3><% __(q{Filtering rules for eBox's services}) %></h3>
+<div class='help'>
+<% __('This link is to control which extra services in the server are
+allowed or forbidden to the clients. You may also choose an object and set up  the services it may
+access.') %>
+</div>
 	<p>
 		<a href="ObjectService?object=_global"><% __('Configure default rules') %></a>
 	</p>
