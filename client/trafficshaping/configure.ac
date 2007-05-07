@@ -1,4 +1,4 @@
-AC_INIT([ebox-trafficshaping], [0.9])
+AC_INIT([ebox-trafficshaping], [0.9.1])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/TrafficShaping.pm])
@@ -52,6 +52,7 @@ fi
 AC_DEFINE_DIR(PERLPATH, perlpath)
 
 AC_CONFIG_FILES([
+migration/Makefile
 src/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile

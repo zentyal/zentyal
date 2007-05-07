@@ -51,6 +51,7 @@ use constant MTU => 1500;
 # Returns:
 #
 #      A recently created <EBox::TrafficShaping::TreeBuilder::HTB> object
+#
 sub new # (iface)
   {
 
@@ -189,8 +190,11 @@ sub buildRoot # (defaultClass, rate)
 #
 # Parameters:
 #
-#    protocol       - inet protocol
-#    port           - port number
+#    service        - <EBox::Types::Service> the protocol/port to set filter
+#                     *(Optional)*
+#    source         - <EBox::Types::IPAddr> or <EBox::Types::MACAddr> the source
+#                     *(Optional)*
+#    destination    - <EBox::Types::IPAddr> the destination *(Optional)*
 #    guaranteedRate - maximum guaranteed rate in Kilobits per second
 #                     0 => no guaranteed rate
 #    limitedRate    - maximum allowed rate in Kilobits per second
@@ -221,8 +225,8 @@ sub buildRule
 
     my ($self, %args) = @_;
 
-    throw EBox::Exceptions::MissingArgument ( 'Missing one of the 5 elements' )
-      unless ( scalar( keys %args ) >= 5 );
+    throw EBox::Exceptions::MissingArgument ( 'Missing one of the 3 elements' )
+      unless ( scalar( keys %args ) >= 3 );
 
     # Check guaranteed rate
     if (not $self->_canSupportGuaranteedRate( $args{guaranteedRate} )){
@@ -306,21 +310,28 @@ sub buildRule
     $childNode->add_child( $leafNode );
     $leafQDisc->setParent( $leafNode );
 
-    # Filter to the new class attached to the root qdisc
-    my $rootQDisc = $self->{treeRoot}->value();
-    my $filter = EBox::TrafficShaping::Filter::Fw->new(
-						     flowId    => {
-								   rootHandle => 1,
-								   classId    => $classId
-								  },
-						     mark      => $classId,
-# I don't a point for priorizing filters             prio      => $args{priority},
-						     parent    => $rootQDisc,
-						     fProtocol => $args{protocol},
-						     fPort     => $args{port},
-						    );
-    # Attach filter to the root qdisc
-    $rootQDisc->attachFilter( $filter );
+    # If there's no policy to classify, not adding a new filter
+    if ( defined ( $args{source} ) or defined ( $args{destination} ) or
+        defined( $args{service} ) ) {
+      # Filter to the new class attached to the root qdisc
+      my $rootQDisc = $self->{treeRoot}->value();
+
+      my $filter = EBox::TrafficShaping::Filter::Fw->new(
+							 flowId    => {
+								       rootHandle => 1,
+								       classId    => $classId
+								      },
+							 mark      => $classId,
+    # I don't a point for priorizing filters             prio      => $args{priority},
+							 parent    => $rootQDisc,
+							 service   => $args{service},
+							 srcAddr   => $args{source},
+							 dstAddr   => $args{destination},
+							);
+
+      # Attach filter to the root qdisc
+      $rootQDisc->attachFilter( $filter );
+    }
 
     # Set lowest priority to class with default traffic
     my $lowest = $self->{trafficShaping}->getLowestPriority($self->{interface}, 'search');
@@ -342,15 +353,15 @@ sub buildRule
 #        identifier     - the leaf class identifier which represents the
 #        rule internally which is updated
 #
-#        protocol       - inet protocol (Optional)
-#        port           - port number (Optional)
-#        guaranteedRate - maximum guaranteed rate in Kilobits per second
-#                         (Optional)
+#        protocol       - inet protocol *(Optional)*
+#        port           - port number *(Optional)*
+#        guaranteedRate - maximum gua+ranteed rate in Kilobits per second
+#                         *(Optional)*
 #        limitedRate    - maximum allowed rate in Kilobits per second
-#                         (Optional)
-#        priority       - filter priority (Optional)
+#                         *(Optional)*
+#        priority       - filter priority *(Optional)*
 #        testing        - if build the rule, it's only a test.
-#                         Default: false (Optional)
+#                         Default: false *(Optional)*
 # Exceptions:
 #
 #    - <EBox::Exceptions::DataNotFound> - throw if the class does not
@@ -407,7 +418,8 @@ sub updateRule
       }
     }
 
-    if ( defined ( $args{guaranteedRate} ) and $args{guaranteedRate} != 0 ) {
+    if ( defined ( $args{guaranteedRate} ) and
+	 $args{guaranteedRate} != 0 ) {
       if ($args{guaranteedRate} < $self->_minimumAllowedQuantum() or
 	  $args{guaranteedRate} > $self->_maximumAllowedQuantum()) {
 	throw EBox::Exceptions::External(__x('Guaranteed Rate must be in this interval: ( {minRate}, ' .
@@ -446,6 +458,7 @@ sub updateRule
     }
 
     # TODO: Actually, update rule
+    # FIXME Dead code?
     # First the associated queue
     $assocQueue->setAttribute('prio', $args{priority}) if defined ( $args{priority} );
     $assocQueue->setAttribute('rate', $args{guaranteedRate}) if defined ( $args{guaranteedRate} );
@@ -574,6 +587,78 @@ sub findLeafClassId
     return undef unless defined ( $foundNode );
     # If found, returns the identifier leaf class
     return $foundNode->value()->getIdentifier();
+
+  }
+
+# Method: addFilter
+#
+#     Add a filter to classify traffic to direct to a certain leaf class.
+#     At least, a source address or destination address should be provided.
+#
+# Parameters:
+#
+#    leafClassId - Int the leaf class identifier to direct traffic which
+#                  matches with the given filter value
+#    srcAddr - a source address (<EBox::Types::IPAddr> or <EBox::Types::MACAddr>) *(Optional)*
+#    dstAddr - a destination address (<EBox::Types::IPAddr>) *(Optional)*
+#    service - a service (<EBox::Types::Service>)
+#    id      - the filter identifier *(Optional)*
+#              Default value: $leafClassId
+#
+#    - Named Parameters
+#
+# Exceptions:
+#
+#    <EBox::Exceptions::MissingArguments> - throw if any of the parameters
+#                                           is missing
+#
+sub addFilter
+  {
+
+    my ($self, %params) = @_;
+
+    my $leafClassId = delete $params{leafClassId};
+    my $service = delete $params{service};
+    my $srcAddr = delete $params{srcAddr};
+    my $dstAddr = delete $params{dstAddr};
+    my $id = delete $params{id};
+
+    throw EBox::Exceptions::MissingArgument(__('Leaf class identifier'))
+      unless defined ( $leafClassId );
+    throw EBox::Exceptions::MissingArgument(__('Service'))
+      unless defined ( $service );
+    throw EBox::Exceptions::MissingArgument(__('Address'))
+      unless defined ( $srcAddr ) or defined ( $dstAddr );
+
+    $leafClassId = {
+		    major => 1,            # FIXME: when more than a root qdisc will be settled on
+		    minor => $leafClassId,
+		   };
+
+    my $filter = undef;
+    # The filters are attached to the root
+    my $rootQDisc = $self->{treeRoot}->value();
+
+    # Set filter identifier
+    $id = $leafClassId->{minor} unless ( defined ( $id ) );
+
+    $filter = EBox::TrafficShaping::Filter::Fw->new(
+						    identifier => $id,
+						    flowId     => {
+								   rootHandle => 1,
+								   classId    => $leafClassId->{minor}
+								  },
+						    mark       => $leafClassId->{minor},
+						    parent     => $rootQDisc,
+						    service    => $service,
+						    srcAddr    => $srcAddr,
+						    dstAddr    => $dstAddr,
+						   );
+
+    if ( $filter ) {
+      # Attach to the qdisc
+      $rootQDisc->attachFilter ( $filter );
+    }
 
   }
 

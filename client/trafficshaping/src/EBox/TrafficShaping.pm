@@ -50,6 +50,10 @@ use EBox::TrafficShaping::Model::RuleMultiTable;
 # To do try and catch
 use Error qw( :try );
 
+# Using the brand new eBox types
+use EBox::Types::IPAddr;
+use EBox::Types::MACAddr;
+
 # We set rule identifiers among 256 and 512
 use constant MIN_ID_VALUE => 256; # 0x100
 use constant MAX_ID_VALUE => 65280; # 0xFF00
@@ -124,11 +128,12 @@ sub _stopService
 
     foreach my $iface (@{$ifaces_ref}) {
       # Cleaning iptables
-      $self->_deleteChain($iface);
+      $self->_deleteChains($iface);
       # Cleaning tc
       $self->{tc}->reset($iface);
     }
   }
+
 
 # Method: summary
 #
@@ -161,8 +166,13 @@ sub menu # (root)
 # Parameters:
 #
 #       interface      - interface to attach the rule
-#       protocol       - inet protocol
-#       port           - port number
+#       protocol       - inet protocol *(Optional)*
+#       port           - port number *(Optional)*
+#       source         - source. It could be an <EBox::Types::IPAddr>,
+#                        <EBox::Types::MACAddr> or an object name (more info at
+#                        <EBox::Objects>) *(Optional)*
+#       destination    - destination. It could be an <EBox::Types::IPAddr>
+#                        or an object name (more info at <EBox::Objects>) *(Optional)*
 #       guaranteedRate - maximum guaranteed rate in Kilobits per second *(Optional)*
 #       limitedRate    - maximum allowed rate in Kilobits per second *(Optional)*
 #       priority       - rule priority (lower number, highest priority)
@@ -194,10 +204,13 @@ sub addRule
 
     throw EBox::Exceptions::MissingArgument( __('Interface') )
       unless defined( $ruleParams{interface} );
-    throw EBox::Exceptions::MissingArgument( __('Protocol') )
-      unless defined( $ruleParams{protocol} );
-    throw EBox::Exceptions::MissingArgument( __('Port') )
-      unless defined( $ruleParams{port} );
+
+#    if ( ( not defined( $ruleParams{protocol} ) ) and
+#	 ( not defined( $ruleParams{port} ) ) and
+#	 ( not defined( $ruleParams{source} ) ) and
+#	 ( not defined( $ruleParams{destination} ) )) {
+#      throw EBox::Exceptions::MissingArgument( __('Any attribute should be provided') );
+#    }
 
     if ( not defined ( $ruleParams{guaranteedRate} ) and
 	 not defined ( $ruleParams{limitedRate} ) ) {
@@ -213,10 +226,7 @@ sub addRule
 
     # Check interface to be external
     $self->_checkInterface( $ruleParams{interface} );
-    # Check protocol
-    checkProtocol( $ruleParams{protocol}, __('Protocol'));
-    # Check port number
-    checkPort( $ruleParams{port}, __('Port'));
+    # Check protocol, port number, source and destination by <EBox::Types>
     # Check rates
     $self->_checkRate( $ruleParams{guaranteedRate}, __('Guaranteed Rate') );
     $self->_checkRate( $ruleParams{limitedRate}, __('Limited Rate') );
@@ -229,28 +239,16 @@ sub addRule
 
     my $iface = delete ( $ruleParams{interface} );
 
-    # Check already exist rule (Done at model)
-    # $self->_checkDuplicate($iface, \%ruleParams);
+    # Check if it already exists rule (Done at model)
 
     # Get the lowest priority if no priority is provided
     if (not defined( $ruleParams{priority} )) {
       $ruleParams{priority} = $self->getLowestPriority($iface) + 1;
     }
 
-    my $ruleId = $self->_getRuleId($iface, \%ruleParams);
-    # Get only the number
-    # $ruleId = $self->_getNumber($ruleId);
-    # $ruleParams{identifier} = $ruleId;
-
     # Create builders ( Disc -> Memory ) Mandatory every time an
     # access in memory is done
     $self->_createBuilders();
-
-    # It can throw External exceptions if not possible to build the rule
-#    my $classId = $self->_buildRule($iface, \%ruleParams, undef);
-
-    # Store class identifier in GConf
-#    $self->_setClassId($iface, $ruleId, $classId);
 
     # Update priorities to be coherent with the remainders
     $self->_correctPriorities($iface);
@@ -295,7 +293,7 @@ sub removeRule
     my ( $self, %args ) = @_;
 
     my $iface = delete $args{interface};
-    my $ruleId = delete $args {ruleId};
+#    my $ruleId = delete $args {ruleId};
 
     throw EBox::Exceptions::MissingArgument( __('Interface') )
       unless defined( $iface );
@@ -387,9 +385,6 @@ sub enableRule # (interface, ruleId, enabled)
 #
 #       interface      - interface under the rule is given
 #       ruleId         - rule unique identifier
-#       priority       - rule priority (lower number, highest priority)
-#                        *(Optional)*
-#
 #       - Named Parameters
 #
 # Exceptions:
@@ -407,7 +402,6 @@ sub updateRule
 
     my $iface          = delete $args{interface};
     my $ruleId         = $args{ruleId};
-    my $priority       = $args{priority};
 
     throw EBox::Exceptions::MissingArgument( __('Interface') )
       unless defined( $iface );
@@ -420,14 +414,15 @@ sub updateRule
 
     my $ruleParams_ref = $self->_ruleParams($iface, $ruleId);
 
-    if ( defined( $ruleParams_ref->{protocol} )) {
-      # Check protocol
-      checkProtocol( $ruleParams_ref->{protocol}, __('Protocol'));
-    }
-
-    if ( defined( $ruleParams_ref->{port} )) {
-      checkPort( $ruleParams_ref->{port}, __('Port'));
-    }
+    # Checking protocol and port done by model
+#    if ( defined( $ruleParams_ref->{protocol} )) {
+#      # Check protocol
+#      checkProtocol( $ruleParams_ref->{protocol}, __('Protocol'));
+#    }
+#
+#    if ( defined( $ruleParams_ref->{port} )) {
+#      checkPort( $ruleParams_ref->{port}, __('Port'));
+#    }
 
     if ( defined( $ruleParams_ref->{guaranteedRate} )) {
       $self->_checkRate( $ruleParams_ref->{guaranteedRate}, __('Guaranteed Rate'));
@@ -437,13 +432,14 @@ sub updateRule
       $self->_checkRate( $ruleParams_ref->{limitedRate}, __('Limited Rate'));
     }
 
-    if ( defined( $priority )) {
-      $self->_checkPriority($priority);
-      # Set the new lowest priority
-      $self->_setNewLowestPriority($iface, $priority);
-    }
+    # Done at _correctPriorities
+#    if ( defined( $priority )) {
+#      $self->_checkPriority($priority);
+#      # Set the new lowest priority
+#      $self->_setNewLowestPriority($iface, $priority);
+#    }
 
-    $ruleParams_ref->{priority} = $priority;
+#    $ruleParams_ref->{priority} = $priority;
 
     # Setting standard rates if not defined
     $ruleParams_ref->{guaranteedRate} = 0 unless defined ( $ruleParams_ref->{guaranteedRate} );
@@ -477,8 +473,15 @@ sub updateRule
 # Parameters:
 #
 #       interface      - interface under the rule is given
-#       protocol       - inet protocol
-#       port           - port number
+#       service        - <EBox::Types::Service> the service containing
+#                        the inet protocol and port number *(Optional)*
+#       source         - source. It could be an <EBox::Types::IPAddr>,
+#                        <EBox::Types::MACAddr> or an object name (more info at
+#                        <EBox::Objects>) *(Optional)*
+#       destination    - destination. It could be an <EBox::Types::IPAddr>
+#                        or an object name (more info at <EBox::Objects>) *(Optional)*
+#       priority       - Int the rule priority *(Optional)*
+#                        Default value: Lowest priority
 #       guaranteedRate - maximum guaranteed rate in Kilobits per second *(Optional)*
 #       limitedRate    - maximum allowed rate in Kilobits per second *(Optional)*
 #       ruleId         - the rule identifier. It's given if the rule is
@@ -504,13 +507,24 @@ sub checkRule
 
     throw EBox::Exceptions::MissingArgument( __('Interface') )
       unless defined( $ruleParams{interface} );
-    throw EBox::Exceptions::MissingArgument( __('Protocol') )
-      unless defined( $ruleParams{protocol} );
-    throw EBox::Exceptions::MissingArgument( __('Port') )
-      unless defined( $ruleParams{port} );
 
-    if ( not defined ( $ruleParams{guaranteedRate} ) and
-	 not defined ( $ruleParams{limitedRate} ) ) {
+    # Check if the protocol is all, source or destination is given
+    if ( $ruleParams{service} ) {
+      if ( not $ruleParams{service}->isa('EBox::Types::Service') ) {
+	throw EBox::Exceptions::InvalidType( 'service',
+					     'EBox::Types::Service');
+      }
+      if ( ( $ruleParams{service}->protocol() eq EBox::Types::Service->AnyProtocol ) and
+	   ( (not $ruleParams{source}) and (not $ruleParams{destination}) ) ) {
+	throw EBox::Exceptions::External(__('If service is any, some source or destination should be provided'));
+      }
+    }
+
+    my $guaranteedMissing = ( not defined ( $ruleParams{guaranteedRate} )) ||
+      ( $ruleParams{guaranteedRate} eq '' );
+    my $limitedMissing = ( not defined ( $ruleParams{limitedRate} )) ||
+      ( $ruleParams{limitedRate} eq '' );
+    if ( $guaranteedMissing and $limitedMissing ) {
       throw EBox::Exceptions::MissingArgument( __('Guaranteed rate or limited rate') );
     }
 
@@ -524,22 +538,55 @@ sub checkRule
     if ( ($self->_nextMap(undef, 'test') == MAX_ID_VALUE) and
          (not defined ($ruleParams{ruleId}))) {
       throw EBox::Exceptions::External(__x('The maximum rule account {max} is reached, ' .
-					   'please delete at least one in order to add a new one',
+					   'please delete at least one in order to to add a new one',
 					   max => MAX_ID_VALUE));
     }
 
     # Check interface to be external
     $self->_checkInterface( $ruleParams{interface} );
-    # Check protocol
-    checkProtocol( $ruleParams{protocol}, __('Protocol'));
-    # Check port number
-    checkPort( $ruleParams{port}, __('Port'));
+    # Check protocol and port number (Already done by model)
+    # Check source and destination (Already done by model)
+    # Check source object
+    my $gl = EBox::Global->getInstance();
+    my $objs = EBox::Global->modInstance('objects');
+    if ( defined ( $ruleParams{source} ) ) {
+      if ( not ref $ruleParams{source} ) {
+	# Check source object is an existant object
+	unless ( $objs->objectExists($ruleParams{source}) or
+		 $ruleParams{source} eq '') {
+	  throw EBox::Exceptions::DataNotFound(
+					       data => __('Source object'),
+					       value => $ruleParams{source}
+					      );
+	}
+      }
+    }
+    # Check destination object
+    if ( defined ( $ruleParams{destination} ) ) {
+      if ( not ref $ruleParams{destination} ) {
+	# Check source object is an existant object
+	unless ( $objs->objectExists($ruleParams{destination}) or
+		 $ruleParams{destination} eq '') {
+	  throw EBox::Exceptions::DataNotFound(
+					       data => __('Destination object'),
+					       value => $ruleParams{destination}
+					      );
+	}
+      }
+    }
+
     # Check rates
     $self->_checkRate( $ruleParams{guaranteedRate}, __('Guaranteed Rate') );
     $self->_checkRate( $ruleParams{limitedRate}, __('Limited Rate') );
 
-    # The priority is set to maximal
-    $ruleParams{priority} = 0;
+    if ( defined ( $ruleParams{priority} ) ) {
+      $self->_checkPriority( $ruleParams{priority} );
+    }
+    else {
+      # Set the priority the lowest
+      $ruleParams{priority} = 7;
+    }
+
     # Set the rule enabled
     $ruleParams{enabled} = 'enabled';
 
@@ -575,8 +622,14 @@ sub checkRule
 #
 #       array ref - containing hash references which have the
 #       following attributes:
-#         - protocol        - inet protocol
-#         - port            - port number
+#         - service - <EBox::Types::Service> inet protocol
+#         - source  - the selected source. It can be one of the following:
+#                     - <EBox::Types::IPAddr>
+#                     - <EBox::Types::MACAddr>
+#                     - String containing the source object
+#         - destination - the selected destination. It can be one of the following:
+#                     - <EBox::Types::IPAddr>
+#                     - String containing the destination object
 #         - guaranteed_rate - maximum guaranteed rate
 #         - limited_rate    - maximum traffic rate
 #         - priority        - priority (lower number, highest priority)
@@ -590,14 +643,48 @@ sub listRules
     my $gconfDir = $self->_ruleDirectory($iface);
     my @dir = @{$self->array_from_dir($gconfDir)};
 
+    my @order = @{$self->get_list($gconfDir . '/order')};
+    my %order;
+    for( my $i = 0; $i < scalar(@order); $i++) {
+      my $ordElement = $order[$i];
+      $order{$ordElement} = $i;
+    }
+
     my @rules;
     # If there's any
     if ( scalar(@dir) != 0 ) {
       # Change _dir to ruleId for readibility reasons
       foreach my $rule_ref (@dir) {
 	$rule_ref->{ruleId} = delete ($rule_ref->{_dir});
+	$rule_ref->{service} = new EBox::Types::Service( fieldName => 'service');
+	$rule_ref->{service}->setMemValue($rule_ref);
+
+	if ( defined ( $rule_ref->{$rule_ref->{source_selected}} ) ) {
+	  if ( $rule_ref->{source_selected} eq 'source_ipaddr' ) {
+	    $rule_ref->{source} = new EBox::Types::IPAddr( fieldName => 'source_ipaddr' );
+	    $rule_ref->{source}->setMemValue($rule_ref);
+	  }
+	  elsif ( $rule_ref->{source_selected} eq 'source_macaddr' ) {
+	    $rule_ref->{source} = new EBox::Types::MACAddr( fieldName => 'source_macaddr' );
+	    $rule_ref->{source}->setMemValue($rule_ref);
+	  }
+	  elsif ( $rule_ref->{source_selected} eq 'source_object' ) {
+	    $rule_ref->{source} = delete ( $rule_ref->{source_object} );
+	  }
+	}
+
+	if ( defined ( $rule_ref->{$rule_ref->{destination_selected}} )) {
+	  if ( $rule_ref->{destination_selected} eq 'destination_ipaddr' ) {
+	    $rule_ref->{destination} = new EBox::Types::IPAddr( fieldName => 'destination_ipaddr' );
+	    $rule_ref->{destination}->setMemValue($rule_ref);
+	  }
+	  elsif ( $rule_ref->{destination_selected} eq 'destination_object' ) {
+	    $rule_ref->{destination} = delete ( $rule_ref->{destination_object} );
+	  }
+	}
 	# FIXME: enabled and disable
 	$rule_ref->{enabled} = 'enabled';
+	$rule_ref->{priority} = $order{$rule_ref->{ruleId}};
 	push(@rules, $rule_ref);
       }
     }
@@ -683,6 +770,7 @@ sub ruleModel # (iface)
       unless defined( $iface );
 
     if ( not defined ($self->{ruleModels}->{$iface})) {
+      $self->_checkInterface($iface);
       # Create the rule model if it's not already created
       $self->{ruleModels}->{$iface} = new EBox::TrafficShaping::Model::RuleTable(
 										 'gconfmodule' => $self,
@@ -719,6 +807,12 @@ sub ruleMultiTableModel
 #      Class method which returns the iptables chain used by Traffic
 #      Shaping module
 #
+# Parameters:
+#
+#      iface - String with the interface where the traffic flows
+#      where - from where it's shaper (Options: egress, ingress, forward)
+#              *(Optional)* Default value: egress
+#
 # Returns:
 #
 #      String - shaper chain's name
@@ -726,9 +820,20 @@ sub ruleMultiTableModel
 sub ShaperChain
   {
 
-    my ($class) = @_;
+    my ($class, $iface, $where) = @_;
 
-    return 'EBOX-SHAPER-OUT';
+    $where = 'egress' unless defined ( $where );
+
+    if ( $where eq 'egress' ) {
+      return 'EBOX-SHAPER-OUT-' . $iface;
+    }
+    elsif ( $where eq 'ingress' ) {
+      return 'EBOX-SHAPER-IN-' . $iface;
+    }
+    elsif ( $where eq 'forward' ) {
+      # For MAC addresses and internal interfaces
+      return 'EBOX-SHAPER-FORWARD-' . $iface;
+    }
 
   }
 
@@ -745,15 +850,8 @@ sub ifaceExternalChanged # (iface, external)
 
     my ($self, $iface, $external) = @_;
 
-    if ($external) {
-      # If the interface is gonna be external, nothing related to
-      # traffic shaping is done
-      return undef;
-    }
-    else {
-      # Check if any interface is being shaped
-      return $self->_areRulesActive($iface);
-    }
+    # Check if any interface is being shaped
+    return $self->_areRulesActive($iface);
 
   }
 
@@ -768,7 +866,7 @@ sub changeIfaceExternalProperty # (iface, external)
 
     my $dir = $self->_ruleDirectory($iface);
 
-    if (not $external and $self->dir_exists($dir)) {
+    if ( $self->dir_exists($dir) ) {
       $self->_destroyIface($iface);
     }
 
@@ -830,9 +928,11 @@ sub _setNewLowestPriority # (iface, priority?)
 
       my $dirs_ref = $self->array_from_dir($ruleDir);
 
-      # Set lowest priority to the number of rules minus one
-      my $lowest = scalar(@{$dirs_ref});
-
+      # Search for the lowest at array
+      my $lowest = 0;
+      foreach my $rule_ref (@{$dirs_ref}) {
+	$lowest = $rule_ref->{priority} if ( $rule_ref->{priority} > $lowest );
+      }
       # Set lowest
       $self->setLowestPriority($iface, $lowest);
     }
@@ -840,6 +940,7 @@ sub _setNewLowestPriority # (iface, priority?)
   }
 
 # Update priorities to all rules
+# Taking data from GConf stored values
 sub _correctPriorities # (iface)
   {
 
@@ -852,7 +953,6 @@ sub _correctPriorities # (iface)
       # Starting with highest priority update priority
       my $priority = 0;
       foreach my $ruleId (@{$order_ref}) {
-	#my $leafClassId = $self->_getClassIdFromRule($iface, $ruleId);
 	my $leafClassId = $self->_mapRuleToClassId($ruleId);
 	$self->{builders}->{$iface}->updateRule(
 						identifier  => $leafClassId,
@@ -879,8 +979,8 @@ sub _createRuleModels
     my $global = EBox::Global->getInstance();
     my $network = $global->modInstance('network');
 
-    my $extIfaces_ref = $network->ExternalIfaces();
-    foreach my $iface (@{$extIfaces_ref}) {
+    my $ifaces_ref = $network->ifaces();
+    foreach my $iface (@{$ifaces_ref}) {
       $self->{ruleModels}->{$iface} = new EBox::TrafficShaping::Model::RuleTable(
 				    'gconfmodule' => $self,
 				    'directory'   => "$iface/user_rules",
@@ -897,7 +997,7 @@ sub _createRuleModels
 # Checker Functions
 ###
 
-# Check interface is external and has gateways associated
+# Check interface existence and if it has gateways associated
 # Throw External exception if not, nothing otherwise
 sub _checkInterface # (iface)
   {
@@ -911,23 +1011,27 @@ sub _checkInterface # (iface)
     my $global = EBox::Global->getInstance();
     my $network = $global->modInstance('network');
 
-    if (not $network->ifaceIsExternal( $iface )) {
-      throw EBox::Exceptions::External(
-				       __x('Traffic shaping can be only done in external interface and {iface} is not',
-					   iface => $iface)
-				      );
-    }
+    # Now shaping can be done at internal interfaces to egress traffic
+#    if (not $network->ifaceIsExternal( $iface )) {
+#      throw EBox::Exceptions::External(
+#				       __x('Traffic shaping can be only done in external interface and {iface} is not',
+#					   iface => $iface)
+#				      );
+#    }
 
-    # Check it has gateways associated
-    my $gateways_ref = $network->gateways();
+    # If it's an external interface, check the gateway
+    if ( $network->ifaceIsExternal( $iface )) {
+      # Check it has gateways associated
+      my $gateways_ref = $network->gateways();
 
-    my @gatewaysIface = grep { $_->{interface} eq $iface } @{$gateways_ref};
+      my @gatewaysIface = grep { $_->{interface} eq $iface } @{$gateways_ref};
 
-    if ( scalar (@gatewaysIface) <= 0 ) {
-      throw EBox::Exceptions::External(
-				       __('Traffic shaping can be only done in external interfaces ' .
-					   'which have gateways associated to')
-				      );
+      if ( scalar (@gatewaysIface) <= 0 ) {
+	throw EBox::Exceptions::External(
+					 __('Traffic shaping can be only done in external interfaces ' .
+					    'which have gateways associated to')
+					);
+      }
     }
 
     return;
@@ -951,34 +1055,6 @@ sub _checkRuleExistence # (iface, ruleId)
     }
 
     return 1;
-
-  }
-
-# Check if the rule (the same parameters already exists)
-# Throw DataExists if the rule with same params exists
-sub _checkDuplicate # (iface, ruleParams_ref)
-  {
-    my ($self, $iface, $ruleParams_ref) = @_;
-
-    my $builder = $self->{builders}->{$iface};
-
-    if ($builder->isa('EBox::TrafficShaping::TreeBuilder::Default')) {
-      return undef;
-    }
-    elsif ( $builder->isa('EBox::TrafficShaping::TreeBuilder::HTB')) {
-#      my $classId = $builder->findLeafClassId(
-#					   protocol       => $ruleParams_ref->{protocol},
-#					   port           => $ruleParams_ref->{port},
-#					   guaranteedRate => $ruleParams_ref->{guaranteedRate},
-#					   limitedRate    => $ruleParams_ref->{limitedRate},
-#					  );
-      my $ruleId = $self->_getRuleId($iface, $ruleParams_ref);
-
-      if ( defined ($ruleId) ) {
-	throw EBox::Exceptions::DataExists( data => __('Rule'),
-					    value => '');
-      }
-    }
 
   }
 
@@ -1007,7 +1083,7 @@ sub _checkPriority # (priority)
 
     my ($self, $priority) = @_;
 
-    if ( $priority < 0 ) {
+    if ( ($priority < 0) or ($priority > 7) ) {
       throw EBox::Exceptions::InvalidData(
 					  'data'  => __('Priority'),
 					  'value' => $priority,
@@ -1133,8 +1209,19 @@ sub _createTree # (interface, type)
       my $linkRate;
 #     FIXME
 #     $linkRate = $self->{network}->ifaceUploadRate($iface)
-      $linkRate = $self->_uploadRate($iface);
-#     $linkRate = 1000;
+      # Check if interface is internal or external to set a maximum rate
+      # The maximum rate for an internal interface is the sum of the gateways associated
+      # to the external interfaces
+
+      my $global = EBox::Global->getInstance();
+      my $network = $global->modInstance('network');
+      if ( $network->ifaceIsExternal($iface) ) {
+	$linkRate = $self->_uploadRate($iface);
+      }
+      else {
+	$linkRate = $self->_totalDownloadRate();
+      }
+
       if ( not defined($linkRate) or $linkRate == 0) {
 	throw EBox::Exceptions::External(__x("Interface {iface} should have a maximum " .
 					     "bandwidth rate in order to do traffic shaping",
@@ -1158,14 +1245,6 @@ sub _buildGConfRules # (iface)
     my $dir = $self->_ruleDirectory($iface);
 
     # Set the priority
-    my $order_ref = $self->ruleModel($iface)->order();
-    my %order;
-    my $prio = 0;
-    foreach my $ruleId (@{$order_ref}) {
-      $order{$ruleId} = $prio;
-      $prio++;
-    }
-
     my $rules_ref = $self->array_from_dir($dir);
 
     foreach my $rule_ref (@{$rules_ref}) {
@@ -1175,14 +1254,51 @@ sub _buildGConfRules # (iface)
 
       # $rule_ref->{identifier} = $rule_ref->{_dir};
       $rule_ref->{identifier} = $self->_nextMap($rule_ref->{_dir});
+      $rule_ref->{identifier} = $self->_getNumber($rule_ref->{identifier});
+      # Get the port and protocol
+      $rule_ref->{service} = new EBox::Types::Service(
+						      protocol => delete ( $rule_ref->{service_protocol} ),
+						      port     => delete ( $rule_ref->{service_port} ),
+						     );
+
+      # Get the source
+      if ( defined ( $rule_ref->{source_selected} )) {
+	my $sourceSelected = delete ( $rule_ref->{source_selected} );
+	if ( $sourceSelected eq 'source_ipaddr' ) {
+	  $rule_ref->{source} = new EBox::Types::IPAddr(
+							ip   => delete ( $rule_ref->{source_ipaddr_ip} ),
+							mask => delete ( $rule_ref->{source_ipaddr_mask} ),
+						       );
+	} elsif ( $sourceSelected eq 'source_macaddr' ) {
+	  $rule_ref->{source} = new EBox::Types::MACAddr(
+							 value => delete ( $rule_ref->{source_macaddr} )
+							);
+	} elsif ( $sourceSelected eq 'source_object' ) {
+	  $rule_ref->{source} = delete ( $rule_ref->{source_object} );
+	}
+      }
+
+      # Get the destination
+      if ( defined ( $rule_ref->{destination_selected} )) {
+	my $destinationSelected = delete ( $rule_ref->{destination_selected} );
+	if ( $destinationSelected eq 'destination_ipaddr' ) {
+	  $rule_ref->{destination} = new EBox::Types::IPAddr(
+							     ip   => delete ( $rule_ref->{destination_ipaddr_ip} ),
+							     mask => delete ( $rule_ref->{destination_ipaddr_mask} ),
+							    );
+	} elsif ( $destinationSelected eq 'destination_object' ) {
+	  $rule_ref->{destination} = delete ( $rule_ref->{destination_object} );
+	}
+      }
+
       # Transform from gconf to camelCase and set if they're null
       # since they're optional parameters
       $rule_ref->{guaranteedRate} = delete ($rule_ref->{guaranteed_rate});
       $rule_ref->{guaranteedRate} = 0 unless defined ($rule_ref->{guaranteedRate});
       $rule_ref->{limitedRate} = delete ($rule_ref->{limited_rate});
       $rule_ref->{limitedRate} = 0 unless defined ($rule_ref->{limitedRate});
-      # Get priority from order
-      $rule_ref->{priority} = $order{$rule_ref->{_dir}};
+      # Get priority from priority field
+#      $rule_ref->{priority} = $order{$rule_ref->{_dir}};
 
       $self->_buildANewRule( $iface, $rule_ref, undef );
 
@@ -1199,9 +1315,9 @@ sub _createBuilders
     my $global = EBox::Global->getInstance();
     my $network = $global->modInstance('network');
 
-    my @extIfaces = @{$network->ExternalIfaces()};
+    my @ifaces = @{$network->ifaces()};
 
-    foreach my $iface (@extIfaces) {
+    foreach my $iface (@ifaces) {
       $self->{builders}->{$iface} = {};
       if ( $self->_areRulesActive($iface) ) {
 	# If there's any rule, for now use an HTBTreeBuilder
@@ -1249,15 +1365,87 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
     my $htbBuilder = $self->{builders}->{$iface};
 
     if ( $htbBuilder->isa('EBox::TrafficShaping::TreeBuilder::HTB')){
+      my $src = undef;
+      my $srcObj = undef;
+      if ( ( defined ( $rule_ref->{source} )
+	     and $rule_ref->{source} ne '' ) and
+	   ( $rule_ref->{source}->isa('EBox::Types::IPAddr') or
+	     $rule_ref->{source}->isa('EBox::Types::MACAddr'))
+	 ) {
+	$src = $rule_ref->{source};
+	$srcObj = undef;
+      }
+      else {
+	# If an object is provided no source is needed to set a rule but
+	# then attaching filters according to members of this object
+	$src = undef;
+	$srcObj =  $rule_ref->{source};
+      }
+
+      # The same related to destination
+      my $dst = undef;
+      my $dstObj = undef;
+      if ( ( defined ( $rule_ref->{destination} ) and
+	     $rule_ref->{destination} ne '' ) and
+	   ( $rule_ref->{destination}->isa('EBox::Types::IPAddr'))) {
+	$dst = $rule_ref->{destination};
+	$dstObj = undef;
+      }
+      else {
+	# If an object is provided no source is needed to set a rule but
+	# then attaching filters according to members of this object
+	$dst = undef;
+	$dstObj =  $rule_ref->{destination} ;
+      }
+
+      # Set a filter with objects if src or dst are not objects
+      my $service = undef;
+      $service = $rule_ref->{service} unless ( $srcObj or $dstObj );
+
       $htbBuilder->buildRule(
-			     protocol       => $rule_ref->{protocol},
-			     port           => $rule_ref->{port},
+			     service        => $service,
+			     source         => $src,
+			     destination    => $dst,
 			     guaranteedRate => $rule_ref->{guaranteedRate},
 			     limitedRate    => $rule_ref->{limitedRate},
 			     priority       => $rule_ref->{priority},
 			     identifier     => $rule_ref->{identifier},
 			     testing        => $test,
 			    );
+      # If an object is provided, attach filters to every member to the
+      # flow object id
+
+      # Only if not testing
+      if ( not $test ) {
+	if ( $srcObj and not $dstObj) {
+	  $self->_buildObjMembers( treeBuilder  => $htbBuilder,
+				   what         => 'source',
+				   objectName   => $rule_ref->{source},
+				   ruleRelated  => $rule_ref->{identifier},
+				   serviceAssoc => $rule_ref->{service},
+				   where        => $rule_ref->{destination});
+	}
+	elsif ( $dstObj and not $srcObj ) {
+	  $self->_buildObjMembers(
+				  treeBuilder  => $htbBuilder,
+				  what         => 'destination',
+				  objectName   => $rule_ref->{destination},
+				  ruleRelated  => $rule_ref->{identifier},
+				  serviceAssoc => $rule_ref->{service},
+				  where        => $rule_ref->{source},
+				 );
+	}
+	elsif ( $dstObj and $srcObj ) {
+	  # We have to build whole station
+	  $self->_buildObjToObj( treeBuilder  => $htbBuilder,
+				 srcObject    => $rule_ref->{source},
+				 dstObject    => $rule_ref->{destination},
+				 ruleRelated  => $rule_ref->{identifier},
+				 serviceAssoc => $rule_ref->{service},
+			       );
+	}
+      }
+
     }
     else {
       throw EBox::Exceptions::Internal('Tree builder which is not HTB ' .
@@ -1266,19 +1454,122 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
 
 }
 
-# Set the class id inside the gconf interface
-sub _setClassId
+# Build a necessary classify rule to each member from an object into a
+# HTB tree
+# It receives four parameters:
+#  - treeBuilder - the HTB tree builder
+#  - what - what is the object (source, destination)
+#  - objectName - the object's name
+#  - ruleRelated - the rule identifier assigned to the object
+#  - serviceAssoc - the service associated if any
+#  - where - the counterpart (<EBox::Types::IPAddr> or <EBox::Types::MACAddr>)
+sub _buildObjMembers
   {
 
-    my ($self, $iface, $ruleId, $classId) = @_;
+    my ($self, %args ) = @_;
+    my $treeBuilder = $args{treeBuilder};
+    my $what = $args{what};
+    my $objectName = $args{objectName};
+    my $ruleRelated = $args{ruleRelated};
+    my $serviceAssoc = $args{serviceAssoc};
+    my $where = $args{where};
 
-    my $dir = $self->_ruleDirectory($iface, $ruleId);
+    unless ( $objectName ) {
+      return;
+    }
 
-    # Set the class id in GConf to aftewards destroy them easily
-    $self->set_int("$dir/classid/major", $classId->{major});
-    $self->set_int("$dir/classid/minor", $classId->{minor});
+    # Get the object's members
+    my $global = EBox::Global->getInstance();
+    my $objs = $global->modInstance('objects');
+
+    my $membs_ref = $objs->ObjectMembers($objectName);
+
+    # Set a different filter identifier for each object's member
+    my $filterId = $ruleRelated;
+    foreach my $member_ref (@{$membs_ref}) {
+      my $ip = new EBox::Types::IPAddr(
+				       ip => $member_ref->{ip},
+				       mask => $member_ref->{mask},
+				      );
+      my $srcAddr;
+      my $dstAddr;
+      if ( $what eq 'source' ) {
+	$srcAddr = $ip;
+	$dstAddr = $where;
+      }
+      elsif ( $what eq 'destination') {
+	$srcAddr = $where;
+	$dstAddr = $ip;
+      }
+      $treeBuilder->addFilter(
+			      leafClassId => $ruleRelated,
+			      srcAddr     => $srcAddr,
+			      dstAddr     => $dstAddr,
+			      service     => $serviceAssoc,
+			      id          => $filterId,
+			     );
+      $filterId++;
+      # If there's a MAC address and what != source not to add since
+      # it has no sense
+      # TODO: Objects can be only set with an IP.
+#      if ( $member_ref->{mac} and ( $what eq 'source' )) {
+#	my $mac = new EBox::Types::MACAddr(
+#					   value => $member_ref->{mac},
+#					  );
+#	$filterValue->{srcAddr} = $mac;
+#	$filterValue->{dstAddr} = $where;
+#	$treeBuilder->addFilter( leafClassId => $ruleRelated,
+#				 filterValue => $filterValue);
+#	$filterId++;
+#      }
+      # Just adding one could be a solution to have different filter identifiers
+    }
 
   }
+
+# Build a n x m rules among each member of the both object with each other
+# It receives four parameters:
+#  - treeBuilder - the HTB tree builder
+#  - srcObject - source object's name
+#  - dstObject - destination object's name
+#  - ruleRelated - the rule identifier assigned to the filters to add
+#  - serviceAssoc - the service associated if any
+sub _buildObjToObj
+  {
+
+    my ($self, %args) = @_;
+
+    my $global = EBox::Global->getInstance();
+    my $objs = $global->modInstance('objects');
+
+    my $srcMembs_ref = $objs->ObjectMembers($args{srcObject});
+    my $dstMembs_ref = $objs->ObjectMembers($args{dstObject});
+
+    my $filterId = $args{ruleRelated};
+
+    foreach my $srcMember_ref (@{$srcMembs_ref}) {
+      my $srcAddr = new EBox::Types::IPAddr(
+					    ip   => $srcMember_ref->{ip},
+					    mask => $srcMember_ref->{mask},
+					   );
+      foreach my $dstMember_ref (@{$dstMembs_ref}) {
+	my $dstAddr = new EBox::Types::IPAddr(
+					      ip   => $dstMember_ref->{ip},
+					      mask => $dstMember_ref->{mask},
+					     );
+	$args{treeBuilder}->addFilter(
+				      leafClassId => $args{ruleRelated},
+				      srcAddr     => $srcAddr,
+				      dstAddr     => $dstAddr,
+				      service     => $args{serviceAssoc},
+				      id          => $filterId
+				      );
+	$filterId++;
+      }
+    }
+
+  }
+
 
 # Get a rule given all its parameters in GConf
 # undef if not found
@@ -1292,28 +1583,80 @@ sub _getRuleId  # (iface, inRule_ref)
 
     my $ruleId = undef;
     foreach my $rule_ref (@{$rules_ref}) {
-      next unless $rule_ref->{protocol}        eq $inRule_ref->{protocol};
-      next unless $rule_ref->{port}            == $inRule_ref->{port};
-      next unless $rule_ref->{guaranteed_rate} == $inRule_ref->{guaranteedRate};
-      next unless $rule_ref->{limited_rate}    == $inRule_ref->{limitedRate};
+
+      # Service
+      if ( defined ( $rule_ref->{service_protocol} ) and
+	   defined ( $inRule_ref->{protocol})) {
+	next unless $rule_ref->{service_protocol} eq $inRule_ref->{protocol};
+      }
+      else {
+	next;
+      }
+      if ( defined ( $rule_ref->{service_port} ) and
+	   defined ( $inRule_ref->{port}) ) {
+	next unless $rule_ref->{service_port} == $inRule_ref->{port};
+      }
+      else {
+	next;
+      }
+
+      # Source
+      if ( defined ( $rule_ref->{source_selected} ) ) {
+	if ( defined ( $rule_ref->{source_ipaddr_ip} ) and
+	     defined ( $inRule_ref->{source} ) and
+	     $inRule_ref->{source}->isa('EBox::Types::IPAddr') ) {
+	  next unless $rule_ref->{source_ipaddr_ip} eq $inRule_ref->{source}->ip() and
+	    $rule_ref->{source_ipaddr_mask} eq $inRule_ref->{source}->mask();
+	}
+	if ( defined ( $rule_ref->{source_macaddr} ) and
+	     defined ( $inRule_ref->{source} ) and
+	     $inRule_ref->{source}->isa('EBox::Types::MACAddr') ) {
+	  next unless $rule_ref->{source_macaddr} eq $inRule_ref->{source}->value();
+	}
+	if ( defined ( $rule_ref->{source_object} ) and
+	     defined ( $inRule_ref->{source} ) ) {
+	  next unless $rule_ref->{source_object} eq $inRule_ref->{source};
+	}
+      }
+
+      # Destination
+      if ( defined ( $rule_ref->{destination_selected} ) ) {
+	if ( defined ( $rule_ref->{destination_ipaddr_ip} ) and
+	     defined ( $inRule_ref->{destination} ) and
+	     $inRule_ref->{destination}->isa('EBox::Types::IPAddr') ) {
+	  next unless $rule_ref->{destination_ipaddr_ip} eq $inRule_ref->{destination}->ip() and
+	    $rule_ref->{destination_ipaddr_mask} eq $inRule_ref->{destination}->mask();
+	}
+	if ( defined ( $rule_ref->{destination_object} ) and
+	     defined ( $inRule_ref->{destination} ) ) {
+	  next unless $rule_ref->{destination_object} eq $inRule_ref->{destination};
+	}
+      }
+
+      # Guaranteed rate
+      if ( defined ( $rule_ref->{guaranteed_rate} ) and
+	   defined ( $inRule_ref->{guaranteedRate} )) {
+	next unless $rule_ref->{guaranteed_rate} == $inRule_ref->{guaranteedRate};
+      }
+      else {
+	next;
+      }
+
+      # Limited rate
+      if ( defined ( $rule_ref->{limited_rate} ) and
+	   defined ( $inRule_ref->{limitedRate} )) {
+	next unless $rule_ref->{limited_rate}    == $inRule_ref->{limitedRate};
+      }
+      else {
+	next;
+      }
+
+      # You found it!
       $ruleId = $rule_ref->{_dir};
       last;
     }
 
     return $ruleId;
-
-  }
-
-# Get the class identifier from the rule identifier associated with
-# Return a hash ref with minor and major as fields
-sub _getClassIdFromRule # (iface, ruleId)
-  {
-
-    my ($self, $iface, $ruleId) = @_;
-
-    my $ruleDir = $self->_ruleDirectory($iface, $ruleId);
-
-    return $self->hash_from_dir("$ruleDir/classid");
 
   }
 
@@ -1327,18 +1670,6 @@ sub _destroyRule # (iface, ruleId, params_ref?)
      # Nothing to destroy
      return;
    }
-
-#   my $classId_ref;
-#   if ( not defined ( $params_ref ) ) {
-#     $classId_ref = $self->_getClassIdFromRule($iface, $ruleId);
-#   } else {
-#     $classId_ref = $self->{builders}->{$iface}->findLeafClassId(
-#								 protocol => $params_ref->{protocol},
-#								 port     => $params_ref->{port},
-#								 guaranteedRate => $params_ref->{guaranteedRate},
-#								 limitedRate => $params_ref->{limitedRate},
-#								);
-#   }
 
    # my $minorNumber = $self->_getNumber($ruleId);
    my $minorNumber = $self->_mapRuleToClassId($ruleId);
@@ -1378,7 +1709,6 @@ sub _updateRule # (iface, ruleId, ruleParams_ref?, test?)
 
     my ($self, $iface, $ruleId, $ruleParams_ref, $test) = @_;
 
-#    my $leafClassId = $self->_getClassIdFromRule($iface, $ruleId);
     # my $minorNumber = $self->_getNumber($ruleId);
     my $minorNumber = $self->_mapRuleToClassId($ruleId);
     # Update the rule stating the same leaf class id (If test not do)
@@ -1386,6 +1716,8 @@ sub _updateRule # (iface, ruleId, ruleParams_ref?, test?)
 					    identifier     => $minorNumber,
 					    protocol       => $ruleParams_ref->{protocol},
 					    port           => $ruleParams_ref->{port},
+					    source         => $ruleParams_ref->{source},
+					    destination    => $ruleParams_ref->{destination},
 					    guaranteedRate => $ruleParams_ref->{guaranteedRate},
 					    limitedRate    => $ruleParams_ref->{limitedRate},
 					    priority       => $ruleParams_ref->{priority},
@@ -1394,28 +1726,6 @@ sub _updateRule # (iface, ruleId, ruleParams_ref?, test?)
 
   }
 
-###
-# Get class identifier to delete/update and such
-###
-sub _getClassId # (iface, ruleParams_ref)
-  {
-
-    my ($self, $iface, $ruleParams_ref) = @_;
-
-    my $htbBuilder = $self->{builders}->{$iface};
-
-    my $leafClassId =
-      $htbBuilder->findLeafClassId(
-				   protocol       => $ruleParams_ref->{protocol},
-				   port           => $ruleParams_ref->{port},
-				   guaranteedRate => $ruleParams_ref->{guaranteed_rate},
-				   limitedRate    => $ruleParams_ref->{limited_rate},
-				   priority       => $ruleParams_ref->{priority},
-				  );
-
-    return $leafClassId;
-
-  }
 
 ###
 # Naming convention helper functions
@@ -1501,6 +1811,7 @@ sub _CamelCase_to_underscore # (string)
 ###
 
 # Get the upload rate from an interface in kilobits per second
+# FIXME: Change when the ticket #373
 sub _uploadRate # (iface)
   {
 
@@ -1519,6 +1830,31 @@ sub _uploadRate # (iface)
     }
 
     return $sumUpload;
+
+  }
+
+# Get the total download rate from the external interfaces in kilobits
+# per second
+# FIXME: Change when the ticket #373
+sub _totalDownloadRate
+  {
+
+    my ($self) = @_;
+
+    my $global = EBox::Global->getInstance();
+    my $net = $global->modInstance('network');
+
+    my $gateways_ref = $net->gateways();
+
+    my $sumDownload = 0;
+
+    foreach my $gateway_ref (@{$gateways_ref}) {
+      if ( $net->ifaceIsExternal($gateway_ref->{interface}) ) {
+	  $sumDownload += $gateway_ref->{download};
+      }
+    }
+
+    return $sumDownload;
 
   }
 
@@ -1608,28 +1944,35 @@ sub _setLogAdminActions
 ###################################
 
 # Delete TrafficShaping filter chain in Iptables Linux kernel struct
-sub _deleteChain # (iface)
+sub _deleteChains # (iface)
   {
 
     my ( $self, $iface ) = @_;
 
-    my $shaperChain = $self->ShaperChain();
-    try {
-      $self->{ipTables}->pf( '-t mangle -D POSTROUTING -o ' .
-			     $iface . ' -j ' . $shaperChain );
-      $self->{ipTables}->pf( '-t mangle -F $shaperChain' );
-      $self->{ipTables}->pf( '-t mangle -X $shaperChain' );
-    } catch EBox::Exceptions::Sudo::Command with {
-      my $exception = shift;
-      if ($exception->exitValue() == 2 or
-	  $exception->exitValue() == 1) {
-	# The chain does not exist, ignore
+    my %types = (
+		 'egress'  => [ 'POSTROUTING', '-o'],
+ 		 'ingress' => [ 'PREROUTING' , '-i'],
+		 'forward' => [ 'FORWARD'    , '-o'],
+		);
+
+    foreach my $type (keys %types) {
+      my $shaperChain = $self->ShaperChain($iface, $type);
+      try {
+	$self->{ipTables}->pf( '-t mangle -D ' . $types{$type}->[0] . ' ' . $types{$type}->[1] .
+			       " $iface -j $shaperChain" );
+	$self->{ipTables}->pf( "-t mangle -F $shaperChain" );
+	$self->{ipTables}->pf( "-t mangle -X $shaperChain" );
+      } catch EBox::Exceptions::Sudo::Command with {
+	my $exception = shift;
+	if ($exception->exitValue() == 2 or
+	    $exception->exitValue() == 1) {
+	  # The chain does not exist, ignore
+	  ;
+	} else {
+	  $exception->throw();
+	}
 	;
       }
-      else {
-	$exception->throw();
-      }
-      ;
     }
 
   }
@@ -1640,21 +1983,29 @@ sub _resetChain # (iface)
     my ($self, $iface) = @_;
 
     # Delete any previous chain
-    $self->_deleteChain($iface);
+    $self->_deleteChains($iface);
 
-    my $shaperChain = $self->ShaperChain();
+    my %types = (
+		 'egress'  => [ 'POSTROUTING', '-o'],
+ 		 'ingress' => [ 'PREROUTING' , '-i'],
+		 'forward' => [ 'FORWARD'    , '-o'],
+		);
 
-    # Add the chain
-    try {
-      $self->{ipTables}->pf( "-t mangle -N $shaperChain" );
-      $self->{ipTables}->pf( "-t mangle -I POSTROUTING -o $iface" .
-			     " -j $shaperChain" );
-    } catch EBox::Exceptions::Sudo::Command with {
-      my $exception = shift;
-      if ($exception->exitValue() == 1) {
-	# The chain already exists, do only the rule
-	$self->{ipTables}->pf( "-t mangle -I POSTROUTING -o $iface" .
-			       " -j $shaperChain" );
+    foreach my $type (keys %types) {
+      my $shaperChain = $self->ShaperChain($iface, $type);
+
+      # Add the chain
+      try {
+	$self->{ipTables}->pf( "-t mangle -N $shaperChain" );
+	$self->{ipTables}->pf( '-t mangle -I ' . $types{$type}->[0] . ' ' . $types{$type}->[1] .
+			       " $iface -j $shaperChain" );
+      } catch EBox::Exceptions::Sudo::Command with {
+	my $exception = shift;
+	if ($exception->exitValue() == 1) {
+	  # The chain already exists, do only the rule
+	  $self->{ipTables}->pf( '-t mangle -I ' . $types{$type}->[0] . ' ' . $types{$type}->[1] .
+				 " $iface -j $shaperChain" );
+	}
       }
     }
 

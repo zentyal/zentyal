@@ -18,8 +18,13 @@ remove_gconf_schemas(){
 case "$1" in
 	upgrade)
 		remove_gconf_schemas
+		if [ "$3" = "0.9" ]; then
+		    /etc/init.d/ebox trafficshaping stop
+		fi
 		;;
         remove)
+	        ebox-clean-gconf trafficshaping
+		/etc/init.d/ebox trafficshaping stop
 	        ebox-clean-gconf trafficshaping
 		/etc/init.d/ebox trafficshaping stop
 		remove_gconf_schemas

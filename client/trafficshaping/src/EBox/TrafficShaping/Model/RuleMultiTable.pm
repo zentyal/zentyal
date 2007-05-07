@@ -64,9 +64,9 @@ sub _multiTable
 			  'actions'          => {
 						 'select' => '/ebox/TrafficShaping/Controller/RuleMultiTable',
 						},
-			  'help'             => __('Select an external interface with gateways associated ' .
-						   'to add traffic shaping rules'),
-			  'optionMessage'    => __('Choose an external interface to shape'),
+			  'help'             => __('Select an interface to add traffic shaping rules. Keep in mind that if you are ' .
+						   'shaping an internal interface, you are doing ingress shaping.'),
+			  'optionMessage'    => __('Choose an interface to shape'),
 			 };
 
     return $multiTable_ref;
@@ -103,6 +103,7 @@ sub selectOptions
     my $ts = $global->modInstance('trafficshaping');
 
     my @extIfaces = @{$net->ExternalIfaces()};
+    my @intIfaces = @{$net->InternalIfaces()};
 
     my @options;
     foreach my $iface (@extIfaces) {
@@ -116,6 +117,16 @@ sub selectOptions
       }
 
     }
+    # Add every internal interface
+    foreach my $iface (@intIfaces) {
+      my $option = {
+		    id => $iface,
+		    printableId => $iface,
+		   };
+      push (@options, $option);
+    }
+
+    @options = sort { $a->{id} cmp $b->{id} } @options;
 
     return \@options;
 

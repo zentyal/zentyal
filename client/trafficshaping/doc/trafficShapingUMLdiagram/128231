@@ -104,14 +104,24 @@ It acts as a director in Builder Pattern"
 
       operation 128104 "addRule"
 	public explicit_return_type ""
-	nparams 7
+	nparams 9
 	  param in name "interface" explicit_type "string"
 	  param in name "port" explicit_type "int"
+	    defaultvalue "undef"
 	  param in name "protocol" explicit_type "string"
+	    defaultvalue "undef"
 	  param in name "guaranteedRate" explicit_type "int"
+	    defaultvalue "undef"
 	  param in name "limitedRate" explicit_type "int"
-	  param in name "priority" explicit_type "long"
+	    defaultvalue "undef"
+	  param in name "priority" explicit_type "int"
+	    defaultvalue "lowest prio"
 	  param in name "enabled" explicit_type "bool"
+	    defaultvalue "true"
+	  param in name "source" explicit_type "EBox::Types::IPAddr || EBox::Types::MACAddr || EBox::Object"
+	    defaultvalue "undef"
+	  param in name "destination" explicit_type "EBox::Types::IPAddr || EBox::Types::MACAddr || EBox::Object"
+	    defaultvalue "undef"
 	nexceptions 3
 	  explicit_exception ""
 	  explicit_exception ""
@@ -126,15 +136,11 @@ It acts as a director in Builder Pattern"
 	public explicit_return_type ""
 	nparams 6
 	  param in name "interface" explicit_type "string"
-	  param in name "ruleId" explicit_type "string"
-	  param in name "protocol" explicit_type "string"
-	    defaultvalue "undef"
-	  param in name "port" explicit_type "int"
-	    defaultvalue "undef"
-	  param in name "guaranteedRate" explicit_type "int"
-	    defaultvalue "undef"
-	  param in name "limitedRate" explicit_type "int"
-	    defaultvalue "undef"
+	  param in name "" explicit_type ""
+	  param in name "" explicit_type ""
+	  param in name "" explicit_type ""
+	  param in name "" explicit_type ""
+	  param in name "" explicit_type ""
 	nexceptions 3
 	  explicit_exception ""
 	  explicit_exception ""
@@ -162,8 +168,7 @@ It acts as a director in Builder Pattern"
 	nparams 7
 	  param in name "interface" explicit_type "string"
 	  param in name "ruleId" explicit_type "string"
-	  param in name "priority" explicit_type "int"
-	    defaultvalue "undef"
+	  param in name "" explicit_type ""
 	  param in name "" explicit_type ""
 	  param in name "" explicit_type ""
 	  param inout name "" explicit_type ""
@@ -184,13 +189,20 @@ It acts as a director in Builder Pattern"
 	comment "Send a list with all the rules within an interface. 
 
 The return value is an array ref containing hash references which have the following attributes:
-         - protocol        - inet protocol
-         - port            - port number
+         - service - <EBox::Types::Service> inet protocol
+         - source  - the selected source. It can be one of the following:
+                        - <EBox::Types::IPAddr>
+                        - <EBox::Types::MACAddr>
+                        - String containing the source object
+         - destination - the selected destination. It can be one of the following:
+                        - <EBox::Types::IPAddr>
+                        - String containing the destination object
          - guaranteed_rate - maximum guaranteed rate
          - limited_rate    - maximum traffic rate
          - priority        - priority (lower number, highest priority)
          - enabled         - is this rule enabled?
-         - ruleId          - unique identifier for this rule"
+         - ruleId          - unique identifier for this rule
+"
       end
 
       operation 128744 "getLowestPriority"
@@ -218,13 +230,20 @@ is found, the lowest priority is zero."
 
       operation 128333 "checkRule"
 	public explicit_return_type "bool"
-	nparams 6
+	nparams 8
 	  param in name "interface" explicit_type "string"
-	  param in name "protocol" explicit_type "string"
-	  param in name "port" explicit_type "int"
+	  param in name "service" explicit_type "EBox::Types::Service"
+	  param in name "priority" explicit_type "int"
+	    defaultvalue "7"
 	  param in name "guaranteedRate" explicit_type "int"
+	    defaultvalue "0"
 	  param in name "limitedRate" explicit_type "int"
+	    defaultvalue "unlimited"
 	  param in name "ruleId" explicit_type "int"
+	    defaultvalue "undef"
+	  param in name "source" explicit_type "EBox::Types::IPAddr or EBox::Types::MACAddr or EBox::Object"
+	    defaultvalue "undef"
+	  param in name "destination" explicit_type "EBox::Types::IPAddr or EBox::Types::MACAddr or EBox::Object"
 	    defaultvalue "undef"
 	nexceptions 3
 	  explicit_exception ""
@@ -233,6 +252,7 @@ is found, the lowest priority is zero."
 	
 	
 	
+	comment "Check if the rule passed can be added. The guaranteed rate or the limited rate should be given."
       end
 
       classrelation 128010 // <unidirectional association>
@@ -241,11 +261,51 @@ is found, the lowest priority is zero."
 	    classrelation_ref 128010 // <unidirectional association>
 	  b parent class_ref 128010 // Iptables
       end
+
+      classrelation 128027 // <dependency>
+	relation 128027 -_->
+	  a default
+	    classrelation_ref 128027 // <dependency>
+	  b parent class_ref 128027 // Objects
+      end
+
+      operation 128036 "ruleModel"
+	public explicit_return_type "EBox::TrafficShaping::Model::RuleTable"
+	nparams 1
+	  param in name "interface" explicit_type "string"
+	
+	
+	
+	comment "Return the model associated to the rules table"
+      end
+
+      classrelation 128036 // <unidirectional association>
+	relation 128036 --->
+	  a role_name "" multiplicity "1..*" protected
+	    classrelation_ref 128036 // <unidirectional association>
+	  b parent class_ref 128036 // Model::RuleTable
+      end
+
+      classrelation 128164 // <unidirectional association>
+	relation 128164 --->
+	  a role_name "" multiplicity "1" protected
+	    classrelation_ref 128164 // <unidirectional association>
+	  b parent class_ref 128164 // Model::RuleMultiTable
+      end
+
+      operation 128164 "ruleMultiTableModel"
+	public explicit_return_type "EBox::TrafficShaping::Model::RuleMultiTable"
+	nparams 0
+	
+	
+	
+	comment "Get the rule multi table model to be shown"
+      end
     end
 
-    class 128487 "Network"cpp_decl ""
+    class 128487 "Network"cpp_external cpp_decl ""
       java_decl ""
-      idl_decl ""
+      idl_external idl_decl ""
       explicit_switch_type ""
       
       comment "Network eBox module
@@ -253,7 +313,7 @@ is found, the lowest priority is zero."
 EBox::Network"
     end
 
-    class 128615 "GConfModule"cpp_decl ""
+    class 128615 "GConfModule"cpp_external cpp_decl ""
       java_decl ""
       idl_decl ""
       explicit_switch_type ""
@@ -693,6 +753,30 @@ It returns an array ref containing the iptables arguments to execute"
 	idl_decl ""
 	comment "the protocol to do filtering"
       end
+
+      attribute 128036 "srcIPAddr"
+	protected explicit_type "EBox::Types::IPAddr"
+	cpp_decl ""
+	java_decl ""
+	idl_decl ""
+	comment "The source IP address from where packet comes"
+      end
+
+      attribute 128164 "dstIPAddr"
+	protected explicit_type "EBox::Types::IPAddr"
+	cpp_decl ""
+	java_decl ""
+	idl_decl ""
+	comment "The destination IP address where the packet is sent to"
+      end
+
+      attribute 128292 "srcMACAddr"
+	protected explicit_type "EBox::Types::MACAddr"
+	cpp_decl ""
+	java_decl ""
+	idl_decl ""
+	comment "The source MAC from where the packet comes. This only makes sense for packets coming from an Ethernet device."
+      end
     end
 
     class 130151 "QueueDiscipline::SFQ"cpp_decl ""
@@ -1029,6 +1113,23 @@ new rule, useful to destroy rules"
 
 leafClassId is the leaf class identifier which represents the rule internally which is destroyed"
       end
+
+      operation 128053 "addFilter"
+	public explicit_return_type ""
+	nparams 5
+	  param in name "leafClassId" explicit_type "int"
+	  param in name "srcAddr" explicit_type "EBox::Types::IPAddr or EBox::Types::MACAddr"
+	    defaultvalue "undef"
+	  param in name "dstAddr" explicit_type "EBox::Types::IPAddr"
+	    defaultvalue "undef"
+	  param in name "service" explicit_type "EBox::Types::Service"
+	  param in name "id" explicit_type "int"
+	    defaultvalue "leafClassId"
+	
+	
+	
+	comment "Add a filter to classify traffic to direct to a certain leaf class. At least, a source address or destination address should be provided."
+      end
     end
 
     class 128350 "TreeBuilder::HFSC"cpp_decl ""
@@ -1254,6 +1355,31 @@ Returns: the output of iptables command in an array
       explicit_switch_type ""
       
       comment "The Iptables wrapper class"
+    end
+
+    class 128027 "Objects"cpp_external cpp_decl ""
+      java_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+    end
+
+    class 128036 "Model::RuleTable"cpp_decl ""
+      java_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "Describe the traffic shaping table for an specific interface
+Inherits from EBox::Model::DataTable"
+    end
+
+    class 128164 "Model::RuleMultiTable"cpp_decl ""
+      java_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      comment "Describe the traffic shaping multitable to select which table to use based on selectOptions method
+Inherits from EBox::Model::DataMultiTable"
     end
   end
 end

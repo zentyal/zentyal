@@ -64,6 +64,9 @@ sub masonParameters
     my $net = $global->modInstance('network');
     my @extIfaces = @{$net->ExternalIfaces()};
     my $areExternalIfaces = scalar(@extIfaces) > 0;
+    my @intIfaces = @{$net->InternalIfaces()};
+    my $areInternalIfaces = scalar(@intIfaces) > 0;
+    my $enoughInterfaces = $areExternalIfaces and $areInternalIfaces;
 
     my $ts = $global->modInstance('trafficshaping');
     my $model = $ts->ruleMultiTableModel();
@@ -78,9 +81,9 @@ sub masonParameters
     }
 
     return [
-	    areExternalIfaces => $areExternalIfaces,
-	    areGateways       => $areGateways,
-	    model             => $model
+	    enoughInterfaces => $enoughInterfaces,
+	    areGateways      => $areGateways,
+	    model            => $model
 	   ];
 
   }

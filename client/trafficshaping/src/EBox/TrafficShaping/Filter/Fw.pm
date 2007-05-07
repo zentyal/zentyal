@@ -44,18 +44,26 @@ use constant MARK_MASK => '0xFF00';
 #       parent - parent where filter is attached to (it's a
 #       <EBox::TrafficShaping::QDisc>)
 #
-#       protocol - Only ip it's gonna be supported (Optional)
+#       protocol - Only ip it's gonna be supported *(Optional)*
 #
 #       prio - Filter priority. If several filters are attached to the
 #       same qdisc, they're asked in priority sections. Lower number,
-#       higher priority. (Optional)
+#       higher priority. *(Optional)*
+#
+#       identifier - the filter identifier *(Optional)*
+#                    Default value: $flowId->{classId}
 #
 #     - Following are *iptables* arguments to do filtering:
 #
-#       fProtocol - String the protocol to do filtering (Optional)
-#       fPort - Int the source and destination port (Optional)
+#       service   - <EBox::Types::Service> the service to do filtering
+#                   *(Optional)*
+#       srcAddr   - <EBox::Types::IPAddr> or <EBox::Types::MACAddr> the
+#                   packet source to match *(Optional)*
+#       dstAddr   - <EBox::Types::MACAddr> the packet destination to match
+#                   *(Optional)*
 #
 #       If none is provided, the default redundant mark will be applied
+#       - Named parameters
 #
 # Returns:
 #
@@ -100,9 +108,30 @@ sub new
       throw EBox::Exceptions::InvalidType( 'parent',
 					   'EBox::TrafficShaping::QDisc::Base' );
     }
+    # Check the service
+    if ( defined ( $args{service} ) and 
+	 not $args{service}->isa( 'EBox::Types::Service' ) ) {
+      throw EBox::Exceptions::InvalidType( 'service',
+					   'EBox::Types::Service');
+    }
+    # Check addresses
+    if ( $args{srcAddr} ) {
+      if ( not $args{srcAddr}->isa('EBox::Types::IPAddr') and
+	   not $args{srcAddr}->isa('EBox::Types::MACAddr') ) {
+	throw EBox::Exceptions::InvalidType( 'srcAddr',
+					     'EBox::Types::IPAddr or EBox::Types::MACAddr');
+      }
+    }
+    if ( $args{dstAddr} ) {
+      if ( not $args{dstAddr}->isa('EBox::Types::IPAddr') ) {
+	throw EBox::Exceptions::InvalidType( 'srcAddr',
+					     'EBox::Types::IPAddr');
+      }
+    }
 
     # We take the identifier as the flowId->classid
-    $self->{id} = $args{flowId}->{classId};
+    $self->{id} = $args{identifier};
+    $self->{id} = $args{flowId}->{classId} unless  $args{identifier};
     $self->{flowId} = $args{flowId};
     $self->{mark} = $args{mark};
     $self->{protocol} = $args{protocol};
@@ -110,8 +139,25 @@ sub new
     $self->{protocol} = "ip" unless defined( $args{protocol} );
     $self->{prio} = $args{prio};
     $self->{parent} = $args{parent};
-    $self->{fProtocol} = $args{fProtocol};
-    $self->{fPort} = $args{fPort};
+
+    if ( defined ( $args{service} ) ) {
+      $self->{fProtocol} = $args{service}->protocol();
+      $self->{fPort} = $args{service}->port();
+    }
+
+    if ( $args{srcAddr} ) {
+      if ( $args{srcAddr}->isa('EBox::Types::IPAddr')) {
+	$self->{srcIP} = $args{srcAddr}->ip();
+	$self->{srcNetMask} = $args{srcAddr}->mask();
+      }
+      elsif ( $args{srcAddr}->isa('EBox::Types::MACAddr') ) {
+	$self->{srcMAC} = $args{srcAddr}->value();
+      }
+    }
+    if ( $args{dstAddr} ) {
+      $self->{dstIP} = $args{dstAddr}->ip();
+      $self->{dstNetMask} = $args{dstAddr}->mask();
+    }
 
     bless($self, $class);
 
@@ -144,10 +190,7 @@ sub equals # (object)
     throw EBox::Exceptions::InvalidType('object', 'EBox::TrafficShaping::Filter::Fw')
       unless $object->isa( 'EBox::TrafficShaping::Filter::Fw' );
 
-    return ($object->{flowId}->{rootHandle} eq $self->{flowId}->{rootHandle} and
-	    $object->{flowId}->{classId} eq $self->{flowId}->{classId})
-            or
-	   ($object->getIdentifier() == $self->getIdentifier());
+    return $object->getIdentifier() == $self->getIdentifier();
 
   }
 
@@ -262,28 +305,64 @@ sub dumpIptablesCommands
 
     my ($self) = @_;
 
-    my $shaperChain = EBox::TrafficShaping->ShaperChain();
-
     # Getting the mask number
     my $mask = hex ( MARK_MASK );
     # Applying the mask
     my $mark = $self->{mark} & $mask;
     my $protocol = $self->{fProtocol};
-    my $sport = $self->{fPort};
-    my $dport = $self->{fPort};
+
+    # Set no port if protocol is all
+    my $sport = undef;
+    my $dport = undef;
+    unless ( defined ( $protocol ) and
+	 ($protocol eq EBox::Types::Service->AnyProtocol )) {
+      $sport = $self->{fPort};
+      $dport = $self->{fPort};
+    }
+    my $srcIP = $self->{srcIP};
+    my $srcMAC = $self->{srcMAC};
+    my $srcNetMask = $self->{srcNetMask};
+    my $dstIP = $self->{dstIP};
+    my $dstNetMask = $self->{dstNetMask};
+
+    my $shaperChain;
+    if ( defined ( $srcMAC ) ) {
+      $shaperChain = EBox::TrafficShaping->ShaperChain($self->{parent}->getInterface(),
+						       'forward');
+    }
+    else {
+      $shaperChain = EBox::TrafficShaping->ShaperChain($self->{parent}->getInterface(),
+						       'egress');
+    }
 
     my @ipTablesCommands;
-    if (defined( $self->{fProtocol} ) and defined( $self->{fPort} ) ) {
+    my $leadingStr;
+    my $mediumStr;
+    if ( defined ( $protocol ) or defined ( $srcIP ) or defined ( $dstIP )) {
+      my $leadingStr = "-t mangle -A $shaperChain ";
+      my $trailingStr = "-j MARK --set-mark $mark";
+      my $mediumStr = q{};
+      $mediumStr .= "--protocol $protocol " if ( defined ( $protocol ));
+      $mediumStr .= "--sport $sport " if ( $sport );
+      $mediumStr .= "--source $srcIP" if ( defined ( $srcIP ));
+      $mediumStr .= "-m mac --mac-source $srcMAC " if ( defined( $srcMAC) );
+      $mediumStr .= "/$srcNetMask" if ( defined ( $srcNetMask ));
+      $mediumStr .= q{ }; # Adding a trailing space
+      $mediumStr .= "--destination $dstIP" if ( defined ( $dstIP ));
+      $mediumStr .= "/$dstNetMask" if ( defined ( $dstNetMask ));
+      $mediumStr .= q{ }; # Adding a trailing space
       # Set source port
       push(@ipTablesCommands,
-	   "-t mangle -A $shaperChain -p $protocol --sport $sport " .
-	   "-j MARK --set-mark $mark"
+	   $leadingStr . $mediumStr . $trailingStr
 	  );
-      # Set destination port
-      push(@ipTablesCommands,
-	   "-t mangle -A $shaperChain -p $protocol --dport $dport " .
-	   "-j MARK --set-mark $mark"
-	  );
+      if ( $self->{fPort} ) {
+	# Substituying from src to dst
+	$mediumStr =~ s/--sport [0-9]+ /--dport $dport /g;
+	# Set destination port
+	push(@ipTablesCommands,
+	     $leadingStr . $mediumStr . $trailingStr
+	    );
+      }
     } else {
       # Set redundant mark to send to default one
       push(@ipTablesCommands,

@@ -19,10 +19,14 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
+use EBox::Global;
 
 # eBox types! wow
 use EBox::Types::Int;
 use EBox::Types::Select;
+use EBox::Types::Service;
+use EBox::Types::MACAddr;
+use EBox::Types::IPAddr;
 
 # Uses to validate
 use EBox::Validate qw( checkProtocol checkPort );
@@ -67,7 +71,7 @@ sub new
 #
 # Arguments:
 #
-# 	select - select's name
+# 	select - String select's name
 #
 # Returns:
 #
@@ -81,17 +85,17 @@ sub selectOptions
 
     my @options;
 
-    if ($id eq 'protocol') {
-      @options = (
-		  {
-		   value          => 'tcp',
-		   printableValue => 'TCP',
-		  },
-		  {
-		   value          => 'udp',
-		   printableValue => 'UDP',
-		  }
-		 );
+    if ( ($id eq 'source_object') or ($id eq 'destination_object')) {
+      @options = @{$self->_objects()};
+    }
+    elsif ( $id eq 'priority' ) {
+      foreach my $i (qw(0 1 2 3 4 5 6 7)) {
+	push (@options, {
+			 value => $i,
+			 printableValue => $i
+			}
+	     );
+      }
     }
 
     return \@options;
@@ -111,26 +115,89 @@ sub _table
   {
 
     my @tableHead = (
+		     new EBox::Types::Service(
+					      fieldName     => 'service',
+					      printableName => __('Service'),
+					      class         => 'tcenter',
+					      type          => 'service',
+					      size          => 10,
+					      unique        => 0, # not unique
+					      editable      => 1, # editable
+					      optional      => 1,
+					     ),
+		     new EBox::Types::Union(
+					    fieldName     => 'source',
+					    printableName => __('Source'),
+					    class         => 'tcenter',
+					    type          => 'union',
+					    optional      => 1,
+					    subtypes      => 
+					    [
+					     new EBox::Types::IPAddr(
+								     fieldName     => 'source_ipaddr',
+								     printableName => __('Source IP'),
+								     class         => 'tcenter',
+								     type          => 'ipaddr',
+								     unique        => 0,
+								     editable      => 1,
+								     optional      => 1),
+					     new EBox::Types::MACAddr(
+								      fieldName     => 'source_macaddr',
+								      printableName => __('Source MAC'),
+								      class         => 'tcenter',
+								      type          => 'macaddr',
+								      unique        => 0,
+								      editable      => 1,
+								      optional      => 1),
+					     new EBox::Types::Select(
+								     fieldName     => 'source_object',
+								     printableName => __('Source object'),
+								     class         => 'tcenter',
+								     type          => 'select',
+								     unique        => 0,
+								     editable      => 1)
+					     ],
+					    size     => 16,
+					    unique   => 0,
+					    editable => 1,
+					   ),
+		     new EBox::Types::Union(
+					    fieldName     => 'destination',
+					    printableName => __('Destination'),
+					    class         => 'tcenter',
+					    type          => 'union',
+					    optional      => 1,
+					    subtypes      =>
+					    [
+					     new EBox::Types::IPAddr(
+								     fieldName     => 'destination_ipaddr',
+								     printableName => __('Destination IP'),
+								     class         => 'tcenter',
+								     type          => 'ipaddr',
+								     unique        => 0,
+								     editable      => 1,
+								     optional      => 1),
+					     new EBox::Types::Select(
+								     fieldName     => 'destination_object',
+								     printableName => __('Destination object'),
+								     class         => 'tcenter',
+								     type          => 'select',
+								     unique        => 0,
+								     editable      => 1)
+					     ],
+					    size     => 16,
+					    unique   => 0,
+					    editable => 1,
+					   ),
 		     new EBox::Types::Select(
-					     fieldName     => 'protocol',
-					     printableName => __('Protocol'),
+					     fieldName     => 'priority',
+					     printableName => __('Priority'),
 					     class         => 'tcenter',
 					     type          => 'select',
-					     size          => 5,
-					     unique        => 0, # not unique
-					     editable      => 1, # editable
-					     optional      => 0, # not optional
+					     unique        => 0,
+					     editable      => 1,
+					     optional      => 1,
 					    ),
-		     new EBox::Types::Int(
-					  fieldName     => 'port',
-					  printableName => __('Port'),
-					  class         => 'tcenter',
-					  type          => 'int',
-					  size          => 5, # Max: 5 digits
-					  unique        => 0, # not unique
-					  editable      => 1, # editable
-					  optional      => 0, # not optional
-					 ),
 		     new EBox::Types::Int(
 					  fieldName     => 'guaranteed_rate',
 					  printableName => __('Guaranteed Rate'),
@@ -167,12 +234,14 @@ sub _table
 				  },
 		     'tableDescription'   => \@tableHead,
 		     'class'              => 'dataTable',
-		     'order'              => 1,
+		     # Priority field set the ordering through _order function
+		     'order'              => 0,
 		     'help'               => __('Adding a rule to the interface should be done following ' .
 						'maximum rate allowed to that interface and the sum of the ' .
 						'different guaranteed rates should be at much as the total ' .
 						'rate allowed. No limited rate or zero means unlimited rate ' .
-					        'in terms of bandwidth link'),
+					        'in terms of bandwidth link. At least, one should be provided.' .
+					        'In order to identify a rule, an attribute should be given.'),
 		     'rowUnique'          => 1,  # Set each row is unique
 		     'printableRowName' => __('rule'),
 		    };
@@ -181,14 +250,27 @@ sub _table
 
   }
 
+# Method: _tailoredOrder
+#
+#        Overrides <EBox::Model::DataTable::_tailoredOrder>
+#
+#
+sub _tailoredOrder # (rows)
+  {
+
+    my ($self, $rows_ref) = @_;
+
+    # Order rules per priority
+    my @orderedRows = sort { $a->{valueHash}->{priority}->value() <=> $b->{valueHash}->{priority}->value() }
+      @{$rows_ref};
+
+    return \@orderedRows;
+
+  }
+
 # Method: validateRow
 #
-#       This method validates each row which is changed, updated ...
-#
-# Parameters:
-#
-#       params - hash ref with all the fields and their values from
-#       the new rule
+#       Override <EBox::Model::DataTable::validateRow> method
 #
 # Exceptions:
 #
@@ -202,24 +284,64 @@ sub _table
 sub validateRow
   {
 
-    my ($self, %ruleParams) = @_;
+    my ($self, $action, %ruleParams) = @_;
 
-    # if ( $type eq 'add' ) {
-    if (not defined($ruleParams{id}) ) {
+    # It's only necessary to check the rates and object names, remainder are checked by model
+    if ( defined ( $ruleParams{source_selected} ) ) {
+      if ( $ruleParams{source_selected} eq 'source_ipaddr' and
+	   $ruleParams{source_ipaddr_ip} ne '' ) {
+	$ruleParams{source} = new EBox::Types::IPAddr(
+						      ip   => delete ( $ruleParams{source_ipaddr_ip} ),
+						      mask => delete ( $ruleParams{source_ipaddr_mask} ),
+						     );
+      } elsif ( $ruleParams{source_selected} eq 'source_macaddr' and
+	   $ruleParams{source_macaddr} ne '' ) {
+	$ruleParams{source} = new EBox::Types::MACAddr(
+						       value   => delete ( $ruleParams{source_macaddr} ),
+						      );
+      } elsif ( $ruleParams{source_selected} eq 'source_object' ) {
+	$ruleParams{source} = delete ( $ruleParams{source_object} );
+      }
+    }
+
+    if ( defined ( $ruleParams{destination_selected} ) ){
+      if ( $ruleParams{destination_selected} eq 'destination_ipaddr' and
+	   $ruleParams{destination_ipaddr_ip} ne '' ) {
+	$ruleParams{destination} = new EBox::Types::IPAddr(
+							   ip   => delete ( $ruleParams{destination_ipaddr_ip} ),
+							   mask => delete ( $ruleParams{destination_ipaddr_mask} ),
+							  );
+      } elsif ( $ruleParams{destination_selected} eq 'destination_object' ) {
+	$ruleParams{destination} = delete ( $ruleParams{destination_object} );
+      }
+    }
+
+    $ruleParams{service} = EBox::Types::Service->new(
+						     protocol => delete ( $ruleParams{service_protocol} ),
+						     port     => delete ( $ruleParams{service_port} ),
+						    );
+
+
+    if ( $action eq 'add' ) {
+#    if (not defined($ruleParams{id}) ) {
       # Adding a new rule
       $self->{ts}->checkRule(interface      => $self->{interface},
-			     protocol       => $ruleParams{protocol},
-			     port           => $ruleParams{port},
+			     service        => $ruleParams{service},
+			     source         => $ruleParams{source},
+			     destination    => $ruleParams{destination},
+			     priority       => $ruleParams{priority},
 			     guaranteedRate => $ruleParams{guaranteed_rate},
 			     limitedRate    => $ruleParams{limited_rate},
 			    );
     }
-    # elsif ( $type eq 'update' ) {
-    else {
+    elsif ( $action eq 'update' ) {
+#    else {
       # Updating a rule
       $self->{ts}->checkRule(interface      => $self->{interface},
-			     protocol       => $ruleParams{protocol},
-			     port           => $ruleParams{port},
+			     service        => $ruleParams{service},
+			     source         => $ruleParams{source},
+			     destination    => $ruleParams{destination},
+			     priority       => $ruleParams{priority},
 			     guaranteedRate => $ruleParams{guaranteed_rate},
 			     limitedRate    => $ruleParams{limited_rate},
 			     ruleId         => $ruleParams{id},
@@ -243,23 +365,34 @@ sub addedRowNotify
 
     my ($self, $row_ref) = @_;
 
-    my $protocol = $row_ref->{valueHash}->{'protocol'}->value();
-    my $port = $row_ref->{valueHash}->{'port'}->value();
+#    my $protocol = $row_ref->{valueHash}->{'service'}->protocol();
+#    my $port = $row_ref->{valueHash}->{'service'}->port();
+#
+#    # Source
+#    my $source = $row_ref->{valueHash}->{'source'}->subtype()->value();
+#
+#    # Destination
+#    my $destination = $row_ref->{valueHash}->{'destination'}->subtype()->value();
+
     my $guaranteedRate = $row_ref->{valueHash}->{'guaranteed_rate'}->value();
     my $limitedRate = $row_ref->{valueHash}->{'limited_rate'}->value();
 #    my $enabled        = $row_ref->{valueHash}->{enabled}->value();
 
     # Get priority from order
-    my $priority = $row_ref->{order};
+    my $priority = $row_ref->{priority};
+
+    # Now addRule doesn't need any argument since it's already done by model
 
     $self->{ts}->addRule(
 			 interface      => $self->{interface},
-			 protocol       => $protocol,
-			 port           => $port,
+#			 protocol       => $protocol,
+#			 source         => $source,
+#			 destination    => $destination,
+#			 port           => $port,
 			 guaranteedRate => $guaranteedRate,
 			 limitedRate    => $limitedRate,
-			 priority       => $priority,
-			 enabled        => 'true',
+#			 priority       => $priority,
+			 enabled        => 'enabled',
 			);
 
   }
@@ -275,34 +408,7 @@ sub deletedRowNotify
 
     $self->{ts}->removeRule(
 			    interface      => $self->{interface},
-			    ruleId         => $row_ref->{id},
 			   );
-
-  }
-
-# Method: movedDownRowNotify
-#
-#        See <EBox::Model::DataTable::movedDownRowNotify>
-#
-sub movedDownRowNotify
-  {
-
-    my ($self, $row_ref) = @_;
-
-    $self->_updatePriority($row_ref);
-
-  }
-
-# Method: movedUpRowNotify
-#
-#        See <EBox::Model::DataTable::movedUpRowNotify>
-#
-sub movedUpRowNotify
-  {
-
-    my ($self, $row_ref) = @_;
-
-    $self->_updatePriority($row_ref);
 
   }
 
@@ -315,22 +421,10 @@ sub updatedRowNotify
 
     my ($self, $row_ref) = @_;
 
-    my $protocol = $row_ref->{valueHash}->{'protocol'}->value();
-    my $port = $row_ref->{valueHash}->{'port'}->value();
-    my $guaranteedRate = $row_ref->{valueHash}->{'guaranteed_rate'}->value();
-    my $limitedRate = $row_ref->{valueHash}->{'limited_rate'}->value();
-#    my $enabled        = $row_ref->{valueHash}->{enabled}->value();
-
-    my $priority       = $row_ref->{order};
     my $ruleId         = $row_ref->{id};
 
     $self->{ts}->updateRule( interface      => $self->{interface},
 			     ruleId         => $ruleId,
-#			     protocol       => $protocol,
-#			     port           => $port,
-#			     guaranteedRate => $guaranteedRate,
-#			     limitedRate    => $limitedRate,
-			     priority       => $priority,
 			   );
 
   }
@@ -339,20 +433,25 @@ sub updatedRowNotify
 # Private methods
 ####################################################
 
-# Update priority
-sub _updatePriority
-  {
+# Get the objects from Objects module
+# Return an array ref with a hash
+# ref within each element with the attributes value and printableValue
+sub _objects
+{
+	my $self = shift;
 
-    my ($self, $row_ref) = @_;
+	my $objects = EBox::Global->modInstance('objects');
 
-    my $ruleId   = $row_ref->{id};
-    my $priority = $row_ref->{order};
+	my @options;
+	foreach my $object (@{$objects->ObjectsArray()}) {
+		push (@options, { 
+				 'value' => $object->{'name'},
+				 'printableValue' => $object->{'description'}
+				 });
+	}
 
-    $self->{ts}->updateRule(interface => $self->{interface},
-			    ruleId    => $ruleId,
-			    priority  => $priority,
-			   );
+	return \@options;
+}
 
-  }
 
 1;

@@ -58,7 +58,7 @@ sub new
 #
 # Exceptions:
 #
-#       <EBox::Exceptions::DataNotFound> - if no opts are passed
+#       <EBox::Exceptions::MissingArgument> - if no opts are passed
 #       <EBox::Exceptions::Sudo::Command> - if tc does NOT properly
 #
 #
@@ -66,11 +66,11 @@ sub tc
 {
 	my ($self, $opts) = @_;
 
-	throw EBox::Exceptions::DataNotFound( data => __('options'))
+	throw EBox::Exceptions::MissingArgument( __('options') )
 	  unless ($opts);
 
 	try {
-	  root("/sbin/tc $opts");
+	  root( TC_CMD . " $opts");
 	} catch EBox::Exceptions::Sudo::Command with {
 	  # Catching exception from tc command
 	  my $exception = shift;
@@ -97,14 +97,14 @@ sub tc
 #
 # Exceptions:
 #
-#       EBox::Exceptions::DataNotFound - if no interface is given
+#       <EBox::Exceptions::MissingArgument> - if no interface is given
 #
 sub reset
   {
 
     my ($self, $interface) = @_;
 
-    throw EBox::Exceptions::DataNotFound( data => __('interface'))
+    throw EBox::Exceptions::MissingArgument( __('Interface') )
       unless ($interface);
 
     $self->tc("qdisc del dev $interface root");
@@ -120,10 +120,7 @@ sub reset
 #        tcCommands_ref - an array reference to a serie of tc commands
 #        (each command have only the arguments)
 #
-# Exceptions:
-#
-#       EBox::Exceptions::DataNotFound - if no interface is given
-#
+
 sub execute # (tcCommands_ref)
   {
 
