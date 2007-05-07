@@ -22,7 +22,7 @@ if ( $helpMessage eq '' ) {
   <% $helpMessage %>
 </div>
 
-<h3> <% $multiTableModel_ref->printableName() %> </h3>
+<h3><% $multiTableModel_ref->printableName() %></h3>
 
 <%perl>
   my @selectOptions;

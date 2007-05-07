@@ -133,7 +133,6 @@ if ($rowEdit) {
 			
 			<tbody>			
 
-
 %	for ( my $idx; $idx < scalar(@data); $idx++) {
 %           my  $row = $data[$idx];
 				<tr class='border' id="<% $row->{"id"} %>">
@@ -281,19 +280,55 @@ for my $mask (32, 30, 29, 28, 27, 26, 25, 24, 16, 8) {
 
 </%init>
 % my $id = $tableName . '_' . $data->fieldName();
-
-<span id="<% $id %>">
-					<input type="text" class="inputText <% $cssClass %>" value="<% $data->ip() %>"
+<span id="<% $id %>" class="<% $cssClass %>">
+					<input type="text" class="inputText" value="<% $data->ip() %>"
 						size="16" id='<% $id . '_ip' %>' name='<% $id . '_ip' %>' />
-					<span class="<% $cssClass %>">/</span>
+					<span>/</span>
 
 					<& /input/select.mas,  
 							'name' => $id . '_ip' , 
 							'value' => $data->mask(), options => \@options,
 							'extraParams' => [ id => "$id" . "_mask",
-									   class => "$cssClass",
 									 ],
 							&>
+</span>
+
+</%def>
+
+<%def .serviceSetter>
+<%args>
+$tableName
+$data
+$cssClass => ''
+</%args>
+<%init>
+</%init>
+% my $id = $tableName . '_' . $data->fieldName();
+<!-- Store a list with protocols which needs a port -->
+<script type="text/javascript">
+  <% $data->protocolsJS() %>
+  showPort('<% $id %>_protocol', '<% $id %>_portText', protocols);
+</script>
+
+<span id="<% $id %>" class="<% $cssClass %>">
+					<& /input/select.mas,
+							'name' => $id . '_protocol' ,
+							'value' => $data->protocol(),
+							 options => $data->protocols(),
+							'extraParams' => [ id => "$id" . "_protocol",
+									   onchange => "showPort('" . $id . "_protocol'," .
+                                                                                                 "'" . $id . "_portText'," .
+                                                                                                 "protocols)",
+                                                                         ],
+							&>
+					<span id="<% $id . '_portText' %>" class="hidden">
+					  <%__('port')%>
+					  <input type="text" class="inputText"
+					         value="<% $data->port() %>"
+					         size="5" id ="<% $id . '_port' %>"
+						 name='<% $id . '_port' %>' />
+					</span>
+
 </span>
 
 </%def>

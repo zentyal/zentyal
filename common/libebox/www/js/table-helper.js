@@ -18,13 +18,12 @@ function addNewRow(url, table, fields, directory)
 		var field = fields[i];
 		var value = $F(table + '_' + field);
 		if (value) {
-			if (pars.length != 0) {
+		  if (pars.length != 0) {
 				pars += '&';
 			}
 			pars += field + '=' + value;
 		}
 	}
-
 
 	var MyAjax = new Ajax.Updater(
 		{
@@ -230,7 +229,7 @@ function hangTable(successId, errorId, url, formId)
   url,
       {
 	method: 'post',
-	parameters: Form.serialize(formId,true), // The parameters are taken from the form
+	parameters: Form.serialize(formId, true), // The parameters are taken from the form
 	asynchronous: true,
 	onComplete: function(t) {
 	  restoreHidden('loadingTable');
@@ -271,13 +270,46 @@ function showSelected (selectId, nodeId, tableName)
       // I'd like to use constant but in IE 6 simply they don't exist
       if ( node.nodeType == 1 /* Node.ELEMENT_NODE */ ) {
 	if ( node.id == selectedValue ) {
-	  Element.removeClassName( node.id, "hidden" );
+	  show( node.id );
 	} 
 	else {
-	  Element.addClassName(node.id, "hidden" );
+	  hide( node.id );
 	}
       }
     }
+  }
+
+}
+
+/*
+Function: showPort
+
+      Show port if it's necessary given a protocol
+
+Parameters:
+
+        protocolSelectId - the select identifier which the protocol is chosen
+	portId   - the identifier where port is going to be set
+	protocols - the list of protocols which need a port to be set
+
+*/
+function showPort(protocolSelectId, portId, protocols)
+{
+
+  var selectedIdx = $(protocolSelectId).selectedIndex;
+  var selectedValue = $(protocolSelectId).options[selectedIdx].value;
+
+  var found = false;
+  // Search the selected value into the array to know if it needs a port or not
+  for ( var idx = 0; idx < protocols.length && ! found; idx++) {
+    if ( selectedValue == protocols[idx] ) {
+      found = true;
+      show(portId);
+    }
+  }
+
+  if (! found) {
+    hide(portId);
   }
 
 }

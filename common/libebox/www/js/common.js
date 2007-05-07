@@ -138,3 +138,37 @@ function selectDefault (selectId) {
   }
 
 }
+
+/*
+Function: hide
+
+        Hide an element
+
+Parameters:
+
+        elementId - the node to show or hide
+
+*/
+function hide(elementId)
+{
+
+  Element.addClassName(elementId, 'hidden');
+
+}
+
+/*
+Function: show
+
+        Show an element
+
+Parameters:
+
+        elementId - the node to show or hide
+
+*/
+function show(elementId)
+{
+
+  Element.removeClassName(elementId, 'hidden');
+
+}

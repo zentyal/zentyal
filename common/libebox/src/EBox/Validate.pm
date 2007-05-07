@@ -388,11 +388,19 @@ sub checkProtocol # (protocol, name?)
 	my $proto = shift;
 	my $name = shift;
 
-	if ($proto eq "tcp") {
+	# FIXME: Ask for them to <EBox::Types::Service> -> Double dependency
+	if ($proto eq 'tcp' ) {
 		return 1;
-	} elsif ($proto eq "udp") {
+	} elsif ($proto eq 'udp' ) {
 		return 1;
-	} else {
+	} elsif ($proto eq 'all' ) {
+	        return 1;
+	} elsif ($proto eq 'icmp') {
+	        return 1;
+	} elsif ($proto eq 'gre' ) {
+	        return 1;
+	}
+	else {
 		if ($name) {
 			throw EBox::Exceptions::InvalidData
 				('data' => $name, 'value' => $proto);
