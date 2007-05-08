@@ -1,5 +1,3 @@
-<!-- vim: ts=4 sw=4 nowrap filetype=mason
--->
 <%args>
 	$deny
 	@objects => ()
@@ -52,12 +50,14 @@ use EBox::Gettext;
 </%args>
 <h3><% __(q{Filtering rules for eBox's services}) %></h3>
 <div class='help'>
-<% __('This link is to control which extra services in the server are
+<% __('This link is intended to control which services in the server are
 allowed or forbidden to the clients. You may also choose an object and set up  the services it may
 access.') %>
 </div>
 	<p>
-		<a href="ObjectService?object=_global"><% __('Configure default rules') %></a>
+		<a href="ObjectService?object=_global">
+                  <% __('Configure default rules related to eBox services') %>
+                </a>
 	</p>
 	<& .perObjectForm, action => 'ObjectService', objects => \@objects &>
 </%def>
