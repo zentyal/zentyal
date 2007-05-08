@@ -1663,7 +1663,11 @@ sub restoreConfig
     # Destroy previous CA
     $self->destroyCA();
     # Restoring all OpenSSL directory tree where Certs/keys and DB are stored
-    dircopy($dir . "/CA", CATOPDIR);
+    my $dataDir = $dir . '/CA';
+    if (-d $dataDir) {
+      dircopy($dataDir, CATOPDIR);
+    }
+
     # Restoring OpenSSL config file
     fcopy($dir . "/openssl.cnf", SSLCONFFILE);
 
