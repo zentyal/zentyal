@@ -241,7 +241,8 @@ sub _table
 						'different guaranteed rates should be at much as the total ' .
 						'rate allowed. No limited rate or zero means unlimited rate ' .
 					        'in terms of bandwidth link. At least, one should be provided.' .
-					        'In order to identify a rule, an attribute should be given.'),
+					        'In order to identify a rule, an attribute should be given.' .
+					        'Highest priority: 0 lowest priority: 7'),
 		     'rowUnique'          => 1,  # Set each row is unique
 		     'printableRowName' => __('rule'),
 		    };
