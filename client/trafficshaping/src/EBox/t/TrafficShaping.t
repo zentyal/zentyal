@@ -109,7 +109,7 @@ SKIP: {
 }
 
 my $ruleModel;
-lives_ok { $ruleModel = $ts->ruleModel('eth1') }
+lives_ok { $ruleModel = $ts->ruleModel('eth0') }
   'Getting rule model for an interface';
 
 lives_ok { $ruleModel->addRow(
@@ -187,7 +187,7 @@ throws_ok { $ruleModel->addRow(
 	  } EBox::Exceptions::External,
   'Missing port in strict service type';
 
-throws_ok{ $ts->ruleModel('eth0')
+throws_ok{ $ts->ruleModel('etth0')
 	 } EBox::Exceptions::External,
   'Bad interface';
 
@@ -308,7 +308,7 @@ throws_ok { $ruleModel->addRow(
 	  } EBox::Exceptions::InvalidData,
   'Bad priority';
 
-my $rules_ref = $ts->listRules('eth1');
+my $rules_ref = $ts->listRules('eth0');
 
 cmp_ok ( scalar(@{$rules_ref}), '==', 5,
 	 'Checking rules were added correctly'
@@ -330,7 +330,7 @@ lives_ok { $ruleModel->removeRow( $idToRemove )
 	 }
   'Remove rule';
 
-$rules_ref = $ts->listRules('eth1');
+$rules_ref = $ts->listRules('eth0');
 
 cmp_ok ( scalar(@{$rules_ref}), '==', 4,
 	 'Rule correctly removed');
@@ -344,15 +344,15 @@ SKIP: {
        'Checking correctly enabled');
 }
 
-my $oldRule = $ts->listRules('eth1')->[0];
+my $oldRule = $ts->listRules('eth0')->[0];
 
 throws_ok { $ruleModel->setRow(
 			      id => $rules_ref->[0]->{ruleId},
-			     )
+			      )
 	  } EBox::Exceptions::MissingArgument,
   'Non updating';
 
-my $ruleId = $ts->listRules('eth1')->[0]->{ruleId};
+my $ruleId = $ts->listRules('eth0')->[0]->{ruleId};
 
 lives_ok { $ruleModel->setRow(
 			      id               => $ruleId,
@@ -369,7 +369,7 @@ lives_ok { $ruleModel->setRow(
 	 }
   'Updating a rule';
 
-my $updatedRule = $ts->listRules('eth1')->[0];
+my $updatedRule = $ts->listRules('eth0')->[0];
 
 my $service = EBox::Types::Service->new ( fieldName => 'service',
 					  protocol  => 'tcp',
@@ -407,10 +407,10 @@ lives_ok { $ruleModel->addRow(
 	 }
   'Adding third correct rule';
 
-cmp_ok( $ts->getLowestPriority('eth1', 'search'), '==', 5,
+cmp_ok( $ts->getLowestPriority('eth0', 'search'), '==', 5,
 	'Checking adding lowest priority');
 
-$rules_ref = $ts->listRules('eth1');
+$rules_ref = $ts->listRules('eth0');
 
 # Get the rule id from recently created rule
 foreach my $rule_ref (@{$rules_ref}) {
@@ -429,6 +429,6 @@ lives_ok { $ruleModel->removeRow(
 	 }
   'Removing last added';
 
-cmp_ok( $ts->getLowestPriority('eth1', 'search'), '==', 5,
+cmp_ok( $ts->getLowestPriority('eth0', 'search'), '==', 5,
 	'Checking updating lowest priority');
 

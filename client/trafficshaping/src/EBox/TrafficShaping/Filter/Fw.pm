@@ -25,6 +25,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::TrafficShaping;
 
 use constant MARK_MASK => '0xFF00';
+use constant LOWEST_PRIORITY => 7;
 
 # Constructor: new
 #
@@ -61,6 +62,9 @@ use constant MARK_MASK => '0xFF00';
 #                   packet source to match *(Optional)*
 #       dstAddr   - <EBox::Types::MACAddr> the packet destination to match
 #                   *(Optional)*
+#       matchPrio - int (0-7) the priority which will have at the
+#                   iptables matching *(Optional)* Default value:
+#                   lowest priority = 7
 #
 #       If none is provided, the default redundant mark will be applied
 #       - Named parameters
@@ -94,7 +98,7 @@ sub new
     # Check flowId has the correct keys
     if ( not( defined( $args{flowId}->{rootHandle} ) and
 	      defined( $args{flowId}->{classId} ) )) {
-      throw EBox::Exceptions::InvalidType( 'flowId', 
+      throw EBox::Exceptions::InvalidType( 'flowId',
 			 'a hash with rootHandle and classId as arguments');
     }
     # Check protocol
@@ -158,6 +162,10 @@ sub new
       $self->{dstIP} = $args{dstAddr}->ip();
       $self->{dstNetMask} = $args{dstAddr}->mask();
     }
+
+    # Iptables priority
+    $self->{matchPrio} = $args{matchPrio};
+    $self->{matchPrio} = LOWEST_PRIORITY unless defined ( $self->{matchPrio} );
 
     bless($self, $class);
 
@@ -342,6 +350,9 @@ sub dumpIptablesCommands
       my $leadingStr = "-t mangle -A $shaperChain ";
       my $trailingStr = "-j MARK --set-mark $mark";
       my $mediumStr = q{};
+
+      # Mark if the packet is not already marked
+      $mediumStr .= '-m mark --mark 0/' . MARK_MASK . ' ';
       $mediumStr .= "--protocol $protocol " if ( defined ( $protocol ));
       $mediumStr .= "--sport $sport " if ( $sport );
       $mediumStr .= "--source $srcIP" if ( defined ( $srcIP ));
@@ -366,7 +377,7 @@ sub dumpIptablesCommands
     } else {
       # Set redundant mark to send to default one
       push(@ipTablesCommands,
-	   "-t mangle -A $shaperChain -m mark --mark 0 " .
+	   "-t mangle -A $shaperChain -m mark --mark 0/" . MARK_MASK . ' ' .
 	   "-j MARK --set-mark $mark"
 	  );
     }

@@ -77,7 +77,7 @@ sub new
 #
 # Parameters:
 #
-#      filter - a <EBox::TrafficShaping::FwFilter> to attach to qdisc
+#      filter - a <EBox::TrafficShaping::Filter::Fw> to attach to qdisc
 #
 # Exceptions:
 #
@@ -140,7 +140,7 @@ sub deAttachFilter
 
   }
 
-# Method: getFilters
+# Method: filters
 #
 #      Get the filters associated to the qdisc
 #
@@ -148,7 +148,7 @@ sub deAttachFilter
 #
 #      array ref - containing <EBox::TrafficShaping::Filter::Fw>
 #
-sub getFilters
+sub filters
   {
 
     my ($self) = @_;
@@ -156,6 +156,32 @@ sub getFilters
     return $self->{filters};
 
   }
+
+# Method: orderedFilters
+#
+#      Get the filters associated to the qdisc ordered by the iptables
+#      priority
+#
+# Returns:
+#
+#      array ref - containing <EBox::TrafficShaping::Filter::Fw>
+#
+sub orderedFilters
+  {
+
+    my ($self) = @_;
+
+    my @orderedFilters = sort {
+                               $a->attribute('matchPrio')
+				 <=>
+			       $b->attribute('matchPrio')
+                              }
+      @{$self->{filters}};
+
+    return \@orderedFilters;
+
+  }
+
 
 # Method: setParent
 #
@@ -265,7 +291,7 @@ sub dumpIptablesCommands
 
     my @iptCommands;
     # Dump from each filter attached to the qdisc
-    foreach my $filter (@{$self->{filters}}) {
+    foreach my $filter (@{$self->orderedFilters()}) {
       # Add every iptables command created by each filter
       push(@iptCommands, @{$filter->dumpIptablesCommands});
     }

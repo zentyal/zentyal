@@ -169,14 +169,15 @@ sub buildRoot # (defaultClass, rate)
     $leafQDisc->setParent( $leafNode );
 
     # Filter to default class
-    my $defaultFilter = EBox::TrafficShaping::Filter::Fw->new(
-							    flowId   => { rootHandle => 1,
-									  classId    => $defaultClass,
-									},
-							    mark     => $defaultClass,
-							    prio     => 0,
-							    parent   => $rootQDisc,
-							   );
+    my $defaultFilter = new EBox::TrafficShaping::Filter::Fw(
+							     flowId    => { rootHandle => 1,
+									    classId    => $defaultClass,
+									  },
+							     mark      => $defaultClass,
+							     prio      => 0,
+							     parent    => $rootQDisc,
+							     matchPrio => 7,
+							    );
     # Attach filter to the root qdisc
     $rootQDisc->attachFilter( $defaultFilter );
 
@@ -316,18 +317,18 @@ sub buildRule
       # Filter to the new class attached to the root qdisc
       my $rootQDisc = $self->{treeRoot}->value();
 
-      my $filter = EBox::TrafficShaping::Filter::Fw->new(
-							 flowId    => {
-								       rootHandle => 1,
-								       classId    => $classId
-								      },
-							 mark      => $classId,
-    # I don't a point for priorizing filters             prio      => $args{priority},
-							 parent    => $rootQDisc,
-							 service   => $args{service},
-							 srcAddr   => $args{source},
-							 dstAddr   => $args{destination},
-							);
+      my $filter = new EBox::TrafficShaping::Filter::Fw(
+							flowId    => {
+								      rootHandle => 1,
+								      classId    => $classId
+								     },
+							mark      => $classId,
+						        parent    => $rootQDisc,
+							service   => $args{service},
+							srcAddr   => $args{source},
+							dstAddr   => $args{destination},
+							matchPrio => $args{priority},
+						       );
 
       # Attach filter to the root qdisc
       $rootQDisc->attachFilter( $filter );
@@ -381,7 +382,7 @@ sub updateRule
     my $leafClassId = $args{identifier};
 
     # Treat the argument
-    throw EBox::Exceptions::MissingArgument('leafClassId')
+    throw EBox::Exceptions::MissingArgument('identifier')
       unless defined( $leafClassId );
 
 #    if ( not( defined( $leafClassId->{minor} ) and
@@ -599,6 +600,7 @@ sub findLeafClassId
 #
 #    leafClassId - Int the leaf class identifier to direct traffic which
 #                  matches with the given filter value
+#    priority    - Int the filter priority
 #    srcAddr - a source address (<EBox::Types::IPAddr> or <EBox::Types::MACAddr>) *(Optional)*
 #    dstAddr - a destination address (<EBox::Types::IPAddr>) *(Optional)*
 #    service - a service (<EBox::Types::Service>)
@@ -622,9 +624,12 @@ sub addFilter
     my $srcAddr = delete $params{srcAddr};
     my $dstAddr = delete $params{dstAddr};
     my $id = delete $params{id};
+    my $priority = delete $params{priority};
 
     throw EBox::Exceptions::MissingArgument(__('Leaf class identifier'))
       unless defined ( $leafClassId );
+    throw EBox::Exceptions::MissingArgument('Filter priority')
+      unless defined ( $priority );
     throw EBox::Exceptions::MissingArgument(__('Service'))
       unless defined ( $service );
     throw EBox::Exceptions::MissingArgument(__('Address'))
@@ -642,18 +647,19 @@ sub addFilter
     # Set filter identifier
     $id = $leafClassId->{minor} unless ( defined ( $id ) );
 
-    $filter = EBox::TrafficShaping::Filter::Fw->new(
-						    identifier => $id,
-						    flowId     => {
-								   rootHandle => 1,
-								   classId    => $leafClassId->{minor}
-								  },
-						    mark       => $leafClassId->{minor},
-						    parent     => $rootQDisc,
-						    service    => $service,
-						    srcAddr    => $srcAddr,
-						    dstAddr    => $dstAddr,
-						   );
+    $filter = new EBox::TrafficShaping::Filter::Fw(
+						   identifier => $id,
+						   flowId     => {
+							          rootHandle => 1,
+								  classId    => $leafClassId->{minor}
+								 },
+						   mark       => $leafClassId->{minor},
+						   parent     => $rootQDisc,
+						   service    => $service,
+						   srcAddr    => $srcAddr,
+						   dstAddr    => $dstAddr,
+						   matchPrio  => $priority,
+						  );
 
     if ( $filter ) {
       # Attach to the qdisc
@@ -852,7 +858,7 @@ sub _findTargetFromFilter # (protocol, port)
     $port     = 0  unless defined ( $port );
 
     my $rootQDisc = $self->{treeRoot}->value();
-    my $filters_ref = $rootQDisc->getFilters();
+    my $filters_ref = $rootQDisc->filters();
 
     my @classesFound;
     foreach my $filter (@{$filters_ref}) {
@@ -882,7 +888,7 @@ sub _findFilterFromClass # (leafClassId)
     my ($self, $leafClassId) = @_;
 
     my $rootQDisc = $self->{treeRoot}->value();
-    my $filters_ref = $rootQDisc->getFilters();
+    my $filters_ref = $rootQDisc->filters();
 
     my $filterFound;
     foreach my $filter (@{$filters_ref}) {

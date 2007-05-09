@@ -998,7 +998,8 @@ sub _createRuleModels
 ###
 
 # Check interface existence and if it has gateways associated
-# Throw External exception if not, nothing otherwise
+# Throw External exception if not enough gateways to the external interface
+# Throw DataNotFound if the interface doesn't exist
 sub _checkInterface # (iface)
   {
 
@@ -1019,6 +1020,13 @@ sub _checkInterface # (iface)
 #				      );
 #    }
 
+    # If the interface doesn't exist, launch an DataNotFound exception
+    if ( not $network->ifaceExists( $iface )) {
+      throw EBox::Exceptions::DataNotFound( data => __('Interface'),
+					    value => $iface
+					  );
+    }
+
     # If it's an external interface, check the gateway
     if ( $network->ifaceIsExternal( $iface )) {
       # Check it has gateways associated
@@ -1033,6 +1041,8 @@ sub _checkInterface # (iface)
 					);
       }
     }
+
+    
 
     return;
 
@@ -1423,7 +1433,9 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
 				   objectName   => $rule_ref->{source},
 				   ruleRelated  => $rule_ref->{identifier},
 				   serviceAssoc => $rule_ref->{service},
-				   where        => $rule_ref->{destination});
+				   where        => $rule_ref->{destination},
+				   rulePriority => $rule_ref->{priority},
+				 );
 	}
 	elsif ( $dstObj and not $srcObj ) {
 	  $self->_buildObjMembers(
@@ -1433,6 +1445,7 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
 				  ruleRelated  => $rule_ref->{identifier},
 				  serviceAssoc => $rule_ref->{service},
 				  where        => $rule_ref->{source},
+				  rulePriority => $rule_ref->{priority},
 				 );
 	}
 	elsif ( $dstObj and $srcObj ) {
@@ -1442,6 +1455,7 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
 				 dstObject    => $rule_ref->{destination},
 				 ruleRelated  => $rule_ref->{identifier},
 				 serviceAssoc => $rule_ref->{service},
+				 rulePriority => $rule_ref->{priority},
 			       );
 	}
       }
@@ -1463,6 +1477,7 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
 #  - ruleRelated - the rule identifier assigned to the object
 #  - serviceAssoc - the service associated if any
 #  - where - the counterpart (<EBox::Types::IPAddr> or <EBox::Types::MACAddr>)
+#  - rulePriority - the rule priority
 sub _buildObjMembers
   {
 
@@ -1473,6 +1488,7 @@ sub _buildObjMembers
     my $ruleRelated = $args{ruleRelated};
     my $serviceAssoc = $args{serviceAssoc};
     my $where = $args{where};
+    my $rulePriority = $args{rulePriority};
 
     unless ( $objectName ) {
       return;
@@ -1503,6 +1519,7 @@ sub _buildObjMembers
       }
       $treeBuilder->addFilter(
 			      leafClassId => $ruleRelated,
+			      priority    => $rulePriority,
 			      srcAddr     => $srcAddr,
 			      dstAddr     => $dstAddr,
 			      service     => $serviceAssoc,
@@ -1534,6 +1551,7 @@ sub _buildObjMembers
 #  - dstObject - destination object's name
 #  - ruleRelated - the rule identifier assigned to the filters to add
 #  - serviceAssoc - the service associated if any
+#  - rulePriority - the rule priority
 sub _buildObjToObj
   {
 
@@ -1559,11 +1577,12 @@ sub _buildObjToObj
 					     );
 	$args{treeBuilder}->addFilter(
 				      leafClassId => $args{ruleRelated},
+				      priority    => $args{rulePriority},
 				      srcAddr     => $srcAddr,
 				      dstAddr     => $dstAddr,
 				      service     => $args{serviceAssoc},
-				      id          => $filterId
-				      );
+				      id          => $filterId,
+				     );
 	$filterId++;
       }
     }

@@ -28,8 +28,8 @@ EBox->init();
 
 my $ts = EBox::Global->modInstance('trafficshaping');
 
-my $tcCommands_ref = $ts->{builders}->{'eth1'}->dumpTcCommands();
-my $ipTablesCommands_ref = $ts->{builders}->{'eth1'}->dumpIptablesCommands();
+my $tcCommands_ref = $ts->{builders}->{'eth0'}->dumpTcCommands();
+my $ipTablesCommands_ref = $ts->{builders}->{'eth0'}->dumpIptablesCommands();
 
 print ( Dumper($tcCommands_ref) );
 print ( Dumper($ipTablesCommands_ref) );
