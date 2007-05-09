@@ -51,6 +51,8 @@ sub checkTemplateExecution
   if ($outputFile) {
     _printOutputFile($outputFile, $templateOutput);
   }
+
+  return $templateExecutionOk;
 }
 
 
