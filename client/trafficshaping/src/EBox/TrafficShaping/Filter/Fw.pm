@@ -25,7 +25,8 @@ use EBox::Exceptions::InvalidData;
 use EBox::TrafficShaping;
 
 use constant MARK_MASK => '0xFF00';
-use constant LOWEST_PRIORITY => 7;
+# The highest found is 7
+use constant LOWEST_PRIORITY => 200;
 
 # Constructor: new
 #

@@ -176,7 +176,6 @@ sub buildRoot # (defaultClass, rate)
 							     mark      => $defaultClass,
 							     prio      => 0,
 							     parent    => $rootQDisc,
-							     matchPrio => 7,
 							    );
     # Attach filter to the root qdisc
     $rootQDisc->attachFilter( $defaultFilter );
