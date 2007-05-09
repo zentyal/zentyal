@@ -1395,6 +1395,52 @@ sub restoreConfig
 }
 
 
+# Method: onInstall 
+#
+#	This method is meant to be used when the module is installed
+#	for first time. So far it is responsible to add the ldap
+#	service to the firewall module. It is a class method.
+#
+sub onInstall
+{
+	EBox::init();
+
+	my $global = EBox::Global->instance();
+	my $fw = $global->modInstance('firewall');
+
+	if (defined($fw->service('ldap'))) {
+		return;
+	}
+
+	$fw->addService('ldap', 'tcp', 389, 0);
+	$fw->setObjectService('_global', 'ldap', 'allow');
+
+	$fw->save();
+
+}
+
+# Method: onRemove 
+#
+#	This method is meant to be used when the module is removed. 
+#	So far it is responsible to remve the ldap service 
+#	from the firewall module. It is a class method
+#
+sub onRemove 
+{
+	EBox::init();
+
+	my $global = EBox::Global->instance();
+	my $fw = $global->modInstance('firewall');
+
+	unless (defined($fw->service('ldap'))) {
+		return;
+	}
+
+	$fw->removeService('ldap');
+
+	$fw->save();
+
+}
 
 
 1;
