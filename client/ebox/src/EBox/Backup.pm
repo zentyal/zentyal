@@ -552,7 +552,7 @@ sub _ensureBackupdirExistence
 # Exceptions:
 #	
 #	Internal - If backup fails
-#
+#       Exteanl   - If modules have unsaved changes
 sub makeBackup # (options) 
 {
   my ($self, %options) = @_;
@@ -565,8 +565,10 @@ sub makeBackup # (options)
 			  });
 
   my $time = strftime("%F", localtime);
- 
- my $backupdir = backupDir();
+
+  $self->_modulesReady();
+
+  my $backupdir = backupDir();
   _ensureBackupdirExistence();
 
   my $filename = $self->_makeBackup(%options);
@@ -576,6 +578,22 @@ sub makeBackup # (options)
   }
   
   return $self->_moveToArchives($filename, $backupdir);
+}
+
+
+sub _modulesReady
+{
+  my ($self) = @_;
+
+  my $global = EBox::Global->getInstance();
+  foreach my $modName (@{ $global->modNames }) {
+    if ($global->modIsChanged($modName)) {
+      throw EBox::Exceptions::External(
+	 __('Some modules has not saved changes. Before doing the backup you must'
+	    . ' save  or discard them' ) );				      
+    }
+}
+
 }
 
 sub  _moveToArchives
@@ -816,7 +834,7 @@ sub restoreBackup # (file, %options)
 	if (-e "$tempdir/eboxbackup/$modname.bak") {
 	  push @restored, $modname;
 	  EBox::debug("Restoring $modname from backup data");
-	  $mod->setAsChanged(); # we set as cahnged first because it is not guaranteed that
+	  $mod->setAsChanged(); # we set as changed first because it is not guaranteed that
 	  $mod->restoreBackup("$tempdir/eboxbackup", %options);
 	  $self->_migratePackage($mod->package());
 
@@ -828,7 +846,8 @@ sub restoreBackup # (file, %options)
     } 
     otherwise {
       my $ex = shift;
-      EBox::debug('Error caught: revoking restore');
+      EBox::error('Error while restoring: ' . $ex->text());
+      EBox::debug('Error caught: revoking restore for all modules');
       foreach my $restname (@restored) {
 	my $restmod = EBox::Global->modInstance($restname);
 	$restmod->revokeConfig();
@@ -839,10 +858,6 @@ sub restoreBackup # (file, %options)
       throw $ex;
     };
 
-    # all resotred modules are marked as changed
-    foreach my $mod (@modules) {
-      $mod->setAsChanged();
-    }
 
     EBox::info('Restore successful');
   }

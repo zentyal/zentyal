@@ -78,6 +78,14 @@ sub _state
 }
 
 
+
+sub saveAsBaseline
+{
+  my ($self) = @_;
+  $self->_backup();
+}
+
+
 # we override aroundRestoreconfig to save gconf data before dump module config
 sub aroundRestoreConfig
 {

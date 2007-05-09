@@ -153,6 +153,11 @@ sub masonParameters
   my $backup = EBox::Backup->new();
   push @params, (backups => $backup->listBackups());
 
+  my $global = EBox::Global->getInstance();
+  my $modulesChanged = grep { $global->modIsChanged($_) } @{ $global->modNames() };
+  push @params, (modulesChanged => $modulesChanged);
+
+
   my $readOpticalDisk   = 0;
   my $writeOpticalDisk = 0;
   try {

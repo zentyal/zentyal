@@ -168,6 +168,9 @@ sub setGConfCanary
 {
   my ($value) = @_;
   _setGConfString($GCONF_CANARY_KEY, $value);
+
+  my $canaryConf = EBox::Global->modInstance('canaryGConf');
+  $canaryConf->setAsChanged();
 }
 
 sub setExtendedCanary
@@ -179,6 +182,8 @@ sub setExtendedCanary
   my $canaryExtended = EBox::Global->modInstance('canaryExtended');
   $canaryExtended->setCanary($value);
   $canaryExtended->setVersion($CANARY_MODULE_VERSION);
+  $canaryExtended->setAsChanged();
+
   die 'canary not changed' if $canaryExtended->canary() ne $value;
 }
  
@@ -192,6 +197,8 @@ sub setMixedConfCanary
 
   my $canaryMixedConf = EBox::Global->modInstance('canaryMixedConf');
   $canaryMixedConf->setCanary($value);
+  $canaryMixedConf->setAsChanged();
+
   die 'canary not changed' if $canaryMixedConf->canary() ne $value;
 }
 
@@ -267,6 +274,7 @@ sub checkMixedConfCanary
 
 
 
+
 sub teardownGConfCanary : Test(teardown)
 {
 
@@ -282,7 +290,7 @@ sub teardownCanaryModule : Test(teardown)
   EBox::TestStubs::setConfig(); 
 }
 
-# that counts for 7 tests
+# that counts for 8 tests
 sub checkStraightRestore
 {
   my ($archiveFile, $options_r, $msg) = @_;
@@ -293,6 +301,31 @@ sub checkStraightRestore
 
   my %options = @{ $options_r  };
   checkCanaries('beforeBackup', $options{fullRestore});
+
+  checkModulesChanged(
+	name => 'Checking wether all restored modules have the changed state set' 
+		     );
+}
+
+
+sub checkModulesChanged
+{
+  my %params = @_;
+  my $name  = $params{name};
+
+  my $global = EBox::Global->getInstance();
+
+  my @modules;
+  if (exists $params{modules}) {
+    @modules = @{ $params{modules} };
+  }
+  else {
+    @modules = @{ $global->modNames() };
+  }
+
+  my @modulesChanged =  grep {  $global->modIsChanged($_) } @modules;
+
+  is_deeply [sort @modulesChanged], [sort @modules], $name;
 }
 
 
@@ -308,6 +341,22 @@ sub checkDeviantRestore
   diag "Checking that failed restore has not changed the configuration";
   checkCanaries('afterBackup', 1);
 }
+
+
+sub checkMakeBackup
+{
+  my @backupParams = @_;
+
+  my $global = EBox::Global->getInstance();
+  $global->saveAllModules();
+
+  my $backupArchive;
+  my $b = new EBox::Backup;
+  lives_ok { $backupArchive = $b->makeBackup(@backupParams)  } 'Checking wether backup is correctly done';
+  
+  return $backupArchive;
+}
+
 
 # this requires a correct testdata dir
 sub invalidArchiveTest : Test(35)
@@ -342,25 +391,23 @@ sub _testdataDir
   return $dir;
 }
 
-sub restoreConfigurationBackupTest : Test(16)
+sub restoreConfigurationBackupTest : Test(18)
 {
   my ($self) = @_;
-
-  my $backup = new EBox::Backup();
-  my $configurationBackup;
-  my $fullBackup;
  
+  my $configurationBackup;
   setCanaries('beforeBackup');
-  lives_ok { $configurationBackup = $backup->makeBackup(description => 'test configuration backup') } 'make a configuration backup';
+  $configurationBackup = checkMakeBackup(description => 'test configuration backup');
   checkStraightRestore($configurationBackup, [fullRestore => 0], 'configuration restore from a configuration backup');
 
+  my $fullBackup;
   setCanaries('beforeBackup');
-  lives_ok { $fullBackup = $backup->makeBackup(description => 'test full backup', fullBackup => 1) } 'make a full backup';
+  $fullBackup = checkMakeBackup(description => 'test full backup', fullBackup => 1);
   checkStraightRestore($fullBackup, [fullRestore => 0], 'configuration restore from a full backup');
 }
 
 
-sub restoreBugreportTest : Test(15)
+sub restoreBugreportTest : Test(16)
 {
   my ($self) = @_;
 
@@ -378,32 +425,31 @@ sub restoreBugreportTest : Test(15)
 
 
 
-sub restoreFullBackupTest : Test(16)
+sub restoreFullBackupTest : Test(17)
 {
   my ($self) = @_;
 
-  my $backup = new EBox::Backup();
   my $configurationBackup;
-  my $fullBackup;
- 
   setCanaries('beforeBackup');
-  lives_ok { $configurationBackup = $backup->makeBackup(description => 'test configuration backup', fullBackup => 0) } 'make a configuration backup';
+  $configurationBackup = checkMakeBackup(description => 'test configuration backup', fullBackup => 0);
   checkDeviantRestore($configurationBackup, [fullRestore => 1], 'checking that a full restore is forbidden from a configuration backup' );
 
+  my $fullBackup;
   setCanaries('beforeBackup');
-  lives_ok { $fullBackup = $backup->makeBackup(description => 'test full backup', fullBackup => 1) } 'make a full backup';
+  $fullBackup = checkMakeBackup(description => 'test full backup', fullBackup => 1);
   checkStraightRestore($fullBackup, [fullRestore => 1], 'full restore from a full backup');
 }
 
 
-sub restoreWithModulesMissmatchTest : Test(42)
+sub restoreWithModulesMissmatchTest : Test(46)
 {
   my ($self) = @_;
-
-  my $backup = new EBox::Backup();
  
   setCanaries('beforeBackup');
-  my $backupFile = $backup->makeBackup(description => 'test configuration backup', fullBackup => 0);  
+  my $global       = EBox::Global->getInstance();
+  my @modsInBackup = @{ $global->modNames() };
+  
+  my $backupFile = checkMakeBackup( fullBackup => 0 );  
   
   my @straightCases;
 
@@ -464,6 +510,8 @@ sub restoreWithModulesMissmatchTest : Test(42)
 		  );
   };
   
+
+  my $backup = new EBox::Backup();
   foreach my $case (@straightCases) {
     setUpCanaries();
     setGConfCanary('afterBackup');
@@ -471,9 +519,21 @@ sub restoreWithModulesMissmatchTest : Test(42)
 
     $case->();
 
-#    lives_ok { $backup->restoreBackup($backupFile, fullRestore => 0)  }, 'checking restore without dependencies problems';
-    checkStraightRestore($backupFile, [ fullRestore => 0 ], 'checking restore without dependencies problems' );
-
+    # restore backup
+    setCanaries('afterBackup');
+    lives_ok { 
+      $backup->restoreBackup($backupFile, fullRestore => 0) 
+    } 'checking restore without dependencies problems'   ;
+    
+    # check after backup state
+    checkCanaries('beforeBackup', 0);
+    checkModulesChanged(
+			name => 'Checking wether restored modules are marked as changed',
+			modules => \@modsInBackup,
+		       );
+    
+  
+    teardownCanaryModule();
     teardownGConfCanary();
   }
 
@@ -485,7 +545,7 @@ sub restoreWithModulesMissmatchTest : Test(42)
 
     $case->();
 
-    checkDeviantRestore($backupFile, [ fullRestore => 0], , 'checking wether restore with unmet depndencies raises error');
+    checkDeviantRestore($backupFile, [ fullRestore => 0], , 'checking wether restore with unmet dependencies raises error');
 
     teardownGConfCanary();
   }
@@ -506,7 +566,13 @@ sub listBackupsTest : Test(5)
 		      );
  
   setCanaries('indiferent configuration');
+  
+
+
   foreach (@backupParams) {
+    my $global = EBox::Global->getInstance();
+    $global->saveAllModules();
+
     $backup->makeBackup(@{ $_ });
     sleep 1;
   }
@@ -533,6 +599,9 @@ sub listBackupsTest : Test(5)
 sub backupDetailsFromArchiveTest : Test(9)
 {
   setCanaries('beforeBackup');
+  my $global = EBox::Global->getInstance();
+  $global->saveAllModules();
+
   
   my $configurationBackupDescription = 'test configuration backup for detail test';
   my $configurationBackup = EBox::Backup->makeBackup(description => $configurationBackupDescription, fullBackup => 0) ;
@@ -568,6 +637,72 @@ sub backupDetailsFromArchiveTest : Test(9)
       is $details_r->{$detail}, $value, "Checking value of backup detail $detail";
     }
   }
+}
+
+
+
+sub backupForbiddenWithChangesTest : Test(8)
+{
+  my ($self) = @_;
+
+  setCanaries('beforeBackup');
+  throws_ok {
+    my $b = new EBox::Backup;
+    $b->makeBackup(description => 'test');
+  }  qr/not saved changes/, 'Checkign wether the backup is forbidden with changed modules';
+
+
+  checkCanaries('beforeBackup', 1);
+  checkModulesChanged(named => 'Check wether module changed state has not be changed');
+}
+
+
+sub restoreFailedTest : Test(9)
+{
+  my ($self) = @_;
+
+  # we force failure in one of the modules
+  my $forcedFailureMsg  = 'forced failure ';
+  fakeEBoxModule(
+		 name => 'canaryMixedConf',
+		 subs => [
+			  restoreConfig => sub {
+			    die $forcedFailureMsg;
+			  },
+			 ],
+		);
+
+  my $global = EBox::Global->getInstance();
+
+
+  setCanaries('beforeBackup');
+  my $backupArchive = checkMakeBackup();
+
+  setCanaries('afterBackup');
+
+  $global->saveAllModules();
+  foreach my $mod (@{ $global->modInstances }) {
+    $mod->setAsChanged();   # we mark modules as changed to be able to detect
+                            # revoked modules
+  }
+
+  throws_ok {   
+    my $b = new EBox::Backup;
+    $b->restoreBackup($backupArchive);
+
+  } qr /$forcedFailureMsg/, 
+    'Checking wether restore failed as expected';
+
+  checkCanaries('afterBackup', 1);
+
+
+  my @modules =  @{ $global->modNames() };
+  my @modulesNotChanged =  grep {  (not $global->modIsChanged($_)) } @modules;
+
+  ok scalar @modulesNotChanged > 0, 'Checking wether after the restore failure' . 
+  ' some  modules not longer a changed state (this is a clue of revokation)' ;
+
+  setupMixedConfCanary();
 }
 
 

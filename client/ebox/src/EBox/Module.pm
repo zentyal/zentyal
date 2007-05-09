@@ -462,7 +462,9 @@ sub restoreConfig
 
 #  Method: aroundRestoreConfig
 #
-# wraps the restoreConfig call; the purpose of this sub is to allow specila types of modules (GConfModule p.e) to call another method alongside with restoreConfig transparently
+# wraps the restoreConfig call; the purpose of this sub is to allow specila
+# types of modules (GConfModule p.e) to call another method alongside with
+# restoreConfig transparently 
 # normally ebox modules does not need to override this
 #
 # Parameters:
@@ -474,6 +476,17 @@ sub aroundRestoreConfig
   validate_pos(@_, 1, 1);
 
   $self->restoreConfig($dir);
+}
+
+
+#
+# Method: saveAsBaseline
+#
+#	Set the actual state as baseline configuration of the module. This base
+#	implementation is empty
+#
+sub saveAsBaseline
+{
 }
 
 #

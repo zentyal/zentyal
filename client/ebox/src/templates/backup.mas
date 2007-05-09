@@ -4,28 +4,38 @@
   @backups
   $readOpticalDisk  => 0
   $writeOpticalDisk => 0
+  $modulesChanged
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
-<& .backupSection, writeOpticalDisk => $writeOpticalDisk &>
+<& .backupSection, writeOpticalDisk => $writeOpticalDisk, modulesChanged => $modulesChanged &>
 <& .restoreSection, readOpticalDisk => $readOpticalDisk &>
 <& .listSection, backups => \@backups,  writeOpticalDisk => $writeOpticalDisk &>
 <%def .backupSection>
 <%args>
 $writeOpticalDisk
+$modulesChanged
 </%args>
 <%init>
 my $modeOptions = [
      { value => 'fullBackup', printableValue => __('Full Backup') },
      { value => 'configurationBackup', printableValue => __('Configuration Backup') }
 ];
+my $disabledAttr = $modulesChanged ? 'disabled' : '';
+my $disabledDiscAttr = ($modulesChanged or (not $writeOpticalDisk)) ? 
+                                                'disabled'  : '';
 </%init>
 <h3><% __('Back up the current state') %></h3>
 <div class='help'>
 	<% __("Backups will be stored in eBox and then you will be able to download them to your hard disk or write them into CD/DVD disks. Anyway, you can later copy back stored backup") %>
 </div>	
-% if (not $writeOpticalDisk) {
+% if ($modulesChanged) {
+  <div class='warning'>
+	<% __(q{Backup is disabled because there are unsaved configuration changes. Please, save or discard them to be able to backup the configuration}) %>
+  </div>   
+% }
+% elsif (not $writeOpticalDisk) {
   <div class='warning'>
 	<% __("'Backup to CD/DVD disk' is disabled, because eBox could not find any recorder drive") %>
   </div>   
@@ -53,9 +63,10 @@ my $modeOptions = [
 		<tr>
 			<td class='tright'> </td>
 			<td>
-				<input class='inputButton' type='submit' name='backup' value="<% __('Back up to hard disk') %>" />
-			   	<input class='inputButton'
-			   	type='submit' <% $writeOpticalDisk ? '' : 'disabled' %> name='backupToDisc' value="<% __('Back up to CD/DVD disk') %>" />
+				<input class='inputButton' type='submit' 
+				<% $disabledAttr %> name='backup' value="<% __('Back up to hard disk') %>" />
+			   	<input class='inputButton' type='submit'
+			   	 <% $disabledDiscAttr %> name='backupToDisc' value="<% __('Back up to CD/DVD disk') %>" />
 			</td>
                 </tr>
 	</form>
