@@ -2397,4 +2397,39 @@ sub marksForRouters
 	my $marks = $self->gatewayModel()->marksForRouters();
 }
 
+# Method: balanceTraffic
+#
+#	Return if the traffic balancing is enabled or not
+#
+# Returns:
+# 
+#	bool - true if enabled, otherwise false
+#
+sub balanceTraffic
+{
+	my $self = shift;
+	
+	return $self->get_bool('balanceTraffic');
+}
+
+# Method: setBalanceTraffic
+#
+#	Set the traffic balancing
+#
+# Parameters:
+#
+#	balance - bool to enable/disable
+#
+sub setBalanceTraffic
+{	
+	my ($self, $balance) = @_;
+	
+	unless ($balance ne $self->balanceTraffic) {
+		return;
+	}
+
+	$self->set_bool('balanceTraffic', $balance);
+
+}
+
 1;
