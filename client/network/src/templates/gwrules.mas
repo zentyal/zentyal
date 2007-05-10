@@ -5,6 +5,7 @@
 $dataTable
 $routersAvailable
 $hasChanged
+$balanceTraffic 
 </%args>
 	
 <%init>
@@ -19,7 +20,32 @@ use EBox::Gettext;
 
 % } else {
 
+
+	<h3><% __('Traffic balancing') %></h3>
+
+	<div class='note'>
+		<% __('<p>By enabling this feature, your traffic will be balanced amongst your gateways. That is, every new connection will be sent by a different gateway. You can choose which proportion of traffic goes through each gateway using the weight parameter of the gateway. You can change that value <a href="/ebox/Network/View/GatewayDataTable">here</a>.</p><p>If you want to explicitily route traffic by a certain gateway, use the multigateway rules below</p>') %>
+	</div>
+	<br>
+
+	<form action='/ebox/Network/EnableBalanceTraffic' method='POST'>
+		<span class="bold">Traffic balancing: </span>
+		<select name="activeBalanceTraffic" enabled>
+%			if ($balanceTraffic) {
+				<option value='no' >Disabled</option>
+				<option selected value='yes' >Enabled</option>
+%			} else {
+				<option selected value='no' >Disabled</option>
+				<option value='yes' >Enabled</option>
+%			}
+		</select>
+		<input class='inputButton' type='submit' name='change'
+			value="Change"
+			alt="Change">
+	</form>
+	
 	<& '/ajax/tableHeader.mas', ('data' => \@data, 
 				     'dataTable' => $dataTable, 
 				     'hasChanged' => $hasChanged) &>
+	
 % }

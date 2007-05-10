@@ -1721,7 +1721,6 @@ sub _multigwRoutes
 		next if ( $mac eq 'unknown');
 		root("/sbin/iptables -t mangle -A PREROUTING  "
 		 . "-m mark --mark 0/0xff -m mac --mac-source $mac "
-		 . "-m conntrack --ctstate NEW " 
 		 . "-j MARK --set-mark $marks->{$router->{'id'}}");		
 	}
 	root("/sbin/iptables -t mangle -A PREROUTING -m mark ! --mark 0/0xff -j ACCEPT");
@@ -1824,10 +1823,17 @@ sub _regenConfig
 	}
 
 
+	my $multipathCmd = $self->_multipathCommand();
 	if ($gateway) {
+		my $cmd;
+		if ($self->balanceTraffic()) {
+			$cmd = $self->_multipathCommand();
+		} else {
+			$cmd = "/sbin/ip route add default via $gateway " 
+				. "table default";
+		}
 		try {
-			my $table = 'table default';
-			root("/sbin/ip route add default via $gateway $table");
+			root($cmd);	
 		} catch EBox::Exceptions::Internal with {
 			throw EBox::Exceptions::External("An error happened ".
 			"trying to set the default gateway. Make sure the ".
@@ -2297,7 +2303,7 @@ sub menu
 					  'text' => __('Gateways')));
 	$folder->add(new EBox::Menu::Item('url' => 
 						'Network/View/MultiGwRulesDataTable',
-					  'text' => __('Multigateway rules')));
+					  'text' => __('Balance traffic')));
 
 	$root->add($folder);
 }
@@ -2362,6 +2368,8 @@ sub gateways
 
 }
 
+
+
 # Method: gatewaysWithMac
 #
 # 	Return the gateways available and its mac address
@@ -2409,7 +2417,7 @@ sub balanceTraffic
 {
 	my $self = shift;
 	
-	return $self->get_bool('balanceTraffic');
+	return ($self->get_bool('balanceTraffic') and (@{$self->gateways} > 1));
 }
 
 # Method: setBalanceTraffic
@@ -2430,6 +2438,24 @@ sub setBalanceTraffic
 
 	$self->set_bool('balanceTraffic', $balance);
 
+}
+
+sub _multipathCommand
+{
+	my $self = shift;
+
+	my @gateways = @{$self->gateways()};
+
+	unless (scalar(@gateways) > 1) {
+		return undef;
+	}
+
+	my $cmd = 'ip route add table default default';
+	for my $gw (@gateways) {
+		$cmd .= " nexthop via $gw->{'ip'} weight $gw->{'weight'}";
+	}
+
+	return $cmd;
 }
 
 1;

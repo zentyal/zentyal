@@ -4,7 +4,7 @@ SUBDIRS = FirstTime Controller View
 perldir = @PERLPATH@/EBox/CGI/Network
 
 nobase_perl_DATA = DNS.pm Diag.pm Gateway.pm Iface.pm Ifaces.pm Nameservers.pm \
-	Route.pm Routes.pm VIface.pm Vlan.pm
+	Route.pm Routes.pm VIface.pm Vlan.pm EnableBalanceTraffic.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

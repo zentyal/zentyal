@@ -28,9 +28,10 @@ sub new # (cgi=?)
 {
 	my $class = shift;
 
-	my $self = $class->SUPER::new('title' => __('Multigateway rules'), 
-				'template' => '/network/gwrules.mas',
-				@_);
+	my $self = $class->SUPER::new(
+		'title' => __('Balance traffic and multigateway rules'), 
+		'template' => '/network/gwrules.mas',
+		@_);
 	$self->{domain} = 'ebox-network';
 	
 	bless($self, $class);
@@ -50,6 +51,7 @@ sub _process
 	push(@params, 'data' => $model->rows());
 	push(@params, 'dataTable' => $model->tableInfo());
 	push(@params, 'hasChanged' => $global->unsaved());
+	push(@params, 'balanceTraffic' => $network->balanceTraffic());
 	
 	my $routersAvailable = 0;
 	if (@gateways > 1) {

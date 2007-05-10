@@ -260,6 +260,7 @@ sub gateways()
 		my $ip = $row->{'valueHash'}->{'ip'}->printableValue();
 		my $up = $row->{'valueHash'}->{'upload'}->printableValue();
 		my $down = $row->{'valueHash'}->{'download'}->printableValue();
+		my $weight = $row->{'valueHash'}->{'weight'}->printableValue();
 		my $def = $row->{'valueHash'}->{'default'}->printableValue();
 	
 		push (@gateways, { 
@@ -269,6 +270,7 @@ sub gateways()
 					'interface' => $ifce,
 					'upload' => $up,
 					'download' => $down,
+					'weight' => $weight,
 					'default' => $def,
 				});
 	}
