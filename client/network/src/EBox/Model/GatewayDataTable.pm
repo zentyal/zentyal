@@ -52,13 +52,23 @@ sub selectOptions
 {
 	my ($self, $id) = @_;
 	
-	my $network = EBox::Global->modInstance('network');
-	my @ifaces = (@{$network->InternalIfaces()}, 
-		      @{$network->ExternalIfaces()});
+	if ($id eq 'interface') {
+		my $network = EBox::Global->modInstance('network');
+		my @ifaces = (@{$network->InternalIfaces()}, 
+			      @{$network->ExternalIfaces()});
 		      
-	my @options = map { 'value' => $_, 'printableValue' => $_ }, @ifaces;
+		my @options = map { 'value' => $_, 
+				     'printableValue' => $_ }, @ifaces;
 
-	return \@options;
+		return \@options;
+	} elsif ($id eq 'weight') {
+		my @options;
+		for my $weight (1..15) {
+			push @options, { 'value' => $weight, 
+					 'printableValue' => $weight};
+		}
+		return \@options;
+	}
 }
 
 sub _table
@@ -112,6 +122,15 @@ sub _table
 					'unique' => 0,
 					'editable' => 1,
 					'trailingText' => 'Kb/s'
+				),
+		new EBox::Types::Select(
+					'fieldName' => 'weight',
+					'printableName' => __('Weight'),
+					'class' => 'tcenter',
+					'type' => 'select',
+					'size' => '2',
+					'unique' => 0,
+					'editable' => 1
 				),
 		new EBox::Types::Boolean(
 					'fieldName' => 'default',
