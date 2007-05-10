@@ -2,7 +2,7 @@
 
 #	Migration between gconf data version 1 to 2
 #
-#	In version 2, a new field to set gateway's weight has been addes 
+#	In version 2, a new field to set gateway's weight has been added 
 #	This migration scripts adds the weight field to existing gateways,
 #	setting their value to 1
 #
