@@ -17,11 +17,11 @@ checkGconftool();
 addService($name, $protocol, $port);
 
 
-sub notice 
+sub notice
 {
-  print "Please note that this script only add the service to the firewall's services list\n";
-  print "If you want to allow or deny access to the service you must do it later through eBox's web interface\n";
-  print "Remember that, for now, the services in firewall's service list only may be accesed though internal network interfaces\n\n";
+  print "Please note that this script just adds the service to the firewall's services list\n";
+  print "If you want to allow or deny access to the service you may do it later through eBox's web interface\n";
+  print "Keep in mind that, for now, the services in firewall's service list only may be accessed through internal network interfaces\n\n";
 }
 
 
