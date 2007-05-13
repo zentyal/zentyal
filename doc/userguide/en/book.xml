@@ -18,6 +18,7 @@
 <!ENTITY ch15     SYSTEM "ch15.xml">
 <!ENTITY ch16     SYSTEM "ch16.xml">
 <!ENTITY ch17     SYSTEM "ch17.xml">
+<!ENTITY ch18     SYSTEM "ch18.xml">
 ]>
 
 <book id='ebox' lang='en'>
@@ -86,5 +87,6 @@
   &ch15;
   &ch16;
   &ch17;
+  &ch18;
 
 </book>
