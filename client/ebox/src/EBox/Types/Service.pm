@@ -330,17 +330,17 @@ sub protocolsJS
 
     my ($self) = @_;
 
-    my $str = 'var protocols = [';
+    my $str = "[ ";
 
     foreach my $proto ( @{$self->protocols()} ) {
       if ( $proto->{needPort} ) {
-	$str .= '"' . $proto->{value} . '", '
+	$str .= "'" . $proto->{value} . "', "
       }
     }
 
     # Deleting the trailing comma value from array variable
     $str =~ s/, $//;
-    $str .= '];';
+    $str .= ']';
 
     return $str;
 
