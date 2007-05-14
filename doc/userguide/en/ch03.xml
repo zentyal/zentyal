@@ -1,4 +1,3 @@
-<!-- PARA JORGE -->
 <chapter id="ch-network">
 
 	<title>Network Configuration</title>
@@ -129,6 +128,151 @@
 		<para>The output of this operations will be shown on this page,
 		corresponding with the standard output of the GNU/Linux commands
 		<command>ping</command> and <command>dig</command>.</para>
+	</section>
+
+	<section id='sect-gateways'>
+	  <!-- Network->Gateways -->
+	  <title>Gateways</title>
+	  
+	  <para>
+	    Through this section you can set the gateways where your network traffic is
+	    directed. It is very useful in order to split or do balance your Internet traffic.
+	  </para>
+
+	  <para>
+	    Choosing 
+	    <menuchoice>
+	      <guimenu>Network</guimenu>
+	      <guimenuitem>Gateways</guimenuitem>
+	    </menuchoice>
+	    you could add as many gateways as you want. The following attributes are needed to
+	    be to each gateway added:
+	  </para>
+	  <variablelist>
+	    <varlistentry>
+	      <term>Name</term>
+	      <listitem>
+		<para>
+		  It is the logical name associated to the gateway in eBox which is used in
+		  the other eBox parts. It should be unique.
+		</para>
+	      </listitem>
+	    </varlistentry>
+	    <varlistentry>
+	      <term>IP Address</term>
+	      <listitem>
+		<para>
+		  The static gateway IP address.
+		</para>
+	      </listitem>
+	    </varlistentry>
+	    <varlistentry>
+	      <term>Interface</term>
+	      <listitem>
+		<para>
+		  The interface from where the gateway is reachable. That is, it is the interface
+		  where packets can be routed to get the gateway.
+		</para>
+	      </listitem>
+	    </varlistentry>
+	    <varlistentry>
+	      <term>Upload</term>
+	      <listitem>
+		<para>
+		  The maximum upload rate (in <emphasis>Kilobits per second</emphasis>) you can
+		  have towards the connection from eBox to the gateway.
+		</para>
+	      </listitem>
+	    </varlistentry>
+	    <varlistentry>
+	      <term>Download</term>
+	      <listitem>
+		<para>
+		  The maximum download rate (in <emphasis>Kilobits per second</emphasis>) you can
+		  obtain towards the connection from the gateway to eBox
+		</para>
+	      </listitem>
+	    </varlistentry>
+	    <varlistentry>
+	      <term>Weight</term>
+	      <listitem>
+		<para>
+		  It is the weight associated to this gateway. It is used by 
+		  <link linkend="subsect-balance-traffic">balance traffic section</link> to apply
+		  special rules applied to multiple gateways.
+		</para>
+	      </listitem>
+	    </varlistentry>
+	    <varlistentry>
+	      <term>Default</term>
+	      <listitem>
+		<para>
+		  It is set to determine whether the gateway is the default one or not. This
+		  implies each packet which has no rule that indicates which gateway should
+		  be directed to, will be delivered to reach the default gateway. <emphasis>
+		  Just one</emphasis> gateway can be the default one.
+		</para>
+	      </listitem>
+	    </varlistentry>
+	  </variablelist>
+	  
+	  <warning>
+	    <para>
+	      Each gateway should be reachable from at least one interface. eBox checks so
+	      for each interface whose configuration is static. If the interface is configured
+	      via DHCP this check is skipped since it is impossible to determine.
+	    </para>
+	  </warning>
+
+	  <para>
+	    The correct values for upload and download rate are critical to ensure the correct
+	    functionality from <link linkend="ch-trafficshaping">traffic shaping module</link>.
+	  </para>
+
+	  <para>
+	    Once you have added a gateway, it will appear at the <guilabel>Gateway list</guilabel>
+	    . Then, you can delete it or edit the values set previously through the icons which
+	    appear on the right side of the list.
+	  </para>
+
+	</section>
+
+	<section id="sect-balance-traffic">
+	  <title>Balance traffic and multigateway rules</title>
+
+	  <section id="sect-requirements">
+	    <title>Requirements</title>
+	    <para>
+	      In order to have these two features, you need at least two gateways configured.
+	    </para>
+	  </section>
+
+	  <section id="subsect-balance-traffic">
+	    <title>Balance traffic</title>
+	    <para>
+	      You can enable <emphasis>traffic balancing</emphasis> via
+	      <guimenu>Network</guimenu>
+	      <guimenuitem>Balance traffic</guimenuitem>
+	      in order to share your traffic through different routes. The traffic distribution
+	      relies on a weigthed sum from the gateway weights which are set on gateway attributes 
+	      (See <link linkend="sect-gateways">Gateways section</link> to know how configured them).
+	    </para>
+
+	    <para>
+	      A typical configuration could be following: you have two gateways configurated where one 
+	      has the double rate capacity (A) than the other one (B), thus you may want to balance traffic in 
+	      2:1 proportion, that is, gateway A will deliver the double traffic than B. To achieve so, you need 
+	      to set the weight parameter to A to 2 and gateway B will have weight set to 1.
+	    </para>
+	  </section>
+	  
+	  <section id="sect-multigateway-rules">
+	    <title>Multigateway rules</title>
+	    <para>
+	      It may be needed to route explicitily traffic by a certain gateway, to do so, you should
+	      use the multigateway rules which mark the packets to be delivered through the gateway selected.
+	    </para>
+
 	</section>
 
 </chapter>
