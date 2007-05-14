@@ -1,0 +1,229 @@
+# Russian translations for ebox-software package.
+# Copyright (C) 2007 Warp S.L.
+# This file is distributed under the same license as the ebox-software package.
+# Automatically generated, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-software 0.9.1"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2007-04-11 16:25+0200\n"
+"PO-Revision-Date: 2007-04-11 16:25+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
+#: src/EBox/Software.pm:314
+msgid "System updates"
+msgstr ""
+
+#: src/EBox/CGI/Updates.pm:45
+msgid "Software updates are being handled automatically"
+msgstr ""
+
+#: src/EBox/CGI/Updates.pm:52
+msgid "The system is up to date"
+msgstr ""
+
+#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr ""
+
+#: src/EBox/CGI/Enable.pm:41
+msgid "automatic updates configuration"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:76
+msgid "There were no packages to update"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:88
+msgid ""
+"The packages are being installed, please refrain from using the application "
+"until the update is done"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:93
+msgid "The packages were removed successfully"
+msgstr ""
+
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:312
+msgid "eBox components"
+msgstr ""
+
+#: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/Upgrading.pm:30
+msgid "Upgrading"
+msgstr ""
+
+#: src/EBox/Software.pm:137
+msgid ""
+"An error ocurred while removing components. If the error persists or eBox "
+"stops working properly, seek technical support."
+msgstr ""
+
+#: src/EBox/Software.pm:309 src/EBox/PackageDescriptions.pm:15
+msgid "Software management"
+msgstr ""
+
+#: src/EBox/Software.pm:316
+msgid "Configuration"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:1
+msgid "Certificate Authority Manager for eBox"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:2
+msgid "DHCP server"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:3
+msgid "eBox DNS server"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:4
+msgid "Base framework"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:5
+msgid "Firewall"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:6
+msgid "IPsec VPNs"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:7
+msgid "Instant messaging (Jabber)"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:8
+msgid "Mail server"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:9
+msgid "Network configuration"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:10
+msgid "NTP server"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:11
+msgid "Object management"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:12
+msgid "OpenVPN server"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:13
+msgid "Printer sharing"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:14
+msgid "File sharing"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:16
+msgid "Proxy cache and content filter"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:17
+msgid "Traffic shaper for eBox"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:18
+msgid "User and Group management"
+msgstr ""
+
+#: src/templates/upgrading.mas:42
+msgid "Current package"
+msgstr ""
+
+#: src/templates/upgrading.mas:43
+msgid "Starting..."
+msgstr ""
+
+#: src/templates/upgrading.mas:48
+msgid "The installation of the packages has finished successfully"
+msgstr ""
+
+#: src/templates/del.mas:14
+msgid "The following packages will be installed"
+msgstr ""
+
+#: src/templates/del.mas:17
+msgid "The following packages will be removed"
+msgstr ""
+
+#: src/templates/del.mas:34
+msgid "Ok"
+msgstr ""
+
+#: src/templates/del.mas:36
+msgid "Cancel"
+msgstr ""
+
+#: src/templates/updates.mas:10
+msgid "Updates are available for the following system components"
+msgstr ""
+
+#: src/templates/updates.mas:16 src/templates/ebox.mas:14
+msgid "Component"
+msgstr ""
+
+#: src/templates/updates.mas:18
+msgid "Description"
+msgstr ""
+
+#: src/templates/updates.mas:20 src/templates/ebox.mas:31
+msgid "Update"
+msgstr ""
+
+#: src/templates/updates.mas:37 src/templates/ebox.mas:82
+msgid "Update all packages"
+msgstr ""
+
+#: src/templates/updates.mas:49
+msgid ""
+"This operation can take some time, don't worry if eBox looks unresponsive "
+"after pressing the Upgrade button."
+msgstr ""
+
+#: src/templates/updates.mas:53
+msgid "Upgrade"
+msgstr ""
+
+#: src/templates/config.mas:9
+msgid "Perform automatic security updates"
+msgstr ""
+
+#: src/templates/ebox.mas:16
+msgid "Installed version "
+msgstr ""
+
+#: src/templates/ebox.mas:18
+msgid "Latest version"
+msgstr ""
+
+#: src/templates/ebox.mas:20
+msgid "Actions"
+msgstr ""
+
+#: src/templates/ebox.mas:38
+msgid "Install"
+msgstr ""
+
+#: src/templates/ebox.mas:41
+msgid "none"
+msgstr ""
+
+#: src/templates/ebox.mas:64
+msgid "Remove"
+msgstr ""
