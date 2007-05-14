@@ -133,16 +133,6 @@
 		    compose an object will be used to match traffic. 
 		  </para>
 		</formalpara>
-		<formalpara>
-		<title>Destination MAC</title>
-		  <para>
-		   You can introduce a MAC
-		   address to match traffic. Note that this option only makes
-		   sense when you are adding rules to an internal interface, as
-		   you have information about your MAC destination addresses 
-		   belonging to your local network.
-		  </para>
-		</formalpara>
 	 </listitem>
        </varlistentry>
       </variablelist>
@@ -170,8 +160,8 @@
       <listitem>
        <para>
         This field is used to enqueue network packets in different queues with
-	different priorities. Priority ranges from 0 to 7, the bigger the number
-	is the more priority it has. Using this field for different services,
+	different priorities. Priority ranges from 0 to 7, the smaller priority
+	number, the higher priority. Using this field for different services,
 	destination or source addresses is a good method to establish your
 	prioritasing policy for your network traffic. It is an easy way of
 	assure more priortiity for those services which are critical for your
