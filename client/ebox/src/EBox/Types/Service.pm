@@ -338,6 +338,8 @@ sub protocolsJS
       }
     }
 
+    # Deleting the trailing comma value from array variable
+    $str =~ s/, $//;
     $str .= '];';
 
     return $str;
