@@ -147,6 +147,7 @@ sub deAttachFilter
 # Returns:
 #
 #      array ref - containing <EBox::TrafficShaping::Filter::Fw>
+#                  or undef if there's no
 #
 sub filters
   {
@@ -164,21 +165,26 @@ sub filters
 #
 # Returns:
 #
-#      array ref - containing <EBox::TrafficShaping::Filter::Fw>
+#      array ref - containing zero or more <EBox::TrafficShaping::Filter::Fw>
 #
 sub orderedFilters
   {
 
     my ($self) = @_;
 
-    my @orderedFilters = sort {
-                               $a->attribute('matchPrio')
-				 <=>
-			       $b->attribute('matchPrio')
-                              }
-      @{$self->{filters}};
+    if ( defined ( $self->filters() )) {
+      my @orderedFilters = sort {
+	                         $a->attribute('matchPrio')
+				   <=>
+				 $b->attribute('matchPrio')
+			        }
+	@{$self->filters()};
 
-    return \@orderedFilters;
+      return \@orderedFilters;
+    }
+    else {
+      return [];
+    }
 
   }
 
