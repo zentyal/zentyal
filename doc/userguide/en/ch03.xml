@@ -145,8 +145,8 @@
 	      <guimenu>Network</guimenu>
 	      <guimenuitem>Gateways</guimenuitem>
 	    </menuchoice>
-	    you could add as many gateways as you want. The following attributes are needed to
-	    be to each gateway added:
+	    you could add as many gateways as you want. The following attributes
+	    are required when adding a gateway:
 	  </para>
 	  <variablelist>
 	    <varlistentry>
@@ -171,7 +171,7 @@
 	      <listitem>
 		<para>
 		  The interface from where the gateway is reachable. That is, it is the interface
-		  where packets can be routed to get the gateway.
+		  where packets can be routed to get to the gateway.
 		</para>
 	      </listitem>
 	    </varlistentry>
@@ -180,7 +180,8 @@
 	      <listitem>
 		<para>
 		  The maximum upload rate (in <emphasis>Kilobits per second</emphasis>) you can
-		  have towards the connection from eBox to the gateway.
+		  have towards the connection from eBox to the gateway. It will
+		  surely depend on the sort of connection provided by your ISP.
 		</para>
 	      </listitem>
 	    </varlistentry>
@@ -189,7 +190,7 @@
 	      <listitem>
 		<para>
 		  The maximum download rate (in <emphasis>Kilobits per second</emphasis>) you can
-		  obtain towards the connection from the gateway to eBox
+		  obtain towards the connection from the gateway to eBox.
 		</para>
 	      </listitem>
 	    </varlistentry>
@@ -207,10 +208,11 @@
 	      <term>Default</term>
 	      <listitem>
 		<para>
-		  It is set to determine whether the gateway is the default one or not. This
-		  implies each packet which has no rule that indicates which gateway should
-		  be directed to, will be delivered to reach the default gateway. <emphasis>
-		  Just one</emphasis> gateway can be the default one.
+		  It is set to determine whether the gateway is the default one or not.
+		  This implies that any packet which does not have a explicit
+		  gateway to be routed through will come out through the default
+		  one. Note that <emphasis>just one</emphasis> gateway can be the
+		  default one at the same time.
 		</para>
 	      </listitem>
 	    </varlistentry>
@@ -259,7 +261,7 @@
 	    </para>
 
 	    <para>
-	      A typical configuration could be following: you have two gateways configurated where one 
+	      A typical configuration could be as follows: you have two gateways configurated where one 
 	      has the double rate capacity (A) than the other one (B), thus you may want to balance traffic in 
 	      2:1 proportion, that is, gateway A will deliver the double traffic than B. To achieve so, you need 
 	      to set the weight parameter to A to 2 and gateway B will have weight set to 1.
