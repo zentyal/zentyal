@@ -7,7 +7,7 @@ Standards-Version: 3.6.1
 
 Package: ebox-firewall
 Architecture: all
-Depends: ebox (>= 0.9), ebox (<< 0.9.99), ebox-network, ebox-objects, iptables 
+Depends: ebox (>= 0.9.1), ebox (<< 0.9.99), ebox-network, ebox-objects, iptables 
 Replaces: ebox (<< 0.6)
 Conflicts: ebox (<< 0.6)
 Description: Firewall
