@@ -2,7 +2,7 @@
 
 Migrationsdir = @LIBDIR@/ebox-network/migration
 
-nobase_Migrations_SCRIPTS = 0001.pl
+nobase_Migrations_SCRIPTS = 0001.pl 0002.pl
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
 
