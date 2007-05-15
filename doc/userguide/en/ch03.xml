@@ -27,7 +27,12 @@
 					to the network interface. Once you have
 					chosen the configuration, you can set if
 					this network interface is
-					external<footnote><para><!--FIXME--></para></footnote>,
+					external<footnote><para>On eBox, an interface is
+					defined as external when its connection is directed
+					to Internet. For instance, its IP address can be 
+					an static public one. However, internal interface 
+					is those where clients from your internal network
+					are connected.</para></footnote>,
 					its IP address and its network mask.</para>
 				</listitem>
 			</varlistentry>
@@ -45,7 +50,13 @@
 			<varlistentry>
 				<term>Trunk 802.1Q</term>
 				<listitem>
-					<para><!--FIXME--></para>
+					<para>
+					  When this method is selected, the interface
+					  applies a mechanism which allows multiple bridged
+					  networks to transparently share the same physical
+					  network link without leakage of information
+					  between networks, i.e. doing trunking.
+					</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
@@ -84,29 +95,6 @@
 		to solve host names. You have to remember that, if your network
 		interfaces are configured with DHCP, your network settings could be
 		overwritten.</para>
-	</section>
-
-	<section id='sect-ebox-routes'>
-		<!-- Network->Routes -->
-		<title>Routes</title>
-
-		<para>You can access to Routes configuration through
-			<menuchoice>
-				<guimenu>Network</guimenu>
-				<guimenuitem>Routes</guimenuitem>
-			</menuchoice>.
-		</para>
-
-		<section>
-			<title>Default gateway</title> 
-			<para>Default gateway will be,
-			usually, your router IP address.</para>
-		</section>
-
-		<section>
-			<title>Static routes</title>
-			<para><!--FIXME--></para>
-		</section>
 	</section>
 
 	<section id='sect-ebox-diagnostics'>
@@ -162,7 +150,7 @@
 	      <term>IP Address</term>
 	      <listitem>
 		<para>
-		  The static gateway IP address.
+		  The static gateway IP address. Its value has to be unique as well.
 		</para>
 	      </listitem>
 	    </varlistentry>
@@ -222,7 +210,7 @@
 	    <para>
 	      Each gateway should be reachable from at least one interface. eBox checks so
 	      for each interface whose configuration is static. If the interface is configured
-	      via DHCP this check is skipped since it is impossible to determine.
+	      via DHCP, this comprobation will be skipped since it is impossible to determine.
 	    </para>
 	  </warning>
 
@@ -245,7 +233,8 @@
 	  <section id="sect-requirements">
 	    <title>Requirements</title>
 	    <para>
-	      In order to have these two features, you need at least two gateways configured.
+	      In order to have these two features, you need at least two gateways configured. Check
+	      out <link linkend="sect-gateways">this section</link> to create them.
 	    </para>
 	  </section>
 
@@ -253,8 +242,10 @@
 	    <title>Balance traffic</title>
 	    <para>
 	      You can enable <emphasis>traffic balancing</emphasis> via
-	      <guimenu>Network</guimenu>
-	      <guimenuitem>Balance traffic</guimenuitem>
+	      <menuchoice>
+		<guimenu>Network</guimenu>
+		<guimenuitem>Balance traffic</guimenuitem>
+	      </menuchoice>
 	      in order to share your traffic through different routes. The traffic distribution
 	      relies on a weigthed sum from the gateway weights which are set on gateway attributes 
 	      (See <link linkend="sect-gateways">Gateways section</link> to know how configured them).
@@ -262,7 +253,7 @@
 
 	    <para>
 	      A typical configuration could be as follows: you have two gateways configurated where one 
-	      has the double rate capacity (A) than the other one (B), thus you may want to balance traffic in 
+	      has the double rate capacity (A) than the other one (B). Thus you may want to balance traffic in 
 	      2:1 proportion, that is, gateway A will deliver the double traffic than B. To achieve so, you need 
 	      to set the weight parameter to A to 2 and gateway B will have weight set to 1.
 	    </para>
@@ -275,6 +266,79 @@
 	      use the multigateway rules which mark the packets to be delivered through the gateway selected.
 	    </para>
 
+	    <para>
+	      The packets are matched depending on the rules given to be directed to the asked gateway.
+	      You can select the traffic depending on the following factors:
+	    </para>
+	    <variablelist>
+	      <varlistentry>
+		<term>Protocol</term>
+		<listitem>
+		  <para>
+		    It could be TCP, UDP or any. 
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>Interface</term>
+		<listitem>
+		  <para>
+		    The source interface where traffic comes from. The
+		    list only includes internal interfaces.
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>Source</term>
+		<listitem>
+		  <para>
+		    You can select a source IP address or an eBox
+		    network object. (See <link
+		    linkend="sect-objects-desc">this chapter</link>
+		    for details)
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>Source port</term>
+		<listitem>
+		  <para>
+		    You can choose a source port. You must select a
+		    protocol different from any to be able to direct
+		    traffic depending on the source port.
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>Destination</term>
+		<listitem>
+		  <para>
+		    You can select a destination IP address or an eBox
+		    network object.
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>Destination port</term>
+		<listitem>
+		  <para>
+		    You can choose a destination port. The same policy
+		    from source port is applied here.
+		  </para>
+		</listitem>
+	      </varlistentry>
+	    </variablelist>
+	    <para>
+	      After editing at least one of the factors you can select
+	      a previously defined gateway to direct traffic which
+	      matches with the defined attributes.
+	    </para>
+	    <para>
+	      Once the rule has been added to the multigateway rule
+	      list, you may edit or delete a previous defined rule
+	      through its icons depicted on its right side.
+	    </para>
+	  </section>
 	</section>
 
 </chapter>
