@@ -1,6 +1,10 @@
+0.9.1
+	+ Extended backup
+	+ Use host's FQDN. 
+	+ Helo restrictions 
 0.9
 	+ Added Polish translation
-	+  Added German translation
+	+ Added German translation
 0.8.1
 	+  Added dependency on sasl2-bin for secure SMTP authentication
 0.8 
