@@ -1,8 +1,7 @@
 0.9.1
 	+ Added support for  shaping on internal and external interfaces
+	+ Added support to prioritise traffic (from 0 to 7)
 	+ More fine-grained rules to mark traffic
-	+ Added support for guartanteed rate
-	+ Added support for maximum rate
 0.9
 	+ Added Polish translation
 	+ Initial release
