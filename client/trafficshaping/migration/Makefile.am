@@ -2,7 +2,7 @@
 
 Migrationsdir = @LIBDIR@/ebox-trafficshaping/migration
 
-nobase_Migrations_SCRIPTS = 0001.pl
+nobase_Migrations_SCRIPTS = 0001_add_source_destination.pl
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
 
