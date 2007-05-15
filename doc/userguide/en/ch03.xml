@@ -142,7 +142,7 @@
 	      <listitem>
 		<para>
 		  It is the logical name associated to the gateway in eBox which is used in
-		  the other eBox parts. It should be unique.
+		  other eBox modules. It should be unique.
 		</para>
 	      </listitem>
 	    </varlistentry>
@@ -210,7 +210,7 @@
 	    <para>
 	      Each gateway should be reachable from at least one interface. eBox checks so
 	      for each interface whose configuration is static. If the interface is configured
-	      via DHCP, this comprobation will be skipped since it is impossible to determine.
+	      via DHCP, this inspection will be skipped since it is impossible to determine.
 	    </para>
 	  </warning>
 
@@ -233,8 +233,10 @@
 	  <section id="sect-requirements">
 	    <title>Requirements</title>
 	    <para>
-	      In order to have these two features, you need at least two gateways configured. Check
-	      out <link linkend="sect-gateways">this section</link> to create them.
+	      In order to use these two features, at least two
+	      gateways configured are required. Check
+	      out <link linkend="sect-gateways">this section</link> to
+	      know how to create them.
 	    </para>
 	  </section>
 
@@ -247,28 +249,34 @@
 		<guimenuitem>Balance traffic</guimenuitem>
 	      </menuchoice>
 	      in order to share your traffic through different routes. The traffic distribution
-	      relies on a weigthed sum from the gateway weights which are set on gateway attributes 
+	      relies on a weighted sum from the gateway weights which are set on gateway attributes 
 	      (See <link linkend="sect-gateways">Gateways section</link> to know how configured them).
 	    </para>
 
 	    <para>
-	      A typical configuration could be as follows: you have two gateways configurated where one 
-	      has the double rate capacity (A) than the other one (B). Thus you may want to balance traffic in 
-	      2:1 proportion, that is, gateway A will deliver the double traffic than B. To achieve so, you need 
-	      to set the weight parameter to A to 2 and gateway B will have weight set to 1.
+	      A typical configuration could be as follows: you have
+	      two gateways configurated where one has the double rate
+	      capacity (A) than the other one (B). Thus you may want
+	      to balance traffic in 2:1 proportion, that is, gateway A
+	      will deliver the double traffic than B. To achieve so,
+	      you should set the weight parameter to A to 2 and
+	      gateway B will have weight set to 1.
 	    </para>
 	  </section>
 	  
 	  <section id="sect-multigateway-rules">
 	    <title>Multigateway rules</title>
 	    <para>
-	      It may be needed to route explicitily traffic by a certain gateway, to do so, you should
-	      use the multigateway rules which mark the packets to be delivered through the gateway selected.
+	      It may be needed to route explicitly traffic by a
+	      certain gateway, to do so, you should use the
+	      multigateway rules which mark the packets to be
+	      delivered through the gateway selected.
 	    </para>
 
 	    <para>
-	      The packets are matched depending on the rules given to be directed to the asked gateway.
-	      You can select the traffic depending on the following factors:
+	      The packets are matched depending on the rules given to
+	      be directed to the asked gateway. You can select the
+	      traffic according to the following factors:
 	    </para>
 	    <variablelist>
 	      <varlistentry>

@@ -1,6 +1,3 @@
-	<!-- vim: ts=2 sw=2 tw=75
--->
-<!-- PARA JORGE -->
 <chapter id="ch-network">
 
 	<title>Configuración de la red</title>
@@ -32,7 +29,16 @@
 					Asigna de forma permanete una dirección IP al
 					interface de red. Una vez seleccionado este método podrá
 					establecer si la interfaz de red es
-					externa<footnote><para><!--FIXME--></para></footnote>, 
+					externa<footnote><para>En
+					eBox, un interfaz se define
+					como externo cuando su
+					conexión se dirige a
+					Internet. Por ejemplo, su
+					dirección IP puede ser una dirección
+					pública y estática. Sin
+					embargo, un interfaz interno
+					es aquel donde los clientes de
+					la red interna se conectan.</para></footnote>, 
 					su dirección IP y su máscara de red.
 					</para>
 				</listitem>
@@ -50,15 +56,29 @@
 			<varlistentry>
 				<term>Trunk 802.1Q</term>
 				<listitem>
-					<para><!--FIXME--></para>
+					<para>
+					  Cuando se selecciona este
+					  método, el interfaz aplica un
+					  mecanismo que permite a
+					  múltiples redes puenteadas
+					  compartir de manera
+					  transparente la misma red
+					  física sin ninguna pérdida de
+					  información entre redes, es
+					  decir haciendo
+					  <emphasis>trunking</emphasis>
+					</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
 				<term>No configurado</term>
 				<listitem>
 					<para>
-					No se establece ninguna configuración para el interfaz de	red
-					que, por tanto, no se podrá utilizar en ningún servicio.
+					  No se establece ninguna
+					  configuración para el interfaz
+					  de red que, por tanto, no se
+					  podrá utilizar en ningún
+					  servicio.
 					</para>
 				</listitem>
 			</varlistentry>
@@ -104,32 +124,6 @@
 		</warning>
 	</section>
 
-	<section id='sect-ebox-routes'>
-		<!-- Network->Routes -->
-		<title>Rutas</title>
-
-		<para>
-		Se accede a la configuración de las rutas a través de
-			<menuchoice>
-				<guimenu>Red</guimenu>
-				<guimenuitem>Rutas</guimenuitem>
-			</menuchoice>.
-		</para>
-
-		<section>
-			<title>Ruta por defecto</title>
-			<para>
-			La ruta por defecto corresponderá, normalmente, con la
-			dirección IP del router de la subred.
-			</para>
-		</section>
-
-		<section>
-			<title>Rutas estáticas</title>
-			<para><!--FIXME--></para>
-		</section>
-	</section>
-
 	<section id='sect-ebox-diagnostics'>
 		<!-- Network->Diagnostics -->
 		<title>Herramientas de diagnóstico</title>
@@ -155,5 +149,257 @@
 		<command>ping</command> y <command>dig</command> respectivamente.
 		</para>
 	</section>
+
+	<section id='sect-gateways'>
+	  <!-- Network->Routers -->
+	  <title>Routers</title>
+	  
+	  <para>
+	    A través de esta sección puede establecer los routers
+	    donde se dirige tu tráfico de red. Esto puede ser muy
+	    útil para dividir o balancear tu tráfico con Internet.
+	  </para>
+
+	  <para>
+	    Eligiendo 
+	    <menuchoice>
+	      <guimenu>Red</guimenu>
+	      <guimenuitem>Routers</guimenuitem>
+	    </menuchoice>
+	    puedes añadir tantos routers como quieras. Los siguientes
+	    atributos son necesarios cuando se añade un router:
+	  </para>
+	  <variablelist>
+	    <varlistentry>
+	      <term>Nombre</term>
+	      <listitem>
+		<para>
+		  Es un nombre lógico asociado al router en eBox que
+		  es usado en otros módulos de eBox. Debe ser único.
+		</para>
+	      </listitem>
+	    </varlistentry>
+	    <varlistentry>
+	      <term>Dirección IP</term>
+	      <listitem>
+		<para>
+		  La dirección IP estática del route. Su valor tiene
+		  que ser también único.
+		</para>
+	      </listitem>
+	    </varlistentry>
+	    <varlistentry>
+	      <term>Interfaz</term>
+	      <listitem>
+		<para>
+		  El interfaz por el que el router es alcanzable. Esto
+		  es, es el interfaz por donde el tráfico puede ser
+		  encaminado para llegar al router.
+		</para>
+	      </listitem>
+	    </varlistentry>
+	    <varlistentry>
+	      <term>Subida</term>
+	      <listitem>
+		<para>
+		  La tasa máxima de subida (en <emphasis>Kilobits por
+		  segundo</emphasis>) que puedes obtener a través de
+		  la conexión desde eBox al router. Seguramente
+		  dependerá del tipo de conexión que te ofrezca tu
+		  proveedor.
+		</para>
+	      </listitem>
+	    </varlistentry>
+	    <varlistentry>
+	      <term>Bajada</term>
+	      <listitem>
+		<para>
+		  La tasa máxima de bajada (em <emphasis>Kilobits por
+		  segundo</emphasis>) que puedes obtener a través de
+		  la conexión desde el router a eBox.
+		</para>
+	      </listitem>
+	    </varlistentry>
+	    <varlistentry>
+	      <term>Peso</term>
+	      <listitem>
+		<para>
+		  Es el peso asociado a este router. Se usa en la
+		  <link linkend="subsect-balance-traffic">sección de
+		  balanceo de tráfico</link> para aplicar reglas
+		  especiales a múltiples routers.
+		</para>
+	      </listitem>
+	    </varlistentry>
+	    <varlistentry>
+	      <term>Por defecto</term>
+	      <listitem>
+		<para>
+		  Se establece para determinar si el router es el de
+		  por defecto o no. Esto implica que cualquier paquete
+		  que no tenga un router para ser encaminado saldrán
+		  por el router por defecto. Ten en cuenta que
+		  <emphasis>sólo un</emphasis> router puede ser por
+		  defecto al mismo tiempo.
+		</para>
+	      </listitem>
+	    </varlistentry>
+	  </variablelist>
+	  
+	  <warning>
+	    <para>
+	      Cada router debe ser alcanzable desde al menos un
+	      interfaz. eBox lo comprueba para cada interfaz cuya
+	      configuración es estática. Si el interfaz se define via
+	      DHCP, esta prueba se saltará ya que no es posible
+	      determinar su resultado.
+	    </para>
+	  </warning>
+
+	  <para>
+	    Los valores correctos para tasas de subida y bajada son
+	    críticos para asegurar el correcto funcionamiento del 
+	    <!-- FIXME: when it's done <link linkend="ch-trafficshaping"> --> 
+	    módulo de moldeado de tráfico
+	    <!-- </link> -->.
+	  </para>
+
+	  <para>
+	    Una vez has añadido un route, aparecerá en la
+	    <guilabel>lista de routers</guilabel>. Posteriormente,
+	    puedes borrarlo o editar sus valores a través de los
+	    iconos que aparecen en la parte derecha de la lista.
+	  </para>
+
+	</section>
+
+	<section id="sect-balance-traffic">
+	  <title>Balanceo de tráfico y reglas multirouter</title>
+
+	  <section id="sect-requirements">
+	    <title>Requisitos</title>
+	    <para>
+	      Para utilizar estas dos características, se necesitan
+	      tener configurados al menos dos routers. Visita 
+	      <link linkend="sect-gateways">esta sección</link> para
+	      saber como crearlos.
+	    </para>
+	  </section>
+
+	  <section id="subsect-balance-traffic">
+	    <title>Balanceo de carga</title>
+	    <para>
+	      Puedes habilitar el <emphasis>balanceo de
+	      tráfico</emphasis> a través de
+	      <menuchoice>
+		<guimenu>Red</guimenu>
+		<guimenuitem>Balanceo de tráfico</guimenuitem>
+	      </menuchoice>
+	      para compartir tu tráfico a través de diferentes
+	      rutas. La distribución del tráfico recae en una suma
+	      pesada de los pesos de routers que se establecen en los
+	      atributos del router (Ver <link
+	      linkend="sect-gateways">sección de Routers</link> para
+	      saber configurarlos).
+	    </para>
+
+	    <para>
+	      Una configuración típica podría ser como sigue: tienes
+	      dos routers configurados donde uno tiene el doble de
+	      capacidad (A) que otro (B). Por tanto, quizá quieras
+	      tener un balanceo de tráfico en una proporción 2:1, esto
+	      es, el router A servirá el doble de tráfico que B. Para
+	      hacerlo, deberás establecer el parámetro peso de A a 2 y
+	      el del router B a 1.
+	    </para>
+	  </section>
+	  
+	  <section id="sect-multigateway-rules">
+	    <title>Reglas multirouter</title>
+	    <para>
+	      Quizá sea necesario encaminar tráfico explícitamente por
+	      un router determinado, para hacerlo, debes usar las
+	      reglas multirouter que marcan los paquetes que se
+	      enviarán a través del router seleccionado.
+	    </para>
+
+	    <para>
+	      Los paquetes son marcados dependiendo de las reglas
+	      dadas para dirigir al router solicitado. Puedes
+	      seleccionar el tráfico según los siguientes factores:
+	    </para>
+	    <variablelist>
+	      <varlistentry>
+		<term>Protocolo</term>
+		<listitem>
+		  <para>
+		    Podría ser TCP, UDP o cualquiera.
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>Interfaz</term>
+		<listitem>
+		  <para>
+		    El interfaz fuente de donde viene el tráfico. Esta
+		    lista sólo incluye los interfaces internos.
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>Origen</term>
+		<listitem>
+		  <para>
+		    Puedes seleccionar como origen una dirección IP o
+		    un objeto de red de eBox. (Ver <link
+		    linkend="sect-objects-desc">este capítulo</link>
+		    para más detalles)
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>Puerto origen</term>
+		<listitem>
+		  <para>
+		    Se puede elegir un puerto origen. Debes
+		    seleccionar un protocolo diferente de cualquiera
+		    para ser capaz de encaminar tráfico dependiendo
+		    del puerto origen.
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>Destino</term>
+		<listitem>
+		  <para>
+		    Se puede elegir una dirección IP destino o un
+		    objeto de red de eBox.
+		  </para>
+		</listitem>
+	      </varlistentry>
+	      <varlistentry>
+		<term>Puerto destino</term>
+		<listitem>
+		  <para>
+		    Un puerto destino tiene la misma política que la
+		    aplicada para un puerto origen.
+		  </para>
+		</listitem>
+	      </varlistentry>
+	    </variablelist>
+	    <para>
+	      Tras editar al menos uno de los factores se puede
+	      seleccionar un router previamente definido para
+	      encaminar tráfico que concuerde con los atributos aquí
+	      definidos.
+	    </para>
+	    <para>
+	      Una vez la regla se ha añadido a la lista de reglas
+	      multirouter, para editarla o borrarla se deben usar los
+	      iconos que se dibujan en la parte derecha de la regla.
+	    </para>
+	  </section>
+	</section>
+
 
 </chapter>
