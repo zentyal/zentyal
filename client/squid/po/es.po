@@ -10,9 +10,9 @@
 # Enrique Jose Hernandez Blasco <ejhernandez@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-squid 0.9\n"
+"Project-Id-Version: ebox-squid 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-28 16:03+0200\n"
+"POT-Creation-Date: 2007-05-14 09:54+0200\n"
 "PO-Revision-Date: 2006-11-24 09:33+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -159,15 +159,15 @@ msgstr "nombre de dominio"
 msgid "action"
 msgstr "Acción"
 
-#: src/EBox/CGI/BannedDomains.pm:30 src/EBox/CGI/BannedDomains.pm:40
-#: src/EBox/Squid.pm.in:1231 src/templates/banned.mas:11
-msgid "Banned domains"
-msgstr "Dominios prohibidos"
-
 #: src/EBox/CGI/AllowedDomains.pm:30 src/EBox/CGI/AllowedDomains.pm:40
 #: src/EBox/Squid.pm.in:1229 src/templates/allowed.mas:11
 msgid "Allowed domains"
 msgstr "Dominios permitidos"
+
+#: src/EBox/CGI/BannedDomains.pm:30 src/EBox/CGI/BannedDomains.pm:40
+#: src/EBox/Squid.pm.in:1231 src/templates/banned.mas:11
+msgid "Banned domains"
+msgstr "Dominios prohibidos"
 
 #: src/EBox/Squid.pm.in:139
 msgid "You must set the cache_mem variable in the ebox configuration file"
@@ -296,6 +296,10 @@ msgstr "Denegado"
 msgid "Filtered"
 msgstr "Filtrado"
 
+#: src/templates/allowed.mas:13
+msgid "Add here those domains which you want to allow access."
+msgstr "Añada aquí los dominios a los que quiere permitir acceso"
+
 #: src/templates/banned.mas:13
 msgid "Add here those domains which you do not want to allow access."
 msgstr "Añada aquí los dominos a los que no quiere permitir acceso"
@@ -350,10 +354,6 @@ msgstr "Muy estricto"
 #: src/templates/filterTable.mas:172 src/templates/filterTable.mas:174
 msgid "Change"
 msgstr "Cambiar"
-
-#: src/templates/allowed.mas:13
-msgid "Add here those domains which you want to allow access."
-msgstr "Añada aquí los dominios a los que quiere permitir acceso"
 
 #: src/templates/domains.mas:16
 #, perl-brace-format

@@ -7,17 +7,17 @@
 # Javier Amor Garcia <javier.amor.garcia@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.9\n"
+"Project-Id-Version: libebox 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-28 16:00+0200\n"
-"PO-Revision-Date: 2006-11-08 14:04+0100\n"
-"Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
+"POT-Creation-Date: 2007-05-14 09:51+0200\n"
+"PO-Revision-Date: 2007-05-15 14:19+0000\n"
+"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n > 1);\n"
-"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/Exceptions/DataExists.pm:31
 #, perl-brace-format
@@ -79,90 +79,101 @@ msgstr ""
 #: src/EBox/CGI/Base.pm:534
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
-"Vous avez trouvé un bogue dans l'eBox. Veuillez contacter votre service de "
-"soutien technique."
+"Vous avez trouvé un bogue dans l'eBox. Veuillez contacter le support "
+"technique"
 
 #: src/EBox/CGI/Base.pm:621
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
+"Votre requête ne peut être effectuée à cause d'un de ses paramètres incorrect"
 
 #: src/EBox/CGI/Base.pm:636
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
+"Votre requête ne peut être effectuée à cause d'un de ses paramètres manquant"
 
 #: src/EBox/CGI/Base.pm:755
 msgid "Invalid uploaded file."
-msgstr ""
+msgstr "Fichier envoyé invalide"
+
+#: src/EBox/Sudo.pm:229
+#, perl-brace-format
+msgid "Running command '{cmd}' as {user} failed"
+msgstr "Exécution de la commande '{cmd}' comme {user} échoué"
 
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
 #: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
 msgid "Interface"
 msgstr "Interface"
 
-#: src/EBox/Sudo.pm:229
-#, perl-brace-format
-msgid "Running command '{cmd}' as {user} failed"
-msgstr "Executant commande '{cmd}' comme {user} échoué"
-
 #: src/EBox/Config.pm.in:39
 #, perl-brace-format
 msgid "Could not open the config file {file}."
-msgstr "On n'a pas pu ouvrir le fichier de configuration {file}."
+msgstr "Impossible d'ouvrir le fichier de configuration {file}."
 
 #: src/EBox/Config.pm.in:72
 msgid "The ebox user has not been set in the config file."
-msgstr "L'usager d'ebox n'a pas été placé dans le fichier de config."
+msgstr "L'utilisateur d'ebox n'a pas été défini dans le fichier de config."
 
-#: src/EBox/Validate.pm:600
+#: src/EBox/Validate.pm:608
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
 "the permissions forbid access to it"
 msgstr ""
+"Impossible d'accéder au dossier : {dir}. Il est peut-être inexistant ou vous "
+"n'avez pas de droits suffisants"
 
-#: src/EBox/Validate.pm:605
+#: src/EBox/Validate.pm:613
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
+"Le répertoire {dir} n'est pas privé, car il appartient à un autre utilisateur"
 
-#: src/EBox/Validate.pm:680
+#: src/EBox/Validate.pm:688
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
 msgstr ""
+"Le chemin au fichier désiré est invalide. (Actuellement, tous les caractères "
+"de fichier ne sont pas supportés)"
 
-#: src/EBox/Validate.pm:708
+#: src/EBox/Validate.pm:716
 msgid "The file path must be absolute"
-msgstr "Le chemin du fichier doit être absolute"
+msgstr "Le chemin du fichier doit être absolut"
 
 #: src/templates/ajax/tableBody.mas:47
 msgid "Add new"
-msgstr ""
+msgstr "Ajouter un nouveau"
 
 #: src/templates/ajax/tableBody.mas:58
 #, perl-brace-format
 msgid "Adding a new {row}"
-msgstr ""
+msgstr "Ajouter un nouveau {row}"
 
 #: src/templates/ajax/tableBody.mas:65
 #, perl-brace-format
 msgid "Editing {row}"
-msgstr ""
+msgstr "Editer {row}"
 
 #: src/templates/ajax/tableBody.mas:131
 msgid "Action"
-msgstr ""
+msgstr "Action"
+
+#: src/templates/ajax/tableBody.mas:329
+msgid "port"
+msgstr "port"
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
-msgstr ""
+msgstr "Choisir une parmis les options pour afficher les tables associées"
 
 #: src/templates/ajax/tableSelector.mas:33
 msgid "Choose one..."
-msgstr ""
+msgstr "En choisir une ..."
 
 #: src/templates/ebox/pageNotFound.mas:14
 msgid "The page can not be found"
@@ -170,23 +181,23 @@ msgstr "La page n'a pas pu être trouvée"
 
 #: src/templates/title.mas:14
 msgid "Display help notes"
-msgstr "Montrer notes d'aide"
+msgstr "Afficher les notes"
 
 #: src/templates/title.mas:15
 msgid "show help"
-msgstr "montrez l'aide"
+msgstr "Afficher l'aide"
 
 #: src/templates/title.mas:17
 msgid "Hide help notes"
-msgstr "Cachez notes d'aide"
+msgstr "Masquer les notes"
 
 #: src/templates/title.mas:18
 msgid "hide help"
-msgstr "Cachez l'aide"
+msgstr "Masquer l'aide"
 
 #: src/templates/language.mas:10
 msgid "Language selection"
-msgstr "Selection de langue"
+msgstr "Selection de la langue"
 
 #: src/templates/language.mas:12
 msgid ""
@@ -194,12 +205,12 @@ msgid ""
 "needed."
 msgstr ""
 "Les changements de langue se produisent automatiquement, il n'est pas "
-"nécessaire de garder la configuration."
+"nécessaire de sauvegarder la configuration."
 
 #: src/templates/language.mas:25 src/templates/enable.mas:29
 #: src/templates/enable.mas:31
 msgid "Change"
-msgstr "Changer"
+msgstr "Modifier"
 
 #: src/templates/enable.mas:13
 msgid "Service configuration"

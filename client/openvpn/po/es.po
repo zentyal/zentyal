@@ -4,10 +4,10 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-openvpn 0.9\n"
+"Project-Id-Version: ebox-openvpn 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-04-11 16:15+0200\n"
-"PO-Revision-Date: 2007-04-11 14:19+0000\n"
+"POT-Creation-Date: 2007-05-14 09:53+0200\n"
+"PO-Revision-Date: 2007-05-16 13:02+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: src/EBox/CGI/Index.pm:16 src/EBox/CGI/ClientBundle.pm:19
 #: src/EBox/CGI/DeleteClient.pm:15 src/EBox/CGI/CreateClient.pm:18
 #: src/EBox/CGI/Delete.pm:15 src/EBox/CGI/Create.pm:15
-#: src/EBox/OpenVPN.pm:1098
+#: src/EBox/OpenVPN.pm:1106
 msgid "OpenVPN"
 msgstr "OpenVPN"
 
@@ -151,13 +151,14 @@ msgstr "El certificado {cn} ha sido revocado"
 
 #: src/EBox/OpenVPN/Server.pm:245
 #, perl-brace-format
-msgid "The server {name} has not certificate assigned"
+msgid "The server {name} does not have certificate assigned"
 msgstr "El servidor {name} no tiene ningún certificado asignado"
 
 #: src/EBox/OpenVPN/Server.pm:262
 #, perl-brace-format
 msgid ""
-"Can not get key of server {name} because it has not any certificate assigned"
+"Cannot get key of server {name} because it does not have any certificate "
+"assigned"
 msgstr ""
 "No se puede obtener la clave del servidor {name} debido a que no tiene "
 "ningún certificado asignado"
@@ -338,13 +339,21 @@ msgstr ""
 "{name} es un nombre incorrecto para un demonio OpenVPN. Solo alfanuméricos y "
 "guiones bajos están permitidos."
 
-#: src/EBox/OpenVPN.pm:1114
+#: src/EBox/OpenVPN.pm:1122
 msgid "OpenVPN daemons"
 msgstr "Demonios OpenVPN"
 
-#: src/EBox/OpenVPN.pm:1144
+#: src/EBox/OpenVPN.pm:1152
 msgid "OpenVPN service"
 msgstr "Servicio OpenVPN"
+
+#: src/templates/createClient.mas:4
+msgid "OpenVPN client creation"
+msgstr "Creación del cliente OpenVPN"
+
+#: src/templates/createClient.mas:7 src/templates/create.mas:15
+msgid "Create"
+msgstr "Crear"
 
 #: src/templates/delete.mas:9
 #, perl-brace-format
@@ -368,14 +377,6 @@ msgstr "Borrar"
 #: src/templates/delete.mas:26
 msgid "Cancel"
 msgstr "Cancelar"
-
-#: src/templates/createClient.mas:4
-msgid "OpenVPN client creation"
-msgstr "Creación del cliente OpenVPN"
-
-#: src/templates/createClient.mas:7 src/templates/create.mas:15
-msgid "Create"
-msgstr "Crear"
 
 #: src/templates/create.mas:11
 msgid "OpenVPN server creation"
@@ -453,6 +454,11 @@ msgstr "Permite a los clientes conectarse entre si mediante la VPN"
 msgid "Server name"
 msgstr "Nombre del servidor"
 
+#: src/templates/caRequired.mas:10
+msgid ""
+"OpenVPN servers require at least one client certificate. Create it first"
+msgstr "OpenVPN requiere al menos un certificado de cliente. Crea uno primero."
+
 #: src/templates/editClient.mas:9
 msgid "Change CA's certificate"
 msgstr "Cambiar certificado de CA"
@@ -477,11 +483,6 @@ msgstr "Los cambios en certificados y claves no pueden ser descartados"
 #: src/templates/editClient.mas:26 src/templates/edit.mas:17
 msgid "Change"
 msgstr "Cambiar"
-
-#: src/templates/caRequired.mas:10
-msgid ""
-"OpenVPN servers require at least one client certificate. Create it first"
-msgstr "OpenVPN requiere al menos un certificado de cliente. Crea uno primero."
 
 #: src/templates/edit.mas:14
 #, perl-brace-format
@@ -627,6 +628,16 @@ msgstr "Clave privada usada para crear el certificado del cliente"
 #: src/templates/clientProperties.mas:59
 msgid "Client name"
 msgstr "Nombre del cliente"
+
+#~ msgid "The server {name} has not certificate assigned"
+#~ msgstr "El servidor {name} no tiene ningún certificado asignado"
+
+#~ msgid ""
+#~ "Can not get key of server {name} because it has not any certificate "
+#~ "assigned"
+#~ msgstr ""
+#~ "No se puede obtener la clave del servidor {name} debido a que no tiene "
+#~ "ningún certificado asignado"
 
 #~ msgid "Can't get address for this server"
 #~ msgstr "No se puede obtener la dirección para este servidor"

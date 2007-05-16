@@ -4,9 +4,9 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-samba 0.9\n"
+"Project-Id-Version: ebox-samba 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-04-11 15:56+0200\n"
+"POT-Creation-Date: 2007-05-14 09:54+0200\n"
 "PO-Revision-Date: 2006-10-18 23:30-0200\n"
 "Last-Translator: junior\n"
 "Language-Team: <en@li.org>\n"
@@ -15,10 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
 "Plural-Forms: nplurals=2; plural= (n > 1);\n"
-
-#: src/EBox/CGI/Enable.pm:42
-msgid "module status"
-msgstr "status do módulo"
 
 #: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:66
 msgid "user name"
@@ -29,6 +25,10 @@ msgstr "Nome de usuário"
 #: src/EBox/SambaLdapUser.pm:541
 msgid "group name"
 msgstr "Nome do Grupo"
+
+#: src/EBox/CGI/Enable.pm:42
+msgid "module status"
+msgstr "status do módulo"
 
 #: src/EBox/CGI/ActiveSharing.pm:47
 msgid "sharing name"

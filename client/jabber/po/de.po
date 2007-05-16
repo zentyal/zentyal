@@ -11,9 +11,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-jabber 0.9\n"
+"Project-Id-Version: ebox-jabber 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-28 16:01+0200\n"
+"POT-Creation-Date: 2007-05-09 18:05+0200\n"
 "PO-Revision-Date: 2007-03-01 18:58+0100\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -123,7 +123,7 @@ msgstr "Notwendig"
 msgid "Apply Changes"
 msgstr "Änderungen anwenden"
 
-#: stubs/c2s.xml.mas:75
+#: stubs/c2s.xml.mas:77
 msgid "Enter a username and password to register with this server."
 msgstr ""
 "Geben Sie einen Benutzernamen und ein Passwort ein, um sich mit diesem "

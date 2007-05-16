@@ -6,17 +6,17 @@
 # Copyright (C) YEAR Warp S.L.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dhcp 0.9\n"
+"Project-Id-Version: ebox-dhcp 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-03-28 16:00+0200\n"
-"PO-Revision-Date: 2007-03-16 11:04+0100\n"
-"Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
+"PO-Revision-Date: 2007-04-15 18:59+0000\n"
+"Last-Translator: Filipe Henriques <filipeh@gotr00t.net>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
-"Plural-Forms: nplurals=2; plural= (n > 1);\n"
+"X-Generator: Pootle 0.10.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/AddFixed.pm:39
 #: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
@@ -63,13 +63,16 @@ msgid ""
 "DHCP server can not activated because there are not any network interface "
 "with a static address. <a href='Network/Ifaces'>Configure one</a> first"
 msgstr ""
+"Servidor de DHCP não pode ser activado porque não existe nenhuma placa de "
+"rede com endereço estático. <a href='Network/Ifaces'>Configure um</a> "
+"primeiro"
 
 #: src/EBox/DHCP.pm:315 src/EBox/DHCP.pm:355 src/EBox/DHCP.pm:386
 #: src/EBox/DHCP.pm:422 src/EBox/DHCP.pm:453 src/EBox/DHCP.pm:490
 #: src/EBox/DHCP.pm:569 src/EBox/DHCP.pm:726
 #, perl-brace-format
 msgid "{iface} is not static"
-msgstr "{iface} não é estática"
+msgstr "{iface} não é estático"
 
 #: src/EBox/DHCP.pm:320
 msgid "Gateway IP address"
@@ -178,27 +181,27 @@ msgstr ""
 
 #: src/EBox/DHCP.pm:1088
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: src/EBox/DHCP.pm:1091
 msgid "IP"
-msgstr ""
+msgstr "IP"
 
 #: src/EBox/DHCP.pm:1092
 msgid "Event"
-msgstr ""
+msgstr "Evento"
 
 #: src/EBox/DHCP.pm:1095
 msgid "Leased"
-msgstr ""
+msgstr "Atribuido"
 
 #: src/EBox/DHCP.pm:1095
 msgid "Released"
-msgstr ""
+msgstr "Libertado"
 
 #: src/EBox/DHCP.pm:1098
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: src/templates/index.mas:16
 msgid "DHCP server status"
@@ -283,7 +286,7 @@ msgstr "Ranges"
 #: src/templates/ranges.mas:103 src/templates/ranges.mas:105
 #: src/templates/ranges.mas:107
 msgid "Delete"
-msgstr ""
+msgstr "Apagar"
 
 #, fuzzy
 #~ msgid ""

@@ -4,9 +4,9 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-openvpn 0.9\n"
+"Project-Id-Version: ebox-openvpn 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-04-11 16:15+0200\n"
+"POT-Creation-Date: 2007-05-14 09:53+0200\n"
 "PO-Revision-Date: 2007-01-08 10:05+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: src/EBox/CGI/Index.pm:16 src/EBox/CGI/ClientBundle.pm:19
 #: src/EBox/CGI/DeleteClient.pm:15 src/EBox/CGI/CreateClient.pm:18
 #: src/EBox/CGI/Delete.pm:15 src/EBox/CGI/Create.pm:15
-#: src/EBox/OpenVPN.pm:1098
+#: src/EBox/OpenVPN.pm:1106
 msgid "OpenVPN"
 msgstr ""
 
@@ -145,13 +145,14 @@ msgstr ""
 
 #: src/EBox/OpenVPN/Server.pm:245
 #, perl-brace-format
-msgid "The server {name} has not certificate assigned"
+msgid "The server {name} does not have certificate assigned"
 msgstr ""
 
 #: src/EBox/OpenVPN/Server.pm:262
 #, perl-brace-format
 msgid ""
-"Can not get key of server {name} because it has not any certificate assigned"
+"Cannot get key of server {name} because it does not have any certificate "
+"assigned"
 msgstr ""
 
 #: src/EBox/OpenVPN/Server.pm:314
@@ -320,12 +321,20 @@ msgid ""
 "underscores are allowed"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1114
+#: src/EBox/OpenVPN.pm:1122
 msgid "OpenVPN daemons"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1144
+#: src/EBox/OpenVPN.pm:1152
 msgid "OpenVPN service"
+msgstr ""
+
+#: src/templates/createClient.mas:4
+msgid "OpenVPN client creation"
+msgstr ""
+
+#: src/templates/createClient.mas:7 src/templates/create.mas:15
+msgid "Create"
 msgstr ""
 
 #: src/templates/delete.mas:9
@@ -347,14 +356,6 @@ msgstr ""
 
 #: src/templates/delete.mas:26
 msgid "Cancel"
-msgstr ""
-
-#: src/templates/createClient.mas:4
-msgid "OpenVPN client creation"
-msgstr ""
-
-#: src/templates/createClient.mas:7 src/templates/create.mas:15
-msgid "Create"
 msgstr ""
 
 #: src/templates/create.mas:11
@@ -427,6 +428,11 @@ msgstr ""
 msgid "Server name"
 msgstr ""
 
+#: src/templates/caRequired.mas:10
+msgid ""
+"OpenVPN servers require at least one client certificate. Create it first"
+msgstr ""
+
 #: src/templates/editClient.mas:9
 msgid "Change CA's certificate"
 msgstr ""
@@ -450,11 +456,6 @@ msgstr ""
 
 #: src/templates/editClient.mas:26 src/templates/edit.mas:17
 msgid "Change"
-msgstr ""
-
-#: src/templates/caRequired.mas:10
-msgid ""
-"OpenVPN servers require at least one client certificate. Create it first"
 msgstr ""
 
 #: src/templates/edit.mas:14

@@ -5,421 +5,424 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-printers 0.9"
+"Project-Id-Version: ebox-printers 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-04-11 16:25+0200\n"
-"PO-Revision-Date: 2007-04-11 16:25+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2007-05-14 09:53+0200\n"
+"PO-Revision-Date: 2007-04-22 09:45+0000\n"
+"Last-Translator: Alper orus <alperor@linux-sevenler.org>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/CGI/ShowPrintersUI.pm:30 src/EBox/Printers.pm:333
+#: src/EBox/CGI/ShowPrintersUI.pm:30 src/EBox/Printers.pm:331
 msgid "Manage printers"
-msgstr ""
+msgstr "Yazıcıları Düzenle"
 
 #: src/EBox/CGI/CancelJob.pm:40 src/EBox/CGI/AddPrinter.pm:40
 msgid "Printer's name"
-msgstr ""
+msgstr "Yazıcının Adı"
 
 #: src/EBox/CGI/CancelJob.pm:41
 msgid "Printer's id"
-msgstr ""
+msgstr "Yazıcı Seri No"
 
 #: src/EBox/CGI/CancelJob.pm:42
 msgid "Job id"
-msgstr ""
+msgstr "İş Seri No"
 
 #: src/EBox/CGI/CancelJob.pm:54
 msgid "Job was successfully canceled"
-msgstr ""
+msgstr "İş başarıyla iptal edildi"
 
-#: src/EBox/CGI/SambaPrinterUI.pm:30 src/EBox/CGI/USBPrinterUI.pm:30
-#: src/EBox/CGI/NetworkPrinterUI.pm:30 src/EBox/CGI/ParallelPrinterUI.pm:30
+#: src/EBox/CGI/SambaPrinterUI.pm:30 src/EBox/CGI/NetworkPrinterUI.pm:30
+#: src/EBox/CGI/USBPrinterUI.pm:30 src/EBox/CGI/ParallelPrinterUI.pm:30
 msgid "Add a new printer (II)"
-msgstr ""
+msgstr "Yeni bir yazıcı ekleme (II)"
 
 #: src/EBox/CGI/SambaPrinterUI.pm:46 src/EBox/CGI/SambaPrinter.pm:40
-#: src/EBox/CGI/DriverUI.pm:46 src/EBox/CGI/ManagePrinterUI.pm:46
-#: src/EBox/CGI/ManufacturerUI.pm:46 src/EBox/CGI/USBPrinterUI.pm:46
-#: src/EBox/CGI/NetworkPrinterUI.pm:46 src/EBox/CGI/Driver.pm:39
+#: src/EBox/CGI/DriverUI.pm:46 src/EBox/CGI/ManufacturerUI.pm:46
+#: src/EBox/CGI/ManagePrinterUI.pm:46 src/EBox/CGI/Driver.pm:39
+#: src/EBox/CGI/NetworkPrinterUI.pm:46 src/EBox/CGI/USBPrinterUI.pm:46
 #: src/EBox/CGI/Manufacturer.pm:39 src/EBox/CGI/ManagePrinter.pm:40
 #: src/EBox/CGI/NetworkPrinter.pm:40 src/EBox/CGI/USBPrinter.pm:40
 #: src/EBox/CGI/ModelUI.pm:46 src/EBox/CGI/ParallelPrinterUI.pm:46
 #: src/EBox/CGI/DrvoptsUI.pm:46 src/EBox/CGI/Model.pm:39
 #: src/EBox/CGI/DeleteUI.pm:46 src/EBox/CGI/ParallelPrinter.pm:40
-#: src/EBox/CGI/Drvopts.pm:39 src/EBox/Printers.pm:235
-#: src/EBox/Printers.pm:363 src/EBox/Printers.pm:376 src/EBox/Printers.pm:393
-#: src/EBox/Printers.pm:449 src/EBox/Printers.pm:503 src/EBox/Printers.pm:539
-#: src/EBox/Printers.pm:556 src/EBox/Printers.pm:578 src/EBox/Printers.pm:604
-#: src/EBox/Printers.pm:631 src/EBox/Printers.pm:663 src/EBox/Printers.pm:707
-#: src/EBox/Printers.pm:721 src/EBox/Printers.pm:747 src/EBox/Printers.pm:761
-#: src/EBox/Printers.pm:787 src/EBox/Printers.pm:801 src/EBox/Printers.pm:826
-#: src/EBox/Printers.pm:850 src/EBox/Printers.pm:875 src/EBox/Printers.pm:949
-#: src/EBox/Printers.pm:998 src/EBox/Printers.pm:1042
-#: src/EBox/Printers.pm:1066 src/EBox/Printers.pm:1121
-#: src/EBox/Printers.pm:1136 src/EBox/Printers.pm:1167
+#: src/EBox/CGI/Drvopts.pm:39 src/EBox/Printers.pm:233
+#: src/EBox/Printers.pm:361 src/EBox/Printers.pm:374 src/EBox/Printers.pm:391
+#: src/EBox/Printers.pm:447 src/EBox/Printers.pm:501 src/EBox/Printers.pm:537
+#: src/EBox/Printers.pm:554 src/EBox/Printers.pm:576 src/EBox/Printers.pm:602
+#: src/EBox/Printers.pm:629 src/EBox/Printers.pm:661 src/EBox/Printers.pm:705
+#: src/EBox/Printers.pm:719 src/EBox/Printers.pm:745 src/EBox/Printers.pm:759
+#: src/EBox/Printers.pm:785 src/EBox/Printers.pm:799 src/EBox/Printers.pm:824
+#: src/EBox/Printers.pm:848 src/EBox/Printers.pm:873 src/EBox/Printers.pm:947
+#: src/EBox/Printers.pm:996 src/EBox/Printers.pm:1040
+#: src/EBox/Printers.pm:1064 src/EBox/Printers.pm:1119
+#: src/EBox/Printers.pm:1134 src/EBox/Printers.pm:1165
 #: src/templates/printer.mas:138
 msgid "Printer"
-msgstr ""
+msgstr "Yazıcı"
 
-#: src/EBox/CGI/SambaPrinterUI.pm:54 src/EBox/CGI/USBPrinterUI.pm:54
-#: src/EBox/CGI/NetworkPrinterUI.pm:53 src/EBox/CGI/ParallelPrinterUI.pm:54
+#: src/EBox/CGI/SambaPrinterUI.pm:54 src/EBox/CGI/NetworkPrinterUI.pm:53
+#: src/EBox/CGI/USBPrinterUI.pm:54 src/EBox/CGI/ParallelPrinterUI.pm:54
 #: src/EBox/CGI/DrvoptsUI.pm:53 src/templates/models.mas:22
 #: src/templates/models.mas:24 src/templates/printerback.mas:187
 #: src/templates/printerback.mas:189 src/templates/driver.mas:22
-#: src/templates/driver.mas:24 src/templates/manufacturer.mas:22
-#: src/templates/manufacturer.mas:24 src/templates/addprinter.mas:44
-#: src/templates/addprinter.mas:46 src/templates/drivers.mas:36
+#: src/templates/driver.mas:24 src/templates/addprinter.mas:44
+#: src/templates/addprinter.mas:46 src/templates/manufacturer.mas:22
+#: src/templates/manufacturer.mas:24 src/templates/drivers.mas:36
 #: src/templates/drivers.mas:38
 msgid "Next"
-msgstr ""
+msgstr "Sonraki"
 
 #: src/EBox/CGI/Enable.pm:42
 msgid "module status"
-msgstr ""
+msgstr "modül durumu"
 
 #: src/EBox/CGI/SambaPrinter.pm:52
 msgid "Shared resource"
-msgstr ""
+msgstr "Paylaşılan kaynak"
 
 #: src/EBox/CGI/SambaPrinter.pm:53 src/templates/samba.mas:34
 #: src/templates/printerback.mas:131
 msgid "Authentication"
-msgstr ""
+msgstr "Doğrulama"
 
 #: src/EBox/CGI/SambaPrinter.pm:61 src/templates/samba.mas:69
 #: src/templates/printerback.mas:166
 msgid "User"
-msgstr ""
+msgstr "Kullanıcı"
 
 #: src/EBox/CGI/SambaPrinter.pm:62 src/templates/samba.mas:79
 #: src/templates/printerback.mas:176
 msgid "Password"
-msgstr ""
+msgstr "Şifre"
 
 #: src/EBox/CGI/DriverUI.pm:30
 msgid "Add a new printer (V)"
-msgstr ""
-
-#: src/EBox/CGI/ManagePrinterUI.pm:30
-msgid "Manage printer"
-msgstr ""
-
-#: src/EBox/CGI/ManagePrinterUI.pm:58
-msgid "Printer details"
-msgstr ""
-
-#: src/EBox/CGI/ManagePrinterUI.pm:59
-msgid "Driver Options"
-msgstr ""
-
-#: src/EBox/CGI/ManagePrinterUI.pm:60
-msgid "Configuration options"
-msgstr ""
-
-#: src/EBox/CGI/ManagePrinterUI.pm:61
-msgid "Jobs Queue"
-msgstr ""
+msgstr "Yeni bir yazıcı ekleme (V)"
 
 #: src/EBox/CGI/ManufacturerUI.pm:30
 msgid "Add a new printer (III)"
-msgstr ""
+msgstr "Yeni bir yazıcı ekleme (III)"
+
+#: src/EBox/CGI/ManagePrinterUI.pm:30
+msgid "Manage printer"
+msgstr "Yazıcıyı düzenle"
+
+#: src/EBox/CGI/ManagePrinterUI.pm:58
+msgid "Printer details"
+msgstr "Yazıcı detayları"
+
+#: src/EBox/CGI/ManagePrinterUI.pm:59
+msgid "Driver Options"
+msgstr "Sürücü Seçenekleri"
+
+#: src/EBox/CGI/ManagePrinterUI.pm:60
+msgid "Configuration options"
+msgstr "Yapılandırma seçenekleri"
+
+#: src/EBox/CGI/ManagePrinterUI.pm:61
+msgid "Jobs Queue"
+msgstr "İşlerin Sırası"
 
 #: src/EBox/CGI/AddPrinterUI.pm:30
 msgid "Add a new printer (I)"
-msgstr ""
+msgstr "Yeni bir yazıcı ekleme (I)"
 
 #: src/EBox/CGI/Driver.pm:40 src/templates/printer.mas:164
 #: src/templates/printerback.mas:40
 msgid "Driver"
-msgstr ""
+msgstr "Sürücü"
 
-#: src/EBox/CGI/Manufacturer.pm:40 src/EBox/Printers.pm:726
+#: src/EBox/CGI/Manufacturer.pm:40 src/EBox/Printers.pm:724
 #: src/templates/printer.mas:146 src/templates/printerback.mas:22
 msgid "Manufacturer"
-msgstr ""
-
-#: src/EBox/CGI/AddPrinter.pm:41 src/EBox/Printers.pm:472
-#: src/EBox/Printers.pm:560 src/templates/addprinter.mas:25
-msgid "Method"
-msgstr ""
-
-#: src/EBox/CGI/AddPrinter.pm:43
-msgid "Printer description"
-msgstr ""
+msgstr "Üretici"
 
 #: src/EBox/CGI/ManagePrinter.pm:51
 msgid "The printer has been deleted successfully"
-msgstr ""
+msgstr "Yazıcı başarılı bir şekilde silindi"
 
-#: src/EBox/CGI/NetworkPrinter.pm:41 src/EBox/Printers.pm:635
+#: src/EBox/CGI/AddPrinter.pm:41 src/EBox/Printers.pm:470
+#: src/EBox/Printers.pm:558 src/templates/addprinter.mas:25
+msgid "Method"
+msgstr "Yöntem"
+
+#: src/EBox/CGI/AddPrinter.pm:43
+msgid "Printer description"
+msgstr "Yazıcı tanımı"
+
+#: src/EBox/CGI/NetworkPrinter.pm:41 src/EBox/Printers.pm:633
 #: src/templates/printerback.mas:205 src/templates/network.mas:24
 msgid "IP"
-msgstr ""
+msgstr "IP"
 
-#: src/EBox/CGI/NetworkPrinter.pm:42 src/EBox/Printers.pm:636
+#: src/EBox/CGI/NetworkPrinter.pm:42 src/EBox/Printers.pm:634
 #: src/templates/printerback.mas:214 src/templates/network.mas:33
 msgid "Port"
-msgstr ""
+msgstr "Bağlantı Noktası"
 
 #: src/EBox/CGI/USBPrinter.pm:41 src/EBox/CGI/ParallelPrinter.pm:41
-#: src/EBox/Printers.pm:584 src/EBox/Printers.pm:610 src/templates/usb.mas:19
+#: src/EBox/Printers.pm:582 src/EBox/Printers.pm:608 src/templates/usb.mas:19
 #: src/templates/parallel.mas:19
 msgid "Device"
-msgstr ""
+msgstr "Aygıt"
 
 #: src/EBox/CGI/ModelUI.pm:30
 msgid "Add a new printer (IV)"
-msgstr ""
+msgstr "Yeni bir yazıcı ekleme (IV)"
 
 #: src/EBox/CGI/DrvoptsUI.pm:30
 msgid "Add a new printer (VI)"
-msgstr ""
+msgstr "Yeni bir yazıcı ekleme (VI)"
 
-#: src/EBox/CGI/Model.pm:40 src/EBox/Printers.pm:765 src/EBox/Printers.pm:805
+#: src/EBox/CGI/Model.pm:40 src/EBox/Printers.pm:763 src/EBox/Printers.pm:803
 #: src/templates/printer.mas:155 src/templates/printerback.mas:16
 #: src/templates/printerback.mas:31
 msgid "Model"
-msgstr ""
+msgstr "Model"
 
 #: src/EBox/CGI/DeleteUI.pm:30
 msgid "Delete printer"
-msgstr ""
+msgstr "Yazıcıyı Sil"
 
-#: src/EBox/Printers.pm:138
+#: src/EBox/Printers.pm:136
 msgid "Printer sharing"
-msgstr ""
+msgstr "Yazıcı paylaşımı"
 
-#: src/EBox/Printers.pm:268 src/EBox/Printers.pm:1176
+#: src/EBox/Printers.pm:266 src/EBox/Printers.pm:1174
 msgid "Printers"
-msgstr ""
+msgstr "Yazıcılar"
 
-#: src/EBox/Printers.pm:271
+#: src/EBox/Printers.pm:269
 msgid "Add printer"
-msgstr ""
+msgstr "Yazıcı Ekle"
 
-#: src/EBox/Printers.pm:468
+#: src/EBox/Printers.pm:466
 msgid ""
 "The printer's name contains characters not valid.Only alphanumeric "
 "characters are allowed"
 msgstr ""
+"Yazıcının isminde kullanılan karakterler geçerli değildir. Sadece metin ve "
+"rakamların birlikte kullanıldığı karakterlere izin verilmektedir."
 
-#: src/EBox/Printers.pm:477 src/templates/printer.mas:73
+#: src/EBox/Printers.pm:475 src/templates/printer.mas:73
 #: src/templates/printers.mas:19 src/templates/addprinter.mas:16
 msgid "Name"
-msgstr ""
+msgstr "İsim"
 
-#: src/EBox/Printers.pm:485
+#: src/EBox/Printers.pm:483
 msgid "The given name is alreaday used as "
-msgstr ""
+msgstr "Verilen isim zaten kullanılmaktadır."
 
-#: src/EBox/Printers.pm:507 src/EBox/Printers.pm:1002
-#: src/EBox/Printers.pm:1046
+#: src/EBox/Printers.pm:505 src/EBox/Printers.pm:1000
+#: src/EBox/Printers.pm:1044
 msgid "Printer not configured"
-msgstr ""
+msgstr "Yazıcı yapılandırılmadı"
 
-#: src/EBox/Printers.pm:589
+#: src/EBox/Printers.pm:587
 msgid "It is not a usb printer"
-msgstr ""
+msgstr "Bu bir usb yazıcı değildir"
 
-#: src/EBox/Printers.pm:615
+#: src/EBox/Printers.pm:613
 msgid "It is not a parallel printer"
-msgstr ""
+msgstr "Bu bir paralel yazıcı değildir"
 
-#: src/EBox/Printers.pm:641
+#: src/EBox/Printers.pm:639
 msgid "It is not a network printer"
-msgstr ""
+msgstr "Bu bir ağ yazıcısı değildir"
 
-#: src/EBox/Printers.pm:670
+#: src/EBox/Printers.pm:668
 msgid "It is not a samba printer"
-msgstr ""
+msgstr "Bu bir samba yazıcısı değildir"
 
-#: src/EBox/Printers.pm:910 src/EBox/Printers.pm:936
+#: src/EBox/Printers.pm:908 src/EBox/Printers.pm:934
 msgid "is not a valid option"
-msgstr ""
+msgstr "geçerli bir seçenek değildir"
 
-#: src/EBox/Printers.pm:1024
+#: src/EBox/Printers.pm:1022
 #, perl-brace-format
 msgid "Parameter '{name}' does not exist"
-msgstr ""
+msgstr "'{name}' parametresi bulunmamaktadır"
 
-#: src/EBox/Printers.pm:1166 src/templates/printer.mas:69
+#: src/EBox/Printers.pm:1164 src/templates/printer.mas:69
 msgid "Job ID"
-msgstr ""
+msgstr "İş Seri No"
 
-#: src/EBox/Printers.pm:1168 src/templates/printer.mas:71
+#: src/EBox/Printers.pm:1166 src/templates/printer.mas:71
 msgid "Owner"
-msgstr ""
+msgstr "Sahibi"
 
-#: src/EBox/Printers.pm:1169
+#: src/EBox/Printers.pm:1167
 msgid "Queued at"
-msgstr ""
+msgstr "Sıradadır"
 
-#: src/EBox/Printers.pm:1170
+#: src/EBox/Printers.pm:1168
 msgid "Event"
-msgstr ""
+msgstr "Olay"
 
-#: src/EBox/Printers.pm:1173
+#: src/EBox/Printers.pm:1171
 msgid "Queued"
-msgstr ""
+msgstr "Sıraya atıldı"
 
-#: src/EBox/Printers.pm:1173
+#: src/EBox/Printers.pm:1171
 msgid "Canceled"
-msgstr ""
+msgstr "İptal edildi"
 
 #: src/templates/drvopts.mas:14 src/templates/printerback.mas:62
 msgid "Driver options"
-msgstr ""
+msgstr "Sürücü seçenekleri"
+
+#: src/templates/models.mas:13
+msgid "Choose a printer model"
+msgstr "Bir yazıcı modeli seçin"
 
 #: src/templates/printer.mas:32 src/templates/printer.mas:175
 #: src/templates/printer.mas:177 src/templates/printerback.mas:103
 #: src/templates/printerback.mas:105 src/templates/printerback.mas:225
 #: src/templates/printerback.mas:227
 msgid "Change"
-msgstr ""
+msgstr "Değiştir"
 
 #: src/templates/printer.mas:62
 msgid "Job queue"
-msgstr ""
+msgstr "İş kuyruğu"
 
 #: src/templates/printer.mas:75
 msgid "Size(KB)"
-msgstr ""
+msgstr "Boyut(KB)"
 
 #: src/templates/printer.mas:77
 msgid "Creation time"
-msgstr ""
+msgstr "Yaratma zamanı"
 
 #: src/templates/printer.mas:79
 msgid "Action"
-msgstr ""
+msgstr "Faaliyet"
 
 #: src/templates/printer.mas:119 src/templates/printer.mas:121
 #: src/templates/printer.mas:123 src/templates/del.mas:22
 #: src/templates/printers.mas:52 src/templates/printers.mas:54
 #: src/templates/printers.mas:56
 msgid "Delete"
-msgstr ""
+msgstr "Sil"
 
 #: src/templates/printer.mas:132
 msgid "This printer has no pending job in queue at the moment"
-msgstr ""
-
-#: src/templates/models.mas:13
-msgid "Choose a printer model"
-msgstr ""
+msgstr "Şu an için yazıcının kuyrukta bekleyen işi yoktur"
 
 #: src/templates/samba.mas:17
 msgid "Samba shared printer configuration"
-msgstr ""
+msgstr "Samba paylaşımlı yazıcı yapılandırması"
 
 #: src/templates/samba.mas:25 src/templates/printerback.mas:122
 msgid "Share resource"
-msgstr ""
+msgstr "Kaynağı paylaş"
 
 #: src/templates/samba.mas:41 src/templates/samba.mas:44
 #: src/templates/printerback.mas:138 src/templates/printerback.mas:141
 msgid "Anonymous"
-msgstr ""
+msgstr "İsimsiz"
 
 #: src/templates/samba.mas:49 src/templates/samba.mas:52
 #: src/templates/printerback.mas:146 src/templates/printerback.mas:149
 msgid "Guest"
-msgstr ""
+msgstr "Konuk"
 
 #: src/templates/samba.mas:57 src/templates/samba.mas:60
 #: src/templates/printerback.mas:154 src/templates/printerback.mas:157
 msgid "User/Password"
-msgstr ""
+msgstr "Kullanıcı/Şifre"
 
 #: src/templates/del.mas:12
 #, perl-brace-format
 msgid "Are you sure you want to delete the printer '{name}'?"
-msgstr ""
+msgstr "Yazıcıyı '{name}' silmek istediğinize emin misiniz?"
 
 #: src/templates/del.mas:26
 msgid "Cancel"
-msgstr ""
+msgstr "İptal"
 
 #: src/templates/printerback.mas:51 src/templates/printerback.mas:53
 msgid "Go"
-msgstr ""
+msgstr "Git"
 
 #: src/templates/printerback.mas:115
 msgid "Samba shared printer configurationr"
-msgstr ""
+msgstr "Samba paylaşımlı yazıcı yapılandırması"
 
 #: src/templates/printerback.mas:198
 msgid "Remote printer configuration"
-msgstr ""
+msgstr "Uzaktaki yazıcı yapılandırması"
 
 #: src/templates/printers.mas:10
 msgid "Printer sharing status"
-msgstr ""
+msgstr "Yazıcı paylaşım durumu"
 
 #: src/templates/printers.mas:14
 msgid "List of printers"
-msgstr ""
+msgstr "Yazıcıların listesi"
 
 #: src/templates/printers.mas:21
 msgid "Description"
-msgstr ""
+msgstr "Tanım"
 
 #: src/templates/printers.mas:23
 msgid "Actions"
-msgstr ""
+msgstr "Faaliyetler"
 
 #: src/templates/printers.mas:43
 msgid "Manage"
-msgstr ""
+msgstr "Düzenle"
 
 #: src/templates/printers.mas:45 src/templates/printers.mas:47
 msgid "Manage this printer"
-msgstr ""
-
-#: src/templates/usb.mas:15
-msgid "Local USB printer configuration"
-msgstr ""
+msgstr "Bu yazıcıyı düzenle"
 
 #: src/templates/network.mas:16
 msgid "Configure remote printer"
-msgstr ""
+msgstr "Uzaktaki yazıcıyı yapılandır"
+
+#: src/templates/usb.mas:15
+msgid "Local USB printer configuration"
+msgstr "Yerel USB yazıcı yapılandırması"
 
 #: src/templates/driver.mas:12
 msgid "Choose a driver for the printer"
-msgstr ""
-
-#: src/templates/manufacturer.mas:12
-msgid "Choose manufacturer"
-msgstr ""
+msgstr "Yazıcı için bir sürücü seçin"
 
 #: src/templates/addprinter.mas:10
 msgid "Set printer name and method"
-msgstr ""
+msgstr "Yazıcı adını ve yöntemini belirleyin"
 
 #: src/templates/addprinter.mas:31
 msgid "Parallel"
-msgstr ""
+msgstr "Paralel"
 
 #: src/templates/addprinter.mas:33
 msgid "Network printer"
-msgstr ""
+msgstr "Ağ yazıcısı"
 
 #: src/templates/addprinter.mas:35
 msgid "Samba"
-msgstr ""
+msgstr "Samba"
+
+#: src/templates/manufacturer.mas:12
+msgid "Choose manufacturer"
+msgstr "Üretici Firma seçin"
 
 #: src/templates/parallel.mas:15
 msgid "Local parallel printer configuration"
-msgstr ""
+msgstr "Yerel paralel yazıcı yapılandırması"
 
 #: src/templates/drivers.mas:13
 msgid "Choose a dirver for the printer"
-msgstr ""
+msgstr "Yazıcı için bir sürücü seçin"
 
 #: src/templates/drivers.mas:21
 msgid "driver"
-msgstr ""
+msgstr "sürücü"

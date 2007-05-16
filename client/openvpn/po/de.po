@@ -10,10 +10,10 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-openvpn 0.9\n"
+"Project-Id-Version: ebox-openvpn 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-04-11 16:15+0200\n"
-"PO-Revision-Date: 2007-03-30 15:27+0000\n"
+"POT-Creation-Date: 2007-05-14 09:53+0200\n"
+"PO-Revision-Date: 2007-04-12 11:08+0000\n"
 "Last-Translator: andy <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr ""
 #: src/EBox/CGI/Index.pm:16 src/EBox/CGI/ClientBundle.pm:19
 #: src/EBox/CGI/DeleteClient.pm:15 src/EBox/CGI/CreateClient.pm:18
 #: src/EBox/CGI/Delete.pm:15 src/EBox/CGI/Create.pm:15
-#: src/EBox/OpenVPN.pm:1098
+#: src/EBox/OpenVPN.pm:1106
 msgid "OpenVPN"
 msgstr "OpenVPN"
 
@@ -165,17 +165,18 @@ msgid "The certificate {cn} has been revoked"
 msgstr "Das Zertifikat {cn} wurde widerrufen"
 
 #: src/EBox/OpenVPN/Server.pm:245
-#, perl-brace-format
-msgid "The server {name} has not certificate assigned"
+#, fuzzy, perl-brace-format
+msgid "The server {name} does not have certificate assigned"
 msgstr ""
 "#-#-#-#-#  de.po (ebox-openvpn 0.9)  #-#-#-#-#\n"
 "#-#-#-#-#  de.po (ebox-openvpn 0.1)  #-#-#-#-#\n"
 "Der Server {name} hat kein eigenes Zertifikat"
 
 #: src/EBox/OpenVPN/Server.pm:262
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
-"Can not get key of server {name} because it has not any certificate assigned"
+"Cannot get key of server {name} because it does not have any certificate "
+"assigned"
 msgstr ""
 "Der Schlüssel des Servers {name} konnte nicht geholt werden, weil er kein "
 "eigenes Zertifikat hat"
@@ -353,7 +354,7 @@ msgstr "Der private Schlüssel des Benutzers muss angegeben werden"
 
 #: src/EBox/OpenVPN/Client.pm:361
 msgid "Servers must be supplied to the client"
-msgstr ""
+msgstr "Die Server müssen dem Benutzer bekannt sein"
 
 #: src/EBox/OpenVPN/Client.pm:437
 #, perl-brace-format
@@ -380,7 +381,7 @@ msgstr ""
 "{name} ist ein ungültiger Name für einen OpenVPN Hintergrunddienst. Nur "
 "Alphanumerische Zeichen und Underscores \"_\" sind erlaubt"
 
-#: src/EBox/OpenVPN.pm:1114
+#: src/EBox/OpenVPN.pm:1122
 #, fuzzy
 msgid "OpenVPN daemons"
 msgstr ""
@@ -388,9 +389,21 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-openvpn 0.1)  #-#-#-#-#\n"
 "OpenVPN-Dienste"
 
-#: src/EBox/OpenVPN.pm:1144
+#: src/EBox/OpenVPN.pm:1152
 msgid "OpenVPN service"
 msgstr "OpenVPN-Dienst"
+
+#: src/templates/createClient.mas:4
+#, fuzzy
+msgid "OpenVPN client creation"
+msgstr ""
+"#-#-#-#-#  de.po (ebox-openvpn 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-openvpn 0.1)  #-#-#-#-#\n"
+"Neuer OpenVPN-Benutzer"
+
+#: src/templates/createClient.mas:7 src/templates/create.mas:15
+msgid "Create"
+msgstr "Generieren"
 
 #: src/templates/delete.mas:9
 #, perl-brace-format
@@ -417,18 +430,6 @@ msgstr "Löschen"
 #: src/templates/delete.mas:26
 msgid "Cancel"
 msgstr "Abbrechen"
-
-#: src/templates/createClient.mas:4
-#, fuzzy
-msgid "OpenVPN client creation"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-openvpn 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-openvpn 0.1)  #-#-#-#-#\n"
-"Neuer OpenVPN-Benutzer"
-
-#: src/templates/createClient.mas:7 src/templates/create.mas:15
-msgid "Create"
-msgstr "Generieren"
 
 #: src/templates/create.mas:11
 #, fuzzy
@@ -519,6 +520,16 @@ msgstr "Benutzern erlauben, sich miteinander im VPN-Netz zu verbinden"
 msgid "Server name"
 msgstr "Name des Servers"
 
+#: src/templates/caRequired.mas:10
+#, fuzzy
+msgid ""
+"OpenVPN servers require at least one client certificate. Create it first"
+msgstr ""
+"#-#-#-#-#  de.po (ebox-openvpn 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-openvpn 0.1)  #-#-#-#-#\n"
+"OpenVPN-Server brauchen mindestens ein Benutzerzertifikat. Generieren Sie "
+"zuerst eines"
+
 #: src/templates/editClient.mas:9
 msgid "Change CA's certificate"
 msgstr "Zertifikat der Zertifizierungsstelle ändern"
@@ -547,16 +558,6 @@ msgstr ""
 #: src/templates/editClient.mas:26 src/templates/edit.mas:17
 msgid "Change"
 msgstr "Ändern"
-
-#: src/templates/caRequired.mas:10
-#, fuzzy
-msgid ""
-"OpenVPN servers require at least one client certificate. Create it first"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-openvpn 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-openvpn 0.1)  #-#-#-#-#\n"
-"OpenVPN-Server brauchen mindestens ein Benutzerzertifikat. Generieren Sie "
-"zuerst eines"
 
 #: src/templates/edit.mas:14
 #, perl-brace-format
@@ -649,11 +650,12 @@ msgstr ""
 
 #: src/templates/clientBundle.mas:59
 msgid "This address should be the one used to reach the server."
-msgstr ""
+msgstr "Verwenden Sie diese Adresse, um den Server zu erreichen."
 
 #: src/templates/clientBundle.mas:64
 msgid "An additional address to reach the server can be specified here"
 msgstr ""
+"Geben Sie hier eine zusätzliche Adresse ein, um den Server zu erreichen"
 
 #: src/templates/clientBundle.mas:94
 #, perl-brace-format
@@ -714,6 +716,19 @@ msgstr ""
 #: src/templates/clientProperties.mas:59
 msgid "Client name"
 msgstr "Benutzername"
+
+#~ msgid "The server {name} has not certificate assigned"
+#~ msgstr ""
+#~ "#-#-#-#-#  de.po (ebox-openvpn 0.9)  #-#-#-#-#\n"
+#~ "#-#-#-#-#  de.po (ebox-openvpn 0.1)  #-#-#-#-#\n"
+#~ "Der Server {name} hat kein eigenes Zertifikat"
+
+#~ msgid ""
+#~ "Can not get key of server {name} because it has not any certificate "
+#~ "assigned"
+#~ msgstr ""
+#~ "Der Schlüssel des Servers {name} konnte nicht geholt werden, weil er kein "
+#~ "eigenes Zertifikat hat"
 
 #~ msgid "Can't get address for this server"
 #~ msgstr "Die Adresse für diesen Server wurde nicht gefunden"

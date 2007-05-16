@@ -5,270 +5,273 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mail 0.9"
+"Project-Id-Version: ebox-mail 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-04-11 16:24+0200\n"
-"PO-Revision-Date: 2007-04-11 16:24+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2007-05-14 09:52+0200\n"
+"PO-Revision-Date: 2007-05-12 23:21+0000\n"
+"Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#: src/EBox/CGI/SetQuota.pm:46
-msgid "Message size limit"
-msgstr ""
+"X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/CGI/ModifyVDomain.pm:57 src/EBox/CGI/DelVDomain.pm:72
 #: src/EBox/CGI/EditVDomain.pm:43
 msgid "vdomain"
-msgstr ""
+msgstr "Sanal alanlar"
+
+#: src/EBox/CGI/SetQuota.pm:46
+msgid "Message size limit"
+msgstr "İleti boyutu sınırı"
 
 #: src/EBox/CGI/AddVDomain.pm:42
 msgid "Virtual domain name"
-msgstr ""
+msgstr "Sanal alan adı"
 
-#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:804
-#: src/EBox/Mail.pm:831 src/EBox/Mail.pm:873
+#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:818
+#: src/EBox/Mail.pm:845 src/EBox/Mail.pm:887
 msgid "Mail"
-msgstr ""
+msgstr "Posta"
 
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
 #: src/templates/qmanager.mas:19
 msgid "Queue ID"
-msgstr ""
+msgstr "Sıra Kimliği"
 
 #: src/EBox/CGI/CreateAlias.pm:42 src/EBox/CGI/DelAlias.pm:42
-#: src/EBox/CGI/ModifyAccountMDSize.pm:55 src/EBox/CGI/CreateAccount.pm:42
+#: src/EBox/CGI/CreateAccount.pm:42 src/EBox/CGI/ModifyAccountMDSize.pm:55
 #: src/EBox/CGI/DelAccount.pm:42
 msgid "username"
-msgstr ""
+msgstr "kullanıcı adı"
 
 #: src/EBox/CGI/CreateAlias.pm:48
 msgid "maildrop"
-msgstr ""
+msgstr "İletileri sil"
 
 #: src/EBox/CGI/CreateAlias.pm:49 src/EBox/CGI/CreateGroupAlias.pm:48
 msgid "account name"
-msgstr ""
+msgstr "Hesap adı"
 
 #: src/EBox/CGI/CreateAlias.pm:50 src/EBox/CGI/CreateGroupAlias.pm:49
 msgid "domain name"
-msgstr ""
+msgstr "Alan adı"
 
 #: src/EBox/CGI/DelAlias.pm:46
 msgid "mail alias"
-msgstr ""
+msgstr "Takma posta ismi"
 
 #: src/EBox/CGI/QueueManager.pm:33 src/EBox/CGI/QueueManager.pm:50
-#: src/EBox/Mail.pm:840
+#: src/EBox/Mail.pm:854
 msgid "Queue Management"
-msgstr ""
+msgstr "Sıra Yönetimi"
 
 #: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:62
 #: src/EBox/MailVDomainsLdap.pm:124
 msgid "virtual domain"
-msgstr ""
+msgstr "Sanal alan adı"
 
 #: src/EBox/CGI/CreateAccount.pm:50 src/templates/alias.mas:17
 msgid "Mail address"
-msgstr ""
+msgstr "Posta adresi"
 
 #: src/EBox/CGI/VDomains.pm:29 src/EBox/CGI/VDomains.pm:39
-#: src/EBox/Mail.pm:837
+#: src/EBox/Mail.pm:851
 msgid "Virtual domains"
-msgstr ""
+msgstr "Sanal alan adları"
 
 #: src/EBox/CGI/DelAccount.pm:46
 msgid "user mail"
-msgstr ""
-
-#: src/EBox/CGI/SetMDQuota.pm:46
-msgid "Maximum mail account size"
-msgstr ""
+msgstr "kullanıcı postası"
 
 #: src/EBox/CGI/Enable.pm:40
 msgid "module status"
-msgstr ""
+msgstr "birim durumu"
+
+#: src/EBox/CGI/SetMDQuota.pm:46
+msgid "Maximum mail account size"
+msgstr "Posta hesap boyutu sınırı"
 
 #: src/EBox/CGI/MailConf.pm:42
 msgid "relay"
-msgstr ""
+msgstr "İlet"
 
 #: src/EBox/CGI/CreateGroupAlias.pm:42 src/EBox/CGI/DelGroupAlias.pm:42
 msgid "group"
-msgstr ""
+msgstr "Grup"
 
 #: src/EBox/CGI/DelGroupAlias.pm:47
 msgid "group alias mail"
-msgstr ""
+msgstr "Grup takma adı postası"
 
 #: src/EBox/CGI/MailSettings.pm:41
 msgid "mail system status"
-msgstr ""
+msgstr "Posta sistemi durumu"
 
 #: src/EBox/MailVDomainsLdap.pm:68 src/EBox/MailVDomainsLdap.pm:74
 #: src/EBox/MailVDomainsLdap.pm:249 src/EBox/MailVDomainsLdap.pm:255
-#: src/EBox/Mail.pm:398 src/EBox/Mail.pm:404 src/EBox/MailUserLdap.pm:78
+#: src/EBox/Mail.pm:412 src/EBox/Mail.pm:418 src/EBox/MailUserLdap.pm:78
 #: src/EBox/MailUserLdap.pm:84 src/EBox/MailUserLdap.pm:391
 #: src/EBox/MailUserLdap.pm:397
 msgid "maildir size"
-msgstr ""
+msgstr "Posta dizini boyutu"
 
 #: src/EBox/MailAliasLdap.pm:58 src/EBox/MailAliasLdap.pm:63
 #: src/EBox/MailAliasLdap.pm:96 src/EBox/MailAliasLdap.pm:101
 #: src/EBox/MailAliasLdap.pm:156 src/EBox/MailUserLdap.pm:67
 #: src/EBox/MailUserLdap.pm:72
 msgid "mail account"
-msgstr ""
+msgstr "Posta hesabı"
 
 #: src/EBox/MailAliasLdap.pm:217 src/EBox/MailAliasLdap.pm:247
 #: src/EBox/MailAliasLdap.pm:282
 msgid "mail alias account"
-msgstr ""
+msgstr "Posta takma adı hesabı"
 
-#: src/EBox/Mail.pm:236 src/EBox/Mail.pm:307
+#: src/EBox/Mail.pm:250 src/EBox/Mail.pm:321
 msgid "port"
-msgstr ""
+msgstr "Port"
 
-#: src/EBox/Mail.pm:265 src/EBox/Mail.pm:274 src/EBox/Mail.pm:279
+#: src/EBox/Mail.pm:279 src/EBox/Mail.pm:288 src/EBox/Mail.pm:293
 msgid "remote IP"
-msgstr ""
-
-#: src/EBox/Mail.pm:266
-#, perl-brace-format
-msgid "{ip} is not a valid ip address"
-msgstr ""
-
-#: src/EBox/Mail.pm:275
-#, perl-brace-format
-msgid "{ip} cannot be reached by any configured interface"
-msgstr ""
+msgstr "uzaktaki IP"
 
 #: src/EBox/Mail.pm:280
 #, perl-brace-format
+msgid "{ip} is not a valid ip address"
+msgstr "{ip} geçerli bir IP adresi değil"
+
+#: src/EBox/Mail.pm:289
+#, perl-brace-format
+msgid "{ip} cannot be reached by any configured interface"
+msgstr "{ip} adresi tanımlanan hiçbir arabirim tarafından erişilebilir değil"
+
+#: src/EBox/Mail.pm:294
+#, perl-brace-format
 msgid "{ip} can be reached by more than one configured interface"
-msgstr ""
+msgstr "{ip} adresi tanımlanan birçok arabirim tarafından erişilebilir"
 
-#: src/EBox/Mail.pm:333
+#: src/EBox/Mail.pm:347
 msgid "smarthost ip"
-msgstr ""
+msgstr "akıllı sunucu ip"
 
-#: src/EBox/Mail.pm:362 src/EBox/Mail.pm:368
+#: src/EBox/Mail.pm:376 src/EBox/Mail.pm:382
 msgid "message size"
-msgstr ""
+msgstr "ileti boyutu"
 
-#: src/EBox/Mail.pm:807
+#: src/EBox/Mail.pm:821
 msgid "POP3 service"
-msgstr ""
+msgstr "POP3 hizmeti"
 
-#: src/EBox/Mail.pm:809
+#: src/EBox/Mail.pm:823
 msgid "IMAP service"
-msgstr ""
+msgstr "IMAP hizmeti"
 
-#: src/EBox/Mail.pm:822
+#: src/EBox/Mail.pm:836
 msgid "Mail system"
-msgstr ""
+msgstr "Posta sistemi"
 
-#: src/EBox/Mail.pm:834 src/templates/menutabs.mas:10
+#: src/EBox/Mail.pm:848 src/templates/menutabs.mas:10
 #: src/templates/menutabs.mas:13
 msgid "General"
-msgstr ""
+msgstr "Genel"
 
-#: src/EBox/Mail.pm:847 src/templates/qmanager.mas:23
+#: src/EBox/Mail.pm:861 src/templates/qmanager.mas:23
 msgid "Date"
-msgstr ""
+msgstr "Tarih"
 
-#: src/EBox/Mail.pm:848
+#: src/EBox/Mail.pm:862
 msgid "Message ID"
-msgstr ""
-
-#: src/EBox/Mail.pm:849
-msgid "From"
-msgstr ""
-
-#: src/EBox/Mail.pm:850
-msgid "To"
-msgstr ""
-
-#: src/EBox/Mail.pm:851
-msgid "From hostname"
-msgstr ""
-
-#: src/EBox/Mail.pm:852
-msgid "From host ip"
-msgstr ""
-
-#: src/EBox/Mail.pm:853 src/templates/qmanager.mas:21
-msgid "Size (bytes)"
-msgstr ""
-
-#: src/EBox/Mail.pm:854
-msgid "Relay"
-msgstr ""
-
-#: src/EBox/Mail.pm:855 src/templates/index.mas:289
-msgid "Status"
-msgstr ""
-
-#: src/EBox/Mail.pm:856
-msgid "Event"
-msgstr ""
-
-#: src/EBox/Mail.pm:857
-msgid "Aditional Info"
-msgstr ""
+msgstr "İleti Kimliği"
 
 #: src/EBox/Mail.pm:863
-msgid "Successful messages"
-msgstr ""
+msgid "From"
+msgstr "Gönderen"
 
 #: src/EBox/Mail.pm:864
-msgid "Maximum message size exceeded"
-msgstr ""
+msgid "To"
+msgstr "Alıcı"
 
 #: src/EBox/Mail.pm:865
-msgid "User quote exceeded"
-msgstr ""
+msgid "From hostname"
+msgstr "Gönderen ana makine"
 
 #: src/EBox/Mail.pm:866
-msgid "Relay access denied"
-msgstr ""
+msgid "From host ip"
+msgstr "Gönderen ana makine IP numarası"
 
-#: src/EBox/Mail.pm:867
-msgid "Account do not exists"
-msgstr ""
+#: src/EBox/Mail.pm:867 src/templates/qmanager.mas:21
+msgid "Size (bytes)"
+msgstr "Boyut (bayt)"
 
 #: src/EBox/Mail.pm:868
-msgid "Host unreachable"
-msgstr ""
+msgid "Relay"
+msgstr "İlet"
 
-#: src/EBox/Mail.pm:869
-msgid "Authentication error"
-msgstr ""
+#: src/EBox/Mail.pm:869 src/templates/index.mas:289
+msgid "Status"
+msgstr "Durum"
 
 #: src/EBox/Mail.pm:870
+msgid "Event"
+msgstr "Olay"
+
+#: src/EBox/Mail.pm:871
+msgid "Aditional Info"
+msgstr "Ek Bilgi"
+
+#: src/EBox/Mail.pm:877
+msgid "Successful messages"
+msgstr "İleti başarılı gönderildi mesajları"
+
+#: src/EBox/Mail.pm:878
+msgid "Maximum message size exceeded"
+msgstr "İleti boyutu üst sınırı aşıldı"
+
+#: src/EBox/Mail.pm:879
+msgid "User quote exceeded"
+msgstr "Kullanıcı payı aşıldı"
+
+#: src/EBox/Mail.pm:880
+msgid "Relay access denied"
+msgstr "Posta iletme erişimi engellendi"
+
+#: src/EBox/Mail.pm:881
+msgid "Account do not exists"
+msgstr "Hesap yok"
+
+#: src/EBox/Mail.pm:882
+msgid "Host unreachable"
+msgstr "Ana makine ulaşılamaz durumda"
+
+#: src/EBox/Mail.pm:883
+msgid "Authentication error"
+msgstr "Doğrulama hatası"
+
+#: src/EBox/Mail.pm:884
 msgid "Other events"
-msgstr ""
+msgstr "Diğer olaylar"
 
 #: src/EBox/MailUserLdap.pm:226
 msgid "This group has a mail alias"
-msgstr ""
+msgstr "Bu grubun bir posta takma adı var"
 
 #: src/EBox/MailUserLdap.pm:248
 msgid "This user has a mail account"
-msgstr ""
+msgstr "Bu kullanıcının bir posta hesabı var"
 
 #: src/templates/warnvd.mas:12
 msgid "Deleting virtual domain"
-msgstr ""
+msgstr "Sanal alan adını silme"
 
 #: src/templates/warnvd.mas:15
 msgid ""
 "The virtual domain you tried to delete contains data in the following "
 "modules. Please confirm you want to remove it and all its related data"
 msgstr ""
+"Silmeyi denediğiniz sanal alan adı aşağıdaki birimlerde veri içeriyor. "
+"Lütfen bu sanal alan adını ve ilgili verileri silmek istediğinizi doğrulayın."
 
 #: src/templates/warnvd.mas:31 src/templates/groupalias.mas:63
 #: src/templates/groupalias.mas:65 src/templates/vdomains.mas:102
@@ -276,64 +279,64 @@ msgstr ""
 #: src/templates/alias.mas:22 src/templates/alias.mas:24
 #: src/templates/alias.mas:120 src/templates/alias.mas:122
 msgid "Delete"
-msgstr ""
+msgstr "Sil"
 
 #: src/templates/warnvd.mas:35 src/templates/warnvdmdsize.mas:38
 #: src/templates/warnusermdsize.mas:28
 msgid "Cancel"
-msgstr ""
+msgstr "Vazgeç"
 
 #: src/templates/sasl.mas:15 src/templates/sasl.mas:20
 #: src/templates/imap.mas:22 src/templates/imap.mas:29
 #: src/templates/imap.mas:36 src/templates/pop.mas:22 src/templates/pop.mas:29
 #: src/templates/pop.mas:36
 msgid "No"
-msgstr ""
+msgstr "Hayır"
 
 #: src/templates/sasl.mas:17 src/templates/sasl.mas:22
 msgid "Yes"
-msgstr ""
+msgstr "Evet"
 
 #: src/templates/groupalias.mas:13
 msgid "Create alias mail account to group"
-msgstr ""
+msgstr "Grup için bir ileti takma ismi oluştur"
 
 #: src/templates/groupalias.mas:17
 msgid ""
 "When the last member of a group is removed, the mail alias account will be "
 "deleted"
-msgstr ""
+msgstr "Eğer grubun sonra üyesi silinirse ileti takma hesabıda silinir"
 
 #: src/templates/groupalias.mas:23
 msgid "There are no users in the group or the users do not "
-msgstr ""
+msgstr "Bu grubun içinde kullanıcı mevcut değil veya kullanıcı yok"
 
 #: src/templates/groupalias.mas:48 src/templates/groupalias.mas:50
 #: src/templates/createaccount.mas:64 src/templates/createaccount.mas:66
 #: src/templates/alias.mas:104 src/templates/alias.mas:106
 #: src/templates/alias.mas:108
 msgid "Create"
-msgstr ""
+msgstr "Oluştur"
 
 #: src/templates/groupalias.mas:56
 msgid "Mail alias settings"
-msgstr ""
+msgstr "İleti takma isim ayarları"
 
 #: src/templates/groupalias.mas:60 src/templates/alias.mas:78
 msgid "Mail alias"
-msgstr ""
+msgstr "İleti takma isimleri"
 
 #: src/templates/index.mas:30
 msgid "Mail service settings"
-msgstr ""
+msgstr "Posta servis ayarları"
 
 #: src/templates/index.mas:33
 msgid "TLS for SMTP server"
-msgstr ""
+msgstr "SMTP sunucusu için TLS"
 
 #: src/templates/index.mas:35
 msgid "Require authentication"
-msgstr ""
+msgstr "Kimlik doğrulama gerekli"
 
 #: src/templates/index.mas:44 src/templates/index.mas:46
 #: src/templates/index.mas:103 src/templates/index.mas:105
@@ -341,302 +344,317 @@ msgstr ""
 #: src/templates/index.mas:191 src/templates/index.mas:193
 #: src/templates/warnvdmdsize.mas:34 src/templates/warnusermdsize.mas:24
 msgid "Change"
-msgstr ""
+msgstr "Değiştir"
 
 #: src/templates/index.mas:53 src/templates/mailtabs.mas:9
 #: src/templates/mailtabs.mas:12
 msgid "Services"
-msgstr ""
+msgstr "Servisler"
 
 #: src/templates/index.mas:62
 msgid "Service"
-msgstr ""
+msgstr "Servis"
 
 #: src/templates/index.mas:66 src/templates/index.mas:294
 #: src/templates/index.mas:299 src/templates/enable.mas:24
 #: src/templates/enable.mas:29
 msgid "Enabled"
-msgstr ""
+msgstr "Etkin"
 
 #: src/templates/index.mas:70
 msgid "SSL Support"
-msgstr ""
+msgstr "SSL desteği"
 
 #: src/templates/index.mas:76
 msgid "POP3"
-msgstr ""
+msgstr "POP3"
 
 #: src/templates/index.mas:78
 msgid "IMAP"
-msgstr ""
+msgstr "IMAP"
 
 #: src/templates/index.mas:86 src/templates/index.mas:88
 msgid "Apply Changes"
-msgstr ""
+msgstr "Değişiklikleri uygula"
 
 #: src/templates/index.mas:97
 msgid "IP address of smarthost to send mail"
-msgstr ""
+msgstr "Posta göndermek için akıllı sunucunun ip adresi"
 
 #: src/templates/index.mas:110
 msgid ""
 "A value of 0 for the maximum message size and maximum mail account size "
 "stands for no size limitation."
 msgstr ""
+"SIFIR değeri ile kullanıcıya sınırsız mesaj kullanım hakkı verirsiniz (hem "
+"mesaj boyutu hemde kota olarak)"
 
 #: src/templates/index.mas:116
 msgid "Maximum message size accepted by the mail server"
-msgstr ""
+msgstr "Enfazla mesaj boyutu posta sunucusu tarafından kabul edildi"
 
 #: src/templates/index.mas:120 src/templates/index.mas:163
 msgid "Size (MB)"
-msgstr ""
+msgstr "Boyut (MB)"
 
 #: src/templates/index.mas:134 src/templates/index.mas:178
-#: src/templates/createaccount.mas:51 src/templates/vdomains.mas:26
+#: src/templates/vdomains.mas:26 src/templates/createaccount.mas:51
 #: src/templates/editvdomains.mas:35 src/templates/alias.mas:47
 msgid "Unlimited size"
-msgstr ""
+msgstr "Sınırsız boyut"
 
 #: src/templates/index.mas:158
 msgid "Default maximum mail account size"
-msgstr ""
+msgstr "Varsayılan en fazla posta hesabı boyutu"
 
 #: src/templates/index.mas:199
 msgid "Relay policy for objects"
-msgstr ""
+msgstr "Nesneler için iletme ilkeleri"
 
 #: src/templates/index.mas:202
 msgid ""
 "You should move to allowed column those objects you want to allow sending "
 "mail through this module."
 msgstr ""
+"İletileri bu modul ile gönderebilecek nesneleri 'İzinli' satırına koymanız "
+"gerekli"
 
 #: src/templates/index.mas:205
 msgid ""
 "Choose the object whose state you want to change and click on the arrow to "
 "move it to the desired column."
 msgstr ""
+"Durumunu değiştirmek istediğiniz nesneyi seçin ve yön tuşlarını kullanarak "
+"istediğiniz sütuna kaydırın"
 
 #: src/templates/index.mas:213
 msgid "Denied"
-msgstr ""
+msgstr "Engellendi"
 
 #: src/templates/index.mas:216
 msgid "Allowed"
-msgstr ""
+msgstr "İzinli"
 
 #: src/templates/index.mas:227 src/templates/index.mas:253
 msgid "Empty list"
-msgstr ""
+msgstr "Liste boş"
 
 #: src/templates/index.mas:242 src/templates/index.mas:246
 msgid "Allow"
-msgstr ""
+msgstr "İzin ver"
 
 #: src/templates/index.mas:244
 msgid "Move selected objects to the allowed column"
-msgstr ""
+msgstr "Seçili nesneleri izinli sütununa taşı"
 
 #: src/templates/index.mas:270 src/templates/index.mas:274
 msgid "Deny"
-msgstr ""
+msgstr "Engelle"
 
 #: src/templates/index.mas:272
 msgid "Move selected objects to the denied column"
-msgstr ""
+msgstr "Seçili nesneleri 'Engelle' sütununa taşı"
 
 #: src/templates/index.mas:296 src/templates/index.mas:301
 #: src/templates/enable.mas:22 src/templates/enable.mas:27
 msgid "Disabled"
-msgstr ""
+msgstr "Etkisiz"
 
 #: src/templates/index.mas:309
-msgid "Local port"
-msgstr ""
+msgid "Mail forward port"
+msgstr "Posta iletme portu"
 
 #: src/templates/index.mas:315
-msgid "Remote IP address"
-msgstr ""
+msgid "Filter's IP address"
+msgstr "Süzgeç IP adresi"
 
 #: src/templates/index.mas:321
-msgid "Remote Port"
-msgstr ""
+msgid "Filter's Port"
+msgstr "Süzgeç portu"
 
 #: src/templates/index.mas:330 src/templates/index.mas:332
 msgid "Apply"
-msgstr ""
+msgstr "Uygula"
 
 #: src/templates/warnvdmdsize.mas:14 src/templates/warnusermdsize.mas:10
 msgid "Changing maildir size of"
-msgstr ""
-
-#: src/templates/createaccount.mas:14 src/templates/account.mas:11
-msgid "Create mail account"
-msgstr ""
-
-#: src/templates/createaccount.mas:18
-msgid "Account name"
-msgstr ""
-
-#: src/templates/createaccount.mas:23 src/templates/vdomains.mas:18
-msgid "Domain name"
-msgstr ""
-
-#: src/templates/createaccount.mas:35
-msgid "Maildir size"
-msgstr ""
+msgstr "Posta dizini kapasitesinin değerini değiştir"
 
 #: src/templates/vdomains.mas:12
 msgid "Add a new virtual domain"
-msgstr ""
+msgstr "Yeni sanal bir alan ekle"
+
+#: src/templates/vdomains.mas:18 src/templates/createaccount.mas:23
+msgid "Domain name"
+msgstr "Alan ismi"
 
 #: src/templates/vdomains.mas:37
 msgid "Default maildir size"
-msgstr ""
+msgstr "Varsayılan posta dizini boyutu"
 
 #: src/templates/vdomains.mas:49
 msgid "(MB)"
-msgstr ""
+msgstr "(MB)"
 
 #: src/templates/vdomains.mas:57 src/templates/vdomains.mas:59
 msgid "Add"
-msgstr ""
+msgstr "Ekle"
 
 #: src/templates/vdomains.mas:69
 msgid "Virtual domains list"
-msgstr ""
+msgstr "Sanal alan listesi"
 
 #: src/templates/vdomains.mas:75
 msgid "Name"
-msgstr ""
+msgstr "İsim"
 
 #: src/templates/vdomains.mas:79
 msgid "Maildir Size"
-msgstr ""
+msgstr "Posta dizini noyutu"
 
 #: src/templates/vdomains.mas:83 src/templates/alias.mas:82
 msgid "Action"
-msgstr ""
+msgstr "İşlem"
 
 #: src/templates/vdomains.mas:96 src/templates/vdomains.mas:97
 msgid "Edit"
-msgstr ""
+msgstr "Düzenle"
 
-#: src/templates/enable.mas:10
-msgid "TLS support is required by the authentication system"
-msgstr ""
+#: src/templates/createaccount.mas:14 src/templates/account.mas:11
+msgid "Create mail account"
+msgstr "Posta hesabı oluştur"
 
-#: src/templates/enable.mas:16
-msgid "Service status"
-msgstr ""
+#: src/templates/createaccount.mas:18
+msgid "Account name"
+msgstr "Hesap ismi"
+
+#: src/templates/createaccount.mas:35
+msgid "Maildir size"
+msgstr "Posta dizini boyutu"
 
 #: src/templates/imap.mas:24 src/templates/imap.mas:31
 #: src/templates/imap.mas:38 src/templates/pop.mas:24 src/templates/pop.mas:31
 #: src/templates/pop.mas:38
 msgid "Optional"
-msgstr ""
+msgstr "Seçmeli"
 
 #: src/templates/imap.mas:26 src/templates/imap.mas:33
 #: src/templates/imap.mas:40 src/templates/pop.mas:26 src/templates/pop.mas:33
 #: src/templates/pop.mas:40
 msgid "Required"
-msgstr ""
+msgstr "Gerekli"
+
+#: src/templates/enable.mas:10
+msgid "TLS support is required by the authentication system"
+msgstr "TLS desteği kimlik doğrulama için gerekli"
+
+#: src/templates/enable.mas:16
+msgid "Service status"
+msgstr "Servis durumu"
 
 #: src/templates/editvdomains.mas:20
 #, perl-brace-format
 msgid "Maildir size for {vdomain} virtual domain"
-msgstr ""
+msgstr "{vdomain} sanal alanı için posta dizin boyutu"
 
 #: src/templates/editvdomains.mas:45
 msgid "Force the change to the existing accounts"
-msgstr ""
+msgstr "Önceden mevcut hesapların değiştirilmesine zorla izin ver"
 
 #: src/templates/editvdomains.mas:52 src/templates/editvdomains.mas:54
 #: src/templates/alias.mas:59 src/templates/alias.mas:61
 msgid "Modify"
-msgstr ""
+msgstr "Değiştir"
 
 #: src/templates/alias.mas:11
 msgid "Mail account settings"
-msgstr ""
+msgstr "Posta hesabı ayarları"
 
 #: src/templates/alias.mas:32
 msgid "Default maildir size (MB)"
-msgstr ""
+msgstr "Varsayılan posta dizini noyutu (MB)"
 
 #: src/templates/alias.mas:72
 msgid "Create mail aliases"
-msgstr ""
+msgstr "İleti takma ismi oluştur"
 
 #: src/templates/qmanager.mas:25
 msgid "Sender"
-msgstr ""
+msgstr "Gönderen"
 
 #: src/templates/qmanager.mas:27
 msgid "Recipients"
-msgstr ""
+msgstr "Alıcı"
 
 #: src/templates/qmanager.mas:29
 msgid "Message"
-msgstr ""
+msgstr "Mesaj"
 
 #: src/templates/qmanager.mas:31
 msgid "Operate"
-msgstr ""
+msgstr "Düzenle"
 
 #: src/templates/qmanager.mas:49 src/templates/qmanager.mas:51
 msgid "Requeue"
-msgstr ""
+msgstr "Beklemeye gönder"
 
 #: src/templates/qmanager.mas:56 src/templates/qmanager.mas:58
 msgid "Show Info"
-msgstr ""
+msgstr "Bilgilendirmeyi göster"
 
 #: src/templates/qmanager.mas:63 src/templates/qmanager.mas:65
 msgid "Remove"
-msgstr ""
+msgstr "Kaldır"
 
 #: src/templates/qmanager.mas:78 src/templates/qmanager.mas:80
 msgid "Hide Info"
-msgstr ""
+msgstr "Bilgilendirmeyi gizle"
 
 #: src/templates/qmanager.mas:100 src/templates/qmanager.mas:102
 msgid "first"
-msgstr ""
+msgstr "Birinci"
 
 #: src/templates/qmanager.mas:106 src/templates/qmanager.mas:108
 msgid "prev"
-msgstr ""
+msgstr "Önceki"
 
 #: src/templates/qmanager.mas:116 src/templates/qmanager.mas:119
 msgid "Page"
-msgstr ""
+msgstr "Sayfa"
 
 #: src/templates/qmanager.mas:120
 msgid "of"
-msgstr ""
+msgstr "."
 
 #: src/templates/qmanager.mas:131 src/templates/qmanager.mas:133
 msgid "next"
-msgstr ""
+msgstr "Sonraki"
 
 #: src/templates/qmanager.mas:137 src/templates/qmanager.mas:139
 msgid "last"
-msgstr ""
+msgstr "Sonuncu"
 
 #: src/templates/qmanager.mas:150
 msgid "There is not any message at the queue or the service is stopped"
-msgstr ""
-
-#: src/templates/account.mas:15
-msgid "Create mail alias to mail account"
-msgstr ""
+msgstr "Ne beklemede nede servislerden gelen olağan dışı bir mesaj var."
 
 #: src/templates/mailtabs.mas:16 src/templates/mailtabs.mas:19
 msgid "Settings"
-msgstr ""
+msgstr "Ayarlar"
 
 #: src/templates/mailtabs.mas:23 src/templates/mailtabs.mas:26
 msgid "External Filter"
-msgstr ""
+msgstr "Harici süzgeçler"
+
+#: src/templates/account.mas:15
+msgid "Create mail alias to mail account"
+msgstr "Bu posta hesabı için posta takma ismi oluştur"
+
+#~ msgid "Local port"
+#~ msgstr "Yerel port"
+
+#~ msgid "Remote IP address"
+#~ msgstr "Uzak IP adresi"
+
+#~ msgid "Remote Port"
+#~ msgstr "Uzak port"

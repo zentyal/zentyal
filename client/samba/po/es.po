@@ -9,9 +9,9 @@
 # Javier Amor Garcia <javier.amor.garcia@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-samba 0.9\n"
+"Project-Id-Version: ebox-samba 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-04-11 15:56+0200\n"
+"POT-Creation-Date: 2007-05-14 09:54+0200\n"
 "PO-Revision-Date: 2006-10-25 13:00+0200\n"
 "Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
 "Language-Team: \n"
@@ -20,10 +20,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: KBabel 1.11.2\n"
-
-#: src/EBox/CGI/Enable.pm:42
-msgid "module status"
-msgstr "estado del módulo"
 
 #: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:66
 msgid "user name"
@@ -34,6 +30,10 @@ msgstr "nombre de usuario"
 #: src/EBox/SambaLdapUser.pm:541
 msgid "group name"
 msgstr "nombre del grupo"
+
+#: src/EBox/CGI/Enable.pm:42
+msgid "module status"
+msgstr "estado del módulo"
 
 #: src/EBox/CGI/ActiveSharing.pm:47
 msgid "sharing name"

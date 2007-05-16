@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-samba 0.9"
+"Project-Id-Version: ebox-samba 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-04-11 16:25+0200\n"
+"POT-Creation-Date: 2007-05-14 09:54+0200\n"
 "PO-Revision-Date: 2007-04-11 16:25+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,10 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: src/EBox/CGI/Enable.pm:42
-msgid "module status"
-msgstr ""
 
 #: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:66
 msgid "user name"
@@ -28,6 +24,10 @@ msgstr ""
 #: src/EBox/SambaLdapUser.pm:462 src/EBox/SambaLdapUser.pm:490
 #: src/EBox/SambaLdapUser.pm:541
 msgid "group name"
+msgstr ""
+
+#: src/EBox/CGI/Enable.pm:42
+msgid "module status"
 msgstr ""
 
 #: src/EBox/CGI/ActiveSharing.pm:47

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-squid 0.9\n"
+"Project-Id-Version: ebox-squid 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-04-11 16:25+0200\n"
+"POT-Creation-Date: 2007-05-16 15:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -150,14 +150,14 @@ msgstr ""
 msgid "action"
 msgstr ""
 
-#: src/EBox/CGI/BannedDomains.pm:30 src/EBox/CGI/BannedDomains.pm:40
-#: src/EBox/Squid.pm.in:1231 src/templates/banned.mas:11
-msgid "Banned domains"
-msgstr ""
-
 #: src/EBox/CGI/AllowedDomains.pm:30 src/EBox/CGI/AllowedDomains.pm:40
 #: src/EBox/Squid.pm.in:1229 src/templates/allowed.mas:11
 msgid "Allowed domains"
+msgstr ""
+
+#: src/EBox/CGI/BannedDomains.pm:30 src/EBox/CGI/BannedDomains.pm:40
+#: src/EBox/Squid.pm.in:1231 src/templates/banned.mas:11
+msgid "Banned domains"
 msgstr ""
 
 #: src/EBox/Squid.pm.in:139
@@ -286,6 +286,10 @@ msgstr ""
 msgid "Filtered"
 msgstr ""
 
+#: src/templates/allowed.mas:13
+msgid "Add here those domains which you want to allow access."
+msgstr ""
+
 #: src/templates/banned.mas:13
 msgid "Add here those domains which you do not want to allow access."
 msgstr ""
@@ -336,10 +340,6 @@ msgstr ""
 #: src/templates/index.mas:155 src/templates/index.mas:156
 #: src/templates/filterTable.mas:172 src/templates/filterTable.mas:174
 msgid "Change"
-msgstr ""
-
-#: src/templates/allowed.mas:13
-msgid "Add here those domains which you want to allow access."
 msgstr ""
 
 #: src/templates/domains.mas:16

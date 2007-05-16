@@ -5,114 +5,117 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-jabber 0.9"
+"Project-Id-Version: ebox-jabber 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-04-11 16:23+0200\n"
-"PO-Revision-Date: 2007-04-11 16:23+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2007-05-09 18:05+0200\n"
+"PO-Revision-Date: 2007-04-18 17:53+0000\n"
+"Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
-msgstr ""
+msgstr "Modul durumu"
 
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:297
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
 
 #: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:232
 msgid "domain"
-msgstr ""
+msgstr "Alan ismi"
 
 #: src/EBox/CGI/JabberUserOptions.pm:44
 msgid "username"
-msgstr ""
+msgstr "Kullanıcı ismi "
 
 #: src/EBox/Jabber.pm:197
 msgid "listening port"
-msgstr ""
+msgstr "Kullanılacak port"
 
 #: src/EBox/Jabber.pm:309
 msgid "Jabber Service"
-msgstr ""
+msgstr "Jabber Servisi"
 
 #: src/templates/jabber.mas:8
 msgid "Jabber account"
-msgstr ""
+msgstr "Jabber hesabı"
 
 #: src/templates/jabber.mas:10
 msgid "Password for Jabber service is the user password"
-msgstr ""
+msgstr "Jabber servis parolası için kullanıcı ismini kullan"
 
 #: src/templates/jabber.mas:17
 msgid "User account"
-msgstr ""
+msgstr "Kullanıcı hesabı"
 
 #: src/templates/jabber.mas:23 src/templates/jabber.mas:28
 msgid "Disabled"
-msgstr ""
+msgstr "Etkisiz"
 
 #: src/templates/jabber.mas:25 src/templates/jabber.mas:30
 msgid "Enabled"
-msgstr ""
+msgstr "Etkin"
 
 #: src/templates/jabber.mas:38
 msgid "Administration rights"
-msgstr ""
+msgstr "Yönetici hakları"
 
 #: src/templates/jabber.mas:53 src/templates/jabber.mas:55
 msgid "Change"
-msgstr ""
+msgstr "Değiştir"
 
 #: src/templates/index.mas:14
 msgid "Jabber Service status"
-msgstr ""
+msgstr "Jabber servis durumu"
 
 #: src/templates/index.mas:18
 msgid "General Settings"
-msgstr ""
+msgstr "Genel Ayarlar"
 
 #: src/templates/index.mas:21
 msgid ""
 "Domain name should be available on the network. Otherwise, you may not be "
 "able to use this service. This applies for internal and external connections."
 msgstr ""
+"Alan ismi yerel ağda mevcut olmak zorundadır. Aksi taktirde bu servisi "
+"kullanamazsınız. Bu dahili ve harici bağlantılar içinde geçerlidir."
 
 #: src/templates/index.mas:28
 msgid "Domain name"
-msgstr ""
+msgstr "Alan ismi"
 
 #: src/templates/index.mas:37
 msgid "Connect to global Jabber network"
-msgstr ""
+msgstr "Genel Jabber ağlarına bağlan"
 
 #: src/templates/index.mas:50
 msgid "SSL Support"
-msgstr ""
+msgstr "SSL desteği"
 
 #: src/templates/index.mas:56 src/templates/index.mas:63
 #: src/templates/index.mas:70
 msgid "No"
-msgstr ""
+msgstr "Hayır"
 
 #: src/templates/index.mas:58 src/templates/index.mas:65
 #: src/templates/index.mas:72
 msgid "Optional"
-msgstr ""
+msgstr "Seçmeli"
 
 #: src/templates/index.mas:60 src/templates/index.mas:67
 #: src/templates/index.mas:74
 msgid "Required"
-msgstr ""
+msgstr "Gerekli"
 
 #: src/templates/index.mas:84 src/templates/index.mas:86
 msgid "Apply Changes"
-msgstr ""
+msgstr "Değişikliklkeri Uygula"
 
-#: stubs/c2s.xml.mas:75
+#: stubs/c2s.xml.mas:77
 msgid "Enter a username and password to register with this server."
-msgstr ""
+msgstr "Bu sunucu için kullanılacak olan kullanıcı ismini ve parolayı girin."

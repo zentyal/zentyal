@@ -4,9 +4,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 0.9\n"
+"Project-Id-Version: ebox-usersandgroups 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-28 16:04+0200\n"
+"POT-Creation-Date: 2007-05-14 09:54+0200\n"
 "PO-Revision-Date: 2006-11-17 17:38+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,19 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural= (n > 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
-
-#: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:645 src/EBox/UsersAndGroups.pm:650
-#: src/EBox/UsersAndGroups.pm:755 src/EBox/UsersAndGroups.pm:882
-#: src/EBox/UsersAndGroups.pm:919 src/EBox/UsersAndGroups.pm:993
-#: src/EBox/UsersAndGroups.pm:1099
-msgid "group name"
-msgstr ""
-
-#: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
-#: src/EBox/CGI/AddUser.pm:49
-msgid "comment"
-msgstr ""
 
 #: src/EBox/CGI/Del.pm:65
 msgid "object name"
@@ -52,6 +39,19 @@ msgstr ""
 
 #: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/AddUserToGroup.pm:49
 msgid "user"
+msgstr ""
+
+#: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
+#: src/EBox/UsersAndGroups.pm:645 src/EBox/UsersAndGroups.pm:650
+#: src/EBox/UsersAndGroups.pm:755 src/EBox/UsersAndGroups.pm:882
+#: src/EBox/UsersAndGroups.pm:919 src/EBox/UsersAndGroups.pm:993
+#: src/EBox/UsersAndGroups.pm:1099
+msgid "group name"
+msgstr ""
+
+#: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
+#: src/EBox/CGI/AddUser.pm:49
+msgid "comment"
 msgstr ""
 
 #: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45

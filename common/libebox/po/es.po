@@ -9,17 +9,17 @@
 # This file is distributed under the same license as the libebox package.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.9\n"
+"Project-Id-Version: libebox 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-28 16:00+0200\n"
-"PO-Revision-Date: 2007-02-02 10:51+0000\n"
+"POT-Creation-Date: 2007-05-14 09:51+0200\n"
+"PO-Revision-Date: 2007-05-16 13:08+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Pootle 0.10.1\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/EBox/Exceptions/DataExists.pm:31
 #, perl-brace-format
@@ -101,15 +101,15 @@ msgstr ""
 msgid "Invalid uploaded file."
 msgstr "Fichero subido inválido"
 
-#: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
-#: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
-msgid "Interface"
-msgstr "Interfaz"
-
 #: src/EBox/Sudo.pm:229
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "El comando '{cmd}', ejecutado como {user}, falló"
+
+#: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
+#: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
+msgid "Interface"
+msgstr "Interfaz"
 
 #: src/EBox/Config.pm.in:39
 #, perl-brace-format
@@ -121,7 +121,7 @@ msgid "The ebox user has not been set in the config file."
 msgstr ""
 "El usuario de ebox no ha sido establecido en el fichero de configuración."
 
-#: src/EBox/Validate.pm:600
+#: src/EBox/Validate.pm:608
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -130,13 +130,13 @@ msgstr ""
 "No se puede leer {dir}. Es posible que el directorio no exista o que existan "
 "permisos que impiden acceder a él"
 
-#: src/EBox/Validate.pm:605
+#: src/EBox/Validate.pm:613
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 "El directorio {dir} no es privado; debido a que pertenece a otro usuario"
 
-#: src/EBox/Validate.pm:680
+#: src/EBox/Validate.pm:688
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
@@ -144,7 +144,7 @@ msgstr ""
 "La ruta de archivo no es valida. (Actualmente no están soportados todos los "
 "caracteres validos para un nombre de archivo)"
 
-#: src/EBox/Validate.pm:708
+#: src/EBox/Validate.pm:716
 msgid "The file path must be absolute"
 msgstr "La ruta de archivo debe ser absoluta"
 
@@ -165,6 +165,10 @@ msgstr "Editando {row}"
 #: src/templates/ajax/tableBody.mas:131
 msgid "Action"
 msgstr "Acción"
+
+#: src/templates/ajax/tableBody.mas:329
+msgid "port"
+msgstr "puerto"
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"

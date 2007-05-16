@@ -6,17 +6,17 @@
 # Enrique Jose Hernandez Blasco <ejhernandez@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-jabber 0.9\n"
+"Project-Id-Version: ebox-jabber 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-28 16:01+0200\n"
-"PO-Revision-Date: 2006-11-27 15:03+0100\n"
-"Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
+"POT-Creation-Date: 2007-05-09 18:05+0200\n"
+"PO-Revision-Date: 2007-04-12 08:21+0000\n"
+"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n > 1);\n"
-"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
@@ -32,7 +32,7 @@ msgstr "domaine"
 
 #: src/EBox/CGI/JabberUserOptions.pm:44
 msgid "username"
-msgstr "nom d'usager"
+msgstr "nom d'utilisateur"
 
 #: src/EBox/Jabber.pm:197
 msgid "listening port"
@@ -48,11 +48,12 @@ msgstr "Compte Jabber"
 
 #: src/templates/jabber.mas:10
 msgid "Password for Jabber service is the user password"
-msgstr "Le mot de passe pour le service Jabber est le mot de passe d'usager"
+msgstr ""
+"Le mot de passe pour le service Jabber est le mot de passe d'utilisateur"
 
 #: src/templates/jabber.mas:17
 msgid "User account"
-msgstr "Compte d'usager"
+msgstr "Compte d'utilisateur"
 
 #: src/templates/jabber.mas:23 src/templates/jabber.mas:28
 msgid "Disabled"
@@ -64,7 +65,7 @@ msgstr "Activé"
 
 #: src/templates/jabber.mas:38
 msgid "Administration rights"
-msgstr "Des droits d'administration"
+msgstr "Droits d'administration"
 
 #: src/templates/jabber.mas:53 src/templates/jabber.mas:55
 msgid "Change"
@@ -84,7 +85,7 @@ msgid ""
 "able to use this service. This applies for internal and external connections."
 msgstr ""
 "Le nom de domaine devrait être disponible sur le réseau. Autrement, vous ne "
-"pourriez pas utiliser ce service. Ceci s'applique pour les connexions "
+"pourrez pas utiliser ce service. Ceci s'applique pour les connexions "
 "internes et externes."
 
 #: src/templates/index.mas:28
@@ -93,7 +94,7 @@ msgstr "Nom de domaine"
 
 #: src/templates/index.mas:37
 msgid "Connect to global Jabber network"
-msgstr "Connecté au réseau global de Jabber"
+msgstr "Se connecter au réseau global de Jabber"
 
 #: src/templates/index.mas:50
 msgid "SSL Support"
@@ -118,7 +119,8 @@ msgstr "Requis"
 msgid "Apply Changes"
 msgstr "Appliquer changements"
 
-#: stubs/c2s.xml.mas:75
+#: stubs/c2s.xml.mas:77
 msgid "Enter a username and password to register with this server."
 msgstr ""
-"Entrer un nom d'usager et un mot de passe pour registrer avec ce service."
+"Entrer un nom d'utilisateur et un mot de passe pour s'enregistrer à ce "
+"service."

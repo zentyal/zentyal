@@ -10,16 +10,17 @@ MAINTAINERCLEANFILES = Makefile.in ebox-modulename.pot
 # List of files which contain translatable strings.
 POTFILES_TMPL = \
  ./src/templates/formRenew.mas \
- ./src/templates/index.mas \
  ./src/templates/createCA.mas \
+ ./src/templates/index.mas \
  ./src/templates/forceRevoke.mas \
+ ./src/templates/forceRenew.mas \
  ./src/templates/formRevoke.mas \
  ./tools 
 
 POTFILES_PL = \
  ./src/EBox/CGI/ShowForm.pm \
- ./src/EBox/CGI/Index.pm \
  ./src/EBox/CGI/CreateCA.pm \
+ ./src/EBox/CGI/Index.pm \
  ./src/EBox/CGI/DownloadFiles.pm \
  ./src/EBox/CGI/IssueCertificate.pm \
  ./src/EBox/CGI/RevokeCertificate.pm \
@@ -31,8 +32,8 @@ POTFILES_PL = \
 
 POTFILES = \
  ./src/EBox/CGI/ShowForm.pm \
- ./src/EBox/CGI/Index.pm \
  ./src/EBox/CGI/CreateCA.pm \
+ ./src/EBox/CGI/Index.pm \
  ./src/EBox/CGI/DownloadFiles.pm \
  ./src/EBox/CGI/IssueCertificate.pm \
  ./src/EBox/CGI/RevokeCertificate.pm \
@@ -42,9 +43,10 @@ POTFILES = \
  ./src/EBox/CA/DN.pm \
  ./src/EBox/CA.pm \
  ./src/templates/formRenew.mas \
- ./src/templates/index.mas \
  ./src/templates/createCA.mas \
+ ./src/templates/index.mas \
  ./src/templates/forceRevoke.mas \
+ ./src/templates/forceRenew.mas \
  ./src/templates/formRevoke.mas 
 
 # Usually the message domain is the same as the package name.

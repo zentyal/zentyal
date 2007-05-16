@@ -4,27 +4,27 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.9\n"
+"Project-Id-Version: libebox 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-28 16:00+0200\n"
-"PO-Revision-Date: 2006-10-18 18:32-0200\n"
-"Last-Translator: junior\n"
+"POT-Creation-Date: 2007-05-14 09:51+0200\n"
+"PO-Revision-Date: 2007-04-15 19:22+0000\n"
+"Last-Translator: Filipe Henriques <filipeh@gotr00t.net>\n"
 "Language-Team: <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
-"Plural-Forms: nplurals=2; plural= (n > 1);\n"
+"X-Generator: Pootle 0.10.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/EBox/Exceptions/DataExists.pm:31
 #, perl-brace-format
 msgid "{data} {value} already exists."
-msgstr "{data} {value} já { data} existe."
+msgstr "{data} {value} já existe."
 
 #: src/EBox/Exceptions/InvalidData.pm:32
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
-msgstr ""
+msgstr "Valor inválido para {data}: {value}."
 
 #: src/EBox/Exceptions/DataNotFound.pm:30
 #, perl-brace-format
@@ -37,9 +37,8 @@ msgid "{data} is empty."
 msgstr "{data} está vazio."
 
 #: src/EBox/CGI/EBox/PageNotFound.pm:12
-#, fuzzy
 msgid "Page not found"
-msgstr "Tha página não pôde ser encontrado."
+msgstr "A página não pode ser encontrada."
 
 #: src/EBox/CGI/Base.pm:187
 msgid ""
@@ -82,26 +81,28 @@ msgstr "Você encontrou um BUg no eBox. Por Favor procure suporte técnico."
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
+"O seu pedido não pode ser processado porque tem parametros incorrectos."
 
 #: src/EBox/CGI/Base.pm:636
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
+"O seu pedido não pode ser processado porque faltam parametros necessários."
 
 #: src/EBox/CGI/Base.pm:755
 msgid "Invalid uploaded file."
-msgstr ""
-
-#: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
-#: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
-msgid "Interface"
-msgstr "Interface"
+msgstr "Upload de ficheiro inválido."
 
 #: src/EBox/Sudo.pm:229
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "Ao executar o comando '{cmd}' como usuário '{user}' falhou."
+
+#: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
+#: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
+msgid "Interface"
+msgstr "Interface"
 
 #: src/EBox/Config.pm.in:39
 #, perl-brace-format
@@ -112,25 +113,25 @@ msgstr "Não foi possível abrir o arquivo de configuração {file}."
 msgid "The ebox user has not been set in the config file."
 msgstr "O usuário ebox não foi setado no arquivo de configuração."
 
-#: src/EBox/Validate.pm:600
+#: src/EBox/Validate.pm:608
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
 "the permissions forbid access to it"
 msgstr ""
 
-#: src/EBox/Validate.pm:605
+#: src/EBox/Validate.pm:613
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 
-#: src/EBox/Validate.pm:680
+#: src/EBox/Validate.pm:688
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
 msgstr ""
 
-#: src/EBox/Validate.pm:708
+#: src/EBox/Validate.pm:716
 msgid "The file path must be absolute"
 msgstr ""
 
@@ -150,6 +151,10 @@ msgstr ""
 
 #: src/templates/ajax/tableBody.mas:131
 msgid "Action"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:329
+msgid "port"
 msgstr ""
 
 #: src/templates/ajax/tableSelector.mas:14

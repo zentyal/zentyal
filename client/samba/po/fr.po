@@ -5,35 +5,35 @@
 # Ignacio Correas <icorreas@warp.es>, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-samba 0.9\n"
+"Project-Id-Version: ebox-samba 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-04-11 15:56+0200\n"
-"PO-Revision-Date: 2005-11-29 19:58+0100\n"
-"Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
+"POT-Creation-Date: 2007-05-14 09:54+0200\n"
+"PO-Revision-Date: 2007-04-12 11:16+0000\n"
+"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n > 1);\n"
-"X-Generator: KBabel 1.10.2\n"
-
-#: src/EBox/CGI/Enable.pm:42
-msgid "module status"
-msgstr "statut de module"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:66
 msgid "user name"
-msgstr "nom d'usager"
+msgstr "nom d'utilisateur"
 
 #: src/EBox/CGI/ActivePrinting.pm:48 src/EBox/CGI/ActiveSharing.pm:44
 #: src/EBox/SambaLdapUser.pm:462 src/EBox/SambaLdapUser.pm:490
 #: src/EBox/SambaLdapUser.pm:541
 msgid "group name"
-msgstr "nom de groupe"
+msgstr "nom du groupe"
+
+#: src/EBox/CGI/Enable.pm:42
+msgid "module status"
+msgstr "statut du module"
 
 #: src/EBox/CGI/ActiveSharing.pm:47
 msgid "sharing name"
-msgstr "nom partagé"
+msgstr "nom du partage"
 
 #: src/EBox/CGI/ActiveSharing.pm:69
 msgid "active"
@@ -53,9 +53,8 @@ msgid "working group"
 msgstr "groupe de travail"
 
 #: src/EBox/CGI/SambaConf.pm:44
-#, fuzzy
 msgid "working mode"
-msgstr "groupe de travail"
+msgstr "Mode de travail"
 
 #: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:485
 msgid "description"
@@ -63,16 +62,15 @@ msgstr "description"
 
 #: src/EBox/CGI/SambaConf.pm:46
 msgid "user quota"
-msgstr "quota d'usager"
+msgstr "quota d'utilisateur"
 
 #: src/EBox/Samba.pm:281 src/EBox/Samba.pm:326
 msgid "listening port"
 msgstr "port d'écoute"
 
 #: src/EBox/Samba.pm:364
-#, fuzzy
 msgid "Domain Name"
-msgstr "nom partagé"
+msgstr "Nom de domaine"
 
 #: src/EBox/Samba.pm:523
 msgid "quota"
@@ -80,7 +78,7 @@ msgstr "quota"
 
 #: src/EBox/Samba.pm:808 src/EBox/Samba.pm:827
 msgid "user"
-msgstr "usager"
+msgstr "utilisateur"
 
 #: src/EBox/Samba.pm:811 src/EBox/Samba.pm:841 src/EBox/SambaLdapUser.pm:611
 msgid "group"
@@ -92,7 +90,8 @@ msgstr "imprimante"
 
 #: src/EBox/SambaLdapUser.pm:193
 msgid "This user has a sharing directory associated which conatins data"
-msgstr "Cet usager a un répertoire partagé associé qui contient des données"
+msgstr ""
+"Cet utilisateur a un répertoire partagé associé qui contient des données"
 
 #: src/EBox/SambaLdapUser.pm:254
 msgid "This group has a sharing directory associatedwhich conatins data"
@@ -100,7 +99,7 @@ msgstr "Ce groupe a un répertoire partagé associé qui contient des données"
 
 #: src/EBox/SambaLdapUser.pm:495
 msgid "A name should be provided for the share"
-msgstr ""
+msgstr "Un nom de partage doit être fourni"
 
 #: src/EBox/SambaLdapUser.pm:503
 msgid "sharing resource"
@@ -108,7 +107,7 @@ msgstr "ressource partagée"
 
 #: src/templates/delete.mas:10
 msgid "Deleting group"
-msgstr "En train d'effacer le groupe"
+msgstr "Effacement du groupe"
 
 #: src/templates/delete.mas:12
 msgid ""
@@ -117,7 +116,7 @@ msgid ""
 "delete it."
 msgstr ""
 "Le groupe que vous essayez d'effacer a un répertoire qui contient des "
-"données, si vous l'enlevez tout ses données seront également enlevées. "
+"données, si vous l'enlevez tout ses données seront également perdue. "
 "Veuillez confirmer que vous voulez l'effacer."
 
 #: src/templates/delete.mas:20 src/templates/samba.mas:93
@@ -130,13 +129,12 @@ msgid "Cancel"
 msgstr "Annuler"
 
 #: src/templates/samba.mas:11
-#, fuzzy
 msgid "PDC/File sharing account"
-msgstr "Partage de fichiers"
+msgstr "PDC/Compte de partage de fichier"
 
 #: src/templates/samba.mas:18
 msgid "User account"
-msgstr ""
+msgstr "Compte utilisateur"
 
 #: src/templates/samba.mas:24 src/templates/samba.mas:29
 msgid "Disabled"
@@ -148,19 +146,18 @@ msgstr "Activé"
 
 #: src/templates/samba.mas:39
 msgid "Administration rights"
-msgstr ""
+msgstr "Droits administrateur"
 
 #: src/templates/samba.mas:54 src/templates/samba.mas:56
 #: src/templates/samba.mas:88 src/templates/samba.mas:90
 #: src/templates/samba.mas:167 src/templates/samba.mas:169
 #: src/templates/index.mas:94 src/templates/index.mas:96
 msgid "Change"
-msgstr "Changer"
+msgstr "Modifier"
 
 #: src/templates/samba.mas:65
-#, fuzzy
 msgid "Sharing directory for this group"
-msgstr "Répertoire d'usager partagé"
+msgstr "Répertoires partagés pour ce groupe"
 
 #: src/templates/samba.mas:69
 msgid ""
@@ -173,14 +170,12 @@ msgstr ""
 "des noms plus longs que 12 caractères"
 
 #: src/templates/samba.mas:76
-#, fuzzy
 msgid "This resource name is longer than 12 characters."
-msgstr "Le nom de cette ressource est plus long de 12 caractères"
+msgstr "Le nom de cette ressource est plus long que 12 caractères"
 
 #: src/templates/samba.mas:80
-#, fuzzy
 msgid "Directory name"
-msgstr "Nom de netbios"
+msgstr "Nom de répertoire"
 
 #: src/templates/samba.mas:99 src/templates/samba.mas:101
 msgid "Add"
@@ -192,7 +187,7 @@ msgstr "Imprimantes"
 
 #: src/templates/samba.mas:111
 msgid "Select the printers this user will have access to."
-msgstr "Choisissez les imprimantes auxquelles cet usager aura accès."
+msgstr "Choisissez les imprimantes auxquelles cet utilisateur aura accès."
 
 #: src/templates/samba.mas:122
 msgid "Printer"
@@ -207,9 +202,8 @@ msgid "Allow all printers"
 msgstr "Permettre toutes les imprimantes"
 
 #: src/templates/index.mas:16
-#, fuzzy
 msgid "PDC/File sharing service status"
-msgstr "Statut du service de partage de fichiers"
+msgstr "PDC/Status du service de partage de fichiers"
 
 #: src/templates/index.mas:20
 msgid "General Settings"
@@ -219,27 +213,24 @@ msgstr "Configuration générale"
 msgid ""
 "To allow unlimited disk usage to users, just set zero as user quota limit."
 msgstr ""
-"Pour permettre l'utilisation illimitée de disque aux usagers, fixez zéro "
-"comme limite de quota d'usager."
+"Pour permettre l'utilisation illimitée du disque aux utilisateurs, fixez "
+"zéro comme limite de quota."
 
 #: src/templates/index.mas:30
-#, fuzzy
 msgid "Working mode"
-msgstr "Groupe de travail"
+msgstr "Mode de travail"
 
 #: src/templates/index.mas:36 src/templates/index.mas:41
-#, fuzzy
 msgid "File server"
-msgstr "Partage de fichiers"
+msgstr "Serveur de fichiers"
 
 #: src/templates/index.mas:38 src/templates/index.mas:43
 msgid "PDC"
-msgstr ""
+msgstr "PDC"
 
 #: src/templates/index.mas:52
-#, fuzzy
 msgid "Domain name"
-msgstr "nom partagé"
+msgstr "Nom de domaine"
 
 #: src/templates/index.mas:55
 msgid "Working group"
@@ -247,7 +238,7 @@ msgstr "Groupe de travail"
 
 #: src/templates/index.mas:66
 msgid "Netbios name"
-msgstr "Nom de netbios"
+msgstr "Nom Netbios"
 
 #: src/templates/index.mas:75
 msgid "Description"

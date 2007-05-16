@@ -5,58 +5,56 @@
 # Ignacio Correas <icorreas@warp.es>, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mail 0.9\n"
+"Project-Id-Version: ebox-mail 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-28 16:01+0200\n"
-"PO-Revision-Date: 2005-11-30 11:25+0100\n"
-"Last-Translator: Ignacio Correas <icorreas@warp.es>\n"
+"POT-Creation-Date: 2007-05-14 09:52+0200\n"
+"PO-Revision-Date: 2007-05-15 13:08+0000\n"
+"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n > 1);\n"
-"X-Generator: KBabel 1.10.2\n"
-
-#: src/EBox/CGI/SetQuota.pm:46
-msgid "Message size limit"
-msgstr "Limite de taille de message"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/CGI/ModifyVDomain.pm:57 src/EBox/CGI/DelVDomain.pm:72
 #: src/EBox/CGI/EditVDomain.pm:43
 msgid "vdomain"
 msgstr "vdomain"
 
+#: src/EBox/CGI/SetQuota.pm:46
+msgid "Message size limit"
+msgstr "Limite de taille de message"
+
 #: src/EBox/CGI/AddVDomain.pm:42
 msgid "Virtual domain name"
 msgstr "Nom de domaine virtuel"
 
-#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:804
-#: src/EBox/Mail.pm:831 src/EBox/Mail.pm:873
+#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:818
+#: src/EBox/Mail.pm:845 src/EBox/Mail.pm:887
 msgid "Mail"
 msgstr "Courrier"
 
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
 #: src/templates/qmanager.mas:19
 msgid "Queue ID"
-msgstr ""
+msgstr "ID de queue"
 
 #: src/EBox/CGI/CreateAlias.pm:42 src/EBox/CGI/DelAlias.pm:42
-#: src/EBox/CGI/ModifyAccountMDSize.pm:55 src/EBox/CGI/CreateAccount.pm:42
+#: src/EBox/CGI/CreateAccount.pm:42 src/EBox/CGI/ModifyAccountMDSize.pm:55
 #: src/EBox/CGI/DelAccount.pm:42
 msgid "username"
-msgstr "nom d'usager"
+msgstr "nom d'utilisateur"
 
 #: src/EBox/CGI/CreateAlias.pm:48
 msgid "maildrop"
 msgstr "maildrop"
 
 #: src/EBox/CGI/CreateAlias.pm:49 src/EBox/CGI/CreateGroupAlias.pm:48
-#, fuzzy
 msgid "account name"
 msgstr "Nom de compte"
 
 #: src/EBox/CGI/CreateAlias.pm:50 src/EBox/CGI/CreateGroupAlias.pm:49
-#, fuzzy
 msgid "domain name"
 msgstr "Nom de domaine"
 
@@ -65,9 +63,9 @@ msgid "mail alias"
 msgstr "alias de courrier"
 
 #: src/EBox/CGI/QueueManager.pm:33 src/EBox/CGI/QueueManager.pm:50
-#: src/EBox/Mail.pm:840
+#: src/EBox/Mail.pm:854
 msgid "Queue Management"
-msgstr ""
+msgstr "Gestion de la queue"
 
 #: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:62
 #: src/EBox/MailVDomainsLdap.pm:124
@@ -79,21 +77,21 @@ msgid "Mail address"
 msgstr "Adresse de courrier"
 
 #: src/EBox/CGI/VDomains.pm:29 src/EBox/CGI/VDomains.pm:39
-#: src/EBox/Mail.pm:837
+#: src/EBox/Mail.pm:851
 msgid "Virtual domains"
 msgstr "domaines virtuels"
 
 #: src/EBox/CGI/DelAccount.pm:46
 msgid "user mail"
-msgstr "courrier d'usager"
-
-#: src/EBox/CGI/SetMDQuota.pm:46
-msgid "Maximum mail account size"
-msgstr "Taille maximale de compte de courrier"
+msgstr "courrier de l'utilisateur"
 
 #: src/EBox/CGI/Enable.pm:40
 msgid "module status"
 msgstr "statut de module"
+
+#: src/EBox/CGI/SetMDQuota.pm:46
+msgid "Maximum mail account size"
+msgstr "Taille maximale de la boîte de courrier"
 
 #: src/EBox/CGI/MailConf.pm:42
 msgid "relay"
@@ -105,7 +103,7 @@ msgstr "groupe"
 
 #: src/EBox/CGI/DelGroupAlias.pm:47
 msgid "group alias mail"
-msgstr "alias de groupe"
+msgstr "alias de groupe email"
 
 #: src/EBox/CGI/MailSettings.pm:41
 msgid "mail system status"
@@ -113,11 +111,11 @@ msgstr "statut du système de courrier"
 
 #: src/EBox/MailVDomainsLdap.pm:68 src/EBox/MailVDomainsLdap.pm:74
 #: src/EBox/MailVDomainsLdap.pm:249 src/EBox/MailVDomainsLdap.pm:255
-#: src/EBox/Mail.pm:398 src/EBox/Mail.pm:404 src/EBox/MailUserLdap.pm:78
+#: src/EBox/Mail.pm:412 src/EBox/Mail.pm:418 src/EBox/MailUserLdap.pm:78
 #: src/EBox/MailUserLdap.pm:84 src/EBox/MailUserLdap.pm:391
 #: src/EBox/MailUserLdap.pm:397
 msgid "maildir size"
-msgstr "taille de maildir"
+msgstr "taille de la boîte"
 
 #: src/EBox/MailAliasLdap.pm:58 src/EBox/MailAliasLdap.pm:63
 #: src/EBox/MailAliasLdap.pm:96 src/EBox/MailAliasLdap.pm:101
@@ -131,135 +129,129 @@ msgstr "compte de courrier"
 msgid "mail alias account"
 msgstr "compte d'alias de courrier"
 
-#: src/EBox/Mail.pm:236 src/EBox/Mail.pm:307
+#: src/EBox/Mail.pm:250 src/EBox/Mail.pm:321
 msgid "port"
 msgstr "port"
 
-#: src/EBox/Mail.pm:265 src/EBox/Mail.pm:274 src/EBox/Mail.pm:279
+#: src/EBox/Mail.pm:279 src/EBox/Mail.pm:288 src/EBox/Mail.pm:293
 msgid "remote IP"
 msgstr "IP distante"
 
-#: src/EBox/Mail.pm:266
-#, perl-brace-format
-msgid "{ip} is not a valid ip address"
-msgstr ""
-
-#: src/EBox/Mail.pm:275
-#, perl-brace-format
-msgid "{ip} cannot be reached by any configured interface"
-msgstr ""
-
 #: src/EBox/Mail.pm:280
 #, perl-brace-format
-msgid "{ip} can be reached by more than one configured interface"
-msgstr ""
+msgid "{ip} is not a valid ip address"
+msgstr "{ip} n'est pas une adresse valide"
 
-#: src/EBox/Mail.pm:333
+#: src/EBox/Mail.pm:289
+#, perl-brace-format
+msgid "{ip} cannot be reached by any configured interface"
+msgstr "{ip} ne peut pas être atteinte par aucune carte réseau configurée"
+
+#: src/EBox/Mail.pm:294
+#, perl-brace-format
+msgid "{ip} can be reached by more than one configured interface"
+msgstr "{ip} peut être atteinte par plus d'une carte réseau configurée"
+
+#: src/EBox/Mail.pm:347
 msgid "smarthost ip"
 msgstr "IP de smarthost"
 
-#: src/EBox/Mail.pm:362 src/EBox/Mail.pm:368
+#: src/EBox/Mail.pm:376 src/EBox/Mail.pm:382
 msgid "message size"
 msgstr "taille de message"
 
-#: src/EBox/Mail.pm:807
+#: src/EBox/Mail.pm:821
 msgid "POP3 service"
 msgstr "Service POP3"
 
-#: src/EBox/Mail.pm:809
+#: src/EBox/Mail.pm:823
 msgid "IMAP service"
 msgstr "Service IMAP"
 
-#: src/EBox/Mail.pm:822
+#: src/EBox/Mail.pm:836
 msgid "Mail system"
 msgstr "Système de courrier"
 
-#: src/EBox/Mail.pm:834 src/templates/menutabs.mas:10
+#: src/EBox/Mail.pm:848 src/templates/menutabs.mas:10
 #: src/templates/menutabs.mas:13
 msgid "General"
 msgstr "Général"
 
-#: src/EBox/Mail.pm:847 src/templates/qmanager.mas:23
-#, fuzzy
+#: src/EBox/Mail.pm:861 src/templates/qmanager.mas:23
 msgid "Date"
-msgstr "Effacer"
+msgstr "Date"
 
-#: src/EBox/Mail.pm:848
-#, fuzzy
+#: src/EBox/Mail.pm:862
 msgid "Message ID"
-msgstr "taille de message"
+msgstr "ID du message"
 
-#: src/EBox/Mail.pm:849
+#: src/EBox/Mail.pm:863
 msgid "From"
-msgstr ""
+msgstr "De"
 
-#: src/EBox/Mail.pm:850
+#: src/EBox/Mail.pm:864
 msgid "To"
-msgstr ""
+msgstr "A"
 
-#: src/EBox/Mail.pm:851
+#: src/EBox/Mail.pm:865
 msgid "From hostname"
-msgstr ""
+msgstr "Du nom d'hôte"
 
-#: src/EBox/Mail.pm:852
-#, fuzzy
+#: src/EBox/Mail.pm:866
 msgid "From host ip"
-msgstr "IP de smarthost"
+msgstr "De l'adresse IP"
 
-#: src/EBox/Mail.pm:853 src/templates/qmanager.mas:21
+#: src/EBox/Mail.pm:867 src/templates/qmanager.mas:21
 msgid "Size (bytes)"
-msgstr ""
+msgstr "Taille (bytes)"
 
-#: src/EBox/Mail.pm:854
+#: src/EBox/Mail.pm:868
 msgid "Relay"
 msgstr "Relais"
 
-#: src/EBox/Mail.pm:855 src/templates/index.mas:289
+#: src/EBox/Mail.pm:869 src/templates/index.mas:289
 msgid "Status"
 msgstr "Statut"
 
-#: src/EBox/Mail.pm:856
-msgid "Event"
-msgstr ""
-
-#: src/EBox/Mail.pm:857
-msgid "Aditional Info"
-msgstr ""
-
-#: src/EBox/Mail.pm:863
-msgid "Successful messages"
-msgstr ""
-
-#: src/EBox/Mail.pm:864
-#, fuzzy
-msgid "Maximum message size exceeded"
-msgstr "Taille maximale de message admise par le serveur de courrier (MB):"
-
-#: src/EBox/Mail.pm:865
-msgid "User quote exceeded"
-msgstr ""
-
-#: src/EBox/Mail.pm:866
-msgid "Relay access denied"
-msgstr ""
-
-#: src/EBox/Mail.pm:867
-#, fuzzy
-msgid "Account do not exists"
-msgstr "Nom de compte"
-
-#: src/EBox/Mail.pm:868
-msgid "Host unreachable"
-msgstr ""
-
-#: src/EBox/Mail.pm:869
-#, fuzzy
-msgid "Authentication error"
-msgstr "Demander authentification"
-
 #: src/EBox/Mail.pm:870
+msgid "Event"
+msgstr "Evénements"
+
+#: src/EBox/Mail.pm:871
+msgid "Aditional Info"
+msgstr "Informations complémentaires"
+
+#: src/EBox/Mail.pm:877
+msgid "Successful messages"
+msgstr "Messages réussis"
+
+#: src/EBox/Mail.pm:878
+msgid "Maximum message size exceeded"
+msgstr "Taille maximale de message dépassée"
+
+#: src/EBox/Mail.pm:879
+msgid "User quote exceeded"
+msgstr "Quota utisateur dépassé"
+
+#: src/EBox/Mail.pm:880
+msgid "Relay access denied"
+msgstr "Accès au relai refusé"
+
+#: src/EBox/Mail.pm:881
+msgid "Account do not exists"
+msgstr "Le compte n'existe pas"
+
+#: src/EBox/Mail.pm:882
+msgid "Host unreachable"
+msgstr "Hôte injoignable"
+
+#: src/EBox/Mail.pm:883
+msgid "Authentication error"
+msgstr "Erreur d'authentification"
+
+#: src/EBox/Mail.pm:884
 msgid "Other events"
-msgstr ""
+msgstr "Autres événements"
 
 #: src/EBox/MailUserLdap.pm:226
 msgid "This group has a mail alias"
@@ -267,11 +259,11 @@ msgstr "Ce groupe a un alias de courrier"
 
 #: src/EBox/MailUserLdap.pm:248
 msgid "This user has a mail account"
-msgstr "Cet usager a une compte de courrier"
+msgstr "Cet utilisateur a une compte de courrier"
 
 #: src/templates/warnvd.mas:12
 msgid "Deleting virtual domain"
-msgstr "Effacer domaine virtuel"
+msgstr "Effacer le domaine virtuel"
 
 #: src/templates/warnvd.mas:15
 msgid ""
@@ -308,7 +300,7 @@ msgstr "Oui"
 
 #: src/templates/groupalias.mas:13
 msgid "Create alias mail account to group"
-msgstr "Créer une compte de alias pour le groupe"
+msgstr "Créer une compte d'alias pour le groupe"
 
 #: src/templates/groupalias.mas:17
 msgid ""
@@ -319,9 +311,8 @@ msgstr ""
 "courrier sera supprimé"
 
 #: src/templates/groupalias.mas:23
-#, fuzzy
 msgid "There are no users in the group or the users do not "
-msgstr "S'il n'y a pas d'usagers dans le groupe, ou les usagers ne"
+msgstr "Il n'y a pas d'utilisateur dans le groupe ou les utilisateur ne"
 
 #: src/templates/groupalias.mas:48 src/templates/groupalias.mas:50
 #: src/templates/createaccount.mas:64 src/templates/createaccount.mas:66
@@ -348,7 +339,7 @@ msgstr "TLS pour serveur SMTP"
 
 #: src/templates/index.mas:35
 msgid "Require authentication"
-msgstr "Demander authentification"
+msgstr "Necessite une authentification"
 
 #: src/templates/index.mas:44 src/templates/index.mas:46
 #: src/templates/index.mas:103 src/templates/index.mas:105
@@ -390,9 +381,8 @@ msgid "Apply Changes"
 msgstr "Appliquer les changements"
 
 #: src/templates/index.mas:97
-#, fuzzy
 msgid "IP address of smarthost to send mail"
-msgstr "Adresse IP de smarthost pour envoyer courrier"
+msgstr "Adresse IP de smarthost pour envoyer un courrier"
 
 #: src/templates/index.mas:110
 msgid ""
@@ -400,49 +390,44 @@ msgid ""
 "stands for no size limitation."
 msgstr ""
 "Une valeur de 0 pour la taille maximale de message et la taille maximale de "
-"compte de courrier ne présente aucune limitation de taille."
+"compte de courrier n'implique aucune limitation de taille."
 
 #: src/templates/index.mas:116
-#, fuzzy
 msgid "Maximum message size accepted by the mail server"
-msgstr "Taille maximale de message admise par le serveur de courrier (MB):"
+msgstr "Taille maximale de message admise par le serveur de courrier"
 
 #: src/templates/index.mas:120 src/templates/index.mas:163
-#, fuzzy
 msgid "Size (MB)"
-msgstr "Taille de maildir (MB)"
+msgstr "Taille (MB)"
 
 #: src/templates/index.mas:134 src/templates/index.mas:178
-#: src/templates/createaccount.mas:51 src/templates/vdomains.mas:26
+#: src/templates/vdomains.mas:26 src/templates/createaccount.mas:51
 #: src/templates/editvdomains.mas:35 src/templates/alias.mas:47
 msgid "Unlimited size"
 msgstr "Taille illimitée"
 
 #: src/templates/index.mas:158
-#, fuzzy
 msgid "Default maximum mail account size"
-msgstr "Taille maximale de compte de courrier"
+msgstr "Taille par défaut de compte de courrier"
 
 #: src/templates/index.mas:199
 msgid "Relay policy for objects"
 msgstr "Politique de relais pour objets"
 
 #: src/templates/index.mas:202
-#, fuzzy
 msgid ""
 "You should move to allowed column those objects you want to allow sending "
 "mail through this module."
 msgstr ""
-"Vous devez déplacer à la colonne permise les objets que vous désirez "
-"permettre d'envoyer courrier par ce module."
+"Vous devez déplacer dans la colonne autorisée les objets pour lesquels vous "
+"désirez permettre d'envoyer courrier par ce module."
 
 #: src/templates/index.mas:205
-#, fuzzy
 msgid ""
 "Choose the object whose state you want to change and click on the arrow to "
 "move it to the desired column."
 msgstr ""
-"Choisissez l'objet dont l'état vous voulez changer et cliquer sur la flèche "
+"Choisissez l'objet dont vous voulez changer l'état et cliquer sur la flèche "
 "pour la déplacer à la colonne désirée."
 
 #: src/templates/index.mas:213
@@ -455,7 +440,7 @@ msgstr "Permis"
 
 #: src/templates/index.mas:227 src/templates/index.mas:253
 msgid "Empty list"
-msgstr ""
+msgstr "Liste vide"
 
 #: src/templates/index.mas:242 src/templates/index.mas:246
 msgid "Allow"
@@ -479,16 +464,16 @@ msgid "Disabled"
 msgstr "Désactivé"
 
 #: src/templates/index.mas:309
-msgid "Local port"
-msgstr "Port local"
+msgid "Mail forward port"
+msgstr "Port de transmission mail"
 
 #: src/templates/index.mas:315
-msgid "Remote IP address"
-msgstr "Adresse IP distante"
+msgid "Filter's IP address"
+msgstr "Filtre de l'adresse IP"
 
 #: src/templates/index.mas:321
-msgid "Remote Port"
-msgstr "Port Distant"
+msgid "Filter's Port"
+msgstr "Filtre de port"
 
 #: src/templates/index.mas:330 src/templates/index.mas:332
 msgid "Apply"
@@ -496,37 +481,23 @@ msgstr "Appliquer"
 
 #: src/templates/warnvdmdsize.mas:14 src/templates/warnusermdsize.mas:10
 msgid "Changing maildir size of"
-msgstr "Changer taille de maildir de"
-
-#: src/templates/createaccount.mas:14 src/templates/account.mas:11
-msgid "Create mail account"
-msgstr "Créer compte de courrier"
-
-#: src/templates/createaccount.mas:18
-msgid "Account name"
-msgstr "Nom de compte"
-
-#: src/templates/createaccount.mas:23 src/templates/vdomains.mas:18
-msgid "Domain name"
-msgstr "Nom de domaine"
-
-#: src/templates/createaccount.mas:35
-#, fuzzy
-msgid "Maildir size"
-msgstr "Taille de Maildir"
+msgstr "Changer taille de la boîte de"
 
 #: src/templates/vdomains.mas:12
 msgid "Add a new virtual domain"
 msgstr "Ajouter un nouveau domaine virtuel"
 
+#: src/templates/vdomains.mas:18 src/templates/createaccount.mas:23
+msgid "Domain name"
+msgstr "Nom de domaine"
+
 #: src/templates/vdomains.mas:37
 msgid "Default maildir size"
-msgstr "Taille de maildir par défaut"
+msgstr "Taille de la boîte par défaut"
 
 #: src/templates/vdomains.mas:49
-#, fuzzy
 msgid "(MB)"
-msgstr "Taille de maildir (MB)"
+msgstr "(MB)"
 
 #: src/templates/vdomains.mas:57 src/templates/vdomains.mas:59
 msgid "Add"
@@ -542,7 +513,7 @@ msgstr "Nom"
 
 #: src/templates/vdomains.mas:79
 msgid "Maildir Size"
-msgstr "Taille de Maildir"
+msgstr "Taille de la boîte"
 
 #: src/templates/vdomains.mas:83 src/templates/alias.mas:82
 msgid "Action"
@@ -552,19 +523,23 @@ msgstr "Action"
 msgid "Edit"
 msgstr "Éditer"
 
-#: src/templates/enable.mas:10
-msgid "TLS support is required by the authentication system"
-msgstr "Support TLS est requis par le systèm d'authentification"
+#: src/templates/createaccount.mas:14 src/templates/account.mas:11
+msgid "Create mail account"
+msgstr "Créer compte de courrier"
 
-#: src/templates/enable.mas:16
-msgid "Service status"
-msgstr "Statut du service"
+#: src/templates/createaccount.mas:18
+msgid "Account name"
+msgstr "Nom de compte"
+
+#: src/templates/createaccount.mas:35
+msgid "Maildir size"
+msgstr "Taille de la boîte"
 
 #: src/templates/imap.mas:24 src/templates/imap.mas:31
 #: src/templates/imap.mas:38 src/templates/pop.mas:24 src/templates/pop.mas:31
 #: src/templates/pop.mas:38
 msgid "Optional"
-msgstr "Optional"
+msgstr "Optionel"
 
 #: src/templates/imap.mas:26 src/templates/imap.mas:33
 #: src/templates/imap.mas:40 src/templates/pop.mas:26 src/templates/pop.mas:33
@@ -572,10 +547,18 @@ msgstr "Optional"
 msgid "Required"
 msgstr "Requis"
 
+#: src/templates/enable.mas:10
+msgid "TLS support is required by the authentication system"
+msgstr "Le support TLS est requis par le système d'authentification"
+
+#: src/templates/enable.mas:16
+msgid "Service status"
+msgstr "Statut du service"
+
 #: src/templates/editvdomains.mas:20
 #, perl-brace-format
 msgid "Maildir size for {vdomain} virtual domain"
-msgstr "Taille de maildir pour domaine virtuel {vdomain}"
+msgstr "Taille de la boîte pour domaine virtuel {vdomain}"
 
 #: src/templates/editvdomains.mas:45
 msgid "Force the change to the existing accounts"
@@ -591,82 +574,72 @@ msgid "Mail account settings"
 msgstr "Configuration de compte de courrier"
 
 #: src/templates/alias.mas:32
-#, fuzzy
 msgid "Default maildir size (MB)"
-msgstr "Taille de maildir par défaut (Mb)"
+msgstr "Taille de la boîte par défaut (Mb)"
 
 #: src/templates/alias.mas:72
 msgid "Create mail aliases"
 msgstr "Créer alias de courrier"
 
 #: src/templates/qmanager.mas:25
-#, fuzzy
 msgid "Sender"
-msgstr "Général"
+msgstr "Expéditeur"
 
 #: src/templates/qmanager.mas:27
 msgid "Recipients"
-msgstr ""
+msgstr "Destinataires"
 
 #: src/templates/qmanager.mas:29
-#, fuzzy
 msgid "Message"
-msgstr "taille de message"
+msgstr "Message"
 
 #: src/templates/qmanager.mas:31
-#, fuzzy
 msgid "Operate"
-msgstr "Créer"
+msgstr "Envoyer"
 
 #: src/templates/qmanager.mas:49 src/templates/qmanager.mas:51
-#, fuzzy
 msgid "Requeue"
-msgstr "Requis"
+msgstr "Remettez dans la file"
 
 #: src/templates/qmanager.mas:56 src/templates/qmanager.mas:58
 msgid "Show Info"
-msgstr ""
+msgstr "Afficher les informations"
 
 #: src/templates/qmanager.mas:63 src/templates/qmanager.mas:65
 msgid "Remove"
-msgstr ""
+msgstr "Supprimer"
 
 #: src/templates/qmanager.mas:78 src/templates/qmanager.mas:80
 msgid "Hide Info"
-msgstr ""
+msgstr "Cacher les informations"
 
 #: src/templates/qmanager.mas:100 src/templates/qmanager.mas:102
 msgid "first"
-msgstr ""
+msgstr "Premier"
 
 #: src/templates/qmanager.mas:106 src/templates/qmanager.mas:108
 msgid "prev"
-msgstr ""
+msgstr "Précédent"
 
 #: src/templates/qmanager.mas:116 src/templates/qmanager.mas:119
-#, fuzzy
 msgid "Page"
-msgstr "Changer"
+msgstr "Page"
 
 #: src/templates/qmanager.mas:120
 msgid "of"
-msgstr ""
+msgstr "de"
 
 #: src/templates/qmanager.mas:131 src/templates/qmanager.mas:133
 msgid "next"
-msgstr ""
+msgstr "Suivant"
 
 #: src/templates/qmanager.mas:137 src/templates/qmanager.mas:139
 msgid "last"
-msgstr ""
+msgstr "Dernier"
 
 #: src/templates/qmanager.mas:150
 msgid "There is not any message at the queue or the service is stopped"
-msgstr ""
-
-#: src/templates/account.mas:15
-msgid "Create mail alias to mail account"
-msgstr "Créer alias de courrier au compte de courrier"
+msgstr "Il n'y a aucun message dans la file ou le service est arrêté"
 
 #: src/templates/mailtabs.mas:16 src/templates/mailtabs.mas:19
 msgid "Settings"
@@ -675,6 +648,19 @@ msgstr "Configuration"
 #: src/templates/mailtabs.mas:23 src/templates/mailtabs.mas:26
 msgid "External Filter"
 msgstr "Filtre Externe"
+
+#: src/templates/account.mas:15
+msgid "Create mail alias to mail account"
+msgstr "Créer un alias de courrier au compte de courrier"
+
+#~ msgid "Local port"
+#~ msgstr "Port local"
+
+#~ msgid "Remote IP address"
+#~ msgstr "Adresse IP distante"
+
+#~ msgid "Remote Port"
+#~ msgstr "Port Distant"
 
 #~ msgid ""
 #~ "You should move to allowed column those objects that do you want to allow "

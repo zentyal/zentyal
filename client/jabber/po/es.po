@@ -9,9 +9,9 @@
 # Enrique Jose Hernandez Blasco <ejhernandez@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-jabber 0.9\n"
+"Project-Id-Version: ebox-jabber 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-28 16:01+0200\n"
+"POT-Creation-Date: 2007-05-09 18:05+0200\n"
 "PO-Revision-Date: 2006-11-28 14:15+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -121,7 +121,7 @@ msgstr "Obligatorio"
 msgid "Apply Changes"
 msgstr "Aplicar Cambios"
 
-#: stubs/c2s.xml.mas:75
+#: stubs/c2s.xml.mas:77
 msgid "Enter a username and password to register with this server."
 msgstr ""
 "Escriba un nombre de usuario y una contraseña para entrar a este servidor"

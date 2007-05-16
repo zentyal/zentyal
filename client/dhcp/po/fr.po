@@ -8,17 +8,17 @@
 # This file is distributed under the same license as the ebox-dhcp package.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dhcp 0.9\n"
+"Project-Id-Version: ebox-dhcp 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-03-28 16:00+0200\n"
-"PO-Revision-Date: 2007-03-16 11:03+0100\n"
-"Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
+"PO-Revision-Date: 2007-04-12 07:57+0000\n"
+"Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n > 1);\n"
-"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/AddFixed.pm:39
 #: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
@@ -65,13 +65,16 @@ msgid ""
 "DHCP server can not activated because there are not any network interface "
 "with a static address. <a href='Network/Ifaces'>Configure one</a> first"
 msgstr ""
+"Le serveur DHCP ne peut pas être activé car aucune carte réseau n'est "
+"parametrée avec une adresse ip statique. <a href='Network/Ifaces'>Veuillez "
+"en configurer une</a>"
 
 #: src/EBox/DHCP.pm:315 src/EBox/DHCP.pm:355 src/EBox/DHCP.pm:386
 #: src/EBox/DHCP.pm:422 src/EBox/DHCP.pm:453 src/EBox/DHCP.pm:490
 #: src/EBox/DHCP.pm:569 src/EBox/DHCP.pm:726
 #, perl-brace-format
 msgid "{iface} is not static"
-msgstr "{iface} n'est pas static"
+msgstr "{iface} n'est pas statique"
 
 #: src/EBox/DHCP.pm:320
 msgid "Gateway IP address"
@@ -84,7 +87,7 @@ msgstr "{gateway} n'est pas dans le réseau actuel"
 
 #: src/EBox/DHCP.pm:391 src/templates/options.mas:32
 msgid "Search domain"
-msgstr ""
+msgstr "Recherche du domaine"
 
 #: src/EBox/DHCP.pm:458
 msgid "Nameserver IP address"
@@ -101,25 +104,26 @@ msgstr "\"À\" l'adresse IP"
 #: src/EBox/DHCP.pm:579
 #, perl-brace-format
 msgid "{from}-{to} is an invalid range"
-msgstr "{from}-{to} est un rang invalide"
+msgstr "{from}-{to} est une plage invalide"
 
 #: src/EBox/DHCP.pm:588
 #, perl-brace-format
 msgid "Range {from}-{to} is not in network {net}"
-msgstr "Rang {from}-{to} n'est pas dans le réseau {net}"
+msgstr "La plage {from}-{to} n'est pas dans le réseau {net}"
 
 #: src/EBox/DHCP.pm:596
 #, perl-brace-format
 msgid "Range {new_from}-{new_to} includes interface IP address: {iface_ip}"
-msgstr "Rang {new_from}-{new_to} inclut l'adresse IP d'interface: {iface_ip}"
+msgstr ""
+"La plage {new_from}-{new_to} inclut l'adresse IP de carte réseau : {iface_ip}"
 
 #: src/EBox/DHCP.pm:607
 #, perl-brace-format
 msgid ""
 "Range {new_from}-{new_to} overlaps with range '{range}': {old_from}-{old_to}"
 msgstr ""
-"Rang {new_from}-{new_to} se superpose avec le rang '{range}': {old_from}-"
-"{old_to}"
+"La plage {new_from}-{new_to} se superpose avec la plage '{range}': "
+"{old_from}-{old_to}"
 
 #: src/EBox/DHCP.pm:621
 #, perl-brace-format
@@ -139,7 +143,7 @@ msgstr "L'adresse IP choisie est l'adresse IP de l'interface: {iface_ip}"
 #: src/EBox/DHCP.pm:759
 #, perl-brace-format
 msgid "IP address {ip} is in range '{range}': {old_from}-{old_to}"
-msgstr "L'adresse IP {ip} est dans le rang '{range}': {old_from}-{old_to}"
+msgstr "L'adresse IP {ip} est dans la plage '{range}': {old_from}-{old_to}"
 
 #: src/EBox/DHCP.pm:777
 #, perl-brace-format
@@ -178,29 +182,28 @@ msgstr ""
 "enlevez-la avant d'ajouter une interface virtuelle avec cette adresse."
 
 #: src/EBox/DHCP.pm:1088
-#, fuzzy
 msgid "Date"
-msgstr "Supprimer"
+msgstr "Date"
 
 #: src/EBox/DHCP.pm:1091
 msgid "IP"
-msgstr ""
+msgstr "IP"
 
 #: src/EBox/DHCP.pm:1092
 msgid "Event"
-msgstr ""
+msgstr "Evénement"
 
 #: src/EBox/DHCP.pm:1095
 msgid "Leased"
-msgstr ""
+msgstr "Alloué"
 
 #: src/EBox/DHCP.pm:1095
 msgid "Released"
-msgstr ""
+msgstr "Libre"
 
 #: src/EBox/DHCP.pm:1098
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: src/templates/index.mas:16
 msgid "DHCP server status"
@@ -212,8 +215,8 @@ msgid ""
 "DHCP server requires a static interface, {openhref}configure one{closehref} "
 "first"
 msgstr ""
-"Le serveur DHCP exige une interface statique, {openhref}configurez une"
-"{closehref} avant"
+"Le serveur DHCP exige une interface statique, {openhref}configurez-en une"
+"{closehref} d'abord"
 
 #: src/templates/options.mas:8
 msgid "Options"
@@ -225,7 +228,7 @@ msgid ""
 "for this subnet"
 msgstr ""
 "Vous pouvez laisser vide le champ de Passerelle par Défaut pour utiliser "
-"eBox comme passerelle par défaut pour ce sub-réseau"
+"eBox comme passerelle par défaut pour ce sous-réseau"
 
 #: src/templates/options.mas:20
 msgid "Default gateway"
@@ -233,11 +236,11 @@ msgstr "Passerelle par défaut"
 
 #: src/templates/options.mas:45
 msgid "Primary nameserver"
-msgstr "Nameserver primaire"
+msgstr "Serveur de nom primaire"
 
 #: src/templates/options.mas:57
 msgid "Secondary nameserver"
-msgstr "Nameserver secondaire"
+msgstr "Serveur de nom secondaire"
 
 #: src/templates/options.mas:70
 msgid "Apply"
@@ -264,23 +267,23 @@ msgstr "Enlever"
 
 #: src/templates/ranges.mas:15
 msgid "DHCP ranges"
-msgstr "Rangs DHCP"
+msgstr "Plage DHCP"
 
 #: src/templates/ranges.mas:21
 msgid "Subnet"
-msgstr "Sub-réseau"
+msgstr "Sous-réseau"
 
 #: src/templates/ranges.mas:32
 msgid "Subnet netmask"
-msgstr "Masque de sub-réseau"
+msgstr "Masque de sous-réseau"
 
 #: src/templates/ranges.mas:43
 msgid "Available range"
-msgstr "Rang disponible"
+msgstr "Plage disponible"
 
 #: src/templates/ranges.mas:53
 msgid "Ranges"
-msgstr "Rangs"
+msgstr "Plages"
 
 #: src/templates/ranges.mas:103 src/templates/ranges.mas:105
 #: src/templates/ranges.mas:107

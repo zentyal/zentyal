@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.9"
+"Project-Id-Version: libebox 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-04-11 16:22+0200\n"
+"POT-Creation-Date: 2007-05-14 09:51+0200\n"
 "PO-Revision-Date: 2007-04-11 16:22+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -83,14 +83,14 @@ msgstr ""
 msgid "Invalid uploaded file."
 msgstr ""
 
-#: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
-#: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
-msgid "Interface"
-msgstr ""
-
 #: src/EBox/Sudo.pm:229
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
+msgstr ""
+
+#: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
+#: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
+msgid "Interface"
 msgstr ""
 
 #: src/EBox/Config.pm.in:39
@@ -102,25 +102,25 @@ msgstr ""
 msgid "The ebox user has not been set in the config file."
 msgstr ""
 
-#: src/EBox/Validate.pm:600
+#: src/EBox/Validate.pm:608
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
 "the permissions forbid access to it"
 msgstr ""
 
-#: src/EBox/Validate.pm:605
+#: src/EBox/Validate.pm:613
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 
-#: src/EBox/Validate.pm:680
+#: src/EBox/Validate.pm:688
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
 msgstr ""
 
-#: src/EBox/Validate.pm:708
+#: src/EBox/Validate.pm:716
 msgid "The file path must be absolute"
 msgstr ""
 
@@ -140,6 +140,10 @@ msgstr ""
 
 #: src/templates/ajax/tableBody.mas:131
 msgid "Action"
+msgstr ""
+
+#: src/templates/ajax/tableBody.mas:329
+msgid "port"
 msgstr ""
 
 #: src/templates/ajax/tableSelector.mas:14

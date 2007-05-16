@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.9\n"
+"Project-Id-Version: libebox 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-28 16:00+0200\n"
+"POT-Creation-Date: 2007-05-14 09:51+0200\n"
 "PO-Revision-Date: 2007-04-05 10:50+0000\n"
 "Last-Translator: Krzysztof Kubanek <krzysztof.kubanek@gmail.com>\n"
 "Language-Team: none\n"
@@ -98,15 +98,15 @@ msgstr ""
 msgid "Invalid uploaded file."
 msgstr "Wgrano nieprawidłowy plik."
 
-#: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
-#: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
-msgid "Interface"
-msgstr "Interfejs"
-
 #: src/EBox/Sudo.pm:229
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "Uruchomienie komendy '{cmd}' jako użytkownik {user} nie powiodło się."
+
+#: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
+#: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
+msgid "Interface"
+msgstr "Interfejs"
 
 #: src/EBox/Config.pm.in:39
 #, perl-brace-format
@@ -117,7 +117,7 @@ msgstr "Nie mogę otworzyć pliku konfiguracyjnego {file}."
 msgid "The ebox user has not been set in the config file."
 msgstr "Użytkownik eBoxa nie został ustawiony w pliku konfiguracyjnym."
 
-#: src/EBox/Validate.pm:600
+#: src/EBox/Validate.pm:608
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -126,13 +126,13 @@ msgstr ""
 "Nie mogę odczytać katalogu: {dir}. Może to oznaczać, że katalog nie istnieje "
 "lub uprawnienia nie pozwalają na dostęp do niego."
 
-#: src/EBox/Validate.pm:605
+#: src/EBox/Validate.pm:613
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 "Katalog {dir} nie jest katalogiem prywatnym ponieważ należy do innej osoby."
 
-#: src/EBox/Validate.pm:680
+#: src/EBox/Validate.pm:688
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
@@ -140,7 +140,7 @@ msgstr ""
 "Podana ścieżka do pliku jest nieprawidłowa. (Obecnie nie wszystkie dozwolone "
 "w nazwach plików znaki są obsługiwane)."
 
-#: src/EBox/Validate.pm:708
+#: src/EBox/Validate.pm:716
 msgid "The file path must be absolute"
 msgstr "Ścieżka do pliku nie może być względna."
 
@@ -161,6 +161,10 @@ msgstr "Edytuję {row}"
 #: src/templates/ajax/tableBody.mas:131
 msgid "Action"
 msgstr "Działanie"
+
+#: src/templates/ajax/tableBody.mas:329
+msgid "port"
+msgstr ""
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"

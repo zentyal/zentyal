@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-squid 0.9\n"
+"Project-Id-Version: ebox-squid 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-28 16:03+0200\n"
+"POT-Creation-Date: 2007-05-14 09:54+0200\n"
 "PO-Revision-Date: 2007-04-05 13:36+0000\n"
 "Last-Translator: Artur Kruszewski <mazdac@gmail.com>\n"
 "Language-Team: none\n"
@@ -153,15 +153,15 @@ msgstr "nazwa domeny"
 msgid "action"
 msgstr "akcja"
 
-#: src/EBox/CGI/BannedDomains.pm:30 src/EBox/CGI/BannedDomains.pm:40
-#: src/EBox/Squid.pm.in:1231 src/templates/banned.mas:11
-msgid "Banned domains"
-msgstr "Zablokowane domeny"
-
 #: src/EBox/CGI/AllowedDomains.pm:30 src/EBox/CGI/AllowedDomains.pm:40
 #: src/EBox/Squid.pm.in:1229 src/templates/allowed.mas:11
 msgid "Allowed domains"
 msgstr "Dozwolone domeny"
+
+#: src/EBox/CGI/BannedDomains.pm:30 src/EBox/CGI/BannedDomains.pm:40
+#: src/EBox/Squid.pm.in:1231 src/templates/banned.mas:11
+msgid "Banned domains"
+msgstr "Zablokowane domeny"
 
 #: src/EBox/Squid.pm.in:139
 msgid "You must set the cache_mem variable in the ebox configuration file"
@@ -289,6 +289,10 @@ msgstr "Zablokowano"
 msgid "Filtered"
 msgstr "Odfiltrowano"
 
+#: src/templates/allowed.mas:13
+msgid "Add here those domains which you want to allow access."
+msgstr "Dodaj tutaj domeny do których chcesz dać dostęp"
+
 #: src/templates/banned.mas:13
 msgid "Add here those domains which you do not want to allow access."
 msgstr "Dodaj tutaj domeny do których nie chcesz dać dostępu"
@@ -342,10 +346,6 @@ msgstr "Bardzo ścisły"
 #: src/templates/filterTable.mas:172 src/templates/filterTable.mas:174
 msgid "Change"
 msgstr "Zmień"
-
-#: src/templates/allowed.mas:13
-msgid "Add here those domains which you want to allow access."
-msgstr "Dodaj tutaj domeny do których chcesz dać dostęp"
 
 #: src/templates/domains.mas:16
 #, perl-brace-format

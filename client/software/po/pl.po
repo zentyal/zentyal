@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.9\n"
+"Project-Id-Version: ebox-software 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-28 16:03+0200\n"
+"POT-Creation-Date: 2007-05-14 09:54+0200\n"
 "PO-Revision-Date: 2007-04-03 14:25+0000\n"
 "Last-Translator: Mariusz Zawadzki <majdom@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 0.10.1\n"
+
+#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr "Automatyczne aktualizacje systemu"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 #: src/EBox/Software.pm:314
@@ -30,10 +34,6 @@ msgstr "Aktualizacje systemu odbywają się automatycznie"
 #: src/EBox/CGI/Updates.pm:52
 msgid "The system is up to date"
 msgstr "System jest zaktualizowany"
-
-#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
-msgstr "Automatyczne aktualizacje systemu"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
@@ -176,6 +176,10 @@ msgstr "Ok"
 msgid "Cancel"
 msgstr "Anuluj"
 
+#: src/templates/config.mas:9
+msgid "Perform automatic security updates"
+msgstr "Automatycznie wykonuj aktualizacje zabezpieczeń"
+
 #: src/templates/updates.mas:10
 msgid "Updates are available for the following system components"
 msgstr "Dostępne są aktualizacje dla następujących komponentów"
@@ -207,10 +211,6 @@ msgstr ""
 #: src/templates/updates.mas:53
 msgid "Upgrade"
 msgstr "Zaktualizuj"
-
-#: src/templates/config.mas:9
-msgid "Perform automatic security updates"
-msgstr "Automatycznie wykonuj aktualizacje zabezpieczeń"
 
 #: src/templates/ebox.mas:16
 msgid "Installed version "

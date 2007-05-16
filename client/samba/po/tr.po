@@ -5,107 +5,108 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-samba 0.9"
+"Project-Id-Version: ebox-samba 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-04-11 16:25+0200\n"
-"PO-Revision-Date: 2007-04-11 16:25+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2007-05-14 09:54+0200\n"
+"PO-Revision-Date: 2007-04-18 22:16+0000\n"
+"Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#: src/EBox/CGI/Enable.pm:42
-msgid "module status"
-msgstr ""
+"X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:66
 msgid "user name"
-msgstr ""
+msgstr "Kullanıcı ismi"
 
 #: src/EBox/CGI/ActivePrinting.pm:48 src/EBox/CGI/ActiveSharing.pm:44
 #: src/EBox/SambaLdapUser.pm:462 src/EBox/SambaLdapUser.pm:490
 #: src/EBox/SambaLdapUser.pm:541
 msgid "group name"
-msgstr ""
+msgstr "Grub ismi"
+
+#: src/EBox/CGI/Enable.pm:42
+msgid "module status"
+msgstr "Modul durumu"
 
 #: src/EBox/CGI/ActiveSharing.pm:47
 msgid "sharing name"
-msgstr ""
+msgstr "Paylaşım ismi"
 
 #: src/EBox/CGI/ActiveSharing.pm:69
 msgid "active"
-msgstr ""
+msgstr "Etkin"
 
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:234
 #: src/EBox/Samba.pm:242
 msgid "File sharing"
-msgstr ""
+msgstr "Dosya paylaşım"
 
 #: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:466
 msgid "netbios"
-msgstr ""
+msgstr "Netbios"
 
 #: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:504
 msgid "working group"
-msgstr ""
+msgstr "Çalışma grubu"
 
 #: src/EBox/CGI/SambaConf.pm:44
 msgid "working mode"
-msgstr ""
+msgstr "Çalışma modu"
 
 #: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:485
 msgid "description"
-msgstr ""
+msgstr "Açıklama"
 
 #: src/EBox/CGI/SambaConf.pm:46
 msgid "user quota"
-msgstr ""
+msgstr "Kullanıcı kotası"
 
 #: src/EBox/Samba.pm:281 src/EBox/Samba.pm:326
 msgid "listening port"
-msgstr ""
+msgstr "Kullanılacak port"
 
 #: src/EBox/Samba.pm:364
 msgid "Domain Name"
-msgstr ""
+msgstr "Alan ismi"
 
 #: src/EBox/Samba.pm:523
 msgid "quota"
-msgstr ""
+msgstr "Kota"
 
 #: src/EBox/Samba.pm:808 src/EBox/Samba.pm:827
 msgid "user"
-msgstr ""
+msgstr "Kullanıcı"
 
 #: src/EBox/Samba.pm:811 src/EBox/Samba.pm:841 src/EBox/SambaLdapUser.pm:611
 msgid "group"
-msgstr ""
+msgstr "Grup"
 
 #: src/EBox/Samba.pm:814
 msgid "printer"
-msgstr ""
+msgstr "Yazıcı"
 
 #: src/EBox/SambaLdapUser.pm:193
 msgid "This user has a sharing directory associated which conatins data"
-msgstr ""
+msgstr "Bu kullanıcı içinde veri bulunan bir paylaşım dizinine bağlandı"
 
 #: src/EBox/SambaLdapUser.pm:254
 msgid "This group has a sharing directory associatedwhich conatins data"
-msgstr ""
+msgstr "Bu grup içinde veri bulunan bir paylaşım dizinine bağlandı"
 
 #: src/EBox/SambaLdapUser.pm:495
 msgid "A name should be provided for the share"
-msgstr ""
+msgstr "Bu paylaşım için bir isim verilmesi gerekli"
 
 #: src/EBox/SambaLdapUser.pm:503
 msgid "sharing resource"
-msgstr ""
+msgstr "Paylaşım kaynağı"
 
 #: src/templates/delete.mas:10
 msgid "Deleting group"
-msgstr ""
+msgstr "Grup siliniyor"
 
 #: src/templates/delete.mas:12
 msgid ""
@@ -113,46 +114,48 @@ msgid ""
 "remove it all its data will be removed. Please confirm that you want to "
 "delete it."
 msgstr ""
+"Silmek istediğiniz gruba ait alt dizinler mevcut. Eğer silerseniz bütün bu "
+"dosyalar kaybolacaktır. Lütfen silmek isteğinizi onaylayın."
 
 #: src/templates/delete.mas:20 src/templates/samba.mas:93
 #: src/templates/samba.mas:95
 msgid "Delete"
-msgstr ""
+msgstr "Sil"
 
 #: src/templates/delete.mas:24
 msgid "Cancel"
-msgstr ""
+msgstr "Vazgeç"
 
 #: src/templates/samba.mas:11
 msgid "PDC/File sharing account"
-msgstr ""
+msgstr "PDC/Dosya paylaşım hesabı"
 
 #: src/templates/samba.mas:18
 msgid "User account"
-msgstr ""
+msgstr "Kullanıcı hesabı"
 
 #: src/templates/samba.mas:24 src/templates/samba.mas:29
 msgid "Disabled"
-msgstr ""
+msgstr "Etkisiz"
 
 #: src/templates/samba.mas:26 src/templates/samba.mas:31
 msgid "Enabled"
-msgstr ""
+msgstr "Etkin"
 
 #: src/templates/samba.mas:39
 msgid "Administration rights"
-msgstr ""
+msgstr "Yönetici hakları"
 
 #: src/templates/samba.mas:54 src/templates/samba.mas:56
 #: src/templates/samba.mas:88 src/templates/samba.mas:90
 #: src/templates/samba.mas:167 src/templates/samba.mas:169
 #: src/templates/index.mas:94 src/templates/index.mas:96
 msgid "Change"
-msgstr ""
+msgstr "Değiştir"
 
 #: src/templates/samba.mas:65
 msgid "Sharing directory for this group"
-msgstr ""
+msgstr "Grubun paylaşım dizinleri"
 
 #: src/templates/samba.mas:69
 msgid ""
@@ -160,84 +163,88 @@ msgid ""
 "that Microsoft Windows 98 and Millenium will not be able to see names longer "
 "than 12 characters"
 msgstr ""
+"Bu grup için bir paylaşım dizini tanımlayabilirsiniz fakat Windows98 ve ME "
+"sürümlerinde 12 karakterden büyük isimleri göremezsiniz."
 
 #: src/templates/samba.mas:76
 msgid "This resource name is longer than 12 characters."
-msgstr ""
+msgstr "Bu kaynak ismi 12 harften fazla"
 
 #: src/templates/samba.mas:80
 msgid "Directory name"
-msgstr ""
+msgstr "Dizin ismi"
 
 #: src/templates/samba.mas:99 src/templates/samba.mas:101
 msgid "Add"
-msgstr ""
+msgstr "Ekle"
 
 #: src/templates/samba.mas:109
 msgid "Printers"
-msgstr ""
+msgstr "Yazıcılar"
 
 #: src/templates/samba.mas:111
 msgid "Select the printers this user will have access to."
-msgstr ""
+msgstr "Kullanıcının hizmetine sunulan yazıcıları seçin."
 
 #: src/templates/samba.mas:122
 msgid "Printer"
-msgstr ""
+msgstr "Yazıcı"
 
 #: src/templates/samba.mas:124
 msgid "Allow"
-msgstr ""
+msgstr "İzin ver"
 
 #: src/templates/samba.mas:147
 msgid "Allow all printers"
-msgstr ""
+msgstr "Bütün yazıcılar için izin ver"
 
 #: src/templates/index.mas:16
 msgid "PDC/File sharing service status"
-msgstr ""
+msgstr "PDC/Dosya paylaşım servis durumu"
 
 #: src/templates/index.mas:20
 msgid "General Settings"
-msgstr ""
+msgstr "Genel Ayarlar"
 
 #: src/templates/index.mas:23
 msgid ""
 "To allow unlimited disk usage to users, just set zero as user quota limit."
 msgstr ""
+"Kullanıcıya sınırsız sabit disk kullanımı vermek için kota limiti olarak "
+"SIFIR (0) ayarlayın."
 
 #: src/templates/index.mas:30
 msgid "Working mode"
-msgstr ""
+msgstr "Çalışma modu"
 
 #: src/templates/index.mas:36 src/templates/index.mas:41
 msgid "File server"
-msgstr ""
+msgstr "Dosya sunucusu"
 
 #: src/templates/index.mas:38 src/templates/index.mas:43
 msgid "PDC"
-msgstr ""
+msgstr "PDC"
 
 #: src/templates/index.mas:52
 msgid "Domain name"
-msgstr ""
+msgstr "Alan ismi"
 
 #: src/templates/index.mas:55
 msgid "Working group"
-msgstr ""
+msgstr "Çalışma grubu"
 
 #: src/templates/index.mas:66
 msgid "Netbios name"
-msgstr ""
+msgstr "Netbios ismi"
 
 #: src/templates/index.mas:75
 msgid "Description"
-msgstr ""
+msgstr "Açıklama"
 
 #: src/templates/index.mas:83
 msgid "Quota limit"
-msgstr ""
+msgstr "Kota limiti"
 
 #: stubs/smb.conf.mas:90
 msgid "Home Directories"
-msgstr ""
+msgstr "Ev dizinleri"

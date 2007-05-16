@@ -4,9 +4,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.9\n"
+"Project-Id-Version: ebox-software 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-28 16:03+0200\n"
+"POT-Creation-Date: 2007-05-14 09:54+0200\n"
 "PO-Revision-Date: 2005-11-11 13:07+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,6 +15,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
+
+#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
+msgid "Automatic software updates"
+msgstr ""
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 #: src/EBox/Software.pm:314
@@ -27,10 +31,6 @@ msgstr ""
 
 #: src/EBox/CGI/Updates.pm:52
 msgid "The system is up to date"
-msgstr ""
-
-#: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
-msgid "Automatic software updates"
 msgstr ""
 
 #: src/EBox/CGI/Enable.pm:41
@@ -169,6 +169,10 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
+#: src/templates/config.mas:9
+msgid "Perform automatic security updates"
+msgstr ""
+
 #: src/templates/updates.mas:10
 msgid "Updates are available for the following system components"
 msgstr ""
@@ -197,10 +201,6 @@ msgstr ""
 
 #: src/templates/updates.mas:53
 msgid "Upgrade"
-msgstr ""
-
-#: src/templates/config.mas:9
-msgid "Perform automatic security updates"
 msgstr ""
 
 #: src/templates/ebox.mas:16
