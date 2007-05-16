@@ -238,7 +238,8 @@ sub restoreDB
   my $dbuser = _dbuser();
   my $eboxHome = EBox::Config::home();
 
-  my $restoreCommand = "HOME=$eboxHome /usr/bin/psql --file $file  -U $dbuser $dbname";
+  my $restoreCommand = "HOME=$eboxHome /usr/bin/psql -h 127.0.0.1" 
+  		       . " --file $file  -U $dbuser $dbname";
   EBox::Sudo::command($restoreCommand);
   EBox::info('Database ' . _dbname() . ' restored' );
 }  
