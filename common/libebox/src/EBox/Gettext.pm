@@ -153,6 +153,7 @@ $langs->{'it_IT.UTF-8'} = 'Italiano';
 $langs->{'nl_BE.UTF-8'} = 'Nederlands';
 $langs->{'pl_PL.UTF-8'} = 'Polski';
 $langs->{'pt_BR.UTF-8'} = 'Português';
+$langs->{'tr_TR.UTF-8'} = 'Türkçe';
 no utf8;
 
 # Method:  langname
