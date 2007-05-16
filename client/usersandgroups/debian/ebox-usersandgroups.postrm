@@ -9,7 +9,7 @@ onRemove()
 case "$1" in
 	remove)
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
-		onRemove();
+		onRemove
 		/usr/bin/ebox-clean-gconf usersandgroups || true
 		;;		
 esac
