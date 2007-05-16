@@ -911,7 +911,11 @@ sub logHelper
 
 sub _storageMailDirs
 {
-  return  qw(/var/mail /var/vmail);
+  my @dirs;
+  foreach my $dir ( qw(/var/mail /var/vmail) ) {
+	push (@dirs, $dir) if (-d $dir);
+  }
+  return @dirs;
 }
 
 
