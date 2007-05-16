@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-03-28 16:00+0200\n"
+"POT-Creation-Date: 2007-05-16 15:29+0200\n"
 "PO-Revision-Date: 2006-08-29 12:57+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -24,40 +24,61 @@ msgstr ""
 #: src/EBox/DHCP.pm:447 src/EBox/DHCP.pm:484 src/EBox/DHCP.pm:563
 #: src/EBox/DHCP.pm:654 src/EBox/DHCP.pm:685 src/EBox/DHCP.pm:720
 #: src/EBox/DHCP.pm:821 src/EBox/DHCP.pm:1089
+#: ebox-dhcp-0.9.1/src/EBox/CGI/AddRange.pm:39
+#: ebox-dhcp-0.9.1/src/EBox/CGI/AddFixed.pm:39
+#: ebox-dhcp-0.9.1/src/EBox/CGI/RemoveRange.pm:39
+#: ebox-dhcp-0.9.1/src/EBox/CGI/RemoveFixed.pm:39
+#: ebox-dhcp-0.9.1/src/EBox/CGI/SetIfaceOptions.pm:39
+#: ebox-dhcp-0.9.1/src/EBox/DHCP.pm:309 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:349
+#: ebox-dhcp-0.9.1/src/EBox/DHCP.pm:380 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:416
+#: ebox-dhcp-0.9.1/src/EBox/DHCP.pm:447 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:484
+#: ebox-dhcp-0.9.1/src/EBox/DHCP.pm:563 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:654
+#: ebox-dhcp-0.9.1/src/EBox/DHCP.pm:685 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:720
+#: ebox-dhcp-0.9.1/src/EBox/DHCP.pm:821 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:1089
 msgid "Interface"
 msgstr ""
 
 #: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
-#: src/templates/fixed.mas:9 src/templates/ranges.mas:58
+#: ebox-dhcp-0.9.1/src/EBox/CGI/AddRange.pm:43
+#: ebox-dhcp-0.9.1/src/EBox/CGI/AddFixed.pm:45 src/templates/ranges.mas:58
+#: src/templates/fixed.mas:9 ebox-dhcp-0.9.1/src/templates/ranges.mas:58
+#: ebox-dhcp-0.9.1/src/templates/fixed.mas:9
 msgid "Name"
 msgstr ""
 
-#: src/EBox/CGI/AddRange.pm:44 src/templates/ranges.mas:60
+#: src/EBox/CGI/AddRange.pm:44 ebox-dhcp-0.9.1/src/EBox/CGI/AddRange.pm:44
+#: src/templates/ranges.mas:60 ebox-dhcp-0.9.1/src/templates/ranges.mas:60
 msgid "From"
 msgstr ""
 
-#: src/EBox/CGI/AddRange.pm:45 src/templates/ranges.mas:62
+#: src/EBox/CGI/AddRange.pm:45 ebox-dhcp-0.9.1/src/EBox/CGI/AddRange.pm:45
+#: src/templates/ranges.mas:62 ebox-dhcp-0.9.1/src/templates/ranges.mas:62
 msgid "To"
 msgstr ""
 
-#: src/EBox/CGI/Enable.pm:39
-msgid "module status"
-msgstr ""
-
 #: src/EBox/CGI/AddFixed.pm:43 src/EBox/DHCP.pm:730 src/EBox/DHCP.pm:1090
-#: src/templates/fixed.mas:11
+#: ebox-dhcp-0.9.1/src/EBox/CGI/AddFixed.pm:43
+#: ebox-dhcp-0.9.1/src/EBox/DHCP.pm:730 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:1090
+#: src/templates/fixed.mas:11 ebox-dhcp-0.9.1/src/templates/fixed.mas:11
 msgid "MAC address"
 msgstr ""
 
-#: src/EBox/CGI/AddFixed.pm:44 src/EBox/DHCP.pm:731 src/templates/fixed.mas:13
+#: src/EBox/CGI/AddFixed.pm:44 src/EBox/DHCP.pm:731
+#: ebox-dhcp-0.9.1/src/EBox/CGI/AddFixed.pm:44
+#: ebox-dhcp-0.9.1/src/EBox/DHCP.pm:731 src/templates/fixed.mas:13
+#: ebox-dhcp-0.9.1/src/templates/fixed.mas:13
 msgid "IP address"
 msgstr ""
 
-#: src/EBox/CGI/Status.pm:42
+#: src/EBox/CGI/Status.pm:42 ebox-dhcp-0.9.1/src/EBox/CGI/Status.pm:42
 msgid "Module Status"
 msgstr ""
 
-#: src/EBox/DHCP.pm:107
+#: src/EBox/CGI/Enable.pm:39 ebox-dhcp-0.9.1/src/EBox/CGI/Enable.pm:39
+msgid "module status"
+msgstr ""
+
+#: src/EBox/DHCP.pm:107 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:107
 msgid ""
 "DHCP server can not activated because there are not any network interface "
 "with a static address. <a href='Network/Ifaces'>Configure one</a> first"
@@ -66,89 +87,94 @@ msgstr ""
 #: src/EBox/DHCP.pm:315 src/EBox/DHCP.pm:355 src/EBox/DHCP.pm:386
 #: src/EBox/DHCP.pm:422 src/EBox/DHCP.pm:453 src/EBox/DHCP.pm:490
 #: src/EBox/DHCP.pm:569 src/EBox/DHCP.pm:726
+#: ebox-dhcp-0.9.1/src/EBox/DHCP.pm:315 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:355
+#: ebox-dhcp-0.9.1/src/EBox/DHCP.pm:386 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:422
+#: ebox-dhcp-0.9.1/src/EBox/DHCP.pm:453 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:490
+#: ebox-dhcp-0.9.1/src/EBox/DHCP.pm:569 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:726
 #, perl-brace-format
 msgid "{iface} is not static"
 msgstr ""
 
-#: src/EBox/DHCP.pm:320
+#: src/EBox/DHCP.pm:320 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:320
 msgid "Gateway IP address"
 msgstr ""
 
-#: src/EBox/DHCP.pm:323
+#: src/EBox/DHCP.pm:323 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:323
 #, perl-brace-format
 msgid "{gateway} is not in the current network"
 msgstr ""
 
-#: src/EBox/DHCP.pm:391 src/templates/options.mas:32
+#: src/EBox/DHCP.pm:391 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:391
+#: src/templates/options.mas:32 ebox-dhcp-0.9.1/src/templates/options.mas:32
 msgid "Search domain"
 msgstr ""
 
-#: src/EBox/DHCP.pm:458
+#: src/EBox/DHCP.pm:458 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:458
 msgid "Nameserver IP address"
 msgstr ""
 
-#: src/EBox/DHCP.pm:573
+#: src/EBox/DHCP.pm:573 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:573
 msgid "\"From\" IP address"
 msgstr ""
 
-#: src/EBox/DHCP.pm:574
+#: src/EBox/DHCP.pm:574 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:574
 msgid "\"To\" IP address"
 msgstr ""
 
-#: src/EBox/DHCP.pm:579
+#: src/EBox/DHCP.pm:579 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:579
 #, perl-brace-format
 msgid "{from}-{to} is an invalid range"
 msgstr ""
 
-#: src/EBox/DHCP.pm:588
+#: src/EBox/DHCP.pm:588 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:588
 #, perl-brace-format
 msgid "Range {from}-{to} is not in network {net}"
 msgstr ""
 
-#: src/EBox/DHCP.pm:596
+#: src/EBox/DHCP.pm:596 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:596
 #, perl-brace-format
 msgid "Range {new_from}-{new_to} includes interface IP address: {iface_ip}"
 msgstr ""
 
-#: src/EBox/DHCP.pm:607
+#: src/EBox/DHCP.pm:607 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:607
 #, perl-brace-format
 msgid ""
 "Range {new_from}-{new_to} overlaps with range '{range}': {old_from}-{old_to}"
 msgstr ""
 
-#: src/EBox/DHCP.pm:621
+#: src/EBox/DHCP.pm:621 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:621
 #, perl-brace-format
 msgid "Range {new_from}-{new_to} includes fixed address '{name}': {fixed_ip}"
 msgstr ""
 
-#: src/EBox/DHCP.pm:741
+#: src/EBox/DHCP.pm:741 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:741
 #, perl-brace-format
 msgid "IP address {ip} is not in network {net}"
 msgstr ""
 
-#: src/EBox/DHCP.pm:749
+#: src/EBox/DHCP.pm:749 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:749
 #, perl-brace-format
 msgid "The selected IP is the interface IP address: {iface_ip}"
 msgstr ""
 
-#: src/EBox/DHCP.pm:759
+#: src/EBox/DHCP.pm:759 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:759
 #, perl-brace-format
 msgid "IP address {ip} is in range '{range}': {old_from}-{old_to}"
 msgstr ""
 
-#: src/EBox/DHCP.pm:777
+#: src/EBox/DHCP.pm:777 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:777
 #, perl-brace-format
 msgid "IP address {ip} is already added as fixed address '{name}'"
 msgstr ""
 
-#: src/EBox/DHCP.pm:786
+#: src/EBox/DHCP.pm:786 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:786
 #, perl-brace-format
 msgid ""
 "MAC address {mac} is already added as fixed address '{name}' for interface "
 "'{iface}'"
 msgstr ""
 
-#: src/EBox/DHCP.pm:908
+#: src/EBox/DHCP.pm:908 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:908
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you're trying to add is already used "
@@ -156,7 +182,7 @@ msgid ""
 "before trying to add a virtual interface using it."
 msgstr ""
 
-#: src/EBox/DHCP.pm:922
+#: src/EBox/DHCP.pm:922 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:922
 #, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you're trying to add is already used "
@@ -164,107 +190,119 @@ msgid ""
 "remove it before trying to add a virtual interface using it."
 msgstr ""
 
-#: src/EBox/DHCP.pm:1088
+#: src/EBox/DHCP.pm:1088 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:1088
 msgid "Date"
 msgstr ""
 
-#: src/EBox/DHCP.pm:1091
+#: src/EBox/DHCP.pm:1091 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:1091
 msgid "IP"
 msgstr ""
 
-#: src/EBox/DHCP.pm:1092
+#: src/EBox/DHCP.pm:1092 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:1092
 msgid "Event"
 msgstr ""
 
-#: src/EBox/DHCP.pm:1095
+#: src/EBox/DHCP.pm:1095 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:1095
 msgid "Leased"
 msgstr ""
 
-#: src/EBox/DHCP.pm:1095
+#: src/EBox/DHCP.pm:1095 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:1095
 msgid "Released"
 msgstr ""
 
-#: src/EBox/DHCP.pm:1098
+#: src/EBox/DHCP.pm:1098 ebox-dhcp-0.9.1/src/EBox/DHCP.pm:1098
 msgid "DHCP"
 msgstr ""
 
-#: src/templates/index.mas:16
+#: src/templates/options.mas:8 ebox-dhcp-0.9.1/src/templates/options.mas:8
+msgid "Options"
+msgstr ""
+
+#: src/templates/options.mas:11 ebox-dhcp-0.9.1/src/templates/options.mas:11
+msgid ""
+"You can leave empty the Default Gateway field to use eBox as default gateway "
+"for this subnet"
+msgstr ""
+
+#: src/templates/options.mas:20 ebox-dhcp-0.9.1/src/templates/options.mas:20
+msgid "Default gateway"
+msgstr ""
+
+#: src/templates/options.mas:45 ebox-dhcp-0.9.1/src/templates/options.mas:45
+msgid "Primary nameserver"
+msgstr ""
+
+#: src/templates/options.mas:57 ebox-dhcp-0.9.1/src/templates/options.mas:57
+msgid "Secondary nameserver"
+msgstr ""
+
+#: src/templates/options.mas:70 ebox-dhcp-0.9.1/src/templates/options.mas:70
+msgid "Apply"
+msgstr ""
+
+#: src/templates/ranges.mas:15 ebox-dhcp-0.9.1/src/templates/ranges.mas:15
+msgid "DHCP ranges"
+msgstr ""
+
+#: src/templates/ranges.mas:21 ebox-dhcp-0.9.1/src/templates/ranges.mas:21
+msgid "Subnet"
+msgstr ""
+
+#: src/templates/ranges.mas:32 ebox-dhcp-0.9.1/src/templates/ranges.mas:32
+msgid "Subnet netmask"
+msgstr ""
+
+#: src/templates/ranges.mas:43 ebox-dhcp-0.9.1/src/templates/ranges.mas:43
+msgid "Available range"
+msgstr ""
+
+#: src/templates/ranges.mas:53 ebox-dhcp-0.9.1/src/templates/ranges.mas:53
+msgid "Ranges"
+msgstr ""
+
+#: src/templates/ranges.mas:64 src/templates/fixed.mas:15
+#: ebox-dhcp-0.9.1/src/templates/ranges.mas:64
+#: ebox-dhcp-0.9.1/src/templates/fixed.mas:15
+msgid "Action"
+msgstr ""
+
+#: src/templates/ranges.mas:83 src/templates/ranges.mas:85
+#: src/templates/ranges.mas:87 src/templates/fixed.mas:39
+#: src/templates/fixed.mas:43 src/templates/fixed.mas:45
+#: ebox-dhcp-0.9.1/src/templates/ranges.mas:83
+#: ebox-dhcp-0.9.1/src/templates/ranges.mas:85
+#: ebox-dhcp-0.9.1/src/templates/ranges.mas:87
+#: ebox-dhcp-0.9.1/src/templates/fixed.mas:39
+#: ebox-dhcp-0.9.1/src/templates/fixed.mas:43
+#: ebox-dhcp-0.9.1/src/templates/fixed.mas:45
+msgid "Add"
+msgstr ""
+
+#: src/templates/ranges.mas:103 src/templates/ranges.mas:105
+#: src/templates/ranges.mas:107 ebox-dhcp-0.9.1/src/templates/ranges.mas:103
+#: ebox-dhcp-0.9.1/src/templates/ranges.mas:105
+#: ebox-dhcp-0.9.1/src/templates/ranges.mas:107
+msgid "Delete"
+msgstr ""
+
+#: src/templates/index.mas:16 ebox-dhcp-0.9.1/src/templates/index.mas:16
 msgid "DHCP server status"
 msgstr ""
 
-#: src/templates/index.mas:26
+#: src/templates/index.mas:26 ebox-dhcp-0.9.1/src/templates/index.mas:26
 #, perl-brace-format
 msgid ""
 "DHCP server requires a static interface, {openhref}configure one{closehref} "
 "first"
 msgstr ""
 
-#: src/templates/options.mas:8
-msgid "Options"
-msgstr ""
-
-#: src/templates/options.mas:11
-msgid ""
-"You can leave empty the Default Gateway field to use eBox as default gateway "
-"for this subnet"
-msgstr ""
-
-#: src/templates/options.mas:20
-msgid "Default gateway"
-msgstr ""
-
-#: src/templates/options.mas:45
-msgid "Primary nameserver"
-msgstr ""
-
-#: src/templates/options.mas:57
-msgid "Secondary nameserver"
-msgstr ""
-
-#: src/templates/options.mas:70
-msgid "Apply"
-msgstr ""
-
-#: src/templates/fixed.mas:5
+#: src/templates/fixed.mas:5 ebox-dhcp-0.9.1/src/templates/fixed.mas:5
 msgid "Fixed addresses"
 msgstr ""
 
-#: src/templates/fixed.mas:15 src/templates/ranges.mas:64
-msgid "Action"
-msgstr ""
-
-#: src/templates/fixed.mas:39 src/templates/fixed.mas:43
-#: src/templates/fixed.mas:45 src/templates/ranges.mas:83
-#: src/templates/ranges.mas:85 src/templates/ranges.mas:87
-msgid "Add"
-msgstr ""
-
 #: src/templates/fixed.mas:59 src/templates/fixed.mas:62
-#: src/templates/fixed.mas:64
+#: src/templates/fixed.mas:64 ebox-dhcp-0.9.1/src/templates/fixed.mas:59
+#: ebox-dhcp-0.9.1/src/templates/fixed.mas:62
+#: ebox-dhcp-0.9.1/src/templates/fixed.mas:64
 msgid "Remove"
-msgstr ""
-
-#: src/templates/ranges.mas:15
-msgid "DHCP ranges"
-msgstr ""
-
-#: src/templates/ranges.mas:21
-msgid "Subnet"
-msgstr ""
-
-#: src/templates/ranges.mas:32
-msgid "Subnet netmask"
-msgstr ""
-
-#: src/templates/ranges.mas:43
-msgid "Available range"
-msgstr ""
-
-#: src/templates/ranges.mas:53
-msgid "Ranges"
-msgstr ""
-
-#: src/templates/ranges.mas:103 src/templates/ranges.mas:105
-#: src/templates/ranges.mas:107
-msgid "Delete"
 msgstr ""

@@ -153,7 +153,7 @@ msgid ""
 "increase maximum upload traffic to the gateways associated to this external "
 "interface"
 msgstr ""
-"Ograniczenie przepustowości {IR} kbit/s powinno być niższe niż {maxLR}kbit/s "
+"Ograniczenie przepustowości {lR} kbit/s powinno być niższe niż {maxLR}kbit/s "
 "lub należy ustawić wyższą prędkość maksymalną pobierania z bram(-y) "
 "przypisanych do interfejsu zewnętrznego."
 
@@ -170,7 +170,7 @@ msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
 "maximum allowed traffic"
 msgstr ""
-"Ograniczenie {IR} kbit/s powinno zostać ustawione na niższym poziomie niż "
+"Ograniczenie {lR} kbit/s powinno zostać ustawione na niższym poziomie niż "
 "{maxLR} kbit/s lub powinieneś podnieść maksymalną dopuszczalną szybkość."
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:628

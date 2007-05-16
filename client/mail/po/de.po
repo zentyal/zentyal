@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-05-14 09:52+0200\n"
+"POT-Creation-Date: 2007-05-16 15:41+0200\n"
 "PO-Revision-Date: 2007-03-01 21:24+0100\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -23,40 +23,20 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
 
-#: src/EBox/CGI/ModifyVDomain.pm:57 src/EBox/CGI/DelVDomain.pm:72
-#: src/EBox/CGI/EditVDomain.pm:43
-msgid "vdomain"
-msgstr "Virtuelle Domäne"
-
-#: src/EBox/CGI/SetQuota.pm:46
-msgid "Message size limit"
-msgstr "Beschränkung der Nachrichtengrösse"
-
-#: src/EBox/CGI/AddVDomain.pm:42
-msgid "Virtual domain name"
-msgstr "Name der virtuellen Domäne"
-
-#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:818
-#: src/EBox/Mail.pm:845 src/EBox/Mail.pm:887
-msgid "Mail"
-msgstr "E-Mail"
-
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
 #: src/templates/qmanager.mas:19
 msgid "Queue ID"
 msgstr "ID der Warteschlange"
 
-#: src/EBox/CGI/CreateAlias.pm:42 src/EBox/CGI/DelAlias.pm:42
-#: src/EBox/CGI/CreateAccount.pm:42 src/EBox/CGI/ModifyAccountMDSize.pm:55
-#: src/EBox/CGI/DelAccount.pm:42
-msgid "username"
-msgstr "Benutzername"
+#: src/EBox/CGI/MailSettings.pm:41
+msgid "mail system status"
+msgstr "Status des E-Mail Systems"
 
-#: src/EBox/CGI/CreateAlias.pm:48
-msgid "maildrop"
-msgstr "E-Mails löschen"
+#: src/EBox/CGI/CreateGroupAlias.pm:42 src/EBox/CGI/DelGroupAlias.pm:42
+msgid "group"
+msgstr "Gruppe"
 
-#: src/EBox/CGI/CreateAlias.pm:49 src/EBox/CGI/CreateGroupAlias.pm:48
+#: src/EBox/CGI/CreateGroupAlias.pm:48 src/EBox/CGI/CreateAlias.pm:49
 #, fuzzy
 msgid "account name"
 msgstr ""
@@ -64,32 +44,31 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
 "Kontoname"
 
-#: src/EBox/CGI/CreateAlias.pm:50 src/EBox/CGI/CreateGroupAlias.pm:49
+#: src/EBox/CGI/CreateGroupAlias.pm:49 src/EBox/CGI/CreateAlias.pm:50
 msgid "domain name"
 msgstr "Name der Domäne"
 
-#: src/EBox/CGI/DelAlias.pm:46
-msgid "mail alias"
-msgstr "E-Mail Alias"
+#: src/EBox/CGI/DelGroupAlias.pm:47
+#, fuzzy
+msgid "group alias mail"
+msgstr ""
+"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
+"E-Mail Alias für Gruppe"
 
-#: src/EBox/CGI/QueueManager.pm:33 src/EBox/CGI/QueueManager.pm:50
-#: src/EBox/Mail.pm:854
-msgid "Queue Management"
-msgstr "Warteschlange verwalten"
+#: src/EBox/CGI/ModifyAccountMDSize.pm:55 src/EBox/CGI/CreateAlias.pm:42
+#: src/EBox/CGI/DelAccount.pm:42 src/EBox/CGI/DelAlias.pm:42
+#: src/EBox/CGI/CreateAccount.pm:42
+msgid "username"
+msgstr "Benutzername"
 
-#: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:62
-#: src/EBox/MailVDomainsLdap.pm:124
-msgid "virtual domain"
-msgstr "Virtuelle Domäne"
+#: src/EBox/CGI/CreateAlias.pm:48
+msgid "maildrop"
+msgstr "E-Mails löschen"
 
-#: src/EBox/CGI/CreateAccount.pm:50 src/templates/alias.mas:17
-msgid "Mail address"
-msgstr "E-Mail Adresse"
-
-#: src/EBox/CGI/VDomains.pm:29 src/EBox/CGI/VDomains.pm:39
-#: src/EBox/Mail.pm:851
-msgid "Virtual domains"
-msgstr "Virtuelle Domänen"
+#: src/EBox/CGI/SetQuota.pm:46
+msgid "Message size limit"
+msgstr "Beschränkung der Nachrichtengrösse"
 
 #: src/EBox/CGI/DelAccount.pm:46
 #, fuzzy
@@ -103,13 +82,15 @@ msgstr ""
 msgid "module status"
 msgstr "Status des Moduls"
 
-#: src/EBox/CGI/SetMDQuota.pm:46
-#, fuzzy
-msgid "Maximum mail account size"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
-"Maximale Grösse des Postfachs"
+#: src/EBox/CGI/DelVDomain.pm:72 src/EBox/CGI/EditVDomain.pm:43
+#: src/EBox/CGI/ModifyVDomain.pm:57
+msgid "vdomain"
+msgstr "Virtuelle Domäne"
+
+#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:818
+#: src/EBox/Mail.pm:845 src/EBox/Mail.pm:887
+msgid "Mail"
+msgstr "E-Mail"
 
 #: src/EBox/CGI/MailConf.pm:42
 #, fuzzy
@@ -119,21 +100,40 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
 "Weiterleitung"
 
-#: src/EBox/CGI/CreateGroupAlias.pm:42 src/EBox/CGI/DelGroupAlias.pm:42
-msgid "group"
-msgstr "Gruppe"
+#: src/EBox/CGI/DelAlias.pm:46
+msgid "mail alias"
+msgstr "E-Mail Alias"
 
-#: src/EBox/CGI/DelGroupAlias.pm:47
+#: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:62
+#: src/EBox/MailVDomainsLdap.pm:124
+msgid "virtual domain"
+msgstr "Virtuelle Domäne"
+
+#: src/EBox/CGI/CreateAccount.pm:50 src/templates/alias.mas:17
+msgid "Mail address"
+msgstr "E-Mail Adresse"
+
+#: src/EBox/CGI/AddVDomain.pm:42
+msgid "Virtual domain name"
+msgstr "Name der virtuellen Domäne"
+
+#: src/EBox/CGI/QueueManager.pm:33 src/EBox/CGI/QueueManager.pm:50
+#: src/EBox/Mail.pm:854
+msgid "Queue Management"
+msgstr "Warteschlange verwalten"
+
+#: src/EBox/CGI/SetMDQuota.pm:46
 #, fuzzy
-msgid "group alias mail"
+msgid "Maximum mail account size"
 msgstr ""
 "#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
 "#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
-"E-Mail Alias für Gruppe"
+"Maximale Grösse des Postfachs"
 
-#: src/EBox/CGI/MailSettings.pm:41
-msgid "mail system status"
-msgstr "Status des E-Mail Systems"
+#: src/EBox/CGI/VDomains.pm:29 src/EBox/CGI/VDomains.pm:39
+#: src/EBox/Mail.pm:851
+msgid "Virtual domains"
+msgstr "Virtuelle Domänen"
 
 #: src/EBox/MailVDomainsLdap.pm:68 src/EBox/MailVDomainsLdap.pm:74
 #: src/EBox/MailVDomainsLdap.pm:249 src/EBox/MailVDomainsLdap.pm:255
@@ -146,22 +146,6 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
 "#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
 "Grösse des Postfachs"
-
-#: src/EBox/MailAliasLdap.pm:58 src/EBox/MailAliasLdap.pm:63
-#: src/EBox/MailAliasLdap.pm:96 src/EBox/MailAliasLdap.pm:101
-#: src/EBox/MailAliasLdap.pm:156 src/EBox/MailUserLdap.pm:67
-#: src/EBox/MailUserLdap.pm:72
-msgid "mail account"
-msgstr "E-Mail-Konto"
-
-#: src/EBox/MailAliasLdap.pm:217 src/EBox/MailAliasLdap.pm:247
-#: src/EBox/MailAliasLdap.pm:282
-#, fuzzy
-msgid "mail alias account"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
-"Alias für Postfach"
 
 #: src/EBox/Mail.pm:250 src/EBox/Mail.pm:321
 msgid "port"
@@ -307,6 +291,22 @@ msgstr "Fehler beim Anmelden"
 msgid "Other events"
 msgstr "Andere Ereignisse"
 
+#: src/EBox/MailAliasLdap.pm:58 src/EBox/MailAliasLdap.pm:63
+#: src/EBox/MailAliasLdap.pm:96 src/EBox/MailAliasLdap.pm:101
+#: src/EBox/MailAliasLdap.pm:156 src/EBox/MailUserLdap.pm:67
+#: src/EBox/MailUserLdap.pm:72
+msgid "mail account"
+msgstr "E-Mail-Konto"
+
+#: src/EBox/MailAliasLdap.pm:217 src/EBox/MailAliasLdap.pm:247
+#: src/EBox/MailAliasLdap.pm:282
+#, fuzzy
+msgid "mail alias account"
+msgstr ""
+"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
+"Alias für Postfach"
+
 #: src/EBox/MailUserLdap.pm:226
 msgid "This group has a mail alias"
 msgstr "Diese Gruppe hat ein E-Mail Alias"
@@ -315,34 +315,24 @@ msgstr "Diese Gruppe hat ein E-Mail Alias"
 msgid "This user has a mail account"
 msgstr "Dieser Benutzer hat ein E-Mail Konto"
 
-#: src/templates/warnvd.mas:12
-msgid "Deleting virtual domain"
-msgstr "Lösche virtuelle Domäne"
+#: src/templates/enable.mas:10
+msgid "TLS support is required by the authentication system"
+msgstr "TLS-Unterstützung wird vom Anmelde-System vorausgesetzt"
 
-#: src/templates/warnvd.mas:15
-#, fuzzy
-msgid ""
-"The virtual domain you tried to delete contains data in the following "
-"modules. Please confirm you want to remove it and all its related data"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
-"Die virtuelle Domäne, welche Sie löschen wollten hat weitere Daten in "
-"folgenden Modulen. Wollen Sie die Domäne mit allen dazugehörigen Daten "
-"löschen?"
+#: src/templates/enable.mas:16
+msgid "Service status"
+msgstr "Status des Dienstes"
 
-#: src/templates/warnvd.mas:31 src/templates/groupalias.mas:63
-#: src/templates/groupalias.mas:65 src/templates/vdomains.mas:102
-#: src/templates/vdomains.mas:104 src/templates/alias.mas:20
-#: src/templates/alias.mas:22 src/templates/alias.mas:24
-#: src/templates/alias.mas:120 src/templates/alias.mas:122
-msgid "Delete"
-msgstr "Löschen"
+#: src/templates/enable.mas:22 src/templates/enable.mas:27
+#: src/templates/index.mas:296 src/templates/index.mas:301
+msgid "Disabled"
+msgstr "Deaktiviert"
 
-#: src/templates/warnvd.mas:35 src/templates/warnvdmdsize.mas:38
-#: src/templates/warnusermdsize.mas:28
-msgid "Cancel"
-msgstr "Abbrechen"
+#: src/templates/enable.mas:24 src/templates/enable.mas:29
+#: src/templates/index.mas:66 src/templates/index.mas:294
+#: src/templates/index.mas:299
+msgid "Enabled"
+msgstr "Aktiviert"
 
 #: src/templates/sasl.mas:15 src/templates/sasl.mas:20
 #: src/templates/imap.mas:22 src/templates/imap.mas:29
@@ -355,209 +345,21 @@ msgstr "Nein"
 msgid "Yes"
 msgstr "Ja"
 
-#: src/templates/groupalias.mas:13
+#: src/templates/account.mas:11 src/templates/createaccount.mas:14
 #, fuzzy
-msgid "Create alias mail account to group"
+msgid "Create mail account"
 msgstr ""
 "#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
 "#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
-"Ein E-Mail-Alias für eine Gruppe generieren"
+"Neues E-Mail Konto"
 
-#: src/templates/groupalias.mas:17
+#: src/templates/account.mas:15
 #, fuzzy
-msgid ""
-"When the last member of a group is removed, the mail alias account will be "
-"deleted"
+msgid "Create mail alias to mail account"
 msgstr ""
 "#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
 "#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
-"Wenn das letzte Mitglied einer Gruppe entfernt wurde, wird das E-Mail-Alias "
-"gelöscht"
-
-#: src/templates/groupalias.mas:23
-#, fuzzy
-msgid "There are no users in the group or the users do not "
-msgstr ""
-"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
-"Entweder sind keine Benutzer in dieser Gruppe oder die Benutzer gibt es nicht"
-
-#: src/templates/groupalias.mas:48 src/templates/groupalias.mas:50
-#: src/templates/createaccount.mas:64 src/templates/createaccount.mas:66
-#: src/templates/alias.mas:104 src/templates/alias.mas:106
-#: src/templates/alias.mas:108
-msgid "Create"
-msgstr "Generieren"
-
-#: src/templates/groupalias.mas:56
-msgid "Mail alias settings"
-msgstr "Einstellungen für E-Mail-Alias"
-
-#: src/templates/groupalias.mas:60 src/templates/alias.mas:78
-msgid "Mail alias"
-msgstr "E-Mail-Alias"
-
-#: src/templates/index.mas:30
-msgid "Mail service settings"
-msgstr "Einstellungen für E-Mail-Dienst"
-
-#: src/templates/index.mas:33
-msgid "TLS for SMTP server"
-msgstr "TLS (Transport Layer Security) für SMTP-Server"
-
-#: src/templates/index.mas:35
-msgid "Require authentication"
-msgstr "Anmeldung erforderlich"
-
-#: src/templates/index.mas:44 src/templates/index.mas:46
-#: src/templates/index.mas:103 src/templates/index.mas:105
-#: src/templates/index.mas:147 src/templates/index.mas:149
-#: src/templates/index.mas:191 src/templates/index.mas:193
-#: src/templates/warnvdmdsize.mas:34 src/templates/warnusermdsize.mas:24
-msgid "Change"
-msgstr "Ändern"
-
-#: src/templates/index.mas:53 src/templates/mailtabs.mas:9
-#: src/templates/mailtabs.mas:12
-msgid "Services"
-msgstr "Dienste"
-
-#: src/templates/index.mas:62
-msgid "Service"
-msgstr "Dienst"
-
-#: src/templates/index.mas:66 src/templates/index.mas:294
-#: src/templates/index.mas:299 src/templates/enable.mas:24
-#: src/templates/enable.mas:29
-msgid "Enabled"
-msgstr "Aktiviert"
-
-#: src/templates/index.mas:70
-msgid "SSL Support"
-msgstr "SSL-Unterstützung"
-
-#: src/templates/index.mas:76
-msgid "POP3"
-msgstr "POP3"
-
-#: src/templates/index.mas:78
-msgid "IMAP"
-msgstr "IMAP"
-
-#: src/templates/index.mas:86 src/templates/index.mas:88
-msgid "Apply Changes"
-msgstr "Änderungen anwenden"
-
-#: src/templates/index.mas:97
-#, fuzzy
-msgid "IP address of smarthost to send mail"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
-"IP-Adresse eines Smarthost, der E-Mails versendet"
-
-#: src/templates/index.mas:110
-#, fuzzy
-msgid ""
-"A value of 0 for the maximum message size and maximum mail account size "
-"stands for no size limitation."
-msgstr ""
-"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
-"Der Wert \"0\" für die Nachrichtengrösse oder Grösse des E-Mail-Konto hebt "
-"die Beschränkung auf"
-
-#: src/templates/index.mas:116
-msgid "Maximum message size accepted by the mail server"
-msgstr "Maximale Grösse der Nachrichten, die vom Server akzeptiert werden"
-
-#: src/templates/index.mas:120 src/templates/index.mas:163
-msgid "Size (MB)"
-msgstr "Grösse (in MB)"
-
-#: src/templates/index.mas:134 src/templates/index.mas:178
-#: src/templates/vdomains.mas:26 src/templates/createaccount.mas:51
-#: src/templates/editvdomains.mas:35 src/templates/alias.mas:47
-msgid "Unlimited size"
-msgstr "Uneingeschränkt"
-
-#: src/templates/index.mas:158
-msgid "Default maximum mail account size"
-msgstr "Standardwert für Postfachgrösse"
-
-#: src/templates/index.mas:199
-msgid "Relay policy for objects"
-msgstr "Weiterleitungspolitik für Objekte"
-
-#: src/templates/index.mas:202
-msgid ""
-"You should move to allowed column those objects you want to allow sending "
-"mail through this module."
-msgstr ""
-"Sie sollten die Objekte, welche E-Mails mit diesem Modul versenden dürfen, "
-"in die Spalte \"Erlaubt\" veschieben"
-
-#: src/templates/index.mas:205
-msgid ""
-"Choose the object whose state you want to change and click on the arrow to "
-"move it to the desired column."
-msgstr ""
-"Wählen Sie das Objekt, dessen Status Sie ändern möchten und klicken Sie auf "
-"die Pfeile, um es in die gewünschte Spalte zu verschieben"
-
-#: src/templates/index.mas:213
-msgid "Denied"
-msgstr "Verweigert"
-
-#: src/templates/index.mas:216
-msgid "Allowed"
-msgstr "Erlaubt"
-
-#: src/templates/index.mas:227 src/templates/index.mas:253
-#, fuzzy
-msgid "Empty list"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
-"Liste leeren"
-
-#: src/templates/index.mas:242 src/templates/index.mas:246
-msgid "Allow"
-msgstr "Erlauben"
-
-#: src/templates/index.mas:244
-msgid "Move selected objects to the allowed column"
-msgstr "Bewegen Sie die gewählten Objekte in die Spalte \"Erlaubt\""
-
-#: src/templates/index.mas:270 src/templates/index.mas:274
-msgid "Deny"
-msgstr "Verweigern"
-
-#: src/templates/index.mas:272
-msgid "Move selected objects to the denied column"
-msgstr "Bewegen Sie die gewählten Objekte in die Spalte \"Verweigert\""
-
-#: src/templates/index.mas:296 src/templates/index.mas:301
-#: src/templates/enable.mas:22 src/templates/enable.mas:27
-msgid "Disabled"
-msgstr "Deaktiviert"
-
-#: src/templates/index.mas:309
-msgid "Mail forward port"
-msgstr ""
-
-#: src/templates/index.mas:315
-#, fuzzy
-msgid "Filter's IP address"
-msgstr "IP-Adresse der Gegenstelle"
-
-#: src/templates/index.mas:321
-msgid "Filter's Port"
-msgstr ""
-
-#: src/templates/index.mas:330 src/templates/index.mas:332
-msgid "Apply"
-msgstr "Anwenden"
+"E-Mail Alias für dieses Konto erstellen"
 
 #: src/templates/warnvdmdsize.mas:14 src/templates/warnusermdsize.mas:10
 #, fuzzy
@@ -567,123 +369,18 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
 "Ändern der Postfachgrösse von"
 
-#: src/templates/vdomains.mas:12
-msgid "Add a new virtual domain"
-msgstr "Eine virtuelle Domäne hinzufügen"
-
-#: src/templates/vdomains.mas:18 src/templates/createaccount.mas:23
-msgid "Domain name"
-msgstr "Name der Domäne"
-
-#: src/templates/vdomains.mas:37
-#, fuzzy
-msgid "Default maildir size"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
-"Grösse des Standardpostfachs"
-
-#: src/templates/vdomains.mas:49
-msgid "(MB)"
-msgstr "(MB)"
-
-#: src/templates/vdomains.mas:57 src/templates/vdomains.mas:59
-msgid "Add"
-msgstr "Hinzufügen"
-
-#: src/templates/vdomains.mas:69
-msgid "Virtual domains list"
-msgstr "Liste der virtuellen Domänen"
-
-#: src/templates/vdomains.mas:75
-msgid "Name"
-msgstr "Name"
-
-#: src/templates/vdomains.mas:79
-#, fuzzy
-msgid "Maildir Size"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
-"Postfachgrösse"
-
-#: src/templates/vdomains.mas:83 src/templates/alias.mas:82
-msgid "Action"
-msgstr "Aktion"
-
-#: src/templates/vdomains.mas:96 src/templates/vdomains.mas:97
-msgid "Edit"
-msgstr "Bearbeiten"
-
-#: src/templates/createaccount.mas:14 src/templates/account.mas:11
-#, fuzzy
-msgid "Create mail account"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
-"Neues E-Mail Konto"
-
-#: src/templates/createaccount.mas:18
-#, fuzzy
-msgid "Account name"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
-"Kontoname"
-
-#: src/templates/createaccount.mas:35
-#, fuzzy
-msgid "Maildir size"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
-"Postfachgrösse"
-
-#: src/templates/imap.mas:24 src/templates/imap.mas:31
-#: src/templates/imap.mas:38 src/templates/pop.mas:24 src/templates/pop.mas:31
-#: src/templates/pop.mas:38
-msgid "Optional"
-msgstr "Fakultativ"
-
-#: src/templates/imap.mas:26 src/templates/imap.mas:33
-#: src/templates/imap.mas:40 src/templates/pop.mas:26 src/templates/pop.mas:33
-#: src/templates/pop.mas:40
-msgid "Required"
-msgstr "Erforderlich"
-
-#: src/templates/enable.mas:10
-msgid "TLS support is required by the authentication system"
-msgstr "TLS-Unterstützung wird vom Anmelde-System vorausgesetzt"
-
-#: src/templates/enable.mas:16
-msgid "Service status"
-msgstr "Status des Dienstes"
-
-#: src/templates/editvdomains.mas:20
-#, perl-brace-format
-msgid "Maildir size for {vdomain} virtual domain"
-msgstr "Postfachgrösse für die virtuelle Domäne {vdomain}"
-
-#: src/templates/editvdomains.mas:45
-msgid "Force the change to the existing accounts"
-msgstr "Die Änderungen auf die vorhandenen Konten anwenden"
-
-#: src/templates/editvdomains.mas:52 src/templates/editvdomains.mas:54
-#: src/templates/alias.mas:59 src/templates/alias.mas:61
-msgid "Modify"
+#: src/templates/warnvdmdsize.mas:34 src/templates/warnusermdsize.mas:24
+#: src/templates/index.mas:44 src/templates/index.mas:46
+#: src/templates/index.mas:103 src/templates/index.mas:105
+#: src/templates/index.mas:147 src/templates/index.mas:149
+#: src/templates/index.mas:191 src/templates/index.mas:193
+msgid "Change"
 msgstr "Ändern"
 
-#: src/templates/alias.mas:11
-msgid "Mail account settings"
-msgstr "Einstellungen des E-Mail Konto"
-
-#: src/templates/alias.mas:32
-msgid "Default maildir size (MB)"
-msgstr "Grösse des Standardpostfachs (MB)"
-
-#: src/templates/alias.mas:72
-msgid "Create mail aliases"
-msgstr "Neues E-Mail Alias"
+#: src/templates/warnvdmdsize.mas:38 src/templates/warnvd.mas:35
+#: src/templates/warnusermdsize.mas:28
+msgid "Cancel"
+msgstr "Abbrechen"
 
 #: src/templates/qmanager.mas:25
 msgid "Sender"
@@ -770,6 +467,301 @@ msgid "There is not any message at the queue or the service is stopped"
 msgstr ""
 "In dieser Warteschlange hat es keine Nachrichten oder der Dienst ist gestoppt"
 
+#: src/templates/editvdomains.mas:20
+#, perl-brace-format
+msgid "Maildir size for {vdomain} virtual domain"
+msgstr "Postfachgrösse für die virtuelle Domäne {vdomain}"
+
+#: src/templates/editvdomains.mas:35 src/templates/vdomains.mas:26
+#: src/templates/alias.mas:47 src/templates/index.mas:134
+#: src/templates/index.mas:178 src/templates/createaccount.mas:51
+msgid "Unlimited size"
+msgstr "Uneingeschränkt"
+
+#: src/templates/editvdomains.mas:45
+msgid "Force the change to the existing accounts"
+msgstr "Die Änderungen auf die vorhandenen Konten anwenden"
+
+#: src/templates/editvdomains.mas:52 src/templates/editvdomains.mas:54
+#: src/templates/alias.mas:59 src/templates/alias.mas:61
+msgid "Modify"
+msgstr "Ändern"
+
+#: src/templates/warnvd.mas:12
+msgid "Deleting virtual domain"
+msgstr "Lösche virtuelle Domäne"
+
+#: src/templates/warnvd.mas:15
+#, fuzzy
+msgid ""
+"The virtual domain you tried to delete contains data in the following "
+"modules. Please confirm you want to remove it and all its related data"
+msgstr ""
+"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
+"Die virtuelle Domäne, welche Sie löschen wollten hat weitere Daten in "
+"folgenden Modulen. Wollen Sie die Domäne mit allen dazugehörigen Daten "
+"löschen?"
+
+#: src/templates/warnvd.mas:31 src/templates/groupalias.mas:63
+#: src/templates/groupalias.mas:65 src/templates/vdomains.mas:102
+#: src/templates/vdomains.mas:104 src/templates/alias.mas:20
+#: src/templates/alias.mas:22 src/templates/alias.mas:24
+#: src/templates/alias.mas:120 src/templates/alias.mas:122
+msgid "Delete"
+msgstr "Löschen"
+
+#: src/templates/groupalias.mas:13
+#, fuzzy
+msgid "Create alias mail account to group"
+msgstr ""
+"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
+"Ein E-Mail-Alias für eine Gruppe generieren"
+
+#: src/templates/groupalias.mas:17
+#, fuzzy
+msgid ""
+"When the last member of a group is removed, the mail alias account will be "
+"deleted"
+msgstr ""
+"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
+"Wenn das letzte Mitglied einer Gruppe entfernt wurde, wird das E-Mail-Alias "
+"gelöscht"
+
+#: src/templates/groupalias.mas:23
+#, fuzzy
+msgid "There are no users in the group or the users do not "
+msgstr ""
+"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
+"Entweder sind keine Benutzer in dieser Gruppe oder die Benutzer gibt es nicht"
+
+#: src/templates/groupalias.mas:48 src/templates/groupalias.mas:50
+#: src/templates/alias.mas:104 src/templates/alias.mas:106
+#: src/templates/alias.mas:108 src/templates/createaccount.mas:64
+#: src/templates/createaccount.mas:66
+msgid "Create"
+msgstr "Generieren"
+
+#: src/templates/groupalias.mas:56
+msgid "Mail alias settings"
+msgstr "Einstellungen für E-Mail-Alias"
+
+#: src/templates/groupalias.mas:60 src/templates/alias.mas:78
+msgid "Mail alias"
+msgstr "E-Mail-Alias"
+
+#: src/templates/vdomains.mas:12
+msgid "Add a new virtual domain"
+msgstr "Eine virtuelle Domäne hinzufügen"
+
+#: src/templates/vdomains.mas:18 src/templates/createaccount.mas:23
+msgid "Domain name"
+msgstr "Name der Domäne"
+
+#: src/templates/vdomains.mas:37
+#, fuzzy
+msgid "Default maildir size"
+msgstr ""
+"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
+"Grösse des Standardpostfachs"
+
+#: src/templates/vdomains.mas:49
+msgid "(MB)"
+msgstr "(MB)"
+
+#: src/templates/vdomains.mas:57 src/templates/vdomains.mas:59
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: src/templates/vdomains.mas:69
+msgid "Virtual domains list"
+msgstr "Liste der virtuellen Domänen"
+
+#: src/templates/vdomains.mas:75
+msgid "Name"
+msgstr "Name"
+
+#: src/templates/vdomains.mas:79
+#, fuzzy
+msgid "Maildir Size"
+msgstr ""
+"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
+"Postfachgrösse"
+
+#: src/templates/vdomains.mas:83 src/templates/alias.mas:82
+msgid "Action"
+msgstr "Aktion"
+
+#: src/templates/vdomains.mas:96 src/templates/vdomains.mas:97
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: src/templates/alias.mas:11
+msgid "Mail account settings"
+msgstr "Einstellungen des E-Mail Konto"
+
+#: src/templates/alias.mas:32
+msgid "Default maildir size (MB)"
+msgstr "Grösse des Standardpostfachs (MB)"
+
+#: src/templates/alias.mas:72
+msgid "Create mail aliases"
+msgstr "Neues E-Mail Alias"
+
+#: src/templates/index.mas:30
+msgid "Mail service settings"
+msgstr "Einstellungen für E-Mail-Dienst"
+
+#: src/templates/index.mas:33
+msgid "TLS for SMTP server"
+msgstr "TLS (Transport Layer Security) für SMTP-Server"
+
+#: src/templates/index.mas:35
+msgid "Require authentication"
+msgstr "Anmeldung erforderlich"
+
+#: src/templates/index.mas:53 src/templates/mailtabs.mas:9
+#: src/templates/mailtabs.mas:12
+msgid "Services"
+msgstr "Dienste"
+
+#: src/templates/index.mas:62
+msgid "Service"
+msgstr "Dienst"
+
+#: src/templates/index.mas:70
+msgid "SSL Support"
+msgstr "SSL-Unterstützung"
+
+#: src/templates/index.mas:76
+msgid "POP3"
+msgstr "POP3"
+
+#: src/templates/index.mas:78
+msgid "IMAP"
+msgstr "IMAP"
+
+#: src/templates/index.mas:86 src/templates/index.mas:88
+msgid "Apply Changes"
+msgstr "Änderungen anwenden"
+
+#: src/templates/index.mas:97
+#, fuzzy
+msgid "IP address of smarthost to send mail"
+msgstr ""
+"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
+"IP-Adresse eines Smarthost, der E-Mails versendet"
+
+#: src/templates/index.mas:110
+#, fuzzy
+msgid ""
+"A value of 0 for the maximum message size and maximum mail account size "
+"stands for no size limitation."
+msgstr ""
+"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
+"Der Wert \"0\" für die Nachrichtengrösse oder Grösse des E-Mail-Konto hebt "
+"die Beschränkung auf"
+
+#: src/templates/index.mas:116
+msgid "Maximum message size accepted by the mail server"
+msgstr "Maximale Grösse der Nachrichten, die vom Server akzeptiert werden"
+
+#: src/templates/index.mas:120 src/templates/index.mas:163
+msgid "Size (MB)"
+msgstr "Grösse (in MB)"
+
+#: src/templates/index.mas:158
+msgid "Default maximum mail account size"
+msgstr "Standardwert für Postfachgrösse"
+
+#: src/templates/index.mas:199
+msgid "Relay policy for objects"
+msgstr "Weiterleitungspolitik für Objekte"
+
+#: src/templates/index.mas:202
+msgid ""
+"You should move to allowed column those objects you want to allow sending "
+"mail through this module."
+msgstr ""
+"Sie sollten die Objekte, welche E-Mails mit diesem Modul versenden dürfen, "
+"in die Spalte \"Erlaubt\" veschieben"
+
+#: src/templates/index.mas:205
+msgid ""
+"Choose the object whose state you want to change and click on the arrow to "
+"move it to the desired column."
+msgstr ""
+"Wählen Sie das Objekt, dessen Status Sie ändern möchten und klicken Sie auf "
+"die Pfeile, um es in die gewünschte Spalte zu verschieben"
+
+#: src/templates/index.mas:213
+msgid "Denied"
+msgstr "Verweigert"
+
+#: src/templates/index.mas:216
+msgid "Allowed"
+msgstr "Erlaubt"
+
+#: src/templates/index.mas:227 src/templates/index.mas:253
+#, fuzzy
+msgid "Empty list"
+msgstr ""
+"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
+"Liste leeren"
+
+#: src/templates/index.mas:242 src/templates/index.mas:246
+msgid "Allow"
+msgstr "Erlauben"
+
+#: src/templates/index.mas:244
+msgid "Move selected objects to the allowed column"
+msgstr "Bewegen Sie die gewählten Objekte in die Spalte \"Erlaubt\""
+
+#: src/templates/index.mas:270 src/templates/index.mas:274
+msgid "Deny"
+msgstr "Verweigern"
+
+#: src/templates/index.mas:272
+msgid "Move selected objects to the denied column"
+msgstr "Bewegen Sie die gewählten Objekte in die Spalte \"Verweigert\""
+
+#: src/templates/index.mas:309
+msgid "Mail forward port"
+msgstr ""
+
+#: src/templates/index.mas:315
+#, fuzzy
+msgid "Filter's IP address"
+msgstr "IP-Adresse der Gegenstelle"
+
+#: src/templates/index.mas:321
+msgid "Filter's Port"
+msgstr ""
+
+#: src/templates/index.mas:330 src/templates/index.mas:332
+msgid "Apply"
+msgstr "Anwenden"
+
+#: src/templates/imap.mas:24 src/templates/imap.mas:31
+#: src/templates/imap.mas:38 src/templates/pop.mas:24 src/templates/pop.mas:31
+#: src/templates/pop.mas:38
+msgid "Optional"
+msgstr "Fakultativ"
+
+#: src/templates/imap.mas:26 src/templates/imap.mas:33
+#: src/templates/imap.mas:40 src/templates/pop.mas:26 src/templates/pop.mas:33
+#: src/templates/pop.mas:40
+msgid "Required"
+msgstr "Erforderlich"
+
 #: src/templates/mailtabs.mas:16 src/templates/mailtabs.mas:19
 msgid "Settings"
 msgstr "Einstellungen"
@@ -778,13 +770,21 @@ msgstr "Einstellungen"
 msgid "External Filter"
 msgstr "Externer Filter"
 
-#: src/templates/account.mas:15
+#: src/templates/createaccount.mas:18
 #, fuzzy
-msgid "Create mail alias to mail account"
+msgid "Account name"
 msgstr ""
 "#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
 "#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
-"E-Mail Alias für dieses Konto erstellen"
+"Kontoname"
+
+#: src/templates/createaccount.mas:35
+#, fuzzy
+msgid "Maildir size"
+msgstr ""
+"#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
+"#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
+"Postfachgrösse"
 
 #~ msgid "Local port"
 #~ msgstr "Lokaler Port"

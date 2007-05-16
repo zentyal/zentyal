@@ -297,7 +297,7 @@ msgstr ""
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
 msgstr ""
-"Zaktualizowano bazę certyfikatów. Dla {numer} certyfikatów wygasła ważność. "
+"Zaktualizowano bazę certyfikatów. Dla {number} certyfikatów wygasła ważność. "
 
 #: src/EBox/CA.pm:2313
 #, perl-brace-format

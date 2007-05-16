@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-05-14 09:53+0200\n"
+"POT-Creation-Date: 2007-05-16 15:44+0200\n"
 "PO-Revision-Date: 2007-05-15 10:22+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: \n"
@@ -20,95 +20,128 @@ msgstr ""
 "X-Generator: Pootle 0.10.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:64
-#: src/EBox/Model/MultiGwRulesDataTable.pm:425
-msgid "any"
-msgstr "cualquiera"
+#: src/EBox/CGI/View/GatewayDataTable.pm:30
+#: src/EBox/CGI/Controller/GatewayDataTableUpdate.pm:30
+#: src/EBox/CGI/Controller/GatewayDataTableAdd.pm:30
+#: src/EBox/CGI/Controller/GatewayDataTableDel.pm:30
+#: src/EBox/CGI/Controller/GatewayDataTableMove.pm:30
+#: src/EBox/CGI/Controller/GatewayDataTable.pm:30 src/EBox/Network.pm:2303
+msgid "Gateways"
+msgstr "Routers"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:95
-msgid "Protocol"
-msgstr "Protocolo"
+#: src/EBox/CGI/View/MultiGwRulesDataTable.pm:32
+msgid "Balance traffic and multigateway rules"
+msgstr "Balanceo de tráfico y reglas multirouter"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:104
-#: src/EBox/Model/GatewayDataTable.pm:99 src/EBox/Network.pm:651
-#: src/EBox/Network.pm:683 src/EBox/Network.pm:728 src/EBox/Network.pm:762
-#: src/EBox/Network.pm:787 src/EBox/Network.pm:863 src/EBox/Network.pm:986
-#: src/EBox/Network.pm:1181 src/EBox/Network.pm:1241 src/EBox/Network.pm:1276
-#: src/EBox/Network.pm:1312 src/EBox/Network.pm:1345 src/EBox/Network.pm:2008
-#: src/EBox/Network.pm:2040 src/EBox/Network.pm:2113 src/EBox/Network.pm:2133
-#: src/EBox/Network.pm:2154 src/EBox/Network.pm:2177
-msgid "Interface"
-msgstr "Interfaz"
+#: src/EBox/CGI/EnableBalanceTraffic.pm:42
+msgid "traffic balance"
+msgstr "balanceo de tráfico"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:113
-msgid "Source"
-msgstr "Origen"
+#: src/EBox/CGI/Gateway.pm:47 src/EBox/CGI/Route.pm:47
+msgid "gateway address"
+msgstr "dirección del router"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:121
-msgid "Source IP"
-msgstr "IP de origen"
+#: src/EBox/CGI/Vlan.pm:40 src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59
+#: src/EBox/CGI/VIface.pm:43
+msgid "network interface"
+msgstr "interfaz de red"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:129
-msgid "Source object"
-msgstr "Objeto origen"
+#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1060
+#: src/EBox/Network.pm:1089 src/templates/ifaces.mas:164
+msgid "VLAN Id"
+msgstr "Identificador de VLAN"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:142
-#: src/EBox/Model/MultiGwRulesDataTable.pm:181
-msgid "Port"
-msgstr "Puerto"
+#: src/EBox/CGI/Iface.pm:58
+msgid "method"
+msgstr "método"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:152
-msgid "Destination"
-msgstr "Destino"
+#: src/EBox/CGI/Iface.pm:87 src/EBox/Model/GatewayDataTable.pm:187
+#: src/EBox/Network.pm:1476
+msgid "ip address"
+msgstr "dirección IP"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:160
-msgid "Destination IP"
-msgstr "IP de destino"
+#: src/EBox/CGI/Iface.pm:88 src/EBox/CGI/Route.pm:42 src/EBox/CGI/VIface.pm:63
+msgid "netmask"
+msgstr "máscara de red"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:168
-msgid "Destination object"
-msgstr "Objeto destino"
+#: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1475
+msgid "network address"
+msgstr "dirección de red"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:191 src/EBox/Network.pm:1477
-#: src/templates/routes.mas:35
-msgid "Gateway"
-msgstr "Router"
+#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
+msgid "Network diagnosis"
+msgstr "Diagnóstico de la red"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:205
+#: src/EBox/CGI/Diag.pm:51 src/templates/diag.mas:15
+msgid "Host"
+msgstr "Máquina"
+
+#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2218
+msgid "host name"
+msgstr "nombre de máquina"
+
 #: src/EBox/CGI/Controller/MultiGwRulesDataTable.pm:30
+#: src/EBox/Model/MultiGwRulesDataTable.pm:205
 msgid "Multigateway rules"
 msgstr "Reglas multirouter"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:223
+#: src/EBox/CGI/VIface.pm:44
+msgid "virtual interface action"
+msgstr "acción sobre la interfaz virtual"
+
+#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:558 src/EBox/Network.pm:563
+#: src/EBox/Network.pm:867 src/EBox/Network.pm:888 src/EBox/Network.pm:1419
+#: src/EBox/Network.pm:2010 src/EBox/Network.pm:2025 src/EBox/Network.pm:2157
+#: src/EBox/Network.pm:2275 src/templates/ifaces.mas:104
+#: src/templates/ifaces.mas:233
+msgid "IP address"
+msgstr "Dirección IP"
+
+#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
+msgid "virtual interface name"
+msgstr "nombre de la interfaz virtual"
+
+#: src/EBox/CGI/Routes.pm:29 src/EBox/CGI/Routes.pm:40
+#: src/EBox/Network.pm:2298
+msgid "Routes"
+msgstr "Rutas"
+
+#: src/EBox/CGI/FirstTime/DNS.pm:41
+msgid "You can revisit this page at Network/DNS in the menu"
+msgstr "Puede volver a visitar esta página en el menú a través de Red/DNS"
+
+#: src/EBox/CGI/FirstTime/Gateway.pm:41
+msgid "Gateway configured"
+msgstr "Gateway configurada"
+
+#: src/EBox/CGI/FirstTime/Iface.pm:45
+msgid "Network interface configured"
+msgstr "Interfaces de red configurados"
+
+#: src/EBox/CGI/FirstTime/Routes.pm:29
+msgid "Set default gateway"
+msgstr "Establecer ruta por defecto"
+
+#: src/EBox/CGI/FirstTime/Routes.pm:43
+msgid "You can change later the gateway at Network/Routes menus item"
+msgstr "Puedes cambiar más tarde la gateway a través del menú Red/Rutas"
+
+#: src/EBox/CGI/FirstTime/Nameservers.pm:44
+msgid "DNS configured"
+msgstr "DNS configurado"
+
+#: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
+#: src/EBox/Network.pm:2230
+msgid "Network interfaces"
+msgstr "Interfaces de red"
+
+#: src/EBox/CGI/FirstTime/Ifaces.pm:25
 msgid ""
-"You can decide what kind of traffic goes out by each gateway. This way, you "
-"can force a subnet, service, destiantion and so forth  to use the router you "
-"choose. Please, bear in mind that rules will be applied in order, from top "
-"to bottom, you can reorder them once they are added. If you do not set a "
-"port or an IP address, then the rule will match all of them"
+"After the initial config you can revisit this page at Network/Interfaces in "
+"the menu"
 msgstr ""
-"Puede decir que tipo de tráfico sale por cada uno de los routers. De esta "
-"manera puede forzar que una subred, servicio, dirección de destino, etc... "
-"salga por un determinado router de su elección. Por favor, tenga en cuenta "
-"que las reglas se aplican en orden, de arriaba a abajo, puede reordenarlas "
-"una vez que hayan sido añadidas. Si deja en blanco un puerto, o una "
-"dirección IP, entonces la regla aceptará todos sus valores"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:225
-msgid "rule"
-msgstr "regla"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:243
-msgid "Destination port"
-msgstr "Puerto destino"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:248
-msgid "Source port"
-msgstr "Puerto origen"
-
-#: src/EBox/Model/MultiGwRulesDataTable.pm:258
-msgid "Port cannot be set if no protocol is selected"
-msgstr "El puerto no puede ser asignado si no se ha seleccionado un protocolo"
+"Tras la configuración inicia puede volver a visitar esta página en el menú "
+"Red/Interfaces"
 
 #: src/EBox/Model/GatewayDataTable.pm:81 src/templates/ifaces.mas:30
 #: src/templates/ifaces.mas:231
@@ -118,6 +151,17 @@ msgstr "Nombre"
 #: src/EBox/Model/GatewayDataTable.pm:90
 msgid "IP Address"
 msgstr "Dirección IP "
+
+#: src/EBox/Model/GatewayDataTable.pm:99
+#: src/EBox/Model/MultiGwRulesDataTable.pm:104 src/EBox/Network.pm:651
+#: src/EBox/Network.pm:683 src/EBox/Network.pm:728 src/EBox/Network.pm:762
+#: src/EBox/Network.pm:787 src/EBox/Network.pm:863 src/EBox/Network.pm:986
+#: src/EBox/Network.pm:1181 src/EBox/Network.pm:1241 src/EBox/Network.pm:1276
+#: src/EBox/Network.pm:1312 src/EBox/Network.pm:1345 src/EBox/Network.pm:2008
+#: src/EBox/Network.pm:2040 src/EBox/Network.pm:2113 src/EBox/Network.pm:2133
+#: src/EBox/Network.pm:2154 src/EBox/Network.pm:2177
+msgid "Interface"
+msgstr "Interfaz"
 
 #: src/EBox/Model/GatewayDataTable.pm:108
 msgid "Upload"
@@ -158,144 +202,83 @@ msgstr ""
 msgid "gateway"
 msgstr "router"
 
-#: src/EBox/Model/GatewayDataTable.pm:187 src/EBox/CGI/Iface.pm:87
-#: src/EBox/Network.pm:1476
-msgid "ip address"
-msgstr "dirección IP"
-
 #: src/EBox/Model/GatewayDataTable.pm:202
 msgid "There is already a default gateway"
 msgstr "Ya existe un router por defecto"
 
-#: src/EBox/CGI/Controller/GatewayDataTableUpdate.pm:30
-#: src/EBox/CGI/Controller/GatewayDataTableDel.pm:30
-#: src/EBox/CGI/Controller/GatewayDataTableMove.pm:30
-#: src/EBox/CGI/Controller/GatewayDataTableAdd.pm:30
-#: src/EBox/CGI/Controller/GatewayDataTable.pm:30
-#: src/EBox/CGI/View/GatewayDataTable.pm:30 src/EBox/Network.pm:2303
-msgid "Gateways"
-msgstr "Routers"
+#: src/EBox/Model/MultiGwRulesDataTable.pm:64
+#: src/EBox/Model/MultiGwRulesDataTable.pm:425
+msgid "any"
+msgstr "cualquiera"
 
-#: src/EBox/CGI/FirstTime/DNS.pm:41
-msgid "You can revisit this page at Network/DNS in the menu"
-msgstr "Puede volver a visitar esta página en el menú a través de Red/DNS"
+#: src/EBox/Model/MultiGwRulesDataTable.pm:95
+msgid "Protocol"
+msgstr "Protocolo"
 
-#: src/EBox/CGI/FirstTime/Iface.pm:45
-msgid "Network interface configured"
-msgstr "Interfaces de red configurados"
+#: src/EBox/Model/MultiGwRulesDataTable.pm:113
+msgid "Source"
+msgstr "Origen"
 
-#: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
-#: src/EBox/Network.pm:2230
-msgid "Network interfaces"
-msgstr "Interfaces de red"
+#: src/EBox/Model/MultiGwRulesDataTable.pm:121
+msgid "Source IP"
+msgstr "IP de origen"
 
-#: src/EBox/CGI/FirstTime/Ifaces.pm:25
+#: src/EBox/Model/MultiGwRulesDataTable.pm:129
+msgid "Source object"
+msgstr "Objeto origen"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:142
+#: src/EBox/Model/MultiGwRulesDataTable.pm:181
+msgid "Port"
+msgstr "Puerto"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:152
+msgid "Destination"
+msgstr "Destino"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:160
+msgid "Destination IP"
+msgstr "IP de destino"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:168
+msgid "Destination object"
+msgstr "Objeto destino"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:191 src/EBox/Network.pm:1477
+#: src/templates/routes.mas:35
+msgid "Gateway"
+msgstr "Router"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:223
 msgid ""
-"After the initial config you can revisit this page at Network/Interfaces in "
-"the menu"
+"You can decide what kind of traffic goes out by each gateway. This way, you "
+"can force a subnet, service, destiantion and so forth  to use the router you "
+"choose. Please, bear in mind that rules will be applied in order, from top "
+"to bottom, you can reorder them once they are added. If you do not set a "
+"port or an IP address, then the rule will match all of them"
 msgstr ""
-"Tras la configuración inicia puede volver a visitar esta página en el menú "
-"Red/Interfaces"
+"Puede decir que tipo de tráfico sale por cada uno de los routers. De esta "
+"manera puede forzar que una subred, servicio, dirección de destino, etc... "
+"salga por un determinado router de su elección. Por favor, tenga en cuenta "
+"que las reglas se aplican en orden, de arriaba a abajo, puede reordenarlas "
+"una vez que hayan sido añadidas. Si deja en blanco un puerto, o una "
+"dirección IP, entonces la regla aceptará todos sus valores"
 
-#: src/EBox/CGI/FirstTime/Nameservers.pm:44
-msgid "DNS configured"
-msgstr "DNS configurado"
+#: src/EBox/Model/MultiGwRulesDataTable.pm:225
+msgid "rule"
+msgstr "regla"
 
-#: src/EBox/CGI/FirstTime/Gateway.pm:41
-msgid "Gateway configured"
-msgstr "Gateway configurada"
+#: src/EBox/Model/MultiGwRulesDataTable.pm:243
+msgid "Destination port"
+msgstr "Puerto destino"
 
-#: src/EBox/CGI/FirstTime/Routes.pm:29
-msgid "Set default gateway"
-msgstr "Establecer ruta por defecto"
+#: src/EBox/Model/MultiGwRulesDataTable.pm:248
+msgid "Source port"
+msgstr "Puerto origen"
 
-#: src/EBox/CGI/FirstTime/Routes.pm:43
-msgid "You can change later the gateway at Network/Routes menus item"
-msgstr "Puedes cambiar más tarde la gateway a través del menú Red/Rutas"
-
-#: src/EBox/CGI/View/MultiGwRulesDataTable.pm:32
-msgid "Balance traffic and multigateway rules"
-msgstr "Balanceo de tráfico y reglas multirouter"
-
-#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
-msgid "Network diagnosis"
-msgstr "Diagnóstico de la red"
-
-#: src/EBox/CGI/Diag.pm:51 src/templates/diag.mas:15
-msgid "Host"
-msgstr "Máquina"
-
-#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2218
-msgid "host name"
-msgstr "nombre de máquina"
-
-#: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/VIface.pm:43
-#: src/EBox/CGI/Vlan.pm:40
-msgid "network interface"
-msgstr "interfaz de red"
-
-#: src/EBox/CGI/Iface.pm:58
-msgid "method"
-msgstr "método"
-
-#: src/EBox/CGI/Iface.pm:88 src/EBox/CGI/VIface.pm:63 src/EBox/CGI/Route.pm:42
-msgid "netmask"
-msgstr "máscara de red"
-
-#: src/EBox/CGI/EnableBalanceTraffic.pm:42
-msgid "traffic balance"
-msgstr "balanceo de tráfico"
-
-#: src/EBox/CGI/VIface.pm:44
-msgid "virtual interface action"
-msgstr "acción sobre la interfaz virtual"
-
-#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:558 src/EBox/Network.pm:563
-#: src/EBox/Network.pm:867 src/EBox/Network.pm:888 src/EBox/Network.pm:1419
-#: src/EBox/Network.pm:2010 src/EBox/Network.pm:2025 src/EBox/Network.pm:2157
-#: src/EBox/Network.pm:2275 src/templates/ifaces.mas:104
-#: src/templates/ifaces.mas:233
-msgid "IP address"
-msgstr "Dirección IP"
-
-#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
-msgid "virtual interface name"
-msgstr "nombre de la interfaz virtual"
-
-#: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1475
-msgid "network address"
-msgstr "dirección de red"
-
-#: src/EBox/CGI/Route.pm:47 src/EBox/CGI/Gateway.pm:47
-msgid "gateway address"
-msgstr "dirección del router"
-
-#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1060
-#: src/EBox/Network.pm:1089 src/templates/ifaces.mas:164
-msgid "VLAN Id"
-msgstr "Identificador de VLAN"
-
-#: src/EBox/CGI/Routes.pm:29 src/EBox/CGI/Routes.pm:40
-#: src/EBox/Network.pm:2298
-msgid "Routes"
-msgstr "Rutas"
-
-#: src/EBox/Network/FirstTime.pm:14
-msgid "Configure network interfaces"
-msgstr "Configurar interfaces de red"
-
-#: src/EBox/Network/FirstTime.pm:15
-msgid "Configure name servers"
-msgstr "Configurar los servidores de nombre"
-
-#: src/EBox/Network/FirstTime.pm:16
-msgid "Configure default gateway"
-msgstr "Configurar gateway por defecto"
-
-#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:1966
-#, perl-brace-format
-msgid "Gateway {gw} not reachable"
-msgstr "El router {gw} no es alcanzable"
+#: src/EBox/Model/MultiGwRulesDataTable.pm:258
+msgid "Port cannot be set if no protocol is selected"
+msgstr "El puerto no puede ser asignado si no se ha seleccionado un protocolo"
 
 #: src/EBox/Network.pm:56 src/EBox/Network.pm:2290 src/templates/routes.mas:33
 msgid "Network"
@@ -337,6 +320,11 @@ msgid ""
 msgstr ""
 "La operación solicitada hará que uno de los routers configurados no sea "
 "accesible. Por favor, eliminelo antes si realmente desea hacer este cambio."
+
+#: src/EBox/Network.pm:1966 src/EBox/NetworkUtil.pm:55
+#, perl-brace-format
+msgid "Gateway {gw} not reachable"
+msgstr "El router {gw} no es alcanzable"
 
 #: src/EBox/Network.pm:1970
 #, perl-brace-format
@@ -387,46 +375,17 @@ msgstr "Diagnóstico"
 msgid "Balance traffic"
 msgstr "Balanceo de tráfico"
 
-#: src/templates/routes.mas:12
-msgid ""
-"All routers you enter here must be reachable through one of the network "
-"interfaces currently configured."
-msgstr ""
-"Todos los routers que introduzca en esta página deben ser alcanzables desde "
-"uno de los interfaces de red que haya configurado."
+#: src/EBox/Network/FirstTime.pm:14
+msgid "Configure network interfaces"
+msgstr "Configurar interfaces de red"
 
-#: src/templates/routes.mas:18
-msgid ""
-"Having network interfaces configured via DHCP may cause the default gateway "
-"to be overriden."
-msgstr ""
-"Teniendo interfaces de red configurados vía DHCP quizá causen que la gateway "
-"por defecto sea sobreescrita."
+#: src/EBox/Network/FirstTime.pm:15
+msgid "Configure name servers"
+msgstr "Configurar los servidores de nombre"
 
-#: src/templates/routes.mas:28
-msgid "Static routes"
-msgstr "Rutas estáticas"
-
-#: src/templates/routes.mas:37 src/templates/ifaces.mas:168
-#: src/templates/ifaces.mas:237
-msgid "Action"
-msgstr "Acción"
-
-#: src/templates/routes.mas:66 src/templates/routes.mas:68
-#: src/templates/routes.mas:70 src/templates/ifaces.mas:185
-#: src/templates/ifaces.mas:187 src/templates/ifaces.mas:189
-#: src/templates/ifaces.mas:274 src/templates/ifaces.mas:276
-#: src/templates/ifaces.mas:278
-msgid "Add"
-msgstr "Añadir"
-
-#: src/templates/routes.mas:89 src/templates/routes.mas:91
-#: src/templates/routes.mas:93 src/templates/ifaces.mas:207
-#: src/templates/ifaces.mas:209 src/templates/ifaces.mas:211
-#: src/templates/ifaces.mas:304 src/templates/ifaces.mas:306
-#: src/templates/ifaces.mas:308
-msgid "Delete"
-msgstr "Borrar"
+#: src/EBox/Network/FirstTime.pm:16
+msgid "Configure default gateway"
+msgstr "Configurar gateway por defecto"
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:20
 msgid "Ping"
@@ -468,6 +427,73 @@ msgstr "Secundario"
 msgid "Apply"
 msgstr "Aplicar"
 
+#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:14
+msgid ""
+"The change you are trying to make will affect the configuration of one or "
+"more modules that use references to this network interface."
+msgstr ""
+"El cambio que esta intentando realizar afectará a la configuración de uno o "
+"varios módulos que usan este interfaz de red."
+
+#: src/templates/confirmremove.mas:15 src/templates/confirm.mas:18
+msgid ""
+"If you choose to continue, all modules that make use of the current "
+"configuration of this network interface will delete the relevant parts of "
+"their configuration. Choose "
+msgstr ""
+"Si elige continuar, todos los módulos que usan la configuración actual de "
+"este interfaz de red borrarán las partes mas relevantes de su configuración. "
+"Elija"
+
+#: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
+msgid "Ok"
+msgstr "Aceptar"
+
+#: src/templates/confirmremove.mas:29 src/templates/confirm.mas:36
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: src/templates/routes.mas:12
+msgid ""
+"All routers you enter here must be reachable through one of the network "
+"interfaces currently configured."
+msgstr ""
+"Todos los routers que introduzca en esta página deben ser alcanzables desde "
+"uno de los interfaces de red que haya configurado."
+
+#: src/templates/routes.mas:18
+msgid ""
+"Having network interfaces configured via DHCP may cause the default gateway "
+"to be overriden."
+msgstr ""
+"Teniendo interfaces de red configurados vía DHCP quizá causen que la gateway "
+"por defecto sea sobreescrita."
+
+#: src/templates/routes.mas:28
+msgid "Static routes"
+msgstr "Rutas estáticas"
+
+#: src/templates/routes.mas:37 src/templates/ifaces.mas:168
+#: src/templates/ifaces.mas:237
+msgid "Action"
+msgstr "Acción"
+
+#: src/templates/routes.mas:66 src/templates/routes.mas:68
+#: src/templates/routes.mas:70 src/templates/ifaces.mas:185
+#: src/templates/ifaces.mas:187 src/templates/ifaces.mas:189
+#: src/templates/ifaces.mas:274 src/templates/ifaces.mas:276
+#: src/templates/ifaces.mas:278
+msgid "Add"
+msgstr "Añadir"
+
+#: src/templates/routes.mas:89 src/templates/routes.mas:91
+#: src/templates/routes.mas:93 src/templates/ifaces.mas:207
+#: src/templates/ifaces.mas:209 src/templates/ifaces.mas:211
+#: src/templates/ifaces.mas:304 src/templates/ifaces.mas:306
+#: src/templates/ifaces.mas:308
+msgid "Delete"
+msgstr "Borrar"
+
 #: src/templates/gwrules.mas:18
 msgid ""
 "To be able to use this feature, you need, at least, two gateways. You can "
@@ -493,7 +519,7 @@ msgstr ""
 "Al habilitar esta característica, tu tráfico será balanceado entre tus "
 "routers. Esto es, cada nueva conexión será enviada por un router diferente. "
 "Puedes elegir en que proporción se hará usando el parámetro peso del router. "
-"Puedes cambiar ese valor {openhref}aquí{closehref}.{br}Si quieres encaminar "
+"Puedes cambiar ese valor {openref}aquí{closeref}.{br}Si quieres encaminar "
 "tráfico explícitamente por un route concreto, usa las reglas multirouter que "
 "aparecen debajo"
 
@@ -550,32 +576,6 @@ msgstr "Descripción"
 #: src/templates/ifaces.mas:225
 msgid "Virtual interfaces"
 msgstr "Interfaces virtuales"
-
-#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:14
-msgid ""
-"The change you are trying to make will affect the configuration of one or "
-"more modules that use references to this network interface."
-msgstr ""
-"El cambio que esta intentando realizar afectará a la configuración de uno o "
-"varios módulos que usan este interfaz de red."
-
-#: src/templates/confirmremove.mas:15 src/templates/confirm.mas:18
-msgid ""
-"If you choose to continue, all modules that make use of the current "
-"configuration of this network interface will delete the relevant parts of "
-"their configuration. Choose "
-msgstr ""
-"Si elige continuar, todos los módulos que usan la configuración actual de "
-"este interfaz de red borrarán las partes mas relevantes de su configuración. "
-"Elija"
-
-#: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
-msgid "Ok"
-msgstr "Aceptar"
-
-#: src/templates/confirmremove.mas:29 src/templates/confirm.mas:36
-msgid "Cancel"
-msgstr "Cancelar"
 
 #~ msgid ""
 #~ "You can add as many gateways as you want. This is very useful if you want "

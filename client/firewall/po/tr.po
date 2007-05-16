@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-05-14 09:52+0200\n"
+"POT-Creation-Date: 2007-05-16 15:40+0200\n"
 "PO-Revision-Date: 2007-05-13 01:29+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -17,17 +17,18 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/CGI/Redirects.pm:31 src/EBox/CGI/Redirects.pm:42
-msgid "Port redirections"
-msgstr "Port yönlendirme"
+#: src/EBox/CGI/ObjectService.pm:62
+msgid "Global services' filtering rules"
+msgstr "Genel servisler süzgeçleme kuralları"
 
-#: src/EBox/CGI/Filter.pm:31 src/EBox/CGI/Filter.pm:42
-msgid "Packet filtering"
-msgstr "Paket süzgeçleme"
+#: src/EBox/CGI/ObjectService.pm:67
+#, perl-brace-format
+msgid "Services' filtering rules {desc}"
+msgstr "Servisler süzgeçleme kuralları {desc}"
 
-#: src/EBox/CGI/Object.pm:46 src/EBox/CGI/Object.pm:51
-#: src/EBox/CGI/ObjectPolicy.pm:41 src/EBox/CGI/ObjectService.pm:113
-#: src/EBox/CGI/ChangeObjectService.pm:62 src/EBox/CGI/ObjectRule.pm:41
+#: src/EBox/CGI/ObjectService.pm:113 src/EBox/CGI/Object.pm:46
+#: src/EBox/CGI/Object.pm:51 src/EBox/CGI/ObjectRule.pm:41
+#: src/EBox/CGI/ChangeObjectService.pm:62 src/EBox/CGI/ObjectPolicy.pm:41
 msgid "Object"
 msgstr "Nesne"
 
@@ -40,20 +41,48 @@ msgstr "Genel güvenlik duvarı ayarları"
 msgid "Firewall configuration: {desc}"
 msgstr "Güvenlik duvarı ayarları: {desc}"
 
-#: src/EBox/CGI/ObjectPolicy.pm:43 src/EBox/CGI/ChangeObjectService.pm:68
+#: src/EBox/CGI/Deny.pm:41 src/EBox/CGI/ObjectRule.pm:48
+#: src/EBox/CGI/ObjectRule.pm:65 src/EBox/CGI/FwdRule.pm:44
+#: src/EBox/CGI/FwdRule.pm:68 src/EBox/Firewall.pm:216
+#: src/EBox/Firewall.pm:1036 src/EBox/Firewall.pm:1229
+msgid "action"
+msgstr "İşlem"
+
+#: src/EBox/CGI/ObjectRule.pm:56 src/EBox/CGI/ObjectRule.pm:64
+#: src/EBox/CGI/ObjectRule.pm:75 src/EBox/CGI/ObjectRule.pm:79
+#: src/EBox/CGI/FwdRuleEdit.pm:45 src/EBox/CGI/FwdRule.pm:60
+#: src/EBox/CGI/FwdRule.pm:67 src/EBox/CGI/FwdRule.pm:86
+#: src/EBox/CGI/FwdRule.pm:89 src/EBox/CGI/FwdRule.pm:92
+msgid "rule"
+msgstr "Kural"
+
+#: src/EBox/CGI/ChangeObjectService.pm:67
+#: src/EBox/CGI/ChangeObjectService.pm:73 src/EBox/Firewall.pm:528
+msgid "service"
+msgstr "Servis"
+
+#: src/EBox/CGI/ChangeObjectService.pm:68 src/EBox/CGI/ObjectPolicy.pm:43
 #: src/EBox/Firewall.pm:854 src/EBox/Firewall.pm:960 src/EBox/Firewall.pm:1325
 #: src/EBox/Firewall.pm:1416
 msgid "policy"
 msgstr "Kurallar"
 
-#: src/EBox/CGI/ObjectService.pm:62
-msgid "Global services' filtering rules"
-msgstr "Genel servisler süzgeçleme kuralları"
+#: src/EBox/CGI/FwdRules.pm:30 src/EBox/CGI/FwdRules.pm:42
+#: src/templates/object.mas:37
+msgid "Rules"
+msgstr "Kurallar"
 
-#: src/EBox/CGI/ObjectService.pm:67
-#, perl-brace-format
-msgid "Services' filtering rules {desc}"
-msgstr "Servisler süzgeçleme kuralları"
+#: src/EBox/CGI/Redirects.pm:31 src/EBox/CGI/Redirects.pm:42
+msgid "Port redirections"
+msgstr "Port yönlendirme"
+
+#: src/EBox/CGI/FwdRuleEdit.pm:30 src/EBox/CGI/FwdRuleEdit.pm:42
+msgid "Edit rule"
+msgstr "Kuralları düzenle"
+
+#: src/EBox/CGI/Filter.pm:31 src/EBox/CGI/Filter.pm:42
+msgid "Packet filtering"
+msgstr "Paket süzgeçleme"
 
 #: src/EBox/CGI/Redirection.pm:43 src/EBox/CGI/Redirection.pm:54
 #: src/EBox/CGI/Redirection.pm:61 src/EBox/CGI/Redirection.pm:68
@@ -86,35 +115,6 @@ msgstr "Hedef adresi"
 #: src/EBox/Firewall.pm:1245 src/EBox/Firewall.pm:1251
 msgid "destination port"
 msgstr "Hedef portu"
-
-#: src/EBox/CGI/FwdRule.pm:44 src/EBox/CGI/FwdRule.pm:68
-#: src/EBox/CGI/ObjectRule.pm:48 src/EBox/CGI/ObjectRule.pm:65
-#: src/EBox/CGI/Deny.pm:41 src/EBox/Firewall.pm:216 src/EBox/Firewall.pm:1036
-#: src/EBox/Firewall.pm:1229
-msgid "action"
-msgstr "İşlem"
-
-#: src/EBox/CGI/FwdRule.pm:60 src/EBox/CGI/FwdRule.pm:67
-#: src/EBox/CGI/FwdRule.pm:86 src/EBox/CGI/FwdRule.pm:89
-#: src/EBox/CGI/FwdRule.pm:92 src/EBox/CGI/FwdRuleEdit.pm:45
-#: src/EBox/CGI/ObjectRule.pm:56 src/EBox/CGI/ObjectRule.pm:64
-#: src/EBox/CGI/ObjectRule.pm:75 src/EBox/CGI/ObjectRule.pm:79
-msgid "rule"
-msgstr "Kural"
-
-#: src/EBox/CGI/FwdRules.pm:30 src/EBox/CGI/FwdRules.pm:42
-#: src/templates/object.mas:37
-msgid "Rules"
-msgstr "Kurallar"
-
-#: src/EBox/CGI/ChangeObjectService.pm:67
-#: src/EBox/CGI/ChangeObjectService.pm:73 src/EBox/Firewall.pm:528
-msgid "service"
-msgstr "Servis"
-
-#: src/EBox/CGI/FwdRuleEdit.pm:30 src/EBox/CGI/FwdRuleEdit.pm:42
-msgid "Edit rule"
-msgstr "Kuralları düzenle"
 
 #: src/EBox/Firewall.pm:82 src/EBox/Firewall.pm:826 src/EBox/Firewall.pm:1346
 #: src/EBox/Firewall.pm:1392 src/EBox/Firewall.pm:1421
@@ -176,58 +176,148 @@ msgstr "Paket süzgeçleme"
 msgid "Redirects"
 msgstr "Yönlendirme"
 
-#: src/templates/redirects.mas:23
-msgid "Interface"
-msgstr "Ağ kartı"
+#: src/templates/objectService.mas:23
+msgid "Services"
+msgstr "Servisler"
 
-#: src/templates/redirects.mas:25
-msgid "External port"
-msgstr "Harici port"
+#: src/templates/objectService.mas:35 src/templates/objectService.mas:73
+#: src/templates/objectService.mas:78 src/templates/object.mas:101
+#: src/templates/object.mas:182 src/templates/object.mas:187
+#: src/templates/object.mas:290 src/templates/object.mas:293
+#: src/templates/object.mas:305 src/templates/fwdrules.mas:44
+#: src/templates/fwdruleedit.mas:69 src/templates/fwdruleedit.mas:74
+msgid "Deny"
+msgstr "Yasakla"
 
-#: src/templates/redirects.mas:27 src/templates/object.mas:50
-#: src/templates/fwdrules.mas:20 src/templates/fwdrules.mas:182
-#: src/templates/fwdruleedit.mas:32
-msgid "Protocol"
-msgstr "Protokol"
+#: src/templates/objectService.mas:37 src/templates/objectService.mas:71
+#: src/templates/objectService.mas:76 src/templates/object.mas:99
+#: src/templates/object.mas:180 src/templates/object.mas:185
+#: src/templates/object.mas:298 src/templates/object.mas:301
+#: src/templates/object.mas:307 src/templates/fwdrules.mas:42
+#: src/templates/fwdruleedit.mas:67 src/templates/fwdruleedit.mas:72
+msgid "Allow"
+msgstr "İzin ver"
 
-#: src/templates/redirects.mas:29
-msgid "IP address"
-msgstr "IP adresi"
-
-#: src/templates/redirects.mas:31 src/templates/object.mas:52
-#: src/templates/fwdrules.mas:186 src/templates/fwdrules.mas:190
-msgid "Port"
-msgstr "Port"
-
-#: src/templates/redirects.mas:33 src/templates/object.mas:60
-#: src/templates/objectService.mas:54 src/templates/fwdrules.mas:192
-msgid "Actions"
-msgstr "İşlemler"
-
-#: src/templates/redirects.mas:78 src/templates/redirects.mas:80
-#: src/templates/redirects.mas:82 src/templates/object.mas:111
+#: src/templates/objectService.mas:41 src/templates/object.mas:111
 #: src/templates/object.mas:113 src/templates/object.mas:115
-#: src/templates/objectService.mas:41 src/templates/fwdrules.mas:166
+#: src/templates/fwdrules.mas:166 src/templates/redirects.mas:78
+#: src/templates/redirects.mas:80 src/templates/redirects.mas:82
 msgid "Add"
 msgstr "Ekle"
 
-#: src/templates/redirects.mas:156 src/templates/redirects.mas:158
-#: src/templates/redirects.mas:160 src/templates/object.mas:203
-#: src/templates/object.mas:205 src/templates/object.mas:207
+#: src/templates/objectService.mas:50
+msgid "Service"
+msgstr "Servis"
+
+#: src/templates/objectService.mas:52 src/templates/object.mas:262
+msgid "Policy"
+msgstr "Kurallar"
+
+#: src/templates/objectService.mas:54 src/templates/object.mas:60
+#: src/templates/fwdrules.mas:192 src/templates/redirects.mas:33
+msgid "Actions"
+msgstr "İşlemler"
+
 #: src/templates/objectService.mas:86 src/templates/objectService.mas:88
-#: src/templates/objectService.mas:90 src/templates/fwdruleedit.mas:223
-#: src/templates/fwdruleedit.mas:225 src/templates/fwdruleedit.mas:227
+#: src/templates/objectService.mas:90 src/templates/object.mas:203
+#: src/templates/object.mas:205 src/templates/object.mas:207
+#: src/templates/fwdruleedit.mas:223 src/templates/fwdruleedit.mas:225
+#: src/templates/fwdruleedit.mas:227 src/templates/redirects.mas:156
+#: src/templates/redirects.mas:158 src/templates/redirects.mas:160
 msgid "Change"
 msgstr "Değiştir"
 
-#: src/templates/redirects.mas:167 src/templates/redirects.mas:169
-#: src/templates/redirects.mas:171 src/templates/object.mas:214
-#: src/templates/object.mas:216 src/templates/object.mas:218
 #: src/templates/objectService.mas:96 src/templates/objectService.mas:98
-#: src/templates/objectService.mas:100 src/templates/fwdrules.mas:321
-#: src/templates/fwdrules.mas:323 src/templates/fwdrules.mas:325
+#: src/templates/objectService.mas:100 src/templates/object.mas:214
+#: src/templates/object.mas:216 src/templates/object.mas:218
+#: src/templates/fwdrules.mas:321 src/templates/fwdrules.mas:323
+#: src/templates/fwdrules.mas:325 src/templates/redirects.mas:167
+#: src/templates/redirects.mas:169 src/templates/redirects.mas:171
 msgid "Delete"
 msgstr "Sil"
+
+#: src/templates/object.mas:40
+msgid ""
+"Protocol, port and destination address are optional. The rules will be "
+"applied in order, from top to bottom, you can reorder them once they are "
+"added. Rules can also be disabled without deleting them."
+msgstr ""
+"Protokol, port ve hedef adresi seçime bağlıdır.  Bu kuralları yukarıdan "
+"aşağıya doğru işleme konur. Bu sıralamayı değiştirebilirsiniz veya silemeye "
+"gerek kalmadan etkisiz hale getirebilirsiniz."
+
+#: src/templates/object.mas:44
+msgid ""
+"Rules without an explicit destination address will be applied to packets "
+"that leave eBox through an external network interface. You may flag network "
+"interfaces as external in the <a href='../Network/Ifaces'>Network "
+"Interfaces</a> configuration page."
+msgstr ""
+"Hedef adresi olmayan kurallar eBox sisteminde tanımlı harici bir ağ kartı "
+"üzerinden çıkış yapan paketler de kullanılır. Harici ağ kartlarını <a "
+"href='../Network/Ifaces'>Ağ Kartları </a> bölmünden ayarlarabilirsiniz."
+
+#: src/templates/object.mas:50 src/templates/fwdrules.mas:20
+#: src/templates/fwdrules.mas:182 src/templates/fwdruleedit.mas:32
+#: src/templates/redirects.mas:27
+msgid "Protocol"
+msgstr "Protokol"
+
+#: src/templates/object.mas:52 src/templates/fwdrules.mas:186
+#: src/templates/fwdrules.mas:190 src/templates/redirects.mas:31
+msgid "Port"
+msgstr "Port"
+
+#: src/templates/object.mas:54 src/templates/fwdrules.mas:108
+#: src/templates/fwdruleedit.mas:153
+msgid "Destination address"
+msgstr "Hedef adresi"
+
+#: src/templates/object.mas:56 src/templates/fwdrules.mas:36
+#: src/templates/fwdruleedit.mas:60
+msgid "Action"
+msgstr "İşlem"
+
+#: src/templates/object.mas:58
+msgid "Active"
+msgstr "Etkinleştir"
+
+#: src/templates/object.mas:225 src/templates/object.mas:227
+#: src/templates/object.mas:229 src/templates/fwdrules.mas:330
+#: src/templates/fwdrules.mas:332 src/templates/fwdrules.mas:334
+msgid "Up"
+msgstr "Up"
+
+#: src/templates/object.mas:236 src/templates/object.mas:238
+#: src/templates/object.mas:240 src/templates/fwdrules.mas:339
+#: src/templates/fwdrules.mas:341 src/templates/fwdrules.mas:343
+msgid "Down"
+msgstr "Down"
+
+#: src/templates/object.mas:265
+msgid ""
+"The policy states what to do on network packets not explicitly matched "
+"below. The policy is applied to connections that leave eBox through an "
+"external network interface. If you want to allow traffic between internal "
+"networks you need to create explicit rules for that."
+msgstr ""
+"Bu kural hiçbir kurala uymayan işlemler için geçerlidir. Bu kural tanımlaman "
+"harici ağ kartındaki bağlantılar için geçerlidir. LAN dan gelen "
+"bağlantılarada izin vermek isterseniz yeni bir kural daha oluşturmanız "
+"gerekmektedir."
+
+#: src/templates/object.mas:270
+msgid ""
+"Choosing global will make the firewall fall back to the <a href='Object?"
+"object=_global'>default configuration</a>."
+msgstr ""
+"\"Genel\" seçeneğini seçerseniz ateş duvarınız <a href='Object?"
+"object=_global'> varsayılan ayarları</a> bölümğndeki ayarları kullanır."
+
+#: src/templates/object.mas:281 src/templates/object.mas:284
+#: src/templates/object.mas:310
+msgid "Global"
+msgstr "Genel"
 
 #: src/templates/filter.mas:9
 msgid "Deny action"
@@ -296,108 +386,6 @@ msgstr "Özel nesneler için geçerli olacak kuralları ayarla"
 #: src/templates/filter.mas:95
 msgid "Go"
 msgstr "Git"
-
-#: src/templates/object.mas:40
-msgid ""
-"Protocol, port and destination address are optional. The rules will be "
-"applied in order, from top to bottom, you can reorder them once they are "
-"added. Rules can also be disabled without deleting them."
-msgstr ""
-"Protokol, port ve hedef adresi seçime bağlıdır.  Bu kuralları yukarıdan "
-"aşağıya doğru işleme konur. Bu sıralamayı değiştirebilirsiniz veya silemeye "
-"gerek kalmadan etkisiz hale getirebilirsiniz."
-
-#: src/templates/object.mas:44
-msgid ""
-"Rules without an explicit destination address will be applied to packets "
-"that leave eBox through an external network interface. You may flag network "
-"interfaces as external in the <a href='../Network/Ifaces'>Network "
-"Interfaces</a> configuration page."
-msgstr ""
-"Hedef adresi olmayan kurallar eBox sisteminde tanımlı harici bir ağ kartı "
-"üzerinden çıkış yapan paketler de kullanılır. Harici ağ kartlarını <a "
-"href='../Network/Ifaces'>Ağ Kartları </a> bölmünden ayarlarabilirsiniz."
-
-#: src/templates/object.mas:54 src/templates/fwdrules.mas:108
-#: src/templates/fwdruleedit.mas:153
-msgid "Destination address"
-msgstr "Hedef adresi"
-
-#: src/templates/object.mas:56 src/templates/fwdrules.mas:36
-#: src/templates/fwdruleedit.mas:60
-msgid "Action"
-msgstr "İşlem"
-
-#: src/templates/object.mas:58
-msgid "Active"
-msgstr "Etkinleştir"
-
-#: src/templates/object.mas:99 src/templates/object.mas:180
-#: src/templates/object.mas:185 src/templates/object.mas:298
-#: src/templates/object.mas:301 src/templates/object.mas:307
-#: src/templates/objectService.mas:37 src/templates/objectService.mas:71
-#: src/templates/objectService.mas:76 src/templates/fwdrules.mas:42
-#: src/templates/fwdruleedit.mas:67 src/templates/fwdruleedit.mas:72
-msgid "Allow"
-msgstr "İzin ver"
-
-#: src/templates/object.mas:101 src/templates/object.mas:182
-#: src/templates/object.mas:187 src/templates/object.mas:290
-#: src/templates/object.mas:293 src/templates/object.mas:305
-#: src/templates/objectService.mas:35 src/templates/objectService.mas:73
-#: src/templates/objectService.mas:78 src/templates/fwdrules.mas:44
-#: src/templates/fwdruleedit.mas:69 src/templates/fwdruleedit.mas:74
-msgid "Deny"
-msgstr "Yasakla"
-
-#: src/templates/object.mas:225 src/templates/object.mas:227
-#: src/templates/object.mas:229 src/templates/fwdrules.mas:330
-#: src/templates/fwdrules.mas:332 src/templates/fwdrules.mas:334
-msgid "Up"
-msgstr "Up"
-
-#: src/templates/object.mas:236 src/templates/object.mas:238
-#: src/templates/object.mas:240 src/templates/fwdrules.mas:339
-#: src/templates/fwdrules.mas:341 src/templates/fwdrules.mas:343
-msgid "Down"
-msgstr "Down"
-
-#: src/templates/object.mas:262 src/templates/objectService.mas:52
-msgid "Policy"
-msgstr "Kurallar"
-
-#: src/templates/object.mas:265
-msgid ""
-"The policy states what to do on network packets not explicitly matched "
-"below. The policy is applied to connections that leave eBox through an "
-"external network interface. If you want to allow traffic between internal "
-"networks you need to create explicit rules for that."
-msgstr ""
-"Bu kural hiçbir kurala uymayan işlemler için geçerlidir. Bu kural tanımlaman "
-"harici ağ kartındaki bağlantılar için geçerlidir. LAN dan gelen "
-"bağlantılarada izin vermek isterseniz yeni bir kural daha oluşturmanız "
-"gerekmektedir."
-
-#: src/templates/object.mas:270
-msgid ""
-"Choosing global will make the firewall fall back to the <a href='Object?"
-"object=_global'>default configuration</a>."
-msgstr ""
-"\"Genel\" seçeneğini seçerseniz ateş duvarınız <a href='Object?"
-"object=_global'> varsayılan ayarları</a> bölümğndeki ayarları kullanır."
-
-#: src/templates/object.mas:281 src/templates/object.mas:284
-#: src/templates/object.mas:310
-msgid "Global"
-msgstr "Genel"
-
-#: src/templates/objectService.mas:23
-msgid "Services"
-msgstr "Servisler"
-
-#: src/templates/objectService.mas:50
-msgid "Service"
-msgstr "Servis"
 
 #: src/templates/fwdrules.mas:10
 msgid ""
@@ -516,6 +504,18 @@ msgstr "herhangi"
 #: src/templates/fwdruleedit.mas:15
 msgid "Enabled"
 msgstr "Etkinleşti"
+
+#: src/templates/redirects.mas:23
+msgid "Interface"
+msgstr "Ağ kartı"
+
+#: src/templates/redirects.mas:25
+msgid "External port"
+msgstr "Harici port"
+
+#: src/templates/redirects.mas:29
+msgid "IP address"
+msgstr "IP adresi"
 
 #~ msgid "Filtering Rules"
 #~ msgstr "Süzgeçleme kuralları"
