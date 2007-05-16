@@ -66,7 +66,7 @@ case "$1" in
 		# replace /etc/default/slapd with desired options
 		echo 'SLAPD_SERVICES="ldap://0.0.0.0 ldapi://%2fvar%2frun%2fldapi/????x-mod=0777"' > /etc/default/slapd
 		
-		onInstall()
+		onInstall
 
 		if [ ! -d /var/lib/ebox/ldap ]; then
 
