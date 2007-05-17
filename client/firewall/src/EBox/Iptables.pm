@@ -297,8 +297,8 @@ sub Object # (object)
 		} else {
 			@ifaces = @{$self->{net}->ExternalIfaces()};
 			foreach my $if (@ifaces) {
-				$text .= " -o $if -j $action";
-				pf $text;
+				my $textIface = "$text  -o $if -j $action";
+				pf $textIface;
 			}
 		}
 	}
