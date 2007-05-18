@@ -375,13 +375,16 @@ sub dumpIptablesCommands
 	     $leadingStr . $mediumStr . $trailingStr
 	    );
       }
-    } else {
+    } 
+    # FIXME Comment out because it messes up with multipath marks
+    #else {
       # Set redundant mark to send to default one
-      push(@ipTablesCommands,
-	   "-t mangle -A $shaperChain -m mark --mark 0/" . MARK_MASK . ' ' .
-	   "-j MARK --set-mark $mark"
-	  );
-    }
+    
+      # push(@ipTablesCommands,
+	#   "-t mangle -A $shaperChain -m mark --mark 0/" . MARK_MASK . ' ' .
+	#   "-j MARK --set-mark $mark"
+	#  );
+    #}
 
     return \@ipTablesCommands;
 
