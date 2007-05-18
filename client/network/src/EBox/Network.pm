@@ -1723,7 +1723,6 @@ sub _multigwRoutes
 		 . "-m mark --mark 0/0xff -m mac --mac-source $mac "
 		 . "-j MARK --set-mark $marks->{$router->{'id'}}");		
 	}
-	root("/sbin/iptables -t mangle -A PREROUTING -m mark ! --mark 0/0xff -j ACCEPT");
 
 	
 	for my $rule (@{$self->multigwrulesModel()->iptablesRules()}) {
