@@ -36,6 +36,8 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
+use constant MAC_FETCH_TRIES => 3;
+
 
 sub new 
 {
@@ -305,8 +307,14 @@ sub _getRouterMac
 {
 	my ($ip) = @_;
 	my $macif = '';
-	system("ping -c 1 -W 1 $ip > /dev/null");
-	return  Net::ARP::arp_lookup($macif, $ip);
+
+	my $mac;
+	for (0..MAC_FETCH_TRIES) {
+		system("ping -c 1 -W 3 $ip");
+		$mac = Net::ARP::arp_lookup($macif, $ip);
+		return $mac if ($mac ne '00:00:00:00:00:00'); 
+	}
+	return $mac;
 }
 
 1;
