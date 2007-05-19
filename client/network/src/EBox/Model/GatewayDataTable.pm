@@ -310,7 +310,7 @@ sub _getRouterMac
 
 	my $mac;
 	for (0..MAC_FETCH_TRIES) {
-		system("ping -c 1 -W 3 $ip");
+		system("ping -c 1 -W 3 $ip  > /dev/null 2> /dev/null");
 		$mac = Net::ARP::arp_lookup($macif, $ip);
 		return $mac if ($mac ne '00:00:00:00:00:00'); 
 	}
