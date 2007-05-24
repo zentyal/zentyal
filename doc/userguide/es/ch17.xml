@@ -4,9 +4,11 @@
     <title>Servicio de Redes Privadas Virtuales</title>
     <para>
       Puedes acceder a la configuración de Redes Privadas Virtuales (VPN) en
-      <menuchoice>
-	<guimenu>OpenVPN</guimenu>
-      </menuchoice>
+      <link linkend="ch-ca">
+	<menuchoice>
+	  <guimenu>OpenVPN</guimenu>
+	</menuchoice>
+      </link>
       .
     </para>
     <para>

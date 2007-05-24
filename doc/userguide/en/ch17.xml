@@ -12,10 +12,12 @@
     <para>
       In order to set up VPN service, you first need to configure a
       Certification Authority. eBox also provides this service so you
-      can build it up via
-      <menuchoice>
-	<guimenu>Certification Authority</guimenu>
-      </menuchoice>
+      can build it up via 
+      <link linkend="ch-ca">
+	<menuchoice>
+	  <guimenu>Certification Authority</guimenu>
+	</menuchoice>
+      </link>
       .
     </para>
     <para>
