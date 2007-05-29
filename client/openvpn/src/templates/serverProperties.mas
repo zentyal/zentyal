@@ -24,7 +24,7 @@ my $tlsRemoteInput = [
 		      printableName => __('Client authorization by common name'),
 		      input => 'select',
 		      extraParams => [ options => \@tlsRemoteOptions ], 
-		      help        => __("Only clients with this value as full common name's prefix will will be authorized"),
+		      help        => __("Only clients with this value as full common name's prefix will be authorized"),
 		     ];
 
 my @localOptions = map { { value => $_ } } @localInterfaces; 
