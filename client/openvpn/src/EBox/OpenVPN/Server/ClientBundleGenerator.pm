@@ -121,7 +121,7 @@ sub _copyCertFilesToDir
   my ($class, $certificatesPath_r, $dir) = @_;
 
   foreach my $file (values %{ $certificatesPath_r }) {
-    EBox::Sudo::root("cp $file $dir/");
+    EBox::Sudo::root(qq{cp '$file' '$dir/'});
   }
 }
 
