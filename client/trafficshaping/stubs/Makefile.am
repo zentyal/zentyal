@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Stubdir = @STUBSPATH@/TrafficShaping
+Stubdir = @STUBSPATH@/trafficshaping
 
 
 nobase_Stub_DATA =
