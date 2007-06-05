@@ -74,25 +74,25 @@ sub isIPInNetwork # net_ip, net_mask, host_ip
 	return ($ip2->overlaps($ip)==$IP_A_IN_B_OVERLAP);
 }
 
-# 
-# Function: checkCIDR 
 #
-#   Checks the validity for a given cidr block 
+# Function: checkCIDR
+#
+#       Check the validity for a given CIDR block
 #
 # Parameters:
 #
-#       cidr - cidr block to check
+#       cidr - CIDR block to check
 #	name - Data's name to be used when throwing an Exception
 #
 # Returns:
-#	
-#	boolean - True if the cidr is correct, false otherwise 
+#
+#	boolean - True if the cidr is correct, false otherwise
 #
 # Exceptions:
 #
-#	If name is passed an exception could be raised	
+#	If name is passed an exception could be raised
 #
-#	InvalidData - cidr is incorrect
+#	<EBox::Exceptions::InvalidData> - CIDR is incorrect
 #
 sub checkCIDR # (cidr, name?)
 {
@@ -274,7 +274,7 @@ sub checkIPNetmask # (ip, mask, name_ip?, name_mask?)
 #
 # Function: checkPort
 #
-# 	Checks if the given port is valid
+# 	Check if the given port is valid
 #
 # Parameters:
 #
