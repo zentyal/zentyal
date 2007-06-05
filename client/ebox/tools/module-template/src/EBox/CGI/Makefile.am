@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-perldir = @PERLPATH@/EBox/CGI/#MDOULE#
+perldir = @PERLPATH@/EBox/CGI/#MODULE#
 
 nobase_perl_DATA = 
 
