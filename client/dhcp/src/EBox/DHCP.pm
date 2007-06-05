@@ -714,6 +714,12 @@ sub addFixedAddress # (interface, mac, ip, name)
 	my ($self, $iface, $mac, $ipstr, $name) = @_;
 
 	my $network = EBox::Global->modInstance('network');
+	
+	unless (checkDomainName($name)) {
+		throw EBox::Exceptions::InvalidData(
+					'data' => __('Name'), 
+					'value' => $name);
+	}
 
 	#if iface doesn't exists throw exception
 	if (not $iface or not $network->ifaceExists($iface)) {
