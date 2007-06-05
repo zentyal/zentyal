@@ -343,13 +343,19 @@ sub removeServer
 #
 #  initialisation method
 #
-# Parameters:
-#  servers           -  servers list
-#  proto             - 
-#  caCertificatePath -
-#  certificatePath   -
-#  certificateKey    -
-#  service           -
+# Parameters: 
+#
+#  *( named parameters)*   
+#
+#  servers - client's servers list. Muast be a list reference. The servers may be
+#  hostnames or IP addresses.
+#  proto - the client's IP protocol.
+#
+#  caCertificatePath - Path to the CA's certificate.
+#  certificatePath   -  Path to the client's certificate.
+#  certificateKey    -  Path yo the client's certificate key.
+#
+#  service - wether the client is enabled or disabed. *(Default: disabled)*
 sub init
 {
     my ($self, %params) = @_;

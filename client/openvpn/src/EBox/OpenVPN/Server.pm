@@ -30,7 +30,6 @@ sub new
 }
 
 
-
 # Method: setProto
 #
 #   Set the protocol used by the server
@@ -664,13 +663,16 @@ sub removeAdvertisedNet
 #  initialisation method
 #
 # Parameters:
-#  service        - wether rhe server is active or not
+#
+#  *(Named parameters)*   
+#
+#  service        - wether the server is active or not *(default: disabled)*
 #  subnet         - address of VPN net
 #  subnetNetmask  - netmask of VPN net
 #  port           - server's port
 #  proto          - server's proto
 #  certificate    - CN of server's certificate
-#  local          - local interface to listen on (optional)
+#  local          - local interface to listen on *(optional)*
 #  advertisedNets - advertised nets 
 #  tlsRemote      - tls remote option
 #  pullRoutes     - wether pull routes from clientes or not
@@ -850,6 +852,7 @@ sub summary
 
   return @summary;
 }
+
 
 
 1;

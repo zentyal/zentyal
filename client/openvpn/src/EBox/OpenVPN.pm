@@ -322,8 +322,20 @@ sub server
 #
 # Parameters:
 #
-#    $name       - the server's name
-#    @initParams - the parameters for server initialisation
+#    $name - the server's name 
+#
+# *(Following the server name are the server's  attributes as named parameters)*
+#
+#  service        - wether rhe server is active or not *(default: disabled)*
+#  subnet         - address of VPN net
+#  subnetNetmask  - netmask of VPN net
+#  port           - server's port
+#  proto          - server's proto
+#  certificate    - CN of server's certificate
+#  local          - local interface to listen on *(optional)*
+#  advertisedNets - advertised nets 
+#  tlsRemote      - tls remote option
+#  pullRoutes     - wether pull routes from clientes or not
 #
 # Returns:
 #
@@ -449,8 +461,18 @@ sub client
 #
 # Parameters:
 #
-#    name       - the client's name
-#    initParams - the parameters for client initialisation
+#    name - the client's name 
+#  *(Following the client name there are the client attributes as named parameters)*
+#
+#  servers - client's servers list. Muast be a list reference. The servers may be
+#  hostnames or IP addresses.
+#  proto - the client's IP protocol.
+#
+#  caCertificatePath - Path to the CA's certificate.
+#  certificatePath   -  Path to the client's certificate.
+#  certificateKey    -  Path yo the client's certificate key.
+#
+#  service - wether the client is enabled or disabed. *(Default: disabled)*
 #
 # Returns:
 #
