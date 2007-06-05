@@ -2,6 +2,36 @@
 
 webserver=apache
 
+# This function stinks from miles away, but some users have reported
+# issues due to uncreated swap directories. This is an ugly workaround
+# to relief such situations
+stop_squid() {
+	# Ask squid nicely to shut down
+	/etc/init.d/squid stop
+	sleep 2
+	pgrep squid  || return 0 
+	
+	# Ask squid himself to shut down
+	/usr/sbin/squid -k kill
+	sleep 2
+	pgrep squid || return 0 
+
+	# Stop playing with me and shut the fuck down
+	pkill -9 squid
+	sleep 2
+	pgrep squid || return  0 
+
+	return 1 
+}
+
+create_swap() {
+	if  stop_squid; then 
+		/usr/sbin/squid -z
+	else 
+		echo "I'm really sorry but I couldn't create swap directories"
+	fi
+}
+
 case "$1" in
 	configure)
 		# install gconf schemas
@@ -21,11 +51,8 @@ case "$1" in
 		update-rc.d -f squid remove
 		update-rc.d -f dansguardian remove
 
-		# stop squid 
-		invoke-rc.d squid stop
-
 		# create swap directory
-		/usr/sbin/squid -z
+	  	create_swap;	
 		
 		# create log table
                 /usr/lib/ebox/ebox-sql-table add access /usr/share/ebox/sqllog/squid.sql
