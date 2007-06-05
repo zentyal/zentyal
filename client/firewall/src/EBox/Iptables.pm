@@ -22,9 +22,12 @@ use EBox::Gettext;
 use EBox::Objects;
 use EBox::Network;
 use EBox::Exceptions::Internal;
+use Error qw( :try );
 use EBox::Sudo qw( :all );
 
 my $new = " -m state --state NEW ";
+
+use constant CONNTRACK_MODULES => ('ip_conntrack_ftp');
 
 # Constructor: new
 #
@@ -555,6 +558,8 @@ sub start
 {
 	my $self = shift;
 
+	$self->_loadConntrackModules();
+
 	$self->setStructure();
 
 	my @dns = @{$self->{net}->nameservers()};
@@ -654,6 +659,15 @@ sub start
 		$self->_doRuleset('filter', 'iexternalmodules', $helper->externalInput);
 		$self->_doRuleset('filter', 'imodules', $helper->input);
 		$self->_doRuleset('filter', 'omodules', $helper->output);
+	}
+}
+
+sub _loadConntrackModules 
+{
+	foreach my $module (CONNTRACK_MODULES) {
+		try {
+			root("modprobe $module");
+		} catch EBox::Exceptions::Internal with {};
 	}
 }
 
