@@ -39,6 +39,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Gettext;
+use EBox::Config;
 use File::Slurp qw(read_file write_file);
 use Perl6::Junction qw(all);
 use Error qw(:try);
@@ -122,6 +123,7 @@ sub _setSambaConf
 	push(@array, 'active_file' => $self->fileService());	
 	push(@array, 'active_printer' => $self->printerService());	
 	push(@array, 'pdc' => $self->pdc());
+	push(@array, 'backup_path' => EBox::Config::conf() . '/backups');
 	
 	$self->writeConfFile(SMBCONFFILE, "samba/smb.conf.mas", \@array);
 

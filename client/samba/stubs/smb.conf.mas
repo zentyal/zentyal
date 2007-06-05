@@ -9,6 +9,7 @@
 	@printers
 	$active_printer
 	$active_file
+	$backup_path
 </%args>
 <%init>
 use EBox::Gettext;
@@ -116,3 +117,14 @@ use EBox::Gettext;
 # guest ok = yes
 % 	}
 % }
+
+[ebox-internal-backups]
+ path = <% $backup_path %> 
+ read only = No 
+ valid users = @"Domain Admins"
+ admin users = @"Domain Admins"
+ force group = ebox
+ force user = ebox
+ browseable = Yes
+
+
