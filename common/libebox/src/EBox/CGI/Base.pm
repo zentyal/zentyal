@@ -32,7 +32,7 @@ use Error qw(:try);
 use Encode qw(:all);
 use Data::Dumper;
 use Perl6::Junction qw(all);
-use File::Slurp qw(read_file write_file);
+use File::Temp qw(tempfile);
 use File::Basename;
 
 ## arguments
@@ -736,36 +736,58 @@ sub masonParameters
 
 sub upload
 {
-  my ($self, %params) = @_;
-  # get parameters..
-  my $uploadParam = $params{uploadParam};
-  defined $uploadParam or throw EBox::Exceptions::MissingArgument('uploadParam');
-  my $destDir = $params{destDir};
-  defined $destDir or throw EBox::Exceptions::MissingArgument('destDir');
+  my ($self, $uploadParam) = @_;
+  defined $uploadParam or throw EBox::Exceptions::MissingArgument();
 
   # upload parameter..
   my $uploadParamValue = $self->cgi->param($uploadParam);
-  defined $uploadParamValue or return undef;
+  if (not defined $uploadParamValue) {
+    if ($self->cgi->cgi_error) {
+      throw EBox::Exceptions::Internal('Upload error: ' . $self->cgi->cgi_error);
+    }
 
-  # get dest path..
-  my $destFile  = basename $uploadParamValue;
-  my $destPath = "$destDir/$destFile";
+    return undef;
+  }
 
-  # get upload contents
-  my $UPLOAD_FH = $self->cgi->upload($uploadParam);
+  # get upload contents file handle
+  my $UPLOAD_FH = $self->cgi->upload($uploadParam);    
   if (not $UPLOAD_FH) {
     throw EBox::Exceptions::External( __('Invalid uploaded file.'));
   }
 
-  my $fileContent = read_file($UPLOAD_FH, scalar_ref => 1);
-  close $UPLOAD_FH;
+  # destination file handle and path
+  my ($FH, $filename) = tempfile("uploadXXXXX", DIR => EBox::Config::tmp());
+  if (not $FH) {
+    throw EBox::Exceptions::External( __('Cannot create a temporally file for the upload'));
+  }
 
-  # write file with restrictive permissions
-  EBox::Sudo::command("touch $destPath");
-  EBox::Sudo::command("chmod 0600 $destPath");
-  write_file ($destPath, $fileContent);
-  
-  return $destPath;
+
+  try {
+    #copy the uploaded data to file..
+    my $readStatus;
+    my $readData;
+    my $readSize = 1024 * 8; # read in blocks of 8K
+    while ($readStatus = read $UPLOAD_FH, $readData, $readSize) {
+      print $FH $readData;
+    }
+
+    if (not defined $readStatus) {
+      throw EBox::Exceptions::Internal("Error reading uploaded data: $!");
+    }
+  }
+  otherwise {
+    my $ex = shift;
+    unlink $filename;
+    $ex->throw();
+  }
+  finally {
+    close $UPLOAD_FH;
+    close $FH;
+
+  };
+
+  # return the created file in tmp
+  return $filename;
 }
 
 
