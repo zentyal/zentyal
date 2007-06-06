@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-05-16 15:44+0200\n"
+"POT-Creation-Date: 2007-06-06 09:39+0200\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -17,196 +17,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
 
-#: src/EBox/CGI/View/GatewayDataTable.pm:30
-#: src/EBox/CGI/Controller/GatewayDataTableUpdate.pm:30
-#: src/EBox/CGI/Controller/GatewayDataTableAdd.pm:30
-#: src/EBox/CGI/Controller/GatewayDataTableDel.pm:30
-#: src/EBox/CGI/Controller/GatewayDataTableMove.pm:30
-#: src/EBox/CGI/Controller/GatewayDataTable.pm:30 src/EBox/Network.pm:2303
-#, fuzzy
-msgid "Gateways"
-msgstr "Pasarel·la"
-
-#: src/EBox/CGI/View/MultiGwRulesDataTable.pm:32
-#, fuzzy
-msgid "Balance traffic and multigateway rules"
-msgstr "adreça de la pasarel·la"
-
-#: src/EBox/CGI/EnableBalanceTraffic.pm:42
-msgid "traffic balance"
-msgstr ""
-
-#: src/EBox/CGI/Gateway.pm:47 src/EBox/CGI/Route.pm:47
-msgid "gateway address"
-msgstr "adreça de la pasarel·la"
-
-#: src/EBox/CGI/Vlan.pm:40 src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59
-#: src/EBox/CGI/VIface.pm:43
-msgid "network interface"
-msgstr "interfície de xarxa"
-
-#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1060
-#: src/EBox/Network.pm:1089 src/templates/ifaces.mas:164
-msgid "VLAN Id"
-msgstr ""
-
-#: src/EBox/CGI/Iface.pm:58
-msgid "method"
-msgstr "mètode"
-
-#: src/EBox/CGI/Iface.pm:87 src/EBox/Model/GatewayDataTable.pm:187
-#: src/EBox/Network.pm:1476
-msgid "ip address"
-msgstr "adreça ip"
-
-#: src/EBox/CGI/Iface.pm:88 src/EBox/CGI/Route.pm:42 src/EBox/CGI/VIface.pm:63
-msgid "netmask"
-msgstr "màscara de xarxa"
-
-#: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1475
-msgid "network address"
-msgstr "adreça de xarxa"
-
-#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
-#, fuzzy
-msgid "Network diagnosis"
-msgstr "Interfícies de xarxa"
-
-#: src/EBox/CGI/Diag.pm:51 src/templates/diag.mas:15
-msgid "Host"
-msgstr ""
-
-#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2218
-msgid "host name"
-msgstr ""
-
-#: src/EBox/CGI/Controller/MultiGwRulesDataTable.pm:30
-#: src/EBox/Model/MultiGwRulesDataTable.pm:205
-#, fuzzy
-msgid "Multigateway rules"
-msgstr "adreça de la pasarel·la"
-
-#: src/EBox/CGI/VIface.pm:44
-msgid "virtual interface action"
-msgstr "acció d'interfície virtual"
-
-#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:558 src/EBox/Network.pm:563
-#: src/EBox/Network.pm:867 src/EBox/Network.pm:888 src/EBox/Network.pm:1419
-#: src/EBox/Network.pm:2010 src/EBox/Network.pm:2025 src/EBox/Network.pm:2157
-#: src/EBox/Network.pm:2275 src/templates/ifaces.mas:104
-#: src/templates/ifaces.mas:233
-msgid "IP address"
-msgstr "Adreça IP"
-
-#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
-msgid "virtual interface name"
-msgstr "nom de la interfície virtual"
-
-#: src/EBox/CGI/Routes.pm:29 src/EBox/CGI/Routes.pm:40
-#: src/EBox/Network.pm:2298
-msgid "Routes"
-msgstr "Rutes"
-
-#: src/EBox/CGI/FirstTime/DNS.pm:41
-msgid "You can revisit this page at Network/DNS in the menu"
-msgstr ""
-
-#: src/EBox/CGI/FirstTime/Gateway.pm:41
-msgid "Gateway configured"
-msgstr ""
-
-#: src/EBox/CGI/FirstTime/Iface.pm:45
-#, fuzzy
-msgid "Network interface configured"
-msgstr "Interfícies de xarxa"
-
-#: src/EBox/CGI/FirstTime/Routes.pm:29
-#, fuzzy
-msgid "Set default gateway"
-msgstr "Pasarel·la per defecte"
-
-#: src/EBox/CGI/FirstTime/Routes.pm:43
-msgid "You can change later the gateway at Network/Routes menus item"
-msgstr ""
-
-#: src/EBox/CGI/FirstTime/Nameservers.pm:44
-msgid "DNS configured"
-msgstr ""
-
-#: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
-#: src/EBox/Network.pm:2230
-msgid "Network interfaces"
-msgstr "Interfícies de xarxa"
-
-#: src/EBox/CGI/FirstTime/Ifaces.pm:25
-msgid ""
-"After the initial config you can revisit this page at Network/Interfaces in "
-"the menu"
-msgstr ""
-
-#: src/EBox/Model/GatewayDataTable.pm:81 src/templates/ifaces.mas:30
-#: src/templates/ifaces.mas:231
-msgid "Name"
-msgstr "Nom"
-
-#: src/EBox/Model/GatewayDataTable.pm:90
-#, fuzzy
-msgid "IP Address"
-msgstr "Adreça IP"
-
-#: src/EBox/Model/GatewayDataTable.pm:99
-#: src/EBox/Model/MultiGwRulesDataTable.pm:104 src/EBox/Network.pm:651
-#: src/EBox/Network.pm:683 src/EBox/Network.pm:728 src/EBox/Network.pm:762
-#: src/EBox/Network.pm:787 src/EBox/Network.pm:863 src/EBox/Network.pm:986
-#: src/EBox/Network.pm:1181 src/EBox/Network.pm:1241 src/EBox/Network.pm:1276
-#: src/EBox/Network.pm:1312 src/EBox/Network.pm:1345 src/EBox/Network.pm:2008
-#: src/EBox/Network.pm:2040 src/EBox/Network.pm:2113 src/EBox/Network.pm:2133
-#: src/EBox/Network.pm:2154 src/EBox/Network.pm:2177
-msgid "Interface"
-msgstr "Interfície"
-
-#: src/EBox/Model/GatewayDataTable.pm:108
-msgid "Upload"
-msgstr ""
-
-#: src/EBox/Model/GatewayDataTable.pm:118
-msgid "Download"
-msgstr ""
-
-#: src/EBox/Model/GatewayDataTable.pm:128
-msgid "Weight"
-msgstr ""
-
-#: src/EBox/Model/GatewayDataTable.pm:137
-#, fuzzy
-msgid "Default"
-msgstr "Pasarel·la per defecte"
-
-#: src/EBox/Model/GatewayDataTable.pm:151
-#, fuzzy
-msgid "Gateway list"
-msgstr "Pasarel·la"
-
-#: src/EBox/Model/GatewayDataTable.pm:168
-#, perl-brace-format
-msgid ""
-"You can add as many gateways as you want. This is very useful if you want to "
-"split your Internet traffic through several links.{br}The download and "
-"upload fields must be set as much rate as you have to your connection "
-"towards the gateway. The correct value of these fields is critical to ensure "
-"a correct functionality of the traffic shaping module"
-msgstr ""
-
-#: src/EBox/Model/GatewayDataTable.pm:170
-#, fuzzy
-msgid "gateway"
-msgstr "Pasarel·la"
-
-#: src/EBox/Model/GatewayDataTable.pm:202
-#, fuzzy
-msgid "There is already a default gateway"
-msgstr "Pasarel·la per defecte"
-
 #: src/EBox/Model/MultiGwRulesDataTable.pm:64
 #: src/EBox/Model/MultiGwRulesDataTable.pm:425
 msgid "any"
@@ -215,6 +25,17 @@ msgstr ""
 #: src/EBox/Model/MultiGwRulesDataTable.pm:95
 msgid "Protocol"
 msgstr ""
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:104
+#: src/EBox/Model/GatewayDataTable.pm:101 src/EBox/Network.pm:651
+#: src/EBox/Network.pm:683 src/EBox/Network.pm:728 src/EBox/Network.pm:762
+#: src/EBox/Network.pm:787 src/EBox/Network.pm:863 src/EBox/Network.pm:986
+#: src/EBox/Network.pm:1181 src/EBox/Network.pm:1241 src/EBox/Network.pm:1276
+#: src/EBox/Network.pm:1312 src/EBox/Network.pm:1345 src/EBox/Network.pm:2007
+#: src/EBox/Network.pm:2039 src/EBox/Network.pm:2112 src/EBox/Network.pm:2132
+#: src/EBox/Network.pm:2153 src/EBox/Network.pm:2176
+msgid "Interface"
+msgstr "Interfície"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:113
 msgid "Source"
@@ -252,6 +73,12 @@ msgstr ""
 msgid "Gateway"
 msgstr "Pasarel·la"
 
+#: src/EBox/Model/MultiGwRulesDataTable.pm:205
+#: src/EBox/CGI/Controller/MultiGwRulesDataTable.pm:30
+#, fuzzy
+msgid "Multigateway rules"
+msgstr "adreça de la pasarel·la"
+
 #: src/EBox/Model/MultiGwRulesDataTable.pm:223
 msgid ""
 "You can decide what kind of traffic goes out by each gateway. This way, you "
@@ -278,7 +105,199 @@ msgstr ""
 msgid "Port cannot be set if no protocol is selected"
 msgstr ""
 
-#: src/EBox/Network.pm:56 src/EBox/Network.pm:2290 src/templates/routes.mas:33
+#: src/EBox/Model/GatewayDataTable.pm:83 src/templates/ifaces.mas:30
+#: src/templates/ifaces.mas:231
+msgid "Name"
+msgstr "Nom"
+
+#: src/EBox/Model/GatewayDataTable.pm:92
+#, fuzzy
+msgid "IP Address"
+msgstr "Adreça IP"
+
+#: src/EBox/Model/GatewayDataTable.pm:110
+msgid "Upload"
+msgstr ""
+
+#: src/EBox/Model/GatewayDataTable.pm:120
+msgid "Download"
+msgstr ""
+
+#: src/EBox/Model/GatewayDataTable.pm:130
+msgid "Weight"
+msgstr ""
+
+#: src/EBox/Model/GatewayDataTable.pm:139
+#, fuzzy
+msgid "Default"
+msgstr "Pasarel·la per defecte"
+
+#: src/EBox/Model/GatewayDataTable.pm:153
+#, fuzzy
+msgid "Gateway list"
+msgstr "Pasarel·la"
+
+#: src/EBox/Model/GatewayDataTable.pm:170
+#, perl-brace-format
+msgid ""
+"You can add as many gateways as you want. This is very useful if you want to "
+"split your Internet traffic through several links.{br}The download and "
+"upload fields must be set as much rate as you have to your connection "
+"towards the gateway. The correct value of these fields is critical to ensure "
+"a correct functionality of the traffic shaping module"
+msgstr ""
+
+#: src/EBox/Model/GatewayDataTable.pm:172
+#, fuzzy
+msgid "gateway"
+msgstr "Pasarel·la"
+
+#: src/EBox/Model/GatewayDataTable.pm:189 src/EBox/CGI/Iface.pm:87
+#: src/EBox/Network.pm:1476
+msgid "ip address"
+msgstr "adreça ip"
+
+#: src/EBox/Model/GatewayDataTable.pm:204
+#, fuzzy
+msgid "There is already a default gateway"
+msgstr "Pasarel·la per defecte"
+
+#: src/EBox/CGI/Controller/GatewayDataTableUpdate.pm:30
+#: src/EBox/CGI/Controller/GatewayDataTableDel.pm:30
+#: src/EBox/CGI/Controller/GatewayDataTableMove.pm:30
+#: src/EBox/CGI/Controller/GatewayDataTableAdd.pm:30
+#: src/EBox/CGI/Controller/GatewayDataTable.pm:30
+#: src/EBox/CGI/View/GatewayDataTable.pm:30 src/EBox/Network.pm:2302
+#, fuzzy
+msgid "Gateways"
+msgstr "Pasarel·la"
+
+#: src/EBox/CGI/FirstTime/DNS.pm:41
+msgid "You can revisit this page at Network/DNS in the menu"
+msgstr ""
+
+#: src/EBox/CGI/FirstTime/Iface.pm:45
+#, fuzzy
+msgid "Network interface configured"
+msgstr "Interfícies de xarxa"
+
+#: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
+#: src/EBox/Network.pm:2229
+msgid "Network interfaces"
+msgstr "Interfícies de xarxa"
+
+#: src/EBox/CGI/FirstTime/Ifaces.pm:25
+msgid ""
+"After the initial config you can revisit this page at Network/Interfaces in "
+"the menu"
+msgstr ""
+
+#: src/EBox/CGI/FirstTime/Nameservers.pm:44
+msgid "DNS configured"
+msgstr ""
+
+#: src/EBox/CGI/FirstTime/Gateway.pm:41
+msgid "Gateway configured"
+msgstr ""
+
+#: src/EBox/CGI/FirstTime/Routes.pm:29
+#, fuzzy
+msgid "Set default gateway"
+msgstr "Pasarel·la per defecte"
+
+#: src/EBox/CGI/FirstTime/Routes.pm:43
+msgid "You can change later the gateway at Network/Routes menus item"
+msgstr ""
+
+#: src/EBox/CGI/View/MultiGwRulesDataTable.pm:32
+#, fuzzy
+msgid "Balance traffic and multigateway rules"
+msgstr "adreça de la pasarel·la"
+
+#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
+#, fuzzy
+msgid "Network diagnosis"
+msgstr "Interfícies de xarxa"
+
+#: src/EBox/CGI/Diag.pm:51 src/templates/diag.mas:15
+msgid "Host"
+msgstr ""
+
+#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2217
+msgid "host name"
+msgstr ""
+
+#: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/VIface.pm:43
+#: src/EBox/CGI/Vlan.pm:40
+msgid "network interface"
+msgstr "interfície de xarxa"
+
+#: src/EBox/CGI/Iface.pm:58
+msgid "method"
+msgstr "mètode"
+
+#: src/EBox/CGI/Iface.pm:88 src/EBox/CGI/VIface.pm:63 src/EBox/CGI/Route.pm:42
+msgid "netmask"
+msgstr "màscara de xarxa"
+
+#: src/EBox/CGI/EnableBalanceTraffic.pm:42
+msgid "traffic balance"
+msgstr ""
+
+#: src/EBox/CGI/VIface.pm:44
+msgid "virtual interface action"
+msgstr "acció d'interfície virtual"
+
+#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:558 src/EBox/Network.pm:563
+#: src/EBox/Network.pm:867 src/EBox/Network.pm:888 src/EBox/Network.pm:1419
+#: src/EBox/Network.pm:2009 src/EBox/Network.pm:2024 src/EBox/Network.pm:2156
+#: src/EBox/Network.pm:2274 src/templates/ifaces.mas:104
+#: src/templates/ifaces.mas:233
+msgid "IP address"
+msgstr "Adreça IP"
+
+#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
+msgid "virtual interface name"
+msgstr "nom de la interfície virtual"
+
+#: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1475
+msgid "network address"
+msgstr "adreça de xarxa"
+
+#: src/EBox/CGI/Route.pm:47 src/EBox/CGI/Gateway.pm:47
+msgid "gateway address"
+msgstr "adreça de la pasarel·la"
+
+#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1060
+#: src/EBox/Network.pm:1089 src/templates/ifaces.mas:164
+msgid "VLAN Id"
+msgstr ""
+
+#: src/EBox/CGI/Routes.pm:29 src/EBox/CGI/Routes.pm:40
+#: src/EBox/Network.pm:2297
+msgid "Routes"
+msgstr "Rutes"
+
+#: src/EBox/Network/FirstTime.pm:14
+#, fuzzy
+msgid "Configure network interfaces"
+msgstr "interfície de xarxa"
+
+#: src/EBox/Network/FirstTime.pm:15
+msgid "Configure name servers"
+msgstr ""
+
+#: src/EBox/Network/FirstTime.pm:16
+#, fuzzy
+msgid "Configure default gateway"
+msgstr "Pasarel·la per defecte"
+
+#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:1965
+#, perl-brace-format
+msgid "Gateway {gw} not reachable"
+msgstr "No es pot accedir a la pasarel·la {gw}"
+
+#: src/EBox/Network.pm:56 src/EBox/Network.pm:2289 src/templates/routes.mas:33
 msgid "Network"
 msgstr "Xarxa"
 
@@ -286,7 +305,7 @@ msgstr "Xarxa"
 msgid "Virtual interface name"
 msgstr "Nom de la interfície virtual"
 
-#: src/EBox/Network.pm:558 src/EBox/Network.pm:867 src/EBox/Network.pm:2010
+#: src/EBox/Network.pm:558 src/EBox/Network.pm:867 src/EBox/Network.pm:2009
 #: src/templates/ifaces.mas:118 src/templates/ifaces.mas:235
 msgid "Netmask"
 msgstr "Màscara de xarxa"
@@ -306,139 +325,59 @@ msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
 
-#: src/EBox/Network.pm:1927
+#: src/EBox/Network.pm:1926
 msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
 msgstr ""
 
-#: src/EBox/Network.pm:1966 src/EBox/NetworkUtil.pm:55
-#, perl-brace-format
-msgid "Gateway {gw} not reachable"
-msgstr "No es pot accedir a la pasarel·la {gw}"
-
-#: src/EBox/Network.pm:1970
+#: src/EBox/Network.pm:1969
 #, perl-brace-format
 msgid ""
 "Gateway {gw} must be reacheable by a static interface. Currently is "
 "reacheable by {iface} which is not static"
 msgstr ""
 
-#: src/EBox/Network.pm:2199
+#: src/EBox/Network.pm:2198
 msgid "Host name"
 msgstr ""
 
-#: src/EBox/Network.pm:2249
+#: src/EBox/Network.pm:2248
 msgid "down"
 msgstr "avall"
 
-#: src/EBox/Network.pm:2255
+#: src/EBox/Network.pm:2254
 msgid "up"
 msgstr "amunt"
 
-#: src/EBox/Network.pm:2259
+#: src/EBox/Network.pm:2258
 msgid "link ok"
 msgstr ""
 
-#: src/EBox/Network.pm:2261
+#: src/EBox/Network.pm:2260
 msgid "no link"
 msgstr ""
 
-#: src/EBox/Network.pm:2264
+#: src/EBox/Network.pm:2263
 msgid "Status"
 msgstr "Estat"
 
-#: src/EBox/Network.pm:2269
+#: src/EBox/Network.pm:2268
 msgid "MAC address"
 msgstr "Adreça MAC"
 
-#: src/EBox/Network.pm:2294
+#: src/EBox/Network.pm:2293
 #, fuzzy
 msgid "Interfaces"
 msgstr "Interfície"
 
-#: src/EBox/Network.pm:2300
+#: src/EBox/Network.pm:2299
 msgid "Diagnosis"
 msgstr ""
 
-#: src/EBox/Network.pm:2306
+#: src/EBox/Network.pm:2305
 msgid "Balance traffic"
 msgstr ""
-
-#: src/EBox/Network/FirstTime.pm:14
-#, fuzzy
-msgid "Configure network interfaces"
-msgstr "interfície de xarxa"
-
-#: src/EBox/Network/FirstTime.pm:15
-msgid "Configure name servers"
-msgstr ""
-
-#: src/EBox/Network/FirstTime.pm:16
-#, fuzzy
-msgid "Configure default gateway"
-msgstr "Pasarel·la per defecte"
-
-#: src/templates/diag.mas:13 src/templates/diag.mas:20
-msgid "Ping"
-msgstr ""
-
-#: src/templates/diag.mas:25
-msgid "Name resolution"
-msgstr ""
-
-#: src/templates/diag.mas:27
-msgid "Domain name"
-msgstr ""
-
-#: src/templates/diag.mas:32
-msgid "Lookup"
-msgstr ""
-
-#: src/templates/diag.mas:35
-msgid "Output"
-msgstr ""
-
-#: src/templates/dns.mas:11
-msgid ""
-"Having network interfaces configured via DHCP may cause this settings to be "
-"overriden."
-msgstr ""
-"Tenir interfícies de xarxa configurades via DHCP pot fer que aquests "
-"paràmetres es sobreescriguen."
-
-#: src/templates/dns.mas:20
-msgid "Primary"
-msgstr "Primària"
-
-#: src/templates/dns.mas:32
-msgid "Secondary"
-msgstr "Secundària"
-
-#: src/templates/dns.mas:45
-msgid "Apply"
-msgstr ""
-
-#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:14
-msgid ""
-"The change you are trying to make will affect the configuration of one or "
-"more modules that use references to this network interface."
-msgstr ""
-
-#: src/templates/confirmremove.mas:15 src/templates/confirm.mas:18
-msgid ""
-"If you choose to continue, all modules that make use of the current "
-"configuration of this network interface will delete the relevant parts of "
-"their configuration. Choose "
-msgstr ""
-
-#: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
-msgid "Ok"
-msgstr "D'acord"
-
-#: src/templates/confirmremove.mas:29 src/templates/confirm.mas:36
-msgid "Cancel"
-msgstr "Cancel·la"
 
 #: src/templates/routes.mas:12
 msgid ""
@@ -481,6 +420,46 @@ msgstr "Afegeix"
 #: src/templates/ifaces.mas:308
 msgid "Delete"
 msgstr "Elimina"
+
+#: src/templates/diag.mas:13 src/templates/diag.mas:20
+msgid "Ping"
+msgstr ""
+
+#: src/templates/diag.mas:25
+msgid "Name resolution"
+msgstr ""
+
+#: src/templates/diag.mas:27
+msgid "Domain name"
+msgstr ""
+
+#: src/templates/diag.mas:32
+msgid "Lookup"
+msgstr ""
+
+#: src/templates/diag.mas:35
+msgid "Output"
+msgstr ""
+
+#: src/templates/dns.mas:11
+msgid ""
+"Having network interfaces configured via DHCP may cause this settings to be "
+"overriden."
+msgstr ""
+"Tenir interfícies de xarxa configurades via DHCP pot fer que aquests "
+"paràmetres es sobreescriguen."
+
+#: src/templates/dns.mas:20
+msgid "Primary"
+msgstr "Primària"
+
+#: src/templates/dns.mas:32
+msgid "Secondary"
+msgstr "Secundària"
+
+#: src/templates/dns.mas:45
+msgid "Apply"
+msgstr ""
 
 #: src/templates/gwrules.mas:18
 msgid ""
@@ -558,6 +537,27 @@ msgstr "Descripció"
 #: src/templates/ifaces.mas:225
 msgid "Virtual interfaces"
 msgstr "Interfícies virtuals"
+
+#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:14
+msgid ""
+"The change you are trying to make will affect the configuration of one or "
+"more modules that use references to this network interface."
+msgstr ""
+
+#: src/templates/confirmremove.mas:15 src/templates/confirm.mas:18
+msgid ""
+"If you choose to continue, all modules that make use of the current "
+"configuration of this network interface will delete the relevant parts of "
+"their configuration. Choose "
+msgstr ""
+
+#: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
+msgid "Ok"
+msgstr "D'acord"
+
+#: src/templates/confirmremove.mas:29 src/templates/confirm.mas:36
+msgid "Cancel"
+msgstr "Cancel·la"
 
 #, fuzzy
 #~ msgid "Rule"

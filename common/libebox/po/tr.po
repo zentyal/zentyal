@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-05-14 09:51+0200\n"
+"POT-Creation-Date: 2007-06-06 09:36+0200\n"
 "PO-Revision-Date: 2007-04-18 19:04+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -25,12 +25,12 @@ msgstr "{data} {value} önceden mevcut."
 #: src/EBox/Exceptions/InvalidData.pm:32
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
-msgstr ""
+msgstr "{data} için geçersiz değer : {value} ."
 
 #: src/EBox/Exceptions/DataNotFound.pm:30
 #, perl-brace-format
 msgid "{data} {value} does not exist."
-msgstr ""
+msgstr "{data} {value} mevcut değil."
 
 #: src/EBox/Exceptions/DataMissing.pm:30
 #, perl-brace-format
@@ -41,67 +41,75 @@ msgstr "{data} boş."
 msgid "Page not found"
 msgstr "Sayfa bulunamadı"
 
-#: src/EBox/CGI/Base.pm:187
+#: src/EBox/CGI/Base.pm:189
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
 msgstr ""
+"Giriş geçersiz karakter içeriyor. Tüm alfanümerik karakterlere ilaveten şu "
+"alfanümerik olmayan karakterler: /.?&+:-@ ve boşluk kullanılabilir."
 
-#: src/EBox/CGI/Base.pm:309 src/EBox/CGI/Base.pm:522
+#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:524
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
 msgstr ""
+"Dahili bir hata oluştu. Bu genelde bir bug(hata)'dır, ilgili bilgi log "
+"dosyalarında bulunabilir."
 
-#: src/EBox/CGI/Base.pm:319
+#: src/EBox/CGI/Base.pm:321
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
 msgstr ""
+"Şablonla ilgili bir dahili hata oluştu. Bu bir bug(hata), ilgili bilgi log "
+"dosyalarında bulunabilir."
 
-#: src/EBox/CGI/Base.pm:528
+#: src/EBox/CGI/Base.pm:530
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
 msgstr ""
+"Beklenmeyen dahili bir hata oluştu. Bu bir bug(hata), ilgili bilgi log "
+"dosyalarında bulunabilir."
 
-#: src/EBox/CGI/Base.pm:534
+#: src/EBox/CGI/Base.pm:536
 msgid "You have just hit a bug in eBox. Please seek technical support."
-msgstr ""
+msgstr "eBox'da bir hata yakaladınız. Lütfen teknik destek araştırın."
 
-#: src/EBox/CGI/Base.pm:621
+#: src/EBox/CGI/Base.pm:623
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
-msgstr ""
+msgstr "İsteğiniz işleme konulamadı çünkü yanlış parametreler içermekte"
 
-#: src/EBox/CGI/Base.pm:636
+#: src/EBox/CGI/Base.pm:638
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
-msgstr ""
+msgstr "İsteğiniz işleme konulamadı çünkü bazı parametreleri eksik"
 
-#: src/EBox/CGI/Base.pm:755
+#: src/EBox/CGI/Base.pm:757
 msgid "Invalid uploaded file."
-msgstr ""
+msgstr "Geçersiz gönderilen dosya."
 
 #: src/EBox/Sudo.pm:229
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
-msgstr ""
+msgstr "{user} ile çalıştırılan '{cmd}' komutu başarısız oldu"
 
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
 #: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
 msgid "Interface"
-msgstr ""
+msgstr "Arabirim"
 
-#: src/EBox/Config.pm.in:39
+#: src/EBox/Config.pm.in:55
 #, perl-brace-format
 msgid "Could not open the config file {file}."
-msgstr ""
+msgstr "{file} yapılandırma dosyası açılamadı."
 
-#: src/EBox/Config.pm.in:72
+#: src/EBox/Config.pm.in:88
 msgid "The ebox user has not been set in the config file."
-msgstr ""
+msgstr "eBox kullanıcısı yapılandırma dosyasında ayarlanmamış."
 
 #: src/EBox/Validate.pm:608
 #, perl-brace-format
@@ -109,21 +117,24 @@ msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
 "the permissions forbid access to it"
 msgstr ""
+"{dir} dizinine girilemiyor. Dizin mevcut değil veya erişim yetkiniz yok"
 
 #: src/EBox/Validate.pm:613
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
-msgstr ""
+msgstr "{dir} dizini özel değil; çünkü başka bir kullanıcı sahipliği altında"
 
 #: src/EBox/Validate.pm:688
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
 msgstr ""
+"Verilen dosya yolu gerçerli değil. (Şu an geçerli olan tüm dosya "
+"karakterleri desteklenmiyor)"
 
 #: src/EBox/Validate.pm:716
 msgid "The file path must be absolute"
-msgstr ""
+msgstr "Dosya yolu mutlak olmalı"
 
 #: src/templates/ajax/tableBody.mas:47
 msgid "Add new"
@@ -145,11 +156,11 @@ msgstr "İşlem"
 
 #: src/templates/ajax/tableBody.mas:329
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
-msgstr ""
+msgstr "İlgili tabloyu göstermek için bir tane seçeneği işaretleyin"
 
 #: src/templates/ajax/tableSelector.mas:33
 msgid "Choose one..."
@@ -184,6 +195,8 @@ msgid ""
 "Language changes happen automatically, saving the configuration it's not "
 "needed."
 msgstr ""
+"Dil değişikliği kendiliğinden olacaktır, yapılandırmayı kayıt etmeyi "
+"gerektirmez."
 
 #: src/templates/language.mas:25 src/templates/enable.mas:29
 #: src/templates/enable.mas:31

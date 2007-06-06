@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-05-16 15:46+0200\n"
+"POT-Creation-Date: 2007-06-06 09:39+0200\n"
 "PO-Revision-Date: 2007-05-13 01:36+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/CGI/EditClient.pm:21 src/EBox/CGI/Delete.pm:15
-#: src/EBox/CGI/Create.pm:15 src/EBox/CGI/Index.pm:16
-#: src/EBox/CGI/DeleteClient.pm:15 src/EBox/CGI/Edit.pm:18
-#: src/EBox/CGI/CreateClient.pm:18 src/EBox/CGI/ClientBundle.pm:19
-#: src/EBox/OpenVPN.pm:1106
+#: src/EBox/CGI/EditClient.pm:21 src/EBox/CGI/Edit.pm:18
+#: src/EBox/CGI/Index.pm:16 src/EBox/CGI/ClientBundle.pm:19
+#: src/EBox/CGI/DeleteClient.pm:15 src/EBox/CGI/CreateClient.pm:18
+#: src/EBox/CGI/Delete.pm:15 src/EBox/CGI/Create.pm:15
+#: src/EBox/OpenVPN.pm:1128
 msgid "OpenVPN"
 msgstr "OpenVPN"
 
@@ -33,6 +33,47 @@ msgstr "{name} istemcisinin ayarlarının güncellendi"
 #: src/EBox/CGI/EditClient.pm:158 src/EBox/CGI/Edit.pm:147
 msgid "There are no changes to be saved"
 msgstr "Kaydolacak değişiklik mevcut değil"
+
+#: src/EBox/CGI/Edit.pm:143
+#, perl-brace-format
+msgid "Server {name} configuration updated"
+msgstr "{name} sunucusunun ayarları güncellendi"
+
+#: src/EBox/CGI/Enable.pm:52
+msgid "active parameter"
+msgstr "Aktiv parametre"
+
+#: src/EBox/CGI/Enable.pm:52
+msgid "It only may be 'yes' or 'no'"
+msgstr "Sadece 'Evet' veya 'Hayır' seçilebilir"
+
+#: src/EBox/CGI/Index.pm:57
+msgid "OpenVPN service status changed"
+msgstr "OpenVPN servis durumu değiştirildi"
+
+#: src/EBox/CGI/AddAdvertisedNet.pm:61
+#, perl-brace-format
+msgid "Server now grants access to {network}"
+msgstr "Sunucu şimdi {network} ağına erişim izni verdi"
+
+#: src/EBox/CGI/RemoveAdvertisedNet.pm:56
+#, perl-brace-format
+msgid "Server no longer grants access to {network}"
+msgstr "Sunucu şimdi {network} ağına erişim izni vermiyor"
+
+#: src/EBox/CGI/DeleteClient.pm:44
+msgid "Client"
+msgstr "İstemci"
+
+#: src/EBox/CGI/DeleteClient.pm:74
+#, perl-brace-format
+msgid "Client {name} removed"
+msgstr "{name} istemcisi kaldırıldı"
+
+#: src/EBox/CGI/CreateClient.pm:101
+#, perl-brace-format
+msgid "New client {name} created"
+msgstr "Yeni  {name} istemcisi oluşturuldu"
 
 #: src/EBox/CGI/Delete.pm:42
 msgid "Server"
@@ -48,47 +89,6 @@ msgstr "{name} sunucusu kaldırıldı"
 msgid "New server {name} created"
 msgstr "Yeni {name} sunucusu oluşturuldu"
 
-#: src/EBox/CGI/Enable.pm:52
-msgid "active parameter"
-msgstr "Aktiv parametre"
-
-#: src/EBox/CGI/Enable.pm:52
-msgid "It only may be 'yes' or 'no'"
-msgstr "Sadece 'Evet' veya 'Hayır' seçilebilir"
-
-#: src/EBox/CGI/Index.pm:57
-msgid "OpenVPN service status changed"
-msgstr "OpenVPN servis durumu değiştirildi"
-
-#: src/EBox/CGI/DeleteClient.pm:44
-msgid "Client"
-msgstr "İstemci"
-
-#: src/EBox/CGI/DeleteClient.pm:74
-#, perl-brace-format
-msgid "Client {name} removed"
-msgstr "{name} istemcisi kaldırıldı"
-
-#: src/EBox/CGI/AddAdvertisedNet.pm:61
-#, perl-brace-format
-msgid "Server now grants access to {network}"
-msgstr "Sunucu şimdi {network} ağına erişim izni verdi"
-
-#: src/EBox/CGI/Edit.pm:143
-#, perl-brace-format
-msgid "Server {name} configuration updated"
-msgstr "{name} sunucusunun ayarları güncellendi"
-
-#: src/EBox/CGI/CreateClient.pm:101
-#, perl-brace-format
-msgid "New client {name} created"
-msgstr "Yeni  {name} istemcisi oluşturuldu"
-
-#: src/EBox/CGI/RemoveAdvertisedNet.pm:56
-#, perl-brace-format
-msgid "Server no longer grants access to {network}"
-msgstr "Sunucu şimdi {network} ağına erişim izni vermiyor"
-
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:30
 #: src/EBox/OpenVPN/Client.pm:315 src/templates/clientProperties.mas:18
 msgid "Server's address"
@@ -97,465 +97,264 @@ msgstr "Sunucu adresleri"
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:35
 #, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
-msgstr ""
+msgstr "{name} sunucusu için en azından bir adres vermelisiniz"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:73
 msgid "Can't get address for this server: no external interfaces present"
-msgstr ""
+msgstr "Bu sunucu için adres alınamıyor: mevcut harici arabirim yok"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:156
 msgid "The client certificate can't be the same than the server"
-msgstr ""
+msgstr "İstemci sertifikası sunucu ile aynı olamaz"
 
-#: src/EBox/OpenVPN/Client.pm:41
-msgid "The protocol only may be tcp or udp."
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:158
-#, perl-brace-format
-msgid "Inexistent file {path}"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:277
-msgid "You must supply at least one server for the client"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:316
-msgid "Server's port"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:357 src/EBox/OpenVPN/Server.pm:684
-msgid "A IP protocol must be specified for the server"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:358
-msgid "The CA certificate is needed"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:359
-msgid "The client certificate must be specified"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:360
-msgid "The client private key must be specified"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:361
-msgid "Servers must be supplied to the client"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:437
-#, perl-brace-format
-msgid "Client {name}"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:439 src/EBox/OpenVPN/Server.pm:830
-msgid "Enabled"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:439 src/EBox/OpenVPN/Server.pm:830
-msgid "Disabled"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:440 src/EBox/OpenVPN/Server.pm:831
-msgid "Service"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:442 src/EBox/OpenVPN/Server.pm:833
-msgid "Running"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:442 src/EBox/OpenVPN/Server.pm:833
-msgid "Stopped"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:443 src/EBox/OpenVPN/Server.pm:834
-msgid "Daemon status"
-msgstr ""
-
-#: src/EBox/OpenVPN/Client.pm:450
-msgid "Connection target"
-msgstr ""
-
-#: src/EBox/OpenVPN/Server.pm:46
+#: src/EBox/OpenVPN/Server.pm:45
 msgid "The protocol only may be TCP or UDP."
-msgstr ""
+msgstr "Protokol sadece TCP veya UDP olabilir."
 
-#: src/EBox/OpenVPN/Server.pm:78
+#: src/EBox/OpenVPN/Server.pm:77
 msgid "The port must be a non-privileged port"
-msgstr ""
+msgstr "Port imtiyazsız bir port olmalıdır"
 
-#: src/EBox/OpenVPN/Server.pm:146
+#: src/EBox/OpenVPN/Server.pm:145
 #, perl-brace-format
 msgid ""
 "OpenVPN can only listen on a external interface. The interface {iface} does "
 "not exist"
 msgstr ""
+"OpenVPN sadece harici bir arabirimde dinleyebilir. {iface} arabirimi mevcut "
+"değil"
 
-#: src/EBox/OpenVPN/Server.pm:149
+#: src/EBox/OpenVPN/Server.pm:148
 #, perl-brace-format
 msgid ""
 "OpenVPN can only listen on a external interface. The interface {iface} is  "
 "internal"
 msgstr ""
+"OpenVPN sadece harici bir arabirimde dinleyebilir. {iface} arabirimi dahili "
+"bir arabirim"
 
-#: src/EBox/OpenVPN/Server.pm:224
+#: src/EBox/OpenVPN/Server.pm:223
 #, perl-brace-format
 msgid "The certificate {cn} does not exist"
-msgstr ""
+msgstr "{cn} sertifikası mevcut değil"
 
-#: src/EBox/OpenVPN/Server.pm:227
+#: src/EBox/OpenVPN/Server.pm:226
 #, perl-brace-format
 msgid "The certificate {cn} has expired"
-msgstr ""
+msgstr "{cn} sertifikasının süresi doldu"
 
-#: src/EBox/OpenVPN/Server.pm:230
+#: src/EBox/OpenVPN/Server.pm:229
 #, perl-brace-format
 msgid "The certificate {cn} has been revoked"
-msgstr ""
+msgstr "{cn} sertifikası iptal edildi"
 
-#: src/EBox/OpenVPN/Server.pm:245
+#: src/EBox/OpenVPN/Server.pm:244
 #, perl-brace-format
 msgid "The server {name} does not have certificate assigned"
-msgstr ""
+msgstr "{name} sunucusu atanmış bir sertifikaya sahip değil "
 
-#: src/EBox/OpenVPN/Server.pm:262
+#: src/EBox/OpenVPN/Server.pm:261
 #, perl-brace-format
 msgid ""
 "Cannot get key of server {name} because it does not have any certificate "
 "assigned"
 msgstr ""
+"{name} sunucusu için anahtar alınamıyor çünkü atanmış bir sertifikası yok"
 
-#: src/EBox/OpenVPN/Server.pm:314
+#: src/EBox/OpenVPN/Server.pm:313
 #, perl-brace-format
 msgid "Net address {net} with netmask {mask} is not a valid net"
 msgstr ""
+"{mask} ağ maskesine sahip olan {net} isimli ağ adresi geçerli bir ağ değil"
 
-#: src/EBox/OpenVPN/Server.pm:490
+#: src/EBox/OpenVPN/Server.pm:489
 #, perl-brace-format
 msgid "No IP address found for interface {iface}"
-msgstr ""
+msgstr "{iface} arabirimi için IP adresi bulunamadı"
 
-#: src/EBox/OpenVPN/Server.pm:534
+#: src/EBox/OpenVPN/Server.pm:533
 #, perl-brace-format
 msgid ""
 "OpenVPN server {name} can not be activated because there is not any network "
 "interfaces available"
 msgstr ""
+"OpenVPN {name} sunucusu etkinleştirilemedi çünkü hazır olan hiçbir ağ "
+"arabirimi yok"
 
-#: src/EBox/OpenVPN/Server.pm:612 src/EBox/OpenVPN/Server.pm:650
+#: src/EBox/OpenVPN/Server.pm:611 src/EBox/OpenVPN/Server.pm:649
 msgid "network address"
-msgstr ""
+msgstr "ağ adresi"
 
-#: src/EBox/OpenVPN/Server.pm:613
+#: src/EBox/OpenVPN/Server.pm:612
 msgid "network mask"
-msgstr ""
+msgstr "ağ maskesi"
 
-#: src/EBox/OpenVPN/Server.pm:616
+#: src/EBox/OpenVPN/Server.pm:615
 #, perl-brace-format
 msgid "Net {net} is already advertised in this server"
-msgstr ""
+msgstr "{net} ağı bu sunucuda zaten bildirildi"
 
-#: src/EBox/OpenVPN/Server.pm:621
+#: src/EBox/OpenVPN/Server.pm:620
 msgid ""
 "eBox must be configured as gateway to be able to give client access to "
 "networks via OpenVPN"
 msgstr ""
+"eBox'ın OpenVPN aracılığı ile ağlara istemci girişi verebilmesi için ağ "
+"geçidi olarak yapılandırılması lazım"
 
-#: src/EBox/OpenVPN/Server.pm:627
+#: src/EBox/OpenVPN/Server.pm:626
 msgid ""
 "The OpenVPN server can not grant access to a network which can not be "
 "reached by eBox"
 msgstr ""
+"OpenVPN suncusunun eBox tarafından ulaşılamayan bir ağa giriş yetkisi yoktur"
 
-#: src/EBox/OpenVPN/Server.pm:653
+#: src/EBox/OpenVPN/Server.pm:652
 #, perl-brace-format
 msgid "Net {net} is not advertised in this server"
-msgstr ""
-
-#: src/EBox/OpenVPN/Server.pm:681
-msgid "The server needs a subnet address for the VPN"
-msgstr ""
-
-#: src/EBox/OpenVPN/Server.pm:682
-msgid "The server needs a submask for his VPN net"
-msgstr ""
+msgstr "{net} ağı bu sunucuda bildirilmedi"
 
 #: src/EBox/OpenVPN/Server.pm:683
-msgid "The server needs a port number"
-msgstr ""
+msgid "The server needs a subnet address for the VPN"
+msgstr "Sunucunun VPN için bir alt ağ adresine ihtiyacı var"
+
+#: src/EBox/OpenVPN/Server.pm:684
+msgid "The server needs a submask for his VPN net"
+msgstr "Sunucunun VPN ağı için bir alt maskeye ihtiyacı var"
 
 #: src/EBox/OpenVPN/Server.pm:685
-msgid "A  server certificate must be specified"
-msgstr ""
+msgid "The server needs a port number"
+msgstr "Sunucunun bir port numarasına ihtiyacı var"
 
-#: src/EBox/OpenVPN/Server.pm:828
+#: src/EBox/OpenVPN/Server.pm:686 src/EBox/OpenVPN/Client.pm:363
+msgid "A IP protocol must be specified for the server"
+msgstr "Sunucu için bir IP protokolu belirlenmeli"
+
+#: src/EBox/OpenVPN/Server.pm:687
+msgid "A  server certificate must be specified"
+msgstr "Bir sunucu sertifikası belirlenmeli"
+
+#: src/EBox/OpenVPN/Server.pm:830
 #, perl-brace-format
 msgid "Server {name}"
-msgstr ""
+msgstr "{name} sunucusu"
 
-#: src/EBox/OpenVPN/Server.pm:838 src/templates/serverProperties.mas:36
+#: src/EBox/OpenVPN/Server.pm:832 src/EBox/OpenVPN/Client.pm:445
+msgid "Enabled"
+msgstr "Etkin"
+
+#: src/EBox/OpenVPN/Server.pm:832 src/EBox/OpenVPN/Client.pm:445
+msgid "Disabled"
+msgstr "Etkin değil"
+
+#: src/EBox/OpenVPN/Server.pm:833 src/EBox/OpenVPN/Client.pm:446
+msgid "Service"
+msgstr "Servis"
+
+#: src/EBox/OpenVPN/Server.pm:835 src/EBox/OpenVPN/Client.pm:448
+msgid "Running"
+msgstr "Çalışıyor"
+
+#: src/EBox/OpenVPN/Server.pm:835 src/EBox/OpenVPN/Client.pm:448
+msgid "Stopped"
+msgstr "Durmuş"
+
+#: src/EBox/OpenVPN/Server.pm:836 src/EBox/OpenVPN/Client.pm:449
+msgid "Daemon status"
+msgstr "Bekletici program durumu"
+
+#: src/EBox/OpenVPN/Server.pm:840 src/templates/serverProperties.mas:36
 msgid "All external interfaces"
-msgstr ""
+msgstr "Tüm harici arabirimler"
 
-#: src/EBox/OpenVPN/Server.pm:839
+#: src/EBox/OpenVPN/Server.pm:841
 msgid "Local address"
-msgstr ""
+msgstr "Yerel adres"
 
-#: src/EBox/OpenVPN/Server.pm:845 src/templates/serverProperties.mas:59
+#: src/EBox/OpenVPN/Server.pm:847 src/templates/serverProperties.mas:59
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
-#: src/EBox/OpenVPN/Server.pm:848 src/templates/serverProperties.mas:61
+#: src/EBox/OpenVPN/Server.pm:850 src/templates/serverProperties.mas:61
 msgid "VPN subnet"
-msgstr ""
+msgstr "VPN alt ağı"
+
+#: src/EBox/OpenVPN/Client.pm:41
+msgid "The protocol only may be tcp or udp."
+msgstr "Protokol sadece TCP veya UDP olabilir"
+
+#: src/EBox/OpenVPN/Client.pm:158
+#, perl-brace-format
+msgid "Inexistent file {path}"
+msgstr "Var olmayan dosya {path}"
+
+#: src/EBox/OpenVPN/Client.pm:277
+msgid "You must supply at least one server for the client"
+msgstr "İstemci için en azından bir sunucu sağlamalısınız"
+
+#: src/EBox/OpenVPN/Client.pm:316
+msgid "Server's port"
+msgstr "Sunucunun portu"
+
+#: src/EBox/OpenVPN/Client.pm:364
+msgid "The CA certificate is needed"
+msgstr "CA sertifikası gerekli"
+
+#: src/EBox/OpenVPN/Client.pm:365
+msgid "The client certificate must be specified"
+msgstr "İstemci sertifikası belirlenmeli"
+
+#: src/EBox/OpenVPN/Client.pm:366
+msgid "The client private key must be specified"
+msgstr "İstemci özel anahtarı belirlenmeli"
+
+#: src/EBox/OpenVPN/Client.pm:367
+msgid "Servers must be supplied to the client"
+msgstr "Sunucular istemcilere sağlanmalı"
+
+#: src/EBox/OpenVPN/Client.pm:443
+#, perl-brace-format
+msgid "Client {name}"
+msgstr "İstemci {name}"
+
+#: src/EBox/OpenVPN/Client.pm:456
+msgid "Connection target"
+msgstr "Bağlantı hedefi"
 
 #: src/EBox/OpenVPN.pm:232
 #, perl-brace-format
 msgid "Unable to remove daemon {name} of type {type} because it does not exist"
-msgstr ""
+msgstr "{type} tipindeki {name} daemon kaldırılamıyor çünkü mevcut değil"
 
-#: src/EBox/OpenVPN.pm:514
+#: src/EBox/OpenVPN.pm:536
 #, perl-brace-format
 msgid ""
 "{name} is a invalid name for a OpenVPN daemon. Only alphanumerics and "
 "underscores are allowed"
 msgstr ""
+"{name} bir OpenVPN daemonu için geçesiz bir isim. Sadece alfanümerikler ve "
+"alt çizgi kullanılabilir."
 
-#: src/EBox/OpenVPN.pm:1122
+#: src/EBox/OpenVPN.pm:1144
 msgid "OpenVPN daemons"
-msgstr ""
+msgstr "OpenVPN daemonları"
 
-#: src/EBox/OpenVPN.pm:1152
+#: src/EBox/OpenVPN.pm:1174
 msgid "OpenVPN service"
-msgstr ""
-
-#: src/templates/edit.mas:14
-#, perl-brace-format
-msgid "Server {name} configuration"
-msgstr ""
-
-#: src/templates/edit.mas:17 src/templates/editClient.mas:26
-msgid "Change"
-msgstr ""
-
-#: src/templates/edit.mas:37
-msgid "Advertised networks"
-msgstr ""
-
-#: src/templates/edit.mas:40
-msgid "You can manage which networks will be made accessible to clients"
-msgstr ""
-
-#: src/templates/edit.mas:56
-msgid "Net address"
-msgstr ""
-
-#: src/templates/edit.mas:57 src/templates/edit.mas:97
-msgid "Netmask"
-msgstr ""
-
-#: src/templates/edit.mas:58
-msgid "Action"
-msgstr ""
-
-#: src/templates/edit.mas:63 src/templates/index.mas:31
-#: src/templates/index.mas:84 src/templates/delete.mas:22
-msgid "Delete"
-msgstr ""
-
-#: src/templates/edit.mas:95
-msgid "Network"
-msgstr ""
-
-#: src/templates/edit.mas:99 src/templates/edit.mas:103
-msgid "Add network"
-msgstr ""
-
-#: src/templates/caRequired.mas:10
-msgid ""
-"OpenVPN servers require at least one client certificate. Create it first"
-msgstr ""
+msgstr "OpenVPN servisi"
 
 #: src/templates/createClient.mas:4
 msgid "OpenVPN client creation"
-msgstr ""
+msgstr "OpenVPN istemci oluşturma"
 
 #: src/templates/createClient.mas:7 src/templates/create.mas:15
 msgid "Create"
-msgstr ""
-
-#: src/templates/serverProperties.mas:15
-msgid "Certificate"
-msgstr ""
-
-#: src/templates/serverProperties.mas:19
-msgid "This certificate will be used by the server to authenticate itself"
-msgstr ""
-
-#: src/templates/serverProperties.mas:23
-msgid "disabled"
-msgstr ""
-
-#: src/templates/serverProperties.mas:27
-msgid "Client authorization by common name"
-msgstr ""
-
-#: src/templates/serverProperties.mas:31
-msgid ""
-"Only clients with this value as full common name's prefix will will be "
-"authorized"
-msgstr ""
-
-#: src/templates/serverProperties.mas:48
-msgid "Interface to listen on"
-msgstr ""
-
-#: src/templates/serverProperties.mas:51
-msgid ""
-"The server will be listen only in all external interfaces or only in the "
-"interface selected"
-msgstr ""
-
-#: src/templates/serverProperties.mas:57 src/templates/clientProperties.mas:13
-msgid "Active"
-msgstr ""
-
-#: src/templates/serverProperties.mas:63
-msgid "VPN subnet netmask"
-msgstr ""
-
-#: src/templates/serverProperties.mas:65
-msgid "Protocol"
-msgstr ""
-
-#: src/templates/serverProperties.mas:77
-msgid "Allow eBox-to-eBox tunnels"
-msgstr ""
-
-#: src/templates/serverProperties.mas:80
-msgid ""
-"If you want to create a tunnel between two eBox, you will need this option "
-"to be able to connect to the network in the client side"
-msgstr ""
-
-#: src/templates/serverProperties.mas:84
-msgid "Allow client-to-client connections"
-msgstr ""
-
-#: src/templates/serverProperties.mas:87
-msgid "Allow clients to connect each other within the VPN"
-msgstr ""
-
-#: src/templates/serverProperties.mas:93
-msgid "Server name"
-msgstr ""
-
-#: src/templates/create.mas:11
-msgid "OpenVPN server creation"
-msgstr ""
-
-#: src/templates/clientProperties.mas:29
-msgid "Server's Port"
-msgstr ""
-
-#: src/templates/clientProperties.mas:36
-msgid "CA's certificate"
-msgstr ""
-
-#: src/templates/clientProperties.mas:38
-msgid ""
-"Certificate of the Certification Authority. Must be the same used in the "
-"server"
-msgstr ""
-
-#: src/templates/clientProperties.mas:44
-msgid "Client's certificate"
-msgstr ""
-
-#: src/templates/clientProperties.mas:46
-msgid ""
-"Certificate used by the client to identify itself. It must be signed by the "
-"Certification Authority"
-msgstr ""
-
-#: src/templates/clientProperties.mas:52
-msgid "Client's private key"
-msgstr ""
-
-#: src/templates/clientProperties.mas:54
-msgid "Private key used to create the client's certificate"
-msgstr ""
-
-#: src/templates/clientProperties.mas:59
-msgid "Client name"
-msgstr ""
-
-#: src/templates/index.mas:12
-msgid "OpenVPN service status"
-msgstr ""
-
-#: src/templates/index.mas:28 src/templates/index.mas:81
-msgid "Name"
-msgstr ""
-
-#: src/templates/index.mas:29 src/templates/index.mas:82
-msgid "Actions"
-msgstr ""
-
-#: src/templates/index.mas:34 src/templates/index.mas:87
-msgid "Edit"
-msgstr ""
-
-#: src/templates/index.mas:54
-msgid "Servers"
-msgstr ""
-
-#: src/templates/index.mas:67 src/templates/index.mas:69
-msgid "Create new server"
-msgstr ""
-
-#: src/templates/index.mas:103
-msgid "Clients"
-msgstr ""
-
-#: src/templates/index.mas:114 src/templates/index.mas:116
-msgid "Create new client"
-msgstr ""
-
-#: src/templates/index.mas:128
-msgid "edit"
-msgstr ""
-
-#: src/templates/index.mas:133
-msgid "delete"
-msgstr ""
-
-#: src/templates/editClient.mas:9
-msgid "Change CA's certificate"
-msgstr ""
-
-#: src/templates/editClient.mas:11
-msgid "Change client's certificate"
-msgstr ""
-
-#: src/templates/editClient.mas:13
-msgid "Change client's private key"
-msgstr ""
-
-#: src/templates/editClient.mas:18
-#, perl-brace-format
-msgid "Client {name} configuration"
-msgstr ""
-
-#: src/templates/editClient.mas:22
-msgid "Changes in certificates and key files can not be discarded."
-msgstr ""
+msgstr "Oluştur"
 
 #: src/templates/delete.mas:9
 #, perl-brace-format
 msgid "Deleting OpenVPN {type}"
-msgstr ""
+msgstr "OpenVPN {type} siliniyor"
 
 #: src/templates/delete.mas:12
 #, perl-brace-format
@@ -563,29 +362,217 @@ msgid ""
 "Are you sure you want delete the {type} {name}.?\n"
 "This action can not be undone."
 msgstr ""
+"Şunu silmek istediğinizden emin misiniz? :{type}{name}\n"
+" Bu işlem geri alınamaz."
+
+#: src/templates/delete.mas:22 src/templates/edit.mas:63
+#: src/templates/index.mas:31 src/templates/index.mas:84
+msgid "Delete"
+msgstr "Sil"
 
 #: src/templates/delete.mas:26
 msgid "Cancel"
+msgstr "İptal"
+
+#: src/templates/create.mas:11
+msgid "OpenVPN server creation"
+msgstr "OpenVPN sunucu oluşturma"
+
+#: src/templates/serverProperties.mas:15
+msgid "Certificate"
+msgstr "Sertifika"
+
+#: src/templates/serverProperties.mas:19
+msgid "This certificate will be used by the server to authenticate itself"
 msgstr ""
+"Bu sertifika kendi kimlik doğrulaması için sunucu tarafından kullanılacak"
+
+#: src/templates/serverProperties.mas:23
+msgid "disabled"
+msgstr "Etkin değil"
+
+#: src/templates/serverProperties.mas:27
+msgid "Client authorization by common name"
+msgstr "Genel isimle istemci kimlik doğrulaması"
+
+#: src/templates/serverProperties.mas:31
+msgid ""
+"Only clients with this value as full common name's prefix will be authorized"
+msgstr ""
+
+#: src/templates/serverProperties.mas:48
+msgid "Interface to listen on"
+msgstr "Dinlenilecek arabirim"
+
+#: src/templates/serverProperties.mas:51
+msgid ""
+"The server will be listen only in all external interfaces or only in the "
+"interface selected"
+msgstr "Sunucu tüm harici veya seçilen arabirimleri dinleyecek"
+
+#: src/templates/serverProperties.mas:57 src/templates/clientProperties.mas:13
+msgid "Active"
+msgstr "Aktif"
+
+#: src/templates/serverProperties.mas:63
+msgid "VPN subnet netmask"
+msgstr "VPN alt ağ maskesi"
+
+#: src/templates/serverProperties.mas:65
+msgid "Protocol"
+msgstr "Protokol"
+
+#: src/templates/serverProperties.mas:77
+msgid "Allow eBox-to-eBox tunnels"
+msgstr "eBox-dan-eBox'a tünellerine izin ver"
+
+#: src/templates/serverProperties.mas:80
+msgid ""
+"If you want to create a tunnel between two eBox, you will need this option "
+"to be able to connect to the network in the client side"
+msgstr ""
+"Eğer iki eBox arasında bir tünel oluşturmak istiyorsanız istemci tarafından "
+"ağa bağlanmak için bu seçeneğe ihtiyacınız var"
+
+#: src/templates/serverProperties.mas:84
+msgid "Allow client-to-client connections"
+msgstr "İstemci-den-istemciye bağlantılarına izin ver"
+
+#: src/templates/serverProperties.mas:87
+msgid "Allow clients to connect each other within the VPN"
+msgstr "VPN içinde birbirlerine bağlanması için istemcilere izin ver"
+
+#: src/templates/serverProperties.mas:93
+msgid "Server name"
+msgstr "Sunucu ismi"
+
+#: src/templates/caRequired.mas:10
+msgid ""
+"OpenVPN servers require at least one client certificate. Create it first"
+msgstr ""
+"OpenVPN en azından bir tane istemci sertifikası gerektirir. Önce sertifikayı "
+"oluşturun"
+
+#: src/templates/editClient.mas:9
+msgid "Change CA's certificate"
+msgstr "CA'nın sertifikasını değiştir"
+
+#: src/templates/editClient.mas:11
+msgid "Change client's certificate"
+msgstr "İstemcinin sertifikasını değiştir"
+
+#: src/templates/editClient.mas:13
+msgid "Change client's private key"
+msgstr "İstemcinin özel anahtarını değiştir"
+
+#: src/templates/editClient.mas:18
+#, perl-brace-format
+msgid "Client {name} configuration"
+msgstr "{name} istemcisi yapılandırması"
+
+#: src/templates/editClient.mas:22
+msgid "Changes in certificates and key files can not be discarded."
+msgstr "Sertifikalar ve anahtar dosyalarındaki değişiklikler iptal edilemez"
+
+#: src/templates/editClient.mas:26 src/templates/edit.mas:17
+msgid "Change"
+msgstr "Değiştir"
+
+#: src/templates/edit.mas:14
+#, perl-brace-format
+msgid "Server {name} configuration"
+msgstr "{name} sunucusu yapılandırması"
+
+#: src/templates/edit.mas:37
+msgid "Advertised networks"
+msgstr "Bildirilmiş ağlar"
+
+#: src/templates/edit.mas:40
+msgid "You can manage which networks will be made accessible to clients"
+msgstr ""
+"Hangi sunucuların istemciler tarafından erişilebilir olacağını "
+"yönetebilirsiniz"
+
+#: src/templates/edit.mas:56
+msgid "Net address"
+msgstr "Ağ adresi"
+
+#: src/templates/edit.mas:57 src/templates/edit.mas:97
+msgid "Netmask"
+msgstr "Ağ maskesi"
+
+#: src/templates/edit.mas:58
+msgid "Action"
+msgstr "İşlem"
+
+#: src/templates/edit.mas:95
+msgid "Network"
+msgstr "Ağ"
+
+#: src/templates/edit.mas:99 src/templates/edit.mas:103
+msgid "Add network"
+msgstr "Ağ ekle"
+
+#: src/templates/index.mas:12
+msgid "OpenVPN service status"
+msgstr "OpenVPN servisi durumu"
+
+#: src/templates/index.mas:28 src/templates/index.mas:81
+msgid "Name"
+msgstr "İsim"
+
+#: src/templates/index.mas:29 src/templates/index.mas:82
+msgid "Actions"
+msgstr "İşlemler"
+
+#: src/templates/index.mas:34 src/templates/index.mas:87
+msgid "Edit"
+msgstr "Düzenle"
+
+#: src/templates/index.mas:54
+msgid "Servers"
+msgstr "Sunucular"
+
+#: src/templates/index.mas:67 src/templates/index.mas:69
+msgid "Create new server"
+msgstr "Yeni sunucu oluştur"
+
+#: src/templates/index.mas:103
+msgid "Clients"
+msgstr "İstemciler"
+
+#: src/templates/index.mas:114 src/templates/index.mas:116
+msgid "Create new client"
+msgstr "Yeni istemci oluştur"
+
+#: src/templates/index.mas:128
+msgid "edit"
+msgstr "Düzenle"
+
+#: src/templates/index.mas:133
+msgid "delete"
+msgstr "Sil"
 
 #: src/templates/clientBundle.mas:17
 msgid ""
 "This certificate will be used by the client to authenticate itself to the "
 "server"
 msgstr ""
+"Bu sertifika istemci tarafından kendisini sunucuya doğrulamak için "
+"kullanılacaktır"
 
 #: src/templates/clientBundle.mas:59
 msgid "This address should be the one used to reach the server."
-msgstr ""
+msgstr "Bu adres sunucuya ulaşmak için kullanılan adres olmalıdır"
 
 #: src/templates/clientBundle.mas:64
 msgid "An additional address to reach the server can be specified here"
-msgstr ""
+msgstr "Sunucuya ulaşmak için ek bir adres burada belirlenebilir"
 
 #: src/templates/clientBundle.mas:94
 #, perl-brace-format
 msgid "Client files for server {name}"
-msgstr ""
+msgstr "{name} sunucusu için istemci dosyaları"
 
 #: src/templates/clientBundle.mas:97
 msgid ""
@@ -593,3 +580,51 @@ msgid ""
 "client. Remember to copy these files to the client machine configuration "
 "directory"
 msgstr ""
+"Bir OpenVPN istemcisi kurmak için tüm gerekli dosyalarla beraber bir arşiv "
+"indirebilirsiniz"
+
+#: src/templates/clientProperties.mas:29
+msgid "Server's Port"
+msgstr "Sunucunun Portu"
+
+#: src/templates/clientProperties.mas:36
+msgid "CA's certificate"
+msgstr "CA sertifikası"
+
+#: src/templates/clientProperties.mas:38
+msgid ""
+"Certificate of the Certification Authority. Must be the same used in the "
+"server"
+msgstr ""
+"Sertifikasyon Yetkisi için sertifika. Sunucuda kullanılan ile aynı olmalıdır"
+
+#: src/templates/clientProperties.mas:44
+msgid "Client's certificate"
+msgstr "İstemcinin sertifikası"
+
+#: src/templates/clientProperties.mas:46
+msgid ""
+"Certificate used by the client to identify itself. It must be signed by the "
+"Certification Authority"
+msgstr ""
+"Kendisini tanımlaması için istemci tarafından kullanılan sertifika. "
+"Sertifikasyon Yetkilisi tarafından kayıt edilmeli"
+
+#: src/templates/clientProperties.mas:52
+msgid "Client's private key"
+msgstr "İstemcinin özel anahtarı"
+
+#: src/templates/clientProperties.mas:54
+msgid "Private key used to create the client's certificate"
+msgstr "İstemcinin sertifikasını ouşturmak için kullanılan özel anahtar"
+
+#: src/templates/clientProperties.mas:59
+msgid "Client name"
+msgstr "İstemci ismi"
+
+#~ msgid ""
+#~ "Only clients with this value as full common name's prefix will will be "
+#~ "authorized"
+#~ msgstr ""
+#~ "Sadece bu değerdeki istemciler tam genel ismin öneki olarak "
+#~ "doğrulanacaklar"

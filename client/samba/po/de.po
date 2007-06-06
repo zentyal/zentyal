@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-05-14 09:54+0200\n"
+"POT-Creation-Date: 2007-06-06 09:40+0200\n"
 "PO-Revision-Date: 2007-03-04 20:27+0100\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -45,16 +45,16 @@ msgstr "Name der Freigabe"
 msgid "active"
 msgstr "Aktiv"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:234
-#: src/EBox/Samba.pm:242
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:236
+#: src/EBox/Samba.pm:244
 msgid "File sharing"
 msgstr "Dateifreigabe"
 
-#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:466
+#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:468
 msgid "netbios"
 msgstr "NetBIOS"
 
-#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:504
+#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:506
 msgid "working group"
 msgstr "Arbeitsgruppe"
 
@@ -62,7 +62,7 @@ msgstr "Arbeitsgruppe"
 msgid "working mode"
 msgstr "Arbeitsmodus"
 
-#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:485
+#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:487
 msgid "description"
 msgstr "Beschreibung"
 
@@ -70,7 +70,7 @@ msgstr "Beschreibung"
 msgid "user quota"
 msgstr "Speicherlimite für Benutzer"
 
-#: src/EBox/Samba.pm:281 src/EBox/Samba.pm:326
+#: src/EBox/Samba.pm:283 src/EBox/Samba.pm:328
 #, fuzzy
 msgid "listening port"
 msgstr ""
@@ -78,7 +78,7 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-samba 0.8.99)  #-#-#-#-#\n"
 "Auf diesen Port hören"
 
-#: src/EBox/Samba.pm:364
+#: src/EBox/Samba.pm:366
 #, fuzzy
 msgid "Domain Name"
 msgstr ""
@@ -86,19 +86,19 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-samba 0.8.99)  #-#-#-#-#\n"
 "Domänenname"
 
-#: src/EBox/Samba.pm:523
+#: src/EBox/Samba.pm:525
 msgid "quota"
 msgstr "Speicherlimite"
 
-#: src/EBox/Samba.pm:808 src/EBox/Samba.pm:827
+#: src/EBox/Samba.pm:810 src/EBox/Samba.pm:829
 msgid "user"
 msgstr "Benutzer"
 
-#: src/EBox/Samba.pm:811 src/EBox/Samba.pm:841 src/EBox/SambaLdapUser.pm:611
+#: src/EBox/Samba.pm:813 src/EBox/Samba.pm:843 src/EBox/SambaLdapUser.pm:611
 msgid "group"
 msgstr "Gruppe"
 
-#: src/EBox/Samba.pm:814
+#: src/EBox/Samba.pm:816
 msgid "printer"
 msgstr "Drucker"
 
@@ -276,7 +276,7 @@ msgstr "Beschreibung"
 msgid "Quota limit"
 msgstr "Speicherlimit"
 
-#: stubs/smb.conf.mas:90
+#: stubs/smb.conf.mas:91
 msgid "Home Directories"
 msgstr "Eigener Ordner"
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-05-14 09:51+0200\n"
+"POT-Creation-Date: 2007-06-06 09:36+0200\n"
 "PO-Revision-Date: 2006-10-30 10:15+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -40,46 +40,46 @@ msgstr ""
 msgid "Page not found"
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:187
+#: src/EBox/CGI/Base.pm:189
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:309 src/EBox/CGI/Base.pm:522
+#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:524
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:319
+#: src/EBox/CGI/Base.pm:321
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:528
+#: src/EBox/CGI/Base.pm:530
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:534
+#: src/EBox/CGI/Base.pm:536
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:621
+#: src/EBox/CGI/Base.pm:623
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:636
+#: src/EBox/CGI/Base.pm:638
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:755
+#: src/EBox/CGI/Base.pm:757
 msgid "Invalid uploaded file."
 msgstr ""
 
@@ -93,12 +93,12 @@ msgstr ""
 msgid "Interface"
 msgstr ""
 
-#: src/EBox/Config.pm.in:39
+#: src/EBox/Config.pm.in:55
 #, perl-brace-format
 msgid "Could not open the config file {file}."
 msgstr ""
 
-#: src/EBox/Config.pm.in:72
+#: src/EBox/Config.pm.in:88
 msgid "The ebox user has not been set in the config file."
 msgstr ""
 

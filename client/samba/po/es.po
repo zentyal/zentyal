@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-05-14 09:54+0200\n"
+"POT-Creation-Date: 2007-06-06 09:40+0200\n"
 "PO-Revision-Date: 2006-10-25 13:00+0200\n"
 "Last-Translator: Javier Amor Garcia <javier.amor.garcia@warp.es>\n"
 "Language-Team: \n"
@@ -43,16 +43,16 @@ msgstr "nombre del recurso compartido"
 msgid "active"
 msgstr "activo"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:234
-#: src/EBox/Samba.pm:242
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:236
+#: src/EBox/Samba.pm:244
 msgid "File sharing"
 msgstr "Compartir ficheros"
 
-#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:466
+#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:468
 msgid "netbios"
 msgstr "netbios"
 
-#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:504
+#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:506
 msgid "working group"
 msgstr "grupo de trabajo"
 
@@ -60,7 +60,7 @@ msgstr "grupo de trabajo"
 msgid "working mode"
 msgstr "modo de trabajo"
 
-#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:485
+#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:487
 msgid "description"
 msgstr "descripción"
 
@@ -68,27 +68,27 @@ msgstr "descripción"
 msgid "user quota"
 msgstr "cuota de usuario"
 
-#: src/EBox/Samba.pm:281 src/EBox/Samba.pm:326
+#: src/EBox/Samba.pm:283 src/EBox/Samba.pm:328
 msgid "listening port"
 msgstr "Puerto de escucha"
 
-#: src/EBox/Samba.pm:364
+#: src/EBox/Samba.pm:366
 msgid "Domain Name"
 msgstr "Nombre del Dominio"
 
-#: src/EBox/Samba.pm:523
+#: src/EBox/Samba.pm:525
 msgid "quota"
 msgstr "cuota"
 
-#: src/EBox/Samba.pm:808 src/EBox/Samba.pm:827
+#: src/EBox/Samba.pm:810 src/EBox/Samba.pm:829
 msgid "user"
 msgstr "usuario"
 
-#: src/EBox/Samba.pm:811 src/EBox/Samba.pm:841 src/EBox/SambaLdapUser.pm:611
+#: src/EBox/Samba.pm:813 src/EBox/Samba.pm:843 src/EBox/SambaLdapUser.pm:611
 msgid "group"
 msgstr "grupo"
 
-#: src/EBox/Samba.pm:814
+#: src/EBox/Samba.pm:816
 msgid "printer"
 msgstr "impresora"
 
@@ -252,7 +252,7 @@ msgstr "Descripción"
 msgid "Quota limit"
 msgstr "Límite de cuota"
 
-#: stubs/smb.conf.mas:90
+#: stubs/smb.conf.mas:91
 msgid "Home Directories"
 msgstr "Directorios de usuario"
 

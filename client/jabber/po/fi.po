@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-05-16 15:41+0200\n"
+"POT-Creation-Date: 2007-06-06 09:38+0200\n"
 "PO-Revision-Date: 2007-04-11 16:23+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,16 +16,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:232
-msgid "domain"
-msgstr ""
-
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
 msgstr ""
 
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:297
 msgid "Jabber"
+msgstr ""
+
+#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:232
+msgid "domain"
 msgstr ""
 
 #: src/EBox/CGI/JabberUserOptions.pm:44

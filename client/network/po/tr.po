@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-05-16 15:44+0200\n"
+"POT-Creation-Date: 2007-06-06 09:39+0200\n"
 "PO-Revision-Date: 2007-05-12 23:18+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -17,192 +17,6 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/CGI/View/GatewayDataTable.pm:30
-#: src/EBox/CGI/Controller/GatewayDataTableUpdate.pm:30
-#: src/EBox/CGI/Controller/GatewayDataTableAdd.pm:30
-#: src/EBox/CGI/Controller/GatewayDataTableDel.pm:30
-#: src/EBox/CGI/Controller/GatewayDataTableMove.pm:30
-#: src/EBox/CGI/Controller/GatewayDataTable.pm:30 src/EBox/Network.pm:2303
-msgid "Gateways"
-msgstr "Ağ geçitleri"
-
-#: src/EBox/CGI/View/MultiGwRulesDataTable.pm:32
-msgid "Balance traffic and multigateway rules"
-msgstr ""
-
-#: src/EBox/CGI/EnableBalanceTraffic.pm:42
-msgid "traffic balance"
-msgstr ""
-
-#: src/EBox/CGI/Gateway.pm:47 src/EBox/CGI/Route.pm:47
-msgid "gateway address"
-msgstr "Ağ geçidi adresi"
-
-#: src/EBox/CGI/Vlan.pm:40 src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59
-#: src/EBox/CGI/VIface.pm:43
-msgid "network interface"
-msgstr "Ağ arabirimi"
-
-#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1060
-#: src/EBox/Network.pm:1089 src/templates/ifaces.mas:164
-msgid "VLAN Id"
-msgstr "VLAN Id"
-
-#: src/EBox/CGI/Iface.pm:58
-msgid "method"
-msgstr "Yöntem"
-
-#: src/EBox/CGI/Iface.pm:87 src/EBox/Model/GatewayDataTable.pm:187
-#: src/EBox/Network.pm:1476
-msgid "ip address"
-msgstr "IP adresi"
-
-#: src/EBox/CGI/Iface.pm:88 src/EBox/CGI/Route.pm:42 src/EBox/CGI/VIface.pm:63
-msgid "netmask"
-msgstr "Ağ maskesi"
-
-#: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1475
-msgid "network address"
-msgstr "Ağ adresi"
-
-#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
-msgid "Network diagnosis"
-msgstr "Ağ tanıları"
-
-#: src/EBox/CGI/Diag.pm:51 src/templates/diag.mas:15
-msgid "Host"
-msgstr "Makina"
-
-#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2218
-msgid "host name"
-msgstr "Makina ismi"
-
-#: src/EBox/CGI/Controller/MultiGwRulesDataTable.pm:30
-#: src/EBox/Model/MultiGwRulesDataTable.pm:205
-msgid "Multigateway rules"
-msgstr "Çoklu ağ geçidi kuralları"
-
-#: src/EBox/CGI/VIface.pm:44
-msgid "virtual interface action"
-msgstr "Sanal aygıt işlemleri"
-
-#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:558 src/EBox/Network.pm:563
-#: src/EBox/Network.pm:867 src/EBox/Network.pm:888 src/EBox/Network.pm:1419
-#: src/EBox/Network.pm:2010 src/EBox/Network.pm:2025 src/EBox/Network.pm:2157
-#: src/EBox/Network.pm:2275 src/templates/ifaces.mas:104
-#: src/templates/ifaces.mas:233
-msgid "IP address"
-msgstr "IP adresi"
-
-#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
-msgid "virtual interface name"
-msgstr "Sanal aygıt ismi"
-
-#: src/EBox/CGI/Routes.pm:29 src/EBox/CGI/Routes.pm:40
-#: src/EBox/Network.pm:2298
-msgid "Routes"
-msgstr "Yönelticiler"
-
-#: src/EBox/CGI/FirstTime/DNS.pm:41
-msgid "You can revisit this page at Network/DNS in the menu"
-msgstr "Bu sayfayı  tekrar Ağ/DNS menüsünden giriş yapabilirsiniz"
-
-#: src/EBox/CGI/FirstTime/Gateway.pm:41
-msgid "Gateway configured"
-msgstr "Ağ geçidi ayarlandı"
-
-#: src/EBox/CGI/FirstTime/Iface.pm:45
-msgid "Network interface configured"
-msgstr "Ağ arabirimi ayarlandı"
-
-#: src/EBox/CGI/FirstTime/Routes.pm:29
-msgid "Set default gateway"
-msgstr "Öntanımlı ağ geçidini ayarla"
-
-#: src/EBox/CGI/FirstTime/Routes.pm:43
-msgid "You can change later the gateway at Network/Routes menus item"
-msgstr ""
-"Ağ geçidi ayarlarını daha sonra Ağ/Yönelticiler menüsünden "
-"değiştirebilirsiniz"
-
-#: src/EBox/CGI/FirstTime/Nameservers.pm:44
-msgid "DNS configured"
-msgstr "DNS ayarlandı"
-
-#: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
-#: src/EBox/Network.pm:2230
-msgid "Network interfaces"
-msgstr "Ağ arabirimleri"
-
-#: src/EBox/CGI/FirstTime/Ifaces.pm:25
-msgid ""
-"After the initial config you can revisit this page at Network/Interfaces in "
-"the menu"
-msgstr ""
-"İlk ayarlardan sonra sayfayı tekrar ziyaret edebilirsiniz (Ağ/Ağ Kartları)"
-
-#: src/EBox/Model/GatewayDataTable.pm:81 src/templates/ifaces.mas:30
-#: src/templates/ifaces.mas:231
-msgid "Name"
-msgstr "İsmi"
-
-#: src/EBox/Model/GatewayDataTable.pm:90
-msgid "IP Address"
-msgstr "IP adresi"
-
-#: src/EBox/Model/GatewayDataTable.pm:99
-#: src/EBox/Model/MultiGwRulesDataTable.pm:104 src/EBox/Network.pm:651
-#: src/EBox/Network.pm:683 src/EBox/Network.pm:728 src/EBox/Network.pm:762
-#: src/EBox/Network.pm:787 src/EBox/Network.pm:863 src/EBox/Network.pm:986
-#: src/EBox/Network.pm:1181 src/EBox/Network.pm:1241 src/EBox/Network.pm:1276
-#: src/EBox/Network.pm:1312 src/EBox/Network.pm:1345 src/EBox/Network.pm:2008
-#: src/EBox/Network.pm:2040 src/EBox/Network.pm:2113 src/EBox/Network.pm:2133
-#: src/EBox/Network.pm:2154 src/EBox/Network.pm:2177
-msgid "Interface"
-msgstr "Arabirim"
-
-#: src/EBox/Model/GatewayDataTable.pm:108
-msgid "Upload"
-msgstr "Yükle"
-
-#: src/EBox/Model/GatewayDataTable.pm:118
-msgid "Download"
-msgstr "İndir"
-
-#: src/EBox/Model/GatewayDataTable.pm:128
-msgid "Weight"
-msgstr ""
-
-#: src/EBox/Model/GatewayDataTable.pm:137
-msgid "Default"
-msgstr "Öntanımlı"
-
-#: src/EBox/Model/GatewayDataTable.pm:151
-msgid "Gateway list"
-msgstr "Ağ geçidi listesi"
-
-#: src/EBox/Model/GatewayDataTable.pm:168
-#, perl-brace-format
-msgid ""
-"You can add as many gateways as you want. This is very useful if you want to "
-"split your Internet traffic through several links.{br}The download and "
-"upload fields must be set as much rate as you have to your connection "
-"towards the gateway. The correct value of these fields is critical to ensure "
-"a correct functionality of the traffic shaping module"
-msgstr ""
-"İhtiyacınız kadar ağ geçidi verebilirsiniz. Bu sayede internet bağlantınızı "
-"farklı  ve birden fazla aygıtlara dağıtabilirsiniz. {br} Download ve Upload  "
-"alanları kendi yapınıza göre olmalıdır.  Bu sayede ağ genişliğinin düzenli "
-"ve adil bir şekilde dağıtılmasını gerçekleştirirsiniz."
-
-#: src/EBox/Model/GatewayDataTable.pm:170
-msgid "gateway"
-msgstr "Ağ geçidi"
-
-#: src/EBox/Model/GatewayDataTable.pm:202
-msgid "There is already a default gateway"
-msgstr "Önceden tanımlı bir ağ geçidi mevcut"
-
 #: src/EBox/Model/MultiGwRulesDataTable.pm:64
 #: src/EBox/Model/MultiGwRulesDataTable.pm:425
 msgid "any"
@@ -211,6 +25,17 @@ msgstr "herhangi"
 #: src/EBox/Model/MultiGwRulesDataTable.pm:95
 msgid "Protocol"
 msgstr "Protokol"
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:104
+#: src/EBox/Model/GatewayDataTable.pm:101 src/EBox/Network.pm:651
+#: src/EBox/Network.pm:683 src/EBox/Network.pm:728 src/EBox/Network.pm:762
+#: src/EBox/Network.pm:787 src/EBox/Network.pm:863 src/EBox/Network.pm:986
+#: src/EBox/Network.pm:1181 src/EBox/Network.pm:1241 src/EBox/Network.pm:1276
+#: src/EBox/Network.pm:1312 src/EBox/Network.pm:1345 src/EBox/Network.pm:2007
+#: src/EBox/Network.pm:2039 src/EBox/Network.pm:2112 src/EBox/Network.pm:2132
+#: src/EBox/Network.pm:2153 src/EBox/Network.pm:2176
+msgid "Interface"
+msgstr "Arabirim"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:113
 msgid "Source"
@@ -246,6 +71,11 @@ msgstr "Hedef nesnesi"
 msgid "Gateway"
 msgstr "Ağ geçidi"
 
+#: src/EBox/Model/MultiGwRulesDataTable.pm:205
+#: src/EBox/CGI/Controller/MultiGwRulesDataTable.pm:30
+msgid "Multigateway rules"
+msgstr "Çoklu ağ geçidi kuralları"
+
 #: src/EBox/Model/MultiGwRulesDataTable.pm:223
 msgid ""
 "You can decide what kind of traffic goes out by each gateway. This way, you "
@@ -276,7 +106,194 @@ msgstr "Kaynak portu"
 msgid "Port cannot be set if no protocol is selected"
 msgstr "Protokol seçilmezse port tanımlaması yapılamaz"
 
-#: src/EBox/Network.pm:56 src/EBox/Network.pm:2290 src/templates/routes.mas:33
+#: src/EBox/Model/GatewayDataTable.pm:83 src/templates/ifaces.mas:30
+#: src/templates/ifaces.mas:231
+msgid "Name"
+msgstr "İsmi"
+
+#: src/EBox/Model/GatewayDataTable.pm:92
+msgid "IP Address"
+msgstr "IP adresi"
+
+#: src/EBox/Model/GatewayDataTable.pm:110
+msgid "Upload"
+msgstr "Yükle"
+
+#: src/EBox/Model/GatewayDataTable.pm:120
+msgid "Download"
+msgstr "İndir"
+
+#: src/EBox/Model/GatewayDataTable.pm:130
+msgid "Weight"
+msgstr "Yük"
+
+#: src/EBox/Model/GatewayDataTable.pm:139
+msgid "Default"
+msgstr "Öntanımlı"
+
+#: src/EBox/Model/GatewayDataTable.pm:153
+msgid "Gateway list"
+msgstr "Ağ geçidi listesi"
+
+#: src/EBox/Model/GatewayDataTable.pm:170
+#, perl-brace-format
+msgid ""
+"You can add as many gateways as you want. This is very useful if you want to "
+"split your Internet traffic through several links.{br}The download and "
+"upload fields must be set as much rate as you have to your connection "
+"towards the gateway. The correct value of these fields is critical to ensure "
+"a correct functionality of the traffic shaping module"
+msgstr ""
+"İhtiyacınız kadar ağ geçidi verebilirsiniz. Bu sayede internet bağlantınızı "
+"farklı  ve birden fazla aygıtlara dağıtabilirsiniz. {br} Download ve Upload  "
+"alanları kendi yapınıza göre olmalıdır.  Bu sayede ağ genişliğinin düzenli "
+"ve adil bir şekilde dağıtılmasını gerçekleştirirsiniz."
+
+#: src/EBox/Model/GatewayDataTable.pm:172
+msgid "gateway"
+msgstr "Ağ geçidi"
+
+#: src/EBox/Model/GatewayDataTable.pm:189 src/EBox/CGI/Iface.pm:87
+#: src/EBox/Network.pm:1476
+msgid "ip address"
+msgstr "IP adresi"
+
+#: src/EBox/Model/GatewayDataTable.pm:204
+msgid "There is already a default gateway"
+msgstr "Önceden tanımlı bir ağ geçidi mevcut"
+
+#: src/EBox/CGI/Controller/GatewayDataTableUpdate.pm:30
+#: src/EBox/CGI/Controller/GatewayDataTableDel.pm:30
+#: src/EBox/CGI/Controller/GatewayDataTableMove.pm:30
+#: src/EBox/CGI/Controller/GatewayDataTableAdd.pm:30
+#: src/EBox/CGI/Controller/GatewayDataTable.pm:30
+#: src/EBox/CGI/View/GatewayDataTable.pm:30 src/EBox/Network.pm:2302
+msgid "Gateways"
+msgstr "Ağ geçitleri"
+
+#: src/EBox/CGI/FirstTime/DNS.pm:41
+msgid "You can revisit this page at Network/DNS in the menu"
+msgstr "Bu sayfayı  tekrar Ağ/DNS menüsünden giriş yapabilirsiniz"
+
+#: src/EBox/CGI/FirstTime/Iface.pm:45
+msgid "Network interface configured"
+msgstr "Ağ arabirimi ayarlandı"
+
+#: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
+#: src/EBox/Network.pm:2229
+msgid "Network interfaces"
+msgstr "Ağ arabirimleri"
+
+#: src/EBox/CGI/FirstTime/Ifaces.pm:25
+msgid ""
+"After the initial config you can revisit this page at Network/Interfaces in "
+"the menu"
+msgstr ""
+"İlk ayarlardan sonra sayfayı tekrar ziyaret edebilirsiniz (Ağ/Ağ Kartları)"
+
+#: src/EBox/CGI/FirstTime/Nameservers.pm:44
+msgid "DNS configured"
+msgstr "DNS ayarlandı"
+
+#: src/EBox/CGI/FirstTime/Gateway.pm:41
+msgid "Gateway configured"
+msgstr "Ağ geçidi ayarlandı"
+
+#: src/EBox/CGI/FirstTime/Routes.pm:29
+msgid "Set default gateway"
+msgstr "Öntanımlı ağ geçidini ayarla"
+
+#: src/EBox/CGI/FirstTime/Routes.pm:43
+msgid "You can change later the gateway at Network/Routes menus item"
+msgstr ""
+"Ağ geçidi ayarlarını daha sonra Ağ/Yönelticiler menüsünden "
+"değiştirebilirsiniz"
+
+#: src/EBox/CGI/View/MultiGwRulesDataTable.pm:32
+msgid "Balance traffic and multigateway rules"
+msgstr "Trafik dengesi ve çoklu ağ geçidi kuralları"
+
+#: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
+msgid "Network diagnosis"
+msgstr "Ağ tanıları"
+
+#: src/EBox/CGI/Diag.pm:51 src/templates/diag.mas:15
+msgid "Host"
+msgstr "Makina"
+
+#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2217
+msgid "host name"
+msgstr "Makina ismi"
+
+#: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/VIface.pm:43
+#: src/EBox/CGI/Vlan.pm:40
+msgid "network interface"
+msgstr "Ağ arabirimi"
+
+#: src/EBox/CGI/Iface.pm:58
+msgid "method"
+msgstr "Yöntem"
+
+#: src/EBox/CGI/Iface.pm:88 src/EBox/CGI/VIface.pm:63 src/EBox/CGI/Route.pm:42
+msgid "netmask"
+msgstr "Ağ maskesi"
+
+#: src/EBox/CGI/EnableBalanceTraffic.pm:42
+msgid "traffic balance"
+msgstr "Trafik dengesi"
+
+#: src/EBox/CGI/VIface.pm:44
+msgid "virtual interface action"
+msgstr "Sanal aygıt işlemleri"
+
+#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:558 src/EBox/Network.pm:563
+#: src/EBox/Network.pm:867 src/EBox/Network.pm:888 src/EBox/Network.pm:1419
+#: src/EBox/Network.pm:2009 src/EBox/Network.pm:2024 src/EBox/Network.pm:2156
+#: src/EBox/Network.pm:2274 src/templates/ifaces.mas:104
+#: src/templates/ifaces.mas:233
+msgid "IP address"
+msgstr "IP adresi"
+
+#: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
+msgid "virtual interface name"
+msgstr "Sanal aygıt ismi"
+
+#: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1475
+msgid "network address"
+msgstr "Ağ adresi"
+
+#: src/EBox/CGI/Route.pm:47 src/EBox/CGI/Gateway.pm:47
+msgid "gateway address"
+msgstr "Ağ geçidi adresi"
+
+#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1060
+#: src/EBox/Network.pm:1089 src/templates/ifaces.mas:164
+msgid "VLAN Id"
+msgstr "VLAN Id"
+
+#: src/EBox/CGI/Routes.pm:29 src/EBox/CGI/Routes.pm:40
+#: src/EBox/Network.pm:2297
+msgid "Routes"
+msgstr "Yönelticiler"
+
+#: src/EBox/Network/FirstTime.pm:14
+msgid "Configure network interfaces"
+msgstr "Ağ arabirimlerini ayarla"
+
+#: src/EBox/Network/FirstTime.pm:15
+msgid "Configure name servers"
+msgstr "Ad sunucularını ayarla"
+
+#: src/EBox/Network/FirstTime.pm:16
+msgid "Configure default gateway"
+msgstr "Varsayılan ağ geçidini ayarla"
+
+#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:1965
+#, perl-brace-format
+msgid "Gateway {gw} not reachable"
+msgstr "{gw} ağ geçidine ulaşılamıyor"
+
+#: src/EBox/Network.pm:56 src/EBox/Network.pm:2289 src/templates/routes.mas:33
 msgid "Network"
 msgstr "Ağ"
 
@@ -284,7 +301,7 @@ msgstr "Ağ"
 msgid "Virtual interface name"
 msgstr "Sanal arabirim ismi"
 
-#: src/EBox/Network.pm:558 src/EBox/Network.pm:867 src/EBox/Network.pm:2010
+#: src/EBox/Network.pm:558 src/EBox/Network.pm:867 src/EBox/Network.pm:2009
 #: src/templates/ifaces.mas:118 src/templates/ifaces.mas:235
 msgid "Netmask"
 msgstr "Ağ maskesi"
@@ -308,7 +325,7 @@ msgstr ""
 "Görsel bir alan eklemeden önce ağ kartlarının Trunk kipinde olması "
 "gereklidir."
 
-#: src/EBox/Network.pm:1927
+#: src/EBox/Network.pm:1926
 msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
@@ -317,12 +334,7 @@ msgstr ""
 "gelmesine neden olacaktır. Eğer bu işlemi gerçekten uygulamak istiyorsanız, "
 "lütfen yönelticiyi ilk önce iptal edin ve sonra tekrar deneyin."
 
-#: src/EBox/Network.pm:1966 src/EBox/NetworkUtil.pm:55
-#, perl-brace-format
-msgid "Gateway {gw} not reachable"
-msgstr "{gw} ağ geçidine ulaşılamıyor"
-
-#: src/EBox/Network.pm:1970
+#: src/EBox/Network.pm:1969
 #, perl-brace-format
 msgid ""
 "Gateway {gw} must be reacheable by a static interface. Currently is "
@@ -331,122 +343,45 @@ msgstr ""
 "{gw} ağ geçidi sabit bir IP adresi ile erişilebilir olması gerekir. {iface} "
 "ağ kartı ağ geçidine erişebiliyor fakat bu işlem dinamik IP üzerinden ayarlı."
 
-#: src/EBox/Network.pm:2199
+#: src/EBox/Network.pm:2198
 msgid "Host name"
 msgstr "Makina ismi"
 
-#: src/EBox/Network.pm:2249
+#: src/EBox/Network.pm:2248
 msgid "down"
 msgstr "down"
 
-#: src/EBox/Network.pm:2255
+#: src/EBox/Network.pm:2254
 msgid "up"
 msgstr "up"
 
-#: src/EBox/Network.pm:2259
+#: src/EBox/Network.pm:2258
 msgid "link ok"
 msgstr "link ok"
 
-#: src/EBox/Network.pm:2261
+#: src/EBox/Network.pm:2260
 msgid "no link"
 msgstr "no link"
 
-#: src/EBox/Network.pm:2264
+#: src/EBox/Network.pm:2263
 msgid "Status"
 msgstr "Durum"
 
-#: src/EBox/Network.pm:2269
+#: src/EBox/Network.pm:2268
 msgid "MAC address"
 msgstr "MAC adresi"
 
-#: src/EBox/Network.pm:2294
+#: src/EBox/Network.pm:2293
 msgid "Interfaces"
 msgstr "Arabirimler"
 
-#: src/EBox/Network.pm:2300
+#: src/EBox/Network.pm:2299
 msgid "Diagnosis"
 msgstr "Tanılar"
 
-#: src/EBox/Network.pm:2306
+#: src/EBox/Network.pm:2305
 msgid "Balance traffic"
-msgstr ""
-
-#: src/EBox/Network/FirstTime.pm:14
-msgid "Configure network interfaces"
-msgstr "Ağ arabirimlerini ayarla"
-
-#: src/EBox/Network/FirstTime.pm:15
-msgid "Configure name servers"
-msgstr "Ad sunucularını ayarla"
-
-#: src/EBox/Network/FirstTime.pm:16
-msgid "Configure default gateway"
-msgstr "Varsayılan ağ geçidini ayarla"
-
-#: src/templates/diag.mas:13 src/templates/diag.mas:20
-msgid "Ping"
-msgstr "Ping"
-
-#: src/templates/diag.mas:25
-msgid "Name resolution"
-msgstr "İsim çözülümü"
-
-#: src/templates/diag.mas:27
-msgid "Domain name"
-msgstr "Alan ismi"
-
-#: src/templates/diag.mas:32
-msgid "Lookup"
-msgstr "Lookup"
-
-#: src/templates/diag.mas:35
-msgid "Output"
-msgstr "Çıkış"
-
-#: src/templates/dns.mas:11
-msgid ""
-"Having network interfaces configured via DHCP may cause this settings to be "
-"overriden."
-msgstr ""
-"Mevcut ağ kartı ayarları DHCP sunucusu tarafından tekrardan "
-"yapılandırılabilir."
-
-#: src/templates/dns.mas:20
-msgid "Primary"
-msgstr "Birincil"
-
-#: src/templates/dns.mas:32
-msgid "Secondary"
-msgstr "İkincil"
-
-#: src/templates/dns.mas:45
-msgid "Apply"
-msgstr "Uygula"
-
-#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:14
-msgid ""
-"The change you are trying to make will affect the configuration of one or "
-"more modules that use references to this network interface."
-msgstr ""
-"Yapmak istediğiniz değişiklikler bir veya birden fazla modulu etkiliyor, ki "
-"bu modullar ağ kartınıza referans olarak tanımlanmış"
-
-#: src/templates/confirmremove.mas:15 src/templates/confirm.mas:18
-msgid ""
-"If you choose to continue, all modules that make use of the current "
-"configuration of this network interface will delete the relevant parts of "
-"their configuration. Choose "
-msgstr ""
-"Devam ederseniz ağ cihazınızın kullandığı bütün ayarlar bu modullar ile "
-"birlikte silinir. Seçiminiz:"
-
-#: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
-msgid "Ok"
-msgstr "Tamam"
-
-#: src/templates/confirmremove.mas:29 src/templates/confirm.mas:36
-msgid "Cancel"
-msgstr "Vazgeç"
+msgstr "Trafik Dengeleme"
 
 #: src/templates/routes.mas:12
 msgid ""
@@ -488,6 +423,46 @@ msgstr "Ekle"
 msgid "Delete"
 msgstr "Sil"
 
+#: src/templates/diag.mas:13 src/templates/diag.mas:20
+msgid "Ping"
+msgstr "Ping"
+
+#: src/templates/diag.mas:25
+msgid "Name resolution"
+msgstr "İsim çözülümü"
+
+#: src/templates/diag.mas:27
+msgid "Domain name"
+msgstr "Alan ismi"
+
+#: src/templates/diag.mas:32
+msgid "Lookup"
+msgstr "Lookup"
+
+#: src/templates/diag.mas:35
+msgid "Output"
+msgstr "Çıkış"
+
+#: src/templates/dns.mas:11
+msgid ""
+"Having network interfaces configured via DHCP may cause this settings to be "
+"overriden."
+msgstr ""
+"Mevcut ağ kartı ayarları DHCP sunucusu tarafından tekrardan "
+"yapılandırılabilir."
+
+#: src/templates/dns.mas:20
+msgid "Primary"
+msgstr "Birincil"
+
+#: src/templates/dns.mas:32
+msgid "Secondary"
+msgstr "İkincil"
+
+#: src/templates/dns.mas:45
+msgid "Apply"
+msgstr "Uygula"
+
 #: src/templates/gwrules.mas:18
 msgid ""
 "To be able to use this feature, you need, at least, two gateways. You can "
@@ -498,7 +473,7 @@ msgstr ""
 
 #: src/templates/gwrules.mas:25
 msgid "Traffic balancing"
-msgstr ""
+msgstr "Trafik dengeleme"
 
 #: src/templates/gwrules.mas:29
 #, perl-brace-format
@@ -510,6 +485,13 @@ msgid ""
 "{closeref}.{br}If you want to explicitily route traffic by a certain "
 "gateway, use the multigateway rules below"
 msgstr ""
+"Bu seçeneği etkin hale getirdiğinizde trafiğiniz ağ geçitleriniz arasında "
+"dengelenir. Bu da her yeni oluşan bağlantı farklı bir ağ geçidine "
+"gönderilecek demektir. Trafiğin hangi oranda hangi ağ geçidine gideceğini "
+"yük parametresini kullanarak seçebilirsiniz. Bu değeri {openref}burdan"
+"{closeref}değiştirebilirsiniz.{br}Eğer trafiği kesinlikle belirli bir ağ "
+"geçidine yönlendirmek istiyorsanız aşağıdaki çoklu ağ geçidi kurallarını "
+"kullanın "
 
 #: src/templates/ifaces.mas:13
 msgid ""
@@ -564,3 +546,28 @@ msgstr "Açıklama"
 #: src/templates/ifaces.mas:225
 msgid "Virtual interfaces"
 msgstr "Sanal arabirimler"
+
+#: src/templates/confirmremove.mas:11 src/templates/confirm.mas:14
+msgid ""
+"The change you are trying to make will affect the configuration of one or "
+"more modules that use references to this network interface."
+msgstr ""
+"Yapmak istediğiniz değişiklikler bir veya birden fazla modulu etkiliyor, ki "
+"bu modullar ağ kartınıza referans olarak tanımlanmış"
+
+#: src/templates/confirmremove.mas:15 src/templates/confirm.mas:18
+msgid ""
+"If you choose to continue, all modules that make use of the current "
+"configuration of this network interface will delete the relevant parts of "
+"their configuration. Choose "
+msgstr ""
+"Devam ederseniz ağ cihazınızın kullandığı bütün ayarlar bu modullar ile "
+"birlikte silinir. Seçiminiz:"
+
+#: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
+msgid "Ok"
+msgstr "Tamam"
+
+#: src/templates/confirmremove.mas:29 src/templates/confirm.mas:36
+msgid "Cancel"
+msgstr "Vazgeç"

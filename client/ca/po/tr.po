@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-05-14 09:51+0200\n"
+"POT-Creation-Date: 2007-06-06 09:37+0200\n"
 "PO-Revision-Date: 2007-05-15 13:12+0000\n"
 "Last-Translator: Tutku DALMAZ <tutkudalmaz@gmail.com>\n"
 "Language-Team: none\n"
@@ -144,21 +144,21 @@ msgstr "Tarih bir sonraki zamana ayarlandı: 2038 yıl hatası"
 
 #: src/EBox/CA/TestStub.pm:729 src/EBox/CA.pm:713 src/EBox/CA.pm:1293
 msgid "Expiration date later than CA certificate expiration date"
-msgstr ""
+msgstr "CA sertifikası sona ermesinden sonraki bitiş tarihi"
 
 #: src/EBox/CA.pm:251 src/EBox/CA.pm:693 src/EBox/CA.pm:1271
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
-msgstr ""
+msgstr "Gün azami {gün} olarak ayarlandı : 2038 yılı hatası"
 
 #: src/EBox/CA.pm:341
 msgid "The remove operation cannot be finished. Reason: "
-msgstr ""
+msgstr "Kaldırma işlemi bitirilemedi. Sepep:"
 
 #: src/EBox/CA.pm:855 src/EBox/CA.pm:1166
 #, perl-brace-format
 msgid "Certificate with common name {cn} does NOT exist"
-msgstr ""
+msgstr "Genel isimli {cn} sertifika mevcut değil"
 
 #: src/EBox/CA.pm:859
 #, perl-brace-format
@@ -166,10 +166,12 @@ msgid ""
 "Reason {reason} is NOT an applicable reason.\n"
 "Options:"
 msgstr ""
+"Sebep, {reason} uygulanabilir değil.\n"
+"Seçenekler:"
 
 #: src/EBox/CA.pm:1070
 msgid "Either common name, distinguished name or serial number has been passed"
-msgstr ""
+msgstr "Genel isim, ayrılan isim ve seri numara geçti"
 
 #: src/EBox/CA.pm:1298
 msgid "or"
@@ -186,41 +188,44 @@ msgstr "Yenilenecek sertifika yok"
 #: src/EBox/CA.pm:1360
 #, perl-brace-format
 msgid "Certificate with this common name {cn} does NOT exist in this CA"
-msgstr ""
+msgstr "Bu genel isimli {cn} sertifika bu CA'da mevcut değil"
 
 #: src/EBox/CA.pm:1388
 msgid ""
 "The private key passpharse needed to create a new request. No renewal was "
 "made. Issue a new certificate with new keys"
 msgstr ""
+"Özel anahtar parola-ifadesi yeni bir istek yaratacak. Yenileme olmadı. Yeni "
+"anahtarlarla yeni bir sertifika yayımlayın."
 
 #: src/EBox/CA.pm:1616
 msgid "Certificate Manager"
-msgstr ""
+msgstr "Sertifika Yöneticisi"
 
 #: src/EBox/CA.pm:2138
 msgid "Unable to sign. Wrong CA passphrase or has CA private key dissappeared?"
 msgstr ""
+"İşaretlenemiyor. Yanlış parola-ifadesi veya CA özel anahtarı kaybolmuş."
 
 #: src/EBox/CA.pm:2140
 msgid "Database corruption"
-msgstr ""
+msgstr "Veritabanı bozulması"
 
 #: src/EBox/CA.pm:2142
 msgid "Identifier duplicated in Database"
-msgstr ""
+msgstr "Veritabanında tanımlayıcı kopyası"
 
 #: src/EBox/CA.pm:2144
 msgid "Certificate already revoked"
-msgstr ""
+msgstr "Sertifika zaten iptal edildi"
 
 #: src/EBox/CA.pm:2147
 msgid "ASN1 field length too long. Maximum Size:"
-msgstr ""
+msgstr "ASN1 alan uzunluğu çok fazla. Azami Boyut:"
 
 #: src/EBox/CA.pm:2149
 msgid "Unknown error. Given the OpenSSL output:"
-msgstr ""
+msgstr "Bilinmeyen hata. Verilen OpenSSL çıktısı:"
 
 #: src/EBox/CA.pm:2214
 #, perl-brace-format
@@ -228,16 +233,18 @@ msgid ""
 "Created Certification Authority with organization name {orgName} and "
 "validity for {days} days"
 msgstr ""
+"Sertifikasyon Yetkilisi organizasyon ismi {orgName} olarak ve {days} gün "
+"geçerli olmak üzere oluşturuldu."
 
 #: src/EBox/CA.pm:2216
 #, perl-brace-format
 msgid "Destroyed Certification Authority with organization name {orgName}"
-msgstr ""
+msgstr "{orgName} isimli Sertifikasyon Yetkilisi yok edildi "
 
 #: src/EBox/CA.pm:2218
 #, perl-brace-format
 msgid "Revoked CA certificate because of {reason} forced: {force}"
-msgstr ""
+msgstr "CA sertifikası {reason} sebebinden ötürü iptale zorlandı: {force}"
 
 #: src/EBox/CA.pm:2220
 #, perl-brace-format
@@ -245,6 +252,8 @@ msgid ""
 "Issued CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr ""
+"{orgName} organizasyon ismi ve {days} gün geçerli olmak üzere yayımlanan CA "
+"sertifikası"
 
 #: src/EBox/CA.pm:2222
 #, perl-brace-format
@@ -252,128 +261,136 @@ msgid ""
 "Renewed CA certificate with organization name {orgName} and validity for "
 "{days} days"
 msgstr ""
+"{orgName} organizasyon ismi ve {days} gün geçerli olmak üzere yenilenen CA "
+"sertifikası"
 
 #: src/EBox/CA.pm:2224
 #, perl-brace-format
 msgid "Issued certificate with common name {cn} and validity for {days} days"
 msgstr ""
+"{cn} genel ismi ve {days} gün geçerli olmak üzere yayımlanan CA sertifikası"
 
 #: src/EBox/CA.pm:2226
 #, perl-brace-format
 msgid ""
 "Revoked certificate with common name {cn} because of {reason} forced: {force}"
 msgstr ""
+"{cn} genel isimli certifika {reason} sebebinden ötürü iptale zorlandı: "
+"{force}"
 
 #: src/EBox/CA.pm:2228
 #, perl-brace-format
 msgid "Renewed certificate with common name {cn} and validity for {days} days"
 msgstr ""
+"{cn} genel ismi ve {days} gün geçerli olmak üzere yenilenen CA sertifikası"
 
 #: src/EBox/CA.pm:2230
 #, perl-brace-format
 msgid "Updated certificate database. {number} certificates have expired"
-msgstr ""
+msgstr "Sertifika veritabanı güncellendi. {number} sertifika sona erdi"
 
 #: src/EBox/CA.pm:2313
 #, perl-brace-format
 msgid "Cannot start OpenSSL shell. ({errval})"
-msgstr ""
+msgstr "OpenSSL kabuğu(shell) açılamıyor. ({errval})"
 
 #: src/templates/formRenew.mas:18 src/templates/index.mas:146
 #: src/templates/index.mas:166 src/templates/forceRenew.mas:27
 msgid "Renew"
-msgstr ""
+msgstr "Yenileme"
 
 #: src/templates/formRenew.mas:25
 msgid "Renew a certificate"
-msgstr ""
+msgstr "Bir sertifika yenileme"
 
 #: src/templates/formRenew.mas:48 src/templates/formRevoke.mas:36
 msgid "Expiration Date"
-msgstr ""
+msgstr "Bitiş Tarihi"
 
 #: src/templates/createCA.mas:10
 msgid "Create Certification Authority Certificate"
-msgstr ""
+msgstr "Sertifikasyon Yetkili Sertifikası Oluştur"
 
 #: src/templates/createCA.mas:37 src/templates/createCA.mas:39
 msgid "Create"
-msgstr ""
+msgstr "Oluştur"
 
 #: src/templates/index.mas:29
 msgid "Issue"
-msgstr ""
+msgstr "Yayımla"
 
 #: src/templates/index.mas:36
 msgid "Certificate changes will take effect immediately"
-msgstr ""
+msgstr "Sertifika değişikliği derhal uygulanacak"
 
 #: src/templates/index.mas:40
 msgid "Issue the Certification Authority Certificate"
-msgstr ""
+msgstr "Sertifikasyon Yetkili Sertifikasını Yayımla"
 
 #: src/templates/index.mas:43
 msgid "Issue a new certificate"
-msgstr ""
+msgstr "Yeni bir sertifika yayımla"
 
 #: src/templates/index.mas:51
 msgid "Current Certificate List"
-msgstr ""
+msgstr "Mevcut Sertifika Listesi"
 
 #: src/templates/index.mas:54
 msgid ""
 "Date refers to Expiration Date in Valid/Expired and to Revokation Date in "
 "Revoked certificates respectively"
 msgstr ""
+"Geçerli/Süresi Geçen'deki Bitiş Tarihi tarihi ve İptal Edilen "
+"sertifikalardaki İptal Tarihi"
 
 #: src/templates/index.mas:59
 msgid "Name"
-msgstr ""
+msgstr "İsim"
 
 #: src/templates/index.mas:61
 msgid "State"
-msgstr ""
+msgstr "Durum"
 
 #: src/templates/index.mas:63
 msgid "Date"
-msgstr ""
+msgstr "Tarih"
 
 #: src/templates/index.mas:65
 msgid "Actions"
-msgstr ""
+msgstr "Faaliyetler"
 
 #: src/templates/index.mas:77
 msgid "from"
-msgstr ""
+msgstr "den/dan"
 
 #: src/templates/index.mas:89
 msgid "Valid"
-msgstr ""
+msgstr "Geçerli"
 
 #: src/templates/index.mas:92
 msgid "Expired"
-msgstr ""
+msgstr "Sona Ermiş"
 
 #: src/templates/index.mas:95
 msgid "Revoked"
-msgstr ""
+msgstr "İptal Edilmiş"
 
 #: src/templates/index.mas:125 src/templates/index.mas:160
 #: src/templates/forceRevoke.mas:41 src/templates/formRevoke.mas:69
 msgid "Revoke"
-msgstr ""
+msgstr "İptal"
 
 #: src/templates/index.mas:135 src/templates/index.mas:163
 msgid "Download Key(s) and Certificate"
-msgstr ""
+msgstr "Anahtar(lar)ı ve Sertifikayı indir"
 
 #: src/templates/forceRevoke.mas:12
 msgid "Revoking CA certificate"
-msgstr ""
+msgstr "CA sertifikası iptali"
 
 #: src/templates/forceRevoke.mas:15
 msgid "Revoking certificate"
-msgstr ""
+msgstr "Sertifika iptali"
 
 #: src/templates/forceRevoke.mas:22
 #, perl-brace-format
@@ -382,6 +399,9 @@ msgid ""
 "confirm you are very sure to revoke the whole certification authority from "
 "{on} and leave the service(s) unstable or disabled"
 msgstr ""
+"Bu iptal diğer modüllerdeki uygulanabilirlikleri de etkileyeceğinden lütfen "
+"{on} konumundaki tüm sertifikaları iptal etmek ve servisleri kararsız veya "
+"etkisi kılacağınızdan emin olun."
 
 #: src/templates/forceRevoke.mas:26
 #, perl-brace-format
@@ -390,18 +410,21 @@ msgid ""
 "by some module, please confirm you are sure to revoke and leave the service"
 "(s) unstable or disabled"
 msgstr ""
+"İptal etmek istediğiniz {cn} genel isimli sertifika bazı modüller tarafından "
+"kullanılmakta, lütfen iptal etmek ve bazı servisleri kararsız ve etkisiz "
+"kılmayı istediğinizi onaylayın"
 
 #: src/templates/forceRevoke.mas:45 src/templates/forceRenew.mas:76
 msgid "Cancel"
-msgstr ""
+msgstr "İptal"
 
 #: src/templates/forceRenew.mas:36
 msgid "Renewing CA certificate"
-msgstr ""
+msgstr "CA sertifikası yenilemesi"
 
 #: src/templates/forceRenew.mas:39
 msgid "Renewing certificate"
-msgstr ""
+msgstr "Serifika yenilemesi"
 
 #: src/templates/forceRenew.mas:46
 #, perl-brace-format
@@ -410,6 +433,9 @@ msgid ""
 "you are very sure to renew the whole certification authority from {on} and "
 "leave the service(s) unstable or disabled"
 msgstr ""
+"Bu yenileme diğer modüllerdeki uygulanabilirlikleri de etkileyeceğinden "
+"lütfen {on} konumundaki tüm sertifikaları iptal etmek ve servisleri kararsız "
+"veya etkisi kılacağınızdan emin olun."
 
 #: src/templates/forceRenew.mas:50
 #, perl-brace-format
@@ -418,11 +444,14 @@ msgid ""
 "by some module, please confirm you are sure to renew and leave the service"
 "(s) unstable or disabled"
 msgstr ""
+"Yenilemek istediğiniz {cn} genel isimli sertifika bazı modüller tarafından "
+"kullanılmakta, lütfen iptal etmek ve bazı servisleri kararsız ve etkisiz "
+"kılmayı istediğinizi onaylayın"
 
 #: src/templates/formRevoke.mas:9
 msgid "Revoke a certificate"
-msgstr ""
+msgstr "Bir sertifika iptal et"
 
 #: src/templates/formRevoke.mas:18
 msgid "Revoke the selected certificate"
-msgstr ""
+msgstr "Seçilen sertifikayı iptal et"
