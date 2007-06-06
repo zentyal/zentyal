@@ -21,7 +21,6 @@ use warnings;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Config;
-use File::Temp qw(tempfile);
 use EBox::Backup;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
