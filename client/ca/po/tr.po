@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.9.1\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:37+0200\n"
+"POT-Creation-Date: 2007-06-06 09:55+0200\n"
 "PO-Revision-Date: 2007-05-15 13:12+0000\n"
 "Last-Translator: Tutku DALMAZ <tutkudalmaz@gmail.com>\n"
 "Language-Team: none\n"
@@ -17,22 +17,51 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/CreateCA.pm:40
-#: src/EBox/CGI/Index.pm:39 src/EBox/CGI/DownloadFiles.pm:42
-#: src/EBox/CGI/IssueCertificate.pm:39 src/EBox/CGI/RevokeCertificate.pm:42
-#: src/EBox/CGI/RenewCertificate.pm:42
-msgid "Certification Authority Management"
-msgstr "Yetki Yönetimini Belgelendirme"
+#: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254
+#: src/EBox/CGI/CreateCA.pm:60 src/EBox/CGI/IssueCertificate.pm:63
+#: src/EBox/CA.pm:210 src/EBox/CA.pm:460 src/templates/formRenew.mas:35
+#: src/templates/index.mas:17 src/templates/formRevoke.mas:23
+#: src/templates/createCA.mas:17
+msgid "Organization Name"
+msgstr "Organizasyon İsmi"
 
-#: src/EBox/CGI/ShowForm.pm:62 src/EBox/CGI/DownloadFiles.pm:69
-#: src/EBox/CGI/IssueCertificate.pm:65 src/EBox/CGI/RevokeCertificate.pm:76
-#: src/EBox/CGI/RenewCertificate.pm:74 src/EBox/CA/TestStub.pm:438
-#: src/EBox/CA/TestStub.pm:516 src/EBox/CA/TestStub.pm:642 src/EBox/CA.pm:676
-#: src/EBox/CA.pm:842 src/EBox/CA.pm:1155 src/EBox/CA.pm:1197
-#: src/EBox/CA.pm:1297 src/templates/formRenew.mas:42
+#: src/EBox/CA/TestStub.pm:259 src/EBox/CA.pm:474
+msgid ""
+"The CA certificates should be revoked  or has expired before issuing a new "
+"certificate"
+msgstr ""
+"Yeni bir sertifika düzenlenmeden önce, eski sertifikanın geçersiz olması "
+"veya onaylayan makam tarafından iptal edilmesi gerekir."
+
+#: src/EBox/CA/TestStub.pm:438 src/EBox/CA/TestStub.pm:516
+#: src/EBox/CA/TestStub.pm:642 src/EBox/CGI/ShowForm.pm:62
+#: src/EBox/CGI/RenewCertificate.pm:74 src/EBox/CGI/RevokeCertificate.pm:76
+#: src/EBox/CGI/DownloadFiles.pm:69 src/EBox/CGI/IssueCertificate.pm:65
+#: src/EBox/CA.pm:676 src/EBox/CA.pm:842 src/EBox/CA.pm:1155
+#: src/EBox/CA.pm:1197 src/EBox/CA.pm:1297 src/templates/formRenew.mas:42
 #: src/templates/index.mas:19 src/templates/formRevoke.mas:30
 msgid "Common Name"
 msgstr "Genel İsim"
+
+#: src/EBox/CA/TestStub.pm:654
+#, perl-brace-format
+msgid "The user {commonName} does NOT exist"
+msgstr "{commonName} kullanıcı ismi kayıtlı değil"
+
+#: src/EBox/CA/TestStub.pm:720
+msgid "Days set to the maximum allowed: Year 2038 Bug"
+msgstr "Tarih bir sonraki zamana ayarlandı: 2038 yıl hatası"
+
+#: src/EBox/CA/TestStub.pm:729 src/EBox/CA.pm:713 src/EBox/CA.pm:1293
+msgid "Expiration date later than CA certificate expiration date"
+msgstr "CA sertifikası sona ermesinden sonraki bitiş tarihi"
+
+#: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/RenewCertificate.pm:42
+#: src/EBox/CGI/RevokeCertificate.pm:42 src/EBox/CGI/Index.pm:39
+#: src/EBox/CGI/CreateCA.pm:40 src/EBox/CGI/DownloadFiles.pm:42
+#: src/EBox/CGI/IssueCertificate.pm:39
+msgid "Certification Authority Management"
+msgstr "Yetki Yönetimini Belgelendirme"
 
 #: src/EBox/CGI/ShowForm.pm:63
 msgid "Action"
@@ -47,19 +76,47 @@ msgstr "Sadece yenileme ve geri alma faaliyetleri yapıldı"
 msgid "Common name: {cn} does NOT exist in database"
 msgstr "Genel isim : {cn} veritabanında bulunmamaktadır"
 
-#: src/EBox/CGI/CreateCA.pm:60 src/EBox/CGI/IssueCertificate.pm:63
-#: src/EBox/CA/TestStub.pm:154 src/EBox/CA/TestStub.pm:254 src/EBox/CA.pm:210
-#: src/EBox/CA.pm:460 src/templates/formRenew.mas:35
-#: src/templates/createCA.mas:17 src/templates/index.mas:17
-#: src/templates/formRevoke.mas:23
-msgid "Organization Name"
-msgstr "Organizasyon İsmi"
+#: src/EBox/CGI/RenewCertificate.pm:64
+msgid "The certificate has NOT been renewed"
+msgstr "Sertifika yenilenmemiş"
 
-#: src/EBox/CGI/CreateCA.pm:61 src/EBox/CGI/IssueCertificate.pm:68
-#: src/EBox/CGI/RenewCertificate.pm:69 src/templates/formRenew.mas:12
-#: src/templates/createCA.mas:26 src/templates/index.mas:25
+#: src/EBox/CGI/RenewCertificate.pm:68 src/EBox/CGI/RevokeCertificate.pm:70
+msgid "Boolean indicating Certification Authority Certificate"
+msgstr "Boolean değeri sertifikayı onaylayan kurumun doğrulama numarasıdır."
+
+#: src/EBox/CGI/RenewCertificate.pm:69 src/EBox/CGI/CreateCA.pm:61
+#: src/EBox/CGI/IssueCertificate.pm:68 src/templates/formRenew.mas:12
+#: src/templates/index.mas:25 src/templates/createCA.mas:26
 msgid "Days to expire"
 msgstr "Sona ermesine kalan gün"
+
+#: src/EBox/CGI/RenewCertificate.pm:121
+msgid "The certificate CANNOT be renewed"
+msgstr "Sertifika yenilemenez"
+
+#: src/EBox/CGI/RenewCertificate.pm:123
+msgid "The certificate has been renewed"
+msgstr "Sertifika yenilendi"
+
+#: src/EBox/CGI/RenewCertificate.pm:124
+msgid "The new CA certificate has been renewed"
+msgstr "CA Sertifikası yenilendi"
+
+#: src/EBox/CGI/RevokeCertificate.pm:64
+msgid "The certificate has NOT been revoked"
+msgstr "Sertifika geri alınamadı"
+
+#: src/EBox/CGI/RevokeCertificate.pm:71 src/templates/formRevoke.mas:61
+msgid "Reason"
+msgstr "Sebeb"
+
+#: src/EBox/CGI/RevokeCertificate.pm:123
+msgid "The certificate has been revoked"
+msgstr "Sertifika geçersiz"
+
+#: src/EBox/CGI/RevokeCertificate.pm:124
+msgid "The CA certificate has been revoked"
+msgstr "Sertifika onaylama geçersiz"
 
 #: src/EBox/CGI/CreateCA.pm:67 src/EBox/CGI/IssueCertificate.pm:74
 msgid "Days to expire MUST be a natural number"
@@ -89,67 +146,10 @@ msgstr "Sertifika yayımlandı"
 msgid "The new CA certificate has been issued"
 msgstr "Yeni CA sertifikası yayımlandı"
 
-#: src/EBox/CGI/RevokeCertificate.pm:64
-msgid "The certificate has NOT been revoked"
-msgstr "Sertifika geri alınamadı"
-
-#: src/EBox/CGI/RevokeCertificate.pm:70 src/EBox/CGI/RenewCertificate.pm:68
-msgid "Boolean indicating Certification Authority Certificate"
-msgstr "Boolean değeri sertifikayı onaylayan kurumun doğrulama numarasıdır."
-
-#: src/EBox/CGI/RevokeCertificate.pm:71 src/templates/formRevoke.mas:61
-msgid "Reason"
-msgstr "Sebeb"
-
-#: src/EBox/CGI/RevokeCertificate.pm:123
-msgid "The certificate has been revoked"
-msgstr "Sertifika geçersiz"
-
-#: src/EBox/CGI/RevokeCertificate.pm:124
-msgid "The CA certificate has been revoked"
-msgstr "Sertifika onaylama geçersiz"
-
-#: src/EBox/CGI/RenewCertificate.pm:64
-msgid "The certificate has NOT been renewed"
-msgstr "Sertifika yenilenmemiş"
-
-#: src/EBox/CGI/RenewCertificate.pm:121
-msgid "The certificate CANNOT be renewed"
-msgstr "Sertifika yenilemenez"
-
-#: src/EBox/CGI/RenewCertificate.pm:123
-msgid "The certificate has been renewed"
-msgstr "Sertifika yenilendi"
-
-#: src/EBox/CGI/RenewCertificate.pm:124
-msgid "The new CA certificate has been renewed"
-msgstr "CA Sertifikası yenilendi"
-
-#: src/EBox/CA/TestStub.pm:259 src/EBox/CA.pm:474
-msgid ""
-"The CA certificates should be revoked  or has expired before issuing a new "
-"certificate"
-msgstr ""
-"Yeni bir sertifika düzenlenmeden önce, eski sertifikanın geçersiz olması "
-"veya onaylayan makam tarafından iptal edilmesi gerekir."
-
-#: src/EBox/CA/TestStub.pm:654
-#, perl-brace-format
-msgid "The user {commonName} does NOT exist"
-msgstr "{commonName} kullanıcı ismi kayıtlı değil"
-
-#: src/EBox/CA/TestStub.pm:720
-msgid "Days set to the maximum allowed: Year 2038 Bug"
-msgstr "Tarih bir sonraki zamana ayarlandı: 2038 yıl hatası"
-
-#: src/EBox/CA/TestStub.pm:729 src/EBox/CA.pm:713 src/EBox/CA.pm:1293
-msgid "Expiration date later than CA certificate expiration date"
-msgstr "CA sertifikası sona ermesinden sonraki bitiş tarihi"
-
 #: src/EBox/CA.pm:251 src/EBox/CA.pm:693 src/EBox/CA.pm:1271
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
-msgstr "Gün azami {gün} olarak ayarlandı : 2038 yılı hatası"
+msgstr "Gün azami {days} olarak ayarlandı : 2038 yılı hatası"
 
 #: src/EBox/CA.pm:341
 msgid "The remove operation cannot be finished. Reason: "
@@ -307,14 +307,6 @@ msgstr "Bir sertifika yenileme"
 msgid "Expiration Date"
 msgstr "Bitiş Tarihi"
 
-#: src/templates/createCA.mas:10
-msgid "Create Certification Authority Certificate"
-msgstr "Sertifikasyon Yetkili Sertifikası Oluştur"
-
-#: src/templates/createCA.mas:37 src/templates/createCA.mas:39
-msgid "Create"
-msgstr "Oluştur"
-
 #: src/templates/index.mas:29
 msgid "Issue"
 msgstr "Yayımla"
@@ -376,7 +368,7 @@ msgid "Revoked"
 msgstr "İptal Edilmiş"
 
 #: src/templates/index.mas:125 src/templates/index.mas:160
-#: src/templates/forceRevoke.mas:41 src/templates/formRevoke.mas:69
+#: src/templates/formRevoke.mas:69 src/templates/forceRevoke.mas:41
 msgid "Revoke"
 msgstr "İptal"
 
@@ -384,39 +376,13 @@ msgstr "İptal"
 msgid "Download Key(s) and Certificate"
 msgstr "Anahtar(lar)ı ve Sertifikayı indir"
 
-#: src/templates/forceRevoke.mas:12
-msgid "Revoking CA certificate"
-msgstr "CA sertifikası iptali"
+#: src/templates/formRevoke.mas:9
+msgid "Revoke a certificate"
+msgstr "Bir sertifika iptal et"
 
-#: src/templates/forceRevoke.mas:15
-msgid "Revoking certificate"
-msgstr "Sertifika iptali"
-
-#: src/templates/forceRevoke.mas:22
-#, perl-brace-format
-msgid ""
-"This revokation can affect the functionality from other modules, please "
-"confirm you are very sure to revoke the whole certification authority from "
-"{on} and leave the service(s) unstable or disabled"
-msgstr ""
-"Bu iptal diğer modüllerdeki uygulanabilirlikleri de etkileyeceğinden lütfen "
-"{on} konumundaki tüm sertifikaları iptal etmek ve servisleri kararsız veya "
-"etkisi kılacağınızdan emin olun."
-
-#: src/templates/forceRevoke.mas:26
-#, perl-brace-format
-msgid ""
-"The certificate whose common name is {cn} you tried to revoke is being used "
-"by some module, please confirm you are sure to revoke and leave the service"
-"(s) unstable or disabled"
-msgstr ""
-"İptal etmek istediğiniz {cn} genel isimli sertifika bazı modüller tarafından "
-"kullanılmakta, lütfen iptal etmek ve bazı servisleri kararsız ve etkisiz "
-"kılmayı istediğinizi onaylayın"
-
-#: src/templates/forceRevoke.mas:45 src/templates/forceRenew.mas:76
-msgid "Cancel"
-msgstr "İptal"
+#: src/templates/formRevoke.mas:18
+msgid "Revoke the selected certificate"
+msgstr "Seçilen sertifikayı iptal et"
 
 #: src/templates/forceRenew.mas:36
 msgid "Renewing CA certificate"
@@ -448,10 +414,44 @@ msgstr ""
 "kullanılmakta, lütfen iptal etmek ve bazı servisleri kararsız ve etkisiz "
 "kılmayı istediğinizi onaylayın"
 
-#: src/templates/formRevoke.mas:9
-msgid "Revoke a certificate"
-msgstr "Bir sertifika iptal et"
+#: src/templates/forceRenew.mas:76 src/templates/forceRevoke.mas:45
+msgid "Cancel"
+msgstr "İptal"
 
-#: src/templates/formRevoke.mas:18
-msgid "Revoke the selected certificate"
-msgstr "Seçilen sertifikayı iptal et"
+#: src/templates/forceRevoke.mas:12
+msgid "Revoking CA certificate"
+msgstr "CA sertifikası iptali"
+
+#: src/templates/forceRevoke.mas:15
+msgid "Revoking certificate"
+msgstr "Sertifika iptali"
+
+#: src/templates/forceRevoke.mas:22
+#, perl-brace-format
+msgid ""
+"This revokation can affect the functionality from other modules, please "
+"confirm you are very sure to revoke the whole certification authority from "
+"{on} and leave the service(s) unstable or disabled"
+msgstr ""
+"Bu iptal diğer modüllerdeki uygulanabilirlikleri de etkileyeceğinden lütfen "
+"{on} konumundaki tüm sertifikaları iptal etmek ve servisleri kararsız veya "
+"etkisi kılacağınızdan emin olun."
+
+#: src/templates/forceRevoke.mas:26
+#, perl-brace-format
+msgid ""
+"The certificate whose common name is {cn} you tried to revoke is being used "
+"by some module, please confirm you are sure to revoke and leave the service"
+"(s) unstable or disabled"
+msgstr ""
+"İptal etmek istediğiniz {cn} genel isimli sertifika bazı modüller tarafından "
+"kullanılmakta, lütfen iptal etmek ve bazı servisleri kararsız ve etkisiz "
+"kılmayı istediğinizi onaylayın"
+
+#: src/templates/createCA.mas:10
+msgid "Create Certification Authority Certificate"
+msgstr "Sertifikasyon Yetkili Sertifikası Oluştur"
+
+#: src/templates/createCA.mas:37 src/templates/createCA.mas:39
+msgid "Create"
+msgstr "Oluştur"
