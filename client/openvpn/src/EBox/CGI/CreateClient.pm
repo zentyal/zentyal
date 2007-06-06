@@ -95,6 +95,9 @@ sub actuate
 	    delete $params{$key};
 	}
 
+	$params{hidden} = 0; # clients created by UI must be able to be shoed by
+                             # the UI
+
 	$openVPN->newClient($name, servers => \@servers, %params);
 
     

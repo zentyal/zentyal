@@ -275,7 +275,7 @@ sub activeServers
 #
 # Method: serverNames
 #
-#   List the names of all daemons registered in the module
+#   List the names of all servers registered in the module
 #
 #
 # Returns:
@@ -418,7 +418,7 @@ sub activeClients
 #
 # Method: clientNames
 #
-#   List the names of all daemons registered in the module
+#   List the names of all clients registered in the module
 #
 #
 # Returns:
@@ -432,6 +432,28 @@ sub clientsNames
     my @clientsNames = @{ $self->all_dirs_base('client') };
     return @clientsNames;
 }
+
+
+# Method: clientsNamesForUI
+#
+#   List the names of all clents registered in the module which are allowed to
+#   appear in the UI
+#
+#
+# Returns:
+#
+#   array - a list with client's names
+#
+sub clientsNamesForUI
+{
+    my ($self) = @_;
+ 
+    my @clients = grep { not $_->hidden } $self->clients();
+    my @clientsNames = map { $_->name } @clients;
+
+    return @clientsNames;
+}
+
 
 #
 # Method: client
@@ -472,7 +494,10 @@ sub client
 #  certificatePath   -  Path to the client's certificate.
 #  certificateKey    -  Path yo the client's certificate key.
 #
-#  service - wether the client is enabled or disabed. *(Default: disabled)*
+#  service - wether the client is enabled or disabed. *(default: disabled)*
+#
+#  hidden  - wethet the client is hidden from the web GUI *(default: false)*
+#
 #
 # Returns:
 #

@@ -94,8 +94,18 @@ sub actuate
 {
   my ($self) = @_;
 
+  my $name = $self->param('name');
+  my $openVPN = EBox::Global->modInstance('openvpn');
+  my $client = $openVPN->client($name);
+
+  if ($client->hidden) {
+    $self->setErrorchain('OpenVPN/Index');
+    throw EBox::Exceptions::Internal("The client $name doesn't allow UI modification");
+  }
+
+
   if ($self->param('edit')) {
-    $self->_doEdit();
+    $self->_doEdit($name, $client);
   }
 
 }
@@ -105,57 +115,54 @@ sub actuate
 
 sub _doEdit
 {
-    my ($self) = @_;
+  my ($self, $name, $client) = @_;
 
-    my $name = $self->param('name');
-    my $openVPN = EBox::Global->modInstance('openvpn');
-    my $client = $openVPN->client($name);
-    my $changed = 0;
+  my $changed = 0;
 
-    my $anyPropiertyParam = any @clientPropierties;
+  my $anyPropiertyParam = any @clientPropierties;
 
-    my @mutatorsParams = grep { $_ eq $anyPropiertyParam } @{ $self->params() };
-    my $anyParamWithUpload = any(qw(caCertificatePath certificatePath certificateKey));  
+  my @mutatorsParams = grep { $_ eq $anyPropiertyParam } @{ $self->params() };
+  my $anyParamWithUpload = any(qw(caCertificatePath certificatePath certificateKey));  
 
-    foreach my $attr (@mutatorsParams) {
-	my $value =  $self->param($attr);
-	next if $value eq '';
+  foreach my $attr (@mutatorsParams) {
+    my $value =  $self->param($attr);
+    next if $value eq '';
 
-	if ($attr eq $anyParamWithUpload) {
-	  $value = $self->upload($attr); # value must be the file path, not the
-                                         # parameter value 
-	}  
+    if ($attr eq $anyParamWithUpload) {
+      $value = $self->upload($attr); # value must be the file path, not the
+                                     # parameter value 
+    }  
 
 
-	if ($client->$attr() ne $attr) {
-	    my $mutatorName = "set\u$attr";
-	    my $mutator_r   = $client->can($mutatorName);
-	    defined $mutator_r or throw EBox::Exceptions::Internal "$mutatorName not found in client object";
+    if ($client->$attr() ne $attr) {
+      my $mutatorName = "set\u$attr";
+      my $mutator_r   = $client->can($mutatorName);
+      defined $mutator_r or throw EBox::Exceptions::Internal "$mutatorName not found in client object";
 
-	    $mutator_r->($client, $value);
-	    $changed = 1;
-	}
+      $mutator_r->($client, $value);
+      $changed = 1;
     }
+  }
 
-    if ($self->param('serverAddr') ||  $self->param('serverPort')) {
-      my ($newServerAddr, $newServerPort) = ($self->param('serverAddr'), $self->param('serverPort'));
-      my ($oldServerAddr, $oldServerPort) = $self->_getServerPropierties($client);
+  if ($self->param('serverAddr') ||  $self->param('serverPort')) {
+    my ($newServerAddr, $newServerPort) = ($self->param('serverAddr'), $self->param('serverPort'));
+    my ($oldServerAddr, $oldServerPort) = $self->_getServerPropierties($client);
 
       my $serverAddr  = defined $newServerAddr ? $newServerAddr : $oldServerAddr;
       my $serverPort  = defined $newServerPort ? $newServerPort : $oldServerPort;
 
       my @newServers = ([$serverAddr, $serverPort],);
       $client->setServers(\@newServers);
-    }
+  }
 
     
-    if ($changed) {
-	$self->setMsg(__x("Client {name} configuration updated", name => $name) );
-	$self->{chain} = 'OpenVPN/Index';
-    }
-    else {
-	$self->setMsg( __('There are no changes to be saved'));
-    }
+  if ($changed) {
+    $self->setMsg(__x("Client {name} configuration updated", name => $name) );
+    $self->{chain} = 'OpenVPN/Index';
+  } 
+  else {
+    $self->setMsg( __('There are no changes to be saved'));
+  }
 }
 
 
