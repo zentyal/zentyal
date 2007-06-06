@@ -400,7 +400,7 @@ sub init
     exists $params{hidden}  or $params{hidden}  = 0;
 
 
-    my @attrs = qw(proto caCertificatePath certificatePath certificateKey servers service hidden);
+   my @attrs = qw(proto caCertificatePath certificatePath certificateKey servers service hidden);
     foreach my $attr (@attrs)  {
 	if (exists $params{$attr} ) {
 	    my $mutator_r = $self->can("set\u$attr");
@@ -471,6 +471,11 @@ sub _availableIfaces
 sub summary
 {
   my ($self) = @_;
+
+  if ($self->hidden) { # no summary for hidden clients
+    return ();
+  }
+
   my @summary;
   push @summary, __x('Client {name}', name => $self->name);
 
