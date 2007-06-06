@@ -115,7 +115,7 @@ sub modIsChanged # (module)
 #
 # Method: modChange 
 #
-# 	Sets a module as changed
+# 	Set a module as changed
 #
 # Parameters:
 #
@@ -157,8 +157,8 @@ sub modRestarted # (module)
 #
 # Method: modNames
 #
-# 	Returns anrray containing all module names	
-# 
+# 	Return an array containing all module names
+#
 # Returns:
 #
 #   	array ref - each element contains the module's name
@@ -190,10 +190,10 @@ sub modNames
 }
 
 #
-# Method: unsaved 
+# Method: unsaved
 #
-# 	Tells you if there is at least one unssaved module
-# 
+# 	Tell you if there is at least one unsaved module
+#
 # Returns:
 #
 #   	array ref - each element contains the module's name
@@ -212,8 +212,8 @@ sub unsaved
 #
 # Method: revokeAllModules 
 #
-# 	Revoke the changes made in the configuration for all the  modules	
-# 
+# 	Revoke the changes made in the configuration for all the modules
+#
 sub revokeAllModules
 {
 	my $self = shift;
@@ -375,15 +375,15 @@ sub stopAllModules
 #
 # Method: getInstance
 #
-# 	Returns an instance of global class
+# 	Return an instance of global class
 #
 # Parameters:
 #
 #   	readonly - If this value is passed, it will return a readonly instance
 #
 # Returns:
-#   
-#   	EBox::Global instance - It will be read-only if it's required
+#
+#   	<EBox::Global> instance - It will be read-only if it's required
 #
 sub getInstance # (read_only?) 
 {
@@ -408,11 +408,11 @@ sub getInstance # (read_only?)
 # 
 # Method: modInstances 
 #
-#	Returns an array ref with an instance of every module
+#	Return an array ref with an instance of every module
 #
 # Returns:
 #   
-#   	array ref - the elments contains the instance of modules
+#   	array ref - the elements contains the instance of modules
 #
 sub modInstances
 {
@@ -430,10 +430,10 @@ sub modInstances
 # 
 # Method: modInstancesOfType 
 #
-#	Returns an array ref with an instance of every module that extends
+#	Return an array ref with an instance of every module that extends
 #	a given classname
 #
-#   Paramters: 
+#   Parameters:
 #
 #   	classname - the class base you are interested in 
 #
@@ -461,25 +461,25 @@ sub modInstancesOfType # (classname)
 
 
 # 
-# Method: modInstance 
+# Method: modInstance
 #
-# 	Builds and instance of a module. Can be called as a class method or as an
+# 	Build an instance of a module. Can be called as a class method or as an
 # 	object method.
 #
-#   Paramters: 
+#   Parameters:
 #
-#   	modulename - module name
+#   	module - module name
 #
 # Returns:
-#   
+#
 #   	If everything goes ok:
 #
-#   	EBox::Module - A instance of the requested module
+#   	<EBox::Module> - An instance of the requested module
 #
 #   	Otherwise
 #
 #   	undef
-sub modInstance # (module) 
+sub modInstance # (module)
 {
 	my $self = shift;
 	my $name = shift;
@@ -535,10 +535,10 @@ sub modInstance # (module)
 # 
 # Method: logger 
 #
-# 	Initialises Log4perl if necessary, returns the logger for the i
+# 	Initialise Log4perl if necessary, returns the logger for the i
 # 	caller package
 #
-#   Paramters: 
+#   Parameters: 
 #
 #   	caller - 
 #
@@ -546,7 +546,7 @@ sub modInstance # (module)
 #   
 #   	If everything goes ok:
 #
-#   	EBox::Module - A instance of the requested module
+#   	<EBox::Module> - A instance of the requested module
 #
 #   	Otherwise
 #
@@ -561,10 +561,10 @@ sub logger # (caller?)
 # 
 # Method: modDepends 
 #
-#	Returns an array with the names of the modules that the requested
+#	Return an array ref with the names of the modules that the requested
 #	module deed on
 #
-#   Paramters: 
+#   Parameters: 
 #
 #   	module - requested module
 #
@@ -587,10 +587,10 @@ sub modDepends # (module)
 # 
 # Method: modRevDepends 
 #
-#	Returns an array with the names of the modules which depend on a given
+#	Return an array ref with the names of the modules which depend on a given
 #	module
 #
-#   Paramters: 
+#   Parameters: 
 #
 #   	module - requested module
 #
