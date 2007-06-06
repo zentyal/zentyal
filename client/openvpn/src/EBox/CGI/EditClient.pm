@@ -118,15 +118,14 @@ sub _doEdit
     my $anyParamWithUpload = any(qw(caCertificatePath certificatePath certificateKey));  
 
     foreach my $attr (@mutatorsParams) {
-	my $value;
-	if ($attr eq $anyParamWithUpload) {
-	  $value = $self->upload(uploadParam => $attr, destDir => EBox::Config::tmp());
-	}  
-	else {
-	  $value = $self->param($attr);
-	}
-
+	my $value =  $self->param($attr);
 	next if $value eq '';
+
+	if ($attr eq $anyParamWithUpload) {
+	  $value = $self->upload($attr); # value must be the file path, not the
+                                         # parameter value 
+	}  
+
 
 	if ($client->$attr() ne $attr) {
 	    my $mutatorName = "set\u$attr";

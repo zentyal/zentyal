@@ -150,23 +150,7 @@ sub  restoreFromFileAction
 {
   my ($self) = @_;
 
-  my $dir = EBox::Config::tmp;
-
-  my $upfile = $self->cgi->upload('backupfile');
-  my ($fh, $filename) = tempfile("backupXXXXXX", DIR=>$dir);
-
-  unless ($upfile) {
-    close $fh;
-    `rm -f $filename`;
-    throw EBox::Exceptions::External(
-				     __('Invalid backup file.'));
-  }
-  while (<$upfile>) {
-    print $fh $_;
-  }
-
-  close $fh;
-  close $upfile;
+  my $filename = $self->upload('backupfile');
 
   my $details = $self->backupDetailsFromFile($filename);
 

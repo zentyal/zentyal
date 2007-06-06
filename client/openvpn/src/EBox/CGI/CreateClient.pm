@@ -72,7 +72,7 @@ sub actuate
 
 	  my $paramValue;
 	  if ($param eq $anyParamWithUpload) {
-	    $paramValue = $self->upload(uploadParam => $param, destDir => EBox::Config::tmp);
+	    $paramValue = $self->upload($param);
 	  }
 	  else {
 	    $paramValue = $self->param($param);
