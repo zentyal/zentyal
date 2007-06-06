@@ -85,7 +85,7 @@ $readOpticalDisk
 	      'files you should be warned that some web ' .
 	'   browsers cannot handle huge files (>= 1 Gb)') %>
 </div>
-<
+ 
   <table class='formTable'>
     <tbody>
      <form action='ConfirmBackup' method='POST' enctype="multipart/form-data">
