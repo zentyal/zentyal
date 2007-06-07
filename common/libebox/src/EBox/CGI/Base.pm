@@ -687,21 +687,28 @@ sub _matchParams
 #  	in the CGI parameters.
 #
 # Returns:
-#       the list of matching parameters, it may be a names or a
-#	regular expression, in the last case it cannot contain the
-#	metacharacters ^ and $
+#
+#       array ref - the list of matching parameters, it may be a names or
+#       a regular expression, in the last case it cannot contain the
+#       metacharacters ^ and $
 #
 sub optionalParameters
 {
     return [];
 }
 
-# Method:  requiredParameters
-#  	get the required CGI parameter list. Any parameter that match with this list must be present  in the CGI parameters. 	
+# Method: requiredParameters
+#
+#       Get the required CGI parameter list. Any
+#  	parameter that match with this list must be present in the CGI
+#  	parameters.
 #
 # Returns:
-#	the list of matching parameters, it may be a names or a regular expression, in the last case it can not contain the metacharacters ^ and $
-# 
+#
+#	array ref - the list of matching parameters, it may be a names
+#	or a regular expression, in the last case it can not contain
+#	the metacharacters ^ and $
+#
 sub requiredParameters
 {
     return [];

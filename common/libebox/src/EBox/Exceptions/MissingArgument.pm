@@ -19,6 +19,15 @@ use base 'EBox::Exceptions::Internal';
 use Log::Log4perl;
 use EBox::Gettext;
 
+# Constructor: new
+#
+#      An exception called when a mandatory argument is missing a
+#      block call
+#
+# Parameters:
+#
+#      arg - the argument name
+#
 sub new 
 {
 	my $class = shift;
