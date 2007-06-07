@@ -734,6 +734,18 @@ sub masonParameters
 }
 
 
+# Method: upload
+#
+# Uploads a file from the client computer. The file is place in
+#  the tmp directory 
+#
+#
+# Parameters: $uploadParam - CGI parameter which contains the path to the file
+#   which will be uploaded. Usually is obtained from a HTML file input
+#
+# Returns:
+#   the path of the uploaded file
+# 
 sub upload
 {
   my ($self, $uploadParam) = @_;
