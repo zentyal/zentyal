@@ -1693,7 +1693,6 @@ sub _multigwRoutes
 	# within a try/catch block because
 	# kernels < 2.6.12 do not include such module.
 	#
-	# 
 	# We modify the dhclient script behaviour to add the
 	# default route where we need it.
 
@@ -1716,7 +1715,14 @@ sub _multigwRoutes
 		root("/sbin/iptables -t mangle -A PREROUTING "
 		     . "-j CONNMARK --restore-mark");
 	} catch EBox::Exceptions::Internal with {};
+
+	my $defaultRouterMark;
 	foreach my $router (@{$routers}) {
+	
+		if ($router->{'default'}) {
+			$defaultRouterMark = $marks->{$router->{'id'}};
+		}
+		
 		my $mac = $router->{'mac'};
 		next if ( $mac eq 'unknown');
 		root("/sbin/iptables -t mangle -A PREROUTING  "
@@ -1727,6 +1733,14 @@ sub _multigwRoutes
 	
 	for my $rule (@{$self->multigwrulesModel()->iptablesRules()}) {
 		root("/sbin/iptables $rule");
+	}
+
+	
+	# If traffic balancing is disabled, send unmarked packets 
+	# through default router
+	unless ($self->balanceTraffic()) {
+		root("/sbin/iptables -t mangle -A PREROUTING -m mark " 
+		     . "--mark 0/0xff -j  MARK --set-mark $defaultRouterMark");
 	}
 	 
 	try {
@@ -1824,14 +1838,8 @@ sub _regenConfig
 
 	my $multipathCmd = $self->_multipathCommand();
 	if ($gateway) {
-		my $cmd;
-		if ($self->balanceTraffic()) {
-			$cmd = $self->_multipathCommand();
-		} else {
-			$cmd = "/sbin/ip route add default via $gateway " 
-				. "table default";
-		}
 		try {
+			my $cmd = $self->_multipathCommand();
 			root($cmd);	
 		} catch EBox::Exceptions::Internal with {
 			throw EBox::Exceptions::External("An error happened ".
@@ -2445,7 +2453,7 @@ sub _multipathCommand
 
 	my @gateways = @{$self->gateways()};
 
-	unless (scalar(@gateways) > 1) {
+	unless (scalar(@gateways) > 0) {
 		return undef;
 	}
 
