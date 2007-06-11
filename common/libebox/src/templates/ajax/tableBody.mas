@@ -11,7 +11,8 @@ use EBox::Gettext;
 
 my @tableHead = @{$dataTable->{'tableDescription'}};
 my $tableFields = $dataTable->{'paramArrayString'}; 
-my $changeView = $dataTable->{'actions'}->{'changeView'};
+my $actions = $dataTable->{'actions'};
+my $changeView = $actions->{'changeView'};
 
 my $rowEdit;
 
@@ -39,7 +40,7 @@ if ($rowEdit) {
 	<h3><% $dataTable->{'printableTableName'} %></h3>
 
 	<div>
-%			if ($changeView) {
+%			if ($changeView and exists $actions->{'add'}) {
 					<input  class='inputButton' type='image' name='add'
 					value="Add" title="Add"
 					alt="Add" src='/data/images/add.gif'
@@ -362,9 +363,16 @@ $cssClass => ''
 </%args>
 % my $id = $tableName . '_' . $data->fieldName();
 
+%	if ($data->editable()) {
 					<input type="text" class="inputText <% $cssClass %>" value="<% $data->printableValue() %>"
 						size="<% $data->size() %>" id='<% $id %>' name='<% $id %>' /> 
 						<% $data->trailingText() %>
+%	} else {
+					<input type="hidden"  value="<% $data->value() %>" id='<% $id %>' name='<% $id %>' /> 
+					<% $data->printableValue() %>
+					<% $data->trailingText() %>
+%}
+
 </%def>
 
 <%def .booleanSetter>
