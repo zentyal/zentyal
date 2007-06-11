@@ -1,11 +1,10 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Controller View
-perldir = @PERLPATH@/EBox/CGI/Logs
 
-nobase_perl_DATA = Index.pm
+perldir = @PERLPATH@/EBox/CGI/Logs/Controller
 
-SOURCES = $(nobase_perl_DATA)
+nobase_perl_DATA = ConfigureLogDataTable.pm 
 
 MAINTAINERCLEANFILES = Makefile.in
 
 EXTRA_DIST = $(nobase_perl_DATA)
+

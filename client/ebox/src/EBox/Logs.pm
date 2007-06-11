@@ -31,6 +31,7 @@ use EBox::Summary::Module;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::External;
 use EBox::DBEngineFactory;
+use EBox::Logs::Model::ConfigureLogDataTable;
 use POSIX qw(ceil);
 
 use constant IMAGEPATH => EBox::Config::tmp . '/varimages';
@@ -70,7 +71,28 @@ sub cleanup
 }
 
 #	Module API	
+
+# Method: configureLogModel 
 #
+#   This function returns the model for the configure log data table
+#
+# Returns:
+#
+#   An object of class <EBox::Logs::Model::ConfigureLogDataTable>
+#
+sub configureLogModel 
+{
+    my ($self) = @_; 
+
+    unless (exists $self->{'configureLogModel'}) {
+        $self->{'configureLogModel'} =
+			new EBox::Logs::Model::ConfigureLogDataTable(
+				'gconfmodule' => $self,
+        			'directory' => 'configureLogTable');
+    }   
+        
+    return $self->{'configureLogModel'};
+}
 
 # Method: allLogDomains
 #
@@ -385,10 +407,16 @@ sub _sqlStmnt {
 sub menu
 {
 	my ($self, $root) = @_;
-	my $item = new EBox::Menu::Item('url' => 'Logs/Index',
-		'text' => __('Logs'),
-		'order' => 6);
-	$root->add($item);
+        my $folder = new EBox::Menu::Folder('name' => 'Logs',
+                                            'text' => __('Logs'));
+
+        $folder->add(new EBox::Menu::Item('url' => 'Logs/Index',
+                                          'text' => __('Query logs')));
+        $folder->add(new EBox::Menu::Item('url' =>
+					  'Logs/View/ConfigureLogDataTable',
+                                          'text' => __('Configure logs')));
+ 
+	$root->add($folder);
 }
 
 
@@ -396,6 +424,7 @@ sub menu
 
 sub tableInfo {
 	my $self = shift;
+
 	my $titles = { 'timestamp' => __('Date'),
 		'clientaddress' => __('Client Address'),
 		'module' => __('Module'),
