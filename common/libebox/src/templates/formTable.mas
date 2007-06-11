@@ -25,7 +25,7 @@ use EBox::Gettext;
 
 <%method tr>
 <%args>
-$printableName => undef
+$printableName => ''
 $component     => undef
 $input         => 'text'
 
@@ -37,13 +37,6 @@ $help          => undef
 @extraParams   => ()
 </%args>
 <%init>
-# adjust default printable name if needed
-if (!defined $printableName ) {
-   $printableName = defined $name ? $name : '';
-}
-if ($input eq 'submit') {
-  $printableName = '';
-}
 # adjust imput component
 my $inputComponent;
 if (defined $component) {
