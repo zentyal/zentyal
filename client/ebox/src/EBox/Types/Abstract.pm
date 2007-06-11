@@ -87,8 +87,29 @@ sub printableValue
 {
 	my ($self) = @_;
 
-	return $self->{'value'};
+	return $self->filter();
 }
+
+# Method: filter
+#
+# 	This method is used to filter the output of printableValue
+#
+# Returns:
+#	
+#	Output filtered
+sub filter
+{
+	my ($self) = @_;
+
+	my $filterFunc = $self->{'filter'};
+	if ($filterFunc) {
+		return (&$filterFunc($self->{'value'}));
+	} else {
+		return $self->{'value'};
+	}
+
+}
+
 
 sub value
 {
