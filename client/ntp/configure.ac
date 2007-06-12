@@ -1,4 +1,4 @@
-AC_INIT([EBox-ntp], [0.9.1])
+AC_INIT([EBox-ntp], [0.9.2])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/NTP.pm])
