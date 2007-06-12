@@ -30,12 +30,15 @@ use EBox::Sudo qw( :all );
 use EBox::Summary::Module;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use EBox::DBEngineFactory;
 use EBox::Logs::Model::ConfigureLogDataTable;
 use POSIX qw(ceil);
 
 use constant IMAGEPATH => EBox::Config::tmp . '/varimages';
 use constant PIDPATH => EBox::Config::tmp . '/pids/';
+use constant ENABLED_LOG_CONF_DIR => EBox::Config::conf  . '/logs';;
+use constant ENABLED_LOG_CONF_FILE => ENABLED_LOG_CONF_DIR . '/enabled.conf';
 
 
 #	EBox::GConfModule interface
@@ -53,6 +56,9 @@ sub _create
 
 sub _regenConfig
 {
+	my ($self) = @_;
+
+	$self->_saveEnabledLogs();
 	_stopService();
 	root(EBox::Config::libexec . 'ebox-loggerd');
 }
@@ -122,7 +128,45 @@ sub allLogDomains
 	return \@domains;
 }
 
-# Method: allLogHelpers
+# Method: allEnabledLogHelpers
+#
+#	This function fetchs all the classes implemeting the interface
+#	<EBox::LogHelper> which have been enabled for the user.
+#
+#	If the user has not configured anything yet, all are enabled
+#	by default.
+#
+# Returns:
+#
+#	Array ref of objects <EBox::LogObserver>
+#
+sub allEnabledLogHelpers
+{
+	my ($self) = @_;
+
+	my $global = EBox::Global->getInstance();
+
+	my $enabledLogs = $self->_restoreEnabledLogs();	
+	
+	# If there's no configuration stored it means the user
+	# has not configured them yet. So by default, we enable all them
+	unless (defined($enabledLogs)) {
+		return $self->allLogHelpers();
+	}
+	
+	my @enabledObjects;
+	my @mods = @{$global->modInstancesOfType('EBox::LogObserver')};
+	foreach my $object (@mods) {
+		my $domain = $object->tableInfo()->{'index'};
+		if (exists $enabledLogs->{$domain}) {
+			push (@enabledObjects, $object->logHelper());
+		}
+	}
+
+	return \@enabledObjects;
+}
+
+# Method: allLogHelpers 
 #
 #	This function fetchs all the classes implemeting the interface
 #	<EBox::LogHelper> and its associated fifo. 
@@ -149,7 +193,6 @@ sub allLogHelpers
 	}
 	return \@objects;
 }
-
 sub getLogsModules
 {
 
@@ -445,4 +488,75 @@ sub tableInfo {
 	};
 }
 
+# Helper functions
+
+# Method: _saveEnabledLogs 
+#	
+#	(Private)
+#	
+#	This function saves the enabled logs in a file.
+#	We have to do this beacuse the logger daemon will request this
+#	configuration as root user.
+#
+#	Anotther approach could be creating a separated script to
+#	query ebox conf.
+#
+sub _saveEnabledLogs
+{
+	my ($self) = @_;
+
+	my $enabledLogs = $self->configureLogModel()->enabledLogs();
+	
+	unless (-d ENABLED_LOG_CONF_DIR) {
+		mkdir (ENABLED_LOG_CONF_DIR);
+	}
+
+	# Create a string of domains separated by comas
+	my $enabledLogsString = join (',', keys %{$enabledLogs});
+
+	my $file;
+	unless (open($file, '>' . ENABLED_LOG_CONF_FILE)) {
+		throw EBox::Exceptions::Internal(
+				'Cannot open ' . ENABLED_LOG_CONF_FILE);
+	}
+
+	print $file "$enabledLogsString";
+	close($file);
+}
+
+# Method: _restoreEnabledLogs 
+#	
+#	(Private)
+#	
+#	This function restores the  enabled logs saved in a file by
+#	<EBox::Logs::_saveEnabledLogs>
+#	We have to do this beacuse the logger daemon will request this
+#	configuration as root user.
+#
+#	Anotther approach could be creating a separated script to
+#	query ebox conf.
+#
+# Returns:
+#
+# 	undef  - if there's no enabled logs stored yet
+# 	hash ref containing the enabled logs
+sub _restoreEnabledLogs
+{
+	my ($self) = @_;
+	
+	my $file;
+	unless (open($file, ENABLED_LOG_CONF_FILE)) {
+		return undef;	
+	}
+
+	my $string = <$file>;
+	close($file);
+	
+	my %enabled;
+	foreach my $domain (split(/,/, $string)) {
+		$enabled{$domain} = 1;
+	}
+	
+	return \%enabled;
+}
 1;

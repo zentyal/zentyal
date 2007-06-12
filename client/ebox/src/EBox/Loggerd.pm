@@ -55,8 +55,7 @@ sub run
 	$self->init();
 	my $global = EBox::Global->getInstance();
 	my $log = $global->modInstance('logs');
-	$self->{'loghelpers'} = $log->allLogHelpers();
-	use Data::Dumper;
+	$self->{'loghelpers'} = $log->allEnabledLogHelpers();
 	$self->{'dbengine'} = EBox::DBEngineFactory::DBEngine();
 	$self->_prepare();
 	$self->_mainloop();
