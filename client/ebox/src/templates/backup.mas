@@ -165,7 +165,7 @@ my $writeToDiskIcon   = $writeOpticalDisk ? '/data/images/writecd.gif': '/data/i
 					<input type='hidden'
 						name='id'
 						value="<%$backup->{'id'}%>"/>
-					<% $backup->{'description'} %>
+					<% $backup->{'description'} %> (<% $backup->{'id'} %>)
 				</td>
 				<td class='tcenter' width="40%">
 					<% $backup->{'date'} %>
