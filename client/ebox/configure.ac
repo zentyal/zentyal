@@ -110,6 +110,8 @@ src/EBox/Backup/testdata/Makefile
 src/EBox/GConfModule/Makefile
 src/EBox/GConfModule/t/Makefile
 src/EBox/Global/Makefile
+src/EBox/Logs/Makefile
+src/EBox/Logs/Model/Makefile
 src/EBox/Model/Makefile
 src/EBox/Types/Makefile
 src/EBox/Global/t/Makefile
@@ -123,6 +125,8 @@ src/EBox/CGI/View/Makefile
 src/EBox/CGI/Login/Makefile
 src/EBox/CGI/Logout/Makefile
 src/EBox/CGI/Logs/Makefile
+src/EBox/CGI/Logs/Controller/Makefile
+src/EBox/CGI/Logs/View/Makefile
 src/EBox/CGI/Summary/Makefile
 src/EBox/CGI/FirstTime/Makefile
 src/EBox/Summary/Makefile
