@@ -2,24 +2,31 @@
 
 webserver=apache
 
+# XXX 
+#
 # This function stinks from miles away, but some users have reported
 # issues due to uncreated swap directories. This is an ugly workaround
-# to relief such situations
+# to relieve such situations.
+#
+# Yeah, I know it's shameful, but if you take a look at the rc script
+# to manage squid, it seems that we aren't the first ones in having problems
+# sometimes to stop it.
+
 stop_squid() {
 	# Ask squid nicely to shut down
 	/etc/init.d/squid stop
 	sleep 2
-	pgrep squid  || return 0 
+	pgrep -x squid  || return 0 
 	
 	# Ask squid himself to shut down
 	/usr/sbin/squid -k kill
 	sleep 2
-	pgrep squid || return 0 
+	pgrep -x squid || return 0 
 
 	# Stop playing with me and shut the fuck down
-	pkill -9 squid
+	pkill -x -9 squid
 	sleep 2
-	pgrep squid || return  0 
+	pgrep -x squid || return  0 
 
 	return 1 
 }
