@@ -47,6 +47,9 @@ use Error qw(:try);
 use constant SMBCONFFILE          => '/etc/samba/smb.conf';
 use constant LIBNSSLDAPFILE       => '/etc/libnss-ldap.conf';
 use constant SMBLDAPTOOLBINDFILE  => '/etc/smbldap-tools/smbldap_bind.conf';
+use constant SMBLDAPTOOLBINDFILE_MASK => '0600';
+use constant SMBLDAPTOOLBINDFILE_UID => '0';
+use constant SMBLDAPTOOLBINDFILE_GID => '0';
 use constant SMBLDAPTOOLCONFFILE  => '/etc/smbldap-tools/smbldap.conf';
 use constant SMBPIDFILE           => '/var/run/samba/smbd.pid';
 use constant NMBPIDFILE           => '/var/run/samba/nmbd.pid';
@@ -156,7 +159,10 @@ sub _setSambaConf
 	push(@array, 'ldap'     => $ldap->ldapConf());
 
 	$self->writeConfFile(SMBLDAPTOOLBINDFILE,
-			"samba/smbldap_bind.conf.mas", \@array);
+		"samba/smbldap_bind.conf.mas", \@array, 
+		{ mode => SMBLDAPTOOLBINDFILE_MASK, 
+		  uid => SMBLDAPTOOLBINDFILE_UID, 
+		  gid => SMBLDAPTOOLBINDFILE_GID });
 
 	# Set quotas
 	$smbimpl->_setAllUsersQuota();
