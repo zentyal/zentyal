@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 4.0.0), autotools-dev
 Standards-Version: 3.6.1
 
 Package: ebox-openvpn
-Architecture: any
+Architecture: all
 Depends: ebox (>= 0.9.1), ebox (<< 0.9.99), openvpn, zip, ebox-firewall, ebox-ca, quagga
 Description: OpenVPN server
  eBox is a framework for the development and deployment of security-wise
