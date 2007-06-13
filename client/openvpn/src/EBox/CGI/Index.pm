@@ -36,7 +36,7 @@ sub masonParameters
     my $openVPN = EBox::Global->modInstance('openvpn');
     my $service = $openVPN->service();
     my @servers = $openVPN->serversNames();
-    my @clients = $openVPN->clientsNamesForUI();
+    my @clients = $openVPN->clientsNames();
     
     my $disabled = $openVPN->CAIsCreated() ? 0 : 1;
 

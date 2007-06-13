@@ -178,33 +178,6 @@ sub _setPrivateFile
 }
 
 
-# Method: setHidden
-#
-#  sets the client's hidden state
-#
-# Parameters:
-#    hidden - hiddencol. Must be 'tcp' or 'udp'
-sub setHidden
-{
-    my ($self, $hidden) = @_;
-
-   $self->setConfBool('hidden', $hidden);
-}
-
-# Method: hidden
-#
-#   tells wether the client must  been hidden  for users in the UI or not
-#
-# Returns:
-#  returns the client's hidden state
-sub hidden
-{
-    my ($self) = @_;
-    return $self->getConfBool('hidden');
-}
-
-
-
 sub daemonFiles
 {
   my ($self) = @_;
@@ -383,8 +356,6 @@ sub removeServer
 #  certificateKey    -  Path yo the client's certificate key.
 #
 #  service - wether the client is enabled or disabed. *(Default: disabled)*
-#
-#  hidden  - wethet the client is hidden from the web GUI *(default: false)*
 sub init
 {
     my ($self, %params) = @_;
@@ -394,13 +365,10 @@ sub init
     (exists $params{certificatePath}) or throw EBox::Exceptions::External __("The client certificate must be specified");
     (exists $params{certificateKey}) or throw EBox::Exceptions::External __("The client private key must be specified");
     (exists $params{servers}) or throw EBox::Exceptions::External __("Servers must be supplied to the client");
-    
-
     exists $params{service} or $params{service} = 0;
-    exists $params{hidden}  or $params{hidden}  = 0;
 
 
-   my @attrs = qw(proto caCertificatePath certificatePath certificateKey servers service hidden);
+    my @attrs = qw(proto caCertificatePath certificatePath certificateKey servers service);
     foreach my $attr (@attrs)  {
 	if (exists $params{$attr} ) {
 	    my $mutator_r = $self->can("set\u$attr");
@@ -471,11 +439,6 @@ sub _availableIfaces
 sub summary
 {
   my ($self) = @_;
-
-  if ($self->hidden) { # no summary for hidden clients
-    return ();
-  }
-
   my @summary;
   push @summary, __x('Client {name}', name => $self->name);
 

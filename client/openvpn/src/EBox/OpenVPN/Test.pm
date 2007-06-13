@@ -167,15 +167,14 @@ sub _createMockCertFiles
   ($? == 0) or die "Can not chmod mock certification files in /tmp: $!";
 }
 
-sub newAndRemoveClientTest : Test(23)
+sub newAndRemoveClientTest : Test(15)
 {
   my $openVPN = EBox::OpenVPN->_create();
  
   my @mockCertFiles = qw(/tmp/ca.pem /tmp/client.pem /tmp/client.key);
 
  
-  my @clientsNames      = qw(client1 client2 hidden);
-  my @clientsNamesForUI = qw(client1 client2);
+  my @clientsNames = qw(client1 client2);
   my %clientsParams = (
 		       client1 =>  [ 
 				    proto => 'tcp',
@@ -198,20 +197,6 @@ sub newAndRemoveClientTest : Test(23)
 							  ['192.168.55.23' => 1041],
 							 ],
 				    service           => 1,
-				    hidden            => 0,
-				   ],
-
-		       hidden =>  [ 
-				    proto => 'tcp',
-				    caCertificatePath => '/tmp/ca.pem',
-				    certificatePath   => '/tmp/client.pem',
-				    certificateKey    => '/tmp/client.key',
-				    servers           => [
-							  ['192.168.55.21' => 1040],
-							  ['192.168.55.23' => 1041],
-							 ],
-				    service           => 1,
-				    hidden            => 1,
 				   ],
 		      );
 
@@ -221,24 +206,13 @@ sub newAndRemoveClientTest : Test(23)
 	_createMockCertFiles(@mockCertFiles);
 
 	my $instance;
-	lives_ok { $instance = $openVPN->newClient($name, @params)  } 
-	  'Testing addition of new client';
-	isa_ok $instance, 'EBox::OpenVPN::Client', 
-	  'Checking that newClient has returned a client instance';
-	dies_ok { $instance  = $openVPN->newClient($name, @params)  } 
-	  'Checking that the clients cannot be added a second time';
+	lives_ok { $instance = $openVPN->newClient($name, @params)  } 'Testing addition of new client';
+	isa_ok $instance, 'EBox::OpenVPN::Client', 'Checking that newClient has returned a client instance';
+	dies_ok { $instance  = $openVPN->newClient($name, @params)  } 'Checking that the clients cannot be added a second time';
     }
 
     my @actualClientsNames = $openVPN->clientsNames();
-    eq_or_diff [sort @actualClientsNames], [sort @clientsNames], 
-      "Checking returned test clients names";
-
-
-    my @actualClientsNamesForUI = $openVPN->clientsNamesForUI();
-    eq_or_diff [sort @actualClientsNamesForUI], [sort @clientsNamesForUI], 
-      "Checking returned test clients names for UI";
-
-
+    eq_or_diff [sort @actualClientsNames], [sort @clientsNames], "Checking returned test names";
 
     # removal cases..
  
@@ -247,17 +221,13 @@ sub newAndRemoveClientTest : Test(23)
       _createMockCertFiles(@mockCertFiles);
 
 	my $instance;
-	lives_ok { $instance = $openVPN->removeClient($name)  } 
-	  'Testing client removal';
-	dies_ok  { $openVPN->client($name) } 
-	  'Testing that can not get the client object that represents the deleted client ';
+	lives_ok { $instance = $openVPN->removeClient($name)  } 'Testing client removal';
+	dies_ok  { $openVPN->client($name) } 'Testing that can not get the client object that represents the deleted client ';
 
 	my @actualClientsNames = $openVPN->clientsNames();
-	ok $name ne all(@actualClientsNames), 
-	  "Checking that deleted clients name does not appear longer in serves names list";
+	ok $name ne all(@actualClientsNames), "Checking that deleted clients name does not appear longer in serves names list";
     
-	dies_ok { $instance = $openVPN->removeClient($name)  } 
-	  'Testing that a deleted client can not be deleted agian';
+	dies_ok { $instance = $openVPN->removeClient($name)  } 'Testing that a deleted client can not be deleted agian';
     }
   
   system "rm -f @mockCertFiles";
@@ -292,25 +262,19 @@ sub newAndRemoveServerTest  : Test(24)
 
 			 );
 
-    dies_ok { $openVPN->removeServer($serversNames[0]) } 
-      "Checking that removal of server when the server list is empty raises error";
-    dies_ok {  $openVPN->newServer('incorrect-dot', @{ $serversParams{server1} })  } 
-      'Testing addition of incorrect named server';
+    dies_ok { $openVPN->removeServer($serversNames[0]) } "Checking that removal of server when the server list is empty raises error";
+    dies_ok {  $openVPN->newServer('incorrect-dot', @{ $serversParams{server1} })  } 'Testing addition of incorrect named server';
 
     foreach my $name (@serversNames) {
 	my $instance;
 	my @params = @{ $serversParams{$name} };
-	lives_ok { $instance = $openVPN->newServer($name, @params)  } 
-	  'Testing addition of new server';
-	isa_ok $instance, 'EBox::OpenVPN::Server', 
-	  'Checking that newServer has returned a server instance';
-	dies_ok { $instance  = $openVPN->newServer($name, @params)  } 
-	  'Checking that the servers cannot be added a second time';
+	lives_ok { $instance = $openVPN->newServer($name, @params)  } 'Testing addition of new server';
+	isa_ok $instance, 'EBox::OpenVPN::Server', 'Checking that newServer has returned a server instance';
+	dies_ok { $instance  = $openVPN->newServer($name, @params)  } 'Checking that the servers cannot be added a second time';
     }
 
     my @actualServersNames = $openVPN->serversNames();
-    eq_or_diff [sort @actualServersNames], [sort @serversNames],
-      "Checking returned test server names";
+    eq_or_diff [sort @actualServersNames], [sort @serversNames], "Checking returned test names";
 
     # removal cases..
  
