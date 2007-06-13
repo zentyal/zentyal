@@ -736,7 +736,7 @@ sub writeConfFile # (file, component, params, defaults)
 	my $mode;
 	my $uid;
 	my $gid;
-	if(my $st = stat($file)) {
+	if((not defined($defaults)) and (my $st = stat($file))) {
 	    $mode= sprintf("%04o", $st->mode & 07777); 
 	    $uid = $st->uid;
 	    $gid = $st->gid;
