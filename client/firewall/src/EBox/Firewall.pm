@@ -158,7 +158,7 @@ sub _stopService
 #
 # Method: usesObject
 #
-#   	Implements EBox::ObjectsObserver interface
+#   	Implement <EBox::ObjectsObserver> interface
 #
 sub usesObject # (object)
 {
@@ -171,7 +171,7 @@ sub usesObject # (object)
 #
 # Method: freeObject
 #
-#   	Implements EBox::ObjectsObserver interface
+#   	Implement <EBox::ObjectsObserver> interface
 #
 sub freeObject # (object) 
 {
@@ -184,7 +184,7 @@ sub freeObject # (object)
 #
 # Method: denyAction 
 #
-#	Returns the deny action
+#	Return the deny action
 #
 # Returns:
 #
@@ -199,7 +199,7 @@ sub denyAction
 #
 # Method: setDenyAction 
 #
-#	Sets the deny action
+#	Set the deny action
 #
 # Parameters:
 #
@@ -1146,7 +1146,7 @@ sub OutputRules
 
 # Method: removeOutputRule
 #
-#	Removes an output rule
+#	Remove an output rule
 #
 # Parameters:
 #
@@ -1173,14 +1173,15 @@ sub removeOutputRule # (protocol, port)
 	return;
 }
 
-# Method: addOutputRule 
+# Method: addOutputRule
 #
-#	Removes an output rule
+#	Add an output rule
 #
 # Parameters:
 #
 # 	protocol - string: protocol (tcp|udp)
 # 	port - string: port number
+#
 sub addOutputRule # (protocol, port) 
 {
 	my ($self, $protocol, $port) = @_;
