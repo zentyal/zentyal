@@ -48,7 +48,7 @@ sub logFiles
 
 # Method: processLine 
 #
-#	This fucntion will be run every time a new line is recieved in
+#	This function will be run every time a new line is recieved in
 #	the associated file. You must parse the line, and generate
 #	the messages which will be logged to ebox through an object
 #	implementing EBox::AbstractLogger interface.
