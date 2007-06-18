@@ -39,7 +39,7 @@ sub paramIsValid
 	return 1;
 
 }
-sub storeInGconf
+sub storeInGConf
 {
         my ($self, $gconfmod, $key) = @_;
  

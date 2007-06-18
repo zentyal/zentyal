@@ -273,7 +273,7 @@ sub addRow
 					 );
 
 	foreach my $data (@userData) {
-		$data->storeInGconf($gconfmod, "$dir/$id");
+		$data->storeInGConf($gconfmod, "$dir/$id");
 	      }
 
 	if ($self->table()->{'order'}) {
@@ -508,7 +508,7 @@ sub setRow
 			$self->_checkFieldIsUnique($newData);
 		}
 
-		$newData->storeInGconf($gconfmod, "$dir/$id");
+		$newData->storeInGConf($gconfmod, "$dir/$id");
 		$modified = 1;
 	}
 

@@ -57,7 +57,7 @@ sub size
 	return $self->{'size'};
 }
 
-sub storeInGconf
+sub storeInGConf
 {
 	my ($self, $gconfmod, $key) = @_;
 

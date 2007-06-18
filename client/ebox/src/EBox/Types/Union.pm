@@ -138,7 +138,7 @@ sub paramIsValid
 	return 1;
 }
 
-sub storeInGconf
+sub storeInGConf
 {
         my ($self, $gconfmod, $key) = @_;
 	
@@ -146,7 +146,7 @@ sub storeInGconf
 	
 	foreach my $type (@{$self->{'subtypes'}}) {
 		if ($type->fieldName() eq $selected) {
-			$type->storeInGconf($gconfmod, $key);
+			$type->storeInGConf($gconfmod, $key);
 			
 			my $selKey = "$key/" . $self->fieldName() 
 				     . '_selected';

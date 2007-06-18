@@ -150,7 +150,7 @@ sub paramIsValid
 #
 #    Overrides <EBox::Types::Abstract::storeInGConf> method
 #
-sub storeInGconf
+sub storeInGConf
   {
     my ($self, $gconfmod, $key) = @_;
 
