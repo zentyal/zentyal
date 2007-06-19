@@ -13,6 +13,7 @@ webserver=apache
 # sometimes to stop it.
 
 stop_squid() {
+	invoke-rc.d ebox squid stop
 	# Ask squid nicely to shut down
 	/etc/init.d/squid stop
 	sleep 2
@@ -24,7 +25,7 @@ stop_squid() {
 	pgrep -x squid || return 0 
 
 	# Stop playing with me and shut the fuck down
-	pkill -x -9 squid
+	pkill -9 -x squid
 	sleep 2
 	pgrep -x squid || return  0 
 
@@ -70,6 +71,6 @@ case "$1" in
 		invoke-rc.d ebox squid restart
 esac
 
-#DEBHELPER#
+
 
 exit 0
