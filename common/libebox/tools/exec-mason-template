@@ -9,13 +9,12 @@ use Cwd qw(abs_path);
 
 my $verbose = 0;
 my @comp_root = ();
-my $only_check = 0;
 my $mason_cli_params = undef;
 
 my @options = (
+	       'help'       => \&usage,
 	       'verbose'   => \$verbose,
 	       'comp-root=s' => \@comp_root,
-	       'only-check'  => \$only_check,
 	       'params=s'     => \$mason_cli_params,	       
 	      );
 
@@ -71,6 +70,19 @@ sub _print_comp_root
  
  
   print "Component root: $main_root @root_paths\n" if $verbose
+}
+
+
+sub usage
+{
+  print "usage: $0 [OPTION]... TEMPLATE_FILE\n";
+  print "\nExecute mason template\n\n";
+  print "\t--verbose       verbose output. Prints the template output to STDOUT\n";
+  print "\t--comp-root     component root. Set a component root for mason compiler. May be established multiple times\n";
+  print "\t--params        mason parameters. Must be a string of perl code. The string will be evaluated to populate the parameters list\n";
+  print "\n\t--help        show this usage display\n";
+  print "\n";
+  exit 0;
 }
 
 
