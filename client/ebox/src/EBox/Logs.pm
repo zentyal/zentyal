@@ -103,7 +103,7 @@ sub configureLogModel
 # Method: allLogDomains
 #
 #	This function fetchs all the log domains available throughout 
-#	ebox.
+#	ebox. *(Deprecated)*
 #
 # Returns:
 #

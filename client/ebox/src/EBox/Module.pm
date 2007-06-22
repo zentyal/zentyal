@@ -93,7 +93,7 @@ sub _saveConfig
 
 # Method: _regenConfig
 #
-#   	Base method to regenertate  configuration. It should be overriden 
+#   	Base method to regenerate configuration. It should be overriden
 #	by subclasses as needed
 #
 sub _regenConfig 
