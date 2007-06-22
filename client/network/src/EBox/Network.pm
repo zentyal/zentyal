@@ -1741,6 +1741,8 @@ sub _multigwRoutes
 	if ((not $self->balanceTraffic()) and ($defaultRouterMark)) {
 		root("/sbin/iptables -t mangle -A PREROUTING -m mark " 
 		     . "--mark 0/0xff -j  MARK --set-mark $defaultRouterMark");
+		root("/sbin/iptables -t mangle -A OUTPUT -m mark " 
+		     . "--mark 0/0xff -j  MARK --set-mark $defaultRouterMark");
 	}
 	 
 	try {
