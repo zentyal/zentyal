@@ -342,7 +342,7 @@ sub _buildIptablesRule
 	my $marks = $network->marksForRouters();
 
 	my $hVal = $row->{'valueHash'};
-	my $proto = $hVal->{'protocol'}->printableValue();
+	my $proto = $hVal->{'protocol'}->value();
 	my $iface = $hVal->{'iface'}->value();
 	my $srcType = $hVal->{'source'}->selectedType();
 	my $srcPort = $hVal->{'source_port'}->printableValue();
