@@ -1,3 +1,7 @@
+0.9.3
+	+ Use value() instead of printableValue() in protocol
+	+ Add iptables rule to chain OUTPUT in table mangle to send traffic
+	  originated in eBox through the default router.
 0.9.2
 	+ Always add weighted routers when configuring routers. Instead
 	 of adding them when traffic balancing is enabled. Use iptables
