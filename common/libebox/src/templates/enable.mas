@@ -2,15 +2,17 @@
 -->
 <%args>
 	$active
-	$title
+	$title => undef
 </%args>
 <%init>
 use EBox::Gettext;
+defined $title or
+  $title = __("Service configuration");
 my $domain = settextdomain('libebox');
 </%init>
 	<form action='Enable' method='POST'>
 	<div id="enable">
-		<span class="bold"><% __("Service configuration") %>: </span>
+		<span class="bold"><% $title %>: </span>
 		<select name="active" enabled>
 %  if($active eq 'yes') {
 			<option value='no' ><% __('Disabled') %></option>
