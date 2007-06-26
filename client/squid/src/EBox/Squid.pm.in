@@ -1232,7 +1232,7 @@ sub menu
 	$folder->add(new EBox::Menu::Item('url' => 'Squid/ExtensionsUI',
                                           'text' => __('Extensions filter')));
 	$folder->add(new EBox::Menu::Item('url' => 'Squid/MimeTypesUI',
-					  'text' => __('Mime Type filter')));
+					  'text' => __('MIME Type filter')));
         $folder->add(new EBox::Menu::Item('url' => 'Squid/Policy',
                                           'text' => __('Policy')));
         $root->add($folder);
