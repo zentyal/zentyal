@@ -3,6 +3,7 @@
 <%args>
 	$active
 	$title => undef
+        $action => 'Enable'
 </%args>
 <%init>
 use EBox::Gettext;
@@ -10,7 +11,7 @@ defined $title or
   $title = __("Service configuration");
 my $domain = settextdomain('libebox');
 </%init>
-	<form action='Enable' method='POST'>
+	<form action='<% $action %>' method='POST'>
 	<div id="enable">
 		<span class="bold"><% $title %>: </span>
 		<select name="active" enabled>
