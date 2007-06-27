@@ -10,6 +10,10 @@ use EBox::Gettext;
 defined $title or
   $title = __("Service configuration");
 my $domain = settextdomain('libebox');
+
+if (($active ne 'yes') and ($active ne 'no')) {
+  $active = $active ? 'yes' : 'no';
+}
 </%init>
 	<form action='<% $action %>' method='POST'>
 	<div id="enable">
