@@ -8,6 +8,18 @@
 			<default>EBox::CA</default>
 			<locale name="C"/>
 		</schema>
-
+                <schema>
+                        <key>/schemas/ebox/modules/ca/pass_required</key>
+                        <applyto>/ebox/modules/ca/pass_required</applyto>
+                        <owner>ebox</owner>
+                        <type>bool</type>
+                        <default>false</default>
+                        <locale name="C">
+                               <short>
+                               Set whether the Certification Authority
+                               is authenticated or not
+                               </short>
+                        </locale>
+                </schema>
 	</schemalist>
 </gconfschemafile>

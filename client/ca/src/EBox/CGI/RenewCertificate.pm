@@ -81,17 +81,21 @@ sub _process
 
     my $isCACert = $self->param('isCACert');
     my $expireDays = $self->param('expireDays');
+    my $caPassphrase = $self->param('caPassphrase');
+    $caPassphrase = undef if ( $caPassphrase eq '' );
 
     my $retValue;
     my $retFromCatch;
     if ( defined ($self->param('renewForced')) ) {
 	if ( $isCACert ) {
 	  $retValue = $ca->renewCACertificate( days => $expireDays,
+                                               caKeyPassword => $caPassphrase,
 					       force => 'true',
 					     );
 	} else {
 	  $retValue = $ca->renewCertificate( commonName => $commonName,
 					     days       => $expireDays,
+                                             caKeyPassword => $caPassphrase,
 					     force      => 'true',
 					   );
 	}
@@ -99,9 +103,12 @@ sub _process
     else {
       try {
       if ( $isCACert ) {
-	  $retValue = $ca->renewCACertificate( days => $expireDays);
+	  $retValue = $ca->renewCACertificate( days => $expireDays,
+                                               caKeyPassword => $caPassphrase,
+                                               );
 	} else {
 	  $retValue = $ca->renewCertificate( commonName    => $commonName,
+                                             caKeyPassword => $caPassphrase,
 					     days          => $expireDays);
 	}
       } catch EBox::Exceptions::DataInUse with {
@@ -111,6 +118,7 @@ sub _process
 	my @array;
 	push (@array, 'metaDataCert' => $cert);
 	push (@array, 'expireDays'   => $expireDays);
+        push (@array, 'caPassphrase' => $caPassphrase);
 	$self->{params} = \@array;
 	$retFromCatch = 1;
       };

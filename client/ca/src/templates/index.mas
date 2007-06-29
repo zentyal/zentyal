@@ -1,6 +1,11 @@
+<%doc>
+  Template to show the current certificate list and issue a new
+  certificate.
+</%doc>
 <%args>
   $certs # A reference to the list with all available certificates
   $caNeeded => 0 # set whether the CA certificate is needed to issue
+  $passRequired => '' # set if the CA is password-aware
 </%args>
 <%init>
 use EBox::Gettext;
@@ -21,15 +26,32 @@ use EBox::CA::DN;
 			 input => 'text' ],
 		       [ name => 'expiryDays',
 			 printableName => __('Days to expire'),
-			 input => 'text' ],
-		       [ name => 'certificate',
-			 value => __('Issue'),
-			 input => 'submit' ],
-		      )
+			 input => 'text' ])
+       );
+
+  if ( $passRequired or $caNeeded ) {
+    push ( @issueTable, [ name => 'caPassphrase', input => 'password',
+                          printableName => __('CA Passphrase') ]);
+
+  }
+
+  if ( $caNeeded ) {
+    push ( @issueTable, [ name => 'reCAPassphrase',
+                          input => 'password',
+                          printableName => __('Re CA Passphrase')]
+         );
+  }
+
+  push ( @issueTable, [ name => 'certificate',
+			value => __('Issue'),
+			input => 'submit' ]
        );
 </%perl>
 <div class="help">
   <% __("Certificate changes will take effect immediately") %>
+% if ( $caNeeded ) {
+  <% '.' . __('The CA passphrase is optional') %>
+% }
 </div>
 % if ($caNeeded) {
   <h3><% __('Issue the Certification Authority Certificate') | h  %></h3>

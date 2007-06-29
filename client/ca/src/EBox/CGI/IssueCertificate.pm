@@ -23,6 +23,10 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Gettext;
 use EBox::Global;
 
+# Constants:
+use constant MIN_PASS_LENGTH => 5;
+
+
 # Method: new
 #
 #       Constructor for IssueCertificate CGI
@@ -69,6 +73,29 @@ sub _process
 
     my $name = $self->param('name');
     my $days = $self->param('expiryDays');
+    my $caPass = $self->param('caPassphrase');
+    my $reCAPass = $self->param('reCAPassphrase');
+
+    if ( $issueCA ) {
+      # Check passpharses
+      if ( defined ( $caPass ) and defined ( $reCAPass )) {
+        unless ( $caPass eq $reCAPass ) {
+          throw EBox::Exceptions::External(__('CA passphrases do NOT match'));
+        }
+        # Set no pass if the pass is empty
+        if ( $caPass eq '' ) {
+          $caPass = undef;
+        }
+        # Check length
+        if ( defined ( $caPass ) and length ( $caPass ) < MIN_PASS_LENGTH ) {
+          throw EBox::Exceptions::External(__x('CA Passphrase should be at least {length} characters',
+                                               length => MIN_PASS_LENGTH));
+        }
+      }
+
+    }
+
+    $caPass = undef if ( $caPass eq '' );
 
     if ( $days <= 0 ) {
       throw EBox::Exceptions::External(__('Days to expire MUST be a natural number'));
@@ -86,10 +113,13 @@ sub _process
     if ($issueCA) {
       $retValue = $ca->issueCACertificate( orgName       => $name,
 					   days          => $days,
+                                           caKeyPassword => $caPass,
 					   genPair       => 1);
     } else {
       $retValue = $ca->issueCertificate( commonName    => $name,
-					 days          => $days);
+					 days          => $days,
+                                         caKeyPassword => $caPass,
+                                       );
     }
 
     my $msg = __("The certificate has been issued");

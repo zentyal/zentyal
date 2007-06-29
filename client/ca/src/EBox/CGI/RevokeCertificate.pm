@@ -83,6 +83,8 @@ sub _process
 
     my $isCACert = $self->param('isCACert');
     my $reason = $self->param('reason');
+    my $caPassphrase = $self->param('caPassphrase');
+    $caPassphrase = undef if ( $caPassphrase eq '' );
     my @array = ();
 
     my $retValue;
@@ -91,20 +93,25 @@ sub _process
     if ( defined($self->param("revokeForce")) ) {
     # If comes from a forceRevoke with forceRevoke button
       if ( $isCACert ) {
-	$ca->revokeCACertificate(reason => $reason,
-				 force  => 1);
+	$ca->revokeCACertificate(reason        => $reason,
+                                 caKeyPassword => $caPassphrase,
+				 force         => 1);
       } else {
-	$ca->revokeCertificate(commonName => $commonName,
-			       reason     => $reason,
-			       force      => 1);
+	$ca->revokeCertificate(commonName    => $commonName,
+			       reason        => $reason,
+                               caKeyPassword => $caPassphrase,
+			       force         => 1);
       }
     } else {
       # If it comes from a formRevoke.mas
       try {
 	if ( $isCACert ) {
-	  $retValue = $ca->revokeCACertificate( reason => $reason);
+	  $retValue = $ca->revokeCACertificate( reason => $reason,
+                                                caKeyPassword => $caPassphrase,
+                                              );
 	} else {
 	  $retValue = $ca->revokeCertificate( commonName    => $commonName,
+                                              caKeyPassword => $caPassphrase,
 					      reason        => $reason);
 	}
       } catch EBox::Exceptions::DataInUse with {
@@ -114,6 +121,7 @@ sub _process
 	push (@array, 'metaDataCert' => $cert);
 	push (@array, 'isCACert'   => $isCACert);
 	push (@array, 'reason'     => $reason);
+        push (@array, 'caPassphrase' => $caPassphrase);
 	$self->{params} = \@array;
 	$retFromCatch = 1;
       };

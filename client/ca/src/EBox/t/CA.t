@@ -17,7 +17,7 @@
 
 # A module to test CA module
 
-use Test::More tests => 45;
+use Test::More tests => 48;
 use Test::Exception;
 use Date::Calc::Object qw (:all);
 use Data::Dumper;
@@ -42,6 +42,8 @@ ok ( ! $ca->isCreated(), 'not created' );
 
 throws_ok { $ca->createCA() } "EBox::Exceptions::DataMissing", "data missing error";
 
+is ( $ca->passwordRequired(), undef, 'No policy is set yet');
+
 diag( 'Creating a password-aware CA' );
 
 cmp_ok ( $ca->createCA(orgName => "Warp",
@@ -50,6 +52,8 @@ cmp_ok ( $ca->createCA(orgName => "Warp",
 	 '==', 1, 'creating CA' );
 
 ok ( $ca->getCACertificateMetadata(), "getting current valid CA" );
+
+ok ( $ca->passwordRequired(), 'getting a CA with authentification');
 
 # Tests there's no CRL
 is ( $ca->getCurrentCRL(), undef, "no CRL to get");
@@ -172,6 +176,8 @@ diag( 'Creating a password-unaware CA' );
 
 cmp_ok ( $ca->createCA(orgName => 'Warp-no-passwd'),
 	 '==', 1, 'creating passwordless CA' );
+
+ok ( ! $ca->passwordRequired(), 'A unaunthenticated CA');
 
 ok (! defined($ca->revokeCACertificate(reason => 'affiliationChanged')),
     'revoking passwordless CA');

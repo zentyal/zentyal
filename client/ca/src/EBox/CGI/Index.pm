@@ -1,4 +1,4 @@
-# Copyright (C) 2006 Warp Networks S.L.
+# Copyright (C) 2006-2007 Warp Networks S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -39,7 +39,7 @@ sub new
     my $self = $class->SUPER::new('title'  => __('Certification Authority Management'),
 				  @_);
 
-    $self->{domain} = "ebox-ca";
+    $self->{domain} = 'ebox-ca';
     bless($self, $class);
 
     return $self;
@@ -65,10 +65,12 @@ sub _process
       $self->{'template'} = "ca/index.mas";
       push( @array, 'certs' => $ca->listCertificates() );
 
-      # Check if a new CA certificate is needed (because of revokation from Revokecertificate)
+      # Check if a new CA certificate is needed (because of revokation from RevokeCertificate)
       my $currentState = $ca->currentCACertificateState();
       if ( $currentState =~ m/[RE]/) {
 	push( @array, 'caNeeded' => 1);
+      } else {
+        push( @array, 'passRequired' => $ca->passwordRequired() );
       }
     } else {
       $self->{'template'} = "ca/createCA.mas";

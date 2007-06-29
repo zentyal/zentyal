@@ -1,40 +1,26 @@
 <%args>
 </%args>
 <%init>
-use EBox::Gettext;
+  use EBox::Gettext;
+  my @createTable = (
+                     [ name => 'orgName', input => 'text',
+                       printableName => __('Organization Name') ],
+                     [ name => 'expiryDays', input => 'text',
+                       printableName => __('Days to expire') ],
+                     [ name => 'caPasspharse', input => 'password',
+                       printableName => __('Passpharse') ],
+                     [ name => 'reCAPasspharse', input => 'password',
+                       printableName => __('Re-passpharse') ],
+                     [ name => 'ca', input => 'submit',
+                       value => __('Create') ]
+                    );
+
 </%init>
 <div class="note">
   <% __("This page only appears once at starting up the Certification
-  Authority.\nChanges take effect immediately") %>
+  Authority. The passphrase is optional.\nChanges take effect immediately") %>
 </div> 
 <h3><% __('Create Certification Authority Certificate') %></h3>
 <form action='CreateCA' method='POST'>
-  <table class='formtable'>
-     <tbody>
-       <tr>
-         <td class='tright'>
-           <span class='ftitle'><% __('Organization Name') %>: </span>
-         </td>
-         <td>
-           <input class='inputText' type='text' name='orgName' />
-         </td>
-       </tr>
-       <tr>
-         <td class='tright'>
-           <span class='ftitle'><% __('Days to expire') %>: </span>
-         </td>
-         <td>
-           <input class='inputText' type='text' name='expiryDays' />
-         </td>
-       </tr>
-       <tr>
-         <td></td>
-         <td>
-           <input class='inputButton' type='submit' name='ca'
-  	        value="<% __('Create') %>"
-  		alt="<% __('Create') %>" />
-         </td>
-       </tr>
-     </tbody>
-   </table>
+  <& formTable.mas, rows => \@createTable &>
 </form>

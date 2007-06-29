@@ -1,5 +1,6 @@
-<%args>	
+<%args>
   $metaDataCert # A hash reference to the list certificate returned element
+  $passRequired => '' # Set if the CA is password aware
 </%args>
 <%init>
   use EBox::Gettext;
@@ -9,15 +10,21 @@
 		    [ name  => 'isCACert',   input => 'hidden',
 		      value => $metaDataCert->{isCACert} ],
 		    [ name  => 'expireDays', printableName =>
-		      __('Days to expire'),  input => 'text' ],
-		    [ printableName => '', name => 'inputs',
-		      component => '/ca/forceRenew.mas:buttons',
-		      extraParams => {
-				      action          => 'renew',
-				      printableAction => __('Renew')
-				     },
-		    ],
-		   );
+		      __('Days to expire'),  input => 'text' ]);
+
+  if ( $passRequired ) {
+    push ( @renewTable, [ name  => 'caPassphrase', input => 'password',
+                         printableName => __('CA Passphrase') ]);
+  }
+
+  push ( @renewTable, [ printableName => '', name => 'inputs',
+                        component => '/ca/forceRenew.mas:buttons',
+                        extraParams => {
+                                        action          => 'renew',
+                                        printableAction => __('Renew')
+                                       },
+                      ],
+       );
 </%init>
 <!-- Form to renew a certificate -->
 <h3><% __('Renew a certificate') | h %></h3>

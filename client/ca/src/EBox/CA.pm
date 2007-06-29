@@ -1,4 +1,4 @@
-# Copyright (C) 2006 Warp Networks S.L.
+# Copyright (C) 2006-2007 Warp Networks S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -98,6 +98,8 @@ if ( defined $ENV{OPENSSL} ) {
   $ENV{OPENSSL} = $openssl;
 }
 
+# Group: Public methods
+
 # Constructor: _create
 #
 #      Create a new EBox::CA object
@@ -184,14 +186,16 @@ sub isCreated
 #
 # Parameters:
 #
-#       countryName  - country name {2 letter code} (eg, ES) (Optional)
-#       stateName     - state or province name (eg, Aragon) (Optional)
-#       localityName  - locality name (eg, Zaragoza) (Optional)
+#       countryName  - country name {2 letter code} (eg, ES) *(Optional)*
+#       stateName     - state or province name (eg, Aragon) *(Optional)*
+#       localityName  - locality name (eg, Zaragoza) *(Optional)*
 #       orgName       - organization name (eg, company name)
-#       orgNameUnit  - organizational unit name (eg, section name) (Optional)
-#       commonName    - common name from the CA (Optional)
-#       caKeyPassword - passphrase for generating keys (Optional)
-#       days         - expire day of self signed certificate (Optional)
+#       orgNameUnit  - organizational unit name (eg, section name) *(Optional)*
+#       commonName    - common name from the CA *(Optional)*
+#       caKeyPassword - passphrase for generating keys *(Optional)*
+#       days         - expire day of self signed certificate *(Optional)*
+#
+#       - Named parameters
 #
 # Returns:
 #
@@ -200,7 +204,7 @@ sub isCreated
 #
 # Exceptions:
 #
-#      EBox::Exceptions::DataMissing - if any required parameter is
+#      <EBox::Exceptions::DataMissing> - if any required parameter is
 #      missing
 
 sub createCA {
@@ -310,6 +314,8 @@ sub createCA {
 #	      );
 
   #unlink (CAREQ);
+  $self->_setPasswordRequired(defined($self->{caKeyPassword}));
+
   return 1;
 
 }
@@ -353,6 +359,29 @@ sub destroyCA
     $self->{caKeyPassword} = undef;
 
     return 1;
+
+  }
+
+# Method: passwordRequired
+#
+#       Check if the password is required to sign the certificates
+#       within this Certification Authority
+#
+# Returns:
+#
+#       boolean - true if pass is required, false otherwise
+#
+sub passwordRequired
+  {
+
+      my ($self) = @_;
+
+      my $caState = $self->currentCACertificateState();
+
+      # Password could be required only if a CA has been created
+      return undef unless ($caState eq 'V');
+
+      return $self->get_bool('pass_required');
 
   }
 
@@ -499,6 +528,8 @@ sub issueCACertificate
 #    logAdminNow($self->name, "issueCACertificate",
 #		"orgName=" . $self->{dn}->attribute("orgName") . ",days=" . $args{days}
 #	       );
+
+    $self->_setPasswordRequired( defined( $args{caKeyPassword} ));
 
     return $ret;
 
@@ -1059,7 +1090,7 @@ sub listCertificates
 #
 # Exceptions:
 #
-#      DataMissing - if any required parameter is missing
+#      <EBox::Exceptions::DataMissing> - if any required parameter is missing
 
 sub getCertificateMetadata
   {
@@ -1673,6 +1704,8 @@ sub restoreConfig
 
   }
 
+# Group: Private methods
+
 # Obtain the public key given the private key 
 #
 # Return public key path if it is correct or undef if password is
@@ -2200,6 +2233,16 @@ sub _freeCert # (cn?, isCACert?)
 	return 1;
       }
     }
+
+  }
+
+# Set the CA as passwordful or passwordless
+sub _setPasswordRequired # (required)
+  {
+
+    my ($self, $required) = @_;
+
+    $self->set_bool('pass_required', $required);
 
   }
 

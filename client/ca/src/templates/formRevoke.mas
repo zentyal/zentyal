@@ -1,6 +1,7 @@
 <%args>
   $metaDataCert # A hash reference to the list certificate returned element
   @reasons => qw (unspecified)
+  $passRequired => '' # Set if the CA is password aware
 </%args>
 <%init>
 use EBox::Gettext;
@@ -55,15 +56,22 @@ use EBox::Gettext;
 		     [ name  => 'reason', printableName =>
 		       __('Reason'),
 		       input => 'select',
-		       extraParams => [ options => \@selectOptions ]],
-		     [ printableName => '', name => 'inputs',
+		       extraParams => [ options => \@selectOptions
+                                      ]]);
+
+  if ( $passRequired ) {
+    push ( @revokeTable, [ name  => 'caPassphrase', input => 'password',
+                           printableName => __('CA Passphrase')]);
+  }
+
+  push ( @revokeTable, [ printableName => '', name => 'inputs',
 		       component => '/ca/forceRenew.mas:buttons',
-		       extraParams => {
-				       action          => 'revoke',
-				       printableAction => __('Revoke')
-				      },
-		     ],
-		     );
+                         extraParams => {
+                                         action          => 'revoke',
+                                         printableAction => __('Revoke')
+                                        },
+                       ],
+       );
 </%perl>
 <form action="RevokeCertificate" method="post" >
   <& formTable.mas, rows => \@revokeTable &>
