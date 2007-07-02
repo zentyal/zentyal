@@ -78,7 +78,7 @@ sub optionalParameters
 
       my ($self) = @_;
 
-      return [qw(caPasspharse reCAPasspharse)];
+      return [qw(caPassphrase reCAPassphrase)];
 
   }
 
@@ -99,8 +99,8 @@ sub actuate
 
       my $orgName = $self->param('orgName');
       my $days = $self->param('expiryDays');
-      my $caPass = $self->param('caPasspharse');
-      my $reCAPass = $self->param('reCAPasspharse');
+      my $caPass = $self->param('caPassphrase');
+      my $reCAPass = $self->param('reCAPassphrase');
 
       # Check passpharses
       if ( defined ( $caPass ) and defined ( $reCAPass )) {
@@ -115,7 +115,7 @@ sub actuate
 
       # Check length
       if ( defined ( $caPass ) and length ( $caPass ) < MIN_PASS_LENGTH ) {
-          throw EBox::Exceptions::External(__x('CA Passpharse should be at least {length} characters',
+          throw EBox::Exceptions::External(__x('CA Passphrase should be at least {length} characters',
                                                length => MIN_PASS_LENGTH));
       }
 
@@ -133,32 +133,5 @@ sub actuate
       }
 
   }
-
-# Process the HTTP query
-#sub _process
-#  {
-#
-#    my $self = shift;
-#
-#    my $ca = EBox::Global->modInstance('ca');
-#
-#    $self->_requireParam('orgName', __('Organization Name') );
-#    $self->_requireParam('expiryDays', __('Days to expire') );
-#
-#    my $orgName = $self->param('orgName');
-#    my $days = $self->param('expiryDays');
-#
-#    if ( $days <= 0 ) {
-#      throw EBox::Exceptions::External(__('Days to expire MUST be a natural number'));
-#    }
-#
-#    my $retVal = $ca->createCA( orgName       => $orgName,
-#				days          => $days);
-#
-#    if (not defined($retVal) ) {
-#      throw EBox::Exceptions::External(__('Problems creating Certification Authority has happened'));
-#    }
-#
-#  }
 
 1;

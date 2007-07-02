@@ -2,7 +2,7 @@
   $metaDataCert
   $isCACert     => 1
   $reason       => "unknown"
-  $caPasspharse => undef
+  $caPassphrase => undef
 </%args>
 <%init>
   use EBox::Gettext;
@@ -33,8 +33,10 @@ if ( $isCACert ) {
              value="<% $isCACert %>" />
       <input type="hidden" name="reason"
              value="<% $reason %>" /> 
-      <input type="hidden" name="caPasspharse"
-             value="<% $caPasspharse %>" /> 
+% if ( defined ( $caPassphrase )) {
+      <input type="hidden" name="caPassphrase"
+             value="<% $caPassphrase %>" /> 
+% }
       <input class="inputButton" type="submit"
              name="revokeForce"
 	     value='<% __("Revoke") %>' />

@@ -5,6 +5,7 @@ currently in used by some other module.
 <%args>
   $metaDataCert
   $expireDays
+  $caPassphrase => undef
 </%args>
 <%init>
   use EBox::Gettext;
@@ -28,6 +29,13 @@ currently in used by some other module.
 					  },
 			 ],
 			);
+
+  if ( defined ( $caPassphrase )) {
+      push ( @forceRenewTable, [ name => 'caPassphrase',
+                                 input => 'hidden',
+                                 value => $caPassphrase ],
+           );
+  }
 </%init>
 <h3>
 <%perl>

@@ -422,24 +422,23 @@ sub revokeCACertificate
     }
 
     # Revoked all issued and valid certificates
-    my $listCerts = $self->listCertificates();
+    # Revoked only valid ones
+    # We ensure not to revoke the CA cert before the others
+    my $listCerts = $self->listCertificates( state => 'V',
+                                             excludeCA => 1);
     foreach my $element (@{$listCerts}) {
-      # Revoked only valid ones
-      # We ensure not to revoke the CA cert before the others
-      if ($element->{state} eq 'V' and
-	  -f ( KEYSDIR . $element->{dn}->attribute('commonName') . ".pem" ) ) {
-
 	$self->revokeCertificate(commonName    => $element->{dn}->attribute('commonName'),
 				 reason        => "cessationOfOperation",
-				 caKeyPassword => $args{caKeyPassword}
+				 caKeyPassword => $args{caKeyPassword},
+                                 force         => $args{force},
 				);
-      }
     }
 
     my $retVal = $self->revokeCertificate(commonName    => "",
 					  reason        => $args{reason},
 					  caKeyPassword => $args{caKeyPassword},
-					  certFile      => CACERT);
+					  certFile      => CACERT,
+                                          force         => $args{force});
 
     $self->{caExpirationDate} = undef;
 
@@ -981,6 +980,8 @@ sub revokeCertificate {
 #       excludeCA - boolean indicating whether the valid CA certificate
 #                   should be excluded in the response (Optional)
 #
+#       - Named parameters
+#
 # Returns:
 #
 #       A reference to an array containing hashes which have the following
@@ -1308,8 +1309,7 @@ sub renewCertificate
       if (defined($args{endDate}) and not UNIVERSAL::isa($args{endDate}, "Date::Calc"));
 
     # Check the expiration date unless issuing the CA cert
-    if (not defined($args{certFile}) or
-	$args{certFile} ne CACERT) {
+    unless (defined($args{certFile}) or $args{certFile} eq CACERT) {
       my $userExpDay = undef;
       if ( defined($args{days}) ) {
 	$userExpDay = Date::Calc::Object->now() + [0, 0, +$args{days}, 0, 0, 0];
@@ -2207,7 +2207,7 @@ sub _certsInUse # (cn?, isCACert?)
     foreach my $obs (@observers) {
       if( $obs->certificateRevoked($cn, $isCACert) ){
 	return 1;
-      }
+    }
     }
 
     return undef;
@@ -2229,9 +2229,7 @@ sub _freeCert # (cn?, isCACert?)
     my $global = EBox::Global->getInstance();
     my @observers = @{$global->modInstancesOfType('EBox::CA::Observer')};
     foreach my $obs (@observers) {
-      if( $obs->freeCertificate($cn) ){
-	return 1;
-      }
+        $obs->freeCertificate($cn);
     }
 
   }

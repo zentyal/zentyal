@@ -7,10 +7,10 @@
                        printableName => __('Organization Name') ],
                      [ name => 'expiryDays', input => 'text',
                        printableName => __('Days to expire') ],
-                     [ name => 'caPasspharse', input => 'password',
-                       printableName => __('Passpharse') ],
-                     [ name => 'reCAPasspharse', input => 'password',
-                       printableName => __('Re-passpharse') ],
+                     [ name => 'caPassphrase', input => 'password',
+                       printableName => __('Passphrase') ],
+                     [ name => 'reCAPassphrase', input => 'password',
+                       printableName => __('Re-passphrase') ],
                      [ name => 'ca', input => 'submit',
                        value => __('Create') ]
                     );
