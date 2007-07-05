@@ -202,13 +202,11 @@ sub _mockedHashFromDir
   $dir = $self->_key($dir);
 
   my @entries = @{ $self->all_entries_base($dir) };
-  use Test::More;
   my %dirHash = map {
     my $entry   =  $_;
     my $key     = "$dir/$entry";
     my $value = _getEntry($key);
 
-    diag "dir $dir entry $_ key $key value $value";
     ($entry, $value)
   } @entries;
 
