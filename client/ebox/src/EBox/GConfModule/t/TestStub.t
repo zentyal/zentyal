@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 139;
+use Test::More tests => 151;
 use Test::Exception;
 use Test::Deep qw(cmp_bag cmp_deeply);
 use File::Basename;
@@ -20,6 +20,7 @@ setAndGetListTest();
 dirExistsTest();
 allEntriesTest();
 allDirsTest();
+hashFromDirTest();
 deleteDirTest();
 unfakeTest();
 
@@ -215,6 +216,49 @@ sub allDirsTest
 	is ref $actualResult, "ARRAY", "Checking that he result is a reference to a array";
 	cmp_bag $actualResult, \@awaitedResult, "all_dirs_base($key)";
     }
+}
+
+
+sub hashFromDirTest 
+{
+    _setFakeConfig();
+    my $gconfModule = EBox::GConfModule::_create('EBox::Mandrill', name => 'mandrill');
+
+    my %cases = (
+		 # dirs
+		 'grooming_partners' => {
+					 'koko' => 'groomed today',
+					 'ebo'  =>  'groomed me yesterday',
+					},
+		 
+                  'foodEaten'        => {},
+		  'foodEaten/prey'   => {
+					 'rats'             =>  0,
+					},
+		  'foodEaten/prey/insects' => {
+					       ants => 3,
+					       beatles =>  4,
+					      },
+		 'foodEaten/plants' =>  {
+					 'bananas'        =>  10,
+					 'seeds'          =>  23,
+					},
+
+		 'inexistentDir'          => {},
+
+	      );
+
+    while (my ($dir, $expectedResults_r) = each %cases) {
+      my $actualResults_r;
+      lives_ok {
+	$actualResults_r = $gconfModule->hash_from_dir($dir)
+      }  "executing hash_from_dir upon configuration directory $dir";
+
+      is_deeply $actualResults_r, $expectedResults_r, 
+	'checking hash_from_dir output';
+    }
+
+
 }
 
 

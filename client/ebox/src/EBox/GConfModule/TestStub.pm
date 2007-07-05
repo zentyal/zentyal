@@ -9,6 +9,7 @@ use List::Util qw(first);
 use Params::Validate;
 use EBox::GConfModule;
 
+
 my %config;
 
 # TODO:
@@ -23,6 +24,7 @@ sub fake
 		 '_gconf_wrapper' => \&_mockedGConfWrapper,
 		 '_delete_dir_internal' => \&_mockedDeleteDirInternal ,
 		 '_backup' => sub {} ,
+		 'hash_from_dir' => \&_mockedHashFromDir,  
 		);
 }
 
@@ -35,12 +37,15 @@ sub unfake
 
 
 my %subByGConfMethod = (
+			get        => \&_getEntry,
+
 			get_bool   => \&_getEntry,
 			set_bool   => \&setEntry,
 			get_int    => \&_getEntry,
 			set_int    => \&setEntry,
 			get_string => \&_getEntry,
 			set_string => \&setEntry,
+
 		
 			get_list   => \&_getEntry,
 			set_list   => \&_setList,
@@ -50,6 +55,7 @@ my %subByGConfMethod = (
 			dir_exists  => \&_dirExists,
 			all_entries => \&_allEntries,
 			all_dirs    => \&_allDirs,
+
    );
 
 sub _mockedGConfWrapper
@@ -145,6 +151,9 @@ sub _allDirs
 }
 
 
+
+
+
 sub _removeModulePrefix
 {
     my ($dir, @entries) = @_;
@@ -185,6 +194,26 @@ sub _mockedDeleteDirInternal
     }
 }
 
+
+# faking get in gconfwarpper seems to be not enough....
+sub _mockedHashFromDir
+{
+  my ($self, $dir) = @_;
+  $dir = $self->_key($dir);
+
+  my @entries = @{ $self->all_entries_base($dir) };
+  use Test::More;
+  my %dirHash = map {
+    my $entry   =  $_;
+    my $key     = "$dir/$entry";
+    my $value = _getEntry($key);
+
+    diag "dir $dir entry $_ key $key value $value";
+    ($entry, $value)
+  } @entries;
+
+  return \%dirHash;
+}
 
 # subs to mangle configuration for testing:
 
