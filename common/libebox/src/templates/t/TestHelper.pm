@@ -17,7 +17,7 @@ sub testComponent
   my $outputFile  = "/tmp/$componentWoExt.html";
   system "rm -rf $outputFile";
 
-  my $compRoot =   dirname dirname getcwd(); # XXX this is templates/input directory specific
+  my $compRoot =    dirname getcwd(); # XXX this is templates directory specific
   my $template =   (dirname getcwd()) . "/$component";
 
   diag "\nComponent root $compRoot\n\n";

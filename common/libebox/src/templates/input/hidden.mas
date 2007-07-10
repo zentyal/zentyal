@@ -1,6 +1,6 @@
-<%args>
-$name
-$value       => ''
-@extraParams => ()
-</%args>
-<input type="hidden"  name="<% $name %>" value="<% $value | hu%>"  <& /htmlAttributes.mas, @extraParams &>  />
+<%init> 
+if (! $ARGS{name})   { 
+    $m->abort('A name parameter is required');
+} 
+</%init>
+<input type='hidden' <& /htmlAttributes.mas, %ARGS &> />

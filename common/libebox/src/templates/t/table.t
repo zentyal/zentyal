@@ -1,17 +1,8 @@
 use strict;
 use warnings;
-use Cwd;
 
-use lib '../..';
-use EBox::Test::Mason;
-
+use TestHelper;
 use Test::More tests => 5;
-
-my $printOutput = 0;
-my $outputFile  = '/tmp/table.html';
-system "rm -rf $outputFile";
-
-my $tableTemplate =   getcwd() . '/../table.mas';
 
 
 my @columnTitles = qw(arabic roman binary);
@@ -33,8 +24,7 @@ my @cases = (
 	    );
 
 
-foreach my $params (@cases) {
-  EBox::Test::Mason::checkTemplateExecution(template => $tableTemplate, templateParams => $params, printOutput => $printOutput, outputFile => $outputFile);
-}
+TestHelper::testComponent('table.mas', \@cases);
+
 
 1;

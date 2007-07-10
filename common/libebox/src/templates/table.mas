@@ -89,8 +89,7 @@ my $tbodyClass =  $m->base_comp->attr('tbodyClass');
 </%init>
  <tbody <% _class($tbodyClass) %> >
      <& SELF:rows, rows => \@rows &>
-     <& SELF:additionalComponents, components =>
-     \@additionalComponents &>
+     <& SELF:additionalComponents, components => \@additionalComponents &>
  </tbody>
 </%method>
 
@@ -137,7 +136,8 @@ $tdClass => undef
 
 <%method additionalComponents>
 <%args>
-@components => ()
+@components 
 </%args>
-<& componentCall.mas, calls => \@components &>
+% return if (@components == 0);
+<& /componentCall.mas, @components &>
 </%method>

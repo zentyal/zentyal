@@ -1,11 +1,9 @@
-<%args>
-$name
-$value       => ''
-@extraParams => ()
-</%args>
 <%init>
-my $checked = $value ? 'checked' : '';
+my $name    = delete $ARGS{name};
+defined $name or $m->abort('The checkbox input needs a name parameter');
+
+my $value   = delete $ARGS{value};
+my @checked = $value ? (checked => 'checked') : ();
 </%init>
-<input type="checkbox" class="inputText" name="<% $name %>" value="1"
-  <%$checked %> <& /htmlAttributes.mas, @extraParams &> />
+<input type='checkbox' name='<% $name %>' <& /htmlAttributes.mas, @checked, %ARGS &> />
 <input type='hidden'  name='<% $name %>' value=0  />

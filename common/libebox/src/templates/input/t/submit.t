@@ -11,7 +11,7 @@ use Test::More tests => 2;
 
 my @cases = (
 	     [ name => 'submitEnabledWithTitle', value => 'Submit Title'],
-	     [ name => 'submitDisabled', value => 'Disabled submit', extraParams => [disabled => 'disabled']],
+	     [ name => 'submitDisabled', value => 'Disabled submit', disabled => 'disabled'],
 	    );
 
 TestHelper::testComponent('submit.mas', \@cases);

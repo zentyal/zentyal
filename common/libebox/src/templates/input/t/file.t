@@ -13,7 +13,7 @@ use Test::More tests => 2;
 
 my @cases = (
 	     [ name => 'fileInput', ],
-	     [ name => 'fileInputDisabled',  extraParams => [disabled => 'disabled']],
+	     [ name => 'fileInputDisabled',  disabled => 'disabled'],
 	    );
 
 TestHelper::testComponent('file.mas', \@cases);

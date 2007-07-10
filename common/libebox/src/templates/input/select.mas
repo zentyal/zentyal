@@ -2,53 +2,38 @@
   Component for HTML select input
 
    Parameters:
-       $name  - name of the input
-       $value - value of the input
-       @options - this list contains all the available select's
+       name  - name of the input
+       value - value of the input
+       options - this reference to a list contains all the available select's
   options. Each option is represented a hash reference with this
   keys:
         value          - the value of the option
         printableValue - the string who represent the value in the
   GUI. Defaults to value
+  
+  You can pass also other HTML attributes as parameters.
 
-   @extraParams - for compability with other input templates. You can
-   pass the options here (with a 'options' key) but the @options
-   parameter has precedence.
   
 </%doc>
-<%args>
-$name
-$value       => ''
-@extraParams => ()
-@options => ();
-</%args>
 <%init>
-my %params = @extraParams; # temporal variable to ease extraParams manipulation
+my $name = delete $ARGS{name};
+$name or die 'select control needs at least the name parameter';
+my $value = exists $ARGS{value} ? delete $ARGS{value} : '';
 
-# extract options from extraParams if needed
-my $optionsInExtraParameters_r = delete $params{options};
-if (@options == 0) {
-   if (defined $optionsInExtraParameters_r ) {
-       @options = @{ $optionsInExtraParameters_r };
-   }
-}
+my @options = exists $ARGS{options} ? @{  delete $ARGS{options} } : ();
 # disable the control if it isn't any option
 if (@options == 0) {
-  $params{disabled} = 'disabled';
+  $ARGS{disabled} = 'disabled';
 }
-
-@extraParams  = %params;
-
 </%init>
-<select name="<% $name %>" <& /htmlAttributes.mas, @extraParams &>  >
+<select name="<% $name %>" <& /htmlAttributes.mas, %ARGS &>  >
 % foreach my $option (@options) {
-%  my $optionValue = $option->{value};
+%  my $optionValue     = $option->{value};
 %  $option->{selected} = ($value eq $optionValue) ? 1 : 0;
-%  my @optionParams = %{ $option  };
- <& .option, @optionParams &>
+ <& .option, %{ $option  } &>
 % }
 </select>
-
+% return;
 
 <%def .option>
 <%args>
@@ -60,9 +45,9 @@ $printableValue => undef
 if (!defined $printableValue) {
    $printableValue = $value;
 }
-my $selectedAttr = $selected ? 'selected' : '';
+my $selectedAttr = $selected ? 'selected="selected"' : '';
 </%init>
-<option value="<% $value | h %>" <% $selectedAttr | h %> >
+<option value="<% $value | h %>" <% $selectedAttr %> >
 <% $printableValue %>
 </option>
 </%def>

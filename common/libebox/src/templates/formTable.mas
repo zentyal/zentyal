@@ -24,20 +24,26 @@ use EBox::Gettext;
 </%method>
 
 <%method tr>
-<%args>
-$printableName => ''
-$component     => undef
-$input         => 'text'
-
-$name          => undef
-$value         => undef
-$warning       => undef
-$note          => undef
-$help          => undef
-@extraParams   => ()
-</%args>
 <%init>
-# adjust imput component
+my $input     = delete $ARGS{input};
+defined $input or $input = 'text';
+my $component = delete $ARGS{component};
+
+my $warning = delete $ARGS{warning};
+my $note    = delete $ARGS{note};
+my $help    = delete $ARGS{help};
+
+
+# adjust default printable name if needed
+my $printableName = delete $ARGS{printableName};
+if (!defined $printableName ) {
+   $printableName = exists $ARGS{name} ? $ARGS{name} : '';
+}
+if ($input eq 'submit') {
+  $printableName = '';
+}
+
+# adjust input component
 my $inputComponent;
 if (defined $component) {
   $inputComponent = $component;
@@ -45,11 +51,6 @@ if (defined $component) {
 else {
   $inputComponent = "/input/$input.mas";
 }
-
-# get component parameters
-my @componentParams = @extraParams;
-push @componentParams, (name => $name) if defined $name;
-push @componentParams, (value => $value) if defined $value;
 </%init>
 % if (not $inputComponent =~ m/hidden\.mas$/ ) {
   <& .div, type => 'warning', content => $warning &>
@@ -58,14 +59,14 @@ push @componentParams, (value => $value) if defined $value;
   <tr>
        <& .labelTd, printableName => $printableName &>
      <td>
-        <& $inputComponent, @componentParams &>
+        <& $inputComponent, %ARGS  &>
      </td>
 
   </tr>
-% } else {
-  <& $inputComponent, name => $name, value => $value, @extraParams &>
+% } 
+% else {
+  <& $inputComponent, %ARGS &>
 % }
-
 </%method>
 
 <%def .labelTd>

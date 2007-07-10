@@ -9,16 +9,25 @@ Mixed list are interpreted as the type of the first element
 TODO: sanity check when the first element is ARRAYREF and the rest isn't
 TODO: optional argument to force the type of list?
 </%doc>
-<%args>
-@calls
-</%args>
-% return if @calls == 0;
-% my $refType = ref $calls[0];
-% if ($refType eq 'ARRAY') {
-%    foreach my $call_r (@calls) {
-        <& @{ $call_r }  &>
-%    }
-% }
-% else { # single component call
-   <& @calls  &>
-% }
+<%init>
+ my @params = @_;
+ return if @params == 0;
+
+ my @calls;
+ my $refType = ref $params[0];
+ if (not $refType) { # single component call
+    @calls = (\@params);
+ }
+ elsif ($refType eq 'ARRAY') {
+     @calls = @params;
+ }
+ else {
+    $m->abort('You must supply either a flat parameter list or a list  of references to parameter lists');
+ }
+
+foreach my $call_r (@calls) {
+ $m->comp(@{ $call_r });
+}
+
+return;
+</%init>

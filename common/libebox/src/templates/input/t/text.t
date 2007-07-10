@@ -12,7 +12,7 @@ use Test::More tests => 3;
 my @cases = (
 	     [ name => 'textEnabled'],
 	     [ name => 'textEnabledAndFilled', value => 'textValue'],
-	     [ name => 'hiidenDisabled', value => 'textValue', extraParams => [disabled => 'disabled']],
+	     [ name => 'hiidenDisabled', value => 'textValue', disabled => 'disabled'],
 	    );
 
 TestHelper::testComponent('text.mas', \@cases);

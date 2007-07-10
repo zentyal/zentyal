@@ -5,7 +5,7 @@ use lib '../..';
 use TestHelper;;
 use EBox::Test::Mason;
 
-use Test::More tests => 7;
+use Test::More tests => 5;
 
 
 my @options = (
@@ -22,10 +22,8 @@ my @cases = (
 	     [ name => 'monos' ],  # minimal case
 	     [@nameAndValue],
 	     [@nameAndValue, options => \@options],
-	     [@nameAndValue, extraParams => [options => \@options] ],
-	     [@nameAndValue, options => \@options, extraParams => [ options => [ value => 'Bad option' ] ]  ], 
-	     [@nameAndValue, options => \@options, extraParams => [ disabled => 'disabled'] ],
-	     [@nameAndValue, options => \@options, extraParams => [ multiple => 'multiple'] ],
+	     [@nameAndValue, options => \@options,  disabled => 'disabled'],
+	     [@nameAndValue, options => \@options,  multiple => 'multiple'],
 	    );
 
 TestHelper::testComponent('select.mas', \@cases);

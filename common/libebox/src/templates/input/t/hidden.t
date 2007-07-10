@@ -13,7 +13,7 @@ use Test::More tests => 2;
 
 my @cases = (
 	     [ name => 'hiddenEnabled', value => 'hiddenValue'],
-	     [ name => 'hiidenDisabled', value => 'hiddenValue', extraParams => [disabled => 'disabled']],
+	     [ name => 'hiidenDisabled', value => 'hiddenValue', disabled => 'disabled'],
 	    );
 
 TestHelper::testComponent('hidden.mas', \@cases);
