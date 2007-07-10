@@ -242,10 +242,9 @@ foreach my $type (@{$data->subtypes()}) {
                        'name'        => "$id" ,
                        'value'       => $data->selectedType(),
                        'options'     => \@options,
-                       'extraParams' => [ id => "$id",
-				          onchange => " showSelected('" . $id . "'," .
-						      "'selectValues_" . $id . "', '" . $tableName . "');",
-					],
+                       'id'          => "$id",
+                       'onchange'    => " showSelected('" . $id . "'," .
+				      "'selectValues_" . $id . "', '" . $tableName . "');",
    &>
 			<span id="selectValues_<% $id %>">
 <%perl>
@@ -289,8 +288,7 @@ for my $mask (32, 30, 29, 28, 27, 26, 25, 24, 16, 8) {
 					<& /input/select.mas,  
 							'name' => $id . '_ip' , 
 							'value' => $data->mask(), options => \@options,
-							'extraParams' => [ id => "$id" . "_mask",
-									 ],
+							 id => "$id" . "_mask",
 							&>
 </span>
 
@@ -313,14 +311,13 @@ $cssClass => ''
 
 <span id="<% $id %>" class="<% $cssClass %>">
 					<& /input/select.mas,
-							'name' => $id . '_protocol' ,
-							'value' => $data->protocol(),
-							 options => $data->protocols(),
-							'extraParams' => [ id => "$id" . "_protocol",
-									   onchange => "showPort('" . $id . "_protocol'," .
+							name => $id . '_protocol' ,
+							value => $data->protocol(),
+							options => $data->protocols(),
+					        	id => "$id" . "_protocol",
+							onchange => "showPort('" . $id . "_protocol'," .
                                                                                                  "'" . $id . "_portText'," .
                                                                                                  $data->protocolsJS() . ")",
-                                                                         ],
 							&>
 					<span id="<% $id . '_portText' %>" class="hidden">
 					  <%__('port')%>
@@ -343,13 +340,13 @@ $cssClass => ''
 % my $id = $tableName . '_' . $data->fieldName();
 
 			<& /input/select.mas,
-			                     'name' => "$id" , 
-					     'value' => $data->value(), options => $data->options(),
-					     'extraParams' => [ id => "$id",
-							        class => "$cssClass",
-							      ],
-					&>
-					<% $data->trailingText() %>
+	                     name => "$id" , 
+			     value => $data->value(), 
+                             options => $data->options(),
+                             id => "$id",
+        		        class => "$cssClass",
+			 &>
+			<% $data->trailingText() %>
 
 </%def>
 
@@ -384,11 +381,11 @@ $cssClass => ''
 % my $id = $tableName . '_' . $data->fieldName();
 
 					<& /input/checkbox.mas,
-					 'name' => "$id", 
-                                         'value' => $data->printableValue(),
-					 'extraParams' => [id => "$id",
-							   class => "$cssClass",
-							  ] &>
+					 name  => "$id", 
+                                         value => $data->printableValue(),
+					 id    => "$id",
+					 class => "$cssClass",
+							   &>
 						<% $data->trailingText() %>
 </%def>
 
@@ -411,5 +408,5 @@ $fieldName
 $value => 0
 </%args>
 	
-					<& /input/checkbox.mas, name => "$fieldName", value => $value, extraParams => [ id => "$tableName" .'_' ."$fieldName"] &>
+					<& /input/checkbox.mas, name => "$fieldName", value => $value,  id => "$tableName" .'_' ."$fieldName", &>
 </%def>
