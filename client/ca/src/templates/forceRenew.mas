@@ -21,12 +21,11 @@ currently in used by some other module.
 			   value => $expireDays ],
 			 [ name => 'renewForced', input => 'hidden',
 			   value => 'true' ],
-			 [ printableName => '', name => 'inputs',
+			 [ printableName => '', 
 			   component => '/ca/forceRenew.mas:buttons',
-			   extraParams => {
-					   action          => 'renew',
-					   printableAction => __('Renew')
-					  },
+			   action          => 'renew',
+			   printableAction => __('Renew')
+
 			 ],
 			);
 

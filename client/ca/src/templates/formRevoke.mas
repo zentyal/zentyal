@@ -56,22 +56,21 @@ use EBox::Gettext;
 		     [ name  => 'reason', printableName =>
 		       __('Reason'),
 		       input => 'select',
-		       extraParams => [ options => \@selectOptions
-                                      ]]);
+		        options => \@selectOptions,
+		     ]
+		    );
 
   if ( $passRequired ) {
     push ( @revokeTable, [ name  => 'caPassphrase', input => 'password',
                            printableName => __('CA Passphrase')]);
   }
 
-  push ( @revokeTable, [ printableName => '', name => 'inputs',
-		       component => '/ca/forceRenew.mas:buttons',
-                         extraParams => {
-                                         action          => 'revoke',
-                                         printableAction => __('Revoke')
-                                        },
+  push ( @revokeTable, [ printableName => '', 
+			 component => '/ca/forceRenew.mas:buttons',
+			 action          => 'revoke',
+			 printableAction => __('Revoke')
                        ],
-       );
+      );
 </%perl>
 <form action="RevokeCertificate" method="post" >
   <& formTable.mas, rows => \@revokeTable &>

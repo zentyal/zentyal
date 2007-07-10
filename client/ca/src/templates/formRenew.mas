@@ -17,12 +17,10 @@
                          printableName => __('CA Passphrase') ]);
   }
 
-  push ( @renewTable, [ printableName => '', name => 'inputs',
+  push ( @renewTable, [ printableName => '', 
                         component => '/ca/forceRenew.mas:buttons',
-                        extraParams => {
-                                        action          => 'renew',
-                                        printableAction => __('Renew')
-                                       },
+			action          => 'renew',
+			printableAction => __('Renew')
                       ],
        );
 </%init>
