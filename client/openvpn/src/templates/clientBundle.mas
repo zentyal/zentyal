@@ -12,8 +12,7 @@ my $certificateInput =  [
 			 name => 'clientCertificate', 
 			 printableName => __(q{Client's certificate}), 
 			 input => 'select', 
-			 extraParams => [ options =>
-					  \@certificateOptions , ], 
+			 options => \@certificateOptions ,  
 			 help => __('This certificate will be used by the client to authenticate itself to the server'),
 			];
 
@@ -21,10 +20,11 @@ my $osInput = [
 			 name => 'os', 
 			 printableName => __(q{Client's operative system}), 
 			 input => 'select', 
-			 extraParams => [ options =>
-					  [ {value => 'windows', printableValue =>'Windows'}, 
-					    {value => 'linux',   printableValue =>'Linux'} ] , 
-					], 
+			  options => [ 
+				      {value => 'windows', printableValue =>'Windows'}, 
+				      {value => 'linux',   printableValue =>'Linux'} 
+				     ] , 
+					
 			 help => __('This selection should match the operative
 			 system running in the client computer'),
 			];

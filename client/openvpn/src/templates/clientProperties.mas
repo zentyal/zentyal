@@ -15,14 +15,15 @@ my @tableElements  = (
       # server portion (if we support someday multiple servers the
       # protocol would be part of client portion
       [ name => 'serverAddr',            printableName => __("Server's address"),], 
-      [ name => 'proto',             printableName => __("Server's
-  protocol"), 
-       input => 'select', extraParams => [ options => [
-                                               { value => 'tcp',
-					       printableValue => 'TCP' },
-                                               { value => 'udp',
-					       printableValue => 'UDP' },
-                                         ], ], 
+      [ name => 'proto',             
+	printableName => __("Server's protocol"), 
+        input => 'select', 
+	options => [
+		    { value => 'tcp',
+		      printableValue => 'TCP' },
+		    { value => 'udp',
+		      printableValue => 'UDP' },
+		   ], 
        ],
       [ name => 'serverPort',            printableName => __("Server's Port"),],
 

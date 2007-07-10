@@ -14,7 +14,7 @@ my $certificateInput =  [
 			 name => 'certificate', 
 			 printableName => __('Certificate'), 
 			 input => 'select',
-			 extraParams => [ options => \@certificateOptions] ,
+			 options => \@certificateOptions ,
 			 help => __('This certificate will be used by the server to authenticate itself'),
 			];
 
@@ -23,7 +23,7 @@ my $tlsRemoteInput = [
 		      name => 'tlsRemote',
 		      printableName => __('Client authorization by common name'),
 		      input => 'select',
-		      extraParams => [ options => \@tlsRemoteOptions ], 
+		       options => \@tlsRemoteOptions, 
 		      help        => __("Only clients with this value as full common name's prefix will be authorized"),
 		     ];
 
@@ -40,7 +40,8 @@ if ($properties{local}) {
 
 my $localInput   =  [
 		     name  => 'local', printableName => __('Interface to listen on'), 
-		     input => 'select', extraParams => [ options => \@localOptions], 
+		     input => 'select', 
+		     options => \@localOptions, 
 		     help  => __('The server will be listen only in all external interfaces or only in the interface selected'),
 		    ];				       
 
@@ -51,12 +52,13 @@ my @tableElements  = (
       [ name => 'subnet',            printableName => __('VPN subnet'),], 
       [ name => 'subnetNetmask',     printableName => __('VPN subnet netmask'),], 
       [ name => 'proto',             printableName => __('Protocol'), 
-       input => 'select', extraParams => [ options => [
-                                               { value => 'tcp',
-					       printableValue => 'TCP' },
-                                               { value => 'udp',
-					       printableValue => 'UDP' },
-                                         ], ], 
+       input => 'select',  
+       options => [ 
+		   { value => 'tcp',
+		     printableValue => 'TCP' },
+		   { value => 'udp',
+		     printableValue => 'UDP' },
+		  ], 
        ],					 
       $certificateInput,	
       $tlsRemoteInput,
