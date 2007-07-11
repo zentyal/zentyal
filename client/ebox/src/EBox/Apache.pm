@@ -135,7 +135,9 @@ sub _writeHttpdConfFile
 	push @confFileParams, ( user => EBox::Config::user);
 	push @confFileParams, ( group => EBox::Config::group);
 	push @confFileParams, ( serverroot => $self->serverroot);
-	push @confFileParams, ( debug => EBox::Config::configkey('debug'));
+
+        my $debugMode =  EBox::Config::configkey('debug') eq 'yes';
+	push @confFileParams, ( debug => $debugMode);
 
 	$interp->exec($comp, @confFileParams);
 
