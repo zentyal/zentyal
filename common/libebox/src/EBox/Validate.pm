@@ -23,6 +23,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 use EBox::NetWrappers qw();
 use Net::IP;
+use Mail::RFC822::Address;
 
 use constant IFNAMSIZ => 16; #Max length name for interfaces
 
@@ -586,6 +587,44 @@ sub checkHost # (domain, name?)
   }
 
 }
+
+#
+# Function: checkEmailAddress
+#
+#       Check the validity for a given FQDN email address
+#
+# Parameters:
+#
+#       address - email address to check
+#	name    - Data's name to be used when throwing an Exception
+#
+# Returns:
+#
+#	boolean - True if the address is correct. False on failure when
+#	parameter name is NOT defined
+#
+# Exceptions:
+#
+#	If name is passed an exception will  be raised on failure
+#
+#	<EBox::Exceptions::InvalidData> - address is incorrect
+#
+sub checkEmailAddress
+{
+  my ($address, $name) = @_;
+
+  unless ( Mail::RFC822::Address::valid($address)) {
+    if ($name) {
+      throw EBox::Exceptions::InvalidData
+	('data' => $name, 'value' => $address);
+    } else {
+      return undef;
+    }
+  }
+  
+  return 1;
+}
+
 
 # Function: isPrivateDir
 #

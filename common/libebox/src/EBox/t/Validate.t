@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 100;
+use Test::More tests => 105;
 use Test::Exception;
 use Fatal qw(mkdir);
 
@@ -14,6 +14,7 @@ checkFilePathTest();
 checkAbsoluteFilePathTest();
 checkIsPrivateDir();
 checkHostTest();
+checkEmailAddressTest();
 
 sub checkFilePathTest
 {
@@ -148,5 +149,30 @@ sub checkHostTest
     }
 }
 
+
+sub checkEmailAddressTest
+{
+  my @straightCases = qw(
+       macaco@monos.org
+       homo.sapiens@primates.com
+       mandrill+colorful@monos.org
+   );
+
+
+  my @deviantCases = qw(
+      macaco
+   );
+
+    foreach my $case (@straightCases) {
+	my $name = "checking validation for straight case: $case";
+	ok EBox::Validate::checkEmailAddress($case), $name;
+    }
+
+    foreach my $case (@deviantCases) {
+	my $name = "checking validation error for deviant case: $case";
+	ok ! EBox::Validate::checkEmailAddress($case), $name;
+	dies_ok {  EBox::Validate::checkEmailAddress($case, $name) } "$name (with name parameter)";
+    }
+}
 
 1;
