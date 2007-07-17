@@ -1,0 +1,11 @@
+Source: ebox-mailfilter
+Section: web
+Priority: optional
+Maintainer: Isaac Clerencia <isaac@warp.es>
+Build-Depends: debhelper (>= 4.0.0)
+Standards-Version: 3.6.1
+
+Package: ebox-mailfilter
+Architecture: all
+Depends: ebox (>= 0.8.99), ebox (<< 0.9.99), ebox-firewall, ebox-usersandgroups , ebox-mail, amavisd-new (>= 2.4.2), clamav, clamav-daemon, clamav-freshclam, spamassassin, libnet-dns-perl
+Description: Mail filter module

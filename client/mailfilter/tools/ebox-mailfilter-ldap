@@ -1,0 +1,63 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+use EBox::MailVDomainsLdap;
+use EBox::MailFilter::VDomainsLdap;
+use EBox::Sudo qw(root);
+
+
+
+EBox::init();
+
+
+sub update
+{
+  my $vdomainMailfilter = new EBox::MailFilter::VDomainsLdap;
+  my @vdomains = _vdomains();
+  foreach my $vdomain (@vdomains) {
+    $vdomainMailfilter->_addVDomain($vdomain);
+  }
+}
+
+
+sub clean
+{
+  my $vdomainMailfilter = new EBox::MailFilter::VDomainsLdap;
+  my @vdomains = _vdomains();
+  foreach my $vdomain (@vdomains) {
+    $vdomainMailfilter->_delVDomain($vdomain);
+  }
+}
+
+
+sub _vdomains
+{
+  my $vdomainMail       = new EBox::MailVDomainsLdap;
+  return $vdomainMail->vdomains();
+}
+
+sub usage {
+	print "Usage: $0 update | clean\n";
+	exit 1;
+}
+
+unless ($#ARGV == 0) {
+	usage();
+}
+
+if ($ARGV[0] eq 'update') {
+	update();
+} elsif ($ARGV[0] eq 'clean') {
+	clean();
+} else {
+	usage();
+}
+
+1;
+
+
+
+

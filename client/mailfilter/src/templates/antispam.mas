@@ -1,0 +1,138 @@
+<%args>
+$active
+$policy
+
+$spamThreshold
+
+$bayes
+
+$autoWhitelist
+
+
+$autolearn
+$autolearnHamThreshold
+$autolearnSpamThreshold
+
+$spamSubjectTag
+
+@whitelist
+@blacklist
+</%args>
+<%init>
+
+
+my @antispamOptions = (
+  [
+     name  => 'spamThreshold',
+     input => 'text',
+     value => $spamThreshold,
+     printableName => __('Spam threshold'),
+     help          => __('The score threshold to mark a message as spam'),
+  ],
+  [ 
+     name => 'spamSubjectTag', 
+     input => 'text', 
+     value => $spamSubjectTag,
+     printableName => __('Spam subject tag'),
+     help  => __('Tag which will be added to the subject of spam mail'),
+  ],
+  [ 
+     name => 'bayes', 
+     input => 'checkbox', 
+     value => $bayes,
+     printableName => __('Use bayesian classefier'),
+  ],
+  [ 
+     name => 'autoWhitelist', 
+     input => 'checkbox', 
+     value => $autoWhitelist,
+     printableName => __('Auto-whitelist'),
+     help => __('Change the score of mail according the history of the sender'),
+  ],
+  [ 
+     name => 'autolearn', 
+     input => 'checkbox', 
+     value => $autolearn,
+     printableName => __('Auto-learn'),
+     help => __('Feedback the learning system with messages that reach the threshold'),
+  ],
+  [ 
+     name => 'autolearnSpamThreshold', 
+     input => 'text', 
+     value => $autolearnSpamThreshold,
+     printableName => __('Autolearn spam threshold'),
+     help  => __('Spam messages which a score equal or greater than this threshold will be  introduced  in the learning system '),
+  ],
+  [
+     name => 'autolearnHamThreshold', 
+     input => 'text', 
+     value => $autolearnHamThreshold,
+     printableName => __('Autolearn ham threshold'),
+     help  => __('Ham messages which a score below this treshold will be introduced in the learning system'),
+  ],
+  [
+    name => 'change',
+    input => 'submit',
+    value => __('Change'),
+  ],   
+);
+
+
+my $spamSelect = [
+		  name => 'mailboxType',
+		  printableName => __('Mailbox contains'),
+		  input => 'select',
+		  options => [
+			      { value => 'spam', printableValue => __('spam') },
+			      { value => 'ham', printableValue => __('ham') },
+			     ],
+
+		 ];
+my @trainingRows = (
+		    [
+		     name => 'mailbox',
+		     printableName => __('Mailbox'),
+		     input    => 'file',
+		     
+		    ],
+		    $spamSelect,
+		    [
+		     name  => 'train',
+		     input => 'submit',
+		     value => __('Train'),
+		    ],
+		    
+);
+
+
+</%init>
+
+<& /enable.mas,
+  title => __('Antispam'),
+  action => 'EnableAntispam',
+  active => $active,
+&>
+<h3><% __('Spam policy') %></h3>
+<& /mailfilter/policy.mas,
+   title   => __('Policy'),
+   type    => 'spam',
+   policy => $policy,
+   menu => 'antispam',
+&>
+<br/>
+<h3><% __('Antispam options') %></h3>
+<form action='ChangeAntispamSettings' method='post'>
+<& /formTable.mas, rows => \@antispamOptions &>
+</form>
+<br/>
+<h3><% __('Antispam global sender access lists') %> </h3>
+<& /mailfilter/antispamACL.mas,
+     vdomain => undef,
+     whitelist => \@whitelist,
+     blacklist => \@blacklist,
+&>
+<br/>
+<h3><% __('Spam filter training') %></h3>
+<form  enctype='multipart/form-data' action='AntispamTraining' method='post'>
+<& /formTable.mas, rows => \@trainingRows &>
+</form>

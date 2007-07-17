@@ -1,0 +1,21 @@
+# Spanish translations for EBox-mailfilter package.
+# Copyright (C) 2006 Warp S.L.
+# This file is distributed under the same license as the EBox-mailfilter package.
+# Automatically generated, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-mailfilter 0.7.99\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2005-08-09 10:37+0200\n"
+"PO-Revision-Date: 2007-01-27 17:22+0000\n"
+"Last-Translator: Enrique J. Hernndez <quique@warp.es>\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural= (n != 1);\n"
+"X-Generator: Pootle 0.10.1\n"
+
+#: src/EBox/MailFilter.pm:41
+msgid "MailFilter system"
+msgstr "Sistema de filtrado"

@@ -1,0 +1,127 @@
+<%args>
+$vdomain
+	
+$antivirus       
+$globalAntivirus 
+		
+$antispam       
+$globalAntispam 
+
+$spamThreshold
+$globalSpamThreshold
+	 	
+@whitelist     
+@blacklist     
+</%args>
+<%init>
+use EBox::Gettext;
+
+# active si the default if not ldap entry is present..
+defined $antivirus or
+   $antivirus = 1;
+defined $antispam or
+   $antispam = 1;
+
+
+my $antivirusPrintableName = __('Use virus filtering');
+my @antivirusCheckbox = (
+                              name  => 'antivirus',
+			      input => 'checkbox',
+			      value => $antivirus,
+			      printableName => $antivirusPrintableName,
+                          );
+
+if (not $globalAntivirus) {
+   my $warningMsg =  __x(
+			 'The "{name}"  setting will not have effect until the
+   antivirus service will be enabled in the mail filter',
+			 name => $antivirusPrintableName,
+			); 
+   push @antivirusCheckbox, ( warning => $warningMsg);
+}
+
+my $antispamPrintableName = __('Use spam filtering');
+my @antispamCheckbox = (
+                              name  => 'antispam',
+			      input => 'checkbox',
+			      value => $antispam,
+			      printableName => $antispamPrintableName,
+                          );
+
+if (not $globalAntispam) {
+   my $warningMsg =  __x(
+			 'The "{name}"  setting will not have effect until the
+   antispam sergice will be enabled in the mail filter',
+			 name => $antispamPrintableName,
+			); 
+   push @antispamCheckbox, ( warning => $warningMsg);
+}
+
+
+my @mailfilterSettings = (
+     [
+        name  => 'vdomain',
+	input => 'hidden',
+	value => $vdomain,
+     ],
+     \@antivirusCheckbox,
+     \@antispamCheckbox,
+    [
+         name  => 'defaultSpamThreshold',
+         id    => 'defaultSpamThreshold',
+         printableName => __x(
+			       'Use default spam threshold (current value is {v})',
+			      v => $globalSpamThreshold,
+			      ),
+         input => 'checkbox',
+         value => not (defined $spamThreshold),
+         onclick => 'updateDefaultSpamThreshold()',
+    ],
+    [
+          name   => 'spamThreshold',
+          id     => 'spamThreshold',
+	  input  => 'text',
+	  value  => defined $spamThreshold ? $spamThreshold : '',
+	  printableName => __x(
+			       'Spam threshold for {domain} virtual domain',
+			       domain => $vdomain,
+			      ),
+         defined $spamThreshold ? () : (disabled => 'disabled'),
+     ],
+     [
+       name  => 'change',
+       input => 'submit',
+       value => __('Change'),
+     ],
+
+);
+
+
+</%init>
+<h2><% __("Mail filter options") %></h2>
+<form action='/ebox/MailFilter/ChangeVDomainSettings' method='POST'>
+<& /formTable.mas, rows => \@mailfilterSettings &>
+</form>
+
+<h2><% __('Antispam sender access lists') %> </h2>
+<& /mailfilter/antispamACL.mas,
+     vdomain => $vdomain,
+     whitelist => \@whitelist,
+     blacklist => \@blacklist,
+&>
+%# script to enable/disable spamThresahold input text
+<script type="text/javascript">
+function updateDefaultSpamThreshold() {
+    var defaultSpamThreshold = document.getElementById("defaultSpamThreshold")
+    var spamThreshold = document.getElementById("spamThreshold")
+    var val = <% $globalSpamThreshold %>;
+
+    if(defaultSpamThreshold.checked) {
+        spamThreshold.disabled = true;
+        spamThreshold.value = '';
+    } else {
+        spamThreshold.disabled = false;
+        spamThreshold.value = val;
+    }
+}
+</script>

@@ -1,0 +1,19 @@
+<%args>
+$clamdConfFile
+$observerScript
+$databaseMirrorLocalCode => 'local'
+</%args>
+DatabaseOwner clamav
+UpdateLogFile /var/log/clamav/freshclam.log
+LogFileMaxSize 0
+MaxAttempts 5
+
+DatabaseMirror <% "db.$databaseMirrorLocalCode.clamav.net" %>
+DatabaseMirror database.clamav.net
+DatabaseDirectory /var/lib/clamav/
+NotifyClamd <% $clamdConfFile %>
+DNSDatabaseInfo current.cvd.clamav.net
+
+OnUpdateExecute  <% "$observerScript update" %>
+OnErrorExecute <% "$observerScript error" %>
+OnOutdatedExecute <% "$observerScript outdated %v" %>

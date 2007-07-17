@@ -1,0 +1,1294 @@
+<%args>
+$myhostname
+$mydomain
+
+@localDomains => ()
+
+$port         => 10024
+
+@allowedExternalMTAs => ()
+
+$ldapBase 
+$ldapQueryFilter 
+$ldapBindDn 
+$ldapBindPasswd 
+
+$antivirusActive => 1
+$clamdSocket   => undef
+$virusPolicy => 'D_DISCARD'
+
+
+$antispamActive     => 1
+$spamSubjectTag => '***SPAM***'
+$spamPolicy         => 'D_PASS'
+
+$spamThreshold           => 5
+
+$antispamLocalTestsOnly => 0
+$antispamAutoWhitelist  => 1
+$antispamWhitelist => []
+$antispamBlacklist => []
+
+@bannedFileTypes => ()
+$bannedPolicy    => 'D_BOUNCE'
+
+
+$bheadPolicy => 'D_PASS'
+
+$adminAddress
+
+$debug => 0
+</%args>
+
+use strict;
+use warnings;
+
+<& essentialSettings, myhostname => $myhostname, mydomain => $mydomain,
+   localDomains => \@localDomains,  &>
+<& MTASpecific,
+  port => $port,
+  allowedExternalMTAs => \@allowedExternalMTAs,
+&>
+<&  LDAPSettings,
+base => $ldapBase,
+queryFilter => $ldapQueryFilter,
+bindDn => $ldapBindDn,
+bindPasswd => $ldapBindPasswd,
+&>
+<& logging, debug => $debug &>
+<& notificationsAndDestiny,
+  virusPolicy  => $virusPolicy, 
+  spamPolicy   => $spamPolicy, 
+  bannedPolicy => $bannedPolicy, 
+  bheadPolicy  => $bheadPolicy ,
+  adminAddress => $adminAddress,
+&>
+<& bannedFileTypes, bannedTypes => \@bannedFileTypes &>
+<& perRecipientAndPerSender &>
+<& resourcesLimits &>
+<& externalPrograms &>
+<& antivirus, active =>$antivirusActive,  clamdSocket => $clamdSocket &>
+<& spamAssassin, 
+  active => $antispamActive, 
+
+  spamSubjectTag =>  $spamSubjectTag ,
+  spamThreshold  => $spamThreshold,
+  localTestsOnly =>  $antispamLocalTestsOnly,
+  autoWhitelist  => $antispamAutoWhitelist,
+
+  whitelist    => $antispamWhitelist,
+  blacklist    => $antispamBlacklist,
+&>
+<& debugging, debug => $debug &>
+#-------------
+1;  # insure a defined return
+
+
+
+#Sections:
+# Section I    - Essential daemon and MTA settings
+# Section II   - MTA specific
+# Section III  - Logging
+# Section IV   - Notifications/DSN, BOUNCE/REJECT/DROP/PASS destiny, quarantine
+# Section V    - Per-recipient and per-sender handling, whitelisting, etc.
+# Section VI   - Resource limits
+# Section VII  - External programs, virus scanners, SpamAssassin
+# Section VIII - Debugging
+
+<%def essentialSettings>
+<%args>
+$myhostname
+$mydomain  
+@localDomains
+
+$maxServers  => 2
+$maxRequests => 10
+</%args>
+<%init>
+if ( 0 == ( grep { $_ eq $mydomain } @localDomains)) {
+    push @localDomains, $mydomain;
+}
+</%init>
+#
+# Section I - Essential daemon and MTA settings
+#
+
+# $MYHOME serves as a quick default for some other configuration settings.
+# More refined control is available with each individual setting further down.
+# $MYHOME is not used directly by the program. No trailing slash!
+$MYHOME = '/var/lib/amavis';   # (default is '/var/amavis')
+
+# $mydomain serves as a quick default for some other configuration settings.
+# More refined control is available with each individual setting further down.
+# $mydomain is never used directly by the program.
+<& .textVar, 'mydomain', $mydomain &>
+
+# fqdn of this host, default by uname(3)
+<& .textVar, 'myhostname', $myhostname &>
+
+# Set the user and group to which the daemon will change if started as root
+# (otherwise just keeps the UID unchanged, and these settings have no effect):
+$daemon_user  = 'amavis';	# (no default (undef))
+$daemon_group = 'amavis';	# (no default (undef))
+
+# Runtime working directory (cwd), and a place where
+# temporary directories for unpacking mail are created.
+# if you change this, you might want to modify the cleanup()
+# function in /etc/init.d/amavisd-new
+# (no trailing slash, may be a scratch file system)
+$TEMPBASE = $MYHOME;           # (must be set if other config vars use is)
+
+
+# $helpers_home sets environment variable HOME, and is passed as option
+# 'home_dir_for_helpers' to Mail::SpamAssassin::new. It should be a directory
+# on a normal persistent file system, not a scratch or temporary file system
+$helpers_home = $MYHOME;      # (defaults to $MYHOME)
+
+# Run the daemon in the specified chroot jail if nonempty:
+#$daemon_chroot_dir = $MYHOME;  # (default is undef, meaning: do not chroot)
+
+$pid_file  = "/var/run/amavis/amavisd.pid";  # (default: "$MYHOME/amavisd.pid")
+$lock_file = "/var/run/amavis/amavisd.lock"; # (default: "$MYHOME/amavisd.lock")
+
+# set environment variables if you want (no defaults):
+$ENV{TMPDIR} = $TEMPBASE;       # wise to set TMPDIR, but not obligatory
+#...
+
+
+
+
+# MTA SETTINGS, UNCOMMENT AS APPROPRIATE,
+# both $forward_method and $notify_method default to 'smtp:127.0.0.1:10025'
+
+
+# Net::Server pre-forking settings
+# You may want $max_servers to match the width of your MTA pipe
+# feeding amavisd, e.g. with Postfix the 'Max procs' field in the
+# master.cf file, like the '2' in the:  smtp-amavis unix - - n - 2 smtp
+#
+<& .scalarVar, 'max_servers', $maxServers &>
+<& .scalarVar, 'max_requests', $maxRequests &>
+
+$child_timeout=5*60;  # abort child if it does not complete each task in n sec
+                      # (default: 8*60 seconds)
+
+
+
+# Lookup list of local domains (see README.lookups for syntax details)
+#
+# NOTE:
+#   For backwards compatibility the variable names @local_domains (old) and
+#   @local_domains_acl (new) are synonyms. For consistency with other lookups
+#   the name @local_domains_acl is now preferred. It also makes it more
+#   obviously distinct from the new %local_domains hash lookup table.
+#
+# local_domains* lookup tables are used in deciding whether a recipient
+# is local or not, or in other words, if the message is outgoing or not.
+# This affects inserting spam-related headers for local recipients,
+# limiting recipient virus notifications (if enabled) to local recipients,
+# in deciding if address extension may be appended, and in SQL lookups
+# for non-fqdn addresses. Set it up correctly if you need features
+# that rely on this setting (or just leave empty otherwise).
+#
+# With Postfix (2.0) a quick reminder on what local domains normally are:
+# a union of domains specified in: $mydestination, $virtual_alias_domains,
+# $virtual_mailbox_domains, and $relay_domains.
+#
+@local_domains_acl = qw( <% "@localDomains"%> );  # $mydomain and its subdomains
+
+</%def>
+
+
+<%def LDAPSettings>
+<%args>
+$base
+$queryFilter
+$bindDn
+$bindPasswd
+</%args>
+$enable_ldap = 1;
+$default_ldap = {
+  hostname => 'localhost',
+  base     => <% "'$base'" %>,
+  query_filter => <% "'$queryFilter'" %>,
+  bind_dn   =>    <% "'$bindDn'" %>,
+  bind_password => <% "'$bindPasswd'" %>,
+};
+
+
+</%def>
+
+<%def MTASpecific>
+<%args>
+$port
+@allowedExternalMTAs
+</%args>
+<%init>
+my $bindAllIfaces = @allowedExternalMTAs > 0;
+my @allowedMTAs =  ('127.0.0.1', @allowedExternalMTAs);
+</%init>
+#
+# Section II - MTA specific (defaults should be ok)
+#
+
+# if $relayhost_is_client is true, the IP address in $notify_method and
+# $forward_method is dynamically overridden with SMTP client peer address
+# (if available), which makes it possible for several hosts to share one 
+# daemon.  The static port number is also overridden, and is dynamically 
+# calculated  as being one above the incoming SMTP/LMTP session port number.
+#
+# These are logged at level 3, so enable logging until you know you got it
+# right.
+$relayhost_is_client = 1;         # to allow dimaic forward_method
+
+$insert_received_line = 1;        # behave like MTA: insert 'Received:' header
+			          # (does not apply to sendmail/milter)
+			          # (default is true (1) )
+
+# AMAVIS-CLIENT PROTOCOL INPUT SETTINGS (e.g. with sendmail milter)
+$unix_socketname = undef;         # disable listening on a unix socket
+                                  # (default is undef, i.e. disabled)
+
+# Do we receive quoted or raw addresses from the helper program?
+# (does not apply to SMTP;  defaults to true)
+$gets_addr_in_quoted_form = 1;   # "Bob \"Funny\" Dude"@example.com
+
+
+
+
+# SMTP SERVER (INPUT) PROTOCOL SETTINGS (e.g. with Postfix, Exim v4, ...)
+#   (used when MTA is configured to pass mail to amavisd via SMTP or LMTP)
+<& .scalarVar, 'inet_socket_port', $port &>
+                                  # accept SMTP on this local TCP port
+                                  # (default is undef, i.e. disabled)
+# multiple ports may be provided: $inet_socket_port = [10024, 10026, 10028];
+
+# SMTP SERVER (INPUT) access control
+# - do not allow free access to the amavisd SMTP port !!!
+#
+# when MTA is at the same host, use the following (one or the other or both):
+
+% if ($bindAllIfaces) {
+     $inet_socket_bind = undef;
+% } else {
+      $inet_socket_bind = '127.0.0.1';  # limit socket bind to loopback interface
+% }
+
+
+@inet_acl = qw( <% "@allowedMTAs" %>); 
+
+# when MTA (one or more) is on a different host, use the following:
+# @inet_acl = qw(127/8 10.1.0.1 10.1.0.2);  # adjust the list as appropriate
+# $inet_socket_bind = undef;      # bind to all IP interfaces if undef
+#
+# Example1:
+# @inet_acl = qw( 127/8 10/8 172.16/12 192.168/16 );
+# permit only SMTP access from loopback and rfc1918 private address space
+#
+# Example2:
+# @inet_acl = qw( !192.168.1.12 172.16.3.3 !172.16.3/255.255.255.0
+#		  127.0.0.1 10/8 172.16/12 192.168/16 );
+# matches loopback and rfc1918 private address space except host 192.168.1.12
+# and net 172.16.3/24 (but host 172.16.3.3 within 172.16.3/24 still matches)
+#
+# Example3:
+# @inet_acl = qw( 127/8
+#		  !172.16.3.0   !172.16.3.127 172.16.3.0/25
+#		  !172.16.3.128 !172.16.3.255 172.16.3.128/25 );
+# matches loopback and both halves of the 172.16.3/24 C-class,
+# split into two subnets, except all four broadcast addresses
+# for these subnets
+#
+# See README.lookups for details on specifying access control lists.
+</%def>
+
+
+<%def logging>
+<%args>
+$debug => 0
+</%args>
+#
+# Section III - Logging
+#
+
+# true (e.g. 1) => syslog;  false (e.g. 0) => logging to file
+$DO_SYSLOG = 1;                 # (defaults to false)
+#$SYSLOG_LEVEL = 'user.info';     # (facility.priority, default 'mail.info')
+
+# Log file (if not using syslog)
+$LOGFILE = "/var/log/amavis.log";  # (defaults to empty, no log)
+
+#NOTE: levels are not strictly observed and are somewhat arbitrary
+# 0: startup/exit/failure messages, viruses detected
+# 1: args passed from client, some more interesting messages
+# 2: virus scanner output, timing
+# 3: server, client
+# 4: decompose parts
+# 5: more debug details
+% if ($debug) {
+$log_level = 3;
+% } else {
+$log_level = 1;
+% }
+# Customizable template for the most interesting log file entry (e.g. with
+# $log_level=0) (take care to properly quote Perl special characters like '\')
+# For a list of available macros see README.customize .
+
+
+<%text>
+# only log infected messages (useful with log level 0):
+# $log_templ = '[? %#V |[? %#F ||banned filename ([%F|,])]|infected ([%V|,])]#
+# [? %#V |[? %#F ||, from=[?%o|(?)|<%o>], to=[<%R>|,][? %i ||, quarantine %i]]#
+# |, from=[?%o|(?)|<%o>], to=[<%R>|,][? %i ||, quarantine %i]]';
+
+# log both infected and noninfected messages (default):
+$log_templ = '[? %#V |[? %#F |[?%#D|Not-Delivered|Passed]|BANNED name/type (%F)]|INFECTED (%V)], #
+[?%o|(?)|<%o>] -> [<%R>|,][? %i ||, quarantine %i], Message-ID: %m,
+Hits: %c';
+</%text>
+
+
+</%def>
+
+
+<%def notificationsAndDestiny>
+<%args>
+$spamPolicy
+$virusPolicy
+$bheadPolicy
+$bannedPolicy
+
+$adminAddress
+</%args>
+#
+# Section IV - Notifications/DSN, BOUNCE/REJECT/DROP/PASS destiny, quarantine
+#
+
+# Select notifications text encoding when Unicode-aware Perl is converting
+# text from internal character representation to external encoding (charset
+# in MIME terminology). Used as argument to Perl Encode::encode subroutine.
+#
+#   to be used in RFC 2047-encoded header field bodies, e.g. in Subject:
+#$hdr_encoding = 'iso-8859-1';  # (default: 'iso-8859-1')
+#
+#   to be used in notification body text: its encoding and Content-type.charset
+#$bdy_encoding = 'iso-8859-1';  # (default: 'iso-8859-1')
+
+# Default template texts for notifications may be overruled by directly
+# assigning new text to template variables, or by reading template text
+# from files. A second argument may be specified in a call to read_text(),
+# specifying character encoding layer to be used when reading from the
+# external file, e.g. 'utf8', 'iso-8859-1', or often just $bdy_encoding.
+# Text will be converted to internal character representation by Perl 5.8.0
+# or later; second argument is ignored otherwise. See PerlIO::encoding,
+# Encode::PerlIO and perluniintro man pages.
+#
+# $notify_sender_templ      = read_text('/var/amavis/notify_sender.txt');
+# $notify_virus_sender_templ= read_text('/var/amavis/notify_virus_sender.txt');
+# $notify_virus_admin_templ = read_text('/var/amavis/notify_virus_admin.txt');
+# $notify_virus_recips_templ= read_text('/var/amavis/notify_virus_recips.txt');
+# $notify_spam_sender_templ = read_text('/var/amavis/notify_spam_sender.txt');
+# $notify_spam_admin_templ  = read_text('/var/amavis/notify_spam_admin.txt');
+
+# If notification template files are collectively available in some directory,
+# use read_l10n_templates which calls read_text for each known template.
+#
+#   read_l10n_templates('/etc/amavis/en_US');
+#
+# Debian available locales: en_US, pt_BR, de_DE, it_IT
+read_l10n_templates('en_US', '/etc/amavis');
+
+
+# Here is an overall picture (sequence of events) of how pieces fit together
+# (only virus controls are shown, spam controls work the same way):
+#
+#   bypass_virus_checks? ==> PASS
+#   no viruses?   ==> PASS
+#   log virus     if $log_templ is nonempty
+#   quarantine    if $virus_quarantine_to is nonempty
+#   notify admin  if $virus_admin (lookup) nonempty
+#   notify recips if $warnvirusrecip and (recipient is local or $warn_offsite)
+#   add address extensions if adding extensions is enabled and virus will pass
+#   send (non-)delivery notifications
+#      to sender if DSN needed (BOUNCE or ($warn_virus_sender and D_PASS))
+#   virus_lovers or final_destiny==D_PASS  ==> PASS
+#   DISCARD (2xx) or REJECT (5xx) (depending on final_*_destiny)
+#
+# Equivalent flow diagram applies for spam checks.
+# If a virus is detected, spam checking is skipped entirely.
+
+# The following symbolic constants can be used in *destiny settings:
+#
+# D_PASS     mail will pass to recipients, regardless of bad contents;
+#
+# D_DISCARD  mail will not be delivered to its recipients, sender will NOT be
+#            notified. Effectively we lose mail (but will be quarantined
+#            unless disabled). Losing mail is not decent for a mailer,
+#            but might be desired.
+#
+# D_BOUNCE   mail will not be delivered to its recipients, a non-delivery
+#            notification (bounce) will be sent to the sender by amavisd-new;
+#            Exception: bounce (DSN) will not be sent if a virus name matches
+#            $viruses_that_fake_sender_re, or to messages from mailing lists
+#            (Precedence: bulk|list|junk);
+#
+# D_REJECT   mail will not be delivered to its recipients, sender should
+#            preferably get a reject, e.g. SMTP permanent reject response
+#            (e.g. with milter), or non-delivery notification from MTA
+#            (e.g. Postfix). If this is not possible (e.g. different recipients
+#            have different tolerances to bad mail contents and not using LMTP)
+#            amavisd-new sends a bounce by itself (same as D_BOUNCE).
+#
+# Notes:
+#   D_REJECT and D_BOUNCE are similar, the difference is in who is responsible
+#            for informing the sender about non-delivery, and how informative
+#            the notification can be (amavisd-new knows more than MTA);
+#   With D_REJECT, MTA may reject original SMTP, or send DSN (delivery status
+#            notification, colloquially called 'bounce') - depending on MTA;
+#            Best suited for sendmail milter, especially for spam.
+#   With D_BOUNCE, amavisd-new (not MTA) sends DSN (can better explain the
+#            reason for mail non-delivery, but unable to reject the original
+#            SMTP session). Best suited to reporting viruses, and for Postfix
+#            and other dual-MTA setups, which can't reject original client SMTP
+#            session, as the mail has already been enqueued.
+
+$final_virus_destiny      = <% $virusPolicy %>; # (defaults to D_BOUNCE)
+$final_banned_destiny     = <% $bannedPolicy %> ;  # (defaults to D_BOUNCE)
+$final_spam_destiny       = <% $spamPolicy %>;  # (defaults to D_REJECT)
+$final_bad_header_destiny = <% $bheadPolicy %>;  # (defaults to D_PASS), D_BOUNCE suggested
+
+# Alternatives to consider for spam:
+# - use D_PASS if clients will do filtering based on inserted mail headers;
+# - use D_DISCARD, if kill_level is set safely high;
+# - use D_BOUNCE instead of D_REJECT if not using milter;
+#
+# D_BOUNCE is preferred for viruses, but consider:
+# - use D_DISCARD to avoid bothering the rest of the network, it is hopeless
+#   to try to keep up with the viruses that faker the envelope sender anyway,
+#   and bouncing only increases the network cost of viruses for everyone
+# - use D_PASS (or virus_lovers) and $warnvirussender=1 to deliver viruses;
+# - use D_REJECT instead of D_BOUNCE if using milter and under heavy
+#   virus storm;
+#
+# Don't bother to set both D_DISCARD and $warn*sender=1, it will get mapped
+# to D_BOUNCE.
+#
+# The separation of *_destiny values into D_BOUNCE, D_REJECT, D_DISCARD
+# and D_PASS made settings $warnvirussender and $warnspamsender only still
+# useful with D_PASS.
+
+# The following $warn*sender settings are ONLY used when mail is
+# actually passed to recipients ($final_*_destiny=D_PASS, or *_lovers*).
+# Bounces or rejects produce non-delivery status notification anyway.
+
+# Notify virus sender?
+#$warnvirussender = 1;	# (defaults to false (undef))
+
+# Notify spam sender?
+#$warnspamsender = 1;	# (defaults to false (undef))
+
+# Notify sender of banned files?
+#$warnbannedsender = 1;	# (defaults to false (undef))
+
+# Notify sender of syntactically invalid header containing non-ASCII characters?
+#$warnbadhsender = 1;	# (defaults to false (undef))
+
+# Notify virus (or banned files) RECIPIENT?
+#  (not very useful, but some policies demand it)
+#$warnvirusrecip = 1;	# (defaults to false (undef))
+#$warnbannedrecip = 1;	# (defaults to false (undef))
+
+# Notify also non-local virus/banned recipients if $warn*recip is true?
+#  (including those not matching local_domains*)
+#$warn_offsite = 1;    # (defaults to false (undef), i.e. only notify locals)
+
+
+# Treat envelope sender address as unreliable and don't send sender
+# notification / bounces if name(s) of detected virus(es) match the list.
+# Note that virus names are supplied by external virus scanner(s) and are
+# not standardized, so virus names may need to be adjusted.
+# See README.lookups for syntax, check also README.policy-on-notifications
+#
+$viruses_that_fake_sender_re = new_RE(
+  qr'nimda|hybris|klez|bugbear|yaha|braid|sobig|fizzer|palyh|peido|holar'i,
+  qr'tanatos|lentin|bridex|mimail|trojan\.dropper|dumaru|parite|spaces'i,
+  qr'dloader|galil|gibe|swen|netwatch|bics|sbrowse|sober|rox|val(hal)?la'i,
+  qr'frethem|sircam|be?agle|tanx|mydoom|novarg|shimg|netsky|somefool|moodown'i,
+  qr'@mm|@MM',    # mass mailing viruses as labeled by f-prot and uvscan
+  qr'Worm'i,      # worms as labeled by ClamAV, Kaspersky, etc
+  [qr'^(EICAR|Joke\.|Junk\.)'i         => 0],
+  [qr'^(WM97|OF97|W95/CIH-|JS/Fort)'i  => 0],
+  [qr/.*/ => 1],  # true by default  (remove or comment-out if undesired)
+);
+
+# where to send ADMIN VIRUS NOTIFICATIONS (should be a fully qualified address)
+# - the administrator address may be a simple fixed e-mail address (a scalar),
+#   or may depend on the SENDER address (e.g. its domain), in which case
+#   a ref to a hash table can be specified (specify lower-cased keys,
+#   dot is a catchall, see README.lookups).
+#
+#   Empty or undef lookup disables virus admin notifications.
+
+
+% if  ($adminAddress) {
+$virus_admin = '<% $adminAddress %>';		# due to D_DISCARD default
+% } else {
+$virus_admin = undef;
+% }
+
+# equivalent to $virus_admin, but for spam admin notifications:
+$spam_admin = undef;    # do not send spam admin notifications (default)
+
+
+
+
+# whom notification reports are sent from (ENVELOPE SENDER);
+# may be a null reverse path, or a fully qualified address:
+#   (admin and recip sender addresses default to $mailfrom
+#   for compatibility, which in turn defaults to undef (empty) )
+#   If using strings in double quotes, don't forget to quote @, i.e. \@
+#
+#$mailfrom_notify_admin     = "virusalert\@$mydomain";
+#$mailfrom_notify_recip     = "virusalert\@$mydomain";
+#$mailfrom_notify_spamadmin = "spam.police\@$mydomain";
+
+# 'From' HEADER FIELD for sender and admin notifications.
+# This should be a replyable address, see rfc1894. Not to be confused
+# with $mailfrom_notify_sender, which is the envelope return address
+# and should be empty (null reverse path) according to rfc2821.
+#
+# The syntax of the 'From' header field is specified in rfc2822, section
+# '3.4. Address Specification'. Note in particular that display-name must be
+# a quoted-string if it contains any special characters like spaces and dots.
+#
+# $hdrfrom_notify_sender = "amavisd-new <postmaster\@$mydomain>";
+# $hdrfrom_notify_sender = 'amavisd-new <postmaster@example.com>';
+# $hdrfrom_notify_sender = '"Content-Filter Master" <postmaster@example.com>';
+#   (defaults to: "amavisd-new <postmaster\@$myhostname>")
+# $hdrfrom_notify_admin = $mailfrom_notify_admin;
+#   (defaults to: $mailfrom_notify_admin)
+# $hdrfrom_notify_spamadmin = $mailfrom_notify_spamadmin;
+#   (defaults to: $mailfrom_notify_spamadmin)
+
+# whom quarantined messages appear to be sent from (envelope sender);
+# keeps original sender if undef, or set it explicitly, default is undef
+$mailfrom_to_quarantine = '';   # override sender address with null return path
+
+
+# Location to put infected mail into: (applies to 'local:' quarantine method)
+#   empty for not quarantining, may be a file (mailbox),
+#   or a directory (no trailing slash)
+#   (the default value is undef, meaning no quarantine)
+#
+# $QUARANTINEDIR = '/var/lib/amavis/virusmails';
+# XXX quarantine disabled for now
+$QUARANTINEDIR = undef;
+
+#$virus_quarantine_method = "local:virus-%i-%n";    # default
+#$spam_quarantine_method  = "local:spam-%b-%i-%n";  # default
+#
+#use the new 'bsmtp:' method as an alternative to the default 'local:'
+#$virus_quarantine_method = "bsmtp:$QUARANTINEDIR/virus-%i-%n.bsmtp";
+#$spam_quarantine_method  = "bsmtp:$QUARANTINEDIR/spam-%b-%i-%n.bsmtp";
+
+# When using the 'local:' quarantine method (default), the following applies:
+#
+# A finer control of quarantining is available through variable
+# $virus_quarantine_to/$spam_quarantine_to. It may be a simple scalar string,
+# or a ref to a hash lookup table, or a regexp lookup table object,
+# which makes possible to set up per-recipient quarantine addresses.
+#
+# The value of scalar $virus_quarantine_to/$spam_quarantine_to (or a
+# per-recipient lookup result from the hash table %$virus_quarantine_to)
+# is/are interpreted as follows:
+#
+# VARIANT 1:
+#   empty or undef disables quarantine;
+#
+# VARIANT 2:
+#   a string NOT containing an '@';
+# amavisd will behave as a local delivery agent (LDA) and will quarantine
+# viruses to local files according to hash %local_delivery_aliases (pseudo
+# aliases map) - see subroutine mail_to_local_mailbox() for details.
+# Some of the predefined aliases are 'virus-quarantine' and 'spam-quarantine'.
+# Setting $virus_quarantine_to ($spam_quarantine_to) to this string will:
+#
+# * if $QUARANTINEDIR is a directory, each quarantined virus will go
+#   to a separate file in the $QUARANTINEDIR directory (traditional
+#   amavis style, similar to maildir mailbox format);
+#
+# * otherwise $QUARANTINEDIR is treated as a file name of a Unix-style
+#   mailbox. All quarantined messages will be appended to this file.
+#   Amavisd child process must obtain an exclusive lock on the file during
+#   delivery, so this may be less efficient than using individual files
+#   or forwarding to MTA, and it may not work across NFS or other non-local
+#   file systems (but may be handy for pickup of quarantined files via IMAP
+#   for example);
+#
+# VARIANT 3:
+#   any email address (must contain '@').
+# The e-mail messages to be quarantined will be handed to MTA
+# for delivery to the specified address. If a recipient address local to MTA
+# is desired, you may leave the domain part empty, e.g. 'infected@', but the
+# '@' character must nevertheless be included to distinguish it from variant 2.
+#
+# This method enables more refined delivery control made available by MTA
+# (e.g. its aliases file, other local delivery agents, dealing with
+# privileges and file locking when delivering to user's mailbox, nonlocal
+# delivery and forwarding, fan-out lists). Make sure the mail-to-be-quarantined
+# will not be handed back to amavisd for checking, as this will cause a loop
+# (hopefully broken at some stage)! If this can be assured, notifications
+# will benefit too from not being unnecessarily virus-scanned.
+#
+# By default this is safe to do with Postfix and Exim v4 and dual-sendmail
+# setup, but probably not safe with sendmail milter interface without
+# precaution.
+
+# (the default value is undef, meaning no quarantine)
+
+
+$virus_quarantine_to = undef;                 # no quarantine
+
+
+# similar for spam
+# (the default value is undef, meaning no quarantine)
+#
+$spam_quarantine_to = undef;
+#$spam_quarantine_to = "spam-quarantine\@$mydomain";
+#$spam_quarantine_to = new_RE(                 # per-recip multiple quarantines
+#  [qr'^(.*)@example\.com$'i => 'spam-${1}@example.com'],
+#  [qr/.*/                   => 'spam-quarantine'] );
+
+# In addition to per-recip quarantine, a by-sender lookup is possible. It is
+# similar to $spam_quarantine_to, but the lookup key is the sender address:
+#$spam_quarantine_bysender_to = undef;   # dflt: no by-sender spam quarantine
+
+
+# Add X-Virus-Scanned header field to mail?
+$X_HEADER_TAG = 'X-Virus-Scanned';	# (default: undef)
+# Leave empty to add no header		# (default: undef)
+$X_HEADER_LINE = "by $myversion (Debian) at $mydomain";
+
+# a string to prepend to Subject (for local recipients only) if mail could
+# not be decoded or checked entirely, e.g. due to password-protected archives
+$undecipherable_subject_tag = '***UNCHECKED*** ';  # undef disables it
+
+$remove_existing_x_scanned_headers = 0; # leave existing X-Virus-Scanned alone
+#$remove_existing_x_scanned_headers= 1; # remove existing headers
+					# (defaults to false)
+#$remove_existing_spam_headers = 0;     # leave existing X-Spam* headers alone
+$remove_existing_spam_headers  = 1;     # remove existing spam headers if
+					# spam scanning is enabled (default)
+
+# set $bypass_decode_parts to true if you only do spam scanning, or if you
+# have a good virus scanner that can deal with compression and recursively
+# unpacking archives by itself, and save amavisd the trouble.
+# Disabling decoding also causes banned_files checking to only see
+# MIME names and MIME content types, not the content classification types
+# as provided by the file(1) utility.
+# It is a double-edged sword, make sure you know what you are doing!
+#
+#$bypass_decode_parts = 1;		# (defaults to false)
+
+# don't trust this file type or corresponding unpacker for this file type,
+# keep both the original and the unpacked file for a virus checker to see
+# (lookup key is what file(1) utility returned):
+#
+$keep_decoded_original_re = new_RE(
+# qr'^MAIL$',   # retain full original message for virus checking (can be slow)
+  qr'^MAIL-UNDECIPHERABLE$',  # retain full mail if it contains undecipherables
+  qr'^(ASCII(?! cpio)|text|uuencoded|xxencoded|binhex)'i,
+# qr'^Zip archive data',
+);
+</%def>
+
+<%def bannedFileTypes>
+<%args>
+@bannedTypes
+</%args>
+# Checking for banned MIME types and names. If any mail part matches,
+# the whole mail is rejected, much like the way viruses are handled.
+# A list in object $banned_filename_re can be defined to provide a list
+# of Perl regular expressions to be matched against each part's:
+#
+#  * Content-Type value (both declared and effective mime-type),
+#    including the possible security risk content types
+#    message/partial and message/external-body, as specified by rfc2046;
+#
+#  * declared (i.e. recommended) file names as specified by MIME subfields
+#    Content-Disposition.filename and Content-Type.name, both in their
+#    raw (encoded) form and in rfc2047-decoded form if applicable;
+#
+#  * file content type as guessed by 'file' utility, both the raw
+#    result from 'file', as well as short type name, classified
+#    into names such as .asc, .txt, .html, .doc, .jpg, .pdf,
+#    .zip, .exe, ... - see subroutine determine_file_types().
+#    This step is done only if $bypass_decode_parts is not true.
+#
+#  * leave $banned_filename_re undefined to disable these checks
+#    (giving an empty list to new_RE() will also always return false)
+
+$banned_filename_re = new_RE(
+#  qr'^UNDECIPHERABLE$',  # is or contains any undecipherable components
+   qr'\.[^.]*\.(exe|vbs|pif|scr|bat|cmd|com|dll)$'i, # some double extensions
+   qr'[{}]',     # curly braces in names (serve as Class ID extensions - CLSID)
+   qr'^message/partial$'i,  # rfc2046. this one is deadly for Outcrook
+% foreach my $banned (@bannedTypes) {
+   qr'<% $banned %>', 
+% }
+);
+# See http://support.microsoft.com/default.aspx?scid=kb;EN-US;q262631
+# and http://www.cknow.com/vtutor/vtextensions.htm
+
+# A little trick: a pattern qr'\.exe$' matches both a short type name '.exe',
+# as well as any file name which happens to end with .exe. If only matching
+# a file name is desired, but not the short name, a pattern qr'.\.exe$'i
+# or similar may be used, which requires that at least one character precedes
+# the '.exe', and so it will never match short file types, which always start
+# with a dot.
+</%def>
+
+#
+
+<%def perRecipientAndPerSender>
+# Section V - Per-recipient and per-sender handling, whitelisting, etc.
+#
+
+# %virus_lovers, @virus_lovers_acl and $virus_lovers_re lookup tables:
+#   (these should be considered policy options, they do not disable checks,
+#   see bypass*checks for that!)
+#
+# Exclude certain RECIPIENTS from virus filtering by adding their lower-cased
+# envelope e-mail address (or domain only) to the hash %virus_lovers, or to
+# the access list @virus_lovers_acl - see README.lookups and examples.
+# Make sure the appropriate form (e.g. external/internal) of address
+# is used in case of virtual domains, or when mapping external to internal
+# addresses, etc. - this is MTA-specific.
+#
+# Notifications would still be generated however (see the overall
+# picture above), and infected mail (if passed) gets additional header:
+#   X-AMaViS-Alert: INFECTED, message contains virus: ...
+# (header not inserted with milter interface!)
+#
+# NOTE (milter interface only): in case of multiple recipients,
+# it is only possible to drop or accept the message in its entirety - for all
+# recipients. If all of them are virus lovers, we'll accept mail, but if
+# at least one recipient is not a virus lover, we'll discard the message.
+
+
+# %bypass_virus_checks, @bypass_virus_checks_acl and $bypass_virus_checks_re
+# lookup tables:
+#   (this is mainly a time-saving option, unlike virus_lovers* !)
+#
+# Similar in concept to %virus_lovers, a hash %bypass_virus_checks,
+# access list @bypass_virus_checks_acl and regexp list $bypass_virus_checks_re
+# are used to skip entirely the decoding, unpacking and virus checking,
+# but only if ALL recipients match the lookup.
+#
+# %bypass_virus_checks/@bypass_virus_checks_acl/$bypass_virus_checks_re
+# do NOT GUARANTEE the message will NOT be checked for viruses - this may
+# still happen when there is more than one recipient for a message, and
+# not all of them match these lookup tables. To guarantee virus delivery,
+# a recipient must also match %virus_lovers/@virus_lovers_acl lookups
+# (but see milter limitations above),
+
+# NOTE: it would not be clever to base virus checks on SENDER address,
+# since there are no guarantees that it is genuine. Many viruses
+# and spam messages fake sender address. To achieve selective filtering
+# based on the source of the mail (e.g. IP address, MTA port number, ...),
+# use mechanisms provided by MTA if available.
+
+
+# Similar to lookup tables controlling virus checking, there exist
+# spam scanning, banned names/types, and headers_checks control counterparts:
+#   %spam_lovers, @spam_lovers_acl, $spam_lovers_re
+#   %banned_files_lovers, @banned_files_lovers_acl, $banned_files_lovers_re
+#   %bad_header_lovers, @bad_header_lovers_acl, $bad_header_lovers_re
+# and:
+#   %bypass_spam_checks/@bypass_spam_checks_acl/$bypass_spam_checks_re
+#   %bypass_banned_checks/@bypass_banned_checks_acl/$bypass_banned_checks_re
+#   %bypass_header_checks/@bypass_header_checks_acl/$bypass_header_checks_re
+# See README.lookups for details about the syntax.
+
+# The following example disables spam checking altogether,
+# since it matches any recipient e-mail address (any address
+# is a subdomain of the top-level root DNS domain):
+#   @bypass_spam_checks_acl = qw( . );
+
+#   @bypass_header_checks_acl = qw( user@example.com );
+#   @bad_header_lovers_acl    = qw( user@example.com );
+
+
+# See README.lookups for further detail, and examples below.
+
+# $virus_lovers{lc("postmaster\@$mydomain")} = 1;
+# $virus_lovers{lc('postmaster@example.com')} = 1;
+# $virus_lovers{lc('abuse@example.com')} = 1;
+# $virus_lovers{lc('some.user@')} = 1;  # this recipient, regardless of domain
+# $virus_lovers{lc('boss@example.com')} = 0; # never, even if domain matches
+# $virus_lovers{lc('example.com')} = 1; # this domain, but not its subdomains
+# $virus_lovers{lc('.example.com')}= 1; # this domain, including its subdomains
+#or:
+# @virus_lovers_acl = qw( me@lab.xxx.com !lab.xxx.com .xxx.com yyy.org );
+#
+# $bypass_virus_checks{lc('some.user2@butnot.example.com')} = 1;
+# @bypass_virus_checks_acl = qw( some.ddd !butnot.example.com .example.com );
+
+# @virus_lovers_acl = qw( postmaster@example.com );
+# $virus_lovers_re = new_RE( qr'^(helpdesk|postmaster)@example\.com$'i );
+
+# $spam_lovers{lc("postmaster\@$mydomain")} = 1;
+# $spam_lovers{lc('postmaster@example.com')} = 1;
+# $spam_lovers{lc('abuse@example.com')} = 1;
+# @spam_lovers_acl = qw( !.example.com );
+# $spam_lovers_re = new_RE( qr'^user@example\.com$'i );
+
+
+# don't run spam check for these RECIPIENT domains:
+#   @bypass_spam_checks_acl = qw( d1.com .d2.com a.d3.com );
+# or the other way around (bypass check for all BUT these):
+#   @bypass_spam_checks_acl = qw( !d1.com !.d2.com !a.d3.com . );
+# a practical application: don't check outgoing mail for spam:
+#   @bypass_spam_checks_acl = ( "!.$mydomain", "." );
+# (a downside of which is that such mail will not count as ham in SA bayes db)
+
+
+# Where to find SQL server(s) and database to support SQL lookups?
+# A list of triples: (dsn,user,passw).   (dsn = data source name)
+# More than one entry may be specified for multiple (backup) SQL servers.
+# See 'man DBI', 'man DBD::mysql', 'man DBD::Pg', ... for details.
+# When chroot-ed, accessing SQL server over inet socket may be more convenient.
+#
+# @lookup_sql_dsn =
+#   ( ['DBI:mysql:database=mail;host=127.0.0.1;port=3306', 'user1', 'passwd1'],
+#     ['DBI:mysql:database=mail;host=host2', 'username2', 'password2'] );
+#
+# ('mail' in the example is the database name, choose what you like)
+# With PostgreSQL the dsn (first element of the triple) may look like:
+#      'DBI:Pg:host=host1;dbname=mail'
+
+# The SQL select clause to fetch per-recipient policy settings.
+# The %k will be replaced by a comma-separated list of query addresses
+# (e.g. full address, domain only, catchall).  Use ORDER, if there
+# is a chance that multiple records will match - the first match wins.
+# If field names are not unique (e.g. 'id'), the later field overwrites the
+# earlier in a hash returned by lookup, which is why we use '*,users.id'.
+# $sql_select_policy = 'SELECT *,users.id FROM users,policy'.
+#   ' WHERE (users.policy_id=policy.id) AND (users.email IN (%k))'.
+#   ' ORDER BY users.priority DESC';
+#
+# The SQL select clause to check sender in per-recipient whitelist/blacklist
+# The first SELECT argument '?' will be users.id from recipient SQL lookup,
+# the %k will be sender addresses (e.g. full address, domain only, catchall).
+# $sql_select_white_black_list = 'SELECT wb FROM wblist,mailaddr'.
+#     ' WHERE (wblist.rid=?) AND (wblist.sid=mailaddr.id)'.
+#     '   AND (mailaddr.email IN (%k))'.
+#   ' ORDER BY mailaddr.priority DESC';
+
+$sql_select_white_black_list = undef;  # undef disables SQL white/blacklisting
+
+
+# If you decide to pass viruses (or spam) to certain recipients using the
+# above lookup tables or using $final_virus_destiny=D_PASS, you can set
+# the variable $addr_extension_virus ($addr_extension_spam) to some
+# string, and the recipient address will have this string appended
+# as an address extension to the local-part of the address. This extension
+# can be used by final local delivery agent to place such mail in different
+# folders. Leave these two variables undefined or empty strings to prevent
+# appending address extensions. Setting has no effect on recipient which will
+# not be receiving viruses/spam. Recipients who do not match lookup tables
+# local_domains* are not affected.
+#
+# LDAs usually default to stripping away address extension if no special
+# handling is specified, so having this option enabled normally does no harm,
+# provided the $recipients_delimiter matches the setting on the final
+# MTA's LDA.
+
+# $addr_extension_virus  = 'virus';	# (default is undef, same as empty)
+# $addr_extension_spam   = 'spam';	# (default is undef, same as empty)
+# $addr_extension_banned = 'banned';	# (default is undef, same as empty)
+
+
+# Delimiter between local part of the recipient address and address extension
+# (which can optionally be added, see variables $addr_extension_virus and
+# $addr_extension_spam). E.g. recipient address <user@example.com> gets changed
+# to <user+virus@example.com>.
+#
+# Delimiter should match equivalent (final) MTA delimiter setting.
+# (e.g. for Postfix add 'recipient_delimiter = +' to main.cf)
+# Setting it to an empty string or to undef disables this feature
+# regardless of $addr_extension_virus and $addr_extension_spam settings.
+
+$recipient_delimiter = '+';		# (default is '+')
+
+# true: replace extension;  false: append extension
+$replace_existing_extension = 1;	# (default is false)
+
+# Affects matching of localpart of e-mail addresses (left of '@')
+# in lookups: true = case sensitive, false = case insensitive
+$localpart_is_case_sensitive = 0;	# (default is false)
+
+
+</%def>
+
+
+<%def resourcesLimits>
+#
+# Section VI - Resource limits
+#
+
+# Sanity limit to the number of allowed recipients per SMTP transaction
+# $smtpd_recipient_limit = 1000;  # (default is 1000)
+
+
+# Resource limits to protect unpackers, decompressors and virus scanners
+# against mail bombs (e.g. 42.zip)
+
+# Maximum recursion level for extraction/decoding (0 or undef disables limit)
+$MAXLEVELS = 14;		# (default is undef, no limit)
+
+# Maximum number of extracted files (0 or undef disables the limit)
+$MAXFILES = 1500;		# (default is undef, no limit)
+
+# For the cumulative total of all decoded mail parts we set max storage size
+# to defend against mail bombs. Even though parts may be deleted (replaced
+# by decoded text) during decoding, the size they occupied is _not_ returned
+# to the quota pool.
+#
+# Parameters to storage quota formula for unpacking/decoding/decompressing
+#   Formula:
+#     quota = max($MIN_EXPANSION_QUOTA,
+#                 $mail_size*$MIN_EXPANSION_FACTOR,
+#                 min($MAX_EXPANSION_QUOTA, $mail_size*$MAX_EXPANSION_FACTOR))
+#   In plain words (later condition overrules previous ones):
+#     allow MAX_EXPANSION_FACTOR times initial mail size,
+#     but not more than MAX_EXPANSION_QUOTA,
+#     but not less than MIN_EXPANSION_FACTOR times initial mail size,
+#     but never less than MIN_EXPANSION_QUOTA
+#
+$MIN_EXPANSION_QUOTA =      100*1024;  # bytes  (default undef, not enforced)
+$MAX_EXPANSION_QUOTA = 300*1024*1024;  # bytes  (default undef, not enforced)
+$MIN_EXPANSION_FACTOR =   5;  # times original mail size  (must be specified)
+$MAX_EXPANSION_FACTOR = 500;  # times original mail size  (must be specified)
+</%def>
+
+
+<%def externalPrograms>
+#
+# Section VII - External programs, virus scanners
+#
+
+# Specify a path string, which is a colon-separated string of directories
+# (no trailing slashes!) to be assigned to the environment variable PATH
+# and to serve for locating external programs below.
+
+# NOTE: if $daemon_chroot_dir is nonempty, the directories will be
+#       relative to the chroot directory specified;
+
+$path = '/usr/local/sbin:/usr/local/bin:/usr/sbin:/sbin:/usr/bin:/bin';
+
+# Specify one string or a search list of strings (first match wins).
+# The string (or: each string in a list) may be an absolute path,
+# or just a program name, to be located via $path;
+# Empty string or undef (=default) disables the use of that external program.
+# Optionally command arguments may be specified - only the first substring
+# up to the whitespace is used for file searching.
+
+$file   = 'file';   # file(1) utility; use 3.41 or later to avoid vulnerability
+
+$gzip   = 'gzip';
+$bzip2  = 'bzip2';
+$lzop   = 'lzop';
+$uncompress = ['uncompress', 'gzip -d', 'zcat'];
+$unfreeze   = ['unfreeze', 'freeze -d', 'melt', 'fcat'];
+$arc        = ['nomarch', 'arc'];
+$unarj      = ['arj', 'unarj'];  # both can extract, arj is recommended
+$unrar      = ['rar', 'unrar'];  # both can extract, same options
+$zoo    = 'zoo';
+$lha    = 'lha';
+$cpio   = 'cpio';   # comment out if cpio does not support GNU options
+</%def>
+
+
+<%def debugging>
+<%args>
+$debug => 0
+</%args>
+#
+# Section VIII - Debugging
+#
+
+# The most useful debugging tool is to run amavisd-new non-detached
+# from a terminal window:
+# amavisd debug
+
+# Some more refined approaches:
+
+# If sender matches ACL, turn log level fully up, just for this one message,
+# and preserve temporary directory
+#@debug_sender_acl = ( "test-sender\@$mydomain" );
+#@debug_sender_acl = qw( debug@example.com );
+
+# May be useful along with @debug_sender_acl:
+# Prevent all decoded originals being deleted (replaced by decoded part)
+#$keep_decoded_original_re = new_RE( qr/.*/ );
+
+# Turn on SpamAssassin debugging (output to STDERR, use with 'amavisd debug')
+$sa_debug = <%  $debug ? '1' : '0' %>;
+</%def>
+
+
+<%def antivirus>
+<%args>
+$active
+$clamdSocket 
+</%args>
+<%init>
+if ($active and (not defined $clamdSocket)) {
+   $m->abort("If antivirus is active you need to pass a defined clamdSocket argument");
+}
+</%init>
+% if (not $active) { 
+# disable antivirus
+@av_scanners = ();
+@av_scanners_backup = ();
+% return
+% }
+
+
+# stop anti-virus scanning when the first scanner detects a virus?
+$first_infected_stops_scan = 1;  # default is false, all scanners are called
+
+# @av_scanners is a list of n-tuples, where fields semantics is:
+#  1. av scanner plain name, to be used in log and reports;
+#  2. scanner program name; this string will be submitted to subroutine
+#     find_external_programs(), which will try to find the full program
+#     path name; if program is not found, this scanner is disabled.
+#     Besides a simple string (full program path name or just the basename
+#     to be looked for in PATH), this may be an array ref of alternative
+#     program names or full paths - the first match in the list will be used;
+#     As a special case for more complex scanners, this field may be
+#     a subroutine reference, and the whole n-tuple is passed to it as args.
+#  3. command arguments to be given to the scanner program;
+#     a substring {} will be replaced by the directory name to be scanned,
+#     i.e. "$tempdir/parts", a "*" will be replaced by file names of parts;
+#  4. an array ref of av scanner exit status values, or a regexp (to be
+#     matched against scanner output), indicating NO VIRUSES found;
+#  5. an array ref of av scanner exit status values, or a regexp (to be
+#     matched against scanner output), indicating VIRUSES WERE FOUND;
+#     Note: the virus match prevails over a 'not found' match, so it is safe
+#     even if the no. 4. matches for viruses too;
+#  6. a regexp (to be matched against scanner output), returning a list
+#     of virus names found.
+#  7. and 8.: (optional) subroutines to be executed before and after scanner
+#     (e.g. to set environment or current directory);
+#     see examples for these at KasperskyLab AVP and Sophos sweep.
+
+# NOTES:
+#
+# - NOT DEFINING @av_scanners (e.g. setting it to empty list, or deleting the
+#   whole assignment) TURNS OFF LOADING AND COMPILING OF THE ANTIVIRUS CODE
+#   (which can be handy if all you want to do is spam scanning);
+#
+# - the order matters: although _all_ available entries from the list are
+#   always tried regardless of their verdict, scanners are run in the order
+#   specified: the report from the first one detecting a virus will be used
+#   (providing virus names and scanner output); REARRANGE THE ORDER TO WILL;
+#
+# - it doesn't hurt to keep an unused command line scanner entry in the list
+#   if the program can not be found; the path search is only performed once
+#   during the program startup;
+#
+#   COROLLARY: to disable a scanner that _does_ exist on your system,
+#   comment out its entry or use undef or '' as its program name/path
+#   (second parameter). An example where this is almost a must: disable
+#   Sophos 'sweep' if you have its daemonized version Sophie or SAVI-Perl
+#   (same for Trophie/vscan, and clamd/clamscan), or if another unrelated
+#   program happens to have a name matching one of the entries ('sweep'
+#   again comes to mind);
+#
+# - it DOES HURT to keep unwanted entries which use INTERNAL SUBROUTINES
+#   for interfacing (where the second parameter starts with \&).
+#   Keeping such entry and not having a corresponding virus scanner daemon
+#   causes an unnecessary connection attempt (which eventually times out,
+#   but it wastes precious time). For this reason the daemonized entries
+#   are commented in the distribution - just remove the '#' where needed.
+#
+# CERT list of av resources: http://www.cert.org/other_sources/viruses.html
+
+@av_scanners = (
+### http://www.clamav.net/
+['Clam Antivirus-clamd',
+  \&ask_daemon, ["CONTSCAN {}\n", <% qq{"$clamdSocket"} %>],
+  qr/\bOK$/, qr/\bFOUND$/,
+  qr/^.*?: (?!Infected Archive)(.*) FOUND$/ ],
+# NOTE: run clamd under the same user as amavisd;  match the socket
+# name (LocalSocket) in clamav.conf to the socket name in this entry
+# When running chrooted one may prefer: ["CONTSCAN {}\n","$MYHOME/clamd"],
+
+);
+
+# If no virus scanners from the @av_scanners list produce 'clean' nor
+# 'infected' status (e.g. they all fail to run or the list is empty),
+# then _all_ scanners from the @av_scanners_backup list are tried.
+# When there are both daemonized and command-line scanners available,
+# it is customary to place slower command-line scanners in the
+# @av_scanners_backup list. The default choice is somewhat arbitrary,
+# move entries from one list to another as desired.
+
+@av_scanners_backup = (
+  ### http://www.clamav.net/
+  ['Clam Antivirus - clamscan', 'clamscan',
+    "--stdout --no-summary -r --tempdir=$TEMPBASE {}", [0], [1],
+    qr/^.*?: (?!Infected Archive)(.*) FOUND$/ ],
+);
+
+</%def>
+
+
+<%def spamAssassin >
+<%args>
+$active
+$spamSubjectTag 
+
+$spamThreshold
+
+$localTestsOnly
+$autoWhitelist
+
+@whitelist    => ()
+@blacklist    => ()
+</%args>
+% if (not $active) { 
+# anti-spam disabled
+  @bypass_spam_checks_acl  = qw( . );  # DISABLE anti-spam code
+%  return ;
+% }
+
+# anti-spam enabled
+ 
+
+
+# SpamAssassin settings
+
+# $sa_local_tests_only is passed to Mail::SpamAssassin::new as a value
+# of the option local_tests_only. See Mail::SpamAssassin man page.
+# If set to 1, SA tests are restricted to local tests only, i.e. no tests
+# that require internet access will be performed.
+#
+<& .scalarVar, 'sa_local_tests_only', $localTestsOnly &>
+
+
+
+# Timout for SpamAssassin. This is only used if spamassassin does NOT
+# override it (which it often does if sa_local_tests_only is not true)
+$sa_timeout = 30;           # timeout in seconds for a call to SpamAssassin
+                            # (default is 30 seconds, undef disables it)
+
+# AWL (auto whitelisting), requires spamassassin 2.44 or better
+<& .scalarVar, 'sa_auto_whitelist', $autoWhitelist &>
+
+$sa_mail_body_size_limit = 150*1024;  # don't waste time on SA is mail is larger
+			    # (less than 1% of spam is > 64k)
+			    # default: undef, no limitations
+
+# default values, can be overridden by more specific lookups, e.g. SQL
+
+$sa_tag_level_deflt  = undef; # always add spam info headers 
+
+$sa_tag2_level_deflt = <% $spamThreshold %>; # add 'spam detected' headers at that level
+
+$sa_kill_level_deflt = $sa_tag2_level_deflt; # triggers spam evasive actions
+                           # at or above that level: bounce/reject/drop,
+                           # quarantine, and adding mail address extension
+
+
+
+$sa_dsn_cutoff_level = undef;  # spam level beyond which a DSN is not sent,
+                            # effectively turning D_BOUNCE into D_DISCARD;
+                            # undef disables this feature and is a default;
+
+#
+# The $sa_tag_level_deflt, $sa_tag2_level_deflt and $sa_kill_level_deflt
+# may also be hashrefs to hash lookup tables, to make static per-recipient
+# settings possible without having to resort to SQL or LDAP lookups.
+
+# a quick reference:
+#   tag_level  controls adding the X-Spam-Status and X-Spam-Level headers,
+#   tag2_level controls adding 'X-Spam-Flag: YES', and editing Subject,
+#   kill_level controls 'evasive actions' (reject, quarantine, extensions);
+# it only makes sense to maintain the relationship:
+# tag_level <= tag2_level <= kill_level < $sa_dsn_cutoff_level
+
+# string to prepend to Subject header field when message exceeds tag2 level
+<& .textVar, 'sa_spam_subject_tag', $spamSubjectTag &>	# (defaults to undef, disabled)
+			     # (only seen when spam is not to be rejected
+			     # and recipient is in local_domains*)
+
+$sa_spam_modifies_subj = 1; # may be a ref to a lookup table, default is true
+# Example: modify Subject for all local recipients except user@example.com
+#$sa_spam_modifies_subj = [qw( !user@example.com . )];
+
+
+# ENVELOPE SENDER WHITELISTING / BLACKLISTING  - GLOBAL (RECIPIENT-INDEPENDENT)
+# (affects spam checking only, has no effect on virus and other
+# checks)
+
+# WHITELISTING: use ENVELOPE SENDER lookups to ENSURE DELIVERY from whitelisted
+# senders even if the message would be recognized as spam. Effectively, for
+# the specified senders, message recipients temporarily become 'spam_lovers'.
+# To avoid surprises, whitelisted sender also suppresses inserting/editing
+# the tag2-level header fields (X-Spam-*, Subject), appending spam address
+# extension, and quarantining.
+
+# BLACKLISTING: messages from specified SENDERS are DECLARED SPAM.
+# Effectively, for messages from blacklisted senders, spam level
+# is artificially pushed high, and the normal spam processing applies,
+# resulting in 'X-Spam-Flag: YES', high 'X-Spam-Level' bar and other usual
+# reactions to spam, including possible rejection. If the message nevertheless
+# still passes (e.g. for spam loving recipients), it is tagged as BLACKLISTED
+# in the 'X-Spam-Status' header field, but the reported spam value and
+# set of tests in this report header field (if available from SpamAssassin,
+# which may have not been called) is not adjusted.
+#
+# A sender may be both white- and blacklisted at the same time, settings
+# are independent. For example, being both white- and blacklisted, message
+# is delivered to recipients, but is not tagged as spam (X-Spam-Flag: No;
+# X-Spam-Status: No, ...), but the reported spam level (if computed) may
+# still indicate high spam score.
+#
+# If ALL recipients of the message either white- or blacklist the sender,
+# spam scanning (calling the SpamAssassin) is bypassed, saving on time.
+#
+# The following variables (lookup tables) are available, with the semantics
+# and syntax as specified in README.lookups:
+#
+# %whitelist_sender, @whitelist_sender_acl, $whitelist_sender_re
+# %blacklist_sender, @blacklist_sender_acl, $blacklist_sender_re
+
+@whitelist_sender_acl = qw(<% "@whitelist" %>);
+@blacklist_sender_acl = qw(<% "@blacklist" %>);
+</%def>
+
+<%def .scalarVar>
+<%init>
+my ($name, $value) = @_;
+
+if (not $value) {
+  $value = 'undef';
+}
+</%init>
+<% "\$$name = $value;"  %>
+</%def>
+
+
+
+<%def .textVar>
+<%init>
+my ($name, $value) = @_;
+if ($value) {
+   $value = "'$value'";
+}
+</%init>
+<& .scalarVar, $name, $value &>
+</%def>

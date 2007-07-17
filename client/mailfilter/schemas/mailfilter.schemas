@@ -1,0 +1,279 @@
+<!-- vim: ts=4 sw=4 nowrap
+-->
+
+<gconfschemafile>
+	<schemalist>
+		<schema>
+			<key>/schemas/ebox/modules/global/modules/mailfilter/class</key>
+			<applyto>/ebox/modules/global/modules/mailfilter/class</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>EBox::MailFilter</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/global/modules/mailfilter/depends</key>
+			<applyto>/ebox/modules/global/modules/mailfilter/depends</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+         		<list_type>string</list_type>
+			<default>[mail, firewall]</default>
+			<locale name="C"/>
+		</schema>
+
+
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/port</key>
+			<applyto>/ebox/modules/mailfilter/port</applyto>
+			<owner>ebox</owner>
+			<type>int</type>
+			<default>10024</default>
+			<locale name="C"/>
+		</schema>
+
+
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/allowed_external_mtas</key>
+			<applyto>/ebox/modules/mailfilter/allowed_external_mtas</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+		        <list_type>string</list_type>
+			<default>[]</default>
+			<locale name="C"/>
+		</schema>
+
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/external_domains</key>
+			<applyto>/ebox/modules/mailfilter/external_domains</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+		        <list_type>string</list_type>
+			<default>[]</default>
+			<locale name="C"/>
+		</schema>
+
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/active</key>
+			<applyto>/ebox/modules/mailfilter/active</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+			<default>false</default>
+			<locale name="C"/>
+		</schema>
+
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/updatevirus</key>
+			<applyto>/ebox/modules/mailfilter/updatevirus</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default></default>
+			<locale name="C"/>
+		</schema>
+
+
+
+
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/subjectmod</key>
+			<applyto>/ebox/modules/mailfilter/subjectmod</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+			<default>false</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/virus_policy</key>
+			<applyto>/ebox/modules/mailfilter/virus_policy</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>D_DISCARD</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/spam_policy</key>
+			<applyto>/ebox/modules/mailfilter/spam_policy</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>D_PASS</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/bhead_policy</key>
+			<applyto>/ebox/modules/mailfilter/bhead_policy</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>D_PASS</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/banned_policy</key>
+			<applyto>/ebox/modules/mailfilter/banned_policy</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>D_BOUNCE</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/hitspolicy</key>
+			<applyto>/ebox/modules/mailfilter/hitspolicy</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>5.4</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/viruslist</key>
+			<applyto>/ebox/modules/mailfilter/viruslist</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+			<list_type>string</list_type>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/spamlist</key>
+			<applyto>/ebox/modules/mailfilter/spamlist</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+			<list_type>string</list_type>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/bheadlist</key>
+			<applyto>/ebox/modules/mailfilter/bheadlist</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+			<list_type>string</list_type>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/bannedlist</key>
+			<applyto>/ebox/modules/mailfilter/bannedlist</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+			<list_type>string</list_type>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/whitelist</key>
+			<applyto>/ebox/modules/mailfilter/whitelist</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+			<list_type>string</list_type>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/blacklist</key>
+			<applyto>/ebox/modules/mailfilter/blacklist</applyto>
+			<owner>ebox</owner>
+			<type>list</type>
+			<list_type>string</list_type>
+			<locale name="C"/>
+		</schema>
+
+
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/clamav/active</key>
+			<applyto>/ebox/modules/mailfilter/clamav/active</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+	                <default>true</default>
+			<locale name="C"/>
+		</schema>
+
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/clamav/conf_dir</key>
+			<applyto>/ebox/modules/mailfilter/clamav/conf_dir</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+	                <default>/etc/clamav</default>
+			<locale name="C"/>
+		</schema>
+
+
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/spamassassin/active</key>
+			<applyto>/ebox/modules/mailfilter/spamassassin/active</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+	                <default>true</default>
+			<locale name="C"/>
+		</schema>
+
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/spamassassin/spam_suject_tag</key>
+			<applyto>/ebox/modules/mailfilter/spamassassin/spam_subject_tag</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>***SPAM***</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/spamassassin/spam_threshold</key>
+			<applyto>/ebox/modules/mailfilter/spamassassin/spam_threshold</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>6</default>
+			<locale name="C"/>
+		</schema>
+
+
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/spamassassin/autowhitelist</key>
+			<applyto>/ebox/modules/mailfilter/spamassassin/autowhitelist</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+			<default>true</default>
+			<locale name="C"/>
+		</schema>
+
+
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/spamassassin/bayes</key>
+			<applyto>/ebox/modules/mailfilter/spamassassin/bayes</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+			<default>true</default>
+			<locale name="C"/>
+		</schema>
+
+
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/spamassassin/autolearn</key>
+			<applyto>/ebox/modules/mailfilter/spamassassin/autolearn</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+			<default>true</default>
+			<locale name="C"/>
+		</schema>
+
+
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/spamassassin/autolearn_spam_threshold</key>
+			<applyto>/ebox/modules/mailfilter/spamassassin/autolearn_spam_threshold</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>12</default>
+			<locale name="C"/>
+		</schema>
+
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/spamassassin/autolearn_ham_threshold</key>
+			<applyto>/ebox/modules/mailfilter/spamassassin/autolearn_ham_threshold</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>0.1</default>
+			<locale name="C"/>
+		</schema>
+
+		<schema>
+			<key>/schemas/ebox/modules/mailfilter/file_filter/holder</key>
+			<applyto>/ebox/modules/mailfilter/file_filter/holder</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+			<default>true</default>
+			<locale name="C"/>
+		</schema>
+
+
+	</schemalist>
+</gconfschemafile>

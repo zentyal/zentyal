@@ -1,0 +1,258 @@
+<%args>
+  $type
+  $policy
+  %elements => ()  # Elements to filter and his state
+
+  $title         
+  $printableName 
+  $printableNamePlural
+</%args>
+<%init>
+use EBox::Gettext;
+
+my $allowNote = __x('{plural} which are not listed below are allowed' ,
+                        plural => $printableNamePlural);
+
+
+my $menu      = 'fileFilter' . ucfirst $type;
+
+my $allDenied = 1;
+foreach (values %elements) {
+  my $denied = not $_;
+  if (not $denied) {
+    $allDenied = 0;
+    last;
+  }
+}
+
+
+
+</%init>
+<h3><% __('Banned files policy') %></h3>
+<& policy.mas,
+  title   => __('Policy'),
+  type    => 'banned',
+  policy  => $policy,
+  menu    => $menu,
+&>
+
+<h3><% $title | h %></h3>
+<& /msg.mas, msg => $allowNote &>
+<br/>
+<& .addElement,
+   type          => $type,
+   printableName => $printableName,
+&>
+
+<br/>
+<form id='formFilter' action='ModifyFileFilterACL' method='post'>
+	<table class='dataTable'>
+	<thead>
+		<tr>
+			<th width=85%" class="tleft">
+			  <% $printableName | h %>
+			</th>
+			<th class="thOptionsFwd">
+			  <% __('Deny') | h %>
+			</th>
+			<th class"thOptions">
+			  <% __('Actions') | h %>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+        <& /input/hidden.mas, name => 'type', value => $type &>
+        <& .allRow,
+               allDenied           => $allDenied,
+               listEmpty           => (scalar keys %elements == 0),
+               printableNamePlural => $printableNamePlural,
+        &>
+
+%       foreach my $element (sort keys %elements) {
+         <& .elementRow,
+	    name => $element,
+	    value => $elements{$element},
+            type  => $type,
+            allDenied => $allDenied,
+        &>
+%	}
+</tbody>
+</table>
+<& /input/hidden.mas, name => 'type', type => $type &>
+<& /input/submit.mas, name => 'change', 
+  value => __('Change'), alt => __('Change'),
+&>
+</form>
+
+<script type="text/javascript">
+function updateCheckbox(checkbox, name) {
+    if (checkbox.checked) {
+        checkbox.form[name].value='1';
+    } else {
+        checkbox.form[name].value='0';
+    }
+}
+/*
+Function: switchAll 
+
+  Switch the boolean which goes with the checkbox
+
+Parameters:
+
+  id - form which contains the booleans
+  allElementName - name for the all check box
+
+*/
+function switchAll(id, allElementName) {
+
+  var form = document.getElementById(id);
+  var allBox = form.elements[allElementName];
+  for( var i = 0; i < form.elements.length; i++ ) {
+    var element = form.elements[i];
+    // Check values which starts with bool-
+    if (element.type == 'hidden' && element.name.substring(0,5) == 'bool-' ) {
+      if ( allBox.checked ) {
+        element.value = "1";
+      } else {
+        element.value = "0";
+      } 
+    }
+    
+  }
+
+}
+</script>
+
+
+<%def .elementRow>
+<%args>
+$name
+$value
+$type
+$allDenied
+</%args>
+<%init>
+
+my $denied = not $value; # the value is the allowed propiertie
+my $checkboxName = 'bool-' . $name;  # it must begin with bool- to make things easier for javascript
+my $deleteInputName = 'remove-' . $name;
+my @disabled = $allDenied ? (disabled => 'disabled') : ();
+</%init>
+		<tr class="border">
+			<td><% $name %></td>
+			<td class="tcenter">
+			  <& /input/checkbox.mas, 
+                                  name  => $checkboxName, 
+                                  value => $denied,
+                                  @disabled
+                          &>
+			</td>
+
+			<td class="tcenter">
+
+			  <input type='image' 
+			         name=<% $deleteInputName %>
+			         src='/data/images/delete.gif'
+			         value='<%  $name | h %>'
+			         title='<% __("Delete") | h %>'
+			       alt='<% __("Delete") | h %>'
+			  />
+
+			</td>
+
+		</tr>
+</%def>
+
+<%def .addElement>
+<%args>
+$type
+$printableName
+</%args>
+<%init>
+
+</%init>
+
+<form action='AddFileFilterElement' method='post'>
+  <input type='hidden' name='type' value='<% $type %>' />
+  <table class='dataTable'>
+    <thead>
+      <tr>
+        <th class="tleft" colspan="4">
+          <% __x("Add {element}", element => $printableName) | h %>
+        </th>
+      </tr>
+    </thead>    
+    <tbody>
+      <tr>
+        <td class="tleft">
+	  <% __("Name"). ":" %>
+	</td>
+	<td class="tleft">
+	  <& /input/text.mas, name => "name" &>
+	</td>
+	<td class="tleft">
+	  <% __("Deny") . ":" %>
+	</td>
+	<td class="tleft">
+	  <& /input/checkbox.mas, name => "deny" &>
+	</td>
+	<td class="tright" width="55%">
+	  <& /input/submit.mas, name => "add", value => __("Add") &>
+	</td> 
+      </tr>
+    </tbody>
+  </table>
+</form>
+</%def>
+
+<%def .allRow>
+<%args>
+$allDenied
+$printableNamePlural
+$listEmpty
+</%args>
+<%init>
+my $allMessage  = __x('All registered {plural}', plural =>
+$printableNamePlural);
+my @disabledCheckbox = $listEmpty ? (disabled => 'disabled') : ();
+my $checked = $allDenied ? "checked='checked'" : '';
+</%init>
+		<tr class="trimp">
+			<td>
+			  <strong>
+                               <% $allMessage %>
+
+			  </strong>
+			</td>
+			<td class='tcenter'>
+                               
+				<input type='checkbox'
+					name='allbox'
+                                       <% $checked %>
+                                       value='on'
+					onclick='checkAll("formFilter", "allbox"); switchAll("formFilter", "allbox");'
+%				if ($listEmpty) {
+					disabled='disabled'
+%				}
+
+				/>
+			</td>
+			<td class="tcenter">
+%                    if (not $listEmpty) {
+			  <input type='image' 
+			         name='<% "delete-all" | h %>'
+			         value='<% "delete-all" | h %>'
+				 src='/data/images/delete.gif'
+			         title='<% __("Delete them all") | h %>'
+				 alt='<% __("Delete them all") | h %>'
+				 onclick='return confirm("<%
+                      			__x("Are you sure you want to delete all {plural}?",
+					   plural => $printableNamePlural)| h
+				      %>");'
+			  />
+%                    }
+			</td>
+
+		</tr>
+  
+</%def>

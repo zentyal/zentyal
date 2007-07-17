@@ -1,0 +1,99 @@
+<%args>
+$active
+$policy
+%state
+</%args>
+<%init>
+use EBox::Gettext;
+
+
+sub formatDate
+{
+my ($date) = @_;
+my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) =
+ localtime($date);
+$date = "$hour:$min:$sec $mon/$mday/$year";
+return $date;
+}
+</%init>
+<& /enable.mas,
+  title => __('Antivirus'),
+  action => 'EnableAntivirus',
+  active => $active,
+&>
+<h3><% __("Virus policy") %></h3>
+<& /mailfilter/policy.mas,
+   title => __('Policy'),
+   type  => 'virus',
+   policy => $policy, 
+   menu => 'antivirus',
+&>
+<br>
+<h3><% __('Virus database update status') %></h3>
+<& .status, %state &>
+
+
+<%def .status>
+<%init>
+my $date          = delete $ARGS{date};
+my $printableDate;
+my $event;
+my $eventInfo;
+
+# select which event is active if a event has happened
+if (defined $date) {
+  $printableDate =  formatDate($date);
+  while (($event, $eventInfo) = each %ARGS) {
+    if ($eventInfo) {
+              last;
+	      }
+    }	      
+}
+</%init>
+% if (not defined $date) {
+  <& /msg.mas, msg => __('The antivirus database has never been updated') &>
+% return
+% }
+<& ".$event", info => $eventInfo,  date => $printableDate &>
+</%def>
+
+
+<%def .error>
+<%args>
+$info
+$date
+</%args>
+<%init>
+my $msg = __x('The last update failed at {date}', date => $date);
+</%init>
+<& /error.mas, error => $msg &>
+</%def>
+
+<%def .outdated>
+<%args>
+$info
+$date
+</%args>
+<%init>
+  my $version = $info;
+  my $msg = __x("Update failed at {date}.\n" .
+               'Your version of freshclam  is outdated.' .
+	     'Please, install version {version} or higher',
+             date => $date,
+	     version => $version,
+	    );
+</%init>
+<& /error.mas, error => $msg &>
+</%def>
+
+
+<%def .update>
+<%args>
+$info
+$date
+</%args>
+<%init>
+my $msg = __x('The last update was successful at {date}', date => $date);
+</%init>
+<& /msg.mas, msg => $msg &>
+</%def>

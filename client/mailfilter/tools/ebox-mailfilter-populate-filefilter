@@ -1,0 +1,74 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+
+use Error qw(:try);
+
+
+EBox::init();
+
+my @mimeTypes = (
+		 qw(
+                    audio/mpeg audio/x-mpeg audio/x-pn-realaudio audio/x-wav
+                    video/mpeg video/x-mpeg2 video/acorn-replay video/quicktime
+                    video/x-msvideo video/msvideo application/gzip
+                    application/x-gzip application/zip application/compress
+                    application/x-compress application/java-vm 
+
+		   ),
+		);
+
+
+my @extensions = (
+		  qw(
+                     ade adp asx bas bat cab chm cmd com cpl crt dll exe hlp
+                     ini hta inf ins isp lnk mda mdb mde mdt mdw mdz msc msi
+                     msp mst pcd pif prf reg scf scr sct sh shs shb sys url vb
+                     vbe vbs vxd wsc wsf wsh otf ops doc xls gz tar zip tgz bz2
+                     cdr dmg smi sit sea bin hqx rar mp3 mpeg mpg avi asf iso
+                     ogg wmf bin cue sxw stw stc sxi sti sxd sxg odt ott ods
+                     ots odp otp odg otg odm odf odc odb odi pdf 
+                     ), 
+		 );
+
+
+sub update
+{
+
+
+  my $mailfilter = EBox::Global->modInstance('mailfilter');
+  my $ffilter    = $mailfilter->fileFilter();
+
+  foreach my $mimeType (@mimeTypes) {
+    $ffilter->setMimeType($mimeType, 1);
+  }
+
+  foreach my $extension (@extensions) {
+    $ffilter->setExtension($extension, 1);
+  }
+
+}
+
+
+
+
+sub usage {
+  print "Usage: $0 update \n";
+  exit 1;
+}
+
+unless ($#ARGV == 0) {
+  usage();
+}
+
+if ($ARGV[0] eq 'update') {
+  update();
+} else {
+  usage();
+}
+
+
+1;

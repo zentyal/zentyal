@@ -1,0 +1,16 @@
+<%args>
+$policy
+%mimeTypes
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<& fileFilter.mas, 
+  type => 'mimeType',
+  policy => $policy, 
+  elements => \%mimeTypes, 
+
+  title         => __('Configure denied MIME types'),
+  printableName => __('MIME Type'),
+  printableNamePlural => __('MIME types'),
+&>

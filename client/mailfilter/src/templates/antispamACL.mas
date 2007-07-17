@@ -1,0 +1,66 @@
+<%args>
+$vdomain     # undef == global acl
+@whitelist
+@blacklist
+</%args>
+<h4><% __('Whitelist') %></h4>
+<& .acl,
+    type => 'whitelist',
+    senders => \@whitelist,
+    typePrintableName => __('whitelist'),
+    vdomain => $vdomain,
+&>
+<h4><% __('Blacklist') %></h4>
+<& .acl,
+    type => 'blacklist',
+    senders => \@blacklist,
+    typePrintableName => __('blacklist'),
+    vdomain => $vdomain,
+&>
+<%def .acl>
+<%args>
+@senders
+$type
+$typePrintableName
+
+$vdomain 
+</%args>
+<%init>
+my @titles = (__('Sender'), __('Actions') );
+my $deleteActionIcon  = '/data/images/delete.gif';
+my $deleteActionTitle = __('Delete');
+
+my @rows = map {
+     my $removeUrl = "/ebox/MailFilter/RemoveSenderACL?sender=$_&type=$type";
+     if (defined $vdomain) {
+        $removeUrl .= "&vdomain=$vdomain";
+     }
+     my @actions = ( 
+                {
+		  icon => $deleteActionIcon,
+		  text => $deleteActionTitle,
+		  url  => $removeUrl,
+                } 
+     );    
+    [ $_, \@actions]
+} @senders;
+</%init>
+% if (@senders) {
+   <& /dataTable.mas, rows => \@rows, titles => \@titles &>
+% } else {
+ <& /msg.mas, 
+    msg => __x("There isn't any sender in {type} ", 
+               type => $typePrintableName) 
+ &>
+% }
+<h4><%  __x('Add sender to {type}', type => $typePrintableName) %></h4>
+<form action='/ebox/MailFilter/AddSenderACL' method='POST'>
+<span class='bold'><% __("Sender") %>:</span>
+<& /input/hidden.mas, name => 'type', value => $type &>
+% if  (defined $vdomain) {
+   <& /input/hidden.mas, name => 'vdomain', value => $vdomain &>
+% }
+<& /input/text.mas, name => 'sender', value => '' &>
+<& /input/submit.mas, name => 'add', value => __('Add') &>
+</form>
+</%def>
