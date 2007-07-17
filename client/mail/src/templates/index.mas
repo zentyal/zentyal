@@ -10,14 +10,18 @@
 	$menu
 	$popservice
 	$imapservice
+
 	$filterservice
+        $filtername
+        %availableFilters
+	$fwport
+	$ipfilter
+	$portfilter
+    
 	$saslservice
 	$smtptls
 	$popssl
 	$imapssl
-	$fwport
-	$ipfilter
-	$portfilter
 </%args>
 <%init>
 use EBox::Gettext;
@@ -241,22 +245,71 @@ use EBox::Gettext;
 % }
 
 % if ($menu eq 'filter') {
+<& .filterSection,
+	filterservice    => $filterservice,
+        filtername       => $filtername,
+        availableFilters => \%availableFilters,
+	fwport           => $fwport,
+	ipfilter         => $ipfilter,
+	portfilter       => $portfilter,
+        menu             => $menu,
+&>
+
+% }
+
+<& .javascript,
+      maxmsgsize => $maxmsgsize,
+      maxmdsize  => $maxmdsize,
+&>    
+
+
+<%def .filterSection>
+<%args>
+	$filterservice
+        $filtername
+        %availableFilters
+	$fwport
+	$ipfilter
+	$portfilter
+
+       $menu
+</%args>
+<%init>
+my @selectFilterOptions = (
+	   { value => 'no' , printableValue => __('none') },
+	   { value => 'custom'   , printableValue => __('custom')},
+); 
+
+while (my ($name, $propierties) = each %availableFilters) {
+   my $option = {
+       value => $name,
+       printableValue => $propierties->{prettyName},
+   };
+   push @selectFilterOptions, $option;
+
+};
+my $selectedValue;
+if ($filterservice eq 'yes') {
+   $selectedValue = $filtername;
+}
+else {
+   $selectedValue = 'disabled';
+}
+</%init>
 <br />
 <form action='SetExternalFilter' method='POST'>
 <input type='hidden' name='menu' value='<% $menu %>'/>
 <table class="formTable">
 <tr>
-	<td class='tright'><% __('Status') %>:</td>
+	<td class='tright'><% __('Filter in use') %>:</td>
 	<td>
-	<select name='filter' id='filter' onChange='filterChanged()'>
-%		if($filterservice eq 'yes') {
-			<option selected value='yes'><% __('Enabled') %></option>
-			<option value='no'><% __('Disabled') %></option>
-%		} else {
-			<option value='yes'><% __('Enabled') %></option>
-			<option selected value='no'><% __('Disabled') %></option>
-%		}
-	</select>
+	<& /input/select.mas, 
+	    name => 'filter',
+	    id   => 'filter',
+	    onChange => 'filterChanged()',
+	    options => \@selectFilterOptions,
+	    value   => $selectedValue,
+	&>
 	</td>
 </tr>
 
@@ -284,8 +337,36 @@ use EBox::Gettext;
 </td>
 </table>
 </form>
-% }
 
+%# javascript used by the select control..
+<script type="text/javascript">
+function filterChanged() {
+	var sel = document.getElementById("filter");
+	var fwp = document.getElementById("fwport");
+	var ipf = document.getElementById("ipfilter");
+	var ptf = document.getElementById("portfilter");
+
+	if  (sel.selectedIndex == 1) { 
+		fwp.disabled = false;
+		ptf.disabled = false;
+		ipf.disabled = false;
+	}
+	else {
+		fwp.disabled = true;
+		ptf.disabled = true;
+		ipf.disabled = true;
+	}
+}
+filterChanged()
+</script>
+</%def>
+
+
+<%def .javascript>
+<%args>
+$maxmsgsize
+$maxmdsize
+</%args>
 <script type="text/javascript">
 
 function updateMsgSize() {
@@ -325,22 +406,10 @@ function updateMDSize() {
     }
 }
 
-function filterChanged() {
-	var sel = document.getElementById("filter")
-	var fwp = document.getElementById("fwport")
-	var ipf = document.getElementById("ipfilter")
-	var ptf = document.getElementById("portfilter")
 
-	if(sel.selectedIndex == 1) {
-		fwp.disabled = true;
-		ptf.disabled = true;
-		ipf.disabled = true;
-	} else {
-		fwp.disabled = false;
-		ptf.disabled = false;
-		ipf.disabled = false;
-	}
-}
-filterChanged()
 updateMsgSize()
 </script>
+
+
+
+</%def>

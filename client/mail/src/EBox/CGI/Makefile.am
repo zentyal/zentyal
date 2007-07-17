@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CGI/Mail
 
-nobase_perl_DATA = Index.pm Enable.pm MailConf.pm VDomains.pm AddVDomain.pm \
+nobase_perl_DATA = Index.pm  MailConf.pm VDomains.pm AddVDomain.pm \
 DelVDomain.pm CreateAccount.pm CreateAlias.pm DelAccount.pm DelAlias.pm \
 CreateGroupAlias.pm DelGroupAlias.pm SetAllowed.pm SetQuota.pm SetMDQuota.pm \
 EditVDomain.pm ModifyVDomain.pm SetExternalFilter.pm ModifyAccountMDSize.pm \

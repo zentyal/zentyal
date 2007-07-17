@@ -43,19 +43,28 @@ sub _process($) {
 	$self->keepParam('menu');
 
 	my $filter = $self->param('filter');
-	$mail->setService(($filter eq 'yes'), 'filter');
-	
-	if ($filter eq 'yes') {
-		$self->_requireParam('fwport');
-		my $fwport = $self->param('fwport');
-		$self->_requireParam('ipfilter');
-		my $ipfilter = $self->param('ipfilter');
-		$self->_requireParam('portfilter');
-		my $portfilter = $self->param('portfilter');
+	my $filterActive = ($filter ne 'disabled'); 
 
-		$mail->setFWPort($fwport);
-		$mail->setIPFilter($ipfilter);
-		$mail->setPortFilter($portfilter);
+	$mail->setService('filter', $filterActive);
+	EBox::debug("filter  $filter active $filterActive");
+	
+	if ($filterActive) {
+	  $mail->setExternalFilter($filter);
+	  
+
+	  if ($filter eq 'custom') {
+	    $self->_requireParam('ipfilter');
+	    my $ipfilter = $self->param('ipfilter');
+	    $self->_requireParam('portfilter');
+	    my $portfilter = $self->param('portfilter');
+	    $self->_requireParam('fwport');
+	    my $fwport = $self->param('fwport');
+
+	    $mail->setIPFilter($ipfilter);
+	    $mail->setPortFilter($portfilter);
+	    $mail->setFWPort($fwport);
+	  }
+
 	}
 }
 

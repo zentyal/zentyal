@@ -54,7 +54,7 @@ use EBox::Gettext;
 </form>	
 
 % } elsif (defined($components[$menu-1])) {
-      <& $components[$menu-1]->{'path'}, params => $components[$menu-1]->{'params'} &>
+      <& $components[$menu-1]->{'path'}, @{ $components[$menu-1]->{'params'}  } &>
 % }
 <script type="text/javascript">
 function updateMDSize() {

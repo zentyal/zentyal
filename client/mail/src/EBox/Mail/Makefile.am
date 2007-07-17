@@ -1,10 +1,14 @@
 ## Process this file with automake to produce Makefile.in
 perldir = @PERLPATH@/EBox/Mail
 
-test_classes = Test.pm
+regular_packages = FilterProvider.pm
+
+test_packages = Test.pm
+
+nobase_perl_DATA=  $(regular_packages)
 
 DISTCLEANFILES = 
 
-EXTRA_DIST = $(test_classes)
+EXTRA_DIST = $(test_packages)
 
 MAINTAINERCLEANFILES = Makefile.in

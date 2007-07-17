@@ -61,6 +61,14 @@
 		<locale name="C"/>
 	</schema>
 	<schema>
+		<key>/schemas/ebox/modules/mail/external_filter_name</key>
+		<applyto>/ebox/modules/mail/external_filter_name</applyto>
+		<owner>ebox</owner>
+		<type>string</type>
+		<default>custom</default>
+		<locale name="C"/>
+	</schema>
+	<schema>
 		<key>/schemas/ebox/modules/mail/sasl</key>
 		<applyto>/ebox/modules/mail/sasl</applyto>
 		<owner>ebox</owner>
@@ -131,7 +139,7 @@
 		<owner>ebox</owner>
 		<type>list</type>
 		<list_type>string</list_type>
-		<default>[usersandgroups, objects]</default>
+		<default>[usersandgroups, network, objects]</default>
 		<locale name="C"/>
 	</schema>
 

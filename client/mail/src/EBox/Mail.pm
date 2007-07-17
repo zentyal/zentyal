@@ -20,7 +20,6 @@ use warnings;
 
 use base qw(EBox::GConfModule EBox::LdapModule EBox::ObjectsObserver EBox::FirewallObserver EBox::LogObserver);
 
-use Proc::ProcessTable;
 use EBox::Sudo qw( :all );
 use EBox::Validate qw( :all );
 use EBox::Gettext;
@@ -34,6 +33,10 @@ use EBox::MailAliasLdap;
 use EBox::MailLogHelper;
 use EBox::MailFirewall;
 
+use Proc::ProcessTable;
+use Perl6::Junction qw(all);
+
+
 use constant MAILMAINCONFFILE			=> '/etc/postfix/main.cf';
 use constant MAILMASTERCONFFILE			=> '/etc/postfix/master.cf';
 use constant AUTHLDAPCONFFILE			=> '/etc/courier/authldaprc';
@@ -43,9 +46,6 @@ use constant POP3DSSLCONFFILE			=> '/etc/courier/pop3d-ssl';
 use constant IMAPDCONFFILE			=> '/etc/courier/imapd';
 use constant IMAPDSSLCONFFILE			=> '/etc/courier/imapd-ssl';
 use constant SASLAUTHDDCONFFILE			=> '/etc/saslauthd.conf';
-use constant SASLAUTHDDCONFFILE_MASK		=> '0600';
-use constant SASLAUTHDDCONFFILE_UID		=> '0';
-use constant SASLAUTHDDCONFFILE_GID		=> '0';
 use constant SASLAUTHDCONFFILE			=> '/etc/default/saslauthd';
 use constant SMTPDCONFFILE			=> '/etc/postfix/sasl/smtpd.conf';
 use constant MAILINIT				=> '/etc/init.d/postfix';
@@ -57,6 +57,9 @@ use constant POPPIDFILE				=> "/var/run/courier/pop3d.pid";
 use constant IMAPPIDFILE			=> "/var/run/courier/imapd.pid";
 use constant BYTES				=> '1048576';
 use constant MAXMGSIZE				=> '104857600';
+
+
+use constant SERVICES => ('active', 'filter', 'pop', 'imap', 'sasl');
 
 sub _create 
 {
@@ -182,13 +185,7 @@ sub _setMailConf {
 	push(@array, 'passdn', $self->{vdomains}->{ldap}->rootPw());
 	push(@array, 'usersdn', $users->usersDn());
 	
-	$self->writeConfFile(SASLAUTHDDCONFFILE, 
-			"mail/saslauthd.conf.mas", \@array,	
-		{ mode => SASLAUTHDDCONFFILE_MASK, 
-		  uid => SASLAUTHDDCONFFILE_UID, 
-		  gid => SASLAUTHDDCONFFILE_GID });
-
-
+	$self->writeConfFile(SASLAUTHDDCONFFILE, "mail/saslauthd.conf.mas",\@array);
 	$self->writeConfFile(SASLAUTHDCONFFILE, "mail/saslauthd.mas",\@array);
 	$self->writeConfFile(SMTPDCONFFILE, "mail/smtpd.conf.mas",\@array);
 }
@@ -237,6 +234,202 @@ sub isRunning
 	}
 }
 
+
+
+# Method: externalFiltersFromModules
+#
+#  return a list with all the external filters provided by eBox's modules
+#
+sub externalFiltersFromModules
+{
+  my ($self) = @_;
+
+  my $global = EBox::Global->getInstance;
+  my %filters = map {
+    my ($name, $attrs) = $_->mailFilter();
+    defined $name ? ($name => $attrs) : ();
+  } @{ $global->modInstancesOfType('EBox::Mail::FilterProvider') };
+
+  return \%filters;
+
+}
+
+
+#  Method : setExternalFilter
+#
+#  set the external filter used; the name 'custom' is reserved for user's custom
+#  setting 
+#
+#  Parameters:
+#   filter - the filter's name or 'custom' for user's settings
+sub setExternalFilter
+{
+  my ($self, $filter) = @_;
+
+  if ($filter ne 'custom') {
+    my $filters_r = $self->externalFiltersFromModules();
+    exists $filters_r->{$filter} or
+      throw EBox::Exceptions::External(
+				       __x('Unknown filter {filter}',
+					   filter => $filter,
+					  )
+				      )
+  }
+
+  $self->set_string('external_filter_name', $filter);
+}
+
+#  Method : externalFilter
+#
+#  return ther name of the external filter used or the name 'custom' in case
+#  user's custom settings are in use
+sub externalFilter
+{
+  my ($self) = @_;
+  return $self->get_string('external_filter_name');
+}
+
+
+
+sub _assureCustomFilter
+{
+  my ($self) = @_;
+  if ($self->externalFilter ne 'custom') {
+    throw EBox::Exceptions::External(
+				     __('Cannot change this parameter for a non-custom filter')
+				    );
+  }
+
+}
+
+sub _filterAttr
+{
+  my ($self, $name, $attr) = @_;
+
+
+  my $filters_r = $self->externalFiltersFromModules();
+
+  my $value =  $filters_r->{$name}->{$attr};
+  defined $value or
+    throw EBox::Exceptions::Internal("Cannot found attribute $attr in filter $name");
+
+  return $value;
+}
+
+# returns wether we must use the filter attr instead of the stored in the
+# module's cponfgiuration
+sub _useFilterAttr
+{
+  my ($self) = @_;
+
+  if (not $self->service('filter')) {
+     return 0;
+  }
+
+  if ($self->externalFilter() eq 'custom') {
+    return 0;
+  }
+
+  return 1;
+}
+
+# Method: setIPFilter
+#
+#  This method sets the ip of the external filter
+#
+# Parameters:
+#
+# 		ip - The ip address
+sub setIPFilter
+{
+	my ($self, $ip) = @_;
+	
+        $self->_assureCustomFilter();
+
+	unless (checkIP($ip)) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('remote IP'),
+			'value'	=> __x('{ip} is not a valid ip address', ip => $ip));
+	}
+	
+
+	my $nIfaces = @{$self->_getIfacesForAddress($ip)};
+	if ($nIfaces == 0) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('remote IP'),
+			'value'	=> __x('{ip} cannot be reached by any configured interface', ip => $ip));
+	}
+	elsif ($nIfaces > 1) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('remote IP'),
+			'value'	=> __x('{ip} can be reached by more than one configured interface', ip => $ip));
+	}
+
+	if ($ip eq $self->ipfilter) {
+	  return;
+	}
+	
+	$self->set_string('ipfilter', $ip);
+}
+
+# Method: ipfilter
+#
+#  This method returns the ip of the external filter
+#
+sub ipfilter
+{
+	my $self = shift;
+
+	if ($self->_useFilterAttr) {
+	  return $self->_filterAttr($self->externalFilter, 'address');
+	} 
+
+	return $self->get_string('ipfilter');
+}
+
+# Method: setPortFilter
+#
+#  This method sets the port where the mail filter listen
+#
+# Parameters:
+#
+# 		port - The port
+sub setPortFilter
+{
+	my ($self, $port) = @_;
+
+	$self->_assureCustomFilter();
+	
+	my $fw = EBox::Global->modInstance('firewall');
+	unless ($fw->availablePort('tcp',$port)) {
+		throw EBox::Exceptions::DataExists(
+			'data'  => __('port'),
+			'value' => $port);
+	}
+
+	if ($self->portfilter() == $port) {
+		return;
+	}
+
+	$self->set_int('portfilter', $port);
+}
+
+# Method: portfilter
+#
+#  This method returns the port where the mail filter listen
+#
+sub portfilter
+{
+	my $self = shift;
+
+	if ($self->_useFilterAttr) {
+	  return $self->_filterAttr($self->externalFilter, 'port');
+	}
+
+	return $self->get_int('portfilter');
+}
+
+
 # Method: setFWPort
 #
 #  This method sets the port where forward all messages from external filter
@@ -247,6 +440,9 @@ sub isRunning
 sub setFWPort
 {
 	my ($self, $fwport) = @_;
+
+	$self->_assureCustomFilter();
+
 
 	my $fw = EBox::Global->modInstance('firewall');
 	checkPort($fwport, "port");
@@ -262,84 +458,22 @@ sub setFWPort
 	$self->set_int('fwport', $fwport);
 }
 
-# Method: setFWPort
+# Method: fwport
 #
 #  This method returns the port where forward all messages from external filter
 #
 sub fwport
 {
 	my $self = shift;
+
+
+	if ($self->_useFilterAttr) {
+	  return $self->_filterAttr($self->externalFilter, 'forwardPort');
+	}
+
 	return $self->get_int('fwport');
 }
 
-# Method: setIPFilter
-#
-#  This method sets the ip of the external filter
-#
-# Parameters:
-#
-# 		ip - The ip address
-sub setIPFilter
-{
-	my ($self, $ip) = @_;
-
-	unless (checkIP($ip)) {
-		throw EBox::Exceptions::InvalidData(
-			'data'	=> __('remote IP'),
-			'value'	=> __x('{ip} is not a valid ip address', ip => $ip));
-	}
-	
-
-	
-	my $nIfaces = @{$self->_getIfacesForAddress($ip)};
-	if ($nIfaces == 0) {
-		throw EBox::Exceptions::InvalidData(
-			'data'	=> __('remote IP'),
-			'value'	=> __x('{ip} cannot be reached by any configured interface', ip => $ip));
-	}
-	elsif ($nIfaces > 1) {
-		throw EBox::Exceptions::InvalidData(
-			'data'	=> __('remote IP'),
-			'value'	=> __x('{ip} can be reached by more than one configured interface', ip => $ip));
-	}
-	
-	$self->set_string('ipfilter', $ip);
-}
-
-# Method: ipfilter
-#
-#  This method returns the ip of the external filter
-#
-sub ipfilter
-{
-	my $self = shift;
-	return $self->get_string('ipfilter');
-}
-
-# Method: setPortFilter
-#
-#  This method sets the port where the external filter listen
-#
-# Parameters:
-#
-# 		port - The port
-sub setPortFilter
-{
-	my ($self, $port) = @_;
-	
-	checkPort($port, __('port'));
-	$self->set_int('portfilter', $port);
-}
-
-# Method: portfilter
-#
-#  This method returns the port where the external filter listen
-#
-sub portfilter
-{
-	my $self = shift;
-	return $self->get_int('portfilter');
-}
 
 # Method: setRelay
 #
@@ -667,7 +801,7 @@ sub usesPort # (protocol, port, iface)
 sub firewallHelper
 {
 	my $self = shift;
-	if ($self->anyInService()) {
+	if ($self->anyDaemonServiceActive()) {
 		return new EBox::MailFirewall();
 	}
 	return undef;
@@ -762,14 +896,22 @@ sub _regenConfig
 #
 # Parameters:
 #
-#  active - true or false
 #  service - the service to enable or disable.
+#  active - true or false
+#
 #
 sub setService 
 {
-	my ($self, $active, $service) = @_;
-	($active and $self->service($service)) and return;
-	(!$active and !$self->service($service)) and return;
+	my ($self, $service, $active) = @_; 
+	defined $service or 
+	  throw EBox::Exceptions::MissingArgument('service');
+	defined $active or
+	  throw EBox::Exceptions::MissingArgument('active');
+
+	$self->_checkService($service);
+
+	($active xor $self->service($service)) or return;
+
 	$self->set_bool($service, $active);
 }
 
@@ -780,7 +922,7 @@ sub setService
 #
 # Parameters:
 #
-#  service - the service
+#  service - the service (default: 'active' (main service))
 #
 # Returns:
 #
@@ -789,20 +931,22 @@ sub setService
 sub service
 {
 	my ($self, $service) = @_;
-	defined($service) or $service = 'active';
+	defined ($service) or $service = 'active';
+	$self->_checkService($service);
+
 	return $self->get_bool($service);
 }
 
 #
-# Method: anyInService
+# Method: anyDaemonServiceActive
 #
-#  Returns if any service is active
+#  Returns if any service which a indendent daemon is active
 #
 # Returns:
 #
 #  boolean - true if any is active, otherwise false
 #
-sub anyInService {
+sub anyDaemonServiceActive {
 	my $self = shift;
 	my @services = ('active', 'pop', 'imap');
 
@@ -812,6 +956,16 @@ sub anyInService {
 
 	return undef;
 }	
+
+
+sub _checkService
+{
+  my ($self, $service) = @_;
+
+  if ($service ne all(SERVICES)) {
+    throw EBox::Exceptions::Internal("Inexistent service $service");
+  }
+}
 
 # LdapModule implmentation    
 sub _ldapModImplementation    
@@ -824,9 +978,10 @@ sub _ldapModImplementation
 sub summary
 {
 	my $self = shift;
-	my $item = new EBox::Summary::Module(__("Mail"));
-	my $section = new EBox::Summary::Section();
-	$item->add($section);
+
+	my $summary = new EBox::Summary::Module(__("Mail"));
+	my $section = new EBox::Summary::Section(__("Mail services"));
+	$summary->add($section);
 	my $pop = new EBox::Summary::Status('mail', __('POP3 service'),
 		$self->isRunning('pop'), $self->service('pop'), 1);
 	my $imap = new EBox::Summary::Status('mail', __('IMAP service'),
@@ -835,7 +990,50 @@ sub summary
 	$section->add($pop);
 	$section->add($imap);
 
-	return $item;
+	my $filterSection = $self->_filterSummarySection();
+	$summary->add($filterSection);
+
+	return $summary;
+}
+
+
+sub _filterSummarySection
+{
+  my ($self) = @_;
+
+  my $section = new EBox::Summary::Section('Mail filter');
+
+  my $service     = $self->service('filter');
+  my $statusValue =  $service ? __('enabled') : __('disabled');
+						
+  $section->add( new EBox::Summary::Value(
+					  __('Status'), 
+					  $statusValue
+					 ));
+
+
+  $service or return $section;
+
+  my $filter = $self->externalFilter();
+
+
+  if ($filter eq 'custom') {
+    $section->add (new EBox::Summary::Value(__('Filter') => __('Custom')));
+    my   $address = $self->ipfilter() . ':' . $self->portfilter();
+    $section->add (new EBox::Summary::Value(__('Address') => $address));
+  }
+  else {
+    $section->add (new EBox::Summary::Value(__('Filter') => $self->_filterAttr($filter, 'prettyName')));    
+
+    my $global = EBox::Global->getInstance(1);
+    my ($filterInstance) = grep {  
+      $_->mailFilterName eq $filter
+    } @{  $global->modInstancesOfType('EBox::Mail::FilterProvider')  };
+
+    $filterInstance->mailFilterSummary($section);
+  }
+
+  return $section;
 }
 
 
@@ -861,6 +1059,18 @@ sub menu
 
 	$folder->add(new EBox::Menu::Item('url' => 'Mail/QueueManager',
 			'text' => __('Queue Management')));
+
+	
+	# add filterproviders menu items
+	my $global = EBox::Global->getInstance(1);
+	my @mods = @{$global->modInstancesOfType('EBox::Mail::FilterProvider')};
+	foreach my $mod (@mods) {
+	  my $menuItem = $mod->mailMenuItem();
+	  defined $menuItem or
+	    next;
+	  $folder->add($menuItem);
+	} 
+
 
 	$root->add($folder);
 }

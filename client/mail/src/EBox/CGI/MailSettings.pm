@@ -41,7 +41,7 @@ sub _process($) {
 	$self->_requireParam('active', __('mail system status'));
 	my $active = $self->param('active');
 	
-	$mail->setService(($self->param('sasl') eq 'yes'), 'sasl');
+	$mail->setService('sasl', ($self->param('sasl') eq 'yes'));
 	
 	if ((defined($self->param('smtptls'))) or ($self->param('sasl') eq 'yes')) {
 		$mail->setTlsSmtp(1);
@@ -49,7 +49,7 @@ sub _process($) {
 		$mail->setTlsSmtp(0);
 	}
 
-	$mail->setService(($self->param('active') eq 'yes'), 'active');
+	$mail->setService('active', ($self->param('active') eq 'yes'));
 }
 
 1;

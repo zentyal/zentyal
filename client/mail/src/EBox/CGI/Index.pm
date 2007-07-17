@@ -81,12 +81,15 @@ sub _process($) {
 	push (@array, 'menu'		=> $menu);
 	push (@array, 'popservice'		=> $self->_inService('pop'));
 	push (@array, 'imapservice'		=> $self->_inService('imap'));
-	push (@array, 'filterservice'		=> $self->_inService('filter'));
 	push (@array, 'saslservice'		=> $self->_inService('sasl'));
 	push (@array, 'smtptls'		=> $mail->tlsSmtp());
 	push (@array, 'popssl'		=> $mail->sslPop());
 	push (@array, 'imapssl'		=> $mail->sslImap());
 	push (@array, 'fwport'		=> $mail->fwport());
+
+	push (@array, 'filterservice'		=> $self->_inService('filter'));	
+	push (@array, 'filtername'              => $mail->externalFilter   );
+	push (@array, 'availableFilters',         => $mail->externalFiltersFromModules);
 	push (@array, 'ipfilter'		=> $mail->ipfilter());
 	push (@array, 'portfilter'		=>  $mail->portfilter());
 

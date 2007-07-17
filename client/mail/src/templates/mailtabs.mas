@@ -16,9 +16,9 @@
     <a href='Index?menu=settings'><% __('Settings') %></a>
 %     }
 %     if($selected eq 'filter') {
-    <span class='selected'><% __('External Filter') %></span>
+    <span class='selected'><% __('Filter') %></span>
 %     } else {
-    <a href='Index?menu=filter'><% __('External Filter') %></a>
+    <a href='Index?menu=filter'><% __('Filter') %></a>
 %     }
 </div>
 
