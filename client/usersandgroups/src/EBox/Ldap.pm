@@ -313,7 +313,7 @@ sub delObjectclass # (dn, objectclass);
 	return unless ($msg->entries > 0);
 
 	my %attrexist = map {$_ => 1} $msg->pop_entry->attributes; 
-	my $objectattrs = $schema->objectclass($objectclass);
+
 
 	$msg = $self->search(
 				{ base => $dn, scope => 'base',
@@ -323,11 +323,25 @@ sub delObjectclass # (dn, objectclass);
 	_errorOnLdap($msg);
 	my %attrs;
 	for my $oc (grep(!/^$objectclass$/, $msg->entry->get_value('objectclass'))){
-		my $ocattrs = $schema->objectclass($oc);
-		map { $attrs{$_ } = 1 } @{$ocattrs->{'may'}}, @{$ocattrs->{'must'}};	
-	}
-		my %attr2del;
-	for my $attr (@{$objectattrs->{'may'}}, @{$objectattrs->{'must'}}) {
+	        # get objectclass attributes
+		my @ocattrs =  map { 
+		  $_->{name}
+		}  ($schema->must($oc), $schema->may($oc));
+
+		# mark objectclass attributes as seen
+		foreach (@ocattrs) {
+		  $attrs{$_ } = 1;
+		}
+	      }
+
+	# get the attributes of the object class which will be deleted
+	my @objectAttrs = map {
+	  $_->{name}
+	}  ($schema->must($objectclass), $schema->may($objectclass));
+
+
+	my %attr2del;
+	for my $attr (@objectAttrs) {
 		# Skip if the attribute belongs to another objectclass
 		next if (exists $attrs{$attr});
 		# Skip if the attribute is not stored in the object
@@ -368,7 +382,39 @@ sub modifyAttribute # (dn, attribute, value);
 
 	my %attrs = ( changes => [ replace => [ $attribute => $value ] ]);
 	$self->modify($dn, \%attrs ); 
+}
 
+
+#
+#   Method: isObjectClass
+#
+#      check if a object is member of a given objectclass
+#
+# Parameters:
+#          dn          - the object's dn
+#          objectclass - the name of the objectclass
+# 
+#  Returns:
+#    boolean - wether the object is member of the objectclass or not
+sub isObjectClass
+{
+  my ($self, $dn, $objectClass) = @_;
+
+
+	my %attrs = (
+			base   => $dn,
+			filter => "(objectclass=$objectClass)",
+			attrs  => [ 'objectClass'],
+			scope  => 'base'
+		    );
+	 
+	my $result = $self->search(\%attrs);
+
+	if ($result->count ==  1) {
+		return 1;
+	}
+
+	return undef;
 }
 
 sub _errorOnLdap 
