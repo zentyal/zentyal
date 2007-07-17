@@ -792,7 +792,7 @@ sub mailFilter
 		     address     => '127.0.0.1',
 		     port        => $self->port(),
 		     forwardPort => $self->fwport,
-		     prettyName  => __('Mail filter'),
+		     prettyName  => __('eBox internal mail filter'),
 		     module      => $self->name,
 		    );
 
