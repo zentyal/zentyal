@@ -67,6 +67,21 @@ sub input
 	return \@rules;
 }
 
+
+sub externalInput
+{
+  my ($self) = @_;
+  my @rules = ();
+
+  my $mail = EBox::Global->modInstance('mail');
+  if ($mail->service) {
+    push @rules, '-m state --state NEW -p tcp --dport 25 -j ACCEPT';
+  }
+
+
+  return \@rules;
+}
+
 sub output
 {
 	my $self = shift;
