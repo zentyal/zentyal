@@ -1126,6 +1126,26 @@ sub logHelper
 
 
 
+sub restoreConfig
+{
+  my ($self, $dir) = @_;
+
+  # recreate maildirs for accounts if needed
+  my @vdomains = $self->{vdomains}->vdomains();
+  foreach my $vdomain (@vdomains) {
+    my @addresses = values %{ $self->{musers}->allAccountsFromVDomain($vdomain) };
+    foreach my $addr (@addresses) {
+      my ($left, $right) = split '@', $addr, 2;
+      my $maildir = $self->{musers}->maildir($left, $right);
+      if (not -d $maildir) {
+	$self->{musers}->_createMaildir($left, $right);
+      }
+    }
+  }
+
+}
+
+
 # extended backup
 
 sub _storageMailDirs

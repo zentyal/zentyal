@@ -556,6 +556,26 @@ sub _createMaildir() { #user (lhs of account), vdomain (rhs of account)
 
 }
 
+
+
+#  Method: maildir
+#
+#     get the maildir which will be used by the given account
+#
+#   Parameters:
+# 		lhs - left hand side of an account (foo on foo@bar.baz)
+#		vdomain - Virtual Domain name
+#  
+#   Returns:
+#         full path of the maildir
+sub maildir
+{
+  my ($class, $lhs, $vdomain) = @_;
+
+  return "/var/vmail/$vdomain/$lhs/";
+}
+
+
 # Method: gidvmail
 #
 #  This method returns the gid value of ebox user
