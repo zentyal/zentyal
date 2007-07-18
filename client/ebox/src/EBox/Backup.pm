@@ -836,10 +836,16 @@ sub restoreBackup # (file, %options)
 	if (-e "$tempdir/eboxbackup/$modname.bak") {
 	  push @restored, $modname;
 	  EBox::debug("Restoring $modname from backup data");
-	  $mod->setAsChanged(); # we set as changed first because it is not guaranteed that
+	  $mod->setAsChanged(); # we set as changed first because it is not
+                                # guaranteed that a failed backup will not
+                                # change state
 	  $mod->restoreBackup("$tempdir/eboxbackup", %options);
 	  $self->_migratePackage($mod->package());
 
+	  # to avoid false value in changed attribute for global
+	  if ($modname eq 'global') {
+	    $mod->setAsChanged();
+	  }
 	}
 	else {
 	  EBox::error("Restore data not found for module $modname. Skipping $modname restore");
@@ -894,7 +900,7 @@ sub _modInstancesForRestore
   my ($self) = @_;
   my $global = EBox::Global->getInstance();
 
-  # we remove global module because it will be the last to be restored
+  # we remove global module because it will be  the first to be restored
   my @modules   =  grep { $_->name ne 'global' } @{$global->modInstances() };   
 
   # check modules dependencies
@@ -917,8 +923,8 @@ sub _modInstancesForRestore
     $aDependsB <=> $bDependsA;
   } @modules;
 
-  # we restore global in last place to avoid possible problems 
-  push @modules, $global; 
+  # we restore global in first place to avoid false changed info
+  unshift @modules, $global; 
 
   return \@modules;
 }
