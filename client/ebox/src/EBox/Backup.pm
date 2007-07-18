@@ -37,6 +37,7 @@ use Perl6::Junction qw(any all);
 use EBox::Backup::FileBurner;
 use EBox::Backup::OpticalDiscDrives;
 use Params::Validate qw(validate_with validate_pos);
+use Filesys::Df;
 
 use Readonly;
 Readonly::Scalar our $FULL_BACKUP_ID  => 'full backup';
@@ -738,11 +739,14 @@ sub  _checkSize
 
   my $size;
   my $freeSpace;
+  my $safetyFactor = 2; # to be sure we have space left we multiply the backup
+                        # size by this number. The value was guessed, so change
+                        # it if you have better judgment
 
   my $tempDir;
   try {
-    $tempDir = $self->_unpackArchive($archive, 'size');
-    $size = read_file("$tempDir/eboxbackup/size");
+    $tempDir = $self->_unpackArchive($archive, 'size'); 
+    $size = read_file("$tempDir/eboxbackup/size"); # unit -> 1K
   }
   finally {
     if (defined $tempDir) {
@@ -753,11 +757,9 @@ sub  _checkSize
 
 
   my $backupDir = $self->backupDir();
-  my @dfOutput = `/bin/df $backupDir`;
-  my @dfData   = split '\s+', $dfOutput[1];
-  $freeSpace = $dfData[3];
+  $freeSpace = df($backupDir, 1024)->{bfree};
 
-  if ($freeSpace < $size) {
+  if ($freeSpace < ($size*$safetyFactor)) {
     throw EBox::Exceptions::External(__x("There in not enough space left in the hard disk to complete the restore proccess. {size} Kb required. Free sufficient space and retry", size => $size));
   }
 
@@ -850,9 +852,14 @@ sub restoreBackup # (file, %options)
       EBox::debug('Error caught: revoking restore for all modules');
       foreach my $restname (@restored) {
 	my $restmod = EBox::Global->modInstance($restname);
-	$restmod->revokeConfig();
-	# XXX remember no-gconf changes are not revoked!
-	EBox::debug("Revoked changes in $restname module");
+	try {
+	  $restmod->revokeConfig();
+	  # XXX remember no-gconf changes are not revoked!
+	  EBox::debug("Revoked changes in $restname module");
+	}
+	otherwise {
+	  EBox::debug("$restname has not changes to be revoked" );
+	};
       }
 
       throw $ex;
