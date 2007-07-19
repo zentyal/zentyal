@@ -29,10 +29,19 @@ case "$1" in
 		    openssl dhparam -out $DH_FILE 1024
 		fi
 
+		# create openvpn status log directory
+		STATUS_DIR=`perl -MEBox::OpenVPN -e 'print EBox::OpenVPN->logDir(); 1 '`
+		mkdir -p  $STATUS_DIR
+		chown nobody.nogroup $STATUS_DIR
+		
+
 		# don't start openvpn services 
 		update-rc.d -f openvpn remove
 		# XXX quagga don't start quagga services
 		update-rc.d -f quagga remove
+
+		# migrate data if needed
+		/usr/lib/ebox/ebox-migrate /usr/lib/ebox-openvpn/migration/ 
 
 		invoke-rc.d ebox openvpn restart
 esac

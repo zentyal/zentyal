@@ -110,6 +110,30 @@ sub dh
     return $self->_openvpnModule->dh();
 }
 
+
+sub logFile
+{
+  my ($self) = @_;
+  return $self->_logFile('');
+}
+
+
+sub statusLogFile
+{
+  my ($self) = @_;
+  return $self->_logFile('status-');
+}
+
+
+
+sub _logFile
+{
+  my ($self, $prefix) = @_;
+  my $logDir = $self->_openvpnModule->logDir();
+  my $file = $logDir . "/$prefix"  . $self->name() . '.log';
+  return $file;
+}
+
 #
 # Method: confFile
 #
@@ -144,6 +168,12 @@ sub writeConfFile
     my $confFilePath   = $self->confFile($confDir);
     my $templatePath   = $self->confFileTemplate();
     my $templateParams = $self->confFileParams();
+
+    push @{ $templateParams },
+      (
+       logFile       => $self->logFile(),
+       statusLogFile => $self->statusLogFile(),
+      );
 
     my $defaults     = {
 	uid  => 0,
