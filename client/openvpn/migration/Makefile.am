@@ -2,7 +2,9 @@
 
 Migrationsdir = @LIBDIR@/ebox-openvpn/migration
 
-nobase_Migrations_SCRIPTS = 0001_change_log_files.pl!
+
+nobase_Migrations_SCRIPTS = 0002_split_service.pl
+
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
 
