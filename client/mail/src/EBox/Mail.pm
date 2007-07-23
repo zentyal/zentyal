@@ -308,6 +308,13 @@ sub _filterAttr
 
 
   my $filters_r = $self->externalFiltersFromModules();
+  
+  exists $filters_r->{$name} or
+    throw EBox::Exceptions::External(
+      __('The mail filter does not exist. Please set another mail filter or disable it'
+	 )
+				    );
+  
 
   my $value =  $filters_r->{$name}->{$attr};
   defined $value or
