@@ -140,7 +140,7 @@ sub stopService
   my ($self) = @_;
 
   if ($self->isRunning()) {
-    $self->_daemons('stop');
+    $self->_daemon('stop');
   }
 }
 
