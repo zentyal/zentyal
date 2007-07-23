@@ -738,7 +738,7 @@ sub certificateExpired
   my ($self, $commonName, $isCACert) = @_;
 
   if ($isCACert or  ($commonName eq $self->certificate())) {
-    EBox::info('Server ' . $self->name . ' is now inactive becasuse of certificate expiration issues');
+    EBox::info('OpenVPN server ' . $self->name . ' is now inactive because of certificate expiration issues');
     $self->_invalidateCertificate();
   } 
 }
@@ -748,7 +748,7 @@ sub freeCertificate
   my ($self, $commonName) = @_;
 
   if ($commonName eq $self->certificate()) {
-    EBox::info('Server ' . $self->name . ' is now inactive because server certificate expired or was revoked');
+    EBox::info('OpenVPN server ' . $self->name . ' is now inactive because server certificate expired or was revoked');
     $self->_invalidateCertificate();
   } 
 }
@@ -786,7 +786,7 @@ sub freeIface
 
   if ($self->_onlyListenOnIface($iface)) {
     $self->setService(0);
-    EBox::warn('Server ' . $self->name . " was deactivated because it depends on the interface $iface");
+    EBox::warn('OpenVPN server ' . $self->name . " was deactivated because it depends on the interface $iface");
   }
 }
 
@@ -848,7 +848,6 @@ sub summary
 
   my $subnet  = $self->subnet . '/' . $self->subnetNetmask;
   push @summary,(__('VPN subnet'), $subnet);
-
 
   return @summary;
 }
