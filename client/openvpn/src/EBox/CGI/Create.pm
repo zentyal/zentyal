@@ -90,10 +90,18 @@ sub actuate
 	$openVPN->newServer($name, %params);
 
         my $cgiQuery = $self->{cgi};
-	$cgiQuery->delete_all();    
+	$cgiQuery->delete_all();   
+	$cgiQuery->param(name => $name);
+	$self->keepParam('name');
 
-	$self->setMsg(__x("New server {name} created", name => $name) );
-	$self->{chain} = 'OpenVPN/Index';
+	$self->setMsg(
+		      __x('New server {name} created. Now you can add advertised routes', 
+			  name => $name
+			 ) 
+		     );
+
+
+	$self->{chain} = 'OpenVPN/Edit';
     }
 }
 
