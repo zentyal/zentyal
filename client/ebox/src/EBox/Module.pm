@@ -585,11 +585,15 @@ sub menu
 }
 
 #
-# Method: summary 
+# Method: summary
 #
-#	This method returns the summary for the module. What it returns it will 
-#	be added up to the common summry page. It should be overriden by 
+#	Return the summary for the module. What it returns will
+#	be added up to the common summary page. It should be overriden by 
 #	subclasses as needed
+#
+# Returns:
+#
+#       <EBox::Summary::Module> - the summary for the module
 #
 sub summary
 {
@@ -598,11 +602,15 @@ sub summary
 }
 
 #
-# Method: statusSummary 
+# Method: statusSummary
 #
-#	This method returns the summary for the module. What it returns it will 
-#	be added up to the common summry page. It should be overriden by 
-#	subclasses as needed
+#	Return the status summary for the module. What it returns will
+#	be added up to the common status summary page. It should be overriden by
+#	subclasses as needed.
+#
+# Returns:
+#
+#       <EBox::Summary::Status> - the summary status for the module
 #
 sub statusSummary
 {
