@@ -553,6 +553,20 @@ sub _createDaemonSkeleton
   $self->set_int($ifaceNumberKey, $ifaceNumber); 
 }
 
+
+# Returns:
+#   directory to store the log files (not status log files)
+#
+sub logDir
+{
+  my ($class) = @_;
+
+  my $dir = EBox::Config::log() . 'openvpn';
+  return $dir;
+}
+
+
+
 #
 # Method: user
 #

@@ -29,7 +29,7 @@ sub requiredParameters
     my ($self) = @_;
     if ($self->param('edit')) {
 	return ['name', 'edit'];
-    }
+    } 
     else {
 	return ['name'];
     }

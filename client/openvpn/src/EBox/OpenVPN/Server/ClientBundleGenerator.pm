@@ -29,7 +29,7 @@ sub _generateClientConf
   my $port      = $server->port();
   my $checkLabel = __(q{Server's address});
   my @servers =  map  {  
-                          EBox::Validate::checkIP($_, $checkLabel);
+                          EBox::Validate::checkHost($_, $checkLabel);
                          [$_, $port] 
 		       }   @{ $serversAddr_r };
   @servers or throw EBox::Exceptions::External(__x('You must provide at least one address for the server {name}', name => $server->name));
