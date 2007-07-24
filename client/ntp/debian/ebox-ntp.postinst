@@ -20,9 +20,6 @@ case "$1" in
 		# don't start NTP server with its script	
 		update-rc.d -f ntp-server remove
 
-		#sudo configuration
-		ebox-sudoers-friendly
-		chmod 0440 /etc/sudoers
 
 		# import timezone from system if installing for the first time
 		if [ -z "$2" ] ; then
