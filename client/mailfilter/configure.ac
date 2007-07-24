@@ -1,4 +1,4 @@
-AC_INIT([EBox-mailfilter], [0.9.3])
+AC_INIT([EBox-mailfilter], [0.9.99])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/MailFilter.pm])
@@ -19,6 +19,11 @@ AC_ARG_ENABLE([runtime-tests],
 if test "x$enable_runtime_tests" = "xyes" ; then
 	AC_CHECK_PROG(PERL, perl, perl, none)
 	AC_CHECK_PROG(GCONFTOOL, gconftool-2, gconftool-2, none)
+	
+	perlpath=`$PERL -e 'foreach (@INC) { print "$_\n";}' | grep "^$DATADIR" | head -1`
+	if test -z "$perlpath" ; then
+	perlpath=`$PERL -e 'foreach (@INC) { print "$_\n";}' | grep "^$prefix" | head -1`
+	fi
 
 	if test "$PERL" = "none" ; then
 		AC_MSG_ERROR(perl not found)
@@ -27,28 +32,28 @@ if test "x$enable_runtime_tests" = "xyes" ; then
 		AC_MSG_ERROR(gconftool not found)
 	fi
 
-	perlpath=`$PERL -e 'foreach (@INC) { print "$_\n";}' | grep "^$DATADIR" | head -1`
-	if test -z "$perlpath" ; then
-	perlpath=`$PERL -e 'foreach (@INC) { print "$_\n";}' | grep "^$prefix" | head -1`
-	fi
-	if test -z "$perlpath" ; then
-	perlpath="$DATADIR/perl5/"
-	AC_MSG_NOTICE([Perl libraries will be installed in $perlpath, make sure to
-	include it in your path])
-	else
-	AC_MSG_NOTICE([Perl libraries will be installed in $perlpath])
-	fi
-
-	AC_DEFINE_DIR(PERLPATH, perlpath)
 
 	AM_GCONF_SOURCE_2
 
-	AC_CONF_EBOX
 else
 	GCONF_SCHEMAS_INSTALL_FALSE=
 	GCONF_SCHEMAS_INSTALL_TRUE='#'
 fi
+ 
+AC_CONF_EBOX($enable_runtime_tests)
+
+if test -z "$perlpath" ; then
+perlpath="$DATADIR/perl5/"
+AC_MSG_NOTICE([Perl libraries will be installed in $perlpath, make sure to
+include it in your path])
+else
+AC_MSG_NOTICE([Perl libraries will be installed in $perlpath])
+fi
+
+AC_DEFINE_DIR(PERLPATH, perlpath)
+
 AM_PO_SUBDIRS
+
 
 AC_CONFIG_FILES([
 src/Makefile
