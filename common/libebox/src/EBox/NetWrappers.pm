@@ -46,7 +46,7 @@ BEGIN {
 
 # Function: iface_exists 
 #
-#	Checks if a given interface exists in the system using *ifconfig*	 
+#	Check if a given interface exists in the system using *ifconfig*	 
 #
 # Parameters:
 #
@@ -54,7 +54,7 @@ BEGIN {
 #
 # Returns:
 #
-#       True if exits, otherwise undef
+#       True if exists, otherwise undef
 #
 sub iface_exists #(iface)
 {
@@ -66,7 +66,7 @@ sub iface_exists #(iface)
 #
 # Function: list_ifaces 
 #
-#   	Returns a list of all real interfaces in the machine via */proc/net/dev*
+#   	Return a list of all real interfaces in the machine via */proc/net/dev*
 #
 # Returns:
 #
@@ -172,9 +172,9 @@ sub iface_mac_address
 }
 
 #
-# Function: iface_address
+# Function: iface_addresses
 #
-# 	Returns the  addresses for a given interface (dot format)	
+# 	Return the addresses for a given interface (dot format)
 #
 # Parameters:
 #

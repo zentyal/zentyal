@@ -425,6 +425,14 @@ sub cgi
 	return $self->{cgi};
 }
 
+# Method: domain
+#
+#    Get the gettext domain for this CGI
+#
+# Returns:
+#
+#    String - containing the gettext domain
+#
 sub domain
 {
 	my $self = shift;

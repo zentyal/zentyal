@@ -18,6 +18,15 @@ package EBox::Exceptions::External;
 use base 'EBox::Exceptions::Base';
 use EBox::Gettext;
 
+# Constructor: new
+#
+#      An exception called when a user defined parameter is wrong and
+#      it is going to be shown to the user
+#
+# Parameters:
+#
+#      text - the localisated text to show to the user
+#
 sub new # (text)
 {
 	my $class = shift;
