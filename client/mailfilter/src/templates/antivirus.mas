@@ -51,7 +51,7 @@ if (defined $date) {
 }
 </%init>
 % if (not defined $date) {
-  <& /msg.mas, msg => __('The antivirus database has never been updated') &>
+  <& /msg.mas, msg => __(q{The antivirus database has not been updated since the  mailfilter eBox's module was installed}) &>
 % return
 % }
 <& ".$event", info => $eventInfo,  date => $printableDate &>
