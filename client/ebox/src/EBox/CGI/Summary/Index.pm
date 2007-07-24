@@ -58,7 +58,7 @@ sub _body
 	my $page = new EBox::Summary::Page();
 	my @errors;
 	foreach my $name (@modNames) {
-		my $mod = EBox::Global->modInstance($name);
+		my $mod = $global->modInstance($name);
 		settextdomain($mod->domain);
 		my $item;
 		try {
