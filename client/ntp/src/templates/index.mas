@@ -10,4 +10,3 @@ use EBox::Gettext;
 <div class='ntpnew'>
 <& enable.mas, title => __('NTP server status'), active => $active &>
 </div>
-</div>
