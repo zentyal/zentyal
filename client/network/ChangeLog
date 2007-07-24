@@ -1,3 +1,6 @@
+0.9.99
+	+ New release
+
 0.9.3
 	+ Use value() instead of printableValue() in protocol
 	+ Add iptables rule to chain OUTPUT in table mangle to send traffic

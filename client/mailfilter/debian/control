@@ -1,4 +1,4 @@
-Source: ebox-mailfilter
+ySource: ebox-mailfilter
 Section: web
 Priority: optional
 Maintainer: Isaac Clerencia <isaac@warp.es>
@@ -7,5 +7,6 @@ Standards-Version: 3.6.1
 
 Package: ebox-mailfilter
 Architecture: all
-Depends: ebox (>= 0.8.99), ebox (<< 0.9.99), ebox-firewall, ebox-usersandgroups , ebox-mail, amavisd-new (>= 2.4.2), clamav (>= 0.90), clamav-daemon (>= 0.90), clamav-freshclam (>= 0.90), spamassassin, libnet-dns-perl
+Depends: ebox (0.9.99), ebox-firewall, ebox-usersandgroups , ebox-mail (>= 0.9.99), amavisd-new (>= 2.4.2), clamav (>= 0.90), clamav-daemon (>= 0.90), clamav-freshclam (>= 0.90), spamassassin, libnet-dns-perl
+Conflicts: ebox (<< 0.9.99)
 Description: Mail filter module

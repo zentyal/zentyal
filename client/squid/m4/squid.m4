@@ -38,7 +38,7 @@ AC_DEFUN([AC_PROG_SQUID],
   else
     AC_MSG_ERROR(squid configuration directory not found)
   fi
-  #SQUIDCONFDIR=`dirname $SQUIDCONF`
+  SQUIDCONFDIR=`dirname $SQUIDCONF`
   AC_SUBST(SQUIDCONF)
   AC_PATH_PROG(SQUID_INIT, squid, , /etc/init.d)
   if test -z "$SQUID_INIT" ; then
