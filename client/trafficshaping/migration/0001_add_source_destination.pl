@@ -1,5 +1,20 @@
 #!/usr/bin/perl
 
+# Copyright (C) 2006 Warp Networks S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 #	Migration between gconf data version 0 to 1
 #
 #	In version 0, these attributes are stored per rule
@@ -8,7 +23,7 @@
 #          * guaranteed_rate - Int
 #          * limited_rate - Int
 #
-#       In version 1, a enhancement version is done
+#       In version 1, an enhancement version is done
 #          * service_protocol - String
 #          * service_port - Int
 #          * source_selected - String
