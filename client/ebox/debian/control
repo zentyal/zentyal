@@ -8,9 +8,8 @@ Standards-Version: 3.6.1
 
 Package: ebox
 Architecture: all
-Depends: libebox (>= 0.9.2), lib apache-perl, openssl (>= 0.9.7e), libapache-mod-ssl, libapache-reload-perl, libapache-singleton-perl, libapache-authcookie-perl, gconf2, libgnome2-gconf-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl, runit, libapache-reload-perl (= 0.07-5warp.es), eject, cdrdao, mkisofs, cdrecord, dvd+rw-tools, postgresql, libdbd-pg-perl, libfile-tail-perl, libclone-perl, libfilesys-df-perl
+Depends: libebox (0.9.9), lib apache-perl, openssl (>= 0.9.7e), libapache-mod-ssl, libapache-reload-perl, libapache-singleton-perl, libapache-authcookie-perl, gconf2, libgnome2-gconf-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl, runit, libapache-reload-perl (= 0.07-5warp.es), eject, cdrdao, mkisofs, cdrecord, dvd+rw-tools, postgresql, libdbd-pg-perl, libfile-tail-perl, libclone-perl, libfilesys-df-perl
 Replaces: ebox (<< 0.9.99), ebox-logs
-Conflicts: ebox-dhcp  (<< 0.9.1), ebox-dns-cache (<< 0.9.1), ebox-dns (<< 0.9.1), ebox-firewall (<< 0.9.1), ebox-jabber (<< 0.9.1), ebox-mail (<< 0.9.1), ebox-network (<< 0.9.1), ebox-ntp (<< 0.9.1), ebox-objects (<< 0.9.1), ebox-printers (<< 0.9.1), ebox-samba (<< 0.9.1), ebox-software (<< 0.7.99), ebox-squid (<< 0.9.1), ebox-usersandgroups (<< 0.9.1), ebox-openvpn (<< 0.9.1), ebox-ca (<< 0.9.1), ebox-logs
 Description: Base framework
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
