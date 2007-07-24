@@ -25,7 +25,7 @@ use Data::Dumper;
 use EBox::Global;
 use EBox;
 
-use lib '../..';
+use lib '../../../..';
 
 use EBox::Types::Service;
 
