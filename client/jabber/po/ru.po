@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-jabber 0.9.1\n"
+"Project-Id-Version: ebox-jabber 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:38+0200\n"
+"POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-04-11 16:23+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -19,101 +19,103 @@ msgstr ""
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
-msgstr ""
+msgstr "статус модуля"
 
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:297
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
 
 #: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:232
 msgid "domain"
-msgstr ""
+msgstr "домен"
 
 #: src/EBox/CGI/JabberUserOptions.pm:44
 msgid "username"
-msgstr ""
+msgstr "имя пользователя"
 
 #: src/EBox/Jabber.pm:197
 msgid "listening port"
-msgstr ""
+msgstr "прослушиваемый порт"
 
 #: src/EBox/Jabber.pm:309
 msgid "Jabber Service"
-msgstr ""
+msgstr "Служба Jabber"
 
 #: src/templates/jabber.mas:8
 msgid "Jabber account"
-msgstr ""
+msgstr "Аккаунт Jabber"
 
 #: src/templates/jabber.mas:10
 msgid "Password for Jabber service is the user password"
-msgstr ""
+msgstr "Пароль для службы Jabber это пароль пользователя"
 
 #: src/templates/jabber.mas:17
 msgid "User account"
-msgstr ""
+msgstr "Аккаунт пользователя"
 
 #: src/templates/jabber.mas:23 src/templates/jabber.mas:28
 msgid "Disabled"
-msgstr ""
+msgstr "Отключено"
 
 #: src/templates/jabber.mas:25 src/templates/jabber.mas:30
 msgid "Enabled"
-msgstr ""
+msgstr "Включено"
 
 #: src/templates/jabber.mas:38
 msgid "Administration rights"
-msgstr ""
+msgstr "Административные права"
 
 #: src/templates/jabber.mas:53 src/templates/jabber.mas:55
 msgid "Change"
-msgstr ""
+msgstr "Изменить"
 
 #: src/templates/index.mas:14
 msgid "Jabber Service status"
-msgstr ""
+msgstr "Статус службы Jabber"
 
 #: src/templates/index.mas:18
 msgid "General Settings"
-msgstr ""
+msgstr "Общие настройки"
 
 #: src/templates/index.mas:21
 msgid ""
 "Domain name should be available on the network. Otherwise, you may not be "
 "able to use this service. This applies for internal and external connections."
 msgstr ""
+"Доменное имя должно быть доступно в сети. Иначе, Вы можете не получить "
+"доступ к этой службе. Это применимо к внутренним и внешним соединениям."
 
 #: src/templates/index.mas:28
 msgid "Domain name"
-msgstr ""
+msgstr "Доменное имя"
 
 #: src/templates/index.mas:37
 msgid "Connect to global Jabber network"
-msgstr ""
+msgstr "Подключится к глобальной сети Jabber"
 
 #: src/templates/index.mas:50
 msgid "SSL Support"
-msgstr ""
+msgstr "Поддержка SSL"
 
 #: src/templates/index.mas:56 src/templates/index.mas:63
 #: src/templates/index.mas:70
 msgid "No"
-msgstr ""
+msgstr "Нет"
 
 #: src/templates/index.mas:58 src/templates/index.mas:65
 #: src/templates/index.mas:72
 msgid "Optional"
-msgstr ""
+msgstr "Опционально"
 
 #: src/templates/index.mas:60 src/templates/index.mas:67
 #: src/templates/index.mas:74
 msgid "Required"
-msgstr ""
+msgstr "Требуется"
 
 #: src/templates/index.mas:84 src/templates/index.mas:86
 msgid "Apply Changes"
-msgstr ""
+msgstr "Применить изменения"
 
 #: stubs/c2s.xml.mas:77
 msgid "Enter a username and password to register with this server."
-msgstr ""
+msgstr "Введите имя пользователя и пароль для регистрации на этом сервере."

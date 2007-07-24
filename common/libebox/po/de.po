@@ -10,9 +10,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.9.1\n"
+"Project-Id-Version: libebox 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:36+0200\n"
+"POT-Creation-Date: 2007-07-24 12:11+0200\n"
 "PO-Revision-Date: 2007-03-30 16:28+0000\n"
 "Last-Translator: andy <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -54,7 +54,7 @@ msgstr ""
 "Die Eingabe enthält ungültige Zeichen. Alle Buchstaben (A-Z, a-z), die "
 "Zahlen (0-9) und diese Zeichen (/.?&+:-@) sowie Leerzeichen sind erlaubt"
 
-#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:524
+#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:532
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -70,7 +70,7 @@ msgstr ""
 "Ein interner Fehler betreffend einer Vorlage ist aufgetreten. Dies ist ein "
 "Programmierfehler, mehr Informationen finden Sie in den Logs"
 
-#: src/EBox/CGI/Base.pm:530
+#: src/EBox/CGI/Base.pm:538
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -78,20 +78,20 @@ msgstr ""
 "Ein unerwarteter Fehler ist aufgetreten. Dies ist ein Programmierfehler, "
 "mehr Informationen finden Sie in den Logs"
 
-#: src/EBox/CGI/Base.pm:536
+#: src/EBox/CGI/Base.pm:544
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
 "Sie haben einen Programmierfehler in der eBox entdeckt, bitte suchen Sie "
 "technische Unterstützung"
 
-#: src/EBox/CGI/Base.pm:623
+#: src/EBox/CGI/Base.pm:631
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Ihre Anfrage konnte nicht verarbeitet werden, weil sie falsche Parameter "
 "enthält"
 
-#: src/EBox/CGI/Base.pm:638
+#: src/EBox/CGI/Base.pm:646
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
@@ -99,9 +99,13 @@ msgstr ""
 "Ihre Anfrage konnte nicht verarbeitet werden, weil einige nötige Parameter "
 "fehlen"
 
-#: src/EBox/CGI/Base.pm:757
+#: src/EBox/CGI/Base.pm:782
 msgid "Invalid uploaded file."
 msgstr "Die hochgeladene Datei ist ungültig"
+
+#: src/EBox/CGI/Base.pm:788
+msgid "Cannot create a temporally file for the upload"
+msgstr ""
 
 #: src/EBox/Sudo.pm:229
 #, perl-brace-format
@@ -126,7 +130,7 @@ msgstr ""
 "#-#-#-#-#  de.po (libebox 0.8.99)  #-#-#-#-#\n"
 "Der eBox-Benutzer wurde in der Konfigurationsdatei nicht eingestellt"
 
-#: src/EBox/Validate.pm:608
+#: src/EBox/Validate.pm:647
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -137,7 +141,7 @@ msgstr ""
 "Informationen zum Verzeichnis \"{dir}\" konnten nicht abgerufen werden. "
 "Vielleicht sind Sie nicht zugriffsberechtigt"
 
-#: src/EBox/Validate.pm:613
+#: src/EBox/Validate.pm:652
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
@@ -145,7 +149,7 @@ msgstr ""
 "#-#-#-#-#  de.po (libebox 0.8.99)  #-#-#-#-#\n"
 "Der Ordner {dir} ist nicht privat weil er einem anderen Benutzer gehört"
 
-#: src/EBox/Validate.pm:688
+#: src/EBox/Validate.pm:727
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
@@ -153,29 +157,29 @@ msgstr ""
 "Sie haben einen ungültigen Dateipfad angegeben. (Zum jetztigen Zeitpunkt "
 "sind noch nicht alle gültigen Zeichen unterstützt)"
 
-#: src/EBox/Validate.pm:716
+#: src/EBox/Validate.pm:755
 msgid "The file path must be absolute"
 msgstr "Geben Sie einen absoluter Dateipfad an"
 
-#: src/templates/ajax/tableBody.mas:47
+#: src/templates/ajax/tableBody.mas:48
 msgid "Add new"
 msgstr "Hinzufügen"
 
-#: src/templates/ajax/tableBody.mas:58
+#: src/templates/ajax/tableBody.mas:59
 #, perl-brace-format
 msgid "Adding a new {row}"
 msgstr "Eine neue {row} hinzufügen"
 
-#: src/templates/ajax/tableBody.mas:65
+#: src/templates/ajax/tableBody.mas:66
 #, perl-brace-format
 msgid "Editing {row}"
 msgstr "{row} wird bearbeitet"
 
-#: src/templates/ajax/tableBody.mas:131
+#: src/templates/ajax/tableBody.mas:132
 msgid "Action"
 msgstr "Aktion"
 
-#: src/templates/ajax/tableBody.mas:329
+#: src/templates/ajax/tableBody.mas:327
 msgid "port"
 msgstr ""
 
@@ -219,19 +223,19 @@ msgstr ""
 "Die Sprache wird automatisch geändern, die Konfiguration muss dazu nicht "
 "gespeichert werden"
 
-#: src/templates/language.mas:25 src/templates/enable.mas:29
-#: src/templates/enable.mas:31
+#: src/templates/language.mas:25 src/templates/enable.mas:36
+#: src/templates/enable.mas:38
 msgid "Change"
 msgstr "Ändern"
 
-#: src/templates/enable.mas:13
+#: src/templates/enable.mas:11
 msgid "Service configuration"
 msgstr "Konfiguration der Dienste"
 
-#: src/templates/enable.mas:17 src/templates/enable.mas:22
+#: src/templates/enable.mas:24 src/templates/enable.mas:29
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-#: src/templates/enable.mas:19 src/templates/enable.mas:24
+#: src/templates/enable.mas:26 src/templates/enable.mas:31
 msgid "Enabled"
 msgstr "Aktiviert"

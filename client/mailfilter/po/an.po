@@ -4,9 +4,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mailfilter 0.7.99\n"
+"Project-Id-Version: ebox-mailfilter 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 11:54+0200\n"
+"POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-01-31 23:37+0000\n"
 "Last-Translator: Guillermo Frías Marín <espanyoldebarna@hotmail.com>\n"
 "Language-Team: none\n"
@@ -16,93 +16,150 @@ msgstr ""
 "X-Generator: Pootle 0.10.1\n"
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 
-#: src/EBox/MailFilter/VDomainsLdap.pm:396 src/EBox/MailFilter.pm:733
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter/VDomainsLdap.pm:396
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter.pm:733
+#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:40
+#: src/EBox/CGI/AddFileFilterElement.pm:29
+#: src/EBox/CGI/ModifyFileFilterACL.pm:29
+#: src/EBox/CGI/RemoveFileFilterElement.pm:29
+#: src/EBox/CGI/FileFilterBase.pm:32
+#: src/EBox/CGI/RemoveAllFileFilterElements.pm:29
+#: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:29
 #, fuzzy
-msgid "Mail filter settings"
+msgid "Mail filter"
 msgstr "Sistema de colato"
 
-#: src/EBox/MailFilter/VDomainsLdap.pm:448
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter/VDomainsLdap.pm:448
+#: src/EBox/CGI/RemoveAllowedMTA.pm:58
 #, perl-brace-format
-msgid "Virtual mail domain {vd} does not exist"
+msgid ""
+"External mail server {mta} removed. Remember to remove his mail domains from "
+"the external mail domains list"
+msgstr ""
+
+#: src/EBox/CGI/AntispamTraining.pm:80
+#, perl-brace-format
+msgid "Invalid mailbox type: {type}"
+msgstr ""
+
+#: src/EBox/CGI/AntispamTraining.pm:93
+msgid "Learned from mailbox file"
+msgstr ""
+
+#: src/EBox/CGI/AddFileFilterElement.pm:66
+#, perl-brace-format
+msgid "{name} is already registered"
+msgstr ""
+
+#: src/EBox/CGI/AddFileFilterElement.pm:74
+#, perl-brace-format
+msgid "{name} added"
+msgstr ""
+
+#: src/EBox/CGI/ModifyFileFilterACL.pm:87
+#: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:70
+msgid "Denied settings changed"
+msgstr ""
+
+#: src/EBox/CGI/ModifyFileFilterACL.pm:90
+#: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:73
+msgid "No changes where specified by the user"
+msgstr ""
+
+#: src/EBox/CGI/RemoveFileFilterElement.pm:66
+#, perl-brace-format
+msgid "{name} is not registered"
+msgstr ""
+
+#: src/EBox/CGI/RemoveFileFilterElement.pm:74
+#, perl-brace-format
+msgid "{name} removed"
+msgstr ""
+
+#: src/EBox/CGI/RemoveSenderACL.pm:74
+msgid "The specified sender is not in the ACL"
+msgstr ""
+
+#: src/EBox/CGI/AddExternalDomain.pm:64
+#, perl-brace-format
+msgid "Mail domain {domain} added to external domain's list."
+msgstr ""
+
+#: src/EBox/CGI/Enable.pm:41
+msgid "module status"
+msgstr ""
+
+#: src/EBox/CGI/RemoveExternalDomain.pm:58
+#, perl-brace-format
+msgid "Mail domain{domain} removed from external domains list."
+msgstr ""
+
+#: src/EBox/CGI/RemoveAllFileFilterElements.pm:67
+msgid "All entries were removed"
+msgstr ""
+
+#: src/EBox/CGI/AddAllowedMTA.pm:63
+#, perl-brace-format
+msgid ""
+"External mail server {mta} allowed. Remember to add his mail domains to the "
+"external mail domains list"
 msgstr ""
 
 #: src/EBox/MailFilter/FileFilter.pm:70
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter/FileFilter.pm:70
 #, perl-brace-format
 msgid "{ext} is not registered in the extensions list"
 msgstr ""
 
 #: src/EBox/MailFilter/FileFilter.pm:137
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter/FileFilter.pm:137
 #, perl-brace-format
 msgid "{ext} is not registered in the mimeTypes list"
 msgstr ""
 
 #: src/EBox/MailFilter/FileFilter.pm:173
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter/FileFilter.pm:173
 msgid "MIME type"
 msgstr ""
 
 #: src/EBox/MailFilter/FileFilter.pm:187
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter/FileFilter.pm:187
 #: src/templates/fileFilterExtension.mas:15
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilterExtension.mas:15
 msgid "file extension"
 msgstr ""
 
 #: src/EBox/MailFilter/SpamAssassin.pm:290
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter/SpamAssassin.pm:290
 msgid "The spam's autolearn threshold must be higher than 6.0"
 msgstr ""
 
 #: src/EBox/MailFilter/SpamAssassin.pm:319
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter/SpamAssassin.pm:319
 msgid "The ham's autolearn threshold cannot be higher than spam's threshold"
 msgstr ""
 
 #: src/EBox/MailFilter/SpamAssassin.pm:335
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter/SpamAssassin.pm:335
 msgid ""
 "The spam's autolearn threshold cannot be lower than the default spam's "
 "treshold "
 msgstr ""
 
 #: src/EBox/MailFilter/SpamAssassin.pm:339
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter/SpamAssassin.pm:339
 msgid ""
 "The ham's autolearn threshold canot be higher or equal than the default spam "
 "level"
 msgstr ""
 
-#: src/EBox/MailFilter/SpamAssassin.pm:428
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter/SpamAssassin.pm:428
-#: src/templates/antispam.mas:29
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:29
+#: src/EBox/MailFilter/SpamAssassin.pm:428 src/templates/antispam.mas:29
 msgid "Spam threshold"
 msgstr ""
 
 #: src/EBox/MailFilter/SpamAssassin.pm:428
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter/SpamAssassin.pm:428
 msgid "It must be a number(decimal point allowed)"
 msgstr ""
 
 #: src/EBox/MailFilter/SpamAssassin.pm:438
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter/SpamAssassin.pm:438
 msgid "The spam's threshold cannot be higher than his autolearn threshold"
 msgstr ""
 
 #: src/EBox/MailFilter/SpamAssassin.pm:443
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter/SpamAssassin.pm:443
 msgid ""
 "The spam's threshold cannot be lower or equalthan his ham's autolearn "
 "threshold"
 msgstr ""
 
 #: src/EBox/MailFilter/SpamAssassin.pm:520
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter/SpamAssassin.pm:520
 msgid ""
 "Cannot learn because bayesian filter is disabled in the current "
 "configuration. In order to be able to learn  enable ithe bayesian filter and "
@@ -110,668 +167,445 @@ msgid ""
 msgstr ""
 
 #: src/EBox/MailFilter/SpamAssassin.pm:535
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter/SpamAssassin.pm:535
 #, perl-brace-format
 msgid "Unsupported or incorrect input source format: {format}"
 msgstr ""
 
 #: src/EBox/MailFilter/SpamAssassin.pm:564
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter/SpamAssassin.pm:564
 msgid "domain name"
 msgstr ""
 
 #: src/EBox/MailFilter/SpamAssassin.pm:568
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter/SpamAssassin.pm:568
 msgid "email address"
 msgstr ""
 
 #: src/EBox/MailFilter/SpamAssassin.pm:572
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter/SpamAssassin.pm:572
 msgid ""
 "The sender can only be a email address or a domain name prefixed with '@'"
 msgstr ""
 
+#: src/EBox/MailFilter/VDomainsLdap.pm:396 src/EBox/MailFilter.pm:733
+#, fuzzy
+msgid "Mail filter settings"
+msgstr "Sistema de colato"
+
+#: src/EBox/MailFilter/VDomainsLdap.pm:448
+#, perl-brace-format
+msgid "Virtual mail domain {vd} does not exist"
+msgstr ""
+
 #: src/EBox/MailFilter.pm:298
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter.pm:298
 msgid "Cannot proceed because the filter is in use"
 msgstr ""
 
 #: src/EBox/MailFilter.pm:371
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter.pm:371
 #, fuzzy
 msgid "Mailfilter's port"
 msgstr "Sistema de colato"
 
 #: src/EBox/MailFilter.pm:378
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter.pm:378
 #, perl-brace-format
 msgid "The port {port} is already used by module {mod}"
 msgstr ""
 
 #: src/EBox/MailFilter.pm:434
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter.pm:434
 msgid "MTA's address"
 msgstr ""
 
 #: src/EBox/MailFilter.pm:446
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter.pm:446
 #, perl-brace-format
 msgid "Invalid externa; MTA {mta}. Local net addresses are not allowed"
 msgstr ""
 
 #: src/EBox/MailFilter.pm:474
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter.pm:474
 #, perl-brace-format
 msgid "{mta} is already allowed"
 msgstr ""
 
 #: src/EBox/MailFilter.pm:499
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter.pm:499
 #, perl-brace-format
 msgid "{mta} not found"
 msgstr ""
 
 #: src/EBox/MailFilter.pm:518 src/EBox/MailFilter.pm:538
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter.pm:518
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter.pm:538
 msgid "Mail domain"
 msgstr ""
 
 #: src/EBox/MailFilter.pm:523
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter.pm:523
 #, perl-brace-format
 msgid "{domain} is already acknowledged as external mail domain"
 msgstr ""
 
 #: src/EBox/MailFilter.pm:545
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter.pm:545
 #, perl-brace-format
 msgid "Domain {domain} was not acknowledged as external mail domain"
 msgstr ""
 
 #: src/EBox/MailFilter.pm:568
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter.pm:568
 msgid "Administrator address"
 msgstr ""
 
 #: src/EBox/MailFilter.pm:630
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter.pm:630
 msgid "policy type"
 msgstr ""
 
 #: src/EBox/MailFilter.pm:649
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter.pm:649
 msgid "filter type"
 msgstr ""
 
 #: src/EBox/MailFilter.pm:718
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter.pm:718
 #, fuzzy
 msgid "Mail filter system"
 msgstr "Sistema de colato"
 
 #: src/EBox/MailFilter.pm:795
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter.pm:795
 msgid "eBox internal mail filter"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:814
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter.pm:814
-#: src/templates/menutabs.mas:13 src/templates/antivirus.mas:20
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/menutabs.mas:13
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antivirus.mas:20
+#: src/EBox/MailFilter.pm:814 src/templates/antivirus.mas:20
+#: src/templates/menutabs.mas:13
 msgid "Antivirus"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:824
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/MailFilter.pm:824
-#: src/templates/menutabs.mas:15 src/templates/antispam.mas:130
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/menutabs.mas:15
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:130
+#: src/EBox/MailFilter.pm:824 src/templates/antispam.mas:130
+#: src/templates/menutabs.mas:15
 msgid "Antispam"
 msgstr ""
 
-#: src/EBox/CGI/AddAllowedMTA.pm:63
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/AddAllowedMTA.pm:63
+#: src/templates/badHeaders.mas:7
+msgid "Bad headers policy"
+msgstr ""
+
+#: src/templates/badHeaders.mas:10 src/templates/antivirus.mas:28
+#: src/templates/fileFilter.mas:35 src/templates/antispam.mas:138
+msgid "Policy"
+msgstr ""
+
+#: src/templates/fileFilterExtension.mas:13
+msgid "Configure denied file extensions"
+msgstr ""
+
+#: src/templates/fileFilterExtension.mas:17
+msgid "extensions"
+msgstr ""
+
+#: src/templates/antivirus.mas:25
+msgid "Virus policy"
+msgstr ""
+
+#: src/templates/antivirus.mas:35
+msgid "Virus database update status"
+msgstr ""
+
+#: src/templates/antivirus.mas:71
 #, perl-brace-format
-msgid ""
-"External mail server {mta} allowed. Remember to add his mail domains to the "
-"external mail domains list"
+msgid "The last update failed at {date}"
 msgstr ""
 
-#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:40
-#: src/EBox/CGI/RemoveFileFilterElement.pm:29
-#: src/EBox/CGI/AddFileFilterElement.pm:29
-#: src/EBox/CGI/RemoveAllFileFilterElements.pm:29
-#: src/EBox/CGI/ModifyFileFilterACL.pm:29 src/EBox/CGI/FileFilterBase.pm:32
-#: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:29
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/Index.pm:28
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/Index.pm:40
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/RemoveFileFilterElement.pm:29
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/AddFileFilterElement.pm:29
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/RemoveAllFileFilterElements.pm:29
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/ModifyFileFilterACL.pm:29
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/FileFilterBase.pm:32
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/ChangeFileFilterDeniedElements.pm:29
-#, fuzzy
-msgid "Mail filter"
-msgstr "Sistema de colato"
-
-#: src/EBox/CGI/RemoveFileFilterElement.pm:66
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/RemoveFileFilterElement.pm:66
+#: src/templates/antivirus.mas:84
 #, perl-brace-format
-msgid "{name} is not registered"
+msgid "Update failed at {date}.\n"
 msgstr ""
 
-#: src/EBox/CGI/RemoveFileFilterElement.pm:74
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/RemoveFileFilterElement.pm:74
+#: src/templates/antivirus.mas:102
 #, perl-brace-format
-msgid "{name} removed"
-msgstr ""
-
-#: src/EBox/CGI/RemoveAllowedMTA.pm:58
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/RemoveAllowedMTA.pm:58
-#, perl-brace-format
-msgid ""
-"External mail server {mta} removed. Remember to remove his mail domains from "
-"the external mail domains list"
-msgstr ""
-
-#: src/EBox/CGI/AddFileFilterElement.pm:66
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/AddFileFilterElement.pm:66
-#, perl-brace-format
-msgid "{name} is already registered"
-msgstr ""
-
-#: src/EBox/CGI/AddFileFilterElement.pm:74
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/AddFileFilterElement.pm:74
-#, perl-brace-format
-msgid "{name} added"
-msgstr ""
-
-#: src/EBox/CGI/Enable.pm:41
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/Enable.pm:41
-msgid "module status"
-msgstr ""
-
-#: src/EBox/CGI/AddExternalDomain.pm:64
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/AddExternalDomain.pm:64
-#, perl-brace-format
-msgid "Mail domain {domain} added to external domain's list."
-msgstr ""
-
-#: src/EBox/CGI/RemoveSenderACL.pm:74
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/RemoveSenderACL.pm:74
-msgid "The specified sender is not in the ACL"
-msgstr ""
-
-#: src/EBox/CGI/RemoveAllFileFilterElements.pm:67
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/RemoveAllFileFilterElements.pm:67
-msgid "All entries were removed"
-msgstr ""
-
-#: src/EBox/CGI/RemoveExternalDomain.pm:58
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/RemoveExternalDomain.pm:58
-#, perl-brace-format
-msgid "Mail domain{domain} removed from external domains list."
-msgstr ""
-
-#: src/EBox/CGI/AntispamTraining.pm:80
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/AntispamTraining.pm:80
-#, perl-brace-format
-msgid "Invalid mailbox type: {type}"
-msgstr ""
-
-#: src/EBox/CGI/AntispamTraining.pm:93
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/AntispamTraining.pm:93
-msgid "Learned from mailbox file"
-msgstr ""
-
-#: src/EBox/CGI/ModifyFileFilterACL.pm:87
-#: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:70
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/ModifyFileFilterACL.pm:87
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/ChangeFileFilterDeniedElements.pm:70
-msgid "Denied settings changed"
-msgstr ""
-
-#: src/EBox/CGI/ModifyFileFilterACL.pm:90
-#: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:73
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/ModifyFileFilterACL.pm:90
-#: debian/ebox-mailfilter/usr/share/perl5/EBox/CGI/MailFilter/ChangeFileFilterDeniedElements.pm:73
-msgid "No changes where specified by the user"
-msgstr ""
-
-#: src/templates/menutabs.mas:11
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/menutabs.mas:11
-msgid "General"
-msgstr ""
-
-#: src/templates/menutabs.mas:17
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/menutabs.mas:17
-msgid "Extensions filter"
-msgstr ""
-
-#: src/templates/menutabs.mas:19
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/menutabs.mas:19
-msgid "MIME Type filter"
-msgstr ""
-
-#: src/templates/menutabs.mas:21
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/menutabs.mas:21
-msgid "Bad formed headers"
-msgstr ""
-
-#: src/templates/policy.mas:11
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/policy.mas:11
-msgid "Pass"
-msgstr ""
-
-#: src/templates/policy.mas:13
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/policy.mas:13
-msgid "Reject"
-msgstr ""
-
-#: src/templates/policy.mas:15
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/policy.mas:15
-msgid "Bounce"
-msgstr ""
-
-#: src/templates/policy.mas:17
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/policy.mas:17
-msgid "Discard"
-msgstr ""
-
-#: src/templates/policy.mas:32 src/templates/fileFilter.mas:88
-#: src/templates/fileFilter.mas:89 src/templates/general.mas:30
-#: src/templates/general.mas:71 src/templates/antispam.mas:89
-#: src/templates/vdomain.mas:96
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/policy.mas:32
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilter.mas:88
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilter.mas:89
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:30
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:71
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:89
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/vdomain.mas:96
-msgid "Change"
+msgid "The last update was successful at {date}"
 msgstr ""
 
 #: src/templates/fileFilter.mas:13
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilter.mas:13
 #, perl-brace-format
 msgid "{plural} which are not listed below are allowed"
 msgstr ""
 
 #: src/templates/fileFilter.mas:32
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilter.mas:32
 msgid "Banned files policy"
 msgstr ""
 
-#: src/templates/fileFilter.mas:35 src/templates/antispam.mas:138
-#: src/templates/antivirus.mas:28 src/templates/badHeaders.mas:10
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilter.mas:35
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:138
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antivirus.mas:28
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/badHeaders.mas:10
-msgid "Policy"
-msgstr ""
-
 #: src/templates/fileFilter.mas:59 src/templates/fileFilter.mas:205
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilter.mas:59
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilter.mas:205
 msgid "Deny"
 msgstr ""
 
 #: src/templates/fileFilter.mas:63 src/templates/antispamACL.mas:34
 #: src/templates/general.mas:109 src/templates/general.mas:152
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilter.mas:63
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispamACL.mas:34
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:109
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:152
 msgid "Actions"
+msgstr ""
+
+#: src/templates/fileFilter.mas:88 src/templates/fileFilter.mas:89
+#: src/templates/antispam.mas:89 src/templates/general.mas:30
+#: src/templates/general.mas:71 src/templates/vdomain.mas:96
+#: src/templates/policy.mas:32
+msgid "Change"
 msgstr ""
 
 #: src/templates/fileFilter.mas:164 src/templates/fileFilter.mas:166
 #: src/templates/antispamACL.mas:37 src/templates/general.mas:112
 #: src/templates/general.mas:155
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilter.mas:164
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilter.mas:166
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispamACL.mas:37
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:112
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:155
 msgid "Delete"
 msgstr ""
 
 #: src/templates/fileFilter.mas:190
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilter.mas:190
 #, perl-brace-format
 msgid "Add {element}"
 msgstr ""
 
 #: src/templates/fileFilter.mas:198
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilter.mas:198
 msgid "Name"
 msgstr ""
 
 #: src/templates/fileFilter.mas:212 src/templates/antispamACL.mas:74
 #: src/templates/general.mas:141 src/templates/general.mas:184
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilter.mas:212
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispamACL.mas:74
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:141
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:184
 msgid "Add"
 msgstr ""
 
 #: src/templates/fileFilter.mas:228
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilter.mas:228
 #, perl-brace-format
 msgid "All registered {plural}"
 msgstr ""
 
 #: src/templates/fileFilter.mas:260 src/templates/fileFilter.mas:262
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilter.mas:260
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilter.mas:262
 msgid "Delete them all"
 msgstr ""
 
 #: src/templates/fileFilter.mas:265
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilter.mas:265
 #, perl-brace-format
 msgid "Are you sure you want to delete all {plural}?"
 msgstr ""
 
-#: src/templates/antispamACL.mas:6
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispamACL.mas:6
-msgid "Whitelist"
-msgstr ""
-
-#: src/templates/antispamACL.mas:11
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispamACL.mas:11
-msgid "whitelist"
-msgstr ""
-
-#: src/templates/antispamACL.mas:15
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispamACL.mas:15
-msgid "Blacklist"
-msgstr ""
-
-#: src/templates/antispamACL.mas:20
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispamACL.mas:20
-msgid "blacklist"
-msgstr ""
-
-#: src/templates/antispamACL.mas:33 src/templates/antispamACL.mas:67
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispamACL.mas:33
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispamACL.mas:67
-msgid "Sender"
-msgstr ""
-
-#: src/templates/antispamACL.mas:59
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispamACL.mas:59
-#, perl-brace-format
-msgid "There isn't any sender in {type} "
-msgstr ""
-
-#: src/templates/antispamACL.mas:64
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispamACL.mas:64
-#, perl-brace-format
-msgid "Add sender to {type}"
-msgstr ""
-
-#: src/templates/fileFilterExtension.mas:13
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilterExtension.mas:13
-msgid "Configure denied file extensions"
-msgstr ""
-
-#: src/templates/fileFilterExtension.mas:17
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilterExtension.mas:17
-msgid "extensions"
-msgstr ""
-
-#: src/templates/general.mas:11
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:11
-#, fuzzy
-msgid "Enable Mail filter system"
-msgstr "Sistema de colato"
-
-#: src/templates/general.mas:27
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:27
-msgid "Service port"
-msgstr ""
-
-#: src/templates/general.mas:43
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:43
-msgid "Notify of non-spam problematic messages"
-msgstr ""
-
-#: src/templates/general.mas:77
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:77
-msgid "Notification"
-msgstr ""
-
-#: src/templates/general.mas:108
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:108
-msgid "External Mail server"
-msgstr ""
-
-#: src/templates/general.mas:126
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:126
-msgid "Allowed external mail servers"
-msgstr ""
-
-#: src/templates/general.mas:131
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:131
-msgid "No allowed external mail servers"
-msgstr ""
-
-#: src/templates/general.mas:135
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:135
-msgid "Add external mail server"
-msgstr ""
-
-#: src/templates/general.mas:138
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:138
-msgid "External mail server"
-msgstr ""
-
-#: src/templates/general.mas:151
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:151
-msgid "External Mail domain"
-msgstr ""
-
-#: src/templates/general.mas:169
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:169
-msgid "External mail domains"
-msgstr ""
-
-#: src/templates/general.mas:174
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:174
-msgid "No external mail domains"
-msgstr ""
-
-#: src/templates/general.mas:178
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:178
-msgid "Add external mail domain"
-msgstr ""
-
-#: src/templates/general.mas:181
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/general.mas:181
-msgid "External mail domain"
-msgstr ""
-
 #: src/templates/antispam.mas:31
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:31
 msgid "The score threshold to mark a message as spam"
 msgstr ""
 
 #: src/templates/antispam.mas:38
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:38
 msgid "Spam subject tag"
 msgstr ""
 
 #: src/templates/antispam.mas:40
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:40
 msgid "Tag which will be added to the subject of spam mail"
 msgstr ""
 
 #: src/templates/antispam.mas:47
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:47
 msgid "Use bayesian classefier"
 msgstr ""
 
 #: src/templates/antispam.mas:54
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:54
 msgid "Auto-whitelist"
 msgstr ""
 
 #: src/templates/antispam.mas:56
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:56
 msgid "Change the score of mail according the history of the sender"
 msgstr ""
 
 #: src/templates/antispam.mas:63
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:63
 msgid "Auto-learn"
 msgstr ""
 
 #: src/templates/antispam.mas:65
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:65
 msgid "Feedback the learning system with messages that reach the threshold"
 msgstr ""
 
 #: src/templates/antispam.mas:72
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:72
 msgid "Autolearn spam threshold"
 msgstr ""
 
 #: src/templates/antispam.mas:74
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:74
 msgid ""
 "Spam messages which a score equal or greater than this threshold will be  "
 "introduced  in the learning system "
 msgstr ""
 
 #: src/templates/antispam.mas:81
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:81
 msgid "Autolearn ham threshold"
 msgstr ""
 
 #: src/templates/antispam.mas:83
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:83
 msgid ""
 "Ham messages which a score below this treshold will be introduced in the "
 "learning system"
 msgstr ""
 
 #: src/templates/antispam.mas:97
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:97
 msgid "Mailbox contains"
 msgstr ""
 
 #: src/templates/antispam.mas:101
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:101
 msgid "spam"
 msgstr ""
 
 #: src/templates/antispam.mas:103
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:103
 msgid "ham"
 msgstr ""
 
 #: src/templates/antispam.mas:111
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:111
 msgid "Mailbox"
 msgstr ""
 
 #: src/templates/antispam.mas:120
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:120
 msgid "Train"
 msgstr ""
 
 #: src/templates/antispam.mas:135
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:135
 msgid "Spam policy"
 msgstr ""
 
 #: src/templates/antispam.mas:145
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:145
 msgid "Antispam options"
 msgstr ""
 
 #: src/templates/antispam.mas:151
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:151
 msgid "Antispam global sender access lists"
 msgstr ""
 
 #: src/templates/antispam.mas:159
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antispam.mas:159
 msgid "Spam filter training"
 msgstr ""
 
-#: src/templates/antivirus.mas:25
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antivirus.mas:25
-msgid "Virus policy"
+#: src/templates/antispamACL.mas:6
+msgid "Whitelist"
 msgstr ""
 
-#: src/templates/antivirus.mas:35
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antivirus.mas:35
-msgid "Virus database update status"
+#: src/templates/antispamACL.mas:11
+msgid "whitelist"
 msgstr ""
 
-#: src/templates/antivirus.mas:71
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antivirus.mas:71
+#: src/templates/antispamACL.mas:15
+msgid "Blacklist"
+msgstr ""
+
+#: src/templates/antispamACL.mas:20
+msgid "blacklist"
+msgstr ""
+
+#: src/templates/antispamACL.mas:33 src/templates/antispamACL.mas:67
+msgid "Sender"
+msgstr ""
+
+#: src/templates/antispamACL.mas:59
 #, perl-brace-format
-msgid "The last update failed at {date}"
+msgid "There isn't any sender in {type} "
 msgstr ""
 
-#: src/templates/antivirus.mas:84
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antivirus.mas:84
+#: src/templates/antispamACL.mas:64
 #, perl-brace-format
-msgid "Update failed at {date}.\n"
+msgid "Add sender to {type}"
 msgstr ""
 
-#: src/templates/antivirus.mas:102
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/antivirus.mas:102
-#, perl-brace-format
-msgid "The last update was successful at {date}"
+#: src/templates/general.mas:11
+#, fuzzy
+msgid "Enable Mail filter system"
+msgstr "Sistema de colato"
+
+#: src/templates/general.mas:27
+msgid "Service port"
+msgstr ""
+
+#: src/templates/general.mas:43
+msgid "Notify of non-spam problematic messages"
+msgstr ""
+
+#: src/templates/general.mas:77
+msgid "Notification"
+msgstr ""
+
+#: src/templates/general.mas:108
+msgid "External Mail server"
+msgstr ""
+
+#: src/templates/general.mas:126
+msgid "Allowed external mail servers"
+msgstr ""
+
+#: src/templates/general.mas:131
+msgid "No allowed external mail servers"
+msgstr ""
+
+#: src/templates/general.mas:135
+msgid "Add external mail server"
+msgstr ""
+
+#: src/templates/general.mas:138
+msgid "External mail server"
+msgstr ""
+
+#: src/templates/general.mas:151
+msgid "External Mail domain"
+msgstr ""
+
+#: src/templates/general.mas:169
+msgid "External mail domains"
+msgstr ""
+
+#: src/templates/general.mas:174
+msgid "No external mail domains"
+msgstr ""
+
+#: src/templates/general.mas:178
+msgid "Add external mail domain"
+msgstr ""
+
+#: src/templates/general.mas:181
+msgid "External mail domain"
 msgstr ""
 
 #: src/templates/vdomain.mas:26
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/vdomain.mas:26
 msgid "Use virus filtering"
 msgstr ""
 
 #: src/templates/vdomain.mas:44
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/vdomain.mas:44
 msgid "Use spam filtering"
 msgstr ""
 
 #: src/templates/vdomain.mas:104
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/vdomain.mas:104
 #, fuzzy
 msgid "Mail filter options"
 msgstr "Sistema de colato"
 
 #: src/templates/vdomain.mas:110
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/vdomain.mas:110
 msgid "Antispam sender access lists"
 msgstr ""
 
+#: src/templates/menutabs.mas:11
+msgid "General"
+msgstr ""
+
+#: src/templates/menutabs.mas:17
+msgid "Extensions filter"
+msgstr ""
+
+#: src/templates/menutabs.mas:19
+msgid "MIME Type filter"
+msgstr ""
+
+#: src/templates/menutabs.mas:21
+msgid "Bad formed headers"
+msgstr ""
+
 #: src/templates/fileFilterMimeType.mas:13
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilterMimeType.mas:13
 msgid "Configure denied MIME types"
 msgstr ""
 
 #: src/templates/fileFilterMimeType.mas:15
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilterMimeType.mas:15
 msgid "MIME Type"
 msgstr ""
 
 #: src/templates/fileFilterMimeType.mas:17
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/fileFilterMimeType.mas:17
 msgid "MIME types"
 msgstr ""
 
-#: src/templates/badHeaders.mas:7
-#: debian/ebox-mailfilter/usr/share/ebox/templates/mailfilter/badHeaders.mas:7
-msgid "Bad headers policy"
+#: src/templates/policy.mas:11
+msgid "Pass"
 msgstr ""
+
+#: src/templates/policy.mas:13
+msgid "Reject"
+msgstr ""
+
+#: src/templates/policy.mas:15
+msgid "Bounce"
+msgstr ""
+
+#: src/templates/policy.mas:17
+msgid "Discard"
+msgstr ""
+
+#~ msgid "MailFilter system"
+#~ msgstr "Sistema de colato"

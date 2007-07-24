@@ -4,9 +4,9 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-openvpn 0.9.1\n"
+"Project-Id-Version: ebox-openvpn 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:39+0200\n"
+"POT-Creation-Date: 2007-07-24 12:13+0200\n"
 "PO-Revision-Date: 2007-05-16 13:02+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: none\n"
@@ -20,16 +20,16 @@ msgstr ""
 #: src/EBox/CGI/Index.pm:16 src/EBox/CGI/ClientBundle.pm:19
 #: src/EBox/CGI/DeleteClient.pm:15 src/EBox/CGI/CreateClient.pm:18
 #: src/EBox/CGI/Delete.pm:15 src/EBox/CGI/Create.pm:15
-#: src/EBox/OpenVPN.pm:1128
+#: src/EBox/OpenVPN.pm:1142
 msgid "OpenVPN"
 msgstr "OpenVPN"
 
-#: src/EBox/CGI/EditClient.pm:154
+#: src/EBox/CGI/EditClient.pm:153
 #, perl-brace-format
 msgid "Client {name} configuration updated"
 msgstr "La configuración del cliente {name} ha sido actualizada"
 
-#: src/EBox/CGI/EditClient.pm:158 src/EBox/CGI/Edit.pm:147
+#: src/EBox/CGI/EditClient.pm:157 src/EBox/CGI/Edit.pm:147
 msgid "There are no changes to be saved"
 msgstr "No hay cambios que guardar"
 
@@ -83,10 +83,10 @@ msgstr "Servidor"
 msgid "Server {name} removed"
 msgstr "Servidor {name} eliminado"
 
-#: src/EBox/CGI/Create.pm:95
+#: src/EBox/CGI/Create.pm:98
 #, perl-brace-format
-msgid "New server {name} created"
-msgstr "Nuevo servidor {name} creado"
+msgid "New server {name} created. Now you can add advertised routes"
+msgstr ""
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:30
 #: src/EBox/OpenVPN/Client.pm:315 src/templates/clientProperties.mas:18
@@ -275,11 +275,11 @@ msgstr "Todas las interfaces externas"
 msgid "Local address"
 msgstr "Dirección local"
 
-#: src/EBox/OpenVPN/Server.pm:847 src/templates/serverProperties.mas:59
+#: src/EBox/OpenVPN/Server.pm:847 src/templates/serverProperties.mas:60
 msgid "Port"
 msgstr "Puerto"
 
-#: src/EBox/OpenVPN/Server.pm:850 src/templates/serverProperties.mas:61
+#: src/EBox/OpenVPN/Server.pm:850 src/templates/serverProperties.mas:62
 msgid "VPN subnet"
 msgstr "Red VPN"
 
@@ -339,11 +339,11 @@ msgstr ""
 "{name} es un nombre incorrecto para un demonio OpenVPN. Solo alfanuméricos y "
 "guiones bajos están permitidos."
 
-#: src/EBox/OpenVPN.pm:1144
+#: src/EBox/OpenVPN.pm:1158
 msgid "OpenVPN daemons"
 msgstr "Demonios OpenVPN"
 
-#: src/EBox/OpenVPN.pm:1174
+#: src/EBox/OpenVPN.pm:1188
 msgid "OpenVPN service"
 msgstr "Servicio OpenVPN"
 
@@ -399,18 +399,17 @@ msgid "Client authorization by common name"
 msgstr "Autorizar al cliente por su nombre común"
 
 #: src/templates/serverProperties.mas:31
-#, fuzzy
 msgid ""
 "Only clients with this value as full common name's prefix will be authorized"
 msgstr ""
-"Solo clientes que tengan este valor como nombre común o como prefijo de este "
-"serán autorizados."
+"Sólo clientes que tengan este valor como prefijo de su nombre común serán "
+"autorizados."
 
 #: src/templates/serverProperties.mas:48
 msgid "Interface to listen on"
 msgstr "Interfaz en la que escuchar"
 
-#: src/templates/serverProperties.mas:51
+#: src/templates/serverProperties.mas:52
 msgid ""
 "The server will be listen only in all external interfaces or only in the "
 "interface selected"
@@ -418,23 +417,23 @@ msgstr ""
 "El servidor escuchara en todas las interfaces externas o solo en la interfaz "
 "seleccionada"
 
-#: src/templates/serverProperties.mas:57 src/templates/clientProperties.mas:13
+#: src/templates/serverProperties.mas:58 src/templates/clientProperties.mas:13
 msgid "Active"
 msgstr "Activo"
 
-#: src/templates/serverProperties.mas:63
+#: src/templates/serverProperties.mas:64
 msgid "VPN subnet netmask"
 msgstr "Mascara de red de la VPN"
 
-#: src/templates/serverProperties.mas:65
+#: src/templates/serverProperties.mas:66
 msgid "Protocol"
 msgstr "Protocolo"
 
-#: src/templates/serverProperties.mas:77
+#: src/templates/serverProperties.mas:79
 msgid "Allow eBox-to-eBox tunnels"
 msgstr "Permitir túneles eBox a eBox"
 
-#: src/templates/serverProperties.mas:80
+#: src/templates/serverProperties.mas:82
 msgid ""
 "If you want to create a tunnel between two eBox, you will need this option "
 "to be able to connect to the network in the client side"
@@ -442,15 +441,15 @@ msgstr ""
 "Si quieres crear un túnel entre dos eBox, necesitas esta opción para poder "
 "conectar con la red en el lado del cliente"
 
-#: src/templates/serverProperties.mas:84
+#: src/templates/serverProperties.mas:86
 msgid "Allow client-to-client connections"
 msgstr "Permitir conexiones cliente-cliente"
 
-#: src/templates/serverProperties.mas:87
+#: src/templates/serverProperties.mas:89
 msgid "Allow clients to connect each other within the VPN"
 msgstr "Permite a los clientes conectarse entre si mediante la VPN"
 
-#: src/templates/serverProperties.mas:93
+#: src/templates/serverProperties.mas:95
 msgid "Server name"
 msgstr "Nombre del servidor"
 
@@ -557,7 +556,7 @@ msgstr "editar"
 msgid "delete"
 msgstr "borrar"
 
-#: src/templates/clientBundle.mas:17
+#: src/templates/clientBundle.mas:16
 msgid ""
 "This certificate will be used by the client to authenticate itself to the "
 "server"
@@ -589,15 +588,20 @@ msgstr ""
 "marcha un cliente OpenVPN. Recuerda copiar estos ficheros al directorio de "
 "configuración de la máquina cliente"
 
-#: src/templates/clientProperties.mas:29
+#: src/templates/clientProperties.mas:21
+#, fuzzy
+msgid "Server's protocol"
+msgstr "Puerto del servidor"
+
+#: src/templates/clientProperties.mas:31
 msgid "Server's Port"
 msgstr "Puerto del servidor"
 
-#: src/templates/clientProperties.mas:36
+#: src/templates/clientProperties.mas:38
 msgid "CA's certificate"
 msgstr "Certificado de CA"
 
-#: src/templates/clientProperties.mas:38
+#: src/templates/clientProperties.mas:40
 msgid ""
 "Certificate of the Certification Authority. Must be the same used in the "
 "server"
@@ -605,11 +609,11 @@ msgstr ""
 "Certificado de la Autoridad de Certificación. Debe ser el mismo  usado en el "
 "servidor."
 
-#: src/templates/clientProperties.mas:44
+#: src/templates/clientProperties.mas:46
 msgid "Client's certificate"
 msgstr "Certificado del cliente"
 
-#: src/templates/clientProperties.mas:46
+#: src/templates/clientProperties.mas:48
 msgid ""
 "Certificate used by the client to identify itself. It must be signed by the "
 "Certification Authority"
@@ -617,17 +621,20 @@ msgstr ""
 "Certificado usado por el cliente para identificarse. Debe estar firmado por "
 "la autoridad de certificación"
 
-#: src/templates/clientProperties.mas:52
+#: src/templates/clientProperties.mas:54
 msgid "Client's private key"
 msgstr "Llave privada del cliente"
 
-#: src/templates/clientProperties.mas:54
+#: src/templates/clientProperties.mas:56
 msgid "Private key used to create the client's certificate"
 msgstr "Clave privada usada para crear el certificado del cliente"
 
-#: src/templates/clientProperties.mas:59
+#: src/templates/clientProperties.mas:61
 msgid "Client name"
 msgstr "Nombre del cliente"
+
+#~ msgid "New server {name} created"
+#~ msgstr "Nuevo servidor {name} creado"
 
 #~ msgid "The server {name} has not certificate assigned"
 #~ msgstr "El servidor {name} no tiene ningún certificado asignado"

@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox 0.9.1\n"
+"Project-Id-Version: ebox 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:37+0200\n"
+"POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-05-13 00:27+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -112,11 +112,17 @@ msgstr "Başlat"
 msgid "Disabled"
 msgstr "Etkisiz"
 
-#: src/EBox/Model/DataMultiTable.pm:168 src/EBox/Logs.pm:402
+#: src/EBox/Model/DataMultiTable.pm:168 src/EBox/Logs.pm:474
 msgid "Action"
 msgstr "İşlem"
 
-#: src/EBox/CGI/Logs/Index.pm:33 src/EBox/Logs.pm:389
+#: src/EBox/CGI/Logs/Controller/ConfigureLogDataTable.pm:35
+#: src/EBox/CGI/Logs/View/ConfigureLogDataTable.pm:36
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:133 src/EBox/Logs.pm:460
+msgid "Configure logs"
+msgstr ""
+
+#: src/EBox/CGI/Logs/Index.pm:33 src/EBox/Logs.pm:454
 msgid "Logs"
 msgstr "Günlük"
 
@@ -180,8 +186,8 @@ msgid "Backup was written to CD/DVD disk"
 msgstr "Yedekleme CD/DVD 'ye başarılı bir şekilde aktarıldı"
 
 #: src/EBox/CGI/EBox/Backup.pm:235 src/EBox/CGI/EBox/Backup.pm:306
-#: src/EBox/CGI/EBox/Backup.pm:319 src/EBox/CGI/EBox/ConfirmBackup.pm:197
-#: src/EBox/Backup.pm:1010
+#: src/EBox/CGI/EBox/Backup.pm:319 src/EBox/CGI/EBox/ConfirmBackup.pm:180
+#: src/EBox/Backup.pm:1023
 msgid "The input contains invalid characters"
 msgstr "Girilen veri geçersiz karakter içeriyor"
 
@@ -246,65 +252,61 @@ msgstr "Yeni parolalar uyum sağlamıyor"
 msgid "The password must be at least 6 characters long"
 msgstr "Parola en az 6 karakter olmak zorunda"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:34
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:33
 msgid "Configuration backups"
 msgstr "Ayarlarımı yedekle"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:112
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:111
 msgid "Please confirm that you want to delete the following backup file:"
 msgstr "Lütfen aşağıdaki yedek dosyalarını silmek istediğinizi onaylayın:"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:114 src/templates/backup.mas:221
-#: src/templates/backup.mas:223
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:113 src/templates/backup.mas:248
+#: src/templates/backup.mas:250
 msgid "Delete"
 msgstr "Sil"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:121
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:173
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:120
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:156
 msgid "Please confirm that you want to restore using this backup file:"
 msgstr "Yedekten geri yüklemek istediğiniz dosya(emin olun):"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:123
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:145
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:175 src/templates/backup.mas:112
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:122
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:144
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:158 src/templates/backup.mas:115
 msgid "Restore"
 msgstr "Geri yükleme"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:133
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132
 msgid ""
 "Unable to find a correct backup disk. Please insert a backup disk and retry"
 msgstr ""
 "Düzgün bir yedek diski bulunamıyor. Yeni bir yedek diski girin ve tekrar "
 "deneyin"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:144
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:143
 msgid "Please confirm that you want to restore using this backup disk:"
 msgstr "Yedekten geri yüklemek istediğiniz disk(emin olun):"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:162
-msgid "Invalid backup file."
-msgstr "Geçersiz yedekleme dosyası."
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:183
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:166
 msgid ""
 "Please confirm that you want to write this backup file to a CD or DVD disk:"
 msgstr ""
 "Lütfen yedekleme işlemini CD veya DVD de gerçekleştirmek istesdiğinizi "
 "onaylayın:"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:185
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:168
 msgid "Write to disk"
 msgstr "Diske yazdır"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:226
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:209
 msgid "Configuration backup"
 msgstr "Ayarlarımı yedekle"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:229
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:212
 msgid "Full data and configuration backup"
 msgstr "Tüm verileri ve ayarlarımı yedekle"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:232
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:215
 msgid "Bug-report configuration dump"
 msgstr "Hata raporlama ayar bilgisi"
 
@@ -336,6 +338,24 @@ msgstr ""
 "Dahili bir şablon hatası oluştu. Bu bir hata ve gerekli bilgileri günlük "
 "dosyasında bulabilirsiniz."
 
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:109
+msgid "Domain"
+msgstr ""
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:119
+#, fuzzy
+msgid "Enabled"
+msgstr "Etkisiz"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:141
+msgid "Enable/disable logging per-module basis"
+msgstr ""
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:143
+#, fuzzy
+msgid "logs"
+msgstr "Günlük"
+
 #: src/EBox/Apache.pm:49
 msgid ""
 "You must set the httpd_serverroot variable in the ebox configuration file"
@@ -350,42 +370,46 @@ msgstr "httpd_init değişkenini ebox ayar dosyasında tanımlamanız gerekiyor.
 msgid "The httpd_init script you configured is not executable."
 msgstr "Tanımladığınız httpd_init betiği çalıştırılabilir bir betik değil."
 
-#: src/EBox/Apache.pm:189 src/EBox/Apache.pm:198
+#: src/EBox/Apache.pm:191 src/EBox/Apache.pm:200
 msgid "port"
 msgstr "port"
 
-#: src/EBox/Logs.pm:231
+#: src/EBox/Logs.pm:296
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr "{table} tablosu mevcut değil."
 
-#: src/EBox/Logs.pm:246
+#: src/EBox/Logs.pm:311
 #, perl-brace-format
 msgid "Field {field} does not exist"
 msgstr "{field} alanı mevcut değil."
 
-#: src/EBox/Logs.pm:399 src/templates/confirm-backup.mas:28
-#: src/templates/backup.mas:173 src/templates/finish.mas:23
+#: src/EBox/Logs.pm:457
+msgid "Query logs"
+msgstr ""
+
+#: src/EBox/Logs.pm:471 src/templates/confirm-backup.mas:28
+#: src/templates/backup.mas:193 src/templates/finish.mas:23
 msgid "Date"
 msgstr "Tarih"
 
-#: src/EBox/Logs.pm:400
+#: src/EBox/Logs.pm:472
 msgid "Client Address"
 msgstr "İstemci adresi"
 
-#: src/EBox/Logs.pm:401 src/templates/finish.mas:25
+#: src/EBox/Logs.pm:473 src/templates/finish.mas:25
 msgid "Module"
 msgstr "Moduller"
 
-#: src/EBox/Logs.pm:403
+#: src/EBox/Logs.pm:475
 msgid "Params"
 msgstr "Parametreler"
 
-#: src/EBox/Logs.pm:404
+#: src/EBox/Logs.pm:476
 msgid "Committed"
 msgstr "Tamamlandı"
 
-#: src/EBox/Logs.pm:409
+#: src/EBox/Logs.pm:481
 msgid "Admin"
 msgstr "Yönetici"
 
@@ -393,36 +417,36 @@ msgstr "Yönetici"
 msgid "Save changes"
 msgstr "Değişiklikleri kaydet"
 
-#: src/EBox/Backup.pm:235
+#: src/EBox/Backup.pm:236
 msgid "Could not create backup archive"
 msgstr "Yedekleme arşiv dosyası oluşturulamıyor"
 
-#: src/EBox/Backup.pm:242
+#: src/EBox/Backup.pm:243
 msgid "Could not append data to backup archive"
 msgstr "Yedekleme dosyasına ek ilave yapılamıyor."
 
-#: src/EBox/Backup.pm:348 src/EBox/Backup.pm:993
+#: src/EBox/Backup.pm:349 src/EBox/Backup.pm:1006
 msgid "Insert a backup disc and try again, please"
 msgstr "Lütfen bir yedekleme diski koyun ve tekrar deneyin."
 
-#: src/EBox/Backup.pm:389
+#: src/EBox/Backup.pm:390
 msgid "Unknown"
 msgstr "Bilinmiyor"
 
-#: src/EBox/Backup.pm:422
+#: src/EBox/Backup.pm:423
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
 msgstr "Bu dosyaların yedeklemesi yapılamıyor: {files}"
 
-#: src/EBox/Backup.pm:425 src/EBox/Backup.pm:826
+#: src/EBox/Backup.pm:426 src/EBox/Backup.pm:828
 msgid "Could not unpack the backup"
 msgstr "Yedekleme dosyası açılamıyor"
 
-#: src/EBox/Backup.pm:562 src/EBox/SysInfo.pm:120
+#: src/EBox/Backup.pm:563 src/EBox/SysInfo.pm:120
 msgid "Backup"
 msgstr "Yedekleme"
 
-#: src/EBox/Backup.pm:592
+#: src/EBox/Backup.pm:593
 msgid ""
 "Some modules has not saved changes. Before doing the backup you must save  "
 "or discard them"
@@ -430,23 +454,23 @@ msgstr ""
 "Yapılan değişiklikler bazı modullerde henüz kaydedilmedi. Yedekleme yapmadan "
 "önce bunları kaydetmeniz veya kaydetme işlemini iptal etmeniz gereklidir."
 
-#: src/EBox/Backup.pm:655
+#: src/EBox/Backup.pm:656
 msgid "Incorrect or corrupt backup file"
 msgstr "Yanlış veya hatalı yedekleme dosyası"
 
-#: src/EBox/Backup.pm:684
+#: src/EBox/Backup.pm:685
 msgid "The backup file is corrupt: could not open archive"
 msgstr "Yedekleme dosyası hatalı:Arşiv dosyası açılamıyor."
 
-#: src/EBox/Backup.pm:696
+#: src/EBox/Backup.pm:697
 msgid "The backup file is corrupt: could not open backup checksum"
 msgstr "Yedekleme dosyası hatalı: Sağlama sayısı kontrol edilemiyor."
 
-#: src/EBox/Backup.pm:703
+#: src/EBox/Backup.pm:704
 msgid "The backup file is corrupt."
 msgstr "Yedekleme dosyası hatalı."
 
-#: src/EBox/Backup.pm:721
+#: src/EBox/Backup.pm:722
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible eBox version"
@@ -454,7 +478,7 @@ msgstr ""
 "Yedekleme dosyasının türü yanlış. Dosya hatalı olabilir veya yanlış bir ebox "
 "sürümü kullanıyor olabilirsiniz."
 
-#: src/EBox/Backup.pm:727
+#: src/EBox/Backup.pm:728
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
@@ -463,7 +487,7 @@ msgstr ""
 "yedekleme yapılamaz. Ancak ayar dosyalarını kurtarma işlemini "
 "gerçekleitirebilirsiniz."
 
-#: src/EBox/Backup.pm:761
+#: src/EBox/Backup.pm:763
 #, perl-brace-format
 msgid ""
 "There in not enough space left in the hard disk to complete the restore "
@@ -472,7 +496,7 @@ msgstr ""
 "Sabit diskinizde yeterli boş alanınız mevcut değil. {size} Kb boş alana "
 "ihtiyacınız var. Kendinize boş alan yaratıp tekrar deneyin."
 
-#: src/EBox/Backup.pm:793
+#: src/EBox/Backup.pm:795
 #, perl-brace-format
 msgid ""
 "Cannot rename backup file from {newName} to his original name {name}. Error "
@@ -481,7 +505,7 @@ msgstr ""
 "{newName} yedekleme dosyası {name} orjinal ismine değiştirilemiyor. Hata "
 "mesajı: {error}"
 
-#: src/EBox/Backup.pm:943
+#: src/EBox/Backup.pm:956
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
@@ -709,11 +733,11 @@ msgid "Exit"
 msgstr "Çık"
 
 #: src/templates/confirm-backup.mas:37 src/templates/backup.mas:54
-#: src/templates/backup.mas:171
+#: src/templates/backup.mas:189
 msgid "Description"
 msgstr "Açıklama"
 
-#: src/templates/confirm-backup.mas:46
+#: src/templates/confirm-backup.mas:46 src/templates/backup.mas:191
 msgid "Type"
 msgstr "Tür"
 
@@ -788,20 +812,20 @@ msgid "Restore backup from file"
 msgstr "Dosyadan geri yedekle "
 
 #: src/templates/backup.mas:94
-msgid "You can  upload a backup file from your computer"
+msgid "You can  upload a backup file from your computer. When uploading"
 msgstr ""
 "Bilgisayarınızda bulunan bir yedekleme dosyasını kullanabilirsiniz/"
 "yükleyebilirsiniz"
 
-#: src/templates/backup.mas:102
+#: src/templates/backup.mas:105
 msgid "Backup file"
 msgstr "Yedekleme dosyası"
 
-#: src/templates/backup.mas:121
+#: src/templates/backup.mas:124
 msgid "Restore backup from disk"
 msgstr "Sabit diskten geri yükleme"
 
-#: src/templates/backup.mas:124
+#: src/templates/backup.mas:127
 msgid ""
 "You can restore from a backup disk. Please insert the disk before clicking "
 "the button"
@@ -809,7 +833,7 @@ msgstr ""
 "Yedekleme diskinden geri yükleme işlemi yapabilirsiniz. Lütfen diskinizi "
 "takın ve sonra işleme devam edin"
 
-#: src/templates/backup.mas:129
+#: src/templates/backup.mas:132
 msgid ""
 "'Restore backup from CD/DVD disk' is disabled, because eBox could not find "
 "any reader drive"
@@ -817,11 +841,25 @@ msgstr ""
 "'CD/DVD cihazından geri yükle' seçeneği etkisiz durumda. Çünkü eBox sistemi "
 "bir cihaz bulamadı"
 
-#: src/templates/backup.mas:140
+#: src/templates/backup.mas:143
 msgid "Restore from disk"
 msgstr "Diskten geri yükle"
 
-#: src/templates/backup.mas:162
+#: src/templates/backup.mas:167
+msgid "Full"
+msgstr ""
+
+#: src/templates/backup.mas:169
+#, fuzzy
+msgid "Configuration only"
+msgstr "Ayar dosyaları geri yükleme"
+
+#: src/templates/backup.mas:171
+#, fuzzy
+msgid "Unknown type"
+msgstr "Bilinmiyor"
+
+#: src/templates/backup.mas:180
 msgid ""
 "'Write backup to CD/DVD disk' is disabled, because eBox could not find any "
 "recorder drive"
@@ -829,47 +867,47 @@ msgstr ""
 "'Yedeklemeyi CD/DVD cihazına yazdır'  seçeneği etkisiz durumda. Çünkü ebox "
 "sistemi bir yazıcı cihaz bulamadı."
 
-#: src/templates/backup.mas:166
+#: src/templates/backup.mas:184
 msgid "Backups' list"
 msgstr "Yedekleme Listesi"
 
-#: src/templates/backup.mas:175
+#: src/templates/backup.mas:195
 msgid "Actions"
 msgstr "İşlemler"
 
-#: src/templates/backup.mas:196
+#: src/templates/backup.mas:223
 msgid "Restore configuration using this file"
 msgstr "Bu dosyayı kullanarak geri yükleme işlemi yap"
 
-#: src/templates/backup.mas:198
+#: src/templates/backup.mas:225
 msgid "Restore from backup"
 msgstr "Yedekleme üzerinden geri yükle"
 
-#: src/templates/backup.mas:204 src/templates/backup.mas:206
+#: src/templates/backup.mas:231 src/templates/backup.mas:233
 msgid "Download"
 msgstr "İndir"
 
-#: src/templates/backup.mas:213 src/templates/backup.mas:215
+#: src/templates/backup.mas:240 src/templates/backup.mas:242
 msgid "Write backup to CD/DVD disk"
 msgstr "Yedekeleme dosyasını CD/DVD cihazına yazdır"
 
-#: src/templates/backup.mas:236
+#: src/templates/backup.mas:264
 msgid "download"
 msgstr "İndir"
 
-#: src/templates/backup.mas:239
+#: src/templates/backup.mas:267
 msgid "write into disk"
 msgstr "Diske yazdır"
 
-#: src/templates/backup.mas:240
+#: src/templates/backup.mas:268
 msgid "write into disk (disabled)"
 msgstr "Diske yazdır (etkisiz)"
 
-#: src/templates/backup.mas:243
+#: src/templates/backup.mas:271
 msgid "restore"
 msgstr "Geri yükle"
 
-#: src/templates/backup.mas:246
+#: src/templates/backup.mas:274
 msgid "delete"
 msgstr "Sil"
 
@@ -940,3 +978,11 @@ msgstr "Yeniden başlat"
 #, perl-brace-format
 msgid "{ebox} created by {warp} in collaboration with {dbs}"
 msgstr "{ebox} sistemi {warp} tarafından {dbs} yardımları ile oluşturulmuştur"
+
+#~ msgid "Invalid backup file."
+#~ msgstr "Geçersiz yedekleme dosyası."
+
+#~ msgid "You can  upload a backup file from your computer"
+#~ msgstr ""
+#~ "Bilgisayarınızda bulunan bir yedekleme dosyasını kullanabilirsiniz/"
+#~ "yükleyebilirsiniz"

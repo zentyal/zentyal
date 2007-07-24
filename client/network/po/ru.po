@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.9.1\n"
+"Project-Id-Version: ebox-network 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:39+0200\n"
+"POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-04-11 16:24+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -20,61 +20,61 @@ msgstr ""
 #: src/EBox/Model/MultiGwRulesDataTable.pm:64
 #: src/EBox/Model/MultiGwRulesDataTable.pm:425
 msgid "any"
-msgstr ""
+msgstr "любой"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:95
 msgid "Protocol"
-msgstr ""
+msgstr "Протокол"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:104
 #: src/EBox/Model/GatewayDataTable.pm:101 src/EBox/Network.pm:651
 #: src/EBox/Network.pm:683 src/EBox/Network.pm:728 src/EBox/Network.pm:762
 #: src/EBox/Network.pm:787 src/EBox/Network.pm:863 src/EBox/Network.pm:986
 #: src/EBox/Network.pm:1181 src/EBox/Network.pm:1241 src/EBox/Network.pm:1276
-#: src/EBox/Network.pm:1312 src/EBox/Network.pm:1345 src/EBox/Network.pm:2007
-#: src/EBox/Network.pm:2039 src/EBox/Network.pm:2112 src/EBox/Network.pm:2132
-#: src/EBox/Network.pm:2153 src/EBox/Network.pm:2176
+#: src/EBox/Network.pm:1312 src/EBox/Network.pm:1345 src/EBox/Network.pm:2017
+#: src/EBox/Network.pm:2049 src/EBox/Network.pm:2122 src/EBox/Network.pm:2142
+#: src/EBox/Network.pm:2163 src/EBox/Network.pm:2186
 msgid "Interface"
-msgstr ""
+msgstr "Интерфейс"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:113
 msgid "Source"
-msgstr ""
+msgstr "Источник"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:121
 msgid "Source IP"
-msgstr ""
+msgstr "Исходный IP"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:129
 msgid "Source object"
-msgstr ""
+msgstr "Исходный объект"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:142
 #: src/EBox/Model/MultiGwRulesDataTable.pm:181
 msgid "Port"
-msgstr ""
+msgstr "Порт"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:152
 msgid "Destination"
-msgstr ""
+msgstr "Назначение"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:160
 msgid "Destination IP"
-msgstr ""
+msgstr "IP назначения"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:168
 msgid "Destination object"
-msgstr ""
+msgstr "Объект назначения"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:191 src/EBox/Network.pm:1477
 #: src/templates/routes.mas:35
 msgid "Gateway"
-msgstr ""
+msgstr "Шлюз"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:205
 #: src/EBox/CGI/Controller/MultiGwRulesDataTable.pm:30
 msgid "Multigateway rules"
-msgstr ""
+msgstr "Мультишлюзовые правила"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:223
 msgid ""
@@ -84,51 +84,56 @@ msgid ""
 "to bottom, you can reorder them once they are added. If you do not set a "
 "port or an IP address, then the rule will match all of them"
 msgstr ""
+"Вы можете решать какой тип трафика пускать через каждый шлюз. Таким образом, "
+"Вы можете заставить подсеть, службу, пункт назначения и т.п. использовать "
+"выбранный Вами роутер. Помните: правила применяются в последовательности "
+"\"сверху-вниз\". Вы можете поменять их положение. Если Вы не указали порт "
+"или IP-адрес, правило будет применяться ко всем значениям этих полей."
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:225
 msgid "rule"
-msgstr ""
+msgstr "правило"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:243
 msgid "Destination port"
-msgstr ""
+msgstr "Порт назначения"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:248
 msgid "Source port"
-msgstr ""
+msgstr "Исходный порт"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:258
 msgid "Port cannot be set if no protocol is selected"
-msgstr ""
+msgstr "Порт не может быть установлен без выбора протокола"
 
 #: src/EBox/Model/GatewayDataTable.pm:83 src/templates/ifaces.mas:30
 #: src/templates/ifaces.mas:231
 msgid "Name"
-msgstr ""
+msgstr "Имя"
 
 #: src/EBox/Model/GatewayDataTable.pm:92
 msgid "IP Address"
-msgstr ""
+msgstr "IP-адрес"
 
 #: src/EBox/Model/GatewayDataTable.pm:110
 msgid "Upload"
-msgstr ""
+msgstr "Upload"
 
 #: src/EBox/Model/GatewayDataTable.pm:120
 msgid "Download"
-msgstr ""
+msgstr "Download"
 
 #: src/EBox/Model/GatewayDataTable.pm:130
 msgid "Weight"
-msgstr ""
+msgstr "Вес"
 
 #: src/EBox/Model/GatewayDataTable.pm:139
 msgid "Default"
-msgstr ""
+msgstr "Стандартный"
 
 #: src/EBox/Model/GatewayDataTable.pm:153
 msgid "Gateway list"
-msgstr ""
+msgstr "Список шлюзов"
 
 #: src/EBox/Model/GatewayDataTable.pm:170
 #, perl-brace-format
@@ -142,93 +147,95 @@ msgstr ""
 
 #: src/EBox/Model/GatewayDataTable.pm:172
 msgid "gateway"
-msgstr ""
+msgstr "шлюз"
 
 #: src/EBox/Model/GatewayDataTable.pm:189 src/EBox/CGI/Iface.pm:87
 #: src/EBox/Network.pm:1476
 msgid "ip address"
-msgstr ""
+msgstr "IP-адрес"
 
 #: src/EBox/Model/GatewayDataTable.pm:204
 msgid "There is already a default gateway"
-msgstr ""
+msgstr "Этот шлюз уже является основным"
 
 #: src/EBox/CGI/Controller/GatewayDataTableUpdate.pm:30
 #: src/EBox/CGI/Controller/GatewayDataTableDel.pm:30
 #: src/EBox/CGI/Controller/GatewayDataTableMove.pm:30
 #: src/EBox/CGI/Controller/GatewayDataTableAdd.pm:30
 #: src/EBox/CGI/Controller/GatewayDataTable.pm:30
-#: src/EBox/CGI/View/GatewayDataTable.pm:30 src/EBox/Network.pm:2302
+#: src/EBox/CGI/View/GatewayDataTable.pm:30 src/EBox/Network.pm:2312
 msgid "Gateways"
-msgstr ""
+msgstr "Шлюзы"
 
 #: src/EBox/CGI/FirstTime/DNS.pm:41
 msgid "You can revisit this page at Network/DNS in the menu"
-msgstr ""
+msgstr "Вы можете посетить эту страницу через меню Сеть/DNS"
 
 #: src/EBox/CGI/FirstTime/Iface.pm:45
 msgid "Network interface configured"
-msgstr ""
+msgstr "Сетевой интерфейс сконфигурирован"
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
-#: src/EBox/Network.pm:2229
+#: src/EBox/Network.pm:2239
 msgid "Network interfaces"
-msgstr ""
+msgstr "Сетевые интерфейсы"
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:25
 msgid ""
 "After the initial config you can revisit this page at Network/Interfaces in "
 "the menu"
 msgstr ""
+"После начальной настройки Вы можете попасть на эту страницу через меню Сеть/"
+"Интерфейсы"
 
 #: src/EBox/CGI/FirstTime/Nameservers.pm:44
 msgid "DNS configured"
-msgstr ""
+msgstr "DNS сконфигурирован"
 
 #: src/EBox/CGI/FirstTime/Gateway.pm:41
 msgid "Gateway configured"
-msgstr ""
+msgstr "Шлюз сконфигурирован"
 
 #: src/EBox/CGI/FirstTime/Routes.pm:29
 msgid "Set default gateway"
-msgstr ""
+msgstr "Установить основной шлюз"
 
 #: src/EBox/CGI/FirstTime/Routes.pm:43
 msgid "You can change later the gateway at Network/Routes menus item"
-msgstr ""
+msgstr "Позднее, Вы можете изменить шлюз через меню Сеть/Маршруты"
 
 #: src/EBox/CGI/View/MultiGwRulesDataTable.pm:32
 msgid "Balance traffic and multigateway rules"
-msgstr ""
+msgstr "Балансировка траффика и мультишлюзовые правила"
 
 #: src/EBox/CGI/Diag.pm:29 src/EBox/CGI/Diag.pm:41
 msgid "Network diagnosis"
-msgstr ""
+msgstr "Диагностика сети"
 
 #: src/EBox/CGI/Diag.pm:51 src/templates/diag.mas:15
 msgid "Host"
-msgstr ""
+msgstr "Узел"
 
-#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2217
+#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2227
 msgid "host name"
-msgstr ""
+msgstr "имя узла"
 
 #: src/EBox/CGI/Iface.pm:42 src/EBox/CGI/Iface.pm:59 src/EBox/CGI/VIface.pm:43
 #: src/EBox/CGI/Vlan.pm:40
 msgid "network interface"
-msgstr ""
+msgstr "сетевой интерфейс"
 
 #: src/EBox/CGI/Iface.pm:58
 msgid "method"
-msgstr ""
+msgstr "метод"
 
 #: src/EBox/CGI/Iface.pm:88 src/EBox/CGI/VIface.pm:63 src/EBox/CGI/Route.pm:42
 msgid "netmask"
-msgstr ""
+msgstr "маска подсети"
 
 #: src/EBox/CGI/EnableBalanceTraffic.pm:42
 msgid "traffic balance"
-msgstr ""
+msgstr "балансировка траффика"
 
 #: src/EBox/CGI/VIface.pm:44
 msgid "virtual interface action"
@@ -236,63 +243,63 @@ msgstr ""
 
 #: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:558 src/EBox/Network.pm:563
 #: src/EBox/Network.pm:867 src/EBox/Network.pm:888 src/EBox/Network.pm:1419
-#: src/EBox/Network.pm:2009 src/EBox/Network.pm:2024 src/EBox/Network.pm:2156
-#: src/EBox/Network.pm:2274 src/templates/ifaces.mas:104
+#: src/EBox/Network.pm:2019 src/EBox/Network.pm:2034 src/EBox/Network.pm:2166
+#: src/EBox/Network.pm:2284 src/templates/ifaces.mas:104
 #: src/templates/ifaces.mas:233
 msgid "IP address"
-msgstr ""
+msgstr "IP-адрес"
 
 #: src/EBox/CGI/VIface.pm:64 src/EBox/CGI/VIface.pm:70
 msgid "virtual interface name"
-msgstr ""
+msgstr "имя вирт. интерфейса"
 
 #: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1475
 msgid "network address"
-msgstr ""
+msgstr "адрес сети"
 
 #: src/EBox/CGI/Route.pm:47 src/EBox/CGI/Gateway.pm:47
 msgid "gateway address"
-msgstr ""
+msgstr "адрес шлюза"
 
 #: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1060
 #: src/EBox/Network.pm:1089 src/templates/ifaces.mas:164
 msgid "VLAN Id"
-msgstr ""
+msgstr "VLAN ID"
 
 #: src/EBox/CGI/Routes.pm:29 src/EBox/CGI/Routes.pm:40
-#: src/EBox/Network.pm:2297
+#: src/EBox/Network.pm:2307
 msgid "Routes"
-msgstr ""
+msgstr "Маршруты"
 
 #: src/EBox/Network/FirstTime.pm:14
 msgid "Configure network interfaces"
-msgstr ""
+msgstr "Настроить сетевые интерфейсы"
 
 #: src/EBox/Network/FirstTime.pm:15
 msgid "Configure name servers"
-msgstr ""
+msgstr "Настроить серверы имен"
 
 #: src/EBox/Network/FirstTime.pm:16
 msgid "Configure default gateway"
-msgstr ""
+msgstr "Настроить основной шлюз"
 
-#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:1965
+#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:1975
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
-msgstr ""
+msgstr "Шлюз {gw} недоступен"
 
-#: src/EBox/Network.pm:56 src/EBox/Network.pm:2289 src/templates/routes.mas:33
+#: src/EBox/Network.pm:56 src/EBox/Network.pm:2299 src/templates/routes.mas:33
 msgid "Network"
-msgstr ""
+msgstr "Сеть"
 
 #: src/EBox/Network.pm:555 src/EBox/Network.pm:559
 msgid "Virtual interface name"
-msgstr ""
+msgstr "Имя виртуального интерфейса"
 
-#: src/EBox/Network.pm:558 src/EBox/Network.pm:867 src/EBox/Network.pm:2009
+#: src/EBox/Network.pm:558 src/EBox/Network.pm:867 src/EBox/Network.pm:2019
 #: src/templates/ifaces.mas:118 src/templates/ifaces.mas:235
 msgid "Netmask"
-msgstr ""
+msgstr "Маска подсети"
 
 #: src/EBox/Network.pm:991
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
@@ -309,64 +316,66 @@ msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
 
-#: src/EBox/Network.pm:1926
+#: src/EBox/Network.pm:1936
 msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
 msgstr ""
 
-#: src/EBox/Network.pm:1969
+#: src/EBox/Network.pm:1979
 #, perl-brace-format
 msgid ""
 "Gateway {gw} must be reacheable by a static interface. Currently is "
 "reacheable by {iface} which is not static"
 msgstr ""
 
-#: src/EBox/Network.pm:2198
+#: src/EBox/Network.pm:2208
 msgid "Host name"
-msgstr ""
+msgstr "Имя узла"
 
-#: src/EBox/Network.pm:2248
+#: src/EBox/Network.pm:2258
 msgid "down"
 msgstr ""
 
-#: src/EBox/Network.pm:2254
+#: src/EBox/Network.pm:2264
 msgid "up"
 msgstr ""
 
-#: src/EBox/Network.pm:2258
-msgid "link ok"
-msgstr ""
-
-#: src/EBox/Network.pm:2260
-msgid "no link"
-msgstr ""
-
-#: src/EBox/Network.pm:2263
-msgid "Status"
-msgstr ""
-
 #: src/EBox/Network.pm:2268
+msgid "link ok"
+msgstr "link ok"
+
+#: src/EBox/Network.pm:2270
+msgid "no link"
+msgstr "no link"
+
+#: src/EBox/Network.pm:2273
+msgid "Status"
+msgstr "Статус"
+
+#: src/EBox/Network.pm:2278
 msgid "MAC address"
-msgstr ""
+msgstr "MAC-адрес"
 
-#: src/EBox/Network.pm:2293
+#: src/EBox/Network.pm:2303
 msgid "Interfaces"
-msgstr ""
+msgstr "Интерфейсы"
 
-#: src/EBox/Network.pm:2299
+#: src/EBox/Network.pm:2309
 msgid "Diagnosis"
-msgstr ""
+msgstr "Диагностика"
 
-#: src/EBox/Network.pm:2305
+#: src/EBox/Network.pm:2315
 msgid "Balance traffic"
-msgstr ""
+msgstr "Балансировка траффика"
 
 #: src/templates/routes.mas:12
 msgid ""
 "All routers you enter here must be reachable through one of the network "
 "interfaces currently configured."
 msgstr ""
+"Все маршруты введенные здесь должны быть доступны через один из настроенных "
+"сетевых интерфейсов."
 
 #: src/templates/routes.mas:18
 msgid ""
@@ -376,12 +385,12 @@ msgstr ""
 
 #: src/templates/routes.mas:28
 msgid "Static routes"
-msgstr ""
+msgstr "Статические маршруты"
 
 #: src/templates/routes.mas:37 src/templates/ifaces.mas:168
 #: src/templates/ifaces.mas:237
 msgid "Action"
-msgstr ""
+msgstr "Действие"
 
 #: src/templates/routes.mas:66 src/templates/routes.mas:68
 #: src/templates/routes.mas:70 src/templates/ifaces.mas:185
@@ -389,7 +398,7 @@ msgstr ""
 #: src/templates/ifaces.mas:274 src/templates/ifaces.mas:276
 #: src/templates/ifaces.mas:278
 msgid "Add"
-msgstr ""
+msgstr "Добавить"
 
 #: src/templates/routes.mas:89 src/templates/routes.mas:91
 #: src/templates/routes.mas:93 src/templates/ifaces.mas:207
@@ -397,11 +406,11 @@ msgstr ""
 #: src/templates/ifaces.mas:304 src/templates/ifaces.mas:306
 #: src/templates/ifaces.mas:308
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:20
 msgid "Ping"
-msgstr ""
+msgstr "Ping"
 
 #: src/templates/diag.mas:25
 msgid "Name resolution"
@@ -409,11 +418,11 @@ msgstr ""
 
 #: src/templates/diag.mas:27
 msgid "Domain name"
-msgstr ""
+msgstr "Доменное имя"
 
 #: src/templates/diag.mas:32
 msgid "Lookup"
-msgstr ""
+msgstr "Поиск"
 
 #: src/templates/diag.mas:35
 msgid "Output"
@@ -427,25 +436,25 @@ msgstr ""
 
 #: src/templates/dns.mas:20
 msgid "Primary"
-msgstr ""
+msgstr "Первичный"
 
 #: src/templates/dns.mas:32
 msgid "Secondary"
-msgstr ""
+msgstr "Вторичный"
 
 #: src/templates/dns.mas:45
 msgid "Apply"
-msgstr ""
+msgstr "Применить"
 
 #: src/templates/gwrules.mas:18
 msgid ""
 "To be able to use this feature, you need, at least, two gateways. You can "
 "add them <a href="
-msgstr ""
+msgstr "Для включения этой функции Вам необходимо, как минимум, два шлюза."
 
 #: src/templates/gwrules.mas:25
 msgid "Traffic balancing"
-msgstr ""
+msgstr "Балансировка траффика"
 
 #: src/templates/gwrules.mas:29
 #, perl-brace-format
@@ -457,12 +466,19 @@ msgid ""
 "{closeref}.{br}If you want to explicitily route traffic by a certain "
 "gateway, use the multigateway rules below"
 msgstr ""
+"После включения этой функции, Ваш трафик будет распределяться между "
+"несколькими шлюзами. Вы можете выбрать пропорции распределения используя "
+"весовой параметр шлюза. Вы можете изменить это значение {openref}здесь"
+"{closeref}.{br}Если Вы хотите точной маршрутизации трафика - используйте "
+"мультишлюзовые правила ниже."
 
 #: src/templates/ifaces.mas:13
 msgid ""
 "Remember that changing the network interfaces configuration may cause you to "
 "lose access to the administration page."
 msgstr ""
+"Помните: изменение настроек сетевых интерфейсов может вызвать потерю доступа "
+"к странице администрирования. "
 
 #: src/templates/ifaces.mas:17
 msgid ""
@@ -470,14 +486,17 @@ msgid ""
 "Also, services meant for the LAN users will not be available on external "
 "interfaces."
 msgstr ""
+"Трафик пущенный через интерфейсы помеченные как внешние будет маскироваться "
+"(NAT). Также, службы предназначенные для локальной сети будут недоступны "
+"через внешние интерфейсы."
 
 #: src/templates/ifaces.mas:42
 msgid "Method"
-msgstr ""
+msgstr "Метод"
 
 #: src/templates/ifaces.mas:49 src/templates/ifaces.mas:52
 msgid "Static"
-msgstr ""
+msgstr "Статический"
 
 #: src/templates/ifaces.mas:64 src/templates/ifaces.mas:67
 msgid "Trunk (802.1q)"
@@ -485,33 +504,35 @@ msgstr ""
 
 #: src/templates/ifaces.mas:73 src/templates/ifaces.mas:76
 msgid "Not set"
-msgstr ""
+msgstr "Не задано"
 
 #: src/templates/ifaces.mas:86
 msgid "External"
-msgstr ""
+msgstr "Внешний"
 
 #: src/templates/ifaces.mas:149
 msgid "Change"
-msgstr ""
+msgstr "Изменить"
 
 #: src/templates/ifaces.mas:158
 msgid "VLAN List"
-msgstr ""
+msgstr "Список VLAN"
 
 #: src/templates/ifaces.mas:166
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 #: src/templates/ifaces.mas:225
 msgid "Virtual interfaces"
-msgstr ""
+msgstr "Виртуальные интерфейсы"
 
 #: src/templates/confirmremove.mas:11 src/templates/confirm.mas:14
 msgid ""
 "The change you are trying to make will affect the configuration of one or "
 "more modules that use references to this network interface."
 msgstr ""
+"Изменение, которое Вы пытаетесь сделать скажется на конфигурации одного или "
+"нескольких модулей, которые используют этот сетевой интерфейс."
 
 #: src/templates/confirmremove.mas:15 src/templates/confirm.mas:18
 msgid ""
@@ -519,11 +540,13 @@ msgid ""
 "configuration of this network interface will delete the relevant parts of "
 "their configuration. Choose "
 msgstr ""
+"Если Вы продолжите то все модули, использующие текущую конфигурацию этого "
+"сетевого интерфейса удалят важные части своей конфигурации."
 
 #: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: src/templates/confirmremove.mas:29 src/templates/confirm.mas:36
 msgid "Cancel"
-msgstr ""
+msgstr "Отмена"

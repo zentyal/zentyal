@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-openvpn 0.9.1\n"
+"Project-Id-Version: ebox-openvpn 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:39+0200\n"
+"POT-Creation-Date: 2007-07-24 12:13+0200\n"
 "PO-Revision-Date: 2007-04-11 16:24+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -20,16 +20,16 @@ msgstr ""
 #: src/EBox/CGI/Index.pm:16 src/EBox/CGI/ClientBundle.pm:19
 #: src/EBox/CGI/DeleteClient.pm:15 src/EBox/CGI/CreateClient.pm:18
 #: src/EBox/CGI/Delete.pm:15 src/EBox/CGI/Create.pm:15
-#: src/EBox/OpenVPN.pm:1128
+#: src/EBox/OpenVPN.pm:1142
 msgid "OpenVPN"
 msgstr ""
 
-#: src/EBox/CGI/EditClient.pm:154
+#: src/EBox/CGI/EditClient.pm:153
 #, perl-brace-format
 msgid "Client {name} configuration updated"
 msgstr ""
 
-#: src/EBox/CGI/EditClient.pm:158 src/EBox/CGI/Edit.pm:147
+#: src/EBox/CGI/EditClient.pm:157 src/EBox/CGI/Edit.pm:147
 msgid "There are no changes to be saved"
 msgstr ""
 
@@ -83,9 +83,9 @@ msgstr ""
 msgid "Server {name} removed"
 msgstr ""
 
-#: src/EBox/CGI/Create.pm:95
+#: src/EBox/CGI/Create.pm:98
 #, perl-brace-format
-msgid "New server {name} created"
+msgid "New server {name} created. Now you can add advertised routes"
 msgstr ""
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:30
@@ -259,11 +259,11 @@ msgstr ""
 msgid "Local address"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:847 src/templates/serverProperties.mas:59
+#: src/EBox/OpenVPN/Server.pm:847 src/templates/serverProperties.mas:60
 msgid "Port"
 msgstr ""
 
-#: src/EBox/OpenVPN/Server.pm:850 src/templates/serverProperties.mas:61
+#: src/EBox/OpenVPN/Server.pm:850 src/templates/serverProperties.mas:62
 msgid "VPN subnet"
 msgstr ""
 
@@ -321,11 +321,11 @@ msgid ""
 "underscores are allowed"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1144
+#: src/EBox/OpenVPN.pm:1158
 msgid "OpenVPN daemons"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1174
+#: src/EBox/OpenVPN.pm:1188
 msgid "OpenVPN service"
 msgstr ""
 
@@ -387,43 +387,43 @@ msgstr ""
 msgid "Interface to listen on"
 msgstr ""
 
-#: src/templates/serverProperties.mas:51
+#: src/templates/serverProperties.mas:52
 msgid ""
 "The server will be listen only in all external interfaces or only in the "
 "interface selected"
 msgstr ""
 
-#: src/templates/serverProperties.mas:57 src/templates/clientProperties.mas:13
+#: src/templates/serverProperties.mas:58 src/templates/clientProperties.mas:13
 msgid "Active"
 msgstr ""
 
-#: src/templates/serverProperties.mas:63
+#: src/templates/serverProperties.mas:64
 msgid "VPN subnet netmask"
 msgstr ""
 
-#: src/templates/serverProperties.mas:65
+#: src/templates/serverProperties.mas:66
 msgid "Protocol"
 msgstr ""
 
-#: src/templates/serverProperties.mas:77
+#: src/templates/serverProperties.mas:79
 msgid "Allow eBox-to-eBox tunnels"
 msgstr ""
 
-#: src/templates/serverProperties.mas:80
+#: src/templates/serverProperties.mas:82
 msgid ""
 "If you want to create a tunnel between two eBox, you will need this option "
 "to be able to connect to the network in the client side"
 msgstr ""
 
-#: src/templates/serverProperties.mas:84
+#: src/templates/serverProperties.mas:86
 msgid "Allow client-to-client connections"
 msgstr ""
 
-#: src/templates/serverProperties.mas:87
+#: src/templates/serverProperties.mas:89
 msgid "Allow clients to connect each other within the VPN"
 msgstr ""
 
-#: src/templates/serverProperties.mas:93
+#: src/templates/serverProperties.mas:95
 msgid "Server name"
 msgstr ""
 
@@ -530,7 +530,7 @@ msgstr ""
 msgid "delete"
 msgstr ""
 
-#: src/templates/clientBundle.mas:17
+#: src/templates/clientBundle.mas:16
 msgid ""
 "This certificate will be used by the client to authenticate itself to the "
 "server"
@@ -556,38 +556,42 @@ msgid ""
 "directory"
 msgstr ""
 
-#: src/templates/clientProperties.mas:29
+#: src/templates/clientProperties.mas:21
+msgid "Server's protocol"
+msgstr ""
+
+#: src/templates/clientProperties.mas:31
 msgid "Server's Port"
 msgstr ""
 
-#: src/templates/clientProperties.mas:36
+#: src/templates/clientProperties.mas:38
 msgid "CA's certificate"
 msgstr ""
 
-#: src/templates/clientProperties.mas:38
+#: src/templates/clientProperties.mas:40
 msgid ""
 "Certificate of the Certification Authority. Must be the same used in the "
 "server"
 msgstr ""
 
-#: src/templates/clientProperties.mas:44
+#: src/templates/clientProperties.mas:46
 msgid "Client's certificate"
 msgstr ""
 
-#: src/templates/clientProperties.mas:46
+#: src/templates/clientProperties.mas:48
 msgid ""
 "Certificate used by the client to identify itself. It must be signed by the "
 "Certification Authority"
 msgstr ""
 
-#: src/templates/clientProperties.mas:52
+#: src/templates/clientProperties.mas:54
 msgid "Client's private key"
 msgstr ""
 
-#: src/templates/clientProperties.mas:54
+#: src/templates/clientProperties.mas:56
 msgid "Private key used to create the client's certificate"
 msgstr ""
 
-#: src/templates/clientProperties.mas:59
+#: src/templates/clientProperties.mas:61
 msgid "Client name"
 msgstr ""

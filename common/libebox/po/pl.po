@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.9.1\n"
+"Project-Id-Version: libebox 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:36+0200\n"
+"POT-Creation-Date: 2007-07-24 12:11+0200\n"
 "PO-Revision-Date: 2007-04-05 10:50+0000\n"
 "Last-Translator: Krzysztof Kubanek <krzysztof.kubanek@gmail.com>\n"
 "Language-Team: none\n"
@@ -50,7 +50,7 @@ msgstr ""
 "Pole zawiera niedozwolone znaki. Dozwolone są litery, cyfry oraz znaki: /.?&"
 "+:-@ i spacja."
 
-#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:524
+#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:532
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -65,7 +65,7 @@ msgstr ""
 "Wystąpił błąd wewnętrzny związany z szablonem. Związane z błędem komunikaty "
 "można znaleźć w logach."
 
-#: src/EBox/CGI/Base.pm:530
+#: src/EBox/CGI/Base.pm:538
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -73,20 +73,20 @@ msgstr ""
 "Wystąpił nieoczekiwany błąd wewnętrzny. Związane z nim komunikaty można "
 "znaleźć w logach."
 
-#: src/EBox/CGI/Base.pm:536
+#: src/EBox/CGI/Base.pm:544
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
 "Właśnie trafiłaś na błąd w eBoxsie. Prosimy odwołaj się do wsparcia "
 "technicznego."
 
-#: src/EBox/CGI/Base.pm:623
+#: src/EBox/CGI/Base.pm:631
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Twoje żądanie nie mogło zostać przetworzone ponieważ miało nieprawidłowe "
 "parametry."
 
-#: src/EBox/CGI/Base.pm:638
+#: src/EBox/CGI/Base.pm:646
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
@@ -94,9 +94,13 @@ msgstr ""
 "Twoje żądanie nie mogło zostać przetworzone ponieważ brakło w nim niektórych "
 "wymaganych parametrów."
 
-#: src/EBox/CGI/Base.pm:757
+#: src/EBox/CGI/Base.pm:782
 msgid "Invalid uploaded file."
 msgstr "Wgrano nieprawidłowy plik."
+
+#: src/EBox/CGI/Base.pm:788
+msgid "Cannot create a temporally file for the upload"
+msgstr ""
 
 #: src/EBox/Sudo.pm:229
 #, perl-brace-format
@@ -117,7 +121,7 @@ msgstr "Nie mogę otworzyć pliku konfiguracyjnego {file}."
 msgid "The ebox user has not been set in the config file."
 msgstr "Użytkownik eBoxa nie został ustawiony w pliku konfiguracyjnym."
 
-#: src/EBox/Validate.pm:608
+#: src/EBox/Validate.pm:647
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -126,13 +130,13 @@ msgstr ""
 "Nie mogę odczytać katalogu: {dir}. Może to oznaczać, że katalog nie istnieje "
 "lub uprawnienia nie pozwalają na dostęp do niego."
 
-#: src/EBox/Validate.pm:613
+#: src/EBox/Validate.pm:652
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 "Katalog {dir} nie jest katalogiem prywatnym ponieważ należy do innej osoby."
 
-#: src/EBox/Validate.pm:688
+#: src/EBox/Validate.pm:727
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
@@ -140,29 +144,29 @@ msgstr ""
 "Podana ścieżka do pliku jest nieprawidłowa. (Obecnie nie wszystkie dozwolone "
 "w nazwach plików znaki są obsługiwane)."
 
-#: src/EBox/Validate.pm:716
+#: src/EBox/Validate.pm:755
 msgid "The file path must be absolute"
 msgstr "Ścieżka do pliku nie może być względna."
 
-#: src/templates/ajax/tableBody.mas:47
+#: src/templates/ajax/tableBody.mas:48
 msgid "Add new"
 msgstr "Dodaj nowy"
 
-#: src/templates/ajax/tableBody.mas:58
+#: src/templates/ajax/tableBody.mas:59
 #, perl-brace-format
 msgid "Adding a new {row}"
 msgstr "Dodaję nowy {row}"
 
-#: src/templates/ajax/tableBody.mas:65
+#: src/templates/ajax/tableBody.mas:66
 #, perl-brace-format
 msgid "Editing {row}"
 msgstr "Edytuję {row}"
 
-#: src/templates/ajax/tableBody.mas:131
+#: src/templates/ajax/tableBody.mas:132
 msgid "Action"
 msgstr "Działanie"
 
-#: src/templates/ajax/tableBody.mas:329
+#: src/templates/ajax/tableBody.mas:327
 msgid "port"
 msgstr ""
 
@@ -205,19 +209,19 @@ msgid ""
 msgstr ""
 "Wybór języka następuje automatycznie. Zapis konfiguracji nie jest konieczny."
 
-#: src/templates/language.mas:25 src/templates/enable.mas:29
-#: src/templates/enable.mas:31
+#: src/templates/language.mas:25 src/templates/enable.mas:36
+#: src/templates/enable.mas:38
 msgid "Change"
 msgstr "Zmień"
 
-#: src/templates/enable.mas:13
+#: src/templates/enable.mas:11
 msgid "Service configuration"
 msgstr "Konfiguracja serwisowa"
 
-#: src/templates/enable.mas:17 src/templates/enable.mas:22
+#: src/templates/enable.mas:24 src/templates/enable.mas:29
 msgid "Disabled"
 msgstr "Wyłączony"
 
-#: src/templates/enable.mas:19 src/templates/enable.mas:24
+#: src/templates/enable.mas:26 src/templates/enable.mas:31
 msgid "Enabled"
 msgstr "Włączony"

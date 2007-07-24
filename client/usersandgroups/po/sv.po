@@ -5,9 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 0.9.3"
+"Project-Id-Version: ebox-usersandgroups 0.9.3\n"
+"es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:41+0200\n"
+"POT-Creation-Date: 2007-07-24 12:14+0200\n"
 "PO-Revision-Date: 2007-06-06 09:41+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,28 +19,28 @@ msgstr ""
 
 #: src/EBox/CGI/Del.pm:65
 msgid "object name"
-msgstr ""
+msgstr "objektnamn"
 
 #: src/EBox/CGI/Del.pm:70
 msgid "object type"
-msgstr ""
+msgstr "objekttyp"
 
 #: src/EBox/CGI/Del.pm:90
 msgid "User removed successfully"
-msgstr ""
+msgstr "Användaren togs bort"
 
 #: src/EBox/CGI/Del.pm:94
 msgid "Group removed successfully"
-msgstr ""
+msgstr "Gruppen togs bort"
 
 #: src/EBox/CGI/DelUserFromGroup.pm:45 src/EBox/CGI/AddUserToGroup.pm:44
 #: src/EBox/CGI/Group.pm:45
 msgid "group"
-msgstr ""
+msgstr "grupp"
 
 #: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/AddUserToGroup.pm:49
 msgid "user"
-msgstr ""
+msgstr "användare"
 
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
 #: src/EBox/UsersAndGroups.pm:645 src/EBox/UsersAndGroups.pm:650
@@ -47,12 +48,12 @@ msgstr ""
 #: src/EBox/UsersAndGroups.pm:919 src/EBox/UsersAndGroups.pm:993
 #: src/EBox/UsersAndGroups.pm:1099
 msgid "group name"
-msgstr ""
+msgstr "gruppnamn"
 
 #: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
 #: src/EBox/CGI/AddUser.pm:49
 msgid "comment"
-msgstr ""
+msgstr "kommentar"
 
 #: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
 #: src/EBox/UsersAndGroups.pm:253 src/EBox/UsersAndGroups.pm:259
@@ -61,71 +62,71 @@ msgstr ""
 #: src/EBox/UsersAndGroups.pm:784 src/EBox/UsersAndGroups.pm:877
 #: src/EBox/UsersAndGroups.pm:914 src/EBox/UsersAndGroups.pm:951
 msgid "user name"
-msgstr ""
+msgstr "användarnamn"
 
 #: src/EBox/CGI/ModifyUser.pm:47 src/EBox/CGI/AddUser.pm:46
 msgid "full name"
-msgstr ""
+msgstr "fullständigt namn"
 
 #: src/EBox/CGI/ModifyUser.pm:49 src/EBox/CGI/AddUser.pm:47
 msgid "password"
-msgstr ""
+msgstr "lösenord"
 
 #: src/EBox/CGI/ModifyUser.pm:50
 msgid "confirm password"
-msgstr ""
+msgstr "bekräfta lösenord"
 
 #: src/EBox/CGI/ModifyUser.pm:65 src/EBox/CGI/AddUser.pm:61
 msgid "Passwords do not match."
-msgstr ""
+msgstr "Lösenorden stämde inte överens."
 
 #: src/EBox/CGI/AddUser.pm:48
 msgid "retype password"
-msgstr ""
+msgstr "ange lösenordet igen"
 
 #: src/EBox/CGI/Group.pm:30
 msgid "Edit group"
-msgstr ""
+msgstr "Redigera grupp"
 
 #: src/EBox/CGI/User.pm:42 src/EBox/CGI/Users.pm:31
 #: src/EBox/UsersAndGroups.pm:1365
 msgid "Users"
-msgstr ""
+msgstr "Användare"
 
 #: src/EBox/CGI/User.pm:46
 msgid "username"
-msgstr ""
+msgstr "användarnamn"
 
 #: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1367
 msgid "Groups"
-msgstr ""
+msgstr "Grupper"
 
 #: src/EBox/UsersAndGroups.pm:248
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
-msgstr ""
+msgstr "Användarnamnet får inte vara längre än {maxuserlength} tecken"
 
 #: src/EBox/UsersAndGroups.pm:268 src/EBox/UsersAndGroups.pm:659
 msgid "Maximum number of system users reached"
-msgstr ""
+msgstr "Maximalt antal systemanvändare har uppnåtts"
 
 #: src/EBox/UsersAndGroups.pm:633
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
-msgstr ""
+msgstr "Gruppnamn får inte vara längre än {maxGroupLength} tecken"
 
 #: src/EBox/UsersAndGroups.pm:639
 msgid "The group name is not valid because it is used internally"
-msgstr ""
+msgstr "Gruppnamnet är inte giltigt därför att det används internt"
 
 #: src/EBox/UsersAndGroups.pm:1172
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
-msgstr ""
+msgstr "Lösenord får inte vara längre än {maxPwdLength} tecken"
 
 #: src/EBox/LdapUserImplementation.pm:42
 msgid "This group contains users"
-msgstr ""
+msgstr "Den här gruppen innehåller användare"
 
 #: src/templates/users.mas:11 src/templates/groups.mas:11
 msgid ""
@@ -141,61 +142,61 @@ msgstr ""
 
 #: src/templates/users.mas:16
 msgid "Add User"
-msgstr ""
+msgstr "Lägg till användare"
 
 #: src/templates/users.mas:22 src/templates/users.mas:86
 msgid "User name"
-msgstr ""
+msgstr "Användarnamn"
 
 #: src/templates/users.mas:31 src/templates/user.mas:30
 msgid "Full name"
-msgstr ""
+msgstr "Fullständigt namn"
 
 #: src/templates/users.mas:40 src/templates/group.mas:23
 #: src/templates/user.mas:19 src/templates/groups.mas:34
 msgid "Comment"
-msgstr ""
+msgstr "Kommentar"
 
 #: src/templates/users.mas:49 src/templates/user.mas:41
 msgid "Password"
-msgstr ""
+msgstr "Lösenord"
 
 #: src/templates/users.mas:57 src/templates/user.mas:52
 msgid "Retype password"
-msgstr ""
+msgstr "Ange lösenordet igen"
 
 #: src/templates/users.mas:71 src/templates/users.mas:73
 #: src/templates/groups.mas:48 src/templates/groups.mas:50
 msgid "Create"
-msgstr ""
+msgstr "Skapa"
 
 #: src/templates/users.mas:82
 msgid "Edit User"
-msgstr ""
+msgstr "Redigera användare"
 
 #: src/templates/users.mas:88 src/templates/groups.mas:65
 msgid "Actions"
-msgstr ""
+msgstr "Åtgärder"
 
 #: src/templates/users.mas:101 src/templates/users.mas:103
 #: src/templates/groups.mas:78 src/templates/groups.mas:80
 msgid "Edit"
-msgstr ""
+msgstr "Redigera"
 
 #: src/templates/users.mas:110 src/templates/users.mas:112
 #: src/templates/users.mas:114 src/templates/group.mas:66
 #: src/templates/groups.mas:87 src/templates/groups.mas:89
 #: src/templates/groups.mas:91
 msgid "Remove"
-msgstr ""
+msgstr "Ta bort"
 
 #: src/templates/users.mas:130
 msgid "Group"
-msgstr ""
+msgstr "Grupp"
 
 #: src/templates/del.mas:13
 msgid "Deleting user"
-msgstr ""
+msgstr "Tar bort användare"
 
 #: src/templates/del.mas:16
 msgid ""
@@ -205,7 +206,7 @@ msgstr ""
 
 #: src/templates/del.mas:20
 msgid "Deleting group"
-msgstr ""
+msgstr "Tar bort grupp"
 
 #: src/templates/del.mas:23
 msgid ""
@@ -215,15 +216,15 @@ msgstr ""
 
 #: src/templates/del.mas:47
 msgid "Delete"
-msgstr ""
+msgstr "Radera"
 
 #: src/templates/del.mas:51
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #: src/templates/group.mas:12
 msgid "Administration of group "
-msgstr ""
+msgstr "Administration av grupp"
 
 #: src/templates/group.mas:16
 msgid ""
@@ -234,32 +235,32 @@ msgstr ""
 #: src/templates/group.mas:28 src/templates/group.mas:30
 #: src/templates/user.mas:65 src/templates/user.mas:67
 msgid "Change"
-msgstr ""
+msgstr "Ändra"
 
 #: src/templates/group.mas:37
 msgid "Users in group"
-msgstr ""
+msgstr "Användare i grupp"
 
 #: src/templates/group.mas:40
 msgid "Users not in group"
-msgstr ""
+msgstr "Användare inte i grupp"
 
 #: src/templates/group.mas:57 src/templates/group.mas:97
 msgid "Empty list"
-msgstr ""
+msgstr "Tom lista"
 
 #: src/templates/group.mas:70
 msgid "Remove users from group"
-msgstr ""
+msgstr "Ta bort användare från grupp"
 
 #: src/templates/group.mas:79 src/templates/group.mas:83
 msgid "Add users to group"
-msgstr ""
+msgstr "Lägg till användare till grupp"
 
 #: src/templates/group.mas:113 src/templates/group.mas:123
 #: src/templates/group.mas:125
 msgid "Delete group"
-msgstr ""
+msgstr "Ta bort grupp"
 
 #: src/templates/group.mas:116
 msgid ""
@@ -269,12 +270,12 @@ msgstr ""
 
 #: src/templates/user.mas:10
 msgid "Administration of user"
-msgstr ""
+msgstr "Administration av användare"
 
 #: src/templates/user.mas:78 src/templates/user.mas:88
 #: src/templates/user.mas:90
 msgid "Delete user"
-msgstr ""
+msgstr "Ta bort användare"
 
 #: src/templates/user.mas:81
 msgid ""
@@ -284,16 +285,16 @@ msgstr ""
 
 #: src/templates/groups.mas:16
 msgid "Add Group"
-msgstr ""
+msgstr "Lägg till grupp"
 
 #: src/templates/groups.mas:23 src/templates/groups.mas:63
 msgid "Group name"
-msgstr ""
+msgstr "Gruppnamn"
 
 #: src/templates/groups.mas:40
 msgid "Optional value"
-msgstr ""
+msgstr "Valfritt värde"
 
 #: src/templates/groups.mas:59
 msgid "Edit Group"
-msgstr ""
+msgstr "Redigera grupp"

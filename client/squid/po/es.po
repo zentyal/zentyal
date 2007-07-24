@@ -10,9 +10,9 @@
 # Enrique Jose Hernandez Blasco <ejhernandez@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-squid 0.9.1\n"
+"Project-Id-Version: ebox-squid 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:41+0200\n"
+"POT-Creation-Date: 2007-07-24 12:14+0200\n"
 "PO-Revision-Date: 2006-11-24 09:33+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -225,14 +225,13 @@ msgid "Allow"
 msgstr "Permitir"
 
 #: src/EBox/Squid.pm.in:1203 src/templates/index.mas:141
-#: src/templates/index.mas:144 src/templates/domains.mas:18
-#: src/templates/policy.mas:55 src/templates/policy.mas:59
-#: src/templates/policy.mas:119 src/templates/policy.mas:123
+#: src/templates/index.mas:144 src/templates/policy.mas:55
+#: src/templates/policy.mas:59 src/templates/policy.mas:119
+#: src/templates/policy.mas:123
 msgid "Filter"
 msgstr "Filtrar"
 
 #: src/EBox/Squid.pm.in:1206 src/templates/index.mas:120
-#: src/templates/domains.mas:17
 msgid "Global policy"
 msgstr "Política global"
 
@@ -253,7 +252,8 @@ msgid "Extensions filter"
 msgstr "Filtro de extensiones"
 
 #: src/EBox/Squid.pm.in:1235
-msgid "Mime Type filter"
+#, fuzzy
+msgid "MIME Type filter"
 msgstr "Filtro de tipos MIME"
 
 #: src/EBox/Squid.pm.in:1237
@@ -355,11 +355,10 @@ msgstr "Muy estricto"
 msgid "Change"
 msgstr "Cambiar"
 
-#: src/templates/domains.mas:16
-#, perl-brace-format
-msgid "This list will only take effect if {globalPolicy} is set to {filter}"
-msgstr ""
-"Esta lista sólo tendrá efecto si {globalPolicy} está en estado {filter}"
+#: src/templates/domains.mas:18
+#, fuzzy
+msgid "filter"
+msgstr "Filtrar"
 
 #: src/templates/domains.mas:29
 msgid "Introduce domains in this way: "
@@ -463,6 +462,10 @@ msgstr "Mover los objetos seleccionados a la columna de baneados"
 msgid "Move selected objects to the unfiltered column"
 msgstr "Mover los objetos seleccionados a la columna de no filtrados"
 
+#~ msgid "This list will only take effect if {globalPolicy} is set to {filter}"
+#~ msgstr ""
+#~ "Esta lista sólo tendrá efecto si {globalPolicy} está en estado {filter}"
+
 #~ msgid "File extension added correctly"
 #~ msgstr "Extensión de fichero añadida correctamente"
 
@@ -474,3 +477,6 @@ msgstr "Mover los objetos seleccionados a la columna de no filtrados"
 
 #~ msgid "MIME type is already in the list"
 #~ msgstr "El tipo MIME ya está en la lista"
+
+#~ msgid "Mime Type filter"
+#~ msgstr "Filtro de tipos MIME"

@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ntp 0.9.1\n"
+"Project-Id-Version: ebox-ntp 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:39+0200\n"
+"POT-Creation-Date: 2007-07-24 12:13+0200\n"
 "PO-Revision-Date: 2007-04-11 16:24+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -19,226 +19,227 @@ msgstr ""
 
 #: src/EBox/CGI/Synch.pm:41
 msgid "external synchronize status"
-msgstr ""
+msgstr "статус внешней синхронизации"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
-msgstr ""
+msgstr "статус модуля"
 
 #: src/EBox/CGI/Index.pm:30
 msgid "NTP Server"
-msgstr ""
+msgstr "Сервер NTP"
 
 #: src/EBox/CGI/Timezone.pm:30
 msgid "Timezone settings"
-msgstr ""
+msgstr "Часовой пояс"
 
 #: src/EBox/CGI/Datetime.pm:30
 msgid "Date and time settings"
-msgstr ""
+msgstr "Дата и время"
 
 #: src/EBox/CGI/ChangeTimeZone.pm:41
 msgid "country"
-msgstr ""
+msgstr "страна"
 
 #: src/EBox/CGI/ChangeTimeZone.pm:42
 msgid "continent"
-msgstr ""
+msgstr "континент"
 
 #: src/EBox/CGI/AddServers.pm:42
 msgid "first ntp server"
-msgstr ""
+msgstr "первый ntp-сервер"
 
 #: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:199
 #: src/templates/servers.mas:18
 msgid "Primary server"
-msgstr ""
+msgstr "Основной сервер"
 
 #: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:213
 #: src/templates/servers.mas:30
 msgid "Secondary server"
-msgstr ""
+msgstr "Доп. сервер"
 
 #: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:42
 msgid "Tertiary server"
-msgstr ""
+msgstr "Второй доп. сервер"
 
 #: src/EBox/CGI/ChangeDate.pm:41
 msgid "Day"
-msgstr ""
+msgstr "День"
 
 #: src/EBox/CGI/ChangeDate.pm:42
 msgid "Month"
-msgstr ""
+msgstr "Месяц"
 
 #: src/EBox/CGI/ChangeDate.pm:43
 msgid "Year"
-msgstr ""
+msgstr "Год"
 
 #: src/EBox/CGI/ChangeDate.pm:44
 msgid "Hour"
-msgstr ""
+msgstr "Часы"
 
 #: src/EBox/CGI/ChangeDate.pm:45
 msgid "Minutes"
-msgstr ""
+msgstr "Минуты"
 
 #: src/EBox/CGI/ChangeDate.pm:46
 msgid "Seconds"
-msgstr ""
+msgstr "Секунды"
 
 #: src/EBox/NTP.pm:201
 msgid "primary server"
-msgstr ""
+msgstr "основной сервер"
 
 #: src/EBox/NTP.pm:206 src/EBox/NTP.pm:225
 msgid "Primary and secondary server must be different"
-msgstr ""
+msgstr "Основной и дополнительный серверы должны отличаться"
 
 #: src/EBox/NTP.pm:209
 msgid "secondary server"
-msgstr ""
+msgstr "доп. сервер"
 
 #: src/EBox/NTP.pm:222
 msgid "Primary and tertiary server must be different"
-msgstr ""
+msgstr "Основной и второй доп. серверы должны отличаться"
 
 #: src/EBox/NTP.pm:228
 msgid "tertiary server"
-msgstr ""
+msgstr "второй доп. сервер"
 
 #: src/EBox/NTP.pm:244
 #, perl-brace-format
 msgid "{name} IP address"
-msgstr ""
+msgstr "{name} IP-адрес"
 
 #: src/EBox/NTP.pm:247
 #, perl-brace-format
 msgid "{name} host name"
-msgstr ""
+msgstr "{name} имя узла"
 
 #: src/EBox/NTP.pm:389
 msgid "NTP local server"
-msgstr ""
+msgstr "Локальный NTP-сервер"
 
 #: src/EBox/NTP.pm:402
 msgid "System"
-msgstr ""
+msgstr "Система"
 
 #: src/EBox/NTP.pm:405
 msgid "Date/time"
-msgstr ""
+msgstr "Дата/Время"
 
 #: src/EBox/NTP.pm:408 src/templates/timezone.mas:15
 msgid "Time zone"
-msgstr ""
+msgstr "Часовой пояс"
 
 #: src/EBox/NTP.pm:412
 msgid "NTP server"
-msgstr ""
+msgstr "NTP-сервер"
 
 #: src/templates/synch.mas:11 src/templates/synch.mas:16
 msgid "Disabled"
-msgstr ""
+msgstr "Отключено"
 
 #: src/templates/synch.mas:13 src/templates/synch.mas:18
 msgid "Enabled"
-msgstr ""
+msgstr "Включено"
 
 #: src/templates/synch.mas:23 src/templates/synch.mas:25
 #: src/templates/servers.mas:55 src/templates/timezone.mas:37
 #: src/templates/timezone.mas:39 src/templates/date.mas:111
 #: src/templates/date.mas:113
 msgid "Change"
-msgstr ""
+msgstr "Изменить"
 
 #: src/templates/index.mas:11
 msgid "NTP server status"
-msgstr ""
+msgstr "Статус NTP-сервера"
 
 #: src/templates/servers.mas:7
 msgid "NTP servers"
-msgstr ""
+msgstr "NTP-серверы"
 
 #: src/templates/servers.mas:11
 msgid ""
 "You should remember to set up your timezone to have synchronization behaving "
 "correctly."
 msgstr ""
+"Вы должны помнить настройки часового пояса для правильной синхронизации."
 
 #: src/templates/timezone.mas:19
 msgid "A time zone change will cause all eBox services to be restarted"
-msgstr ""
+msgstr "Изменение часового пояса вызовет перезапуск всех служб eBox"
 
 #: src/templates/datetime.mas:13
 msgid "Time synchronization with NTP servers"
-msgstr ""
+msgstr "Синхронизация времени с NTP-серверами"
 
 #: src/templates/datetime.mas:18
 msgid "External NTP servers"
-msgstr ""
+msgstr "Внешние NTP-серверы"
 
 #: src/templates/datetime.mas:23
 msgid "Change Date and Time"
-msgstr ""
+msgstr "Изменить Дату/Время"
 
 #: src/templates/date.mas:10
 msgid ""
 "A change in the date or time will cause all eBox services to be restarted"
-msgstr ""
+msgstr "Изменение даты или времени приведет к перезапуску всех служб eBox"
 
 #: src/templates/date.mas:16
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: src/templates/date.mas:32
 msgid "January"
-msgstr ""
+msgstr "Январь"
 
 #: src/templates/date.mas:33
 msgid "February"
-msgstr ""
+msgstr "Февраль"
 
 #: src/templates/date.mas:34
 msgid "March"
-msgstr ""
+msgstr "Март"
 
 #: src/templates/date.mas:35
 msgid "April"
-msgstr ""
+msgstr "Апрель"
 
 #: src/templates/date.mas:36
 msgid "May"
-msgstr ""
+msgstr "Май"
 
 #: src/templates/date.mas:37
 msgid "June"
-msgstr ""
+msgstr "Июнь"
 
 #: src/templates/date.mas:38
 msgid "July"
-msgstr ""
+msgstr "Июль"
 
 #: src/templates/date.mas:39
 msgid "August"
-msgstr ""
+msgstr "Август"
 
 #: src/templates/date.mas:40
 msgid "September"
-msgstr ""
+msgstr "Сентябрь"
 
 #: src/templates/date.mas:41
 msgid "October"
-msgstr ""
+msgstr "Октябрь"
 
 #: src/templates/date.mas:42
 msgid "November"
-msgstr ""
+msgstr "Ноябрь"
 
 #: src/templates/date.mas:43
 msgid "December"
-msgstr ""
+msgstr "Декабрь"
 
 #: src/templates/date.mas:69
 msgid "Time"
-msgstr ""
+msgstr "Время"

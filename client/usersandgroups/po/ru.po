@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 0.9.1\n"
+"Project-Id-Version: ebox-usersandgroups 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:41+0200\n"
+"POT-Creation-Date: 2007-07-24 12:14+0200\n"
 "PO-Revision-Date: 2007-04-11 16:26+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -20,28 +20,28 @@ msgstr ""
 
 #: src/EBox/CGI/Del.pm:65
 msgid "object name"
-msgstr ""
+msgstr "имя объекта"
 
 #: src/EBox/CGI/Del.pm:70
 msgid "object type"
-msgstr ""
+msgstr "тип объекта"
 
 #: src/EBox/CGI/Del.pm:90
 msgid "User removed successfully"
-msgstr ""
+msgstr "Пользователь удален"
 
 #: src/EBox/CGI/Del.pm:94
 msgid "Group removed successfully"
-msgstr ""
+msgstr "Группа удалена"
 
 #: src/EBox/CGI/DelUserFromGroup.pm:45 src/EBox/CGI/AddUserToGroup.pm:44
 #: src/EBox/CGI/Group.pm:45
 msgid "group"
-msgstr ""
+msgstr "группа"
 
 #: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/AddUserToGroup.pm:49
 msgid "user"
-msgstr ""
+msgstr "пользователь"
 
 #: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
 #: src/EBox/UsersAndGroups.pm:645 src/EBox/UsersAndGroups.pm:650
@@ -49,12 +49,12 @@ msgstr ""
 #: src/EBox/UsersAndGroups.pm:919 src/EBox/UsersAndGroups.pm:993
 #: src/EBox/UsersAndGroups.pm:1099
 msgid "group name"
-msgstr ""
+msgstr "имя группы"
 
 #: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
 #: src/EBox/CGI/AddUser.pm:49
 msgid "comment"
-msgstr ""
+msgstr "комментарий"
 
 #: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
 #: src/EBox/UsersAndGroups.pm:253 src/EBox/UsersAndGroups.pm:259
@@ -63,58 +63,58 @@ msgstr ""
 #: src/EBox/UsersAndGroups.pm:784 src/EBox/UsersAndGroups.pm:877
 #: src/EBox/UsersAndGroups.pm:914 src/EBox/UsersAndGroups.pm:951
 msgid "user name"
-msgstr ""
+msgstr "логин"
 
 #: src/EBox/CGI/ModifyUser.pm:47 src/EBox/CGI/AddUser.pm:46
 msgid "full name"
-msgstr ""
+msgstr "полное имя"
 
 #: src/EBox/CGI/ModifyUser.pm:49 src/EBox/CGI/AddUser.pm:47
 msgid "password"
-msgstr ""
+msgstr "пароль"
 
 #: src/EBox/CGI/ModifyUser.pm:50
 msgid "confirm password"
-msgstr ""
+msgstr "подтвердите пароль"
 
 #: src/EBox/CGI/ModifyUser.pm:65 src/EBox/CGI/AddUser.pm:61
 msgid "Passwords do not match."
-msgstr ""
+msgstr "Пароли не совпадают"
 
 #: src/EBox/CGI/AddUser.pm:48
 msgid "retype password"
-msgstr ""
+msgstr "введите пароль еще раз"
 
 #: src/EBox/CGI/Group.pm:30
 msgid "Edit group"
-msgstr ""
+msgstr "Редактировать группу"
 
 #: src/EBox/CGI/User.pm:42 src/EBox/CGI/Users.pm:31
 #: src/EBox/UsersAndGroups.pm:1365
 msgid "Users"
-msgstr ""
+msgstr "Пользователи"
 
 #: src/EBox/CGI/User.pm:46
 msgid "username"
-msgstr ""
+msgstr "логин"
 
 #: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1367
 msgid "Groups"
-msgstr ""
+msgstr "Группы"
 
 #: src/EBox/UsersAndGroups.pm:248
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
-msgstr ""
+msgstr "Логин не должен быть длинее {maxuserlength} символов"
 
 #: src/EBox/UsersAndGroups.pm:268 src/EBox/UsersAndGroups.pm:659
 msgid "Maximum number of system users reached"
-msgstr ""
+msgstr "Достигнуто макс. кол-во пользователей системы"
 
 #: src/EBox/UsersAndGroups.pm:633
 #, perl-brace-format
 msgid "Groupname must not be longer than {maxGroupLength} characters"
-msgstr ""
+msgstr "Имя группы не должно быть длинее {maxGroupLength} символов"
 
 #: src/EBox/UsersAndGroups.pm:639
 msgid "The group name is not valid because it is used internally"
@@ -123,11 +123,11 @@ msgstr ""
 #: src/EBox/UsersAndGroups.pm:1172
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
-msgstr ""
+msgstr "Пароль не должен быть длинее {maxPwdLength} символов"
 
 #: src/EBox/LdapUserImplementation.pm:42
 msgid "This group contains users"
-msgstr ""
+msgstr "Эта группа содержит пользователей"
 
 #: src/templates/users.mas:11 src/templates/groups.mas:11
 msgid ""
@@ -143,24 +143,24 @@ msgstr ""
 
 #: src/templates/users.mas:16
 msgid "Add User"
-msgstr ""
+msgstr "Добавить пользователя"
 
 #: src/templates/users.mas:22 src/templates/users.mas:86
 msgid "User name"
-msgstr ""
+msgstr "Логин"
 
 #: src/templates/users.mas:31 src/templates/user.mas:30
 msgid "Full name"
-msgstr ""
+msgstr "Полное имя"
 
 #: src/templates/users.mas:40 src/templates/group.mas:23
 #: src/templates/user.mas:19 src/templates/groups.mas:34
 msgid "Comment"
-msgstr ""
+msgstr "Комментарий"
 
 #: src/templates/users.mas:49 src/templates/user.mas:41
 msgid "Password"
-msgstr ""
+msgstr "Пароль"
 
 #: src/templates/users.mas:57 src/templates/user.mas:52
 msgid "Retype password"

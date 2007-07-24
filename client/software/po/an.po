@@ -4,9 +4,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.9.1\n"
+"Project-Id-Version: ebox-software 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:40+0200\n"
+"POT-Creation-Date: 2007-07-24 12:13+0200\n"
 "PO-Revision-Date: 2005-11-11 13:07+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,211 +18,222 @@ msgstr ""
 
 #: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
 msgid "Automatic software updates"
-msgstr ""
+msgstr "Autualizazions automaticas de software"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
 #: src/EBox/Software.pm:314
 msgid "System updates"
-msgstr ""
+msgstr "Autualizazions d'o sistema"
 
 #: src/EBox/CGI/Updates.pm:45
 msgid "Software updates are being handled automatically"
-msgstr ""
+msgstr "As autualizazions de software se chestionan automaticament"
 
 #: src/EBox/CGI/Updates.pm:52
 msgid "The system is up to date"
-msgstr ""
+msgstr "O sistema ye autualizato"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
-msgstr ""
+msgstr "confeguración d'as autualizazions automaticas"
 
 #: src/EBox/CGI/InstallPkgs.pm:76
 msgid "There were no packages to update"
-msgstr ""
+msgstr "No bi ha paquez ta autualizar"
 
 #: src/EBox/CGI/InstallPkgs.pm:88
 msgid ""
 "The packages are being installed, please refrain from using the application "
 "until the update is done"
 msgstr ""
+"Os paquez son autualizando-sen, por fabor no use l'aplicazión dica que se "
+"remate l'autualizazión"
 
 #: src/EBox/CGI/InstallPkgs.pm:93
 msgid "The packages were removed successfully"
-msgstr ""
+msgstr "Os paquez s'han eliminato correutament"
 
 #: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:312
 msgid "eBox components"
-msgstr ""
+msgstr "Components eBox"
 
 #: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/Upgrading.pm:30
 msgid "Upgrading"
-msgstr ""
+msgstr "Autualizando"
 
 #: src/EBox/Software.pm:137
 msgid ""
 "An error ocurred while removing components. If the error persists or eBox "
 "stops working properly, seek technical support."
 msgstr ""
+"S'ha produzito un error á lo instalar components. Si o error contina u eBox "
+"dixa de funzionar correutament demande soporte teunico."
 
-#: src/EBox/Software.pm:309 src/EBox/PackageDescriptions.pm:15
+#: src/EBox/Software.pm:309 src/EBox/PackageDescriptions.pm:16
 msgid "Software management"
-msgstr ""
+msgstr "Chestión de software"
 
 #: src/EBox/Software.pm:316
 msgid "Configuration"
-msgstr ""
+msgstr "Confegurazión"
 
 #: src/EBox/PackageDescriptions.pm:1
 msgid "Certificate Authority Manager for eBox"
-msgstr ""
+msgstr "Chestor d'autoridat zertificadora"
 
 #: src/EBox/PackageDescriptions.pm:2
 msgid "DHCP server"
-msgstr ""
+msgstr "Serbidor DHCP"
 
 #: src/EBox/PackageDescriptions.pm:3
 msgid "eBox DNS server"
-msgstr ""
+msgstr "Serbidor DNS ta eBox"
 
 #: src/EBox/PackageDescriptions.pm:4
 msgid "Base framework"
-msgstr ""
+msgstr "Sistema base"
 
 #: src/EBox/PackageDescriptions.pm:5
 msgid "Firewall"
-msgstr ""
+msgstr "Firewall"
 
 #: src/EBox/PackageDescriptions.pm:6
 msgid "IPsec VPNs"
-msgstr ""
+msgstr "VPN IPSec"
 
 #: src/EBox/PackageDescriptions.pm:7
 msgid "Instant messaging (Jabber)"
-msgstr ""
+msgstr "Mensachería instantania (Jabber)"
 
 #: src/EBox/PackageDescriptions.pm:8
 msgid "Mail server"
-msgstr ""
+msgstr "Serbidor de Correu"
 
 #: src/EBox/PackageDescriptions.pm:9
-msgid "Network configuration"
-msgstr ""
+msgid "Mail filter module"
+msgstr "Filtro d'o modulo de correu"
 
 #: src/EBox/PackageDescriptions.pm:10
-msgid "NTP server"
-msgstr ""
+msgid "Network configuration"
+msgstr "Confegurazión de rete"
 
 #: src/EBox/PackageDescriptions.pm:11
-msgid "Object management"
-msgstr ""
+msgid "NTP server"
+msgstr "Serbidor NTP"
 
 #: src/EBox/PackageDescriptions.pm:12
-msgid "OpenVPN server"
-msgstr ""
+msgid "Object management"
+msgstr "Chestión d'ochetos"
 
 #: src/EBox/PackageDescriptions.pm:13
-msgid "Printer sharing"
-msgstr ""
+msgid "OpenVPN server"
+msgstr "Serbidor OpenVPN"
 
 #: src/EBox/PackageDescriptions.pm:14
-msgid "File sharing"
-msgstr ""
+msgid "Printer sharing"
+msgstr "Compartizión d'imprentadoras"
 
-#: src/EBox/PackageDescriptions.pm:16
-msgid "Proxy cache and content filter"
-msgstr ""
+#: src/EBox/PackageDescriptions.pm:15
+msgid "File sharing"
+msgstr "Compartizión de fichers"
 
 #: src/EBox/PackageDescriptions.pm:17
-msgid "Traffic shaper for eBox"
-msgstr ""
+msgid "Proxy cache and content filter"
+msgstr "Cache HTTP e filtro de contenitos"
 
 #: src/EBox/PackageDescriptions.pm:18
+msgid "Traffic shaper for eBox"
+msgstr "Moldiador de trafico ta eBox"
+
+#: src/EBox/PackageDescriptions.pm:19
 msgid "User and Group management"
-msgstr ""
+msgstr "Chestión d'usuarios e grupos"
 
 #: src/templates/upgrading.mas:42
 msgid "Current package"
-msgstr ""
+msgstr "Paquet autual"
 
 #: src/templates/upgrading.mas:43
 msgid "Starting..."
-msgstr ""
+msgstr "Encomenzando..."
 
 #: src/templates/upgrading.mas:48
 msgid "The installation of the packages has finished successfully"
-msgstr ""
+msgstr "Os paquez s'han instalato correutament"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
-msgstr ""
+msgstr "S'instalarán os siguients paquez"
 
 #: src/templates/del.mas:17
 msgid "The following packages will be removed"
-msgstr ""
+msgstr "Os siguients paquez serán borratos"
 
 #: src/templates/del.mas:34
 msgid "Ok"
-msgstr ""
+msgstr "Azeutar"
 
 #: src/templates/del.mas:36
 msgid "Cancel"
-msgstr ""
+msgstr "Canzelar"
 
 #: src/templates/config.mas:9
 msgid "Perform automatic security updates"
-msgstr ""
+msgstr "Instalar automaticament parches de seguridat"
 
 #: src/templates/updates.mas:10
 msgid "Updates are available for the following system components"
 msgstr ""
+"Bi ha autualizazions disponibles ta os siguients components d'o sistema"
 
 #: src/templates/updates.mas:16 src/templates/ebox.mas:14
 msgid "Component"
-msgstr ""
+msgstr "Component"
 
 #: src/templates/updates.mas:18
 msgid "Description"
-msgstr ""
+msgstr "Descrizión"
 
 #: src/templates/updates.mas:20 src/templates/ebox.mas:31
 msgid "Update"
-msgstr ""
+msgstr "Autualizar"
 
 #: src/templates/updates.mas:37 src/templates/ebox.mas:82
 msgid "Update all packages"
-msgstr ""
+msgstr "Autualizar toz os paquez"
 
 #: src/templates/updates.mas:49
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
+"Ista operazión puede gastar un tiempo, no se procupe si eBox no responde "
+"dimpués de presionar o botón d'Autualizar."
 
 #: src/templates/updates.mas:53
 msgid "Upgrade"
-msgstr ""
+msgstr "Autualizar"
 
 #: src/templates/ebox.mas:16
 msgid "Installed version "
-msgstr ""
+msgstr "Bersión instalata"
 
 #: src/templates/ebox.mas:18
 msgid "Latest version"
-msgstr ""
+msgstr "Zaguera bersión"
 
 #: src/templates/ebox.mas:20
 msgid "Actions"
-msgstr ""
+msgstr "Aizions"
 
 #: src/templates/ebox.mas:38
 msgid "Install"
-msgstr ""
+msgstr "Instalar"
 
 #: src/templates/ebox.mas:41
 msgid "none"
-msgstr ""
+msgstr "denguna"
 
 #: src/templates/ebox.mas:64
 msgid "Remove"
-msgstr ""
+msgstr "Eliminar"

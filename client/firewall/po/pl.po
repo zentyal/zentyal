@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-firewall 0.9.1\n"
+"Project-Id-Version: ebox-firewall 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:38+0200\n"
+"POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-04-05 20:49+0000\n"
 "Last-Translator: Mariusz Gruszka <golden@interia.pl>\n"
 "Language-Team: none\n"
@@ -42,8 +42,8 @@ msgid "Firewall configuration: {desc}"
 msgstr "Konfiguracja firewall'a: {desc}"
 
 #: src/EBox/CGI/ObjectPolicy.pm:43 src/EBox/CGI/ChangeObjectService.pm:68
-#: src/EBox/Firewall.pm:854 src/EBox/Firewall.pm:960 src/EBox/Firewall.pm:1325
-#: src/EBox/Firewall.pm:1416
+#: src/EBox/Firewall.pm:854 src/EBox/Firewall.pm:960 src/EBox/Firewall.pm:1326
+#: src/EBox/Firewall.pm:1417
 msgid "policy"
 msgstr "polityka"
 
@@ -60,8 +60,8 @@ msgstr ""
 #: src/EBox/CGI/Redirection.pm:61 src/EBox/CGI/Redirection.pm:68
 #: src/EBox/Firewall.pm:265 src/EBox/Firewall.pm:298 src/EBox/Firewall.pm:524
 #: src/EBox/Firewall.pm:600 src/EBox/Firewall.pm:963 src/EBox/Firewall.pm:1039
-#: src/EBox/Firewall.pm:1163 src/EBox/Firewall.pm:1188
-#: src/EBox/Firewall.pm:1232 src/EBox/Firewall.pm:1328
+#: src/EBox/Firewall.pm:1163 src/EBox/Firewall.pm:1189
+#: src/EBox/Firewall.pm:1233 src/EBox/Firewall.pm:1329
 msgid "protocol"
 msgstr "protokół"
 
@@ -84,14 +84,14 @@ msgstr "adres docelowy"
 #: src/EBox/CGI/Redirection.pm:47 src/EBox/CGI/Redirection.pm:65
 #: src/EBox/CGI/Redirection.pm:71 src/EBox/Firewall.pm:268
 #: src/EBox/Firewall.pm:1052 src/EBox/Firewall.pm:1058
-#: src/EBox/Firewall.pm:1245 src/EBox/Firewall.pm:1251
+#: src/EBox/Firewall.pm:1246 src/EBox/Firewall.pm:1252
 msgid "destination port"
 msgstr "port docelowy"
 
 #: src/EBox/CGI/FwdRule.pm:44 src/EBox/CGI/FwdRule.pm:68
 #: src/EBox/CGI/ObjectRule.pm:48 src/EBox/CGI/ObjectRule.pm:65
 #: src/EBox/CGI/Deny.pm:41 src/EBox/Firewall.pm:216 src/EBox/Firewall.pm:1036
-#: src/EBox/Firewall.pm:1229
+#: src/EBox/Firewall.pm:1230
 msgid "action"
 msgstr "czynność"
 
@@ -117,8 +117,8 @@ msgstr "usługa"
 msgid "Edit rule"
 msgstr "Edytuj regułe"
 
-#: src/EBox/Firewall.pm:82 src/EBox/Firewall.pm:826 src/EBox/Firewall.pm:1346
-#: src/EBox/Firewall.pm:1392 src/EBox/Firewall.pm:1421
+#: src/EBox/Firewall.pm:82 src/EBox/Firewall.pm:826 src/EBox/Firewall.pm:1347
+#: src/EBox/Firewall.pm:1393 src/EBox/Firewall.pm:1422
 msgid "object"
 msgstr "obiekt"
 
@@ -136,42 +136,42 @@ msgstr "Nazwa '{name}' jest niepoprawna"
 
 #: src/EBox/Firewall.pm:525 src/EBox/Firewall.pm:601 src/EBox/Firewall.pm:650
 #: src/EBox/Firewall.pm:970 src/EBox/Firewall.pm:1164
-#: src/EBox/Firewall.pm:1189 src/EBox/Firewall.pm:1335
+#: src/EBox/Firewall.pm:1190 src/EBox/Firewall.pm:1336
 msgid "port"
 msgstr "port"
 
 #: src/EBox/Firewall.pm:965 src/EBox/Firewall.pm:1044
-#: src/EBox/Firewall.pm:1237 src/EBox/Firewall.pm:1330
+#: src/EBox/Firewall.pm:1238 src/EBox/Firewall.pm:1331
 msgid "Port cannot be set if no protocol is selected."
 msgstr "Nie można ustawić portu jeśli protokół nie został wybrany"
 
-#: src/EBox/Firewall.pm:973 src/EBox/Firewall.pm:1339
+#: src/EBox/Firewall.pm:973 src/EBox/Firewall.pm:1340
 msgid "address"
 msgstr "adres"
 
 #: src/EBox/Firewall.pm:1049 src/EBox/Firewall.pm:1055
-#: src/EBox/Firewall.pm:1242 src/EBox/Firewall.pm:1248
+#: src/EBox/Firewall.pm:1243 src/EBox/Firewall.pm:1249
 msgid "source port"
 msgstr "port źródłowy"
 
 #: src/EBox/Firewall.pm:1062 src/EBox/Firewall.pm:1065
-#: src/EBox/Firewall.pm:1255 src/EBox/Firewall.pm:1258
+#: src/EBox/Firewall.pm:1256 src/EBox/Firewall.pm:1259
 msgid "source address"
 msgstr "adres źródłowy"
 
-#: src/EBox/Firewall.pm:1628
+#: src/EBox/Firewall.pm:1629
 msgid "Rule not found"
 msgstr "Reguła nie została znaleziona"
 
-#: src/EBox/Firewall.pm:1708
+#: src/EBox/Firewall.pm:1709
 msgid "Firewall"
 msgstr "Firewall"
 
-#: src/EBox/Firewall.pm:1712
+#: src/EBox/Firewall.pm:1713
 msgid "Packet Filter"
 msgstr "Filtracja Pakietów"
 
-#: src/EBox/Firewall.pm:1715
+#: src/EBox/Firewall.pm:1716
 msgid "Redirects"
 msgstr "Przekierowania"
 

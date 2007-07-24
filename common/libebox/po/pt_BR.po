@@ -4,9 +4,9 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.9.1\n"
+"Project-Id-Version: libebox 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:36+0200\n"
+"POT-Creation-Date: 2007-07-24 12:11+0200\n"
 "PO-Revision-Date: 2007-04-15 19:22+0000\n"
 "Last-Translator: Filipe Henriques <filipeh@gotr00t.net>\n"
 "Language-Team: <en@li.org>\n"
@@ -48,7 +48,7 @@ msgstr ""
 "A entrada contém caracteres inválidos. Todos caracteres alfanuméricos, mais "
 "estes não-alfanuméricos:  /.?&+:-@ e espaços são aceitos."
 
-#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:524
+#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:532
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -64,7 +64,7 @@ msgstr ""
 "Ocorreu um erro interno relativo ao template, isto é um BUG, informações "
 "importantes podem ser encontradas nos logs."
 
-#: src/EBox/CGI/Base.pm:530
+#: src/EBox/CGI/Base.pm:538
 #, fuzzy
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
@@ -73,26 +73,30 @@ msgstr ""
 "Ocorreu um erro interno desconhecido, Isto é um BUG, informações importantes "
 "podem ser encontradas nos logs."
 
-#: src/EBox/CGI/Base.pm:536
+#: src/EBox/CGI/Base.pm:544
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr "Você encontrou um BUg no eBox. Por Favor procure suporte técnico."
 
-#: src/EBox/CGI/Base.pm:623
+#: src/EBox/CGI/Base.pm:631
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "O seu pedido não pode ser processado porque tem parametros incorrectos."
 
-#: src/EBox/CGI/Base.pm:638
+#: src/EBox/CGI/Base.pm:646
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
 "O seu pedido não pode ser processado porque faltam parametros necessários."
 
-#: src/EBox/CGI/Base.pm:757
+#: src/EBox/CGI/Base.pm:782
 msgid "Invalid uploaded file."
 msgstr "Upload de ficheiro inválido."
+
+#: src/EBox/CGI/Base.pm:788
+msgid "Cannot create a temporally file for the upload"
+msgstr ""
 
 #: src/EBox/Sudo.pm:229
 #, perl-brace-format
@@ -113,47 +117,47 @@ msgstr "Não foi possível abrir o arquivo de configuração {file}."
 msgid "The ebox user has not been set in the config file."
 msgstr "O usuário ebox não foi setado no arquivo de configuração."
 
-#: src/EBox/Validate.pm:608
+#: src/EBox/Validate.pm:647
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
 "the permissions forbid access to it"
 msgstr ""
 
-#: src/EBox/Validate.pm:613
+#: src/EBox/Validate.pm:652
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 
-#: src/EBox/Validate.pm:688
+#: src/EBox/Validate.pm:727
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
 msgstr ""
 
-#: src/EBox/Validate.pm:716
+#: src/EBox/Validate.pm:755
 msgid "The file path must be absolute"
 msgstr ""
 
-#: src/templates/ajax/tableBody.mas:47
+#: src/templates/ajax/tableBody.mas:48
 msgid "Add new"
 msgstr ""
 
-#: src/templates/ajax/tableBody.mas:58
+#: src/templates/ajax/tableBody.mas:59
 #, perl-brace-format
 msgid "Adding a new {row}"
 msgstr ""
 
-#: src/templates/ajax/tableBody.mas:65
+#: src/templates/ajax/tableBody.mas:66
 #, perl-brace-format
 msgid "Editing {row}"
 msgstr ""
 
-#: src/templates/ajax/tableBody.mas:131
+#: src/templates/ajax/tableBody.mas:132
 msgid "Action"
 msgstr ""
 
-#: src/templates/ajax/tableBody.mas:329
+#: src/templates/ajax/tableBody.mas:327
 msgid "port"
 msgstr ""
 
@@ -199,20 +203,20 @@ msgstr ""
 "Mudanças de Linguagem acontecem automaticamente, salvar os arquivos não é "
 "necessário."
 
-#: src/templates/language.mas:25 src/templates/enable.mas:29
-#: src/templates/enable.mas:31
+#: src/templates/language.mas:25 src/templates/enable.mas:36
+#: src/templates/enable.mas:38
 msgid "Change"
 msgstr "Mudar"
 
-#: src/templates/enable.mas:13
+#: src/templates/enable.mas:11
 msgid "Service configuration"
 msgstr ""
 
-#: src/templates/enable.mas:17 src/templates/enable.mas:22
+#: src/templates/enable.mas:24 src/templates/enable.mas:29
 msgid "Disabled"
 msgstr "Desabilitado"
 
-#: src/templates/enable.mas:19 src/templates/enable.mas:24
+#: src/templates/enable.mas:26 src/templates/enable.mas:31
 msgid "Enabled"
 msgstr "Habilitado"
 

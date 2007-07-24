@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-squid 0.9.1\n"
+"Project-Id-Version: ebox-squid 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:41+0200\n"
+"POT-Creation-Date: 2007-07-24 12:14+0200\n"
 "PO-Revision-Date: 2007-05-13 00:56+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -219,14 +219,13 @@ msgid "Allow"
 msgstr "İzin ver"
 
 #: src/EBox/Squid.pm.in:1203 src/templates/index.mas:141
-#: src/templates/index.mas:144 src/templates/domains.mas:18
-#: src/templates/policy.mas:55 src/templates/policy.mas:59
-#: src/templates/policy.mas:119 src/templates/policy.mas:123
+#: src/templates/index.mas:144 src/templates/policy.mas:55
+#: src/templates/policy.mas:59 src/templates/policy.mas:119
+#: src/templates/policy.mas:123
 msgid "Filter"
 msgstr "Süzgeç"
 
 #: src/EBox/Squid.pm.in:1206 src/templates/index.mas:120
-#: src/templates/domains.mas:17
 msgid "Global policy"
 msgstr "Genel ilkeler"
 
@@ -247,7 +246,8 @@ msgid "Extensions filter"
 msgstr "Eklenti süzgeci"
 
 #: src/EBox/Squid.pm.in:1235
-msgid "Mime Type filter"
+#, fuzzy
+msgid "MIME Type filter"
 msgstr "MIME türü süzgeci"
 
 #: src/EBox/Squid.pm.in:1237
@@ -348,12 +348,10 @@ msgstr "Herşeye çok sıkı"
 msgid "Change"
 msgstr "Değiştir"
 
-#: src/templates/domains.mas:16
-#, perl-brace-format
-msgid "This list will only take effect if {globalPolicy} is set to {filter}"
-msgstr ""
-"Bu liste sadece {globalPolicy} ilkesi {filter} olarak tanımlandığında "
-"uygulanır."
+#: src/templates/domains.mas:18
+#, fuzzy
+msgid "filter"
+msgstr "Süzgeç"
 
 #: src/templates/domains.mas:29
 msgid "Introduce domains in this way: "
@@ -456,3 +454,11 @@ msgstr "Seçili nesneleri yasakla sütununa taşı"
 #: src/templates/policy.mas:111
 msgid "Move selected objects to the unfiltered column"
 msgstr "Seçili nesneleri süzgeçlenmedi sütununa taşı"
+
+#~ msgid "This list will only take effect if {globalPolicy} is set to {filter}"
+#~ msgstr ""
+#~ "Bu liste sadece {globalPolicy} ilkesi {filter} olarak tanımlandığında "
+#~ "uygulanır."
+
+#~ msgid "Mime Type filter"
+#~ msgstr "MIME türü süzgeci"

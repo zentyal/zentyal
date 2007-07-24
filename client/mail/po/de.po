@@ -11,9 +11,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mail 0.9.1\n"
+"Project-Id-Version: ebox-mail 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:38+0200\n"
+"POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-03-01 21:24+0100\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -36,8 +36,8 @@ msgstr "Beschränkung der Nachrichtengrösse"
 msgid "Virtual domain name"
 msgstr "Name der virtuellen Domäne"
 
-#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:818
-#: src/EBox/Mail.pm:845 src/EBox/Mail.pm:887
+#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:989
+#: src/EBox/Mail.pm:1059 src/EBox/Mail.pm:1113
 msgid "Mail"
 msgstr "E-Mail"
 
@@ -73,7 +73,7 @@ msgid "mail alias"
 msgstr "E-Mail Alias"
 
 #: src/EBox/CGI/QueueManager.pm:33 src/EBox/CGI/QueueManager.pm:50
-#: src/EBox/Mail.pm:854
+#: src/EBox/Mail.pm:1068
 msgid "Queue Management"
 msgstr "Warteschlange verwalten"
 
@@ -87,7 +87,7 @@ msgid "Mail address"
 msgstr "E-Mail Adresse"
 
 #: src/EBox/CGI/VDomains.pm:29 src/EBox/CGI/VDomains.pm:39
-#: src/EBox/Mail.pm:851
+#: src/EBox/Mail.pm:1065
 msgid "Virtual domains"
 msgstr "Virtuelle Domänen"
 
@@ -98,10 +98,6 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
 "#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
 "Mail an Benutzer"
-
-#: src/EBox/CGI/Enable.pm:40
-msgid "module status"
-msgstr "Status des Moduls"
 
 #: src/EBox/CGI/SetMDQuota.pm:46
 #, fuzzy
@@ -137,7 +133,7 @@ msgstr "Status des E-Mail Systems"
 
 #: src/EBox/MailVDomainsLdap.pm:68 src/EBox/MailVDomainsLdap.pm:74
 #: src/EBox/MailVDomainsLdap.pm:249 src/EBox/MailVDomainsLdap.pm:255
-#: src/EBox/Mail.pm:412 src/EBox/Mail.pm:418 src/EBox/MailUserLdap.pm:78
+#: src/EBox/Mail.pm:562 src/EBox/Mail.pm:568 src/EBox/MailUserLdap.pm:78
 #: src/EBox/MailUserLdap.pm:84 src/EBox/MailUserLdap.pm:391
 #: src/EBox/MailUserLdap.pm:397
 #, fuzzy
@@ -163,11 +159,21 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
 "Alias für Postfach"
 
-#: src/EBox/Mail.pm:250 src/EBox/Mail.pm:321
-msgid "port"
-msgstr "Port"
+#: src/EBox/Mail.pm:273
+#, perl-brace-format
+msgid "Unknown filter {filter}"
+msgstr ""
 
-#: src/EBox/Mail.pm:279 src/EBox/Mail.pm:288 src/EBox/Mail.pm:293
+#: src/EBox/Mail.pm:299
+msgid "Cannot change this parameter for a non-custom filter"
+msgstr ""
+
+#: src/EBox/Mail.pm:314
+msgid ""
+"The mail filter does not exist. Please set another mail filter or disable it"
+msgstr ""
+
+#: src/EBox/Mail.pm:358 src/EBox/Mail.pm:366 src/EBox/Mail.pm:371
 #, fuzzy
 msgid "remote IP"
 msgstr ""
@@ -175,22 +181,26 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
 "IP der Gegenstelle"
 
-#: src/EBox/Mail.pm:280
+#: src/EBox/Mail.pm:359
 #, fuzzy, perl-brace-format
 msgid "{ip} is not a valid ip address"
 msgstr "ist keine gültige IP-Adresse"
 
-#: src/EBox/Mail.pm:289
+#: src/EBox/Mail.pm:367
 #, fuzzy, perl-brace-format
 msgid "{ip} cannot be reached by any configured interface"
 msgstr "Kann durch keines der konfigurierten Netzwerkkarten erreicht werden"
 
-#: src/EBox/Mail.pm:294
+#: src/EBox/Mail.pm:372
 #, fuzzy, perl-brace-format
 msgid "{ip} can be reached by more than one configured interface"
 msgstr "Kann durch mehr als eine konfigurierte Netzwerkkarte erreicht werden"
 
-#: src/EBox/Mail.pm:347
+#: src/EBox/Mail.pm:413 src/EBox/Mail.pm:462
+msgid "port"
+msgstr "Port"
+
+#: src/EBox/Mail.pm:497
 #, fuzzy
 msgid "smarthost ip"
 msgstr ""
@@ -198,40 +208,73 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
 "IP des Smarthost"
 
-#: src/EBox/Mail.pm:376 src/EBox/Mail.pm:382
+#: src/EBox/Mail.pm:526 src/EBox/Mail.pm:532
 msgid "message size"
 msgstr "Grösse der Nachricht"
 
-#: src/EBox/Mail.pm:821
+#: src/EBox/Mail.pm:990
+#, fuzzy
+msgid "Mail services"
+msgstr "Einstellungen für E-Mail-Dienst"
+
+#: src/EBox/Mail.pm:992
 msgid "POP3 service"
 msgstr "POP3-Dienst"
 
-#: src/EBox/Mail.pm:823
+#: src/EBox/Mail.pm:994
 msgid "IMAP service"
 msgstr "IMAP-Dienst"
 
-#: src/EBox/Mail.pm:836
+#: src/EBox/Mail.pm:1014
+#, fuzzy
+msgid "enabled"
+msgstr "Aktiviert"
+
+#: src/EBox/Mail.pm:1014
+#, fuzzy
+msgid "disabled"
+msgstr "Deaktiviert"
+
+#: src/EBox/Mail.pm:1017 src/EBox/Mail.pm:1095
+msgid "Status"
+msgstr "Status"
+
+#: src/EBox/Mail.pm:1028 src/EBox/Mail.pm:1033 src/templates/mailtabs.mas:23
+#: src/templates/mailtabs.mas:26
+msgid "Filter"
+msgstr ""
+
+#: src/EBox/Mail.pm:1028
+msgid "Custom"
+msgstr ""
+
+#: src/EBox/Mail.pm:1030
+#, fuzzy
+msgid "Address"
+msgstr "E-Mail Adresse"
+
+#: src/EBox/Mail.pm:1050
 msgid "Mail system"
 msgstr "E-Mail-System"
 
-#: src/EBox/Mail.pm:848 src/templates/menutabs.mas:10
+#: src/EBox/Mail.pm:1062 src/templates/menutabs.mas:10
 #: src/templates/menutabs.mas:13
 msgid "General"
 msgstr "Allgemein"
 
-#: src/EBox/Mail.pm:861 src/templates/qmanager.mas:23
+#: src/EBox/Mail.pm:1087 src/templates/qmanager.mas:23
 msgid "Date"
 msgstr "Datum"
 
-#: src/EBox/Mail.pm:862
+#: src/EBox/Mail.pm:1088
 msgid "Message ID"
 msgstr "ID der Nachricht"
 
-#: src/EBox/Mail.pm:863
+#: src/EBox/Mail.pm:1089
 msgid "From"
 msgstr "Von"
 
-#: src/EBox/Mail.pm:864
+#: src/EBox/Mail.pm:1090
 #, fuzzy
 msgid "To"
 msgstr ""
@@ -239,43 +282,39 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
 "An"
 
-#: src/EBox/Mail.pm:865
+#: src/EBox/Mail.pm:1091
 msgid "From hostname"
 msgstr "Von Computername"
 
-#: src/EBox/Mail.pm:866
+#: src/EBox/Mail.pm:1092
 msgid "From host ip"
 msgstr "Von IP-Adresse"
 
-#: src/EBox/Mail.pm:867 src/templates/qmanager.mas:21
+#: src/EBox/Mail.pm:1093 src/templates/qmanager.mas:21
 msgid "Size (bytes)"
 msgstr "Grösse (in Bytes)"
 
-#: src/EBox/Mail.pm:868
+#: src/EBox/Mail.pm:1094
 msgid "Relay"
 msgstr "Weiterleitung"
 
-#: src/EBox/Mail.pm:869 src/templates/index.mas:289
-msgid "Status"
-msgstr "Status"
-
-#: src/EBox/Mail.pm:870
+#: src/EBox/Mail.pm:1096
 msgid "Event"
 msgstr "Ereignis"
 
-#: src/EBox/Mail.pm:871
+#: src/EBox/Mail.pm:1097
 msgid "Aditional Info"
 msgstr "Weitere Informationen"
 
-#: src/EBox/Mail.pm:877
+#: src/EBox/Mail.pm:1103
 msgid "Successful messages"
 msgstr "Erfolgreiche Nachrichten"
 
-#: src/EBox/Mail.pm:878
+#: src/EBox/Mail.pm:1104
 msgid "Maximum message size exceeded"
 msgstr "Maximale Nachrichtengrösse überschritten"
 
-#: src/EBox/Mail.pm:879
+#: src/EBox/Mail.pm:1105
 #, fuzzy
 msgid "User quote exceeded"
 msgstr ""
@@ -283,7 +322,7 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
 "Speicherplatz des Benutzers überschritten"
 
-#: src/EBox/Mail.pm:880
+#: src/EBox/Mail.pm:1106
 #, fuzzy
 msgid "Relay access denied"
 msgstr ""
@@ -291,19 +330,19 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
 "Zugriff auf Weiterleitung verweigert"
 
-#: src/EBox/Mail.pm:881
+#: src/EBox/Mail.pm:1107
 msgid "Account do not exists"
 msgstr "Konto gibt es nicht"
 
-#: src/EBox/Mail.pm:882
+#: src/EBox/Mail.pm:1108
 msgid "Host unreachable"
 msgstr "Computer nicht erreichbar"
 
-#: src/EBox/Mail.pm:883
+#: src/EBox/Mail.pm:1109
 msgid "Authentication error"
 msgstr "Fehler beim Anmelden"
 
-#: src/EBox/Mail.pm:884
+#: src/EBox/Mail.pm:1110
 msgid "Other events"
 msgstr "Andere Ereignisse"
 
@@ -397,58 +436,57 @@ msgstr "Einstellungen für E-Mail-Alias"
 msgid "Mail alias"
 msgstr "E-Mail-Alias"
 
-#: src/templates/index.mas:30
+#: src/templates/index.mas:34
 msgid "Mail service settings"
 msgstr "Einstellungen für E-Mail-Dienst"
 
-#: src/templates/index.mas:33
+#: src/templates/index.mas:37
 msgid "TLS for SMTP server"
 msgstr "TLS (Transport Layer Security) für SMTP-Server"
 
-#: src/templates/index.mas:35
+#: src/templates/index.mas:39
 msgid "Require authentication"
 msgstr "Anmeldung erforderlich"
 
-#: src/templates/index.mas:44 src/templates/index.mas:46
-#: src/templates/index.mas:103 src/templates/index.mas:105
-#: src/templates/index.mas:147 src/templates/index.mas:149
-#: src/templates/index.mas:191 src/templates/index.mas:193
+#: src/templates/index.mas:48 src/templates/index.mas:50
+#: src/templates/index.mas:107 src/templates/index.mas:109
+#: src/templates/index.mas:151 src/templates/index.mas:153
+#: src/templates/index.mas:195 src/templates/index.mas:197
 #: src/templates/warnvdmdsize.mas:34 src/templates/warnusermdsize.mas:24
 msgid "Change"
 msgstr "Ändern"
 
-#: src/templates/index.mas:53 src/templates/mailtabs.mas:9
+#: src/templates/index.mas:57 src/templates/mailtabs.mas:9
 #: src/templates/mailtabs.mas:12
 msgid "Services"
 msgstr "Dienste"
 
-#: src/templates/index.mas:62
+#: src/templates/index.mas:66
 msgid "Service"
 msgstr "Dienst"
 
-#: src/templates/index.mas:66 src/templates/index.mas:294
-#: src/templates/index.mas:299 src/templates/enable.mas:24
+#: src/templates/index.mas:70 src/templates/enable.mas:24
 #: src/templates/enable.mas:29
 msgid "Enabled"
 msgstr "Aktiviert"
 
-#: src/templates/index.mas:70
+#: src/templates/index.mas:74
 msgid "SSL Support"
 msgstr "SSL-Unterstützung"
 
-#: src/templates/index.mas:76
+#: src/templates/index.mas:80
 msgid "POP3"
 msgstr "POP3"
 
-#: src/templates/index.mas:78
+#: src/templates/index.mas:82
 msgid "IMAP"
 msgstr "IMAP"
 
-#: src/templates/index.mas:86 src/templates/index.mas:88
+#: src/templates/index.mas:90 src/templates/index.mas:92
 msgid "Apply Changes"
 msgstr "Änderungen anwenden"
 
-#: src/templates/index.mas:97
+#: src/templates/index.mas:101
 #, fuzzy
 msgid "IP address of smarthost to send mail"
 msgstr ""
@@ -456,7 +494,7 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
 "IP-Adresse eines Smarthost, der E-Mails versendet"
 
-#: src/templates/index.mas:110
+#: src/templates/index.mas:114
 #, fuzzy
 msgid ""
 "A value of 0 for the maximum message size and maximum mail account size "
@@ -467,29 +505,29 @@ msgstr ""
 "Der Wert \"0\" für die Nachrichtengrösse oder Grösse des E-Mail-Konto hebt "
 "die Beschränkung auf"
 
-#: src/templates/index.mas:116
+#: src/templates/index.mas:120
 msgid "Maximum message size accepted by the mail server"
 msgstr "Maximale Grösse der Nachrichten, die vom Server akzeptiert werden"
 
-#: src/templates/index.mas:120 src/templates/index.mas:163
+#: src/templates/index.mas:124 src/templates/index.mas:167
 msgid "Size (MB)"
 msgstr "Grösse (in MB)"
 
-#: src/templates/index.mas:134 src/templates/index.mas:178
+#: src/templates/index.mas:138 src/templates/index.mas:182
 #: src/templates/vdomains.mas:26 src/templates/createaccount.mas:51
 #: src/templates/editvdomains.mas:35 src/templates/alias.mas:47
 msgid "Unlimited size"
 msgstr "Uneingeschränkt"
 
-#: src/templates/index.mas:158
+#: src/templates/index.mas:162
 msgid "Default maximum mail account size"
 msgstr "Standardwert für Postfachgrösse"
 
-#: src/templates/index.mas:199
+#: src/templates/index.mas:203
 msgid "Relay policy for objects"
 msgstr "Weiterleitungspolitik für Objekte"
 
-#: src/templates/index.mas:202
+#: src/templates/index.mas:206
 msgid ""
 "You should move to allowed column those objects you want to allow sending "
 "mail through this module."
@@ -497,7 +535,7 @@ msgstr ""
 "Sie sollten die Objekte, welche E-Mails mit diesem Modul versenden dürfen, "
 "in die Spalte \"Erlaubt\" veschieben"
 
-#: src/templates/index.mas:205
+#: src/templates/index.mas:209
 msgid ""
 "Choose the object whose state you want to change and click on the arrow to "
 "move it to the desired column."
@@ -505,15 +543,15 @@ msgstr ""
 "Wählen Sie das Objekt, dessen Status Sie ändern möchten und klicken Sie auf "
 "die Pfeile, um es in die gewünschte Spalte zu verschieben"
 
-#: src/templates/index.mas:213
+#: src/templates/index.mas:217
 msgid "Denied"
 msgstr "Verweigert"
 
-#: src/templates/index.mas:216
+#: src/templates/index.mas:220
 msgid "Allowed"
 msgstr "Erlaubt"
 
-#: src/templates/index.mas:227 src/templates/index.mas:253
+#: src/templates/index.mas:231 src/templates/index.mas:257
 #, fuzzy
 msgid "Empty list"
 msgstr ""
@@ -521,41 +559,48 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
 "Liste leeren"
 
-#: src/templates/index.mas:242 src/templates/index.mas:246
+#: src/templates/index.mas:246 src/templates/index.mas:250
 msgid "Allow"
 msgstr "Erlauben"
 
-#: src/templates/index.mas:244
+#: src/templates/index.mas:248
 msgid "Move selected objects to the allowed column"
 msgstr "Bewegen Sie die gewählten Objekte in die Spalte \"Erlaubt\""
 
-#: src/templates/index.mas:270 src/templates/index.mas:274
+#: src/templates/index.mas:274 src/templates/index.mas:278
 msgid "Deny"
 msgstr "Verweigern"
 
-#: src/templates/index.mas:272
+#: src/templates/index.mas:276
 msgid "Move selected objects to the denied column"
 msgstr "Bewegen Sie die gewählten Objekte in die Spalte \"Verweigert\""
 
-#: src/templates/index.mas:296 src/templates/index.mas:301
-#: src/templates/enable.mas:22 src/templates/enable.mas:27
-msgid "Disabled"
-msgstr "Deaktiviert"
+#: src/templates/index.mas:319
+msgid "none"
+msgstr ""
 
-#: src/templates/index.mas:309
+#: src/templates/index.mas:321
+msgid "custom"
+msgstr ""
+
+#: src/templates/index.mas:346
+msgid "Filter in use"
+msgstr ""
+
+#: src/templates/index.mas:360
 msgid "Mail forward port"
 msgstr ""
 
-#: src/templates/index.mas:315
+#: src/templates/index.mas:366
 #, fuzzy
 msgid "Filter's IP address"
 msgstr "IP-Adresse der Gegenstelle"
 
-#: src/templates/index.mas:321
+#: src/templates/index.mas:372
 msgid "Filter's Port"
 msgstr ""
 
-#: src/templates/index.mas:330 src/templates/index.mas:332
+#: src/templates/index.mas:381 src/templates/index.mas:383
 msgid "Apply"
 msgstr "Anwenden"
 
@@ -658,6 +703,10 @@ msgstr "TLS-Unterstützung wird vom Anmelde-System vorausgesetzt"
 #: src/templates/enable.mas:16
 msgid "Service status"
 msgstr "Status des Dienstes"
+
+#: src/templates/enable.mas:22 src/templates/enable.mas:27
+msgid "Disabled"
+msgstr "Deaktiviert"
 
 #: src/templates/editvdomains.mas:20
 #, perl-brace-format
@@ -774,10 +823,6 @@ msgstr ""
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: src/templates/mailtabs.mas:23 src/templates/mailtabs.mas:26
-msgid "External Filter"
-msgstr "Externer Filter"
-
 #: src/templates/account.mas:15
 #, fuzzy
 msgid "Create mail alias to mail account"
@@ -785,6 +830,12 @@ msgstr ""
 "#-#-#-#-#  de.po (ebox-mail 0.9)  #-#-#-#-#\n"
 "#-#-#-#-#  de.po (ebox-mail 0.8.99)  #-#-#-#-#\n"
 "E-Mail Alias für dieses Konto erstellen"
+
+#~ msgid "module status"
+#~ msgstr "Status des Moduls"
+
+#~ msgid "External Filter"
+#~ msgstr "Externer Filter"
 
 #~ msgid "Local port"
 #~ msgstr "Lokaler Port"

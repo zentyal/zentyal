@@ -4,9 +4,9 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.9.1\n"
+"Project-Id-Version: ebox-software 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:40+0200\n"
+"POT-Creation-Date: 2007-07-24 12:13+0200\n"
 "PO-Revision-Date: 2007-03-28 23:28+0000\n"
 "Last-Translator: Kong <kong@noworkteam.org>\n"
 "Language-Team: none\n"
@@ -65,7 +65,7 @@ msgid ""
 "stops working properly, seek technical support."
 msgstr ""
 
-#: src/EBox/Software.pm:309 src/EBox/PackageDescriptions.pm:15
+#: src/EBox/Software.pm:309 src/EBox/PackageDescriptions.pm:16
 msgid "Software management"
 msgstr ""
 
@@ -106,38 +106,42 @@ msgid "Mail server"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:9
-msgid "Network configuration"
+msgid "Mail filter module"
 msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:10
+msgid "Network configuration"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:11
 msgid "NTP server"
 msgstr "NTP zerbitzari"
 
-#: src/EBox/PackageDescriptions.pm:11
+#: src/EBox/PackageDescriptions.pm:12
 msgid "Object management"
 msgstr ""
 
-#: src/EBox/PackageDescriptions.pm:12
+#: src/EBox/PackageDescriptions.pm:13
 msgid "OpenVPN server"
 msgstr "OpenVPN zerbitzari"
 
-#: src/EBox/PackageDescriptions.pm:13
+#: src/EBox/PackageDescriptions.pm:14
 msgid "Printer sharing"
 msgstr ""
 
-#: src/EBox/PackageDescriptions.pm:14
+#: src/EBox/PackageDescriptions.pm:15
 msgid "File sharing"
 msgstr ""
 
-#: src/EBox/PackageDescriptions.pm:16
+#: src/EBox/PackageDescriptions.pm:17
 msgid "Proxy cache and content filter"
 msgstr ""
 
-#: src/EBox/PackageDescriptions.pm:17
+#: src/EBox/PackageDescriptions.pm:18
 msgid "Traffic shaper for eBox"
 msgstr ""
 
-#: src/EBox/PackageDescriptions.pm:18
+#: src/EBox/PackageDescriptions.pm:19
 msgid "User and Group management"
 msgstr ""
 

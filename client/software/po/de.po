@@ -11,9 +11,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.9.1\n"
+"Project-Id-Version: ebox-software 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:40+0200\n"
+"POT-Creation-Date: 2007-07-24 12:13+0200\n"
 "PO-Revision-Date: 2007-03-04 20:38+0100\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -88,7 +88,7 @@ msgstr ""
 "weiterhin auftritt oder die eBox nicht mehr richtig funktioniert, ziehen Sie "
 "technische Unterstützung bei"
 
-#: src/EBox/Software.pm:309 src/EBox/PackageDescriptions.pm:15
+#: src/EBox/Software.pm:309 src/EBox/PackageDescriptions.pm:16
 msgid "Software management"
 msgstr "Softwareverwaltung"
 
@@ -129,38 +129,42 @@ msgid "Mail server"
 msgstr "Mailserver"
 
 #: src/EBox/PackageDescriptions.pm:9
+msgid "Mail filter module"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:10
 msgid "Network configuration"
 msgstr "Netzwerkkonfiguration"
 
-#: src/EBox/PackageDescriptions.pm:10
+#: src/EBox/PackageDescriptions.pm:11
 msgid "NTP server"
 msgstr "NTP-Server"
 
-#: src/EBox/PackageDescriptions.pm:11
+#: src/EBox/PackageDescriptions.pm:12
 msgid "Object management"
 msgstr "Objektverwaltung"
 
-#: src/EBox/PackageDescriptions.pm:12
+#: src/EBox/PackageDescriptions.pm:13
 msgid "OpenVPN server"
 msgstr "OpenVPN-Server"
 
-#: src/EBox/PackageDescriptions.pm:13
+#: src/EBox/PackageDescriptions.pm:14
 msgid "Printer sharing"
 msgstr "Druckerfreigabe"
 
-#: src/EBox/PackageDescriptions.pm:14
+#: src/EBox/PackageDescriptions.pm:15
 msgid "File sharing"
 msgstr "Dateifreigabe"
 
-#: src/EBox/PackageDescriptions.pm:16
+#: src/EBox/PackageDescriptions.pm:17
 msgid "Proxy cache and content filter"
 msgstr "HTTP-Proxy und -Filter"
 
-#: src/EBox/PackageDescriptions.pm:17
+#: src/EBox/PackageDescriptions.pm:18
 msgid "Traffic shaper for eBox"
 msgstr "Bandbreitennutzung für eBox"
 
-#: src/EBox/PackageDescriptions.pm:18
+#: src/EBox/PackageDescriptions.pm:19
 msgid "User and Group management"
 msgstr "Benutzer- und Gruppenverwaltung"
 

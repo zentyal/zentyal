@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-printers 0.9.1\n"
+"Project-Id-Version: ebox-printers 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:40+0200\n"
+"POT-Creation-Date: 2007-07-24 12:13+0200\n"
 "PO-Revision-Date: 2007-04-11 16:25+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -19,28 +19,28 @@ msgstr ""
 
 #: src/EBox/CGI/ShowPrintersUI.pm:30 src/EBox/Printers.pm:331
 msgid "Manage printers"
-msgstr ""
+msgstr "Управление принтерами"
 
 #: src/EBox/CGI/CancelJob.pm:40 src/EBox/CGI/AddPrinter.pm:40
 msgid "Printer's name"
-msgstr ""
+msgstr "Имя принтера"
 
 #: src/EBox/CGI/CancelJob.pm:41
 msgid "Printer's id"
-msgstr ""
+msgstr "ID принтера"
 
 #: src/EBox/CGI/CancelJob.pm:42
 msgid "Job id"
-msgstr ""
+msgstr "ID задания"
 
 #: src/EBox/CGI/CancelJob.pm:54
 msgid "Job was successfully canceled"
-msgstr ""
+msgstr "Задание отменено"
 
 #: src/EBox/CGI/SambaPrinterUI.pm:30 src/EBox/CGI/NetworkPrinterUI.pm:30
 #: src/EBox/CGI/USBPrinterUI.pm:30 src/EBox/CGI/ParallelPrinterUI.pm:30
 msgid "Add a new printer (II)"
-msgstr ""
+msgstr "Добавить новый принтер (II)"
 
 #: src/EBox/CGI/SambaPrinterUI.pm:46 src/EBox/CGI/SambaPrinter.pm:40
 #: src/EBox/CGI/DriverUI.pm:46 src/EBox/CGI/ManufacturerUI.pm:46
@@ -64,7 +64,7 @@ msgstr ""
 #: src/EBox/Printers.pm:1134 src/EBox/Printers.pm:1165
 #: src/templates/printer.mas:138
 msgid "Printer"
-msgstr ""
+msgstr "Принтер"
 
 #: src/EBox/CGI/SambaPrinterUI.pm:54 src/EBox/CGI/NetworkPrinterUI.pm:53
 #: src/EBox/CGI/USBPrinterUI.pm:54 src/EBox/CGI/ParallelPrinterUI.pm:54
@@ -80,180 +80,182 @@ msgstr ""
 
 #: src/EBox/CGI/Enable.pm:42
 msgid "module status"
-msgstr ""
+msgstr "статус модуля"
 
 #: src/EBox/CGI/SambaPrinter.pm:52
 msgid "Shared resource"
-msgstr ""
+msgstr "Общий ресурс"
 
 #: src/EBox/CGI/SambaPrinter.pm:53 src/templates/samba.mas:34
 #: src/templates/printerback.mas:131
 msgid "Authentication"
-msgstr ""
+msgstr "Аутентификация"
 
 #: src/EBox/CGI/SambaPrinter.pm:61 src/templates/samba.mas:69
 #: src/templates/printerback.mas:166
 msgid "User"
-msgstr ""
+msgstr "Пользователь"
 
 #: src/EBox/CGI/SambaPrinter.pm:62 src/templates/samba.mas:79
 #: src/templates/printerback.mas:176
 msgid "Password"
-msgstr ""
+msgstr "Пароль"
 
 #: src/EBox/CGI/DriverUI.pm:30
 msgid "Add a new printer (V)"
-msgstr ""
+msgstr "Добавить новый принтер (V)"
 
 #: src/EBox/CGI/ManufacturerUI.pm:30
 msgid "Add a new printer (III)"
-msgstr ""
+msgstr "Добавить новый принтер (III)"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:30
 msgid "Manage printer"
-msgstr ""
+msgstr "Управление принтером"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:58
 msgid "Printer details"
-msgstr ""
+msgstr "Подробности о принтере"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:59
 msgid "Driver Options"
-msgstr ""
+msgstr "Опции драйвера"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:60
 msgid "Configuration options"
-msgstr ""
+msgstr "Опции конфигурации"
 
 #: src/EBox/CGI/ManagePrinterUI.pm:61
 msgid "Jobs Queue"
-msgstr ""
+msgstr "Очередь заданий"
 
 #: src/EBox/CGI/AddPrinterUI.pm:30
 msgid "Add a new printer (I)"
-msgstr ""
+msgstr "Добавить новый принтер (I)"
 
 #: src/EBox/CGI/Driver.pm:40 src/templates/printer.mas:164
 #: src/templates/printerback.mas:40
 msgid "Driver"
-msgstr ""
+msgstr "Драйвер"
 
 #: src/EBox/CGI/Manufacturer.pm:40 src/EBox/Printers.pm:724
 #: src/templates/printer.mas:146 src/templates/printerback.mas:22
 msgid "Manufacturer"
-msgstr ""
+msgstr "Изготовитель"
 
 #: src/EBox/CGI/ManagePrinter.pm:51
 msgid "The printer has been deleted successfully"
-msgstr ""
+msgstr "Принтер был удален"
 
 #: src/EBox/CGI/AddPrinter.pm:41 src/EBox/Printers.pm:470
 #: src/EBox/Printers.pm:558 src/templates/addprinter.mas:25
 msgid "Method"
-msgstr ""
+msgstr "Метод"
 
 #: src/EBox/CGI/AddPrinter.pm:43
 msgid "Printer description"
-msgstr ""
+msgstr "Описание принтера"
 
 #: src/EBox/CGI/NetworkPrinter.pm:41 src/EBox/Printers.pm:633
 #: src/templates/printerback.mas:205 src/templates/network.mas:24
 msgid "IP"
-msgstr ""
+msgstr "IP"
 
 #: src/EBox/CGI/NetworkPrinter.pm:42 src/EBox/Printers.pm:634
 #: src/templates/printerback.mas:214 src/templates/network.mas:33
 msgid "Port"
-msgstr ""
+msgstr "Порт"
 
 #: src/EBox/CGI/USBPrinter.pm:41 src/EBox/CGI/ParallelPrinter.pm:41
 #: src/EBox/Printers.pm:582 src/EBox/Printers.pm:608 src/templates/usb.mas:19
 #: src/templates/parallel.mas:19
 msgid "Device"
-msgstr ""
+msgstr "Устройство"
 
 #: src/EBox/CGI/ModelUI.pm:30
 msgid "Add a new printer (IV)"
-msgstr ""
+msgstr "Добавить новый принтер (IV)"
 
 #: src/EBox/CGI/DrvoptsUI.pm:30
 msgid "Add a new printer (VI)"
-msgstr ""
+msgstr "Добавить новый принтер (VI)"
 
 #: src/EBox/CGI/Model.pm:40 src/EBox/Printers.pm:763 src/EBox/Printers.pm:803
 #: src/templates/printer.mas:155 src/templates/printerback.mas:16
 #: src/templates/printerback.mas:31
 msgid "Model"
-msgstr ""
+msgstr "Модель"
 
 #: src/EBox/CGI/DeleteUI.pm:30
 msgid "Delete printer"
-msgstr ""
+msgstr "Удалить принтер"
 
 #: src/EBox/Printers.pm:136
 msgid "Printer sharing"
-msgstr ""
+msgstr "Общий доступ к принтеру"
 
 #: src/EBox/Printers.pm:266 src/EBox/Printers.pm:1174
 msgid "Printers"
-msgstr ""
+msgstr "Принтеры"
 
 #: src/EBox/Printers.pm:269
 msgid "Add printer"
-msgstr ""
+msgstr "Добавить принтер"
 
 #: src/EBox/Printers.pm:466
 msgid ""
 "The printer's name contains characters not valid.Only alphanumeric "
 "characters are allowed"
 msgstr ""
+"Имя принтера содержит недопустимые символы. Допустимы только буквенно-"
+"цифровые символы"
 
 #: src/EBox/Printers.pm:475 src/templates/printer.mas:73
 #: src/templates/printers.mas:19 src/templates/addprinter.mas:16
 msgid "Name"
-msgstr ""
+msgstr "Имя"
 
 #: src/EBox/Printers.pm:483
 msgid "The given name is alreaday used as "
-msgstr ""
+msgstr "Указанное имя уже используется"
 
 #: src/EBox/Printers.pm:505 src/EBox/Printers.pm:1000
 #: src/EBox/Printers.pm:1044
 msgid "Printer not configured"
-msgstr ""
+msgstr "Принтер не настроен"
 
 #: src/EBox/Printers.pm:587
 msgid "It is not a usb printer"
-msgstr ""
+msgstr "Это не USB-принтер"
 
 #: src/EBox/Printers.pm:613
 msgid "It is not a parallel printer"
-msgstr ""
+msgstr "Это не параллельный принтер"
 
 #: src/EBox/Printers.pm:639
 msgid "It is not a network printer"
-msgstr ""
+msgstr "Это не сетевой принтер"
 
 #: src/EBox/Printers.pm:668
 msgid "It is not a samba printer"
-msgstr ""
+msgstr "Это не Samba-принтер"
 
 #: src/EBox/Printers.pm:908 src/EBox/Printers.pm:934
 msgid "is not a valid option"
-msgstr ""
+msgstr "недопустимая опция"
 
 #: src/EBox/Printers.pm:1022
 #, perl-brace-format
 msgid "Parameter '{name}' does not exist"
-msgstr ""
+msgstr "Параметра '{name}' не существует"
 
 #: src/EBox/Printers.pm:1164 src/templates/printer.mas:69
 msgid "Job ID"
-msgstr ""
+msgstr "ID задания"
 
 #: src/EBox/Printers.pm:1166 src/templates/printer.mas:71
 msgid "Owner"
-msgstr ""
+msgstr "Владелец"
 
 #: src/EBox/Printers.pm:1167
 msgid "Queued at"
@@ -261,7 +263,7 @@ msgstr ""
 
 #: src/EBox/Printers.pm:1168
 msgid "Event"
-msgstr ""
+msgstr "Событие"
 
 #: src/EBox/Printers.pm:1171
 msgid "Queued"
@@ -269,81 +271,81 @@ msgstr ""
 
 #: src/EBox/Printers.pm:1171
 msgid "Canceled"
-msgstr ""
+msgstr "Отменено"
 
 #: src/templates/drvopts.mas:14 src/templates/printerback.mas:62
 msgid "Driver options"
-msgstr ""
+msgstr "Опции драйвера"
 
 #: src/templates/models.mas:13
 msgid "Choose a printer model"
-msgstr ""
+msgstr "Выберите модель принтера"
 
 #: src/templates/printer.mas:32 src/templates/printer.mas:175
 #: src/templates/printer.mas:177 src/templates/printerback.mas:103
 #: src/templates/printerback.mas:105 src/templates/printerback.mas:225
 #: src/templates/printerback.mas:227
 msgid "Change"
-msgstr ""
+msgstr "Изменить"
 
 #: src/templates/printer.mas:62
 msgid "Job queue"
-msgstr ""
+msgstr "Очередь задания"
 
 #: src/templates/printer.mas:75
 msgid "Size(KB)"
-msgstr ""
+msgstr "Размер (Кбайт)"
 
 #: src/templates/printer.mas:77
 msgid "Creation time"
-msgstr ""
+msgstr "Время создания"
 
 #: src/templates/printer.mas:79
 msgid "Action"
-msgstr ""
+msgstr "Действие"
 
 #: src/templates/printer.mas:119 src/templates/printer.mas:121
 #: src/templates/printer.mas:123 src/templates/del.mas:22
 #: src/templates/printers.mas:52 src/templates/printers.mas:54
 #: src/templates/printers.mas:56
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: src/templates/printer.mas:132
 msgid "This printer has no pending job in queue at the moment"
-msgstr ""
+msgstr "Этот принтер имеет незавершенные задания в очереди"
 
 #: src/templates/samba.mas:17
 msgid "Samba shared printer configuration"
-msgstr ""
+msgstr "Конфигурация общего Samba-принтера"
 
 #: src/templates/samba.mas:25 src/templates/printerback.mas:122
 msgid "Share resource"
-msgstr ""
+msgstr "Открыть доступ к ресурсу"
 
 #: src/templates/samba.mas:41 src/templates/samba.mas:44
 #: src/templates/printerback.mas:138 src/templates/printerback.mas:141
 msgid "Anonymous"
-msgstr ""
+msgstr "Анонимный"
 
 #: src/templates/samba.mas:49 src/templates/samba.mas:52
 #: src/templates/printerback.mas:146 src/templates/printerback.mas:149
 msgid "Guest"
-msgstr ""
+msgstr "Гость"
 
 #: src/templates/samba.mas:57 src/templates/samba.mas:60
 #: src/templates/printerback.mas:154 src/templates/printerback.mas:157
 msgid "User/Password"
-msgstr ""
+msgstr "Пользователь/Пароль"
 
 #: src/templates/del.mas:12
 #, perl-brace-format
 msgid "Are you sure you want to delete the printer '{name}'?"
-msgstr ""
+msgstr "Вы уверены что хотите удалить принтер '{name}'?"
 
 #: src/templates/del.mas:26
 msgid "Cancel"
-msgstr ""
+msgstr "Отмена"
 
 #: src/templates/printerback.mas:51 src/templates/printerback.mas:53
 msgid "Go"
@@ -351,11 +353,11 @@ msgstr ""
 
 #: src/templates/printerback.mas:115
 msgid "Samba shared printer configurationr"
-msgstr ""
+msgstr "Настройка общего Samba-принтера"
 
 #: src/templates/printerback.mas:198
 msgid "Remote printer configuration"
-msgstr ""
+msgstr "Настройка удаленного принтера"
 
 #: src/templates/printers.mas:10
 msgid "Printer sharing status"
@@ -363,64 +365,64 @@ msgstr ""
 
 #: src/templates/printers.mas:14
 msgid "List of printers"
-msgstr ""
+msgstr "Список принтеров"
 
 #: src/templates/printers.mas:21
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 #: src/templates/printers.mas:23
 msgid "Actions"
-msgstr ""
+msgstr "Действия"
 
 #: src/templates/printers.mas:43
 msgid "Manage"
-msgstr ""
+msgstr "Управление"
 
 #: src/templates/printers.mas:45 src/templates/printers.mas:47
 msgid "Manage this printer"
-msgstr ""
+msgstr "Управление этим принтером"
 
 #: src/templates/network.mas:16
 msgid "Configure remote printer"
-msgstr ""
+msgstr "Настроить удаленный принтер"
 
 #: src/templates/usb.mas:15
 msgid "Local USB printer configuration"
-msgstr ""
+msgstr "Настройка локального USB-принтера"
 
 #: src/templates/driver.mas:12
 msgid "Choose a driver for the printer"
-msgstr ""
+msgstr "Выберите драйвер для принтера"
 
 #: src/templates/addprinter.mas:10
 msgid "Set printer name and method"
-msgstr ""
+msgstr "Задайте имя принтера и метод"
 
 #: src/templates/addprinter.mas:31
 msgid "Parallel"
-msgstr ""
+msgstr "Параллельный"
 
 #: src/templates/addprinter.mas:33
 msgid "Network printer"
-msgstr ""
+msgstr "Сетевой принтер"
 
 #: src/templates/addprinter.mas:35
 msgid "Samba"
-msgstr ""
+msgstr "Samba"
 
 #: src/templates/manufacturer.mas:12
 msgid "Choose manufacturer"
-msgstr ""
+msgstr "Выберите производителя"
 
 #: src/templates/parallel.mas:15
 msgid "Local parallel printer configuration"
-msgstr ""
+msgstr "Настройка локального параллельного принтера"
 
 #: src/templates/drivers.mas:13
 msgid "Choose a dirver for the printer"
-msgstr ""
+msgstr "Выберите драйвер для принтера"
 
 #: src/templates/drivers.mas:21
 msgid "driver"
-msgstr ""
+msgstr "драйвер"

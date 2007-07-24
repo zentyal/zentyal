@@ -5,9 +5,9 @@
 # Ignacio Correas <icorreas@warp.es>, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.9.1\n"
+"Project-Id-Version: ebox-software 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:40+0200\n"
+"POT-Creation-Date: 2007-07-24 12:13+0200\n"
 "PO-Revision-Date: 2007-04-12 11:27+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -71,7 +71,7 @@ msgstr ""
 "persiste ou si eBox ne fonctionne plus correctement, veuillez contacter le "
 "support technique."
 
-#: src/EBox/Software.pm:309 src/EBox/PackageDescriptions.pm:15
+#: src/EBox/Software.pm:309 src/EBox/PackageDescriptions.pm:16
 msgid "Software management"
 msgstr "Gestion des logiciels"
 
@@ -112,38 +112,42 @@ msgid "Mail server"
 msgstr "Serveur de courrier"
 
 #: src/EBox/PackageDescriptions.pm:9
+msgid "Mail filter module"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:10
 msgid "Network configuration"
 msgstr "Configuration du réseau"
 
-#: src/EBox/PackageDescriptions.pm:10
+#: src/EBox/PackageDescriptions.pm:11
 msgid "NTP server"
 msgstr "Serveur de temps (NTP)"
 
-#: src/EBox/PackageDescriptions.pm:11
+#: src/EBox/PackageDescriptions.pm:12
 msgid "Object management"
 msgstr "Gestion des objets"
 
-#: src/EBox/PackageDescriptions.pm:12
+#: src/EBox/PackageDescriptions.pm:13
 msgid "OpenVPN server"
 msgstr "Serveur OpenVPN"
 
-#: src/EBox/PackageDescriptions.pm:13
+#: src/EBox/PackageDescriptions.pm:14
 msgid "Printer sharing"
 msgstr "Partage d'imprimantes"
 
-#: src/EBox/PackageDescriptions.pm:14
+#: src/EBox/PackageDescriptions.pm:15
 msgid "File sharing"
 msgstr "Partage de fichiers"
 
-#: src/EBox/PackageDescriptions.pm:16
+#: src/EBox/PackageDescriptions.pm:17
 msgid "Proxy cache and content filter"
 msgstr "Cache du proxy et fitrage de contenu"
 
-#: src/EBox/PackageDescriptions.pm:17
+#: src/EBox/PackageDescriptions.pm:18
 msgid "Traffic shaper for eBox"
 msgstr "Gestion du traffic (shaping) pour eBox"
 
-#: src/EBox/PackageDescriptions.pm:18
+#: src/EBox/PackageDescriptions.pm:19
 msgid "User and Group management"
 msgstr "Gestion des utilisateurs et groupes"
 

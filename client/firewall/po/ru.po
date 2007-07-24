@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-firewall 0.9.1\n"
+"Project-Id-Version: ebox-firewall 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:38+0200\n"
+"POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-04-11 16:23+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -19,80 +19,80 @@ msgstr ""
 
 #: src/EBox/CGI/Redirects.pm:31 src/EBox/CGI/Redirects.pm:42
 msgid "Port redirections"
-msgstr ""
+msgstr "Перенаправление портов"
 
 #: src/EBox/CGI/Filter.pm:31 src/EBox/CGI/Filter.pm:42
 msgid "Packet filtering"
-msgstr ""
+msgstr "Фильтрация пакетов"
 
 #: src/EBox/CGI/Object.pm:46 src/EBox/CGI/Object.pm:51
 #: src/EBox/CGI/ObjectPolicy.pm:41 src/EBox/CGI/ObjectService.pm:113
 #: src/EBox/CGI/ChangeObjectService.pm:62 src/EBox/CGI/ObjectRule.pm:41
 msgid "Object"
-msgstr ""
+msgstr "Объект"
 
 #: src/EBox/CGI/Object.pm:62
 msgid "Global firewall configuration"
-msgstr ""
+msgstr "Глобальные настройки файрвола"
 
 #: src/EBox/CGI/Object.pm:64
 #, perl-brace-format
 msgid "Firewall configuration: {desc}"
-msgstr ""
+msgstr "Настройка файрвола: {desc}"
 
 #: src/EBox/CGI/ObjectPolicy.pm:43 src/EBox/CGI/ChangeObjectService.pm:68
-#: src/EBox/Firewall.pm:854 src/EBox/Firewall.pm:960 src/EBox/Firewall.pm:1325
-#: src/EBox/Firewall.pm:1416
+#: src/EBox/Firewall.pm:854 src/EBox/Firewall.pm:960 src/EBox/Firewall.pm:1326
+#: src/EBox/Firewall.pm:1417
 msgid "policy"
-msgstr ""
+msgstr "политика"
 
 #: src/EBox/CGI/ObjectService.pm:62
 msgid "Global services' filtering rules"
-msgstr ""
+msgstr "Глобальные правила фильтрации служб"
 
 #: src/EBox/CGI/ObjectService.pm:67
 #, perl-brace-format
 msgid "Services' filtering rules {desc}"
-msgstr ""
+msgstr "Правила фильтрации служб: {desc}"
 
 #: src/EBox/CGI/Redirection.pm:43 src/EBox/CGI/Redirection.pm:54
 #: src/EBox/CGI/Redirection.pm:61 src/EBox/CGI/Redirection.pm:68
 #: src/EBox/Firewall.pm:265 src/EBox/Firewall.pm:298 src/EBox/Firewall.pm:524
 #: src/EBox/Firewall.pm:600 src/EBox/Firewall.pm:963 src/EBox/Firewall.pm:1039
-#: src/EBox/Firewall.pm:1163 src/EBox/Firewall.pm:1188
-#: src/EBox/Firewall.pm:1232 src/EBox/Firewall.pm:1328
+#: src/EBox/Firewall.pm:1163 src/EBox/Firewall.pm:1189
+#: src/EBox/Firewall.pm:1233 src/EBox/Firewall.pm:1329
 msgid "protocol"
-msgstr ""
+msgstr "протокол"
 
 #: src/EBox/CGI/Redirection.pm:44 src/EBox/CGI/Redirection.pm:56
 #: src/EBox/CGI/Redirection.pm:63 src/EBox/CGI/Redirection.pm:67
 msgid "network interface"
-msgstr ""
+msgstr "сетевой интерфейс"
 
 #: src/EBox/CGI/Redirection.pm:45 src/EBox/CGI/Redirection.pm:55
 #: src/EBox/CGI/Redirection.pm:62 src/EBox/CGI/Redirection.pm:69
 #: src/EBox/Firewall.pm:267 src/EBox/Firewall.pm:299
 msgid "external port"
-msgstr ""
+msgstr "внешний порт"
 
 #: src/EBox/CGI/Redirection.pm:46 src/EBox/CGI/Redirection.pm:64
 #: src/EBox/CGI/Redirection.pm:70 src/EBox/Firewall.pm:266
 msgid "destination address"
-msgstr ""
+msgstr "адрес назначения"
 
 #: src/EBox/CGI/Redirection.pm:47 src/EBox/CGI/Redirection.pm:65
 #: src/EBox/CGI/Redirection.pm:71 src/EBox/Firewall.pm:268
 #: src/EBox/Firewall.pm:1052 src/EBox/Firewall.pm:1058
-#: src/EBox/Firewall.pm:1245 src/EBox/Firewall.pm:1251
+#: src/EBox/Firewall.pm:1246 src/EBox/Firewall.pm:1252
 msgid "destination port"
-msgstr ""
+msgstr "порт назначения"
 
 #: src/EBox/CGI/FwdRule.pm:44 src/EBox/CGI/FwdRule.pm:68
 #: src/EBox/CGI/ObjectRule.pm:48 src/EBox/CGI/ObjectRule.pm:65
 #: src/EBox/CGI/Deny.pm:41 src/EBox/Firewall.pm:216 src/EBox/Firewall.pm:1036
-#: src/EBox/Firewall.pm:1229
+#: src/EBox/Firewall.pm:1230
 msgid "action"
-msgstr ""
+msgstr "действие"
 
 #: src/EBox/CGI/FwdRule.pm:60 src/EBox/CGI/FwdRule.pm:67
 #: src/EBox/CGI/FwdRule.pm:86 src/EBox/CGI/FwdRule.pm:89
@@ -100,114 +100,114 @@ msgstr ""
 #: src/EBox/CGI/ObjectRule.pm:56 src/EBox/CGI/ObjectRule.pm:64
 #: src/EBox/CGI/ObjectRule.pm:75 src/EBox/CGI/ObjectRule.pm:79
 msgid "rule"
-msgstr ""
+msgstr "правило"
 
 #: src/EBox/CGI/FwdRules.pm:30 src/EBox/CGI/FwdRules.pm:42
 #: src/templates/object.mas:37
 msgid "Rules"
-msgstr ""
+msgstr "Правила"
 
 #: src/EBox/CGI/ChangeObjectService.pm:67
 #: src/EBox/CGI/ChangeObjectService.pm:73 src/EBox/Firewall.pm:528
 msgid "service"
-msgstr ""
+msgstr "служба"
 
 #: src/EBox/CGI/FwdRuleEdit.pm:30 src/EBox/CGI/FwdRuleEdit.pm:42
 msgid "Edit rule"
-msgstr ""
+msgstr "Редактировать правило"
 
-#: src/EBox/Firewall.pm:82 src/EBox/Firewall.pm:826 src/EBox/Firewall.pm:1346
-#: src/EBox/Firewall.pm:1392 src/EBox/Firewall.pm:1421
+#: src/EBox/Firewall.pm:82 src/EBox/Firewall.pm:826 src/EBox/Firewall.pm:1347
+#: src/EBox/Firewall.pm:1393 src/EBox/Firewall.pm:1422
 msgid "object"
-msgstr ""
+msgstr "объект"
 
 #: src/EBox/Firewall.pm:272
 #, perl-brace-format
 msgid "Port {port} is being used by a service or port redirection."
-msgstr ""
+msgstr "Порт {port} используется службой или перенаправлением портов"
 
 #: src/EBox/Firewall.pm:368 src/EBox/Firewall.pm:523 src/EBox/Firewall.pm:567
 #: src/EBox/Firewall.pm:599 src/EBox/Firewall.pm:649 src/EBox/Firewall.pm:694
 #: src/EBox/Firewall.pm:718 src/EBox/Firewall.pm:811
 #, perl-brace-format
 msgid "Name '{name}' is invalid"
-msgstr ""
+msgstr "Имя '{name}' ошибочное"
 
 #: src/EBox/Firewall.pm:525 src/EBox/Firewall.pm:601 src/EBox/Firewall.pm:650
 #: src/EBox/Firewall.pm:970 src/EBox/Firewall.pm:1164
-#: src/EBox/Firewall.pm:1189 src/EBox/Firewall.pm:1335
+#: src/EBox/Firewall.pm:1190 src/EBox/Firewall.pm:1336
 msgid "port"
-msgstr ""
+msgstr "порт"
 
 #: src/EBox/Firewall.pm:965 src/EBox/Firewall.pm:1044
-#: src/EBox/Firewall.pm:1237 src/EBox/Firewall.pm:1330
+#: src/EBox/Firewall.pm:1238 src/EBox/Firewall.pm:1331
 msgid "Port cannot be set if no protocol is selected."
-msgstr ""
+msgstr "Порт не может быть установлен без выбора протокола."
 
-#: src/EBox/Firewall.pm:973 src/EBox/Firewall.pm:1339
+#: src/EBox/Firewall.pm:973 src/EBox/Firewall.pm:1340
 msgid "address"
-msgstr ""
+msgstr "адрес"
 
 #: src/EBox/Firewall.pm:1049 src/EBox/Firewall.pm:1055
-#: src/EBox/Firewall.pm:1242 src/EBox/Firewall.pm:1248
+#: src/EBox/Firewall.pm:1243 src/EBox/Firewall.pm:1249
 msgid "source port"
-msgstr ""
+msgstr "исходный порт"
 
 #: src/EBox/Firewall.pm:1062 src/EBox/Firewall.pm:1065
-#: src/EBox/Firewall.pm:1255 src/EBox/Firewall.pm:1258
+#: src/EBox/Firewall.pm:1256 src/EBox/Firewall.pm:1259
 msgid "source address"
-msgstr ""
+msgstr "исходный адрес"
 
-#: src/EBox/Firewall.pm:1628
+#: src/EBox/Firewall.pm:1629
 msgid "Rule not found"
-msgstr ""
+msgstr "Правило не найдено"
 
-#: src/EBox/Firewall.pm:1708
+#: src/EBox/Firewall.pm:1709
 msgid "Firewall"
-msgstr ""
+msgstr "Файрвол"
 
-#: src/EBox/Firewall.pm:1712
+#: src/EBox/Firewall.pm:1713
 msgid "Packet Filter"
-msgstr ""
+msgstr "Фильтр Пакетов"
 
-#: src/EBox/Firewall.pm:1715
+#: src/EBox/Firewall.pm:1716
 msgid "Redirects"
-msgstr ""
+msgstr "Перенаправления"
 
 #: src/templates/redirects.mas:23
 msgid "Interface"
-msgstr ""
+msgstr "Интерфейс"
 
 #: src/templates/redirects.mas:25
 msgid "External port"
-msgstr ""
+msgstr "Внешний порт"
 
 #: src/templates/redirects.mas:27 src/templates/object.mas:50
 #: src/templates/fwdrules.mas:20 src/templates/fwdrules.mas:182
 #: src/templates/fwdruleedit.mas:32
 msgid "Protocol"
-msgstr ""
+msgstr "Протокол"
 
 #: src/templates/redirects.mas:29
 msgid "IP address"
-msgstr ""
+msgstr "IP-адрес"
 
 #: src/templates/redirects.mas:31 src/templates/object.mas:52
 #: src/templates/fwdrules.mas:186 src/templates/fwdrules.mas:190
 msgid "Port"
-msgstr ""
+msgstr "Порт"
 
 #: src/templates/redirects.mas:33 src/templates/object.mas:60
 #: src/templates/objectService.mas:54 src/templates/fwdrules.mas:192
 msgid "Actions"
-msgstr ""
+msgstr "Действия"
 
 #: src/templates/redirects.mas:78 src/templates/redirects.mas:80
 #: src/templates/redirects.mas:82 src/templates/object.mas:111
 #: src/templates/object.mas:113 src/templates/object.mas:115
 #: src/templates/objectService.mas:41 src/templates/fwdrules.mas:166
 msgid "Add"
-msgstr ""
+msgstr "Добавить"
 
 #: src/templates/redirects.mas:156 src/templates/redirects.mas:158
 #: src/templates/redirects.mas:160 src/templates/object.mas:203
@@ -216,7 +216,7 @@ msgstr ""
 #: src/templates/objectService.mas:90 src/templates/fwdruleedit.mas:223
 #: src/templates/fwdruleedit.mas:225 src/templates/fwdruleedit.mas:227
 msgid "Change"
-msgstr ""
+msgstr "Изменить"
 
 #: src/templates/redirects.mas:167 src/templates/redirects.mas:169
 #: src/templates/redirects.mas:171 src/templates/object.mas:214
@@ -225,11 +225,11 @@ msgstr ""
 #: src/templates/objectService.mas:100 src/templates/fwdrules.mas:321
 #: src/templates/fwdrules.mas:323 src/templates/fwdrules.mas:325
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: src/templates/filter.mas:9
 msgid "Deny action"
-msgstr ""
+msgstr "Запретить действие"
 
 #: src/templates/filter.mas:12
 msgid ""
@@ -237,22 +237,25 @@ msgid ""
 "you choose Reject, a packet will be sent back to the sender, choosing Drop "
 "will make the firewall drop the packet silently."
 msgstr ""
+"Это сообщает файрволу что он должен делать с запрещенными пакетами. Если Вы "
+"выберите Отклонить - пакет будет возвращен отправителю. Если Вы выберите "
+"Сборсить - пакет будет удален."
 
 #: src/templates/filter.mas:18 src/templates/filter.mas:25
 msgid "Drop packets"
-msgstr ""
+msgstr "Сбрасывать пакеты"
 
 #: src/templates/filter.mas:20 src/templates/filter.mas:23
 msgid "Reject packets"
-msgstr ""
+msgstr "Отклонять пакеты"
 
 #: src/templates/filter.mas:29
 msgid "Apply"
-msgstr ""
+msgstr "Применить"
 
 #: src/templates/filter.mas:35
 msgid "Filtering rules for internet access"
-msgstr ""
+msgstr "Правила фильтрации для доступа в Интернет"
 
 #: src/templates/filter.mas:38
 msgid ""
@@ -261,30 +264,35 @@ msgid ""
 "interfaces to external ones, they provide a simpler way to control access to "
 "the internet. You may also choose an object and set up its own rules"
 msgstr ""
+"Ссылка ниже предлагает Вам установить действие по умолчанию для фильтра "
+"пакетов. Эти правила предназначены для контроля доступа с внутренних сетевых "
+"интерфейсов на внешние. Они обеспечивают более простой путь к контролю над "
+"доступом в Интернет. Вы также можете выбрать объект и установить свои "
+"собственные правила"
 
 #: src/templates/filter.mas:42
 msgid "Configure default rules"
-msgstr ""
+msgstr "Настроить стандартные правила"
 
 #: src/templates/filter.mas:47
 msgid "Filtering Rules between internal networks"
-msgstr ""
+msgstr "Правила Фильтрации между внутренними сетями"
 
 #: src/templates/filter.mas:54
 msgid "Configure rules"
-msgstr ""
+msgstr "Настроить правила"
 
 #: src/templates/filter.mas:71
 msgid "Configure default rules related to eBox services"
-msgstr ""
+msgstr "Настроить стандартные правила связанные со службами eBox"
 
 #: src/templates/filter.mas:86
 msgid "Configure rules for a particular object"
-msgstr ""
+msgstr "Настроить правила для отдельных объектов"
 
 #: src/templates/filter.mas:95
 msgid "Go"
-msgstr ""
+msgstr "Запуск"
 
 #: src/templates/object.mas:40
 msgid ""
@@ -292,6 +300,9 @@ msgid ""
 "applied in order, from top to bottom, you can reorder them once they are "
 "added. Rules can also be disabled without deleting them."
 msgstr ""
+"Протокол, порт и адрес назначения опциональны. Правила будут применятся в "
+"порядке 'сверху вниз'. Вы также можете изменить порядок уже существующих "
+"правил. Вы также можете отключать правила без их удаления."
 
 #: src/templates/object.mas:44
 msgid ""
@@ -300,20 +311,24 @@ msgid ""
 "interfaces as external in the <a href='../Network/Ifaces'>Network "
 "Interfaces</a> configuration page."
 msgstr ""
+"Правила без точного адреса назначения будут применяться к пакетам, которые "
+"покидают eBox через внешний сетевой интерфейс. Вы можете обозначить сетевой "
+"интерфейс как внешний на <a href='../Network/Ifaces'>странице настройки</a> "
+"сетевых интерфейсов"
 
 #: src/templates/object.mas:54 src/templates/fwdrules.mas:108
 #: src/templates/fwdruleedit.mas:153
 msgid "Destination address"
-msgstr ""
+msgstr "Адрес назначения"
 
 #: src/templates/object.mas:56 src/templates/fwdrules.mas:36
 #: src/templates/fwdruleedit.mas:60
 msgid "Action"
-msgstr ""
+msgstr "Действие"
 
 #: src/templates/object.mas:58
 msgid "Active"
-msgstr ""
+msgstr "Активное"
 
 #: src/templates/object.mas:99 src/templates/object.mas:180
 #: src/templates/object.mas:185 src/templates/object.mas:298
@@ -322,7 +337,7 @@ msgstr ""
 #: src/templates/objectService.mas:76 src/templates/fwdrules.mas:42
 #: src/templates/fwdruleedit.mas:67 src/templates/fwdruleedit.mas:72
 msgid "Allow"
-msgstr ""
+msgstr "Разрешено"
 
 #: src/templates/object.mas:101 src/templates/object.mas:182
 #: src/templates/object.mas:187 src/templates/object.mas:290
@@ -331,7 +346,7 @@ msgstr ""
 #: src/templates/objectService.mas:78 src/templates/fwdrules.mas:44
 #: src/templates/fwdruleedit.mas:69 src/templates/fwdruleedit.mas:74
 msgid "Deny"
-msgstr ""
+msgstr "Запрещено"
 
 #: src/templates/object.mas:225 src/templates/object.mas:227
 #: src/templates/object.mas:229 src/templates/fwdrules.mas:330
@@ -347,7 +362,7 @@ msgstr ""
 
 #: src/templates/object.mas:262 src/templates/objectService.mas:52
 msgid "Policy"
-msgstr ""
+msgstr "Политика"
 
 #: src/templates/object.mas:265
 msgid ""
@@ -356,25 +371,31 @@ msgid ""
 "external network interface. If you want to allow traffic between internal "
 "networks you need to create explicit rules for that."
 msgstr ""
+"Политика определяет что нужно делать с пакетами, которые не совпадают с "
+"описанными ниже. Политика применяется к соединениям проходящим через внешний "
+"сетевой интерфейс eBox. Если Вы хотите разрешить траффик между внутренними "
+"сетями, Вы должны создать точные правила для этого"
 
 #: src/templates/object.mas:270
 msgid ""
 "Choosing global will make the firewall fall back to the <a href='Object?"
 "object=_global'>default configuration</a>."
 msgstr ""
+"Выберите для глобального отката файрвола на <a href='Object?"
+"object=_global'>стандартные настройки</a>."
 
 #: src/templates/object.mas:281 src/templates/object.mas:284
 #: src/templates/object.mas:310
 msgid "Global"
-msgstr ""
+msgstr "Глобальные"
 
 #: src/templates/objectService.mas:23
 msgid "Services"
-msgstr ""
+msgstr "Службы"
 
 #: src/templates/objectService.mas:50
 msgid "Service"
-msgstr ""
+msgstr "Служба"
 
 #: src/templates/fwdrules.mas:10
 msgid ""
@@ -382,14 +403,17 @@ msgid ""
 "order, from top to bottom, you can reorder them once they are added. Rules "
 "can also be disabled without deleting them."
 msgstr ""
+"Протокол, порты и адреса опциональны. Правила будут применятся в порядке "
+"'сверху вниз'. Вы также можете изменить порядок уже существующих правил. Вы "
+"также можете отключать правила без их удаления."
 
 #: src/templates/fwdrules.mas:13
 msgid "New rule"
-msgstr ""
+msgstr "Новое правило"
 
 #: src/templates/fwdrules.mas:53 src/templates/fwdruleedit.mas:84
 msgid "Source address"
-msgstr ""
+msgstr "Исходный адрес"
 
 #: src/templates/fwdrules.mas:59 src/templates/fwdrules.mas:91
 #: src/templates/fwdrules.mas:114 src/templates/fwdrules.mas:146
@@ -411,7 +435,7 @@ msgstr ""
 
 #: src/templates/fwdrules.mas:85 src/templates/fwdruleedit.mas:121
 msgid "Source port"
-msgstr ""
+msgstr "Исходный порт"
 
 #: src/templates/fwdrules.mas:98 src/templates/fwdrules.mas:153
 #: src/templates/fwdruleedit.mas:142 src/templates/fwdruleedit.mas:211
@@ -420,39 +444,39 @@ msgstr ""
 
 #: src/templates/fwdrules.mas:140 src/templates/fwdruleedit.mas:190
 msgid "Destination port"
-msgstr ""
+msgstr "Порт назначения"
 
 #: src/templates/fwdrules.mas:176
 msgid "Rule list"
-msgstr ""
+msgstr "Список правил"
 
 #: src/templates/fwdrules.mas:184
 msgid "Source"
-msgstr ""
+msgstr "Источник"
 
 #: src/templates/fwdrules.mas:188
 msgid "Destination"
-msgstr ""
+msgstr "Назначение"
 
 #: src/templates/fwdrules.mas:208 src/templates/fwdrules.mas:210
 #: src/templates/fwdrules.mas:357 src/templates/fwdrules.mas:359
 msgid "allow"
-msgstr ""
+msgstr "разрешить"
 
 #: src/templates/fwdrules.mas:214 src/templates/fwdrules.mas:216
 #: src/templates/fwdrules.mas:384 src/templates/fwdrules.mas:386
 msgid "allow (disabled)"
-msgstr ""
+msgstr "разрешить (отключено)"
 
 #: src/templates/fwdrules.mas:220 src/templates/fwdrules.mas:222
 #: src/templates/fwdrules.mas:362 src/templates/fwdrules.mas:364
 msgid "deny"
-msgstr ""
+msgstr "запретить"
 
 #: src/templates/fwdrules.mas:226 src/templates/fwdrules.mas:228
 #: src/templates/fwdrules.mas:389 src/templates/fwdrules.mas:391
 msgid "deny (disabled)"
-msgstr ""
+msgstr "запретить (отключено)"
 
 #: src/templates/fwdrules.mas:239 src/templates/fwdrules.mas:241
 #: src/templates/fwdrules.mas:263 src/templates/fwdrules.mas:265
@@ -465,28 +489,28 @@ msgstr ""
 #: src/templates/fwdrules.mas:312 src/templates/fwdrules.mas:314
 #: src/templates/fwdrules.mas:316
 msgid "Edit"
-msgstr ""
+msgstr "Редактировать"
 
 #: src/templates/fwdrules.mas:367 src/templates/fwdrules.mas:369
 msgid "delete"
-msgstr ""
+msgstr "удалить"
 
 #: src/templates/fwdrules.mas:372 src/templates/fwdrules.mas:374
 msgid "edit"
-msgstr ""
+msgstr "редактировать"
 
 #: src/templates/fwdrules.mas:394 src/templates/fwdrules.mas:396
 msgid "move up"
-msgstr ""
+msgstr "переместить вверх"
 
 #: src/templates/fwdrules.mas:399 src/templates/fwdrules.mas:401
 msgid "move down"
-msgstr ""
+msgstr "переместить вниз"
 
 #: src/templates/fwdrules.mas:412
 msgid "any"
-msgstr ""
+msgstr "любой"
 
 #: src/templates/fwdruleedit.mas:15
 msgid "Enabled"
-msgstr ""
+msgstr "Включено"

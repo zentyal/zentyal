@@ -8,9 +8,9 @@
 # Copyright (C) 2005 Warp Networks S.L and DBS Servicios Informaticos S.L.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.9.1\n"
+"Project-Id-Version: ebox-network 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:39+0200\n"
+"POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-05-15 10:22+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: \n"
@@ -34,9 +34,9 @@ msgstr "Protocolo"
 #: src/EBox/Network.pm:683 src/EBox/Network.pm:728 src/EBox/Network.pm:762
 #: src/EBox/Network.pm:787 src/EBox/Network.pm:863 src/EBox/Network.pm:986
 #: src/EBox/Network.pm:1181 src/EBox/Network.pm:1241 src/EBox/Network.pm:1276
-#: src/EBox/Network.pm:1312 src/EBox/Network.pm:1345 src/EBox/Network.pm:2007
-#: src/EBox/Network.pm:2039 src/EBox/Network.pm:2112 src/EBox/Network.pm:2132
-#: src/EBox/Network.pm:2153 src/EBox/Network.pm:2176
+#: src/EBox/Network.pm:1312 src/EBox/Network.pm:1345 src/EBox/Network.pm:2017
+#: src/EBox/Network.pm:2049 src/EBox/Network.pm:2122 src/EBox/Network.pm:2142
+#: src/EBox/Network.pm:2163 src/EBox/Network.pm:2186
 msgid "Interface"
 msgstr "Interfaz"
 
@@ -172,7 +172,7 @@ msgstr "Ya existe un router por defecto"
 #: src/EBox/CGI/Controller/GatewayDataTableMove.pm:30
 #: src/EBox/CGI/Controller/GatewayDataTableAdd.pm:30
 #: src/EBox/CGI/Controller/GatewayDataTable.pm:30
-#: src/EBox/CGI/View/GatewayDataTable.pm:30 src/EBox/Network.pm:2302
+#: src/EBox/CGI/View/GatewayDataTable.pm:30 src/EBox/Network.pm:2312
 msgid "Gateways"
 msgstr "Routers"
 
@@ -185,7 +185,7 @@ msgid "Network interface configured"
 msgstr "Interfaces de red configurados"
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
-#: src/EBox/Network.pm:2229
+#: src/EBox/Network.pm:2239
 msgid "Network interfaces"
 msgstr "Interfaces de red"
 
@@ -225,7 +225,7 @@ msgstr "Diagnóstico de la red"
 msgid "Host"
 msgstr "Máquina"
 
-#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2217
+#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2227
 msgid "host name"
 msgstr "nombre de máquina"
 
@@ -252,8 +252,8 @@ msgstr "acción sobre la interfaz virtual"
 
 #: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:558 src/EBox/Network.pm:563
 #: src/EBox/Network.pm:867 src/EBox/Network.pm:888 src/EBox/Network.pm:1419
-#: src/EBox/Network.pm:2009 src/EBox/Network.pm:2024 src/EBox/Network.pm:2156
-#: src/EBox/Network.pm:2274 src/templates/ifaces.mas:104
+#: src/EBox/Network.pm:2019 src/EBox/Network.pm:2034 src/EBox/Network.pm:2166
+#: src/EBox/Network.pm:2284 src/templates/ifaces.mas:104
 #: src/templates/ifaces.mas:233
 msgid "IP address"
 msgstr "Dirección IP"
@@ -276,7 +276,7 @@ msgid "VLAN Id"
 msgstr "Identificador de VLAN"
 
 #: src/EBox/CGI/Routes.pm:29 src/EBox/CGI/Routes.pm:40
-#: src/EBox/Network.pm:2297
+#: src/EBox/Network.pm:2307
 msgid "Routes"
 msgstr "Rutas"
 
@@ -292,12 +292,12 @@ msgstr "Configurar los servidores de nombre"
 msgid "Configure default gateway"
 msgstr "Configurar gateway por defecto"
 
-#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:1965
+#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:1975
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
 msgstr "El router {gw} no es alcanzable"
 
-#: src/EBox/Network.pm:56 src/EBox/Network.pm:2289 src/templates/routes.mas:33
+#: src/EBox/Network.pm:56 src/EBox/Network.pm:2299 src/templates/routes.mas:33
 msgid "Network"
 msgstr "Red"
 
@@ -305,7 +305,7 @@ msgstr "Red"
 msgid "Virtual interface name"
 msgstr "Nombre de la interfaz virtual"
 
-#: src/EBox/Network.pm:558 src/EBox/Network.pm:867 src/EBox/Network.pm:2009
+#: src/EBox/Network.pm:558 src/EBox/Network.pm:867 src/EBox/Network.pm:2019
 #: src/templates/ifaces.mas:118 src/templates/ifaces.mas:235
 msgid "Netmask"
 msgstr "Máscara de red"
@@ -330,7 +330,7 @@ msgstr ""
 "Last interfaces de red deben ponerse en modo trunk antes de poder añadirles "
 "vlans."
 
-#: src/EBox/Network.pm:1926
+#: src/EBox/Network.pm:1936
 msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
@@ -338,7 +338,7 @@ msgstr ""
 "La operación solicitada hará que uno de los routers configurados no sea "
 "accesible. Por favor, eliminelo antes si realmente desea hacer este cambio."
 
-#: src/EBox/Network.pm:1969
+#: src/EBox/Network.pm:1979
 #, perl-brace-format
 msgid ""
 "Gateway {gw} must be reacheable by a static interface. Currently is "
@@ -347,43 +347,43 @@ msgstr ""
 "El router {gw} debe ser accesible desde un interfaz estático. Actualmente es "
 "alcanzable por {iface} que no lo es"
 
-#: src/EBox/Network.pm:2198
+#: src/EBox/Network.pm:2208
 msgid "Host name"
 msgstr "Nombre de máquina"
 
-#: src/EBox/Network.pm:2248
+#: src/EBox/Network.pm:2258
 msgid "down"
 msgstr "desactivado"
 
-#: src/EBox/Network.pm:2254
+#: src/EBox/Network.pm:2264
 msgid "up"
 msgstr "activado"
 
-#: src/EBox/Network.pm:2258
+#: src/EBox/Network.pm:2268
 msgid "link ok"
 msgstr "enlace ok"
 
-#: src/EBox/Network.pm:2260
+#: src/EBox/Network.pm:2270
 msgid "no link"
 msgstr "sin enlace"
 
-#: src/EBox/Network.pm:2263
+#: src/EBox/Network.pm:2273
 msgid "Status"
 msgstr "Estado"
 
-#: src/EBox/Network.pm:2268
+#: src/EBox/Network.pm:2278
 msgid "MAC address"
 msgstr "Dirección MAC"
 
-#: src/EBox/Network.pm:2293
+#: src/EBox/Network.pm:2303
 msgid "Interfaces"
 msgstr "Interfaces"
 
-#: src/EBox/Network.pm:2299
+#: src/EBox/Network.pm:2309
 msgid "Diagnosis"
 msgstr "Diagnóstico"
 
-#: src/EBox/Network.pm:2305
+#: src/EBox/Network.pm:2315
 msgid "Balance traffic"
 msgstr "Balanceo de tráfico"
 

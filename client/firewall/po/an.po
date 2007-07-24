@@ -4,9 +4,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-firewall 0.9.1\n"
+"Project-Id-Version: ebox-firewall 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:38+0200\n"
+"POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-02-27 22:38+0000\n"
 "Last-Translator: Guillermo Frías Marín <espanyoldebarna@hotmail.com>\n"
 "Language-Team: none\n"
@@ -40,26 +40,26 @@ msgid "Firewall configuration: {desc}"
 msgstr "Confegurazión d'o firewall: {desc}"
 
 #: src/EBox/CGI/ObjectPolicy.pm:43 src/EBox/CGI/ChangeObjectService.pm:68
-#: src/EBox/Firewall.pm:854 src/EBox/Firewall.pm:960 src/EBox/Firewall.pm:1325
-#: src/EBox/Firewall.pm:1416
+#: src/EBox/Firewall.pm:854 src/EBox/Firewall.pm:960 src/EBox/Firewall.pm:1326
+#: src/EBox/Firewall.pm:1417
 msgid "policy"
 msgstr "politica"
 
 #: src/EBox/CGI/ObjectService.pm:62
 msgid "Global services' filtering rules"
-msgstr ""
+msgstr "Regles globals de filtrato  de serbizios"
 
 #: src/EBox/CGI/ObjectService.pm:67
 #, perl-brace-format
 msgid "Services' filtering rules {desc}"
-msgstr ""
+msgstr "Regles de filtrato  de serbizios {desc}"
 
 #: src/EBox/CGI/Redirection.pm:43 src/EBox/CGI/Redirection.pm:54
 #: src/EBox/CGI/Redirection.pm:61 src/EBox/CGI/Redirection.pm:68
 #: src/EBox/Firewall.pm:265 src/EBox/Firewall.pm:298 src/EBox/Firewall.pm:524
 #: src/EBox/Firewall.pm:600 src/EBox/Firewall.pm:963 src/EBox/Firewall.pm:1039
-#: src/EBox/Firewall.pm:1163 src/EBox/Firewall.pm:1188
-#: src/EBox/Firewall.pm:1232 src/EBox/Firewall.pm:1328
+#: src/EBox/Firewall.pm:1163 src/EBox/Firewall.pm:1189
+#: src/EBox/Firewall.pm:1233 src/EBox/Firewall.pm:1329
 msgid "protocol"
 msgstr "protocolo"
 
@@ -82,14 +82,14 @@ msgstr "adreza de destín"
 #: src/EBox/CGI/Redirection.pm:47 src/EBox/CGI/Redirection.pm:65
 #: src/EBox/CGI/Redirection.pm:71 src/EBox/Firewall.pm:268
 #: src/EBox/Firewall.pm:1052 src/EBox/Firewall.pm:1058
-#: src/EBox/Firewall.pm:1245 src/EBox/Firewall.pm:1251
+#: src/EBox/Firewall.pm:1246 src/EBox/Firewall.pm:1252
 msgid "destination port"
 msgstr "puerto de destín"
 
 #: src/EBox/CGI/FwdRule.pm:44 src/EBox/CGI/FwdRule.pm:68
 #: src/EBox/CGI/ObjectRule.pm:48 src/EBox/CGI/ObjectRule.pm:65
 #: src/EBox/CGI/Deny.pm:41 src/EBox/Firewall.pm:216 src/EBox/Firewall.pm:1036
-#: src/EBox/Firewall.pm:1229
+#: src/EBox/Firewall.pm:1230
 msgid "action"
 msgstr "aizión"
 
@@ -115,8 +115,8 @@ msgstr "serbizio"
 msgid "Edit rule"
 msgstr "Editar regles"
 
-#: src/EBox/Firewall.pm:82 src/EBox/Firewall.pm:826 src/EBox/Firewall.pm:1346
-#: src/EBox/Firewall.pm:1392 src/EBox/Firewall.pm:1421
+#: src/EBox/Firewall.pm:82 src/EBox/Firewall.pm:826 src/EBox/Firewall.pm:1347
+#: src/EBox/Firewall.pm:1393 src/EBox/Firewall.pm:1422
 msgid "object"
 msgstr "ocheto"
 
@@ -136,42 +136,42 @@ msgstr "O nombre '{name}' no ye baliu"
 
 #: src/EBox/Firewall.pm:525 src/EBox/Firewall.pm:601 src/EBox/Firewall.pm:650
 #: src/EBox/Firewall.pm:970 src/EBox/Firewall.pm:1164
-#: src/EBox/Firewall.pm:1189 src/EBox/Firewall.pm:1335
+#: src/EBox/Firewall.pm:1190 src/EBox/Firewall.pm:1336
 msgid "port"
 msgstr "puerto"
 
 #: src/EBox/Firewall.pm:965 src/EBox/Firewall.pm:1044
-#: src/EBox/Firewall.pm:1237 src/EBox/Firewall.pm:1330
+#: src/EBox/Firewall.pm:1238 src/EBox/Firewall.pm:1331
 msgid "Port cannot be set if no protocol is selected."
 msgstr "Si no se triga un protocolo no se puede establir o puerto."
 
-#: src/EBox/Firewall.pm:973 src/EBox/Firewall.pm:1339
+#: src/EBox/Firewall.pm:973 src/EBox/Firewall.pm:1340
 msgid "address"
 msgstr "adreza"
 
 #: src/EBox/Firewall.pm:1049 src/EBox/Firewall.pm:1055
-#: src/EBox/Firewall.pm:1242 src/EBox/Firewall.pm:1248
+#: src/EBox/Firewall.pm:1243 src/EBox/Firewall.pm:1249
 msgid "source port"
 msgstr "puerto d'orichen"
 
 #: src/EBox/Firewall.pm:1062 src/EBox/Firewall.pm:1065
-#: src/EBox/Firewall.pm:1255 src/EBox/Firewall.pm:1258
+#: src/EBox/Firewall.pm:1256 src/EBox/Firewall.pm:1259
 msgid "source address"
 msgstr "adreza d'orichen"
 
-#: src/EBox/Firewall.pm:1628
+#: src/EBox/Firewall.pm:1629
 msgid "Rule not found"
 msgstr "Regle no trobato"
 
-#: src/EBox/Firewall.pm:1708
+#: src/EBox/Firewall.pm:1709
 msgid "Firewall"
 msgstr "Cortafuegos"
 
-#: src/EBox/Firewall.pm:1712
+#: src/EBox/Firewall.pm:1713
 msgid "Packet Filter"
 msgstr "Colato de paquez"
 
-#: src/EBox/Firewall.pm:1715
+#: src/EBox/Firewall.pm:1716
 msgid "Redirects"
 msgstr "Reendrezeras"
 
@@ -255,23 +255,21 @@ msgid "Apply"
 msgstr "Aplicar"
 
 #: src/templates/filter.mas:35
-#, fuzzy
 msgid "Filtering rules for internet access"
 msgstr "Regles ta l'azeso á internet"
 
 #: src/templates/filter.mas:38
-#, fuzzy
 msgid ""
 "The link below will let you set up the default behavior of the packet "
 "filter.  These rules are meant to control access from internal network "
 "interfaces to external ones, they provide a simpler way to control access to "
 "the internet. You may also choose an object and set up its own rules"
 msgstr ""
-"O siguién enrastre li premitirá confegurar o comportamiento por defeuto d'o "
-"firewall. Tamién puede trigar un ocheto y confegurar regles y os serbizios á "
-"los que podrá azeder. Istos regles son pensatas ta controlar l'azeso dende "
-"os enterfazes d'o rete interno ta os d'o esterna. Istos furnen d'una traza "
-"más simpla de controlar l'azeso á internet."
+"O siguient enrastre li premitirá confegurar o comportamiento por defeuto d'o "
+"firewall. Tamién puede trigar un ocheto e confegurar os regles e os "
+"serbizios á los que podrá azeder. Istos regles son pensatos ta controlar "
+"l'azeso dende os interfazes d'o rete interno ta os d'o esterno. Istos "
+"ofrexen una traza más simpla de controlar l'azeso á internet."
 
 #: src/templates/filter.mas:42
 msgid "Configure default rules"
@@ -279,17 +277,15 @@ msgstr "Confegurar regles por defeuto"
 
 #: src/templates/filter.mas:47
 msgid "Filtering Rules between internal networks"
-msgstr ""
+msgstr "Regles de filtrato ta l'azeso á Internet"
 
 #: src/templates/filter.mas:54
-#, fuzzy
 msgid "Configure rules"
-msgstr "Confegurar regles por defeuto"
+msgstr "Confegurar regles"
 
 #: src/templates/filter.mas:71
-#, fuzzy
 msgid "Configure default rules related to eBox services"
-msgstr "Confegurar regles por defeuto"
+msgstr "Confegurar regles por defeuto relazionatos con os serbizios d'eBox"
 
 #: src/templates/filter.mas:86
 msgid "Configure rules for a particular object"
@@ -515,7 +511,7 @@ msgstr "baxar"
 
 #: src/templates/fwdrules.mas:412
 msgid "any"
-msgstr ""
+msgstr "cualsiquiera"
 
 #: src/templates/fwdruleedit.mas:15
 msgid "Enabled"

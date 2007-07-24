@@ -4,9 +4,9 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox 0.9.1\n"
+"Project-Id-Version: ebox 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:37+0200\n"
+"POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-03-28 23:15+0000\n"
 "Last-Translator: Kong <kong@noworkteam.org>\n"
 "Language-Team: none\n"
@@ -107,11 +107,17 @@ msgstr ""
 msgid "Disabled"
 msgstr ""
 
-#: src/EBox/Model/DataMultiTable.pm:168 src/EBox/Logs.pm:402
+#: src/EBox/Model/DataMultiTable.pm:168 src/EBox/Logs.pm:474
 msgid "Action"
 msgstr ""
 
-#: src/EBox/CGI/Logs/Index.pm:33 src/EBox/Logs.pm:389
+#: src/EBox/CGI/Logs/Controller/ConfigureLogDataTable.pm:35
+#: src/EBox/CGI/Logs/View/ConfigureLogDataTable.pm:36
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:133 src/EBox/Logs.pm:460
+msgid "Configure logs"
+msgstr ""
+
+#: src/EBox/CGI/Logs/Index.pm:33 src/EBox/Logs.pm:454
 msgid "Logs"
 msgstr ""
 
@@ -173,8 +179,8 @@ msgid "Backup was written to CD/DVD disk"
 msgstr ""
 
 #: src/EBox/CGI/EBox/Backup.pm:235 src/EBox/CGI/EBox/Backup.pm:306
-#: src/EBox/CGI/EBox/Backup.pm:319 src/EBox/CGI/EBox/ConfirmBackup.pm:197
-#: src/EBox/Backup.pm:1010
+#: src/EBox/CGI/EBox/Backup.pm:319 src/EBox/CGI/EBox/ConfirmBackup.pm:180
+#: src/EBox/Backup.pm:1023
 msgid "The input contains invalid characters"
 msgstr ""
 
@@ -235,61 +241,57 @@ msgstr ""
 msgid "The password must be at least 6 characters long"
 msgstr ""
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:34
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:33
 msgid "Configuration backups"
 msgstr ""
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:112
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:111
 msgid "Please confirm that you want to delete the following backup file:"
 msgstr ""
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:114 src/templates/backup.mas:221
-#: src/templates/backup.mas:223
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:113 src/templates/backup.mas:248
+#: src/templates/backup.mas:250
 msgid "Delete"
 msgstr "Ezabatu"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:121
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:173
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:120
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:156
 msgid "Please confirm that you want to restore using this backup file:"
 msgstr ""
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:123
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:145
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:175 src/templates/backup.mas:112
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:122
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:144
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:158 src/templates/backup.mas:115
 msgid "Restore"
 msgstr "Berreskuratu"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:133
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132
 msgid ""
 "Unable to find a correct backup disk. Please insert a backup disk and retry"
 msgstr ""
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:144
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:143
 msgid "Please confirm that you want to restore using this backup disk:"
 msgstr ""
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:162
-msgid "Invalid backup file."
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:183
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:166
 msgid ""
 "Please confirm that you want to write this backup file to a CD or DVD disk:"
 msgstr ""
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:185
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:168
 msgid "Write to disk"
 msgstr ""
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:226
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:209
 msgid "Configuration backup"
 msgstr ""
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:229
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:212
 msgid "Full data and configuration backup"
 msgstr ""
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:232
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:215
 msgid "Bug-report configuration dump"
 msgstr ""
 
@@ -317,6 +319,22 @@ msgid ""
 "relevant information can be found in the logs."
 msgstr ""
 
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:109
+msgid "Domain"
+msgstr ""
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:119
+msgid "Enabled"
+msgstr ""
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:141
+msgid "Enable/disable logging per-module basis"
+msgstr ""
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:143
+msgid "logs"
+msgstr ""
+
 #: src/EBox/Apache.pm:49
 msgid ""
 "You must set the httpd_serverroot variable in the ebox configuration file"
@@ -330,42 +348,46 @@ msgstr ""
 msgid "The httpd_init script you configured is not executable."
 msgstr ""
 
-#: src/EBox/Apache.pm:189 src/EBox/Apache.pm:198
+#: src/EBox/Apache.pm:191 src/EBox/Apache.pm:200
 msgid "port"
 msgstr "ataka"
 
-#: src/EBox/Logs.pm:231
+#: src/EBox/Logs.pm:296
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr ""
 
-#: src/EBox/Logs.pm:246
+#: src/EBox/Logs.pm:311
 #, perl-brace-format
 msgid "Field {field} does not exist"
 msgstr ""
 
-#: src/EBox/Logs.pm:399 src/templates/confirm-backup.mas:28
-#: src/templates/backup.mas:173 src/templates/finish.mas:23
+#: src/EBox/Logs.pm:457
+msgid "Query logs"
+msgstr ""
+
+#: src/EBox/Logs.pm:471 src/templates/confirm-backup.mas:28
+#: src/templates/backup.mas:193 src/templates/finish.mas:23
 msgid "Date"
 msgstr ""
 
-#: src/EBox/Logs.pm:400
+#: src/EBox/Logs.pm:472
 msgid "Client Address"
 msgstr ""
 
-#: src/EBox/Logs.pm:401 src/templates/finish.mas:25
+#: src/EBox/Logs.pm:473 src/templates/finish.mas:25
 msgid "Module"
 msgstr ""
 
-#: src/EBox/Logs.pm:403
+#: src/EBox/Logs.pm:475
 msgid "Params"
 msgstr ""
 
-#: src/EBox/Logs.pm:404
+#: src/EBox/Logs.pm:476
 msgid "Committed"
 msgstr ""
 
-#: src/EBox/Logs.pm:409
+#: src/EBox/Logs.pm:481
 msgid "Admin"
 msgstr ""
 
@@ -373,84 +395,84 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
-#: src/EBox/Backup.pm:235
+#: src/EBox/Backup.pm:236
 msgid "Could not create backup archive"
 msgstr ""
 
-#: src/EBox/Backup.pm:242
+#: src/EBox/Backup.pm:243
 msgid "Could not append data to backup archive"
 msgstr ""
 
-#: src/EBox/Backup.pm:348 src/EBox/Backup.pm:993
+#: src/EBox/Backup.pm:349 src/EBox/Backup.pm:1006
 msgid "Insert a backup disc and try again, please"
 msgstr ""
 
-#: src/EBox/Backup.pm:389
+#: src/EBox/Backup.pm:390
 msgid "Unknown"
 msgstr ""
 
-#: src/EBox/Backup.pm:422
+#: src/EBox/Backup.pm:423
 #, perl-brace-format
 msgid "Could not extract the requested backup files: {files}"
 msgstr ""
 
-#: src/EBox/Backup.pm:425 src/EBox/Backup.pm:826
+#: src/EBox/Backup.pm:426 src/EBox/Backup.pm:828
 msgid "Could not unpack the backup"
 msgstr ""
 
-#: src/EBox/Backup.pm:562 src/EBox/SysInfo.pm:120
+#: src/EBox/Backup.pm:563 src/EBox/SysInfo.pm:120
 msgid "Backup"
 msgstr ""
 
-#: src/EBox/Backup.pm:592
+#: src/EBox/Backup.pm:593
 msgid ""
 "Some modules has not saved changes. Before doing the backup you must save  "
 "or discard them"
 msgstr ""
 
-#: src/EBox/Backup.pm:655
+#: src/EBox/Backup.pm:656
 msgid "Incorrect or corrupt backup file"
 msgstr ""
 
-#: src/EBox/Backup.pm:684
+#: src/EBox/Backup.pm:685
 msgid "The backup file is corrupt: could not open archive"
 msgstr ""
 
-#: src/EBox/Backup.pm:696
+#: src/EBox/Backup.pm:697
 msgid "The backup file is corrupt: could not open backup checksum"
 msgstr ""
 
-#: src/EBox/Backup.pm:703
+#: src/EBox/Backup.pm:704
 msgid "The backup file is corrupt."
 msgstr ""
 
-#: src/EBox/Backup.pm:721
+#: src/EBox/Backup.pm:722
 msgid ""
 "The backup archive has a invalid type. Maybe the file is corrupt or you are "
 "using a incompatible eBox version"
 msgstr ""
 
-#: src/EBox/Backup.pm:727
+#: src/EBox/Backup.pm:728
 msgid ""
 "The archive does not contain a full backup, that made a full restore "
 "impossibe. A configuration recovery  may be possible"
 msgstr ""
 
-#: src/EBox/Backup.pm:761
+#: src/EBox/Backup.pm:763
 #, perl-brace-format
 msgid ""
 "There in not enough space left in the hard disk to complete the restore "
 "proccess. {size} Kb required. Free sufficient space and retry"
 msgstr ""
 
-#: src/EBox/Backup.pm:793
+#: src/EBox/Backup.pm:795
 #, perl-brace-format
 msgid ""
 "Cannot rename backup file from {newName} to his original name {name}. Error "
 "message: {error}"
 msgstr ""
 
-#: src/EBox/Backup.pm:943
+#: src/EBox/Backup.pm:956
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
@@ -674,11 +696,11 @@ msgid "Exit"
 msgstr ""
 
 #: src/templates/confirm-backup.mas:37 src/templates/backup.mas:54
-#: src/templates/backup.mas:171
+#: src/templates/backup.mas:189
 msgid "Description"
 msgstr ""
 
-#: src/templates/confirm-backup.mas:46
+#: src/templates/confirm-backup.mas:46 src/templates/backup.mas:191
 msgid "Type"
 msgstr ""
 
@@ -748,80 +770,93 @@ msgid "Restore backup from file"
 msgstr ""
 
 #: src/templates/backup.mas:94
-msgid "You can  upload a backup file from your computer"
+msgid "You can  upload a backup file from your computer. When uploading"
 msgstr ""
 
-#: src/templates/backup.mas:102
+#: src/templates/backup.mas:105
 msgid "Backup file"
 msgstr ""
 
-#: src/templates/backup.mas:121
+#: src/templates/backup.mas:124
 msgid "Restore backup from disk"
 msgstr ""
 
-#: src/templates/backup.mas:124
+#: src/templates/backup.mas:127
 msgid ""
 "You can restore from a backup disk. Please insert the disk before clicking "
 "the button"
 msgstr ""
 
-#: src/templates/backup.mas:129
+#: src/templates/backup.mas:132
 msgid ""
 "'Restore backup from CD/DVD disk' is disabled, because eBox could not find "
 "any reader drive"
 msgstr ""
 
-#: src/templates/backup.mas:140
+#: src/templates/backup.mas:143
 msgid "Restore from disk"
 msgstr ""
 
-#: src/templates/backup.mas:162
+#: src/templates/backup.mas:167
+msgid "Full"
+msgstr ""
+
+#: src/templates/backup.mas:169
+#, fuzzy
+msgid "Configuration only"
+msgstr "Konfigurazioa gorde"
+
+#: src/templates/backup.mas:171
+msgid "Unknown type"
+msgstr ""
+
+#: src/templates/backup.mas:180
 msgid ""
 "'Write backup to CD/DVD disk' is disabled, because eBox could not find any "
 "recorder drive"
 msgstr ""
 
-#: src/templates/backup.mas:166
+#: src/templates/backup.mas:184
 msgid "Backups' list"
 msgstr ""
 
-#: src/templates/backup.mas:175
+#: src/templates/backup.mas:195
 msgid "Actions"
 msgstr ""
 
-#: src/templates/backup.mas:196
+#: src/templates/backup.mas:223
 msgid "Restore configuration using this file"
 msgstr ""
 
-#: src/templates/backup.mas:198
+#: src/templates/backup.mas:225
 msgid "Restore from backup"
 msgstr ""
 
-#: src/templates/backup.mas:204 src/templates/backup.mas:206
+#: src/templates/backup.mas:231 src/templates/backup.mas:233
 msgid "Download"
 msgstr ""
 
-#: src/templates/backup.mas:213 src/templates/backup.mas:215
+#: src/templates/backup.mas:240 src/templates/backup.mas:242
 msgid "Write backup to CD/DVD disk"
 msgstr ""
 
-#: src/templates/backup.mas:236
+#: src/templates/backup.mas:264
 msgid "download"
 msgstr ""
 
-#: src/templates/backup.mas:239
+#: src/templates/backup.mas:267
 msgid "write into disk"
 msgstr ""
 
-#: src/templates/backup.mas:240
+#: src/templates/backup.mas:268
 msgid "write into disk (disabled)"
 msgstr ""
 
-#: src/templates/backup.mas:243
+#: src/templates/backup.mas:271
 msgid "restore"
 msgstr ""
 
-#: src/templates/backup.mas:246
+#: src/templates/backup.mas:274
 msgid "delete"
 msgstr ""
 

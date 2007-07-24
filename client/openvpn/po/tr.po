@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-openvpn 0.9.1\n"
+"Project-Id-Version: ebox-openvpn 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:39+0200\n"
+"POT-Creation-Date: 2007-07-24 12:13+0200\n"
 "PO-Revision-Date: 2007-05-13 01:36+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -21,16 +21,16 @@ msgstr ""
 #: src/EBox/CGI/Index.pm:16 src/EBox/CGI/ClientBundle.pm:19
 #: src/EBox/CGI/DeleteClient.pm:15 src/EBox/CGI/CreateClient.pm:18
 #: src/EBox/CGI/Delete.pm:15 src/EBox/CGI/Create.pm:15
-#: src/EBox/OpenVPN.pm:1128
+#: src/EBox/OpenVPN.pm:1142
 msgid "OpenVPN"
 msgstr "OpenVPN"
 
-#: src/EBox/CGI/EditClient.pm:154
+#: src/EBox/CGI/EditClient.pm:153
 #, perl-brace-format
 msgid "Client {name} configuration updated"
 msgstr "{name} istemcisinin ayarlarının güncellendi"
 
-#: src/EBox/CGI/EditClient.pm:158 src/EBox/CGI/Edit.pm:147
+#: src/EBox/CGI/EditClient.pm:157 src/EBox/CGI/Edit.pm:147
 msgid "There are no changes to be saved"
 msgstr "Kaydolacak değişiklik mevcut değil"
 
@@ -84,10 +84,10 @@ msgstr "Sunucu"
 msgid "Server {name} removed"
 msgstr "{name} sunucusu kaldırıldı"
 
-#: src/EBox/CGI/Create.pm:95
+#: src/EBox/CGI/Create.pm:98
 #, perl-brace-format
-msgid "New server {name} created"
-msgstr "Yeni {name} sunucusu oluşturuldu"
+msgid "New server {name} created. Now you can add advertised routes"
+msgstr ""
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:30
 #: src/EBox/OpenVPN/Client.pm:315 src/templates/clientProperties.mas:18
@@ -271,11 +271,11 @@ msgstr "Tüm harici arabirimler"
 msgid "Local address"
 msgstr "Yerel adres"
 
-#: src/EBox/OpenVPN/Server.pm:847 src/templates/serverProperties.mas:59
+#: src/EBox/OpenVPN/Server.pm:847 src/templates/serverProperties.mas:60
 msgid "Port"
 msgstr "Port"
 
-#: src/EBox/OpenVPN/Server.pm:850 src/templates/serverProperties.mas:61
+#: src/EBox/OpenVPN/Server.pm:850 src/templates/serverProperties.mas:62
 msgid "VPN subnet"
 msgstr "VPN alt ağı"
 
@@ -335,11 +335,11 @@ msgstr ""
 "{name} bir OpenVPN daemonu için geçesiz bir isim. Sadece alfanümerikler ve "
 "alt çizgi kullanılabilir."
 
-#: src/EBox/OpenVPN.pm:1144
+#: src/EBox/OpenVPN.pm:1158
 msgid "OpenVPN daemons"
 msgstr "OpenVPN daemonları"
 
-#: src/EBox/OpenVPN.pm:1174
+#: src/EBox/OpenVPN.pm:1188
 msgid "OpenVPN service"
 msgstr "OpenVPN servisi"
 
@@ -399,34 +399,36 @@ msgstr "Genel isimle istemci kimlik doğrulaması"
 msgid ""
 "Only clients with this value as full common name's prefix will be authorized"
 msgstr ""
+"Tam genel ismin öneki olan sadece bu değerdeki istemciler "
+"yetkilendirilecektir."
 
 #: src/templates/serverProperties.mas:48
 msgid "Interface to listen on"
 msgstr "Dinlenilecek arabirim"
 
-#: src/templates/serverProperties.mas:51
+#: src/templates/serverProperties.mas:52
 msgid ""
 "The server will be listen only in all external interfaces or only in the "
 "interface selected"
 msgstr "Sunucu tüm harici veya seçilen arabirimleri dinleyecek"
 
-#: src/templates/serverProperties.mas:57 src/templates/clientProperties.mas:13
+#: src/templates/serverProperties.mas:58 src/templates/clientProperties.mas:13
 msgid "Active"
 msgstr "Aktif"
 
-#: src/templates/serverProperties.mas:63
+#: src/templates/serverProperties.mas:64
 msgid "VPN subnet netmask"
 msgstr "VPN alt ağ maskesi"
 
-#: src/templates/serverProperties.mas:65
+#: src/templates/serverProperties.mas:66
 msgid "Protocol"
 msgstr "Protokol"
 
-#: src/templates/serverProperties.mas:77
+#: src/templates/serverProperties.mas:79
 msgid "Allow eBox-to-eBox tunnels"
 msgstr "eBox-dan-eBox'a tünellerine izin ver"
 
-#: src/templates/serverProperties.mas:80
+#: src/templates/serverProperties.mas:82
 msgid ""
 "If you want to create a tunnel between two eBox, you will need this option "
 "to be able to connect to the network in the client side"
@@ -434,15 +436,15 @@ msgstr ""
 "Eğer iki eBox arasında bir tünel oluşturmak istiyorsanız istemci tarafından "
 "ağa bağlanmak için bu seçeneğe ihtiyacınız var"
 
-#: src/templates/serverProperties.mas:84
+#: src/templates/serverProperties.mas:86
 msgid "Allow client-to-client connections"
 msgstr "İstemci-den-istemciye bağlantılarına izin ver"
 
-#: src/templates/serverProperties.mas:87
+#: src/templates/serverProperties.mas:89
 msgid "Allow clients to connect each other within the VPN"
 msgstr "VPN içinde birbirlerine bağlanması için istemcilere izin ver"
 
-#: src/templates/serverProperties.mas:93
+#: src/templates/serverProperties.mas:95
 msgid "Server name"
 msgstr "Sunucu ismi"
 
@@ -553,7 +555,7 @@ msgstr "Düzenle"
 msgid "delete"
 msgstr "Sil"
 
-#: src/templates/clientBundle.mas:17
+#: src/templates/clientBundle.mas:16
 msgid ""
 "This certificate will be used by the client to authenticate itself to the "
 "server"
@@ -583,26 +585,31 @@ msgstr ""
 "Bir OpenVPN istemcisi kurmak için tüm gerekli dosyalarla beraber bir arşiv "
 "indirebilirsiniz"
 
-#: src/templates/clientProperties.mas:29
+#: src/templates/clientProperties.mas:21
+#, fuzzy
+msgid "Server's protocol"
+msgstr "Sunucunun portu"
+
+#: src/templates/clientProperties.mas:31
 msgid "Server's Port"
 msgstr "Sunucunun Portu"
 
-#: src/templates/clientProperties.mas:36
+#: src/templates/clientProperties.mas:38
 msgid "CA's certificate"
 msgstr "CA sertifikası"
 
-#: src/templates/clientProperties.mas:38
+#: src/templates/clientProperties.mas:40
 msgid ""
 "Certificate of the Certification Authority. Must be the same used in the "
 "server"
 msgstr ""
 "Sertifikasyon Yetkisi için sertifika. Sunucuda kullanılan ile aynı olmalıdır"
 
-#: src/templates/clientProperties.mas:44
+#: src/templates/clientProperties.mas:46
 msgid "Client's certificate"
 msgstr "İstemcinin sertifikası"
 
-#: src/templates/clientProperties.mas:46
+#: src/templates/clientProperties.mas:48
 msgid ""
 "Certificate used by the client to identify itself. It must be signed by the "
 "Certification Authority"
@@ -610,17 +617,20 @@ msgstr ""
 "Kendisini tanımlaması için istemci tarafından kullanılan sertifika. "
 "Sertifikasyon Yetkilisi tarafından kayıt edilmeli"
 
-#: src/templates/clientProperties.mas:52
+#: src/templates/clientProperties.mas:54
 msgid "Client's private key"
 msgstr "İstemcinin özel anahtarı"
 
-#: src/templates/clientProperties.mas:54
+#: src/templates/clientProperties.mas:56
 msgid "Private key used to create the client's certificate"
 msgstr "İstemcinin sertifikasını ouşturmak için kullanılan özel anahtar"
 
-#: src/templates/clientProperties.mas:59
+#: src/templates/clientProperties.mas:61
 msgid "Client name"
 msgstr "İstemci ismi"
+
+#~ msgid "New server {name} created"
+#~ msgstr "Yeni {name} sunucusu oluşturuldu"
 
 #~ msgid ""
 #~ "Only clients with this value as full common name's prefix will will be "

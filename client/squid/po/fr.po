@@ -5,9 +5,9 @@
 # Ignacio Correas <icorreas@warp.es>, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-squid 0.9.1\n"
+"Project-Id-Version: ebox-squid 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:41+0200\n"
+"POT-Creation-Date: 2007-07-24 12:14+0200\n"
 "PO-Revision-Date: 2007-04-12 11:44+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -220,14 +220,13 @@ msgid "Allow"
 msgstr "Autoriser"
 
 #: src/EBox/Squid.pm.in:1203 src/templates/index.mas:141
-#: src/templates/index.mas:144 src/templates/domains.mas:18
-#: src/templates/policy.mas:55 src/templates/policy.mas:59
-#: src/templates/policy.mas:119 src/templates/policy.mas:123
+#: src/templates/index.mas:144 src/templates/policy.mas:55
+#: src/templates/policy.mas:59 src/templates/policy.mas:119
+#: src/templates/policy.mas:123
 msgid "Filter"
 msgstr "Filtre"
 
 #: src/EBox/Squid.pm.in:1206 src/templates/index.mas:120
-#: src/templates/domains.mas:17
 msgid "Global policy"
 msgstr "Politique globale"
 
@@ -248,7 +247,7 @@ msgid "Extensions filter"
 msgstr "Filtre d'extensions"
 
 #: src/EBox/Squid.pm.in:1235
-msgid "Mime Type filter"
+msgid "MIME Type filter"
 msgstr "Filtre de type MIME"
 
 #: src/EBox/Squid.pm.in:1237
@@ -351,11 +350,9 @@ msgstr "Très strict"
 msgid "Change"
 msgstr "Modifier"
 
-#: src/templates/domains.mas:16
-#, perl-brace-format
-msgid "This list will only take effect if {globalPolicy} is set to {filter}"
-msgstr ""
-"Cette liste ne prendra effet que si {globalPolicy} est défini à {filter}"
+#: src/templates/domains.mas:18
+msgid "filter"
+msgstr "Filtre"
 
 #: src/templates/domains.mas:29
 msgid "Introduce domains in this way: "
@@ -459,6 +456,10 @@ msgstr "Déplacez les objets choisis à la colonne interdite"
 msgid "Move selected objects to the unfiltered column"
 msgstr "Déplacez les objets choisis à la colonne non filtrée"
 
+#~ msgid "This list will only take effect if {globalPolicy} is set to {filter}"
+#~ msgstr ""
+#~ "Cette liste ne prendra effet que si {globalPolicy} est défini à {filter}"
+
 #, fuzzy
 #~ msgid "Allow all"
 #~ msgstr "Autoriser"
@@ -469,3 +470,6 @@ msgstr "Déplacez les objets choisis à la colonne non filtrée"
 
 #~ msgid "Content filter disabled"
 #~ msgstr "Filtre de contents désactivé"
+
+#~ msgid "Mime Type filter"
+#~ msgstr "Filtre de type MIME"

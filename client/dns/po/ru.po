@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dns 0.9.1\n"
+"Project-Id-Version: ebox-dns 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-06 09:37+0200\n"
+"POT-Creation-Date: 2007-07-24 12:11+0200\n"
 "PO-Revision-Date: 2007-04-11 16:23+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -20,72 +20,72 @@ msgstr ""
 #: src/EBox/CGI/Edit.pm:30 src/EBox/CGI/Edit.pm:40 src/EBox/CGI/Index.pm:30
 #: src/EBox/CGI/Index.pm:40 src/EBox/DNS.pm.in:363 src/EBox/DNS.pm.in:376
 msgid "DNS"
-msgstr ""
+msgstr "DNS"
 
 #: src/EBox/CGI/Edit.pm:43
 msgid "domain"
-msgstr ""
+msgstr "домен"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
-msgstr ""
+msgstr "статус модуля"
 
 #: src/EBox/CGI/AddHostname.pm:41 src/EBox/CGI/DelDomain.pm:41
 #: src/EBox/CGI/DelAlias.pm:41 src/EBox/CGI/AddDomain.pm:41
 #: src/EBox/CGI/AddAlias.pm:41 src/EBox/CGI/DelHostname.pm:41
 msgid "domain name"
-msgstr ""
+msgstr "доменное имя"
 
 #: src/EBox/CGI/AddHostname.pm:45 src/EBox/CGI/DelAlias.pm:45
 #: src/EBox/CGI/AddAlias.pm:45 src/EBox/CGI/DelHostname.pm:45
 msgid "host name"
-msgstr ""
+msgstr "имя узла"
 
 #: src/EBox/CGI/AddHostname.pm:46 src/EBox/DNS.pm.in:132
 msgid "IP address"
-msgstr ""
+msgstr "IP-адрес"
 
 #: src/EBox/CGI/DelAlias.pm:46 src/EBox/CGI/AddAlias.pm:46
 #: src/EBox/DNS.pm.in:195 src/EBox/DNS.pm.in:200 src/templates/edit.mas:73
 #: src/templates/edit.mas:98
 msgid "Alias"
-msgstr ""
+msgstr "Псевдоним"
 
 #: src/EBox/DNS.pm.in:54 src/EBox/DNS.pm.in:115
 msgid "Domain"
-msgstr ""
+msgstr "Домен"
 
 #: src/EBox/DNS.pm.in:67 src/EBox/DNS.pm.in:70
 msgid "Domain name"
-msgstr ""
+msgstr "Доменное имя"
 
 #: src/EBox/DNS.pm.in:74
 #, perl-brace-format
 msgid "The domain '{name}' is already used. Please choose another domain name"
-msgstr ""
+msgstr "Домен '{name}' уже используется. Выберите другое доменное имя"
 
 #: src/EBox/DNS.pm.in:130 src/EBox/DNS.pm.in:136 src/EBox/DNS.pm.in:191
 #: src/templates/edit.mas:22
 msgid "Host name"
-msgstr ""
+msgstr "Имя узла"
 
 #: src/EBox/DNS.pm.in:134
 msgid "Host name can't contain dots"
-msgstr ""
+msgstr "Имя узла не может содержать точек"
 
 #: src/EBox/DNS.pm.in:140
 #, perl-brace-format
 msgid "The host name '{name}' is already used. Please choose another host name"
-msgstr ""
+msgstr "Имя узла '{name}' уже используется. Выберите другое имя узла"
 
 #: src/EBox/DNS.pm.in:143
 #, perl-brace-format
 msgid "The IP address '{ip}' is already used. Please choose another IP address"
-msgstr ""
+msgstr "IP-адрес '{ip}' уже используется. Выберите другой IP-адрес"
 
 #: src/EBox/DNS.pm.in:198
 msgid "An alias can't contain dots"
-msgstr ""
+msgstr "Псевдоним не может содержать точек"
 
 #: src/EBox/DNS.pm.in:205
 #, perl-brace-format
@@ -93,6 +93,7 @@ msgid ""
 "The alias '{name}' is already used as a host name. Please choose another "
 "alias"
 msgstr ""
+"Псевдоним '{name}' уже используется как имя узла. Выберите другой псевдоним"
 
 #: src/EBox/DNS.pm.in:209
 #, perl-brace-format
@@ -100,19 +101,21 @@ msgid ""
 "The alias '{name}' is already used as alias in the host '{host}'. Please "
 "choose another alias"
 msgstr ""
+"Псевдоним '{name}' уже используется как псевдоним узла '{host}'. Выберите "
+"другой псевдоним"
 
 #: src/templates/edit.mas:12
 #, perl-brace-format
 msgid "Host list for domain {domain}"
-msgstr ""
+msgstr "Список узлов домена {domain}"
 
 #: src/templates/edit.mas:18
 msgid "IP"
-msgstr ""
+msgstr "IP"
 
 #: src/templates/edit.mas:26 src/templates/index.mas:27
 msgid "Action"
-msgstr ""
+msgstr "Действие"
 
 #: src/templates/edit.mas:44 src/templates/edit.mas:46
 #: src/templates/edit.mas:48 src/templates/edit.mas:84
@@ -120,34 +123,34 @@ msgstr ""
 #: src/templates/index.mas:41 src/templates/index.mas:43
 #: src/templates/index.mas:45
 msgid "Add"
-msgstr ""
+msgstr "Добавить"
 
 #: src/templates/edit.mas:61 src/templates/edit.mas:63
 #: src/templates/edit.mas:107 src/templates/edit.mas:109
 #: src/templates/index.mas:62 src/templates/index.mas:64
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: src/templates/edit.mas:126 src/templates/index.mas:82
 msgid "delete"
-msgstr ""
+msgstr "удалить"
 
 #: src/templates/index.mas:12
 msgid "DNS service status"
-msgstr ""
+msgstr "Статус службы DNS"
 
 #: src/templates/index.mas:17
 msgid "Domain list"
-msgstr ""
+msgstr "Список доменов"
 
 #: src/templates/index.mas:23
 msgid "Name"
-msgstr ""
+msgstr "Имя"
 
 #: src/templates/index.mas:56 src/templates/index.mas:57
 msgid "Edit"
-msgstr ""
+msgstr "Редактировать"
 
 #: src/templates/index.mas:76
 msgid "edit"
-msgstr ""
+msgstr "редактировать"
