@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:12+0200\n"
+"POT-Creation-Date: 2007-07-24 15:21+0200\n"
 "PO-Revision-Date: 2007-02-14 12:22+0000\n"
 "Last-Translator: Steven Pauwels <stevenpauwels@gmail.com>\n"
 "Language-Team: none\n"
@@ -15,406 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 0.10.1\n"
-
-#: src/EBox/Types/Service.pm:131 src/EBox/Types/Service.pm:140
-msgid "Service"
-msgstr "Dienst"
-
-#: src/EBox/Types/Service.pm:291 src/templates/logs/index.mas:206
-msgid "Any"
-msgstr "Elk"
-
-#: src/EBox/Backup/RootCommands.pm:26
-#, perl-brace-format
-msgid ""
-"This system need {program} installed to perform the requested action. Please "
-"install it and retry"
-msgstr ""
-"Het systeem vereist de installatie van {program} om de gevraagde actie uit "
-"te voeren. Gelieve te installeren en opnieuw te proberen."
-
-#: src/EBox/Backup/OpticalDiscDrives.pm:31
-#, perl-brace-format
-msgid ""
-"Unable to find {path}. Make sure that the cdrom driver is compiled in your "
-"kerner or loaded as module"
-msgstr ""
-"Kan {path} niet vinden. Kijk na of de cdrom driver in de kernel of als een "
-"module geladen is."
-
-#: src/EBox/Backup/OpticalDiscDrives.pm:34
-#, perl-brace-format
-msgid "Unable to read {path}."
-msgstr "Kan {path} niet lezen."
-
-#: src/EBox/Backup/FileBurner.pm:110
-msgid "This system does not have a recorder drive"
-msgstr "Er is geen schijf brander gevonden op dit systeem"
-
-#: src/EBox/Backup/FileBurner.pm:122
-msgid "No disk found. Please insert disk and retry"
-msgstr "Geen schijf gevonden. Laad een schijf en probeer opnieuw"
-
-#: src/EBox/Backup/FileBurner.pm:130
-msgid "{media } is a unsupported media type"
-msgstr "{media } is van een niet ondersteund type"
-
-#: src/EBox/Backup/FileBurner.pm:144
-#, perl-brace-format
-msgid "{device} cannot be found"
-msgstr "{device} kan niet gevonden worden"
-
-#: src/EBox/Backup/FileBurner.pm:153
-#, perl-brace-format
-msgid "{device} is mounted. Please, remove the disk"
-msgstr "{device} is geladen. Verwijder de schijf AUB"
-
-#: src/EBox/Backup/FileBurner.pm:177
-#, perl-brace-format
-msgid "Device {dev} cannot write media of type {media}"
-msgstr "Toestel {dev} kan niet schijven op {media} schijven"
-
-#: src/EBox/Backup/FileBurner.pm:192
-msgid "The media has not sufficient capabilty for the data"
-msgstr "De media heeft niet genoeg capaciteit voor de gegevens"
-
-#: src/EBox/Backup/FileBurner.pm:283
-#, perl-brace-format
-msgid "No blanking method for {media}  defined. Cannot erase it"
-msgstr "Geen wis-methode voor {media} gedefinieerd. Kan niet wissen"
-
-#: src/EBox/Backup/OpticalDisc.pm:126
-msgid "Unable to recognize the mounted DVD media"
-msgstr "Kan de geladen DVD media niet herkennen"
-
-#: src/EBox/Backup/OpticalDisc.pm:165
-msgid "Unable to recognize the mounted CD media"
-msgstr "Kan de geladen CD media niet herkennen"
-
-#: src/EBox/Summary/Status.pm:44
-msgid "Restart"
-msgstr "Herstarten"
-
-#: src/EBox/Summary/Status.pm:47
-msgid "Running"
-msgstr "Ingeschakeld"
-
-#: src/EBox/Summary/Status.pm:50
-msgid "Stopped"
-msgstr "Stoppen"
-
-#: src/EBox/Summary/Status.pm:52
-msgid "Start"
-msgstr "Start"
-
-#: src/EBox/Summary/Status.pm:54
-msgid "Disabled"
-msgstr "Uitgeschakeld"
-
-#: src/EBox/Model/DataMultiTable.pm:168 src/EBox/Logs.pm:474
-msgid "Action"
-msgstr "Actie"
-
-#: src/EBox/CGI/Logs/Controller/ConfigureLogDataTable.pm:35
-#: src/EBox/CGI/Logs/View/ConfigureLogDataTable.pm:36
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:133 src/EBox/Logs.pm:460
-msgid "Configure logs"
-msgstr ""
-
-#: src/EBox/CGI/Logs/Index.pm:33 src/EBox/Logs.pm:454
-msgid "Logs"
-msgstr "Logs"
-
-#: src/EBox/CGI/FirstTime/Index.pm:30
-msgid "Welcome to eBox"
-msgstr "Welkom bij eBox"
-
-#: src/EBox/CGI/FirstTime/Index.pm:68 src/EBox/CGI/FirstTime/Passwd.pm:72
-msgid "eBox was already initialized"
-msgstr "Ebox is reeds geïnitialiseerd"
-
-#: src/EBox/CGI/FirstTime/Passwd.pm:38
-msgid "Set password"
-msgstr "Paswoord instellen"
-
-#: src/EBox/CGI/FirstTime/Passwd.pm:63
-msgid "Default password was already changed"
-msgstr "Het standaard paswoord is reeds gewijzigd"
-
-#: src/EBox/CGI/FirstTime/Passwd.pm:88
-msgid "New passwords do not match"
-msgstr "Nieuwe paswoorden komen niet overeen"
-
-#: src/EBox/CGI/FirstTime/Passwd.pm:92 src/EBox/CGI/EBox/Password.pm:62
-msgid "The password was changed successfully."
-msgstr "Het paswoord is succesvol gewijzigd."
-
-#: src/EBox/CGI/Login/Index.pm:61
-msgid "Incorrect password"
-msgstr "Fout Paswoord"
-
-#: src/EBox/CGI/Login/Index.pm:64
-msgid "For security reasons your session has expired due to inactivity"
-msgstr "Om veiligheidsredenen is uw sessie door inactiviteit verlopen"
-
-#: src/EBox/CGI/Login/Index.pm:67
-msgid "You have been logged out because a new session has been opened"
-msgstr "Je bent uitgelogd omdat er een nieuwe sessie is geopend"
-
-#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:40
-msgid "Logout"
-msgstr "Uitloggen"
-
-#: src/EBox/CGI/EBox/Backup.pm:34
-msgid "System backups"
-msgstr "Systeem backups"
-
-#: src/EBox/CGI/EBox/Backup.pm:193
-#, perl-brace-format
-msgid "Unknown backup mode: {mode}"
-msgstr "Ongekende backup mode: {mode}"
-
-#: src/EBox/CGI/EBox/Backup.pm:202
-msgid "Backup done"
-msgstr "Backup klaar"
-
-#: src/EBox/CGI/EBox/Backup.pm:215
-msgid "Backup was written to CD/DVD disk"
-msgstr "Backup is naar CD/DVD geschreven"
-
-#: src/EBox/CGI/EBox/Backup.pm:235 src/EBox/CGI/EBox/Backup.pm:306
-#: src/EBox/CGI/EBox/Backup.pm:319 src/EBox/CGI/EBox/ConfirmBackup.pm:180
-#: src/EBox/Backup.pm:1023
-msgid "The input contains invalid characters"
-msgstr "De ingegeven tekst bevat ongeldige tekens"
-
-#: src/EBox/CGI/EBox/Backup.pm:277
-#, perl-brace-format
-msgid "Unknown restore mode: {mode}"
-msgstr "Ongekende herstel  mode: {mode}"
-
-#: src/EBox/CGI/EBox/Backup.pm:288
-msgid ""
-"Full backup restored succesfully. You should now review your configuration "
-"and save it if you want to keep it."
-msgstr ""
-"Volledige backup succesvol hersteld, kijk de configuratie na en sla op als "
-"je ze wenst te behouden."
-
-#: src/EBox/CGI/EBox/Backup.pm:293
-msgid ""
-"Configuration restored succesfully, you should now review it and save it if "
-"you want to keep it."
-msgstr ""
-"Configuratie succesvol hersteld, kijk de configuratie na en sla op als je ze "
-"wenst te behouden."
-
-#: src/EBox/CGI/EBox/RestartService.pm:48
-msgid "module name"
-msgstr "naam module"
-
-#: src/EBox/CGI/EBox/RestartService.pm:52
-msgid "The module was restarted correctly."
-msgstr "De module is correct herstart."
-
-#: src/EBox/CGI/EBox/Halt.pm:30
-msgid "Halt or reboot"
-msgstr "Uitschakelen of herstarten"
-
-#: src/EBox/CGI/EBox/Halt.pm:43
-msgid "eBox is going down for halt"
-msgstr "eBox wordt onbereikbaar door uitschakelen"
-
-#: src/EBox/CGI/EBox/Halt.pm:46
-msgid "eBox is going down for reboot"
-msgstr "eBox wordt onbereikbaar door herstart"
-
-#: src/EBox/CGI/EBox/Bug.pm:29 src/EBox/SysInfo.pm:126
-msgid "Bug report"
-msgstr "Fout rapport"
-
-#: src/EBox/CGI/EBox/General.pm:30
-msgid "General configuration"
-msgstr "Algemene configuratie"
-
-#: src/EBox/CGI/EBox/Password.pm:49
-msgid "Incorrect password."
-msgstr "Ongeldig paswoord."
-
-#: src/EBox/CGI/EBox/Password.pm:54
-msgid "New passwords do not match."
-msgstr "Nieuwe paswoorden komen niet overeen."
-
-#: src/EBox/CGI/EBox/Password.pm:58
-msgid "The password must be at least 6 characters long"
-msgstr "Het nieuwe paswoord moet minstens 6 tekens lang zijn"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:33
-msgid "Configuration backups"
-msgstr "Configuratie backups"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:111
-msgid "Please confirm that you want to delete the following backup file:"
-msgstr "Bevestig AUB dat je het volgende backup-bestand wil verwijderen:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:113 src/templates/backup.mas:248
-#: src/templates/backup.mas:250
-msgid "Delete"
-msgstr "Verwijderen"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:120
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:156
-msgid "Please confirm that you want to restore using this backup file:"
-msgstr ""
-"Bevestig AUB dat je de bestanden van dit backup bestand wenst te herstellen:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:122
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:144
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:158 src/templates/backup.mas:115
-msgid "Restore"
-msgstr "Herstellen"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132
-msgid ""
-"Unable to find a correct backup disk. Please insert a backup disk and retry"
-msgstr ""
-"Kan geen juiste backup schijf vinden. PLaats een backup schijf en probeer "
-"opnieuw"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:143
-msgid "Please confirm that you want to restore using this backup disk:"
-msgstr ""
-"Bevestig AUB dat je de bestanden van deze backup schijf wenst te herstellen:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:166
-msgid ""
-"Please confirm that you want to write this backup file to a CD or DVD disk:"
-msgstr "Bevestig UAB dat je dit backup bestand naar CD of DVD wil schrijven:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:168
-msgid "Write to disk"
-msgstr "Naar schijf schrijven"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:209
-msgid "Configuration backup"
-msgstr "Configuratie backup"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:212
-msgid "Full data and configuration backup"
-msgstr "Volledige backup van gegevens en configuratie"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:215
-msgid "Bug-report configuration dump"
-msgstr "Fout-rapport configuratie dump"
-
-#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
-msgid "Status"
-msgstr "Status"
-
-#: src/EBox/CGI/Summary/Index.pm:47
-msgid "Error"
-msgstr "Fout"
-
-#: src/EBox/CGI/Finish.pm:30
-msgid "Save configuration"
-msgstr "Configuratie opslaan"
-
-#: src/EBox/CGI/ClientRawBase.pm:181
-msgid ""
-"An internal error has ocurred. This is most probably a bug, relevant "
-"information can be found in the logs."
-msgstr ""
-"Er is een interne fout opgetreden. Dit is waarschijnlijk een 'bug'. "
-"Relevante informatie kan in de logs teruggevonden worden."
-
-#: src/EBox/CGI/ClientRawBase.pm:191
-msgid ""
-"An internal error related to a template has occurred. This is a bug, "
-"relevant information can be found in the logs."
-msgstr ""
-"Er is een interne fout m.b.t. een template opgetreden. Dit is een 'bug'. "
-"Relevante informatie kan in de logs teruggevonden worden."
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:109
-msgid "Domain"
-msgstr ""
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:119
-#, fuzzy
-msgid "Enabled"
-msgstr "Uitgeschakeld"
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:141
-msgid "Enable/disable logging per-module basis"
-msgstr ""
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:143
-#, fuzzy
-msgid "logs"
-msgstr "Logs"
-
-#: src/EBox/Apache.pm:49
-msgid ""
-"You must set the httpd_serverroot variable in the ebox configuration file"
-msgstr ""
-"Je moet de httpd_serverroot variabele in het eBox configuratie bestand "
-"aanpassen. "
-
-#: src/EBox/Apache.pm:59
-msgid "You must set the httpd_init variable in the ebox configuration file"
-msgstr ""
-"Je moet de httpd_init variabele in het eBox configuratie bestand aanpassen. "
-
-#: src/EBox/Apache.pm:62
-msgid "The httpd_init script you configured is not executable."
-msgstr "Het httpd_init bestand dat je geconfigureerd hebt is niet uitvoerbaar."
-
-#: src/EBox/Apache.pm:191 src/EBox/Apache.pm:200
-msgid "port"
-msgstr "poort"
-
-#: src/EBox/Logs.pm:296
-#, perl-brace-format
-msgid "Table {table} does not exist"
-msgstr "Tabel {table} bestaat niet"
-
-#: src/EBox/Logs.pm:311
-#, perl-brace-format
-msgid "Field {field} does not exist"
-msgstr "Veld {field} bestaat niet"
-
-#: src/EBox/Logs.pm:457
-msgid "Query logs"
-msgstr ""
-
-#: src/EBox/Logs.pm:471 src/templates/confirm-backup.mas:28
-#: src/templates/backup.mas:193 src/templates/finish.mas:23
-msgid "Date"
-msgstr "Datum"
-
-#: src/EBox/Logs.pm:472
-msgid "Client Address"
-msgstr "Client adres"
-
-#: src/EBox/Logs.pm:473 src/templates/finish.mas:25
-msgid "Module"
-msgstr "Module"
-
-#: src/EBox/Logs.pm:475
-msgid "Params"
-msgstr "Param."
-
-#: src/EBox/Logs.pm:476
-msgid "Committed"
-msgstr "Bevestigd"
-
-#: src/EBox/Logs.pm:481
-msgid "Admin"
-msgstr "Admin"
-
-#: src/EBox/Html.pm:39
-msgid "Save changes"
-msgstr "Wijzigingen opslaan"
 
 #: src/EBox/Backup.pm:236
 msgid "Could not create backup archive"
@@ -512,6 +112,44 @@ msgstr ""
 "Onopgeloste afhankelijk bij terugplaatsen voor module {topModule}: {modName} "
 "is niet geïnstalleerd"
 
+#: src/EBox/Backup.pm:1023 src/EBox/CGI/EBox/Backup.pm:235
+#: src/EBox/CGI/EBox/Backup.pm:306 src/EBox/CGI/EBox/Backup.pm:319
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:180
+msgid "The input contains invalid characters"
+msgstr "De ingegeven tekst bevat ongeldige tekens"
+
+#: src/EBox/Summary/Status.pm:44
+msgid "Restart"
+msgstr "Herstarten"
+
+#: src/EBox/Summary/Status.pm:47
+msgid "Running"
+msgstr "Ingeschakeld"
+
+#: src/EBox/Summary/Status.pm:50
+msgid "Stopped"
+msgstr "Stoppen"
+
+#: src/EBox/Summary/Status.pm:52
+msgid "Start"
+msgstr "Start"
+
+#: src/EBox/Summary/Status.pm:54
+msgid "Disabled"
+msgstr "Uitgeschakeld"
+
+#: src/EBox/Types/Service.pm:131 src/EBox/Types/Service.pm:140
+msgid "Service"
+msgstr "Dienst"
+
+#: src/EBox/Types/Service.pm:291 src/templates/logs/index.mas:206
+msgid "Any"
+msgstr "Elk"
+
+#: src/EBox/Model/DataMultiTable.pm:168 src/EBox/Logs.pm:474
+msgid "Action"
+msgstr "Actie"
+
 #: src/EBox/FirstTime.pm:67 src/templates/firstTime/passwd.mas:4
 msgid "Change default password"
 msgstr "Standaard paswoord instellen"
@@ -540,6 +178,10 @@ msgstr "eBox versie"
 msgid "System load"
 msgstr "Belasting systeem"
 
+#: src/EBox/SysInfo.pm:109 src/EBox/CGI/Summary/Index.pm:35
+msgid "Status"
+msgstr "Status"
+
 #: src/EBox/SysInfo.pm:113
 msgid "System"
 msgstr "Systeem"
@@ -552,9 +194,96 @@ msgstr "Algemeen"
 msgid "Halt/Reboot"
 msgstr "Uitschakelen/Herstarten"
 
-#: src/EBox/Auth.pm:131
-msgid "Password changed"
-msgstr "Paswoord veranderd"
+#: src/EBox/SysInfo.pm:126 src/EBox/CGI/EBox/Bug.pm:29
+msgid "Bug report"
+msgstr "Fout rapport"
+
+#: src/EBox/Backup/OpticalDiscDrives.pm:31
+#, perl-brace-format
+msgid ""
+"Unable to find {path}. Make sure that the cdrom driver is compiled in your "
+"kerner or loaded as module"
+msgstr ""
+"Kan {path} niet vinden. Kijk na of de cdrom driver in de kernel of als een "
+"module geladen is."
+
+#: src/EBox/Backup/OpticalDiscDrives.pm:34
+#, perl-brace-format
+msgid "Unable to read {path}."
+msgstr "Kan {path} niet lezen."
+
+#: src/EBox/Backup/FileBurner.pm:110
+msgid "This system does not have a recorder drive"
+msgstr "Er is geen schijf brander gevonden op dit systeem"
+
+#: src/EBox/Backup/FileBurner.pm:122
+msgid "No disk found. Please insert disk and retry"
+msgstr "Geen schijf gevonden. Laad een schijf en probeer opnieuw"
+
+#: src/EBox/Backup/FileBurner.pm:130
+msgid "{media } is a unsupported media type"
+msgstr "{media } is van een niet ondersteund type"
+
+#: src/EBox/Backup/FileBurner.pm:144
+#, perl-brace-format
+msgid "{device} cannot be found"
+msgstr "{device} kan niet gevonden worden"
+
+#: src/EBox/Backup/FileBurner.pm:153
+#, perl-brace-format
+msgid "{device} is mounted. Please, remove the disk"
+msgstr "{device} is geladen. Verwijder de schijf AUB"
+
+#: src/EBox/Backup/FileBurner.pm:177
+#, perl-brace-format
+msgid "Device {dev} cannot write media of type {media}"
+msgstr "Toestel {dev} kan niet schijven op {media} schijven"
+
+#: src/EBox/Backup/FileBurner.pm:192
+msgid "The media has not sufficient capabilty for the data"
+msgstr "De media heeft niet genoeg capaciteit voor de gegevens"
+
+#: src/EBox/Backup/FileBurner.pm:283
+#, perl-brace-format
+msgid "No blanking method for {media}  defined. Cannot erase it"
+msgstr "Geen wis-methode voor {media} gedefinieerd. Kan niet wissen"
+
+#: src/EBox/Backup/RootCommands.pm:26
+#, perl-brace-format
+msgid ""
+"This system need {program} installed to perform the requested action. Please "
+"install it and retry"
+msgstr ""
+"Het systeem vereist de installatie van {program} om de gevraagde actie uit "
+"te voeren. Gelieve te installeren en opnieuw te proberen."
+
+#: src/EBox/Backup/OpticalDisc.pm:126
+msgid "Unable to recognize the mounted DVD media"
+msgstr "Kan de geladen DVD media niet herkennen"
+
+#: src/EBox/Backup/OpticalDisc.pm:165
+msgid "Unable to recognize the mounted CD media"
+msgstr "Kan de geladen CD media niet herkennen"
+
+#: src/EBox/Apache.pm:49
+msgid ""
+"You must set the httpd_serverroot variable in the ebox configuration file"
+msgstr ""
+"Je moet de httpd_serverroot variabele in het eBox configuratie bestand "
+"aanpassen. "
+
+#: src/EBox/Apache.pm:59
+msgid "You must set the httpd_init variable in the ebox configuration file"
+msgstr ""
+"Je moet de httpd_init variabele in het eBox configuratie bestand aanpassen. "
+
+#: src/EBox/Apache.pm:62
+msgid "The httpd_init script you configured is not executable."
+msgstr "Het httpd_init bestand dat je geconfigureerd hebt is niet uitvoerbaar."
+
+#: src/EBox/Apache.pm:191 src/EBox/Apache.pm:200
+msgid "port"
+msgstr "poort"
 
 #: src/EBox/PgDBEngine.pm:43 src/EBox/PgDBEngine.pm:56
 #: src/EBox/PgDBEngine.pm:69
@@ -572,6 +301,592 @@ msgstr "Fout bij dumpt van de postgresql database {name}"
 #, perl-brace-format
 msgid "DB dump file {file} is not readable"
 msgstr "DB dump bestand {file} is niet leesbaar"
+
+#: src/EBox/Auth.pm:131
+msgid "Password changed"
+msgstr "Paswoord veranderd"
+
+#: src/EBox/Logs.pm:296
+#, perl-brace-format
+msgid "Table {table} does not exist"
+msgstr "Tabel {table} bestaat niet"
+
+#: src/EBox/Logs.pm:311
+#, perl-brace-format
+msgid "Field {field} does not exist"
+msgstr "Veld {field} bestaat niet"
+
+#: src/EBox/Logs.pm:454 src/EBox/CGI/Logs/Index.pm:33
+msgid "Logs"
+msgstr "Logs"
+
+#: src/EBox/Logs.pm:457
+msgid "Query logs"
+msgstr ""
+
+#: src/EBox/Logs.pm:460 src/EBox/Logs/Model/ConfigureLogDataTable.pm:133
+#: src/EBox/CGI/Logs/View/ConfigureLogDataTable.pm:36
+#: src/EBox/CGI/Logs/Controller/ConfigureLogDataTable.pm:35
+msgid "Configure logs"
+msgstr ""
+
+#: src/EBox/Logs.pm:471 src/templates/backup.mas:193
+#: src/templates/confirm-backup.mas:28 src/templates/finish.mas:23
+msgid "Date"
+msgstr "Datum"
+
+#: src/EBox/Logs.pm:472
+msgid "Client Address"
+msgstr "Client adres"
+
+#: src/EBox/Logs.pm:473 src/templates/finish.mas:25
+msgid "Module"
+msgstr "Module"
+
+#: src/EBox/Logs.pm:475
+msgid "Params"
+msgstr "Param."
+
+#: src/EBox/Logs.pm:476
+msgid "Committed"
+msgstr "Bevestigd"
+
+#: src/EBox/Logs.pm:481
+msgid "Admin"
+msgstr "Admin"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:109
+msgid "Domain"
+msgstr ""
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:119
+#, fuzzy
+msgid "Enabled"
+msgstr "Uitgeschakeld"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:141
+msgid "Enable/disable logging per-module basis"
+msgstr ""
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:143
+#, fuzzy
+msgid "logs"
+msgstr "Logs"
+
+#: src/EBox/CGI/Finish.pm:30
+msgid "Save configuration"
+msgstr "Configuratie opslaan"
+
+#: src/EBox/CGI/Summary/Index.pm:47
+msgid "Error"
+msgstr "Fout"
+
+#: src/EBox/CGI/Login/Index.pm:61
+msgid "Incorrect password"
+msgstr "Fout Paswoord"
+
+#: src/EBox/CGI/Login/Index.pm:64
+msgid "For security reasons your session has expired due to inactivity"
+msgstr "Om veiligheidsredenen is uw sessie door inactiviteit verlopen"
+
+#: src/EBox/CGI/Login/Index.pm:67
+msgid "You have been logged out because a new session has been opened"
+msgstr "Je bent uitgelogd omdat er een nieuwe sessie is geopend"
+
+#: src/EBox/CGI/FirstTime/Index.pm:30
+msgid "Welcome to eBox"
+msgstr "Welkom bij eBox"
+
+#: src/EBox/CGI/FirstTime/Index.pm:68 src/EBox/CGI/FirstTime/Passwd.pm:72
+msgid "eBox was already initialized"
+msgstr "Ebox is reeds geïnitialiseerd"
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:38
+msgid "Set password"
+msgstr "Paswoord instellen"
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:63
+msgid "Default password was already changed"
+msgstr "Het standaard paswoord is reeds gewijzigd"
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:88
+msgid "New passwords do not match"
+msgstr "Nieuwe paswoorden komen niet overeen"
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:92 src/EBox/CGI/EBox/Password.pm:62
+msgid "The password was changed successfully."
+msgstr "Het paswoord is succesvol gewijzigd."
+
+#: src/EBox/CGI/ClientRawBase.pm:181
+msgid ""
+"An internal error has ocurred. This is most probably a bug, relevant "
+"information can be found in the logs."
+msgstr ""
+"Er is een interne fout opgetreden. Dit is waarschijnlijk een 'bug'. "
+"Relevante informatie kan in de logs teruggevonden worden."
+
+#: src/EBox/CGI/ClientRawBase.pm:191
+msgid ""
+"An internal error related to a template has occurred. This is a bug, "
+"relevant information can be found in the logs."
+msgstr ""
+"Er is een interne fout m.b.t. een template opgetreden. Dit is een 'bug'. "
+"Relevante informatie kan in de logs teruggevonden worden."
+
+#: src/EBox/CGI/EBox/Backup.pm:34
+msgid "System backups"
+msgstr "Systeem backups"
+
+#: src/EBox/CGI/EBox/Backup.pm:193
+#, perl-brace-format
+msgid "Unknown backup mode: {mode}"
+msgstr "Ongekende backup mode: {mode}"
+
+#: src/EBox/CGI/EBox/Backup.pm:202
+msgid "Backup done"
+msgstr "Backup klaar"
+
+#: src/EBox/CGI/EBox/Backup.pm:215
+msgid "Backup was written to CD/DVD disk"
+msgstr "Backup is naar CD/DVD geschreven"
+
+#: src/EBox/CGI/EBox/Backup.pm:277
+#, perl-brace-format
+msgid "Unknown restore mode: {mode}"
+msgstr "Ongekende herstel  mode: {mode}"
+
+#: src/EBox/CGI/EBox/Backup.pm:288
+msgid ""
+"Full backup restored succesfully. You should now review your configuration "
+"and save it if you want to keep it."
+msgstr ""
+"Volledige backup succesvol hersteld, kijk de configuratie na en sla op als "
+"je ze wenst te behouden."
+
+#: src/EBox/CGI/EBox/Backup.pm:293
+msgid ""
+"Configuration restored succesfully, you should now review it and save it if "
+"you want to keep it."
+msgstr ""
+"Configuratie succesvol hersteld, kijk de configuratie na en sla op als je ze "
+"wenst te behouden."
+
+#: src/EBox/CGI/EBox/Halt.pm:30
+msgid "Halt or reboot"
+msgstr "Uitschakelen of herstarten"
+
+#: src/EBox/CGI/EBox/Halt.pm:43
+msgid "eBox is going down for halt"
+msgstr "eBox wordt onbereikbaar door uitschakelen"
+
+#: src/EBox/CGI/EBox/Halt.pm:46
+msgid "eBox is going down for reboot"
+msgstr "eBox wordt onbereikbaar door herstart"
+
+#: src/EBox/CGI/EBox/General.pm:30
+msgid "General configuration"
+msgstr "Algemene configuratie"
+
+#: src/EBox/CGI/EBox/RestartService.pm:48
+msgid "module name"
+msgstr "naam module"
+
+#: src/EBox/CGI/EBox/RestartService.pm:52
+msgid "The module was restarted correctly."
+msgstr "De module is correct herstart."
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:33
+msgid "Configuration backups"
+msgstr "Configuratie backups"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:111
+msgid "Please confirm that you want to delete the following backup file:"
+msgstr "Bevestig AUB dat je het volgende backup-bestand wil verwijderen:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:113 src/templates/backup.mas:248
+#: src/templates/backup.mas:250
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:120
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:156
+msgid "Please confirm that you want to restore using this backup file:"
+msgstr ""
+"Bevestig AUB dat je de bestanden van dit backup bestand wenst te herstellen:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:122
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:144
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:158 src/templates/backup.mas:115
+msgid "Restore"
+msgstr "Herstellen"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132
+msgid ""
+"Unable to find a correct backup disk. Please insert a backup disk and retry"
+msgstr ""
+"Kan geen juiste backup schijf vinden. PLaats een backup schijf en probeer "
+"opnieuw"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:143
+msgid "Please confirm that you want to restore using this backup disk:"
+msgstr ""
+"Bevestig AUB dat je de bestanden van deze backup schijf wenst te herstellen:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:166
+msgid ""
+"Please confirm that you want to write this backup file to a CD or DVD disk:"
+msgstr "Bevestig UAB dat je dit backup bestand naar CD of DVD wil schrijven:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:168
+msgid "Write to disk"
+msgstr "Naar schijf schrijven"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:209
+msgid "Configuration backup"
+msgstr "Configuratie backup"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:212
+msgid "Full data and configuration backup"
+msgstr "Volledige backup van gegevens en configuratie"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:215
+msgid "Bug-report configuration dump"
+msgstr "Fout-rapport configuratie dump"
+
+#: src/EBox/CGI/EBox/Password.pm:49
+msgid "Incorrect password."
+msgstr "Ongeldig paswoord."
+
+#: src/EBox/CGI/EBox/Password.pm:54
+msgid "New passwords do not match."
+msgstr "Nieuwe paswoorden komen niet overeen."
+
+#: src/EBox/CGI/EBox/Password.pm:58
+msgid "The password must be at least 6 characters long"
+msgstr "Het nieuwe paswoord moet minstens 6 tekens lang zijn"
+
+#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:40
+msgid "Logout"
+msgstr "Uitloggen"
+
+#: src/EBox/Html.pm:39
+msgid "Save changes"
+msgstr "Wijzigingen opslaan"
+
+#: src/templates/password.mas:6
+msgid "Change password"
+msgstr "Paswoord wijzigen"
+
+#: src/templates/password.mas:8 src/templates/firstTime/passwd.mas:6
+msgid "Your password must be at least 6 characters long."
+msgstr "Het paswoord moet minstens 6 tekens lang zijn."
+
+#: src/templates/password.mas:15
+msgid "Current password"
+msgstr "Huidig paswoord"
+
+#: src/templates/password.mas:30 src/templates/firstTime/passwd.mas:13
+msgid "New password"
+msgstr "Nieuw paswoord"
+
+#: src/templates/password.mas:45 src/templates/firstTime/passwd.mas:28
+msgid "Confirm password"
+msgstr "Paswoord bevestigen"
+
+#: src/templates/password.mas:60 src/templates/firstTime/passwd.mas:42
+#: src/templates/port.mas:15
+msgid "Change"
+msgstr "Wijzigen"
+
+#: src/templates/firstTime/index.mas:6
+msgid "Use default values"
+msgstr "Standaard waarden gebruiken"
+
+#: src/templates/backup.mas:22
+msgid "Full Backup"
+msgstr "Volledige backup"
+
+#: src/templates/backup.mas:24
+msgid "Configuration Backup"
+msgstr "Configuratie backup"
+
+#: src/templates/backup.mas:31
+msgid "Back up the current state"
+msgstr "Maak een backup van de huidige instellingen"
+
+#: src/templates/backup.mas:34
+msgid ""
+"Backups will be stored in eBox and then you will be able to download them to "
+"your hard disk or write them into CD/DVD disks. Anyway, you can later copy "
+"back stored backup"
+msgstr ""
+"Backups worden bewaard in eBox waarna je ze kan naar je harde schijf kan "
+"laden of op CD/DVD schrijven. Al deze backups kunnen later terug geplaatst "
+"worden"
+
+#: src/templates/backup.mas:44
+msgid ""
+"'Backup to CD/DVD disk' is disabled, because eBox could not find any "
+"recorder drive"
+msgstr ""
+"'Backup naar CD/DVD schijf' is uitgeschakeld opdat eBox geen recorder drive "
+"gevonden heeft."
+
+#: src/templates/backup.mas:54 src/templates/backup.mas:189
+#: src/templates/confirm-backup.mas:37
+msgid "Description"
+msgstr "Omschrijving"
+
+#: src/templates/backup.mas:63
+msgid "Backup mode"
+msgstr "Backup mode"
+
+#: src/templates/backup.mas:74
+msgid "Back up to hard disk"
+msgstr "Backup naar harde schijf"
+
+#: src/templates/backup.mas:77
+msgid "Back up to CD/DVD disk"
+msgstr "Backup naar CD/DVD schijf"
+
+#: src/templates/backup.mas:91
+msgid "Restore backup from file"
+msgstr "Herstellen van in bestand"
+
+#: src/templates/backup.mas:94
+msgid "You can  upload a backup file from your computer. When uploading"
+msgstr "Je kan een backup bestand van je pc uploaden. Tijdens uploaden"
+
+#: src/templates/backup.mas:105
+msgid "Backup file"
+msgstr "Backup bestand"
+
+#: src/templates/backup.mas:124
+msgid "Restore backup from disk"
+msgstr "Herstellen van op schijf"
+
+#: src/templates/backup.mas:127
+msgid ""
+"You can restore from a backup disk. Please insert the disk before clicking "
+"the button"
+msgstr ""
+"Je kan herstellen van op een backup schijf. Gelieve een schijf in te voeren "
+"alvborens op de knop te drukken."
+
+#: src/templates/backup.mas:132
+msgid ""
+"'Restore backup from CD/DVD disk' is disabled, because eBox could not find "
+"any reader drive"
+msgstr ""
+"'Herstellen van op CD/DVD schijf' is uitgeschakeld opdat eBox geen reader "
+"drive gevonden heeft."
+
+#: src/templates/backup.mas:143
+msgid "Restore from disk"
+msgstr "Herstellen van op schijf"
+
+#: src/templates/backup.mas:167
+msgid "Full"
+msgstr ""
+
+#: src/templates/backup.mas:169
+#, fuzzy
+msgid "Configuration only"
+msgstr "Configuratie herstellen"
+
+#: src/templates/backup.mas:171
+#, fuzzy
+msgid "Unknown type"
+msgstr "Ongekend"
+
+#: src/templates/backup.mas:180
+msgid ""
+"'Write backup to CD/DVD disk' is disabled, because eBox could not find any "
+"recorder drive"
+msgstr ""
+"'Backup naar CD/DVD schijf schrijven' is uitgeschakeld opdat eBox geen "
+"recorder drive gevonden heeft."
+
+#: src/templates/backup.mas:184
+msgid "Backups' list"
+msgstr "Backup lijst"
+
+#: src/templates/backup.mas:191 src/templates/confirm-backup.mas:46
+msgid "Type"
+msgstr "Type"
+
+#: src/templates/backup.mas:195
+msgid "Actions"
+msgstr "Acties"
+
+#: src/templates/backup.mas:223
+msgid "Restore configuration using this file"
+msgstr "Configuratie herstellen met dit bestand"
+
+#: src/templates/backup.mas:225
+msgid "Restore from backup"
+msgstr "Herstellen van backup"
+
+#: src/templates/backup.mas:231 src/templates/backup.mas:233
+msgid "Download"
+msgstr "Donwloaden"
+
+#: src/templates/backup.mas:240 src/templates/backup.mas:242
+msgid "Write backup to CD/DVD disk"
+msgstr "Backup op CD/DVD schrijven"
+
+#: src/templates/backup.mas:264
+msgid "download"
+msgstr "downoaden"
+
+#: src/templates/backup.mas:267
+msgid "write into disk"
+msgstr "naar harde schijf schrijven"
+
+#: src/templates/backup.mas:268
+msgid "write into disk (disabled)"
+msgstr "naar harde schijf schrijven (uitgeschakeld)"
+
+#: src/templates/backup.mas:271
+msgid "restore"
+msgstr "herstellen"
+
+#: src/templates/backup.mas:274
+msgid "delete"
+msgstr "verwijderen"
+
+#: src/templates/logout/index.mas:11
+msgid "There are unsaved changes, if you log out now they will be lost."
+msgstr ""
+"Er zijn wijzigingen niet opgeslagen. Als je nu uitlogd gaan de wijzigingen "
+"verloren."
+
+#: src/templates/logout/index.mas:16
+msgid "There are no unsaved changes in this session."
+msgstr "Er zijn geen niet opgeslagen wijzigingen in deze sessie."
+
+#: src/templates/logout/index.mas:21
+msgid "Exit"
+msgstr "Exit"
+
+#: src/templates/port.mas:9
+msgid "Administration interface TCP port"
+msgstr "Administratie pagina TCP poort"
+
+#: src/templates/login/index.mas:27
+msgid "Password"
+msgstr "Paswoord"
+
+#: src/templates/login/index.mas:35
+msgid "Enter"
+msgstr "Enter"
+
+#: src/templates/login/index.mas:42
+msgid ""
+"Created by <a href='http://www.warp.es'>Warp Networks</a> in collaboration "
+"with <a href='http://www.dbs.es'>DBS Servicios Informaticos</a>"
+msgstr ""
+"Gemaakt door <a href='http://www.warp.es'>Warp Networks</a> in samenwerking "
+"met <a href='http://www.dbs.es'>DBS Servicios Informaticos</a>"
+
+#: src/templates/confirm-backup.mas:63 src/templates/confirm-backup.mas:64
+msgid "Cancel"
+msgstr "Negeren"
+
+#: src/templates/confirm-backup.mas:105
+msgid "Full Restore"
+msgstr "Volledig herstel"
+
+#: src/templates/confirm-backup.mas:107
+msgid "Configuration Restore"
+msgstr "Configuratie herstellen"
+
+#: src/templates/confirm-backup.mas:113
+msgid "Restore mode"
+msgstr "Herstel mode"
+
+#: src/templates/finish.mas:12
+msgid ""
+"There are unsaved changes in one or more modules, you can save or discard "
+"those changes."
+msgstr ""
+"Er zijn één of meerdere niet opgeslagen modules, je kan ze opslaan of de "
+"wijzigeingen negeren."
+
+#: src/templates/finish.mas:16
+msgid ""
+"If you made changes to the network interfaces or the administration port, "
+"you may need to manually rewrite the url in order to access this "
+"administration interface again."
+msgstr ""
+"Bij wijzigingen aan de netwerk instellingen of de administratie poort kan "
+"het zijn dat je de url handmatig moet invoeren om terug met de administatie "
+"pagina verbinding te kunnen maken. "
+
+#: src/templates/finish.mas:27
+msgid "Message"
+msgstr "Bericht"
+
+#: src/templates/finish.mas:44
+msgid "Save"
+msgstr "Opslaan"
+
+#: src/templates/finish.mas:47
+msgid "Discard changes"
+msgstr "Wijzigingen negeren"
+
+#: src/templates/finish.mas:53
+msgid "There are no unsaved changes."
+msgstr "Er zijn geen niet opgeslagen wijzigingen"
+
+#: src/templates/halt.mas:10
+msgid "You might lose your Internet connection if this machine is halted."
+msgstr ""
+"Je kan de verbinding met internet verliezen als dit toestel wordt uitgezet."
+
+#: src/templates/halt.mas:15
+msgid "Halt"
+msgstr "Uitzetten"
+
+#: src/templates/halt.mas:18
+msgid "Reboot"
+msgstr "Herstarten"
+
+#: src/templates/bug.mas:9
+msgid ""
+"This page lets you generate a file with information about the state of your "
+"system. The file will be useful if you want to report a bug in eBox."
+msgstr ""
+"Op deze pagina kan je een bestand met informatie over je systeem genereren. "
+"Het bestand is nuttig bij het rapporteren van een fout in eBox."
+
+#: src/templates/bug.mas:15
+msgid "Download bug report file"
+msgstr "Fout rapport bestand downloaden."
+
+#: src/templates/logs/dbtable.mas:72 src/templates/logs/dbtable.mas:74
+msgid "first"
+msgstr "eerste"
+
+#: src/templates/logs/dbtable.mas:78 src/templates/logs/dbtable.mas:80
+msgid "prev"
+msgstr "vorige"
+
+#: src/templates/logs/dbtable.mas:88 src/templates/logs/dbtable.mas:91
+msgid "Page"
+msgstr "Pagina"
+
+#: src/templates/logs/dbtable.mas:92
+msgid "of"
+msgstr "van"
+
+#: src/templates/logs/dbtable.mas:103 src/templates/logs/dbtable.mas:105
+msgid "next"
+msgstr "volgende"
+
+#: src/templates/logs/dbtable.mas:109 src/templates/logs/dbtable.mas:111
+msgid "last"
+msgstr "laatste"
 
 #: src/templates/logs/index.mas:19
 msgid "Last hour logs will be showed when selecting a component"
@@ -659,321 +974,6 @@ msgstr "Zoeken"
 #: src/templates/logs/index.mas:237
 msgid "No logs matching current criterion"
 msgstr "Geen logs voldoen aan huidige criteria"
-
-#: src/templates/logs/dbtable.mas:72 src/templates/logs/dbtable.mas:74
-msgid "first"
-msgstr "eerste"
-
-#: src/templates/logs/dbtable.mas:78 src/templates/logs/dbtable.mas:80
-msgid "prev"
-msgstr "vorige"
-
-#: src/templates/logs/dbtable.mas:88 src/templates/logs/dbtable.mas:91
-msgid "Page"
-msgstr "Pagina"
-
-#: src/templates/logs/dbtable.mas:92
-msgid "of"
-msgstr "van"
-
-#: src/templates/logs/dbtable.mas:103 src/templates/logs/dbtable.mas:105
-msgid "next"
-msgstr "volgende"
-
-#: src/templates/logs/dbtable.mas:109 src/templates/logs/dbtable.mas:111
-msgid "last"
-msgstr "laatste"
-
-#: src/templates/firstTime/passwd.mas:6 src/templates/password.mas:8
-msgid "Your password must be at least 6 characters long."
-msgstr "Het paswoord moet minstens 6 tekens lang zijn."
-
-#: src/templates/firstTime/passwd.mas:13 src/templates/password.mas:30
-msgid "New password"
-msgstr "Nieuw paswoord"
-
-#: src/templates/firstTime/passwd.mas:28 src/templates/password.mas:45
-msgid "Confirm password"
-msgstr "Paswoord bevestigen"
-
-#: src/templates/firstTime/passwd.mas:42 src/templates/password.mas:60
-#: src/templates/port.mas:15
-msgid "Change"
-msgstr "Wijzigen"
-
-#: src/templates/firstTime/index.mas:6
-msgid "Use default values"
-msgstr "Standaard waarden gebruiken"
-
-#: src/templates/login/index.mas:27
-msgid "Password"
-msgstr "Paswoord"
-
-#: src/templates/login/index.mas:35
-msgid "Enter"
-msgstr "Enter"
-
-#: src/templates/login/index.mas:42
-msgid ""
-"Created by <a href='http://www.warp.es'>Warp Networks</a> in collaboration "
-"with <a href='http://www.dbs.es'>DBS Servicios Informaticos</a>"
-msgstr ""
-"Gemaakt door <a href='http://www.warp.es'>Warp Networks</a> in samenwerking "
-"met <a href='http://www.dbs.es'>DBS Servicios Informaticos</a>"
-
-#: src/templates/logout/index.mas:11
-msgid "There are unsaved changes, if you log out now they will be lost."
-msgstr ""
-"Er zijn wijzigingen niet opgeslagen. Als je nu uitlogd gaan de wijzigingen "
-"verloren."
-
-#: src/templates/logout/index.mas:16
-msgid "There are no unsaved changes in this session."
-msgstr "Er zijn geen niet opgeslagen wijzigingen in deze sessie."
-
-#: src/templates/logout/index.mas:21
-msgid "Exit"
-msgstr "Exit"
-
-#: src/templates/confirm-backup.mas:37 src/templates/backup.mas:54
-#: src/templates/backup.mas:189
-msgid "Description"
-msgstr "Omschrijving"
-
-#: src/templates/confirm-backup.mas:46 src/templates/backup.mas:191
-msgid "Type"
-msgstr "Type"
-
-#: src/templates/confirm-backup.mas:63 src/templates/confirm-backup.mas:64
-msgid "Cancel"
-msgstr "Negeren"
-
-#: src/templates/confirm-backup.mas:105
-msgid "Full Restore"
-msgstr "Volledig herstel"
-
-#: src/templates/confirm-backup.mas:107
-msgid "Configuration Restore"
-msgstr "Configuratie herstellen"
-
-#: src/templates/confirm-backup.mas:113
-msgid "Restore mode"
-msgstr "Herstel mode"
-
-#: src/templates/password.mas:6
-msgid "Change password"
-msgstr "Paswoord wijzigen"
-
-#: src/templates/password.mas:15
-msgid "Current password"
-msgstr "Huidig paswoord"
-
-#: src/templates/backup.mas:22
-msgid "Full Backup"
-msgstr "Volledige backup"
-
-#: src/templates/backup.mas:24
-msgid "Configuration Backup"
-msgstr "Configuratie backup"
-
-#: src/templates/backup.mas:31
-msgid "Back up the current state"
-msgstr "Maak een backup van de huidige instellingen"
-
-#: src/templates/backup.mas:34
-msgid ""
-"Backups will be stored in eBox and then you will be able to download them to "
-"your hard disk or write them into CD/DVD disks. Anyway, you can later copy "
-"back stored backup"
-msgstr ""
-"Backups worden bewaard in eBox waarna je ze kan naar je harde schijf kan "
-"laden of op CD/DVD schrijven. Al deze backups kunnen later terug geplaatst "
-"worden"
-
-#: src/templates/backup.mas:44
-msgid ""
-"'Backup to CD/DVD disk' is disabled, because eBox could not find any "
-"recorder drive"
-msgstr ""
-"'Backup naar CD/DVD schijf' is uitgeschakeld opdat eBox geen recorder drive "
-"gevonden heeft."
-
-#: src/templates/backup.mas:63
-msgid "Backup mode"
-msgstr "Backup mode"
-
-#: src/templates/backup.mas:74
-msgid "Back up to hard disk"
-msgstr "Backup naar harde schijf"
-
-#: src/templates/backup.mas:77
-msgid "Back up to CD/DVD disk"
-msgstr "Backup naar CD/DVD schijf"
-
-#: src/templates/backup.mas:91
-msgid "Restore backup from file"
-msgstr "Herstellen van in bestand"
-
-#: src/templates/backup.mas:94
-msgid "You can  upload a backup file from your computer. When uploading"
-msgstr "Je kan een backup bestand van je pc uploaden. Tijdens uploaden"
-
-#: src/templates/backup.mas:105
-msgid "Backup file"
-msgstr "Backup bestand"
-
-#: src/templates/backup.mas:124
-msgid "Restore backup from disk"
-msgstr "Herstellen van op schijf"
-
-#: src/templates/backup.mas:127
-msgid ""
-"You can restore from a backup disk. Please insert the disk before clicking "
-"the button"
-msgstr ""
-"Je kan herstellen van op een backup schijf. Gelieve een schijf in te voeren "
-"alvborens op de knop te drukken."
-
-#: src/templates/backup.mas:132
-msgid ""
-"'Restore backup from CD/DVD disk' is disabled, because eBox could not find "
-"any reader drive"
-msgstr ""
-"'Herstellen van op CD/DVD schijf' is uitgeschakeld opdat eBox geen reader "
-"drive gevonden heeft."
-
-#: src/templates/backup.mas:143
-msgid "Restore from disk"
-msgstr "Herstellen van op schijf"
-
-#: src/templates/backup.mas:167
-msgid "Full"
-msgstr ""
-
-#: src/templates/backup.mas:169
-#, fuzzy
-msgid "Configuration only"
-msgstr "Configuratie herstellen"
-
-#: src/templates/backup.mas:171
-#, fuzzy
-msgid "Unknown type"
-msgstr "Ongekend"
-
-#: src/templates/backup.mas:180
-msgid ""
-"'Write backup to CD/DVD disk' is disabled, because eBox could not find any "
-"recorder drive"
-msgstr ""
-"'Backup naar CD/DVD schijf schrijven' is uitgeschakeld opdat eBox geen "
-"recorder drive gevonden heeft."
-
-#: src/templates/backup.mas:184
-msgid "Backups' list"
-msgstr "Backup lijst"
-
-#: src/templates/backup.mas:195
-msgid "Actions"
-msgstr "Acties"
-
-#: src/templates/backup.mas:223
-msgid "Restore configuration using this file"
-msgstr "Configuratie herstellen met dit bestand"
-
-#: src/templates/backup.mas:225
-msgid "Restore from backup"
-msgstr "Herstellen van backup"
-
-#: src/templates/backup.mas:231 src/templates/backup.mas:233
-msgid "Download"
-msgstr "Donwloaden"
-
-#: src/templates/backup.mas:240 src/templates/backup.mas:242
-msgid "Write backup to CD/DVD disk"
-msgstr "Backup op CD/DVD schrijven"
-
-#: src/templates/backup.mas:264
-msgid "download"
-msgstr "downoaden"
-
-#: src/templates/backup.mas:267
-msgid "write into disk"
-msgstr "naar harde schijf schrijven"
-
-#: src/templates/backup.mas:268
-msgid "write into disk (disabled)"
-msgstr "naar harde schijf schrijven (uitgeschakeld)"
-
-#: src/templates/backup.mas:271
-msgid "restore"
-msgstr "herstellen"
-
-#: src/templates/backup.mas:274
-msgid "delete"
-msgstr "verwijderen"
-
-#: src/templates/bug.mas:9
-msgid ""
-"This page lets you generate a file with information about the state of your "
-"system. The file will be useful if you want to report a bug in eBox."
-msgstr ""
-"Op deze pagina kan je een bestand met informatie over je systeem genereren. "
-"Het bestand is nuttig bij het rapporteren van een fout in eBox."
-
-#: src/templates/bug.mas:15
-msgid "Download bug report file"
-msgstr "Fout rapport bestand downloaden."
-
-#: src/templates/finish.mas:12
-msgid ""
-"There are unsaved changes in one or more modules, you can save or discard "
-"those changes."
-msgstr ""
-"Er zijn één of meerdere niet opgeslagen modules, je kan ze opslaan of de "
-"wijzigeingen negeren."
-
-#: src/templates/finish.mas:16
-msgid ""
-"If you made changes to the network interfaces or the administration port, "
-"you may need to manually rewrite the url in order to access this "
-"administration interface again."
-msgstr ""
-"Bij wijzigingen aan de netwerk instellingen of de administratie poort kan "
-"het zijn dat je de url handmatig moet invoeren om terug met de administatie "
-"pagina verbinding te kunnen maken. "
-
-#: src/templates/finish.mas:27
-msgid "Message"
-msgstr "Bericht"
-
-#: src/templates/finish.mas:44
-msgid "Save"
-msgstr "Opslaan"
-
-#: src/templates/finish.mas:47
-msgid "Discard changes"
-msgstr "Wijzigingen negeren"
-
-#: src/templates/finish.mas:53
-msgid "There are no unsaved changes."
-msgstr "Er zijn geen niet opgeslagen wijzigingen"
-
-#: src/templates/port.mas:9
-msgid "Administration interface TCP port"
-msgstr "Administratie pagina TCP poort"
-
-#: src/templates/halt.mas:10
-msgid "You might lose your Internet connection if this machine is halted."
-msgstr ""
-"Je kan de verbinding met internet verliezen als dit toestel wordt uitgezet."
-
-#: src/templates/halt.mas:15
-msgid "Halt"
-msgstr "Uitzetten"
-
-#: src/templates/halt.mas:18
-msgid "Reboot"
-msgstr "Herstarten"
 
 #: src/templates/footer.mas:8
 #, perl-brace-format

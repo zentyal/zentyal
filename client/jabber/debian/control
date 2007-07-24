@@ -7,7 +7,7 @@ Standards-Version: 3.6.1
 
 Package: ebox-jabber
 Architecture: all
-Depends: ebox (0.9.99), ebox-firewall, ebox-usersandgroups (>= 0.7.0.99), jabber-common, jabberd2-ldap-bdb
+Depends: ebox (= 0.9.99), ebox-firewall, ebox-usersandgroups (>= 0.7.0.99), jabber-common, jabberd2-ldap-bdb
 Conflicts: ebox (<< 0.9.99)
 Description: Instant messaging (Jabber)
  eBox is a framework for the development and deployment of security-wise

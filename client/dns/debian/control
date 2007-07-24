@@ -7,7 +7,7 @@ Standards-Version: 3.6.1
 
 Package: ebox-dns
 Architecture: all
-Depends: ebox (0.9.99), ebox-network, ebox-firewall, bind9
+Depends: ebox (= 0.9.99), ebox-network, ebox-firewall, bind9
 Conflicts: ebox (<< 0.9.99)
 Description: eBox DNS server
  eBox is a framework for the development and deployment of security-wise

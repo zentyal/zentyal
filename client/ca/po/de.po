@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:11+0200\n"
+"POT-Creation-Date: 2007-07-24 15:04+0200\n"
 "PO-Revision-Date: 2007-03-30 15:17+0000\n"
 "Last-Translator: andy <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -22,146 +22,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/CreateCA.pm:43
-#: src/EBox/CGI/Index.pm:39 src/EBox/CGI/DownloadFiles.pm:42
-#: src/EBox/CGI/IssueCertificate.pm:43 src/EBox/CGI/RevokeCertificate.pm:42
-#: src/EBox/CGI/RenewCertificate.pm:42
-msgid "Certification Authority Management"
-msgstr "Verwalten der Zertifizierungsstelle"
-
-#: src/EBox/CGI/ShowForm.pm:62 src/EBox/CGI/DownloadFiles.pm:69
-#: src/EBox/CGI/IssueCertificate.pm:69 src/EBox/CGI/RevokeCertificate.pm:76
-#: src/EBox/CGI/RenewCertificate.pm:74 src/EBox/CA/TestStub.pm:438
-#: src/EBox/CA/TestStub.pm:516 src/EBox/CA/TestStub.pm:642 src/EBox/CA.pm:706
-#: src/EBox/CA.pm:872 src/EBox/CA.pm:1187 src/EBox/CA.pm:1229
-#: src/EBox/CA.pm:1328 src/templates/formRenew.mas:48
-#: src/templates/index.mas:24 src/templates/formRevoke.mas:31
-msgid "Common Name"
-msgstr "Allgemeine Bezeichnung"
-
-#: src/EBox/CGI/ShowForm.pm:63
-msgid "Action"
-msgstr "Aktion"
-
-#: src/EBox/CGI/ShowForm.pm:73
-msgid "Only revoke and renew actions are performed"
-msgstr "Nur die Aktionen \"Widerrufen\" und \"Erneuern\" werden durchgeführt"
-
-#: src/EBox/CGI/ShowForm.pm:81 src/EBox/CGI/DownloadFiles.pm:79
-#, perl-brace-format
-msgid "Common name: {cn} does NOT exist in database"
-msgstr "Allgemeine Bezeichnung: {cn} ist NICHT in der Datenbank vorhanden"
-
-#: src/EBox/CGI/CreateCA.pm:108 src/EBox/CGI/IssueCertificate.pm:83
-msgid "CA passphrases do NOT match"
-msgstr ""
-
-#: src/EBox/CGI/CreateCA.pm:118 src/EBox/CGI/IssueCertificate.pm:91
-#, perl-brace-format
-msgid "CA Passphrase should be at least {length} characters"
-msgstr ""
-
-#: src/EBox/CGI/CreateCA.pm:123 src/EBox/CGI/IssueCertificate.pm:101
-msgid "Days to expire MUST be a natural number"
-msgstr "Ablaufdatum in Tagen MUSS eine natürliche Zahl sein"
-
-#: src/EBox/CGI/CreateCA.pm:132
-msgid "Problems creating Certification Authority has happened"
-msgstr "Es traten Probleme auf beim Generieren der Zertifizierungsstelle"
-
-#: src/EBox/CGI/DownloadFiles.pm:127
-msgid "Error creating file"
-msgstr "Fehler beim Generieren der Datei"
-
-#: src/EBox/CGI/IssueCertificate.pm:67 src/EBox/CA/TestStub.pm:154
-#: src/EBox/CA/TestStub.pm:254 src/EBox/CA.pm:214 src/EBox/CA.pm:488
-#: src/templates/formRenew.mas:41 src/templates/createCA.mas:7
-#: src/templates/index.mas:22 src/templates/formRevoke.mas:24
+#: src/EBox/CA.pm:214 src/EBox/CA.pm:488 src/EBox/CA/TestStub.pm:154
+#: src/EBox/CA/TestStub.pm:254 src/EBox/CGI/IssueCertificate.pm:67
+#: src/templates/createCA.mas:7 src/templates/formRevoke.mas:24
+#: src/templates/formRenew.mas:41 src/templates/index.mas:22
 msgid "Organization Name"
 msgstr "Name der Organisation"
-
-#: src/EBox/CGI/IssueCertificate.pm:72 src/EBox/CGI/RenewCertificate.pm:69
-#: src/templates/formRenew.mas:13 src/templates/createCA.mas:10
-#: src/templates/index.mas:30
-msgid "Days to expire"
-msgstr "Ablaufdatum in Tagen"
-
-#: src/EBox/CGI/IssueCertificate.pm:106
-msgid ""
-"The input contains invalid characters. All alphanumeric characters, plus "
-"these non alphanumeric chars: .?&+:\\@ and spaces are allowed."
-msgstr ""
-"Die Eingabe enthält ungültige Zeichen. Nur die Buchstaben A-Z und a-z, die "
-"Ziffern 0-9, die Sonderzeichen \".?&+:\\@\" und Leerzeichen sind erlaubt"
-
-#: src/EBox/CGI/IssueCertificate.pm:125
-msgid "The certificate has been issued"
-msgstr "Das Zertifikat wurde ausgestellt"
-
-#: src/EBox/CGI/IssueCertificate.pm:126
-msgid "The new CA certificate has been issued"
-msgstr "Das neue Zertifikat der Zertifizierungsstelle wurde ausgestellt"
-
-#: src/EBox/CGI/RevokeCertificate.pm:64
-msgid "The certificate has NOT been revoked"
-msgstr "Das Zertifikat wurde NICHT widerrufen"
-
-#: src/EBox/CGI/RevokeCertificate.pm:70 src/EBox/CGI/RenewCertificate.pm:68
-msgid "Boolean indicating Certification Authority Certificate"
-msgstr "Bool'scher Wert zeigt das Zertifikat der Zertifizierungsstelle an"
-
-#: src/EBox/CGI/RevokeCertificate.pm:71 src/templates/formRevoke.mas:62
-msgid "Reason"
-msgstr "Grund"
-
-#: src/EBox/CGI/RevokeCertificate.pm:131
-msgid "The certificate has been revoked"
-msgstr "Das Zertifikat wurde widerrufen"
-
-#: src/EBox/CGI/RevokeCertificate.pm:132
-msgid "The CA certificate has been revoked"
-msgstr "Das Zertifikat der Zertifizierungsstelle wurde widerrufen"
-
-#: src/EBox/CGI/RenewCertificate.pm:64
-#, fuzzy
-msgid "The certificate has NOT been renewed"
-msgstr "Das Zertifikat wurde erneuert"
-
-#: src/EBox/CGI/RenewCertificate.pm:129
-msgid "The certificate CANNOT be renewed"
-msgstr "Das Zertifikat kann NICHT erneuert werden"
-
-#: src/EBox/CGI/RenewCertificate.pm:131
-msgid "The certificate has been renewed"
-msgstr "Das Zertifikat wurde erneuert"
-
-#: src/EBox/CGI/RenewCertificate.pm:132
-msgid "The new CA certificate has been renewed"
-msgstr "Das Zertifikat der Zertifizierungsstelle wurde erneuert"
-
-#: src/EBox/CA/TestStub.pm:259 src/EBox/CA.pm:502
-msgid ""
-"The CA certificates should be revoked  or has expired before issuing a new "
-"certificate"
-msgstr ""
-"Vor dem Ausstellen eines neuen Zertifikat der Zertifizierungsstelle sollte "
-"es widerrufen werden oder zumindest abgelaufen sein"
-
-#: src/EBox/CA/TestStub.pm:654
-#, perl-brace-format
-msgid "The user {commonName} does NOT exist"
-msgstr "Den Benutzer {commonName} gibt es NICHT"
-
-#: src/EBox/CA/TestStub.pm:720
-msgid "Days set to the maximum allowed: Year 2038 Bug"
-msgstr ""
-"Das Datum wurde auf den spätestmöglichen Zeitpunkt gesetzt: Jahr 2038 Fehler"
-
-#: src/EBox/CA/TestStub.pm:729 src/EBox/CA.pm:743 src/EBox/CA.pm:1324
-msgid "Expiration date later than CA certificate expiration date"
-msgstr ""
-"Das Ablaufdatum ist später als dasjenige des Zertifikats der "
-"Zertifizierungsstelle"
 
 #: src/EBox/CA.pm:255 src/EBox/CA.pm:723 src/EBox/CA.pm:1303
 #, fuzzy, perl-brace-format
@@ -173,6 +39,30 @@ msgstr ""
 msgid "The remove operation cannot be finished. Reason: "
 msgstr ""
 "Die Aktion \"Löschen\" konnte nicht vollständig durchgeführt werden. Grund:"
+
+#: src/EBox/CA.pm:502 src/EBox/CA/TestStub.pm:259
+msgid ""
+"The CA certificates should be revoked  or has expired before issuing a new "
+"certificate"
+msgstr ""
+"Vor dem Ausstellen eines neuen Zertifikat der Zertifizierungsstelle sollte "
+"es widerrufen werden oder zumindest abgelaufen sein"
+
+#: src/EBox/CA.pm:706 src/EBox/CA.pm:872 src/EBox/CA.pm:1187
+#: src/EBox/CA.pm:1229 src/EBox/CA.pm:1328 src/EBox/CA/TestStub.pm:438
+#: src/EBox/CA/TestStub.pm:516 src/EBox/CA/TestStub.pm:642
+#: src/EBox/CGI/RenewCertificate.pm:74 src/EBox/CGI/IssueCertificate.pm:69
+#: src/EBox/CGI/ShowForm.pm:62 src/EBox/CGI/DownloadFiles.pm:69
+#: src/EBox/CGI/RevokeCertificate.pm:76 src/templates/formRevoke.mas:31
+#: src/templates/formRenew.mas:48 src/templates/index.mas:24
+msgid "Common Name"
+msgstr "Allgemeine Bezeichnung"
+
+#: src/EBox/CA.pm:743 src/EBox/CA.pm:1324 src/EBox/CA/TestStub.pm:729
+msgid "Expiration date later than CA certificate expiration date"
+msgstr ""
+"Das Ablaufdatum ist später als dasjenige des Zertifikats der "
+"Zertifizierungsstelle"
 
 #: src/EBox/CA.pm:885 src/EBox/CA.pm:1198
 #, perl-brace-format
@@ -320,23 +210,195 @@ msgstr ""
 msgid "Cannot start OpenSSL shell. ({errval})"
 msgstr "Die OpenSSL Kommandozeile konnte nicht gestartet werden. ({errval})"
 
-#: src/templates/formRenew.mas:18 src/templates/index.mas:37
-#: src/templates/formRevoke.mas:71
-msgid "CA Passphrase"
+#: src/EBox/CA/TestStub.pm:654
+#, perl-brace-format
+msgid "The user {commonName} does NOT exist"
+msgstr "Den Benutzer {commonName} gibt es NICHT"
+
+#: src/EBox/CA/TestStub.pm:720
+msgid "Days set to the maximum allowed: Year 2038 Bug"
+msgstr ""
+"Das Datum wurde auf den spätestmöglichen Zeitpunkt gesetzt: Jahr 2038 Fehler"
+
+#: src/EBox/CGI/CreateCA.pm:43 src/EBox/CGI/Index.pm:39
+#: src/EBox/CGI/RenewCertificate.pm:42 src/EBox/CGI/IssueCertificate.pm:43
+#: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/DownloadFiles.pm:42
+#: src/EBox/CGI/RevokeCertificate.pm:42
+msgid "Certification Authority Management"
+msgstr "Verwalten der Zertifizierungsstelle"
+
+#: src/EBox/CGI/CreateCA.pm:108 src/EBox/CGI/IssueCertificate.pm:83
+msgid "CA passphrases do NOT match"
 msgstr ""
 
-#: src/templates/formRenew.mas:25 src/templates/index.mas:171
-#: src/templates/index.mas:191 src/templates/forceRenew.mas:27
+#: src/EBox/CGI/CreateCA.pm:118 src/EBox/CGI/IssueCertificate.pm:91
+#, perl-brace-format
+msgid "CA Passphrase should be at least {length} characters"
+msgstr ""
+
+#: src/EBox/CGI/CreateCA.pm:123 src/EBox/CGI/IssueCertificate.pm:101
+msgid "Days to expire MUST be a natural number"
+msgstr "Ablaufdatum in Tagen MUSS eine natürliche Zahl sein"
+
+#: src/EBox/CGI/CreateCA.pm:132
+msgid "Problems creating Certification Authority has happened"
+msgstr "Es traten Probleme auf beim Generieren der Zertifizierungsstelle"
+
+#: src/EBox/CGI/RenewCertificate.pm:64
+#, fuzzy
+msgid "The certificate has NOT been renewed"
+msgstr "Das Zertifikat wurde erneuert"
+
+#: src/EBox/CGI/RenewCertificate.pm:68 src/EBox/CGI/RevokeCertificate.pm:70
+msgid "Boolean indicating Certification Authority Certificate"
+msgstr "Bool'scher Wert zeigt das Zertifikat der Zertifizierungsstelle an"
+
+#: src/EBox/CGI/RenewCertificate.pm:69 src/EBox/CGI/IssueCertificate.pm:72
+#: src/templates/createCA.mas:10 src/templates/formRenew.mas:13
+#: src/templates/index.mas:30
+msgid "Days to expire"
+msgstr "Ablaufdatum in Tagen"
+
+#: src/EBox/CGI/RenewCertificate.pm:129
+msgid "The certificate CANNOT be renewed"
+msgstr "Das Zertifikat kann NICHT erneuert werden"
+
+#: src/EBox/CGI/RenewCertificate.pm:131
+msgid "The certificate has been renewed"
+msgstr "Das Zertifikat wurde erneuert"
+
+#: src/EBox/CGI/RenewCertificate.pm:132
+msgid "The new CA certificate has been renewed"
+msgstr "Das Zertifikat der Zertifizierungsstelle wurde erneuert"
+
+#: src/EBox/CGI/IssueCertificate.pm:106
+msgid ""
+"The input contains invalid characters. All alphanumeric characters, plus "
+"these non alphanumeric chars: .?&+:\\@ and spaces are allowed."
+msgstr ""
+"Die Eingabe enthält ungültige Zeichen. Nur die Buchstaben A-Z und a-z, die "
+"Ziffern 0-9, die Sonderzeichen \".?&+:\\@\" und Leerzeichen sind erlaubt"
+
+#: src/EBox/CGI/IssueCertificate.pm:125
+msgid "The certificate has been issued"
+msgstr "Das Zertifikat wurde ausgestellt"
+
+#: src/EBox/CGI/IssueCertificate.pm:126
+msgid "The new CA certificate has been issued"
+msgstr "Das neue Zertifikat der Zertifizierungsstelle wurde ausgestellt"
+
+#: src/EBox/CGI/ShowForm.pm:63
+msgid "Action"
+msgstr "Aktion"
+
+#: src/EBox/CGI/ShowForm.pm:73
+msgid "Only revoke and renew actions are performed"
+msgstr "Nur die Aktionen \"Widerrufen\" und \"Erneuern\" werden durchgeführt"
+
+#: src/EBox/CGI/ShowForm.pm:81 src/EBox/CGI/DownloadFiles.pm:79
+#, perl-brace-format
+msgid "Common name: {cn} does NOT exist in database"
+msgstr "Allgemeine Bezeichnung: {cn} ist NICHT in der Datenbank vorhanden"
+
+#: src/EBox/CGI/DownloadFiles.pm:127
+msgid "Error creating file"
+msgstr "Fehler beim Generieren der Datei"
+
+#: src/EBox/CGI/RevokeCertificate.pm:64
+msgid "The certificate has NOT been revoked"
+msgstr "Das Zertifikat wurde NICHT widerrufen"
+
+#: src/EBox/CGI/RevokeCertificate.pm:71 src/templates/formRevoke.mas:62
+msgid "Reason"
+msgstr "Grund"
+
+#: src/EBox/CGI/RevokeCertificate.pm:131
+msgid "The certificate has been revoked"
+msgstr "Das Zertifikat wurde widerrufen"
+
+#: src/EBox/CGI/RevokeCertificate.pm:132
+msgid "The CA certificate has been revoked"
+msgstr "Das Zertifikat der Zertifizierungsstelle wurde widerrufen"
+
+#: src/templates/forceRenew.mas:27 src/templates/formRenew.mas:25
+#: src/templates/index.mas:171 src/templates/index.mas:191
 msgid "Renew"
 msgstr "Erneuern"
 
-#: src/templates/formRenew.mas:31
-msgid "Renew a certificate"
+#: src/templates/forceRenew.mas:43
+#, fuzzy
+msgid "Renewing CA certificate"
+msgstr "Das Zertifikat der Zertifizierungsstelle wird widerrufen"
+
+#: src/templates/forceRenew.mas:46
+#, fuzzy
+msgid "Renewing certificate"
 msgstr "Zertifikat erneuern"
 
-#: src/templates/formRenew.mas:54 src/templates/formRevoke.mas:37
-msgid "Expiration Date"
-msgstr "Ablaufdatum"
+#: src/templates/forceRenew.mas:53
+#, fuzzy, perl-brace-format
+msgid ""
+"This renewal can affect the functionality from other modules, please confirm "
+"you are very sure to renew the whole certification authority from {on} and "
+"leave the service(s) unstable or disabled"
+msgstr ""
+"Das Zertifikat mit dem gemeinsamen Namen {on}, welches Sie widerrufen "
+"wollten wird von einem anderen Modul verwendet. Möchten Sie das Zertifikat "
+"widerrufen, und in Kauf nehmen, dass die Dienste instabil oder deaktiviert "
+"werden?"
+
+#: src/templates/forceRenew.mas:57
+#, fuzzy, perl-brace-format
+msgid ""
+"The certificate whose common name is {cn} you tried to renew is being used "
+"by some module, please confirm you are sure to renew and leave the service"
+"(s) unstable or disabled"
+msgstr ""
+"Das Zertifikat mit dem Allgemeinen Namen {cn}, welches Sie widerrufen "
+"wollten, wird noch von einem Modul verwendet. Bitte bestätigen Sie, dass sie "
+"mit Sicherheit widerrufen wollen. Das kann den betroffenen Dienst instabil "
+"machen oder deaktivieren"
+
+#: src/templates/forceRenew.mas:83 src/templates/forceRevoke.mas:50
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: src/templates/forceRevoke.mas:13
+msgid "Revoking CA certificate"
+msgstr "Das Zertifikat der Zertifizierungsstelle wird widerrufen"
+
+#: src/templates/forceRevoke.mas:16
+msgid "Revoking certificate"
+msgstr "Das Zertifikat wird widerrufen"
+
+#: src/templates/forceRevoke.mas:23
+#, perl-brace-format
+msgid ""
+"This revokation can affect the functionality from other modules, please "
+"confirm you are very sure to revoke the whole certification authority from "
+"{on} and leave the service(s) unstable or disabled"
+msgstr ""
+"Das Zertifikat mit dem gemeinsamen Namen {on}, welches Sie widerrufen "
+"wollten wird von einem anderen Modul verwendet. Möchten Sie das Zertifikat "
+"widerrufen, und in Kauf nehmen, dass die Dienste instabil oder deaktiviert "
+"werden?"
+
+#: src/templates/forceRevoke.mas:27
+#, fuzzy, perl-brace-format
+msgid ""
+"The certificate whose common name is {cn} you tried to revoke is being used "
+"by some module, please confirm you are sure to revoke and leave the service"
+"(s) unstable or disabled"
+msgstr ""
+"Das Zertifikat mit dem Allgemeinen Namen {cn}, welches Sie widerrufen "
+"wollten, wird noch von einem Modul verwendet. Bitte bestätigen Sie, dass sie "
+"mit Sicherheit widerrufen wollen. Das kann den betroffenen Dienst instabil "
+"machen oder deaktivieren"
+
+#: src/templates/forceRevoke.mas:46 src/templates/formRevoke.mas:78
+#: src/templates/index.mas:150 src/templates/index.mas:185
+msgid "Revoke"
+msgstr "Widerrufen"
 
 #: src/templates/createCA.mas:13
 msgid "Passphrase"
@@ -353,6 +415,27 @@ msgstr "Generieren"
 #: src/templates/createCA.mas:28
 msgid "Create Certification Authority Certificate"
 msgstr "Ein Zertifikat für die Zertifizierungsstelle generieren"
+
+#: src/templates/formRevoke.mas:10
+msgid "Revoke a certificate"
+msgstr "Zertifikat widerrufen"
+
+#: src/templates/formRevoke.mas:19
+msgid "Revoke the selected certificate"
+msgstr "Das ausgewählte Zertifikat widerrufen"
+
+#: src/templates/formRevoke.mas:37 src/templates/formRenew.mas:54
+msgid "Expiration Date"
+msgstr "Ablaufdatum"
+
+#: src/templates/formRevoke.mas:71 src/templates/formRenew.mas:18
+#: src/templates/index.mas:37
+msgid "CA Passphrase"
+msgstr ""
+
+#: src/templates/formRenew.mas:31
+msgid "Renew a certificate"
+msgstr "Zertifikat erneuern"
 
 #: src/templates/index.mas:45
 msgid "Re CA Passphrase"
@@ -422,92 +505,9 @@ msgstr "Abgelaufen"
 msgid "Revoked"
 msgstr "Widerrufen"
 
-#: src/templates/index.mas:150 src/templates/index.mas:185
-#: src/templates/forceRevoke.mas:46 src/templates/formRevoke.mas:78
-msgid "Revoke"
-msgstr "Widerrufen"
-
 #: src/templates/index.mas:160 src/templates/index.mas:188
 msgid "Download Key(s) and Certificate"
 msgstr "Schlüssel und Zertifikat downloaden"
-
-#: src/templates/forceRevoke.mas:13
-msgid "Revoking CA certificate"
-msgstr "Das Zertifikat der Zertifizierungsstelle wird widerrufen"
-
-#: src/templates/forceRevoke.mas:16
-msgid "Revoking certificate"
-msgstr "Das Zertifikat wird widerrufen"
-
-#: src/templates/forceRevoke.mas:23
-#, perl-brace-format
-msgid ""
-"This revokation can affect the functionality from other modules, please "
-"confirm you are very sure to revoke the whole certification authority from "
-"{on} and leave the service(s) unstable or disabled"
-msgstr ""
-"Das Zertifikat mit dem gemeinsamen Namen {on}, welches Sie widerrufen "
-"wollten wird von einem anderen Modul verwendet. Möchten Sie das Zertifikat "
-"widerrufen, und in Kauf nehmen, dass die Dienste instabil oder deaktiviert "
-"werden?"
-
-#: src/templates/forceRevoke.mas:27
-#, fuzzy, perl-brace-format
-msgid ""
-"The certificate whose common name is {cn} you tried to revoke is being used "
-"by some module, please confirm you are sure to revoke and leave the service"
-"(s) unstable or disabled"
-msgstr ""
-"Das Zertifikat mit dem Allgemeinen Namen {cn}, welches Sie widerrufen "
-"wollten, wird noch von einem Modul verwendet. Bitte bestätigen Sie, dass sie "
-"mit Sicherheit widerrufen wollen. Das kann den betroffenen Dienst instabil "
-"machen oder deaktivieren"
-
-#: src/templates/forceRevoke.mas:50 src/templates/forceRenew.mas:83
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#: src/templates/forceRenew.mas:43
-#, fuzzy
-msgid "Renewing CA certificate"
-msgstr "Das Zertifikat der Zertifizierungsstelle wird widerrufen"
-
-#: src/templates/forceRenew.mas:46
-#, fuzzy
-msgid "Renewing certificate"
-msgstr "Zertifikat erneuern"
-
-#: src/templates/forceRenew.mas:53
-#, fuzzy, perl-brace-format
-msgid ""
-"This renewal can affect the functionality from other modules, please confirm "
-"you are very sure to renew the whole certification authority from {on} and "
-"leave the service(s) unstable or disabled"
-msgstr ""
-"Das Zertifikat mit dem gemeinsamen Namen {on}, welches Sie widerrufen "
-"wollten wird von einem anderen Modul verwendet. Möchten Sie das Zertifikat "
-"widerrufen, und in Kauf nehmen, dass die Dienste instabil oder deaktiviert "
-"werden?"
-
-#: src/templates/forceRenew.mas:57
-#, fuzzy, perl-brace-format
-msgid ""
-"The certificate whose common name is {cn} you tried to renew is being used "
-"by some module, please confirm you are sure to renew and leave the service"
-"(s) unstable or disabled"
-msgstr ""
-"Das Zertifikat mit dem Allgemeinen Namen {cn}, welches Sie widerrufen "
-"wollten, wird noch von einem Modul verwendet. Bitte bestätigen Sie, dass sie "
-"mit Sicherheit widerrufen wollen. Das kann den betroffenen Dienst instabil "
-"machen oder deaktivieren"
-
-#: src/templates/formRevoke.mas:10
-msgid "Revoke a certificate"
-msgstr "Zertifikat widerrufen"
-
-#: src/templates/formRevoke.mas:19
-msgid "Revoke the selected certificate"
-msgstr "Das ausgewählte Zertifikat widerrufen"
 
 #~ msgid ""
 #~ "The certificate whose common name is {cn} you tried to revoke is being "

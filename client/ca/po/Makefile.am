@@ -9,45 +9,45 @@ MAINTAINERCLEANFILES = Makefile.in ebox-modulename.pot
 
 # List of files which contain translatable strings.
 POTFILES_TMPL = \
- ./src/templates/formRenew.mas \
- ./src/templates/createCA.mas \
- ./src/templates/index.mas \
- ./src/templates/forceRevoke.mas \
  ./src/templates/forceRenew.mas \
+ ./src/templates/forceRevoke.mas \
+ ./src/templates/createCA.mas \
  ./src/templates/formRevoke.mas \
+ ./src/templates/formRenew.mas \
+ ./src/templates/index.mas \
  ./tools 
 
 POTFILES_PL = \
- ./src/EBox/CGI/ShowForm.pm \
- ./src/EBox/CGI/CreateCA.pm \
- ./src/EBox/CGI/Index.pm \
- ./src/EBox/CGI/DownloadFiles.pm \
- ./src/EBox/CGI/IssueCertificate.pm \
- ./src/EBox/CGI/RevokeCertificate.pm \
- ./src/EBox/CGI/RenewCertificate.pm \
+ ./src/EBox/CA.pm \
  ./src/EBox/CA/Observer.pm \
  ./src/EBox/CA/TestStub.pm \
  ./src/EBox/CA/DN.pm \
- ./src/EBox/CA.pm 
+ ./src/EBox/CGI/CreateCA.pm \
+ ./src/EBox/CGI/Index.pm \
+ ./src/EBox/CGI/RenewCertificate.pm \
+ ./src/EBox/CGI/IssueCertificate.pm \
+ ./src/EBox/CGI/ShowForm.pm \
+ ./src/EBox/CGI/DownloadFiles.pm \
+ ./src/EBox/CGI/RevokeCertificate.pm 
 
 POTFILES = \
- ./src/EBox/CGI/ShowForm.pm \
- ./src/EBox/CGI/CreateCA.pm \
- ./src/EBox/CGI/Index.pm \
- ./src/EBox/CGI/DownloadFiles.pm \
- ./src/EBox/CGI/IssueCertificate.pm \
- ./src/EBox/CGI/RevokeCertificate.pm \
- ./src/EBox/CGI/RenewCertificate.pm \
+ ./src/EBox/CA.pm \
  ./src/EBox/CA/Observer.pm \
  ./src/EBox/CA/TestStub.pm \
  ./src/EBox/CA/DN.pm \
- ./src/EBox/CA.pm \
- ./src/templates/formRenew.mas \
- ./src/templates/createCA.mas \
- ./src/templates/index.mas \
- ./src/templates/forceRevoke.mas \
+ ./src/EBox/CGI/CreateCA.pm \
+ ./src/EBox/CGI/Index.pm \
+ ./src/EBox/CGI/RenewCertificate.pm \
+ ./src/EBox/CGI/IssueCertificate.pm \
+ ./src/EBox/CGI/ShowForm.pm \
+ ./src/EBox/CGI/DownloadFiles.pm \
+ ./src/EBox/CGI/RevokeCertificate.pm \
  ./src/templates/forceRenew.mas \
- ./src/templates/formRevoke.mas 
+ ./src/templates/forceRevoke.mas \
+ ./src/templates/createCA.mas \
+ ./src/templates/formRevoke.mas \
+ ./src/templates/formRenew.mas \
+ ./src/templates/index.mas 
 
 # Usually the message domain is the same as the package name.
 DOMAIN = $(PACKAGE)

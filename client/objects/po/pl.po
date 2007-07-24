@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-objects 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:13+0200\n"
+"POT-Creation-Date: 2007-07-24 15:40+0200\n"
 "PO-Revision-Date: 2007-04-03 09:12+0000\n"
 "Last-Translator: Mariusz Zawadzki <majdom@gmail.com>\n"
 "Language-Team: none\n"
@@ -18,62 +18,63 @@ msgstr ""
 "|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/CGI/Del.pm:42 src/EBox/CGI/Edit.pm:42 src/EBox/CGI/Add.pm:41
-#: src/EBox/CGI/DelFrom.pm:41 src/EBox/CGI/AddTo.pm:41 src/EBox/Objects.pm:214
-msgid "Object name"
-msgstr "Nazwa Obiektu"
-
-#: src/EBox/CGI/Edit.pm:29 src/EBox/CGI/Edit.pm:39
-msgid "Edit Object"
-msgstr "Edytuj Obiekt"
-
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:41 src/EBox/Objects.pm:37
+#: src/EBox/Objects.pm:37 src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:41
+#: debian/ebox-objects/usr/share/perl5/EBox/Objects.pm:37
+#: debian/ebox-objects/usr/share/perl5/EBox/CGI/Objects/Index.pm:30
+#: debian/ebox-objects/usr/share/perl5/EBox/CGI/Objects/Index.pm:41
 msgid "Objects"
 msgstr "Obiekty"
 
-#: src/EBox/CGI/AddTo.pm:45 src/templates/edit.mas:18
-msgid "IP address"
-msgstr "Adresy IP"
-
-#: src/EBox/CGI/AddTo.pm:46 src/templates/edit.mas:20
-msgid "Netmask"
-msgstr "Maska sieci"
-
-#: src/EBox/CGI/AddTo.pm:47 src/templates/edit.mas:16
-#: src/templates/index.mas:32
-msgid "Name"
-msgstr "Nazwa"
-
 #: src/EBox/Objects.pm:42
+#: debian/ebox-objects/usr/share/perl5/EBox/Objects.pm:42
 #, perl-brace-format
 msgid "Added object {object}"
 msgstr "Dodano Obiekt {object}"
 
 #: src/EBox/Objects.pm:44
+#: debian/ebox-objects/usr/share/perl5/EBox/Objects.pm:44
 #, perl-brace-format
 msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
 msgstr "Dodano {nname} ({ip}/{mask} [{mac}]) do obiektu {object}"
 
 #: src/EBox/Objects.pm:45
+#: debian/ebox-objects/usr/share/perl5/EBox/Objects.pm:45
 #, perl-brace-format
 msgid "Removed object {object}"
 msgstr "Usunięto obiekt {object}"
 
 #: src/EBox/Objects.pm:47
+#: debian/ebox-objects/usr/share/perl5/EBox/Objects.pm:47
 #, perl-brace-format
 msgid "Forcefully removed object {object}"
 msgstr "Wymuszono usunięcie obiektu {object}"
 
 #: src/EBox/Objects.pm:49
+#: debian/ebox-objects/usr/share/perl5/EBox/Objects.pm:49
 #, perl-brace-format
 msgid "Removed {nname} from object {object}"
 msgstr "Usunięto {nname} z obiektu {object}"
 
 #: src/EBox/Objects.pm:114 src/EBox/Objects.pm:319 src/EBox/Objects.pm:364
+#: debian/ebox-objects/usr/share/perl5/EBox/Objects.pm:114
+#: debian/ebox-objects/usr/share/perl5/EBox/Objects.pm:319
+#: debian/ebox-objects/usr/share/perl5/EBox/Objects.pm:364
 msgid "Object"
 msgstr "Obiekt"
 
+#: src/EBox/Objects.pm:214 src/EBox/CGI/Edit.pm:42 src/EBox/CGI/DelFrom.pm:41
+#: src/EBox/CGI/AddTo.pm:41 src/EBox/CGI/Add.pm:41 src/EBox/CGI/Del.pm:42
+#: debian/ebox-objects/usr/share/perl5/EBox/Objects.pm:214
+#: debian/ebox-objects/usr/share/perl5/EBox/CGI/Objects/Edit.pm:42
+#: debian/ebox-objects/usr/share/perl5/EBox/CGI/Objects/DelFrom.pm:41
+#: debian/ebox-objects/usr/share/perl5/EBox/CGI/Objects/AddTo.pm:41
+#: debian/ebox-objects/usr/share/perl5/EBox/CGI/Objects/Add.pm:41
+#: debian/ebox-objects/usr/share/perl5/EBox/CGI/Objects/Del.pm:42
+msgid "Object name"
+msgstr "Nazwa Obiektu"
+
 #: src/EBox/Objects.pm:225
+#: debian/ebox-objects/usr/share/perl5/EBox/Objects.pm:225
 #, perl-brace-format
 msgid ""
 "The name '{name}' is already used to identify another object. Please choose "
@@ -83,14 +84,45 @@ msgstr ""
 "inną nazwę"
 
 #: src/EBox/Objects.pm:332
+#: debian/ebox-objects/usr/share/perl5/EBox/Objects.pm:332
 msgid "network address"
 msgstr "adres sieci"
 
+#: src/EBox/CGI/Edit.pm:29 src/EBox/CGI/Edit.pm:39
+#: debian/ebox-objects/usr/share/perl5/EBox/CGI/Objects/Edit.pm:29
+#: debian/ebox-objects/usr/share/perl5/EBox/CGI/Objects/Edit.pm:39
+msgid "Edit Object"
+msgstr "Edytuj Obiekt"
+
+#: src/EBox/CGI/AddTo.pm:45
+#: debian/ebox-objects/usr/share/perl5/EBox/CGI/Objects/AddTo.pm:45
+#: src/templates/edit.mas:18
+#: debian/ebox-objects/usr/share/ebox/templates/objects/edit.mas:18
+msgid "IP address"
+msgstr "Adresy IP"
+
+#: src/EBox/CGI/AddTo.pm:46
+#: debian/ebox-objects/usr/share/perl5/EBox/CGI/Objects/AddTo.pm:46
+#: src/templates/edit.mas:20
+#: debian/ebox-objects/usr/share/ebox/templates/objects/edit.mas:20
+msgid "Netmask"
+msgstr "Maska sieci"
+
+#: src/EBox/CGI/AddTo.pm:47
+#: debian/ebox-objects/usr/share/perl5/EBox/CGI/Objects/AddTo.pm:47
+#: src/templates/edit.mas:16 src/templates/index.mas:32
+#: debian/ebox-objects/usr/share/ebox/templates/objects/edit.mas:16
+#: debian/ebox-objects/usr/share/ebox/templates/objects/index.mas:32
+msgid "Name"
+msgstr "Nazwa"
+
 #: src/templates/delete.mas:10
+#: debian/ebox-objects/usr/share/ebox/templates/objects/delete.mas:10
 msgid "Deleting object"
 msgstr "Usuwanie obiektów"
 
 #: src/templates/delete.mas:13
+#: debian/ebox-objects/usr/share/ebox/templates/objects/delete.mas:13
 msgid ""
 "The object you tried to delete is being used by some modules, please confirm "
 "that you want to delete it."
@@ -101,36 +133,52 @@ msgstr ""
 #: src/templates/delete.mas:23 src/templates/edit.mas:97
 #: src/templates/edit.mas:99 src/templates/edit.mas:101
 #: src/templates/index.mas:54 src/templates/index.mas:56
+#: debian/ebox-objects/usr/share/ebox/templates/objects/delete.mas:23
+#: debian/ebox-objects/usr/share/ebox/templates/objects/edit.mas:97
+#: debian/ebox-objects/usr/share/ebox/templates/objects/edit.mas:99
+#: debian/ebox-objects/usr/share/ebox/templates/objects/edit.mas:101
+#: debian/ebox-objects/usr/share/ebox/templates/objects/index.mas:54
+#: debian/ebox-objects/usr/share/ebox/templates/objects/index.mas:56
 msgid "Delete"
 msgstr "Usuń"
 
 #: src/templates/delete.mas:27
+#: debian/ebox-objects/usr/share/ebox/templates/objects/delete.mas:27
 msgid "Cancel"
 msgstr "Anuluj"
 
 #: src/templates/edit.mas:11
+#: debian/ebox-objects/usr/share/ebox/templates/objects/edit.mas:11
 #, perl-brace-format
 msgid "Edit <span class='stitle'>{description}</span> members"
 msgstr "Edytuj <span class='stitle'>{description}</span> użytkowników"
 
 #: src/templates/edit.mas:22
+#: debian/ebox-objects/usr/share/ebox/templates/objects/edit.mas:22
 msgid "MAC"
 msgstr "MAC"
 
 #: src/templates/edit.mas:24 src/templates/index.mas:36
+#: debian/ebox-objects/usr/share/ebox/templates/objects/edit.mas:24
+#: debian/ebox-objects/usr/share/ebox/templates/objects/index.mas:36
 msgid "Action"
 msgstr "Akcja"
 
 #: src/templates/edit.mas:63 src/templates/edit.mas:64
 #: src/templates/edit.mas:66
+#: debian/ebox-objects/usr/share/ebox/templates/objects/edit.mas:63
+#: debian/ebox-objects/usr/share/ebox/templates/objects/edit.mas:64
+#: debian/ebox-objects/usr/share/ebox/templates/objects/edit.mas:66
 msgid "Add"
 msgstr "Dodaj"
 
 #: src/templates/edit.mas:111
+#: debian/ebox-objects/usr/share/ebox/templates/objects/edit.mas:111
 msgid "Delete Object"
 msgstr "Usuń Obiekt"
 
 #: src/templates/edit.mas:115
+#: debian/ebox-objects/usr/share/ebox/templates/objects/edit.mas:115
 msgid ""
 "If you delete this object, all the information about its members will be "
 "lost."
@@ -139,14 +187,17 @@ msgstr ""
 "usunięte."
 
 #: src/templates/edit.mas:121
+#: debian/ebox-objects/usr/share/ebox/templates/objects/edit.mas:121
 msgid "Delete object"
 msgstr "Usuń obiekt"
 
 #: src/templates/index.mas:10
+#: debian/ebox-objects/usr/share/ebox/templates/objects/index.mas:10
 msgid "Create new object"
 msgstr "Utwórz nowy obiekt"
 
 #: src/templates/index.mas:13
+#: debian/ebox-objects/usr/share/ebox/templates/objects/index.mas:13
 msgid ""
 "The objects that you create here can be used in the rest of the system. "
 "Remember that an IP address cannot belong to more than one object."
@@ -155,21 +206,28 @@ msgstr ""
 "IP nie może należeć do więcej niż jednego obiektu."
 
 #: src/templates/index.mas:19 src/templates/index.mas:21
+#: debian/ebox-objects/usr/share/ebox/templates/objects/index.mas:19
+#: debian/ebox-objects/usr/share/ebox/templates/objects/index.mas:21
 msgid "Create"
 msgstr "Uwtórz"
 
 #: src/templates/index.mas:26
+#: debian/ebox-objects/usr/share/ebox/templates/objects/index.mas:26
 msgid "Object list"
 msgstr "Lista obiektów"
 
 #: src/templates/index.mas:48 src/templates/index.mas:49
+#: debian/ebox-objects/usr/share/ebox/templates/objects/index.mas:48
+#: debian/ebox-objects/usr/share/ebox/templates/objects/index.mas:49
 msgid "Edit"
 msgstr "Edytuj"
 
 #: src/templates/index.mas:67
+#: debian/ebox-objects/usr/share/ebox/templates/objects/index.mas:67
 msgid "edit"
 msgstr "edytuj"
 
 #: src/templates/index.mas:73
+#: debian/ebox-objects/usr/share/ebox/templates/objects/index.mas:73
 msgid "delete"
 msgstr "usuń"

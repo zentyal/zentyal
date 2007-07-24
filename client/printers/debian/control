@@ -7,7 +7,7 @@ Standards-Version: 3.6.1
 
 Package: ebox-printers
 Architecture: all
-Depends: ebox (0.9.99), ebox-samba, cupsys, libexporter-cluster-perl, libnet-cups-perl, foomatic-db, foomatic-db-engine, foomatic-db-hpijs, foomatic-filters, foomatic-filters-ppds
+Depends: ebox (= 0.9.99), ebox-samba, cupsys, libexporter-cluster-perl, libnet-cups-perl, foomatic-db, foomatic-db-engine, foomatic-db-hpijs, foomatic-filters, foomatic-filters-ppds
 Conflicts: ebox (<< 0.9.99)
 Description: Printer sharing
  eBox is a framework for the development and deployment of security-wise

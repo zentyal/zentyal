@@ -7,7 +7,7 @@ Standards-Version: 3.6.1
 
 Package: ebox-samba
 Architecture: all
-Depends: ebox (0.9.99), ebox-network, ebox-firewall,  ebox-usersandgroups, samba, libnss-ldap, libcrypt-smbhash-perl, quota, smbldap-tools, bzip2
+Depends: ebox (= 0.9.99), ebox-network, ebox-firewall,  ebox-usersandgroups, samba, libnss-ldap, libcrypt-smbhash-perl, quota, smbldap-tools, bzip2
 Conflicts: ebox (<< 0.9.99)
 Description: File sharing
  eBox is a framework for the development and deployment of security-wise
