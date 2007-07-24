@@ -1,4 +1,4 @@
-AC_INIT([EBox-firewall], [0.9.3])
+AC_INIT([EBox-firewall], [0.9.99])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Firewall.pm])
