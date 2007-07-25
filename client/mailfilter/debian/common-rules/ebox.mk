@@ -12,6 +12,6 @@ config.status: configure
         IMAGESPATH="/usr/share/ebox/www/images" \
 	VARPATH="/var" \
 	ETCPATH="/etc/ebox" \
-	./configure  --prefix=/usr \
+	./configure --disable-runtime-tests --prefix=/usr \
                --localstatedir=/var --sysconfdir=/etc
 
