@@ -9,6 +9,6 @@ nobase_perl_DATA=  $(regular_packages)
 
 DISTCLEANFILES = 
 
-EXTRA_DIST = $(test_packages)
+EXTRA_DIST = $(regular_packages) $(test_packages)
 
 MAINTAINERCLEANFILES = Makefile.in
