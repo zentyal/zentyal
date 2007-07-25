@@ -43,7 +43,7 @@ sub _create
 #
 # Method: summary
 #
-#   	Overrieden method that returns summary components 
+#   	Overriden method that returns summary components 
 #   	for system information
 #
 
@@ -92,7 +92,7 @@ sub summary
 #
 # Method: menu
 #
-#   	Overrieden method that returns the core menu entries: 
+#   	Overriden method that returns the core menu entries: 
 #		
 #	- Summary
 #	- Save/Cancel
