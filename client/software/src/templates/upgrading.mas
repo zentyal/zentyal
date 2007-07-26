@@ -28,7 +28,7 @@ function callServer() {
    new Ajax.Request(url, {
    			  method: 'post',
 			  asynchronous: true,
-			  onComplete: function (t) { updatePage(t) }
+			  onSuccess: function (t) { updatePage(t) }
 			 }
 		    );
 
