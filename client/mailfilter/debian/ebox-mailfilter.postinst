@@ -14,6 +14,16 @@ case "$1" in
 			fi
 		done
 
+
+
+		MAILFILTER_SERVICES='amavis clamav-daemon clamav-freshclam spamassassin'
+		for SERVICE in $MAILFILTER_SERVICES; do
+		    /etc/init.d/$SERVICE stop  # invoke-rc.d not used because it starts clamd with runit
+
+		    update-rc.d -f $SERVICE remove
+		done
+
+
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
 		# clamav need access to amavis stuff
@@ -30,11 +40,6 @@ case "$1" in
 		rm /etc/amavis/conf.d/*
 
 
-		MAILFILTER_SERVICES='amavis clamav-daemon clamav-freshclam spamassassin'
-		for SERVICE in $MAILFILTER_SERVICES; do
-		    update-rc.d -f $SERVICE remove
-		    invoke-rc.d    $SERVICE stop
-		done
 
 
 		
