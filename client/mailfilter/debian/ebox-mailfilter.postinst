@@ -2,6 +2,34 @@
 
 webserver=apache
 
+function installRunitFiles {
+
+    RUNIT_SERVICE='clamd spamd amavisd-new'
+    for  SERVICE in $RUNIT_SERVICE; do
+	mkdir  -m 755  /etc/runit/$SERVICE
+	touch /etc/runit/$SERVICE/down
+    done
+    
+
+    echo '#!/bin/sh' > /etc/runit/clamd/run
+    echo 'exec 2>&1' >> /etc/runit/clamd/run
+    echo 'exec /usr/sbin/clamd' >> /etc/runit/clamd/run
+
+    echo '#!/bin/sh' > /etc/runit/spamd/run
+    echo 'exec 2>&1' >> /etc/runit/spamd/run
+    echo 'exec /usr/sbin/spamd' >> /etc/runit/spamd/run
+
+    echo '#!/bin/sh' > /etc/runit/amavisd-new/run
+    echo 'exec 2>&1' >> /etc/runit/amavisd-new/run
+    echo 'exec /usr/sbin/amavisd-new -c /etc/amavis/conf.d/amavisd.conf foreground' >> /etc/runit/amavisd-new/run
+
+
+    for  SERVICE in $RUNIT_SERVICE; do
+	ln -s /etc/runit/$SERVICE /var/service/$SERVICE
+    done
+
+}
+
 case "$1" in
 	configure)
 		# install gconf schemas
@@ -14,14 +42,14 @@ case "$1" in
 			fi
 		done
 
+		installRunitFiles;
 
 
 		MAILFILTER_SERVICES='amavis clamav-daemon clamav-freshclam spamassassin'
 		for SERVICE in $MAILFILTER_SERVICES; do
-		    /etc/init.d/$SERVICE stop  # invoke-rc.d not used because it starts clamd with runit
-
+		    invoke-rc.d $SERVICE stop  # invoke-rc.d not used because it starts clamd with runit
 		    update-rc.d -f $SERVICE remove
-		done
+ 		done
 
 
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
@@ -39,10 +67,6 @@ case "$1" in
 		# remove old amavis conf files
 		rm /etc/amavis/conf.d/*
 
-
-
-
-		
 
 		# update ldap
 		/usr/lib/ebox-usersandgroups/ebox-init-ldap genconfig
@@ -62,3 +86,5 @@ esac
 #DEBHELPER#
 
 exit 0
+
+
