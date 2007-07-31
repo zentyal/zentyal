@@ -1,6 +1,6 @@
 0.9.99
-	+ New release
-
+	+ Restore conntrack mark in OUTPUT chain to make traffic generated in
+	  eBox go through the right router.
 0.9.3
 	+ Use value() instead of printableValue() in protocol
 	+ Add iptables rule to chain OUTPUT in table mangle to send traffic
