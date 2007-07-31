@@ -8,6 +8,9 @@ function installRunitFiles {
     for  SERVICE in $RUNIT_SERVICE; do
 	mkdir  -m 755  /etc/runit/$SERVICE
 	touch /etc/runit/$SERVICE/down
+
+	touch /etc/runit/$SERVICE/run
+	chmod 755 /etc/runit/$SERVICE/run
     done
     
 
