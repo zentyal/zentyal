@@ -1749,6 +1749,12 @@ sub _multigwRoutes
 		root("/sbin/iptables -t mangle -A PREROUTING "
 			."-j CONNMARK --save-mark");
 	} catch EBox::Exceptions::Internal with {};
+
+        try {
+                root("/sbin/iptables -t mangle -I OUTPUT "
+                        ."-j CONNMARK --restore-mark");
+        } catch EBox::Exceptions::Internal with {};
+
 }
 
 # Method: _regenConfig
