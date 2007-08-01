@@ -94,6 +94,8 @@ sub modExists # (module)
 #
 #      Check if the module config has changed
 #
+#       Global module is considered always unchanged
+#
 # Parameters:
 #
 #       module -  module's name to check
@@ -117,6 +119,8 @@ sub modIsChanged # (module)
 #
 # 	Set a module as changed
 #
+#      Global can not be marked as changed and such request will be ignored
+#
 # Parameters:
 #
 #       module -  module's name to set
@@ -132,6 +136,7 @@ sub modChange # (module)
 
 	my $mod = $self->modInstance($name);
 	defined $mod or throw EBox::Exceptions::Internal("Module $name does not exist");
+
 	$mod->saveAsBaseline();
 }
 

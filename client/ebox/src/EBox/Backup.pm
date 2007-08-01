@@ -842,10 +842,6 @@ sub restoreBackup # (file, %options)
 	  $mod->restoreBackup("$tempdir/eboxbackup", %options);
 	  $self->_migratePackage($mod->package());
 
-	  # to avoid false value in changed attribute for global
-	  if ($modname eq 'global') {
-	    $mod->setAsChanged();
-	  }
 	}
 	else {
 	  EBox::error("Restore data not found for module $modname. Skipping $modname restore");
