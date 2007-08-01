@@ -132,12 +132,13 @@ sub modChange # (module)
 	($name ne 'global') or return;
 
 	return if $self->get_bool("modules/$name/changed");
-	$self->set_bool("modules/$name/changed", 1);
 
 	my $mod = $self->modInstance($name);
 	defined $mod or throw EBox::Exceptions::Internal("Module $name does not exist");
 
-	$mod->saveAsBaseline();
+	$mod->initChangedState();
+
+	$self->set_bool("modules/$name/changed", 1);
 }
 
 #

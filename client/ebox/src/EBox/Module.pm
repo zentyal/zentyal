@@ -479,14 +479,19 @@ sub aroundRestoreConfig
 }
 
 
+
+# Method: initChangedState
 #
-# Method: saveAsBaseline
-#
-#	Set the actual state as baseline configuration of the module. This base
-#	implementation is empty
-#
-sub saveAsBaseline
+#    called before module is in the changed state. 
+sub initChangedState
 {
+  my ($self) = @_;
+
+   my $global = EBox::Global->getInstance();
+   $global->modIsChanged($self->name) and 
+     throw EBox::Exceptions::Internal($self->name . ' module already has changed state');
+
+
 }
 
 #

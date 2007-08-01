@@ -78,12 +78,18 @@ sub _state
 }
 
 
+sub initChangedState
+ {
+   my ($self) = @_;
 
-sub saveAsBaseline
-{
-  my ($self) = @_;
-  $self->_backup();
+   my $global = EBox::Global->getInstance();
+   $global->modIsChanged($self->name) and 
+     throw EBox::Exceptions::Internal($self->name . ' module already has changed state');
+
+
+   $self->_dump_to_file();
 }
+
 
 
 # we override aroundRestoreconfig to save gconf data before dump module config

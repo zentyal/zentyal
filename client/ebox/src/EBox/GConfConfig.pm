@@ -69,6 +69,8 @@ sub key # (key)
 	return $ret;
 }
 
+
+# ! this also marks the module as changed
 sub backup 
 {
 	my $self = shift;
