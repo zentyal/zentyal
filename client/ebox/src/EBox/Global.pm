@@ -119,7 +119,7 @@ sub modIsChanged # (module)
 #
 # 	Set a module as changed
 #
-#      Global can not be marked as changed and such request will be ignored
+#      Global cannot be marked as changed and such request will be ignored
 #
 # Parameters:
 #
