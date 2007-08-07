@@ -27,34 +27,45 @@ sub runGConf
 {
   my ($self) = @_;
 
-  $self->_stopDaemons();
-
-  $self->_updateGConf();
+  $self->_changeLogFiles();
 }
 
 
-sub _updateGConf
+
+
+sub _changeLogFiles
 {
   my ($self) = @_;
   my $openvpn = $self->{gconfmodule};
+  my @daemons = $openvpn->daemons();
 
-  # old service value now corresponf to userActive now
-  my $oldService = $openvpn->get_bool('active');
-  $openvpn->unset('active');
-  $openvpn->set_bool('userActive', $oldService);
+  my $oldLogDir = EBox::Config::log();
+
+  my $DIR_H;
+  opendir $DIR_H, $oldLogDir;
+
+  while (my $file =   readdir($DIR_H) ) {
+    if ($file =~ m/^openvpn-(.*)\.log$/) {
+      my $iface = $1;
+
+      my ($daemon) = grep {  $_->iface eq $iface } @daemons;
+      if ($daemon) {
+	my $origPath = $oldLogDir . '/' . $file;
+	my $newPath  = $daemon->logFile();
+	EBox::Sudo::root("mv $origPath $newPath");
+	EBox::debug("old log file $origPath moved to $newPath");
+      }
+      else {
+	EBox::debug("No daemon candidate found for file $file. Leaving it as is");
+      }
+    }
+  }
+
+
+  closedir $DIR_H;
 }
 
 
-
-sub _stopDaemons
-{
-  my ($self) = @_;
-  my $openvpn = $self->{gconfmodule};
-  my $bin     = $openvpn->openvpnBin();
-  my $killCmd = "/usr/bin/killall $bin";
-
-  EBox::Sudo::root($killCmd);
-}
 
 
 
