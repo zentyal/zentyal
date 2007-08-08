@@ -153,11 +153,15 @@ sub saveConfig
 	my $self = shift;
 
 	$self->_lock();
-	my $global = EBox::Global->getInstance();
-	my $log = EBox::logger;
-	$log->info("Restarting service for module: " . $self->name);
-	$self->_saveConfig();
-	$self->_unlock();
+	try {
+	  my $global = EBox::Global->getInstance();
+	  my $log = EBox::logger;
+	  $log->info("Restarting service for module: " . $self->name);
+	  $self->_saveConfig();
+	}
+	finally {
+	  $self->_unlock();
+	};
 }
 
 sub _unlock
