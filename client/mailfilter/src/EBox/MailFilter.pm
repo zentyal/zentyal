@@ -666,7 +666,7 @@ sub usesPort
     return undef;
   }
 
-  if ($iface ne 'lo') {
+  if ((defined $iface) and ($iface ne 'lo')) {
     # see if we need to listen in normal interfaces
     my $externalMTAs = @{ $self->allowedExternalMTAs() } > 0;
     if (not $externalMTAs) {
