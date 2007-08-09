@@ -20,15 +20,13 @@ case "$1" in
 		remove_gconf_schemas
 		;;
 	remove)
-		remove_gconf_schemas
+		# stop service
+	        /etc/init.d/ebox mailfilter stop
 
+		remove_gconf_schemas
+		
                 # remove ldap data
 		/usr/lib/ebox-mailfilter/ebox-mailfilter-ldap clean
 
-
-		MAILFILTER_SERVICES='amavis clamav-daemon clamav-freshclam'
-		for SERVICE in $MAILFILTER_SERVICES; do
-		    invoke-rc.d    $SERVICE stop
-		done
 		;;	
 esac 

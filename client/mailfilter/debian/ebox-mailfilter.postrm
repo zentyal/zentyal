@@ -6,6 +6,17 @@ case "$1" in
 
 		/usr/bin/ebox-clean-gconf mailfilter || true
 
+		# remove  runit services
+		RUNIT_SERVICE='clamd spamd amavisd-new'
+		for  SERVICE in $RUNIT_SERVICE; do
+		    # it must be already down but for prevention..
+		    runsvctrl d /var/service/$SERVICE
+
+		    rm /var/service/$SERVICE
+		    rm -rf  /etc/runit/$SERVICE
+		done
+ 		
+
 		;;		
 esac
 
