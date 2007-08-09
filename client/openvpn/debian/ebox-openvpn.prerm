@@ -21,6 +21,6 @@ case "$1" in
 		;;
 	remove)
 		remove_gconf_schemas
-		pkill -f /usr/sbin/openvpn || true
+		/etc/init.d/ebox openvpn stop
 		;;	
 esac 
