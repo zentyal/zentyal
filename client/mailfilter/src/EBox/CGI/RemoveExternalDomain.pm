@@ -55,7 +55,7 @@ sub actuate {
   $mailfilter->removeExternalDomain($domain);
 
   $self->setMsg(__x(
-		    q{Mail domain{domain} removed from external domains list.},
+		    q{Mail domain {domain} removed from external domain's list.},
 		    domain => $domain,
 		   )
 	       );

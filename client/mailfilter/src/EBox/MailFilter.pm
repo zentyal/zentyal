@@ -443,7 +443,7 @@ sub setAllowedExternalMTAs
 
     if ($internal) {
       throw EBox::Exceptions::External(
-				       __x('Invalid externa; MTA {mta}. Local net addresses are not allowed', mta => $mta)
+				       __x('Invalid external MTA {mta}. Local network addresses are not allowed', mta => $mta)
 				      );
     }
   }

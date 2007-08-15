@@ -55,8 +55,8 @@ sub actuate {
   $mailfilter->removeAllowedExternalMTA($mta);
 
   $self->setMsg(__x(
-		    'External mail server {mta} removed.' . 
-		    ' Remember to remove his mail domains from the external mail domains list',
+		    'External mail server {mta} removed. ' . 
+		    q{Remember to remove its mail domains from the external mail domain's list},
 		    mta => $mta,
 		   )
 	       );

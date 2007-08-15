@@ -87,7 +87,7 @@ sub actuate
    $msg =  __('Denied settings changed');
   }
   else {
-    $msg = __('No changes where specified by the user');
+    $msg = __('No changes were specified by the user');
   }
 
 

@@ -435,12 +435,12 @@ sub _checkSpamThreshold
   if ($self->autolearn()) {
     if ($threshold > $self->autolearnSpamThreshold) {
       throw EBox::Exceptions::External(
-	__("The spam's threshold cannot be higher than his autolearn threshold")
+	__("The spam's threshold cannot be higher than its autolearn threshold")
 				      );
     }
     elsif ($threshold <= $self->autolearnHamThreshold) {
       throw EBox::Exceptions::External(
-	__("The spam's threshold cannot be lower or equalthan his ham's autolearn threshold")
+	__("The spam's threshold cannot be lower or equal than its ham's autolearn threshold")
 				      );
     }
   }
@@ -519,7 +519,7 @@ sub learn
   if (not $saRO->bayes()) {
     throw EBox::Exceptions::External(__('Cannot learn because bayesian filter is disabled in the' .
 					' current configuration. ' . 
-					'In order to be able to learn  enable ithe bayesian filter and save the changes')
+					'In order to be able to learn enable the bayesian filter and save changes')
 				    );
   }
 
@@ -569,7 +569,7 @@ sub _checkSender
   }
   else {
     throw EBox::Exceptions::External(
-	 __(q{The sender can only be a email address or a domain name prefixed with '@'})
+	 __(q{The sender can be either an email address or a domain name prefixed with '@'})
 				    );
   }
 

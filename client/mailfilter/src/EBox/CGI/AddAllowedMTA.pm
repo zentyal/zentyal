@@ -60,8 +60,8 @@ sub actuate {
   $mailfilter->addAllowedExternalMTA( $mta );
   
   $self->setMsg(__x(
-		    'External mail server {mta} allowed.' . 
-		    ' Remember to add his mail domains to the external mail domains list',
+		    'External mail server {mta} allowed. ' .
+		    q{Remember to add its mail domains to the external mail domain's list},
 		    mta => $mta,
 		   )
 	       );
