@@ -285,12 +285,12 @@ sub _afterRestoreMsg
   my ($self, $fullRestore) =@_;
 
   if ($fullRestore) {
-    $self->setMsg( __('Full backup restored succesfully. '.
+    $self->setMsg( __('Full backup restored successfully. '.
 		      'You should now review your configuration and save it if you want '.
 		      'to keep it.'));
   }
   else {
-    $self->setMsg( __('Configuration restored succesfully, '.
+    $self->setMsg( __('Configuration restored successfully, '.
 		      'you should now review it and save it if you want '.
 		      'to keep it.'));
   }
