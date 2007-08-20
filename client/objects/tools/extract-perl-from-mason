@@ -1,0 +1,126 @@
+#!/bin/sh
+
+# This script is intended to check Perl code within Mason templates or
+# just dump it
+# extract-perl--from-mason
+
+usage() {
+
+    echo "Usage: $0 (check|dump) masonTemplate.mas"
+    echo "Where check : check if the Perl code within the mason template is correct"
+    echo "      dump  : dump the Perl code within the mason template"
+    echo "      masonTemplate.mas : the mason template to handle"
+
+}
+
+# Check arguments
+if [ "$#" -ne 2 ]; then
+    echo "Check or dump with a mason template is required"
+    usage
+    exit 1
+fi
+
+if [ "$1" != 'check' -a "$1" != 'dump' ]; then
+    echo "Check or dump is the only available options"
+    usage
+    exit 2
+fi
+
+if [ ! -f "$2" ]; then
+    echo "$2 must exist to be ${1}ed"
+    exit 3
+fi
+
+action=$1
+masonTmpl=$2
+
+awk '
+BEGIN {
+	in_args = 0         # Inside an argument tag
+	in_init = 0         # Inside an init tag
+        in_perl = 0         # Inside a perl tag
+        useStr = "use strict;"
+	printf "%s", useStr
+}
+
+{
+	if ($0 ~ /^<\/%args>/)
+	{
+		in_args = 0
+                print ""
+		next
+	}
+	if ($0 ~ /^<\/%init>/)
+	{
+		in_init= 0
+                print ""
+		next
+	}
+        if ($0 ~ /^<\/%perl>/)
+        {
+                in_perl = 0
+                print ""
+                next
+        }
+	if (in_args == 1)
+	{
+		print "my " $1 ";"
+		next
+	}
+	if (in_init == 1)
+	{
+		print
+		next
+	}
+        if (in_perl == 1) 
+        {
+                print
+                next
+        }
+	if ($0 ~ /^<%args>/)
+	{
+		in_args = 1
+                print ""
+		next
+	}
+	if ($0 ~ /^<%init>/)
+	{
+		in_init = 1
+                print ""
+		next
+	}
+        if ($0 ~ /^<%perl>/)
+	{
+		in_perl = 1
+                print ""
+		next
+	}
+	if (in_args == 0 && in_perl == 0)
+	{
+		perlline = ($0 ~ /^%/)
+		if (perlline)
+		{
+			print substr($0,2)
+			next
+		}
+		if ($0 ~ /<%.*%>/)
+		{
+			str = $0
+			sub(/^.*?<%/,"",str)
+			gsub(/(\|.*?)?%>.*?<%/,";",str)
+			sub(/(\|.*?)?%>.*?$/,";",str)
+			print str
+                        next
+		}
+                print ""
+	}
+
+
+}
+' $masonTmpl > /tmp/$$.pl
+
+if [ "$action" = 'check' ]; then
+    perl -c /tmp/$$.pl
+elif [ "$action" = 'dump' ]; then
+    cat /tmp/$$.pl && rm -f /tmp/$$.pl
+fi

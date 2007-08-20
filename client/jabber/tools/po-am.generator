@@ -1,7 +1,7 @@
 #!/bin/sh
 cat tools/po-am.header
 echo -n "POTFILES_TMPL = "
-find . \( -path ./tools -prune -o -name "*.tmpl" -o -name "*.mas" \) -exec echo -ne \\\\\\\n {}" " \;
+find . \( -path ./tools -prune -o -name "*.tmpl" -o -name "*.mas" \) -type f -exec echo -ne \\\\\\\n {}" " \;
 echo ""
 echo ""
 echo -n "POTFILES_PL = "
