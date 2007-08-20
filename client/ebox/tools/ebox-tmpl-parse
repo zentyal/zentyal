@@ -1,4 +1,8 @@
 #!/usr/bin/perl
+
+# It's completely *DEPRECATED*
+# Now extract-perl-from-mason script should be used
+
 foreach $item (@ARGV){        
 	open (FH, "<", $item);        
 	foreach $line(<FH>){                
