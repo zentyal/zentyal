@@ -2,78 +2,75 @@
 # Copyright (C) 2007 Warp S.L.
 # This file is distributed under the same license as the ebox-trafficshaping package.
 # Automatically generated, 2007.
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:14+0200\n"
-"PO-Revision-Date: 2007-03-30 16:26+0000\n"
+"POT-Creation-Date: 2007-08-21 17:45+0200\n"
+"PO-Revision-Date: 2007-08-19 14:49+0200\n"
 "Last-Translator: andy <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 0.10.1\n"
 
+#: src/EBox/CGI/View/RuleTable.pm:40 src/EBox/CGI/View/RuleMultiTable.pm:34
 #: src/EBox/CGI/Controller/RuleTable.pm:30
-#: src/EBox/CGI/View/RuleMultiTable.pm:34 src/EBox/CGI/View/RuleTable.pm:40
 msgid "Traffic Shaping rules"
 msgstr "Regeln für Bandbreitenbegrenzung"
 
 #: src/EBox/CGI/Index.pm:40
 msgid "Traffic Shaping Management"
-msgstr "Verwalten der Bandbreitennutzung"
+msgstr "Verwalten der Bandbreitenbegrenzung"
 
-#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:63
-msgid "Rules lists per interface"
-msgstr "Liste der Regeln pro Netzwerkkarte"
+#: src/EBox/TC.pm:69
+msgid "options"
+msgstr "Optionen"
 
-#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:67
-msgid ""
-"Select an interface to add traffic shaping rules. Keep in mind that if you "
-"are shaping an internal interface, you are doing ingress shaping."
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:69
-#, fuzzy
-msgid "Choose an interface to shape"
-msgstr "Wählen Sie eine externe Netzwerkkarte, die Sie begrenzen möchten"
+#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:205
+#: src/EBox/TrafficShaping.pm:298 src/EBox/TrafficShaping.pm:344
+#: src/EBox/TrafficShaping.pm:406 src/EBox/TrafficShaping.pm:508
+#: src/EBox/TrafficShaping.pm:769 src/EBox/TrafficShaping.pm:1025
+msgid "Interface"
+msgstr "Netzwerkkarte"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:120
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:632
 msgid "Service"
-msgstr ""
+msgstr "Dienst"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:130
 msgid "Source"
-msgstr ""
+msgstr "Quelle"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:138
 msgid "Source IP"
-msgstr ""
+msgstr "Quell-IP"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:146
 msgid "Source MAC"
-msgstr ""
+msgstr "Quell-MAC"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:154
 #: src/EBox/TrafficShaping.pm:558
 msgid "Source object"
-msgstr ""
+msgstr "Quell-Objekt"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:166
 msgid "Destination"
-msgstr ""
+msgstr "Ziel"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:174
 msgid "Destination IP"
-msgstr ""
+msgstr "Ziel-IP"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:182
 #: src/EBox/TrafficShaping.pm:571
 msgid "Destination object"
-msgstr ""
+msgstr "Ziel-Objekt"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:194
 #: src/EBox/TrafficShaping.pm:1098 src/EBox/TrafficShaping.pm:1925
@@ -102,7 +99,6 @@ msgid "Rules list"
 msgstr "Liste der Regeln"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:239
-#, fuzzy
 msgid ""
 "Adding a rule to the interface should be done following maximum rate allowed "
 "to that interface and the sum of the different guaranteed rates should be at "
@@ -113,13 +109,31 @@ msgid ""
 msgstr ""
 "Wenn Sie eine neue Regel für eine Netzwerkkarte hinzufügen, beachten Sie, "
 "dass die Bandbreite für eine Netzwerkkarte grösser sein sollte als die Summe "
-"der maximal erlaubte Bandbreite der einzelnen Regeln. Keine "
-"Bandbreitenbegrenzung bedeutet, dass die maximal verfügbare Bandbreite "
-"genutzt wird."
+"der maximal erlaubte Bandbreite der einzelnen Regeln. Keine oder null als "
+"maximale Bandbreite bedeutet, dass die verfügbare Bandbreite ausgeschöpft "
+"wird. Geben Sie mindestens eine Regel ein. Um eine Regel zu identifizieren "
+"geben Sie ein Attribut an. Die höchste Priorität ist 0, die tiefste 7."
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:247
 msgid "rule"
 msgstr "Regel"
+
+#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:63
+msgid "Rules lists per interface"
+msgstr "Liste der Regeln pro Netzwerkkarte"
+
+#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:67
+msgid ""
+"Select an interface to add traffic shaping rules. Keep in mind that if you "
+"are shaping an internal interface, you are doing ingress shaping."
+msgstr ""
+"Wählen Sie eine Netzwerkkarte aus, um Regeln zur Bandbreitenbegrenzung "
+"hinzuzufügen. Wenn Sie eine interne Netzwerkkarte wählen, wird der "
+"eingehende Verkehr begrenzt"
+
+#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:69
+msgid "Choose an interface to shape"
+msgstr "Wählen Sie eine externe Netzwerkkarte, die Sie begrenzen möchten"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:233
 #, perl-brace-format
@@ -172,26 +186,15 @@ msgstr ""
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:628
 msgid "Leaf class identifier"
-msgstr ""
+msgstr "Leaf class identifier"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:634
 msgid "Address"
-msgstr ""
-
-#: src/EBox/TC.pm:69
-msgid "options"
-msgstr "Optionen"
-
-#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:205
-#: src/EBox/TrafficShaping.pm:298 src/EBox/TrafficShaping.pm:344
-#: src/EBox/TrafficShaping.pm:406 src/EBox/TrafficShaping.pm:508
-#: src/EBox/TrafficShaping.pm:769 src/EBox/TrafficShaping.pm:1025
-msgid "Interface"
-msgstr "Netzwerkkarte"
+msgstr "Adresse"
 
 #: src/EBox/TrafficShaping.pm:67 src/EBox/TrafficShaping.pm:158
 msgid "Traffic Shaping"
-msgstr "Bandbreitennutzung"
+msgstr "Bandbreitenbegrenzung"
 
 #: src/EBox/TrafficShaping.pm:217 src/EBox/TrafficShaping.pm:528
 msgid "Guaranteed rate or limited rate"
@@ -208,9 +211,11 @@ msgstr "Aktiviert"
 #: src/EBox/TrafficShaping.pm:519
 msgid "If service is any, some source or destination should be provided"
 msgstr ""
+"Wenn der alle Dienste betroffen sind, sollte eine Quelle oder ein Ziel "
+"angegeben werden"
 
 #: src/EBox/TrafficShaping.pm:540
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
 "order to to add a new one"
@@ -223,12 +228,12 @@ msgid ""
 "Traffic shaping can be only done in external interfaces which have gateways "
 "associated to"
 msgstr ""
-"Die Bandbreitennutzung kann nur auf externe Netzwerkkarten mit einem Gateway "
-"angewendet werden"
+"Die Bandbreitenbegrenzung kann nur auf externe Netzwerkkarten mit einem "
+"Gateway angewendet werden"
 
 #: src/EBox/TrafficShaping.pm:1062
 msgid "Traffic Shaping Rule"
-msgstr "Regel für Bandbreitennutzung"
+msgstr "Regel für Bandbreitenbegrenzung"
 
 #: src/EBox/TrafficShaping.pm:1206
 msgid "type"
@@ -251,21 +256,19 @@ msgstr "Protokoll"
 msgid "Port"
 msgstr "Port"
 
-#: src/templates/index.mas:16
-msgid "Traffic Shaping is applied when eBox is acting as "
-msgstr ""
+#~ msgid "Traffic Shaping is applied when eBox is acting as "
+#~ msgstr "Die Bandbreitenbegrenzung wird angewendet wenn eBox agiert als "
 
-#: src/templates/index.mas:29
-#, perl-brace-format
-msgid ""
-"Traffic Shaping is applied only to external interfaces which have gateways "
-"with an upload rate set. In order to do so, create a gateway at {openhref}"
-"Network->Gateways{closehref} setting as interface an external one."
-msgstr ""
-"Die Bandbreitennutzung wird nur auf externe Netzwerkkarten angewendet, "
-"welche einen Gateway mit Begrenzung der Upload-Bandbreite haben. Um diese "
-"Funktion verwenden zu können, markieren Sie unter {openhref}Netzwerk-"
-">Gateways{closehref} eine Netzwerkkarte als extern"
+#~ msgid ""
+#~ "Traffic Shaping is applied only to external interfaces which have "
+#~ "gateways with an upload rate set. In order to do so, create a gateway at "
+#~ "{openhref}Network->Gateways{closehref} setting as interface an external "
+#~ "one."
+#~ msgstr ""
+#~ "Die Bandbreitenbegrenzung wird nur auf externe Netzwerkkarten angewendet, "
+#~ "welche einen Gateway mit Begrenzung der Upload-Bandbreite haben. Um diese "
+#~ "Funktion verwenden zu können, markieren Sie unter {openhref}Netzwerk-"
+#~ ">Gateways{closehref} eine Netzwerkkarte als extern"
 
 #~ msgid ""
 #~ "Select an external interface with gateways associated to add traffic "

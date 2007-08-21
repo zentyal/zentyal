@@ -1,19 +1,8 @@
-# #-#-#-#-#  de.po (ebox-jabber 0.9)  #-#-#-#-#
-# German translations for EBox-jabber package.
-# Copyright (C) 2006 Warp S.L.
-# This file is distributed under the same license as the EBox-jabber package.
-# Automatically generated, 2006.
-# #-#-#-#-#  de.po (ebox-jabber 0.8.99)  #-#-#-#-#
-# German translations for EBox-jabber package.
-# Copyright (C) 2006 Warp S.L.
-# This file is distributed under the same license as the EBox-jabber package.
-# Automatically generated, 2006.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-jabber 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:12+0200\n"
+"POT-Creation-Date: 2007-08-21 17:38+0200\n"
 "PO-Revision-Date: 2007-03-01 18:58+0100\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -23,6 +12,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
 
+#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:232
+msgid "domain"
+msgstr "Domäne"
+
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
 msgstr "Status des Moduls"
@@ -30,10 +23,6 @@ msgstr "Status des Moduls"
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:297
 msgid "Jabber"
 msgstr "Jabber"
-
-#: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:232
-msgid "domain"
-msgstr "Domäne"
 
 #: src/EBox/CGI/JabberUserOptions.pm:44
 msgid "username"
@@ -51,39 +40,35 @@ msgstr "Jabber-Dienst"
 msgid "Jabber account"
 msgstr "Jabber-Konto"
 
-#: src/templates/jabber.mas:10
+#: src/templates/jabber.mas:9
 msgid "Password for Jabber service is the user password"
 msgstr "Das Passwort für Jabber-Dienst ist das des Benutzers"
 
-#: src/templates/jabber.mas:17
+#: src/templates/jabber.mas:15
 msgid "User account"
 msgstr "Benutzerkonto"
 
-#: src/templates/jabber.mas:23 src/templates/jabber.mas:28
+#: src/templates/jabber.mas:20 src/templates/jabber.mas:23
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-#: src/templates/jabber.mas:25 src/templates/jabber.mas:30
+#: src/templates/jabber.mas:21 src/templates/jabber.mas:24
 msgid "Enabled"
 msgstr "Aktiviert"
 
-#: src/templates/jabber.mas:38
+#: src/templates/jabber.mas:31
 msgid "Administration rights"
 msgstr "Administrationsrechte"
 
-#: src/templates/jabber.mas:53 src/templates/jabber.mas:55
+#: src/templates/jabber.mas:45 src/templates/jabber.mas:46
 msgid "Change"
 msgstr "Ändern"
 
-#: src/templates/index.mas:14
-msgid "Jabber Service status"
-msgstr "Status des Jabber-Dienstes"
-
-#: src/templates/index.mas:18
+#: src/templates/index.mas:17
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
-#: src/templates/index.mas:21
+#: src/templates/index.mas:19
 msgid ""
 "Domain name should be available on the network. Otherwise, you may not be "
 "able to use this service. This applies for internal and external connections."
@@ -92,34 +77,34 @@ msgstr ""
 "nicht verwenden. Das gilt sowohl für interne, als auch für externe "
 "Verbindungen"
 
-#: src/templates/index.mas:28
+#: src/templates/index.mas:25
 msgid "Domain name"
 msgstr "Name der Domäne"
 
-#: src/templates/index.mas:37
+#: src/templates/index.mas:33
 msgid "Connect to global Jabber network"
 msgstr "Mit dem globalen Jabber-Netzwerk verbinden"
 
-#: src/templates/index.mas:50
+#: src/templates/index.mas:45
 msgid "SSL Support"
 msgstr "SSL-Unterstützung"
 
-#: src/templates/index.mas:56 src/templates/index.mas:63
-#: src/templates/index.mas:70
+#: src/templates/index.mas:50 src/templates/index.mas:54
+#: src/templates/index.mas:58
 msgid "No"
 msgstr "Nein"
 
-#: src/templates/index.mas:58 src/templates/index.mas:65
-#: src/templates/index.mas:72
+#: src/templates/index.mas:51 src/templates/index.mas:55
+#: src/templates/index.mas:59
 msgid "Optional"
 msgstr "Optional"
 
-#: src/templates/index.mas:60 src/templates/index.mas:67
-#: src/templates/index.mas:74
+#: src/templates/index.mas:52 src/templates/index.mas:56
+#: src/templates/index.mas:60
 msgid "Required"
 msgstr "Notwendig"
 
-#: src/templates/index.mas:84 src/templates/index.mas:86
+#: src/templates/index.mas:69 src/templates/index.mas:70
 msgid "Apply Changes"
 msgstr "Änderungen anwenden"
 
@@ -128,3 +113,6 @@ msgid "Enter a username and password to register with this server."
 msgstr ""
 "Geben Sie einen Benutzernamen und ein Passwort ein, um sich mit diesem "
 "Server zu verbinden"
+
+#~ msgid "Jabber Service status"
+#~ msgstr "Status des Jabber-Dienstes"

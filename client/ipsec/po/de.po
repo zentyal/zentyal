@@ -1,27 +1,26 @@
-# #-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#
-# Language =de translations for ebox-ipsec package.
+# ----de.po (ebox-ipsec 0.7)  ----Language =de translations for ebox-ipsec package.
 # Copyright (C) 2006 Warp S.L.
 # This file is distributed under the same license as the ebox-ipsec package.
 # Automatically generated, 2006.
-# #-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#
-# Language =de translations for ebox-ipsec package.
+# ----de.po (ebox-ipsec 0.7)  ----Language =de translations for ebox-ipsec package.
 # Copyright (C) 2006 Warp S.L.
 # This file is distributed under the same license as the ebox-ipsec package.
 # Automatically generated, 2006.
-#, fuzzy
+# , fuzzy
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ipsec 0.7\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:12+0200\n"
-"PO-Revision-Date: 2007-03-01 18:51+0100\n"
+"POT-Creation-Date: 2007-08-15 17:54+0200\n"
+"PO-Revision-Date: 2007-08-19 14:57+0200\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+"Plural-Forms: nplurals=2; plural= (n != 1);"
 
 #: src/EBox/CGI/RSA.pm:29 src/EBox/CGI/RSA.pm:39 src/EBox/IPSec.pm:1106
 #: src/templates/static.mas:120 src/templates/static-edit.mas:127
@@ -56,12 +55,8 @@ msgstr "Netzwerkkarte"
 
 #: src/EBox/CGI/Static.pm:63 src/EBox/CGI/StaticEdit.pm:81
 #: src/EBox/IPSec.pm:180 src/EBox/IPSec.pm:386
-#, fuzzy
 msgid "remote IP address"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#\n"
-"IP-Adresse der Gegenstelle"
+msgstr "IP-Adresse der Gegenstelle"
 
 #: src/EBox/CGI/Static.pm:64 src/EBox/CGI/RoadWarrior.pm:63
 #: src/EBox/CGI/StaticEdit.pm:82 src/EBox/CGI/RoadWarriorEdit.pm:79
@@ -75,21 +70,13 @@ msgstr "Lokale Netzwerkmaske"
 
 #: src/EBox/CGI/Static.pm:66 src/EBox/CGI/RoadWarrior.pm:65
 #: src/EBox/CGI/StaticEdit.pm:84 src/EBox/CGI/RoadWarriorEdit.pm:81
-#, fuzzy
 msgid "remote network"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#\n"
-"Netzwerk der Gegenstelle"
+msgstr "Netzwerk der Gegenstelle"
 
 #: src/EBox/CGI/Static.pm:67 src/EBox/CGI/RoadWarrior.pm:66
 #: src/EBox/CGI/StaticEdit.pm:85 src/EBox/CGI/RoadWarriorEdit.pm:82
-#, fuzzy
 msgid "remote network mask"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#\n"
-"Netzwerkmaske der Gegenstelle"
+msgstr "Netzwerkmaske der Gegenstelle"
 
 #: src/EBox/CGI/Static.pm:68 src/EBox/CGI/StaticEdit.pm:86
 #: src/EBox/IPSec.pm:181
@@ -99,12 +86,8 @@ msgstr "Identifizierungsmethode"
 #: src/EBox/CGI/Static.pm:72 src/EBox/CGI/StaticEdit.pm:90
 #: src/EBox/IPSec.pm:194 src/EBox/IPSec.pm:196 src/EBox/IPSec.pm:399
 #: src/EBox/IPSec.pm:401
-#, fuzzy
 msgid "shared secret"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#\n"
-"Gemeinsames Geheimnis"
+msgstr "Gemeinsames Geheimnis"
 
 #: src/EBox/CGI/Static.pm:74 src/EBox/CGI/RoadWarrior.pm:67
 #: src/EBox/CGI/StaticEdit.pm:92 src/EBox/CGI/RSAView.pm:29
@@ -116,12 +99,8 @@ msgstr "RSA-Schlüssel"
 
 #: src/EBox/CGI/Static.pm:75 src/EBox/CGI/RoadWarrior.pm:68
 #: src/EBox/CGI/StaticEdit.pm:93 src/EBox/CGI/RoadWarriorEdit.pm:84
-#, fuzzy
 msgid "remote id"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#\n"
-"ID der Gegenstelle"
+msgstr "ID der Gegenstelle"
 
 #: src/EBox/CGI/Static.pm:76 src/EBox/CGI/RoadWarrior.pm:69
 #: src/EBox/CGI/StaticEdit.pm:94 src/EBox/CGI/RoadWarriorEdit.pm:85
@@ -152,12 +131,8 @@ msgid "RSA public key"
 msgstr "Öffentlicher RSA-Schlüssel"
 
 #: src/EBox/CGI/RoadWarriorEdit.pm:29 src/EBox/CGI/RoadWarriorEdit.pm:39
-#, fuzzy
 msgid "Road Warrior tunnel"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#\n"
-"Tunnel zu mobiler Gegenstelle"
+msgstr "Tunnel zu mobiler Gegenstelle"
 
 #: src/EBox/IPSec.pm:120 src/EBox/IPSec.pm:178 src/EBox/IPSec.pm:384
 #: src/EBox/IPSec.pm:492
@@ -195,12 +170,8 @@ msgid "rsa keys backup not found"
 msgstr "Die Sicherung der RSA-Schlüssel wurde nicht gefunden"
 
 #: src/EBox/IPSec.pm:258
-#, fuzzy
 msgid "Error while removing rsa keys"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#\n"
-"Fehler beim Löschen der RSA-Schlüssel"
+msgstr "Fehler beim Löschen der RSA-Schlüssel"
 
 #: src/EBox/IPSec.pm:261
 msgid "Error while making dir for rsa keys"
@@ -245,20 +216,12 @@ msgid "Disabled"
 msgstr "Deaktiviert"
 
 #: src/EBox/IPSec.pm:1043 src/EBox/IPSec.pm:1070
-#, fuzzy
 msgid "Down"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#\n"
-"Aus"
+msgstr "Aus"
 
 #: src/EBox/IPSec.pm:1052 src/EBox/IPSec.pm:1079
-#, fuzzy
 msgid "Up"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#\n"
-"Ein"
+msgstr "Ein"
 
 #: src/EBox/IPSec.pm:1062 src/EBox/IPSec.pm:1104
 msgid "Road warriors"
@@ -329,12 +292,8 @@ msgstr "Identifizierungsmethode"
 #: src/templates/static.mas:117 src/templates/static.mas:130
 #: src/templates/static-edit.mas:124 src/templates/static-edit.mas:131
 #: src/templates/static-edit.mas:187
-#, fuzzy
 msgid "Shared secret"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-ipsec 0.7)  #-#-#-#-#\n"
-"Gemeinsames Geheimnis"
+msgstr "Gemeinsames Geheimnis"
 
 #: src/templates/static.mas:136
 msgid "RSA Key"
@@ -402,3 +361,4 @@ msgstr "Lokaler RSA-Schlüssel"
 #: src/templates/roadwarrior-edit.mas:171
 msgid "Cancel"
 msgstr "Abbrechen"
+

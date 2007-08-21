@@ -1,27 +1,66 @@
-# #-#-#-#-#  de.po (ebox-dhcp 0.9)  #-#-#-#-#
-# Language =de translations for ebox-dhcp package.
+# ----de.po (ebox-dhcp 0.9)  ----Language =de translations for ebox-dhcp package.
 # Copyright (C) 2006 Warp S.L.
 # This file is distributed under the same license as the ebox-dhcp package.
 # Automatically generated, 2006.
-# #-#-#-#-#  de.po (ebox-dhcp 0.8.99)  #-#-#-#-#
-# Language =de translations for ebox-dhcp package.
+# ----de.po (ebox-dhcp 0.8.99)  ----Language =de translations for ebox-dhcp package.
 # Copyright (C) 2006 Warp S.L.
 # This file is distributed under the same license as the ebox-dhcp package.
 # Automatically generated, 2006.
-#, fuzzy
+# , fuzzy
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.9.3\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 15:13+0200\n"
-"PO-Revision-Date: 2007-02-24 00:14+0100\n"
+"POT-Creation-Date: 2007-08-21 17:36+0200\n"
+"PO-Revision-Date: 2007-08-19 12:26+0200\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
-"X-Generator: Translate Toolkit 0.10.1\n"
+
+#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/AddFixed.pm:39
+#: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
+#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:309
+#: src/EBox/DHCP.pm:349 src/EBox/DHCP.pm:380 src/EBox/DHCP.pm:416
+#: src/EBox/DHCP.pm:447 src/EBox/DHCP.pm:484 src/EBox/DHCP.pm:563
+#: src/EBox/DHCP.pm:654 src/EBox/DHCP.pm:685 src/EBox/DHCP.pm:726
+#: src/EBox/DHCP.pm:827 src/EBox/DHCP.pm:1095
+msgid "Interface"
+msgstr "Netzwerkkarte"
+
+#: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
+#: src/EBox/DHCP.pm:720 src/templates/ranges.mas:53 src/templates/fixed.mas:8
+msgid "Name"
+msgstr "Name"
+
+#: src/EBox/CGI/AddRange.pm:44 src/templates/ranges.mas:54
+msgid "From"
+msgstr "Von"
+
+#: src/EBox/CGI/AddRange.pm:45 src/templates/ranges.mas:55
+msgid "To"
+msgstr "Bis"
+
+#: src/EBox/CGI/AddFixed.pm:43 src/EBox/DHCP.pm:736 src/EBox/DHCP.pm:1096
+#: src/templates/fixed.mas:9
+msgid "MAC address"
+msgstr "MAC Adresse"
+
+#: src/EBox/CGI/AddFixed.pm:44 src/EBox/DHCP.pm:737 src/templates/fixed.mas:10
+msgid "IP address"
+msgstr "IP Adresse"
+
+#: src/EBox/CGI/Status.pm:42
+msgid "Module Status"
+msgstr "Status des Moduls"
+
+#: src/EBox/CGI/Enable.pm:39
+msgid "module status"
+msgstr "Status des Moduls"
 
 #: src/EBox/DHCP.pm:107
 msgid ""
@@ -31,16 +70,6 @@ msgstr ""
 "Der DHCP Server kann nicht aktiviert werden weil es keine Netzwerkkarte mit "
 "einer statischen Adresse gibt. <a href='Network/Ifaces'>Konfigurieren</a> "
 "Sie bitte zuerst"
-
-#: src/EBox/DHCP.pm:309 src/EBox/DHCP.pm:349 src/EBox/DHCP.pm:380
-#: src/EBox/DHCP.pm:416 src/EBox/DHCP.pm:447 src/EBox/DHCP.pm:484
-#: src/EBox/DHCP.pm:563 src/EBox/DHCP.pm:654 src/EBox/DHCP.pm:685
-#: src/EBox/DHCP.pm:726 src/EBox/DHCP.pm:827 src/EBox/DHCP.pm:1095
-#: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/AddFixed.pm:39
-#: src/EBox/CGI/RemoveFixed.pm:39 src/EBox/CGI/AddRange.pm:39
-#: src/EBox/CGI/SetIfaceOptions.pm:39
-msgid "Interface"
-msgstr "Netzwerkkarte"
 
 #: src/EBox/DHCP.pm:315 src/EBox/DHCP.pm:355 src/EBox/DHCP.pm:386
 #: src/EBox/DHCP.pm:422 src/EBox/DHCP.pm:453 src/EBox/DHCP.pm:490
@@ -58,7 +87,7 @@ msgstr "Gateway IP adresse"
 msgid "{gateway} is not in the current network"
 msgstr "{gateway} liegt nicht im aktuellen Netzwerk"
 
-#: src/EBox/DHCP.pm:391 src/templates/options.mas:32
+#: src/EBox/DHCP.pm:391 src/templates/options.mas:29
 msgid "Search domain"
 msgstr "Suche in Domäne"
 
@@ -105,21 +134,6 @@ msgid "Range {new_from}-{new_to} includes fixed address '{name}': {fixed_ip}"
 msgstr ""
 "Der Bereich {new_from}-{new_to} beinhaltet die fixe IP Adresse \"{name}\": "
 "{fixed_ip}"
-
-#: src/EBox/DHCP.pm:720 src/EBox/CGI/AddFixed.pm:45
-#: src/EBox/CGI/AddRange.pm:43 src/templates/ranges.mas:58
-#: src/templates/fixed.mas:9
-msgid "Name"
-msgstr "Name"
-
-#: src/EBox/DHCP.pm:736 src/EBox/DHCP.pm:1096 src/EBox/CGI/AddFixed.pm:43
-#: src/templates/fixed.mas:11
-msgid "MAC address"
-msgstr "MAC Adresse"
-
-#: src/EBox/DHCP.pm:737 src/EBox/CGI/AddFixed.pm:44 src/templates/fixed.mas:13
-msgid "IP address"
-msgstr "IP Adresse"
 
 #: src/EBox/DHCP.pm:747
 #, perl-brace-format
@@ -199,71 +213,11 @@ msgstr "Zurückgegeben"
 msgid "DHCP"
 msgstr "DHCP"
 
-#: src/EBox/CGI/Status.pm:42
-msgid "Module Status"
-msgstr "Status des Moduls"
-
-#: src/EBox/CGI/AddRange.pm:44 src/templates/ranges.mas:60
-msgid "From"
-msgstr "Von"
-
-#: src/EBox/CGI/AddRange.pm:45 src/templates/ranges.mas:62
-msgid "To"
-msgstr "Bis"
-
-#: src/EBox/CGI/Enable.pm:39
-msgid "module status"
-msgstr "Status des Moduls"
-
-#: src/templates/ranges.mas:15
-msgid "DHCP ranges"
-msgstr "DHCP Bereiche"
-
-#: src/templates/ranges.mas:21
-msgid "Subnet"
-msgstr "Subnetz"
-
-#: src/templates/ranges.mas:32
-msgid "Subnet netmask"
-msgstr "Subnetzmaske"
-
-#: src/templates/ranges.mas:43
-msgid "Available range"
-msgstr "Verfügbarer Bereich"
-
-#: src/templates/ranges.mas:53
-msgid "Ranges"
-msgstr "Bereiche"
-
-#: src/templates/ranges.mas:64 src/templates/fixed.mas:15
-msgid "Action"
-msgstr "Aktion"
-
-#: src/templates/ranges.mas:83 src/templates/ranges.mas:85
-#: src/templates/ranges.mas:87 src/templates/fixed.mas:39
-#: src/templates/fixed.mas:43 src/templates/fixed.mas:45
-msgid "Add"
-msgstr "Hinzufügen"
-
-#: src/templates/ranges.mas:103 src/templates/ranges.mas:105
-#: src/templates/ranges.mas:107
-msgid "Delete"
-msgstr "Löschen"
-
-#: src/templates/fixed.mas:5
-msgid "Fixed addresses"
-msgstr "Fixe Adresse"
-
-#: src/templates/fixed.mas:59 src/templates/fixed.mas:62
-#: src/templates/fixed.mas:64
-msgid "Remove"
-msgstr "Löschen"
-
 #: src/templates/options.mas:8
 msgid "Options"
 msgstr "Optionen"
 
-#: src/templates/options.mas:11
+#: src/templates/options.mas:10
 msgid ""
 "You can leave empty the Default Gateway field to use eBox as default gateway "
 "for this subnet"
@@ -271,34 +225,76 @@ msgstr ""
 "Wenn Sie das Feld \"Standardgateway\" leerlassen, wird der Standardgateway "
 "der eBox für dieses Subnetz verwendet"
 
-#: src/templates/options.mas:20
+#: src/templates/options.mas:18
 msgid "Default gateway"
 msgstr "Standardgateway"
 
-#: src/templates/options.mas:45
+#: src/templates/options.mas:41
 msgid "Primary nameserver"
 msgstr "Erster Nameserver"
 
-#: src/templates/options.mas:57
+#: src/templates/options.mas:52
 msgid "Secondary nameserver"
 msgstr "Zweiter Nameserver"
 
-#: src/templates/options.mas:70
+#: src/templates/options.mas:64
 msgid "Apply"
 msgstr "Anwenden"
 
-#: src/templates/index.mas:16
-msgid "DHCP server status"
-msgstr "DHCP Server Status"
+#: src/templates/ranges.mas:15
+msgid "DHCP ranges"
+msgstr "DHCP Bereiche"
 
-#: src/templates/index.mas:26
-#, fuzzy, perl-brace-format
-msgid ""
-"DHCP server requires a static interface, {openhref}configure one{closehref} "
-"first"
-msgstr ""
-"Der DHCP Server benötigt eine statische Adresse, {openhref}konfigurieren"
-"{closeref} Sie bitte eine"
+#: src/templates/ranges.mas:20
+msgid "Subnet"
+msgstr "Subnetz"
+
+#: src/templates/ranges.mas:30
+msgid "Subnet netmask"
+msgstr "Subnetzmaske"
+
+#: src/templates/ranges.mas:40
+msgid "Available range"
+msgstr "Verfügbarer Bereich"
+
+#: src/templates/ranges.mas:49
+msgid "Ranges"
+msgstr "Bereiche"
+
+#: src/templates/ranges.mas:56 src/templates/fixed.mas:11
+msgid "Action"
+msgstr "Aktion"
+
+#: src/templates/ranges.mas:74 src/templates/ranges.mas:75
+#: src/templates/ranges.mas:76 src/templates/fixed.mas:34
+#: src/templates/fixed.mas:37 src/templates/fixed.mas:38
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: src/templates/ranges.mas:91 src/templates/ranges.mas:92
+#: src/templates/ranges.mas:93
+msgid "Delete"
+msgstr "Löschen"
+
+#: src/templates/fixed.mas:5
+msgid "Fixed addresses"
+msgstr "Feste Adressen"
+
+#: src/templates/fixed.mas:51 src/templates/fixed.mas:53
+#: src/templates/fixed.mas:54
+msgid "Remove"
+msgstr "Löschen"
+
+#~ msgid "DHCP server status"
+#~ msgstr "DHCP Server Status"
+
+#, fuzzy
+#~ msgid ""
+#~ "DHCP server requires a static interface, {openhref}configure one"
+#~ "{closehref} first"
+#~ msgstr ""
+#~ "Der DHCP Server benötigt eine statische Adresse, {openhref}konfigurieren"
+#~ "{closeref} Sie bitte eine"
 
 #~ msgid ""
 #~ "DHCP server requires a static interface, {openhref}configure one"
