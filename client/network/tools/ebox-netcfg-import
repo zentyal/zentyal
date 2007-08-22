@@ -89,7 +89,7 @@ foreach my $iface (get_interfaces) {
 		
 		if ($iface->{'gateway'}){
 			$network->set_string(BASE_KEY . '/ip',
-				$iface->{'address'});
+				$iface->{'gateway'});
 			$network->set_string(BASE_KEY . '/interface', 
 				$iface->{'name'});
 			$network->set_string(BASE_KEY . '/name', 
