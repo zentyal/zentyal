@@ -8,10 +8,13 @@ use base qw(EBox::OpenVPN::Daemon);
 use EBox::Validate qw(checkPort checkAbsoluteFilePath checkHost);
 use EBox::NetWrappers;
 use EBox::Sudo;
+use EBox::FileSystem;
 use EBox::Gettext;
+
 use Params::Validate qw(validate_pos SCALAR);
 use File::Basename;
 use Error qw(:try);
+
 
 sub new
 {
@@ -456,6 +459,66 @@ sub summary
   push @summary,__('Connection target'), $server;
 
   return @summary;
+}
+
+
+sub backupCertificates
+{
+  my ($self, $dir) = @_;
+
+  my $d = "$dir/" . $self->name;
+  EBox::FileSystem::makePrivateDir($d);
+
+  EBox::Sudo::root('cp ' . $self->caCertificatePath . " $d/caCertificate" );
+  EBox::Sudo::root('cp ' . $self->certificatePath   . " $d/certificate" );
+  EBox::Sudo::root('cp ' . $self->certificateKey    . " $d/certificateKey" );
+  EBox::Sudo::root("chown ebox.ebox $d/*");
+}
+
+
+sub restoreCertificates
+{
+  my ($self, $dir) = @_;
+
+  my $d = "$dir/" . $self->name;
+  if (not -d $d) {
+    # XXX we don't abort to mantain compability with previous bakcup version
+    EBox::error('No directory found with saved certificates for client ' .
+		$self->name .
+		'. Current certificates will be left untouched'
+
+	       );
+    next;
+      
+  }
+
+  # before copyng and overwritting files, check if all needed files are present
+  #  why? if there is a error is a little less probable we left a unusable
+  #  state 
+  my @files = ("$d/caCertificate", "$d/certificate", "$d/certificateKey" );
+  foreach my $f (@files) {
+    if ((not -r $f) or (not -f $f)) {
+      throw EBox::Exceptions::Internal(
+				       "Error with backup certificate file $f"
+				      );
+    }
+  }
+
+  # set the files from the backup in the client
+  try {
+    $self->setCaCertificatePath("$d/caCertificate");
+    $self->setCertificatePath("$d/certificate");
+    $self->setCertificateKey("$d/certificateKey");
+  }
+  otherwise {
+      my $e = shift;
+      EBox::error(
+		  'Error restoring certifcates for client ' . $self->name .
+		  '. Probably the certificates will be  inconsistents' 
+		 );
+      $e->throw();
+    };
+
 }
 
 

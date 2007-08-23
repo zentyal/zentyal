@@ -23,13 +23,15 @@ use EBox::Gettext;
 use EBox::Summary::Module;
 use EBox::Summary::Status;
 use EBox::Sudo;
-use Perl6::Junction qw(any);
 use EBox::OpenVPN::Server;
 use EBox::OpenVPN::Client;
 use EBox::OpenVPN::FirewallHelper;
 use EBox::CA;
 use EBox::CA::DN;
 use EBox::NetWrappers qw();
+use EBox::FileSystem;
+
+use Perl6::Junction qw(any);
 use Error qw(:try);
 
 
@@ -1187,5 +1189,41 @@ sub statusSummary
     my ($self) = @_;
     return new EBox::Summary::Status('openvpn', __('OpenVPN service'), $self->running, $self->service);
 }
+
+
+sub _backupClientCertificatesDir
+{
+  my ($self, $dir) = @_;
+  return $dir .'/clientCertificates';
+}
+
+sub dumpConfig
+{
+  my ($self, $dir) = @_;
+
+  
+  # save client's certificates
+  my $certificatesDir = $self->_backupClientCertificatesDir($dir);
+  EBox::FileSystem::makePrivateDir($certificatesDir);
+
+
+  foreach my $client ($self->clients) {
+    $client->backupCertificates($certificatesDir);
+  }
+}
+
+sub restoreConfig
+{
+  my ($self, $dir) = @_;
+
+  # restore client certificates
+  my $certificatesDir = $self->_backupClientCertificatesDir($dir);
+
+  my @clients = $self->clients();
+  foreach my $client (@clients) {
+    $client->restoreCertificates($certificatesDir);
+  }
+}
+
 
 1;
