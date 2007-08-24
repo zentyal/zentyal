@@ -1,3 +1,24 @@
+# Copyright (C) 2007 Warp Networks S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# Class: EBox::Exceptions::Command
+#
+#       Internal exception raised when a command has failed, that is,
+#       its returned value is different from zero.
+#
+
 package EBox::Exceptions::Command;
 use base 'EBox::Exceptions::Internal';
 
@@ -6,6 +27,29 @@ use warnings;
 
 use Params::Validate qw(validate SCALAR ARRAYREF);
 
+# Constructor: new
+#
+#     This exception is taken to say the type of an argument is not
+#     the correct one.
+#
+# Parameters:
+#
+#     (NAMED)
+#     cmd  - String the launched command
+#     output - array ref the standard output, every component is a line
+#              *(Optional)* Default value: empty array
+#     error  - array ref the standard error, every component is a line
+#              *(Optional)* Default value: empty array
+#     exitValue - Integer the returned value from the command
+#
+#     cmdType - String the command type. *(Optional)* Default value:
+#     'eBox command'
+#
+#
+# Returns:
+#
+#     The newly created <EBox::Exceptions::InvalidType> exception
+#
 sub new 
 {
   my $class  = shift @_;

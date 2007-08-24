@@ -13,6 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+# Class: EBox::Exceptions::DataMissing
+#
+#       External exception raised when a user ignores a compulsory
+#       element which has to be filled to apply the configuration
+#       change.
+
 package EBox::Exceptions::DataMissing;
 
 use base 'EBox::Exceptions::External';

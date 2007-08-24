@@ -13,6 +13,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+# Class: EBox::Exceptions::DataExists
+#
+#       External exception raised when a user wants to add an element
+#       to eBox which already exists.
+
 package EBox::Exceptions::DataExists;
 
 use base 'EBox::Exceptions::External';

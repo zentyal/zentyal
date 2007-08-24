@@ -13,6 +13,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+# Class: EBox::Exceptions::DataNotFound
+#
+#       External exception raised when a user searches for an element
+#       which does not exist in eBox.
+
 package EBox::Exceptions::DataNotFound;
 
 use base 'EBox::Exceptions::External';

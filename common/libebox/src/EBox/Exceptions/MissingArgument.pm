@@ -13,6 +13,11 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+# Class: EBox::Exceptions::MissingArgument
+#
+#       Internal exception raised when a compulsory argument is
+#       missing in a method call
+
 package EBox::Exceptions::MissingArgument;
 
 use base 'EBox::Exceptions::Internal';

@@ -13,6 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+# Class: EBox::Exceptions::NotImplemented
+#
+#       Internal exception raised when a method is not yet
+#       implemented. It could be used in an Abstract class in order to
+#       simulate its behaviour.
+
 package EBox::Exceptions::NotImplemented;
 
 use base 'EBox::Exceptions::Internal';
