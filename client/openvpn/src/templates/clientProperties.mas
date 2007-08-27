@@ -32,7 +32,7 @@ my @tableElements  = (
         name          => 'caCertificatePath',          
 	input         => 'file',  
 	printableName => __("CA's certificate"),
-	help          => __('Certificate of the Certification Authority. Must be the same used in the server'),
+	help          => __('Certificate of the Certification Authority. Must be the same used by the server'),
       ],		      
       [ 
         name  => 'certificatePath',    
@@ -44,7 +44,7 @@ my @tableElements  = (
         name  => 'certificateKey',     
 	input => 'file',
 	printableName =>      __("Client's private key"),
-	help => __("Private key used to create the client's certificate"),
+	help => __("Private key used to unlock the client's certificate"),
       ], 
      );
 if ($nameEditable) {

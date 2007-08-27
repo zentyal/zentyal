@@ -34,7 +34,7 @@ $serverName
 </%args>
 <h3> <% __('Advertised networks') %></h3>
 <div class='note'>
-<% __("You can manage which networks will be made accessible to clients") %>
+<% __("This section manages which networks will be made accessible to connecting clients") %>
 </div>
 % if (@nets) {
    <& .advertisedNetsList, serverName => $serverName, nets => \@nets &>

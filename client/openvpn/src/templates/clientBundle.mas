@@ -26,7 +26,7 @@ my $osInput = [
 				     ] , 
 					
 			 help => __('This selection should match the operative
-			 system running in the client computer'),
+			 system running on the client computer'),
 			];
 
 
@@ -90,7 +90,8 @@ push @formElements, [
 
 <h3><% __x('Client files for server {name}', name => $name) %></h3>
 <div class='note'>
-<% __('You can download an archive with all the required files to set up an OpenVPN client. Remember to copy these files to the client machine configuration directory') %>
+<% __('You can download an archive with all the required files to set up a
+OpenVPN client. Remember to place the contained files in the client machine configuration directory') %>
 <p>
 % if (@addresses) {
 <%  __(q{eBox  has guessed for you the values of the addresses' fields. If those values are incorrect or you want another ones, change them}) %>

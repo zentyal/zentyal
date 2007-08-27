@@ -5,11 +5,19 @@ $action
 </%args>
 <%init>
 use EBox::Gettext;
+my $warningMsg;
+if ($type eq 'client') {
+   $warningMsg = __x("Are you sure you want delete the {type} {name}?\nThis action can not be undone.", name => $name, type => $type);
+}
+else {
+   $warningMsg = __x("Are you sure you want delete the {type} {name}?", name => $name, type => $type);
+}
 </%init>
 <h3><% __x('Deleting OpenVPN {type}', type => $type) %>:</h3>
 <div class='warning'>
-<% __x("Are you sure you want delete the {type} {name}.?\nThis action can not be undone.", name => $name, type => $type) %>
+<% $warningMsg %>
 </div>
+
 
 <p>
 <form action='<% $action %>' method='POST'>

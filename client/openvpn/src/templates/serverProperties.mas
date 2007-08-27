@@ -42,15 +42,15 @@ my $localInput   =  [
 		     name  => 'local', printableName => __('Interface to listen on'), 
 		     input => 'select', 
 		     options => \@localOptions, 
-		     help  => __('The server will be listen only in all external interfaces or only in the interface selected'),
+		     help  => __('The server will listen only in all external interfaces or only in the interface selected'),
 		    ];				       
 
 
 my @tableElements  = (
       [ name => 'service',           printableName => __('Active'), input => 'checkbox' ],
       [ name => 'port',              printableName => __('Port'),],
-      [ name => 'subnet',            printableName => __('VPN subnet'),], 
-      [ name => 'subnetNetmask',     printableName => __('VPN subnet netmask'),], 
+      [ name => 'subnet',            printableName => __('VPN network address'),], 
+      [ name => 'subnetNetmask',     printableName => __('VPN network netmask'),], 
       [ name => 'proto',             printableName => __('Protocol'), 
        input => 'select',  
        options => [ 
@@ -65,7 +65,7 @@ my @tableElements  = (
       [ name => 'pullRoutes', 
 	printableName => __('Allow eBox-to-eBox tunnels'), 
 	input => 'checkbox', 
-	help => __("If you want to create a tunnel between two eBox, you will need this option to be able to connect to the network in the client side"),
+	help => __("If you want to create a tunnel between two eBox, you will need this option to allow connections from clients to this server"),
       ],
 		      
       [ name => 'clientToClient',    printableName => __('Allow client-to-client connections'), 
