@@ -3,7 +3,7 @@ SUBDIRS = Server Client  t
 
 perldir = @PERLPATH@/EBox/OpenVPN
 
-nobase_perl_DATA = Server.pm FirewallHelper.pm ModulePartition.pm Daemon.pm Client.pm
+nobase_perl_DATA = Server.pm FirewallHelper.pm  Daemon.pm Client.pm
 
 test_classes = Test.pm
 

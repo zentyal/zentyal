@@ -3,7 +3,7 @@ package EBox::OpenVPN::Daemon;
 use strict;
 use warnings;
 
-use base qw(EBox::OpenVPN::ModulePartition EBox::NetworkObserver);
+use base qw(EBox::ModulePartition EBox::NetworkObserver);
 
 use File::Basename;
 
