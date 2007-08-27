@@ -320,4 +320,61 @@ debian/     m4/           po/         src/         www/
 
   </section>
 
+  <section id="sect-a-mvc-module">
+    <title>A Model-View-Controller module</title>
+
+    <para>
+      Bear <link linkend="sect-amodule">above section</link> in mind, a new way to develop
+      eBox modules have been developed. It relies on 
+      <ulink url="http://en.wikipedia.org/wiki/Model-view-controller">Model-View-Controller</ulink>
+      design pattern, which an architectural pattern used in large software projects to
+      decouple highly data (<emphasis>model</emphasis>) and user interface
+      (<emphasis>view</emphasis>) so that developer can change the data architecture
+      without changing the user interface and viceversa. A new component is added,
+      the <emphasis>controller</emphasis>, which manages data access and business 
+      logic acting as an intermediate between them.
+    </para>
+
+    <para>
+      Thus with our new architecture the eBox MVC conception will be the following:
+    </para>
+
+    <variablelist>
+      <varlistentry>
+        <term>Model</term>
+        <listitem>
+          <para>
+            Our model is defined as a perl module which is a subclass of 
+            <classname>EBox::Model::DataTable</classname> or one of the subclasses.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>View</term>
+        <listitem>
+          <para>
+            The already defined Mason templates are used to show the information to 
+            the user.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Controller</term>
+        <listitem>
+          <para>
+            The CGIs which are mapped from the Mason templates to do actions. There
+            are some default actions already implemented.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+
+    <para>
+      At section <link linkend="ch-mvc-internals">behind the scenes</link>, there is a large
+      explation about how it works internally. Below we are only going to introduce the main
+      components which an eBox developer requires to know to build up an eBox MVC's module.
+    </para>
+    
+  </section>
+
 </chapter>
