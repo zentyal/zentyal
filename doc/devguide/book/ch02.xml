@@ -182,6 +182,87 @@ foreach my $mod (@{$global->modInstancesOfType('EBox::NetworkObserver')}) {
 		external, may be used internally for other purposes, as long as it is
 		caught before it goes all the way up to the GUI framework.</para>
 
+                <para>The <emphasis>internal</emphasis> exceptions developed are:</para>
+
+                <variablelist>
+                  <varlistentry>
+                    <term><classname>EBox::Exceptions::Command</classname></term>
+                    <listitem><para>Exception raised when there was an error 
+                    launching a command, that is, its returned value is different
+                    from zero. <classname>EBox::Exceptions::Command::Sudo</classname>
+                    does the same but with a sudo command.</para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term><classname>EBox::Exceptions::DataInUse</classname></term>
+                    <listitem><para>Exception raised when there is a data in eBox
+                    which it is about to be removed which it is being used by 
+                    another part of eBox.</para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term><classname>EBox::Exceptions::DeprecatedMethod</classname></term>
+                    <listitem><para>Exception raised when a deprecated method has been
+                    called at runtime.</para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term><classname>EBox::Exceptions::InvalidType</classname></term>
+                    <listitem><para>Exception raised when the type of an argument is
+                    not the expected one.</para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term><classname>EBox::Exceptions::Lock</classname></term>
+                    <listitem><para>Exception raised when a module cannot get the
+                    lock.</para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term><classname>EBox::Exceptions::MissingArgument</classname></term>
+                    <listitem><para>Exception raised when a compulsory argument is
+                    missing in a method call</para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term><classname>EBox::Exceptions::NotImplemented</classname></term>
+                    <listitem><para>Exception raised when a method is not yet implemented.
+                    It could be used in an Abstract class in order to simulate its 
+                    behaviour.</para>
+                    </listitem>
+                  </varlistentry>
+                </variablelist>
+
+                <para>The <emphasis>external</emphasis> exceptions developed are:</para>
+
+                <variablelist>
+                  <varlistentry>
+                    <term><classname>EBox::Exceptions::DataExists</classname></term>
+                    <listitem><para>Exception raised when a user wants to add an element
+                    to eBox which already exists.</para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term><classname>EBox::Exceptions::DataMissing</classname></term>
+                    <listitem><para>Exception raised when a user ignores a compulsory
+                    element which has to be filled to apply the configuration change.
+                    </para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term><classname>EBox::Exceptions::DataNotFound</classname></term>
+                    <listitem><para>Exception raised when a user searches for an element
+                    which does not exist in eBox.</para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term><classname>EBox::Exceptions::InvalidData</classname></term>
+                    <listitem><para>Exception raised when a user enters a value for a data
+                    which is invalid. An advice to the user may be set.</para>
+                    </listitem>
+                  </varlistentry>
+                </variablelist>
+
 		<para>If you can't find an exception for certain error condition,
 		you have two options: create a new exception class, inheriting
 		from either <classname>EBox::Exceptions::External</classname> or
@@ -398,11 +479,22 @@ msgstr "Editar miembros de {group}"
 			</programlisting>
 			</para>
 
-			<para>Even though it's possible to translate a PO file using any
-			UTF-8 enabled text editor, it's a very good idea to use some
-			of the tools created specifically for this task, like <ulink
-			url='http://i18n.kde.org/tools/kbabel/'>KBabel</ulink> (*nix) or
-			<ulink url='http://www.poedit.org/'>poEdit</ulink> (multi-platform).
+                        <para>
+                          The preferred way to translate PO files is
+                          using our <ulink url="http://pootle.warp.es">Web interface</ulink>
+                          which is developed by <ulink url="http://pootle.wordforge.net">Pootle</ulink>,
+                          a Web application introduced in order to lower the barrier
+                          to start translating eBox.
+                        </para>
+
+			<para>
+                          Even though it's possible to translate a PO file using any
+                          UTF-8 enabled text editor or some of the created specifically for this
+                          task, such as <ulink url='http://i18n.kde.org/tools/kbabel/'>KBabel</ulink>
+                          (*nix) or <ulink url='http://www.poedit.org/'>poEdit</ulink> (multi-platform).
+                          This is the unrecommended way to translate, however, it could be useful
+                          for translators which have to start its home localisation from scratch sending 
+                          the po files to the eBox team after editing with these tools.
 			</para>
 
 		</section>
