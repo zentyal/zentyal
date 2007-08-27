@@ -153,7 +153,7 @@ sub clientBundle
   my ($class, $server, $clientCertificate, $serversAddr_r) = @_;
   validate_pos(@_, 1, 1, 1, 1);
   
-  ($clientCertificate ne $server->certificate()) or throw EBox::Exceptions::External(__(q{The client certificate can't be the same than the server's}));
+  ($clientCertificate ne $server->certificate()) or throw EBox::Exceptions::External(__(q{The client certificate can't be the same than the server's one}));
   
   my $bundle;
   my $tmpDir = EBox::Config::tmp() . '/' . $server->name . '-client.tmp';

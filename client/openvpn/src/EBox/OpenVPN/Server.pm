@@ -452,7 +452,7 @@ sub confFileParams
   my @paramsNeeded = qw(subnet subnetNetmask  port caCertificatePath certificatePath key crlVerify clientToClient user group proto dh tlsRemote);
   foreach  my $param (@paramsNeeded) {
     my $accessor_r = $self->can($param);
-    defined $accessor_r or die "Can not found accesor for param $param";
+    defined $accessor_r or die "Cannot found accesor for param $param";
     my $value = $accessor_r->($self);
     defined $value or next;
     push @templateParams, ($param => $value);
@@ -530,7 +530,7 @@ sub setService # (active)
       # XXX it should care of internal ifaces only until we close #391
       push @ifaces, @{ $network->InternalIfaces };
       if (@ifaces == 0) {
-	throw EBox::Exceptions::External(__x('OpenVPN server {name} can not be activated because there is not any network interface available', name => $self->name));
+	throw EBox::Exceptions::External(__x('OpenVPN server {name} cannot be activated because there is not any network interface available', name => $self->name));
       }
     }
   }
@@ -623,7 +623,7 @@ sub _checkAdvertisedNet
 
   my $CIDRNet = EBox::NetWrappers::to_network_with_mask($net, $netmask);
   if (! defined EBox::NetWrappers::route_to_reach_network($CIDRNet)) {
-    throw EBox::Exceptions::External(__('The OpenVPN server can not grant access to a network which is not reachable'))
+    throw EBox::Exceptions::External(__('The OpenVPN server cannot grant access to a network which is not reachable'))
   }
 
   
@@ -680,9 +680,9 @@ sub init
 {
     my ($self, %params) = @_;
 
-    (exists $params{subnet}) or throw EBox::Exceptions::External __("The server needs a network address for the VPN");
-    (exists $params{subnetNetmask}) or throw EBox::Exceptions::External __("The server needs a netmask for his VPN network");
-    (exists $params{port} ) or throw EBox::Exceptions::External __("The server needs a port number");
+    (exists $params{subnet}) or throw EBox::Exceptions::External __("The server requires a network address for the VPN");
+    (exists $params{subnetNetmask}) or throw EBox::Exceptions::External __("The server requires a netmask for its VPN network");
+    (exists $params{port} ) or throw EBox::Exceptions::External __("The server requires a port number");
     (exists $params{proto}) or throw EBox::Exceptions::External __("A IP protocol must be specified for the server");
     (exists $params{certificate}) or throw EBox::Exceptions::External __("A  server certificate must be specified");
 
