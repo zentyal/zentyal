@@ -1,0 +1,290 @@
+<chapter id="ch-events">
+
+  <title>Event architecture</title>
+
+  <simplesect id='event-introduction-sect'>
+
+    <title>Event introduction</title>
+
+    <para>
+      EBox framework has an event architecture which allows to develop
+      new events and a transport way to do it easily. This event
+      architecture is split in two components:
+      <emphasis>watchers</emphasis> and
+      <emphasis>dispatchers</emphasis>. 
+    </para>
+
+  </simplesect>
+
+  <section id='watch-sect'>
+   
+    <title>Event watchers</title>
+
+    <para>
+      The event watchers are responsible for observing a determined
+      event that may happen within eBox system. Some events might be the
+      following: check eBox state or its services, services out of
+      control, disk free space. It is also possible to add a security layer since you
+      can track security attacks such as Denial of Service
+      (DoS) among others.
+    </para>
+
+    <para>
+      In order to develop one, you must create a Perl package which is
+      a subclass from
+      <classname>EBox::Event::Watcher::Base</classname> and its
+      namespace must be <classname>EBox::Event::Watcher</classname>, for
+      example, to implement a disk free space watcher which informs if
+      any partition is running out of free space, it could be called
+      <classname>EBox::Event::Watcher::DiskFreeSpace</classname>. This
+      will be its constructor:
+    </para>
+
+    <example id="watcher-constructor-example">
+      <title>
+        <classname>EBox::Event::Watcher::DiskFreeSpace</classname>
+        constructor
+      </title>
+      <programlisting>
+      <![CDATA[
+sub new
+{
+   my ($class) = @_;
+
+   my $self = $class->SUPER::new(
+                                 period      => 600,
+                                 domain      => 'ebox',
+                                );
+   bless( $self, $class);
+
+   return $self;
+
+}
+]]>
+      </programlisting>
+    </example>
+
+    <para>
+      The arguments meaning:
+      <variablelist>
+        <varlistentry>
+          <term>period</term>
+          <listitem>
+            <para>
+              The time interval in seconds indicating when the
+              event watcher should check if an event has
+              happened.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry id="domain-explanation">
+          <term>domain</term>
+          <listitem>
+            <para>
+              The Gettext domain which the event lies on. For
+              example, our example will set this argument as 'ebox'.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+    </para>
+
+    <para>
+      The following methods must be overridden in order to have a valid
+      watcher:
+    </para>
+      <variablelist>
+        <varlistentry>
+          <term><methodname>run</methodname></term>
+          <listitem>
+            <para>
+              It will check if the event we want to monitor. Here
+              it is where the logic lies. It should return
+              <returnvalue>undef</returnvalue> if no event has
+              happened or <returnvalue>a list reference</returnvalue>
+              of <classname>EBox::Event</classname> if one or more
+              events have happened and they should be informed.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><methodname>_name</methodname></term>
+          <listitem>
+            <para>
+              The event watcher displayable name. Our example could
+              return <returnvalue>__('Disk Free
+              Space')</returnvalue>. This element along with the event
+              description will be shown at the
+              configuration table in order to be enabled.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><methodname>_description</methodname></term>
+          <listitem>
+            <para>
+              The event watcher displayable description. It should
+              show a clarifying information about what the event
+              watcher does. Our example could be
+              <returnvalue>__('Check if there is enough free space in
+              any available partition')</returnvalue>.
+            </para>
+          </listitem>
+        </varlistentry>
+      
+      </variablelist>
+      
+      <para>
+        Once you have developed and deployed it, you may enable it at
+        <menuchoice><guimenu>Events</guimenu><guiicon>Configure
+        events</guiicon></menuchoice> editing <option>enable</option>
+        field at the chose event watcher. Then enable service if
+        needed and "Save changes" as usual to restart
+        <emphasis>ebox-events</emphasis> module to make it work.
+      </para>
+
+    </section>
+
+    <section id='dispatcher-sect'>
+      <title>Event dispatchers</title>
+
+      <para>
+        Once event watchers have been developed to inform, the events
+        should be reported to someone somewhere. That is where the
+        event dispatcher appears. They are components which are in
+        charge of sending the event to the correct receiver using the
+        wished transport, such as Jabber (XMPP),IRC or e-mail.
+      </para>
+
+      <para>
+        Create a new dispatcher must be a subclass of
+        <classname>EBox::Event::Dispatcher::Abstract</classname> under
+        the namespace
+        <classname>EBox::Event::Dispatcher</classname>. The
+        constructor must call the superclass constructor given the
+        <parameter>domain</parameter> parameter to the parent
+        constructor as <link linkend="domain-explanation">watcher
+        does</link>.
+      </para>
+
+      <para>
+        The following methods are required to be overridden in order
+        to have a dispatcher ready to send messages:
+      </para>
+      
+      <variablelist>
+        <varlistentry>
+          <term><methodname>configured</methodname></term>
+          <listitem>
+            <para>
+              Determines if the dispatcher is already configured to
+              enable to send messages.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><methodname>ConfigurationMethod</methodname></term>
+          <listitem>
+            <para>
+              This method should return one of the following:
+              <variablelist>
+                <varlistentry>
+                  <term><returnvalue>none</returnvalue></term>
+                  <listitem>
+                    <para>
+                      None configuration is required to have the
+                      dispatcher ready. E.g. Log dispatcher does not
+                      required any configuration.
+                    </para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term><returnvalue>model</returnvalue></term>
+                  <listitem>
+                    <para>
+                      In order to configure the dispatcher, a model
+                      which describes the configuration parameters is
+                      required. The model name is returned by
+                      <methodname>ConfigureModel</methodname> which
+                      must be overridden by those dispatchers that
+                      configure themselves with a model.
+                    </para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term><returnvalue>link</returnvalue></term>
+                  <listitem>
+                    <para>
+                      Dispatcher, in this case, is configured in a
+                      more complex way. So a URL link points to the
+                      where the configuration is made should be
+                      served. This link is provided by 
+                      <methodname>ConfigureURL</methodname> which
+                      must be overridden by those dispatchers that
+                      configure themselves with a link. For example,
+                      to send messages to the control center is
+                      required to have the connection ready with it,
+                      that is done in a some non trivial steps which
+                      start at that link.
+                    </para>
+                  </listitem>
+                </varlistentry>
+              </variablelist>
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><methodname>_enable</methodname></term>
+          <listitem>
+            <para>
+              This method may be overridden to test whether the
+              dispatcher is ready to send messages or not. For
+              instance, you may configure your dispatcher to send
+              messages to a Jabber user, but it is possible not to
+              have access to the Jabber server or the jabber user does
+              not exist. It assumes
+              <methodname>configured</methodname> returns
+              <returnvalue>true</returnvalue>. It must throw the
+              <classname>EBox::Exceptions::External</classname> if the
+              dispatcher is not ready to send messages.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><methodname>send</methodname></term>
+          <listitem>
+            <para>
+              Once the dispatcher is configured and ready to send
+              messages, this method is called to send the appropriate
+              message as <classname>EBox::Event</classname>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><methodname>_receiver</methodname> and
+          <methodname>_name</methodname></term>
+          <listitem>
+            <para>
+              They are protected method to show information about the
+              dispatcher in the Configuration page at
+              <menuchoice><guimenu>Events</guimenu><guiicon>Configure
+              dispatchers</guiicon></menuchoice>. The former is the
+              localized name for the event dispatcher and the latter
+              is the receiver description.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>
+        Once it is developed and installed, you can configured at
+        the configuration page at
+        <menuchoice><guimenu>Events</guimenu><guiicon>Configure
+        dispatchers</guiicon></menuchoice>. Then enable the events
+        module if needed and finally "Save changes" to restart
+        ebox-events module.
+      </para>
+      
+    </section>
+
+</chapter>
