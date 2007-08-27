@@ -200,7 +200,7 @@ sub setService # (active)
 
   if ($active) {
     if ($self->_availableIfaces() == 0) {
-      throw EBox::Exceptions::External('Can not activate OpenVPN clients because there is not any netowrk interface available');
+      throw EBox::Exceptions::External('Cannot activate OpenVPN clients because there is not any network interface available');
     }
   }
 

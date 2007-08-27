@@ -689,7 +689,7 @@ sub setService # (active)
 
     if ($active) {
       $actualService and return;
-      $self->CAIsCreated() or throw EBox::Exceptions::Internal('Tying to activate OpenVPN service when there is not certification authority created');
+      $self->CAIsCreated() or throw EBox::Exceptions::Internal('Failed to activate OpenVPN service because is not certification authority created');
     }
     else {
       (not $actualService) and return;
@@ -706,7 +706,7 @@ sub service
 
    if ($service) {
       if (! $self->CAIsCreated()) {
-	EBox::warn('OpenVPN service disbled because certification authority is not setted up');
+	EBox::warn('OpenVPN service disabled because certification authority is not setted up');
 	return 0;
       }
    }

@@ -88,7 +88,7 @@ sub _checkPortIsNotDuplicate
     my ($self, $port, $proto) = @_;
 
     my $ownName = $self->name();
-    defined $proto or throw EBox::Exceptions::Internal 'Protocol must be set before port';
+    defined $proto or throw EBox::Exceptions::Internal 'Protocol must be set before setting port';
     my @serversNames = grep { $_ ne $ownName } $self->_openvpnModule->serversNames();
 
 
@@ -96,7 +96,7 @@ sub _checkPortIsNotDuplicate
 	my $server =  $self->_openvpnModule->server($serverName); 
 	next if ($proto ne $server->proto);
 	if ($port eq $server->port() ) {
-	    throw EBox::Exceptions::External ("There are already a OpenVPN server that uses port $port");
+	    throw EBox::Exceptions::External ("There is already a OpenVPN server which uses port $port");
 	}
     }
 }
@@ -295,7 +295,7 @@ sub setSubnetAndMask
   $self->_checkSubnetAndMask($net, $mask);
 
   checkIP($net, 'VPN subnet');
-  checkNetmask($mask, "VPN net\'s netmask");
+  checkNetmask($mask, "VPN network netmask");
 
   $self->setConfString('vpn_net', $net);
   $self->setConfString('vpn_netmask', $mask);
@@ -307,10 +307,10 @@ sub _checkSubnetAndMask
 
   # XXX ugly change it when we have #396
   checkIP($net, 'VPN subnet');
-  checkNetmask($mask, "VPN net\'s netmask");
+  checkNetmask($mask, "VPN network netmask");
 
   if (EBox::Validate::checkIPNetmask($net, $mask)) {
-    throw EBox::Exceptions::External(__x('Net address {net} with netmask {mask} is not a valid net', net => $net, mask => $mask));
+    throw EBox::Exceptions::External(__x('Network address {net} with netmask {mask} is not a valid network', net => $net, mask => $mask));
   }
 
 }
@@ -530,7 +530,7 @@ sub setService # (active)
       # XXX it should care of internal ifaces only until we close #391
       push @ifaces, @{ $network->InternalIfaces };
       if (@ifaces == 0) {
-	throw EBox::Exceptions::External(__x('OpenVPN server {name} can not be activated because there is not any network interfaces available', name => $self->name));
+	throw EBox::Exceptions::External(__x('OpenVPN server {name} can not be activated because there is not any network interface available', name => $self->name));
       }
     }
   }
@@ -612,7 +612,7 @@ sub _checkAdvertisedNet
   checkNetmask($netmask, __('network mask'));
 
   if ($self->getConfString("advertised_nets/$net")) {
-    throw EBox::Exceptions::External(__x("Net {net} is already advertised in this server", net => $net));
+    throw EBox::Exceptions::External(__x("Network {net} is already advertised in this server", net => $net));
   }
 
 
@@ -623,7 +623,7 @@ sub _checkAdvertisedNet
 
   my $CIDRNet = EBox::NetWrappers::to_network_with_mask($net, $netmask);
   if (! defined EBox::NetWrappers::route_to_reach_network($CIDRNet)) {
-    throw EBox::Exceptions::External(__('The OpenVPN server can not grant access to a network which can not be reached by eBox'))
+    throw EBox::Exceptions::External(__('The OpenVPN server can not grant access to a network which is not reachable'))
   }
 
   
@@ -649,7 +649,7 @@ sub removeAdvertisedNet
   EBox::Validate::checkIP($net,  __('network address'));
 
   if (!$self->getConfString("advertised_nets/$net")) {
-    throw EBox::Exceptions::External(__x("Net {net} is not advertised in this server", net => $net));
+    throw EBox::Exceptions::External(__x("Network {net} is not advertised in this server", net => $net));
   }
 
   $self->unsetConf("advertised_nets/$net");
@@ -680,8 +680,8 @@ sub init
 {
     my ($self, %params) = @_;
 
-    (exists $params{subnet}) or throw EBox::Exceptions::External __("The server needs a subnet address for the VPN");
-    (exists $params{subnetNetmask}) or throw EBox::Exceptions::External __("The server needs a submask for his VPN net");
+    (exists $params{subnet}) or throw EBox::Exceptions::External __("The server needs a network address for the VPN");
+    (exists $params{subnetNetmask}) or throw EBox::Exceptions::External __("The server needs a netmask for his VPN network");
     (exists $params{port} ) or throw EBox::Exceptions::External __("The server needs a port number");
     (exists $params{proto}) or throw EBox::Exceptions::External __("A IP protocol must be specified for the server");
     (exists $params{certificate}) or throw EBox::Exceptions::External __("A  server certificate must be specified");
@@ -786,7 +786,7 @@ sub freeIface
 
   if ($self->_onlyListenOnIface($iface)) {
     $self->setService(0);
-    EBox::warn('OpenVPN server ' . $self->name . " was deactivated because it depends on the interface $iface");
+    EBox::warn('OpenVPN server ' . $self->name . " was deactivated because it was dependent on the interface $iface");
   }
 }
 
