@@ -1,5 +1,7 @@
 0.10
-	+ Fixing bug importing gateway IP addresses from network configuration
+	+ Fixing bug importing gateway IP addresses from network
+	  configuration
+	+ Added /22 netmask setting iface IP address
 0.9.99
 	+ Restore conntrack mark in OUTPUT chain to make traffic generated in
 	  eBox go through the right router.
