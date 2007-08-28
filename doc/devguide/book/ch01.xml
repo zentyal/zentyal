@@ -371,10 +371,334 @@ debian/     m4/           po/         src/         www/
 
     <para>
       At section <link linkend="ch-mvc-internals">behind the scenes</link>, there is a large
-      explation about how it works internally. Below we are only going to introduce the main
+      explanation about how it works internally. Below we are only going to introduce the main
       components which an eBox developer requires to know to build up an eBox MVC's module.
     </para>
     
+    <para>
+      A basic MVC based module should have, at least, these three main parts:
+    </para>
+    
+    <itemizedlist>
+      <listitem>
+        <para>
+          A serie of data models which represent the information you want to store to configure
+          your desired service.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Manage your service daemon (if any) accessing to the data model, add menu entry,
+          summary and make the data contained in the model(s) available to the eBox system.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Expose the desired API to other eBox modules, perl scripts and SOAP interface.
+        </para>
+      </listitem>
+    </itemizedlist>
+
+    <section>
+      <title>Model creation</title>
+
+      <para>
+        A model is just a table concept, that is, an array of rows which have a defined fixed
+        definition, the table description. This table description contains a serie of <classname>
+        EBox::Types</classname> which are instances of <classname>EBox::Types::Abstract</classname>,
+        these eBox types try to include the required representation for eBox configuration parameters,
+        a brief list could be:
+      </para>
+
+      <variablelist>
+        <varlistentry>
+          <term>Basic types</term>
+          <listitem>
+            <para>
+              Basic types include are: <classname>Boolean</classname>, <classname>Int</classname>,
+              <classname>Text</classname>, <classname>Password</classname>,
+              <classname>Select</classname> (an enumeration) or <classname>Link</classname>, which
+              describe a type that stores a simple link reference.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Network related types</term>
+          <listitem>
+            <para>
+              These comprise <classname>IPAddr</classname> which represents an IP address,
+               <classname>MACAddr</classname> which is a Ethernet address, <classname>Service</classname>
+              which matches with port and protocol such as <filename>/etc/services</filename> does
+              and <classname>PortRange</classname> which describes a single port number,
+              a port range or any port.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Composite types</term>
+          <listitem>
+            <para>
+              Currently, just a <classname>Union</classname> type has been developed which
+              represents a type is used from a defined list of options. If none of options are suitable,
+              a <classname>Union::Text</classname> may be used with this purpose.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>
+        The data storage is managed automatically by the model itself. A model stores its information 
+        under a GConf directory which must set explicity at the model creation. However, you can set
+        dynamically which becomes the model instance in a submodel. The submodels are model instances
+        whose GConf directory is set dynamically, not only at the runtime. Its usage is intimally with
+        <classname>EBox::Types::HasMany</classname>, which describes a relationship between a field from
+        a model with another model indicating that field contains the whole data from another model.
+      </para>
+
+      <para>
+        Apart from the table description, it is required to set several attributes such as the name,
+        the printable name, if it is ordered, etc... Some model definition examples may help to understand
+        the subject:
+      </para>
+
+      <example id="object-model-definition">
+        <title><classname>Object</classname> model definition</title>
+        <programlisting><![CDATA[
+sub _table
+{
+    my @tableHead = 
+        ( 
+
+            new EBox::Types::Text
+                            (
+                                'fieldName' => 'name',
+                                'printableName' => __('Name'),
+                                'size' => '12',
+                                'unique' => 1,
+                                'editable' => 1
+                             ),
+            new EBox::Types::HasMany
+                            (
+                                'fieldName' => 'members',
+                                'printableName' => __('Members'),
+                                'foreignModel' => 'MemberTable',
+                                'view' => '/ebox/Object/View/MemberTable',
+                                'backView' => '/ebox/Object/View/MemberTable',
+                                'size' => '1',
+                             )
+
+          );
+
+    my $dataTable = 
+        { 
+            'tableName' => 'ObjectTable',
+            'printableTableName' => __('Objects'),
+            'automaticRemove' => 1,
+            'modelDomain' => 'Objects',
+            'defaultActions' => ['add', 'del', 'editField' ],
+            'tableDescription' => \@tableHead,
+            'class' => 'dataTable',
+            'help' => __('Objects'),
+            'printableRowName' => __('object'),
+        };
+
+    return $dataTable;
+}]]>
+        </programlisting>
+
+      </example>
+
+      <para>
+        As it is shown, a model is used to describe an eBox object, which has a name
+        and a group of members which are described below:
+      </para>
+
+      <example id="member-model-definition">
+        <title><classname>Object member</classname> model definition</title>
+        <programlisting><![CDATA[
+sub _table
+{
+    my @tableHead = 
+        ( 
+
+            new EBox::Types::Text
+                            (
+                                'fieldName' => 'name',
+                                'printableName' => __('Name'),
+                                'size' => '12',
+                                'unique' => 1,
+                                'editable' => 1
+                             ),
+            new EBox::Types::IPAddr
+                            (
+                                'fieldName' => 'ipaddr',
+                                'printableName' => __('IP Address'),
+                                'editable'      => 1,
+                            ),
+            new EBox::Types::MACAddr
+                            (
+                                'fieldName' => 'macaddr',
+                                'printableName' => __('MAC Address'),
+                                'editable'      => 1,
+                                'optional' => 1
+                            ),
+
+
+          );
+
+    my $dataTable = 
+        { 
+            'tableName' => 'MemberTable',
+            'printableTableName' => __('Members'),
+            'automaticRemove' => 1,
+            'defaultActions' => ['add', 'del', 'editField' ],
+            'modelDomain'    => 'Objects',
+            'tableDescription' => \@tableHead,
+            'class' => 'dataTable',
+            'help' => __('Objects'),
+            'printableRowName' => __('member'),
+        };
+
+    return $dataTable;
+}]]>
+        </programlisting>
+        
+      </example>
+
+      <para>
+        As you may see, every field has some attributes as well as the model itself. Just
+        note the actions are the allowed actions to apply to that model. For instance, you
+        can add, delete rows, edit fields... Several attributes are allowed for every type
+        and model, if they are not explicity set at the model definition, they are treated
+        as false value if it is a boolean type or empty string if the type is an string.
+      </para>
+
+        <para>
+          The best part of it comes with forms. Typical eBox scenarios contain a set of
+          tables and forms. So the information that a form may show can be stored in a
+          data model as described above. However, it has some significant differences.
+          A form data model looks like a table data model with just one row which is
+          always shown to be edited. A form model definition is similar to a table data
+          model one:
+        </para>
+
+        <example id="jabber-model-definition">
+          <title><classname>Jabber dispatcher</classname>configuration form data model
+          definition</title>
+
+          <programlisting><![CDATA[
+sub _table
+  {
+
+      my @tableDesc =
+        (
+         new EBox::Types::Text(
+                               fieldName     => 'server',
+                               printableName => __('Jabber server name'),
+                               size          => 12,
+                               editable      => 1,
+                              ),
+         new EBox::Types::Int(
+                              fieldName     => 'port',
+                              printableName => __('Port'),
+                              size          => 6,
+                              editable      => 1,
+                              defaultValue  => 5222,
+                             ),
+         new EBox::Types::Text(
+                               fieldName     => 'user',
+                               printableName => __('Jabber user name'),
+                               size          => 12,
+                               editable      => 1,
+                              ),
+         new EBox::Types::Password(
+                                   fieldName     => 'password',
+                                   printableName => __('User password'),
+                                   size          => 12,
+                                   editable      => 1,
+                                   minLength     => 4,
+                                   maxLength     => 25,
+                                  ),
+         new EBox::Types::Boolean(
+                                  fieldName      => 'subscribe',
+                                  printableName  => __('Subscribe'),
+                                  editable       => 1,
+                                 ),
+         new EBox::Types::Text(
+                               fieldName     => 'adminJID',
+                               printableName => __('Administrator Jabber Identifier'),
+                               size          => 12,
+                               editable      => 1,
+                              ),
+        );
+
+      my $dataForm = {
+                      tableName          => 'JabberDispatcherForm',
+                      printableTableName => __('Configure Jabber dispatcher'),
+                      modelDomain        => 'Events',
+                      tableDescription   => \@tableDesc,
+                      class              => 'dataForm',
+                      help               => __('In order to configure the Jabber event dispatcher ' .
+                                               'is required to be registered at the chosen Jabber ' .
+                                               'server or check subscribe to do register. The administrator ' .
+                                               'identifier should follow the pattern: user@domain[/resource]'),
+                     };
+
+      return $dataForm;
+
+  }]]>
+          </programlisting>
+          
+        </example>
+       
+        <para>
+          As you may notice, fields at a form can contain default values. This is done due to 
+          have default eBox configuration working. For example, you may want to enable a service
+          to a specific port whose value does not modify the service if the default value is
+          set.
+        </para>
+
+        <section id="model-data-management-sect">
+          <title>User input management</title>
+
+          <para>
+            Once the definition is set you may want to validate the user input. Types do some
+            validation, for instance, <classname>IPAddr</classname> checks if the parameters
+            contain a valid IP. However, there are cases where the developer requires to do
+            extra validation. To achieve so, there are two methods to override <methodname>
+            validateRow</methodname> and <methodname>validateTypedRow</methodname>.
+          </para>
+
+          <para>
+            Furthermore, actions have callbacks to called after an action have been finished.
+            Therefore <emphasis>add</emphasis> action has <methodname>addedRowNotify</methodname>,
+            <emphasis>edit</emphasis> <methodname>updatedRowNotify</methodname> and so on. This
+            allows you to manage the updated information to do something different from just
+            storing updating information at GConf database.
+          </para>
+
+        </section>
+
+    </section>
+
+    <section id="model-view-sect">
+
+      <title>Model view</title>
+
+      <para>
+      </para>
+
+    </section>
+
+    <section id="model-access-sect">
+
+      <title>Data model access</title>
+
+      <para>
+      </para>
+
+    </section>
+
   </section>
 
 </chapter>
