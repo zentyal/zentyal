@@ -178,12 +178,12 @@
 		<para>The typical eBox module handles the configuration of a daemon,
 		possibly integrated with other eBox modules. The developer decides
 		in what ways should the user be able to configure the daemon, this
-		ways do not necessarily map directly to the daemon config options on a
+		ways do not necessarily map directly to the daemon configuration options on a
 		one-to-one relationship. The developer may pick a sane default value
 		for most of the options and hide them from the user, showing him just
 		the ones that he feels are important. Even further, an option changed
 		by the user through the web interface may cause configuration changes
-		in several real config options or even on several eBox modules. The
+		in several real configuration options or even on several eBox modules. The
 		main goal is to have an user interface as simple, easy to use, and
 		integrated as possible, while providing the user with a rich set of
 		features.</para>
@@ -210,24 +210,24 @@
 			<listitem>
 				<para> The second is the GUI, which is a set of CGIs that show the
 				current configuration to the user and let him change it, these
-				CGIs use the API defined earlier to fetch the config info and make
+				CGIs use the API defined earlier to fetch the configuration info and make
 				changes to it. </para>
 			</listitem>
 
 			<listitem>
 				<para>The third part of the module is usually quite small, it
 				translates all the configuration information stored in GConf into
-				firewall rules, config files and commands that make the network
+				firewall rules, configuration files and commands that make the network
 				service behave as the user expects. It also takes care of starting,
 				stopping and restarting the service when needed.</para>
 			</listitem>
 		</itemizedlist>
 
 		<para> This separation between the GUI and the backend opens the
-		possibility for other means of changing the config. One such means
+		possibility for other means of changing the configuration. One such means
 		is through perl scripts, these is useful when making packages for a
 		distribution, the package maintainer can write a simple script to import the
-		current system config into eBox, or set up some default values. Another
+		current system configuration into eBox, or set up some default values. Another
 		use of the API is for other modules, the firewall module is the most
 		used case, almost all modules need tell the firewall to open some port
 		for them. In the future a wrapper may be written around these APIs to
@@ -271,8 +271,8 @@
 
 			<listitem>
 				<para>Write the code needed to make the daemon work, possibly
-				generating a config file and setting up a firewall rule using the
-				<classname>EBox::Firewall</classname> class. Config files are
+				generating a configuration file and setting up a firewall rule using the
+				<classname>EBox::Firewall</classname> class. Configuration files are
 				generated almost trivially with mason, which is the template system
 				also used to generate the HTML pages for the GUI.</para>
 			</listitem>
@@ -330,7 +330,7 @@ debian/     m4/           po/         src/         www/
       design pattern, which an architectural pattern used in large software projects to
       decouple highly data (<emphasis>model</emphasis>) and user interface
       (<emphasis>view</emphasis>) so that developer can change the data architecture
-      without changing the user interface and viceversa. A new component is added,
+      without changing the user interface and vice versa. A new component is added,
       the <emphasis>controller</emphasis>, which manages data access and business 
       logic acting as an intermediate between them.
     </para>
@@ -382,7 +382,7 @@ debian/     m4/           po/         src/         www/
     <itemizedlist>
       <listitem>
         <para>
-          A serie of data models which represent the information you want to store to configure
+          A series of data models which represent the information you want to store to configure
           your desired service.
         </para>
       </listitem>
@@ -404,7 +404,7 @@ debian/     m4/           po/         src/         www/
 
       <para>
         A model is just a table concept, that is, an array of rows which have a defined fixed
-        definition, the table description. This table description contains a serie of <classname>
+        definition, the table description. This table description contains a series of <classname>
         EBox::Types</classname> which are instances of <classname>EBox::Types::Abstract</classname>,
         these eBox types try to include the required representation for eBox configuration parameters,
         a brief list could be:
@@ -448,9 +448,9 @@ debian/     m4/           po/         src/         www/
 
       <para>
         The data storage is managed automatically by the model itself. A model stores its information 
-        under a GConf directory which must set explicity at the model creation. However, you can set
+        under a GConf directory which must set explicitly at the model creation. However, you can set
         dynamically which becomes the model instance in a submodel. The submodels are model instances
-        whose GConf directory is set dynamically, not only at the runtime. Its usage is intimally with
+        whose GConf directory is set dynamically, not only at the runtime. Its usage is intimately with
         <classname>EBox::Types::HasMany</classname>, which describes a relationship between a field from
         a model with another model indicating that field contains the whole data from another model.
       </para>
@@ -569,7 +569,7 @@ sub _table
         As you may see, every field has some attributes as well as the model itself. Just
         note the actions are the allowed actions to apply to that model. For instance, you
         can add, delete rows, edit fields... Several attributes are allowed for every type
-        and model, if they are not explicity set at the model definition, they are treated
+        and model, if they are not explicitly set at the model definition, they are treated
         as false value if it is a boolean type or empty string if the type is an string.
       </para>
 
@@ -686,13 +686,99 @@ sub _table
       <title>Model view</title>
 
       <para>
+        This section explains how the data model is shown at eBox user interface. If you just
+        want to show a data model in eBox, a new menu entry is required. Its URL must have
+        this pattern: <emphasis>${modelDomain}/View/${tableName}</emphasis>. The 
+        <property>modelDomain</property> and <property>tableName</property> are attributes
+        which have been already set at the data model definition. A table model will show up
+        an empty table and a HTML form will appear if a form model is defined, they are named
+        as their <emphasis>viewers</emphasis>.
+      </para>
+
+      <para>
+        You may wish to combine the several models in the same page. Here where the model
+        composites play its role. The model composites are containers which stores two
+        kinds of components: models and composites, thus you can create complex composites
+        to find the more usable and adapted user interface for your needs. The current
+        available layouts are:
+      </para>
+      
+      <variablelist>
+        <varlistentry>
+          <term>top-bottom</term>
+          <listitem>
+            <para>The components are shown in order from top to the bottom.</para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>tabbed</term>
+          <listitem>
+            <para>The component viewers are displayed in a tabbed way. That is,
+            each component is shown when the tab name is clicked</para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>
+        Define a model composite is even simpler than a model one as it depicts in 
+        this example:
+      </para>
+
+      <example id="composite-def-example">
+        <title>A sample model composite definition</title>
+
+        <programlisting><![CDATA[
+sub _description
+  {
+
+      my $description =
+        {
+         components      => [
+                             'EnableForm',
+                             'ConfigurationComposite',
+                            ],
+         layout          => 'top-bottom',
+         name            => 'GeneralComposite',
+         printableName   => __('Events'),
+         compositeDomain => 'Events',
+         help            => __('Events module may help you to make eBox ' .
+                               'inform you about events that happen at eBox ' .
+                               'in some different ways'),
+        };
+
+      return $description;
+
+  }]]>
+        </programlisting>
+
+      </example>
+   
+      <para>
+        The components are referenced using its name, <property>tableName</property> at
+        models and <property>name</property> at composites. In order to display a
+        composite based page, it is required to change the menu entry. In this case, 
+        the URL to call must follow this pattern
+        <emphasis>${compositeDomain}/Composite/${name}</emphasis>. That's all you need
+        to display your models together in a single page.
       </para>
 
     </section>
 
     <section id="model-access-sect">
 
-      <title>Data model access</title>
+      <title>Data model publishing and access</title>
+
+      <para>
+        Just get the magic done, it is required to publish the models and the composites.
+        To achieve so, the eBox modules, which are subclasses of
+        <classname>EBox::GConfModule</classname>, must inherit 
+        <classname>EBox::Model::ModelProvider</classname> and 
+        <classname>EBox::Model::CompositeProvider</classname> interfaces and implementing
+        its respectively methods <methodname>models</methodname> and
+        <methodname>composites</methodname>, which returns an array reference of model and
+        composite instances that lives within this eBox module realm. An example could be
+        the next one:
+      </para>
 
       <para>
       </para>
