@@ -2,7 +2,7 @@
 
 	<title>Module backend</title>
 
-	<simplesect>
+	<simplesect id="backend-introduction">
 
 		<para>The eBox framework offers modules several functionalities that
 		are made available through a mostly object-oriented API. Not everything
@@ -31,7 +31,6 @@
 		follow the template method design pattern, they perform some operation
 		but delegate some part of it on some abstract method that may be
 		implemented by child classes.</para>
-
 		<!-- FIXME - class diagram -->
 
 		<para>Finally, there are a few methods that implement some common
@@ -62,7 +61,7 @@
 			the <application>gettext</application> domain for the module, it's
 			optional and <quote>ebox</quote> is its default value.</para>
 
-			<example>
+			<example id="simple-constructor-example">
 				<title>Simple module constructor</title>
 				<programlisting><![CDATA[sub _create
 {
@@ -107,7 +106,7 @@
                 and the last methods are not available.
                 </para>
 
-			<example>
+			<example id="root-example">
 				<title>Using EBox::Sudo::root()</title>
 				<programlisting><![CDATA[try {
   EBox::Sudo::root("/usr/bin/eject -t");
@@ -430,19 +429,19 @@ catch EBox::Exceptions::Sudo::Command with {
 			</varlistentry>
 		</variablelist>
 			
-		<para>Let see some examples from the above functions.</para>	
+		<para>Let's see some examples from the above functions.</para>	
 		
-		<example>
+		<example id="setting-string-key-example">
 			<title>Setting a string key</title>
 			<programlisting> <![CDATA[$self->set_string("printers/x4235/name", "fooprinter"); ]]></programlisting>
 		</example>
 
-		<example>
+		<example id="setting-string-list-example">
 			<title>Setting a string list</title>
 			<programlisting><![CDATA[$self->set_list('foo/foolist', 'string', ['foo', 'bar']);]]></programlisting>
 		</example>
 
-		<example>
+		<example id="getting-unique-id-example">
 			<title>Getting and using a unique identifier</title>
 			<programlisting><![CDATA[my $id = $self->get_unique_id('p', 'printers');
 $self->set_string("printers/$id/name", $name);
@@ -562,7 +561,7 @@ $self->set_bool("printers/$id/configured", undef);
 
 		</variablelist>
 
-		<example>
+		<example id="ordering-firewall-example">
 			<title>Ordering firewall rules</title>
 
 			<para>Let's see how the firewall module uses
@@ -697,7 +696,7 @@ MAINTAINERCLEANFILES = Makefile.in]]></programlisting>
 			file in a temporary location and then copy it on top of the desired
 			destination, keeping its original permissions and ownership.</para>
 
-			<example>
+			<example id="gen-conf-example">
 				<title>Generating a configuration file</title>
 
 				<para>This is the code that generates the configuration file in the
@@ -763,7 +762,7 @@ restrict 127.0.0.1 nomodify
 	
 		</section>
 
-		<section>
+		<section id="controlling-exec-sect">
 			<title>Controlling execution</title>
 
 			<para>The first thing you need to know is when to start and
@@ -861,7 +860,7 @@ sub _daemon # (action)
 			abstract method, <methodname>_stopService</methodname> is the one you
 			need to implement.</para>
 
-			<example>
+			<example >
 
 				<title>Sample <methodname>_stopService</methodname>
 				implementation</title>
@@ -903,7 +902,7 @@ sub _daemon # (action)
 			<classname>EBox::Foobar</classname>. Your gconf schema would look
 			something like this:</para>
 
-			<example>
+			<example id="gconf-schema-example">
 			<title>Minimal gconf schema</title>
 				<programlisting><![CDATA[<gconfschemafile>
 <schemalist>
@@ -925,7 +924,7 @@ sub _daemon # (action)
 			<classname>EBox::Global</classname>, it will know that it has to load
 			and instance the class <classname>EBox::Foobar</classname>.</para>
 	
-			<example>
+			<example id="creating-module-example">
 			<title>Creating a module instance</title>
 			<programlisting><![CDATA[my $foobar = EBox::Global->modInstance('foobar');
 $foobar->some_method();]]></programlisting>
@@ -953,7 +952,7 @@ $foobar->some_method();]]></programlisting>
 			this example we would use the key 
 			<filename>/schemas/ebox/modules/proxy/port</filename>.</para>
 
-			<example>
+			<example id="setting-default-value-example">
 				<title>Setting a default value in gconf schemas</title>
 				 <programlisting><![CDATA[<schema>
 	<key>/schemas/ebox/modules/proxy/port</key>
@@ -987,7 +986,7 @@ $foobar->some_method();]]></programlisting>
 			<para>In order to express this relationship of dependence we will
 			use your module's gconf schema as follows:</para>
 
-			<example>
+			<example id="setting-mod-deps-example">
 				<title>Setting module dependencies</title>
 				 <programlisting><![CDATA[<schema>
 	<key>/schemas/ebox/modules/global/modules/proxy/depends</key>
@@ -1036,7 +1035,7 @@ $foobar->some_method();]]></programlisting>
 		user requests it explicitly. Let's show how with an
 		example:</para>
 
-		<example>
+		<example id="overriding-backup-example">
 		  <title>Overriding backup functions</title>
 		  <programlisting><![CDATA[
 sub dumpConfig
@@ -1071,7 +1070,7 @@ sub restoreConfig
 		<emphasis>ebox-logs</emphasis> implement these
 		features:
 
-		<example>
+		<example id="overriding-function-example">
 		  <title>Overriding functions for extended
 		  backups</title>
 		  <programlisting>
@@ -1117,7 +1116,7 @@ sub extendedRestore
 	    <classname>EBox::LogAdmin</classname> in your module.
 	  </para>
 	  
-	  <example>
+	  <example id="logAdmin-inclusion-example">
 	    <title>Including LogAdmin package</title>
 	    <programlisting><![CDATA[
 use EBox::LogAdmin qw ( :all );
@@ -1129,7 +1128,7 @@ use EBox::LogAdmin qw ( :all );
 	    you must add it to the <emphasis>create</emphasis> call. For instance:
 	  </para>
 	  
-	  <example>
+	  <example id="creating-object-logAdmin-example">
 	    <title>Creating an object with administrative logging support</title>
 	    <programlisting><![CDATA[
 my $self = $class->SUPER::_create(name => 'objects',
@@ -1145,7 +1144,7 @@ my $self = $class->SUPER::_create(name => 'objects',
 	    Following the same example in <classname>EBox::Objects</classname> module:
 	  </para>
 	  
-	  <example>
+	  <example id="adding-action-log-example">
 	    <title>Adding actions to log</title>
 	    <programlisting>
 <![CDATA[
@@ -1200,7 +1199,7 @@ logAdminNow(module,action,params)
 		You should call it only when you're sure that the action has taken place, for 
 		example, for <methodname>addObject</methodname>:
 	      </para>
-	      <example>
+	      <example id="logDeferred-example">
 		<title>Calling <methodname>logAdminDeferred</methodname> method</title>
 		<programlisting>
 $self->set_string("$id/description", $desc);
@@ -1216,5 +1215,44 @@ return $id;
 	    </listitem>
 	  </orderedlist>
 	</section>
+
+        <section id="migration-scripts-sect">
+          <title>Migration scripts</title>
+
+          <para>
+            Migration scripts are perl scripts intended on changing from an old data structure to a newer
+            version of it per eBox module basis. That is, the old configuration stored in GConf is migrated
+            to a new structure setting the default values for the new attributes that are 
+            stored in the new version. Their names must follow this pattern 
+            [0-9]{4}_${descriptive_name_with_underscores}, for instance 
+            <filename>0002_add_weight_to_gateway.pl</filename>, and they must live under
+            <filename>migration/</filename> directory. The numbers are incremental and describe the 
+            target version, hence the previous example is a migration script between data version 1 to 2.
+           </para>
+          
+          <para>
+            Migration script must contain a <classname>EBox::Migration</classname> package which
+            inherits from <classname>EBox::MigrationBase</classname> and override
+            <methodname>runGConf</methodname> where the migration gets done. The main program from
+            the script should follow this structure:
+          </para>
+
+          <programlisting><![CDATA[
+EBox::init();
+my $network = EBox::Global->modInstance('network');
+my $migration = new EBox::Migration( 
+				     'gconfmodule' => $network,
+				     'version' => 2 
+				    );
+$migration->execute();]]>
+          </programlisting>
+
+          <para>
+            The constructor must have the GConf module to fetch and store the data and the
+            data version to where the data structure will be upgrade. Afterwards, the 
+            <methodname>execute</methodname> should be run to do migrate the data.
+          </para>
+
+        </section>
 
 </chapter>

@@ -2,14 +2,76 @@
 
   <title>Model-View-Controller internals</title>
 
-  <simplesect>
+  <simplesect id="mvc-internals-introduction">
 
     <title></title>
 
     <para>
-      
+      The main aim from this chapter is getting into the guts of the 
+      <link linkend="sect-a-mvc-module">Model-View-Controller framework</link>. From an
+      eBox developer is not required to get into if this is not strictly necessary.
+      However, it could be useful to use it properly, to enhance it in some way or, 
+      what is more, to add features not already addressed before.
     </para>
 
   </simplesect>
+
+  <section id="internal-model-sect">
+    <title>Model</title>
+
+    <para>
+      The main logic related to the data model is encapsulated on
+      <classname>EBox::Model::DataTable</classname>. Its constructor requires at least
+      a GConf module, i.e. an eBox module, a directory to store the data model and a Gettext
+      domain which normally match with the GConf module one. The
+      <link linkend="model-creation-sect">model description</link> is instanced
+      just one using the Singleton method pattern.
+    </para>
+
+    <figure id="model-class-diagram-fig">
+      <title>Data model class diagram</title>
+      <mediaobject>
+        <imageobject>
+          <imagedata fileref="images/model-class-diagram.png"
+                     format="PNG" />
+        </imageobject>
+      </mediaobject>
+    </figure>
+
+  </section>
+
+  <section id="internal-view-sect">
+    <title>View</title>
+    <para>
+    </para>
+
+      <figure id="view-class-diagram-fig">
+	<title>View template system class diagram</title>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/view-class-diagram.png"
+		       format="PNG" />
+	  </imageobject>
+	</mediaobject>
+      </figure>
+
+
+  </section>
+
+  <section id="internal-controller-sect">
+    <title>Controller</title>
+
+    <para>
+    </para>
+
+  </section>
+
+  <section id="internal-publishing-sect">
+    <title>Publishing models</title>
+
+    <para>
+    </para>
+
+  </section>
 
 </chapter>

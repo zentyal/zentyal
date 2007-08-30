@@ -141,7 +141,7 @@
 
   </section>
 
-	<section>
+	<section id="terminology-sect">
 		<title>Terminology</title>
 
 		<para>A few conventions are used throughout this guide regarding
@@ -291,13 +291,14 @@
 		<programlisting>
 AUTHORS     configure.ac  INSTALL     Makefile.am  README   stubs/
 autogen.sh  COPYING       NEWS        schemas/     tools/   ChangeLog
-debian/     m4/           po/         src/         www/
+debian/     m4/           po/         src/         www/     migration/
 		</programlisting>
 		</para>
 
 		<para>The more important directories are <filename>src/</filename>,
-		<filename>schemas/</filename>, <filename>www/</filename> and
-		<filename>stubs/</filename>.</para>
+		<filename>schemas/</filename>, <filename>www/</filename>,
+                <filename>stubs/</filename> and <filename>migration/</filename>.
+                </para>
 
 		<para>The <filename>src/</filename> directory contains the source
 		code for the module. Inside this directory two directories can be
@@ -318,6 +319,10 @@ debian/     m4/           po/         src/         www/
 		<para>The <filename>stubs/</filename> is used to store Mason templates
 		to generate configuration files for the module services.</para>
 
+                <para>The <filename>migration/</filename> stores the 
+                <link linkend="migration-scripts-sect">migration perl scripts</link>
+                to upgrade from an eBox module version to a newer one.</para>
+
   </section>
 
   <section id="sect-a-mvc-module">
@@ -330,7 +335,7 @@ debian/     m4/           po/         src/         www/
       design pattern, which an architectural pattern used in large software projects to
       decouple highly data (<emphasis>model</emphasis>) and user interface
       (<emphasis>view</emphasis>) so that developer can change the data architecture
-      without changing the user interface and vice versa. A new component is added,
+      wihout changing the user interface and vice versa. A new component is added,
       the <emphasis>controller</emphasis>, which manages data access and business 
       logic acting as an intermediate between them.
     </para>
@@ -399,7 +404,7 @@ debian/     m4/           po/         src/         www/
       </listitem>
     </itemizedlist>
 
-    <section>
+    <section id="model-creation-sect">
       <title>Model creation</title>
 
       <para>
@@ -410,7 +415,7 @@ debian/     m4/           po/         src/         www/
         a brief list could be:
       </para>
 
-      <variablelist>
+      <variablelist id="eBox-types-list">
         <varlistentry>
           <term>Basic types</term>
           <listitem>
@@ -769,20 +774,237 @@ sub _description
       <title>Data model publishing and access</title>
 
       <para>
-        Just get the magic done, it is required to publish the models and the composites.
+        Just get the magic done, it is required to publish the models and composites.
         To achieve so, the eBox modules, which are subclasses of
-        <classname>EBox::GConfModule</classname>, must inherit 
+        <classname>EBox::GConfModule</classname>, must inherit from 
         <classname>EBox::Model::ModelProvider</classname> and 
-        <classname>EBox::Model::CompositeProvider</classname> interfaces and implementing
+        <classname>EBox::Model::CompositeProvider</classname> interfaces, implementing
         its respectively methods <methodname>models</methodname> and
         <methodname>composites</methodname>, which returns an array reference of model and
         composite instances that lives within this eBox module realm. An example could be
         the next one:
       </para>
 
+      <example id="model-composite-publishing-example">
+        <title>Model and composite publishing example</title>
+
+        <programlisting><![CDATA[
+sub models {
+       my ($self) = @_;
+
+       return [
+               $self->configureLogModel(),
+               $self->forcePurgeModel(),
+              ];
+}
+sub composites
+  {
+
+      my ($self) = @_;
+
+      return [
+              $self->_configureLogComposite(),
+             ];
+
+  }]]>
+        </programlisting>
+      </example>
+
       <para>
+        Once the models are published and ready to be displayed, they actually have to do something to manage
+        its service. Current data model API is quite experimental in the way it is constantly
+        evolving to satisfy the client needs. The main components that use data model are 
+        <link linkend="migration-scripts-sect">migration scripts</link> and eBox module itself
+        to obtain the required data to configure the service.
       </para>
 
+      <para>
+        The main method to retrieve the data model is <methodname>rows</methodname> which
+        returns an array reference which contains the rows from that data model. You can filter
+        the result using a <parameter>filter</parameter> string or get the result from 
+        a defined <parameter>page</parameter>, since data model allows filtering and paging. Each 
+        array component contains the return value from <methodname>row</methodname> which is a 
+        hash reference containing the following key - value pairs:
+      </para>
+
+      <variablelist>
+        <varlistentry>
+          <term><returnvalue>id</returnvalue></term>
+          <listitem>
+            <para>
+              Each row has an identifier which allows distinguishing from the others 
+              inside the data model. You can use it as well as indexer calling the
+              <methodname>row</methodname> method.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><returnvalue>order</returnvalue></term>
+          <listitem>
+            <para>
+              A data model can be ordered or not. If so, the rows are ordered in the same
+              order they have been added. Furthermore, you might tailor the order overriding
+              <methodname>_tailoredOrder</methodname> to give rows in the desired order.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><returnvalue>values</returnvalue></term>
+          <listitem>
+            <para>
+              Array reference which contains eBox types, which were explained
+              <link linkend="eBox-types-list">previously</link>.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><returnvalue>valueHash</returnvalue></term>
+          <listitem>
+            <para>
+              Hash reference indexed by field name whose values are eBox types as
+              <returnvalue>values</returnvalue> does.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><returnvalue>plainValueHash</returnvalue></term>
+          <listitem>
+            <para>
+              For convenience, some methods have been added to help accessing the methods.
+              This one returns a hash reference containing field name - value pairs.
+            </para>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term><returnvalue>printableValueHash</returnvalue></term>
+          <listitem>
+            <para>
+              Similar to the previous one, it returns a hash reference containing 
+              field name - printable value pairs.
+            </para>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      <para>
+        The <methodname>rows</methodname> may be quite complex. An dumped from a result
+        could clarify the subject:
+      </para>
+
+      <example id="rows-dump-example">
+        <title><methodname>Rows</methodname> dumped result</title>
+
+        <programlisting><![CDATA[
+[
+ {
+  'order' => undef,
+  'plainValueHash' => {
+                       'members' => {
+                                     ...
+                                    },
+                       'name' => 'RRHH',
+                       'id' => 'x6666'
+                      },
+  'valueHash' => {
+                  'members' => bless( {
+                                       ...
+                                      }, 'EBox::Types::HasMany' ),
+                  'name' => bless( {
+                                    'unique' => 1,
+                                    'value' => 'RRHH',
+                                    'printableName' => 'Name',
+                                    'model' => $VAR1->[0]{'valueHash'}{'members'}{'model'},
+                                    'HTMLSetter' => '/ajax/setter/textSetter.mas',
+                                    'optional' => 0,
+                                    'size' => '12',
+                                    'row' => $VAR1->[0],
+                                    'editable' => 1,
+                                    'type' => 'text',
+                                    'HTMLViewer' => '/ajax/viewer/textViewer.mas',
+                                    'fieldName' => 'name'
+                                    }, 'EBox::Types::Text' )
+                 },
+  'values' => [
+               $VAR1->[0]{'valueHash'}{'name'},
+               $VAR1->[0]{'valueHash'}{'members'}
+              ],
+  'id' => 'x6666',
+  'printableValueHash' => {
+                           'members' => {
+                                         'model' => 'MemberTable',
+                                         'values' => [
+                                                      {
+                                                      'macaddr' => undef,
+                                                      'name' => 'Claudia',
+                                                      'id' => 'memb44',
+                                                      'ipaddr' => '192.168.1.92/32'
+                                                      }
+                                                     ],
+                                         'directory' => 'objectTable/keys/x6666/members'
+                                        },
+                           'name' => 'RRHH',
+                           'id' => 'x6666'
+                         },
+  'readOnly' => 0
+  },
+];
+]]>
+        </programlisting>
+
+      </example>
+
+      <para>
+        Nevertheless, you may search for rows which match a fixed criterion, this implies the
+        match is done against the field value. Four methods make the
+        work for you, <methodname>find</methodname>, <methodname>findAll</methodname>, 
+        <methodname>findValue</methodname> and <methodname>findValueAll</methodname>. They are divided
+        in two groups, the ones which returns the <returnvalue>valueHash</returnvalue> and the ones 
+        which returns the <returnvalue>printableValueHash</returnvalue> and has the 'Value' word in their names. 
+        Moreover, if the method ends with 'All' words, returns not just the first row which matchs
+        but also the possible remainder rows which match the criterion as well. Taking the previous
+        data model a search with <varname>$model->find( 'name' => 'RHHH' )</varname>, the dumped return value
+        is:
+        <programlisting><![CDATA[
+{
+ 'members' => {
+               'model' => 'MemberTable',
+               'values' => [
+                            {
+                             'macaddr' => undef,
+                             'name' => 'Claudia',
+                             'id' => 'memb44',
+                             'ipaddr' => '192.168.1.92/32'
+                            }
+                           ],
+               'directory' => 'objectTable/keys/x6666/members'
+              },
+ 'name' => 'RRHH',
+ 'id' => 'x6666'
+}]]>
+        </programlisting>
+      </para>
+
+      <para>
+        Final part of developing with MVC framework is expose the desired API to other eBox
+        modules, perl scripts and SOAP clients. Two main options are probable, just disclose
+        the instanced data model allowing full access to the model using in the way we used
+        above or integrate some helper methods to access to the most important features which
+        clients use most. The latter is likely the chosen if the data model rises in its 
+        complexity. A module which consists of several data models connected with each other
+        indicates that a simple API may help the module's clients.
+      </para>
+
+    </section>
+
+    <section id="mvc-usefulness-sect">
+      <title>When is this approach suitable?</title>
+
+      <para>
+        As you may see, the MVC framework is powerful scheme to develop in eBox. However, it is
+        not so impressive yet. It is still under development and some optimization as well as
+        lack of some features. For instance, an eBox type to manage file uploading from the user,
+        <!--FIXME: More demanding features-->
+      </para>
     </section>
 
   </section>
