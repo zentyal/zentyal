@@ -1,5 +1,3 @@
-<!-- vim: ts=2 sw=2
--->
 <chapter id="ch-frontend">
 
 	<title>Web frontend</title>
@@ -339,7 +337,7 @@ $self->{title} = __('Hello world');
 		default values are optional. If none is given and you don't pass that
 		argument to the template an exception will be thrown.</para>
 
-		<example>
+		<example id="mason-args-example">
 			<title>Declaring arguments in a mason template</title>
 
 			<programlisting><![CDATA[<%args>

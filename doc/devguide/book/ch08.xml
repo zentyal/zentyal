@@ -1105,8 +1105,8 @@
         ]]> </programlisting>
       </example>
 
-      <example>
-        <title>Telling wheter the ntp daemon is running or not.</title>
+      <example id="ntp-running-example">
+        <title>Telling whether the NTP daemon is running or not.</title>
         <programlisting><![CDATA[sub isRunning
         {
         my $self = shift;

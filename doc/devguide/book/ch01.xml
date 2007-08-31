@@ -329,7 +329,7 @@ debian/     m4/           po/         src/         www/     migration/
     <title>A Model-View-Controller module</title>
 
     <para>
-      Bear <link linkend="sect-amodule">above section</link> in mind, a new way to develop
+      Bear <xref linkend="sect-amodule"/> in mind, a new way to develop
       eBox modules have been developed. It relies on 
       <ulink url="http://en.wikipedia.org/wiki/Model-view-controller">Model-View-Controller</ulink>
       design pattern, which an architectural pattern used in large software projects to
@@ -375,7 +375,7 @@ debian/     m4/           po/         src/         www/     migration/
     </variablelist>
 
     <para>
-      At section <link linkend="ch-mvc-internals">behind the scenes</link>, there is a large
+      In <xref linkend="ch-mvc-internals"/>, there is a large
       explanation about how it works internally. Below we are only going to introduce the main
       components which an eBox developer requires to know to build up an eBox MVC's module.
     </para>
@@ -797,6 +797,7 @@ sub models {
                $self->forcePurgeModel(),
               ];
 }
+
 sub composites
   {
 
@@ -952,6 +953,15 @@ sub composites
         </programlisting>
 
       </example>
+
+      <para>
+        With the ease of use in mind, form data model allows accessing directly to the value,
+        printable value attributes or the whole type using as method name the field name. For instance,
+        at <link linkend="jabber-model-definition">jabber dispatcher configuration form data model</link>,
+        you can access to the value, printable value and the instanced type itself of 
+        <property>user</property> property calling <methodname>userValue</methodname>, 
+        <methodname>userPrintableValue</methodname> and <methodname>userType</methodname> respectively.
+      </para>
 
       <para>
         Nevertheless, you may search for rows which match a fixed criterion, this implies the

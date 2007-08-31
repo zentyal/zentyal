@@ -25,7 +25,12 @@
       a GConf module, i.e. an eBox module, a directory to store the data model and a Gettext
       domain which normally match with the GConf module one. The
       <link linkend="model-creation-sect">model description</link> is instanced
-      just one using the Singleton method pattern.
+      just one using the Singleton method pattern at <methodname>table</methodname> method.
+      As the <xref linkend="model-class-diagram-fig"/> depicts, there are 
+      two main data model <classname>DataTable</classname> and 
+      <classname>DataForm</classname> which represents the template system to be 
+      used by real data models such as <classname>EnableForm</classname> or 
+      <classname>ConfigureLogTable</classname>. 
     </para>
 
     <figure id="model-class-diagram-fig">
@@ -38,11 +43,251 @@
       </mediaobject>
     </figure>
 
+    <para>
+      Data manipulation is done by
+      <methodname>addRow</methodname>, <methodname>removeRow</methodname> and
+      <methodname>setRow</methodname>, they are convenient methods to add, remove and
+      update rows. The fields to fill the row are tailored to simplify and speed
+      up the data input management from the HTTP request. Moreover, a typed version is
+      intended to be developed to ease the internal management and the exposed API as
+      <xref linkend="model-access-sect"/> requires. For instance, to add
+      a member in the <link linkend="member-model-definition">member table</link> you
+      may use this piece of code:
+    </para>
+
+    <programlisting><![CDATA[
+$model->addRow( ( name => 'admin',
+                  ipaddr_ip => '192.168.1.2',
+                  ipaddr_mask => '32',
+                  macaddr => '00:50:57:D0:11:08'
+                )]]>
+    </programlisting>
+
+    <para>
+      The data from a model is stored and retrieved from GConf, some caching is done in
+      order to speed up the data access times. In order to describe the GConf structure,
+      it had better to use the result from <command>gconftool</command> command:
+    </para>
+
+    <example id="gconf-struct-model-example">
+      <title>GConf structure from a model</title>
+      
+      <programlisting><![CDATA[
+ data_version = 1
+ /ebox/modules/objects/objectTable:
+  /ebox/modules/objects/objectTable/keys:
+   version = 44
+   /ebox/modules/objects/objectTable/keys/x6666:
+    readOnly = false
+    name = RRHH
+    /ebox/modules/objects/objectTable/keys/x6666/members:
+     /ebox/modules/objects/objectTable/keys/x6666/members/keys:
+      version = 1
+      /ebox/modules/objects/objectTable/keys/x6666/members/keys/memb44:
+       readOnly = false
+       name = Claudia
+       ipaddr_ip = 192.168.1.92
+       ipaddr_mask = 32
+   /ebox/modules/objects/objectTable/keys/x1850:
+    readOnly = false
+    name = MKT
+    /ebox/modules/objects/objectTable/keys/x1850/members:
+     /ebox/modules/objects/objectTable/keys/x1850/members/keys:
+      version = 3
+      /ebox/modules/objects/objectTable/keys/x1850/members/keys/memb9612:
+       readOnly = false
+       name = Florencia
+       ipaddr_ip = 192.168.1.42
+       ipaddr_mask = 32
+      /ebox/modules/objects/objectTable/keys/x1850/members/keys/memb9390:
+       readOnly = false
+       name = Hugo
+       ipaddr_ip = 192.168.1.46
+       ipaddr_mask = 32
+      /ebox/modules/objects/objectTable/keys/x1850/members/keys/memb2675:
+       readOnly = false
+       name = Silvina
+       ipaddr_ip = 192.168.1.43
+       ipaddr_mask = 32]]>
+      </programlisting>
+    </example>
+
+    <para>
+      As you may see, the object data model stores two objects <emphasis>RRHH</emphasis>
+      and <emphasis>MKT</emphasis> which the former saves one and the latter three members.
+      The <property>data_version</property> indicates the data structure version in the same
+      sense as <xref linkend="migration-scripts-sect"/> explains. Each data model stores 
+      their values under <parameter>keys/id</parameter> directory, the id is obtained using
+      <methodname>get_unique_id</methodname> as <xref linkend="sect-gconf"/> describes. 
+      <property>Version</property> property is used by caching scheme, as you may notice is currently
+      done per data model basis. As each object data model row has several members using
+      the member data model, they are stored within the object directory as if another model.
+      Each type has its value stored in GConf, for instance the field <parameter>name</parameter>
+      for object <parameter>x6666</parameter> has as value <parameter>RHHH</parameter>.
+      <property>readOnly</property> attribute indicates whether the row is read only or not.
+    </para>
+
+    <para>
+      With regard to form data model, the GConf structure is quite simplified flattening
+      the <parameter>keys/id</parameter> to the main GConf directory to let the form
+      user see its content easily.
+    </para>
+
+    <section id="model-relation-sect">
+      <title>Model relationship</title>
+      <para>
+        Model relationship is describe through <classname>EBox::Types::HasMany</classname> and
+        through <classname>EBox::Types::Select</classname> and whose management is done by 
+        <classname>EBox::Model::ModelManager</classname>. This <emphasis>singleton</emphasis> 
+        class coordinates all the available models along eBox, see
+        <xref linkend="internal-publishing-sect"/> for details. Currently, there are two kind
+        of relationships:
+        <variablelist>
+          <varlistentry>
+            <term>HasOne</term>
+            <listitem>
+              <para>Determined by a select type which fetch its possible values or
+              options from a foreign model, that is, from a value which is stored
+              in a field in another model. To describe so, the
+              <parameter>foreignModel</parameter> and <parameter>foreignField</parameter>
+              must be set at table description. The model manager will store the 
+              one-to-one relationship to maintain the referential integrity.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>HasMany</term>
+            <listitem>
+              <para>The HasMany relationship represents that a single field from 
+              a data model stores another data model. The inner model looks like
+              a submodel within the outer model and thus the <methodname>rows</methodname>
+              and <methodname>printableValueRows</methodname> methods must return
+              the information within that model per row. Likewise, when a row
+              with a HasMany type is removed, the inner data model content is 
+              deleted as well.</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </para>
+      
+      <para>
+        Furthermore, the <ulink url="http://en.wikipedia.org/wiki/Observer_pattern">Observer pattern</ulink>
+        is applied to the data models as well. The models can subscribe to actions performed
+        in foreign models such as addition, removal or updates. In order to achieve so, the
+        table description must have <parameter>notifyActions</parameter> attribute as a hash
+        reference indexing by the action description. So the model manager notifies an action
+        is performed by a model calling <methodname>notifyForeignModelAction</methodname> method.
+      </para>
+
+      <para>
+        Whenever an changing state action is performed, the data model asks to the model manager
+        if any of other modules is using that row. If so and <parameter>automaticRemove</parameter> is
+        set, a warning is shown before forcing the operation. If <parameter>automaticRemove</parameter>
+        is not set, the data model must specify how it should act subscribing to the changing actions
+        as it is described above.
+      </para>
+
+    </section>
+
+    <section id="ebox-types-guts">
+      <title>Developing eBox types</title>
+      <para>
+        The current eBox types selection is quite small and limited. We can see at first glance how
+        its class structure at <xref linkend="types-class-diagram-fig"/>.
+      </para>
+
+      <figure id="types-class-diagram-fig">
+	<title>eBox types class diagram</title>
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="images/types-class-diagram.png"
+		       format="PNG" />
+	  </imageobject>
+	</mediaobject>
+      </figure>
+
+      <para>
+        As we can see <classname>Abstract</classname> manages the essential information for every
+        eBox type. That is, their common attributes such as <parameter>optional</parameter>,
+        <parameter>editable</parameter>, <parameter>printableValue</parameter>. It also provides
+        the main methods not to be overridden such as <methodname>setMemValue</methodname>, 
+        <methodname>restoreFromHash</methodname> and so on. Basically, an eBox type allows the
+        developer abstracting from gconf storage and user input correctness since their handling
+        is automatic.
+      </para>
+
+      <para>
+        Firstly, in order to add a new eBox type is required to look over
+        <xref linkend="types-class-diagram-fig"/> to check it if something similar has been
+        developed before and just a class extension is required. Once we are sure a new
+        type is needed for our models, these following methods, at least, must be overridden to
+        make the type work:
+        <variablelist>
+          <varlistentry>
+            <term><methodname>_setMemValue</methodname></term>
+            <listitem>
+              <para>Set the memory value for the type. It is assured that this
+              method will be called if only there is something to fill the
+              type and its content is valid.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><methodname>_storeInGConf</methodname></term>
+            <listitem>
+              <para> Store the given type in a GConf directory from a
+              GConfModule. The expected behaviour is if it has no value to
+              store, remove any previous data stored.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><methodname>_restoreFromHash</methodname></term>
+            <listitem>
+              <para>Restore the type value from a hash reference which
+              usually comes from <methodname>hash_from_dir</methodname>
+              returned value.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><methodname>_paramIsValid</methodname></term>
+            <listitem>
+              <para> Check the correctness from the parameters passed. It assures
+              that it is something to be checked</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><methodname>_paramIsSet</methodname></term>
+            <listitem>
+              <para>Check if the given parameters contain the data needed to fill
+              the type, i.e. it exists and it is not empty</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term><methodname>_setDefaultValue</methodname></term>
+            <listitem>
+              <para>Set the default value for the type</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+        Apart from overriding these methods, it should set <parameter>HTMLSetter</parameter>,
+        <parameter>HTMLViewer</parameter> and <parameter>type</parameter> on the constructor.
+        The former two attributes determines which mason template, giving its path, must be
+        used to set and show the type value respectively. The latter must be the class name
+        in lower case. Methods <methodname>compareToHash</methodname>, <methodname>isEqualTo</methodname>
+        and <methodname>printableValue</methodname> are recommended to be overridden.
+      </para>
+
+    </section>
+
   </section>
 
   <section id="internal-view-sect">
     <title>View</title>
     <para>
+      Our Model-View-Controller framework uses in the View model Mason templates. Check out
+      <xref linkend="sect-mason"/> for details about how to construct them. We use the pseudo object
+      oriented that Mason provides. <xref linkend="view-class-diagram-fig"/> shows the templates
+      which acts as viewers from the data model. The correspondence among model and view components is
+      <classname>EBox::Model::DataTable</classname> - <classname>tableBody.mas</classname> and
+      <classname>EBox::Model::DataForm</classname> - <classname>form.mas</classname>.
     </para>
 
       <figure id="view-class-diagram-fig">
@@ -55,6 +300,46 @@
 	</mediaobject>
       </figure>
 
+      <para>
+        The methods implemented at <classname>modelViewer.mas</classname> component tries to
+        abstract everything that a HTML table and a HTML form has in common. Every component,
+        which subclasses from these components, must be called with the same arguments and
+        call the parent <methodname>view</methodname> which is responsible to generate the HTML
+        from the required parts. The main call must follow this pattern:
+
+        <example id="main-component-example">
+          <title>Component call main</title>
+          <programlisting><![CDATA[
+<%flags>
+  inherit => '/ajax/modelViewer.mas'
+</%flags>
+<%args>
+  $model
+  $hasChanged
+  $action => 'view'
+</%args>
+<%init>
+  use EBox::Gettext;
+  use EBox::Model::DataTable;
+</%init>
+<& PARENT:view,
+   model => $model,
+   hasChanged => $hasChanged,
+   action     => $action,
+&>]]>
+          </programlisting>
+        </example>
+        <classname>modelViewer.mas</classname> has different elements to be overridden, a sub 
+        component must implement <methodname>_body</methodname> "protected" method.
+      </para>
+
+      <para>
+        The view interaction with the controller is done via JavaScript. Mason templates
+        generates actions to be performed by the server, setting URL to be called using
+        HTTP GET and POST methods. The JavaScript helper function calls are generated by
+        the model itself through <methodname>changeRowJS</methodname>, 
+        <methodname>addRowJS</methodname> and every method has "JS" as suffix.
+      </para>
 
   </section>
 
@@ -62,6 +347,18 @@
     <title>Controller</title>
 
     <para>
+      The interaction among the data model and how it show and user interaction is applied
+      to the data model is done by the controller. Controllers are a set of CGIs and
+      some JavaScript helper functions which manage how the user interact with eBox data models.
+    </para>
+
+    <para>
+      In order to make eBox response more dynamical and adapted to the new times. We have
+      tailored our framework to allow AJAX request. This MVC scheme now relies on 
+      <ulink url="http://prototypejs.org">Prototype JavaScript framework</ulink> to handle
+      DOM and AJAX requests making eBox web application cross browser as far as 
+      prototypeJS ensures it. To achieve so, CGIs just returned the recent generated HTML and
+      update the...
     </para>
 
   </section>
