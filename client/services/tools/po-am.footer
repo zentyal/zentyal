@@ -110,9 +110,9 @@ $(DOMAIN).pot-update: $(POTFILES_DEPS) remove-potcdate.sed
 	  $(POTFILES_PL)
 	mkdir -p templates
 	for tmpl in $(POTFILES_TMPL); do \
-		mkdir -p templates/`dirname $$tmpl` ; \
-		../tools/ebox-tmpl-parse ../$$tmpl > \
-			templates/`dirname $$tmpl`/`basename $$tmpl` ; \
+                mkdir -p templates/`dirname $$tmpl` ; \
+	        ../tools/extract-perl-from-mason dump ../$$tmpl > \
+		        templates/`dirname $$tmpl`/`basename $$tmpl` ; \
 	done
 	$(XGETTEXT) --default-domain=$(DOMAIN) --directory=templates \
 	  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
