@@ -1,0 +1,111 @@
+# Turkish translations for ebox-services package.
+# Copyright (C) 2007 Warp S.L.
+# This file is distributed under the same license as the ebox-services package.
+# Automatically generated, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-services 0.9.100"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2007-09-03 17:18+0200\n"
+"PO-Revision-Date: 2007-09-03 17:18+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: migration/0001_import_services_from_firewall.pl:64
+msgid "any"
+msgstr ""
+
+#: migration/0001_import_services_from_firewall.pl:65
+msgid "any protocol and port"
+msgstr ""
+
+#: migration/0001_import_services_from_firewall.pl:66
+#: migration/0001_import_services_from_firewall.pl:77
+#: migration/0001_import_services_from_firewall.pl:89
+#: migration/0001_import_services_from_firewall.pl:100
+#: migration/0001_import_services_from_firewall.pl:111
+msgid "ebox-services"
+msgstr ""
+
+#: migration/0001_import_services_from_firewall.pl:75
+msgid "any UDP"
+msgstr ""
+
+#: migration/0001_import_services_from_firewall.pl:76
+msgid "any UDP port"
+msgstr ""
+
+#: migration/0001_import_services_from_firewall.pl:87
+msgid "any TCP"
+msgstr ""
+
+#: migration/0001_import_services_from_firewall.pl:88
+msgid "any TCP port"
+msgstr ""
+
+#: migration/0001_import_services_from_firewall.pl:98
+msgid "eBox administration"
+msgstr ""
+
+#: migration/0001_import_services_from_firewall.pl:99
+msgid "eBox Administration port"
+msgstr ""
+
+#: src/EBox/Model/ServiceTable.pm:106
+msgid "Domain"
+msgstr ""
+
+#: src/EBox/Model/ServiceTable.pm:112
+msgid "Service name"
+msgstr ""
+
+#: src/EBox/Model/ServiceTable.pm:120
+msgid "Description"
+msgstr ""
+
+#: src/EBox/Model/ServiceTable.pm:127
+msgid "Internal"
+msgstr ""
+
+#: src/EBox/Model/ServiceTable.pm:131
+msgid "Configuration"
+msgstr ""
+
+#: src/EBox/Model/ServiceTable.pm:144 src/EBox/Services.pm:48
+msgid "Services"
+msgstr ""
+
+#: src/EBox/Model/ServiceTable.pm:152
+#: src/EBox/Model/ServiceConfigurationTable.pm:137
+msgid "bbbb"
+msgstr ""
+
+#: src/EBox/Model/ServiceTable.pm:153
+#: src/EBox/Model/ServiceConfigurationTable.pm:138
+msgid "service"
+msgstr ""
+
+#: src/EBox/Model/ServiceConfigurationTable.pm:106
+msgid "Protocol"
+msgstr ""
+
+#: src/EBox/Model/ServiceConfigurationTable.pm:112
+msgid "Source port"
+msgstr ""
+
+#: src/EBox/Model/ServiceConfigurationTable.pm:118
+msgid "Destination port"
+msgstr ""
+
+#: src/EBox/Model/ServiceConfigurationTable.pm:129
+msgid "Service configuration"
+msgstr ""
+
+#: src/EBox/Model/ServiceConfigurationTable.pm:160
+msgid "This protocol does not use ports"
+msgstr ""
