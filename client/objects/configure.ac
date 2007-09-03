@@ -1,4 +1,4 @@
-AC_INIT([EBox-objects], [0.9.99])
+AC_INIT([EBox-objects], [0.9.100])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Objects.pm])
@@ -57,8 +57,8 @@ AM_PO_SUBDIRS
 AC_CONFIG_FILES([
 src/Makefile
 src/EBox/Makefile
-src/EBox/CGI/Makefile
-src/templates/Makefile
+src/EBox/Model/Makefile
+migration/Makefile
 schemas/Makefile
 Makefile
 ])

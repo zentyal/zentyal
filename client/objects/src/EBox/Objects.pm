@@ -18,12 +18,15 @@ package EBox::Objects;
 use strict;
 use warnings;
 
-use base 'EBox::GConfModule';
+use base qw(EBox::GConfModule EBox::Model::ModelProvider);
 
 use Net::IP;
 use EBox::Validate qw( :all );
 use EBox::Global;
+use EBox::Objects::Model::ObjectTable;
+use EBox::Objects::Model::MemberTable;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
@@ -48,6 +51,12 @@ sub _create
 	$self->{'actions'}->{'removeFromObject'} =
 		__n('Removed {nname} from object {object}');
 
+	$self->{'objectModel'} = new EBox::Objects::Model::ObjectTable(
+					'gconfmodule' => $self,
+					'directory' => 'objectTable');
+	$self->{'memberModel'} = new EBox::Objects::Model::MemberTable(
+					'gconfmodule' => $self,
+					'directory' => 'memberTable');
 
 	bless($self, $class);
 	return $self;
@@ -55,50 +64,112 @@ sub _create
 
 ## api functions
 
-# Method: ObjectsArray
+# Method: models
 #
-#   	Returns all the created objects
+#      Overrides <EBox::ModelImplementator::models>
+#
+sub models {
+       my ($self) = @_;
+
+       return [$self->{'objectModel'}, $self->{'memberModel'}];
+}
+
+# Method: objects
+#
+# 	Return all object names
 #
 # Returns:
 #
-#   	array ref - each element contains a hash with the object keys 'name' 
-#   	(object's name), 'member' (array ref holding members of the object)
-sub ObjectsArray
+# 	Array ref. Each element is a hash ref containing:
+#
+# 	id - object's id
+# 	name - object's name
+sub objects
 {
-	my $self = shift;
-	my @array = ();
-	my @objs = @{$self->all_dirs_base("")};
-	foreach (@objs) {
-		my $hash = $self->hash_from_dir($_);
-		$hash->{name} = $_;
-		$hash->{member} = $self->array_from_dir($_);
-		push(@array, $hash);
-	}
-	return \@array;
+	my ($self) = @_;
+
+	$self->{'objectModel'}->printableValueRows();
 }
 
-# Method: ObjectMembers
+# objectIds
 #
-#   	Returns the members belonging to an object
+#   	Return all object ids
+#
+# Returns:
+#
+#	Array ref - containing ids
+sub objectIds # (object) 
+{
+	my ($self) = @_;
+
+	my @ids = map { $_->{'id'} }  @{$self->objects()};
+	return  \@ids;
+}
+
+# objectMembers
+#
+#   	Return the members belonging to an object
+#
+# Parameters:
+#	
+#	(POSITIONAL)
+#
+#	id - object's id
 #
 # Returns:
 #
 #   	array ref - each element contains a hash with the member keys 'nname' 
 #   	(member's name), 'ip' (ip's member), 'mask' (network mask's member),
 #   	'mac', (mac address' member)
-sub ObjectMembers # (object) 
+#
+# Exceptions:
+#
+# 	<EBox::Exceptions::MissingArgument>
+sub objectMembers # (object) 
 {
-	my ( $self, $object ) = @_;
-	return $self->array_from_dir($object);
+	my ($self, $id) = @_;
+	
+	unless (defined($id)) {
+		throw EBox::Exceptions::MissingArgument("id");
+	}
+
+	my $object = $self->{'objectModel'}->find('id' => $id);
+	return undef unless defined($object);
+	return $object->{'members'}->{'values'};
 }
 
-# Method: ObjectDescription
+# objectAddresses
+#
+#   	Return the network addresses of a member 
+#
+# Parameters:
+#
+#	id - object's id
+#
+# Returns:
+#
+#	array ref - containing an ip for each element
+#
+sub objectAddresses# (object) 
+{
+	my ($self, $id) = @_;
+	
+	unless (defined($id)) {
+		throw EBox::Exceptions::MissingArgument("id");
+	}
+	
+	my @ips = map { $_->{'ipaddr'} } @{$self->objectMembers($id)};
+
+	return \@ips;
+}
+
+# Method: objectDescription
 #   
-# 	Returns the description of an Object
+# 	Return the description of an Object
 #
 # Parameteres:
 #   
-# 	object - the name of an Object
+#	id - object's id
 #
 # Returns:
 #
@@ -107,52 +178,22 @@ sub ObjectMembers # (object)
 # Exceptions: 
 #
 # 	DataNotFound - if the Object does not exist
-sub ObjectDescription  # (object) 
+sub objectDescription  # (object) 
 {
-	my ( $self, $object ) = @_;
-	$self->dir_exists($object) or 
+	my ( $self, $id ) = @_;
+	
+	unless (defined($id)) {
+		throw EBox::Exceptions::MissingArgument("id");
+	}
+
+	my $object = $self->{'objectModel'}->find('id' => $id);
+	unless (defined($object)) {
 		throw EBox::Exceptions::DataNotFound('data' => __('Object'),
 						     'value' => $object);
-	return $self->get_string("$object/description");
+     	}
+	return $object->{'name'};
 }
 
-# Method: ObjectNames
-#   
-# 	Returns all the object names
-#
-# Returns:
-#
-# 	array ref - holding the object names
-#
-sub ObjectNames
-{
-	my $self = shift;
-	return $self->all_dirs_base("");
-}
-
-# Method: ObjectAddresses
-#   
-# 	Returns all the object names
-#
-# Returns:
-#
-# 	array ref - each element holds a hash containing the keys: 
-# 	'ip' and 'mask'
-#
-sub ObjectAddresses  # (object) 
-{
-	my ( $self, $object ) = @_;
-	my @array = $self->all_dirs("$object");
-
-	my @addresses = ();
-	foreach (@array) {
-		push(@addresses, $self->get_string("$_/ip") . "/" .
-				 $self->get_int("$_/mask"));
-	}
-	return \@addresses;
-}
-
-#
 # Method: objectInUse
 #
 #   	Asks all installed modules if they are currently using an Object.
@@ -168,6 +209,11 @@ sub ObjectAddresses  # (object)
 sub objectInUse # (object) 
 {
 	my ($self, $object ) = @_;
+
+	unless (defined($object)) {
+		throw EBox::Exceptions::MissingArgument("id");
+	}
+
 	my $global = EBox::Global->getInstance();
 	my @mods = @{$global->modInstancesOfType('EBox::ObjectsObserver')};
 	foreach my $mod (@mods) {
@@ -184,70 +230,22 @@ sub objectInUse # (object)
 #   	
 # Parameters:
 #   
-# 	name - the name of an Object
+# 	id - object's id 
 #
 # Returns:
 #
 # 	boolean - true if the Object exists, otherwise false
 sub objectExists # (name) 
 {
-	my ($self, $object ) = @_;
-	return $self->dir_exists($object);
-}
-
-# Method: addObject
-#
-#   	Adds a new object
-#   	
-# Parameters:
-#   
-# 	object - object description
-#
-sub addObject # (description) 
-{
-	#action: addObject
-
-	my ($self, $desc ) = @_;
+	my ($self, $id) = @_;
 	
-	unless (defined($desc) && $desc ne "") {
-		throw EBox::Exceptions::DataMissing
-			('data' => __('Object name'));
+	unless (defined($id)) {
+		throw EBox::Exceptions::MissingArgument("id");
 	}
-
-	# normalize description
-	$desc =~ s/^\s+//;
-	$desc =~ s/\s+$//;
-	$desc =~ s/\s+/ /g;
-
-	foreach my $object (@{ $self->ObjectNames() }) {
-	    my $otherDesc = $self->ObjectDescription($object);
-	    if ($desc eq $otherDesc) {
-		throw EBox::Exceptions::External __x("The name '{name}' is already used to identify another object. Please choose another name" ,name => $desc);
-	    }
-	}
-
-
-	my $id = $self->get_unique_id("x");
-
-	$self->set_string("$id/description", $desc);
-	logAdminDeferred($self->name,"addObject","object=$desc");
-	return $id;
+	
+	return defined($self->{'objectModel'}->find('id' => $id));
 }
 
-#deletes the Object passed as parameter
-sub _removeObject  # (object) 
-{
-	my ($self, $object)  = @_;
-	unless (defined($object) && $object ne "") {
-		return;
-	}
-	if ($self->dir_exists($object)){
-		$self->delete_dir($object);
-		return 1;
-	} else {
-		return undef;
-	}
-}
 
 # Method: removeObjectForce 
 #
@@ -267,145 +265,42 @@ sub removeObjectForce # (object)
 	foreach my $mod (@mods) {
 		$mod->freeObject($object);
 	}
-	my $oname = $self->get_string("$object/description");
-	logAdminDeferred($self->name,"removeObjectForce","object=$oname");
-	return $self->_removeObject($object);
 }
 
-# Method: removeObject
+# Method: addObject
 #
-#   	Tries to delete an object if it's not used. It raises an excepion
-#   	if the object is used.
-#   	
-# Parameters:
-#   
-# 	object - object description
-#
-# Exceptions:
-#
-#   	DataInUse - If the object to be deleted is used
-#
-sub removeObject # (object) 
-{
-	#action: removeObject
-	
-	my ($self, $object)  = @_;
-	if ($self->objectInUse($object)) {
-		throw EBox::Exceptions::DataInUse();
-	} else {
-		my $oname = $self->get_string("$object/description");
-		logAdminDeferred($self->name,"removeObject","object=$oname");
-		return $self->_removeObject($object);
-	}
-}
-
-# Method: addToObject
-#
-#   	Add a member to a given object
+#   Add object to the objects table. Note this method must exist
+#   because we must provide an easy way to migrate old objects module
+#   to this new one.
 #
 # Parameters:
 #
-#   	object - object name
-#   	ip - member's IPv4 address
-#	mac - member's mac *optional*
-#	description - description *optional*
-sub addToObject  # (object, ip, mask, mac?, description?) 
+#   (NAMED)
+#   id         - object's id *(optional*). It will be generated automatically
+#                if none is passed
+#   name       - object's name
+#   members    - array ref containing the following hash ref in each value:
+#
+#                name        - member's name
+#                ipaddr_ip   - member's ipaddr 
+#                ipaddr_mask - member's mask
+#                macaddr     - member's mac address *(optional)*
+#
+#   Example:
+#
+#       name => 'administration',
+#       members => [ 
+#                   { 'name'         => 'accounting',
+#                     'ipaddr_ip'    => '192.168.1.3',
+#                     'ipaddr_mask'  => '32',
+#                     'macaddr'      => '00:00:00:FA:BA:DA'
+#                   }
+#                  ]
+sub addObject
 {
-	#action: addToObject
-
-	my ( $self, $object, $ip, $mask, $mac, $nname ) = @_;
-
-	$self->dir_exists($object) or 
-		throw EBox::Exceptions::DataNotFound('data' => __('Object'),
-						     'value' => $object);
-
-	checkIP($ip, "IP address");
-	checkCIDR("$ip/$mask", "Network address");
-	if ($mac){
-		checkMAC($mac, "Hardware address");
-	} else {
-		$mac = "";
-	}
-	
-	if ($self->alreadyInObject($ip, $mask)) {
-		throw EBox::Exceptions::DataExists(
-						'data' => __('network address'),
-						'value' => "$ip/$mask");
-	}
-
-	my $id = $self->get_unique_id("m", $object);
-
-	$self->set_string("$object/$id/nname", $nname);
-	$self->set_string("$object/$id/ip", $ip);
-	$self->set_string("$object/$id/mac", $mac);
-	$self->set_int("$object/$id/mask", $mask);
-
-	my $oname = $self->get_string("$object/description");
-	logAdminDeferred($self->name,"addToObject","nname=$nname,ip=$ip,mask=$mask,mac=$mac,object=$oname");
-	
-	return 0;
-}
-
-# Method: removeFromObject 
-#
-#   	Removes a member from a given object
-#
-# Parameters:
-#
-#   	object - object name
-#   	id - member's identifier
-sub removeFromObject  # (object, id)
-{
-	#action: removeFromObject
-
-	my ( $self, $object, $id )  = @_;
-
-	$self->dir_exists($object) or 
-		throw EBox::Exceptions::DataNotFound('data' => __('Object'),
-						     'value' => $object);
-
-	if($self->dir_exists("$object/$id")) {
-		my $nname = $self->get_string("$object/$id/nname");
-		my $oname = $self->get_string("$object/description");
-		$self->delete_dir("$object/$id");
-		logAdminDeferred($self->name,"removeFromObject","nname=$nname,object=$oname");
-		return 1;
-	} else {
-		return undef;
-	}
-}
-
-# Method: alreadyInObject
-#
-#   	Checks if a member (i.e: its ip and mask) are already in some object
-#
-# Parameters:
-#
-#   	ip - IPv4 address
-#   	mask - network masl
-#
-# Returns:
-#   
-#   	booelan - true if it's already in other object, otherwise false
-sub alreadyInObject # (ip, mask) 
-{
-	my ( $self, $iparg, $maskarg ) = @_;
-	my $network = "$iparg/$maskarg";
-	my @objs = $self->all_dirs("");
-
-	foreach (@objs) {
-		my @members = $self->all_dirs($_);
-		foreach(@members) {
-			my $member = $self->get_string("$_/ip") . "/" .
-				     $self->get_int("$_/mask");
-			my $m_ip = new Net::IP($member);
-			my $n_ip = new Net::IP($network);
-			if($m_ip->overlaps($n_ip)!=$IP_NO_OVERLAP){
-				return 1;
-			}
-		}
-	}
-	return undef;
+    my ($self, %params) = @_;
+    	
+    $self->{'objectModel'}->addObject(%params);
 }
 
 # Method: menu 
@@ -416,9 +311,10 @@ sub alreadyInObject # (ip, mask)
 sub menu
 {
 	my ($self, $root) = @_;
-	my $item = new EBox::Menu::Item('url' => 'Objects/Index',
-					'text' => __($self->title),
-					'order' => 3);
+	my $item = new EBox::Menu::Item(
+				'url' => '/ebox/Objects/View/ObjectTable',
+				'text' => __($self->title),
+				'order' => 3);
 	$root->add($item);
 }
 

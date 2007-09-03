@@ -1,9 +1,8 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Model
 
-perldir = @PERLPATH@/EBox
+perldir = @PERLPATH@/EBox/Objects/Model
 
-nobase_perl_DATA = Objects.pm ObjectsObserver.pm
+nobase_perl_DATA = ObjectTable.pm MemberTable.pm
 
 DISTCLEANFILES = 
 
