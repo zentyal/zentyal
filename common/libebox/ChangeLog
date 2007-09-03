@@ -3,16 +3,13 @@
 	+ Add table page
 	+ Add table filter
 	+ Added generic ajax form
+	+ Add SOAP session file
+	+ Add EBox::Event class to support events in eBox
+	+ Upgrade to PrototypeJS 1.5.1.1
 0.9.99
 	+ Enhanced HTML mason templates
 0.9.3
 	+ New release
-0.10
-	+ Add SOAP session file
-	+ Add EBox::Event class to support events in eBox
-0.9.3
-	+ New release
->>>>>>> .derecha-combinacion.r7953
 0.9.2
 	+ New upload method
 0.9.1
