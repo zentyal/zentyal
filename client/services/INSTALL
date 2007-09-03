@@ -1,0 +1,20 @@
+DEPENDENCIES
+------------
+
++ eBox components
+
+	+ ebox
+
++ Debian packages (apt-get install <package>)
+
+
+
+INSTALLATION
+------------
+- Once all dependencies are satisfied, type:
+
+        ./configure
+        make install
+
+  configure will autodetect eBox base path to install
+
