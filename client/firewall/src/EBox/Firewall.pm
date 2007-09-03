@@ -18,12 +18,20 @@ package EBox::Firewall;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::ObjectsObserver EBox::NetworkObserver);
+use base qw(EBox::GConfModule EBox::ObjectsObserver EBox::NetworkObserver
+EBox::Model::ModelProvider);
 
 use EBox::Objects;
 use EBox::Global;
 use EBox::Validate qw( :all );
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::DataNotFound;
+use EBox::Firewall::Model::ToInternetRuleTable;
+use EBox::Firewall::Model::InternalToEBoxRuleTable;
+use EBox::Firewall::Model::ExternalToEBoxRuleTable;
+use EBox::Firewall::Model::EBoxOutputRuleTable;
+use EBox::Firewall::Model::ExternalToInternalRuleTable;
 use EBox::Order;
 use EBox::Gettext;
 
@@ -33,10 +41,57 @@ sub _create
 	my $self =$class->SUPER::_create(name => 'firewall',
 					domain => 'ebox-firewall',
 					@_);
+    $self->{'ToInternetRuleModel'} = 
+            new EBox::Firewall::Model::ToInternetRuleTable(
+               'gconfmodule' => $self,
+                'directory' => 'ToInternetRuleTable',
+                );
+
+    $self->{'InternalToEBoxRuleModel'} = 
+            new EBox::Firewall::Model::InternalToEBoxRuleTable(
+               'gconfmodule' => $self,
+                'directory' => 'InternalToEBoxRuleTable',
+                );
+    
+    $self->{'ExternalToEBoxRuleModel'} = 
+            new EBox::Firewall::Model::ExternalToEBoxRuleTable(
+               'gconfmodule' => $self,
+                'directory' => 'ExternalToEBoxRuleTable',
+                );
+    
+    $self->{'EBoxOutputRuleModel'} = 
+            new EBox::Firewall::Model::EBoxOutputRuleTable(
+               'gconfmodule' => $self,
+                'directory' => 'EBoxOutputRuleTable',
+                );
+    $self->{'ExternalToInternalRuleTable'} = 
+            new EBox::Firewall::Model::ExternalToInternalRuleTable(
+               'gconfmodule' => $self,
+                'directory' => 'ExternalToInternalRuleTable',
+                );
+
+
+
+
+
 	bless($self, $class);
 	return $self;
 }
 
+
+# Method: models
+#
+#      Overrides <EBox::ModelImplementator::models>
+#
+sub models {
+       my ($self) = @_;
+
+       return [$self->{'ToInternetRuleModel'},
+      		 $self->{'InternalToEBoxRuleModel'},
+		 $self->{'ExternalToEBoxRuleModel'},
+		 $self->{'EBoxOutputRuleModel'},
+		 $self->{'ExternalToInternalRuleTable'}];
+}
 
 # utility used by CGI
 
@@ -49,43 +104,6 @@ sub externalIfaceExists
 }
 
 ## internal utility functions
-
-sub _checkObjectPolicy # (policy, object, name?)
-{
-       my ($i, $object, $name) = @_;
-
-       
-	if ($i eq 'deny' || $i eq 'allow' ) {
-		return 1;
-	}
-        elsif ($i eq 'global') {
-	  my $allowGlobalPolicy = $object ne '_global';
-	  return 1 if $allowGlobalPolicy;
-        }
-	
-       if (defined($name)) {
-		throw EBox::Exceptions::InvalidData('data' => $name,
-						    'value' => $i);
-	} else {
-		return 0;
-	}
-}
-
-sub _checkObject
-{
-  my ($object) = @_;
-
-  if ($object ne '_global') {
-    my $objects = EBox::Global->modInstance('objects');
-    $objects->objectExists($object) or
-      throw EBox::Exceptions::DataNotFound(
-					 'data' => __("object"),
-					 'value' => $object);
-  }
-
-  return 1;
-}
-
 
 
 sub _checkAction # (action, name?)
@@ -103,39 +121,6 @@ sub _checkAction # (action, name?)
 	}
 }
 
-sub _purgeEmptyObject # (object)
-{
-	my ($self, $object) = @_;
-
-	if ($object eq '_global') {
-		return;
-	}
-
-	my @array;
-	@array = $self->all_dirs("objects/$object/rules");
-	(scalar(@array) eq 0) or return;
-	@array = $self->all_dirs("objects/$object/services");
-	(scalar(@array) eq 0) or return;
-
-	if ($self->ObjectPolicy($object) eq 'global') {
-		$self->delete_dir("objects/$object");
-	}
-}
-
-
-sub _purgeServiceObjects # (service) 
-{
-	my ($self, $service) = @_;
-	foreach my $object(@{$self->ObjectNames}){
-		foreach (@{$self->ObjectServices($object)}){
-			if ( $_->{name} eq $service ){
-				$self->removeObjectService($object, $service);
-			}
-		}
-	}
-}
-
-# END internal utility functions
 
 ## api functions
 
@@ -155,36 +140,11 @@ sub _stopService
 	$ipt->stop();
 }
 
-#
-# Method: usesObject
-#
-#   	Implement <EBox::ObjectsObserver> interface
-#
-sub usesObject # (object)
-{
-	my ($self, $object) = @_;
-	defined($object) or return undef;
-	($object ne "") or return undef;
-	return $self->dir_exists("objects/$object");
-}
-
-#
-# Method: freeObject
-#
-#   	Implement <EBox::ObjectsObserver> interface
-#
-sub freeObject # (object) 
-{
-	my ($self, $object) = @_;
-	defined($object) or return;
-	($object ne "") or return;
-	$self->delete_dir("objects/$object");
-}
 
 #
 # Method: denyAction 
 #
-#	Return the deny action
+#	Returns the deny action
 #
 # Returns:
 #
@@ -199,7 +159,7 @@ sub denyAction
 #
 # Method: setDenyAction 
 #
-#	Set the deny action
+#	Sets the deny action
 #
 # Parameters:
 #
@@ -329,112 +289,6 @@ sub removePortRedirectionOnIface # (interface)
 	return;
 }
 
-# Method: services
-#
-#       Returns all the configured services
-#
-# Parameters:
-#
-#       array ref - Contains hash reference whose elements are:
-#          - protocol - the protocol
-#          - name     - service name
-#          - port     - port service where service is listening
-#          - external - is service external?
-#
-sub services
-{
-	my $self = shift;
-	return $self->array_from_dir("services");
-}
-
-# Method: service
-#
-#	Given a service it returns its configuration
-#
-# Parameters:
-#
-# 	service - string: the name of a service
-#
-# Returns:
-#
-#	undef if service does not exists. Otherwise it returns
-#	a hash holding these keys: 'protocol', 'name', 'port',
-#	'external'
-sub service # (name)
-{
-	my ($self, $name) = @_;
-	checkName($name) or
-		throw EBox::Exceptions::Internal(
-			__x("Name '{name}' is invalid", name => $name));
-
-	my $service =  $self->hash_from_dir("services/$name");
-	if (keys(%{$service})){
-		return $service;
-	} 
-	return undef;
-}
-
-# Method: serviceProtocol
-#
-#	Given a service it returns its protocol 
-#   
-# Parameters:
-#
-# 	service - string: the name of a service
-#
-# Returns:
-#
-#	undef if service does not exists. Otherwise it returns
-#	its protocol: tcp or udp
-#
-sub serviceProtocol # (service) 
-{
-	my ($self, $name) = @_;
-	defined($name) or return undef;
-	($name ne "") or return undef;
-	return $self->get_string("services/$name/protocol");
-}
-
-# Method: servicePort
-#
-#	Given a service it returns its port 
-#   
-# Parameters:
-#
-# 	service - string: the name of a service
-#
-# Returns:
-#
-#	undef if service does not exists. Otherwise it returns
-#	its port.
-#
-sub servicePort # (service) 
-{
-	my ($self, $name) = @_;
-	defined($name) or return undef;
-	($name ne "") or return undef;
-	return $self->get_int("services/$name/port");
-}
-
-# Method: serviceIsInternal
-#
-#	Given a service it checks if it's internal
-#   
-# Parameters:
-#
-# 	service - string: the name of a service
-#
-# Returns:
-#
-#	boolean
-sub serviceIsInternal # (service) 
-{
-	my ($self, $name) = @_;
-	defined($name) or return undef;
-	($name ne "") or return undef;
-	return $self->get_bool("services/$name/internal");
-}
-
 # Method: availablePort
 #
 #	Checks if a port is available, i.e: it's not used by any module.
@@ -495,124 +349,6 @@ sub availablePort # (proto, port, interface)
                 }
         }
 	return 1;
-}
-
-#
-# Method: addService
-#
-#       Adds a service. This will result in the addition of rules to allow
-#	connections to the given service.
-#
-# Parameters:
-#       
-#	name - string: name of a service, must nor already exist
-#	protocol - protocol (tcp or udp)
-#       port - port number
-#       boolean - internal service or not
-#
-# Exceptions:
-#       
-#       DataExists - local port already used
-#	Internal - invalid name
-#
-sub addService # (name, protocol, port, internal?) 
-{
-	my ($self, $name, $proto, $port, $internal) = @_;
-
-	checkName($name) or throw EBox::Exceptions::Internal(
-				__x("Name '{name}' is invalid", name => $name));
-	checkProtocol($proto, __("protocol"));
-	checkPort($port, __("port"));
-
-	$self->dir_exists("services/$name") and
-		throw EBox::Exceptions::DataExists('data' =>__('service'),
-						  'value' => $name);
-
-	my @servs = @{$self->all_dirs_base("services")};
-	foreach (@servs) {
-		($self->get_string("services/$_/protocol") eq $proto) or next;
-		($self->get_int("services/$_/port") eq $port) or next;
-		throw EBox::Exceptions::DataExists('data' =>'local port',
-						  'value' => $port);
-	}
-	$self->set_string("services/$name/protocol", $proto);
-	$self->set_string("services/$name/name", $name);
-	$self->set_int("services/$name/port", $port);
-	$self->set_bool("services/$name/internal", $internal);
-}
-
-#
-# Method: removeService
-#
-#	Removes a service.
-#
-# Parameters:
-#
-#	name - string: name of a service, it must NOT exist
-#
-# Returns:
-#
-#	boolean - true if deleted, otherwise undef
-#
-# Exceptions:
-#       
-#	Internal - invalid name
-#
-sub removeService # (service) 
-{
-	my ($self, $name) = @_;
-	my $i = 0;
-	
-	checkName($name) or throw EBox::Exceptions::Internal(
-				__x("Name '{name}' is invalid", name => $name));
-	if ($self->service($name)){
-		$self->delete_dir("services/$name");
-		$self->removeLocalRedirects($name);
-		$self->_purgeServiceObjects($name);
-		return 1;
-	} else { 
-		return undef;	
-	}
-} 
-
-#
-# Method: changeService 
-#
-#	Changes the configuration of a  service.
-#
-# Parameters:
-#
-#	name - string: name of a service, must nor already exist
-#	protocol - protocol (tcp or udp)
-#       port - port number
-#       boolean - internal service or not
-#
-# Exceptions:
-#       
-#	Internal - invalid name
-#
-sub changeService # (service, protocol, port, internal?) 
-{
-	my ($self, $name, $proto, $port, $internal) = @_;
-
-	checkName($name) or throw EBox::Exceptions::Internal(
-				__x("Name '{name}' is invalid", name => $name));
-	checkProtocol($proto, __("protocol"));
-	checkPort($port, __("port"));
-
-	my @servs = @{$self->all_dirs_base("services")};
-	foreach (@servs) {
-		($_ ne $name) or next;
-		($self->get_string("services/$_/protocol") eq $proto) or next;
-		($self->get_int("services/$_/port") eq $port) or next;
-		throw EBox::Exceptions::DataExists('data' =>'local port',
-						  'value' => $port);
-	}
-
-	$self->set_string("services/$name/protocol", $proto);
-	$self->set_string("services/$name/name", $name);
-	$self->set_int("services/$name/port", $port);
-	$self->set_bool("services/$name/internal", $internal);
 }
 
 #
@@ -790,344 +526,6 @@ sub freeViface # (iface, viface)
 	$self->removePortRedirectionOnIface("$iface:$viface");
 }
 
-#    Method: ObjectPolicy
-#	
-#	Returns the default policy for a given object
-#
-#    Parameters:
-#
-#	object - string: name of the object
-#
-#    Returns:
-#
-#	string -  the default policy for the object (global|deny|allow)
-#
-sub ObjectPolicy # (object) 
-{
-	my ($self, $name) = @_;
-
-	if ($name ne '_global') {
-		checkName($name) or throw EBox::Exceptions::Internal(
-				__x("Name '{name}' is invalid", name => $name));
-	}
-
-	$self->dir_exists("objects/$name") or return 'global';
-	return $self->get_string("objects/$name/policy");
-}
-
-sub _createObject # (object) 
-{
-	my ($self, $object) = @_;
-	my $objects = EBox::Global->modInstance('objects');
-
-	if ($object ne '_global') {
-		$objects->objectExists($object) or
-			throw EBox::Exceptions::DataNotFound(
-							'data' => __("object"),
-							'value' => $object);
-	}
-
-	$self->dir_exists("objects/$object") and return;
-	$self->set_string("objects/$object/policy", 'global');
-}
-
-# Method: setObjectPolicy
-#	
-#	Sets the default policy for a given object
-#
-# Parameters:
-#
-#	object - string: name of the object
-#	policy - default policy for the object
-#
-# Returns:
-#
-#	string -  the default policy for the object (global|deny|allow)
-#
-# Exceptios:
-#
-#	DataNotFound - object does not exists
-sub setObjectPolicy # (object, policy) 
-{
-	my ($self, $object, $policy) = @_;
-
-	_checkObjectPolicy($policy, $object, __("policy"));
-	_checkObject($object);
-
-	if ($policy eq $self->ObjectPolicy($object)) {
-		return;
-	}
-
-	$self->set_string("objects/$object/policy", $policy);
-	$self->_purgeEmptyObject($object);
-}
-
-# Method: removeObjectPolicy
-#	
-#	Removes a rule from an object
-#
-# Parameters:
-#
-#	object - string: name of the object
-#	rule_id - string: identifier of the rule
-#
-sub removeObjectRule # (object, rule_id)
-{
-	my ($self, $object, $rule) = @_;
-
-	$self->ObjectRuleExists($object, $rule) or return;
-	$self->delete_dir("objects/$object/rules/$rule");
-	$self->_purgeEmptyObject($object);
-	return 1;
-}
-
-# Method: removeFwdPolicy
-#
-#	Removes a rule form the forward chain
-#
-# Parameters:
-#
-#	rule_id - string: identifier of the rule
-#
-sub removeFwdRule # (rule_id)
-{
-	my ($self, $rule) = @_;
-
-	$self->FwdRuleExists($rule) or return;
-	$self->delete_dir("fwdrules/$rule");
-	return 1;
-}
-
-# Method: ObjectRuleExists
-#
-#	Checks if a given object contains a certain rule
-#
-# Parameters:
-#
-#	object - string: name of the object
-#	rule_id - string: identifier of the rule
-#
-# Returns:
-#
-#	boolean - True if exists, otherwise undef
-sub ObjectRuleExists # (object, rule_id) 
-{
-	my ($self, $object, $rule) = @_;
-	(defined($object) && $object ne "") or return undef;
-	(defined($rule) && $rule ne "") or return undef;
-	return $self->dir_exists("objects/$object/rules/$rule");
-}
-
-# Method: FwdRuleExists
-#	
-#	Checks if a  forward rule exists
-#
-# Parameters:
-#
-#	rule_id - string: identifier of the rule
-#
-# Returns:
-#
-#	boolean - True if exists, otherwise undef
-
-sub FwdRuleExists # (rule_id)
-{
-	my ($self, $rule) = @_;
-	(defined($rule) && $rule ne "") or return undef;
-	return $self->dir_exists("fwdrules/$rule");
-}
-
-# Method: changeObjectRule
-#
-#	Changes a certain rule for an object
-#
-# Parameters:
-#
-# 	object - string: name of the object
-# 	rule - string: name of the rule
-# 	action - string: action (deny|allow)
-# 	protocol - string: protocol (tcp|udp)
-#	port - string: port (1-65535)
-#	addr - string: address (cidr address or empty) [optional]
-#	mask - string: mask (1-32 or empty) [optional]
-#	active - string: active (yes|no)
-#
-sub changeObjectRule #(object, rule, action, protocol, port, addr, mask, active)
-{
-	my ($self, $object, $rule, $action, $protocol, $port, $addr, $mask,
-		   $active) = @_;
-
-	_checkAction($action, __("policy"));
-
-	if (defined($protocol) && $protocol ne "") {
-		checkProtocol($protocol, __("protocol"));
-	} elsif (defined($port) && $port ne "") {
-		throw EBox::Exceptions::External(__('Port cannot be set if no'.
-						' protocol is selected.'));
-	}
-
-	if (defined($port) && $port ne "") {
-		checkPort($port, __("port"));
-	}
-	if (defined($addr) && $addr ne "") {
-		checkCIDR("$addr/$mask", __("address"));
-	}
-
-	$self->ObjectRuleExists($object, $rule) or return;
-
-	$self->set_string("objects/$object/rules/$rule/name", $rule);
-	$self->set_string("objects/$object/rules/$rule/action", $action);
-	$self->set_bool("objects/$object/rules/$rule/active", $active);
-
-	if (defined($protocol) && $protocol ne "") {
-		$self->set_string("objects/$object/rules/$rule/protocol", 
-					$protocol);
-	} else {
-		$self->unset("objects/$object/rules/$rule/protocol");
-	}
-
-	if (defined($port) && $port ne "") {
-		$self->set_int("objects/$object/rules/$rule/port", $port);
-	} else {
-		$self->unset("objects/$object/rules/$rule/port");
-	}
-
-	if (defined($addr) && $addr ne "") {
-		$self->set_string("objects/$object/rules/$rule/address", $addr);
-	}
-	if (defined($mask) && $mask ne "") {
-		$self->set_int("objects/$object/rules/$rule/mask", $mask);
-	}
-}
-
-# Method: changeFwdRule
-#
-#	Changes a certain forward rule. *n* parameters indicate the
-#	analogous parameter without *n* will be treated as the
-#	complementary. I.e. if sport is set to 22 and nsport is set on,
-#	the forward rule will be applied to all ports apart from 22.
-#
-# Parameters:
-#
-# 	rule - string: name of the rule
-# 	protocol - string: protocol (tcp|udp)
-#	saddr - source address
-#	smask - source network mask 
-#	sportfrom - source port from
-#	sportto - source port to
-#	daddr - destination address
-#	dmask - destination network mask 
-#	dportfrom - destination port from
-#	dportto - destination port to
-#	nsaddr - Complementary to source address
-#	nsport - Complementary to source port
-#	ndaddr - Complementary to destiantion address
-#	ndport - Complementary to destination port
-# 	action - string: action (deny|allow)
-#	active - string: active (yes|no)
-#       (Positional parameters)
-#
-sub changeFwdRule # ()
-{
-	my ($self, $rule, $proto, $saddr, $smask, $sportfrom, $sportto, $daddr,
-	    $dmask, $dportfrom, $dportto, $nsaddr, $nsport, $ndaddr, $ndport,
-	    $action, $active) = @_;
-	    
-	_checkAction($action, __("action"));
-
-	if (defined($proto) and $proto ne "") {
-		checkProtocol($proto, __("protocol"));
-	} elsif ((defined($sportfrom) and $sportfrom ne '') or
-		 (defined($dportfrom) and $dportfrom ne '') or
-		 (defined($sportto) and $sportto ne '') or
-		 (defined($dportto) and $dportto ne '')) {
-		throw EBox::Exceptions::External(__('Port cannot be set if no'.
-						' protocol is selected.'));
-	} 
-
-	if (defined($sportfrom) && $sportfrom ne "") {
-		checkPort($sportfrom, __("source port"));
-	}
-	if (defined($dportfrom) && $dportfrom ne "") {
-		checkPort($dportfrom, __("destination port"));
-	}
-	if (defined($sportto) && $sportto ne "") {
-		checkPort($sportto, __("source port"));
-	}
-	if (defined($dportto) && $dportto ne "") {
-		checkPort($dportto, __("destination port"));
-	}
-
-	if (defined($saddr) && $saddr ne "") {
-		checkCIDR("$saddr/$smask", __("source address"));
-	}
-	if (defined($daddr) && $daddr ne "") {
-		checkCIDR("$daddr/$dmask", __("source address"));
-	}
-
-	$self->set_string("fwdrules/$rule/action", $action);
-	$self->set_bool("fwdrules/$rule/active", $active);
-	$self->set_bool("fwdrules/$rule/nsaddr", $nsaddr);
-	$self->set_bool("fwdrules/$rule/ndaddr", $ndaddr);
-	$self->set_bool("fwdrules/$rule/nsport", $nsport);
-	$self->set_bool("fwdrules/$rule/ndport", $ndport);
-
-
-	if (defined($proto) && $proto ne "") {
-		$self->set_string("fwdrules/$rule/protocol", $proto);
-	} else {
-		$self->unset("fwdrules/$rule/protocol");
-	}
-
-	if (defined($sportfrom) && $sportfrom ne "") {
-		$self->set_int("fwdrules/$rule/sportfrom", $sportfrom);
-	} else {
-		$self->unset("fwdrules/$rule/sportfrom");
-	}
-
-	if (defined($sportto) && $sportto ne "") {
-		$self->set_int("fwdrules/$rule/sportto", $sportto);
-	} else {
-		$self->unset("fwdrules/$rule/sportto");
-	}
-
-	if (defined($dportfrom) && $dportfrom ne "") {
-		$self->set_int("fwdrules/$rule/dportfrom", $dportfrom);
-	} else {
-		$self->unset("fwdrules/$rule/dportfrom");
-	}
-
-	if (defined($dportto) && $dportto ne "") {
-		$self->set_int("fwdrules/$rule/dportto", $dportto);
-	} else {
-		$self->unset("fwdrules/$rule/dportto");
-	}
-
-	if (defined($saddr) && $saddr ne "") {
-		$self->set_string("fwdrules/$rule/saddress", $saddr);
-	} else {
-		$self->unset("fwdrules/$rule/saddress");
-	}
-
-	if (defined($smask) && $smask ne "") {
-		$self->set_int("fwdrules/$rule/smask", $smask);
-	} else {
-		$self->unset("fwdrules/$rule/smask");
-	}
-
-	if (defined($daddr) && $daddr ne "") {
-		$self->set_string("fwdrules/$rule/daddress", $daddr);
-	} else {
-		$self->unset("fwdrules/$rule/daddress");
-	}
-
-	if (defined($dmask) && $dmask ne "") {
-		$self->set_int("fwdrules/$rule/dmask", $dmask);
-	} else {
-		$self->unset("fwdrules/$rule/dmask");
-	}
-}
-
 #
 # Method: OutputRules
 #
@@ -1146,7 +544,7 @@ sub OutputRules
 
 # Method: removeOutputRule
 #
-#	Remove an output rule
+#	Removes an output rule
 #
 # Parameters:
 #
@@ -1173,15 +571,14 @@ sub removeOutputRule # (protocol, port)
 	return;
 }
 
-# Method: addOutputRule
+# Method: addOutputRule 
 #
-#	Add an output rule
+#	Removes an output rule
 #
 # Parameters:
 #
 # 	protocol - string: protocol (tcp|udp)
 # 	port - string: port number
-#
 sub addOutputRule # (protocol, port) 
 {
 	my ($self, $protocol, $port) = @_;
@@ -1197,505 +594,49 @@ sub addOutputRule # (protocol, port)
 	$self->set_int("rules/output/$id/port", $port);
 }
 
-# Method: addFwdRule
+# Method: allowInternalService
 #
-#	Add a forward rule. *n* parameters indicate the analogous
-#	parameter without *n* will be treated as the
-#	complementary. I.e. if sport is set to 22 and nsport is set on,
-#	the forward rule will be applied to all ports apart from 22.
+# 	This method adds a rule to the "internal networks to eBox services"
+#   table.
 #
 # Parameters:
 #
-# 	protocol - string: protocol (tcp|udp)
-#	saddr - source address
-#	smask - source network mask 
-#	sportfrom - source port from
-#	sportto - source port to
-#	daddr - destination address
-#	dmask - destination network mask 
-#	dportfrom - destination port from
-#	dportto - destination port to
-#	nsaddr - Set complementary to source address
-#	nsport - Set complementary to source port
-#	ndaddr - Set complementary to destiantion address
-#	ndport - Set complementary to destination port
-# 	action - string: action (deny|allow)
-#	active - string: active (yes|no)
-#
-sub addFwdRule # 
+#   service - service's name
+#   decision - accept or deny
+# 	
+sub allowInternalService
 {
-	my ($self, $proto, $saddr, $smask, $sportfrom, $sportto, $daddr, $dmask,
-	$dportfrom, $dportto, $nsaddr, $nsport, $ndaddr, $ndport, $action) = @_;
+	my ($self, $service, $decision) = @_;
 
-	_checkAction($action, __("action"));
+	my $serviceMod = EBox::Global->modInstance('services');
 
-	if (defined($proto) and $proto ne "") {
-		checkProtocol($proto, __("protocol"));
-	} elsif ((defined($sportfrom) and $sportfrom ne '') or
-		 (defined($dportfrom) and $dportfrom ne '') or
-		 (defined($sportto) and $sportto ne '') or
-		 (defined($dportto) and $dportto ne '')) {
-		throw EBox::Exceptions::External(__('Port cannot be set if no'.
-						' protocol is selected.'));
-	} 
-
-	if (defined($sportfrom) && $sportfrom ne "") {
-		checkPort($sportfrom, __("source port"));
-	}
-	if (defined($dportfrom) && $dportfrom ne "") {
-		checkPort($dportfrom, __("destination port"));
-	}
-	if (defined($sportto) && $sportto ne "") {
-		checkPort($sportto, __("source port"));
-	}
-	if (defined($dportto) && $dportto ne "") {
-		checkPort($dportto, __("destination port"));
+	unless (defined($service)) {
+		throw EBox::Exceptions::MissingArgument('service');
 	}
 
-	if (defined($saddr) && $saddr ne "") {
-		checkCIDR("$saddr/$smask", __("source address"));
-	}
-	if (defined($daddr) && $daddr ne "") {
-		checkCIDR("$daddr/$dmask", __("source address"));
+	unless (defined($decision)) {
+		throw EBox::Exceptions::MissingArgument('decision');
 	}
 
-	my $id = $self->get_unique_id("x","fwdrules");
-
-	my $order = $self->_lastFwdRule() + 1;
-
-	$self->set_string("fwdrules/$id/name", $id);
-	$self->set_string("fwdrules/$id/action", $action);
-	$self->set_bool("fwdrules/$id/active", 1);
-	$self->set_int("fwdrules/$id/order", $order);
-
-	$self->set_bool("fwdrules/$id/nsaddr", $nsaddr);
-	$self->set_bool("fwdrules/$id/ndaddr", $ndaddr);
-	$self->set_bool("fwdrules/$id/nsport", $nsport);
-	$self->set_bool("fwdrules/$id/ndport", $ndport);
-
-	if (defined($proto) && $proto ne "") {
-		$self->set_string("fwdrules/$id/protocol", $proto);
+	unless ($decision eq 'accept' or $decision eq 'd eny') {
+		throw EBox::Exceptions::InvalidData('data' => 'decision', 
+			value => $decision, 'advice' => 'accept or deny');
 	}
 
-	if (defined($sportfrom) && $sportfrom ne "") {
-		$self->set_int("fwdrules/$id/sportfrom", $sportfrom);
-	}
-	if (defined($dportfrom) && $dportfrom ne "") {
-		$self->set_int("fwdrules/$id/dportfrom", $dportfrom);
+	my $serviceId = $serviceMod->serviceId($service);
+
+	unless (defined($serviceId)) {
+		throw EBox::Exceptions::DataNotFound('data' => 'service',
+				'value' => $service);
 	}
 
-	if (defined($sportto) && $sportto ne "") {
-		$self->set_int("fwdrules/$id/sportto", $sportto);
-	}
-	if (defined($dportto) && $dportto ne "") {
-		$self->set_int("fwdrules/$id/dportto", $dportto);
-	}
+	my %params;
+	$params{'decision'} = $decision;
+	$params{'source_selected'} = 'source_any';
+	$params{'service'} = $serviceId;
 
-	if (defined($saddr) && $saddr ne "") {
-		$self->set_string("fwdrules/$id/saddress", $saddr);
-	}
-	if (defined($smask) && $smask ne "") {
-		$self->set_int("fwdrules/$id/smask", $smask);
-	}
-
-	if (defined($daddr) && $daddr ne "") {
-		$self->set_string("fwdrules/$id/daddress", $daddr);
-	}
-	if (defined($dmask) && $dmask ne "") {
-		$self->set_int("fwdrules/$id/dmask", $dmask);
-	}
+	$self->{'InternalToEBoxRuleModel'}->addRow(%params);
 }
-
-# Method: changeObjectRule 
-#	
-#	Changes a certain rule for an object	
-#
-# Parameters:
-#
-# 	object - string: name of the object
-# 	action - string: action (deny|allow)
-# 	protocol - string: protocol (tcp|udp)
-#	port - string: port (1-65535)
-#	addr - string: address (cidr address or empty) [optional]
-#	mask - string: mask (1-32 or empty) [optional]
-#
-sub addObjectRule # (object, action, protocol, port, address, mask) 
-{
-	my ($self, $object, $action, $protocol, $port, $addr, $mask) = @_;
-
-	_checkAction($action, __("policy"));
-
-	if (defined($protocol) && $protocol ne "") {
-		checkProtocol($protocol, __("protocol"));
-	} elsif (defined($port) && $port ne "") {
-		throw EBox::Exceptions::External(__('Port cannot be set if no'.
-						' protocol is selected.'));
-	}
-
-	if (defined($port) && $port ne "") {
-		checkPort($port, __("port"));
-	}
-
-	if (defined($addr) && $addr ne "") {
-		checkCIDR("$addr/$mask", __("address"));
-	}
-
-	my $objects = EBox::Global->modInstance('objects');
-	if ($object ne '_global') {
-		$objects->objectExists($object) or
-			throw EBox::Exceptions::DataNotFound(
-							'data' => __("object"),
-							'value' => $object);
-	}
-
-	$self->dir_exists("objects/$object") or $self->_createObject($object);
-
-	my $id = $self->get_unique_id("x","objects/$object/rules");
-
-	my $order = $self->_lastObjectRule($object) + 1;
-	$self->set_string("objects/$object/rules/$id/name", $id);
-	$self->set_string("objects/$object/rules/$id/action", $action);
-	$self->set_bool("objects/$object/rules/$id/active", 1);
-	$self->set_int("objects/$object/rules/$id/order", $order);
-	if (defined($protocol) && $protocol ne "") {
-		$self->set_string("objects/$object/rules/$id/protocol", 
-				$protocol);
-	}
-	if (defined($port) && $port ne "") {
-		$self->set_int("objects/$object/rules/$id/port", $port);
-	}
-	if (defined($addr) && $addr ne "") {
-		$self->set_string("objects/$object/rules/$id/address", $addr);
-	}
-	if (defined($mask) && $mask ne "") {
-		$self->set_int("objects/$object/rules/$id/mask", $mask);
-	}
-}
-
-# Method: removeObjectService
-#
-#	Removes a service form an object
-#
-# Parameters:
-#
-#	object - name of the object
-#	service - name of the service to remove
-#
-#
-sub removeObjectService # (object, service) 
-{
-	my ($self, $object, $service) = @_;
-
-	my $objects = EBox::Global->modInstance('objects');
-	if ($object ne '_global') {
-		$objects->objectExists($object) or
-			throw EBox::Exceptions::DataNotFound(
-							'data' => __("object"),
-							'value' => $object);
-	}
-	checkName($service) or throw EBox::Exceptions::Internal(
-			"Name $service is invalid");
-
-	$self->delete_dir("objects/$object/services/$service");
-	$self->_purgeEmptyObject($object);
-	return 1;
-}
-
-
-# Method: setObjectService
-#
-#	Sets a service for an object
-#
-# Parameters:
-#	object  - string: name of the object
-# 	service - string: name of the service
-# 	policy - string: policy (allow|deny)
-sub setObjectService # (object, service, policy) 
-{
-	my ($self, $object, $srv, $policy) = @_;
-
-	_checkAction($policy, __("policy"));
-	my $objects = EBox::Global->modInstance('objects');
-	if ($object ne '_global') {
-		$objects->objectExists($object) or
-			throw EBox::Exceptions::DataNotFound(
-							'data' => __("object"),
-							'value' => $object);
-	}
-
-	$self->dir_exists("services/$srv") or return;
-	$self->dir_exists("objects/$object") or $self->_createObject($object);
-	$self->set_string("objects/$object/services/$srv/policy", $policy);
-	$self->set_string("objects/$object/services/$srv/name", $srv);
-}
-
-
-# Method: Object
-#
-#	Returns the configuration for a given object
-#
-# Parameters: 
-#
-#	object - name of the object
-#
-# Returns:
-#
-#	A hash reference containing:
-#
-#	policy - default policy
-#	name - name of the object
-#	rule - array ref holding  the object's rules
-#	servicepol - array ref holding the configured services for the object
-sub Object # (name) 
-{
-	my ($self, $name) = @_;
-	my $hash = {};
-	$hash->{policy} = $self->ObjectPolicy($name);
-	$hash->{name} = $name;
-	$hash->{rule} = $self->array_from_dir("objects/$name/rules");
-	$hash->{servicepol} = $self->array_from_dir("objects/$name/services");
-	return $hash;
-}
-
-sub _objectRuleNumber # (object, rule) 
-{
-	my ($self, $object, $rule) = @_;
-	return $self->get_int("objects/$object/rules/$rule/order");
-}
-
-sub _objectRulesOrder # (object) 
-{
-	my ($self, $name) = @_;
-	$self->dir_exists("objects/$name/rules") or return undef;
-	return new EBox::Order($self, "objects/$name/rules");
-}
-
-sub _fwdRulesOrder
-{
-	my $self = shift;
-	return new EBox::Order($self, "fwdrules");
-}
-
-sub _fwdRuleNumber # (rule)
-{
-	my ($self, $rule) = @_;
-	return $self->get_int("fwdrules/$rule/order");
-}
-
-# Method: ObjectRuleUp
-#
-#	It moves up a given rule for an object
-#
-# Parameters: 
-#
-#	object - name of the object
-#	rule - rule to move up
-#
-sub ObjectRuleUp # (object, rule) 
-{
-	my ($self, $object, $rule) = @_;
-	my $order = $self->_objectRulesOrder($object);
-	defined($order) or return;
-	my $num = $self->_objectRuleNumber($object, $rule);
-	if ($num == 0) {
-		return;
-	}
-
-	my $prev = $order->prevn($num);
-	$order->swap($num, $prev);
-}
-
-# Method: FwdRuleUp 
-#
-#	It moves up a given forward rule 
-#
-# Parameters: 
-#
-#	rule - rule to move up
-#
-sub FwdRuleUp # (rule)
-{
-	my ($self, $rule) = @_;
-	my $order = $self->_fwdRulesOrder();
-	defined($order) or return;
-	my $num = $self->_fwdRuleNumber($rule);
-	if ($num == 0) {
-		return;
-	}
-	my $prev = $order->prevn($num);
-	$order->swap($num, $prev);
-}
-
-# Method: ObjectRuleDown
-#
-#	It moves down a given rule for an object
-#
-# Parameters: 
-#
-#	object - name of the object
-#	rule - rule to move down
-#
-sub ObjectRuleDown # (object, rule) 
-{
-	my ($self, $object, $rule) = @_;
-	my $order = $self->_objectRulesOrder($object);
-	defined($order) or return;
-	my $num = $self->_objectRuleNumber($object, $rule);
-	if ($num == 0) {
-		return;
-	}
-
-	my $nextn = $order->nextn($num);
-	$order->swap($num, $nextn);
-}
-
-# Method: FwdRuleDown
-#
-#	It moves down a given forward rule 
-#
-# Parameters: 
-#
-#	rule - rule to move down
-#
-sub FwdRuleDown # (rule)
-{
-	my ($self, $rule) = @_;
-	my $order = $self->_fwdRulesOrder();
-	defined($order) or return;
-	my $num = $self->_fwdRuleNumber($rule);
-	if ($num == 0) {
-		return;
-	}
-	my $nextn = $order->nextn($num);
-	$order->swap($num, $nextn);
-}
-
-# Method: ObjectRules 
-#
-#	Returns the set rules for an object
-#
-# Parameters: 
-#
-#	object - name of the object
-#
-# Returns:
-#
-#	array ref - each element contains a hash with the keys 'name', 'action'
-#	, 'protocol', 'address', 'mask', 'active'
-sub ObjectRules # (object) 
-{
-	my ($self, $name) = @_;
-	my $order = $self->_objectRulesOrder($name);
-	defined($order) or return undef;
-	my @rules = @{$order->list};
-	my @array = ();
-	foreach (@rules) {
-		push(@array, $self->hash_from_dir($_));
-	}
-	return \@array;
-}
-
-# Method: FwdRule
-#
-#	Returns the configuration for a given rule. *n* entries
-#	indicate the analogous entry without *n* will be treated as the
-#	complementary. I.e. if sport is set to 22 and nsport is set on,
-#	the forward rule will be applied to all ports apart from 22.
-#
-# Returns:
-#
-#	A hash reference holding:
-#
-# 	protocol - string: protocol (tcp|udp)
-#	saddr - source address
-#	smask - source network mask 
-#	sportfrom - source port from
-#	sportto - source port to
-#	daddr - destination address
-#	dmask - destination network mask 
-#	dportfrom - destination port from
-#	dportto - destination port to
-#	nsaddr - Complementary to source address
-#	nsport - Complementary to source port
-#	ndaddr - Complementary to destiantion address
-#	ndport - Complementary to destination port
-# 	action - string: action (deny|allow)
-#	active - string: active (yes|no)
-#
-sub FwdRule # (rule)
-{
-	my ($self, $rulename) = @_;
-	my $r = $self->hash_from_dir("fwdrules/$rulename");
-	defined($r) or throw EBox::Exceptions::External(__('Rule not found'));
-	return $r;
-}
-
-#
-# Method: FwdRules
-#
-#	Returns the forward rules
-#
-# Return:
-#
-#	array ref - each element contains the same output hash as
-#	<FwdRule> return value.
-#
-sub FwdRules
-{
-	my $self = shift;
-	my $order = $self->_fwdRulesOrder();
-	defined($order) or return undef;
-	my @rules = @{$order->list};
-	my @array = ();
-	foreach (@rules) {
-		push(@array, $self->hash_from_dir($_));
-	}
-	return \@array;
-}
-
-sub _lastObjectRule # (object) 
-{
-	my ($self, $name) = @_;
-	my $order = $self->_objectRulesOrder($name);
-	defined($order) or return 0;
-	return $order->highest;
-}
-
-sub _lastFwdRule
-{
-	my $self = shift;
-	my $order = $self->_fwdRulesOrder();
-	defined($order) or return 0;
-	return $order->highest;
-}
-
-# Method: ObjectServices
-#	
-#	Returns the services for a given object
-#
-# Returns: 
-#
-#	array ref - holding the services 
-sub ObjectServices # (object) 
-{
-	my ($self, $name) = @_;
-	return $self->array_from_dir("objects/$name/services");
-}
-
-# Method: ObjectServices
-#	
-#	Returns all the object names
-#
-# Returns: 
-#
-#	array ref - holding the names
-#
-sub ObjectNames
-{
-	my $self = shift;
-	return $self->all_dirs_base("objects");
-}
-
 
 # Method: menu 
 #

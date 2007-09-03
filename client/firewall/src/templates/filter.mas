@@ -6,80 +6,48 @@
 use EBox::Gettext;
 </%init>
 <p>
-<h3><% __('Deny action') %></h3>
-<div class='help'>
-<% __('This will tell the firewall what to do when discarding network packets.  If you choose Reject, a packet will be sent back to the sender, choosing Drop will make the firewall drop the packet silently.') %>
-</div>
-<form action='Deny' method='POST'>
-		<select name='deny'>
-%			if($deny eq 'DROP'){
-				<option selected value="DROP"><% __('Drop packets') %></option>
-				<option value="REJECT"><% __('Reject packets') %></option>
-%			}else{
-				<option selected value="REJECT"><% __('Reject packets') %></option>
-				<option value="DROP"><% __('Drop packets') %></option>
-%			}
-		</select>
-		<input class='inputButton' type='submit' name='accept' value="<% __('Apply') %>">
-	</form>
-</p>
 
-
-<h3><%__('Filtering rules for internet access')%></h3>
-<div class='help'>
-	<% __('The link below will let you set up the default behavior of the packet filter.  These rules are meant to control access from internal network interfaces to external ones, they provide a simpler way to control access to the internet. You may also choose an object and set up its own rules') %>
+<h3><% __('Filtering rules from internal networks to eBox') %></h3>
+<div class=''>
+	<% __('These rules are meant to control access from internal network interfaces to services running on your eBox machine') %> </div>
+	<p>
+		<a href="/ebox/Firewall/View/InternalToEBoxRuleTable"><% __('Configure rules') %></a>
+	</p>
+ 
+<h3><% __('Filtering rules for internal networks') %></h3>
+<div class=''>
+	<% __('These rules allow you to control access  from your internal networks to the Internet, and traffic between your internal networks. If you wish to provide access to your eBox services, you must use the above section') %>
 </div>
 	<p>
-		<a href="Object?object=_global"><% __('Configure default rules') %></a>
+		<a href="/ebox/Firewall/View/ToInternetRuleTable"><% __('Configure rules') %></a>
 	</p>
-	<& .perObjectForm, action => 'Object', objects => \@objects &>
-<& .servicesSection, objects => \@objects &>
-<h3><%__('Filtering Rules between internal networks')%></h3>
-<div class='help'>
-	<% __('This link will let you set up forwarding rules between
-	internal networks') %>
+
+<h3><% __('Filtering rules for traffic coming out from eBox') %></h3>
+<div class=''>
+	<% __('These rules allow you to control access from eBox to external services') %>
 </div>
 	<p>
-		<a href="FwdRules"><% __('Configure rules') %></a>
+		<a href="/ebox/Firewall/View/EBoxOutputRuleTable"><% __('Configure rules') %></a>
 	</p>
-
-
-<%def .servicesSection>
-<%args>
-@objects
-</%args>
-<h3><% __(q{Filtering rules for eBox's services}) %></h3>
-<div class='help'>
-<% __('This link is intended to control which services in the server are
-allowed or forbidden to the clients. You may also choose an object and set up  the services it may
-access.') %>
+ 
+<h3><% __('Filtering rules from external networks to eBox') %></h3>
+<div class=''>
+	<% __('These rules allow you to control access from external networks to sevices running on your eBox machine.') %>
+</div>
+<div class='warning'>
+	<% __('Be advised that adding rules in this section may compromise your network security as you may grant access from untrusted networks. Please do not use this unless you know what you are doing') %>
 </div>
 	<p>
-		<a href="ObjectService?object=_global">
-                  <% __('Configure default rules related to eBox services') %>
-                </a>
+		<a href="/ebox/Firewall/View/ExternalToEBoxRuleTable"><% __('Configure rules') %></a>
 	</p>
-	<& .perObjectForm, action => 'ObjectService', objects => \@objects &>
-</%def>
-
-<%def .perObjectForm>
-<%args>
-$action
-@objects
-</%args>
-%	if(@objects){
+ 
+<h3><% __('Filtering rules from external networks to internal networks') %></h3>
+<div class=''>
+	<% __('These rules allow you to control access from external networks to internal networks.') %>
+</div>
+<div class='warning'>
+	<% __('Be advised that adding rules in this section may compromise your network security as you may grant access from untrusted networks. Please do not use this unless you know what you are doing') %>
+</div>
 	<p>
-	<form action='<% $action %>' method='post'>
-	<% __('Configure rules for a particular object') %>:
-		<select name='object'>
-%			foreach my $obj (@objects){
-				<option value='<% $obj->{'name'} %>'>
-					<% $obj->{'description'} %>
-				</option>
-%			}
-		</select>
-		<input class='inputButton' type='submit' value="<% __('Go') %>" name='configobject'>
-	</form>
-	</p>
-%	}
-</%def>
+		<a href="/ebox/Firewall/View/ExternalToInternalRuleTable"><% __('Configure rules') %></a>
+	</p>  

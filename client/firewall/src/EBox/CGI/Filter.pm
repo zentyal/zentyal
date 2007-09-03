@@ -43,11 +43,7 @@ sub _process
 	my $firewall = EBox::Global->modInstance('firewall');
 	my $objects = EBox::Global->modInstance('objects');
 
-	my $objectlist = $objects->ObjectsArray();
-
-	foreach (@{$objectlist}) {
-		delete($_->{member});
-	}
+	my $objectlist = $objects->objects();
 
 	my @array = ();
 

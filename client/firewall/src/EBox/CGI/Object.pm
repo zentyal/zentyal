@@ -55,7 +55,7 @@ sub _process
 	my $description;
 
 	if ($objname ne '_global') {
-		$description = $objects->ObjectDescription($objname);
+		$description = $objects->objectDescription($objname);
 	}
 
 	if ($objname eq "_global") {

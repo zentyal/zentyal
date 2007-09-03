@@ -63,7 +63,7 @@ sub _react
 	} 
 	else {
 	  my $objects = EBox::Global->modInstance('objects');
-	  my $description = $objects->ObjectDescription($objname);
+	  my $description = $objects->objectDescription($objname);
 	  $self->{title} = __x(q{Services' filtering rules {desc}}, 
 					desc => $description);
 	}

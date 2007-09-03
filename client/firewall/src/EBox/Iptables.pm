@@ -21,6 +21,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Objects;
 use EBox::Network;
+use EBox::Firewall::IptablesHelper;
 use EBox::Exceptions::Internal;
 use Error qw( :try );
 use EBox::Sudo qw( :all );
@@ -44,6 +45,8 @@ sub new
 	$self->{objects} = EBox::Global->modInstance('objects');
 	$self->{net} = EBox::Global->modInstance('network');
 	$self->{deny} = $self->{firewall}->denyAction;
+
+
 	bless($self, $class);
 	return $self;
 }
@@ -122,210 +125,6 @@ sub clearTables # (policy)
 	pf "-P FORWARD $policy";
 }
 
-# Method: doFwdRules
-#
-#       Set forwarding rules ready in kernel via iptables
-#
-# Parameters:
-#
-#       rules - an array of hashes with the same
-#       structure than <EBox::Firewall::FwdRule> return value
-#
-sub doFwdRules # (rules)
-{
-	my ($self, $rules) = @_;
-
-	defined($rules) or return;
-
-	foreach my $r (@{$rules}) {
-		$r->{active} or next;
-		my $cmd = " -A ffwdrules $new ";
-
-		if (defined($r->{protocol}) and ($r->{protocol} ne '')) {
-			$cmd .= "-p $r->{protocol} ";
-
-			my $port = '';
-			my $not = '';
-			if (defined($r->{sportfrom})and($r->{sportfrom} ne '')){
-				$port .= "$r->{sportfrom}";
-			}
-			if (defined($r->{sportto}) and ($r->{sportto} ne '')) {
-				if ($port ne '') {
-				    $port .= ':';
-				}
-				$port .= "$r->{sportto}";
-			}
-			if ($r->{nsport}) {
-				$not = "!";
-			}
-			if ($port ne '') {
-				$cmd .= " --sport $not $port ";
-			}
-
-			$port = '';
-			$not = '';
-			if (defined($r->{dportfrom})and($r->{dportfrom} ne '')){
-				$port .= "$r->{dportfrom}";
-			}
-			if (defined($r->{dportto}) and ($r->{dportto} ne '')) {
-				if ($port ne '') {
-				    $port .= ':';
-				}
-				$port .= "$r->{dportto}";
-			}
-			if ($r->{ndport}) {
-				$not = "!";
-			}
-			if ($port ne '') {
-				$cmd .= " --dport $not $port ";
-			}
-		}
-
-		if (defined($r->{saddress}) and ($r->{saddress} ne '')) {
-			my $not = '';
-			if ($r->{nsaddr}) {
-				$not = "!";
-			}
-			$cmd .= " -s $not $r->{saddress}/$r->{smask} ";
-		}
-
-		if (defined($r->{daddress}) and ($r->{daddress} ne '')) {
-			my $not = '';
-			if ($r->{ndaddr}) {
-				$not = "!";
-			}
-			$cmd .= " -d $not $r->{daddress}/$r->{dmask} ";
-		}
-
-		my $action;
-		if ($r->{action} eq "deny") {
-			$action = "fdrop";
-		} elsif ($r->{action} eq "allow") {
-			$action = "ACCEPT";
-		} else {
-			throw EBox::Exceptions::Internal("Iptables: ".
-				"unknown action: $r->{action}");
-		}
-
-		$cmd .= " -j $action";
-		pf $cmd;
-	}
-}
-
-# Method: Object
-#
-#       Set the object infrastructure for firewall
-#
-# Parameters:
-#
-#       object - the name of an <EBox::Object> or *_global*
-
-sub Object # (object)
-{
-	my $self = shift;
-	my $object = shift;
-	my $fchain;
-	my $ichain;
-
-	if ($object eq "_global") {
-		$fchain = "fglobal";
-		$ichain = "iglobal";
-	} else {
-		$fchain = "f_" . $object;
-		$ichain = "i_" . $object;
-		pf "-N $fchain";
-		pf "-N $ichain";
-		my $addresses = $self->{objects}->ObjectAddresses($object);
-		defined($addresses) or return;
-		foreach (@{$addresses}) {
-			pf "-A fobjects $new -s $_ -j $fchain";
-			pf "-A iobjects $new -s $_ -j $ichain";
-		}
-	}
-
-	my $servs = $self->{firewall}->ObjectServices($object);
-	foreach my $srv (@{$servs}) {
-		defined($srv) or next;
-		my $policy;
-		if ($srv->{policy} eq "deny") {
-			$policy = "idrop";
-		} elsif ($srv->{policy} eq "allow") {
-			$policy = "ACCEPT";
-		} else {
-			throw EBox::Exceptions::Internal("Iptables: object ".
-				"$object, unknown policy ". $srv->{policy} . 
-				" for service " . $srv->{name});
-		}
-		my $port = $self->{firewall}->servicePort($srv->{name});
-		defined($port) or next;
-		my $protocol = $self->{firewall}->serviceProtocol($srv->{name});
-		defined($protocol) or next;
-		pf "-A $ichain $new -p $protocol --dport $port -j $policy";
-	}
-
-	my $rules = $self->{firewall}->ObjectRules($object);
-	foreach my $rule (@{$rules}) {
-		defined($rule) or next;
-		($rule->{active} == 1) or next;
-
-		my $text = "-A $fchain $new";
-
-		if (defined($rule->{protocol}) and ($rule->{protocol} ne '')) {
-			$text .= " -p $rule->{protocol}";
-
-			if (defined($rule->{port}) and ($rule->{port} ne '')) {
-				$text .= " --dport $rule->{port}";
-			}
-		}
-
-		my $action;
-		if ($rule->{action} eq "deny") {
-			$action = "fdrop";
-		} elsif ($rule->{action} eq "allow") {
-			$action = "ACCEPT";
-		} else {
-			throw EBox::Exceptions::Internal("Iptables: ".
-				"unknown action " . $rule->{action} .
-				" for object $object");
-		}
-
-		if (defined($rule->{address}) and ($rule->{address} ne '')) {
-			$text .= " -d $rule->{address}";
-
-			if (defined($rule->{mask}) and ($rule->{mask} ne '')) {
-				$text .= "/" . $rule->{mask};
-			}
-			$text .= " -j $action";
-			pf $text;
-		} else {
-			@ifaces = @{$self->{net}->ExternalIfaces()};
-			foreach my $if (@ifaces) {
-				my $textIface = "$text  -o $if -j $action";
-				pf $textIface;
-			}
-		}
-	}
-
-	my $policy = $self->{firewall}->ObjectPolicy($object);
-	my $aux;
-	my $ipolicy = undef;
-	if ($policy eq "allow") {
-		$aux = "-j ftoexternalonly";;
-		$ipolicy = 'ACCEPT';
-	} elsif ($policy eq "deny") {
-		$aux = "-j fdrop";
-		$ipolicy = 'idrop';
-	} elsif ($policy eq "global") {
-		return;
-	} else {
-		throw EBox::Exceptions::Internal("Iptables: ".
-			"unknown policy $policy for object $object");
-	}
-
-	pf "-A $ichain $new -j $ipolicy";
-	pf "-A $fchain $new $aux";
-}
-
 # Method: setStructure
 #
 #       Set structure to Firewall module to work
@@ -360,15 +159,18 @@ sub setStructure
 	pf '-N ftoexternalonly';
 
 	pf '-N inospoof';
+	pf '-N inointernal';
 	pf '-N iexternalmodules';
+	pf '-N iexternal';
 	pf '-N inoexternal';
 	pf '-N imodules';
 	pf '-N iintservs';
-	pf '-N iobjects';
 	pf '-N iglobal';
 	pf '-N idrop';
 
+
 	pf '-N omodules';
+	pf '-N oglobal';
 
 	pf '-t nat -A PREROUTING -j premodules';
 
@@ -386,14 +188,15 @@ sub setStructure
 
 	pf '-A INPUT -j inospoof';
 	pf '-A INPUT -j iexternalmodules';
+	pf '-A INPUT -j iexternal';
 	pf '-A INPUT -j inoexternal';
 	pf '-A INPUT -j imodules';
 	pf '-A INPUT -j iintservs';
-	pf '-A INPUT -j iobjects';
 	pf '-A INPUT -j iglobal';
 	pf '-A INPUT -j idrop';
 
 	pf '-A OUTPUT -j omodules';
+	pf '-A OUTPUT -j oglobal';
 
 	pf "-A idrop -j " . $self->{deny};
 	pf "-A fdrop -j " . $self->{deny};
@@ -567,13 +370,13 @@ sub start
 		$self->setDNS($_);
 	}
 
-	foreach (@{$self->{objects}->ObjectNames}) {
-		my $members = $self->{objects}->ObjectMembers($_);
-		foreach (@{$members}) {
-			my $mac = $_->{mac};
+	foreach my $object (@{$self->{objects}->objects}) {
+		my $members = $self->{objects}->objectMembers($object);
+		foreach my $member (@{$members}) {
+			my $mac = $member->{macaddr};
 			defined($mac) or next;
 			($mac ne "") or next;
-			my $address = $_->{ip} . "/" . $_->{mask};
+			my $address = $member->{ipaddr};
 			pf "-A inospoof -m mac -s $address " .
 			   "--mac-source ! $mac -j idrop";
 			pf "-A fnospoof -m mac -s $address " .
@@ -617,7 +420,8 @@ sub start
 		}
 	}
 
-	$self->_iexternalmodulesInit();
+	$self->_iexternal();
+	$self->_iglobal();
 
 
 	pf "-A ftoexternalonly -j fdrop";
@@ -630,17 +434,11 @@ sub start
 		pf "-A OUTPUT $new  -p $proto --dport $port -j ACCEPT";
 	}
 
-	my $fwdrules = $self->{firewall}->FwdRules();
-	$self->doFwdRules($fwdrules);
+	$self->_fglobal();
+	
+	$self->_ffwdrules();
 
-	foreach (@{$self->{firewall}->ObjectNames}) {
-		$self->Object($_);
-	}
-
-	my $servs = $self->{firewall}->services();
-	foreach my $srv (@{$servs}) {
-		$self->doService($srv);
-	}
+	$self->_oglobal();
 
 	$self->localRedirects();
 
@@ -680,15 +478,99 @@ sub _doRuleset # (table, chain, \@rules)
 	}
 }
 
-
-sub _iexternalmodulesInit
+# Method: _iexternalCheckInit
+#
+# 	Add checks to iexternalmodules and iexternal to only affect
+# 	packates coming from external interfaces
+sub _iexternalCheckInit
 {
-  my ($self) = @_;
-  
-  my @internalIfaces = @{$self->{net}->InternalIfaces()};
-  foreach my $if (@internalIfaces) {
-    pf "-A iexternalmodules -i $if -j RETURN";
-  }
+    my ($self) = @_;
+
+    my @internalIfaces = @{$self->{net}->InternalIfaces()};
+    foreach my $if (@internalIfaces) {
+        pf "-A inointernal -i $if -j RETURN";
+    }
+
+    pf "-I iexternalmodules -j inointernal";
+    pf "-I iexternal -j inointernal";
+
+
 }
 
+# Method: _iexternal
+#
+# 	Add checks to iexternalmodules and iexternal to only affect
+# 	packates coming from external interfaces
+sub _iexternal
+{
+    my ($self) = @_;
+
+    $self->_iexternalCheckInit();
+    my $iptHelper = new EBox::Firewall::IptablesHelper;
+    for my $rule (@{$iptHelper->ExternalToEBoxRuleTable()}) {
+        pf "$rule";
+    }
+    
+}
+
+# Method: _iglobal
+#
+#	Add rules to iglobal, that is the chain to control access
+#	from the internal networks to eBox
+sub _iglobal
+{
+    my ($self) = @_;
+
+    my $iptHelper = new EBox::Firewall::IptablesHelper;
+    for my $rule (@{$iptHelper->InternalToEBoxRuleTable()}) {
+        pf "$rule";
+    }
+    
+}
+
+# Method: _oglobal
+#
+#	Add rules to iglobal, that is the chain to control access
+#	from eBox to external services
+sub _oglobal
+{
+    my ($self) = @_;
+
+    my $iptHelper = new EBox::Firewall::IptablesHelper;
+    for my $rule (@{$iptHelper->EBoxOutputRuleTable()}) {
+        pf "$rule";
+    }
+    
+}
+
+
+# Method: _fglobal
+#
+#	Add rules to fglobal, that is the chain to control access
+#	from the internal networks to Internet
+sub _fglobal
+{
+    my ($self) = @_;
+
+    my $iptHelper = new EBox::Firewall::IptablesHelper;
+    for my $rule (@{$iptHelper->ToInternetRuleTable()}) {
+        pf "$rule";
+    }
+    
+}
+
+# Method: _ffwdrules
+#
+#	Add rules to ffwdrules, that is the chain to control access
+#	from the external networks to Internet
+sub _ffwdrules
+{
+    my ($self) = @_;
+
+    my $iptHelper = new EBox::Firewall::IptablesHelper;
+    for my $rule (@{$iptHelper->ExternalToInternalRuleTable()}) {
+        pf "$rule";
+    }
+    
+}
 1;
