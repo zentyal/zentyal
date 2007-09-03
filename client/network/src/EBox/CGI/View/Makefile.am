@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CGI/Network/View
 
-nobase_perl_DATA = GatewayDataTable.pm MultiGwRulesDataTable.pm
+nobase_perl_DATA = MultiGwRulesDataTable.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 

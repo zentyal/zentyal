@@ -26,6 +26,7 @@ use EBox::Types::Boolean;
 use EBox::Types::Select;
 use EBox::Types::IPAddr;
 use EBox::Types::Union;
+use EBox::Types::Union::Text;
 
 use strict;
 use warnings;
@@ -41,134 +42,115 @@ sub new
 	
 	my $self = $class->SUPER::new(@_);
 	bless($self, $class);
+	$self->{'pageSize'} = 10;
 	
 	return $self;
 }
 
-sub selectOptions
+sub protocols
 {
-	my ($self, $id) = @_;
+	my ($self) = @_;
 	
-	my @options;
-	if ($id eq 'iface') {
-		@options = @{$self->_internalInterfaces};
-				
-	} elsif ($id eq 'destination_object' or $id eq 'source_object') {
-		@options = @{$self->_objects()};
-
-	} elsif ($id eq 'protocol') {
-		@options = 
-		  (
-		  	{
-			 'value' => 'any',
-			 'printableValue' => __('any')
-			 },
-			{ 
-			 'value' => 'tcp',
-			 'printableValue' => 'tcp'
-			},
-			{
-			 'value' => 'udp',
-			 'printableValue' => 'udp'
-			}
-		  );			
-
-	} elsif ($id eq 'gateway') {
-		my $network = EBox::Global->modInstance('network');
-		foreach my $gw (@{$network->gateways()}) {
-			push (@options, {
-					'value' => $gw->{'id'},
-					'printableValue' => $gw->{'name'}
-					});
+	my @options = 
+	  (
+		{
+		 'value' => 'any',
+		 'printableValue' => __('any')
+		 },
+		{ 
+		 'value' => 'tcp',
+		 'printableValue' => 'tcp'
+		},
+		{
+		 'value' => 'udp',
+		 'printableValue' => 'udp'
 		}
-	}
+	  );	
 
-	return \@options;
+	  return \@options;
+}
+
+sub gatewayModel
+{
+	my $network = EBox::Global->getInstance()->modInstance('network');
+	return $network->gatewayModel();
+}
+
+sub objectModel
+{
+	my $objects = EBox::Global->getInstance()->modInstance('objects');
+	return $objects->{'objectModel'};
 }
 
 sub _table
 {
+
+
+	
 	my @tableHead =
 	 (
 		new EBox::Types::Select(
 					'fieldName' => 'protocol',
 					'printableName' => __('Protocol'),
-					'class' => 'tcenter',
-					'type' => 'select',
-					'size' => '12',
-					'unique' => 0,
-					'editable' => 1
+					'editable' => 1,
+					'populate'=> \&protocols,
 				      ),	
 		new EBox::Types::Select(
 					'fieldName' => 'iface',
 					'printableName' => __('Interface'),
-					'class' => 'tcenter',
-					'type' => 'select',
-					'size' => '12',
-					'unique' => 0,
-					'editable' => 1
+					'editable' => 1,
+					'populate' => \&ifaces,
 				      ),
 		new EBox::Types::Union(
 					'fieldName' => 'source',
 					'printableName' => __('Source'),
-					'class' => 'tcenter',
-					'type' => 'union',
-					'optional' => 1,
 					'subtypes' => 
 						[
-						 new EBox::Types::IPAddr(
+						new EBox::Types::Union::Text(
+						 	'fieldName' => 'source_any',
+							'printableName' => __('Any')),
+						new EBox::Types::IPAddr(
 						 	'fieldName' => 'source_ipaddr',
 							'printableName' => __('Source IP'),
-							'class' => 'tcenter',
-							'type' => 'ipaddr',
-							'unique' => 0,
 							'editable' => 1,
 							'optional' => 1),
 						new EBox::Types::Select(
 						 	'fieldName' => 'source_object',
 							'printableName' => __('Source object'),
-							'class' => 'tcenter',
-							'type' => 'select',
-							'unique' => 0,
+							'foreignModel' => \&objectModel,
+							'foreignField' => 'name',
 							'editable' => 1)
 						],
 
-					'size' => '16',
 					'unique' => 1,
 					'editable' => 1
 				),
 		new EBox::Types::Int(
 					'fieldName' => 'source_port',
 					'printableName' => __('Port'),
-					'class' => 'tcenter',
-					'type' => 'int',
 					'size' => '3',
-					'unique' => 0,
 					'editable' => 1,
 					'optional' => 1
 				),
 		new EBox::Types::Union(
 					'fieldName' => 'destination',
 					'printableName' => __('Destination'),
-					'class' => 'tcenter',
-					'type' => 'union',
 					'optional' => 1,
 					'subtypes' => 
 						[
+						new EBox::Types::Union::Text(
+						 	'fieldName' => 'destination_any',
+							'printableName' => __('Any')),
 						 new EBox::Types::IPAddr(
 						 	'fieldName' => 'destination_ipaddr',
 							'printableName' => __('Destination IP'),
-							'class' => 'tcenter',
-							'type' => 'ipaddr',
-							'unique' => 0,
 							'editable' => 1,
 							'optional' => 1),
 						new EBox::Types::Select(
 						 	'fieldName' => 'destination_object',
 							'printableName' => __('Destination object'),
-							'class' => 'tcenter',
-							'type' => 'select',
-							'unique' => 0,
+							'foreignModel' => \&objectModel,
+							'foreignField' => 'name',
 							'editable' => 1)
 						],
 
@@ -179,20 +161,15 @@ sub _table
 		new EBox::Types::Int(
 					'fieldName' => 'destination_port',
 					'printableName' => __('Port'),
-					'class' => 'tcenter',
-					'type' => 'int',
 					'size' => '3',
-					'unique' => 0,
 					'editable' => 1,
 					'optional' => 1
 				),
 		new EBox::Types::Select(
 					'fieldName' => 'gateway',
 					'printableName' => __('Gateway'),
-					'class' => 'tcenter',
-					'type' => 'select',
-					'size' => '12',
-					'unique' => 0,
+  					'foreignModel' => \&gatewayModel,
+					'foreignField' => 'name',
 					'editable' => 1
 				      )
 
@@ -201,21 +178,17 @@ sub _table
 
 	my $dataTable = 
 		{ 
-			'tableName' => 'multigwrulestable',
+			'tableName' => 'MultiGwRulesDataTable',
 			'printableTableName' => __('Multigateway rules'),
-			'actions' =>
-				{
-				'add' => 
-				  '/ebox/Network/Controller/MultiGwRulesDataTable', 
-				'del' => 
-				  '/ebox/Network/Controller/MultiGwRulesDataTable', 
-				'move' => 
-				  '/ebox/Network/Controller/MultiGwRulesDataTable', 
-				'editField' => 
-				  '/ebox/Network/Controller/MultiGwRulesDataTable', 
-				'changeView' =>
-				  '/ebox/Network/Controller/MultiGwRulesDataTable', 
-				},
+			'defaultController' =>
+				'/ebox/Network/Controller/MultiGwRulesDataTable',
+			'defaultActions' =>
+				[	
+				'add', 'del', 
+				'move', 'editField',
+				'changeView'
+				],
+				
 				
 			'tableDescription' => \@tableHead,
 			'class' => 'dataTable',
@@ -259,26 +232,6 @@ sub validateRow()
 		}
 
 	}
-}
-
-# Get the objects from Objects module
-# Return an array ref with a hash
-# ref within each element with the attributes value and printableValue
-sub _objects
-{
-	my $self = shift;
-
-	my $objects = EBox::Global->modInstance('objects');
-	
-	my @options;
-	foreach my $object (@{$objects->ObjectsArray()}) {
-		push (@options, { 
-				 'value' => $object->{'name'},
-				 'printableValue' => $object->{'description'}
-				 });
-	}
-
-	return \@options;
 }
 
 sub removeRulesUsingRouter
@@ -330,7 +283,7 @@ sub _addressesForObject
 	my ($self, $object) = @_;
 
 	my $objects = EBox::Global->modInstance('objects');
-	return $objects->ObjectAddresses($object);	
+	return $objects->objectAddresses($object);	
 }
 
 sub _buildIptablesRule
@@ -353,7 +306,10 @@ sub _buildIptablesRule
 	my @ifaces = @{$self->_ifacesForRule($iface)};
 	
 	my @src;
-	if ($srcType eq 'source_ipaddr') {
+	EBox::debug("source $srcType destination $dstType");
+    if ($srcType eq 'source_any') {
+        @src = ('');
+    } elsif  ($srcType eq 'source_ipaddr') {
 		my $ipaddr = $hVal->{'source'}->subtype();
 		my $ip;
 		if ($ipaddr->ip()) {
@@ -367,8 +323,11 @@ sub _buildIptablesRule
 		@src = @{$self->_addressesForObject($object->value())};
 	}
 
+
 	my @dst;
-	if ($dstType eq 'destination_ipaddr') {
+     if ($dstType eq 'destination_any') {
+        @dst = ('');
+    } elsif  ($dstType eq 'destination_ipaddr') {
 		my $ipaddr = $hVal->{'destination'}->subtype();
 		my $ip;
 		if ($ipaddr->ip()) {
@@ -392,28 +351,29 @@ sub _buildIptablesRule
 	if (defined($dstPort) and $dstPort ne '') {
 		$rule .= " --destination-port $dstPort";
 	}
+	my @ipRules;
 	for my $riface (@ifaces) {
 		for my $rsrc (@src) {
 			for my $rdst (@dst) {
-				$rule .=  " -i $riface";
+				my $wRule = $rule .  " -i $riface";
 				if ($rsrc ne '') {
-					$rule .= " -s $rsrc";
+					$wRule .= " -s $rsrc";
 				}
 				if ($rdst ne '') {
-					$rule .= " -d $rdst";
+					$wRule .= " -d $rdst";
 				}
-				my $ruleMark  = "$rule -m mark --mark 0/0xff "
+				my $ruleMark  = "$wRule -m mark --mark 0/0xff "
 						. "-j MARK"
 						. " --set-mark  $marks->{$gw}";
-				return ($ruleMark) ;
+				push (@ipRules, $ruleMark);
 			}
 		}
 	}
 
-	return undef;
+	return @ipRules;
 }
 
-sub _internalInterfaces
+sub ifaces
 {
 	my $self = shift;
 

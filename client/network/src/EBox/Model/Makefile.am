@@ -2,7 +2,9 @@
 
 perldir = @PERLPATH@/EBox/Network/Model
 
-nobase_perl_DATA = GatewayDataTable.pm MultiGwRulesDataTable.pm
+nobase_perl_DATA = GatewayTable.pm MultiGwRulesDataTable.pm \
+		PhysicalInterfaceTable.pm VlanInterfaceTable.pm \
+		ConfigurableInterfaceTable.pm
 
 DISTCLEANFILES = 
 

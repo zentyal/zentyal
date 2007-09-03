@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Network::Model::GatewayDataTable;
+package EBox::Network::Model::GatewayTable;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -50,27 +50,26 @@ sub new
 	return $self;
 }
 
-sub selectOptions
+sub weights
 {
-	my ($self, $id) = @_;
-	
-	if ($id eq 'interface') {
-		my $network = EBox::Global->modInstance('network');
-		my @ifaces = (@{$network->InternalIfaces()}, 
-			      @{$network->ExternalIfaces()});
-		      
-		my @options = map { 'value' => $_, 
-				     'printableValue' => $_ }, @ifaces;
-
-		return \@options;
-	} elsif ($id eq 'weight') {
-		my @options;
-		for my $weight (1..15) {
-			push @options, { 'value' => $weight, 
-					 'printableValue' => $weight};
-		}
-		return \@options;
+	my @options;
+	for my $weight (1..15) {
+		push @options, { 'value' => $weight, 
+				 'printableValue' => $weight};
 	}
+	return \@options;
+}
+
+sub interfaces
+{
+	my $network = EBox::Global->modInstance('network');
+	my @ifaces = (@{$network->InternalIfaces()}, 
+		      @{$network->ExternalIfaces()});
+	      
+	my @options = map { 'value' => $_, 
+			     'printableValue' => $_ }, @ifaces;
+
+	return \@options;
 }
 
 sub _table
@@ -81,8 +80,6 @@ sub _table
 		new EBox::Types::Text(
 					'fieldName' => 'name',
 					'printableName' => __('Name'),
-					'class' => 'tcenter',
-					'type' => 'text',
 					'size' => '12',
 					'unique' => 1,
 					'editable' => 1
@@ -90,8 +87,6 @@ sub _table
 		new EBox::Types::Text(
 					'fieldName' => 'ip',
 					'printableName' => __('IP Address'),
-					'class' => 'tcenter',
-					'type' => 'text',
 					'size' => '16',
 					'unique' => 1,
 					'editable' => 1
@@ -99,49 +94,34 @@ sub _table
 		new EBox::Types::Select(
 					'fieldName' => 'interface',
 					'printableName' => __('Interface'),
-					'class' => 'tcenter',
-					'type' => 'select',
-					'size' => '16',
-					'unique' => 0,
+					'populate' => \&interfaces,
 					'editable' => 1
 				),
 		new EBox::Types::Int(
 					'fieldName' => 'upload',
 					'printableName' => __('Upload'),
-					'class' => 'tcenter',
-					'type' => 'int',
 					'size' => '3',
-					'unique' => 0,
 					'editable' => 1,
 					'trailingText' => 'Kb/s'
 				),
 		new EBox::Types::Int(
 					'fieldName' => 'download',
 					'printableName' => __('Download'),
-					'class' => 'tcenter',
-					'type' => 'int',
 					'size' => '3',
-					'unique' => 0,
 					'editable' => 1,
 					'trailingText' => 'Kb/s'
 				),
 		new EBox::Types::Select(
 					'fieldName' => 'weight',
 					'printableName' => __('Weight'),
-					'class' => 'tcenter',
-					'type' => 'select',
 					'size' => '2',
-					'unique' => 0,
+					'populate' => \&weights,
 					'editable' => 1
 				),
 		new EBox::Types::Boolean(
 					'fieldName' => 'default',
 					'printableName' => __('Default'),
-					'class' => 'tcenter',
-					'type' => 'boolean',
 					'size' => '1',
-					'unique' => 0,
-					'trailingText' => '',
 					'editable' => 1
 				)
 
@@ -149,22 +129,19 @@ sub _table
 
 	my $dataTable = 
 		{ 
-			'tableName' => 'gatewaytable',
+			'tableName' => 'GatewayTable',
 			'printableTableName' => __('Gateway list'),
-			'actions' =>
-				{
-				'add' => 
-				  '/ebox/Network/Controller/GatewayDataTable', 
-				'del' => 
-				  '/ebox/Network/Controller/GatewayDataTable', 
-				'move' => 
-				  '/ebox/Network/Controller/GatewayDataTable', 
-				'editField' => 
-				  '/ebox/Network/Controller/GatewayDataTable', 
-				'changeView' =>
-				  '/ebox/Network/Controller/GatewayDataTable', 
-				},
+			'automaticRemove' => 1,
+			'defaultController' =>
+				'/ebox/Network/Controller/GatewayTable',
+			'defaultActions' =>
+				[	
+				'add', 'del',
+				'move',  'editField',
+				'changeView'
+				],
 			'tableDescription' => \@tableHead,
+			'menuNamespace' => 'Network/View/GatewayTable',
 			'class' => 'dataTable',
 			'order' => 0,
 			'help' => __x('You can add as many gateways as you want. This is very useful if you want to split your Internet traffic through several links.{br}The download and upload fields must be set as much rate as you have to your connection towards the gateway. The correct value of these fields is critical to ensure a correct functionality of the traffic shaping module', br => '<br>'),
@@ -193,18 +170,10 @@ sub validateRow()
 
 	# Check if there's only one default gw
 	my $currentRow = $params{'id'};
-	foreach my $row (@{$self->rows()}) {
-		if (defined($currentRow) and $currentRow eq $row->{'id'}) {
-			next;
-		}
-		foreach my $value (@{$row->{'values'}}) {
-			next unless ($value->fieldName() eq 'default');
-			if ($value->printableValue() == 1) {
-				throw EBox::Exceptions::External(
-			         __('There is already a default gateway'));
-
-			}
-		}
+	my $default = $self->find('default' => 1);
+	if (defined($default) and ($currentRow ne $default->{'id'})) {
+		throw EBox::Exceptions::External(
+		 __('There is already a default gateway'));
 	}
 }
 
@@ -212,14 +181,12 @@ sub defaultGateway()
 {
 	my $self = shift;
 
-	for my $row (@{$self->rows()}) {
-		my $default = $row->{'valueHash'}->{'default'};
-		next unless ($default->printableValue() eq 1);
-		my $ip = $row->{'valueHash'}->{'ip'};
-		return $ip->printableValue();
+	my $default = $self->find('default' => 1);
+	if ($default) {
+		return $default->{'ip'};
+	} else {
+		return undef;
 	}
-
-	return undef;
 }
 
 sub iproute2TableIds()
@@ -254,30 +221,7 @@ sub gateways()
 {
 	my $self = shift;
 
-	my @gateways;
-	for my $row (@{$self->rows()}) {
-		my $id = $row->{'id'};
-		my $name = $row->{'valueHash'}->{'name'}->printableValue();
-		my $ifce = $row->{'valueHash'}->{'interface'}->printableValue();
-		my $ip = $row->{'valueHash'}->{'ip'}->printableValue();
-		my $up = $row->{'valueHash'}->{'upload'}->printableValue();
-		my $down = $row->{'valueHash'}->{'download'}->printableValue();
-		my $weight = $row->{'valueHash'}->{'weight'}->printableValue();
-		my $def = $row->{'valueHash'}->{'default'}->printableValue();
-	
-		push (@gateways, { 
-					'id' => $id,
-					'name' => $name, 
-					'ip' => $ip,
-					'interface' => $ifce,
-					'upload' => $up,
-					'download' => $down,
-					'weight' => $weight,
-					'default' => $def,
-				});
-	}
-
-	return \@gateways;
+	return $self->printableValueRows();
 }
 
 sub gatewaysWithMac
@@ -287,20 +231,10 @@ sub gatewaysWithMac
 	my $gws = $self->gateways();
 
 	foreach my $gw (@{$gws}) {
-		
 		$gw->{'mac'} = _getRouterMac($gw->{'ip'});
 	}
 
 	return $gws;
-}
-
-sub deletedRowNotify()
-{
-	my ($self, $row) = @_;
-
-	my $network = EBox::Global->modInstance('network');
-	my $multigwRules = $network->multigwrulesModel();
-	$multigwRules->removeRulesUsingRouter($row->{'id'});
 }
 
 sub _getRouterMac

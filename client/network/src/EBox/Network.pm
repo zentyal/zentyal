@@ -18,7 +18,7 @@ package EBox::Network;
 use strict;
 use warnings;
 
-use base 'EBox::GConfModule';
+use base qw(EBox::GConfModule EBox::Model::ModelProvider);
 
 use constant DHCLIENT_CONF_FILE => '/etc/dhcp3/dhclient.conf';
 # Interfaces list which will be ignored
@@ -46,7 +46,7 @@ use EBox::Sudo qw( :all );
 use EBox::Gettext;
 #use EBox::LogAdmin qw( :all );
 use File::Basename;
-use EBox::Network::Model::GatewayDataTable;
+use EBox::Network::Model::GatewayTable;
 use EBox::Network::Model::MultiGwRulesDataTable;
 
 sub _create
@@ -57,7 +57,7 @@ sub _create
 					domain => 'ebox-network',
 					@_);
 	$self->{'actions'} = {};
-	$self->{'gatewayModel'} = new EBox::Network::Model::GatewayDataTable(
+	$self->{'gatewayModel'} = new EBox::Network::Model::GatewayTable(
 					'gconfmodule' => $self,
 					'directory' => 'gatewaytable',
 					);
@@ -70,6 +70,16 @@ sub _create
 	bless($self, $class);
 	
 	return $self;
+}
+
+# Method: models
+#
+#      Overrides <EBox::ModelImplementator::models>
+#
+sub models
+{
+	my ($self) = @_;
+	return [$self->{'gatewayModel'},  $self->{'multigwrulesModel'}];
 }
 
 # Method: IPAddressExists
@@ -2314,7 +2324,7 @@ sub menu
 	$folder->add(new EBox::Menu::Item('url' => 'Network/Diag',
 					  'text' => __('Diagnosis')));
 	$folder->add(new EBox::Menu::Item('url' => 
-						'Network/View/GatewayDataTable',
+						'Network/View/GatewayTable',
 					  'text' => __('Gateways')));
 	$folder->add(new EBox::Menu::Item('url' => 
 						'Network/View/MultiGwRulesDataTable',
