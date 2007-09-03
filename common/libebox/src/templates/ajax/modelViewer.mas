@@ -1,0 +1,256 @@
+<%flags>
+  inherit => undef
+</%flags>
+<%doc>
+  This template establishes the common things that every model viewer
+  will have
+  Parameters:
+     model - <EBox::Model::DataTable> the model to use its name
+     hasChanged - Boolean indicating whether the model has changed or not
+</%doc>
+<%args>
+  $model
+  $hasChanged
+</%args>
+<%init>
+  use EBox::Gettext;
+</%init>
+
+<& SELF:view,
+   model => $model,
+   hasChanged => $hasChanged
+&>
+
+
+<%doc>
+  Method: view
+
+     Prints the model viewer. This method must be called by every
+     component which inherits from this one.
+
+  Parameters:
+
+     model - <EBox::Model::DataTable> the model to view
+     hasChanged - Boolean indicating whether the model has changed or not
+
+</%doc>
+<%method view>
+<%args>
+  $model
+  $hasChanged
+</%args>
+<div id="<% $model->modelName() %>">
+  <& SELF:header,
+     model => $model
+   &>
+  <& SELF:body,
+     model      => $model
+  &>
+  <& SELF:changeMenu,
+     hasChanged => $hasChanged
+  &>
+</div>
+</%method>
+
+<%doc>
+  Method: header
+
+     Include everything that a model view should have
+
+  Parameters:
+  
+     model - <EBox::Model::DataTable> the model to view
+</%doc>
+<%method header>
+<%args>
+  $model
+</%args>
+<script type="text/javascript" src="/data/js/table-helper.js">
+  //
+</script>
+
+<!-- Element to hide the elements while Asynchronous request are -->
+<!-- working. Find more information at "table-helper.js" and -->
+<!-- "tableBody.mas" -->
+<div id="hiddenDiv" class="hidden"></div>
+
+<div class="help">
+  <% $model->help() %>
+</div>
+
+<div id='error_<% $model->modelName() %>'></div>
+</%method>
+
+<%doc>
+  Method: body
+
+     Set the model viewer body.
+
+  Parameters:
+  
+     model - <EBox::Model::DataTable> the model to view
+
+     
+</%doc>
+<%method body>
+<%args>
+  $model
+</%args>
+<%init>
+  # Get the content from the first called template
+  my @childArgs = $m->caller_args(2);
+</%init>
+<& SELF:_body,
+   model => $model,
+   @childArgs
+&>
+</%method>
+
+<%doc>
+  Method: title
+
+     Set the view title
+
+  Parameters:
+
+     title - String the title
+
+</%doc>
+<%method title>
+<%args>
+  $title
+</%args>
+<h3>
+  <%
+    $title | h
+  %>
+</h3>
+</%method>
+
+<%doc>
+  Method: editForm
+
+    Show the form to edit the fields from a row
+
+  Parameters:
+
+    modelName - String the model name
+    formData - array containing <EBox::Types::Abstract> which form the
+    table row
+
+</%doc>
+<%method editForm>
+<%args>
+  $modelName
+  @formData
+</%args>
+<table class="formTable">
+  <tbody>
+    <& SELF:editRowFields,
+       modelName => $modelName,
+       formData => \@formData
+    &>
+    <tr>
+      <td class="tright" 
+          id="applyChanges">
+      </td>
+      <& SELF:buttons &>
+    </tr>
+  </tbody>
+</table>
+</%method>
+
+<%doc>
+  Method: editRowFields
+
+    Show the form to edit the fields from a row
+
+  Parameters:
+
+    modelName - String the model name
+    formData - array containing <EBox::Types::Abstract> which form the
+    table row
+
+</%doc>
+<%method editRowFields>
+<%args>
+  $modelName
+  @formData
+</%args>
+% foreach my $type (grep { defined($_->HTMLSetter())} @formData) 
+% {
+<tr>
+  <td class='tright'>
+    <% $type->printableName() %>
+  </td>
+  <td>
+    <&
+      $type->HTMLSetter(),
+      'data' => $type,
+      'tableName' => "$modelName"
+    &>
+  </td>
+</tr>
+% }
+</%method>
+
+<%doc>
+  Method: buttons
+
+    Show the button to submit the form. It must be overriden. In order
+    to obtain the main arguments used $m->request_args()->{argName}.
+
+</%doc>
+<%method buttons>
+</%method>
+
+<%doc>
+  Method: changeMenu
+
+     Change the CSS class from the changes menu in order to advise the
+     user some changes have been made
+
+</%doc>
+<%method changeMenu>
+<%args>
+  $hasChanged
+</%args>
+<script>
+<%perl>
+my $className;
+if ($hasChanged) {
+  $className = 'changed';
+} else {
+  $className = 'notChanged';
+}
+</%perl>
+$('changes_menu').className = '<% $className %>';
+</script>
+</%method>
+
+<%doc>
+  Group: Protected methods
+</%doc>
+
+<%doc>
+  Method: _body
+
+     Set the body for the viewer indeed. This method must be
+     overridden by the subclasses in order to show the model content
+     in some way. 
+
+     The original parameters from the subclass template must appear as
+     well with their own default values.
+     (Protected method)
+
+  Parameters:
+
+     model - <EBox::Model::DataTable> the model to view
+ 
+     - Additional parameters, see above.
+
+</%doc>
+<%method _body>
+% # Default empty implementation
+% $m->call_next();
+</%method>

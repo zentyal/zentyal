@@ -1,0 +1,25 @@
+<%args>
+$tableName
+$data
+$cssClass => ''
+</%args>
+<%init>
+my @options;
+for my $mask (32, 30, 29, 28, 27, 26, 25, 24, 16, 8) {
+	push (@options, {'value' => $mask, 'printableValue' => $mask});
+}
+
+</%init>
+% my $id = $tableName . '_' . $data->fieldName();
+<span id="<% $id %>" class="<% $cssClass %>">
+  <input type="text" class="inputText" value="<% $data->ip() %>"
+	size="16" id='<% $id . '_ip' %>' name='<% $id . '_ip' %>' />
+  <span>/</span>
+
+  <& /input/select.mas,  
+    'name'  => $id . '_ip' , 
+    'value' => $data->mask(), options => \@options,
+    'id'    => "$id" . "_mask",
+  &>
+</span>
+

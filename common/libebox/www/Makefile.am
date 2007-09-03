@@ -8,6 +8,7 @@ nobase_www_DATA = images/delete.gif images/show.gif \
   images/sep.gif images/apply.gif images/warning.gif images/right.gif \
   images/error.gif images/msg.gif js/csshover.htc js/common.js \
   js/help.js js/table-helper.js js/prototype.js \
+  js/tabMenu.js \
   images/key-point_bl.gif images/key-point_tl.gif \
   images/menu_back.gif images/menu_br.gif images/menu_tr.gif \
   images/edit.gif images/view.gif images/r_arrow.gif images/cmenu.gif \
@@ -18,7 +19,8 @@ nobase_www_DATA = images/delete.gif images/show.gif \
   images/bkgwhite.png images/ff.gif images/rw.gif images/r.gif \
   images/f.gif images/install.gif images/title-login.png \
   images/remove.gif images/requeue.gif images/writecd.gif \
-  images/reload.gif images/ajax-loader.gif
+  images/reload.gif images/ajax-loader.gif images/edit-table.gif\
+  images/search.gif
 
 EXTRA_DIST = $(nobase_www_DATA)
 

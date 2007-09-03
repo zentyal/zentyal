@@ -1,4 +1,4 @@
-AC_INIT([libeBox], [0.9.99])
+AC_INIT([libeBox], [0.9.100])
 		   
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox.pm])
@@ -110,6 +110,8 @@ src/templates/input/Makefile
 src/templates/input/t/Makefile
 src/templates/ebox/Makefile
 src/templates/ajax/Makefile
+src/templates/ajax/viewer/Makefile
+src/templates/ajax/setter/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile
 src/EBox/interactiveTests/Makefile

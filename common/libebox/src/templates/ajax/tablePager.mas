@@ -1,0 +1,78 @@
+<%args>
+	$model
+	$page
+	$tpages
+	$pageSize
+</%args>
+<%init>
+    use EBox::Gettext;
+    my $tableName = $model->table()->{'tableName'};
+    my @sizeOptions;
+    foreach my $size ((10, 15, 20, 30, 50, 100, 200, 500)) {
+        push (@sizeOptions, {
+                            'value' => $size,
+                            'printableValue' => $size 
+                        });
+    }
+</%init>
+.
+<table width="100%">
+    <tr>
+    <td style="widht: 5%">
+
+%   if ($page != 0) {
+%	my $leftPagerId = $tableName . '_leftPagerId';
+        <input name='tofirst' type='image'
+            src='/data/images/rw.gif' alt="<% __('first') %>" value="<% __('first') %>"
+	    onClick='setLoading("<% $leftPagerId %>");<% $model->changeViewJS("changeList", "undefined", 0) %>; return false'>
+	<input name='toprev' type='image' src="/data/images/r.gif" alt="<% __('prev') %>" value="<% __('prev') %>"
+	    onClick='setLoading("<% $leftPagerId %>");<% $model->changeViewJS("changeList", "undefined", $page - 1) %>; return false'>
+    	<span id="<% $leftPagerId %>"></span> 	
+%   }
+
+    </td>
+
+    <td style="width:90%; text-align: center;">
+%   if ($tpages <= 0) {
+        <% __('Page') %> <% $page + 1 %>
+%   } else {
+        <% __('Page') %> <% $page + 1 %> <% __('of') %> <%$tpages + 1%>
+%   }
+%   my $pageSizeId = $tableName . '_pageSizeId';	
+%   my $changeViewJS =  $model->changeViewJS("changeList", "undefined", 0);
+  <& /input/select.mas,
+       'name'        => $tableName . '_pageSize',
+       'value'       => $pageSize,
+       'options'     => \@sizeOptions,
+       'id'          => $tableName . '_pageSize',
+       'onchange'    => qq{setLoading("$pageSizeId"); $changeViewJS;return false}
+  &>
+
+     <span id="<% $pageSizeId %>"></span> 	
+     
+
+    </td>
+
+    <td class='tright' style="widht: 5%">
+
+%   if ($page != $tpages) {
+
+%	my $rightPagerId = $tableName . '_rightPagerId';
+     	<span id="<% $rightPagerId %>"></span> 	
+        <input name='tonext' type='image'
+            src="/data/images/f.gif"
+            alt="<% __('next') %>"
+            value="<% __('next') %>"
+            onClick='setLoading("<% $rightPagerId %>");<% $model->changeViewJS("changeList", "undefined", $page + 1) %>; return false'>
+        <input name='tolast' type='image'
+            src="/data/images/ff.gif"
+            alt="<% __('last') %>"
+            value="<% __('last') %>"
+	    onClick='setLoading("<% $rightPagerId %>"); <% $model->changeViewJS("changeList", "undefined", $tpages) %>;return false'>
+%   }
+
+    </td>
+    </tr>
+</table>
+
+

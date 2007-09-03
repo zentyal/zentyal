@@ -1,0 +1,18 @@
+<%args>
+$tableName
+$data
+$cssClass => ''
+</%args>
+% my $id = $tableName . '_' . $data->fieldName();
+
+<& /input/select.mas,
+   'name'    => "$id" ,
+   'value'   => $data->value(),
+   'options' => $data->options(),
+   'id'      => "$id",
+   'class'   => "$cssClass",
+&>
+<% $data->trailingText() %>
+
+
+

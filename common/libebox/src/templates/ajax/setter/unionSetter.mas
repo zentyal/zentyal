@@ -1,0 +1,48 @@
+<%args>
+$tableName
+$data
+$cssClass => ''
+</%args>
+<%init>
+my $id = $tableName . '_' . $data->fieldName() . '_selected';
+my @options;
+foreach my $type (@{$data->subtypes()}) {
+	push (@options, {
+						'value' => $type->fieldName(),
+						'printableValue' => $type->printableName()
+					});
+}
+</%init>
+<span class='<% $cssClass %>'>
+  <& /input/select.mas,
+       'name'        => "$id" ,
+       'value'       => $data->selectedType(),
+       'options'     => \@options,
+       'id'          => "$id",
+       'onchange'    => qq{showSelected("$id","selectValues_$id", "$tableName");}
+  &>
+  <span id="selectValues_<% $id %>">
+<%perl>
+  if ( not defined ( $data->selectedType() )) {
+      # If there's no selected data, set one
+      $data->setSelectedType($data->subtypes()->[0]->fieldName());
+  }
+  foreach my $type (@{$data->{'subtypes'}})
+  {
+      my $cssClass = '';
+      if ( $type->fieldName() ne $data->selectedType() ) {
+          $cssClass = 'hidden';
+      }
+      if ( defined ( $type->HTMLSetter() ))
+      {
+</%perl>
+      <& $type->HTMLSetter(),
+          'data' => $type,
+          'tableName' => $tableName,
+          'cssClass' => $cssClass
+      &>
+%     }
+% }
+    </span>
+</span>
+

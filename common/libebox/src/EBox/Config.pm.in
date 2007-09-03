@@ -144,10 +144,31 @@ sub passwd
 	return $ref->{localstatedir} . "lib/ebox/conf/ebox.passwd";
 }
 
-sub sessionid 
-{
-	return $ref->{localstatedir} . "lib/ebox/conf/ebox.sid";
-}
+# Method: sessionid
+#
+#      Get the path where Web session identifier is stored
+#
+# Returns:
+#
+#      String - the path to that file
+
+sub sessionid
+  {
+    return $ref->{localstatedir} . 'lib/ebox/conf/ebox.sid';
+  }
+
+# Method: soapSession
+#
+#      Get the path where the SOAP session identifier is stored
+#
+# Returns:
+#
+#      String - the path to that file
+#
+sub soapSession
+  {
+    return $ref->{localstatedir} . 'lib/ebox/conf/ebox.soap-sid';
+  }
 
 sub log 
 {
@@ -208,5 +229,21 @@ sub lang
 {
 	return $ref->{lang};
 }
+
+# Method: perlPath
+#
+#      Get the PERL path where the perl modules lying on (Static
+#      method).
+#
+# Returns:
+#
+#      String - the perl path
+#
+sub perlPath
+  {
+
+      return $ref->{perlpath};
+
+  }
 
 1;

@@ -1,0 +1,77 @@
+<%doc>
+  This template creates a tab selector which contains models which are
+  displayed selecting the corresponding tab. The selection and load is
+  done with JavaScript and AJAX requests.
+  A parameter is needed:
+  - models - array ref with hash refs with the following content:
+             modelInstance - the model instance
+             directory - the GConf directory where the model data is stored
+  - selectedTab - Integer the index for the selected tab. Default value: 0
+  TODO: s/tableName/modelName/g
+</%doc>
+<%args>
+  $models      => []
+  $selectedTab => 0
+</%args>
+<%init>
+use EBox::Gettext;
+use EBox::Global;
+use EBox;
+
+  my $gl = EBox::Global->getInstance();
+  my $hasChanged = $gl->unsaved();
+  my $defaultModel = ${$models}[$selectedTab]->{modelInstance};
+  my $gconfDir =  ${$models}[$selectedTab]->{directory};
+  $gconfDir =~ s:/keys$::;
+  $defaultModel->setDirectory($gconfDir);
+
+</%init>
+<script type="text/javascript" src="/data/js/prototype.js">//</script>
+<script type="text/javascript" src="/data/js/table-helper.js">//</script>
+<script type="text/javascript" src="/data/js/tabMenu.js">//</script>
+<script type="text/javascript">
+  // Where the required attributes from model will be stored
+  var modelAttrs = new Object();
+<%perl>
+  # Store the action under a hash using [] operator from Object JS
+  for ( my $idx = 0; $idx < scalar(@{$models}); $idx++) {
+      my $modelElement = ${$models}[$idx];
+      my $instance = $modelElement->{modelInstance};
+</%perl>
+  modelAttrs['<% $instance->tableName() . "_$idx" %>'] = new Object();
+  modelAttrs['<% $instance->tableName() . "_$idx" %>'].action = '<% $instance->action('changeView') %>';
+  modelAttrs['<% $instance->tableName() . "_$idx" %>'].directory = '<% $modelElement->{directory} %>';
+% }
+  Event.observe(window, 'load',function(){ new EBox.Tabs('tabMenu', modelAttrs); },false);
+</script>
+<ul id="tabMenu" class="tabs">
+<%perl>
+  for ( my $idx = 0; $idx < scalar(@{$models}); $idx++) {
+      my $modelElement = ${$models}[$idx];
+      my $model = $modelElement->{modelInstance};
+</%perl>
+  <li>
+    <a id="<% $model->tableName() . "_$idx" %>"
+         href="#<% $model->tableName() %>"
+%     # Set the CSS class
+%     if ( $idx == $selectedTab ) {
+         class="selected"
+%     }
+         onclick="return false;">
+       <% $model->printableModelName() %>
+    </a>
+  </li>
+% }
+</ul>
+  <!-- The error will lay on here -->
+<div id="errorTabData">
+</div>
+  <!-- The content will lay on here -->
+<div id="tabData">
+  <!-- The default model is shown -->
+  <& $defaultModel->Viewer(),
+     model => $defaultModel,
+     hasChanged => $hasChanged
+  &>
+</div>
+

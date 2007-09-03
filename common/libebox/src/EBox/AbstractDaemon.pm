@@ -30,6 +30,20 @@ use warnings;
 
 use constant PIDPATH => EBox::Config::tmp . '/pids/';
 
+# Constructor: new
+#
+#        Create a new <EBox::AbstractDaemon> to work with
+#
+# Parameters:
+#
+#        name - String daemon's name (it should unique)
+#
+#        - Named parameters
+#
+# Returns:
+#
+#        <EBox::AbstractDaemon> - the newly created object instance
+#
 sub new 
 {
         my $class = shift;
@@ -40,7 +54,12 @@ sub new
         return $self;
 }
 
-
+# Method: init
+#
+#      Spawn the daemon. Clossing the first 64 file descriptors apart
+#      from standard input/output/error and writes the pid on a file
+#      under <EBox::Config::tmp> pids subdirectory.
+#
 sub init {
 	my $self =  shift;
 	my ($pid);
@@ -60,17 +79,18 @@ sub init {
     	open(STDOUT, "+>/tmp/stdout");
    	open(STDERR, "+>/tmp/stderr");
 
-	
 	unless (-d PIDPATH) {
 		mkdir PIDPATH;
 	}
-	unless (open(FD ,  '>' . PIDPATH . $self->{'name'} . '.pid')) {
+
+        my $FD;
+	unless (open($FD ,  '>' . PIDPATH . $self->{'name'} . '.pid')) {
 		EBox::debug ('Cannot save pid');
 		exit 1;
 	}
-	
-	print FD "$$";
-	close FD;
+
+	print $FD "$$";
+	close $FD;
 }
 
 1;

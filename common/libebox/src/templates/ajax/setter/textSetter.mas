@@ -1,0 +1,16 @@
+<%args>
+$tableName
+$data
+$cssClass => ''
+</%args>
+% my $id = $tableName . '_' . $data->fieldName();
+
+%	if ($data->editable()) {
+					<input type="text" class="inputText <% $cssClass %>" value="<% $data->printableValue() %>"
+						size="<% $data->size() %>" id='<% $id %>' name='<% $id %>' /> 
+						<% $data->trailingText() %>
+%	} else {
+					<input type="hidden"  value="<% $data->value() %>" id='<% $id %>' name='<% $id %>' /> 
+					<% $data->printableValue() %>
+					<% $data->trailingText() %>
+%}

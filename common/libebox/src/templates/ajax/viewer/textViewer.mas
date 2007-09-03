@@ -1,0 +1,10 @@
+<%args>
+$data
+</%args>
+% if ( defined ( $data->printableValue() )) {
+<span><% $data->printableValue() %></span>
+ <%$data->trailingText() %>
+% }
+% else {
+<span>--</span>
+% }

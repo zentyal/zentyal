@@ -1,0 +1,14 @@
+<%args>
+$tableName
+$data
+$cssClass => ''
+</%args>
+% my $id = $tableName . '_' . $data->fieldName();
+
+<& /input/checkbox.mas,
+    'name'  => "$id",
+    'value' => $data->printableValue(),
+    'id'    => "$id",
+    'class' => "$cssClass",
+&>
+<% $data->trailingText() %>

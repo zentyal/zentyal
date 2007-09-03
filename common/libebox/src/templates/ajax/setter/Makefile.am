@@ -6,11 +6,12 @@
 # Makefile configuration - processed by automake.
 #
 
-SUBDIRS = setter viewer
-
-templatedir = $(datadir)/ebox/templates/ajax
-template_DATA = form.mas modelViewer.mas tableHeader.mas tableBody.mas \
-		tableSelector.mas tabMenu.mas tablePager.mas
+templatedir = $(datadir)/ebox/templates/ajax/setter
+template_DATA = booleanSetter.mas ipaddrSetter.mas textSetter.mas \
+		hasManySetter.mas portRangeSetter.mas unionSetter.mas \
+		inverseMatchSelectSetter.mas selectSetter.mas \
+		inverseMatchUnionSetter.mas serviceSetter.mas \
+		passwordSetter.mas
 
 EXTRA_DIST = $(template_DATA)
 

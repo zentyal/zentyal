@@ -1,0 +1,9 @@
+<%args>
+$data
+</%args>
+%   if ( (defined ( $data->printableValue())) and
+%        ($data->printableValue() == 1)) {
+		<img src="/data/images/apply.gif" alt="yes"/>
+%   } else {
+		<img src="/data/images/deny-active.gif" alt="no"/>
+%   }

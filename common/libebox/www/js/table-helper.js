@@ -11,12 +11,16 @@ function cleanError(table)
 function addNewRow(url, table, fields, directory)
 {
 	var pars = 'action=add&tablename=' + table + '&directory=' + directory + '&';
+
+  	pars += '&filter=' + inputValue(table + '_filter');
+  	pars += '&pageSize=' + inputValue(table + '_pageSize');
 	
 	cleanError(table);
 
 	for (var i = 0; i < fields.length; i++) {
 		var field = fields[i];
-		var value = $F(table + '_' + field);
+		//var value = $F(table + '_' + field);
+		var value = inputValue(table + '_' + field);
 		if (value) {
 		  if (pars.length != 0) {
 				pars += '&';
@@ -48,16 +52,24 @@ function addNewRow(url, table, fields, directory)
 
 }
 
-function changeRow(url, table, fields, directory, id)
+function changeRow(url, table, fields, directory, id, page)
 {
-	var pars = 'action=edit&tablename=' + table + '&directory=' + directory + '&id=' + id + '&';
-	
+	var pars = 'action=edit&tablename=' + table + '&directory='
+                   + directory + '&id=' + id + '&';
+	if ( page != undefined ) {
+	   pars += '&page=' + page;
+	 }
+        if ( page != undefined ) {
+          pars += '&page=' + page;
+        }
+  	pars += '&filter=' + inputValue(table + '_filter');
+  	pars += '&pageSize=' + inputValue(table + '_pageSize');
 
 	cleanError(table);
 	
 	for (var i = 0; i < fields.length; i++) {
 		var field = fields[i];
-		var value = $F(table + '_' + field);
+		var value = inputValue(table + '_' + field);
 		if (value) {
 			if (pars.length != 0) {
 				pars += '&';
@@ -108,14 +120,19 @@ Parameters:
 
 */
 
-function actionClicked(url, table, action, rowId, paramsAction, directory) {
+function actionClicked(url, table, action, rowId, paramsAction, directory, page) {
 
   var pars = '&action=' + action + '&id=' + rowId;
 
   if ( paramsAction != '' ) {
     pars += '&' + paramsAction;
   }
+  if ( page != undefined ) {
+    pars += '&page=' + page;
+  }
 
+  pars += '&filter=' + inputValue(table + '_filter');
+  pars += '&pageSize=' + inputValue(table + '_pageSize');
   pars += '&directory=' + directory + '&tablename=' + table;
 
   cleanError(table);
@@ -148,10 +165,14 @@ function actionClicked(url, table, action, rowId, paramsAction, directory) {
 
 }
 
-function changeView(url, table, directory, action, id)
+function changeView(url, table, directory, action, id, page)
 {
 	var pars = 'action=' + action + '&tablename=' + table + '&directory=' + directory + '&editid=' + id;
 	
+	pars += '&filter=' + inputValue(table + '_filter');
+  	pars += '&pageSize=' + inputValue(table + '_pageSize');
+	pars += '&page=' + page;
+
 	cleanError(table);
 	
 	var MyAjax = new Ajax.Updater(
@@ -167,7 +188,9 @@ function changeView(url, table, directory, action, id)
 			evalScripts: true,
 			onComplete: function(t) { 
 			  // Highlight the element
-			  highlightRow(id, true);
+              if (id != undefined) {
+			    highlightRow(id, true);
+              }
 			  // Stripe again the table
 			  stripe('dataTable', '#ecf5da', '#ffffff');
 			  if ( action == 'changeEdit' ) {
@@ -213,13 +236,19 @@ Parameters:
 	errorId - div identifier
         url - the URL where the CGI which generates the HTML is placed
 	formId - form identifier which has the parameters to pass to the CGI
+        loadingId - String element identifier that it will substitute by the loading image
+        *(Optional)* Default: 'loadingTable'
 
 */
-function hangTable(successId, errorId, url, formId)
+function hangTable(successId, errorId, url, formId, loadingId)
 {
 
   // Cleaning manually
   $(errorId).innerHTML = "";
+
+  if ( ! loadingId ) {
+    loadingId = 'loadingTable';
+  }
 
   var ajaxUpdate = new Ajax.Updater( 
   {
@@ -232,12 +261,12 @@ function hangTable(successId, errorId, url, formId)
 	parameters: Form.serialize(formId, true), // The parameters are taken from the form
 	asynchronous: true,
 	onComplete: function(t) {
-	  restoreHidden('loadingTable');
+	  restoreHidden(loadingId);
 	}
       }
   );
  
-  setLoading('loadingTable');
+  setLoading(loadingId);
  
 }
 
@@ -314,6 +343,46 @@ function showPort(protocolSelectId, portId, protocols)
 
 }
 
+/* TODO: showPortRange and showPort do things in common
+	 like showing/hiding elments depending on which value
+	 is selected elsewhere. We should refactor this
+	 and provide a generic function to do that. Logic should
+	 come from model and translated in javascript.
+/*
+Function: showPortRange
+
+    Show/Hide elements in PortRange view
+
+Parameters:
+
+    id - the select identifier which the protocol is chosen
+
+*/
+function showPortRange(id)
+{
+
+  var selectId = id + "_range_type";
+  var selectedIdx = $(selectId).selectedIndex;
+  var selectedValue = $(selectId).options[selectedIdx].value;
+
+  if ( selectedValue == "range") {
+    show(id + "_range");
+    hide(id + "_single");
+    $(id + "_single_port").value = "";
+  } else if (selectedValue == "single") {
+    hide(id + "_range");
+    show(id + "_single");
+    $(id + "_to_port").value = "";
+    $(id + "_from_port").value = "";
+  } else {
+    hide(id + "_range");
+    hide(id + "_single");
+    $(id + "_to_port").value = "";
+    $(id + "_from_port").value = "";
+    $(id + "_single_port").value = "";
+  }
+}
+
 /*
 Function: setLoading
 
@@ -352,7 +421,17 @@ Parameters:
 function restoreHidden (elementId)
 {
 
-  $(elementId).innerHTML = $('hiddenDiv').innerHTML;
+  if ( $('hiddenDiv').innerHTML != '' ) {
+    $(elementId).innerHTML = $('hiddenDiv').innerHTML;
+  }
+
+  // Remove the loading image if any
+  if ( $(elementId).firstChild ) {
+    if ( $(elementId).firstChild.alt == 'loading...' ) {
+      $(elementId).innerHTML = '';
+    }
+  }
+
   $('hiddenDiv').innerHTML = '';
 
 }
@@ -413,3 +492,27 @@ function highlightRow(elementId, enable)
   }
 
 }
+
+/*
+Function: inputValue
+
+	Use $F() to return an input value. It firstly checks
+	using $() if the id exits
+
+Parameters:
+
+	elementId - the input element to fetch the value from
+
+Returns:
+
+	input value if it exits, otherwise empty string
+*/
+function inputValue(elementId) {
+
+	if ($(elementId)) {
+		return $F(elementId);
+	} else {
+		return '';
+	}
+}
+

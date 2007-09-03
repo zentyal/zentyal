@@ -1,0 +1,37 @@
+<%args>
+$tableName
+$data
+$cssClass => ''
+</%args>
+<%init>
+my $id = $tableName . '_' . $data->fieldName();
+my $typeSelected = $data->rangeType();
+</%init>
+
+<span id="<% $id %>" class="<% $cssClass %>">
+	<& /input/select.mas,
+			'name'     => $id . '_range_type' ,
+			'value'    => $data->rangeType(),
+			'options'  => $data->rangeTypes(),
+			'id'       => "$id" . "_range_type",
+                        'onchange' => qq{showPortRange("$id");}
+	&>
+	<span id="<% $id . '_range' %>" class="<% ($typeSelected eq 'range') ? '' : 'hidden' %>">
+	  <%__('From')%>
+	  <input type="text" class="inputText"
+		 value="<% $data->from() %>"
+		 size="5" id ="<% $id . '_from_port' %>"
+		 name='<% $id . '_from_port' %>' />
+	  <%__('To')%>
+	  <input type="text" class="inputText"
+		 value="<% $data->to() %>"
+		 size="5" id ="<% $id . '_to_port' %>"
+		 name='<% $id . '_to_port' %>' />
+	</span>
+	<span id="<% $id . '_single' %>" class="<% ($typeSelected eq 'single') ? '' : 'hidden' %>">
+	  <input type="text" class="inputText"
+		 value="<% $data->single() %>"
+		 size="5" id ="<% $id . '_single_port' %>"
+		 name='<% $id . '_single_port' %>' />
+	</span>
+</span>

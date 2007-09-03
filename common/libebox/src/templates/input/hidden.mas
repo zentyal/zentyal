@@ -1,6 +1,10 @@
 <%init> 
 if (! $ARGS{name})   { 
     $m->abort('A name parameter is required');
-} 
+}
 </%init>
-<input type='hidden' <& /htmlAttributes.mas, %ARGS &> />
+<input type='hidden'
+    <& /htmlAttributes.mas,
+       %ARGS
+    &>
+/>

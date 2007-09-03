@@ -817,5 +817,53 @@ sub upload
   return $filename;
 }
 
+# Method: setMenuNamespace
+#
+# 	Set the menu namespace to help the menu code to find out
+# 	within which namespace this cgi is running.
+#
+# 	Note that, this is useful only if you are using base CGIs
+# 	in modules different to ebox base. If you do not use this,
+# 	the namespace used will be the one the base cgi belongs to.
+#
+# Parameters:
+# 
+# 	(POSITIONAL)
+# 	namespace - string represeting the namespace in URL format. Example:
+# 			"EBox/Network"
+#
+sub setMenuNamespace
+{
+	my ($self, $namespace) = @_;
+	
+	$self->{'menuNamespace'} = $namespace;
+
+}
+
+# Method: menuNamespace
+#
+# 	Return menu namespace to help the menu code to find out
+# 	within which namespace this cgi is running.
+#
+# 	Note that, this is useful only if you are using base CGIs
+# 	in modules different to ebox base. If you do not use this,
+# 	the namespace used will be the one the base cgi belongs to.
+#
+# Returns:
+#
+# 	namespace - string represeting the namespace in URL format. Example:
+# 			"EBox/Network"
+#
+sub menuNamespace
+{
+	my ($self) = @_;
+	
+	if (exists $self->{'menuNamespace'}) {
+		return $self->{'menuNamespace'};
+	} else {
+		return $self->{'url'};
+	}
+
+}
 
 1;

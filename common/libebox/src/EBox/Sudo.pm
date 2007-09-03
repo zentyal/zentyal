@@ -64,7 +64,10 @@ Readonly::Scalar my  $TEST_PATH   => '/usr/bin/test';
 #
 # Exceptions:
 #
-#       Internal  - If command fails
+#       <EBox::Exceptions::Internal> - If command fails to run or it
+#       was signaled
+#       <EBox::Exceptions::Command> - If command returns
+#       something different than zero and it was not signaled
 #
 # Returns:
 # 	array ref - Returns the output of the command in an array
@@ -121,7 +124,12 @@ sub _commandError
 #
 # Exceptions:
 #
-#       Internal  - If command fails
+#       <EBox::Exceptions::Sudo::Wrapper> - If command cannot be
+#       executed or it was signalled
+#
+#       <EBox::Exceptions::Sudo::Command> - If the command fails
+#       (returning something different than zero) and it was not
+#       signalled
 #
 # Returns:
 # 	array ref - Returns the output of the command in an array

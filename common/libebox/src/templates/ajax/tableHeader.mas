@@ -2,6 +2,8 @@
 	@data
 	$dataTable
 	$hasChanged
+	$tpages => 0
+	$model
 </%args>
 <%init>
 use EBox::Gettext;
@@ -26,6 +28,9 @@ my @tableHead = @{$dataTable->{'tableDescription'}};
 		<& /ajax/tableBody.mas, 
 						'data' => \@data,
 						'dataTable' => $dataTable,
-						'hasChanged' => $hasChanged &>
+						'model' => $model,
+						'hasChanged' => $hasChanged,
+						'tpages' => $tpages
+						&>
 
 	</div>
