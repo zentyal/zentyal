@@ -18,9 +18,18 @@
 #	Fix the method naming, some names such as
 #	setMemValue and memValue are so broken!!!
 #
+
+# Class: EBox::Types::Abstract
+#
+#      It is the parent type where the remainder types overrides from.
+#
+
 package EBox::Types::Abstract;
+
 use strict;
 use warnings;
+
+# Group: Public methods
 
 sub new
 {
@@ -29,6 +38,7 @@ sub new
 	my $self = {@_};
 
         bless($self, $class);
+
         return $self;
 }
 
@@ -48,6 +58,27 @@ sub class
 	return $self->{'class'};
 }
 
+# Method: volatile
+#
+#     A type is volatile when its value or printable value is
+#     calculated in runtime. This value is obtained from the
+#     <EBox::Types::Abstract::filter> method. Thus if this attribute
+#     is set, the filter attribute should be defined, otherwise an
+#     identity will be applied
+#
+# Returns:
+#
+#     boolean - whether the type is volatile or not
+#
+sub volatile
+  {
+
+      my ($self) = @_;
+
+      return $self->{volatile};
+
+  }
+
 sub unique
 {
 	my ($self) = @_;
@@ -55,11 +86,25 @@ sub unique
 	return $self->{'unique'};
 }
 
+# Method: editable
+#
+#      A type is editable when it is possible to change its value by
+#      the user. If the type is volatile, the type cannot be editable.
+#
+# Returns:
+#
+#      boolean - showing whether the type is editable or not
+#
 sub editable
 {
 	my ($self) = @_;
 
-	return $self->{'editable'};
+        if ( $self->volatile() ) {
+            return 0;
+        } else {
+            return $self->{'editable'};
+        }
+
 }
 
 sub fieldName
@@ -103,7 +148,7 @@ sub filter
 
 	my $filterFunc = $self->{'filter'};
 	if ($filterFunc) {
-		return (&$filterFunc($self->{'value'}));
+		return (&$filterFunc($self));
 	} else {
 		return $self->{'value'};
 	}
@@ -153,23 +198,67 @@ sub paramExist
 
 }
 
-sub paramIsValid
-{
 
-}
-
+# Method: storeInGConf
+#
+#      Store the given type in a GConf directory from a
+#      GConfModule. If the type is volatile, nothing will be done.
+#
+# Parameters:
+#
+#      gconfmodule - <EBox::GConfModule> the module which is in charge
+#      to store the type in GConf
+#
+#      directory - String the directory where the type will be stored
+#      from
+#
 sub storeInGConf
-{
+  {
+      my ($self, @params) = @_;
 
-}
+      unless ( $self->volatile() ) {
+          $self->_storeInGConf(@params);
+      }
+
+  }
 
 sub restoreFromGconf
 {
 
 }
 
+# Method: setMemValue
+#
+#      Set the memory value for the type. If the type is volatile, no
+#      value is set
+#
+# Parameters:
+#
+#      params - hash ref with the fields to fill the type with its
+#      appropiate values
+#
 sub setMemValue
 {
+
+    my ($self, $params) = @_;
+
+    # Set the memory value only if persistent kind of type
+    unless ( $self->volatile() ) {
+        # Check if the parameters hasn't had an empty value
+        if ( $self->_paramIsSet($params) ) {
+            # Check if the parameter is valid
+            $self->_paramIsValid($params);
+            # Set finally the value
+            $self->_setMemValue($params);
+        } else {
+            if ( $self->optional() ) {
+                # Nothing to set in the type
+                return;
+            } else {
+                throw EBox::Exceptions::MissingArgument( $self->printableName() );
+            }
+        }
+    }
 
 }
 
@@ -183,14 +272,253 @@ sub compareToHash
 
 }
 
+# Method: restoreFromHash
+#
+#      Restore the value from a hash.
+#
+#      If the type is volatile, the memory value will be set from the
+#      <EBox::Types::Abstract::wangler>. If the function is empty, a
+#      function which returns '' will be used.
+#
+# Parameters:
+#
+#      hash - hash ref which contains the data to fill the type value
+#
+#
+sub restoreFromHash
+  {
+
+      my ($self, $hashRef) = @_;
+
+      if ( $self->volatile() ) {
+          my $volatileFunc = $self->{acquirer};
+          $volatileFunc = \&_identity unless defined ( $volatileFunc );
+          $self->{value} = &$volatileFunc($self);
+      } else {
+          $self->_restoreFromHash($hashRef);
+      }
+
+  }
+
+# Method: acquirer
+#
+#      Get the function which obtains the value from somewhere instead
+#      of GConf. This method is useful for volatile instances of
+#      types.
+#
+# Parameters:
+#
+#      hash - hash ref which contains the row from a data table. This
+#      information should be sufficient to set the value for that
+#      instance
+#
+# Returns:
+#
+#      function - the pointer to that function
+#
+sub acquirer
+  {
+
+      my ($self) = @_;
+
+      return $self->{acquirer};
+
+  }
+
 sub isEqualTo
 {
 
 }
 
+# Method: row
+#
+#   Return the row to which this data belongs
+#
+# Returns:
+#
+#   row - hash ref containting a row
+sub row
+{
+	my ($self) =  @_;
+	return $self->{'row'};
+}
+
+# Method: setRow
+#
+#   Set the row identifier to which this data belongs
+#
+# Parameters:
+#
+#   (POSITIONAL)
+#
+#   row - hash ref of a row
+sub setRow
+{
+	my ($self, $row) = @_;
+	$self->{'row'} = $row;
+}
+
+# Method: setModel
+#
+#   Set the model to which this data belongs
+#
+# Parameters:
+#
+#   (POSITIONAL)
+#
+#   model -  an object of type <EBox::Model::DataTable>
+sub setModel
+{
+	my ($self, $id) = @_;
+	$self->{'model'} = $id;
+}
+
+# Method: model
+#
+#   Return the model to which this data belongs
+#
+# Returns:
+#
+#   model -  an object of type <EBox::Model::DataTable>
+sub model
+{
+	my ($self) =  @_;
+	return $self->{'model'};
+}
+
 sub HTMLSetter
 {
+    my ($self) = @_;
 
+    return undef unless (exists $self->{'HTMLSetter'});
+    return $self->{'HTMLSetter'};
 }
+
+sub HTMLViewer
+{
+    my ($self) = @_;
+
+EBox::debug($self->fieldName());
+    return undef unless (exists $self->{'HTMLViewer'});
+    return $self->{'HTMLViewer'};
+}
+
+# Group: Protected methods
+
+# Method: _setMemValue
+#
+#       Set the memory value for the type. It is assured that this
+#       method will be called if only there is something to fill the
+#       type and its content is valid. This method should be
+#       overridden from non volatile types.
+#
+# Parameters:
+#
+#       params - hash ref with the fields to fill the type with its
+#       appropiate values
+sub _setMemValue
+  {
+
+  }
+
+# Method: _storeInGConf
+#
+#      Store the given type in a GConf directory from a
+#      GConfModule. The expected behaviour is if it has no value to
+#      store, remove any previous data stored.
+#
+#      This method should be overridden from non volatile types.
+#
+# Parameters:
+#
+#      gconfmodule - <EBox::GConfModule> the module which is in charge
+#      to store the type in GConf
+#
+#      directory - String the directory where the type will be stored
+#      from
+#
+sub _storeInGConf
+  {
+
+  }
+
+
+# Method: _restoreFromHash
+#
+#      Restore the type value from a hash reference. This method should be
+#      overridden from non volatile types.
+#
+# Parameters:
+#
+#      hash - hash ref which has all the information required to set
+#      the value from this type
+#
+sub _restoreFromHash
+  {
+
+  }
+
+# Method: _paramIsValid
+#
+#      Check the correctness from the parameters passed. It assures
+#      that it is something to be checked.
+#
+#      It should launch an exception when the parameter is not valid,
+#      It should be overridden by the subclasses.
+#
+# Parameters:
+#
+#      params - hash ref which has all the information required to
+#      check its correctness
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::InvalidData> - thrown if the parameters passed
+#      does not contain a valid data for this type
+#
+sub _paramIsValid
+  {
+
+  }
+
+# Method: _paramIsSet
+#
+#      Check if the given parameters contain the data needed to fill
+#      the type, i.e. it exists and it is not empty. It should be
+#      overridden by the subclasses
+#
+# Parameters:
+#
+#      params - hash ref which has all the information required to
+#      check its emptyness
+#
+# Returns:
+#
+#      boolean - indicating if the parameters does not contain enough
+#      data to fill the type
+#
+sub _paramIsSet
+  {
+
+      return 0;
+
+  }
+
+# Group: Private functions
+
+# Function: _identity
+#
+#      Identity function in order to set the value from hash ref
+#
+# Parameters:
+#
+#      instancedType - <EBox::Types::Abstract>
+#
+sub _identity
+  {
+
+      return '';
+
+  }
 
 1;

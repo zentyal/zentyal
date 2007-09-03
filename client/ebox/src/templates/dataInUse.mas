@@ -10,6 +10,7 @@ my $table = delete $params->{'tablename'};
 my $action = delete $params->{'action'};
 my $directory = delete $params->{'directory'};
 my $rowId = delete $params->{'id'};
+my $page = delete $params->{'page'};
 </%init>
 
 
@@ -19,7 +20,7 @@ my $rowId = delete $params->{'id'};
 
 <input class='inputButton' type='submit' name='change'
 	value="Change" title="Change"
-	onClick="actionClicked('<% $url %>', '<% $table %>', '<% $action %>', '<% $rowId %>', 'force=1', '<% $directory %>'); return false"/>
+	onClick="actionClicked('<% $url %>', '<% $table %>', '<% $action %>', '<% $rowId %>', 'force=1', '<% $directory %>', '<% $page %>'); return false"/>
 	
 <input  class='inputButton' type='submit' name='cancel'
 		value="Cancel" title="Cancel"

@@ -23,6 +23,11 @@ use warnings;
 
 use base 'EBox::Types::Text';
 
+use EBox::Exceptions::InvalidData;
+use EBox::Gettext;
+
+# Group: Public methods
+
 # Constructor: new
 #
 #      The constructor for the <EBox::Types::MACAddr>
@@ -34,17 +39,22 @@ use base 'EBox::Types::Text';
 sub new
 {
         my $class = shift;
-	my %opts = @_;
+    	my %opts = @_;
         my $self = $class->SUPER::new(@_);
-
+        $self->{'type'} = 'macaddr';
         bless($self, $class);
         return $self;
 }
 
-# Method: paramIsValid
+# Group: Protected methods
+
+# Method: _paramIsValid
 #
 #     Check if the params has a correct MAC address
-#     Overrides <EBox::Types::Text::paramIsValid> method.
+#
+# Overrides:
+#
+#     <EBox::Types::Text::_paramIsValid>
 #
 # Parameters:
 #
@@ -59,22 +69,18 @@ sub new
 #     <EBox::Exceptions::InvalidData> - throw if it's not a correct
 #                                       MAC address
 #
-sub paramIsValid
-{
-	my ($self, $params) = @_;
+sub _paramIsValid
+  {
+      my ($self, $params) = @_;
 
-	my $value = $params->{$self->fieldName()};
+      my $value = $params->{$self->fieldName()};
 
-	if ($self->optional() == 1 and $value eq '') {
-	  return 1;
-	}
-
-	if (defined ( $value )) {
+      if (defined ( $value )) {
 	  checkMAC($value, $self->printableName());
-	}
+      }
 
-	return 1;
+      return 1;
 
-}
+  }
 
 1;

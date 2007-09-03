@@ -1,4 +1,5 @@
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2007 Warp Networks S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -29,10 +30,10 @@ use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::LogAdmin;
 
-#By now, the expiration time for session is hardcoded here
+# By now, the expiration time for session is hardcoded here
 use constant EXPIRE => 3600; #In seconds  1h
-use constant DEFAULT_PASSWD => 'ebox';
-
+# By now, the expiration time for a SOAP session
+use constant MAX_SOAP_SESSION => 10; # In seconds
 
 sub new 
 {
@@ -42,30 +43,32 @@ sub new
 	return $self;
 }
 
-# arguments
-# 	- session id
-# throws
+# Parameters:
+#
+#   - session id : if the id is undef, it truncates the session file
+# Exceptions:
 # 	- Internal
-# 		- When session file cant be open to write
+# 		- When session file cannot be opened to write
 sub _savesession # (session_id)
 {
-	my $sid = shift;	
-	unless  ( open ( SID, "> " . EBox::Config->sessionid )){
+	my $sid = shift;
+	my $sidFile;
+	unless  ( open ( $sidFile, '>', EBox::Config->sessionid )){
                 throw EBox::Exceptions::Internal(
-         		      "Could not open to write ". 
+         		      "Could not open to write ".
 	                      EBox::Config->sessionid);
       	}
-	print SID $sid . "\t" . time if defined $sid;
-	close(SID);
+	print $sidFile $sid . "\t" . time if defined $sid;
+	close($sidFile);
 }
 
-# Method: checkPassword 
+# Method: checkPassword
 #
-#   	Checks if a given password matches the stored one after md5 it
+#   	Check if a given password matches the stored one after md5 it
 #
 # Parameters:
 #
-#       password - string contain the password in clear
+#       password - string containing the plain password
 #
 # Returns:
 #
@@ -73,11 +76,11 @@ sub _savesession # (session_id)
 #
 # Exceptions:
 #
-#       Internal - when password's file cannot be opened
+#       <EBox::Exceptions::Internal> - when password's file cannot be opened
 sub checkPassword # (password) 
 {
     my ($self, $passwd) = @_;
- 
+
     open(my $PASSWD_F, EBox::Config->passwd) or
 	throw EBox::Exceptions::Internal('Could not open passwd file');
 
@@ -99,18 +102,20 @@ sub checkPassword # (password)
 }
 
 
-# Method: setPassword 
+# Method: setPassword
 #
-#   	Stores the given password 	
+#   	Store the given password
 #
 # Parameters:
 #
-#       password - string contain the password in clear
+#       password - string containing the plain password
 #
 # Exceptions:
 #
-#       Internal - when password's file cannot be opened
-#	External - when password length is no longer than 6 characters
+#       <EBox::Exceptions::Internal> - when password's file cannot be
+#       opened
+#	<EBox::Exceptions::External> - when password length is no
+#	longer than 6 characters
 sub setPassword # (password) 
 {
     my ($self, $passwd) = @_;
@@ -134,11 +139,21 @@ sub setPassword # (password)
 
 # Method: authen_cred
 #
-#   	Overriden method from Apache::AuthCookie.
+#   	Overriden method from <Apache::AuthCookie>.
 #
 sub authen_cred  # (request, password)
 {
     my ($self, $r, $passwd) = @_;
+
+    my $soapSession = $self->_activeSOAPSession();
+
+    # If there's a SOAP session opened, give it priority to the
+    # Web interface session
+    if ( $self->_activeSOAPSession() ){
+      EBox::warn('Failed login since a SOAP session is opened');
+      $r->subprocess_env(LoginReason => 'SOAP active');
+      return;
+    }
 
     unless ($self->checkPassword($passwd)) {
 	my $log = EBox->logger;
@@ -161,9 +176,9 @@ sub authen_cred  # (request, password)
 
 # Method: authen_ses_key
 #
-#   	Overriden method from Apache::AuthCookie.
+#   	Overriden method from <Apache::AuthCookie>.
 #
-sub authen_ses_key  # (request, session_key) 
+sub authen_ses_key  # (request, session_key)
 {
     my ($self, $r, $session_key) = @_;
 
@@ -171,7 +186,11 @@ sub authen_ses_key  # (request, session_key)
 
     my $expired =  _timeExpired($lastime);
 
-    if(($session_key eq $sid) and (!$expired )){
+    if ( $self->_activeSOAPSession() ) {
+      $r->subprocess_env(LoginReason => 'SOAP active');
+      _savesession(undef);
+    }
+    elsif(($session_key eq $sid) and (!$expired )){
 	_savesession($sid);
 	return "admin";
     }
@@ -186,9 +205,34 @@ sub authen_ses_key  # (request, session_key)
     return;
 }
 
+# XXX not sure if this will be useful, if not remove
+sub alreadyLogged
+{
+    my ($self) = @_;
+    my ($sid, $lastime) = _currentSessionId();
+    
+    return 0 if !defined $sid;
+    return 0 if _timeExpired($lastime);
+
+    return 1;
+}
+
+#
+# Method: defaultPasswdChanged
+#
+# Returns:
+#
+#     boolean - signal whether the default eBox password were
+#               changed or not
+#
+sub defaultPasswdChanged
+{
+  my ($self) = @_;
+  return EBox::Auth->checkPassword('ebox') ? undef : 1;
+}
 
 # scalar mode: return the sessionid
-# list mode:   returns (sessionid, lastime)
+# list mode:   return (sessionid, lastime)
 sub _currentSessionId
 {
     my $SID_F; # sid file handle
@@ -200,7 +244,7 @@ sub _currentSessionId
 					     EBox::Config->sessionid);
 	}
 	close($SID_F);
-	return;											 
+	return;
     }
     unless   (open ($SID_F,  EBox::Config->sessionid)){
 	throw EBox::Exceptions::Internal(
@@ -210,7 +254,7 @@ sub _currentSessionId
 
     $_ = <$SID_F>;
     my ($sid, $lastime);
-    ($sid, $lastime) = split /\t/ if defined $_; 
+    ($sid, $lastime) = split /\t/ if defined $_;
 
     if (wantarray()) {
 	return ($sid, $lastime) ;
@@ -231,28 +275,41 @@ sub _timeExpired
     return $expired;
 }
 
-# XXX not sure if this will be useful, if not remove
-sub alreadyLogged
-{
-    my ($self) = @_;
-    my ($sid, $lastime) = _currentSessionId();
-    
-    return 0 if !defined $sid;
-    return 0 if _timeExpired($lastime);
-
-    return 1;
-}
-
+# Method: _activeSOAPSession
 #
-# Method: defaultPasswdChanged
+#       Check whether a SOAP session is already opened or not
 #
 # Returns:
-#      bool value signaling wether the default eBox password were changed or not	
-# 
-sub defaultPasswdChanged
-{
-  my ($self) = @_;
-  return EBox::Auth->checkPassword('ebox') ? undef : 1;
-}
+#
+#       Boolean - indicate if a SOAP session is already opened
+#
+sub _activeSOAPSession
+  {
+
+    my ($self) = @_;
+
+    # The SOAP session filehandle
+    my $soapSessionFile;
+
+    unless ( -e EBox::Config->soapSession() ){
+      return undef;
+    }
+
+    # Trying to open the soap sid
+    open( $soapSessionFile, '<', EBox::Config->soapSession() ) or
+      throw EBox::Exceptions::Internal('Could not open ' .
+				       EBox::Config->soapSession());
+    # The file structure is the following:
+    # TIMESTAMP
+    my ($timeStamp) = <$soapSessionFile>;
+
+    # time() return the # of seconds since an epoch (1 Jan 1970
+    # typically)
+
+    my $expireTime = $timeStamp + MAX_SOAP_SESSION;
+    return ( $expireTime >= time() );
+
+  }
+
 
 1;

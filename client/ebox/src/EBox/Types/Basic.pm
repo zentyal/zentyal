@@ -21,6 +21,8 @@ use base 'EBox::Types::Abstract';
 
 use EBox::Exceptions::MissingArgument;
 
+# Group: Public methods
+
 sub new
 {
         my $class = shift;
@@ -44,22 +46,6 @@ sub paramExist
 
 }
 
-sub setMemValue
-{
-	my ($self, $params) = @_;
-
-	if ($self->optional() == 0) {
-		unless ($self->paramExist($params)) {
-			throw EBox::Exceptions::MissingArgument(
-						$self->printableName());
-		}
-	}
-
-	$self->paramIsValid($params);
-
-	$self->{'value'} = $params->{$self->fieldName()};
-}
-
 sub memValue
 {
 	my ($self) = @_;
@@ -72,13 +58,6 @@ sub compareToHash
 	my ($self, $hash) = @_;
 
 	return ($self->memValue() eq $hash->{$self->fieldName()});
-}
-
-sub restoreFromHash
-{
-	my ($self, $hash) = @_;
-
-	$self->{'value'} = $hash->{$self->fieldName()};
 }
 
 sub isEqualTo
@@ -95,5 +74,34 @@ sub isEqualTo
 
 	return ($oldValue eq $newValue);
 }
+
+# Group: Protected methods
+
+# Method: _setMemValue
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_setMemValue>
+#
+sub _setMemValue
+{
+	my ($self, $params) = @_;
+
+	$self->{'value'} = $params->{$self->fieldName()};
+}
+
+# Method: _restoreFromHash
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_restoreFromHash>
+#
+sub _restoreFromHash
+{
+	my ($self, $hash) = @_;
+
+	$self->{'value'} = $hash->{$self->fieldName()};
+}
+
 
 1;

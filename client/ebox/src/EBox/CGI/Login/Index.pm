@@ -55,9 +55,13 @@ sub _process
 	}
 
 	my $destination = _requestDestination($r);
-	
+
 	my $reason;
-	if ((defined $authreason) and ($authreason  eq 'bad_credentials')){
+	if ( (defined ($envre) ) and ($envre eq 'SOAP active') ) {
+	  $reason = __('There is a Web service script running. ' .
+		       'Please, wait patiently until it is done');
+	}
+	elsif ((defined $authreason) and ($authreason  eq 'bad_credentials')){
 		$reason = __('Incorrect password');	
 	}
 	elsif ((defined $envre) and ($envre eq 'Expired')){

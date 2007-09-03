@@ -26,11 +26,28 @@ use warnings;
 
 use base 'EBox::Types::Abstract';
 
+# eBox uses
+use EBox;
+use EBox::Exceptions::Internal;
+
+# It's a package global
+our $AUTOLOAD;
+
+# Group: Public methods
+
 sub new
 {
         my $class = shift;
-	my %opts = @_;
-	my $self = {@_};
+    	my %opts = @_;
+    	my $self = $class->SUPER::new(@_);
+        $self->{'type'} = 'union';
+
+        # Union type cannot be optional
+        if ( $self->{'optional'} ) {
+            EBox::warn('Union type cannot be optional. To use the non-defined ' .
+                       'value, choose EBox::Types::Union::Text');
+        }
+        $self->{'optional'} = 0;
 
         bless($self, $class);
         return $self;
@@ -98,21 +115,21 @@ sub fields
 	return @fields;
 }
 
-
-sub printableValue
+sub setModel 
 {
-	my ($self) = @_;
+      my ($self, $model) = @_;
+ 
+      $AUTOLOAD = 'setModel';
+      return $self->AUTOLOAD($model);
+}
+ 
+sub setRow
+{
+      my ($self, $row) = @_;
 
-	my $selected = $self->selectedType();
-	
-	foreach my $type (@{$self->{'subtypes'}}) {
-		if ($type->fieldName() eq $selected) {
-			return $type->printableValue();
-		}
-	}
-
-	return "";
-
+      # Call AUTOLOAD method in order not to repeat code
+      $AUTOLOAD = 'setRow';
+      return $self->AUTOLOAD($row);
 }
 
 sub paramExist
@@ -121,39 +138,22 @@ sub paramExist
 
 	my $selPar = $self->fieldName() . '_selected';
 	my $selected = $params->{$selPar};
-	
+
+        if ( (not defined ( $selected )) and
+             $self->optional() ) {
+            return 1;
+        }
+
 	return 0 unless (defined($selected)); 
 	
 	foreach my $type (@{$self->{'subtypes'}}) {
 		next unless ($type->fieldName() eq $selected);
+                # If type has no setter, parameter is not required anyway
+                return 1 unless( $type->HTMLSetter() );
 		return $type->paramExist($params);
 	}
 
 	return 0;
-}
-
-sub paramIsValid
-{
-
-	return 1;
-}
-
-sub storeInGConf
-{
-        my ($self, $gconfmod, $key) = @_;
-	
-	my $selected = $self->selectedType();
-	
-	foreach my $type (@{$self->{'subtypes'}}) {
-		if ($type->fieldName() eq $selected) {
-			$type->storeInGConf($gconfmod, $key);
-			
-			my $selKey = "$key/" . $self->fieldName() 
-				     . '_selected';
-				     
-			$gconfmod->set_string($selKey, $self->selectedType());
-		}
-	}
 }
 
 sub restoreFromGconf
@@ -161,26 +161,28 @@ sub restoreFromGconf
 
 }
 
-sub setMemValue
-{
-	my ($self, $params) = @_;
 
-	unless ($self->paramExist($params)) {
-		throw EBox::Exceptions::MissingArgument(
-						$self->printableName());
-	}
-	
-	my $selPar = $self->fieldName() . '_selected';
-	my $selected = $params->{$selPar};
-	
-	foreach my $type (@{$self->{'subtypes'}}) {
-		if ($type->fieldName() eq $selected) {
-			$type->setMemValue($params);
-			$self->setSelectedType($selected);
-		}
-	}
-	
+sub printableValue
+{
+      my ($self) = @_;
+
+      # Call AUTOLOAD method in order not to repeat code
+      $AUTOLOAD = 'printableValue';
+      return $self->AUTOLOAD();
+
 }
+
+sub value
+{
+      my ($self) = @_;
+
+      # Call AUTOLOAD method in order not to repeat code
+      $AUTOLOAD = 'value';
+      return $self->AUTOLOAD();
+
+}
+
+
 
 sub memValue
 {
@@ -192,7 +194,166 @@ sub compareToHash
 
 }
 
-sub restoreFromHash
+
+sub isEqualTo
+{
+	my ($self, $newObject) = @_;
+
+	return ($self->printableValue() eq $newObject->printableValue());
+}
+
+# Method: HTMLSetter
+#
+#      Set the mason template to set the value for the type.
+#
+#      It returns undef when all subtypes within has no setter.
+#
+# Overrides:
+#
+#      <EBox::Types::Abstract::HTMLSetter>
+#
+# Returns:
+#
+#      String - the path to the mason template which contains the code
+#      to set the value for this type
+#      undef  - if all subtypes have no setter
+#
+sub HTMLSetter
+  {
+
+      my ($self) = @_;
+
+      my $definedSetter = undef;
+      foreach my $type (@{$self->{'subtypes'}}) {
+          next unless ( defined ( $type->HTMLSetter() ));
+          $definedSetter = 1;
+          last;
+      }
+
+      if ( $definedSetter ) {
+          return '/ajax/setter/unionSetter.mas';
+      } else {
+          return undef;
+      }
+
+}
+
+sub HTMLViewer 
+{
+      my ($self) = @_;
+
+      # Call AUTOLOAD method in order not to repeat code
+      $AUTOLOAD = 'HTMLViewer';
+      return $self->AUTOLOAD();
+
+}
+
+# Function: AUTOLOAD
+#
+#      Special function called when an undefined method is called
+#      within this package. The method name is stored at $AUTOLOAD
+#      global variable.
+#
+#      Known subclass methods: HTMLViewer, linkToView
+#
+# Parameters:
+#
+#      self - <EBox::Types::Union> the object
+#
+#      parameters - Array containing the remainder parameters got from the
+#      method call
+#
+sub AUTOLOAD
+  {
+
+      my ($self, @params) = @_;
+      my $methodName = $AUTOLOAD;
+
+      # Remove namespaces
+      $methodName =~ s/.*:://;
+
+      # Ignore DESTROY callings (the Perl destructor)
+      if ( $methodName eq 'DESTROY' ) {
+          return;
+      }
+
+      # Call the method from the selected type
+      my $selected = $self->selectedType();
+
+      unless ( defined ( $selected )) {
+          throw EBox::Exceptions::Internal('There is no selected type ' .
+                                           "to call its own method $methodName");
+      }
+
+      foreach my $subtype (@{$self->{'subtypes'}}) {
+          next unless ($subtype->fieldName() eq $selected);
+          # Check if the method is defined
+          if ( $subtype->can($methodName)) {
+              return $subtype->$methodName(@params);
+          } else {
+              throw EBox::Exceptions::Internal("Method $methodName is not defined " .
+                                               'in type ' . $subtype->type());
+          }
+      }
+
+  }
+
+# Group: Protected methods
+
+# Method: _setMemValue
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_setMemValue>
+#
+sub _setMemValue
+{
+	my ($self, $params) = @_;
+
+	my $selPar = $self->fieldName() . '_selected';
+	my $selected = $params->{$selPar};
+
+	if ( defined ( $selected )) {
+            foreach my $type (@{$self->{'subtypes'}}) {
+		if ($type->fieldName() eq $selected) {
+                    $type->setMemValue($params);
+                    $self->setSelectedType($selected);
+		}
+            }
+        }
+}
+
+# Method: _storeInGConf
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_storeInGConf>
+#
+sub _storeInGConf
+  {
+      my ($self, $gconfmod, $key) = @_;
+
+      my $selected = $self->selectedType();
+
+      foreach my $type (@{$self->{'subtypes'}}) {
+          # Every union type should be stored in order to unset its
+          # value if it has not got one
+          $type->storeInGConf($gconfmod, $key);
+          if ($type->fieldName() eq $selected) {
+              my $selKey = "$key/" . $self->fieldName() 
+                . '_selected';
+              $gconfmod->set_string($selKey, $self->selectedType());
+          }
+      }
+  }
+
+# Method: _restoreFromHash
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_restoreFromHash>
+#
+sub _restoreFromHash
 {
 	my ($self, $hash) = @_;
 
@@ -209,28 +370,46 @@ sub restoreFromHash
 	
 }
 
-sub isEqualTo
+# Method: _paramIsValid
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_paramIsValid>
+#
+sub _paramIsValid
 {
-	my ($self, $newObject) = @_;
 
-	return ($self->printableValue() eq $newObject->printableValue());
+    return 1;
+
 }
 
-sub HTMLSetter
-{
-	return 'unionSetter';
-}
+# Method: _paramIsSet
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_paramIsSet>
+#
+sub _paramIsSet
+  {
 
-sub HTMLViewer
-{
-	my ($self) = @_;
-	
-	my $selected = $self->selectedType();
-	
-	foreach my $type (@{$self->{'subtypes'}}) {
-		next unless ($type->fieldName() eq $selected);
-		return $type->HTMLViewer();
-	}
-}
+      my ($self, $params) = @_;
+
+      my $selPar = $self->fieldName() . '_selected';
+      my $selected = $params->{$selPar};
+
+      unless ( defined ( $selected )) {
+        return 0;
+      }
+
+      foreach my $type (@{$self->{'subtypes'}}) {
+          next unless ($type->fieldName() eq $selected);
+          # If type has no setter, parameter is not required anyway
+          return 1 unless( $type->HTMLSetter() );
+          return $type->_paramIsSet($params);
+      }
+
+      return 0;
+
+  }
 
 1;

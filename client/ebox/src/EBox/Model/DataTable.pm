@@ -15,18 +15,33 @@
 
 package EBox::Model::DataTable;
 
+use EBox::Model::ModelManager;
+use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::NotImplemented;
 
 use Error qw(:try);
-
+use POSIX qw(ceil);
 use Clone qw(clone);
 
 use strict;
 use warnings;
+
+# TODO
+# 	
+#	Factor findValue, find, findAll and findAllValue
+#
+#	Use callback for selectOptions
+#	
+# 	Fix issue with menu and generic controllers
+#
+#	Fix issue with values and printableValues fetched
+#	from foreing tables
+
 
 #
 # Caching:
@@ -49,6 +64,7 @@ sub new
         my %opts = @_;
         my $gconfmodule = delete $opts{'gconfmodule'};
 	my $directory = delete $opts{'directory'};
+	my $domain = delete $opts{'domain'};
 
         my $self =
 		{
@@ -57,7 +73,9 @@ sub new
 			'directory' => "$directory/keys",
 			'order' => "$directory/order",
 		        'table' => undef,
-			'cachedVersion' => undef
+			'cachedVersion' => undef,
+			'domain' => $domain,
+			'pageSize' => 10
 		};
 
         bless($self, $class);
@@ -80,12 +98,28 @@ sub table
 
     # It's a singleton method
     unless( defined( $self->{'table'} ) ){
+      $self->_setDomain();
       $self->{'table'} = $self->_table();
+      $self->_restoreDomain();
+      # Set the needed controller and undef setters
+      $self->_setControllers();
+      # This is useful for submodels
+      $self->{'table'}->{'gconfdir'} = $self->{'gconfdir'};
+      # Make fields accessible by their names
+      for my $field (@{$self->{'table'}->{'tableDescription'}}) {
+      	my $name = $field->fieldName();
+	$self->{'table'}->{'tableDescriptionByName'}->{$name} = $field;
+      }
+      # Some default values
+      unless (defined($self->{'table'}->{'class'})) {
+	$self->{'table'}->{'class'} = 'dataTable';
+      }
     }
 
     return $self->{'table'};
 
   }
+
 
 # Method: _table
 #
@@ -102,6 +136,100 @@ sub _table
 	throw EBox::Exceptions::NotImplemented();
 
 }
+
+# Method: modelName 
+#
+#	Return the model name which is set by the key 'tableName' when
+#	a model table is described
+#
+# Returns:
+#
+#	string containing the model name
+#
+sub modelName
+{
+	my ($self) = @_;
+	return $self->table()->{'tableName'};
+}
+
+# Method: fieldHeader 
+#
+#	Return the instanced type of a given header field
+#
+# Arguments:
+#
+# 	fieldName - field's name
+#
+# Returns:
+#
+#	instance of a type derivated of <EBox::Types::Abstract>
+sub fieldHeader
+{
+	my ($self, $name) = @_;
+
+	unless (defined($name)) {
+		throw EBox::Exceptions::MissingArgument(
+					"field's name")
+	}
+
+	unless (exists ($self->table()->{'tableDescriptionByName'}->{$name})) {
+          	throw EBox::Exceptions::DataNotFound( data => __('field'),
+                                                value => $name);
+	}
+
+	return $self->table()->{'tableDescriptionByName'}->{$name};
+}
+
+# Method: optionsFromForeignModel 
+#
+#	This method is used to fetch an array of hashes containing
+#	pairs of value and printableValue.
+#
+#	It's a convenience method to be used by <EBox::Types::Select> types
+#	when using foreing modules.
+#
+#	It's implemented here, because it has to do some caching
+#	due to performance reasons.
+#
+# Arguments:
+#
+# 	field - field's name  
+#
+# Returns:
+#
+#	Array ref of hashes containing:
+#		
+#	value - row's id
+#	printableValue - field's printableValue
+#
+#	Example:
+#	[{ 'value' => 'obj001', 'printableValue' => 'administration'}]
+sub optionsFromForeignModel 
+{
+	my ($self, $field) = @_;
+	
+	unless (defined($field)) {
+		throw EBox::Exceptions::MissingArgument("field's name")
+	}
+	
+	my $cache = $self->{'optionsCache'};
+	if ($self->_isOptionsCacheDirty($field)) {
+		EBox::debug("cache is dirty");
+		my @options;
+		for my $row (@{$self->printableValueRows()}) {
+			push (@options, {
+					'value' => $row->{'id'},
+					'printableValue' => $row->{$field}
+					});
+		}
+		$cache->{$field}->{'values'} = \@options;
+		$cache->{$field}->{'cachedVersion'} = $self->_cachedVersion();
+	}
+
+	return $cache->{$field}->{'values'};
+}
+
+
 
 # Method: selectOptions
 #
@@ -133,8 +261,11 @@ sub selectOptions
 # Method: validateRow
 #
 #	Override this method to add your custom checks for
-#	the table fields. It will be called whenever a row
-#	is added/updated
+#	the table fields. The parameters are passed just like they are
+#	received from the CGI. If you want to check on typed data use
+#	<EBox::Model::DataTable::validateTypedRow> instead.
+#
+#	It will be called whenever a row is added/updated.
 #
 # Arguments:
 #
@@ -149,10 +280,40 @@ sub selectOptions
 #
 # Exceptions:
 #
-# 	You must throw an excpetion whenever a field value does not
+# 	You must throw an exception whenever a field value does not
 # 	fulfill your requirements
 #
 sub validateRow
+{
+
+}
+
+# Method: validateTypedRow
+#
+#	Override this method to add your custom checks for
+#	the table fields. The parameters are passed like data types.
+#
+#	It will be called whenever a row is added/updated
+#
+# Arguments:
+#
+#       action - String containing the action to be performed
+#                after validating this row.
+#                Current options: 'add', 'update'
+#
+# 	params - hash ref containing the typed parameters subclassing
+# 	from <EBox::Types::Abstract> , the key will be the field's name
+#
+# Returns:
+#
+#	Nothing
+#
+# Exceptions:
+#
+# 	You must throw an exception whenever a field value does not
+# 	fulfill your requirements
+#
+sub validateTypedRow
 {
 
 }
@@ -227,6 +388,35 @@ sub updatedRowNotify
 
 }
 
+# Method: notifyForeignModelAction 
+#	
+#	This method is used to let models know when other model has
+#	taken an action.
+#
+#	To be notified your table description must contain:
+#	an entry 'notifyAction' => [ ModelName1, ModelName2]
+#	where ModelName is the model you are interested of receiving
+#	notifications.
+#
+#	If you are interested on some action on a module you should
+#	override this method to take the actions you need on response to
+#	the foreign module action
+#
+# Parameters: 
+#
+#   (POSITIONAL)
+#
+#   model - model name where the action took place 
+#   action - string represting the action: 
+#   	     [ add, del, edit, moveUp, moveDown ]
+#
+#   row  - row modified 
+#
+sub notifyForeingModelAction 
+{
+
+}
+
 # Method: addRow
 #
 #	Add a new row 
@@ -234,6 +424,10 @@ sub updatedRowNotify
 # Parameters:
 #
 #	named parameters containing the expected fields for each row
+#
+# Returns:
+#
+#   just added row's id
 sub addRow
 {
 	my $self = shift;
@@ -246,6 +440,7 @@ sub addRow
 	$self->validateRow('add', @_);
 
 	my @userData;
+	my $userData;
 	foreach my $type (@{$self->table()->{'tableDescription'}}) {
 		my $data = clone($type);
 		$data->setMemValue(\%params);
@@ -255,8 +450,10 @@ sub addRow
 		}
 
 		push (@userData, $data);
-
+		$userData->{$data->fieldName()} = $data;
 	}
+
+	$self->validateTypedRow('add', $userData);
 
 	# Check if the new row is unique
 	if ( $self->rowUnique() ) {
@@ -267,14 +464,17 @@ sub addRow
 	# Changing text to be lowercase
 	$leadingText = "\L$leadingText";
 
-	my $id = $gconfmod->get_unique_id(
-					  $leadingText,
-					  $dir
-					 );
+	my $id;
+	if (exists ($params{'id'}) and length ($params{'id'}) > 0) {
+		$id = $params{'id'};
+	 } else {
+	 	$id = $gconfmod->get_unique_id( $leadingText, $dir);
+	 }
 
 	foreach my $data (@userData) {
 		$data->storeInGConf($gconfmod, "$dir/$id");
-	      }
+		$data = undef;
+    }
 
 	if ($self->table()->{'order'}) {
 		$self->_insertPos($id, 0);
@@ -285,9 +485,14 @@ sub addRow
 #	$row->{'order'} = $self->_rowOrder($id);
 #	$row->{'values'} = \@userData;
 
+	$gconfmod->set_bool("$dir/$id/readOnly", $params{'readOnly'});
+
 	$self->addedRowNotify($self->row($id));
+	$self->_notifyModelManager('add', $self->row($id));
 	
-	$self->_increaseStoredVersion();
+	$self->_setCacheDirty();
+
+	return $id;
 }
 
 # Method: row
@@ -306,9 +511,11 @@ sub addRow
 #		- 'order' => row order
 #		- 'values' => array ref containing objects
 #			    implementing <EBox::Types::Abstract> interface
-#               - 'valueHash' => hash ref containing the same objects as
-#                                'values' but indexed by 'fieldName'
+#       - 'valueHash' => hash ref containing the same objects as
+#          'values' but indexed by 'fieldName'
 #
+#       - 'printableValueHash' => hash ref containing the fields and
+#          their printable value
 sub row
 {
 	my ($self, $id)  = @_;
@@ -329,36 +536,67 @@ sub row
 	my @values;
 	$self->{'cacheOptions'} = {};
 	my $gconfData = $gconfmod->hash_from_dir("$dir/$id");
+	$row->{'readOnly'} = $gconfData->{'readOnly'};
 	foreach my $type (@{$self->table()->{'tableDescription'}}) {
 		my $data = clone($type);
 		$data->restoreFromHash($gconfData);
+		$data->setRow($row);
+		$data->setModel($self);
 	
 		# TODO Rework the union select options thing
 		#      this code just sucks. Modify Types to do something
 		#      nicer 
 		if ($data->type() eq 'union') {
-			foreach my $subtype (@{$data->subtypes()}) {
-				next unless ($subtype->type() eq 'select');
-				$subtype->addOptions(
-					$self->_selectOptions(
-						$subtype->fieldName()));	
-
-			}
+                    # FIXME: Check if we can avoid this
+			$row->{'plainValueHash'}->{$data->selectedType} =
+				$data->value();
+			$row->{'printableValueHash'}->{$data->selectedType} =
+				$data->printableValue();
 		}
-		if ($data->type() eq 'select') {
-			$data->addOptions(
-				$self->_selectOptions($data->fieldName()));	
+	
+		if ($data->type eq 'hasMany') {
+			my $fieldName = $data->fieldName();
+			$data->setDirectory("$dir/$id/$fieldName");
 		}
 		
 		push (@values, $data);
 		$row->{'valueHash'}->{$type->fieldName()} = $data;
+		$row->{'plainValueHash'}->{$type->fieldName()} = $data->value();
+		$row->{'plainValueHash'}->{'id'} = $id;
+		$row->{'printableValueHash'}->{$type->fieldName()} =
+							$data->printableValue();
+		$row->{'printableValueHash'}->{'id'} = $id;
 	}
 	
 	$row->{'id'} = $id;
 	$row->{'order'} = $self->_rowOrder($id);
 	$row->{'values'} = \@values;
 
+
 	return $row;
+}
+
+# Method: isRowReadOnly
+#
+# 	Given a row it returns if it is read-only or not
+#
+# Parameters:
+# 	(POSITIONAL)
+#
+# 	id - row's id
+#
+# Returns:
+#
+# 	boolean - true if it is read-only, otherwise false
+#
+sub isRowReadOnly
+{
+	my ($self, $id) = @_;
+
+	my $row = $self->row($id);
+	return undef unless ($row);
+
+	return $row->{'readOnly'};
 }
 
 sub _selectOptions
@@ -386,6 +624,7 @@ sub moveUp
 	$self->_swapPos($pos, $pos - 1);
 
 	$self->movedUpRowNotify($self->row($id));
+	$self->_notifyModelManager('moveUp', $self->row($id));
 	
 }
 
@@ -404,6 +643,7 @@ sub moveDown
 	$self->_swapPos($pos, $pos + 1);
 
 	$self->movedDownRowNotify($self->row($id));
+	$self->_notifyModelManager('moveDown', $self->row($id));
 }	
 
 sub _reorderCachedRows
@@ -433,13 +673,19 @@ sub _reorderCachedRows
 	$self->{'cachedVersion'} = $storedVersion;
 }
 
+# TODO Split into removeRow and removeRowForce
+#
+
 # Method: removeRow
 #
 #	Remove a row
 #
 # Parameters:
 #
+#	(POSITIONAL)
+#	
 # 	'id' - row id
+#	'force' - boolean to skip integrations checks of the row to remove
 #
 # Exceptions:
 #
@@ -448,22 +694,105 @@ sub _reorderCachedRows
 #
 sub removeRow
 {
-	my ($self, $id) = @_;
+	my ($self, $id, $force) = @_;
 
-	throw EBox::Exceptions::MissingArgument("Missing row identifier to remove")
-	  unless defined ( $id );
+	# If force != true and automaticRemove is enabled it means
+	# the model has to automatically check if the row which is 
+	# about to removed is referenced elsewhere. In that
+	# case throw a DataInUse exceptions to iform the user about
+	# the effects its actions will have.
+	if ((not $force) and $self->table()->{'automaticRemove'}) {
+		$self->_warnIfIdIsUsed($id);
+		$self->warnIfIdUsed($id);
+	}
 
+	unless (defined($id)) {
+		throw EBox::Exceptions::MissingArgument(
+					"Missing row identifier to remove")
+	}
+	
 	$self->_checkRowExist($id, '');
 	my $row = $self->row($id);
+	
+	# Workaround: It seems that deleting a dir in gconf doesn't work
+	# ok sometimes and it keeps available after deleting it for a while.
+	# To workaround this issue we mark the row with "removed"
+	$self->{'gconfmodule'}->set_bool("$self->{'directory'}/$id/removed", 1);
+	
 	$self->{'gconfmodule'}->delete_dir("$self->{'directory'}/$id");
+	$self->_setCacheDirty();
+	
+
 
 	if ($self->table()->{'order'}) {
 		$self->_removeOrderId($id);
 	}
-
+	
 	$self->deletedRowNotify($row);
+	$self->_notifyModelManager('del', $row);
 
-	$self->_increaseStoredVersion();
+	# If automaticRemove is enabled then remove all rows using referencing
+	# this row in other models
+	if ($self->table()->{'automaticRemove'}) {
+		my $manager = EBox::Model::ModelManager->instance();
+		$manager->removeRowsUsingId($self->table()->{'tableName'}, 
+					$id);
+	}
+
+
+}
+
+# Method: warnIfIdUsed 
+#
+#	This method must be overriden in case you want to warn the user
+#	when a row is going to be deleted. Note that models manage this
+#	situation automatically, this method is intended for situations
+#	where the use of the model is done in a non-standard way.
+#
+#	Override this method and raise a <EBox::Exceptions::DataInUse>
+#	excpetions to warn the user
+#
+# Parameters:
+#
+#	(POSITIONAL)
+#	
+# 	'id' - row id
+sub warnIfIdUsed
+{
+
+}
+
+# Method: warnOnChangeOnId 
+#
+#	FIXME
+#
+# Parameters:
+#
+#	(POSITIONAL)
+#	
+# 	'id' - row id
+#	'changeData' - array ref of data types which are going to be changed
+#
+# Returns:
+#
+# 	A i18ned string explaining what happens if the requested action
+# 	takes place
+sub warnOnChangeOnId
+{
+
+}
+
+# Method: isIdUsed 
+#
+#	TODO
+#
+#	(POSITIONAL)
+#	
+#	'modelName' - model's name
+# 	'id' - row id
+sub isIdUsed
+{
+
 }
 
 # Method: setRow
@@ -475,8 +804,7 @@ sub removeRow
 #	named parameters containing the expected fields for each row
 sub setRow
 {
-	my $self = shift;
-	my %params = @_;
+	my ($self, $force, %params) = @_;
 
 	my $id = delete $params{'id'};
 	$self->_checkRowExist($id, '');
@@ -487,7 +815,9 @@ sub setRow
 	$self->validateRow('update', @_);
 	
 	my $oldrow = $self->row($id);
-	my @newValues = @{$self->table()->{'tableDescription'}};
+	#my @newValues = @{$self->table()->{'tableDescription'}};
+        # We can only set those types which have setters
+        my @newValues = @{$self->setterTypes()};
 
 	# Check if the new row is unique
 	if ( $self->rowUnique() ) {
@@ -495,11 +825,14 @@ sub setRow
 	}
 
 	my @oldValues = @{$oldrow->{'values'}};
-	my $modified = undef;
+
+	my @changedData;
+	my $changedData;
 	for (my $i = 0; $i < @newValues ; $i++) {
 		my $newData = clone($newValues[$i]);
 		$newData->setMemValue(\%params);
-		
+		$changedData->{$newData->fieldName()} = $newData;	
+
 		if ($oldValues[$i]->isEqualTo($newData)) {
 			next;
 		}
@@ -508,41 +841,35 @@ sub setRow
 			$self->_checkFieldIsUnique($newData);
 		}
 
-		$newData->storeInGConf($gconfmod, "$dir/$id");
+		push (@changedData, $newData);
+	
+	}
+
+	$self->validateTypedRow('update', $changedData);
+
+	# If force != true atomaticRemove is enabled it means
+	# the model has to automatically check if the row which is 
+	# about to be changed is referenced elsewhere and this change
+	# produces an inconsistent state
+	 if ((not $force) and $self->table()->{'automaticRemove'}) {
+		$self->_warnOnChangeOnId($id, \@changedData);
+	}
+
+	my $modified = undef;
+	for my $data (@changedData) {
+		$data->storeInGConf($gconfmod, "$dir/$id");
 		$modified = 1;
 	}
 
 	$oldrow->{'values'} = \@newValues;
 
 	if ($modified) {
-		$self->_increaseStoredVersion();
+		$self->_setCacheDirty();
 	}
 
 	$self->updatedRowNotify($oldrow);	
 }
 
-sub _addSelectOptionsToHash
-{
-	my ($self, $hash) = @_;
-	
-	my $desc = $self->table()->{'tableDescription'};
-	unless (defined($desc)) {
-		throw Excepetions::Internal('table description not defined');
-	}
-	foreach my $field (@{$desc}) {
-		$self->{'fieldDesc'}->{$field->{'fieldName'}} = $field; ;
-	}
-	
-	foreach my $field (keys %{$hash}) {
-	
-		if ($self->{'fieldDesc'}->{$field}->{'type'} ne 'select') {
-			next;
-		}
-
-		$hash->{$field} = $self->selectOptions($field, $hash->{'id'});
-	}
-		
-}
 sub _storedVersion
 {
 	my ($self) = @_;
@@ -553,18 +880,28 @@ sub _storedVersion
 	return ($gconfmod->get_int($storedVerKey));
 }
 
+sub _cachedVersion
+{
+	my ($self) = @_;
+	
+	return $self->{'cachedVersion'};
+}
 
 
 # Method: rows
 #
 # 	Return a list containing the table rows 	
 #
+# Parameters:
+#
+# 	filter - string to filter result
+# 	
 # Returns:
 #
 #	Array ref containing the rows 
 sub rows
 {
-	my $self = shift;
+	my ($self, $filter, $page)  = @_;
 	
 	# The method which takes care of loading the rows
 	# from gconf is _rows(). 
@@ -573,7 +910,7 @@ sub rows
 	# to gconf
 	my $gconfmod = $self->{'gconfmodule'};
 	my $storedVersion = $self->_storedVersion();
-	my $cachedVersion = $self->{'cachedVersion'};
+	my $cachedVersion = $self->_cachedVersion();;
 
 	if (not defined($storedVersion)) {
 		$storedVersion = 0;
@@ -590,17 +927,53 @@ sub rows
 	}
 
 	if ( $self->order() == 1) {
-	  return $self->{'cachedRows'};
+	  return $self->_filterRows($self->{'cachedRows'}, $filter, 
+	  			$page);
+	} else {
+	  return $self->_filterRows(
+	  			$self->_tailoredOrder($self->{'cachedRows'}),
+	  			$filter, $page);
 	}
-	# Try to launch the _tailoredOrder function
-	else {
-	  try {
-	    return $self->_tailoredOrder($self->{'cachedRows'});
-	  } catch EBox::Exceptions::NotImplemented with {
-	    # If no tailored version of ordering is set, do not order
-	    return $self->{'cachedRows'};
-	  };
+}
+
+# Method: printableValueRows
+#
+# 	Return a list containing the table rows and the printable value
+# 	of every field
+#
+# Returns:
+#
+#	Array ref containing the rows 
+sub printableValueRows 
+{
+	my $self = shift;
+
+	my @hasManyFields;
+   	foreach my $type (@{$self->table()->{'tableDescription'}}) {
+		if ($type->type() eq 'hasMany') {
+	 		push (@hasManyFields, $type->fieldName())
+		}
 	}
+	
+	
+	my @values = map { $_->{'printableValueHash'} } @{$self->rows()};
+	return \@values unless (@hasManyFields > 0);
+	
+	my $manager = EBox::Model::ModelManager->instance();
+	foreach my $row (@values) {
+		for my $field (@hasManyFields) {
+			next  unless (exists $row->{$field}->{'model'});
+			my $model = $manager->model($row->{$field}->{'model'});
+			next unless (defined($model));
+			my $olddir = $model->directory();
+    			$model->setDirectory($row->{$field}->{'directory'});
+    			$row->{$field}->{'values'} = 
+					$model->printableValueRows();
+			$model->setDirectory($olddir);
+		}
+	}
+
+        return \@values;
 }
 
 sub _rows
@@ -621,6 +994,13 @@ sub _rows
 	my @rows;
 	for my $id (@{$gconfmod->all_dirs_base($self->{'directory'})}) {
 		my $hash = $gconfmod->hash_from_dir("$self->{'directory'}/$id");
+		# Workaround: It seems that deleting a dir in gconf 
+		# doesn't work  ok sometimes and it keeps available after 
+		# deleting it for a while.
+		# To workaround this issue we skip those rows marked with
+		# "removed" key
+		next if (exists $hash->{'removed'});
+	
 		my $row = $self->row($id);
 		if (%order) {
 			$hash->{'order'} = $order{$id};
@@ -634,7 +1014,7 @@ sub _rows
 	return \@rows;
 }
 
-sub _increaseStoredVersion
+sub _setCacheDirty
 {
 	my $self = shift;
 
@@ -651,6 +1031,7 @@ sub _increaseStoredVersion
 
 	$gconfmod->set_int($storedVerKey, $newVersion);
 }
+
 sub _increaseStoredAndCachedVersion
 {
 	my $self = shift;
@@ -688,12 +1069,8 @@ sub _increaseStoredAndCachedVersion
 #
 sub _tailoredOrder # (rows)
   {
-
-    throw EBox::Exceptions::NotImplemented( 
-					   '_tailoredOrder',
-					    'EBox::Model::DataTable'
-					  );
-
+	return $_[1];
+	
   }
 
 
@@ -733,11 +1110,31 @@ sub setDirectory
 	my ($self, $dir) = @_;
 
 	unless ($dir) {
-		throw Exceptions::MissingArgument('dir');
+		throw EBox::Exceptions::MissingArgument('dir');
 	}
 
+	my $olddir = $self->{'gconfdir'};
+	return if ($dir eq $olddir);
+	
+	# If there's a directory change we try to keep cached the last
+	# directory as it is likely we are asked again for it
+	my $cachePerDir = $self->{'cachePerDirectory'};
+	$cachePerDir->{$olddir}->{'cachedRows'} = $self->{'cachedRows'};
+	$cachePerDir->{$olddir}->{'cachedVersion'} = $self->{'cachedVersion'};
+
+	if ($cachePerDir->{$dir}) {
+		$self->{'cachedRows'} = $cachePerDir->{$dir}->{'cachedRows'};
+		$self->{'cachedVersion'} =
+					$cachePerDir->{$dir}->{'cachedVersion'};
+	} else {
+		$self->{'cachedRows'} = undef;
+		$self->{'cachedVersion'} = undef;
+	}
+
+	$self->{'gconfdir'} = $dir;
 	$self->{'directory'} = "$dir/keys";
 	$self->{'order'} = "$dir/order";
+	$self->{'table'}->{'gconfdir'} = $dir;
 
 }
 
@@ -758,6 +1155,23 @@ sub tableName
 
   }
 
+# Method: printableModelName
+#
+#       Get the i18ned model name
+#
+# Returns:
+#
+#       String - the localisated model name
+#
+sub printableModelName
+  {
+
+      my ($self) = @_;
+
+      return $self->table()->{'printableTableName'};
+
+  }
+
 # Method: directory
 #
 #        Get the current directory. This method is handy to manage
@@ -772,9 +1186,34 @@ sub directory
 
     my ($self) = @_;
 
-    return $self->{'directory'};
+    return $self->{'gconfdir'};
 
   }
+
+
+# Method: menuNamespace 
+#
+#	Fetch the menu namespace which this model belongs to
+#
+# Returns:
+#
+#        String - Containing namespace 
+#
+sub menuNamespace 
+{
+	my ($self) = @_;
+
+
+	if (exists $self->table()->{'menuNamespace'}) {
+            return $self->table()->{'menuNamespace'};
+	} elsif ( defined ( $self->modelDomain() )) {
+            # This is autogenerated menuNamespace got from the model
+            # domain and the table name
+            return $self->modelDomain() . '/View/' . $self->tableName();
+        } else {
+            return undef;
+	}
+}
 
 # Method: order
 #
@@ -812,6 +1251,35 @@ sub rowUnique
 
   }
 
+# Method: action
+#
+#       Accessor to the URLs where the actions are published to be
+#       run.
+#
+# Parameters:
+#
+#       actionName - String the action name
+#
+# Returns:
+#
+#       String - URL where the action will be called
+#
+sub action
+  {
+
+      my ($self, $actionName) = @_;
+
+      my $actionsRef = $self->table()->{actions};
+
+      if ( exists ($actionsRef->{$actionName}) ){
+          return $actionsRef->{$actionName};
+      } else {
+          throw EBox::Exceptions::DataNotFound( data => __('Action'),
+                                                value => $actionName);
+      }
+
+  }
+
 # Method: printableRowName
 #
 #     Get the printable row name
@@ -826,6 +1294,41 @@ sub printableRowName
     my ($self) = @_;
 
     return $self->table()->{'printableRowName'};
+
+  }
+
+# Method: help
+#
+#     Get the help message from the model
+#
+# Returns:
+#
+#     String - containing the i18n help message
+#
+sub help
+  {
+
+    my ($self) = @_;
+
+    return $self->table()->{'help'};
+
+  }
+
+# Method: modelDomain
+#
+#     Get the domain where the model is handled. That is, the eBox
+#     module which the model belongs to
+#
+# Returns:
+#
+#     String - the model domain, the first letter is upper-case
+#
+sub modelDomain
+  {
+
+      my ($self) = @_;
+
+      return $self->table()->{'modelDomain'};
 
   }
 
@@ -844,37 +1347,47 @@ sub tableInfo
 	my $table = $self->table();
 	my @parameters;
 
-	foreach my $data (@{$table->{'tableDescription'}}) {
+#	foreach my $data (@{$table->{'tableDescription'}}) {
+#
+#		push (@parameters, $data->fields());
 
-		push (@parameters, $data->fields());
+#		if ($data->type() eq 'union') {
+#			foreach my $subtype (@{$data->subtypes()}) {
+#				next unless ($subtype->type() eq 'select');
+#				$subtype->addOptions(
+#					$self->selectOptions(
+#						$subtype->fieldName()));	
+#
+#			}
+#		}
+#		if ($data->type() eq 'select') {
+#			$data->addOptions(
+#				$self->selectOptions($data->fieldName()));	
+#		}
 
-		if ($data->type() eq 'union') {
-			foreach my $subtype (@{$data->subtypes()}) {
-				next unless ($subtype->type() eq 'select');
-				$subtype->addOptions(
-					$self->selectOptions(
-						$subtype->fieldName()));	
+#	}
 
-			}
-		}
-		if ($data->type() eq 'select') {
-			$data->addOptions(
-				$self->selectOptions($data->fieldName()));	
-		}
+	# Add default actions to actions
+#	my $defAction = $table->{'defaultController'};
+#	if ($defAction) {
+#		foreach my $action (@{$table->{'defaultActions'}}) {
+#			$table->{'actions'}->{$action} = $defAction;
+#		}
+#	}
+#
 
-	}
+#	my $fieldsWithOutSetter = $self->fieldsWithUndefSetter();
+#	my @paramsWithSetter = grep {!$fieldsWithOutSetter->{$_}} @parameters;
+#	push (@paramsWithSetter, 'filter', 'page');
+#	my $paramsArray = '[' . "'" . pop(@paramsWithSetter) . "'";
+#	foreach my $param (@paramsWithSetter) {
+#		$paramsArray .= ', ' . "'" . $param . "'";
+#	}
+#	$paramsArray .= ']';
 
+#	$table->{'gconfdir'} = $self->{'gconfdir'};
+#	$table->{'paramArrayString'} = $paramsArray;
 
-
-	my $paramsArray = '[' . "'" . pop(@parameters) . "'";
-	foreach my $param (@parameters) {
-		$paramsArray .= ', ' . "'" . $param . "'";
-	}
-	$paramsArray .= ']';
-	
-	$table->{'gconfdir'} = $self->{'gconfdir'};
-	$table->{'paramArrayString'} = $paramsArray;
-	
 	return $table;
 }
 
@@ -894,7 +1407,7 @@ sub fields
 	}
 	
 	unless (defined($self->table()->{'tableDescription'})) {
-		throw Excepetions::Internal('table description not defined');
+		throw EBox::Exceptions::Internal('Table description not defined');
 	}
 	
 	my @tableHead = @{$self->table()->{'tableDescription'}};
@@ -905,8 +1418,535 @@ sub fields
 	return \@tableFields;
 }
 
-# Private helper functions
+# Method: fieldsWithUndefSetter
 #
+# 	Return a hash containing the fields which compose each row	
+#	and dont have a defined Setter
+#
+# Returns:
+#
+#	Hash ref containing the field names as keys
+#
+sub fieldsWithUndefSetter
+{
+	my $self = shift;
+
+	if ($self->{'fields'}) {
+		return $self->{'fields'};
+	}
+	
+	unless (defined($self->table()->{'tableDescription'})) {
+		throw Excepetions::Internal('table description not defined');
+	}
+	
+	my @tableHead = @{$self->table()->{'tableDescription'}};
+	my %tableFields;
+	for my $type (@tableHead) {
+		$tableFields{$type->fieldName()} = 1 unless $type->HTMLSetter();
+	}
+	
+	return \%tableFields;
+}
+
+# Method: setterTypes 
+#
+# 	Return a list containing those fields which have defined setters 
+#
+# Returns:
+#
+#	Array ref containing the fields
+sub setterTypes
+{
+	my ($self) = @_ ;
+
+	if ($self->{'fields'}) {
+		return $self->{'fields'};
+	}
+	
+	unless (defined($self->table()->{'tableDescription'})) {
+		throw Excepetions::Internal('table description not defined');
+	}
+	
+	my @tableHead = @{$self->table()->{'tableDescription'}};
+	my @types =  grep { defined($_->HTMLSetter) } @tableHead;
+
+	return \@types;
+}
+
+# Method: setFilter
+#
+# 	Set the the string used to filter the return of rows
+#
+# Parameters:
+#	(POSITIONAL)
+#	filter - string containing the filter
+#
+sub setFilter
+{
+	my ($self, $filter) = @_;
+	$self->{'filter'} = $filter;
+}
+
+# Method: filter
+#
+#	Return the string used to filter the return of rows
+#
+# Returns:
+#
+#	string - containing the value
+sub filter
+{
+	my ($self) = @_;
+	return $self->{'filter'};
+}  
+
+# Method: pages 
+#
+#	Return the number of pages
+#
+# Parameters:
+#
+# 	$rows - hash ref containing the rows, if undef it will use
+# 		those returned by rows()
+# Returns:
+#
+#	integer - containing the value
+sub pages 
+{
+	my ($self, $filter) = @_;
+	
+	my $pageSize = $self->pageSize();
+	unless (defined($pageSize)) {
+		return 1;
+	}
+
+	my $rows = $self->rows($filter);
+	
+	my $nrows = @{$rows};
+	EBox::debug("nrows $nrows");
+	
+	if ($nrows == 0) {
+		return 0;
+	} else {
+		return  ceil($nrows / $pageSize) - 1;
+	}
+
+}
+
+# Method: find
+#
+#	Return the first row which matches the value of the given
+#	field against the data returned by the method printableValue()
+#
+#	If you want to match against value use
+#	<EBox::Model::DataTable::findValue>
+#
+# Parameters:
+#
+# 	fieldName => value
+#
+# 	Example:
+#
+# 	find('default' => 1);
+#
+# Returns:
+#
+# 	Hash ref containing the printable values of the matched row 
+#	
+#	undef if there was not any match
+# 	
+# Exceptions:
+#
+#   <EBox::Exceptions::MissingArgument>
+sub find
+{
+    my ($self, $fieldName, $value) = @_;
+	
+    unless (defined ($fieldName)) {
+        throw EBox::Exceptions::MissingArgument("Missing field name"); 
+    }
+
+    my @matched = @{$self->_find($fieldName, $value, undef, 1)};
+
+    if (@matched) {
+        return $matched[0];
+    } else {
+        return undef;
+    }
+}
+
+# Method: findAll
+#
+#	Return all the rows which matches the value of the given
+#	field against the data returned by the method printableValue()
+#
+#	If you want to match against value use
+#	<EBox::Model::DataTable::findValue>
+#
+# Parameters:
+#
+# 	fieldName => value
+#
+# 	Example:
+#
+# 	find('default' => 1);
+#
+# Returns:
+#
+# 	Array ref of hash refs  containing the printable 
+# 	values of the matched row 
+# 	
+# Exceptions:
+#
+#   <EBox::Exceptions::MissingArgument>
+sub findAll
+{
+    my ($self, $fieldName, $value) = @_;
+	
+    unless (defined ($fieldName)) {
+        throw EBox::Exceptions::MissingArgument("Missing field name"); 
+    }
+
+    my @matched = @{$self->_find($fieldName, $value, 1, 1)};
+
+    return \@matched;
+
+}
+
+# Method: findValue
+#
+#	Return the first row which matches the value of the given
+#	field against the data returned by the method value()
+#
+#	If you want to match against value use
+#	<EBox::Model::DataTable::find>
+# Parameters:
+#
+# 	fieldName => value
+#
+# 	Example:
+#
+# 	find('default' => 1);
+#
+# Returns:
+#
+# 	Hash ref containing the printable values of the matched row 
+#	
+#	undef if there was not any match
+# 	
+# Exceptions:
+#
+#   <EBox::Exceptions::MissingArgument>
+sub findValue
+{
+    my ($self, $fieldName, $value) = @_;
+	
+    unless (defined ($fieldName)) {
+        throw EBox::Exceptions::MissingArgument("Missing field name"); 
+    }
+
+    my @matched = @{$self->_find($fieldName, $value, undef, undef)};
+
+    if (@matched) {
+        return $matched[0];
+    } else {
+        return undef;
+    }
+}
+
+# Method: findAll
+#
+#	Return all the rows which matches the value of the given
+#	field against the data returned by the method value()
+#
+#	If you want to match against value use
+#	<EBox::Model::DataTable::find>
+#
+#
+# Parameters:
+#
+# 	fieldName => value
+#
+# 	Example:
+#
+# 	find('default' => 1);
+#
+# Returns:
+#
+# 	Array ref of hash refs  containing the printable 
+# 	values of the matched row 
+# 	
+# Exceptions:
+#
+#   <EBox::Exceptions::MissingArgument>
+sub findAllValue
+{
+    my ($self, $fieldName, $value) = @_;
+	
+    unless (defined ($fieldName)) {
+        throw EBox::Exceptions::MissingArgument("Missing field name"); 
+    }
+
+    my @matched = @{$self->_find($fieldName, $value, 1, undef)};
+
+    return \@matched;
+
+}
+
+# Method: Viewer
+#
+#       Class method to return the viewer from this model. This method
+#       can be overriden
+#
+# Returns:
+#
+#       String - the path to the Mason template which acts as the
+#       viewer from this kind of model.
+#
+sub Viewer
+  {
+
+      return '/ajax/tableBody.mas';
+
+  }
+
+# Method: pageSize
+# 	
+# 	Return the number of rows per page
+#
+# Returns:
+#	
+#	int - page size
+sub pageSize
+{
+	my ($self) = @_;
+
+	return $self->{'pageSize'}
+}
+
+# Method: setPageSize
+# 	
+# 	set the number of rows per page
+#
+# Parameters:
+#
+# 	rows - number of rows per page
+# 	
+# Returns:
+#	
+#	int - page size
+sub setPageSize
+{
+	my ($self, $rows) = @_;
+	
+	unless (defined ($rows)) {
+		throw EBox::Exceptions::MissingArgument("Missing field rows"); 
+	}
+
+	$self->{'pageSize'} = $rows;
+	
+}
+
+# Method: changeViewJS
+#
+# 	Return the javascript function to change view to
+# 	add a row
+#
+# Parameters:
+#	
+#	(POSITIONAL)
+#	changeType - changeAdd or changeList	
+#	editId - edit id
+# 	page - page number
+#	
+#
+# Returns:
+#
+# 	string - holding a javascript funcion
+sub changeViewJS
+{
+	my ($self, $type, $editId, $page) = @_;
+	
+	my  $function = 'changeView("%s", "%s", "%s", "%s",'.
+			'"%s", %s)';
+
+	my $table = $self->table();
+	return  sprintf ($function, 
+			 $table->{'actions'}->{'changeView'},
+			 $table->{'tableName'},
+			 $table->{'gconfdir'},
+			 $type,
+			 $editId,
+			 $page);
+}
+
+# Method: addNewRowJS
+#
+# 	Return the javascript function for addNewRow
+#
+# Parameters:
+#	
+#	(POSITIONAL)
+# 	page - page number
+#
+# Returns:
+#
+# 	string - holding a javascript funcion
+sub addNewRowJS
+{
+	my ($self, $page) = @_;
+	
+	my  $function = 'addNewRow("%s", "%s", %s, "%s",'.
+			'undefined, %s)';
+
+	my $table = $self->table();
+	my $fields = $self->_paramsWithSetterJS();
+	$fields =~ s/'/\"/g;
+	return  sprintf ($function, 
+			 $table->{'actions'}->{'add'},
+			 $table->{'tableName'},
+			 $fields,
+			 $table->{'gconfdir'},
+			 $page);
+}
+
+# Method: changeRow 
+#
+# 	Return the javascript function for changeRow 
+#
+# Parameters:
+#	
+#	(POSITIONAL)
+#	editId - row id to edit
+# 	page - page number
+#
+# Returns:
+#
+# 	string - holding a javascript funcion
+sub changeRowJS
+{
+	my ($self, $editId, $page) = @_;
+	
+	my  $function = 'changeRow("%s", "%s", %s, "%s",'.
+			'"%s", %s)';
+
+	my $table = $self->table();
+	my $fields = $self->_paramsWithSetterJS();
+	$fields =~ s/'/\"/g;
+	return  sprintf ($function, 
+			 $table->{'actions'}->{'editField'},
+			 $table->{'tableName'},
+			 $fields,
+			 $table->{'gconfdir'},
+			 $editId,
+			 $page);
+}
+
+# Method: actionClicked 
+#
+# 	Return the javascript function for actionClicked
+#
+# Parameters:
+#	
+#	(POSITIONAL)
+#	action - move or del
+#	editId - row id to edit
+#	direction - up or down
+# 	page - page number
+#
+# Returns:
+#
+# 	string - holding a javascript funcion
+sub actionClickedJS
+{
+	my ($self, $action, $editId, $direction, $page) = @_;
+	
+	unless ($action eq 'move' or $action eq 'del') {
+		throw EBox::Exceptions::External("Wrong action $action");
+	}
+	
+	if ($action eq 'move' 
+	    and not ($direction eq 'up' or $direction eq 'down')) {
+		
+		throw EBox::Exceptions::External("Wrong action $direction");
+	}
+	
+	my  $function = 'actionClicked("%s", "%s", "%s", "%s",'.
+			'"%s", "%s", %s)';
+
+	if ($direction) {
+		$direction = "dir=$direction";
+	} else {
+		$direction = "";
+	}	
+
+	my $table = $self->table();
+	my $fields = $self->_paramsWithSetterJS();
+	$fields =~ s/'/\"/g;
+	return  sprintf ($function, 
+			 $table->{'actions'}->{$action},
+			 $table->{'tableName'},
+			 $action,
+			 $editId,
+			 $direction,
+			 $table->{'gconfdir'},
+			 $page);
+}
+
+# Group: Private helper functions
+
+# Method: _find
+#
+#	(PRIVATE)
+#	
+#	Used by find and findAll to find rows in a table	
+#
+# Parameters:
+#
+#	(POSITIONAL)
+#	
+#	fieldName - the name of the field to match
+#	value - value we want to match
+#	allMatches -   1 or undef to tell the method to return just the
+#		first match or all of them
+#
+#	printableValue - if 1 match against printableValue, undef against value
+# 	Example:
+#
+# 	find('default',  1, undef);
+#
+# Returns:
+#
+#	An array of hash ref containing the rows with their printable
+#	values
+# 	
+sub _find 
+{
+    my ($self, $fieldName, $value, $allMatches, $printableValue) = @_;
+
+    unless (defined ($fieldName)) {
+        throw EBox::Exceptions::MissingArgument("Missing field name"); 
+    }
+
+    my $rows = $self->rows();
+
+    my @matched;
+    foreach my $row (@{$rows}) {
+    	my $values;
+	if ($printableValue) {
+        	$values = $row->{'printableValueHash'};  
+	} else {
+		$values = $row->{'plainValueHash'};
+	}
+        next unless (exists $values->{$fieldName});
+        next unless ($values->{$fieldName} eq $value);
+        push (@matched, $values);
+        return (\@matched) unless ($allMatches);
+    }
+
+    return \@matched;
+}
+
 sub _checkFieldIsUnique
 {
 	my ($self, $newData) = @_;
@@ -1045,7 +2085,7 @@ sub _swapPos
 	$order[$posB] = $temp;
 	
 	$gconfmod->set_list($self->{'order'}, 'string', \@order);
-	$self->_increaseStoredVersion();
+	$self->_setCacheDirty();
 	$self->_reorderCachedRows($posA, $posB);
 }
 
@@ -1099,5 +2139,251 @@ sub _hashFromDir
 	return $row;
 }
 
-1;
+sub _removeHasManyTables
+{
+	my ($self, $id) = @_;
+	
+	foreach my $type (@{$self->table()->{'tableDescription'}}) {
+		my $dir = "$id/" . $type->fieldName();
+		next unless ($self->{'gconfmodule'}->dir_exists($dir));
+		$self->{'gconfmodule'}->delete_dir("$id/$dir");
+	}
 
+}
+
+# FIXME This method must be in ModelManager
+sub _warnIfIdIsUsed
+{
+	my ($self, $id) = @_;
+	
+	my $manager = EBox::Model::ModelManager->instance();
+	my $modelName = $self->modelName();
+	my $tablesUsing;
+	
+	for my $name  (values %{$manager->modelsUsingId($modelName, $id)}) {
+		$tablesUsing .= '<br> - ' .  $name ;
+	}
+
+	if ($tablesUsing) {
+		throw EBox::Exceptions::DataInUse(
+			__('The data you are removing is being used by
+			the following tables:') . '<br>' . $tablesUsing);
+	}
+}
+
+# FIXME This method must be in ModelManager
+sub _warnOnChangeOnId 
+{
+	my ($self, $id, $changeData) = @_;
+	
+	my $manager = EBox::Model::ModelManager->instance();
+	my $modelName = $self->modelName();
+	my $tablesUsing;
+	
+	for my $name  (keys %{$manager->modelsUsingId($modelName, $id)}) {
+		my $model = $manager->model($name);
+		my $issue = $model->warnOnChangeOnId($id, $changeData);
+		if ($issue) {
+			$tablesUsing .= '<br> - ' .  $issue ;
+		}
+	}
+
+	if ($tablesUsing) {
+		throw EBox::Exceptions::DataInUse(
+			__('The data you are modifying is being used by
+			the following tables:') . '<br>' . $tablesUsing);
+	}
+}
+
+# Method: _setDomain
+#
+# 	Set the translation domain to the one stored in the model, if any
+sub _setDomain
+{
+	my ($self) = @_;
+
+	my $domain = $self->{'domain'};
+	if ($domain) {
+		$self->{'oldDomain'} = settextdomain($domain);
+	}
+}
+
+# Method: _restoreDomain
+#
+# 	Restore the translation domain privous to _setDomain
+sub _restoreDomain
+{
+	my ($self) = @_;
+
+	my $domain = $self->{'oldDomain'};
+	if ($domain) {
+		settextdomain($domain);
+	}
+}
+
+sub _notifyModelManager
+{
+	my ($self, $action, $row) = @_;
+
+	my $manager = EBox::Model::ModelManager->instance();
+	my $modelName = $self->modelName();
+
+	$manager->modelActionTaken($modelName, $action, $row);
+}
+
+sub _filterRows
+{
+	my ($self, $rows, $filter, $page) = @_;
+
+	# Filter using regExp
+	my @newRows;
+	if (defined($filter) and length($filter) > 0) {
+		my @words = split (/\s+/, $filter);
+		my $totalWords = scalar(@words);
+		for my $row (@{$rows}) {
+			my $values = $row->{'printableValueHash'};
+			my $nwords = $totalWords;
+			my %wordFound;		
+			for my $key (keys %{$values}) {
+				next if (ref $values->{$key});
+				my $rowFound;
+				for my $regExp (@words) {
+					if (not exists $wordFound{$regExp} 
+					    and $values->{$key} =~ /$regExp/) {
+						$nwords--;
+						$wordFound{$regExp} = 1;
+						unless ($nwords) {
+							push(@newRows, $row);
+							$rowFound = 1;
+							last;
+						}
+					}
+
+				}
+				last if $rowFound;
+			}
+		}
+	} else {
+		@newRows = @{$rows};
+	}
+	
+	# Paging
+	unless (defined($page) and defined($self->pageSize())) {
+		return \@newRows;
+	}
+	
+
+	my $pageSize = $self->pageSize();
+	my $tpages;
+	if (@newRows == 0) {
+		$tpages = 0;
+	} else {
+		$tpages = ceil(@newRows / $pageSize) - 1;
+	}
+
+        if ($page < 0) { $page = 0; }
+        if ($page > $tpages) { $page = $tpages; }
+	
+	
+	my $index;
+	if ($tpages > 0 and defined($pageSize) and $pageSize > 0) {
+		$index = $page * $pageSize;
+	} else {
+		$index = 0;
+		$pageSize = @{$rows} - 1;
+	}
+	my $offset = $index + $pageSize;
+	if ($page == $tpages) {
+		$offset = @newRows - 1;
+	}
+	
+	if ($tpages > 0) {
+		return [@newRows[$index ..  $offset]];
+	} else {
+		return \@newRows;
+	}
+}
+
+# Set the default controller to that actions which do not have a
+# custom controller
+sub _setControllers
+  {
+
+      my ($self) = @_;
+
+      # Table is already defined
+      my $table = $self->{'table'};
+
+      my $defAction = $table->{'defaultController'};
+      if ( (not defined ( $defAction )) and defined ( $self->modelDomain() )) {
+          # If it is not a defaultController, we try to guess it from
+          # the model domain and its name
+          $defAction = '/ebox/' . $self->modelDomain() . '/Controller/' .
+            $self->tableName();
+      }
+      if ($defAction) {
+          foreach my $action (@{$table->{'defaultActions'}}) {
+              # Do not overwrite existing actions
+              unless ( exists ( $table->{'actions'}->{$action} )) {
+                  $table->{'actions'}->{$action} = $defAction;
+              }
+          }
+      }
+
+  }
+
+# Method: _paramsWithSetterJS
+#
+#      Return the string which defines an array with that parameters
+#      which have a setter defined
+#
+# Returns:
+#
+#      String - the string ready to print on a JavaScript file
+#
+sub _paramsWithSetterJS
+  {
+
+      my ($self) = @_;
+
+      my $table = $self->table();
+      my @parameters;
+      foreach my $type ( @{$table->{'tableDescription'}}) {
+          push ( @parameters, $type->fields());
+      }
+
+      my $fieldsWithOutSetter = $self->fieldsWithUndefSetter();
+      my @paramsWithSetter = grep {!$fieldsWithOutSetter->{$_}} @parameters;
+      push (@paramsWithSetter, 'filter', 'page');
+      my $paramsArray = '[' . "'" . pop(@paramsWithSetter) . "'";
+      foreach my $param (@paramsWithSetter) {
+          $paramsArray .= ', ' . "'" . $param . "'";
+      }
+      $paramsArray .= ']';
+
+      return $paramsArray;
+
+  }
+
+# Method: _isOptionsCacheDirty
+#
+#	Check if the options cache is dirty. In case of being empty
+#	we return empty too
+#
+sub _isOptionsCacheDirty
+{
+	my ($self, $field) = @_;
+
+	unless (defined($field)) {
+		throw EBox::Exceptions::MissingArgument("field's name")
+	}
+	
+	return 1 unless (exists $self->{'optionsCache'}->{$field});
+	
+	my $cachedVersion = 
+		$self->{'optionsCache'}->{$field}->{'cachedVersion'};
+
+	return ($cachedVersion ne $self->_cachedVersion());
+}
+
+1;

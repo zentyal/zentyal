@@ -1,4 +1,4 @@
-AC_INIT([EBox], [0.9.99])
+AC_INIT([EBox], [0.9.100])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Module.pm])
@@ -96,6 +96,7 @@ tools/sqllog/Makefile
 doc/Makefile
 src/Makefile
 src/libexec/Makefile
+src/templates/events/Makefile
 src/templates/login/Makefile
 src/templates/logout/Makefile
 src/templates/logs/Makefile
@@ -107,6 +108,14 @@ src/EBox/interactiveTest/Makefile
 src/EBox/Backup/Makefile
 src/EBox/Backup/interactiveTest/Makefile
 src/EBox/Backup/testdata/Makefile
+src/EBox/Event/Makefile
+src/EBox/Event/Dispatcher/Makefile
+src/EBox/Event/Dispatcher/t/Makefile
+src/EBox/Event/Watcher/Makefile
+src/EBox/Events/Makefile
+src/EBox/Events/Model/Makefile
+src/EBox/Events/Model/Dispatcher/Makefile
+src/EBox/Events/Model/t/Makefile
 src/EBox/GConfModule/Makefile
 src/EBox/GConfModule/t/Makefile
 src/EBox/Global/Makefile
@@ -114,19 +123,20 @@ src/EBox/Logs/Makefile
 src/EBox/Logs/Model/Makefile
 src/EBox/Model/Makefile
 src/EBox/Types/Makefile
+src/EBox/Types/Union/Makefile
 src/EBox/Global/t/Makefile
 src/EBox//t/Makefile
 src/EBox/Test/Makefile
 src/EBox/Test/t/Makefile
 src/EBox/CGI/Makefile
 src/EBox/CGI/EBox/Makefile
+src/EBox/CGI/Events/Makefile
+src/EBox/CGI/Events/Controller/Makefile
 src/EBox/CGI/Controller/Makefile
 src/EBox/CGI/View/Makefile
 src/EBox/CGI/Login/Makefile
 src/EBox/CGI/Logout/Makefile
 src/EBox/CGI/Logs/Makefile
-src/EBox/CGI/Logs/Controller/Makefile
-src/EBox/CGI/Logs/View/Makefile
 src/EBox/CGI/Summary/Makefile
 src/EBox/CGI/FirstTime/Makefile
 src/EBox/Summary/Makefile

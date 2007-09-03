@@ -13,33 +13,35 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::CGI::Logs::View::ConfigureLogDataTable
+# Class: EBox::Model::ModelProvider
 #
-#       Overrides <EBox::CGI::View::DataTable> to implement
-#       the default view for <EBox::Logs::View::ConfigureLogDataTable>.
-#
+#   Interface meant to be used for classes providing modules
 
-package EBox::CGI::Logs::View::ConfigureLogDataTable;
+package EBox::Model::ModelProvider;
 
 use strict;
 use warnings;
 
-use base 'EBox::CGI::View::DataTable';
-
 use EBox::Gettext;
-use EBox::Global;
 
-sub new # (cgi=?)
+sub new 
 {
-	my $class = shift;
-	my $logs = EBox::Global->modInstance('logs');
-	my $self = $class->SUPER::new('title' => __('Configure logs'),
-				'tableModel' => $logs->configureLogModel(),
-				@_);
-	$self->{domain} = 'ebox-logs';
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = {};
+    bless($self, $class);
+    return $self;
+}
+
+# Method: models 
+# 
+#   This method must be overriden in case of your module provides any model
+#
+# Returns:
+#
+#	array ref - containing instances of the models
+sub models 
+{
+    return [];
 }
 
 1;
-

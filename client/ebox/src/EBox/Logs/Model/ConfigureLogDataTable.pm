@@ -66,25 +66,25 @@ sub new
 #
 # Parameters:
 #
-#   domain - string containing the domain
+#   instancedType-  an object derivated of <EBox::Types::Abastract>
 #
 # Return:
 #
 #   string - translation
 sub filterDomain
 {
-    my ($domain) = @_;
+    my ($instancedType) = @_;
 
     my $logs = EBox::Global->modInstance('logs');
 
-    my $table = $logs->getTableInfo($domain);
+    my $table = $logs->getTableInfo($instancedType->value());
 
     my $translation = $table->{'name'};
 
     if ($translation) {
         return $translation;
     } else {
-        return $domain;
+        return $table->{'name'};
     }
 }
 
@@ -129,12 +129,10 @@ sub _table
 
     my $dataTable = 
         { 
-            'tableName' => 'configureLogTable',
+            'tableName' => 'ConfigureLogTable',
             'printableTableName' => __('Configure logs'),
-            'actions' => { 
-                'editField' => '/ebox/Logs/Controller/ConfigureLogDataTable',
-                'changeView' => '/ebox/Logs/Controller/ConfigureLogDataTable', 
-                },
+	    'defaultController' => '/ebox/Logs/Controller/ConfigureLogTable',
+            'defaultActions' => [ 'editField', 'changeView' ],
             'tableDescription' => \@tableHead,
             'class' => 'dataTable',
             'order' => 0,

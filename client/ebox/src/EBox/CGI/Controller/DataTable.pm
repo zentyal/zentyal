@@ -28,9 +28,9 @@ sub new # (cgi=?)
 {
 	my $class = shift;
 	my %params = @_;
-	my $tableModel = delete $params{'tableModel'};	
-	my $self = $class->SUPER::new('template' => '/ajax/tableBody.mas', 
-				@_);
+	my $tableModel = delete $params{'tableModel'};
+	my $self = $class->SUPER::new('template' => $tableModel->Viewer(),
+                                      @_);
 	$self->{'tableModel'} = $tableModel;
 	bless($self, $class);
 	return  $self;
@@ -49,34 +49,37 @@ sub getParams
 
 		foreach my $fieldName ($field->fields()) {
 			my $value = $self->param($fieldName);
-		
-			if ($field->{'optional'} == 1 and $type  ne 'boolean') {
-				if (not defined($value)) {
-					$value = "";
-				}
-				
-			} else {
 
-				if ($type ne 'boolean') {
-					$self->_requireParam($fieldName,
-						$field->printableName());
-				} else {
-					if ($value) {
-						$value = 1;
-					} else {
-						$value = 0;
-					}
-				}
-			}
+# It is already done by the type
+#			if ($field->{'optional'} == 1 and $type  ne 'boolean') {
+#				if (not defined($value)) {
+#					$value = "";
+#				}
+#				
+#			} else {
+#
+#				if ($type ne 'boolean') {
+#					$self->_requireParam($fieldName,
+#						$field->printableName());
+#				} else {
+#					if ($value) {
+#						$value = 1;
+#					} else {
+#						$value = 0;
+#					}
+#				}
+#			}
 
 			$params{$fieldName} = $value;
 		}
 	}
 
 	$params{'id'} = $self->param('id');
-
+	$params{'filter'} = $self->param('filter');
+	
 	return %params;
 }
+
 sub addRow
 {
 	my $self = shift;
@@ -114,8 +117,9 @@ sub removeRow()
 	
 	$self->_requireParam('id');
 	my $id = $self->param('id');
+	my $force = $self->param('force');
 
-	$model->removeRow($id);
+	$model->removeRow($id, $force);
 	
 }
 
@@ -125,7 +129,8 @@ sub editField
 
 	my $model = $self->{'tableModel'};
 	my %params = $self->getParams();
-	$model->setRow($self->getParams());
+	my $force = $self->param('force');
+	$model->setRow($force, $self->getParams());
 	
 	my $editField = $self->param('editfield');
 	if (not $editField) {
@@ -154,13 +159,23 @@ sub refreshTable
 	my $model = $self->{'tableModel'};
 	my $global = EBox::Global->getInstance(); 
 
+	my $filter = $self->param('filter');
+	my $page = $self->param('page');
+	my $pageSize = $self->param('pageSize');
+	$model->setPageSize($pageSize);
+	my $rows = $model->rows($filter, $page);
+	my $tpages = $model->pages($filter);
 	my @params;
-	push(@params, 'data' => $model->rows() );
-	push(@params, 'dataTable' => $model->tableInfo());
+	push(@params, 'data' => $rows);
+	push(@params, 'dataTable' => $model->table());
+        push(@params, 'model'  => $model);
+	push(@params, 'model' => $model);
 	push(@params, 'action' => $self->{'action'});
 	push(@params, 'editid' => $self->param('editid'));
 	push(@params, 'hasChanged' => $global->unsaved());
-	
+	push(@params, 'filter' => $filter);
+	push(@params, 'page' => $page);
+	push(@params, 'tpages' => $tpages);
 
 	$self->{'params'} = \@params;
 
@@ -173,6 +188,14 @@ sub _process
 	$self->_requireParam('action');
 	my $action = $self->param('action');
 	$self->{'action'} = $action;
+
+	my $model = $self->{'tableModel'};
+	
+	my $directory = $self->param('directory');
+	if ($directory) {
+
+		$model->setDirectory($directory);
+	}
 
 	if ($action eq 'edit') {
 
@@ -206,7 +229,14 @@ sub _process
 	
 		$self->refreshTable();
 
-	}
+        } elsif ($action eq 'view') {
+                # This action will show the whole table (including the
+                # table header similarly View Base CGI but inheriting
+                # from ClientRawBase instead of ClientBase
+                $self->{template} = $model->Viewer();
+                EBox::debug($self->{template});
+                $self->refreshTable();
+        }
 }
 
 sub _print

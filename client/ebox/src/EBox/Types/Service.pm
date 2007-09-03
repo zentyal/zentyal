@@ -38,11 +38,19 @@ sub new
   {
     my $class = shift;
     my %opts = @_;
-    my $self = $class->SUPER::new(@_);
+
+    unless (exists $opts{'HTMLSetter'}) {
+        $opts{'HTMLSetter'} ='/ajax/setter/serviceSetter.mas';
+    }
+    unless (exists $opts{'HTMLViewer'}) {
+        $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
+    }
+    $opts{optional} = 0 unless defined ( $opts{optional} );
+    $opts{'type'} = 'service';
+
+    my $self = $class->SUPER::new(%opts);
 
     $self->{protocols} = $self->_protocolsHash();
-    $self->{optional} = 0 unless defined ( $self->{optional} );
-
     bless($self, $class);
     return $self;
   }
@@ -60,30 +68,6 @@ sub paramExist
     my $port = $self->fieldName() . '_port';
 
     return ( defined($params->{$proto}) );
-
-  }
-
-# Method: setMemValue
-#
-#    Overrides <EBox::Types::Abstract::setMemValue> method
-#
-sub setMemValue
-  {
-
-    my ($self, $params) = @_;
-
-    if ($self->optional() == 0) {
-      throw EBox::Exceptions::MissingArgument($self->printableName())
-	unless ($self->paramExist($params));
-    }
-
-    $self->paramIsValid($params);
-
-    my $proto = $self->fieldName() . '_protocol';
-    my $port = $self->fieldName() . '_port';
-
-    $self->{protocol} = $params->{$proto};
-    $self->{port} = $params->{$port};
 
   }
 
@@ -114,63 +98,11 @@ sub printableValue
 #
 #    Overrides <EBox::Types::Abstract::paramIsValid> method
 #
-sub paramIsValid
-  {
-
-    my ($self, $params) = @_;
-
-    my $proto = $self->fieldName() . '_protocol';
-    my $port = $self->fieldName() . '_port';
-
-    if (exists $params->{$proto}) {
-      checkProtocol($params->{$proto}, $self->printableName());
-    }
-
-    if ( $self->_needPort($params->{$proto}) ) {
-      if ( not defined( $params->{$port} ) or $params->{$port} eq '' ) {
-	throw EBox::Exceptions::InvalidData( data => __('Service'),
-					     value => $params->{$proto},
-					   );
-      }
-      else {
-	checkPort($params->{$port}, $self->printableName());
-      }
-    }
-    elsif ( $params->{$port} ) {
-	throw EBox::Exceptions::InvalidData( data => __('Service'),
-					     value => $params->{$port} . '/' . $params->{$proto},
-					   );
-    }
-
-    return 1;
-
-  }
-
-# Method: storeInGConf
+#sub paramIsValid
+#  {
 #
-#    Overrides <EBox::Types::Abstract::storeInGConf> method
 #
-sub storeInGConf
-  {
-    my ($self, $gconfmod, $key) = @_;
-
-    my $protoKey = "$key/" . $self->fieldName() . '_protocol';
-    my $portKey = "$key/" . $self->fieldName() . '_port';
-
-    if (defined ($self->{protocol}) ) {
-      $gconfmod->set_string($protoKey, $self->{protocol});
-    }
-    else {
-      $gconfmod->unset($protoKey);
-    }
-
-    if (defined ($self->{port}) ) {
-      $gconfmod->set_int($portKey, $self->{port});
-    }
-    else {
-      $gconfmod->unset($portKey);
-    }
-}
+#  }
 
 # Method: compareToHash
 #
@@ -203,22 +135,6 @@ sub compareToHash
 
 }
 
-# Method: restoreFromHash
-#
-#    Overrides <EBox::Types::Abstract::restoreFromHash> method
-#
-sub restoreFromHash
-  {
-    my ($self, $hash) = @_;
-
-    my $proto = $self->fieldName() . '_protocol';
-    my $port = $self->fieldName() . '_port';
-
-    $self->{protocol} = $hash->{$proto};
-    $self->{port} = $hash->{$port};
-
-  }
-
 # Method: isEqualTo
 #
 #    Overrides <EBox::Types::Abstract::isEqualTo> method
@@ -228,26 +144,6 @@ sub isEqualTo
 	my ($self, $newObject) = @_;
 
 	return ($self->printableValue() eq $newObject->printableValue());
-}
-
-# Method: HTMLSetter
-#
-#    Overrides <EBox::Types::Abstract::HTMLSetter> method
-#
-sub HTMLSetter
-{
-
-        return 'serviceSetter';
-
-}
-
-# Method: HTMLViewer
-#
-#    Overrides <EBox::Types::Abstract::HTMLViewer> method
-#
-sub HTMLViewer
-{
-	return 'textViewer';
 }
 
 # Method: fields
@@ -334,7 +230,7 @@ sub protocolsJS
 
     foreach my $proto ( @{$self->protocols()} ) {
       if ( $proto->{needPort} ) {
-	$str .= "'" . $proto->{value} . "', "
+	$str .= q{"} . $proto->{value} . q{", };
       }
     }
 
@@ -394,8 +290,123 @@ sub AnyProtocol
 
   }
 
+# Group: Protected methods
+
+# Method: _setMemValue
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_setMemValue>
+#
+sub _setMemValue
+  {
+
+    my ($self, $params) = @_;
+
+    my $proto = $self->fieldName() . '_protocol';
+    my $port = $self->fieldName() . '_port';
+
+    $self->{protocol} = $params->{$proto};
+    $self->{port} = $params->{$port};
+
+  }
+
+# Method: _storeInGConf
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_storeInGConf>
+#
+sub _storeInGConf
+  {
+    my ($self, $gconfmod, $key) = @_;
+
+    my $protoKey = "$key/" . $self->fieldName() . '_protocol';
+    my $portKey = "$key/" . $self->fieldName() . '_port';
+
+    if (defined ($self->{protocol}) ) {
+      $gconfmod->set_string($protoKey, $self->{protocol});
+    }
+    else {
+      $gconfmod->unset($protoKey);
+    }
+
+    if (defined ($self->{port}) ) {
+      $gconfmod->set_int($portKey, $self->{port});
+    }
+    else {
+      $gconfmod->unset($portKey);
+    }
+}
+
+# Method: _restoreFromHash
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_restoreFromHash>
+#
+sub _restoreFromHash
+  {
+    my ($self, $hash) = @_;
+
+    my $proto = $self->fieldName() . '_protocol';
+    my $port = $self->fieldName() . '_port';
+
+    $self->{protocol} = $hash->{$proto};
+    $self->{port} = $hash->{$port};
+
+  }
+
+# Method: _paramIsValid
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_paramIsValid>
+#
+sub _paramIsValid
+  {
+
+      my ($self, $params) = @_;
+
+      my $proto = $self->fieldName() . '_protocol';
+      my $port = $self->fieldName() . '_port';
+
+      checkProtocol($params->{$proto}, $self->printableName());
+
+      if ( $self->_needPort($params->{$proto}) ) {
+          checkPort($params->{$port}, $self->printableName());
+      }
+
+      return 1;
+
+  }
+
+# Method: _paramIsSet
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_paramIsSet>
+#
+sub _paramIsSet
+  {
+
+      my ($self, $params) = @_;
+
+      my $proto = $self->fieldName() . '_protocol';
+      my $port = $self->fieldName() . '_port';
+
+      return undef unless ( $params->{$proto} );
+
+      if ( $self->_needPort($params->{$proto}) ) {
+          return undef unless ( $params->{$port} );
+      }
+
+      return 1;
+
+  }
+
 ####
-# Private methods
+# Group: Private methods
 ###
 
 # Return if a protocol needs a port

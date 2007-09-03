@@ -20,35 +20,31 @@ use warnings;
 
 use base 'EBox::Types::Basic';
 
+# eBox uses
+use EBox::Exceptions::External;
+use EBox::Gettext;
+
+# Group: Public methods
 
 sub new
 {
         my $class = shift;
-	my %opts = @_;
-	my $self = $class->SUPER::new(@_);
+        my %opts = @_;
 
+        unless (exists $opts{'HTMLSetter'}) {
+            $opts{'HTMLSetter'} ='/ajax/setter/textSetter.mas';
+        }
+        unless (exists $opts{'HTMLViewer'}) {
+            $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
+        }
+        $opts{'type'} = 'int';
+	
+        my $self = $class->SUPER::new(%opts);
 
         bless($self, $class);
         return $self;
 }
 
-sub paramIsValid
-{
-	my ($self, $params) = @_;
-
-	my $value = $params->{$self->fieldName()};
-
-	unless (defined($value)) {
-		return 0;
-	}
-
-	unless ($value =~ /^[0-9]+$/) {
-		return 0;
-	}
-
-	return 1;
-
-}
 
 sub size
 {
@@ -57,7 +53,16 @@ sub size
 	return $self->{'size'};
 }
 
-sub storeInGConf
+
+# Group: Protected methods
+
+# Method: _storeInGConf
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_storeInGConf>
+#
+sub _storeInGConf
 {
 	my ($self, $gconfmod, $key) = @_;
 
@@ -70,16 +75,44 @@ sub storeInGConf
 	}
 }
 
-sub HTMLSetter
+# Method: _paramIsValid
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_paramIsValid>
+#
+sub _paramIsValid
 {
-	
-	return 'textSetter';
+	my ($self, $params) = @_;
+
+	my $value = $params->{$self->fieldName()};
+
+	unless ($value =~ /^[0-9]+$/) {
+            throw EBox::Exceptions::InvalidData( data   => $self->printableName(),
+                                                 value  => $value,
+                                                 advice => __('Write down a positive number'));
+	}
+
+	return 1;
 
 }
 
-sub HTMLViewer
-{
-        return 'textViewer';
-}
+# Method: _paramIsSet
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_paramIsSet>
+#
+sub _paramIsSet
+  {
+
+      my ($self, $params) = @_;
+
+      # Check if the parameter exist
+      my $param =  $params->{$self->fieldName()};
+
+      return defined ( $param ) and ( $param ne '');
+
+  }
 
 1;

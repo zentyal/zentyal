@@ -64,7 +64,7 @@ sub _top
 sub _menu
 {
 	my $self = shift;
-	print(EBox::Html::menu($self->{url}));
+	print(EBox::Html::menu($self->menuNamespace()));
 }
 
 sub _footer

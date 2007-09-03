@@ -28,8 +28,17 @@ use base 'EBox::Types::Abstract';
 sub new
 {
         my $class = shift;
-	my %opts = @_;
-        my $self = $class->SUPER::new(@_);
+    	my %opts = @_;
+
+        unless (exists $opts{'HTMLSetter'}) {
+            $opts{'HTMLSetter'} ='/ajax/setter/ipaddrSetter.mas';
+        }
+        unless (exists $opts{'HTMLViewer'}) {
+            $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
+        }
+	
+        $opts{'type'} = 'ipaddr';
+        my $self = $class->SUPER::new(%opts);
 
         bless($self, $class);
         return $self;
@@ -47,28 +56,6 @@ sub paramExist
 
 }
 
-sub setMemValue
-{
-	my ($self, $params) = @_;
-	
-
-	if ($self->optional() == 0) {
-		unless ($self->paramExist($params)) {
-			throw EBox::Exceptions::MissingArgument(
-						$self->printableName());
-		}
-	}
-	
-	$self->paramIsValid($params);
-
-	my $ip =  $self->fieldName() . '_ip';
- 	my $mask =  $self->fieldName() . '_mask';
-
-	$self->{'ip'} = $params->{$ip};
-	$self->{'mask'} = $params->{$mask};
-
-
-}
 
 sub printableValue
 {
@@ -82,47 +69,11 @@ sub printableValue
 	
 }
 
-sub paramIsValid
-{
-	my ($self, $params) = @_;
-
-	my $ip =  $self->fieldName() . '_ip';
- 	my $mask =  $self->fieldName() . '_mask';
-
-	if ($self->optional() == 1 and $params->{$ip} eq '') {
-		return 1;
-	}
-
-	if (exists $params->{$ip}) {
-		 checkIP($params->{$ip}, __($self->printableName()));
-	}
-
-
-	return 1;
-
-}
-
 sub size
 {
 	my ($self) = @_;
 
 	return $self->{'size'};
-}
-
-sub storeInGConf
-{
-        my ($self, $gconfmod, $key) = @_;
- 
- 	my $ipKey = "$key/" . $self->fieldName() . '_ip';
- 	my $maskKey = "$key/" . $self->fieldName() . '_mask';
-	
-	if ($self->{'ip'}) {
-        	$gconfmod->set_string($ipKey, $self->{'ip'});
-        	$gconfmod->set_string($maskKey, $self->{'mask'});
-	} else {
-		$gconfmod->unset($ipKey);
-		$gconfmod->unset($maskKey);
-	}
 }
 
 sub compareToHash
@@ -144,34 +95,11 @@ sub compareToHash
 	return 1;
 }
 
-sub restoreFromHash
-{
-	my ($self, $hash) = @_;
-
- 	my $ip = $self->fieldName() . '_ip';
- 	my $mask = $self->fieldName() . '_mask';
-	
-	$self->{'ip'} = $hash->{$ip};
-	$self->{'mask'} = $hash->{$mask};
-}
-
 sub isEqualTo
 {
 	my ($self, $newObject) = @_;
 
 	return ($self->printableValue() eq $newObject->printableValue());
-}
-
-sub HTMLSetter
-{
-
-        return 'ipaddrSetter';
-
-}
-
-sub HTMLViewer
-{
-	return 'textViewer';
 }
 
 sub fields
@@ -197,6 +125,113 @@ sub mask
 
 	return $self->{'mask'};
 }
+
+# Group: Protected methods
+
+# Method: _setMemValue
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_setMemValue>
+#
+sub _setMemValue
+{
+	my ($self, $params) = @_;
+
+	my $ip =  $self->fieldName() . '_ip';
+ 	my $mask =  $self->fieldName() . '_mask';
+
+	$self->{'ip'} = $params->{$ip};
+	$self->{'mask'} = $params->{$mask};
+
+}
+
+# Method: _storeInGConf
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_storeInGConf>
+#
+sub _storeInGConf
+{
+        my ($self, $gconfmod, $key) = @_;
+
+ 	my $ipKey = "$key/" . $self->fieldName() . '_ip';
+ 	my $maskKey = "$key/" . $self->fieldName() . '_mask';
+
+	if ($self->{'ip'}) {
+        	$gconfmod->set_string($ipKey, $self->{'ip'});
+        	$gconfmod->set_string($maskKey, $self->{'mask'});
+	} else {
+		$gconfmod->unset($ipKey);
+		$gconfmod->unset($maskKey);
+	}
+}
+
+# Method: _restoreFromHash
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_restoreFromHash>
+#
+sub _restoreFromHash
+{
+	my ($self, $hash) = @_;
+
+ 	my $ip = $self->fieldName() . '_ip';
+ 	my $mask = $self->fieldName() . '_mask';
+
+	$self->{'ip'} = $hash->{$ip};
+	$self->{'mask'} = $hash->{$mask};
+}
+
+
+# Method: _paramIsValid
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_paramIsValid>
+#
+sub _paramIsValid
+  {
+      my ($self, $params) = @_;
+
+      my $ip =  $self->fieldName() . '_ip';
+      my $mask =  $self->fieldName() . '_mask';
+
+      checkIP($params->{$ip}, __($self->printableName()));
+      checkCIDR($params->{$ip} . "/$params->{$mask}", 
+                __($self->printableName()));
+
+      return 1;
+
+  }
+
+# Method: _paramIsSet
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_paramIsSet>
+#
+sub _paramIsSet
+  {
+
+      my ($self, $params) = @_;
+
+      # Check if the parameter exist
+      my $ip =  $self->fieldName() . '_ip';
+      my $mask =  $self->fieldName() . '_mask';
+
+      unless ( defined($params->{$ip}) and defined($params->{$mask})) {
+          return 0;
+      }
+
+      # Check if has something, ip field is not empty
+      return ( $params->{$ip} ne '' );
+
+  }
+
+# Group: Private methods
 
 # Helper funcionts
 sub _ipNetmask

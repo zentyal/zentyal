@@ -20,46 +20,104 @@ use warnings;
 
 use base 'EBox::Types::Basic';
 
+# Group: Public methods
 
 sub new
 {
         my $class = shift;
-	my %opts = @_;
-        my $self = $class->SUPER::new(@_);
+    	my %opts = @_;
 
+        unless (exists $opts{'HTMLSetter'}) {
+            $opts{'HTMLSetter'} ='/ajax/setter/booleanSetter.mas';
+        }
+        unless (exists $opts{'HTMLViewer'}) {
+            $opts{'HTMLViewer'} ='/ajax/viewer/booleanViewer.mas';
+        }
+	$opts{'type'} = 'boolean';
+
+        my $self = $class->SUPER::new(%opts);
         bless($self, $class);
         return $self;
 }
 
+# Group: Protected methods
 
-sub paramIsValid
+# Method: _setMemValue
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_setMemValue>
+#
+sub _setMemValue
 {
 	my ($self, $params) = @_;
 
-	return 1;
+        $self->{'value'} = $params->{$self->fieldName()};
+        $self->{'value'} = 0 unless ( defined ($self->{'value'}) );
 
 }
-sub storeInGConf
+
+# Method: _storeInGConf
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_storeInGConf>
+#
+sub _storeInGConf
 {
         my ($self, $gconfmod, $key) = @_;
- 
+
 	if (defined($self->memValue())) {
-        	$gconfmod->set_bool("$key/" . $self->fieldName(), 
+        	$gconfmod->set_bool("$key/" . $self->fieldName(),
 			$self->memValue());
 	} else {
 		$gconfmod->unset("$key/" . $self->fieldName());
 	}
 }
 
-sub HTMLSetter
-{
+# Method: _paramIsValid
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_paramIsValid>
+#
+sub _paramIsValid
+  {
+      my ($self, $params) = @_;
 
-        return 'booleanSetter';
+      return 1;
 
-}
+  }
 
-sub HTMLViewer
-{
-	return 'booleanViewer';
-}
+# Method: _paramIsSet
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_paramIsSet>
+#
+sub _paramIsSet
+  {
+
+      my ($self, $params) = @_;
+
+      # Check if the parameter exist
+      my $param =  $params->{$self->fieldName()};
+
+      if ( defined ( $param )) {
+          return 1;
+      } else {
+          if ( $self->optional() ) {
+              return 0;
+          } else {
+              # We assume when the parameter is compulsory and it is not
+              # in params, that the type value is false. This is a side
+              # effect from HTTP protocol which does not send a value when
+              # a checkbox is not checked
+              return 1;
+          }
+      }
+
+  }
+
+
 1;

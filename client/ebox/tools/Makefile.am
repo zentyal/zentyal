@@ -8,4 +8,4 @@ SUBDIRS = sqllog
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(bin_SCRIPTS) $(pkglib_SCRIPTS) runit/apache-perl
+EXTRA_DIST = $(bin_SCRIPTS) $(pkglib_SCRIPTS) runit/apache-perl runit/event-daemon

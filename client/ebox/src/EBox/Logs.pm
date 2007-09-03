@@ -20,7 +20,7 @@ use warnings;
 
 #FIXME: readd EBox::LogObserver to have logadmin working
 #use base qw(EBox::GConfModule EBox::LogObserver);
-use base qw(EBox::GConfModule);
+use base qw(EBox::GConfModule EBox::Model::ModelProvider);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -33,6 +33,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::DBEngineFactory;
 use EBox::Logs::Model::ConfigureLogDataTable;
+use EBox::Test::Model;
 use POSIX qw(ceil);
 
 use constant IMAGEPATH => EBox::Config::tmp . '/varimages';
@@ -98,6 +99,17 @@ sub configureLogModel
     }   
         
     return $self->{'configureLogModel'};
+}
+
+# Method: models
+#
+#      Overrides <EBox::Model::ModelProvider::models>
+#
+sub models {
+       my ($self) = @_;
+
+       return [$self->configureLogModel(),
+               $self->_testModel()];
 }
 
 # Method: allLogDomains
@@ -456,8 +468,10 @@ sub menu
         $folder->add(new EBox::Menu::Item('url' => 'Logs/Index',
                                           'text' => __('Query logs')));
         $folder->add(new EBox::Menu::Item('url' =>
-					  'Logs/View/ConfigureLogDataTable',
+					  'Logs/View/ConfigureLogTable',
                                           'text' => __('Configure logs')));
+        $folder->add(new EBox::Menu::Item('url' => 'Test/View/TestTable',
+                                          'text' => __('Test')));
  
 	$root->add($folder);
 }
@@ -559,4 +573,21 @@ sub _restoreEnabledLogs
 	
 	return \%enabled;
 }
+
+# Method to create the test model
+sub _testModel
+{
+    my ($self) = @_; 
+
+    unless (exists $self->{'testModel'}) {
+        $self->{'testModel'} =
+			new EBox::Test::Model(
+				'gconfmodule' => $self,
+        			'directory' => 'testTable');
+    }
+
+    return $self->{'testModel'};
+}
+
+
 1;

@@ -20,32 +20,32 @@ use warnings;
 
 use base 'EBox::Types::Basic';
 
+# eBox uses
 use EBox;
+use EBox::Gettext;
+use EBox::Exceptions::InvalidData;
+
+# Group: Public methods
 
 sub new
 {
         my $class = shift;
-	my %opts = @_;
-        my $self = $class->SUPER::new(@_);
+    	my %opts = @_;
+
+        unless (exists $opts{'HTMLSetter'}) {
+            $opts{'HTMLSetter'} ='/ajax/setter/textSetter.mas';
+        }
+        unless (exists $opts{'HTMLViewer'}) {
+            $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
+        }
+	
+        $opts{'type'} = 'text';
+        my $self = $class->SUPER::new(%opts);
 
         bless($self, $class);
         return $self;
 }
 
-
-sub paramIsValid
-{
-	my ($self, $params) = @_;
-
-	my $value = $params->{$self->fieldName()};
-
-	unless (defined($value)) {
-		return 0;
-	}
-
-	return 1;
-
-}
 
 sub size
 {
@@ -54,7 +54,31 @@ sub size
 	return $self->{'size'};
 }
 
-sub storeInGConf
+# Method: printableValue
+#
+#   This functions overrides <EBox::Types::Abstract::printableValue>
+#   to i18nize the string in case the type is set as localizable
+#
+sub printableValue
+{
+    my ($self) = @_;
+
+    if ($self->{'localizable'}) {
+        return $self->_i18filter();
+    } else {
+        return $self->SUPER::printableValue(); 
+    }
+}
+
+# Group: Protected methods
+
+# Method: _storeInGConf
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_storeInGConf>
+#
+sub _storeInGConf
 {
         my ($self, $gconfmod, $key) = @_;
 
@@ -67,16 +91,64 @@ sub storeInGConf
 	}
 }
 
-sub HTMLSetter
+# Method: _paramIsValid
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_paramIsValid>
+#
+sub _paramIsValid
 {
 
-        return 'textSetter';
+	return 1;
 
 }
 
-sub HTMLViewer
+# Method: _paramIsSet
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_paramIsSet>
+#
+sub _paramIsSet
+  {
+
+      my ($self, $params) = @_;
+
+      # Check if the parameter exist
+      my $param =  $params->{$self->fieldName()};
+
+      return defined ( $param ) and ($param ne '');
+
+  }
+
+# Group: Private method
+
+# This functions is used to translate the value of a type. To set the domain
+# its row must have a text type called 'translationDomain' containing the
+# domain itself
+sub _i18filter
 {
-	return 'textViewer';
+    my ($self) = @_;
+
+    my $value = $self->{'value'};
+    return unless defined($value);
+    
+    my $row = $self->row();
+    return $value unless ($row);
+
+    unless (exists $row->{'valueHash'}->{'translationDomain'}) {
+        throw EBox::Exceptions::Internal(
+          'i18filter has been called and there is no translationDomain filter');
+    }
+    
+    my $domain = $row->{'valueHash'}->{'translationDomain'}->value();
+
+    if (defined($domain)  and length($domain) > 0) {
+        return  __d($value, $domain);
+    } else {
+        return $value;
+    }
 }
 
 1;

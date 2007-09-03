@@ -1,4 +1,4 @@
-# Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2007 Warp Networks S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::CGI::Logs::Controller::ConfigureLogDataTable
+# Class: EBox::CGI::Events::Controller::ConfigureEventDataTable
 #
 #	Overrides <EBox::CGI::Controller::DataTable> to implement
-#	the default controller for <EBox::Logs::Model::ConfigureLogDataTable>.
+#	the default controller for <EBox::Events::Model::ConfigureEventDataTable>.
 #
-package EBox::CGI::Logs::Controller::ConfigureLogDataTable;
+package EBox::CGI::Events::Controller::ConfigureEventDataTable;
 
 use strict;
 use warnings;
@@ -31,11 +31,11 @@ use EBox::Global;
 sub new # (cgi=?)
 {
 	my $class = shift;
-	my $logs = EBox::Global->modInstance('logs');
-	my $self = $class->SUPER::new('title' => __('Configure logs'),
-				'tableModel' => $logs->configureLogModel(),
-	@_);
-	$self->{domain} = 'ebox-logs';
+	my $events = EBox::Global->modInstance('events');
+	my $self = $class->SUPER::new('title' => __('Watchers'),
+                                      'tableModel' => $events->configureEventModel(),
+                                      @_);
+	$self->{domain} = 'ebox-events';
 	bless($self, $class);
 	return $self;
 }

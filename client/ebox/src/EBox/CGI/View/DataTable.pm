@@ -27,9 +27,9 @@ sub new # (cgi=?)
 {
 	my $class = shift;
 	my %params = @_;
-	my $tableModel = delete $params{'tableModel'};	
-	my $self = $class->SUPER::new('template' => '/ajax/tableHeader.mas', 
-				@_);
+	my $tableModel = delete $params{'tableModel'};
+	my $self = $class->SUPER::new('template' => $tableModel->Viewer(),
+                                      @_);
 	$self->{'tableModel'} = $tableModel;
 	bless($self, $class);
 	return $self;
@@ -41,10 +41,22 @@ sub _process
 	my $self = shift;
 
 	my $global = EBox::Global->getInstance();
+
+	my $model = $self->{'tableModel'};
+	my $directory = $self->param('directory');
+	if ($directory) {
+		$model->setDirectory($directory);
+	}
+	my $rows = $model->rows(undef, 0);
+
+	my $tpages = $model->pages(undef);
 	my @params;
-	push(@params, 'data' => $self->{'tableModel'}->rows());
-	push(@params, 'dataTable' => $self->{'tableModel'}->tableInfo());
+	push(@params, 'data' => $rows);
+	push(@params, 'dataTable' => $model->table());
+        push(@params, 'model'      => $model);
 	push(@params, 'hasChanged' => $global->unsaved());
+	push(@params, 'tpages' => $tpages);
+	push(@params, 'page' => 0);
 
 	$self->{'params'} = \@params;
 }

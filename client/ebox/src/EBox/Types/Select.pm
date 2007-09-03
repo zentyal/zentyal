@@ -19,33 +19,32 @@ use strict;
 use warnings;
 
 use base 'EBox::Types::Basic';
-use EBox;
 
+# eBox uses
+use EBox;
+use EBox::Gettext;
+use EBox::Exceptions::Internal;
+
+# Group: Public methods
 
 sub new
 {
         my $class = shift;
-	my %opts = @_;
-        my $self = $class->SUPER::new(@_);
+    	my %opts = @_;
 
+        unless (exists $opts{'HTMLSetter'}) {
+            $opts{'HTMLSetter'} ='/ajax/setter/selectSetter.mas';
+        }
+        unless (exists $opts{'HTMLViewer'}) {
+            $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
+        }
+	$opts{'type'} = 'select';
+
+        my $self = $class->SUPER::new(%opts);
         bless($self, $class);
         return $self;
 }
 
-
-sub paramIsValid
-{
-	my ($self, $params) = @_;
-
-	my $value = $params->{$self->fieldName()};
-
-	unless (defined($value)) {
-		return 0;
-	}
-
-	return 1;
-
-}
 
 sub size
 {
@@ -54,46 +53,61 @@ sub size
 	return $self->{'size'};
 }
 
-sub storeInGConf
-{
-        my ($self, $gconfmod, $key) = @_;
- 
-        $gconfmod->set_string("$key/" . $self->fieldName(), $self->memValue());
-}
+#sub addOptions
+#{
+#	my ($self, $options) = @_;
+#
+#	if (exists $self->{'foreignModel'}) {
+#		$self->_addOptionsFromForeignModel();
+#	} else {
+#		$self->{'options'} = $options;
+#	}
+#}
 
-sub HTMLSetter
-{
-
-        return 'selectSetter';
-
-}
-
-sub addOptions
-{
-	my ($self, $options) = @_;
-
-	$self->{'options'} = $options;
-}
-
+# Method: options
+#
+#      Get the options from the select. It gets dynamically from a
+#      foreign model if <EBox::Types::Select::foreignModel> is defined
+#      or from <EBox::Types::Select::populate> function defined in the
+#      model template
+#
+# Returns:
+#
+#      array ref - containing a hash ref with the following fields:
+#
+#                  - value - the id which identifies the option
+#                  - printableValue - the printable value for this option
+#
 sub options
 {
 	my ($self) = @_;
 
-	return $self->{'options'};
+        if ( exists $self->{'foreignModel'}) {
+            return $self->_optionsFromForeignModel();
+        } else {
+            unless (exists $self->{'options'}) {
+                my $populateFunc = $self->populate();
+                $self->{'options'} = &$populateFunc();
+            }
+        }
+
+        return $self->{'options'};
 }
 
 sub printableValue
 {
 	my ($self) = @_;
 
-	return '' unless (defined($self->{'options'}));
+        # Cache the current options
+        my $options = $self->options();
+	return '' unless (defined($options));
 
-	foreach my $option (@{$self->options()}) {
+	foreach my $option (@{$options}) {
 		if ($option->{'value'} eq $self->{'value'}) {
 			return $option->{'printableValue'};
 		}
 	}
-	
+
 }
 
 sub value
@@ -103,9 +117,132 @@ sub value
 	return $self->{'value'};
 }
 
-sub HTMLViewer
+# Method: foreignModel
+#
+# 	Return the foreignModel associated to the type
+#
+# Returns:
+#
+# 	object - an instance of class <EBox::Model::DataTable>
+sub foreignModel
 {
-	return 'textViewer';
+    my ($self) = @_;
+    my $foreignModel = $self->{'foreignModel'};
+
+    return undef unless (defined($foreignModel));
+    my $model = &$foreignModel;
+    return $model;
+
+}
+
+# Method: populate
+#
+#       Get the function pointer which populate options within the
+#       select
+#
+# Return:
+#
+#       function ref - the function which returns an array ref. This
+#       array elements are the same that are returned by
+#       <EBox::Types::Select::options>.
+#
+sub populate
+  {
+
+      my ($self) = @_;
+
+      unless ( defined ( $self->{'populate'} )) {
+          throw EBox::Exceptions::Internal('No populate function has been ' .
+                                           'defined and it is required to fill ' .
+                                           'the select options');
+      }
+
+      return $self->{'populate'};
+
+  }
+
+# Group: Protected methods
+
+# Method: _storeInGConf
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_storeInGConf>
+#
+sub _storeInGConf
+{
+        my ($self, $gconfmod, $key) = @_;
+
+        $gconfmod->set_string("$key/" . $self->fieldName(), $self->memValue());
+}
+
+# Method: _paramIsValid
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_paramIsValid>
+#
+sub _paramIsValid
+{
+	my ($self, $params) = @_;
+
+	my $value = $params->{$self->fieldName()};
+
+        # Check whether value is within the values returned by
+        # populate callback function
+        my @allowedValues = map { $_->{value} } @{$self->options()};
+
+        # We're assuming the options value are always strings
+        unless ( grep { $_ eq $value } @allowedValues ) {
+            throw EBox::Exceptions::InvalidData( data   => $self->printableName(),
+                                                 value  => $value,
+                                                 advice => __x('Choose a value within the value set {set}',
+                                                              set => join(', ', @allowedValues)));
+        }
+
+	return 1;
+
+}
+
+# Method: _paramIsSet
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_paramIsSet>
+#
+sub _paramIsSet
+  {
+
+      my ($self, $params) = @_;
+
+      # Check if the parameter exist
+      my $param =  $params->{$self->fieldName()};
+
+      return defined ( $params->{$self->fieldName()} );
+
+  }
+
+# Group: Private helper functions
+
+# Method: _addOptionsFromForeignModel
+#   
+#   (PRIVATE)
+#
+#   This method is used to fetch options values from a foreign model
+#
+#
+
+sub _optionsFromForeignModel
+{
+    my ($self) = @_;
+
+    my $model = $self->foreignModel();
+    my $field = $self->{'foreignField'};
+
+    return unless (defined($model) and defined($field));
+	
+
+    return $model->optionsFromForeignModel($field);
 }
 
 1;
