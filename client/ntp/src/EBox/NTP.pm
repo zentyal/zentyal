@@ -111,10 +111,7 @@ sub _configureFirewall($){
 	}
 	
 	if ($self->service and (!defined($fw->service('ntp')))) {
-		$fw->addService('ntp', 'udp', 123, 0);
 		$fw->setObjectService('_global', 'ntp', 'allow');
-	} elsif ( !($self->service) and defined($fw->service('ntp')) ) {
-		$fw->removeService('ntp');
 	}
 }
 
@@ -390,7 +387,48 @@ sub statusSummary
 					$self->isRunning, $self->service);
 }
 
+# Method: onInstall
+#
+# 	Method to execute the first time the module is installed.
+#
+sub onInstall
+{
+	EBox::init();
 
+	my $serviceMod = EBox::Global->modInstance('services');
+
+	if ($serviceMod->serviceExists('name' => 'ntp')) {
+		 $serviceMod->addService('name' => 'ntp',
+			'protocol' => 'udp',
+			'sourcePort' => 'any',
+			'destinationPort' => 123,
+			'internal' => 0);
+		
+	} else {
+		EBox::info("Not adding ntp services as it already exists");
+	}
+
+	$serviceMod->save();
+}
+
+# Method: onRemove
+#
+# 	Method to execute before the module is uninstalled
+#
+sub onRemove
+{
+	EBox::init();
+
+	my $serviceMod = EBox::Global->modInstance('services');
+
+	if ($serviceMod->serviceExists('name' => 'ntp')) {
+		 $serviceMod->removeService('name' => 'ntp');
+	} else {
+		EBox::info("Not removing ntp services as it already exists");
+	}
+
+	$serviceMod->save();
+}
 # Method: menu 
 #
 #       Overrides EBox::Module method.

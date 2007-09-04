@@ -13,6 +13,12 @@ remove_gconf_schemas(){
 	done
 }
 
+onRemove() {
+
+	perl -e 'use EBox::NTP; EBox::NTP::onRemove();'
+}
+
+
 #DEBHELPER#
 
 case "$1" in
@@ -20,6 +26,7 @@ case "$1" in
 		remove_gconf_schemas
 		;;
 	remove)
+		onRemove
 		remove_gconf_schemas
 		invoke-rc.d ntp-server stop || true
 		;;	

@@ -2,6 +2,11 @@
 
 webserver=apache
 
+onInstall() {
+
+    perl -e 'use EBox::NTP; EBox::NTP::onInstall();'
+}
+
 case "$1" in
 	configure)
 		# install gconf schemas
@@ -26,6 +31,8 @@ case "$1" in
 			/usr/lib/ebox-ntp/ebox-timezone-import
 			kill `pidof gconfd-2` >/dev/null 2>&1 || true
 		fi
+
+		onInstall
 
 		invoke-rc.d ebox ntp restart
 esac
