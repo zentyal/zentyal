@@ -7,8 +7,8 @@ Standards-Version: 3.6.1
 
 Package: ebox-software
 Architecture: all
-Depends: ebox (= 0.9.99), esofttool (>= 0.3)
-Conflicts: ebox (<< 0.9.99)
+Depends: ebox (= 0.9.100), esofttool (>= 0.3)
+Conflicts: ebox (<< 0.9.100)
 Description: Software management
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
