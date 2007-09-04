@@ -1,10 +1,8 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = CGI Model Firewall
 
-perldir = @PERLPATH@/EBox
+perldir = @PERLPATH@/EBox/Firewall/
 
-nobase_perl_DATA = FirewallHelper.pm Firewall.pm Iptables.pm \
-	FirewallObserver.pm
+nobase_perl_DATA = IptablesRule.pm IptablesHelper.pm 
 
 DISTCLEANFILES = 
 

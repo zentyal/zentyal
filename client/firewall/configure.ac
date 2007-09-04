@@ -60,6 +60,7 @@ src/Makefile
 src/EBox/Makefile
 src/EBox/CGI/Makefile
 src/EBox/Model/Makefile
+src/EBox/Firewall/Makefile
 src/templates/Makefile
 src/libexec/Makefile
 schemas/Makefile
