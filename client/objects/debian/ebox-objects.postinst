@@ -18,6 +18,7 @@ case "$1" in
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
 		invoke-rc.d ebox objects restart
+        invoke-rc.d ebox apache restart
 	;;
 esac
 
