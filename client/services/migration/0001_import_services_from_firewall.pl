@@ -40,6 +40,10 @@ sub runGConf
     my $self = shift;
     
     my $servicesModule = EBox::Global->modInstance('services');
+    
+    $self->_addBaseServices($servicesModule);
+    
+    return unless (EBox::Global->instance()->modExists('firewall'));
 
     foreach my $service (@{$self->_firewallServices()}) {
         next if $servicesModule->serviceExists('name' => $service->{'name'});
@@ -51,7 +55,7 @@ sub runGConf
                                     
     }
 
-    $self->_addBaseServices($servicesModule);
+
 
 }
 
