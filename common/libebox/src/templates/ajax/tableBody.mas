@@ -375,6 +375,11 @@ use EBox::Model::DataTable;
   tpages => $tpages,
   pageSize => $model->pageSize()
 &>
+% } else {
+<input type="hidden" 
+  id="<% $model->tableName() . '_pageSize' %>"
+  value="<% $model->pageSize() %>"
+>
 % }
 
 % # End body method
