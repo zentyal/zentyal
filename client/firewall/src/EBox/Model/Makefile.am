@@ -3,9 +3,8 @@
 perldir = @PERLPATH@/EBox/Firewall/Model
 
 nobase_perl_DATA = InternalToEBoxRuleTable.pm ToInternetRuleTable.pm \
-		ExternalToEBoxRuleTable.pm InternalNetworksRuleTable.pm \
-		EBoxOutputRuleTable.pm ExternalToInternalRuleTable.pm \
-		BaseRuleTable.pm
+		ExternalToEBoxRuleTable.pm  EBoxOutputRuleTable.pm \
+		ExternalToInternalRuleTable.pm BaseRuleTable.pm
 
 DISTCLEANFILES = 
 
