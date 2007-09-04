@@ -1,6 +1,10 @@
 #!/bin/bash
 
 webserver=apache
+onInstall() {
+
+	perl -e 'use EBox::DHCP; EBox::DHCP::onInstall();'
+}
 
 case "$1" in
 	configure)
@@ -28,6 +32,9 @@ case "$1" in
 	
 		# restart logs
 		invoke-rc.d ebox logs restart || true
+
+		# run the onInstall method in the module
+		onInstall
 				
 
 esac

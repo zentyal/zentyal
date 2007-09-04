@@ -1,5 +1,10 @@
 #!/bin/bash
 
+onRemove() {
+
+    perl -e 'use EBox::DHCP; EBox::DHCP::onRemove();'
+}
+
 remove_gconf_schemas(){
 	# remove gconf schemas
 	SCHEMA_LOCATION=/usr/share/gconf/schemas
@@ -20,6 +25,8 @@ case "$1" in
 		remove_gconf_schemas
 		;;
 	remove)
+        # Execute onRemove method in module
+        onRemove
 		remove_gconf_schemas
 		;;	
 esac 

@@ -865,7 +865,6 @@ sub _configureFirewall {
 	} catch EBox::Exceptions::Internal with { };
 
 	if ($self->service) {
-		$fw->addService('dhcp', 'udp', 67);
 		$fw->addOutputRule('tcp', 67);
 		$fw->addOutputRule('tcp', 68);
 		$fw->addOutputRule('udp', 67);
@@ -1071,8 +1070,48 @@ sub statusSummary
 		EBox::Service::running(SERVICE), $self->service);	
 }
 
+# Method: onInstall
+#
+# 	Method to execute the first time the module is installed.
+#
+sub onInstall
+{
+	EBox::init();
 
+	my $serviceMod = EBox::Global->modInstance('services');
 
+	if ($serviceMod->serviceExists('name' => 'dhcp')) {
+		 $serviceMod->addService('name' => 'dhcp',
+			'protocol' => 'udp',
+			'sourcePort' => 'any',
+			'destinationPort' => 67,
+			'internal' => 0);
+		
+	} else {
+		EBox::info("Not adding dhcp services as it already exists");
+	}
+
+	$serviceMod->save();
+}
+
+# Method: onRemove
+#
+# 	Method to execute before the module is uninstalled
+#
+sub onRemove
+{
+	EBox::init();
+
+	my $serviceMod = EBox::Global->modInstance('services');
+
+	if ($serviceMod->serviceExists('name' => 'dhcp')) {
+		 $serviceMod->removeService('name' => 'dhcp');
+	} else {
+		EBox::info("Not removing dhcp services as it already exists");
+	}
+
+	$serviceMod->save();
+}
 
 #   Function: menu 
 #
