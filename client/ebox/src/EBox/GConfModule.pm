@@ -107,7 +107,7 @@ sub _load_from_file # (dir?, key?)
   my ($self, $dir, $key) = @_;
   ($dir) or $dir = EBox::Config::conf;
 
-  $self->_config;
+  $self->_config();
 
   my $file =  $self->_bak_file_from_dir($dir);
   -f $file or throw EBox::Exceptions::Internal("Backup file missing: ".
@@ -132,7 +132,7 @@ sub aroundDumpConfig
 sub _dump_to_file # (dir?) 
 {
 	my ($self, $dir) = @_;
-	$self->_config;
+	$self->_config();
 	my $key = "/ebox/modules/" . $self->name;
 	($dir) or $dir = EBox::Config::conf;
 	my $file = $self->_bak_file_from_dir($dir);
