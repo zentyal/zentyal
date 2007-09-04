@@ -30,6 +30,7 @@ case "$1" in
 		/usr/lib/ebox/ebox-migrate /usr/lib/ebox-network/migration/
 
 		invoke-rc.d ebox network restart
+        invoke-rc.d ebox apache restart
 	;;
 esac
 
