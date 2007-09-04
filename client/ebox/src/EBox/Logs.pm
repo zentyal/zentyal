@@ -33,7 +33,6 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::DBEngineFactory;
 use EBox::Logs::Model::ConfigureLogDataTable;
-use EBox::Test::Model;
 use POSIX qw(ceil);
 
 use constant IMAGEPATH => EBox::Config::tmp . '/varimages';
@@ -108,8 +107,7 @@ sub configureLogModel
 sub models {
        my ($self) = @_;
 
-       return [$self->configureLogModel(),
-               $self->_testModel()];
+       return [$self->configureLogModel()];
 }
 
 # Method: allLogDomains
@@ -573,21 +571,5 @@ sub _restoreEnabledLogs
 	
 	return \%enabled;
 }
-
-# Method to create the test model
-sub _testModel
-{
-    my ($self) = @_; 
-
-    unless (exists $self->{'testModel'}) {
-        $self->{'testModel'} =
-			new EBox::Test::Model(
-				'gconfmodule' => $self,
-        			'directory' => 'testTable');
-    }
-
-    return $self->{'testModel'};
-}
-
 
 1;
