@@ -3,7 +3,7 @@ SUBDIRS = MailFilter t CGI
 
 perldir = @PERLPATH@/EBox
 
-nobase_perl_DATA = MailFilter.pm ModulePartition.pm
+nobase_perl_DATA = MailFilter.pm
 
 DISTCLEANFILES = 
 
