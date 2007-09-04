@@ -32,7 +32,6 @@ use EBox::Validate qw( :all );
 use EBox::Global;
 use EBox::Services::Model::ServiceConfigurationTable;
 use EBox::Services::Model::ServiceTable;
-use EBox::Services::Model::ServiceTableFilter;
 use EBox::Gettext;
 
 use EBox::Exceptions::InvalidData;
@@ -52,10 +51,6 @@ sub _create
         new EBox::Services::Model::ServiceTable(
                 'gconfmodule' => $self,
                 'directory' => 'serviceTable');
-    $self->{'serviceFilterModel'} = 
-        new EBox::Services::Model::ServiceTableFilter(
-                'gconfmodule' => $self,
-                'directory' => 'serviceTable');
     $self->{'serviceConfigurationModel'} = 
         new EBox::Services::Model::ServiceConfigurationTable(
                 'gconfmodule' => $self,
@@ -73,8 +68,7 @@ sub _create
 sub models {
     my ($self) = @_;
 
-    return [$self->{'serviceConfigurationModel'}, $self->{'serviceModel'}, 
-            $self->{'serviceFilterModel'}];
+    return [$self->{'serviceConfigurationModel'}, $self->{'serviceModel'}];
 }
 
 # Method: serviceNames
