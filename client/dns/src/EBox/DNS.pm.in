@@ -357,7 +357,7 @@ sub _configureFirewall($){
 		_addDNSService();
 		$fw->addOutputRule('udp', 53);
 		$fw->addOutputRule('tcp', 53);
-		$fw->allowInternalService('dns', 'accept');
+		$fw->setInternalService('dns', 'accept');
 	}
 }
 
