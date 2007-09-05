@@ -131,7 +131,6 @@ sub _table
                  'printableName' => __('Configuration'),
                  'foreignModel' => 'ServiceConfigurationTable',
                  'view' => '/ebox/Services/View/ServiceConfigurationTable',
-                 'size' => '1',
                  )
              );
 
