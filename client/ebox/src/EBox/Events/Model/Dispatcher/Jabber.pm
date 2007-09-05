@@ -33,6 +33,9 @@ use base 'EBox::Model::DataForm';
 # eBox uses
 use EBox::Gettext;
 use EBox::Validate;
+use EBox::Types::Text;
+use EBox::Types::Int;
+use EBox::Types::Password;
 
 ################
 # Dependencies
