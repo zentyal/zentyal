@@ -354,12 +354,10 @@ sub _configureFirewall($){
 	my $fw = EBox::Global->modInstance('firewall');
 
 	if ($self->service) {
-		$fw->addService('dns', 'udp', 53, 0);
+		_addDNSService();
 		$fw->addOutputRule('udp', 53);
 		$fw->addOutputRule('tcp', 53);
-		$fw->setObjectService('_global', 'dns', 'allow');
-	} else {
-		$fw->removeService('dns');
+		$fw->allowInternalService('dns', 'accept');
 	}
 }
 
@@ -478,6 +476,23 @@ sub menu
         my ($self, $root) = @_;
         $root->add(new EBox::Menu::Item('url' => 'DNS/Index',
                                         'text' => __('DNS')));
+}
+
+sub _addDNSService
+{
+·   my $serviceMod = EBox::Global->modInstance('services');
+
+·   if (not $serviceMod->serviceExists('name' => 'dns')) {
+·   ·    $serviceMod->addService('name' => 'dns',
+·   ·   ·   'protocol' => 'udp',
+·   ·   ·   'sourcePort' => 'any',
+·   ·   ·   'destinationPort' => 53,
+·   ·   ·   'internal' => 0);
+·   ·   
+·   } else {
+·   ·   EBox::info("Not adding dns service as it already exists");
+·   }
+
 }
 
 1;
