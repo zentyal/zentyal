@@ -1,0 +1,27 @@
+<%args>
+	%rdata
+</%args>
+<%init>
+my @time = localtime();
+my $date = sprintf("%04d%02d%02d%02d",$time[5]+1900,$time[4]+1,$time[3],$time[2]);
+</%init>
+$TTL 3D
+@	IN	SOA	ns.<% $rdata{'domain'}->[0]->{'name'} %>.	admin.warp.es (
+			<% $date %>	;serial number
+			8H		;refresh
+			2H		;retry
+			4W		;expiration
+			1D )		;
+;
+% foreach my $groupItem(@{$rdata{'domain'}})
+% {
+		NS	ns.<% $groupItem->{'name'} %>.	;nameserver
+% }
+;
+% foreach my $groupItem(@{$rdata{'domain'}})
+% {
+% 	foreach my $host(@{$groupItem->{'hosts'}})
+% 	{
+<% $host->{'ip'} %>	PTR	<% $host->{'name'} . "." . $groupItem->{'name'} %>
+% 	}
+% }
