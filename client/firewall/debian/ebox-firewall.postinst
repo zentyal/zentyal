@@ -1,7 +1,10 @@
 #!/bin/bash
 
 webserver=apache
+onInstall() {
 
+	perl -e 'use EBox::Firewall; EBox::Firewall::onInstall();'
+}
 case "$1" in
 	configure)
 		# install gconf schemas
@@ -17,7 +20,9 @@ case "$1" in
 
 		
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
-
+		
+		# run the oninstall method in the module
+		onInstall
 
 		invoke-rc.d ebox firewall restart
 		invoke-rc.d ebox apache restart
