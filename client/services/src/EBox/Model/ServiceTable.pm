@@ -100,39 +100,41 @@ sub _table
 {
 
     my @tableHead = 
-        ( 
-         new EBox::Types::Text(
-             'fieldName' => 'translationDomain',
-             'printableName' => __('Domain'),
-             'size' => '10',
-             'optional' => 1,
-             ),
-         new EBox::Types::Text(
-             'fieldName' => 'name',
-             'printableName' => __('Service name'),
-             'localizable' => 1,
-             'size' => '8',
-             'unique' => 1,
-             'editable' => 1
-             ),
-         new EBox::Types::Text(
-             'fieldName' => 'description',
-             'printableName' => __('Description'),
-             'size' => '16',
-             'editable' => 1,
-             'optional' => 1,
-             ),
-         new EBox::Types::Boolean(
-                 'fieldName' => 'internal',
-                 'printableName' => __('Internal'),
-                 ),
-         new EBox::Types::HasMany (
-                 'fieldName' => 'configuration',
-                 'printableName' => __('Configuration'),
-                 'foreignModel' => 'ServiceConfigurationTable',
-                 'view' => '/ebox/Services/View/ServiceConfigurationTable',
-                 )
-             );
+    ( 
+        new EBox::Types::Text(
+            'fieldName' => 'translationDomain',
+            'printableName' => __('Domain'),
+            'size' => '10',
+            'optional' => 1,
+            'hidden' => 1,
+        ),
+        new EBox::Types::Text(
+            'fieldName' => 'name',
+            'printableName' => __('Service name'),
+            'localizable' => 1,
+            'size' => '8',
+            'unique' => 1,
+            'editable' => 1
+        ),
+        new EBox::Types::Text(
+            'fieldName' => 'description',
+            'printableName' => __('Description'),
+            'size' => '16',
+            'editable' => 1,
+            'optional' => 1,
+        ),
+        new EBox::Types::Boolean(
+            'fieldName' => 'internal',
+            'printableName' => __('Internal'),
+            'hidden' => 1,
+        ),
+        new EBox::Types::HasMany (
+            'fieldName' => 'configuration',
+            'printableName' => __('Configuration'),
+            'foreignModel' => 'ServiceConfigurationTable',
+            'view' => '/ebox/Services/View/ServiceConfigurationTable',
+        )
+    );
 
 
 
