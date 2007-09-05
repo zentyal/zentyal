@@ -1,5 +1,6 @@
 <%args>
 	@domains
+	@inaddrs
 </%args>
 //
 // Do any local configuration here
@@ -15,6 +16,14 @@ zone "<% $dom->{'name'} %>" {
 	type master;
 	file "/etc/bind/zones/db.<% $dom->{'name'} %>";
 };
+%		}
+%	}
 
+%	if(@inaddrs != 0) {
+%		foreach my $inaddr (@inaddrs) {
+zone "<% $inaddr %>.in-addr.arpa" {
+	type master;
+	file "/etc/bind/zones/db.<% $inaddr %>";
+};
 %		}
 %	}

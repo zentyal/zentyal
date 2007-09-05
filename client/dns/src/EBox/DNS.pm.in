@@ -18,7 +18,7 @@ package EBox::DNS;
 use strict;
 use warnings;
 
-use base 'EBox::GConfModule';
+use base qw(EBox::GConfModule EBox::Model::ModelProvider);
 
 use EBox::Objects;
 use EBox::Gettext;
@@ -28,6 +28,10 @@ use EBox::Summary::Status;
 use EBox::Menu::Item;
 use EBox::Sudo qw( :all );
 use EBox::Validate qw( :all );
+use EBox::DNS::Model::DomainTable;
+use EBox::DNS::Model::HostnameTable;
+use EBox::DNS::Model::AliasTable;
+use EBox::Model::ModelManager;
 
 use constant BIND9CONFDIR => "@BIND9CONFDIR@";
 use constant BIND9CONFFILE => "@BIND9CONF@";
@@ -42,212 +46,289 @@ sub _create
 	my $self = $class->SUPER::_create(name => 'dns', 
 						domain => 'ebox-dns',
 						@_);
+
+	$self->{'domainModel'} = new EBox::DNS::Model::DomainTable(
+			'gconfmodule' => $self,
+			'directory' => 'domainTable'
+		);
+	$self->{'hostnameModel'} = new EBox::DNS::Model::HostnameTable(
+			'gconfmodule' => $self,
+			'directory' => 'hostnameTable'
+		);
+	$self->{'aliasModel'} = new EBox::DNS::Model::AliasTable(
+			'gconfmodule' => $self,
+			'directory' => 'aliasTable'
+		);
+
 	bless($self, $class);
 	return $self;
 }
 
-sub domainFromId # (domid)
+# Method: models
+# 	Overrides <EBox::ModelImplementator::models>
+#
+sub models
 {
-	my ($self,$domid) = @_;
-	my $domdata;
-	if (!$self->dir_exists("$domid")) {
-		throw EBox::Exceptions::DataNotFound(data => __('Domain'),
-			value => "$domid");
-	}
-	$domdata->{'id'} = $domid;
-	$domdata->{'name'} = $self->get_string("$domid/name");
-	return $domdata;
+	my ($self) = @_;
+
+	return [
+		$self->{'domainModel'}, 
+		$self->{'hostnameModel'}, 
+		$self->{'aliasModel'}
+	];
 }
 
-sub addDomain # (domainname)
+
+# Method: addDomain
+# 	add new domain to table model
+#
+# Parameter:
+#
+sub addDomain
 {
-	my ($self, $domain) = @_;
-	unless (defined($domain) && $domain ne "") {
-		throw EBox::Exceptions::DataMissing
-			('data' => __('Domain name'));
-	}
-	
-	checkDomainName($domain, __('Domain name'));
+	my ($self, $domainData) = @_;
 
-	foreach my $dom (@{$self->domains()}) {
-		if ($dom->{'name'} eq $domain) {
-			throw EBox::Exceptions::External __x("The domain '{name}' is already used. Please choose another domain name", name => $domain);
-		}
-	}
+	my $domainModel = EBox::Model::ModelManager->instance()->model('DomainTable');
 
-	my $id = $self->get_unique_id("d");
-	$self->set_string("$id/name", $domain);
-	return $id;
+	$domainModel->addDomain($domainData);
 }
 
-sub removeDomain # (domainid)
-{
-	my ($self, $domainid) = @_;
-	unless (defined($domainid) && $domainid ne "") {
-		return;
-	}
-	if ($self->dir_exists($domainid)) {
-		$self->delete_dir($domainid);
-		return 1;
-	} else {
-		return undef;
-	}
-}
-
+# Method: domains
+# 	returns an array with all domain names
+#
+# Returns:
+# 	an array ref
+# 	
 sub domains
 {
 	my $self = shift;
-	my @array = ();
-	my @doms = @{$self->all_dirs_base("")};
-	for my $dom (@doms) {
-		my $domdata;
-		$domdata->{'id'} = $dom;
-		$domdata->{'name'} = $self->get_string("$dom/name");
-		push(@array, $domdata);
+	my @array;
+
+	my $model = EBox::Model::ModelManager->instance()->model('DomainTable');
+
+	foreach my $row(@{$model->printableValueRows()})
+	{
+		my $domaindata;
+
+		$domaindata->{'name'} = $row->{'domain'};
+
+		push(@array, $domaindata);
 	}
+
 	return \@array;
 }
 
-sub completeDomain # (domid)
+# Method: hostnames
+# 	returns an array with all hostname structure
+#
+# Parameters:
+# 	array with all printable values of a domain
+#
+# Returns:
+#		array ref with this structure data:
+#		
+#		'name': hostname
+#		'ip': ip address of hostname
+#		'aliases': an array ref returned by <EBox::DNS::aliases> method.
+# 	
+sub hostnames
 {
-	my ($self, $domid) = @_;
-	if (!$self->dir_exists("$domid")) {
-		throw EBox::Exceptions::DataNotFound(data => __('Domain'),
-			value => "$domid");
+	my ($self, $data) = @_;
+	my @array;
+
+	foreach my $hostname(@{$data})
+	{
+		my $hostdata;
+
+		$hostdata->{'name'} = $hostname->{'hostname'};
+		$hostdata->{'ip'} = $hostname->{'ipaddr'};
+		$hostdata->{'aliases'} = $self->aliases($hostname->{'alias'}->{'values'});
+
+		push(@array, $hostdata);
 	}
+
+	return \@array;
+}
+
+# Method: aliases
+# 	returns an array with all alias structure of a hostname
+#
+# Parameters:
+# 	array with all printable values of a hostname
+#
+# Returns:
+#		array ref with this structure data:
+#		
+#		'name': alias name
+# 	
+sub aliases
+{
+	my ($self, $data) = @_;
+	my @array;
+
+	foreach my $alias(@{$data})
+	{
+		my $aliasdata;
+
+		$aliasdata->{'name'} = $alias->{'alias'};
+
+		push(@array, $aliasdata);
+	}
+
+	return \@array;
+}
+
+# Method: completeDomain
+# 	returns a structure with all necesary data to build bind db config files
+#
+# Parameters:
+# 	domain name
+#
+# Returns:
+#		structure data with:
+#		
+#		'name': domain name
+#		'hosts': an array ref returned by <EBox::DNS::hostnames> method.
+# 	
+sub completeDomain # (domain)
+{
+	my ($self, $domain) = @_;
+	my $model = EBox::Model::ModelManager->instance()->model('DomainTable');
 	my $domdata;
-	$domdata->{'id'} = $domid;
-	$domdata->{'name'} = $self->get_string("$domid/name");
-	$domdata->{'hosts'} = $self->hostnames("$domid");
+
+	my $row = $model->find(domain => $domain->{'name'});
+	$domdata->{'name'} = $domain->{'name'};
+	$domdata->{'hosts'} = $self->hostnames($row->{'hostnames'}->{'values'});
+	
 	return $domdata;
 }
 
-sub addHostname # (domid, hostname, ip)
+# Method: createHostDataArray
+# 	returns host and their alias info in a single hosts array ref.
+#
+# Parameters:
+# 	hostip: less significant ip address block of a host.
+# 	hostData: host and alias info
+#
+# Returns:
+# 	array ref
+sub createHostDataArray
 {
-	my ($self, $domid, $hostname, $ip) = @_;
-	unless (defined($hostname) && $hostname ne "") {
-		throw EBox::Exceptions::DataMissing
-			('data' => __('Host name'));
-	}
-	checkIP($ip, __("IP address"));
-	if($hostname =~/\./) {
-		throw EBox::Exceptions::External(__("Host name can't contain dots"));
-	}
-	checkDomainName($hostname, __('Host name'));
-
-	foreach my $host (@{$self->hostnames($domid)}) {
-		if ($host->{'name'} eq $hostname) {
-			throw EBox::Exceptions::External __x("The host name '{name}' is already used. Please choose another host name", name => $hostname);
-		}
-		if ($host->{'ip'} eq $ip) {
-			throw EBox::Exceptions::External __x("The IP address '{ip}' is already used. Please choose another IP address", ip => $ip);
-		}
+	my ($self, $hostip, $hostData) = @_;
+	my @newHostsDataArray;
+	
+	# Add host info
+	my $newHostData;
+	$newHostData->{'name'} = $hostData->{'name'};
+	$newHostData->{'ip'} = $hostip;
+	push(@newHostsDataArray, $newHostData);
+	
+	# Add all alias info
+	foreach my $aliasData (@{$hostData->{'aliases'}})
+	{
+		my $newHostDataFromAlias;
+		$newHostDataFromAlias->{'name'} = $aliasData->{'name'};
+		$newHostDataFromAlias->{'ip'} = $hostip;
+		push(@newHostsDataArray, $newHostDataFromAlias);
 	}
 
-	my $id = $self->get_unique_id("h",$domid);
-	$self->set_string("$domid/$id/name", $hostname);
-	$self->set_string("$domid/$id/ip", $ip);
-	return $id;
+	return \@newHostsDataArray;
 }
 
-sub removeHostname # (domid, hostid)
+# Method: updateReversedData
+# 	updates or adds new item to the array data passed as parameters
+#
+# Parameters:
+# 	array ref that holds reversed info data
+# 	groupIDData structure to update or add
+#
+sub updateReversedData
 {
-	my ($self, $domid, $hostid) = @_;
-	unless (defined($domid) && $domid ne "") {
-		return;
-	}
-	unless (defined($hostid) && $hostid ne "") {
-		return;
-	}
-	if ($self->dir_exists("$domid/$hostid")) {
-		$self->delete_dir("$domid/$hostid");
-		return 1;
-	} else {
-		return undef;
-	}
-}
-
-sub hostnames # (domid)
-{
-	my ($self,$domid) = @_;
-	my @array = ();
-	my @hosts = @{$self->all_dirs_base("$domid")};
-	for my $host (@hosts) {
-		my $hostdata;
-		$hostdata->{'id'} = $host;
-		$hostdata->{'name'} = $self->get_string("$domid/$host/name");
-		$hostdata->{'ip'} = $self->get_string("$domid/$host/ip");
-		$hostdata->{'aliases'} = $self->aliases($domid,$host);
-		push(@array, $hostdata);
-	}
-	return \@array;
-}
-
-sub addAlias # (domid, hostid, alias)
-{
-	my ($self, $domid, $hostid, $alias) = @_;
-	unless (defined($hostid) && $hostid ne "") {
-		throw EBox::Exceptions::DataMissing
-			('data' => __('Host name'));
-	}
-	unless (defined($alias) && $alias ne "") {
-		throw EBox::Exceptions::DataMissing
-			('data' => __('Alias'));
-	}
-	if($alias =~/\./) {
-		throw EBox::Exceptions::External(__("An alias can't contain dots"));
-	}
-	checkDomainName($alias, __('Alias'));
-
-	my @hosts = @{$self->hostnames($domid)};
-	foreach my $host (@hosts) {
-		if ($host->{'name'} eq $alias) {
-			throw EBox::Exceptions::External __x("The alias '{name}' is already used as a host name. Please choose another alias", name => $alias);
-		}
-		foreach my $hostalias (@{$self->aliases($domid,$host->{'id'})}) {
-			if ($hostalias->{'name'} eq $alias) {
-				throw EBox::Exceptions::External __x("The alias '{name}' is already used as alias in the host '{host}'. Please choose another alias", name => $alias, host => $host->{'name'});
+	my ($self, $reversedData, $groupIPData) = @_;
+	# Try to find an previously added groupip item (from other domain)
+	my $pos = -1;
+	for(my $i = 0; $i < @{$reversedData}; $i++)
+	{
+		if($reversedData->[$i]->{'groupip'} eq $groupIPData->{'groupip'})
+		{
+			my $jpos = -1;
+			for(my $j = 0; $j < @{$reversedData->[$i]->{'domain'}}; $j++)
+			{
+				if($reversedData->[$i]->{'domain'}->[$j]->{'name'}
+						eq $groupIPData->{'domain'}->{'name'})
+				{
+					push(@{$reversedData->[$i]->{'domain'}->[$j]->{'hosts'}},
+							@{$groupIPData->{'domain'}->{'hosts'}});
+					$jpos = $j;
+					last;
+				}
 			}
+
+			if($jpos < 0)
+			{
+				push(@{$reversedData->[$i]->{'domain'}}, $groupIPData->{'domain'});
+			}
+			$pos = $i;
+			last;
+		}
+	}
+	
+	if($pos < 0)
+	{
+		my $item;
+		$item->{'groupip'} = $groupIPData->{'groupip'};
+		push(@{$item->{'domain'}}, $groupIPData->{'domain'});
+		push(@{$reversedData}, $item);
+	}
+}
+
+# Method: switchToReverseInfoData
+# 	returns a structure with all necesary data to build reverse db config
+# 	files.
+#
+# Parameters:
+# 	array ref structure returned by <EBox::DNS::completeDomain>
+#
+# Returns:
+# 	array ref structure data with:
+#
+#		'groupip': ip range to define a zone file info
+#		'domain': an array of hosts and domain data:
+#				'name': domain name
+#				'hosts': an array of hostnames and hostip:
+#						'ip': less significant block of an ip address
+#						'name': name of the host in the domain
+#
+sub switchToReverseInfoData
+{
+	my ($self, $info) = @_;
+	my @reversedData;
+
+	foreach my $domainData (@{$info})
+	{
+		my $domain = $domainData->{'name'};
+
+		foreach my $hostData (@{$domainData->{'hosts'}})
+		{
+			my @ipblocks = split(/\./, $hostData->{'ip'});
+
+			#Set group ip bind format (reverse order)
+			my $groupip = join(".", $ipblocks[2], $ipblocks[1], $ipblocks[0]);
+			my $hostip = $ipblocks[3];
+			
+			my $newDomainData;
+			$newDomainData->{'name'} = $domain;
+			$newDomainData->{'hosts'} = $self->createHostDataArray($hostip, $hostData);
+
+			my $groupIPData;
+			$groupIPData->{'groupip'} = $groupip;
+			$groupIPData->{'domain'} = $newDomainData;
+
+			$self->updateReversedData(\@reversedData, $groupIPData);
 		}
 	}
 
-	my $id = $self->get_unique_id("a","$domid/$hostid");
-	$self->set_string("$domid/$hostid/$id/name", $alias);
-	return $id;
-}
-
-sub removeAlias # (domid, hostid, aliasid)
-{
-	my ($self, $domid, $hostid, $aliasid) = @_;
-	unless (defined($domid) && $domid ne "") {
-		return;
-	}
-	unless (defined($hostid) && $hostid ne "") {
-		return;
-	}
-	unless (defined($aliasid) && $aliasid ne "") {
-		return;
-	}
-	if ($self->dir_exists("$domid/$hostid/$aliasid")) {
-		$self->delete_dir("$domid/$hostid/$aliasid");
-		return 1;
-	} else {
-		return undef;
-	}
-}
-
-sub aliases # (domid, hostid)
-{
-	my ($self,$domid, $hostid) = @_;
-	my @array = ();
-	my @aliases = @{$self->all_dirs_base("$domid/$hostid")};
-	for my $alias (@aliases) {
-		my $aliasdata;
-		$aliasdata->{'id'} = $alias;
-		$aliasdata->{'name'} = $self->get_string("$domid/$hostid/$alias/name");
-		push(@array, $aliasdata);
-	}
-	return \@array;
+	return \@reversedData;
 }
 
 sub _doDaemon
@@ -340,21 +421,44 @@ sub _setBindConf
 				\@array);
 
 	my @domains = @{$self->domains()};
-	push(@array, 'domains' => \@domains);
-	$self->writeConfFile(BIND9CONFLOCALFILE, 
-				"dns/named.conf.local.mas", 
-				\@array);
+
+#	push(@array, 'domains' => \@domains);
+#	$self->writeConfFile(BIND9CONFLOCALFILE, 
+#				"dns/named.conf.local.mas", 
+#				\@array);
 
 	root("/bin/rm -rf " . BIND9CONFDIR . "/zones/");
 	root("/bin/mkdir " . BIND9CONFDIR . "/zones/");
 
-	foreach my $domain (@domains) {
-		my $domdata = $self->completeDomain($domain->{'id'});
+	my @domainData;
+	foreach my $domain (@domains)
+	{
+		my $domdata = $self->completeDomain($domain);
+		push(@domainData, $domdata);
+
 		my $file = BIND9CONFDIR . "/zones/db." . $domdata->{'name'};
 		@array = ();
-		push(@array,'domain' => $domdata);
+		push(@array, 'domain' => $domdata);
 		$self->writeConfFile($file,"dns/db.mas",\@array);
 	}
+
+	my $reversedData = $self->switchToReverseInfoData(\@domainData);
+
+	my @inaddrs;
+	foreach my $reversedDataItem(@{$reversedData})
+	{
+		my $file = BIND9CONFDIR . "/zones/db." . $reversedDataItem->{'groupip'};
+		push(@inaddrs, $reversedDataItem->{'groupip'});
+		@array = ();
+		push(@array, 'rdata' => $reversedDataItem);
+		$self->writeConfFile($file, "dns/dbrev.mas", \@array);
+	}
+
+	push(@array, 'domains' => \@domains);
+	push(@array, 'inaddrs' => \@inaddrs);
+	$self->writeConfFile(BIND9CONFLOCALFILE, 
+				"dns/named.conf.local.mas", 
+				\@array);
 }
 
 sub statusSummary
