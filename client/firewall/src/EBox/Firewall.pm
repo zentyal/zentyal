@@ -594,17 +594,33 @@ sub addOutputRule # (protocol, port)
 	$self->set_int("rules/output/$id/port", $port);
 }
 
-# Method: allowInternalService
+# Method: setInternalService
 #
 # 	This method adds a rule to the "internal networks to eBox services"
 #   table.
+#
+#   In case the service has already been configured with a custom
+#   rule by the user the adding operation is aborted.
+#
+#   Modules configuring internal services running on eBox should use
+#   this method if they wish to allow access from internal networks
+#   to the service by default.
 #
 # Parameters:
 #
 #   service - service's name
 #   decision - accept or deny
 # 	
-sub allowInternalService
+# Returns:
+#
+#   boolan - true if the rule has been added, otherwise false and
+#            that implies there is already a custom rule
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::MissingArgument>
+#   <EBox::Exceptions::DataNotFound>
+sub setInternalService
 {
 	my ($self, $service, $decision) = @_;
 
@@ -630,12 +646,22 @@ sub allowInternalService
 				'value' => $service);
 	}
 
+	my $rulesModel = $self->{'InternalToEBoxRuleModel'};
+
+	# Do not add rule if there is already a rule
+	if ($rulesModel->findValue('service' => $serviceId)) {
+		EBox::info("Existing rule for $service overrides default rule");
+		return undef;
+	}
+
 	my %params;
 	$params{'decision'} = $decision;
 	$params{'source_selected'} = 'source_any';
 	$params{'service'} = $serviceId;
 
-	$self->{'InternalToEBoxRuleModel'}->addRow(%params);
+	$rulesModel->addRow(%params);
+
+	return 1;
 }
 
 # Method: menu 
