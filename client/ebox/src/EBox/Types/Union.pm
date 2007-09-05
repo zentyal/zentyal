@@ -48,6 +48,11 @@ sub new
                        'value, choose EBox::Types::Union::Text');
         }
         $self->{'optional'} = 0;
+	# Union type must contain more than one subtype
+	unless (@{$self->{'subtypes'}} > 1) {
+		EBox::Exceptions::Internal("Union type: $self->{'fieldName'}" 
+		. " must contain more than one subtype");
+	}
 
         bless($self, $class);
         return $self;
@@ -72,8 +77,18 @@ sub subtype
 sub selectedType
 {
 	my ($self) = @_;
+	
+	if (not $self->{'selectedField'}) {
+		my @subtypes = @{$self->{'subtypes'}};
+		if (@subtypes > 0) {
+			return $subtypes[0]->fieldName();
+		} else {
+			return undef;
+		}
+	} else {
+		return $self->{'selectedField'};
+	}
 
-	return $self->{'selectedField'};
 }
 
 sub setSelectedType
@@ -241,7 +256,7 @@ sub HTMLSetter
 sub HTMLViewer 
 {
       my ($self) = @_;
-
+	
       # Call AUTOLOAD method in order not to repeat code
       $AUTOLOAD = 'HTMLViewer';
       return $self->AUTOLOAD();
