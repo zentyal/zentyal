@@ -869,9 +869,8 @@ sub _configureFirewall {
 		$fw->addOutputRule('tcp', 68);
 		$fw->addOutputRule('udp', 67);
 		$fw->addOutputRule('udp', 68);
-		$fw->setObjectService('_global', 'dhcp', 'allow');
-	} else {
-		$fw->removeService('dhcp');
+		_addDHCPService();
+		$fw->setInternalService('dhcp', 'accept');
 	}
 }
 
@@ -1078,19 +1077,9 @@ sub onInstall
 {
 	EBox::init();
 
+	_addDHCPService();
+
 	my $serviceMod = EBox::Global->modInstance('services');
-
-	if ($serviceMod->serviceExists('name' => 'dhcp')) {
-		 $serviceMod->addService('name' => 'dhcp',
-			'protocol' => 'udp',
-			'sourcePort' => 'any',
-			'destinationPort' => 67,
-			'internal' => 0);
-		
-	} else {
-		EBox::info("Not adding dhcp services as it already exists");
-	}
-
 	$serviceMod->save();
 }
 
@@ -1157,6 +1146,23 @@ sub logHelper
 	my $self = shift;
 
 	return (new EBox::DHCPLogHelper);
+}
+
+sub _addDHCPService
+{
+	my $serviceMod = EBox::Global->modInstance('services');
+
+	if (not $serviceMod->serviceExists('name' => 'dhcp')) {
+		 $serviceMod->addService('name' => 'dhcp',
+			'protocol' => 'udp',
+			'sourcePort' => 'any',
+			'destinationPort' => 67,
+			'internal' => 0);
+		
+	} else {
+		EBox::info("Not adding dhcp services as it already exists");
+	}
+
 }
 
 1;
