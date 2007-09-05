@@ -9,7 +9,7 @@
     <para>
       The main aim from this chapter is getting into the guts of the 
       <link linkend="sect-a-mvc-module">Model-View-Controller framework</link>. From an
-      eBox developer is not required to get into if this is not strictly necessary.
+      eBox developer is not required to get into if it is not strictly necessary.
       However, it could be useful to use it properly, to enhance it in some way or, 
       what is more, to add features not already addressed before.
     </para>
@@ -48,9 +48,9 @@
       <methodname>addRow</methodname>, <methodname>removeRow</methodname> and
       <methodname>setRow</methodname>, they are convenient methods to add, remove and
       update rows. The fields to fill the row are tailored to simplify and speed
-      up the data input management from the HTTP request. Moreover, a typed version is
-      intended to be developed to ease the internal management and the exposed API as
-      <xref linkend="model-access-sect"/> requires. For instance, to add
+      up the data input management from the HTTP request through a CGI. Moreover, a typed
+      version is intended to be developed to ease the internal management and the exposed
+      API as <xref linkend="model-access-sect"/> requires. For instance, to add
       a member in the <link linkend="member-model-definition">member table</link> you
       may use this piece of code:
     </para>
@@ -71,8 +71,8 @@ $model->addRow( ( name => 'admin',
 
     <example id="gconf-struct-model-example">
       <title>GConf structure from a model</title>
-      
-      <programlisting><![CDATA[
+     
+      <screen>
  data_version = 1
  /ebox/modules/objects/objectTable:
   /ebox/modules/objects/objectTable/keys:
@@ -108,16 +108,15 @@ $model->addRow( ( name => 'admin',
        readOnly = false
        name = Silvina
        ipaddr_ip = 192.168.1.43
-       ipaddr_mask = 32]]>
-      </programlisting>
+       ipaddr_mask = 32</screen>
     </example>
 
     <para>
       As you may see, the object data model stores two objects <emphasis>RRHH</emphasis>
       and <emphasis>MKT</emphasis> which the former saves one and the latter three members.
-      The <property>data_version</property> indicates the data structure version in the same
+      The <varname>data_version</varname> indicates the data structure version in the same
       sense as <xref linkend="migration-scripts-sect"/> explains. Each data model stores 
-      their values under <parameter>keys/id</parameter> directory, the id is obtained using
+      their values under <varname>keys/id</varname> directory, the id is obtained using
       <methodname>get_unique_id</methodname> as <xref linkend="sect-gconf"/> describes. 
       <property>Version</property> property is used by caching scheme, as you may notice is currently
       done per data model basis. As each object data model row has several members using
@@ -130,7 +129,7 @@ $model->addRow( ( name => 'admin',
     <para>
       With regard to form data model, the GConf structure is quite simplified flattening
       the <parameter>keys/id</parameter> to the main GConf directory to let the form
-      user see its content easily.
+      developer see its content easily.
     </para>
 
     <section id="model-relation-sect">
@@ -138,7 +137,8 @@ $model->addRow( ( name => 'admin',
       <para>
         Model relationship is describe through <classname>EBox::Types::HasMany</classname> and
         through <classname>EBox::Types::Select</classname> and whose management is done by 
-        <classname>EBox::Model::ModelManager</classname>. This <emphasis>singleton</emphasis> 
+        <classname>EBox::Model::ModelManager</classname> and 
+        <classname>EBox::Model::DataTable</classname>. The former <emphasis>singleton</emphasis> 
         class coordinates all the available models along eBox, see
         <xref linkend="internal-publishing-sect"/> for details. Currently, there are two kind
         of relationships:
@@ -208,11 +208,13 @@ $model->addRow( ( name => 'admin',
       <para>
         As we can see <classname>Abstract</classname> manages the essential information for every
         eBox type. That is, their common attributes such as <parameter>optional</parameter>,
-        <parameter>editable</parameter>, <parameter>printableValue</parameter>. It also provides
+        <parameter>editable</parameter>, <parameter>printableValue</parameter>, etc. It also provides
         the main methods not to be overridden such as <methodname>setMemValue</methodname>, 
         <methodname>restoreFromHash</methodname> and so on. Basically, an eBox type allows the
-        developer abstracting from gconf storage and user input correctness since their handling
-        is automatic.
+        developer abstracting from Gconf storage and user input correctness since their handling
+        is automatic. Furthermore, an eBox type is responsible for determining which setter
+        and viewer must be used in eBox user interface by asking to <methodname>HTMLSetter</methodname>
+        and <methodname>HTMLViewer</methodname> respectively.
       </para>
 
       <para>
@@ -235,7 +237,7 @@ $model->addRow( ( name => 'admin',
             <listitem>
               <para> Store the given type in a GConf directory from a
               GConfModule. The expected behaviour is if it has no value to
-              store, remove any previous data stored.</para>
+              store, remove any previous stored data.</para>
             </listitem>
           </varlistentry>
           <varlistentry>
@@ -283,11 +285,30 @@ $model->addRow( ( name => 'admin',
     <title>View</title>
     <para>
       Our Model-View-Controller framework uses in the View model Mason templates. Check out
-      <xref linkend="sect-mason"/> for details about how to construct them. We use the pseudo object
-      oriented that Mason provides. <xref linkend="view-class-diagram-fig"/> shows the templates
-      which acts as viewers from the data model. The correspondence among model and view components is
-      <classname>EBox::Model::DataTable</classname> - <classname>tableBody.mas</classname> and
-      <classname>EBox::Model::DataForm</classname> - <classname>form.mas</classname>.
+      <xref linkend="sect-mason"/> for details about how to construct them. We use the
+      <ulink url="http://www.masonhq.com/docs/manual/Devel.html#objectoriented_techniques">pseudo object
+      oriented</ulink> that Mason provides. <xref linkend="view-class-diagram-fig"/> shows the templates
+      which acts as viewers from the data model. The correspondence among model and view components is:
+      <informaltable frame="none">
+        <tgroup cols="2" align="center">
+          <thead>
+            <row>
+              <entry><para>Model class</para></entry>
+              <entry><para>View component</para></entry>
+            </row>
+          </thead>
+          <tbody>
+            <row>
+              <entry><para><classname>EBox::Model::DataTable</classname></para></entry>
+              <entry><para><classname>tableBody.mas</classname></para></entry>
+            </row>
+            <row>
+              <entry><para><classname>EBox::Model::DataForm</classname></para></entry>
+              <entry><para><classname>form.mas</classname></para></entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
     </para>
 
       <figure id="view-class-diagram-fig">
@@ -353,20 +374,127 @@ $model->addRow( ( name => 'admin',
     </para>
 
     <para>
-      In order to make eBox response more dynamical and adapted to the new times. We have
-      tailored our framework to allow AJAX request. This MVC scheme now relies on 
-      <ulink url="http://prototypejs.org">Prototype JavaScript framework</ulink> to handle
-      DOM and AJAX requests making eBox web application cross browser as far as 
-      prototypeJS ensures it. To achieve so, CGIs just returned the recent generated HTML and
-      update the...
+      We have defined two kinds of CGIs, View and Controller. The former is a usual CGI
+      which inherits from <classname>EBox::CGI::ClientBase</classname> and returns a complete
+      HTML page to override the current one and contains the menu on the left and the top.
+      Nevertheless, the latter is a new CGI class which inherits from
+      <classname>EBox::CGI::ClientRawBase</classname> and gets back only the generated
+      HTML page by the requested action as well as different HTTP code to be interpreted
+      at the client side to set exceptions such as 500 or data in use 501. This is very useful
+      to develop a simple and elegant way to manage exceptions within the application flow.
+      The View CGI is called when the whole page loading is required, for instance clicking
+      on a menu item and the Controller CGIs are called whenever an action (add, del, edit,
+      move...) is done to a data model. This adaption is done allowing AJAX requests. This 
+      MVC scheme now relies on <ulink url="http://prototypejs.org">Prototype JavaScript framework</ulink>
+      to handle DOM and AJAX requests making eBox web application cross browser as far as 
+      prototypeJS ensures it.
+    </para>
+
+    <para>
+      Every JavaScript function is implemented in a separated file grouping by functionality.
+      There is also some JavaScript classes to implement tabbing using JavaScript only. This increases
+      its maintainability centralising the client side logic and it decouples from what is used
+      to display the information, i.e. the mason templates.
     </para>
 
   </section>
 
   <section id="internal-publishing-sect">
-    <title>Publishing models</title>
+    <title>Publishing models and CGI mapping</title>
 
     <para>
+       Models and composite publishing is done by <classname>EBox::Model::ModelManager</classname>
+       and <classname>EBox::Model::CompositeManager</classname> classes respectively. They 
+       are <ulink url="http://en.wikipedia.org/wiki/Singleton_pattern">Singleton</ulink>
+       classes, both follows the same logic. Once the instance is created, it sets up the
+       models or composite by searching for implementation of the interfaces
+       <classname>EBox::Model::ModelProvider</classname> and 
+       <classname>EBox::Model::CompositeProvider</classname> among the eBox modules using
+       <methodname>modInstancesOfType</methodname> from <classname>Global</classname> singleton
+       class. Thus every instanced model and composite may be found in their managers.
+    </para>
+
+    <para>
+      As you may notice, write a CGI for every model is not required anymore since there are
+      general CGI to complete these tasks. Thus when a CGI is not found when the user
+      asks for it by entering an URL, a look up inside the model and composite manager 
+      is done. The URL to map must follow one these patterns:
+
+      <variablelist>
+        <varlistentry>
+          <term>Model: <filename>/ebox/CGI/$moduleName/(View|Controller)/$modelName</filename></term>
+          <listitem>
+            <variablelist>
+              <varlistentry>
+                <term><varname>$moduleName</varname></term>
+                <listitem>
+                  <para>The module which the model belongs to, for instance,
+                  <varname>Objects</varname> module</para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term>"View" or "Controller"</term>
+                <listitem>
+                  <para>Determine which kind of CGI must be called, both are explained in
+                  <xref linkend="internal-controller-sect"/>.</para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term><varname>$modelName</varname></term>
+                <listitem>
+                  <para>The model name, this name must match with the
+                  <property>tableName</property> attribute set at the table definition.</para>
+                </listitem>
+              </varlistentry>
+            </variablelist>
+          </listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Composite: <filename>/ebox/CGI/$moduleName/Composite/$compositeName[/$actionName]</filename></term>
+          <listitem>
+            <variablelist>
+              <varlistentry>
+                <term><varname>$moduleName</varname></term>
+                <listitem>
+                  <para>The module which the composite belongs to, for instance,
+                  <varname>Events</varname> module</para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term><varname>$compositeName</varname></term>
+                <listitem>
+                  <para>The composite name, its value must match with the 
+                  <property>name</property> attribute set at the composite definition.</para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term><varname>$actionName</varname></term>
+                <listitem>
+                  <para>This optional part of the URL is used to determine if the CGI to call
+                  is the View one, when no action name is provided, or the Controller one, when
+                  the action name is determined, the action to perform is given to the 
+                  controller at the creation time.</para>
+                </listitem>
+              </varlistentry>
+            </variablelist>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+
+      Two examples from the previous patterns could be: <filename>/ebox/CGI/Objects/View/ObjectTable</filename> to
+      show the objects stored in eBox and <filename>/ebox/CGI/Events/Composite/ConfigurationComposite/changeView</filename>
+      to show the event configuration tables within a HTML divisor.
+
+    </para>
+
+    <para>
+      Regarding to submodels, the CGI mapping is done by setting the directory on HTTP GET request
+      as a parameter. By doing so, it is possible to know from where to get the data from. For instance,
+      to view the members from the object whose identifier is <parameter>obje9972</parameter> the View 
+      CGI URL must follow this pattern
+      <filename>/ebox/CGI/Objects/View/MemberTable?directory=objectTable/keys/obje9972/members&amp;backview=/ebox/Object/View/MemberTable</filename>
+      . The <parameter>backview</parameter> parameter is currently not implemented but its behaviour
+      should follow the <emphasis>back</emphasis> action button from traditional web browsers.
     </para>
 
   </section>

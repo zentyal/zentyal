@@ -6,7 +6,7 @@
 
     <title>Long way to create a small module</title>
 
-    <simplesect>
+    <simplesect id="long-create-model-introduction">
 
       <para>Once you've seen the eBox internals, we are going to apply all
       the knowledge explained in the previous chapters creating a module
@@ -26,10 +26,10 @@
         </listitem>
       </itemizedlist>
 
-      <para>And these are the steps we are going to follow in the development fo
+      <para>And these are the steps we are going to follow in the development for
       the module:</para>
 
-      <itemizedlist>
+      <itemizedlist id="long-steps-creating-module-list">
         <listitem>
           <para>Study the NTP server and its features.</para>
         </listitem>
@@ -52,8 +52,8 @@
         </listitem>
 
         <listitem>
-          <para>Generate the configuration files and control the execution of the
-          daemon.</para>
+          <para>Generate the configuration files and control the daemon
+          execution.</para>
         </listitem>
 
         <listitem>
@@ -174,7 +174,7 @@
       <classname>EBox::GConfModule</classname> and it will contain all the
       methods that conform the NTP API. This is its constructor:</para>
 
-      <example>
+      <example id="constructor-example">
         <title><classname>EBox::NTP</classname> constructor</title>
         <programlisting><![CDATA[sub _create 
         {
@@ -234,7 +234,7 @@
 
             <para>Here is its implementation:</para>
             
-            <example>
+            <example id="enable-NTP-example">
               <title>Enabling the NTP server</title>
               <programlisting><![CDATA[sub setService 
               {
@@ -264,12 +264,12 @@
             to fetch the <parameter>active</parameter> gconf key and return
             it:</para>
 
-            <example>
+            <example id="state-example">
               <title>Reading the state of the NTP server</title>
               <programlisting><![CDATA[sub service 
               {
               my $self = shift;
-              return $self->getbool('active');
+              return $self->get_bool('active');
               } ]]> </programlisting>
             </example>
 
@@ -286,7 +286,7 @@
             to <methodname>setService</methodname>, we just use the
             <parameter>synchronized</parameter> gconf key instead:</para>
 
-            <example>
+            <example id="enable-NTP-sync-example">
               <title>Enabling the external NTP synchronization</title>
               <programlisting><![CDATA[sub setSynchronized # (synchronized)
               {
@@ -310,7 +310,7 @@
             Its implementation is quite simple and similar to
             <methodname>service</methodname>.</para>
 
-            <example>
+            <example id="external-sync-example">
               <title>Fetching the configuration for external
               synchronization</title>
 
@@ -340,7 +340,7 @@
             complete implementation can be found in the subversion
             repository</para></footnote>of its implementation:</para>
 
-            <example>
+            <example id="setting-external-NTP-example">
               <title>Setting the external NTP servers</title>
               <programlisting><![CDATA[sub setServers # (server1, server2, server3) 
               {
@@ -373,7 +373,7 @@
             <para>It returns an array that contains the NTP external
             servers stored in gconf:</para>
 
-            <example>
+            <example id="getting-external-NTP-example">
               <title>Getting the list of external NTP servers</title>
               <programlisting><![CDATA[sub servers 
               {
@@ -396,7 +396,7 @@
             <para>This method changes the system's date and time. This is its
             implementation:</para>
             
-            <example>
+            <example id="setting-time-date-example">
               <title>Setting a new system time and date</title>
               <programlisting><![CDATA[sub setNewDate # (day, month, year, hour, minute, second)
               {
@@ -434,7 +434,7 @@
             <para>Along with the time and date, the time zone may be changed too.
             For this purpose we implemented this method:</para>
 
-            <example>
+            <example id="setting-timezone-example">
               <title>Setting a new time zone</title>
               <programlisting><![CDATA[sub setNewTimeZone # (continent, country)
               {
@@ -551,7 +551,7 @@
       implements a constructor that sets the title for our page and the name
       of the template associated to this CGI. This is the constructor:</para>
 
-      <example> 
+      <example id="cgi-constructor-example"> 
         <title>Constructor for <classname>EBox::CGI::NTP::Index</classname>
         </title>
         <programlisting><![CDATA[package EBox::CGI::NTP::Index;
@@ -585,7 +585,7 @@
       configuration for the NTP server and feeds it to the mason
       template.</para>
 
-      <example>
+      <example id="mason-template-example">
         <title>Feeding the configuration of the NTP server to the mason
         template</title>
 
@@ -619,39 +619,39 @@
       implement the CGI that will receive a new configuration from the user
       and will tell the backend to change it.</para>
 
-      <example>
+      <example id="cgi-enable-ntp-example">
         <title>CGI to enable and disable the NTP server</title>
         <programlisting><![CDATA[package EBox::CGI::NTP::Enable;
 
-        use strict;
-        use warnings;
+use strict;
+use warnings;
 
-        use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientBase';
 
-        use EBox::Global;
-        use EBox::Gettext;
+use EBox::Global;
+use EBox::Gettext;
 
-        sub new 
-        {
-        my $class = shift;
-        my $self = $class->SUPER::new('title' => 'NTP', @_);
-        $self->{redirect} = "NTP/Index";
-        $self->{domain} = "ebox-ntp";
-        bless($self, $class);
+sub new 
+{
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => 'NTP', @_);
+    $self->{redirect} = "NTP/Index";
+    $self->{domain} = "ebox-ntp";
+    bless($self, $class);
 
-        return $self;
-        }
+    return $self;
+}
 
-        sub _process
-        {
-        my $self = shift;
-        my $ntp= EBox::Global->modInstance('ntp');
+sub _process
+{
+    my $self = shift;
+    my $ntp= EBox::Global->modInstance('ntp');
 
-        $self->_requireParam('active', __('module status'));
-        $ntp->setService(($self->param('active') eq 'yes'));
-        }
+    $self->_requireParam('active', __('module status'));
+    $ntp->setService(($self->param('active') eq 'yes'));
+}
 
-        1; ]]> </programlisting>
+1; ]]> </programlisting>
       </example>
 
       <para>Its implementation is quite simple, only a couple of details are
@@ -685,7 +685,7 @@
       arguments, the title and the current configuration of the NTP server. It
       looks like this:</para>
 
-      <example> 
+      <example id="mason-template-NTP-example"> 
         <title>Mason template for enabling the NTP server</title> 
         <programlisting><![CDATA[<%args> $active </%args>
         <%init> use EBox::Gettext; </%init>
@@ -757,7 +757,7 @@
       (<filename>servers.mas</filename>) or the manual time and date
       configuration template (<filename>date.mas</filename>).</para>
 
-      <example>
+      <example id="datetime-tmpl-example">
         <title><filename>datetime.mas</filename> template</title>
         <programlisting><![CDATA[<& /ntp/synch.mas, title => __('Synchronize with external NTP servers'),
         synchronized => $synchronized &>
@@ -793,7 +793,7 @@
       <quote>Date/Time</quote> and <quote>Time zone</quote>. Here is the
       <methodname>menu</methodname> method:</para>
 
-      <example>
+      <example id="entries-menu-example">
         <title>Adding entries to the eBox menu</title>
         <programlisting><![CDATA[sub menu
         {
@@ -826,7 +826,7 @@
       to implement the <methodname>statusSummary</methodname> method in
       <classname>EBox::NTP</classname>:</para>
 
-      <example>
+      <example id="ntp-summary-example">
         <title><methodname>statusSummary</methodname> in 
         <classname>EBox::NTP</classname></title>
 
@@ -857,7 +857,7 @@
       <methodname>_setNTPConf</methodname> which will be invoked every time
       we need to generate the config file. Here it is:</para>
 
-      <example>
+      <example id="generating-NTP-conf-example">
         <title> Generating the <filename>/etc/ntp.conf</filename> config
         file</title>
 
@@ -934,7 +934,7 @@
       values in the config file with fixed values, other values are dynamic and
       are generated based on the arguments received:</para>
 
-      <example>
+      <example id="gen-tmpl-NTP-example">
         <title>Template to generate
         <filename>/etc/ntp.conf</filename></title>
         <programlisting><![CDATA[<%args>
@@ -977,7 +977,7 @@
       It has to generate the config file, using the already seen
       <methodname>_setNTPConf</methodname> method. Let's see it:</para>
 
-      <example>
+      <example id="regenConfig-example">
         <title><methodname>_regenConfig</methodname> method</title>
         <programlisting><![CDATA[sub _regenConfig
         {
@@ -991,49 +991,48 @@
       <para>Besides invoking <methodname>_setNTPConf</methodname>,
       it needs to restart the daemon, it does so by calling
       a private method: <methodname>_doDaemon</methodname>.
-      Together with methods <methodname>_daemon</methodname>,
-      <methodname>_stopService</methodname>, and
+      Together with methods <methodname>_stopService</methodname>, and
       <methodname>isRunning</methodname>, <methodname>_doDaemon</methodname>
       performs the management of the daemon. Let's see them one by
       one:</para>
 
-      <example>
+      <example id="ntp-daemon-example">
         <title>NTP daemon management method</title>
         <programlisting><![CDATA[sub _doDaemon
         {
-        my $self = shift;
-        my $logger = EBox::Global->logger;
+           my $self = shift;
+           my $logger = EBox::Global->logger;
 
-        if (($self->service or $self->synchronized) and $self->isRunning) {
-        $self->_daemon('stop');
-        sleep 2;
-        if ($self->synchronized) {
-        my $exserver = $self->get_string('server1');
-        try {
-        root("/usr/sbin/ntpdate $exserver");
-        } catch EBox::Exceptions::Internal with {
-        $logger->info("Error, ntpdate could" .
-        " not be started.");
-        };
-        }
-        $self->_daemon('start');
-        } elsif ($self->service or $self->synchronized) {
-        if ($self->synchronized) {
-        my $exserver = $self->get_string('server1');
-        try {
-        root("/usr/sbin/ntpdate $exserver");
-        } catch EBox::Exceptions::Internal with {
-        $logger->info("Error ntpdate could" .
-        " not be started.");
-        };
-        }
-        $self->_daemon('start');
-        } elsif ($self->isRunning) {
-        $self->_daemon('stop');
-        if ($self->synchronized) {
-        $self->_daemon('start');
-        }
-        }
+           if (($self->service or $self->synchronized) and $self->isRunning) {
+                 EBox::Service::manage('ntpd','stop');
+                 sleep 2;
+                 if ($self->synchronized) {
+                     my $exserver = $self->get_string('server1');
+                     try {
+                         root("/usr/sbin/ntpdate $exserver");
+                     } catch EBox::Exceptions::Internal with {
+                         $logger->info("Error, ntpdate could" .
+                                       " not be started.");
+                     };
+                 }
+                 EBox::Service::manage('ntpd','start');
+            } elsif ($self->service or $self->synchronized) {
+                 if ($self->synchronized) {
+                    my $exserver = $self->get_string('server1');
+                    try {
+                       root("/usr/sbin/ntpdate $exserver");
+                    } catch EBox::Exceptions::Internal with {
+                       $logger->info("Error ntpdate could" .
+                                     " not be started.");
+                    };
+                 }
+                 EBox::Service::manage('ntpd','start');
+            } elsif ($self->isRunning) {
+                 EBox::Service::manage('ntpd','stop');
+                 if ($self->synchronized) { 
+                     EBox::Service::manage('ntpd','start');
+                 }
+           }
         }]]></programlisting>
       </example>
 
@@ -1052,38 +1051,34 @@
       </itemizedlist>
 
       <para>Depending on which case we are in it calls
-      <methodname>_daemon</methodname> telling it which action we want to
+      <methodname>EBox::Service::manage</methodname> telling it which action we want to
       perform: start or stop. If the system date is to be synchronized
       with external servers we should try to make a manual query with the
       <command>/usr/sbin/ntpdate</command> before starting the daemon. This
       is a recommended practice before launching the ntp daemon.</para>
 
-      <para>Let's see the <methodname>_daemon</methodname> code, which
-      starts, stops or restarts the daemon directly depending on its
-      argument:</para>
+      <para>Let's see how <methodname>EBox::Service::manage</methodname> works,
+      it starts, stops or restarts a service directly depending on its
+      argument. It uses <ulink url="http://smarden.org/runit/">
+      <application>runit</application></ulink> application to manage automatically
+      daemon by its supervision. This allows us to check the daemon status,
+      for how long and restart the service everytime is goes down.</para>
 
-      <example>
-        <title>Commands for starting and stopping the ntp daemon.</title>
-        <programlisting><![CDATA[sub _daemon # (action)
-        {
-        my ($self, $action) = @_;
+      <para>
+        In order to configure a runit service, it is required to edit a shell script
+        with the service name, in our case <parameter>ntpd</parameter>, indicating
+        how the service is run in foreground mode. This file must place in
+        <filename>tools/runit/</filename> directory.
+      </para>
 
-        if ( $action eq 'start') {
-        root("start-stop-daemon --start --quiet --pidfile" .
-        " /var/run/ntpd.pid --exec /usr/sbin/ntpd " .
-        " -- -g -p /var/run/ntpd.pid");
-        } elsif ( $action eq 'stop') {
-        root("start-stop-daemon --stop --quiet --pidfile" .
-        " /var/run/ntpd.pid");
-        } elsif ( $action eq 'force-reload') {
-        root("start-stop-daemon --stop --quiet --pidfile"
-        " /var/run/ntpd.pid");
-        sleep 2;
-        root("start-stop-daemon --start --quiet --exec /usr/sbin/ntpd -- -g -p /var/run/ntpd.pid");
-        } else {
-        throw EBox::Exceptions::Internal("Bad argument: $action");
-        }
-        }]]></programlisting>
+      <example id="ntpd-runit-example">
+        <title><filename>tools/runit/ntpd</filename> file</title>
+        <programlisting><![CDATA[
+#!/bin/sh
+exec 2>&1
+exec /usr/sbin/ntpd -n -g]]>
+
+        </programlisting>
       </example>
 
       <para>There only two methods left for you to see.
@@ -1092,7 +1087,7 @@
       <methodname>isRunning</methodname> tells us whether the ntp daemon is
       currently running, it does so by checking its process id (PID).</para>
 
-      <example>
+      <example id="stopservice-example">
         <title><methodname>_stopService</methodname> method.</title>
         <programlisting><![CDATA[sub _stopService
         {
@@ -1127,7 +1122,7 @@
       called <methodname>_configureFirewall</methodname> that takes care of
       all this stuff. Here it is:</para>
 
-      <example>
+      <example id="firewall-conf">
         <title>Firewall configuration</title>
         <programlisting><![CDATA[sub _configureFirewall
         {
@@ -1184,6 +1179,793 @@
     
     <title>Short way to create a small module</title>
 
+    <para>
+      Previously in <xref linkend="sect-long-way"/>, a long way to create an 
+      eBox module has been explained, however in this section we are going to
+      use the MVC framework described in <xref linkend="sect-a-mvc-module"/>.
+      This will reduce our development time, less error-prone and greater quality
+      since less code is required to be written and this code will handle the
+      compulsory logic avoiding to do repetitive tasks such as CGI or template
+      creation as well as manage database backend directly letting developer
+      focuses on what really cares to add the new service to eBox.
+    </para>
+
+    <para>
+      As it was done in <xref linkend="long-create-model-introduction"/>, we have
+      chosen a service, in this case, the HyperText Transfer Protocol server.
+      We have selected the <ulink url="http://httpd.apache.org">Apache HTTP server version 2</ulink>
+      to provide a simple glance of how powerful is the MVC framework to develop
+      eBox agility and correctly. The Apache eBox module will provide these features:
+    </para>
+    
+    <itemizedlist>
+      <listitem>
+        <para>Enable and disable the service as other eBox modules</para>
+      </listitem>
+      <listitem>
+        <para>Some general configuration settings as port number to listen
+        HTTP request or enable HTML provided by users home at <filename>public_html</filename>
+        directory.</para>
+      </listitem>
+      <listitem>
+        <para>Virtual host creation and configuration giving automatic 
+        name resolution management using our DNS module.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>
+      These steps are going to follow to develop this module:
+    </para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Define the data model to manage the requested features</para>
+      </listitem>
+      
+      <listitem>
+        <para>Define the graphical user interface using Composites</para>
+      </listitem>
+
+      <listitem>
+        <para>Create the new module from a template publishing the data 
+        model and composites</para>
+      </listitem>
+
+
+      <listitem>
+        <para>Common tasks done in the <link linkend="sect-long-way">long way Section</link>
+        such as generate configuration files, control daemon execution, firewall rules and
+        set menu and status summary.
+        </para>
+      </listitem>
+
+      <listitem>
+        <para>Expose the desired API to other eBox's modules or to the SOAP interface</para>
+      </listitem>
+    </itemizedlist>
+
+    <section id="define-data-model-sect">
+
+      <title>Define data model</title>
+      <para>
+        In order to do the enable/disable web service, we can use the common form model which
+        shows, store a boolean value to enable/disable service called
+        <classname>EBox::Common::Model::EnableForm</classname>, we delayed this feature till
+        <xref linkend="publish-model-composite-sect"/>.
+      </para>
+
+      <para>
+        The general apache configuration is a form which contains the port number which is a simple
+        Int type and a Boolean type to enable users publish their own HTML pages under
+        <filename>public_html</filename> directory from their home. The description is displayed
+        in <xref linkend="general-conf-example"/> inside the
+        <classname>EBox::WebServer::Model::GeneralConfigurationForm</classname> class.
+
+        <example id="general-conf-example">
+          <title>General Configuration description</title>
+          <programlisting><![CDATA[
+sub _table
+  {
+
+      my @tableHeader =
+        (
+         new EBox::Types::Int(
+                              fieldName     => 'port',
+                              printableName => __('Listening port'),
+                              size          => 6,
+                              editable      => 1,
+                              defaultValue  => 80,
+                             ),
+         new EBox::Types::Boolean(
+                                  fieldName     => 'enableDir',
+                                  printableName => __x('Enable user publishing from their ',
+                                                       'home directories using {dirName}',
+                                                       dirName => 'public_html'),
+                                  editable      => 1,
+                                 ),
+                             );
+
+      my $dataTable =
+        {
+         tableName          => 'GeneralConfigurationForm',
+         printableTableName => __('General Configuration'),
+         defaultActions     => [ 'editField', 'changeView' ],
+         tableDescription   => \@tableHeader,
+         class              => 'dataForm',
+         help               => __('General Web server configuration. The listening port ' .
+                                  'must not be got from another service. If you enable ' .
+                                  'user to publish their own html pages, the pages will be ' .
+                                  'loaded from public_html directory from their samba home directories'),
+         messages           => {
+                                update => __('General Web server configuration updated'),
+                               }
+        };
+
+      return $dataTable;
+
+  }]]>
+          </programlisting>
+        </example>
+
+        As the user input can be incorrect if the port number is not correct or is already in use
+        by any other eBox module, the check is compulsory and it is done as
+        <xref linkend="validate-example"/> shows.
+
+        <example id="validate-example">
+          <title>Validate input data</title>
+          <programlisting><![CDATA[
+sub validateTypedRow
+  {
+
+      my ($self, $action, $params) = @_;
+
+      my $portNumber = $params->{port}->value();
+
+      EBox::Validate::checkPort($portNumber,
+                                __('Invalid port number'));
+
+      my $gl = EBox::Global->getInstance();
+      my $firewall = $gl->modInstance('firewall');
+
+      unless ( $firewall->availablePort('tcp', $portNumber) ) {
+          throw EBox::Exceptions::DataExists(
+                                             'data'  => __('listening port'),
+                                             'value' => $portNumber,
+                                             );
+      }
+
+  }]]>
+          </programlisting>
+        </example>
+      </para>
+
+      <para>
+        Once the general configuration is done, we are going to generate a list 
+        of virtual hosts to live inside our web server. As the module is done as 
+        a proof concept only a name will be provided to generate a virtual host.
+        The document root is fixed and it is related to the virtual host's name
+        and it is enabled by default. As it can exist as many as we wish, a data
+        model in a table is the best solution to address here. Its description is
+        shown in <xref linkend="vhost-description-example"/> inside the
+        <classname>EBox::WebService::Model::VHostTable</classname> class.
+        <example id="vhost-description-example">
+          <title>Virtual host data model description</title>
+          <programlisting><![CDATA[
+sub _table
+{
+    my @tableHead =
+        (
+         new EBox::Types::Text(
+                                fieldName     => 'name',
+                                printableName => __('Name'),
+                                size          => 12,
+                                unique        => 1,
+                                editable      => 1,
+                             ),
+         new EBox::Types::Boolean(
+                                  fieldName     => 'enabled',
+                                  printableName => __('Enabled'),
+                                  editable      => 1,
+                                  # The virtual host is enabled by default
+                                  defaultValue  => 1,
+                                 ),
+        );
+
+    my $dataTable =
+      {
+       tableName          => 'VHostTable',
+       printableTableName => __('Virtual hosts'),
+       defaultActions     => ['add', 'del', 'editField',  'changeView' ],
+       tableDescription   => \@tableHead,
+       class              => 'dataTable',
+       help               => __('Virtual hosts are a form of web hosting service where ' .
+                                'many instances of the same web server is hosted on a ' .
+                                'single physical server. Different host names will point ' .
+                                'to the same web server. The DNS entry is automatically created'),
+       printableRowName   => __('virtual host'),
+       modelDomain        => 'Web',
+      };
+
+    return $dataTable;
+}]]>
+            
+          </programlisting>
+        </example>
+        As we want to order the virtual host by name, we override the 
+        <methodname>_tailoredOrder</methodname> protected method to achieve so.
+        <programlisting><![CDATA[
+sub _tailoredOrder # (rows)
+{
+
+    my ($self, $rows_ref) = @_;
+
+    # Order rules per priority
+    my @orderedRows = sort { $a->{valueHash}->{name}->value()
+        cmp $b->{valueHash}->{name}->value() }
+      @{$rows_ref};
+
+    return \@orderedRows;
+
+}]]>
+        </programlisting>
+
+      </para>
+
+    </section>
+        
+    <section id="define-composite-sect">
+
+      <title>Define module web GUI using Composites</title>
+      <para>
+        We want to show our previous defined models in a top bottom layout in this order:
+        first the enable/disable button for the web service, then the general configuration
+        settings and, finally, the virtual host table. We assume the number of virtual hosts
+        for internal use will be small and it will match with the window height to see the
+        web service configuration at one glance in the same page. To achieve so, we define a
+        composite called <classname>EBox::WebService::Model::GeneralComposite</classname>
+        which comprises the three elements in a top-bottom layout as
+        <xref linkend="composite-desc-example"/> demonstrates:
+        <example id="composite-desc-example">
+          <title>General composite to display Web service configuration page</title>
+          <programlisting><![CDATA[
+sub _description
+  {
+
+      my $description =
+        {
+         components      => [
+                             'EnableForm',
+                             'GeneralConfigurationForm',
+                             'VHostTable',
+                            ],
+         layout          => 'top-bottom',
+         name            => 'WebServerComposite',
+         printableName   => __('Web service'),
+         compositeDomain => 'Web',
+         help            => __('The eBox web service allows you ' .
+                               'to host Web pages in plain HTML' .
+                               'within different virtual hosts'),
+        };
+
+      return $description;
+
+  }]]>
+          </programlisting>
+        </example>
+        As you may notice, only the model names are required to integrate the
+        components inside the composite.
+      </para>
+
+    </section>
+    <section id="publish-model-composite-sect">
+
+      <title>Publishing model and composite from this module</title>
+      <para>
+        In order to let eBox see the models and composites defined above, so 
+        that they will be shown and accessed to their data, let's edit the
+        main module class <classname>EBox::WebServer</classname>. To publish
+        models and composites, we must override <methodname>models</methodname> and
+        <methodname>composites</methodname> methods respectively as 
+        <xref linkend="model-access-sect"/> describes.
+        
+        <example id="webserver-publish-example">
+          <title>Publishing models and composites from web server module</title>
+          <programlisting><![CDATA[
+sub models
+{
+    my ($self) = @_;
+
+    return [
+            $self->_enableForm(),
+            $self->_generalConfigurationForm(),
+            $self->_vHostModel(),
+           ];
+
+}
+
+sub composites
+{
+
+    my ($self) = @_;
+
+    return [
+            $self->_generalComposite()
+           ];
+
+}]]>
+          </programlisting>
+        </example>
+        The private methods instantiates the models (composite) just once and 
+        it returns back a reference to them. The 
+        <xref linkend="model-creation-example"/> describes the creation of the 
+        enable form, virtual host model and the composite as examples for
+        instantiation of models and composites.
+        <example id="model-creation-example">
+          <title>Model and composite instatation</title>
+          <programlisting><![CDATA[
+# Singleton method to create the enable form
+sub _enableForm
+  {
+
+      my ($self) = @_;
+
+      unless ( exists $self->{enableForm}) {
+          $self->{enableForm} = new EBox::Common::Model::EnableForm(
+                                    gconfmodule => $self,
+                                    directory   => 'EnableForm',
+                                    domain      => 'ebox-web',
+                                    enableTitle => __('Web service status'),
+                                    modelDomain => 'Web',
+                                                                   );
+      }
+
+      return $self->{enableForm};
+
+  }
+
+# Singleton method to create the virtual host model
+sub _vHostModel
+  {
+
+      my ($self) = @_;
+
+      unless ( exists $self->{vHostModel}) {
+          $self->{vHostModel} =
+            new EBox::WebServer::Model::VHostTable(
+                                                   gconfmodule => $self,
+                                                   directory   => 'VHostTable',
+                                                  );
+      }
+
+      return $self->{vHostModel};
+
+  }
+
+# Singleton method to create the general composite to show the web
+# service configuration
+sub _generalComposite
+  {
+
+      my ($self) = @_;
+
+      unless ( exists $self->{generalComposite}) {
+          $self->{generalComposite} =
+            new EBox::WebServer::Model::GeneralComposite();
+      }
+
+      return $self->{generalComposite};
+
+  }]]>
+          </programlisting>
+        </example>
+        The enable form is a common model which is intended to be used
+        in different modules to enable/disable a service. For this reason,
+        its construction is a bit different from the rest, since the 
+        model is parametrised with the gettext domain 
+        (<parameter>domain</parameter>), its title 
+        (<parameter>enableTitle</parameter>) and the model domain
+        (<parameter>modelDomain</parameter>). The remainder two methods
+        are general ones used along eBox code.
+      </para>
+
+    </section>
+    <section id="common-tasks-sect">
+
+      <title>Common tasks</title>
+      <para>
+        Every different thing is almost done. The only different is the way
+        to access the stored information. Traditional way allows accessing
+        data stored at GConf directly, however with the MVC scheme the data
+        is accessed using the data model. These steps are required to finish
+        the module:
+        <itemizedlist>
+          <listitem>
+            <para>Generate the configuration files.</para>
+          </listitem>
+          <listitem>
+            <para>Control the daemon execution.</para>
+          </listitem>
+          <listitem>
+            <para>Make the module show up in eBox menu and status summary page.
+            </para>
+          </listitem>
+          <listitem>
+            <para>Establish custom rules in the using services and firewall
+            modules.</para>
+          </listitem>
+        </itemizedlist>
+        Taking a look to the 
+        <link linkend="long-steps-creating-module-list">long way of a module creation</link>,
+        we can observe as we have removed any CGI or mason development. Inside
+        this section the two steps of the three steps are going to be described
+        in some detail.
+      </para>
+
+      <para>
+        What is known the eBox module "backend" is done in <classname>EBox::WebServer</classname>.
+        Firstly, the constructor must indicate to eBox its name and Gettext domain as
+        <xref linkend="webserver-constructor-example"/> shows.
+        <example id="webserver-constructor-example">
+          <title>WebServer module constructor</title>
+          <programlisting><![CDATA[
+sub _create
+{
+	my $class = shift;
+	my $self = $class->SUPER::_create(
+                                          name => 'web',
+                                          domain => 'ebox-web',
+                                          @_,
+                                         );
+	bless($self, $class);
+	return $self;
+}]]>
+          </programlisting>
+        </example>
+      </para>
+      
+      <section id="configuring-apache2-service">
+
+        <title>Configuring Apache2 service</title>
+
+        <para>
+          In order to generate the configuration files and manage the apache daemon,
+          it is required to study the Apache web server and handled the features we
+          wish to have in our service. The Apache2 web server is a quite complex
+          software which manages several files to configure its service.
+        </para>
+
+        <para>
+          The listening port is set by <filename>/etc/apache2/ports.conf</filename> which
+          contains the <parameter>Listen</parameter> directive to achieve so.
+        </para>
+
+        <para>
+          To enable the user directory, the
+          <ulink url="http://httpd.apache.org/docs/2.0/mod/mod_userdir.html">mod_userdir</ulink>
+          is used. Its availability comes with the debian package <classname>apache2</classname>
+          and it must be listed in <filename>/etc/apache2/mods-available</filename> directory
+          as two files <filename>userdir.conf</filename> and <filename>userdir.load</filename>.
+          In order to enable the apache2 module, it is required to create symbolic links to
+          both previous files inside <filename>/etc/apache2/mods-enabled</filename> directory.
+          The default configuration is set up in <filename>userdir.conf</filename>.
+        </para>
+
+        <para>
+          Related to the virtual hosts, every new virtual host has a predefined template
+          to configure them and it is set under <filename>/etc/apache2/sites-available</filename>
+          directory. Analogously to the previous module, the virtual host will be enabled
+          when a symbolic link to that configuration file is placed in 
+          <filename>/etc/apache2/sites-enabled</filename> directory.
+        </para>
+
+        <para>
+          Similarly as done in <xref linkend="sect-example-daemon"/>, we create a private
+          method <methodname>_setWebServerConf</methodname> in order to set up every
+          template in the web server configuration as <xref linkend="setup-webserver-conf-example"/>
+          whenever the web service is restarted.
+          <example id="setup-webserver-conf-example">
+            <title>Generating web server configuration files</title>
+            <programlisting><![CDATA[
+sub _setWebServerConf
+  {
+
+      my ($self) = @_;
+
+      $self->_setPort();
+      $self->_setUserDir();
+      $self->_setVHosts();
+
+  }]]>
+            </programlisting>
+          </example>
+          Every different private method sets up a certain part within the apache setup
+          process. The first one sets the listening port, the second one enable/disable
+          the user directory module and the last one it will set up every configurated
+          virtual host. The program listing from these modules is described in
+          <xref linkend="setup-webserver-example"/>
+          <example id="setup-webserver-example">
+            <title>Setting up the web server</title>
+            <programlisting><![CDATA[
+# Set up the listening port
+sub _setPort
+  {
+
+      my ($self) = @_;
+
+      # We can assume the listening port is ready available
+      my $generalConf = $self->_generalConfigurationForm();
+
+      # Overwrite the listening port conf file
+      $self->writeConfFile(PORTS_FILE,
+                           "web/ports.conf.mas",
+                           [ portNumber => $generalConf->portValue() ],
+                          )
+
+  }
+
+# Set up the user directory by enable/disable the feature
+sub _setUserDir
+  {
+
+      my ($self) = @_;
+
+      my $generalConf = $self->_generalConfigurationForm();
+
+      if ( $generalConf->enableDirValue() ) {
+          # User dir enabled
+          foreach my $confFile (USERDIR_CONF_FILES) {
+              unless ( -e $confFile ) {
+                  throw EBox::Exceptions::External(__x('The {userDirConfFile} ' .
+                                                       'is missing! Please recover it',
+                                                       userDirConfFile => $confFile));
+              }
+          }
+          # Create the symbolic link
+          EBox::Sudo::root('ln -s ' . join ( ' ', USERDIR_CONF_FILES) . ' ' .
+                           MODS_ENABLED_DIR);
+      } else {
+          # Remove any user dir link
+          EBox::Sudo::root('rm -f ' . join ( ' ', USERDIR_CONF_FILES));
+      }
+
+  }
+
+# Set up the virtual hosts
+sub _setVHosts
+  {
+
+      my ($self) = @_;
+
+      my $vHostModel = $self->_vHostModel();
+
+      my $vHosts = $vHostModel->rows();
+
+      # Remove every available site using our vhost pattern ebox-*
+      my $vHostPattern = VHOST_PREFIX . '*';
+      EBox::Sudo::root('rm -f ' . SITES_AVAILABLE_DIR . " $vHostPattern");
+      EBox::Sudo::root('rm -f ' . SITES_ENABLED_DIR . " $vHostPattern");
+
+      foreach my $vHost (@{$vHostModel->rows()}) {
+          # Access to the field values for every virtual host
+          my $vHostValues = $vHost->{plainValueHash};
+
+          my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostValues->{name};
+          writeConfFile( $destFile,
+                         "web/vhost.mas",
+                         [ vHostName => $vHostValues->{name} ],
+                       );
+
+          if ( $vHostValues->{enabled} ) {
+              # Create the symbolic link
+              EBox::Sudo::root("ln -s $destFile " . SITES_ENABLED_DIR);
+          }
+      }
+
+  }]]>
+            </programlisting>
+          </example>
+          We have accessed to the data model using two different ways. With regard
+          to the general configuration form, we have used the auto-loaded methods
+          that a <classname>DataForm</classname> has to access the model values
+          directly, for instance <literal>$generalConf->portValue()</literal> and
+          <literal>$generalConf->enableDirValue()</literal>. Regarding to
+          the virtual host data model, as we have to pass each row the usage
+          of <methodname>rows</methodname> is compulsory. Furthermore, accessing
+          to the helper structure <varname>plainValueHash</varname> since only
+          the values are important when a configuration is regenerated. The internal
+          logic creates every virtual host configuration from a single template
+          and it is written under <filename>sites-available</filename> directory
+          using the pattern: <emphasis>ebox-$virtualHostName</emphasis>. If the
+          virtual host is enabled, a symbolic link is created under 
+          <filename>sites-enabled</filename> directory.
+        </para>
+
+        <para>
+          The <filename>ports.conf.mas</filename> is pretty simple as
+          <xref linkend="ports-example"/> shows. The <parameter>doc</parameter>
+          is set that everything inside them is documentation.
+          <example id="ports-example">
+            <title><filename>Ports.conf.mas</filename> template</title>
+            <programlisting><![CDATA[
+<%doc>
+  ports.conf.mas writes the listening port used by apache virtual host
+  to serve Web pages.
+
+  Parameters:
+
+  portNumber - Int the port number to listen to Web requests
+
+</%doc>
+<%args>
+  $portNumber
+</%args>
+Listen <% $portNumber %>]]>
+            </programlisting>
+          </example>
+          Regarding to <filename>vhost.mas</filename>, its content is almost as 
+          simple as the ports one as we see in <xref id="vhost-example"/>.
+          <example id="vhost-example">
+            <title><filename>vhost.mas</filename> template</title>
+            <programlisting><![CDATA[
+<%doc>
+   Template to configure a simple named virtual host using the default
+   site given with the apache2 debian package
+   
+   Parameters:
+
+   vHostName - String the virtual host's name
+</%doc>
+<%args>
+  $vHostName
+</%args>
+<%init>
+  my $vHostPrefix = 'custom-ebox-';
+</%init>
+NameVirtualHost *
+<VirtualHost *>
+        ServerAdmin webmaster@localhost
+
+        ServerName <% vHostName %>
+        DocumentRoot /var/www/<% $vHostName %>
+
+        ErrorLog /var/log/apache2/error.log
+
+        # Possible values include: debug, info, notice, warn, error, crit,
+        # alert, emerg.
+        LogLevel warn
+
+        CustomLog /var/log/apache2/access.log combined
+        ServerSignature On
+
+        # Under this directory you can manually configure every thing
+        # you may need of that stuff
+        Include sites-available/<% "$vHostPrefix$vHostName" %>/*
+</VirtualHost>]]>
+            </programlisting>
+          </example>
+          Every virtual host may have an <filename>sites-available/custom-ebox-$vHostName</filename>
+          directory to include every manual configuration you may require.
+        </para>
+      </section>
+
+      <section id="managing-apache2-daemon">
+
+        <title>Manage Apache2 daemon execution</title>
+
+        <para>
+          Likewise it is done in <xref linkend="ntp-daemon-example"/>, the web service
+          is managed by runit and the private method to manage is called
+          <methodname>_doDaemon</methodname>.
+
+          <example id="web-daemon-example">
+            <title>Web daemon management method</title>
+            <programlisting><![CDATA[
+sub _doDaemon
+  {
+
+      my ($self) = @_;
+
+      if ( $self->running() and $self->service() ) {
+          EBox::Service::manage(WEB_SERVICE, 'restart');
+      } elsif ( $self->service() ) {
+          EBox::Service::manage(WEB_SERVICE, 'start');
+      } else {
+          EBox::Service::manage(WEB_SERVICE, 'stop');
+      }
+
+  }]]>
+            </programlisting>
+          </example>
+
+          The shell script to launch the web service
+          <filename>tools/runit/apache2</filename> contains this listing:
+          <example id="apache2-runit-example">
+            <title><filename>tools/runit/apache2</filename> file</title>
+            <programlisting><![CDATA[
+            #!/bin/sh
+            exec 1>&2
+            exec /usr/sbin/apache2 -DNO_DETACH]]>
+            </programlisting>
+          </example>
+
+          In addition to the launcher, a finisher script, which is run
+          whenever a service ends, is used in order to restart the service
+          a fixed number of times in a time interval before ceasing. The
+          <command>ebox-runit-finisher</command> requires two arguments:
+          
+          <variablelist>
+            <varlistentry>
+              <term><parameter>eBoxModule</parameter></term>
+              <listitem>
+                <para>This set the eBox module name</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><parameter>serviceName</parameter></term>
+              <listitem>
+                <para>The runit service's name</para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+          The finisher script must follow this pattern: 
+          <filename>${serviceName}.finish</filename>. In our example, the 
+          shell script <filename>tools/runit/apache2.finish</filename> lists as following:
+          <example id="apache2-runit-finisher-example">
+            <title><filename>tools/runit/apache2.finish</filename> file</title>
+            <programlisting><![CDATA[
+            #!/bin/sh
+            exec ebox-runit-finisher web apache2]]>
+            </programlisting>
+          </example>
+        </para>
+      </section>
+
+    <para>
+        In order to show up the web server in the menu, it is almost the same procedure than
+        <xref linkend="sect-example-menu"/>. However, in this case we just add an
+        item. The URL to set is going to show the view from the composite 
+        <classname>GeneralComposite</classname> that we have defined in 
+        <xref linkend="composite-desc-example"/>. To do so, the URL value must
+        follow this pattern: <emphasis>$compositeDomain/Composite/$compositeName</emphasis>
+        as <xref linkend="menu-webserver-example"/> describes.
+        <example id="menu-webserver-example">
+          <title>Adding WebServer to the menu</title>
+          <programlisting><![CDATA[
+sub menu
+  {
+
+      my ($self, $root) = @_;
+
+      my $item = new EBox::Menu::Item(name  => 'WebServer',
+                                      text  => __('Web'),
+                                      url   => 'Web/Composite/GeneralComposite',
+                                     );
+
+      $root->add($item);
+
+  }]]>
+          </programlisting>
+        </example>
+        Regarding to status summary, the <methodname>statusSummary</methodname> method
+        implementation is analogous to the one defined in 
+        <xref linkend="ntp-summary-example"/> but swapping every NTP reference to
+        Web.
+      </para>
+
+    </section>
+    <section id="expose-module-API-sect">
+
+      <title>Expose module API</title>
+      <para>
+        The module has two options to expose the configuration settings. Firstly, it
+        may open up every model and let the module client access directly to the data
+        model or, secondly, it gives some common methods to access the data easily.
+        The latter option is chosen by this tutorial.
+      </para>
+
+    </section>
+
+        
   </section>
 
 </chapter>
