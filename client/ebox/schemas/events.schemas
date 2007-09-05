@@ -12,7 +12,7 @@
 			<key>/schemas/ebox/modules/events/enabled</key>
 			<applyto>/ebox/modules/events/enabled</applyto>
 			<owner>ebox</owner>
-			<type>boolean</type>
+			<type>bool</type>
 			<default>false</default>
 			<locale name="C"/>
 		</schema>
