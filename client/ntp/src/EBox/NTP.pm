@@ -111,7 +111,8 @@ sub _configureFirewall($){
 	}
 	
 	if ($self->service and (!defined($fw->service('ntp')))) {
-		$fw->setObjectService('_global', 'ntp', 'allow');
+        _addNTPService();
+		$fw->setInternalService('ntp', 'accept');
 	}
 }
 
@@ -394,20 +395,8 @@ sub statusSummary
 sub onInstall
 {
 	EBox::init();
-
 	my $serviceMod = EBox::Global->modInstance('services');
-
-	if ($serviceMod->serviceExists('name' => 'ntp')) {
-		 $serviceMod->addService('name' => 'ntp',
-			'protocol' => 'udp',
-			'sourcePort' => 'any',
-			'destinationPort' => 123,
-			'internal' => 0);
-		
-	} else {
-		EBox::info("Not adding ntp services as it already exists");
-	}
-
+	_addNTPService();
 	$serviceMod->save();
 }
 
@@ -451,4 +440,23 @@ sub menu
 		$root->add($item);
 }
 
+sub _addNTPService
+{
+
+    my $serviceMod = EBox::Global->modInstance('services');
+
+	if ($serviceMod->serviceExists('name' => 'ntp')) {
+		 $serviceMod->addService('name' => 'ntp',
+			'protocol' => 'udp',
+			'sourcePort' => 'any',
+			'destinationPort' => 123,
+			'internal' => 0);
+		
+	} else {
+		EBox::info("Not adding ntp services as it already exists");
+	}
+
+
+
+}
 1;
