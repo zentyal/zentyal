@@ -37,6 +37,10 @@ sub new
 	my %opts = @_;
 	my $self = {@_};
 
+	if (defined($self->{'hidden'}) and $self->{'hidden'}) {
+		$self->{'HTMLViewer'} = undef;
+		$self->{'HTMLSetter'} = undef;
+	}
         bless($self, $class);
 
         return $self;
