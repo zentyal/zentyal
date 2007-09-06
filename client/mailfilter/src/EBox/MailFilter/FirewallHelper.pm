@@ -12,16 +12,13 @@ sub new
   my ($class, %params) = @_;
   my $self = $class->SUPER::new(%params);
 
-  exists $params{port} or 
-    throw EBox::Exceptions::MissingArgument('port');
-  exists $params{externalMTAs} or 
-    throw EBox::Exceptions::MissingArgument('externalMTAs');
-  exists $params{fwport} or 
-    throw EBox::Exceptions::MissingArgument('fwport');
+  my @paramNames = qw(active antivirusActive port externalMTAs fwport);
+  foreach my $p (@paramNames) {
+    exists $params{$p} or
+      throw EBox::Exceptions::MissingArgument("$p");
 
-  $self->{port}         = $params{port};
-  $self->{fwport}         = $params{fwport};
-  $self->{externalMTAs} = $params{externalMTAs};
+    $self->{$p} = $params{$p};
+  }
 
   bless($self, $class);
   return $self;
@@ -32,42 +29,44 @@ sub new
 sub input
 {
   my ($self) = @_;
-  my @externalMTAs = @{ $self->{externalMTAs} };
+  my @rules;
 
-  if (@externalMTAs == 0) {
-    # no need from external connections
+  if (not $self->{active}) {
     return [];
   }
 
+  my @externalMTAs = @{ $self->{externalMTAs} };
+  if (@externalMTAs ) {
+    my $port = $self->{port};
+    push @rules, "--protocol tcp --dport $port   -j ACCEPT";
 
-  my $port = $self->{port};
+  }
 
-
-  return [
-	  "--protocol tcp --dport $port   -j ACCEPT",
-	 ];
-
+  return \@rules;
 }
 
 
 sub output
 {
   my ($self) = @_;
-  my @externalMTAs = @{ $self->{externalMTAs} };
+  my @rules;
 
-  if (@externalMTAs == 0) {
-    # no need from external connections
+  if (not $self->{active}) {
     return [];
   }
 
+  my @externalMTAs = @{ $self->{externalMTAs} };
+  if (@externalMTAs) {
+    my $fwport = $self->{fwport};
+    push @rules, "--protocol tcp --dport $fwport -j ACCEPT";
+  }
 
-  my $fwport = $self->{fwport};
+  if ($self->{antivirusActive}) {
+    # freshclam update service
+    push @rules, '--protocol tcp --dport 80 -j ACCEPT';
+  }
 
-
-  return [
-	  "--protocol tcp --dport $fwport   -j ACCEPT",
-	 ];
-
+  return \@rules;
 }
 
 1;

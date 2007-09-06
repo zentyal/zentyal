@@ -693,9 +693,11 @@ sub firewallHelper
 
   my $externalMTAs = $self->allowedExternalMTAs();
   return new EBox::MailFilter::FirewallHelper(
-			      port        => $self->port,
-			      fwport        => $self->fwport,
-			      externalMTAs => $externalMTAs,
+			      active          => $self->service,
+			      antivirusActive => $self->antivirus->service,
+			      port            => $self->port,
+			      fwport          => $self->fwport,
+			      externalMTAs    => $externalMTAs,
 					     );
 }
 
