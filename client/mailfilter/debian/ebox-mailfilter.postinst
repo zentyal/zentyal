@@ -82,8 +82,19 @@ case "$1" in
                 # restart module
 		invoke-rc.d ebox mailfilter restart
 
-		# invoke freshclam to update antvirus database
-		freshclam
+		# invoke freshclam to update antvirus database if connection is found
+		ping -c 1 www.google.com 2>&1 > /dev/null
+		CONNECTION=$?
+		
+		if [[ $CONNECTION == 0 ]]; then
+		    # we need to open port 80 output to allow the update
+		    iptables -A omodules -p tcp --dport 80 -j ACCEPT
+		    freshclam 
+		    iptables -D omodules -p tcp --dport 80 -j ACCEPT
+		else
+		    echo "It seems that this host has not internet connectivity. Freshclam (virus database updater) not run"
+		    echo "Please, run freshclam as soon as possible"
+		fi
 esac
 
 #DEBHELPER#
