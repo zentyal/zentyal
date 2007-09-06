@@ -860,7 +860,7 @@ sub _daemon # (action)
 			abstract method, <methodname>_stopService</methodname> is the one you
 			need to implement.</para>
 
-			<example >
+			<example id="stop-example">
 
 				<title>Sample <methodname>_stopService</methodname>
 				implementation</title>

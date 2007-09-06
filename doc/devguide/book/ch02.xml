@@ -49,7 +49,7 @@
 		read-only ones. This script shows how to get an instance of the squid
 		module and tell it to restart itself:</para>
 
-		<example>
+		<example id="create-readonly-instance-example">
 			<title>Creating a read-only module instance</title>
 			<programlisting><![CDATA[#!/usr/bin/perl
 
@@ -79,7 +79,7 @@ try {
 		<methodname>modInstancesOfType</methodname>. Using them is straight
 		forward:</para>
 
-		<example>
+		<example id="some-mods-instanced-example">
 			<title>Functions for instantiating more than one module</title>
 			<programlisting><![CDATA[my $global = EBox::Global->getInstance(1);
 
@@ -269,7 +269,7 @@ foreach my $mod (@{$global->modInstancesOfType('EBox::NetworkObserver')}) {
 		<classname>EBox::Exceptions::Internal</classname>, or just use one
 		those two classes as generic exceptions:</para>
 
-		<example>
+		<example id="generic-readonly-instance-example">
 			<title>Throwing a generic internal exception</title>
 			<programlisting><![CDATA[if ($foo_condition) {
 	throw EBox::Exceptions::Internal('Something happened!');
@@ -279,7 +279,7 @@ foreach my $mod (@{$global->modInstancesOfType('EBox::NetworkObserver')}) {
 		<para>As you can see, throwing exceptions follows a syntax very similar
 		to Java's. Catching them is very similar too:</para>
 
-		<example>
+		<example id="catch-excep-example">
 			<title>Catching an exception</title>
 			<programlisting><![CDATA[use Error qw(:try);
 
@@ -325,7 +325,7 @@ sub foo
 		going to be checked. They return <literal>true</literal> if the value
 		is correct, <literal>undef</literal> if it's not:</para>
 
-		<example>
+		<example id="data-validation-example">
 			<title>Using data validation functions</title>
 			<programlisting><![CDATA[use EBox::Validate qw(:all);
 
@@ -346,7 +346,7 @@ unless (checkIP($ip))
 		validation fails, an exception will be thrown with a message indicating
 		the name of the wrong field:</para>
 
-		<example>
+		<example id="auto-error-example">
 			<title>Using data validation functions with automatic error
 			handling</title>
 
@@ -412,7 +412,7 @@ print __x("Edit {group} members", group => $group); # right
 			to translate it, you should use <methodname>__n</methodname> function. An
 			example of usage is the following:</para>
 
-			<example>
+			<example id="__n-funct-example">
 			  <title>Using <methodname>__n</methodname> function</title>
 			  <programlisting>
 my $options = [__n('Foo'), __n('Bar'), __n('Foobaz') ]; # As many as you want

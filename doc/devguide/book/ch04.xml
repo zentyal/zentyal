@@ -137,7 +137,7 @@
 			<para>As an example, here's the implementation of both of these
 			methods in the firewall module:</para>
 
-			<example>
+			<example id="objects-observer-example">
 				<title><classname>EBox::ObjectsObserver</classname> subclass
 				implementation</title>
 
@@ -476,7 +476,7 @@ by the squid module.</para>
 			virtual domain is deleted. You could define an abstract class called
 			<classname>EBox::MailObserver</classname>, like this:</para>
 
-			<example>
+			<example id="custom-obs-example">
 				<title>Defining an observer that may be implemented by other
 				modules</title>
 
@@ -503,7 +503,7 @@ sub virtualDomainDeleted # (domainName)
 			function on all the modules that extend the
 			<classname>EBox::MailObserver</classname> class:</para>
 
-			<example>
+			<example id="obs-call-example">
 				<title>Calling observer modules</title>
 
 				<programlisting><![CDATA[sub removeVirtualDomain # (domainName)

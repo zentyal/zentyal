@@ -104,7 +104,7 @@ sub new
 		before your <methodname>_process</methodname> returns. This code shows
 		both approaches:</para>
 
-		<example>
+		<example id="set-mason-CGI-example">
 			<title>Setting the mason template for a CGI</title>
 
 			<programlisting><![CDATA[# Setting the template in the constructor
@@ -133,7 +133,7 @@ sub _process
 		the general configuration page (the one with the port, password and
 		language):</para>
 
-		<example>
+		<example id="pass-args-mason-example">
 			<title>Passing arguments to a mason template</title>
 			<programlisting><![CDATA[sub _process
 {
@@ -161,7 +161,7 @@ sub _process
 		the <structfield>error</structfield> attribute, since it will be
 		overwritten if if an exception is caught by the parent class.</para>
 
-		<example>
+		<example id="msg-attr-example">
 			<title>Setting the 'msg' attribute</title>
 			<programlisting><![CDATA[sub _writeBackupToDiscAction
 {
@@ -351,7 +351,7 @@ $self->{title} = __('Hello world');
 		because there is always the need to have i18n, so we import
 		<classname>EBox::Gettext</classname>:</para>
 
-		<example>
+		<example id="init-mason-example">
 			<title>init section in mason templates</title>
 
 			<programlisting><![CDATA[<%init>
@@ -365,7 +365,7 @@ use EBox::Gettext;
 		All lines that start with a <literal>%</literal> are interpreted as
 		perl code.</para>
 
-		<example>
+		<example id="perl-mason-example">
 			<title>Embedding perl code in a mason template</title>
 			<programlisting><![CDATA[<ul>
 % foreach my $person (@people) {
@@ -381,7 +381,7 @@ use EBox::Gettext;
 		the person and translate the "Hello" string (internationalization is
 		explained in <xref linkend='sect-i18n'/>).</para>
 
-		<example>
+		<example id="print-string-mason-example">
 			<title>Printing strings in a mason template</title>
 			<programlisting><![CDATA[<ul>
 % foreach my $person (@people) {
@@ -417,7 +417,7 @@ use EBox::Gettext;
 			or other relevant information will be included in the mason templates
 			using the same HTML code, but with different CSS styles.</para>
 
-			<example>
+			<example id="snippet-example">
 				<title>HTML snippet for displaying messages</title>
 				<programlisting><![CDATA[<div class='class-name'>
 	Some message.
@@ -543,7 +543,7 @@ use EBox::Gettext;
 			<para>Forms are displayed using a two-column table with the
 			<emphasis>formTable</emphasis> style.</para>
 
-			<example>
+			<example id="entry-form">
 				<title>Data entry form</title>
 				<programlisting><![CDATA[<table class='formTable'>
 	<tr>
@@ -619,7 +619,7 @@ use EBox::Gettext;
 		you want. This is the <methodname>menu</methodname> function for the
 		firewall module:</para>
 
-		<example>
+		<example id="folders-menu-example">
 			<title>Adding folders and items to the menu</title>
 			<programlisting><![CDATA[sub menu
 {

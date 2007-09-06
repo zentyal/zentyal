@@ -335,7 +335,7 @@ ldap admin dn = cn=admin,dc=ebox ]]> </programlisting>
 		to be edited. The samba module will return the template and its
 		arguments.</para>
 
-		<example>
+		<example id="group-addon-example">
 			<title><methodname>_groupAddOns</methodname> implementation</title>
 			<programlisting linenumbering="numbered"><![CDATA[sub _groupAddOns($$) {
 	my $self = shift;
@@ -380,7 +380,7 @@ ldap admin dn = cn=admin,dc=ebox ]]> </programlisting>
 		<para>Let's see how the samba module does this. It needs the
 		<filename>samba.schema</filename> schema.</para>
 
-		<example>
+		<example id="include-LDAP-example">
 			<title>Implementing <methodname>_includeLDAPSchemas</methodname></title>
 			<programlisting><![CDATA[sub _includeLDAPSchemas {
 	my $self = shift;
