@@ -240,6 +240,7 @@ use EBox::Model::DataTable;
     <thead>
 %    foreach my $th (@tableHead) 
 %    {
+%	next unless ($th->HTMLViewer());
       <th class='<% 
                    $th->class() 
                   %>'>
@@ -268,6 +269,7 @@ use EBox::Model::DataTable;
         
 %      foreach my $td (@{$row->{'values'}}) 
 %      {
+%	next unless ($td->HTMLViewer());
         <td class='tcenter'>
           <& 
             $td->HTMLViewer(),
