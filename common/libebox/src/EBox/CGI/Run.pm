@@ -22,9 +22,12 @@ use EBox;
 # use EBox::FirstTime; # see #204 
 use EBox::Gettext;
 use EBox::CGI::Base;
+use EBox::Model::CompositeManager;
 use EBox::Model::ModelManager;
-use EBox::CGI::View::DataTable;
+use EBox::CGI::Controller::Composite;
 use EBox::CGI::Controller::DataTable;
+use EBox::CGI::View::DataTable;
+use EBox::CGI::View::Composite;
 use CGI;
 
 
@@ -99,26 +102,52 @@ sub run # (url)
 
 # Method:: _lookupViewController
 #
-# 	Check if a classname must be mapped to a View or Controller cgi class
+# 	Check if a classname must be mapped to a View or Controller
+# 	cgi class from a model or a composite
 #
 sub _lookupViewController
 {
 	my ($self, $classname) = @_;
-	
-	my ($modelName) = $classname =~ m/EBox::CGI::.*::.*::(.*)/;
-	$modelName = $modelName;
-	my $manager = EBox::Model::ModelManager->instance();
-	my $model = $manager->model($modelName);
-	my $menuNamespace = $model->menuNamespace();
-	
-	my $cgi = undef;
-	if ($classname =~ /EBox::CGI::.*::View:/ ) {
+
+#	my ($namespace, $modelName) = $classname =~ m/EBox::CGI::.*::(.*)::(.*)/;
+        # URL to map: EBox::CGI::<moduleName>::(View|Controller|Composite)::<modelName>[::<actionName>]
+        my @namespaces = split ( '::', $classname);
+
+        my ($namespace, $modelName) = ($namespaces[3], $namespaces[4]);
+
+        my ($cgi, $menuNamespace) = (undef, undef);
+        if ( ($namespace eq 'View') or
+             ($namespace eq 'Controller')) {
+
+            my $manager = EBox::Model::ModelManager->instance();
+            my $model = $manager->model($modelName);
+            $menuNamespace = $model->menuNamespace();
+            if ( $namespace eq 'View' ) {
+#            if ($classname =~ /EBox::CGI::.*::View:/ ) {
 		$cgi = EBox::CGI::View::DataTable->new(
-				'tableModel' => $model);	
-	} elsif ($classname =~ /EBox::CGI::.*::Controller:/) {
+                                                       'tableModel' => $model);
+            } elsif ( $namespace eq 'Controller' ) {
+#            } elsif ($classname =~ /EBox::CGI::.*::Controller:/) {
 		$cgi = EBox::CGI::Controller::DataTable->new(
-				'tableModel' => $model);
-	}
+                                                             'tableModel' => $model);
+            }
+
+        } elsif ( $namespace eq 'Composite' ) {
+            my $compManager = EBox::Model::CompositeManager->Instance();
+            my $composite = $compManager->composite($modelName);
+            $menuNamespace = $composite->menuNamespace();
+            # Check if the action is defined URL: Composite/<compName>/<action>
+            if ( defined ( $namespaces[5] )) {
+                $cgi = new EBox::CGI::Controller::Composite(
+                                                            composite => $composite,
+                                                            action    => $namespaces[5],
+                                                           );
+            } else {
+                $cgi = new EBox::CGI::View::Composite(
+                                                      composite => $composite
+                                                     );
+            }
+        }
 
 	if (defined($cgi) and defined($menuNamespace)) {
 		$cgi->setMenuNamespace($menuNamespace);
@@ -126,4 +155,5 @@ sub _lookupViewController
 
 	return $cgi;
 }
+
 1;

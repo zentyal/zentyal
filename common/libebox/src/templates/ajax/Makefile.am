@@ -9,8 +9,8 @@
 SUBDIRS = setter viewer
 
 templatedir = $(datadir)/ebox/templates/ajax
-template_DATA = form.mas modelViewer.mas tableHeader.mas tableBody.mas \
-		tableSelector.mas tabMenu.mas tablePager.mas
+template_DATA = composite.mas form.mas modelViewer.mas tableHeader.mas \
+		tableBody.mas tableSelector.mas tabMenu.mas tablePager.mas
 
 EXTRA_DIST = $(template_DATA)
 

@@ -44,11 +44,11 @@ function addNewRow(url, table, fields, directory)
 			  stripe('dataTable', '#ecf5da', '#ffffff'); 
 			},
 			onFailure: function(t) {
-			  restoreHidden('buttons');
+			  restoreHidden('buttons_' + table, table);
 			}
 		});
 
-	setLoading('buttons', true);
+	setLoading('buttons_' + table, table, true);
 
 }
 
@@ -94,11 +94,11 @@ function changeRow(url, table, fields, directory, id, page)
 			  stripe('dataTable', '#ecf5da', '#ffffff');
 			},
 			onFailure: function(t) {
-			  restoreHidden('buttons');
+			  restoreHidden('buttons_' + table, table );
 			}
 		});
 
-	 setLoading('buttons', true);
+	 setLoading('buttons_' + table, table, true);
 
 }
 
@@ -152,20 +152,20 @@ function actionClicked(url, table, action, rowId, paramsAction, directory, page)
 		  stripe('dataTable', '#ecf5da', '#ffffff');
 		},
 		onFailure: function(t) {
-		  restoreHidden('actionsCell_' + rowId);
+		  restoreHidden('actionsCell_' + rowId, table);
 		}
 	    });
 
   if ( action == 'del' ) {
-    setLoading('actionsCell_' + rowId);
+    setLoading('actionsCell_' + rowId, table);
   }
   else if ( action == 'move' ) {
-    setLoading('actionsCell_' + rowId);
+    setLoading('actionsCell_' + rowId, table);
   }
 
 }
 
-function changeView(url, table, directory, action, id, page)
+function changeView(url, table, directory, action, id, page, isFilter)
 {
 	var pars = 'action=' + action + '&tablename=' + table + '&directory=' + directory + '&editid=' + id;
 	
@@ -188,37 +188,41 @@ function changeView(url, table, directory, action, id, page)
 			evalScripts: true,
 			onComplete: function(t) { 
 			  // Highlight the element
-              if (id != undefined) {
+                          if (id != undefined) {
 			    highlightRow(id, true);
-              }
+                          }
 			  // Stripe again the table
 			  stripe('dataTable', '#ecf5da', '#ffffff');
 			  if ( action == 'changeEdit' ) {
-			    restoreHidden('actionsCell_' + id);
+			    restoreHidden('actionsCell_' + id, table);
 			  }
 			},
 			onFailure: function(t) {
 			  if ( action == 'changeAdd' ) {
-			    restoreHidden('creatingForm');
+			    restoreHidden('creatingForm', table);
 			  }
 			  else if ( action == 'changeList' ) {
-			    restoreHidden('buttons');
+                            if (! isFilter ) {
+                              restoreHidden('buttons_' + table, table);
+                            }
 			  }
 			  else if ( action == 'changeEdit' ) {
-			    restoreHidden('actionsCell_' + id);
+			    restoreHidden('actionsCell_' + id, table);
 			  }
 			}
 			
 		});
 
 	if ( action == 'changeAdd' ) {
-	  setLoading('creatingForm', true);
+	  setLoading('creatingForm', table, true);
 	}
 	else if ( action == 'changeList' ) {
-	  setLoading('buttons', true);
+          if ( ! isFilter ) {
+            setLoading('buttons_' + table, table, true);
+          }
 	}
 	else if ( action == 'changeEdit' ) {
-	  setLoading('actionsCell_' + id, true);
+	  setLoading('actionsCell_' + id, table, true);
 	}
 
 }
@@ -260,7 +264,8 @@ function hangTable(successId, errorId, url, formId, loadingId)
 	method: 'post',
 	parameters: Form.serialize(formId, true), // The parameters are taken from the form
 	asynchronous: true,
-	onComplete: function(t) {
+        evalScripts: true,
+	onFailure: function(t) {
 	  restoreHidden(loadingId);
 	}
       }
@@ -387,20 +392,26 @@ function showPortRange(id)
 Function: setLoading
 
         Set the loading icon on the given HTML element erasing
-        everything which were there
+        everything which were there. If modelName is set, isSaved parameter can be used
 
 Parameters:
 
         elementId - the element identifier
+        modelName - the model name to distinguish among hiddenDiv tags *(Optional)*
 	isSaved   - boolean to indicate if the inner HTML should be saved
-	at *hiddenDiv* in order to be rescued afterwards *(Optional)*
+	at *hiddenDiv_<modelName>* in order to be rescued afterwards *(Optional)*
+        
 
 */
-function setLoading (elementId, isSaved)
+function setLoading (elementId, modelName, isSaved)
 {
 
-  if ( isSaved ) {
-    $('hiddenDiv').innerHTML = $(elementId).innerHTML;
+  var hiddenDivId = 'hiddenDiv';
+  if ( modelName ) {
+    hiddenDivId = hiddenDivId + '_' + modelName;
+    if ( isSaved ) {
+      $(hiddenDivId).innerHTML = $(elementId).innerHTML;
+    }
   }
 
   $(elementId).innerHTML = "<img src='/data/images/ajax-loader.gif' " +
@@ -416,13 +427,15 @@ Function: restoreHidden
 Parameters:
 
         elementId - the element identifier where to restore the HTML hidden
+        modelName - the model name to distinguish among hiddenDiv tags
 
 */
-function restoreHidden (elementId)
+function restoreHidden (elementId, modelName)
 {
 
-  if ( $('hiddenDiv').innerHTML != '' ) {
-    $(elementId).innerHTML = $('hiddenDiv').innerHTML;
+  var hiddenDivId = 'hiddenDiv' + '_' + modelName;
+  if ( $(hiddenDivId).innerHTML != '' ) {
+    $(elementId).innerHTML = $(hiddenDivId).innerHTML;
   }
 
   // Remove the loading image if any
@@ -432,7 +445,7 @@ function restoreHidden (elementId)
     }
   }
 
-  $('hiddenDiv').innerHTML = '';
+  $(hiddenDivId).innerHTML = '';
 
 }
 

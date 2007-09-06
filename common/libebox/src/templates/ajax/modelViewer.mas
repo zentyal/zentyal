@@ -6,18 +6,38 @@
   will have
   Parameters:
      model - <EBox::Model::DataTable> the model to use its name
-     hasChanged - Boolean indicating whether the model has changed or not
+     hasChanged - Boolean indicating whether the model has changed or
+                  not
+     action     - String the action be performed. Only if action is
+                  equal to 'view' the whole model viewer will be
+                  loaded, any other action just the body will be
+                  updated. This behaviour could be enhanced just
+                  printing the updated version of needed. *(Optional)*
+                  Default value: 'view'
 </%doc>
 <%args>
   $model
   $hasChanged
+  $action => 'view'
 </%args>
 <%init>
   use EBox::Gettext;
 </%init>
 
+% if ( $action eq 'view' ) {
 <& SELF:view,
    model => $model,
+   hasChanged => $hasChanged
+&>
+% } else {
+<& SELF:body,
+   model => $model,
+   onlyBody => 1,
+&>
+% }
+% # Anyway you should call the change menu sub-component to check if
+% # any change has been done
+<& SELF:changeMenu,
    hasChanged => $hasChanged
 &>
 
@@ -39,15 +59,12 @@
   $model
   $hasChanged
 </%args>
-<div id="<% $model->modelName() %>">
   <& SELF:header,
      model => $model
    &>
+<div id="<% $model->modelName() %>">
   <& SELF:body,
      model      => $model
-  &>
-  <& SELF:changeMenu,
-     hasChanged => $hasChanged
   &>
 </div>
 </%method>
@@ -70,15 +87,16 @@
 </script>
 
 <!-- Element to hide the elements while Asynchronous request are -->
-<!-- working. Find more information at "table-helper.js" and -->
-<!-- "tableBody.mas" -->
-<div id="hiddenDiv" class="hidden"></div>
+<!-- working. Find more information at "table-helper.js"  -->
+<div id="<% 'hiddenDiv_' . $model->name() | h %>" class="hidden"></div>
 
+% if ($model->help()) {
 <div class="help">
-  <% $model->help() %>
+  <% $model->help() | h %>
 </div>
+% }
 
-<div id='error_<% $model->modelName() %>'></div>
+<div id='error_<% $model->modelName() | hu %>'></div>
 </%method>
 
 <%doc>
@@ -89,16 +107,19 @@
   Parameters:
   
      model - <EBox::Model::DataTable> the model to view
-
+     onlyBody - boolean indicating if just the body is updated
+                *(Optional)* Default value: false
      
 </%doc>
 <%method body>
 <%args>
   $model
+  $onlyBody => 0
 </%args>
 <%init>
   # Get the content from the first called template
-  my @childArgs = $m->caller_args(2);
+  my $requestCaller = $onlyBody ? 1 : 2;
+  my @childArgs = $m->caller_args($requestCaller);
 </%init>
 <& SELF:_body,
    model => $model,

@@ -57,6 +57,9 @@ EBox.Tabs.prototype = {
   initialize : function(tabContainer, modelAttrs, options) {
     // The div where the tabs are
     this.tabContainer = $(tabContainer);
+    // Set the tabMenu name
+    var nameParts = tabContainer.split('_');
+    this.tabName = nameParts[1];
     // Set the active tab
     this.activeTab = false;
     this.activeTabIdx = -1;
@@ -151,11 +154,11 @@ EBox.Tabs.prototype = {
       // Show the tab
       tab.addClassName(this.activeClassName);
       // Set the correct form values
-      this._setDirInput();
+      // this._setDirInput();
       // Load the content from table-helper
-      hangTable( 'tabData', 'errorTabData',
+      hangTable( 'tabData_' + this.tabName , 'errorTabData_' + this.tabName,
                  this.modelAttrs[ tab.id ].action, 'tableForm',
-                 'tabData'
+                 'tabData_' + this.tabName
                );
     }
   },

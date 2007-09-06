@@ -17,6 +17,7 @@ use EBox::Model::DataTable;
 <& PARENT:view,
    model      => $model,
    hasChanged => $hasChanged,
+   action     => $action,
 &>
 
 <%doc>
@@ -77,12 +78,14 @@ use EBox::Model::DataTable;
   my @formData = @tableHead;
   @formData = @{$rowEdit->{'values'}} if ($rowEdit);
 </%init>
-
 %  if ($action ne 'changeAdd' and $action ne 'changeEdit')
 %  {
-<& PARENT:title,
-   title => $model->printableModelName()
-&>
+%    if ( $model->printableModelName() )
+%    {
+  <& PARENT:title,
+     title => $model->printableModelName()
+  &>
+%    }
 %    if ($changeView and exists $actions->{'add'}) 
 %    {
   <input class='inputButton' 
@@ -92,9 +95,10 @@ use EBox::Model::DataTable;
       title="Add" 
       alt="Add" src='/data/images/add.gif' 
       onClick='<%
-                 $model->changeViewJS( "changeAdd", 
-                      "undefined", 
-                      $page) 
+                 $model->changeViewJS( changeType => "changeAdd", 
+                      editId => "undefined", 
+                      page => $page,
+                      isFilter => 0) 
                 %>;return false' 
   />
   <% __("Add new") %>
@@ -114,7 +118,6 @@ use EBox::Model::DataTable;
 %    }
 %   elsif ( $action eq 'changeEdit' ) 
 %    {
-<h3>
 <& PARENT:title,
    title => __x('Editing {row}',
                 row => $printableRowName)
@@ -130,50 +133,6 @@ use EBox::Model::DataTable;
        formData => \@formData
     &>
     <& SELF:buttons &>
-% #    <tr>
-% #      <td class="tright" 
-% #        id="applyChanges">
-% #      </td>
-% #      <td id="buttons">
-% # if ($action eq 'changeAdd') 
-% # {
-% #        <input class='inputButton' 
-% #            type='submit' 
-% #            name='add'
-% #            value="Add" 
-% #            title="Add"
-% #            onClick='<% 
-% #                       $model->addNewRowJS($page) 
-% #                     %>; return false'
-% #        />
-% # } 
-% # elsif ($action eq 'changeEdit') 
-% # {
-% #        <input class='inputButton' 
-% #            type='submit' 
-% #            name='change'
-% #            value="Change" 
-% #            title="Change"
-% #            onClick='<% 
-% #                       $model->changeRowJS($editid, $page) 
-% #                      %>; return false'
-% #        />
-% # }
-% # if ($changeView) 
-% # {
-% #        <input class='inputButton' 
-% #            type='submit' 
-% #            name='cancel'
-% #            value="Cancel" title="Cancel"
-% #            onClick='<% 
-% #                       $model->changeViewJS("changeList", 
-% #                            'undefined', 
-% #                            $page) 
-% #                     %>;return false' 
-% #        />
-% # }
-% #      </td>
-% #    </tr>
   </tbody>
 </table>
 %  }
@@ -224,10 +183,11 @@ use EBox::Model::DataTable;
       onClick='setLoading("<% 
                              $filterId 
                             %>");
-               <% 
-                  $model->changeViewJS("changeList", 
-                     'undefined', 
-                    0) 
+               <%
+                  $model->changeViewJS( changeType => "changeList", 
+                     editId => 'undefined', 
+                     page => 0,
+                     isFilter => 1)
                %>;
                return false' 
   />
@@ -317,9 +277,10 @@ use EBox::Model::DataTable;
               title="edit" 
               src='/data/images/edit.gif'
               onClick='<% 
-                         $model->changeViewJS('changeEdit', 
-                             $row->{'id'}, 
-                            $page) 
+                         $model->changeViewJS( changeType => 'changeEdit', 
+                             editId => $row->{'id'}, 
+                             page => $page,
+                             isFilter => 0) 
                        %>' 
           />
 %      }
@@ -411,7 +372,7 @@ use EBox::Model::DataTable;
 <tr>
   <td id="applyChanges">
   </td>
-  <td id="buttons">
+  <td id="<% 'buttons_' . $model->modelName() %>">
 % if ($action eq 'changeAdd') 
 % {
     <input class='inputButton' 
@@ -444,9 +405,10 @@ use EBox::Model::DataTable;
            value="Cancel"
            title="Cancel"
            onClick='<% 
-                      $model->changeViewJS("changeList", 
-                          'undefined', 
-                          $page) 
+                      $model->changeViewJS( changeType => "changeList", 
+                          editId => 'undefined', 
+                          page => $page,
+                          isFilter =>  0) 
                     %>;return false' 
     />
 % }

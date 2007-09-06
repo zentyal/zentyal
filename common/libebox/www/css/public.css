@@ -572,6 +572,13 @@ a.changed:hover {
        margin: 5px 0 5px 0;
 }
 
+.enable {
+       background-color: #FFFFCC;
+       padding: 10px;
+       border: 1px solid #FFCC99;
+       margin: 5px 0 5px 0;
+}
+
 .bold { font-weight: bold; } 
 
 .legendName { 

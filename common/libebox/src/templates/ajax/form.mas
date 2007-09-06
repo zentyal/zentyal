@@ -1,6 +1,9 @@
 <%doc>
   This template is indicated to view the EBox::Model::DataForm. It
-  will show a form with the model description to be edited all the time.
+  will show a form with the model description to be edited all the
+  time.
+
+  The original overridden call at /ajax/modelViewer.mas
 </%doc>
 <%flags>
   inherit => '/ajax/modelViewer.mas'
@@ -8,12 +11,17 @@
 <%args>
   $model
   $hasChanged
+  $action => 'view'
 </%args>
 <%init>
   use EBox::Gettext;
   use EBox::Model::DataTable;
 </%init>
-<& PARENT:view &>
+<& PARENT:view,
+   model => $model,
+   hasChanged => $hasChanged,
+   action     => $action,
+&>
 
 <%doc>
   Method: _body
@@ -37,12 +45,14 @@
       $formDataRef = $model->table()->{'tableDescription'};
   }
 </%init>
+% if ( $model->printableName() ) {
 <& PARENT:title,
-   title => $model->printableModelName()
+   title => $model->printableName()
 &>
+% }
 
-<& PARENT:editForm,
-   modelName => $model->tableName(),
+<& SELF:editForm,
+   modelName => $model->name(),
    formData => $formDataRef
 &>
 
@@ -61,14 +71,13 @@
 <%method buttons>
 <%init>
   # Getting the arguments from the first request
-  my $model = $m->request_args()->{model};
+  my $model = $m->caller_args(2)->{model};
 </%init>
-<td id="buttons">
+<td id="<% 'buttons_' . $model->modelName() %>"
   <& /input/submit.mas,
      name => 'change',
      value => __('Change'),
-#     onclick => q{'} . $model->changeRowJS(0, 0) . q{; return false'}
-     onclick => $model->changeRowJS(0, 0) . '; return false';
+     onclick => $model->changeRowJS(0, 0) . '; return false',
   &>
 </td>
 </%method>

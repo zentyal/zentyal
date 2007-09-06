@@ -1,0 +1,77 @@
+<%doc>
+  This template will show the content from a model composite, that is
+  the content from its components in an established layout.
+
+  Parameters:
+    model - <EBox::Model::Composite> the composite model to show
+    hasChanged - Boolean indicating whether the composite model has
+    changed or not
+</%doc>
+<%args>
+  $model
+  $hasChanged
+</%args>
+<%init>
+  use EBox::Gettext;
+  use Data::Dumper;
+  my $componentsRef = $model->components();
+</%init>
+<& .title,
+   title => $model->printableName()
+&>
+% # Print the help if any
+% if ( $model->help() ) {
+<div class="help">
+  <% $model->help() | h %>
+</div>
+% }
+% if ( $model->layout() eq 'tabbed' ) {
+<& /ajax/tabMenu.mas,
+   models => $componentsRef,
+   selectedTab => 0,
+   hasChanged => $hasChanged,
+   tabName    => $model->name(),
+&>
+% } elsif ( $model->layout() eq 'top-bottom' ) {
+%    foreach my $component (@{$componentsRef}) {
+<& $component->Viewer(),
+   model => $component,
+   hasChanged => $hasChanged,
+   action => 'view',
+&>
+%    }
+% }
+
+<%doc>
+Method: .title
+
+   Private component to print the title if any. It takes into account
+   if the composite is the root one or not to determine which kind of
+   title it is
+
+Parameters:
+
+   title - String the title to print
+
+</%doc>
+<%def .title>
+<%args>
+  $title => undef
+</%args>
+<%perl>
+  # Print the model name if any
+  if ( $title ) {
+    # Check if we are the root component or not to determine the heading size
+    if ( $m->depth() == 2 ) {
+</%perl>
+<& /title.mas,
+    title => $title
+&>
+%   } else {
+<h3>
+  <% $title | h %>
+</h3>
+%   }
+% }
+
+</%def>
