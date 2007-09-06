@@ -1,0 +1,99 @@
+<%doc>
+  This template show the SOAP module index. It shows the bundle
+  client upload or the connectivity test
+</%doc>
+<%args>
+  $uploaded => undef
+  $active => undef
+  $commonName => undef
+  $testResult => undef
+</%args>
+<%init>
+use EBox::Gettext;
+my $testOK;
+if ( defined ( $testResult )) {
+    $testOK = ($testResult < 100);
+}
+</%init>
+% if ( $uploaded ) {
+<div class="help">
+  <% __('You can manage here the communication between control ' .
+        'center and this eBox. With the control center you can ' .
+        "handle a eBox's group from a single point") | h %>
+</div>
+<& /enable.mas, title =>__('Control center communication'),
+                active => $active &>
+<h3>
+    <span><% __('General configuration for') | h %></span>
+    <span class="stitle"><% $commonName | h %></span>
+</h3>
+<!-- Connectivity test -->
+<div class="help">
+  <% __('Test the connection between the control center and this ' .
+        'eBox') | h
+  %>
+</div>
+<div id="connectivityDiv">
+  <form action="ConnectivityTest" method="post">
+    <& /formTable.mas, rows => [ [ name => 'test', input => 'submit',
+                                   value => __('Test'),
+                                   printableName => __('Connectivity test'),
+                                   extraParams => [ id => 'test',
+                                                    onclick =>
+                                                    "setLoading('test', false)",
+                                                  ],
+                                 ]
+                               ]
+      &>
+  </form>
+</div>
+<%perl>
+if ( defined ( $testResult ) ) {
+   my $strResultTest = __x('The connection seems to be {state}. ' .
+                           'The percentage of loss was {percent}%', 
+                           state => ($testOK ? __('ok') : __('down')), 
+                           percent => $testResult);
+   my $cssClass = ($testOK ? 'note' : 'error');
+</%perl>
+<div class="<% $cssClass | h %>">
+  <% $strResultTest | h %>
+</div>
+% }
+<!-- Delete the current communication -->
+<div class="warning">
+  <% __('Remove current communication with this control center to add ' .
+        'the possibility to start a new one afterwards') | h 
+  %>
+</div>
+<div id="deleteDiv">
+  <form action="DeleteBundle" method="post">
+    <& /formTable.mas, rows => [ [ name => 'delete', input => 'submit',
+                                   value => __('Delete'),
+                                   printableName => __('Delete current communication'),
+                                 ]
+                               ]
+    &>
+  </form>
+</div>
+
+% } else {
+<%perl>
+  my @uploadTable = (
+                     [ name => 'uploadedFile', input => 'file',
+                       printableName => __('eBox Control Center bundle'),
+                       help => __('Archive which contains all ' .
+                                  'elements needed to establish ' .
+                                  'the communication between eBox ' .
+                                  'and the control center'),
+                     ],
+                     [ name => 'upload', input => 'submit',
+                       value => __('Upload'),
+                     ],
+                    );
+</%perl>
+<form action="UploadBundle" method="post" 
+      enctype="multipart/form-data">
+  <& /formTable.mas, rows => \@uploadTable &>
+</form>
+% }
+

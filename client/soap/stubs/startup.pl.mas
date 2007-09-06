@@ -1,0 +1,27 @@
+use strict;
+use warnings;
+
+# preload  main ebox modules
+
+# libebox
+use EBox;
+use EBox::Validate;
+use EBox::Config;
+use EBox::Sudo;
+use EBox::Gettext;
+
+
+# ebox 
+use EBox::GConfModule;
+use EBox::Global;
+use EBox::AbstractDaemon;
+use EBox::Service;
+use EBox::Html;
+use EBox::LogObserver;
+use EBox::Apache;
+
+# other modules
+use Perl6::Junction;
+use Error;
+
+1;

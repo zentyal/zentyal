@@ -1,0 +1,45 @@
+<gconfschemafile>
+	<schemalist>
+		<schema>
+			<key>/schemas/ebox/modules/global/modules/soap/class</key>
+			<applyto>/ebox/modules/global/modules/soap/class</applyto>
+			<owner>ebox</owner>
+			<type>string</type>
+			<default>EBox::SOAP</default>
+			<locale name="C"/>
+		</schema>
+                <schema>
+	                <key>/schemas/ebox/modules/global/modules/soap/depends</key>
+                	<applyto>/ebox/modules/global/modules/soap/depends</applyto>
+                	<owner>ebox</owner>
+                	<type>list</type>
+                	<list_type>string</list_type>
+                	<default>[openvpn]</default>
+                	<locale name="C"/>
+                </schema>
+		<schema>
+			<key>/schemas/ebox/modules/soap/enabled</key>
+			<applyto>/ebox/modules/soap/enabled</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+			<default>false</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/soap/listeningPort</key>
+			<applyto>/ebox/modules/soap/listeningPort</applyto>
+			<owner>ebox</owner>
+			<type>int</type>
+			<default>4430</default>
+			<locale name="C"/>
+		</schema>
+		<schema>
+			<key>/schemas/ebox/modules/soap/bundle_uploaded</key>
+			<applyto>/ebox/modules/soap/bundle_uploaded</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+			<default>false</default>
+			<locale name="C"/>
+		</schema>
+	</schemalist>
+</gconfschemafile>

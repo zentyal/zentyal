@@ -1,0 +1,10 @@
+#!/bin/bash
+
+case "$1" in
+	remove)
+	        /usr/bin/ebox-clean-gconf soap || true
+		kill `pidof gconfd-2` >/dev/null 2>&1 || true
+		;;		
+esac
+
+#DEBHELPER#

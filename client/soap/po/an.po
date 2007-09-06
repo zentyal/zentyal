@@ -1,0 +1,28 @@
+# Aragonese translations for eBox-soap package.
+# Copyright (C) 2007 Warp S.L.
+# This file is distributed under the same license as the eBox-soap package.
+# Automatically generated, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: eBox-soap 0.10\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2007-06-05 12:14+0200\n"
+"PO-Revision-Date: 2007-06-05 12:04+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/EBox/SOAP/Global.pm:134
+msgid "Not a public method"
+msgstr ""
+
+#: src/EBox/SOAP/Global.pm:154
+msgid "Not a defined method"
+msgstr ""
+
+#: src/EBox/SOAP.pm:66
+msgid "Control center"
+msgstr ""

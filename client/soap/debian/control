@@ -1,0 +1,18 @@
+Source: ebox-soap
+Section: web
+Priority: optional
+Maintainer: Enrique J. Hernández <ejhernandez@warp.es>
+Build-Depends: debhelper (>= 4.0.0)
+Standards-Version: 3.6.1
+
+Package: ebox-soap
+Architecture: all
+Depends: ebox (>= 0.9.1), ebox-firewall, ebox-openvpn, libsoap-lite-perl, libfile-mmagic-perl, libconfig-tiny-perl
+Description: SOAP server to communicate with eBox control center
+ eBox is a framework for the development and deployment of security-wise
+ network services in small and medium-sized networks, offering a simplified
+ graphical interface to non expert users. It can be set up as a gateway,
+ having some extra features over a usual router.
+ This module adds a SOAP server to communicate with an eBox control center.
+ The control center is able to handle several eBoxes at the same time using
+ a very secure communication (VPN+HTTPS) over the Internet.

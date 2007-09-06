@@ -1,0 +1,22 @@
+DEPENDENCIES
+------------
+
++ eBox components
+
+	+ ebox
+	+ ebox-firewall
+	+ ebox-openvpn
+
++ Debian packages (apt-get install <package>)
+
+	+ libsoap-lite
+
+INSTALLATION
+------------
+
++ Once eBox base has been installed, type:
+	
+	./configure --prefix=/usr --localstatedir=/var --sysconfdir=/etc
+	make install
+
+  configure will autodetect eBox base path to install

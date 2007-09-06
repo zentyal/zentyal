@@ -1,0 +1,136 @@
+<%doc>
+ This is the template for the Apache SOAP enabled server to serve SOAP requests from
+ only the control center which has issued the certificates which are used to authenticate
+ itself and eBox.
+</%doc>
+<%args>
+	$port
+	$group
+	$user
+	$certFile
+	$keyFile
+	$CACertFile
+	$controlCenterCN
+        $debug => 'no'
+</%args>
+
+ServerType standalone
+ServerRoot @CONFPATH@/soap/
+LockFile @VARPATH@/lock/apache-perl-soap.lock
+PidFile @VARPATH@/run/apache-perl-soap.pid
+ScoreBoardFile @VARPATH@/run/apache-perl-soap.scoreboard
+
+Timeout 300
+KeepAlive On
+MaxKeepAliveRequests 100
+KeepAliveTimeout 15
+MinSpareServers 1
+MaxSpareServers 1
+StartServers 1
+MaxClients 1
+MaxRequestsPerChild 100
+AddDefaultCharset utf-8	
+
+# begin modules
+ClearModuleList
+AddModule mod_so.c
+AddModule mod_macro.c
+LoadModule config_log_module /usr/lib/apache/1.3/mod_log_config.so
+LoadModule mime_magic_module /usr/lib/apache/1.3/mod_mime_magic.so
+LoadModule mime_module /usr/lib/apache/1.3/mod_mime.so
+LoadModule dir_module /usr/lib/apache/1.3/mod_dir.so
+LoadModule cgi_module /usr/lib/apache/1.3/mod_cgi.so
+LoadModule alias_module /usr/lib/apache/1.3/mod_alias.so
+LoadModule rewrite_module /usr/lib/apache/1.3/mod_rewrite.so
+LoadModule access_module /usr/lib/apache/1.3/mod_access.so
+LoadModule auth_module /usr/lib/apache/1.3/mod_auth.so
+LoadModule expires_module /usr/lib/apache/1.3/mod_expires.so
+LoadModule setenvif_module /usr/lib/apache/1.3/mod_setenvif.so
+LoadModule ssl_module /usr/lib/apache/1.3/mod_ssl.so
+AddModule mod_perl.c
+AddModule mod_ssl.c
+# end modules
+
+# Just listen in vpn interface
+Port <% $port %>
+User <% $user %>
+Group <% $group %>
+
+ServerAdmin webmaster@localhost
+ServerName localhost
+
+<Directory />
+    Options SymLinksIfOwnerMatch
+    AllowOverride None
+</Directory>
+
+UseCanonicalName Off
+TypesConfig /etc/mime.types
+DefaultType text/plain
+
+<IfModule mod_mime_magic.c>
+    MIMEMagicFile /usr/share/misc/file/magic.mime
+</IfModule>
+
+HostnameLookups Off
+
+ErrorLog @LOGPATH@/error-soap.log
+LogLevel warn
+
+LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{forensic-id}n\" \"%{SSL_CLIENT_S_DN}x\"" combined
+
+CustomLog @LOGPATH@/access-soap.log combined
+
+<IfModule mod_backtrace.c>
+ EnableExceptionHook On
+</IfModule>
+
+<IfModule mod_whatkilledus.c>
+ EnableExceptionHook On
+</IfModule>
+
+ServerSignature Off
+ServerTokens Min
+AddDefaultCharset on
+
+<IfModule mod_ssl.c>
+SSLEngine on
+SSLProtocol all
+SSLCipherSuite HIGH:MEDIUM
+
+SSLCertificateFile <% $certFile %>
+SSLCertificateKeyFile <% $keyFile %>
+</IfModule>
+
+<IfModule mod_setenvif.c>
+    BrowserMatch "Mozilla/2" nokeepalive
+    BrowserMatch "MSIE 4\.0b2;" nokeepalive downgrade-1.0 force-response-1.0
+    BrowserMatch "RealPlayer 4\.0" force-response-1.0
+    BrowserMatch "Java/1\.0" force-response-1.0
+    BrowserMatch "JDK/1\.0" force-response-1.0
+</IfModule>
+
+% if ($debug eq 'yes') {
+PerlInitHandler	Apache::Reload
+% }
+PerlWarn On
+
+PerlRequire "startup.pl"
+
+# Soap defined
+SSLVerifyClient none
+SSLCACertificateFile <% $CACertFile %>
+<Location /soap>
+	SetHandler perl-script
+	PerlHandler EBox::SOAP::ApacheSP
+	# Require a client certificate which has to be directly signed
+	# by our CA Certificate
+	SSLVerifyClient require
+	SSLVerifyDepth 1
+	SSLOptions +FakeBasicAuth
+	SSLRequireSSL
+	SSLRequire %{SSL_CLIENT_S_DN_CN} eq "<% $controlCenterCN %>"
+	AllowOverride None
+	Order allow,deny
+	Allow from all
+</Location>
