@@ -1590,8 +1590,8 @@ sub _generalComposite
             </para>
           </listitem>
           <listitem>
-            <para>Establish custom rules in the using services and firewall
-            modules.</para>
+            <para>Establish rules through services and firewall modules to use
+            Web service in eBox.</para>
           </listitem>
         </itemizedlist>
         Taking a look to the 
@@ -1621,6 +1621,27 @@ sub _create
 }]]>
           </programlisting>
         </example>
+        Every time the Web service is restarted, the configuration is regenerated and
+        the daemon(s) are restarted as well through the <methodname>_regenConfig</methodname>
+        protected method. Its configuration is done as following:
+        <example id="regen-Web-example">
+          <title><methodname>_regenConfig</methodname> for web service</title>
+          <programlisting><![CDATA[
+sub _regenConfig
+{
+
+    my ($self) = @_;
+
+    $self->_setWebServerConf();
+    $self->_doDaemon();
+
+}]]>
+          </programlisting>
+        </example>
+        Both private methods <methodname>_setWebServerConf</methodname>, which sets up
+        the web service configuration files, and <methodname>_doDaemon</methodname>,
+        which manages the processes that develop the web services, are explained in
+        the below sections and it is known as the module "backend".
       </para>
       
       <section id="configuring-apache2-service">
@@ -1803,7 +1824,7 @@ Listen <% $portNumber %>]]>
             </programlisting>
           </example>
           Regarding to <filename>vhost.mas</filename>, its content is almost as 
-          simple as the ports one as we see in <xref id="vhost-example"/>.
+          simple as the ports one as we see in <xref linkend="vhost-example"/>.
           <example id="vhost-example">
             <title><filename>vhost.mas</filename> template</title>
             <programlisting><![CDATA[
@@ -1855,7 +1876,9 @@ NameVirtualHost *
         <para>
           Likewise it is done in <xref linkend="ntp-daemon-example"/>, the web service
           is managed by runit and the private method to manage is called
-          <methodname>_doDaemon</methodname>.
+          <methodname>_doDaemon</methodname>. The <constant>WEB_SERVICE</constant> constant
+          contains the <parameter>apache2</parameter> value to name the
+          runit service afterwards.
 
           <example id="web-daemon-example">
             <title>Web daemon management method</title>
@@ -1917,40 +1940,197 @@ sub _doDaemon
             exec ebox-runit-finisher web apache2]]>
             </programlisting>
           </example>
+          Whenever the web service is asked to stop by command line, i.e.
+          <command>/etc/init.d/ebox web stop</command>, the 
+          <methodname>_stopService</methodname> is called to stop the service as
+          we do using the <methodname>EBox::Service::manage</methodname> class method.
+          <example id="stop-web-example">
+            <title>Stop web service with <methodname>_stopService</methodname> method</title>
+
+            <programlisting><![CDATA[
+sub _stopService
+  {
+
+      EBox::Service::manage(WEB_SERVICE, 'stop');
+
+  }
+]]>
+            </programlisting>
+          </example>
         </para>
       </section>
 
-    <para>
-        In order to show up the web server in the menu, it is almost the same procedure than
-        <xref linkend="sect-example-menu"/>. However, in this case we just add an
-        item. The URL to set is going to show the view from the composite 
-        <classname>GeneralComposite</classname> that we have defined in 
-        <xref linkend="composite-desc-example"/>. To do so, the URL value must
-        follow this pattern: <emphasis>$compositeDomain/Composite/$compositeName</emphasis>
-        as <xref linkend="menu-webserver-example"/> describes.
-        <example id="menu-webserver-example">
-          <title>Adding WebServer to the menu</title>
-          <programlisting><![CDATA[
+      <section id="menu-web-sect">
+        <title>Web service inclusion in eBox menu and summary</title>
+
+        <para>
+          In order to show up the web server in the menu, it is almost the same procedure than
+          <xref linkend="sect-example-menu"/>. However, in this case we just add an
+          item. The URL to set is going to show the view from the composite 
+          <classname>GeneralComposite</classname> that we have defined in 
+          <xref linkend="composite-desc-example"/>. To do so, the URL value must
+          follow this pattern: <emphasis>$compositeDomain/Composite/$compositeName</emphasis>
+          as <xref linkend="menu-webserver-example"/> describes.
+          <example id="menu-webserver-example">
+            <title>Adding WebServer to the menu</title>
+            <programlisting><![CDATA[
 sub menu
-  {
+{
 
-      my ($self, $root) = @_;
+    my ($self, $root) = @_;
 
-      my $item = new EBox::Menu::Item(name  => 'WebServer',
-                                      text  => __('Web'),
-                                      url   => 'Web/Composite/GeneralComposite',
-                                     );
+    my $item = new EBox::Menu::Item(name  => 'WebServer',
+                                    text  => __('Web'),
+                                    url   => 'Web/Composite/GeneralComposite',
+                                   );
 
-      $root->add($item);
+    $root->add($item);
 
-  }]]>
-          </programlisting>
-        </example>
-        Regarding to status summary, the <methodname>statusSummary</methodname> method
-        implementation is analogous to the one defined in 
-        <xref linkend="ntp-summary-example"/> but swapping every NTP reference to
-        Web.
-      </para>
+}]]>
+            </programlisting>
+          </example>
+          Regarding to status summary, the <methodname>statusSummary</methodname> method
+          implementation is analogous to the one defined in 
+          <xref linkend="ntp-summary-example"/> but swapping every NTP reference to
+          Web.
+        </para>
+
+      </section>
+
+      <section id="apache-firewall-sect">
+        <title>Establish rules through services and firewall modules to use Web service 
+        in eBox</title>
+
+        <para>
+          In order to establish the web service, we are going to add the <emphasis>http</emphasis>
+          service to the <classname>services</classname> eBox module on the installation
+          and add an internal rule to allow the users from internal network to access
+          the service when it is enabled. This is configurated at the firewall module
+          through <guimenu>Firewall</guimenu>-><guimenuitem>Packet filter</guimenuitem>.
+          It is required to develop two static methods in <classname>EBox::WebServer</classname>
+          to be run on installation and removal as <xref linkend="on-install-remove-example"/>.
+          <example id="on-install-remove-example">
+            <title><methodname>onInstall</methodname> and <methodname>onRemove</methodname>
+            methods to configure web service</title>
+            
+            <programlisting><![CDATA[
+sub onInstall
+{
+    # Become an eBox user
+    EBox::init();
+
+    # Get service module
+    my $gl = EBox::Global->getInstance();
+    my $serviceMod = $gl->modInstance('services');
+    my $firewall = $gl->modInstance('firewall');
+
+    # Add http service
+    if ( $serviceMod->serviceExists('name' => 'http')) {
+        # Check port availability
+        my $port = 80; # Default port = 80
+        my $available = 0;
+        do {
+            $available = $fw->availablePort('tcp', $port);
+            unless ( $available ) {
+                if ( $port == 80 ) {
+                    $port = 8080;
+                } else {
+                    $port++;
+                }
+            }
+        } until ( $available );
+        $serviceMod->addService(
+                                'name'            => 'http',
+                                'protocol'        => 'tcp',
+                                'sourcePort'      => 'any',
+                                'destinationPort' => $port,
+                                'internal'        => 1,
+                                'readOnly'        => 1,
+                               );
+        $serviceMod->setInternalService(
+                                        'http',
+                                        'accept',
+                                       );
+    } else {
+        EBox::info('The http service is already exists, not adding');
+    }
+
+    # Save the changes
+    $serviceMod->save();
+}
+
+sub onRemove
+{
+    # Become an eBox user
+    EBox::init();
+
+    my $serviceMod = EBox::Global->modInstance('services');
+
+    if ($serviceMod->serviceExists('name' => 'http')) {
+        $serviceMod->removeService('name' => 'http');
+    } else {
+        EBox::info("Not removing http service as it already exists");
+    }
+
+    $serviceMod->save();
+}]]>
+            </programlisting>
+          </example>
+          It is required to become an eBox user since these methods are called
+          on the installation scripts. This is not done automatically and it is
+          required to be called explicitly as <xref linkend="pre-post-script-example"/>
+          shows on <filename>debian/ebox-web.postinst</filename> and 
+          <filename>debian/ebox-web.prerm</filename>.
+
+          <example id="pre-post-script-example">
+            <title>Debian scripts</title>
+
+            <programlisting><![CDATA[
+# ebox-web.postinst script
+...
+
+onInstall() {
+
+    perl -e 'use EBox::WebServer; EBox::WebServer::onInstall();'
+}
+
+case "$1" in
+	configure)
+                ...
+
+		# don't start Apache2 server with its script	
+		update-rc.d -f apache2 remove
+
+		onInstall
+
+		invoke-rc.d ebox web restart
+esac
+
+#DEBHELPER#
+
+exit 0
+
+# ebox-web.prerm script
+...
+
+#DEBHELPER#
+
+case "$1" in
+	upgrade)
+		remove_gconf_schemas
+		;;
+	remove)
+		onRemove
+		remove_gconf_schemas
+		invoke-rc.d apache2 stop || true
+		;;	
+esac]]>
+            </programlisting>
+          </example>
+          As you may see, it is required to remove any previous apache2 establishment
+          in order to manage apache2 server just by eBox.
+        </para>
+      </section>
 
     </section>
     <section id="expose-module-API-sect">
@@ -1961,6 +2141,34 @@ sub menu
         may open up every model and let the module client access directly to the data
         model or, secondly, it gives some common methods to access the data easily.
         The latter option is chosen by this tutorial.
+      </para>
+
+      <para>
+        It seems useful to have a method to get the virtual hosts that already 
+        exist in eBox, this is done by <methodname>virtualHosts</methodname> method.
+        <example id="vHosts-method-example">
+          <title><methodname>virtualHosts</methodname> method</title>
+          <programlisting><![CDATA[
+sub virtualHosts
+  {
+
+      my ($self) = @_;
+
+      my $vHostModel = $self->_vHostModel();
+      my @vHosts;
+      foreach my $rowVHost (@{$vHostModel->rows()}) {
+          my $values = $rowVHost->{plainValueHash};
+          push ( @vHosts, {
+                           name => $values->{name},
+                           enabled => $values->{enabled},
+                          });
+      }
+
+      return \@vHosts;
+
+  }]]>
+          </programlisting>
+        </example>
       </para>
 
     </section>
