@@ -7,10 +7,6 @@ $cssClass => ''
 </%init>
 % my $id = $tableName . '_' . $data->fieldName();
 <!-- Store a list with protocols which needs a port -->
-<script type="text/javascript">
-  showPort('<% $id %>_protocol', '<% $id %>_portText',
-            <% $data->protocolsJS() %>);
-</script>
 
 <span id="<% $id %>" class="<% $cssClass %>">
 	<& /input/select.mas,
@@ -32,3 +28,8 @@ $cssClass => ''
 	</span>
 
 </span>
+
+<script type="text/javascript">
+  showPort('<% $id %>_protocol', '<% $id %>_portText',
+            <% $data->protocolsJS() %>);
+</script>

@@ -102,7 +102,7 @@
 <%doc>
   Method: body
 
-     Set the model viewer body.
+     Set the model viewer body. The message if any is also shown.
 
   Parameters:
   
@@ -121,6 +121,11 @@
   my $requestCaller = $onlyBody ? 1 : 2;
   my @childArgs = $m->caller_args($requestCaller);
 </%init>
+% if ( $model->message() ) {
+<& /msg.mas,
+   msg => $model->popMessage()
+&>
+% }
 <& SELF:_body,
    model => $model,
    @childArgs
