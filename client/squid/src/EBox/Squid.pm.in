@@ -240,7 +240,7 @@ sub filtered
 	my $objects = EBox::Global->modInstance('objects');
 	my @no = @{$self->unfiltered};
 	push(@no, @{$self->bans});
-	my @names = @{$objects->ObjectNames};
+	my @names = map { $_->{'id'} } @{$objects->objects};
 	my @filtered = ();
 	foreach my $n (@names) {
 		unless (grep(/^$n$/, @no)) {
@@ -824,7 +824,7 @@ sub _squidOnly
 	}
 	
 	foreach my $aux (@exceptions) {
-		foreach my $addr (@{$ob->ObjectAddresses($aux)}) {
+		foreach my $addr (@{$ob->objectAddresses($aux)}) {
 			$objects .= "acl objects src  $addr\n";
 		}
 	}
@@ -876,7 +876,7 @@ sub _squidAndDG
 	}
 
 	foreach my $aux (@exceptions) {
-		foreach my $addr (@{$ob->ObjectAddresses($aux)}) {
+		foreach my $addr (@{$ob->objectAddresses($aux)}) {
 			$objects .= "acl objects src  $addr\n";
 		}
 	}

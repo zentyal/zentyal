@@ -42,7 +42,7 @@ sub _squidAddrs
 	push(@objs, @{$sq->bans()});
 	my @addrs = ();
 	foreach my $obj (@objs) {
-		push(@addrs, @{$ob->ObjectAddresses($obj)});
+		push(@addrs, @{$ob->objectAddresses($obj)});
 	}
 	return @addrs;
 }
@@ -54,7 +54,7 @@ sub _dgAddrs
 	my @objs = @{$sq->filtered()};
 	my @addrs = ();
 	foreach my $obj (@objs) {
-		push(@addrs, @{$ob->ObjectAddresses($obj)});
+		push(@addrs, @{$ob->objectAddresses($obj)});
 	}
 	return @addrs;
 }

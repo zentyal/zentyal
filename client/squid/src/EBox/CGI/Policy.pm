@@ -43,7 +43,7 @@ sub _objectsToHash # (self, object)
 	foreach my $obj (@{$objects}) {
 		my $item = {};
 		$item->{name} = $obj;
-		$item->{description} = $objectobj->ObjectDescription($obj);
+		$item->{description} = $objectobj->objectDescription($obj);
 		push(@ret, $item);
 	}
 	return \@ret;
@@ -55,16 +55,17 @@ sub _process($) {
 	my $squid = EBox::Global->modInstance('squid');
 	my $objectobj = EBox::Global->modInstance('objects');
 
-	my @objects = @{$objectobj->ObjectNames};
+	my @objects = @{$objectobj->objects};
 	my @bans = @{$squid->bans};
 	my @unfiltered = @{$squid->unfiltered};
 	my @defaults = ();
 	
-	foreach (@objects) {
-		if ($squid->isBan($_) or $squid->isUnfiltered($_)) {
+	foreach my $object (@objects) {
+		my $id = $object->{'id'};
+		if ($squid->isBan($id) or $squid->isUnfiltered($id)) {
 			next;
 		}
-		push(@defaults, $_);
+		push(@defaults, $id);
 	}
 		
 	my @array = ();
