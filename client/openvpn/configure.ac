@@ -78,7 +78,6 @@ stubs/Makefile
 stubs/quagga/Makefile
 migration/Makefile
 www/Makefile
-migration/Makefile
 Makefile
 ])
 
