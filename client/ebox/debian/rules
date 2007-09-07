@@ -41,10 +41,10 @@ install-indep: build config.status
 	install -m 644 $(CURDIR)/conf/.gconf.path \
 		$(CURDIR)/debian/ebox/var/lib/ebox/
 	install -m 600 conf/pgpass $(CURDIR)/debian/ebox/var/lib/ebox/.pgpass
+	# Get those which does not finish with '.finish'... 
 	if [ -d tools/runit ] ; then \
 		pushd tools/runit ; \
 		for serv in * ; do \
-			# Get those which does not finish with '.finish'... \
 			if echo $$serv | grep -q -v '^.*\.finish$$' ; then \
 				install -d -m 755 $(CURDIR)/debian/ebox/etc/runit/$$serv ; \
 				install -m 755 $(CURDIR)/tools/runit/$$serv $(CURDIR)/debian/ebox/etc/runit/$$serv/run ; \
