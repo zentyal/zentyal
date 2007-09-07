@@ -25,6 +25,11 @@ use EBox;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 
+##################
+# Dependencies:
+##################
+use Perl6::Junction qw(any);
+
 # Group: Public methods
 
 sub new
@@ -41,6 +46,13 @@ sub new
 	$opts{'type'} = 'select';
 
         my $self = $class->SUPER::new(%opts);
+
+        unless ( $self->editable() ) {
+            EBox::warn('Select ' . $self->fieldName() . ' should be ' .
+                       'editable. If you want a read only field, use ' .
+                       'text type instead.');
+        }
+
         bless($self, $class);
         return $self;
 }
@@ -83,7 +95,7 @@ sub options
 	my ($self) = @_;
 
         if ( exists $self->{'foreignModel'}) {
-            return $self->_optionsFromForeignModel();
+            $self->{'options'} = $self->_optionsFromForeignModel();
         } else {
             unless (exists $self->{'options'}) {
                 my $populateFunc = $self->populate();
@@ -91,7 +103,12 @@ sub options
             }
         }
 
-        return $self->{'options'};
+#        if ( $self->unique() ) {
+#            return $self->_filterOptions($self->{'options'});
+#        } else {
+            return $self->{'options'};
+#        }
+
 }
 
 sub printableValue
@@ -244,5 +261,49 @@ sub _optionsFromForeignModel
 
     return $model->optionsFromForeignModel($field);
 }
+
+# Method: _filterOptions
+#
+#   Given a set of available options, returns the ones which the user
+#   may use.
+#
+sub _filterOptions
+  {
+      my ($self, $options) = @_;
+
+      my $model = $self->model();
+
+      return $options unless defined ( $model );
+
+      my $field  = $self->fieldName();
+
+      my @optionsAlreadyModel = ();
+      my $rows = $model->rows();
+
+      foreach my $row (@{$rows}) {
+          push( @optionsAlreadyModel, $row->{valueHash}->{$field});
+      }
+
+      use Data::Dumper;
+      EBox::debug(Dumper(\@optionsAlreadyModel));
+      EBox::debug(Dumper($options));
+
+      # Difference among optionsAlreadyModel and options arrays
+      my @filteredOptions = grep { $_->{value} ne any(@optionsAlreadyModel) } @{$options};
+
+      EBox::debug(Dumper(\@filteredOptions));
+
+      # Add the current value if the action is an edition
+      if ( $self->value() ) {
+          push ( @filteredOptions, {
+                                    value => $self->value(),
+                                    printableValue => $self->printableValue(),
+                                   }
+               );
+      }
+
+      return \@filteredOptions;
+
+  }
 
 1;

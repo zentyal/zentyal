@@ -24,13 +24,16 @@ package EBox::Events;
 #      since it may be considered as a base module as logs. It manages
 #      the EventDaemon.
 
-use base qw(EBox::GConfModule EBox::Model::ModelProvider);
+use base qw(EBox::GConfModule EBox::Model::ModelProvider EBox::Model::CompositeProvider);
 
 use strict;
 use warnings;
 
 # eBox uses
+use EBox::Common::Model::EnableForm;
 use EBox::Config;
+use EBox::Events::Model::ConfigurationComposite;
+use EBox::Events::Model::GeneralComposite;
 use EBox::Events::Model::ConfigureEventDataTable;
 use EBox::Events::Model::ConfigureDispatcherDataTable;
 use EBox::Gettext;
@@ -43,7 +46,7 @@ use EBox::Summary::Status;
 ################
 # Core modules
 ################
-use File::Copy qw(copy);
+# use File::Copy qw(copy);
 
 
 # Constants:
@@ -103,13 +106,13 @@ sub _regenConfig
 
       my ($self) = @_;
 
-      # Check for admin dumbness, it can throw an exception
-      $self->_adminDumbness();
-
       unless ( $self->isReadOnly() ) {
-          # Do the movements to make notice EventDaemon work
+          # Do the movements to make EventDaemon notice to work
           $self->_submitEventElements();
       }
+
+      # Check for admin dumbness, it can throw an exception
+      $self->_adminDumbness();
 
       $self->_doDaemon();
 
@@ -144,7 +147,7 @@ sub menu
 
       my $item = new EBox::Menu::Item(name  => 'Events',
                                       text  => __('Events'),
-                                      url   => 'Events/Index',
+                                      url   => 'Events/Composite/GeneralComposite',
                                       order => 7);
 
       $root->add($item);
@@ -189,12 +192,33 @@ sub models
       my @models = (
                     $self->configureEventModel(),
                     $self->configureDispatcherModel(),
+                    $self->_enableForm(),
                    );
 
       push ( @models, @{$self->_obtainModelsByPrefix(CONF_DISPATCHER_MODEL_PREFIX)});
       push ( @models, @{$self->_obtainModelsByPrefix(CONF_WATCHER_MODEL_PREFIX)});
 
       return \@models;
+
+  }
+
+# Method: composites
+#
+#       Return the composites used by events eBox module
+#
+# Overrides:
+#
+#       <EBox::Model::CompositeProvider::composites>
+#
+sub composites
+  {
+
+      my ($self) = @_;
+
+      return [
+              $self->_eventsComposite(),
+              $self->_configurationComposite(),
+             ];
 
   }
 
@@ -279,7 +303,9 @@ sub service
 
       my ($self) = @_;
 
-      return $self->get_bool('enabled');
+      my $enableModel = $self->_enableForm();
+
+      return $enableModel->enabledValue();
 
   }
 
@@ -296,7 +322,11 @@ sub setService
 
       my ($self, $enabled) = @_;
 
-      return $self->set_bool('enabled', $enabled);
+      my $enableModel = $self->_enableForm();
+
+      $enableModel->setRow(1,
+                           ( enabled => $enabled ),
+                          );
 
   }
 
@@ -426,14 +456,17 @@ sub _submitEventElements
           foreach my $classesRef (@{$toMove[$idx]}) {
               foreach my $element (@{$classesRef}) {
                   if ( $toCopy ) {
+                      # Transform :: to /
                       $element =~ s/::/\//g;
                       my $filePath = EBox::Config::perlPath() . $element . '.pm';
-                      copy ( $filePath, $dir )
+                      # Get the class final name
+                      ($element) = $element =~ m:^.*/(.*)$:g;
+                      symlink ( $filePath, $dir . '/' . $element . '.pm' )
                         or throw EBox::Exceptions::Internal("Cannot copy from $filePath to $dir");
                   } else {
                       ($element) = $element =~ m/^.*::(.*)$/;
                       my $filePath = $dir . $element . '.pm';
-                      if ( -f $filePath ) {
+                      if ( -l $filePath ) {
                           unlink ( $filePath )
                             or throw EBox::Exceptions::Internal("Cannot unlink $filePath");
                       }
@@ -506,6 +539,56 @@ sub _obtainModelsByPrefix # (prefix)
       closedir ( $dir );
 
       return \@models;
+
+  }
+
+# Instantiate an enabled form in order to enable/disable the events
+# module
+sub _enableForm
+  {
+
+      my ($self) = @_;
+
+      unless ( exists $self->{enableForm}) {
+          $self->{enableForm} = new EBox::Common::Model::EnableForm(
+                                    gconfmodule => $self,
+                                    directory   => 'EnableForm',
+                                    domain      => 'ebox-events',
+                                    enableTitle => __('Event service status'),
+                                    modelDomain => 'Events',
+                                                                   );
+      }
+
+      return $self->{enableForm};
+
+  }
+
+# Instantiate the events composite in order to manage events module
+sub _eventsComposite
+  {
+
+      my ($self) = @_;
+
+      unless ( exists $self->{eventsComposite}) {
+          $self->{eventsComposite} = new EBox::Events::Model::GeneralComposite();
+      }
+
+      return $self->{eventsComposite};
+
+  }
+
+# Instantiate the configure composite in order to manage ability of
+# event watchers and dispatchers
+sub _configurationComposite
+  {
+
+      my ($self) = @_;
+
+      unless ( exists $self->{confComposite}) {
+          $self->{confComposite} = new EBox::Events::Model::ConfigurationComposite();
+      }
+
+      return $self->{confComposite};
 
   }
 

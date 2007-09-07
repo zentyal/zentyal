@@ -67,13 +67,13 @@ sub ConfigurationMethod
 
   }
 
-# Method: configurated
+# Method: configured
 #
 # Overrides:
 #
-#        <EBox::Event::Dispatcher::Abstract::configurated>
+#        <EBox::Event::Dispatcher::Abstract::configured>
 #
-sub configurated
+sub configured
   {
 
       return 'true';

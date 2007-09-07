@@ -41,6 +41,7 @@ sub new
         my $self = $class->SUPER::new(%opts);
 
         bless($self, $class);
+
         return $self;
 }
 
@@ -228,6 +229,36 @@ sub _paramIsSet
 
       # Check if has something, ip field is not empty
       return ( $params->{$ip} ne '' );
+
+  }
+
+# Method: _setDefaultValue
+#
+#     Set the default value defined as a string in the
+#     printableValue. That is, to define an IP Address you must set
+#     a valid CIDR ip.
+#
+# Overrides:
+#
+#     <EBox::Types::Abstract::_setDefaultValue>
+#
+# Parameters:
+#
+#     defaultValue - String an IP address with CIDR notation
+#
+sub _setDefaultValue # (defaultValue)
+  {
+
+      my ($self, $defaultValue) = @_;
+
+      my ($ip, $netmask) = split ('/', $defaultValue);
+
+      my $params = {
+                    $self->fieldName() . '_ip'   => $ip,
+                    $self->fieldName() . '_mask' => $netmask,
+                   };
+
+      $self->setMemValue($params);
 
   }
 

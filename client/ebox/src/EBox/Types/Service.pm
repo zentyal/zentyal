@@ -405,6 +405,37 @@ sub _paramIsSet
 
   }
 
+# Method: _setDefaultValue
+#
+#     Set the default value defined as a string in the
+#     printableValue. That is, to define an service you must set
+#     a valid port/protocol.
+#
+# Overrides:
+#
+#     <EBox::Types::Abstract::_setDefaultValue>
+#
+# Parameters:
+#
+#     defaultValue - String a valid port/protocol
+#
+sub _setDefaultValue # (defaultValue)
+  {
+
+      my ($self, $defaultValue) = @_;
+
+      my ($port, $protocol) = split ('/', $defaultValue);
+
+      my $params = {
+                    $self->fieldName() . '_port'   => $port,
+                    $self->fieldName() . '_protocol' => $protocol,
+                   };
+
+      $self->setMemValue($params);
+
+  }
+
+
 ####
 # Group: Private methods
 ###

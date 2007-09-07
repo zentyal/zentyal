@@ -28,13 +28,13 @@ sub new
         my $class = shift;
 	my %opts = @_;
 	my $self = $class->SUPER::new(@_);
+        bless($self, $class);
 
 	# Setting as non-optional, if no optional value is passed
 	if ( not defined ( $self->optional() ) ) {
 	  $self->setOptional(0);
 	}
 
-        bless($self, $class);
         return $self;
 }
 
@@ -103,5 +103,29 @@ sub _restoreFromHash
 	$self->{'value'} = $hash->{$self->fieldName()};
 }
 
+# Method: _setDefaultValue
+#
+#     Set the default value if any
+#
+# Overrides:
+#
+#     <EBox::Types::Abstract::_setDefaultValue>
+#
+# Parameters:
+#
+#     defaultValue - the default value to pass
+#
+sub _setDefaultValue # (defaultValue)
+  {
+
+      my ($self, $defaultValue) = @_;
+
+      my $params = {
+                    $self->fieldName() => $defaultValue,
+                   };
+
+      $self->setMemValue($params);
+
+  }
 
 1;

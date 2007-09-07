@@ -76,7 +76,7 @@ sub new
 #
 # Returns:
 #
-#        <EBox::Event> - an info event is sent if eBox is up and
+#        array ref - <EBox::Event> an info event is sent if eBox is up and
 #        running and a fatal event if eBox is down
 #
 sub run
@@ -107,7 +107,7 @@ sub run
                                   );
       }
 
-      return $event;
+      return [ $event ];
 
   }
 

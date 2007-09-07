@@ -2,8 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CGI/View
 
-nobase_perl_DATA = DataTable.pm DataMultiTable.pm
-
+nobase_perl_DATA = Composite.pm DataTable.pm DataMultiTable.pm
 
 SOURCES = $(nobase_perl_DATA)
 

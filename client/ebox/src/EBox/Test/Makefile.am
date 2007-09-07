@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/Test
 
-mods = Class.pm Model.pm
+mods = Class.pm Composite.pm Model.pm Form.pm SubComposite.pm
 
 nobase_perl_DATA = $(mods)
 

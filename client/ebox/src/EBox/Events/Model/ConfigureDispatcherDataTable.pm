@@ -107,7 +107,7 @@ sub new
 sub rows
   {
 
-      my ($self) = @_;
+      my ($self, $filter, $page) = @_;
 
       # Fetch the current event watchers from gconf
       my $currentRows = $self->SUPER::rows();
@@ -153,7 +153,7 @@ sub rows
           $self->removeRow( $row->{id} );
       }
 
-      return $self->SUPER::rows();
+      return $self->SUPER::rows($filter, $page);
 
   }
 

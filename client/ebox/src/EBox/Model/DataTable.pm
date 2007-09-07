@@ -114,6 +114,7 @@ sub table
       unless (defined($self->{'table'}->{'class'})) {
 	$self->{'table'}->{'class'} = 'dataTable';
       }
+      $self->_setDefaultMessages();
     }
 
     return $self->{'table'};
@@ -151,6 +152,19 @@ sub modelName
 	my ($self) = @_;
 	return $self->table()->{'tableName'};
 }
+
+# Method: name
+#
+#       Return the same that <EBox::Model::DataTable::modelName>
+#
+sub name
+  {
+
+      my ($self) = @_;
+
+      return $self->modelName();
+
+  }
 
 # Method: fieldHeader 
 #
@@ -228,7 +242,6 @@ sub optionsFromForeignModel
 
 	return $cache->{$field}->{'values'};
 }
-
 
 
 # Method: selectOptions
@@ -487,6 +500,7 @@ sub addRow
 
 	$gconfmod->set_bool("$dir/$id/readOnly", $params{'readOnly'});
 
+        $self->setMessage($self->message('add'));
 	$self->addedRowNotify($self->row($id));
 	$self->_notifyModelManager('add', $self->row($id));
 	
@@ -513,6 +527,9 @@ sub addRow
 #			    implementing <EBox::Types::Abstract> interface
 #       - 'valueHash' => hash ref containing the same objects as
 #          'values' but indexed by 'fieldName'
+#
+#       - 'plainValueHash' => hash ref containing the fields and their
+#          value
 #
 #       - 'printableValueHash' => hash ref containing the fields and
 #          their printable value
@@ -623,6 +640,7 @@ sub moveUp
 
 	$self->_swapPos($pos, $pos - 1);
 
+        $self->setMessage($self->message('moveUp'));
 	$self->movedUpRowNotify($self->row($id));
 	$self->_notifyModelManager('moveUp', $self->row($id));
 	
@@ -642,6 +660,7 @@ sub moveDown
 
 	$self->_swapPos($pos, $pos + 1);
 
+        $self->setMessage($self->message('moveDown'));
 	$self->movedDownRowNotify($self->row($id));
 	$self->_notifyModelManager('moveDown', $self->row($id));
 }	
@@ -728,8 +747,11 @@ sub removeRow
 		$self->_removeOrderId($id);
 	}
 	
+    $self->setMessage($self->message('del'));
 	$self->deletedRowNotify($row);
 	$self->_notifyModelManager('del', $row);
+
+	$self->_setCacheDirty();
 
 	# If automaticRemove is enabled then remove all rows using referencing
 	# this row in other models
@@ -867,7 +889,9 @@ sub setRow
 		$self->_setCacheDirty();
 	}
 
-	$self->updatedRowNotify($oldrow);	
+        $self->setMessage($self->message('update'));
+	$self->updatedRowNotify($oldrow);
+
 }
 
 sub _storedVersion
@@ -1172,6 +1196,23 @@ sub printableModelName
 
   }
 
+# Method: printableName
+#
+#       Get the i18ned name
+#
+# Returns:
+#
+#       What <EBox::Model::DataTable::printableModelName> returns
+#
+sub printableName
+  {
+
+      my ($self) = @_;
+
+      return $self->printableModelName();
+
+  }
+
 # Method: directory
 #
 #        Get the current directory. This method is handy to manage
@@ -1264,6 +1305,11 @@ sub rowUnique
 #
 #       String - URL where the action will be called
 #
+# Exceptions:
+#
+#       <EBox::Exceptions::DataNotFound> - thrown if the action name
+#       has not defined action
+#
 sub action
   {
 
@@ -1311,6 +1357,78 @@ sub help
     my ($self) = @_;
 
     return $self->table()->{'help'};
+
+  }
+
+# Method: message
+#
+#     Get a message depending on the action parameter
+#
+#     Current actions are:
+#
+#      add - when a row is added
+#      del - when a row is deleted
+#      update - when a row is updated
+#      moveUp - when a row is moved up
+#      moveDown - when a row is moved down
+#
+# Parameters:
+#
+#     action - String the action from where to get the message. There
+#     are one default message per action. If the action is undef
+#     returns the current message to show. *(Optional)* Default value:
+#     undef
+#
+# Returns:
+#
+#     String - the message to show
+#
+sub message
+  {
+      my ($self, $action) = @_;
+
+      if ( defined ( $action ) ) {
+          return $self->table()->{'messages'}->{$action};
+      } else {
+          return $self->table()->{'message'};
+      }
+
+  }
+
+# Method: popMessage
+#
+#     Get the message to show and *delete* it afterwards.
+#
+# Returns:
+#
+#     String - the message to show
+#
+sub popMessage
+  {
+      my ($self, $action) = @_;
+
+      my $msg = $self->message();
+      $self->setMessage('');
+
+      return $msg;
+
+  }
+
+
+# Method: setMessage
+#
+#     Set the message to show the user
+#
+# Parameters:
+#
+#     newMessage - String the new message to show
+#
+sub setMessage
+  {
+
+      my ($self, $newMessage) = @_;
+
+      $self->table()->{'message'} = $newMessage;
 
   }
 
@@ -1753,22 +1871,29 @@ sub setPageSize
 # 	add a row
 #
 # Parameters:
-#	
-#	(POSITIONAL)
+#
+#	(NAMED)
 #	changeType - changeAdd or changeList	
 #	editId - edit id
 # 	page - page number
-#	
+#       isFilter - boolean indicating if comes from filtering
+#
 #
 # Returns:
 #
 # 	string - holding a javascript funcion
 sub changeViewJS
 {
-	my ($self, $type, $editId, $page) = @_;
+	my ($self, %args) = @_;
+
+        my ($type, $editId, $page, $isFilter) = ($args{changeType},
+                                                 $args{editId},
+                                                 $args{page},
+                                                 $args{isFilter},
+                                                );
 	
 	my  $function = 'changeView("%s", "%s", "%s", "%s",'.
-			'"%s", %s)';
+			'"%s", %s, %s)';
 
 	my $table = $self->table();
 	return  sprintf ($function, 
@@ -1777,7 +1902,9 @@ sub changeViewJS
 			 $table->{'gconfdir'},
 			 $type,
 			 $editId,
-			 $page);
+			 $page,
+                         $isFilter
+                        );
 }
 
 # Method: addNewRowJS
@@ -1892,6 +2019,41 @@ sub actionClickedJS
 			 $table->{'gconfdir'},
 			 $page);
 }
+
+# Group: Protected methods
+
+# Method: _setDefaultMessages
+#
+#      Set the default messages done by possible actions
+#
+sub _setDefaultMessages
+  {
+
+      my ($self) = @_;
+
+      # Table is already defined
+      my $table = $self->{'table'};
+
+      $table->{'messages'} = {} unless ( $table->{'messages'} );
+      my $rowName = $self->printableRowName();
+
+      my %defaultMessages =
+        (
+         'add'       => __x('{row} added', row => $rowName),
+         'del'       => __x('{row} deleted', row => $rowName),
+         'update'    => __x('{row} updated', row => $rowName),
+         'moveUp'    => __x('{row} moved up', row => $rowName),
+         'moveDown'  => __x('{row} moved down', row => $rowName),
+        );
+
+      foreach my $action (keys (%defaultMessages)) {
+          unless ( exists $table->{'messages'}->{$action} ) {
+              $table->{'messages'}->{$action} = $defaultMessages{$action};
+          }
+      }
+
+
+  }
 
 # Group: Private helper functions
 

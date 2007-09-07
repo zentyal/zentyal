@@ -80,16 +80,21 @@ sub new
 
   }
 
-# Method: configurated
+# Method: configured
 #
 # Overrides:
 #
-#        <EBox::Event::Dispatcher::Abstract::configurated>
+#        <EBox::Event::Dispatcher::Abstract::configured>
 #
-sub configurated
+sub configured
   {
 
       return 'true';
+
+      # Jabber dispatcher is configured only if the values from the
+      # configuration model are set
+      return ($self->{server} and $self->{port} and
+        $self->{user} and $self->{password} and $self->{adminJID});
 
   }
 

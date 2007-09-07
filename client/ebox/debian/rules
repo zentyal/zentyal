@@ -44,10 +44,16 @@ install-indep: build config.status
 	if [ -d tools/runit ] ; then \
 		pushd tools/runit ; \
 		for serv in * ; do \
-			install -d -m 755 $(CURDIR)/debian/ebox/etc/runit/$$serv ; \
-			install -m 755 $(CURDIR)/tools/runit/$$serv $(CURDIR)/debian/ebox/etc/runit/$$serv/run ; \
-			touch $(CURDIR)/debian/ebox/etc/runit/$$serv/down ; \
-			echo "etc/runit/$$serv var/service/$$serv" >> $(CURDIR)/debian/links ; \
+			# Get those which does not finish with '.finish'... \
+			if echo $$serv | grep -q -v '^.*\.finish$$' ; then \
+				install -d -m 755 $(CURDIR)/debian/ebox/etc/runit/$$serv ; \
+				install -m 755 $(CURDIR)/tools/runit/$$serv $(CURDIR)/debian/ebox/etc/runit/$$serv/run ; \
+				touch $(CURDIR)/debian/ebox/etc/runit/$$serv/down ; \
+				if [ -f $(CURDIR)/tools/runit/$${serv}.finish ] ; then \
+					install -m 755 $(CURDIR)/tools/runit/$${serv}.finish $(CURDIR)/debian/ebox/etc/runit/$$serv/finish ; \
+				fi ; \
+				echo "etc/runit/$$serv var/service/$$serv" >> $(CURDIR)/debian/links ; \
+			fi ; \
 		done ; \
 		popd ; \
 	fi

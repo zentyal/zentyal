@@ -13,32 +13,30 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::CGI::Events::Controller::ConfigureEventDataTable
+# Class: EBox::Model::CompositeProvider
 #
-#	Overrides <EBox::CGI::Controller::DataTable> to implement
-#	the default controller for <EBox::Events::Model::ConfigureEventDataTable>.
-#
-package EBox::CGI::Events::Controller::ConfigureEventDataTable;
+#   Interface meant to be used for classes providing composites. That
+#   is, those eBox modules which also have composites
+
+package EBox::Model::CompositeProvider;
 
 use strict;
 use warnings;
 
-use base 'EBox::CGI::Controller::DataTable';
+# eBox uses
 
-use EBox::Gettext;
-use EBox::Global;
-
-sub new # (cgi=?)
-{
-	my $class = shift;
-	my $events = EBox::Global->modInstance('events');
-	my $self = $class->SUPER::new('title' => __('Watchers'),
-                                      'tableModel' => $events->configureEventModel(),
-                                      @_);
-	$self->{domain} = 'ebox-events';
-	bless($self, $class);
-	return $self;
-}
+# Method: composites
+#
+#   This method must be overridden in case of your module provides any
+#   composite comprises models
+#
+# Returns:
+#
+#	array ref - containing instances of the composites
+#
+sub composites
+  {
+      return [];
+  }
 
 1;
-

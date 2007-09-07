@@ -1,6 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
-bin_SCRIPTS =  ebox-sudoers ebox ebox-runit ebox-sudoers-friendly ebox-clean-gconf ebox-create-certificate
+bin_SCRIPTS =  ebox-sudoers ebox ebox-runit ebox-sudoers-friendly \
+	       ebox-clean-gconf ebox-create-certificate ebox-runit-finisher
 
 pkglib_SCRIPTS =  ebox-apache-restart ebox-sql-table ebox-migrate
 
@@ -8,4 +9,5 @@ SUBDIRS = sqllog
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(bin_SCRIPTS) $(pkglib_SCRIPTS) runit/apache-perl runit/event-daemon
+EXTRA_DIST = $(bin_SCRIPTS) $(pkglib_SCRIPTS) runit/apache-perl \
+	     runit/apache-perl.finish runit/event-daemon

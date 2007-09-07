@@ -164,7 +164,9 @@ sub name
 # Returns:
 #
 #       undef - if no new event has been reported
-#       <EBox::Event> - if an event has happened
+#
+#       array ref - containing <EBox::Event> which as many events as they have
+#       happened event has happened
 #
 sub run
   {

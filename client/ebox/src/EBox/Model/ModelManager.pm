@@ -252,7 +252,7 @@ sub removeRowsUsingId
 # 	(PRIVATE)
 #
 # 	Fetch models from all classes implementing the interface
-# 	<EBox::ModelImplementor> and creates it dependencies.
+# 	<EBox::Model::ModelProvider> and creates it dependencies.
 sub _setUpModels
 {
     my ($self) = @_;

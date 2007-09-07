@@ -431,4 +431,45 @@ sub _paramIsSet
 
 }
 
+# Method: _setDefaultValue
+#
+#     Set the default value defined as a string in the
+#     printableValue. That is, to define a port range, you can choose
+#     one of following:
+#
+#     any - any range
+#     [0-9]+ - single port
+#     [0-9]+:[8-9]+ - from:to port range
+#
+# Overrides:
+#
+#     <EBox::Types::Abstract::_setDefaultValue>
+#
+# Parameters:
+#
+#     defaultValue - String as defined above
+#
+sub _setDefaultValue # (defaultValue)
+  {
+
+      my ($self, $defaultValue) = @_;
+
+      my $params = {};
+      if ( $defaultValue eq 'any' ) {
+          $params->{$self->fieldName() . '_range_type'} = 'any';
+      } elsif ( $defaultValue =~ m/^[0-9]+$/g ) {
+          $params->{$self->fieldName() . '_range_type'} = 'single';
+          $params->{$self->fieldName() . '_single_port'} = $defaultValue;
+      } else {
+          my ($from, $to) = split ( ':', $defaultValue);
+          $params->{$self->fieldName() . '_range_type'} = 'range';
+          $params->{$self->fieldName() . '_from_port'} = $from;
+          $params->{$self->fieldName() . '_to_port'} = $to;
+      }
+
+      $self->setMemValue($params);
+
+  }
+
+
 1;

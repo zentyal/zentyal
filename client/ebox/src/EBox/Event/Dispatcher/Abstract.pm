@@ -132,22 +132,58 @@ sub name
   }
 
 
-# Method: configurated
+# Method: configured
 #
 #       Indicate if the dispatcher transport layer is already
-#       configurated or not to send the events *(Abstract)*
+#       configured or not to send the events *(Abstract)*
 #
 # Returns:
 #
-#       boolean - whether the dispatcher is already configurated or
+#       boolean - whether the dispatcher is already configured or
 #       not
 #
-sub configurated
+sub configured
   {
 
       throw EBox::Exceptions::NotImplemented();
 
   }
+
+# Method: enable
+#
+#       Set the dispatcher to work through a given configuration. This
+#       method makes sure that is already configured and it will
+#       test that it is enable to send the information to the
+#       receiver.
+#
+#       An example could be the control center dispatcher that it will
+#       be test its connectivity to the listening server.
+#
+# Returns:
+#
+#       true - indicating the dispatcher is enabled to send
+#       events
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::External> - thrown if the dispatcher is not
+#       able to send events
+#
+sub enable
+  {
+
+      my ($self) = @_;
+
+      if ( $self->configured() ) {
+          $self->_enable();
+      } else {
+          throw EBox::Exceptions::External(__x('Dispatcher {name} is not ' .
+                                               'configured to be enabled',
+                                              name => $self->name()));
+      }
+
+  }
+
 
 # Method: ConfigurationMethod
 #

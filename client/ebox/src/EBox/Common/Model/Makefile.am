@@ -1,9 +1,10 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Controller
 
-perldir = @PERLPATH@/EBox/CGI/Events
+perldir = @PERLPATH@/EBox/Common/Model
 
-nobase_perl_DATA = Enable.pm Index.pm
+nobase_perl_DATA = EnableForm.pm
+
+SOURCES = $(nobase_perl_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
 

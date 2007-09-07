@@ -74,6 +74,15 @@ sub subtype
 
 }
 
+# Method: selectedType
+#
+#       Get the selected type field name from the union. If the user
+#       has not selected one explicitly, choose the first declared
+#
+# Returns:
+#
+#       String - the selected type field name
+#
 sub selectedType
 {
 	my ($self) = @_;

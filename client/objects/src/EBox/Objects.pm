@@ -312,7 +312,7 @@ sub menu
 {
 	my ($self, $root) = @_;
 	my $item = new EBox::Menu::Item(
-				'url' => '/ebox/Objects/View/ObjectTable',
+				'url' => 'Objects/View/ObjectTable',
 				'text' => __($self->title),
 				'order' => 3);
 	$root->add($item);

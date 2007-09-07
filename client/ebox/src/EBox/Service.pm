@@ -80,6 +80,9 @@ sub running # (daemon)
 		return 1;
 	} elsif ($status =~ m{^/var/service/$daemon: down}) {
 		return undef;
+        } elsif ($status =~ m{^/var/service/$daemon: finish}) {
+            # TODO: Tristate is done. This state happens when a finish script is running
+                return undef;
 	} else {
 		throw EBox::Exceptions::Internal("Error getting status: $daemon");
 	}

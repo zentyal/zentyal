@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Dispatcher::Jabber::Model::ConfigureForm
+# Class: EBox::Events::Model::Dispatcher::Jabber
 #
 # This class is the model to configurate Jabber dispatcher. It
 # inherits from <EBox::Model::DataForm> since it is not a table but a
@@ -23,6 +23,7 @@
 #     - port
 #     - user
 #     - password
+#     - subscribe
 #     - adminJID
 #
 
@@ -32,6 +33,10 @@ use base 'EBox::Model::DataForm';
 
 # eBox uses
 use EBox::Gettext;
+use EBox::Types::Boolean;
+use EBox::Types::Int;
+use EBox::Types::Password;
+use EBox::Types::Text;
 use EBox::Validate;
 use EBox::Types::Text;
 use EBox::Types::Int;
@@ -113,6 +118,7 @@ sub _table
                               printableName => __('Port'),
                               size          => 6,
                               editable      => 1,
+                              defaultValue  => 5222,
                              ),
          new EBox::Types::Text(
                                fieldName     => 'user',
@@ -147,6 +153,9 @@ sub _table
                                                'is not required to be registered at the chosen Jabber ' .
                                                'server, this will be do for you. The administrator ' .
                                                'identifier should follow the pattern: user@domain[/resource]'),
+                      messages           => {
+                                             update => __('Jabber dispatcher configuration updated'),
+                                            },
                      };
 
       return $dataForm;

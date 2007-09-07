@@ -1,0 +1,75 @@
+<%doc>
+  This template is indicated to view
+  EBox::Common::Model::EnableForm. It will show a standard form with a
+  the enable CSS class.
+</%doc>
+<%flags>
+  inherit => '/ajax/form.mas'
+</%flags>
+<%args>
+	$model
+	$hasChanged
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<& PARENT:view,
+   model => $model,
+   hasChanged => $hasChanged
+&>
+
+<%doc>
+  Method: editForm
+
+     Show the form to submit if the service is enabled or not
+
+  Overrides:
+
+     /ajax/modelViewer.mas:editForm
+
+</%doc>
+<%method editForm>
+<%args>
+  $modelName
+  @formData
+</%args>
+<%init>
+  my $type = $formData[0];
+</%init>
+<div class="enable">
+  <span class="bold">
+    <% $type->printableName() %> :
+  </span>
+  <& $type->HTMLSetter(),
+     'data' => $type,
+     'tableName' => $modelName
+  &>
+  <span id="applyChanges">
+  </span>
+  <span id="<% "buttons_$modelName" %>">
+    <& SELF:buttons &>
+  </span>
+</div>
+</%method>
+
+<%doc>
+  Method: buttons
+
+     Show the button to submit the form
+
+  Overrides:
+
+     /ajax/modelViewer.mas:buttons
+
+</%doc>
+<%method buttons>
+<%init>
+  # Getting the arguments from the first request
+  my $model = $m->caller_args(2)->{model};
+</%init>
+<& /input/submit.mas,
+   name => 'change',
+   value => __('Change'),
+   onclick => $model->changeRowJS(0, 0) . '; return false',
+&>
+</%method>

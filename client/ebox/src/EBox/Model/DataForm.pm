@@ -28,9 +28,16 @@ use warnings;
 
 # eBox uses
 use EBox::Exceptions::Internal;
+use EBox::Gettext;
+
+###################
+# Dependencies
+###################
+use Perl6::Junction qw(any);
 
 # Core modules
 use Error qw(:try);
+use Clone qw(clone);
 
 # Constructor: new
 #
@@ -55,9 +62,9 @@ sub new
 
       bless ( $self, $class );
 
-      if ( $self->_hasRow() ) {
-          $self->{rowId} = $self->rows()->[0]->{id};
-      }
+      # Change the directory to store the form data since it's not
+      # required a lot complexity
+      $self->{directory} = $self->{gconfdir};
 
       return $self;
 
@@ -99,9 +106,7 @@ sub row
 
       my ($self, $id) = @_;
 
-      $id = $self->{rowId} unless ( defined ( $id ));
-
-      return $self->SUPER::row($id);
+      return $self->_row();
 
   }
 
@@ -119,7 +124,10 @@ sub isRowReadOnly
 
       my ($self) = @_;
 
-      return $self->SUPER::row($self->{rowId});
+      my $row = $self->row();
+      return undef unless ( $row );
+
+      return $row->{'readOnly'};
 
   }
 
@@ -224,13 +232,10 @@ sub setRow
 
       # Check cached row id
       if ( $self->_hasRow() ) {
-          $self->{rowId} = $self->rows()->[0]->{id};
-          $params{id} = $self->{rowId};
-          $self->SUPER::setRow($force, %params);
+          $self->_setRow($force, %params);
       } else {
           # Add a new one
-          $self->SUPER::addRow(%params);
-          $self->{rowId} = $self->rows()->[0]->{id};
+          $self->_addRow(%params);
       }
 
   }
@@ -248,30 +253,7 @@ sub rows
 
       my ($self) = @_;
 
-      # The method which takes care of loading the rows
-      # from gconf is _rows(). 
-      #
-      # rows() tries to cache the data to avoid extra access
-      # to gconf
-      my $gconfmod = $self->{'gconfmodule'};
-      my $storedVersion = $self->_storedVersion();
-      my $cachedVersion = $self->{'cachedVersion'};
-
-      if (not defined($storedVersion)) {
-          $storedVersion = 0;
-      }
-
-      if (not defined($cachedVersion)) {
-          $self->{'cachedRows'} = $self->_rows();
-          $self->{'cachedVersion'} = 0;
-      } else {
-          if ($storedVersion != $cachedVersion) {
-              $self->{'cachedRows'} = $self->_rows();
-              $self->{'cachedVersion'} = $storedVersion;
-          }
-      }
-
-      return $self->{'cachedRows'};
+      return [ $self->_row() ];
 
   }
 
@@ -468,6 +450,129 @@ sub findAllValue
 
   }
 
+# Method: updatedRowNotify
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::updatedRowNotify>
+#
+sub updatedRowNotify
+{
+
+    my ($self, @params) = @_;
+
+    $self->formSubmitted(@params);
+
+}
+
+# Method: formSubmitted
+#
+#      Override this method to be notified whenever a form
+#      is submitted
+#
+# Parameters:
+#
+#      oldRow - hash ref containing the old row content, return the
+#      same hash ref as <EBox::Model::DataForm::row> does
+#
+sub formSubmitted
+  {
+
+  }
+
+# Method: AUTOLOAD
+#
+#      This method will intercept any call done to undefinede
+#      methods. It is used to return the value, printableValue or Type
+#      from an attribute which belongs to the form.
+#
+#      So, a form which contains a boolean attribute called enabled
+#      may have this four methods:
+#
+#        - enabledValue() - return the value from the attribute
+#        enabled
+#
+#        - enabledPrintableValue() - return the printable value
+#        from the attribute enabled
+#
+#        - enabledType() - return the type from the attribute
+#        enabled, that is, a instance of <EBox::Types::Boolean> class.
+#
+#        - enabled() - the same as enabledValue()
+#
+# Returns:
+#
+#     - the value if it ends with Value() or it is just the attribute name
+#     - String - the printable value if it ends with PrintableValue()
+#     - <EBox::Types::Abstract> - the type if it ends with Type()
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::Internal> - thrown if no attribute exists or
+#     it is not finished correctly
+#
+sub AUTOLOAD
+  {
+
+      my ($self, %params) = @_;
+      my $methodName = our $AUTOLOAD;
+
+      $methodName =~ s/.*:://;
+
+      # Ignore DESTROY callings (the Perl destructor)
+      if ( $methodName eq 'DESTROY' ) {
+          return;
+      }
+
+      my $row = $self->row();
+
+      # Get the attribute and its suffix if any <attr>(Value|PrintableValue|Type|)
+      my ($attr, $suffix) = $methodName =~ m/^(.+?)(Value|PrintableValue|Type|)$/;
+
+      unless ( any( keys ( %{$row->{valueHash}} ) ) eq $attr ) {
+          throw EBox::Exceptions::Internal("Calling an unknown attribute $attr or with " .
+                                           "an unknown suffix");
+      }
+
+      # If no suffix is given used
+      unless ( $suffix ) {
+          # Use the default value
+          $suffix = 'Value';
+      }
+
+      if ( $suffix eq 'Value' ) {
+          return $row->{plainValueHash}->{$attr};
+      } elsif ( $suffix eq 'PrintableValue' ) {
+          return $row->{printableValueHash}->{$attr};
+      } elsif ( $suffix eq 'Type' ) {
+          return $row->{valueHash}->{$attr};
+      }
+
+      return;
+
+  }
+
+# Group: Protected methods
+
+# Method: _setDefaultMessages
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::_setDefaultMessages>
+#
+sub _setDefaultMessages
+  {
+
+      my ($self) = @_;
+
+      unless ( exists $self->table()->{'messages'}->{'update'} ) {
+          $self->table()->{'messages'}->{'update'} = __('Done');
+      }
+
+  }
+
+# Group: Class methods
+
 # Method: Viewer
 #
 # Overrides:
@@ -489,9 +594,208 @@ sub _hasRow
 
       my ($self) = @_;
 
-      my $id = $self->rows()->[0]->{id};
+      return $self->{'gconfmodule'}->dir_exists($self->{'directory'});
 
-      return defined ( $id );
+  }
+
+# Add a row to the system without id. Its a reimplementation of
+# addRow so it should be looked up when any change is done at
+# DataTable stuff
+sub _addRow
+  {
+
+      my ($self, %params) = @_;
+
+      my $tableName = $self->tableName();
+      my $dir = $self->{'directory'};
+      my $gconfmod = $self->{'gconfmodule'};
+
+      $self->validateRow('update', @_);
+
+      my @userData;
+      my $userData;
+      foreach my $type (@{$self->table()->{'tableDescription'}}) {
+          my $data = clone($type);
+          $data->setMemValue(\%params);
+
+          push (@userData, $data);
+          $userData->{$data->fieldName()} = $data;
+      }
+
+      $self->validateTypedRow('add', $userData);
+
+      foreach my $data (@userData) {
+          $data->storeInGConf($gconfmod, "$dir");
+          $data = undef;
+      }
+
+      $gconfmod->set_bool("$dir/readOnly", $params{'readOnly'});
+
+      $self->setMessage($self->message('update'));
+      $self->updatedRowNotify($self->row());
+      $self->_notifyModelManager('add', $self->row());
+
+      $self->_setCacheDirty();
+
+  }
+
+# Set a row without id. Its a reimplementation of
+# setRow so it should be looked up when any change is done at
+# DataTable stuff
+sub _setRow
+  {
+
+      my ($self, $force, %params) = @_;
+
+      my $dir = $self->{'directory'};
+      my $gconfmod = $self->{'gconfmodule'};
+
+      $self->validateRow('update', @_);
+
+      my $oldrow = $self->row();
+      # We can only set those types which have setters
+      my @newValues = @{$self->setterTypes()};
+
+      my @oldValues = @{$oldrow->{'values'}};
+
+      my @changedData;
+      my $changedData;
+      for (my $i = 0; $i < @newValues ; $i++) {
+          my $newData = clone($newValues[$i]);
+          $newData->setMemValue(\%params);
+          $changedData->{$newData->fieldName()} = $newData;
+
+          if ($oldValues[$i]->isEqualTo($newData)) {
+              next;
+          }
+
+          push (@changedData, $newData);
+      }
+
+      $self->validateTypedRow('update', $changedData);
+
+      # If force != true automaticRemove is enabled it means
+      # the model has to automatically check if the row which is 
+      # about to be changed is referenced elsewhere and this change
+      # produces an inconsistent state
+      if ((not $force) and $self->table()->{'automaticRemove'}) {
+          $self->_warnOnChangeOnId('', \@changedData);
+      }
+
+      my $modified = undef;
+      for my $data (@changedData) {
+          $data->storeInGConf($gconfmod, "$dir");
+          $modified = 1;
+      }
+
+      $oldrow->{'values'} = \@newValues;
+
+      if ($modified) {
+          $self->_setCacheDirty();
+      }
+
+      $self->setMessage($self->message('update'));
+      $self->updatedRowNotify($oldrow);
+
+  }
+
+# Return a row from within the model. It's a reimplementation of
+# SUPER::row so it should take care about any change at superclass
+sub _row
+  {
+
+      my ($self) = @_;
+
+      my $dir = $self->{'directory'};
+      my $gconfmod = $self->{'gconfmodule'};
+      my $row = {};
+
+      unless ($gconfmod->dir_exists("$dir")) {
+          # Return default values instead
+          return $self->_defaultRow();
+      }
+
+      my @values;
+      $self->{'cacheOptions'} = {};
+      my $gconfData = $gconfmod->hash_from_dir("$dir");
+      $row->{'readOnly'} = $gconfData->{'readOnly'};
+      foreach my $type (@{$self->table()->{'tableDescription'}}) {
+          my $data = clone($type);
+          $data->restoreFromHash($gconfData);
+          $data->setRow($row);
+          $data->setModel($self);
+
+          # TODO Rework the union select options thing
+          #      this code just sucks. Modify Types to do something
+          #      nicer 
+          if ($data->type() eq 'union') {
+              # FIXME: Check if we can avoid this
+              $row->{'plainValueHash'}->{$data->selectedType} =
+                $data->value();
+              $row->{'printableValueHash'}->{$data->selectedType} =
+                $data->printableValue();
+          }
+          if ($data->type eq 'hasMany') {
+              my $fieldName = $data->fieldName();
+              $data->setDirectory("$dir/$fieldName");
+          }
+          if ($data->type eq 'hasMany') {
+              my $fieldName = $data->fieldName();
+              $data->setDirectory("$dir/$fieldName");
+          }
+
+          push (@values, $data);
+          $row->{'valueHash'}->{$type->fieldName()} = $data;
+          $row->{'plainValueHash'}->{$type->fieldName()} = $data->value();
+          $row->{'printableValueHash'}->{$type->fieldName()} =
+            $data->printableValue();
+      }
+
+      $row->{'values'} = \@values;
+
+      return $row;
+
+  }
+
+# Return a row with only default values
+sub _defaultRow
+  {
+
+      my ($self) = @_;
+
+      my $dir = $self->{'directory'};
+      my $row = {};
+      my @values = ();
+
+      foreach my $type (@{$self->table()->{'tableDescription'}}) {
+          my $data = clone($type);
+
+          if ($data->type() eq 'union') {
+            # FIXME: Check if we can avoid this
+              $row->{'plainValueHash'}->{$data->selectedType} =
+                $data->value();
+              $row->{'printableValueHash'}->{$data->selectedType} =
+                $data->printableValue();
+          }
+          if ($data->type eq 'hasMany') {
+              my $fieldName = $data->fieldName();
+              $data->setDirectory("$dir/$fieldName");
+          }
+          if ($data->type eq 'hasMany') {
+              my $fieldName = $data->fieldName();
+              $data->setDirectory("$dir/$fieldName");
+          }
+
+          push (@values, $data);
+          $row->{'valueHash'}->{$type->fieldName()} = $data;
+          $row->{'plainValueHash'}->{$type->fieldName()} = $data->value();
+          $row->{'printableValueHash'}->{$type->fieldName()} =
+            $data->printableValue();
+      }
+
+      $row->{'values'} = \@values;
+
+      return $row;
 
   }
 

@@ -4,7 +4,7 @@ perldir = @PERLPATH@/EBox/CGI
 
 nobase_perl_DATA = ClientBase.pm ClientRawBase.pm Finish.pm
 
-SUBDIRS = EBox Events Login Logout Logs Summary FirstTime Controller View
+SUBDIRS = EBox Login Logout Logs Summary FirstTime Controller View
 
 SOURCES = $(nobase_perl_DATA)
 

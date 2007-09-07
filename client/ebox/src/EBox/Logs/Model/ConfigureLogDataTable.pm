@@ -84,7 +84,7 @@ sub filterDomain
     if ($translation) {
         return $translation;
     } else {
-        return $table->{'name'};
+        return $instancedType->value();
     }
 }
 
@@ -185,9 +185,9 @@ sub enabledLogs()
 #   when a new module is installed or an existing one is removed.
 #
 #   
-sub rows()
+sub rows
 {
-    my $self = shift;
+    my ($self, $filter, $page) = @_;
 
     my $logs = EBox::Global->modInstance('logs');
 
@@ -218,7 +218,7 @@ sub rows()
         $self->removeRow($row->{'id'});
     }
 
-    return $self->SUPER::rows();
+    return $self->SUPER::rows($filter, $page);
 }
 
 1;

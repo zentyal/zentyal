@@ -96,7 +96,7 @@ tools/sqllog/Makefile
 doc/Makefile
 src/Makefile
 src/libexec/Makefile
-src/templates/events/Makefile
+src/templates/common/Makefile
 src/templates/login/Makefile
 src/templates/logout/Makefile
 src/templates/logs/Makefile
@@ -108,6 +108,8 @@ src/EBox/interactiveTest/Makefile
 src/EBox/Backup/Makefile
 src/EBox/Backup/interactiveTest/Makefile
 src/EBox/Backup/testdata/Makefile
+src/EBox/Common/Makefile
+src/EBox/Common/Model/Makefile
 src/EBox/Event/Makefile
 src/EBox/Event/Dispatcher/Makefile
 src/EBox/Event/Dispatcher/t/Makefile
@@ -130,8 +132,6 @@ src/EBox/Test/Makefile
 src/EBox/Test/t/Makefile
 src/EBox/CGI/Makefile
 src/EBox/CGI/EBox/Makefile
-src/EBox/CGI/Events/Makefile
-src/EBox/CGI/Events/Controller/Makefile
 src/EBox/CGI/Controller/Makefile
 src/EBox/CGI/View/Makefile
 src/EBox/CGI/Login/Makefile

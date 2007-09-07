@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
 Etcdir = $(sysconfdir)/ebox
-Etc_DATA = 80eboxclient.conf 90eboxpglogger.conf
+Etc_DATA = 70runitfinisher.conf 80eboxclient.conf 90eboxpglogger.conf
 
 
 Passwddir = $(localstatedir)/lib/ebox/conf

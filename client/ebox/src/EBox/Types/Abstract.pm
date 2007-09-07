@@ -29,6 +29,8 @@ package EBox::Types::Abstract;
 use strict;
 use warnings;
 
+use EBox;
+
 # Group: Public methods
 
 sub new
@@ -42,6 +44,15 @@ sub new
 		$self->{'HTMLSetter'} = undef;
 	}
         bless($self, $class);
+
+        if ( defined ( $self->{'defaultValue'} )) {
+            if ( $self->optional() ) {
+                EBox::warn('Defined default value to an optional field ' .
+                           $self->fieldName());
+            } else {
+                $self->_setDefaultValue($self->{'defaultValue'});
+            }
+        }
 
         return $self;
 }
@@ -166,6 +177,23 @@ sub value
 
 	return $self->{'value'};
 }
+
+# Method: defaultValue
+#
+#     Accessor to the default value if any
+#
+# Returns:
+#
+#     The default value
+#
+sub defaultValue
+  {
+
+      my ($self) = @_;
+
+      return $self->{'defaultValue'};
+
+  }
 
 sub trailingText
 {
@@ -402,7 +430,6 @@ sub HTMLViewer
 {
     my ($self) = @_;
 
-EBox::debug($self->fieldName());
     return undef unless (exists $self->{'HTMLViewer'});
     return $self->{'HTMLViewer'};
 }
@@ -505,6 +532,22 @@ sub _paramIsSet
   {
 
       return 0;
+
+  }
+
+# Method: _setDefaultValue
+#
+#     Set the default value. To be overridden by subclasses which
+#     allows default values
+#
+# Parameters:
+#
+#     defaultValue - the default value to set
+#
+sub _setDefaultValue # (defaultValue)
+  {
+
+      return;
 
   }
 

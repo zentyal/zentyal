@@ -1,0 +1,189 @@
+#!/usr/bin/perl -w
+
+# Copyright (C) 2007 Warp Networks S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# This script must be called as a finish script within runit
+# architecture.
+#
+# It is called everytime a service fails/restart. As well as if it is
+# stopped
+
+# eBox uses
+use EBox;
+use EBox::Config;
+use EBox::Exceptions::Internal;
+use EBox::Sudo;
+
+# Core modules
+use Fcntl qw(:flock :seek);
+use Error qw(:try);
+
+use constant LOG_FILE_PREFIX => EBox::Config::log() . 'runit/';
+use constant WILD_SERVICES   => LOG_FILE_PREFIX . 'wild-services.log';
+use constant RESTART_MAX     => EBox::Config::configkey('restart_max');
+use constant TIME_INTERVAL   => EBox::Config::configkey('time_interval');
+
+_checkUsage(@ARGV);
+
+# Become an eBox user
+EBox::init();
+
+my ($moduleName, $serviceName) = @ARGV;
+
+my $logFilePath = LOG_FILE_PREFIX . $serviceName . '.log';
+
+# Store default values when first call is done
+my ($counter, $timeToStore) = (1, time());
+
+if ( -f $logFilePath ) {
+    open ( my $logFile, '<', $logFilePath );
+    # The log file will have two values:
+    # counter - the number of callings within this minute
+    # time    - last counter reset done every minute
+    # outOfControl - set if the process has reached the maximum within
+    #                the time interval
+    # $counter\t$time[\toutOfControl]
+    my $line = <$logFile>;
+    close ($logFile);
+
+    chomp($line);
+    my $storedTime;
+    ($counter, $storedTime) = split ( '\t', $line );
+
+    my $currentTime = time();
+
+    # Check whether the current call is within this minute or not
+    if ( $currentTime - $storedTime < TIME_INTERVAL ) {
+        $counter++;
+        $timeToStore = $storedTime;
+    } else {
+        $counter = 1;
+        $timeToStore = $currentTime;
+    }
+
+}
+
+# Create the directory if it does not exist
+unless ( -d LOG_FILE_PREFIX ) {
+    mkdir ( LOG_FILE_PREFIX, 0700 );
+}
+
+# Truncate the file to store the new values after every call
+open ( my $logFile, '>', $logFilePath );
+print $logFile "$counter\t$timeToStore";
+# Set outOfControl if it has reached the max within the time interval
+print "\t1" if ( $counter > RESTART_MAX );
+print $logFile "\n";
+close ($logFile);
+
+# Check if the service has been called to down
+# my ($serviceStatus) = `cat /etc/runit/$serviceName/supervise/stat`;
+my ($serviceStatus) = @{EBox::Sudo::root("cat /etc/runit/$serviceName/supervise/stat")};
+chomp($serviceStatus);
+unless ( $serviceStatus eq 'down' ) {
+    if ( $counter > RESTART_MAX ) {
+        _appendOutOfControl($serviceName);
+        EBox::warn("Could NOT restart service $serviceName from " .
+                   "$moduleName since it was restarted more than " .
+                   RESTART_MAX . " times within " . TIME_INTERVAL .
+                   " seconds ");
+        EBox::warn("Module $moduleName stopped because of the $serviceName " .
+                   'is out of control');
+        EBox::Sudo::root("invoke-rc.d ebox $moduleName stop");
+#        exec "invoke-rc.d ebox $moduleName stop"
+#          or throw EBox::Exceptions::Internal('Could NOT execute invoke-rc.d' .
+#                                              ": $!");
+    }
+}
+
+# Procedure to append the service to the wild service file
+sub _appendOutOfControl # (service)
+  {
+
+      my ($service) = @_;
+
+      my $wildServicesFile;
+
+      if ( -f WILD_SERVICES ) {
+          open ( $wildServicesFile, '+<', WILD_SERVICES) or
+            throw EBox::Exceptions::Internal('Cannot open for read/writing file ' .
+                                             WILD_SERVICES . " : $!");
+      } else {
+          open ( $wildServicesFile, '>', WILD_SERVICES ) or
+            throw EBox::Exceptions::Internal('Cannot create file ' .
+                                             WILD_SERVICES . " : $!");
+      }
+
+      try {
+          # Lock the file for writing
+          flock ( $wildServicesFile, LOCK_EX );
+          # Search for the name service inside the file
+          my $line = <$wildServicesFile>;
+          if ( not ( defined ( $line ) and $line =~ m/$service/g )) {
+              # Append the service at the end
+              seek ( $wildServicesFile, 0, SEEK_END );
+              # Add a previous tab if file is not empty
+              print $wildServicesFile "\t" if ( tell ($wildServicesFile) > 0 );
+              print $wildServicesFile "$service";
+          }
+      } finally {
+          flock ( $wildServicesFile, LOCK_UN );
+          close ( $wildServicesFile );
+      };
+
+      # Change the file permissions to the eBox user
+      # We assume getpwnam returns the uid in scalar context
+#      my $eBoxUID = getpwnam ( EBox::Config::user() );
+#      my $eBoxGID = getgrnam ( EBox::Config::group() );
+#      my $chownChanged = chown ( $eBoxUID, $eBoxGID, WILD_SERVICES );
+#      if ( $chownChanged != 1 ) {
+#          throw EBox::Exceptions::Internal('Cannot change the ' . WILD_SERVICES
+#                                           . ' owner and group');
+#      }
+
+  }
+
+# Procedure to check if ebox-runit-finisher is called with the correct parameters
+sub _checkUsage
+  {
+
+      my @args = @_;
+
+      unless ( defined ( $args[0] ) and defined ( $args[1] )) {
+          if ( not defined ( $args[0] )) {
+              _printUsage();
+              throw EBox::Exceptions::Internal('Module name is missing');
+          }
+          if ( not defined ( $args[1] )) {
+              _printUsage();
+              throw EBox::Exceptions::Internal('Service name is missing');
+          }
+      }
+
+  }
+
+# Procedure to print the usage of the script
+sub _printUsage
+  {
+
+      print STDOUT 'ebox-runit-finisher moduleName serviceName' . $/;
+      print STDOUT 'Where moduleName     : the eBox module name' . $/;
+      print STDOUT '      serviceName    : the managed service by moduleName' . $/;
+
+  }
+
+1;
+

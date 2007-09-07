@@ -21,7 +21,7 @@ package EBox::EventDaemon;
 # eBox. It supports an Observer pattern to add dinamically
 # Event Watchers. They should inherit from <EBox::Watcher::Base> in
 # order to have support for reporting events within eBox
-# framework. Every watcher should just watch one event.
+# framework. Every watcher must just watch one event.
 #
 # In order to dispatch an event, the same Observer pattern is
 # used. Dinamically, you can upload a dispatcher to send the event
@@ -41,6 +41,7 @@ use EBox::Config;
 
 # Core modules
 use File::stat;
+use IO::Handle;
 
 # Constants:
 #
@@ -102,6 +103,7 @@ sub run
 
       my $eventPipe;
       my $pid = open($eventPipe, "|-");
+      $eventPipe->autoflush(1);
       unless ( defined ( $pid )) {
           die "$$: Cannot create a process error: $!";
       } elsif ( $pid ) {
@@ -186,11 +188,13 @@ sub _mainWatcherLoop
               $queueElementRef->{deadOut} -= $self->{granularity};
               if ( $queueElementRef->{deadOut} <= 0 ) {
                   # Run the event
-                  my $event = $queueElementRef->{instance}->run();
+                  my $eventsRef = $queueElementRef->{instance}->run();
                   # An event has happened
-                  if ( defined ( $event )) {
-                      # Send the event to the dispatcher
-                      $self->_addToDispatch($eventPipe, $event);
+                  if ( defined ( $eventsRef )) {
+                      foreach my $event (@{$eventsRef}) {
+                          # Send the events to the dispatcher
+                          $self->_addToDispatch($eventPipe, $event);
+                      }
                   }
                   $queueElementRef->{deadOut} = $queueElementRef->{instance}->period();
               }
@@ -254,16 +258,25 @@ sub _loadModules
       opendir ( my $dir, $prefixPath );
 
       while ( defined ( my $file = readdir ( $dir ))) {
-          next unless (-f "$prefixPath/$file");
-          next unless ( $file =~ m/.*\.pm/ );
+#          next unless (-e "$prefixPath/$file");
+          unless ( -e "$prefixPath/$file" ) {
+              if ( -l "$prefixPath/$file" ) {
+                  EBox::info("Unlinking broken link $prefixPath/$file");
+                  unlink ( "$prefixPath/$file" )
+                    or throw EBox::Exceptions::Internal("Cannot unlink $prefixPath/$file");
+              }
+              next;
+          }
+          next unless ( $file =~ m/.*\.pm/g );
           my ($className) = ($file =~ m/(.*)\.pm/);
           $className = 'EBox::Event::' . $prefix . '::' . $className;
           my $instance;
           # The class may not be included
           if (not defined ( $self->{$registeredField}->{$className})) {
-              eval "use $className";
+#              eval "use $className";
+              eval qq{require "$prefixPath/$file"};
               if ( $@ ) {
-                  EBox::warn("Error loading class: $className");
+                  EBox::warn("Error loading class: $className $@");
                   next;
               }
               EBox::info("$className loaded from $registeredField");
@@ -300,7 +313,8 @@ sub _loadModules
               if ( $statFile->mtime() > $lastScan ) {
                   EBox::info("$className reloaded from $registeredField");
                   $self->_deleteFromINC($className);
-                  eval "use $className";
+#                  eval "use $className";
+                  eval qq{require "$prefixPath/$file";};
                   if ( $@ ) {
                       EBox::warn("Error loading class: $className");
                       next;
@@ -326,10 +340,22 @@ sub _loadModules
       foreach my $className ( keys (%{$self->{$registeredField}}) ){
           my ($fileName) = $className =~ m/.*::(.*)$/g;
           $fileName .= '.pm';
-          unless ( -f "$prefixPath/$fileName" ) {
+          unless ( -e "$prefixPath/$fileName" ) {
               EBox::info("$className deleted from $registeredField");
               $self->_deleteFromINC($className);
+              if ( -l "$prefixPath/$fileName" ) {
+                  # Delete broken links
+                  EBox::info("Unlinking broken link $prefixPath/$fileName");
+                  unlink( "$prefixPath/$fileName" )
+                    or throw EBox::Exceptions::Internal("Cannot unlink $prefixPath/$fileName");
+              }
           }
+
+#          unless ( -f ( readlink ( "$prefixPath/$fileName" ))) {
+#              EBox::info("$className deleted from $registeredField since the link is broken");
+#              $self->_deleteFromINC($className);
+#              # Remove broken links
+#          }
       }
 
       # Updating timestamp
@@ -419,7 +445,7 @@ sub _addToDispatch
       $eventStr =~ s/\n//g;
 
       # Sending the dumpered event with a newline char
-      print $eventPipe ( $eventStr . $/);
+      print $eventPipe ( $eventStr . $/ );
 
   }
 
@@ -427,7 +453,7 @@ sub _addToDispatch
 # Main program
 ###############
 
-# Granularity: 1 second
+# Granularity: 10 second
 my $eventd = new EBox::EventDaemon(10);
 
 $eventd->run();
