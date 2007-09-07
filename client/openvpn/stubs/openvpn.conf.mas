@@ -1,4 +1,5 @@
 <%args>
+$name
 $dev
 $port  
 $proto
@@ -20,9 +21,14 @@ $statusLogFile
 
 @advertisedNets => ()
 </%args>
-# EBox OpenVPN 2.0 config file for            #
-# multi-client server.                          #
-#                                               #
+<%init>
+use EBox::Config;
+if (! defined $logDir) {
+$logDir = EBox::Config::log();
+}
+my $logFile = "$logDir/openvpn-$name.log";
+</%init>
+# EBox OpenVPN 2.0 config file for  server <% $name %>
 
 
 # Which local IP address should OpenVPN

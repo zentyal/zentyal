@@ -67,9 +67,10 @@ sub _doDelete
 {
     my ($self) = @_;
 
-    my $name = $self->param('name');
+    my $name    = $self->param('name');
     my $openVPN = EBox::Global->modInstance('openvpn');
-    $openVPN->removeClient($name);
+    my $client  = $openVPN->client($name);
+    $client->delete();
 
     $self->setMsg(__x("Client {name} removed", name => $name) );
  }

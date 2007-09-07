@@ -408,6 +408,19 @@ sub setLocalTest : Test(14)
 }
 
 
+sub setInternalTest : Test(4)
+{
+    my ($self) = @_;
+
+  my $server          = $self->_newServer('macaco');
+
+  dies_ok { $server->setInternal(1) };
+  ok not $server->internal();
+
+  lives_ok { $server->setInternal(0) };
+  ok not $server->internal();
+}
+
 sub keyTest : Test(2)
 {
   my ($self) = @_;

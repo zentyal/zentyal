@@ -12,7 +12,6 @@ use EBox::FileSystem;
 use EBox::Gettext;
 
 use Params::Validate qw(validate_pos SCALAR);
-use File::Basename;
 use Error qw(:try);
 
 
@@ -166,13 +165,13 @@ sub _setPrivateFile
   my $newPath = "$privateDir/$type"; 
 
   try {
-    EBox::Sudo::root("chmod 0400 $path");
-    EBox::Sudo::root("chown 0.0 $path");
-    EBox::Sudo::root("mv $path $newPath");
+    EBox::Sudo::root("cp '$path' '$newPath'");
+    EBox::Sudo::root("chmod 0400 '$path'");
+    EBox::Sudo::root("chown 0.0 '$path'");
   }
   otherwise {
-    EBox::Sudo::root("rm -f $newPath");
-    EBox::Sudo::root("rm -f $path");
+    EBox::Sudo::root("rm -f '$newPath'");
+    EBox::Sudo::root("rm -f '$path'");
   };
 
   $self->setConfString($type, $newPath);
@@ -181,12 +180,16 @@ sub _setPrivateFile
 }
 
 
+
+
+# Method: daemonFiles
+# Override <EBox::OpenVPN::Daemon::daemonFiles> method
 sub daemonFiles
 {
   my ($self) = @_;
 
   my @files = $self->SUPER::daemonFiles();
-  push @files, basename $self->privateDir();
+  push @files, $self->privateDir();
 
   return @files;
 }
@@ -228,7 +231,7 @@ sub confFileParams
 
   push @templateParams, (dev => $self->iface);
 
-  my @paramsNeeded = qw(caCertificatePath certificatePath certificateKey  user group proto );
+  my @paramsNeeded = qw(name caCertificatePath certificatePath certificateKey  user group proto );
   foreach my $param (@paramsNeeded) {
     my $accessor_r = $self->can($param);
     defined $accessor_r or die "Can not found accesoor for param $param";
@@ -359,19 +362,24 @@ sub removeServer
 #  certificateKey    -  Path yo the client's certificate key.
 #
 #  service - wether the client is enabled or disabed. *(Default: disabled)*
+#
+#  hidden  - wethet the client is hidden from the web GUI *(default: false)*
 sub init
 {
     my ($self, %params) = @_;
 
-    (exists $params{proto}) or throw EBox::Exceptions::External __("A IP protocol must be specified for the server");
+    (exists $params{proto}) or throw EBox::Exceptions::External __("A IP protocol must be specified for the client");
     (exists $params{caCertificatePath}) or throw EBox::Exceptions::External __("The CA certificate is needed");
     (exists $params{certificatePath}) or throw EBox::Exceptions::External __("The client certificate must be specified");
     (exists $params{certificateKey}) or throw EBox::Exceptions::External __("The client private key must be specified");
     (exists $params{servers}) or throw EBox::Exceptions::External __("Servers must be supplied to the client");
+    
+
     exists $params{service} or $params{service} = 0;
+    exists $params{internal}  or $params{internal}  = 0;
 
 
-    my @attrs = qw(proto caCertificatePath certificatePath certificateKey servers service);
+   my @attrs = qw(proto caCertificatePath certificatePath certificateKey servers service internal);
     foreach my $attr (@attrs)  {
 	if (exists $params{$attr} ) {
 	    my $mutator_r = $self->can("set\u$attr");
@@ -442,6 +450,11 @@ sub _availableIfaces
 sub summary
 {
   my ($self) = @_;
+
+  if ($self->internal) { # no summary for internal clients
+    return ();
+  }
+
   my @summary;
   push @summary, __x('Client {name}', name => $self->name);
 

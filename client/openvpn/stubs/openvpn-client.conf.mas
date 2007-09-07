@@ -1,4 +1,5 @@
 <%args>
+$name
 $dev
 $proto
 @servers
@@ -11,9 +12,16 @@ $group
 $logFile
 $statusLogFile
 </%args>
+<%init>
+use EBox::Config;
+if (! defined $logDir) {
+$logDir = EBox::Config::log();
+}
+my $logFile = "$logDir/openvpn-$name.log";
+</%init>
 # eBox client-side OpenVPN 2.0 config file #
 # for connecting to multi-client server.     #
-
+# Client name <% $name %>
 
 
 # Specify that we are a client and that we

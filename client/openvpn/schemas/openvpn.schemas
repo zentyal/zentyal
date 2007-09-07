@@ -46,8 +46,17 @@
 
 
 		<schema>
-			<key>/schemas/ebox/modules/openvpn/active</key>
-			<applyto>/ebox/modules/openvpn/active</applyto>
+			<key>/schemas/ebox/modules/openvpn/userActive</key>
+			<applyto>/ebox/modules/openvpn/userActive</applyto>
+			<owner>ebox</owner>
+			<type>bool</type>
+			<default>false</default>
+		        <locale name="C" />
+		</schema>
+
+		<schema>
+			<key>/schemas/ebox/modules/openvpn/internalActive</key>
+			<applyto>/ebox/modules/openvpn/internalActive</applyto>
 			<owner>ebox</owner>
 			<type>bool</type>
 			<default>false</default>

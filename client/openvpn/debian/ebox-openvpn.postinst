@@ -41,8 +41,8 @@ case "$1" in
 		update-rc.d -f quagga remove
 
 		# migrate data if needed
-		/usr/lib/ebox/ebox-migrate /usr/lib/ebox-openvpn/migration/ 
-
+		/usr/lib/ebox/ebox-migrate /usr/lib/ebox-openvpn/migration/		
+		# restart module
 		invoke-rc.d ebox openvpn restart
 esac
 

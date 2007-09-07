@@ -449,7 +449,7 @@ sub confFileParams
 
   push @templateParams, (dev => $self->iface());
 
-  my @paramsNeeded = qw(subnet subnetNetmask  port caCertificatePath certificatePath key crlVerify clientToClient user group proto dh tlsRemote);
+  my @paramsNeeded = qw(name subnet subnetNetmask  port caCertificatePath certificatePath key crlVerify clientToClient user group proto dh tlsRemote);
   foreach  my $param (@paramsNeeded) {
     my $accessor_r = $self->can($param);
     defined $accessor_r or die "Cannot found accesor for param $param";
@@ -657,6 +657,28 @@ sub removeAdvertisedNet
 }
 
 
+# Method: setInternal
+#
+#
+# This method is overriden here beacuse servers cannot be internal; 
+#  so trying to set them as internals we raise error
+#
+# Parameters:
+#    internal - bool. 
+sub setInternal
+{
+  my ($self, $internal) = @_;
+
+  if ($internal) {
+    throw EBox::Exceptions::External(
+                      __('OpenVPN servers cannot be used for internal services')
+				    );
+  }
+
+  $self->SUPER::setInternal($internal);
+}
+
+
 
 # Method: init
 #
@@ -692,7 +714,7 @@ sub init
     $self->setPort($params{port});
     $self->setCertificate($params{certificate});    
 
-    my @noFundamentalAttrs = qw(local clientToClient advertisedNets tlsRemote pullRoutes); 
+    my @noFundamentalAttrs = qw(local clientToClient advertisedNets tlsRemote pullRoutes internal); 
     push @noFundamentalAttrs, 'service'; # service must be always the last attr so if there is a error before the server is not activated
 
     foreach my $attr (@noFundamentalAttrs)  {

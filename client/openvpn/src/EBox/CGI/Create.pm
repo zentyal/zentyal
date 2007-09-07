@@ -87,6 +87,8 @@ sub actuate
 	}
 
 
+	$params{internal} = 0; # servers created by UI aren't internal
+
 	$openVPN->newServer($name, %params);
 
         my $cgiQuery = $self->{cgi};

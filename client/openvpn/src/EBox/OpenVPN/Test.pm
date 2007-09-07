@@ -134,7 +134,8 @@ sub setUpConfiguration : Test(setup)
 
 
     my @config = (
-		  '/ebox/modules/openvpn/active'  => 1,
+		  '/ebox/modules/openvpn/userActive'  => 1,
+		  '/ebox/modules/openvpn/internalActive'  => 1,
 		  '/ebox/modules/openvpn/openvpn_bin'  => '/usr/sbin/openvpn',
 		  '/ebox/modules/openvpn/user'  => 'nobody',
 		  '/ebox/modules/openvpn/group' => 'nobody',
@@ -167,14 +168,16 @@ sub _createMockCertFiles
   ($? == 0) or die "Can not chmod mock certification files in /tmp: $!";
 }
 
-sub newAndRemoveClientTest : Test(15)
+sub newAndRemoveClientTest : Test(32)
 {
   my $openVPN = EBox::OpenVPN->_create();
  
   my @mockCertFiles = qw(/tmp/ca.pem /tmp/client.pem /tmp/client.key);
 
  
-  my @clientsNames = qw(client1 client2);
+  my $reservedClient    =  EBox::OpenVPN->reservedPrefix() . 'test';
+  my @clientsNames      = (qw(client1 client2), $reservedClient);
+  my @userClientsNames = qw(client1 client2);
   my %clientsParams = (
 		       client1 =>  [ 
 				    proto => 'tcp',
@@ -197,8 +200,23 @@ sub newAndRemoveClientTest : Test(15)
 							  ['192.168.55.23' => 1041],
 							 ],
 				    service           => 1,
+				    internal            => 0,
 				   ],
+
+		       $reservedClient =>  [ 
+				     proto => 'tcp',
+				     caCertificatePath => '/tmp/ca.pem',
+				     certificatePath   => '/tmp/client.pem',
+				     certificateKey    => '/tmp/client.key',
+				     servers           => [
+							   ['192.168.55.21' => 1040],
+							   ['192.168.55.23' => 1041],
+							  ],
+				     service           => 1,
+				     internal            => 1,
+				    ],
 		      );
+
 
     foreach my $name (@clientsNames) {
 	my @params = @{ $clientsParams{$name} };
@@ -206,35 +224,142 @@ sub newAndRemoveClientTest : Test(15)
 	_createMockCertFiles(@mockCertFiles);
 
 	my $instance;
-	lives_ok { $instance = $openVPN->newClient($name, @params)  } 'Testing addition of new client';
-	isa_ok $instance, 'EBox::OpenVPN::Client', 'Checking that newClient has returned a client instance';
-	dies_ok { $instance  = $openVPN->newClient($name, @params)  } 'Checking that the clients cannot be added a second time';
+	lives_ok { $instance = $openVPN->newClient($name, @params)  } 
+	  "Testing addition of new client: $name";
+	isa_ok $instance, 'EBox::OpenVPN::Client', 
+	  'Checking that newClient has returned a client instance';
+	ok $openVPN->clientExists($name);
+	dies_ok { $instance  = $openVPN->newClient($name, @params)  } 
+	  'Checking that the clients cannot be added a second time';
     }
 
     my @actualClientsNames = $openVPN->clientsNames();
-    eq_or_diff [sort @actualClientsNames], [sort @clientsNames], "Checking returned test names";
+    eq_or_diff [sort @actualClientsNames], [sort @clientsNames], 
+      "Checking returned test clients names";
+
+
+    my @actualClientsNamesForUI = $openVPN->userClientsNames();
+    eq_or_diff [sort @actualClientsNamesForUI], [sort @userClientsNames], 
+      "Checking returned test clients names for UI";
+
+
 
     # removal cases..
  
 	
     foreach my $name (@clientsNames) {
       _createMockCertFiles(@mockCertFiles);
+      _checkDeleteDaemon($openVPN, $name, 'client');
+#       my $instance;
+#       lives_ok { 
+# 	my $client = $openVPN->client($name) ;
+# 	$client->delete();
+# 	} "Testing client removal $name";
+# 	dies_ok  { 
+# 	  $openVPN->client($name) 
+# 	} 'Testing that can not get the client object that represents the deleted client ';
 
-	my $instance;
-	lives_ok { $instance = $openVPN->removeClient($name)  } 'Testing client removal';
-	dies_ok  { $openVPN->client($name) } 'Testing that can not get the client object that represents the deleted client ';
+# 	my @actualClientsNames = $openVPN->clientsNames();
+# 	ok $name ne all(@actualClientsNames), 
+# 	  "Checking that deleted clients name does not appear longer in serves names list";
+# 	ok not $openVPN->clientExists($name);
 
-	my @actualClientsNames = $openVPN->clientsNames();
-	ok $name ne all(@actualClientsNames), "Checking that deleted clients name does not appear longer in serves names list";
-    
-	dies_ok { $instance = $openVPN->removeClient($name)  } 'Testing that a deleted client can not be deleted agian';
+
+
     }
   
+
+
+
   system "rm -f @mockCertFiles";
   ($? == 0) or die "Can not  remove mock certification files in /tmp: $!";
 }
 
-sub newAndRemoveServerTest  : Test(24)
+
+
+sub _checkDeleteDaemon
+{
+  my ($openVPN, $name, $type) = @_;
+  my $existsMethod = $type . 'Exists';
+  my $listMethod = $type . 'sNames';
+
+  my $daemon = $openVPN->$type($name) ;
+  my $expectedDeletedData = _expectedDeletedDaemonData($daemon);
+
+  lives_ok { 
+    $daemon->delete();
+  } "Testing client removal $name";
+
+  dies_ok  { 
+    $openVPN->type($name) 
+  } 'Testing that can not get the $type object that represents the deleted daemon ';
+
+  my @actualDaemonsNames = $openVPN->$listMethod();
+  ok $name ne all(@actualDaemonsNames), 
+    "Checking that deleted $type 's name does not appear longer in $type names list";
+  ok (not $openVPN->$existsMethod($name)), "Checking negative result of $existsMethod";
+
+  _checkDeletedDaemonData($openVPN, $name, $expectedDeletedData);
+}
+
+sub _expectedDeletedDaemonData
+{
+  my ($daemon) = @_;
+  my %deletedData;
+  $deletedData{class} = ref $daemon;
+  $deletedData{filesToDelete} = [$daemon->daemonFiles];
+
+  return \%deletedData;
+}
+
+sub _checkDeletedDaemonData
+{
+  my ($openVPN, $daemonName, $expectedDeleted) = @_;
+
+  my $deletedDaemons = $openVPN->_deletedDaemons();
+
+  my $existsDaemon = exists $deletedDaemons->{$daemonName};
+  ok  $existsDaemon, "Checking wether $daemonName appears in the list of deleted daemons";
+ SKIP:{
+    skip 1, 'the daemon do not appear in deleted daemons data' if (not $existsDaemon);
+    is_deeply $expectedDeleted, $deletedDaemons->{$daemonName}  ,
+    'Checking the deleted daemon information';
+  }
+}
+
+
+sub newClientWithBadPrefixTest : Test(3)
+ {
+  # bad prefix cases
+  my $openVPN = EBox::OpenVPN->_create();
+
+  my $regularName  = 'mandrill';
+  my $reservedName = EBox::OpenVPN->reservedPrefix() . 'baboon';
+  my @creationParams =  (
+			 proto => 'tcp',
+			 caCertificatePath => '/tmp/ca.pem',
+			 certificatePath   => '/tmp/client.pem',
+			 certificateKey    => '/tmp/client.key',
+			 servers           => [
+					       ['192.168.55.21' => 1040],
+					      ],
+			 service           => 1,
+			);
+
+  my @mockCertFiles = qw(/tmp/ca.pem /tmp/client.pem /tmp/client.key);
+  _createMockCertFiles(@mockCertFiles);
+
+  dies_ok {
+    $openVPN->newClient($reservedName, @creationParams, internal => 0);
+  } 'Checking that we cannot create a no internalclient with a reserved name';
+  dies_ok {
+    $openVPN->newClient($regularName, @creationParams, internal => 1);
+  } 'Checking that we cannot create a internal client without a server name';
+  is $openVPN->clientsNames(), 0, 'Checking that neither client with incorrect name was added';
+
+}
+
+sub newAndRemoveServerTest  : Test(26)
 {
 
   my $ca = EBox::Global->modInstance('ca');
@@ -262,35 +387,84 @@ sub newAndRemoveServerTest  : Test(24)
 
 			 );
 
-    dies_ok { $openVPN->removeServer($serversNames[0]) } "Checking that removal of server when the server list is empty raises error";
-    dies_ok {  $openVPN->newServer('incorrect-dot', @{ $serversParams{server1} })  } 'Testing addition of incorrect named server';
+    dies_ok {  $openVPN->newServer('incorrect-dot', @{ $serversParams{server1} })  } 
+      'Testing addition of incorrect named server';
 
     foreach my $name (@serversNames) {
-	my $instance;
+	my $server;
 	my @params = @{ $serversParams{$name} };
-	lives_ok { $instance = $openVPN->newServer($name, @params)  } 'Testing addition of new server';
-	isa_ok $instance, 'EBox::OpenVPN::Server', 'Checking that newServer has returned a server instance';
-	dies_ok { $instance  = $openVPN->newServer($name, @params)  } 'Checking that the servers cannot be added a second time';
+	lives_ok { 
+	  $server = $openVPN->newServer($name, @params)  
+	} 'Testing addition of new server';
+	isa_ok $server, 'EBox::OpenVPN::Server', 
+	  'Checking that newServer has returned a server instance';
+	ok $openVPN->serverExists($name), 'Checking server exists positive result';
+
+	dies_ok { 
+	  $openVPN->newServer($name, @params)  
+	} 'Checking that the servers cannot be added a second time';
     }
 
     my @actualServersNames = $openVPN->serversNames();
-    eq_or_diff [sort @actualServersNames], [sort @serversNames], "Checking returned test names";
+    eq_or_diff [sort @actualServersNames], [sort @serversNames],
+      "Checking returned test server names";
 
     # removal cases..
- 
-	
     foreach my $name (@serversNames) {
-	my $instance;
-	lives_ok { $instance = $openVPN->removeServer($name)  } 'Testing server removal';
+	lives_ok { 
+	  my $server = $openVPN->server($name) ;
+	  $server->delete();
+	} 'Testing server removal';
+
+	ok (not $openVPN->serverExists($name)), 'Checking server exists negative result'; 
+
 	dies_ok  { $openVPN->server($name) } 'Testing that can not get the server object that represents the deleted server ';
 
 	my @actualServersNames = $openVPN->serversNames();
 	ok $name ne all(@actualServersNames), "Checking that deleted servers name does not appear longer in serves names list";
-    
-	dies_ok { $instance = $openVPN->removeServer($name)  } 'Testing that a deleted server can not be deleted agian';
+
+	
     }
 }
 
+
+
+sub notifyDaemonDeletionTest : Test(3)
+{
+  my ($self) = @_;
+
+  my $openvpn = EBox::OpenVPN->_create();
+
+  my $name    = 'macaco';
+  my $class   ='EBox::OpenVPN::Daemon';
+  my @files   = (
+		 '/etc/openvpn/macaco.conf',
+		 '/etc/openvpn/macaco.conf.d',
+	      );
+
+  lives_ok {
+    $openvpn->notifyDaemonDeletion(
+				   $name,
+				   daemonClass => $class,
+				   files => \@files
+
+				  );
+  } 'executing notifyDaemonDeletion' ;
+
+  my $deletedDaemons;
+  lives_ok { $deletedDaemons = $openvpn->_deletedDaemons  }
+    'retrieving deleted daemon information';
+
+  my $expectedDeletedDaemons = {
+				$name => {
+					  class => $class,
+					  filesToDelete => \@files,
+					 }
+			       };
+
+
+  is_deeply $deletedDaemons, $expectedDeletedDaemons, 'checking retrieved deleted daemons information';
+}
 
 sub usesPortTest : Test(16)
 {
@@ -300,7 +474,7 @@ sub usesPortTest : Test(16)
   # add servers to openvpn (we add only the attr we care for in this testcase
   my $confDir = $self->_confDir();
   my @config = (
-		  '/ebox/modules/openvpn/active'  => 1,
+		  '/ebox/modules/openvpn/userActive'  => 1,
 		  '/ebox/modules/openvpn/openvpn_bin'  => '/usr/sbin/openvpn',
 		  '/ebox/modules/openvpn/user'  => 'nobody',
 		  '/ebox/modules/openvpn/group' => 'nobody',
@@ -350,19 +524,30 @@ sub usesPortTest : Test(16)
   ok !$openVPN->usesPort('tcp', 1194), "Checking that usesPort does not report  any port for inactive servers";
 
   # openvpn inactive case
-  EBox::GConfModule::TestStub::setEntry( '/ebox/modules/openvpn/active'    => 0);
+  EBox::GConfModule::TestStub::setEntry( '/ebox/modules/openvpn/userActive'    => 0);
   ok !$openVPN->usesPort('tcp', 1194), "Checking that usesPort does not report  any port for a inactive OpenVPN module";
 }
 
-sub setServiceTest : Tests(5)
+sub setServiceTest : Tests(36)
 {
   my $ca = EBox::Global->modInstance('ca');
   $ca->destroyCA();
   # the test begins with inactive service and no CA created
-  EBox::TestStubs::setConfigKey( '/ebox/modules/openvpn/active'  => 0,);
+  EBox::TestStubs::setConfigKey( '/ebox/modules/openvpn/userActive'  => 0,);
+  EBox::TestStubs::setConfigKey( '/ebox/modules/openvpn/internalActive'  => 0,);
+
   my $openVPN = EBox::OpenVPN->_create();
 
-  dies_ok { $openVPN->setService(1)  } 'Checking if enabling server without Certification authority in place raises error';
+  dies_ok { 
+    $openVPN->setUserService(1)  ;
+
+  } 'Checking if enabling either user  service without Certification authority in place raises error';
+
+  dies_ok { 
+    $openVPN->setInternalService(1)  ;
+
+  } 'Checking if enabling either internal service without Certification authority in place raises error';
+
 
   # create CA
 
@@ -374,15 +559,36 @@ sub setServiceTest : Tests(5)
 			 );
   $ca->setInitialState(\@fakeCertificates);
 
-  foreach my $serviceExpected (0, 1, 1, 0,) {
+
+  my @serviceStates =  (0, 1, 1, 0,);
+
+  foreach my $serviceExpected (@serviceStates) {
     my $oldService = $openVPN->service();
-    lives_and( 
-	      sub { 
-		$openVPN->setService($serviceExpected);
-		is $openVPN->service, $serviceExpected;
-	      },  
-	      "Checking if OpenVPN service is correctly changed from $oldService to $serviceExpected")
+
+    lives_ok { $openVPN->setUserService($serviceExpected) } 
+      "Changing OpenVPN user service from $oldService to $serviceExpected";
+    is $openVPN->userService, $serviceExpected, "Checking if user service has changed to $serviceExpected";
+    is $openVPN->internalService, 0, 'Checkin wether internal service continues disabled'; 
+    is $openVPN->service, $serviceExpected, "Checking if general service has changed to $serviceExpected";
+
   }
+
+  foreach my $serviceExpected (@serviceStates) {
+    my $oldService = $openVPN->service();
+    diag "Checking if OpenVPN internal  service is correctly changed from $oldService to $serviceExpected";
+
+    lives_ok { $openVPN->setInternalService($serviceExpected) } 
+      "Changing OpenVPN internal service from $oldService to $serviceExpected";
+    is $openVPN->userService, 0, 'Checkin wether user service continues disabled'; 
+    is $openVPN->internalService, $serviceExpected, "Checking if internal service has changed to $serviceExpected";  
+    is $openVPN->service, $serviceExpected, "Checking if general service has changed to $serviceExpected";
+  }
+
+  lives_ok { 
+    $openVPN->setInternalService(1);
+    $openVPN->setUserService(1);
+  } 'Setting both services as active';  
+  ok $openVPN->service and $openVPN->userService, "Checking service which both types of service are active";
 }
 
 

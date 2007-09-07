@@ -52,7 +52,7 @@ sub setupEBoxConf : Test(setup)
     my $confDir = $self->_confDir();
 
     my @config = (
-		  '/ebox/modules/openvpn/active'  => 1,
+		  '/ebox/modules/openvpn/userActive'  => 1,
 		  '/ebox/modules/openvpn/openvpn_bin'  => '/usr/sbin/openvpn',
 		  '/ebox/modules/openvpn/user'  => 'nobody',
 		  '/ebox/modules/openvpn/group' => 'nogroup',  # in non-Debian systems this will be posssibly 'nobody'

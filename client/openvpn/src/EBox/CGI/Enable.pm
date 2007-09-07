@@ -52,7 +52,7 @@ sub actuate
 	throw EBox::Exceptions::InvalidData(data => __('active parameter'), value => $activeValue, advice => __(q{It only may be 'yes' or 'no'}) );
     }
  
-    $openvpn->setService($requestedStatus);
+    $openvpn->setUserService($requestedStatus);
 }
 
 

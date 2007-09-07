@@ -15,7 +15,7 @@ else {
 </%init>
 <h3><% __x('Deleting OpenVPN {type}', type => $type) %>:</h3>
 <div class='warning'>
-<% $warningMsg %>
+<% __x("Are you sure you want delete the {type} {name}.?", name => $name, type => $type) %>
 </div>
 
 
