@@ -474,24 +474,24 @@ sub statusSummary
 sub menu
 {
         my ($self, $root) = @_;
-        $root->add(new EBox::Menu::Item('url' => 'DNS/Index',
+        $root->add(new EBox::Menu::Item('url' => 'DNS/View/DomainTable',
                                         'text' => __('DNS')));
 }
 
 sub _addDNSService
 {
-·   my $serviceMod = EBox::Global->modInstance('services');
+   my $serviceMod = EBox::Global->modInstance('services');
 
-·   if (not $serviceMod->serviceExists('name' => 'dns')) {
-·   ·    $serviceMod->addService('name' => 'dns',
-·   ·   ·   'protocol' => 'udp',
-·   ·   ·   'sourcePort' => 'any',
-·   ·   ·   'destinationPort' => 53,
-·   ·   ·   'internal' => 0);
-·   ·   
-·   } else {
-·   ·   EBox::info("Not adding dns service as it already exists");
-·   }
+   if (not $serviceMod->serviceExists('name' => 'dns')) {
+       $serviceMod->addService('name' => 'dns',
+           'protocol' => 'udp',
+           'sourcePort' => 'any',
+           'destinationPort' => 53,
+           'internal' => 0);
+
+   } else {
+       EBox::info("Not adding dns service as it already exists");
+   }
 
 }
 
