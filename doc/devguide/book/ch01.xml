@@ -515,7 +515,7 @@ sub _table
 
       <para>
         As it is shown, a model is used to describe an eBox object, which has a name
-        and a group of members which are described below:
+        and a group of members which are described in <xref linkend="member-model-definition"/>:
       </para>
 
       <example id="member-model-definition">
@@ -575,23 +575,24 @@ sub _table
         note the actions are the allowed actions to apply to that model. For instance, you
         can add, delete rows, edit fields... Several attributes are allowed for every type
         and model, if they are not explicitly set at the model definition, they are treated
-        as false value if it is a boolean type or empty string if the type is an string.
+        as false value. That is, if it is a boolean type or empty string if the type is an 
+        string.
       </para>
 
-        <para>
-          The best part of it comes with forms. Typical eBox scenarios contain a set of
-          tables and forms. So the information that a form may show can be stored in a
-          data model as described above. However, it has some significant differences.
-          A form data model looks like a table data model with just one row which is
-          always shown to be edited. A form model definition is similar to a table data
-          model one:
-        </para>
+      <para>
+        The best part of it comes from forms. Typical eBox scenarios contain a set of
+        tables and forms. So the information that a form may show can be stored in a
+        data model as described above. However, it has some significant differences.
+        A form data model looks like a table data model with just one row which is
+        always shown to be edited. A form model definition is similar to a table data
+        model one as <xref linkend="jabber-model-definition"/> depicts:
+      </para>
 
-        <example id="jabber-model-definition">
-          <title><classname>Jabber dispatcher</classname>configuration form data model
-          definition</title>
+      <example id="jabber-model-definition">
+        <title><classname>Jabber dispatcher</classname>configuration form data model
+        definition</title>
 
-          <programlisting><![CDATA[
+        <programlisting><![CDATA[
 sub _table
   {
 
@@ -1013,6 +1014,7 @@ sub composites
         As you may see, the MVC framework is powerful scheme to develop in eBox. However, it is
         not so impressive yet. It is still under development and some optimization as well as
         lack of some features. For instance, an eBox type to manage file uploading from the user,
+        automatic getter and setter methods,...
         <!--FIXME: More demanding features-->
       </para>
     </section>

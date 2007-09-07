@@ -113,13 +113,13 @@ $model->addRow( ( name => 'admin',
 
     <para>
       As you may see, the object data model stores two objects <emphasis>RRHH</emphasis>
-      and <emphasis>MKT</emphasis> which the former saves one and the latter three members.
+      and <emphasis>MKT</emphasis>, which the former saves one and the latter three members.
       The <varname>data_version</varname> indicates the data structure version in the same
       sense as <xref linkend="migration-scripts-sect"/> explains. Each data model stores 
       their values under <varname>keys/id</varname> directory, the id is obtained using
       <methodname>get_unique_id</methodname> as <xref linkend="sect-gconf"/> describes. 
-      <property>Version</property> property is used by caching scheme, as you may notice is currently
-      done per data model basis. As each object data model row has several members using
+      <property>Version</property> property is used by caching scheme, as you might guess, 
+      which is currently done per data model basis. As each object data model row has several members using
       the member data model, they are stored within the object directory as if another model.
       Each type has its value stored in GConf, for instance the field <parameter>name</parameter>
       for object <parameter>x6666</parameter> has as value <parameter>RHHH</parameter>.
@@ -179,11 +179,11 @@ $model->addRow( ( name => 'admin',
       </para>
 
       <para>
-        Whenever an changing state action is performed, the data model asks to the model manager
+        Whenever an changing state action is performed, the data model asks the model manager
         if any of other modules is using that row. If so and <parameter>automaticRemove</parameter> is
         set, a warning is shown before forcing the operation. If <parameter>automaticRemove</parameter>
         is not set, the data model must specify how it should act subscribing to the changing actions
-        as it is described above.
+        as it is described above instead.
       </para>
 
     </section>
@@ -211,7 +211,7 @@ $model->addRow( ( name => 'admin',
         <parameter>editable</parameter>, <parameter>printableValue</parameter>, etc. It also provides
         the main methods not to be overridden such as <methodname>setMemValue</methodname>, 
         <methodname>restoreFromHash</methodname> and so on. Basically, an eBox type allows the
-        developer abstracting from Gconf storage and user input correctness since their handling
+        developer abstracting from GConf storage and user input correctness since their handling
         is automatic. Furthermore, an eBox type is responsible for determining which setter
         and viewer must be used in eBox user interface by asking to <methodname>HTMLSetter</methodname>
         and <methodname>HTMLViewer</methodname> respectively.
@@ -277,6 +277,14 @@ $model->addRow( ( name => 'admin',
         and <methodname>printableValue</methodname> are recommended to be overridden.
       </para>
 
+      <para>
+        The common eBox types are in <classname>ebox</classname> base debian package, however
+        it is also possible to develop a custom type which will be used only by a single
+        eBox module or by any of its dependencies. This happens to
+        <classname>SinglePortService</classname> which depends on the <classname>services</classname>
+        eBox module.
+      </para>
+
     </section>
 
   </section>
@@ -289,7 +297,7 @@ $model->addRow( ( name => 'admin',
       <ulink url="http://www.masonhq.com/docs/manual/Devel.html#objectoriented_techniques">pseudo object
       oriented</ulink> that Mason provides. <xref linkend="view-class-diagram-fig"/> shows the templates
       which acts as viewers from the data model. The correspondence among model and view components is:
-      <informaltable frame="none">
+      <informaltable rowsep="1">
         <tgroup cols="2" align="center">
           <thead>
             <row>

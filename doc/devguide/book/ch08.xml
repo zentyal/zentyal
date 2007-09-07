@@ -2,7 +2,7 @@
 
   <title>How to create a module</title>
 
-  <section id="sect-long-way">
+  <section id="long-way-sect">
 
     <title>Long way to create a small module</title>
 
@@ -1198,19 +1198,20 @@ exec /usr/sbin/ntpd -n -g]]>
     <title>Short way to create a small module</title>
 
     <para>
-      Previously in <xref linkend="sect-long-way"/>, a long way to create an 
+      Previously in <xref linkend="long-way-sect"/>, a long way to create an 
       eBox module has been explained, however in this section we are going to
       use the MVC framework described in <xref linkend="sect-a-mvc-module"/>.
-      This will reduce our development time, less error-prone and greater quality
-      since less code is required to be written and this code will handle the
+      This will reduce our development time, less error-prone and greater quality.
+      Since less code is required to be written and this code will handle the
       compulsory logic avoiding to do repetitive tasks such as CGI or template
       creation as well as manage database backend directly letting developer
-      focuses on what really cares to add the new service to eBox.
+      focus on what really cares to add the new service to eBox.
     </para>
 
     <para>
-      As it was done in <xref linkend="long-create-model-introduction"/>, we have
-      chosen a service, in this case, the HyperText Transfer Protocol server.
+      As it was done in <xref linkend="long-way-sect"/>, we have
+      chosen a service, in this case, the 
+      <ulink url="http://www.w3.org/Protocols/">HyperText Transfer Protocol</ulink> server.
       We have selected the <ulink url="http://httpd.apache.org">Apache HTTP server version 2</ulink>
       to provide a simple glance of how powerful is the MVC framework to develop
       eBox agility and correctly. The Apache eBox module will provide these features:
@@ -1218,12 +1219,12 @@ exec /usr/sbin/ntpd -n -g]]>
     
     <itemizedlist>
       <listitem>
-        <para>Enable and disable the service as other eBox modules</para>
+        <para>Enable and disable the service as other eBox modules do</para>
       </listitem>
       <listitem>
-        <para>Some general configuration settings as port number to listen
-        HTTP request or enable HTML provided by users home at <filename>public_html</filename>
-        directory.</para>
+        <para>Some general configuration settings as port number to listen to
+        HTTP requests or enable Web pages provided by users' home in <filename>public_html</filename>
+        subdirectory.</para>
       </listitem>
       <listitem>
         <para>Virtual host creation and configuration giving automatic 
@@ -1237,7 +1238,7 @@ exec /usr/sbin/ntpd -n -g]]>
 
     <itemizedlist>
       <listitem>
-        <para>Define the data model to manage the requested features</para>
+        <para>Define the data model to accomplish the requested features</para>
       </listitem>
       
       <listitem>
@@ -1251,14 +1252,14 @@ exec /usr/sbin/ntpd -n -g]]>
 
 
       <listitem>
-        <para>Common tasks done in the <link linkend="sect-long-way">long way Section</link>
+        <para>Common tasks done as well in the <link linkend="long-way-sect">long way Section</link>
         such as generate configuration files, control daemon execution, firewall rules and
         set menu and status summary.
         </para>
       </listitem>
 
       <listitem>
-        <para>Expose the desired API to other eBox's modules or to the SOAP interface</para>
+        <para>Expose the desired API to other eBox's modules, Perl script clients or SOAP interface</para>
       </listitem>
     </itemizedlist>
 
@@ -1268,15 +1269,15 @@ exec /usr/sbin/ntpd -n -g]]>
       <para>
         In order to do the enable/disable web service, we can use the common form model which
         shows, store a boolean value to enable/disable service called
-        <classname>EBox::Common::Model::EnableForm</classname>, we delayed this feature till
-        <xref linkend="publish-model-composite-sect"/>.
+        <classname>EBox::Common::Model::EnableForm</classname>. So we delayed this feature till
+        <xref linkend="publish-model-composite-sect"/> where the instanciation is done.
       </para>
 
       <para>
         The general apache configuration is a form which contains the port number which is a simple
         Int type and a Boolean type to enable users publish their own HTML pages under
-        <filename>public_html</filename> directory from their home. The description is displayed
-        in <xref linkend="general-conf-example"/> inside the
+        <filename>public_html</filename> directory from their own home directory. The description
+        is displayed in <xref linkend="general-conf-example"/> inside the
         <classname>EBox::WebServer::Model::GeneralConfigurationForm</classname> class.
 
         <example id="general-conf-example">
@@ -1287,13 +1288,12 @@ sub _table
 
       my @tableHeader =
         (
-         new EBox::Types::Int(
-                              fieldName     => 'port',
-                              printableName => __('Listening port'),
-                              size          => 6,
-                              editable      => 1,
-                              defaultValue  => 80,
-                             ),
+         new EBox::Types::SinglePortService(
+                                            fieldName     => 'port',
+                                            printableName => __('Listening port'),
+                                            size          => 6,
+                                            editable      => 1,
+                                           ),
          new EBox::Types::Boolean(
                                   fieldName     => 'enableDir',
                                   printableName => __x('Enable user publishing from their ',
@@ -1325,42 +1325,17 @@ sub _table
           </programlisting>
         </example>
 
-        As the user input can be incorrect if the port number is not correct or is already in use
-        by any other eBox module, the check is compulsory and it is done as
-        <xref linkend="validate-example"/> shows.
-
-        <example id="validate-example">
-          <title>Validate input data</title>
-          <programlisting><![CDATA[
-sub validateTypedRow
-  {
-
-      my ($self, $action, $params) = @_;
-
-      my $portNumber = $params->{port}->value();
-
-      EBox::Validate::checkPort($portNumber,
-                                __('Invalid port number'));
-
-      my $gl = EBox::Global->getInstance();
-      my $firewall = $gl->modInstance('firewall');
-
-      unless ( $firewall->availablePort('tcp', $portNumber) ) {
-          throw EBox::Exceptions::DataExists(
-                                             'data'  => __('listening port'),
-                                             'value' => $portNumber,
-                                             );
-      }
-
-  }]]>
-          </programlisting>
-        </example>
+        The <classname>SinglePortService</classname> type supported by services eBox module allows
+        us to show and set a port number which resides in its data models, checking itself that
+        the given number is a valid port and, if the firewall module is installed, check its
+        avaliability.
       </para>
 
       <para>
         Once the general configuration is done, we are going to generate a list 
         of virtual hosts to live inside our web server. As the module is done as 
-        a proof concept only a name will be provided to generate a virtual host.
+        a proof concept only a name will be provided to generate a virtual host
+        and a checkbox to enable/disable the site.
         The document root is fixed and it is related to the virtual host's name
         and it is enabled by default. As it can exist as many as we wish, a data
         model in a table is the best solution to address here. Its description is
@@ -1426,9 +1401,110 @@ sub _tailoredOrder # (rows)
 
 }]]>
         </programlisting>
-
       </para>
 
+      <para>
+        One of our requisites is to handle DNS domains automatically provided that 
+        the DNS is installed. This is done whenever a virtual host is added to the model
+        through <methodname>addedRowNotify</methodname>. We try to add the domain and the 
+        hostname from a new added virtual host split the virtual host's name from the first dot,
+        i.e. having <emphasis>www.example.com</emphasis> as virtual host's name the hostname is 
+        <emphasis>www</emphasis> and the domain <emphasis>example.com</emphasis>. Regarding
+        to the IP address assigned to that host, we try to guess it from static internal
+        interfaces with <methodname>_guessWebIPAddr</methodname> private helper method. The almost
+        finished program listing is shown <xref linkend="added-dns-example"/>.
+        <example id="added-dns-example">
+          <title>Adding name resolution to the virtual host</title>
+          <programlisting><![CDATA[
+sub addedRowNotify
+  {
+
+      my ($self, $row) = @_;
+
+      # Get the DNS module
+      my $gl = EBox::Global->getInstance();
+      if ( $gl->modExists('dns') ) {
+          # We try to guess the IP address
+          my $ip = $self->_guessWebIPAddr();
+          if ( $ip ) {
+              my $vHostName = $row->{plainValueHash}->{name};
+              my $dns = $gl->modInstance('dns');
+              my ($hostName, $domain) = ( $vHostName =~ m/^(.*?)\.(.*)/g );
+
+              if ( none(@{$dns->domains()}) eq $domain ) {
+                  # The domain does not exist
+                  $dns->addDomain( name => $domain,
+                                   hostnames => [
+                                                 { name => $hostName,
+                                                   ip   => $ip,
+                                                 },
+                                                ]
+                                 );
+
+                  $self->setMessage(__x('Virtual host {vhost} added. A domain {domain} ' .
+                                        'has been created with the mapping ' .
+                                        'name {name} - IP address {ip} ',
+                                        vhost => $vHostName,
+                                        domain => $domain,
+                                        name   => $hostName,
+                                        ip     => $ip
+                                       ));
+              } else {
+                  my @hostNames = map { $_->{name} } @{$dns->hostnames()};
+                  if ( none(@hostNames) eq $hostName ) {
+                      # Add a host name
+                      # TODO
+                      $self->setMessage(__x('Virtual host {vhost} added. A mapping ' .
+                                            'name {name} - IP address {ip} has been added ' .
+                                            'to {domain} domain',
+                                            vhost  => $vHostName,
+                                            name   => $hostName,
+                                            ip     => $ip,
+                                            domain => $domain,
+                                           )); 
+                  } else {
+                      $self->setMessage(__x('Virtual host {vhost} added',
+                                            vhost => $vHostName));
+                  }
+              }
+          } else {
+              $self->setMessage(__('There is no static internal interface to ' .
+                                   'set the Web server IP address. Just a virtual host ' .
+                                   'has been added'));
+          }
+
+      }
+
+  }
+
+sub _guessWebIPAddr
+  {
+
+      my ($self) = @_;
+
+      my $gl = EBox::Global->getInstance();
+
+      my $networkMod = $gl->modInstance('network');
+
+      my $ip = undef;
+      foreach my $iface (@{$networkMod->InternalIfaces()}) {
+          # Get the static method interfaces
+          if ( $networkMod->ifaceMethod($iface) eq 'static' ) {
+              my @addrs = @{$networkMod->ifaceAddresses($iface)};
+              # Get the first one and finish
+              $ip = $addrs[0]->{address};
+              last;
+          }
+      }
+      return $ip;
+  }]]>
+          </programlisting>
+        </example>
+        The <methodname>setMessage</methodname> method implies the returning message 
+        shown to the user the action is made. We use it to inform about the new 
+        DNS domain added or the hostname added to an existint domain or nothing done
+        sincexo no static internal interface has been set up.
+      </para>
     </section>
         
     <section id="define-composite-sect">
@@ -1480,7 +1556,7 @@ sub _description
       <title>Publishing model and composite from this module</title>
       <para>
         In order to let eBox see the models and composites defined above, so 
-        that they will be shown and accessed to their data, let's edit the
+        that they access and manipulate their data, let's edit the
         main module class <classname>EBox::WebServer</classname>. To publish
         models and composites, we must override <methodname>models</methodname> and
         <methodname>composites</methodname> methods respectively as 
@@ -1513,7 +1589,7 @@ sub composites
 }]]>
           </programlisting>
         </example>
-        The private methods instantiates the models (composite) just once and 
+        The private methods instantiates the models (composites) just once and 
         it returns back a reference to them. The 
         <xref linkend="model-creation-example"/> describes the creation of the 
         enable form, virtual host model and the composite as examples for
@@ -1583,7 +1659,7 @@ sub _generalComposite
         (<parameter>domain</parameter>), its title 
         (<parameter>enableTitle</parameter>) and the model domain
         (<parameter>modelDomain</parameter>). The remainder two methods
-        are general ones used along eBox code.
+        are general ones used along eBox the code.
       </para>
 
     </section>
@@ -1668,9 +1744,9 @@ sub _regenConfig
 
         <para>
           In order to generate the configuration files and manage the apache daemon,
-          it is required to study the Apache web server and handled the features we
-          wish to have in our service. The Apache2 web server is a quite complex
-          software which manages several files to configure its service.
+          it is required to study the Apache web server and check if the features we
+          wish to have in our service are available. The Apache2 web server is a quite
+          complex software which manages several files to configure its service.
         </para>
 
         <para>
@@ -1681,7 +1757,7 @@ sub _regenConfig
         <para>
           To enable the user directory, the
           <ulink url="http://httpd.apache.org/docs/2.0/mod/mod_userdir.html">mod_userdir</ulink>
-          is used. Its availability comes with the debian package <classname>apache2</classname>
+          is used. Its availability comes with the debian package <classname>apache2-common</classname>
           and it must be listed in <filename>/etc/apache2/mods-available</filename> directory
           as two files <filename>userdir.conf</filename> and <filename>userdir.load</filename>.
           In order to enable the apache2 module, it is required to create symbolic links to
@@ -1692,7 +1768,7 @@ sub _regenConfig
         <para>
           Related to the virtual hosts, every new virtual host has a predefined template
           to configure them and it is set under <filename>/etc/apache2/sites-available</filename>
-          directory. Analogously to the previous module, the virtual host will be enabled
+          directory. Analogously to userdir module, the virtual host will be enabled
           when a symbolic link to that configuration file is placed in 
           <filename>/etc/apache2/sites-enabled</filename> directory.
         </para>
@@ -2069,12 +2145,13 @@ sub onInstall
                                         'http',
                                         'accept',
                                        );
+        # Save the changes
+        $serviceMod->save();
+        $firewall->save();
     } else {
         EBox::info('The http service is already exists, not adding');
     }
 
-    # Save the changes
-    $serviceMod->save();
 }
 
 sub onRemove
@@ -2094,9 +2171,12 @@ sub onRemove
 }]]>
             </programlisting>
           </example>
-          It is required to become an eBox user since these methods are called
-          on the installation scripts. This is not done automatically and it is
-          required to be called explicitly as <xref linkend="pre-post-script-example"/>
+          The default port number to use is 80, however it could be used by
+          another service as the administration one. This is the reason to check
+          any available port on the installation. It is required to become an eBox
+          user since these methods are called on the installation scripts. This is
+          not done automatically and it is required to be called explicitly
+          as <xref linkend="pre-post-script-example"/>
           shows on <filename>debian/ebox-web.postinst</filename> and 
           <filename>debian/ebox-web.prerm</filename>.
 
