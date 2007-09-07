@@ -1408,12 +1408,21 @@ sub onInstall
 	my $global = EBox::Global->instance();
 	my $fw = $global->modInstance('firewall');
 
-	if (defined($fw->service('ldap'))) {
-		return;
+    my $serviceMod = EBox::Global->modInstance('services');
+
+	if (not $serviceMod->serviceExists('name' => 'ldap')) {
+		 $serviceMod->addService('name' => 'ldap',
+			'protocol' => 'tcp',
+			'sourcePort' => 'any',
+			'destinationPort' => 389,
+			'internal' => 0);
+		
+	} else {
+		EBox::info("Not adding ldap service as it already exists");
 	}
 
-	$fw->addService('ldap', 'tcp', 389, 0);
-	$fw->setObjectService('_global', 'ldap', 'allow');
+    $fw->setInternalService('ldap', 'accept');
+
 
 	$fw->save();
 
@@ -1429,16 +1438,6 @@ sub onRemove
 {
 	EBox::init();
 
-	my $global = EBox::Global->instance();
-	my $fw = $global->modInstance('firewall');
-
-	unless (defined($fw->service('ldap'))) {
-		return;
-	}
-
-	$fw->removeService('ldap');
-
-	$fw->save();
 
 }
 
