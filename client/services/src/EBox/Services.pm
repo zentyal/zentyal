@@ -181,6 +181,39 @@ sub addService
     $self->{'serviceModel'}->addService(%params);
 }
 
+# Method: setService 
+#
+#   Set a existing service to the services table	
+#
+# Parameters:
+#
+#   (NAMED)
+#   
+#   name        - service's name
+#   description - service's description
+#	protocol    - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
+#	sourcePort  - it can take: 
+#                   "any"
+#                    An integer from 1 to 65536 -> 22
+#                   Two integers separated by colons -> 22:25 
+#	destinationPort - same as source
+#   internal - boolean, internal services can't be modified from the UI
+#   readOnly - boolean, set the row unremovable from the UI
+#
+#	Example:
+#
+#       'name' => 'ssh',
+#       'description' => 'secure shell'.
+#	    'protocol' => 'tcp',
+#	    'sourcePort' => 'any',
+#       'destinationPort' => '21:22',
+sub setService 
+{
+    my ($self, %params) = @_;
+
+    $self->{'serviceModel'}->setService(%params);
+}
+
 # Method: removeService 
 #
 #  Remove a service from the  services table	

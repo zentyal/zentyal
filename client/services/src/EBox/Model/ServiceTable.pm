@@ -76,8 +76,9 @@ use EBox::Types::Boolean;
 use EBox::Types::HasMany;
 use EBox::Sudo;
 use EBox::Model::ModelManager;
-
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
+
 
 
 use strict;
@@ -196,30 +197,128 @@ sub _tailoredOrder # (rows)
 #
 #   Example:
 #
-#        'protocol' => 'tcp',
-#        'source' => 'any',
+#       'protocol' => 'tcp',
+#       'source' => 'any',
 #       'destination' => '21:22',
 sub addService 
 {
     my ($self, %params) = @_;
 
-    my $name = delete $params{'name'};
-    my $description = delete $params{'description'};
-    my $internal = delete $params{'internal'};
-    my $readonly = delete $params{'readOnly'};
-    
-    my $id = $self->addRow('name' => $name, 
-                           'description' => $description,
-                           'internal' => $internal,
-			   'readOnly' => $readonly);
+    my $id = $self->addRow(_serviceParams(%params)); 
 
     unless (defined($id)) {
         throw EBox::Exceptions::Internal("Couldn't add name and description");
     }
 
+    my $serviceConf = EBox::Model::ModelManager
+                                       ->instance()
+                                       ->model('ServiceConfigurationTable');
+    unless (defined($serviceConf)) {
+        throw EBox::Exceptions::Internal(
+                    "Couldn't get ServiceConfigurationTable");
+    }
+
+
+    $serviceConf->setDirectory($self->{'directory'} . "/$id/configuration");
+    $serviceConf->addRow(_serviceConfParams(%params));
+
+}
+
+# Method: setService 
+#
+#   Add service to the services table. Note this method must exist
+#   because we set services manually from other modules.
+#
+#   It only makes sense with services having just one protocol.
+#
+# Parameters:
+#
+#   (NAMED)
+#   name       - service's name
+#   description - service's description
+#   protocol   - it can take one of these: any, tcp, udp, tcp/udp, grep, icmp
+#   sourcePort - it can take: 
+#               "any"
+#               An integer from 1 to 65536 -> 22
+#               Two integers separated by colons -> 22:25 
+#   destinationPort - same as source
+#   internal - booelan, to indicate if the service is internal or not
+#
+#   Example:
+#
+#       'protocol' => 'tcp',
+#       'source' => 'any',
+#       'destination' => '21:22',
+sub setService 
+{
+    my ($self, %params) = @_;
+
+    my $name = $params{'name'};
+    unless (defined($name)) {
+        throw EBox::Exceptions::MissingArgument('name');
+    }
+
+    my $row = $self->findValue('name' => $name); 
+    unless (defined($row)) {
+       throw EBox::Exceptions::DataNotFound('data' => 'service', 
+                                            'value' => 'name');
+    }
+
+    my $id = $row->{'id'};
+
+    unless (defined($id)) {
+        throw EBox::Exceptions::Internal("Couldn't add name and description");
+    }
+
+    my $serviceConf = EBox::Model::ModelManager
+                                       ->instance()
+                                       ->model('ServiceConfigurationTable');
+    unless (defined($serviceConf)) {
+        throw EBox::Exceptions::Internal(
+                    "Couldn't get ServiceConfigurationTable");
+    }
+
+
+    $serviceConf->setDirectory($self->{'directory'} . "/$id/configuration");
+    my @rows = @{$serviceConf->rows()};
+    unless (@rows > 0) {
+	throw EBox::Exceptions::External(
+			"This service has no protocols configured");
+    }
+
+    my $idConf = $rows[0]->{'id'};
+    
+    
+    my %confParams = _serviceConfParams(%params);
+    $confParams{'id'} = $idConf;
+    $serviceConf->setRow(1, %confParams);
+
+}
+
+sub _serviceParams
+{
+    my (%params) = @_;
+
+    my $name = delete $params{'name'};
+    my $description = delete $params{'description'};
+    my $internal = $params{'internal'};
+    my $readonly = $params{'readOnly'};
+    
+   return ('name' => $name, 'description' => $description,
+           'internal' => $internal, 'readOnly' => $readonly);
+ 
+}
+
+sub _serviceConfParams
+{
+    my (%params) = @_;
+
     my $protocol = delete $params{'protocol'};
     my $sourcePort = delete $params{'sourcePort'};
     my $destinationPort = delete $params{'destinationPort'};
+    my $internal = $params{'internal'};
+    my $readonly = $params{'readOnly'};
+   
     
     my $sourcePortType;
     my $sourcePortFrom;
@@ -252,28 +351,16 @@ sub addService
                           split (/:/, $destinationPort);
     }
 
-    my $serviceConf = EBox::Model::ModelManager
-                                       ->instance()
-                                       ->model('ServiceConfigurationTable');
-    unless (defined($serviceConf)) {
-        throw EBox::Exceptions::Internal(
-                    "Couldn't get ServiceConfigurationTable");
-    }
-
-	
-    $serviceConf->setDirectory($self->{'directory'} . "/$id/configuration");
-    $serviceConf->addRow('protocol' => $protocol, 
-                       'source_range_type' => $sourcePortType,
-                       'source_single_port' => $sourceSinglePort,
-                       'source_from_port' => $sourcePortFrom,
-                       'source_to_port' => $sourcePortTo,
-                       'destination_range_type' => $destinationPortType,
-                       'destination_single_port' => $destinationSinglePort,
-                       'destination_from_port' => $destinationPortFrom,
-                       'destination_to_port' => $destinationPortTo,
-	        	       'internal' => $internal,
-                       'readOnly' => $readonly);
-           
+    return ('protocol' => $protocol, 
+           'source_range_type' => $sourcePortType,
+           'source_single_port' => $sourceSinglePort,
+           'source_from_port' => $sourcePortFrom,
+           'source_to_port' => $sourcePortTo,
+           'destination_range_type' => $destinationPortType,
+           'destination_single_port' => $destinationSinglePort,
+           'destination_from_port' => $destinationPortFrom,
+           'destination_to_port' => $destinationPortTo,
+	   'internal' => $internal,
+	   'readOnly' => $readonly);
 }
-
 1;
