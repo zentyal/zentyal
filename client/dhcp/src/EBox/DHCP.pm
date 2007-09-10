@@ -1078,9 +1078,6 @@ sub onInstall
 
 	_addDHCPService();
 
-	my $serviceMod = EBox::Global->modInstance('services');
-	$serviceMod->save();
-    
 	my $fw = EBox::Global->modInstance('firewall');
     $fw->setInternalService('dhcp', 'accept');
     $fw->save();
@@ -1171,6 +1168,8 @@ sub _addDHCPService
 
 		EBox::info("Not adding dhcp services as it already exists");
 	}
+
+    $serviceMod->save();
 
 }
 
