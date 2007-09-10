@@ -466,6 +466,7 @@ sub statusSummary
 
 sub onInstall
 {
+    EBox::init();
     _addDNSService();
     my $fw = EBox::Global->modInstance('firewall');
 	$fw->setInternalService('dns', 'accept');
