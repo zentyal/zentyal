@@ -1,6 +1,11 @@
 #!/bin/bash
 
 webserver=apache
+onInstall() {
+
+        perl -e 'use EBox::DNS; EBox::DNS::onInstall();'
+}
+
 
 case "$1" in
 	configure)
@@ -22,6 +27,9 @@ case "$1" in
 
 		# stop bind9
 		invoke-rc.d bind9 stop
+
+        # run the onInstall method in the module
+        onInstall
 
 		invoke-rc.d ebox dns restart
 esac
