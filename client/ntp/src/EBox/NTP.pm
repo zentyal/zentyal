@@ -110,10 +110,6 @@ sub _configureFirewall($){
 		$fw->removeOutputRule('udp', 123);
 	}
 	
-	if ($self->service and (!defined($fw->service('ntp')))) {
-        _addNTPService();
-		$fw->setInternalService('ntp', 'accept');
-	}
 }
 
 # Method: setService 
@@ -395,9 +391,11 @@ sub statusSummary
 sub onInstall
 {
 	EBox::init();
-	my $serviceMod = EBox::Global->modInstance('services');
 	_addNTPService();
 	$serviceMod->save();
+	my $fw = EBox::Global->modInstance('firewall');
+	$fw->setInternalService('ntp', 'accept');
+    $fw->save();
 }
 
 # Method: onRemove
@@ -450,11 +448,19 @@ sub _addNTPService
 			'protocol' => 'udp',
 			'sourcePort' => 'any',
 			'destinationPort' => 123,
-			'internal' => 0);
+			'internal' => 1);
 		
 	} else {
+          $serviceMod->setService('name' => 'ntp',
+			'protocol' => 'udp',
+			'sourcePort' => 'any',
+			'destinationPort' => 123,
+			'internal' => 1);
+
 		EBox::info("Not adding ntp services as it already exists");
 	}
+
+    my $serviceMod = EBox::Global->modInstance('services');
 
 
 
