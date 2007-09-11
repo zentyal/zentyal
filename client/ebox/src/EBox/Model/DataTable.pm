@@ -306,7 +306,10 @@ sub validateRow
 #	Override this method to add your custom checks for
 #	the table fields. The parameters are passed like data types.
 #
-#	It will be called whenever a row is added/updated
+#	It will be called whenever a row is added/updated.
+#
+#       If the data is an update, only changed data is given to be
+#       validated.
 #
 # Arguments:
 #
