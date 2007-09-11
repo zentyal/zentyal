@@ -610,7 +610,7 @@ sub _addRow
       my $dir = $self->{'directory'};
       my $gconfmod = $self->{'gconfmodule'};
 
-      $self->validateRow('update', @_);
+      $self->validateRow('add', %params);
 
       my @userData;
       my $userData;
@@ -650,7 +650,7 @@ sub _setRow
       my $dir = $self->{'directory'};
       my $gconfmod = $self->{'gconfmodule'};
 
-      $self->validateRow('update', @_);
+      $self->validateRow('update', %params);
 
       my $oldrow = $self->row();
       # We can only set those types which have setters
