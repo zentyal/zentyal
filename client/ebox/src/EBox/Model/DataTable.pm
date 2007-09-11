@@ -886,6 +886,15 @@ sub setRow
 		$modified = 1;
 	}
 
+	# update readonly if change
+	my $rdOnlyKey = "$dir/$id/readOnly";
+	if (exists $params{'readOnly'} 
+	    and ($params{'readOnly'} xor $gconfmod->get_bool("$rdOnlyKey"))) {
+
+	    	$gconfmod->set_bool("$rdOnlyKey", $params{'readOnly'});
+
+	 }
+
 	$oldrow->{'values'} = \@newValues;
 
 	if ($modified) {
