@@ -127,7 +127,7 @@ sub _table
         new EBox::Types::Boolean(
             'fieldName' => 'internal',
             'printableName' => __('Internal'),
-            'hidden' => 1,
+#            'hidden' => 1,
         ),
         new EBox::Types::HasMany (
             'fieldName' => 'configuration',
@@ -177,6 +177,48 @@ sub _tailoredOrder # (rows)
 
 }
 
+# Method: portAvailable 
+#
+#	Check if a given port for a given protocol is available. That is,
+#	no internal service uses it.
+#
+# Parameters:
+#
+#   (POSITIONAL)
+#   protocol   - it can take one of these: tcp, udp
+#   port 	   - An integer from 1 to 65536 -> 22
+#
+# Returns:
+#   boolean - true if it's available, otherwise false
+#
+sub portAvailable
+{
+    my ($self, $protocol, $port) = @_;
+
+    unless (defined($protocol)) {
+        throw EBox::Exceptions::MissingArgument('protocol');
+    }
+
+    unless (defined($port)) {
+        throw EBox::Exceptions::MissingArgument('port');
+    }
+
+    my $internals = $self->findAll('internal' => 1);
+
+    my $serviceConf = EBox::Model::ModelManager
+        ->instance()
+        ->model('ServiceConfigurationTable');
+	
+    for my $service (@{$internals}) {
+        $serviceConf->setDirectory($service->{'configuration'}->{'directory'});
+	for my $conf (@{$serviceConf->findAllValue('destination' => $port)}) {
+		return undef if ($conf->{'protocol'} eq $protocol);
+	}
+    }
+    
+    return 1;
+}
+
 # Method: addService 
 #
 #   Add service to the services table. Note this method must exist
@@ -203,6 +245,8 @@ sub _tailoredOrder # (rows)
 sub addService 
 {
     my ($self, %params) = @_;
+    
+    $params{'readOnly'} = $params{'internal'};
 
     my $id = $self->addRow(_serviceParams(%params)); 
 
@@ -217,6 +261,7 @@ sub addService
         throw EBox::Exceptions::Internal(
                     "Couldn't get ServiceConfigurationTable");
     }
+
 
 
     $serviceConf->setDirectory($self->{'directory'} . "/$id/configuration");
@@ -264,11 +309,10 @@ sub setService
                                             'value' => 'name');
     }
 
-    my $id = $row->{'id'};
+    $params{'readOnly'} = $params{'internal'};
 
-    unless (defined($id)) {
-        throw EBox::Exceptions::Internal("Couldn't add name and description");
-    }
+    my $id = $row->{'id'};
+    $self->setRow(1, _serviceParams(%params), 'id' => $id);
 
     my $serviceConf = EBox::Model::ModelManager
                                        ->instance()
@@ -315,7 +359,7 @@ sub _serviceConfParams
 
     my $protocol = delete $params{'protocol'};
     my $sourcePort = delete $params{'sourcePort'};
-    my $destinationPort = delete $params{'destinationPort'};
+     my $destinationPort = delete $params{'destinationPort'};
     my $internal = $params{'internal'};
     my $readonly = $params{'readOnly'};
    

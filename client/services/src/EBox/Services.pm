@@ -214,6 +214,27 @@ sub setService
     $self->{'serviceModel'}->setService(%params);
 }
 
+# Method: availablePort 
+#
+#	Check if a given port for a given protocol is available. That is,
+#	no internal service uses it.
+#
+# Parameters:
+#
+#   (POSITIONAL)
+#   protocol   - it can take one of these: tcp, udp
+#   port 	   - An integer from 1 to 65536 -> 22
+#
+# Returns:
+#   boolean - true if it's available, otherwise false
+#
+sub availablePort
+{
+    my ($self, %params) = @_;
+
+    return $self->{'serviceModel'}->availablePort(%params);
+}
+
 # Method: removeService 
 #
 #  Remove a service from the  services table	
