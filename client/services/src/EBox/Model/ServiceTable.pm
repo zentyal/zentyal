@@ -177,7 +177,7 @@ sub _tailoredOrder # (rows)
 
 }
 
-# Method: portAvailable 
+# Method: availablePort
 #
 #	Check if a given port for a given protocol is available. That is,
 #	no internal service uses it.
@@ -191,7 +191,7 @@ sub _tailoredOrder # (rows)
 # Returns:
 #   boolean - true if it's available, otherwise false
 #
-sub portAvailable
+sub availablePort
 {
     my ($self, $protocol, $port) = @_;
 
