@@ -150,6 +150,7 @@ sub validateTypedRow()
     my ($self, $action, $parms)  = @_;
 
     if ($action eq 'add' or $action eq 'update') {
+    	return unless (exists $parms->{'protocol'});
         my $type = $parms->{'protocol'}->value();
         if ($type eq 'gre' or $type eq 'icmp' or $type eq 'any') {
             my $source = $parms->{'source'};
