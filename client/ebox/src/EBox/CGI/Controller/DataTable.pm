@@ -50,25 +50,9 @@ sub getParams
 		foreach my $fieldName ($field->fields()) {
 			my $value = $self->param($fieldName);
 
-# It is already done by the type
-#			if ($field->{'optional'} == 1 and $type  ne 'boolean') {
-#				if (not defined($value)) {
-#					$value = "";
-#				}
-#				
-#			} else {
-#
-#				if ($type ne 'boolean') {
-#					$self->_requireParam($fieldName,
-#						$field->printableName());
-#				} else {
-#					if ($value) {
-#						$value = 1;
-#					} else {
-#						$value = 0;
-#					}
-#				}
-#			}
+            if ((not $field->{'optional'}) and ($type ne 'boolean')) {
+					$self->_requireParam($fieldName, $field->printableName());
+            }
 
 			$params{$fieldName} = $value;
 		}
