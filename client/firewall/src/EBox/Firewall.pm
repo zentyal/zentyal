@@ -312,16 +312,14 @@ sub availablePort # (proto, port, interface)
 	($port ne "") or return undef;
 	my $global = EBox::Global->getInstance();
 	my $network = $global->modInstance('network');
+    my $services = $global->modInstance('services');
 
 	# if it's an internal interface, check all services
 	unless ($iface &&
 	($network->ifaceIsExternal($iface) || $network->vifaceExists($iface))) {
-		foreach (@{$self->services()}){
-			if (($self->servicePort($_->{name}) == $port) and 
-				($self->serviceProtocol($_->{name}) == $proto)){
-				return undef;
-			}
-		}
+        unless ($services->availablePort($proto, $port)) {
+            return undef;
+        }
 	}
 
 	# check for port redirections on the interface, on all internal ifaces
