@@ -849,23 +849,23 @@ sub setRow
 	  $self->_checkRowIsUnique($id, \@newValues);
 	}
 
-	my @oldValues = @{$oldrow->{'values'}};
+	my $oldValues = $oldrow->{'valueHash'};
 
 	my @changedData;
 	my $changedData;
 	for (my $i = 0; $i < @newValues ; $i++) {
 		my $newData = clone($newValues[$i]);
 		$newData->setMemValue(\%params);
-		$changedData->{$newData->fieldName()} = $newData;	
-
-		if ($oldValues[$i]->isEqualTo($newData)) {
+	
+		if ($oldValues->{$newData->fieldName()}->isEqualTo($newData)) {
 			next;
 		}
 
 		if ($newData->unique()) {
 			$self->_checkFieldIsUnique($newData);
 		}
-
+		
+		$changedData->{$newData->fieldName()} = $newData;	
 		push (@changedData, $newData);
 	
 	}
