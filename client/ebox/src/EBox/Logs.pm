@@ -20,7 +20,7 @@ use warnings;
 
 #FIXME: readd EBox::LogObserver to have logadmin working
 #use base qw(EBox::GConfModule EBox::LogObserver);
-use base qw(EBox::GConfModule EBox::Model::ModelProvider EBox::Model::CompositeProvider);
+use base qw(EBox::GConfModule EBox::Model::ModelProvider);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -33,7 +33,6 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::DBEngineFactory;
 use EBox::Logs::Model::ConfigureLogDataTable;
-use EBox::Test::SubComposite;
 use POSIX qw(ceil);
 
 use constant IMAGEPATH => EBox::Config::tmp . '/varimages';
@@ -110,24 +109,6 @@ sub models {
 
        return [$self->configureLogModel()];
 }
-
-# Method: composites
-#
-# Overrides:
-#
-#       <EBox::Model::CompositeProvider::composites>
-#
-sub composites
-  {
-
-      my ($self) = @_;
-
-      return [
-              $self->_testComposite(),
-              $self->_testSubComposite(),
-             ];
-
-  }
 
 # Method: allLogDomains
 #
@@ -487,8 +468,6 @@ sub menu
         $folder->add(new EBox::Menu::Item('url' =>
 					  'Logs/View/ConfigureLogTable',
                                           'text' => __('Configure logs')));
-        $folder->add(new EBox::Menu::Item('url' => 'Logs/Composite/TestComposite',
-                                          'text' => __('Test Composite')));
  
 	$root->add($folder);
 }
