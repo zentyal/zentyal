@@ -1157,14 +1157,16 @@ sub _addDHCPService
 			'protocol' => 'udp',
 			'sourcePort' => 'any',
 			'destinationPort' => 67,
-			'internal' => 1);
+			'internal' => 1,
+			'readOnly' => 1);
 		
 	} else {
 		 $serviceMod->setService('name' => 'dhcp',
 			'protocol' => 'udp',
 			'sourcePort' => 'any',
 			'destinationPort' => 67,
-			'internal' => 1);
+			'internal' => 1,
+			'readOnly' => 1);
 
 		EBox::info("Not adding dhcp services as it already exists");
 	}
