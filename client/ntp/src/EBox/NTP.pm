@@ -448,14 +448,16 @@ sub _addNTPService
 			'protocol' => 'udp',
 			'sourcePort' => 'any',
 			'destinationPort' => 123,
-			'internal' => 1);
+			'internal' => 1,
+			'readOnly' => 1);
 		
 	} else {
           $serviceMod->setService('name' => 'ntp',
 			'protocol' => 'udp',
 			'sourcePort' => 'any',
 			'destinationPort' => 123,
-			'internal' => 1);
+			'internal' => 1,
+			'readOnly' => 1);
 
 		EBox::info("Not adding ntp services as it already exists");
 	}
