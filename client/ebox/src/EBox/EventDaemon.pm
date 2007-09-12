@@ -42,6 +42,7 @@ use EBox::Config;
 # Core modules
 use File::stat;
 use IO::Handle;
+use Error qw(:try);
 
 # Constants:
 #
@@ -187,8 +188,16 @@ sub _mainWatcherLoop
               my $queueElementRef = $self->{registeredEvents}->{$registeredEvent};
               $queueElementRef->{deadOut} -= $self->{granularity};
               if ( $queueElementRef->{deadOut} <= 0 ) {
-                  # Run the event
-                  my $eventsRef = $queueElementRef->{instance}->run();
+                  my $eventsRef = undef;
+                  try {
+                      # Run the event
+                      $eventsRef = $queueElementRef->{instance}->run();
+                  } otherwise {
+                      my $exception = shift;
+                      EBox::warn("Error executing run from $registeredEvent: $exception");
+                      # Deleting from registered events
+                      delete ($self->{registeredEvents}->{$registeredEvent});
+                  };
                   # An event has happened
                   if ( defined ( $eventsRef )) {
                       foreach my $event (@{$eventsRef}) {
