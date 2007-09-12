@@ -49,11 +49,8 @@ sub getParams
 
 		foreach my $fieldName ($field->fields()) {
 			my $value = $self->param($fieldName);
-
-            if ((not $field->{'optional'}) and ($type ne 'boolean')) {
-					$self->_requireParam($fieldName, $field->printableName());
-            }
-
+            # TODO Review code to see if we are actually checking
+            # types which are not optional
 			$params{$fieldName} = $value;
 		}
 	}
