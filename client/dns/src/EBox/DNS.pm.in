@@ -493,14 +493,16 @@ sub _addDNSService
            'protocol' => 'udp',
            'sourcePort' => 'any',
            'destinationPort' => 53,
-           'internal' => 1);
+           'internal' => 1,
+	   'readOnly' => 1);
 
    } else {
        $serviceMod->setService('name' => 'dns',
            'protocol' => 'udp',
            'sourcePort' => 'any',
            'destinationPort' => 53,
-           'internal' => 1);
+           'internal' => 1,
+	   'readOnly' => 1);
        EBox::info("Not adding dns service as it already exists");
    }
 
