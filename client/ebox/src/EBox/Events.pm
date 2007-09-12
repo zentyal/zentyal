@@ -86,6 +86,8 @@ sub _create
 
       bless ($self, $class);
 
+      return $self;
+
   }
 
 # Method: _regenConfig
@@ -112,7 +114,10 @@ sub _regenConfig
       }
 
       # Check for admin dumbness, it can throw an exception
-      $self->_adminDumbness();
+      if ( $self->_adminDumbness() ) {
+          $self->_stopService();
+          return;
+      }
 
       $self->_doDaemon();
 
@@ -354,9 +359,9 @@ sub enableEventElement # ($className, $enabled)
           my @enabled  = @{$self->get_list($type . '_to_enable')};
           unless ( grep { $_ eq $className } @enabled ) {
               my @disabled = @{$self->get_list($type . '_to_disable')};
-              my $disabledWatchers = scalar(@disabled);
+              my $disabled = scalar(@disabled);
               @disabled = grep { $_ ne $className } @disabled;
-              if ( scalar(@disabled) != $disabledWatchers ) {
+              if ( scalar(@disabled) != $disabled ) {
                   $self->set_list($type . '_to_disable', 'string', \@disabled);
                   # Delete from the enabled list
                   return;
@@ -372,9 +377,9 @@ sub enableEventElement # ($className, $enabled)
           unless ( grep { $_ eq $className } @disabled ) {
               # Disable watcher
               my @enabled = @{$self->get_list($type . '_to_enable')};
-              my $enabledWatchers = scalar(@enabled);
+              my $enabled = scalar(@enabled);
               @enabled = grep { $_ ne $className } @enabled;
-              if ( scalar(@enabled) != $enabledWatchers ) {
+              if ( scalar(@enabled) != $enabled ) {
                   $self->set_list($type . '_to_enable', 'string', \@enabled);
                   # Delete from enable, nothing has been done yet
                   return;
@@ -412,17 +417,20 @@ sub _adminDumbness
 
       my ($self) = @_;
 
-      # FIXME: TODO when the juv branch will be merged
-#      my $eventModel = $self->configureEventModel();
-#      my $dispatcherModel = $self->configureDispatcherModel();
-#
-#      my $match = $eventModel->find( enabled => 1);
-#      defined ( $match ) or
-#        throw EBox::Exceptions::External(__('No event watchers have been enabled'));
-#
-#      $match = $dispatcherModel->find( enabled => 1);
-#      defined ( $match ) or
-#        throw EBox::Exceptions::External(__('No event dispatchers have been enabled'));
+      my $eventModel = $self->configureEventModel();
+      my $dispatcherModel = $self->configureDispatcherModel();
+
+      my $match = $eventModel->find( enabled => 1);
+      unless ( defined ( $match )) {
+          EBox::warn('No event watchers have been enabled');
+          return 1;
+      }
+
+      $match = $dispatcherModel->find( enabled => 1);
+      unless ( defined ( $match )) {
+          EBox::warn('No event dispatchers have been enabled');
+          return 1;
+      }
 
       return undef;
 
