@@ -856,7 +856,7 @@ sub setRow
 	for (my $i = 0; $i < @newValues ; $i++) {
 		my $newData = clone($newValues[$i]);
 		$newData->setMemValue(\%params);
-	
+
 		if ($oldValues->{$newData->fieldName()}->isEqualTo($newData)) {
 			next;
 		}
@@ -864,8 +864,9 @@ sub setRow
 		if ($newData->unique()) {
 			$self->_checkFieldIsUnique($newData);
 		}
-		
-		$changedData->{$newData->fieldName()} = $newData;	
+
+                $newData->setRow($oldrow);
+		$changedData->{$newData->fieldName()} = $newData;
 		push (@changedData, $newData);
 	
 	}
