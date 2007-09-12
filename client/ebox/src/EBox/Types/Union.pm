@@ -247,7 +247,7 @@ sub HTMLSetter
 
       my ($self) = @_;
 
-      my $definedSetter = undef;
+      my $definedSetter = 0;
       foreach my $type (@{$self->{'subtypes'}}) {
           next unless ( defined ( $type->HTMLSetter() ));
           $definedSetter = 1;

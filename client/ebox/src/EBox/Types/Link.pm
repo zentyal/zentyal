@@ -56,7 +56,7 @@ sub new
       unless (exists $opts{'HTMLViewer'}) {
           $opts{'HTMLViewer'} ='/ajax/viewer/hasManyViewer.mas';
       }
-      
+
       $opts{'type'}     = 'link';
       $opts{'editable'} = 0;
       $opts{'optional'} = 1;
@@ -64,6 +64,9 @@ sub new
       my $self = $class->SUPER::new(%opts);
 
       bless ( $self, $class );
+
+      $self->{'HTMLSetter'} = undef;
+
       return $self;
 
   }
