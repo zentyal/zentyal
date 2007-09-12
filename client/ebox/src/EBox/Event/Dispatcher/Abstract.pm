@@ -189,7 +189,7 @@ sub enable
 #
 #       Class method which determines which kind of method is used in
 #       order to select which kind of configuration will be used. This
-#       method should be overridden.
+#       method should be overridden. *(Abstract)*
 #
 # Returns:
 #
@@ -299,6 +299,31 @@ sub _name
 
       # Default, return the class name
       return ref ( $self );
+
+  }
+
+# Method: _enable
+#
+#       It will test that it is enable to send the information to the
+#       receiver. It assumes that some configuration is already
+#       given. *(Abstract)*
+#
+#       An example could be the control center dispatcher that it will
+#       be test its connectivity to the listening server.
+#
+# Returns:
+#
+#       true - if the dispatcher is enabled to send events
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::External> - thrown if the dispatcher is not
+#       able to send events
+#
+sub _enable
+  {
+
+      return 1;
 
   }
 

@@ -61,20 +61,19 @@ sub new
       bless( $self, $class );
 
       # The required parameters
-      $self->{resource}     = 'Home';
+      $self->{resource} = 'Home';
+      $self->{ready}  = 0;
 
       # Get parameters from the model
       $self->_jabberDispatcherParams();
-#      $self->{server}       = 'ebox.org';
+#      $self->{server}       = 'jabber.escomposlinux.org';
 #      $self->{port}         = 5222;
-#      $self->{user}         = 'logger';
-#      $self->{password}     = 'foobar';
-#      $self->{adminJID} = 'admin@ebox.org';
+#      $self->{user}         = 'ebox-logger';
+#      $self->{password}     = 'logger';
+#      $self->{adminJID}     = 'quique_h@jabber.org';
+#      $self->{subscribe}    = 1;
 
 #      $self->_confClient();
-
-      use Data::Dumper;
-      EBox::debug(Dumper($self));
 
       return $self;
 
@@ -89,7 +88,7 @@ sub new
 sub configured
   {
 
-      return 'true';
+      my ($self) = @_;
 
       # Jabber dispatcher is configured only if the values from the
       # configuration model are set
@@ -97,6 +96,7 @@ sub configured
         $self->{user} and $self->{password} and $self->{adminJID});
 
   }
+
 
 # Method: ConfigurationMethod
 #
@@ -140,6 +140,10 @@ sub send
       defined ( $event ) or
         throw EBox::Exceptions::MissingArgument('event');
 
+      unless ( $self->{ready} ) {
+          $self->enable();
+      }
+
       # Send to the jabber
       my $msg = $self->_createEventMessage($event);
       $self->{connection}->Send($msg);
@@ -176,6 +180,21 @@ sub _name
 
   }
 
+# Method: _enable
+#
+# Overrides:
+#
+#        <EBox::Event::Dispatcher::Abstract::_enable>
+#
+sub _enable
+  {
+
+      my ($self) = @_;
+
+      $self->_confClient();
+
+  }
+
 # Group: Private methods
 
 # Configurate the jabber connection
@@ -208,17 +227,43 @@ sub _confClient
                                                      resource => $self->{resource},
                                                     );
 
-      unless ( $self->{connection}->Connected() ) {
-          # FIXME: Try to register
-          throw EBox::Exceptions::External(__x('Authorization failed: {result} - {message}',
-                                               result  => $authResult[0],
-                                               message => $authResult[1],
-                                              )
-                                          );
+      unless ( defined ( $authResult[0] )) {
+          $self->_problems('AuthSend');
+      }
+
+      unless ( $authResult[0] eq 'ok' ) {
+          if ( $self->{subscribe} ) {
+              # Try to register the user
+              my @registerResult = @{$self->_register()};
+
+              if ( $registerResult[0] eq 'ok' ) {
+                  # Registration was ok
+                  $self->{subscribe} = 0;
+                  $self->{connection}->Disconnect();
+                  # Reconnect to authenticate
+                  $self->_confClient();
+                  return;
+              } else {
+                  throw EBox::Exceptions::External(__x('Subscription failed: {message}',
+                                                       message => $registerResult[1]
+                                                       )
+                                                  );
+              }
+
+          } else {
+              throw EBox::Exceptions::External(__x('Authorization failed: {result} - {message}',
+                                                   result  => $authResult[0],
+                                                   message => $authResult[1],
+                                                  )
+                                              );
+          }
       }
 
       # Sending presence to the ebox admin
       $self->{connection}->PresenceSend();
+
+      # Flag to indicate the Jabber dispatcher is ready to send messages
+      $self->{ready} = 1;
 
   }
 
@@ -265,13 +310,52 @@ sub _jabberDispatcherParams
 
       my $values = $row->{printableValueHash};
 
-      $self->{server}   = $values->{server};
-      $self->{port}     = $values->{port};
-      $self->{user}     = $values->{user};
-      $self->{password} = $values->{password};
-      $self->{adminJID} = $values->{adminJID};
+      $self->{server}    = $values->{server};
+      $self->{port}      = $values->{port};
+      $self->{user}      = $values->{user};
+      $self->{password}  = $values->{password};
+      $self->{adminJID}  = $values->{adminJID};
+      $self->{subscribe} = $values->{subscribe};
 
   }
 
-1;
+# Method to try to register at the Jabber server
+sub _register
+  {
 
+      my ($self) = @_;
+
+      my %requestResult = $self->{connection}->RegisterRequest();
+
+      unless (scalar ( keys ( %requestResult )) >= 0) {
+          $self->_problems('RegisterRequest');
+      }
+
+      my @registerResult = $self->{connection}->RegisterSend(
+                                     username => $self->{user},
+                                     password => $self->{password},
+                                     name     => 'eBox de Platform',
+                                     email => 'ebox@eboxplatform.com',
+                                                            );
+
+      unless ( defined ( $registerResult[0] )) {
+          $self->_problems('AuthSend');
+      }
+
+      return \@registerResult;
+
+  }
+
+# Method to get the error code
+sub _problems
+  {
+
+      my ($self, $methodName) = @_;
+
+      EBox::error("Error processing $methodName " .
+                  $self->{connection}->GetErrorCode());
+
+      throw EBox::Exceptions::Internal('Error when communicating to the Jabber server');
+  }
+
+1;

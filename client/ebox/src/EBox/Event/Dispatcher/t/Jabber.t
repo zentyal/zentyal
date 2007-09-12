@@ -28,8 +28,6 @@ use EBox;
 use EBox::Event;
 use EBox::Global;
 
-
-
 diag ( 'Starting EBox::Event::Dispatcher::Jabber test' );
 
 BEGIN {
@@ -47,6 +45,11 @@ lives_ok
                                level   => 'info',
                               );
   } 'Creating the jabber dispatcher and the event to send';
+
+lives_ok
+  {
+      $jabberDispatcher->enable()
+  } 'Enabling the jabber dispatcher';
 
 ok ( $jabberDispatcher->send($event),
      'Sending test event to the admin');
