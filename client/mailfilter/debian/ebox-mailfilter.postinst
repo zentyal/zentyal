@@ -79,9 +79,6 @@ case "$1" in
 		# populate file filter
 		/usr/lib/ebox-mailfilter/ebox-mailfilter-populate-filefilter update
 
-                # restart module
-		invoke-rc.d ebox mailfilter restart
-
 		# invoke freshclam to update antvirus database if connection is found
 		ping -c 1 www.google.com 2>&1 > /dev/null
 		CONNECTION=$?
@@ -95,6 +92,9 @@ case "$1" in
 		    echo "It seems that this host has not internet connectivity. Freshclam (virus database updater) not run"
 		    echo "Please, run freshclam as soon as possible"
 		fi
+
+                # restart module
+		invoke-rc.d ebox mailfilter restart
 esac
 
 #DEBHELPER#
