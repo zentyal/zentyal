@@ -236,6 +236,7 @@ sub availablePort
 #               Two integers separated by colons -> 22:25 
 #   destinationPort - same as source
 #   internal - booelan, to indicate if the service is internal or not
+#   readOnly - the service can't be deleted or modified
 #
 #   Example:
 #
@@ -246,7 +247,6 @@ sub addService
 {
     my ($self, %params) = @_;
     
-    $params{'readOnly'} = $params{'internal'};
 
     my $id = $self->addRow(_serviceParams(%params)); 
 
@@ -288,6 +288,7 @@ sub addService
 #               Two integers separated by colons -> 22:25 
 #   destinationPort - same as source
 #   internal - booelan, to indicate if the service is internal or not
+#   readOnly - the service can't be deleted or modified
 #
 #   Example:
 #
@@ -308,8 +309,6 @@ sub setService
        throw EBox::Exceptions::DataNotFound('data' => 'service', 
                                             'value' => 'name');
     }
-
-    $params{'readOnly'} = $params{'internal'};
 
     my $id = $row->{'id'};
     $self->setRow(1, _serviceParams(%params), 'id' => $id);
