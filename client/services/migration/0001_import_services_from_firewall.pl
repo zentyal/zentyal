@@ -105,7 +105,7 @@ sub _addBaseServices
                 'protocol' => 'tcp', 
                 'sourcePort' => 'any',
                 'destinationPort' => '443',
-                'internal' => 0,
+                'internal' => 1,
                 'readOnly' => 1);
     }
 
