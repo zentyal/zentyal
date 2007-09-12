@@ -118,7 +118,7 @@ my @rows = map {
 % if (@mtas) {
 <& /dataTable.mas, rows => \@rows, titles => \@titles &>
 % } else {
- <& /msg.mas, msg => __('No allowed external mail servers') &>
+ <& /msg.mas, msg => __("There isn't any allowed external mail server") &>
 % }
 
 <h4><% __('Add external mail server') %></h4>
@@ -153,7 +153,7 @@ my @rows = map {
 % if (@domains) {
 <& /dataTable.mas, rows => \@rows, titles => \@titles &>
 % } else {
- <& /msg.mas, msg => __('No external mail domains') &>
+ <& /msg.mas, msg => __("There isn't any allowed external mail domain") &>
 % }
 
 <h4><% __('Add external mail domain') %></h4>

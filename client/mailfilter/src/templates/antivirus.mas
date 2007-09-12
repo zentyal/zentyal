@@ -93,7 +93,7 @@ $info
 $date
 </%args>
 <%init>
-my $msg = __x('The last update was successful at {date}', date => $date);
+my $msg = __x('The last successful update was at {date}', date => $date);
 </%init>
 <& /msg.mas, msg => $msg &>
 </%def>

@@ -12,5 +12,5 @@ $policy
 
    title         => __('Configure denied file extensions'),
    printableName => __('file extension'),
-   printableNamePlural   => __('extensions'),
+   printableNamePlural   => __('Extensions'),
 &>
