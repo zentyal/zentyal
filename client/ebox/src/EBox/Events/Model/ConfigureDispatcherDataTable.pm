@@ -191,6 +191,10 @@ sub updatedRowNotify
 #
 #      Check if the dispatcher has been configurated to be enabled
 #
+# Overrides:
+#
+#      <EBox::Model::DataTable::validateTypedRow>
+#
 # Exceptions:
 #
 #      <EBox::Exceptions::External> - thrown if the dispatcher tries
@@ -199,11 +203,11 @@ sub updatedRowNotify
 sub validateTypedRow
   {
 
-      my ( $self, $action, $row ) = @_;
+      my ( $self, $action, $newFields ) = @_;
 
       if ( $action eq 'update' ) {
-          $self->_checkIfConfigured($row);
-          $self->_checkEnabled($row);
+          $self->_checkIfConfigured($newFields);
+          $self->_checkEnabled($newFields);
       }
 
   }
@@ -256,6 +260,7 @@ sub _table
                                 fieldName     => 'configuration',
                                 printableName => __('Configuration'),
                                 class         => 'tcenter',
+                                editable      => 0,
                                 subtypes      =>
                                 [
                                  new EBox::Types::Link(
@@ -396,7 +401,7 @@ sub acquireURL
 
       my ($instancedType) = @_;
 
-      my $className = $instancedType->row()->{valueHash}->{eventDispatcher}->value();
+      my $className = $instancedType->row()->{plainValueHash}->{eventDispatcher};
 
       eval "use $className";
       if ( $@ ) {
@@ -411,11 +416,12 @@ sub acquireURL
 # Function: acquireConfModel
 #
 #       Callback function used to gather the foreignModel and its view
-#       in order to configurate the event dispatcher
+#       in order to configure the event dispatcher
 #
 # Parameters:
 #
-#       row - hash ref containing the data table row
+#       row - hash ref with the content what is stored in GConf
+#       regarding to this row.
 #
 # Returns:
 #
@@ -477,12 +483,12 @@ sub _fetchDispatchers
   }
 
 # Check if the event dispatcher is already configurated or not
-sub _checkIfConfigured # (row)
+sub _checkIfConfigured # (newFields)
   {
 
-      my ($self, $row) = @_;
+      my ($self, $newFields) = @_;
 
-      my $className = $row->{eventDispatcher}->value();
+      my $className = $newFields->{enabled}->row()->{plainValueHash}->{eventDispatcher};
 
       eval "use $className";
       if ( $@ ) {
@@ -491,8 +497,8 @@ sub _checkIfConfigured # (row)
       }
 
       my $dispatcher = $className->new();
-      if ( (not $dispatcher->configurated()) and
-           $row->{enabled}->value() ) {
+      if ( (not $dispatcher->configured()) and
+           $newFields->{enabled}->value() ) {
           throw EBox::Exceptions::External(__('In order to enable a configurable event ' .
                                               'dispatcher, you need to configure it first'));
       }
@@ -500,14 +506,14 @@ sub _checkIfConfigured # (row)
   }
 
 # Check if the event dispatcher is enabled to send messages
-sub _checkEnabled # (row)
+sub _checkEnabled # (newFields)
   {
 
-      my ($self, $row) = @_;
+      my ($self, $newFields) = @_;
 
       # Check if it is capable only if it is enabled to send events
-      if ( $row->{enabled}->value() ) {
-          my $className = $row->{eventDispatcher}->value();
+      if ( $newFields->{enabled}->value() ) {
+          my $className = $newFields->{enabled}->row()->{plainValueHash}->{eventDispatcher};
 
           eval "use $className";
           if ( $@ ) {

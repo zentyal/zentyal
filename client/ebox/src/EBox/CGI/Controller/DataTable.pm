@@ -143,13 +143,14 @@ sub refreshTable
 	my $filter = $self->param('filter');
 	my $page = $self->param('page');
 	my $pageSize = $self->param('pageSize');
-	$model->setPageSize($pageSize);
+        if ( defined ( $pageSize )) {
+            $model->setPageSize($pageSize);
+        }
 	my $rows = $model->rows($filter, $page);
 	my $tpages = $model->pages($filter);
 	my @params;
 	push(@params, 'data' => $rows);
 	push(@params, 'dataTable' => $model->table());
-        push(@params, 'model'  => $model);
 	push(@params, 'model' => $model);
 	push(@params, 'action' => $self->{'action'});
 	push(@params, 'editid' => $self->param('editid'));

@@ -286,7 +286,7 @@ sub _loadModules
                       $instance = $className->new();
                       $self->{$registeredField}->{$className} = {
                                                                  instance => $instance,
-                                                                 deadOut  => $instance->period(),
+                                                                 deadOut  => 0,
                                                                 };
                   } else {
                       EBox::info("Class $className not derived from EBox::Event::Watcher::Base");
@@ -441,6 +441,7 @@ sub _addToDispatch
       my ($self, $eventPipe, $event) = @_;
 
       my $eventStr = Dumper($event);
+
       # Deleting the newline characters
       $eventStr =~ s/\n//g;
 
