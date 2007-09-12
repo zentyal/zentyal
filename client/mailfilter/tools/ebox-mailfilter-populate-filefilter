@@ -50,6 +50,8 @@ sub update
     $ffilter->setExtension($extension, 1);
   }
 
+  $mailfilter->save();
+
 }
 
 
