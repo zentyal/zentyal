@@ -187,6 +187,27 @@ sub updatedRowNotify
 
   }
 
+# Method: validateTypedRow
+#
+#      Check if the dispatcher has been configurated to be enabled
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::External> - thrown if the dispatcher tries
+#      to be enabled when it is not configurated
+#
+sub validateTypedRow
+  {
+
+      my ( $self, $action, $row ) = @_;
+
+      if ( $action eq 'update' ) {
+          $self->_checkIfConfigured($row);
+          $self->_checkEnabled($row);
+      }
+
+  }
+
 # Group: Protected methods
 
 # Method: _table
@@ -229,7 +250,7 @@ sub _table
                                editable      => 0,
                                # The value is obtained dynamically
                                volatile      => 1,
-                               wangler       => \&wangleReceiver,
+                               filter        => \&filterReceiver,
                               ),
          new EBox::Types::Union(
                                 fieldName     => 'configuration',
@@ -241,19 +262,18 @@ sub _table
                                                        fieldName => 'configuration_link',
                                                        editable  => 0,
                                                        volatile  => 1,
-                                                       wangler   => \&wangleURL,
+                                                       acquirer  => \&acquirerURL,
                                                       ),
                                  new EBox::Types::HasMany(
-                                                          fieldName           => 'configuration_model',
-                                                          backView            => '/ebox/Events/View/ConfigureDispatcherDataTable',
-                                                          size                => 1,
-                                                          trailingText        => '',
-                                                          foreignModelWangler => \&wangleConfModel,
+                                                          fieldName            => 'configuration_model',
+                                                          backView             => '/ebox/Events/View/ConfigureDispatcherDataTable',
+                                                          size                 => 1,
+                                                          trailingText         => '',
+                                                          foreignModelAcquirer => \&acquireConfModel,
                                                          ),
                                  new EBox::Types::Union::Text(
                                                               fieldName     => 'configuration_none',
                                                               printableName => __('None'),
-                                                              optional      => 1,
                                                              ),
                                 ]
                                ),
@@ -300,7 +320,8 @@ sub _table
 #
 # Parameters:
 #
-#     className - String the event dispatcher class name
+#     instancedType - <EBox::Types::Text> the cell which will contain
+#     the name
 #
 # Returns:
 #
@@ -309,7 +330,9 @@ sub _table
 sub filterName
   {
 
-      my ($className) = @_;
+      my ($instancedType) = @_;
+
+      my $className = $instancedType->value();
 
       eval "use $className";
       if ( $@ ) {
@@ -322,26 +345,26 @@ sub filterName
 
   }
 
-# Function: wangleReceiver
+# Function: filterReceiver
 #
 #     Callback used to gather the value of the receiver field. It
 #     localises the event receiver to the configured locale.
 #
 # Parameters:
 #
-#     row - hash ref containing the containment of a data table
-#     row
+#     instancedType - <EBox::Types::Text> the cell which will contain
+#     the receiver
 #
 # Returns:
 #
 #     String - localised the event receiver name
 #
-sub wangleReceiver
+sub filterReceiver
   {
 
-      my ($rowRef) = @_;
+      my ($instancedType) = @_;
 
-      my $className = $rowRef->{eventDispatcher};
+      my $className = $instancedType->row()->{valueHash}->{eventDispatcher}->value();
 
       eval "use $className";
       if ( $@ ) {
@@ -354,25 +377,26 @@ sub wangleReceiver
 
   }
 
-# Function: wangleURL
+# Function: acquireURL
 #
 #      Callback function used to gather the URL that will fill the
 #      value for the link
 #
 # Parameters:
 #
-#      row - hash ref containing the container of a data table row
+#      instancedType - <EBox::Types::Abstract> the cell which will contain
+#      the URL
 #
 # Returns:
 #
 #      String - the URL
 #
-sub wangleURL
+sub acquireURL
   {
 
-      my ($rowRef) = @_;
+      my ($instancedType) = @_;
 
-      my $className = $rowRef->{eventDispatcher};
+      my $className = $instancedType->row()->{valueHash}->{eventDispatcher}->value();
 
       eval "use $className";
       if ( $@ ) {
@@ -384,7 +408,7 @@ sub wangleURL
 
   }
 
-# Function: wangleConfModel
+# Function: acquireConfModel
 #
 #       Callback function used to gather the foreignModel and its view
 #       in order to configurate the event dispatcher
@@ -397,12 +421,12 @@ sub wangleURL
 #
 #      String - the foreign model to configurate the dispatcher
 #
-sub wangleConfModel
+sub acquireConfModel
   {
 
-      my ($rowRef) = @_;
+      my ($row) = @_;
 
-      my $className = $rowRef->{eventDispatcher};
+      my $className = $row->{eventDispatcher};
 
       eval "use $className";
       if ( $@ ) {
@@ -452,6 +476,54 @@ sub _fetchDispatchers
 
   }
 
+# Check if the event dispatcher is already configurated or not
+sub _checkIfConfigured # (row)
+  {
+
+      my ($self, $row) = @_;
+
+      my $className = $row->{eventDispatcher}->value();
+
+      eval "use $className";
+      if ( $@ ) {
+          # Error loading class -> dispatcher to remove
+          return;
+      }
+
+      my $dispatcher = $className->new();
+      if ( (not $dispatcher->configurated()) and
+           $row->{enabled}->value() ) {
+          throw EBox::Exceptions::External(__('In order to enable a configurable event ' .
+                                              'dispatcher, you need to configure it first'));
+      }
+
+  }
+
+# Check if the event dispatcher is enabled to send messages
+sub _checkEnabled # (row)
+  {
+
+      my ($self, $row) = @_;
+
+      # Check if it is capable only if it is enabled to send events
+      if ( $row->{enabled}->value() ) {
+          my $className = $row->{eventDispatcher}->value();
+
+          eval "use $className";
+          if ( $@ ) {
+              # Error loading class -> dispatcher to remove
+              return;
+          }
+
+          my $dispatcher = $className->new();
+
+          return $dispatcher->enable();
+      } else {
+          return 1;
+      }
+
+  }
+
+
 
 1;
-

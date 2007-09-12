@@ -32,15 +32,13 @@ package EBox::Events::Model::Dispatcher::Jabber;
 use base 'EBox::Model::DataForm';
 
 # eBox uses
+use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Int;
 use EBox::Types::Password;
 use EBox::Types::Text;
 use EBox::Validate;
-use EBox::Types::Text;
-use EBox::Types::Int;
-use EBox::Types::Password;
 
 ################
 # Dependencies
@@ -134,6 +132,11 @@ sub _table
                                    minLength     => 4,
                                    maxLength     => 25,
                                   ),
+         new EBox::Types::Boolean(
+                                  fieldName      => 'subscribe',
+                                  printableName  => __('Subscribe'),
+                                  editable       => 1,
+                                 ),
          new EBox::Types::Text(
                                fieldName     => 'adminJID',
                                printableName => __('Administrator Jabber Identifier'),
@@ -150,8 +153,8 @@ sub _table
                       tableDescription   => \@tableDesc,
                       class              => 'dataForm',
                       help               => __('In order to configure the Jabber event dispatcher ' .
-                                               'is not required to be registered at the chosen Jabber ' .
-                                               'server, this will be do for you. The administrator ' .
+                                               'is required to be registered at the chosen Jabber ' .
+                                               'server or check subscribe to do register. The administrator ' .
                                                'identifier should follow the pattern: user@domain[/resource]'),
                       messages           => {
                                              update => __('Jabber dispatcher configuration updated'),
@@ -169,18 +172,18 @@ sub _checkAdminJID # (jid)
   {
 
       my ($self, $adminJID) = @_;
-      my ($user, $domain, $resource ) = ( $adminJID =~ m:(.*)\@(.*)[/(.*)]:g );
 
       my $jid = new Net::Jabber::JID();
       $jid->SetJID($adminJID);
 
-      unless ( $adminJID eq $jid->GetJID('full') ) {
+      # Both userID and server must not be empty
+      unless ( $jid->GetUserID() and $jid->GetServer() ) {
           # Some changes was needed
-          throw EBox::Exceptions::External(__x('The administrator Jabber Identifier {badJID} ' .
-                                               'is not correct. The suggestted option is {goodJID}',
-                                               badJID => $adminJID,
-                                               goodJID => $jid->GetJID('full'),
-                                               ));
+          throw EBox::Exceptions::InvalidData( data => __('Administrator Jabber Identifier'),
+                                               value => $adminJID,
+                                               advice => __('It should follow the pattern ' .
+                                                            q{'user@domain[/resource]'})
+                                             );
       }
 
   }

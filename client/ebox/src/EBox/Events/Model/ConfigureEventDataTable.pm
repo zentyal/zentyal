@@ -82,59 +82,6 @@ sub new
 
   }
 
-# Function: filterName
-#
-#     Callback used to filter the output of the name field. It
-#     localises the event name to the configured locale.
-#
-# Parameters:
-#
-#     className - String the event watcher class name
-#
-# Return:
-#
-#     String - localised the event name
-#
-sub filterName
-  {
-
-      my ($className) = @_;
-
-      eval "use $className";
-      my $watcher = $className->new();
-
-      return $watcher->name();
-
-  }
-
-# Function: wangleDescription
-#
-#     Callback used to gather the value of the description field. It
-#     localises the event description to the configured locale.
-#
-# Parameters:
-#
-#     hash - hash ref containing the containment of a data table
-#     row
-#
-# Return:
-#
-#     String - localised the description name
-#
-sub wangleDescription
-  {
-
-      my ($hashRef) = @_;
-
-      my $className = $hashRef->{eventWatcher};
-
-      eval "use $className";
-      my $watcher = $className->new();
-
-      return $watcher->description();
-
-  }
-
 # Method: rows
 #
 #      This method is overridden since the showed data is managed
@@ -244,7 +191,6 @@ sub _table
                                fieldName     => 'eventWatcher',
                                printableName => __('Name'),
                                class         => 'tleft',
-                               type          => 'text',
                                size          => 12,
                                unique        => 1,
                                editable      => 0,
@@ -255,14 +201,13 @@ sub _table
                                fieldName     => 'description',
                                printableName => __('Description'),
                                class         => 'tcenter',
-                               type          => 'text',
                                size          => 30,
                                unique        => 0,
                                optional      => 1,
                                editable      => 0,
                                # The value is obtained dynamically
                                volatile      => 1,
-                               wangler       => \&wangleDescription,
+                               filter        => \&filterDescription,
                               ),
          new EBox::Types::Boolean(
                                   fieldName     => 'enabled', 
@@ -292,7 +237,75 @@ sub _table
          help               => __('Enable/Disable each event watcher monitoring'),
         };
 
+      return $dataTable;
+
   }
+
+# Group: Callback functions
+
+# Function: filterName
+#
+#     Callback used to filter the output of the name field. It
+#     localises the event name to the configured locale.
+#
+# Parameters:
+#
+#     instancedType - <EBox::Types::Text> the cell containing the value
+#
+# Return:
+#
+#     String - localised the event name
+#
+sub filterName
+  {
+
+      my ($instanceType) = @_;
+
+      my $className = $instanceType->value();
+
+      eval "use $className";
+      if ( $@ ) {
+          # Error loading class -> watcher to remove
+          return;
+      }
+      my $watcher = $className->new();
+
+      return $watcher->name();
+
+  }
+
+# Function: filterDescription
+#
+#     Callback used to gather the value of the description field. It
+#     localises the event description to the configured locale.
+#
+# Parameters:
+#
+#     instancedType - <EBox::Types::Text> the cell which will contain
+#     the description
+#
+# Return:
+#
+#     String - localised the description name
+#
+sub filterDescription
+  {
+
+      my ($instancedType) = @_;
+
+      my $className = $instancedType->row()->{valueHash}->{eventWatcher}->value();
+
+      eval "use $className";
+      if ( $@ ) {
+          # Error loading class -> watcher to remove
+          return;
+      }
+      my $watcher = $className->new();
+
+      return $watcher->description();
+
+  }
+
 
 # Group: Private methods
 
