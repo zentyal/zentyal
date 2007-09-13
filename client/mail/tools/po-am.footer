@@ -109,17 +109,20 @@ $(DOMAIN).pot-update: $(POTFILES_DEPS) remove-potcdate.sed
 	  --from-code=utf-8 \
 	  $(POTFILES_PL)
 	mkdir -p templates
-	for tmpl in $(POTFILES_TMPL); do \
-                mkdir -p templates/`dirname $$tmpl` ; \
-	        ../tools/extract-perl-from-mason dump ../$$tmpl > \
-		        templates/`dirname $$tmpl`/`basename $$tmpl` ; \
-	done
-	$(XGETTEXT) --default-domain=$(DOMAIN) --directory=templates \
-	  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
-	  --copyright-holder='$(COPYRIGHT_HOLDER)' \
-	  --msgid-bugs-address='$(MSGID_BUGS_ADDRESS)' \
-	  --join-existing \
-	  $(POTFILES_TMPL)
+	if test -n "$(POTFILES_TMPL)"; \
+	then \
+		for tmpl in "$(POTFILES_TMPL)"; do \
+	        	mkdir -p templates/`dirname $$tmpl` ; \
+	        	../tools/extract-perl-from-mason dump ../$$tmpl > \
+		        	templates/`dirname $$tmpl`/`basename $$tmpl` ; \
+		done; \
+		$(XGETTEXT) --default-domain=$(DOMAIN) --directory=templates \
+		  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
+	  	--copyright-holder='$(COPYRIGHT_HOLDER)' \
+	  	--msgid-bugs-address='$(MSGID_BUGS_ADDRESS)' \
+	  	--join-existing \
+	  	$(POTFILES_TMPL); \
+	fi
 	rm -rf templates
 	test ! -f $(DOMAIN).po || { \
 	  if test -f $(srcdir)/$(DOMAIN).pot; then \
