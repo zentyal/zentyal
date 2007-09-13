@@ -364,9 +364,7 @@ sub _doDaemon
 
 	if ($self->service and EBox::Service::running('bind9')) {
 		EBox::Service::manage('bind9','restart');
-		$self->_configureFirewall;
 	} elsif ($self->service) {
-		$self->_configureFirewall;
 		EBox::Service::manage('bind9','start');
 	} elsif (EBox::Service::running('bind9')) {
 		EBox::Service::manage('bind9','stop');
@@ -377,17 +375,6 @@ sub _stopService
 {
 	EBox::Service::manage('bind9','stop');
 }
-
-sub _configureFirewall($){
-	my $self = shift;
-	my $fw = EBox::Global->modInstance('firewall');
-
-	if ($self->service) {
-		$fw->addOutputRule('udp', 53);
-		$fw->addOutputRule('tcp', 53);
-	}
-}
-
 # Method: service
 #
 #      Check whether the Events service is enabled or not
@@ -506,6 +493,8 @@ sub onInstall
     _addDNSService();
     my $fw = EBox::Global->modInstance('firewall');
 	$fw->setInternalService('dns', 'accept');
+	$fw->addOutputRule('udp', 53);
+	$fw->addOutputRule('tcp', 53);
     $fw->save();
 }
 
