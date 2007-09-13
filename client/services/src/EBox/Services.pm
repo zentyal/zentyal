@@ -214,6 +214,31 @@ sub setService
     $self->{'serviceModel'}->setService(%params);
 }
 
+# Method: setAdministrationPort
+#
+#	Set administration port on service
+#
+# Parameters:
+#
+#	port - port
+#	
+sub setAdministrationPort
+{
+    my ($self, $port) = @_;
+
+    checkPort($port, __("port"));
+
+	$self->setService('name' => __d('eBox administration'),
+                'description' => __d('eBox Administration port'),
+                'domain' => __d('ebox-services'),
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => $port,
+                'internal' => 1,
+                'readOnly' => 1);
+
+}
+
 # Method: availablePort 
 #
 #	Check if a given port for a given protocol is available. That is,
