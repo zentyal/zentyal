@@ -546,8 +546,69 @@ sub CACertificateFile
 
   }
 
+# Group: Static methods
+
+# Method: onInstall
+#
+# 	Method to execute the first time the module is installed.
+#
+sub onInstall
+{
+
+    EBox::init();
+    my $gl = EBox::Global->getInstance();
+    my $serviceMod = $gl->modInstance('services');
+    my $fwMod = $gl->modInstance('firewall');
+    my $soapMod = $gl->modInstance('soap');
+
+    # Set up soap service
+    if ( $serviceMod->serviceExists('name' => 'soap') ) {
+        $serviceMod->setService('name'            => 'soap',
+                                'protocol'        => 'tcp',
+                                'sourcePort'      => 'any',
+                                'destinationPort' => $soapMod->listeningPort(),
+                                'internal'        => 1,
+                                'readOnly'        => 1);
+    } else {
+        $serviceMod->addService('name'            => 'soap',
+                                'protocol'        => 'tcp',
+                                'sourcePort'      => 'any',
+                                'destinationPort' => $soapMod->listeningPort(),
+                                'internal'        => 1,
+                                'readOnly'        => 1);
+    }
+    # Accept in firewall
+    $fwMod->setInternalService('soap', 'accept');
+
+    # Save changes
+    $serviceMod->save();
+    $fwMod->save();
+
+}
+
+# Method: onRemove
+#
+# 	Method to execute before the module is uninstalled
+#
+sub onRemove
+{
+	EBox::init();
+
+        my $serviceMod = EBox::Global->modInstance('services');
+
+        if ( $serviceMod->serviceExists('name' => 'soap') ) {
+            $serviceMod->removeService('name' => 'soap');
+        } else {
+            EBox::info('Not removing soap service since it is already deleted');
+        }
+
+        # Save changes
+        $serviceMod->save();
+}
+
+
 ##########################
-# Private methods
+# Group: Private methods
 ##########################
 
 # Method to regenerate httpd configuration
@@ -611,11 +672,11 @@ sub _configureFirewall
 
       # It's enabled set before calling this method
       if ( $self->enabled() ) {
-          $fw->addService('soap', 'tcp', $self->listeningPort());
+#          $fw->addService('soap', 'tcp', $self->listeningPort());
           $fw->addOutputRule('tcp', $self->listeningPort());
-          $fw->setObjectService('_global', 'soap', 'allow');
-      } else {
-          $fw->removeService('soap');
+#          $fw->setObjectService('_global', 'soap', 'allow');
+#      } else {
+#          $fw->removeService('soap');
       }
 
   }
