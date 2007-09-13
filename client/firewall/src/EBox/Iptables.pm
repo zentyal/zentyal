@@ -169,6 +169,7 @@ sub setStructure
 	pf '-N idrop';
 
 
+	pf '-N ointernal';
 	pf '-N omodules';
 	pf '-N oglobal';
 
@@ -195,6 +196,7 @@ sub setStructure
 	pf '-A INPUT -j iglobal';
 	pf '-A INPUT -j idrop';
 
+	pf '-A OUTPUT -j ointernal';
 	pf '-A OUTPUT -j omodules';
 	pf '-A OUTPUT -j oglobal';
 
@@ -214,7 +216,7 @@ sub setDNS # (dns)
 {
 	my $self = shift;
 	my $dns = shift;
-	pf "-A OUTPUT $new -p udp --dport 53 -d $dns -j ACCEPT";
+	pf "-A ointernal $new -p udp --dport 53 -d $dns -j ACCEPT";
 	pf "-A fdns $new -p udp --dport 53 -d $dns -j ACCEPT";
 }
 
@@ -431,7 +433,7 @@ sub start
 		defined($rule) or next;
 		my $port = $rule->{port};
 		my $proto = $rule->{protocol};
-		pf "-A OUTPUT $new  -p $proto --dport $port -j ACCEPT";
+		pf "-A ointernal $new  -p $proto --dport $port -j ACCEPT";
 	}
 
 	$self->_fglobal();
