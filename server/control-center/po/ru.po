@@ -1,0 +1,23 @@
+# Russian translations for ebox-control-center package.
+# Copyright (C) 2007 Warp S.L.
+# This file is distributed under the same license as the ebox-control-center package.
+# Automatically generated, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-control-center 0.9.100Report-Msgid-Bugs-To: "
+"bugs@warp.es\n"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2007-09-13 12:44+0200\n"
+"PO-Revision-Date: 2007-09-13 12:44+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: src/EBox/ControlCenter/RemoteEBoxProxy.pm:96
+msgid "eBox's name"
+msgstr ""
