@@ -2,7 +2,6 @@
 	$model
 	$page
 	$tpages
-	$pageSize
 </%args>
 <%init>
     use EBox::Gettext;
@@ -49,7 +48,7 @@
 </%perl>
   <& /input/select.mas,
        'name'        => $tableName . '_pageSize',
-       'value'       => $pageSize,
+       'value'       => $model->pageSize(),
        'options'     => \@sizeOptions,
        'id'          => $tableName . '_pageSize',
        'onchange'    => qq{setLoading("$pageSizeId"); $changeViewJS;return false}

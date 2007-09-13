@@ -145,7 +145,7 @@ use EBox::Model::DataTable;
 %    {
 <h3>
   <% 
-    $printableTableName 
+    $printableTableName
   %>
 </h3>
 %    }
@@ -336,7 +336,6 @@ use EBox::Model::DataTable;
   model => $model,
   page => $page,
   tpages => $tpages,
-  pageSize => $model->pageSize()
 &>
 % } else {
 <input type="hidden" 
