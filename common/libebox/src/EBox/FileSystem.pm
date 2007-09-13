@@ -4,13 +4,18 @@ use warnings;
 
 
 use base 'Exporter';
-our @EXPORT_OK = qw(makePrivateDir cleanDir isSubdir);
+our @EXPORT_OK = qw(makePrivateDir cleanDir isSubdir dirDiskUsage dirFileSystem);
 
 use Params::Validate;
 use EBox::Validate;
+use EBox::Gettext;
 
+use constant FSTAB_PATH => '/etc/fstab';
+use constant MTAB_PATH => '/etc/mtab';
 
-# Method: makePrivateDir
+# Group: Public procedures
+
+# Procedure: makePrivateDir
 #
 #	Creates  a  directory owned by the user running this
 #	process and with private permissions.
@@ -43,12 +48,16 @@ sub makePrivateDir # (path)
 
 }
 
-# Function: cleanDir
-#       take action to assure that one or more directory have not any file into them. To achieve this files may be delted or directories created
-#   		
+# Procedure: cleanDir
+#
+#       take action to assure that one or more directories have not
+#       any file into them. To achieve so, these files may be deleted or
+#       directories created
+#
 # Parameters:
-#      @dirs - list of directories
-
+#
+#      dirs - Array list of directories
+#
 sub cleanDir
 {
   my @dirs = @_;
@@ -88,15 +97,22 @@ sub cleanDir
 }
 
 # Function: isSubdir
-#   find if a directory is a sub dir of another. A directory is always a subdirectory of itself
-#   		
+#
+#    Find if a directory is a sub dir of another. A directory is
+#    always a subdirectory of itself
+#
 # Parameters:
-#    $subDir - the directory wich we want found if it is a sub directory. It must be a abolute path 
-#    $parentDir - the possible parent directory
+#
+#    $subDir - String the directory which we want to check if it is a
+#    sub directory. It must be a abolute path
+#
+#     $parentDir - the possible parent directory
 #
 # Returns:
-#	wether the first directory is a subdirectory of the second or not
-# 
+#
+#    boolean - Whether the first directory is a subdirectory of the
+#    second or not
+#
 sub isSubdir
 {
   my ($subDir, $parentDir) = @_;
@@ -133,5 +149,146 @@ sub permissionsFromStat
   return sprintf("%04o", $stat->mode & 07777); 
 }
 
+
+# Function: dirDiskUsage
+#
+#     Get the space used up by the files and subdirectories in a
+#     directory
+#
+# Parameters:
+#
+#      dir       - String directory
+#      blockSize - Int size of the block in bytes. Default: 1 Kb
+#
+# Returns:
+#
+#	Int - the space used in block size units
+# 
+sub dirDiskUsage
+{
+  my ($dir, $blockSize) = @_;
+  defined $dir or 
+    throw EBox::Exceptions::MissingArgument('dir');
+  defined $blockSize or
+    $blockSize = 1024;
+
+  (-d $dir) or
+    throw EBox::Exceptions::External(__x('Directory not found: {d}', d => $dir));
+
+  my $duCommand  ="/usr/bin/du --summarize --block-size=$blockSize $dir";
+
+  my @duOutput = @{ EBox::Sudo::root($duCommand) };
+
+  my ($blockCount) = split '\s', $duOutput[0], 2; # du outputs the block count first
+  return $blockCount;
+}
+
+
+# Function: staticFileSystems
+#
+#   return static file systems information as seen in /etc/fstab
+#
+# Returns: 
+#      a hash reference with the file system as key and a hash with his
+#      properties as value.
+#      The properties are: mountPoint, type, options, dump and pass
+#      The properties have the same format that the fields in the fstab file
+sub staticFileSystems
+{
+  return _fileSystems(FSTAB_PATH);
+}
+
+
+# Function: fileSystems
+#
+#   return mounted file systems information as seen in /etc/mtab
+#
+# Returns: 
+#      a hash reference with the file system as key and a hash with his
+#      properties as value.
+#      The properties are: mountPoint, type, options, dump and pass
+#      The properties have the same format that the fields in the fstab file
+sub fileSystems
+{
+  return _fileSystems(MTAB_PATH);
+}
+
+# Group: Private procedures
+
+sub _fileSystems
+{
+  my ($tabFile) = @_;
+
+  my %fileSystems;
+  
+  my $FH;
+  open $FH, $tabFile or
+    throw EBox::Exceptions::Internal($tabFile . ' cannot be opened');
+  while (my $line = <$FH>) {
+    chomp $line;
+
+    my ($lineData) = split '#', $line, 2; # remove comments
+
+    next if not $lineData;
+    next if ($lineData =~ m/^\s*$/);      # discard empty lines
+
+    my ($fsys, $mpoint, $type, $options, $dump, $pass) = split '\s+', $lineData;
+
+    
+    $fileSystems{$fsys}->{mountPoint} = $mpoint;
+    $fileSystems{$fsys}->{type} = $type;
+    $fileSystems{$fsys}->{options} = $options;
+    $fileSystems{$fsys}->{dump} = $dump;
+    $fileSystems{$fsys}->{pass} = $pass;
+  }
+
+  close $FH or
+    throw EBox::Exceptions::Internal('Cannot properly close ' . FSTAB_PATH);
+
+  return \%fileSystems;
+}
+
+#  Function: dirFileSystem
+#
+#  Returns:
+#     the file system in which the directory resides
+#
+#  Note:
+#    - doesn't follow symlinks
+#    - remember that subdirectories may be in anothe file system
+sub dirFileSystem
+{
+  my ($dir) = @_;
+  (-d $dir) or
+    throw EBox::Exceptions::External(__x('Directory not found: {d}', d=>$dir));
+
+  my %fileSystems = %{  fileSystems() };
+
+  my $fsMatch     = undef;
+  my $matchPoints = 0; 
+  
+
+  while (my ($fs, $attrs) = each %fileSystems) {
+    my $mp = $attrs->{mountPoint};
+    next if $mp eq'none';
+
+    if (isSubdir($dir, $mp)) {
+      my $points = length $mp; # lengt of mount point == more components in
+                               # common. (Remember we don't follow symlinks)
+      
+      if ($points > $matchPoints) {
+	$matchPoints = $points;
+	$fsMatch     = $fs;
+      }
+      
+    }
+    
+  }
+
+  defined $fsMatch or
+    throw EBox::Exceptions::Internal("Cannot found file system for directory $dir");
+
+  return $fsMatch;
+}
 
 1;
