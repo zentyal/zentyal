@@ -1,9 +1,9 @@
-AC_INIT([ebox-control-center], [0.10])
+AC_INIT([ebox-control-center], [0.9.100])
 		   
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/ControlCenter/Common.pm.in])
 
-AM_INIT_AUTOMAKE([foreign 1.8])
+AM_INIT_AUTOMAKE([foreign])
 
 AM_MAINTAINER_MODE
 
@@ -48,7 +48,7 @@ AC_SUBST(perlpath)
 
 AC_DEFINE_DIR(PERLPATH, perlpath)
 
-# AM_PO_SUBDIRS
+AM_PO_SUBDIRS
 
 AC_CONFIG_FILES([
 src/Makefile
@@ -64,5 +64,5 @@ scripts/Makefile
 Makefile
 ])
 
-# AC_CONFIG_FILES([po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
+AC_CONFIG_FILES([po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
 AC_OUTPUT
