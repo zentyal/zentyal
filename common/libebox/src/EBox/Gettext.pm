@@ -155,6 +155,7 @@ $langs->{'pl_PL.UTF-8'} = 'Polski';
 $langs->{'pt_BR.UTF-8'} = 'Português do Brasil';
 $langs->{'pt_PT.UTF-8'} = 'Português';
 $langs->{'ru_RU.UTF-8'} = 'Русский';
+$langs->{'sv_SE.UTF-8'} = 'Svenska';
 $langs->{'tr_TR.UTF-8'} = 'Türkçe';
 no utf8;
 
