@@ -200,7 +200,11 @@ sub setPort # (port)
 			throw EBox::Exceptions::DataExists(data => __('port'),
 							   value => $port);
 		}
-		$fw->changeService("administration", "tcp", $port);
+	}
+
+	if (EBox::Global->instance()->modExists('services')) {
+		my $services = EBox::Global->modInstance('services');
+		$services->setAdministrationPort($port);
 	}
 
 	$self->set_int('port', $port);
