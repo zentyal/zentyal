@@ -1,0 +1,32 @@
+DEPENDENCIES
+------------
+
++ eBox components
+
+	+ libebox
+
++ Debian packages (apt-get install <package>)
+
+	+ libdate-calc-perl
+	+ libconfig-tiny-perl
+	+ libsoap-lite-perl
+
++ modules from CPAN
+
+
+INSTALLATION
+------------
+
+1.- Configure:
+
+    $ ./configure <arguments>
+
+    Accepts standard GNU configure arguments, run ./configure --help
+    for a list
+
+    Suggested argument: --localstatedir=/var/ , to have variable data
+    installed in /var/lib/, instead of the default $prefix/var/lib/
+
+2.- Installation, as root:
+
+    $ make install

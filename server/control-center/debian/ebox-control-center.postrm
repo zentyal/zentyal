@@ -1,0 +1,15 @@
+#!/bin/bash
+
+case "$1" in
+    remove)
+	# delete everything after all
+	rm -rf /var/lib/ebox-cc/
+	;;
+    purge)
+        rm -rf /var/lib/ebox-cc/
+        # Update links
+        update-rc.d apache-soap remove
+        ;;
+esac
+
+#DEBHELPER#

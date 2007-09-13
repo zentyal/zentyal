@@ -1,0 +1,39 @@
+#!/bin/bash
+
+case "$1" in
+	configure)
+	# Include the required libraries
+	. /usr/share/debconf/confmodule
+	db_version 2.0
+	# Get the configuration parameters
+	db_get ebox-control-center/publicip
+	publicIP="$RET"
+	db_get ebox-control-center/vpnaddress
+	vpnAddress="$RET"
+	db_get ebox-control-center/vpnport
+	vpnPort="$RET"
+	db_get ebox-control-center/vpnprotocol
+	vpnProtocol="$RET"
+	db_get ebox-control-center/orgname
+	orgName="$RET"
+	db_get ebox-control-center/days
+	days="$RET"
+        db_get ebox-control-center/soapport
+        soapPort="$RET"
+	
+	db_stop
+
+        # Change conf permissions
+        chown -R ebox.ebox /var/lib/ebox-cc
+        
+        # Create rc.d links
+        update-rc.d -f apache-soap remove
+        update-rc.d apache-soap defaults
+
+	# Create the control center with the parameters given at debconf
+	perl /usr/lib/ebox-control-center/createControlCenter.pl --days=$days --on=$orgName \
+	    --vpnproto=$vpnProtocol --vpnport=$vpnPort --soapport=$soapPort \
+	    $publicIP $vpnAddress
+
+	;;
+esac

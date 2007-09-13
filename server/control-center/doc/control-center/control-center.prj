@@ -1,0 +1,147 @@
+format 27
+"control-center"
+
+
+  
+  // class settings
+  default_attribute_visibility protected default_relation_visibility protected default_operation_visibility public
+  //class diagram settings
+  draw_all_relations yes hide_attributes no hide_operations no show_members_full_definition no show_members_visibility no package_name_in_tab no class_drawing_mode natural drawing_language uml show_context_mode no auto_label_position yes shadow yes
+  //use case diagram settings
+  package_name_in_tab no show_context no auto_label_position yes shadow yes
+  //sequence diagram settings
+  show_full_operations_definition no write_horizontally yes drawing_language uml shadow yes
+  //collaboration diagram settings
+  show_full_operations_definition no show_hierarchical_rank no write_horizontally yes drawing_language uml package_name_in_tab no show_context no shadow yes
+  //object diagram settings
+   write_horizontally yes package_name_in_tab no show_context no auto_label_position yes shadow yes
+  //component diagram settings
+  package_name_in_tab no show_context no auto_label_position yes shadow yes
+  draw_component_as_icon no show_component_req_prov no show_component_rea no
+  //deployment diagram settings
+  package_name_in_tab no show_context no write_horizontally yes auto_label_position yes shadow yes
+  draw_component_as_icon no show_component_req_prov no show_component_rea no
+  //state diagram settings
+  package_name_in_tab no show_context no auto_label_position yes write_trans_label_horizontally yes show_trans_definition no shadow yes
+  show_activities yes region_horizontally yes drawing_language uml
+  //activity diagram settings
+  package_name_in_tab no show_context no show_opaque_action_definition no auto_label_position yes write_flow_label_horizontally no shadow yes
+  show_infonote yes drawing_language uml
+  
+  class_color yellow duration_color transparent continuation_color gray note_color blue fragment_color transparent subject_color transparent usecase_color yellow package_color transparent component_color green artifact_color green deploymentnode_color gray state_color yellow stateaction_color transparent activity_color transparent activityregion_color transparent activityaction_color transparent parameterpin_color white 
+  font_size 13
+  diagram_format A3
+
+  mark_for_import
+  
+  usecaseview 128092 "eBox against CC"
+    //use case diagram settings
+    package_name_in_tab default show_context default auto_label_position default shadow default
+    //sequence diagram settings
+    show_full_operations_definition default write_horizontally default drawing_language default shadow default
+    //collaboration diagram settings
+    show_full_operations_definition default show_hierarchical_rank default write_horizontally default drawing_language default package_name_in_tab default show_context default shadow default
+    //object diagram settings
+     write_horizontally default package_name_in_tab default show_context default auto_label_position default shadow default
+    comment "Here they are the use cases related to eBox and Control Center communication."
+    class 128092 "controlCenter"cpp_decl ""
+      java_decl ""
+      idl_decl "${comment}${abstract}${custom}valuetype ${name}${inherit} {
+${members}};
+"
+      explicit_switch_type ""
+      
+    end
+
+    class 128220 "ebox_soap"cpp_decl ""
+      java_decl ""
+      idl_decl "${comment}${abstract}${custom}valuetype ${name}${inherit} {
+${members}};
+"
+      explicit_switch_type ""
+      
+    end
+
+    class 128348 "ebox_openvpn"cpp_decl ""
+      java_decl ""
+      idl_decl "${comment}${abstract}${custom}valuetype ${name}${inherit} {
+${members}};
+"
+      explicit_switch_type ""
+      
+    end
+
+    class 128476 "administrator"
+       stereotype "actor"
+      cpp_decl ""
+      java_decl ""
+      idl_decl "${comment}${abstract}${custom}valuetype ${name}${inherit} {
+${members}};
+"
+      explicit_switch_type ""
+      
+      comment "Control center administrator"
+    end
+
+    usecase 128092 "Join an eBox"
+      //use case diagram settings
+      package_name_in_tab default show_context default auto_label_position default shadow default
+      //sequence diagram settings
+      show_full_operations_definition default write_horizontally default drawing_language default shadow default
+      //collaboration diagram settings
+      show_full_operations_definition default show_hierarchical_rank default write_horizontally default drawing_language default package_name_in_tab default show_context default shadow default
+      //object diagram settings
+       write_horizontally default package_name_in_tab default show_context default auto_label_position default shadow default
+      sequencediagram 128092 "Sequence Diagram"
+	show_full_operations_definition default write_horizontally default drawing_language uml shadow default
+	size A4-Landscape
+      end
+
+      usecasediagram 128476 "use case diagram"
+	package_name_in_tab default show_context default auto_label_position default shadow default
+	size A4
+      end
+    end
+
+    usecase 128220 "Create control center"
+      //use case diagram settings
+      package_name_in_tab default show_context default auto_label_position default shadow default
+      //sequence diagram settings
+      show_full_operations_definition default write_horizontally default drawing_language default shadow default
+      //collaboration diagram settings
+      show_full_operations_definition default show_hierarchical_rank default write_horizontally default drawing_language default package_name_in_tab default show_context default shadow default
+      //object diagram settings
+       write_horizontally default package_name_in_tab default show_context default auto_label_position default shadow default
+      sequencediagram 128604 "Sequence Diagram"
+	show_full_operations_definition default write_horizontally default drawing_language default shadow default
+	size A3
+      end
+    end
+
+    usecase 128476 "Quit an eBox"
+      //use case diagram settings
+      package_name_in_tab default show_context default auto_label_position default shadow default
+      //sequence diagram settings
+      show_full_operations_definition default write_horizontally default drawing_language default shadow default
+      //collaboration diagram settings
+      show_full_operations_definition default show_hierarchical_rank default write_horizontally default drawing_language default package_name_in_tab default show_context default shadow default
+      //object diagram settings
+       write_horizontally default package_name_in_tab default show_context default auto_label_position default shadow default
+      sequencediagram 128732 "Sequence Diagram8"
+	show_full_operations_definition default write_horizontally default drawing_language default shadow default
+	size A3
+      end
+    end
+
+    class 128604 "ebox_admin"
+       stereotype "actor"
+      cpp_decl ""
+      java_decl ""
+      idl_decl "${comment}${abstract}${custom}valuetype ${name}${inherit} {
+${members}};
+"
+      explicit_switch_type ""
+      
+    end
+  end
+end

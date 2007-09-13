@@ -1,0 +1,131 @@
+#!/bin/bash
+#
+# apache-soap	Start an apache-perl SOAP enabled HTTP server
+#               Modified from apache-perl init.d script
+#
+# Author:       Enrique J. Hernández <ejhernandez@warp.es>.
+
+#
+# Version:	@(1)skeleton  2-Jul-2007 
+#
+
+set -e
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DESC="Apache SOAP daemon"
+NAME=apache-soap
+DAEMON=/usr/sbin/apache-perl
+PIDFILE=@CCPATH@/run/$NAME.pid
+SCRIPTNAME=/etc/init.d/$NAME
+CONF=@CONFPATH@/httpd.conf
+APACHECTL=/usr/sbin/apache-perlctl
+
+# note: SSD is required only at startup of the daemon.
+SSD=`which start-stop-daemon`
+ENV="env -i LANG=C PATH=/bin:/usr/bin:/usr/local/bin"
+
+trap "" 1
+
+# Gracefully exit if the package has been removed.
+test -x $DAEMON || exit 0
+
+# Check that we're not being started by inetd
+if egrep -q -i "^[[:space:]]*ServerType[[:space:]]+inet" $CONF
+then
+    exit 0
+fi
+
+test_config() {
+    # ensure we don't leak environment vars into apachectl
+    APACHECTL="$ENV $DAEMON -t -f $CONF"
+
+    if ! $APACHECTL 2> /dev/null
+    then
+        printf "Configuration syntax error detected. Not reloading.\n\n"
+        $APACHECTL
+        exit 1
+    fi
+}
+
+should_start() {
+    if [ ! -x $DAEMON ]; then
+	echo "apache-perl is not executable, not starting"
+	exit 0
+    fi
+}
+
+#
+#	Function that starts the daemon/service.
+#
+d_start() {
+	$ENV $SSD --start --quiet --pidfile $PIDFILE \
+		--exec $DAEMON -- -f $CONF
+}
+
+#
+#	Function that stops the daemon/service.
+#
+d_stop() {
+	$SSD --stop --quiet --pidfile $PIDFILE \
+		--oknodo
+}
+
+#
+#	Function that sends a SIGHUP to the daemon/service.
+#
+d_reload() {
+	$SSD --stop --quiet --pidfile $PIDFILE \
+		--signal USR1
+}
+
+case "$1" in
+  start)
+        should_start
+        test_config
+	echo -n "Starting $DESC: $NAME"
+	d_start
+	echo "."
+	;;
+  stop)
+	echo -n "Stopping $DESC: $NAME"
+	d_stop
+        rm -rf /var/lib/apache/mod-bandwidth/link/*
+	echo "."
+	;;
+  reload|force-reload)
+        test_config
+	echo -n "Reloading $DESC configuration..."
+	d_reload
+	echo "done."
+        ;;
+  reload-modules)
+        test_config
+        echo -n "Reloading $DESC modules"
+        start-stop-daemon --stop --pidfile $PIDFILE --oknodo --retry 30
+        should_start
+        d_start
+        ;;
+  restart)
+        test_config
+	echo -n "Restarting $DESC: $NAME"
+        if ! $SSD --quiet --stop --pidfile $PIDFILE --signal HUP; then
+            d_start
+        fi
+	echo "."
+	;;
+  *)
+	# echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload}" >&2
+	echo "Usage: $SCRIPTNAME {start|stop|reload|force-reload|reload-modules|restart}" >&2
+	exit 1
+	;;
+esac
+
+# Treating exit
+if [ $? -eq 0 ]; then
+	echo .
+	exit 0
+else
+	echo " failed"
+	exit 1
+fi
+

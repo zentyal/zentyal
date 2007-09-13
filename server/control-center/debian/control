@@ -1,0 +1,18 @@
+Source: ebox-control-center
+Section: web
+Priority: optional
+Maintainer: Enrique J. Hernández <quique@warp.es>
+Build-Depends: debhelper (>= 4.0.0)
+Standards-Version: 3.6.1
+
+Package: ebox-control-center
+Architecture: all
+Depends: libebox (>= 0.10), openvpn, apache-perl, libdate-calc-perl, libconfig-tiny-perl, libsoap-lite-perl, libcrypt-ssleay-perl
+Description: eBox control center to control several eBoxes at the same time
+ eBox is a framework for the development and deployment of security-wise
+ network services in small and medium-sized networks, offering a simplified
+ graphical interface to non expert users.
+ .
+ This module is intended to control several eBoxes at the same point. eBox 
+ joining and quitting is possible. And several operations can be done at 
+ the same time to a eBox's group.

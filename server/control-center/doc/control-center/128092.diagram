@@ -1,0 +1,102 @@
+format 27
+
+classinstance 128220 class_ref 128092 // controlCenter
+  name "" xyz 275 4 2005 life_line_z 2000
+classinstance 128348 class_ref 128220 // ebox_soap
+  name "" xyz 801 5 2005 life_line_z 2000
+classinstance 128476 class_ref 128348 // ebox_openvpn
+  name "" xyz 624 4 2005 life_line_z 2000
+textcanvas 128604 "       Internet
+           ||
+HTTPS over VPN
+"
+  xyzwh 443 28 2000 141 115
+classinstance 128732 class_ref 128476 // administrator
+  name "" xyz 46 6 2000 life_line_z 2000
+classinstance 128860 class_ref 128604 // ebox_admin
+  name "" xyz 955 4 2000 life_line_z 2000
+durationcanvas 129116 classinstance_ref 128732 // :administrator
+  xyzwh 90 76 2010 11 60
+durationcanvas 129244 classinstance_ref 128220 // :controlCenter
+  xyzwh 325 84 2010 11 137
+durationcanvas 129628 classinstance_ref 128732 // :administrator
+  xyzwh 90 206 2010 11 52
+durationcanvas 129884 classinstance_ref 128860 // :ebox_admin
+  xyzwh 997 88 2010 11 25
+durationcanvas 130012 classinstance_ref 128348 // :ebox_soap
+  xyzwh 842 88 2010 11 46
+durationcanvas 130268 classinstance_ref 128476 // :ebox_openvpn
+  xyzwh 679 123 2010 11 97
+durationcanvas 130652 classinstance_ref 128348 // :ebox_soap
+  xyzwh 842 201 2010 11 212
+durationcanvas 130908 classinstance_ref 128220 // :controlCenter
+  xyzwh 325 274 2010 11 100
+durationcanvas 131292 classinstance_ref 128860 // :ebox_admin
+  xyzwh 997 334 2010 11 98
+reflexivemsg 128094 synchronous
+  to durationcanvas_ref 129244 // 128220
+  yz 153 2000 explicitmsg "storeEBox"
+  show_full_operations_definition default drawing_language default
+  args "commonName"
+  label_xy 366 150
+msg 129372 synchronous
+  from durationcanvas_ref 129116 // 128732
+  to durationcanvas_ref 129244 // 128220
+  yz 84 2000 explicitmsg "joinEBox"
+  show_full_operations_definition default drawing_language default
+  args "commonName"
+  label_xy 124 65
+reflexivemsg 129500 synchronous
+  to durationcanvas_ref 129244 // 128220
+  yz 125 2000 explicitmsg "createEBoxCerts"
+  show_full_operations_definition default drawing_language default
+  label_xy 363 121
+msg 129756 return
+  from durationcanvas_ref 129244 // 128220
+  to durationcanvas_ref 129628 // 128732
+  yz 206 2000 explicitmsg "zip (cert, keys, public IP)"
+  show_full_operations_definition default drawing_language default
+  label_xy 126 190
+msg 130140 asynchronous
+  from durationcanvas_ref 129884 // 128860
+  to durationcanvas_ref 130012 // 128348
+  yz 88 2000 explicitmsg "joinCC"
+  show_full_operations_definition default drawing_language default
+  args "ZIP file"
+  label_xy 901 70
+msg 130396 asynchronous
+  from durationcanvas_ref 130012 // 128348
+  to durationcanvas_ref 130268 // 128476
+  yz 123 2000 explicitmsg "createVPNClient"
+  show_full_operations_definition default drawing_language default
+  label_xy 703 105
+reflexivemsg 130524 synchronous
+  to durationcanvas_ref 129244 // 128220
+  yz 179 2000 explicitmsg "configureOpenVPN client"
+  show_full_operations_definition default drawing_language default
+  label_xy 361 177
+msg 130780 return
+  from durationcanvas_ref 130268 // 128476
+  to durationcanvas_ref 130652 // 128348
+  yz 201 2000 explicitmsg "clientDone"
+  show_full_operations_definition default drawing_language default
+  label_xy 725 183
+msg 131036 synchronous
+  from durationcanvas_ref 130652 // 128348
+  to durationcanvas_ref 130908 // 128220
+  yz 301 2000 explicitmsg "connectivityTest"
+  show_full_operations_definition default drawing_language default
+  label_xy 531 283
+msg 131164 return
+  from durationcanvas_ref 130908 // 128220
+  to durationcanvas_ref 130652 // 128348
+  yz 355 2000 explicitmsg "joinCompleted"
+  show_full_operations_definition default drawing_language default
+  label_xy 537 337
+msg 131420 return
+  from durationcanvas_ref 130652 // 128348
+  to durationcanvas_ref 131292 // 128860
+  yz 390 2000 explicitmsg "joinCompleted"
+  show_full_operations_definition default drawing_language default
+  label_xy 873 372
+end

@@ -1,0 +1,466 @@
+# Copyright (C) 2007 Warp Networks S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# Class: EBox::ControlCenter::Common
+#
+# Perl module with all the functions/procedures that are in common in
+# the four scripts
+
+package EBox::ControlCenter::Common;
+
+use strict;
+use warnings;
+
+# eBox uses
+use EBox::Sudo;
+use EBox::ControlCenter::ApacheSOAP;
+
+# Dependencies
+use File::Slurp;
+use Perl6::Junction qw(any);
+
+BEGIN {
+	use Exporter ();
+	our ($VERSION, @ISA, @EXPORT, @EXPORT_OK, %EXPORT_TAGS);
+
+	@ISA = qw(Exporter);
+	@EXPORT = qw();
+	%EXPORT_TAGS  = (all => [qw{ checkExistence findCertFile
+                                     execOpenVPN manageApacheSOAP
+                                     OpenSSLPath eBoxCCDir
+                                     SSLConfFile CATopDir
+                                     CCConfFile CACert
+                                     CCDBFile OpenVPNClientConfigDir
+                                     CAPrivateDir CARequestDir
+                                     CACertDir SSLIndexFile
+                                     SSLOldSerialFile OpenVPNServerFileEtc
+                                     controlCenterCN stubsDir
+				} ],
+			);
+	@EXPORT_OK = qw();
+	Exporter::export_ok_tags('all');
+
+}
+
+# Index for every field (split with tabs) within the index.txt file
+use constant STATE_IDX  => 0;
+use constant SERIAL_IDX => 3;
+use constant DN_IDX     => 5;
+
+# Group: Public interface
+
+# Procedure: checkExistence
+#
+#       Check the existence of an eBox created from this control
+#       center
+#
+# Parameters:
+#
+#       eBoxDB - <EBox::ControlCenter::AbstractEBoxDB> Proxy to manage
+#       the eBox database
+#
+#       commonName - String the common name which the
+#       eBox is identified
+#
+# Returns:
+#
+#       true - if the certificate for this eBox is created and valid
+#       undef - otherwise
+#
+sub checkExistence
+  {
+
+    my ($eBoxDB, $commonName) = @_;
+
+    my $eBoxMetadata_ref = $eBoxDB->findEBox($commonName);
+
+    unless ( defined ( $eBoxMetadata_ref )) {
+        return undef;
+    }
+
+    # If this is equal, check out its validity
+    if ( defined (_findSerialInIndex($commonName, $eBoxMetadata_ref->{serialNumber}) )) {
+        return 'true';
+    } else {
+        return undef;
+    }
+
+  }
+
+# Function: findCertFile
+#
+#       Get the path to the certificate file given its common name.
+#       It should be a valid one stored in the cc database
+#
+# Parameters:
+#
+#       cn - the common name
+#
+# Returns:
+#
+#       String - containing the path to the certificate whose common
+#       name is that
+#
+sub findCertFile
+  {
+
+    my ($commonName) = @_;
+
+    my @eBoxes = ();
+
+    if ( -f CCDBFile() ) {
+        @eBoxes = read_file ( CCDBFile() );
+    }
+
+    my ($eBoxMetaData) = grep { /^$commonName\t/ } @eBoxes;
+
+    my ($cn, $serial, $ip);
+    if ( defined ( $eBoxMetaData )) {
+        ($cn, $serial, $ip) = split ( /\t/, $eBoxMetaData);
+    } else {
+        $serial = _findSerialInIndex($commonName);
+    }
+
+    return ( CACertDir() . $serial . '.pem');
+
+  }
+
+# Procedure: execOpenVPN
+#
+#      Execute a command in the OpenVPN init script
+#
+# Parameters:
+#
+#      command - String the command to execute (Options: restart,stop)
+#
+sub execOpenVPN
+  {
+
+    my ( $cmd ) = @_;
+
+    if ( $cmd eq any( qw(restart stop) ) ) {
+      EBox::Sudo::root( "invoke-rc.d openvpn $cmd ");
+    }
+
+  }
+
+# Procedure: manageApacheSOAP
+#
+#      Manage the apache-soap service
+#
+# Parameters:
+#
+#      action - String the action to perform. It should be one of the
+#      following: (restart, start, stop)
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::InvalidType> - thrown if any parameter has a
+#      wrong type
+#
+sub manageApacheSOAP
+  {
+
+      my ($action) = @_;
+
+      my $apache = new EBox::ControlCenter::ApacheSOAP();
+
+      $apache->regenConfig($action);
+
+  }
+
+################################
+# Constants as public functions
+################################
+
+# Function: OpenSSLPath
+#
+#     Return the OpenSSL command path
+#
+# Returns:
+#
+#     String - the OpenSSL command path
+#
+sub OpenSSLPath
+  {
+
+    return '/usr/bin/openssl';
+
+  }
+
+# Function: eBoxCCDir
+#
+#     Return the eBox control center directory
+#
+# Returns:
+#
+#     String - the eBox control center directory path
+#
+sub eBoxCCDir
+  {
+
+    return '@CCPATH@/';
+
+  }
+
+# Function: SSLConfFile
+#
+#     Return the OpenSSL configuration file path
+#
+# Returns:
+#
+#     String - the OpenSSL configuration file path
+#
+sub SSLConfFile
+  {
+
+    return eBoxCCDir() . 'conf/openssl.cnf';
+
+  }
+
+# Function: CATopDir
+#
+#     Return the CA directory path
+#
+# Returns:
+#
+#     String - the CA directory path
+#
+sub CATopDir
+  {
+
+    return eBoxCCDir() . 'CA/';
+
+  }
+
+# Function: CCConfFile
+#
+#     Return the control center configuration file path
+#
+# Returns:
+#
+#     String - the control center configuration file path
+#
+sub CCConfFile
+  {
+
+    return eBoxCCDir() . 'conf/ebox-cc.conf';
+
+  }
+
+# Function: CACert
+#
+#     Return the CA certificate file path
+#
+# Returns:
+#
+#     String - the CA certificate file path
+#
+sub CACert
+  {
+
+    return CATopDir() . 'cacert.pem';
+
+  }
+
+# Function: CCDBFile
+#
+#     Return the control center database file path
+#
+# Returns:
+#
+#     String - the control center database file path
+#
+sub CCDBFile
+  {
+
+    return eBoxCCDir() . '/var/eBoxes.db';
+
+  }
+
+# Function: OpenVPNClientConfigDir
+#
+#     Return the OpenVPN client configuration directory path where all
+#     client configuration will be stored
+#
+# Returns:
+#
+#     String - the OpenVPN client configuration directory path
+#
+sub OpenVPNClientConfigDir
+  {
+
+    return eBoxCCDir() . '/conf/openvpn-ccd/';
+
+  }
+
+# Function: CAPrivateDir
+#
+#     Return CA directory path where private keys are stored
+#
+# Returns:
+#
+#     String - the CA directory path
+#
+sub CAPrivateDir
+  {
+
+    return CATopDir() . '/private/';
+
+  }
+
+# Function: CARequestDir
+#
+#     Return CA directory path where requests for a certificate are
+#     stored
+#
+# Returns:
+#
+#     String - the CA directory path
+#
+sub CARequestDir
+  {
+
+    return CATopDir() . '/reqs/';
+
+  }
+
+# Function: CACertDir
+#
+#     Return CA directory path where certificates are stored
+#
+# Returns:
+#
+#     String - the CA directory path
+#
+sub CACertDir
+  {
+
+    return CATopDir() . '/certs/';
+
+  }
+
+# Function: SSLIndexFile
+#
+#     Return OpenSSL index file path
+#
+# Returns:
+#
+#     String - the OpenSSL index file path
+#
+sub SSLIndexFile
+  {
+
+    return CATopDir() . '/index.txt';
+
+  }
+
+# Function: SSLOldSerialFile
+#
+#     Return recently signed serial cert file path
+#
+# Returns:
+#
+#     String - the old serial file path
+#
+sub SSLOldSerialFile
+  {
+
+    return CATopDir() . '/serial.old';
+
+  }
+
+# Function: OpenVPNServerFileEtc
+#
+#     Return the OpenVPN server configuration path stored in /etc
+#
+# Returns:
+#
+#     String - the OpenVPN server configuration file path
+#
+sub OpenVPNServerFileEtc
+  {
+
+    return '/etc/openvpn/openvpn-cc-server.conf';
+
+  }
+
+# Function: controlCenterCN
+#
+#     Return the control center common name
+#
+# Returns:
+#
+#     String - the control center common name
+#
+sub controlCenterCN
+  {
+
+      # The common name to identify the control center (Important:
+      # apache-soap httpd conf)
+      return 'Control Center';
+
+  }
+
+# Function: stubsDir
+#
+#      Get the stubs directory
+#
+sub stubsDir
+  {
+
+      return '@STUBSPATH@/';
+  }
+
+# Group: Private interface
+
+# Function to get the serial number from a common name within the
+# index file
+sub _findSerialInIndex # (commonName, $serialNumber)
+  {
+
+      my ($commonName, $serialNumber) = @_;
+
+      my @certLines = read_file( SSLIndexFile() );
+      foreach my $certLine (@certLines ) {
+          chomp ($certLine);
+          my @certMetaData = split(/\t/, $certLine);
+          # Get the serial number
+          my $certSerial = $certMetaData[SERIAL_IDX];
+          if ( defined ( $serialNumber ) ) {
+              if ( $certSerial eq $serialNumber ) {
+                  # Check the state. It should be valid in order to return
+                  # true
+                  if ( $certMetaData[STATE_IDX] eq 'V') {
+                      return $certSerial;
+                  } else {
+                      # it could be renewed
+                      return undef;
+                  }
+              }
+          } elsif ( $certMetaData[STATE_IDX] eq 'V' ) {
+              my $dn = $certMetaData[DN_IDX];
+              my ($indexCN) = ( $dn =~ m/CN=(.*)\/*/ );
+              if ( $indexCN eq $commonName ) {
+                  return $certMetaData[SERIAL_IDX];
+              }
+          }
+      }
+
+      return undef;
+
+  }
+
+1;

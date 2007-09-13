@@ -1,0 +1,41 @@
+Template: ebox-control-center/publicip
+Type: string
+Description: Public IP address
+ Please enter the public IP address from the host
+
+Template: ebox-control-center/soapport
+Type: string
+Default: 4430
+Description: SOAP Server Port
+ Please enter the port where the Apache SOAP Web server will be listening to
+
+Template: ebox-control-center/vpnaddress
+Type: string
+Default: 10.0.0.0/24
+Description: The Virtual Private Network to use
+ Please enter the Virtual Private Network to communicate the control center with eBoxes in CIDR format
+
+Template: ebox-control-center/vpnport
+Type: string
+Default: 11111
+Description: The port where OpenVPN server will be listening to
+ Please enter the port where OpenVPN server will be listening to
+
+Template: ebox-control-center/vpnprotocol
+Type: select
+Choices: tcp, udp
+Default: udp
+Description: The protocol which OpenVPN server will use
+ Please enter the protocol which OpenVPN server will use
+
+Template: ebox-control-center/orgname
+Type: string
+Default: Network
+Description: Organization name for the CA
+ Please enter the organization name the CA for the control center
+
+Template: ebox-control-center/days
+Type: string
+Default: 3650
+Description: Number of days the CA will be valid
+ Please enter the number of days till the CA for the control center will be valid

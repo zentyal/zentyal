@@ -1,0 +1,10 @@
+#!/bin/bash
+
+case "$1" in
+    remove)
+	perl /usr/lib/ebox-control-center/destroyControlCenter.pl
+	;;
+esac
+
+#DEBHELPER#
+

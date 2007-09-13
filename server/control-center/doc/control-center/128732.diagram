@@ -1,0 +1,54 @@
+format 27
+
+classinstance 128092 class_ref 128476 // administrator
+  name "" xyz 19 4 2000 life_line_z 2000
+classinstance 128220 class_ref 128092 // controlCenter
+  name "" xyz 179 4 2005 life_line_z 2000
+textcanvas 128732 "       Internet
+           ||
+HTTPS over VPN"
+  xyzwh 310 86 2000 129 56
+classinstance 128860 class_ref 128348 // ebox_openvpn
+  name "" xyz 604 4 2005 life_line_z 2000
+classinstance 128988 class_ref 128220 // ebox_soap
+  name "" xyz 470 4 2005 life_line_z 2000
+durationcanvas 128348 classinstance_ref 128092 // :administrator
+  xyzwh 63 82 2010 11 40
+durationcanvas 128476 classinstance_ref 128220 // :controlCenter
+  xyzwh 229 82 2010 11 189
+durationcanvas 129116 classinstance_ref 128988 // :ebox_soap
+  xyzwh 511 165 2010 11 101
+durationcanvas 129372 classinstance_ref 128860 // :ebox_openvpn
+  xyzwh 659 187 2010 11 35
+reflexivemsg 128094 synchronous
+  to durationcanvas_ref 128476 // 128220
+  yz 214 2000 explicitmsg "deleteEBox"
+  show_full_operations_definition default drawing_language default
+  args "commonName"
+  label_xy 262 211
+msg 128604 asynchronous
+  from durationcanvas_ref 128348 // 128092
+  to durationcanvas_ref 128476 // 128220
+  yz 82 2000 explicitmsg "quitEBox"
+  show_full_operations_definition default drawing_language default
+  args "commonName"
+  label_xy 119 64
+msg 129244 asynchronous
+  from durationcanvas_ref 128476 // 128220
+  to durationcanvas_ref 129116 // 128988
+  yz 165 2000 explicitmsg "quitCC"
+  show_full_operations_definition default drawing_language default
+  label_xy 350 147
+msg 129500 synchronous
+  from durationcanvas_ref 129116 // 128988
+  to durationcanvas_ref 129372 // 128860
+  yz 203 2000 explicitmsg "removeClient"
+  show_full_operations_definition default drawing_language default
+  label_xy 540 185
+reflexivemsg 129628 synchronous
+  to durationcanvas_ref 128476 // 128220
+  yz 243 2000 explicitmsg "revokeCertificate"
+  show_full_operations_definition default drawing_language default
+  args "commonName"
+  label_xy 262 239
+end

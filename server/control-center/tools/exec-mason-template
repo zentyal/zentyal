@@ -1,0 +1,77 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use Getopt::Long;
+use EBox::Test::Mason;
+use File::Basename;
+use Cwd qw(abs_path);
+
+my $verbose = 0;
+my @comp_root = ();
+my $only_check = 0;
+my $mason_cli_params = undef;
+
+my @options = (
+	       'verbose'   => \$verbose,
+	       'comp-root=s' => \@comp_root,
+	       'only-check'  => \$only_check,
+	       'params=s'     => \$mason_cli_params,	       
+	      );
+
+GetOptions(@options);
+my ($template) = @ARGV;
+defined $template or die "Not mason file provided";
+
+_print_comp_root($template, \@comp_root) if $verbose;
+
+
+my $mason_params = _eval_params($mason_cli_params);
+
+my $output_r = EBox::Test::Mason::executeTemplate(
+	       template     => $template,
+               templateParams => $mason_params,
+	       compRoot    => \@comp_root,
+	      );  
+
+
+print "\nComponent output:\n\n" if $verbose;
+print $$output_r;  
+print "\n";
+
+
+
+
+sub _eval_params
+{
+  my ($mason_cli_params) = @_;
+  
+  if (! $mason_cli_params) {
+    return [];
+  }
+
+  my @params;
+  eval "\@params = ( $mason_cli_params ) ";
+
+
+  if ($@) {
+    die "Wrong template params. $@";
+  }
+
+  return \@params;
+}
+
+sub _print_comp_root
+{
+  my ($template, $root_paths_r) = @_;
+  my @root_paths = @{ $root_paths_r };
+  
+  my $main_root = abs_path ($template);
+  $main_root = dirname $main_root;
+ 
+ 
+  print "Component root: $main_root @root_paths\n" if $verbose
+}
+
+
+1;

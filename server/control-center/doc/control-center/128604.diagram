@@ -1,0 +1,24 @@
+format 27
+
+classinstance 128092 class_ref 128092 // controlCenter
+  name "" xyz 269 5 2005 life_line_z 2000
+classinstance 128476 class_ref 128476 // administrator
+  name "" xyz 29 4 2000 life_line_z 2000
+durationcanvas 128220 classinstance_ref 128092 // :controlCenter
+  xyzwh 319 113 2010 11 331
+durationcanvas 128604 classinstance_ref 128476 // :administrator
+  xyzwh 73 71 2010 11 72
+reflexivemsg 128348 synchronous
+  to durationcanvas_ref 128220 // 128092
+  yz 279 2000 explicitmsg "CreateCA"
+  show_full_operations_definition default drawing_language default
+  label_xy 354 276
+msg 128732 synchronous
+  from durationcanvas_ref 128604 // 128476
+  to durationcanvas_ref 128220 // 128092
+  yz 132 2000 explicitmsg "createControlCenter"
+  show_full_operations_definition yes drawing_language uml
+  args "organizationName
+days"
+  label_xy 153 116
+end
