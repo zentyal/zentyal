@@ -18,7 +18,7 @@ package EBox::DNS;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Model::ModelProvider);
+use base qw(EBox::GConfModule EBox::Model::ModelProvider EBox::Model::CompositeProvider);
 
 use EBox::Objects;
 use EBox::Gettext;
@@ -31,6 +31,8 @@ use EBox::Validate qw( :all );
 use EBox::DNS::Model::DomainTable;
 use EBox::DNS::Model::HostnameTable;
 use EBox::DNS::Model::AliasTable;
+use EBox::DNS::Model::EnableFormDNS;
+use EBox::DNS::Model::DNSComposite;
 use EBox::Model::ModelManager;
 
 use constant BIND9CONFDIR => "@BIND9CONFDIR@";
@@ -59,6 +61,13 @@ sub _create
 			'gconfmodule' => $self,
 			'directory' => 'aliasTable'
 		);
+	$self->{'enableModel'} = new EBox::DNS::Model::EnableFormDNS(
+			'gconfmodule' => $self,
+			'directory' => 'enableForm',
+			'enableTitle' => __('DNS Server'),
+			'modelDomain' => 'DNS'
+		);
+ 	$self->{'dnsComposite'} = new EBox::DNS::Model::DNSComposite();
 
 	bless($self, $class);
 	return $self;
@@ -74,7 +83,25 @@ sub models
 	return [
 		$self->{'domainModel'}, 
 		$self->{'hostnameModel'}, 
-		$self->{'aliasModel'}
+		$self->{'aliasModel'},
+		$self->{'enableModel'}
+	];
+}
+
+# Method: composites 
+# 
+#	Return the compistes used by the DNS eBox module
+#	
+# Overrides:
+# 
+#        <EBox::Model::CompositeProvider::composites>
+# 
+sub composites 
+{
+	my ($self) = @_;
+
+	return [
+		$self->{'dnsComposite'}, 
 	];
 }
 
@@ -337,7 +364,9 @@ sub _doDaemon
 
 	if ($self->service and EBox::Service::running('bind9')) {
 		EBox::Service::manage('bind9','restart');
+		$self->_configureFirewall;
 	} elsif ($self->service) {
+		$self->_configureFirewall;
 		EBox::Service::manage('bind9','start');
 	} elsif (EBox::Service::running('bind9')) {
 		EBox::Service::manage('bind9','stop');
@@ -359,38 +388,45 @@ sub _configureFirewall($){
 	}
 }
 
-# Method: setService 
+# Method: service
 #
-#       Sets the dns service as enabled
-#
-# Parameters:
-#
-#       enabled - boolean. True enable, undef disable
-#
-sub setService
-{
-	my ($self, $active) = @_;
-	($active and $self->service) and return;
-	(!$active and !$self->service) and return;
-	$self->set_bool('active', $active);
-	$self->_configureFirewall;
-}
-
-# Method: service 
-
-#
-#       Returns if the dns service is enabled  
+#      Check whether the Events service is enabled or not
 #
 # Returns:
 #
-#       boolean - true if enabled, otherwise undef      
-
+#      boolean - the service is enabled or not
+#
 sub service
-{
-	my $self = shift;
-	return $self->get_bool('active');
-}
+  {
 
+      my ($self) = @_;
+
+      my $enableModel = $self->{'enableModel'};
+
+      return $enableModel->enabledValue();
+
+  }
+
+# Method: setService
+#
+#      Set if the events service is enabled or not
+#
+# Parameters:
+#
+#      enabled - boolean service to be enabled or not
+#
+sub setService
+  {
+
+      my ($self, $enabled) = @_;
+
+      my $enableModel = $self->{'enableModel'};
+
+      $enableModel->setRow(1,
+                           ( enabled => $enabled ),
+                          );
+
+  }
 
 # Method: _regenConfig
 #
@@ -480,7 +516,7 @@ sub onInstall
 sub menu
 {
         my ($self, $root) = @_;
-        $root->add(new EBox::Menu::Item('url' => 'DNS/View/DomainTable',
+        $root->add(new EBox::Menu::Item('url' => 'DNS/Composite/DNSComposite',
                                         'text' => __('DNS')));
 }
 
