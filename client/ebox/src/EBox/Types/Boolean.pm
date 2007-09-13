@@ -119,5 +119,21 @@ sub _paramIsSet
 
   }
 
+# Method: isEqualTo 
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::isEqualTo>
+#
+sub isEqualTo 
+{
+	my ($self, $newObject) = @_;
+
+	if ($self->value() xor $newObject->value()) {
+		return undef;
+	} else {
+		return 1;
+	}
+}
 
 1;
