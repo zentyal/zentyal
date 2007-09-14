@@ -1127,13 +1127,17 @@ sub _pingCC # (self, client)
 
 # Method to get the client name
 # Helper function
-# Return an string containing the name
+# Return an string containing the name or undef if there is no eBox CN
 sub _vpnClientName
   {
 
       my ($self) = @_;
 
-      return EBox::OpenVPN::reservedPrefix() . $self->eBoxCN();
+      if ( defined ( $self->eBoxCN() )) {
+          return EBox::OpenVPN::reservedPrefix() . $self->eBoxCN();
+      } else {
+          return undef;
+      }
 
   }
 
@@ -1147,11 +1151,14 @@ sub _vpnClient
 
       # The prefix is available from openvpn API
       my $clientName = $self->_vpnClientName();
-      if ( $self->{openvpn}->clientExists($clientName) ) {
-          return $self->{openvpn}->client($clientName);
-      } else {
-          return undef;
+      if ( defined ($clientName) ) {
+          if ( $self->{openvpn}->clientExists($clientName) ) {
+              return $self->{openvpn}->client($clientName);
+          }
       }
+
+      # No client name
+      return undef;
 
   }
 

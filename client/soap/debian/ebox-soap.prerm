@@ -28,5 +28,6 @@ case "$1" in
                 onRemove
 		remove_gconf_schemas
                 invoke-rc.d ebox soap stop || true
+                rm -rf /var/lib/ebox/conf/soap
 		;;	
 esac 
