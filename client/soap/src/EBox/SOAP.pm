@@ -106,7 +106,7 @@ sub _regenConfig
       my ( $self ) = @_;
 
       # OpenVPN client configuration
-      $self->_setOpenVPNClient();
+      # $self->_setOpenVPNClient();
 
       if ( $self->isReadOnly() ) {
           ### WARNING!!! ###
@@ -230,6 +230,8 @@ sub setEnabled
           $self->set_bool('enabled', $enable);
           # Configure firewall to let cc connect to eBox
           $self->_configureFirewall();
+          # Set the OpenVPN
+          $self->_setOpenVPNClient();
       }
 
   }

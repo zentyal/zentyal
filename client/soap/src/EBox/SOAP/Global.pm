@@ -23,7 +23,7 @@ use vars qw(@INC);
 BEGIN
   {
 
-      @INC = qw(/root/SOAP/Module /etc/perl /usr/local/lib/perl/5.8.4 /usr/local/share/perl/5.8.4 /usr/lib/perl5 /usr/share/perl5 /usr/lib/perl/5.8 /usr/share/perl/5.8 /usr/local/lib/site_perl .);
+      @INC = qw(/etc/perl /usr/local/lib/perl/5.8.4 /usr/local/share/perl/5.8.4 /usr/lib/perl5 /usr/share/perl5 /usr/lib/perl/5.8 /usr/share/perl/5.8 /usr/local/lib/site_perl .);
       use EBox;
       use EBox::Global;
       use EBox::Config;
