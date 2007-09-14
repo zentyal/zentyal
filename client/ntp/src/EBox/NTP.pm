@@ -395,7 +395,7 @@ sub onInstall
 	$serviceMod->save();
 	my $fw = EBox::Global->modInstance('firewall');
 	$fw->setInternalService('ntp', 'accept');
-    $fw->save();
+    	$fw->save();
 }
 
 # Method: onRemove
@@ -443,7 +443,7 @@ sub _addNTPService
 
     my $serviceMod = EBox::Global->modInstance('services');
 
-	if ($serviceMod->serviceExists('name' => 'ntp')) {
+	if (not $serviceMod->serviceExists('name' => 'ntp')) {
 		 $serviceMod->addService('name' => 'ntp',
 			'protocol' => 'udp',
 			'sourcePort' => 'any',
