@@ -729,7 +729,7 @@ sub deniedObj
 	my @denied = ();
 	my $object = EBox::Global->modInstance('objects');
 
-	my @objects = @{$object->ObjectNames};
+	my @objects = @{$object->objectIds()};
 
 	foreach (@objects) {
 		if ($self->isAllowed($_)) {

@@ -41,7 +41,7 @@ sub _objectsToHash # (self, object)
    foreach my $obj (@{$objects}) {
       my $item = {};
       $item->{name} = $obj;
-      $item->{description} = $objectobj->ObjectDescription($obj);
+      $item->{description} = $objectobj->objectDescription($obj);
       push(@ret, $item);
    }
    return \@ret;
