@@ -65,42 +65,31 @@ sub new
 
   }
 
-# Method: selectOptions
+# Method: priority 
 #
-#	Return select options for a given select within the table
-#
-# Arguments:
-#
-# 	select - String select's name
+#	Return select options for the priority field 
 #
 # Returns:
 #
 #	Array ref containing hash ref with value, printable
 #	value and selected status
 #
-sub selectOptions
-  {
+sub priority 
+{
 
-    my ($self, $id) = @_;
+    my  @options;
 
-    my @options;
-
-    if ( ($id eq 'source_object') or ($id eq 'destination_object')) {
-      @options = @{$self->_objects()};
-    }
-    elsif ( $id eq 'priority' ) {
-      foreach my $i (qw(0 1 2 3 4 5 6 7)) {
-	push (@options, {
-			 value => $i,
-			 printableValue => $i
-			}
-	     );
-      }
+    foreach my $i (qw(0 1 2 3 4 5 6 7)) {
+        push (@options, {
+                value => $i,
+                printableValue => $i
+                }
+             );
     }
 
     return \@options;
 
-  }
+}
 
 
 # Method: _table
@@ -118,93 +107,67 @@ sub _table
 		     new EBox::Types::Service(
 					      fieldName     => 'service',
 					      printableName => __('Service'),
-					      class         => 'tcenter',
-					      type          => 'service',
-					      size          => 10,
-					      unique        => 0, # not unique
 					      editable      => 1, # editable
 					      optional      => 1,
 					     ),
 		     new EBox::Types::Union(
 					    fieldName     => 'source',
 					    printableName => __('Source'),
-					    class         => 'tcenter',
-					    type          => 'union',
 					    optional      => 1,
 					    subtypes      => 
 					    [
 					     new EBox::Types::IPAddr(
 								     fieldName     => 'source_ipaddr',
 								     printableName => __('Source IP'),
-								     class         => 'tcenter',
-								     type          => 'ipaddr',
-								     unique        => 0,
 								     editable      => 1,
 								     optional      => 1),
 					     new EBox::Types::MACAddr(
 								      fieldName     => 'source_macaddr',
 								      printableName => __('Source MAC'),
-								      class         => 'tcenter',
-								      type          => 'macaddr',
-								      unique        => 0,
 								      editable      => 1,
 								      optional      => 1),
 					     new EBox::Types::Select(
 								     fieldName     => 'source_object',
 								     printableName => __('Source object'),
-								     class         => 'tcenter',
-								     type          => 'select',
-								     unique        => 0,
-								     editable      => 1)
+								     editable      => 1,
+                                     foreignModel => \&objectModel,
+                                     foreignField => 'name'
+                                     )
 					     ],
-					    size     => 16,
-					    unique   => 0,
 					    editable => 1,
 					   ),
 		     new EBox::Types::Union(
 					    fieldName     => 'destination',
 					    printableName => __('Destination'),
-					    class         => 'tcenter',
-					    type          => 'union',
 					    optional      => 1,
 					    subtypes      =>
 					    [
 					     new EBox::Types::IPAddr(
 								     fieldName     => 'destination_ipaddr',
 								     printableName => __('Destination IP'),
-								     class         => 'tcenter',
-								     type          => 'ipaddr',
-								     unique        => 0,
 								     editable      => 1,
 								     optional      => 1),
 					     new EBox::Types::Select(
 								     fieldName     => 'destination_object',
 								     printableName => __('Destination object'),
-								     class         => 'tcenter',
 								     type          => 'select',
-								     unique        => 0,
-								     editable      => 1)
+                                     foreignModel => \&objectModel,
+                                     foreignField => 'name',
+				     editable      => 1)
 					     ],
-					    size     => 16,
-					    unique   => 0,
 					    editable => 1,
 					   ),
 		     new EBox::Types::Select(
 					     fieldName     => 'priority',
 					     printableName => __('Priority'),
-					     class         => 'tcenter',
-					     type          => 'select',
-					     unique        => 0,
 					     editable      => 1,
 					     optional      => 1,
+                         populate      => \&priority,
 					    ),
 		     new EBox::Types::Int(
 					  fieldName     => 'guaranteed_rate',
 					  printableName => __('Guaranteed Rate'),
-					  class         => 'tcenter',
-					  type          => 'int',
 					  size          => 3,
-					  unique        => 0, # not unique
 					  editable      => 1, # editable
 					  trailingText  => __('Kbit/s'),
 					  optional      => 1, # optional
@@ -215,7 +178,6 @@ sub _table
 					  class         => 'tcenter',
 					  type          => 'int',
 					  size          => 3,
-					  unique        => 0, # not unique
 					  editable      => 1, # editable
 					  trailingText  => __('Kbit/s'),
 					  optional      => 1, # optional
@@ -437,22 +399,27 @@ sub updatedRowNotify
 # Get the objects from Objects module
 # Return an array ref with a hash
 # ref within each element with the attributes value and printableValue
-sub _objects
+sub objects
 {
 	my $self = shift;
 
 	my $objects = EBox::Global->modInstance('objects');
 
 	my @options;
-	foreach my $object (@{$objects->ObjectsArray()}) {
+	foreach my $object (@{$objects->objects()}) {
 		push (@options, { 
-				 'value' => $object->{'name'},
-				 'printableValue' => $object->{'description'}
+				 'value' => $object->{'id'},
+				 'printableValue' => $object->{'name'}
 				 });
 	}
 
 	return \@options;
 }
 
+sub objectModel
+{
+    return EBox::Global->modInstance('objects')->{'objectModel'};
+}
+    
 
 1;
