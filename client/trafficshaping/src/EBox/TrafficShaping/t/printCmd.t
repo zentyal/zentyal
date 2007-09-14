@@ -27,6 +27,7 @@ use EBox;
 EBox->init();
 
 my $ts = EBox::Global->modInstance('trafficshaping');
+$ts->startUp();
 
 my $tcCommands_ref = $ts->{builders}->{'eth0'}->dumpTcCommands();
 my $ipTablesCommands_ref = $ts->{builders}->{'eth0'}->dumpIptablesCommands();

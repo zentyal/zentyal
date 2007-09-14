@@ -69,25 +69,35 @@ sub _create
 				      title  => __('Traffic Shaping'),
 				      @_);
 
+    $self->{network} = EBox::Global->modInstance('network');
+    $self->{objects} = EBox::Global->modInstance('objects');
+
+
 #    $self->_setLogAdminActions();
 
 #    my $global = EBox::Global->getInstance();
 #    $self->{network} = $global->modInstance('network');
 
+    bless($self, $class);
+
+    return $self;
+  }
+
+# FIXME 
+sub startUp
+{
+     my ($self) = @_;
     # Create rule models
     $self->_createRuleModels();
 
     # Create wrappers
     $self->{tc} = EBox::TC->new();
     $self->{ipTables} = EBox::Iptables->new();
-
     # Create tree builders
     $self->_createBuilders();
 
-    bless($self, $class);
-
-    return $self;
-  }
+    $self->{'started'} = 1;
+}
 
 sub _regenConfig
   {
@@ -95,6 +105,8 @@ sub _regenConfig
     my ($self) = @_;
 
     # FIXME
+
+    $self->startUp() unless ($self->{'started'});
 
     # Create builders ( Disc -> Memory ) Mandatory every time an
     # access in memory is done
@@ -550,7 +562,7 @@ sub checkRule
     # Check source and destination (Already done by model)
     # Check source object
     my $gl = EBox::Global->getInstance();
-    my $objs = EBox::Global->modInstance('objects');
+    my $objs = $self->{'objects'};
     if ( defined ( $ruleParams{source} ) ) {
       if ( not ref $ruleParams{source} ) {
 	# Check source object is an existant object
@@ -979,7 +991,7 @@ sub _createRuleModels
     my ($self) = @_;
 
     my $global = EBox::Global->getInstance();
-    my $network = $global->modInstance('network');
+    my $network = $self->{'network'}; 
 
     my $ifaces_ref = $network->ifaces();
     foreach my $iface (@{$ifaces_ref}) {
@@ -1012,7 +1024,7 @@ sub _checkInterface # (iface)
 #    EBox::debug($trace->as_string());
 
     my $global = EBox::Global->getInstance();
-    my $network = $global->modInstance('network');
+    my $network = $self->{'network'}; 
 
     # Now shaping can be done at internal interfaces to egress traffic
 #    if (not $network->ifaceIsExternal( $iface )) {
@@ -1144,7 +1156,8 @@ sub _ruleDirectory # (iface, ruleId?)
 
     my ($self, $iface, $ruleId) = @_;
 
-    my $dir = $self->ruleModel($iface)->directory();
+    my $dir = $self->ruleModel($iface)->directory() . '/keys';
+    
 
     if ( defined ($ruleId) ) {
       return "$dir/$ruleId";
@@ -1229,7 +1242,7 @@ sub _createTree # (interface, type)
       # to the external interfaces
 
       my $global = EBox::Global->getInstance();
-      my $network = $global->modInstance('network');
+      my $network = $self->{'network'}; 
       if ( $network->ifaceIsExternal($iface) ) {
 	$linkRate = $self->_uploadRate($iface);
       }
@@ -1328,7 +1341,7 @@ sub _createBuilders
     my ($self) = @_;
 
     my $global = EBox::Global->getInstance();
-    my $network = $global->modInstance('network');
+    my $network = $self->{'network'}; 
 
     my @ifaces = @{$network->ifaces()};
 
@@ -1501,9 +1514,9 @@ sub _buildObjMembers
 
     # Get the object's members
     my $global = EBox::Global->getInstance();
-    my $objs = $global->modInstance('objects');
+    my $objs = $self->{'objects'}; 
 
-    my $membs_ref = $objs->ObjectMembers($objectName);
+    my $membs_ref = $objs->objectMembers($objectName);
 
     # Set a different filter identifier for each object's member
     my $filterId = $ruleRelated;
@@ -1563,10 +1576,10 @@ sub _buildObjToObj
     my ($self, %args) = @_;
 
     my $global = EBox::Global->getInstance();
-    my $objs = $global->modInstance('objects');
+    my $objs = $self->{'objects'}; 
 
-    my $srcMembs_ref = $objs->ObjectMembers($args{srcObject});
-    my $dstMembs_ref = $objs->ObjectMembers($args{dstObject});
+    my $srcMembs_ref = $objs->objectMembers($args{srcObject});
+    my $dstMembs_ref = $objs->objectMembers($args{dstObject});
 
     my $filterId = $args{ruleRelated};
 
@@ -1842,7 +1855,7 @@ sub _uploadRate # (iface)
     my ($self, $iface) = @_;
 
     my $global = EBox::Global->getInstance();
-    my $net = $global->modInstance('network');
+    my $net = $self->{'network'}; 
 
     my $gateways_ref = $net->gateways();
 
@@ -1866,7 +1879,7 @@ sub _totalDownloadRate
     my ($self) = @_;
 
     my $global = EBox::Global->getInstance();
-    my $net = $global->modInstance('network');
+    my $net = $self->{'network'}; 
 
     my $gateways_ref = $net->gateways();
 

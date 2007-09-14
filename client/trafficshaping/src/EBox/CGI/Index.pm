@@ -69,6 +69,7 @@ sub masonParameters
     my $enoughInterfaces = $areExternalIfaces and $areInternalIfaces;
 
     my $ts = $global->modInstance('trafficshaping');
+    $ts->startUp;
     my $model = $ts->ruleMultiTableModel();
     my $areGateways = undef;
     foreach my $iface (@extIfaces) {

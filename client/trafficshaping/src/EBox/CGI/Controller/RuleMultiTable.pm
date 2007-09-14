@@ -48,6 +48,7 @@ sub _process
 
     my $global = EBox::Global->getInstance();
     my $ts = $global->modInstance('trafficshaping');
+    $ts->startUp;
 
     # Template parameters
     my @tplParams;

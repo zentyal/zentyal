@@ -47,6 +47,7 @@ sub _process
 
     my $global = EBox::Global->getInstance();
     my $ts = $global->modInstance('trafficshaping');
+    $ts->startUp;
     $self->_requireParam('directory');
     my $dir = $self->param('directory');
     # Get the interface from directory

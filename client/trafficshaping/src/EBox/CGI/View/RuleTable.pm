@@ -37,6 +37,7 @@ sub new # (cgi=?)
 
     my $global = EBox::Global->getInstance();
     my $ts = $global->modInstance('trafficshaping');
+    $ts->startUp;
     my $self = $class->SUPER::new('title' => __('Traffic Shaping rules'),
 				  'tableModel' => $ts->tableModel(),
 				  @_);

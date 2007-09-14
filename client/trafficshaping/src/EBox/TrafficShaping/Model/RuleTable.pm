@@ -27,6 +27,8 @@ use EBox::Types::Select;
 use EBox::Types::Service;
 use EBox::Types::MACAddr;
 use EBox::Types::IPAddr;
+use EBox::Types::Union;
+use EBox::Types::Union::Text;
 
 # Uses to validate
 use EBox::Validate qw( checkProtocol checkPort );
@@ -116,6 +118,9 @@ sub _table
 					    optional      => 1,
 					    subtypes      => 
 					    [
+						new EBox::Types::Union::Text(
+						 	'fieldName' => 'source_any',
+							'printableName' => __('Any')),
 					     new EBox::Types::IPAddr(
 								     fieldName     => 'source_ipaddr',
 								     printableName => __('Source IP'),
@@ -142,6 +147,9 @@ sub _table
 					    optional      => 1,
 					    subtypes      =>
 					    [
+						new EBox::Types::Union::Text(
+						 	'fieldName' => 'source_any',
+							'printableName' => __('Any')),
 					     new EBox::Types::IPAddr(
 								     fieldName     => 'destination_ipaddr',
 								     printableName => __('Destination IP'),
