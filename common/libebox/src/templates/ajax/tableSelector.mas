@@ -47,11 +47,10 @@ foreach my $option (@{$multiTableModel_ref->selectOptions()}) {
 		        value         => '0',
 		        options       => \@selectOptions,
                         id => 'tableSelection',
-			onchange => "if ( ! selectDefault('tableSelection'))" .
-				      "{ hangTable('table', 'errorMultiTable', " .
-				      "'" . $multiTableModel_ref->action('select') . "'" .
-				      ", 'selector');" .
-				    "}",
+			onchange => 'if ( ! selectDefault("tableSelection"))' .
+				    '{ hangTable("table", "errorMultiTable", ' .
+				      '"' .  $multiTableModel_ref->action('select') .  '"' .
+				      ', "selector"); }',
   &>
   <span id="loadingTable"></span>
 </form>
