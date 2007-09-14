@@ -42,7 +42,7 @@
 		</variablelist>
 
 		
-		<section>
+		<section id="passwd-change-sect">
 			<title>Password change</title>
 			<para>To change your password, you should enter current
 			password, for security reasons, and the new one twice, so it
@@ -51,7 +51,7 @@
 			upper menu, to make them definitive.</para>
 		</section>
 
-		<section>
+		<section id="lang-change-sect">
 			<title>Language selection</title>
 			<para>Select your preferred language from the
 			list and confirm your changes by submitting the
@@ -59,7 +59,7 @@
 			Changes" to make it effective.</para>
 		</section>
 
-		<section>
+		<section id="management-port-sect">
 			<title>Management Interface TCP Port</title>
 			<para>If the port value is changed to something different to
 			443, form is submitted and changed are saved, you will be able
@@ -92,7 +92,7 @@
 		backup modes are available in eBox which are described
 		below.</para>
 
-		<section>
+		<section id="backup-modes-sect">
 		  <title>Backup modes</title>
 		  <variablelist>
 		    <varlistentry>
@@ -118,7 +118,7 @@
 		  </variablelist>
 		</section>
 
-		<section>
+		<section id="saving-sect">
 			<title>Saving your current state</title>
 			<para>Both backup modes need a description and
 			can be stored in hard disk or in a removable
@@ -147,7 +147,7 @@
 				backup.</para>
 			</note>
 		</section>
-		<section>
+		<section id="backup-restore-sect">
 			<title>Backup Restore</title> 
 			<para>There are three different ways to
 			restore a backup.</para>
