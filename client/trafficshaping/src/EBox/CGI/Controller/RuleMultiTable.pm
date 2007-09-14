@@ -55,9 +55,22 @@ sub _process
     try {
       my $ruleModel = $ts->ruleModel($tableId);
 
+      my $filter = $self->param('filter');
+      my $page = $self->param('page');
+      my $pageSize = $self->param('pageSize');
+      if ( defined ( $pageSize )) {
+	      $ruleModel->setPageSize($pageSize);
+      }
+      my $rows = $ruleModel->rows($filter, $page);
+      my $tpages = $ruleModel->pages($filter);
+
+      push ( @tplParams, 'model'      => $ruleModel);
       push ( @tplParams, 'data'      => $ruleModel->rows() );
       push ( @tplParams, 'dataTable' => $ruleModel->tableInfo() );
       push ( @tplParams, 'hasChanged' => $global->unsaved() );
+      push ( @tplParams, 'filter' => $filter);
+      push ( @tplParams, 'page' => $page);
+      push ( @tplParams, 'tpages' => $tpages);
 
       $self->{params} = \@tplParams;
     }

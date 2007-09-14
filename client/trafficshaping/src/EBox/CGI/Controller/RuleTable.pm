@@ -52,6 +52,7 @@ sub _process
     # Get the interface from directory
     my ($iface) = split ('/', $dir);
     $self->{tableModel} = $ts->ruleModel($iface);
+    $self->setTemplate($self->{tableModel}->Viewer());
     $self->SUPER::_process(@_);
 
   }
