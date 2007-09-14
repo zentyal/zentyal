@@ -29,7 +29,11 @@ sub new # (cgi=?)
 	my $class = shift;
 	my %params = @_;
 	my $tableModel = delete $params{'tableModel'};
-	my $self = $class->SUPER::new('template' => $tableModel->Viewer(),
+	my $template;
+	if (defined($tableModel)) {
+		$template = $tableModel->Viewer();
+	}
+	my $self = $class->SUPER::new('template' => $template,
                                       @_);
 	$self->{'tableModel'} = $tableModel;
 	bless($self, $class);
