@@ -13,6 +13,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+# FIXME:  Get rid of unnecessary stuff already provided by the framework
+# 
 package EBox::TrafficShaping;
 
 use strict;
@@ -1055,6 +1057,9 @@ sub _checkRuleExistence # (iface, ruleId)
 
     my ($self, $iface, $ruleId) = @_;
 
+    # In god we trust. Actually, this code is not necessary any longer
+    
+    return 1;
     my $dir = $self->_ruleDirectory($iface, $ruleId);
 
     if (not $self->dir_exists("$dir") ) {
