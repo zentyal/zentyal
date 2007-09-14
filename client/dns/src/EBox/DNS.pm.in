@@ -487,15 +487,28 @@ sub statusSummary
 		EBox::Service::running('bind9'), $self->service);
 }
 
+sub configureFirewall
+{
+	my ($self) = @_;
+
+	my $fw = EBox::Global->modInstance('firewall');	
+
+	if ($self->service()) {
+		$fw->addOutputRule('udp', 53);
+		$fw->addOutputRule('tcp', 53);
+	} else {
+		$fw->removeOutputRule('udp', 53);
+		$fw->removeOutputRule('tcp', 53);
+	}
+}
+
 sub onInstall
 {
-    EBox::init();
-    _addDNSService();
-    my $fw = EBox::Global->modInstance('firewall');
+	EBox::init();
+	_addDNSService();
+	my $fw = EBox::Global->modInstance('firewall');
 	$fw->setInternalService('dns', 'accept');
-	$fw->addOutputRule('udp', 53);
-	$fw->addOutputRule('tcp', 53);
-    $fw->save();
+	$fw->save();
 }
 
 # Method: menu 

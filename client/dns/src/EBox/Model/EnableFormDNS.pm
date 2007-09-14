@@ -24,6 +24,8 @@ package EBox::DNS::Model::EnableFormDNS;
 
 use base 'EBox::Common::Model::EnableForm';
 
+use EBox::Gettext;
+
 use strict;
 use warnings;
 
@@ -42,12 +44,12 @@ use warnings;
 sub new
 {
 
-	my ($class, %params) = @_;
+    my ($class, %params) = @_;
 
-	my $self = $class->SUPER::new(%params);
-	bless( $self, $class );
+    my $self = $class->SUPER::new(%params);
+    bless( $self, $class );
 
-	return $self;
+    return $self;
 
 }
 
@@ -58,12 +60,34 @@ sub new
 sub _table
 {
 
-	my ($self) = @_;
+    my ($self) = @_;
 
-	my $dataForm = $self->SUPER::_table();
-	$dataForm->{'tableName'} = 'EnableFormDNS';
+    my $dataForm = $self->SUPER::_table();
+    $dataForm->{'tableName'} = 'EnableFormDNS';
 
-	return $dataForm;
+    return $dataForm;
+}
+
+# Method: formSubmitted
+#
+# Overrides:
+#
+#     <EBox::Model::DataForm::formSubmitted>
+#
+sub formSubmitted
+{
+
+    my ($self, $oldRow) = @_;
+
+    my $dns = EBox::Global->modInstance('dns');
+    if ( $self->enabledValue() ) {
+        $self->setMessage(__('Service enabled'));
+    } else {
+        $self->setMessage(__('Service disabled'));
+    }
+    
+    $dns->configureFirewall();
+
 }
 
 1;
