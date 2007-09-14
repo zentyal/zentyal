@@ -135,7 +135,16 @@ sub objectMembers # (object)
 
 	my $object = $self->{'objectModel'}->find('id' => $id);
 	return undef unless defined($object);
-	return $object->{'members'}->{'values'};
+    my @members;
+    for my $member (@{$object->{'members'}->{'values'}}) {
+        my $ipaddr = $member->{'ipaddr'};
+        my ($ip, $mask) = split ('/', $ipaddr);
+        $member->{'ip'} = $ip;
+        $member->{'mask'} = $mask;
+        push (@members, $member);
+    }
+
+    return \@members;
 }
 
 # objectAddresses
