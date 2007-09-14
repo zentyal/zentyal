@@ -271,7 +271,7 @@ function hangTable(successId, errorId, url, formId, loadingId)
       }
   );
  
-  setLoading(loadingId);
+  //setLoading(loadingId);
  
 }
 
