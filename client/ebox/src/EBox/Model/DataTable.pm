@@ -2558,7 +2558,7 @@ sub _isOptionsCacheDirty
 	my $cachedVersion = 
 		$self->{'optionsCache'}->{$field}->{'cachedVersion'};
 
-	return ($cachedVersion ne $self->_cachedVersion());
+	return ($cachedVersion ne $self->_storedVersion());
 }
 
 1;
