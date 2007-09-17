@@ -392,10 +392,9 @@ sub onInstall
 {
 	EBox::init();
 	_addNTPService();
-	$serviceMod->save();
 	my $fw = EBox::Global->modInstance('firewall');
 	$fw->setInternalService('ntp', 'accept');
-    	$fw->save();
+    $fw->save();
 }
 
 # Method: onRemove
@@ -462,9 +461,7 @@ sub _addNTPService
 		EBox::info("Not adding ntp services as it already exists");
 	}
 
-    my $serviceMod = EBox::Global->modInstance('services');
-
-
-
+    $serviceMod->save();
 }
+
 1;
