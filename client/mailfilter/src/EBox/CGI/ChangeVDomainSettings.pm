@@ -61,27 +61,23 @@ sub actuate {
   my $vdomain = $self->param('vdomain');
   $self->setRedirect("/Mail/EditVDomain?vdomain=$vdomain&menu=1");
 
-
   my $mailfilter= EBox::Global->modInstance('mailfilter');
   my $antivirus = $mailfilter->antivirus();
   my $antispam  = $mailfilter->antispam();
 
- 
   my $antivirusService =  $self->param('antivirus');
-  if (defined $antivirusService) {
-    if ($antivirusService != $antivirus->vdomainService($vdomain)) {
-      $antivirus->setVDomainService($vdomain, $antivirusService);
-
-    }
+  defined $antivirusService or $antivirusService = 0;
+  if ($antivirusService != $antivirus->vdomainService($vdomain)) {
+    $antivirus->setVDomainService($vdomain, $antivirusService);
+    
   }
-  
+
   my $antispamService =  $self->param('antispam');
-  if (defined $antispamService) {
-    if ($antispamService != $antispam->vdomainService($vdomain)) {
-      $antispam->setVDomainService($vdomain, $antispamService);
-
-    }
+  defined $antispamService  or $antispamService = 0;
+  if ($antispamService != $antispam->vdomainService($vdomain)) {
+    $antispam->setVDomainService($vdomain, $antispamService);
   }
+
 
   my $defaultSpamThreshold  =  $self->param('defaultSpamThreshold');
   my $threshold             =  $self->param('spamThreshold');

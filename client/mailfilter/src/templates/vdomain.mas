@@ -22,11 +22,12 @@ defined $antivirus or
 defined $antispam or
    $antispam = 1;
 
+my $checkboxComponent = '/mailfilter/vdomain.mas:checkbox';
 
 my $antivirusPrintableName = __('Use virus filtering');
 my @antivirusCheckbox = (
                               name  => 'antivirus',
-			      input => 'checkbox',
+			      component => $checkboxComponent,
 			      value => $antivirus,
 			      printableName => $antivirusPrintableName,
                           );
@@ -43,7 +44,7 @@ if (not $globalAntivirus) {
 my $antispamPrintableName = __('Use spam filtering');
 my @antispamCheckbox = (
                               name  => 'antispam',
-			      input => 'checkbox',
+			      component => $checkboxComponent,
 			      value => $antispam,
 			      printableName => $antispamPrintableName,
                           );
@@ -109,6 +110,20 @@ my @mailfilterSettings = (
      whitelist => \@whitelist,
      blacklist => \@blacklist,
 &>
+
+
+<%method checkbox>
+<%args>
+$name
+$value
+#$printableName
+</%args>
+<%init>
+my @checked = $value ? (checked => 'checked') : ();
+</%init>
+<input type='checkbox' name='<% $name %>' <& /htmlAttributes.mas, @checked, &> value='1' />
+</%method>
+
 %# script to enable/disable spamThresahold input text
 <script type="text/javascript">
 function updateDefaultSpamThreshold() {
