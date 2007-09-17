@@ -13,8 +13,8 @@
 		</schema>
 		
 		<schema>
-            <key>/schemas/ebox/modules/samba/file_service</key>
-            <applyto>/ebox/modules/samba/file_service</applyto>
+            <key>/schemas/ebox/modules/samba/file_active</key>
+            <applyto>/ebox/modules/samba/file_active</applyto>
             <owner>ebox</owner>
             <type>bool</type>
             <default>false</default>
