@@ -7,7 +7,7 @@ Standards-Version: 3.6.1
 
 Package: ebox-soap
 Architecture: all
-Depends: ebox (>= 0.9.1), ebox-firewall, ebox-openvpn, libsoap-lite-perl, libfile-mmagic-perl, libconfig-tiny-perl
+Depends: ebox (= 0.9.100), ebox-firewall, ebox-openvpn, libsoap-lite-perl, libfile-mmagic-perl, libconfig-tiny-perl
 Description: SOAP server to communicate with eBox control center
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
