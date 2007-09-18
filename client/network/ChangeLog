@@ -1,4 +1,6 @@
 0.9.100
+	+ Fixing bug with static routes which prevented them from working
+	  if the multigateway support was enabled
 	+ Fixing bug importing gateway IP addresses from network
 	  configuration
 	+ Added /22 netmask setting iface IP address
