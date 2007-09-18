@@ -31,6 +31,9 @@ case "$1" in
         # run the onInstall method in the module
         onInstall
 
+        # Migrate data if needed
+        /usr/lib/ebox/ebox-migrate /usr/lib/ebox-dns/migration/
+
 		invoke-rc.d ebox dns restart
 esac
 
