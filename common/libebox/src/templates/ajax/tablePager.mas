@@ -14,7 +14,6 @@
                         });
     }
 </%init>
-.
 <table width="100%">
     <tr>
     <td style="widht: 5%">
@@ -23,9 +22,11 @@
 %	my $leftPagerId = $tableName . '_leftPagerId';
         <input name='tofirst' type='image'
             src='/data/images/rw.gif' alt="<% __('first') %>" value="<% __('first') %>"
-	    onClick='setLoading("<% $leftPagerId %>");<% $model->changeViewJS("changeList", "undefined", 0) %>; return false'>
+	    onClick='setLoading("<% $leftPagerId %>");<%
+	    $model->changeViewJS( changeType => "changeList", editId => "undefined", page => 0, isFilter => 1) %>; return false'>
 	<input name='toprev' type='image' src="/data/images/r.gif" alt="<% __('prev') %>" value="<% __('prev') %>"
-	    onClick='setLoading("<% $leftPagerId %>");<% $model->changeViewJS("changeList", "undefined", $page - 1) %>; return false'>
+	    onClick='setLoading("<% $leftPagerId %>");<%
+	    $model->changeViewJS( changeType => "changeList", editId => "undefined", page => $page - 1, isFilter => 1) %>; return false'>
     	<span id="<% $leftPagerId %>"></span> 	
 %   }
 
