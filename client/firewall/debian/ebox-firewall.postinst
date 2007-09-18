@@ -24,6 +24,9 @@ case "$1" in
 		# run the oninstall method in the module
 		onInstall
 
+        # Migrate data if needed
+        /usr/lib/ebox/ebox-migrate /usr/lib/ebox-firewall/migration/
+
 		invoke-rc.d ebox firewall restart
 		invoke-rc.d ebox apache restart
 	;;
