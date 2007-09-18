@@ -22,6 +22,7 @@ $TTL 3D
 % {
 % 	foreach my $host(@{$groupItem->{'hosts'}})
 % 	{
-<% $host->{'ip'} %>	PTR	<% $host->{'name'} . "." . $groupItem->{'name'} %>
+<% $host->{'ip'} %>	PTR	<% $host->{'name'} . "." . $groupItem->{'name'}
+%>.
 % 	}
 % }
