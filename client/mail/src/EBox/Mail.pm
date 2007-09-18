@@ -127,7 +127,7 @@ sub _setMailConf {
 	my $allowedaddrs = "127.0.0.0/8";
 
 	foreach my $obj (@{$self->allowedObj}) {
-		foreach my $addr (@{$ob->ObjectAddresses($obj)}) {
+		foreach my $addr (@{$ob->objectAddresses($obj)}) {
 			$allowedaddrs .= " $addr";
 		}
 	}
