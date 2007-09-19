@@ -35,7 +35,9 @@ sub runGConf
     my $self = shift;
     my $objects = $self->{'gconfmodule'};
 
+    use Data::Dumper;
     foreach my $object (@{$self->_objectsArray()}) {
+        EBox::info(Dumper($object));
         next unless ($object->{'name'} and $object->{'description'});
         my $id = $object->{'name'};
         my $name = $object->{'description'};
@@ -74,7 +76,7 @@ sub _objectsArray
     my @array = ();
     my @objs = @{$gconf->all_dirs_base("")};
     foreach my $id (@objs) {
-        EBox::info("model 0 object $_");
+        EBox::info("model 0 object $id");
         my $hash = $gconf->hash_from_dir($id);
         $hash->{name} = $id;
         $hash->{member} = $gconf->array_from_dir($id);
