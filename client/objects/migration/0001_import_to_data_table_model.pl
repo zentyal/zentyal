@@ -41,12 +41,12 @@ sub runGConf
         my $name = $object->{'description'};
         my @members;
         foreach my $member (@{$object->{'member'}}) {
-	    next unless (defined($member->{'ip'}));
-        my $mac = $member->{'mac'};
-        unless (defined($mac) and length ($mac) > 0) {
-            $mac = undef;
-        }
-		
+            next unless (defined($member->{'ip'}));
+            my $mac = $member->{'mac'};
+            unless (defined($mac) and length ($mac) > 0) {
+                $mac = undef;
+            }
+
             push (@members,
                 {
                     'name' =>   $member->{'nname'},
@@ -55,6 +55,7 @@ sub runGConf
                     'macaddr' => $mac
                 });
         }
+        EBox::info("migrating object: $name with id $id");
 
         $objects->addObject(
             'id' => $id,
