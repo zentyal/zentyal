@@ -268,7 +268,7 @@ sub _setUpModels
                 $models{$model->table()->{'tableName'}} = $model;
             }
         } otherwise {
-            EBox::info("Skiping $module to fetch model");
+            EBox::warn("Skipping $module to fetch model");
         };
     }
 
@@ -278,7 +278,12 @@ sub _setUpModels
     	my $tableDesc = $models{$model}->table()->{'tableDescription'};
     	my $localModelName = $models{$model}->table()->{'tableName'};
         for my $type (@{$self->_fetchSelectTypes($tableDesc)}) {
-            my $foreignModel  = $type->foreignModel();
+            my $foreignModel;
+            try {
+                $foreignModel = $type->foreignModel();
+            } otherwise {
+                EBox::warn("Skipping " . $type->fieldName . " to fetch model");
+            }
             next unless (defined($foreignModel));
             my $foreignModelName = $foreignModel->table()->{'tableName'};
             my %currentHasOne =
