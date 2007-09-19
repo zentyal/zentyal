@@ -18,7 +18,7 @@ case "$1" in
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
         # Migrate data if needed
-        # /usr/lib/ebox/ebox-migrate /usr/lib/ebox-objects/migration/
+        /usr/lib/ebox/ebox-migrate /usr/lib/ebox-objects/migration/
 
 		invoke-rc.d ebox objects restart
         invoke-rc.d ebox apache restart
