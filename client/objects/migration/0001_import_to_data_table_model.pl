@@ -64,6 +64,8 @@ sub runGConf
             'name' => $name,
             'members' => \@members);
 
+        EBox::info("removing object: $id");
+
         $objects->delete_dir($id);
     }
 }
