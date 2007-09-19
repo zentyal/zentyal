@@ -73,10 +73,11 @@ sub _objectsArray
 
     my @array = ();
     my @objs = @{$gconf->all_dirs_base("")};
-    foreach (@objs) {
-        my $hash = $gconf->hash_from_dir($_);
-        $hash->{name} = $_;
-        $hash->{member} = $gconf->array_from_dir($_);
+    foreach my $id (@objs) {
+        EBox::info("model 0 object $_");
+        my $hash = $gconf->hash_from_dir($id);
+        $hash->{name} = $id;
+        $hash->{member} = $gconf->array_from_dir($id);
         push(@array, $hash);
     }
     return \@array;
