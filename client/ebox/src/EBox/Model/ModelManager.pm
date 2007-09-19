@@ -263,9 +263,13 @@ sub _setUpModels
     my @modules = @{$global->modInstancesOfType($classStr)};
     my %models; 
     for my $module (@modules) {
-        for my $model (@{$module->models()}) {
-            $models{$model->table()->{'tableName'}} = $model;
-        }
+        try {
+            for my $model (@{$module->models()}) {
+                $models{$model->table()->{'tableName'}} = $model;
+            }
+        } otherwise {
+            EBox::info("Skiping $module to fetch model");
+        };
     }
 
     # Set up dependencies. Fetch all select types and check if
