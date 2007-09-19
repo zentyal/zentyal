@@ -9,10 +9,13 @@
 package EBox::Migration;
 use strict;
 use warnings;
+
 use EBox;
 use EBox::Global;
 use EBox::NetWrappers qw(:all);
 use EBox::Validate qw(:all);
+
+use Error qw(:try);
 
 use base 'EBox::MigrationBase';
 
@@ -59,10 +62,14 @@ sub runGConf
         }
         EBox::info("migrating object: $name with id $id");
 
-        $objects->addObject(
-            'id' => $id,
-            'name' => $name,
-            'members' => \@members);
+        try {
+           $objects->addObject(
+                'id' => $id,
+                'name' => $name,
+                'members' => \@members);
+        } otherwise {
+            EBox::info("failed to migrate object: $name with id $id");
+        };
 
         EBox::info("removing object: $id");
 
