@@ -26,6 +26,7 @@ package EBox::Model::ModelManager;
 use EBox;
 use EBox::Global;
 use EBox::Exceptions::DataNotFound;
+use Error qw(:try);
 
 use strict;
 use warnings;
