@@ -114,6 +114,9 @@ sub _prepareRuleToAddInternalToInternet
     my ($rule, $object) = @_;
     
     my $serviceId = _addService($rule);
+    use Data::Dumper;
+    EBox::info("Adding service $serviceId for rule: " . Dumper($rule));
+
     my %params;
     if ($rule->{'action'} eq 'allow') {
         $params{'decision'} = 'accept';
@@ -267,7 +270,7 @@ sub runGConf
     _addToInternetRuleTable();
      
     my $serviceMod = EBox::Global->modInstance('services');
-    $serviceMod->save();
+    $serviceMod->saveConfig();
 }
 
 EBox::init();
