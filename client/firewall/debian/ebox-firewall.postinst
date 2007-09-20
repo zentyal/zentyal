@@ -25,7 +25,7 @@ case "$1" in
 		onInstall
 
         # Migrate data if needed
-        /usr/lib/ebox/ebox-migrate /usr/lib/ebox-firewall/migration/
+        # /usr/lib/ebox/ebox-migrate /usr/lib/ebox-firewall/migration/
 
 		invoke-rc.d ebox firewall restart
 		invoke-rc.d ebox apache restart
