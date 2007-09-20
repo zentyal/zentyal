@@ -1761,7 +1761,7 @@ sub findAll
 #
 # Returns:
 #
-# 	Hash ref containing the printable values of the matched row 
+# 	Hash ref containing the  values of the matched row 
 #	
 #	undef if there was not any match
 # 	
@@ -1785,7 +1785,7 @@ sub findValue
     }
 }
 
-# Method: findAll
+# Method: findAllValue
 #
 #	Return all the rows which matches the value of the given
 #	field against the data returned by the method value()
@@ -1804,8 +1804,7 @@ sub findValue
 #
 # Returns:
 #
-# 	Array ref of hash refs  containing the printable 
-# 	values of the matched row 
+# 	Array ref of hash refs  containing the values of the matched rows 
 # 	
 # Exceptions:
 #
