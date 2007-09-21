@@ -174,11 +174,15 @@ sub serviceConfiguration
 #	    'protocol' => 'tcp',
 #	    'sourcePort' => 'any',
 #       'destinationPort' => '21:22',
+#
+#   Returns:
+#
+#   string - id of the new created row  
 sub addService 
 {
     my ($self, %params) = @_;
 
-    $self->{'serviceModel'}->addService(%params);
+    return $self->{'serviceModel'}->addService(%params);
 }
 
 # Method: setService 

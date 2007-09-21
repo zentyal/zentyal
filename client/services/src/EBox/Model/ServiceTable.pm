@@ -267,6 +267,7 @@ sub addService
     $serviceConf->setDirectory($self->{'directory'} . "/$id/configuration");
     $serviceConf->addRow(_serviceConfParams(%params));
 
+    return $id;
 }
 
 # Method: setService 
