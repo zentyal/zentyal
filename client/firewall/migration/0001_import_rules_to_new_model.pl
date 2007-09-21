@@ -179,9 +179,13 @@ sub _prepareObjectPolicy
     my $rule = {};
     my $serviceId = _addService($rule);
     my %params;
+    if ($object->{'policy'} eq 'global') }
+        $object->{'policy'} = $self->{'globalPolicy'};
+    }
+
     if ($object->{'policy'} eq 'allow') {
         $params{'decision'} = 'accept';
-    } else {
+    } elsif ($object->{'policy' eq 'deny') {
         $params{'decision'} = 'deny';
     }
     $params{'source_selected'} = 'source_object';
@@ -214,8 +218,7 @@ sub _addToInternetRuleTable
 
     if ($global) {
         for my $rule (@{$global->{'rules'}}) {
-            push (@rules,
-                    _prepareRuleToAddInternalToInternet($rule, $global));
+           @rules = (_prepareRuleToAddInternalToInternet($rule, $global), @rules);
         }
     }
 
@@ -265,6 +268,9 @@ sub _addInternalToEBoxRuleTable
 sub runGConf
 {
     my ($self) = @_;
+
+    $self->{'globalPolicy'} =
+        $self->{'gconfmodule'}->get_string('/objects/_global/policy');    
 
     _addInternalToEBoxRuleTable();
     _addToInternetRuleTable
