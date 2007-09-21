@@ -266,15 +266,15 @@ sub runGConf
 {
     my ($self) = @_;
 
+    _addInternalToEBoxRuleTable();
     _addToInternetRuleTable
-    _addToInternetRuleTable();
      
     my $serviceMod = EBox::Global->modInstance('services');
     $serviceMod->saveConfig();
 }
 
 EBox::init();
-_addInternalToEBoxRuleTable();
+
 my $fw = EBox::Global->modInstance('firewall');
 my $migration = new EBox::Migration( 
     'gconfmodule' => $fw,
