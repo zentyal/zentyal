@@ -175,17 +175,17 @@ sub _prepareRuleToAddInternalToEBox
 
 sub _prepareObjectPolicy
 {
-    my ($object) = @_;
+    my ($self, $object) = @_;
     my $rule = {};
     my $serviceId = _addService($rule);
     my %params;
-    if ($object->{'policy'} eq 'global') }
+    if ($object->{'policy'} eq 'global') { 
         $object->{'policy'} = $self->{'globalPolicy'};
     }
 
     if ($object->{'policy'} eq 'allow') {
         $params{'decision'} = 'accept';
-    } elsif ($object->{'policy' eq 'deny') {
+    } elsif ($object->{'policy'} eq 'deny') {
         $params{'decision'} = 'deny';
     }
     $params{'source_selected'} = 'source_object';
@@ -209,7 +209,7 @@ sub _addToInternetRuleTable
             $global = $object;
             next;
         }
-        push (@rules, _prepareObjectPolicy($object));
+        push (@rules, $self->_prepareObjectPolicy($object));
         for my $rule(@{$object->{'rules'}}) {
                push (@rules,_prepareRuleToAddInternalToInternet($rule, $object) );
         }
@@ -270,10 +270,10 @@ sub runGConf
     my ($self) = @_;
 
     $self->{'globalPolicy'} =
-        $self->{'gconfmodule'}->get_string('/objects/_global/policy');    
+        $self->{'gconfmodule'}->get_string('objects/_global/policy');    
 
-    _addInternalToEBoxRuleTable();
-    _addToInternetRuleTable
+    $self->_addInternalToEBoxRuleTable();
+    $self->_addToInternetRuleTable();
      
     my $serviceMod = EBox::Global->modInstance('services');
     $serviceMod->saveConfig();
