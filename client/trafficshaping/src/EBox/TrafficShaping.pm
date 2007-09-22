@@ -138,6 +138,8 @@ sub _stopService
   {
     my $self = shift;
 
+    $self->startUp();
+
     my $ifaces_ref = $self->all_dirs_base('/ebox/modules/trafficshaping');
 
     foreach my $iface (@{$ifaces_ref}) {
