@@ -121,7 +121,7 @@ sub _addNamedServices
         push(@array, $hash);
     }
 
-    foreach my $service (@services) {
+    foreach my $service (@array) {
         next if $servicesModule->serviceExists('name' => $service->{'name'});
         $servicesModule->addService('name' => $service->{'name'},
                 'protocol' => $service->{'protocol'},
