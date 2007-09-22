@@ -109,6 +109,29 @@ sub _addService
     return $serviceId;
 }
 
+sub _addNamedServices
+{
+    my $fwMod = EBox::Global->modInstance('firewall');
+    my $servicesModule = EBox::Global->modInstance('services');
+
+    my @array = ();
+    my @services = @{$fwMod->all_dirs_base("services")};
+    foreach (@services) {
+        my $hash = $fwMod->hash_from_dir("services/$_");
+        push(@array, $hash);
+    }
+
+    foreach my $service (@services) {
+        next if $servicesModule->serviceExists('name' => $service->{'name'});
+        $servicesModule->addService('name' => $service->{'name'},
+                'protocol' => $service->{'protocol'},
+                'sourcePort' => 'any',
+                'destinationPort' => $service->{'port'},
+                'internal' => $service->{'internal'});
+
+    }
+}
+
 sub _prepareRuleToAddInternalToInternet
 {
     my ($rule, $object) = @_;
@@ -272,6 +295,7 @@ sub runGConf
     $self->{'globalPolicy'} =
         $self->{'gconfmodule'}->get_string('objects/_global/policy');    
 
+    $self->_addNamedServices();
     $self->_addInternalToEBoxRuleTable();
     $self->_addToInternetRuleTable();
      
