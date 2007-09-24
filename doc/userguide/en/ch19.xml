@@ -7,7 +7,7 @@
       several eBoxes at the same time using a very secure channel to
       communicate the center with the sparse eBoxes. The <xref
       linkend="cc-fig"/> indicates how a single element, the
-      <emphasis>control center</emphasis>, can send instructions,
+      <emphasis>Control Center</emphasis>, can send instructions,
       basically actions which every eBox module may perform and expose
       in its public API, which each eBox performs independently
       answering back with a response to the control center when the
@@ -35,7 +35,7 @@
       used to exchange XML-based messages between the control center
       and the eBox's group. The message pattern is a remote procedure
       call (RPC) one which the control center asks the eBoxes to do
-      something and the eBox responds immediately an answer can be
+      something and the eBox responds immediately. An answer may be
       given back. Furthermore, a state is also provided since a remote
       eBox "object" is handled to exchanges the messages that allows
       the control center manager set a configuration and then save
@@ -44,8 +44,8 @@
     <para>
       The communication among the elements may be full duplex. The
       control center send actions to be performed by the eBox's group
-      and every eBox can send information about itself or any of its
-      services using the eBox event framework. This information is
+      and, on the other hand, every eBox can send information about
+      itself or any of its services using the eBox event framework. This information is
       gathered into the log system which could be better exploited in
       the future to supervise several eBoxes at one time.
     </para>
@@ -58,11 +58,11 @@
       center, join/quit eBox to the group and configure eBox to make
       the communication between both elements work. In order to have
       this scheme ready, two different machines are required, one
-      holding an eBox and the other one with a debian sarge.
+      holding an eBox and the other one with a simple Debian Sarge.
     </para>
 
     <para>
-      The process uses a subscription method. The control center is
+      The process uses a subscription pattern. The control center is
       the only one which knows who can connect to the network and the
       eBox must have a private element, known here as
       <emphasis>bundle</emphasis>, to subscribe.
@@ -72,7 +72,7 @@
       <title>Control center setup</title>
       <para>
         The machine which holds the control center is required to be a
-        debian sarge system. To install it, use the debian package
+        Debian Sarge system. To install it, use the Debian package
         provided in the eBox repositories with
         <classname>ebox-control-center</classname> name.
       </para>
@@ -245,7 +245,7 @@ The client bundle *Foo.tar.gz* is ready to be uploaded in your eBox to communica
         details)
       </para>
       <para>
-        In order to quit an eBox, the process is anagolous. A
+        In order to quit an eBox, the process is analogous. A
         <command>quitEBox.pl</command> script helps to do that by
         simply providing the common name used to create
         previously. This will revoke the issued certificate what in
@@ -270,35 +270,36 @@ The client bundle *Foo.tar.gz* is ready to be uploaded in your eBox to communica
         through
         <menuchoice>
           <guimenu>Control Center</guimenu>
-        </menuchoice> menu entry.
+        </menuchoice> menu entry. If the menu entry is not shown,
+        install the module first.
       </para>
       <para>
         We rescue the previous bundled generated in <xref
         linkend="join-quit-ebox-sect"/>. Then we upload the file to
-        eBox. To do so, it is required first to have a certification
+        eBox. To do so, it is required to have a certification
         authority created (See <xref linkend="ch-ca"/> for
-        details). Then, it is required to save changes prior to test
-        the communication, since this operation will create the
-        communication.
+        details). Then, it is mandatory to save changes prior to test
+        the communication, since this operation will create it.
       </para>
       <para>
         Then, in status summary, the OpenVPN is marked as
         stopped. That means, the OpenVPN client daemon has been set
         up, however the user cannot do anything with that. Now it is
         high time to enable the SOAP service and, then, save
-        changes. And save changes again
+        changes.
       </para>
       <para>
         Finally, to test the communication, clicking on
-        <guibutton>Test</guibutton> a ping is done to the control
-        center using the virtual private network created between
-        them. A simple statistic is shown displaying the percentage of
-        loss if you suffer some network interruptions.
+        <guibutton>Test</guibutton>, a <command>ping</command> is done
+        to the control center using the virtual private network
+        created between them. A simple statistic is shown displaying
+        the percentage of loss, just in case suffering some network
+        interruptions.
       </para>
       <para>
-        Once you want to delete the communication irreversively with
+        Once you want to delete the communication irreversibly with
         this control center, you may remove the configuration using
-        <guibutton>Delete</guibutton> button and saving changes.
+        <guibutton>Delete</guibutton> button and saving changes afterwards.
       </para>
     </section>
 
@@ -308,15 +309,134 @@ The client bundle *Foo.tar.gz* is ready to be uploaded in your eBox to communica
     <title>Control center configuration scripts</title>
     <para>
       Once the configuration is set up and works correctly, you can
-      manage your eBoxes using Perl scripts, the only option available
-      so far.
+      manage your eBoxes using Perl scripts, this is the only available
+      option so far.
     </para>
     <para>
       The current framework relies on
       <classname>EBox::ControlCenter::RemoteEBoxProxy</classname>
-      class which manage the list of eBoxes that are already in the
+      class which manages the list of eBoxes that are already in the
       system and get an eBox proxy to send it actions.
     </para>
+    <para>
+      <classname>RemoteEBoxProxy</classname> may divide its
+      functionality by two: accessing to the eBoxes in the control
+      center group and manage the eBox configuration remotely.
+    </para>
+    <section id="accessing-eBox-sect">
+      <title>Access to the control center group of eBoxes</title>
+      <para>
+        There are two static methods to do so:
+        <methodname>ListNames</methodname> and
+        <methodname>GetEBoxByName</methodname>. The former lists the
+        current eBox set using its unique identifier based on
+        the name provided when the eBox joining was done. The latter
+        is used to the proxy which represents the required eBox to
+        manage its configuration indicating if a read-only or
+        read-write instance is going to be handled.
+      </para>
+      <para>
+        <xref linkend="access-eBox-cc-example"/> shows after adding
+        <emphasis>first</emphasis> and <emphasis>second</emphasis> eBoxes
+        to the group how a proxy is got:
+        <example id="access-eBox-cc-example">
+          <title>Accessing to an eBox proxy</title>
+          <programlisting><![CDATA[
+my $eBoxesRef = EBox::ControlCenter::RemoteEBoxProxy->ListNames();
+# This will show the current list of eBoxes
+print 'List of eBoxes in this control center: ' . join ( ', ', @{$eBoxesRef} ) . '\n';
+# Get the proxy reference
+my $eBoxProxy;
+try {
+  $eBoxProxy =
+     EBox::ControlCenter::RemoteEBoxProxy->GetEBoxByName('third', 0);
+} catch EBox::Exceptions::DataNotFound with {
+  print STDERR 'The eBox with name three does not exist';
+  # Get second one instead
+  $eBoxProxy = EBox::ControlCenter::RemoteEBoxProxy->GetEBoxByName('second', 0);
+};
+]]>
+          </programlisting>
+        </example>
+      </para>
+      <para>
+        This class does not provide a way to update the eBox
+        database. This is done by the <command>joinEBox.pl</command>
+        and <command>quitEBox.pl</command> programs as <xref
+        linkend="join-quit-ebox-sect"/> explains.
+      </para>
+    </section>
+
+    <section id="managing-eBox-conf-using-proxy-sect">
+      <title>Handling an eBox configuration using a remote
+      proxy</title>
+      <para>
+        Once the remote eBox proxy is obtained, we use it to handle
+        a concrete eBox configuration. There are some common methods
+        to know the current eBox general module configuration as
+        <methodname>modNames</methodname> or
+        <methodname>modExists</methodname>. However, the interesting
+        thing comes with the <methodname>modMethod</methodname>
+        method, which is intended to run a public method from any eBox
+        module installed in the remote eBox. It can launch any kind of
+        exception coming from the connection, the calling parameters
+        or the method execution on the server side, in this case, the
+        remote eBox. Its signature has these three positional arguments:
+        <variablelist>
+          <varlistentry>
+            <term>module</term>
+            <listitem>
+              <para>This String parameter indicates the module
+              to run a method, it must be one of the returning values
+              from <methodname>modNames</methodname> return
+              value.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>nameMethod</term>
+            <listitem>
+              <para>Indicates the method name to run</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>parameters</term>
+            <listitem>
+              <para>An array containing the method parameters</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+        Using this way, it may be possible to call every public method
+        from any eBox module. <xref
+        linkend="public-method-calls-example"/> assumes a remote proxy
+        is already got as <xref linkend="access-eBox-cc-example"/>
+        describes.
+        <example id="public-method-calls-example">
+          <title>Calling public methods from an remote eBox</title>
+          <programlisting><![CDATA[
+# Print a squid log serach
+print Dumper($eBoxProxy->modMethod('logs', 'search',
+                                        (
+                                         '2007-6-20 2:22:0',
+                                         '2007-6-22 2:22:0',
+                                         'squid',
+                                         15,
+                                         0,
+                                         'timestamp',
+                                         undef
+                                        )
+                                      )
+                  ) . '\n';
+# Print the metadata information about the "stc2" certificate
+print Dumper($eBoxProxy->modMethod('ca', 'getCertificateMetadata', (cn => 'stc2')));
+]]>
+          </programlisting>
+        </example>
+        As you may see, the parameters require to be enclosed in an
+        array. The returned value is the same one that a normal call
+        produces.
+      </para>
+    </section>
+
   </section>
 
 </chapter>
