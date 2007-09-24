@@ -265,7 +265,7 @@ sub _addToInternetRuleTable
         for my $rule (@{$global->{'rules'}}) {
            @rules = (_prepareRuleToAddInternalToInternet($rule, $global), @rules);
         }
-        @rules = (_prepareGlobalPolicy(), @rules);
+        @rules = ($self->_prepareGlobalPolicy(), @rules);
     }
 
     for my $rule(@rules) {
