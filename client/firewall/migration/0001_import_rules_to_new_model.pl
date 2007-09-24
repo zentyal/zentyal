@@ -220,6 +220,28 @@ sub _prepareObjectPolicy
     return \%params;
 }
 
+sub _prepareGlobalPolicy
+{
+    my ($self) = @_;
+    
+    my $rule = {};
+    my $serviceMod = EBox::Global->modInstance('services');
+    my $serviceId = $serviceMod->serviceId('any');
+
+    my %params;
+    if ($self->{'globalPolicy'}  eq 'allow') {
+        $params{'decision'} = 'accept';
+    } elsif ($self->{'globalPolicy'} eq 'deny') {
+        $params{'decision'} = 'deny';
+    }
+    $params{'source_selected'} = 'source_any';
+    $params{'destination_selected'} = 'destination_any';
+    $params{'service'} = $serviceId;
+    $params{'log'} = 0;
+
+    return \%params;
+}
+
 sub _addToInternetRuleTable
 {
     my ($self) = @_;
@@ -243,6 +265,7 @@ sub _addToInternetRuleTable
         for my $rule (@{$global->{'rules'}}) {
            @rules = (_prepareRuleToAddInternalToInternet($rule, $global), @rules);
         }
+        @rules = (_prepareGlobalPolicy(), @rules);
     }
 
     for my $rule(@rules) {
