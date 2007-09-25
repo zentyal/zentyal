@@ -228,10 +228,16 @@ sub setEnabled
       # If they are different, set the value
       if ( $current xor $enable ) {
           $self->set_bool('enabled', $enable);
-          # Configure firewall to let cc connect to eBox
-          $self->_configureFirewall();
-          # Set the OpenVPN
-          $self->_setOpenVPNClient();
+          try {
+              # Configure firewall to let cc connect to eBox
+              $self->_configureFirewall();
+              # Set the OpenVPN
+              $self->_setOpenVPNClient();
+          } catch EBox::Exceptions::Base with {
+              my ($exc) = @_;
+              $self->set_bool('enabled', $current);
+              throw $exc;
+          };
       }
 
   }

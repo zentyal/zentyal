@@ -98,7 +98,7 @@ sub ConfigurationMethod
 sub ConfigureURL
   {
 
-      return 'SOAP/Index';
+      return '/ebox/SOAP/Index';
 
   }
 
