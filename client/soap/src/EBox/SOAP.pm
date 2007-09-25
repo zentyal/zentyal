@@ -389,6 +389,9 @@ sub deleteBundleUploaded
       # Set as no bundle has been uploaded
       $self->set_bool('bundle_uploaded', 0);
 
+      # Disable soap service
+      $self->setEnabled(0);
+
   }
 
 
