@@ -559,10 +559,10 @@ sub row
 	$row->{'readOnly'} = $gconfData->{'readOnly'};
 	foreach my $type (@{$self->table()->{'tableDescription'}}) {
 		my $data = clone($type);
-		$data->restoreFromHash($gconfData);
 		$data->setRow($row);
 		$data->setModel($self);
-	
+		$data->restoreFromHash($gconfData);
+
 		# TODO Rework the union select options thing
 		#      this code just sucks. Modify Types to do something
 		#      nicer 
