@@ -267,7 +267,7 @@ sub _table
                                                        fieldName => 'configuration_link',
                                                        editable  => 0,
                                                        volatile  => 1,
-                                                       acquirer  => \&acquirerURL,
+                                                       acquirer  => \&acquireURL,
                                                       ),
                                  new EBox::Types::HasMany(
                                                           fieldName            => 'configuration_model',
