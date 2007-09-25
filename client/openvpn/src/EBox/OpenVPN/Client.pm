@@ -166,8 +166,8 @@ sub _setPrivateFile
 
   try {
     EBox::Sudo::root("cp '$path' '$newPath'");
-    EBox::Sudo::root("chmod 0400 '$path'");
-    EBox::Sudo::root("chown 0.0 '$path'");
+    EBox::Sudo::root("chmod 0400 '$newPath'");
+    EBox::Sudo::root("chown 0.0 '$newPath'");
   }
   otherwise {
     EBox::Sudo::root("rm -f '$newPath'");
