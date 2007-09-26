@@ -36,7 +36,7 @@ sub new
 #
 #  Parametes:
 #        $proto   - protocol. Must be 'tcp' or 'udp'
-#        @params      - initialization parameters, may be different for each daemon type
+
 sub setProto
 {
     my ($self, $proto) = @_;
@@ -45,7 +45,7 @@ sub setProto
 	throw EBox::Exceptions::InvalidData(data => "server's protocol", value => $proto, advice => __("The protocol only may be TCP or UDP.")  );
     }
 
-    $self->_checkPortIsNotDuplicate($self->port(), $proto);
+    $self->_checkPortIsAvailable( $proto, $self->port(), $self->local);
 
     $self->setConfString('proto', $proto);
 }
@@ -63,7 +63,7 @@ sub proto
 
 # Method: setPort
 #
-#   Sets the port used by the server to receive conenctions. It must be a port
+#   Sets the port used by the server to receive connections. It must be a port
 #    not used by another openvpn daemon
 #
 #  Parametes:
@@ -77,29 +77,51 @@ sub setPort
       throw EBox::Exceptions::InvalidData(data => "server's port", value => $port, advice => __("The port must be a non-privileged port")  );
     }
 
-  $self->_checkPortIsNotDuplicate($port, $self->proto());
+  $self->_checkPortIsAvailable($self->proto(), $port, $self->local());
 
   $self->setConfInt('port', $port);
 }
 
 
-sub _checkPortIsNotDuplicate
+
+sub _checkPortIsAvailable
 {
-    my ($self, $port, $proto) = @_;
+    my ($self, $proto, $port, $localIface) = @_;
+    validate_pos(@_, 1, 1, 1, 1);
 
-    my $ownName = $self->name();
-    defined $proto or throw EBox::Exceptions::Internal 'Protocol must be set before setting port';
-    my @serversNames = grep { $_ ne $ownName } $self->_openvpnModule->serversNames();
-
-
-    foreach my $serverName (@serversNames) {
-	my $server =  $self->_openvpnModule->server($serverName); 
-	next if ($proto ne $server->proto);
-	if ($port eq $server->port() ) {
-	    throw EBox::Exceptions::External ("There is already a OpenVPN server which uses port $port");
+      # we must check we haven't already set the same port to avoid usesPort
+      # false positive
+    if ( ($port == $self->port()) and ($proto eq $self->proto)  ) {
+      if (defined $localIface) {
+	my $currentLocalIface = $self->local();
+	if (not defined $currentLocalIface) {
+	  return 1;
 	}
+	elsif ($currentLocalIface eq $localIface) {
+	  return 1;
+	}
+      }
+      else {
+	return 1;	
+      }
     }
+
+
+    my $fw = EBox::Global->modInstance('firewall');
+    my $availablePort =   $fw->availablePort($proto, $port, $localIface);
+    if (not $availablePort) {
+ 	    throw EBox::Exceptions::External ( __x(
+					      "The port {p}/{pro} is already in use",
+						   p => $port,
+						   pro => $proto,
+						  )
+					     );
+	  }
 }
+
+
+
+
 
 # Method: port
 #
@@ -117,14 +139,16 @@ sub port
 #  Sets the local network interface where the server will listen or
 #   sets the server to listen in all interfaces
 #
-# Returns:
-#   undef if the server will listen in all interfaces or
-#    the interface name
+# Parameters: iface - the interface to listen on. An undef of false value
+#   signals that we listen in all interfaces
 sub setLocal
 {
   my ($self, $iface) = @_;
+  $iface or $iface = undef;
 
-  if ($iface) {
+  $self->_checkPortIsAvailable($self->proto, $self->port, $iface);
+
+  if (defined $iface) {
     $self->_checkLocal($iface);
     $self->setConfString('local', $iface);
   }
@@ -160,7 +184,14 @@ sub _checkLocal
 sub local
 {
     my ($self) = @_;
-    return $self->getConfString('local');
+    my $iface = $self->getConfString('local');
+
+    # gconf does not store undef values, with a undef key it returns ''
+    if (not $iface) {
+      $iface = undef;
+    }
+
+    return $iface;
 }
 
 
@@ -780,6 +811,38 @@ sub _invalidateCertificate
   my ($self) = @_;
   $self->unsetConf('server_certificate');
   $self->setService(0);
+}
+
+
+sub usesPort
+{
+  my ($self, $proto, $port, $iface) = @_;
+
+
+  my $ownProto = $self->proto;
+  defined $ownProto or 
+    return undef; # uninitialized server
+  if ($proto ne $ownProto) {
+    return undef;
+  }
+
+
+  my $ownPort = $self->port;
+  defined $ownPort or 
+    return undef; #uninitialized server
+  if ($port ne $ownPort) {
+    return undef;
+  }
+
+
+  my $ownIface = $self->local;
+  if ((defined $iface) and (defined $ownIface)) {
+    if ($iface ne $ownIface) {
+      return undef;
+    }
+  }
+
+  return 1;
 }
 
 

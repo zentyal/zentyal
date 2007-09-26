@@ -31,6 +31,23 @@ sub fakeCA : Test(startup)
   EBox::CA::TestStub::fake();
 }
 
+sub fakeFirewall 
+{
+  fakeEBoxModule(
+		 name => 'firewall',
+		 package => 'EBox::Firewall',
+		 subs => [
+			  availablePort => sub {
+			    my ($self, @params) = @_;
+			    my $openvpn = EBox::Global->modInstance('openvpn');
+			    return not $openvpn->usesPort(@params);
+			  }
+			 ]
+
+		)
+
+}
+
 
 # XXX replace with #419 when it is done
 sub ignoreChownRootCommand : Test(startup)
@@ -146,6 +163,7 @@ sub setUpConfiguration : Test(setup)
 
     $ca->setInitialState(\@certificates);
     fakeNetworkModule();
+    fakeFirewall();
 }
 
 
@@ -155,6 +173,23 @@ sub clearConfiguration : Test(teardown)
 
     my $ca    = EBox::Global->modInstance('ca');
     $ca->destroyCA();
+}
+
+sub _confDir
+{
+    my ($self) = @_;
+    return $self->testDir() . "/config";
+}
+
+sub _newServer
+{
+    my ($self, $name) = @_;
+    defined $name or $name = 'macaco';
+
+    my $openVpnMod = $self->{openvpnModInstance};
+    my $server =  new EBox::OpenVPN::Server($name, $openVpnMod);
+    
+    return $server;
 }
 
 sub _useOkTest : Test
@@ -178,6 +213,52 @@ sub newServerTest : Test(6)
     foreach my $serverName (@inexistentServers) {
 	dies_ok {  new EBox::OpenVPN::Server($serverName, $openVpnMod) } 'Checking that we can not create OpenVPN servers objects if the server is not registered in configuration';  
     }
+}
+
+
+
+
+sub usesPortTest : Test(11)
+{
+  my ($self) = @_;
+
+  my $port     =  1194;
+  my $distinctPort =  30000;
+  my $proto = 'tcp';
+  my $distinctProto = 'udp';
+
+  my $oneIface  = 'eth0';
+  my $noServerIface = 'wlan0';
+
+  my $server = $self->_newServer('macaco');
+
+
+  ok $server->usesPort($proto, $port, undef), 
+    'same port, same protocol, all ifaces';
+  ok (not $server->usesPort($proto, $distinctPort, undef)), 
+    'same proto,distinct port, all ifaces';
+  ok (not $server->usesPort($distinctProto, $port, undef)), 
+    'distinct proto, same port, all ifaces';
+  ok (not $server->usesPort($distinctProto, $distinctPort, undef)), 
+    'distinct proto and port, all ifaces';
+  ok $server->usesPort($proto, $port, $noServerIface),
+    'same port, same protocol, specific iface';
+  
+
+  $server->setLocal($oneIface);
+  diag 'now server listens on one interface';
+  ok $server->usesPort($proto, $port, undef),
+    'same port, same protocol, all ifaces';
+  ok $server->usesPort($proto, $port, $oneIface),
+    'same port, same protocol, the iface upon server listens';
+  ok (not $server->usesPort($proto, $distinctPort, undef)),
+    'same proto,distinct port, all ifaces';
+  ok (not $server->usesPort($distinctProto, $port, undef)),
+    'distinct proto, same port, all ifaces';
+  ok (not $server->usesPort($distinctProto, $distinctPort, undef)),
+    'distinct proto and port, all ifaces';
+  ok (not $server->usesPort($proto, $port, $noServerIface)),
+    'same port, same protocol, a iface upon server do not listens';
 }
 
 
@@ -284,6 +365,8 @@ sub setTlsRemoteTest : Test(12)
   lives_ok { $server->setTlsRemote(0) } 'Trying to disable tls-remote option';
   ok !$server->tlsRemote(), "Checking wether tls-remote option was disabled";
 }
+
+
 
 
 sub setProtoTest : Test(6)
@@ -404,7 +487,7 @@ sub setLocalTest : Test(14)
 			);
 
     lives_ok { $server->setLocal('')  } 'Unsetting local (i.e: all interfaces)';
-    ok !$server->local(), 'Cechking wether local value was unsetted';
+    ok !$server->local(), 'Checking wether local value was unsetted';
 }
 
 
@@ -873,16 +956,16 @@ sub setServiceTest : Test(56)
 
   diag 'Setting local interface to listen on to a inexistent interface';
   $server->setConfString('local', 'fw5');
-  $self->_checkSetServiceeWithBadStatus($server, 'using a inexistent interface as local interface to listen on');
+  $self->_checkSetServiceWithBadStatus($server, 'using a inexistent interface as local interface to listen on');
 
   diag 'Setting local interface to listen on to a internal interface';
   $server->setConfString('local', 'eth1');
-  $self->_checkSetServiceeWithBadStatus($server, 'using a internal interface as local interface to listen on');
+  $self->_checkSetServiceWithBadStatus($server, 'using a internal interface as local interface to listen on');
 
   diag 'Setting server to listen in all interfaces but with no interfaces left';
   $server->unsetConf('local');
   fakeNetworkModule([], []);
-  $self->_checkSetServiceeWithBadStatus($server, 'no networks interfaces available');
+  $self->_checkSetServiceWithBadStatus($server, 'no networks interfaces available');
   fakeNetworkModule();
 
   # certificates bad states
@@ -904,18 +987,18 @@ sub setServiceTest : Test(56)
 
   diag 'Setting server to use a inexistent certificate';
   $server->setConfString('inexistent');
-  $self->_checkSetServiceeWithBadStatus($server, 'using a inexistent certificate');
+  $self->_checkSetServiceWithBadStatus($server, 'using a inexistent certificate');
 
   diag 'Setting server to use a expired certificate';
   $server->setConfString('expired');
-  $self->_checkSetServiceeWithBadStatus($server, 'using a expired certificate');
+  $self->_checkSetServiceWithBadStatus($server, 'using a expired certificate');
 
   diag 'Setting server to use a revoked certificate';
   $server->setConfString('revoked');
-  $self->_checkSetServiceeWithBadStatus($server, 'using a revoked certificate');
+  $self->_checkSetServiceWithBadStatus($server, 'using a revoked certificate');
 }
 
-sub _checkSetServiceeWithBadStatus
+sub _checkSetServiceWithBadStatus
 {
   my ($self, $server, $badState) = @_;
 
@@ -944,21 +1027,6 @@ sub _advertisedNetFound
    return $netFound;
 }
 
-sub _confDir
-{
-    my ($self) = @_;
-    return $self->testDir() . "/config";
-}
 
-sub _newServer
-{
-    my ($self, $name) = @_;
-    defined $name or $name = 'macaco';
-
-    my $openVpnMod = $self->{openvpnModInstance};
-    my $server =  new EBox::OpenVPN::Server($name, $openVpnMod);
-    
-    return $server;
-}
 
 1;

@@ -117,6 +117,23 @@ sub fakeNetworkModule
 
 }
 
+sub fakeFirewall 
+{
+  fakeEBoxModule(
+		 name => 'firewall',
+		 package => 'EBox::Firewall',
+		 subs => [
+			  availablePort => sub {
+			    my ($self, @params) = @_;
+			    my $openvpn = EBox::Global->modInstance('openvpn');
+			    return not $openvpn->usesPort(@params);
+			  }
+			 ]
+
+		)
+
+}
+
 
 sub fakeCA : Test(startup)
 {
@@ -148,6 +165,7 @@ sub setUpConfiguration : Test(setup)
     EBox::Global::TestStub::setEBoxModule('ca' => 'EBox::CA');
 
     fakeInterfaces();
+    fakeFirewall();
 }
 
 
@@ -466,7 +484,7 @@ sub notifyDaemonDeletionTest : Test(3)
   is_deeply $deletedDaemons, $expectedDeletedDaemons, 'checking retrieved deleted daemons information';
 }
 
-sub usesPortTest : Test(16)
+sub usesPortTest : Test(14)
 {
   my ($self) = @_;
 
@@ -487,7 +505,7 @@ sub usesPortTest : Test(16)
 		  '/ebox/modules/openvpn/server/mandril/active'    => 1,
 		  '/ebox/modules/openvpn/server/mandril/port'    => 1200,
 		  '/ebox/modules/openvpn/server/mandril/proto'   => 'tcp',
-		  '/ebox/modules/openvpn/server/mandril/local'   => '192.168.45.233',
+		  '/ebox/modules/openvpn/server/mandril/local'   => 'ppp0',
 
 		  '/ebox/modules/openvpn/server/gibon/active'    => 1,
 		  '/ebox/modules/openvpn/server/gibon/port'   => 1294,
@@ -498,7 +516,6 @@ sub usesPortTest : Test(16)
   my $openVPN = EBox::OpenVPN->_create();
 
   # regular cases
-  ok $openVPN->usesPort('tcp', 43, 'tun0'), "Checking that tun interface is reported as used";
    ok $openVPN->usesPort('tcp', 1194), "Checking if a used port is correctly reported";
   ok $openVPN->usesPort('tcp', 1194, 'ppp0'), "Checking if a used port is correctly reported";
   ok $openVPN->usesPort('tcp', 1194, 'eth0'), "Checking if a used port is correctly reported";
@@ -510,22 +527,22 @@ sub usesPortTest : Test(16)
   ok !$openVPN->usesPort('tcp', 1294);
 
   # local address case
-  ok $openVPN->usesPort('tcp', 1200), "Checking if a used port in only one interface is correctly reported";
+  ok $openVPN->usesPort('tcp', 1200, undef), "Checking if a used port in only one interface is correctly reported";
   ok $openVPN->usesPort('tcp', 1200, 'ppp0'), "Checking if a used port in only one interface is correctly reported";
   ok !$openVPN->usesPort('tcp', 1200, 'eth0'), "Checking if a used port in only one interface does not report as used in another interface";
 
    # unused ports case
-  ok !$openVPN->usesPort('tcp', 1800), "Checking if a unused prot is correctly reported";
-  ok !$openVPN->usesPort('tcp', 1800, 'eth0'), "Checking if a unused port is correctly reported";
   ok !$openVPN->usesPort('tcp', 1800), "Checking if a unused port is correctly reported";
+  ok !$openVPN->usesPort('tcp', 1800, 'eth0'), "Checking if a unused port is correctly reported with a iface eth0";
+
 
   # server inactive case
   EBox::GConfModule::TestStub::setEntry( '/ebox/modules/openvpn/server/macaco/active'    => 0);
-  ok !$openVPN->usesPort('tcp', 1194), "Checking that usesPort does not report  any port for inactive servers";
+  ok $openVPN->usesPort('tcp', 1194), "Checking that usesPort does  report port usage for inactive servers";
 
   # openvpn inactive case
   EBox::GConfModule::TestStub::setEntry( '/ebox/modules/openvpn/userActive'    => 0);
-  ok !$openVPN->usesPort('tcp', 1194), "Checking that usesPort does not report  any port for a inactive OpenVPN module";
+  ok $openVPN->usesPort('tcp', 1194), "Checking that usesPort does report port usage for a inactive OpenVPN module";
 }
 
 sub setServiceTest : Tests(36)

@@ -773,32 +773,14 @@ sub usesPort
 {
     my ($self, $proto, $port, $iface) = @_;
 
-     if (!$self->service) {
-	 return undef;
-     }
-   
-
-    if (defined $iface and ($iface =~ m/tun\d+/ )) {  # see if we are asking about openvpn virtual iface
+    my @servers = $self->servers();
+    foreach my $server (@servers) {
+      if ($server->usesPort($proto, $port, $iface)) {
 	return 1;
+      }
     }
 
-
-    my @servers = $self->activeServers();
-
-    if (defined $iface) {
-      my $anyIfaceAddr   = any(EBox::NetWrappers::iface_addresses($iface));
-      @servers = grep { my $lAddr = $_->local(); (!defined $lAddr) or ($lAddr eq  $anyIfaceAddr) } @servers;
-    }
-
-    my $portsByProto = $self->_portsByProtoFromServers(@servers);
-
-    exists $portsByProto->{$proto} or return undef;
-    my @ports        = @ {$portsByProto->{$proto} };
-
-    my $portUsed = ( $port == any(@ports) );
-
-
-    return $portUsed ? 1 : undef;
+    return undef;
 }
 
 sub firewallHelper

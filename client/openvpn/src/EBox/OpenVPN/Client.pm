@@ -535,4 +535,12 @@ sub restoreCertificates
 }
 
 
+sub usesPort
+{
+  my ($self, $proto, $port, $iface) = @_;
+  # openvpn client doesn't listen in any port
+  return 0;
+}
+
+
 1;
