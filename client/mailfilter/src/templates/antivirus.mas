@@ -10,10 +10,9 @@ use EBox::Gettext;
 sub formatDate
 {
 my ($date) = @_;
-my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) =
- localtime($date);
-$date = "$hour:$min:$sec $mon/$mday/$year";
-return $date;
+my $localDate = localtime($date);
+
+return $localDate;
 }
 </%init>
 <& /enable.mas,
