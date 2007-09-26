@@ -1,4 +1,4 @@
-SUBDIRS = ClientBundleGenerator
+SUBDIRS = ClientBundleGenerator t
 
 perldir = @PERLPATH@/EBox/OpenVPN/Server
 

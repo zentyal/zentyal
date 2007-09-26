@@ -50,6 +50,7 @@ $nInputs = 2 if $nInputs < 2;
 foreach my $i (0 .. $nInputs) {
   my $name = "ip$i";
   my $value = $i > @addresses ? '' : $addresses[$i];
+  defined $value or $value = '';
 
   my $printableName;
   my $help;
@@ -87,6 +88,7 @@ push @formElements, [
    <& /openvpn/caRequired.mas, caCreated => 1 &>
 %  return;
 % }
+
 
 <h3><% __x('Client files for server {name}', name => $name) %></h3>
 <div class='note'>

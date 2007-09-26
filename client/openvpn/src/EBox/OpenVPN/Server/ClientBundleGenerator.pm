@@ -100,12 +100,21 @@ sub _resolveExternalAddr
 
   my %externalAddr;
   foreach my $local (@localAddr) {
-    my $cmd = "wget -O $addrFile --bind-address=$local --timeout=6 " . IPResolvUrl();
+    my $cmd = _getHtmlPageCmd($addrFile, $local);
     system $cmd;
-    if ($? == 0)  {
+    # we check -z because some http errrors don't cause wget to singal error but
+    #  in these cases it does not write nothing in the output file (but cretes
+    #  it) Maybe exists some case that doesn't signal error AND it writes
+    #  something in the file, in that case we can 
+    if ($? == 0 and (not -z $addrFile))  {
       my $contents = read_file($addrFile);
       my ($ipAddr) = split '\s', $contents, 2;
-      $externalAddr{$ipAddr} = 1;
+      if (EBox::Validate::checkIP($ipAddr)) {
+	$externalAddr{$ipAddr} = 1;
+      }
+      else {
+	EBox::error("Invalid IP address: $ipAddr. Discarding it");
+      }
     } 
     
     if (-e $addrFile) {
@@ -114,6 +123,14 @@ sub _resolveExternalAddr
   }
 
   return keys %externalAddr;
+}
+
+
+sub _getHtmlPageCmd
+{
+  my ($addrFile, $local) = @_;
+  my $cmd = "wget -O $addrFile --bind-address=$local --tries=1 --timeout=6 " . IPResolvUrl();
+  return $cmd;
 }
 
 sub _copyCertFilesToDir
