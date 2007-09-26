@@ -103,25 +103,25 @@ sub _restoreFromHash
 	$self->{'value'} = $hash->{$self->fieldName()};
 }
 
-# Method: _setDefaultValue
+# Method: _setValue
 #
-#     Set the default value if any
+#     Set the value if any
 #
 # Overrides:
 #
-#     <EBox::Types::Abstract::_setDefaultValue>
+#     <EBox::Types::Abstract::_setValue>
 #
 # Parameters:
 #
-#     defaultValue - the default value to pass
+#     value - the basic value to pass
 #
-sub _setDefaultValue # (defaultValue)
+sub _setValue # (value)
   {
 
-      my ($self, $defaultValue) = @_;
+      my ($self, $value) = @_;
 
       my $params = {
-                    $self->fieldName() => $defaultValue,
+                    $self->fieldName() => $value,
                    };
 
       $self->setMemValue($params);

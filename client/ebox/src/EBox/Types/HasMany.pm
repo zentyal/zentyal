@@ -95,6 +95,24 @@ sub value
 
 }
 
+# Method: foreignModel
+#
+#      Get the foreign model which the hasMany type retrieves its
+#      values
+#
+# Returns:
+#
+#      String - the foreign model, empty if there is none
+#
+sub foreignModel
+  {
+
+      my ($self) = @_;
+
+      return '' unless (exists $self->{'foreignModel'});
+      return $self->{'foreignModel'};
+
+  }
 
 # Method: setDirectory
 #

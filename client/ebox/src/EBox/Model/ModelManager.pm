@@ -17,7 +17,7 @@
 # 	
 #   This class is used to coordinate all the available models 
 #   along eBox. It allows us to do things like specifiying relations
-#   amongst differennt models.
+#   amongst different models.
 #
 #	
 #

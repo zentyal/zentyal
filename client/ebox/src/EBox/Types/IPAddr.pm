@@ -232,26 +232,26 @@ sub _paramIsSet
 
   }
 
-# Method: _setDefaultValue
+# Method: _setValue
 #
-#     Set the default value defined as a string in the
+#     Set the value defined as a string in the
 #     printableValue. That is, to define an IP Address you must set
-#     a valid CIDR ip.
+#     a valid CIDR IP Address.
 #
 # Overrides:
 #
-#     <EBox::Types::Abstract::_setDefaultValue>
+#     <EBox::Types::Abstract::_setValue>
 #
 # Parameters:
 #
-#     defaultValue - String an IP address with CIDR notation
+#     value - String an IP address with CIDR notation
 #
-sub _setDefaultValue # (defaultValue)
+sub _setValue # (value)
   {
 
-      my ($self, $defaultValue) = @_;
+      my ($self, $value) = @_;
 
-      my ($ip, $netmask) = split ('/', $defaultValue);
+      my ($ip, $netmask) = split ('/', $value);
 
       my $params = {
                     $self->fieldName() . '_ip'   => $ip,

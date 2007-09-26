@@ -19,7 +19,9 @@
 #   models along eBox. It allows us to have a centralized place where
 #   all composite models are instanced.
 #
-#
+
+# FIXME: Not just index by name but also by ebox module to allow name repetition
+
 package EBox::Model::CompositeManager;
 
 use strict;

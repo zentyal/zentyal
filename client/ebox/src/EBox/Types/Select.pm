@@ -52,6 +52,10 @@ sub new
                        'editable. If you want a read only field, use ' .
                        'text type instead.');
         }
+        if ( $self->optional() ) {
+            throw EBox::Exceptions::Internal('Select ' . $self->fieldName() .
+                                             ' must be compulsory');
+        }
 
         bless($self, $class);
         return $self;
@@ -262,10 +266,12 @@ sub _optionsFromForeignModel
     return $model->optionsFromForeignModel($field);
 }
 
+
 # Method: _filterOptions
 #
 #   Given a set of available options, returns the ones which the user
-#   may use.
+#   may use. This method is done at selectSetter.mas due to deep
+#   recursion using rows here.
 #
 sub _filterOptions
   {

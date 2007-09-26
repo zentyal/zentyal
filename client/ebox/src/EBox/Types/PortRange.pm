@@ -431,9 +431,9 @@ sub _paramIsSet
 
 }
 
-# Method: _setDefaultValue
+# Method: _setValue
 #
-#     Set the default value defined as a string in the
+#     Set the value defined as a string in the
 #     printableValue. That is, to define a port range, you can choose
 #     one of following:
 #
@@ -443,25 +443,25 @@ sub _paramIsSet
 #
 # Overrides:
 #
-#     <EBox::Types::Abstract::_setDefaultValue>
+#     <EBox::Types::Abstract::_setValue>
 #
 # Parameters:
 #
-#     defaultValue - String as defined above
+#     value - String as defined above
 #
-sub _setDefaultValue # (defaultValue)
+sub _setValue # (defaultValue)
   {
 
-      my ($self, $defaultValue) = @_;
+      my ($self, $value) = @_;
 
       my $params = {};
-      if ( $defaultValue eq 'any' ) {
+      if ( $value eq 'any' ) {
           $params->{$self->fieldName() . '_range_type'} = 'any';
-      } elsif ( $defaultValue =~ m/^[0-9]+$/g ) {
+      } elsif ( $value =~ m/^[0-9]+$/g ) {
           $params->{$self->fieldName() . '_range_type'} = 'single';
-          $params->{$self->fieldName() . '_single_port'} = $defaultValue;
+          $params->{$self->fieldName() . '_single_port'} = $value;
       } else {
-          my ($from, $to) = split ( ':', $defaultValue);
+          my ($from, $to) = split ( ':', $value);
           $params->{$self->fieldName() . '_range_type'} = 'range';
           $params->{$self->fieldName() . '_from_port'} = $from;
           $params->{$self->fieldName() . '_to_port'} = $to;

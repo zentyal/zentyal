@@ -436,4 +436,20 @@ sub _paramIsSet
 
   }
 
+# Method: _setValue
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_setValue>
+#
+sub _setValue
+{
+      my ($self, $value) = @_;
+
+      # Call AUTOLOAD method in order not to repeat code
+      $AUTOLOAD = '_setValue';
+      return $self->AUTOLOAD($value);
+
+}
+
 1;

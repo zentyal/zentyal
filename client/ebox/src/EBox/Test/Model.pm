@@ -124,24 +124,24 @@ sub _table
                                  'optional' => 0,
                                  'populate' => \&compulsoryOptionsCallback,
                                 ),
-         new EBox::Types::Select(
-                                 'fieldName' => 'unique_select',
-                                 'printableName' => __('Unique Select'),
-                                 'class' => 'tcenter',
-                                 'size' => '1',
-                                 'editable' => 1,
-                                 'optional' => 1,
-                                 'populate' => \&optionalOptionsCallback,
-                                 'unique' => 1,
-                                 ),
-         new EBox::Types::Select(
-                                 'fieldName'     => 'foreign_select',
-                                 'printableName' => __('Foreign Select Object'),
-                                 'foreignModel'  => \&objectModelCallback,
-                                 'foreignField'  => 'name',
-                                 'class'         => 'tcenter',
-                                 'editable'      => 1,
-                                ),
+#         new EBox::Types::Select(
+#                                 'fieldName' => 'unique_select',
+#                                 'printableName' => __('Unique Select'),
+#                                 'class' => 'tcenter',
+#                                 'size' => '1',
+#                                 'editable' => 1,
+#                                 'optional' => 1,
+#                                 'populate' => \&optionalOptionsCallback,
+#                                 'unique' => 1,
+#                                 ),
+#         new EBox::Types::Select(
+#                                 'fieldName'     => 'foreign_select',
+#                                 'printableName' => __('Foreign Select Object'),
+#                                 'foreignModel'  => \&objectModelCallback,
+#                                 'foreignField'  => 'name',
+#                                 'class'         => 'tcenter',
+#                                 'editable'      => 1,
+#                                ),
          new EBox::Types::Text(
                                'fieldName' => 'compulsory_text',
                                'printableName' => __('Compulsory Text'),
@@ -246,7 +246,7 @@ sub _table
                                              'size' => '11',
                                              'editable' => 1,
                                              'populate' => \&compulsoryOptionsCallback,
-                                             'optional' => 1,
+                                             'optional' => 0,
                                             ),
          new EBox::Types::InverseMatchUnion(
                                             'fieldName'     => 'inverse_union',
@@ -367,7 +367,11 @@ sub optionalOptionsCallback
 sub objectModelCallback
   {
 
-      return EBox::Global->modInstance('objects')->models()->[0];
+      if ( EBox::Global->modExists('objects') ) {
+          return EBox::Global->modInstance('objects')->models()->[0];
+      } else {
+          return undef;
+      }
 
   }
 

@@ -15,18 +15,22 @@
 
 package EBox::Model::DataTable;
 
+use EBox;
 use EBox::Model::ModelManager;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::DataExists;
+use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::NotImplemented;
 
+# Dependencies
 use Error qw(:try);
 use POSIX qw(ceil);
 use Clone qw(clone);
+use Perl6::Junction qw(all any);
 
 use strict;
 use warnings;
@@ -97,7 +101,8 @@ sub table
     my ($self) = @_;
 
     # It's a singleton method
-    unless( defined( $self->{'table'} ) ){
+    unless( defined( $self->{'table'} ) and
+            defined( $self->{'table'}->{'tableDescription'})) {
       $self->_setDomain();
       $self->{'table'} = $self->_table();
       $self->_restoreDomain();
@@ -177,6 +182,15 @@ sub name
 # Returns:
 #
 #	instance of a type derivated of <EBox::Types::Abstract>
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#       argument is missing
+#
+#       <EBox::Exceptions::DataNotFound> - thrown if the given field
+#       name does not exist in the table description
+#
 sub fieldHeader
 {
 	my ($self, $name) = @_;
@@ -247,7 +261,10 @@ sub optionsFromForeignModel
 # Method: selectOptions
 #
 #	Override this method to return your select options
-#	for the given select
+#	for the given select.
+#
+#       This method is *deprecated*. Use <EBox::Types::Select::populate>
+#       callback to fill the select options.
 #
 # Arguments:
 #
@@ -267,7 +284,7 @@ sub optionsFromForeignModel
 sub selectOptions 
 {
 	
-	throw EBox::Exceptions::NotImplemented();
+	throw EBox::Exceptions::DeprecatedMethod();
 	
 }
 
@@ -435,7 +452,7 @@ sub notifyForeingModelAction
 
 # Method: addRow
 #
-#	Add a new row 
+#	Add a new row. This method should be used only by CGIs
 #
 # Parameters:
 #
@@ -449,68 +466,100 @@ sub addRow
 	my $self = shift;
 	my %params = @_;
 
-	my $tableName = $self->tableName();
-	my $dir = $self->{'directory'};
-	my $gconfmod = $self->{'gconfmodule'};
-
 	$self->validateRow('add', @_);
 
-	my @userData;
-	my $userData;
+        my $userData = {};
 	foreach my $type (@{$self->table()->{'tableDescription'}}) {
 		my $data = clone($type);
 		$data->setMemValue(\%params);
-
-		if ($data->unique()) {
-			$self->_checkFieldIsUnique($data);
-		}
-
-		push (@userData, $data);
-		$userData->{$data->fieldName()} = $data;
+                $userData->{$data->fieldName()} = $data;
 	}
 
-	$self->validateTypedRow('add', $userData);
+        return $self->addTypedRow($userData,
+                                  readOnly => $params{'readOnly'},
+                                  id => $params{'id'});
 
-	# Check if the new row is unique
-	if ( $self->rowUnique() ) {
-	  $self->_checkRowIsUnique(undef, \@userData);
-	}
-
-	my $leadingText = substr( $tableName, 0, 4);
-	# Changing text to be lowercase
-	$leadingText = "\L$leadingText";
-
-	my $id;
-	if (exists ($params{'id'}) and length ($params{'id'}) > 0) {
-		$id = $params{'id'};
-	 } else {
-	 	$id = $gconfmod->get_unique_id( $leadingText, $dir);
-	 }
-
-	foreach my $data (@userData) {
-		$data->storeInGConf($gconfmod, "$dir/$id");
-		$data = undef;
-    }
-
-	if ($self->table()->{'order'}) {
-		$self->_insertPos($id, 0);
-	}
-
-#	my $row = {};
-#	$row->{'id'} = $id;
-#	$row->{'order'} = $self->_rowOrder($id);
-#	$row->{'values'} = \@userData;
-
-	$gconfmod->set_bool("$dir/$id/readOnly", $params{'readOnly'});
-
-        $self->setMessage($self->message('add'));
-	$self->addedRowNotify($self->row($id));
-	$self->_notifyModelManager('add', $self->row($id));
-	
-	$self->_setCacheDirty();
-
-	return $id;
 }
+
+# Method: addTypedRow
+#
+#     Add a row with the instanced types as parameter
+#
+# Parameters:
+#
+#     params - hash ref containing subclasses from
+#     <EBox::Types::Abstract> with content indexed by field name
+#
+#     readOnly - boolean indicating if the new row is read only or not
+#     *(Optional)* Default value: false
+#
+#     id - String the possible identifier to set *(Optional)* Default
+#     value: undef
+#
+# Returns:
+#
+#     String - the identifier for the given row
+#
+sub addTypedRow
+  {
+
+      my ($self, $paramsRef, %optParams) = @_;
+
+      my $tableName = $self->tableName();
+      my $dir = $self->{'directory'};
+      my $gconfmod = $self->{'gconfmodule'};
+      my $readOnly = delete $optParams{'readOnly'};
+      my $id = delete $optParams{'id'};
+
+      # Check compulsory fields
+      $self->_checkCompulsoryFields($paramsRef);
+
+      # Check field uniqueness if any
+      my @userData = ();
+      my $userData = {};
+      while ( my ($paramName, $param) = each (%{$paramsRef})) {
+          # Check uniqueness
+          if ( $param->unique() ) {
+              $self->_checkFieldIsUnique($param);
+          }
+          push(@userData, $param);
+      }
+
+      $self->validateTypedRow('add', $paramsRef);
+
+      # Check if the new row is unique
+      if ( $self->rowUnique() ) {
+          $self->_checkRowIsUnique(undef, \@userData);
+      }
+
+      my $leadingText = substr( $tableName, 0, 4);
+      # Changing text to be lowercase
+      $leadingText = "\L$leadingText";
+
+      unless (defined ($id) and length ($id) > 0) {
+          $id = $gconfmod->get_unique_id( $leadingText, $dir);
+      }
+
+      foreach my $data (@userData) {
+          $data->storeInGConf($gconfmod, "$dir/$id");
+          $data = undef;
+      }
+
+      if ($self->table()->{'order'}) {
+          $self->_insertPos($id, 0);
+      }
+
+      $gconfmod->set_bool("$dir/$id/readOnly", $readOnly);
+
+      $self->setMessage($self->message('add'));
+      $self->addedRowNotify($self->row($id));
+      $self->_notifyModelManager('add', $self->row($id));
+
+      $self->_setCacheDirty();
+
+      return $id;
+
+  }
 
 # Method: row
 #
@@ -822,7 +871,7 @@ sub isIdUsed
 
 # Method: setRow
 #
-#	Set an existing row 
+#	Set an existing row. It should be used only by CGIs
 #
 # Parameters:
 #
@@ -833,79 +882,136 @@ sub setRow
 
 	my $id = delete $params{'id'};
 	$self->_checkRowExist($id, '');
-	
-	my $dir = $self->{'directory'};
-	my $gconfmod = $self->{'gconfmodule'};
-	
+
 	$self->validateRow('update', @_);
-	
-	my $oldrow = $self->row($id);
-	#my @newValues = @{$self->table()->{'tableDescription'}};
+
         # We can only set those types which have setters
         my @newValues = @{$self->setterTypes()};
 
-	# Check if the new row is unique
-	if ( $self->rowUnique() ) {
-	  $self->_checkRowIsUnique($id, \@newValues);
-	}
-
-	my $oldValues = $oldrow->{'valueHash'};
-
-	my @changedData;
 	my $changedData;
 	for (my $i = 0; $i < @newValues ; $i++) {
 		my $newData = clone($newValues[$i]);
 		$newData->setMemValue(\%params);
 
-		if ($oldValues->{$newData->fieldName()}->isEqualTo($newData)) {
-			next;
-		}
-
-		if ($newData->unique()) {
-			$self->_checkFieldIsUnique($newData);
-		}
-
-                $newData->setRow($oldrow);
 		$changedData->{$newData->fieldName()} = $newData;
-		push (@changedData, $newData);
-	
-	}
+            }
 
-	$self->validateTypedRow('update', $changedData);
-
-	# If force != true atomaticRemove is enabled it means
-	# the model has to automatically check if the row which is 
-	# about to be changed is referenced elsewhere and this change
-	# produces an inconsistent state
-	 if ((not $force) and $self->table()->{'automaticRemove'}) {
-		$self->_warnOnChangeOnId($id, \@changedData);
-	}
-
-	my $modified = undef;
-	for my $data (@changedData) {
-		$data->storeInGConf($gconfmod, "$dir/$id");
-		$modified = 1;
-	}
-
-	# update readonly if change
-	my $rdOnlyKey = "$dir/$id/readOnly";
-	if (exists $params{'readOnly'} 
-	    and ($params{'readOnly'} xor $gconfmod->get_bool("$rdOnlyKey"))) {
-
-	    	$gconfmod->set_bool("$rdOnlyKey", $params{'readOnly'});
-
-	 }
-
-	$oldrow->{'values'} = \@newValues;
-
-	if ($modified) {
-		$self->_setCacheDirty();
-	}
-
-        $self->setMessage($self->message('update'));
-	$self->updatedRowNotify($oldrow);
+        $self->setTypedRow( $id, $changedData,
+                            force => $force,
+                            readOnly => $params{'readOnly'});
 
 }
+
+# Method: setTypedRow
+#
+#      Set the values for a single existing row using typed parameters
+#
+# Parameters:
+#
+#      id - String the row identifier
+#
+#      paramsRef - hash ref Containing the parameter to set. You can
+#      update your selected values. Indexed by field name.
+#
+#      force - Boolean indicating if the update is forced or not
+#      *(Optional)* Default value: false
+#
+#      readOnly - Boolean indicating if the row becomes a read only
+#      kind one *(Optional)* Default value: false
+#
+#     - Optional parameters are NAMED
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::Base> - thrown if the update cannot be done
+#
+sub setTypedRow
+  {
+
+      my ($self, $id, $paramsRef, %optParams) = @_;
+
+      my $force = delete $optParams{'force'};
+      my $readOnly = delete $optParams{'readOnly'};
+
+      $self->_checkRowExist($id, '');
+
+      my $dir = $self->{'directory'};
+      my $gconfmod = $self->{'gconfmodule'};
+
+      my $oldRow = $self->row($id);
+      my $oldValues = $oldRow->{'valueHash'};
+
+      my @setterTypes = @{$self->setterTypes()};
+
+      my $changedData = {};
+      my @changedData = ();
+      foreach my $paramName (keys %{$paramsRef}) {
+          unless ( exists ( $oldValues->{$paramName} )) {
+              throw EBox::Exceptions::Internal('Field to update $paramName does not ' .
+                                               'exist in this model');
+          }
+
+          unless ( $paramName ne any(@setterTypes) ) {
+              throw EBox::Exceptions::Internal('Trying to update a non setter type');
+          }
+
+          my $paramData = $paramsRef->{$paramName};
+          if ( $oldValues->{$paramName}->isEqualTo($paramsRef->{$paramName})) {
+              next;
+          }
+
+          if ( $paramData->unique() ) {
+              $self->_checkFieldIsUnique($paramData);
+          }
+
+          $paramData->setRow($oldRow);
+          $changedData->{$paramName} = $paramData;
+          push ( @changedData, $paramData);
+
+      }
+
+      # TODO: Check its usefulness
+      my @newValues = @{$self->setterTypes()};
+      # Check if the new row is unique
+      if ( $self->rowUnique() ) {
+	  $self->_checkRowIsUnique($id, \@newValues);
+      }
+
+      $self->validateTypedRow('update', $changedData);
+
+      # If force != true atomaticRemove is enabled it means
+      # the model has to automatically check if the row which is 
+      # about to be changed is referenced elsewhere and this change
+      # produces an inconsistent state
+      if ((not $force) and $self->table()->{'automaticRemove'}) {
+          $self->_warnOnChangeOnId($id, \@changedData);
+      }
+
+      my $modified = undef;
+      for my $data (@changedData) {
+          $data->storeInGConf($gconfmod, "$dir/$id");
+          $modified = 1;
+      }
+
+      # update readonly if change
+      my $rdOnlyKey = "$dir/$id/readOnly";
+      if (defined ( $readOnly )
+          and ($readOnly xor $gconfmod->get_bool("$rdOnlyKey"))) {
+
+          $gconfmod->set_bool("$rdOnlyKey", $readOnly);
+
+      }
+
+      $oldRow->{'values'} = \@newValues;
+
+      if ($modified) {
+          $self->_setCacheDirty();
+      }
+
+      $self->setMessage($self->message('update'));
+      $self->updatedRowNotify($oldRow);
+
+  }
 
 sub _storedVersion
 {
@@ -932,6 +1038,7 @@ sub _cachedVersion
 # Parameters:
 #
 # 	filter - string to filter result
+#       page   - int the page to show the result from
 # 	
 # Returns:
 #
@@ -1012,6 +1119,23 @@ sub printableValueRows
 
         return \@values;
 }
+
+# Method: size
+#
+#      Determine the size (in number of rows) from a model
+#
+# Returns:
+#
+#      Int - the number of rows which the model contains
+#
+sub size
+  {
+
+      my ($self) = @_;
+
+      return scalar( $self->{'gconfmodule'}->all_dirs_base($self->{'directory'}));
+
+  }
 
 sub _rows
 {
@@ -1305,6 +1429,37 @@ sub rowUnique
 
   }
 
+# Method: indexField
+#
+#       Get the index field name used to index the model, if any
+#
+# Returns:
+#
+#       String - the field name used as index, or undef if it is not
+#       defined
+#
+sub indexField
+  {
+
+      my ($self) = @_;
+
+      my $indexField = $self->table()->{'index'};
+      if ( defined ( $indexField )) {
+          # Check the index field name exists
+          my $fieldType = $self->fieldHeader($indexField);
+          # Check if it is unique
+          unless ( $fieldType->unique() ) {
+              throw EBox::Exceptions::Internal('Declared index field ' .
+                                               $indexField . ' is not unique.' .
+                                               'Please, declare an index which ' .
+                                               'is unique at ' . $self->tableName() . 
+                                               'description');
+          }
+      }
+      return $indexField;
+
+  }
+
 # Method: action
 #
 #       Accessor to the URLs where the actions are published to be
@@ -1463,65 +1618,6 @@ sub modelDomain
 
   }
 
-# Method: tableInfo
-#
-# 	Return the table info.
-#
-# Returns:
-#
-# 	Hash ref containing the table info
-#
-sub tableInfo
-{
-	my $self = shift;
-
-	my $table = $self->table();
-	my @parameters;
-
-#	foreach my $data (@{$table->{'tableDescription'}}) {
-#
-#		push (@parameters, $data->fields());
-
-#		if ($data->type() eq 'union') {
-#			foreach my $subtype (@{$data->subtypes()}) {
-#				next unless ($subtype->type() eq 'select');
-#				$subtype->addOptions(
-#					$self->selectOptions(
-#						$subtype->fieldName()));	
-#
-#			}
-#		}
-#		if ($data->type() eq 'select') {
-#			$data->addOptions(
-#				$self->selectOptions($data->fieldName()));	
-#		}
-
-#	}
-
-	# Add default actions to actions
-#	my $defAction = $table->{'defaultController'};
-#	if ($defAction) {
-#		foreach my $action (@{$table->{'defaultActions'}}) {
-#			$table->{'actions'}->{$action} = $defAction;
-#		}
-#	}
-#
-
-#	my $fieldsWithOutSetter = $self->fieldsWithUndefSetter();
-#	my @paramsWithSetter = grep {!$fieldsWithOutSetter->{$_}} @parameters;
-#	push (@paramsWithSetter, 'filter', 'page');
-#	my $paramsArray = '[' . "'" . pop(@paramsWithSetter) . "'";
-#	foreach my $param (@paramsWithSetter) {
-#		$paramsArray .= ', ' . "'" . $param . "'";
-#	}
-#	$paramsArray .= ']';
-
-#	$table->{'gconfdir'} = $self->{'gconfdir'};
-#	$table->{'paramArrayString'} = $paramsArray;
-
-	return $table;
-}
-
 # Method: fields 
 #
 # 	Return a list containing the fields which compose each row	
@@ -1595,7 +1691,7 @@ sub setterTypes
 	}
 	
 	unless (defined($self->table()->{'tableDescription'})) {
-		throw Excepetions::Internal('table description not defined');
+		throw Exceptions::Internal('table description not defined');
 	}
 	
 	my @tableHead = @{$self->table()->{'tableDescription'}};
@@ -1822,6 +1918,153 @@ sub findAllValue
     return \@matched;
 
 }
+
+# Method: findId
+#
+#	Return the first row identifier which matches the value of the
+#	given field against the data returned by the method value()
+#
+# Parameters:
+#
+# 	fieldName => value
+#
+# 	Example:
+#
+# 	findId('default' => 1);
+#
+# Returns:
+#
+#       String - the row identifier from the first matched rule
+#
+#	undef - if there was not any match
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::MissingArgument>
+#
+sub findId
+  {
+
+      my ($self, $fieldName, $value) = @_;
+
+      unless (defined ($fieldName)) {
+          throw EBox::Exceptions::MissingArgument("Missing field name"); 
+      }
+
+      my $rows = $self->rows();
+
+      foreach my $row (@{$rows}) {
+          my $values = $row->{'plainValueHash'};
+          next unless $values->{$fieldName} eq $value;
+          return $row->{'id'};
+      }
+
+      return undef;
+
+  }
+
+# Method: AUTOLOAD
+#
+#       Autoload function called whenever a method is undefined for
+#       this class.
+#
+#       We use it to generate an automatic add/del/set/get methods to
+#       data models. The methods will follow these patterns:
+#
+#       - Addition
+#
+#          - add[<tableName>]( property1 => value1,
+#                            property2 => value2,.. )
+#
+#          - add<submodelFieldName>To<tableName>( indexValue, property1 => value1, property2 =>
+#          value2,.. )
+#
+#          - add<submodel2FieldName>To<submodel1FieldName>To<tableName> (
+#          indexValue, indexSubModel1, property1 => value1, property2 =>
+#          value2,.. )
+#
+#       - Removal
+#
+#          - del[<tableName>]( indexValue )
+#
+#          - del<subModelFieldName>To<tableName>( indexValue,
+#          indexSubModel1 );
+#
+#          - del<subModel2FieldName>To<subModel1FieldName>To<tableName>( indexValue,
+#          indexSubModel1, indexSubModel2 );
+#
+#       - Access
+#
+#          - get[<tableName>]( indexValue[, [ field1, field2, ... ]]);
+#
+#          - get<subModelFieldName>To<tableName>( indexValue,
+#          indexSubModel1[, [ field1, field2, ... ]]);
+#
+#          - get<subModel2FieldName>To<subModel1FieldName>To<tableName>( indexValue,
+#          indexSubModel1, indexSubModel2[, [ field1, field2, ... ]]);
+#
+#          All methods return the same data as
+#          <EBox::Model::DataTable::row> method does except if one
+#          field is requested when just one type is returned.
+#
+#       - Update
+#
+#          - set[<tableName>] ( indexValue, property1 => value1,
+#          property2 => value2, ... );
+#
+#          - set<subModelFieldName>To<tableName>( indexValue,
+#          indexSubModel1, property1 => value1, property2 => value2,
+#          ...);
+#
+#          - set<subModel2FieldName>To<subModel1FieldName>To<tableName>(
+#          indexValue, indexSubModel1, indexSubModel2, property1 =>
+#          value1, property2 => value2, ...);
+#
+#    The indexes are unique fields from the data models. If there is
+#    none, the identifier may be used. The values can be multiple
+#    using array references.
+#
+#
+# Exceptions:
+#
+#    <EBox::Exceptions::Internal> - thrown if no valid pattern was
+#    used
+#
+#    <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#    argument is missing
+#
+sub AUTOLOAD
+  {
+
+      my ($self, @params) = @_;
+
+      my $methodName = our $AUTOLOAD;
+
+      $methodName =~ s/.*:://;
+
+      # Ignore DESTROY callings (the Perl destructor)
+      if ( $methodName eq 'DESTROY' or
+           $methodName eq 'domain' ) {
+          return;
+      }
+
+      if ( $methodName =~ m/^add/ ) {
+          return $self->_autoloadAdd($methodName, \@params);
+      } elsif ( $methodName =~ m/^del/ ) {
+          return $self->_autoloadDel($methodName, \@params);
+      } elsif ( $methodName =~ m/^get/ ) {
+          return $self->_autoloadGet($methodName, \@params);
+      } elsif ( $methodName =~ m/^set/ ) {
+          return $self->_autoloadSet($methodName, \@params);
+      } else {
+          use Devel::StackTrace;
+          my $trace = new Devel::StackTrace();
+          EBox::debug($trace->as_string());
+          throw EBox::Exceptions::Internal("Not valid autoload method $methodName for " .
+                                           ref($self) . ' class');
+      }
+
+  }
 
 # Method: Viewer
 #
@@ -2183,7 +2426,7 @@ sub _checkRowIsUnique # (rowId, row_ref)
   }
 
 
-
+# Deprecated?
 sub _checkAllFieldsExist
 {
 	my ($self, $params) = @_;
@@ -2198,6 +2441,63 @@ sub _checkAllFieldsExist
 		}
 	}
 }
+
+# Method to check if compulsory are given when adding
+sub _checkCompulsoryFields
+  {
+      my ($self, $paramsRef) = @_;
+
+      my @compulsoryFields = @{$self->_compulsoryFields()};
+
+      foreach my $compulsoryField (@compulsoryFields) {
+          my $found = 0;
+          foreach my $userField (keys %{$paramsRef}) {
+              $found = $userField eq $compulsoryField;
+              last if ( $found );
+          }
+          unless ( $found ) {
+              my $missingField = $self->fieldHeader($compulsoryField);
+              throw EBox::Exceptions::DataMissing(data => $missingField->printableName());
+          }
+      }
+
+  }
+
+# Gives back the compulsory field names
+sub _compulsoryFields
+  {
+
+      my ($self) = @_;
+
+      my @compulsory = ();
+      foreach my $fieldName (@{$self->fields()}) {
+          my $field = $self->fieldHeader($fieldName);
+          unless ( $field->optional() ) {
+              push ( @compulsory, $fieldName );
+          }
+      }
+
+      return \@compulsory;
+
+  }
+
+# Gives back the compulsory field names
+sub _unionFields
+  {
+
+      my ($self) = @_;
+
+      my @union = ();
+      foreach my $fieldName (@{$self->fields()}) {
+          my $field = $self->fieldHeader($fieldName);
+          if ( $field->type() eq 'union' ) {
+              push ( @union, $fieldName );
+          }
+      }
+
+      return \@union;
+
+  }
 
 sub _checkRowExist
 {
@@ -2506,6 +2806,8 @@ sub _setControllers
 
   }
 
+# Method:
+
 # Method: _paramsWithSetterJS
 #
 #      Return the string which defines an array with that parameters
@@ -2560,4 +2862,615 @@ sub _isOptionsCacheDirty
 	return ($cachedVersion ne $self->_storedVersion());
 }
 
+######################################
+# AUTOLOAD helper private functions
+######################################
+
+# Method: _autoloadAdd
+#
+#     This method implements the addition autoload. This method parses
+#     the method name,
+#
+# Parameters:
+#
+#     methodName - String the method name begins with 'add'
+#     paramsRef  - array ref the undefined method parameters
+#
+# Returns:
+#
+#     String - the newly created row identifier (it does not matter if
+#     the addition is done in a model or any submodel)
+#
+sub _autoloadAdd
+  {
+
+      my ($self, $methodName, $paramsRef) = @_;
+
+      # It will possibly launch an internal exception
+      $self->_checkMethodSignature( 'add', $methodName, $paramsRef);
+
+      if ( $self->_actionAppliedToModel( 'add', $methodName) ) {
+          # Convert array ref to hash ref
+          my %params = @{$paramsRef};
+          $paramsRef = \%params;
+          # Simple add (add a new row to a model including submodels...)
+          my $instancedTypes = $self->_fillTypes($paramsRef);
+          my $addedId = $self->addTypedRow($instancedTypes);
+
+          my $subModels = $self->_subModelFields();
+          foreach my $subModel (@{$subModels}) {
+              if ( exists $paramsRef->{$subModel} ) {
+                  $self->_autoloadAddSubModel($subModel, $paramsRef->{$subModel}, $addedId);
+              }
+          }
+          return $addedId;
+      } else {
+          # An addition to one of the submodels
+          return $self->_autoloadActionSubModel('add', $methodName, $paramsRef);
+      }
+
+  }
+
+# Method: _autoloadDel
+#
+#     This method implements the remove autoload. This method parses
+#     the method name,
+#
+# Parameters:
+#
+#     methodName - String the method name begins with 'del'
+#     paramsRef  - array ref the undefined method parameters
+#
+# Returns:
+#
+#     true - if the removal was successful
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::Base> - thrown if the removal cannot be done
+#
+sub _autoloadDel
+  {
+
+      my ($self, $methodName, $paramsRef) = @_;
+
+      # It will possibly launch an internal exception
+      $self->_checkMethodSignature( 'del', $methodName, $paramsRef);
+
+      if ( $self->_actionAppliedToModel( 'del', $methodName) ) {
+          # Get the identifier
+          my $removeId = $self->_autoloadGetId($self, $paramsRef);
+          # Simple del (del a row to a model)
+          $self->removeRow($removeId, 1);
+          return 1;
+      } else {
+          # A removal to one of the submodels
+          return $self->_autoloadActionSubModel('del', $methodName, $paramsRef);
+      }
+
+  }
+
+# Method: _autoloadGet
+#
+#     This method implements the accessor methods
+#
+# Parameters:
+#
+#     methodName - String the method name begins with 'get'
+#     paramsRef  - array ref the undefined method parameters
+#
+# Returns:
+#
+#     hash ref - the same as <EBox::Model::DataTable::row> return
+#     value if the answer has more that one field
+#     <EBox::Types::Abstract> - if the answer just return a single
+#     field
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::Base> - thrown if the access cannot be done
+#
+sub _autoloadGet
+  {
+
+      my ($self, $methodName, $paramsRef) = @_;
+
+      # It will possibly launch an internal exception
+      $self->_checkMethodSignature( 'get', $methodName, $paramsRef);
+
+      if ( $self->_actionAppliedToModel( 'get', $methodName) ) {
+          # Get the identifier
+          my $getId = $self->_autoloadGetId($self, $paramsRef);
+          # Simple del (del a row to a model)
+          my $row = $self->row($getId);
+          my $fieldNames = undef;
+          # Get the field names if any
+          $fieldNames = $paramsRef->[$#$paramsRef] if ( scalar(@{$paramsRef}) % 2 == 0 );
+          return $self->_filterFields($row, $fieldNames);
+      } else {
+          # A removal to one of the submodels
+          return $self->_autoloadActionSubModel('get', $methodName, $paramsRef);
+      }
+
+  }
+
+# Method: _autoloadSet
+#
+#     This method implements the update autoload
+#
+# Parameters:
+#
+#     methodName - String the method name begins with 'set'
+#     paramsRef  - array ref the undefined method parameters
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::Base> - thrown if the update cannot be done
+#
+sub _autoloadSet
+  {
+
+      my ($self, $methodName, $paramsRef) = @_;
+
+      # It will possibly launch an internal exception
+      $self->_checkMethodSignature( 'set', $methodName, $paramsRef);
+
+      if ( $self->_actionAppliedToModel( 'set', $methodName) ) {
+          my $updateId = $self->_autoloadGetId($self, $paramsRef);
+          # Remove the id from the params
+          shift ( @{$paramsRef} );
+          # Convert array ref to hash ref
+          my %params = @{$paramsRef};
+          $paramsRef = \%params;
+          # Simple add (add a new row to a model including submodels...)
+          my $instancedTypes = $self->_fillTypes($paramsRef);
+          $self->setTypedRow($updateId, $instancedTypes, force => 0);
+
+          my $subModels = $self->_subModelFields();
+          foreach my $subModel (@{$subModels}) {
+              if ( exists $paramsRef->{$subModel} ) {
+                  $self->_autoloadSetSubModel($subModel, $paramsRef->{$subModel}, $updateId);
+              }
+          }
+      } else {
+          # An update to one of the submodels
+          $self->_autoloadActionSubModel('set', $methodName, $paramsRef);
+      }
+
+  }
+
+
+#############################################################
+# Protected helper methods to help autoload helper functions
+#############################################################
+
+# Method: _checkMethodSignature
+#
+#      Check the method name and parameters from the autoloads
+#
+# Parameters:
+#
+#      action - String the action to run (add, del, set or get)
+#
+#      methodName - String the method name to check
+#
+#      paramsRef - array ref the parameters to check all parameters
+#      are set correctly
+#
+sub _checkMethodSignature # (action, methodName, paramsRef)
+  {
+
+      my ($self, $action, $methodName, $oldParamsRef) = @_;
+
+      my $paramsRef = clone($oldParamsRef);
+
+      # Delete the action from the name
+      my $first = ( $methodName =~ s/^$action// );
+      my @modelNames = split ( 'To', $methodName);
+      my $tableNameInModel = $modelNames[$#modelNames];
+      my $subModelInMethod = $modelNames[$#modelNames - 1] unless ( $#modelNames == 0 );
+      my $submodels = $self->_subModelFields();
+
+      if ( defined ( $subModelInMethod ) and defined ( $submodels )) {
+          # Turn into lower case
+          $subModelInMethod = "\L$subModelInMethod";
+          if ( $subModelInMethod eq any(@{$submodels}) ) {
+              # Remove one parameter, since the index is used
+              shift ( @{$paramsRef} );
+              $methodName = s/To$tableNameInModel$//;
+              my $foreignModelName =
+                $self->fieldHeader($subModelInMethod)->foreignModel();
+              my $manager = EBox::Model::ModelManager->instance();
+              my $foreignModel = $manager->model($foreignModelName);
+              # In order to decrease the number of calls
+              if ( scalar ( @modelNames ) > 2 ) {
+                  # Call recursively to the submodel
+                  $foreignModel->_checkMethodSignature($action, $methodName, $paramsRef);
+              }
+          } else {
+              throw EBox::Exceptions::Internal('Illegal sub model field name. It ' .
+                                               'should be one of the following: ' .
+                                               join(' ', @{$submodels}) );
+          }
+      } else {
+          # The final recursion is reached
+          # If the action is an addition, there is no identifier
+          my $nParams = scalar( @{$paramsRef} );
+          unless ( $action eq 'add') {
+              $nParams--;
+          }
+          if ( $action eq 'get' ) {
+              if ( $nParams > 0 ) {
+                  # Check the final get parameter is an array ref if any
+                  unless ( ref ( $paramsRef->[$#$paramsRef] ) eq 'ARRAY' ) {
+                      throw EBox::Exceptions::Internal('If you use a field selector, it must be ' .
+                                                       'an array reference');
+                  }
+              }
+          } else {
+              # Check the number of parameters are even
+              unless ( $nParams % 2 == 0 ) {
+                  throw EBox::Exceptions::Internal('The number of parameters is odd. Some ' .
+                                                   'index argument is missing. Remember the ' .
+                                                   'indexes are positional and the model arguments ' .
+                                                   'are named');
+              }
+          }
+      }
+
+      # If the iteration is the first one, check the table name or nothing
+      if ( $first ) {
+          if ( $methodName ) {
+              unless ( $methodName eq $self->tableName() ) {
+                  throw EBox::Exceptions::Internal('Illegal undefined method. It should ' .
+                                                   'follow this pattern: add[<tableName>] if ' .
+                                                   ' it has no HasMany fields');
+              }
+          }
+      }
+
+  }
+
+# Function: _actionAppliedToModel
+#
+#      Determine whether the action is only applied to a single row on
+#      a model or refers to a submodel. No matter how deep the
+#      submodel to apply the action is placed
+#
+# Parameters:
+#
+#      action - String the action name
+#      methodName - String the method name which describes the action
+#
+# Returns:
+#
+#      boolean - true if the action is applied to the model itself,
+#      false if the action is applied only to one of the submodels
+#
+sub _actionAppliedToModel
+  {
+
+      my ($self, $action, $methodName) = @_;
+
+      $methodName =~ s/^$action//;
+
+      my $tableName = $self->tableName();
+      if ( $methodName =~ m/.+To$tableName/ ) {
+          return 0;
+      } else {
+          return 1;
+      }
+
+  }
+
+# Get the fields which contains a HasMany type
+sub _subModelFields
+  {
+
+      my ($self) = @_;
+
+      my @subModelFields = ();
+      foreach my $fieldName (@{$self->fields()}) {
+          my $type = $self->fieldHeader($fieldName);
+          if ( $type->isa('EBox::Types::HasMany') ) {
+              push ( @subModelFields, $fieldName );
+          }
+      }
+      return \@subModelFields;
+
+  }
+
+# Method: _fillTypes
+#
+#     Fill the types with the given parameters, it returns a list
+#     containing the types with the defining types.
+#
+# Parameters:
+#
+#     params - hash ref containing the name and the values for each
+#     type to fill
+#
+# Returns:
+#
+#     hash ref - the types instanced with a value set indexed by field
+#     name
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::External> - thrown if any error setting the
+#     types is done
+#
+sub _fillTypes
+  {
+
+      my ($self, $params) = @_;
+
+      my $filledTypes = {};
+      foreach my $fieldName (@{$self->fields()}) {
+          if ( exists $params->{$fieldName} ) {
+              my $field = $self->fieldHeader($fieldName);
+              my $paramValue = $params->{$fieldName};
+              my $newType = clone($field);
+              # This code sucks, no orthogonal type
+              if ( $newType->type() eq 'union' ) {
+                  my ($selectedField, $selectedValue) = each %{$params->{$fieldName}};
+                  $newType->setSelectedType($selectedField);
+                  $newType->setValue($selectedValue);
+              } else {
+                  $newType->setValue($paramValue);
+              }
+              $filledTypes->{$fieldName} = $newType;
+          }
+      }
+
+      return $filledTypes;
+
+  }
+
+# Method: _autoloadAddSubModel
+#
+#       Add every row to a submodel in the bulk addition
+#
+# Parameters:
+#
+#       subModelFieldName - String the submodel (HasMany) field name
+#
+#       subModelRows - array ref the submodel rows to add having the scheme as
+#       <EBox::Model::DataTable::AUTOLOAD> addition has
+#
+#       id - String the identifier which determines where to
+#       store the data within this submodel
+#
+sub _autoloadAddSubModel # (subModelFieldName, rows, id)
+  {
+
+      my ($self, $subModelFieldName, $subModelRows, $id) = @_;
+
+      my $hasManyField = $self->fieldHeader($subModelFieldName);
+      my $userField = clone($hasManyField);
+      my $directory = $self->directory() . "/$id/$subModelFieldName";
+      $userField->setDirectory($directory);
+      my $foreignModelName = $userField->foreignModel();
+      my $submodel = EBox::Model::ModelManager->instance()->model(
+                                                                  $foreignModelName
+                                                                 );
+
+      # Addition to a submodel
+      foreach my $subModelRow (@{$subModelRows}) {
+          my $instancedTypes = $submodel->_fillTypes($subModelRow);
+          $submodel->addTypedRow($instancedTypes);
+      }
+
+
+  }
+
+# Method: _autoloadSetSubModel
+#
+#       Update every row to a submodel in the bulk update
+#
+# Parameters:
+#
+#       subModelFieldName - String the submodel (HasMany) field name
+#
+#       subModelRows - array ref the submodel rows to set having the scheme as
+#       <EBox::Model::DataTable::AUTOLOAD> addition has
+#
+#       id - String the identifier which determines where to
+#       store the data within this submodel
+#
+sub _autoloadSetSubModel # (subModelFieldName, rows, id)
+  {
+
+      my ($self, $subModelFieldName, $subModelRows, $id) = @_;
+
+      my $hasManyField = $self->fieldHeader($subModelFieldName);
+      my $userField = clone($hasManyField);
+      my $directory = $self->directory() . "/$id/$subModelFieldName";
+      $userField->setDirectory($directory);
+      my $foreignModelName = $userField->foreignModel();
+      my $submodel = EBox::Model::ModelManager->instance()->model(
+                                                                  $foreignModelName
+                                                                 );
+
+      # Addition to a submodel
+      foreach my $subModelRow (@{$subModelRows}) {
+          my $updateId = $self->_autoloadGetId($self, $subModelRow );
+          unless ( defined ( $updateId )) {
+              throw EBox::Exceptions::DataNotFound( data  => 'submodel row',
+                                                    value => $subModelRow->[0]);
+          }
+          my $instancedTypes = $submodel->_fillTypes($subModelRow->[1]);
+          $submodel->setTypedRow($updateId, $instancedTypes, force => 1);
+      }
+
+
+  }
+
+# Method: _autoloadActionSubModel
+#
+#       Action performed to a single row from a submodel in a model
+#
+# Parameters:
+#
+#       action - String the action name (add, del, get or set) are
+#       possible
+#
+#       methodName - String the method name
+#
+#       paramsRef  - array ref the undefined method parameters
+#
+sub _autoloadActionSubModel # (action, methodName, paramsRef)
+  {
+
+      my ($self, $action, $methodName, $origParamsRef) = @_;
+
+      my $paramsRef = clone($origParamsRef);
+
+      $methodName =~ s/^$action//;
+
+      my @modelNames = split ( 'To', $methodName);
+
+      # Let's go along the method name delTableToTableToTable
+      my $model = $self;
+      foreach my $subModelField ( @modelNames[0 .. $#modelNames - 1] ) {
+          $subModelField = "\L$subModelField";
+          # Get the has many field
+          my $hasManyField = $model->fieldHeader($subModelField);
+          my $userField = clone($hasManyField);
+          # Get the identifier to set the directory
+          my $id = $self->_autoloadGetId($model, $paramsRef);
+          # Remove an index to get the model
+          shift ( @{$paramsRef} );
+          my $directory = $model->directory() . "/$id/$subModelField";
+          $userField->setDirectory($directory);
+          my $foreignModelName = $userField->foreignModel();
+          $model = EBox::Model::ModelManager->instance()->model(
+                                                                $foreignModelName,
+                                                               );
+      }
+
+      # Change from lower case to upper case the first letter
+      my $UCAction = ucfirst ( $action );
+      my $methodAutoload = "_autoload$UCAction";
+      # Action performed in a row in a submodel
+      $model->$methodAutoload(
+                              $action . $model->tableName(),
+                              $paramsRef,
+                             );
+
+  }
+
+
+
+# Method: _autoloadGetId
+#
+#      Get the identifier which will be used to set the directory to
+#      that model
+#
+# Parameters:
+#
+#      model - <EBox::Model::DataTable> the model to get the row
+#      identifier
+#
+#      paramsRef - array ref the method parameters
+#
+# Returns:
+#
+#      String - the identifier if found
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::DataNotFound> - thrown if the identifier is
+#      not found
+#
+sub _autoloadGetId
+  {
+
+      my ($self, $model, $paramsRef) = @_;
+
+
+      # Get the first element to get the identifier from
+      my $id;
+
+      # index field is the field to be used to sort by. It MUST be unique
+      if ( defined ( $model->indexField() )) {
+          $id = $model->findId( $model->indexField() => $paramsRef->[0] );
+          unless ( defined ( $id )) {
+              throw EBox::Exceptions::DataNotFound( data => 'identifier',
+                                                    value => $paramsRef->[0]);
+          }
+      } else {
+          $id = $paramsRef->[0];
+      }
+
+      return $id;
+
+  }
+
+# Method: _filterFields
+#
+#     Giving a result in a row structure, it will only return the
+#     field names given in the array ref. If any of the given fields
+#     does not exist in the model, it will rise an exception.
+#
+# Parameters:
+#
+#     row - hash ref the row to filter the fields to return
+#
+#     fieldNames - array ref containing the requested fields to return
+#
+# Returns:
+#
+#     hash ref - the filtered row comprising the fields requested at
+#     fieldNames array
+#
+#     <EBox::Types::Abstract> - if the fieldNames array consist only
+#     of one element
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::Internal> - thrown if any of the fields does
+#     not correspond from any of the model fields
+#
+sub _filterFields
+  {
+
+      my ($self, $row, $fieldNames) = @_;
+
+      unless ( defined ( $fieldNames ) ){
+          return $row;
+      }
+
+      my $newRow = {
+                    id => $row->{'id'},
+                    order => $row->{'order'},
+                    values => [],
+                    valueHash => {},
+                    printableValueHash => {},
+                    plainValueHash => {},
+                   };
+
+      my @modelFields = @{$self->fields()};
+      foreach my $fieldName ( @{$fieldNames} ) {
+          unless ( $fieldName eq any(@modelFields) ) {
+              throw EBox::Exceptions::Internal(
+                   'Trying to get a field which does exist in this model. These fields ' .
+                   'are available: ' . join ( ', ', @modelFields));
+          }
+          # Put it the new one
+          push( @{$newRow->{'values'}}, $row->{valueHash}->{$fieldName});
+          $newRow->{'valueHash'}->{$fieldName} = $row->{valueHash}->{$fieldName};
+          $newRow->{'printableValueHash'}->{$fieldName} = $row->{printableValueHash}->{$fieldName};
+          $newRow->{'plainValueHash'}->{$fieldName} = $row->{plainValueHash}->{$fieldName};
+      }
+
+      if ( @{$newRow->{'values'}} == 1 ) {
+          return $newRow->{'values'}->[0];
+      }
+
+      return $newRow;
+
+  }
+
+>>>>>>> .derecha-combinacion.r8236
 1;

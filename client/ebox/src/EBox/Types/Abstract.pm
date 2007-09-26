@@ -50,7 +50,7 @@ sub new
                 EBox::warn('Defined default value to an optional field ' .
                            $self->fieldName());
             } else {
-                $self->_setDefaultValue($self->{'defaultValue'});
+                $self->_setValue($self->{'defaultValue'});
             }
         }
 
@@ -225,6 +225,9 @@ sub optional
 	return $self->{'optional'};
 }
 
+# Method: paramExist
+#
+#      *DEPRECATED*
 sub paramExist
 {
 
@@ -248,7 +251,12 @@ sub storeInGConf
   {
       my ($self, @params) = @_;
 
-      unless ( $self->volatile() ) {
+      if ( $self->volatile() ) {
+          if ( $self->storer() ) {
+              my $storerProc = $self->storer();
+              &$storerProc($self);
+          }
+      } else {
           $self->_storeInGConf(@params);
       }
 
@@ -259,10 +267,38 @@ sub restoreFromGconf
 
 }
 
+# Method: setValue
+#
+#      Set the value for the type. Its behaviour is equal to
+#      <EBox::Types::Abstract::setMemValue>, but the argument is a
+#      single value to set to the type instead of a series of CGI
+#      parameters.
+#
+#      The type is responsible to parse the value parameter to set
+#      the type value appropiately.
+#
+#      If the type is volatile, no
+#      value is set unless <EBox::Types::Abstract::storer> function is
+#      defined.
+#
+# Parameters:
+#
+#      value - the value to set
+#
+sub setValue
+  {
+
+      my ($self, $value) = @_;
+
+      $self->_setValue($value);
+
+  }
+
 # Method: setMemValue
 #
 #      Set the memory value for the type. If the type is volatile, no
-#      value is set
+#      value is set unless <EBox::Types::Abstract::storer> function is
+#      defined
 #
 # Parameters:
 #
@@ -275,7 +311,10 @@ sub setMemValue
     my ($self, $params) = @_;
 
     # Set the memory value only if persistent kind of type
-    unless ( $self->volatile() ) {
+    my $toSet = $self->volatile() ? 0 : 1;
+    $toSet = $toSet or ( $self->volatile() and $self->storer() );
+
+    if ( $toSet ) {
         # Check if the parameters hasn't had an empty value
         if ( $self->_paramIsSet($params) ) {
             # Check if the parameter is valid
@@ -354,6 +393,27 @@ sub acquirer
       my ($self) = @_;
 
       return $self->{acquirer};
+
+  }
+
+# Method: storer
+#
+#      Get the procedure which stores the value to somewhere
+#      instead of GConf. This method is useful for volatile instances
+#      of types.
+#
+#      The procedure has one argument: the type itself
+#
+# Returns:
+#
+#      function - the pointer to that function
+#
+sub storer
+  {
+
+      my ($self) = @_;
+
+      return $self->{storer};
 
   }
 
@@ -476,8 +536,9 @@ sub _storeInGConf
 
 # Method: _restoreFromHash
 #
-#      Restore the type value from a hash reference. This method should be
-#      overridden from non volatile types.
+#      Restore the type value from a hash reference which usually
+#      comes from a <EBox::GConfModule::hash_from_dir> returned
+#      value. This method should be overridden from non volatile types.
 #
 # Parameters:
 #
@@ -535,16 +596,16 @@ sub _paramIsSet
 
   }
 
-# Method: _setDefaultValue
+# Method: _setValue
 #
-#     Set the default value. To be overridden by subclasses which
-#     allows default values
+#     Set the value. To be overridden by subclasses which
+#     allows values
 #
 # Parameters:
 #
-#     defaultValue - the default value to set
+#     values - the value to set
 #
-sub _setDefaultValue # (defaultValue)
+sub _setValue # (value)
   {
 
       return;

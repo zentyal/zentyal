@@ -124,6 +124,7 @@ src/EBox/Global/Makefile
 src/EBox/Logs/Makefile
 src/EBox/Logs/Model/Makefile
 src/EBox/Model/Makefile
+src/EBox/Model/t/Makefile
 src/EBox/Types/Makefile
 src/EBox/Types/Union/Makefile
 src/EBox/Global/t/Makefile
