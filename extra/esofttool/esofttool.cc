@@ -1,5 +1,7 @@
 #include <iostream>
 #include <sstream>
+#include <fstream>
+
 #include <set>
 #include <sys/stat.h>
 #include <apt-pkg/configuration.h>
@@ -17,6 +19,9 @@ pkgCache *Cache;
 pkgRecords *Recs;
 pkgSourceList *SrcList = 0;
 pkgPolicy *Plcy;
+std::ofstream Log;
+
+
 
 struct ltstr
 {
@@ -29,10 +34,29 @@ std::set<const char *, ltstr> fetched;
 std::set<const char *, ltstr> notfetched;
 std::set<const char *, ltstr> visited;
 
+void _initLog() {
+  const char *logPath ="/var/lib/ebox/log/esofttool.log";
+
+  Log.open(logPath, std::fstream::app);
+  if (! Log.is_open()) {
+    std::cout << "Cannot open log file " << logPath << ". Aborting" << std::endl;
+    exit (1);
+  }
+
+  Log << "esofttool process begins" << std::endl;
+}
+
+  
+
+
+
 void init() {
 	pkgInitConfig(*_config);
 	pkgInitSystem(*_config,_system);
 	MMap *Map;
+
+        //init logging
+	_initLog();
 
 	// Open the cache file
 	SrcList = new pkgSourceList;
@@ -46,6 +70,13 @@ void init() {
 	Plcy = new pkgPolicy(Cache);
 	Recs = new pkgRecords(*Cache);
 }
+
+
+
+
+
+
+
 
 bool _pkgIsFetched(pkgCache::PkgIterator P) {
 	if(fetched.find(P.Name()) != fetched.end()){
@@ -72,6 +103,8 @@ bool _pkgIsFetched(pkgCache::PkgIterator P) {
 
 	if (P.VersionList() == 0) {
 		notfetched.insert(notfetched.begin(),P.Name());
+		Log << P.Name() << " has not any version available" << std::endl;
+		
 		return false;
 	}
 	std::string arch ;
@@ -109,6 +142,11 @@ bool _pkgIsFetched(pkgCache::PkgIterator P) {
 	struct stat stats;
 	if(stat(filename.c_str(),&stats)!=0){
 		notfetched.insert(notfetched.begin(),P.Name());
+		
+		Log << P.Name() << " has not been fetched. (Cannot found file " 
+		    << filename << ")" << std::endl;
+		
+
 		return false;
 	}
 
@@ -117,7 +155,8 @@ bool _pkgIsFetched(pkgCache::PkgIterator P) {
 	sum.AddFD(Fd.Fd(), Fd.Size());
 	Fd.Close();
 	if(sum.Result().Value() != Par.MD5Hash()){
-		return false;
+	  Log << P.Name() << " has  a incorrect MD5Sum" << std::endl;
+	  return false;
 	}
 
 	bool skip = false;
@@ -142,6 +181,10 @@ bool _pkgIsFetched(pkgCache::PkgIterator P) {
 		} else {
 			if(!isOr) {
 				notfetched.insert(notfetched.begin(),P.Name());
+
+				Log << P.Name() << " has unresolved dependencies"
+				    << std::endl;
+
 				return false;
 			}
 		}
@@ -158,6 +201,9 @@ bool pkgIsFetched(pkgCache::PkgIterator P) {
 void listEBoxPkgs() {
 	init();
 
+	Log << "Listing eBox packages.." << std::endl;
+	
+
 	std::cout << "my $result = [" << std::endl;
 	for (pkgCache::PkgIterator P = Cache->PkgBegin(); P.end() == false; P++){
 		std::string name;
@@ -169,16 +215,31 @@ void listEBoxPkgs() {
 
 		if(!strncmp(P.Name(),"ebox",4)) {
 			name = P.Name();
+
+			Log << " Processing " << name << std::endl;
+
 			removable = !((name == "ebox") || (name=="ebox-software"));
 			//if there are no versions at all, continue
-			if(P.VersionList() == 0) continue;
+			if(P.VersionList() == 0) {
+			  Log << name << " has not any available version" << std::endl;
+			  
+			  continue;
+			}
+			
+
 
 			//if the only version available is a removed one ( ==
 			// there are no candidates and P.CurrentVer() is null),
 			// continue
 
 			pkgCache::VerIterator curverObject = Plcy->GetCandidateVer(P);
-			if (!P.CurrentVer() && (curverObject.end() == true)) continue;
+			if (!P.CurrentVer() && (curverObject.end() == true)){
+			  Log << name << " only version availble is a removed one" << std::endl;
+			  
+			  continue;
+			}
+			
+
 			std::cout << "{";
 			std::cout << "'name' => '" << name << "'," << std::endl;
 			if(removable) {
@@ -235,6 +296,8 @@ void listEBoxPkgs() {
 void listUpgradablePkgs() {
 	init();
 
+	Log << "Listing non-eBox upgradables packages.." << std::endl;
+
 	std::cout << "my $result = [" << std::endl;
 
 	for (pkgCache::PkgIterator P = Cache->PkgBegin(); P.end() == false; P++){
@@ -250,6 +313,8 @@ void listUpgradablePkgs() {
 		std::string curver = P.CurrentVer().VerStr();
 		pkgCache::VerIterator curverObject = P.CurrentVer();
 
+		Log << " Processing " << name << std::endl;		
+
 		for(pkgCache::VerIterator v = P.VersionList(); v.end() == false; v++) {
 			if(Cache->VS->CmpVersion(curver,v.VerStr()) < 0){
 				curver = v.VerStr();
@@ -258,7 +323,8 @@ void listUpgradablePkgs() {
 			}
 		}
 		if(curver.compare(P.CurrentVer().VerStr())==0) {
-			continue;
+		  Log << name << " has not any available version" << std::endl;
+		  continue;
 		}
 		std::stringstream file;
 		file << "/var/cache/apt/archives/" << P.Name() << "_" << curver << "_" << arch << ".deb";
@@ -268,6 +334,8 @@ void listUpgradablePkgs() {
 		if(epoch != std::string::npos) filename.replace(epoch,1,"%3a");
 		struct stat stats;
 		if(stat(filename.c_str(),&stats)!=0){
+		  Log << P.Name() << " has not been fetched. (Cannot found file " 
+		      << filename << ")" << std::endl;
 			continue;
 		}
 
@@ -278,6 +346,8 @@ void listUpgradablePkgs() {
 		sum.AddFD(Fd.Fd(), Fd.Size());
 		Fd.Close();
 		if(sum.Result().Value() != Par.MD5Hash()){
+        		  Log << P.Name() << " has  a incorrect MD5Sum" 
+			      << std::endl;
 			continue;
 		}
 
@@ -310,4 +380,8 @@ int main(int argc, char *argv[]){
 	} else {
 		listUpgradablePkgs();
 	}
+
+	Log << "esofttool ended" << std::endl;
+	
+	Log.close();
 }
