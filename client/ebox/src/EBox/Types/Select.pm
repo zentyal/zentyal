@@ -52,7 +52,8 @@ sub new
                        'editable. If you want a read only field, use ' .
                        'text type instead.');
         }
-        if ( $self->optional() ) {
+        if ( $self->optional()
+             and not $self->isa('EBox::Types::InverseMatchSelect') ) {
             throw EBox::Exceptions::Internal('Select ' . $self->fieldName() .
                                              ' must be compulsory');
         }

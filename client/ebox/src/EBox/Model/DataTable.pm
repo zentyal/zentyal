@@ -1133,7 +1133,7 @@ sub size
 
       my ($self) = @_;
 
-      return scalar( $self->{'gconfmodule'}->all_dirs_base($self->{'directory'}));
+      return scalar( @{ $self->{'gconfmodule'}->all_dirs_base($self->{'directory'})});
 
   }
 
@@ -3249,11 +3249,11 @@ sub _autoloadAddSubModel # (subModelFieldName, rows, id)
       my $hasManyField = $self->fieldHeader($subModelFieldName);
       my $userField = clone($hasManyField);
       my $directory = $self->directory() . "/$id/$subModelFieldName";
-      $userField->setDirectory($directory);
       my $foreignModelName = $userField->foreignModel();
       my $submodel = EBox::Model::ModelManager->instance()->model(
                                                                   $foreignModelName
                                                                  );
+      $submodel->setDirectory($directory);
 
       # Addition to a submodel
       foreach my $subModelRow (@{$subModelRows}) {
@@ -3342,11 +3342,11 @@ sub _autoloadActionSubModel # (action, methodName, paramsRef)
           # Remove an index to get the model
           shift ( @{$paramsRef} );
           my $directory = $model->directory() . "/$id/$subModelField";
-          $userField->setDirectory($directory);
           my $foreignModelName = $userField->foreignModel();
           $model = EBox::Model::ModelManager->instance()->model(
                                                                 $foreignModelName,
                                                                );
+          $model->setDirectory($directory);
       }
 
       # Change from lower case to upper case the first letter
@@ -3472,5 +3472,4 @@ sub _filterFields
 
   }
 
->>>>>>> .derecha-combinacion.r8236
 1;

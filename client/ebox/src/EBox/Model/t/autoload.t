@@ -262,16 +262,17 @@ cmp_deeply ( $model->get($addedId, [ 'compulsory_addr', 'compulsory_text' ])->{p
 
 lives_ok
   {
-      $model->setTestTable( $addedId, member => [
+      $model->setTestTable( $addedId,  member => {
                                                  'a' => {
-                                                         name    => 'ada',
-                                                         ipaddr  => '192.168.45.1/32',
-                                                        },
+                                                          name    => 'ada',
+                                                          ipaddr  => '192.168.45.1/32',
+                                                         },
                                                  'b' => {
                                                          ipaddr  => '192.168.45.2/32',
                                                          macaddr => '00:13:72:D8:23:E4'
                                                         }
-                                                ]);
+                                                 }
+                          );
   } 'Updating a submodel field in a model';
 
 isnt ( $model->getMemberToTestTable( $addedId, 'ada' ), undef,
