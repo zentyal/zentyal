@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 78;
+use Test::More tests => 85;
 use Test::Exception;
 
 
@@ -24,6 +24,10 @@ sub fakeEBoxModuleTest
   
   EBox::TestStubs::fakeEBoxModule(name => 'idleObserver', package => 'EBox::Idle::Observer', isa => ['EBox::LogObserver']);
   $mod = _testModuleBasics('idleObserver', 'EBox::Idle::Observer');
+  isa_ok($mod, 'EBox::LogObserver');
+
+  EBox::TestStubs::fakeEBoxModule(name => 'idleObserverWithScalarIsa', package => 'EBox::Idle::Observer', isa => 'EBox::LogObserver');
+  $mod = _testModuleBasics('idleObserverWithScalarIsa', 'EBox::Idle::Observer');
   isa_ok($mod, 'EBox::LogObserver');
 
   EBox::TestStubs::fakeEBoxModule(name => 'macacoSon', package => 'EBox::Macaco::Son', isa => ['EBox::Macaco']);

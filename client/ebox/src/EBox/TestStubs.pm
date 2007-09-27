@@ -175,7 +175,9 @@ sub setEBoxConfigKeys
 #       (named parameters)
 #       name     - the name of the ebox module (required)
 #       package  - the perl package of the ebox module (optional)
-#       isa      - the parents of the package (optional. Default: EBox:GConfModule)
+#       isa      - the parents of the package in addtion of EBox::GConfModule.
+#                  May be a scalar (one addtional parent) or a reference to a
+#                   list of parents (optional)
 #       subs - the subs to be installed in the package; in the form of
 #       a reference to a list containing the names and sub references
 #       of each sub. (optional)
@@ -197,20 +199,31 @@ sub fakeEBoxModule
 {
   my %params = @_;
   exists $params{name} or throw EBox::Exceptions::Internal('fakeEBoxModule: lacks name paramater');
+
+  
   exists $params{package} or $params{package} =  'EBox::' . ucfirst $params{name};
 
   my @isa = ('EBox::GConfModule');
-  push @isa, @{ $params{isa} } if exists $params{isa};
+  if (exists $params{isa} ) {
+    my @extraIsa = ref $params{isa} ? @{ $params{isa} }  : ($params{isa});
+    push @isa,  @extraIsa;
+  }
+
   my $createIsaCode =  'package ' . $params{package} . "; use base qw(@isa);";
   eval $createIsaCode;
   die "When creating ISA array $@" if  $@;
 
+ 
+
+
   my $initializerSub = exists $params{initializer} ? $params{initializer} : sub { my ($self) = @_; return $self};
+
+
 
 
   Test::MockObject->fake_module($params{package},
 				_create => sub {
-				  my $self = EBox::GConfModule->_create(name => $params{name});
+				  my $self = $params{package}->_create(name => $params{name});
 				  bless $self, $params{package};
 				  $self = $initializerSub->($self);
 				  return $self;
