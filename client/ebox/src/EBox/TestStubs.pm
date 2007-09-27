@@ -223,7 +223,7 @@ sub fakeEBoxModule
 
   Test::MockObject->fake_module($params{package},
 				_create => sub {
-				  my $self = $params{package}->_create(name => $params{name});
+				  my $self = EBox::GConfModule->_create(name => $params{name});
 				  bless $self, $params{package};
 				  $self = $initializerSub->($self);
 				  return $self;
