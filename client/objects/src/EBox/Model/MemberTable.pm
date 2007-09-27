@@ -93,6 +93,7 @@ sub _table
             'class' => 'dataTable',
             'help' => __('Objects'),
             'printableRowName' => __('member'),
+            'index' => 'name',
         };
 
     return $dataTable;
