@@ -20,7 +20,7 @@ use warnings;
 
 use lib '../../..';
 
-use Test::More qw(no_plan);
+use Test::More tests => 43;
 use Test::Exception;
 use Test::MockObject;
 use Test::Deep;
@@ -181,14 +181,14 @@ is ( $model->row($toRemoveId), undef, 'Remove done correctly');
 throws_ok
   {
       $model->delTestTable ( 'flooba' );
-  } 'EBox::Exceptions::DataNotFound', 'Deleting an unexistant row from a model';
+  } 'EBox::Exceptions::DataNotFound', 'Deleting an inexistent row from a model';
 
 ok ( $model->delMemberToTestTable ( $addedId, 'c' ), 'Delete a row in a submodel');
 
 throws_ok
   {
       $model->delMemberToTestTable ( $addedId, 'floobal');
-  } 'EBox::Exceptions::DataNotFound', 'Deleting an unexistant row from a submodel';
+  } 'EBox::Exceptions::DataNotFound', 'Deleting an inexistent row from a submodel';
 
 diag ( 'Checking get' );
 
@@ -202,12 +202,12 @@ cmp_deeply ( $model->get( $addedId, [ 'compulsory_text', 'inverse_select' ] )->{
              { compulsory_text => 'foo', 'inverse_select' => 'b' },
              'Getting two fields from a row in a model');
 
-is (  $model->get( 'flooba' ), undef, 'Getting an unexistant row');
+is (  $model->get( 'flooba' ), undef, 'Getting an inexistent row');
 
 throws_ok
   {
       $model->getTestTable( $addedId, ['foobar'] );
-  } 'EBox::Exceptions::Internal', 'Getting an unexistant field';
+  } 'EBox::Exceptions::Internal', 'Getting an inexistent field';
 
 throws_ok
   {
@@ -227,12 +227,12 @@ cmp_deeply ( $model->getMemberToTestTable( $addedId, 'b', [ 'ipaddr', 'macaddr' 
 
 throws_ok {
     $model->getMemberToTestTable( $addedId, 'foolba' );
-} 'EBox::Exceptions::DataNotFound', 'Getting an unexistant row in a submodel';
+} 'EBox::Exceptions::DataNotFound', 'Getting an inexistent row in a submodel';
 
 throws_ok
   {
       $model->getMemberToTestTable( $addedId, 'a', [ 'fadfa' ] );
-  } 'EBox::Exceptions::Internal', 'Getting an unexistant field in a row in a submodel';
+  } 'EBox::Exceptions::Internal', 'Getting an inexistent field in a row in a submodel';
 
 throws_ok
   {
@@ -286,14 +286,14 @@ throws_ok
 throws_ok
   {
       $model->set( $addedId, 'foolba' => '232');
-  } 'EBox::Exceptions::Internal', 'Updating an unexistant field in a model';
+  } 'EBox::Exceptions::Internal', 'Updating an inexistent field in a model';
 
 lives_ok
   {
-      $model->setMemberToTestTable( $addedId, 'a', name => 'ada' );
+      $model->setMemberToTestTable( $addedId, 'b', name => 'baba' );
   } 'Updating an index field in a model';
 
-isnt ( $model->getMemberToTestTable( $addedId, 'ada'), undef, 
+isnt ( $model->getMemberToTestTable( $addedId, 'baba'), undef,
        'Update an index field in a submodel correctly done');
 
 lives_ok
@@ -311,12 +311,12 @@ cmp_deeply ( $model->getMemberToTestTable($addedId, 'ada', [ 'ipaddr', 'macaddr'
 throws_ok
   {
       $model->setMemberToTestTable( $addedId, 'foolba', name => '12');
-  } 'EBox::Exceptions::DataNotFound', 'Updating an existant row in a sub model';
+  } 'EBox::Exceptions::DataNotFound', 'Updating an inexistant row in a sub model';
 
 throws_ok
   {
       $model->setMemberToTestTable( $addedId, 'ada', 'foolba' => '232');
-  } 'EBox::Exceptions::Internal', 'Updating an unexistant field in a sub model';
+  } 'EBox::Exceptions::Internal', 'Updating an inexistent field in a sub model';
 
 
 1;

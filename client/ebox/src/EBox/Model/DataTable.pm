@@ -1658,10 +1658,6 @@ sub fieldsWithUndefSetter
 {
 	my $self = shift;
 
-	if ($self->{'fields'}) {
-		return $self->{'fields'};
-	}
-	
 	unless (defined($self->table()->{'tableDescription'})) {
 		throw Excepetions::Internal('table description not defined');
 	}
@@ -1686,10 +1682,6 @@ sub setterTypes
 {
 	my ($self) = @_ ;
 
-	if ($self->{'fields'}) {
-		return $self->{'fields'};
-	}
-	
 	unless (defined($self->table()->{'tableDescription'})) {
 		throw Exceptions::Internal('table description not defined');
 	}
@@ -3205,6 +3197,14 @@ sub _fillTypes
 
       my ($self, $params) = @_;
 
+      # Check all given fields to fill are in the table description
+      foreach my $paramName (keys %{$params}) {
+          unless ( $paramName eq any(@{$self->fields()}) ) {
+              throw EBox::Exceptions::Internal("$paramName does not exist in the " .
+                                               'model ' . $self->name() . ' description');
+          }
+      }
+
       my $filledTypes = {};
       foreach my $fieldName (@{$self->fields()}) {
           if ( exists $params->{$fieldName} ) {
@@ -3286,20 +3286,19 @@ sub _autoloadSetSubModel # (subModelFieldName, rows, id)
       my $hasManyField = $self->fieldHeader($subModelFieldName);
       my $userField = clone($hasManyField);
       my $directory = $self->directory() . "/$id/$subModelFieldName";
-      $userField->setDirectory($directory);
       my $foreignModelName = $userField->foreignModel();
       my $submodel = EBox::Model::ModelManager->instance()->model(
                                                                   $foreignModelName
                                                                  );
-
+      $submodel->setDirectory($directory);
       # Addition to a submodel
-      foreach my $subModelRow (@{$subModelRows}) {
-          my $updateId = $self->_autoloadGetId($self, $subModelRow );
+      foreach my $subModelRowKey (keys %{$subModelRows}) {
+          my $updateId = $self->_autoloadGetId($submodel, [ $subModelRowKey ] );
           unless ( defined ( $updateId )) {
-              throw EBox::Exceptions::DataNotFound( data  => 'submodel row',
-                                                    value => $subModelRow->[0]);
+              throw EBox::Exceptions::DataNotFound( data  => 'submodel row identifier',
+                                                    value => $subModelRowKey);
           }
-          my $instancedTypes = $submodel->_fillTypes($subModelRow->[1]);
+          my $instancedTypes = $submodel->_fillTypes($subModelRows->{$subModelRowKey});
           $submodel->setTypedRow($updateId, $instancedTypes, force => 1);
       }
 
