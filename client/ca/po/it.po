@@ -202,7 +202,7 @@ msgstr "Impossibile avviare la shell OpenSSL. ({errval})"
 #: src/EBox/CA/TestStub.pm:654
 #, perl-brace-format
 msgid "The user {commonName} does NOT exist"
-msgstr "L'utente {commoName} non esiste"
+msgstr "L'utente {commonName} non esiste"
 
 #: src/EBox/CA/TestStub.pm:720
 msgid "Days set to the maximum allowed: Year 2038 Bug"
@@ -222,7 +222,7 @@ msgstr "la CA passwordfrase non coincide "
 #: src/EBox/CGI/CreateCA.pm:118 src/EBox/CGI/IssueCertificate.pm:91
 #, perl-brace-format
 msgid "CA Passphrase should be at least {length} characters"
-msgstr "La passfrase CA dovrebbe essere lunga almeno {lenght} caratteri"
+msgstr "La passfrase CA dovrebbe essere lunga almeno {length} caratteri"
 
 #: src/EBox/CGI/CreateCA.pm:123 src/EBox/CGI/IssueCertificate.pm:101
 msgid "Days to expire MUST be a natural number"
