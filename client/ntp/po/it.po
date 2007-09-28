@@ -4,7 +4,7 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ntp 0.9.3\n"
+"Project-Id-Version: ebox-ntp 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:13+0200\n"
 "PO-Revision-Date: 2007-03-16 11:18+0100\n"
@@ -18,226 +18,230 @@ msgstr ""
 
 #: src/EBox/CGI/Synch.pm:41
 msgid "external synchronize status"
-msgstr ""
+msgstr "stato della sincronizzazione esterna"
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
-msgstr ""
+msgstr "stato del modulo"
 
 #: src/EBox/CGI/Index.pm:30
 msgid "NTP Server"
-msgstr ""
+msgstr "Server NTP"
 
 #: src/EBox/CGI/Timezone.pm:30
 msgid "Timezone settings"
-msgstr ""
+msgstr "Impostazioni fuso orario"
 
 #: src/EBox/CGI/Datetime.pm:30
 msgid "Date and time settings"
-msgstr ""
+msgstr "Impostazioni data e ora"
 
 #: src/EBox/CGI/ChangeTimeZone.pm:41
 msgid "country"
-msgstr ""
+msgstr "paese"
 
 #: src/EBox/CGI/ChangeTimeZone.pm:42
 msgid "continent"
-msgstr ""
+msgstr "continente"
 
 #: src/EBox/CGI/AddServers.pm:42
 msgid "first ntp server"
-msgstr ""
+msgstr "server NTP primario"
 
 #: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:199
 #: src/templates/servers.mas:18
 msgid "Primary server"
-msgstr ""
+msgstr "Server primario"
 
 #: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:213
 #: src/templates/servers.mas:30
 msgid "Secondary server"
-msgstr ""
+msgstr "Server secondario"
 
 #: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:42
 msgid "Tertiary server"
-msgstr ""
+msgstr "Server terziario"
 
 #: src/EBox/CGI/ChangeDate.pm:41
 msgid "Day"
-msgstr ""
+msgstr "Giorno"
 
 #: src/EBox/CGI/ChangeDate.pm:42
 msgid "Month"
-msgstr ""
+msgstr "Mese"
 
 #: src/EBox/CGI/ChangeDate.pm:43
 msgid "Year"
-msgstr ""
+msgstr "Anno"
 
 #: src/EBox/CGI/ChangeDate.pm:44
 msgid "Hour"
-msgstr ""
+msgstr "Ora"
 
 #: src/EBox/CGI/ChangeDate.pm:45
 msgid "Minutes"
-msgstr ""
+msgstr "Minuti"
 
 #: src/EBox/CGI/ChangeDate.pm:46
 msgid "Seconds"
-msgstr ""
+msgstr "Secondi"
 
 #: src/EBox/NTP.pm:201
 msgid "primary server"
-msgstr ""
+msgstr "server primario"
 
 #: src/EBox/NTP.pm:206 src/EBox/NTP.pm:225
 msgid "Primary and secondary server must be different"
-msgstr ""
+msgstr "I server primario e secondario devono essere differenti"
 
 #: src/EBox/NTP.pm:209
 msgid "secondary server"
-msgstr ""
+msgstr "server secondario"
 
 #: src/EBox/NTP.pm:222
 msgid "Primary and tertiary server must be different"
-msgstr ""
+msgstr "I server primario e terziario devono essere differenti"
 
 #: src/EBox/NTP.pm:228
 msgid "tertiary server"
-msgstr ""
+msgstr "server terziario"
 
 #: src/EBox/NTP.pm:244
 #, perl-brace-format
 msgid "{name} IP address"
-msgstr ""
+msgstr "{name} indirizzo IP"
 
 #: src/EBox/NTP.pm:247
 #, perl-brace-format
 msgid "{name} host name"
-msgstr ""
+msgstr "{name} host name"
 
 #: src/EBox/NTP.pm:389
 msgid "NTP local server"
-msgstr ""
+msgstr "server NTP locale"
 
 #: src/EBox/NTP.pm:402
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #: src/EBox/NTP.pm:405
 msgid "Date/time"
-msgstr ""
+msgstr "Data/ora"
 
 #: src/EBox/NTP.pm:408 src/templates/timezone.mas:15
 msgid "Time zone"
-msgstr ""
+msgstr "Fuso orario"
 
 #: src/EBox/NTP.pm:412
 msgid "NTP server"
-msgstr ""
+msgstr "server NTP"
 
 #: src/templates/synch.mas:11 src/templates/synch.mas:16
 msgid "Disabled"
-msgstr ""
+msgstr "Disabilitato"
 
 #: src/templates/synch.mas:13 src/templates/synch.mas:18
 msgid "Enabled"
-msgstr ""
+msgstr "Abilitato"
 
 #: src/templates/synch.mas:23 src/templates/synch.mas:25
 #: src/templates/servers.mas:55 src/templates/timezone.mas:37
 #: src/templates/timezone.mas:39 src/templates/date.mas:111
 #: src/templates/date.mas:113
 msgid "Change"
-msgstr ""
+msgstr "Cambia"
 
 #: src/templates/index.mas:11
 msgid "NTP server status"
-msgstr ""
+msgstr "Stato server NTP"
 
 #: src/templates/servers.mas:7
 msgid "NTP servers"
-msgstr ""
+msgstr "Server NTP"
 
 #: src/templates/servers.mas:11
 msgid ""
 "You should remember to set up your timezone to have synchronization behaving "
 "correctly."
 msgstr ""
+"Ricorda di impostare il fuso orario per fare in modo che la sincronizzazione "
+"funzioni correttamente."
 
 #: src/templates/timezone.mas:19
 msgid "A time zone change will cause all eBox services to be restarted"
 msgstr ""
+"Il cambio del fuso orario richiederà il riavvio di tutti i servizi eBox"
 
 #: src/templates/datetime.mas:13
 msgid "Time synchronization with NTP servers"
-msgstr ""
+msgstr "Sincronizzazione con i server NTP"
 
 #: src/templates/datetime.mas:18
 msgid "External NTP servers"
-msgstr ""
+msgstr "Server NTP esterni"
 
 #: src/templates/datetime.mas:23
 msgid "Change Date and Time"
-msgstr ""
+msgstr "Cambia data e ora"
 
 #: src/templates/date.mas:10
 msgid ""
 "A change in the date or time will cause all eBox services to be restarted"
 msgstr ""
+"La modifica di data e ora richiederà il riavvio di tutti i servizi eBox"
 
 #: src/templates/date.mas:16
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: src/templates/date.mas:32
 msgid "January"
-msgstr ""
+msgstr "Gennaio"
 
 #: src/templates/date.mas:33
 msgid "February"
-msgstr ""
+msgstr "Febbraio"
 
 #: src/templates/date.mas:34
 msgid "March"
-msgstr ""
+msgstr "Marzo"
 
 #: src/templates/date.mas:35
 msgid "April"
-msgstr ""
+msgstr "Aprile"
 
 #: src/templates/date.mas:36
 msgid "May"
-msgstr ""
+msgstr "Maggio"
 
 #: src/templates/date.mas:37
 msgid "June"
-msgstr ""
+msgstr "Giugno"
 
 #: src/templates/date.mas:38
 msgid "July"
-msgstr ""
+msgstr "Luglio"
 
 #: src/templates/date.mas:39
 msgid "August"
-msgstr ""
+msgstr "Agosto"
 
 #: src/templates/date.mas:40
 msgid "September"
-msgstr ""
+msgstr "Settembre"
 
 #: src/templates/date.mas:41
 msgid "October"
-msgstr ""
+msgstr "Ottobre"
 
 #: src/templates/date.mas:42
 msgid "November"
-msgstr ""
+msgstr "Novembre"
 
 #: src/templates/date.mas:43
 msgid "December"
-msgstr ""
+msgstr "Dicembre"
 
 #: src/templates/date.mas:69
 msgid "Time"
-msgstr ""
+msgstr "Ora"

@@ -4,7 +4,7 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mail 0.9.3\n"
+"Project-Id-Version: ebox-mail 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-04-09 15:24+0000\n"
@@ -697,6 +697,12 @@ msgstr "Impostazioni"
 #: src/templates/account.mas:15
 msgid "Create mail alias to mail account"
 msgstr "Crea un alias di posta all'account di posta"
+
+#, fuzzy
+#~ msgid ""
+#~ "There are no users in the group or the users do not have a mail account, "
+#~ "so an alias account cannot be created"
+#~ msgstr "Non ci sono utenti nel gruppo o gli utenti non"
 
 #~ msgid "module status"
 #~ msgstr "stato del modulo"

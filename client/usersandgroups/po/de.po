@@ -11,9 +11,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 0.9.3\n"
+"Project-Id-Version: ebox-usersandgroups 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-08-21 17:46+0200\n"
+"POT-Creation-Date: 2007-07-24 12:14+0200\n"
 "PO-Revision-Date: 2007-08-18 13:00+0200\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -21,15 +21,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
-
-#: src/EBox/CGI/Group.pm:30
-msgid "Edit group"
-msgstr "Gruppe bearbeiten"
-
-#: src/EBox/CGI/Group.pm:45 src/EBox/CGI/AddUserToGroup.pm:44
-#: src/EBox/CGI/DelUserFromGroup.pm:45
-msgid "group"
-msgstr "Gruppe"
 
 #: src/EBox/CGI/Del.pm:65
 msgid "object name"
@@ -47,14 +38,27 @@ msgstr "Der Benutzer wurde entfernt"
 msgid "Group removed successfully"
 msgstr "Die Gruppe wurde entfernt"
 
-#: src/EBox/CGI/User.pm:42 src/EBox/CGI/Users.pm:31
-#: src/EBox/UsersAndGroups.pm:1365
-msgid "Users"
+#: src/EBox/CGI/DelUserFromGroup.pm:45 src/EBox/CGI/AddUserToGroup.pm:44
+#: src/EBox/CGI/Group.pm:45
+msgid "group"
+msgstr "Gruppe"
+
+#: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/AddUserToGroup.pm:49
+msgid "user"
 msgstr "Benutzer"
 
-#: src/EBox/CGI/User.pm:46
-msgid "username"
-msgstr "Benutzername"
+#: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
+#: src/EBox/UsersAndGroups.pm:645 src/EBox/UsersAndGroups.pm:650
+#: src/EBox/UsersAndGroups.pm:755 src/EBox/UsersAndGroups.pm:882
+#: src/EBox/UsersAndGroups.pm:919 src/EBox/UsersAndGroups.pm:993
+#: src/EBox/UsersAndGroups.pm:1099
+msgid "group name"
+msgstr "Gruppenname"
+
+#: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
+#: src/EBox/CGI/AddUser.pm:49
+msgid "comment"
+msgstr "Kommentar"
 
 #: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
 #: src/EBox/UsersAndGroups.pm:253 src/EBox/UsersAndGroups.pm:259
@@ -69,11 +73,6 @@ msgstr "Benutzername"
 msgid "full name"
 msgstr "Vollständiger Name"
 
-#: src/EBox/CGI/ModifyUser.pm:48 src/EBox/CGI/AddUser.pm:49
-#: src/EBox/CGI/ModifyGroup.pm:47
-msgid "comment"
-msgstr "Kommentar"
-
 #: src/EBox/CGI/ModifyUser.pm:49 src/EBox/CGI/AddUser.pm:47
 msgid "password"
 msgstr "Passwort"
@@ -86,21 +85,22 @@ msgstr "Passwort bestätigen"
 msgid "Passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein"
 
-#: src/EBox/CGI/AddGroup.pm:45 src/EBox/CGI/ModifyGroup.pm:40
-#: src/EBox/UsersAndGroups.pm:645 src/EBox/UsersAndGroups.pm:650
-#: src/EBox/UsersAndGroups.pm:755 src/EBox/UsersAndGroups.pm:882
-#: src/EBox/UsersAndGroups.pm:919 src/EBox/UsersAndGroups.pm:993
-#: src/EBox/UsersAndGroups.pm:1099
-msgid "group name"
-msgstr "Gruppenname"
-
 #: src/EBox/CGI/AddUser.pm:48
 msgid "retype password"
 msgstr "Passwort erneut eingeben"
 
-#: src/EBox/CGI/AddUserToGroup.pm:49 src/EBox/CGI/DelUserFromGroup.pm:50
-msgid "user"
+#: src/EBox/CGI/Group.pm:30
+msgid "Edit group"
+msgstr "Gruppe bearbeiten"
+
+#: src/EBox/CGI/User.pm:42 src/EBox/CGI/Users.pm:31
+#: src/EBox/UsersAndGroups.pm:1365
+msgid "Users"
 msgstr "Benutzer"
+
+#: src/EBox/CGI/User.pm:46
+msgid "username"
+msgstr "Benutzername"
 
 #: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1367
 msgid "Groups"
@@ -133,7 +133,81 @@ msgstr "Das Passwort darf höchstens {maxPwdLength} Zeichen lang sein"
 msgid "This group contains users"
 msgstr "Diese Gruppe enthält Benutzer"
 
-#: src/templates/del.mas:15
+#: src/templates/users.mas:11 src/templates/groups.mas:11
+msgid ""
+"Changes in user accounts take effect inmediately, they do not need to be "
+"saved."
+msgstr ""
+"Änderungen an den Benutzerkonten treten augenblicklich in Kraft, sie müssen "
+"nicht gespeichert werden"
+
+#: src/templates/users.mas:13 src/templates/groups.mas:13
+msgid ""
+"Changes related to printing, file sharing and Jabber service do need to be "
+"saved in order to be effective."
+msgstr ""
+"Änderungen betreffend Druck-, Dateifreigabe- und Jabber-Dienst müssen "
+"gespeichert werden, damit sie in Kraft treten"
+
+#: src/templates/users.mas:16
+msgid "Add User"
+msgstr "Benutzer hinzufügen"
+
+#: src/templates/users.mas:22 src/templates/users.mas:86
+msgid "User name"
+msgstr "Benutzername"
+
+#: src/templates/users.mas:31 src/templates/user.mas:30
+msgid "Full name"
+msgstr "Vollständiger Name"
+
+#: src/templates/users.mas:40 src/templates/group.mas:23
+#: src/templates/user.mas:19 src/templates/groups.mas:34
+msgid "Comment"
+msgstr "Kommentar"
+
+#: src/templates/users.mas:49 src/templates/user.mas:41
+msgid "Password"
+msgstr "Passwort"
+
+#: src/templates/users.mas:57 src/templates/user.mas:52
+msgid "Retype password"
+msgstr "Passwort erneut eingeben"
+
+#: src/templates/users.mas:71 src/templates/users.mas:73
+#: src/templates/groups.mas:48 src/templates/groups.mas:50
+msgid "Create"
+msgstr "Erstellen"
+
+#: src/templates/users.mas:82
+msgid "Edit User"
+msgstr "Benutzer bearbeiten"
+
+#: src/templates/users.mas:88 src/templates/groups.mas:65
+msgid "Actions"
+msgstr "Aktionen"
+
+#: src/templates/users.mas:101 src/templates/users.mas:103
+#: src/templates/groups.mas:78 src/templates/groups.mas:80
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: src/templates/users.mas:110 src/templates/users.mas:112
+#: src/templates/users.mas:114 src/templates/group.mas:66
+#: src/templates/groups.mas:87 src/templates/groups.mas:89
+#: src/templates/groups.mas:91
+msgid "Remove"
+msgstr "Entfernen"
+
+#: src/templates/users.mas:130
+msgid "Group"
+msgstr "Gruppe"
+
+#: src/templates/del.mas:13
+msgid "Deleting user"
+msgstr "Benutzer wird gelöscht"
+
+#: src/templates/del.mas:16
 msgid ""
 "The user you tried to delete contains data in the following modules. Please "
 "confirm you want to remove it and all its related data"
@@ -142,6 +216,10 @@ msgstr ""
 "Sie den Benutzer und alle zugehörigen Daten löschen?"
 
 #: src/templates/del.mas:20
+msgid "Deleting group"
+msgstr "Gruppe wird gelöscht"
+
+#: src/templates/del.mas:23
 msgid ""
 "The group you tried to delete contains data in the following modules. Please "
 "confirm you want to remove it and all its related data"
@@ -149,66 +227,19 @@ msgstr ""
 "Die Gruppe die Sie löschen möchten hat Daten in folgenden Modulen. Möchten "
 "Sie die Gruppe und alle zugehörigen Daten löschen?"
 
-#: src/templates/del.mas:43
+#: src/templates/del.mas:47
 msgid "Delete"
 msgstr "Löschen"
 
-#: src/templates/del.mas:46
+#: src/templates/del.mas:51
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: src/templates/groups.mas:11 src/templates/users.mas:11
-msgid ""
-"Changes in user accounts take effect inmediately, they do not need to be "
-"saved."
-msgstr ""
-"Änderungen an den Benutzerkonten treten augenblicklich in Kraft, sie müssen "
-"nicht gespeichert werden"
+#: src/templates/group.mas:12
+msgid "Administration of group "
+msgstr "Gruppen verwalten"
 
-#: src/templates/groups.mas:12 src/templates/users.mas:12
-msgid ""
-"Changes related to printing, file sharing and Jabber service do need to be "
-"saved in order to be effective."
-msgstr ""
-"Änderungen betreffend Druck-, Dateifreigabe- und Jabber-Dienst müssen "
-"gespeichert werden, damit sie in Kraft treten"
-
-#: src/templates/groups.mas:14
-msgid "Add Group"
-msgstr "Gruppe hinzufügen"
-
-#: src/templates/groups.mas:20 src/templates/groups.mas:54
-msgid "Group name"
-msgstr "Gruppenname"
-
-#: src/templates/groups.mas:30 src/templates/group.mas:21
-#: src/templates/user.mas:18 src/templates/users.mas:35
-msgid "Comment"
-msgstr "Kommentar"
-
-#: src/templates/groups.mas:35
-msgid "Optional value"
-msgstr "Optionaler Name"
-
-#: src/templates/groups.mas:42 src/templates/groups.mas:43
-#: src/templates/users.mas:63 src/templates/users.mas:64
-msgid "Create"
-msgstr "Erstellen"
-
-#: src/templates/groups.mas:51
-msgid "Edit Group"
-msgstr "Gruppe bearbeiten"
-
-#: src/templates/groups.mas:55 src/templates/users.mas:76
-msgid "Actions"
-msgstr "Aktionen"
-
-#: src/templates/groups.mas:76 src/templates/group.mas:58
-#: src/templates/users.mas:97
-msgid "Remove"
-msgstr "Entfernen"
-
-#: src/templates/group.mas:15
+#: src/templates/group.mas:16
 msgid ""
 "There are no users the moment. You need at least one  to manage this group "
 "properly"
@@ -216,37 +247,37 @@ msgstr ""
 "Es gibt im Moment noch keine Benutzer. Sie müssen mindestens einen "
 "erstellen, um diese Gruppe verwalten zu können"
 
-#: src/templates/group.mas:25 src/templates/group.mas:26
-#: src/templates/user.mas:60 src/templates/user.mas:61
+#: src/templates/group.mas:28 src/templates/group.mas:30
+#: src/templates/user.mas:65 src/templates/user.mas:67
 msgid "Change"
 msgstr "Ändern"
 
-#: src/templates/group.mas:32
+#: src/templates/group.mas:37
 msgid "Users in group"
 msgstr "Gruppenmitglieder"
 
-#: src/templates/group.mas:34
+#: src/templates/group.mas:40
 msgid "Users not in group"
 msgstr "keine Gruppenmitglieder"
 
-#: src/templates/group.mas:50 src/templates/group.mas:85
+#: src/templates/group.mas:57 src/templates/group.mas:97
 msgid "Empty list"
 msgstr "Liste leeren"
 
-#: src/templates/group.mas:61
+#: src/templates/group.mas:70
 msgid "Remove users from group"
 msgstr "Benutzer aus Gruppe entfernen"
 
-#: src/templates/group.mas:69 src/templates/group.mas:72
+#: src/templates/group.mas:79 src/templates/group.mas:83
 msgid "Add users to group"
 msgstr "Benutzer zur Gruppe hinzufügen"
 
-#: src/templates/group.mas:100 src/templates/group.mas:108
-#: src/templates/group.mas:109
+#: src/templates/group.mas:113 src/templates/group.mas:123
+#: src/templates/group.mas:125
 msgid "Delete group"
 msgstr "Gruppe löschen"
 
-#: src/templates/group.mas:102
+#: src/templates/group.mas:116
 msgid ""
 "If you remove this group all its data within its shared directory will be "
 "deleted"
@@ -254,24 +285,16 @@ msgstr ""
 "Falls Sie diese Gruppe löschen, werden alle Daten in den freigegebenen "
 "Ordnern gelöscht"
 
-#: src/templates/user.mas:28 src/templates/users.mas:27
-msgid "Full name"
-msgstr "Vollständiger Name"
+#: src/templates/user.mas:10
+msgid "Administration of user"
+msgstr "Benutzer verwalten"
 
-#: src/templates/user.mas:38 src/templates/users.mas:43
-msgid "Password"
-msgstr "Passwort"
-
-#: src/templates/user.mas:48 src/templates/users.mas:50
-msgid "Retype password"
-msgstr "Passwort erneut eingeben"
-
-#: src/templates/user.mas:71 src/templates/user.mas:79
-#: src/templates/user.mas:80
+#: src/templates/user.mas:78 src/templates/user.mas:88
+#: src/templates/user.mas:90
 msgid "Delete user"
 msgstr "Benutzer löschen"
 
-#: src/templates/user.mas:73
+#: src/templates/user.mas:81
 msgid ""
 "This operation will cause the removal of the user and all his dependences; "
 "such as mail accounts, user data..."
@@ -279,33 +302,18 @@ msgstr ""
 "Dieser Vorgang löscht den Benutzer und alle zugehörigen Daten wie E-Mails, "
 "Benutzerdaten, ..."
 
-#: src/templates/users.mas:14
-msgid "Add User"
-msgstr "Benutzer hinzufügen"
+#: src/templates/groups.mas:16
+msgid "Add Group"
+msgstr "Gruppe hinzufügen"
 
-#: src/templates/users.mas:19 src/templates/users.mas:75
-msgid "User name"
-msgstr "Benutzername"
+#: src/templates/groups.mas:23 src/templates/groups.mas:63
+msgid "Group name"
+msgstr "Gruppenname"
 
-#: src/templates/users.mas:72
-msgid "Edit User"
-msgstr "Benutzer bearbeiten"
+#: src/templates/groups.mas:40
+msgid "Optional value"
+msgstr "Optionaler Name"
 
-#: src/templates/users.mas:112
-msgid "Group"
-msgstr "Gruppe"
-
-#~ msgid "Edit"
-#~ msgstr "Bearbeiten"
-
-#~ msgid "Deleting user"
-#~ msgstr "Benutzer wird gelöscht"
-
-#~ msgid "Deleting group"
-#~ msgstr "Gruppe wird gelöscht"
-
-#~ msgid "Administration of group "
-#~ msgstr "Gruppen verwalten"
-
-#~ msgid "Administration of user"
-#~ msgstr "Benutzer verwalten"
+#: src/templates/groups.mas:59
+msgid "Edit Group"
+msgstr "Gruppe bearbeiten"

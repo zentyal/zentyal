@@ -11,16 +11,16 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.9.3\n"
+"Project-Id-Version: ebox-software 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-08-15 17:55+0200\n"
+"POT-Creation-Date: 2007-07-24 12:13+0200\n"
 "PO-Revision-Date: 2007-08-19 12:32+0200\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural= (n != 1);"
+"Plural-Forms: nplurals=2; plural= (n != 1);\n"
 
 #: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
 msgid "Automatic software updates"
@@ -51,7 +51,8 @@ msgstr "Es gab keine Pakete zu aktualisieren"
 msgid ""
 "The packages are being installed, please refrain from using the application "
 "until the update is done"
-msgstr "Die Pakete werden installiert, bitte benutzen Sie diese Anwendung nicht, bis "
+msgstr ""
+"Die Pakete werden installiert, bitte benutzen Sie diese Anwendung nicht, bis "
 "die Aktualisierung abgeschlossen ist"
 
 #: src/EBox/CGI/InstallPkgs.pm:93
@@ -243,3 +244,9 @@ msgstr "keiner"
 msgid "Remove"
 msgstr "Entfernen"
 
+#, fuzzy
+#~ msgid "Services  management"
+#~ msgstr "Softwareverwaltung"
+
+#~ msgid "SOAP server to communicate with eBox control center"
+#~ msgstr "SOAP-Server, der mit dem eBox-Kontrollzentrum kommunizieren darf"

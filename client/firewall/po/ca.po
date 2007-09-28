@@ -5,7 +5,7 @@
 # Jordi Mallach <jordi@sindominio.net>, 2004.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-firewall 0.9.3\n"
+"Project-Id-Version: ebox-firewall 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 15:27+0200\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
@@ -859,6 +859,30 @@ msgstr ""
 "filtre de paquets. Podeu seleccionar un objecte i configurar regles i els "
 "serveis als quals pot accedir"
 
+#, fuzzy
+#~ msgid "Decision"
+#~ msgstr "port de destinació"
+
+#, fuzzy
+#~ msgid "Source IP"
+#~ msgstr "Servei"
+
+#, fuzzy
+#~ msgid "Source object"
+#~ msgstr "Informe d'error"
+
+#, fuzzy
+#~ msgid "Destination IP"
+#~ msgstr "port de destinació"
+
+#, fuzzy
+#~ msgid "Destination object"
+#~ msgstr "port de destinació"
+
+#, fuzzy
+#~ msgid "Description"
+#~ msgstr "port de destinació"
+
 #~ msgid "Deny policy"
 #~ msgstr "Política de denegació"
 
@@ -867,3 +891,7 @@ msgstr ""
 
 #~ msgid "Objects"
 #~ msgstr "Objectes"
+
+#, fuzzy
+#~ msgid "Filtering rules for eBox's services"
+#~ msgstr "Configura les regles predeterminades"

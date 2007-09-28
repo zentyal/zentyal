@@ -10,7 +10,7 @@
 # This file is distributed under the same license as the EBox-mail package.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mail 0.9.3\n"
+"Project-Id-Version: ebox-mail 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-05-16 13:01+0000\n"
@@ -702,6 +702,12 @@ msgstr "Características"
 #: src/templates/account.mas:15
 msgid "Create mail alias to mail account"
 msgstr "Crear alias de correo a la cuenta de correo"
+
+#, fuzzy
+#~ msgid ""
+#~ "There are no users in the group or the users do not have a mail account, "
+#~ "so an alias account cannot be created"
+#~ msgstr "No hay usuarios en el grupo"
 
 #~ msgid "module status"
 #~ msgstr "estado del módulo"

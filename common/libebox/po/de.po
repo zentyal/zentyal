@@ -10,7 +10,7 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.9.3\n"
+"Project-Id-Version: libebox 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:11+0200\n"
 "PO-Revision-Date: 2007-03-30 16:28+0000\n"
@@ -105,7 +105,7 @@ msgstr "Die hochgeladene Datei ist ungültig"
 
 #: src/EBox/CGI/Base.pm:788
 msgid "Cannot create a temporally file for the upload"
-msgstr ""
+msgstr "Die temporäre Datei für das Hochladen konnte nicht erstellt werden"
 
 #: src/EBox/Sudo.pm:229
 #, perl-brace-format
@@ -123,12 +123,8 @@ msgid "Could not open the config file {file}."
 msgstr "Die Konfigurationsdatei \"{file}\" konnte nicht geöffnet werden"
 
 #: src/EBox/Config.pm.in:88
-#, fuzzy
 msgid "The ebox user has not been set in the config file."
-msgstr ""
-"#-#-#-#-#  de.po (libebox 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (libebox 0.8.99)  #-#-#-#-#\n"
-"Der eBox-Benutzer wurde in der Konfigurationsdatei nicht eingestellt"
+msgstr "Der eBox-Benutzer wurde in der Konfigurationsdatei nicht eingestellt"
 
 #: src/EBox/Validate.pm:647
 #, perl-brace-format
@@ -181,7 +177,7 @@ msgstr "Aktion"
 
 #: src/templates/ajax/tableBody.mas:327
 msgid "port"
-msgstr ""
+msgstr "Port"
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
@@ -239,3 +235,52 @@ msgstr "Deaktiviert"
 #: src/templates/enable.mas:26 src/templates/enable.mas:31
 msgid "Enabled"
 msgstr "Aktiviert"
+
+#~ msgid "Directory not found: {d}"
+#~ msgstr "Der Ordner {d} wurde nicht gefunden"
+
+#~ msgid "Inverse match"
+#~ msgstr "Treffer invertieren"
+
+#~ msgid "From"
+#~ msgstr "Von"
+
+#~ msgid "To"
+#~ msgstr "An"
+
+#~ msgid "first"
+#~ msgstr "erste"
+
+#~ msgid "prev"
+#~ msgstr "vorherige"
+
+#~ msgid "next"
+#~ msgstr "nächste"
+
+#~ msgid "last"
+#~ msgstr "letzte"
+
+#~ msgid "eBox's homepage"
+#~ msgstr "eBox-Homepage"
+
+#~ msgid "If you typed the URL manually, please check it"
+#~ msgstr ""
+#~ "Falls Sie die Adresse manuell eingegeben haben, prüfen Sie sie auf "
+#~ "Schreibfehler"
+
+#~ msgid ""
+#~ "Maybe a change in eBox's configuration or software made no longer "
+#~ "available the requested page"
+#~ msgstr ""
+#~ "Unter Umständen hat eine Änderung in der eBox-Konfigurationsdatei oder "
+#~ "eine Software dazu geführt, dass diese Seite nicht länger verfügbar ist"
+
+#~ msgid ""
+#~ "If you need more help, you may want visit {homepage} for\n"
+#~ "   documentation and mailing lists"
+#~ msgstr ""
+#~ "Falls Sie mehr Hilfe benötigen, besuchen Sie {homepage}, um in "
+#~ "Dokumentation und Mailing-Listen Unterstützung zu finden"
+
+#~ msgid "we're sorry"
+#~ msgstr "Entschuldigung"

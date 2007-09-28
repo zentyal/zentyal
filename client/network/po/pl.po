@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.9.3\n"
+"Project-Id-Version: ebox-network 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-04-12 09:04+0000\n"
@@ -569,6 +569,52 @@ msgstr "Ok"
 #: src/templates/confirmremove.mas:29 src/templates/confirm.mas:36
 msgid "Cancel"
 msgstr "Anuluj"
+
+#, fuzzy
+#~ msgid "Any"
+#~ msgstr "jakikolwiek"
+
+#, fuzzy
+#~ msgid "Physical interface list"
+#~ msgstr "Interfejs wirtualny"
+
+#, fuzzy
+#~ msgid "interface"
+#~ msgstr "Interfejs"
+
+#, fuzzy
+#~ msgid "Configurable interface list"
+#~ msgstr "Skonfiguruj interfejsy sieciowe"
+
+#, fuzzy
+#~ msgid "These are the interfaces which can be configured"
+#~ msgstr "Interfejs sieciowy skonfigurowany"
+
+#, fuzzy
+#~ msgid "Physical interface"
+#~ msgstr "Interfejs wirtualny"
+
+#, fuzzy
+#~ msgid "Vlan interface list"
+#~ msgstr "Interfejs wirtualny"
+
+#, fuzzy
+#~ msgid ""
+#~ "To be able to use this feature, you need, at least, two gateways. You can "
+#~ "add them <a href=\"/ebox/Network/View/GatewayDataTable\">here</a> first"
+#~ msgstr ""
+#~ "Aby skorzystać z tej opcji musisz ustawić przynajmniej dwie bramy. Możesz "
+#~ "dodać bramy <a href="
+
+#, fuzzy
+#~ msgid ""
+#~ "If you choose to continue, all modules that make use of the current "
+#~ "configuration of this network interface will delete the relevant parts of "
+#~ "their configuration. Choose \"Cancel\" if you are not sure about this."
+#~ msgstr ""
+#~ "Jeżeli postanowisz kontynuować, wszystkie moduły korzystające z obecnej "
+#~ "konfiguracji tego interfejsu sieciowego usuną powiązane fragmenty "
+#~ "konfiguracji."
 
 #~ msgid ""
 #~ "You can add as many gateways as you want. This is very useful if you want "

@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ca 0.9.3\n"
+"Project-Id-Version: ebox-ca 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 15:04+0200\n"
 "PO-Revision-Date: 2007-04-05 13:40+0000\n"
@@ -328,7 +328,7 @@ msgid "Renewing certificate"
 msgstr "Odnów certyfikat"
 
 #: src/templates/forceRenew.mas:53
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "This renewal can affect the functionality from other modules, please confirm "
 "you are very sure to renew the whole certification authority from {on} and "
@@ -339,7 +339,7 @@ msgstr ""
 "pozostawienia usług niestabilnych lub niedziałających."
 
 #: src/templates/forceRenew.mas:57
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The certificate whose common name is {cn} you tried to renew is being used "
 "by some module, please confirm you are sure to renew and leave the service"

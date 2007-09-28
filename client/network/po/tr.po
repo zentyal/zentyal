@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.9.3\n"
+"Project-Id-Version: ebox-network 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-05-12 23:18+0000\n"
@@ -571,3 +571,48 @@ msgstr "Tamam"
 #: src/templates/confirmremove.mas:29 src/templates/confirm.mas:36
 msgid "Cancel"
 msgstr "Vazgeç"
+
+#~ msgid "Any"
+#~ msgstr "herhangi"
+
+#~ msgid "Physical interface list"
+#~ msgstr "Fiziksel arabirim listesi"
+
+#~ msgid ""
+#~ "These are the physical interfaces which are available in your system."
+#~ msgstr "Bunlar sisteminizde mevcut olan fiziksel arabirimlerdir."
+
+#~ msgid "interface"
+#~ msgstr "Arabirim"
+
+#~ msgid "Configurable interface list"
+#~ msgstr "Yapılandırılabilir arabirim listesi"
+
+#~ msgid "These are the interfaces which can be configured"
+#~ msgstr "Bunlar yapılandırılabilir arabirimlerdir"
+
+#~ msgid "Physical interface"
+#~ msgstr "Fiziksel arabirim"
+
+#~ msgid "Vlan interface list"
+#~ msgstr "Sanal arabirim listesi"
+
+#~ msgid "These are the vlan interfaces which are available in your system."
+#~ msgstr "Bunlar sisteminizde mevcut olan sanal arabirimlerdir."
+
+#~ msgid ""
+#~ "To be able to use this feature, you need, at least, two gateways. You can "
+#~ "add them <a href=\"/ebox/Network/View/GatewayDataTable\">here</a> first"
+#~ msgstr ""
+#~ "Bu fonksiyonu kullanabilmek için en azından 2 tane ağ geçidi tanımlamanız "
+#~ "gereklidir. Bunları öncelikle <a href=\"/ebox/Network/View/"
+#~ "GatewayDataTable\">buraya</a> ekleyebilirsiniz."
+
+#~ msgid ""
+#~ "If you choose to continue, all modules that make use of the current "
+#~ "configuration of this network interface will delete the relevant parts of "
+#~ "their configuration. Choose \"Cancel\" if you are not sure about this."
+#~ msgstr ""
+#~ "Devam ederseniz ağ cihazınızın kullandığı bütün ayarlar bu moduller ile "
+#~ "birlikte silinir. Eğer ne yaptığınızdan emin değilseniz \"Vazgeç\" "
+#~ "seçeneğini kullanın."

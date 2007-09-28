@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-firewall 0.9.3\n"
+"Project-Id-Version: ebox-firewall 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 15:27+0200\n"
 "PO-Revision-Date: 2007-05-13 01:29+0000\n"
@@ -847,6 +847,97 @@ msgstr ""
 "üzerindeki diğer makinalar ile iletişimde kullanılacak kuralları tanımlamak "
 "için düşünülmüştür."
 
+#~ msgid "ACCEPT"
+#~ msgstr "Onayla"
+
+#~ msgid "DENY"
+#~ msgstr "Reddet"
+
+#~ msgid "Decision"
+#~ msgstr "Karar"
+
+#~ msgid "Any"
+#~ msgstr "herhangi"
+
+#~ msgid "Source IP"
+#~ msgstr "Kaynak IP"
+
+#~ msgid "Source object"
+#~ msgstr "Kaynak nese"
+
+#~ msgid "Destination IP"
+#~ msgstr "Hedef IP"
+
+#~ msgid "Destination object"
+#~ msgstr "Hedef nesne"
+
+#~ msgid "Description"
+#~ msgstr "Açıklama"
+
+#~ msgid "Filtering rules for internal networks"
+#~ msgstr "Dahili ağlar içindeki süzgeçeleme kuralları"
+
+#~ msgid "gateway"
+#~ msgstr "Ağgeçidi"
+
+#~ msgid "Filtering rules from internal networks to eBox"
+#~ msgstr "eBox'a doğru olan dahili ağlardan süzgeçeleme kuralları"
+
+#~ msgid "Filtering rules for traffic coming out from eBox"
+#~ msgstr "eBox dışından gelen trafik için süzgeçleme kuralları"
+
+#~ msgid "Filtering rules from external networks to internal networks"
+#~ msgstr "Harici ağladan dahili ağlara doğru olan süzgeçeleme kuralları"
+
+#~ msgid "Filtering rules from  external networks to eBox"
+#~ msgstr "eBox'a doğru olan harici ağlardan süzgeçeleme kuralları"
+
+#~ msgid ""
+#~ "These rules are meant to control access from internal network interfaces "
+#~ "to services running on your eBox machine"
+#~ msgstr ""
+#~ "Bu kurallar dahili ağ arabirimlerinden, eBox makinenizdeki çalışan "
+#~ "servislere doğru olan erişimi kontol etmek için kullanılır"
+
+#~ msgid ""
+#~ "These rules allow you to control access  from your internal networks to "
+#~ "the Internet, and traffic between your internal networks. If you wish to "
+#~ "provide access to your eBox services, you must use the above section"
+#~ msgstr ""
+#~ "Bu kurlallar, dahili ağınızdan internete doğru olan ve diğer dahili "
+#~ "ağlarla aranızdaki erişimi kontrol etmenizi sağlar. Eğer eBox "
+#~ "servislerine erişim sağlamak istiyorsanız yukardaki bölümü "
+#~ "kullanmalısınız."
+
+#~ msgid ""
+#~ "These rules allow you to control access from eBox to external services"
+#~ msgstr ""
+#~ "Bu kurallar eBox'dan harici servislere erişim kontrolü için kullanılırlar"
+
+#~ msgid "Filtering rules from external networks to eBox"
+#~ msgstr "Harici ağlardan eBox'a olan süzgeçleme kuralları"
+
+#~ msgid ""
+#~ "These rules allow you to control access from external networks to sevices "
+#~ "running on your eBox machine."
+#~ msgstr ""
+#~ "Bu kurallar harici ağlardan eBox makinenizdeki çalışan servislere erişim "
+#~ "kontrolü için kullanılırlar"
+
+#~ msgid ""
+#~ "Be advised that adding rules in this section may compromise your network "
+#~ "security as you may grant access from untrusted networks. Please do not "
+#~ "use this unless you know what you are doing"
+#~ msgstr ""
+#~ "Bu bölüme kurallar eklemek, güvensiz ağlardan giriş izni vermenizi, "
+#~ "böylece ağınızın güvenliğini azaltmanıza neden olabileceğini unutmayın. "
+#~ "Lütfen, ne yaptığınızı bilmeden bu bölümü kullanmayın."
+
+#~ msgid ""
+#~ "These rules allow you to control access from external networks to "
+#~ "internal networks."
+#~ msgstr "Bu kurallar harici ağlardan dahili ağlara erişim kontrolünü sağlar"
+
 #~ msgid "Filtering Rules"
 #~ msgstr "Süzgeçleme kuralları"
 
@@ -855,3 +946,7 @@ msgstr ""
 
 #~ msgid "Rules for internet access"
 #~ msgstr "İnternet erişim kuralları"
+
+#, fuzzy
+#~ msgid "Filtering rules for eBox's services"
+#~ msgstr "İnternet erişimi için süzgeçleme kuralları"

@@ -8,14 +8,21 @@
 MAINTAINERCLEANFILES = Makefile.in ebox-modulename.pot
 
 # List of files which contain translatable strings.
-POTFILES_TMPL = \
- ./tools 
+POTFILES_TMPL = 
 
 POTFILES_PL = \
- ./src/EBox/Services.pm 
+ ./src/EBox/Model/ServiceTable.pm \
+ ./src/EBox/Model/ServiceTableFilter.pm \
+ ./src/EBox/Model/ServiceConfigurationTable.pm \
+ ./src/EBox/Services.pm \
+ ./migration/0001_import_services_from_firewall.pl 
 
 POTFILES = \
- ./src/EBox/Services.pm 
+ ./src/EBox/Model/ServiceTable.pm \
+ ./src/EBox/Model/ServiceTableFilter.pm \
+ ./src/EBox/Model/ServiceConfigurationTable.pm \
+ ./src/EBox/Services.pm \
+ ./migration/0001_import_services_from_firewall.pl 
 
 # Usually the message domain is the same as the package name.
 DOMAIN = $(PACKAGE)
@@ -128,17 +135,20 @@ $(DOMAIN).pot-update: $(POTFILES_DEPS) remove-potcdate.sed
 	  --from-code=utf-8 \
 	  $(POTFILES_PL)
 	mkdir -p templates
-	for tmpl in $(POTFILES_TMPL); do \
-		mkdir -p templates/`dirname $$tmpl` ; \
-		../tools/ebox-tmpl-parse ../$$tmpl > \
-			templates/`dirname $$tmpl`/`basename $$tmpl` ; \
-	done
-	$(XGETTEXT) --default-domain=$(DOMAIN) --directory=templates \
-	  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
-	  --copyright-holder='$(COPYRIGHT_HOLDER)' \
-	  --msgid-bugs-address='$(MSGID_BUGS_ADDRESS)' \
-	  --join-existing \
-	  $(POTFILES_TMPL)
+	if test -n "$(POTFILES_TMPL)"; \
+	then \
+		for tmpl in "$(POTFILES_TMPL)"; do \
+	        	mkdir -p templates/`dirname $$tmpl` ; \
+	        	../tools/extract-perl-from-mason dump ../$$tmpl > \
+		        	templates/`dirname $$tmpl`/`basename $$tmpl` ; \
+		done; \
+		$(XGETTEXT) --default-domain=$(DOMAIN) --directory=templates \
+		  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
+	  	--copyright-holder='$(COPYRIGHT_HOLDER)' \
+	  	--msgid-bugs-address='$(MSGID_BUGS_ADDRESS)' \
+	  	--join-existing \
+	  	$(POTFILES_TMPL); \
+	fi
 	rm -rf templates
 	test ! -f $(DOMAIN).po || { \
 	  if test -f $(srcdir)/$(DOMAIN).pot; then \

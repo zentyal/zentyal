@@ -4,7 +4,7 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mailfilter 0.9.3\n"
+"Project-Id-Version: ebox-mailfilter 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-01-31 23:37+0000\n"
@@ -23,9 +23,8 @@ msgstr ""
 #: src/EBox/CGI/FileFilterBase.pm:32
 #: src/EBox/CGI/RemoveAllFileFilterElements.pm:29
 #: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:29
-#, fuzzy
 msgid "Mail filter"
-msgstr "Sistema de colato"
+msgstr "Sistema de filtrato"
 
 #: src/EBox/CGI/RemoveAllowedMTA.pm:58
 #, perl-brace-format
@@ -185,9 +184,8 @@ msgid ""
 msgstr ""
 
 #: src/EBox/MailFilter/VDomainsLdap.pm:396 src/EBox/MailFilter.pm:733
-#, fuzzy
 msgid "Mail filter settings"
-msgstr "Sistema de colato"
+msgstr "Sistema de filtrato"
 
 #: src/EBox/MailFilter/VDomainsLdap.pm:448
 #, perl-brace-format
@@ -199,9 +197,8 @@ msgid "Cannot proceed because the filter is in use"
 msgstr ""
 
 #: src/EBox/MailFilter.pm:371
-#, fuzzy
 msgid "Mailfilter's port"
-msgstr "Sistema de colato"
+msgstr "Sistema de filtrato"
 
 #: src/EBox/MailFilter.pm:378
 #, perl-brace-format
@@ -254,9 +251,8 @@ msgid "filter type"
 msgstr ""
 
 #: src/EBox/MailFilter.pm:718
-#, fuzzy
 msgid "Mail filter system"
-msgstr "Sistema de colato"
+msgstr "Sistema de filtrato"
 
 #: src/EBox/MailFilter.pm:795
 msgid "eBox internal mail filter"
@@ -490,9 +486,8 @@ msgid "Add sender to {type}"
 msgstr ""
 
 #: src/templates/general.mas:11
-#, fuzzy
 msgid "Enable Mail filter system"
-msgstr "Sistema de colato"
+msgstr "Sistema de filtrato"
 
 #: src/templates/general.mas:27
 msgid "Service port"
@@ -555,9 +550,8 @@ msgid "Use spam filtering"
 msgstr ""
 
 #: src/templates/vdomain.mas:104
-#, fuzzy
 msgid "Mail filter options"
-msgstr "Sistema de colato"
+msgstr "Sistema de filtrato"
 
 #: src/templates/vdomain.mas:110
 msgid "Antispam sender access lists"

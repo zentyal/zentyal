@@ -5,8 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-usersandgroups 0.9.3\n"
-"es\n"
+"Project-Id-Version: ebox-usersandgroups 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:14+0200\n"
 "PO-Revision-Date: 2007-06-06 09:41+0200\n"
@@ -15,6 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/EBox/CGI/Del.pm:65
@@ -133,12 +133,16 @@ msgid ""
 "Changes in user accounts take effect inmediately, they do not need to be "
 "saved."
 msgstr ""
+"Ändringar i användarkonton blir omedelbart aktiverade. De behöver inte "
+"sparas."
 
 #: src/templates/users.mas:13 src/templates/groups.mas:13
 msgid ""
 "Changes related to printing, file sharing and Jabber service do need to be "
 "saved in order to be effective."
 msgstr ""
+"Ändringar relaterade till utskrifter, fildelning och Jabber-tjänsten behöver "
+"inte sparas för att bli aktiverade."
 
 #: src/templates/users.mas:16
 msgid "Add User"
@@ -203,6 +207,8 @@ msgid ""
 "The user you tried to delete contains data in the following modules. Please "
 "confirm you want to remove it and all its related data"
 msgstr ""
+"Användaren som du försökte att ta bort innehåller data i följande moduler. "
+"Bekräfta om du vill ta bort den och allt relaterat data"
 
 #: src/templates/del.mas:20
 msgid "Deleting group"
@@ -213,6 +219,8 @@ msgid ""
 "The group you tried to delete contains data in the following modules. Please "
 "confirm you want to remove it and all its related data"
 msgstr ""
+"Gruppen som du försökte att ta bort innehåller data i följande moduler. "
+"Bekräfta om du vill ta bort den och allt relaterat data"
 
 #: src/templates/del.mas:47
 msgid "Delete"
@@ -231,6 +239,8 @@ msgid ""
 "There are no users the moment. You need at least one  to manage this group "
 "properly"
 msgstr ""
+"Det finns inga användare för tillfället. Du behöver åtminstone en för att "
+"kunna hantera den här gruppen"
 
 #: src/templates/group.mas:28 src/templates/group.mas:30
 #: src/templates/user.mas:65 src/templates/user.mas:67
@@ -267,6 +277,8 @@ msgid ""
 "If you remove this group all its data within its shared directory will be "
 "deleted"
 msgstr ""
+"Om du tar bort den här gruppen kommer allt data i gruppens delade katalog "
+"att tas bort"
 
 #: src/templates/user.mas:10
 msgid "Administration of user"
@@ -282,6 +294,8 @@ msgid ""
 "This operation will cause the removal of the user and all his dependences; "
 "such as mail accounts, user data..."
 msgstr ""
+"Den här åtgärden innebär att användaren och alla beroenden tas bort, såsom e-"
+"postkonton, användardata..."
 
 #: src/templates/groups.mas:16
 msgid "Add Group"

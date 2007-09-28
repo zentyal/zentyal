@@ -4,7 +4,7 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.9.3\n"
+"Project-Id-Version: ebox-network 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-02-02 19:15+0100\n"
@@ -19,11 +19,11 @@ msgstr ""
 #: src/EBox/Model/MultiGwRulesDataTable.pm:64
 #: src/EBox/Model/MultiGwRulesDataTable.pm:425
 msgid "any"
-msgstr ""
+msgstr "edozein"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:95
 msgid "Protocol"
-msgstr ""
+msgstr "Protokolo"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:104
 #: src/EBox/Model/GatewayDataTable.pm:101 src/EBox/Network.pm:651
@@ -34,36 +34,36 @@ msgstr ""
 #: src/EBox/Network.pm:2049 src/EBox/Network.pm:2122 src/EBox/Network.pm:2142
 #: src/EBox/Network.pm:2163 src/EBox/Network.pm:2186
 msgid "Interface"
-msgstr ""
+msgstr "Interfaze"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:113
 msgid "Source"
-msgstr ""
+msgstr "Jatorria"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:121
 msgid "Source IP"
-msgstr ""
+msgstr "Jatorrizko IP-a"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:129
 msgid "Source object"
-msgstr ""
+msgstr "Jatorrizko elementua"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:142
 #: src/EBox/Model/MultiGwRulesDataTable.pm:181
 msgid "Port"
-msgstr ""
+msgstr "Ataka"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:152
 msgid "Destination"
-msgstr ""
+msgstr "Helburua"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:160
 msgid "Destination IP"
-msgstr ""
+msgstr "Helburu IP-a"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:168
 msgid "Destination object"
-msgstr ""
+msgstr "Helburu elementua"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:191 src/EBox/Network.pm:1477
 #: src/templates/routes.mas:35

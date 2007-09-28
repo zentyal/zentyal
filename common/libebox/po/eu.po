@@ -4,7 +4,7 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.9.3\n"
+"Project-Id-Version: libebox 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:11+0200\n"
 "PO-Revision-Date: 2007-03-28 23:18+0000\n"
@@ -19,17 +19,17 @@ msgstr ""
 #: src/EBox/Exceptions/DataExists.pm:31
 #, perl-brace-format
 msgid "{data} {value} already exists."
-msgstr ""
+msgstr "{data} {value} badago dagoeneko."
 
 #: src/EBox/Exceptions/InvalidData.pm:32
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
-msgstr ""
+msgstr "Balio baliogabea {data}: {value}-rentzat."
 
 #: src/EBox/Exceptions/DataNotFound.pm:30
 #, perl-brace-format
 msgid "{data} {value} does not exist."
-msgstr ""
+msgstr "{data} {value} ez dago."
 
 #: src/EBox/Exceptions/DataMissing.pm:30
 #, perl-brace-format
@@ -38,73 +38,84 @@ msgstr "{data} hutsik dago."
 
 #: src/EBox/CGI/EBox/PageNotFound.pm:12
 msgid "Page not found"
-msgstr ""
+msgstr "Ez da orria aurkitu"
 
 #: src/EBox/CGI/Base.pm:189
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
 msgstr ""
+"Idatzitakoak karaktere baliogabeak ditu. Karaktere alfazenbakizko guztiak "
+"eta ez alfazenbakizko hauek erabili daiteke:  /.?&+:-@ eta zuriuneak "
+"onartzen dira."
 
 #: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:532
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
 msgstr ""
+"Barne errore bat gertatu da. Hau ziurrenik programa errore bat da, "
+"informazio gehigarria erregistroetan aurkitu daiteke."
 
 #: src/EBox/CGI/Base.pm:321
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
 msgstr ""
+"txantiloi baten inguruko barne errore bat gertatu da. Hau programa errore "
+"bat da, informazio gehigarria erregistroetan aurkitu daiteke."
 
 #: src/EBox/CGI/Base.pm:538
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
 msgstr ""
+"Espero gabeko errore bat gertatu da. Hau ziurrenik programa errore bat da, "
+"informazio gehigarria erregistroetan aurkitu daiteke."
 
 #: src/EBox/CGI/Base.pm:544
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
+"eBox-en programa errore bat aurkitu duzu. Mesedez laguntza teknikoa bilatu."
 
 #: src/EBox/CGI/Base.pm:631
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
-msgstr ""
+msgstr "Zure eskaera ezin da prozesatu zenbait parametro oker ditu eta."
 
 #: src/EBox/CGI/Base.pm:646
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
+"Zure eskaera ezin da prozesatu beharrezko zenbait parametro ez ditu eta."
 
 #: src/EBox/CGI/Base.pm:782
 msgid "Invalid uploaded file."
-msgstr ""
+msgstr "Igotako fitxategi baliogabea."
 
 #: src/EBox/CGI/Base.pm:788
 msgid "Cannot create a temporally file for the upload"
-msgstr ""
+msgstr "Ezin da igotakoarentzat aldizkako fitxategi at sortu."
 
 #: src/EBox/Sudo.pm:229
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
-msgstr ""
+msgstr "Huts '{cmd}' komandoa {user} bezala abiaraztean"
 
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
 #: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
 msgid "Interface"
-msgstr ""
+msgstr "Interfazea"
 
 #: src/EBox/Config.pm.in:55
 #, perl-brace-format
 msgid "Could not open the config file {file}."
-msgstr ""
+msgstr "Ezin da {file} konfigurazio fitxategia ireki."
 
 #: src/EBox/Config.pm.in:88
 msgid "The ebox user has not been set in the config file."
-msgstr ""
+msgstr "Ez da konfigurazio fitxategian ebox erabiltzailea ezarri."
 
 #: src/EBox/Validate.pm:647
 #, perl-brace-format
@@ -112,81 +123,88 @@ msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
 "the permissions forbid access to it"
 msgstr ""
+"Ezin da direktorio egoera ebatzi: {dir}. Honek direktorioa ez dagoela edo "
+"sartzeko baimena galerazia dagoela esan nahi du."
 
 #: src/EBox/Validate.pm:652
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
+"{dir} direktorioa ez da pribatua, beste erabiltzaile baten jabegoan dago eta."
 
 #: src/EBox/Validate.pm:727
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
 msgstr ""
+"Emandako fitxategi bidea ez da baliozkoa. (Oraingoz ez dira baliozko "
+"fitxategi karaktere guztiak onartzen) "
 
 #: src/EBox/Validate.pm:755
 msgid "The file path must be absolute"
-msgstr ""
+msgstr "Fitxategi bidea absolutua izan behar da"
 
 #: src/templates/ajax/tableBody.mas:48
 msgid "Add new"
-msgstr ""
+msgstr "Gehitu beria"
 
 #: src/templates/ajax/tableBody.mas:59
 #, perl-brace-format
 msgid "Adding a new {row}"
-msgstr ""
+msgstr "{row} berria gehitzen"
 
 #: src/templates/ajax/tableBody.mas:66
 #, perl-brace-format
 msgid "Editing {row}"
-msgstr ""
+msgstr "{row} editatzen"
 
 #: src/templates/ajax/tableBody.mas:132
 msgid "Action"
-msgstr ""
+msgstr "Ekintza"
 
 #: src/templates/ajax/tableBody.mas:327
 msgid "port"
-msgstr ""
+msgstr "ataka"
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
-msgstr ""
+msgstr "Hautatu erlazionaturiko taula bistaratzeko aukeretako bat"
 
 #: src/templates/ajax/tableSelector.mas:33
 msgid "Choose one..."
-msgstr ""
+msgstr "Bat hautatu..."
 
 #: src/templates/ebox/pageNotFound.mas:14
 msgid "The page can not be found"
-msgstr ""
+msgstr "Ezin da orrialdea aurkitu"
 
 #: src/templates/title.mas:14
 msgid "Display help notes"
-msgstr ""
+msgstr "Laguntza oharrak bistarazi"
 
 #: src/templates/title.mas:15
 msgid "show help"
-msgstr ""
+msgstr "laguntza ikusi"
 
 #: src/templates/title.mas:17
 msgid "Hide help notes"
-msgstr ""
+msgstr "Laguntza oharrak ezkutatu"
 
 #: src/templates/title.mas:18
 msgid "hide help"
-msgstr ""
+msgstr "laguntza ezkutatu"
 
 #: src/templates/language.mas:10
 msgid "Language selection"
-msgstr ""
+msgstr "Hizkuntza hautapena"
 
 #: src/templates/language.mas:12
 msgid ""
 "Language changes happen automatically, saving the configuration it's not "
 "needed."
 msgstr ""
+"Hizkuntza aldaketak automatikoki geratzen dira , ez da konfigurazioa gorde "
+"behar."
 
 #: src/templates/language.mas:25 src/templates/enable.mas:36
 #: src/templates/enable.mas:38
@@ -195,12 +213,12 @@ msgstr "Aldatu"
 
 #: src/templates/enable.mas:11
 msgid "Service configuration"
-msgstr ""
+msgstr "Zerbitzu konfigurazioa"
 
 #: src/templates/enable.mas:24 src/templates/enable.mas:29
 msgid "Disabled"
-msgstr ""
+msgstr "Ezgaiturik"
 
 #: src/templates/enable.mas:26 src/templates/enable.mas:31
 msgid "Enabled"
-msgstr ""
+msgstr "Gaiturik"

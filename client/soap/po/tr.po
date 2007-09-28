@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eBox-soap 0.10\n"
+"Project-Id-Version: ebox-soap 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-06-05 12:14+0200\n"
 "PO-Revision-Date: 2007-06-05 12:04+0200\n"
@@ -26,4 +26,144 @@ msgstr ""
 
 #: src/EBox/SOAP.pm:66
 msgid "Control center"
-msgstr ""
+msgstr "Yönetim merkezi"
+
+#~ msgid "Control center admin at a log file"
+#~ msgstr "Bir log dosyasındaki yönetim merkez yöntecisi"
+
+#~ msgid "Enable SOAP service"
+#~ msgstr "SOAP servisini etkinleştir"
+
+#~ msgid "Control center communication"
+#~ msgstr "Yönetim merkezi ile iletişim"
+
+#~ msgid "Bundle Deleted"
+#~ msgstr "Paket silindi"
+
+#~ msgid ""
+#~ "The previous bundle has been deleted. Upload a new one to establish a "
+#~ "communication with an eBox control center"
+#~ msgstr ""
+#~ "Bir önceki paket silindi. Bir eBox merkezi ile iletişim kurmak için yeni "
+#~ "bir tane gönderin"
+
+#~ msgid "Connectivity test"
+#~ msgstr "Bağlantı testi"
+
+#~ msgid "Bundle Upload"
+#~ msgstr "Paket gönderimi"
+
+#~ msgid "The bundle file has been uploaded successfully"
+#~ msgstr "Paket dosya başarıyla gönderildi"
+
+#~ msgid "{method} is not a public method"
+#~ msgstr "{method} bir genel yöntem değildir"
+
+#~ msgid "{method} is not a defined method"
+#~ msgstr "{method} tanımlı bir yöntem değildir"
+
+#~ msgid "{module} does not exist"
+#~ msgstr "{method} mevcut değil"
+
+#~ msgid "SOAP"
+#~ msgstr "SOAP"
+
+#~ msgid "Missing uploaded file: {uploadedFile}"
+#~ msgstr "Yüklenen dosya eksik: {uploadedFile}"
+
+#~ msgid ""
+#~ "Uploaded file is a type of {type1}  but it should be a file of type "
+#~ "{type2}"
+#~ msgstr "Yüklenen dosya {type1} türünde fakat {type2} türünde olmalı"
+
+#~ msgid ""
+#~ "Uploaded file does not contain the four mandatory files. It contains "
+#~ "{number} "
+#~ msgstr ""
+#~ "Gönderilen dosya bulunması gereken 4 dosyayı içermiyor. Sadece {number} "
+#~ "tane var"
+
+#~ msgid "It is required to upload a bundle to delete it"
+#~ msgstr "Silmek için paketin gönderilmiş olması lazım"
+
+#~ msgid "You should enable the service to test the connectivity"
+#~ msgstr "Bağlantıyı kontrol etmek için servisi etkinleştirmelisiniz"
+
+#~ msgid "The OpenVPN client configuration file is missing"
+#~ msgstr "OpenVPN istemci yapılandırma dosyası yok"
+
+#~ msgid "The OpenVPN client configuration file is not well formatted "
+#~ msgstr "OpenVPN istemci yapılandırma dosyası düzgün biçimde değil"
+
+#~ msgid "Some certificate is missing"
+#~ msgstr "Bazı sertifika dosyaları eksik"
+
+#~ msgid ""
+#~ "You cannot upload this bundle since the name {name} has been already used "
+#~ "for a bundle which will be cleaned up. If you want to upload the bundle, "
+#~ "please save changes first"
+#~ msgstr ""
+#~ "Bu paketi gönderemezsiniz çünkü {name} ismi silinecek bir paket için "
+#~ "kullanılmış. Eğer paketi göndermek istiyorsanız önce değişiklikleri "
+#~ "kaydedin"
+
+#~ msgid "Certificate file is missing"
+#~ msgstr "Oluşturma dosyaları eksik"
+
+#~ msgid "Private key file is missing"
+#~ msgstr "Özel anahtar dosyası eksik"
+
+#~ msgid "Certification Authority file is missing"
+#~ msgstr "Sertifika doğrulama dosyası eksik"
+
+#~ msgid ""
+#~ "You should upload a bundle to be able to communicate with the control "
+#~ "center"
+#~ msgstr ""
+#~ "Kontrol merkezi ile iletişim kurmak için önce bir paket göndermelisiniz"
+
+#~ msgid ""
+#~ "The OpenVPN client is not running. You may need to save changes in order "
+#~ "to set up the OpenVPN client"
+#~ msgstr ""
+#~ "OpenVPN istemcisi çalışmıyor. OpenVPN istemcisini kurmak için "
+#~ "değişiklikleri kaydetmeniz gerekiyor"
+
+#~ msgid "You can manage here the communication between control "
+#~ msgstr "Kontrol merkezi ile aradaki iletişimi buradan yönetebilirsiniz"
+
+#~ msgid "General configuration for"
+#~ msgstr "Şunun için genel yapılandırma: "
+
+#~ msgid "Test the connection between the control center and this "
+#~ msgstr "Kontrol merkezi ve şunun için bağlantı denemesi:"
+
+#~ msgid "Test"
+#~ msgstr "Deneme"
+
+#~ msgid "The connection seems to be {state}. "
+#~ msgstr "Bağlantı şuanda  {state} gibi gözüküyor."
+
+#~ msgid "ok"
+#~ msgstr "Tamam"
+
+#~ msgid "down"
+#~ msgstr "Kapalı"
+
+#~ msgid "Remove current communication with this control center to add "
+#~ msgstr "Şunu eklemek için kontol merkezi ile olan şu anki bağlantıyı silin:"
+
+#~ msgid "Delete"
+#~ msgstr "Sil"
+
+#~ msgid "Delete current communication"
+#~ msgstr "Güncel iletişimi sil"
+
+#~ msgid "eBox Control Center bundle"
+#~ msgstr "eBox Kontrol Merkez paketi"
+
+#~ msgid "Archive which contains all "
+#~ msgstr "Şunların tümünü içeren arşiv:"
+
+#~ msgid "Upload"
+#~ msgstr "Gönder"

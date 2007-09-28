@@ -9,7 +9,7 @@
 # This file is distributed under the same license as the libebox package.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.9.3\n"
+"Project-Id-Version: libebox 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:11+0200\n"
 "PO-Revision-Date: 2007-05-16 13:08+0000\n"
@@ -103,7 +103,7 @@ msgstr "Fichero subido inválido"
 
 #: src/EBox/CGI/Base.pm:788
 msgid "Cannot create a temporally file for the upload"
-msgstr ""
+msgstr "No se pudo crear un fichero temporal para la subida"
 
 #: src/EBox/Sudo.pm:229
 #, perl-brace-format

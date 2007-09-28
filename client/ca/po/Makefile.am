@@ -9,52 +9,53 @@ MAINTAINERCLEANFILES = Makefile.in ebox-modulename.pot
 
 # List of files which contain translatable strings.
 POTFILES_TMPL = \
- ./src/templates/forceRenew.mas \
- ./src/templates/forceRevoke.mas \
- ./src/templates/createCA.mas \
- ./src/templates/formRevoke.mas \
  ./src/templates/formRenew.mas \
+ ./src/templates/createCA.mas \
  ./src/templates/index.mas \
- ./tools 
+ ./src/templates/forceRevoke.mas \
+ ./src/templates/forceRenew.mas \
+ ./src/templates/formRevoke.mas 
 
 POTFILES_PL = \
- ./src/EBox/CA.pm \
+ ./src/EBox/CGI/ShowForm.pm \
+ ./src/EBox/CGI/CreateCA.pm \
+ ./src/EBox/CGI/Index.pm \
+ ./src/EBox/CGI/DownloadFiles.pm \
+ ./src/EBox/CGI/IssueCertificate.pm \
+ ./src/EBox/CGI/RevokeCertificate.pm \
+ ./src/EBox/CGI/RenewCertificate.pm \
  ./src/EBox/CA/Observer.pm \
  ./src/EBox/CA/TestStub.pm \
  ./src/EBox/CA/DN.pm \
- ./src/EBox/CGI/CreateCA.pm \
- ./src/EBox/CGI/Index.pm \
- ./src/EBox/CGI/RenewCertificate.pm \
- ./src/EBox/CGI/IssueCertificate.pm \
- ./src/EBox/CGI/ShowForm.pm \
- ./src/EBox/CGI/DownloadFiles.pm \
- ./src/EBox/CGI/RevokeCertificate.pm 
+ ./src/EBox/CA.pm \
+ ./migration/0001_add_password_aware.pl 
 
 POTFILES = \
- ./src/EBox/CA.pm \
+ ./src/EBox/CGI/ShowForm.pm \
+ ./src/EBox/CGI/CreateCA.pm \
+ ./src/EBox/CGI/Index.pm \
+ ./src/EBox/CGI/DownloadFiles.pm \
+ ./src/EBox/CGI/IssueCertificate.pm \
+ ./src/EBox/CGI/RevokeCertificate.pm \
+ ./src/EBox/CGI/RenewCertificate.pm \
  ./src/EBox/CA/Observer.pm \
  ./src/EBox/CA/TestStub.pm \
  ./src/EBox/CA/DN.pm \
- ./src/EBox/CGI/CreateCA.pm \
- ./src/EBox/CGI/Index.pm \
- ./src/EBox/CGI/RenewCertificate.pm \
- ./src/EBox/CGI/IssueCertificate.pm \
- ./src/EBox/CGI/ShowForm.pm \
- ./src/EBox/CGI/DownloadFiles.pm \
- ./src/EBox/CGI/RevokeCertificate.pm \
- ./src/templates/forceRenew.mas \
- ./src/templates/forceRevoke.mas \
- ./src/templates/createCA.mas \
- ./src/templates/formRevoke.mas \
+ ./src/EBox/CA.pm \
  ./src/templates/formRenew.mas \
- ./src/templates/index.mas 
+ ./src/templates/createCA.mas \
+ ./src/templates/index.mas \
+ ./src/templates/forceRevoke.mas \
+ ./src/templates/forceRenew.mas \
+ ./src/templates/formRevoke.mas \
+ ./migration/0001_add_password_aware.pl 
 
 # Usually the message domain is the same as the package name.
 DOMAIN = $(PACKAGE)
 
 # These options get passed to xgettext.
 XGETTEXT_OPTIONS = \
-  --language Perl -k__ -k__x -k__n -k__d --flag=__:1:pass-perl-format --flag=__:1:pass-perl-brace-format
+  --language Perl -k__ -k__n -k__x -k__d --flag=__:1:pass-perl-format --flag=__:1:pass-perl-brace-format
 
 # This is the copyright holder that gets inserted into the header of the
 # $(DOMAIN).pot file.  Set this to the copyright holder of the surrounding
@@ -160,17 +161,20 @@ $(DOMAIN).pot-update: $(POTFILES_DEPS) remove-potcdate.sed
 	  --from-code=utf-8 \
 	  $(POTFILES_PL)
 	mkdir -p templates
-	for tmpl in $(POTFILES_TMPL); do \
-		mkdir -p templates/`dirname $$tmpl` ; \
-		../tools/ebox-tmpl-parse ../$$tmpl > \
-			templates/`dirname $$tmpl`/`basename $$tmpl` ; \
-	done
-	$(XGETTEXT) --default-domain=$(DOMAIN) --directory=templates \
-	  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
-	  --copyright-holder='$(COPYRIGHT_HOLDER)' \
-	  --msgid-bugs-address='$(MSGID_BUGS_ADDRESS)' \
-	  --join-existing \
-	  $(POTFILES_TMPL)
+	if test -n "$(POTFILES_TMPL)"; \
+	then \
+		for tmpl in "$(POTFILES_TMPL)"; do \
+	        	mkdir -p templates/`dirname $$tmpl` ; \
+	        	../tools/extract-perl-from-mason dump ../$$tmpl > \
+		        	templates/`dirname $$tmpl`/`basename $$tmpl` ; \
+		done; \
+		$(XGETTEXT) --default-domain=$(DOMAIN) --directory=templates \
+		  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
+	  	--copyright-holder='$(COPYRIGHT_HOLDER)' \
+	  	--msgid-bugs-address='$(MSGID_BUGS_ADDRESS)' \
+	  	--join-existing \
+	  	$(POTFILES_TMPL); \
+	fi
 	rm -rf templates
 	test ! -f $(DOMAIN).po || { \
 	  if test -f $(srcdir)/$(DOMAIN).pot; then \

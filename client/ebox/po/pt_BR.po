@@ -5,9 +5,9 @@
 # This file is distributed under the same license as the ebox package.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox 0.9.3\n"
+"Project-Id-Version: ebox 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-08-21 17:37+0200\n"
+"POT-Creation-Date: 2007-07-24 15:21+0200\n"
 "PO-Revision-Date: 2007-03-15 17:28+0100\n"
 "Last-Translator: Enrique Jose Hernandez Blasco <ejhernandez@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -16,387 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
 "Plural-Forms: nplurals=2; plural= (n > 1);\n"
-
-#: src/EBox/CGI/EBox/Bug.pm:29 src/EBox/SysInfo.pm:126
-msgid "Bug report"
-msgstr "eportar um BUG"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:33
-msgid "Configuration backups"
-msgstr "Backup de configurações"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:111
-msgid "Please confirm that you want to delete the following backup file:"
-msgstr ""
-"Por Favor, confirme que você quer deletar os seguintes arquivos de backup:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:113 src/templates/backup.mas:212
-#: src/templates/backup.mas:213
-msgid "Delete"
-msgstr "Deletar"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:120
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:156
-#, fuzzy
-msgid "Please confirm that you want to restore using this backup file:"
-msgstr ""
-"Por Favor, confirme que você quer restaurar a configuração desse arquivo de "
-"backup."
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:122
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:144
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:158 src/templates/backup.mas:99
-msgid "Restore"
-msgstr "Restaurar"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132
-msgid ""
-"Unable to find a correct backup disk. Please insert a backup disk and retry"
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:143
-#, fuzzy
-msgid "Please confirm that you want to restore using this backup disk:"
-msgstr ""
-"Por Favor, confirme que você quer restaurar a configuração desse arquivo de "
-"backup."
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:166
-#, fuzzy
-msgid ""
-"Please confirm that you want to write this backup file to a CD or DVD disk:"
-msgstr ""
-"Por Favor, confirme que você quer deletar os seguintes arquivos de backup:"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:168
-msgid "Write to disk"
-msgstr ""
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:180 src/EBox/CGI/EBox/Backup.pm:235
-#: src/EBox/CGI/EBox/Backup.pm:306 src/EBox/CGI/EBox/Backup.pm:319
-#: src/EBox/Backup.pm:1019
-msgid "The input contains invalid characters"
-msgstr "A Entrada contém caracteres inválidos"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:209
-#, fuzzy
-msgid "Configuration backup"
-msgstr "Backup de configurações"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:212
-#, fuzzy
-msgid "Full data and configuration backup"
-msgstr "Lista de Configuração de Backups"
-
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:215
-#, fuzzy
-msgid "Bug-report configuration dump"
-msgstr "Restaurar Configuração"
-
-#: src/EBox/CGI/EBox/Password.pm:49
-msgid "Incorrect password."
-msgstr "Senha incorreta."
-
-#: src/EBox/CGI/EBox/Password.pm:54
-msgid "New passwords do not match."
-msgstr "A nova senha não confere. "
-
-#: src/EBox/CGI/EBox/Password.pm:58
-msgid "The password must be at least 6 characters long"
-msgstr "A senha precisa ter ao menos 6 caracteres"
-
-#: src/EBox/CGI/EBox/Password.pm:62 src/EBox/CGI/FirstTime/Passwd.pm:92
-msgid "The password was changed successfully."
-msgstr "A Senha foi trocada com sucesso."
-
-#: src/EBox/CGI/EBox/Backup.pm:34
-#, fuzzy
-msgid "System backups"
-msgstr "Restaurar do backup"
-
-#: src/EBox/CGI/EBox/Backup.pm:193
-#, perl-brace-format
-msgid "Unknown backup mode: {mode}"
-msgstr "Modo Desconhecido de Backup: {mode}"
-
-#: src/EBox/CGI/EBox/Backup.pm:202
-#, fuzzy
-msgid "Backup done"
-msgstr "Modo de Backup"
-
-#: src/EBox/CGI/EBox/Backup.pm:215
-msgid "Backup was written to CD/DVD disk"
-msgstr ""
-
-#: src/EBox/CGI/EBox/Backup.pm:277
-#, perl-brace-format
-msgid "Unknown restore mode: {mode}"
-msgstr "Modo desconhecido de restauração: {mode}"
-
-#: src/EBox/CGI/EBox/Backup.pm:288
-#, fuzzy
-msgid ""
-"Full backup restored successfully. You should now review your configuration "
-"and save it if you want to keep it."
-msgstr ""
-"Configuração REsaturada com sucesso; Você deve revisá-la e salvá-la se você "
-"quiser mantê-la"
-
-#: src/EBox/CGI/EBox/Backup.pm:293
-#, fuzzy
-msgid ""
-"Configuration restored successfully, you should now review it and save it if "
-"you want to keep it."
-msgstr ""
-"Configuração REsaturada com sucesso; Você deve revisá-la e salvá-la se você "
-"quiser mantê-la"
-
-#: src/EBox/CGI/EBox/RestartService.pm:48
-msgid "module name"
-msgstr "nome do módulo"
-
-#: src/EBox/CGI/EBox/RestartService.pm:52
-msgid "The module was restarted correctly."
-msgstr "O módulo foi reiniciado corretamente."
-
-#: src/EBox/CGI/EBox/General.pm:30
-msgid "General configuration"
-msgstr "Configurações Gerais"
-
-#: src/EBox/CGI/EBox/Halt.pm:30
-msgid "Halt or reboot"
-msgstr "Desligar ou rebootar"
-
-#: src/EBox/CGI/EBox/Halt.pm:43
-#, fuzzy
-msgid "eBox is going down for halt"
-msgstr "EBOX está sendo desligado"
-
-#: src/EBox/CGI/EBox/Halt.pm:46
-#, fuzzy
-msgid "eBox is going down for reboot"
-msgstr "EBOX está sendo reiniciado"
-
-#: src/EBox/CGI/Logs/View/ConfigureLogDataTable.pm:36
-#: src/EBox/CGI/Logs/Controller/ConfigureLogDataTable.pm:35
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:133 src/EBox/Logs.pm:460
-msgid "Configure logs"
-msgstr ""
-
-#: src/EBox/CGI/Logs/Index.pm:33 src/EBox/Logs.pm:454
-#, fuzzy
-msgid "Logs"
-msgstr "Desconectar"
-
-#: src/EBox/CGI/Finish.pm:30
-msgid "Save configuration"
-msgstr "Salvar a configuração"
-
-#: src/EBox/CGI/ClientRawBase.pm:181
-msgid ""
-"An internal error has ocurred. This is most probably a bug, relevant "
-"information can be found in the logs."
-msgstr ""
-
-#: src/EBox/CGI/ClientRawBase.pm:191
-msgid ""
-"An internal error related to a template has occurred. This is a bug, "
-"relevant information can be found in the logs."
-msgstr ""
-
-#: src/EBox/CGI/Login/Index.pm:61
-#, fuzzy
-msgid "Incorrect password"
-msgstr "Senha incorreta."
-
-#: src/EBox/CGI/Login/Index.pm:64
-msgid "For security reasons your session has expired due to inactivity"
-msgstr "Por razões de Segurança sua sessão foi expirada por inatividade."
-
-#: src/EBox/CGI/Login/Index.pm:67
-msgid "You have been logged out because a new session has been opened"
-msgstr "Você foi Desconectado porque outra sessão foi aberta."
-
-#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:40
-msgid "Logout"
-msgstr "Desconectar"
-
-#: src/EBox/CGI/FirstTime/Index.pm:30
-#, fuzzy
-msgid "Welcome to eBox"
-msgstr "Bem Vindo ao EBox"
-
-#: src/EBox/CGI/FirstTime/Index.pm:68 src/EBox/CGI/FirstTime/Passwd.pm:72
-#, fuzzy
-msgid "eBox was already initialized"
-msgstr "EBox já foi inicializado"
-
-#: src/EBox/CGI/FirstTime/Passwd.pm:38
-msgid "Set password"
-msgstr "Configurar Senha"
-
-#: src/EBox/CGI/FirstTime/Passwd.pm:63
-msgid "Default password was already changed"
-msgstr "A senha pdrão foi Trocada"
-
-#: src/EBox/CGI/FirstTime/Passwd.pm:88
-msgid "New passwords do not match"
-msgstr "As novas senhas não coferem."
-
-#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:109
-msgid "Status"
-msgstr "Status"
-
-#: src/EBox/CGI/Summary/Index.pm:47
-msgid "Error"
-msgstr "Erro"
-
-#: src/EBox/Backup/OpticalDisc.pm:126
-msgid "Unable to recognize the mounted DVD media"
-msgstr ""
-
-#: src/EBox/Backup/OpticalDisc.pm:165
-msgid "Unable to recognize the mounted CD media"
-msgstr ""
-
-#: src/EBox/Backup/RootCommands.pm:26
-#, perl-brace-format
-msgid ""
-"This system need {program} installed to perform the requested action. Please "
-"install it and retry"
-msgstr ""
-"Este sistema necessita do {program} instalado para exercer a acção "
-"requesiatida. Por favor instale-o e tente de novo"
-
-#: src/EBox/Backup/OpticalDiscDrives.pm:31
-#, perl-brace-format
-msgid ""
-"Unable to find {path}. Make sure that the cdrom driver is compiled in your "
-"kerner or loaded as module"
-msgstr ""
-"Impossível encontrar {path}. Tenha certeza que o drive de cdrom está "
-"compilado para o seu kernel ou está carregado."
-
-#: src/EBox/Backup/OpticalDiscDrives.pm:34
-#, perl-brace-format
-msgid "Unable to read {path}."
-msgstr "Impossível ler {path}"
-
-#: src/EBox/Backup/FileBurner.pm:110
-msgid "This system does not have a recorder drive"
-msgstr ""
-
-#: src/EBox/Backup/FileBurner.pm:122
-msgid "No disk found. Please insert disk and retry"
-msgstr ""
-
-#: src/EBox/Backup/FileBurner.pm:130
-msgid "{media } is a unsupported media type"
-msgstr ""
-
-#: src/EBox/Backup/FileBurner.pm:144
-#, perl-brace-format
-msgid "{device} cannot be found"
-msgstr "{device} não foi encontrado"
-
-#: src/EBox/Backup/FileBurner.pm:153
-#, perl-brace-format
-msgid "{device} is mounted. Please, remove the disk"
-msgstr "{device} já está montado. Por Favor, remova o disco"
-
-#: src/EBox/Backup/FileBurner.pm:177
-#, perl-brace-format
-msgid "Device {dev} cannot write media of type {media}"
-msgstr "O Dispositivo {dev} não pode escrever em mídia do tipo {media}"
-
-#: src/EBox/Backup/FileBurner.pm:192
-msgid "The media has not sufficient capabilty for the data"
-msgstr ""
-
-#: src/EBox/Backup/FileBurner.pm:283
-#, perl-brace-format
-msgid "No blanking method for {media}  defined. Cannot erase it"
-msgstr ""
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:109
-msgid "Domain"
-msgstr ""
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:119
-#, fuzzy
-msgid "Enabled"
-msgstr "Desabilitado"
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:141
-msgid "Enable/disable logging per-module basis"
-msgstr ""
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:143
-#, fuzzy
-msgid "logs"
-msgstr "Desconectar"
-
-#: src/EBox/SysInfo.pm:57
-msgid "Services"
-msgstr "Serviços"
-
-#: src/EBox/SysInfo.pm:74
-msgid "General information"
-msgstr "Informação Geral"
-
-#: src/EBox/SysInfo.pm:82
-msgid "Time"
-msgstr "Hora"
-
-#: src/EBox/SysInfo.pm:83
-msgid "Host name"
-msgstr "Hostname"
-
-#: src/EBox/SysInfo.pm:85
-msgid "eBox version"
-msgstr "Versão do EBox"
-
-#: src/EBox/SysInfo.pm:88
-msgid "System load"
-msgstr "Carga do Sistema"
-
-#: src/EBox/SysInfo.pm:113
-msgid "System"
-msgstr "Sistema"
-
-#: src/EBox/SysInfo.pm:117
-msgid "General"
-msgstr "Geral"
-
-#: src/EBox/SysInfo.pm:120 src/EBox/Backup.pm:563
-msgid "Backup"
-msgstr "Backup"
-
-#: src/EBox/SysInfo.pm:123
-msgid "Halt/Reboot"
-msgstr "Desligar/Reiniciar"
-
-#: src/EBox/Model/DataMultiTable.pm:168 src/EBox/Logs.pm:474
-#, fuzzy
-msgid "Action"
-msgstr "Ações"
-
-#: src/EBox/Types/Service.pm:131 src/EBox/Types/Service.pm:140
-msgid "Service"
-msgstr "Serviços"
-
-#: src/EBox/Types/Service.pm:291 src/templates/logs/index.mas:173
-msgid "Any"
-msgstr "Qualquer"
-
-#: src/EBox/Html.pm:39
-msgid "Save changes"
-msgstr "Salvar Mudanças"
-
-#: src/EBox/Auth.pm:131
-#, fuzzy
-msgid "Password changed"
-msgstr "Senha"
 
 #: src/EBox/Backup.pm:236
 #, fuzzy
@@ -408,7 +27,7 @@ msgstr "Não foi possível descompactar o Backup"
 msgid "Could not append data to backup archive"
 msgstr "Não foi possível descompactar o Backup"
 
-#: src/EBox/Backup.pm:349 src/EBox/Backup.pm:1002
+#: src/EBox/Backup.pm:349 src/EBox/Backup.pm:1006
 msgid "Insert a backup disc and try again, please"
 msgstr ""
 
@@ -424,6 +43,10 @@ msgstr ""
 #: src/EBox/Backup.pm:426 src/EBox/Backup.pm:828
 msgid "Could not unpack the backup"
 msgstr "Não foi possível descompactar o Backup"
+
+#: src/EBox/Backup.pm:563 src/EBox/SysInfo.pm:120
+msgid "Backup"
+msgstr "Backup"
 
 #: src/EBox/Backup.pm:593
 msgid ""
@@ -478,11 +101,165 @@ msgid ""
 "message: {error}"
 msgstr ""
 
-#: src/EBox/Backup.pm:952
+#: src/EBox/Backup.pm:956
 #, perl-brace-format
 msgid ""
 "Unresolved restore dependency for module {topModule}: {modName} is not "
 "installed"
+msgstr ""
+
+#: src/EBox/Backup.pm:1023 src/EBox/CGI/EBox/Backup.pm:235
+#: src/EBox/CGI/EBox/Backup.pm:306 src/EBox/CGI/EBox/Backup.pm:319
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:180
+msgid "The input contains invalid characters"
+msgstr "A Entrada contém caracteres inválidos"
+
+#: src/EBox/Summary/Status.pm:44
+msgid "Restart"
+msgstr "Reiniciar"
+
+#: src/EBox/Summary/Status.pm:47
+msgid "Running"
+msgstr "Rodando"
+
+#: src/EBox/Summary/Status.pm:50
+msgid "Stopped"
+msgstr "Parado"
+
+#: src/EBox/Summary/Status.pm:52
+msgid "Start"
+msgstr "Iniciar"
+
+#: src/EBox/Summary/Status.pm:54
+msgid "Disabled"
+msgstr "Desabilitado"
+
+#: src/EBox/Types/Service.pm:131 src/EBox/Types/Service.pm:140
+msgid "Service"
+msgstr "Serviços"
+
+#: src/EBox/Types/Service.pm:291 src/templates/logs/index.mas:206
+msgid "Any"
+msgstr "Qualquer"
+
+#: src/EBox/Model/DataMultiTable.pm:168 src/EBox/Logs.pm:474
+#, fuzzy
+msgid "Action"
+msgstr "Ações"
+
+#: src/EBox/FirstTime.pm:67 src/templates/firstTime/passwd.mas:4
+msgid "Change default password"
+msgstr "Trocar Senha Padrão"
+
+#: src/EBox/SysInfo.pm:57
+msgid "Services"
+msgstr "Serviços"
+
+#: src/EBox/SysInfo.pm:74
+msgid "General information"
+msgstr "Informação Geral"
+
+#: src/EBox/SysInfo.pm:82
+msgid "Time"
+msgstr "Hora"
+
+#: src/EBox/SysInfo.pm:83
+msgid "Host name"
+msgstr "Hostname"
+
+#: src/EBox/SysInfo.pm:85
+msgid "eBox version"
+msgstr "Versão do EBox"
+
+#: src/EBox/SysInfo.pm:88
+msgid "System load"
+msgstr "Carga do Sistema"
+
+#: src/EBox/SysInfo.pm:109 src/EBox/CGI/Summary/Index.pm:35
+msgid "Status"
+msgstr "Status"
+
+#: src/EBox/SysInfo.pm:113
+msgid "System"
+msgstr "Sistema"
+
+#: src/EBox/SysInfo.pm:117
+msgid "General"
+msgstr "Geral"
+
+#: src/EBox/SysInfo.pm:123
+msgid "Halt/Reboot"
+msgstr "Desligar/Reiniciar"
+
+#: src/EBox/SysInfo.pm:126 src/EBox/CGI/EBox/Bug.pm:29
+msgid "Bug report"
+msgstr "eportar um BUG"
+
+#: src/EBox/Backup/OpticalDiscDrives.pm:31
+#, perl-brace-format
+msgid ""
+"Unable to find {path}. Make sure that the cdrom driver is compiled in your "
+"kerner or loaded as module"
+msgstr ""
+"Impossível encontrar {path}. Tenha certeza que o drive de cdrom está "
+"compilado para o seu kernel ou está carregado."
+
+#: src/EBox/Backup/OpticalDiscDrives.pm:34
+#, perl-brace-format
+msgid "Unable to read {path}."
+msgstr "Impossível ler {path}"
+
+#: src/EBox/Backup/FileBurner.pm:110
+msgid "This system does not have a recorder drive"
+msgstr ""
+
+#: src/EBox/Backup/FileBurner.pm:122
+msgid "No disk found. Please insert disk and retry"
+msgstr ""
+
+#: src/EBox/Backup/FileBurner.pm:130
+msgid "{media } is a unsupported media type"
+msgstr ""
+
+#: src/EBox/Backup/FileBurner.pm:144
+#, perl-brace-format
+msgid "{device} cannot be found"
+msgstr "{device} não foi encontrado"
+
+#: src/EBox/Backup/FileBurner.pm:153
+#, perl-brace-format
+msgid "{device} is mounted. Please, remove the disk"
+msgstr "{device} já está montado. Por Favor, remova o disco"
+
+#: src/EBox/Backup/FileBurner.pm:177
+#, perl-brace-format
+msgid "Device {dev} cannot write media of type {media}"
+msgstr "O Dispositivo {dev} não pode escrever em mídia do tipo {media}"
+
+#: src/EBox/Backup/FileBurner.pm:192
+msgid "The media has not sufficient capabilty for the data"
+msgstr ""
+
+#: src/EBox/Backup/FileBurner.pm:283
+#, perl-brace-format
+msgid "No blanking method for {media}  defined. Cannot erase it"
+msgstr ""
+
+#: src/EBox/Backup/RootCommands.pm:26
+#, perl-brace-format
+msgid ""
+"This system need {program} installed to perform the requested action. Please "
+"install it and retry"
+msgstr ""
+"Este sistema necessita do {program} instalado para exercer a acção "
+"requesiatida. Por favor instale-o e tente de novo"
+
+#: src/EBox/Backup/OpticalDisc.pm:126
+msgid "Unable to recognize the mounted DVD media"
+msgstr ""
+
+#: src/EBox/Backup/OpticalDisc.pm:165
+msgid "Unable to recognize the mounted CD media"
 msgstr ""
 
 #: src/EBox/Apache.pm:49
@@ -524,6 +301,11 @@ msgstr ""
 msgid "DB dump file {file} is not readable"
 msgstr ""
 
+#: src/EBox/Auth.pm:131
+#, fuzzy
+msgid "Password changed"
+msgstr "Senha"
+
 #: src/EBox/Logs.pm:296
 #, perl-brace-format
 msgid "Table {table} does not exist"
@@ -534,12 +316,23 @@ msgstr ""
 msgid "Field {field} does not exist"
 msgstr ""
 
+#: src/EBox/Logs.pm:454 src/EBox/CGI/Logs/Index.pm:33
+#, fuzzy
+msgid "Logs"
+msgstr "Desconectar"
+
 #: src/EBox/Logs.pm:457
 msgid "Query logs"
 msgstr ""
 
-#: src/EBox/Logs.pm:471 src/templates/finish.mas:21
-#: src/templates/confirm-backup.mas:28 src/templates/backup.mas:165
+#: src/EBox/Logs.pm:460 src/EBox/Logs/Model/ConfigureLogDataTable.pm:133
+#: src/EBox/CGI/Logs/View/ConfigureLogDataTable.pm:36
+#: src/EBox/CGI/Logs/Controller/ConfigureLogDataTable.pm:35
+msgid "Configure logs"
+msgstr ""
+
+#: src/EBox/Logs.pm:471 src/templates/backup.mas:193
+#: src/templates/confirm-backup.mas:28 src/templates/finish.mas:23
 msgid "Date"
 msgstr "Data"
 
@@ -547,7 +340,7 @@ msgstr "Data"
 msgid "Client Address"
 msgstr ""
 
-#: src/EBox/Logs.pm:473 src/templates/finish.mas:22
+#: src/EBox/Logs.pm:473 src/templates/finish.mas:25
 msgid "Module"
 msgstr ""
 
@@ -563,162 +356,445 @@ msgstr ""
 msgid "Admin"
 msgstr ""
 
-#: src/EBox/Summary/Status.pm:44
-msgid "Restart"
-msgstr "Reiniciar"
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:109
+msgid "Domain"
+msgstr ""
 
-#: src/EBox/Summary/Status.pm:47
-msgid "Running"
-msgstr "Rodando"
-
-#: src/EBox/Summary/Status.pm:50
-msgid "Stopped"
-msgstr "Parado"
-
-#: src/EBox/Summary/Status.pm:52
-msgid "Start"
-msgstr "Iniciar"
-
-#: src/EBox/Summary/Status.pm:54
-msgid "Disabled"
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:119
+#, fuzzy
+msgid "Enabled"
 msgstr "Desabilitado"
 
-#: src/EBox/FirstTime.pm:67 src/templates/firstTime/passwd.mas:4
-msgid "Change default password"
-msgstr "Trocar Senha Padrão"
-
-#: src/templates/logs/index.mas:19
-msgid "Last hour logs will be showed when selecting a component"
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:141
+msgid "Enable/disable logging per-module basis"
 msgstr ""
 
-#: src/templates/logs/index.mas:20
-msgid "Select available logs"
-msgstr ""
-
-#: src/templates/logs/index.mas:32 src/templates/logs/index.mas:33
-#: src/templates/logs/index.mas:34
-msgid "View"
-msgstr ""
-
-#: src/templates/logs/index.mas:41
-msgid "Custom query"
-msgstr ""
-
-#: src/templates/logs/index.mas:47
-msgid "From date:"
-msgstr ""
-
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
-msgid "January"
-msgstr ""
-
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
-msgid "February"
-msgstr ""
-
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
-msgid "March"
-msgstr ""
-
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
-msgid "April"
-msgstr ""
-
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
-msgid "May"
-msgstr ""
-
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
-msgid "June"
-msgstr ""
-
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
-msgid "July"
-msgstr ""
-
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
-msgid "August"
-msgstr ""
-
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
-msgid "September"
-msgstr ""
-
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
-msgid "October"
-msgstr ""
-
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
-msgid "November"
-msgstr ""
-
-#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
-msgid "December"
-msgstr ""
-
-#: src/templates/logs/index.mas:104
-msgid "To date:"
-msgstr ""
-
-#: src/templates/logs/index.mas:171
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:143
 #, fuzzy
-msgid "Event"
-msgstr "Entre"
+msgid "logs"
+msgstr "Desconectar"
 
-#: src/templates/logs/index.mas:187 src/templates/logs/index.mas:188
-msgid "Search"
+#: src/EBox/CGI/Finish.pm:30
+msgid "Save configuration"
+msgstr "Salvar a configuração"
+
+#: src/EBox/CGI/Summary/Index.pm:47
+msgid "Error"
+msgstr "Erro"
+
+#: src/EBox/CGI/Login/Index.pm:61
+#, fuzzy
+msgid "Incorrect password"
+msgstr "Senha incorreta."
+
+#: src/EBox/CGI/Login/Index.pm:64
+msgid "For security reasons your session has expired due to inactivity"
+msgstr "Por razões de Segurança sua sessão foi expirada por inatividade."
+
+#: src/EBox/CGI/Login/Index.pm:67
+msgid "You have been logged out because a new session has been opened"
+msgstr "Você foi Desconectado porque outra sessão foi aberta."
+
+#: src/EBox/CGI/FirstTime/Index.pm:30
+#, fuzzy
+msgid "Welcome to eBox"
+msgstr "Bem Vindo ao EBox"
+
+#: src/EBox/CGI/FirstTime/Index.pm:68 src/EBox/CGI/FirstTime/Passwd.pm:72
+#, fuzzy
+msgid "eBox was already initialized"
+msgstr "EBox já foi inicializado"
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:38
+msgid "Set password"
+msgstr "Configurar Senha"
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:63
+msgid "Default password was already changed"
+msgstr "A senha pdrão foi Trocada"
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:88
+msgid "New passwords do not match"
+msgstr "As novas senhas não coferem."
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:92 src/EBox/CGI/EBox/Password.pm:62
+msgid "The password was changed successfully."
+msgstr "A Senha foi trocada com sucesso."
+
+#: src/EBox/CGI/ClientRawBase.pm:181
+msgid ""
+"An internal error has ocurred. This is most probably a bug, relevant "
+"information can be found in the logs."
 msgstr ""
 
-#: src/templates/logs/index.mas:201
-msgid "No logs matching current criterion"
+#: src/EBox/CGI/ClientRawBase.pm:191
+msgid ""
+"An internal error related to a template has occurred. This is a bug, "
+"relevant information can be found in the logs."
 msgstr ""
 
-#: src/templates/logs/dbtable.mas:72 src/templates/logs/dbtable.mas:73
-msgid "first"
+#: src/EBox/CGI/EBox/Backup.pm:34
+#, fuzzy
+msgid "System backups"
+msgstr "Restaurar do backup"
+
+#: src/EBox/CGI/EBox/Backup.pm:193
+#, perl-brace-format
+msgid "Unknown backup mode: {mode}"
+msgstr "Modo Desconhecido de Backup: {mode}"
+
+#: src/EBox/CGI/EBox/Backup.pm:202
+#, fuzzy
+msgid "Backup done"
+msgstr "Modo de Backup"
+
+#: src/EBox/CGI/EBox/Backup.pm:215
+msgid "Backup was written to CD/DVD disk"
 msgstr ""
 
-#: src/templates/logs/dbtable.mas:76 src/templates/logs/dbtable.mas:77
-msgid "prev"
+#: src/EBox/CGI/EBox/Backup.pm:277
+#, perl-brace-format
+msgid "Unknown restore mode: {mode}"
+msgstr "Modo desconhecido de restauração: {mode}"
+
+#: src/EBox/CGI/EBox/Backup.pm:288
+#, fuzzy
+msgid ""
+"Full backup restored succesfully. You should now review your configuration "
+"and save it if you want to keep it."
+msgstr ""
+"Configuração REsaturada com sucesso; Você deve revisá-la e salvá-la se você "
+"quiser mantê-la"
+
+#: src/EBox/CGI/EBox/Backup.pm:293
+#, fuzzy
+msgid ""
+"Configuration restored succesfully, you should now review it and save it if "
+"you want to keep it."
+msgstr ""
+"Configuração REsaturada com sucesso; Você deve revisá-la e salvá-la se você "
+"quiser mantê-la"
+
+#: src/EBox/CGI/EBox/Halt.pm:30
+msgid "Halt or reboot"
+msgstr "Desligar ou rebootar"
+
+#: src/EBox/CGI/EBox/Halt.pm:43
+#, fuzzy
+msgid "eBox is going down for halt"
+msgstr "EBOX está sendo desligado"
+
+#: src/EBox/CGI/EBox/Halt.pm:46
+#, fuzzy
+msgid "eBox is going down for reboot"
+msgstr "EBOX está sendo reiniciado"
+
+#: src/EBox/CGI/EBox/General.pm:30
+msgid "General configuration"
+msgstr "Configurações Gerais"
+
+#: src/EBox/CGI/EBox/RestartService.pm:48
+msgid "module name"
+msgstr "nome do módulo"
+
+#: src/EBox/CGI/EBox/RestartService.pm:52
+msgid "The module was restarted correctly."
+msgstr "O módulo foi reiniciado corretamente."
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:33
+msgid "Configuration backups"
+msgstr "Backup de configurações"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:111
+msgid "Please confirm that you want to delete the following backup file:"
+msgstr ""
+"Por Favor, confirme que você quer deletar os seguintes arquivos de backup:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:113 src/templates/backup.mas:248
+#: src/templates/backup.mas:250
+msgid "Delete"
+msgstr "Deletar"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:120
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:156
+#, fuzzy
+msgid "Please confirm that you want to restore using this backup file:"
+msgstr ""
+"Por Favor, confirme que você quer restaurar a configuração desse arquivo de "
+"backup."
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:122
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:144
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:158 src/templates/backup.mas:115
+msgid "Restore"
+msgstr "Restaurar"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132
+msgid ""
+"Unable to find a correct backup disk. Please insert a backup disk and retry"
 msgstr ""
 
-#: src/templates/logs/dbtable.mas:96 src/templates/logs/dbtable.mas:97
-msgid "next"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:143
+#, fuzzy
+msgid "Please confirm that you want to restore using this backup disk:"
+msgstr ""
+"Por Favor, confirme que você quer restaurar a configuração desse arquivo de "
+"backup."
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:166
+#, fuzzy
+msgid ""
+"Please confirm that you want to write this backup file to a CD or DVD disk:"
+msgstr ""
+"Por Favor, confirme que você quer deletar os seguintes arquivos de backup:"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:168
+msgid "Write to disk"
 msgstr ""
 
-#: src/templates/logs/dbtable.mas:100 src/templates/logs/dbtable.mas:101
-msgid "last"
-msgstr ""
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:209
+#, fuzzy
+msgid "Configuration backup"
+msgstr "Backup de configurações"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:212
+#, fuzzy
+msgid "Full data and configuration backup"
+msgstr "Lista de Configuração de Backups"
+
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:215
+#, fuzzy
+msgid "Bug-report configuration dump"
+msgstr "Restaurar Configuração"
+
+#: src/EBox/CGI/EBox/Password.pm:49
+msgid "Incorrect password."
+msgstr "Senha incorreta."
+
+#: src/EBox/CGI/EBox/Password.pm:54
+msgid "New passwords do not match."
+msgstr "A nova senha não confere. "
+
+#: src/EBox/CGI/EBox/Password.pm:58
+msgid "The password must be at least 6 characters long"
+msgstr "A senha precisa ter ao menos 6 caracteres"
+
+#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:40
+msgid "Logout"
+msgstr "Desconectar"
+
+#: src/EBox/Html.pm:39
+msgid "Save changes"
+msgstr "Salvar Mudanças"
+
+#: src/templates/password.mas:6
+msgid "Change password"
+msgstr "Trocar Senha"
+
+#: src/templates/password.mas:8 src/templates/firstTime/passwd.mas:6
+msgid "Your password must be at least 6 characters long."
+msgstr "Sua senha precisa ter ao menos 6 caracteres."
+
+#: src/templates/password.mas:15
+msgid "Current password"
+msgstr "Senha Atual"
+
+#: src/templates/password.mas:30 src/templates/firstTime/passwd.mas:13
+msgid "New password"
+msgstr "Nova Senha"
+
+#: src/templates/password.mas:45 src/templates/firstTime/passwd.mas:28
+msgid "Confirm password"
+msgstr "Confirmar Senha"
+
+#: src/templates/password.mas:60 src/templates/firstTime/passwd.mas:42
+#: src/templates/port.mas:15
+msgid "Change"
+msgstr "Trocar"
 
 #: src/templates/firstTime/index.mas:6
 msgid "Use default values"
 msgstr "Usar os Valores padrão"
 
-#: src/templates/firstTime/passwd.mas:5 src/templates/password.mas:7
-msgid "Your password must be at least 6 characters long."
-msgstr "Sua senha precisa ter ao menos 6 caracteres."
+#: src/templates/backup.mas:22
+msgid "Full Backup"
+msgstr "Backup Completo"
 
-#: src/templates/firstTime/passwd.mas:11 src/templates/password.mas:27
-msgid "New password"
-msgstr "Nova Senha"
+#: src/templates/backup.mas:24
+#, fuzzy
+msgid "Configuration Backup"
+msgstr "Backup de configurações"
 
-#: src/templates/firstTime/passwd.mas:25 src/templates/password.mas:41
-msgid "Confirm password"
-msgstr "Confirmar Senha"
+#: src/templates/backup.mas:31
+#, fuzzy
+msgid "Back up the current state"
+msgstr "Fazer Backup da configuração Atual"
 
-#: src/templates/firstTime/passwd.mas:38 src/templates/password.mas:55
-#: src/templates/port.mas:14
-msgid "Change"
-msgstr "Trocar"
+#: src/templates/backup.mas:34
+#, fuzzy
+msgid ""
+"Backups will be stored in eBox and then you will be able to download them to "
+"your hard disk or write them into CD/DVD disks. Anyway, you can later copy "
+"back stored backup"
+msgstr ""
+"Backups serão salvos no eBox e então será possível baixá-lo pra se hard disk"
+
+#: src/templates/backup.mas:44
+msgid ""
+"'Backup to CD/DVD disk' is disabled, because eBox could not find any "
+"recorder drive"
+msgstr ""
+
+#: src/templates/backup.mas:54 src/templates/backup.mas:189
+#: src/templates/confirm-backup.mas:37
+msgid "Description"
+msgstr "Descrição"
+
+#: src/templates/backup.mas:63
+msgid "Backup mode"
+msgstr "Modo de Backup"
+
+#: src/templates/backup.mas:74
+msgid "Back up to hard disk"
+msgstr ""
+
+#: src/templates/backup.mas:77
+msgid "Back up to CD/DVD disk"
+msgstr ""
+
+#: src/templates/backup.mas:91
+#, fuzzy
+msgid "Restore backup from file"
+msgstr "Restaurar do backup"
+
+#: src/templates/backup.mas:94
+#, fuzzy
+msgid "You can  upload a backup file from your computer. When uploading"
+msgstr ""
+"Você pode fazer upload de um arquivo de configuração à partir do seu "
+"computador ou usar um da lista abaixo."
+
+#: src/templates/backup.mas:105
+msgid "Backup file"
+msgstr "Arquivo de Backup"
+
+#: src/templates/backup.mas:124
+#, fuzzy
+msgid "Restore backup from disk"
+msgstr "Restaurar do backup"
+
+#: src/templates/backup.mas:127
+msgid ""
+"You can restore from a backup disk. Please insert the disk before clicking "
+"the button"
+msgstr ""
+
+#: src/templates/backup.mas:132
+msgid ""
+"'Restore backup from CD/DVD disk' is disabled, because eBox could not find "
+"any reader drive"
+msgstr ""
+
+#: src/templates/backup.mas:143
+#, fuzzy
+msgid "Restore from disk"
+msgstr "Restaurar do backup"
+
+#: src/templates/backup.mas:167
+msgid "Full"
+msgstr ""
+
+#: src/templates/backup.mas:169
+#, fuzzy
+msgid "Configuration only"
+msgstr "configuraçãoRestauração"
+
+#: src/templates/backup.mas:171
+#, fuzzy
+msgid "Unknown type"
+msgstr "Desconhecido"
+
+#: src/templates/backup.mas:180
+msgid ""
+"'Write backup to CD/DVD disk' is disabled, because eBox could not find any "
+"recorder drive"
+msgstr ""
+
+#: src/templates/backup.mas:184
+#, fuzzy
+msgid "Backups' list"
+msgstr "Arquivo de Backup"
+
+#: src/templates/backup.mas:191 src/templates/confirm-backup.mas:46
+msgid "Type"
+msgstr ""
+
+#: src/templates/backup.mas:195
+msgid "Actions"
+msgstr "Ações"
+
+#: src/templates/backup.mas:223
+msgid "Restore configuration using this file"
+msgstr "Restaurar a configuração usando este arquivo"
+
+#: src/templates/backup.mas:225
+msgid "Restore from backup"
+msgstr "Restaurar do backup"
+
+#: src/templates/backup.mas:231 src/templates/backup.mas:233
+msgid "Download"
+msgstr "Donwload"
+
+#: src/templates/backup.mas:240 src/templates/backup.mas:242
+msgid "Write backup to CD/DVD disk"
+msgstr ""
+
+#: src/templates/backup.mas:264
+msgid "download"
+msgstr "download"
+
+#: src/templates/backup.mas:267
+msgid "write into disk"
+msgstr ""
+
+#: src/templates/backup.mas:268
+msgid "write into disk (disabled)"
+msgstr ""
+
+#: src/templates/backup.mas:271
+msgid "restore"
+msgstr "restaurar"
+
+#: src/templates/backup.mas:274
+msgid "delete"
+msgstr "deletar"
+
+#: src/templates/logout/index.mas:11
+msgid "There are unsaved changes, if you log out now they will be lost."
+msgstr ""
+"Existem mudanças não salvas, se você desconectar agora, els serão perdidas."
+
+#: src/templates/logout/index.mas:16
+msgid "There are no unsaved changes in this session."
+msgstr "Não existem configurações não-salvas nessa sessão"
+
+#: src/templates/logout/index.mas:21
+msgid "Exit"
+msgstr "Sair"
+
+#: src/templates/port.mas:9
+msgid "Administration interface TCP port"
+msgstr "Porta TCP da interface de administração"
 
 #: src/templates/login/index.mas:27
 msgid "Password"
 msgstr "Senha"
 
-#: src/templates/login/index.mas:34
+#: src/templates/login/index.mas:35
 msgid "Enter"
 msgstr "Entre"
 
-#: src/templates/login/index.mas:40
+#: src/templates/login/index.mas:42
 msgid ""
 "Created by <a href='http://www.warp.es'>Warp Networks</a> in collaboration "
 "with <a href='http://www.dbs.es'>DBS Servicios Informaticos</a>"
@@ -726,13 +802,22 @@ msgstr ""
 "Created by <a href='http://www.warp.es'>Warp Networks</a> in collaboration "
 "with <a href='http://www.dbs.es'>DBS Servicios Informaticos</a>"
 
-#: src/templates/password.mas:6
-msgid "Change password"
-msgstr "Trocar Senha"
+#: src/templates/confirm-backup.mas:63 src/templates/confirm-backup.mas:64
+msgid "Cancel"
+msgstr "CAncelar"
 
-#: src/templates/password.mas:13
-msgid "Current password"
-msgstr "Senha Atual"
+#: src/templates/confirm-backup.mas:105
+msgid "Full Restore"
+msgstr "Restauração Completa"
+
+#: src/templates/confirm-backup.mas:107
+#, fuzzy
+msgid "Configuration Restore"
+msgstr "configuraçãoRestauração"
+
+#: src/templates/confirm-backup.mas:113
+msgid "Restore mode"
+msgstr "Modo de Restauração"
 
 #: src/templates/finish.mas:12
 msgid ""
@@ -742,7 +827,7 @@ msgstr ""
 "Existem configurações não salvas em um ou mais módulos, você pode salvar ou "
 "descartar essas mudanças."
 
-#: src/templates/finish.mas:15
+#: src/templates/finish.mas:16
 msgid ""
 "If you made changes to the network interfaces or the administration port, "
 "you may need to manually rewrite the url in order to access this "
@@ -752,231 +837,34 @@ msgstr ""
 "você precisa reescrever manualmente a url para acessar essa interface de "
 "administração novamente."
 
-#: src/templates/finish.mas:23
+#: src/templates/finish.mas:27
 msgid "Message"
 msgstr ""
 
-#: src/templates/finish.mas:39
+#: src/templates/finish.mas:44
 msgid "Save"
 msgstr "Salvar"
 
-#: src/templates/finish.mas:41
+#: src/templates/finish.mas:47
 msgid "Discard changes"
 msgstr "Descartar Mudanças"
 
-#: src/templates/finish.mas:46
+#: src/templates/finish.mas:53
 msgid "There are no unsaved changes."
 msgstr "Não existem mudanças não salvas"
-
-#: src/templates/confirm-backup.mas:36 src/templates/backup.mas:47
-#: src/templates/backup.mas:163
-msgid "Description"
-msgstr "Descrição"
-
-#: src/templates/confirm-backup.mas:44 src/templates/backup.mas:164
-msgid "Type"
-msgstr ""
-
-#: src/templates/confirm-backup.mas:60
-msgid "Cancel"
-msgstr "CAncelar"
-
-#: src/templates/confirm-backup.mas:100
-msgid "Full Restore"
-msgstr "Restauração Completa"
-
-#: src/templates/confirm-backup.mas:101
-#, fuzzy
-msgid "Configuration Restore"
-msgstr "configuraçãoRestauração"
-
-#: src/templates/confirm-backup.mas:106
-msgid "Restore mode"
-msgstr "Modo de Restauração"
-
-#: src/templates/port.mas:9
-msgid "Administration interface TCP port"
-msgstr "Porta TCP da interface de administração"
 
 #: src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."
 msgstr ""
 "Você pode perder a sua conecção de internet se esta máquina foir desligada."
 
-#: src/templates/halt.mas:14
+#: src/templates/halt.mas:15
 msgid "Halt"
 msgstr "Desligar"
 
-#: src/templates/halt.mas:16
+#: src/templates/halt.mas:18
 msgid "Reboot"
 msgstr "Reiniciar"
-
-#: src/templates/backup.mas:20
-msgid "Full Backup"
-msgstr "Backup Completo"
-
-#: src/templates/backup.mas:21
-#, fuzzy
-msgid "Configuration Backup"
-msgstr "Backup de configurações"
-
-#: src/templates/backup.mas:27
-#, fuzzy
-msgid "Back up the current state"
-msgstr "Fazer Backup da configuração Atual"
-
-#: src/templates/backup.mas:29
-#, fuzzy
-msgid ""
-"Backups will be stored in eBox and then you will be able to download them to "
-"your hard disk or write them into CD/DVD disks. Anyway, you can later copy "
-"back stored backup"
-msgstr ""
-"Backups serão salvos no eBox e então será possível baixá-lo pra se hard disk"
-
-#: src/templates/backup.mas:33
-msgid ""
-"Backup is disabled because there are unsaved configuration changes. Please, "
-"save or discard them to be able to backup the configuration"
-msgstr ""
-
-#: src/templates/backup.mas:38
-msgid ""
-"'Backup to CD/DVD disk' is disabled, because eBox could not find any "
-"recorder drive"
-msgstr ""
-
-#: src/templates/backup.mas:55
-msgid "Backup mode"
-msgstr "Modo de Backup"
-
-#: src/templates/backup.mas:65
-msgid "Back up to hard disk"
-msgstr ""
-
-#: src/templates/backup.mas:67
-msgid "Back up to CD/DVD disk"
-msgstr ""
-
-#: src/templates/backup.mas:80
-#, fuzzy
-msgid "Restore backup from file"
-msgstr "Restaurar do backup"
-
-#: src/templates/backup.mas:82
-msgid ""
-"You can upload a backup file from your computer. When uploading files you "
-"should be warned that some web browsers cannot handle huge files (>= 1 Gb)"
-msgstr ""
-
-#: src/templates/backup.mas:90
-msgid "Backup file"
-msgstr "Arquivo de Backup"
-
-#: src/templates/backup.mas:107
-#, fuzzy
-msgid "Restore backup from disk"
-msgstr "Restaurar do backup"
-
-#: src/templates/backup.mas:109
-msgid ""
-"You can restore from a backup disk. Please insert the disk before clicking "
-"the button"
-msgstr ""
-
-#: src/templates/backup.mas:113
-msgid ""
-"'Restore backup from CD/DVD disk' is disabled, because eBox could not find "
-"any reader drive"
-msgstr ""
-
-#: src/templates/backup.mas:123
-#, fuzzy
-msgid "Restore from disk"
-msgstr "Restaurar do backup"
-
-#: src/templates/backup.mas:146
-msgid "Full"
-msgstr ""
-
-#: src/templates/backup.mas:147
-#, fuzzy
-msgid "Configuration only"
-msgstr "configuraçãoRestauração"
-
-#: src/templates/backup.mas:148
-#, fuzzy
-msgid "Unknown type"
-msgstr "Desconhecido"
-
-#: src/templates/backup.mas:156
-msgid ""
-"'Write backup to CD/DVD disk' is disabled, because eBox could not find any "
-"recorder drive"
-msgstr ""
-
-#: src/templates/backup.mas:159
-#, fuzzy
-msgid "Backups' list"
-msgstr "Arquivo de Backup"
-
-#: src/templates/backup.mas:166
-msgid "Actions"
-msgstr "Ações"
-
-#: src/templates/backup.mas:193
-msgid "Restore configuration using this file"
-msgstr "Restaurar a configuração usando este arquivo"
-
-#: src/templates/backup.mas:194
-msgid "Restore from backup"
-msgstr "Restaurar do backup"
-
-#: src/templates/backup.mas:199 src/templates/backup.mas:200
-msgid "Download"
-msgstr "Donwload"
-
-#: src/templates/backup.mas:206 src/templates/backup.mas:207
-msgid "Write backup to CD/DVD disk"
-msgstr ""
-
-#: src/templates/backup.mas:226
-msgid "download"
-msgstr "download"
-
-#: src/templates/backup.mas:228
-msgid "write into disk"
-msgstr ""
-
-#: src/templates/backup.mas:228
-msgid "write into disk (disabled)"
-msgstr ""
-
-#: src/templates/backup.mas:230
-msgid "restore"
-msgstr "restaurar"
-
-#: src/templates/backup.mas:232
-msgid "delete"
-msgstr "deletar"
-
-#: src/templates/logout/index.mas:11
-msgid "There are unsaved changes, if you log out now they will be lost."
-msgstr ""
-"Existem mudanças não salvas, se você desconectar agora, els serão perdidas."
-
-#: src/templates/logout/index.mas:15
-msgid "There are no unsaved changes in this session."
-msgstr "Não existem configurações não-salvas nessa sessão"
-
-#: src/templates/logout/index.mas:19
-msgid "Exit"
-msgstr "Sair"
-
-#: src/templates/footer.mas:8
-#, perl-brace-format
-msgid "{ebox} created by {warp} in collaboration with {dbs}"
-msgstr "{ebox} creado por {warp} em colaboração com {dbs}"
 
 #: src/templates/bug.mas:9
 msgid ""
@@ -986,19 +874,219 @@ msgstr ""
 "Esta ´agina permite gerar um arquivo com informação sobre o estado so seu "
 "sistema. O arquivo será útil se você quer reportar um BUg no EBox."
 
-#: src/templates/bug.mas:14
+#: src/templates/bug.mas:15
 msgid "Download bug report file"
 msgstr "Download o arquivo de report de BUG"
 
+#: src/templates/logs/dbtable.mas:72 src/templates/logs/dbtable.mas:74
+msgid "first"
+msgstr ""
+
+#: src/templates/logs/dbtable.mas:78 src/templates/logs/dbtable.mas:80
+msgid "prev"
+msgstr ""
+
+#: src/templates/logs/dbtable.mas:88 src/templates/logs/dbtable.mas:91
 #, fuzzy
-#~ msgid "You can  upload a backup file from your computer. When uploading"
-#~ msgstr ""
-#~ "Você pode fazer upload de um arquivo de configuração à partir do seu "
-#~ "computador ou usar um da lista abaixo."
+msgid "Page"
+msgstr "Trocar"
+
+#: src/templates/logs/dbtable.mas:92
+msgid "of"
+msgstr ""
+
+#: src/templates/logs/dbtable.mas:103 src/templates/logs/dbtable.mas:105
+msgid "next"
+msgstr ""
+
+#: src/templates/logs/dbtable.mas:109 src/templates/logs/dbtable.mas:111
+msgid "last"
+msgstr ""
+
+#: src/templates/logs/index.mas:19
+msgid "Last hour logs will be showed when selecting a component"
+msgstr ""
+
+#: src/templates/logs/index.mas:21
+msgid "Select available logs"
+msgstr ""
+
+#: src/templates/logs/index.mas:34 src/templates/logs/index.mas:36
+#: src/templates/logs/index.mas:38
+msgid "View"
+msgstr ""
+
+#: src/templates/logs/index.mas:46
+msgid "Custom query"
+msgstr ""
+
+#: src/templates/logs/index.mas:53
+msgid "From date:"
+msgstr ""
+
+#: src/templates/logs/index.mas:66 src/templates/logs/index.mas:136
+msgid "January"
+msgstr ""
+
+#: src/templates/logs/index.mas:67 src/templates/logs/index.mas:137
+msgid "February"
+msgstr ""
+
+#: src/templates/logs/index.mas:68 src/templates/logs/index.mas:138
+msgid "March"
+msgstr ""
+
+#: src/templates/logs/index.mas:69 src/templates/logs/index.mas:139
+msgid "April"
+msgstr ""
+
+#: src/templates/logs/index.mas:70 src/templates/logs/index.mas:140
+msgid "May"
+msgstr ""
+
+#: src/templates/logs/index.mas:71 src/templates/logs/index.mas:141
+msgid "June"
+msgstr ""
+
+#: src/templates/logs/index.mas:72 src/templates/logs/index.mas:142
+msgid "July"
+msgstr ""
+
+#: src/templates/logs/index.mas:73 src/templates/logs/index.mas:143
+msgid "August"
+msgstr ""
+
+#: src/templates/logs/index.mas:74 src/templates/logs/index.mas:144
+msgid "September"
+msgstr ""
+
+#: src/templates/logs/index.mas:75 src/templates/logs/index.mas:145
+msgid "October"
+msgstr ""
+
+#: src/templates/logs/index.mas:76 src/templates/logs/index.mas:146
+msgid "November"
+msgstr ""
+
+#: src/templates/logs/index.mas:77 src/templates/logs/index.mas:147
+msgid "December"
+msgstr ""
+
+#: src/templates/logs/index.mas:123
+msgid "To date:"
+msgstr ""
+
+#: src/templates/logs/index.mas:203
+#, fuzzy
+msgid "Event"
+msgstr "Entre"
+
+#: src/templates/logs/index.mas:221 src/templates/logs/index.mas:223
+msgid "Search"
+msgstr ""
+
+#: src/templates/logs/index.mas:237
+msgid "No logs matching current criterion"
+msgstr ""
+
+#: src/templates/footer.mas:8
+#, perl-brace-format
+msgid "{ebox} created by {warp} in collaboration with {dbs}"
+msgstr "{ebox} creado por {warp} em colaboração com {dbs}"
 
 #, fuzzy
-#~ msgid "Page"
-#~ msgstr "Trocar"
+#~ msgid ""
+#~ "Full backup restored successfully. You should now review your "
+#~ "configuration and save it if you want to keep it."
+#~ msgstr ""
+#~ "Configuração REsaturada com sucesso; Você deve revisá-la e salvá-la se "
+#~ "você quiser mantê-la"
+
+#, fuzzy
+#~ msgid ""
+#~ "Configuration restored successfully, you should now review it and save it "
+#~ "if you want to keep it."
+#~ msgstr ""
+#~ "Configuração REsaturada com sucesso; Você deve revisá-la e salvá-la se "
+#~ "você quiser mantê-la"
+
+#, fuzzy
+#~ msgid "Compulsory Password"
+#~ msgstr "Senha Atual"
+
+#, fuzzy
+#~ msgid "Optional Password"
+#~ msgstr "Senha"
+
+#, fuzzy
+#~ msgid "Port range"
+#~ msgstr "Senha"
+
+#, fuzzy
+#~ msgid "Union"
+#~ msgstr "Desconhecido"
+
+#, fuzzy
+#~ msgid "Other option"
+#~ msgstr "Descrição"
+
+#, fuzzy
+#~ msgid "Test model"
+#~ msgstr "Modo de Restauração"
+
+#, fuzzy
+#~ msgid "Test form"
+#~ msgstr "Restaurar"
+
+#, fuzzy
+#~ msgid "Log"
+#~ msgstr "Desconectar"
+
+#, fuzzy
+#~ msgid "State"
+#~ msgstr "Iniciar"
+
+#, fuzzy
+#~ msgid "Service enabled"
+#~ msgstr "Serviços"
+
+#, fuzzy
+#~ msgid "Service disabled"
+#~ msgstr "Serviços"
+
+#, fuzzy
+#~ msgid "any"
+#~ msgstr "Qualquer"
+
+#~ msgid "The password should have at least {minLength} characters"
+#~ msgstr "A senha precisa ter ao menos 6 caracteres"
+
+#~ msgid "The password should have at most {maxLength} characters"
+#~ msgstr "A senha precisa ter ao menos 6 caracteres"
+
+#, fuzzy
+#~ msgid "{row} deleted"
+#~ msgstr "deletar"
+
+#, fuzzy
+#~ msgid "Port"
+#~ msgstr "porta"
+
+#, fuzzy
+#~ msgid "User password"
+#~ msgstr "Configurar Senha"
+
+#, fuzzy
+#~ msgid "event"
+#~ msgstr "Entre"
+
+#, fuzzy
+#~ msgid "Configuration"
+#~ msgstr "configuraçãoRestauração"
+
+#, fuzzy
+#~ msgid "Events"
+#~ msgstr "Entre"
 
 #~ msgid "Invalid backup file."
 #~ msgstr "Arquivo de Backup inválido."
@@ -1049,3 +1137,7 @@ msgstr "Download o arquivo de report de BUG"
 #~ msgstr ""
 #~ "Você pode fazer upload de um arquivo de configuração à partir do seu "
 #~ "computador ou usar um da lista abaixo."
+
+#, fuzzy
+#~ msgid "Dispatchers"
+#~ msgstr "Descartar Mudanças"

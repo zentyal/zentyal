@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mail 0.9.3\n"
+"Project-Id-Version: ebox-mail 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-06-06 09:38+0200\n"
@@ -32,7 +32,7 @@ msgstr ""
 #: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:989
 #: src/EBox/Mail.pm:1059 src/EBox/Mail.pm:1113
 msgid "Mail"
-msgstr ""
+msgstr "E-post"
 
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
 #: src/templates/qmanager.mas:19
@@ -43,7 +43,7 @@ msgstr ""
 #: src/EBox/CGI/CreateAccount.pm:42 src/EBox/CGI/ModifyAccountMDSize.pm:55
 #: src/EBox/CGI/DelAccount.pm:42
 msgid "username"
-msgstr ""
+msgstr "användarnamn"
 
 #: src/EBox/CGI/CreateAlias.pm:48
 msgid "maildrop"
@@ -51,34 +51,34 @@ msgstr ""
 
 #: src/EBox/CGI/CreateAlias.pm:49 src/EBox/CGI/CreateGroupAlias.pm:48
 msgid "account name"
-msgstr ""
+msgstr "kontonamn"
 
 #: src/EBox/CGI/CreateAlias.pm:50 src/EBox/CGI/CreateGroupAlias.pm:49
 msgid "domain name"
-msgstr ""
+msgstr "domännamn"
 
 #: src/EBox/CGI/DelAlias.pm:46
 msgid "mail alias"
-msgstr ""
+msgstr "e-postalias"
 
 #: src/EBox/CGI/QueueManager.pm:33 src/EBox/CGI/QueueManager.pm:50
 #: src/EBox/Mail.pm:1068
 msgid "Queue Management"
-msgstr ""
+msgstr "Köhantering"
 
 #: src/EBox/CGI/CreateAccount.pm:48 src/EBox/MailVDomainsLdap.pm:62
 #: src/EBox/MailVDomainsLdap.pm:124
 msgid "virtual domain"
-msgstr ""
+msgstr "virtuell domän"
 
 #: src/EBox/CGI/CreateAccount.pm:50 src/templates/alias.mas:17
 msgid "Mail address"
-msgstr ""
+msgstr "E-postadress"
 
 #: src/EBox/CGI/VDomains.pm:29 src/EBox/CGI/VDomains.pm:39
 #: src/EBox/Mail.pm:1065
 msgid "Virtual domains"
-msgstr ""
+msgstr "Virtuella domäner"
 
 #: src/EBox/CGI/DelAccount.pm:46
 msgid "user mail"
@@ -311,23 +311,23 @@ msgstr ""
 #: src/templates/alias.mas:22 src/templates/alias.mas:24
 #: src/templates/alias.mas:120 src/templates/alias.mas:122
 msgid "Delete"
-msgstr ""
+msgstr "Ta bort"
 
 #: src/templates/warnvd.mas:35 src/templates/warnvdmdsize.mas:38
 #: src/templates/warnusermdsize.mas:28
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 #: src/templates/sasl.mas:15 src/templates/sasl.mas:20
 #: src/templates/imap.mas:22 src/templates/imap.mas:29
 #: src/templates/imap.mas:36 src/templates/pop.mas:22 src/templates/pop.mas:29
 #: src/templates/pop.mas:36
 msgid "No"
-msgstr ""
+msgstr "Nej"
 
 #: src/templates/sasl.mas:17 src/templates/sasl.mas:22
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: src/templates/groupalias.mas:13
 msgid "Create alias mail account to group"
@@ -348,27 +348,27 @@ msgstr ""
 #: src/templates/alias.mas:104 src/templates/alias.mas:106
 #: src/templates/alias.mas:108
 msgid "Create"
-msgstr ""
+msgstr "Skapa"
 
 #: src/templates/groupalias.mas:56
 msgid "Mail alias settings"
-msgstr ""
+msgstr "Inställningar för e-postalias"
 
 #: src/templates/groupalias.mas:60 src/templates/alias.mas:78
 msgid "Mail alias"
-msgstr ""
+msgstr "E-postalias"
 
 #: src/templates/index.mas:34
 msgid "Mail service settings"
-msgstr ""
+msgstr "Inställningar för e-posttjänst"
 
 #: src/templates/index.mas:37
 msgid "TLS for SMTP server"
-msgstr ""
+msgstr "TLS för SMTP-server"
 
 #: src/templates/index.mas:39
 msgid "Require authentication"
-msgstr ""
+msgstr "Kräver autentisering"
 
 #: src/templates/index.mas:48 src/templates/index.mas:50
 #: src/templates/index.mas:107 src/templates/index.mas:109
@@ -376,37 +376,37 @@ msgstr ""
 #: src/templates/index.mas:195 src/templates/index.mas:197
 #: src/templates/warnvdmdsize.mas:34 src/templates/warnusermdsize.mas:24
 msgid "Change"
-msgstr ""
+msgstr "Ändra"
 
 #: src/templates/index.mas:57 src/templates/mailtabs.mas:9
 #: src/templates/mailtabs.mas:12
 msgid "Services"
-msgstr ""
+msgstr "Tjänster"
 
 #: src/templates/index.mas:66
 msgid "Service"
-msgstr ""
+msgstr "Tjänst"
 
 #: src/templates/index.mas:70 src/templates/enable.mas:24
 #: src/templates/enable.mas:29
 msgid "Enabled"
-msgstr ""
+msgstr "Aktiverad"
 
 #: src/templates/index.mas:74
 msgid "SSL Support"
-msgstr ""
+msgstr "SSL-stöd"
 
 #: src/templates/index.mas:80
 msgid "POP3"
-msgstr ""
+msgstr "POP3"
 
 #: src/templates/index.mas:82
 msgid "IMAP"
-msgstr ""
+msgstr "IMAP"
 
 #: src/templates/index.mas:90 src/templates/index.mas:92
 msgid "Apply Changes"
-msgstr ""
+msgstr "Verkställ ändringar"
 
 #: src/templates/index.mas:101
 msgid "IP address of smarthost to send mail"
@@ -514,11 +514,11 @@ msgstr ""
 
 #: src/templates/vdomains.mas:12
 msgid "Add a new virtual domain"
-msgstr ""
+msgstr "Lägg till en ny virtuell domän"
 
 #: src/templates/vdomains.mas:18 src/templates/createaccount.mas:23
 msgid "Domain name"
-msgstr ""
+msgstr "Domännamn"
 
 #: src/templates/vdomains.mas:37
 msgid "Default maildir size"
@@ -526,11 +526,11 @@ msgstr ""
 
 #: src/templates/vdomains.mas:49
 msgid "(MB)"
-msgstr ""
+msgstr "(MB)"
 
 #: src/templates/vdomains.mas:57 src/templates/vdomains.mas:59
 msgid "Add"
-msgstr ""
+msgstr "Lägg till"
 
 #: src/templates/vdomains.mas:69
 msgid "Virtual domains list"
@@ -538,7 +538,7 @@ msgstr ""
 
 #: src/templates/vdomains.mas:75
 msgid "Name"
-msgstr ""
+msgstr "Namn"
 
 #: src/templates/vdomains.mas:79
 msgid "Maildir Size"
@@ -546,19 +546,19 @@ msgstr ""
 
 #: src/templates/vdomains.mas:83 src/templates/alias.mas:82
 msgid "Action"
-msgstr ""
+msgstr "Åtgärd"
 
 #: src/templates/vdomains.mas:96 src/templates/vdomains.mas:97
 msgid "Edit"
-msgstr ""
+msgstr "Redigera"
 
 #: src/templates/createaccount.mas:14 src/templates/account.mas:11
 msgid "Create mail account"
-msgstr ""
+msgstr "Skapa e-postkonto"
 
 #: src/templates/createaccount.mas:18
 msgid "Account name"
-msgstr ""
+msgstr "Kontonamn"
 
 #: src/templates/createaccount.mas:35
 msgid "Maildir size"
@@ -568,17 +568,17 @@ msgstr ""
 #: src/templates/imap.mas:38 src/templates/pop.mas:24 src/templates/pop.mas:31
 #: src/templates/pop.mas:38
 msgid "Optional"
-msgstr ""
+msgstr "Valfritt"
 
 #: src/templates/imap.mas:26 src/templates/imap.mas:33
 #: src/templates/imap.mas:40 src/templates/pop.mas:26 src/templates/pop.mas:33
 #: src/templates/pop.mas:40
 msgid "Required"
-msgstr ""
+msgstr "Krävs"
 
 #: src/templates/enable.mas:10
 msgid "TLS support is required by the authentication system"
-msgstr ""
+msgstr "TLS-stöd krävs av autentiseringssystemet"
 
 #: src/templates/enable.mas:16
 msgid "Service status"
@@ -612,19 +612,19 @@ msgstr ""
 
 #: src/templates/alias.mas:72
 msgid "Create mail aliases"
-msgstr ""
+msgstr "Skapa e-postalias"
 
 #: src/templates/qmanager.mas:25
 msgid "Sender"
-msgstr ""
+msgstr "Avsändare"
 
 #: src/templates/qmanager.mas:27
 msgid "Recipients"
-msgstr ""
+msgstr "Mottagare"
 
 #: src/templates/qmanager.mas:29
 msgid "Message"
-msgstr ""
+msgstr "Meddelande"
 
 #: src/templates/qmanager.mas:31
 msgid "Operate"
@@ -636,39 +636,39 @@ msgstr ""
 
 #: src/templates/qmanager.mas:56 src/templates/qmanager.mas:58
 msgid "Show Info"
-msgstr ""
+msgstr "Visa info"
 
 #: src/templates/qmanager.mas:63 src/templates/qmanager.mas:65
 msgid "Remove"
-msgstr ""
+msgstr "Ta bort"
 
 #: src/templates/qmanager.mas:78 src/templates/qmanager.mas:80
 msgid "Hide Info"
-msgstr ""
+msgstr "Dölj info"
 
 #: src/templates/qmanager.mas:100 src/templates/qmanager.mas:102
 msgid "first"
-msgstr ""
+msgstr "första"
 
 #: src/templates/qmanager.mas:106 src/templates/qmanager.mas:108
 msgid "prev"
-msgstr ""
+msgstr "föreg"
 
 #: src/templates/qmanager.mas:116 src/templates/qmanager.mas:119
 msgid "Page"
-msgstr ""
+msgstr "Sida"
 
 #: src/templates/qmanager.mas:120
 msgid "of"
-msgstr ""
+msgstr "av"
 
 #: src/templates/qmanager.mas:131 src/templates/qmanager.mas:133
 msgid "next"
-msgstr ""
+msgstr "nästa"
 
 #: src/templates/qmanager.mas:137 src/templates/qmanager.mas:139
 msgid "last"
-msgstr ""
+msgstr "sista"
 
 #: src/templates/qmanager.mas:150
 msgid "There is not any message at the queue or the service is stopped"
@@ -676,7 +676,7 @@ msgstr ""
 
 #: src/templates/mailtabs.mas:16 src/templates/mailtabs.mas:19
 msgid "Settings"
-msgstr ""
+msgstr "Inställningar"
 
 #: src/templates/account.mas:15
 msgid "Create mail alias to mail account"

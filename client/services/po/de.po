@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-services 0.9.100"
+"Project-Id-Version: ebox-services 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-09-03 17:18+0200\n"
+"POT-Creation-Date: 2007-09-28 09:25+0200\n"
 "PO-Revision-Date: 2007-09-03 17:18+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,96 +16,102 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: migration/0001_import_services_from_firewall.pl:64
-msgid "any"
-msgstr ""
-
-#: migration/0001_import_services_from_firewall.pl:65
-msgid "any protocol and port"
-msgstr ""
-
-#: migration/0001_import_services_from_firewall.pl:66
-#: migration/0001_import_services_from_firewall.pl:77
-#: migration/0001_import_services_from_firewall.pl:89
-#: migration/0001_import_services_from_firewall.pl:100
-#: migration/0001_import_services_from_firewall.pl:111
-msgid "ebox-services"
-msgstr ""
-
-#: migration/0001_import_services_from_firewall.pl:75
-msgid "any UDP"
-msgstr ""
-
-#: migration/0001_import_services_from_firewall.pl:76
-msgid "any UDP port"
-msgstr ""
-
-#: migration/0001_import_services_from_firewall.pl:87
-msgid "any TCP"
-msgstr ""
-
-#: migration/0001_import_services_from_firewall.pl:88
-msgid "any TCP port"
-msgstr ""
-
-#: migration/0001_import_services_from_firewall.pl:98
-msgid "eBox administration"
-msgstr ""
-
-#: migration/0001_import_services_from_firewall.pl:99
-msgid "eBox Administration port"
-msgstr ""
-
-#: src/EBox/Model/ServiceTable.pm:106
+#: src/EBox/Model/ServiceTable.pm:107
 msgid "Domain"
-msgstr ""
+msgstr "Domäne"
 
-#: src/EBox/Model/ServiceTable.pm:112
+#: src/EBox/Model/ServiceTable.pm:114
 msgid "Service name"
-msgstr ""
+msgstr "Name des Dienstes"
 
-#: src/EBox/Model/ServiceTable.pm:120
+#: src/EBox/Model/ServiceTable.pm:122
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
-#: src/EBox/Model/ServiceTable.pm:127
+#: src/EBox/Model/ServiceTable.pm:129
 msgid "Internal"
-msgstr ""
+msgstr "Intern"
 
-#: src/EBox/Model/ServiceTable.pm:131
+#: src/EBox/Model/ServiceTable.pm:134
 msgid "Configuration"
-msgstr ""
+msgstr "Konfiguration"
 
-#: src/EBox/Model/ServiceTable.pm:144 src/EBox/Services.pm:48
+#: src/EBox/Model/ServiceTable.pm:146 src/EBox/Services.pm:47
 msgid "Services"
-msgstr ""
+msgstr "Dienste"
 
-#: src/EBox/Model/ServiceTable.pm:152
+#: src/EBox/Model/ServiceTable.pm:154
 #: src/EBox/Model/ServiceConfigurationTable.pm:137
 msgid "bbbb"
-msgstr ""
+msgstr "bbbb"
 
-#: src/EBox/Model/ServiceTable.pm:153
+#: src/EBox/Model/ServiceTable.pm:155
 #: src/EBox/Model/ServiceConfigurationTable.pm:138
 msgid "service"
-msgstr ""
+msgstr "Dienst"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:106
 msgid "Protocol"
-msgstr ""
+msgstr "Protokoll"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:112
 msgid "Source port"
-msgstr ""
+msgstr "Quellport"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:118
 msgid "Destination port"
-msgstr ""
+msgstr "Zielport"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:129
 msgid "Service configuration"
+msgstr "Dienste konfigurieren"
+
+#: src/EBox/Model/ServiceConfigurationTable.pm:161
+msgid "This protocol does not use ports"
+msgstr "Dieses Protokoll verwendet keine Ports"
+
+#: src/EBox/Services.pm:233
+msgid "port"
 msgstr ""
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:160
-msgid "This protocol does not use ports"
-msgstr ""
+#: src/EBox/Services.pm:235
+#: migration/0001_import_services_from_firewall.pl:102
+msgid "eBox administration"
+msgstr "eBox-Administration"
+
+#: src/EBox/Services.pm:236
+#: migration/0001_import_services_from_firewall.pl:103
+msgid "eBox Administration port"
+msgstr "Port für eBox-Administration"
+
+#: src/EBox/Services.pm:237 migration/0001_import_services_from_firewall.pl:70
+#: migration/0001_import_services_from_firewall.pl:81
+#: migration/0001_import_services_from_firewall.pl:93
+#: migration/0001_import_services_from_firewall.pl:104
+#: migration/0001_import_services_from_firewall.pl:115
+msgid "ebox-services"
+msgstr "eBox-Dienste"
+
+#: migration/0001_import_services_from_firewall.pl:68
+msgid "any"
+msgstr "Alle"
+
+#: migration/0001_import_services_from_firewall.pl:69
+msgid "any protocol and port"
+msgstr "Alle Ports und Protokolle"
+
+#: migration/0001_import_services_from_firewall.pl:79
+msgid "any UDP"
+msgstr "alle UDP"
+
+#: migration/0001_import_services_from_firewall.pl:80
+msgid "any UDP port"
+msgstr "alle UDP-Ports"
+
+#: migration/0001_import_services_from_firewall.pl:91
+msgid "any TCP"
+msgstr "alle TCP"
+
+#: migration/0001_import_services_from_firewall.pl:92
+msgid "any TCP port"
+msgstr "alle TCP-Ports"

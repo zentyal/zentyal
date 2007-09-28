@@ -4,7 +4,7 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-firewall 0.9.3\n"
+"Project-Id-Version: ebox-firewall 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 15:27+0200\n"
 "PO-Revision-Date: 2007-04-09 16:49+0000\n"
@@ -238,13 +238,13 @@ msgstr "interfaccia di rete"
 #: src/EBox/CGI/ObjectService.pm:62
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/ObjectService.pm:62
 msgid "Global services' filtering rules"
-msgstr ""
+msgstr "Regole di filtraggio globali per i servizi"
 
 #: src/EBox/CGI/ObjectService.pm:67
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/ObjectService.pm:67
 #, perl-brace-format
 msgid "Services' filtering rules {desc}"
-msgstr ""
+msgstr "Regole di filtraggio per i servizi {desc}"
 
 #: src/EBox/CGI/Redirects.pm:31 src/EBox/CGI/Redirects.pm:42
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Redirects.pm:31
@@ -606,7 +606,7 @@ msgstr "Configura le regole predefinite"
 #: src/templates/filter.mas:47
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:49
 msgid "Filtering Rules between internal networks"
-msgstr ""
+msgstr "Regole di filtraggio tra reti interne"
 
 #: src/templates/filter.mas:54
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:56
@@ -832,7 +832,7 @@ msgstr "muovi giu"
 #: src/templates/fwdrules.mas:412
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:412
 msgid "any"
-msgstr ""
+msgstr "tutte"
 
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:40
 msgid ""
@@ -847,6 +847,54 @@ msgstr ""
 "regole a i servizi che puo' accedere. Queste regole sono pensate per "
 "controllare l'accesso da una interfaccia di rete interna a un esterna, "
 "forniscono un modo semplice per controllare l'accesso a Internet"
+
+#, fuzzy
+#~ msgid "Decision"
+#~ msgstr "Nega un azione"
+
+#, fuzzy
+#~ msgid "Source IP"
+#~ msgstr "Sorgente"
+
+#, fuzzy
+#~ msgid "Source object"
+#~ msgstr "Porta sorgente"
+
+#, fuzzy
+#~ msgid "Destination IP"
+#~ msgstr "Destinazione"
+
+#, fuzzy
+#~ msgid "Destination object"
+#~ msgstr "Porta destinataria"
+
+#, fuzzy
+#~ msgid "Description"
+#~ msgstr "Destinazione"
+
+#, fuzzy
+#~ msgid "Filtering rules for internal networks"
+#~ msgstr "Regole per l'accesso a Internet"
+
+#, fuzzy
+#~ msgid "Filtering rules from internal networks to eBox"
+#~ msgstr "Regole per l'accesso a Internet"
+
+#, fuzzy
+#~ msgid "Filtering rules for traffic coming out from eBox"
+#~ msgstr "Regole per l'accesso a Internet"
+
+#, fuzzy
+#~ msgid "Filtering rules from external networks to internal networks"
+#~ msgstr "Regole per l'accesso a Internet"
+
+#, fuzzy
+#~ msgid "Filtering rules from  external networks to eBox"
+#~ msgstr "Regole per l'accesso a Internet"
+
+#, fuzzy
+#~ msgid "Filtering rules from external networks to eBox"
+#~ msgstr "Regole per l'accesso a Internet"
 
 #~ msgid "Filtering Rules"
 #~ msgstr "Regole filtraggio"
@@ -863,4 +911,8 @@ msgstr ""
 #~ msgstr "Regole di inoltro"
 
 #~ msgid "Rules for internet access"
+#~ msgstr "Regole per l'accesso a Internet"
+
+#, fuzzy
+#~ msgid "Filtering rules for eBox's services"
 #~ msgstr "Regole per l'accesso a Internet"

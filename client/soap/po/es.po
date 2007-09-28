@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: eBox-soap 0.10\n"
+"Project-Id-Version: ebox-soap 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-06-05 12:14+0200\n"
 "PO-Revision-Date: 2007-06-05 12:04+0200\n"
@@ -26,4 +26,10 @@ msgstr ""
 
 #: src/EBox/SOAP.pm:66
 msgid "Control center"
-msgstr ""
+msgstr "Centro de control"
+
+#~ msgid "Enable SOAP service"
+#~ msgstr "Habilitar servicio SOAP"
+
+#~ msgid "Control center communication"
+#~ msgstr "Comunicación con el centro de control"

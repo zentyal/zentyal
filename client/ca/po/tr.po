@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ca 0.9.3\n"
+"Project-Id-Version: ebox-ca 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 15:04+0200\n"
 "PO-Revision-Date: 2007-05-15 13:12+0000\n"
@@ -212,12 +212,12 @@ msgstr "Yetki Yönetimini Belgelendirme"
 
 #: src/EBox/CGI/CreateCA.pm:108 src/EBox/CGI/IssueCertificate.pm:83
 msgid "CA passphrases do NOT match"
-msgstr ""
+msgstr "CA parolası uymuyor"
 
 #: src/EBox/CGI/CreateCA.pm:118 src/EBox/CGI/IssueCertificate.pm:91
 #, perl-brace-format
 msgid "CA Passphrase should be at least {length} characters"
-msgstr ""
+msgstr "CA parolası en az {length} karakter olmalı"
 
 #: src/EBox/CGI/CreateCA.pm:123 src/EBox/CGI/IssueCertificate.pm:101
 msgid "Days to expire MUST be a natural number"
@@ -378,11 +378,11 @@ msgstr "İptal"
 
 #: src/templates/createCA.mas:13
 msgid "Passphrase"
-msgstr ""
+msgstr "Parola"
 
 #: src/templates/createCA.mas:16
 msgid "Re-passphrase"
-msgstr ""
+msgstr "Parola (tekrar)"
 
 #: src/templates/createCA.mas:19
 msgid "Create"
@@ -407,7 +407,7 @@ msgstr "Bitiş Tarihi"
 #: src/templates/formRevoke.mas:71 src/templates/formRenew.mas:18
 #: src/templates/index.mas:37
 msgid "CA Passphrase"
-msgstr ""
+msgstr "CA Parolası"
 
 #: src/templates/formRenew.mas:31
 msgid "Renew a certificate"
@@ -415,7 +415,7 @@ msgstr "Bir sertifika yenileme"
 
 #: src/templates/index.mas:45
 msgid "Re CA Passphrase"
-msgstr ""
+msgstr "CA Parolası (tekrar)"
 
 #: src/templates/index.mas:51
 msgid "Issue"
@@ -427,7 +427,7 @@ msgstr "Sertifika değişikliği derhal uygulanacak"
 
 #: src/templates/index.mas:60
 msgid "The CA passphrase is optional"
-msgstr ""
+msgstr "CA parolası isteğe bağlıdı"
 
 #: src/templates/index.mas:65
 msgid "Issue the Certification Authority Certificate"

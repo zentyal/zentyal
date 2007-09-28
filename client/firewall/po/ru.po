@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-firewall 0.9.3\n"
+"Project-Id-Version: ebox-firewall 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 15:27+0200\n"
 "PO-Revision-Date: 2007-04-11 16:23+0200\n"
@@ -844,3 +844,59 @@ msgstr ""
 "интерфейсов на внешние. Они обеспечивают более простой путь к контролю над "
 "доступом в Интернет. Вы также можете выбрать объект и установить свои "
 "собственные правила"
+
+#, fuzzy
+#~ msgid "Decision"
+#~ msgstr "Запретить действие"
+
+#, fuzzy
+#~ msgid "Any"
+#~ msgstr "любой"
+
+#, fuzzy
+#~ msgid "Source IP"
+#~ msgstr "Источник"
+
+#, fuzzy
+#~ msgid "Source object"
+#~ msgstr "Исходный порт"
+
+#, fuzzy
+#~ msgid "Destination IP"
+#~ msgstr "Назначение"
+
+#, fuzzy
+#~ msgid "Destination object"
+#~ msgstr "Порт назначения"
+
+#, fuzzy
+#~ msgid "Description"
+#~ msgstr "Назначение"
+
+#, fuzzy
+#~ msgid "Filtering rules for internal networks"
+#~ msgstr "Правила Фильтрации между внутренними сетями"
+
+#, fuzzy
+#~ msgid "Filtering rules from internal networks to eBox"
+#~ msgstr "Правила Фильтрации между внутренними сетями"
+
+#, fuzzy
+#~ msgid "Filtering rules for traffic coming out from eBox"
+#~ msgstr "Правила фильтрации для доступа в Интернет"
+
+#, fuzzy
+#~ msgid "Filtering rules from external networks to internal networks"
+#~ msgstr "Правила Фильтрации между внутренними сетями"
+
+#, fuzzy
+#~ msgid "Filtering rules from  external networks to eBox"
+#~ msgstr "Правила Фильтрации между внутренними сетями"
+
+#, fuzzy
+#~ msgid "Filtering rules from external networks to eBox"
+#~ msgstr "Правила Фильтрации между внутренними сетями"
+
+#, fuzzy
+#~ msgid "Filtering rules for eBox's services"
+#~ msgstr "Правила фильтрации для доступа в Интернет"

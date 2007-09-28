@@ -5,7 +5,7 @@
 # Ignacio Correas <icorreas@warp.es>, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mail 0.9.3\n"
+"Project-Id-Version: ebox-mail 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-05-15 13:08+0000\n"
@@ -128,16 +128,16 @@ msgstr "compte d'alias de courrier"
 #: src/EBox/Mail.pm:273
 #, perl-brace-format
 msgid "Unknown filter {filter}"
-msgstr ""
+msgstr "Filtre inconnu {filter}"
 
 #: src/EBox/Mail.pm:299
 msgid "Cannot change this parameter for a non-custom filter"
-msgstr ""
+msgstr "Impossible de modifier ce paramètre pour un filtre non personnalisé"
 
 #: src/EBox/Mail.pm:314
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
-msgstr ""
+msgstr "Le filtre mail n'existe pas. Veuillez en définir en ou le désactiver"
 
 #: src/EBox/Mail.pm:358 src/EBox/Mail.pm:366 src/EBox/Mail.pm:371
 msgid "remote IP"
@@ -171,9 +171,8 @@ msgid "message size"
 msgstr "taille de message"
 
 #: src/EBox/Mail.pm:990
-#, fuzzy
 msgid "Mail services"
-msgstr "Configuration du service de courrier"
+msgstr "Services mail"
 
 #: src/EBox/Mail.pm:992
 msgid "POP3 service"
@@ -184,14 +183,12 @@ msgid "IMAP service"
 msgstr "Service IMAP"
 
 #: src/EBox/Mail.pm:1014
-#, fuzzy
 msgid "enabled"
-msgstr "Activé"
+msgstr "activé"
 
 #: src/EBox/Mail.pm:1014
-#, fuzzy
 msgid "disabled"
-msgstr "Désactivé"
+msgstr "désactivé"
 
 #: src/EBox/Mail.pm:1017 src/EBox/Mail.pm:1095
 msgid "Status"
@@ -199,18 +196,16 @@ msgstr "Statut"
 
 #: src/EBox/Mail.pm:1028 src/EBox/Mail.pm:1033 src/templates/mailtabs.mas:23
 #: src/templates/mailtabs.mas:26
-#, fuzzy
 msgid "Filter"
-msgstr "Filtre de port"
+msgstr "Filtrer"
 
 #: src/EBox/Mail.pm:1028
 msgid "Custom"
-msgstr ""
+msgstr "Personnaliser"
 
 #: src/EBox/Mail.pm:1030
-#, fuzzy
 msgid "Address"
-msgstr "Adresse de courrier"
+msgstr "Adresse"
 
 #: src/EBox/Mail.pm:1050
 msgid "Mail system"
@@ -499,15 +494,15 @@ msgstr "Déplacez les objets choisis à la colonne interdite"
 
 #: src/templates/index.mas:319
 msgid "none"
-msgstr ""
+msgstr "aucun"
 
 #: src/templates/index.mas:321
 msgid "custom"
-msgstr ""
+msgstr "personnalisé"
 
 #: src/templates/index.mas:346
 msgid "Filter in use"
-msgstr ""
+msgstr "Filtre utilisé"
 
 #: src/templates/index.mas:360
 msgid "Mail forward port"
@@ -698,6 +693,12 @@ msgstr "Configuration"
 #: src/templates/account.mas:15
 msgid "Create mail alias to mail account"
 msgstr "Créer un alias de courrier au compte de courrier"
+
+#, fuzzy
+#~ msgid ""
+#~ "There are no users in the group or the users do not have a mail account, "
+#~ "so an alias account cannot be created"
+#~ msgstr "Il n'y a pas d'utilisateur dans le groupe ou les utilisateur ne"
 
 #~ msgid "module status"
 #~ msgstr "statut de module"

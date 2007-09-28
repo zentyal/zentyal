@@ -4,7 +4,7 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-openvpn 0.9.3\n"
+"Project-Id-Version: ebox-openvpn 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:13+0200\n"
 "PO-Revision-Date: 2007-05-16 13:02+0000\n"
@@ -632,6 +632,133 @@ msgstr "Clave privada usada para crear el certificado del cliente"
 #: src/templates/clientProperties.mas:61
 msgid "Client name"
 msgstr "Nombre del cliente"
+
+#, fuzzy
+#~ msgid "The client certificate can't be the same than the server's one"
+#~ msgstr ""
+#~ "El certificado del cliente no puede ser el mismo que el del servidor"
+
+#~ msgid "Network address {net} with netmask {mask} is not a valid network"
+#~ msgstr ""
+#~ "La dirección de red {net} combinada con la mascara {mask} no es una red "
+#~ "valida"
+
+#~ msgid ""
+#~ "OpenVPN server {name} cannot be activated because there is not any "
+#~ "network interface available"
+#~ msgstr ""
+#~ "El servidor OpenVPN {name} no puede ser activado debido a que no hay "
+#~ "ninguna interfaz de red disponible"
+
+#~ msgid "Network {net} is already advertised in this server"
+#~ msgstr "LA red {net} ya esta siendo anunciada por este servidor"
+
+#, fuzzy
+#~ msgid ""
+#~ "The OpenVPN server cannot grant access to a network which is not reachable"
+#~ msgstr ""
+#~ "El servidor OpenVPN no puede conceder acceso a una red que sea "
+#~ "inaccesible para eBox"
+
+#~ msgid "Network {net} is not advertised in this server"
+#~ msgstr "La red {net} no esta anunciada en este servidor"
+
+#, fuzzy
+#~ msgid "The server requires a network address for the VPN"
+#~ msgstr "El servidor necesita una dirección de red para la VPN"
+
+#, fuzzy
+#~ msgid "The server requires a netmask for its VPN network"
+#~ msgstr "El servidor necesita una mascara de red para su VPN"
+
+#, fuzzy
+#~ msgid "The server requires a port number"
+#~ msgstr "El servidor necesita un numero de puerto"
+
+#, fuzzy
+#~ msgid "A IP protocol must be specified for the client"
+#~ msgstr "Se debe establecer un protocolo IP para el servidor"
+
+#, fuzzy
+#~ msgid "Invalid name {name}. Only alphanumerics and underscores are allowed"
+#~ msgstr ""
+#~ "{name} es un nombre incorrecto para un demonio OpenVPN. Solo "
+#~ "alfanuméricos y guiones bajos están permitidos."
+
+#~ msgid ""
+#~ "Are you sure you want delete the {type} {name}?\n"
+#~ "This action can not be undone."
+#~ msgstr ""
+#~ "Esta seguro de desear borrar el {type} {name}?<br>Esta acción no se puede "
+#~ "deshacer"
+
+#~ msgid "Are you sure you want delete the {type} {name}?"
+#~ msgstr ""
+#~ "Esta seguro de desear borrar el {type} {name}?<br>Esta acción no se puede "
+#~ "deshacer"
+
+#, fuzzy
+#~ msgid "Are you sure you want delete the {type} {name}.?"
+#~ msgstr ""
+#~ "Esta seguro de desear borrar el {type} {name}?<br>Esta acción no se puede "
+#~ "deshacer"
+
+#, fuzzy
+#~ msgid ""
+#~ "The server will listen only in all external interfaces or only in the "
+#~ "interface selected"
+#~ msgstr ""
+#~ "El servidor escuchara en todas las interfaces externas o solo en la "
+#~ "interfaz seleccionada"
+
+#, fuzzy
+#~ msgid "VPN network address"
+#~ msgstr "dirección de red"
+
+#, fuzzy
+#~ msgid "VPN network netmask"
+#~ msgstr "Mascara de red de la VPN"
+
+#, fuzzy
+#~ msgid ""
+#~ "If you want to create a tunnel between two eBox, you will need this "
+#~ "option to allow connections from clients to this server"
+#~ msgstr ""
+#~ "Si quieres crear un túnel entre dos eBox, necesitas esta opción para "
+#~ "poder conectar con la red en el lado del cliente"
+
+#, fuzzy
+#~ msgid ""
+#~ "OpenVPN servers require a certification\n"
+#~ "authority and at least one client certificate. Create them first"
+#~ msgstr ""
+#~ "OpenVPN requiere al menos un certificado de cliente. Crea uno primero."
+
+#, fuzzy
+#~ msgid ""
+#~ "This section manages which networks will be made accessible to connecting "
+#~ "clients"
+#~ msgstr "Puedes administrar que redes seran accesibles por los clientes"
+
+#, fuzzy
+#~ msgid "Client's operative system"
+#~ msgstr "Llave privada del cliente"
+
+#, fuzzy
+#~ msgid "Server's IP address"
+#~ msgstr "Dirección del servidor"
+
+#, fuzzy
+#~ msgid ""
+#~ "Certificate of the Certification Authority. Must be the same used by the "
+#~ "server"
+#~ msgstr ""
+#~ "Certificado de la Autoridad de Certificación. Debe ser el mismo  usado en "
+#~ "el servidor."
+
+#, fuzzy
+#~ msgid "Private key used to unlock the client's certificate"
+#~ msgstr "Clave privada usada para crear el certificado del cliente"
 
 #~ msgid "New server {name} created"
 #~ msgstr "Nuevo servidor {name} creado"

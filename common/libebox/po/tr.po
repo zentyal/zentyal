@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.9.3\n"
+"Project-Id-Version: libebox 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:11+0200\n"
 "PO-Revision-Date: 2007-04-18 19:04+0000\n"
@@ -218,3 +218,51 @@ msgstr "Etkisiz"
 #: src/templates/enable.mas:26 src/templates/enable.mas:31
 msgid "Enabled"
 msgstr "Etkin"
+
+#~ msgid "Directory not found: {d}"
+#~ msgstr "Dizin bulunamadı: {d}"
+
+#~ msgid "Inverse match"
+#~ msgstr "Eşleşenleri tersine çevir"
+
+#~ msgid "From"
+#~ msgstr "Gönderen"
+
+#~ msgid "To"
+#~ msgstr "Kime"
+
+#~ msgid "first"
+#~ msgstr "birinci"
+
+#~ msgid "prev"
+#~ msgstr "önceki"
+
+#~ msgid "next"
+#~ msgstr "sonraki"
+
+#~ msgid "last"
+#~ msgstr "sonuncu"
+
+#~ msgid "eBox's homepage"
+#~ msgstr "eBox web sayfası"
+
+#~ msgid "If you typed the URL manually, please check it"
+#~ msgstr ""
+#~ "Eğer URL adresini eliniz ile girdiyseniz, lütfen tekrar kontrol edin"
+
+#~ msgid ""
+#~ "Maybe a change in eBox's configuration or software made no longer "
+#~ "available the requested page"
+#~ msgstr ""
+#~ "Ebox ayarlarının değiştirişmesi veya yeni bir yazılımın yüklenmesinden "
+#~ "dolayı istenen sayfa mevcut olmayabilir."
+
+#~ msgid ""
+#~ "If you need more help, you may want visit {homepage} for\n"
+#~ "   documentation and mailing lists"
+#~ msgstr ""
+#~ "Detaylı yardım, belge, posta listesi ve açıklama için {homepage} adresini "
+#~ "ziyaret edin."
+
+#~ msgid "we're sorry"
+#~ msgstr "Çok üzgünüz"

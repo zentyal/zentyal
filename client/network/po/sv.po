@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.9.3\n"
+"Project-Id-Version: ebox-network 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-06-06 09:39+0200\n"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:95
 msgid "Protocol"
-msgstr ""
+msgstr "Protokoll"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:104
 #: src/EBox/Model/GatewayDataTable.pm:101 src/EBox/Network.pm:651
@@ -34,11 +34,11 @@ msgstr ""
 #: src/EBox/Network.pm:2049 src/EBox/Network.pm:2122 src/EBox/Network.pm:2142
 #: src/EBox/Network.pm:2163 src/EBox/Network.pm:2186
 msgid "Interface"
-msgstr ""
+msgstr "Nätverksgränssnitt"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:113
 msgid "Source"
-msgstr ""
+msgstr "Källa"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:121
 msgid "Source IP"
@@ -375,12 +375,12 @@ msgstr ""
 
 #: src/templates/routes.mas:28
 msgid "Static routes"
-msgstr ""
+msgstr "Statiska rutter"
 
 #: src/templates/routes.mas:37 src/templates/ifaces.mas:168
 #: src/templates/ifaces.mas:237
 msgid "Action"
-msgstr ""
+msgstr "Åtgärd"
 
 #: src/templates/routes.mas:66 src/templates/routes.mas:68
 #: src/templates/routes.mas:70 src/templates/ifaces.mas:185
@@ -388,7 +388,7 @@ msgstr ""
 #: src/templates/ifaces.mas:274 src/templates/ifaces.mas:276
 #: src/templates/ifaces.mas:278
 msgid "Add"
-msgstr ""
+msgstr "Lägg till"
 
 #: src/templates/routes.mas:89 src/templates/routes.mas:91
 #: src/templates/routes.mas:93 src/templates/ifaces.mas:207
@@ -396,27 +396,27 @@ msgstr ""
 #: src/templates/ifaces.mas:304 src/templates/ifaces.mas:306
 #: src/templates/ifaces.mas:308
 msgid "Delete"
-msgstr ""
+msgstr "Ta bort"
 
 #: src/templates/diag.mas:13 src/templates/diag.mas:20
 msgid "Ping"
-msgstr ""
+msgstr "Ping"
 
 #: src/templates/diag.mas:25
 msgid "Name resolution"
-msgstr ""
+msgstr "Namnuppslag"
 
 #: src/templates/diag.mas:27
 msgid "Domain name"
-msgstr ""
+msgstr "Domännamn"
 
 #: src/templates/diag.mas:32
 msgid "Lookup"
-msgstr ""
+msgstr "Slå upp"
 
 #: src/templates/diag.mas:35
 msgid "Output"
-msgstr ""
+msgstr "Utdata"
 
 #: src/templates/dns.mas:11
 msgid ""
@@ -426,15 +426,15 @@ msgstr ""
 
 #: src/templates/dns.mas:20
 msgid "Primary"
-msgstr ""
+msgstr "Primär"
 
 #: src/templates/dns.mas:32
 msgid "Secondary"
-msgstr ""
+msgstr "Sekundär"
 
 #: src/templates/dns.mas:45
 msgid "Apply"
-msgstr ""
+msgstr "Verkställ"
 
 #: src/templates/gwrules.mas:18
 msgid ""
@@ -472,39 +472,39 @@ msgstr ""
 
 #: src/templates/ifaces.mas:42
 msgid "Method"
-msgstr ""
+msgstr "Metod"
 
 #: src/templates/ifaces.mas:49 src/templates/ifaces.mas:52
 msgid "Static"
-msgstr ""
+msgstr "Statisk"
 
 #: src/templates/ifaces.mas:64 src/templates/ifaces.mas:67
 msgid "Trunk (802.1q)"
-msgstr ""
+msgstr "Trunk (802.1q)"
 
 #: src/templates/ifaces.mas:73 src/templates/ifaces.mas:76
 msgid "Not set"
-msgstr ""
+msgstr "Inte inställd"
 
 #: src/templates/ifaces.mas:86
 msgid "External"
-msgstr ""
+msgstr "Extern"
 
 #: src/templates/ifaces.mas:149
 msgid "Change"
-msgstr ""
+msgstr "Ändra"
 
 #: src/templates/ifaces.mas:158
 msgid "VLAN List"
-msgstr ""
+msgstr "VLAN-lista"
 
 #: src/templates/ifaces.mas:166
 msgid "Description"
-msgstr ""
+msgstr "Beskrivning"
 
 #: src/templates/ifaces.mas:225
 msgid "Virtual interfaces"
-msgstr ""
+msgstr "Virtuella nätverksgränssnitt"
 
 #: src/templates/confirmremove.mas:11 src/templates/confirm.mas:14
 msgid ""
@@ -521,8 +521,8 @@ msgstr ""
 
 #: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: src/templates/confirmremove.mas:29 src/templates/confirm.mas:36
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"

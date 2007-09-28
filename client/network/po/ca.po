@@ -5,7 +5,7 @@
 # Jordi Mallach <jordi@sindominio.net>, 2004.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.9.3\n"
+"Project-Id-Version: ebox-network 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
@@ -558,6 +558,30 @@ msgstr "D'acord"
 #: src/templates/confirmremove.mas:29 src/templates/confirm.mas:36
 msgid "Cancel"
 msgstr "Cancel·la"
+
+#, fuzzy
+#~ msgid "Physical interface list"
+#~ msgstr "Interfícies virtuals"
+
+#, fuzzy
+#~ msgid "interface"
+#~ msgstr "Interfície"
+
+#, fuzzy
+#~ msgid "Configurable interface list"
+#~ msgstr "interfície de xarxa"
+
+#, fuzzy
+#~ msgid "These are the interfaces which can be configured"
+#~ msgstr "Interfícies de xarxa"
+
+#, fuzzy
+#~ msgid "Physical interface"
+#~ msgstr "Interfícies virtuals"
+
+#, fuzzy
+#~ msgid "Vlan interface list"
+#~ msgstr "Interfícies virtuals"
 
 #, fuzzy
 #~ msgid "Rule"

@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-firewall 0.9.3\n"
+"Project-Id-Version: ebox-firewall 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 15:27+0200\n"
 "PO-Revision-Date: 2007-06-06 09:38+0200\n"
@@ -24,7 +24,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:1392
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:1421
 msgid "object"
-msgstr ""
+msgstr "objekt"
 
 #: src/EBox/Firewall.pm:216 src/EBox/Firewall.pm:1036
 #: src/EBox/Firewall.pm:1230 src/EBox/CGI/Deny.pm:41
@@ -39,7 +39,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/ObjectRule.pm:48
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/ObjectRule.pm:65
 msgid "action"
-msgstr ""
+msgstr "åtgärd"
 
 #: src/EBox/Firewall.pm:265 src/EBox/Firewall.pm:298 src/EBox/Firewall.pm:524
 #: src/EBox/Firewall.pm:600 src/EBox/Firewall.pm:963 src/EBox/Firewall.pm:1039
@@ -62,7 +62,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Redirection.pm:61
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Redirection.pm:68
 msgid "protocol"
-msgstr ""
+msgstr "protokoll"
 
 #: src/EBox/Firewall.pm:266 src/EBox/CGI/Redirection.pm:46
 #: src/EBox/CGI/Redirection.pm:64 src/EBox/CGI/Redirection.pm:70
@@ -71,7 +71,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Redirection.pm:64
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Redirection.pm:70
 msgid "destination address"
-msgstr ""
+msgstr "destinationsadress"
 
 #: src/EBox/Firewall.pm:267 src/EBox/Firewall.pm:299
 #: src/EBox/CGI/Redirection.pm:45 src/EBox/CGI/Redirection.pm:55
@@ -83,7 +83,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Redirection.pm:62
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Redirection.pm:69
 msgid "external port"
-msgstr ""
+msgstr "extern port"
 
 #: src/EBox/Firewall.pm:268 src/EBox/Firewall.pm:1052
 #: src/EBox/Firewall.pm:1058 src/EBox/Firewall.pm:1246
@@ -98,7 +98,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Redirection.pm:65
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Redirection.pm:71
 msgid "destination port"
-msgstr ""
+msgstr "destinationsport"
 
 #: src/EBox/Firewall.pm:272
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:272
@@ -119,7 +119,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:811
 #, perl-brace-format
 msgid "Name '{name}' is invalid"
-msgstr ""
+msgstr "Namnet \"{name}\" är ogiltigt"
 
 #: src/EBox/Firewall.pm:525 src/EBox/Firewall.pm:601 src/EBox/Firewall.pm:650
 #: src/EBox/Firewall.pm:970 src/EBox/Firewall.pm:1164
@@ -132,7 +132,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:1189
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:1335
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: src/EBox/Firewall.pm:528 src/EBox/CGI/ChangeObjectService.pm:67
 #: src/EBox/CGI/ChangeObjectService.pm:73
@@ -140,7 +140,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/ChangeObjectService.pm:67
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/ChangeObjectService.pm:73
 msgid "service"
-msgstr ""
+msgstr "tjänst"
 
 #: src/EBox/Firewall.pm:854 src/EBox/Firewall.pm:960 src/EBox/Firewall.pm:1326
 #: src/EBox/Firewall.pm:1417 src/EBox/CGI/ChangeObjectService.pm:68
@@ -152,7 +152,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/ChangeObjectService.pm:68
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/ObjectPolicy.pm:43
 msgid "policy"
-msgstr ""
+msgstr "policy"
 
 #: src/EBox/Firewall.pm:965 src/EBox/Firewall.pm:1044
 #: src/EBox/Firewall.pm:1238 src/EBox/Firewall.pm:1331
@@ -167,7 +167,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:973
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:1339
 msgid "address"
-msgstr ""
+msgstr "adress"
 
 #: src/EBox/Firewall.pm:1049 src/EBox/Firewall.pm:1055
 #: src/EBox/Firewall.pm:1243 src/EBox/Firewall.pm:1249
@@ -176,7 +176,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:1242
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:1248
 msgid "source port"
-msgstr ""
+msgstr "källport"
 
 #: src/EBox/Firewall.pm:1062 src/EBox/Firewall.pm:1065
 #: src/EBox/Firewall.pm:1256 src/EBox/Firewall.pm:1259
@@ -185,33 +185,33 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:1255
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:1258
 msgid "source address"
-msgstr ""
+msgstr "källadress"
 
 #: src/EBox/Firewall.pm:1629
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:1628
 msgid "Rule not found"
-msgstr ""
+msgstr "Regeln hittades inte"
 
 #: src/EBox/Firewall.pm:1709
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:1708
 msgid "Firewall"
-msgstr ""
+msgstr "Brandvägg"
 
 #: src/EBox/Firewall.pm:1713
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:1712
 msgid "Packet Filter"
-msgstr ""
+msgstr "Paketfilter"
 
 #: src/EBox/Firewall.pm:1716
 #: debian/ebox-firewall/usr/share/perl5/EBox/Firewall.pm:1715
 msgid "Redirects"
-msgstr ""
+msgstr "Omdirigeringar"
 
 #: src/EBox/CGI/Filter.pm:31 src/EBox/CGI/Filter.pm:42
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Filter.pm:31
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Filter.pm:42
 msgid "Packet filtering"
-msgstr ""
+msgstr "Paketfiltrering"
 
 #: src/EBox/CGI/ChangeObjectService.pm:62 src/EBox/CGI/ObjectService.pm:113
 #: src/EBox/CGI/ObjectPolicy.pm:41 src/EBox/CGI/ObjectRule.pm:41
@@ -223,7 +223,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Object.pm:46
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Object.pm:51
 msgid "Object"
-msgstr ""
+msgstr "Objekt"
 
 #: src/EBox/CGI/Redirection.pm:44 src/EBox/CGI/Redirection.pm:56
 #: src/EBox/CGI/Redirection.pm:63 src/EBox/CGI/Redirection.pm:67
@@ -232,7 +232,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Redirection.pm:63
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Redirection.pm:67
 msgid "network interface"
-msgstr ""
+msgstr "nätverksgränssnitt"
 
 #: src/EBox/CGI/ObjectService.pm:62
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/ObjectService.pm:62
@@ -249,7 +249,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Redirects.pm:31
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Redirects.pm:42
 msgid "Port redirections"
-msgstr ""
+msgstr "Portomdirigeringar"
 
 #: src/EBox/CGI/FwdRules.pm:30 src/EBox/CGI/FwdRules.pm:42
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/FwdRules.pm:30
@@ -257,7 +257,7 @@ msgstr ""
 #: src/templates/object.mas:37
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/object.mas:37
 msgid "Rules"
-msgstr ""
+msgstr "Regler"
 
 #: src/EBox/CGI/FwdRule.pm:60 src/EBox/CGI/FwdRule.pm:67
 #: src/EBox/CGI/FwdRule.pm:86 src/EBox/CGI/FwdRule.pm:89
@@ -275,34 +275,34 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/ObjectRule.pm:79
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/FwdRuleEdit.pm:45
 msgid "rule"
-msgstr ""
+msgstr "regel"
 
 #: src/EBox/CGI/FwdRuleEdit.pm:30 src/EBox/CGI/FwdRuleEdit.pm:42
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/FwdRuleEdit.pm:30
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/FwdRuleEdit.pm:42
 msgid "Edit rule"
-msgstr ""
+msgstr "Redigera regel"
 
 #: src/EBox/CGI/Object.pm:62
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Object.pm:62
 msgid "Global firewall configuration"
-msgstr ""
+msgstr "Allmän brandväggskonfiguration"
 
 #: src/EBox/CGI/Object.pm:64
 #: debian/ebox-firewall/usr/share/perl5/EBox/CGI/Firewall/Object.pm:64
 #, perl-brace-format
 msgid "Firewall configuration: {desc}"
-msgstr ""
+msgstr "Brandväggskonfiguration: {desc}"
 
 #: src/templates/redirects.mas:23
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/redirects.mas:23
 msgid "Interface"
-msgstr ""
+msgstr "Nätverksgränssnitt"
 
 #: src/templates/redirects.mas:25
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/redirects.mas:25
 msgid "External port"
-msgstr ""
+msgstr "Extern port"
 
 #: src/templates/redirects.mas:27 src/templates/fwdruleedit.mas:32
 #: src/templates/object.mas:50 src/templates/fwdrules.mas:20
@@ -313,12 +313,12 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:20
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:182
 msgid "Protocol"
-msgstr ""
+msgstr "Protokoll"
 
 #: src/templates/redirects.mas:29
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/redirects.mas:29
 msgid "IP address"
-msgstr ""
+msgstr "IP-adress"
 
 #: src/templates/redirects.mas:31 src/templates/object.mas:52
 #: src/templates/fwdrules.mas:186 src/templates/fwdrules.mas:190
@@ -327,7 +327,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:186
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:190
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: src/templates/redirects.mas:33 src/templates/objectService.mas:54
 #: src/templates/object.mas:60 src/templates/fwdrules.mas:192
@@ -336,7 +336,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/object.mas:60
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:192
 msgid "Actions"
-msgstr ""
+msgstr "Åtgärder"
 
 #: src/templates/redirects.mas:78 src/templates/redirects.mas:80
 #: src/templates/redirects.mas:82 src/templates/objectService.mas:41
@@ -351,7 +351,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/object.mas:115
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:166
 msgid "Add"
-msgstr ""
+msgstr "Lägg till"
 
 #: src/templates/redirects.mas:156 src/templates/redirects.mas:158
 #: src/templates/redirects.mas:160 src/templates/fwdruleedit.mas:223
@@ -372,7 +372,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/object.mas:205
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/object.mas:207
 msgid "Change"
-msgstr ""
+msgstr "Ändra"
 
 #: src/templates/redirects.mas:167 src/templates/redirects.mas:169
 #: src/templates/redirects.mas:171 src/templates/objectService.mas:96
@@ -393,12 +393,12 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:323
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:325
 msgid "Delete"
-msgstr ""
+msgstr "Ta bort"
 
 #: src/templates/fwdruleedit.mas:15
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdruleedit.mas:15
 msgid "Enabled"
-msgstr ""
+msgstr "Aktiverad"
 
 #: src/templates/fwdruleedit.mas:60 src/templates/object.mas:56
 #: src/templates/fwdrules.mas:36
@@ -406,7 +406,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/object.mas:56
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:36
 msgid "Action"
-msgstr ""
+msgstr "Åtgärd"
 
 #: src/templates/fwdruleedit.mas:67 src/templates/fwdruleedit.mas:72
 #: src/templates/objectService.mas:37 src/templates/objectService.mas:71
@@ -427,7 +427,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/object.mas:307
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:42
 msgid "Allow"
-msgstr ""
+msgstr "Tillåt"
 
 #: src/templates/fwdruleedit.mas:69 src/templates/fwdruleedit.mas:74
 #: src/templates/objectService.mas:35 src/templates/objectService.mas:73
@@ -448,13 +448,13 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/object.mas:305
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:44
 msgid "Deny"
-msgstr ""
+msgstr "Neka"
 
 #: src/templates/fwdruleedit.mas:84 src/templates/fwdrules.mas:53
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdruleedit.mas:84
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:53
 msgid "Source address"
-msgstr ""
+msgstr "Källadress"
 
 #: src/templates/fwdruleedit.mas:91 src/templates/fwdruleedit.mas:96
 #: src/templates/fwdruleedit.mas:128 src/templates/fwdruleedit.mas:133
@@ -475,7 +475,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:114
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:146
 msgid "is not"
-msgstr ""
+msgstr "är inte"
 
 #: src/templates/fwdruleedit.mas:93 src/templates/fwdruleedit.mas:98
 #: src/templates/fwdruleedit.mas:130 src/templates/fwdruleedit.mas:135
@@ -496,13 +496,13 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:116
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:148
 msgid "is"
-msgstr ""
+msgstr "är"
 
 #: src/templates/fwdruleedit.mas:121 src/templates/fwdrules.mas:85
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdruleedit.mas:121
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:85
 msgid "Source port"
-msgstr ""
+msgstr "Källport"
 
 #: src/templates/fwdruleedit.mas:142 src/templates/fwdruleedit.mas:211
 #: src/templates/fwdrules.mas:98 src/templates/fwdrules.mas:153
@@ -511,7 +511,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:98
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:153
 msgid "to"
-msgstr ""
+msgstr "till"
 
 #: src/templates/fwdruleedit.mas:153 src/templates/object.mas:54
 #: src/templates/fwdrules.mas:108
@@ -519,34 +519,34 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/object.mas:54
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:108
 msgid "Destination address"
-msgstr ""
+msgstr "Destinationsadress"
 
 #: src/templates/fwdruleedit.mas:190 src/templates/fwdrules.mas:140
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdruleedit.mas:190
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:140
 msgid "Destination port"
-msgstr ""
+msgstr "Destinationsport"
 
 #: src/templates/objectService.mas:23
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/objectService.mas:23
 msgid "Services"
-msgstr ""
+msgstr "Tjänster"
 
 #: src/templates/objectService.mas:50
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/objectService.mas:50
 msgid "Service"
-msgstr ""
+msgstr "Tjänst"
 
 #: src/templates/objectService.mas:52 src/templates/object.mas:262
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/objectService.mas:52
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/object.mas:262
 msgid "Policy"
-msgstr ""
+msgstr "Policy"
 
 #: src/templates/filter.mas:9
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:11
 msgid "Deny action"
-msgstr ""
+msgstr "Åtgärd vid nekning"
 
 #: src/templates/filter.mas:12
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:14
@@ -560,23 +560,23 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:20
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:27
 msgid "Drop packets"
-msgstr ""
+msgstr "Kasta paket"
 
 #: src/templates/filter.mas:20 src/templates/filter.mas:23
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:22
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:25
 msgid "Reject packets"
-msgstr ""
+msgstr "Neka paket"
 
 #: src/templates/filter.mas:29
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:31
 msgid "Apply"
-msgstr ""
+msgstr "Verkställ"
 
 #: src/templates/filter.mas:35
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:37
 msgid "Filtering rules for internet access"
-msgstr ""
+msgstr "Filterregler för internetåtkomst"
 
 #: src/templates/filter.mas:38
 msgid ""
@@ -590,17 +590,17 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:44
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:67
 msgid "Configure default rules"
-msgstr ""
+msgstr "Konfigurera standardregler"
 
 #: src/templates/filter.mas:47
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:49
 msgid "Filtering Rules between internal networks"
-msgstr ""
+msgstr "Filterregler mellan interna nätverk"
 
 #: src/templates/filter.mas:54
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:56
 msgid "Configure rules"
-msgstr ""
+msgstr "Konfigurera regler"
 
 #: src/templates/filter.mas:71
 msgid "Configure default rules related to eBox services"
@@ -636,7 +636,7 @@ msgstr ""
 #: src/templates/object.mas:58
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/object.mas:58
 msgid "Active"
-msgstr ""
+msgstr "Aktiv"
 
 #: src/templates/object.mas:225 src/templates/object.mas:227
 #: src/templates/object.mas:229 src/templates/fwdrules.mas:330
@@ -648,7 +648,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:332
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:334
 msgid "Up"
-msgstr ""
+msgstr "Uppåt"
 
 #: src/templates/object.mas:236 src/templates/object.mas:238
 #: src/templates/object.mas:240 src/templates/fwdrules.mas:339
@@ -660,7 +660,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:341
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:343
 msgid "Down"
-msgstr ""
+msgstr "Nedåt"
 
 #: src/templates/object.mas:265
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/object.mas:265
@@ -697,22 +697,22 @@ msgstr ""
 #: src/templates/fwdrules.mas:13
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:13
 msgid "New rule"
-msgstr ""
+msgstr "Ny regel"
 
 #: src/templates/fwdrules.mas:176
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:176
 msgid "Rule list"
-msgstr ""
+msgstr "Regellista"
 
 #: src/templates/fwdrules.mas:184
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:184
 msgid "Source"
-msgstr ""
+msgstr "Källa"
 
 #: src/templates/fwdrules.mas:188
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:188
 msgid "Destination"
-msgstr ""
+msgstr "Destination"
 
 #: src/templates/fwdrules.mas:208 src/templates/fwdrules.mas:210
 #: src/templates/fwdrules.mas:357 src/templates/fwdrules.mas:359
@@ -721,7 +721,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:357
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:359
 msgid "allow"
-msgstr ""
+msgstr "tillåt"
 
 #: src/templates/fwdrules.mas:214 src/templates/fwdrules.mas:216
 #: src/templates/fwdrules.mas:384 src/templates/fwdrules.mas:386
@@ -730,7 +730,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:384
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:386
 msgid "allow (disabled)"
-msgstr ""
+msgstr "tillåt (inaktiverad)"
 
 #: src/templates/fwdrules.mas:220 src/templates/fwdrules.mas:222
 #: src/templates/fwdrules.mas:362 src/templates/fwdrules.mas:364
@@ -739,7 +739,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:362
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:364
 msgid "deny"
-msgstr ""
+msgstr "neka"
 
 #: src/templates/fwdrules.mas:226 src/templates/fwdrules.mas:228
 #: src/templates/fwdrules.mas:389 src/templates/fwdrules.mas:391
@@ -748,7 +748,7 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:389
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:391
 msgid "deny (disabled)"
-msgstr ""
+msgstr "neka (inaktiverad)"
 
 #: src/templates/fwdrules.mas:239 src/templates/fwdrules.mas:241
 #: src/templates/fwdrules.mas:263 src/templates/fwdrules.mas:265
@@ -774,36 +774,36 @@ msgstr ""
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:314
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:316
 msgid "Edit"
-msgstr ""
+msgstr "Redigera"
 
 #: src/templates/fwdrules.mas:367 src/templates/fwdrules.mas:369
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:367
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:369
 msgid "delete"
-msgstr ""
+msgstr "ta bort"
 
 #: src/templates/fwdrules.mas:372 src/templates/fwdrules.mas:374
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:372
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:374
 msgid "edit"
-msgstr ""
+msgstr "redigera"
 
 #: src/templates/fwdrules.mas:394 src/templates/fwdrules.mas:396
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:394
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:396
 msgid "move up"
-msgstr ""
+msgstr "flytta uppåt"
 
 #: src/templates/fwdrules.mas:399 src/templates/fwdrules.mas:401
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:399
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:401
 msgid "move down"
-msgstr ""
+msgstr "flytta nedåt"
 
 #: src/templates/fwdrules.mas:412
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/fwdrules.mas:412
 msgid "any"
-msgstr ""
+msgstr "alla"
 
 #: debian/ebox-firewall/usr/share/ebox/templates/firewall/filter.mas:40
 msgid ""

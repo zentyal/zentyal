@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-openvpn 0.9.3\n"
+"Project-Id-Version: ebox-openvpn 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:13+0200\n"
 "PO-Revision-Date: 2007-06-06 09:39+0200\n"
@@ -22,7 +22,7 @@ msgstr ""
 #: src/EBox/CGI/Delete.pm:15 src/EBox/CGI/Create.pm:15
 #: src/EBox/OpenVPN.pm:1142
 msgid "OpenVPN"
-msgstr ""
+msgstr "OpenVPN"
 
 #: src/EBox/CGI/EditClient.pm:153
 #, perl-brace-format
@@ -62,26 +62,26 @@ msgstr ""
 
 #: src/EBox/CGI/DeleteClient.pm:44
 msgid "Client"
-msgstr ""
+msgstr "Klient"
 
 #: src/EBox/CGI/DeleteClient.pm:74
 #, perl-brace-format
 msgid "Client {name} removed"
-msgstr ""
+msgstr "Klienten {name} togs bort"
 
 #: src/EBox/CGI/CreateClient.pm:101
 #, perl-brace-format
 msgid "New client {name} created"
-msgstr ""
+msgstr "Nya klienten {name} skapades"
 
 #: src/EBox/CGI/Delete.pm:42
 msgid "Server"
-msgstr ""
+msgstr "Server"
 
 #: src/EBox/CGI/Delete.pm:74
 #, perl-brace-format
 msgid "Server {name} removed"
-msgstr ""
+msgstr "Servern {name} togs bort"
 
 #: src/EBox/CGI/Create.pm:98
 #, perl-brace-format
@@ -91,7 +91,7 @@ msgstr ""
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:30
 #: src/EBox/OpenVPN/Client.pm:315 src/templates/clientProperties.mas:18
 msgid "Server's address"
-msgstr ""
+msgstr "Serverns adress"
 
 #: src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:35
 #, perl-brace-format

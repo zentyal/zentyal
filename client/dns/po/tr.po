@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dns 0.9.3\n"
+"Project-Id-Version: ebox-dns 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:11+0200\n"
 "PO-Revision-Date: 2007-04-18 19:37+0000\n"
@@ -153,3 +153,24 @@ msgstr "Düzenle"
 #: src/templates/index.mas:76
 msgid "edit"
 msgstr "Düzenle"
+
+#~ msgid "Hostname"
+#~ msgstr "Makine ismi"
+
+#~ msgid "IP Address"
+#~ msgstr "IP adresi"
+
+#~ msgid "Hostnames"
+#~ msgstr "Makine ismi"
+
+#~ msgid "hostname"
+#~ msgstr "Makine ismi"
+
+#~ msgid "Domains"
+#~ msgstr "Alanlar"
+
+#~ msgid "alias"
+#~ msgstr "Takma ad"
+
+#~ msgid "Alias name"
+#~ msgstr "Takma ad"

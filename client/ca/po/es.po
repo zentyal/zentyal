@@ -6,7 +6,7 @@
 # This file is distributed under the same license as the EBox-CA package.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ca 0.9.3\n"
+"Project-Id-Version: ebox-ca 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 15:04+0200\n"
 "PO-Revision-Date: 2007-05-16 12:57+0000\n"
@@ -221,14 +221,13 @@ msgid "Certification Authority Management"
 msgstr "Gestión de la Autoridad de Certificados"
 
 #: src/EBox/CGI/CreateCA.pm:108 src/EBox/CGI/IssueCertificate.pm:83
-#, fuzzy
 msgid "CA passphrases do NOT match"
-msgstr "Las contraseñas NO coinciden"
+msgstr "Las frases de paso de la CA no coinciden"
 
 #: src/EBox/CGI/CreateCA.pm:118 src/EBox/CGI/IssueCertificate.pm:91
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "CA Passphrase should be at least {length} characters"
-msgstr "Las contraseñas deben ser de al menos 4 caracteres"
+msgstr "Las contraseñas deben ser de al menos {length} caracteres"
 
 #: src/EBox/CGI/CreateCA.pm:123 src/EBox/CGI/IssueCertificate.pm:101
 msgid "Days to expire MUST be a natural number"
@@ -388,14 +387,12 @@ msgid "Revoke"
 msgstr "Revocar"
 
 #: src/templates/createCA.mas:13
-#, fuzzy
 msgid "Passphrase"
-msgstr "Repetir contraseña"
+msgstr "Frase de paso"
 
 #: src/templates/createCA.mas:16
-#, fuzzy
 msgid "Re-passphrase"
-msgstr "Repetir contraseña"
+msgstr "Repetir frase de paso"
 
 #: src/templates/createCA.mas:19
 msgid "Create"
@@ -419,18 +416,16 @@ msgstr "Fecha de expiración"
 
 #: src/templates/formRevoke.mas:71 src/templates/formRenew.mas:18
 #: src/templates/index.mas:37
-#, fuzzy
 msgid "CA Passphrase"
-msgstr "Repetir contraseña"
+msgstr "Frase de paso para la CA"
 
 #: src/templates/formRenew.mas:31
 msgid "Renew a certificate"
 msgstr "Renovar un certificado"
 
 #: src/templates/index.mas:45
-#, fuzzy
 msgid "Re CA Passphrase"
-msgstr "Repetir contraseña"
+msgstr "Repetir frase de para la CA"
 
 #: src/templates/index.mas:51
 msgid "Issue"
@@ -442,7 +437,7 @@ msgstr "Los cambios en los certificados tendrán efecto de manera inmediata"
 
 #: src/templates/index.mas:60
 msgid "The CA passphrase is optional"
-msgstr ""
+msgstr "La frase de paso para la CA es opcional"
 
 #: src/templates/index.mas:65
 msgid "Issue the Certification Authority Certificate"

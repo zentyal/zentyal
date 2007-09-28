@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-openvpn 0.9.3\n"
+"Project-Id-Version: ebox-openvpn 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:13+0200\n"
 "PO-Revision-Date: 2007-04-11 16:24+0200\n"
@@ -623,6 +623,131 @@ msgstr "Секретный ключ использован для создани
 #: src/templates/clientProperties.mas:61
 msgid "Client name"
 msgstr "Имя клиента"
+
+#, fuzzy
+#~ msgid "The client certificate can't be the same than the server's one"
+#~ msgstr "Сертификат клиента не может быть таким же как у сервера"
+
+#, fuzzy
+#~ msgid ""
+#~ "OpenVPN server {name} cannot be activated because there is not any "
+#~ "network interface available"
+#~ msgstr ""
+#~ "OpenVPN-сервер {name} не может быть активирован т.к. нет доступных "
+#~ "сетевых интерфейсов"
+
+#, fuzzy
+#~ msgid "Network {net} is already advertised in this server"
+#~ msgstr "Сеть {net} уже оглашена на этом сервере"
+
+#, fuzzy
+#~ msgid ""
+#~ "The OpenVPN server cannot grant access to a network which is not reachable"
+#~ msgstr ""
+#~ "Сервер OpenVPN не может дать доступ к сети, которая недоступна с eBox"
+
+#, fuzzy
+#~ msgid "Network {net} is not advertised in this server"
+#~ msgstr "Сеть {net} не оглашена на этом сервере"
+
+#, fuzzy
+#~ msgid "The server requires a network address for the VPN"
+#~ msgstr "Серверу требуется маска подсети для VPN"
+
+#, fuzzy
+#~ msgid "The server requires a netmask for its VPN network"
+#~ msgstr "Серверу требуется маска подсети для его VPN-сети"
+
+#, fuzzy
+#~ msgid "The server requires a port number"
+#~ msgstr "Серверу требуется номер порта"
+
+#, fuzzy
+#~ msgid "A IP protocol must be specified for the client"
+#~ msgstr "IP-протокол должен быть определен для сервера"
+
+#, fuzzy
+#~ msgid "Invalid name {name}. Only alphanumerics and underscores are allowed"
+#~ msgstr ""
+#~ "{name} - неверное имя для демона OpenVPN. Только буквенно-цифровые "
+#~ "символы и символ подчеркивания разрешены"
+
+#, fuzzy
+#~ msgid ""
+#~ "Are you sure you want delete the {type} {name}?\n"
+#~ "This action can not be undone."
+#~ msgstr ""
+#~ "Вы уверены что хотите удалить {type} {name}.?\n"
+#~ "Это действие не может быть незавершено."
+
+#, fuzzy
+#~ msgid "Are you sure you want delete the {type} {name}?"
+#~ msgstr ""
+#~ "Вы уверены что хотите удалить {type} {name}.?\n"
+#~ "Это действие не может быть незавершено."
+
+#, fuzzy
+#~ msgid "Are you sure you want delete the {type} {name}.?"
+#~ msgstr ""
+#~ "Вы уверены что хотите удалить {type} {name}.?\n"
+#~ "Это действие не может быть незавершено."
+
+#, fuzzy
+#~ msgid ""
+#~ "The server will listen only in all external interfaces or only in the "
+#~ "interface selected"
+#~ msgstr ""
+#~ "Сервер будет только внешние интерфейсы, либо только выбранные интерфейсы"
+
+#, fuzzy
+#~ msgid "VPN network address"
+#~ msgstr "адрес сети"
+
+#, fuzzy
+#~ msgid "VPN network netmask"
+#~ msgstr "маска VPN-подсети"
+
+#, fuzzy
+#~ msgid ""
+#~ "If you want to create a tunnel between two eBox, you will need this "
+#~ "option to allow connections from clients to this server"
+#~ msgstr ""
+#~ "Если Вы хотите создать туннель между двумя системами eBox, Вам нужна эта "
+#~ "опция для подключения к сети на стороне клиента"
+
+#, fuzzy
+#~ msgid ""
+#~ "OpenVPN servers require a certification\n"
+#~ "authority and at least one client certificate. Create them first"
+#~ msgstr ""
+#~ "Сервера OpenVPN требуют минимум одного клиентского сертификата. Создайте "
+#~ "его сначала."
+
+#, fuzzy
+#~ msgid ""
+#~ "This section manages which networks will be made accessible to connecting "
+#~ "clients"
+#~ msgstr "Вы можете управлять доступом клиентов к сетям"
+
+#, fuzzy
+#~ msgid "Client's operative system"
+#~ msgstr "Секретный ключ клиента"
+
+#, fuzzy
+#~ msgid "Server's IP address"
+#~ msgstr "Адрес сервера"
+
+#, fuzzy
+#~ msgid ""
+#~ "Certificate of the Certification Authority. Must be the same used by the "
+#~ "server"
+#~ msgstr ""
+#~ "Сертификат Службы Сертификации Полномочий (CA). Такой же должен "
+#~ "использоваться на сервере"
+
+#, fuzzy
+#~ msgid "Private key used to unlock the client's certificate"
+#~ msgstr "Секретный ключ использован для создания клиентского сертификата"
 
 #~ msgid "New server {name} created"
 #~ msgstr "Новый сервер {name} создан"

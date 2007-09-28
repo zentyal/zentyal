@@ -11,9 +11,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-objects 0.9.3\n"
+"Project-Id-Version: ebox-objects 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-08-21 17:42+0200\n"
+"POT-Creation-Date: 2007-09-28 09:25+0200\n"
 "PO-Revision-Date: 2007-08-18 12:53+0200\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -22,157 +22,162 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural= (n != 1);\n"
 
-#: src/EBox/CGI/Del.pm:42 src/EBox/CGI/DelFrom.pm:41 src/EBox/CGI/AddTo.pm:41
-#: src/EBox/CGI/Edit.pm:42 src/EBox/CGI/Add.pm:41 src/EBox/Objects.pm:214
-msgid "Object name"
-msgstr "Name der Computergruppe"
-
-#: src/EBox/CGI/AddTo.pm:45 src/templates/edit.mas:16
-msgid "IP address"
-msgstr "IP-Adresse"
-
-#: src/EBox/CGI/AddTo.pm:46 src/templates/edit.mas:17
-msgid "Netmask"
-msgstr "Netzmaske"
-
-#: src/EBox/CGI/AddTo.pm:47 src/templates/edit.mas:15
-#: src/templates/index.mas:27
+#: src/EBox/Model/ObjectTable.pm:63 src/EBox/Model/MemberTable.pm:63
 msgid "Name"
 msgstr "Name"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:41 src/EBox/Objects.pm:37
+#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:88
+msgid "Members"
+msgstr ""
+
+#: src/EBox/Model/ObjectTable.pm:83 src/EBox/Model/ObjectTable.pm:89
+#: src/EBox/Model/MemberTable.pm:94 src/EBox/Objects.pm:40
 msgid "Objects"
 msgstr "Computergruppen"
 
-#: src/EBox/CGI/Edit.pm:29 src/EBox/CGI/Edit.pm:39
-msgid "Edit Object"
-msgstr "Computergruppe bearbeiten"
+#: src/EBox/Model/ObjectTable.pm:90
+#, fuzzy
+msgid "object"
+msgstr "Computergruppe"
 
-#: src/EBox/Objects.pm:42
+#: src/EBox/Model/ObjectTable.pm:130
+msgid "This object is being used by another module"
+msgstr ""
+
+#: src/EBox/Model/MemberTable.pm:71
+#, fuzzy
+msgid "IP Address"
+msgstr "IP-Adresse"
+
+#: src/EBox/Model/MemberTable.pm:77
+#, fuzzy
+msgid "MAC Address"
+msgstr "IP-Adresse"
+
+#: src/EBox/Model/MemberTable.pm:95
+msgid "member"
+msgstr ""
+
+#: src/EBox/Model/MemberTable.pm:138
+msgid "You can only use MAC addresses with hosts"
+msgstr ""
+
+#: src/EBox/Model/MemberTable.pm:141 src/EBox/Model/MemberTable.pm:142
+#: src/EBox/Model/MemberTable.pm:146
+msgid "network address"
+msgstr "Netzwerkadresse"
+
+#: src/EBox/Objects.pm:45
 #, perl-brace-format
 msgid "Added object {object}"
 msgstr "{object} hinzugefügt"
 
-#: src/EBox/Objects.pm:44
+#: src/EBox/Objects.pm:47
 #, perl-brace-format
 msgid "Added {nname} ({ip}/{mask} [{mac}]) to object {object}"
 msgstr "{nname} ({ip}/{mask} [{mac}]) zu Computergruppe {object} hinzugefügt"
 
-#: src/EBox/Objects.pm:45
+#: src/EBox/Objects.pm:48
 #, perl-brace-format
 msgid "Removed object {object}"
 msgstr "{object} entfernt"
 
-#: src/EBox/Objects.pm:47
+#: src/EBox/Objects.pm:50
 #, perl-brace-format
 msgid "Forcefully removed object {object}"
 msgstr "Computergruppe {object} vollständig gelöscht"
 
-#: src/EBox/Objects.pm:49
+#: src/EBox/Objects.pm:52
 #, perl-brace-format
 msgid "Removed {nname} from object {object}"
 msgstr "{nname} aus Computergruppe {object} entfernt"
 
-#: src/EBox/Objects.pm:114 src/EBox/Objects.pm:319 src/EBox/Objects.pm:364
+#: src/EBox/Objects.pm:200
 msgid "Object"
 msgstr "Computergruppe"
 
-#: src/EBox/Objects.pm:225
-#, perl-brace-format
-msgid ""
-"The name '{name}' is already used to identify another object. Please choose "
-"another name"
-msgstr ""
-"Der Name \"{name}\" wird bereits für eine andere Computergruppe verwendet. "
-"Bitte wählen Sie einen anderen Namen"
+#~ msgid "IP address"
+#~ msgstr "IP-Adresse"
 
-#: src/EBox/Objects.pm:332
-msgid "network address"
-msgstr "Netzwerkadresse"
+#~ msgid "Object name"
+#~ msgstr "Name der Computergruppe"
 
-#: src/templates/edit.mas:11
-#, perl-brace-format
-msgid "Edit <span class='stitle'>{description}</span> members"
-msgstr "Mitglieder von <span class='stitle'>{description}</span> bearbeiten"
+#~ msgid "Netmask"
+#~ msgstr "Netzmaske"
 
-#: src/templates/edit.mas:18
-msgid "MAC"
-msgstr "MAC-Adresse"
+#~ msgid "Edit Object"
+#~ msgstr "Computergruppe bearbeiten"
 
-#: src/templates/edit.mas:19 src/templates/index.mas:30
-msgid "Action"
-msgstr "Aktion"
+#~ msgid ""
+#~ "The name '{name}' is already used to identify another object. Please "
+#~ "choose another name"
+#~ msgstr ""
+#~ "Der Name \"{name}\" wird bereits für eine andere Computergruppe "
+#~ "verwendet. Bitte wählen Sie einen anderen Namen"
 
-#: src/templates/edit.mas:57 src/templates/edit.mas:58
-msgid "Add"
-msgstr "Hinzufügen"
+#~ msgid "Edit <span class='stitle'>{description}</span> members"
+#~ msgstr "Mitglieder von <span class='stitle'>{description}</span> bearbeiten"
 
-#: src/templates/edit.mas:88 src/templates/edit.mas:89
-#: src/templates/edit.mas:90 src/templates/index.mas:45
-#: src/templates/index.mas:46 src/templates/delete.mas:21
-msgid "Delete"
-msgstr "Löschen"
+#~ msgid "MAC"
+#~ msgstr "MAC-Adresse"
 
-#: src/templates/edit.mas:99
-msgid "Delete Object"
-msgstr "Computergruppe löschen"
+#~ msgid "Action"
+#~ msgstr "Aktion"
 
-#: src/templates/edit.mas:102
-msgid ""
-"If you delete this object, all the information about its members will be "
-"lost."
-msgstr ""
-"Falls Sie diese Computergruppe löschen, werden alle Informationen über die "
-"Mitglieder gelöscht"
+#~ msgid "Add"
+#~ msgstr "Hinzufügen"
 
-#: src/templates/edit.mas:107
-msgid "Delete object"
-msgstr "Computergruppe löschen"
+#~ msgid "Delete"
+#~ msgstr "Löschen"
 
-#: src/templates/index.mas:10
-msgid "Create new object"
-msgstr "Neue Computergruppe erstellen"
+#~ msgid "Delete Object"
+#~ msgstr "Computergruppe löschen"
 
-#: src/templates/index.mas:12
-msgid ""
-"The objects that you create here can be used in the rest of the system. "
-"Remember that an IP address cannot belong to more than one object."
-msgstr ""
-"Die Computergruppen welche Sie hier erstellen, können im restlichen System "
-"verwendet werden. Denken Sie daran, dass eine IP-Adresse nur zu einer "
-"einzigen Computergruppe gehören darf"
+#~ msgid ""
+#~ "If you delete this object, all the information about its members will be "
+#~ "lost."
+#~ msgstr ""
+#~ "Falls Sie diese Computergruppe löschen, werden alle Informationen über "
+#~ "die Mitglieder gelöscht"
 
-#: src/templates/index.mas:17 src/templates/index.mas:18
-msgid "Create"
-msgstr "Generieren"
+#~ msgid "Delete object"
+#~ msgstr "Computergruppe löschen"
 
-#: src/templates/index.mas:22
-msgid "Object list"
-msgstr "Liste der Computergruppen"
+#~ msgid "Create new object"
+#~ msgstr "Neue Computergruppe erstellen"
 
-#: src/templates/index.mas:41
-msgid "Edit"
-msgstr "Bearbeiten"
+#~ msgid ""
+#~ "The objects that you create here can be used in the rest of the system. "
+#~ "Remember that an IP address cannot belong to more than one object."
+#~ msgstr ""
+#~ "Die Computergruppen welche Sie hier erstellen, können im restlichen "
+#~ "System verwendet werden. Denken Sie daran, dass eine IP-Adresse nur zu "
+#~ "einer einzigen Computergruppe gehören darf"
 
-#: src/templates/index.mas:56
-msgid "edit"
-msgstr "Bearbeiten"
+#~ msgid "Create"
+#~ msgstr "Generieren"
 
-#: src/templates/index.mas:61
-msgid "delete"
-msgstr "Löschen"
+#~ msgid "Object list"
+#~ msgstr "Liste der Computergruppen"
 
-#: src/templates/delete.mas:12
-msgid ""
-"The object you tried to delete is being used by some modules, please confirm "
-"that you want to delete it."
-msgstr ""
-"Die Computergruppe, welche Sie löschen möchten, wird von einigen Modulen "
-"verwendet. Möchten Sie diese trotzdem löschen?"
+#~ msgid "Edit"
+#~ msgstr "Bearbeiten"
 
-#: src/templates/delete.mas:24
-msgid "Cancel"
-msgstr "Abbrechen"
+#~ msgid "edit"
+#~ msgstr "Bearbeiten"
+
+#~ msgid "delete"
+#~ msgstr "Löschen"
+
+#~ msgid ""
+#~ "The object you tried to delete is being used by some modules, please "
+#~ "confirm that you want to delete it."
+#~ msgstr ""
+#~ "Die Computergruppe, welche Sie löschen möchten, wird von einigen Modulen "
+#~ "verwendet. Möchten Sie diese trotzdem löschen?"
+
+#~ msgid "Cancel"
+#~ msgstr "Abbrechen"
 
 #~ msgid "Deleting object"
 #~ msgstr "Computergruppe wird gelöscht"

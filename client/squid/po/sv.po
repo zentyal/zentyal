@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-squid 0.9.3\n"
+"Project-Id-Version: ebox-squid 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:14+0200\n"
 "PO-Revision-Date: 2007-06-06 09:41+0200\n"
@@ -18,27 +18,27 @@ msgstr ""
 
 #: src/EBox/CGI/Enable.pm:42
 msgid "module status"
-msgstr ""
+msgstr "modulstatus"
 
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40
 #: src/EBox/CGI/MimeTypesUI.pm:30 src/EBox/CGI/ExtensionsUI.pm:30
 #: src/EBox/CGI/ExtensionsUI.pm:40 src/EBox/Squid.pm.in:1172
 msgid "HTTP Proxy"
-msgstr ""
+msgstr "HTTP-proxy"
 
 #: src/EBox/CGI/AddCustomFilter.pm:41 src/EBox/CGI/SetFilterList.pm:41
 msgid "Attribute Name"
-msgstr ""
+msgstr "Attributnamn"
 
 #: src/EBox/CGI/AddCustomFilter.pm:42 src/templates/filterTable.mas:40
 msgid "Name"
-msgstr ""
+msgstr "Namn"
 
 #: src/EBox/CGI/AddCustomFilter.pm:43 src/EBox/Squid.pm.in:1201
 #: src/templates/index.mas:134 src/templates/index.mas:137
 #: src/templates/filterTable.mas:47 src/templates/filterTable.mas:70
 msgid "Deny"
-msgstr ""
+msgstr "Neka"
 
 #: src/EBox/CGI/AddCustomFilter.pm:58
 #, perl-brace-format
@@ -47,12 +47,12 @@ msgstr ""
 
 #: src/EBox/CGI/AddCustomFilter.pm:59 src/EBox/CGI/ExtensionsUI.pm:51
 msgid "Extension"
-msgstr ""
+msgstr "Filändelse"
 
 #: src/EBox/CGI/AddCustomFilter.pm:59 src/EBox/CGI/AddCustomFilter.pm:71
 #: src/EBox/CGI/AddCustomFilter.pm:80 src/EBox/CGI/MimeTypesUI.pm:46
 msgid "MIME type"
-msgstr ""
+msgstr "MIME-typ"
 
 #: src/EBox/CGI/AddCustomFilter.pm:70
 #, perl-brace-format

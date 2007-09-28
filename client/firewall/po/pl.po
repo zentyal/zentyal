@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-firewall 0.9.3\n"
+"Project-Id-Version: ebox-firewall 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 15:27+0200\n"
 "PO-Revision-Date: 2007-04-05 20:49+0000\n"
@@ -850,6 +850,54 @@ msgstr ""
 "sieciowych  do interfejsów zewnętrznych. Oferują one prostszy sposób aby "
 "kontrolować dostęp do internetu."
 
+#, fuzzy
+#~ msgid "Decision"
+#~ msgstr "Anuluj"
+
+#, fuzzy
+#~ msgid "Source IP"
+#~ msgstr "Źródłowy"
+
+#, fuzzy
+#~ msgid "Source object"
+#~ msgstr "Port źródłowy"
+
+#, fuzzy
+#~ msgid "Destination IP"
+#~ msgstr "Docelowy"
+
+#, fuzzy
+#~ msgid "Destination object"
+#~ msgstr "Port docelowy"
+
+#, fuzzy
+#~ msgid "Description"
+#~ msgstr "Docelowy"
+
+#, fuzzy
+#~ msgid "Filtering rules for internal networks"
+#~ msgstr "Reguły dostępu do internetu"
+
+#, fuzzy
+#~ msgid "Filtering rules from internal networks to eBox"
+#~ msgstr "Reguły dostępu do internetu"
+
+#, fuzzy
+#~ msgid "Filtering rules for traffic coming out from eBox"
+#~ msgstr "Reguły dostępu do internetu"
+
+#, fuzzy
+#~ msgid "Filtering rules from external networks to internal networks"
+#~ msgstr "Reguły dostępu do internetu"
+
+#, fuzzy
+#~ msgid "Filtering rules from  external networks to eBox"
+#~ msgstr "Reguły dostępu do internetu"
+
+#, fuzzy
+#~ msgid "Filtering rules from external networks to eBox"
+#~ msgstr "Reguły dostępu do internetu"
+
 #~ msgid "Filtering Rules"
 #~ msgstr "Reguły filtracji"
 
@@ -864,4 +912,8 @@ msgstr ""
 #~ msgstr "Reguły przekierowań"
 
 #~ msgid "Rules for internet access"
+#~ msgstr "Reguły dostępu do internetu"
+
+#, fuzzy
+#~ msgid "Filtering rules for eBox's services"
 #~ msgstr "Reguły dostępu do internetu"

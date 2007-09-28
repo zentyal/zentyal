@@ -5,103 +5,111 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-trafficshaping 0.9.3\n"
-"es\n"
+"Project-Id-Version: ebox-trafficshaping 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:14+0200\n"
+"POT-Creation-Date: 2007-09-28 09:26+0200\n"
 "PO-Revision-Date: 2007-06-06 09:41+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/EBox/CGI/Controller/RuleTable.pm:30
-#: src/EBox/CGI/View/RuleMultiTable.pm:34 src/EBox/CGI/View/RuleTable.pm:40
+#: src/EBox/CGI/View/RuleMultiTable.pm:35 src/EBox/CGI/View/RuleTable.pm:41
 msgid "Traffic Shaping rules"
-msgstr ""
+msgstr "Regler för trafikbegränsning"
 
 #: src/EBox/CGI/Index.pm:40
 msgid "Traffic Shaping Management"
-msgstr ""
+msgstr "Hantering av trafikbegränsning"
 
 #: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:63
 msgid "Rules lists per interface"
-msgstr ""
+msgstr "Regler listas per nätverksgränssnitt"
 
 #: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:67
 msgid ""
 "Select an interface to add traffic shaping rules. Keep in mind that if you "
 "are shaping an internal interface, you are doing ingress shaping."
 msgstr ""
+"Välj ett nätverksgränssnitt att lägga till regler för trafikbegränsning för. "
+"Tänk på att om du begränsar ett internt nätverksgränssnitt så gör du en "
+"ingående begränsning. "
 
 #: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:69
 msgid "Choose an interface to shape"
-msgstr ""
+msgstr "Välj ett nätverksgränssnitt att begränsa"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:120
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:111
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:632
 msgid "Service"
-msgstr ""
+msgstr "Tjänst"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:130
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:117
 msgid "Source"
+msgstr "Källa"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:123
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:152
+msgid "Any"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:138
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:126
 msgid "Source IP"
-msgstr ""
+msgstr "Källans IP"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:131
+msgid "Source MAC"
+msgstr "Källans MAC"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:136
+#: src/EBox/TrafficShaping.pm:574
+msgid "Source object"
+msgstr "Källobjekt"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:146
-msgid "Source MAC"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:154
-#: src/EBox/TrafficShaping.pm:558
-msgid "Source object"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:166
 msgid "Destination"
-msgstr ""
+msgstr "Mål"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:174
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:155
 msgid "Destination IP"
-msgstr ""
+msgstr "Målets IP"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:182
-#: src/EBox/TrafficShaping.pm:571
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:160
+#: src/EBox/TrafficShaping.pm:587
 msgid "Destination object"
-msgstr ""
+msgstr "Målobjekt"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:194
-#: src/EBox/TrafficShaping.pm:1098 src/EBox/TrafficShaping.pm:1925
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:170
+#: src/EBox/TrafficShaping.pm:1117 src/EBox/TrafficShaping.pm:1945
 msgid "Priority"
-msgstr ""
+msgstr "Prioritet"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:203
-#: src/EBox/TrafficShaping.pm:231 src/EBox/TrafficShaping.pm:428
-#: src/EBox/TrafficShaping.pm:579 src/EBox/TrafficShaping.pm:1923
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:177
+#: src/EBox/TrafficShaping.pm:247 src/EBox/TrafficShaping.pm:444
+#: src/EBox/TrafficShaping.pm:595 src/EBox/TrafficShaping.pm:1943
 msgid "Guaranteed Rate"
-msgstr ""
+msgstr "Garanterad hastighet"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:180
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:190
+msgid "Kbit/s"
+msgstr "Kbit/s"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:185
+#: src/EBox/TrafficShaping.pm:248 src/EBox/TrafficShaping.pm:448
+#: src/EBox/TrafficShaping.pm:596 src/EBox/TrafficShaping.pm:1944
+msgid "Limited Rate"
+msgstr "Begränsad hastighet"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:197
+msgid "Rules list"
+msgstr "Regellista"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:209
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:220
-msgid "Kbit/s"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:214
-#: src/EBox/TrafficShaping.pm:232 src/EBox/TrafficShaping.pm:432
-#: src/EBox/TrafficShaping.pm:580 src/EBox/TrafficShaping.pm:1924
-msgid "Limited Rate"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:227
-msgid "Rules list"
-msgstr ""
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:239
 msgid ""
 "Adding a rule to the interface should be done following maximum rate allowed "
 "to that interface and the sum of the different guaranteed rates should be at "
@@ -111,9 +119,9 @@ msgid ""
 "priority: 7"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:247
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:217
 msgid "rule"
-msgstr ""
+msgstr "regel"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:233
 #, perl-brace-format
@@ -166,77 +174,65 @@ msgstr ""
 msgid "options"
 msgstr ""
 
-#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:205
-#: src/EBox/TrafficShaping.pm:298 src/EBox/TrafficShaping.pm:344
-#: src/EBox/TrafficShaping.pm:406 src/EBox/TrafficShaping.pm:508
-#: src/EBox/TrafficShaping.pm:769 src/EBox/TrafficShaping.pm:1025
+#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:221
+#: src/EBox/TrafficShaping.pm:314 src/EBox/TrafficShaping.pm:360
+#: src/EBox/TrafficShaping.pm:422 src/EBox/TrafficShaping.pm:524
+#: src/EBox/TrafficShaping.pm:785 src/EBox/TrafficShaping.pm:1041
 msgid "Interface"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:67 src/EBox/TrafficShaping.pm:158
+#: src/EBox/TrafficShaping.pm:69 src/EBox/TrafficShaping.pm:174
 msgid "Traffic Shaping"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:217 src/EBox/TrafficShaping.pm:528
+#: src/EBox/TrafficShaping.pm:233 src/EBox/TrafficShaping.pm:544
 msgid "Guaranteed rate or limited rate"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:346 src/EBox/TrafficShaping.pm:408
+#: src/EBox/TrafficShaping.pm:362 src/EBox/TrafficShaping.pm:424
 msgid "Identifier"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:348
+#: src/EBox/TrafficShaping.pm:364
 msgid "Enabled"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:519
+#: src/EBox/TrafficShaping.pm:535
 msgid "If service is any, some source or destination should be provided"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:540
+#: src/EBox/TrafficShaping.pm:556
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
 "order to to add a new one"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:1039
+#: src/EBox/TrafficShaping.pm:1055
 msgid ""
 "Traffic shaping can be only done in external interfaces which have gateways "
 "associated to"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:1062
+#: src/EBox/TrafficShaping.pm:1081
 msgid "Traffic Shaping Rule"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:1206
+#: src/EBox/TrafficShaping.pm:1226
 msgid "type"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:1236
+#: src/EBox/TrafficShaping.pm:1256
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
 "traffic shaping"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:1921
+#: src/EBox/TrafficShaping.pm:1941
 msgid "Protocol"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:1922
+#: src/EBox/TrafficShaping.pm:1942
 msgid "Port"
-msgstr ""
-
-#: src/templates/index.mas:16
-msgid "Traffic Shaping is applied when eBox is acting as "
-msgstr ""
-
-#: src/templates/index.mas:29
-#, perl-brace-format
-msgid ""
-"Traffic Shaping is applied only to external interfaces which have gateways "
-"with an upload rate set. In order to do so, create a gateway at {openhref}"
-"Network->Gateways{closehref} setting as interface an external one."
 msgstr ""

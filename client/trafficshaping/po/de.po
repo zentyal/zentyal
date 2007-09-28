@@ -6,9 +6,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-trafficshaping 0.9.3\n"
+"Project-Id-Version: ebox-trafficshaping 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-08-21 17:45+0200\n"
+"POT-Creation-Date: 2007-09-28 09:26+0200\n"
 "PO-Revision-Date: 2007-08-19 14:49+0200\n"
 "Last-Translator: andy <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -17,106 +17,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/CGI/View/RuleTable.pm:40 src/EBox/CGI/View/RuleMultiTable.pm:34
 #: src/EBox/CGI/Controller/RuleTable.pm:30
+#: src/EBox/CGI/View/RuleMultiTable.pm:35 src/EBox/CGI/View/RuleTable.pm:41
 msgid "Traffic Shaping rules"
 msgstr "Regeln für Bandbreitenbegrenzung"
 
 #: src/EBox/CGI/Index.pm:40
 msgid "Traffic Shaping Management"
 msgstr "Verwalten der Bandbreitenbegrenzung"
-
-#: src/EBox/TC.pm:69
-msgid "options"
-msgstr "Optionen"
-
-#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:205
-#: src/EBox/TrafficShaping.pm:298 src/EBox/TrafficShaping.pm:344
-#: src/EBox/TrafficShaping.pm:406 src/EBox/TrafficShaping.pm:508
-#: src/EBox/TrafficShaping.pm:769 src/EBox/TrafficShaping.pm:1025
-msgid "Interface"
-msgstr "Netzwerkkarte"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:120
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:632
-msgid "Service"
-msgstr "Dienst"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:130
-msgid "Source"
-msgstr "Quelle"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:138
-msgid "Source IP"
-msgstr "Quell-IP"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:146
-msgid "Source MAC"
-msgstr "Quell-MAC"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:154
-#: src/EBox/TrafficShaping.pm:558
-msgid "Source object"
-msgstr "Quell-Objekt"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:166
-msgid "Destination"
-msgstr "Ziel"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:174
-msgid "Destination IP"
-msgstr "Ziel-IP"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:182
-#: src/EBox/TrafficShaping.pm:571
-msgid "Destination object"
-msgstr "Ziel-Objekt"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:194
-#: src/EBox/TrafficShaping.pm:1098 src/EBox/TrafficShaping.pm:1925
-msgid "Priority"
-msgstr "Priorität"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:203
-#: src/EBox/TrafficShaping.pm:231 src/EBox/TrafficShaping.pm:428
-#: src/EBox/TrafficShaping.pm:579 src/EBox/TrafficShaping.pm:1923
-msgid "Guaranteed Rate"
-msgstr "Garantierte Bandbreite"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:209
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:220
-msgid "Kbit/s"
-msgstr "kBit/s"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:214
-#: src/EBox/TrafficShaping.pm:232 src/EBox/TrafficShaping.pm:432
-#: src/EBox/TrafficShaping.pm:580 src/EBox/TrafficShaping.pm:1924
-msgid "Limited Rate"
-msgstr "Maximale Bandbreite"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:227
-msgid "Rules list"
-msgstr "Liste der Regeln"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:239
-msgid ""
-"Adding a rule to the interface should be done following maximum rate allowed "
-"to that interface and the sum of the different guaranteed rates should be at "
-"much as the total rate allowed. No limited rate or zero means unlimited rate "
-"in terms of bandwidth link. At least, one should be provided.In order to "
-"identify a rule, an attribute should be given.Highest priority: 0 lowest "
-"priority: 7"
-msgstr ""
-"Wenn Sie eine neue Regel für eine Netzwerkkarte hinzufügen, beachten Sie, "
-"dass die Bandbreite für eine Netzwerkkarte grösser sein sollte als die Summe "
-"der maximal erlaubte Bandbreite der einzelnen Regeln. Keine oder null als "
-"maximale Bandbreite bedeutet, dass die verfügbare Bandbreite ausgeschöpft "
-"wird. Geben Sie mindestens eine Regel ein. Um eine Regel zu identifizieren "
-"geben Sie ein Attribut an. Die höchste Priorität ist 0, die tiefste 7."
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:247
-msgid "rule"
-msgstr "Regel"
 
 #: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:63
 msgid "Rules lists per interface"
@@ -134,6 +42,92 @@ msgstr ""
 #: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:69
 msgid "Choose an interface to shape"
 msgstr "Wählen Sie eine externe Netzwerkkarte, die Sie begrenzen möchten"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:111
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:632
+msgid "Service"
+msgstr "Dienst"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:117
+msgid "Source"
+msgstr "Quelle"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:123
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:152
+msgid "Any"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:126
+msgid "Source IP"
+msgstr "Quell-IP"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:131
+msgid "Source MAC"
+msgstr "Quell-MAC"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:136
+#: src/EBox/TrafficShaping.pm:574
+msgid "Source object"
+msgstr "Quell-Objekt"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:146
+msgid "Destination"
+msgstr "Ziel"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:155
+msgid "Destination IP"
+msgstr "Ziel-IP"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:160
+#: src/EBox/TrafficShaping.pm:587
+msgid "Destination object"
+msgstr "Ziel-Objekt"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:170
+#: src/EBox/TrafficShaping.pm:1117 src/EBox/TrafficShaping.pm:1945
+msgid "Priority"
+msgstr "Priorität"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:177
+#: src/EBox/TrafficShaping.pm:247 src/EBox/TrafficShaping.pm:444
+#: src/EBox/TrafficShaping.pm:595 src/EBox/TrafficShaping.pm:1943
+msgid "Guaranteed Rate"
+msgstr "Garantierte Bandbreite"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:180
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:190
+msgid "Kbit/s"
+msgstr "kBit/s"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:185
+#: src/EBox/TrafficShaping.pm:248 src/EBox/TrafficShaping.pm:448
+#: src/EBox/TrafficShaping.pm:596 src/EBox/TrafficShaping.pm:1944
+msgid "Limited Rate"
+msgstr "Maximale Bandbreite"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:197
+msgid "Rules list"
+msgstr "Liste der Regeln"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:209
+msgid ""
+"Adding a rule to the interface should be done following maximum rate allowed "
+"to that interface and the sum of the different guaranteed rates should be at "
+"much as the total rate allowed. No limited rate or zero means unlimited rate "
+"in terms of bandwidth link. At least, one should be provided.In order to "
+"identify a rule, an attribute should be given.Highest priority: 0 lowest "
+"priority: 7"
+msgstr ""
+"Wenn Sie eine neue Regel für eine Netzwerkkarte hinzufügen, beachten Sie, "
+"dass die Bandbreite für eine Netzwerkkarte grösser sein sollte als die Summe "
+"der maximal erlaubte Bandbreite der einzelnen Regeln. Keine oder null als "
+"maximale Bandbreite bedeutet, dass die verfügbare Bandbreite ausgeschöpft "
+"wird. Geben Sie mindestens eine Regel ein. Um eine Regel zu identifizieren "
+"geben Sie ein Attribut an. Die höchste Priorität ist 0, die tiefste 7."
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:217
+msgid "rule"
+msgstr "Regel"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:233
 #, perl-brace-format
@@ -192,29 +186,40 @@ msgstr "Leaf class identifier"
 msgid "Address"
 msgstr "Adresse"
 
-#: src/EBox/TrafficShaping.pm:67 src/EBox/TrafficShaping.pm:158
+#: src/EBox/TC.pm:69
+msgid "options"
+msgstr "Optionen"
+
+#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:221
+#: src/EBox/TrafficShaping.pm:314 src/EBox/TrafficShaping.pm:360
+#: src/EBox/TrafficShaping.pm:422 src/EBox/TrafficShaping.pm:524
+#: src/EBox/TrafficShaping.pm:785 src/EBox/TrafficShaping.pm:1041
+msgid "Interface"
+msgstr "Netzwerkkarte"
+
+#: src/EBox/TrafficShaping.pm:69 src/EBox/TrafficShaping.pm:174
 msgid "Traffic Shaping"
 msgstr "Bandbreitenbegrenzung"
 
-#: src/EBox/TrafficShaping.pm:217 src/EBox/TrafficShaping.pm:528
+#: src/EBox/TrafficShaping.pm:233 src/EBox/TrafficShaping.pm:544
 msgid "Guaranteed rate or limited rate"
 msgstr "Garantierte oder maximale Bandbreite"
 
-#: src/EBox/TrafficShaping.pm:346 src/EBox/TrafficShaping.pm:408
+#: src/EBox/TrafficShaping.pm:362 src/EBox/TrafficShaping.pm:424
 msgid "Identifier"
 msgstr "Identität"
 
-#: src/EBox/TrafficShaping.pm:348
+#: src/EBox/TrafficShaping.pm:364
 msgid "Enabled"
 msgstr "Aktiviert"
 
-#: src/EBox/TrafficShaping.pm:519
+#: src/EBox/TrafficShaping.pm:535
 msgid "If service is any, some source or destination should be provided"
 msgstr ""
 "Wenn der alle Dienste betroffen sind, sollte eine Quelle oder ein Ziel "
 "angegeben werden"
 
-#: src/EBox/TrafficShaping.pm:540
+#: src/EBox/TrafficShaping.pm:556
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
@@ -223,7 +228,7 @@ msgstr ""
 "Es können nicht mehr als {max} Regeln erstellt werden. Löschen Sie "
 "mindestens eine, bevor Sie eine neue hinzufügen"
 
-#: src/EBox/TrafficShaping.pm:1039
+#: src/EBox/TrafficShaping.pm:1055
 msgid ""
 "Traffic shaping can be only done in external interfaces which have gateways "
 "associated to"
@@ -231,15 +236,15 @@ msgstr ""
 "Die Bandbreitenbegrenzung kann nur auf externe Netzwerkkarten mit einem "
 "Gateway angewendet werden"
 
-#: src/EBox/TrafficShaping.pm:1062
+#: src/EBox/TrafficShaping.pm:1081
 msgid "Traffic Shaping Rule"
 msgstr "Regel für Bandbreitenbegrenzung"
 
-#: src/EBox/TrafficShaping.pm:1206
+#: src/EBox/TrafficShaping.pm:1226
 msgid "type"
 msgstr "Typ"
 
-#: src/EBox/TrafficShaping.pm:1236
+#: src/EBox/TrafficShaping.pm:1256
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
@@ -248,11 +253,11 @@ msgstr ""
 "Für die Netzwerkkarte {iface} sollte eine maximale Bandbreite definiert "
 "sein, damit die Bandbreitenbegrenzung überhaupt möglich ist"
 
-#: src/EBox/TrafficShaping.pm:1921
+#: src/EBox/TrafficShaping.pm:1941
 msgid "Protocol"
 msgstr "Protokoll"
 
-#: src/EBox/TrafficShaping.pm:1922
+#: src/EBox/TrafficShaping.pm:1942
 msgid "Port"
 msgstr "Port"
 

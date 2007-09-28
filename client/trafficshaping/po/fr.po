@@ -4,9 +4,9 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-trafficshaping 0.9.3\n"
+"Project-Id-Version: ebox-trafficshaping 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:14+0200\n"
+"POT-Creation-Date: 2007-09-28 09:26+0200\n"
 "PO-Revision-Date: 2007-05-15 14:17+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: none\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/CGI/Controller/RuleTable.pm:30
-#: src/EBox/CGI/View/RuleMultiTable.pm:34 src/EBox/CGI/View/RuleTable.pm:40
+#: src/EBox/CGI/View/RuleMultiTable.pm:35 src/EBox/CGI/View/RuleTable.pm:41
 msgid "Traffic Shaping rules"
 msgstr "Règles de lissage du trafic"
 
@@ -42,68 +42,73 @@ msgstr ""
 msgid "Choose an interface to shape"
 msgstr "Choisissez une interface à lisser"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:120
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:111
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:632
 msgid "Service"
 msgstr "Service"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:130
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:117
 msgid "Source"
 msgstr "Source"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:138
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:123
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:152
+msgid "Any"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:126
 msgid "Source IP"
 msgstr "IP source"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:146
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:131
 msgid "Source MAC"
 msgstr "Source MAC"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:154
-#: src/EBox/TrafficShaping.pm:558
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:136
+#: src/EBox/TrafficShaping.pm:574
 msgid "Source object"
 msgstr "Objet source"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:166
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:146
 msgid "Destination"
 msgstr "Destination"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:174
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:155
 msgid "Destination IP"
 msgstr "IP de destination"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:182
-#: src/EBox/TrafficShaping.pm:571
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:160
+#: src/EBox/TrafficShaping.pm:587
 msgid "Destination object"
 msgstr "Objet de destination"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:194
-#: src/EBox/TrafficShaping.pm:1098 src/EBox/TrafficShaping.pm:1925
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:170
+#: src/EBox/TrafficShaping.pm:1117 src/EBox/TrafficShaping.pm:1945
 msgid "Priority"
 msgstr "Priorité"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:203
-#: src/EBox/TrafficShaping.pm:231 src/EBox/TrafficShaping.pm:428
-#: src/EBox/TrafficShaping.pm:579 src/EBox/TrafficShaping.pm:1923
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:177
+#: src/EBox/TrafficShaping.pm:247 src/EBox/TrafficShaping.pm:444
+#: src/EBox/TrafficShaping.pm:595 src/EBox/TrafficShaping.pm:1943
 msgid "Guaranteed Rate"
 msgstr "Taux garanti"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:209
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:220
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:180
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:190
 msgid "Kbit/s"
 msgstr "Kbit/s"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:214
-#: src/EBox/TrafficShaping.pm:232 src/EBox/TrafficShaping.pm:432
-#: src/EBox/TrafficShaping.pm:580 src/EBox/TrafficShaping.pm:1924
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:185
+#: src/EBox/TrafficShaping.pm:248 src/EBox/TrafficShaping.pm:448
+#: src/EBox/TrafficShaping.pm:596 src/EBox/TrafficShaping.pm:1944
 msgid "Limited Rate"
 msgstr "Taux limité"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:227
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:197
 msgid "Rules list"
 msgstr "Liste des règles"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:239
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:209
 msgid ""
 "Adding a rule to the interface should be done following maximum rate allowed "
 "to that interface and the sum of the different guaranteed rates should be at "
@@ -118,7 +123,7 @@ msgstr ""
 "l'interface. Au moins une valeur doit être définie. Vous devez de même "
 "définir les priorités de chaque règle. La plus haute : 0 . La plus basse : 7"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:247
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:217
 msgid "rule"
 msgstr "règle"
 
@@ -181,36 +186,36 @@ msgstr "Adresse"
 msgid "options"
 msgstr "options"
 
-#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:205
-#: src/EBox/TrafficShaping.pm:298 src/EBox/TrafficShaping.pm:344
-#: src/EBox/TrafficShaping.pm:406 src/EBox/TrafficShaping.pm:508
-#: src/EBox/TrafficShaping.pm:769 src/EBox/TrafficShaping.pm:1025
+#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:221
+#: src/EBox/TrafficShaping.pm:314 src/EBox/TrafficShaping.pm:360
+#: src/EBox/TrafficShaping.pm:422 src/EBox/TrafficShaping.pm:524
+#: src/EBox/TrafficShaping.pm:785 src/EBox/TrafficShaping.pm:1041
 msgid "Interface"
 msgstr "Interface"
 
-#: src/EBox/TrafficShaping.pm:67 src/EBox/TrafficShaping.pm:158
+#: src/EBox/TrafficShaping.pm:69 src/EBox/TrafficShaping.pm:174
 msgid "Traffic Shaping"
 msgstr "Lissage de trafic"
 
-#: src/EBox/TrafficShaping.pm:217 src/EBox/TrafficShaping.pm:528
+#: src/EBox/TrafficShaping.pm:233 src/EBox/TrafficShaping.pm:544
 msgid "Guaranteed rate or limited rate"
 msgstr "Taux garanti ou taux limité"
 
-#: src/EBox/TrafficShaping.pm:346 src/EBox/TrafficShaping.pm:408
+#: src/EBox/TrafficShaping.pm:362 src/EBox/TrafficShaping.pm:424
 msgid "Identifier"
 msgstr "Identifiant"
 
-#: src/EBox/TrafficShaping.pm:348
+#: src/EBox/TrafficShaping.pm:364
 msgid "Enabled"
 msgstr "Activé"
 
-#: src/EBox/TrafficShaping.pm:519
+#: src/EBox/TrafficShaping.pm:535
 msgid "If service is any, some source or destination should be provided"
 msgstr ""
 "Si le service est défini sur \"n'importe lequel /tous\", une source ou une "
 "destination doit être définie"
 
-#: src/EBox/TrafficShaping.pm:540
+#: src/EBox/TrafficShaping.pm:556
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
@@ -219,7 +224,7 @@ msgstr ""
 "Le nombre maximum de compte de règles {max} est atteint. Veuillez en effacer "
 "au moins une"
 
-#: src/EBox/TrafficShaping.pm:1039
+#: src/EBox/TrafficShaping.pm:1055
 msgid ""
 "Traffic shaping can be only done in external interfaces which have gateways "
 "associated to"
@@ -227,15 +232,15 @@ msgstr ""
 "Le lissage de trafic ne peut être appliqué qu'aux interfaces externes qui "
 "ont une passerelle associée"
 
-#: src/EBox/TrafficShaping.pm:1062
+#: src/EBox/TrafficShaping.pm:1081
 msgid "Traffic Shaping Rule"
 msgstr "Règle de lissage de trafic"
 
-#: src/EBox/TrafficShaping.pm:1206
+#: src/EBox/TrafficShaping.pm:1226
 msgid "type"
 msgstr "type"
 
-#: src/EBox/TrafficShaping.pm:1236
+#: src/EBox/TrafficShaping.pm:1256
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
@@ -244,28 +249,27 @@ msgstr ""
 "L'interface {iface} doit avoir un taux de transfert maximum afin de pouvoir "
 "lisser le trafic"
 
-#: src/EBox/TrafficShaping.pm:1921
+#: src/EBox/TrafficShaping.pm:1941
 msgid "Protocol"
 msgstr "Protocole"
 
-#: src/EBox/TrafficShaping.pm:1922
+#: src/EBox/TrafficShaping.pm:1942
 msgid "Port"
 msgstr "Port"
 
-#: src/templates/index.mas:16
-msgid "Traffic Shaping is applied when eBox is acting as "
-msgstr "Le lissage de trafic est appliqué lorsqu'eBox fonctionne en tant que"
+#~ msgid "Traffic Shaping is applied when eBox is acting as "
+#~ msgstr ""
+#~ "Le lissage de trafic est appliqué lorsqu'eBox fonctionne en tant que"
 
-#: src/templates/index.mas:29
-#, perl-brace-format
-msgid ""
-"Traffic Shaping is applied only to external interfaces which have gateways "
-"with an upload rate set. In order to do so, create a gateway at {openhref}"
-"Network->Gateways{closehref} setting as interface an external one."
-msgstr ""
-"Le lissage de trafic ne peut être appliqué qu'aux interfaces externes qui "
-"possédent une passerelle avec un taux d'envoi défini. Créer une passerelle "
-"dans le menu {openhref}Réseau->Passerelles{closehref} "
+#~ msgid ""
+#~ "Traffic Shaping is applied only to external interfaces which have "
+#~ "gateways with an upload rate set. In order to do so, create a gateway at "
+#~ "{openhref}Network->Gateways{closehref} setting as interface an external "
+#~ "one."
+#~ msgstr ""
+#~ "Le lissage de trafic ne peut être appliqué qu'aux interfaces externes qui "
+#~ "possédent une passerelle avec un taux d'envoi défini. Créer une "
+#~ "passerelle dans le menu {openhref}Réseau->Passerelles{closehref} "
 
 #~ msgid ""
 #~ "Select an external interface with gateways associated to add traffic "

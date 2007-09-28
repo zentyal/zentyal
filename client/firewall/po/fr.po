@@ -5,7 +5,7 @@
 # Ignacio Correas <icorreas@warp.es>, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-firewall 0.9.3\n"
+"Project-Id-Version: ebox-firewall 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 15:27+0200\n"
 "PO-Revision-Date: 2007-05-15 13:06+0000\n"
@@ -848,6 +848,58 @@ msgstr ""
 "controler l'accès des interfaces de réseau internes aux externes, elles "
 "fournissent une manière plus simple de controler l'accès à l'Internet."
 
+#, fuzzy
+#~ msgid "Decision"
+#~ msgstr "Déniez l'action"
+
+#, fuzzy
+#~ msgid "Any"
+#~ msgstr "n'importe quel"
+
+#, fuzzy
+#~ msgid "Source IP"
+#~ msgstr "Source"
+
+#, fuzzy
+#~ msgid "Source object"
+#~ msgstr "Port source"
+
+#, fuzzy
+#~ msgid "Destination IP"
+#~ msgstr "Destination"
+
+#, fuzzy
+#~ msgid "Destination object"
+#~ msgstr "Port de destination"
+
+#, fuzzy
+#~ msgid "Description"
+#~ msgstr "Destination"
+
+#, fuzzy
+#~ msgid "Filtering rules for internal networks"
+#~ msgstr "Règles de filtrages entre les réseaux internes"
+
+#, fuzzy
+#~ msgid "Filtering rules from internal networks to eBox"
+#~ msgstr "Règles de filtrages entre les réseaux internes"
+
+#, fuzzy
+#~ msgid "Filtering rules for traffic coming out from eBox"
+#~ msgstr "Règles de filtrage pour l'accès Internet"
+
+#, fuzzy
+#~ msgid "Filtering rules from external networks to internal networks"
+#~ msgstr "Règles de filtrages entre les réseaux internes"
+
+#, fuzzy
+#~ msgid "Filtering rules from  external networks to eBox"
+#~ msgstr "Règles de filtrages entre les réseaux internes"
+
+#, fuzzy
+#~ msgid "Filtering rules from external networks to eBox"
+#~ msgstr "Règles de filtrages entre les réseaux internes"
+
 #~ msgid "Filtering Rules"
 #~ msgstr "Règles de filtrage"
 
@@ -864,3 +916,7 @@ msgstr ""
 
 #~ msgid "Rules for internet access"
 #~ msgstr "Règles pour l'accès d'Internet"
+
+#, fuzzy
+#~ msgid "Filtering rules for eBox's services"
+#~ msgstr "Règles de filtrage pour l'accès Internet"

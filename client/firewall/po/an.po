@@ -4,7 +4,7 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-firewall 0.9.3\n"
+"Project-Id-Version: ebox-firewall 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 15:27+0200\n"
 "PO-Revision-Date: 2007-02-27 22:38+0000\n"
@@ -846,6 +846,58 @@ msgstr ""
 "os enterfazes d'o rete interno ta os d'o esterna. Istos furnen d'una traza "
 "más simpla de controlar l'azeso á internet."
 
+#, fuzzy
+#~ msgid "Decision"
+#~ msgstr "Denegar aizión"
+
+#, fuzzy
+#~ msgid "Any"
+#~ msgstr "cualsiquiera"
+
+#, fuzzy
+#~ msgid "Source IP"
+#~ msgstr "Orichen"
+
+#, fuzzy
+#~ msgid "Source object"
+#~ msgstr "Puerto d'orichen"
+
+#, fuzzy
+#~ msgid "Destination IP"
+#~ msgstr "Destín"
+
+#, fuzzy
+#~ msgid "Destination object"
+#~ msgstr "Puerto de destín"
+
+#, fuzzy
+#~ msgid "Description"
+#~ msgstr "Destín"
+
+#, fuzzy
+#~ msgid "Filtering rules for internal networks"
+#~ msgstr "Regles de filtrato ta l'azeso á Internet"
+
+#, fuzzy
+#~ msgid "Filtering rules from internal networks to eBox"
+#~ msgstr "Regles de filtrato ta l'azeso á Internet"
+
+#, fuzzy
+#~ msgid "Filtering rules for traffic coming out from eBox"
+#~ msgstr "Regles ta l'azeso á internet"
+
+#, fuzzy
+#~ msgid "Filtering rules from external networks to internal networks"
+#~ msgstr "Regles de filtrato ta l'azeso á Internet"
+
+#, fuzzy
+#~ msgid "Filtering rules from  external networks to eBox"
+#~ msgstr "Regles de filtrato ta l'azeso á Internet"
+
+#, fuzzy
+#~ msgid "Filtering rules from external networks to eBox"
+#~ msgstr "Regles de filtrato ta l'azeso á Internet"
+
 #~ msgid "Filtering Rules"
 #~ msgstr "Regles de colato"
 
@@ -860,4 +912,8 @@ msgstr ""
 #~ msgstr "Regles de colato"
 
 #~ msgid "Rules for internet access"
+#~ msgstr "Regles ta l'azeso á internet"
+
+#, fuzzy
+#~ msgid "Filtering rules for eBox's services"
 #~ msgstr "Regles ta l'azeso á internet"

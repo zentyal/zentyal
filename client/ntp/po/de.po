@@ -10,9 +10,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ntp 0.9.3\n"
+"Project-Id-Version: ebox-ntp 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-08-21 17:41+0200\n"
+"POT-Creation-Date: 2007-07-24 12:13+0200\n"
 "PO-Revision-Date: 2007-08-17 22:25+0200\n"
 "Last-Translator: andy <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -20,28 +20,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: src/EBox/CGI/Datetime.pm:30
-msgid "Date and time settings"
-msgstr "Datum und Uhrzeit einstellen"
-
-#: src/EBox/CGI/AddServers.pm:42
-msgid "first ntp server"
-msgstr "Erster NTP-Server"
-
-#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:199
-#: src/templates/servers.mas:16
-msgid "Primary server"
-msgstr "Erster NTP-Server"
-
-#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:213
-#: src/templates/servers.mas:27
-msgid "Secondary server"
-msgstr "Zweiter Server"
-
-#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
-msgid "Tertiary server"
-msgstr "Dritter Server"
 
 #: src/EBox/CGI/Synch.pm:41
 msgid "external synchronize status"
@@ -54,6 +32,40 @@ msgstr "Status des Moduls"
 #: src/EBox/CGI/Index.pm:30
 msgid "NTP Server"
 msgstr "NTP-Server"
+
+#: src/EBox/CGI/Timezone.pm:30
+msgid "Timezone settings"
+msgstr "Einstellungen der Zeitzone"
+
+#: src/EBox/CGI/Datetime.pm:30
+msgid "Date and time settings"
+msgstr "Datum und Uhrzeit einstellen"
+
+#: src/EBox/CGI/ChangeTimeZone.pm:41
+msgid "country"
+msgstr "Land"
+
+#: src/EBox/CGI/ChangeTimeZone.pm:42
+msgid "continent"
+msgstr "Kontinent"
+
+#: src/EBox/CGI/AddServers.pm:42
+msgid "first ntp server"
+msgstr "Erster NTP-Server"
+
+#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:199
+#: src/templates/servers.mas:18
+msgid "Primary server"
+msgstr "Erster NTP-Server"
+
+#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:213
+#: src/templates/servers.mas:30
+msgid "Secondary server"
+msgstr "Zweiter Server"
+
+#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:42
+msgid "Tertiary server"
+msgstr "Dritter Server"
 
 #: src/EBox/CGI/ChangeDate.pm:41
 msgid "Day"
@@ -78,18 +90,6 @@ msgstr "Minuten"
 #: src/EBox/CGI/ChangeDate.pm:46
 msgid "Seconds"
 msgstr "Sekunden"
-
-#: src/EBox/CGI/Timezone.pm:30
-msgid "Timezone settings"
-msgstr "Einstellungen der Zeitzone"
-
-#: src/EBox/CGI/ChangeTimeZone.pm:41
-msgid "country"
-msgstr "Land"
-
-#: src/EBox/CGI/ChangeTimeZone.pm:42
-msgid "continent"
-msgstr "Kontinent"
 
 #: src/EBox/NTP.pm:201
 msgid "primary server"
@@ -141,81 +141,30 @@ msgstr "Zeitzone"
 msgid "NTP server"
 msgstr "NTP-Server"
 
-#: src/templates/date.mas:10
-msgid ""
-"A change in the date or time will cause all eBox services to be restarted"
-msgstr ""
-"Wenn die Uhrzeit oder das Datum geändert wird, müssen alle Dienste der eBox "
-"neu gestartet werden"
+#: src/templates/synch.mas:11 src/templates/synch.mas:16
+msgid "Disabled"
+msgstr "Deaktiviert"
 
-#: src/templates/date.mas:15
-msgid "Date"
-msgstr "Datum"
+#: src/templates/synch.mas:13 src/templates/synch.mas:18
+msgid "Enabled"
+msgstr "Aktiviert"
 
-#: src/templates/date.mas:30
-msgid "January"
-msgstr "Januar"
-
-#: src/templates/date.mas:30
-msgid "February"
-msgstr "Februar"
-
-#: src/templates/date.mas:30
-msgid "March"
-msgstr "März"
-
-#: src/templates/date.mas:30
-msgid "April"
-msgstr "April"
-
-#: src/templates/date.mas:30
-msgid "May"
-msgstr "Mai"
-
-#: src/templates/date.mas:30
-msgid "June"
-msgstr "Juni"
-
-#: src/templates/date.mas:30
-msgid "July"
-msgstr "Juli"
-
-#: src/templates/date.mas:30
-msgid "August"
-msgstr "August"
-
-#: src/templates/date.mas:30
-msgid "September"
-msgstr "September"
-
-#: src/templates/date.mas:30
-msgid "October"
-msgstr "Oktober"
-
-#: src/templates/date.mas:30
-msgid "November"
-msgstr "November"
-
-#: src/templates/date.mas:30
-msgid "December"
-msgstr "Dezember"
-
-#: src/templates/date.mas:55
-msgid "Time"
-msgstr "Zeit"
-
-#: src/templates/date.mas:96 src/templates/date.mas:97
-#: src/templates/servers.mas:50 src/templates/synch.mas:19
-#: src/templates/synch.mas:20 src/templates/timezone.mas:35
-#: src/templates/timezone.mas:36
+#: src/templates/synch.mas:23 src/templates/synch.mas:25
+#: src/templates/servers.mas:55 src/templates/timezone.mas:37
+#: src/templates/timezone.mas:39 src/templates/date.mas:111
+#: src/templates/date.mas:113
 msgid "Change"
 msgstr "Ändern"
+
+#: src/templates/index.mas:11
+msgid "NTP server status"
+msgstr "Status des NTP-Servers"
 
 #: src/templates/servers.mas:7
 msgid "NTP servers"
 msgstr "NTP-Server"
 
-#: src/templates/servers.mas:10
+#: src/templates/servers.mas:11
 msgid ""
 "You should remember to set up your timezone to have synchronization behaving "
 "correctly."
@@ -223,28 +172,83 @@ msgstr ""
 "Denken Sie daran, die Zeitzone einzurichten, damit die Synchronisierung "
 "korrekt funktioniert"
 
-#: src/templates/synch.mas:11 src/templates/synch.mas:14
-msgid "Disabled"
-msgstr "Deaktiviert"
-
-#: src/templates/synch.mas:12 src/templates/synch.mas:15
-msgid "Enabled"
-msgstr "Aktiviert"
-
-#: src/templates/timezone.mas:18
+#: src/templates/timezone.mas:19
 msgid "A time zone change will cause all eBox services to be restarted"
 msgstr ""
 "Wenn die Zeitzone geändert wird, müssen alle Dienste der eBox neu gestartet "
 "werden"
 
-#~ msgid "NTP server status"
-#~ msgstr "Status des NTP-Servers"
+#: src/templates/datetime.mas:13
+msgid "Time synchronization with NTP servers"
+msgstr "Zeitsynchronisation mit NTP-Servern"
 
-#~ msgid "Time synchronization with NTP servers"
-#~ msgstr "Zeitsynchronisation mit NTP-Servern"
+#: src/templates/datetime.mas:18
+msgid "External NTP servers"
+msgstr "Externe NTP-Server"
 
-#~ msgid "External NTP servers"
-#~ msgstr "Externe NTP-Server"
+#: src/templates/datetime.mas:23
+msgid "Change Date and Time"
+msgstr "Datum und Zeit ändern"
 
-#~ msgid "Change Date and Time"
-#~ msgstr "Datum und Zeit ändern"
+#: src/templates/date.mas:10
+msgid ""
+"A change in the date or time will cause all eBox services to be restarted"
+msgstr ""
+"Wenn die Uhrzeit oder das Datum geändert wird, müssen alle Dienste der eBox "
+"neu gestartet werden"
+
+#: src/templates/date.mas:16
+msgid "Date"
+msgstr "Datum"
+
+#: src/templates/date.mas:32
+msgid "January"
+msgstr "Januar"
+
+#: src/templates/date.mas:33
+msgid "February"
+msgstr "Februar"
+
+#: src/templates/date.mas:34
+msgid "March"
+msgstr "März"
+
+#: src/templates/date.mas:35
+msgid "April"
+msgstr "April"
+
+#: src/templates/date.mas:36
+msgid "May"
+msgstr "Mai"
+
+#: src/templates/date.mas:37
+msgid "June"
+msgstr "Juni"
+
+#: src/templates/date.mas:38
+msgid "July"
+msgstr "Juli"
+
+#: src/templates/date.mas:39
+msgid "August"
+msgstr "August"
+
+#: src/templates/date.mas:40
+msgid "September"
+msgstr "September"
+
+#: src/templates/date.mas:41
+msgid "October"
+msgstr "Oktober"
+
+#: src/templates/date.mas:42
+msgid "November"
+msgstr "November"
+
+#: src/templates/date.mas:43
+msgid "December"
+msgstr "Dezember"
+
+#: src/templates/date.mas:69
+msgid "Time"
+msgstr "Zeit"

@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mailfilter 0.9.3\n"
+"Project-Id-Version: ebox-mailfilter 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2005-08-09 10:37+0200\n"
@@ -24,7 +24,7 @@ msgstr ""
 #: src/EBox/CGI/RemoveAllFileFilterElements.pm:29
 #: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:29
 msgid "Mail filter"
-msgstr ""
+msgstr "E-postfilter"
 
 #: src/EBox/CGI/RemoveAllowedMTA.pm:58
 #, perl-brace-format
@@ -32,67 +32,69 @@ msgid ""
 "External mail server {mta} removed. Remember to remove his mail domains from "
 "the external mail domains list"
 msgstr ""
+"Externa e-postservern {mta} togs bort. Kom ihåg att ta bort serverns e-"
+"postdomäner från listan över externa e-postdomäner"
 
 #: src/EBox/CGI/AntispamTraining.pm:80
 #, perl-brace-format
 msgid "Invalid mailbox type: {type}"
-msgstr ""
+msgstr "Ogiltig brevlådetyp: {type}"
 
 #: src/EBox/CGI/AntispamTraining.pm:93
 msgid "Learned from mailbox file"
-msgstr ""
+msgstr "Lärde från brevlådefil"
 
 #: src/EBox/CGI/AddFileFilterElement.pm:66
 #, perl-brace-format
 msgid "{name} is already registered"
-msgstr ""
+msgstr "{name} är redan registrerat"
 
 #: src/EBox/CGI/AddFileFilterElement.pm:74
 #, perl-brace-format
 msgid "{name} added"
-msgstr ""
+msgstr "{name} lades till"
 
 #: src/EBox/CGI/ModifyFileFilterACL.pm:87
 #: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:70
 msgid "Denied settings changed"
-msgstr ""
+msgstr "Nekningsinställningar ändrade"
 
 #: src/EBox/CGI/ModifyFileFilterACL.pm:90
 #: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:73
 msgid "No changes where specified by the user"
-msgstr ""
+msgstr "Inga ändringar angavs av användaren"
 
 #: src/EBox/CGI/RemoveFileFilterElement.pm:66
 #, perl-brace-format
 msgid "{name} is not registered"
-msgstr ""
+msgstr "{name} är inte registrerat"
 
 #: src/EBox/CGI/RemoveFileFilterElement.pm:74
 #, perl-brace-format
 msgid "{name} removed"
-msgstr ""
+msgstr "{name} togs bort"
 
 #: src/EBox/CGI/RemoveSenderACL.pm:74
 msgid "The specified sender is not in the ACL"
-msgstr ""
+msgstr "Angiven avsändare finns inte i ACL"
 
 #: src/EBox/CGI/AddExternalDomain.pm:64
 #, perl-brace-format
 msgid "Mail domain {domain} added to external domain's list."
-msgstr ""
+msgstr "E-postdomänen {domain} lades till i listan över externa domäner."
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
-msgstr ""
+msgstr "modulstatus"
 
 #: src/EBox/CGI/RemoveExternalDomain.pm:58
 #, perl-brace-format
 msgid "Mail domain{domain} removed from external domains list."
-msgstr ""
+msgstr "E-postdomänen {domain} togs bort från listan över externa domäner."
 
 #: src/EBox/CGI/RemoveAllFileFilterElements.pm:67
 msgid "All entries were removed"
-msgstr ""
+msgstr "Alla poster togs bort"
 
 #: src/EBox/CGI/AddAllowedMTA.pm:63
 #, perl-brace-format
@@ -100,25 +102,27 @@ msgid ""
 "External mail server {mta} allowed. Remember to add his mail domains to the "
 "external mail domains list"
 msgstr ""
+"Externa e-postservern {mta} tillåts. Kom ihåg att lägga till serverns e-"
+"postdomäner till listan över externa e-postdomäner"
 
 #: src/EBox/MailFilter/FileFilter.pm:70
 #, perl-brace-format
 msgid "{ext} is not registered in the extensions list"
-msgstr ""
+msgstr "{ext} är inte registrerad i listan över filändelser"
 
 #: src/EBox/MailFilter/FileFilter.pm:137
 #, perl-brace-format
 msgid "{ext} is not registered in the mimeTypes list"
-msgstr ""
+msgstr "{ext} är inte registrerad i listan över MIME-typer"
 
 #: src/EBox/MailFilter/FileFilter.pm:173
 msgid "MIME type"
-msgstr ""
+msgstr "MIME-typ"
 
 #: src/EBox/MailFilter/FileFilter.pm:187
 #: src/templates/fileFilterExtension.mas:15
 msgid "file extension"
-msgstr ""
+msgstr "filändelse"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:290
 msgid "The spam's autolearn threshold must be higher than 6.0"
@@ -483,15 +487,15 @@ msgstr ""
 #: src/templates/antispamACL.mas:64
 #, perl-brace-format
 msgid "Add sender to {type}"
-msgstr ""
+msgstr "Lägg till avsändare till {type}"
 
 #: src/templates/general.mas:11
 msgid "Enable Mail filter system"
-msgstr ""
+msgstr "Aktivera e-postfiltersystem"
 
 #: src/templates/general.mas:27
 msgid "Service port"
-msgstr ""
+msgstr "Tjänsteport"
 
 #: src/templates/general.mas:43
 msgid "Notify of non-spam problematic messages"
@@ -499,59 +503,59 @@ msgstr ""
 
 #: src/templates/general.mas:77
 msgid "Notification"
-msgstr ""
+msgstr "Notifiering"
 
 #: src/templates/general.mas:108
 msgid "External Mail server"
-msgstr ""
+msgstr "Extern e-postserver"
 
 #: src/templates/general.mas:126
 msgid "Allowed external mail servers"
-msgstr ""
+msgstr "Tillåtna externa e-postservrar"
 
 #: src/templates/general.mas:131
 msgid "No allowed external mail servers"
-msgstr ""
+msgstr "Inga tillåtna externa e-postservrar"
 
 #: src/templates/general.mas:135
 msgid "Add external mail server"
-msgstr ""
+msgstr "Lägg till extern e-postserver"
 
 #: src/templates/general.mas:138
 msgid "External mail server"
-msgstr ""
+msgstr "Extern e-postserver"
 
 #: src/templates/general.mas:151
 msgid "External Mail domain"
-msgstr ""
+msgstr "Extern e-postdomän"
 
 #: src/templates/general.mas:169
 msgid "External mail domains"
-msgstr ""
+msgstr "Externa e-postdomäner"
 
 #: src/templates/general.mas:174
 msgid "No external mail domains"
-msgstr ""
+msgstr "Inga externa e-postdomäner"
 
 #: src/templates/general.mas:178
 msgid "Add external mail domain"
-msgstr ""
+msgstr "Lägg till extern e-postdomän"
 
 #: src/templates/general.mas:181
 msgid "External mail domain"
-msgstr ""
+msgstr "Extern e-postdomän"
 
 #: src/templates/vdomain.mas:26
 msgid "Use virus filtering"
-msgstr ""
+msgstr "Använd virusfiltrering"
 
 #: src/templates/vdomain.mas:44
 msgid "Use spam filtering"
-msgstr ""
+msgstr "Använd skräppostfiltrering"
 
 #: src/templates/vdomain.mas:104
 msgid "Mail filter options"
-msgstr ""
+msgstr "Alternativ för e-postfilter"
 
 #: src/templates/vdomain.mas:110
 msgid "Antispam sender access lists"
@@ -559,44 +563,44 @@ msgstr ""
 
 #: src/templates/menutabs.mas:11
 msgid "General"
-msgstr ""
+msgstr "Allmänt"
 
 #: src/templates/menutabs.mas:17
 msgid "Extensions filter"
-msgstr ""
+msgstr "Filter för filändelser"
 
 #: src/templates/menutabs.mas:19
 msgid "MIME Type filter"
-msgstr ""
+msgstr "Filter för MIME-typer"
 
 #: src/templates/menutabs.mas:21
 msgid "Bad formed headers"
-msgstr ""
+msgstr "Felaktigt formulerade rubriker"
 
 #: src/templates/fileFilterMimeType.mas:13
 msgid "Configure denied MIME types"
-msgstr ""
+msgstr "Konfigurera nekade MIME-typer"
 
 #: src/templates/fileFilterMimeType.mas:15
 msgid "MIME Type"
-msgstr ""
+msgstr "MIME-typ"
 
 #: src/templates/fileFilterMimeType.mas:17
 msgid "MIME types"
-msgstr ""
+msgstr "MIME-typer"
 
 #: src/templates/policy.mas:11
 msgid "Pass"
-msgstr ""
+msgstr "Släpp igenom"
 
 #: src/templates/policy.mas:13
 msgid "Reject"
-msgstr ""
+msgstr "Neka"
 
 #: src/templates/policy.mas:15
 msgid "Bounce"
-msgstr ""
+msgstr "Studsa"
 
 #: src/templates/policy.mas:17
 msgid "Discard"
-msgstr ""
+msgstr "Förkasta"

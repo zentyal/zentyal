@@ -5,7 +5,7 @@
 # Ignacio Correas <icorreas@warp.es>, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dns 0.9.3\n"
+"Project-Id-Version: ebox-dns 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:11+0200\n"
 "PO-Revision-Date: 2007-04-12 08:06+0000\n"
@@ -156,6 +156,34 @@ msgstr "Editer"
 #: src/templates/index.mas:76
 msgid "edit"
 msgstr "éditer"
+
+#, fuzzy
+#~ msgid "Hostname"
+#~ msgstr "Nom d'hôte"
+
+#, fuzzy
+#~ msgid "IP Address"
+#~ msgstr "Adresse IP"
+
+#, fuzzy
+#~ msgid "Hostnames"
+#~ msgstr "Nom d'hôte"
+
+#, fuzzy
+#~ msgid "hostname"
+#~ msgstr "nom d'hôte"
+
+#, fuzzy
+#~ msgid "Domains"
+#~ msgstr "Domaine"
+
+#, fuzzy
+#~ msgid "alias"
+#~ msgstr "Alias"
+
+#, fuzzy
+#~ msgid "Alias name"
+#~ msgstr "Alias"
 
 #~ msgid "DNS cache"
 #~ msgstr "Cache DNS"

@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.9.3\n"
+"Project-Id-Version: libebox 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:11+0200\n"
 "PO-Revision-Date: 2007-06-06 09:36+0200\n"
@@ -19,92 +19,103 @@ msgstr ""
 #: src/EBox/Exceptions/DataExists.pm:31
 #, perl-brace-format
 msgid "{data} {value} already exists."
-msgstr ""
+msgstr "{data} {value} finns redan."
 
 #: src/EBox/Exceptions/InvalidData.pm:32
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
-msgstr ""
+msgstr "Ogiltigt värde för {data}: {value}."
 
 #: src/EBox/Exceptions/DataNotFound.pm:30
 #, perl-brace-format
 msgid "{data} {value} does not exist."
-msgstr ""
+msgstr "{data} {value} finns inte."
 
 #: src/EBox/Exceptions/DataMissing.pm:30
 #, perl-brace-format
 msgid "{data} is empty."
-msgstr ""
+msgstr "{data} är tom."
 
 #: src/EBox/CGI/EBox/PageNotFound.pm:12
 msgid "Page not found"
-msgstr ""
+msgstr "Sidan kunde inte hittas"
 
 #: src/EBox/CGI/Base.pm:189
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
 msgstr ""
+"Inmatningen innehåller ogiltiga tecken. Alla alfanumeriska tecken plus dessa "
+"icke-alfabetiska tecknen: /.?&+:-@ och blanksteg tillåts."
 
 #: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:532
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
 msgstr ""
+"Ett internt fel har inträffat. Det här är antagligen ett programfel. "
+"Relevant information kan hittas i loggarna."
 
 #: src/EBox/CGI/Base.pm:321
 msgid ""
 "An internal error related to a template has occurred. This is a bug, "
 "relevant information can be found in the logs."
 msgstr ""
+"Ett internt fel relaterat till en mall har inträffat. Det här är ett "
+"programfel. Relevant information kan hittas i loggarna."
 
 #: src/EBox/CGI/Base.pm:538
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
 msgstr ""
+"Ett oväntat internt fel har inträffat. Det här är ett programfel. Relevant "
+"information kan hittas i loggarna."
 
 #: src/EBox/CGI/Base.pm:544
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
+"Du har precis påträffat ett programfel i eBox. Kontakta teknisk support."
 
 #: src/EBox/CGI/Base.pm:631
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
+"Din begäran kunde inte behandlas eftersom den innehöll felaktiga parametrar"
 
 #: src/EBox/CGI/Base.pm:646
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
+"Din begäran kunde inte behandlas eftersom den saknade nödvändiga parametrar"
 
 #: src/EBox/CGI/Base.pm:782
 msgid "Invalid uploaded file."
-msgstr ""
+msgstr "Ogiltig uppskickad fil."
 
 #: src/EBox/CGI/Base.pm:788
 msgid "Cannot create a temporally file for the upload"
-msgstr ""
+msgstr "Kan inte skapa en temporärfil för sändningen"
 
 #: src/EBox/Sudo.pm:229
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
-msgstr ""
+msgstr "Körning av kommandot \"{cmd}\" som {user} misslyckades"
 
 #: src/EBox/NetWrappers.pm:104 src/EBox/NetWrappers.pm:133
 #: src/EBox/NetWrappers.pm:164 src/EBox/NetWrappers.pm:266
 msgid "Interface"
-msgstr ""
+msgstr "Nätverksgränssnitt"
 
 #: src/EBox/Config.pm.in:55
 #, perl-brace-format
 msgid "Could not open the config file {file}."
-msgstr ""
+msgstr "Kunde inte öppna konfigurationsfilen {file}."
 
 #: src/EBox/Config.pm.in:88
 msgid "The ebox user has not been set in the config file."
-msgstr ""
+msgstr "eBox-användaren har inte ställts in i konfigurationsfilen."
 
 #: src/EBox/Validate.pm:647
 #, perl-brace-format
@@ -112,95 +123,124 @@ msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
 "the permissions forbid access to it"
 msgstr ""
+"Kan inte läsa status på katalog: {dir}. Det kan betyda att katalogen inte "
+"finns eller att rättigheterna inte tillåter åtkomst till den"
 
 #: src/EBox/Validate.pm:652
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
+"Katalogen {dir} är inte privat; därför att den ägs av en annan användare"
 
 #: src/EBox/Validate.pm:727
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
 msgstr ""
+"Filsökvägen som angavs är inte giltig. (För närvarande stöds inte alla av "
+"den giltiga filens tecken) "
 
 #: src/EBox/Validate.pm:755
 msgid "The file path must be absolute"
-msgstr ""
+msgstr "Filsökvägen måste vara absolut"
 
 #: src/templates/ajax/tableBody.mas:48
 msgid "Add new"
-msgstr ""
+msgstr "Lägg till ny"
 
 #: src/templates/ajax/tableBody.mas:59
 #, perl-brace-format
 msgid "Adding a new {row}"
-msgstr ""
+msgstr "Lägger till en ny {row}"
 
 #: src/templates/ajax/tableBody.mas:66
 #, perl-brace-format
 msgid "Editing {row}"
-msgstr ""
+msgstr "Redigerar {row}"
 
 #: src/templates/ajax/tableBody.mas:132
 msgid "Action"
-msgstr ""
+msgstr "Åtgärd"
 
 #: src/templates/ajax/tableBody.mas:327
 msgid "port"
-msgstr ""
+msgstr "port"
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
-msgstr ""
+msgstr "Välj ett av alternativen för att visa associerad tabell"
 
 #: src/templates/ajax/tableSelector.mas:33
 msgid "Choose one..."
-msgstr ""
+msgstr "Välj en..."
 
 #: src/templates/ebox/pageNotFound.mas:14
 msgid "The page can not be found"
-msgstr ""
+msgstr "Sidan kunde inte hittas"
 
 #: src/templates/title.mas:14
 msgid "Display help notes"
-msgstr ""
+msgstr "Visa hjälpanteckningar"
 
 #: src/templates/title.mas:15
 msgid "show help"
-msgstr ""
+msgstr "visa hjälp"
 
 #: src/templates/title.mas:17
 msgid "Hide help notes"
-msgstr ""
+msgstr "Dölj hjälpanteckningar"
 
 #: src/templates/title.mas:18
 msgid "hide help"
-msgstr ""
+msgstr "dölj hjälp"
 
 #: src/templates/language.mas:10
 msgid "Language selection"
-msgstr ""
+msgstr "Språkval"
 
 #: src/templates/language.mas:12
 msgid ""
 "Language changes happen automatically, saving the configuration it's not "
 "needed."
 msgstr ""
+"Ändring av språk händer automatiskt. Du behöver inte spara konfigurationen."
 
 #: src/templates/language.mas:25 src/templates/enable.mas:36
 #: src/templates/enable.mas:38
 msgid "Change"
-msgstr ""
+msgstr "Ändra"
 
 #: src/templates/enable.mas:11
 msgid "Service configuration"
-msgstr ""
+msgstr "Tjänstekonfiguration"
 
 #: src/templates/enable.mas:24 src/templates/enable.mas:29
 msgid "Disabled"
-msgstr ""
+msgstr "Inaktiverad"
 
 #: src/templates/enable.mas:26 src/templates/enable.mas:31
 msgid "Enabled"
-msgstr ""
+msgstr "Aktiverad"
+
+#~ msgid "eBox's homepage"
+#~ msgstr "eBox webbsida"
+
+#~ msgid "If you typed the URL manually, please check it"
+#~ msgstr "Kontrollera url:en om du angav den manuellt"
+
+#~ msgid ""
+#~ "Maybe a change in eBox's configuration or software made no longer "
+#~ "available the requested page"
+#~ msgstr ""
+#~ "Kanske en ändring i eBox konfiguration eller programvaran gjort att den "
+#~ "begärda sidan inte är tillgänglig längre"
+
+#~ msgid ""
+#~ "If you need more help, you may want visit {homepage} for\n"
+#~ "   documentation and mailing lists"
+#~ msgstr ""
+#~ "Om du behöver mer hjälp kan du besöka {homepage} för   dokumentation och "
+#~ "sändlistor"
+
+#~ msgid "we're sorry"
+#~ msgstr "vi ber om ursäkt"

@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mail 0.9.3\n"
+"Project-Id-Version: ebox-mail 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-05-12 23:21+0000\n"
@@ -128,16 +128,18 @@ msgstr "Posta takma adı hesabı"
 #: src/EBox/Mail.pm:273
 #, perl-brace-format
 msgid "Unknown filter {filter}"
-msgstr ""
+msgstr "Bilinmeyen süzgeç: {filter}"
 
 #: src/EBox/Mail.pm:299
 msgid "Cannot change this parameter for a non-custom filter"
-msgstr ""
+msgstr "Özel olmayan süzgeçler için bu parametre değiştirilemez "
 
 #: src/EBox/Mail.pm:314
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
+"Bu posta süzgeci mevcut değil. Lütfen farklı bir süzgeç seçin veya bunu "
+"etkisiz hale getirin"
 
 #: src/EBox/Mail.pm:358 src/EBox/Mail.pm:366 src/EBox/Mail.pm:371
 msgid "remote IP"
@@ -171,9 +173,8 @@ msgid "message size"
 msgstr "ileti boyutu"
 
 #: src/EBox/Mail.pm:990
-#, fuzzy
 msgid "Mail services"
-msgstr "Posta servis ayarları"
+msgstr "Posta servisleri"
 
 #: src/EBox/Mail.pm:992
 msgid "POP3 service"
@@ -184,14 +185,12 @@ msgid "IMAP service"
 msgstr "IMAP hizmeti"
 
 #: src/EBox/Mail.pm:1014
-#, fuzzy
 msgid "enabled"
-msgstr "Etkin"
+msgstr "Etkinleşti"
 
 #: src/EBox/Mail.pm:1014
-#, fuzzy
 msgid "disabled"
-msgstr "Etkisiz"
+msgstr "Etkisizleşti"
 
 #: src/EBox/Mail.pm:1017 src/EBox/Mail.pm:1095
 msgid "Status"
@@ -199,18 +198,16 @@ msgstr "Durum"
 
 #: src/EBox/Mail.pm:1028 src/EBox/Mail.pm:1033 src/templates/mailtabs.mas:23
 #: src/templates/mailtabs.mas:26
-#, fuzzy
 msgid "Filter"
-msgstr "Süzgeç portu"
+msgstr "Süzgeç"
 
 #: src/EBox/Mail.pm:1028
 msgid "Custom"
-msgstr ""
+msgstr "Özel"
 
 #: src/EBox/Mail.pm:1030
-#, fuzzy
 msgid "Address"
-msgstr "Posta adresi"
+msgstr "Adres"
 
 #: src/EBox/Mail.pm:1050
 msgid "Mail system"
@@ -496,15 +493,15 @@ msgstr "Seçili nesneleri 'Engelle' sütununa taşı"
 
 #: src/templates/index.mas:319
 msgid "none"
-msgstr ""
+msgstr "yok"
 
 #: src/templates/index.mas:321
 msgid "custom"
-msgstr ""
+msgstr "Özel"
 
 #: src/templates/index.mas:346
 msgid "Filter in use"
-msgstr ""
+msgstr "Kullanılan süzgeçler"
 
 #: src/templates/index.mas:360
 msgid "Mail forward port"
@@ -695,6 +692,13 @@ msgstr "Ayarlar"
 #: src/templates/account.mas:15
 msgid "Create mail alias to mail account"
 msgstr "Bu posta hesabı için posta takma ismi oluştur"
+
+#~ msgid ""
+#~ "There are no users in the group or the users do not have a mail account, "
+#~ "so an alias account cannot be created"
+#~ msgstr ""
+#~ "Bu grubun içinde kullanıcı mevcut değil veya kullanıcının posta hesabı "
+#~ "yok. Bu yüzden takma isim hesabı oluşturulamıyor."
 
 #~ msgid "module status"
 #~ msgstr "birim durumu"

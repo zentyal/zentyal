@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.9.3\n"
+"Project-Id-Version: ebox-network 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
 "POT-Creation-Date: 2007-07-24 12:12+0200\n"
 "PO-Revision-Date: 2007-04-11 16:24+0200\n"
@@ -550,3 +550,46 @@ msgstr "Ok"
 #: src/templates/confirmremove.mas:29 src/templates/confirm.mas:36
 msgid "Cancel"
 msgstr "Отмена"
+
+#, fuzzy
+#~ msgid "Any"
+#~ msgstr "любой"
+
+#, fuzzy
+#~ msgid "Physical interface list"
+#~ msgstr "Виртуальные интерфейсы"
+
+#, fuzzy
+#~ msgid "interface"
+#~ msgstr "Интерфейс"
+
+#, fuzzy
+#~ msgid "Configurable interface list"
+#~ msgstr "Настроить сетевые интерфейсы"
+
+#, fuzzy
+#~ msgid "These are the interfaces which can be configured"
+#~ msgstr "Сетевой интерфейс сконфигурирован"
+
+#, fuzzy
+#~ msgid "Physical interface"
+#~ msgstr "Виртуальные интерфейсы"
+
+#, fuzzy
+#~ msgid "Vlan interface list"
+#~ msgstr "Виртуальные интерфейсы"
+
+#, fuzzy
+#~ msgid ""
+#~ "To be able to use this feature, you need, at least, two gateways. You can "
+#~ "add them <a href=\"/ebox/Network/View/GatewayDataTable\">here</a> first"
+#~ msgstr "Для включения этой функции Вам необходимо, как минимум, два шлюза."
+
+#, fuzzy
+#~ msgid ""
+#~ "If you choose to continue, all modules that make use of the current "
+#~ "configuration of this network interface will delete the relevant parts of "
+#~ "their configuration. Choose \"Cancel\" if you are not sure about this."
+#~ msgstr ""
+#~ "Если Вы продолжите то все модули, использующие текущую конфигурацию этого "
+#~ "сетевого интерфейса удалят важные части своей конфигурации."

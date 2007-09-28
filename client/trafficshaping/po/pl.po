@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-trafficshaping 0.9.3\n"
+"Project-Id-Version: ebox-trafficshaping 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:14+0200\n"
+"POT-Creation-Date: 2007-09-28 09:26+0200\n"
 "PO-Revision-Date: 2007-04-05 15:54+0000\n"
 "Last-Translator: Krzysztof Kubanek <krzysztof.kubanek@gmail.com>\n"
 "Language-Team: none\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/CGI/Controller/RuleTable.pm:30
-#: src/EBox/CGI/View/RuleMultiTable.pm:34 src/EBox/CGI/View/RuleTable.pm:40
+#: src/EBox/CGI/View/RuleMultiTable.pm:35 src/EBox/CGI/View/RuleTable.pm:41
 msgid "Traffic Shaping rules"
 msgstr "Reguły kierowania ruchu"
 
@@ -43,68 +43,73 @@ msgstr ""
 msgid "Choose an interface to shape"
 msgstr "Wybierz interfejs zewnętrzny aby kierować ruchem"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:120
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:111
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:632
 msgid "Service"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:130
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:117
 msgid "Source"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:138
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:123
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:152
+msgid "Any"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:126
 msgid "Source IP"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:146
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:131
 msgid "Source MAC"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:154
-#: src/EBox/TrafficShaping.pm:558
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:136
+#: src/EBox/TrafficShaping.pm:574
 msgid "Source object"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:166
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:146
 msgid "Destination"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:174
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:155
 msgid "Destination IP"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:182
-#: src/EBox/TrafficShaping.pm:571
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:160
+#: src/EBox/TrafficShaping.pm:587
 msgid "Destination object"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:194
-#: src/EBox/TrafficShaping.pm:1098 src/EBox/TrafficShaping.pm:1925
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:170
+#: src/EBox/TrafficShaping.pm:1117 src/EBox/TrafficShaping.pm:1945
 msgid "Priority"
 msgstr "Priorytet"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:203
-#: src/EBox/TrafficShaping.pm:231 src/EBox/TrafficShaping.pm:428
-#: src/EBox/TrafficShaping.pm:579 src/EBox/TrafficShaping.pm:1923
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:177
+#: src/EBox/TrafficShaping.pm:247 src/EBox/TrafficShaping.pm:444
+#: src/EBox/TrafficShaping.pm:595 src/EBox/TrafficShaping.pm:1943
 msgid "Guaranteed Rate"
 msgstr "Gwarantowana przepustowość"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:209
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:220
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:180
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:190
 msgid "Kbit/s"
 msgstr "Kbit/s"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:214
-#: src/EBox/TrafficShaping.pm:232 src/EBox/TrafficShaping.pm:432
-#: src/EBox/TrafficShaping.pm:580 src/EBox/TrafficShaping.pm:1924
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:185
+#: src/EBox/TrafficShaping.pm:248 src/EBox/TrafficShaping.pm:448
+#: src/EBox/TrafficShaping.pm:596 src/EBox/TrafficShaping.pm:1944
 msgid "Limited Rate"
 msgstr "Ograniczona przepustowość"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:227
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:197
 msgid "Rules list"
 msgstr "Lista reguł"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:239
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:209
 #, fuzzy
 msgid ""
 "Adding a rule to the interface should be done following maximum rate allowed "
@@ -119,7 +124,7 @@ msgstr ""
 "przepustowość. Brak reguł, lub wpisanie 0 (zero) oznacza ustawienie "
 "nieograniczonej przepustowości."
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:247
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:217
 msgid "rule"
 msgstr "reguła"
 
@@ -185,35 +190,35 @@ msgstr ""
 msgid "options"
 msgstr "opcje"
 
-#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:205
-#: src/EBox/TrafficShaping.pm:298 src/EBox/TrafficShaping.pm:344
-#: src/EBox/TrafficShaping.pm:406 src/EBox/TrafficShaping.pm:508
-#: src/EBox/TrafficShaping.pm:769 src/EBox/TrafficShaping.pm:1025
+#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:221
+#: src/EBox/TrafficShaping.pm:314 src/EBox/TrafficShaping.pm:360
+#: src/EBox/TrafficShaping.pm:422 src/EBox/TrafficShaping.pm:524
+#: src/EBox/TrafficShaping.pm:785 src/EBox/TrafficShaping.pm:1041
 msgid "Interface"
 msgstr "Interfejs"
 
-#: src/EBox/TrafficShaping.pm:67 src/EBox/TrafficShaping.pm:158
+#: src/EBox/TrafficShaping.pm:69 src/EBox/TrafficShaping.pm:174
 msgid "Traffic Shaping"
 msgstr "Kształtowanie Ruchu"
 
-#: src/EBox/TrafficShaping.pm:217 src/EBox/TrafficShaping.pm:528
+#: src/EBox/TrafficShaping.pm:233 src/EBox/TrafficShaping.pm:544
 msgid "Guaranteed rate or limited rate"
 msgstr "Gwarantowana lub ograniczona przepustowość"
 
-#: src/EBox/TrafficShaping.pm:346 src/EBox/TrafficShaping.pm:408
+#: src/EBox/TrafficShaping.pm:362 src/EBox/TrafficShaping.pm:424
 msgid "Identifier"
 msgstr "Identyfikator"
 
-#: src/EBox/TrafficShaping.pm:348
+#: src/EBox/TrafficShaping.pm:364
 msgid "Enabled"
 msgstr "Włączone"
 
-#: src/EBox/TrafficShaping.pm:519
+#: src/EBox/TrafficShaping.pm:535
 msgid "If service is any, some source or destination should be provided"
 msgstr ""
 
-#: src/EBox/TrafficShaping.pm:540
-#, fuzzy, perl-brace-format
+#: src/EBox/TrafficShaping.pm:556
+#, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
 "order to to add a new one"
@@ -221,7 +226,7 @@ msgstr ""
 "Została osiągnięta maksymalna ( {max} ) ilość reguł. Aby dodać następną usuń "
 "jedną z istniejących."
 
-#: src/EBox/TrafficShaping.pm:1039
+#: src/EBox/TrafficShaping.pm:1055
 msgid ""
 "Traffic shaping can be only done in external interfaces which have gateways "
 "associated to"
@@ -229,15 +234,15 @@ msgstr ""
 "Kształtowanie ruchu może zostać uruchomione tylko na interfejsach "
 "zewnętrznych, które posiadają zdefiniowane w konfiguracji bramy."
 
-#: src/EBox/TrafficShaping.pm:1062
+#: src/EBox/TrafficShaping.pm:1081
 msgid "Traffic Shaping Rule"
 msgstr "Reguła kształtowania ruchu"
 
-#: src/EBox/TrafficShaping.pm:1206
+#: src/EBox/TrafficShaping.pm:1226
 msgid "type"
 msgstr "typ"
 
-#: src/EBox/TrafficShaping.pm:1236
+#: src/EBox/TrafficShaping.pm:1256
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
@@ -246,28 +251,23 @@ msgstr ""
 "Interfejs {iface} powinien mieć ustawioną maksymalna przepustowość w celu "
 "wykonywania kształtowanie ruchu."
 
-#: src/EBox/TrafficShaping.pm:1921
+#: src/EBox/TrafficShaping.pm:1941
 msgid "Protocol"
 msgstr "Protokół"
 
-#: src/EBox/TrafficShaping.pm:1922
+#: src/EBox/TrafficShaping.pm:1942
 msgid "Port"
 msgstr "Port"
 
-#: src/templates/index.mas:16
-msgid "Traffic Shaping is applied when eBox is acting as "
-msgstr ""
-
-#: src/templates/index.mas:29
-#, perl-brace-format
-msgid ""
-"Traffic Shaping is applied only to external interfaces which have gateways "
-"with an upload rate set. In order to do so, create a gateway at {openhref}"
-"Network->Gateways{closehref} setting as interface an external one."
-msgstr ""
-"Kształtowanie ruchu włączyć można tylko na zewnętrznych interfejsach z "
-"ustawioną bramą oraz określona szybkością. Aby ustawić powyższe opcje "
-"przejdź do {openhref}Network->Gateways{closehref}"
+#~ msgid ""
+#~ "Traffic Shaping is applied only to external interfaces which have "
+#~ "gateways with an upload rate set. In order to do so, create a gateway at "
+#~ "{openhref}Network->Gateways{closehref} setting as interface an external "
+#~ "one."
+#~ msgstr ""
+#~ "Kształtowanie ruchu włączyć można tylko na zewnętrznych interfejsach z "
+#~ "ustawioną bramą oraz określona szybkością. Aby ustawić powyższe opcje "
+#~ "przejdź do {openhref}Network->Gateways{closehref}"
 
 #~ msgid ""
 #~ "Select an external interface with gateways associated to add traffic "
