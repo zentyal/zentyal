@@ -66,13 +66,52 @@ sub _create
 
 # Method: models
 #
-#      Overrides <EBox::ModelImplementator::models>
+#      Overrides <EBox::ModelProvider::models>
 #
 sub models {
        my ($self) = @_;
 
        return [$self->{'objectModel'}, $self->{'memberModel'}];
 }
+
+# Method: _exposedMethods
+#
+# Overrides:
+#
+#      <EBox::ModelProvider::_exposedMethods>
+#
+sub _exposedMethods
+  {
+
+      my ($self) = @_;
+
+      my %exposedMethods =
+        (
+         'objectDescription1' => { action   => 'get',
+                                   path     => [ 'ObjectTable' ],
+                                   indexes  => [ 'id' ],
+                                   selector => [ 'name' ],
+                                 },
+         'addObject1' => { action => 'add',
+                           path   => [ 'ObjectTable' ],
+                         },
+         'setMemberIP' => { action   => 'set',
+                            path     => [ 'ObjectTable', 'members' ],
+                            indexes  => [ 'name', 'name' ],
+                            selector => [ 'ipaddr' ]
+                          },
+         'addMember' => { action  => 'add',
+                          path    => [ 'ObjectTable', 'members' ],
+                          indexes => [ 'name' ],
+                        },
+         'removeMember' => { action  => 'del',
+                             path    => [ 'ObjectTable', 'members' ],
+                             indexes => [ 'name', 'name' ],
+         );
+
+      return \%exposedMethods;
+
+  }
 
 # Method: objects
 #
@@ -88,7 +127,7 @@ sub objects
 {
 	my ($self) = @_;
 
-	$self->{'objectModel'}->printableValueRows();
+	return $self->{'objectModel'}->printableValueRows();
 }
 
 # objectIds
@@ -147,6 +186,8 @@ sub objectMembers # (object)
     return \@members;
 }
 
+# getMembersToObjectTable($id)
+
 # objectAddresses
 #
 #   	Return the network addresses of a member 
@@ -172,11 +213,13 @@ sub objectAddresses# (object)
 	return \@ips;
 }
 
+# getMembersToObjectTable($id, [ 'ipaddr' ])
+
 # Method: objectDescription
 #   
 # 	Return the description of an Object
 #
-# Parameteres:
+# Parameters:
 #   
 #	id - object's id
 #
@@ -202,6 +245,8 @@ sub objectDescription  # (object)
      	}
 	return $object->{'name'};
 }
+
+# get ( $id, ['name'])
 
 # Method: objectInUse
 #
@@ -255,6 +300,7 @@ sub objectExists # (name)
 	return defined($self->{'objectModel'}->find('id' => $id));
 }
 
+# return defined ( $self->{objectModel}->get($id) );
 
 # Method: removeObjectForce 
 #
@@ -311,6 +357,14 @@ sub addObject
     	
     $self->{'objectModel'}->addObject(%params);
 }
+
+# add( name => 'administration',
+#      members => [
+#                  { name    => 'accounting',
+#                    ipaddr  => '192.168.1.3/32',
+#                    macaddr => '00:00:00:FA:BA:DA'
+#                  },
+#                 ]
 
 # Method: menu 
 #
