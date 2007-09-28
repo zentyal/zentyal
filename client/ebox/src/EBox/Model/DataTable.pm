@@ -1460,6 +1460,32 @@ sub indexField
 
   }
 
+# Method: setIndexField
+#
+#      Set the index field name used to index the model, if any
+#
+# Parameters:
+#
+#       indexField - String the field name used as index
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::DataNotFound> - thrown if the selected field is
+#       not in the model description
+#
+#       <EBox::Exceptions::Internal> - thrown if the selected field is
+#       not unique
+#
+sub setIndexField
+  {
+
+      my ($self, $indexField) = @_;
+
+      $self->table()->{'index'} = $indexField;
+      $self->indexField();
+
+  }
+
 # Method: action
 #
 #       Accessor to the URLs where the actions are published to be
@@ -1997,7 +2023,11 @@ sub findId
 #
 #          All methods return the same data as
 #          <EBox::Model::DataTable::row> method does except if one
-#          field is requested when just one type is returned.
+#          field is requested when just one type is returned. In order
+#          to make queries about multiple rows, use
+#          <EBox::Model::DataTable::rows>,
+#          <EBox::Model::DataTable::printableValueRows> and
+#          <EBox::Model::DataTable::findAll> methods or similars.
 #
 #       - Update
 #
@@ -2040,6 +2070,8 @@ sub AUTOLOAD
           return;
       }
 
+      # Depending on the method name beginning, the action to be
+      # performed is selected
       if ( $methodName =~ m/^add/ ) {
           return $self->_autoloadAdd($methodName, \@params);
       } elsif ( $methodName =~ m/^del/ ) {
@@ -3248,7 +3280,7 @@ sub _autoloadAddSubModel # (subModelFieldName, rows, id)
 
       my $hasManyField = $self->fieldHeader($subModelFieldName);
       my $userField = clone($hasManyField);
-      my $directory = $self->directory() . "/$id/$subModelFieldName";
+      my $directory = $self->directory() . "/keys/$id/$subModelFieldName";
       my $foreignModelName = $userField->foreignModel();
       my $submodel = EBox::Model::ModelManager->instance()->model(
                                                                   $foreignModelName
@@ -3285,7 +3317,7 @@ sub _autoloadSetSubModel # (subModelFieldName, rows, id)
 
       my $hasManyField = $self->fieldHeader($subModelFieldName);
       my $userField = clone($hasManyField);
-      my $directory = $self->directory() . "/$id/$subModelFieldName";
+      my $directory = $self->directory() . "/keys/$id/$subModelFieldName";
       my $foreignModelName = $userField->foreignModel();
       my $submodel = EBox::Model::ModelManager->instance()->model(
                                                                   $foreignModelName
@@ -3340,7 +3372,7 @@ sub _autoloadActionSubModel # (action, methodName, paramsRef)
           my $id = $self->_autoloadGetId($model, $paramsRef);
           # Remove an index to get the model
           shift ( @{$paramsRef} );
-          my $directory = $model->directory() . "/$id/$subModelField";
+          my $directory = $model->directory() . "/keys/$id/$subModelField";
           my $foreignModelName = $userField->foreignModel();
           $model = EBox::Model::ModelManager->instance()->model(
                                                                 $foreignModelName,
@@ -3395,8 +3427,11 @@ sub _autoloadGetId
       if ( defined ( $model->indexField() )) {
           $id = $model->findId( $model->indexField() => $paramsRef->[0] );
           unless ( defined ( $id )) {
-              throw EBox::Exceptions::DataNotFound( data => 'identifier',
-                                                    value => $paramsRef->[0]);
+              unless ( defined ( $model->find( id => $paramsRef->[0] ))) {
+                  throw EBox::Exceptions::DataNotFound( data => 'identifier',
+                                                        value => $paramsRef->[0]);
+              }
+              $id = $paramsRef->[0];
           }
       } else {
           $id = $paramsRef->[0];
