@@ -20,7 +20,7 @@ use warnings;
 
 #FIXME: readd EBox::LogObserver to have logadmin working
 #use base qw(EBox::GConfModule EBox::LogObserver);
-use base qw(EBox::GConfModule EBox::Model::ModelProvider);
+use base qw(EBox::GConfModule EBox::Model::ModelProvider EBox::Report::DiskUsageProvider);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -39,6 +39,7 @@ use constant IMAGEPATH => EBox::Config::tmp . '/varimages';
 use constant PIDPATH => EBox::Config::tmp . '/pids/';
 use constant ENABLED_LOG_CONF_DIR => EBox::Config::conf  . '/logs';;
 use constant ENABLED_LOG_CONF_FILE => ENABLED_LOG_CONF_DIR . '/enabled.conf';
+use constant PG_DATA_DIR           => '/var/lib/postgres/data';
 
 
 #	EBox::GConfModule interface
@@ -78,6 +79,17 @@ sub cleanup
 
 #	Module API	
 
+# Method: models
+#
+#      Overrides <EBox::Model::ModelProvider::models>
+#
+sub models 
+{
+       my ($self) = @_;
+
+       return [$self->configureLogModel()];
+}
+
 # Method: configureLogModel 
 #
 #   This function returns the model for the configure log data table
@@ -98,16 +110,6 @@ sub configureLogModel
     }   
         
     return $self->{'configureLogModel'};
-}
-
-# Method: models
-#
-#      Overrides <EBox::Model::ModelProvider::models>
-#
-sub models {
-       my ($self) = @_;
-
-       return [$self->configureLogModel()];
 }
 
 # Method: allLogDomains
@@ -466,7 +468,7 @@ sub menu
         $folder->add(new EBox::Menu::Item('url' => 'Logs/Index',
                                           'text' => __('Query logs')));
         $folder->add(new EBox::Menu::Item('url' =>
-					  'Logs/View/ConfigureLogTable',
+					  'Logs/View/ConfigureLogDataTable',
                                           'text' => __('Configure logs')));
  
 	$root->add($folder);
@@ -570,5 +572,23 @@ sub _restoreEnabledLogs
 	return \%enabled;
 }
 
+
+# Overrides: 
+#  EBox::Report::DiskUsageProivider::_facilitiesForDiskUsage 
+#
+# Warning:
+#   this implies thhat all postgresql data are log, if someday other kind of
+#   data is added to the database we will to change this (and maybe overriding
+#   EBox::Report::DiskUsageProivider::diskUsage will be needed)
+sub _facilitiesForDiskUsage
+{
+  my ($self) = @_;
+
+  my $printableName = __('Log messages');
+    
+  return {
+	  $printableName => [ PG_DATA_DIR ],
+	 };
+}
 
 1;

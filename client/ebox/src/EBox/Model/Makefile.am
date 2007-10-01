@@ -1,4 +1,5 @@
 ## Process this file with automake to produce Makefile.in
+SUBDIRS = t
 
 SUBDIRS = t
 

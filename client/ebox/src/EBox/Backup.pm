@@ -18,6 +18,10 @@ package EBox::Backup;
 use strict;
 use warnings;
 
+use base 'EBox::Report::DiskUsageProvider'; 
+# backup provides a report of disk usage
+# however because this is not a ebox module it is called using EBox::Sysinfo
+
 use File::Temp qw(tempdir);
 use File::Copy qw(copy move);
 use File::Slurp qw(read_file write_file);
@@ -1024,7 +1028,7 @@ sub _backupFileById
 {
     my ($self, $id) = @_;
 
-    my $backupdir = EBox::Config::conf . '/backups';
+    my $backupdir = backupDir();
     my $file = "$backupdir/$id.tar";
     unless (-f $file) {
 	throw EBox::Exceptions::External("Could not find the backup.");
@@ -1033,5 +1037,14 @@ sub _backupFileById
     return $file;
 }
 
+
+#  Function: _facilitiesForDiskUsage
+#  Overrides: EBox::Report::DiskUsageProvider::_faciltiesForDiskUsage
+sub _facilitiesForDiskUsage
+{
+  return {
+	  __(q{Backup's archives}) => [ backupDir() ],
+	 }
+}
 
 1;

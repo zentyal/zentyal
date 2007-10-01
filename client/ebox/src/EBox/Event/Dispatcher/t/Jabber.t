@@ -35,6 +35,9 @@ BEGIN {
     or die;
 }
 
+use EBox::TestStub;
+EBox::TestStub::fake();
+
 my $jabberDispatcher;
 my $event;
 lives_ok

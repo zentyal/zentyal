@@ -1,0 +1,6 @@
+Personalities : [raid5] 
+read_ahead 1024 sectors
+md0 : active raid5 scsi/host0/bus0/target0/lun0/part1[0] scsi/host0/bus0/target2/lun0/part1[2] scsi/host0/bus0/target1/lun0/part1[1]
+      1959680 blocks level 5, 64k chunk, algorithm 2 [3/3] [UUU]
+      
+unused devices: <none>

@@ -69,15 +69,23 @@ AC_DEFUN([AC_CONF_EBOX],
   
   AC_MSG_CHECKING(www path)
   WWWPATH=`perl -MEBox::Config -e 'print EBox::Config->www'`
-  if test -z "$CGIPATH"; then
+  if test -z "$WWWPATH"; then
   	AC_MSG_ERROR("ebox www path  not found")
   fi
   AC_SUBST(WWWPATH)
   AC_MSG_RESULT($WWWPATH)
+
+  AC_MSG_CHECKING(dynamic www path)
+  DYNAMICWWWPATH=`perl -MEBox::Config -e 'print EBox::Config->dynamicwww'`
+  if test -z "$DYNAMICWWWPATH"; then
+  	AC_MSG_ERROR("ebox dynamic www path  not found")
+  fi
+  AC_SUBST(DYNAMICWWWPATH)
+  AC_MSG_RESULT($DYNAMICWWWPATH)
   
   AC_MSG_CHECKING(css path)
   CSSPATH=`perl -MEBox::Config -e 'print EBox::Config->css'`
-  if test -z "$CGIPATH"; then
+  if test -z "$CSSPATH"; then
   	AC_MSG_ERROR("ebox css path  not found")
   fi
   AC_SUBST(CSSPATH)
@@ -85,10 +93,18 @@ AC_DEFUN([AC_CONF_EBOX],
   
   AC_MSG_CHECKING(images path)
   IMAGESPATH=`perl -MEBox::Config -e 'print EBox::Config->images'`
-  if test -z "$CGIPATH"; then
+  if test -z "$IMAGESPATH"; then
   	AC_MSG_ERROR("ebox images path  not found")
   fi
   AC_SUBST(IMAGESPATH)
   AC_MSG_RESULT($IMAGESPATH)
+
+  AC_MSG_CHECKING(dynamic images path)
+  DYNAMICIMAGESPATH=`perl -MEBox::Config -e 'print EBox::Config->dynamicimages'`
+  if test -z "$DYNAMICIMAGESPATH"; then
+  	AC_MSG_ERROR("ebox images path  not found")
+  fi
+  AC_SUBST(DYNAMICIMAGESPATH)
+  AC_MSG_RESULT($DYNAMICIMAGESPATH)
 
 ])

@@ -10,6 +10,7 @@ config.status: configure
         WWWPATH="/usr/share/ebox/www/" \
         CSSPATH="/usr/share/ebox/www/css" \
         IMAGESPATH="/usr/share/ebox/www/images" \
+	DYNAMICWWWPATH="/var/lib/ebox/dynamicwww" \
 	VARPATH="/var" \
 	ETCPATH="/etc/ebox" \
 	./configure --disable-runtime-tests --prefix=/usr \

@@ -18,7 +18,7 @@ package EBox::SysInfo;
 use strict;
 use warnings;
 
-use base 'EBox::Module';
+use base qw(EBox::Module EBox::Report::DiskUsageProvider);
 
 use Sys::Hostname;
 use Sys::CpuLoad;
@@ -31,6 +31,8 @@ use EBox::Summary::Section;
 use EBox::Summary::Value;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
+use EBox::Report::RAID;
+
 
 sub _create 
 {
@@ -38,6 +40,13 @@ sub _create
 	my $self =$class->SUPER::_create(name => 'sysinfo', @_);
 	bless($self, $class);
 	return $self;
+}
+
+
+sub _facilitiesForDiskUsage
+{
+  my ($self, @params) = @_;
+  return EBox::Backup->_facilitiesForDiskUsage(@params);
 }
 
 #
@@ -116,6 +125,16 @@ sub menu
 	$folder->add(new EBox::Menu::Item('url' => 'EBox/General',
 					  'text' => __('General')));
 
+	$folder->add(new EBox::Menu::Item('url' => 'Report/DiskUsage',
+					  'text' => __('Disk usage Information')));
+	if (EBox::Report::RAID::enabled()) {
+	$folder->add(new EBox::Menu::Item(
+			 'url' => 'Report/RAID',
+           		 'text' => __('RAID Information'))
+		    );
+	}
+
+
 	$folder->add(new EBox::Menu::Item('url' => 'EBox/Backup',
 					  'text' => __('Backup')));
 
@@ -125,8 +144,7 @@ sub menu
 	$folder->add(new EBox::Menu::Item('url' => 'EBox/Bug',
 					  'text' => __('Bug report')));
 
-	$folder->add(new EBox::Menu::Item('url' => 'EBox/ConfirmBackup',
-					  'text' => ''));
+
 
 	$root->add($folder);
 }

@@ -1,0 +1,39 @@
+<%args>
+$partition 
+$partitionAttr
+@partitions
+$chartUrl
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<div class='ifaces'>
+% foreach  (@partitions) {
+%   if ($_ eq $partition) {
+     <span class='selected'><% $_ %></span>
+%   } else {
+    <a href='DiskUsage?partition=<% $_ | u %>'><% $_ %></a>
+%   } 
+% }
+</div>
+
+<br/>
+<& .partitionAttrs, $partitionAttr &>
+<img src="<% $chartUrl %>" />
+
+
+<%def .partitionAttrs>
+<%init>
+my ($attrs) = @_;
+my @rows;
+push @rows, [ __('Mounted on') => $attrs->{mountPoint} ];
+push @rows, [ __('Type')       => $attrs->{type} ];
+push @rows, [__('Options')     => $attrs->{options}];
+
+my @titles = (
+     __('Partition properties'),
+     ''
+); 
+</%init>
+<& /presentationTable.mas, columnTitles => \@titles, rows => \@rows &>
+</%def>

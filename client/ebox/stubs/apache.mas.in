@@ -65,6 +65,14 @@ DocumentRoot @WWWPATH@
     Allow from all
 </Directory>
 
+<Directory @DYNAMICWWWPATH@>
+    Options Indexes MultiViews
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+</Directory>
+
+
 UseCanonicalName Off
 TypesConfig /etc/mime.types
 DefaultType text/plain
@@ -112,6 +120,7 @@ SSLCertificateKeyFile @ETCPATH@/ssl.key/ebox.key
 </IfModule>
 
 Alias /data/ @WWWPATH@
+Alias /dynamic-data @DYNAMICWWWPATH@
 ScriptAlias /ebox/ @CGIPATH@
 
 % if ($debug eq 'yes') {

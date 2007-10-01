@@ -1,0 +1,26 @@
+/dev/md0:
+        Version : 00.90.01
+  Creation Time : Thu Aug  9 04:47:39 2007
+     Raid Level : raid1
+     Array Size : 8289472 (7.91 GiB 8.49 GB)
+    Device Size : 8289472 (7.91 GiB 8.49 GB)
+   Raid Devices : 2
+  Total Devices : 3
+Preferred Minor : 0
+    Persistence : Superblock is persistent
+
+    Update Time : Mon Aug 13 09:20:06 2007
+          State : active
+ Active Devices : 2
+Working Devices : 2
+ Failed Devices : 1
+  Spare Devices : 0
+
+           UUID : bc5add4d:a3d8b91b:5b28c648:f3e5929f
+         Events : 0.39
+
+    Number   Major   Minor   RaidDevice State
+       0       8        2        0      active sync   /dev/sda2
+       1       8       33        1      active sync   /dev/sdc1
+
+       2       8       17        -      faulty   /dev/sdb1

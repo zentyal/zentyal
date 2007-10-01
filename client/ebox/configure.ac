@@ -12,6 +12,8 @@ AC_DEFINE_DIR(SYSCONFDIR, sysconfdir)
 AC_DEFINE_DIR(LOCALSTATEDIR, localstatedir)
 AC_DEFINE_DIR(LIBDIR, libdir)
 
+
+
 AC_ARG_ENABLE([runtime-tests],
 	[ --disable-runtime-tests	Do not try to test runtime dependencies],
 	,
@@ -101,6 +103,7 @@ src/templates/login/Makefile
 src/templates/logout/Makefile
 src/templates/logs/Makefile
 src/templates/firstTime/Makefile
+src/templates/report/Makefile
 src/templates/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile
@@ -118,6 +121,9 @@ src/EBox/Events/Makefile
 src/EBox/Events/Model/Makefile
 src/EBox/Events/Model/Dispatcher/Makefile
 src/EBox/Events/Model/t/Makefile
+src/EBox/Report/Makefile
+src/EBox/Report/t/Makefile
+src/EBox/Report/t/testdata/Makefile
 src/EBox/GConfModule/Makefile
 src/EBox/GConfModule/t/Makefile
 src/EBox/Global/Makefile
@@ -128,7 +134,6 @@ src/EBox/Model/t/Makefile
 src/EBox/Types/Makefile
 src/EBox/Types/Union/Makefile
 src/EBox/Global/t/Makefile
-src/EBox//t/Makefile
 src/EBox/Test/Makefile
 src/EBox/Test/t/Makefile
 src/EBox/CGI/Makefile
@@ -140,6 +145,7 @@ src/EBox/CGI/Logout/Makefile
 src/EBox/CGI/Logs/Makefile
 src/EBox/CGI/Summary/Makefile
 src/EBox/CGI/FirstTime/Makefile
+src/EBox/CGI/Report/Makefile
 src/EBox/Summary/Makefile
 schemas/Makefile
 conf/Makefile

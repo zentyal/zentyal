@@ -1,0 +1,238 @@
+<%args>
+$array  
+$raidInfo 
+</%args>
+<%once>
+my %tabPrintableNames = (
+   unusedDevices => __('Unused devices'),
+);
+</%once>
+<%init>
+use EBox::Gettext;
+ defined $raidInfo or
+  $m->abort( __('No RAID devices present'));
+if ($array) {
+  exists $raidInfo->{$array} or
+    $m->abort(
+           __x('Inexistent RAID array {a}', a => $array)
+	     );
+}
+
+my $unusedDevices = delete $raidInfo->{unusedDevices};
+
+my @raidArrays = sort keys %{ $raidInfo };
+if (not $array) {
+  $array = $raidArrays[0];
+}
+
+
+if (@{ $unusedDevices } > 0) {
+   push @raidArrays, 'unusedDevices'; # it must be  the last
+ }
+
+
+</%init>
+
+
+<& .menuTabs, selected => $array, tabs => \@raidArrays &>
+<br/>
+
+% if ($array ne 'unusedDevices') {
+  <&.raid, dev => $array, properties => $raidInfo->{$array} &>
+% } else {
+<& .unusedDevices, devices => $unusedDevices &>
+% }
+
+
+<%def .menuTabs>
+<%args>
+$selected
+@tabs
+</%args>
+<%init>
+
+</%init>
+<div class='ifaces'>
+% foreach  my $tab (@tabs) {
+%   my $printableTab = exists $tabPrintableNames{$tab} ? 
+%                              $tabPrintableNames{$tab} : $tab;
+%   if ($tab eq $selected) {
+     <span class='selected'><% $printableTab %></span>
+%   } else {
+    <a href='RAID?array=<% $tab | u %>'><% $printableTab %></a>
+%   } 
+% }
+</div>
+</%def>
+
+
+<%def .raid>
+<%args>
+$dev
+%properties
+</%args>
+<%init>
+my %raidTypePrintableValue = (
+			     'raid0' => __('RAID 0'),
+			     'raid1' => __('RAID 1'),
+			     'raid2' => __('RAID 2'),
+			     'raid3' => __('RAID 3'),
+			     'raid4' => __('RAID 4'),
+			     'raid4' => __('RAID 5'),
+			    );
+my %algorithmPrintableValue = (
+				0  => __('left-asymmetric'),
+                                1  => __('right-asymmetric'),
+				2  => __('left-symmetric'),
+				3  => __('right-symmetric'),
+			       );
+
+# name, printableName, sub for massage value
+my @raidProperties     = (
+      [
+       'active', 
+       __('Active'), 
+       sub { 
+	 my ($v) = @_;   
+	 return $v ? __('yes') : __('no')
+       }
+      ],
+      [
+       'type', 
+       __('Type'), 
+       sub { 
+	 my ($v) = @_;   
+	 if (exists $raidTypePrintableValue{$v} ) { 
+	   return $raidTypePrintableValue{$v} 
+	 }
+	 else {
+	   return $v;
+	 }
+       }
+      ],
+     ['activeDevices', __('Active RAID devices') ],
+     ['activeDevicesNeeded',  __('Active RAID devices needed') ],
+     ['blocks',  __('Size in blocks') ],	
+     ['chunkSize', __('Chunk size')],
+     [
+      'algorithm', 
+      __('Parity algorithm'),
+       sub { 
+	 my ($v) = @_;   
+	 if (exists $algorithmPrintableValue{$v} ) { 
+	   return $algorithmPrintableValue{$v} 
+	 }
+	 else {
+	   return $v;
+	 }
+       }
+
+     ],
+);
+
+
+
+my @rows;
+foreach  (@raidProperties) {
+  my ($prop, $printableName, $subValue_r) = @{ $_ };
+  exists $properties{$prop}
+    or next;
+
+  my $value = $properties{$prop};
+  if (defined $subValue_r) {
+    $value = $subValue_r->($value);
+  }
+
+  push @rows, [$printableName => $value];
+}
+
+
+
+my @titles = (__('Array properties'), '');
+</%init>
+<& /presentationTable.mas, columnTitles => \@titles, rows => \@rows &>
+% if ($properties{operation} ne 'none') {
+<& .raidOperation, properties => \%properties &>
+% }
+<& .raidDevices, devices => $properties{raidDevices} &>
+</%def>
+
+<%def .raidOperation>
+<%args>
+%properties
+</%args>
+<%init>
+my %operationPrintableName = (
+			      'resync'  => __('Resyncing array'),
+			      'rebuild' => __('Rebuild array'),
+			      'reshape' => __('Reshape array'),
+			     );
+
+my $opPrintableName = exists $operationPrintableName{$properties{operation}} ?
+  $operationPrintableName{$properties{operation}} :
+  $properties{operation};
+
+my @rows;
+push @rows, [ __('Operation type') => $opPrintableName ];
+push @rows,
+  [ __('Percentage completed') => $properties{operationPercentage} ];
+push @rows, 
+  [ __('Estimated time left') => $properties{operationEstimatedTime} ];
+push @rows, 
+  [ __('Operation speed') => $properties{operationSpeed} ];
+
+my @titles = (__('Current operation'), '');
+</%init>
+<& /presentationTable.mas, columnTitles => \@titles, rows => \@rows &>
+</%def>
+
+<%def .raidDevices>
+<%args>
+%devices
+</%args>
+<%init>
+my @titles = (
+  __('RAID device number'),
+  __('Device'),
+  __('State'),
+
+);
+
+my %statePrintableValue = (
+			   up      => __('up'),
+			   failure => __('failure'),
+			   spare   => __('spare'),
+		     );
+
+my @rows;
+foreach my $number (sort keys %devices) {
+  my @devRow;
+  push @devRow, $number;
+
+  push @devRow, $devices{$number}->{device};
+
+  my $state = $devices{$number}->{state};
+ push @devRow, $statePrintableValue{$state};
+
+
+  push @rows, \@devRow;
+}
+
+
+</%init>
+<& /presentationTable.mas, columnTitles => \@titles, rows => \@rows &>
+</%def>
+
+<%def .unusedDevices>
+<%args>
+@devices
+</%args>
+<%init>
+@devices or
+  $m->abort(__('No unused RAID devices'));
+
+my @rows = map { [ $_ ]  } @devices;
+my @titles = ( __('Unused RAID arrays'));
+</%init>
+<& /presentationTable.mas, columnTitles => \@titles, rows => \@rows &>
+</%def>
