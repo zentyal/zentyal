@@ -105,7 +105,7 @@ sub AUTOLOAD
       if ( exists $exposedMethods->{$methodName} ) {
           return $self->_callExposedMethod($exposedMethods->{$methodName}, \@params);
       } else {
-          thrown EBox::Exceptions::Internal("Undefined method $methodName");
+          throw EBox::Exceptions::Internal("Undefined method $methodName");
       }
 
   }
