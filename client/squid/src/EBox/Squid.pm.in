@@ -17,7 +17,8 @@ package EBox::Squid;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::FirewallObserver EBox::ObjectsObserver EBox::LogObserver);
+use base qw(EBox::GConfModule EBox::FirewallObserver EBox::ObjectsObserver
+	    EBox::Report::DiskUsageProvider  EBox::LogObserver);
 
 use EBox::Service;
 use EBox::Objects;
@@ -1272,6 +1273,22 @@ sub logHelper
 	my $self = shift;
 
         return (new EBox::SquidLogHelper);
+}
+
+
+# Overrides:
+#   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
+sub _facilitiesForDiskUsage
+{
+  my ($self) = @_;
+  
+  my $cachePath          = '/var/spool/squid';
+  my $cachePrintableName = __(q{HTTP Proxy's cache files} );
+
+  return {
+	  $cachePrintableName => [ $cachePath ],
+	 };
+
 }
 
 1;
