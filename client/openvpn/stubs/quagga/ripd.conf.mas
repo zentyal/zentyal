@@ -13,6 +13,10 @@ router rip
 % foreach my $iface (@ifaces) {
 network <% $iface %>
 % }
+% foreach my $iface (@ifaces) {
+distribute-list private in <% $iface %>
+distribute-list private out  <% $iface %>
+% }
 % if ($redistribute) {
 redistribute connected
 redistribute static
@@ -20,3 +24,7 @@ redistribute static
 debug rip events
 debug rip packet
 log file /var/log/quagga/ripd.log
+access-list private permit 10.0.0.0/8
+access-list private permit 172.16.0.0/12
+access-list private permit 192.168.0.0/16
+access-list private deny any
