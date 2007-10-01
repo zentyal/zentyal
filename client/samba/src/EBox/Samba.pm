@@ -18,7 +18,8 @@ package EBox::Samba;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::LdapModule EBox::FirewallObserver);
+use base qw(EBox::GConfModule EBox::LdapModule EBox::FirewallObserver
+            EBox::Report::DiskUsageProvider );
 
 
 use EBox::Sudo qw( :all );
@@ -40,6 +41,8 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Gettext;
 use EBox::Config;
+
+
 use File::Slurp qw(read_file write_file);
 use Perl6::Junction qw(all);
 use Error qw(:try);
@@ -1152,5 +1155,25 @@ sub leftoversDir
 {
   return EBox::SambaLdapUser::basePath() . '/leftovers';
 }
+
+
+# Overrides:
+#   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
+sub _facilitiesForDiskUsage
+{
+  my ($self) = @_;
+
+  my $usersPrintableName  = __(q{User's files});
+  my $usersPath          = EBox::SambaLdapUser::usersPath();
+  my $groupsPrintableName = __(q{Group's files});
+  my $groupsPath          = EBox::SambaLdapUser::groupsPath();
+
+  return {
+	  $usersPrintableName   => [ $usersPath ],
+	  $groupsPrintableName  => [ $groupsPath ],
+	 };
+
+}
+
 
 1;
