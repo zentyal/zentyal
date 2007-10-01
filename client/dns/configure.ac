@@ -60,6 +60,7 @@ src/Makefile
 src/EBox/Makefile
 src/EBox/DNS.pm
 src/EBox/Model/Makefile
+src/EBox/t/Makefile
 src/templates/Makefile
 schemas/Makefile
 stubs/Makefile

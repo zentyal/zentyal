@@ -1,0 +1,138 @@
+# Copyright (C) 2007 Warp Networks S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# Unit test to check the DNS API exposition
+
+use strict;
+use warnings;
+
+use lib '../../';
+
+use Test::More qw(no_plan);
+use Test::Exception;
+use Test::Deep;
+
+use Perl6::Junction qw(none);
+
+use EBox::Global;
+
+BEGIN {
+    diag ( 'Starting dns test unit' );
+    use_ok ( 'EBox::DNS' );
+}
+
+my $dnsMod = EBox::Global->modInstance('dns');
+
+isa_ok ( $dnsMod, 'EBox::DNS' );
+
+my $addedId;
+my @domainToAdd = (domain => 'foo.com',
+                   hostnames => [
+                                 {
+                                  hostname => 'a',
+                                  ipaddr   => '192.168.1.1',
+                                  alias    => [
+                                               { alias => 'a1' },
+                                               { alias => 'a2' }
+                                              ],
+                                 },
+                                 {
+                                  hostname => 'b',
+                                  ipaddr   => '192.168.1.2',
+                                  alias    => [
+                                               { alias => 'b1' },
+                                              ],
+                                 },
+                                 {
+                                  hostname => 'c',
+                                  ipaddr   => '192.168.1.3',
+                                  alias    => [
+                                               { alias => 'c1' },
+                                               { alias => 'c2' },
+                                               { alias => 'c3' },
+                                              ],
+                                 },
+                                ]
+                  );
+
+ok ( $addedId = $dnsMod->addDomain1( @domainToAdd ),
+     'Adding an dns domain with three mappings which include some aliases');
+
+# Mapping to check
+#my %domainHash = @domainToAdd;
+#$domainHash{name} = delete( $domainHash{domain});
+#$domainHash{hosts} = delete( $domainHash{hostnames});
+#foreach my $host ( @{$domainHash{hosts}} ) {
+#    $host->{name} = delete ( $host->{hostname} );
+#    $host->{ip}   = delete ( $host->{ipaddr} );
+#    $host->{aliases} = [];
+#    foreach my $alias (@{$host->{alias}}) {
+#        $alias->{name} = delete ( $alias->{alias} );
+#        push( @{$host->{aliases}}, $alias);
+#    }
+#    delete($host->{alias});
+#}
+#is_deeply ( $dnsMod->completeDomain( { name => 'foo.com' } ), \%domainHash,
+#           'Domain added correctly');
+
+ok ( $dnsMod->addHostName( 'foo.com',
+                           hostname => 'd',
+                           ipaddr   => '192.168.1.4',
+                           alias    => [
+                                        { alias => 'd1' },
+                                        { alias => 'd2' },
+                                       ]),
+     'Add a hostname was done correctly');
+
+ok ( $dnsMod->addAlias( 'foo.com', 'd',
+                        alias => 'd3'),
+     'Add an alias to a hostname');
+
+lives_ok
+  {
+      $dnsMod->removeAlias( 'foo.com', 'd', 'd3');
+  } 'Remove an alias correctly';
+
+throws_ok
+  {
+      $dnsMod->removeAlias( 'foo.com', 'd', 'd3');
+  } 'EBox::Exceptions::DataNotFound', 'Remove an inexistant alias';
+
+lives_ok {
+    $dnsMod->setIP( 'foo.com', 'd', ipaddr => '192.168.4.4' );
+} 'Setting a different mapping on hostname d';
+
+cmp_ok ( $dnsMod->getHostName()->{plainValueHash}->{ipaddr}, 'eq',
+         '192.168.4.4', 'Updating ip address on hostname d was done correctly');
+
+lives_ok {
+    $dnsMod->removeHostName('foo.com', 'a');
+} 'Remove hostname a';
+
+throws_ok {
+    $dnsMod->removeHostName('foo.com', 'a');
+} 'EBox::Exceptions::DataNotFound', 'Remove an inexistant host';
+
+lives_ok {
+    $dnsMod->removeDomain( 'foo.com' );
+} 'Removing foo.com domain';
+
+cmp_ok ( none ( map { $_->{name} } @{$dnsMod->domains()}),
+         'eq', 'foo.com',
+         'Remove was done correctly');
+
+1;
+
+

@@ -88,6 +88,61 @@ sub models
 	];
 }
 
+# Method: exposedMethods
+#
+#
+# Overrides:
+#
+#      <EBox::Model::ModelProvider::_exposedMethods>
+#
+# Returns:
+#
+#      hash ref - the list of the exposes method in a hash ref every
+#      component
+#
+sub _exposedMethods
+  {
+
+      my %exposedMethods =
+        (
+         'addDomain1' => { action   => 'add',
+                          path     => [ 'DomainTable' ],
+                        },
+         'removeDomain' => { action  => 'del',
+                             path    => [ 'DomainTable' ],
+                             indexes => [ 'domain' ],
+                           },
+         'addHostName' => { action  => 'add',
+                            path    => [ 'DomainTable', 'hostnames' ],
+                            indexes => [ 'domain' ],
+                          },
+         'setIP'       => { action   => 'set',
+                            path     => [ 'DomainTable', 'hostnames' ],
+                            indexes  => [ 'domain', 'hostname' ],
+                            selector => [ 'ipaddr' ]
+                          },
+         'getHostName' => { action   => 'get',
+                            path     => [ 'DomainTable', 'hostnames' ],
+                            indexes  => [ 'domain', 'hostname' ],
+                          },
+         'removeHostName' => { action => 'del',
+                               path   => [ 'DomainTable', 'hostnames' ],
+                               indexes => [ 'domain', 'hostname' ],
+                             },
+         'addAlias'    => { action  => 'add',
+                            path    => [ 'DomainTable', 'hostnames', 'alias' ],
+                            indexes => [ 'domain', 'hostname' ],
+                          },
+         'removeAlias' => { action  => 'del',
+                            path    => [ 'DomainTable', 'hostnames', 'alias' ],
+                            indexes => [ 'domain', 'hostname', 'alias' ],
+                          },
+         );
+
+      return \%exposedMethods;
+
+  }
+
 # Method: composites 
 # 
 #	Return the compistes used by the DNS eBox module
@@ -119,6 +174,18 @@ sub addDomain
 
 	$domainModel->addDomain($domainData);
 }
+
+# $domainModel->add( domain    => 'foo.com',
+#                    hostnames => [
+#                                  { name => 'bar',
+#                                    ip   => 192.168.1.2,
+#                                    aliases => [
+#                                                { alias => 'bar'},
+#                                                { alias => 'b4r'},
+#                                               ]
+#                                  }
+#                                 ],
+#                  )
 
 # Method: domains
 # 	returns an array with all domain names
