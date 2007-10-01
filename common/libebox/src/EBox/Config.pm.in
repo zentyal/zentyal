@@ -215,6 +215,19 @@ sub images
 	return $ref->{datadir} . "ebox/www/images/";
 }
 
+
+sub dynamicwww
+{
+	return $ref->{localstatedir} . 'lib/ebox/dynamicwww/';
+}
+
+
+sub dynamicimages
+{
+  return dynamicwww() . 'images/';
+	
+}
+
 sub package 
 {
 	return $ref->{package};

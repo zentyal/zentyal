@@ -1,0 +1,18 @@
+<%doc>
+Create a table  which is only used for presentation purposes
+</%doc>
+<%flags>
+inherit => 'table.mas'
+</%flags>
+<%args>
+@columnTitles  => ()  
+@rows          => ()
+@additionalComponents => ()
+</%args>
+<%attr>
+ tableClass => 'dataTable'
+ thClass    => 'tleft'
+ trClass    => 'border'
+</%attr>
+<& SELF:table, columnTitles => \@columnTitles, rows => \@rows,
+additionalComponents => \@additionalComponents &>
