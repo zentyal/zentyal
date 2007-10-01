@@ -3101,7 +3101,9 @@ sub _checkMethodSignature # (action, methodName, paramsRef)
           if ( $subModelInMethod eq any(@{$submodels}) ) {
               # Remove one parameter, since the index is used
               shift ( @{$paramsRef} );
-              $methodName = s/To$tableNameInModel$//;
+              # newMethodName goes to the recursion
+              my $newMethodName = $methodName;
+              $newMethodName =~ s/To$tableNameInModel$//;
               my $foreignModelName =
                 $self->fieldHeader($subModelInMethod)->foreignModel();
               my $manager = EBox::Model::ModelManager->instance();
@@ -3109,7 +3111,7 @@ sub _checkMethodSignature # (action, methodName, paramsRef)
               # In order to decrease the number of calls
               if ( scalar ( @modelNames ) > 2 ) {
                   # Call recursively to the submodel
-                  $foreignModel->_checkMethodSignature($action, $methodName, $paramsRef);
+                  $foreignModel->_checkMethodSignature($action, $newMethodName, $paramsRef);
               }
           } else {
               throw EBox::Exceptions::Internal('Illegal sub model field name. It ' .
@@ -3144,7 +3146,8 @@ sub _checkMethodSignature # (action, methodName, paramsRef)
 
       # If the iteration is the first one, check the table name or nothing
       if ( $first ) {
-          if ( $methodName ) {
+          # Check only simple cases (add[<tableName>])
+          if ( $methodName and not defined ( $subModelInMethod )) {
               unless ( $methodName eq $self->tableName() ) {
                   throw EBox::Exceptions::Internal('Illegal undefined method. It should ' .
                                                    'follow this pattern: add[<tableName>] if ' .
@@ -3283,7 +3286,17 @@ sub _autoloadAddSubModel # (subModelFieldName, rows, id)
       # Addition to a submodel
       foreach my $subModelRow (@{$subModelRows}) {
           my $instancedTypes = $submodel->_fillTypes($subModelRow);
-          $submodel->addTypedRow($instancedTypes);
+          my $addedId = $submodel->addTypedRow($instancedTypes);
+
+          my $subSubModels = $submodel->_subModelFields();
+          foreach my $subSubModel (@{$subSubModels}) {
+              if ( exists $subModelRow->{$subSubModel} ) {
+                  $submodel->_autoloadAddSubModel($subSubModel,
+                                                  $subModelRow->{$subSubModel},
+                                                  $addedId);
+              }
+          }
+
       }
 
 
@@ -3353,10 +3366,11 @@ sub _autoloadActionSubModel # (action, methodName, paramsRef)
       $methodName =~ s/^$action//;
 
       my @modelNames = split ( 'To', $methodName);
+      @modelNames = reverse ( @modelNames );
 
       # Let's go along the method name delTableToTableToTable
       my $model = $self;
-      foreach my $subModelField ( @modelNames[0 .. $#modelNames - 1] ) {
+      foreach my $subModelField ($modelNames[1 .. @modelNames - 1]) {
           $subModelField = "\L$subModelField";
           # Get the has many field
           my $hasManyField = $model->fieldHeader($subModelField);
@@ -3372,6 +3386,7 @@ sub _autoloadActionSubModel # (action, methodName, paramsRef)
                                                                );
           $model->setDirectory($directory);
       }
+
 
       # Change from lower case to upper case the first letter
       my $UCAction = ucfirst ( $action );
