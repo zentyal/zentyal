@@ -284,7 +284,7 @@ sub _setUpModels
                 $foreignModel = $type->foreignModel();
             } otherwise {
                 EBox::warn("Skipping " . $type->fieldName . " to fetch model");
-            }
+            };
             next unless (defined($foreignModel));
             my $foreignModelName = $foreignModel->table()->{'tableName'};
             my %currentHasOne =
