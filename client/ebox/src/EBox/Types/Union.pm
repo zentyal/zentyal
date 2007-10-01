@@ -446,9 +446,13 @@ sub _setValue
 {
       my ($self, $value) = @_;
 
+      my ($selectedField, $selectedValue) = each ( %{$value} );
+
+      $self->setSelectedType( $selectedField );
+
       # Call AUTOLOAD method in order not to repeat code
       $AUTOLOAD = '_setValue';
-      return $self->AUTOLOAD($value);
+      return $self->AUTOLOAD($selectedValue);
 
 }
 

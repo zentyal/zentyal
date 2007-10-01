@@ -162,5 +162,44 @@ sub _restoreFromHash
     $self->{'inverseMatch'} = $hash->{$self->fieldName() . '_inverseMatch'};
 }
 
+# Method: _setValue
+#
+#     Set the value if any. The value may follow this pattern:
+#
+#     { inverse => [0|1], value => selectedValue }
+#
+#     Or it can appear just the selected value, setting implicitily
+#     the inverse value as false.
+#
+# Overrides:
+#
+#     <EBox::Types::Abstract::_setValue>
+#
+# Parameters:
+#
+#     value - hash ref or a basic value to pass
+#
+sub _setValue # (value)
+  {
+
+      my ($self, $value) = @_;
+
+      my ($selectedValue, $invMatch);
+      if ( ref ( $value ) eq 'HASH' ) {
+          $selectedValue = $value->{'value'};
+          $invMatch = $value->{'inverse'};
+      } else {
+          $selectedValue = $value;
+          $invMatch = 0;
+      }
+
+      my $params = {
+                    $self->fieldName() => $selectedValue,
+                    $self->inverseMatchField => $invMatch,
+                   };
+
+      $self->setMemValue($params);
+
+  }
 
 1;

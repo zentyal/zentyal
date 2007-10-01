@@ -100,7 +100,7 @@ ok ( $addedId = $model->addTestTable(
                                      compulsory_password => 'foobar',
                                      port_range          => '1:20',
                                      union               => { 'foo' => 'bar' },
-                                     inverse_select      => { inverse => 1, value => 'b'},
+                                     inverse_select      => { inverse => 0, value => 'b'},
                                      inverse_union       => { 'inverse_foo' => 'baz', inverse => 1 },
                                      compulsory_service  => '200/tcp',
                                      member              => [ {

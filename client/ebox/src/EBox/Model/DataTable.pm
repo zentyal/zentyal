@@ -3243,14 +3243,7 @@ sub _fillTypes
               my $field = $self->fieldHeader($fieldName);
               my $paramValue = $params->{$fieldName};
               my $newType = clone($field);
-              # This code sucks, no orthogonal type
-              if ( $newType->type() eq 'union' ) {
-                  my ($selectedField, $selectedValue) = each %{$params->{$fieldName}};
-                  $newType->setSelectedType($selectedField);
-                  $newType->setValue($selectedValue);
-              } else {
-                  $newType->setValue($paramValue);
-              }
+              $newType->setValue($paramValue);
               $filledTypes->{$fieldName} = $newType;
           }
       }
