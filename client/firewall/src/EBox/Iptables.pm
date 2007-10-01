@@ -28,7 +28,7 @@ use EBox::Sudo qw( :all );
 
 my $new = " -m state --state NEW ";
 
-use constant CONNTRACK_MODULES => ('ip_conntrack_ftp');
+use constant IPT_MODULES => ('ip_conntrack_ftp', 'ip_nat_ftp');
 
 # Constructor: new
 #
@@ -363,7 +363,7 @@ sub start
 {
 	my $self = shift;
 
-	$self->_loadConntrackModules();
+	$self->_loadIptModules();
 
 	$self->setStructure();
 
@@ -462,9 +462,9 @@ sub start
 	}
 }
 
-sub _loadConntrackModules 
+sub _loadIptModules 
 {
-	foreach my $module (CONNTRACK_MODULES) {
+	foreach my $module (IPT_MODULES) {
 		try {
 			root("modprobe $module");
 		} catch EBox::Exceptions::Internal with {};
