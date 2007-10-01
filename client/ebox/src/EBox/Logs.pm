@@ -20,7 +20,9 @@ use warnings;
 
 #FIXME: readd EBox::LogObserver to have logadmin working
 #use base qw(EBox::GConfModule EBox::LogObserver);
-use base qw(EBox::GConfModule EBox::Model::ModelProvider EBox::Report::DiskUsageProvider);
+use base qw(EBox::GConfModule 
+            EBox::Model::ModelProvider EBox::Model::CompositeProvider 
+            EBox::Report::DiskUsageProvider);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -33,6 +35,9 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::DBEngineFactory;
 use EBox::Logs::Model::ConfigureLogDataTable;
+use EBox::Logs::Model::ForcePurge;
+use EBox::Logs::Composite::ConfigureLog;
+
 use POSIX qw(ceil);
 
 use constant IMAGEPATH => EBox::Config::tmp . '/varimages';
@@ -79,16 +84,7 @@ sub cleanup
 
 #	Module API	
 
-# Method: models
-#
-#      Overrides <EBox::Model::ModelProvider::models>
-#
-sub models 
-{
-       my ($self) = @_;
 
-       return [$self->configureLogModel()];
-}
 
 # Method: configureLogModel 
 #
@@ -104,13 +100,82 @@ sub configureLogModel
 
     unless (exists $self->{'configureLogModel'}) {
         $self->{'configureLogModel'} =
-			new EBox::Logs::Model::ConfigureLogDataTable(
+			new EBox::Logs::Model::ConfigureLogDataTable (
 				'gconfmodule' => $self,
-        			'directory' => 'configureLogTable');
+        			'directory' => 'configureLogTable'
+			  );
     }   
         
     return $self->{'configureLogModel'};
 }
+
+
+
+sub _configureLogComposite
+{
+    my ($self) = @_; 
+
+    unless (exists $self->{'configureLogComposite'}) {
+        $self->{'configureLogComposite'} =
+			new EBox::Logs::Composite::ConfigureLog();
+    }   
+        
+    return $self->{'configureLogComposite'};
+}
+
+# Method: forcePurgeModel
+#
+#   This function returns the model for the configure log data table
+#
+# Returns:
+#
+#   An object of class <EBox::Logs::Model::ForcePurge>
+#
+sub forcePurgeModel
+{
+    my ($self) = @_; 
+
+    unless (exists $self->{'forcePurgeModel'}) {
+        $self->{'forcePurgeModel'} =
+			new EBox::Logs::Model::ForcePurge(
+				'gconfmodule' => $self,
+				'directory'   => 'forcePurge',
+        		     );
+    }   
+        
+    return $self->{'forcePurgeModel'};
+}
+
+# Method: models
+#
+#      Overrides <EBox::Model::ModelProvider::models>
+#
+sub models {
+       my ($self) = @_;
+
+       return [
+	       $self->configureLogModel(),
+               $self->forcePurgeModel(),
+	      ];
+}
+
+# Method: composites
+#
+# Overrides:
+#
+#       <EBox::Model::CompositeProvider::composites>
+#
+sub composites
+  {
+
+      my ($self) = @_;
+
+      return [
+              $self->_configureLogComposite(),
+             ];
+
+  }
+
 
 # Method: allLogDomains
 #
@@ -467,9 +532,10 @@ sub menu
 
         $folder->add(new EBox::Menu::Item('url' => 'Logs/Index',
                                           'text' => __('Query logs')));
-        $folder->add(new EBox::Menu::Item('url' =>
-					  'Logs/View/ConfigureLogDataTable',
+
+	$folder->add(new EBox::Menu::Item('url' =>'Logs/Composite/ConfigureLog',
                                           'text' => __('Configure logs')));
+
  
 	$root->add($folder);
 }
@@ -590,5 +656,71 @@ sub _facilitiesForDiskUsage
 	  $printableName => [ PG_DATA_DIR ],
 	 };
 }
+
+sub forcePurge
+{
+  my ($self, $lifetime) = @_;
+  ($lifetime > 0) or
+    throw EBox::Exceptions::External(
+		     __("Lifetime parameter must be a positive number of hours")
+				    );
+
+  my $thresholdDate = $self->_thresholdDate($lifetime);
+
+  foreach my $tableInfo ( values %{ $self->getAllTables } ) {
+    my $table = $tableInfo->{tablename};
+    $self->_purgeTable($table, $thresholdDate);
+  }
+  
+}
+
+sub purge
+{
+  my ($self) = @_;
+
+  my %thresholdByDomain = ();
+
+  # get the threshold date for each domain
+  foreach my $row_r ( @{ $self->configureLogModel->rows() } ) {
+    my $valuesHash = $row_r->{plainValueHash};
+    my $lifeTime = $valuesHash->{'lifeTime'};
+    
+    # if lifeTime == 0, it should never expire
+    $lifeTime or
+      next;
+
+    my $threshold = $self->_thresholdDate($lifeTime);
+    $thresholdByDomain{$valuesHash->{'domain'}} = $threshold;
+  }
+
+  
+  # purge each domain
+  my $tables = $self->getAllTables();
+  while (my ($domain, $threshold) = each %thresholdByDomain) {
+    my $table = $tables->{$domain}->{tablename};
+    $self->_purgeTable($table, $threshold);
+  }
+}
+
+
+sub _thresholdDate
+{
+  my ($self, $lifeTime) = @_;
+
+  # lifeTime must be in hours
+  my $lifeTimeSeconds = $lifeTime * 3600;
+  my $threshold = time() - $lifeTimeSeconds;
+  return scalar localtime($threshold);
+}
+
+sub _purgeTable
+{
+  my ($self, $table, $thresholdDate) = @_;
+  
+  my $sqlStatement = "DELETE FROM $table WHERE timestamp < '$thresholdDate'";
+  my $dbengine = EBox::DBEngineFactory::DBEngine();
+  $dbengine->query($sqlStatement);
+}
+
 
 1;

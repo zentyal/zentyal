@@ -95,6 +95,7 @@ stubs/apache.mas
 stubs/Makefile
 tools/Makefile
 tools/sqllog/Makefile
+tools/cron/Makefile
 doc/Makefile
 src/Makefile
 src/libexec/Makefile
@@ -129,6 +130,7 @@ src/EBox/GConfModule/t/Makefile
 src/EBox/Global/Makefile
 src/EBox/Logs/Makefile
 src/EBox/Logs/Model/Makefile
+src/EBox/Logs/Composite/Makefile
 src/EBox/Model/Makefile
 src/EBox/Model/t/Makefile
 src/EBox/Types/Makefile
@@ -150,6 +152,7 @@ src/EBox/Summary/Makefile
 schemas/Makefile
 conf/Makefile
 conf/.gconf.path
+migration/Makefile
 Makefile
 ])
 

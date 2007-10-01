@@ -1,11 +1,10 @@
 ## Process this file with automake to produce Makefile.in
+SUBDIRS = sqllog cron
 
 bin_SCRIPTS =  ebox-sudoers ebox ebox-runit ebox-sudoers-friendly \
 	       ebox-clean-gconf ebox-create-certificate ebox-runit-finisher
 
 pkglib_SCRIPTS =  ebox-apache-restart ebox-sql-table ebox-migrate
-
-SUBDIRS = sqllog
 
 MAINTAINERCLEANFILES = Makefile.in
 

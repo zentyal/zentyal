@@ -122,8 +122,16 @@ sub _table
                     'size' => '1',
                     'unique' => 0,
                     'trailingText' => '',
-                    'editable' => 1
-                )
+                    'editable' => 1,
+                ),
+	    new EBox::Types::Select(
+		  'fieldName' => 'lifeTime',
+		  'printableName' => __('Purge logs older than'),
+		   populate       => \&_populateSelectLifeTime,
+		   editable       => 1,
+		  defaultValue    => 168, # one week
+		 ),
+
 
         );
 
@@ -144,6 +152,51 @@ sub _table
     return $dataTable;
 }
 
+
+
+sub _populateSelectLifeTime
+
+{
+  # life time values must be in hours
+  return  [
+	   {
+	    printableValue => __('never purge'),
+	    value          =>  0,
+	   },
+	   {
+	    printableValue => __('one hour'),
+	    value          => 1,
+	   },
+	   {
+	    printableValue => __('twelve hours'),
+	    value          => 12,
+	   },
+	   {
+	    printableValue => __('one day'),
+	    value          => 24,
+	   },
+	   {
+	    printableValue => __('three days'),
+	    value          => 72,
+	   },
+	   {
+	    printableValue => __('one week'),
+	    value          =>  168,
+	   },
+	   {
+	    printableValue => __('fifteeen days'),
+	    value          =>  360,
+	   },
+	   {
+	    printableValue => __('thirty days'),
+	    value          =>  720,
+	   },
+	   {
+	    printableValue => __('ninety days'),
+	    value          =>  2160,
+	   },
+	  ];
+}
 
 
 # Method: enabledLogs

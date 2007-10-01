@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+
+EBox::init();
+
+my $logs = EBox::Global->modInstance('logs');
+defined $logs or
+ die 'Cannot instanstiate eBox logs module';
+
+$logs->purge();
+
+1;

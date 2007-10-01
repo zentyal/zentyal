@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 perldir = @PERLPATH@/EBox/Logs/Model
 
-nobase_perl_DATA = ConfigureLogDataTable.pm 
+nobase_perl_DATA = ConfigureLogDataTable.pm ForcePurge.pm
 
 DISTCLEANFILES =
 
