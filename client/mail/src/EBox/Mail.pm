@@ -18,7 +18,9 @@ package EBox::Mail;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::LdapModule EBox::ObjectsObserver EBox::FirewallObserver EBox::LogObserver);
+use base qw(EBox::GConfModule EBox::LdapModule EBox::ObjectsObserver 
+            EBox::FirewallObserver EBox::LogObserver 
+            EBox::Report::DiskUsageProvider);
 
 use EBox::Sudo qw( :all );
 use EBox::Validate qw( :all );
@@ -1206,5 +1208,20 @@ sub extendedRestore
     EBox::error("Mail's messages archive not found at $tarFile. Mail's messages will NOT be restored.\n Resuming restoring process..")
   }
 }
+
+
+# Overrides:
+#   EBox::Report::DiskUsageProvider::_facilitiesForDiskUsage
+sub _facilitiesForDiskUsage
+{
+  my ($self) = @_;
+
+  my $printableName = __('Mailboxes');
+    
+  return {
+	  $printableName => [ $self->_storageMailDirs() ],
+	 };
+}
+
 
 1;
