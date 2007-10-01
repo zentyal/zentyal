@@ -61,12 +61,14 @@ ok ( $memberId = $objMod->addMember( 'a', name => 'a4', ipaddr => '192.168.1.4/3
                                      macaddr => 'DE:AD:00:00:DE:AF'),
      'Adding member a4 to object a');
 
-cmp_deeply ( subsetof(@{$objMod->objectMembers($addedId)}), bag( { name => 'a4',
-                                                     ip   => '192.168.1.4',
-                                                     mask => '32',
-                                                     mac  => 'DE:AD:00:00:DE:AF'
-                                                   } )),
-             'The member addition was done correctly');
+foreach my $member (@{$objMod->objectMembers($addedId)}) {
+    if ( $member->{name} eq 'a4' ) {
+        cmp_deeply( $member, superhashof( ip => '192.168.1.4',
+                                          mask => 32,
+                                          mac  => 'DE:AD:00:00:DE:AF'),
+                    'The member addition was done correctly');
+    }
+}
 
 cmp_ok ( $objMod->objectDescription1( $addedId )->value(), 'eq', 'a',
          'ObjectDescription exposure works');
@@ -75,13 +77,28 @@ lives_ok {
     $objMod->setMemberIP( 'a', 'a4', ipaddr => '192.168.1.114/32' ),
 } 'Setting an IP address to a member';
 
-cmp_deeply ( $objMod->objectMembers($addedId), supersetof(
-                                                          { name => 'a4',
-                                                            ip   => '192.168.1.114',
-                                                            mask => 32,
-                                                            mac  => 'DE:AD:00:00:DE:AF'
-                                                          }),
+my $memberTest = any(isa('HASH'),methods(name => 'a4',
+                                         ip   => '192.168.1.114',
+                                         mask => 32,
+                                         mac  => 'DE:AD:00:00:DE:AF'));
+cmp_deeply ( $objMod->objectMembers($addedId), array_each($memberTest),
              'The member update was done correctly');
+
+
+lives_ok {
+    $objMod->removeMember( 'a', 'a4' ),
+} 'Removing a member a4 from object a';
+
+throws_ok {
+    $objMod->getMember( 'a', 'a4' )
+} 'EBox::Exceptions::DataNotFound', 'Remove a member works correctly';
+
+lives_ok {
+    $objMod->removeObject( 'a' );
+} 'Removing object a';
+
+cmp_deeply ( $objMod->objects(), array_each(all(isa('HASH'), methods( name => re ( '/[^a]/' )))),
+           'Remove object was done correctly');
 
 1;
 

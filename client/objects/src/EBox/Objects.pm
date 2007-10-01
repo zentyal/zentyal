@@ -107,6 +107,15 @@ sub _exposedMethods
          'removeMember' => { action  => 'del',
                              path    => [ 'ObjectTable', 'members' ],
                              indexes => [ 'name', 'name' ],
+                           },
+         'getMember'    => { action   => 'get',
+                             path     => [ 'ObjectTable', 'members' ],
+                             indexes  => [ 'name', 'name' ],
+                           },
+         'removeObject' => { action  => 'del',
+                             path    => ['ObjectTable' ],
+                             indexes => [ 'name' ],
+                           },
          );
 
       return \%exposedMethods;

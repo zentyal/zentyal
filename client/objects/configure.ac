@@ -58,6 +58,7 @@ AC_CONFIG_FILES([
 src/Makefile
 src/EBox/Makefile
 src/EBox/Model/Makefile
+src/EBox/t/Makefile
 migration/Makefile
 schemas/Makefile
 Makefile
