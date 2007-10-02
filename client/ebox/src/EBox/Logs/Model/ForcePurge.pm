@@ -74,7 +74,6 @@ sub setRow
 
   my $logs = EBox::Global->modInstance('logs');
 
-  EBox::debug("lifetime $lifeTime");
   $logs->forcePurge($lifeTime);
 }
 
