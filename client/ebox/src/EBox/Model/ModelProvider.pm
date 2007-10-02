@@ -61,9 +61,10 @@ sub models
 #                      indexes  => [ 'indexFieldNameModel', 'indexFieldNameSubmodel1' ],
 #                      [ selector => [ 'field1', 'field2'...] ] # Only available for set/get actions
 #
-#      The indexes must be unique (at least the field 'id' is unique)
-#      and the submodel field name refers to the name of the
-#      <EBox::Types::HasMany> field on the previous model in the list
+#      The indexes must be unique (at least the field 'id' is unique
+#      and 'position' as well) and the submodel field name refers to the
+#      name of the <EBox::Types::HasMany> field on the previous model
+#      in the list
 #
 sub _exposedMethods
   {
@@ -139,7 +140,8 @@ sub _callExposedMethod
 
       # Set the indexField for every model with index
       if ( @indexes > 0 ) {
-          unless ( $indexes[0] eq 'id' ) {
+          unless ( $indexes[0] eq 'id' or
+                   $indexes[0] eq 'position') {
               $model->setIndexField($indexes[0]);
           }
           my $submodel = $model;
@@ -147,7 +149,10 @@ sub _callExposedMethod
               my $hasManyField = $submodel->fieldHeader($path[$idx]);
               my $submodelName = $hasManyField->foreignModel();
               $submodel = EBox::Model::ModelManager->instance()->model($submodelName);
-              $submodel->setIndexField($indexes[$idx]);
+              unless ( $indexes[$idx] eq 'id' or
+                       $indexes[$idx] eq 'position') {
+                  $submodel->setIndexField($indexes[$idx]);
+              }
           }
       }
 

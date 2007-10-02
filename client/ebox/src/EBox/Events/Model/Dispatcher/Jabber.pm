@@ -46,6 +46,9 @@ use EBox::Validate;
 ################
 use Net::Jabber::JID;
 
+# Constants 
+# use constant JABBER_DISPATCHER_SERVICE_NAME => 'Jabber dispatcher client';
+
 # Group: Public methods
 
 # Constructor: new
@@ -118,34 +121,54 @@ sub formSubmitted
 
       my $gl = EBox::Global->getInstance();
 
-      if ( $gl->modExists('services')) {
-          my $servMod = $gl->modInstance('services');
-          my $jabberServPort = $self->portValue();
-          my $method;
-          if ( $servMod->serviceExists('name' => 'Jabber dispatcher client')) {
-              $method = 'setService';
-          } else {
-              $method = 'addService';
-          }
-          $servMod->$method(name            => 'Jabber dispatcher client',
-                            protocol        => 'tcp',
-                            sourcePort      => 'any',
-                            destinationPort =>  $jabberServPort,
-                            internal        => 1,
-                            readOnly        => 1,
-                            # FIXME: Add backview parameter
-                            description     => __x('To be updated at {href}' .
-                                                   'Jabber dispatcher configuration' .
-                                                   '{endHref}',
-                                                  href => '<a href="/ebox/' . $self->menuNamespace() 
-                                                   . '?directory=' . $self->directory() . '">',
-                                                  endHref => '</a>'),
-                           );
+#      if ( $gl->modExists('services')) {
+#          my $servMod = $gl->modInstance('services');
+#          my $method;
+#          if ( $servMod->serviceExists('name' => JABBER_DISPATCHER_SERVICE_NAME)) {
+#              $method = 'setService';
+#          } else {
+#              $method = 'addService';
+#          }
+#          $servMod->$method(name            => JABBER_DISPATCHER_SERVICE_NAME,
+#                            protocol        => 'tcp',
+#                            sourcePort      => 'any',
+#                            destinationPort =>  $jabberServPort,
+#                            internal        => 1,
+#                            readOnly        => 1,
+#                            # FIXME: Add backview parameter
+#                            description     => __x('To be updated at {href}' .
+#                                                   'Jabber dispatcher configuration' .
+#                                                   '{endHref}',
+#                                                  href => '<a href="/ebox/' . $self->menuNamespace() 
+#                                                   . '?directory=' . $self->directory() . '">',
+#                                                  endHref => '</a>'),
+#                           );
           if ( $gl->modExists('firewall') ){
               my $fwMod = $gl->modInstance('firewall');
-              # FIXME: addOutputRule and removeOutputRule
+              my $jabberServPort = $self->portValue();
+              $fwMod->removeOutputRule( 'tcp', $oldRow->{plainValueHash}->{port});
+              $fwMod->addOutputRule( 'tcp', $jabberServPort);
+#              my ( $idx, $row ) = ( 0, undef);
+#              my $servId = $servMod->serviceId(JABBER_DISPATCHER_SERVICE_NAME);
+#              do {
+#                  $row = $fwMod->getOutputService( $idx );
+#                  $idx++;
+#                  if ( defined ( $row )) {
+#                      last if ( $row->{plainValueHash}->{service} eq $servId );
+#                  }
+#              } while ( defined ( $row ));
+#              if ( defined ( $row ) ) {
+#                  # The rule already exists
+#                  ;
+#              } else {
+#                  $fwMod->addOutputService( decision => 'accept',
+#                                            destination => { destination_any => 'any',
+#                                                             inverse => 0 },
+#                                            service     => $servId,
+#                                            description => 'Jabber dispatcher connection to a Jabber server');
+#              }
+#          }
           }
-      }
 
 
   }

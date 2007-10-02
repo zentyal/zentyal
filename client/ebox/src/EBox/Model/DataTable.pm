@@ -622,7 +622,7 @@ sub row
 			$row->{'printableValueHash'}->{$data->selectedType} =
 				$data->printableValue();
 		}
-	
+
 		if ($data->type eq 'hasMany') {
 			my $fieldName = $data->fieldName();
 			$data->setDirectory("$dir/$id/$fieldName");
@@ -3442,7 +3442,17 @@ sub _autoloadGetId
               $id = $paramsRef->[0];
           }
       } else {
+          # Check if it a valid identifier
           $id = $paramsRef->[0];
+          unless ( defined ( $model->row($paramsRef->[0]) )) {
+              # the given id is a number (position)
+              if ( $paramsRef->[0] =~ m/^\d+$/ ) {
+                  my $rows = $model->rows();
+                  if ( exists ( $rows->[$paramsRef->[0]] )) {
+                      $id = $rows->[$paramsRef->[0]]->{id};
+                  }
+              }
+          }
       }
 
       return $id;
