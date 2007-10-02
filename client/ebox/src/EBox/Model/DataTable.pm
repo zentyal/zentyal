@@ -3370,7 +3370,7 @@ sub _autoloadActionSubModel # (action, methodName, paramsRef)
 
       # Let's go along the method name delTableToTableToTable
       my $model = $self;
-      foreach my $subModelField ($modelNames[1 .. @modelNames - 1]) {
+      foreach my $subModelField (@modelNames[1 .. @modelNames - 1]) {
           $subModelField = "\L$subModelField";
           # Get the has many field
           my $hasManyField = $model->fieldHeader($subModelField);

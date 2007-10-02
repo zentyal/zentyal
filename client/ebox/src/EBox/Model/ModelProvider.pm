@@ -144,10 +144,10 @@ sub _callExposedMethod
           }
           my $submodel = $model;
           foreach my $idx (1 .. $#indexes) {
-              my $hasManyField = $model->fieldHeader($path[$idx]);
+              my $hasManyField = $submodel->fieldHeader($path[$idx]);
               my $submodelName = $hasManyField->foreignModel();
               $submodel = EBox::Model::ModelManager->instance()->model($submodelName);
-              $submodel->setIndexField($indexes[1]);
+              $submodel->setIndexField($indexes[$idx]);
           }
       }
 
