@@ -34,6 +34,7 @@ use base 'EBox::Model::DataForm';
 # eBox uses
 use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
+use EBox::Global;
 use EBox::Types::Boolean;
 use EBox::Types::Int;
 use EBox::Types::Password;
@@ -82,13 +83,70 @@ sub validateTypedRow
 
       my ($self, $action, $params) = @_;
 
-      # We assume the Jabber domain should be a valid DNS domain
-      EBox::Validate::checkDomainName( $params->{server}->value(),
-                                       $params->{server}->printableName() );
-      EBox::Validate::checkPort( $params->{port}->value(),
-                                 $params->{port}->printableName() );
+      if ( exists ( $params->{server} )) {
+          # We assume the Jabber domain should be a valid DNS domain
+          EBox::Validate::checkDomainName( $params->{server}->value(),
+                                           $params->{server}->printableName() );
+      }
+
+      if ( exists ( $params->{port} )) {
+          EBox::Validate::checkPort( $params->{port}->value(),
+                                     $params->{port}->printableName() );
+      }
+
       # Check the JID
-      $self->_checkAdminJID( $params->{adminJID}->value() );
+      if ( exists ( $params->{adminJID} )) {
+          $self->_checkAdminJID( $params->{adminJID}->value() );
+      }
+
+  }
+
+# Method: formSubmitted
+#
+#       When the form is submitted, the model must set up the jabber
+#       dispatcher client service and sets the output rule in the
+#       firewall
+#
+# Overrides:
+#
+#      <EBox::Model::DataForm::formSubmitted>
+#
+sub formSubmitted
+  {
+
+      my ($self, $oldRow) = @_;
+
+      my $gl = EBox::Global->getInstance();
+
+      if ( $gl->modExists('services')) {
+          my $servMod = $gl->modInstance('services');
+          my $jabberServPort = $self->portValue();
+          my $method;
+          if ( $servMod->serviceExists('name' => 'Jabber dispatcher client')) {
+              $method = 'setService';
+          } else {
+              $method = 'addService';
+          }
+          $servMod->$method(name            => 'Jabber dispatcher client',
+                            protocol        => 'tcp',
+                            sourcePort      => 'any',
+                            destinationPort =>  $jabberServPort,
+                            internal        => 1,
+                            readOnly        => 1,
+                            # FIXME: Add backview parameter
+                            description     => __x('To be updated at {href}' .
+                                                   'Jabber dispatcher configuration' .
+                                                   '{endHref}',
+                                                  href => '<a href="/ebox/' . $self->menuNamespace() 
+                                                   . '?directory=' . $self->directory() . '">',
+                                                  endHref => '</a>'),
+                           );
+          if ( $gl->modExists('firewall') ){
+              my $fwMod = $gl->modInstance('firewall');
+              # FIXME: addOutputRule and removeOutputRule
+          }
+      }
+
 
   }
 
