@@ -173,14 +173,21 @@ $model->addRow( ( name => 'admin',
         Furthermore, the <ulink url="http://en.wikipedia.org/wiki/Observer_pattern">Observer pattern</ulink>
         is applied to the data models as well. The models can subscribe to actions performed
         in foreign models such as addition, removal or updates. In order to achieve so, the
-        table description must have <parameter>notifyActions</parameter> attribute as a hash
-        reference indexing by the action description. So the model manager notifies an action
-        is performed by a model calling <methodname>notifyForeignModelAction</methodname> method.
+        table description must have <parameter>notifyActions</parameter> attribute as an array
+        reference indicating which are models if you are interested to. So the model manager notifies an action
+        is performed by a model calling <methodname>notifyForeignModelAction</methodname> method on
+        the observer.
       </para>
 
       <para>
         Whenever an changing state action is performed, the data model asks the model manager
-        if any of other modules is using that row. If so and <parameter>automaticRemove</parameter> is
+        if any of other modules is using that row. To determine
+        whether an observer is using a row or not, it is asked by
+        calling <methodname>warnOnChangeOnId</methodname> when an
+        update is the performed action or
+        <methodname>isUsingId</methodname> on removals as well as a
+        search on the observer model data. If there are observers
+        subtle to be changed and <parameter>automaticRemove</parameter> is
         set, a warning is shown before forcing the operation. If <parameter>automaticRemove</parameter>
         is not set, the data model must specify how it should act subscribing to the changing actions
         as it is described above instead.
