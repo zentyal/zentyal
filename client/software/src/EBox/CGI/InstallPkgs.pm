@@ -18,7 +18,7 @@ package EBox::CGI::Software::InstallPkgs;
 use strict;
 use warnings;
 
-use base 'EBox::CGI::ClientBase';
+use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -83,10 +83,9 @@ sub _process($) {
 
 	if ($doit eq 'yes') {
 		if ($action eq 'install') {
-			$software->installPkgs(@pkgs);
-			$self->{msg} = 
-				__('The packages are being installed, please refrain from using the application until the update is done');
-			$self->{chain} = "Software/Upgrading";
+			my $progress = $software->installPkgs(@pkgs);
+			$self->showInstallProgress($progress);
+
 		} else {
 			$software->removePkgs(@pkgs);
 			$self->{msg} = 
@@ -107,5 +106,23 @@ sub _process($) {
 	push(@array, 'actpackages' => $actpackages);
 	$self->{params} = \@array;
 }
+
+
+
+sub showInstallProgress
+{
+  my ($self, $progressIndicator) = @_;
+  $self->showProgress(
+		      progressIndicator => $progressIndicator,
+
+		      title    => __('Upgrading'),
+		      text     => __('Upgrading packages'),
+		      currentItemCaption  =>  __("Current package"),
+		      itemsLeftMessage  => __('packages left to install'),
+		      endNote  =>  __("The installation of the packages has finished successfully"),
+		      reloadInterval  => 2,
+		     );
+}
+
 
 1;

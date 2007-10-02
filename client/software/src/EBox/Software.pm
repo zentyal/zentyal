@@ -24,7 +24,9 @@ use EBox::Config;
 use EBox::Gettext;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
+use EBox::ProgressIndicator;
 use EBox::Sudo qw( :all );
+
 use Digest::MD5;
 use Error qw(:try);
 use Storable qw(fd_retrieve store retrieve);
@@ -102,21 +104,14 @@ sub listEBoxPkgs
 sub installPkgs # (@pkgs)
 {
 	my ($self, @pkgs) = @_;
-	my $pid;
 
-	unless (defined($pid = fork())) {
-		throw EBox::Exceptions::Internal("Cannot fork().");
-	}
-	if ($pid) {
-		truncate(EBox::Config::tmp() . "/ebox-update-log", 0);
-		return; # parent returns immediately
-	}
-	POSIX::setsid();
-	close(STDOUT);
-	close(STDERR);
-	open(STDOUT, "> /dev/null");
-	open(STDERR, "> /dev/null");
-	exec(EBox::Config::libexec . "../ebox-software/ebox-update-packages @pkgs");
+	my $executable = EBox::Config::libexec . "../ebox-software/ebox-update-packages @pkgs";
+	my $progress = EBox::ProgressIndicator->create(
+						       totalTicks => scalar @pkgs,
+						       executable => $executable,
+						      );
+	$progress->runExecutable();
+	return $progress;
 }
 
 # Method: removePkgs 

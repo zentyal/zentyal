@@ -1,36 +1,52 @@
 #!/usr/bin/perl
 
 use strict;
-use EBox::Config;
+use warnings; 
+
 use EBox::Global;
+use EBox::ProgressIndicator;
+use EBox::Sudo;
 
-my $file = EBox::Config::tmp . "ebox-update-log";
-sub writeToFile($)
-{
-	my $txt = shift;
-	(length($txt) > 0) or return;
-	
-	open (FD, ">$file") or die "I couldn't open $file";
-	print FD $txt;
-	close (FD);
-}
-
-
-writeToFile("starting");
-
-foreach my $pkg (@ARGV) {
-	writeToFile($pkg);
-	my $cmd ='/usr/bin/apt-get install --no-download -q --yes';
-	system("sudo $cmd $pkg");
-}
-
-system("sudo /etc/init.d/ebox apache restart");
-system("sudo apt-get install -f --yes");
-
-
-writeToFile("done");
+use Error qw(:try);
 
 EBox::init();
+
+my $progressId          = pop @ARGV;
+my $progressIdParamName = pop @ARGV; # unused
+my @packages            = @ARGV;
+
+defined $progressId or
+ die "not progess indicator parameter supplied";
+defined $progressIdParamName or
+ die "not progess indicator parameter supplied";
+
+my $progress = EBox::ProgressIndicator->retrieve($progressId);
+
+
+$progress->started() or
+  die('progress excutable not runned');
+
+try {
+  foreach my $pkg (@packages) {
+    $progress->notifyTick();
+    $progress->setMessage($pkg);
+    my $cmd ='/usr/bin/apt-get install --no-download -q --yes';
+    EBox::Sudo::root("$cmd $pkg");
+  }
+}
+finally {
+  $progress->setAsFinished();
+};  
+
+
+  my $apache = EBox::Global->modInstance('apache');
+  $apache->_daemon('restart'); # we cannot do a normal restart because a normal
+                               # restart erases session objects
+  
+  EBox::Sudo::root("apt-get install -f --yes");
+
+  $progress->setAsFinished();
+
 my $global = EBox::Global->getInstance(1);
 my $software = $global->modInstance('software');
 
@@ -38,3 +54,10 @@ my $software = $global->modInstance('software');
 $software->listUpgradablePkgs(1);
 #call also listEBoxPkgs to regen the cache
 $software->listEBoxPkgs(1);
+
+
+# sleep 1; # we think that 
+# $progress->destroy();
+
+
+1;
