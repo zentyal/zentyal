@@ -247,6 +247,7 @@ sub makeBackup # (dir, %options)
   validate_with ( params => [%options],
 		  spec =>  { fullBackup     => { default => 0},  
 			     directlyToDisc => { default => 0},
+			     progress        => {optional => 1},
 			   } );
 
   my $backupDir = $self->_createBackupDir($dir);

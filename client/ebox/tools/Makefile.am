@@ -4,7 +4,10 @@ SUBDIRS = sqllog cron
 bin_SCRIPTS =  ebox-sudoers ebox ebox-runit ebox-sudoers-friendly \
 	       ebox-clean-gconf ebox-create-certificate ebox-runit-finisher
 
-pkglib_SCRIPTS =  ebox-apache-restart ebox-sql-table ebox-migrate
+
+pkglib_SCRIPTS =  ebox-apache-restart ebox-sql-table ebox-migrate \
+	ebox-restore-backup ebox-make-backup
+
 
 MAINTAINERCLEANFILES = Makefile.in
 

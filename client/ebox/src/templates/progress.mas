@@ -1,0 +1,44 @@
+ <%args>
+#$currentItemUrl
+
+$progressId
+
+$text   => ''
+$currentItemCaption => undef
+$itemsLeftMessage   => undef
+$endNote            => undef
+
+
+$currentItemUrl => '/ebox/EBox/CurrentProgress'
+$reloadInterval  => 5;
+</%args>
+<%init>
+use EBox::Gettext;
+
+defined $currentItemCaption or $currentItemCaption = __('Item');
+defined $itemsLeftMessage   or $itemsLeftMessage   = __('items left');
+defined $endNote            or $endNote            = __('Done');
+</%init>
+<script type="text/javascript" src="/data/js/prototype.js">//</script>
+<script type="text/javascript" src="/data/js/progress.js"></script>
+
+<script type="text/javascript">
+    createPeriodicalExecuter(<% $progressId %>, '<% $currentItemUrl %>', <% $reloadInterval %>);
+</script>
+
+
+
+<div id='progressing'>
+<p> <% $text %> </p>
+<% $currentItemCaption %>: <strong><span id="currentItem"><% __("Starting...")
+%></span></strong>
+<br/>
+<span id='ticks'>-</span><% __(' of ') %><span id='totalTicks'>-</span><% ' ' . $itemsLeftMessage %>
+<br/>
+</div>
+
+
+<br/>
+<div class ="note" id='done' style="display:none;">
+	 <p><% $endNote  %></p>
+</div>

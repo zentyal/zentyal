@@ -135,6 +135,7 @@ src/EBox/Model/Makefile
 src/EBox/Model/t/Makefile
 src/EBox/Types/Makefile
 src/EBox/Types/Union/Makefile
+src/EBox/ProgressIndicator/Makefile
 src/EBox/Global/t/Makefile
 src/EBox/Test/Makefile
 src/EBox/Test/t/Makefile

@@ -22,6 +22,8 @@ use lib '../..';
 
 use base 'EBox::Test::Class';
 
+use EBox::Backup;
+
 use Test::MockObject;
 use Test::More;
 use Test::Exception;
@@ -39,6 +41,8 @@ Readonly::Scalar my $GCONF_EXTENDED_CANARY_KEY => '/ebox/modules/canaryExtended/
 Readonly::Scalar my $GCONF_MIXEDCONF_CANARY_KEY => '/ebox/modules/canaryMixedConf/key';
 Readonly::Scalar my $CANARY_MODULE_VERSION => 'canary 0.1';
 
+use constant FAKE_PROGRESS_ID => 666;
+
 sub testDir
 {
   return '/tmp/ebox.backup.test';
@@ -51,6 +55,53 @@ sub notice : Test(startup)
   diag 'This test use GConf and may left behind some test entries in the tree /ebox';
   diag 'Remember you need the special GConf packages from eBox repository. Otherwise these tests will fail in awkward ways';
 }
+
+
+# this is needed to bypass all the ProgessNotification stuff
+sub fakeRestore : Test(startup)
+{
+  Test::MockObject->fake_module(
+				'EBox::ProgressIndicator',
+				 create  => sub {
+				   die 'not faked create() in place';
+				 },
+				 retrieve => sub {
+					    my $self = {};
+					    bless $self, 'EBox::ProgressIndicator';
+					      return $self;
+					   },
+				id      => sub { return FAKE_PROGRESS_ID },
+				started => sub { return 1 },
+				setAsFinished => sub {},
+				notifyTick   => sub {},
+				setMessage   => sub {},
+			       );
+
+
+
+  my $progress = EBox::ProgressIndicator->retrieve(FAKE_PROGRESS_ID);
+
+  my $originalMakeBackup_r = EBox::Backup->can('makeBackup');
+  my $originalRestore_r    = EBox::Backup->can('restoreBackup');
+  
+  Test::MockObject->fake_module(
+				'EBox::Backup',
+				makeBackup => sub {
+				  $originalMakeBackup_r->(
+						       @_,
+						       progress => $progress,
+						      )
+				},
+				restoreBackup => sub {
+				  $originalRestore_r->(
+						       @_,
+						       progress => $progress,
+						      )
+				},
+			       );
+
+}
+
 
 
 sub setupDirs : Test(setup)
@@ -70,16 +121,6 @@ sub setupDirs : Test(setup)
   ($? == 0) or die $!;
   makePrivateDir('/tmp/backup');
 }
-
-
-
-sub _useOkTest : Test(1)
-{
-  use_ok('EBox::Backup');
-}
-
-
-
 
 sub setUpCanaries : Test(setup)
 {
@@ -693,6 +734,7 @@ sub restoreFailedTest : Test(9)
   } qr /$forcedFailureMsg/, 
     'Checking wether restore failed as expected';
 
+  diag "Checking modules for revoked values";
   checkCanaries('afterBackup', 1);
 
 

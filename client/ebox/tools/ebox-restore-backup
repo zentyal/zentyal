@@ -1,0 +1,33 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Backup;
+use EBox::ProgressIndicator;
+
+use Error qw(:try);
+
+
+
+EBox::debug("$0 pid: $$");
+
+my %params = @ARGV;
+
+my $file = delete $params{'file'};
+$file or die 'not file supplied';
+
+my $progressId = delete $params{'progress-id'};
+$progressId or die 'not progress indicator id supplied';
+
+
+my $progress = EBox::ProgressIndicator->retrieve($progressId);
+
+# put  progress indicator param
+$params{progress} = $progress;
+
+
+EBox::Backup->restoreBackup($file, %params);
+
+
+1;

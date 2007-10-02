@@ -18,7 +18,7 @@ package EBox::CGI::EBox::Backup;
 use strict;
 use warnings;
 
-use base 'EBox::CGI::ClientBase';
+use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
 use Error qw(:try);
 use EBox::Config;
@@ -158,7 +158,7 @@ sub masonParameters
   push @params, (modulesChanged => $modulesChanged);
 
 
-  my $readOpticalDisk   = 0;
+  my $readOpticalDisk  = 0;
   my $writeOpticalDisk = 0;
   try {
     my $drivesInfo = EBox::Backup::OpticalDiscDrives::info();
@@ -195,11 +195,12 @@ sub  _backupAction
 
   my $description = $self->param('description');
 
+  my $progressIndicator;
 
   my $backup = EBox::Backup->new();
-  $backup->makeBackup(description => $description, fullBackup => $fullBackup, directlyToDisc => $params{directlyToDisc});
+  $progressIndicator= $backup->prepareMakeBackup(description => $description, fullBackup => $fullBackup, directlyToDisc => $params{directlyToDisc});
 
-  $self->setMsg(__('Backup done'));
+  $self->_showBackupProgress($progressIndicator);
 } 
 
 
@@ -245,8 +246,10 @@ sub _restoreFromDiscAction
   my $fullRestore = $self->_fullRestoreMode;
 
   my $backup = new EBox::Backup;
-  $backup->restoreBackupFromDisc(fullRestore => $fullRestore);
-  $self->_afterRestoreMsg($fullRestore);
+  my $progressIndicator = 
+    $backup->restoreBackupFromDisc(fullRestore => $fullRestore);
+
+  $self->_showRestoreProgress($progressIndicator);
 }
 
 sub _restore
@@ -256,9 +259,11 @@ sub _restore
   my $fullRestore = $self->_fullRestoreMode;
 
   my $backup = new EBox::Backup;
-  $backup->restoreBackup($filename, fullRestore => $fullRestore);
 
-  $self->_afterRestoreMsg($fullRestore);
+  my $progressIndicator = 
+    $backup->prepareRestoreBackup($filename, fullRestore => $fullRestore);
+
+  $self->_showRestoreProgress($progressIndicator);
 }
 
 sub _fullRestoreMode
@@ -280,21 +285,39 @@ sub _fullRestoreMode
   return $fullRestore;
 }
 
-sub _afterRestoreMsg
-{
-  my ($self, $fullRestore) =@_;
 
-  if ($fullRestore) {
-    $self->setMsg( __('Full backup restored successfully. '.
-		      'You should now review your configuration and save it if you want '.
-		      'to keep it.'));
-  }
-  else {
-    $self->setMsg( __('Configuration restored successfully, '.
-		      'you should now review it and save it if you want '.
-		      'to keep it.'));
-  }
+sub _showBackupProgress
+{
+  my ($self, $progressIndicator) =@_;
+  $self->showProgress(
+		      progressIndicator => $progressIndicator,
+
+		      title    => __('Backing up'),
+		      text               =>  __('Backing up modules'),
+		      currentItemCaption =>  __('Operation') ,
+		      itemsLeftMessage   =>  __('operations left to finish backup'),
+		      endNote            =>  __('Backup successful'),
+		      reloadInterval     =>  2,
+		     );
 }
+
+sub _showRestoreProgress
+{
+  my ($self, $progressIndicator) =@_;
+  $self->showProgress(
+		      progressIndicator  => $progressIndicator,
+
+		      title              => __('Restoring backup'),
+		      text               =>   __('Restoring modules'),
+		      currentItemCaption =>   __('Module') ,
+		      itemsLeftMessage   =>   __('modules left to restore'),
+		      endNote            =>   __('Restore successful'),
+		      reloadInterval     =>   2,
+);
+}
+
+
+
 
 sub  _downloadAction
 {

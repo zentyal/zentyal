@@ -18,28 +18,28 @@ package EBox::Backup;
 use strict;
 use warnings;
 
-use base 'EBox::Report::DiskUsageProvider'; 
-# backup provides a report of disk usage
-# however because this is not a ebox module it is called using EBox::Sysinfo
-
-use File::Temp qw(tempdir);
-use File::Copy qw(copy move);
-use File::Slurp qw(read_file write_file);
-use File::Basename;
 use EBox::Config;
 use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::FileSystem;
+use EBox::Backup::FileBurner;
+use EBox::Backup::OpticalDiscDrives;
+use EBox::ProgressIndicator;
+
+use File::Temp qw(tempdir);
+use File::Copy qw(copy move);
+use File::Slurp qw(read_file write_file);
+use File::Basename;
+
 use Error qw(:try);
 use Digest::MD5;
 use EBox::Sudo qw(:all);
 use POSIX qw(strftime);
 use DirHandle;
 use Perl6::Junction qw(any all);
-use EBox::Backup::FileBurner;
-use EBox::Backup::OpticalDiscDrives;
+
 use Params::Validate qw(validate_with validate_pos);
 use Filesys::Df;
 
@@ -67,6 +67,9 @@ sub _makeBackup # (description, bug?)
 	my $bug         = delete $options{bug};
 	my $description = delete $options{description};
 
+	my $progress   = $options{progress};
+
+
 	my $time = strftime("%F %T", localtime);
 
 	my $confdir = EBox::Config::conf;
@@ -88,6 +91,13 @@ sub _makeBackup # (description, bug?)
 	  if ($bug) {
 	    $self->_bug($auxDir);
 	  }
+
+
+	  if ($progress) {
+	    $progress->setMessage(__('Creating backup archive'));
+	    $progress->notifyTick();
+	  }
+
 
 
 	  my $filesArchive  = "$archiveContentsDir/files.tgz";
@@ -117,15 +127,26 @@ sub _makeBackup # (description, bug?)
 
 sub _dumpModulesBackupData
 {
-  my ($self, $auxDir, @options) = @_;
+  my ($self, $auxDir, %options) = @_;
+
+  my $progress   = $options{progress};
 
   my $global = EBox::Global->getInstance();
   my @names = @{$global->modNames};
-  foreach (@names) {
-    my $mod = $global->modInstance($_);
+  foreach my $modName (@names) {
+    my $mod = $global->modInstance($modName);
+
+    if ($progress) {
+      # update progress object
+      $progress->notifyTick();
+      $progress->setMessage(__x('Dumping configuration of module {m}',
+			      m => $modName));
+    }
+
+
     try {
-      EBox::debug("Dumping $_ backup data");
-      $mod->makeBackup($auxDir, @options);
+      EBox::debug("Dumping $modName backup data");
+      $mod->makeBackup($auxDir, %options);
     } 
     catch EBox::Exceptions::Base with {
       my $ex = shift;
@@ -362,7 +383,7 @@ sub backupDiscDetails
 #
 # Method: backupDetailsFromArchive
 #
-#      Gathers the details of the bckup stored in a given file
+#      Gathers the details of the backup stored in a given file
 #
 #
 # Parameters:
@@ -543,6 +564,51 @@ sub _ensureBackupdirExistence
 } 
 
 
+
+
+#
+# Method: prepareMakeBackup
+#
+#   	Prepares a backup restauration 
+#
+# Parameters:
+#
+#                   description - backup's description (backwards compability mode)
+#                   fullBackup  - wether do a full backup or  backup only configuration (default: false)
+#                   directlyToDisc      - burn directly to Cd the backup and do not store it in the filesystem (default: false)
+#
+#  Returns:
+#    the progress indicator object whihc represents the progress of the restauration
+#
+# Exceptions:
+#	
+#	External - If it can't unpack de backup
+#
+sub prepareMakeBackup
+{
+  my ($self, @options) = @_;
+
+  my $makeBackupScript = EBox::Config::libexec() . 'ebox-make-backup';
+  $makeBackupScript    .= "  @options";
+  
+  my $global     = EBox::Global->getInstance();
+  my $totalTicks = scalar @{ $global->modNames } + 2; # there are one task for
+                                                      # each module plus two
+                                                      # tasks for writing the
+                                                      # archive  file
+           
+
+  my $progressIndicator =  EBox::ProgressIndicator->create(
+			     executable => $makeBackupScript,
+			     totalTicks => $totalTicks,
+						    );
+
+  $progressIndicator->runExecutable();
+
+  return $progressIndicator;
+}
+
+
 #
 # Method: makeBackup 
 #
@@ -550,7 +616,9 @@ sub _ensureBackupdirExistence
 #
 # Parameters:
 #
-#                   description - backup's description (backwards compability mode)
+#                   progressIndicatorId - Id of the progress indicator 
+#                       associated with this operation (mandatory )
+#                   description - backup's description (default: 'Backup')
 #                   fullBackup  - wether do a full backup or  backup only configuration (default: false)
 #                   directlyToDisc      - burn directly to Cd the backup and do not store it in the filesystem (default: false)
 #
@@ -564,25 +632,60 @@ sub makeBackup # (options)
   validate_with(
 		params => [%options],
 		spec   => {
+			   progress     => { 
+					    optional => 0, 
+					     isa => 'EBox::ProgressIndicator'
+					   },
 			   description => { default =>  __('Backup') },
 			   fullBackup  => { default => 0 },
 			   directlyToDisc  => { default => 0 },
 			  });
 
-  my $time = strftime("%F", localtime);
-
-  $self->_modulesReady();
-
-  my $backupdir = backupDir();
-  _ensureBackupdirExistence();
-
-  my $filename = $self->_makeBackup(%options);
-
-  if ($options{directlyToDisc}) {
-    return $self->_moveToDisc($filename);
-  }
+  my $progress = $options{progress};
+  EBox::debug("make backup id: " . $progress->id());
+  $progress->started or
+    throw EBox::Exceptions::Internal("ProgressIndicator's executable has not been run");
   
-  return $self->_moveToArchives($filename, $backupdir);
+  
+  my $backupdir = backupDir();
+
+  my $filename;
+  try {
+    my $time = strftime("%F", localtime);
+
+    $self->_modulesReady();
+    
+
+    _ensureBackupdirExistence();
+
+    $filename = $self->_makeBackup(%options);
+  }
+ otherwise {
+   $progress->setAsFinished();
+ };
+
+
+  my $retValue;
+  try {
+    if ($options{directlyToDisc}) {
+      $progress->notifyTick();
+      $progress->setMessage(__('Writing backup file to optical disc'));
+
+      $retValue =  $self->_moveToDisc($filename);
+    }
+    else {
+      $progress->notifyTick();
+      $progress->setMessage(__('Writing backup file to hard disc'));
+
+      $retValue = $self->_moveToArchives($filename, $backupdir);      
+    }
+  }
+  finally {
+    $progress->setAsFinished();
+  };
+    
+
+  return $retValue;
 }
 
 
@@ -801,14 +904,53 @@ sub writeBackupToDisc
 }
  
 #
+# Method: prepareRestoreBackup
+#
+#   	Prepares a backup restauration 
+#
+# Parameters:
+#
+#       file - backup's file (as positional parameter)
+#       fullRestore  - wether do a full restore or  restore only configuration (default: false)
+#
+#  Returns:
+#    the progress indicator object whihc represents the progress of the restauration
+#
+# Exceptions:
+#	
+#	External - If it can't unpack de backup
+#
+sub prepareRestoreBackup
+{
+  my ($self, $file, @options) = @_;
+
+  my $restoreBackupScript = EBox::Config::libexec() . 'ebox-restore-backup';
+  $restoreBackupScript    .= " file $file @options";
+  
+  my $totalTicks = scalar @{ $self->_modInstancesForRestore };
+
+  my $progressIndicator =  EBox::ProgressIndicator->create(
+			     executable => $restoreBackupScript,
+			     totalTicks => $totalTicks,
+						    );
+
+  $progressIndicator->runExecutable();
+
+  return $progressIndicator;
+}
+
+
+#
 # Method: restoreBackup 
 #
 #   	Restores a backup from file	
 #
 # Parameters:
 #
-#       file - backup's file (as positional parameter)
-#       fullRestore  - wether do a full restore or  restore only configuration (default: false)
+#       file - backup's file (as positional parameter) 
+#       progressIndicatorId - Id of the progress indicator associated
+#                       with htis operation (mandatory )
+# fullRestore - wether do a full restore or restore only configuration (default: false)
 #
 # Exceptions:
 #	
@@ -818,11 +960,26 @@ sub restoreBackup # (file, %options)
 {
   my ($self, $file, %options) = @_;
   defined $file or throw EBox::Exceptions::MissingArgument('Backup file');
+
   validate_with ( params => [%options], 
-		  spec => { fullRestore => { default => 0 },  });
+		  spec => { 
+			   progress    => {
+					   optional => 0,
+					   isa => 'EBox::ProgressIndicator',
+					  },
+			   fullRestore => { default => 0 },  
+			  });
 
   _ensureBackupdirExistence();
   $self->_checkSize($file);
+
+  my $progress = delete $options{progress}; # we don't need to pass the progress
+                                            # object to any methos, so we remove
+                                            # it from the options
+  EBox::debug("restore backup id: " . $progress->id);
+  $progress->started or
+    throw EBox::Exceptions::Internal("ProgressIndicator's executable has not been run");
+
   my $tempdir = $self->_unpackAndVerify($file, $options{fullRestore});
 
   try {
@@ -837,46 +994,77 @@ sub restoreBackup # (file, %options)
     try {
       foreach my $mod (@modules) {
 	my $modname = $mod->name();
-	if (-e "$tempdir/eboxbackup/$modname.bak") {
-	  push @restored, $modname;
-	  EBox::debug("Restoring $modname from backup data");
-	  $mod->setAsChanged(); # we set as changed first because it is not
-                                # guaranteed that a failed backup will not
-                                # change state
-	  $mod->restoreBackup("$tempdir/eboxbackup", %options);
-	  $self->_migratePackage($mod->package());
 
+	# update progress indicator 
+	$progress->notifyTick(); 
+	$progress->setMessage($modname);
+
+	my $restoreOk = $self->_restoreModule($mod, $tempdir, \%options);
+	if ($restoreOk) {
+	  push @restored, $modname;
 	}
-	else {
-	  EBox::error("Restore data not found for module $modname. Skipping $modname restore");
-	}
+
       }
+
     } 
     otherwise {
       my $ex = shift;
-      EBox::error('Error while restoring: ' . $ex->text());
-      EBox::debug('Error caught: revoking restore for all modules');
-      foreach my $restname (@restored) {
-	my $restmod = EBox::Global->modInstance($restname);
-	try {
-	  $restmod->revokeConfig();
-	  # XXX remember no-gconf changes are not revoked!
-	  EBox::debug("Revoked changes in $restname module");
-	}
-	otherwise {
-	  EBox::debug("$restname has not changes to be revoked" );
-	};
-      }
 
+      EBox::error('Error while restoring: ' . $ex->text());
+
+      $self->_revokeRestore(\@restored);
       throw $ex;
+    }
+    finally {
+      $progress->setAsFinished(); #
     };
 
 
     EBox::info('Restore successful');
   }
   finally {
-      `rm -rf $tempdir`;
+      system 'rm -rf $tempdir';
   };
+}
+
+
+sub _restoreModule
+{
+  my ($self, $mod, $tempdir, $options_r) = @_;
+  my $modname = $mod->name();
+
+  if (not -e "$tempdir/eboxbackup/$modname.bak") {
+    EBox::error("Restore data not found for module $modname. Skipping $modname restore");
+    return 0;
+  }
+
+  EBox::debug("Restoring $modname from backup data");
+  $mod->setAsChanged(); # we set as changed first because it is not
+  # guaranteed that a failed backup will not
+  # change state
+  $mod->restoreBackup("$tempdir/eboxbackup", %{ $options_r });
+  $self->_migratePackage($mod->package());
+  
+  return 1;
+}
+
+
+sub _revokeRestore
+{
+  my ($self, $restored_r) = @_;
+
+  EBox::debug('revoking restore for all modules');
+  foreach my $restname (@{ $restored_r }) {
+    my $restmod = EBox::Global->modInstance($restname);
+    try {
+      $restmod->revokeConfig();
+      # XXX remember no-gconf changes are not revoked!
+      EBox::debug("Revoked changes in $restname module");
+    }
+    otherwise {
+      EBox::debug("$restname has not changes to be revoked" );
+    };
+  }
 }
 
 sub _migratePackage
@@ -1006,12 +1194,15 @@ sub restoreBackupFromDisc
     throw EBox::Exceptions::External(__('Insert a backup disc and try again, please'));
   }
 
+  my $progress;
   try {
-    $self->restoreBackup($discFileInfo->{file}, %options);
+    $progress = $self->prepareRestoreBackup($discFileInfo->{file}, %options);
   }
   finally {
       EBox::Backup::OpticalDiscDrives::ejectDisc($discFileInfo->{device});
   };
+
+  return $progress;
 }
 
 
@@ -1028,7 +1219,7 @@ sub _backupFileById
 {
     my ($self, $id) = @_;
 
-    my $backupdir = backupDir();
+    my $backupdir = EBox::Config::conf . '/backups';
     my $file = "$backupdir/$id.tar";
     unless (-f $file) {
 	throw EBox::Exceptions::External("Could not find the backup.");
@@ -1036,7 +1227,6 @@ sub _backupFileById
 
     return $file;
 }
-
 
 #  Function: _facilitiesForDiskUsage
 #  Overrides: EBox::Report::DiskUsageProvider::_faciltiesForDiskUsage

@@ -133,6 +133,7 @@ sub _dump_to_file # (dir?)
 {
 	my ($self, $dir) = @_;
 	$self->_config();
+
 	my $key = "/ebox/modules/" . $self->name;
 	($dir) or $dir = EBox::Config::conf;
 	my $file = $self->_bak_file_from_dir($dir);
@@ -935,13 +936,45 @@ sub _delete_dir_internal # (key)
 sub get_unique_id # (prefix, directory?)
 {
 	my ($self, $prefix, $directory) = @_;
+	return $self->_get_unique_id($prefix, $directory, 'dir_exists');
+}
+
+#
+# Method: st_get_unique_id 
+#
+# 	It generates a unique random identifier with a leading
+#       prefix in the root of the module's state
+#       namespace, if directory is passed, it will
+#       be added to the path. Note that it does not create the entry, it
+#       just returns a unique identifier, so it is up to you to create the
+#       proper entry
+#
+# Parameters:
+#
+#       prefix  - prefix to be added to the root of the module's state namespace
+#	directory - if the directory is passed, this is added to the path
+#
+# Returns:
+#
+#	string - unique identifier
+sub st_get_unique_id # (prefix, directory?)
+{
+	my ($self, $prefix, $directory) = @_;
+	return $self->_get_unique_id($prefix, $directory, 'st_dir_exists');
+}
+
+
+sub _get_unique_id
+{
+         my ($self, $prefix, $directory, $dirExistsMethod) = @_;
+
 	if ($directory) {
 		$directory .= '/';
 	} else {
 		$directory = "";
 	}
 	my $id = $prefix . int(rand(10000));
-	while ($self->dir_exists($directory . $id)) {
+	while ($self->$dirExistsMethod($directory . $id)) {
 		$id = $prefix . int(rand(10000));
 	}
 	return $id;

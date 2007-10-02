@@ -114,10 +114,23 @@ sub _regenConfig
 {
 	my $self = shift;
 	
+	$self->_deleteSessionObjects();
+
 	$self->_writeHttpdConfFile();
 	$self->_writeStartupFile();
 
+	
+
 	$self->_daemon('restart');
+}
+
+
+#  all the state keys for apache are session object so we delete them all
+#  warning: in the future this may change
+sub _deleteSessionObjects
+{
+  my ($self) = @_;
+  $self->st_delete_dir('');
 }
 
 sub _writeHttpdConfFile
