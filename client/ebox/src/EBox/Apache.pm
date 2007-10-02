@@ -66,7 +66,7 @@ sub initd
 
 # restarting apache from inside apache could be problematic, so we fork() and
 # detach the child from the process group.
-sub _daemon # (action) prove -v Auth.t
+sub _daemon # (action) 
 {
 	my $self = shift;
 	my $action = shift;
