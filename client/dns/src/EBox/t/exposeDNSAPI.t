@@ -20,7 +20,7 @@ use warnings;
 
 use lib '../../';
 
-use Test::More qw(no_plan);
+use Test::More tests => 14;
 use Test::Exception;
 use Test::Deep;
 
@@ -68,7 +68,7 @@ my @domainToAdd = (domain => 'foo.com',
                   );
 
 ok ( $addedId = $dnsMod->addDomain1( @domainToAdd ),
-     'Adding an dns domain with three mappings which include some aliases');
+     'Adding dns domain "foo.com" with three mappings which include some aliases');
 
 # Mapping to check
 #my %domainHash = @domainToAdd;
@@ -94,44 +94,46 @@ ok ( $dnsMod->addHostName( 'foo.com',
                                         { alias => 'd1' },
                                         { alias => 'd2' },
                                        ]),
-     'Add a hostname was done correctly');
+     'Adding hostname d was done correctly');
 
 ok ( $dnsMod->addAlias( 'foo.com', 'd',
                         alias => 'd3'),
-     'Add an alias to a hostname');
+     'Adding alias d3 to hostname d');
 
-lives_ok
-  {
-      $dnsMod->removeAlias( 'foo.com', 'd', 'd3');
-  } 'Remove an alias correctly';
+lives_ok {
+    $dnsMod->changeAlias( 'foo.com', 'd', 'd3', alias => 'dd3');
+} 'Changing alias name from d3 to dd3';
 
-throws_ok
-  {
-      $dnsMod->removeAlias( 'foo.com', 'd', 'd3');
-  } 'EBox::Exceptions::DataNotFound', 'Remove an inexistant alias';
+lives_ok {
+    $dnsMod->removeAlias( 'foo.com', 'd', 'dd3');
+} 'Removing alias dd3 correctly';
+
+throws_ok {
+      $dnsMod->removeAlias( 'foo.com', 'd', 'dd3');
+  } 'EBox::Exceptions::DataNotFound', 'Removing an inexistant alias dd3';
 
 lives_ok {
     $dnsMod->setIP( 'foo.com', 'd', ipaddr => '192.168.4.4' );
 } 'Setting a different mapping on hostname d';
 
-cmp_ok ( $dnsMod->getHostName()->{plainValueHash}->{ipaddr}, 'eq',
+cmp_ok ( $dnsMod->getHostName('foo.com', 'd')->{plainValueHash}->{ipaddr}, 'eq',
          '192.168.4.4', 'Updating ip address on hostname d was done correctly');
 
 lives_ok {
     $dnsMod->removeHostName('foo.com', 'a');
-} 'Remove hostname a';
+} 'Removing hostname a';
 
 throws_ok {
     $dnsMod->removeHostName('foo.com', 'a');
-} 'EBox::Exceptions::DataNotFound', 'Remove an inexistant host';
+} 'EBox::Exceptions::DataNotFound', 'Removing an inexistant host a';
 
 lives_ok {
     $dnsMod->removeDomain( 'foo.com' );
-} 'Removing foo.com domain';
+} 'Removing "foo.com" domain';
 
 cmp_ok ( none ( map { $_->{name} } @{$dnsMod->domains()}),
          'eq', 'foo.com',
-         'Remove was done correctly');
+         '"foo.com" removal was done correctly');
 
 1;
 

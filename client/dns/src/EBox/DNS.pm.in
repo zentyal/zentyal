@@ -137,6 +137,11 @@ sub _exposedMethods
                             path    => [ 'DomainTable', 'hostnames', 'alias' ],
                             indexes => [ 'domain', 'hostname', 'alias' ],
                           },
+         'changeAlias' => { action   => 'set',
+                            path     => [ 'DomainTable', 'hostnames', 'alias' ],
+                            indexes  => [ 'domain', 'hostname', 'alias' ],
+                            selector => [ 'alias' ],
+                          },
          );
 
       return \%exposedMethods;
