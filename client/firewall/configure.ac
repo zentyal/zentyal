@@ -61,6 +61,7 @@ src/EBox/Makefile
 src/EBox/CGI/Makefile
 src/EBox/Model/Makefile
 src/EBox/Firewall/Makefile
+src/EBox/t/Makefile
 src/templates/Makefile
 src/templates/ajax/Makefile
 src/templates/ajax/viewer/Makefile

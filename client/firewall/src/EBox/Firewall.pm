@@ -81,7 +81,7 @@ sub _create
 
 # Method: models
 #
-#      Overrides <EBox::ModelImplementator::models>
+#      Overrides <EBox::Model::ModelProvider::models>
 #
 sub models {
        my ($self) = @_;
@@ -91,6 +91,32 @@ sub models {
 		 $self->{'ExternalToEBoxRuleModel'},
 		 $self->{'EBoxOutputRuleModel'},
 		 $self->{'ExternalToInternalRuleTable'}];
+}
+
+# Method: _exposedMethods
+#
+# Overrides:
+#
+#      <EBox::Model::ModelProvider::_exposedMethods>
+#
+sub _exposedMethods
+{
+
+    my %exposedMethods = (
+                          addOutputService => { action => 'add',
+                                                path   => [ 'EBoxOutputRuleTable' ] },
+                          removeOutputService => { action => 'del',
+                                                   path   => [ 'EBoxOutputRuleTable' ],
+                                                   indexes => [ 'id' ]
+                                                 },
+                          getOutputService => { action  => 'get',
+                                                path    => [ 'EBoxOutputRuleTable' ],
+                                                indexes => [ 'position' ],
+                                              },
+                          );
+
+    return \%exposedMethods;
+
 }
 
 # utility used by CGI

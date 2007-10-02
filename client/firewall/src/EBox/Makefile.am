@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = CGI Model Firewall
+SUBDIRS = CGI Firewall Model t
 
 perldir = @PERLPATH@/EBox
 
