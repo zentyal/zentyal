@@ -15,7 +15,8 @@
 
 # Class: EBox::Logs::Model::ForcePurge
 #
-
+#       Form model to purge a selected kind of log from a fixed date
+#
 
 package EBox::Logs::Model::ForcePurge;
 
@@ -39,29 +40,15 @@ use Clone qw(clone);
 
 # Constructor: new
 #
-#      Create an enabled form
+#      Create a force purge form
 #
 # Overrides:
 #
 #      <EBox::Model::DataForm::new>
 #
-# Parameters:
-#
-#      enableTitle - String the i18ned title for the printable name
-#      for the enabled attribute
-#
-#      modelDomain - String the model domain which this form belongs to
-#
-#      - Named parameters
-#
 # Returns:
 #
-#      <EBox::Common::Model::EnableForm> - the recently created model
-#
-# Exceptions:
-#
-#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
-#      argument is missing
+#      <EBox::Logs::Model::ForcePurge> - the recently created model
 #
 sub new
   {
@@ -73,7 +60,23 @@ sub new
       return $self;
   }
 
+# Method: setRow
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::setRow>
+#
+#
+sub setRow
+  {
+    my ($self, $force, %params) = @_;
+  my $lifeTime = $params{lifeTime};
 
+  my $logs = EBox::Global->modInstance('logs');
+
+  EBox::debug("lifetime $lifeTime");
+  $logs->forcePurge($lifeTime);
+}
 
 # Group: Protected methods
 
@@ -111,18 +114,6 @@ sub _table
       return $dataForm;
 
   }
-
-
-sub setRow
-  {
-    my ($self, $force, %params) = @_;
-  my $lifeTime = $params{lifeTime};
-
-  my $logs = EBox::Global->modInstance('logs');
-
-  EBox::debug("lifetime $lifeTime");
-  $logs->forcePurge($lifeTime);
-}
 
 sub _populateSelectLifeTime
 {
