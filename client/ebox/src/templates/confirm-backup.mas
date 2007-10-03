@@ -74,8 +74,6 @@ $backup
 my $name;
 my $value;
 
-return if exists $backup->{disc};
-
 if (exists $backup->{id}) {
     $name = 'id';
     $value = $backup->{id};

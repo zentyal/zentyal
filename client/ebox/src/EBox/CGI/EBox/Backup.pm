@@ -26,7 +26,7 @@ use EBox::Backup;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
-use EBox::Backup::OpticalDiscDrives;
+
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -63,27 +63,17 @@ sub requiredParameters
   if ($self->param('backup')) {
     return [qw(backup description mode)];
   }
-  elsif ($self->param('backupToDisc')) {
-    return [qw(backupToDisc description mode)];
-  }
   elsif ($self->param('bugreport')) {
     return [qw(bugreport )];
   }
-
   elsif ($self->param('restoreFromFile')) {
     return [qw(restoreFromFile backupfile mode)];
-  }
-  elsif ($self->param('restoreFromDisc')) {
-    return [qw(restoreFromDisc backupfile mode)];
   }
   elsif ($self->param('restoreFromId')) {
     return [qw(restoreFromId id mode)];
   }
   elsif ($self->param('download')) {
     return [qw(download id download.x download.y)];
-  }
-  elsif ($self->param('writeBackupToDisc')) {
-    return [qw(writeBackupToDisc id)];
   }
   elsif ($self->param('delete')) {
     return [qw(delete id)];
@@ -115,11 +105,8 @@ sub actuate
   $self->param('cancel') and return;
 
   if ($self->param('backup')) {
-    $self->_backupAction(directlyToDisc => 0);
+    $self->_backupAction();
   } 
-  elsif ($self->param('backupToDisc')) {
-    $self->_backupAction(directlyToDisc => 1);
-  }
   elsif ($self->param('bugreport')) {
     $self->_bugreportAction();
     } 
@@ -134,12 +121,6 @@ sub actuate
   } 
   elsif ($self->param('restoreFromFile')) {
     $self->_restoreFromFileAction();
-  }
-  elsif ($self->param('writeBackupToDisc')) {
-    $self->_writeBackupToDiscAction();
-  }
-  elsif ($self->param('restoreFromDisc')) {
-    $self->_restoreFromDiscAction();
   }
 }
 
@@ -158,19 +139,6 @@ sub masonParameters
   push @params, (modulesChanged => $modulesChanged);
 
 
-  my $readOpticalDisk  = 0;
-  my $writeOpticalDisk = 0;
-  try {
-    my $drivesInfo = EBox::Backup::OpticalDiscDrives::info();
-    $readOpticalDisk =  keys  %{ $drivesInfo } > 0;
-    $writeOpticalDisk = EBox::Backup::OpticalDiscDrives::writersForCDR($drivesInfo) > 0;
-  }
-  otherwise {
-    my $ex = shift;
-    EBox::error("Cannot determine optical disk drivers: " . $ex->text() );
-  };
-
-  push @params, (readOpticalDisk => $readOpticalDisk, writeOpticalDisk => $writeOpticalDisk);
 
   return \@params;
 }
@@ -179,7 +147,6 @@ sub masonParameters
 sub  _backupAction
 {
   my ($self, %params) = @_;
-  exists $params{directlyToDisc} or throw EBox::Exceptions::MissingArgument('directlyToDisc');
 
   my $fullBackup;
   my $mode = $self->param('mode');
@@ -198,23 +165,12 @@ sub  _backupAction
   my $progressIndicator;
 
   my $backup = EBox::Backup->new();
-  $progressIndicator= $backup->prepareMakeBackup(description => $description, fullBackup => $fullBackup, directlyToDisc => $params{directlyToDisc});
+  $progressIndicator= $backup->prepareMakeBackup(description => $description, fullBackup => $fullBackup);
 
   $self->_showBackupProgress($progressIndicator);
 } 
 
 
-sub _writeBackupToDiscAction
-{
-  my ($self) = @_;
-
-  my $backup = new EBox::Backup;
-  my $id     = $self->param('id');
-  
-  $backup->writeBackupToDisc($id);
-
-  $self->setMsg(__('Backup was written to CD/DVD disk'));
-}
 
 sub  _restoreFromFileAction
 {
@@ -239,18 +195,6 @@ sub _restoreFromIdAction
   $self->_restore(EBox::Config::conf ."/backups/$id.tar");
 }  
 
-sub _restoreFromDiscAction
-{
-  my ($self) = @_;
-  
-  my $fullRestore = $self->_fullRestoreMode;
-
-  my $backup = new EBox::Backup;
-  my $progressIndicator = 
-    $backup->restoreBackupFromDisc(fullRestore => $fullRestore);
-
-  $self->_showRestoreProgress($progressIndicator);
-}
 
 sub _restore
 {

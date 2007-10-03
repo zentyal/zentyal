@@ -9,9 +9,6 @@ use EBox::ProgressIndicator;
 use Error qw(:try);
 
 
-
-EBox::debug("$0 pid: $$");
-
 my %params = @ARGV;
 
 my $progressId = delete $params{'progress-id'};

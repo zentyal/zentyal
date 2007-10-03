@@ -24,8 +24,6 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::FileSystem;
-use EBox::Backup::FileBurner;
-use EBox::Backup::OpticalDiscDrives;
 use EBox::ProgressIndicator;
 
 use File::Temp qw(tempdir);
@@ -47,7 +45,6 @@ use Readonly;
 Readonly::Scalar our $FULL_BACKUP_ID  => 'full backup';
 Readonly::Scalar our $CONFIGURATION_BACKUP_ID  =>'configuration backup';
 Readonly::Scalar our $BUGREPORT_BACKUP_ID  =>'bugreport configuration dump';
-Readonly::Scalar my $DISC_BACKUP_FILE  => 'eboxbackup.tar';
 my $RECURSIVE_DEPENDENCY_THRESHOLD = 3;
 
 sub new 
@@ -343,42 +340,6 @@ sub backupDetails # (id)
   return $details;
 }
 
-#
-# Method: backupDiscDetails
-#
-#      Gathers the details from a backup stored in a CD-ROM or DVD-ROM.
-#
-# Limitations:
-#       It is assumed that is only a backup file per disc. If there are multiple disc with backups wich one is selected is not defined
-#
-# Parameters:
-#
-#       
-#
-# Returns:
-#
-#       A hash reference with the details. This hash consists of:
-#	
-#       file - the filename of the archive
-#	date - when it was backed up
-#	description - backup's description
-#       disc - boolean that marks whether the file is into a optical disc or not
-#   	
-#
-sub backupDiscDetails
-{
-  my ($self) = @_;
-
-  my $discFileInfo = EBox::Backup::OpticalDiscDrives::searchFileInDiscs($DISC_BACKUP_FILE);
-  if (!defined $discFileInfo) {
-    throw EBox::Exceptions::External(__('Insert a backup disc and try again, please'));
-  }
-
-  my $details = $self->backupDetailsFromArchive($discFileInfo->{file});
-  $details->{disc} = 1;
-  
-  return $details;
-}
 
 #
 # Method: backupDetailsFromArchive
@@ -575,7 +536,6 @@ sub _ensureBackupdirExistence
 #
 #                   description - backup's description (backwards compability mode)
 #                   fullBackup  - wether do a full backup or  backup only configuration (default: false)
-#                   directlyToDisc      - burn directly to Cd the backup and do not store it in the filesystem (default: false)
 #
 #  Returns:
 #    the progress indicator object whihc represents the progress of the restauration
@@ -620,7 +580,6 @@ sub prepareMakeBackup
 #                       associated with this operation (mandatory )
 #                   description - backup's description (default: 'Backup')
 #                   fullBackup  - wether do a full backup or  backup only configuration (default: false)
-#                   directlyToDisc      - burn directly to Cd the backup and do not store it in the filesystem (default: false)
 #
 # Exceptions:
 #	
@@ -638,7 +597,6 @@ sub makeBackup # (options)
 					   },
 			   description => { default =>  __('Backup') },
 			   fullBackup  => { default => 0 },
-			   directlyToDisc  => { default => 0 },
 			  });
 
   my $progress = $options{progress};
@@ -651,34 +609,25 @@ sub makeBackup # (options)
 
   my $filename;
   try {
-    my $time = strftime("%F", localtime);
-
     $self->_modulesReady();
     
-
     _ensureBackupdirExistence();
 
     $filename = $self->_makeBackup(%options);
   }
  otherwise {
+   my $ex = shift @_;
    $progress->setAsFinished();
+   $ex->throw();
  };
 
 
   my $retValue;
   try {
-    if ($options{directlyToDisc}) {
-      $progress->notifyTick();
-      $progress->setMessage(__('Writing backup file to optical disc'));
-
-      $retValue =  $self->_moveToDisc($filename);
-    }
-    else {
       $progress->notifyTick();
       $progress->setMessage(__('Writing backup file to hard disc'));
 
       $retValue = $self->_moveToArchives($filename, $backupdir);      
-    }
   }
   finally {
     $progress->setAsFinished();
@@ -719,14 +668,6 @@ sub  _moveToArchives
   return "$backupdir/$id";
 } 
 
-sub _moveToDisc
-{
-  my ($self, $filename) = @_;
-
-  EBox::Backup::FileBurner::burn(file => $filename);
-  unlink $filename;
-  return undef;
-} 
 
 #
 # Method: makeBugReport
@@ -872,36 +813,6 @@ sub  _checkSize
 
 } 
 
-#
-# Method: writeBackupToDisc
-#
-#    writes the archive to a optical disc. The writer device is chosen automatically. The media is also auto-detected
-#
-# Parameters:
-# 
-#    id - the id of the archive file
-#
-sub writeBackupToDisc
-{
-  my ($self, $id) = @_;
-  validate_pos(@_, 1, 1);
-  
-  $self->_checkId($id);
-
-  my $file = $self->_backupFileById($id);
-
-  my $backupdir = backupDir();
-  my $destFile = "$backupdir/$DISC_BACKUP_FILE";
-  
-  move($file, $destFile) or throw EBox::Exceptions::Internal("Cannot rename backup file: @!");
-  
-  try {
-      EBox::Backup::FileBurner::burn(file => $destFile);
-  }
-  finally {
-      move($destFile, $file) or throw EBox::Exceptions::External(__x('Cannot rename backup file from {newName} to his original name {name}. Error message: {error}', newName => $destFile, name => $file, error => $!));
-  };
-}
  
 #
 # Method: prepareRestoreBackup
@@ -1155,55 +1066,6 @@ sub _checkModDeps
   }
 }
 
-#
-# Procedure: searchBackupFileInDiscs
-#
-#    searches the CD and DVD disks for a archive file
-#
-# Returns:
-#      the path to the first file found or undef if none is found
-#   	
-# 
-sub searchBackupFileInDiscs
-{
-  return EBox::Backup::OpticalDiscDrives::searchFileInDiscs($DISC_BACKUP_FILE);
-}
-
-#
-# Method: restoreBackupFromDisc
-#
-#      restores from a DVD or CD-ROM disk
-#
-# Limitation:
-#
-#   if we have multiples backups in differents disks or in the same disk, we don't know beforehand wich one will be used
-#
-# Parameters:
-#
-#       fullRestore  - wether do a full restore or  restore only configuration (default: false)
-#       
-
-sub restoreBackupFromDisc
-{
-  my ($self,  %options) = @_;
-  validate_with (params => [%options],
-		 spec => { fullRestore => { default => 0 },  });
-
-  my $discFileInfo = searchBackupFileInDiscs();
-  if (!defined $discFileInfo) {
-    throw EBox::Exceptions::External(__('Insert a backup disc and try again, please'));
-  }
-
-  my $progress;
-  try {
-    $progress = $self->prepareRestoreBackup($discFileInfo->{file}, %options);
-  }
-  finally {
-      EBox::Backup::OpticalDiscDrives::ejectDisc($discFileInfo->{device});
-  };
-
-  return $progress;
-}
 
 
 sub _checkId

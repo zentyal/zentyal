@@ -51,15 +51,9 @@ sub requiredParameters
   elsif ($self->param('delete')) {
     return [qw(delete id delete.x delete.y)];
   }
-  elsif ($self->param('burn')) {
-    return [qw(burn burn.x burn.y id)]; 
-  } 
   elsif ($self->param('restoreFromId')) {
     return [qw(restoreFromId restoreFromId.x restoreFromId.y id)]; 
   }
-  elsif ($self->param('restoreFromDisc')) {
-    return [qw(restoreFromDisc)];
-  } 
   elsif ($self->param('restoreFromFile')) {
     return [qw(restoreFromFile backupfile)];
   }
@@ -77,7 +71,7 @@ sub actuate
     return;
   }
 
-  foreach my $actionParam (qw(delete burn restoreFromId restoreFromDisc restoreFromFile )) {
+  foreach my $actionParam (qw(delete restoreFromId restoreFromFile )) {
     if ($self->param($actionParam)) {
       my $actionSub = $self->can($actionParam . 'Action');
       my ($backupAction, $backupActionText, $backupDetails) = $actionSub->($self);
@@ -123,26 +117,6 @@ sub  restoreFromIdAction
 } 
 
 
-sub restoreFromDiscAction
-{
-  my ($self) = @_;
-  
-  my $backup = new EBox::Backup;
-  my $backupfileInfo = $backup->searchBackupFileInDiscs();
-  defined $backupfileInfo or throw EBox::Exceptions::External(__('Unable to find a correct backup disk. Please insert a backup disk and retry')); # XXX TODO: discriminate between no disc and disk with no backup
-  
-  my $details;
-
-  try {
-    $details =  $self->backupDetailsFromFile($backupfileInfo->{file});
-  }
-  finally {
-    $backupfileInfo->{umountSub}->();
-  };
-
-  $self->{msg} = __('Please confirm that you want to restore using this backup disk:');
-  return ('restoreFromDisc', __('Restore'), $details);
-} 
 
 
 sub  restoreFromFileAction
@@ -159,14 +133,7 @@ sub  restoreFromFileAction
 } 
 
 
-sub  burnAction
-{
-  my ($self) = @_;
 
-  $self->{msg} = __('Please confirm that you want to write this backup file to a CD or DVD disk:');
-
-  return ('writeBackupToDisc', __('Write to disk'), $self->backupDetailsFromId());
-} 
 
 
 sub backupDetailsFromId

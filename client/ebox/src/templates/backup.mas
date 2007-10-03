@@ -1,18 +1,15 @@
 <%args>
   @backups
-  $readOpticalDisk  => 0
-  $writeOpticalDisk => 0
   $modulesChanged
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
-<& .backupSection, writeOpticalDisk => $writeOpticalDisk, modulesChanged => $modulesChanged &>
-<& .restoreSection, readOpticalDisk => $readOpticalDisk &>
-<& .listSection, backups => \@backups,  writeOpticalDisk => $writeOpticalDisk &>
+<& .backupSection, modulesChanged => $modulesChanged &>
+<& .restoreSection&>
+<& .listSection, backups => \@backups &>
 <%def .backupSection>
 <%args>
-$writeOpticalDisk
 $modulesChanged
 </%args>
 <%init>
@@ -21,21 +18,18 @@ my $modeOptions = [
      { value => 'configurationBackup', printableValue => __('Configuration Backup') }
 ];
 my $disabledAttr = $modulesChanged ? 'disabled' : '';
-my $disabledDiscAttr = ($modulesChanged or (not $writeOpticalDisk)) ? 
-                                                'disabled'  : '';
+
 </%init>
 <h3><% __('Back up the current state') %></h3>
 <div class='help'>
-	<% __("Backups will be stored in eBox and then you will be able to download them to your hard disk or write them into CD/DVD disks. Anyway, you can later copy back stored backup") %>
+	<% __("Backups will be stored in eBox and then you will be able to
+  download them to your hard disk.") %><br/>
+        <% __("If tou have the file sharing module installed, all users having
+  administration rights will be able to access the backup directory as a shared resource ") %>
 </div>	
 % if ($modulesChanged) {
   <div class='warning'>
 	<% __(q{Backup is disabled because there are unsaved configuration changes. Please, save or discard them to be able to backup the configuration}) %>
-  </div>   
-% }
-% elsif (not $writeOpticalDisk) {
-  <div class='warning'>
-	<% __("'Backup to CD/DVD disk' is disabled, because eBox could not find any recorder drive") %>
   </div>   
 % }
 <p>
@@ -59,12 +53,12 @@ my $disabledDiscAttr = ($modulesChanged or (not $writeOpticalDisk)) ?
 			</td>
                 </tr>
 		<tr>
-			<td class='tright'> </td>
+			<td class='tright'> 	
+						<span class='ftitle'></span>
+                       </td>						
 			<td>
 				<input class='inputButton' type='submit' 
-				<% $disabledAttr %> name='backup' value="<% __('Back up to hard disk') %>" />
-			   	<input class='inputButton' type='submit'
-			   	 <% $disabledDiscAttr %> name='backupToDisc' value="<% __('Back up to CD/DVD disk') %>" />
+				<% $disabledAttr %> name='backup' value="<% __('Back up') %>" />
 			</td>
                 </tr>
 	</form>
@@ -74,9 +68,6 @@ my $disabledDiscAttr = ($modulesChanged or (not $writeOpticalDisk)) ?
 </%def>
 
 <%def .restoreSection>
-<%args>
-$readOpticalDisk
-</%args>
 <h3><% __('Restore backup from file') %></h3>
 <div class='help'>
 	<% __('You can upload a backup file from your computer. When uploading files you should be warned that some web browsers cannot handle huge files (>= 1 Gb)') %>
@@ -94,7 +85,9 @@ $readOpticalDisk
 			</td>
 		</tr>
 		<tr>
-			<td> </td>
+			<td class='tright'> 	
+						<span class='ftitle'></span>
+                       </td>
 			<td>
                   <input class='inputButton' type='submit' name='restoreFromFile' value="<% __('Restore') %>" /> 
 			</td>
@@ -104,43 +97,15 @@ $readOpticalDisk
    </tbody>
 </table>
 
-<h3><% __('Restore backup from disk') %></h3>
-<div class='help'>
-	<% __('You can restore from a backup disk. Please insert the disk before clicking the button') %>
-</div>
-% if (not $readOpticalDisk) {
-  <div class='help'>
-	<% __("'Restore backup from CD/DVD disk' is disabled, because eBox could not find any reader drive") %>
-  </div>   
-% }
-  <table class='formTable'>
-    <tbody>
-     <form action='ConfirmBackup' method='POST' enctype="multipart/form-data">
-		<tr>
-			<td> </td>
-			<td>
-					
-		<input class='inputButton' type='submit' name='restoreFromDisc' <% $readOpticalDisk ? '' : 'disabled' %> value="<% __('Restore from disk') %>" />
-			</td>
-		</tr>
-
-       </form>
-   </tbody>
-</table>
 </%def>
 
 
 <%def .listSection>
 <%args>
 @backups
-$writeOpticalDisk
 </%args>
 <%init>
 return if not @backups;
-
-my $writeToDiskIcon   = $writeOpticalDisk ? '/data/images/writecd.gif':
-  '/data/images/writecd.gif';
-
 
 my %printableTypeById = (
   $EBox::Backup::FULL_BACKUP_ID          => __('Full'),
@@ -151,11 +116,6 @@ my %printableTypeById = (
 
 </%init>
 % if(@backups){
-% if (not $writeOpticalDisk) {
-  <div class='help'>
-	<% __("'Write backup to CD/DVD disk' is disabled, because eBox could not find any recorder drive") %>
-  </div>   
-% }
 <h3><% __("Backups' list") %></h3>
 <table class='dataTable' cellspacing='0'>
 	<thead>
@@ -199,13 +159,6 @@ my %printableTypeById = (
 						title="<%__('Download')%>"
 						alt="<%__('Download')%>"/>
 					<img src='/data/images/sep.gif' alt='-'/>
-					<input type='image' name='burn'
-						src='<% $writeToDiskIcon %>'
-		                                <%  $writeOpticalDisk ? '' : 'disabled' %>
-						value="Burn"
-						title="<%__('Write backup to CD/DVD disk')%>"
-						alt="<%__('Write backup to CD/DVD disk')%>"/>
-					<img src='/data/images/sep.gif' alt='-'/>
 					<input type='image' name='delete'
 						src='/data/images/delete.gif'
 						value="Delete"
@@ -224,8 +177,6 @@ my %printableTypeById = (
   my @legendElements = (
                         { imgFile => "/data/images/down.gif",
 			  imgName => __('download') },
-			{ imgFile => $writeToDiskIcon,
-			  imgName => $writeOpticalDisk ?  __('write into disk') : __('write into disk (disabled)') },
 			{ imgFile => "/data/images/apply.gif",
 			  imgName => __('restore') },
 			{ imgFile => "/data/images/delete.gif",

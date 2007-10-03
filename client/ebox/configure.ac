@@ -110,7 +110,6 @@ src/EBox/Makefile
 src/EBox/t/Makefile
 src/EBox/interactiveTest/Makefile
 src/EBox/Backup/Makefile
-src/EBox/Backup/interactiveTest/Makefile
 src/EBox/Backup/testdata/Makefile
 src/EBox/Common/Makefile
 src/EBox/Common/Model/Makefile
@@ -133,6 +132,9 @@ src/EBox/Logs/Model/Makefile
 src/EBox/Logs/Composite/Makefile
 src/EBox/Model/Makefile
 src/EBox/Model/t/Makefile
+src/EBox/Model/ProviderBase/Makefile
+src/EBox/Model/ModelProvider/Makefile
+src/EBox/Model/CompositeProvider/Makefile
 src/EBox/Types/Makefile
 src/EBox/Types/Union/Makefile
 src/EBox/ProgressIndicator/Makefile
