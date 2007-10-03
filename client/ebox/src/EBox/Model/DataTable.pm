@@ -171,6 +171,51 @@ sub name
 
   }
 
+# Method: contextName
+#
+#      The context name which is used as a way to know exactly which
+#      module this model belongs to and the runtime parameters from
+#      which was instanciated
+#
+# Returns:
+#
+#      String - following this pattern:
+#      '/moduleName/modelName/[param1/param2..]
+#
+sub contextName
+{
+
+    my ($self) = @_;
+
+    my $path = $self->{'gconfmodule'}->name() . '/' .
+      $self->name() . '/';
+
+    $path .= $self->index();
+
+    return $path;
+
+}
+
+# Method: index
+#
+#       Get the index from the model instance will be distinguised
+#       from the other ones with the same model template. Compulsory
+#       to be overriden by child classes if the same model template
+#       will be instanciated more than once.
+#
+#       By default, it returns an empty string ''.
+#
+# Returns:
+#
+#       String - the unique index string from this instance within the
+#       model template
+#
+sub index
+{
+
+    return '';
+
+}
 # Method: fieldHeader 
 #
 #	Return the instanced type of a given header field
@@ -641,7 +686,6 @@ sub row
 	$row->{'order'} = $self->_rowOrder($id);
 	$row->{'values'} = \@values;
 
-
 	return $row;
 }
 
@@ -984,7 +1028,7 @@ sub setTypedRow
       # about to be changed is referenced elsewhere and this change
       # produces an inconsistent state
       if ((not $force) and $self->table()->{'automaticRemove'}) {
-          $self->_warnOnChangeOnId($id, \@changedData);
+          $self->_warnOnChangeOnId($id, \@changedData, $oldRow);
       }
 
       my $modified = undef;
@@ -1006,10 +1050,10 @@ sub setTypedRow
 
       if ($modified) {
           $self->_setCacheDirty();
+          $self->setMessage($self->message('update'));
+          $self->updatedRowNotify($oldRow);
+          $self->_notifyModelManager('update', $self->row($id));
       }
-
-      $self->setMessage($self->message('update'));
-      $self->updatedRowNotify($oldRow);
 
   }
 
@@ -2672,7 +2716,7 @@ sub _warnIfIdIsUsed
 # FIXME This method must be in ModelManager
 sub _warnOnChangeOnId 
 {
-	my ($self, $id, $changeData) = @_;
+	my ($self, $id, $changeData, $oldRow) = @_;
 	
 	my $manager = EBox::Model::ModelManager->instance();
 	my $modelName = $self->modelName();
@@ -2680,7 +2724,7 @@ sub _warnOnChangeOnId
 	
 	for my $name  (keys %{$manager->modelsUsingId($modelName, $id)}) {
 		my $model = $manager->model($name);
-		my $issue = $model->warnOnChangeOnId($id, $changeData);
+		my $issue = $model->warnOnChangeOnId($id, $changeData, $oldRow);
 		if ($issue) {
 			$tablesUsing .= '<br> - ' .  $issue ;
 		}
