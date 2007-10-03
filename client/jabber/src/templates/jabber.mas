@@ -7,6 +7,9 @@
 </%init>
 	<h3><% __('Jabber account') %></h3>
 	<div class="help"><%__('Password for Jabber service is the user password')%></div>
+
+	<& .jabberDisabledWarning, $params &>
+
 	<table class="formTable">
 	<form action='/ebox/Jabber/JabberUserOptions' method='post'>
 	    <input type="hidden" name="username" value="<% $params->{'username'} %>">
@@ -48,3 +51,19 @@
 	</tr>
 	</form>
 	</table>
+
+
+<%def .jabberDisabledWarning>
+<%init>
+my ($params) = @_;
+return if $params->{service};
+
+</%init>
+
+<div class='warning'>
+<% __(
+       q{The following settings will take effect only when the jabber module will be enabled},
+    )
+%>
+</div>
+</%def> 

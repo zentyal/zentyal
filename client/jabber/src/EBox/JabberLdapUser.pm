@@ -44,9 +44,6 @@ sub _userAddOns
 	my ($self, $username) = @_;
 	my $jabber = EBox::Global->modInstance('jabber');
 
-	unless ($jabber->service) {
-		return undef;
-	}
 
 	my $active = 'no';
 	$active = 'yes' if($self->hasAccount($username));
@@ -55,9 +52,14 @@ sub _userAddOns
 	$is_admin = 1 if ($self->isAdmin($username));
 
 	my @args;
-	my $args = { 'username' => $username,
+	my $args = { 
+		    'username' => $username,
 	             'active'   => $active,
-		     'is_admin' => $is_admin };
+		     'is_admin' => $is_admin, 
+
+		     'service' => $jabber->service,
+		   };
+
 	return { path => '/jabber/jabber.mas',
 		 params => $args };
 }
