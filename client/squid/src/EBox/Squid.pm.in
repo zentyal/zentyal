@@ -17,8 +17,12 @@ package EBox::Squid;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::FirewallObserver EBox::ObjectsObserver
-	    EBox::Report::DiskUsageProvider  EBox::LogObserver);
+use base qw(
+	   EBox::GConfModule 
+	   EBox::Model::ModelProvider EBox::Model::CompositeProvider
+           EBox::FirewallObserver  EBox::LogObserver   
+	   EBox::Report::DiskUsageProvider
+	   );
 
 use EBox::Service;
 use EBox::Objects;
@@ -69,10 +73,41 @@ sub domain
 	return 'ebox-squid';
 }
 
+
+sub modelClasses
+{
+  return [
+	  {
+	   class => 'EBox::Squid::Model::SquidService',
+	   parameters => [
+			  enableTitle => __('HTTP Proxy service status'),
+			  modelDomain => 'ebox-squid',
+			 ],
+	  },
+	  'EBox::Squid::Model::GeneralSettings',
+	  'EBox::Squid::Model::ExtensionFilter',
+	  'EBox::Squid::Model::MIMEFilter',
+	  'EBox::Squid::Model::DomainFilter',
+	  'EBox::Squid::Model::ObjectPolicy',
+	 ]; 
+}
+
+
+sub compositeClasses
+{
+ return [
+            'EBox::Squid::Composite::General',
+         ];
+}
+
+
 sub isRunning
 {
 	return EBox::Service::running('squid');
 }
+
+
+
 
 sub DGIsRunning
 {
@@ -113,7 +148,10 @@ sub _doDGDaemon
 	}
 
 	EBox::Service::manage('dansguardian', $action);
-}
+
+	my $domainFilter = $self->model('DomainFilter');
+	my $banned = $domainFilter->banned;
+	my $allowed = $domainFilter->allowed;}
 sub _stopService 
 {
 	EBox::Service::manage('squid', 'stop');
@@ -142,215 +180,9 @@ sub _cache_mem
         return $cache_mem;
 }
 
-#
-# Method: usesObject
-#       
-#       Implements EBox::ObjectsObserver interface
-#
-# Parameters:
-#
-#       object - 
-#
-sub usesObject # (object)
-{
-	my ($self, $object) = @_;
-	if ($self->isUnfiltered($object) or $self->isBan($object)) {
-		return 1;
-	}
-	return undef;
-}
 
-#
-# Method: freeObject
-#
-#       Implements EBox::ObjectsObserver interface
-#
-# Parameters :
-#
-#       object -
-sub freeObject # (object)
-{
-	my ($self, $object) = @_;
-	(defined($object) && $object ne "") or return;
 
-	my @unfiltered = @{$self->unfiltered};
-	my @bans = @{$self->bans};
 
-	if (grep(/^$object$/, @unfiltered)) {
-		my @array = ();
-		foreach (@unfiltered) {
-			($_ ne $object) or next;
-			push(@array, $_)
-		}
-		$self->setUnfiltered(\@array);
-	}
-
-	if (grep(/^$object$/, @bans)) {
-		my @array = ();
-		foreach (@bans) {
-			($_ ne $object) or next;
-			push(@array, $_)
-		}
-		$self->setBans(\@array);
-	}
-}
-
-#
-# Method: setUnfiltered
-#
-#	Sets a list of objects as unfiltered. This means these objects
-#	will not pass through any filter, neither dansguardian nor banned sites
-#
-# Parameters:
-#
-#	array ref - holding the object names
-#
-sub setUnfiltered # (\@objects)
-{
-	my ($self, $args) = @_;
-	my $objects = EBox::Global->modInstance('objects');
-	$self->unset("unfiltered");
-	($args) or return;
-	my @bans = @{$self->bans};
-	my $bansflag = undef;
-	foreach my $obj (@{$args}) {	
-		$objects->objectExists($obj) or
-			throw EBox::Exceptions::DataNotFound(
-				'data' => __("object"), 'value' => $obj);
-		if (grep(/^$obj$/, @bans)) {
-			@bans = grep(!/^$obj$/, @bans);
-			$bansflag = 1;
-		}
-        }
-	$self->set_list("unfiltered", "string", $args);
-	$bansflag and $self->setBans(\@bans);
-}
-
-#
-# Method: filtered
-#
-#	Returns a list of filtered objects
-#
-# Parameters:
-#
-#	array ref - holding the object names
-#
-sub filtered
-{
-	my $self = shift;
-	my $objects = EBox::Global->modInstance('objects');
-	my @no = @{$self->unfiltered};
-	push(@no, @{$self->bans});
-	my @names = map { $_->{'id'} } @{$objects->objects};
-	my @filtered = ();
-	foreach my $n (@names) {
-		unless (grep(/^$n$/, @no)) {
-			push(@filtered, $n);
-		}
-	}
-	return \@filtered;
-}
-
-# Method: unfiltered
-#
-#	Returns a list of unfiltered objects
-#
-# Parameters:
-#
-#	array ref - holding the object names
-#
-sub unfiltered
-{
-	my $self = shift;
-	return $self->get_list("unfiltered");
-}
-
-# Method: isUnfiltered
-#
-#	Checks if a given object is set as unfiltered
-#
-# Parameters:
-#
-#	object - object name
-#
-# Returns:
-#
-#	boolean - true if it's set as unfiltered, otherwise false
-sub isUnfiltered # ($object)
-{
-	my ($self, $object) = @_;
-	my $unfiltered = $self->unfiltered();
-	foreach (@{$unfiltered}) {
-		return 1 if ($_ eq $object);
-	}
-	return undef;
-}
-
-#
-# Method: setBans
-#
-#	Sets the list of banned objects. This objects could not be browse.
-# 
-# Parameters:
-#
-#	array ref - holding the objects
-#
-sub setBans # (\@bans)
-{
-	my ($self, $args) = @_;
-	my $objects = EBox::Global->modInstance('objects');
-	$self->unset("bans");
-	($args) or return;
-	my @unfiltered = @{$self->unfiltered};
-	my $unfilteredflag = undef;
-	foreach my $obj (@{$args}) {	
-		$objects->objectExists($obj) or
-			throw EBox::Exceptions::DataNotFound(
-				'data' => __("object"), 'value' => $obj);
-		if (grep(/^$obj$/, @unfiltered)) {
-			@unfiltered = grep(!/^$obj$/, @unfiltered);
-			$unfilteredflag = 1;
-		}
-        }
-	$self->set_list("bans", "string", $args);
-	$unfilteredflag and $self->setUnfiltered(\@unfiltered);
-}
-
-#
-# Method: bans
-#
-#	Returns the list of banned objects.
-#
-# Returns:
-#
-#	array ref - holding the objects
-#
-sub bans
-{
-	my $self = shift;
-	return $self->get_list("bans");
-}
-
-# Method: isBan
-#
-#	Checks if a given object is banned
-#
-# Parameters:
-#
-#	object - object name
-#
-# Returns:
-#
-#	boolean - true if it's set as banned, otherwise false
-sub isBan # ($object)
-{
-	my ($self, $object) = @_;
-	my $bans = $self->bans();
-	foreach (@{$bans}) {
-		return 1 if ($_ eq $object);
-	}
-	return undef;
-}
 
 # Method: setAuth
 #
@@ -392,24 +224,12 @@ sub auth
 sub setService # (enabled) 
 {
 	my ($self, $active) = @_;
-	($active and $self->service) and return;
-	(!$active and !$self->service) and return;
 
-	if ($active) {
-		my $fw = EBox::Global->modInstance('firewall');
-		unless ($fw->availablePort('tcp', $self->port)) {
-			throw EBox::Exceptions::DataExists(
-				'data'  => __('Squid listening port'),
-				'value' => $self->port);
-		}
-		unless ((!$self->_dgNeeded) or 
-				$fw->availablePort('tcp', DGPORT)) {
-			throw EBox::Exceptions::DataExists(
-				'data'  => __('DansGuardian listening port'),
-				'value' => DGPORT);
-		}
-	}
-	$self->set_bool('active', $active);
+      my $enableModel = $self->model('SquidService');
+
+      $enableModel->setRow(1,
+                           ( enabled => $active ),
+                          );
 }
 
 # Method: service 
@@ -421,9 +241,44 @@ sub setService # (enabled)
 #       boolean - true if enabled, otherwise undef   
 sub service
 {
-	my $self = shift;    	
-	return $self->get_bool('active');
+      my ($self) = @_;
+      my $enableModel = $self->model('SquidService');
+
+      return $enableModel->enabledValue();
+
 }
+
+
+
+sub _setGeneralSetting
+{
+        my ($self, $setting, $value) = @_;
+
+	my $model = $self->model('GeneralSettings');
+
+        my $oldValueGetter = $setting . 'Value';
+	my $oldValue       = $model->$oldValueGetter;
+
+	($value xor $oldValue) or
+	  return;
+
+	my $row = $model->row();
+	my %fields = %{ $row->{plainValueHash} };
+	$fields{$setting} = $value;
+
+	$model->setRow(0, %fields);
+}
+
+sub _generalSetting
+{
+        my ($self, $setting, $value) = @_;
+
+	my $model = $self->model('GeneralSettings');
+
+        my $valueGetter = $setting . 'Value';
+	return $model->$valueGetter();
+}
+
 
 # Method: setTransproxy
 #
@@ -436,10 +291,8 @@ sub service
 sub setTransproxy # (enabled)
 {
 	my ($self, $trans) = @_;
-	($trans and $self->transproxy) and return undef;
-	(!$trans and !$self->transproxy) and return undef;
-	$self->set_bool('transproxy', $trans);
-	return 1;
+	$self->_setGeneralSetting('transparentProxy', $trans);
+
 }
 
 # Method: transproxy 
@@ -453,7 +306,7 @@ sub setTransproxy # (enabled)
 sub transproxy
 {
 	my $self = shift;
-	return $self->get_bool('transproxy');
+	return $self->_generalSetting('transparentProxy');
 }
 
 # Method: setPort
@@ -467,22 +320,7 @@ sub transproxy
 sub setPort # (port)
 {
 	my ($self, $port) = @_;
-	my $fw = EBox::Global->modInstance('firewall');
-	checkPort($port, "listening port");
-	my $currentport = $self->port();	
-	if ($currentport == $port) {
-		return;
-	}
-	unless ($fw->availablePort('tcp', $port)) {
-		throw EBox::Exceptions::DataExists(
-					'data'  => __('listening port'),
-					'value' => $port);
-	}					
-	if ($port eq $self->port) {
-		return undef;
-	}
-	$self->set_int("port", $port);
-	return 1;
+	$self->_setGeneralSetting('port', $port);
 }
 
 
@@ -496,75 +334,10 @@ sub setPort # (port)
 #
 sub port
 {
-	my $self = shift;    	
-	return $self->get_int("port");
+  my $self = shift;    	
+  return $self->_generalSetting('port');
 }
 
-# Method: bannedDomains 
-#
-#	Returns the list of banned domains.
-# 
-# Returns::
-#
-#	array ref - holding the domains
-#
-sub bannedDomains
-{
-	my $self = shift;
-	return $self->get_list("banned_sites");
-}
-
-# Method: bannedDomainExists
-#
-#	Checks if a banned domain already exists
-# 
-# Returns:
-#
-#       boolean - true if exists, otherwise false
-#
-sub bannedDomainExists # (domain)
-{
-	my $self = shift;
-	my $domain = shift;
-
-	foreach (@{$self->bannedDomains()}) {
-		return 1 if ($_ eq $domain);
-	}
-	return undef;
-}
-
-# Method: allowedDomains 
-#
-#	Returns the list of allowed domains.
-# 
-# Returns:
-#
-#	array ref - holding the domains
-#
-sub allowedDomains
-{
-	my $self = shift;
-	return $self->get_list("allowed_sites");
-}
-
-# Method: allowedDomainExists
-#
-#	Checks if a banned domain already exists
-# 
-# Returns:
-#
-#       boolean - true if exists, otherwise false
-#
-sub allowedDomainExists # (domain)
-{
-	my $self = shift;
-	my $domain = shift;
-
-	foreach (@{$self->allowedDomains()}) {
-		return 1 if ($_ eq $domain);
-	}
-	return undef;
-}
 
 
 #
@@ -596,7 +369,7 @@ sub setIpBlocked #
 sub globalPolicy #
 {
 	my $self = shift;
-	return $self->get_string("policy");
+	return $self->_generalSetting('globalPolicy');
 }
 
 # Method: setGlobalPolicy
@@ -611,122 +384,9 @@ sub globalPolicy #
 sub setGlobalPolicy # (policy)
 {
 	my ($self, $policy) = @_;
-	if ($policy ne 'allow' && $policy ne 'deny' && $policy ne 'filter') {
-		throw EBox::Exceptions::Internal(
-                        __x("Policy '{policy}' is invalid", policy => $policy));
-	}
-	if ($policy eq $self->globalPolicy) {
-		return undef;
-	}
-	$self->set_string("policy", $policy);
-	return 1;
+	$self->_setGeneralSetting('globalPolicy', $policy);
 }
 
-# Method: addBannedDomain 
-#
-#	Add a new banned domain.
-# 
-# Parameters:
-#
-#       domain - string: domain to ban
-#
-sub addBannedDomain # (domain)
-{
-	my $self = shift;
-	my $domain = shift;
-
-	unless (checkDomainName($domain)) {
-  		throw EBox::Exceptions::InvalidData(
-				'data' => __('domain name'),
-	  			'value' => $domain); 
-	}
-	if ($self->bannedDomainExists($domain)) {
-                 throw EBox::Exceptions::DataExists(
-		 		'data' => __('domain name'),
-                                'value' => "$domain");
-	}
-	my @list = @{$self->bannedDomains()};
-	push @list, $domain;
-	$self->set_list("banned_sites", "string", \@list);	
-	return 1;
-}
-
-# Method: removeBannedDomain 
-#
-#	Removes a banned domain.
-# 
-# Parameters:
-#
-#       domain - string: domain to remove
-#
-sub removeBannedDomain # (domain)
-{
-	my ($self, $domain) = @_;
-
-	unless ($self->bannedDomainExists($domain)) {
-		 throw EBox::Exceptions::DataNotFound(
-		 		'data' => __("domain"), 
-				'value' => $domain); 
-	}
-	
-	my @list = @{$self->bannedDomains()};
-	@list = grep (!/^$domain$/, @list);
-	$self->set_list("banned_sites", "string", \@list);	
-	return 1;
-}
-
-# Method: addAllowedDomain 
-#
-#	Add a new allowed domain.
-# 
-# Parameters:
-#
-#       domain - string: domain to allow
-#
-sub addAllowedDomain # (domain)
-{
-	my $self = shift;
-	my $domain = shift;
-
-	unless (checkDomainName($domain)) {
-  		throw EBox::Exceptions::InvalidData(
-				'data' => __('domain name'),
-	  			'value' => $domain); 
-	}
-	if ($self->allowedDomainExists($domain)) {
-                 throw EBox::Exceptions::DataExists(
-		 		'data' => __('domain name'),
-                                'value' => "$domain");
-	}
-	my @list = @{$self->allowedDomains()};
-	push @list, $domain;
-	$self->set_list("allowed_sites", "string", \@list);	
-	return 1;
-}
-
-# Method: removeAllowedDomain 
-#
-#	Removes an allowed domain.
-# 
-# Parameters:
-#
-#       domain - string: domain to remove
-#
-sub removeAllowedDomain # (domain)
-{
-	my ($self, $domain) = @_;
-
-	unless ($self->allowedDomainExists($domain)) {
-		 throw EBox::Exceptions::DataNotFound(
-		 		'data' => __("domain"), 
-				'value' => $domain); 
-	}
-	
-	my @list = @{$self->allowedDomains()};
-	@list = grep (!/^$domain$/, @list);
-	$self->set_list("allowed_sites", "string", \@list);	
-	return 1;
-}
 
 # Function: setBanThreshold
 #
@@ -744,13 +404,7 @@ sub removeAllowedDomain # (domain)
 sub setBanThreshold # (threshold)
 {
 	my ($self, $thres) = @_;
-	unless ($thres =~ /^\d+$/) {
-		throw EBox::Exceptions::InvalidData(data=>__('Threshold'),
-						value=>$thres);
-	}
-	my $old_thres = $self->banThreshold;
-	($thres ne $old_thres) or return;
-	$self->set_int('threshold', $thres);
+	$self->_setGeneralSetting('contentFilterThreshold', $thres);
 }
 
 # Function: banThreshold
@@ -762,8 +416,8 @@ sub setBanThreshold # (threshold)
 # 	A positive integer with the current ban threshold.
 sub banThreshold
 {
-	my $self = shift;
-	return $self->get_int('threshold');
+	my ($self) = @_;
+	return $self->_generalSetting('contentFilterThreshold');
 }
 
 sub _dgNeeded
@@ -772,8 +426,10 @@ sub _dgNeeded
 	$self->service or return undef;
 	$self->ipBlocked and return 1;
 	($self->banThreshold > 0) and return 1;
-	((scalar(@{$self->bannedDomains}) > 0) and ($self->banThreshold > 0)) and return 1;
-	((scalar(@{$self->allowedDomains}) > 0) and ($self->banThreshold > 0)) and return 1;
+
+	my $domainFilter = $self->model('DomainFilter');
+	((scalar(@{$domainFilter->banned}) > 0) and ($self->banThreshold > 0)) and return 1;
+	((scalar(@{$domainFilter->allowed}) > 0) and ($self->banThreshold > 0)) and return 1;
 	return undef;
 }
 
@@ -816,12 +472,14 @@ sub _squidOnly
 	my @exceptions = ();
 	($self->transproxy) and $trans = 'yes';
 
+	my $objectPolicy = $self->model('ObjectPolicy');
+
 	if ($policy eq 'deny') {
-		push(@exceptions, @{$self->filtered});
-		push(@exceptions, @{$self->unfiltered});
+		push(@exceptions, @{$objectPolicy->filtered});
+		push(@exceptions, @{$objectPolicy->unfiltered});
 	} else {
 		$squidpolicy = "allow";
-		push(@exceptions, @{$self->bans});
+		push(@exceptions, @{$objectPolicy->banned});
 	}
 	
 	foreach my $aux (@exceptions) {
@@ -857,8 +515,12 @@ sub _squidAndDG
 	my $self = shift;
 	my $ob = EBox::Global->modInstance('objects');
 	my $objects;
-	my $banned = $self->bannedDomains;
-	my $allowed = $self->allowedDomains;
+
+	my $domainFilter = $self->model('DomainFilter');
+	my $banned = $domainFilter->banned;
+	my $allowed = $domainFilter->allowed;
+
+
 	my $policy = $self->globalPolicy;
 	my $squidpolicy = $policy;
 	my $trans = 'no';
@@ -868,12 +530,15 @@ sub _squidAndDG
 	($self->transproxy) and $trans = 'yes';
 	($self->ipBlocked) and $block_ip = 'yes';
 
+
+	my $objectPolicy = $self->model('ObjectPolicy');	
+
 	if ($policy eq 'allow') {
-		push(@exceptions, @{$self->bans});
-		push(@exceptions, @{$self->filtered});
+		push(@exceptions, @{$objectPolicy->banned});
+		push(@exceptions, @{$objectPolicy->filtered});
 	} else {
 		$squidpolicy = "deny";
-		push(@exceptions, @{$self->unfiltered});
+		push(@exceptions, @{$objectPolicy->unfiltered});
 	}
 
 	foreach my $aux (@exceptions) {
@@ -923,235 +588,21 @@ sub _squidAndDG
 	$self->writeConfFile(DGDIR . "/exceptionsitelist",
 				"squid/exceptionsitelist.mas", \@writeParam);
 	@writeParam = ();
-	push(@writeParam, 'extensions'  => $self->bannedExtensions());
+	my $extensionFilter = $self->model('ExtensionFilter');
+	push(@writeParam, 'extensions'  => $extensionFilter->banned);
 	$self->writeConfFile(DGDIR . "/bannedextensionlist",
 				"squid/bannedextensionlist.mas", \@writeParam);
 	# Write down the banned mime type list
 	@writeParam = ();
-	push(@writeParam, 'mimeTypes' => $self->bannedMimeTypes());
+	my $mimeFilter = $self->model('MIMEFilter');
+	push(@writeParam, 'mimeTypes' => $mimeFilter->banned);
 	$self->writeConfFile(DGDIR . "/bannedmimetypelist",
 			     "squid/bannedmimetypelist.mas", \@writeParam);
 
 }
 
-sub _setList # ($listName, $newList)
-{
-	my ($self, $listName, $newList) = @_;
-
-	my @list= sort @{$self->get_list($listName)};
-	my @newTempList = sort @{$newList};
-
-	my $changed = undef;
-
-	if ($#list == $#newTempList) {
-	 	my $i = 0;
-		foreach my $val (@newTempList) {
-			if ($val ne $list[$i]) {
-				$changed = 1;
-				last;
-			}
-			$i++;
-		}
-	} else {
-		$changed = 1;
-	}
-
-	$self->set_list($listName, 'string', \@newTempList) if ($changed);
-}
-
-# Function: allowedExtensions
-#
-#	Fetch the allowed extensions
-#
-# Returns:
-#
-# 	Array ref - containing the extensions
-sub allowedExtensions
-{
-	my ($self) = @_;
-
-	return $self->get_list('allowed_extensions');
-}
 
 
-# Function: setAllowedExtensions
-#
-#	Set the allowed extensions
-#
-# Parameters:
-#
-# 	Array  - containing the extensions
-sub setAllowedExtensions
-{
-	my ($self, @newallow) = @_;
-
-	$self->_setList('allowed_extensions', \@newallow);
-
-}
-
-# Function: bannedExtensions
-#
-#	Fetch the banned extensions
-#
-# Returns:
-#
-# 	Array ref - containing the extensions
-sub bannedExtensions
-{
-	my ($self) = @_;
-
-	return $self->get_list('banned_extensions');
-}
-
-# Function: setBannedExtensions
-#
-#	Set the banned  extensions
-#
-# Parameters:
-#
-# 	Array  - containing the extensions
-sub setBannedExtensions
-{
-	my ($self, @newban) = @_;
-
-	$self->_setList('banned_extensions', \@newban);
-
-}
-
-# Function: hashedExtension
-#
-#	Fetch the extensions, both allowed and banned
-#
-# Returns:
-#
-# 	Array ref of hashes containing:
-#
-# 		extension => boolean (allowed or not)
-#
-sub hashedExtensions
-{
-	my ($self) = @_;
-
-	my %extents;
-
-	foreach my $extension (@{$self->allowedExtensions()}) {
-	  $extents{$extension} = 1;
-	}
-
-	foreach my $extension (@{$self->bannedExtensions()}) {
-	  $extents{$extension} = undef;
-	}
-	return \%extents;
-}
-
-# Function: ianaMimeTypes
-#
-#	Return the current types established by IANA. 
-#       A MIME type follows this syntax: type/subtype
-#       The current registrated types are: <http://www.iana.org/assignments/media-types/index.html>
-#
-# Returns:
-#
-# 	Array ref - containing this mime types
-sub ianaMimeTypes
-  {
-    my ($self) = @_;
-
-    my $types = ["application",
-		 "audio",
-		 "example",
-		 "image",
-		 "message",
-		 "model",
-		 "multipart",
-		 "text",
-		 "video",
-		 "[Xx]-.*" ];
-
-    return $types;
-  }
-
-
-# Function: allowedMimeTypes
-#
-#	Fetch the allowed mime type list
-#
-# Returns:
-#
-# 	Array ref - containing the mime types
-sub allowedMimeTypes
-{
-	my ($self) = @_;
-
-	return $self->get_list('allowed_mimetype');
-}
-
-
-# Function: setAllowedMimeTypes
-#
-#	Set the allowed mime type list
-#
-# Parameters:
-#
-# 	Array  - containing the mime types
-sub setAllowedMimeTypes
-{
-	my ($self, @newallow) = @_;
-
-	$self->_setList('allowed_mimetype', \@newallow);
-}
-
-# Function: bannedMimeTypes
-#
-#	Fetch the banned mime type list
-#
-# Returns:
-#
-# 	Array ref - containing the mime types
-sub bannedMimeTypes
-{
-	my ($self) = @_;
-
-	return $self->get_list('banned_mimetype');
-}
-
-# Function: setBannedMimeTypes
-#
-#	Set the banned mime type list
-#
-# Parameters:
-#
-# 	Array  - containing the mime types
-sub setBannedMimeTypes
-{
-	my ($self, @newban) = @_;
-
-	$self->_setList('banned_mimetype', \@newban);
-}
-
-# Function: hashedMimeTypes
-#
-#	Fetch the mime types, both allowed and banned
-#
-# Returns:
-#
-# 	Array ref of hashes containing:
-#
-# 		mimeType => boolean (allowed or not)
-#
-sub hashedMimeTypes
-{
-	my ($self) = @_;
-
-	my %extents;
-	foreach my $mimeType (@{$self->allowedMimeTypes()}) {
-	  $extents{$mimeType} = 1;
-	}
-	foreach my $mimeType (@{$self->bannedMimeTypes()}) {
-	  $extents{$mimeType} = undef;
-	}
-	return \%extents;
-}
 
 
 sub firewallHelper 
@@ -1224,18 +675,22 @@ sub menu
         my $folder = new EBox::Menu::Folder('name' => 'Squid',
                                             'text' => __('HTTP proxy'));
 
-        $folder->add(new EBox::Menu::Item('url' => 'Squid/Index',
+        $folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/General',
                                           'text' => __('General')));
-        $folder->add(new EBox::Menu::Item('url' => 'Squid/AllowedDomains',
-                                          'text' => __('Allowed domains')));
-        $folder->add(new EBox::Menu::Item('url' => 'Squid/BannedDomains',
-                                          'text' => __('Banned domains')));
-	$folder->add(new EBox::Menu::Item('url' => 'Squid/ExtensionsUI',
+
+        $folder->add(new EBox::Menu::Item('url' => 'Squid/View/DomainFilter',
+                                          'text' => __('Internet domain filter')));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Squid/View/ExtensionFilter',
                                           'text' => __('Extensions filter')));
-	$folder->add(new EBox::Menu::Item('url' => 'Squid/MimeTypesUI',
-					  'text' => __('MIME Type filter')));
-        $folder->add(new EBox::Menu::Item('url' => 'Squid/Policy',
-                                          'text' => __('Policy')));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Squid/View/MIMEFilter',
+                                          'text' => __('MIME Type filter')));
+
+        $folder->add(new EBox::Menu::Item('url' => 'Squid/View/ObjectPolicy',
+                                          'text' => __(q{Objects' Policy})));
+
+
         $root->add($folder);
 }
 
@@ -1273,6 +728,20 @@ sub logHelper
 	my $self = shift;
 
         return (new EBox::SquidLogHelper);
+}
+
+
+
+sub setTablesAsPopulated
+{
+   my ($self) = @_;
+   $self->set_int('tables_are_populated', 1);
+}
+
+sub tablesArePopulated
+{
+   my ($self) = @_;
+   $self->get_int('tables_are_populated');
 }
 
 

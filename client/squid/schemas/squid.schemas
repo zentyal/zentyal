@@ -10,129 +10,28 @@
 			<default>EBox::Squid</default>
 			<locale name="C"/>
 		</schema>
-        <schema>
-            <key>/schemas/ebox/modules/global/modules/squid/depends</key>
-            <applyto>/ebox/modules/global/modules/squid/depends</applyto>
-            <owner>ebox</owner>
-            <type>list</type>
-            <list_type>string</list_type>
-            <default>[objects]</default>
-            <locale name="C"/>
-        </schema>
+ 
+             <schema>
+                  <key>/schemas/ebox/modules/global/modules/squid/depends</key>
+                  <applyto>/ebox/modules/global/modules/squid/depends</applyto>
+                  <owner>ebox</owner>
+                  <type>list</type>
+                  <list_type>string</list_type>
+                  <default>[objects]</default>
+                  <locale name="C"/>
+              </schema>
 
-		<schema>
-			<key>/schemas/ebox/modules/squid/policy</key>
-			<applyto>/ebox/modules/squid/policy</applyto>
-			<owner>ebox</owner>
-			<type>string</type>
-			<default>deny</default>
-			<locale name="C"/>
-		</schema>
-		<schema>
-			<key>/schemas/ebox/modules/squid/active</key>
-			<applyto>/ebox/modules/squid/active</applyto>
-			<owner>ebox</owner>
-			<type>bool</type>
-			<default>false</default>
-			<locale name="C"/>
-		</schema>
-		<schema>
-			<key>/schemas/ebox/modules/squid/auth</key>
-			<applyto>/ebox/modules/squid/auth</applyto>
-			<owner>ebox</owner>
-			<type>bool</type>
-			<default>false</default>
-			<locale name="C"/>
-		</schema>
-		<schema>
-			<key>/schemas/ebox/modules/squid/transproxy</key>
-			<applyto>/ebox/modules/squid/transproxy</applyto>
-			<owner>ebox</owner>
-			<type>bool</type>
-			<default>false</default>
-			<locale name="C"/>
-		</schema>
-		<schema>
-			<key>/schemas/ebox/modules/squid/port</key>
-			<applyto>/ebox/modules/squid/port</applyto>
-			<owner>ebox</owner>
-			<type>int</type>
-			<default>3128</default>
-			<locale name="C"/>
-		</schema>
-		<schema>
-			<key>/schemas/ebox/modules/squid/exceptions</key>
-			<applyto>/ebox/modules/squid/exceptions</applyto>
-			<owner>ebox</owner>
-			<type>list</type>
-			<list_type>string</list_type>
-			<locale name="C"/>
-		</schema>
-		<schema>
-			<key>/schemas/ebox/modules/squid/banned_sites</key>
-			<applyto>/ebox/modules/squid/banned_sites</applyto>
-			<owner>ebox</owner>
-			<type>list</type>
-			<list_type>string</list_type>
-			<locale name="C"/>
-		</schema>
-		<schema>
-			<key>/schemas/ebox/modules/squid/threshold</key>
-			<applyto>/ebox/modules/squid/threshold</applyto>
-			<owner>ebox</owner>
-			<type>int</type>
-			<default>0</default>
-			<locale name="C"/>
-		</schema>
-		<schema>
-			<key>/schemas/ebox/modules/squid/unfiltered</key>
-			<applyto>/ebox/modules/squid/unfiltered</applyto>
-			<owner>ebox</owner>
-			<type>list</type>
-			<list_type>string</list_type>
-			<locale name="C"/>
-		</schema>
-		<schema>
-			<key>/schemas/ebox/modules/squid/bans</key>
-			<applyto>/ebox/modules/squid/bans</applyto>
-			<owner>ebox</owner>
-			<type>list</type>
-			<list_type>string</list_type>
-			<locale name="C"/>
-		</schema>
-		<schema>
-			<key>/schemas/ebox/modules/squid/allowed_extensions</key>
-			<applyto>/ebox/modules/squid/allowed_extensions</applyto>
-			<owner>ebox</owner>
-			<type>list</type>
-			<list_type>string</list_type>
-			<locale name="C"/>
-		</schema>
-		<schema>
-			<key>/schemas/ebox/modules/squid/banned_extensions</key>
-			<applyto>/ebox/modules/squid/banned_extensions</applyto>
-			<owner>ebox</owner>
-			<type>list</type>
-			<list_type>string</list_type>
-			<default>[ade,adp,asx,bas,bat,cab,chm,cmd,com,cpl,crt,dll,exe,hlp,ini,hta,inf,ins,isp,lnk,mda,mdb,mde,mdt,mdw,mdz,msc,msi,msp,mst,pcd,pif,prf,reg,scf,scr,sct,sh,shs,shb,sys,url,vb,vbe,vbs,vxd,wsc,wsf,wsh,otf,ops,doc,xls,gz,tar,zip,tgz,bz2,cdr,dmg,smi,sit,sea,bin,hqx,rar,mp3,mpeg,mpg,avi,asf,iso,ogg,wmf,bin,cue,sxw,stw,stc,sxi,sti,sxd,sxg,odt,ott,ods,ots,odp,otp,odg,otg,odm,odf,odc,odb,odi,pdf]</default>
-			<locale name="C"/>
-		</schema>
-		<schema>
-			<key>/schemas/ebox/modules/squid/allowed_mimetype</key>
-			<applyto>/ebox/modules/squid/allowed_mimetype</applyto>
-			<owner>ebox</owner>
-			<type>list</type>
-			<list_type>string</list_type>
-			<locale name="C"/>
-		</schema>
-		<schema>
-			<key>/schemas/ebox/modules/squid/banned_mimetype</key>
-			<applyto>/ebox/modules/squid/banned_mimetype</applyto>
-			<owner>ebox</owner>
-			<type>list</type>
-			<list_type>string</list_type>
-			<default>[audio/mpeg,audio/x-mpeg,audio/x-pn-realaudio,audio/x-wav,video/mpeg,video/x-mpeg2,video/acorn-replay,video/quicktime,video/x-msvideo,video/msvideo,application/gzip,application/x-gzip,application/zip,application/compress,application/x-compress,application/java-vm]</default>
-			<locale name="C"/>
-		</schema>
-	</schemalist>
+             <schema>
+                  <key>/schemas/ebox/modules/squid/tables_are_populated</key>
+                  <applyto>/ebox/modules/squid/tables_are_populated</applyto>
+                  <owner>ebox</owner>
+                  <type>int</type>
+                  <list_type>string</list_type>
+                  <default>0</default>
+                  <locale name="C">
+                      <long>Flag to show wether the tables are already populated or not. Is a integer instead of boolean to allow multiple versions of new data tables</long>
+	          </locale>
+              </schema>
+        </schemalist>
+
 </gconfschemafile>

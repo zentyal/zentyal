@@ -2,6 +2,9 @@
 
 SUBDIRS = sqllog 
 
+
+runit_files = runit/dansguardian runit/squid
+
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = runit/dansguardian runit/squid
+EXTRA_DIST =   $(runit_files)

@@ -1,4 +1,4 @@
-AC_INIT([EBox-squid], [0.9.100])
+AC_INIT([EBox-squid], [0.9.99])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Squid.pm.in])
@@ -61,6 +61,10 @@ conf/Makefile
 src/Makefile
 src/EBox/Makefile
 src/EBox/Squid.pm
+src/EBox/Squid/Makefile
+src/EBox/Squid/Model/Makefile
+src/EBox/Squid/Composite/Makefile
+src/EBox/Squid/Types/Makefile
 src/EBox/CGI/Makefile
 src/EBox/t/Makefile
 src/templates/Makefile
@@ -69,6 +73,7 @@ stubs/Makefile
 tools/Makefile
 tools/sqllog/Makefile
 www/Makefile
+migration/Makefile
 Makefile
 ])
 

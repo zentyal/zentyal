@@ -37,9 +37,12 @@ sub new
 sub _squidAddrs
 {
 	my $sq = EBox::Global->modInstance('squid');
+	my $objPolicy = $sq->model('ObjectPolicy');
 	my $ob = EBox::Global->modInstance('objects');
-	my @objs = @{$sq->unfiltered()};
-	push(@objs, @{$sq->bans()});
+
+	my @objs = @{$objPolicy->unfiltered()};
+	push(@objs, @{$objPolicy->banned()});
+
 	my @addrs = ();
 	foreach my $obj (@objs) {
 		push(@addrs, @{$ob->objectAddresses($obj)});
@@ -50,8 +53,12 @@ sub _squidAddrs
 sub _dgAddrs
 {
 	my $sq = EBox::Global->modInstance('squid');
+	my $objPolicy = $sq->model('ObjectPolicy');
 	my $ob = EBox::Global->modInstance('objects');
-	my @objs = @{$sq->filtered()};
+
+	my @objs = @{$objPolicy->filtered()};
+	
+
 	my @addrs = ();
 	foreach my $obj (@objs) {
 		push(@addrs, @{$ob->objectAddresses($obj)});
