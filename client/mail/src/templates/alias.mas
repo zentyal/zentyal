@@ -10,6 +10,10 @@ use EBox::Gettext;
 
 <h3><% __('Mail account settings') %></h3>
 
+% if (not $params->{service} ) {
+     <& /mail/moduleDisabled.mas &>
+% }
+
 <form action='/ebox/Mail/DelAccount' method='POST'>
 	<input type="hidden" name="mail" value="<% $params->{'mail'} %>">
 	<input type="hidden" name="username" value="<% $params->{'username'} %>">

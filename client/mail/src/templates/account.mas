@@ -1,16 +1,28 @@
-<!-- vim: ts=4 sw=4 nowrap filetype=mason
--->
 <%args>
 	$params
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
-
-%if($params->{'mail'} eq undef) {
+% if  (not keys %{$ params->{vdomains} } ) {
+<& .noVdomains &>
+% }
+%elsif($params->{'mail'} eq undef) {
 	<& /mail/createaccount.mas, title => __('Create mail account'), 
 		params => $params &>
 %} else {
 	<& /mail/alias.mas, title => __('Create mail alias to mail account'), 
 		params => $params &>
 %}
+
+<%def .noVdomains>
+<%init>
+my $vdomainUrl = '/ebox/Mail/VDomains';
+</%init>
+<h3><% __('Mail account') %></h3>
+<div id='note'>
+<% __(q{Mail account options are disabled because there isn't any mail virtual
+ domain created} ) %><br/>
+<a href='<% $vdomainUrl %>'><% __('Click here to create a new mail virtual domain') %></a>
+</div> 
+</%def>

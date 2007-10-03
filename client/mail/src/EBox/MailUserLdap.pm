@@ -261,15 +261,13 @@ sub _userAddOns() {
 	my $mail = EBox::Global->modInstance('mail');
 	my $users = EBox::Global->modInstance('users');
 	
-	unless ($mail->service){
-		return undef;
-	}
 	
 	my %args = (
 			base => $users->usersDn,
 			filter => "&(objectclass=*)(uid=$username)",
 			scope => 'one',
-			attrs => ['mail', 'userMaildirSize']
+			attrs => ['mail', 'userMaildirSize'],
+		        active => $mail->service,
 	);
 
 	my $result = $self->{ldap}->search(\%args);
@@ -281,10 +279,12 @@ sub _userAddOns() {
 	my @aliases = $mail->{malias}->accountAlias($usermail);
 
 	my $args = { 'username'	=>	$username,
-			'mail'	=>	$usermail,
-			'aliases'	=> \@aliases,
-			'vdomains'	=> \%vd,
-			'mdsize'	=> ($mdsize / $self->BYTES) };
+		     'mail'	=>	$usermail,
+		     'aliases'	=> \@aliases,
+		     'vdomains'	=> \%vd,
+		     'mdsize'	=> ($mdsize / $self->BYTES),
+		     service => $mail->service,
+		   };
 	
 	return { path => '/mail/account.mas', params => $args };
 
@@ -295,16 +295,14 @@ sub _groupAddOns() {
 
 	my $mail = EBox::Global->modInstance('mail');
 	my $users = EBox::Global->modInstance('users');
-	
-	unless ($mail->service) {
-		return undef;
-	}
+
 	
 	my %args = (
 			base => $mail->{malias}->aliasDn,
 			filter => "&(objectclass=*)(uid=$group)",
 			scope => 'one',
-			attrs => ['mail']
+			attrs => ['mail'],
+		        service => $mail->service,
 	);
 
 	my $alias = undef;

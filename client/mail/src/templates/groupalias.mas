@@ -10,6 +10,8 @@ use EBox::Gettext;
     <input type="hidden" name="group" value="<% $params->{'group'} %>">
 	<h3><% __('Create alias mail account to group') %></h3>
 
+
+
 	<div class='help'>
 		<p><% __("When the last member of a group is removed, the mail alias account will be deleted")%></p>
 	</div>
@@ -19,6 +21,10 @@ use EBox::Gettext;
 		<p><% __('There are no users in the group or the users do not have a mail account, so an alias account cannot be created') %></p>
 	</div>
 %	}
+%      elsif (not $params->{service} ) {
+           <& /mail/moduleDisabled.mas &>
+%      }
+
 	
 	<p><input type='text' class='inputText' name='lhs'
 %	if($params->{'nacc'} eq 0) {
@@ -46,6 +52,11 @@ use EBox::Gettext;
 %} else {
 <form action='/ebox/Mail/DelGroupAlias' method='POST'>
 	<h3><% __('Mail alias settings') %></h3>
+
+% if (not $params->{service} ) {
+      <& /mail/moduleDisabled.mas &>
+% }
+
     <input type="hidden" name="alias" value="<% $params->{'alias'} %>">
     <input type="hidden" name="group" value="<% $params->{'group'} %>">
 	<% __('Mail alias') %>:<span class='stitle'><% $params->{'alias'} %></span>

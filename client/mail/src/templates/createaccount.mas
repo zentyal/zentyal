@@ -10,8 +10,14 @@ settextdomain('ebox-mail');
 </%init>
 
 <form name='createaccount' action='/ebox/Mail/CreateAccount' method='POST'>
+
     <input type="hidden" name="username" value="<% $params->{'username'} %>">
 	<h3><% __('Create mail account') %></h3>
+
+%     if (not $params->{service} )  {
+          <& /mail/moduleDisabled.mas &>
+%      }
+
 	<table class="formTable">
 	<tr>
 		<td class="tright" width="170px"><% __('Account name') %>:</td>
