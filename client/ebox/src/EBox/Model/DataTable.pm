@@ -67,8 +67,12 @@ sub new
         my $class = shift;
         my %opts = @_;
         my $gconfmodule = delete $opts{'gconfmodule'};
-	my $directory = delete $opts{'directory'};
-	my $domain = delete $opts{'domain'};
+	$gconfmodule or
+	  throw EBox::Exceptions::MissingArgument('gconfmodule');
+	my $directory   = delete $opts{'directory'};
+	$directory or
+	  throw EBox::Exceptions::MissingArgument('directory');
+	my $domain      = delete $opts{'domain'};
 
         my $self =
 		{
@@ -171,6 +175,29 @@ sub name
 
   }
 
+
+
+# XXX transitional method, this will be the future name() method
+sub nameFromClass
+{
+  my ($self) = @_;
+  my $class;
+  if (ref $self) {
+    $class = ref $self;
+  }
+  else {
+    $class = $self;
+  }
+  
+
+  my @parts = split '::', $class;
+  my $name = pop @parts;
+
+  return $name;
+}
+
+
+
 # Method: contextName
 #
 #      The context name which is used as a way to know exactly which
@@ -216,6 +243,7 @@ sub index
     return '';
 
 }
+
 # Method: fieldHeader 
 #
 #	Return the instanced type of a given header field

@@ -19,9 +19,12 @@
 #   is, those eBox modules which also have composites
 
 package EBox::Model::CompositeProvider;
+use base 'EBox::Model::ProviderBase';
 
 use strict;
 use warnings;
+
+use constant TYPE => 'composite';
 
 # eBox uses
 
@@ -34,9 +37,38 @@ use warnings;
 #
 #	array ref - containing instances of the composites
 #
+sub composite
+{
+  my ($self, $name) = @_;
+  return  $self->providedInstance(TYPE, $name);
+}
+
+
+
 sub composites
-  {
-      return [];
-  }
+{
+  my ($self, $name) = @_;
+  return  $self->providedInstances(TYPE, $name);
+}
+
+
+sub newCompositeInstance
+{
+  my ($self,  $class, @params) = @_;
+  my $instance = $class->new(@params);
+
+  return $instance;
+}
+
+
+sub compositeClasses
+{
+  throw EBox::Exceptions::NotImplemented('compositeClasses');
+}
+
+
+
+1;
+
 
 1;

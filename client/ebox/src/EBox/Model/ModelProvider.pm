@@ -16,35 +16,64 @@
 # Class: EBox::Model::ModelProvider
 #
 #   Interface meant to be used for classes providing models
-
 package EBox::Model::ModelProvider;
+use base 'EBox::Model::ProviderBase';
+
 
 use strict;
 use warnings;
 
 use EBox::Gettext;
 
-# Group: Public methods
+use constant TYPE => 'model';
 
-sub new 
-{
-    my $class = shift;
-    my $self = {};
-    bless($self, $class);
-    return $self;
-}
 
-# Method: models
-#
+
+
+# Method: models 
+# 
 #   This method must be overriden in case of your module provides any model
 #
 # Returns:
 #
 #	array ref - containing instances of the models
-sub models
+sub models 
 {
-    return [];
+  my ($self) = @_;
+  return $self->providedInstances(TYPE);
 }
+
+
+sub model
+{
+  my ($self, $name) = @_;
+  return  $self->providedInstance(TYPE, $name);
+}
+
+
+
+
+sub newModelInstance
+{
+  my ($self, $class, %params) = @_;
+  my $directory = delete $params{name};
+
+    my $instance = $class->new(
+			          gconfmodule => $self,
+			          directory   => $directory,
+			          %params,
+			      );
+
+  return $instance;
+}
+
+
+sub modelClasses
+{
+  throw EBox::Exceptions::NotImplemented('modelClasses');
+}
+
+
 
 # Method: _exposedMethods
 #

@@ -1,4 +1,4 @@
-test_scripts = autoload.t
+test_scripts = autoload.t  ModelProvider.t CompositeProvider.t
 
 EXTRA_DIST = $(test_scripts)
 

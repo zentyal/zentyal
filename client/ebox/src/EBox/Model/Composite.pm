@@ -249,6 +249,25 @@ sub name
 
   }
 
+# XXX transitional method, this will be the future name() method
+sub nameFromClass
+{
+  my ($self) = @_;
+  my $class;
+  if (ref $self) {
+    $class = ref $self;
+  }
+  else {
+    $class = $self;
+  }
+  
+
+  my @parts = split '::', $class;
+  my $name = pop @parts;
+
+  return $name;
+}
+
 # Method: printableName
 #
 #      Get the composite's printable name
