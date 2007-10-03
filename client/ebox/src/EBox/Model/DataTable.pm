@@ -214,7 +214,7 @@ sub contextName
 
     my ($self) = @_;
 
-    my $path = $self->{'gconfmodule'}->name() . '/' .
+    my $path = '/' . $self->{'gconfmodule'}->name() . '/' .
       $self->name() . '/';
 
     $path .= $self->index();

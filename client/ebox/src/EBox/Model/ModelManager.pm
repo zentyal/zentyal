@@ -222,9 +222,9 @@ sub removeModel
         # Delete every model instance with this name
         delete $self->{'models'}->{$modName}->{$modelName};
     } else {
-        for my $idx (0 .. $#@{$models}) {
+        for my $idx (0 .. $#$models) {
             if ( $models->[$idx]->contextName() eq $path ) {
-                delete $models->[$idx];
+                splice ( @{$models}, $idx, 1);
                 last;
             }
         }
@@ -404,11 +404,11 @@ sub _setUpModels
     my $global = EBox::Global->getInstance();
     my $classStr = 'EBox::Model::ModelProvider';
     my @modules = @{$global->modInstancesOfType($classStr)};
-    my %models; 
+    my %models;
     for my $module (@modules) {
         try {
             for my $model (@{$module->models()}) {
-                push ( @{$models->{$module->name()}->{$model->table()->{'tableName'}}}, $model);
+                push ( @{$models{$module->name()}->{$model->table()->{'tableName'}}}, $model);
             }
         } otherwise {
             EBox::warn("Skipping $module to fetch model");
@@ -419,7 +419,7 @@ sub _setUpModels
     # they depend on other model.
     foreach my $module ( keys %models ) {
         for my $modelKind (keys %{$models{$module}}) {
-            foreach my $model ( @{$models{$module}->{modelKind}} ) {
+            foreach my $model ( @{$models{$module}->{$modelKind}} ) {
                 my $tableDesc = $model->table()->{'tableDescription'};
                 my $localModelName = $model->table()->{'tableName'};
                 for my $type (@{$self->_fetchSelectTypes($tableDesc)}) {
@@ -663,7 +663,7 @@ sub _markAsChanged
 
     my ($self) = @_;
 
-    my $gl->EBox::Global->getInstance();
+    my $gl = EBox::Global->getInstance();
 
     my $oldVersion = $self->_version();
     $oldVersion = 0 unless ( defined ( $oldVersion ));
@@ -705,7 +705,7 @@ sub _hasChanged
 sub _version
 {
 
-    my $gl->EBox::Global->getInstance();
+    my $gl = EBox::Global->getInstance();
 
     return $gl->get_int('model_manager/version');
 

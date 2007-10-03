@@ -50,10 +50,12 @@ use EBox::Types::Union::Text;
 sub new
   {
       my $class = shift;
-      my %parms = @_;
+      my %params = @_;
 
       my $self = $class->SUPER::new(@_);
       bless($self, $class);
+
+      $self->{runtimeIndex} = $params{runtimeIndex};
 
       return $self;
   }
@@ -310,6 +312,22 @@ sub _table
         };
 
     return $dataTable;
+}
+
+# Method: index
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::index>
+#
+sub index
+{
+
+    my ($self) = @_;
+
+    return $self->{runtimeIndex} if ( defined ( $self->{runtimeIndex} ));
+    return '';
+
 }
 
 # Callback functions:
