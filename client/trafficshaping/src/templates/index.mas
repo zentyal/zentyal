@@ -26,7 +26,7 @@ make eBox act as a gateway.
 % elsif (not $areGateways) {
 <div class='note'>
   <% __x('Traffic Shaping is applied only to external interfaces which have gateways with an upload rate set. In order to do so, create a gateway at {openhref}Network->Gateways{closehref} setting as interface an external one.',
-	 openhref => '<a href="/ebox/Network/View/GatewayDataTable">',
+	 openhref => '<a href="/ebox/Network/View/GatewayTable">',
 	 closehref => '</a>') %>
 % }
 % else {
