@@ -131,7 +131,7 @@ sub model
     unless ( defined ( $modelName )) {
         $modelName = $moduleName;
         # Infer the module name
-        my $moduleName = $self->_inferModuleFromModel($modelName);
+        $moduleName = $self->_inferModuleFromModel($modelName);
     }
 
     if ( exists $self->{'models'}->{$moduleName}->{$modelName} ) {
@@ -583,28 +583,26 @@ sub _inferModuleFromModel
     my ($self, $modelName) = @_;
 
     my $models = $self->{'models'};
-    my $returningModels = undef;
+    my $returningModule = undef;
     foreach my $module (keys %{$models}) {
         foreach my $modelKind ( keys %{$models->{$module}} ) {
             if ( $modelKind eq $modelName ) {
-                if ( defined ( $returningModels )) {
+                if ( defined ( $returningModule )) {
                     throw EBox::Exceptions::Internal('Cannot infere the module since ' .
                                                      'more than one module has the model. ' .
                                                      "A module namespace is required for $modelName");
                 }
-                $returningModels = $models->{$module}->{$modelKind};
+                $returningModule = $module;
             }
         }
     }
 
-    if ( @{$returningModels} == 0) {
-        throw EBox::Exceptions::DataNotFound(data => 'modelName',
-                                             value => $modelName);
-    } elsif ( @{$returningModels} == 1) {
-        return $returningModels->[0];
-    } else {
-        return $returningModels;
+    unless ( defined ($returningModule) ) {
+        throw EBox::Exceptions::DataNotFound( data  => 'modelName',
+                                              value => $modelName);
     }
+
+    return $returningModule;
 
 }
 
