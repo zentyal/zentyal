@@ -72,7 +72,6 @@ schemas/Makefile
 stubs/Makefile
 tools/Makefile
 tools/sqllog/Makefile
-www/Makefile
 migration/Makefile
 Makefile
 ])
