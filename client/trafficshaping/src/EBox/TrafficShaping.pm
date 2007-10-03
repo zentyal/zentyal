@@ -1888,6 +1888,7 @@ sub _CamelCase_to_underscore # (string)
     my ( $str ) = @_;
 
     my $retValue = $str;
+
     # The change
     $retValue =~ s/(\p{IsLu}+)/_\L$1\E/g;
 
@@ -1971,6 +1972,8 @@ sub _destroyIface # (iface)
     }
 
     # Remove model
+    my $manager = EBox::Model::ModelManager->instance();
+    $manager->removeModel($self->{ruleModels}->{$iface}->contextName());
     $self->{ruleModels}->{$iface} = undef;
 
   }

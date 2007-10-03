@@ -246,8 +246,7 @@ sub _table
 					     fieldName     => 'priority',
 					     printableName => __('Priority'),
 					     editable      => 1,
-					     optional      => 1,
-                         populate      => \&priority,
+                                             populate      => \&priority,
 					    ),
 		     new EBox::Types::Int(
 					  fieldName     => 'guaranteed_rate',

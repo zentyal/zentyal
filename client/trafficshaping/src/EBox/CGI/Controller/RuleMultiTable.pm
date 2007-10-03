@@ -66,8 +66,8 @@ sub _process
       my $tpages = $ruleModel->pages($filter);
 
       push ( @tplParams, 'model'      => $ruleModel);
-      push ( @tplParams, 'data'      => $ruleModel->rows() );
-      push ( @tplParams, 'dataTable' => $ruleModel->tableInfo() );
+#      push ( @tplParams, 'data'      => $ruleModel->rows() );
+#      push ( @tplParams, 'dataTable' => $ruleModel->table()->{'tableDescription'} );
       push ( @tplParams, 'hasChanged' => $global->unsaved() );
       push ( @tplParams, 'filter' => $filter);
       push ( @tplParams, 'page' => $page);
