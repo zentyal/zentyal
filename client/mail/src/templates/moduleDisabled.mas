@@ -1,0 +1,6 @@
+<%init>
+use EBox::Gettext;
+</%init>
+<div class='warning'>
+<%  __(q{The following settings only will take effect when the mail module will be enabled})  %>
+</div>
