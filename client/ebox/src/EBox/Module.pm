@@ -104,8 +104,9 @@ sub _regenConfig
 
 # Method: _restartService
 #
-#	This method will try to restart the module's service by means of calling
-#	_regenConfig
+#        This method will try to restart the module's service by means of
+#        calling _regenConfig. The method call has the named
+#        parameter restart with true value
 #
 sub restartService
 {
