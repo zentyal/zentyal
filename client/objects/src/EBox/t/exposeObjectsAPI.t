@@ -20,7 +20,7 @@ use warnings;
 
 use lib '../../';
 
-use Test::More qw(no_plan);
+use Test::More tests => 12;
 use Test::Exception;
 use Test::Deep;
 
@@ -74,23 +74,25 @@ cmp_ok ( $objMod->objectDescription1( $addedId )->value(), 'eq', 'a',
          'ObjectDescription exposure works');
 
 lives_ok {
-    $objMod->setMemberIP( 'a', 'a4', ipaddr => '192.168.1.114/32' ),
+    $objMod->setMemberIP( '/a/a4', ipaddr => '192.168.1.114/32' ),
 } 'Setting an IP address to a member';
 
-my $memberTest = any(isa('HASH'),methods(name => 'a4',
-                                         ip   => '192.168.1.114',
-                                         mask => 32,
-                                         mac  => 'DE:AD:00:00:DE:AF'));
+my $memberTest = any(isa('HASH'),
+                     methods(name => 'a4',
+                             ip   => '192.168.1.114',
+                             mask => 32,
+                             mac  => 'DE:AD:00:00:DE:AF')
+                    );
 cmp_deeply ( $objMod->objectMembers($addedId), array_each($memberTest),
              'The member update was done correctly');
 
 
 lives_ok {
-    $objMod->removeMember( 'a', 'a4' ),
+    $objMod->removeMember( '/a/a4' ),
 } 'Removing a member a4 from object a';
 
 throws_ok {
-    $objMod->getMember( 'a', 'a4' )
+    $objMod->getMember( '/a/a4' )
 } 'EBox::Exceptions::DataNotFound', 'Remove a member works correctly';
 
 lives_ok {

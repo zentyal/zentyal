@@ -34,14 +34,14 @@ sub new
     return $self;
 }
 
-# Method: models 
-# 
+# Method: models
+#
 #   This method must be overriden in case of your module provides any model
 #
 # Returns:
 #
 #	array ref - containing instances of the models
-sub models 
+sub models
 {
     return [];
 }
@@ -65,6 +65,14 @@ sub models
 #      and 'position' as well) and the submodel field name refers to the
 #      name of the <EBox::Types::HasMany> field on the previous model
 #      in the list
+#
+#      The method call will follow this pattern:
+#
+#      methodName( '/index1/index2/index3...', ...) if there are more
+#      than one index
+#
+#      methodName( 'index1', ...) if there are just one argument
+#
 #
 sub _exposedMethods
   {
@@ -168,7 +176,11 @@ sub _callExposedMethod
       my $mappedMethodName = $action . $subModelsName . $model->name();
 
       # The parameters
-      my @mappedMethodParams = @{$paramsRef};
+      my @indexValues = grep { $_ ne '' } split ( '/', $paramsRef->[0]);
+      # Remove the index param
+      shift ( @{$paramsRef} );
+      my @mappedMethodParams = @indexValues;
+      push ( @mappedMethodParams, @{$paramsRef} );
       if ( @selectors > 0 and $action eq 'get') {
           my $selectorsRef = \@selectors;
           push (@mappedMethodParams, $selectorsRef);

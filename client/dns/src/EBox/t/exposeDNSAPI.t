@@ -96,35 +96,35 @@ ok ( $dnsMod->addHostName( 'foo.com',
                                        ]),
      'Adding hostname d was done correctly');
 
-ok ( $dnsMod->addAlias( 'foo.com', 'd',
+ok ( $dnsMod->addAlias( '/foo.com/d',
                         alias => 'd3'),
      'Adding alias d3 to hostname d');
 
 lives_ok {
-    $dnsMod->changeAlias( 'foo.com', 'd', 'd3', alias => 'dd3');
+    $dnsMod->changeAlias( '/foo.com/d/d3', alias => 'dd3');
 } 'Changing alias name from d3 to dd3';
 
 lives_ok {
-    $dnsMod->removeAlias( 'foo.com', 'd', 'dd3');
+    $dnsMod->removeAlias( '/foo.com/d/dd3');
 } 'Removing alias dd3 correctly';
 
 throws_ok {
-      $dnsMod->removeAlias( 'foo.com', 'd', 'dd3');
+      $dnsMod->removeAlias( '/foo.com/d/dd3');
   } 'EBox::Exceptions::DataNotFound', 'Removing an inexistant alias dd3';
 
 lives_ok {
-    $dnsMod->setIP( 'foo.com', 'd', ipaddr => '192.168.4.4' );
+    $dnsMod->setIP( '/foo.com/d', ipaddr => '192.168.4.4' );
 } 'Setting a different mapping on hostname d';
 
-cmp_ok ( $dnsMod->getHostName('foo.com', 'd')->{plainValueHash}->{ipaddr}, 'eq',
+cmp_ok ( $dnsMod->getHostName('/foo.com/d')->{plainValueHash}->{ipaddr}, 'eq',
          '192.168.4.4', 'Updating ip address on hostname d was done correctly');
 
 lives_ok {
-    $dnsMod->removeHostName('foo.com', 'a');
+    $dnsMod->removeHostName('/foo.com/a');
 } 'Removing hostname a';
 
 throws_ok {
-    $dnsMod->removeHostName('foo.com', 'a');
+    $dnsMod->removeHostName('/foo.com/a');
 } 'EBox::Exceptions::DataNotFound', 'Removing an inexistant host a';
 
 lives_ok {
