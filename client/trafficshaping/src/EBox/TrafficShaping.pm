@@ -20,7 +20,7 @@ package EBox::TrafficShaping;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::NetworkObserver);
+use base qw(EBox::GConfModule EBox::NetworkObserver EBox::Model::ModelProvider);
 
 ######################################
 # Dependencies:
@@ -130,9 +130,49 @@ sub _regenConfig
     }
   }
 
+# Method: models
+#
+# Overrides:
+#
+#       <EBox::Model::ModelProvider::models>
+#
+sub models
+{
+
+    my ($self) = @_;
+
+    my $gl = EBox::Global->getInstance();
+    my $netMod = $self->{'network'};
+
+    my @currentModels = ();
+    my @extIfaces = @{$netMod->ExternalIfaces()};
+    my @intIfaces = @{$netMod->InternalIfaces()};
+
+    my @availableIfaces = ();
+
+    foreach my $iface (@extIfaces) {
+        if ( $self->_uploadRate($iface) > 0) {
+            push (@availableIfaces, $iface);
+        }
+    }
+
+    push( @availableIfaces, @intIfaces);
+
+    foreach my $iface ( @availableIfaces ) {
+        push ( @currentModels, $self->ruleModel($iface));
+    }
+
+    return \@currentModels;
+
+}
+
 # Method: _stopService
 #
 #     Call every time the module is stopped
+#
+# Overrides:
+#
+#     <EBox::Module::_stopService>
 #
 sub _stopService
   {
@@ -857,6 +897,24 @@ sub ShaperChain
 # Network Observer Implementation
 ###################################
 
+# Method: ifaceMethodChanged
+#
+# Overrides:
+#
+#     <EBox::NetworkObserver::ifaceMethodChanged>
+#
+sub ifaceMethodChanged
+  {
+
+      my ($self, $iface, $oldMethod, $newMethod) = @_;
+
+      if ( $oldMethod eq 'static' and
+           $newMethod ne 'static') {
+          return $self->_areRulesActive($iface);
+      }
+
+  }
+
 # Method: ifaceExternalChanged
 #
 #        See <EBox::NetworkObserver::ifaceExternalChanged>.
@@ -1029,12 +1087,6 @@ sub _checkInterface # (iface)
     my $network = $self->{'network'}; 
 
     # Now shaping can be done at internal interfaces to egress traffic
-#    if (not $network->ifaceIsExternal( $iface )) {
-#      throw EBox::Exceptions::External(
-#				       __x('Traffic shaping can be only done in external interface and {iface} is not',
-#					   iface => $iface)
-#				      );
-#    }
 
     # If the interface doesn't exist, launch an DataNotFound exception
     if ( not $network->ifaceExists( $iface )) {
@@ -1057,8 +1109,6 @@ sub _checkInterface # (iface)
 					);
       }
     }
-
-    
 
     return;
 

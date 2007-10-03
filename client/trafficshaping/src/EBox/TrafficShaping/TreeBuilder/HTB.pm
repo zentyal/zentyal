@@ -771,7 +771,7 @@ sub _maximumAllowedQuantum
 
     my ($self) = @_;
 
-    # Maximum quantum = 60000
+    # Maximum quantum = 60000 (HTB hardcoded)
 
     return (60000 * R2Q * 8) / 1000;
 

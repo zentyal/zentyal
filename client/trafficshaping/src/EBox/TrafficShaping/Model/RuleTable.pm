@@ -21,6 +21,8 @@ use warnings;
 use EBox::Gettext;
 use EBox::Global;
 
+use EBox::Model::ModelManager;
+
 # eBox types! wow
 use EBox::Types::Int;
 use EBox::Types::Select;
@@ -93,6 +95,81 @@ sub priority
 
 }
 
+# Method: warnOnChangeOnId
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::warnOnChangeOnId>
+#
+sub warnOnChangeOnId
+  {
+
+      my ($self, $modelName, $id, $changedData, $oldRow) = @_;
+
+      if ( $modelName eq 'GatewayTable' ) {
+          if ( exists $changedData->{interface} ) {
+              my $oldGatewayIface = $oldRow->{plainValueHash}->{interface};
+              if ( $oldGatewayIface eq $self->{interface} ) {
+                  return __x('Changes on rule regarding to {iface} ' .
+                             'will be done', iface => $self->{interface});
+              } else {
+                  if ( $self->isUsingId($modelName, $id) ) {
+                      if ( exists $changedData->{upload} ) {
+                          return __x('Changes on rule regarding to {iface} ' .
+                                     'will be done', iface => $self->{interface});
+                      }
+                      if ( exists $changedData->{download} ) {
+                          return __x('Changes on rule regarding to {iface} ' .
+                                     'will be done', iface => $self->{interface});
+                      }
+                  }
+              }
+          }
+      }
+
+      return '';
+
+  }
+
+# Method: isUsingId
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::isUsingId>
+#
+sub isUsingId
+  {
+
+      my ($self, $modelName, $id) = @_;
+
+      if ( $modelName eq 'GatewayTable' ) {
+          my $manager = EBox::Model::ModelManager->instance();
+          my $observableModel = $manager->model($modelName);
+
+          my $gateway = $observableModel->row($id);
+          my $gatewayIface = $gateway->{plainValueHash}->{interface};
+
+          return $gatewayIface eq $self->{interface};
+      }
+
+      return 0;
+
+  }
+
+# Method: index
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::index>
+#
+sub index
+{
+
+    my ($self) = @_;
+
+    return $self->{interface};
+
+}
 
 # Method: _table
 #
@@ -116,7 +193,7 @@ sub _table
 					    fieldName     => 'source',
 					    printableName => __('Source'),
 					    optional      => 1,
-					    subtypes      => 
+					    subtypes      =>
 					    [
 						new EBox::Types::Union::Text(
 						 	'fieldName' => 'source_any',
@@ -214,7 +291,8 @@ sub _table
 					        'In order to identify a rule, an attribute should be given.' .
 					        'Highest priority: 0 lowest priority: 7'),
 		     'rowUnique'          => 1,  # Set each row is unique
-		     'printableRowName' => __('rule'),
+		     'printableRowName'   => __('rule'),
+                     'notifyActions'      => [ 'GatewayTable' ],
 		    };
 
     return $dataTable;
