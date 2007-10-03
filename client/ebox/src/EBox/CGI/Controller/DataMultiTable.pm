@@ -28,7 +28,7 @@ sub new # (cgi=?)
 
     my $class = shift;
 
-    my $self = $class->SUPER::new('template' => '/ajax/tableHeader.mas',
+    my $self = $class->SUPER::new('template' => '/ajax/tableBody.mas',
 				  @_);
 
     bless($self, $class);
