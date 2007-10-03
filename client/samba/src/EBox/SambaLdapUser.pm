@@ -267,17 +267,17 @@ sub _userAddOns($$) {
         my $username = shift;
 
 	my $samba = EBox::Global->modInstance('samba');
-	unless ($samba->service){
-		return undef;
-	}
-	
+
         my @args;
 	my $share = $self->_userSharing($username) ? "yes" : "no";
 	my $printers = $samba->_printersForUser($username);
         my $args =  { 'username' => $username,
 		      'share'    => $share,
+		      'is_admin' => $samba->adminUser($username),
+		      'service'  => $samba->service,
+
 		      'printers' => $printers,
-		      'is_admin' => $samba->adminUser($username)
+		      'printerService' => $samba->printerService,
 		      };
 	use Data::Dumper;
         return { path => '/samba/samba.mas',
@@ -290,9 +290,6 @@ sub _groupAddOns($$) {
         my $groupname = shift;
 	
 	my $samba = EBox::Global->modInstance('samba');
-	unless ($samba->service){
-		return undef;
-	}
 	
 	use Data::Dumper;
         my @args;
@@ -301,7 +298,11 @@ sub _groupAddOns($$) {
         my $args =  { 'groupname' => $groupname,
 		      'share'     => $share,
 		      'sharename' => $self->sharingName($groupname),
-		      'printers'  => $printers};
+		      'service'  => $samba->service,
+
+		      'printers' => $printers,
+		      'printerService' => $samba->printerService,
+		    };
 
 	
         return { path => '/samba/samba.mas',

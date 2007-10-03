@@ -1,5 +1,3 @@
-<!-- vim: ts=4 sw=4 nowrap filetype=mason
--->
 <%args>
     $params
 </%args>
@@ -9,6 +7,7 @@ settextdomain('ebox-samba');
 </%init>
 % if ($params->{'username'}) {
 	<h3><% __('PDC/File sharing account') %></h3>
+	<& .sambaDisabled, $params &>
 	<table class="formTable">
 	<form action='/ebox/Samba/ActiveSharing' method='post'>
 	    <input type="hidden" name="user" value="<% $params->{'username'} %>">
@@ -59,6 +58,8 @@ settextdomain('ebox-samba');
         <%   __("You can set a share directory for this group, but you should keep in mind that Microsoft Windows 98 and Millenium will not be able to see names longer than 12 characters") %>
     </div>
 
+    <& .sambaDisabled, $params &>
+
     <input type="hidden" name="group" value="<% $params->{'groupname'} %>">
 %           if (length($params->{'sharename'}) > 12) {
                 <div class='warning'>
@@ -88,6 +89,9 @@ settextdomain('ebox-samba');
 
 % if (@{$params->{'printers'}})  {
 	<h3><% __('Printers') %></h3>
+
+	    <& .printersDisabled, $params &>
+
 	<p><% __('Select the printers this user will have access to.') %></p>
 	<form id='printers' action='/ebox/Samba/ActivePrinting' method='POST'>
 % if ($params->{'username'}) {
@@ -119,7 +123,7 @@ settextdomain('ebox-samba');
 %					}
 				</tr>
 %				}
-				<tr class='trimp'>
+ <tr class='trimp'>
 					<td>
 						<strong><% __('Allow all printers') %></strong>
 					</td>
@@ -146,3 +150,39 @@ settextdomain('ebox-samba');
 	</form>
 % }
 % settextdomain('ebox-usersandgroups');
+
+<%def .printersDisabled>
+<%init>
+my ($params) = @_;
+return if $params->{printerService};
+
+my $mod = __('printers module');
+</%init>
+<& .modWarn, mod => $mod &>
+</%def>
+
+
+<%def .sambaDisabled>
+<%init>
+my ($params) = @_;
+return if $params->{service};
+
+my $mod = __('file sharing module');
+</%init>
+<& .modWarn, mod => $mod &>
+</%def>
+
+
+<%def .modWarn>
+<%args>
+$mod
+</%args>
+<div class='warning'>
+<% __x(
+       q{The following settings will take effect only when the {mod} will be
+enabled},
+    mod => $mod,
+    )
+%>
+</div>
+</%def> 
