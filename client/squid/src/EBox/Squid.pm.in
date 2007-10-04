@@ -85,8 +85,13 @@ sub modelClasses
 			 ],
 	  },
 	  'EBox::Squid::Model::GeneralSettings',
+
 	  'EBox::Squid::Model::ExtensionFilter',
+	  'EBox::Squid::Model::ApplyAllowToAllExtensions',
+
 	  'EBox::Squid::Model::MIMEFilter',
+	  'EBox::Squid::Model::ApplyAllowToAllMIME',
+
 	  'EBox::Squid::Model::DomainFilter',
 	  'EBox::Squid::Model::ObjectPolicy',
 	 ]; 
@@ -97,6 +102,8 @@ sub compositeClasses
 {
  return [
             'EBox::Squid::Composite::General',
+	    'EBox::Squid::Composite::Extensions',
+	    'EBox::Squid::Composite::MIME',
          ];
 }
 
@@ -151,7 +158,9 @@ sub _doDGDaemon
 
 	my $domainFilter = $self->model('DomainFilter');
 	my $banned = $domainFilter->banned;
-	my $allowed = $domainFilter->allowed;}
+	my $allowed = $domainFilter->allowed;
+}
+
 sub _stopService 
 {
 	EBox::Service::manage('squid', 'stop');
@@ -681,10 +690,10 @@ sub menu
         $folder->add(new EBox::Menu::Item('url' => 'Squid/View/DomainFilter',
                                           'text' => __('Internet domain filter')));
 
-	$folder->add(new EBox::Menu::Item('url' => 'Squid/View/ExtensionFilter',
+	$folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/Extensions',
                                           'text' => __('Extensions filter')));
 
-	$folder->add(new EBox::Menu::Item('url' => 'Squid/View/MIMEFilter',
+	$folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/MIME',
                                           'text' => __('MIME Type filter')));
 
         $folder->add(new EBox::Menu::Item('url' => 'Squid/View/ObjectPolicy',

@@ -1,0 +1,56 @@
+<%doc>
+  This template is indicated to view subclasses of EBox::Model::Squid::ApplyToAllBase
+
+</%doc>
+<%flags>
+  inherit => '/ajax/form.mas'
+</%flags>
+<%args>
+  $model
+  $hasChanged
+  $action => 'view'
+</%args>
+<%init>
+  use EBox::Gettext;
+</%init>
+<& PARENT:view,
+   model => $model,
+   hasChanged => $hasChanged,
+   action     => $action,
+&>
+
+
+
+<%doc>
+  Method: buttons
+
+     Show the button to submit the form
+
+  Overrides:
+
+     /ajax/modelViewer.mas:buttons
+
+</%doc>
+<%method buttons>
+<%init>
+  # Getting the arguments from the first request
+  my $model = $m->caller_args(2)->{model};
+  # getting the list model in which apply the changes
+  my $listModel = $model->listModel();
+  my $changeViewList = $listModel->changeViewJS(
+						changeType => 'changeList',
+						editId     => 0,
+						page       => 0,
+						isFilter   => 0,
+					       );
+</%init>
+<td id="<% 'buttons_' . $model->modelName() %>"
+  <& /input/submit.mas,
+     name => 'change',
+     value => __('Change'),
+     onclick => $model->changeRowJS(0, 0) . '; sleep(5); ' . $changeViewList .  '; return false',
+  &>
+</td>
+</%method>
+
+
