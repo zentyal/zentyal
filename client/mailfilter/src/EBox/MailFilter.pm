@@ -535,8 +535,6 @@ sub removeExternalDomain
 {
   my ($self, $domain) = @_;
 
-  EBox::Validate::checkDomain($domain , __('Mail domain'));
-
   my @domains = @{  $self->externalDomains };
   my @domainsWithoutRemoved = grep {  $_ ne $domain } @domains;
 
