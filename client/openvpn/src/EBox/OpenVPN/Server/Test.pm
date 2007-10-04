@@ -662,7 +662,7 @@ sub setSubnetAndMaskTest : Test(18)
 # }
 
 
-sub addAndRemoveAdvertisedNet : Test(25)
+sub addAndRemoveAdvertisedNet : Test(30)
 {
   my ($self) = @_;
   my $server = $self->_newServer('macaco');
@@ -671,6 +671,7 @@ sub addAndRemoveAdvertisedNet : Test(25)
 	      ['192.168.24.1', '255.255.255.0'],
 	      ['192.168.86.0', '255.255.255.0'],
 	      ['10.0.0.0', '255.0.0.0'],
+	      [ '192.168.34.0', '255.255.255.0'], # not directly reacheable net
 	     );
 
   # assure straights nets can be reached using fake routes
@@ -716,7 +717,7 @@ sub addAndRemoveAdvertisedNet : Test(25)
   dies_ok { $server->addAdvertisedNet('10.0.0.0.0', '255.255.255.0')  } 'Expecting error when adding a net with a incorrect address';
   dies_ok { $server->addAdvertisedNet('10.0.0.0', '256.255.255.0')  } 'Expecting error when adding a net with a incorrect netmask';
   dies_ok { $server->addAdvertisedNet('10.0.0.0.1111', '0.255.255.0')  } 'Expecting error when adding a net with both a incorrect address and netmask';
-   dies_ok { $server->addAdvertisedNet('192.168.34.0', '255.255.255.0')  } 'Expecting error when adding a private net not reacheable by eBox'; 
+
 
   # remove straight cases 
   
