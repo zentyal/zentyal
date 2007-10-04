@@ -645,27 +645,10 @@ sub _checkAdvertisedNet
   if ($self->getConfString("advertised_nets/$net")) {
     throw EBox::Exceptions::External(__x("Network {net} is already advertised in this server", net => $net));
   }
-
-
- if (! _EBoxIsGateway()) {
-    throw EBox::Exceptions::External(__('eBox must be configured as gateway to be able to give client access to networks via OpenVPN'));
-  }
-
-
-  my $CIDRNet = EBox::NetWrappers::to_network_with_mask($net, $netmask);
-  if (! defined EBox::NetWrappers::route_to_reach_network($CIDRNet)) {
-    throw EBox::Exceptions::External(__('The OpenVPN server cannot grant access to a network which is not reachable'))
-  }
-
-  
 }
 
 
-sub _EBoxIsGateway
-{
-  return 1;
-}
- 
+
 # Method: removeAdvertisedNet
 #
 #  remove a net from  the advertised nets list
