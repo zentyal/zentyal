@@ -264,91 +264,92 @@ sub printableIndex
 sub _table
   {
 
-    my @tableHead = (
-		     new EBox::Types::Service(
-					      fieldName     => 'service',
-					      printableName => __('Service'),
-					      editable      => 1, # editable
-					      optional      => 1,
-					     ),
-		     new EBox::Types::Union(
-					    fieldName     => 'source',
-					    printableName => __('Source'),
-					    optional      => 1,
-					    subtypes      =>
-					    [
-						new EBox::Types::Union::Text(
-						 	'fieldName' => 'source_any',
-							'printableName' => __('Any')),
-					     new EBox::Types::IPAddr(
-								     fieldName     => 'source_ipaddr',
-								     printableName => __('Source IP'),
-								     editable      => 1,
-								     optional      => 1),
-					     new EBox::Types::MACAddr(
-								      fieldName     => 'source_macaddr',
-								      printableName => __('Source MAC'),
-								      editable      => 1,
-								      optional      => 1),
-					     new EBox::Types::Select(
-								     fieldName     => 'source_object',
-								     printableName => __('Source object'),
-								     editable      => 1,
-                                     foreignModel => \&objectModel,
-                                     foreignField => 'name'
-                                     )
-					     ],
-					    editable => 1,
-					   ),
-		     new EBox::Types::Union(
-					    fieldName     => 'destination',
-					    printableName => __('Destination'),
-					    optional      => 1,
-					    subtypes      =>
-					    [
-						new EBox::Types::Union::Text(
-						 	'fieldName' => 'source_any',
-							'printableName' => __('Any')),
-					     new EBox::Types::IPAddr(
-								     fieldName     => 'destination_ipaddr',
-								     printableName => __('Destination IP'),
-								     editable      => 1,
-								     optional      => 1),
-					     new EBox::Types::Select(
-								     fieldName     => 'destination_object',
-								     printableName => __('Destination object'),
-								     type          => 'select',
-                                     foreignModel => \&objectModel,
-                                     foreignField => 'name',
-				     editable      => 1)
-					     ],
-					    editable => 1,
-					   ),
-		     new EBox::Types::Select(
-					     fieldName     => 'priority',
-					     printableName => __('Priority'),
-					     editable      => 1,
-                                             populate      => \&priority,
-					    ),
-		     new EBox::Types::Int(
-					  fieldName     => 'guaranteed_rate',
-					  printableName => __('Guaranteed Rate'),
-					  size          => 3,
-					  editable      => 1, # editable
-					  trailingText  => __('Kbit/s'),
-					  optional      => 1, # optional
-					 ),
-		     new EBox::Types::Int(
-					  fieldName     => 'limited_rate',
-					  printableName => __('Limited Rate'),
-					  class         => 'tcenter',
-					  type          => 'int',
-					  size          => 3,
-					  editable      => 1, # editable
-					  trailingText  => __('Kbit/s'),
-					  optional      => 1, # optional
-					 ),
-		    );
+    my @tableHead =
+      (
+       new EBox::Types::Service(
+                                fieldName     => 'service',
+                                printableName => __('Service'),
+                                editable      => 1, # editable
+                                optional      => 1,
+                               ),
+       new EBox::Types::Union(
+                              fieldName     => 'source',
+                              printableName => __('Source'),
+                              optional      => 1,
+                              subtypes      =>
+                              [
+                               new EBox::Types::Union::Text(
+                                                            'fieldName' => 'source_any',
+                                                            'printableName' => __('Any')),
+                               new EBox::Types::IPAddr(
+                                                       fieldName     => 'source_ipaddr',
+                                                       printableName => __('Source IP'),
+                                                       editable      => 1,
+                                                       optional      => 1),
+                               new EBox::Types::MACAddr(
+                                                        fieldName     => 'source_macaddr',
+                                                        printableName => __('Source MAC'),
+                                                        editable      => 1,
+                                                        optional      => 1),
+                               new EBox::Types::Select(
+                                                       fieldName     => 'source_object',
+                                                       printableName => __('Source object'),
+                                                       editable      => 1,
+                                                       foreignModel => \&objectModel,
+                                                       foreignField => 'name'
+                                                      )
+                              ],
+                              editable => 1,
+                             ),
+       new EBox::Types::Union(
+                              fieldName     => 'destination',
+                              printableName => __('Destination'),
+                              optional      => 1,
+                              subtypes      =>
+                              [
+                               new EBox::Types::Union::Text(
+                                                            'fieldName' => 'source_any',
+                                                            'printableName' => __('Any')),
+                               new EBox::Types::IPAddr(
+                                                       fieldName     => 'destination_ipaddr',
+                                                       printableName => __('Destination IP'),
+                                                       editable      => 1,
+                                                       optional      => 1),
+                               new EBox::Types::Select(
+                                                       fieldName     => 'destination_object',
+                                                       printableName => __('Destination object'),
+                                                       type          => 'select',
+                                                       foreignModel => \&objectModel,
+                                                       foreignField => 'name',
+                                                       editable      => 1 ),
+                              ],
+                              editable => 1,
+                             ),
+       new EBox::Types::Select(
+                               fieldName     => 'priority',
+                               printableName => __('Priority'),
+                               editable      => 1,
+                               populate      => \&priority,
+                              ),
+       new EBox::Types::Int(
+                            fieldName     => 'guaranteed_rate',
+                            printableName => __('Guaranteed Rate'),
+                            size          => 3,
+                            editable      => 1, # editable
+                            trailingText  => __('Kbit/s'),
+                            optional      => 1, # optional
+                           ),
+       new EBox::Types::Int(
+                            fieldName     => 'limited_rate',
+                            printableName => __('Limited Rate'),
+                            class         => 'tcenter',
+                            type          => 'int',
+                            size          => 3,
+                            editable      => 1, # editable
+                            trailingText  => __('Kbit/s'),
+                            optional      => 1, # optional
+                           ),
+      );
 
     my $dataTable = {
 		     'tableName'          => 'tsTable',
@@ -374,6 +375,11 @@ sub _table
 		     'rowUnique'          => 1,  # Set each row is unique
 		     'printableRowName'   => __('rule'),
                      'notifyActions'      => [ 'GatewayTable' ],
+                     'automaticRemove' => 1,    # Related to objects,
+                                                # remove rules with an
+                                                # object when that
+                                                # object is being
+                                                # deleted
 		    };
 
     return $dataTable;
@@ -566,29 +572,11 @@ sub updatedRowNotify
 # Private methods
 ####################################################
 
-# Get the objects from Objects module
-# Return an array ref with a hash
-# ref within each element with the attributes value and printableValue
-sub objects
-{
-	my $self = shift;
 
-	my $objects = EBox::Global->modInstance('objects');
-
-	my @options;
-	foreach my $object (@{$objects->objects()}) {
-		push (@options, { 
-				 'value' => $object->{'id'},
-				 'printableValue' => $object->{'name'}
-				 });
-	}
-
-	return \@options;
-}
-
+# Get the object model from the model manager
 sub objectModel
 {
-    return EBox::Global->modInstance('objects')->{'objectModel'};
+    return EBox::Global->modInstance('objects')->{objectModel};
 }
 
 # Remove every rule from the model since no limit rate are possible
