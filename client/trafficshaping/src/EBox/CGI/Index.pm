@@ -61,20 +61,16 @@ sub masonParameters
     my ($self) = @_;
 
     my $global = EBox::Global->getInstance();
-    my $net = $global->modInstance('network');
-    my @extIfaces = @{$net->ExternalIfaces()};
-    my $areExternalIfaces = scalar(@extIfaces) > 0;
-    my @intIfaces = @{$net->InternalIfaces()};
-    my $areInternalIfaces = scalar(@intIfaces) > 0;
-    my $enoughInterfaces = $areExternalIfaces and $areInternalIfaces;
 
+    my $net = $global->modInstance('network');
     my $ts = $global->modInstance('trafficshaping');
     $ts->startUp;
+    my $enoughInterfaces = $ts->enoughInterfaces();
     my $model = $ts->ruleMultiTableModel();
     my $areGateways = undef;
-    foreach my $iface (@extIfaces) {
+    foreach my $iface (@{$net->ExternalIfaces()}) {
       # FIXME -> This should done by network -> Workaround to fix #373
-      my $uploadRate = $ts->_uploadRate($iface);
+      my $uploadRate = $ts->uploadRate($iface);
       if ( defined ($uploadRate) and
 	   $uploadRate > 0 ) {
 	$areGateways = 1;

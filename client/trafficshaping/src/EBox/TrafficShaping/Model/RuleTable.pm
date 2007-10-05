@@ -18,6 +18,13 @@ package EBox::TrafficShaping::Model::RuleTable;
 use strict;
 use warnings;
 
+# Its parent is the EBox::Model::DataTable
+use base 'EBox::Model::DataTable';
+
+use integer;
+
+use Error qw(:try);
+
 use EBox::Gettext;
 use EBox::Global;
 
@@ -35,8 +42,6 @@ use EBox::Types::Union::Text;
 # Uses to validate
 use EBox::Validate qw( checkProtocol checkPort );
 
-# Its parent is the EBox::Model::DataTable
-use base 'EBox::Model::DataTable';
 
 # Constructor: new
 #
@@ -62,6 +67,12 @@ sub new
 
     $self->{interface} = $params{interface};
     $self->{ts} = $params{gconfmodule};
+    my $netMod = EBox::Global->modInstance('network');
+    if ( $netMod->ifaceIsExternal($self->{interface}) ) {
+        $self->_setLimitRate( $self->{ts}->uploadRate($self->{interface}) );
+    } else {
+        $self->_setLimitRate( $self->{ts}->totalDownloadRate() );
+    }
 
     bless($self, $class);
 
@@ -104,24 +115,30 @@ sub priority
 sub warnOnChangeOnId
   {
 
-      my ($self, $modelName, $id, $changedData, $oldRow) = @_;
+      my ($self, %params) = @_;
 
-      if ( $modelName eq 'GatewayTable' ) {
+      my ($modelName, $id, $changedData, $oldRow) = ( $params{modelName},
+                                                      $params{id},
+                                                      $params{changedData},
+                                                      $params{oldRow} );
+
+      my $strToShow = __x('Change or remove some rules on {contextName}',
+                             contextName => $self->printableContextName());
+
+      if ( $modelName =~ m/GatewayTable/ ) {
           if ( exists $changedData->{interface} ) {
               my $oldGatewayIface = $oldRow->{plainValueHash}->{interface};
-              if ( $oldGatewayIface eq $self->{interface} ) {
-                  return __x('Changes on rule regarding to {iface} ' .
-                             'will be done', iface => $self->{interface});
-              } else {
-                  if ( $self->isUsingId($modelName, $id) ) {
-                      if ( exists $changedData->{upload} ) {
-                          return __x('Changes on rule regarding to {iface} ' .
-                                     'will be done', iface => $self->{interface});
-                      }
-                      if ( exists $changedData->{download} ) {
-                          return __x('Changes on rule regarding to {iface} ' .
-                                     'will be done', iface => $self->{interface});
-                      }
+              if ( ($oldGatewayIface eq $self->{interface}) &&
+                   ($self->size() > 0) ) {
+                  return $strToShow;
+              }
+          } else {
+              if ( $self->isUsingId($modelName, $id) ) {
+                  if ( exists $changedData->{upload} ) {
+                      return $strToShow;
+                  }
+                  if ( exists $changedData->{download} ) {
+                      return $strToShow;
                   }
               }
           }
@@ -149,12 +166,61 @@ sub isUsingId
           my $gateway = $observableModel->row($id);
           my $gatewayIface = $gateway->{plainValueHash}->{interface};
 
-          return $gatewayIface eq $self->{interface};
+          return ($gatewayIface eq $self->{interface}) && ($self->size() > 0);
       }
 
       return 0;
 
   }
+
+# Method: notifyForeignModelAction
+#
+#      Called whenever an action is performed on a gateway whose
+#      interface is the one we are shaping
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::notifyForeignModelAction>
+#
+sub notifyForeignModelAction
+{
+
+    my ($self, $modelName, $action, $row) = @_;
+
+    my $userNotes = '';
+    if ( $action eq 'add' ) {
+        # Do nothing, it is also better
+        return $userNotes;
+    } elsif ( $action eq 'del' or
+              $action eq 'update') {
+
+        if ( $row->{plainValueHash}->{interface} eq $self->{interface} ) {
+            # Check new bandwidth
+            my $netMod = EBox::Global->modInstance('network');
+            my $limitRate;
+            if ( $netMod->ifaceIsExternal($self->{interface}) ) {
+                $limitRate = $self->{ts}->uploadRate($self->{interface});
+            } else {
+                # Internal interface
+                $limitRate = $self->{ts}->totalDownloadRate();
+            }
+            if ( $limitRate == 0 or (not $self->{ts}->enoughInterfaces())) {
+                $userNotes = $self->_removeRules();
+            } else {
+                $userNotes = $self->_normalize($limitRate);
+            }
+            $self->_setLimitRate( $limitRate );
+        } else {
+            # Check if there are any download rate
+            if ( $self->{ts}->totalDownloadRate() == 0) {
+                # Remove our rules anyway
+                $userNotes = $self->_removeRules();
+            }
+        }
+    }
+        return $userNotes;
+
+}
 
 # Method: index
 #
@@ -168,6 +234,22 @@ sub index
     my ($self) = @_;
 
     return $self->{interface};
+
+}
+
+# Method: printableIndex
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::printableIndex>
+#
+sub printableIndex
+{
+
+    my ($self) = @_;
+
+    return __x("interface {iface}",
+              iface => $self->{interface});
 
 }
 
@@ -452,11 +534,13 @@ sub addedRowNotify
 sub deletedRowNotify
   {
 
-    my ($self, $row_ref) = @_;
+    my ($self, $row_ref, $force) = @_;
 
-    $self->{ts}->removeRule(
-			    interface      => $self->{interface},
-			   );
+    unless ( $force ) {
+        $self->{ts}->removeRule(
+                                interface      => $self->{interface},
+                               );
+    }
 
   }
 
@@ -467,13 +551,14 @@ sub deletedRowNotify
 sub updatedRowNotify
   {
 
-    my ($self, $row_ref) = @_;
+    my ($self, $row_ref, $force) = @_;
 
-    my $ruleId         = $row_ref->{id};
-
-    $self->{ts}->updateRule( interface      => $self->{interface},
-			     ruleId         => $ruleId,
-			   );
+    unless ( $force ) {
+        my $ruleId = $row_ref->{id};
+        $self->{ts}->updateRule( interface      => $self->{interface},
+                                 ruleId         => $ruleId,
+                               );
+    }
 
   }
 
@@ -505,6 +590,91 @@ sub objectModel
 {
     return EBox::Global->modInstance('objects')->{'objectModel'};
 }
-    
+
+# Remove every rule from the model since no limit rate are possible
+sub _removeRules
+{
+
+    my ($self) = @_;
+
+    my $rows = $self->rows();
+
+    foreach my $row (@{$rows}) {
+        $self->removeRow( $row->{id}, 1);
+    }
+
+    return __x('Remove {num} rules at {modelName}',
+               num => scalar(@{$rows}),
+               modelName => $self->printableContextName());
+
+}
+
+# Normalize the current rates (guaranteed and limited)
+sub _normalize
+{
+
+    my ($self, $currentLimitRate) = @_;
+
+    my ($limitNum, $guaranNum, $removeNum) = (0, 0, 0);
+    if ( $self->_limitRate() > $currentLimitRate ) {
+        # The bandwidth has been decreased
+        foreach my $pos (0 .. $self->size() - 1 ) {
+            my $row = $self->get( $pos );
+            my $guaranteedRate = $row->{plainValueHash}->{guaranteed_rate};
+            my $limitedRate = $row->{plainValueHash}->{limited_rate};
+            if ( $limitedRate > $currentLimitRate ) {
+                $limitedRate = $currentLimitRate;
+                $limitNum++;
+            }
+            # Normalize guaranteed rate
+            if ( $guaranteedRate != 0 ) {
+                $guaranteedRate = ( $guaranteedRate * $currentLimitRate ) / $self->_limitRate();
+                $guaranNum++;
+            }
+            try {
+                $self->set( $pos, guaranteed_rate => $guaranteedRate,
+                            limited_rate => $limitedRate);
+            } catch EBox::Exceptions::External with {
+                # The updated rule is fucking everything up (min guaranteed
+                # rate reached and more!)
+                $self->removeRow( $row->{id}, 1);
+                $removeNum++;
+            }
+        }
+    }
+
+    if ( $limitNum > 0 or $guaranNum > 0 ){
+        return __x('Normalizing rates: {limitNum} rules have decreased its limit rate to {limitRate}, ' .
+                   '{guaranNum} rules have normalized its guaranteed rate to maintain ' .
+                   'the same proportion that it has previously and {removeNum} ' .
+                   'have been deleted because its guaranteed rate was lower than the ' .
+                   'minimum allowed',
+                   limitNum => $limitNum, limitRate => $currentLimitRate,
+                   guaranNum => $guaranNum, removeNum => $removeNum);
+    }
+
+}
+
+# Store the limit rate on gconftool (interprocess) in order to
+# normalize afterwards when a new limit rate appears
+sub _setLimitRate
+{
+
+    my ($self, $limitRate) = @_;
+
+    $self->{gconfmodule}->set_int( $self->{directory} . '/limitRate',
+                                   $limitRate);
+
+}
+
+# Get the limit rate stored in GConf
+sub _limitRate
+{
+
+    my ($self) = @_;
+
+    return $self->{gconfmodule}->get_int( $self->{directory} . '/limitRate');
+
+}
 
 1;

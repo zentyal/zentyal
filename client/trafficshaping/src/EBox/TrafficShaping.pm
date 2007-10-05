@@ -67,6 +67,7 @@ sub _create
     my $self = $class->SUPER::_create(name   => 'trafficshaping',
 				      domain => 'ebox-trafficshaping',
 				      title  => __('Traffic Shaping'),
+                                      printableName => __('Traffic Shaping'),
 				      @_);
 
     $self->{network} = EBox::Global->modInstance('network');
@@ -151,7 +152,7 @@ sub models
     my @availableIfaces = ();
 
     foreach my $iface (@extIfaces) {
-        if ( $self->_uploadRate($iface) > 0) {
+        if ( $self->uploadRate($iface) > 0) {
             push (@availableIfaces, $iface);
         }
     }
@@ -359,7 +360,7 @@ sub removeRule
 
     # Create builders ( Disc -> Memory ) Mandatory every time an
     # access in memory is done
-    $self->_createBuilders();
+#    $self->_createBuilders();
 
     # Destroy rule from builder
 #   $self->_destroyRule( $iface, $ruleId, \%args);
@@ -972,10 +973,96 @@ sub freeIface # (iface)
 
   }
 
+###
+# Workaround related to upload rate from an external interface
+###
 
+# Method: uploadRate
+#
+#    Get the upload rate from an interface in kilobits per second
+#
+# Parameters:
+#
+#    iface - String interface's name
+#
+# Returns:
+#
+#    Int - the upload rate in kilobits per second
+#
+sub uploadRate # (iface)
+  {
+
+# FIXME: Change when the ticket #373
+
+    my ($self, $iface) = @_;
+
+    my $net = $self->{'network'};
+
+    my $gateways_ref = $net->gateways();
+
+    my $sumUpload = 0;
+    foreach my $gateway_ref (@{$gateways_ref}) {
+      if ($gateway_ref->{interface} eq $iface) {
+	$sumUpload += $gateway_ref->{upload};
+      }
+    }
+
+    return $sumUpload;
+
+  }
+
+# Method: totalDownloadRate
+#
+#        Get the total download rate from the external interfaces in
+#        kilobits per second
+#
+# Returns:
+#
+#        Int - the download rate in kilobits per second
+#
+sub totalDownloadRate
+  {
+
+# FIXME: Change when the ticket #373
+
+    my ($self) = @_;
+
+    my $net = $self->{'network'};
+
+    my $gateways_ref = $net->gateways();
+
+    my $sumDownload = 0;
+
+    foreach my $gateway_ref (@{$gateways_ref}) {
+      if ( $net->ifaceIsExternal($gateway_ref->{interface}) ) {
+	  $sumDownload += $gateway_ref->{download};
+      }
+    }
+
+    return $sumDownload;
+
+  }
+
+# Method: enoughInterfaces
+#
+#      Return if there are enough interfaces to do traffic shaping
+#
+sub enoughInterfaces
+{
+
+    my ($self) = @_;
+
+    my $netMod = $self->{network};
+
+    my @extIfaces = @{$netMod->ExternalIfaces()};
+    my @intIfaces = @{$netMod->InternalIfaces()};
+
+    return ( @extIfaces > 0 ) && (@intIfaces > 0);
+
+}
 
 ###################################
-# Private Methods
+# Group: Private Methods
 ###################################
 
 ###
@@ -1296,10 +1383,10 @@ sub _createTree # (interface, type)
       my $global = EBox::Global->getInstance();
       my $network = $self->{'network'}; 
       if ( $network->ifaceIsExternal($iface) ) {
-	$linkRate = $self->_uploadRate($iface);
+	$linkRate = $self->uploadRate($iface);
       }
       else {
-	$linkRate = $self->_totalDownloadRate();
+	$linkRate = $self->totalDownloadRate();
       }
 
       if ( not defined($linkRate) or $linkRate == 0) {
@@ -1896,57 +1983,6 @@ sub _CamelCase_to_underscore # (string)
 
   }
 
-###
-# Workaround related to upload rate from an external interface
-###
-
-# Get the upload rate from an interface in kilobits per second
-# FIXME: Change when the ticket #373
-sub _uploadRate # (iface)
-  {
-
-    my ($self, $iface) = @_;
-
-    my $global = EBox::Global->getInstance();
-    my $net = $self->{'network'}; 
-
-    my $gateways_ref = $net->gateways();
-
-    my $sumUpload = 0;
-    foreach my $gateway_ref (@{$gateways_ref}) {
-      if ($gateway_ref->{interface} eq $iface) {
-	$sumUpload += $gateway_ref->{upload};
-      }
-    }
-
-    return $sumUpload;
-
-  }
-
-# Get the total download rate from the external interfaces in kilobits
-# per second
-# FIXME: Change when the ticket #373
-sub _totalDownloadRate
-  {
-
-    my ($self) = @_;
-
-    my $global = EBox::Global->getInstance();
-    my $net = $self->{'network'}; 
-
-    my $gateways_ref = $net->gateways();
-
-    my $sumDownload = 0;
-
-    foreach my $gateway_ref (@{$gateways_ref}) {
-      if ( $net->ifaceIsExternal($gateway_ref->{interface}) ) {
-	  $sumDownload += $gateway_ref->{download};
-      }
-    }
-
-    return $sumDownload;
-
-  }
 
 ###
 # Network observer helper functions

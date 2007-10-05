@@ -108,7 +108,7 @@ sub selectOptions
     my @options;
     foreach my $iface (@extIfaces) {
       # FIXME -> This should done by network -> Workaround to fix #373
-      if ( $ts->_uploadRate($iface) > 0 ) {
+      if ( $ts->uploadRate($iface) > 0 ) {
 	my $option = {
 		      id => $iface,
 		      printableId => $iface,
