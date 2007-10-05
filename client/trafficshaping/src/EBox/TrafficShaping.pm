@@ -360,7 +360,7 @@ sub removeRule
 
     # Create builders ( Disc -> Memory ) Mandatory every time an
     # access in memory is done
-#    $self->_createBuilders();
+    $self->_createBuilders();
 
     # Destroy rule from builder
 #   $self->_destroyRule( $iface, $ruleId, \%args);
