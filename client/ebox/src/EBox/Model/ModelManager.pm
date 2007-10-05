@@ -23,14 +23,16 @@
 #
 package EBox::Model::ModelManager;
 
+use strict;
+use warnings;
+
 use EBox;
+use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
 use Error qw(:try);
 
-use strict;
-use warnings;
 
 # Singleton variable
 my $_instance = undef;
@@ -284,11 +286,12 @@ sub modelsUsingId
     # Fetch dependencies from models which are not declaring dependencies
     # in types and instead they are using notifyActions
     if (exists $self->{'notifyActions'}->{$modelName}) {
-        foreach my $observer (keys %{$self->{'notifyActions'}->{$modelName}}) {
+        foreach my $observer (@{$self->{'notifyActions'}->{$modelName}}) {
             my $observerModel = $self->model($observer);
             if ($observerModel->isUsingId($modelName, $rowId)) {
-                $models{$observer} = 
-                    $observerModel->table()->{'printableTableName'};
+                $models{$observer} =
+#                    $observerModel->table()->{'printableTableName'};
+                  $observerModel->printableContextName();
             }
         }
     }
@@ -315,6 +318,10 @@ sub modelsUsingId
 #
 #   row  - row modified 
 #
+# Returns:
+#
+#   String - any i18ned string given by other modules when a change is done
+#
 # Exceptions:
 #
 # <EBox::Exceptions::DataNotFound> if the model does not exist
@@ -322,7 +329,7 @@ sub modelsUsingId
 #
 sub modelActionTaken
 {
-	my ($self, $model, $action, $row) = @_;
+    my ($self, $model, $action, $row) = @_;
 
     throw EBox::Exceptions::MissingArgument("model") unless (defined($model));
     throw EBox::Exceptions::MissingArgument("action") unless (defined($action));
@@ -331,11 +338,16 @@ sub modelActionTaken
     EBox::debug("$model has taken action '$action' on row $row->{'id'}");
 
     return unless (exists $self->{'notifyActions'}->{$model});
-    
-    for my $observer (@{$self->{'notifyActions'}->{$model}}) {
-        EBox::debug("Notifying $observer");
-        $observer->notifyForeignModelAction($model, $action, $row);
+
+    my $strToRet = '';
+    for my $observerName (@{$self->{'notifyActions'}->{$model}}) {
+        EBox::debug("Notifying $observerName");
+        my $observerModel = $self->model($observerName);
+        $strToRet .= $observerModel->notifyForeignModelAction($model, $action, $row) .
+          '<br>';
     }
+
+    return $strToRet;
 
 }
 
@@ -388,7 +400,87 @@ sub removeRowsUsingId
 
 }
 
-# Private methods
+# Method: warnIfIdIsUsed
+#
+#       Check from a model if any model is using this row
+#
+# Parameters:
+#
+#       modelName - String the model which the action is going to be
+#       performed
+#
+#       id - String the row identifier
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::DataInUse> - thrown if the id is used by
+#       any other model
+#
+sub warnIfIdIsUsed
+{
+	my ($self, $modelName, $id) = @_;
+
+	my $tablesUsing;
+
+	for my $name  (values %{$self->modelsUsingId($modelName, $id)}) {
+		$tablesUsing .= '<br> - ' .  $name ;
+	}
+
+	if ($tablesUsing) {
+		throw EBox::Exceptions::DataInUse(
+			__('The data you are removing is being used by
+			the following sections:') . '<br>' . $tablesUsing);
+	}
+}
+
+# Method: warnOnChangeOnId
+#
+#       Check from a model if any model is using a row that is
+#       changing
+#
+# Parameters:
+#
+#       modelName - String the model which the action is going to be
+#       performed
+#
+#       id - String the row identifier
+#
+#       changedData - hash ref the types that has been changed
+#
+#       oldRow - hash ref the old row with the content as
+#       <EBox::Model::DataTable::row> return value
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::DataInUse> - thrown if the id is used by
+#       any other model
+#
+sub warnOnChangeOnId
+{
+
+    my ($self, $modelName, $id, $changeData, $oldRow) = @_;
+
+    my $tablesUsing;
+
+    for my $name (keys %{$self->modelsUsingId($modelName, $id)}) {
+        my $model = $self->model($name);
+        my $issue = $model->warnOnChangeOnId(modelName => $modelName,
+                                             id => $id,
+                                             changedData => $changeData,
+                                             oldRow => $oldRow);
+        if ($issue) {
+            $tablesUsing .= '<br> - ' .  $issue ;
+        }
+    }
+
+    if ($tablesUsing) {
+        throw EBox::Exceptions::DataInUse(
+                  __('The data you are modifying is being used by
+			the following sections:') . '<br>' . $tablesUsing);
+    }
+}
+
+# Group: Private methods
 
 # Method: _setUpModels
 #
@@ -445,11 +537,12 @@ sub _setUpModels
         foreach my $modelKind ( keys %{$models{$module}} ) {
             foreach my $model (@{$models{$module}->{$modelKind}}) {
                 my $table = $model->table();
-                my $observerModel = $table->{'tableName'};
+#                my $observerModel = $table->{'tableName'};
+                my $observerModel = $model->contextName();
                 next unless (exists $table->{'notifyActions'});
                 for my $observableModel  (@{$table->{'notifyActions'}}) {
                     push (@{$self->{'notifyActions'}->{$observableModel}},
-                          $observerModel)
+                          $observerModel);
                 }
             }
         }

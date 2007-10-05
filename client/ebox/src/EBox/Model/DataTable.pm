@@ -223,6 +223,33 @@ sub contextName
 
 }
 
+# Method: printableContextName
+#
+#       Localisated version of <EBox::Model::DataTable::contextName>
+#       method to be shown on the user
+#
+# Returns:
+#
+#       String - the localisated version of context name
+#
+sub printableContextName
+{
+
+    my ($self) = @_;
+    my $printableContextName = __x( '{model} in {module} module',
+                                    model  => $self->printableName(),
+                                    module => $self->{'gconfmodule'}->printableName());
+    if ( $self->index() ) {
+        $printableContextName .= __(' at ');
+        if ( $self->printableIndex() ) {
+            $printableContextName .= $self->printableIndex();
+        } else {
+            $printableContextName .= $self->index();
+        }
+    }
+
+}
+
 # Method: index
 #
 #       Get the index from the model instance will be distinguised
@@ -238,6 +265,22 @@ sub contextName
 #       model template
 #
 sub index
+{
+
+    return '';
+
+}
+
+# Method: printableIndex
+#
+#       Printable version to <EBox::Model::DataTable::index> method to
+#       be printed.
+#
+# Returns:
+#
+#       String - the i18ned strip to be used to show index
+#
+sub printableIndex
 {
 
     return '';
@@ -431,7 +474,8 @@ sub validateTypedRow
 #
 # Arguments:
 #
-# 	hash containing fields and values of the new row
+# 	row - hash ref containing fields and values of the new
+# 	row
 #
 sub addedRowNotify 
 {
@@ -445,7 +489,12 @@ sub addedRowNotify
 #
 # Arguments:
 #
-# 	hash containing fields and values of the deleted row
+# 	row - hash ref containing fields and values of the deleted
+# 	row. The same structure as <EBox::Model::DataTable::row>
+# 	return value
+#
+#       force - boolean indicating whether the delete is forced or not
+#
 #
 sub deletedRowNotify 
 {
@@ -459,7 +508,7 @@ sub deletedRowNotify
 #
 # Arguments:
 #
-# 	hash containing fields and values of the moved row
+# 	row - hash ref containing fields and values of the moved row
 #
 sub movedUpRowNotify 
 {
@@ -473,7 +522,7 @@ sub movedUpRowNotify
 #
 # Arguments:
 #
-# 	hash containing fields and values of the moved row
+# 	row - hash ref containing fields and values of the moved row
 #
 sub movedDownRowNotify 
 {
@@ -487,9 +536,13 @@ sub movedDownRowNotify
 #
 # Arguments:
 #
-# 	hash containing fields and values of the moved row
+# 	row - hash ref containing fields and values of the moved
+# 	row. The same structure as <EBox::Model::DataTable::row>
+# 	return value
 #
-sub updatedRowNotify 
+#       force - boolean indicating whether the delete is forced or not
+#
+sub updatedRowNotify
 {
 
 }
@@ -518,9 +571,15 @@ sub updatedRowNotify
 #
 #   row  - row modified 
 #
-sub notifyForeingModelAction 
+# Returns:
+#
+#   String - any i18ned String to inform the user about something that
+#   has happened when the foreign model action was done in the current
+#   model
+#
+sub notifyForeingModelAction
 {
-
+    return '';
 }
 
 # Method: addRow
@@ -845,8 +904,9 @@ sub removeRow
 	# case throw a DataInUse exceptions to iform the user about
 	# the effects its actions will have.
 	if ((not $force) and $self->table()->{'automaticRemove'}) {
-		$self->_warnIfIdIsUsed($id);
-		$self->warnIfIdUsed($id);
+            my $manager = EBox::Model::ModelManager->instance();
+            $manager->warnIfIdIsUsed($self->tableName(), $id);
+#            $self->warnIfIdUsed($id);
 	}
 
 	unless (defined($id)) {
@@ -870,10 +930,14 @@ sub removeRow
 	if ($self->table()->{'order'}) {
 		$self->_removeOrderId($id);
 	}
-	
-    $self->setMessage($self->message('del'));
-	$self->deletedRowNotify($row);
-	$self->_notifyModelManager('del', $row);
+
+        $self->setMessage($self->message('del'));
+        # Dependant models may return some message to inform the user
+        my $depModelMsg = $self->_notifyModelManager('del', $row);
+        if ( $depModelMsg ne '' ) {
+            $self->setMessage($self->message('del') . '<br><br>' . $depModelMsg);
+        }
+	$self->deletedRowNotify($row, $force);
 
 	$self->_setCacheDirty();
 
@@ -881,7 +945,7 @@ sub removeRow
 	# this row in other models
 	if ($self->table()->{'automaticRemove'}) {
 		my $manager = EBox::Model::ModelManager->instance();
-		$manager->removeRowsUsingId($self->table()->{'tableName'}, 
+		$manager->removeRowsUsingId($self->table()->{'tableName'},
 					$id);
 	}
 
@@ -901,8 +965,10 @@ sub removeRow
 # Parameters:
 #
 #	(POSITIONAL)
-#	
-# 	'id' - row id
+#
+#       'modelName' - String the observable model's name
+# 	'id' - String row id
+#
 sub warnIfIdUsed
 {
 
@@ -910,14 +976,27 @@ sub warnIfIdUsed
 
 # Method: warnOnChangeOnId 
 #
-#	FIXME
+#       This method must be overriden in case you want to advise the
+#       eBox user about the change on a observable model. Note that
+#       models manage this situation automatically if you are using
+#       <EBox::Types::Select> or <EBox::Types::HasMany> types. This
+#       method is intended to be used by models which use
+#       'notifyActions' attribute to be warned on other model's
+#       change.
 #
 # Parameters:
 #
-#	(POSITIONAL)
-#	
-# 	'id' - row id
-#	'changeData' - array ref of data types which are going to be changed
+#	(NAMED)
+#
+#       'modelName' - String the observable model's name
+#
+# 	'id' - String row id
+#
+#	'changeData' - hash ref of data types which are going to be
+#	changed
+#
+#       'oldRow' - hash ref the same content as
+#       <EBox::Model::DataTable::row> using old row content
 #
 # Returns:
 #
@@ -1056,7 +1135,8 @@ sub setTypedRow
       # about to be changed is referenced elsewhere and this change
       # produces an inconsistent state
       if ((not $force) and $self->table()->{'automaticRemove'}) {
-          $self->_warnOnChangeOnId($id, \@changedData, $oldRow);
+          my $manager = EBox::Model::ModelManager->instance();
+          $manager->warnOnChangeOnId($self->tableName(), $id, $changedData, $oldRow);
       }
 
       my $modified = undef;
@@ -1079,8 +1159,12 @@ sub setTypedRow
       if ($modified) {
           $self->_setCacheDirty();
           $self->setMessage($self->message('update'));
-          $self->updatedRowNotify($oldRow);
-          $self->_notifyModelManager('update', $self->row($id));
+          # Dependant models may return some message to inform the user
+          my $depModelMsg = $self->_notifyModelManager('update', $self->row($id));
+          if ( $depModelMsg ne '' ) {
+              $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
+          }
+          $self->updatedRowNotify($oldRow, $force);
       }
 
   }
@@ -2722,48 +2806,48 @@ sub _removeHasManyTables
 }
 
 # FIXME This method must be in ModelManager
-sub _warnIfIdIsUsed
-{
-	my ($self, $id) = @_;
-	
-	my $manager = EBox::Model::ModelManager->instance();
-	my $modelName = $self->modelName();
-	my $tablesUsing;
-	
-	for my $name  (values %{$manager->modelsUsingId($modelName, $id)}) {
-		$tablesUsing .= '<br> - ' .  $name ;
-	}
-
-	if ($tablesUsing) {
-		throw EBox::Exceptions::DataInUse(
-			__('The data you are removing is being used by
-			the following tables:') . '<br>' . $tablesUsing);
-	}
-}
-
-# FIXME This method must be in ModelManager
-sub _warnOnChangeOnId 
-{
-	my ($self, $id, $changeData, $oldRow) = @_;
-	
-	my $manager = EBox::Model::ModelManager->instance();
-	my $modelName = $self->modelName();
-	my $tablesUsing;
-	
-	for my $name  (keys %{$manager->modelsUsingId($modelName, $id)}) {
-		my $model = $manager->model($name);
-		my $issue = $model->warnOnChangeOnId($id, $changeData, $oldRow);
-		if ($issue) {
-			$tablesUsing .= '<br> - ' .  $issue ;
-		}
-	}
-
-	if ($tablesUsing) {
-		throw EBox::Exceptions::DataInUse(
-			__('The data you are modifying is being used by
-			the following tables:') . '<br>' . $tablesUsing);
-	}
-}
+#sub _warnIfIdIsUsed
+#{
+#	my ($self, $id) = @_;
+#	
+#	my $manager = EBox::Model::ModelManager->instance();
+#	my $modelName = $self->modelName();
+#	my $tablesUsing;
+#	
+#	for my $name  (values %{$manager->modelsUsingId($modelName, $id)}) {
+#		$tablesUsing .= '<br> - ' .  $name ;
+#	}
+#
+#	if ($tablesUsing) {
+#		throw EBox::Exceptions::DataInUse(
+#			__('The data you are removing is being used by
+#			the following dtables:') . '<br>' . $tablesUsing);
+#	}
+#}
+#
+## FIXME This method must be in ModelManager
+#sub _warnOnChangeOnId 
+#{
+#	my ($self, $id, $changeData, $oldRow) = @_;
+#	
+#	my $manager = EBox::Model::ModelManager->instance();
+#	my $modelName = $self->modelName();
+#	my $tablesUsing;
+#	
+#	for my $name  (keys %{$manager->modelsUsingId($modelName, $id)}) {
+#		my $model = $manager->model($name);
+#		my $issue = $model->warnOnChangeOnId($id, $changeData, $oldRow);
+#		if ($issue) {
+#			$tablesUsing .= '<br> - ' .  $issue ;
+#		}
+#	}
+#
+#	if ($tablesUsing) {
+#		throw EBox::Exceptions::DataInUse(
+#			__('The data you are modifying is being used by
+#			the following tables:') . '<br>' . $tablesUsing);
+#	}
+#}
 
 # Method: _setDomain
 #
@@ -2798,7 +2882,7 @@ sub _notifyModelManager
 	my $manager = EBox::Model::ModelManager->instance();
 	my $modelName = $self->modelName();
 
-	$manager->modelActionTaken($modelName, $action, $row);
+	return $manager->modelActionTaken($modelName, $action, $row);
 }
 
 sub _filterRows

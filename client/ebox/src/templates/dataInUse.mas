@@ -13,16 +13,30 @@ my $rowId = delete $params->{'id'};
 my $page = delete $params->{'page'};
 </%init>
 
-
 <div class='warning'>
 <% $warning %> 
 </div>
 
+% if ( $action eq 'edit' )
+% {
+%    my @fields = map { "'" . $_ . "'" } keys %{$params};
 <input class='inputButton' type='submit' name='change'
-	value="Change" title="Change"
-	onClick="actionClicked('<% $url %>', '<% $table %>', '<% $action %>', '<% $rowId %>', 'force=1', '<% $directory %>', '<% $page %>'); return false"/>
+       value="<% __('Change') %>"
+       onClick="changeRow('<% $url %>', '<% $table %>', 
+       [ <% join(', ', @fields) %> ], '<% $directory %>',
+       '<% $rowId %>', <% $page %>, true); return false"
+/>
+% }
+% else
+% {
+<input class='inputButton' type='submit' name='change'
+       value="<% __('Change') %>" title="Change"
+	onClick="actionClicked('<% $url %>', '<% $table %>', '<%
+        $action %>', '<% $rowId %>', 'force=1', '<% $directory %>',
+        '<% $page %>'); return false"/>
+% }
 	
 <input  class='inputButton' type='submit' name='cancel'
-		value="Cancel" title="Cancel"
+		value="<% __('Cancel') %>" title="Cancel"
 		onClick='changeView("<% $url %>", "<% $table %>", "<% $directory %>", "changeList")' />
 

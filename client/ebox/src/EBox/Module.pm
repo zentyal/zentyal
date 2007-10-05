@@ -40,8 +40,10 @@ use Params::Validate qw(validate_pos validate_with SCALAR HASHREF ARRAYREF);
 #
 # Parameters:
 #
-#       name - module's name
-#	domain - locale domain
+#       name - String module's name
+#	domain - String locale domain
+#       printableName - String printable module's name
+#       title - String the module's title
 #
 # Returns:
 #
@@ -58,6 +60,7 @@ sub _create # (name, domain?)
 	$self->{name} = delete $opts{name};
 	$self->{domain} = delete $opts{domain};
 	$self->{title} = delete $opts{title};
+        $self->{printableName} = delete $opts{printableName};
 	unless (defined($self->{name})) {
 		use Devel::StackTrace;
 		my $trace = Devel::StackTrace->new;
@@ -501,13 +504,13 @@ sub initChangedState
 }
 
 #
-# Method: name 
+# Method: name
 #
-#	Returns the module name of the current module instance   
+#	Return the module name of the current module instance
 #
 # Returns:
 #
-#      	strings - name 
+#      	strings - name
 #
 sub name
 {
@@ -516,9 +519,9 @@ sub name
 }
 
 #
-# Method: setName 
+# Method: setName
 #
-#	Sets the module name for the current module instance
+#	Set the module name for the current module instance
 #
 # Parameters:
 #
@@ -530,6 +533,43 @@ sub setName # (name)
 	my $name = shift;
 	$self->{name} = $name;
 }
+
+# Method: printableName
+#
+#       Return the printable module name of the current module
+#       instance
+#
+# Returns:
+#
+#       String - the printable name
+#
+sub printableName
+{
+
+    my ($self) = @_;
+
+    return $self->{printableName};
+
+}
+
+# Method: setPrintableName
+#
+#       Set the printable module name of the current module
+#       instance
+#
+# Parameters:
+#
+#       printableName - String the printable name
+#
+sub setPrintableName
+{
+
+    my ($self, $printableName) = @_;
+
+    $self->{printableName} = $printableName;
+
+}
+
 
 #
 # Method: title
