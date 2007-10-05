@@ -362,12 +362,19 @@ sub modelActionTaken
 #   model - model object 
 #   rowId - string containing the row's id
 #
+# Returns:
+#
+#   String - the i18ned string informing about the changes done in
+#   other models
+#
 # Exceptions:
 #
 # <EBox::Exceptions::DataNotFound> if the model does not exist
 sub removeRowsUsingId 
 {
     my ($self, $modelName, $rowId) =  @_;
+
+    my $strToShow = '';
 
     my $model = $self->model($modelName);
     unless (defined($model)) {
@@ -382,21 +389,30 @@ sub removeRowsUsingId
         my $modelDep = $self->model($modelDepName);
         next unless(defined($modelDep));
 
+        my $deletedNum = 0;
         for my $fieldName (@{$modelDepHash->{$modelDepName}}) {
             my %rowsDeleted;
             for my $row (@{$modelDep->findAllValue($fieldName => $rowId)}) {
                 next if (exists $rowsDeleted{$row->{'id'}});
                 $modelDep->removeRow($row->{'id'}, 1);
+                $deletedNum++;
                 $rowsDeleted{$row->{'id'}} = 1;
             }
+        }
+        if ( $deletedNum > 0 ) {
+            $strToShow .= __x('Remove {num} rows of {rowName} from {model}{br}',
+                              num => $deletedNum,
+                              rowName => $modelDep->printableRowName(),
+                              model   => $modelDep->printableContextName(),
+                              br      => '<br>');
         }
     }
     while (my ($modelDepName, $fieldName) = each %{$modelDepHash}) {
         my $modelDep = $self->model($modelDepName);
         next unless(defined($modelDep));
-
-
     }
+
+    return $strToShow;
 
 }
 
@@ -513,7 +529,7 @@ sub _setUpModels
         for my $modelKind (keys %{$models{$module}}) {
             foreach my $model ( @{$models{$module}->{$modelKind}} ) {
                 my $tableDesc = $model->table()->{'tableDescription'};
-                my $localModelName = $model->table()->{'tableName'};
+                my $localModelName = $model->contextName();
                 for my $type (@{$self->_fetchSelectTypes($tableDesc)}) {
                     my $foreignModel;
                     try {
@@ -522,7 +538,8 @@ sub _setUpModels
                         EBox::warn("Skipping " . $type->fieldName . " to fetch model");
                     };
                     next unless (defined($foreignModel));
-                    my $foreignModelName = $foreignModel->table()->{'tableName'};
+        #            my $foreignModelName = $foreignModel->table()->{'tableName'};
+                    my $foreignModelName = $foreignModel->contextName();
                     my %currentHasOne =
                       %{$self->_modelsWithHasOneRelation($foreignModelName)};
                     push (@{$currentHasOne{$localModelName}}, $type->fieldName());
@@ -562,18 +579,18 @@ sub _setUpModels
 # Parameters:
 #
 #   (POSITIONAL)
-#   model - string containing the model
+#   modelName - String containing the model context name
 #
 # Return:
 #
 #   Hash ref containing the models
 sub _modelsWithHasOneRelation
 {
-    my ($self, $model) = @_;
+    my ($self, $modelName) = @_;
     
-    return {} unless (exists($self->{'hasOneReverse'}->{$model}));
+    return {} unless (exists($self->{'hasOneReverse'}->{$modelName}));
 
-    return $self->{'hasOneReverse'}->{$model};
+    return $self->{'hasOneReverse'}->{$modelName};
 }
 
 

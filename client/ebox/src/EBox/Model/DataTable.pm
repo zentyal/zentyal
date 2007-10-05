@@ -931,23 +931,27 @@ sub removeRow
 		$self->_removeOrderId($id);
 	}
 
-        $self->setMessage($self->message('del'));
+        my $userMsg = $self->message('del');
         # Dependant models may return some message to inform the user
         my $depModelMsg = $self->_notifyModelManager('del', $row);
         if ( $depModelMsg ne '' ) {
-            $self->setMessage($self->message('del') . '<br><br>' . $depModelMsg);
+            $userMsg .= "<br><br>$depModelMsg";
         }
+	# If automaticRemove is enabled then remove all rows using referencing
+	# this row in other models
+	if ($self->table()->{'automaticRemove'}) {
+            my $manager = EBox::Model::ModelManager->instance();
+            $depModelMsg = $manager->removeRowsUsingId($self->contextName(),
+                                                       $id);
+            if ( $depModelMsg ) {
+                $userMsg .= "<br><br>$depModelMsg";
+            }
+	}
+        $self->setMessage($userMsg);
 	$self->deletedRowNotify($row, $force);
 
 	$self->_setCacheDirty();
 
-	# If automaticRemove is enabled then remove all rows using referencing
-	# this row in other models
-	if ($self->table()->{'automaticRemove'}) {
-		my $manager = EBox::Model::ModelManager->instance();
-		$manager->removeRowsUsingId($self->table()->{'tableName'},
-					$id);
-	}
 
 
 }
