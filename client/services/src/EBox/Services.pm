@@ -71,6 +71,38 @@ sub models {
     return [$self->{'serviceConfigurationModel'}, $self->{'serviceModel'}];
 }
 
+# Method: exposedMethods
+#
+#
+# Overrides:
+#
+#      <EBox::Model::ModelProvider::_exposedMethods>
+#
+# Returns:
+#
+#      hash ref - the list of the exposes method in a hash ref every
+#      component
+#
+sub _exposedMethods
+  {
+
+      my %exposedMethods =
+        (
+         'serviceName' => { action   => 'get',
+			    path     => [ 'ServiceTable' ],
+			    indexes  => [ 'id' ],
+			    selector => [ 'name' ],
+                        },
+	 'service'     => { action   => 'get',
+			    path     => [ 'ServiceTable' ],
+			    indexes  => [ 'id' ],
+			  },
+         );
+
+      return \%exposedMethods;
+
+  }
+
 # Method: serviceNames
 #
 # 	Fetch all the service identifiers and names
