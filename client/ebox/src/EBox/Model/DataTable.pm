@@ -1098,7 +1098,7 @@ sub setTypedRow
 
       my @setterTypes = @{$self->setterTypes()};
 
-      my $changedData = {};
+      my $changedData = { };
       my @changedData = ();
       foreach my $paramName (keys %{$paramsRef}) {
           unless ( exists ( $oldValues->{$paramName} )) {
@@ -1132,6 +1132,7 @@ sub setTypedRow
 	  $self->_checkRowIsUnique($id, \@newValues);
       }
 
+      $changedData->{id} = $id;
       $self->validateTypedRow('update', $changedData);
 
       # If force != true atomaticRemove is enabled it means
@@ -1165,7 +1166,7 @@ sub setTypedRow
           $self->setMessage($self->message('update'));
           # Dependant models may return some message to inform the user
           my $depModelMsg = $self->_notifyModelManager('update', $self->row($id));
-          if ( $depModelMsg ne '' ) {
+          if ( defined ($depModelMsg) and $depModelMsg ne '' ) {
               $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
           }
           $self->updatedRowNotify($oldRow, $force);
