@@ -565,26 +565,6 @@ sub checkRule
     throw EBox::Exceptions::MissingArgument( __('Interface') )
       unless defined( $ruleParams{interface} );
 
-    # Check if the protocol is all, source or destination is given
-    if ( $ruleParams{service} ) {
-      if ( not $ruleParams{service}->isa('EBox::Types::Service') ) {
-	throw EBox::Exceptions::InvalidType( 'service',
-					     'EBox::Types::Service');
-      }
-      if ( ( $ruleParams{service}->protocol() eq EBox::Types::Service->AnyProtocol ) and
-	   ( (not $ruleParams{source}) and (not $ruleParams{destination}) ) ) {
-	throw EBox::Exceptions::External(__('If service is any, some source or destination should be provided'));
-      }
-    }
-
-    my $guaranteedMissing = ( not defined ( $ruleParams{guaranteedRate} )) ||
-      ( $ruleParams{guaranteedRate} eq '' );
-    my $limitedMissing = ( not defined ( $ruleParams{limitedRate} )) ||
-      ( $ruleParams{limitedRate} eq '' );
-    if ( $guaranteedMissing and $limitedMissing ) {
-      throw EBox::Exceptions::MissingArgument( __('Guaranteed rate or limited rate') );
-    }
-
     # Setting standard rates if not defined
     $ruleParams{guaranteedRate} = 0 unless defined ( $ruleParams{guaranteedRate} );
     $ruleParams{guaranteedRate} = 0 if $ruleParams{guaranteedRate} eq '';
@@ -601,36 +581,6 @@ sub checkRule
 
     # Check interface to be external
     $self->_checkInterface( $ruleParams{interface} );
-    # Check protocol and port number (Already done by model)
-    # Check source and destination (Already done by model)
-    # Check source object
-    my $gl = EBox::Global->getInstance();
-    my $objs = $self->{'objects'};
-    if ( defined ( $ruleParams{source} ) ) {
-      if ( not ref $ruleParams{source} ) {
-	# Check source object is an existant object
-	unless ( $objs->objectExists($ruleParams{source}) or
-		 $ruleParams{source} eq '') {
-	  throw EBox::Exceptions::DataNotFound(
-					       data => __('Source object'),
-					       value => $ruleParams{source}
-					      );
-	}
-      }
-    }
-    # Check destination object
-    if ( defined ( $ruleParams{destination} ) ) {
-      if ( not ref $ruleParams{destination} ) {
-	# Check source object is an existant object
-	unless ( $objs->objectExists($ruleParams{destination}) or
-		 $ruleParams{destination} eq '') {
-	  throw EBox::Exceptions::DataNotFound(
-					       data => __('Destination object'),
-					       value => $ruleParams{destination}
-					      );
-	}
-      }
-    }
 
     # Check rates
     $self->_checkRate( $ruleParams{guaranteedRate}, __('Guaranteed Rate') );

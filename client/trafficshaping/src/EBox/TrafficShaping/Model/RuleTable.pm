@@ -270,12 +270,10 @@ sub _table
                                 fieldName     => 'service',
                                 printableName => __('Service'),
                                 editable      => 1, # editable
-                                optional      => 1,
                                ),
        new EBox::Types::Union(
                               fieldName     => 'source',
                               printableName => __('Source'),
-                              optional      => 1,
                               subtypes      =>
                               [
                                new EBox::Types::Union::Text(
@@ -304,7 +302,6 @@ sub _table
        new EBox::Types::Union(
                               fieldName     => 'destination',
                               printableName => __('Destination'),
-                              optional      => 1,
                               subtypes      =>
                               [
                                new EBox::Types::Union::Text(
@@ -404,9 +401,11 @@ sub _tailoredOrder # (rows)
 
   }
 
-# Method: validateRow
+# Method: validateTypedRow
 #
-#       Override <EBox::Model::DataTable::validateRow> method
+# Overrides:
+#
+#       <EBox::Model::DataTable::validateTypedRow>
 #
 # Exceptions:
 #
@@ -416,75 +415,47 @@ sub _tailoredOrder # (rows)
 #       <EBox::Exceptions::InvalidData> - throw if parameter has
 #       invalid data
 #
-#
-sub validateRow
-  {
+sub validateTypedRow
+{
+  my ($self, $action, $params) = @_;
 
-    my ($self, $action, %ruleParams) = @_;
-
-    # It's only necessary to check the rates and object names, remainder are checked by model
-    if ( defined ( $ruleParams{source_selected} ) ) {
-      if ( $ruleParams{source_selected} eq 'source_ipaddr' and
-	   $ruleParams{source_ipaddr_ip} ne '' ) {
-	$ruleParams{source} = new EBox::Types::IPAddr(
-						      ip   => delete ( $ruleParams{source_ipaddr_ip} ),
-						      mask => delete ( $ruleParams{source_ipaddr_mask} ),
-						     );
-      } elsif ( $ruleParams{source_selected} eq 'source_macaddr' and
-	   $ruleParams{source_macaddr} ne '' ) {
-	$ruleParams{source} = new EBox::Types::MACAddr(
-						       value   => delete ( $ruleParams{source_macaddr} ),
-						      );
-      } elsif ( $ruleParams{source_selected} eq 'source_object' ) {
-	$ruleParams{source} = delete ( $ruleParams{source_object} );
+  if ( $action eq 'update' ) {
+    # Fill those parameters which is not changed
+    my $oldRow = $self->row($params->{id});
+    foreach my $paramName (keys %{$oldRow->{valueHash}}) {
+      unless ( defined ( $params->{$paramName})) {
+	$params->{$paramName} = $oldRow->{valueHash}->{$paramName};
       }
     }
+  }
 
-    if ( defined ( $ruleParams{destination_selected} ) ){
-      if ( $ruleParams{destination_selected} eq 'destination_ipaddr' and
-	   $ruleParams{destination_ipaddr_ip} ne '' ) {
-	$ruleParams{destination} = new EBox::Types::IPAddr(
-							   ip   => delete ( $ruleParams{destination_ipaddr_ip} ),
-							   mask => delete ( $ruleParams{destination_ipaddr_mask} ),
-							  );
-      } elsif ( $ruleParams{destination_selected} eq 'destination_object' ) {
-	$ruleParams{destination} = delete ( $ruleParams{destination_object} );
-      }
-    }
-
-    $ruleParams{service} = EBox::Types::Service->new(
-						     protocol => delete ( $ruleParams{service_protocol} ),
-						     port     => delete ( $ruleParams{service_port} ),
-						    );
-
-
-    if ( $action eq 'add' ) {
-#    if (not defined($ruleParams{id}) ) {
-      # Adding a new rule
-      $self->{ts}->checkRule(interface      => $self->{interface},
-			     service        => $ruleParams{service},
-			     source         => $ruleParams{source},
-			     destination    => $ruleParams{destination},
-			     priority       => $ruleParams{priority},
-			     guaranteedRate => $ruleParams{guaranteed_rate},
-			     limitedRate    => $ruleParams{limited_rate},
-			    );
-    }
-    elsif ( $action eq 'update' ) {
-#    else {
-      # Updating a rule
-      $self->{ts}->checkRule(interface      => $self->{interface},
-			     service        => $ruleParams{service},
-			     source         => $ruleParams{source},
-			     destination    => $ruleParams{destination},
-			     priority       => $ruleParams{priority},
-			     guaranteedRate => $ruleParams{guaranteed_rate},
-			     limitedRate    => $ruleParams{limited_rate},
-			     ruleId         => $ruleParams{id},
-			    );
-    }
+  # Check if service is any, any source or destination is given
+  if ( ( $params->{service}->protocol() eq EBox::Types::Service->AnyProtocol ) and
+       $params->{source}->subtype()->isa('EBox::Types::Union::Text') and
+       $params->{destination}->subtype()->isa('EBox::Types::Union::Text')) {
+    throw EBox::Exceptions::External(__('If service is any, some source or destination should be provided'));
 
   }
+
+  # Check some rate is given
+  if ( $params->{guaranteed_rate}->value() == 0 and
+       $params->{limited_rate}->value() == 0 ) {
+    throw EBox::Exceptions::External( __('Guaranteed rate or limited rate is required') );
+  }
+
+  # Check the memory structure works as well
+  $self->{ts}->checkRule(interface      => $self->{interface},
+			 service        => $params->{service},
+			 source         => $params->{source}->subtype(),
+			 destination    => $params->{destination}->subtype(),
+			 priority       => $params->{priority}->value(),
+			 guaranteedRate => $params->{guaranteed_rate}->value(),
+			 limitedRate    => $params->{limited_rate}->value(),
+			 ruleId         => $params->{id}, # undef on addition
+			);
+
+}
+
 
 # Method: addedRowNotify
 #
