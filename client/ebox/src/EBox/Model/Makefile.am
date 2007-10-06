@@ -1,6 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-DIRS= ProviderBase ModelProvider CompositeProvider t
-
+SUBDIRS= ProviderBase ModelProvider CompositeProvider t
 
 perldir = @PERLPATH@/EBox/Model
 
