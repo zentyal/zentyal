@@ -13,6 +13,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+# Class: EBox::TrafficShaping::Model::RuleTable
+#
+#   This class describes a model which contains rule to do traffic
+#   shaping on a given interface. It serves as a model template which
+#   has as many instances as interfaces have the machine managed by
+#   eBox. It is a quite complicated model and it is highly coupled to
+#   <EBox::TrafficShaping> module itself.
+#
+
 package EBox::TrafficShaping::Model::RuleTable;
 
 use strict;
@@ -33,7 +42,7 @@ use EBox::Model::ModelManager;
 # eBox types! wow
 use EBox::Types::Int;
 use EBox::Types::Select;
-use EBox::Types::Service;
+# use EBox::Types::Service;
 use EBox::Types::MACAddr;
 use EBox::Types::IPAddr;
 use EBox::Types::Union;
@@ -80,7 +89,7 @@ sub new
 
   }
 
-# Method: priority 
+# Method: priority
 #
 #	Return select options for the priority field 
 #
@@ -89,7 +98,7 @@ sub new
 #	Array ref containing hash ref with value, printable
 #	value and selected status
 #
-sub priority 
+sub priority
 {
 
     my  @options;
@@ -266,11 +275,18 @@ sub _table
 
     my @tableHead =
       (
-       new EBox::Types::Service(
-                                fieldName     => 'service',
-                                printableName => __('Service'),
-                                editable      => 1, # editable
-                               ),
+#       new EBox::Types::Service(
+#                                fieldName     => 'service',
+#                                printableName => __('Service'),
+#                                editable      => 1, # editable
+#                               ),
+       new EBox::Types::Select(
+			       fieldName       => 'service',
+			       printableName   => __('Service'),
+			       foreignModel    => \&_serviceModel,
+			       foreignField    => 'name',
+			       editable        => 1,
+			      ),
        new EBox::Types::Union(
                               fieldName     => 'source',
                               printableName => __('Source'),
@@ -293,7 +309,7 @@ sub _table
                                                        fieldName     => 'source_object',
                                                        printableName => __('Source object'),
                                                        editable      => 1,
-                                                       foreignModel => \&objectModel,
+                                                       foreignModel => \&_objectModel,
                                                        foreignField => 'name'
                                                       )
                               ],
@@ -316,7 +332,7 @@ sub _table
                                                        fieldName     => 'destination_object',
                                                        printableName => __('Destination object'),
                                                        type          => 'select',
-                                                       foreignModel => \&objectModel,
+                                                       foreignModel => \&_objectModel,
                                                        foreignField => 'name',
                                                        editable      => 1 ),
                               ],
@@ -394,7 +410,10 @@ sub _tailoredOrder # (rows)
     my ($self, $rows_ref) = @_;
 
     # Order rules per priority
-    my @orderedRows = sort { $a->{valueHash}->{priority}->value() <=> $b->{valueHash}->{priority}->value() }
+    my @orderedRows = sort { $a->{plainValueHash}->{priority}
+			     <=>
+			     $b->{plainValueHash}->{priority}
+			   }
       @{$rows_ref};
 
     return \@orderedRows;
@@ -429,8 +448,9 @@ sub validateTypedRow
     }
   }
 
+  my $servMod = EBox::Global->modInstance('services');
   # Check if service is any, any source or destination is given
-  if ( ( $params->{service}->protocol() eq EBox::Types::Service->AnyProtocol ) and
+  if ( ( $servMod->serviceName($params->{service}->value())->value() eq 'any') and
        $params->{source}->subtype()->isa('EBox::Types::Union::Text') and
        $params->{destination}->subtype()->isa('EBox::Types::Union::Text')) {
     throw EBox::Exceptions::External(__('If service is any, some source or destination should be provided'));
@@ -445,7 +465,7 @@ sub validateTypedRow
 
   # Check the memory structure works as well
   $self->{ts}->checkRule(interface      => $self->{interface},
-			 service        => $params->{service},
+			 service        => $servMod->service($params->{service}->value()),
 			 source         => $params->{source}->subtype(),
 			 destination    => $params->{destination}->subtype(),
 			 priority       => $params->{priority}->value(),
@@ -544,10 +564,16 @@ sub updatedRowNotify
 ####################################################
 
 
-# Get the object model from the model manager
-sub objectModel
+# Get the object model from Objects module
+sub _objectModel
 {
     return EBox::Global->modInstance('objects')->{objectModel};
+}
+
+# Get the object model from Service module
+sub _serviceModel
+{
+    return EBox::Global->modInstance('services')->{serviceModel};
 }
 
 # Remove every rule from the model since no limit rate are possible
