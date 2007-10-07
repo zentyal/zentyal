@@ -51,6 +51,9 @@ use EBox::Types::Union::Text;
 # Uses to validate
 use EBox::Validate qw( checkProtocol checkPort );
 
+# Constants
+use constant LIMIT_RATE_KEY => '/limitRate';
+
 
 # Constructor: new
 #
@@ -438,6 +441,16 @@ sub validateTypedRow
 {
   my ($self, $action, $params) = @_;
 
+  if ( defined ( $params->{guaranteed_rate} )) {
+    $self->_checkRate( $params->{guaranteed_rate},
+		       __('Guaranteed rate'));
+  }
+
+  if ( defined ( $params->{limited_rate} )) {
+    $self->_checkRate( $params->{limited_rate},
+		       __('Limited rate'));
+  }
+
   if ( $action eq 'update' ) {
     # Fill those parameters which is not changed
     my $oldRow = $self->row($params->{id});
@@ -465,7 +478,7 @@ sub validateTypedRow
 
   # Check the memory structure works as well
   $self->{ts}->checkRule(interface      => $self->{interface},
-			 service        => $servMod->service($params->{service}->value()),
+			 service        => $params->{service}->value(),
 			 source         => $params->{source}->subtype(),
 			 destination    => $params->{destination}->subtype(),
 			 priority       => $params->{priority}->value(),
@@ -492,15 +505,6 @@ sub addedRowNotify
 
     my ($self, $row_ref) = @_;
 
-#    my $protocol = $row_ref->{valueHash}->{'service'}->protocol();
-#    my $port = $row_ref->{valueHash}->{'service'}->port();
-#
-#    # Source
-#    my $source = $row_ref->{valueHash}->{'source'}->subtype()->value();
-#
-#    # Destination
-#    my $destination = $row_ref->{valueHash}->{'destination'}->subtype()->value();
-
     my $guaranteedRate = $row_ref->{valueHash}->{'guaranteed_rate'}->value();
     my $limitedRate = $row_ref->{valueHash}->{'limited_rate'}->value();
 #    my $enabled        = $row_ref->{valueHash}->{enabled}->value();
@@ -512,13 +516,8 @@ sub addedRowNotify
 
     $self->{ts}->addRule(
 			 interface      => $self->{interface},
-#			 protocol       => $protocol,
-#			 source         => $source,
-#			 destination    => $destination,
-#			 port           => $port,
 			 guaranteedRate => $guaranteedRate,
 			 limitedRate    => $limitedRate,
-#			 priority       => $priority,
 			 enabled        => 'enabled',
 			);
 
@@ -647,7 +646,7 @@ sub _setLimitRate
 
     my ($self, $limitRate) = @_;
 
-    $self->{gconfmodule}->set_int( $self->{directory} . '/limitRate',
+    $self->{gconfmodule}->st_set_int( $self->{directory} . LIMIT_RATE_KEY,
                                    $limitRate);
 
 }
@@ -658,7 +657,29 @@ sub _limitRate
 
     my ($self) = @_;
 
-    return $self->{gconfmodule}->get_int( $self->{directory} . '/limitRate');
+    return $self->{gconfmodule}->st_get_int( $self->{directory} . LIMIT_RATE_KEY);
+
+}
+
+######################
+# Checker methods
+######################
+
+# Check rate
+# Throw InvalidData if it's not a positive number
+sub _checkRate # (rate, printableName)
+{
+
+  my ($self, $rate, $printableName) = @_;
+
+  if ( $rate < 0 ) {
+    throw EBox::Exceptions::InvalidData(
+					'data'  => $printableName,
+					'value' => $rate,
+				       );
+  }
+
+  return 1;
 
 }
 

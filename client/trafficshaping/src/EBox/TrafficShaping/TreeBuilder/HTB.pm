@@ -190,7 +190,7 @@ sub buildRoot # (defaultClass, rate)
 #
 # Parameters:
 #
-#    service        - <EBox::Types::Service> the protocol/port to set filter
+#    service        - String the service identifier related to ebox-services module
 #                     *(Optional)*
 #    source         - <EBox::Types::IPAddr> or <EBox::Types::MACAddr> the source
 #                     *(Optional)*
@@ -353,8 +353,7 @@ sub buildRule
 #        identifier     - the leaf class identifier which represents the
 #        rule internally which is updated
 #
-#        protocol       - inet protocol *(Optional)*
-#        port           - port number *(Optional)*
+#        service        - String the service id *(Optional)*
 #        guaranteedRate - maximum gua+ranteed rate in Kilobits per second
 #                         *(Optional)*
 #        limitedRate    - maximum allowed rate in Kilobits per second
@@ -465,8 +464,7 @@ sub updateRule
     $assocQueue->setAttribute('ceil', $args{limitedRate}) if defined ( $args{limitedRate} );
     # Then the filter
     my $filterAssoc = $self->_findFilterFromClass($leafClassId);
-    $filterAssoc->setAttribute('fProtocol', $args{protocol}) if defined ( $args{protocol} );
-    $filterAssoc->setAttribute('fPort', $args{port}) if defined ( $args{port} );
+    $filterAssoc->setAttribute('service', $args{service}) if defined ( $args{service} );
 
   }
 
@@ -602,7 +600,7 @@ sub findLeafClassId
 #    priority    - Int the filter priority
 #    srcAddr - a source address (<EBox::Types::IPAddr> or <EBox::Types::MACAddr>) *(Optional)*
 #    dstAddr - a destination address (<EBox::Types::IPAddr>) *(Optional)*
-#    service - a service (<EBox::Types::Service>)
+#    service - String a service identifier
 #    id      - the filter identifier *(Optional)*
 #              Default value: $leafClassId
 #

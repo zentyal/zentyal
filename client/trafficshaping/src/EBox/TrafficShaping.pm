@@ -167,6 +167,39 @@ sub models
 
 }
 
+# Method: _exposedMethods
+#
+# Overrides:
+#
+#    <EBox::Model::DataTable::_exposedMethods>
+#
+sub _exposedMethods
+{
+
+  my %exposedMethods =
+    ( addRule1 => { action     => 'add',
+		    path       => [ 'RuleTable' ],
+		    modelIndex => 1,
+		  },
+      removeRule1 => { action     => 'del',
+		       path       => [ 'RuleTable' ],
+		       modelIndex => 1,
+		     },
+      enableRule1 => { action     => 'set',
+		       path       => [ 'RuleTable' ],
+		       modelIndex => 1,
+		       selector   => [ 'enabled' ],
+		     },
+      updateRule1 => { action     => 'set',
+		       path       => [ 'RuleTable' ],
+		       modelIndex => 1,
+		     },
+    );
+
+  return \%exposedMethods;
+
+}
+
 # Method: _stopService
 #
 #     Call every time the module is stopped
@@ -281,16 +314,16 @@ sub addRule
     $ruleParams{limitedRate} = 0 if $ruleParams{limitedRate} eq '';
 
 
-    # Check interface to be external
-    $self->_checkInterface( $ruleParams{interface} );
+    # Check interface to be external, already done in RuleTable model
+#    $self->_checkInterface( $ruleParams{interface} );
     # Check protocol, port number, source and destination by <EBox::Types>
     # Check rates
-    $self->_checkRate( $ruleParams{guaranteedRate}, __('Guaranteed Rate') );
-    $self->_checkRate( $ruleParams{limitedRate}, __('Limited Rate') );
+#    $self->_checkRate( $ruleParams{guaranteedRate}, __('Guaranteed Rate') );
+#    $self->_checkRate( $ruleParams{limitedRate}, __('Limited Rate') );
     # Check priority
-    if ( defined( $ruleParams{priority} )) {
-      $self->_checkPriority($ruleParams{priority});
-    }
+#    if ( defined( $ruleParams{priority} )) {
+#      $self->_checkPriority($ruleParams{priority});
+#    }
     # Check existence enabled
     $ruleParams{enabled} = 1 unless defined( $ruleParams{enabled} );
 
@@ -481,13 +514,13 @@ sub updateRule
 #      checkPort( $ruleParams_ref->{port}, __('Port'));
 #    }
 
-    if ( defined( $ruleParams_ref->{guaranteedRate} )) {
-      $self->_checkRate( $ruleParams_ref->{guaranteedRate}, __('Guaranteed Rate'));
-    }
-
-    if ( defined( $ruleParams_ref->{limitedRate} )) {
-      $self->_checkRate( $ruleParams_ref->{limitedRate}, __('Limited Rate'));
-    }
+#    if ( defined( $ruleParams_ref->{guaranteedRate} )) {
+#      $self->_checkRate( $ruleParams_ref->{guaranteedRate}, __('Guaranteed Rate'));
+#    }
+#
+#    if ( defined( $ruleParams_ref->{limitedRate} )) {
+#      $self->_checkRate( $ruleParams_ref->{limitedRate}, __('Limited Rate'));
+#    }
 
     # Done at _correctPriorities
 #    if ( defined( $priority )) {
@@ -524,14 +557,17 @@ sub updateRule
 
 # Method: checkRule
 #
-#       Check if the rule passed can be added. The guaranteed rate or
-#       the limited rate should be given.
+#       Check if the rule passed can be added or updated. The guaranteed rate
+#       or the limited rate should be given.
 #
 # Parameters:
 #
 #       interface      - interface under the rule is given
-#       service        - <EBox::Types::Service> the service containing
-#                        the inet protocol and port number *(Optional)*
+#
+#       service - String the service identifier stored at
+#       ebox-services module containing the inet protocol and source
+#       and destination port numbers *(Optional)*
+#
 #       source         - source. It could be an <EBox::Types::IPAddr>,
 #                        <EBox::Types::MACAddr> or an object name (more info at
 #                        <EBox::Objects>) *(Optional)*
@@ -574,22 +610,24 @@ sub checkRule
     # Check rule avalaibility
     if ( ($self->_nextMap(undef, 'test') == MAX_ID_VALUE) and
          (not defined ($ruleParams{ruleId}))) {
-      throw EBox::Exceptions::External(__x('The maximum rule account {max} is reached, ' .
-					   'please delete at least one in order to to add a new one',
-					   max => MAX_ID_VALUE));
+      throw EBox::Exceptions::External(
+            __x('The maximum rule account {max} is reached, ' .
+		'please delete at least one in order to to add a new one',
+		max => MAX_ID_VALUE));
     }
 
-    # Check interface to be external
-    $self->_checkInterface( $ruleParams{interface} );
+    # Check interface to be external, it is already check on model
+    # RuleTable
+#    $self->_checkInterface( $ruleParams{interface} );
 
     # Check rates
-    $self->_checkRate( $ruleParams{guaranteedRate}, __('Guaranteed Rate') );
-    $self->_checkRate( $ruleParams{limitedRate}, __('Limited Rate') );
+#    $self->_checkRate( $ruleParams{guaranteedRate}, __('Guaranteed Rate') );
+#    $self->_checkRate( $ruleParams{limitedRate}, __('Limited Rate') );
 
-    if ( defined ( $ruleParams{priority} ) ) {
-      $self->_checkPriority( $ruleParams{priority} );
-    }
-    else {
+#    if ( defined ( $ruleParams{priority} ) ) {
+#      $self->_checkPriority( $ruleParams{priority} );
+#    }
+    unless ( defined ( $ruleParams{priority} )) {
       # Set the priority the lowest
       $ruleParams{priority} = 7;
     }
@@ -1174,24 +1212,6 @@ sub _checkRuleExistence # (iface, ruleId)
 
   }
 
-# Check rate
-# Throw InvalidData if it's not a positive number
-sub _checkRate # (rate, printableName)
-  {
-
-    my ($self, $rate, $printableName) = @_;
-
-    if ( $rate < 0 ) {
-      throw EBox::Exceptions::InvalidData(
-					  'data'  => $printableName,
-					  'value' => $rate,
-					 );
-    }
-
-    return 1;
-
-  }
-
 # Check priority
 # Throw InvalidData if it's not a positive number
 sub _checkPriority # (priority)
@@ -1373,11 +1393,11 @@ sub _buildGConfRules # (iface)
       $rule_ref->{identifier} = $self->_nextMap($rule_ref->{_dir});
       $rule_ref->{identifier} = $self->_getNumber($rule_ref->{identifier});
       # Get the port and protocol
-      $rule_ref->{service} = new EBox::Types::Service(
-						      protocol => delete ( $rule_ref->{service_protocol} ),
-						      port     => delete ( $rule_ref->{service_port} ),
-						     );
-
+      # Service id is set as a string
+#      $rule_ref->{service} = new EBox::Types::Service(
+#						      protocol => delete ( $rule_ref->{service_protocol} ),
+#						      port     => delete ( $rule_ref->{service_port} ),
+#						     );
       # Get the source
       if ( defined ( $rule_ref->{source_selected} )) {
 	my $sourceSelected = delete ( $rule_ref->{source_selected} );
@@ -1840,8 +1860,7 @@ sub _updateRule # (iface, ruleId, ruleParams_ref?, test?)
     # Update the rule stating the same leaf class id (If test not do)
     $self->{builders}->{$iface}->updateRule(
 					    identifier     => $minorNumber,
-					    protocol       => $ruleParams_ref->{protocol},
-					    port           => $ruleParams_ref->{port},
+					    service        => $ruleParams_ref->{service},
 					    source         => $ruleParams_ref->{source},
 					    destination    => $ruleParams_ref->{destination},
 					    guaranteedRate => $ruleParams_ref->{guaranteedRate},
