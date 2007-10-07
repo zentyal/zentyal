@@ -22,6 +22,8 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::InvalidData;
 
+use EBox::Firewall::IptablesRule;
+
 use EBox::TrafficShaping;
 
 use constant MARK_MASK => '0xFF00';
@@ -151,6 +153,7 @@ sub new
     }
 
     if ( $args{srcAddr} ) {
+      $self->{srcAddr} = $args{srcAddr};
       if ( $args{srcAddr}->isa('EBox::Types::IPAddr')) {
 	$self->{srcIP} = $args{srcAddr}->ip();
 	$self->{srcNetMask} = $args{srcAddr}->mask();
@@ -160,6 +163,7 @@ sub new
       }
     }
     if ( $args{dstAddr} ) {
+      $self->{dstAddr} = $args{dstAddr};
       $self->{dstIP} = $args{dstAddr}->ip();
       $self->{dstNetMask} = $args{dstAddr}->mask();
     }
@@ -348,33 +352,50 @@ sub dumpIptablesCommands
     my $leadingStr;
     my $mediumStr;
     if ( defined ( $protocol ) or defined ( $srcIP ) or defined ( $dstIP )) {
-      my $leadingStr = "-t mangle -A $shaperChain ";
-      my $trailingStr = "-j MARK --set-mark $mark";
-      my $mediumStr = q{};
+      my $ipTablesRule = new EBox::Firewall::IpTablesRule
+	(
+	 chain => $shaperChain
+	);
+      # Mark the package and set the decision to MARK and the table as mangle
+      $ipTablesRule->setMark($mark, MARK_MASK);
+      $ipTablesRule->setSourceAddress(inverseMatch => 0,
+				      sourceAddr => $self->{srcAddr})
+	if defined ( $self->{srcAddr} );
+      $ipTablesRule->setDestinationAddress( inverseMatch => 0,
+					    destinationAddress => $self->{dstAddr} )
+	if defined ( $self->{dstAddr} );
+      # TODO: Service configuration
+      $ipTablesRule->setService($self->{service});
 
-      # Mark if the packet is not already marked
-      $mediumStr .= '-m mark --mark 0/' . MARK_MASK . ' ';
-      $mediumStr .= "--protocol $protocol " if ( defined ( $protocol ));
-      $mediumStr .= "--sport $sport " if ( $sport );
-      $mediumStr .= "--source $srcIP" if ( defined ( $srcIP ));
-      $mediumStr .= "-m mac --mac-source $srcMAC " if ( defined( $srcMAC) );
-      $mediumStr .= "/$srcNetMask" if ( defined ( $srcNetMask ));
-      $mediumStr .= q{ }; # Adding a trailing space
-      $mediumStr .= "--destination $dstIP" if ( defined ( $dstIP ));
-      $mediumStr .= "/$dstNetMask" if ( defined ( $dstNetMask ));
-      $mediumStr .= q{ }; # Adding a trailing space
-      # Set source port
-      push(@ipTablesCommands,
-	   $leadingStr . $mediumStr . $trailingStr
-	  );
-      if ( $self->{fPort} ) {
-	# Substituying from src to dst
-	$mediumStr =~ s/--sport [0-9]+ /--dport $dport /g;
-	# Set destination port
-	push(@ipTablesCommands,
-	     $leadingStr . $mediumStr . $trailingStr
-	    );
-      }
+
+#      my $leadingStr = "-t mangle -A $shaperChain ";
+#      my $trailingStr = "-j MARK --set-mark $mark";
+#      my $mediumStr = q{};
+#
+#      # Mark if the packet is not already marked
+#      $mediumStr .= '-m mark --mark 0/' . MARK_MASK . ' ';
+#      $mediumStr .= "--protocol $protocol " if ( defined ( $protocol ));
+#      $mediumStr .= "--sport $sport " if ( $sport );
+#      $mediumStr .= "--source $srcIP" if ( defined ( $srcIP ));
+#      $mediumStr .= "-m mac --mac-source $srcMAC " if ( defined( $srcMAC) );
+#      $mediumStr .= "/$srcNetMask" if ( defined ( $srcNetMask ));
+#      $mediumStr .= q{ }; # Adding a trailing space
+#      $mediumStr .= "--destination $dstIP" if ( defined ( $dstIP ));
+#      $mediumStr .= "/$dstNetMask" if ( defined ( $dstNetMask ));
+#      $mediumStr .= q{ }; # Adding a trailing space
+#      # Set source port
+#      push(@ipTablesCommands,
+#	   $leadingStr . $mediumStr . $trailingStr
+#	  );
+#      if ( $self->{fPort} ) {
+#	# Substituying from src to dst
+#	$mediumStr =~ s/--sport [0-9]+ /--dport $dport /g;
+#	# Set destination port
+#	push(@ipTablesCommands,
+#	     $leadingStr . $mediumStr . $trailingStr
+#	    );
+#      }
+      push(@ipTablesCommands, $ipTablesRule->strings());
     } 
     # FIXME Comment out because it messes up with multipath marks
     #else {

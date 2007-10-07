@@ -64,12 +64,13 @@ sub strings
     my $decision = ' -j ' . $self->decision();
     my $chain = ' -A ' .  $self->chain();
     my $state = $self->state();
+    my $modulesConf = $self->modulesConf();
 
     foreach my $src (@{$self->{'source'}}) {
         foreach my $dst (@{$self->{'destination'}}) {
             foreach my $service (@{$self->{'service'}}) {
-                my $rule = "$table  $chain $src  $dst " . 
-			   "$service $state $decision";
+                my $rule = "$table $chain $modulesConf " .
+		           "$src $dst $service $state $decision";
                 push (@rules, $rule);
             }
         }
@@ -282,7 +283,7 @@ sub setTable
     my ($self, $table) = @_;
 
     unless (defined($table)
-            and ($table eq any(qw(filter nat manlge)))) {
+            and ($table eq any(qw(filter nat mangle)))) {
         throw EBox::Exceptions::InvalidData('data' => 'table');
     }
 
@@ -391,6 +392,119 @@ sub destinationAddress
     }
 }
 
+# Method: setMark
+#
+#    Mark the packet with the mark number given. It also sets the
+#    decision to MARK and the table to mangle one since it is the only
+#    one possible
+#
+# Parameters:
+#
+#    markNumber - Int the mark number
+#
+#    markMask   - Int the mark mask in a hexadecimal string
+#
+sub setMark
+{
+
+  my ($self, $markNumber, $markMask) = @_;
+
+  $self->setTable('mangle');
+  $self->setDecision("MARK --set-mark $markNumber");
+  $self->addModule('mark', 'mark', "0/$markMask");
+
+}
+
+# Method: addModule
+#
+#     Add a configuration parameter to an iptables module. If the
+#     configuration parameter exists, it is overridden.
+#
+# Parameters:
+#
+#     moduleName - String the iptables module's name
+#     confParamName - String the configuration parameter's name
+#
+#     confParamValue - the configuration parameter's value
+#     *(Optional)*
+#
+sub addModule
+{
+  my ($self, $moduleName, $confParamName, $confParamValue) = @_;
+
+  $confParamValue = '' unless defined ( $confParamValue );
+
+  $self->{modules}->{$moduleName}->{$confParamName} = $confParamValue;
+
+}
+
+# Method: removeModule
+#
+#      Remove a configuration parameter from an iptables module
+#
+# Parameters:
+#
+#      moduleName - String the iptables module's name
+#      confParamName - String the configuration parameter's name
+#
+sub removeModule
+{
+  my ($self, $moduleName, $confParamName) = @_;
+
+  delete $self->{modules}->{$moduleName}->{$confParamName};
+
+}
+
+# Method: module
+#
+#     Get the string to configure an iptables' module
+#
+# Parameters:
+#
+#     moduleName - String the iptables module's name
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::DataNotFound> - thrown if the module has not
+#     been added
+#
+sub module
+{
+  my ($self, $moduleName) = @_;
+
+  unless ( defined ( $self->{modules}->{$moduleName} )) {
+    throw EBox::Exceptions::DataNotFound( data => q{Iptables' module},
+					  value => $moduleName);
+  }
+
+  my $str = "-m $moduleName ";
+  foreach my $confParam ( keys ( %{$self->{modules}->{$moduleName}})) {
+    $str .= "--$confParam ";
+    $str .= $self->{modules}->{$moduleName}->{$confParam} . ' ';
+  }
+
+  return $str;
+
+}
+
+# Method: modulesConf
+#
+#     Get the string to configure every module required by the
+#     iptables' rule
+#
+sub modulesConf
+{
+  my ($self) = @_;
+
+  my $str = '';
+  foreach my $module ( keys(%{$self->{modules}})) {
+    $str .= $self->module($module);
+  }
+
+  return $str;
+
+}
+
 # Private helper funcions
 #
 
@@ -412,8 +526,15 @@ sub _setAddress
                 "address and object are mutual exclusive");
     }
 
-    if (defined($src) and not ($src->isa('EBox::Types::IPAddr'))) {
-        throw EBox::Exceptions::InvalidData('data' => 'src');    
+    if (defined($src) and $src->isa('EBox::Types::MACAddr') and
+	$addressType ne 'source') {
+      throw EBox::Exceptions::External('MACAddr filtering can be only ' .
+				       'done in source not in destination');
+    }
+
+    if (defined($src) and (not ($src->isa('EBox::Types::IPAddr')) or
+			   not ($src->isa('EBox::Types::MACAddr')))) {
+        throw EBox::Exceptions::InvalidData('data' => 'src');
     }
 
     if (defined($obj) 
@@ -434,8 +555,11 @@ sub _setAddress
         }
     } else {
         if (defined ($src) and defined($src->ip())) {
-            $self->{$addressType} = ["$flag $inverse " 
-	    			. $src->printableValue()];
+	  $self->{$addressType} = ["$flag $inverse " 
+				   . $src->printableValue()];
+	} elsif ( defined ( $src ) and $src->isa('EBox::Types::MACAddr')) {
+	  $self->{$addressType} = ["-m mac --mac-source $inverse " .
+				   $src->printableValue()];
         } else {
             $self->{$addressType} = [''];
         }
