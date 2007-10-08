@@ -313,9 +313,9 @@ sub removeService
     my ($self, %params) = @_;
 
     unless (exists $params{'id'} or exists $params{'name'}) {
-        throw Exceptions::MissingArgument('service');
+        throw EBox::Exceptions::MissingArgument('service');
     }
-    
+
     my $model =  $self->{'serviceModel'};
     my $id = $params{'id'};
 
@@ -327,7 +327,7 @@ sub removeService
         }
         $id = $row->{'id'};
     }
-    
+
     $model->removeRow($id, 1);
 }
 
@@ -347,7 +347,7 @@ sub serviceExists
     my ($self, %params) = @_;
 
     unless (exists $params{'id'} or exists $params{'name'}) {
-        throw Exceptions::MissingArgument('service');
+        throw EBox::Exceptions::MissingArgument('service');
     }
     
     my $model =  $self->{'serviceModel'};
@@ -382,7 +382,7 @@ sub serviceId
     my ($self, $name) = @_;
 
     unless (defined($name)) {
-        throw Exceptions::MissingArgument('name');
+        throw EBox::Exceptions::MissingArgument('name');
     }
     
     my $model =  $self->{'serviceModel'};
