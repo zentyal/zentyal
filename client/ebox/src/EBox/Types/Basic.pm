@@ -57,7 +57,12 @@ sub compareToHash
 {
 	my ($self, $hash) = @_;
 
-	return ($self->memValue() eq $hash->{$self->fieldName()});
+        if ( defined ( $hash->{$self->fieldName()} )
+           and defined ( $self->memValue() )) {
+            return ($self->memValue() eq $hash->{$self->fieldName()});
+        } else {
+            return 0;
+        }
 }
 
 sub isEqualTo

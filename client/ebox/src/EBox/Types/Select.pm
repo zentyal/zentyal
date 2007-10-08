@@ -195,7 +195,12 @@ sub _storeInGConf
 {
         my ($self, $gconfmod, $key) = @_;
 
-        $gconfmod->set_string("$key/" . $self->fieldName(), $self->memValue());
+        if ( defined ( $self->memValue() )) {
+            $gconfmod->set_string("$key/" . $self->fieldName(), $self->memValue());
+        } else {
+            $gconfmod->unset("$key/" . $self->fieldName());
+        }
+
 }
 
 # Method: _paramIsValid

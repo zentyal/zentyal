@@ -934,7 +934,7 @@ sub removeRow
         my $userMsg = $self->message('del');
         # Dependant models may return some message to inform the user
         my $depModelMsg = $self->_notifyModelManager('del', $row);
-        if ( $depModelMsg ne '' ) {
+        if ( defined( $depModelMsg ) and $depModelMsg ne '' ) {
             $userMsg .= "<br><br>$depModelMsg";
         }
 	# If automaticRemove is enabled then remove all rows using referencing
