@@ -17,10 +17,11 @@
 
 # A module to test TrafficShaping module
 
-use Test::More tests => 42;
+use Test::More tests => 40;
 use Test::Exception;
 use Test::Deep;
 use Data::Dumper;
+use Net::IP;
 
 use EBox::Global;
 use EBox;
@@ -29,310 +30,311 @@ use lib '../../../..';
 
 use EBox::Types::Service;
 
-diag ( 'Starting EBox::TrafficShaping test' );
 
 BEGIN {
-  use_ok ( 'EBox::TrafficShaping' )
-    or die;
+    diag ( 'Starting EBox::TrafficShaping test' );
+    use_ok ( 'EBox::TrafficShaping' )
+      or die;
 }
 
 EBox::init();
 
 # Delete gconf entries
-system( 'gconftool --recursive-unset /ebox/modules/trafficshaping' );
-cmp_ok( $?, "==", 0, 'All gconf entries were deleted');
+#system( 'gconftool --recursive-unset /ebox/modules/trafficshaping' );
+#cmp_ok( $?, "==", 0, 'All gconf entries were deleted');
 
 # Start testing
+my $gl = EBox::Global->getInstance();
 my $ts;
-lives_ok { $ts = EBox::Global->modInstance( 'trafficshaping' ) }
+lives_ok { $ts = $gl->modInstance( 'trafficshaping' ) }
   'Getting a traffic shaping instance';
 
 my $net;
-lives_ok { $net = EBox::Global->modInstance( 'network' ) }
+lives_ok { $net = $gl->modInstance( 'network' ) }
   'Getting a network instance';
 
 my $objs;
-lives_ok { $objs = EBox::Global->modInstance( 'objects' ) }
+lives_ok { $objs = $gl->modInstance( 'objects' ) }
   'Getting an objects instance';
+
+my $servs;
+lives_ok { $servs = $gl->modInstance('services') }
+  'Getting a service instance';
 
 my $gwModel;
 lives_ok { $gwModel = $net->gatewayModel(); }
   'Getting gateway model';
 
-# TODO: putting eth1 as external
-SKIP: {
-  skip 'Object/gateway creation', 6;
-  my @gws;
-  lives_ok { @gws = @{$net->gateways()} }
-    'Getting gateways...';
-
-  my $id;
-  foreach my $gw (@gws) {
-    if ( $gw->{name} eq 'foo' ) {
-      $id = $gw->{id};
-    }
-  }
-
-  if ( defined( $id ) ) {
-    lives_ok { $gwModel->removeRow(id => $id); }
-      'Removing previous gateway';
-  }
-
-  # Setting a gateway
-  lives_ok { $gwModel->addRow(
-			      interface => 'eth1',
-			      default   => 'true',
-			      name      => 'foo',
-			      download  => 22222,
-			      upload    => 22222,
-			      ip        => '192.168.45.1',
-			     ) }
-    'Setting a gateway on an external interface';
-
-  # Setting an object
-  lives_ok { $objs->removeObjectForce('foowarp') }
-    'Removing previous object';
-
-  lives_ok { $objs->addObject('foowarp') }
-    'Adding an object';
-
-  # Adding a member
-  lives_ok { $objs->addToObject(
-				'foowarp',
-				'192.168.45.0',
-				'24',
-				'',
-				'foo warp description'
-			       ) }
-    'Adding a member';
-
+# Check if there are enough interfaces
+unless ( $ts->enoughInterfaces() ) {
+    plan( skip_all => 'It is required to have at least one internal and one external interface ' .
+          'to do traffic shaping');
 }
 
+my $intIface = $net->InternalIfaces()->[0];
+my $downRate = $ts->totalDownloadRate();
+
+lives_ok {
+    # Adding a gateway to an external interface if there is no in order to
+    # test ingress traffic
+    my $intIface = $net->InternalIfaces()->[0];
+
+    my $gwName = '';
+
+    if ( $downRate == 0) {
+        # Create a gateway on a extIface
+        my $extIface;
+        do {
+            $extIface = $net->ExternalIfaces()->[0];
+        } until ( $net->ifaceMethod($extIface) eq 'static' );
+        my $ip = $net->ifaceAddresses($extIface)->[0];
+        my $ifaceAddr = new Net::IP($ip->{address} . '/' . $ip->{netmask});
+        $ifaceAddr++;
+        $gwName = 'foowarp';
+        $gwModel->add(
+                      name      => $gwName,
+                      ip        => $ifaceAddr->ip(),
+                      interface => $extIface,
+                      upload    => 1000,
+                      download  => 1000,
+                      weight    => 1,
+                      default   => 0,
+                     );
+        $downRate = $ts->totalDownloadRate();
+
+    }
+} 'Adding a gateway to an external interface if required';
+
+my $testObj;
+lives_ok {
+    my @objects = @{$objs->objects()};
+    ( $testObj ) = grep { $_->{name} eq 'fooObject' } @objects;
+    unless ( defined ( $testObj )) {
+        $testObj = $objs->addObject( name => 'fooObject',
+                                     members => [
+                                                 { name      => 'foo1',
+                                                   ipaddr_ip => '10.0.0.1',
+                                                   ipaddr_mask => 32,
+                                                   macaddr => '00:00:00:FA:BA:DA'},
+                                                 { name      => 'foo2',
+                                                   ipaddr_ip => '10.0.1.0',
+                                                   ipaddr_mask => 24},
+                                                ],
+                                   );
+    } else {
+        $testObj = $testObj->{id};
+    }
+} 'Adding an object';
+
 my $ruleModel;
-lives_ok { $ruleModel = $ts->ruleModel('eth0') }
+lives_ok { $ruleModel = $ts->ruleModel($intIface) }
   'Getting rule model for an interface';
 
-lives_ok { $ruleModel->addRow(
-			      service_protocol => 'tcp',
-			      service_port     => 80,
-			      source_selected  => 'source_object',
-			      source_object    => '',
-			      destination_selected  => 'destination_object',
-			      destination_object    => '',
-			      limited_rate     => 11,
-			      guaranteed_rate  => 0,
-			      priority         => 0,
-			      enabled          => 1,
-			     );
-	 }
-  'Adding a rule as a service (step 1)';
+my ($anyServ, $sshServ, $customServ, $greServ, $icmpServ);
+ok ( $anyServ = $servs->serviceId('any'), q{Getting 'any' service id});
+ok ( $sshServ = $servs->serviceId('ssh'), q{Getting 'ssh' service id});
 
-lives_ok { $ruleModel->addRow(
-			      service_protocol        => 'all',
-			      source_selected         => 'source_ipaddr',
-			      source_ipaddr_ip        => '192.168.45.0',
-			      source_ipaddr_mask      => '24',
-			      destination_selected    => 'destination_ipaddr',
-			      destination_ipaddr_ip   => '192.168.45.0',
-			      destination_ipaddr_mask => '24',
-			      priority                => 1,
-			      guaranteed_rate         => 190,
-			      limited_rate            => 200,
-			     )
-	 }
-  'Adding a rule shaping from IP source only (step 2)';
+if ( $servs->serviceExists( name => 'test') ) {
+    ok ( $customServ = $servs->serviceId( 'test' ),
+         q{Getting 'test' service id});
+} else {
+    ok ( $customServ = $servs->addService(name => 'test',
+                                          description => 'Test service',
+                                          protocol => 'tcp',
+                                          sourcePort => '10:13',
+                                          destinationPort => '30',
+                                          internal => 0,
+                                          readOnly => 0),
+         q{Creating a custom 'test' service});
+}
 
-lives_ok { $ruleModel->addRow(
-			      service_protocol => 'gre',
-			      source_selected  => 'source_macaddr',
-			      source_macaddr   => '00:0C:29:32:2D:E3',
-			      destination_selected  => 'destination_object',
-			      destination_object    => '',
-			      priority         => 1,
-			      limited_rate     => 20,
-			     )
-	 }
-  'Adding a rule shaping GRE traffic from a MAC address (step 2)';
+if ( $servs->serviceExists( name => 'gre') ) {
+    ok ( $greServ = $servs->serviceId( 'gre' ),
+         q{Getting 'gre' service id});
+} else {
+    ok ( $greServ = $servs->addService(name => 'gre',
+                                       description => 'GRE protocol',
+                                       protocol => 'gre',
+                                       sourcePort => 'any',
+                                       destinationPort => 'any',
+                                       internal => 0,
+                                       readOnly => 1),
+         q{Creating 'gre' service for GRE protocol});
+}
 
-lives_ok { $ruleModel->addRow(
-			      service_protocol => 'icmp',
-			      source_selected  => 'source_object',
-			      source_object    => $objs->ObjectsArray()->[0]->{name},
-			      destination_selected  => 'destination_object',
-			      destination_object    => $objs->ObjectsArray()->[0]->{name},
-			      priority         => 1,
-			      guaranteed_rate  => 60,
-			     )
-	 }
-  'Adding a rule shaping ICMP traffic from an object (step 2)';
+if ( $servs->serviceExists( name => 'icmp') ) {
+    ok ( $icmpServ = $servs->serviceId( 'icmp' ),
+         q{Getting 'icmp' service id});
+} else {
+    ok ( $icmpServ = $servs->addService(name => 'icmp',
+                                        description => 'ICMP protocol',
+                                        protocol => 'icmp',
+                                        sourcePort => 'any',
+                                        destinationPort => 'any',
+                                        internal => 0,
+                                        readOnly => 1),
+         q{Creating 'icmp' service for ICMP protocol});
+}
 
-lives_ok { $ruleModel->addRow(
-			      service_protocol     => 'udp',
-			      service_port         => '2221',
-			      source_selected      => 'source_object',
-			      source_object        => $objs->ObjectsArray()->[0]->{name},
-			      destination_selected => 'destination_object',
-			      destination_object   => '',
-			      priority             => 2,
-			      guaranteed_rate      => 60,
-			     )
-	 }
-  'Adding a rule shaping UDP traffic to an object (step 2)';
+my @rulesAdded = ();
+lives_ok {
+push (@rulesAdded,
+      $ruleModel->add(
+                service         => $sshServ,
+                source          => { source_any => '.' },
+                destination     => { destination_any => '.' },
+                guaranteed_rate => 0,
+                limited_rate    => 11,
+                priority        => 0,
+               ));
+} 'Adding a rule as service (step 1)';
 
-throws_ok { $ruleModel->addRow(
-			       service_protocol => 'udp',
-			       guaranteed_rate  => 111,
-			       limited_rate     => 111,
-			      )
-	  } EBox::Exceptions::External,
-  'Missing port in strict service type';
+lives_ok {
+push (@rulesAdded,
+      $ruleModel->add(
+                service         => $anyServ,
+                source          => { source_ipaddr => '192.168.45.0/24' },
+                destination     => { destination_ipaddr => '192.168.45.0/24' },
+                priority        => 1,
+                guaranteed_rate => 190,
+                limited_rate    => 200,
+                ));
+} 'Adding a rule shaping from IP source only (step 2)';
+
+lives_ok {
+push (@rulesAdded,
+      $ruleModel->add(
+                service         => $greServ,
+                source          => { source_macaddr => '00:0C:29:32:2D:E3' },
+                destination     => { destination_any => '' },
+                priority        => 1,
+                guaranteed_rate => 0,
+                limited_rate    => 20,
+               ));
+} 'Adding a rule shaping GRE traffic from a MAC address (step 2)';
+
+lives_ok {
+push (@rulesAdded,
+      $ruleModel->add(
+                service         => $icmpServ,
+                source          => { source_object => $testObj },
+                destination     => { destination_object => $testObj },
+                priority        => 1,
+                guaranteed_rate => 60,
+                limited_rate    => 0,
+               ));
+} 'Adding a rule shaping ICMP traffic from an object (step 2)';
+
+lives_ok {
+push (@rulesAdded,
+      $ruleModel->add(
+                service         => $customServ,
+                source          => { source_object => $testObj },
+                destination     => { destination_any => '' },
+                priority        => 2,
+                guaranteed_rate => 60,
+                limited_rate    => 0,
+               ));
+} 'Adding a rule shaping complex service traffic from an object (step 2)';
 
 throws_ok{ $ts->ruleModel('etth0')
 	 } EBox::Exceptions::External,
   'Bad interface';
 
-throws_ok { $ruleModel->addRow(
-			       service_protocol => 'gre',
-			       service_port     => 11122,
-			       source_selected  => 'source_object',
-			       source_object    => '',
-			       destination_selected  => 'destination_object',
-			       destination_object    => '',
-			       guaranteed_rate  => 111,
-			       limited_rate     => 111,
-			      )
-	  } EBox::Exceptions::External,
-  'Bad protocol';
+throws_ok {
+    $ruleModel->add(
+                    service => $anyServ,
+                    source  => { source_ipaddr => '334.121.421.11/11' },
+                    destination => { destination_any => '' },
+                    priority        => 2,
+                    guaranteed_rate      => 0,
+                    limited_rate         => 1,
+                   )
+} EBox::Exceptions::InvalidData, 'Bad IP address';
 
-throws_ok { $ruleModel->addRow(
-			       service_protocol => 'udp',
-			       service_port     => 1111112,
-			       source_selected  => 'source_object',
-			       source_object    => '',
-			       destination_selected  => 'destination_object',
-			       destination_object    => '',
-			       guaranteed_rate  => 111,
-			       limited_rate     => 111,
-			      )
-	  } EBox::Exceptions::InvalidData,
-  'Bad port';
+throws_ok {
+    $ruleModel->add(
+                    service => $anyServ,
+                    source  => { source_macaddr => '334' },
+                    destination => { destination_any => '' },
+                    priority        => 2,
+                    guaranteed_rate      => 0,
+                    limited_rate         => 1,
+                   );
+} EBox::Exceptions::InvalidData, 'Bad MAC address';
 
-throws_ok { $ruleModel->addRow(
-			       service_protocol => 'all',
-			       source_selected  => 'source_ipaddr',
-			       source_ipaddr_ip => '334.121.421.11',
-			       source_ipaddr_mask => 11,
-			       destination_selected => 'destination_object',
-			       destination_object   => '',
-			       guaranteed_rate      => 0,
-			       limited_rate         => 1,
-			       )
-	  } EBox::Exceptions::InvalidData,
-  'Bad IP address';
+throws_ok {
+    $ruleModel->add(
+                    service => $anyServ,
+                    source  =>  { source_object => 'sadfafa232' },
+                    destination => { destination_any => '' },
+                    priority        => 2,
+                    guaranteed_rate      => 0,
+                    limited_rate         => 1,
+                   );
+} EBox::Exceptions::InvalidData, 'Inexistent object';
 
-throws_ok { $ruleModel->addRow(
-			       service_protocol => 'all',
-			       source_selected  => 'source_macaddr',
-			       source_macaddr   => '334',
-			       destination_selected => 'destination_object',
-			       destination_object   => '',
-			       guaranteed_rate      => 0,
-			       limited_rate         => 1,
-			       )
-	  } EBox::Exceptions::InvalidData,
-  'Bad MAC address';
+throws_ok {
+    $ruleModel->add(
+                    service => $sshServ,
+                    source  => { source_any => '' },
+                    destination => { destination_any => '' },
+                    priority        => 2,
+                    guaranteed_rate  => 820,
+                    limited_rate     => 111111,
+                   );
+} EBox::Exceptions::External, 'Bad rate';
 
-throws_ok { $ruleModel->addRow(
-			       service_protocol => 'all',
-			       source_selected  => 'source_object',
-			       source_object    => 'sadfafa232',
-			       destination_selected => 'destination_object',
-			       destination_object   => '',
-			       guaranteed_rate      => 0,
-			       limited_rate         => 1,
-			       )
-	  } EBox::Exceptions::DataNotFound,
-  'Inexistent object';
+throws_ok {
+    $ruleModel->add(
+                    service => $sshServ,
+                    source  => { source_any => '' },
+                    destination => { destination_any => '' },
+                    guaranteed_rate  => 0,
+                    limited_rate     => -1,
+                   );
+} EBox::Exceptions::InvalidData, 'Bad rate';
 
-throws_ok { $ruleModel->addRow(
-			       service_protocol => 'udp',
-			       service_port     => 1112,
-			       source_selected  => 'source_object',
-			       source_object    => '',
-			       destination_selected  => 'destination_object',
-			       destination_object    => '',
-			       guaranteed_rate  => 820,
-			       limited_rate     => 111111,
-			      )
-	  } EBox::Exceptions::External,
-  'Bad rate';
+throws_ok {
+    $ruleModel->add(
+                    service => $anyServ,
+                    source  => { source_any => '' },
+                    destination => { destination_any => '' },
+                    priority        => 2,
+                    guaranteed_rate  => 0,
+                    limited_rate     => 1,
+                   );
+} EBox::Exceptions::External, 'No rule to apply';
 
-throws_ok { $ruleModel->addRow(
-			       service_protocol => 'udp',
-			       service_port     => 1112,
-			       source_selected  => 'source_object',
-			       source_object    => '',
-			       destination_selected  => 'destination_object',
-			       destination_object    => '',
-			       guaranteed_rate  => 0,
-			       limited_rate     => -1,
-			      )
-	  } EBox::Exceptions::InvalidData,
-  'Bad rate';
+throws_ok {
+    $ruleModel->add(
+                    service => $sshServ,
+                    source  => { source_any => '' },
+                    destination => { destination_any => '' },
+                    priority        => 9,
+                    guaranteed_rate  => 0,
+                    limited_rate     => 111,
+                   );
+} EBox::Exceptions::InvalidData, 'Bad priority';
 
-throws_ok { $ruleModel->addRow(
-			       service_protocol => 'all',
-			       source_selected  => 'source_object',
-			       source_object    => '',
-			       destination_selected => 'destination_object',
-			       destination_object => '',
-			       guaranteed_rate  => 0,
-			       limited_rate     => 1,
-			      )
-	  } EBox::Exceptions::External,
-  'No rule to apply';
+my $rules_ref = $ts->listRules($intIface);
+my $rulesNum = scalar(@{$rules_ref});
 
-# I maintain old interface to check priority stuff
-throws_ok { $ruleModel->addRow(
-			       service_protocol => 'udp',
-			       service_port     => 1112,
-			       source_selected  => 'source_object',
-			       source_object    => '',
-			       destination_selected => 'destination_object',
-			       destination_object => '',
-			       guaranteed_rate => 0,
-			       limited_rate    => 111,
-			       enabled        => 1,
-			       priority       => 9,
-			      )
-	  } EBox::Exceptions::InvalidData,
-  'Bad priority';
-
-my $rules_ref = $ts->listRules('eth0');
-
-cmp_ok ( scalar(@{$rules_ref}), '==', 5,
+cmp_ok ( $rulesNum, '>=', 5,
 	 'Checking rules were added correctly'
        );
 
-throws_ok { $ruleModel->removeRow() }
-  EBox::Exceptions::MissingArgument,
-  'Missing id rule';
+throws_ok { $ruleModel->del() }
+  EBox::Exceptions::Internal, 'Missing id rule';
 
-throws_ok { $ruleModel->removeRow(
-				  3243,
-				 )
-	  } EBox::Exceptions::DataNotFound,
-  'Rule not found';
+throws_ok { $ruleModel->del( 'rule100' );
+        } EBox::Exceptions::DataNotFound, 'Rule not found';
 
-my $idToRemove = $rules_ref->[0]->{ruleId};
+lives_ok { $ruleModel->del( pop( @rulesAdded )); } 'Remove rule';
 
-lives_ok { $ruleModel->removeRow( $idToRemove )
-	 }
-  'Remove rule';
+$rules_ref = $ts->listRules($intIface);
 
-$rules_ref = $ts->listRules('eth0');
-
-cmp_ok ( scalar(@{$rules_ref}), '==', 4,
+cmp_ok ( scalar(@{$rules_ref}), '==', $rulesNum - 1,
 	 'Rule correctly removed');
 
 SKIP: {
@@ -344,37 +346,18 @@ SKIP: {
        'Checking correctly enabled');
 }
 
-my $oldRule = $ts->listRules('eth0')->[0];
+lives_ok {
+    $ruleModel->set( $rulesAdded[0],
+                     service => $customServ,
+                     source  => { source_any => '' },
+                     destination => { destination_any => '' },
+                     priority        => 5,
+                     guaranteed_rate  => 60,
+                     limited_rate     => 0,
+                   );
+} 'Updating a rule';
 
-throws_ok { $ruleModel->setRow(
-			      id => $rules_ref->[0]->{ruleId},
-			      )
-	  } EBox::Exceptions::MissingArgument,
-  'Non updating';
-
-my $ruleId = $ts->listRules('eth0')->[0]->{ruleId};
-
-lives_ok { $ruleModel->setRow(
-			      id               => $ruleId,
-			      service_protocol => 'tcp',
-			      service_port     => 21,
-			      source_selected  => 'source_object',
-			      source_object    => '',
-			      destination_selected  => 'destination_object',
-			      destination_object    => '',
-			      guaranteed_rate  => 60,
-			      priority         => 5,
-			      limited_rate     => 0,
-			     );
-	 }
-  'Updating a rule';
-
-my $updatedRule = $ts->listRules('eth0')->[0];
-
-my $service = EBox::Types::Service->new ( fieldName => 'service',
-					  protocol  => 'tcp',
-					  port      => 21
-					);
+# TODO: Check update
 
 #cmp_deeply(
 #	   {
@@ -392,43 +375,38 @@ my $service = EBox::Types::Service->new ( fieldName => 'service',
 #	  );
 
 # Checks lowest priority
-lives_ok { $ruleModel->addRow(
-			      service_protocol => 'tcp',
-			      service_port     => 82,
-			      source_selected  => 'source_object',
-			      source_object    => '',
-			      destination_selected  => 'destination_object',
-			      destination_object    => '',
-			      guaranteed_rate => 60,
-			      limited_rate    => 120,
-			      priority        => 2,
-#			      enabled         => 1,
-			     )
-	 }
-  'Adding third correct rule';
+lives_ok {
+    $ruleModel->add(
+                    service => $customServ,
+                    source  => { source_any => '' },
+                    destination => { destination_any => '' },
+                    priority        => 7,
+                    guaranteed_rate  => 60,
+                    limited_rate     => 120,
+                   );
+}  'Adding third correct rule';
 
-cmp_ok( $ts->getLowestPriority('eth0', 'search'), '==', 5,
+cmp_ok( $ts->getLowestPriority($intIface, 'search'), '==', 7,
 	'Checking adding lowest priority');
 
-$rules_ref = $ts->listRules('eth0');
+$rules_ref = $ts->listRules($intIface);
 
 # Get the rule id from recently created rule
 foreach my $rule_ref (@{$rules_ref}) {
 
   $ruleId = $rule_ref->{ruleId};
-  last if ($rule_ref->{service_protocol} eq 'tcp' and
-	   $rule_ref->{service_port} == 82 and
-	   $rule_ref->{guaranteed_rate} == 60 and
-	   $rule_ref->{limited_rate} == 120
-	  );
+  last if ($rule_ref->{service} eq $customServ
+           and $rule_ref->{guaranteed_rate} == 60
+           and $rule_ref->{limited_rate} == 120);
 }
 
-lives_ok { $ruleModel->removeRow(
-				 $ruleId
-				)
-	 }
-  'Removing last added';
+lives_ok { $ruleModel->del( $ruleId ) } 'Removing last added';
 
-cmp_ok( $ts->getLowestPriority('eth0', 'search'), '==', 5,
+cmp_ok( $ts->getLowestPriority($intIface, 'search'), '==', 5,
 	'Checking updating lowest priority');
 
+lives_ok {
+    foreach my $ruleId (@rulesAdded) {
+        $ruleModel->del($ruleId);
+    }
+} 'Remove everything we put inside';

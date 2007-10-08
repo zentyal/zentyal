@@ -667,7 +667,7 @@ sub checkRule
 #
 #       array ref - containing hash references which have the
 #       following attributes:
-#         - service - <EBox::Types::Service> inet protocol
+#         - service - String the service identifier
 #         - source  - the selected source. It can be one of the following:
 #                     - <EBox::Types::IPAddr>
 #                     - <EBox::Types::MACAddr>
@@ -682,56 +682,24 @@ sub checkRule
 #         - ruleId          - unique identifier for this rule
 #
 sub listRules
-  {
+{
     my ($self, $iface) = @_;
 
-    my $gconfDir = $self->_ruleDirectory($iface);
-    my @dir = @{$self->array_from_dir($gconfDir)};
+    my $ruleModel = $self->ruleModel($iface);
 
-    my @order = @{$self->get_list($gconfDir . '/order')};
-    my %order;
-    for( my $i = 0; $i < scalar(@order); $i++) {
-      my $ordElement = $order[$i];
-      $order{$ordElement} = $i;
-    }
-
-    my @rules;
-    # If there's any
-    if ( scalar(@dir) != 0 ) {
-      # Change _dir to ruleId for readibility reasons
-      foreach my $rule_ref (@dir) {
-	$rule_ref->{ruleId} = delete ($rule_ref->{_dir});
-	$rule_ref->{service} = new EBox::Types::Service( fieldName => 'service');
-	$rule_ref->{service}->setMemValue($rule_ref);
-
-	if ( defined ( $rule_ref->{$rule_ref->{source_selected}} ) ) {
-	  if ( $rule_ref->{source_selected} eq 'source_ipaddr' ) {
-	    $rule_ref->{source} = new EBox::Types::IPAddr( fieldName => 'source_ipaddr' );
-	    $rule_ref->{source}->setMemValue($rule_ref);
-	  }
-	  elsif ( $rule_ref->{source_selected} eq 'source_macaddr' ) {
-	    $rule_ref->{source} = new EBox::Types::MACAddr( fieldName => 'source_macaddr' );
-	    $rule_ref->{source}->setMemValue($rule_ref);
-	  }
-	  elsif ( $rule_ref->{source_selected} eq 'source_object' ) {
-	    $rule_ref->{source} = delete ( $rule_ref->{source_object} );
-	  }
-	}
-
-	if ( defined ( $rule_ref->{$rule_ref->{destination_selected}} )) {
-	  if ( $rule_ref->{destination_selected} eq 'destination_ipaddr' ) {
-	    $rule_ref->{destination} = new EBox::Types::IPAddr( fieldName => 'destination_ipaddr' );
-	    $rule_ref->{destination}->setMemValue($rule_ref);
-	  }
-	  elsif ( $rule_ref->{destination_selected} eq 'destination_object' ) {
-	    $rule_ref->{destination} = delete ( $rule_ref->{destination_object} );
-	  }
-	}
-	# FIXME: enabled and disable
-	$rule_ref->{enabled} = 'enabled';
-	$rule_ref->{priority} = $order{$rule_ref->{ruleId}};
-	push(@rules, $rule_ref);
-      }
+    my @rules = ();
+    foreach my $row (@{$ruleModel->rows()}) {
+        my $ruleRef =
+          {
+           ruleId      => $row->{id},
+           service     => $row->{plainValueHash}->{service},
+           source      => $row->{valueHash}->{source}->subtype(),
+           destination => $row->{valueHash}->{destination}->subtype(),
+           priority    => $row->{plainValueHash}->{priority},
+           guaranteed_rate => $row->{plainValueHash}->{guaranteed_rate},
+           limited_rate => $row->{plainValueHash}->{limited_rate},
+          };
+        push ( @rules, $ruleRef );
     }
 
     return \@rules;

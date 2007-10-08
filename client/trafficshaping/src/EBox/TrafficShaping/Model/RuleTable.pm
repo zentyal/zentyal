@@ -457,7 +457,7 @@ sub _table
                               subtypes      =>
                               [
                                new EBox::Types::Union::Text(
-                                                            'fieldName' => 'source_any',
+                                                            'fieldName' => 'destination_any',
                                                             'printableName' => __('Any')),
                                new EBox::Types::IPAddr(
                                                        fieldName     => 'destination_ipaddr',
