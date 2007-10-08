@@ -1375,73 +1375,49 @@ sub _createTree # (interface, type)
 # Build the tree from gconf variables stored.
 # It assumes rules are correct
 sub _buildGConfRules # (iface)
-  {
+{
 
     my ($self, $iface) = @_;
 
-    my $dir = $self->_ruleDirectory($iface);
+    my $model = $self->ruleModel($iface);
 
-    # Set the priority
-    my $rules_ref = $self->array_from_dir($dir);
+    my $rows = $model->rows();
+    my $rulesRef = [];
 
-    foreach my $rule_ref (@{$rules_ref}) {
-      # next if it's not an enabled rule
-      # FIXME when enabled property will be on
-      #      next unless ( $rule_ref->{enabled} );
+    foreach my $row (@{$rows}) {
+        # FIXME when enabled property will be on
+        # next unless ( $row->{plainValueHash}->{enabled} )
+        my $ruleRef = {};
+        $ruleRef->{identifier} = $self->_nextMap($row->{id});
+        $ruleRef->{identifier} = $self->_getNumber($ruleRef->{identifier});
+        $ruleRef->{service} = $row->{plainValueHash}->{service};
+        # Source and destination
+        for my $targetName (qw(source destination)) {
+            my $target = $row->{valueHash}->{$targetName}->subtype();
+            if ( $target->isa('EBox::Types::Union::Text')) {
+                $target = undef;
+            } elsif ( $target->isa('EBox::Types::Select')) {
+                # An object
+                $target = $target->value();
+            }
+            $ruleRef->{$targetName}  = $target;
+        }
+        # Priority
+        $ruleRef->{priority} = $row->{plainValueHash}->{priority};
 
-      # $rule_ref->{identifier} = $rule_ref->{_dir};
-      $rule_ref->{identifier} = $self->_nextMap($rule_ref->{_dir});
-      $rule_ref->{identifier} = $self->_getNumber($rule_ref->{identifier});
-      # Get the port and protocol
-      # Service id is set as a string
-#      $rule_ref->{service} = new EBox::Types::Service(
-#						      protocol => delete ( $rule_ref->{service_protocol} ),
-#						      port     => delete ( $rule_ref->{service_port} ),
-#						     );
-      # Get the source
-      if ( defined ( $rule_ref->{source_selected} )) {
-	my $sourceSelected = delete ( $rule_ref->{source_selected} );
-	if ( $sourceSelected eq 'source_ipaddr' ) {
-	  $rule_ref->{source} = new EBox::Types::IPAddr(
-							ip   => delete ( $rule_ref->{source_ipaddr_ip} ),
-							mask => delete ( $rule_ref->{source_ipaddr_mask} ),
-						       );
-	} elsif ( $sourceSelected eq 'source_macaddr' ) {
-	  $rule_ref->{source} = new EBox::Types::MACAddr(
-							 value => delete ( $rule_ref->{source_macaddr} )
-							);
-	} elsif ( $sourceSelected eq 'source_object' ) {
-	  $rule_ref->{source} = delete ( $rule_ref->{source_object} );
-	}
-      }
+        # Rates
+        # Transform from gconf to camelCase and set if they're null
+        # since they're optional parameters
+        $ruleRef->{guaranteedRate} = $row->{plainValueHash}->{guaranteed_rate};
+        $ruleRef->{guaranteedRate} = 0 unless defined ($ruleRef->{guaranteedRate});
+        $ruleRef->{limitedRate} = $row->{plainValueHash}->{limited_rate};
+        $ruleRef->{limitedRate} = 0 unless defined ($ruleRef->{limitedRate});
 
-      # Get the destination
-      if ( defined ( $rule_ref->{destination_selected} )) {
-	my $destinationSelected = delete ( $rule_ref->{destination_selected} );
-	if ( $destinationSelected eq 'destination_ipaddr' ) {
-	  $rule_ref->{destination} = new EBox::Types::IPAddr(
-							     ip   => delete ( $rule_ref->{destination_ipaddr_ip} ),
-							     mask => delete ( $rule_ref->{destination_ipaddr_mask} ),
-							    );
-	} elsif ( $destinationSelected eq 'destination_object' ) {
-	  $rule_ref->{destination} = delete ( $rule_ref->{destination_object} );
-	}
-      }
-
-      # Transform from gconf to camelCase and set if they're null
-      # since they're optional parameters
-      $rule_ref->{guaranteedRate} = delete ($rule_ref->{guaranteed_rate});
-      $rule_ref->{guaranteedRate} = 0 unless defined ($rule_ref->{guaranteedRate});
-      $rule_ref->{limitedRate} = delete ($rule_ref->{limited_rate});
-      $rule_ref->{limitedRate} = 0 unless defined ($rule_ref->{limitedRate});
-      # Get priority from priority field
-#      $rule_ref->{priority} = $order{$rule_ref->{_dir}};
-
-      $self->_buildANewRule( $iface, $rule_ref, undef );
+        $self->_buildANewRule( $iface, $ruleRef, undef );
 
     }
 
-  }
+}
 
 # Create builders and they are stored in builders
 sub _createBuilders
