@@ -82,9 +82,9 @@ sub strings
 # Method: setService
 #
 #   Set service for the rule
-#   
+#
 # Parameters:
-#   
+#
 #   (POSITIONAL)
 #
 #   service - a service id from <EBox::Service::Model::ServiceTable>
@@ -526,37 +526,48 @@ sub _setAddress
                 "address and object are mutual exclusive");
     }
 
-    if (defined($src) and $src->isa('EBox::Types::MACAddr') and
-	$addressType ne 'source') {
-      throw EBox::Exceptions::External('MACAddr filtering can be only ' .
-				       'done in source not in destination');
+    if (defined($src)) {
+        # Checking correct address
+        unless ( $src->isa('EBox::Types::IPAddr') or
+                 $src->isa('EBox::Types::MACAddr')) {
+            throw EBox::Exceptions::InvalidData('data' => 'src',
+                                                'value' => $src);
+        }
+        if ( $src->isa('EBox::Types::MACAddr') and
+             $addressType ne 'source') {
+            throw EBox::Exceptions::External(
+               'MACAddr filtering can be only ' .
+               'done in source not in destination'
+                                            );
+        }
     }
 
-    if (defined($src) and (not ($src->isa('EBox::Types::IPAddr')) or
-			   not ($src->isa('EBox::Types::MACAddr')))) {
-        throw EBox::Exceptions::InvalidData('data' => 'src');
+    if (defined($obj) ) {
+        if (not $self->{'objects'}->objectExists($obj)) {
+            throw EBox::Exceptions::DataNotFound('data' => 'object',
+                                                 'value' => $obj);
+        }
+        if ( @{$self->{'objects'}->objectsAddresses($obj)} == 0 ) {
+            EBox::warn("No members on obj $obj: " .
+                       $self->{'objects'}->objectDescription($obj) .
+                       ' make no iptables rules being created');
+        }
     }
-
-    if (defined($obj) 
-            and (not $self->{'objects'}->objectExists($obj))) {
-
-        throw EBox::Exceptions::DataNotFound('data' => 'object',
-                'value' => $obj);
-    } 
 
     $self->{$addressType} = [] ;
-    my $flag = ' -s ';
+    my $flag = ' --source ';
     if ($addressType eq 'destination') {
-	$flag = ' -d ';
+	$flag = ' --destination ';
     }
     if (defined($obj)) {
         foreach my $addr (@{$self->{'objects'}->objectAddresses($obj)}) {
             push (@{$self->{$addressType}}, $flag . $inverse . $addr);
         }
     } else {
-        if (defined ($src) and defined($src->ip())) {
-	  $self->{$addressType} = ["$flag $inverse " 
-				   . $src->printableValue()];
+        if (defined ($src) and $src->isa('EBox::Types::IPAddr')
+            and defined($src->ip())) {
+            $self->{$addressType} = ["$flag $inverse "
+                                     . $src->printableValue()];
 	} elsif ( defined ( $src ) and $src->isa('EBox::Types::MACAddr')) {
 	  $self->{$addressType} = ["-m mac --mac-source $inverse " .
 				   $src->printableValue()];

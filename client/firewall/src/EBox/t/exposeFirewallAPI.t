@@ -20,7 +20,7 @@ use warnings;
 
 use lib '../../';
 
-use Test::More qw(no_plan);
+use Test::More tests => 8;
 use Test::Exception;
 use Test::Deep;
 
