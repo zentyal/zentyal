@@ -59,7 +59,7 @@ use constant LOWEST_PRIORITY => 200;
 #
 #     - Following are *iptables* arguments to do filtering:
 #
-#       service   - <EBox::Types::Service> the service to do filtering
+#       service   - String the service identifier
 #                   *(Optional)*
 #       srcAddr   - <EBox::Types::IPAddr> or <EBox::Types::MACAddr> the
 #                   packet source to match *(Optional)*
@@ -116,11 +116,11 @@ sub new
 					   'EBox::TrafficShaping::QDisc::Base' );
     }
     # Check the service
-    if ( defined ( $args{service} ) and 
-	 not $args{service}->isa( 'EBox::Types::Service' ) ) {
-      throw EBox::Exceptions::InvalidType( 'service',
-					   'EBox::Types::Service');
-    }
+#    if ( defined ( $args{service} ) and 
+#	 not $args{service}->isa( 'EBox::Types::Service' ) ) {
+#      throw EBox::Exceptions::InvalidType( 'service',
+#					   'EBox::Types::Service');
+#    }
     # Check addresses
     if ( $args{srcAddr} ) {
       if ( not $args{srcAddr}->isa('EBox::Types::IPAddr') and
@@ -148,8 +148,9 @@ sub new
     $self->{parent} = $args{parent};
 
     if ( defined ( $args{service} ) ) {
-      $self->{fProtocol} = $args{service}->protocol();
-      $self->{fPort} = $args{service}->port();
+        $self->{service} = $args{service};
+#      $self->{fProtocol} = $args{service}->protocol();
+#      $self->{fPort} = $args{service}->port();
     }
 
     if ( $args{srcAddr} ) {
@@ -322,16 +323,17 @@ sub dumpIptablesCommands
     my $mask = hex ( MARK_MASK );
     # Applying the mask
     my $mark = $self->{mark} & $mask;
-    my $protocol = $self->{fProtocol};
+#    my $protocol = $self->{fProtocol};
 
     # Set no port if protocol is all
     my $sport = undef;
     my $dport = undef;
-    unless ( defined ( $protocol ) and
-	 ($protocol eq EBox::Types::Service->AnyProtocol )) {
-      $sport = $self->{fPort};
-      $dport = $self->{fPort};
-    }
+#    unless ( defined ( $protocol ) and
+#	 ($protocol eq EBox::Types::Service->AnyProtocol )) {
+#      $sport = $self->{fPort};
+#      $dport = $self->{fPort};
+#    }
+
     my $srcIP = $self->{srcIP};
     my $srcMAC = $self->{srcMAC};
     my $srcNetMask = $self->{srcNetMask};
@@ -351,20 +353,21 @@ sub dumpIptablesCommands
     my @ipTablesCommands;
     my $leadingStr;
     my $mediumStr;
-    if ( defined ( $protocol ) or defined ( $srcIP ) or defined ( $dstIP )) {
-      my $ipTablesRule = new EBox::Firewall::IpTablesRule
-	(
-	 chain => $shaperChain
-	);
+    if ( defined ( $self->{service} ) or defined ( $srcIP ) or defined ( $dstIP )) {
+      my $ipTablesRule = EBox::Firewall::IptablesRule->new( chain => $shaperChain );
       # Mark the package and set the decision to MARK and the table as mangle
       $ipTablesRule->setMark($mark, MARK_MASK);
-      $ipTablesRule->setSourceAddress(inverseMatch => 0,
-				      sourceAddr => $self->{srcAddr})
-	if defined ( $self->{srcAddr} );
-      $ipTablesRule->setDestinationAddress( inverseMatch => 0,
-					    destinationAddress => $self->{dstAddr} )
-	if defined ( $self->{dstAddr} );
-      # TODO: Service configuration
+
+      if ( defined ( $self->{srcAddr} )) {
+          $ipTablesRule->setSourceAddress(inverseMatch => 0,
+				      sourceAddress => $self->{srcAddr});
+      }
+
+      if (defined ( $self->{dstAddr} )) {
+          $ipTablesRule->setDestinationAddress( inverseMatch => 0,
+                                                destinationAddress => $self->{dstAddr} );
+      }
+
       $ipTablesRule->setService($self->{service});
 
 
@@ -395,7 +398,7 @@ sub dumpIptablesCommands
 #	     $leadingStr . $mediumStr . $trailingStr
 #	    );
 #      }
-      push(@ipTablesCommands, $ipTablesRule->strings());
+      push(@ipTablesCommands, @{$ipTablesRule->strings()});
     } 
     # FIXME Comment out because it messes up with multipath marks
     #else {

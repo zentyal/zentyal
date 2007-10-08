@@ -265,6 +265,144 @@ sub printableIndex
 
 }
 
+
+# Method: validateTypedRow
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::validateTypedRow>
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::External> - throw if interface is not
+#       external or the rule cannot be built
+#
+#       <EBox::Exceptions::InvalidData> - throw if parameter has
+#       invalid data
+#
+sub validateTypedRow
+{
+  my ($self, $action, $params) = @_;
+
+  if ( defined ( $params->{guaranteed_rate} )) {
+    $self->_checkRate( $params->{guaranteed_rate},
+		       __('Guaranteed rate'));
+  }
+
+  if ( defined ( $params->{limited_rate} )) {
+    $self->_checkRate( $params->{limited_rate},
+		       __('Limited rate'));
+  }
+
+  if ( $action eq 'update' ) {
+    # Fill those parameters which is not changed
+    my $oldRow = $self->row($params->{id});
+    foreach my $paramName (keys %{$oldRow->{valueHash}}) {
+      unless ( defined ( $params->{$paramName})) {
+	$params->{$paramName} = $oldRow->{valueHash}->{$paramName};
+      }
+    }
+  }
+
+  my $servMod = EBox::Global->modInstance('services');
+  # Check if service is any, any source or destination is given
+  if ( ( $servMod->serviceName($params->{service}->value())->value() eq 'any') and
+       $params->{source}->subtype()->isa('EBox::Types::Union::Text') and
+       $params->{destination}->subtype()->isa('EBox::Types::Union::Text')) {
+    throw EBox::Exceptions::External(__('If service is any, some source or destination should be provided'));
+
+  }
+
+  # Check some rate is given
+  if ( $params->{guaranteed_rate}->value() == 0 and
+       $params->{limited_rate}->value() == 0 ) {
+    throw EBox::Exceptions::External( __('Guaranteed rate or limited rate is required') );
+  }
+
+  # Check the memory structure works as well
+  $self->{ts}->checkRule(interface      => $self->{interface},
+			 service        => $params->{service}->value(),
+			 source         => $params->{source}->subtype(),
+			 destination    => $params->{destination}->subtype(),
+			 priority       => $params->{priority}->value(),
+			 guaranteedRate => $params->{guaranteed_rate}->value(),
+			 limitedRate    => $params->{limited_rate}->value(),
+			 ruleId         => $params->{id}, # undef on addition
+			);
+
+}
+
+
+# Method: addedRowNotify
+#
+#	Call whenever a row is added. We should add the rule
+#       to the interface in dynamic structure
+#
+# Arguments:
+#
+#       row - hash ref with all the fields rows and their values
+#
+#
+sub addedRowNotify
+  {
+
+    my ($self, $row_ref) = @_;
+
+    my $guaranteedRate = $row_ref->{valueHash}->{'guaranteed_rate'}->value();
+    my $limitedRate = $row_ref->{valueHash}->{'limited_rate'}->value();
+#    my $enabled        = $row_ref->{valueHash}->{enabled}->value();
+
+    # Get priority from order
+    my $priority = $row_ref->{priority};
+
+    # Now addRule doesn't need any argument since it's already done by model
+
+    $self->{ts}->addRule(
+			 interface      => $self->{interface},
+			 guaranteedRate => $guaranteedRate,
+			 limitedRate    => $limitedRate,
+			 enabled        => 'enabled',
+			);
+
+  }
+
+# Method: deletedRowNotify
+#
+#        See <EBox::Model::DataTable::deletedRowNotify>
+#
+sub deletedRowNotify
+  {
+
+    my ($self, $row_ref, $force) = @_;
+
+    unless ( $force ) {
+        $self->{ts}->removeRule(
+                                interface      => $self->{interface},
+                               );
+    }
+
+  }
+
+# Method: updatedRowNotify
+#
+#        See <EBox::Model::DataTable::updatedRowNotify>
+#
+sub updatedRowNotify
+  {
+
+    my ($self, $row_ref, $force) = @_;
+
+    unless ( $force ) {
+        my $ruleId = $row_ref->{id};
+        $self->{ts}->updateRule( interface      => $self->{interface},
+                                 ruleId         => $ruleId,
+                               );
+    }
+
+  }
+
+# Group: Protectedd methods
+
 # Method: _table
 #
 #	Describe the traffic shaping table
@@ -278,11 +416,6 @@ sub _table
 
     my @tableHead =
       (
-#       new EBox::Types::Service(
-#                                fieldName     => 'service',
-#                                printableName => __('Service'),
-#                                editable      => 1, # editable
-#                               ),
        new EBox::Types::Select(
 			       fieldName       => 'service',
 			       printableName   => __('Service'),
@@ -423,143 +556,8 @@ sub _tailoredOrder # (rows)
 
   }
 
-# Method: validateTypedRow
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::validateTypedRow>
-#
-# Exceptions:
-#
-#       <EBox::Exceptions::External> - throw if interface is not
-#       external or the rule cannot be built
-#
-#       <EBox::Exceptions::InvalidData> - throw if parameter has
-#       invalid data
-#
-sub validateTypedRow
-{
-  my ($self, $action, $params) = @_;
-
-  if ( defined ( $params->{guaranteed_rate} )) {
-    $self->_checkRate( $params->{guaranteed_rate},
-		       __('Guaranteed rate'));
-  }
-
-  if ( defined ( $params->{limited_rate} )) {
-    $self->_checkRate( $params->{limited_rate},
-		       __('Limited rate'));
-  }
-
-  if ( $action eq 'update' ) {
-    # Fill those parameters which is not changed
-    my $oldRow = $self->row($params->{id});
-    foreach my $paramName (keys %{$oldRow->{valueHash}}) {
-      unless ( defined ( $params->{$paramName})) {
-	$params->{$paramName} = $oldRow->{valueHash}->{$paramName};
-      }
-    }
-  }
-
-  my $servMod = EBox::Global->modInstance('services');
-  # Check if service is any, any source or destination is given
-  if ( ( $servMod->serviceName($params->{service}->value())->value() eq 'any') and
-       $params->{source}->subtype()->isa('EBox::Types::Union::Text') and
-       $params->{destination}->subtype()->isa('EBox::Types::Union::Text')) {
-    throw EBox::Exceptions::External(__('If service is any, some source or destination should be provided'));
-
-  }
-
-  # Check some rate is given
-  if ( $params->{guaranteed_rate}->value() == 0 and
-       $params->{limited_rate}->value() == 0 ) {
-    throw EBox::Exceptions::External( __('Guaranteed rate or limited rate is required') );
-  }
-
-  # Check the memory structure works as well
-  $self->{ts}->checkRule(interface      => $self->{interface},
-			 service        => $params->{service}->value(),
-			 source         => $params->{source}->subtype(),
-			 destination    => $params->{destination}->subtype(),
-			 priority       => $params->{priority}->value(),
-			 guaranteedRate => $params->{guaranteed_rate}->value(),
-			 limitedRate    => $params->{limited_rate}->value(),
-			 ruleId         => $params->{id}, # undef on addition
-			);
-
-}
-
-
-# Method: addedRowNotify
-#
-#	Call whenever a row is added. We should add the rule
-#       to the interface in dynamic structure
-#
-# Arguments:
-#
-#       row - hash ref with all the fields rows and their values
-#
-#
-sub addedRowNotify
-  {
-
-    my ($self, $row_ref) = @_;
-
-    my $guaranteedRate = $row_ref->{valueHash}->{'guaranteed_rate'}->value();
-    my $limitedRate = $row_ref->{valueHash}->{'limited_rate'}->value();
-#    my $enabled        = $row_ref->{valueHash}->{enabled}->value();
-
-    # Get priority from order
-    my $priority = $row_ref->{priority};
-
-    # Now addRule doesn't need any argument since it's already done by model
-
-    $self->{ts}->addRule(
-			 interface      => $self->{interface},
-			 guaranteedRate => $guaranteedRate,
-			 limitedRate    => $limitedRate,
-			 enabled        => 'enabled',
-			);
-
-  }
-
-# Method: deletedRowNotify
-#
-#        See <EBox::Model::DataTable::deletedRowNotify>
-#
-sub deletedRowNotify
-  {
-
-    my ($self, $row_ref, $force) = @_;
-
-    unless ( $force ) {
-        $self->{ts}->removeRule(
-                                interface      => $self->{interface},
-                               );
-    }
-
-  }
-
-# Method: updatedRowNotify
-#
-#        See <EBox::Model::DataTable::updatedRowNotify>
-#
-sub updatedRowNotify
-  {
-
-    my ($self, $row_ref, $force) = @_;
-
-    unless ( $force ) {
-        my $ruleId = $row_ref->{id};
-        $self->{ts}->updateRule( interface      => $self->{interface},
-                                 ruleId         => $ruleId,
-                               );
-    }
-
-  }
-
 ####################################################
-# Private methods
+# Group: Private methods
 ####################################################
 
 
