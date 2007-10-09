@@ -53,9 +53,6 @@ resolv-retry infinite
 # a specific local port number.
 nobind
 
-# Downgrade privileges after initialization (non-Windows only)
-<& valueEntry, entry => 'user', value => $user  &>
-<& valueEntry, entry => 'group', value => $group  &>
 
 # Try to preserve some state across restarts.
 persist-key
