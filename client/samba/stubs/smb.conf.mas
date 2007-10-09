@@ -98,7 +98,7 @@ use EBox::Gettext;
 	path = <% $group->{'path'} %>
 	valid users = @"<% $group->{'groupname'} %>"
 	force group = "<% $group->{'groupname'} %>"
-	force create mode = 0750
+	force create mode = 0770
 	force directory mode = 1770
 	printable = No
 	read only = No
