@@ -80,11 +80,13 @@ nobind
 
 % if (@userAndGroup) {
 %    my ($user, $group) = @userAndGroup;
-user <% $user %>
+# Comment out user and group if you wish to increase security. Be advised you
+# can experience some issues when reconnecting
+# user <% $user %>
 # the group option may be wrong for some distributions
 # normally distributions use wether 'nobody' (Fedora) or 'nogroup'
 # for the no-priviligies group name
-group <% $group %>
+# group <% $group %>
 % }
 
 
