@@ -1,5 +1,13 @@
+0.10
+	+ Fix issue with www server to guess IP
+	+ Improvements on port availability
+	+ Only announce routes for RFC1918
+	+ Relax checking of advertised routes
+	+ Do not downgrade privileges from root to another user/group to avoid
+	  problems when reconnecting
 0.9.100
-	+ New upstream release
+	+ Clients backup their certificates
+	+ Add API to support internal VPNs
 0.9.99
 	+ New openvpn's log directory with log file and status file
 	+ After creating a server the user is redirected to the edit page
