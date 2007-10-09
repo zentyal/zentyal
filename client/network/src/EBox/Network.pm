@@ -583,7 +583,7 @@ sub setViface # (real, virtual, address, netmask)
 			my $ex = shift;
 			settextdomain('ebox');
 			throw $ex;
-		}
+		};
 	}
 	settextdomain('ebox');
 
