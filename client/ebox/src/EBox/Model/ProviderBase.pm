@@ -23,9 +23,9 @@ use warnings;
 
 use EBox::Gettext;
 
+# Group: Public methods
 
-
-
+# FIXME: doc
 sub providedInstances
 {
   my ($self, $type) = @_;
@@ -33,12 +33,12 @@ sub providedInstances
   if (not exists $self->{$type}) {
     $self->_populate($type);
   }
-  
+
 
   return [  values %{  $self->{$type}  } ];
 }
 
-
+# FIXME: doc
 sub providedInstance
 {
   my ($self, $type, $name) = @_;
@@ -54,6 +54,7 @@ sub providedInstance
   return  $self->{$type}->{$name}
 }
 
+# Group: Private methods
 
 sub _populate
 {
