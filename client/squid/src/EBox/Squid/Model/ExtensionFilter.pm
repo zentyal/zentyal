@@ -126,11 +126,9 @@ sub _table
      help               => __("Allow/Deny the HTTP traffic of the files which the given extensions.\nExtensions not listed here are allowed.\nThe extension filter needs a 'filter' policy to be in effect"),
 
      messages           => {
-			    add => $warnMsg,
-			    del => $warnMsg,
-			    update => $warnMsg,
-			    moveUp => $warnMsg,
-			    moveDown => $warnMsg,
+			    add    => __('Extension added'),
+			    del    => __('Extension removed'),
+			    update => __('Extension updated'),
 			   },
     };
 

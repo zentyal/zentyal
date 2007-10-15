@@ -80,8 +80,6 @@ sub new
 #
 sub _table
 {
-  my $warnMsg = __(q(The 'filter' policy only takes effect when the 'Content filter' is active));
-
   my @tableHeader =
     (
      new EBox::Types::Select(
@@ -119,11 +117,9 @@ sub _table
      printableRowName   => __("object's policy"),
      help               => __("Here you can establish a custom policy per network object"),
      messages           => {
-			    add => $warnMsg,
-			    del => $warnMsg,
-			    update => $warnMsg,
-			    moveUp => $warnMsg,
-			    moveDown => $warnMsg,
+			    add => __(q{Added object's policy}),
+			    del =>  __(q{Removed object's policy}),
+			    update => __(q{Updated object's policy}),
 			   },
     };
 

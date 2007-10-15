@@ -83,7 +83,6 @@ sub new
 #
 sub _table
   {
-    my $warnMsg = q{The domain filter needs a 'filter' policy to take effect};
 
       my @tableHeader =
         (
@@ -120,11 +119,10 @@ sub _table
          printableRowName   => __('internet domain'),
          help               => __('Allow/Deny the HTTP traffic from/to the listed internet domains.'),
 	 messages           => {
-				add => $warnMsg,
-				del => $warnMsg,
-				update => $warnMsg,
-				moveUp => $warnMsg,
-				moveDown => $warnMsg,
+				add => __('Domain added'),
+				del => __('Domain removed'),
+				update => __('Domain updated'),
+
 			       },
 
 	};

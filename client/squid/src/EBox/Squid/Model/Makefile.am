@@ -1,7 +1,8 @@
 ## Process this file with automake to produce Makefile.
 perldir = @PERLPATH@/EBox/Squid/Model
 
-nobase_perl_DATA =  GeneralSettings.pm SquidService.pm ExtensionFilter.pm MIMEFilter.pm  DomainFilter.pm ObjectPolicy.pm \
+nobase_perl_DATA = GeneralSettings.pm SquidService.pm ContentFilterThreshold.pm\
+  ExtensionFilter.pm MIMEFilter.pm  DomainFilter.pm ObjectPolicy.pm \
   ApplyAllowToAllBase.pm ApplyAllowToAllExtensions.pm ApplyAllowToAllMIME.pm
 
 DISTCLEANFILES =

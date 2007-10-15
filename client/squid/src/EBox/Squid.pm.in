@@ -86,6 +86,8 @@ sub modelClasses
 	  },
 	  'EBox::Squid::Model::GeneralSettings',
 
+          'EBox::Squid::Model::ContentFilterThreshold',
+
 	  'EBox::Squid::Model::ExtensionFilter',
 	  'EBox::Squid::Model::ApplyAllowToAllExtensions',
 
@@ -104,6 +106,9 @@ sub compositeClasses
             'EBox::Squid::Composite::General',
 	    'EBox::Squid::Composite::Extensions',
 	    'EBox::Squid::Composite::MIME',
+
+	    'EBox::Squid::Composite::FilterTabs',
+	    'EBox::Squid::Composite::FilterSettings',	    	    
          ];
 }
 
@@ -397,24 +402,7 @@ sub setGlobalPolicy # (policy)
 }
 
 
-# Function: setBanThreshold
-#
-# 	Sets the weighted phrase value that will cause a page to be banned by 
-# 	the  content-based filter.
-#
-# Parameters:
-#
-# 	threshold - A positive integer with the desired threshold. A value of 0
-# 		    will disable the content filter. Acording to dansguardian
-# 		    documentation, recommended values are:
-#	 		* 50 for young children
-#	 		* 100 for old children
-#	 		* 160 for young adults
-sub setBanThreshold # (threshold)
-{
-	my ($self, $thres) = @_;
-	$self->_setGeneralSetting('contentFilterThreshold', $thres);
-}
+
 
 # Function: banThreshold
 #
@@ -426,19 +414,31 @@ sub setBanThreshold # (threshold)
 sub banThreshold
 {
 	my ($self) = @_;
-	return $self->_generalSetting('contentFilterThreshold');
-}
+	my $model = $self->model('ContentFilterThreshold');
+	return $model->contentFilterThresholdValue();
+}	
 
 sub _dgNeeded
 {
-	my $self = shift;
+        my ($self) = @_;
 	$self->service or return undef;
 	$self->ipBlocked and return 1;
 	($self->banThreshold > 0) and return 1;
 
 	my $domainFilter = $self->model('DomainFilter');
-	((scalar(@{$domainFilter->banned}) > 0) and ($self->banThreshold > 0)) and return 1;
-	((scalar(@{$domainFilter->allowed}) > 0) and ($self->banThreshold > 0)) and return 1;
+	if ( @{ $domainFilter->banned } )  {
+	    return 1;
+	}
+	if ( @{ $domainFilter->allowed } ) {
+        	return 1;
+	}
+	
+	my $objectPolicy = $self->model('ObjectPolicy');
+	if ( @{ $objectPolicy->filtered } ) {
+	  return 1;
+	}
+
+
 	return undef;
 }
 
@@ -687,17 +687,12 @@ sub menu
         $folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/General',
                                           'text' => __('General')));
 
-        $folder->add(new EBox::Menu::Item('url' => 'Squid/View/DomainFilter',
-                                          'text' => __('Internet domain filter')));
-
-	$folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/Extensions',
-                                          'text' => __('Extensions filter')));
-
-	$folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/MIME',
-                                          'text' => __('MIME Type filter')));
 
         $folder->add(new EBox::Menu::Item('url' => 'Squid/View/ObjectPolicy',
                                           'text' => __(q{Objects' Policy})));
+
+	$folder->add(new EBox::Menu::Item('url' => 'Squid/Composite/FilterSettings',
+                                          'text' => __('Filter settings')));
 
 
         $root->add($folder);

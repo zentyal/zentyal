@@ -15,7 +15,7 @@
 
 # Class:
 #
-#   EBox::Squid::Model::ConfigureLogDataTable
+#   EBox::Squid::Model::ContentFilterThreshold
 #
 #   This class is used as a model to describe a table which will be
 #   used to select the logs domains the user wants to enable/disable.
@@ -25,7 +25,7 @@
 #  
 # 
 
-package EBox::Squid::Model::GeneralSettings;
+package EBox::Squid::Model::ContentFilterThreshold;
 use base 'EBox::Model::DataForm';
 
 use strict;
@@ -34,15 +34,9 @@ use warnings;
 # eBox classes
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Validate qw(:all);
-use EBox::Types::Int;
-use EBox::Types::Text;
-use EBox::Types::Boolean;
-use EBox::Types::IPAddr;
-use EBox::Types::Union;
-use EBox::Types::Port;
-use EBox::Squid::Types::Policy;
-use EBox::Sudo;
+use EBox::Types::Select;
+
+
 
 # eBox exceptions used 
 use EBox::Exceptions::External;
@@ -74,43 +68,30 @@ sub _table
 {
     my @tableDesc = 
         ( 
-            new EBox::Types::Boolean(
-                    fieldName => 'transparentProxy',
 
-                    printableName => __('Transparent Proxy'),
- 
-                    editable => 1,
+	   new EBox::Types::Select(
+		 fieldName => 'contentFilterThreshold',
 
-		    defaultValue   => 0,
-                ),
-            new EBox::Types::Port(
-                    fieldName => 'port',
+		 printableName => __('Threshold'),
 
-                    printableName => __('Port'),
-
-                    editable => 1,
-		    defaultValue   => 3128,
-                 ),
-
-           new EBox::Squid::Types::Policy(
-				   fieldName => 'globalPolicy',
-				   printableName => __('Default policy'),
-				   defaultValue => 'filter',
-				  ),
+		 editable => 1,
+		 defaultValue  => 0,
+		 populate => \&_populateContentFilterThreshold ,
+		 filter =>   \&_contentThresholdToString,
+	   ), 
 
 
         );
 
       my $dataForm = {
-                      tableName          => 'GeneralSettings',
-                      printableTableName => __('General Settings '),
+                      tableName          => 'ContentFilterThreshold',
+                      printableTableName => __('Content filter threshold'),
 		      modelDomain        => 'Squid',
                       defaultActions     => [ 'editField', 'changeView' ],
                       tableDescription   => \@tableDesc,
-
-
+                      class              => 'dataForm',
 		      messages           => {
-			    update => __('Settings changed'),
+			    update => __('Content filter threshold changed'),
 			   },
                      };
 
@@ -120,39 +101,47 @@ sub _table
 }
 
 
-sub validateTypedRow
-{
-  my ($self, $action, $params_r) = @_;
 
-  if (exists $params_r->{port}) {
-    $self->_checkPortAvailable($params_r->{port}->value());
+
+sub _populateContentFilterThreshold
+  {
+    return [
+	    { value => 0, printableValue => __('Disabled'),  },
+	    { value => 200, printableValue => __('Very permissive'),  },
+	    { value => 160, printableValue => __('Permissive'),  },
+	    { value => 120, printableValue => __('Medium'),  },
+	    { value => 80, printableValue => __('Strict'),  },
+	    { value => 50, printableValue => __('Very strict'),  },
+	   ];
+
   }
 
-}
 
 
 
-sub _checkPortAvailable
-{
-  my ($self, $port) = @_;
 
-  my $oldPort    = $self->portValue();
-  if ($port == $oldPort) {
-    # there isn't any change so we left tht things as they are
-    return;
+sub _contentThresholdToString
+  {
+    my ($instancedType) = @_;
+    my $value = $instancedType->value();
+
+ 
+    if ( $value >= 200) {
+      return __('Very permissive');
+    } elsif ( $value >= 160) {
+      return __('Permissive');
+    } elsif ( $value >= 120) {
+      return __('Medium');
+    } elsif ( $value >= 80) {
+      return __('Strict');
+    } elsif ( $value > 0) {
+      return __('Very strict');
+    } elsif ( $value == 0) {
+      return __('Disabled');
+    } else {
+      throw EBox::Exceptions::Internal("Bad content threshold value: $value");
+    }
   }
-
-  my $firewall = EBox::Global->modInstance('firewall');
-  if (not $firewall->availablePort('tcp', $port )) {
-    throw EBox::Exceptions::External(
-				     __x('{port} is already in use. Please choose another',
-					 port => $port,
-					)
-				    );
-  }
-}
-
-
 
 1;
 

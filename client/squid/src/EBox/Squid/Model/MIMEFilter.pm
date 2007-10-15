@@ -85,8 +85,6 @@ sub new
 #
 sub _table
 {
-  my $warnMsg = q{The MIME type filter needs a 'filter' policy to take effect};
-
   my @tableHeader =
     (
      new EBox::Types::Text(
@@ -126,11 +124,9 @@ sub _table
      help               => __("Allow/Deny the HTTP traffic of the files which the given MIME types.MIME types not listed here are allowed.\nThe  filter needs a 'filter' policy to be in effect"),
 
      messages           => {
-			    add => $warnMsg,
-			    del => $warnMsg,
-			    update => $warnMsg,
-			    moveUp => $warnMsg,
-			    moveDown => $warnMsg,
+			    add => __('MIME type added'),
+			    del =>  __('MIME type removed'),
+			    update => __('MIME type updated'),
 			   },
     };
 
