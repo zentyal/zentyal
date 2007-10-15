@@ -110,7 +110,13 @@ sub _lookupViewController
 	my ($self, $classname) = @_;
 
 #	my ($namespace, $modelName) = $classname =~ m/EBox::CGI::.*::(.*)::(.*)/;
-        # URL to map: EBox::CGI::<moduleName>::(View|Controller|Composite)::<modelName>[::<actionName>]
+        # URL to map:
+        # url => 'EBox::CGI::<moduleName>::' menuNamespaceBranch
+        # menuNamespaceBranch => 'View' model | 'Controller' model index | 'Composite' model action
+        # model => '::<modelName>'
+        # index => '::<index>' | %GÆ%@
+        # action => '::<actionName>' | %GÆ%@
+
         my @namespaces = split ( '::', $classname);
 
         my ($namespace, $modelName) = ($namespaces[3], $namespaces[4]);
@@ -119,6 +125,10 @@ sub _lookupViewController
         if ( ($namespace eq 'View') or
              ($namespace eq 'Controller')) {
 
+            if ( defined ( $namespaces[5] ) ) {
+                # Set as model name, the context name
+                $modelName = '/' . lc ( $namespaces[2] ) . '/' . $modelName . '/' . $namespaces[5];
+            }
             my $manager = EBox::Model::ModelManager->instance();
             my $model = $manager->model($modelName);
 	    $model or
