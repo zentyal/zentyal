@@ -20,7 +20,7 @@ package EBox::TrafficShaping;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::NetworkObserver EBox::Model::ModelProvider);
+use base qw(EBox::GConfModule EBox::NetworkObserver EBox::Model::ModelProvider EBox::Model::CompositeProvider);
 
 ######################################
 # Dependencies:
@@ -200,6 +200,21 @@ sub _exposedMethods
 
 }
 
+# Method: compositeClasses
+#
+# Overrides:
+#
+#     <EBox::Model::CompositeProvider::compositeClasses>
+#
+sub compositeClasses
+{
+
+    return [
+            'EBox::TrafficShaping::Composite::DynamicGeneral'
+           ];
+
+}
+
 # Method: _stopService
 #
 #     Call every time the module is stopped
@@ -240,14 +255,15 @@ sub summary
 #       root - the <EBox::Menu::Root> where to leave our items
 #
 sub menu # (root)
-  {
+{
 
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('url'  => 'TrafficShaping/Index',
 				    'text' => __('Traffic Shaping')));
 
-  }
+}
+
 # Method: addRule
 #
 #       Add a custom rule. A guaranteed rate or a limited rate should
