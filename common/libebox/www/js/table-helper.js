@@ -52,7 +52,7 @@ function addNewRow(url, table, fields, directory)
 
 }
 
-function changeRow(url, table, fields, directory, id, page)
+function changeRow(url, table, fields, directory, id, page, force)
 {
 	var pars = 'action=edit&tablename=' + table + '&directory='
                    + directory + '&id=' + id + '&';
@@ -64,6 +64,11 @@ function changeRow(url, table, fields, directory, id, page)
         }
   	pars += '&filter=' + inputValue(table + '_filter');
   	pars += '&pageSize=' + inputValue(table + '_pageSize');
+
+        // If force parameter is ready, show it
+        if ( force ) {
+          pars += '&force=1';
+        }
 
 	cleanError(table);
 	
@@ -276,6 +281,69 @@ function hangTable(successId, errorId, url, formId, loadingId)
 }
 
 /*
+Function: selectComponentToHang
+
+        Call to a component to be hang in a select entry
+
+Parameters:
+
+        successId - div identifier where the new table will be on on success
+	errorId - div identifier
+	formId - form identifier which has the parameters to pass to the CGI
+        urls - associative array which contains tthe URL where the CGI which generates the HTML is placed
+        loadingId - String element identifier that it will substitute by the loading image
+        *(Optional)* Default: 'loadingTable'
+
+*/
+function selectComponentToHang(successId, errorId, formId, urls, loadingId)
+{
+
+  // Cleaning manually
+  $(errorId).innerHTML = "";
+
+  if ( ! loadingId ) {
+    loadingId = 'loadingTable';
+  }
+
+  // Currently buggy, since select elements are not inputs
+  // var selects = $(formId).getInputs('select');
+  var children = $(formId).immediateDescendants();
+  var select;
+  for ( var i = 0; i < children.length; i++) {
+    if ( children[i].tagName == 'SELECT' ) {
+      select = children[i];
+    }
+  }
+  var url = urls[ $F(select.id) ]
+
+  var pars = "action=view"; // FIXME: maybe the directory could be sent
+
+  var ajaxUpdate = new Ajax.Updater( 
+  {
+  success: successId,
+  failure: errorId 
+  },
+  url,
+      {
+	method: 'post',
+	parameters: pars,
+	asynchronous: true,
+        evalScripts: true,
+        onSuccess: function(t) {
+          restoreHidden(loadingId);
+        },
+	onFailure: function(t) {
+	  restoreHidden(loadingId);
+	}
+      }
+  );
+ 
+  setLoading(loadingId);
+ 
+}
+
+
+/*
 Function: showSelected
 
         Show the HTML setter selected in select
@@ -433,9 +501,12 @@ Parameters:
 function restoreHidden (elementId, modelName)
 {
 
-  var hiddenDivId = 'hiddenDiv' + '_' + modelName;
-  if ( $(hiddenDivId).innerHTML != '' ) {
-    $(elementId).innerHTML = $(hiddenDivId).innerHTML;
+  if ( modelName ) {
+    var hiddenDivId = 'hiddenDiv' + '_' + modelName;
+    if ( $(hiddenDivId).innerHTML != '' ) {
+      $(elementId).innerHTML = $(hiddenDivId).innerHTML;
+    }
+    $(hiddenDivId).innerHTML = '';
   }
 
   // Remove the loading image if any
@@ -445,7 +516,6 @@ function restoreHidden (elementId, modelName)
     }
   }
 
-  $(hiddenDivId).innerHTML = '';
 
 }
 

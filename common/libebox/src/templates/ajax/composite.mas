@@ -25,14 +25,17 @@
   <% $model->help() | h %>
 </div>
 % }
-% if ( $model->layout() eq 'tabbed' ) {
+% if ( $model->layout() eq 'tabbed' )
+% {
 <& /ajax/tabMenu.mas,
    models => $componentsRef,
    selectedTab => 0,
    hasChanged => $hasChanged,
    tabName    => $model->name(),
 &>
-% } elsif ( $model->layout() eq 'top-bottom' ) {
+% }
+% elsif ( $model->layout() eq 'top-bottom' )
+% {
 %    foreach my $component (@{$componentsRef}) {
 <& $component->Viewer(),
    model => $component,
@@ -40,6 +43,13 @@
    action => 'view',
 &>
 %    }
+% }
+% elsif ( $model->layout() eq 'select' )
+% {
+<& /ajax/selector.mas,
+   composite => $model,
+   hasChanged => $hasChanged,
+&>
 % }
 
 <%doc>
