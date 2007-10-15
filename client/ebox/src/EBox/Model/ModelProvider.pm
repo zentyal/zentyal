@@ -17,8 +17,8 @@
 #
 #   Interface meant to be used for classes providing models
 package EBox::Model::ModelProvider;
-use base 'EBox::Model::ProviderBase';
 
+use base 'EBox::Model::ProviderBase';
 
 use strict;
 use warnings;
@@ -26,9 +26,6 @@ use warnings;
 use EBox::Gettext;
 
 use constant TYPE => 'model';
-
-
-
 
 # Method: models 
 # 
@@ -43,6 +40,23 @@ sub models
   return $self->providedInstances(TYPE);
 }
 
+# Method: reloadModelsOnChange
+#
+#    This method indicates the model manager to call again
+#    <EBox::Model::ModelProvider::models> method when an action is
+#    performed on a model.
+#
+# Returns:
+#
+#    array ref - containing the model name (or context name) when the
+#    model provider want to be notified
+#
+sub reloadModelsOnChange
+{
+
+    return [];
+
+}
 
 sub model
 {

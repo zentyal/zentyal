@@ -167,6 +167,19 @@ sub models
 
 }
 
+# Method: reloadModelsOnChange
+#
+# Overrides:
+#
+#     <EBox::Model::ModelProvider::reloadModelsOnChange>
+#
+sub reloadModelsOnChange
+{
+
+    return [ 'GatewayTable' ];
+
+}
+
 # Method: _exposedMethods
 #
 # Overrides:
@@ -212,6 +225,19 @@ sub compositeClasses
     return [
             'EBox::TrafficShaping::Composite::DynamicGeneral'
            ];
+
+}
+
+# Method: reloadCompositesOnChange
+#
+# Overrides:
+#
+#     <EBox::Model::CompositeProvider::reloadCompositesOnChange>
+#
+sub reloadCompositesOnChange
+{
+
+    return [ 'GatewayTable' ];
 
 }
 

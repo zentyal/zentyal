@@ -77,19 +77,80 @@ sub Instance
 #     not exist
 #
 sub composite
-  {
+{
 
-      my ($self, $compositeName) = @_;
+    my ($self, $compositeName) = @_;
 
-      if ( exists $self->{composites}->{$compositeName}) {
-          return $self->{composites}->{$compositeName};
-      } else {
-          throw EBox::Exceptions::DataNotFound( data  => 'composite',
-                                                value => $compositeName,
-                                              );
-      }
+    # Re-read from the modules if the model manager has changed
+    if ( $self->_hasChanged() ) {
+        $self->_setUpComposites();
+        $self->{'version'} = $self->_version();
+    }
 
-  }
+
+    if ( exists $self->{composites}->{$compositeName}) {
+        return $self->{composites}->{$compositeName};
+    } else {
+        throw EBox::Exceptions::DataNotFound( data  => 'composite',
+                                              value => $compositeName,
+                                            );
+    }
+
+}
+
+# Method: modelActionTaken
+#
+#	This method is used to let composites know when other model has
+#	taken an action.
+#
+# Parameters:
+#
+#   (POSITIONAL)
+#
+#   model - String model name where the action took place
+#   action - String represting the action:
+#   	     [ add, del, edit, moveUp, moveDown ]
+#
+#   row  - hash ref row modified
+#
+# Returns:
+#
+#   String - any i18ned string given by other modules when a change is done
+#
+# Exceptions:
+#
+# <EBox::Exceptions::DataNotFound> if the model does not exist
+# <EBox::Exceptions::MissingArgument> if argument is missing
+#
+sub modelActionTaken
+{
+    my ($self, $model, $action, $row) = @_;
+
+    throw EBox::Exceptions::MissingArgument("model") unless (defined($model));
+    throw EBox::Exceptions::MissingArgument("action") unless (defined($action));
+    throw EBox::Exceptions::MissingArgument("row") unless (defined($row));
+
+    EBox::debug("$model has taken action '$action' on row $row->{'id'}");
+
+    # return unless (exists $self->{'notifyActions'}->{$model});
+
+    my $modelManager = EBox::Model::ModelManager->instance();
+    my $strToRet = '';
+    for my $observerName (@{$self->{'notifyActions'}->{$model}}) {
+        EBox::debug("Notifying $observerName composite");
+        my $observerComposite = $self->composite($observerName);
+        $strToRet .= $observerComposite->notifyModelAction($model, $action, $row) .
+          '<br>';
+    }
+
+    if ( exists $self->{'reloadActions'}->{$model} ) {
+        $self->_markAsChanged();
+    }
+
+
+    return $strToRet;
+
+}
 
 # Group: Private methods
 
@@ -102,6 +163,7 @@ sub _new
       my $self = {};
       bless ($self, $class);
 
+      $self->{version} = $self->_version();
       $self->_setUpComposites();
 
       return $self;
@@ -120,13 +182,100 @@ sub _setUpComposites
 
       my $global = EBox::Global->getInstance();
 
+      $self->{composites} = {};
+      $self->{reloadActions} = {};
       my @modules = @{$global->modInstancesOfType('EBox::Model::CompositeProvider')};
       foreach my $module (@modules) {
-          foreach my $composite (@{$module->composites()}) {
-              $self->{composites}->{$composite->name()} = $composite;
-          }
+          $self->_setUpCompositesFromProvider($module);
       }
 
   }
+
+# Method: _setUpCompositesFromProvider
+#
+#   Fetch composites from a <EBox::Model::CompositeProvider> interface
+#   instances and creates its dependencies
+#
+# Parameters:
+#
+#   compositeProvider - <EBox::Model::CompositeProvider> the composite
+#   provider class
+#
+sub _setUpCompositesFromProvider
+{
+    my ($self, $provider) = @_;
+
+    foreach my $composite (@{$provider->composites()}) {
+        $self->{composites}->{$composite->name()} = $composite;
+    }
+    for my $model (@{$provider->reloadCompositesOnChange()}) {
+        push ( @{$self->{'reloadActions'}->{$model}}, $provider->name());
+    }
+
+}
+
+# Method: _markAsChanged
+#
+# 	(PRIVATE)
+#
+#   Mark the composite manager as changed. This is done when a change is
+#   done in the composites to allow interprocess coherency.
+#
+#
+sub _markAsChanged
+{
+
+    my ($self) = @_;
+
+    my $gl = EBox::Global->getInstance();
+
+    my $oldVersion = $self->_version();
+    $oldVersion = 0 unless ( defined ( $oldVersion ));
+    $oldVersion++;
+    $gl->set_int('composite_manager/version', $oldVersion);
+
+}
+
+# Method: _hasChanged
+#
+# 	(PRIVATE)
+#
+#   Mark the model manager as changed. This is done when a change is
+#   done in the models to allow interprocess coherency. 
+#
+#
+sub _hasChanged
+{
+
+    my ($self) = @_;
+
+    EBox::debug('cached: ' . $self->{version});
+    EBox::debug('gconf: ' . $self->_version());
+    EBox::debug('pid: ' . $$);
+
+    return $self->{'version'} < $self->_version();
+
+}
+
+# Method: _version
+#
+#       (PRIVATE)
+#
+#   Get the data version
+#
+# Returns:
+#
+#       Int - the data version from the model manager
+#
+#       undef - if there is no data version
+#
+sub _version
+{
+
+    my $gl = EBox::Global->getInstance();
+
+    return $gl->get_int('composite_manager/version');
+
+}
 
 1;

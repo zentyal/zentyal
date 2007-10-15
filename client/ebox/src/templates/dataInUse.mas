@@ -11,6 +11,7 @@ my $action = delete $params->{'action'};
 my $directory = delete $params->{'directory'};
 my $rowId = delete $params->{'id'};
 my $page = delete $params->{'page'};
+$page = 0 unless ( $page );
 </%init>
 
 <div class='warning'>

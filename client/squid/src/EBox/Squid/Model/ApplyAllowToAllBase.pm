@@ -42,7 +42,6 @@ sub setRow
     my $id       = $row->{id};
     my $allowed = $row->{valueHash}->{allowed};
     $allowed->setValue($allowValue);
-    use Data::Dumper;
 
 
     $listModel->setTypedRow($id, { allowed => $allowed } );

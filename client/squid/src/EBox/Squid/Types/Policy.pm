@@ -31,9 +31,9 @@ sub new
 sub _populate
 {
   my @elements = (
-		  { value => 'allow', printableValue => __('Allow') },
-		  { value => 'deny', printableValue => __('Deny') },
+		  { value => 'allow',  printableValue => __('Unfilter') },
 		  { value => 'filter', printableValue => __('Filter') },
+		  { value => 'deny',   printableValue => __('Deny') },
 		 );
 
   return \@elements;

@@ -16,6 +16,7 @@
 package EBox::Model::DataTable;
 
 use EBox;
+use EBox::Model::CompositeManager;
 use EBox::Model::ModelManager;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
@@ -686,6 +687,7 @@ sub addTypedRow
       $self->setMessage($self->message('add'));
       $self->addedRowNotify($self->row($id));
       $self->_notifyModelManager('add', $self->row($id));
+      $self->_notifyCompositeManager('add', $self->row($id));
 
       $self->_setCacheDirty();
 
@@ -826,7 +828,8 @@ sub moveUp
         $self->setMessage($self->message('moveUp'));
 	$self->movedUpRowNotify($self->row($id));
 	$self->_notifyModelManager('moveUp', $self->row($id));
-	
+	$self->_notifyCompositeManager('moveUp', $self->row($id));
+
 }
 
 sub moveDown
@@ -846,7 +849,9 @@ sub moveDown
         $self->setMessage($self->message('moveDown'));
 	$self->movedDownRowNotify($self->row($id));
 	$self->_notifyModelManager('moveDown', $self->row($id));
-}	
+	$self->_notifyCompositeManager('moveDown', $self->row($id));
+
+}
 
 sub _reorderCachedRows
 {
@@ -934,6 +939,7 @@ sub removeRow
         my $userMsg = $self->message('del');
         # Dependant models may return some message to inform the user
         my $depModelMsg = $self->_notifyModelManager('del', $row);
+        $self->_notifyCompositeManager('del', $row);
         if ( defined( $depModelMsg ) and $depModelMsg ne '' ) {
             $userMsg .= "<br><br>$depModelMsg";
         }
@@ -1170,6 +1176,7 @@ sub setTypedRow
                and ( $depModelMsg ne '' and $depModelMsg ne '<br><br>' )) {
               $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
           }
+          $self->_notifyCompositeManager('update', $self->row($id));
           $self->updatedRowNotify($oldRow, $force);
       }
 
@@ -1923,7 +1930,7 @@ sub pages
 	my ($self, $filter) = @_;
 	
 	my $pageSize = $self->pageSize();
-	unless (defined($pageSize)) {
+	unless ($pageSize) {
 		return 1;
 	}
 
@@ -2881,11 +2888,31 @@ sub _restoreDomain
 	}
 }
 
+# Method: _notifyModelManager
+#
+#     Notify to the model manager that an action has been performed on
+#     this model
+#
 sub _notifyModelManager
 {
 	my ($self, $action, $row) = @_;
 
 	my $manager = EBox::Model::ModelManager->instance();
+	my $modelName = $self->modelName();
+
+	return $manager->modelActionTaken($modelName, $action, $row);
+}
+
+# Method: _nofityCompositeManager
+#
+#     Notify to the composite manager that an action has been performed on
+#     this model
+#
+sub _notifyCompositeManager
+{
+	my ($self, $action, $row) = @_;
+
+	my $manager = EBox::Model::CompositeManager->Instance();
 	my $modelName = $self->modelName();
 
 	return $manager->modelActionTaken($modelName, $action, $row);
@@ -2928,7 +2955,7 @@ sub _filterRows
 	}
 	
 	# Paging
-	unless (defined($page) and defined($self->pageSize())) {
+	unless (defined($page) and $self->pageSize()) {
 		return \@newRows;
 	}
 	

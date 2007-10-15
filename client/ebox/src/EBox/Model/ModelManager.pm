@@ -337,7 +337,7 @@ sub modelActionTaken
 
     EBox::debug("$model has taken action '$action' on row $row->{'id'}");
 
-    return unless (exists $self->{'notifyActions'}->{$model});
+    # return '' unless (exists $self->{'notifyActions'}->{$model});
 
     my $strToRet = '';
     for my $observerName (@{$self->{'notifyActions'}->{$model}}) {
@@ -345,6 +345,10 @@ sub modelActionTaken
         my $observerModel = $self->model($observerName);
         $strToRet .= $observerModel->notifyForeignModelAction($model, $action, $row) .
           '<br>';
+    }
+
+    if ( exists $self->{'reloadActions'}->{$model} ) {
+        $self->_markAsChanged();
     }
 
     return $strToRet;
@@ -508,66 +512,84 @@ sub _setUpModels
 {
     my ($self) = @_;
 
+    $self->{'models'} = {};
+    $self->{'reloadActions'} = {};
+    $self->{'notifyActions'} = {};
+    $self->{'hasOneReverse'} = {};
+
     # Fetch models
     my $global = EBox::Global->getInstance();
     my $classStr = 'EBox::Model::ModelProvider';
     my @modules = @{$global->modInstancesOfType($classStr)};
     my %models;
     for my $module (@modules) {
-        try {
-            for my $model (@{$module->models()}) {
-                push ( @{$models{$module->name()}->{$model->table()->{'tableName'}}}, $model);
-            }
-        } otherwise {
-            EBox::warn("Skipping $module to fetch model");
-        };
+        $self->_setUpModelsFromProvider($module);
     }
+}
+
+# Method: _setUpModelsFromProvider
+#
+#   (PRIVATE)
+#
+#    Fetch models from a <EBox::Model::ModelProvider> interface
+#    instances and creates its dependencies
+#
+# Parameters:
+#
+#    modelProvider - <EBox::Model::ModelProvider> the model provider
+#    class
+#
+sub _setUpModelsFromProvider
+{
+    my ($self, $provider) = @_;
+
+    try {
+        for my $model (@{$provider->models()}) {
+            push ( @{$self->{'models'}->{$provider->name()}->{$model->tableName()}}, $model);
+        }
+        for my $model (@{$provider->reloadModelsOnChange()}) {
+            push ( @{$self->{'reloadActions'}->{$model}}, $provider->name());
+        }
+    } otherwise {
+        EBox::warn("Skipping $provider to fetch model");
+    };
 
     # Set up dependencies. Fetch all select types and check if
     # they depend on other model.
-    foreach my $module ( keys %models ) {
-        for my $modelKind (keys %{$models{$module}}) {
-            foreach my $model ( @{$models{$module}->{$modelKind}} ) {
-                my $tableDesc = $model->table()->{'tableDescription'};
-                my $localModelName = $model->contextName();
-                for my $type (@{$self->_fetchSelectTypes($tableDesc)}) {
-                    my $foreignModel;
-                    try {
-                        $foreignModel = $type->foreignModel();
-                    } otherwise {
-                        EBox::warn("Skipping " . $type->fieldName . " to fetch model");
-                    };
-                    next unless (defined($foreignModel));
-        #            my $foreignModelName = $foreignModel->table()->{'tableName'};
-                    my $foreignModelName = $foreignModel->contextName();
-                    my %currentHasOne =
-                      %{$self->_modelsWithHasOneRelation($foreignModelName)};
-                    push (@{$currentHasOne{$localModelName}}, $type->fieldName());
-                    $self->{'hasOneReverse'}->{$foreignModelName} = \%currentHasOne;
-                }
+    for my $modelKind (keys %{$self->{'models'}->{$provider->name()}}) {
+        foreach my $model ( @{$self->{'models'}->{$provider->name()}->{$modelKind}} ) {
+            my $tableDesc = $model->table()->{'tableDescription'};
+            my $localModelName = $model->contextName();
+            for my $type (@{$self->_fetchSelectTypes($tableDesc)}) {
+                my $foreignModel;
+                try {
+                    $foreignModel = $type->foreignModel();
+                } otherwise {
+                    EBox::warn("Skipping " . $type->fieldName . " to fetch model");
+                };
+                next unless (defined($foreignModel));
+                my $foreignModelName = $foreignModel->contextName();
+                my %currentHasOne =
+                  %{$self->_modelsWithHasOneRelation($foreignModelName)};
+                push (@{$currentHasOne{$localModelName}}, $type->fieldName());
+                $self->{'hasOneReverse'}->{$foreignModelName} = \%currentHasOne;
             }
         }
     }
 
     # Set up action notifications
-    foreach my $module ( keys %models ) {
-        foreach my $modelKind ( keys %{$models{$module}} ) {
-            foreach my $model (@{$models{$module}->{$modelKind}}) {
-                my $table = $model->table();
-#                my $observerModel = $table->{'tableName'};
-                my $observerModel = $model->contextName();
-                next unless (exists $table->{'notifyActions'});
-                for my $observableModel  (@{$table->{'notifyActions'}}) {
-                    push (@{$self->{'notifyActions'}->{$observableModel}},
-                          $observerModel);
-                }
+    foreach my $modelKind ( keys %{$self->{'models'}->{$provider->name()}} ) {
+        foreach my $model (@{$self->{'models'}->{$provider->name()}->{$modelKind}}) {
+            my $table = $model->table();
+            my $observerModel = $model->contextName();
+            next unless (exists $table->{'notifyActions'});
+            for my $observableModel (@{$table->{'notifyActions'}}) {
+                push (@{$self->{'notifyActions'}->{$observableModel}},
+                      $observerModel);
             }
         }
     }
 
-    use Data::Dumper;
-    EBox::debug("notify actions: \n" . Dumper($self->{'notifyAction'}));
-    $self->{'models'} = \%models;
 }
 
 # Method: _modelsWithHasOneRelation
@@ -775,9 +797,8 @@ sub _markAsChanged
 
     my $oldVersion = $self->_version();
     $oldVersion = 0 unless ( defined ( $oldVersion ));
-    $gl->set_int('model_manager/version', $oldVersion++);
-
-    $self->{'version'} = $oldVersion;
+    $oldVersion++;
+    $gl->set_int('model_manager/version', $oldVersion);
 
 }
 
@@ -794,6 +815,9 @@ sub _hasChanged
 
     my ($self) = @_;
 
+    EBox::debug('cached: ' . $self->{version});
+    EBox::debug('gconf: ' . $self->_version());
+    EBox::debug('pid: ' . $$);
     return $self->{'version'} < $self->_version();
 
 }

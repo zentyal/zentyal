@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-#  Migration between gconf data version 1 and 2
+#  Migration between gconf data version 0 and 1
 #
 #   gconf changes: now service is explitted in intrnalService and userService
 #   files changes: now log files names have the name of the daemon instead of

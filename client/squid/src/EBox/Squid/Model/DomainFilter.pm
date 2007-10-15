@@ -33,7 +33,7 @@ use EBox;
 
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
-use EBox::Types::Boolean;
+use EBox::Squid::Types::Policy;
 use EBox::Types::Text;
 use EBox::Validate;
 
@@ -94,13 +94,10 @@ sub _table
                                editable      => 1,
                                optional      => 0,
                               ),
-         new EBox::Types::Boolean(
-                               fieldName     => 'allowed',
-                               printableName => __('Allow'),
- 
-                               optional      => 1,
-                               editable      => 1,
-			       defaultValue  => 1,
+         new EBox::Squid::Types::Policy(
+                               fieldName     => 'policy',
+                               printableName => __('Policy'),
+			       defaultValue  => 'filter',
                               ),
         );
 
@@ -163,17 +160,7 @@ sub validateTypedRow
 sub banned
 {
   my ($self) = @_;
-  
-  my @bannedDomains = map {
-    my $values = $_->{plainValueHash};
-    if ($values->{allowed}) {
-      ();
-    } else {
-      ($values->{domain});
-    }
-  } @{ $self->rows() };
-		   
-  return \@bannedDomains;
+  return $self->_domainsByPolicy('deny');
 }
 
 
@@ -187,19 +174,31 @@ sub banned
 sub allowed
 {
   my ($self) = @_;
-  
-  my @allowedDomains = map {
-    my $values = $_->{plainValueHash};
-    if (not $values->{allowed}) {
-      ();
-    } else {
-      ($values->{domain});
-    }
-  } @{ $self->rows() };
-		   
-  return \@allowedDomains;
+  return $self->_domainsByPolicy('allow');
 }
 
+
+
+sub _domainsByPolicy
+{
+  my ($self, $policy) = @_;
+
+  my @domains = map {
+    my $values = $_->{plainValueHash};
+
+    if ($values->{policy} eq $policy)  {
+      ($values->{domain})
+    }
+    else {
+      ()
+    }
+    
+
+  } @{ $self->rows() };
+
+
+  return \@domains;
+}
 
 1;
 

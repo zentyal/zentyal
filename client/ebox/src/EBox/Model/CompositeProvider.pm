@@ -19,6 +19,7 @@
 #   is, those eBox modules which also have composites
 
 package EBox::Model::CompositeProvider;
+
 use base 'EBox::Model::ProviderBase';
 
 use strict;
@@ -50,6 +51,23 @@ sub composites
   return  $self->providedInstances(TYPE, $name);
 }
 
+# Method: reloadCompositesOnChange
+#
+#    This method indicates the composite manager to call again
+#    <EBox::Model::ModelProvider::composites> method when an action is
+#    performed on a model.
+#
+# Returns:
+#
+#    array ref - containing the model name (or context name) when the
+#    composite provider want to be notified
+#
+sub reloadCompositesOnChange
+{
+
+    return [];
+
+}
 
 sub newCompositeInstance
 {
