@@ -20,7 +20,7 @@ use warnings;
 
 use lib '../../..';
 
-use Test::More qw(no_plan);
+use Test::More tests => 10;
 use Test::Exception;
 use Test::Deep;
 
@@ -60,6 +60,10 @@ is_deeply( $testMod2, $manager->model( '/logs/TestTable/2'),
 cmp_set ( $manager->model( '/logs/TestTable/' ),
           [ $testMod1, $testMod2 ],
           'Getting multiple model instances');
+
+cmp_set ( $manager->model( '/logs/TestTable/*' ),
+          [ $testMod1, $testMod2 ],
+          'Getting multiple model instances using *');
 
 lives_ok {
     $manager->removeModel( '/logs/TestTable/1' );

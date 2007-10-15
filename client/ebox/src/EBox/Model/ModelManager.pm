@@ -137,7 +137,7 @@ sub model
     }
 
     if ( exists $self->{'models'}->{$moduleName}->{$modelName} ) {
-        if ( @parameters > 0) {
+        if ( @parameters > 0 and $parameters[0] ne '*') {
             # There are at least one parameter
             return $self->_chooseModelUsingParameters($path);
         } else {
