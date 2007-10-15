@@ -78,13 +78,14 @@ use EBox::Model::DataTable;
   my @formData = @tableHead;
   @formData = @{$rowEdit->{'values'}} if ($rowEdit);
 </%init>
+
 %  if ($action ne 'changeAdd' and $action ne 'changeEdit')
 %  {
 %    if ( $model->printableModelName() )
 %    {
-  <& PARENT:title,
-     title => $model->printableModelName()
-  &>
+<& PARENT:title,
+   title => $model->printableModelName()
+&>
 %    }
 %    if ($changeView and exists $actions->{'add'}) 
 %    {
@@ -93,13 +94,13 @@ use EBox::Model::DataTable;
       name='add' 
       value="Add" 
       title="Add" 
-      alt="Add" src='/data/images/add.gif' 
-      onClick='<%
+         onClick='<%
                  $model->changeViewJS( changeType => "changeAdd", 
                       editId => "undefined", 
                       page => $page,
                       isFilter => 0) 
                 %>;return false' 
+   alt="Add" src='/data/images/add.gif' 
   />
   <% __("Add new") %>
 %    }
@@ -118,6 +119,7 @@ use EBox::Model::DataTable;
 %    }
 %   elsif ( $action eq 'changeEdit' ) 
 %    {
+<h3>
 <& PARENT:title,
    title => __x('Editing {row}',
                 row => $printableRowName)
@@ -145,23 +147,17 @@ use EBox::Model::DataTable;
 %    {
 <h3>
   <% 
-    $printableTableName
+    $printableTableName 
   %>
 </h3>
 %    }
 
-<table cellspacing='0' 
-      class='<% 
-               $model->table()->{'class'} 
-              %>'>
-    <caption>
+<table class="bDataTable">
+    <tr>
+        <td>
 <form action="javascript:void(0)">
 %    my $filterId =  $tableName  .  '_filterLoading';
-  <img src="/data/images/search.gif" 
-      alt="Looking glass"
-  />
-  <input class="inputText" 
-      type='text'
+  <input type='text'
       name='<%
               $tableName
             %>'
@@ -172,23 +168,22 @@ use EBox::Model::DataTable;
               $filter 
              %>"  
   />
-  <input class='inputButton' 
-      style="display:none;" 
-      type='submit' 
+  <input type='submit' 
       name='filter' 
       value="<% 
-               __('Apply') 
+               __('Search') 
              %>" 
       title="Apply" 
       onClick='setLoading("<% 
                              $filterId 
                             %>");
-               <%
+                <%
                   $model->changeViewJS( changeType => "changeList", 
                      editId => 'undefined', 
                      page => 0,
                      isFilter => 1)
                %>;
+  
                return false' 
   />
   <span id="<% 
@@ -196,7 +191,28 @@ use EBox::Model::DataTable;
             %>"
   ></span>   
 </form>
-    </caption>
+	</td>
+        <td class="tright">
+% if (scalar @{$model->rows()} > 0)
+% {
+<& /ajax/tablePager.mas,
+  model => $model,
+  page => $page,
+  tpages => $tpages,
+  pageSize => $model->pageSize()
+&>
+% } else {
+<input type="hidden" 
+  id="<% $model->tableName() . '_pageSize' %>"
+  value="<% $model->pageSize() %>"
+>
+% }
+	</td>
+    </tr>
+</table>
+<table class='<% 
+               $model->table()->{'class'} 
+              %>'>
     <thead>
 %    foreach my $th (@tableHead) 
 %    {
@@ -281,6 +297,7 @@ use EBox::Model::DataTable;
                              editId => $row->{'id'}, 
                              page => $page,
                              isFilter => 0) 
+ 
                        %>' 
           />
 %      }
@@ -328,20 +345,6 @@ use EBox::Model::DataTable;
     </tbody>
 
 </table>
-% }
-.
-% if (scalar @{$model->rows()} > 0)
-% {
-<& /ajax/tablePager.mas,
-  model => $model,
-  page => $page,
-  tpages => $tpages,
-&>
-% } else {
-<input type="hidden" 
-  id="<% $model->tableName() . '_pageSize' %>"
-  value="<% $model->pageSize() %>"
->
 % }
 
 % # End body method

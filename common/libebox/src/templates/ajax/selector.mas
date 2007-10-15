@@ -1,0 +1,85 @@
+<%doc>
+  This template creates a selector using a select entry which contains
+  the selector entry to displayed the selected model. The displayed
+  selector could be one of the following: if there are multiple
+  instances of a model, selector is shown. Otherwise, the component
+  name is shown. The load is done with JavaScript and AJAX requests.
+  - composite  - EBox::Model::Composite the dynamic composite
+  - hasChanged - Boolean indicating whether the database has changed
+  or not
+</%doc>
+<%args>
+  $composite 
+  $hasChanged => 0
+</%args>
+<%init>
+use EBox::Gettext;
+
+my $components = $composite->components();
+my @selectOptions;
+my $compName = $composite->name();
+my $actionComposite = $composite->action('changeView');
+
+</%init>
+
+<script type="text/javascript">
+  var actions_<% $compName | h %> = new Object();
+<%perl>
+foreach my $component (@{$components}) {
+    my $option;
+    if ( $component->can('index') ) {
+        if ( $component->index() ne '' ) {
+            $option = { value => $component->contextName(),
+                        printableValue => $component->index()};
+        } else {
+            $option = { value => $component->contextName(),
+                        printableValue => $component->printableName()};
+        }
+    } else {
+        $option = { value => $component->name(),
+                    printableValue => $component->printableName()};
+    }
+    push ( @selectOptions, $option);
+</%perl>
+    actions_<% $compName | h %>['<% $option->{value} | h %>'] =
+       '<% $component->action('changeView') | h %>';
+% }
+</script>
+% @selectOptions = sort { $a->{printableValue} cmp $b->{printableValue} } @selectOptions;
+% my $defaultComponent = (sort { $a->printableName() cmp $b->printableName() } @{$components})[0];
+
+<script type="text/javascript" src="/data/js/common.js">//</script>
+<script type="text/javascript" src="/data/js/table-helper.js">//</script>
+<script type="text/javascript" src="/data/js/prototype.js">//</script>
+
+<br>
+<!-- Error loading from a selection will lay on here -->
+<div id="<% qq{errorSelectData_$compName} | h %>">
+</div>
+<form id="<% qq{selector_$compName} | h %>">
+  <span><% $composite->selectMessage() | h %></span>
+  <& /input/select.mas,
+     name    => 'selection_' . $compName,
+     options => \@selectOptions,
+     id      => 'selection_' . $compName,
+     onchange => qq/selectComponentToHang( "selectData_$compName",
+                                           "errorSelectData_$compName",
+                                           "selector_$compName",
+                                           actions_$compName,
+                                           "loadingTable_$compName");
+                   /,
+  &>
+</%doc>
+  <span id="<% qq{loadingTable_$compName} | h %>"></span>
+</form>
+
+<!-- The content will lay on here -->
+<div id="<% qq{selectData_$compName} | h %>">
+  <& $defaultComponent->Viewer(),
+     model => $defaultComponent,
+     hasChanged => $hasChanged,
+     action     => 'view'
+  &>
+</div>
+
+

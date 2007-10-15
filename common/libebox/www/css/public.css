@@ -156,7 +156,6 @@
 .tcenter { text-align: center; }
 
 .thOptions {
-	background: #787878;
 	padding:0;
 	margin:0;
 	width: 13%;
@@ -202,42 +201,41 @@
 
 .dataTable {
 	width: 100%;
-	float: left;
+	/*float: left;*/
 	color:#000000;
 	font-size: 11px;
-	border: 0px;
+	border: 1px solid #99cc66;
 	border-collapse: collapse;
-	border-spacing: 0px;
-	margin-bottom: 20px; 
+	border-bottom:0;
+	/*margin-bottom: 20px; */
 }
-
+.dataTable thead {
+        background:#a3bd5b url('/data/images/thead-b.png') bottom repeat-x;
+        color: white;
+}
+.dataTable th {
+	font-family: Verdana, 'Bitstream Vera Sans', sans-serif;
+        padding: 8px 6px 8px 6px;
+        font-weight: normal; 
+        vertical-align: middle;
+        border: 1px solid #658037;
+}
 .dataTable td {
-	padding: 5px;
-	border-top: 1px solid #e1ebc4;
-	border-bottom: 1px solid #e1ebc4;
+        padding: 8px 8px 8px 8px;
+        border-bottom: 1px solid #658037;
+        border-left: 1px solid #d8dac1;
+        border-right: 1px solid #d8dac1;
 }
 
 .dataTable td a {
 	color: #000000;
+	background-color: none;
 	text-decoration: none;
 }
 
-.dataTable tbody tr:hover {
-	background: #eeeedd;
-	color: #000000;
+.dataTable td a:hover { color: #BC0606; 
+	background-color: none;
 }
-
-.dataTable td a:hover { color: #BC0606; }
-
-.dataTable th {
-	font-family: Verdana, 'Bitstream Vera Sans', sans-serif;
-	padding: 6px;
-	color: #fff;
-	background: #787878;
-	vertical-align: bottom;
-}
-
-.dataTable { background: #FFF; }
 
 .dataTable tr.highlight { background: #E58A22; }
 
@@ -266,7 +264,6 @@ iptable tr {
 
 .tright {
 	text-align: right;
-	vertical-align: top;
 }
 
 .border { border-bottom: 1px solid #CCCCCC; }
@@ -572,13 +569,6 @@ a.changed:hover {
        margin: 5px 0 5px 0;
 }
 
-.enable {
-       background-color: #FFFFCC;
-       padding: 10px;
-       border: 1px solid #FFCC99;
-       margin: 5px 0 5px 0;
-}
-
 .bold { font-weight: bold; } 
 
 .legendName { 
@@ -589,3 +579,31 @@ a.changed:hover {
           display: none;
  }
 
+.eDataTable, .bDataTable {
+	width: 100%;
+	font-size: 11px;
+	background: #eff4dd;
+	border-left: 1px solid #d8dac1;
+	border-right: 1px solid #d8dac1;
+	border-bottom: 1px solid #d8dac1;
+	border-top: 1px solid #d8dac1;
+	border-collapse: collapse;
+}
+.eDataTable td, .bDataTable td {
+	padding: 6px;
+}
+.eDataTable input, .eDataTable select,
+.bDataTable input, .bDataTable select {
+}
+.bDataTable form , .eDataTable form {
+	padding:0;
+	margin:0;
+}
+
+.bDataTable {
+	border-bottom: 0;
+	border-top: 1px solid #d6dbbe;
+}
+.button {
+	cursor: pointer;
+}

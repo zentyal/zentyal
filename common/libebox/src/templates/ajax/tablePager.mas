@@ -14,30 +14,6 @@
                         });
     }
 </%init>
-<table width="100%">
-    <tr>
-    <td style="widht: 5%">
-
-%   if ($page != 0) {
-%	my $leftPagerId = $tableName . '_leftPagerId';
-        <input name='tofirst' type='image'
-            src='/data/images/rw.gif' alt="<% __('first') %>" value="<% __('first') %>"
-	    onClick='setLoading("<% $leftPagerId %>");<%
-	    $model->changeViewJS( changeType => "changeList", editId => "undefined", page => 0, isFilter => 1) %>; return false'>
-	<input name='toprev' type='image' src="/data/images/r.gif" alt="<% __('prev') %>" value="<% __('prev') %>"
-	    onClick='setLoading("<% $leftPagerId %>");<%
-	    $model->changeViewJS( changeType => "changeList", editId => "undefined", page => $page - 1, isFilter => 1) %>; return false'>
-    	<span id="<% $leftPagerId %>"></span> 	
-%   }
-
-    </td>
-
-    <td style="width:90%; text-align: center;">
-%   if ($tpages <= 0) {
-        <% __('Page') %> <% $page + 1 %>
-%   } else {
-        <% __('Page') %> <% $page + 1 %> <% __('of') %> <%$tpages + 1%>
-%   }
 <%perl>
     my $pageSizeId = $tableName . '_pageSizeId';
     my $changeViewJS =  $model->changeViewJS(
@@ -55,32 +31,50 @@
        'onchange'    => qq{setLoading("$pageSizeId"); $changeViewJS;return false}
   &>
 
-     <span id="<% $pageSizeId %>"></span> 	
-     
+     <span id="<% $pageSizeId %>"></span>&nbsp;	
 
-    </td>
+%   if ($tpages <= 0) {
+        <% __('Page') %> <% $page + 1 %>
+%   } else {
+        <% __('Page') %> <% $page + 1 %> <% __('of') %> <%$tpages + 1%>
+%   }
 
-    <td class='tright' style="widht: 5%">
+&nbsp;
+</td>
+<td class="tright">
+%   my $pagerId = $tableName . '_pagerId';
+ 	<span id="<% $pagerId %>"></span> 	
+%   if ($page != 0) {
+        <input name='tofirst' type='image'
+            src='/data/images/rw.gif' alt="<% __('first') %>" value="<% __('first') %>"
+	    onClick='setLoading("<% $pagerId %>");<%  $model->changeViewJS( changeType => "changeList", editId => "undefined", page => 0, isFilter => 1) %>; return false'>
+	<input name='toprev' type='image' src="/data/images/r.gif" alt="<% __('prev') %>" value="<% __('prev') %>"
+	    onClick='setLoading("<% $pagerId %>");<%  $model->changeViewJS( changeType => "changeList", editId => "undefined", page => $page - 1, isFilter => 1) %>; return false'>
+%   } else {
+        <input name='tofirst' type='image'
+            src='/data/images/non_rw.gif' alt="<% __('first') %>" value="<% __('first') %>"/>
+	<input name='toprev' type='image' src="/data/images/non_r.gif" alt="<% __('prev') %>" value="<% __('prev') %>" />
+%   }
 
 %   if ($page != $tpages) {
-
-%	my $rightPagerId = $tableName . '_rightPagerId';
-     	<span id="<% $rightPagerId %>"></span> 	
         <input name='tonext' type='image'
             src="/data/images/f.gif"
             alt="<% __('next') %>"
             value="<% __('next') %>"
-            onClick='setLoading("<% $rightPagerId %>");<%
+            onClick='setLoading("<% $pagerId %>");<% 
      	$model->changeViewJS( changeType => "changeList", editId => "undefined", page => $page + 1, isFilter => 1) %>; return false'>
         <input name='tolast' type='image'
             src="/data/images/ff.gif"
             alt="<% __('last') %>"
             value="<% __('last') %>"
-	    onClick='setLoading("<% $rightPagerId %>"); <% $model->changeViewJS( changeType => "changeList", editId => "undefined", page => $tpages, isFilter => 1) %>;return false'>
+	    onClick='setLoading("<% $pagerId %>"); <% $model->changeViewJS( changeType => "changeList", editId => "undefined", page => $tpages, isFilter => 1) %>;return false'>
+%   } else {
+        <input name='tonext' type='image'
+            src="/data/images/non_f.gif"
+            alt="<% __('next') %>"
+            value="<% __('next') %>"/>
+        <input name='tolast' type='image'
+            src="/data/images/non_ff.gif"
+            alt="<% __('last') %>"
+            value="<% __('last') %>"/>
 %   }
-
-    </td>
-    </tr>
-</table>
-
-
