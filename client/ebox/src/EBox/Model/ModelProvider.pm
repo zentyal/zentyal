@@ -29,7 +29,11 @@ use constant TYPE => 'model';
 
 # Method: models 
 # 
-#   This method must be overriden in case of your module provides any model
+#   This method must be overriden in case your module needs no
+#   standard-behaviour when creating model instances. In that case the method
+#   modelClasses is ignored.
+#   
+#   In most cases you will not need to override it
 #
 # Returns:
 #
@@ -58,6 +62,14 @@ sub reloadModelsOnChange
 
 }
 
+# Method: model
+#
+#
+# Parameters:
+#          name - model's name
+#
+# Returns:
+#   a instance of the model requested
 sub model
 {
   my ($self, $name) = @_;
@@ -82,6 +94,13 @@ sub newModelInstance
 }
 
 
+# Method: modelClasses
+#
+#  This method must be overriden by all subclasses. It is used to rgister which
+#  models are use by the module.
+#
+# Returns:
+#   a list reference with the names of all model classes used 
 sub modelClasses
 {
   throw EBox::Exceptions::NotImplemented('modelClasses');
