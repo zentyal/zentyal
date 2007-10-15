@@ -9,7 +9,9 @@ make eBox act as a gateway.
   $model
 </%args>
 <%init>
-  use EBox::Gettext;
+use EBox::Gettext;
+use EBox::Global;
+my $hasChanged = EBox::Global->getInstance()->unsaved();
 </%init>
 % if (not $enoughInterfaces ) {
 <div class='note'>
@@ -30,5 +32,9 @@ make eBox act as a gateway.
 	 closehref => '</a>') %>
 % }
 % else {
-  <& /ajax/tableSelector.mas, multiTableModel_ref => $model &>
+  <& $model->Viewer(),
+     model => $model,
+     hasChanged => $hasChanged,
+     action => 'view',
+  &>
 % }

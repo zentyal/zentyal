@@ -66,7 +66,7 @@ sub masonParameters
     my $ts = $global->modInstance('trafficshaping');
     $ts->startUp;
     my $enoughInterfaces = $ts->enoughInterfaces();
-    my $model = $ts->ruleMultiTableModel();
+    my $composite = $ts->composites()->[0];
     my $areGateways = undef;
     foreach my $iface (@{$net->ExternalIfaces()}) {
       # FIXME -> This should done by network -> Workaround to fix #373
@@ -80,7 +80,7 @@ sub masonParameters
     return [
 	    enoughInterfaces => $enoughInterfaces,
 	    areGateways      => $areGateways,
-	    model            => $model
+	    model            => $composite
 	   ];
 
   }
