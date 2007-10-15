@@ -1166,7 +1166,8 @@ sub setTypedRow
           $self->setMessage($self->message('update'));
           # Dependant models may return some message to inform the user
           my $depModelMsg = $self->_notifyModelManager('update', $self->row($id));
-          if ( defined ($depModelMsg) and $depModelMsg ne '' ) {
+          if ( defined ($depModelMsg)
+               and ( $depModelMsg ne '' and $depModelMsg ne '<br><br>' )) {
               $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
           }
           $self->updatedRowNotify($oldRow, $force);
@@ -2979,6 +2980,9 @@ sub _setControllers
           # the model domain and its name
           $defAction = '/ebox/' . $self->modelDomain() . '/Controller/' .
             $self->tableName();
+          if ( $self->index() ne '' ) {
+              $defAction .= '/' . $self->index();
+          }
       }
       if ($defAction) {
           foreach my $action (@{$table->{'defaultActions'}}) {
