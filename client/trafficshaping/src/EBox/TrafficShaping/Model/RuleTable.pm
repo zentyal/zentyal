@@ -412,7 +412,9 @@ sub updatedRowNotify
 # 	hash ref - table's description
 #
 sub _table
-  {
+{
+
+    my ($self) = @_;
 
     my @tableHead =
       (
@@ -435,12 +437,12 @@ sub _table
                                                        fieldName     => 'source_ipaddr',
                                                        printableName => __('Source IP'),
                                                        editable      => 1,
-                                                       optional      => 1),
+                                                      ),
                                new EBox::Types::MACAddr(
                                                         fieldName     => 'source_macaddr',
                                                         printableName => __('Source MAC'),
                                                         editable      => 1,
-                                                        optional      => 1),
+                                                       ),
                                new EBox::Types::Select(
                                                        fieldName     => 'source_object',
                                                        printableName => __('Source object'),
@@ -463,7 +465,7 @@ sub _table
                                                        fieldName     => 'destination_ipaddr',
                                                        printableName => __('Destination IP'),
                                                        editable      => 1,
-                                                       optional      => 1),
+                                                      ),
                                new EBox::Types::Select(
                                                        fieldName     => 'destination_object',
                                                        printableName => __('Destination object'),
@@ -502,14 +504,11 @@ sub _table
 
     my $dataTable = {
 		     'tableName'          => 'tsTable',
-		     'printableTableName' => __('Rules list'),
-		     'actions' => {
-				   'add'        => '/ebox/TrafficShaping/Controller/RuleTable',
-				   'del'        => '/ebox/TrafficShaping/Controller/RuleTable',
-				   'move'       => '/ebox/TrafficShaping/Controller/RuleTable',
-				   'editField'  => '/ebox/TrafficShaping/Controller/RuleTable',
-				   'changeView' => '/ebox/TrafficShaping/Controller/RuleTable',
-				  },
+		     'printableTableName' => __x('Rules list for {iface}',
+                                                iface => $self->{interface}),
+                     'defaultActions'     =>
+                           [ 'add', 'del', 'editField', 'changeView' ],
+                     'modelDomain'        => 'TrafficShaping',
 		     'tableDescription'   => \@tableHead,
 		     'class'              => 'dataTable',
 		     # Priority field set the ordering through _order function
@@ -533,7 +532,7 @@ sub _table
 
     return $dataTable;
 
-  }
+}
 
 # Method: _tailoredOrder
 #
