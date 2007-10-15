@@ -28,6 +28,13 @@ use constant TYPE => 'composite';
 
 # eBox uses
 
+sub composite
+{
+  my ($self, $name) = @_;
+  return  $self->providedInstance(TYPE, $name);
+}
+
+
 # Method: composites
 #
 #   This method must be overridden in case of your module provides any
@@ -37,14 +44,6 @@ use constant TYPE => 'composite';
 #
 #	array ref - containing instances of the composites
 #
-sub composite
-{
-  my ($self, $name) = @_;
-  return  $self->providedInstance(TYPE, $name);
-}
-
-
-
 sub composites
 {
   my ($self, $name) = @_;
@@ -60,15 +59,12 @@ sub newCompositeInstance
   return $instance;
 }
 
-
+# Method: compositeClasses
+#
+#
 sub compositeClasses
 {
   throw EBox::Exceptions::NotImplemented('compositeClasses');
 }
-
-
-
-1;
-
 
 1;
