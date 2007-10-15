@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 perldir = @PERLPATH@/EBox/TrafficShaping/Model
 
-nobase_perl_DATA = RuleTable.pm RuleMultiTable.pm
+nobase_perl_DATA = RuleTable.pm
 
 DISTCLEANFILES = 
 

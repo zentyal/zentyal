@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Controller View
+SUBDIRS =
 
 perldir = @PERLPATH@/EBox/CGI/TrafficShaping
 

@@ -1,3 +1,13 @@
+0.10.99
+	+ Now traffic shaping rules are aware about gateway changes
+	+ Use Services from ebox-services modules instead of using a
+	EBox::Types::Service class
+	+ Automatic remove traffic shaping rules which comprise objects
+	that is about to be deleted
+	+ Use composite with a 'select' layout instead of old tailored
+	version. This includes some refurbishing and enhancing on
+	notifying changes on Network module regarding to traffic shaping
+	rules
 0.9.100
 	+ New release
 0.9.99

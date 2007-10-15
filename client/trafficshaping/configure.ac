@@ -57,9 +57,8 @@ src/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile
 src/EBox/CGI/Makefile
-src/EBox/CGI/Controller/Makefile
-src/EBox/CGI/View/Makefile
 src/EBox/TrafficShaping/Makefile
+src/EBox/TrafficShaping/Composite/Makefile
 src/EBox/TrafficShaping/Filter/Makefile
 src/EBox/TrafficShaping/Model/Makefile
 src/EBox/TrafficShaping/QDisc/Makefile
