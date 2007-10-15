@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.9.100\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 15:21+0200\n"
+"POT-Creation-Date: 2007-10-02 13:09+0200\n"
 "PO-Revision-Date: 2007-05-13 00:27+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -17,186 +17,285 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/Backup.pm:236
-msgid "Could not create backup archive"
-msgstr "Yedekleme arşiv dosyası oluşturulamıyor"
+#: src/EBox/CGI/EBox/Bug.pm:29 src/EBox/SysInfo.pm:145
+msgid "Bug report"
+msgstr "Hata raporlama"
 
-#: src/EBox/Backup.pm:243
-msgid "Could not append data to backup archive"
-msgstr "Yedekleme dosyasına ek ilave yapılamıyor."
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:33
+msgid "Configuration backups"
+msgstr "Ayarlarımı yedekle"
 
-#: src/EBox/Backup.pm:349 src/EBox/Backup.pm:1006
-msgid "Insert a backup disc and try again, please"
-msgstr "Lütfen bir yedekleme diski koyun ve tekrar deneyin."
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:111
+msgid "Please confirm that you want to delete the following backup file:"
+msgstr "Lütfen aşağıdaki yedek dosyalarını silmek istediğinizi onaylayın:"
 
-#: src/EBox/Backup.pm:390
-msgid "Unknown"
-msgstr "Bilinmiyor"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:113 src/templates/backup.mas:212
+#: src/templates/backup.mas:213
+msgid "Delete"
+msgstr "Sil"
 
-#: src/EBox/Backup.pm:423
-#, perl-brace-format
-msgid "Could not extract the requested backup files: {files}"
-msgstr "Bu dosyaların yedeklemesi yapılamıyor: {files}"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:120
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:156
+msgid "Please confirm that you want to restore using this backup file:"
+msgstr "Yedekten geri yüklemek istediğiniz dosya(emin olun):"
 
-#: src/EBox/Backup.pm:426 src/EBox/Backup.pm:828
-msgid "Could not unpack the backup"
-msgstr "Yedekleme dosyası açılamıyor"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:122
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:144
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:158 src/templates/backup.mas:99
+msgid "Restore"
+msgstr "Geri yükleme"
 
-#: src/EBox/Backup.pm:563 src/EBox/SysInfo.pm:120
-msgid "Backup"
-msgstr "Yedekleme"
-
-#: src/EBox/Backup.pm:593
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:132
 msgid ""
-"Some modules has not saved changes. Before doing the backup you must save  "
-"or discard them"
+"Unable to find a correct backup disk. Please insert a backup disk and retry"
 msgstr ""
-"Yapılan değişiklikler bazı modullerde henüz kaydedilmedi. Yedekleme yapmadan "
-"önce bunları kaydetmeniz veya kaydetme işlemini iptal etmeniz gereklidir."
+"Düzgün bir yedek diski bulunamıyor. Yeni bir yedek diski girin ve tekrar "
+"deneyin"
 
-#: src/EBox/Backup.pm:656
-msgid "Incorrect or corrupt backup file"
-msgstr "Yanlış veya hatalı yedekleme dosyası"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:143
+msgid "Please confirm that you want to restore using this backup disk:"
+msgstr "Yedekten geri yüklemek istediğiniz disk(emin olun):"
 
-#: src/EBox/Backup.pm:685
-msgid "The backup file is corrupt: could not open archive"
-msgstr "Yedekleme dosyası hatalı:Arşiv dosyası açılamıyor."
-
-#: src/EBox/Backup.pm:697
-msgid "The backup file is corrupt: could not open backup checksum"
-msgstr "Yedekleme dosyası hatalı: Sağlama sayısı kontrol edilemiyor."
-
-#: src/EBox/Backup.pm:704
-msgid "The backup file is corrupt."
-msgstr "Yedekleme dosyası hatalı."
-
-#: src/EBox/Backup.pm:722
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:166
 msgid ""
-"The backup archive has a invalid type. Maybe the file is corrupt or you are "
-"using a incompatible eBox version"
+"Please confirm that you want to write this backup file to a CD or DVD disk:"
 msgstr ""
-"Yedekleme dosyasının türü yanlış. Dosya hatalı olabilir veya yanlış bir ebox "
-"sürümü kullanıyor olabilirsiniz."
+"Lütfen yedekleme işlemini CD veya DVD de gerçekleştirmek istesdiğinizi "
+"onaylayın:"
 
-#: src/EBox/Backup.pm:728
-msgid ""
-"The archive does not contain a full backup, that made a full restore "
-"impossibe. A configuration recovery  may be possible"
-msgstr ""
-"Bu yedekleme dosyası tam bir yedekleme dosyasını içermiyor. Bu yüzden tam "
-"yedekleme yapılamaz. Ancak ayar dosyalarını kurtarma işlemini "
-"gerçekleitirebilirsiniz."
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:168
+msgid "Write to disk"
+msgstr "Diske yazdır"
 
-#: src/EBox/Backup.pm:763
-#, perl-brace-format
-msgid ""
-"There in not enough space left in the hard disk to complete the restore "
-"proccess. {size} Kb required. Free sufficient space and retry"
-msgstr ""
-"Sabit diskinizde yeterli boş alanınız mevcut değil. {size} Kb boş alana "
-"ihtiyacınız var. Kendinize boş alan yaratıp tekrar deneyin."
-
-#: src/EBox/Backup.pm:795
-#, perl-brace-format
-msgid ""
-"Cannot rename backup file from {newName} to his original name {name}. Error "
-"message: {error}"
-msgstr ""
-"{newName} yedekleme dosyası {name} orjinal ismine değiştirilemiyor. Hata "
-"mesajı: {error}"
-
-#: src/EBox/Backup.pm:956
-#, perl-brace-format
-msgid ""
-"Unresolved restore dependency for module {topModule}: {modName} is not "
-"installed"
-msgstr "{topModule} modulu için gerekli bulunamıyor: {modName} kurulu değil"
-
-#: src/EBox/Backup.pm:1023 src/EBox/CGI/EBox/Backup.pm:235
-#: src/EBox/CGI/EBox/Backup.pm:306 src/EBox/CGI/EBox/Backup.pm:319
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:180
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:180 src/EBox/CGI/EBox/Backup.pm:236
+#: src/EBox/CGI/EBox/Backup.pm:329 src/EBox/CGI/EBox/Backup.pm:342
+#: src/EBox/Backup.pm:1214
 msgid "The input contains invalid characters"
 msgstr "Girilen veri geçersiz karakter içeriyor"
 
-#: src/EBox/Summary/Status.pm:44
-msgid "Restart"
-msgstr "Yeniden başlat"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:209
+msgid "Configuration backup"
+msgstr "Ayarlarımı yedekle"
 
-#: src/EBox/Summary/Status.pm:47
-msgid "Running"
-msgstr "Çalışıyor"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:212
+msgid "Full data and configuration backup"
+msgstr "Tüm verileri ve ayarlarımı yedekle"
 
-#: src/EBox/Summary/Status.pm:50
-msgid "Stopped"
-msgstr "Durduruldu"
+#: src/EBox/CGI/EBox/ConfirmBackup.pm:215
+msgid "Bug-report configuration dump"
+msgstr "Hata raporlama ayar bilgisi"
 
-#: src/EBox/Summary/Status.pm:52
-msgid "Start"
-msgstr "Başlat"
+#: src/EBox/CGI/EBox/CurrentProgress.pm:36
+msgid "Upgrading"
+msgstr ""
 
-#: src/EBox/Summary/Status.pm:54
-msgid "Disabled"
-msgstr "Etkisiz"
+#: src/EBox/CGI/EBox/Password.pm:49
+msgid "Incorrect password."
+msgstr "Geçersiz parola"
 
-#: src/EBox/Types/Service.pm:131 src/EBox/Types/Service.pm:140
-msgid "Service"
-msgstr "Servis"
+#: src/EBox/CGI/EBox/Password.pm:54
+msgid "New passwords do not match."
+msgstr "Yeni parolalar uyum sağlamıyor"
 
-#: src/EBox/Types/Service.pm:291 src/templates/logs/index.mas:206
-msgid "Any"
-msgstr "Herhangi bir"
+#: src/EBox/CGI/EBox/Password.pm:58
+msgid "The password must be at least 6 characters long"
+msgstr "Parola en az 6 karakter olmak zorunda"
 
-#: src/EBox/Model/DataMultiTable.pm:168 src/EBox/Logs.pm:474
-msgid "Action"
-msgstr "İşlem"
+#: src/EBox/CGI/EBox/Password.pm:62 src/EBox/CGI/FirstTime/Passwd.pm:92
+msgid "The password was changed successfully."
+msgstr "Parola başarılı bir şekilde değiştirildi"
 
-#: src/EBox/FirstTime.pm:67 src/templates/firstTime/passwd.mas:4
-msgid "Change default password"
-msgstr "Öntanımlı parolayı değiştir"
+#: src/EBox/CGI/EBox/Backup.pm:34
+msgid "System backups"
+msgstr "Sistem yedekleme"
 
-#: src/EBox/SysInfo.pm:57
-msgid "Services"
-msgstr "Servisler"
+#: src/EBox/CGI/EBox/Backup.pm:193
+#, perl-brace-format
+msgid "Unknown backup mode: {mode}"
+msgstr "Yedekleme modusu bilinmiyor: {mode}"
 
-#: src/EBox/SysInfo.pm:74
-msgid "General information"
-msgstr "Genel Bilgiler"
+#: src/EBox/CGI/EBox/Backup.pm:216
+msgid "Backup was written to CD/DVD disk"
+msgstr "Yedekleme CD/DVD 'ye başarılı bir şekilde aktarıldı"
 
-#: src/EBox/SysInfo.pm:82
-msgid "Time"
-msgstr "Zaman"
+#: src/EBox/CGI/EBox/Backup.pm:282
+#, perl-brace-format
+msgid "Unknown restore mode: {mode}"
+msgstr "{mode} modu bilinmeyen bir kurturtma modudur"
 
-#: src/EBox/SysInfo.pm:83
-msgid "Host name"
-msgstr "Makina ismi"
+#: src/EBox/CGI/EBox/Backup.pm:295
+#, fuzzy
+msgid "Backing up"
+msgstr "Yedekleme"
 
-#: src/EBox/SysInfo.pm:85
-msgid "eBox version"
-msgstr "eBox sürümü"
+#: src/EBox/CGI/EBox/Backup.pm:296
+#, fuzzy
+msgid "Backing up modules"
+msgstr "Yedekleme modu"
 
-#: src/EBox/SysInfo.pm:88
-msgid "System load"
-msgstr "Sistem yükü"
+#: src/EBox/CGI/EBox/Backup.pm:297
+#, fuzzy
+msgid "Operation"
+msgstr "Diğer seçenekler"
 
-#: src/EBox/SysInfo.pm:109 src/EBox/CGI/Summary/Index.pm:35
+#: src/EBox/CGI/EBox/Backup.pm:298
+msgid "operations left to finish backup"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:299
+#, fuzzy
+msgid "Backup successful"
+msgstr "Yedekleme dosyası"
+
+#: src/EBox/CGI/EBox/Backup.pm:310
+#, fuzzy
+msgid "Restoring backup"
+msgstr "Yedekleme üzerinden geri yükle"
+
+#: src/EBox/CGI/EBox/Backup.pm:311
+#, fuzzy
+msgid "Restoring modules"
+msgstr "Geri yükleme modu"
+
+#: src/EBox/CGI/EBox/Backup.pm:312 src/EBox/Logs.pm:551
+#: src/templates/finish.mas:22
+msgid "Module"
+msgstr "Moduller"
+
+#: src/EBox/CGI/EBox/Backup.pm:313
+msgid "modules left to restore"
+msgstr ""
+
+#: src/EBox/CGI/EBox/Backup.pm:314
+#, fuzzy
+msgid "Restore successful"
+msgstr "Geri yükleme modu"
+
+#: src/EBox/CGI/EBox/RestartService.pm:48
+msgid "module name"
+msgstr "Modul ismi"
+
+#: src/EBox/CGI/EBox/RestartService.pm:52
+msgid "The module was restarted correctly."
+msgstr "Modul başarılı bir şekilde tekrar başlatıldı"
+
+#: src/EBox/CGI/EBox/General.pm:30
+msgid "General configuration"
+msgstr "Genel ayarlar"
+
+#: src/EBox/CGI/EBox/Halt.pm:30
+msgid "Halt or reboot"
+msgstr "Durdur veya tekrar başlat"
+
+#: src/EBox/CGI/EBox/Halt.pm:43
+msgid "eBox is going down for halt"
+msgstr "eBox şimdi durduruluyor"
+
+#: src/EBox/CGI/EBox/Halt.pm:46
+msgid "eBox is going down for reboot"
+msgstr "eBox şimdi tekrar başlatılıyor"
+
+#: src/EBox/CGI/Logs/Index.pm:33 src/EBox/Logs.pm:531
+msgid "Logs"
+msgstr "Günlük"
+
+#: src/EBox/CGI/Finish.pm:30
+msgid "Save configuration"
+msgstr "Ayarları kaydet"
+
+#: src/EBox/CGI/ClientRawBase.pm:181
+msgid ""
+"An internal error has ocurred. This is most probably a bug, relevant "
+"information can be found in the logs."
+msgstr ""
+"Dahili bir hata oluştu. Büyük ihtimal ile bir program hatası. Gerekli diğer "
+"bilgileri günlük dosyasında bulabilirsiniz."
+
+#: src/EBox/CGI/ClientRawBase.pm:191
+msgid ""
+"An internal error related to a template has occurred. This is a bug, "
+"relevant information can be found in the logs."
+msgstr ""
+"Dahili bir şablon hatası oluştu. Bu bir hata ve gerekli bilgileri günlük "
+"dosyasında bulabilirsiniz."
+
+#: src/EBox/CGI/Login/Index.pm:61
+msgid ""
+"There is a Web service script running. Please, wait patiently until it is "
+"done"
+msgstr "Bir Web servis betiği çalışıyor. Lütfen bitene kadar bekleyin"
+
+#: src/EBox/CGI/Login/Index.pm:65
+msgid "Incorrect password"
+msgstr "Geçersiz parola"
+
+#: src/EBox/CGI/Login/Index.pm:68
+msgid "For security reasons your session has expired due to inactivity"
+msgstr ""
+"Uzun süre etkin olmadığınız ve güvenlik sebebleri yüzünden oturumunuzun "
+"süresi bitti"
+
+#: src/EBox/CGI/Login/Index.pm:71
+msgid "You have been logged out because a new session has been opened"
+msgstr "Yeni bir oturum açıldığı için yeni bir süreç başlatıldı "
+
+#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:40
+msgid "Logout"
+msgstr "Oturumdan çık"
+
+#: src/EBox/CGI/Report/DiskUsage.pm:31
+msgid "Disk Usage"
+msgstr ""
+
+#: src/EBox/CGI/Report/RAID.pm:30
+#, fuzzy
+msgid "RAID report"
+msgstr "Hata raporlama"
+
+#: src/EBox/CGI/FirstTime/Index.pm:30
+msgid "Welcome to eBox"
+msgstr "eBox'a hoşgeldizin"
+
+#: src/EBox/CGI/FirstTime/Index.pm:68 src/EBox/CGI/FirstTime/Passwd.pm:72
+msgid "eBox was already initialized"
+msgstr "eBox önceden hazırlandı"
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:38
+msgid "Set password"
+msgstr "Parolayı ayarla"
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:63
+msgid "Default password was already changed"
+msgstr "Varsayılan parola öncede değiştirildi"
+
+#: src/EBox/CGI/FirstTime/Passwd.pm:88
+msgid "New passwords do not match"
+msgstr "Yeni parola uyum sağşamıyor"
+
+#: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:118
 msgid "Status"
 msgstr "Durum"
 
-#: src/EBox/SysInfo.pm:113
-msgid "System"
-msgstr "Sistem"
+#: src/EBox/CGI/Summary/Index.pm:47
+msgid "Error"
+msgstr "Hata"
 
-#: src/EBox/SysInfo.pm:117
-msgid "General"
-msgstr "Genel"
+#: src/EBox/Backup/OpticalDisc.pm:126
+msgid "Unable to recognize the mounted DVD media"
+msgstr "Takılı DVD okunamıyor"
 
-#: src/EBox/SysInfo.pm:123
-msgid "Halt/Reboot"
-msgstr "Durdur/Tekrar Başlar"
+#: src/EBox/Backup/OpticalDisc.pm:165
+msgid "Unable to recognize the mounted CD media"
+msgstr "Takılı CD okunamıyor"
 
-#: src/EBox/SysInfo.pm:126 src/EBox/CGI/EBox/Bug.pm:29
-msgid "Bug report"
-msgstr "Hata raporlama"
+#: src/EBox/Backup/RootCommands.pm:26
+#, perl-brace-format
+msgid ""
+"This system need {program} installed to perform the requested action. Please "
+"install it and retry"
+msgstr ""
+"Gerekli olan işlemi gerçekleştirmek için {program} kurulu olması gerekiyor. "
+"Lütfen kurduktan sonra tekrar deneyin."
 
 #: src/EBox/Backup/OpticalDiscDrives.pm:31
 #, perl-brace-format
@@ -248,22 +347,733 @@ msgstr "Medya'nın yeteri kadar kapasitesi yok"
 msgid "No blanking method for {media}  defined. Cannot erase it"
 msgstr "{media} için herhangi bir silme metodo belirlenmedi. Silinemiyor"
 
-#: src/EBox/Backup/RootCommands.pm:26
+#: src/EBox/Logs/Model/ForcePurge.pm:97
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:129
+msgid "Purge logs older than"
+msgstr ""
+
+#: src/EBox/Logs/Model/ForcePurge.pm:106
+msgid "Force log purge"
+msgstr ""
+
+#: src/EBox/Logs/Model/ForcePurge.pm:122
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:167
+msgid "one hour"
+msgstr ""
+
+#: src/EBox/Logs/Model/ForcePurge.pm:126
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:171
+msgid "twelve hours"
+msgstr ""
+
+#: src/EBox/Logs/Model/ForcePurge.pm:130
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:175
+msgid "one day"
+msgstr ""
+
+#: src/EBox/Logs/Model/ForcePurge.pm:134
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:179
+msgid "three days"
+msgstr ""
+
+#: src/EBox/Logs/Model/ForcePurge.pm:138
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:183
+msgid "one week"
+msgstr ""
+
+#: src/EBox/Logs/Model/ForcePurge.pm:142
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:187
+msgid "fifteeen days"
+msgstr ""
+
+#: src/EBox/Logs/Model/ForcePurge.pm:146
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:191
+msgid "thirty days"
+msgstr ""
+
+#: src/EBox/Logs/Model/ForcePurge.pm:150
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:195
+msgid "ninety days"
+msgstr ""
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:109
+msgid "Domain"
+msgstr "Alan ismi"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:119
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:214
+msgid "Enabled"
+msgstr "Etkinleşti"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:141 src/EBox/Logs.pm:537
+msgid "Configure logs"
+msgstr "Günlükleri ayarla"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:147
+msgid "Enable/disable logging per-module basis"
+msgstr "Günlük tutmatı modul yöntemi ile Etkinleştir/Etkisizleştir "
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:149
+msgid "logs"
+msgstr "Günlük"
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:163
+msgid "never purge"
+msgstr ""
+
+#: src/EBox/Test/Model.pm:72 src/EBox/Test/Form.pm:70
+msgid "Compulsory IP Address"
+msgstr "Zorunlu IP adresi"
+
+#: src/EBox/Test/Model.pm:80
+msgid "Optional IP Address"
+msgstr "Seçmeli IP adresi"
+
+#: src/EBox/Test/Model.pm:88 src/EBox/Test/Form.pm:79
+msgid "Compulsory Boolean"
+msgstr "Zorunlu Boolean değeri"
+
+#: src/EBox/Test/Model.pm:96
+msgid "Optional Boolean"
+msgstr "Seçmeli Boolean değeri"
+
+#: src/EBox/Test/Model.pm:104 src/EBox/Test/Form.pm:88
+msgid "Compulsory Integer"
+msgstr "Zorunlu Integer değeri"
+
+#: src/EBox/Test/Model.pm:112
+msgid "Optional Integer"
+msgstr "Seçmeli Integer değeri"
+
+#: src/EBox/Test/Model.pm:120 src/EBox/Test/Form.pm:97
+msgid "Compulsory Select"
+msgstr "Zorunlu seçim"
+
+#: src/EBox/Test/Model.pm:147 src/EBox/Test/Form.pm:106
+msgid "Compulsory Text"
+msgstr "Zorunlu metin"
+
+#: src/EBox/Test/Model.pm:155
+msgid "Optional Text"
+msgstr "Seçmeli metin"
+
+#: src/EBox/Test/Model.pm:163 src/EBox/Test/Form.pm:115
+msgid "Compulsory MAC Address"
+msgstr "Zorunlu MAC adresi"
+
+#: src/EBox/Test/Model.pm:171
+msgid "Optional MAC address"
+msgstr "Seçmeli MAC adresi"
+
+#: src/EBox/Test/Model.pm:179
+msgid "Optional Link"
+msgstr "Seçmeli bağlantı"
+
+#: src/EBox/Test/Model.pm:188 src/EBox/Test/Form.pm:124
+msgid "Compulsory Password"
+msgstr "Güncel parola"
+
+#: src/EBox/Test/Model.pm:198
+msgid "Optional Password"
+msgstr "Seçmeli Parola"
+
+#: src/EBox/Test/Model.pm:207 src/EBox/Test/Form.pm:135
+msgid "Port range"
+msgstr "Port aralığı"
+
+#: src/EBox/Test/Model.pm:215 src/EBox/Test/Form.pm:144
+msgid "Union"
+msgstr "Bensersiz"
+
+#: src/EBox/Test/Model.pm:223 src/EBox/Test/Form.pm:152
+msgid "Foo"
+msgstr "Foo"
+
+#: src/EBox/Test/Model.pm:228 src/EBox/Test/Form.pm:157
+msgid "Bar"
+msgstr "Bar"
+
+#: src/EBox/Test/Model.pm:233 src/EBox/Test/Form.pm:163
+msgid "Baz"
+msgstr "Baz"
+
+#: src/EBox/Test/Model.pm:238 src/EBox/Test/Form.pm:168
+msgid "Other option"
+msgstr "Diğer seçenekler"
+
+#: src/EBox/Test/Model.pm:244 src/EBox/Test/Form.pm:174
+msgid "Inverse Match Select"
+msgstr "Seçili eşleşenleri tersine çevir"
+
+#: src/EBox/Test/Model.pm:253 src/EBox/Test/Form.pm:184
+msgid "Inverse Match Union"
+msgstr "Benzersiz eşleşenleri tersine çevir"
+
+#: src/EBox/Test/Model.pm:261 src/EBox/Test/Form.pm:192
+msgid "Inverse Foo"
+msgstr "Foo'yu tersine çevir"
+
+#: src/EBox/Test/Model.pm:266 src/EBox/Test/Form.pm:197
+msgid "Inverse Bar"
+msgstr "Bar'ı tersine çevir"
+
+#: src/EBox/Test/Model.pm:271 src/EBox/Test/Form.pm:203
+msgid "Inverse Baz"
+msgstr "Baz'ı tersine çevir"
+
+#: src/EBox/Test/Model.pm:276 src/EBox/Test/Form.pm:208
+msgid "Inverse Other option"
+msgstr "Diğer seçimleri tersine çevir"
+
+#: src/EBox/Test/Model.pm:283
+msgid "Members"
+msgstr "Üyeler"
+
+#: src/EBox/Test/Model.pm:291 src/EBox/Test/Form.pm:215
+msgid "Compulsory Service"
+msgstr "Zorunlu servisler"
+
+#: src/EBox/Test/Model.pm:300
+msgid "Test model"
+msgstr "Deneme modeli"
+
+#: src/EBox/Test/Model.pm:307
+msgid "Test model to test types"
+msgstr "Deneme modelinini deneme türleri"
+
+#: src/EBox/Test/Model.pm:309
+msgid "row"
+msgstr "satır"
+
+#: src/EBox/Test/Model.pm:331 src/EBox/Test/Form.pm:253
+msgid "A"
+msgstr "A"
+
+#: src/EBox/Test/Model.pm:332 src/EBox/Test/Form.pm:254
+msgid "B"
+msgstr "B"
+
+#: src/EBox/Test/Model.pm:333 src/EBox/Test/Form.pm:255
+msgid "C"
+msgstr "C"
+
+#: src/EBox/Test/SubComposite.pm:71
+msgid "Sub-composite example"
+msgstr "Alt bileşik örnekleri"
+
+#: src/EBox/Test/Form.pm:225
+msgid "Test form"
+msgstr "Deneme formu"
+
+#: src/EBox/Test/Form.pm:231
+msgid "Test form to test types"
+msgstr "Deneme formun deneme türü"
+
+#: src/EBox/Common/Model/EnableForm.pm:100
+msgid "Service enabled"
+msgstr "Servis etkin"
+
+#: src/EBox/Common/Model/EnableForm.pm:102
+msgid "Service disabled"
+msgstr "Servis etkin değil"
+
+#: src/EBox/Common/Model/EnableForm.pm:146
+msgid "Enable service"
+msgstr "Servisi etkinleştir"
+
+#: src/EBox/SysInfo.pm:66
+msgid "Services"
+msgstr "Servisler"
+
+#: src/EBox/SysInfo.pm:83
+msgid "General information"
+msgstr "Genel Bilgiler"
+
+#: src/EBox/SysInfo.pm:91
+msgid "Time"
+msgstr "Zaman"
+
+#: src/EBox/SysInfo.pm:92
+msgid "Host name"
+msgstr "Makina ismi"
+
+#: src/EBox/SysInfo.pm:94
+msgid "eBox version"
+msgstr "eBox sürümü"
+
+#: src/EBox/SysInfo.pm:97
+msgid "System load"
+msgstr "Sistem yükü"
+
+#: src/EBox/SysInfo.pm:122 src/EBox/Report/DiskUsage.pm:249
+msgid "System"
+msgstr "Sistem"
+
+#: src/EBox/SysInfo.pm:126
+msgid "General"
+msgstr "Genel"
+
+#: src/EBox/SysInfo.pm:129
+msgid "Disk usage Information"
+msgstr ""
+
+#: src/EBox/SysInfo.pm:133
+#, fuzzy
+msgid "RAID Information"
+msgstr "Genel Bilgiler"
+
+#: src/EBox/SysInfo.pm:139 src/EBox/Backup.pm:639
+msgid "Backup"
+msgstr "Yedekleme"
+
+#: src/EBox/SysInfo.pm:142
+msgid "Halt/Reboot"
+msgstr "Durdur/Tekrar Başlar"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:239
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:192
+msgid "Name"
+msgstr "İsim"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:249
+msgid "Receiver"
+msgstr "Alıcı"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:261
+msgid "Configuration"
+msgstr "Yapılandırma"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:281
+msgid "None"
+msgstr "Hiçbiri"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:304
+msgid "Configure dispatchers"
+msgstr "İşlemci zamanlayıcılarını yapılandır"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:313
+msgid "dispatcher"
+msgstr "işlemci zamanlayıcı"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:314
+msgid "Enable/Disable each event dispatcher"
+msgstr "Olay işlemci zamanlayıcısını aç/kapat"
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:502
+msgid ""
+"In order to enable a configurable event dispatcher, you need to configure it "
+"first"
+msgstr ""
+"Yapılandırılabilir bir olay işlemci zamanlayıcısını açmak için önce onu "
+"yapılandırmanız gerekir"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:202
+#: src/templates/confirm-backup.mas:36 src/templates/backup.mas:47
+#: src/templates/backup.mas:163
+msgid "Description"
+msgstr "Açıklama"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:227
+msgid "Configure events"
+msgstr "Olayları yapılandır"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:236
+msgid "event"
+msgstr "olay"
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:237
+msgid "Enable/Disable each event watcher monitoring"
+msgstr "Herbir olay gözlemleyicisini aç/kapat"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
+msgid "Jabber server name"
+msgstr "Jabber sunucu ismi"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:197
+msgid "Port"
+msgstr "Port"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:204
+msgid "Jabber user name"
+msgstr "Jabber kullanıcı ismi"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:210
+msgid "User password"
+msgstr "Kullanıcı parolası"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:218
+msgid "Subscribe"
+msgstr "Kayıt ol"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:223
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:263
+msgid "Administrator Jabber Identifier"
+msgstr "Yönetici Jabber Tanımlayıcısı"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:231
+msgid "Configure Jabber dispatcher"
+msgstr "Jabber işlemci zamanlayıcısını yapılandır"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:236
+msgid ""
+"In order to configure the Jabber event dispatcher is required to be "
+"registered at the chosen Jabber server or check subscribe to do register. "
+"The administrator identifier should follow the pattern: user@domain[/"
+"resource]"
+msgstr ""
+"Jabber olay işlemci zamanlayıcısını yapılandırmak için seçilen Jabber "
+"sunucuda kayıtlı olmak veya kayıt ol seçeneğini işaretlemek gerekli. "
+"Yönetici belirleyicisi şu yapıda olmalı: kullanıcı@alan_adı[/resource]"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:241
+msgid "Jabber dispatcher configuration updated"
+msgstr "Jabber işlemci zamanlayıcı yapılandırması güncellendi"
+
+#: src/EBox/Events/Model/Dispatcher/Jabber.pm:265
+msgid "It should follow the pattern 'user@domain[/resource]'"
+msgstr "Şu biçimde olmalı 'kullanıcı@alan_adı[/resource]"
+
+#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:154
+#: src/EBox/Events.pm:177
+msgid "Events"
+msgstr "Olaylar"
+
+#: src/EBox/Events/Model/GeneralComposite.pm:78
+msgid ""
+"Events module may help you to make eBox inform you about events that happen "
+"at eBox in some different ways"
+msgstr ""
+"Olaylar modüllü bazı farklı yollarla eBox üzerinde olan olaylar sizi "
+"haberdar etmekte yardımcı olabilir"
+
+#: src/EBox/Events.pm:565
+msgid "Event service status"
+msgstr "Olay servisi durumu"
+
+#: src/EBox/Event/Watcher/Runit.pm:130
 #, perl-brace-format
 msgid ""
-"This system need {program} installed to perform the requested action. Please "
-"install it and retry"
+"The service {service} has been restarted {restart} times in {time} seconds "
+"and it has been stopped"
 msgstr ""
-"Gerekli olan işlemi gerçekleştirmek için {program} kurulu olması gerekiyor. "
-"Lütfen kurduktan sonra tekrar deneyin."
+"{service} servisi, {time} saniye içinde, {restart} defa yeniden başladı ve "
+"şu an durduruldu"
 
-#: src/EBox/Backup/OpticalDisc.pm:126
-msgid "Unable to recognize the mounted DVD media"
-msgstr "Takılı DVD okunamıyor"
+#: src/EBox/Event/Watcher/Runit.pm:164
+msgid "Service"
+msgstr "Servis"
 
-#: src/EBox/Backup/OpticalDisc.pm:165
-msgid "Unable to recognize the mounted CD media"
-msgstr "Takılı CD okunamıyor"
+#: src/EBox/Event/Watcher/Runit.pm:181
+msgid "Check if any service has been restarted many  times in a time interval"
+msgstr ""
+"Belli bir süre aralığında herhangi bir servisin birçok defa yeniden "
+"başlatılıp başlatılmadığını kontrol et"
+
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:109
+#, fuzzy, perl-brace-format
+msgid "The file system {fs}, mounted on {mp}, has no space left"
+msgstr "{np} üzerine bağlanmış olan {fs} dosya sisteminde yer yok"
+
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
+msgid "Free storage space"
+msgstr "Boş depolama alanı"
+
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:201
+msgid "Check if any disk partition  has no storage space left"
+msgstr "Herhangi bir disk bölümüde yer kalıp kalmadığını kontrol et"
+
+#: src/EBox/Event/Watcher/State.pm:100
+msgid "eBox is up and running"
+msgstr "eBox etkin ve çalışıyor"
+
+#: src/EBox/Event/Watcher/State.pm:105
+msgid "eBox is critically down"
+msgstr "eBox kritik olarak çalışmıyor"
+
+#: src/EBox/Event/Watcher/State.pm:129 src/templates/report/raid.mas:197
+msgid "State"
+msgstr "Durum"
+
+#: src/EBox/Event/Watcher/State.pm:146
+msgid "Check if eBox is currently up or down"
+msgstr "eBox'ın çalışıp çalışmadığını kontrol et"
+
+#: src/EBox/Event/Dispatcher/Log.pm:116
+msgid "Log file"
+msgstr "Günlük dosyası"
+
+#: src/EBox/Event/Dispatcher/Log.pm:129
+msgid "Log"
+msgstr "Günlük "
+
+#: src/EBox/Event/Dispatcher/Abstract.pm:180
+#, perl-brace-format
+msgid "Dispatcher {name} is not configured to be enabled"
+msgstr "{name} işlemci zamanlayıcısı etkinleştirebilmek için yapılandırılmamış"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:166
+msgid "Admin Jabber account"
+msgstr "Jabber hesabı yöneticisi"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:179
+msgid "Jabber"
+msgstr "Jabber"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:217
+#, perl-brace-format
+msgid "Jabber server {serverName} is down or connection is not allowed"
+msgstr ""
+"{serverName} Jabber sunucusu kapalı veya bağlantıya izin vermiyor olabilir"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:247
+#, perl-brace-format
+msgid "Subscription failed: {message}"
+msgstr "Abonelik hatalı: {message}"
+
+#: src/EBox/Event/Dispatcher/Jabber.pm:254
+#, perl-brace-format
+msgid "Authorization failed: {result} - {message}"
+msgstr "Kimlik doğrulama hatalı: {result} - {message}"
+
+#: src/EBox/Model/DataForm.pm:569 src/templates/progress.mas:20
+msgid "Done"
+msgstr "Tamam"
+
+#: src/EBox/Model/Composite.pm:209
+msgid "It should be one of following values: top-bottom or tabbed"
+msgstr "Şu değerler olmalı: top-bottom veya tabbed"
+
+#: src/EBox/Model/Composite.pm:360 src/EBox/Model/Composite.pm:375
+#: src/EBox/Model/DataTable.pm:1517 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Logs.pm:552
+msgid "Action"
+msgstr "İşlem"
+
+#: src/EBox/Model/Composite.pm:362
+#, perl-brace-format
+msgid "Actions to be taken allowed are: {view} and {cView}"
+msgstr "Burdaki izin verilen işlemler: {view} ve {cView}"
+
+#: src/EBox/Model/DataTable.pm:204
+msgid "field"
+msgstr "alan"
+
+#: src/EBox/Model/DataTable.pm:2321
+#, perl-brace-format
+msgid "{row} added"
+msgstr "{row} eklendi"
+
+#: src/EBox/Model/DataTable.pm:2322
+#, perl-brace-format
+msgid "{row} deleted"
+msgstr "{row} silindi"
+
+#: src/EBox/Model/DataTable.pm:2323
+#, perl-brace-format
+msgid "{row} updated"
+msgstr "{row} güncellendi"
+
+#: src/EBox/Model/DataTable.pm:2324
+#, perl-brace-format
+msgid "{row} moved up"
+msgstr "{row} üste kaydırıldı"
+
+#: src/EBox/Model/DataTable.pm:2325
+#, perl-brace-format
+msgid "{row} moved down"
+msgstr "{row} alta kaydırıldı"
+
+#: src/EBox/Model/DataTable.pm:2667
+msgid ""
+"The data you are removing is being used by\n"
+"\t\t\tthe following tables:"
+msgstr ""
+"Silmek üzere olduğunuz veri aşağıdaki\n"
+"\t\t\ttablolar tarafından kullanılıyor:"
+
+#: src/EBox/Model/DataTable.pm:2691
+msgid ""
+"The data you are modifying is being used by\n"
+"\t\t\tthe following tables:"
+msgstr ""
+"Değiştirmek üzere olduğunuz veri aşağıdaki\n"
+"\t\t\ttablolar tarafından kullanılıyor:"
+
+#: src/EBox/Types/PortRange.pm:137
+msgid "any"
+msgstr "herhangi bir"
+
+#: src/EBox/Types/PortRange.pm:283 src/EBox/Types/Service.pm:187
+#: src/templates/logs/index.mas:173
+msgid "Any"
+msgstr "Herhangi bir"
+
+#: src/EBox/Types/PortRange.pm:392
+#, perl-brace-format
+msgid "\"From\" {from} must be greater than \"To\" {to}"
+msgstr ""
+"{from} \"Gönderen\" bölümü {to} \"Alıcı\" bölümünden büyük olmak zorundadır"
+
+#: src/EBox/Types/Int.pm:93
+msgid "Write down a positive number"
+msgstr "Bir pozitif sayı yazın"
+
+#: src/EBox/Types/Password.pm:132
+#, fuzzy, perl-brace-format
+msgid "The password should have at least {minLength} characters"
+msgstr "Parola en az 6 karakter olmak zorunda"
+
+#: src/EBox/Types/Password.pm:142
+#, fuzzy, perl-brace-format
+msgid "The password should have at most {maxLength} characters"
+msgstr "Parola en az 6 karakter olmak zorunda"
+
+#: src/EBox/Types/Select.pm:221
+#, perl-brace-format
+msgid "Choose a value within the value set {set}"
+msgstr "{set} değer kümesinden bir değer seçin"
+
+#: src/EBox/Html.pm:39
+msgid "Save changes"
+msgstr "Değişiklikleri kaydet"
+
+#: src/EBox/Auth.pm:136
+msgid "Password changed"
+msgstr "Parola değiştirildi"
+
+#: src/EBox/Report/DiskUsage.pm:57
+#, perl-brace-format
+msgid "No usage data for {d}. Are you sure is a valid disk?"
+msgstr ""
+
+#: src/EBox/Report/DiskUsage.pm:135
+#, perl-brace-format
+msgid ""
+"Invalid file system: {f}. Only regular and no rmeovable media file systems "
+"are accepted"
+msgstr ""
+
+#: src/EBox/Report/DiskUsage.pm:246
+#, fuzzy
+msgid "Free space"
+msgstr "Boş depolama alanı"
+
+#: src/EBox/Backup.pm:97
+#, fuzzy
+msgid "Creating backup archive"
+msgstr "Yedekleme arşiv dosyası oluşturulamıyor"
+
+#: src/EBox/Backup.pm:142
+#, fuzzy, perl-brace-format
+msgid "Dumping configuration of module {m}"
+msgstr "Hata raporlama ayar bilgisi"
+
+#: src/EBox/Backup.pm:261
+msgid "Could not create backup archive"
+msgstr "Yedekleme arşiv dosyası oluşturulamıyor"
+
+#: src/EBox/Backup.pm:268
+msgid "Could not append data to backup archive"
+msgstr "Yedekleme dosyasına ek ilave yapılamıyor."
+
+#: src/EBox/Backup.pm:374 src/EBox/Backup.pm:1194
+msgid "Insert a backup disc and try again, please"
+msgstr "Lütfen bir yedekleme diski koyun ve tekrar deneyin."
+
+#: src/EBox/Backup.pm:415
+msgid "Unknown"
+msgstr "Bilinmiyor"
+
+#: src/EBox/Backup.pm:448
+#, perl-brace-format
+msgid "Could not extract the requested backup files: {files}"
+msgstr "Bu dosyaların yedeklemesi yapılamıyor: {files}"
+
+#: src/EBox/Backup.pm:451 src/EBox/Backup.pm:989
+msgid "Could not unpack the backup"
+msgstr "Yedekleme dosyası açılamıyor"
+
+#: src/EBox/Backup.pm:672
+#, fuzzy
+msgid "Writing backup file to optical disc"
+msgstr "Yedekeleme dosyasını CD/DVD cihazına yazdır"
+
+#: src/EBox/Backup.pm:678
+#, fuzzy
+msgid "Writing backup file to hard disc"
+msgstr "Sabit diske kaydet"
+
+#: src/EBox/Backup.pm:700
+msgid ""
+"Some modules has not saved changes. Before doing the backup you must save  "
+"or discard them"
+msgstr ""
+"Yapılan değişiklikler bazı modullerde henüz kaydedilmedi. Yedekleme yapmadan "
+"önce bunları kaydetmeniz veya kaydetme işlemini iptal etmeniz gereklidir."
+
+#: src/EBox/Backup.pm:763
+msgid "Incorrect or corrupt backup file"
+msgstr "Yanlış veya hatalı yedekleme dosyası"
+
+#: src/EBox/Backup.pm:792
+msgid "The backup file is corrupt: could not open archive"
+msgstr "Yedekleme dosyası hatalı:Arşiv dosyası açılamıyor."
+
+#: src/EBox/Backup.pm:804
+msgid "The backup file is corrupt: could not open backup checksum"
+msgstr "Yedekleme dosyası hatalı: Sağlama sayısı kontrol edilemiyor."
+
+#: src/EBox/Backup.pm:811
+msgid "The backup file is corrupt."
+msgstr "Yedekleme dosyası hatalı."
+
+#: src/EBox/Backup.pm:829
+msgid ""
+"The backup archive has a invalid type. Maybe the file is corrupt or you are "
+"using a incompatible eBox version"
+msgstr ""
+"Yedekleme dosyasının türü yanlış. Dosya hatalı olabilir veya yanlış bir ebox "
+"sürümü kullanıyor olabilirsiniz."
+
+#: src/EBox/Backup.pm:835
+msgid ""
+"The archive does not contain a full backup, that made a full restore "
+"impossibe. A configuration recovery  may be possible"
+msgstr ""
+"Bu yedekleme dosyası tam bir yedekleme dosyasını içermiyor. Bu yüzden tam "
+"yedekleme yapılamaz. Ancak ayar dosyalarını kurtarma işlemini "
+"gerçekleitirebilirsiniz."
+
+#: src/EBox/Backup.pm:870
+#, perl-brace-format
+msgid ""
+"There in not enough space left in the hard disk to complete the restore "
+"proccess. {size} Kb required. Free sufficient space and retry"
+msgstr ""
+"Sabit diskinizde yeterli boş alanınız mevcut değil. {size} Kb boş alana "
+"ihtiyacınız var. Kendinize boş alan yaratıp tekrar deneyin."
+
+#: src/EBox/Backup.pm:902
+#, perl-brace-format
+msgid ""
+"Cannot rename backup file from {newName} to his original name {name}. Error "
+"message: {error}"
+msgstr ""
+"{newName} yedekleme dosyası {name} orjinal ismine değiştirilemiyor. Hata "
+"mesajı: {error}"
+
+#: src/EBox/Backup.pm:1144
+#, perl-brace-format
+msgid ""
+"Unresolved restore dependency for module {topModule}: {modName} is not "
+"installed"
+msgstr "{topModule} modulu için gerekli bulunamıyor: {modName} kurulu değil"
+
+#: src/EBox/Backup.pm:1236
+#, fuzzy
+msgid "Backup's archives"
+msgstr "Yedekleme Listesi"
 
 #: src/EBox/Apache.pm:49
 msgid ""
@@ -279,7 +1089,7 @@ msgstr "httpd_init değişkenini ebox ayar dosyasında tanımlamanız gerekiyor.
 msgid "The httpd_init script you configured is not executable."
 msgstr "Tanımladığınız httpd_init betiği çalıştırılabilir bir betik değil."
 
-#: src/EBox/Apache.pm:191 src/EBox/Apache.pm:200
+#: src/EBox/Apache.pm:204 src/EBox/Apache.pm:213
 msgid "port"
 msgstr "port"
 
@@ -299,486 +1109,255 @@ msgstr "Postgresql {name} veribankasının yedeğinin alınmasında hata oluştu
 msgid "DB dump file {file} is not readable"
 msgstr "{file} yedek dosyası okunabilir bir dosya değil"
 
-#: src/EBox/Auth.pm:131
-msgid "Password changed"
-msgstr "Parola değiştirildi"
-
-#: src/EBox/Logs.pm:296
+#: src/EBox/Logs.pm:373
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr "{table} tablosu mevcut değil."
 
-#: src/EBox/Logs.pm:311
+#: src/EBox/Logs.pm:388
 #, perl-brace-format
 msgid "Field {field} does not exist"
 msgstr "{field} alanı mevcut değil."
 
-#: src/EBox/Logs.pm:454 src/EBox/CGI/Logs/Index.pm:33
-msgid "Logs"
-msgstr "Günlük"
-
-#: src/EBox/Logs.pm:457
+#: src/EBox/Logs.pm:534
 msgid "Query logs"
 msgstr "Günlük sorgula"
 
-#: src/EBox/Logs.pm:460 src/EBox/Logs/Model/ConfigureLogDataTable.pm:133
-#: src/EBox/CGI/Logs/View/ConfigureLogDataTable.pm:36
-#: src/EBox/CGI/Logs/Controller/ConfigureLogDataTable.pm:35
-msgid "Configure logs"
-msgstr "Günlükleri ayarla"
-
-#: src/EBox/Logs.pm:471 src/templates/backup.mas:193
-#: src/templates/confirm-backup.mas:28 src/templates/finish.mas:23
+#: src/EBox/Logs.pm:549 src/templates/finish.mas:21
+#: src/templates/confirm-backup.mas:28 src/templates/backup.mas:165
 msgid "Date"
 msgstr "Tarih"
 
-#: src/EBox/Logs.pm:472
+#: src/EBox/Logs.pm:550
 msgid "Client Address"
 msgstr "İstemci adresi"
 
-#: src/EBox/Logs.pm:473 src/templates/finish.mas:25
-msgid "Module"
-msgstr "Moduller"
-
-#: src/EBox/Logs.pm:475
+#: src/EBox/Logs.pm:553
 msgid "Params"
 msgstr "Parametreler"
 
-#: src/EBox/Logs.pm:476
+#: src/EBox/Logs.pm:554
 msgid "Committed"
 msgstr "Tamamlandı"
 
-#: src/EBox/Logs.pm:481
+#: src/EBox/Logs.pm:559
 msgid "Admin"
 msgstr "Yönetici"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:109
-msgid "Domain"
-msgstr "Alan ismi"
+#: src/EBox/Logs.pm:653
+#, fuzzy
+msgid "Log messages"
+msgstr "Mesajlar"
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:119
-msgid "Enabled"
-msgstr "Etkinleşti"
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:141
-msgid "Enable/disable logging per-module basis"
-msgstr "Günlük tutmatı modul yöntemi ile Etkinleştir/Etkisizleştir "
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:143
-msgid "logs"
-msgstr "Günlük"
-
-#: src/EBox/CGI/Finish.pm:30
-msgid "Save configuration"
-msgstr "Ayarları kaydet"
-
-#: src/EBox/CGI/Summary/Index.pm:47
-msgid "Error"
-msgstr "Hata"
-
-#: src/EBox/CGI/Login/Index.pm:61
-msgid "Incorrect password"
-msgstr "Geçersiz parola"
-
-#: src/EBox/CGI/Login/Index.pm:64
-msgid "For security reasons your session has expired due to inactivity"
+#: src/EBox/Logs.pm:665
+msgid "Lifetime parameter must be a positive number of hours"
 msgstr ""
-"Uzun süre etkin olmadığınız ve güvenlik sebebleri yüzünden oturumunuzun "
-"süresi bitti"
 
-#: src/EBox/CGI/Login/Index.pm:67
-msgid "You have been logged out because a new session has been opened"
-msgstr "Yeni bir oturum açıldığı için yeni bir süreç başlatıldı "
+#: src/EBox/ProgressIndicator.pm:24
+msgid "Total ticks"
+msgstr ""
 
-#: src/EBox/CGI/FirstTime/Index.pm:30
-msgid "Welcome to eBox"
-msgstr "eBox'a hoşgeldizin"
+#: src/EBox/ProgressIndicator.pm:26
+#, fuzzy
+msgid "It must be a non-zero positive number"
+msgstr "Bir pozitif sayı yazın"
 
-#: src/EBox/CGI/FirstTime/Index.pm:68 src/EBox/CGI/FirstTime/Passwd.pm:72
-msgid "eBox was already initialized"
+#: src/EBox/ProgressIndicator.pm:34
+#, perl-brace-format
+msgid "Cannot execute  {exe}"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:78
+#, perl-brace-format
+msgid "Progress indicator with id {id} not found"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:116
+msgid "Number of ticks to notify"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:118
+#, fuzzy
+msgid "must be greater than zero"
+msgstr ""
+"{from} \"Gönderen\" bölümü {to} \"Alıcı\" bölümünden büyük olmak zorundadır"
+
+#: src/EBox/ProgressIndicator.pm:124
+msgid "Executable has not been run"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:199
+msgid "The executable has not run"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:259
+msgid "The executable has already been started"
+msgstr ""
+
+#: src/EBox/ProgressIndicator.pm:263
+#, fuzzy
+msgid "The executable has already finished"
 msgstr "eBox önceden hazırlandı"
 
-#: src/EBox/CGI/FirstTime/Passwd.pm:38
-msgid "Set password"
-msgstr "Parolayı ayarla"
+#: src/EBox/Summary/Status.pm:44
+msgid "Restart"
+msgstr "Yeniden başlat"
 
-#: src/EBox/CGI/FirstTime/Passwd.pm:63
-msgid "Default password was already changed"
-msgstr "Varsayılan parola öncede değiştirildi"
+#: src/EBox/Summary/Status.pm:47
+msgid "Running"
+msgstr "Çalışıyor"
 
-#: src/EBox/CGI/FirstTime/Passwd.pm:88
-msgid "New passwords do not match"
-msgstr "Yeni parola uyum sağşamıyor"
+#: src/EBox/Summary/Status.pm:50
+msgid "Stopped"
+msgstr "Durduruldu"
 
-#: src/EBox/CGI/FirstTime/Passwd.pm:92 src/EBox/CGI/EBox/Password.pm:62
-msgid "The password was changed successfully."
-msgstr "Parola başarılı bir şekilde değiştirildi"
+#: src/EBox/Summary/Status.pm:52
+msgid "Start"
+msgstr "Başlat"
 
-#: src/EBox/CGI/ClientRawBase.pm:181
-msgid ""
-"An internal error has ocurred. This is most probably a bug, relevant "
-"information can be found in the logs."
+#: src/EBox/Summary/Status.pm:54
+msgid "Disabled"
+msgstr "Etkisiz"
+
+#: src/EBox/ModulePartition.pm:30
+msgid "A instance of a subclass of EBox::GConfModule is expected"
 msgstr ""
-"Dahili bir hata oluştu. Büyük ihtimal ile bir program hatası. Gerekli diğer "
-"bilgileri günlük dosyasında bulabilirsiniz."
 
-#: src/EBox/CGI/ClientRawBase.pm:191
-msgid ""
-"An internal error related to a template has occurred. This is a bug, "
-"relevant information can be found in the logs."
-msgstr ""
-"Dahili bir şablon hatası oluştu. Bu bir hata ve gerekli bilgileri günlük "
-"dosyasında bulabilirsiniz."
+#: src/EBox/FirstTime.pm:67 src/templates/firstTime/passwd.mas:4
+msgid "Change default password"
+msgstr "Öntanımlı parolayı değiştir"
 
-#: src/EBox/CGI/EBox/Backup.pm:34
-msgid "System backups"
-msgstr "Sistem yedekleme"
+#: src/templates/logs/index.mas:19
+msgid "Last hour logs will be showed when selecting a component"
+msgstr "Son bir saat içindeki günlük gösterilecek"
 
-#: src/EBox/CGI/EBox/Backup.pm:193
-#, perl-brace-format
-msgid "Unknown backup mode: {mode}"
-msgstr "Yedekleme modusu bilinmiyor: {mode}"
+#: src/templates/logs/index.mas:20
+msgid "Select available logs"
+msgstr "Mevcut günlükleri seçin"
 
-#: src/EBox/CGI/EBox/Backup.pm:202
-msgid "Backup done"
-msgstr "Yedekleme tamamlandı"
+#: src/templates/logs/index.mas:32 src/templates/logs/index.mas:33
+#: src/templates/logs/index.mas:34
+msgid "View"
+msgstr "Göster"
 
-#: src/EBox/CGI/EBox/Backup.pm:215
-msgid "Backup was written to CD/DVD disk"
-msgstr "Yedekleme CD/DVD 'ye başarılı bir şekilde aktarıldı"
+#: src/templates/logs/index.mas:41
+msgid "Custom query"
+msgstr "Özel sorgulama"
 
-#: src/EBox/CGI/EBox/Backup.pm:277
-#, perl-brace-format
-msgid "Unknown restore mode: {mode}"
-msgstr "{mode} modu bilinmeyen bir kurturtma modudur"
+#: src/templates/logs/index.mas:47
+msgid "From date:"
+msgstr "Bu tarihten itibaren"
 
-#: src/EBox/CGI/EBox/Backup.pm:288
-msgid ""
-"Full backup restored succesfully. You should now review your configuration "
-"and save it if you want to keep it."
-msgstr ""
-"Yedek'ten geri yükleme başarıyla tamamlamıştır. Ayarlarınızı tekrar gözden "
-"geçirip kaydedebilirsiniz."
+#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+msgid "January"
+msgstr "Ocak"
 
-#: src/EBox/CGI/EBox/Backup.pm:293
-msgid ""
-"Configuration restored succesfully, you should now review it and save it if "
-"you want to keep it."
-msgstr ""
-"Ayarlarınızı başarıyla geri yüklenmiştir. Tekrar gözden geçirip "
-"kaydedebilirsiniz."
+#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+msgid "February"
+msgstr "Şubat"
 
-#: src/EBox/CGI/EBox/Halt.pm:30
-msgid "Halt or reboot"
-msgstr "Durdur veya tekrar başlat"
+#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+msgid "March"
+msgstr "Mart"
 
-#: src/EBox/CGI/EBox/Halt.pm:43
-msgid "eBox is going down for halt"
-msgstr "eBox şimdi durduruluyor"
+#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+msgid "April"
+msgstr "Nisan"
 
-#: src/EBox/CGI/EBox/Halt.pm:46
-msgid "eBox is going down for reboot"
-msgstr "eBox şimdi tekrar başlatılıyor"
+#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+msgid "May"
+msgstr "Mayıs"
 
-#: src/EBox/CGI/EBox/General.pm:30
-msgid "General configuration"
-msgstr "Genel ayarlar"
+#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+msgid "June"
+msgstr "Haziran"
 
-#: src/EBox/CGI/EBox/RestartService.pm:48
-msgid "module name"
-msgstr "Modul ismi"
+#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+msgid "July"
+msgstr "Temmuz"
 
-#: src/EBox/CGI/EBox/RestartService.pm:52
-msgid "The module was restarted correctly."
-msgstr "Modul başarılı bir şekilde tekrar başlatıldı"
+#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+msgid "August"
+msgstr "Ağustos"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:33
-msgid "Configuration backups"
-msgstr "Ayarlarımı yedekle"
+#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+msgid "September"
+msgstr "Eylül"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:111
-msgid "Please confirm that you want to delete the following backup file:"
-msgstr "Lütfen aşağıdaki yedek dosyalarını silmek istediğinizi onaylayın:"
+#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+msgid "October"
+msgstr "Ekim"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:113 src/templates/backup.mas:248
-#: src/templates/backup.mas:250
-msgid "Delete"
-msgstr "Sil"
+#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+msgid "November"
+msgstr "Kasım"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:120
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:156
-msgid "Please confirm that you want to restore using this backup file:"
-msgstr "Yedekten geri yüklemek istediğiniz dosya(emin olun):"
+#: src/templates/logs/index.mas:59 src/templates/logs/index.mas:116
+msgid "December"
+msgstr "Aralık"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:122
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:144
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:158 src/templates/backup.mas:115
-msgid "Restore"
-msgstr "Geri yükleme"
+#: src/templates/logs/index.mas:104
+msgid "To date:"
+msgstr "Bu tarihe kadar:"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:132
-msgid ""
-"Unable to find a correct backup disk. Please insert a backup disk and retry"
-msgstr ""
-"Düzgün bir yedek diski bulunamıyor. Yeni bir yedek diski girin ve tekrar "
-"deneyin"
+#: src/templates/logs/index.mas:171
+msgid "Event"
+msgstr "Olay"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:143
-msgid "Please confirm that you want to restore using this backup disk:"
-msgstr "Yedekten geri yüklemek istediğiniz disk(emin olun):"
+#: src/templates/logs/index.mas:187 src/templates/logs/index.mas:188
+msgid "Search"
+msgstr "Arama"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:166
-msgid ""
-"Please confirm that you want to write this backup file to a CD or DVD disk:"
-msgstr ""
-"Lütfen yedekleme işlemini CD veya DVD de gerçekleştirmek istesdiğinizi "
-"onaylayın:"
+#: src/templates/logs/index.mas:201
+msgid "No logs matching current criterion"
+msgstr "Verilen kriterlere uyan bir günlük bulunamadı"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:168
-msgid "Write to disk"
-msgstr "Diske yazdır"
+#: src/templates/logs/dbtable.mas:72 src/templates/logs/dbtable.mas:73
+msgid "first"
+msgstr "birinci"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:209
-msgid "Configuration backup"
-msgstr "Ayarlarımı yedekle"
+#: src/templates/logs/dbtable.mas:76 src/templates/logs/dbtable.mas:77
+msgid "prev"
+msgstr "önceki"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:212
-msgid "Full data and configuration backup"
-msgstr "Tüm verileri ve ayarlarımı yedekle"
+#: src/templates/logs/dbtable.mas:96 src/templates/logs/dbtable.mas:97
+msgid "next"
+msgstr "sonraki"
 
-#: src/EBox/CGI/EBox/ConfirmBackup.pm:215
-msgid "Bug-report configuration dump"
-msgstr "Hata raporlama ayar bilgisi"
-
-#: src/EBox/CGI/EBox/Password.pm:49
-msgid "Incorrect password."
-msgstr "Geçersiz parola"
-
-#: src/EBox/CGI/EBox/Password.pm:54
-msgid "New passwords do not match."
-msgstr "Yeni parolalar uyum sağlamıyor"
-
-#: src/EBox/CGI/EBox/Password.pm:58
-msgid "The password must be at least 6 characters long"
-msgstr "Parola en az 6 karakter olmak zorunda"
-
-#: src/EBox/CGI/Logout/Index.pm:30 src/EBox/Html.pm:40
-msgid "Logout"
-msgstr "Oturumdan çık"
-
-#: src/EBox/Html.pm:39
-msgid "Save changes"
-msgstr "Değişiklikleri kaydet"
-
-#: src/templates/password.mas:6
-msgid "Change password"
-msgstr "Parolayı değiştir"
-
-#: src/templates/password.mas:8 src/templates/firstTime/passwd.mas:6
-msgid "Your password must be at least 6 characters long."
-msgstr "Parolanız en az 6 karakterden oluşmalıdır."
-
-#: src/templates/password.mas:15
-msgid "Current password"
-msgstr "Güncel parola"
-
-#: src/templates/password.mas:30 src/templates/firstTime/passwd.mas:13
-msgid "New password"
-msgstr "Yeni parola"
-
-#: src/templates/password.mas:45 src/templates/firstTime/passwd.mas:28
-msgid "Confirm password"
-msgstr "Parolayı tekrarlayın"
-
-#: src/templates/password.mas:60 src/templates/firstTime/passwd.mas:42
-#: src/templates/port.mas:15
-msgid "Change"
-msgstr "Değiştir"
+#: src/templates/logs/dbtable.mas:100 src/templates/logs/dbtable.mas:101
+msgid "last"
+msgstr "sonuncu"
 
 #: src/templates/firstTime/index.mas:6
 msgid "Use default values"
 msgstr "Öntanımlı değerleri kullan"
 
-#: src/templates/backup.mas:22
-msgid "Full Backup"
-msgstr "Tüm Yedekleme"
+#: src/templates/firstTime/passwd.mas:5 src/templates/password.mas:7
+msgid "Your password must be at least 6 characters long."
+msgstr "Parolanız en az 6 karakterden oluşmalıdır."
 
-#: src/templates/backup.mas:24
-msgid "Configuration Backup"
-msgstr "Ayarları Yedekleme"
+#: src/templates/firstTime/passwd.mas:11 src/templates/password.mas:27
+msgid "New password"
+msgstr "Yeni parola"
 
-#: src/templates/backup.mas:31
-msgid "Back up the current state"
-msgstr "Güncel durumu yedekle"
+#: src/templates/firstTime/passwd.mas:25 src/templates/password.mas:41
+msgid "Confirm password"
+msgstr "Parolayı tekrarlayın"
 
-#: src/templates/backup.mas:34
-msgid ""
-"Backups will be stored in eBox and then you will be able to download them to "
-"your hard disk or write them into CD/DVD disks. Anyway, you can later copy "
-"back stored backup"
-msgstr ""
-"Yedekleme eBox sisteminizde kaydedilir. Sonra kendi sabit diskinize "
-"kaydedebilirsiniz veya isterseniz CD/DVD aygıtınız ile yazdırabilirsiniz. "
-"İsterseniz kopyalama işlemini daha sonrada yapabilirsiniz."
-
-#: src/templates/backup.mas:44
-msgid ""
-"'Backup to CD/DVD disk' is disabled, because eBox could not find any "
-"recorder drive"
-msgstr ""
-"'CD/DVD cihazına kaydet'  seçeneği etkisiz durumda. Çünkü herhangi bir cihaz "
-"bulunamadı"
-
-#: src/templates/backup.mas:54 src/templates/backup.mas:189
-#: src/templates/confirm-backup.mas:37
-msgid "Description"
-msgstr "Açıklama"
-
-#: src/templates/backup.mas:63
-msgid "Backup mode"
-msgstr "Yedekleme modu"
-
-#: src/templates/backup.mas:74
-msgid "Back up to hard disk"
-msgstr "Sabit diske kaydet"
-
-#: src/templates/backup.mas:77
-msgid "Back up to CD/DVD disk"
-msgstr "CD/DVD cihazına kaydet"
-
-#: src/templates/backup.mas:91
-msgid "Restore backup from file"
-msgstr "Dosyadan geri yedekle "
-
-#: src/templates/backup.mas:94
-msgid "You can  upload a backup file from your computer. When uploading"
-msgstr ""
-"Bilgisayarınızda bulunan bir yedekleme dosyasını kullanabilirsiniz/"
-"yükleyebilirsiniz"
-
-#: src/templates/backup.mas:105
-msgid "Backup file"
-msgstr "Yedekleme dosyası"
-
-#: src/templates/backup.mas:124
-msgid "Restore backup from disk"
-msgstr "Sabit diskten geri yükleme"
-
-#: src/templates/backup.mas:127
-msgid ""
-"You can restore from a backup disk. Please insert the disk before clicking "
-"the button"
-msgstr ""
-"Yedekleme diskinden geri yükleme işlemi yapabilirsiniz. Lütfen diskinizi "
-"takın ve sonra işleme devam edin"
-
-#: src/templates/backup.mas:132
-msgid ""
-"'Restore backup from CD/DVD disk' is disabled, because eBox could not find "
-"any reader drive"
-msgstr ""
-"'CD/DVD cihazından geri yükle' seçeneği etkisiz durumda. Çünkü eBox sistemi "
-"bir cihaz bulamadı"
-
-#: src/templates/backup.mas:143
-msgid "Restore from disk"
-msgstr "Diskten geri yükle"
-
-#: src/templates/backup.mas:167
-msgid "Full"
-msgstr "Hepsi"
-
-#: src/templates/backup.mas:169
-msgid "Configuration only"
-msgstr "Sadece ayar dosyaları"
-
-#: src/templates/backup.mas:171
-msgid "Unknown type"
-msgstr "Türü bilinmiyor"
-
-#: src/templates/backup.mas:180
-msgid ""
-"'Write backup to CD/DVD disk' is disabled, because eBox could not find any "
-"recorder drive"
-msgstr ""
-"'Yedeklemeyi CD/DVD cihazına yazdır'  seçeneği etkisiz durumda. Çünkü ebox "
-"sistemi bir yazıcı cihaz bulamadı."
-
-#: src/templates/backup.mas:184
-msgid "Backups' list"
-msgstr "Yedekleme Listesi"
-
-#: src/templates/backup.mas:191 src/templates/confirm-backup.mas:46
-msgid "Type"
-msgstr "Tür"
-
-#: src/templates/backup.mas:195
-msgid "Actions"
-msgstr "İşlemler"
-
-#: src/templates/backup.mas:223
-msgid "Restore configuration using this file"
-msgstr "Bu dosyayı kullanarak geri yükleme işlemi yap"
-
-#: src/templates/backup.mas:225
-msgid "Restore from backup"
-msgstr "Yedekleme üzerinden geri yükle"
-
-#: src/templates/backup.mas:231 src/templates/backup.mas:233
-msgid "Download"
-msgstr "İndir"
-
-#: src/templates/backup.mas:240 src/templates/backup.mas:242
-msgid "Write backup to CD/DVD disk"
-msgstr "Yedekeleme dosyasını CD/DVD cihazına yazdır"
-
-#: src/templates/backup.mas:264
-msgid "download"
-msgstr "İndir"
-
-#: src/templates/backup.mas:267
-msgid "write into disk"
-msgstr "Diske yazdır"
-
-#: src/templates/backup.mas:268
-msgid "write into disk (disabled)"
-msgstr "Diske yazdır (etkisiz)"
-
-#: src/templates/backup.mas:271
-msgid "restore"
-msgstr "Geri yükle"
-
-#: src/templates/backup.mas:274
-msgid "delete"
-msgstr "Sil"
-
-#: src/templates/logout/index.mas:11
-msgid "There are unsaved changes, if you log out now they will be lost."
-msgstr ""
-"Kayıt edilmeyen değişiklikler var. Eğer şimdi oturumdan çıkarsanız bu "
-"değişiklikler kaydolmaz."
-
-#: src/templates/logout/index.mas:16
-msgid "There are no unsaved changes in this session."
-msgstr "Bu oturumda kayıt edilmemiş değişiklikler mevcut değil."
-
-#: src/templates/logout/index.mas:21
-msgid "Exit"
-msgstr "Çık"
-
-#: src/templates/port.mas:9
-msgid "Administration interface TCP port"
-msgstr "Yönetici arayüzü TCP portu"
+#: src/templates/firstTime/passwd.mas:38 src/templates/password.mas:55
+#: src/templates/port.mas:14
+msgid "Change"
+msgstr "Değiştir"
 
 #: src/templates/login/index.mas:27
 msgid "Password"
 msgstr "Parola"
 
-#: src/templates/login/index.mas:35
+#: src/templates/login/index.mas:34
 msgid "Enter"
 msgstr "Girin"
 
-#: src/templates/login/index.mas:42
+#: src/templates/login/index.mas:40
 msgid ""
 "Created by <a href='http://www.warp.es'>Warp Networks</a> in collaboration "
 "with <a href='http://www.dbs.es'>DBS Servicios Informaticos</a>"
@@ -786,21 +1365,27 @@ msgstr ""
 "Created by <a href='http://www.warp.es'>Warp Networks</a> in collaboration "
 "with <a href='http://www.dbs.es'>DBS Servicios Informaticos</a>"
 
-#: src/templates/confirm-backup.mas:63 src/templates/confirm-backup.mas:64
-msgid "Cancel"
-msgstr "Vazgeç"
+#: src/templates/password.mas:6
+msgid "Change password"
+msgstr "Parolayı değiştir"
 
-#: src/templates/confirm-backup.mas:105
-msgid "Full Restore"
-msgstr "Tüm geri yükleme"
+#: src/templates/password.mas:13
+msgid "Current password"
+msgstr "Güncel parola"
 
-#: src/templates/confirm-backup.mas:107
-msgid "Configuration Restore"
-msgstr "Ayar dosyaları geri yükleme"
+#: src/templates/progress.mas:18
+#, fuzzy
+msgid "Item"
+msgstr "Sistem"
 
-#: src/templates/confirm-backup.mas:113
-msgid "Restore mode"
-msgstr "Geri yükleme modu"
+#: src/templates/progress.mas:19
+msgid "items left"
+msgstr ""
+
+#: src/templates/progress.mas:33
+#, fuzzy
+msgid "Starting..."
+msgstr "Başlat"
 
 #: src/templates/finish.mas:12
 msgid ""
@@ -810,7 +1395,7 @@ msgstr ""
 "Bir veya birden fazla modul üzerinde kaydolmamış değişiklikler mevcut. "
 "Kaydolsun mu yoksa vazmı geçmek istersiniz?"
 
-#: src/templates/finish.mas:16
+#: src/templates/finish.mas:15
 msgid ""
 "If you made changes to the network interfaces or the administration port, "
 "you may need to manually rewrite the url in order to access this "
@@ -820,33 +1405,396 @@ msgstr ""
 "penceresine tekrardan ulaşmak için URL adresini tekrardan kendiniz girmeniz "
 "gereklidir."
 
-#: src/templates/finish.mas:27
+#: src/templates/finish.mas:23
 msgid "Message"
 msgstr "Mesajlar"
 
-#: src/templates/finish.mas:44
+#: src/templates/finish.mas:39
 msgid "Save"
 msgstr "Kaydet"
 
-#: src/templates/finish.mas:47
+#: src/templates/finish.mas:41
 msgid "Discard changes"
 msgstr "Değişikliklerden vazgeç"
 
-#: src/templates/finish.mas:53
+#: src/templates/finish.mas:46
 msgid "There are no unsaved changes."
 msgstr "Kaydolmamış değişiklikler mevcut değil."
+
+#: src/templates/confirm-backup.mas:44 src/templates/backup.mas:164
+#: src/templates/report/raid.mas:102 src/templates/report/diskUsage.mas:30
+msgid "Type"
+msgstr "Tür"
+
+#: src/templates/confirm-backup.mas:60
+msgid "Cancel"
+msgstr "Vazgeç"
+
+#: src/templates/confirm-backup.mas:100
+msgid "Full Restore"
+msgstr "Tüm geri yükleme"
+
+#: src/templates/confirm-backup.mas:101
+msgid "Configuration Restore"
+msgstr "Ayar dosyaları geri yükleme"
+
+#: src/templates/confirm-backup.mas:106
+msgid "Restore mode"
+msgstr "Geri yükleme modu"
+
+#: src/templates/port.mas:9
+msgid "Administration interface TCP port"
+msgstr "Yönetici arayüzü TCP portu"
 
 #: src/templates/halt.mas:10
 msgid "You might lose your Internet connection if this machine is halted."
 msgstr "eBox sisteminizi kapatırsanız internet bağlantınızı kaybedebilirsiniz."
 
-#: src/templates/halt.mas:15
+#: src/templates/halt.mas:14
 msgid "Halt"
 msgstr "Durdur"
 
-#: src/templates/halt.mas:18
+#: src/templates/halt.mas:16
 msgid "Reboot"
 msgstr "Yeniden başlat"
+
+#: src/templates/backup.mas:20
+msgid "Full Backup"
+msgstr "Tüm Yedekleme"
+
+#: src/templates/backup.mas:21
+msgid "Configuration Backup"
+msgstr "Ayarları Yedekleme"
+
+#: src/templates/backup.mas:27
+msgid "Back up the current state"
+msgstr "Güncel durumu yedekle"
+
+#: src/templates/backup.mas:29
+msgid ""
+"Backups will be stored in eBox and then you will be able to download them to "
+"your hard disk or write them into CD/DVD disks. Anyway, you can later copy "
+"back stored backup"
+msgstr ""
+"Yedekleme eBox sisteminizde kaydedilir. Sonra kendi sabit diskinize "
+"kaydedebilirsiniz veya isterseniz CD/DVD aygıtınız ile yazdırabilirsiniz. "
+"İsterseniz kopyalama işlemini daha sonrada yapabilirsiniz."
+
+#: src/templates/backup.mas:33
+msgid ""
+"Backup is disabled because there are unsaved configuration changes. Please, "
+"save or discard them to be able to backup the configuration"
+msgstr ""
+"Yedekleme kapatıldı çünü bazı kaydedilmemiş yapılandırma ayarları var. "
+"Lütfen yedeklemeyi yapılandırmak için bunları kayıt veya iptal edin"
+
+#: src/templates/backup.mas:38
+msgid ""
+"'Backup to CD/DVD disk' is disabled, because eBox could not find any "
+"recorder drive"
+msgstr ""
+"'CD/DVD cihazına kaydet'  seçeneği etkisiz durumda. Çünkü herhangi bir cihaz "
+"bulunamadı"
+
+#: src/templates/backup.mas:55
+msgid "Backup mode"
+msgstr "Yedekleme modu"
+
+#: src/templates/backup.mas:65
+msgid "Back up to hard disk"
+msgstr "Sabit diske kaydet"
+
+#: src/templates/backup.mas:67
+msgid "Back up to CD/DVD disk"
+msgstr "CD/DVD cihazına kaydet"
+
+#: src/templates/backup.mas:80
+msgid "Restore backup from file"
+msgstr "Dosyadan geri yedekle "
+
+#: src/templates/backup.mas:82
+msgid ""
+"You can upload a backup file from your computer. When uploading files you "
+"should be warned that some web browsers cannot handle huge files (>= 1 Gb)"
+msgstr ""
+"Bilgisayarınızdan bir yedekleme dosyası gönderebilirsiniz. Gönderme işlemini "
+"yaparken bazı gezginler tarafından büyük dosyaları (>= 1GB) "
+"gönderemeyeceğiniz uyarısı gelebilir"
+
+#: src/templates/backup.mas:90
+msgid "Backup file"
+msgstr "Yedekleme dosyası"
+
+#: src/templates/backup.mas:107
+msgid "Restore backup from disk"
+msgstr "Sabit diskten geri yükleme"
+
+#: src/templates/backup.mas:109
+msgid ""
+"You can restore from a backup disk. Please insert the disk before clicking "
+"the button"
+msgstr ""
+"Yedekleme diskinden geri yükleme işlemi yapabilirsiniz. Lütfen diskinizi "
+"takın ve sonra işleme devam edin"
+
+#: src/templates/backup.mas:113
+msgid ""
+"'Restore backup from CD/DVD disk' is disabled, because eBox could not find "
+"any reader drive"
+msgstr ""
+"'CD/DVD cihazından geri yükle' seçeneği etkisiz durumda. Çünkü eBox sistemi "
+"bir cihaz bulamadı"
+
+#: src/templates/backup.mas:123
+msgid "Restore from disk"
+msgstr "Diskten geri yükle"
+
+#: src/templates/backup.mas:146
+msgid "Full"
+msgstr "Hepsi"
+
+#: src/templates/backup.mas:147
+msgid "Configuration only"
+msgstr "Sadece ayar dosyaları"
+
+#: src/templates/backup.mas:148
+msgid "Unknown type"
+msgstr "Türü bilinmiyor"
+
+#: src/templates/backup.mas:156
+msgid ""
+"'Write backup to CD/DVD disk' is disabled, because eBox could not find any "
+"recorder drive"
+msgstr ""
+"'Yedeklemeyi CD/DVD cihazına yazdır'  seçeneği etkisiz durumda. Çünkü ebox "
+"sistemi bir yazıcı cihaz bulamadı."
+
+#: src/templates/backup.mas:159
+msgid "Backups' list"
+msgstr "Yedekleme Listesi"
+
+#: src/templates/backup.mas:166
+msgid "Actions"
+msgstr "İşlemler"
+
+#: src/templates/backup.mas:193
+msgid "Restore configuration using this file"
+msgstr "Bu dosyayı kullanarak geri yükleme işlemi yap"
+
+#: src/templates/backup.mas:194
+msgid "Restore from backup"
+msgstr "Yedekleme üzerinden geri yükle"
+
+#: src/templates/backup.mas:199 src/templates/backup.mas:200
+msgid "Download"
+msgstr "İndir"
+
+#: src/templates/backup.mas:206 src/templates/backup.mas:207
+msgid "Write backup to CD/DVD disk"
+msgstr "Yedekeleme dosyasını CD/DVD cihazına yazdır"
+
+#: src/templates/backup.mas:226
+msgid "download"
+msgstr "İndir"
+
+#: src/templates/backup.mas:228
+msgid "write into disk"
+msgstr "Diske yazdır"
+
+#: src/templates/backup.mas:228
+msgid "write into disk (disabled)"
+msgstr "Diske yazdır (etkisiz)"
+
+#: src/templates/backup.mas:230
+msgid "restore"
+msgstr "Geri yükle"
+
+#: src/templates/backup.mas:232
+msgid "delete"
+msgstr "Sil"
+
+#: src/templates/logout/index.mas:11
+msgid "There are unsaved changes, if you log out now they will be lost."
+msgstr ""
+"Kayıt edilmeyen değişiklikler var. Eğer şimdi oturumdan çıkarsanız bu "
+"değişiklikler kaydolmaz."
+
+#: src/templates/logout/index.mas:15
+msgid "There are no unsaved changes in this session."
+msgstr "Bu oturumda kayıt edilmemiş değişiklikler mevcut değil."
+
+#: src/templates/logout/index.mas:19
+msgid "Exit"
+msgstr "Çık"
+
+#: src/templates/report/raid.mas:13
+msgid "No RAID devices present"
+msgstr ""
+
+#: src/templates/report/raid.mas:17
+#, perl-brace-format
+msgid "Inexistent RAID array {a}"
+msgstr ""
+
+#: src/templates/report/raid.mas:76
+msgid "RAID 0"
+msgstr ""
+
+#: src/templates/report/raid.mas:77
+msgid "RAID 1"
+msgstr ""
+
+#: src/templates/report/raid.mas:78
+msgid "RAID 2"
+msgstr ""
+
+#: src/templates/report/raid.mas:79
+msgid "RAID 3"
+msgstr ""
+
+#: src/templates/report/raid.mas:80
+msgid "RAID 4"
+msgstr ""
+
+#: src/templates/report/raid.mas:81
+msgid "RAID 5"
+msgstr ""
+
+#: src/templates/report/raid.mas:84
+msgid "left-asymmetric"
+msgstr ""
+
+#: src/templates/report/raid.mas:85
+msgid "right-asymmetric"
+msgstr ""
+
+#: src/templates/report/raid.mas:86
+msgid "left-symmetric"
+msgstr ""
+
+#: src/templates/report/raid.mas:87
+msgid "right-symmetric"
+msgstr ""
+
+#: src/templates/report/raid.mas:94
+#, fuzzy
+msgid "Active"
+msgstr "İşlem"
+
+#: src/templates/report/raid.mas:97
+msgid "yes"
+msgstr ""
+
+#: src/templates/report/raid.mas:97
+msgid "no"
+msgstr ""
+
+#: src/templates/report/raid.mas:113
+msgid "Active RAID devices"
+msgstr ""
+
+#: src/templates/report/raid.mas:114
+msgid "Active RAID devices needed"
+msgstr ""
+
+#: src/templates/report/raid.mas:115
+msgid "Size in blocks"
+msgstr ""
+
+#: src/templates/report/raid.mas:116
+msgid "Chunk size"
+msgstr ""
+
+#: src/templates/report/raid.mas:119
+msgid "Parity algorithm"
+msgstr ""
+
+#: src/templates/report/raid.mas:151
+msgid "Array properties"
+msgstr ""
+
+#: src/templates/report/raid.mas:166
+msgid "Resyncing array"
+msgstr ""
+
+#: src/templates/report/raid.mas:167
+msgid "Rebuild array"
+msgstr ""
+
+#: src/templates/report/raid.mas:168
+msgid "Reshape array"
+msgstr ""
+
+#: src/templates/report/raid.mas:176
+#, fuzzy
+msgid "Operation type"
+msgstr "Seçmeli Integer değeri"
+
+#: src/templates/report/raid.mas:178
+msgid "Percentage completed"
+msgstr ""
+
+#: src/templates/report/raid.mas:180
+msgid "Estimated time left"
+msgstr ""
+
+#: src/templates/report/raid.mas:182
+msgid "Operation speed"
+msgstr ""
+
+#: src/templates/report/raid.mas:184
+#, fuzzy
+msgid "Current operation"
+msgstr "Güncel parola"
+
+#: src/templates/report/raid.mas:195
+#, fuzzy
+msgid "RAID device number"
+msgstr "Aralık"
+
+#: src/templates/report/raid.mas:196
+#, fuzzy
+msgid "Device"
+msgstr "Servis"
+
+#: src/templates/report/raid.mas:202
+msgid "up"
+msgstr ""
+
+#: src/templates/report/raid.mas:203
+msgid "failure"
+msgstr ""
+
+#: src/templates/report/raid.mas:204
+#, fuzzy
+msgid "spare"
+msgstr "önceki"
+
+#: src/templates/report/raid.mas:232
+msgid "No unused RAID devices"
+msgstr ""
+
+#: src/templates/report/raid.mas:235
+msgid "Unused RAID arrays"
+msgstr ""
+
+#: src/templates/report/diskUsage.mas:29
+msgid "Mounted on"
+msgstr ""
+
+#: src/templates/report/diskUsage.mas:31
+#, fuzzy
+msgid "Options"
+msgstr "İşlemler"
+
+#: src/templates/report/diskUsage.mas:34
+msgid "Partition properties"
+msgstr ""
+
+#: src/templates/footer.mas:8
+#, perl-brace-format
+msgid "{ebox} created by {warp} in collaboration with {dbs}"
+msgstr "{ebox} sistemi {warp} tarafından {dbs} yardımları ile oluşturulmuştur"
 
 #: src/templates/bug.mas:9
 msgid ""
@@ -857,123 +1805,37 @@ msgstr ""
 "sağlar. Oluşan dosya size yararlı bilgiler verecektir. Bu dosya sayesinde "
 "hata geri bildirimi yapabilirsiniz."
 
-#: src/templates/bug.mas:15
+#: src/templates/bug.mas:14
 msgid "Download bug report file"
 msgstr "Hata geri bildirim dosyası indir"
 
-#: src/templates/logs/dbtable.mas:72 src/templates/logs/dbtable.mas:74
-msgid "first"
-msgstr "birinci"
+#~ msgid "Backup done"
+#~ msgstr "Yedekleme tamamlandı"
 
-#: src/templates/logs/dbtable.mas:78 src/templates/logs/dbtable.mas:80
-msgid "prev"
-msgstr "önceki"
+#~ msgid ""
+#~ "Full backup restored succesfully. You should now review your "
+#~ "configuration and save it if you want to keep it."
+#~ msgstr ""
+#~ "Yedek'ten geri yükleme başarıyla tamamlamıştır. Ayarlarınızı tekrar "
+#~ "gözden geçirip kaydedebilirsiniz."
 
-#: src/templates/logs/dbtable.mas:88 src/templates/logs/dbtable.mas:91
-msgid "Page"
-msgstr "sayfa"
+#~ msgid ""
+#~ "Configuration restored succesfully, you should now review it and save it "
+#~ "if you want to keep it."
+#~ msgstr ""
+#~ "Ayarlarınızı başarıyla geri yüklenmiştir. Tekrar gözden geçirip "
+#~ "kaydedebilirsiniz."
 
-#: src/templates/logs/dbtable.mas:92
-msgid "of"
-msgstr "."
+#~ msgid "You can  upload a backup file from your computer. When uploading"
+#~ msgstr ""
+#~ "Bilgisayarınızda bulunan bir yedekleme dosyasını kullanabilirsiniz/"
+#~ "yükleyebilirsiniz"
 
-#: src/templates/logs/dbtable.mas:103 src/templates/logs/dbtable.mas:105
-msgid "next"
-msgstr "sonraki"
+#~ msgid "Page"
+#~ msgstr "sayfa"
 
-#: src/templates/logs/dbtable.mas:109 src/templates/logs/dbtable.mas:111
-msgid "last"
-msgstr "sonuncu"
-
-#: src/templates/logs/index.mas:19
-msgid "Last hour logs will be showed when selecting a component"
-msgstr "Son bir saat içindeki günlük gösterilecek"
-
-#: src/templates/logs/index.mas:21
-msgid "Select available logs"
-msgstr "Mevcut günlükleri seçin"
-
-#: src/templates/logs/index.mas:34 src/templates/logs/index.mas:36
-#: src/templates/logs/index.mas:38
-msgid "View"
-msgstr "Göster"
-
-#: src/templates/logs/index.mas:46
-msgid "Custom query"
-msgstr "Özel sorgulama"
-
-#: src/templates/logs/index.mas:53
-msgid "From date:"
-msgstr "Bu tarihten itibaren"
-
-#: src/templates/logs/index.mas:66 src/templates/logs/index.mas:136
-msgid "January"
-msgstr "Ocak"
-
-#: src/templates/logs/index.mas:67 src/templates/logs/index.mas:137
-msgid "February"
-msgstr "Şubat"
-
-#: src/templates/logs/index.mas:68 src/templates/logs/index.mas:138
-msgid "March"
-msgstr "Mart"
-
-#: src/templates/logs/index.mas:69 src/templates/logs/index.mas:139
-msgid "April"
-msgstr "Nisan"
-
-#: src/templates/logs/index.mas:70 src/templates/logs/index.mas:140
-msgid "May"
-msgstr "Mayıs"
-
-#: src/templates/logs/index.mas:71 src/templates/logs/index.mas:141
-msgid "June"
-msgstr "Haziran"
-
-#: src/templates/logs/index.mas:72 src/templates/logs/index.mas:142
-msgid "July"
-msgstr "Temmuz"
-
-#: src/templates/logs/index.mas:73 src/templates/logs/index.mas:143
-msgid "August"
-msgstr "Ağustos"
-
-#: src/templates/logs/index.mas:74 src/templates/logs/index.mas:144
-msgid "September"
-msgstr "Eylül"
-
-#: src/templates/logs/index.mas:75 src/templates/logs/index.mas:145
-msgid "October"
-msgstr "Ekim"
-
-#: src/templates/logs/index.mas:76 src/templates/logs/index.mas:146
-msgid "November"
-msgstr "Kasım"
-
-#: src/templates/logs/index.mas:77 src/templates/logs/index.mas:147
-msgid "December"
-msgstr "Aralık"
-
-#: src/templates/logs/index.mas:123
-msgid "To date:"
-msgstr "Bu tarihe kadar:"
-
-#: src/templates/logs/index.mas:203
-msgid "Event"
-msgstr "Olay"
-
-#: src/templates/logs/index.mas:221 src/templates/logs/index.mas:223
-msgid "Search"
-msgstr "Arama"
-
-#: src/templates/logs/index.mas:237
-msgid "No logs matching current criterion"
-msgstr "Verilen kriterlere uyan bir günlük bulunamadı"
-
-#: src/templates/footer.mas:8
-#, perl-brace-format
-msgid "{ebox} created by {warp} in collaboration with {dbs}"
-msgstr "{ebox} sistemi {warp} tarafından {dbs} yardımları ile oluşturulmuştur"
+#~ msgid "of"
+#~ msgstr "."
 
 #~ msgid ""
 #~ "Full backup restored successfully. You should now review your "
@@ -989,359 +1851,11 @@ msgstr "{ebox} sistemi {warp} tarafından {dbs} yardımları ile oluşturulmuşt
 #~ "Ayarlarınızı başarıyla geri yüklendi. Tekrar gözden geçirip saklamak için "
 #~ "kaydedebilirsiniz."
 
-#~ msgid ""
-#~ "Backup is disabled because there are unsaved configuration changes. "
-#~ "Please, save or discard them to be able to backup the configuration"
-#~ msgstr ""
-#~ "Yedekleme kapatıldı çünü bazı kaydedilmemiş yapılandırma ayarları var. "
-#~ "Lütfen yedeklemeyi yapılandırmak için bunları kayıt veya iptal edin"
-
-#~ msgid ""
-#~ "You can upload a backup file from your computer. When uploading files you "
-#~ "should be warned that some web browsers cannot handle huge files (>= 1 Gb)"
-#~ msgstr ""
-#~ "Bilgisayarınızdan bir yedekleme dosyası gönderebilirsiniz. Gönderme "
-#~ "işlemini yaparken bazı gezginler tarafından büyük dosyaları (>= 1GB) "
-#~ "gönderemeyeceğiniz uyarısı gelebilir"
-
-#~ msgid "Sub-composite example"
-#~ msgstr "Alt bileşik örnekleri"
-
-#~ msgid "Compulsory IP Address"
-#~ msgstr "Zorunlu IP adresi"
-
-#~ msgid "Optional IP Address"
-#~ msgstr "Seçmeli IP adresi"
-
-#~ msgid "Compulsory Boolean"
-#~ msgstr "Zorunlu Boolean değeri"
-
-#~ msgid "Optional Boolean"
-#~ msgstr "Seçmeli Boolean değeri"
-
-#~ msgid "Compulsory Integer"
-#~ msgstr "Zorunlu Integer değeri"
-
-#~ msgid "Optional Integer"
-#~ msgstr "Seçmeli Integer değeri"
-
-#~ msgid "Compulsory Select"
-#~ msgstr "Zorunlu seçim"
-
 #~ msgid "Unique Select"
 #~ msgstr "Benzersiz seçim"
 
 #~ msgid "Foreign Select Object"
 #~ msgstr "Yabancı seçim nesnesi"
-
-#~ msgid "Compulsory Text"
-#~ msgstr "Zorunlu metin"
-
-#~ msgid "Optional Text"
-#~ msgstr "Seçmeli metin"
-
-#~ msgid "Compulsory MAC Address"
-#~ msgstr "Zorunlu MAC adresi"
-
-#~ msgid "Optional MAC address"
-#~ msgstr "Seçmeli MAC adresi"
-
-#~ msgid "Optional Link"
-#~ msgstr "Seçmeli bağlantı"
-
-#~ msgid "Compulsory Password"
-#~ msgstr "Güncel parola"
-
-#~ msgid "Optional Password"
-#~ msgstr "Seçmeli Parola"
-
-#~ msgid "Port range"
-#~ msgstr "Port aralığı"
-
-#~ msgid "Union"
-#~ msgstr "Bensersiz"
-
-#~ msgid "Foo"
-#~ msgstr "Foo"
-
-#~ msgid "Bar"
-#~ msgstr "Bar"
-
-#~ msgid "Baz"
-#~ msgstr "Baz"
-
-#~ msgid "Other option"
-#~ msgstr "Diğer seçenekler"
-
-#~ msgid "Inverse Match Select"
-#~ msgstr "Seçili eşleşenleri tersine çevir"
-
-#~ msgid "Inverse Match Union"
-#~ msgstr "Benzersiz eşleşenleri tersine çevir"
-
-#~ msgid "Inverse Foo"
-#~ msgstr "Foo'yu tersine çevir"
-
-#~ msgid "Inverse Bar"
-#~ msgstr "Bar'ı tersine çevir"
-
-#~ msgid "Inverse Baz"
-#~ msgstr "Baz'ı tersine çevir"
-
-#~ msgid "Inverse Other option"
-#~ msgstr "Diğer seçimleri tersine çevir"
-
-#~ msgid "Members"
-#~ msgstr "Üyeler"
-
-#~ msgid "Compulsory Service"
-#~ msgstr "Zorunlu servisler"
-
-#~ msgid "Test model"
-#~ msgstr "Deneme modeli"
-
-#~ msgid "Test model to test types"
-#~ msgstr "Deneme modelinini deneme türleri"
-
-#~ msgid "row"
-#~ msgstr "satır"
-
-#~ msgid "A"
-#~ msgstr "A"
-
-#~ msgid "B"
-#~ msgstr "B"
-
-#~ msgid "C"
-#~ msgstr "C"
-
-#~ msgid "Test form"
-#~ msgstr "Deneme formu"
-
-#~ msgid "Test form to test types"
-#~ msgstr "Deneme formun deneme türü"
-
-#~ msgid "Admin Jabber account"
-#~ msgstr "Jabber hesabı yöneticisi"
-
-#~ msgid "Jabber"
-#~ msgstr "Jabber"
-
-#~ msgid "Jabber server {serverName} is down or connection is not allowed"
-#~ msgstr ""
-#~ "{serverName} Jabber sunucusu kapalı veya bağlantıya izin vermiyor olabilir"
-
-#~ msgid "Subscription failed: {message}"
-#~ msgstr "Abonelik hatalı: {message}"
-
-#~ msgid "Authorization failed: {result} - {message}"
-#~ msgstr "Kimlik doğrulama hatalı: {result} - {message}"
-
-#~ msgid "Log file"
-#~ msgstr "Günlük dosyası"
-
-#~ msgid "Log"
-#~ msgstr "Günlük "
-
-#~ msgid "Dispatcher {name} is not configured to be enabled"
-#~ msgstr ""
-#~ "{name} işlemci zamanlayıcısı etkinleştirebilmek için yapılandırılmamış"
-
-#~ msgid "The file system {fs}, mounted on {mp}, has no space left"
-#~ msgstr "{np} üzerine bağlanmış olan {fs} dosya sisteminde yer yok"
-
-#~ msgid "Free storage space"
-#~ msgstr "Boş depolama alanı"
-
-#~ msgid "Check if any disk partition  has no storage space left"
-#~ msgstr "Herhangi bir disk bölümüde yer kalıp kalmadığını kontrol et"
-
-#~ msgid "eBox is up and running"
-#~ msgstr "eBox etkin ve çalışıyor"
-
-#~ msgid "eBox is critically down"
-#~ msgstr "eBox kritik olarak çalışmıyor"
-
-#~ msgid "State"
-#~ msgstr "Durum"
-
-#~ msgid "Check if eBox is currently up or down"
-#~ msgstr "eBox'ın çalışıp çalışmadığını kontrol et"
-
-#~ msgid ""
-#~ "The service {service} has been restarted {restart} times in {time} "
-#~ "seconds and it has been stopped"
-#~ msgstr ""
-#~ "{service} servisi, {time} saniye içinde, {restart} defa yeniden başladı "
-#~ "ve şu an durduruldu"
-
-#~ msgid ""
-#~ "Check if any service has been restarted many  times in a time interval"
-#~ msgstr ""
-#~ "Belli bir süre aralığında herhangi bir servisin birçok defa yeniden "
-#~ "başlatılıp başlatılmadığını kontrol et"
-
-#~ msgid "Service enabled"
-#~ msgstr "Servis etkin"
-
-#~ msgid "Service disabled"
-#~ msgstr "Servis etkin değil"
-
-#~ msgid "Enable service"
-#~ msgstr "Servisi etkinleştir"
-
-#~ msgid "Choose a value within the value set {set}"
-#~ msgstr "{set} değer kümesinden bir değer seçin"
-
-#~ msgid "Write down a positive number"
-#~ msgstr "Bir pozitif sayı yazın"
-
-#~ msgid "any"
-#~ msgstr "herhangi bir"
-
-#~ msgid "\"From\" {from} must be greater than \"To\" {to}"
-#~ msgstr ""
-#~ "{from} \"Gönderen\" bölümü {to} \"Alıcı\" bölümünden büyük olmak "
-#~ "zorundadır"
-
-#~ msgid "The password should have at least {minLength} characters"
-#~ msgstr "Parola en az 6 karakter olmak zorunda"
-
-#~ msgid "The password should have at most {maxLength} characters"
-#~ msgstr "Parola en az 6 karakter olmak zorunda"
-
-#~ msgid "Done"
-#~ msgstr "Tamam"
-
-#~ msgid "field"
-#~ msgstr "alan"
-
-#~ msgid "{row} added"
-#~ msgstr "{row} eklendi"
-
-#~ msgid "{row} deleted"
-#~ msgstr "{row} silindi"
-
-#~ msgid "{row} updated"
-#~ msgstr "{row} güncellendi"
-
-#~ msgid "{row} moved up"
-#~ msgstr "{row} üste kaydırıldı"
-
-#~ msgid "{row} moved down"
-#~ msgstr "{row} alta kaydırıldı"
-
-#~ msgid ""
-#~ "The data you are removing is being used by\n"
-#~ "\t\t\tthe following tables:"
-#~ msgstr ""
-#~ "Silmek üzere olduğunuz veri aşağıdaki\n"
-#~ "\t\t\ttablolar tarafından kullanılıyor:"
-
-#~ msgid ""
-#~ "The data you are modifying is being used by\n"
-#~ "\t\t\tthe following tables:"
-#~ msgstr ""
-#~ "Değiştirmek üzere olduğunuz veri aşağıdaki\n"
-#~ "\t\t\ttablolar tarafından kullanılıyor:"
-
-#~ msgid "It should be one of following values: top-bottom or tabbed"
-#~ msgstr "Şu değerler olmalı: top-bottom veya tabbed"
-
-#~ msgid "Actions to be taken allowed are: {view} and {cView}"
-#~ msgstr "Burdaki izin verilen işlemler: {view} ve {cView}"
-
-#~ msgid ""
-#~ "There is a Web service script running. Please, wait patiently until it is "
-#~ "done"
-#~ msgstr "Bir Web servis betiği çalışıyor. Lütfen bitene kadar bekleyin"
-
-#~ msgid "Jabber server name"
-#~ msgstr "Jabber sunucu ismi"
-
-#~ msgid "Port"
-#~ msgstr "Port"
-
-#~ msgid "Jabber user name"
-#~ msgstr "Jabber kullanıcı ismi"
-
-#~ msgid "User password"
-#~ msgstr "Kullanıcı parolası"
-
-#~ msgid "Subscribe"
-#~ msgstr "Kayıt ol"
-
-#~ msgid "Administrator Jabber Identifier"
-#~ msgstr "Yönetici Jabber Tanımlayıcısı"
-
-#~ msgid "Configure Jabber dispatcher"
-#~ msgstr "Jabber işlemci zamanlayıcısını yapılandır"
-
-#~ msgid ""
-#~ "In order to configure the Jabber event dispatcher is required to be "
-#~ "registered at the chosen Jabber server or check subscribe to do register. "
-#~ "The administrator identifier should follow the pattern: user@domain[/"
-#~ "resource]"
-#~ msgstr ""
-#~ "Jabber olay işlemci zamanlayıcısını yapılandırmak için seçilen Jabber "
-#~ "sunucuda kayıtlı olmak veya kayıt ol seçeneğini işaretlemek gerekli. "
-#~ "Yönetici belirleyicisi şu yapıda olmalı: kullanıcı@alan_adı[/resource]"
-
-#~ msgid "Jabber dispatcher configuration updated"
-#~ msgstr "Jabber işlemci zamanlayıcı yapılandırması güncellendi"
-
-#~ msgid "It should follow the pattern 'user@domain[/resource]'"
-#~ msgstr "Şu biçimde olmalı 'kullanıcı@alan_adı[/resource]"
-
-#~ msgid "Name"
-#~ msgstr "İsim"
-
-#~ msgid "Configure events"
-#~ msgstr "Olayları yapılandır"
-
-#~ msgid "event"
-#~ msgstr "olay"
-
-#~ msgid "Enable/Disable each event watcher monitoring"
-#~ msgstr "Herbir olay gözlemleyicisini aç/kapat"
-
-#~ msgid "Receiver"
-#~ msgstr "Alıcı"
-
-#~ msgid "Configuration"
-#~ msgstr "Yapılandırma"
-
-#~ msgid "None"
-#~ msgstr "Hiçbiri"
-
-#~ msgid "Configure dispatchers"
-#~ msgstr "İşlemci zamanlayıcılarını yapılandır"
-
-#~ msgid "dispatcher"
-#~ msgstr "işlemci zamanlayıcı"
-
-#~ msgid "Enable/Disable each event dispatcher"
-#~ msgstr "Olay işlemci zamanlayıcısını aç/kapat"
-
-#~ msgid ""
-#~ "In order to enable a configurable event dispatcher, you need to configure "
-#~ "it first"
-#~ msgstr ""
-#~ "Yapılandırılabilir bir olay işlemci zamanlayıcısını açmak için önce onu "
-#~ "yapılandırmanız gerekir"
-
-#~ msgid "Events"
-#~ msgstr "Olaylar"
-
-#~ msgid ""
-#~ "Events module may help you to make eBox inform you about events that "
-#~ "happen at eBox in some different ways"
-#~ msgstr ""
-#~ "Olaylar modüllü bazı farklı yollarla eBox üzerinde olan olaylar sizi "
-#~ "haberdar etmekte yardımcı olabilir"
-
-#~ msgid "Event service status"
-#~ msgstr "Olay servisi durumu"
 
 #~ msgid "Invalid backup file."
 #~ msgstr "Geçersiz yedekleme dosyası."

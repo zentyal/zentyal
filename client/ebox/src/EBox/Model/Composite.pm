@@ -30,6 +30,9 @@
 #      bottom in the given order
 #      - tabbed     - the components will be shown in a tab way
 #
+#      - select - the components will be shown in a select entry to
+#      choose which one is shown to be watched or edited
+#
 
 package EBox::Model::Composite;
 
@@ -54,6 +57,7 @@ use Error qw(:try);
 use Perl6::Junction qw(any);
 
 # Constants
+use constant LAYOUTS => qw(top-bottom tabbed select);
 
 # Group: Public methods
 
@@ -111,7 +115,22 @@ sub components
                                                        value => $componentName
                                                       );
               }
-              $self->{components}->[$idx] = $component;
+              if ( ref ( $component ) eq 'ARRAY' ) {
+                  # More than one component to store in
+                  my @remainder = ();
+                  if ( $idx + 1 <= $#{$self->{components}} ) {
+                      @remainder = $self->{components}->[$idx + 1 .. $#{$self->{components}}];
+                      # Remove remainder elements
+                      $self->{components}->[$idx .. $#{$self->{components}}] = ();
+                  } else {
+                      pop(@{$self->{components}});
+                  }
+                  push ( @{$self->{components}}, @{$component});
+                  push ( @{$self->{components}}, @remainder ) if ( @remainder > 0);
+                  $idx += scalar(@{$component}) - 1;
+              } else {
+                  $self->{components}->[$idx] = $component;
+              }
           }
       }
 
@@ -121,7 +140,7 @@ sub components
 
 # Method: addComponent
 #
-#      Add a component to the composite. It must be a class of:
+#      Add a component to the composite. It must be a class of
 #      <EBox::Model::DataTable> or <EBox::Model::Composite>.
 #
 #      It does not check if the component is already in the
@@ -145,34 +164,122 @@ sub components
 #       <EBox::Model::ModelManager> nor at the <EBox::Model::CompositeManager>
 #
 sub addComponent
-  {
+{
 
-      my ($self, $component) = @_;
+    my ($self, $component) = @_;
 
-      defined ( $component ) or
-        throw EBox::Exceptions::MissingArgument('component');
+    defined ( $component ) or
+      throw EBox::Exceptions::MissingArgument('component');
 
-      # Check if it a string
-      unless ( ref ($component ) ) {
-          # Delay the component instance search because of deep
-          # recursion
-          push ( @{$self->{components}}, $component);
-          return;
-      }
+    # Check if it a string
+    unless ( ref ($component ) ) {
+        # Delay the component instance search because of deep
+        # recursion
+        push ( @{$self->{components}}, $component);
+        return;
+    }
 
-      unless ( $component->isa('EBox::Model::DataTable') or
-               $component->isa('EBox::Model::Composite') ) {
-          throw EBox::Exceptions::InvalidType( $component,
-                                               'EBox::Model::DataTable ' .
-                                               'or EBox::Model::Composite'
-                                             );
-      }
+    unless ( $component->isa('EBox::Model::DataTable') or
+             $component->isa('EBox::Model::Composite') ) {
+        throw EBox::Exceptions::InvalidType( $component,
+                                             'EBox::Model::DataTable ' .
+                                             'or EBox::Model::Composite'
+                                           );
+    }
 
-      push ( @{$self->{components}}, $component );
+    push ( @{$self->{components}}, $component );
 
-      return;
+    return;
 
-  }
+}
+
+# Method: delComponent
+#
+#      Remove a component from a composite.
+#
+# Parameters:
+#
+#      One of the following is possible (Positional parameter):
+#
+#      pos - Int remove the component from position "pos"
+#
+#      component - <EBox::Model::DataTable> or
+#      <EBox::Model::Composite> reference from the one to be deleted
+#
+#      name - String the component name or context name
+#
+# Returns:
+#
+#      <EBox::Model::DataTable> or <EBox::Model::Composite> - the
+#      removed component
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::DataNotFound> - thrown if no component has
+#      been found to be removed
+#
+#      <EBox::Exceptions::InvalidType> - thrown if the parameter has a
+#      wrong type
+#
+sub delComponent
+{
+    my ($self, $searchComp) = @_;
+
+    if ( ref ( $searchComp ) ) {
+        # If it should be a DataTable or SearchComposite reference
+        unless ( $searchComp->isa('EBox::Model::DataTable')
+                 or $searchComp->isa('EBox::Model::Composite')) {
+            throw EBox::Exceptions::InvalidType(
+                   arg  => 'searchComp',
+                   type => 'A EBox::Model::DataTable or '
+                           . 'EBox::Model::Composite reference'
+                                               );
+        }
+        my $components = $self->components();
+        for my $idx (0 .. $#$components) {
+            my $component = $components->[$idx];
+            if ( $component == $searchComp ) {
+                splice ( @{$components}, $idx, 1);
+                return $component;
+            }
+        }
+    } else {
+        my $components = $self->components();
+        if ( $searchComp =~ m/\d+/g ) {
+            # It is a number
+            my $pos = $searchComp;
+            if ( $pos > $#$components ) {
+                throw EBox::Exceptions::InvalidType(
+                      arg  => 'searchComp',
+                      type => 'If it is a number, it must be between ' .
+                              '0 and ' . $#$components
+                                                   );
+            }
+            my $component = $components->[$pos];
+            splice ( @{$components}, $pos, 1);
+            return $component;
+        } else {
+            # A string is represented
+            for my $idx ( 0 .. $#$components ) {
+                my $component = $components->[$idx];
+                my $found = 0;
+                if ( $component->name() eq $searchComp ) {
+                    $found = 1;
+                } elsif ( $component->can('contextName')
+                          and $component->contextName() eq $searchComp ) {
+                    $found = 1;
+                }
+                if ( $found ) {
+                    splice( @{$components}, $idx, 1);
+                    return $component;
+                }
+            }
+        }
+    }
+    throw EBox::Exceptions::DataNotFound( data  => 'searchComp',
+                                          value => $searchComp);
+
+}
 
 # Method: setLayout
 #
@@ -184,7 +291,11 @@ sub addComponent
 #      are:
 #
 #      - top-bottom - the elements will be shown sequentially
+#
 #      - tabbed - every element will be shown in a tab
+#
+#      - select - the user selects which component is shown in a
+#      select entry
 #
 # Exceptions:
 #
@@ -201,13 +312,12 @@ sub setLayout
       defined ( $layout ) or
         throw EBox::Exceptions::MissingArgument('layout');
 
-      unless (($layout eq 'top-bottom') or
-              ($layout eq 'tabbed')) {
+      unless ( $layout eq any(LAYOUTS) ) {
           throw EBox::Exceptions::InvalidData(
                        data  => 'layout',
                        value => $layout,
-                       advice => __('It should be one of following values: ' .
-                                    'top-bottom or tabbed')
+                       advice => __x('It should be one of following values: {values}',
+                                     values => join(', ', LAYOUTS))
                                              );
       }
 
@@ -300,6 +410,26 @@ sub help
       my ($self) = @_;
 
       return $self->{help};
+
+  }
+
+# Method: selectMessage
+#
+#     Get the string message shown when the must select one of the
+#     components given
+#
+#     Default value is 'Choose one of the following'
+#
+# Returns:
+#
+#     String - the i18ned string which contents the select message
+#
+sub selectMessage
+  {
+
+      my ($self) = @_;
+
+      return $self->{selectMessage};
 
   }
 
@@ -430,7 +560,7 @@ sub Viewer
 #
 #       components - array ref containing the components that will
 #       contain the composite. It can be a String which can refer
-#       to a <EBox::Model::DataTable> or
+#       to a/some <EBox::Model::DataTable> or
 #       <EBox::Model::Composite>. *(Optional)* Default value: empty array
 #
 #       layout - String define the layout of the corresponding views
@@ -446,6 +576,11 @@ sub Viewer
 #       help - String the localisated help which may indicate the user
 #       how to use the composite content. *(Optional)* Default value:
 #       empty string
+#
+#       selectMessage - String the localisated select message to show
+#       when a user must choose one of the given components. Only
+#       applicable to select layaou. *(Optional)* Default value:
+#       'Choose one of the following'
 #
 #       actions - array ref containing hash ref whose elements has a
 #       String as a key which is the action name and the value is
@@ -496,6 +631,7 @@ sub _setDescription
       $self->{name} = ref( $self );
       $self->{printableName} = '';
       $self->{help} = '';
+      $self->{selectMessage} = __('Choose one of the following:');
       $self->{compositeDomain} = delete ( $description->{compositeDomain} );
       $self->{menuNamespace} = delete ($description->{menuNamespace});
 
@@ -527,6 +663,10 @@ sub _setDescription
           $self->{help} = delete ( $description->{help} );
       }
 
+      if ( exists ($description->{selectMessage})) {
+          $self->{selectMessage} = delete ( $description->{selectMessage} );
+      }
+
       $self->{actions} = $description->{actions};
 
       # Set the Composite actions, do not ovewrite the user-defined actions
@@ -535,10 +675,10 @@ sub _setDescription
 
   }
 
-# Method: _lookupComponent
+# Method: _lookupComponents
 #
-#    Search for the component instance in the model manager or in the
-#    composite manager.
+#    Search for a component instance or an array of them in the model
+#    manager or in the composite manager.
 #
 # Parameters:
 #
@@ -549,28 +689,34 @@ sub _setDescription
 #    <EBox::Model::DataTable> - if the component refers to a model
 #    <EBox::Model::Composite> - if the component refers to a composite
 #
+#    array ref - if the component name corresponds to more than one
+#    <EBox::Model::DataTable>
+#
 sub _lookupComponent
   {
 
       my ($self, $componentName) = @_;
 
-      my $component;
+      my $components;
 
       my $compManager = EBox::Model::CompositeManager->Instance();
       try {
-          $component = $compManager->composite($componentName);
+          $components = $compManager->composite($componentName);
       } catch EBox::Exceptions::DataNotFound with {
           # Look up the model manager
-          $component = undef;
+          $components = undef;
       };
 
-      unless ( defined ( $component )) {
-          my $modelManager = EBox::Model::ModelManager->instance();
-          # FIXME when the manager launches an exception
-          $component = $modelManager->model($componentName);
+      unless ( defined ( $components )) {
+          try {
+              my $modelManager = EBox::Model::ModelManager->instance();
+              $components = $modelManager->model($componentName);
+          } catch EBox::Exceptions::DataNotFound with {
+              $components = undef;
+          };
       }
 
-      return $component;
+      return $components;
 
   }
 
