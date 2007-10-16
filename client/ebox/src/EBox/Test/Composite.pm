@@ -36,6 +36,11 @@ use EBox::Gettext;
 #
 #         Constructor for the test Composite
 #
+# Parameters:
+#
+#         runtimeIndex - Int the index used to parameterised the test
+#         composite
+#
 # Returns:
 #
 #       <EBox::Model::Composite> - a test composite
@@ -43,13 +48,29 @@ use EBox::Gettext;
 sub new
   {
 
-      my ($class) = @_;
+      my ($class, $runtimeIndex) = @_;
 
       my $self = $class->SUPER::new();
+
+      $self->{runtimeIndex} = $runtimeIndex;
 
       return $self;
 
   }
+
+# Method: index
+#
+# Overrides:
+#
+#      <EBox::Model::Composite::index>
+#
+sub index
+{
+    my ($self) = @_;
+
+    return $self->{runtimeIndex};
+
+}
 
 # Group: Protected methods
 

@@ -86,7 +86,7 @@ sub instance
 #          eBox framework and no execution parameters are required to
 #          its creation
 #
-#          '/moduleName/modelName[/parameter1/parameter2]' - used in
+#          '/moduleName/modelName[/index1/index2]' - used in
 #          new calls and common models which requires a name space and
 #          parameters not set on compilation time
 #
@@ -120,7 +120,7 @@ sub model
     my ($moduleName, $modelName, @parameters) = grep { $_ ne '' } split ( '/', $path);
     if ( not defined ( $modelName ) and $path =~ m:/: ) {
         throw EBox::Exceptions::Internal('One element is given and ' .
-                                         'no slashes are given. The valid format ' .
+                                         'slashes are given. The valid format ' .
                                          'requires no slashes, sorry');
     }
 

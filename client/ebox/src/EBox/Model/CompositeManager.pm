@@ -65,21 +65,39 @@ sub Instance
 #
 # Parameters:
 #
-#     composite - String the composite model's name
+#     composite - String the composite model's name, it can follow one
+#     of these patterns:
+#
+#        'compositeName' - used only if the compositeName is unique
+#        within eBox framework and no execution parameters are
+#        required to its creation
+#
+#        '/moduleName/compositeName[/index1] - used when a name space
+#        is required or parameters are set on runtime.
 #
 # Returns:
 #
-#     <EBox::Model::Composite> - the composite object
+#     <EBox::Model::Composite> - the composite object if just one
+#     composite instance is required
+#
+#     array ref - containing <EBox::Model::Composite> instances if
+#     more than one composite corresponds to the given composite name.
 #
 # Exceptions:
 #
 #     <EBox::Exceptions::DataNotFound> - thrown if the composite does
-#     not exist
+#     not exist given the composite parameter
+#
+#     <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#     argument is missing
+#
+#     <EBox::Exceptions::Internal> - thrown if the composite parameter
+#     does not follow the given patterns
 #
 sub composite
 {
 
-    my ($self, $compositeName) = @_;
+    my ($self, $path) = @_;
 
     # Re-read from the modules if the model manager has changed
     if ( $self->_hasChanged() ) {
@@ -87,16 +105,110 @@ sub composite
         $self->{'version'} = $self->_version();
     }
 
+    # Check arguments
+    unless ( defined ( $path )) {
+        throw EBox::Exceptions::MissingArgument('composite');
+    }
 
-    if ( exists $self->{composites}->{$compositeName}) {
-        return $self->{composites}->{$compositeName};
+    my ($moduleName, $compName, @indexes) = grep { $_ ne '' } split ( '/', $path);
+    if ( not defined ( $compName ) and $path =~ m:/: ) {
+        throw EBox::Exceptions::Internal('One composite element is given and '
+                                         . 'slashes are given. The valid format '
+                                         . 'requires no slashes');
+    }
+
+    unless ( defined ( $compName )) {
+        $compName = $moduleName;
+        # Try to infer the module name from the compName
+        $moduleName = $self->_inferModuleFromComposite($compName);
+    }
+
+    if ( exists $self->{composites}->{$moduleName}->{$compName} ) {
+        if ( @indexes > 0 and $indexes[0] ne '*' ) {
+            # There are at least one index
+            return $self->_chooseCompositeUsingIndex($moduleName, $compName, \@indexes);
+        } else {
+            if ( @{$self->{composites}->{$moduleName}->{$compName}} == 1 ) {
+                return $self->{composites}->{$moduleName}->{$compName}->[0];
+            } else {
+                return $self->{composites}->{$moduleName}->{$compName};
+            }
+        }
     } else {
         throw EBox::Exceptions::DataNotFound( data  => 'composite',
-                                              value => $compositeName,
+                                              value => $compName,
                                             );
     }
 
 }
+
+# Method: addComposite
+#
+#       Add a composite instance to the manager
+#
+# Parameters:
+#
+#       compositePath - String the composite path to add
+#
+#       composite - <EBox::Model::Composite> the composite instance
+#
+sub addComposite
+{
+    my ($self, $compositePath, $composite) = @_;
+
+    my ($moduleName, $compositeName, @indexes) = grep { $_ ne '' } split ('/', $compositePath);
+
+    unless ( defined ( $moduleName ) and defined ( $compositeName )) {
+        throw EBox::Exceptions::Internal("Path bad formed $compositePath, "
+                                         . 'it should follow the pattern /modName/compName[/index]');
+    }
+
+    push ( @{$self->{composites}->{$moduleName}->{$compositeName}},
+           $composite);
+
+    return;
+
+}
+
+# Method: addComposite
+#
+#       Remove a (some) composite(s) instance from the manager
+#
+# Parameters:
+#
+#       compositePath - String the composite path to add
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::Internal> - thrown if the path is bad
+#       formed
+#
+sub removeComposite
+{
+    my ($self, $compositePath) = @_;
+
+    my ($moduleName, $compositeName, @indexes) = grep { $_ ne '' } split ('/', $compositePath);
+
+    unless ( defined ( $moduleName ) and defined ( $compositeName )) {
+        throw EBox::Exceptions::Internal("Path bad formed $compositePath, "
+                                         . 'it should follow the pattern /modName/compName[/index]');
+    }
+
+    my $composites = $self->{composites}->{$moduleName}->{$compositeName};
+    if ( @indexes > 0 ) {
+        for my $idx (0 .. $#$composites) {
+            my $composite = $composites->[$idx];
+            if ( $composite->index() eq $indexes[0] ) {
+                splice ( @{$composites}, $idx, 1 );
+                last;
+            }
+        }
+    } else {
+        delete ( $self->{composites}->{$moduleName}->{$compositeName} );
+    }
+
+}
+
 
 # Method: modelActionTaken
 #
@@ -206,13 +318,99 @@ sub _setUpCompositesFromProvider
     my ($self, $provider) = @_;
 
     foreach my $composite (@{$provider->composites()}) {
-        $self->{composites}->{$composite->name()} = $composite;
+        push ( @{$self->{composites}->{$provider->name()}->{$composite->name()}},
+               $composite);
     }
     for my $model (@{$provider->reloadCompositesOnChange()}) {
         push ( @{$self->{'reloadActions'}->{$model}}, $provider->name());
     }
 
 }
+
+# Method: _inferModuleFromComposite
+#
+#
+# Parameters:
+#
+#      compositeName - String the composite's name
+#
+# Returns:
+#
+#      String - the module's name if any
+#
+sub _inferModuleFromComposite
+{
+
+    my ($self, $compName) = @_;
+
+    my $composites = $self->{composites};
+    my $returningModule = undef;
+    foreach my $module (keys %{$composites}) {
+        foreach my $compKind ( keys %{$composites->{$module}} ) {
+            if ( $compKind eq $compName ) {
+                if ( defined ( $returningModule )) {
+                    throw EBox::Exceptions::Internal('Cannot infere the module '
+                                                     . 'since more than one module '
+                                                     . 'contain this composite. '
+                                                     . 'A namespace is required for '
+                                                     . $compName);
+                }
+                $returningModule = $module;
+            }
+        }
+    }
+
+    unless ( defined ($returningModule) ) {
+        throw EBox::Exceptions::DataNotFound( data => 'compositeName',
+                                              value => $compName);
+    }
+
+    return $returningModule;
+
+}
+
+# Method: _chooseCompositeUsingIndex
+#
+#
+# Parameters:
+#
+#       moduleName - String the module's name
+#       compositeName - String the composite's name
+#
+#       indexes - array ref containing the indexes to distinguish
+#       among composite instances
+#
+# Returns:
+#
+#       <EBox::Model::Composite> - the chosen composite
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::DataNotFound> - thrown if no composite can
+#       be found with the given parameters
+#
+sub _chooseCompositeUsingIndex
+{
+
+    my ($self, $moduleName, $compositeName, $indexesRef) = @_;
+
+    my $composites = $self->{composites}->{$moduleName}->{$compositeName};
+
+    foreach my $composite (@{$composites}) {
+        # Take care, just checkin first index
+        if ( $composite->index() eq $indexesRef->[0] ) {
+            return $composite;
+        }
+    }
+
+    # No match
+    throw EBox::Exceptions::DataNotFound(data => 'compositeInstance',
+                                         value => "/$moduleName/$compositeName/"
+                                        . join ('/', @{$indexesRef}));
+
+
+}
+
 
 # Method: _markAsChanged
 #
@@ -248,10 +446,6 @@ sub _hasChanged
 {
 
     my ($self) = @_;
-
-    EBox::debug('cached: ' . $self->{version});
-    EBox::debug('gconf: ' . $self->_version());
-    EBox::debug('pid: ' . $$);
 
     return $self->{'version'} < $self->_version();
 

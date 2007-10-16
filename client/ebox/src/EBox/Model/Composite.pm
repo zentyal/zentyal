@@ -395,6 +395,37 @@ sub printableName
 
   }
 
+# Method: index
+#
+#     Get the composite's index if any to distinguish same composite
+#     class with different instances. To be overridden by
+#     subclasses. Default value: empty string
+#
+# Returns:
+#
+#     String - the index to distinguish instances if any
+#
+sub index
+{
+    return '';
+}
+
+# Method: printableIndex
+#
+#     Get the composite's printable index. Explanation about index
+#     value on <EBox::Model::Composite::printableIndex> method
+#     header. To be overridden by children classes which are
+#     parameterised composites.
+#
+# Returns:
+#
+#     String - the i18ned index value
+#
+sub printableIndex
+{
+    return '';
+}
+
 # Method: help
 #
 #     Get the help string which may indicate the user how to use the
