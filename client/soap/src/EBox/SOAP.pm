@@ -606,6 +606,7 @@ sub onRemove
 	EBox::init();
 
         my $serviceMod = EBox::Global->modInstance('services');
+        my $fwMod = EBox::Global->modInstance('firewall');
 
         if ( $serviceMod->serviceExists('name' => 'soap') ) {
             $serviceMod->removeService('name' => 'soap');
@@ -615,6 +616,7 @@ sub onRemove
 
         # Save changes
         $serviceMod->save();
+        $fwMod->save();
 }
 
 
