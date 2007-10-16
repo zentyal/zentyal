@@ -78,7 +78,7 @@ sub model
 
 
 
-
+# internal utility function, invokes the model constructor
 sub newModelInstance
 {
   my ($self, $class, %params) = @_;
@@ -99,8 +99,12 @@ sub newModelInstance
 #  This method must be overriden by all subclasses. It is used to rgister which
 #  models are use by the module.
 #
-# Returns:
-#   a list reference with the names of all model classes used 
+#  It must return a list reference with the following items:
+#  -  the names of all model classes which does not require additional parameters
+#  -  hash reference for other models with the following fields:
+#         class      - the name of the class
+#         parameters - reference to the list of parameters which we want to 
+#                      pass to the model's constructor
 sub modelClasses
 {
   throw EBox::Exceptions::NotImplemented('modelClasses');

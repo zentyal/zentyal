@@ -25,7 +25,14 @@ use EBox::Gettext;
 
 # Group: Public methods
 
-# FIXME: doc
+# Method: providedInstances
+#
+#
+#  Parameters:
+#     name
+#
+#   Returns:
+#        all the instances of the given type
 sub providedInstances
 {
   my ($self, $type) = @_;
@@ -38,7 +45,11 @@ sub providedInstances
   return [  values %{  $self->{$type}  } ];
 }
 
-# FIXME: doc
+# Method: providedInstance
+#
+#  Parametes:
+#   type
+#   name
 sub providedInstance
 {
   my ($self, $type, $name) = @_;

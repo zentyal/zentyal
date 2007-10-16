@@ -29,6 +29,14 @@ use constant TYPE => 'composite';
 
 # eBox uses
 
+# Method: composite
+#
+#
+# Parameters:
+#          name - composite's name
+#
+# Returns:
+#   a instance of the composite requested
 sub composite
 {
   my ($self, $name) = @_;
@@ -38,8 +46,11 @@ sub composite
 
 # Method: composites
 #
-#   This method must be overridden in case of your module provides any
-#   composite comprises models
+#   This method must be overriden in case your module needs no
+#   standard-behaviour when creating composites instances. If you override it, 
+#   the method modelClasses is not longer necessary.
+#   
+#   In most cases you will not need to override it
 #
 # Returns:
 #
@@ -69,6 +80,7 @@ sub reloadCompositesOnChange
 
 }
 
+# internal utility function, invokes the composite constructor
 sub newCompositeInstance
 {
   my ($self,  $class, @params) = @_;
@@ -79,7 +91,15 @@ sub newCompositeInstance
 
 # Method: compositeClasses
 #
+#  This method must be overriden by all subclasses. It is used to rgister which
+#  composites are use by the module.
 #
+#  It must return a list reference with the following items:
+#  -  the names of all composite classes which does not require additional parameters
+#  -  hash reference for other composites with the following fields:
+#         class      - the name of the class
+#         parameters - reference to the list of parameters which we want to 
+#                      pass to the composite's constructor
 sub compositeClasses
 {
   throw EBox::Exceptions::NotImplemented('compositeClasses');
