@@ -53,8 +53,11 @@ use constant PG_DATA_DIR           => '/var/lib/postgres/data';
 sub _create 
 {
 	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'logs',
-					  domain => 'ebox');
+	my $self = $class->SUPER::_create(
+                                          name => 'logs',
+					  domain => 'ebox',
+                                          printableName => __('logs'),
+                                         );
 
 	bless($self, $class);
 	return $self;

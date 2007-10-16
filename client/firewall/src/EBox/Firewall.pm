@@ -38,8 +38,10 @@ use EBox::Gettext;
 sub _create
 {
 	my $class = shift;
-	my $self =$class->SUPER::_create(name => 'firewall',
-					domain => 'ebox-firewall',
+	my $self =$class->SUPER::_create(
+                                         name => 'firewall',
+                                         domain => 'ebox-firewall',
+                                         printableName => __('firewall'),
 					@_);
     $self->{'ToInternetRuleModel'} = 
             new EBox::Firewall::Model::ToInternetRuleTable(

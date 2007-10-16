@@ -48,8 +48,9 @@ sub _create
 {
 	my $class = shift;
 	my $self  = $class->SUPER::_create(name => 'dhcp', 
-					domain => 'ebox-dhcp',
-					@_);
+                                           domain => 'ebox-dhcp',
+                                           printableName => __('dhcp'),
+                                           @_);
 	bless ($self, $class);
 	return $self;
 }

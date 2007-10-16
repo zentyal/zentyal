@@ -37,7 +37,8 @@ use File::Basename();
 sub _create
 {
 	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'apache', @_);
+	my $self = $class->SUPER::_create(name => 'apache',
+                                          @_);
 	bless($self, $class);
 	return $self;
 }

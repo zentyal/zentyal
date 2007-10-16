@@ -60,7 +60,7 @@ use constant ENABLED_WATCHERS_DIR => CONF_DIR . 'WatcherEnabled/';
 use constant CONF_DISPATCHER_MODEL_PREFIX => 'EBox::Events::Model::Dispatcher::';
 use constant CONF_WATCHER_MODEL_PREFIX => 'EBox::Events::Model::Watcher::';
 
-# Group: Public methods
+# Group: Protected methods
 
 # Constructor: _create
 #
@@ -81,6 +81,7 @@ sub _create
 
       my $self = $class->SUPER::_create( name => 'events',
                                          domain => 'ebox-events',
+                                         printableName => __('events'),
                                          @_
                                        );
 
@@ -136,6 +137,8 @@ sub _stopService
       EBox::Service::manage(SERVICE, 'stop');
 
   }
+
+# Group: Public methods
 
 # Method: menu
 #

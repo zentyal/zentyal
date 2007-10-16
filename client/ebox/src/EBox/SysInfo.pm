@@ -37,7 +37,9 @@ use EBox::Report::RAID;
 sub _create 
 {
 	my $class = shift;
-	my $self =$class->SUPER::_create(name => 'sysinfo', @_);
+	my $self = $class->SUPER::_create(name => 'sysinfo',
+                                          printableName => __('system information'),
+                                          @_);
 	bless($self, $class);
 	return $self;
 }
