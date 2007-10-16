@@ -74,9 +74,7 @@ sub _description
                             ],
          layout          => 'tabbed',
          name            => 'FilterTabs',
-#         printableName   => __('Filter settings'),
          compositeDomain => 'Squid',
-#         help            => __(''),
         };
 
       return $description;

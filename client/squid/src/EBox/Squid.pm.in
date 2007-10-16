@@ -578,6 +578,7 @@ sub _squidAndDG
 	push(@writeParam, 'port'  => DGPORT);
 	push(@writeParam, 'lang'  => $lang);
 	push(@writeParam, 'squidport'  => $self->port);
+	push(@writeParam, weightedPhraseThreshold  => $threshold);
 	$self->writeConfFile(DGDIR . "/dansguardian.conf",
 				"squid/dansguardian.conf.mas", \@writeParam);
 
