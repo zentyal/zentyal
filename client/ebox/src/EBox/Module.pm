@@ -548,7 +548,11 @@ sub printableName
 
     my ($self) = @_;
 
-    return $self->{printableName};
+    if ( $self->{printableName} ) {
+        return $self->{printableName};
+    } else {
+        return $self->name();
+    }
 
 }
 

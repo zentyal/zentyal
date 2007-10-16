@@ -249,6 +249,8 @@ sub printableContextName
         }
     }
 
+    return $printableContextName;
+
 }
 
 # Method: index
