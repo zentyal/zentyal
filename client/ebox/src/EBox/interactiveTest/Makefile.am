@@ -1,4 +1,4 @@
-test_scripts = backupToDisk.t GConfModuleChanged.t
+test_scripts =  GConfModuleChanged.t
 
 EXTRA_DIST = $(test_scripts)
 
