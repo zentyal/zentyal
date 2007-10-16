@@ -72,6 +72,7 @@ sub _table
                                 'fieldName' => 'ipaddr',
                                 'printableName' => __('IP Address'),
                                 'size' => '20',
+                                'unique' => 1,
                                 'editable' => 1
                              ),
             new EBox::Types::HasMany
