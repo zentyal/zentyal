@@ -1932,7 +1932,7 @@ sub pages
 	my ($self, $filter) = @_;
 	
 	my $pageSize = $self->pageSize();
-	unless ($pageSize) {
+	unless (defined($pageSize) and ($pageSize =~ /^\d+/) and ($pageSize > 0)) {
 		return 1;
 	}
 
