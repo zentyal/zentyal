@@ -175,7 +175,7 @@ sub modExists
 #
 # Parameters:
 #
-#       module - String the moudle to run a method
+#       module - String the module to run a method
 #       nameMethod - String the method name
 #       parameters - an array with the parameters
 #
