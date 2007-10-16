@@ -2385,7 +2385,7 @@ sub addNewRowJS
 			 $page);
 }
 
-# Method: changeRow 
+# Method: changeRowJS
 #
 # 	Return the javascript function for changeRow 
 #
