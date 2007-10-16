@@ -3,7 +3,7 @@ package EBox::MailFilter::SpamAssassin;
 use strict;
 use warnings;
 
-use base qw(EBox::ModulePartition);
+use base qw(EBox::GConfModule::Partition);
 use Perl6::Junction qw(any all);
 use File::Slurp qw(read_file write_file);
 use EBox::Config;
@@ -38,7 +38,7 @@ sub _vdomains
 
 sub _mailfilterModule
 {
-  return EBox::ModulePartition::fullModule(@_);
+  return EBox::GConfModule::Partition::fullModule(@_);
 }
 
 sub doDaemon

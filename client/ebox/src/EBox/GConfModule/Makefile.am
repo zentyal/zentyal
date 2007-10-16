@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/GConfModule
 
-nobase_perl_DATA = TestStub.pm
+nobase_perl_DATA = Partition.pm StatePartition.pm TestStub.pm
 
 SUBDIRS = t
 

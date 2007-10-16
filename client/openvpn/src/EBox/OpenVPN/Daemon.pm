@@ -3,7 +3,7 @@ package EBox::OpenVPN::Daemon;
 use strict;
 use warnings;
 
-use base qw(EBox::ModulePartition EBox::NetworkObserver);
+use base qw(EBox::GConfModule::Partition EBox::NetworkObserver);
 
 use File::Slurp;
 use Error qw(:try);

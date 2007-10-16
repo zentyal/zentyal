@@ -1,9 +1,9 @@
-package EBox::ModuleStatePartition;
+package EBox::GConfModule::StatePartition;
 #
 use strict;
 use warnings;
 
-use base 'EBox::ModulePartition';
+use base 'EBox::GConfModule::Partition';
 
 
 

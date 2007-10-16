@@ -3,7 +3,7 @@ package EBox::MailFilter::FileFilter;
 use strict;
 use warnings;
 
-use base qw(EBox::ModulePartition);
+use base qw(EBox::GConfModule::Partition);
 
 use EBox::Gettext;
 

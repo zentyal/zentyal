@@ -1,4 +1,4 @@
-package EBox::ModulePartition; 
+package EBox::GConfModule::Partition; 
 # package: create a kind of pseudo-partition in the configuration tree of a module
 use strict;
 use warnings;

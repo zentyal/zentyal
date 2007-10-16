@@ -3,7 +3,7 @@ package EBox::MailFilter::ClamAV;
 use strict;
 use warnings;
 
-use base 'EBox::ModulePartition';
+use base 'EBox::GConfModule::Partition';
 use Perl6::Junction qw(any all);
 use File::Slurp qw(read_file write_file);
 use EBox::Config;
@@ -39,7 +39,7 @@ sub new
 
 sub _mailfilterModule
 {
-  return EBox::ModulePartition::fullModule(@_);
+  return EBox::GconfModule::Partition::fullModule(@_);
 }
 
 

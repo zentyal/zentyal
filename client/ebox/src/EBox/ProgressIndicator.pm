@@ -3,7 +3,7 @@ package EBox::ProgressIndicator;
 use strict;
 use warnings;
 
-use base 'EBox::ModuleStatePartition';
+use base 'EBox::GConfModule::StatePartition';
 
 use EBox::Config;
 use EBox::Gettext;
