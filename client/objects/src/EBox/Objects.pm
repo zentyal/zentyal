@@ -66,7 +66,7 @@ sub _create
 
 # Method: models
 #
-#      Overrides <EBox::ModelProvider::models>
+#      Overrides <EBox::Model::ModelProvider::models>
 #
 sub models {
        my ($self) = @_;
@@ -78,7 +78,7 @@ sub models {
 #
 # Overrides:
 #
-#      <EBox::ModelProvider::_exposedMethods>
+#      <EBox::Model::ModelProvider::_exposedMethods>
 #
 sub _exposedMethods
   {
@@ -139,7 +139,7 @@ sub objects
 	return $self->{'objectModel'}->printableValueRows();
 }
 
-# objectIds
+# Method: objectIds
 #
 #   	Return all object ids
 #
@@ -340,9 +340,12 @@ sub removeObjectForce # (object)
 # Parameters:
 #
 #   (NAMED)
+#
 #   id         - object's id *(optional*). It will be generated automatically
 #                if none is passed
+#
 #   name       - object's name
+#
 #   members    - array ref containing the following hash ref in each value:
 #
 #                name        - member's name
@@ -350,7 +353,7 @@ sub removeObjectForce # (object)
 #                ipaddr_mask - member's mask
 #                macaddr     - member's mac address *(optional)*
 #
-#   Example:
+# Example:
 #
 #       name => 'administration',
 #       members => [ 
