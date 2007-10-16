@@ -425,6 +425,39 @@ input {
 	padding-top: 13px;
 }
 
+.tabs {
+	border-bottom: 1px solid #787878;
+	margin: 10px 3px 0 0;
+	padding: 5px 10px 5px 10px;
+}
+
+.tabs li {
+	list-style: none;
+	display : inline;
+	margin-right: 5px;
+}
+
+.tabs li a {
+	padding: 5px 10px 5px 10px;
+	border-top: 1px solid #dddddd;
+	border-left: 1px solid #dddddd;
+	border-right: 1px solid #dddddd;
+	background: #efefef;
+	color: #999;
+}
+
+.tabs li a:hover{
+}
+
+.tabs li a.current{
+	background: #fff; 
+	font-weight: bold;
+	border-top: 1px solid #787878;
+	border-left: 1px solid #787878;
+	border-right: 1px solid #787878;
+	border-bottom: 1px solid white;
+}
+
 .selected {
 	border-top: 1px solid #787878;
 	border-left: 1px solid #787878;
@@ -436,7 +469,7 @@ input {
 	font-weight: bold;
 }
 
-.ifaces a {
+.ifaces a  {
 	border-top: 1px solid #dddddd;
 	border-left: 1px solid #dddddd;
 	border-right: 1px solid #dddddd;
@@ -569,6 +602,12 @@ a.changed:hover {
        margin: 5px 0 5px 0;
 }
 
+.enable {
+       background-color: #FFFFCC;
+       padding: 10px;
+       border: 1px solid #FFCC99;
+       margin: 5px 0 5px 0;
+}
 .bold { font-weight: bold; } 
 
 .legendName { 

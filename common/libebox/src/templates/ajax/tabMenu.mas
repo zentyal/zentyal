@@ -36,7 +36,7 @@ use EBox::Gettext;
          href="#<% $modelElement->name() %>"
 %     # Set the CSS class
 %     if ( $idx == $selectedTab ) {
-         class="selected"
+         class="current"
 %     }
          onclick="return false;">
        <% $modelElement->printableName() %>
@@ -66,7 +66,7 @@ use EBox::Gettext;
       my $modelElement = ${$models}[$idx];
 </%perl>
   modelAttrs_<% $tabName | hu %>['<% $modelElement->name() . "_$idx" %>'] = new Object();
-  modelAttrs_<% $tabName | hu %>['<% $modelElement->name() . "_$idx" %>'].action = '<% $modelElement->action('changeView') | h %>';
+  modelAttrs_<% $tabName | hu %>['<% $modelElement->name() . "_$idx" %>'].action = '<% $modelElement->action('changeView') %>';
 % }
   var tabMenu_<% $tabName | hu %> = new EBox.Tabs('<% "tabMenu_$tabName" | hu %>', modelAttrs_<% $tabName | hu %>);
 </script>

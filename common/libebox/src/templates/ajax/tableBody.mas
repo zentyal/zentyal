@@ -140,7 +140,6 @@ use EBox::Model::DataTable;
 %  }
 
 
-<br>
 % if (@data or length($filter) > 0) 
 %  {
 %    if ( $action eq 'changeAdd' or $action eq 'changeEdit' ) 

@@ -74,7 +74,7 @@ EBox.Tabs.prototype = {
       this.activeClassName = options.activeClassName;
     } else {
       // Default CSS active class name
-      this.activeClassName = 'selected';
+      this.activeClassName = 'current';
     }
 
     if ( options && options.defaultTab ) {
