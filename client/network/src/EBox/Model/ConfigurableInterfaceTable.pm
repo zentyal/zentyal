@@ -228,7 +228,10 @@ sub ifaceMethodChanged
 
     my $ret = undef;
     try {
-        $self->_warnOnChangeOnId($iface, $changedData);
+        $self->warnOnChangeOnId(modelName   => $self->tableName(),
+                                id          => $iface,
+                                changedData => $changedData,
+                                oldRow      => undef); # FIXME: oldRow??
     } catch EBox::Exceptions::DataInUse with {
         $ret = 1;
     };
