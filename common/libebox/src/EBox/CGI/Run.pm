@@ -114,8 +114,8 @@ sub _lookupViewController
         # url => 'EBox::CGI::<moduleName>::' menuNamespaceBranch
         # menuNamespaceBranch => 'View' model | 'Controller' model index | 'Composite' model action
         # model => '::<modelName>'
-        # index => '::<index>' | %GÆ%@
-        # action => '::<actionName>' | %GÆ%@
+        # index => '::<index>' | epsilon
+        # action => '::<actionName>' | epsilon
 
         my @namespaces = split ( '::', $classname);
 
