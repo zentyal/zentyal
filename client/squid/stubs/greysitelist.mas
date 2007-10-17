@@ -1,0 +1,35 @@
+<%args>
+@domains
+</%args>
+
+#domains in grey list
+#Don't bother with the www. or the http://
+
+#The 'grey' lists override the 'banned' lists.
+#The 'exception' lists override the 'banned' lists also.
+#The difference is that the 'exception' lists completely switch
+#off *all* other filtering for the match.  'grey' lists only
+#stop the URL filtering and allow the normal filtering to work.
+
+#An example of grey list use is when in Blanket Block (whitelist)
+#mode and you want to allow some sites but still filter as normal
+#on their content
+
+#Another example of grey list use is when you ban a site but want
+#to allow part of it.
+
+#The greyurllist is for partly unblocking PART of a site
+#The greysitelist is for partly unblocking ALL of a site
+
+#As of DansGuardian 2.7.3 you can now include
+#.tld so for example you can match .gov for example
+
+#To include additional files in this list use this example:
+#.Include</etc/dansguardian/anotherurllist>
+
+#You can have multiple .Includes.
+
+#List other sites to block:
+% foreach my $domain (@domains) {
+<% $domain %>
+% }

@@ -1,6 +1,7 @@
 <%args>
-	@domains
-	$block_ip
+  @domains
+  $blockIp
+  $blanketBlock     
 </%args>
 
 #domains in banned list
@@ -22,11 +23,13 @@
 # Blanket Block.  To block all sites except those in the
 # exceptionsitelist and greysitelist files remove
 # the # from the next line to leave only a '**':
-#**
+% if ($blanketBlock) {
+**
+% }
 
 #Blanket IP Block.  To block all sites specified only as an IP
 #remove the # from the next line to leave only a '*ip':
-% if ($block_ip eq 'yes') {
+% if ($blockIp) {
 *ip
 % }
 

@@ -22,7 +22,7 @@
 #   layout.
 #
 
-package EBox::Squid::Composite::FilterTabs;
+package EBox::Squid::Composite::Domains;
 
 use base 'EBox::Model::Composite';
 
@@ -40,7 +40,7 @@ use EBox::Gettext;
 #
 # Returns:
 #
-#       <EBox::Squid::Model::FilterTabs> - a
+#       <EBox::Squid::Model::GeneralComposite> - a
 #       general events composite
 #
 sub new
@@ -68,13 +68,14 @@ sub _description
       my $description =
         {
          components      => [
-                             'Extensions',
-                             'MIME',
-			     'Domains',
+			     'DomainFilterSettings',
+                             'DomainFilter',
                             ],
-         layout          => 'tabbed',
-         name            => 'FilterTabs',
+         layout          => 'top-bottom',
+         name            => 'Domains',
+         printableName   => __('Domains filtering'),
          compositeDomain => 'Squid',
+#         help            => __(''),
         };
 
       return $description;

@@ -103,7 +103,7 @@ sub _table
       my $dataTable =
         {
          tableName          => 'DomainFilter',
-         printableTableName => __('Configure allowed internet domains'),
+         printableTableName => __('Domains list'),
 	 modelDomain        => 'Squid',
 	 'defaultController' => '/ebox/Squid/Controller/DomainFilter',
 	 'defaultActions' =>
@@ -148,13 +148,13 @@ sub validateTypedRow
 }
 
 
-# Function: bannedDomains
+# Function: banned
 #
-#	Fetch the banned extensions
+#	Fetch the banned domains
 #
 # Returns:
 #
-# 	Array ref - containing the extensions
+# 	Array ref - containing the domains
 sub banned
 {
   my ($self) = @_;
@@ -162,17 +162,31 @@ sub banned
 }
 
 
-# Function: allowedDomains
+# Function: allowed
 #
-#	Fetch the allowed extensions
+#	Fetch the allowed domains
 #
 # Returns:
 #
-# 	Array ref - containing the extensions
+# 	Array ref - containing the domains
 sub allowed
 {
   my ($self) = @_;
   return $self->_domainsByPolicy('allow');
+}
+
+
+# Function: filtered
+#
+#	Fetch the filtered domains
+#
+# Returns:
+#
+# 	Array ref - containing the domains
+sub filtered
+{
+  my ($self) = @_;
+  return $self->_domainsByPolicy('filter');
 }
 
 

@@ -94,7 +94,9 @@ sub modelClasses
 	  'EBox::Squid::Model::MIMEFilter',
 	  'EBox::Squid::Model::ApplyAllowToAllMIME',
 
+	  'EBox::Squid::Model::DomainFilterSettings',
 	  'EBox::Squid::Model::DomainFilter',
+
 	  'EBox::Squid::Model::ObjectPolicy',
 	 ]; 
 }
@@ -106,6 +108,7 @@ sub compositeClasses
             'EBox::Squid::Composite::General',
 	    'EBox::Squid::Composite::Extensions',
 	    'EBox::Squid::Composite::MIME',
+	    'EBox::Squid::Composite::Domains',
 
 	    'EBox::Squid::Composite::FilterTabs',
 	    'EBox::Squid::Composite::FilterSettings',	    	    
@@ -160,10 +163,6 @@ sub _doDGDaemon
 	}
 
 	EBox::Service::manage('dansguardian', $action);
-
-	my $domainFilter = $self->model('DomainFilter');
-	my $banned = $domainFilter->banned;
-	my $allowed = $domainFilter->allowed;
 }
 
 sub _stopService 
@@ -354,23 +353,6 @@ sub port
 
 
 
-#
-sub ipBlocked #
-{
-	my $self = shift;
-	return $self->get_bool("block_ip");
-}
-
-sub setIpBlocked #
-{
-	my ($self, $block) = @_;
-	if ($block && $self->ipBlocked) {
-		return;
-	} elsif (!$block && !$self->ipBlocked){
-		return;
-	}
-	$self->set_bool("block_ip", $block);
-}
 
 # Method: globalPolicy
 #
@@ -419,19 +401,34 @@ sub banThreshold
 }	
 
 sub _dgNeeded
-{
-        my ($self) = @_;
-	$self->service or return undef;
-	$self->ipBlocked and return 1;
-	($self->banThreshold > 0) and return 1;
+ {
+         my ($self) = @_;
+
+	if (not $self->service) {
+	  return undef;
+	}  
+
+	if ($self->banThreshold > 0) {
+	   return 1;
+        }
 
 	my $domainFilter = $self->model('DomainFilter');
 	if ( @{ $domainFilter->banned } )  {
 	    return 1;
 	}
-	if ( @{ $domainFilter->allowed } ) {
+	elsif ( @{ $domainFilter->allowed } ) {
         	return 1;
 	}
+	
+
+	my $domainFilterSettings = $self->model('DomainFilterSettings');
+	if ($domainFilterSettings->blanketBlockValue) {
+	  return 1;
+	}
+	elsif ($domainFilterSettings->blockIpValue) {
+	  return 1;
+	}
+		
 	
 	my $objectPolicy = $self->model('ObjectPolicy');
 	if ( @{ $objectPolicy->filtered } ) {
@@ -525,19 +522,15 @@ sub _squidAndDG
 	my $ob = EBox::Global->modInstance('objects');
 	my $objects;
 
-	my $domainFilter = $self->model('DomainFilter');
-	my $banned = $domainFilter->banned;
-	my $allowed = $domainFilter->allowed;
 
 
 	my $policy = $self->globalPolicy;
 	my $squidpolicy = $policy;
 	my $trans = 'no';
-	my $block_ip = 'no';
+
 	my @exceptions = ();
 	my $threshold = $self->banThreshold;
 	($self->transproxy) and $trans = 'yes';
-	($self->ipBlocked) and $block_ip = 'yes';
 
 
 	my $objectPolicy = $self->model('ObjectPolicy');	
@@ -587,16 +580,7 @@ sub _squidAndDG
 	$self->writeConfFile(DGDIR . "/dansguardianf1.conf",
 				"squid/dansguardianf1.conf.mas", \@writeParam);
 
-	@writeParam = ();
-	push(@writeParam, 'block_ip'  => $block_ip);
-	push(@writeParam, 'domains'  => $banned);
-	$self->writeConfFile(DGDIR . "/bannedsitelist",
-				"squid/bannedsitelist.mas", \@writeParam);
 
-	@writeParam = ();
-	push(@writeParam, 'domains'  => $allowed);
-	$self->writeConfFile(DGDIR . "/exceptionsitelist",
-				"squid/exceptionsitelist.mas", \@writeParam);
 	@writeParam = ();
 	my $extensionFilter = $self->model('ExtensionFilter');
 	push(@writeParam, 'extensions'  => $extensionFilter->banned);
@@ -609,8 +593,46 @@ sub _squidAndDG
 	$self->writeConfFile(DGDIR . "/bannedmimetypelist",
 			     "squid/bannedmimetypelist.mas", \@writeParam);
 
+	$self->_writeDgDomainsConf();
 }
 
+
+sub _writeDgDomainsConf
+{
+  my ($self) = @_;
+
+  my $domainFilter = $self->model('DomainFilter');
+
+  
+  
+  my $allowed = $domainFilter->allowed;
+  $self->writeConfFile(DGDIR . "/exceptionsitelist",
+		       "squid/exceptionsitelist.mas", 
+		       [ domains => $allowed ],
+		      );
+  
+  my $filtered = $domainFilter->filtered;  
+  $self->writeConfFile(DGDIR . "/greysitelist",
+		       "squid/greysitelist.mas", 
+		       [ domains => $filtered ],
+		      );
+  
+  
+  my $domainFilterSettings = $self->model('DomainFilterSettings');
+  my $banned = $domainFilter->banned;
+  my $banOptions = [
+		    blockIp       => $domainFilterSettings->blockIpValue,
+		    blanketBlock  => $domainFilterSettings->blanketBlockValue,
+		    domains       => $banned,
+
+		   ];
+  
+  $self->writeConfFile( DGDIR . "/bannedsitelist",
+		       "squid/bannedsitelist.mas", 
+		       $banOptions
+		       );
+				 
+}
 
 
 
