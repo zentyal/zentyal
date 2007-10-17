@@ -261,7 +261,7 @@ sub rows
     # Add new domains to gconf
     foreach my $domain (keys %currentLogDomains) {
         next if (exists $storedLogDomains{$domain});
-        $self->addRow('domain' => $domain, 'enabled' => '1');
+        $self->addRow('domain' => $domain, 'enabled' => '1', lifeTime => 168);
     }
 
     # Remove non-existing domains from gconf
