@@ -10,7 +10,9 @@ sql_file="$3"
 
 add_table()
 {
-        test -z $table_name && echo "table is empty" && exit 1
+        test -z $table_name && echo "missing table parameter" && exit 1
+
+	test -z $sql_file && echo "missing SQL file parameter" && exit 1
         test -f $sql_file || (echo "$sql_file does not exist" && exit 1)
 
         su postgres -c "psql -f $sql_file $db_name" > /dev/null 2>&1;
