@@ -257,13 +257,49 @@ sub setRow
 
       # Check cached row id
       if ( $self->_hasRow() ) {
-          $self->_setRow($force, %params);
+          $self->validateRow('update', @_);
+          # We can only set those types which have setters
+          my @newValues = @{$self->setterTypes()};
+
+          my $changedData;
+          for (my $i = 0; $i < @newValues ; $i++) {
+              my $newData = clone($newValues[$i]);
+              $newData->setMemValue(\%params);
+
+              $changedData->{$newData->fieldName()} = $newData;
+          }
+
+          $self->_setTypedRow( $changedData,
+                               force => $force,
+                               readOnly => $params{'readOnly'});
       } else {
           # Add a new one
           $self->_addRow(%params);
       }
 
   }
+
+# Method: setTypedRow
+#
+#       Set an existing row using types to fill the fields. The unique
+#       row is set here. If there was no row, it is created.
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::setTypedRow>
+#
+sub setTypedRow
+{
+
+    my ($self, $id, $paramsRef, %optParams) = @_;
+
+    if ( $self->_hasRow() ) {
+        $self->_setTypedRow($paramsRef, %optParams);
+    } else {
+        $self->_addTypedRow($paramsRef);
+    }
+
+}
 
 # Method: rows
 #
@@ -647,82 +683,137 @@ sub _addRow
           $userData->{$data->fieldName()} = $data;
       }
 
-      $self->validateTypedRow('add', $userData);
-
-      foreach my $data (@userData) {
-          $data->storeInGConf($gconfmod, "$dir");
-          $data = undef;
-      }
-
-      $gconfmod->set_bool("$dir/readOnly", $params{'readOnly'});
-
-      $self->setMessage($self->message('update'));
-      $self->updatedRowNotify($self->row());
-      $self->_notifyModelManager('add', $self->row());
-
-      $self->_setCacheDirty();
+#      $self->validateTypedRow('add', $userData);
+#
+#      foreach my $data (@userData) {
+#          $data->storeInGConf($gconfmod, "$dir");
+#          $data = undef;
+#      }
+#
+#      $gconfmod->set_bool("$dir/readOnly", $params{'readOnly'});
+#
+#      $self->setMessage($self->message('update'));
+#      $self->updatedRowNotify($self->row());
+#      $self->_notifyModelManager('add', $self->row());
+#
+#      $self->_setCacheDirty();
+      $self->_addTypedRow($userData, readOnly => $params{'readOnly'});
 
   }
 
-# Set a row without id. Its a reimplementation of
-# setRow so it should be looked up when any change is done at
+# Add a row to the system without id. Its a reimplementation of
+# addTypedRow so it should be looked up when any change is done at
 # DataTable stuff
-sub _setRow
-  {
+sub _addTypedRow
+{
+    my ($self, $paramsRef, %optParams) = @_;
 
-      my ($self, $force, %params) = @_;
+    my $tableName = $self->tableName();
+    my $dir = $self->{'directory'};
+    my $gconfmod = $self->{'gconfmodule'};
+    my $readOnly = delete $optParams{'readOnly'};
 
-      my $dir = $self->{'directory'};
-      my $gconfmod = $self->{'gconfmodule'};
+    # Check compulsory fields
+    $self->_checkCompulsoryFields($paramsRef);
 
-      $self->validateRow('update', %params);
+    $self->validateTypedRow('add', $paramsRef);
 
-      my $oldrow = $self->row();
-      # We can only set those types which have setters
-      my @newValues = @{$self->setterTypes()};
+    foreach my $data (values ( %{$paramsRef} )) {
+        $data->storeInGConf($gconfmod, "$dir");
+        $data = undef;
+    }
+    $gconfmod->set_bool("$dir/readOnly", $readOnly);
 
-      my @oldValues = @{$oldrow->{'values'}};
+    $self->setMessage($self->message('update'));
+    $self->updatedRowNotify($self->row());
+    $self->_notifyModelManager('add', $self->row());
+    $self->_notifyCompositeManager('add', $self->row());
 
-      my @changedData;
-      my $changedData;
-      for (my $i = 0; $i < @newValues ; $i++) {
-          my $newData = clone($newValues[$i]);
-          $newData->setMemValue(\%params);
-          $changedData->{$newData->fieldName()} = $newData;
+    $self->_setCacheDirty();
 
-          if ($oldValues[$i]->isEqualTo($newData)) {
-              next;
-          }
+}
 
-          push (@changedData, $newData);
-      }
+# Set a row without id and with types. It's a reimplementation of
+# setTypedRow so it should be looked over when any change is done at
+# DataTable stuff
+sub _setTypedRow
+{
+    my ($self, $paramsRef, %optParams) = @_;
 
-      $self->validateTypedRow('update', $changedData);
+    my $force = delete $optParams{'force'};
+    my $readOnly = delete $optParams{'readOnly'};
 
-      # If force != true automaticRemove is enabled it means
-      # the model has to automatically check if the row which is 
-      # about to be changed is referenced elsewhere and this change
-      # produces an inconsistent state
-      if ((not $force) and $self->table()->{'automaticRemove'}) {
-          $self->_warnOnChangeOnId('', \@changedData);
-      }
+    my $dir = $self->{'directory'};
+    my $gconfmod = $self->{'gconfmodule'};
 
-      my $modified = undef;
-      for my $data (@changedData) {
-          $data->storeInGConf($gconfmod, "$dir");
-          $modified = 1;
-      }
+    my $oldRow = $self->row();
+    my $oldValues = $oldRow->{'valueHash'};
 
-      $oldrow->{'values'} = \@newValues;
+    my @setterTypes = @{$self->setterTypes()};
 
-      if ($modified) {
-          $self->_setCacheDirty();
-      }
+    my $changedData = { };
+    my @changedData = ();
+    foreach my $paramName (keys %{$paramsRef}) {
+        unless ( exists ( $oldValues->{$paramName} )) {
+            throw EBox::Exceptions::Internal('Field to update $paramName does not ' .
+                                             'exist in this model');
+        }
 
-      $self->setMessage($self->message('update'));
-      $self->updatedRowNotify($oldrow);
+        unless ( $paramName ne any(@setterTypes) ) {
+            throw EBox::Exceptions::Internal('Trying to update a non setter type');
+        }
 
-  }
+        my $paramData = $paramsRef->{$paramName};
+        if ( $oldValues->{$paramName}->isEqualTo($paramsRef->{$paramName})) {
+            next;
+        }
+
+        $paramData->setRow($oldRow);
+        $changedData->{$paramName} = $paramData;
+        push ( @changedData, $paramData);
+
+    }
+
+    # TODO: Check its usefulness
+    $self->validateTypedRow('update', $changedData);
+
+    # If force != true atomaticRemove is enabled it means
+    # the model has to automatically check if the row which is 
+    # about to be changed is referenced elsewhere and this change
+    # produces an inconsistent state
+    if ((not $force) and $self->table()->{'automaticRemove'}) {
+        my $manager = EBox::Model::ModelManager->instance();
+        $manager->warnOnChangeOnId($self->tableName(), 0, $changedData, $oldRow);
+    }
+
+    my $modified = undef;
+    for my $data (@changedData) {
+        $data->storeInGConf($gconfmod, "$dir");
+        $modified = 1;
+    }
+
+    # update readonly if change
+    my $rdOnlyKey = "$dir/readOnly";
+    if (defined ( $readOnly )
+        and ($readOnly xor $gconfmod->get_bool("$rdOnlyKey"))) {
+
+        $gconfmod->set_bool("$rdOnlyKey", $readOnly);
+
+    }
+
+    if ($modified) {
+        $self->_setCacheDirty();
+        $self->setMessage($self->message('update'));
+        # Dependant models may return some message to inform the user
+        my $depModelMsg = $self->_notifyModelManager('update', $self->row());
+        if ( defined ($depModelMsg)
+             and ( $depModelMsg ne '' and $depModelMsg ne '<br><br>' )) {
+            $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
+        }
+        $self->_notifyCompositeManager('update', $self->row());
+        $self->updatedRowNotify($oldRow, $force);
+    }
+}
 
 # Return a row from within the model. It's a reimplementation of
 # SUPER::row so it should take care about any change at superclass
