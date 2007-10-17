@@ -1177,9 +1177,13 @@ sub _checkPwdLength($$)
 
 sub _checkName
 {
-	my $name = shift;
-	($name =~ /[^A-Za-z0-9_\s]/) and return undef;
-	return 1;
+        my $name = shift;
+
+        if ($name =~ /^[\w\d\s_]+\.?[\w\d\s_]+$/) {
+                return 1;
+        } else {
+                return undef;
+        }
 }
 
 # Returns modules implementing LDAP user base interface
