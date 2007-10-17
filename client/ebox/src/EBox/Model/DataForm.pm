@@ -39,6 +39,8 @@ use Perl6::Junction qw(any);
 use Error qw(:try);
 use Clone qw(clone);
 
+# Group: Public methods
+
 # Constructor: new
 #
 #       Create the <EBox::Model::DataForm> model instance
@@ -92,6 +94,29 @@ sub addRow
                                        'an one-rowed table');
 
   }
+
+# Method: addTypedRow
+#
+#       This method has no sense since it has just one row. To fill
+#       the model instance it should be used
+#       <EBox::Model::DataForm::setTypedRow>.
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::addTypedRow>
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::Internal> - throw since it is not possible
+#       to add rows to an one-rowed table
+#
+sub addTypedRow
+{
+
+    throw EBox::Exceptions::Internal('It is not possible to add a row to ' .
+                                     'an one-rowed table');
+
+}
 
 # Method: row
 #

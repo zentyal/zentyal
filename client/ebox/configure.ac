@@ -132,9 +132,11 @@ src/EBox/Logs/Model/Makefile
 src/EBox/Logs/Composite/Makefile
 src/EBox/Model/Makefile
 src/EBox/Model/t/Makefile
-src/EBox/Model/ProviderBase/Makefile
-src/EBox/Model/ModelProvider/Makefile
 src/EBox/Model/CompositeProvider/Makefile
+src/EBox/Model/DataForm/Makefile
+src/EBox/Model/DataForm/t/Makefile
+src/EBox/Model/ModelProvider/Makefile
+src/EBox/Model/ProviderBase/Makefile
 src/EBox/Types/Makefile
 src/EBox/Types/Union/Makefile
 src/EBox/ProgressIndicator/Makefile

@@ -1,13 +1,10 @@
 ## Process this file with automake to produce Makefile.in
 
-perldir = @PERLPATH@/EBox/Test
+perldir = @PERLPATH@/EBox/Model/DataForm
 
-mods = Class.pm Composite.pm Model.pm Form.pm SubComposite.pm \
-	StaticForm.pm
+mods = ReadOnly.pm
 
 nobase_perl_DATA = $(mods)
-
-SUBDIRS = t
 
 SOURCES = $(nobase_perl_DATA)
 

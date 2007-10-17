@@ -77,4 +77,4 @@ lives_ok {
     $manager->removeModel( '/logs/TestTable/2' );
 } 'Removing second model';
 
-
+1;

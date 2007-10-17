@@ -426,6 +426,11 @@ sub _setValue # (value)
 
       my ($port, $protocol) = split ('/', $value);
 
+      unless ( defined ( $protocol )) {
+          $protocol = $port;
+          $port = undef;
+      }
+
       my $params = {
                     $self->fieldName() . '_port'   => $port,
                     $self->fieldName() . '_protocol' => $protocol,
