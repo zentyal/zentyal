@@ -401,7 +401,7 @@ sub updatedRowNotify
 
   }
 
-# Group: Protectedd methods
+# Group: Protected methods
 
 # Method: _table
 #
