@@ -44,7 +44,18 @@ sub _changeLogFiles
   my $DIR_H;
   opendir $DIR_H, $oldLogDir;
 
-  while (my $file =   readdir($DIR_H) ) {
+  while  (1) {
+    my $file;
+    eval {
+      $file = readdir($DIR_H)
+    };
+    if ($@) {
+      EBox::error("problem reading directory for migration script: $@");
+      last;
+    }
+
+    defined $file or last;
+
     if ($file =~ m/^openvpn-(.*)\.log$/) {
       my $iface = $1;
 
