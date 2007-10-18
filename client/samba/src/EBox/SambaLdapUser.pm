@@ -132,7 +132,10 @@ sub _addUser ($$)
 	
 	   my $add = $ldap->modify($dn, \%attrs ); 
 	}	
-	
+
+    # Add user to Domain Users group
+	$users->addUserToGroup($user, 'Domain Users');
+
 	my  $samba = EBox::Global->modInstance('samba');
 	$self->_createDir(USERSPATH . "/$user", $unixuid, USERGROUP, '0700');
 	$self->_createDir(PROFILESPATH . "/$user", $unixuid, USERGROUP, '0700');
