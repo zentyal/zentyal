@@ -1,5 +1,6 @@
 0.10
-	+ New release
+	+ Remove all interfaces from /etc/network/interfaces but lo
+	  after importing network configuration
 0.9.100
 	+ Fixing bug with static routes which prevented them from working
 	  if the multigateway support was enabled
