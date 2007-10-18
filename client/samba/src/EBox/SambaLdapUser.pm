@@ -87,6 +87,18 @@ sub _smbProfiles {
 	return "\\\\" . $samba->netbios() . "\\profiles\\";
 }
 
+# FIXME Implement userInGroup function in UsersAndGroups
+sub _domainUser 
+{
+        my ($self, $user) = @_;
+        ($user) or return;
+        my $usermod = EBox::Global->modInstance('users');
+        foreach my $u (@{$usermod->usersInGroup('Domain Users')}) {
+                return 1 if ($u eq $user);
+        }
+        return undef;
+}
+
 # Implements LdapUserBase interface
 sub _addUser ($$)
 {
@@ -133,8 +145,10 @@ sub _addUser ($$)
 	   my $add = $ldap->modify($dn, \%attrs ); 
 	}	
 
-    # Add user to Domain Users group
-	$users->addUserToGroup($user, 'Domain Users');
+	# Add user to Domain Users group
+	unless ($self->_domainUser($user)) {
+		$users->addUserToGroup($user, 'Domain Users');
+	}
 
 	my  $samba = EBox::Global->modInstance('samba');
 	$self->_createDir(USERSPATH . "/$user", $unixuid, USERGROUP, '0700');
