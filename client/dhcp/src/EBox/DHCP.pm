@@ -18,7 +18,7 @@ package EBox::DHCP;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::NetworkObserver EBox::LogObserver);
+use base qw(EBox::GConfModule EBox::NetworkObserver EBox::LogObserver EBox::Model::ModelProvider);
 
 use EBox::Objects;
 use EBox::Gettext;
@@ -35,6 +35,10 @@ use EBox::Sudo qw(:all);
 use EBox::NetWrappers qw(:all);
 use EBox::Service;
 use EBox::DHCPLogHelper;
+use EBox::DHCP::Model::FixedAddressTable;
+use EBox::DHCP::Model::Options;
+use EBox::DHCP::Model::RangeInfo;
+use EBox::DHCP::Model::RangeTable;
 use Net::IP;
 use HTML::Mason;
 use Error qw(:try);
@@ -86,6 +90,45 @@ sub _regenConfig
 	my $self = shift;
 	$self->setDHCPConf;
 	$self->_doDaemon();
+}
+
+# Method: models
+#
+# Overrides:
+#
+#     <EBox::Model::ModelProvider::models>
+#
+sub models
+{
+
+    my ($self) = @_;
+
+    my @models;
+    my $net = EBox::Global->modInstance('network');
+    foreach my $iface (@{$net->allIfaces()}) {
+        if ( $net->ifaceMethod($iface) eq 'static' ) {
+            # Create models
+            push ( @models, new EBox::DHCP::Model::RangeTable(
+                                                              gconfmodule => $self,
+                                                              directory   => 'RangeTable',
+                                                              interface   => $iface));
+            push ( @models, new EBox::DHCP::Model::FixedAddressTable(
+                                                              gconfmodule => $self,
+                                                              directory   => 'FixedAddressTable',
+                                                              interface   => $iface));
+            push ( @models, new EBox::DHCP::Model::Options(
+                                                           gconfmodule => $self,
+                                                           directory   => 'Options',
+                                                           interface   => $iface));
+            push ( @models, new EBox::DHCP::Model::RangeInfo(
+                                                             gconfmodule => $self,
+                                                             directory   => 'RangeInfo',
+                                                             interface   => $iface));
+        }
+    }
+
+    return \@models;
+
 }
 
 #   Function: setService 
@@ -668,7 +711,7 @@ sub removeRange # (iface, id)
 #
 #   Returns:
 #
-#	array ref - contating the ranges in hash refereces. Each hash holds
+#	array ref - contating the ranges in hash references. Each hash holds
 #	the keys 'name', 'from' and 'to'
 #
 #   Exceptions:
