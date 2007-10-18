@@ -716,7 +716,7 @@ sub _addTypedRow
     # Check compulsory fields
     $self->_checkCompulsoryFields($paramsRef);
 
-    $self->validateTypedRow('add', $paramsRef);
+    $self->validateTypedRow('add', $paramsRef, $paramsRef);
 
     foreach my $data (values ( %{$paramsRef} )) {
         $data->storeInGConf($gconfmod, "$dir");
@@ -752,6 +752,7 @@ sub _setTypedRow
     my @setterTypes = @{$self->setterTypes()};
 
     my $changedData = { };
+    my $allData = $oldValues;
     my @changedData = ();
     foreach my $paramName (keys %{$paramsRef}) {
         unless ( exists ( $oldValues->{$paramName} )) {
@@ -771,11 +772,11 @@ sub _setTypedRow
         $paramData->setRow($oldRow);
         $changedData->{$paramName} = $paramData;
         push ( @changedData, $paramData);
-
+        $allData->{$paramName} = $paramData;
     }
 
     # TODO: Check its usefulness
-    $self->validateTypedRow('update', $changedData);
+    $self->validateTypedRow('update', $changedData, $allData);
 
     # If force != true atomaticRemove is enabled it means
     # the model has to automatically check if the row which is 

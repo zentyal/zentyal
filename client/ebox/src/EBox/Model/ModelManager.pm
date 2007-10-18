@@ -551,7 +551,9 @@ sub _setUpModelsFromProvider
             push ( @{$self->{'reloadActions'}->{$model}}, $provider->name());
         }
     } otherwise {
-        EBox::warn("Skipping $provider to fetch model");
+        my $exc = shift;
+        EBox::warn($exc->stringify());
+        EBox::warn('Skipping ' . $provider->printableName() . ' to fetch model');
     };
 
     # Set up dependencies. Fetch all select types and check if
@@ -565,7 +567,7 @@ sub _setUpModelsFromProvider
                 try {
                     $foreignModel = $type->foreignModel();
                 } otherwise {
-                    EBox::warn("Skipping " . $type->fieldName . " to fetch model");
+                    EBox::warn("Skipping " . $type->fieldName() . " to fetch model");
                 };
                 next unless (defined($foreignModel));
                 my $foreignModelName = $foreignModel->contextName();
@@ -815,9 +817,6 @@ sub _hasChanged
 
     my ($self) = @_;
 
-    EBox::debug('cached: ' . $self->{version});
-    EBox::debug('gconf: ' . $self->_version());
-    EBox::debug('pid: ' . $$);
     return $self->{'version'} < $self->_version();
 
 }

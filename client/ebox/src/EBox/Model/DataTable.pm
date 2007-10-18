@@ -444,8 +444,6 @@ sub validateRow
 #
 #	It will be called whenever a row is added/updated.
 #
-#       If the data is an update, only changed data is given to be
-#       validated.
 #
 # Arguments:
 #
@@ -453,8 +451,13 @@ sub validateRow
 #                after validating this row.
 #                Current options: 'add', 'update'
 #
-# 	params - hash ref containing the typed parameters subclassing
-# 	from <EBox::Types::Abstract> , the key will be the field's name
+# 	changedFields - hash ref containing the typed parameters
+# 	subclassing from <EBox::Types::Abstract> that has changed, the
+# 	key will be the field's name
+#
+#       allFields - hash ref containing the typed parameters
+#       subclassing from <EBox::Types::Abstract> including changed,
+#       the key is the field's name
 #
 # Returns:
 #
@@ -660,7 +663,7 @@ sub addTypedRow
           push(@userData, $param);
       }
 
-      $self->validateTypedRow('add', $paramsRef);
+      $self->validateTypedRow('add', $paramsRef, $paramsRef);
 
       # Check if the new row is unique
       if ( $self->rowUnique() ) {
@@ -1107,6 +1110,7 @@ sub setTypedRow
       my @setterTypes = @{$self->setterTypes()};
 
       my $changedData = { };
+      my $allData = $oldValues;
       my @changedData = ();
       foreach my $paramName (keys %{$paramsRef}) {
           unless ( exists ( $oldValues->{$paramName} )) {
@@ -1130,6 +1134,7 @@ sub setTypedRow
           $paramData->setRow($oldRow);
           $changedData->{$paramName} = $paramData;
           push ( @changedData, $paramData);
+          $allData->{$paramName} = $paramData;
 
       }
 
@@ -1141,7 +1146,7 @@ sub setTypedRow
       }
 
       $changedData->{id} = $id;
-      $self->validateTypedRow('update', $changedData);
+      $self->validateTypedRow('update', $changedData, $allData);
 
       # If force != true atomaticRemove is enabled it means
       # the model has to automatically check if the row which is 
