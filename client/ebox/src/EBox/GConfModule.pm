@@ -245,7 +245,12 @@ sub _gconf_wrapper # (method, @params?)
 		if ($ret){
 			@array = &$code($self->gconf, @parms);
 		} else {
-			$scalar = &$code($self->gconf, @parms);
+            {
+                # Silent really weird warning which is likeley due to
+                # the perl version
+                no warnings;
+			    $scalar = &$code($self->gconf, @parms);
+            }
 		}	
 	};
 	if ($@) {
