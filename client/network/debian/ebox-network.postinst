@@ -29,6 +29,23 @@ case "$1" in
 		# Migrate data if needed
 		/usr/lib/ebox/ebox-migrate /usr/lib/ebox-network/migration/
 
+        # stop networking
+        invoke-rc.d networking stop
+
+        # Once we have the network configuration we leave
+        # /etc/network/interfaces just with the lo interface configured
+        # eBox takes care of the other interfaces now.
+        # Note this is an interim solution until we deal with system
+        # configuration nicely.
+cat <<EOF > /etc/network/interfaces
+auto lo
+iface lo inet loopback
+
+EOF
+
+        # restart networking
+        invoke-rc.d networking start
+
 		invoke-rc.d ebox network restart
         invoke-rc.d ebox apache restart
 	;;
