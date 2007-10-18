@@ -192,7 +192,7 @@ sub _prepareRuleToAddInternalToEBox
     $params{'service'} = $serviceId;
     $params{'log'} = 0;
 
-    print Dumper(\%params);
+    #print Dumper(\%params);
     return \%params;
 }
 
