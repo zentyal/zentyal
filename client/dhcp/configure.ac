@@ -61,6 +61,7 @@ src/EBox/Makefile
 src/EBox/t/Makefile
 src/EBox/rootTests/Makefile
 src/EBox/rootTests/lib/Makefile
+src/EBox/Composite/Makefile
 src/EBox/DHCP/Makefile
 src/EBox/Model/Makefile
 src/EBox/Model/t/Makefile

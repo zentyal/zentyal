@@ -18,7 +18,7 @@ package EBox::DHCP;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::NetworkObserver EBox::LogObserver EBox::Model::ModelProvider);
+use base qw(EBox::GConfModule EBox::NetworkObserver EBox::LogObserver EBox::Model::ModelProvider EBox::Model::CompositeProvider);
 
 use EBox::Objects;
 use EBox::Gettext;
@@ -35,6 +35,7 @@ use EBox::Sudo qw(:all);
 use EBox::NetWrappers qw(:all);
 use EBox::Service;
 use EBox::DHCPLogHelper;
+use EBox::DHCP::Composite::InterfaceConfiguration;
 use EBox::DHCP::Model::FixedAddressTable;
 use EBox::DHCP::Model::Options;
 use EBox::DHCP::Model::RangeInfo;
@@ -130,6 +131,32 @@ sub models
     return \@models;
 
 }
+
+# Method: composites
+#
+# Overrides:
+#
+#     <EBox::Model::ModelProvider::composites>
+#
+sub composites
+{
+
+    my ($self) = @_;
+
+    my @composites;
+    my $net = EBox::Global->modInstance('network');
+    foreach my $iface (@{$net->allIfaces()}) {
+        if ( $net->ifaceMethod($iface) eq 'static' ) {
+            # Create models
+            push ( @composites,
+                   new EBox::DHCP::Composite::InterfaceConfiguration($iface));
+        }
+    }
+
+    return \@composites;
+
+}
+
 
 #   Function: setService 
 #
