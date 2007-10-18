@@ -1,9 +1,9 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Server Client  t
+SUBDIRS = Server Client  LogHelper t
 
 perldir = @PERLPATH@/EBox/OpenVPN
 
-nobase_perl_DATA = Server.pm FirewallHelper.pm  Daemon.pm Client.pm
+nobase_perl_DATA = Server.pm FirewallHelper.pm  Daemon.pm Client.pm LogHelper.pm
 
 test_classes = Test.pm
 

@@ -20,6 +20,7 @@ sub new
 
     my $self = $class->SUPER::new($confKeysBase, $openvpnModule);
     $self->{name} = $name;
+    $self->{type} = $daemonPrefix;
       
     bless $self, $class;
 
@@ -59,6 +60,13 @@ sub name
     return $self->{name};
 }
 
+
+
+sub type
+{
+  my ($self) = @_;
+  return $self->{type};
+}
 
 sub  ifaceNumber
 {

@@ -14,7 +14,9 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::OpenVPN;
-use base qw(EBox::GConfModule EBox::NetworkObserver EBox::FirewallObserver EBox::CA::Observer);
+use base qw(EBox::GConfModule 
+           EBox::NetworkObserver  EBox::LogObserver
+           EBox::FirewallObserver EBox::CA::Observer);
 
 use strict;
 use warnings;
@@ -30,6 +32,7 @@ use EBox::Validate;
 use EBox::OpenVPN::Server;
 use EBox::OpenVPN::Client;
 use EBox::OpenVPN::FirewallHelper;
+use EBox::OpenVPN::LogHelper;
 use EBox::CA;
 use EBox::CA::DN;
 use EBox::NetWrappers qw();
@@ -1406,5 +1409,46 @@ sub restoreConfig
   }
 }
 
+# log observer stuff
+sub domain
+{
+  return 'ebox-openvpn';
+}
+
+sub logHelper
+{
+  my ($self) = @_;
+  return EBox::OpenVPN::LogHelper->new($self);
+}
+
+
+sub tableInfo
+{
+  my ($self) = @_;
+  my $titles = {
+		timestamp => __('Date'),
+		event    => __('Event'),
+		daemonName => ('Daemon'),
+		daemonType => __('Type'),
+	       };
+  my @order = qw(timestamp daemonName daemonType event);
+
+  my $events = {  
+		started => __('Daemon started'),
+	       };
+  
+  return {
+	  name => __('OpenVPN'),
+	  index => 'openvpn',
+	  titles => $titles,
+	  'order' => \@order,
+	  'tablename' => 'openvpn',
+		'timecol' => 'timestamp',
+	  'filter' => ['daemonName', 'event'],
+	  'events' => $events,
+	  'eventcol' => 'event'
+	 };
+
+}
 
 1;
