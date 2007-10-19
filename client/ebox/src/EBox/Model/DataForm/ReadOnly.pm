@@ -109,16 +109,16 @@ sub setTypedRow
 sub row
 {
 
-    my ($self, $id) = @_;
+    my ($self) = @_;
 
-#    unless ( $self->{readOnlyed} ) {
-#        # Set every field as non-editable
-#        foreach my $fieldName (@{$self->fields()}) {
-#            my $field = $self->fieldHeader($fieldName);
-#            $field->setEditable(0);
-#        }
-#        $self->{readOnlyed} = 1;
-#    }
+    unless ( $self->{readOnlyed} ) {
+        # Set every field as non-editable
+        foreach my $fieldName (@{$self->fields()}) {
+            my $field = $self->fieldHeader($fieldName);
+            $field->{editable} = 0;
+        }
+        $self->{readOnlyed} = 1;
+    }
 
     $self->{content} = $self->_content();
 
