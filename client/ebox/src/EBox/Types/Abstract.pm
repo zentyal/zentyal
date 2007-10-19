@@ -49,9 +49,8 @@ sub new
             if ( $self->optional() ) {
                 EBox::warn('Defined default value to an optional field ' .
                            $self->fieldName());
-            } else {
-                $self->_setValue($self->{'defaultValue'});
             }
+            $self->_setValue($self->{'defaultValue'});
         }
 
         return $self;
