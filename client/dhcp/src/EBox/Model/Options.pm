@@ -142,6 +142,50 @@ sub _table
 {
     my ($self) = @_;
 
+    my $gl = EBox::Global->getInstance();
+
+    my (@searchDomainSubtypes, @primaryNSSubtypes) = ( (), () );
+    push ( @searchDomainSubtypes,
+           new EBox::Types::DomainName(
+                                       fieldName     => 'custom_domain',
+                                       printableName => __('Custom'),
+                                       editable      => 1,
+                                      ));
+    # Set the subtypes associated to DNS module
+    if ( $gl->modExists('dns') ) {
+        push( @searchDomainSubtypes,
+              new EBox::Types::Select(
+                                      fieldName     => 'ebox_domain',
+                                      printableName => __('eBox'),
+                                      editable      => 1,
+                                      foreignModel  => \&_domainModel,
+                                      foreignField  => 'domain',
+                                     ));
+        push ( @primaryNSSubtypes,
+               new EBox::Types::Union::Text(
+                                            fieldName => 'eboxDNS',
+                                            printableName => __('eBox DNS')
+                                           ));
+
+    }
+    push ( @searchDomainSubtypes,
+           new EBox::Types::Union::Text(
+                                        fieldName => 'none',
+                                        printableName => __('None'),
+                                       ));
+    push ( @primaryNSSubtypes,
+           new EBox::Types::HostIP(
+                                   fieldName     => 'custom',
+                                   printableName => __('Custom'),
+                                   editable      => 1,
+                                   defaultValue  => $self->_fetchPrimaryNS(),
+                                   optional      => 1,
+                                  ),
+           new EBox::Types::Union::Text(
+                                        fieldName => 'none',
+                                        printableName => __('None'),
+                                       ));
+
     my @tableDesc =
       (
        new EBox::Types::Union(
@@ -150,56 +194,41 @@ sub _table
                               editable      => 1,
                               subtypes =>
                               [
-                               new EBox::Types::HostIP(
-                                                     fieldName     => 'ip',
-                                                     printableName => __('IP address'),
-                                                     editable      => 1,
-                                                     defaultValue  => $self->_fetchIfaceAddress(),
-                                                    ),
                                new EBox::Types::Union::Text(
                                                             fieldName => 'ebox',
                                                             printableName => __('eBox'),
                                                            ),
-                               new EBox::Types::Select(
-                                                       fieldName    => 'name',
-                                                       printable    => __('Name'),
-                                                       editable     => 1,
-                                                       foreignModel => \&_gatewayModel,
-                                                       foreignField => 'name'
-                                                      ),
+                               new EBox::Types::HostIP(
+                                                       fieldName     => 'ip',
+                                                       printableName => __('Custom IP address'),
+                                                       editable      => 1,
+                                                       #defaultValue  => $self->_fetchIfaceAddress(),
+                                                    ),
                                new EBox::Types::Union::Text(
                                                             fieldName => 'none',
                                                             printableName => __('None'),
                                                            ),
+                               new EBox::Types::Select(
+                                                       fieldName    => 'name',
+                                                       printable    => __('Configured ones'),
+                                                       editable     => 1,
+                                                       foreignModel => \&_gatewayModel,
+                                                       foreignField => 'name'
+                                                      ),
                               ]
                              ),
        new EBox::Types::Union(
                               fieldName     => 'search_domain',
                               printableName => __('Search domain'),
                               editable      => 1,
-                              subtypes      =>
-                              [
-                               new EBox::Types::DomainName(
-                                                           fieldName     => 'custom_domain',
-                                                           printableName => __('Custom'),
-                                                           editable      => 1,
-                                                          ),
-                               new EBox::Types::Select(
-                                                       fieldName     => 'ebox_domain',
-                                                       printableName => __('eBox'),
-                                                       editable      => 1,
-                                                       foreignModel  => \&_domainModel,
-                                                       foreignField  => 'domain',
-                                                      )
-                              ],
+                              subtypes      => \@searchDomainSubtypes,
                              ),
-       new EBox::Types::HostIP(
-                               fieldName     => 'primary_ns',
-                               printableName => __('Primary nameserver'),
-                               editable      => 1,
-                               defaultValue  => $self->_fetchPrimaryNS(),
-                               optional      => 1,
-                              ),
+       new EBox::Types::Union(
+                              fieldName      => 'primary_ns',
+                              printableName  => __('Primary nameserver'),
+                              editable       => 1,
+                              subtypes       => \@primaryNSSubtypes,
+                             ),
        new EBox::Types::HostIP(
                                fieldName     => 'second_ns',
                                printableName => __('Secondary nameserver'),
@@ -227,13 +256,15 @@ sub _table
 # Get the object model from Objects module
 sub _domainModel
 {
-    return EBox::Global->modInstance('dns')->model('domainTable');
+    # FIXME: when model works with old fashioned
+    return EBox::Global->modInstance('dns')->{domainModel};
 }
 
 # Get the object model from Service module
 sub _gatewayModel
 {
-    return EBox::Global->modInstance('network')->model('GatewayTable');
+    # FIXME: when model works with old fashioned
+    return EBox::Global->modInstance('network')->{gatewayModel};
 }
 
 # Fetch ip address from current interface
