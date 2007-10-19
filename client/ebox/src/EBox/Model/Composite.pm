@@ -77,9 +77,9 @@ use constant LAYOUTS => qw(top-bottom tabbed select);
 sub new
   {
 
-      my ($class) = @_;
+      my ($class, @params) = @_;
 
-      my $self = {};
+      my $self = { @params };
       bless ( $self, $class );
 
       my $description = $self->_description();
@@ -278,6 +278,43 @@ sub delComponent
     }
     throw EBox::Exceptions::DataNotFound( data  => 'searchComp',
                                           value => $searchComp);
+
+}
+
+# Method: index
+#
+#       Get the index from the composite instance will be distinguised
+#       from the other ones with the same composite template. Compulsory
+#       to be overriden by child classes if the same composite template
+#       will be instanciated more than once.
+#
+#       By default, it returns an empty string ''.
+#
+# Returns:
+#
+#       String - the unique index string from this instance within the
+#       composite template realm
+#
+sub index
+{
+
+    return '';
+
+}
+
+# Method: printableIndex
+#
+#       Printable version to <EBox::Model::DataTable::index> method to
+#       be printed.
+#
+# Returns:
+#
+#       String - the i18ned string to be used to show index
+#
+sub printableIndex
+{
+
+    return '';
 
 }
 
@@ -766,10 +803,18 @@ sub _setDefaultActions
           unless ( exists $actionsRef->{view} ) {
               $actionsRef->{view} = '/ebox/' . $self->compositeDomain() .
                 '/Composite/' . $self->name();
+              if ( $self->index() ) {
+                  # Append the index
+                  $actionsRef->{view} .= '/' . $self->index();
+              }
           }
           unless ( exists $actionsRef->{changeView} ) {
               $actionsRef->{changeView} = '/ebox/' . $self->compositeDomain() .
-                '/Composite/' . $self->name() . '/changeView';
+                '/Composite/' . $self->name();
+              if ( $self->index() ) {
+                  $actionsRef->{changeView} .= '/' . $self->index();
+              }
+              $actionsRef->{changeView} .= '/changeView';
           }
       }
 
