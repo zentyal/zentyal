@@ -104,7 +104,7 @@ use EBox::Model::DataTable;
   />
   <% __("Add new") %>
 %    }
-  <span id="creatingForm"></span>   
+  <span id="<% 'creatingForm_' . $tableName %>"></span>   
 <br>
 %  }
 

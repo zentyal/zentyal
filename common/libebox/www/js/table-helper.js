@@ -204,7 +204,7 @@ function changeView(url, table, directory, action, id, page, isFilter)
 			},
 			onFailure: function(t) {
 			  if ( action == 'changeAdd' ) {
-			    restoreHidden('creatingForm', table);
+			    restoreHidden('creatingForm_' + table, table);
 			  }
 			  else if ( action == 'changeList' ) {
                             if (! isFilter ) {
@@ -219,7 +219,7 @@ function changeView(url, table, directory, action, id, page, isFilter)
 		});
 
 	if ( action == 'changeAdd' ) {
-	  setLoading('creatingForm', table, true);
+	  setLoading('creatingForm_' + table, table, true);
 	}
 	else if ( action == 'changeList' ) {
           if ( ! isFilter ) {
