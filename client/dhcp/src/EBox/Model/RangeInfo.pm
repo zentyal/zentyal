@@ -74,6 +74,11 @@ sub new
 
   }
 
+sub domain
+{
+    return 'ebox-dhcp';
+}
+
 # Method: index
 #
 # Overrides:

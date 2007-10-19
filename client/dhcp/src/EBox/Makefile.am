@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = CGI DHCP t rootTests
+SUBDIRS = CGI Composite DHCP Model t rootTests
 
 perldir = @PERLPATH@/EBox
 

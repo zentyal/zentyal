@@ -42,6 +42,8 @@ use EBox::Global;
 #       interface - String the interface attached to do the
 #       configuration on the DHCP server
 #
+#       - Named parameters
+#
 # Returns:
 #
 #       <EBox::DHCP:::Model::InterfaceConfiguration> - a
@@ -50,15 +52,43 @@ use EBox::Global;
 sub new
 {
 
-      my ($class, $interface) = @_;
+   my ($class, @params) = @_;
 
-      my $self = $class->SUPER::new();
+   my $self = $class->SUPER::new(@params);
 
-      $self->{interface} = $interface;
-
-      return $self;
+   return $self;
 
 }
+
+# Method: index
+#
+# Overrides:
+#
+#     <EBox::Model::Composite::index>
+#
+sub index
+{
+    my ($self) = @_;
+
+    return $self->{interface};
+
+}
+
+# Method: printableIndex
+#
+# Overrides:
+#
+#     <EBox::Model::Composite::printableIndex>
+#
+sub printableIndex
+{
+    my ($self) = @_;
+
+    return __x('interface {iface}',
+               iface => $self->{interface});
+
+}
+
 
 # Group: Protected methods
 
@@ -78,7 +108,7 @@ sub _description
     my $net = $gl->modInstance('network');
 
     my $helpMsg = '';
-    if ( $net->ifaceIsExternal(self->{interface})) {
+    if ( $net->ifaceIsExternal($self->{interface})) {
         $helpMsg = __x('In order to serve IP addresses on a external interface, '
                        . 'you must open the service on {openhref}firewall{closehref}',
                        openhref => '<a href="/ebox/Firewall/View/ExternalToEBoxRuleTable">',

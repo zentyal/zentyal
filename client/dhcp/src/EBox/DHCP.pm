@@ -149,7 +149,7 @@ sub composites
         if ( $net->ifaceMethod($iface) eq 'static' ) {
             # Create models
             push ( @composites,
-                   new EBox::DHCP::Composite::InterfaceConfiguration($iface));
+                   new EBox::DHCP::Composite::InterfaceConfiguration(interface => $iface));
         }
     }
 
