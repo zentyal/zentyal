@@ -278,11 +278,11 @@ The client bundle *Foo.tar.gz* is ready to be uploaded in your eBox to communica
         linkend="join-quit-ebox-sect"/>. Then we upload the file to
         eBox. To do so, it is required to have a certification
         authority created (See <xref linkend="ch-ca"/> for
-        details). Then, it is mandatory to save changes prior to test
+        details). Afterwards, it is mandatory to save changes prior to test
         the communication, since this operation will create it.
       </para>
       <para>
-        Then, in status summary, the OpenVPN is marked as
+        Later, in status summary, the OpenVPN is marked as
         stopped. That means, the OpenVPN client daemon has been set
         up, however the user cannot do anything with that. Now it is
         high time to enable the SOAP service and, then, save
@@ -428,6 +428,10 @@ print Dumper($eBoxProxy->modMethod('logs', 'search',
                   ) . '\n';
 # Print the metadata information about the "stc2" certificate
 print Dumper($eBoxProxy->modMethod('ca', 'getCertificateMetadata', (cn => 'stc2')));
+# Add a user to an eBox
+$eBoxProxy->modMethod('userandgroups', 'addUser', ( { user => 'john',
+      fullname => 'John Smith', password => 'guessit', comment => 'No
+      comment' }, 0));
 ]]>
           </programlisting>
         </example>
