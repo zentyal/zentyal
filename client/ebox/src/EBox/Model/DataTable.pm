@@ -290,7 +290,46 @@ sub printableIndex
 
 }
 
-# Method: fieldHeader 
+# Method: precondition
+#
+#       Check if the model has enough data to be manipulated, that
+#       is, this precondition constraint is accomplished.
+#
+#       This method must be override by those models which requires
+#       any precondition to work correctly. Associated to the
+#       precondition there is a fail message which displays what it is
+#       required to make model work using method
+#       <EBox::Model::DataTable::preconditionFailMsg>
+#
+# Returns:
+#
+#       Boolean - true if the precondition is accomplished, false
+#       otherwise
+#       Default value: true
+sub precondition
+{
+    return 1;
+}
+
+# Method: preconditionFailMsg
+#
+#       Return the fail message to inform why the precondition to
+#       manage this model is not accomplished. This method is related
+#       to <EBox::Model::DataTable::precondition>.
+#
+# Returns:
+#
+#       String - the i18ned message to inform user why this model
+#       cannot be handled
+#
+#       Default value: empty string
+#
+sub preconditionFailMsg
+{
+    return '';
+}
+
+# Method: fieldHeader
 #
 #	Return the instanced type of a given header field
 #

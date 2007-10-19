@@ -388,13 +388,37 @@ sub layout
 #      String - the composite's name
 #
 sub name
-  {
+{
 
-      my ($self) = @_;
+    my ($self) = @_;
 
-      return $self->{name};
+    return $self->{name};
 
-  }
+}
+
+# Method: contextName
+#
+#      Get the composite's context name, that is, the composite's name
+#      plus its index if any separated by a slash. If the composite
+#      has no index, the return value is equal to the
+#      <EBox::Model::Composite::name> return value.
+#
+# Returns:
+#
+#      String - the composite's context name
+#
+sub contextName
+{
+
+    my ($self) = @_;
+
+    if ( $self->index() ) {
+        return '/' . $self->{name} . '/' . $self->index();
+    } else {
+        return $self->{name};
+    }
+
+}
 
 # XXX transitional method, this will be the future name() method
 sub nameFromClass
@@ -431,6 +455,45 @@ sub printableName
       return $self->{printableName};
 
   }
+
+# Method: precondition
+#
+#       Check if the composite has enough data to be manipulated, that
+#       is, this precondition constraint is accomplished.
+#
+#       This method must be override by those composites which requires
+#       any precondition to work correctly. Associated to the
+#       precondition there is a fail message which displays what it is
+#       required to make composite work using method
+#       <EBox::Model::Composite::preconditionFailMsg>
+#
+# Returns:
+#
+#       Boolean - true if the precondition is accomplished, false
+#       otherwise
+#       Default value: true
+sub precondition
+{
+    return 1;
+}
+
+# Method: preconditionFailMsg
+#
+#       Return the fail message to inform why the precondition to
+#       manage this composite is not accomplished. This method is related
+#       to <EBox::Model::Composite::precondition>.
+#
+# Returns:
+#
+#       String - the i18ned message to inform user why this model
+#       cannot be handled
+#
+#       Default value: empty string
+#
+sub preconditionFailMsg
+{
+    return '';
+}
 
 # Method: index
 #
