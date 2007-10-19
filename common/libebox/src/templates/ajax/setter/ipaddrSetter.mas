@@ -11,6 +11,7 @@ for my $mask (32, 30, 29, 28, 27, 26, 25, 24, 16, 8) {
 
 </%init>
 % my $id = $tableName . '_' . $data->fieldName();
+% if ( $data->editable() ) {
 <span id="<% $id %>" class="<% $cssClass %>">
   <input type="text" class="inputText" value="<% $data->ip() %>"
 	size="16" id='<% $id . '_ip' %>' name='<% $id . '_ip' %>' />
@@ -22,4 +23,11 @@ for my $mask (32, 30, 29, 28, 27, 26, 25, 24, 16, 8) {
     'id'    => "$id" . "_mask",
   &>
 </span>
+% }
+% else
+% {
+<& $data->HTMLViewer(),
+   data => $data &>
+% }
+
 

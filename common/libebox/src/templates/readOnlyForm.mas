@@ -1,0 +1,38 @@
+<%doc>
+  This template is indicated to view the EBox::Model::DataForm::ReadOnly. It
+  will show a form with the model description to be as edited all the
+  time.
+
+  The original overridden call at /ajax/modelViewer.mas
+</%doc>
+<%flags>
+  inherit => '/ajax/form.mas'
+</%flags>
+<%args>
+  $model
+  $hasChanged
+  $action => 'view'
+</%args>
+<%init>
+  use EBox::Gettext;
+  use EBox::Model::DataTable;
+</%init>
+<& PARENT:view,
+   model => $model,
+   hasChanged => $hasChanged,
+   action     => $action,
+&>
+<%doc>
+  Method: buttons
+
+     No buttons to show
+
+  Overrides:
+
+     /ajax/form.mas:buttons
+
+</%doc>
+<%method buttons>
+</%method>
+
+

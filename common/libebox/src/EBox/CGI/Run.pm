@@ -30,6 +30,7 @@ use EBox::CGI::View::DataTable;
 use EBox::CGI::View::Composite;
 use CGI;
 
+use Error qw(:try);
 
 sub run # (url)
 {
@@ -112,7 +113,7 @@ sub _lookupViewController
 #	my ($namespace, $modelName) = $classname =~ m/EBox::CGI::.*::(.*)::(.*)/;
         # URL to map:
         # url => 'EBox::CGI::<moduleName>::' menuNamespaceBranch
-        # menuNamespaceBranch => 'View' model | 'Controller' model index | 'Composite' model action
+        # menuNamespaceBranch => 'View' model | 'Controller' model index | 'Composite' model index action
         # model => '::<modelName>'
         # index => '::<index>' | epsilon
         # action => '::<actionName>' | epsilon
@@ -147,13 +148,27 @@ sub _lookupViewController
 
         } elsif ( $namespace eq 'Composite' ) {
             my $compManager = EBox::Model::CompositeManager->Instance();
-            my $composite = $compManager->composite($modelName);
+            my ($composite, $action) = (undef, undef);
+            if ( defined ( $namespaces[5] )) {
+                # It may be the index or the action
+                # Compose the composite context name
+                my $contextName = '/' . lc ( $namespaces[2] ) . '/' . $modelName . '/' . $namespaces[5];
+                try {
+                    $composite = $compManager->composite($contextName);
+                    $action = $namespaces[6];
+                } catch EBox::Exceptions::DataNotFound with {
+                    $action = $namespaces[5];
+                };
+            }
+            unless ( defined ( $composite )) {
+                $composite = $compManager->composite($modelName);
+            }
             $menuNamespace = $composite->menuNamespace();
             # Check if the action is defined URL: Composite/<compName>/<action>
-            if ( defined ( $namespaces[5] )) {
+            if ( defined ( $action )) {
                 $cgi = new EBox::CGI::Controller::Composite(
                                                             composite => $composite,
-                                                            action    => $namespaces[5],
+                                                            action    => $action,
                                                            );
             } else {
                 $cgi = new EBox::CGI::View::Composite(
