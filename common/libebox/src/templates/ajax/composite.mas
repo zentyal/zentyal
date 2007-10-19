@@ -19,37 +19,45 @@
 <& .title,
    title => $model->printableName()
 &>
-% # Print the help if any
-% if ( $model->help() ) {
+% if ( $model->precondition() ) {
+%    # Print the help if any
+%    if ( $model->help() ) {
 <div class="help">
   <% $model->help() | h %>
 </div>
-% }
-% if ( $model->layout() eq 'tabbed' )
-% {
+%    }
+%    if ( $model->layout() eq 'tabbed' )
+%    {
 <& /ajax/tabMenu.mas,
    models => $componentsRef,
    selectedTab => 0,
    hasChanged => $hasChanged,
    tabName    => $model->name(),
 &>
-% }
-% elsif ( $model->layout() eq 'top-bottom' )
-% {
-%    foreach my $component (@{$componentsRef}) {
+%    }
+%    elsif ( $model->layout() eq 'top-bottom' )
+%    {
+%       foreach my $component (@{$componentsRef}) {
 <& $component->Viewer(),
    model => $component,
    hasChanged => $hasChanged,
    action => 'view',
 &>
+%       }
 %    }
-% }
-% elsif ( $model->layout() eq 'select' )
-% {
+%    elsif ( $model->layout() eq 'select' )
+%    {
 <& /ajax/selector.mas,
    composite => $model,
    hasChanged => $hasChanged,
 &>
+%    }
+% }
+% else
+% {
+<div class="note">
+  <% $model->preconditionFailMsg() %>
+</div>
 % }
 
 <%doc>

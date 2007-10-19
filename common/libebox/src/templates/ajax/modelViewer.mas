@@ -46,7 +46,9 @@
   Method: view
 
      Prints the model viewer. This method must be called by every
-     component which inherits from this one.
+     component which inherits from this one. The body is not displayed
+     if the precondition is accomplished, if not a fail message is
+     shown instead.
 
   Parameters:
 
@@ -62,11 +64,19 @@
   <& SELF:header,
      model => $model
    &>
+% if ( $model->precondition() ) {
 <div id="<% $model->modelName() %>">
   <& SELF:body,
      model      => $model
   &>
 </div>
+% }
+% else
+% {
+<div class="note">
+  <% $model->preconditionFailMsg() %>
+</div>
+% }
 </%method>
 
 <%doc>
