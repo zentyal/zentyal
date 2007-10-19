@@ -80,8 +80,6 @@ stubs/Makefile
 stubs/quagga/Makefile
 migration/Makefile
 www/Makefile
-tools/Makefile
-tools/sqllog/Makefile
 Makefile
 ])
 
