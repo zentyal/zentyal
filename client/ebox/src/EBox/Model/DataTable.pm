@@ -281,7 +281,7 @@ sub index
 #
 # Returns:
 #
-#       String - the i18ned strip to be used to show index
+#       String - the i18ned string to be used to show index
 #
 sub printableIndex
 {

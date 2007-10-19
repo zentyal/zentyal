@@ -46,10 +46,10 @@ sub composite
 
 # Method: composites
 #
-#   This method must be overriden in case your module needs no
-#   standard-behaviour when creating composites instances. If you override it, 
+#   This method must be overriden in case your module requires no
+#   standard-behaviour when creating composites instances. If you override it,
 #   the method modelClasses is not longer necessary.
-#   
+#
 #   In most cases you will not need to override it
 #
 # Returns:

@@ -96,8 +96,8 @@ sub newModelInstance
 
 # Method: modelClasses
 #
-#  This method must be overriden by all subclasses. It is used to rgister which
-#  models are use by the module.
+#  This method must be overriden by all subclasses. It is used to register which
+#  models are used by the module.
 #
 #  It must return a list reference with the following items:
 #  -  the names of all model classes which does not require additional parameters
@@ -107,6 +107,9 @@ sub newModelInstance
 #                      pass to the model's constructor
 sub modelClasses
 {
+    use Devel::StackTrace;
+    my $stack = Devel::StackTrace->new();
+    EBox::debug($stack->as_string());
   throw EBox::Exceptions::NotImplemented('modelClasses');
 }
 
