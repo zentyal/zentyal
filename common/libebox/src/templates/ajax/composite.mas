@@ -23,7 +23,7 @@
 %    # Print the help if any
 %    if ( $model->help() ) {
 <div class="help">
-  <% $model->help() | h %>
+  <% $model->help() %>
 </div>
 %    }
 %    if ( $model->layout() eq 'tabbed' )

@@ -102,7 +102,7 @@
 
 % if ($model->help()) {
 <div class="help">
-  <% $model->help() | h %>
+  <% $model->help() %>
 </div>
 % }
 
