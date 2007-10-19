@@ -35,7 +35,12 @@ use EBox::Sudo qw(:all);
 use EBox::NetWrappers qw(:all);
 use EBox::Service;
 use EBox::DHCPLogHelper;
+
+# Models & Composites
+use EBox::Common::Model::EnableForm;
 use EBox::DHCP::Composite::InterfaceConfiguration;
+use EBox::DHCP::Composite::General;
+use EBox::DHCP::Composite::Interfaces;
 use EBox::DHCP::Model::FixedAddressTable;
 use EBox::DHCP::Model::Options;
 use EBox::DHCP::Model::RangeInfo;
@@ -111,22 +116,30 @@ sub models
             # Create models
             push ( @models, new EBox::DHCP::Model::RangeTable(
                                                               gconfmodule => $self,
-                                                              directory   => 'RangeTable',
+                                                              directory   => "RangeTable/$iface",
                                                               interface   => $iface));
             push ( @models, new EBox::DHCP::Model::FixedAddressTable(
                                                               gconfmodule => $self,
-                                                              directory   => 'FixedAddressTable',
+                                                              directory   => "FixedAddressTable/$iface",
                                                               interface   => $iface));
             push ( @models, new EBox::DHCP::Model::Options(
                                                            gconfmodule => $self,
-                                                           directory   => 'Options',
+                                                           directory   => "Options/$iface",
                                                            interface   => $iface));
             push ( @models, new EBox::DHCP::Model::RangeInfo(
                                                              gconfmodule => $self,
-                                                             directory   => 'RangeInfo',
+                                                             directory   => "RangeInfo/$iface",
                                                              interface   => $iface));
         }
     }
+    push ( @models,
+           new EBox::Common::Model::EnableForm(
+                                               gconfmodule => $self,
+                                               directory   => 'EnableForm',
+                                               domain      => 'ebox-dhcp',
+                                               enableTitle => __('DHCP service status'),
+                                               modelDomain => 'DHCP',
+                                              ));
 
     return \@models;
 
@@ -152,6 +165,10 @@ sub composites
                    new EBox::DHCP::Composite::InterfaceConfiguration(interface => $iface));
         }
     }
+    push ( @composites,
+           new EBox::DHCP::Composite::Interfaces());
+    push ( @composites,
+           new EBox::DHCP::Composite::General());
 
     return \@composites;
 

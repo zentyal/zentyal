@@ -110,7 +110,7 @@ sub _description
     my $helpMsg = '';
     if ( $net->ifaceIsExternal($self->{interface})) {
         $helpMsg = __x('In order to serve IP addresses on a external interface, '
-                       . 'you must open the service on {openhref}firewall{closehref}',
+                       . 'you must open the service on {openhref}firewall module{closehref}',
                        openhref => '<a href="/ebox/Firewall/View/ExternalToEBoxRuleTable">',
                        closehref => '</a>');
     }
