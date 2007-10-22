@@ -281,43 +281,6 @@ sub delComponent
 
 }
 
-# Method: index
-#
-#       Get the index from the composite instance will be distinguised
-#       from the other ones with the same composite template. Compulsory
-#       to be overriden by child classes if the same composite template
-#       will be instanciated more than once.
-#
-#       By default, it returns an empty string ''.
-#
-# Returns:
-#
-#       String - the unique index string from this instance within the
-#       composite template realm
-#
-sub index
-{
-
-    return '';
-
-}
-
-# Method: printableIndex
-#
-#       Printable version to <EBox::Model::DataTable::index> method to
-#       be printed.
-#
-# Returns:
-#
-#       String - the i18ned string to be used to show index
-#
-sub printableIndex
-{
-
-    return '';
-
-}
-
 # Method: setLayout
 #
 #      Set the layout where the elements will be displayed.
