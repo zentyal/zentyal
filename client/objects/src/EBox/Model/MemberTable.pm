@@ -130,13 +130,11 @@ sub validateRow()
     my $mask = $params{'ipaddr_mask'};
     my $mac = $params{'macaddr'};
 
-    return unless (defined($id) and defined($ip) and defined($mask));
-
     if (defined($mac) and $mask ne '32') {
         throw EBox::Exceptions::External(
             __("You can only use MAC addresses with hosts"));
     }
-
+    
     checkIP($ip, __('network address'));
     checkCIDR("$ip/$mask", __('network address'));
 
@@ -174,7 +172,7 @@ sub _alreadyInObject # (ip, mask)
     for my $obj (@{$objs}) {
         next unless (exists $obj->{'members'}->{'values'});
         for my $member (@{$obj->{'members'}->{'values'}}) {
-            next if ($member->{'id'} eq $memberId);	
+            next if (defined($memberId) and ($member->{'id'} eq $memberId));	
             my $memaddr = new Net::IP($member->{'ipaddr'});
             my $new = new Net::IP("$iparg/$maskarg");
             if ($memaddr->overlaps($new) != $IP_NO_OVERLAP){
