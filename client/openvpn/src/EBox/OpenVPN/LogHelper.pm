@@ -24,18 +24,28 @@ use EBox;
 use EBox::Config;
 use EBox::Gettext;
 
+use Data::Dumper; # XXX remove if #848 is solved
+
 
 use constant TABLE_NAME => 'openvpn';
 
 sub new 
 {
-  my ($class, $openvpn) = @_;
+  my ($class, $openvpn, %params) = @_;
 
   my $self = $class->SUPER::new(@_);
   $self->{openvpn} = $openvpn;
 
   bless($self, $class);
-  $self->_populateLogFiles;
+
+
+  # XXX when #848 is solved remove the conditional; and always call
+  # _populateLogFiles 
+  unless ($params{noPopulate}) { 
+    $self->_populateLogFiles;
+  }
+
+
 
   return $self;
 }
@@ -53,36 +63,8 @@ sub domain {
 #
 #	array ref - containing the whole paths
 #
-# XXX this implementation must be deleted if #848 is fixed and replaced with the
-# contents of _logFile method
+
 sub logFiles
-{
-  my ($self) = @_;
-
-  my $logFilesScript =<<'END';
-        use strict;
-        use warnings;
-        use EBox;
-        use EBox::Global; 
-  
-        EBox::init();
-        my $openvpn = EBox::Global->modInstance("openvpn");
-        my $logHelper = $openvpn->logHelper();
-        my @logFiles = @{ $logHelper->_logFiles  };
-
-        print "@logFiles";
-       1;
-END
-
-  my @output = `perl -e '$logFilesScript'`;
-  my $logFilesLine = shift @output;
-
-  my @logFiles =  split '\s', $logFilesLine;
-  return \@logFiles;
-}
-
-# XXX  if #848 is fixed this must be logFiles
-sub _logFiles
 {
   my ($self) = @_;
   my @logFiles =  keys %{ $self->{logFiles}  };
@@ -94,11 +76,32 @@ sub _logFiles
 sub _populateLogFiles
 {
   my ($self) = @_;
-  my %logFiles;
 
+# XXX  comment out if #848 is solved
+#   $self->{logFiles} = $self->_logFilesFromDaemons;
+
+# XXX this  must be deleted if #848 is fixed 
+  my $script = $self->_populateScript;
+  my $output = EBox::Sudo::root($script);
+
+  my $VAR1;
+  eval $output->[0];
+
+  $self->{logFiles} = $VAR1;
+
+}
+
+
+
+sub _logFilesFromDaemons
+{
+  my ($self) = @_;
+
+  my %logFiles;
+  
   foreach my $daemon ($self->{openvpn}->daemons) {
     next if not $daemon->service;
-
+    
     my $file = $daemon->logFile;
     my $name = $daemon->name;
     my $type = $daemon->type;
@@ -110,7 +113,40 @@ sub _populateLogFiles
     
   }
 
-  $self->{logFiles} = \%logFiles;
+  return \%logFiles;
+
+}
+# XXX this  must be deleted if #848 is fixed 
+sub _populateScript
+{
+  my $script =<<'END'; 
+    use strict;
+    use warnings;
+    use EBox;
+    use EBox::Global; 
+  
+     EBox::init();
+    my $openvpn = EBox::Global->modInstance("openvpn");
+    my $logHelper = $openvpn->logHelper(noPopulate => 1);
+    $logHelper->_dumpLogFiles();
+     1;
+END
+
+  my $cmd = qq{perl -e '$script'};
+  return $cmd;
+}
+
+# XXX this  must be deleted if #848 is fixed 
+sub _dumpLogFiles
+{
+  my ($self) = @_;
+
+  my $logFiles = $self->_logFilesFromDaemons();
+
+  my $dumper = new Data::Dumper( [$logFiles] );
+  $dumper->Indent(0);
+
+  print $dumper->Dump;
 }
 
 # Method: processLine 
@@ -152,8 +188,8 @@ sub processLine # (file, line, logger)
 
   my $data = {
 	      timestamp  => $timestamp,
-	      daemonName => $name,
-	      daemonType => $type,
+	      daemonname => $name,
+	      daemontype => $type,
 	      event      => $event,
 	     };
   

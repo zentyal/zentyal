@@ -1416,8 +1416,8 @@ sub domain
 
 sub logHelper
 {
-  my ($self) = @_;
-  return EBox::OpenVPN::LogHelper->new($self);
+  my ($self, @params) = @_;
+  return EBox::OpenVPN::LogHelper->new($self, @params);
 }
 
 
@@ -1427,10 +1427,10 @@ sub tableInfo
   my $titles = {
 		timestamp => __('Date'),
 		event    => __('Event'),
-		daemonName => ('Daemon'),
-		daemonType => __('Type'),
+		daemonname => ('Daemon'),
+		daemontype => __('Type'),
 	       };
-  my @order = qw(timestamp daemonName daemonType event);
+  my @order = qw(timestamp daemonname daemontype event);
 
   my $events = {  
 		started => __('Daemon started'),
@@ -1443,7 +1443,7 @@ sub tableInfo
 	  'order' => \@order,
 	  'tablename' => 'openvpn',
 		'timecol' => 'timestamp',
-	  'filter' => ['daemonName', 'event'],
+	  'filter' => ['daemonname', 'event'],
 	  'events' => $events,
 	  'eventcol' => 'event'
 	 };
