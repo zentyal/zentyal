@@ -285,7 +285,7 @@ sub menu # (root)
 
     my ($self, $root) = @_;
 
-    $root->add(new EBox::Menu::Item('url'  => 'TrafficShaping/Index',
+    $root->add(new EBox::Menu::Item('url'  => 'TrafficShaping/Composite/DynamicGeneral',
 				    'text' => __('Traffic Shaping')));
 
 }
@@ -898,9 +898,16 @@ sub ShaperChain
 
 # Method: ifaceMethodChanged
 #
-# Overrides:
+# Implements:
 #
 #     <EBox::NetworkObserver::ifaceMethodChanged>
+#
+# Returns:
+#
+#     true - if there are rules on the model associated to the
+#     given interface
+#
+#     false - otherwise
 #
 sub ifaceMethodChanged
   {
@@ -916,7 +923,17 @@ sub ifaceMethodChanged
 
 # Method: ifaceExternalChanged
 #
-#        See <EBox::NetworkObserver::ifaceExternalChanged>.
+# Implements:
+#
+#    <EBox::NetworkObserver::ifaceExternalChanged>.
+#
+# Returns:
+#
+#    true - if there are rules on the model associated to the given
+#    interface or the change provokes not enough interfaces to shape
+#    the traffic
+#
+#    false - otherwise
 #
 sub ifaceExternalChanged # (iface, external)
   {
@@ -924,26 +941,63 @@ sub ifaceExternalChanged # (iface, external)
     my ($self, $iface, $external) = @_;
 
     # Check if any interface is being shaped
-    return $self->_areRulesActive($iface);
+    if ( $self->_areRulesActive($iface) ) {
+        return 1;
+    }
+    my $netMod = $self->{network};
+
+    my $nExt = @{$netMod->ExternalIfaces()};
+    my $nInt = @{$netMod->InternalIfaces()};
+    if ( $external ) {
+        $nExt++;
+        $nInt--;
+    } else {
+        $nExt--;
+        $nInt++;
+    }
+    return ( $nExt == 0 or $nInt == 0);
 
   }
 
-# Method: freeIfaceExternal
+# Method: changeIfaceExternalProperty
 #
-#        See <EBox::NetworkObserver::freeIfaceExternal>.
+#    Remove every rule associated to the given interface
+#
+# Implements:
+#
+#    <EBox::NetworkObserver::changeIfaceExternalProperty>
 #
 sub changeIfaceExternalProperty # (iface, external)
   {
 
     my ($self, $iface, $external) = @_;
 
-    my $dir = $self->_ruleDirectory($iface);
-
-    if ( $self->dir_exists($dir) ) {
-      $self->_destroyIface($iface);
+    my $model = $self->ruleModel($iface);
+    if ( $model->size() ) {
+        $model->removeAll(1);
     }
-
-    return undef;
+    my $nExt = @{$netMod->ExternalIfaces()};
+    my $nInt = @{$netMod->InternalIfaces()};
+    if ( $external ) {
+        $nExt++;
+        $nInt--;
+    } else {
+        $nExt--;
+        $nInt++;
+    }
+    if ( $nInt == 0 or $nExt == 0 ) {
+        # Destroy the model
+        my $manager = EBox::Model::ModelManager->instance();
+        $manager->removeModel($model->contextName());
+        $self->{ruleModels}->{$iface} = undef;
+    }
+#    my $dir = $self->_ruleDirectory($iface);
+#
+#    if ( $self->dir_exists($dir) ) {
+#      $self->_destroyIface($iface);
+#    }
+#
+#    return undef;
 
   }
 
@@ -961,15 +1015,19 @@ sub changeIfaceExternalProperty # (iface, external)
 #       boolean -
 #
 sub freeIface # (iface)
-  {
+{
 
     my ($self, $iface) = @_;
 
-    $self->_destroyIface($iface);
+    my $model = $self->ruleModel($iface);
+    $model->removeAll(1);
+    # Destroy the model
+    my $manager = EBox::Model::ModelManager->instance();
+    $manager->removeModel($model->contextName());
+    $self->{ruleModels}->{$iface} = undef;
+    #    $self->_destroyIface($iface);
 
-    return undef;
-
-  }
+}
 
 ###
 # Workaround related to upload rate from an external interface
@@ -1246,21 +1304,25 @@ sub _areRulesActive # (iface)
   {
     my ($self, $iface) = @_;
 
-    my $dir = $self->_ruleDirectory($iface);
+    my $model = $self->ruleModel($iface);
 
-    my $rules_ref = $self->array_from_dir($dir);
-
-    if ( scalar(@{$rules_ref}) != 0 ) {
+    # TODO: When enable is done, this method may change
+    return ($model->size() > 0);
+#    my $dir = $self->_ruleDirectory($iface);
+#
+#    my $rules_ref = $self->array_from_dir($dir);
+#
+#    if ( scalar(@{$rules_ref}) != 0 ) {
       # Check if there's any enabled TODO
 #      foreach my $rule_ref (@{$rules_ref}) {
 #	if ( $rule_ref->{enabled} ) {
 #	  return 1;
 #	}
 #      }
-      return 1;
-     }
+#      return 1;
+#     }
     # No rules are active
-    return undef;
+    return 0;
 
   }
 

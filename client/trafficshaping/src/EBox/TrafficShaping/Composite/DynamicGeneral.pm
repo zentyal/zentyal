@@ -33,12 +33,12 @@ use EBox::Global;
 
 # Constructor: new
 #
-#         Constructor for the general events composite
+#         Constructor for the general traffic shaping composite
 #
 # Returns:
 #
-#       <EBox::Events::Model::GeneralComposite> - a
-#       general events composite
+#       <EBox::TrafficShaping::Model::DynamicGeneral> - a
+#       general traffic shaping composite
 #
 sub new
 {
@@ -48,6 +48,56 @@ sub new
       my $self = $class->SUPER::new();
 
       return $self;
+
+}
+
+# Method: precondition
+#
+#    Check there are enough interfaces to shape the traffic in eBox
+#
+# Overrides:
+#
+#        <EBox::Model::Composite::precondition>
+#
+sub precondition
+{
+    my $tsMod = EBox::Global->modInstance('trafficshaping');
+    my $enough = $tsMod->enoughInterfaces();
+    unless ( $enough ) {
+        return 0;
+    }
+    my $totalDownRate = $tsMod->totalDownloadRate();
+    return ($totalDownRate > 0);
+}
+
+# Method: preconditionFailMsg
+#
+# Overrides:
+#
+#        <EBox::Model::Composite::preconditionFailMsg>
+#
+sub preconditionFailMsg
+{
+    my $tsMod = EBox::Global->modInstance('trafficshaping');
+    my $enough = $tsMod->enoughInterfaces();
+    if ( not $enough ) {
+        return __x('Traffic Shaping is applied when eBox is acting as '
+                   . 'a gateway. To achieve so, you need at least an internal '
+                   . 'and an external interface. Check your interface '
+                   . 'configuration to match so at '
+                   . '{openhref}Network->Interfaces{closehref}',
+                   openhref  => '<a href="/ebox/Network/Ifaces">',
+                   closehref => '</a>');
+    } else {
+        # The cause are the configured gateways
+        return __x('Traffic Shaping is applied only to external '
+                   . 'interfaces which have gateways with an upload '
+                   . 'rate set. In order to do so, create a gateway '
+                   . 'at {openhref}Network->Gateways{closehref} '
+                   . 'setting as interface an external one.',
+                   openhref => '<a href="/ebox/Network/View/GatewayTable">',
+                   closehref => '</a>')
+    }
 
 }
 
