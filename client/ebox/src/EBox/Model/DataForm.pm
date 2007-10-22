@@ -214,10 +214,37 @@ sub moveDown
 sub removeRow
   {
 
-      throw EBox::Exceptions::Internal('It cannot remove a row in an ' .
-                                       'one-rowed table');
-
+      throw EBox::Exceptions::Internal('It cannot remove a row'
+                                       . 'in an one-rowed table. '
+                                       . 'Use removeAll instead.');
   }
+
+# Method: removeAll
+#
+#       Remove all data from the form
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::removeAll>
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::Internal> - thrown if the remove is not
+#      forced
+#
+sub removeAll
+{
+    my ($self, $force) = @_;
+
+    if ( $force ) {
+        # Remove the data
+        $self->{gconfmodule}->delete_dir($self->{directory});
+    } else {
+        throw EBox::Exceptions::Internal('It cannot remove data unless '
+                                         . 'it is forcing the operation');
+    }
+
+}
 
 # Method: warnIfIdUsed
 #

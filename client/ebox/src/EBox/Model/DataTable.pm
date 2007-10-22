@@ -1002,7 +1002,26 @@ sub removeRow
 
 	$self->_setCacheDirty();
 
+}
 
+# Method: removeAll
+#
+#       Remove every data inside a model
+#
+# Parameters:
+#
+#       force - boolean force the operation *(Optional)* Default value: false
+#
+sub removeAll
+{
+    my ($self, $force) = @_;
+
+    $force = 0 unless defined ( $force );
+
+    my @ids = @{$self->{'gconfmodule'}->all_dirs_base($self->{'directory'})};
+    foreach my $id (@ids) {
+        $self->removeRow($id, $force);
+    }
 
 }
 
