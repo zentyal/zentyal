@@ -272,7 +272,9 @@ sub _fetchIfaceAddress
 {
     my ($self) = @_;
 
-    return $self->{netMod}->ifaceAddress($self->{interface});
+    my $ifaceAddr = $self->{netMod}->ifaceAddress($self->{interface});
+    ($ifaceAddr) or return undef;
+    return $ifaceAddr;
 
 }
 
@@ -282,7 +284,9 @@ sub _fetchPrimaryNS
 
     my ($self) = @_;
 
-    return $self->{netMod}->nameserverOne();
+    my $ns0ne = $self->{netMod}->nameserverOne();
+    ($nsOne) or return undef;
+    return $nsOne;
 
 }
 
@@ -292,8 +296,9 @@ sub _fetchSecondaryNS
 
     my ($self) = @_;
 
-    return $self->{netMod}->nameserverTwo();
-
+    my $nsTwo = $self->{netMod}->nameserverTwo();
+    ($nsTwo) or return undef;
+    return $nsTwo;
 }
 
 1;
