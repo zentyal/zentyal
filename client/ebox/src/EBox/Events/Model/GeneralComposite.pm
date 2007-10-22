@@ -68,7 +68,7 @@ sub _description
       my $description =
         {
          components      => [
-                             'EnableForm',
+                             '/events/EnableForm',
                              'ConfigurationComposite',
                             ],
          layout          => 'top-bottom',
