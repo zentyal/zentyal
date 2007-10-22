@@ -981,7 +981,8 @@ sub ifaceMethodChanged # (iface, old_method, new_method)
 #	return 0 if $new_method eq 'static';
 #
 #	return 1;
-        if ($old_method eq 'static') {
+        if ($old_method eq 'static'
+           and $new_method ne 'static') {
             my $manager = EBox::Model::ModelManager->instance();
             my $rangeModel = $manager->model("/dhcp/RangeTable/$iface");
             return 1 if ( $rangeModel->size() > 0);
