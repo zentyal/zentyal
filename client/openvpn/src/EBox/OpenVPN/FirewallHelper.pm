@@ -11,7 +11,6 @@ sub new
 
         my $self = $class->SUPER::new(%opts);
 	$self->{service}          =  delete $opts{service};
-	$self->{ifaces}           =  delete $opts{ifaces};
 	$self->{portsByProto}     =  delete $opts{portsByProto};
 	$self->{serversToConnect} =  delete $opts{serversToConnect};
 
@@ -26,11 +25,6 @@ sub service
     return $self->{service};
 }
 
-sub ifaces
-{
-    my ($self) = @_;
-    return $self->{ifaces};
-}
 
 sub portsByProto
 {
@@ -51,10 +45,6 @@ sub externalInput
 
     $self->service() or return [];
 
-    # do not firewall openvpn virtual ifaces
-    foreach my $iface (@{ $self->ifaces() }) {
-      push @rules, "-i $iface -j ACCEPT";
-    }
 
     my $portsByProto = $self->portsByProto;
     foreach my $proto (keys %{$portsByProto}) {
@@ -75,10 +65,6 @@ sub output
     my @rules;
 
     if ($self->service()) {
-    # do not firewall openvpn virtual ifaces
-      foreach my $iface (@{ $self->ifaces() }) {
-	push @rules, "-o $iface -j ACCEPT";
-      }
     
       foreach my $server_r (@{ $self->serversToConnect() }) {
 	my ($serverProto, $server, $serverPort) = @{ $server_r };
@@ -96,21 +82,7 @@ sub output
 }
 
 
-sub forward
-{
-    my ($self) = @_;
-    my @rules;
 
-    $self->service() or return [];
-
-    # do not firewall openvpn virtual ifaces
-    foreach my $iface (@{ $self->ifaces() }) {
-      push @rules, "-i $iface -j ACCEPT";
-      push @rules, "-o $iface -j ACCEPT";
-    }
-
-    return \@rules;
-}
 
 
 1;

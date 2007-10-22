@@ -801,7 +801,6 @@ sub firewallHelper
 
     my $firewallHelper = new EBox::OpenVPN::FirewallHelper (
 							    service          => $service,
-							    ifaces           => \@ifaces,
 							    portsByProto     => $portsByProto,
 							    serversToConnect => $serversToConnect,
 							   );
