@@ -75,6 +75,9 @@ sub _description
          compositeDomain => 'DHCP',
          selectMessage   => __('Choose a static interface to configure:'),
          printableName   => __('Service configuration'),
+         help            => __('In order to serve IP addresses on an interface, '
+                               . 'it is required to set at least a range or a '
+                               . 'fixed address.'),
         };
 
       return $description;

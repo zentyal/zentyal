@@ -245,6 +245,15 @@ sub _table
                       defaultActions     => [ 'editField' ],
                       tableDescription   => \@tableDesc,
                       class              => 'dataForm',
+                      help               => __('Setting "eBox" as default gateway will set '
+                                               . 'as default gateway the interface address. '
+                                               . 'If you set a "name", you may choose one the configured '
+                                               . 'gateways. As "search domain" value, '
+                                               . 'one of the configured DNS domains on eBox might be chosen. '
+                                               . 'If you set the "Primary nameserver" the "eBox '
+                                               . 'DNS" if installed, the eBox server may act as '
+                                               . 'cache DNS server. All fields are optionals setting '
+                                               . 'its value as "None" or leaving blank.'),
                      };
 
       return $dataForm;

@@ -140,6 +140,10 @@ sub _table
 
     my @tableDesc =
       (
+       new EBox::Types::HostIP(
+                               fieldName     => 'iface_address',
+                               printableName => __('Interface IP address'),
+                              ),
        new EBox::Types::IPAddr(
                                fieldName     => 'subnet',
                                printableName => __('Subnet'),
@@ -178,6 +182,8 @@ sub _content
     my $dhcp = $self->{gconfmodule};
     my $net  = EBox::Global->modInstance('network');
 
+    my $ifaceAddr = $net->ifaceAddress($self->{interface});
+
     my $subnet = EBox::NetWrappers::to_network_with_mask(
                             $net->ifaceNetwork($self->{interface}),
                             $net->ifaceNetmask($self->{interface})
@@ -188,6 +194,7 @@ sub _content
 
     return
       {
+       iface_address   => $ifaceAddr,
        subnet          => $subnet,
        available_range => $availableRange,
       };

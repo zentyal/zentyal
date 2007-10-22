@@ -961,25 +961,49 @@ sub _configureFirewall {
 	}
 }
 
-#   Function: ifaceMethodChanged
+# Function: ifaceMethodChanged
 #
-#	Implements EBox::NetworkObserver interface. 
-#   
+# Implements:
+#
+#    <EBox::NetworkObserver::ifaceMethodChanged>
+#
+# Returns:
+#
+#     true - if the old method is 'static' and there are configured
+#     ranges or fixed addresses attached to this interface
+#     false - otherwise
 #
 sub ifaceMethodChanged # (iface, old_method, new_method)
 {
 	my ($self, $iface, $old_method, $new_method) = @_;
-	return 0 if !$self->service();
-	return 0 if $old_method ne 'static';
-	return 0 if $new_method eq 'static';
-
-	return 1;
+#	return 0 if !$self->service();
+#	return 0 if $old_method ne 'static';
+#	return 0 if $new_method eq 'static';
+#
+#	return 1;
+        if ($old_method eq 'static') {
+            my $manager = EBox::Model::ModelManager->instance();
+            my $rangeModel = $manager->model("/dhcp/RangeTable/$iface");
+            return 1 if ( $rangeModel->size() > 0);
+            my $fixedAddrModel = $manager->model("/dhcp/FixedAddressTable/$iface");
+            return 1 if ( $fixedAddrModel->size() > 0);
+        }
+        return 0;
 }
 
-#   Function: vifaceAdded
+# Function: vifaceAdded
 #
-#	Implements EBox::NetworkObserver interface. 
-#   
+#
+# Implements:
+#
+#   <EBox::NetworkObserver::vifaceAdded>
+#
+# Exceptions:
+#
+#  <EBox::Exceptions::External> - thrown *if*:
+#
+#   - New Virtual interface IP overlaps any configured range
+#   - New Virtual interface IP is a fixed IP address
 #
 sub vifaceAdded # (iface, viface, address, netmask)
 {
@@ -988,109 +1012,216 @@ sub vifaceAdded # (iface, viface, address, netmask)
 	my $net = EBox::Global->modInstance('network');
 	my $ip = new Net::IP($address);
 
-	my $ifaces = $net->allIfaces();
-	foreach my $if (@{$ifaces}) {
-		my $ranges = $self->ranges($if);
-		foreach my $r (@{$ranges}){
-			my $r_ip = new Net::IP($r->{'from'} ." - ". $r->{'to'});
-			#check that the new IP isn't in any range
-			unless($ip->overlaps($r_ip)==$IP_NO_OVERLAP){
-				throw EBox::Exceptions::External(
-				__x("The IP address of the virtual interface " .
-				"you're trying to add is already used by the " .
-				"DHCP range '{range}' in the interface " .
-				"'{iface}'. Please, remove it before trying " .
-				"to add a virtual interface using it.",
-				range => $r->{name}, iface => $if));
-			}
-		}
-		my $fixedAddresses = $self->fixedAddresses($if);
-		foreach my $f (@{$fixedAddresses}){
-			my $f_ip = new Net::IP($f->{'ip'});
-			#check that the new IP isn't in any fixed address
-			unless($ip->overlaps($f_ip)==$IP_NO_OVERLAP){
-				throw EBox::Exceptions::External(
-				__x("The IP address of the virtual interface " .
-				"you're trying to add is already used by the " .
-				"DHCP fixed address '{fixed}' in the " .
-				"interface '{iface}'. Please, remove it " .
-				"before trying to add a virtual interface " .
-				"using it.",
-				fixed => $f->{name}, iface => $if));
-			}
-		}
-	}
+        my $manager = EBox::Model::ModelManager->instance();
+
+        my @rangeModels = @{$manager->model('/dhcp/RangeTable/*')};
+        # Check that the new IP for the virtual interface isn't in any range
+        foreach my $rangeModel (@rangeModels) {
+            foreach my $rangeRow (@{$rangeModel->rows()}) {
+                my $from = $rangeRow->{plainValueHash}->{from};
+                my $to   = $rangeRow->{plainValueHash}->{to};
+                my $range = new Net::IP($from . ' - ' . $to);
+                unless ( $ip->overlaps($range) == $IP_NO_OVERLAP ) {
+                    throw EBox::Exceptions::External(
+			__x('The IP address of the virtual interface '
+                            . 'you are trying to add is already used by the '
+                            . "DHCP range '{range}' in the interface "
+                            . "'{iface}'. Please, remove it before trying "
+                            . 'to add a virtual interface using it.',
+                            range => $rangeRow->{plainValueHash}->{name},
+                            iface => $rangeModel->index()));
+                }
+            }
+        }
+
+        my @fixedAddrModels = @{$manager->model('/dhcp/FixedAddressTable/*')};
+        # Check the new IP for the virtual interface is not a fixed address
+        foreach my $fixedAddrModel (@fixedAddrModels) {
+            foreach my $mappingRow (@{$fixedAddrModel->rows()}) {
+                my $fixedIP = new Net::IP($mappingRow->{plainValueHash}->{ip});
+                unless ( $ip->overlaps($fixedIP) == $IP_NO_OVERLAP ) {
+                    throw EBox::Exceptions::External(
+                           __x('The IP address of the virtual interface '
+                               . 'you are trying to add is already used by the '
+                               . "DHCP fixed address '{fixed}' in the "
+                               . "interface '{iface}'. Please, remove it "
+                               . 'before trying to add a virtual interface '
+                               . 'using it.',
+                               fixed => $mappingRow->{plainValueHash}->{name},
+                               iface => $fixedAddrModel->index()));
+
+                }
+            }
+        }
+#
+#	my $ifaces = $net->allIfaces();
+#	foreach my $if (@{$ifaces}) {
+#		my $ranges = $self->ranges($if);
+#		foreach my $r (@{$ranges}){
+#			my $r_ip = new Net::IP($r->{'from'} ." - ". $r->{'to'});
+#			#check that the new IP isn't in any range
+#			unless($ip->overlaps($r_ip)==$IP_NO_OVERLAP){
+#				throw EBox::Exceptions::External(
+#				__x("The IP address of the virtual interface " .
+#				"you're trying to add is already used by the " .
+#				"DHCP range '{range}' in the interface " .
+#				"'{iface}'. Please, remove it before trying " .
+#				"to add a virtual interface using it.",
+#				range => $r->{name}, iface => $if));
+#			}
+#		}
+#		my $fixedAddresses = $self->fixedAddresses($if);
+#		foreach my $f (@{$fixedAddresses}){
+#			my $f_ip = new Net::IP($f->{'ip'});
+#			#check that the new IP isn't in any fixed address
+#			unless($ip->overlaps($f_ip)==$IP_NO_OVERLAP){
+#				throw EBox::Exceptions::External(
+#				__x("The IP address of the virtual interface " .
+#				"you're trying to add is already used by the " .
+#				"DHCP fixed address '{fixed}' in the " .
+#				"interface '{iface}'. Please, remove it " .
+#				"before trying to add a virtual interface " .
+#				"using it.",
+#				fixed => $f->{name}, iface => $if));
+#			}
+#		}
+#	}
+
 }
 
-#   Function:  vifaceDelete
+# Function:  vifaceDelete
 #
-#	Implements EBox::NetworkObserver interface. 
-#   
+# Implements:
+#
+#    <EBox::NetworkObserver::vifaceDelete>
+#
+# Returns:
+#
+#    true - if there are any configured range or fixed address for
+#    this interface
+#    false - otherwise
 #
 sub vifaceDelete # (iface, viface)
 {
 	my ( $self, $iface, $viface) = @_;
-	my $nr = @{$self->ranges("$iface:$viface")};
-	my $nf = @{$self->fixedAddresses("$iface:$viface")};
-	return (($nr != 0) or ($nf != 0));
+#	my $nr = @{$self->ranges("$iface:$viface")};
+#	my $nf = @{$self->fixedAddresses("$iface:$viface")};
+#	return (($nr != 0) or ($nf != 0));
+        my $manager = EBox::Model::ModelManager->instance();
+        my $rangeModel = $manager->model("/dhcp/RangeTable/$iface:$viface");
+        my $nr = $rangeModel->size();
+        if ( $nr != 0 ) {
+            return 1;
+        }
+        my $fixedAddrModel = $manager->model("/dhcp/FixedAddressTable/$iface:$viface");
+        my $nf = $fixedAddrModel->size();
+        if ( $nf != 0) {
+            return 1;
+        }
+        # FIXME: delete data from Options if any stored in GConf
+        return 0;
 }
 
-#   Function: staticIfaceAddressChanged 
+# Function: staticIfaceAddressChanged
 #
-#	Implements EBox::NetworkObserver interface. 
-#   
+#       Return true *unless*:
+#
+#       - all ranges are still in the network
+#       - new IP is not in any range
+#       - all fixed addresses are still in the network
+#       - new IP is not any fixed IP address
+#
+# Implements:
+#
+#       <EBox::NetworkObserver::staticIfaceAddressChanged>
 #
 sub staticIfaceAddressChanged # (iface, old_addr, old_mask, new_addr, new_mask)
 {
 	my ( $self, $iface, $old_addr, $old_mask, $new_addr, $new_mask) = @_;
-	my $nr = @{$self->ranges($iface)};
-	my $nf = @{$self->fixedAddresses($iface)};
-	if(($nr == 0) and ($nf == 0)){
-		return 0;
-	}
+#	my $nr = @{$self->ranges($iface)};
+#	my $nf = @{$self->fixedAddresses($iface)};
+#	if(($nr == 0) and ($nf == 0)){
+#		return 0;
+#	}
 
 	my $ip = new Net::IP($new_addr);
 
 	my $network = ip_network($new_addr, $new_mask);
 	my $bits = bits_from_mask($new_mask);
-	my $net_ip = new Net::IP("$network/$bits");
+	my $netIP = new Net::IP("$network/$bits");
 
-	my $ranges = $self->ranges($iface);
-	foreach my $r (@{$ranges}){
-		my $r_ip = new Net::IP($r->{'from'} . " - " . $r->{'to'});
-		#check that the range is still in the network
-		unless($r_ip->overlaps($net_ip)==$IP_A_IN_B_OVERLAP){
-			return 1;
-		}
-		#check that the new IP isn't in any range
-		unless($ip->overlaps($r_ip)==$IP_NO_OVERLAP){
-			return 1;
-		}
-	}
-	my $fixedAddresses = $self->fixedAddresses($iface);
-	foreach my $f (@{$fixedAddresses}){
-		my $f_ip = new Net::IP($f->{'ip'});
-		#check that the fixed address is still in the network
-		unless($f_ip->overlaps($net_ip)==$IP_A_IN_B_OVERLAP){
-			return 1;
-		}
-		#check that the new IP isn't in any fixed address
-		unless($ip->overlaps($f_ip)==$IP_NO_OVERLAP){
-			return 1;
-		}
-	}
+        # Check ranges
+        my $manager = EBox::Model::ModelManager->instance();
+        my $rangeModel = $manager->model("/dhcp/RangeTable/$iface");
+        foreach my $rangeRow (@{$rangeModel->rows()}) {
+            my $range = new Net::IP($rangeRow->{plainValueHash}->{from}
+                                    . ' - ' .
+                                    $rangeRow->{plainValueHash}->{to});
+            # Check the range is still in the network
+            unless ($range->overlaps($netIP) == $IP_A_IN_B_OVERLAP){
+                return 1;
+            }
+            # Check the new IP isn't in any range
+            unless($ip->overlaps($range) == $IP_NO_OVERLAP ){
+                return 1;
+            }
+        }
+        my $fixedAddrModel = $manager->model("/dhcp/FixedAddressTable/$iface");
+        foreach my $mappingRow (@{$fixedAddrModel->rows()}) {
+            my $fixedIP = new Net::IP( $mappingRow->{plainValueHash}->{ip} );
+            # Check the fixed address is still in the network
+            unless($fixedIP->overlaps($netIP) == $IP_A_IN_B_OVERLAP){
+                return 1;
+            }
+            # Check the new IP isn't in any fixed address
+            unless( $ip->overlaps($fixedIP) == $IP_NO_OVERLAP){
+                return 1;
+            }
+        }
+
+#	my $ranges = $self->ranges($iface);
+#	foreach my $r (@{$ranges}){
+#		my $r_ip = new Net::IP($r->{'from'} . " - " . $r->{'to'});
+#		#check that the range is still in the network
+#		unless($r_ip->overlaps($net_ip)==$IP_A_IN_B_OVERLAP){
+#			return 1;
+#		}
+#		#check that the new IP isn't in any range
+#		unless($ip->overlaps($r_ip)==$IP_NO_OVERLAP){
+#			return 1;
+#		}
+#	}
+#	my $fixedAddresses = $self->fixedAddresses($iface);
+#	foreach my $f (@{$fixedAddresses}){
+#		my $f_ip = new Net::IP($f->{'ip'});
+#		#check that the fixed address is still in the network
+#		unless($f_ip->overlaps($net_ip)==$IP_A_IN_B_OVERLAP){
+#			return 1;
+#		}
+#		#check that the new IP isn't in any fixed address
+#		unless($ip->overlaps($f_ip)==$IP_NO_OVERLAP){
+#			return 1;
+#		}
+#	}
+
 	return 0;
 }
 
-#   Function: freeIface 
+# Function: freeIface
 #
-#	Implements EBox::NetworkObserver interface. 
-#   
+#    Delete every single row from the models attached to this
+#    interface
+#
+# Implements:
+#
+#    <EBox::NetworkObserver::freeIface>
+#
 #
 sub freeIface #( self, iface )
 {
 	my ( $self, $iface ) = @_;
-	$self->delete_dir("$iface");
+#	$self->delete_dir("$iface");
+        $self->_removeDataModelsAttached($iface);
 
 	my $net = EBox::Global->modInstance('network');
 	if ($net->ifaceMethod($iface) eq 'static') {
@@ -1098,20 +1229,26 @@ sub freeIface #( self, iface )
 	}
 }
 
-#   Function: freeViface
+# Function: freeViface
 #
-#	Implements EBox::NetworkObserver interface. 
-#   
+#    Delete every single row from the models attached to this virtual
+#    interface
+#
+# Implements:
+#
+#    <EBox::NetworkObserver::freeViface>
+#
 #
 sub freeViface #( self, iface, viface )
 {
 	my ( $self, $iface, $viface ) = @_;
-	$self->delete_dir("$iface:$viface");
+#	$self->delete_dir("$iface:$viface");
+        $self->_removeDataModelsAttached("$iface:$viface");
 
-	my $net = EBox::Global->modInstance('network');
-	if ($net->ifaceMethod($viface) eq 'static') {
+#	my $net = EBox::Global->modInstance('network');
+#	if ($net->ifaceMethod($viface) eq 'static') {
 	  $self->_checkStaticIfaces(-1);
-	}
+#	}
 
 }
 
@@ -1263,6 +1400,20 @@ sub _addDHCPService
 
     $serviceMod->save();
 
+}
+
+# Returns those model instances attached to the given interface
+sub _removeDataModelsAttached
+{
+    my ($self, $iface) = @_;
+
+    my $manager = EBox::Model::ModelManager->instance();
+
+    # RangeTable/Options/FixedAddressTable
+    foreach my $modelName (qw(Options RangeTable FixedAddressTable)) {
+        my $model = $manager->model("/dhcp/$modelName/$iface");
+        $model->removeAll(1);
+    }
 }
 
 1;
