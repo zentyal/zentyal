@@ -63,7 +63,7 @@ case "$1" in
 	  	create_swap;	
 		
 		# create log table
-                /usr/lib/ebox/ebox-sql-table add access /usr/share/ebox/sqllog/squid.sql
+        /usr/lib/ebox/ebox-sql-table add access /usr/share/ebox/sqllog/squid.sql
 
 		# migrate data if needed
 		/usr/lib/ebox/ebox-migrate /usr/lib/ebox-squid/migration/
@@ -72,6 +72,8 @@ case "$1" in
 		invoke-rc.d ebox logs restart || true
 		# restart squid module
 		invoke-rc.d ebox squid restart
+        # restart apache
+        invoke-rc.d ebox apache restart
 esac
 
 
