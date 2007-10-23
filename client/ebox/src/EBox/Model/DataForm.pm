@@ -202,6 +202,9 @@ sub moveDown
 #
 #       Remove a row. It makes no sense in an one-rowed table.
 #
+#       When the remove is forced, <EBox::Model::DataForm::removeAll>
+#       is called.
+#
 # Overrides:
 #
 #       <EBox::Model::DataTable::removeRow>
@@ -209,15 +212,20 @@ sub moveDown
 # Exceptions:
 #
 #       <EBox::Exceptions::Internal> - thrown since it has no sense in
-#       an one-rowed table
+#       an one-rowed table except when forcing.
 #
 sub removeRow
-  {
+{
+    my ($self, $id, $force ) = @_;
 
-      throw EBox::Exceptions::Internal('It cannot remove a row'
-                                       . 'in an one-rowed table. '
-                                       . 'Use removeAll instead.');
-  }
+    if ( $force ) {
+        $self->removeAll($force);
+    } else {
+        throw EBox::Exceptions::Internal('It cannot remove a row'
+                                         . 'in an one-rowed table. '
+                                         . 'Use removeAll instead.');
+    }
+}
 
 # Method: removeAll
 #
@@ -458,85 +466,29 @@ sub pages
 
   }
 
-# Method: find
+# Method: automaticRemoveMsg
 #
-#       Find a row . It makes no sense in an one-rowed table.
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::find>
-#
-# Exceptions:
-#
-#       <EBox::Exceptions::Internal> - thrown since it has no sense in
-#       an one-rowed table
-#
-sub find
-  {
-
-      throw EBox::Exceptions::Internal('Finding is not needed in an one-rowed table');
-
-  }
-
-# Method: findAll
-#
-#       Find rows . It makes no sense in an one-rowed table.
+#       Get the i18ned string to show when an automatic remove is done
+#       in a model
 #
 # Overrides:
 #
-#       <EBox::Model::DataTable::findAll>
+#       <EBox::Model::DataTable::automaticRemoveMsg>
 #
-# Exceptions:
+# Parameters:
 #
-#       <EBox::Exceptions::Internal> - thrown since it has no sense in
-#       an one-rowed table
+#       nDeletedRows - Int the deleted row number
 #
-sub findAll
-  {
+sub automaticRemoveMsg
+{
+    my ($self, $nDeletedRows) = @_;
 
-      throw EBox::Exceptions::Internal('Finding is not needed in an one-rowed table');
+    return __x('Remove data from {model}{br}',
+               model   => $self->printableName(),
+               br      => '<br>');
 
-  }
+}
 
-# Method: findValue
-#
-#       Find a row. It makes no sense in an one-rowed table.
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::findValue>
-#
-# Exceptions:
-#
-#       <EBox::Exceptions::Internal> - thrown since it has no sense in
-#       an one-rowed table
-#
-sub findValue
-  {
-
-      throw EBox::Exceptions::Internal('Finding is not needed in an one-rowed table');
-
-  }
-
-# Method: findAllValue
-#
-#       Find some rows. It makes no sense in an one-rowed table.
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::findAllValue>
-#
-# Exceptions:
-#
-#       <EBox::Exceptions::Internal> - thrown since it has no sense in
-#       an one-rowed table
-#
-sub findAllValue
-  {
-
-      throw EBox::Exceptions::Internal('Finding is not needed in an one-rowed table');
-
-  }
 
 # Method: updatedRowNotify
 #
