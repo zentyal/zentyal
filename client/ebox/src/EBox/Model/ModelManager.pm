@@ -182,7 +182,7 @@ sub addModel
 
     push ( @{$self->{'models'}->{$modName}->{$modelName}}, $model);
 
-    $self->_markAsChanged();
+    $self->markAsChanged();
 
 }
 
@@ -232,7 +232,7 @@ sub removeModel
         }
     }
 
-    $self->_markAsChanged();
+    $self->markAsChanged();
 
 }
 
@@ -348,7 +348,7 @@ sub modelActionTaken
     }
 
     if ( exists $self->{'reloadActions'}->{$model} ) {
-        $self->_markAsChanged();
+        $self->markAsChanged();
     }
 
     return $strToRet;
@@ -404,11 +404,7 @@ sub removeRowsUsingId
             }
         }
         if ( $deletedNum > 0 ) {
-            $strToShow .= __x('Remove {num} rows of {rowName} from {model}{br}',
-                              num => $deletedNum,
-                              rowName => $modelDep->printableRowName(),
-                              model   => $modelDep->printableContextName(),
-                              br      => '<br>');
+            $strToShow .= $modelDep->automaticRemoveMsg($deletedNum);
         }
     }
     while (my ($modelDepName, $fieldName) = each %{$modelDepHash}) {
@@ -500,6 +496,27 @@ sub warnOnChangeOnId
     }
 }
 
+# Method: markAsChanged
+#
+# 	(PUBLIC)
+#
+#   Mark the model manager as changed. This is done when a change is
+#   done in the models to allow interprocess coherency.
+#
+sub markAsChanged
+{
+
+    my ($self) = @_;
+
+    my $gl = EBox::Global->getInstance();
+
+    my $oldVersion = $self->_version();
+    $oldVersion = 0 unless ( defined ( $oldVersion ));
+    $oldVersion++;
+    $gl->set_int('model_manager/version', $oldVersion);
+
+}
+
 # Group: Private methods
 
 # Method: _setUpModels
@@ -551,8 +568,6 @@ sub _setUpModelsFromProvider
             push ( @{$self->{'reloadActions'}->{$model}}, $provider->name());
         }
     } otherwise {
-        my $exc = shift;
-        EBox::warn($exc->stringify());
         EBox::warn('Skipping ' . $provider->printableName() . ' to fetch model');
     };
 
@@ -779,28 +794,6 @@ sub _chooseModelUsingParameters
     # No coincidence
     throw EBox::Exceptions::DataNotFound(data => 'modelInstance',
                                          value => $path);
-
-}
-
-# Method: _markAsChanged
-#
-# 	(PRIVATE)
-#
-#   Mark the model manager as changed. This is done when a change is
-#   done in the models to allow interprocess coherency. 
-#
-#
-sub _markAsChanged
-{
-
-    my ($self) = @_;
-
-    my $gl = EBox::Global->getInstance();
-
-    my $oldVersion = $self->_version();
-    $oldVersion = 0 unless ( defined ( $oldVersion ));
-    $oldVersion++;
-    $gl->set_int('model_manager/version', $oldVersion);
 
 }
 

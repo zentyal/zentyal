@@ -31,6 +31,9 @@ use warnings;
 use EBox::Exceptions::DataNotFound;
 use EBox::Global;
 
+# Constants:
+use constant VERSION_KEY => 'composite_manager/version';
+
 # Singleton variable
 my $_instance = undef;
 
@@ -256,11 +259,33 @@ sub modelActionTaken
     }
 
     if ( exists $self->{'reloadActions'}->{$model} ) {
-        $self->_markAsChanged();
+        $self->markAsChanged();
     }
 
 
     return $strToRet;
+
+}
+
+# Method: markAsChanged
+#
+# 	(PUBLIC)
+#
+#   Mark the composite manager as changed. This is done when a change is
+#   done in the composites to allow interprocess coherency.
+#
+#
+sub markAsChanged
+{
+
+    my ($self) = @_;
+
+    my $gl = EBox::Global->getInstance();
+
+    my $oldVersion = $self->_version();
+    $oldVersion = 0 unless ( defined ( $oldVersion ));
+    $oldVersion++;
+    $gl->set_int(VERSION_KEY, $oldVersion);
 
 }
 
@@ -411,29 +436,6 @@ sub _chooseCompositeUsingIndex
 
 }
 
-
-# Method: _markAsChanged
-#
-# 	(PRIVATE)
-#
-#   Mark the composite manager as changed. This is done when a change is
-#   done in the composites to allow interprocess coherency.
-#
-#
-sub _markAsChanged
-{
-
-    my ($self) = @_;
-
-    my $gl = EBox::Global->getInstance();
-
-    my $oldVersion = $self->_version();
-    $oldVersion = 0 unless ( defined ( $oldVersion ));
-    $oldVersion++;
-    $gl->set_int('composite_manager/version', $oldVersion);
-
-}
-
 # Method: _hasChanged
 #
 # 	(PRIVATE)
@@ -468,7 +470,7 @@ sub _version
 
     my $gl = EBox::Global->getInstance();
 
-    return $gl->get_int('composite_manager/version');
+    return $gl->get_int(VERSION_KEY);
 
 }
 
