@@ -70,7 +70,7 @@ sub _confDir
 
 
 
-sub processLineTest : Test(18)
+sub processLineTest : Test(24)
 {
 
   my $openvpn   = EBox::OpenVPN->_create();
@@ -79,6 +79,7 @@ sub processLineTest : Test(18)
 
   my $macacoServer = $openvpn->server('macaco');
   my $baboonServer = $openvpn->server('baboon');
+  my $gibonClient  = $openvpn->client('gibon');
 
   # 2 tests for each case
   my @cases = (
@@ -89,6 +90,7 @@ sub processLineTest : Test(18)
 	       
 	       },
 
+	       # server initialized
 	       {
 		line => 'Tue Aug 21 09:23:15 2007 Initialization Sequence Completed',
 		file => $macacoServer->logFile(),
@@ -96,11 +98,23 @@ sub processLineTest : Test(18)
 			     timestamp => 'Tue Aug 21 09:23:15 2007',
 			     daemon_name => 'macaco',
 			     daemon_type => 'server',
-			     event      => 'started',
+			     event      => 'initialized',
 			    },
 	       },
 
-	       # verificationOk vents
+	       # client initialized
+	       {
+		line => 'Mon Aug 27 06:51:48 2007 Initialization Sequence Completed',
+		file => $gibonClient->logFile(),
+		expected => {
+			     timestamp => 'Mon Aug 27 06:51:48 2007',
+			     daemon_name => 'gibon',
+			     daemon_type => 'client',
+			     event      => 'initialized',
+			    },
+	       },
+
+	       # verificationOk events
 	       {
 		line => 'Tue Aug 21 08:51:45 2007 192.168.45.184:54817 VERIFY OK: depth=1, /C=ES/ST=Nation/L=Nowhere/O=monos/CN=Certification_Authority_Certificate',
 		file => $baboonServer->logFile(),
@@ -160,7 +174,7 @@ sub processLineTest : Test(18)
 			    },
 	       },
 
-	       # peer connection initialized
+	       # client connection initialized
 	       {
 		line => 'Tue Aug 21 08:51:46 2007 192.168.45.184:54817 [mandrill] Peer Connection Initiated with 192.168.45.184:54817',
 		file => $macacoServer->logFile(),
@@ -173,6 +187,22 @@ sub processLineTest : Test(18)
 
 			     from_ip => '192.168.45.184',
 			     from_cert => 'mandrill',
+			    },		
+	       },
+
+	       #  connection to server initialized
+	       {
+		line => 'Mon Aug 27 06:51:47 2007 [server] Peer Connection Initiated with 192.168.45.126:10000',
+		file => $gibonClient->logFile(),
+		expected => {
+			     event      => 'serverConnectionInitiated',
+			     timestamp => 'Mon Aug 27 06:51:47 2007',
+
+			     daemon_name => 'gibon',
+			     daemon_type => 'client',
+
+			     from_ip => '192.168.45.126',
+			     from_cert => 'server',
 			    },		
 	       },
 
@@ -191,6 +221,21 @@ sub processLineTest : Test(18)
 			     from_cert => 'mandrill',
 			    },		
 	       },
+
+	       # server connection terminated
+	       {
+		line => 'Mon Aug 27 06:52:25 2007 Connection reset, restarting [0]',
+		file => $gibonClient->logFile(),
+		expected => {
+			     event      => 'connectionResetByServer',
+			     timestamp => 'Mon Aug 27 06:52:25 2007',
+
+			     daemon_name => 'gibon',
+			     daemon_type => 'client',
+			    },		
+	       },
+
+
 	      );
 
   foreach my $case (@cases) {

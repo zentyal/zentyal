@@ -1429,13 +1429,13 @@ sub tableInfo
 		event    => __('Event'),
 		daemon_name => ('Daemon'),
 		daemon_type => __('Type'),
-		from_ip     => __(q{Client's IP}),
-		from_cert     => __(q{Client's Certificate}),
+		from_ip     => __(q{Remote IP}),
+		from_cert     => __(q{Remote Certificate}),
 	       };
   my @order = qw(timestamp event daemon_name daemon_type from_ip from_cert );
 
   my $events = {  
-		started => __('Daemon started'),
+		initialized => __('Initialization sequence completed'),
 
 		verificationIssuerError => __('Certificate issuer not authorized'),
 		verificationNameError  => __('Certificate common name not authorized'),
@@ -1443,6 +1443,9 @@ sub tableInfo
 		
 		connectionInitiated => __('Client connection initiated'),
 		connectionReset     => __('Client connection terminated'),
+
+		serverConnectionInitiated => __('Connection to server initiated'),
+		connectionResetByServer => __('Server connection terminated'),
 	       };
   
   return {

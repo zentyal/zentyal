@@ -226,11 +226,28 @@ my %callbackByRe = (
                     }x => 
 		    \&_peerConnectionEvent,
 
+
+		    qr{
+                           \[(.*?)\]\s       # server certificate CN
+                           Peer\sConnection\sInitiated\swith\s
+                           ([\d\.]+?):\d+$    # server ip and port (we will use this instead of the first)
+
+                    }x => 
+		    \&_peerServerConnectionEvent,
+
 		    qr{
                         ^(.*?)/(.*?):\d+\s #[client cn]/[ip]:[port]
                        Connection\sreset,\srestarting.*$
                      }x => 
 		    \&_connectionResetEvent,
+		   
+		    qr{
+                       ^Connection\sreset,\srestarting.*$
+                     }x => 
+		    \&_connectionResetByServerEvent,
+		     
+
+
 		   );
 
 
@@ -259,7 +276,7 @@ sub _eventFromMsg
 
 sub _startedEvent
 {
-  return { name => 'started' } ;
+  return { name => 'initialized' } ;
 }
 
 
@@ -325,6 +342,19 @@ sub _peerConnectionEvent
 }
 
 
+sub _peerServerConnectionEvent
+{
+  my $cn = $1;
+  my $ip = $2;
+
+  return {
+	  name => 'serverConnectionInitiated',
+	  fromCert => $cn,
+	  fromIp   => $ip,
+	 }
+
+}
+
 sub _connectionResetEvent
 {
   my $cn = $1;
@@ -337,4 +367,13 @@ sub _connectionResetEvent
 	 }
 
 }
+
+
+sub _connectionResetByServerEvent
+{
+  return {
+	  name => 'connectionResetByServer',
+	 }
+}
+
 1;
