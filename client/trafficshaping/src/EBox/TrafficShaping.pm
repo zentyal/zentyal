@@ -47,10 +47,14 @@ use EBox::TrafficShaping::TreeBuilder::HTB;
 
 # Rule model
 use EBox::TrafficShaping::Model::RuleTable;
-use EBox::TrafficShaping::Model::RuleMultiTable;
+
+# Model managers
+use EBox::Model::ModelManager;
+use EBox::Model::CompositeManager;
 
 # To do try and catch
 use Error qw( :try );
+use Perl6::Junction qw(none);
 
 # Using the brand new eBox types
 use EBox::Types::IPAddr;
@@ -88,8 +92,8 @@ sub _create
 sub startUp
 {
      my ($self) = @_;
-    # Create rule models
-    $self->_createRuleModels();
+     # Create rule models
+     #$self->_createRuleModels();
 
     # Create wrappers
     $self->{tc} = EBox::TC->new();
@@ -142,7 +146,6 @@ sub models
 
     my ($self) = @_;
 
-    my $gl = EBox::Global->getInstance();
     my $netMod = $self->{'network'};
 
     my @currentModels = ();
@@ -162,6 +165,8 @@ sub models
     foreach my $iface ( @availableIfaces ) {
         push ( @currentModels, $self->ruleModel($iface));
     }
+
+    $self->_deleteUndefModels(\@availableIfaces);
 
     return \@currentModels;
 
@@ -839,24 +844,6 @@ sub ruleModel # (iface)
 
   }
 
-# Method: ruleMultiTableModel
-#
-#      Get the rule multi table model to be shown
-#
-# Returns:
-#
-#      <EBox::TrafficShaping::Model::RuleMultiTable> - the rule
-#      multitable model
-#
-sub ruleMultiTableModel
-  {
-
-    my ($self) = @_;
-
-    return $self->{ruleMultiTableModel};
-
-  }
-
 # Method: ShaperChain
 #
 #      Class method which returns the iptables chain used by Traffic
@@ -914,10 +901,18 @@ sub ifaceMethodChanged
 
       my ($self, $iface, $oldMethod, $newMethod) = @_;
 
-      if ( $oldMethod eq 'static' and
-           $newMethod ne 'static') {
-          return $self->_areRulesActive($iface);
+      my @others = qw(notset trunk);
+      if ( grep { $_ eq $oldMethod } @others
+           and (grep { $_ ne $newMethod } @others )) {
+          return 1 unless ( $self->{network}->ifaceIsExternal($iface));
+      } elsif ( grep { $_ eq $newMethod } @others
+                and (grep { $_ ne $oldMethod } @others )) {
+          return 1;
+      } elsif ( $newMethod eq 'dhcp'
+               and $oldMethod eq 'static' ) {
+          return 1 if ( $self->{network}->ifaceIsExternal($iface));
       }
+      return 0;
 
   }
 
@@ -936,28 +931,32 @@ sub ifaceMethodChanged
 #    false - otherwise
 #
 sub ifaceExternalChanged # (iface, external)
-  {
+{
 
     my ($self, $iface, $external) = @_;
 
-    # Check if any interface is being shaped
-    if ( $self->_areRulesActive($iface) ) {
-        return 1;
+#    # Check if any interface is being shaped
+#    if ( $self->_areRulesActive($iface) ) {
+#        return 1;
+#    }
+#    my $netMod = $self->{network};
+#
+#    my $nExt = @{$netMod->ExternalIfaces()};
+#    my $nInt = @{$netMod->InternalIfaces()};
+#    if ( $external ) {
+#        $nExt++;
+#        $nInt--;
+#    } else {
+#        $nExt--;
+#        $nInt++;
+#    }
+#    return ( $nExt == 0 or $nInt == 0);
+    if ( defined ( $self->{ruleModels}->{$iface} )) {
+        return not $self->enoughInterfaces();
     }
-    my $netMod = $self->{network};
+    return 0;
 
-    my $nExt = @{$netMod->ExternalIfaces()};
-    my $nInt = @{$netMod->InternalIfaces()};
-    if ( $external ) {
-        $nExt++;
-        $nInt--;
-    } else {
-        $nExt--;
-        $nInt++;
-    }
-    return ( $nExt == 0 or $nInt == 0);
-
-  }
+}
 
 # Method: changeIfaceExternalProperty
 #
@@ -972,27 +971,58 @@ sub changeIfaceExternalProperty # (iface, external)
 
     my ($self, $iface, $external) = @_;
 
-    my $netMod = $self->{network};
-    my $model = $self->ruleModel($iface);
-    if ( $model->size() ) {
-        $model->removeAll(1);
-    }
-    my $nExt = @{$netMod->ExternalIfaces()};
-    my $nInt = @{$netMod->InternalIfaces()};
-    if ( $external ) {
-        $nExt++;
-        $nInt--;
-    } else {
-        $nExt--;
-        $nInt++;
-    }
-    if ( $nInt == 0 or $nExt == 0 ) {
-        # Destroy the model
-        my $manager = EBox::Model::ModelManager->instance();
-        $manager->removeModel($model->contextName());
-        $self->{ruleModels}->{$iface} = undef;
-    }
-#    my $dir = $self->_ruleDirectory($iface);
+#    my $netMod = $self->{network};
+    my $manager = EBox::Model::ModelManager->instance();
+    $manager->markAsChanged();
+#    if ( $external and $netMod->ifaceMethod() eq 'dhcp' ) {
+#        if ( defined ( $self->{ruleModels}->{$iface} )) {
+#            # Delete the model itself and its rows
+#            my $model = $self->ruleModel($iface);
+#            $model->removeAll(1);
+#            # Delete from model manager
+#            $manager->removeModel($model->contextName());
+#            $self->{ruleModels}->{$iface} = undef;
+#        }
+#    } elsif ( not $external ) {
+#        if ( $netMod->ifaceMethod() eq 'static' ) {
+#            if ( defined ( $self->{ruleModels}->{$iface} )) {
+#                # Delete the model itself and its rows
+#                my $model = $self->ruleModel($iface);
+#                $model->removeAll(1);
+#                # Delete from model manager
+#                $manager->removeModel($model->contextName());
+#                $self->{ruleModels}->{$iface} = undef;
+#            }
+#        } elsif ( $netMod->ifaceMethod() eq 'dhcp' ) {
+#            if ( defined ( $self->{ruleModels}->{$iface} )) {
+#                # Create the model
+#                my $model = $self->ruleModel($iface);
+#                # Add to the model manager
+#                $manager->addModel($model->contextName(),
+#                                   $model);
+#            }
+#        }
+#    }
+#    my $model = $self->ruleModel($iface);
+#    if ( $model->size() ) {
+#        $model->removeAll(1);
+#    }
+#    my $nExt = @{$netMod->ExternalIfaces()};
+#    my $nInt = @{$netMod->InternalIfaces()};
+#    if ( $external ) {
+#        $nExt++;
+#        $nInt--;
+#    } else {
+#        $nExt--;
+#        $nInt++;
+#    }
+#    if ( $nInt == 0 or $nExt == 0 ) {
+#        # Destroy the model
+#        my $manager = EBox::Model::ModelManager->instance();
+#        $manager->removeModel($model->contextName());
+#        $self->{ruleModels}->{$iface} = undef;
+#    }
+##    my $dir = $self->_ruleDirectory($iface);
 #
 #    if ( $self->dir_exists($dir) ) {
 #      $self->_destroyIface($iface);
@@ -1020,12 +1050,25 @@ sub freeIface # (iface)
 
     my ($self, $iface) = @_;
 
-    my $model = $self->ruleModel($iface);
-    $model->removeAll(1);
-    # Destroy the model
     my $manager = EBox::Model::ModelManager->instance();
-    $manager->removeModel($model->contextName());
-    $self->{ruleModels}->{$iface} = undef;
+    $manager->markAsChanged();
+    $manager = EBox::Model::CompositeManager->Instance();
+    $manager->markAsChanged();
+#    if ( defined ( $self->{ruleModels}->{$iface} )) {
+#        my $model = $self->ruleModel($iface);
+#        $model->removeAll(1);
+#        # Destroy the model
+#        $manager->removeModel($model->contextName());
+#        $self->{ruleModels}->{$iface} = undef;
+#        $self->_removeIfNotEnoughRemainderModels();
+#    } else {
+#        # Create the model
+#        my $model = $self->ruleModel($iface);
+#        # Add to the model manager
+#        $manager->addModel($model->contextName(),
+#                           $model);
+#        
+#    }
     #    $self->_destroyIface($iface);
 
 }
@@ -1205,9 +1248,25 @@ sub _createRuleModels
 										);
     }
 
-    $self->{ruleMultiTableModel} = new EBox::TrafficShaping::Model::RuleMultiTable();
-
   }
+
+# Delete those models which are not used
+sub _deleteUndefModels # (usedIfaces)
+{
+    my ($self, $usedIfaces) = @_;
+
+    foreach my $iface (keys %{$self->{ruleModels}}) {
+        # Not in the current ifaces
+        if ( none(@{$usedIfaces}) eq $iface ) {
+            my $model = $self->{ruleModels}->{$iface};
+            if ( defined ( $model )) {
+                $model->removeAll(1);
+                $self->{ruleModels}->{$iface} = undef;
+            }
+        }
+    }
+
+}
 
 ###
 # Checker Functions
@@ -2029,6 +2088,36 @@ sub _destroyIface # (iface)
     $self->{ruleModels}->{$iface} = undef;
 
   }
+
+# Remove remainder models if there are no enough interfaces
+sub _removeIfNotEnoughRemainderModels
+{
+
+    my ($self, $iface) = @_;
+
+    my $nExt = @{$self->{network}->ExternalIfaces()};
+    my $nInt = @{$self->{network}->InternalIfaces()};
+
+    if ( $self->{network}->ifaceIsExternal($iface) ) {
+        $nExt--;
+        $nInt++;
+    } else {
+        $nInt--;
+        $nExt++;
+    }
+    if ( $nExt == 0 or $nInt == 0 ) {
+        my $manager = EBox::Model::ModelManager->instance();
+        foreach my $iface ( keys %{$self->{ruleModels}} ) {
+            my $model = $self->{ruleModels}->{$iface};
+            if ( defined ( $model )) {
+                $model->removeAll(1);
+                $manager->removeModel($model->contextName());
+            }
+        }
+    }
+
+}
+
 
 ###
 # Log Admin related functions
