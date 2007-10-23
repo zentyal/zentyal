@@ -984,7 +984,8 @@ sub removeRow
         # Dependant models may return some message to inform the user
         my $depModelMsg = $self->_notifyModelManager('del', $row);
         $self->_notifyCompositeManager('del', $row);
-        if ( defined( $depModelMsg ) and $depModelMsg ne '' ) {
+        if ( defined( $depModelMsg ) and $depModelMsg ne ''
+           and $depModelMsg ne '<br><br>') {
             $userMsg .= "<br><br>$depModelMsg";
         }
 	# If automaticRemove is enabled then remove all rows using referencing
@@ -993,7 +994,8 @@ sub removeRow
             my $manager = EBox::Model::ModelManager->instance();
             $depModelMsg = $manager->removeRowsUsingId($self->contextName(),
                                                        $id);
-            if ( $depModelMsg ) {
+            if ( defined( $depModelMsg ) and $depModelMsg ne ''
+               and $depModelMsg ne '<br><br>') {
                 $userMsg .= "<br><br>$depModelMsg";
             }
 	}
@@ -2340,6 +2342,27 @@ sub Viewer
       return '/ajax/tableBody.mas';
 
   }
+
+# Method: automaticRemoveMsg
+#
+#       Get the i18ned string to show when an automatic remove is done
+#       in a model
+#
+# Parameters:
+#
+#       nDeletedRows - Int the deleted row number
+#
+sub automaticRemoveMsg
+{
+    my ($self, $nDeletedRows) = @_;
+
+    return __x('Remove {num} rows of {rowName} from {model}{br}',
+               num     => $nDeletedRows,
+               rowName => $self->printableRowName(),
+               model   => $self->printableContextName(),
+               br      => '<br>');
+
+}
 
 # Method: pageSize
 # 	
