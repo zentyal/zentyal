@@ -114,22 +114,31 @@ sub models
     foreach my $iface (@{$net->allIfaces()}) {
         if ( $net->ifaceMethod($iface) eq 'static' ) {
             # Create models
-            push ( @models, new EBox::DHCP::Model::RangeTable(
-                                                              gconfmodule => $self,
-                                                              directory   => "RangeTable/$iface",
-                                                              interface   => $iface));
-            push ( @models, new EBox::DHCP::Model::FixedAddressTable(
-                                                              gconfmodule => $self,
-                                                              directory   => "FixedAddressTable/$iface",
-                                                              interface   => $iface));
-            push ( @models, new EBox::DHCP::Model::Options(
-                                                           gconfmodule => $self,
-                                                           directory   => "Options/$iface",
-                                                           interface   => $iface));
-            push ( @models, new EBox::DHCP::Model::RangeInfo(
-                                                             gconfmodule => $self,
-                                                             directory   => "RangeInfo/$iface",
-                                                             interface   => $iface));
+            $self->{rangeModel}->{$iface} =
+              new EBox::DHCP::Model::RangeTable(
+                                                gconfmodule => $self,
+                                                directory   => "RangeTable/$iface",
+                                                interface   => $iface
+                                               );
+            push ( @models, $self->{rangeModel}->{$iface} );
+            $self->{fixedAddrModel}->{$iface} =
+              new EBox::DHCP::Model::FixedAddressTable(
+                                                       gconfmodule => $self,
+                                                       directory   => "FixedAddressTable/$iface",
+                                                       interface   => $iface);
+            push ( @models, $self->{fixedAddrModel}->{$iface} );
+            $self->{optionsModel}->{$iface} =
+              new EBox::DHCP::Model::Options(
+                                             gconfmodule => $self,
+                                             directory   => "Options/$iface",
+                                             interface   => $iface);
+            push ( @models, $self->{optionsModel}->{$iface} );
+            $self->{rangeInfoModel}->{$iface} =
+              new EBox::DHCP::Model::RangeInfo(
+                                               gconfmodule => $self,
+                                               directory   => "RangeInfo/$iface",
+                                               interface   => $iface);
+            push ( @models, $self->{rangeInfoModel}->{$iface});
         }
     }
     push ( @models,
@@ -957,7 +966,6 @@ sub _configureFirewall {
 		$fw->addOutputRule('tcp', 68);
 		$fw->addOutputRule('udp', 67);
 		$fw->addOutputRule('udp', 68);
-		
 	}
 }
 
@@ -983,11 +991,14 @@ sub ifaceMethodChanged # (iface, old_method, new_method)
 #	return 1;
         if ($old_method eq 'static'
            and $new_method ne 'static') {
-            my $manager = EBox::Model::ModelManager->instance();
-            my $rangeModel = $manager->model("/dhcp/RangeTable/$iface");
-            return 1 if ( $rangeModel->size() > 0);
-            my $fixedAddrModel = $manager->model("/dhcp/FixedAddressTable/$iface");
-            return 1 if ( $fixedAddrModel->size() > 0);
+            my $rangeModel = $self->{rangeModel}->{$iface};
+            if ( defined ( $rangeModel )) {
+                return 1 if ( $rangeModel->size() > 0);
+            }
+            my $fixedAddrModel = $self->{fixedAddrModel}->{$iface};
+            if ( defined ( $fixedAddrModel )) {
+                return 1 if ( $fixedAddrModel->size() > 0);
+            }
         }
         return 0;
 }
@@ -1408,12 +1419,11 @@ sub _removeDataModelsAttached
 {
     my ($self, $iface) = @_;
 
-    my $manager = EBox::Model::ModelManager->instance();
-
     # RangeTable/Options/FixedAddressTable
-    foreach my $modelName (qw(Options RangeTable FixedAddressTable)) {
-        my $model = $manager->model("/dhcp/$modelName/$iface");
+    foreach my $modelName (qw(OptionsModel RangeModel FixedAddrModel)) {
+        my $model = $self->{$modelName}->{$iface};
         $model->removeAll(1);
+        $self->{$modelName}->{$iface} = undef;
     }
 }
 
