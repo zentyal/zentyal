@@ -90,10 +90,11 @@ sub preconditionFailMsg
                    closehref => '</a>');
     } else {
         # The cause are the configured gateways
-        return __x('Traffic Shaping is applied only to external '
-                   . 'interfaces which have gateways with an upload '
-                   . 'rate set. In order to do so, create a gateway '
-                   . 'at {openhref}Network->Gateways{closehref} '
+        return __x('Traffic Shaping is applied only if there are '
+                   . 'gateways with an upload rate set associated '
+                   . 'with an external interface. In order to do '
+                   . 'so, create a gateway at '
+                   . '{openhref}Network->Gateways{closehref} '
                    . 'setting as interface an external one.',
                    openhref => '<a href="/ebox/Network/View/GatewayTable">',
                    closehref => '</a>')
@@ -112,13 +113,10 @@ sub preconditionFailMsg
 sub _description
 {
 
-    my $ts = EBox::Global->modInstance('trafficshaping');
-    my $anyRuleModel = $ts->models()->[0];
-
     my $description =
       {
        components      => [
-                           '/' . $ts->name() . '/' . $anyRuleModel->name() . '/*',
+                           '/trafficshaping/tsTable/*',
                           ],
        layout          => 'select',
        name            => 'DynamicGeneral',

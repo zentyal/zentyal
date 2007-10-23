@@ -972,6 +972,7 @@ sub changeIfaceExternalProperty # (iface, external)
 
     my ($self, $iface, $external) = @_;
 
+    my $netMod = $self->{network};
     my $model = $self->ruleModel($iface);
     if ( $model->size() ) {
         $model->removeAll(1);
@@ -1052,9 +1053,7 @@ sub uploadRate # (iface)
 
     my ($self, $iface) = @_;
 
-    my $net = $self->{'network'};
-
-    my $gateways_ref = $net->gateways();
+    my $gateways_ref = $self->{'network'}->gateways();
 
     my $sumUpload = 0;
     foreach my $gateway_ref (@{$gateways_ref}) {
