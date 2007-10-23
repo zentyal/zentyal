@@ -175,7 +175,10 @@ sub processLine # (file, line, logger)
   }
   
 
-  my $event  = $eventInfo->{name};
+  my $event   = $eventInfo->{name};
+  my $fromIp = $eventInfo->{fromIp};
+  my $fromCert = $eventInfo->{fromCert};
+  my $extraInfo = $eventInfo->{extraInfo};
 
  
   my $daemon = $self->{logFiles}->{$file};
@@ -186,20 +189,49 @@ sub processLine # (file, line, logger)
   
 
 
-  my $data = {
+
+
+  my $dbRow = {
 	      timestamp  => $timestamp,
-	      daemonname => $name,
-	      daemontype => $type,
 	      event      => $event,
+	      daemon_name => $name,
+	      daemon_type => $type,
+	      from_ip     => $fromIp,
+	      from_cert     => $fromCert,
 	     };
   
 
 
-  $dbengine->insert(TABLE_NAME, $data);
+  $dbengine->insert(TABLE_NAME, $dbRow);
 }
 
 
+my %callbackByRe = (
+		    qr{^Initialization Sequence Completed$} => 
+		    \&_startedEvent,
 
+		    qr{
+                       ^([\d\.]+?):\d+\s        # client ip:port
+                        VERIFY\s([\w\s]+):\s   # VERIFY [status]:
+                       (.*)$                   #  more information (containst the client's certificatw)
+                     }x   =>
+		    \&_verifiyEvent,
+
+		    qr{
+                           ^[\d\.]+:\d+\s    # client ip and port
+                           \[(.*?)\]\s       # client certificate CN
+                           Peer\sConnection\sInitiated\swith\s
+                           ([\d\.]+?):\d+$    # client ip and port (we will use this instead of the first)
+
+                    }x => 
+		    \&_peerConnectionEvent,
+
+		    qr{
+                        ^(.*?)/(.*?):\d+\s #[client cn]/[ip]:[port]
+                       Connection\sreset,\srestarting.*$
+                     }x => 
+		    \&_connectionResetEvent,
+		   );
 
 
 
@@ -207,13 +239,102 @@ sub _eventFromMsg
 {
   my ($self, $msg) = @_;
 
-  # XXX reimplement with qr table
-
-  if ($msg eq 'Initialization Sequence Completed') {
-    return { name => 'started' } ;
+  foreach my $re (keys %callbackByRe) {
+    if ($msg =~ $re) {
+      return $callbackByRe{$re}->($msg);
+    }
   }
+
+#   # XXX reimplement with qr table
+
+#   if ($msg eq 'Initialization Sequence Completed') {
+#     return { name => 'started' } ;
+#   }
+#   elsif ($msg =~ m{}) {
+#   }
 
   return undef;
 }
 
+
+sub _startedEvent
+{
+  return { name => 'started' } ;
+}
+
+
+
+sub _verifiyEvent
+{
+  my $ip     = $1;
+  my $status = $2;
+  my $extraInfo = $3;
+
+  my $cert   = undef;
+
+  my $event;
+  if ($status eq 'OK') {
+    # we ignore the verification ok event for now
+    return undef;
+  }
+  elsif ($status eq 'X509NAME ERROR' ) {
+    $event = 'verificationNameError';
+    ($cert) = split ',', $extraInfo, 2; # in this case extraInfo contains: [certificate],
+                                   # [advice]
+    }
+  elsif ($status =~ /ERROR/) {
+    if ($extraInfo =~ m/error=unable to get local issuer certificate: (.*)$/) {
+      $event = 'verificationIssuerError';
+      $cert = $1;
+    }
+    else {
+      $event = 'verificationError';
+      # try to guess the certificate. No garantee
+      if ($extraInfo =~ m/\s([^\s]*?CN=[^\s]*?)[\s,.]|$/) {
+	$cert = $1;
+      }
+    }
+  }
+  else {
+    EBox::error("unknown openvpn verification status: $status");
+    return undef;
+  }
+  
+
+  return {
+	  name => $event,
+	  fromCert => $cert,
+	  fromIp => $ip,
+
+	 };
+  
+}
+
+
+sub _peerConnectionEvent
+{
+  my $cn = $1;
+  my $ip = $2;
+
+  return {
+	  name => 'connectionInitiated',
+	  fromCert => $cn,
+	  fromIp   => $ip,
+	 }
+
+}
+
+
+sub _connectionResetEvent
+{
+  my $cn = $1;
+  my $ip = $2;
+
+  return {
+	  name => 'connectionReset',
+	  fromCert => $cn,
+	  fromIp   => $ip,
+	 }
+
+}
 1;

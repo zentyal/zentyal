@@ -29,10 +29,10 @@ sub fakeConfig : Test(setup)
 		  '/ebox/modules/openvpn/server/macaco/port'    => 1194,
 		  '/ebox/modules/openvpn/server/macaco/proto'   => 'tcp',
 
-		  '/ebox/modules/openvpn/server/mandril/active'    => 1,
-		  '/ebox/modules/openvpn/server/mandril/port'    => 1200,
-		  '/ebox/modules/openvpn/server/mandril/proto'   => 'tcp',
-		  '/ebox/modules/openvpn/server/mandril/local'   => 'ppp0',
+		  '/ebox/modules/openvpn/server/baboon/active'    => 1,
+		  '/ebox/modules/openvpn/server/baboon/port'    => 1200,
+		  '/ebox/modules/openvpn/server/baboon/proto'   => 'tcp',
+		  '/ebox/modules/openvpn/server/baboon/local'   => 'ppp0',
 
 		  '/ebox/modules/openvpn/client/gibon/active'    => 1,
 		  '/ebox/modules/openvpn/client/gibon/port'   => 1294,
@@ -70,7 +70,7 @@ sub _confDir
 
 
 
-sub processLineTest : Test(4)
+sub processLineTest : Test(18)
 {
 
   my $openvpn   = EBox::OpenVPN->_create();
@@ -78,7 +78,9 @@ sub processLineTest : Test(4)
   my $dbEngine  = new FakeDBEngine;
 
   my $macacoServer = $openvpn->server('macaco');
+  my $baboonServer = $openvpn->server('baboon');
 
+  # 2 tests for each case
   my @cases = (
 	       {
 		line => 'Tue Aug 21 09:32:09 2007 Diffie-Hellman initialized with 1024 bit key',
@@ -92,14 +94,103 @@ sub processLineTest : Test(4)
 		file => $macacoServer->logFile(),
 		expected => {
 			     timestamp => 'Tue Aug 21 09:23:15 2007',
-			     daemonName => 'macaco',
-			     daemonType => 'server',
+			     daemon_name => 'macaco',
+			     daemon_type => 'server',
 			     event      => 'started',
 			    },
 	       },
 
+	       # verificationOk vents
+	       {
+		line => 'Tue Aug 21 08:51:45 2007 192.168.45.184:54817 VERIFY OK: depth=1, /C=ES/ST=Nation/L=Nowhere/O=monos/CN=Certification_Authority_Certificate',
+		file => $baboonServer->logFile(),
+		expected => undef,
+	       },
+	       {
+		line => 'Tue Aug 21 08:51:45 2007 192.168.45.184:54817 VERIFY OK: depth=0, /C=ES/ST=Nation/L=Nowhere/O=monos/CN=mandril',
+		file => $baboonServer->logFile(),
+		expected => undef,
+	       },
 
+	       
+	       # verification error: unknown ca
+	       {
+		line => 'Tue Aug 21 11:52:03 2007 192.168.45.184:60488 VERIFY ERROR: depth=0, error=unable to get local issuer certificate: /C=ES/ST=Nation/L=Nowhere/O=pajaros/CN=golondrina',
+		file => $macacoServer->logFile(),
+		expected => {
+			     event      => 'verificationIssuerError',
+			     timestamp => 'Tue Aug 21 11:52:03 2007',
 
+			     daemon_name => 'macaco',
+			     daemon_type => 'server',
+
+			     from_ip => '192.168.45.184',
+			     from_cert => '/C=ES/ST=Nation/L=Nowhere/O=pajaros/CN=golondrina',
+			    },
+	       },
+	       # verification error: incorrect common name
+	       {
+		line => 'Tue Aug 21 11:47:58 2007 192.168.45.184:52283 VERIFY X509NAME ERROR: /C=ES/ST=Nation/L=Nowhere/O=monos/CN=mandrill, must be gibbon',
+		file => $baboonServer->logFile(),
+		expected => {
+			     event      => 'verificationNameError',
+			     timestamp => 'Tue Aug 21 11:47:58 2007',
+
+			     daemon_name => 'baboon',
+			     daemon_type => 'server',
+
+			     from_ip => '192.168.45.184',
+			     from_cert => '/C=ES/ST=Nation/L=Nowhere/O=monos/CN=mandrill',
+			    },
+	       },
+	       # verification error: forged error to check non-defined error
+	       # behaviour 
+	       {
+		line => 'Tue Aug 21 11:47:58 2007 192.168.45.184:52283 VERIFY UNKNOWN ERROR: the certificate was /C=ES/ST=Nation/L=Nowhere/O=monos/CN=mandrill, this a forged error to test default behaviour',
+		file => $baboonServer->logFile(),
+		expected => {
+			     event      => 'verificationError',
+			     timestamp => 'Tue Aug 21 11:47:58 2007',
+
+			     daemon_name => 'baboon',
+			     daemon_type => 'server',
+
+			     from_ip => '192.168.45.184',
+			     from_cert => '/C=ES/ST=Nation/L=Nowhere/O=monos/CN=mandrill',
+			    },
+	       },
+
+	       # peer connection initialized
+	       {
+		line => 'Tue Aug 21 08:51:46 2007 192.168.45.184:54817 [mandrill] Peer Connection Initiated with 192.168.45.184:54817',
+		file => $macacoServer->logFile(),
+		expected => {
+			     event      => 'connectionInitiated',
+			     timestamp => 'Tue Aug 21 08:51:46 2007',
+
+			     daemon_name => 'macaco',
+			     daemon_type => 'server',
+
+			     from_ip => '192.168.45.184',
+			     from_cert => 'mandrill',
+			    },		
+	       },
+
+	       # client connection terminated
+	       {
+		line => 'Tue Aug 21 08:51:49 2007 mandrill/192.168.45.184:54817 Connection reset, restarting [0]',
+		file => $macacoServer->logFile(),
+		expected => {
+			     event      => 'connectionReset',
+			     timestamp => 'Tue Aug 21 08:51:49 2007',
+
+			     daemon_name => 'macaco',
+			     daemon_type => 'server',
+
+			     from_ip => '192.168.45.184',
+			     from_cert => 'mandrill',
+			    },		
+	       },
 	      );
 
   foreach my $case (@cases) {
@@ -107,7 +198,18 @@ sub processLineTest : Test(4)
 
     my $line = $case->{line};
     my $file = $case->{file};
+
+
     my $expected = $case->{expected};
+
+    # normalize expected missing fields
+    if (defined $expected) {
+      foreach my $field (qw(timestamp daemon_name daemon_type from_ip from_cert)) {
+	exists $expected->{$field} or
+	  $expected->{$field} = undef;
+      }
+      
+    }
 
     lives_ok {
       $logHelper->processLine($file, $line, $dbEngine);
@@ -120,17 +222,6 @@ sub processLineTest : Test(4)
 
 
 
-
-sub ea : Test(1)
-{
-
-  my $openvpn   = EBox::OpenVPN->_create();
-  my $logHelper = new EBox::OpenVPN::LogHelper($openvpn);
-
-  $logHelper->_dumpLogFiles();
-
-  ok 'ea';
-}
 
 
 

@@ -40,8 +40,13 @@ case "$1" in
 		# XXX quagga don't start quagga services
 		update-rc.d -f quagga remove
 
+        	# create log table
+                /usr/lib/ebox/ebox-sql-table add openvpn /usr/share/ebox/sqllog/openvpn.sql
+
 		# migrate data if needed
 		/usr/lib/ebox/ebox-migrate /usr/lib/ebox-openvpn/migration/		
+		# restart logs
+		invoke-rc.d ebox logs restart || true
 		# restart module
 		invoke-rc.d ebox openvpn restart
 esac

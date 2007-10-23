@@ -1427,13 +1427,22 @@ sub tableInfo
   my $titles = {
 		timestamp => __('Date'),
 		event    => __('Event'),
-		daemonname => ('Daemon'),
-		daemontype => __('Type'),
+		daemon_name => ('Daemon'),
+		daemon_type => __('Type'),
+		from_ip     => __(q{Client's IP}),
+		from_cert     => __(q{Client's Certificate}),
 	       };
-  my @order = qw(timestamp daemonname daemontype event);
+  my @order = qw(timestamp event daemon_name daemon_type from_ip from_cert );
 
   my $events = {  
 		started => __('Daemon started'),
+
+		verificationIssuerError => __('Certificate issuer not authorized'),
+		verificationNameError  => __('Certificate common name not authorized'),
+		verificationError => __('Certificate verification failed'),
+		
+		connectionInitiated => __('Client connection initiated'),
+		connectionReset     => __('Client connection terminated'),
 	       };
   
   return {
@@ -1443,7 +1452,7 @@ sub tableInfo
 	  'order' => \@order,
 	  'tablename' => 'openvpn',
 		'timecol' => 'timestamp',
-	  'filter' => ['daemonname', 'event'],
+	  'filter' => ['daemon_name', 'from_ip', 'from_cert'],
 	  'events' => $events,
 	  'eventcol' => 'event'
 	 };
