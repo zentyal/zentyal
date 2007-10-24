@@ -130,6 +130,9 @@ EOT
 		chmod 0600 /var/lib/ebox/.pgpass
 		chown ebox.ebox /var/lib/ebox/.pgpass
 
+		# create link from ebox's log directory to /var/log
+		ln -s /var/lib/ebox/log /var/log/ebox
+
 		#Create user and database
 		create_db
 
