@@ -9,14 +9,6 @@
 			<locale name="C"/>
 		</schema>
 		<schema>
-			<key>/schemas/ebox/modules/dns/active</key>
-			<applyto>/ebox/modules/dns/active</applyto>
-			<owner>ebox</owner>
-			<type>bool</type>
-			<default>false</default>
-			<locale name="C"/>
-		</schema>
-		<schema>
 	                <key>/schemas/ebox/modules/global/modules/dns/depends</key>
                         <applyto>/ebox/modules/global/modules/dns/depends</applyto>
                         <owner>ebox</owner>
