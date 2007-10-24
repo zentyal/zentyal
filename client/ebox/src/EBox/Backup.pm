@@ -546,10 +546,14 @@ sub _ensureBackupdirExistence
 #
 sub prepareMakeBackup
 {
-  my ($self, @options) = @_;
+  my ($self, %options) = @_;
+
+  # make sure description is scaped
+  $options{description} = q{'} . $options{description} . q{'};
+  my @scriptParams = %options; 
 
   my $makeBackupScript = EBox::Config::libexec() . 'ebox-make-backup';
-  $makeBackupScript    .= "  @options";
+  $makeBackupScript    .= "  @scriptParams";
   
   my $global     = EBox::Global->getInstance();
   my $totalTicks = scalar @{ $global->modNames } + 2; # there are one task for
