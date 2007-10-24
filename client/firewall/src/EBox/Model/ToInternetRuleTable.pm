@@ -75,7 +75,7 @@ sub _table
         'order' => 1,
         'help' => __x(''),
         'rowUnique' => 0,
-        'printableRowName' => __('gateway'),
+        'printableRowName' => __('rule'),
     };
 
     return $dataTable;
