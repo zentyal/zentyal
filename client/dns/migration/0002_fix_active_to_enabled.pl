@@ -34,6 +34,9 @@ use EBox::Global;
 use EBox::NetWrappers qw(:all);
 use EBox::Validate qw(:all);
 
+# Dependencies
+use Perl6::Junction qw(any);
+
 use constant DEFAULT_DISABLED => 0;
 
 sub new
@@ -58,8 +61,17 @@ sub runGConf
     my $self = shift;
     my $dns = $self->{'gconfmodule'};
 
-    my $active = $dns->get_bool('active');
-    my $enabled = $dns->get_bool('enableForm/enabled');
+    my ($active, $enabled);
+    if ( any(@{$dns->all_entries_base('')}) eq 'active' ) {
+        $active = $dns->get_bool('active');
+    } else {
+        $active = undef;
+    }
+    if ( any(@{$dns->all_dirs_base('')}) eq 'enableForm' ) {
+        $enabled = $dns->get_bool('enableForm/enabled');
+    } else {
+        $enabled = undef;
+    }
 
     if ( defined ( $active ) and not defined ( $enabled )) {
         $dns->set_bool('enableForm/enabled', $active);
