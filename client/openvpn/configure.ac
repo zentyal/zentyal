@@ -64,6 +64,8 @@ src/EBox/OpenVPN/Server/Makefile
 src/EBox/OpenVPN/Server/t/Makefile
 src/EBox/OpenVPN/Server/ClientBundleGenerator/Makefile
 src/EBox/OpenVPN/Client/Makefile
+src/EBox/OpenVPN/Client/t/Makefile
+src/EBox/OpenVPN/Client/t/testdata/Makefile
 src/EBox/OpenVPN/LogHelper/Makefile
 src/EBox/OpenVPN/t/Makefile
 src/EBox/rootTests/Makefile

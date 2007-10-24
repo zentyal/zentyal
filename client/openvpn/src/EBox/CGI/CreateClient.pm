@@ -26,6 +26,7 @@ use EBox::Config;
 use Perl6::Junction qw(any);
 use File::Slurp;
 use File::Basename;
+use Error qw(:try);
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -44,7 +45,7 @@ sub requiredParameters
 {
     my ($self) = @_;
     if ($self->param('create')) {
-	[qw(create name proto caCertificatePath certificatePath certificateKey serverAddr serverPort service)];
+	[qw(create name proto caCertificate certificate certificateKey serverAddr serverPort service)];
     }
     else {
 	return [];
@@ -74,7 +75,7 @@ sub actuate
     if ($self->param('create')) {
 	my $openVPN = EBox::Global->modInstance('openvpn');
 
-	my $anyParamWithUpload = any(qw(caCertificatePath certificatePath certificateKey));
+	my $anyParamWithUpload = any(qw(caCertificate certificate certificateKey));
 
 	my $name;
 	my %params;
@@ -87,7 +88,14 @@ sub actuate
 
 	  my $paramValue;
 	  if ($param eq $anyParamWithUpload) {
-	    $paramValue = $self->upload($param);
+	    try {
+	      $paramValue = $self->upload($param);
+	    }
+	    otherwise {
+	      # mark as invalid parameter. newMethod client will take care of
+	      # missing parameters
+	      $paramValue = '';
+	    };
 	  }
 	  else {
 	    $paramValue = $self->param($param);

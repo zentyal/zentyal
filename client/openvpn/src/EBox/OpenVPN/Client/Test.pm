@@ -85,8 +85,8 @@ sub setUpConfiguration : Test(setup)
 
 		  '/ebox/modules/openvpn/client/client1/service' => 0,	
 		  '/ebox/modules/openvpn/client/client1/proto'   => 'tcp',	
-		  '/ebox/modules/openvpn/client/client1/caCertificatePath'   => '/etc/openvpn/ca.pem',	
-		  '/ebox/modules/openvpn/client/client1/certificatePath'   => '/etc/openvpn/client.pem',	
+		  '/ebox/modules/openvpn/client/client1/caCertificate'   => '/etc/openvpn/ca.pem',	
+		  '/ebox/modules/openvpn/client/client1/certificate'   => '/etc/openvpn/client.pem',	
 		  '/ebox/modules/openvpn/client/client1/certificateKey'   => '/etc/openvpn/client.key',	
 		  '/ebox/modules/openvpn/client/client1/servers/openvpn.macaco.org'   => 1040,	
 		  );

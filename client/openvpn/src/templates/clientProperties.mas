@@ -29,13 +29,13 @@ my @tableElements  = (
 
       # certificates stuff      
       [ 
-        name          => 'caCertificatePath',          
+        name          => 'caCertificate',          
 	input         => 'file',  
 	printableName => __("CA's certificate"),
 	help          => __('Certificate of the Certification Authority. Must be the same used by the server'),
       ],		      
       [ 
-        name  => 'certificatePath',    
+        name  => 'certificate',    
 	input => 'file',        
 	printableName => __("Client's certificate"),
 	help => __('Certificate used by the client to identify itself. It must be signed by the Certification Authority'),

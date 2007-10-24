@@ -12,7 +12,8 @@ use Perl6::Junction qw(any);
 use File::Basename;
 use File::Slurp qw(read_file write_file);
 
-my @clientPropierties = qw(proto caCertificatePath certificatePath certificateKey  service);
+my @clientPropierties = qw(proto  service);
+my @clientCertificates = qw( caCertificate certificate certificateKey);
 my @serverPropierties  = qw(serverAddr serverPort); # this special treatment is due because the module is ready to use more than one server but no the CGIs.
 
 sub new # (error=?, msg=?, cgi=?)
@@ -31,7 +32,7 @@ sub requiredParameters
 {
     my ($self) = @_;
     if ($self->param('edit')) {
-	return ['name', 'edit'];
+      return [qw(name edit)];
     }
     else {
 	return ['name'];
@@ -49,7 +50,7 @@ sub optionalParameters
     @optional = qw(name network netmask submit);
 
     if ($self->param('edit')) {
-	push @optional, (@clientPropierties, @serverPropierties);
+	push @optional, (@clientPropierties, @serverPropierties, @clientCertificates);
     }
 
     return \@optional;
@@ -117,25 +118,33 @@ sub _doEdit
 {
   my ($self, $name, $client) = @_;
 
-  my $changed = 0;
+  $self->_editClientCertificates($client);
+  $self->_editClientProperties($client);
+  $self->_editServerProperties($client);
+
+  if ($self->_changed) {
+    $self->setMsg(__x("Client {name} configuration updated", name => $name) );
+    $self->{chain} = 'OpenVPN/Index';
+  } 
+  else {
+    $self->setMsg( __('There are no changes to be saved'));
+  }
+}
+
+
+
+sub _editClientProperties
+{
+  my ($self, $client) = @_;
 
   my $anyPropiertyParam = any @clientPropierties;
 
   my @mutatorsParams = grep { $_ eq $anyPropiertyParam } @{ $self->params() };
-  my $anyParamWithUpload = any(qw(caCertificatePath certificatePath certificateKey));  
+  my $anyParamWithUpload = any(@clientCertificates);  
 
   foreach my $attr (@mutatorsParams) {
     my $value =  $self->param($attr);
     next if $value eq '';
-
-    if ($attr eq $anyParamWithUpload) {
-      $value = $self->upload($attr); # value must be the file path, not the
-                                     # parameter value 
-    }
-    else {
-	  $value = $self->param($attr);
-	}
-
 
     if ($client->$attr() ne $attr) {
       my $mutatorName = "set\u$attr";
@@ -143,29 +152,70 @@ sub _doEdit
       defined $mutator_r or throw EBox::Exceptions::Internal "$mutatorName not found in client object";
 
       $mutator_r->($client, $value);
-      $changed = 1;
+      $self->_setAsChanged();
     }
   }
+
+}
+
+sub _editClientCertificates
+{
+  my ($self, $client) = @_;
+
+  # check if all certificate params have value
+  my $certParamCount = grep { 
+    $self->param($_)  
+  } @clientCertificates;
+
+  if ($certParamCount == 0) {
+    # no changes in clients certificates
+    return;
+  }
+  elsif ($certParamCount < @clientCertificates) {
+    throw EBox::Exceptions::External(
+       __('Certificate files cannot be changed in isolation. You must change all files at the same time')
+				    );
+  }
+
+
+
+  my $caCert = $self->upload('caCertificate');
+  my $cert   = $self->upload('certificate');
+  my $key    = $self->upload('certificateKey');
+
+  $client->setCertificateFiles($caCert, $cert, $key);
+
+  $self->_setAsChanged();
+}
+
+sub _editServerProperties
+{
+  my ($self, $client) = @_;
 
   if ($self->param('serverAddr') ||  $self->param('serverPort')) {
     my ($newServerAddr, $newServerPort) = ($self->param('serverAddr'), $self->param('serverPort'));
     my ($oldServerAddr, $oldServerPort) = $self->_getServerPropierties($client);
-
-      my $serverAddr  = defined $newServerAddr ? $newServerAddr : $oldServerAddr;
-      my $serverPort  = defined $newServerPort ? $newServerPort : $oldServerPort;
-
-      my @newServers = ([$serverAddr, $serverPort],);
-      $client->setServers(\@newServers);
-  }
-
     
-  if ($changed) {
-    $self->setMsg(__x("Client {name} configuration updated", name => $name) );
-    $self->{chain} = 'OpenVPN/Index';
-  } 
-  else {
-    $self->setMsg( __('There are no changes to be saved'));
+    my $serverAddr  = defined $newServerAddr ? $newServerAddr : $oldServerAddr;
+    my $serverPort  = defined $newServerPort ? $newServerPort : $oldServerPort;
+    
+    my @newServers = ([$serverAddr, $serverPort],);
+    $client->setServers(\@newServers);
+    
+    $self->_setAsChanged();
   }
+}
+
+
+sub _setAsChanged
+{
+  my ($self) = @_;
+  $self->{changed} = 1;
+}
+
+sub _changed
+{
+  return 1;
 }
 
 

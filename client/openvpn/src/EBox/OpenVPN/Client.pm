@@ -10,6 +10,7 @@ use EBox::NetWrappers;
 use EBox::Sudo;
 use EBox::FileSystem;
 use EBox::Gettext;
+use EBox::OpenVPN::Client::ValidateCertificate;
 
 use Params::Validate qw(validate_pos SCALAR);
 use Error qw(:try);
@@ -56,53 +57,42 @@ sub proto
     return $self->getConfString('proto');
 }
 
-# Method: caCertificatePath
+
+
+sub setCertificateFiles
+{
+  my ($self, $caCert, $cert, $pkey) = @_;
+  EBox::OpenVPN::Client::ValidateCertificate::check($caCert, $cert, $pkey);
+
+  $self->_setPrivateFile('caCertificate', $caCert);
+  $self->_setPrivateFile('certificate' , $cert);
+  $self->_setPrivateFile('certificateKey', $pkey);
+}
+
+
+
+# Method: caCertificate
 #
 # Returns:
 #  returns the path to the CA certificate
-sub caCertificatePath
+sub caCertificate
 {
   my ($self) = @_;
-  return $self->getConfString('caCertificatePath');
+  return $self->getConfString('caCertificate');
 }
 
-# Method: setCaCertificatePath
-#
-#  sets a new CA certificate for the client.
-#    the old one, if exists, will be deleted
-#
-# Parameters:
-#  path - path to the new CA certificate
-sub setCaCertificatePath
-{
-  my ($self, $path) = @_;
-  my $prettyName = q{Certification Authority's certificate};
-  $self->_setPrivateFile('caCertificatePath', $path, $prettyName);
-}
 
-# Method: certificatePath
+
+# Method: certificate
 #
 # Returns:
 #  returns the path to the certificate
-sub certificatePath
+sub certificate
 {
   my ($self) = @_;
-  return $self->getConfString('certificatePath');
+  return $self->getConfString('certificate');
 }
 
-# Method: setCertificatePath
-#
-#  sets a new  certificate for the client.
-#    the old one, if exists, will be deleted
-#
-# Parameters:
-#  path - path to the new client's certificate
-sub setCertificatePath
-{
-  my ($self, $path) = @_;
-  my $prettyName = q{client's certificate};
- $self->_setPrivateFile('certificatePath', $path, $prettyName);
-}
 
 # Method: certificateKey
 #
@@ -114,19 +104,7 @@ sub certificateKey
   return $self->getConfString('certificateKey');
 }
 
-# Method: setCertificateKey
-#
-#  sets a new  private key for the client.
-#    the old one, if exists, will be deleted
-#
-# Parameters:
-#  path - path to the new client's private key
-sub setCertificateKey
-{
-  my ($self, $path) = @_;
-  my $prettyName = q{certificate's key};
-  $self->_setPrivateFile('certificateKey', $path, $prettyName);
-}
+
 
 # Method: privateDir
 #
@@ -152,13 +130,8 @@ sub privateDir
 
 sub _setPrivateFile
 {
-  my ($self, $type, $path, $prettyName) = @_;
+  my ($self, $type, $path) = @_;
 
-  # basic file check
-  checkAbsoluteFilePath($path, __($prettyName));
-  if (!EBox::Sudo::fileTest('-f', $path)) {
-    throw EBox::Exceptions::External(__x('Inexistent file {path}', path => $path));
-  }
 
   my $privateDir = $self->privateDir();
   
@@ -231,7 +204,7 @@ sub confFileParams
 
   push @templateParams, (dev => $self->iface);
 
-  my @paramsNeeded = qw(name caCertificatePath certificatePath certificateKey  user group proto );
+  my @paramsNeeded = qw(name caCertificate certificate certificateKey  user group proto );
   foreach my $param (@paramsNeeded) {
     my $accessor_r = $self->can($param);
     defined $accessor_r or die "Can not found accesoor for param $param";
@@ -357,8 +330,8 @@ sub removeServer
 #  hostnames or IP addresses.
 #  proto - the client's IP protocol.
 #
-#  caCertificatePath - Path to the CA's certificate.
-#  certificatePath   -  Path to the client's certificate.
+#  caCertificate - Path to the CA's certificate.
+#  certificate  -  Path to the client's certificate.
 #  certificateKey    -  Path yo the client's certificate key.
 #
 #  service - wether the client is enabled or disabed. *(Default: disabled)*
@@ -369,8 +342,8 @@ sub init
     my ($self, %params) = @_;
 
     (exists $params{proto}) or throw EBox::Exceptions::External __("A IP protocol must be specified for the client");
-    (exists $params{caCertificatePath}) or throw EBox::Exceptions::External __("The CA certificate is needed");
-    (exists $params{certificatePath}) or throw EBox::Exceptions::External __("The client certificate must be specified");
+    (exists $params{caCertificate}) or throw EBox::Exceptions::External __("The CA certificate is needed");
+    (exists $params{certificate}) or throw EBox::Exceptions::External __("The client certificate must be specified");
     (exists $params{certificateKey}) or throw EBox::Exceptions::External __("The client private key must be specified");
     (exists $params{servers}) or throw EBox::Exceptions::External __("Servers must be supplied to the client");
     
@@ -378,8 +351,9 @@ sub init
     exists $params{service} or $params{service} = 0;
     exists $params{internal}  or $params{internal}  = 0;
 
+    $self->setCertificateFiles($params{caCertificate}, $params{certificate}, $params{certificateKey});
 
-   my @attrs = qw(proto caCertificatePath certificatePath certificateKey servers service internal);
+   my @attrs = qw(proto servers service internal);
     foreach my $attr (@attrs)  {
 	if (exists $params{$attr} ) {
 	    my $mutator_r = $self->can("set\u$attr");
@@ -482,8 +456,8 @@ sub backupCertificates
   my $d = "$dir/" . $self->name;
   EBox::FileSystem::makePrivateDir($d);
 
-  EBox::Sudo::root('cp ' . $self->caCertificatePath . " $d/caCertificate" );
-  EBox::Sudo::root('cp ' . $self->certificatePath   . " $d/certificate" );
+  EBox::Sudo::root('cp ' . $self->caCertificate . " $d/caCertificate" );
+  EBox::Sudo::root('cp ' . $self->certificate   . " $d/certificate" );
   EBox::Sudo::root('cp ' . $self->certificateKey    . " $d/certificateKey" );
   EBox::Sudo::root("chown ebox.ebox $d/*");
 }
@@ -505,23 +479,23 @@ sub restoreCertificates
       
   }
 
-  # before copyng and overwritting files, check if all needed files are present
-  #  why? if there is a error is a little less probable we left a unusable
-  #  state 
+  # before copyng and overwritting files, check if all needed files are valid
+  # why? if there is a error is a little less probable we left a
+  # unusable state
   my @files = ("$d/caCertificate", "$d/certificate", "$d/certificateKey" );
-  foreach my $f (@files) {
-    if ((not -r $f) or (not -f $f)) {
-      throw EBox::Exceptions::Internal(
-				       "Error with backup certificate file $f"
-				      );
-    }
-  }
+  EBox::OpenVPN::Client::ValidateCertificate::check(
+						    "$d/caCertificate",
+						    "$d/certificate",
+						    "$d/certificateKey"
+						   );
 
   # set the files from the backup in the client
   try {
-    $self->setCaCertificatePath("$d/caCertificate");
-    $self->setCertificatePath("$d/certificate");
-    $self->setCertificateKey("$d/certificateKey");
+    $self->setCertificateFiles(
+				"$d/caCertificate",
+				"$d/certificate",
+				"$d/certificateKey"
+			       );
   }
   otherwise {
       my $e = shift;
