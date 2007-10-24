@@ -59,12 +59,16 @@ sub runGConf
     my $dns = $self->{'gconfmodule'};
 
     my $active = $dns->get_bool('active');
-    my $enabled = $dns->get_bool('enabled');
+    my $enabled = $dns->get_bool('enableForm/enabled');
 
     if ( defined ( $active ) and not defined ( $enabled )) {
-        $dns->set_bool('enabled', $active);
+        $dns->set_bool('enableForm/enabled', $active);
+        $dns->set_int('enableForm/version', 0);
+        $dns->set_bool('enableForm/readOnly', 0);
     } elsif ( not defined ( $active ) and not defined ( $enabled )) {
-        $dns->set_bool('enabled', DEFAULT_DISABLED);
+        $dns->set_bool('enableForm/enabled', DEFAULT_DISABLED);
+        $dns->set_int('enableForm/version', 0);
+        $dns->set_bool('enableForm/readOnly', 0);
     }
     $dns->unset('active');
 
