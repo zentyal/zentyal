@@ -3,7 +3,7 @@
 Migrationsdir = @LIBDIR@/ebox-dns/migration
 
 nobase_Migrations_SCRIPTS = 0001_import_to_data_table_model.pl \
-	0002_fix_active_to_enable.pl
+	0002_fix_active_to_enabled.pl
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)
 
