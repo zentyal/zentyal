@@ -9,6 +9,7 @@ use warnings;
 use Test::More;
 use Test::Exception;
 use Test::Differences;
+use Test::MockObject;
 use EBox::Global;
 use EBox::Test qw(checkModuleInstantiation);
 use EBox::TestStubs qw(fakeEBoxModule);
@@ -17,6 +18,8 @@ use Perl6::Junction qw(all any);
 
 use EBox::NetWrappers::TestStub;
 use EBox::CA::TestStub;
+
+
 
 use lib '../..';
 
@@ -55,6 +58,12 @@ sub _setupDirs : Test(startup)
 }
 
 
+sub useGlobalTmpDir : Test(startup)
+{
+  EBox::TestStubs::setEBoxConfigKeys(tmp => '/tmp');
+}
+
+
 # XXX replace with #419 when it is done
 sub ignoreChownRootCommand : Test(startup)
 {
@@ -78,6 +87,8 @@ sub ignoreChownRootCommand : Test(startup)
 				root => $rootIgnoreChown_r,
 			       )
 }
+
+
 
 
 
@@ -176,32 +187,25 @@ sub clearConfiguration : Test(teardown)
 
 
 
-sub _createMockCertFiles
-{
-  my (@mockCertFiles) = @_;
 
-  system "touch @mockCertFiles";
-  ($? == 0) or die "Can not create mock certification files in /tmp: $!";
-  system "chmod u+w @mockCertFiles";
-  ($? == 0) or die "Can not chmod mock certification files in /tmp: $!";
-}
 
 sub newAndRemoveClientTest : Test(32)
 {
-  my $openVPN = EBox::OpenVPN->_create();
- 
-  my @mockCertFiles = qw(/tmp/ca.pem /tmp/client.pem /tmp/client.key);
 
+  my ($self) = @_;
+
+  my $openVPN = EBox::OpenVPN->_create();
  
   my $reservedClient    =  EBox::OpenVPN->reservedPrefix() . 'test';
   my @clientsNames      = (qw(client1 client2), $reservedClient);
   my @userClientsNames = qw(client1 client2);
+
+  my @clientCerts = $self->_clientCertificates();
+
   my %clientsParams = (
 		       client1 =>  [ 
 				    proto => 'tcp',
-				    caCertificatePath => '/tmp/ca.pem',
-				    certificatePath   => '/tmp/client.pem',
-				    certificateKey    => '/tmp/client.key',
+                                    @clientCerts,
 				    servers           => [
 							  ['192.168.55.21' => 1040],
 							 ],
@@ -210,9 +214,7 @@ sub newAndRemoveClientTest : Test(32)
 
 		       client2 =>  [ 
 				    proto => 'tcp',
-				    caCertificatePath => '/tmp/ca.pem',
-				    certificatePath   => '/tmp/client.pem',
-				    certificateKey    => '/tmp/client.key',
+                                    @clientCerts,
 				    servers           => [
 							  ['192.168.55.21' => 1040],
 							  ['192.168.55.23' => 1041],
@@ -223,9 +225,7 @@ sub newAndRemoveClientTest : Test(32)
 
 		       $reservedClient =>  [ 
 				     proto => 'tcp',
-				     caCertificatePath => '/tmp/ca.pem',
-				     certificatePath   => '/tmp/client.pem',
-				     certificateKey    => '/tmp/client.key',
+                                     @clientCerts,
 				     servers           => [
 							   ['192.168.55.21' => 1040],
 							   ['192.168.55.23' => 1041],
@@ -238,8 +238,7 @@ sub newAndRemoveClientTest : Test(32)
 
     foreach my $name (@clientsNames) {
 	my @params = @{ $clientsParams{$name} };
-
-	_createMockCertFiles(@mockCertFiles);
+	$self->_createClientCertificates();
 
 	my $instance;
 	lives_ok { $instance = $openVPN->newClient($name, @params)  } 
@@ -266,7 +265,6 @@ sub newAndRemoveClientTest : Test(32)
  
 	
     foreach my $name (@clientsNames) {
-      _createMockCertFiles(@mockCertFiles);
       _checkDeleteDaemon($openVPN, $name, 'client');
 #       my $instance;
 #       lives_ok { 
@@ -288,9 +286,6 @@ sub newAndRemoveClientTest : Test(32)
   
 
 
-
-  system "rm -f @mockCertFiles";
-  ($? == 0) or die "Can not  remove mock certification files in /tmp: $!";
 }
 
 
@@ -346,8 +341,36 @@ sub _checkDeletedDaemonData
 }
 
 
+sub _createClientCertificates
+{
+  my ($self) = @_;
+
+  my %certs = $self->_clientCertificates;
+  
+  system 'cp ../OpenVPN/Client/t/testdata/cacert.pem ' . $certs{caCertificate};
+  system 'cp ../OpenVPN/Client/t/testdata/cert.pem ' . $certs{certificate};
+  system 'cp ../OpenVPN/Client/t/testdata/pkey.pem ' . $certs{certificateKey};  
+
+
+}
+
+sub _clientCertificates
+{
+  my ($self) = @_;
+
+  my $dir = $self->testDir;
+  return (
+	  caCertificate =>  "$dir/ca",
+	  certificate   =>   "$dir/cert",
+	  certificateKey    => "$dir/key",
+	 );
+}
+
+
 sub newClientWithBadPrefixTest : Test(3)
- {
+{
+  my ($self) = @_;
+
   # bad prefix cases
   my $openVPN = EBox::OpenVPN->_create();
 
@@ -355,17 +378,15 @@ sub newClientWithBadPrefixTest : Test(3)
   my $reservedName = EBox::OpenVPN->reservedPrefix() . 'baboon';
   my @creationParams =  (
 			 proto => 'tcp',
-			 caCertificatePath => '/tmp/ca.pem',
-			 certificatePath   => '/tmp/client.pem',
-			 certificateKey    => '/tmp/client.key',
 			 servers           => [
 					       ['192.168.55.21' => 1040],
 					      ],
 			 service           => 1,
 			);
 
-  my @mockCertFiles = qw(/tmp/ca.pem /tmp/client.pem /tmp/client.key);
-  _createMockCertFiles(@mockCertFiles);
+  
+  push @creationParams, $self->_clientCertificates();
+  $self->_createClientCertificates();
 
   dies_ok {
     $openVPN->newClient($reservedName, @creationParams, internal => 0);
