@@ -7,8 +7,9 @@ password ripd
 enable password ripd
 % foreach my $iface (@ifaces) {
 interface <% $iface %>
-% }
 no ip rip authentication mode
+% }
+
 router rip
 % foreach my $iface (@ifaces) {
 network <% $iface %>
