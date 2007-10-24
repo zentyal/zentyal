@@ -415,7 +415,11 @@ sub serverExists
 sub newServer
 {
     my ($self, $name, @initParams) = @_;
-    return $self->_newDaemon('server', $name, @initParams);
+    my $server = $self->_newDaemon('server', $name, @initParams);
+
+    $self->notifyLogChange();
+
+    return $server; 
 }
 
 
@@ -591,7 +595,11 @@ sub newClient
 {
   my ($self, $name, @initParams) = @_;
 
-  return $self->_newDaemon('client', $name, @initParams);
+  my $client = $self->_newDaemon('client', $name, @initParams);
+
+  $self->notifyLogChange();
+
+  return $client;
 }
 
 
@@ -1460,6 +1468,20 @@ sub tableInfo
 	  'eventcol' => 'event'
 	 };
 
+}
+
+
+# Method: notifyLogChange
+#
+#   this is used to notify the log module of changes which will affect the logs
+sub notifyLogChange
+{
+  my ($self) = @_;
+
+  my $logs = EBox::Global->modInstance('logs');
+  defined $logs or return;
+
+  $logs->setAsChanged();
 }
 
 1;

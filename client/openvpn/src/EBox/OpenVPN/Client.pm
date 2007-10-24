@@ -181,6 +181,9 @@ sub setService # (active)
   }
 
   $self->setConfBool('active', $active);
+
+  # notifiy logs module so it no longer observes the lof gile of this daemon
+  $self->_openvpnModule->notifyLogChange();
 }
 
 

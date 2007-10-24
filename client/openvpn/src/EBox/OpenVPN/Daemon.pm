@@ -274,7 +274,8 @@ sub delete
     throw EBox::Exceptions::Internal('This must be called as method');
 
 
-  # notify openvpn of the removal soit can make the clean up in the next restart
+  # notify openvpn of the removal so it can make the clean up in the next
+  # restart
   my $daemonClass = ref $self;
   my @daemonFiles = $self->daemonFiles;
   $self->_openvpnModule->notifyDaemonDeletion( $self->name, 
@@ -288,6 +289,9 @@ sub delete
 
   # invalidate object instance
   $_[0] = undef;
+
+  # notifiy logs module so it no longer observes the lof gile of this daemon
+  $self->_openvpnModule->notifyLogChange();
 }
 
 #
