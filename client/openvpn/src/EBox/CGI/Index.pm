@@ -38,24 +38,14 @@ sub masonParameters
     my @servers = $openVPN->serversNames();
     my @clients = $openVPN->userClientsNames();
     
-    my $disabled = $openVPN->CAIsCreated() ? 0 : 1;
+    my $noCA = $openVPN->CAIsReady() ? 0 : 1;
 
-    return [ service => $service, servers => \@servers, clients => \@clients, disabled => $disabled  ];
+    return [ service => $service, servers => \@servers, clients => \@clients, noCA => $noCA  ];
 }
 
 sub actuate
 {
   my ($self) = @_;
-  my $openVPN = EBox::Global->modInstance('openvpn');
-
-  $openVPN->CAIsCreated() or return;
-
-#   my $setServiceParam  = $self->param('setService');
-#   if ($setServiceParam ) {
-    
-#     $openVPN->setUserService($setServiceParam);
-#     $self->setMsg(__("OpenVPN service status changed"));
-#   }
 
 }
 

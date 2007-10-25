@@ -2,23 +2,31 @@
 $service
 @servers
 @clients
-$disabled => 0
+$noCA => 0
 </%args>
 <%init>
 use EBox::Gettext;
 my $active  = $service ? 'yes' : 'no';
+
+my $serversShowed = (@servers and not $noCA);
+my $clientsShowed = @clients;
 </%init>
-% if (not $disabled) {
+
 <& enable.mas, title => __('OpenVPN service status'), active => $active &>
+% if (not $noCA) {
 <& serversList, servers => \@servers &>
-<& clientsList, clients => \@clients &>
-% if (@servers or @clients) {
-      <& .legend &>
 % }
-%   }
 % else {
   <& /openvpn/caRequired.mas &>
 % }
+
+<& clientsList, clients => \@clients &>
+
+% if ($serversShowed or $clientsShowed) {
+      <& .legend &>
+% }
+
+
 <%def serversList>
 <%args>
 @servers

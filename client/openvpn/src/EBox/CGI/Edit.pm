@@ -9,7 +9,7 @@ use EBox::Global;
 use EBox::OpenVPN;
 use Perl6::Junction qw(any);
 
-my @serverPropierties = qw(subnet subnetNetmask port proto certificate  clientToClient local service tlsRemote pullRoutes);
+my @serverProperties = qw(subnet subnetNetmask port proto certificate  clientToClient local service tlsRemote pullRoutes);
 my @regularAccessorsAndMutators =  qw(port proto certificate  clientToClient local service tlsRemote pullRoutes);
 
 sub new # (error=?, msg=?, cgi=?)
@@ -46,7 +46,7 @@ sub optionalParameters
     @optional = qw(name network netmask submit);
 
     if ($self->param('edit')) {
-      push @optional, @serverPropierties;
+      push @optional, @serverProperties;
     }
 
     return \@optional;
@@ -66,7 +66,7 @@ sub masonParameters
     my $server = $openVPN->server($name);
 
     my %serverAttributes;
-    foreach my $attr (@serverPropierties) {
+    foreach my $attr (@serverProperties) {
 	my $accessor_r = $server->can($attr);
 	defined $accessor_r or throw EBox::Exceptions::Internal "Can not locate accessor for $attr in server class";
 	my $value = $accessor_r->($server);
@@ -76,7 +76,16 @@ sub masonParameters
 
     my @advertisedNets = $server->advertisedNets();
 
-   my $disabled = $openVPN->CAIsCreated() ? 0 : 1;
+    
+    my $disabled = $openVPN->CAIsReady() ? 0 : 1;
+    
+    my $availableCertificates;
+    if (not $disabled) {
+      $availableCertificates = $openVPN->availableCertificates();
+    }
+    else {
+      $availableCertificates = [];
+    }
 
     my $network = EBox::Global->modInstance('network');
     my $externalIfaces = $network->ExternalIfaces();
@@ -84,7 +93,7 @@ sub masonParameters
     return [
 	    name => $name, 
 	    serverAttrs => \%serverAttributes,
-	    availableCertificates => $openVPN->availableCertificates(),
+	    availableCertificates => $availableCertificates,
 	    disabled              => $disabled,
 	    localInterfaces       => $externalIfaces,
 	    advertisedNets        => \@advertisedNets,	   
@@ -100,7 +109,7 @@ sub actuate
   my ($self) = @_;
 
   my $openVPN = EBox::Global->modInstance('openvpn');
-  $openVPN->CAIsCreated() or return;
+  $openVPN->CAIsReady() or return;
 
   if ($self->param('edit')) {
     $self->_doEdit();
@@ -120,8 +129,8 @@ sub _doEdit
     my $server = $openVPN->server($name);
     my $changed = 0;
 
-    my $anyPropiertyParam = any @regularAccessorsAndMutators;
-    my @mutatorsParams = grep { $_ eq $anyPropiertyParam } @{ $self->params() };
+    my $anyPropertyParam = any @regularAccessorsAndMutators;
+    my @mutatorsParams = grep { $_ eq $anyPropertyParam } @{ $self->params() };
     
     $changed = 1 if $self->_editSubnetAndMask();
 

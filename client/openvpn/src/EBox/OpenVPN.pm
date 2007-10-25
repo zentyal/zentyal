@@ -415,6 +415,7 @@ sub serverExists
 sub newServer
 {
     my ($self, $name, @initParams) = @_;
+
     my $server = $self->_newDaemon('server', $name, @initParams);
 
     $self->notifyLogChange();
@@ -816,10 +817,25 @@ sub firewallHelper
 }
 
 
-sub CAIsCreated
+sub CAIsReady
 {
   my $ca = EBox::Global->modInstance('ca');
-  return $ca->isCreated;
+  if (not  $ca->isCreated) {
+    return 0;
+  }
+  
+  my $nValidCertificates = grep {
+     $_->{state} eq 'V'
+  } @{  $ca->listCertificates  };
+
+  my $ready = ($nValidCertificates >= 2); # why 2? bz we need the CA certificate and
+                                     # another certifcate for the server (when
+                                     #  the CA is invalid all the other certs
+                                     #  are invalid so if we have valid
+                                     #  certificates we are sure one of the is
+                                     #  the CA cert)
+
+  return $ready;
 }
 
 
@@ -842,18 +858,11 @@ sub setInternalService
 
 sub _setService # (active)
 {
-    my ($self, $serviceKey, $actualService, $newService) = @_;
-;
-
-    if ($newService) {
-      $actualService and return;
-      $self->CAIsCreated() or throw EBox::Exceptions::Internal('Failed to activate OpenVPN service because there is not certification authority created');
-    }
-    else {
-      (not $actualService) and return;
-    }
-
-    $self->set_bool($serviceKey, $newService);
+  my ($self, $serviceKey, $actualService, $newService) = @_;
+  
+  ($newService xor $actualService) or return;
+  
+  $self->set_bool($serviceKey, $newService);
 }
 
 
@@ -888,13 +897,6 @@ sub _service
    my ($self, $serviceKey) = @_;
    my $service =  $self->get_bool($serviceKey);
 
-
-   if ($service) {
-      if (! $self->CAIsCreated()) {
-	EBox::warn('OpenVPN service disabled because certification authority is not setted up');
-	return 0;
-      }
-   }
 
    return $service;
 }

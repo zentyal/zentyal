@@ -566,28 +566,11 @@ sub usesPortTest : Test(14)
   ok $openVPN->usesPort('tcp', 1194), "Checking that usesPort does report port usage for a inactive OpenVPN module";
 }
 
-sub setServiceTest : Tests(36)
+sub setServiceTest : Tests(34)
 {
+  # CA setup
   my $ca = EBox::Global->modInstance('ca');
   $ca->destroyCA();
-  # the test begins with inactive service and no CA created
-  EBox::TestStubs::setConfigKey( '/ebox/modules/openvpn/userActive'  => 0,);
-  EBox::TestStubs::setConfigKey( '/ebox/modules/openvpn/internalActive'  => 0,);
-
-  my $openVPN = EBox::OpenVPN->_create();
-
-  dies_ok { 
-    $openVPN->setUserService(1)  ;
-
-  } 'Checking if enabling either user  service without Certification authority in place raises error';
-
-  dies_ok { 
-    $openVPN->setInternalService(1)  ;
-
-  } 'Checking if enabling either internal service without Certification authority in place raises error';
-
-
-  # create CA
 
   my @fakeCertificates = (
 			  {
@@ -597,6 +580,11 @@ sub setServiceTest : Tests(36)
 			 );
   $ca->setInitialState(\@fakeCertificates);
 
+  # initial service values
+  EBox::TestStubs::setConfigKey( '/ebox/modules/openvpn/userActive'  => 0,);
+  EBox::TestStubs::setConfigKey( '/ebox/modules/openvpn/internalActive'  => 0,);
+
+  my $openVPN = EBox::OpenVPN->_create();
 
   my @serviceStates =  (0, 1, 1, 0,);
 
