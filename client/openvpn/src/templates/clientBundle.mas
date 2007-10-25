@@ -27,7 +27,18 @@ my $osInput = [
 					
 			 help => __('This selection should match the operative
 			 system running on the client computer'),
+
+			 id => 'os',
+			 onChange => 'osChanged()',
 			];
+
+my $installerInput = [
+			name => 'installer',
+			printableName => __(q(Add OpenVPN's installer to bundle)),
+                        input   => 'checkbox',
+                        value   => 1,
+                        id      => 'installer',
+		       ];
 
 
 
@@ -37,7 +48,7 @@ my @formElements = (
 		     ],
                      $osInput,
 		     $certificateInput,
-
+                     $installerInput,
                     ); 
 
 
@@ -107,3 +118,26 @@ OpenVPN client. Remember to place the contained files in the client machine conf
 </form>
 <a href='Index'> <% __(q{Return to the OpenVPN's main page}) %></a>
 
+<& .jsSection &>
+
+<%def .jsSection>
+<script type="text/javascript">
+
+function osChanged() {
+    var selectOs   = document.getElementById('os');
+    var index      = selectOs.selectedIndex;
+    var osValue    = selectOs.options[index].value;
+
+    var installer = document.getElementById('installer');
+
+    if (osValue ==  'windows') {
+          installer.disabled = false
+    }
+    else {
+        installer.disabled = true
+    }
+}
+
+osChanged();
+</script>
+</%def>

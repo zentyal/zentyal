@@ -7,7 +7,7 @@ use base 'EBox::OpenVPN::Server::ClientBundleGenerator';
 
 use EBox::Config;
 
-use File::Glob '!:glob';
+use File::Glob ':glob';
 
 use constant ZIP_PATH => '/usr/bin/zip';
 
@@ -51,7 +51,7 @@ sub _installerCmd
   my ($class, $bundleFile) = @_;
   my $installerFile = $class->_windowsClientInstaller();
 
-  return ZIP_PATH . " -g $bundleFile $installerFile";
+  return ZIP_PATH . " -g -j $bundleFile $installerFile";
 }
 
 sub _windowsClientInstaller

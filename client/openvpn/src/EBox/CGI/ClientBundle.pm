@@ -38,7 +38,7 @@ sub optionalParameters
     my ($self) = @_;
     # we use unsafeParam because download is free text and we don't use the value; only we check if the param is present
     if ($self->unsafeParam('download')) {
-	[qw(download os clientCertificate ip\d+)];
+	[qw(installer download os clientCertificate ip\d+)];
     }
     else {
 	return [];
@@ -128,7 +128,10 @@ sub actuate
 	my $name              = $self->param('name');
 	my $os                = $self->param('os');
 	my $clientCertificate = $self->param('clientCertificate');
+	my $installer         = $self->param('installer');
+
 	my $addresses         = $self->_addressesFromParams();
+
 
 	my $bundle;
 	try {
@@ -136,7 +139,7 @@ sub actuate
 					   os => $os, 
 					   clientCertificate => $clientCertificate, 
 					   addresses => $addresses,
-					  installer => 1,
+					  installer => $installer,
 					 );
 	
 	  $self->{bundle} = $bundle;
