@@ -28,17 +28,25 @@ package EBox::DHCP::Model::Options;
 
 use base 'EBox::Model::DataForm';
 
+use strict;
+use warnings;
+
 # eBox uses
+use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::NetWrappers;
 use EBox::Types::DomainName;
 use EBox::Types::HostIP;
 use EBox::Types::Select;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Validate;
+
+# Dependencies
+use Net::IP;
 
 # Group: Public methods
 
@@ -113,6 +121,56 @@ sub printableIndex
 
 }
 
+# Method: validateTypedRow
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::validateTypedRow>
+#
+sub validateTypedRow
+{
+    my ($self, $action, $changedFields, $allFields) = @_;
+
+    if ( exists $changedFields->{default_gateway} ) {
+        # Check the given gateway is in the current network
+        my $networkCIDR =
+          EBox::NetWrappers::to_network_with_mask(
+                                                  $self->{netMod}->ifaceNetwork($self->{interface}),
+                                                  $self->{netMod}->ifaceNetmask($self->{interface}),
+                                                 );
+        my $networkIP = new Net::IP($networkCIDR);
+        my $defaultGwType = $changedFields->{default_gateway};
+        my $selectedTypeName = $defaultGwType->selectedType();
+        my ($defaultGwIP, $gwName);
+        if ( $selectedTypeName eq 'ip' ) {
+            $defaultGwIP = new Net::IP($defaultGwType->value());
+            $gwName = $defaultGwIP->print();
+        } elsif ( $selectedTypeName eq 'name' ) {
+            my $gwModel = $defaultGwType->foreignModel();
+            my $row = $gwModel->row( $defaultGwType->value() );
+            $defaultGwIP = new Net::IP($row->{plainValueHash}->{ip});
+            $gwName = $defaultGwType->printableValue();
+        }
+        if ( defined ( $defaultGwIP )) {
+            unless ( $defaultGwIP->overlaps($networkIP) == $IP_A_IN_B_OVERLAP ) {
+                throw EBox::Exceptions::External(__x('{gateway} is not in the '
+                                                    . 'current network',
+                                                    gateway => $gwName));
+            }
+        }
+    }
+    if ( exists $changedFields->{primary_ns} ) {
+        # Check if chosen is DNS to check if it's enabled
+        if ( $changedFields->{primary_ns}->selectedType() eq 'eboxDNS' ) {
+            my $dns = EBox::Global->modInstance('dns');
+            unless ( $dns->service() ) {
+                throw EBox::Exceptions::External(__('DNS service must be active to as primary '
+                                                    . 'nameserver the local eBox DNS server'));
+            }
+        }
+    }
+}
+
 # Method: formSubmitted
 #
 #       When the form is submitted, the model must set up the jabber
@@ -129,6 +187,97 @@ sub formSubmitted
       my ($self, $oldRow) = @_;
 
   }
+
+# Method: defaultGateway
+#
+#     Get the current default gateway
+#
+# Returns:
+#
+#     String - the current default gateway in a IP address form
+#
+sub defaultGateway
+{
+
+    my ( $self ) = @_;
+
+    my $row = $self->row();
+
+    my $gwType = $row->{valueHash}->{default_gateway};
+    my $selectedTypeName = $gwType->selectedType();
+    if ( $selectedTypeName eq 'ip' ) {
+        return $gwType->value();
+    } elsif ( $selectedTypeName eq 'name' ) {
+        my $gwModel = $gwType->foreignModel();
+        my $row = $gwModel->row( $gwType->value() );
+        return $row->{plainValueHash}->{ip};
+    } elsif ( $selectedTypeName eq 'none' ) {
+        return '';
+    } elsif ( $selectedTypeName eq 'ebox' ) {
+        return $self->{netMod}->ifaceAddress($self->{interface});
+    }
+
+}
+
+# Method: searchDomain
+#
+#     Get the current search domain
+#
+# Returns:
+#
+#     String - the current search domain if any, otherwise undef
+#
+sub searchDomain
+{
+    my ($self) = @_;
+
+    my $row = $self->row();
+
+    my $selectedType = $row->{valueHash}->{search_domain}->selectedType();
+
+    if ( $selectedType eq 'none' ) {
+        return undef;
+    } else {
+        return $row->{printableValueHash}->{search_domain};
+    }
+
+}
+
+# Method: nameserver
+#
+#     Get the primary or secondary nameserver for this options interface
+#
+# Parameters:
+#
+#     number - Int 1 or 2
+#
+# Returns:
+#
+#     String - the current nameserver IP if any, otherwise undef
+#
+sub nameserver
+{
+    my ($self, $number) = @_;
+
+    my $row = $self->row();
+
+    my $selectedType;
+    if ( $number == 1 ) {
+        $selectedType = $row->{valueHash}->{primary_ns}->selectedType();
+        if ( $selectedType eq 'none' ) {
+            return undef;
+        } elsif ( $selectedType eq 'eboxDNS' ) {
+            my $ifaceAddr = $self->{netMod}->ifaceAddress($self->{interface});
+            return $ifaceAddr;
+        } else {
+            return $row->{printableValueHash}->{primary_ns};
+        }
+    } else {
+        return $row->{valueHash}->{secondary_ns}->printableValue();
+    }
+
+}
+
 
 # Group: Protected methods
 
@@ -147,7 +296,7 @@ sub _table
     my (@searchDomainSubtypes, @primaryNSSubtypes) = ( (), () );
     push ( @searchDomainSubtypes,
            new EBox::Types::DomainName(
-                                       fieldName     => 'custom_domain',
+                                       fieldName     => 'custom',
                                        printableName => __('Custom'),
                                        editable      => 1,
                                       ));
@@ -155,8 +304,8 @@ sub _table
     if ( $gl->modExists('dns') ) {
         push( @searchDomainSubtypes,
               new EBox::Types::Select(
-                                      fieldName     => 'ebox_domain',
-                                      printableName => __('eBox'),
+                                      fieldName     => 'ebox',
+                                      printableName => __(q{eBox's domain}),
                                       editable      => 1,
                                       foreignModel  => \&_domainModel,
                                       foreignField  => 'domain',
@@ -164,7 +313,7 @@ sub _table
         push ( @primaryNSSubtypes,
                new EBox::Types::Union::Text(
                                             fieldName => 'eboxDNS',
-                                            printableName => __('eBox DNS')
+                                            printableName => __('local eBox DNS')
                                            ));
 
     }
@@ -175,7 +324,7 @@ sub _table
                                        ));
     push ( @primaryNSSubtypes,
            new EBox::Types::HostIP(
-                                   fieldName     => 'custom',
+                                   fieldName     => 'custom_ns',
                                    printableName => __('Custom'),
                                    editable      => 1,
                                    defaultValue  => $self->_fetchPrimaryNS(),
@@ -209,11 +358,11 @@ sub _table
                                                             printableName => __('None'),
                                                            ),
                                new EBox::Types::Select(
-                                                       fieldName    => 'name',
-                                                       printable    => __('Configured ones'),
-                                                       editable     => 1,
-                                                       foreignModel => \&_gatewayModel,
-                                                       foreignField => 'name'
+                                                       fieldName     => 'name',
+                                                       printableName => __('Configured ones'),
+                                                       editable      => 1,
+                                                       foreignModel  => \&_gatewayModel,
+                                                       foreignField  => 'name'
                                                       ),
                               ]
                              ),
@@ -230,7 +379,7 @@ sub _table
                               subtypes       => \@primaryNSSubtypes,
                              ),
        new EBox::Types::HostIP(
-                               fieldName     => 'second_ns',
+                               fieldName     => 'secondary_ns',
                                printableName => __('Secondary nameserver'),
                                editable      => 1,
                                defaultValue  => $self->_fetchSecondaryNS(),
@@ -293,7 +442,7 @@ sub _fetchPrimaryNS
 
     my ($self) = @_;
 
-    my $ns0ne = $self->{netMod}->nameserverOne();
+    my $nsOne = $self->{netMod}->nameserverOne();
     ($nsOne) or return undef;
     return $nsOne;
 
