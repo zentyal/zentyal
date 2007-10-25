@@ -725,6 +725,16 @@ sub init
     (exists $params{proto}) or throw EBox::Exceptions::External __("A IP protocol must be specified for the server");
     (exists $params{certificate}) or throw EBox::Exceptions::External __("A  server certificate must be specified");
 
+    my $network = EBox::Global->modInstance('network');
+    my $externalIfaces = $network->ExternalIfaces();
+    if (not @{ $externalIfaces } ) {
+      throw  EBox::Exceptions::External(
+			 __('Cannot create the OpenVPN server because thre is not any external network interface available')
+				       );
+    }
+      
+
+
     $self->setSubnetAndMask($params{subnet}, $params{subnetNetmask});
 
     $self->setProto($params{proto});

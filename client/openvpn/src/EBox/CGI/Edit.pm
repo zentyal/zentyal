@@ -108,8 +108,14 @@ sub actuate
 {
   my ($self) = @_;
 
+  # check if CA and a certificate is available
   my $openVPN = EBox::Global->modInstance('openvpn');
   $openVPN->CAIsReady() or return;
+
+  # check if there are external nics available
+  my $network = EBox::Global->modInstance('network');
+  my $externalIfaces = $network->ExternalIfaces();
+  @{ $externalIfaces } or return;
 
   if ($self->param('edit')) {
     $self->_doEdit();

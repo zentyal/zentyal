@@ -2,6 +2,8 @@
 $service
 @servers
 @clients
+
+@externalIfaces
 $noCA => 0
 </%args>
 <%init>
@@ -13,11 +15,15 @@ my $clientsShowed = @clients;
 </%init>
 
 <& enable.mas, title => __('OpenVPN service status'), active => $active &>
-% if (not $noCA) {
-<& serversList, servers => \@servers &>
+% if ($noCA) {
+  <& /openvpn/caRequired.mas &>
+% }
+% elsif (not @externalIfaces) {
+ <& /openvpn/externalIfaceRequired.mas &>
 % }
 % else {
-  <& /openvpn/caRequired.mas &>
+<& serversList, servers => \@servers &>
+
 % }
 
 <& clientsList, clients => \@clients &>

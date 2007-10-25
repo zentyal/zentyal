@@ -4,13 +4,24 @@ $name
 @availableCertificates
 @advertisedNets     => ()
 @localInterfaces    => ()
-$disabled => 0
+
+$disabled => 0 # this siabled refers to CA
 </%args>
 
 <%init>
 use EBox::Gettext;
 </%init>
-% if ( !$disabled and @availableCertificates) {
+
+% if ($disabled and  @availableCertificates > 0) {
+   <& /openvpn/caRequired.mas, caCreated => 1 &>
+% }
+% elsif ($disabled)  {
+  <& /openvpn/caRequired.mas, caCreated => 0 &>
+% }
+% elsif (not @localInterfaces) {
+  <& /openvpn/externalIfaceRequired.mas  &>
+% }
+% else {
 <h3><% __x("Server {name} configuration", name => $name) %></h3>
 <form action='Edit' method='POST'>
 <& /openvpn/serverProperties.mas, properties => \%serverAttrs, availableCertificates => \@availableCertificates, localInterfaces => \@localInterfaces, submitName => 'edit', submitValue => __('Change') &>
@@ -18,13 +29,6 @@ use EBox::Gettext;
 </form>
 <& .advertisedNetsSection, serverName => $name, nets => \@advertisedNets &>
 %  }
-% elsif (!$disabled and  @availableCertificates > 0) {
-   <& /openvpn/caRequired.mas, caCreated => 1 &>
-% }
-% else  {
-  <& /openvpn/caRequired.mas, caCreated => 0 &>
-% }
-
 
 
 <%def .advertisedNetsSection>

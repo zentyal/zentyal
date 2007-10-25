@@ -817,6 +817,11 @@ sub firewallHelper
 }
 
 
+
+#  Method: CAIsReady
+#
+# return if the CA is ready to support servers (valid CA and at least one
+# certificate are required for this)
 sub CAIsReady
 {
   my $ca = EBox::Global->modInstance('ca');
@@ -837,6 +842,9 @@ sub CAIsReady
 
   return $ready;
 }
+
+
+
 
 
 sub setUserService
