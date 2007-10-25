@@ -12,7 +12,7 @@ use EBox::FileSystem;
 use Perl6::Junction qw(any);
 use List::Util qw(first);
 use EBox::Gettext;
-use Params::Validate qw(validate_pos SCALAR);
+use Params::Validate qw(validate_pos validate SCALAR ARRAYREF);
 
 use EBox::OpenVPN::Server::ClientBundleGenerator::Linux;
 use EBox::OpenVPN::Server::ClientBundleGenerator::Windows;
@@ -747,7 +747,19 @@ sub init
 
 sub clientBundle
 {
-  my ($self, $os, $clientCertificate, $addresses) = @_;
+  my ($self, @p) = @_;
+  validate(@p,
+	   {
+	    os => 1,
+	    clientCertificate => 1,
+	    addresses         => { type => ARRAYREF },
+	    installer         => 0,
+	   }
+	  );
+
+  my %params = @p;
+  my $os = delete $params{os};
+
 
   if ( !($os eq any('linux', 'windows')) ) {
     throw EBox::Exceptions::External('Unsupported operative system: {os}', os => $os);
@@ -755,7 +767,9 @@ sub clientBundle
 
   my $class = 'EBox::OpenVPN::Server::ClientBundleGenerator::' . ucfirst $os;
 
-  return $class->clientBundle($self, $clientCertificate, $addresses);
+  $params{server} = $self;
+
+  return $class->clientBundle(%params);
 }
 
 

@@ -81,6 +81,9 @@ schemas/Makefile
 stubs/Makefile
 stubs/quagga/Makefile
 migration/Makefile
+tools/installer/Makefile
+tools/sqllog/Makefile
+tools/Makefile
 www/Makefile
 Makefile
 ])

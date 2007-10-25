@@ -7,12 +7,15 @@ use EBox::Global;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::FileSystem;
+use EBox::Validate;
+use EBox::Exceptions::MissingArgument;
+
 use English qw(-no_match_vars);
 use File::Basename;
 use Error qw(:try);
 use Params::Validate qw(validate_pos);
 use File::Slurp qw(read_file);
-use EBox::Validate;
+
 
 
 sub _generateClientConf
@@ -167,8 +170,15 @@ sub _clientCertificatesPaths
 #  XXX may be change the bundle so it call its destructor automatically when it falls out of scope
 sub clientBundle
 {
-  my ($class, $server, $clientCertificate, $serversAddr_r) = @_;
-  validate_pos(@_, 1, 1, 1, 1);
+  my ($class, %params) = @_;
+  # extract mandatory parameters
+  my $server = delete $params{server};
+  $server or throw EBox::Exceptions::MissingArgument('server');
+  my $clientCertificate = delete $params{clientCertificate};
+  $clientCertificate or throw EBox::Exceptions::MissingArgument('clientCertificate');
+  my $serversAddr_r = delete $params{addresses};
+  $serversAddr_r or throw EBox::Exceptions::MissingArgument('addresses');
+
   
   ($clientCertificate ne $server->certificate()) or throw EBox::Exceptions::External(__(q{The client certificate can't be the same than the server's one}));
   
@@ -186,8 +196,8 @@ sub clientBundle
 
     $class->_copyCertFilesToDir($certificatesPath_r, $tmpDir);
     
-    # create bundle in zip format
-    $bundle  =  $class->_createBundle($server,  $tmpDir);
+    # create bundle 
+    $bundle  =  $class->_createBundle($server,  $tmpDir, %params);
   }
   finally {
     system "rm -rf $tmpDir";
@@ -212,14 +222,17 @@ sub _confFile
 
 sub _createBundle
 {
-  my ($class, $server,  $tmpDir) = @_;
+  my ($class, $server,  $tmpDir, @extraParams) = @_;
 
 
   my $bundle = $class->bundleFilename($server->name);
-  my $createCmd    = $class->createBundleCmd($bundle, $tmpDir) ;
+  my @createCmds    = $class->createBundleCmds($bundle, $tmpDir, @extraParams) ;
 
   try {
-    EBox::Sudo::root($createCmd);
+    foreach my $cmd (@createCmds) {
+      EBox::Sudo::root($cmd);
+    }
+
 
     EBox::Sudo::root("chmod 0600 $bundle");
     my ($egid) = split '\s+', $EGID;

@@ -132,7 +132,12 @@ sub actuate
 
 	my $bundle;
 	try {
-	  $bundle = $openvpn->server($name)->clientBundle($os, $clientCertificate, $addresses);
+	  $bundle = $openvpn->server($name)->clientBundle(
+					   os => $os, 
+					   clientCertificate => $clientCertificate, 
+					   addresses => $addresses,
+					  installer => 1,
+					 );
 	
 	  $self->{bundle} = $bundle;
 	}

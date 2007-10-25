@@ -13,10 +13,12 @@ sub bundleFilename
   return EBox::Config::tmp() . "/$serverName-client.tar.gz";
 }
 
-sub createBundleCmd
+sub createBundleCmds
 {
   my ($class, $bundleFile, $tmpDir) = @_;
-  return "tar czf $bundleFile -C $tmpDir .";
+  return (
+	  "tar czf $bundleFile -C $tmpDir ."
+	  );
 }
 
 sub confFileExtension
