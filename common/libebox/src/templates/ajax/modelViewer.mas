@@ -217,7 +217,7 @@
 % {
 <tr>
   <td class='tright'>
-    <% $type->printableName() %>
+    <% $type->printableName() %>:
   </td>
   <td>
     <&

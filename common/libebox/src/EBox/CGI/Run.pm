@@ -129,6 +129,8 @@ sub _lookupViewController
             if ( defined ( $namespaces[5] ) ) {
                 # Set as model name, the context name
                 $modelName = '/' . lc ( $namespaces[2] ) . '/' . $modelName . '/' . $namespaces[5];
+            } else {
+                $modelName = '/' . lc ( $namespaces[2] ) . "/$modelName";
             }
             my $manager = EBox::Model::ModelManager->instance();
             my $model = $manager->model($modelName);
