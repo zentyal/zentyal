@@ -11,14 +11,6 @@
 			<locale name="C"/>
 		</schema>
 		<schema>
-			<key>/schemas/ebox/modules/dhcp/active</key>
-			<applyto>/ebox/modules/dhcp/active</applyto>
-			<owner>ebox</owner>
-			<type>bool</type>
-			<default>false</default>
-			<locale name="C"/>
-		</schema>
-		<schema>
 			<key>/schemas/ebox/modules/global/modules/dhcp/depends</key>
 			<applyto>/ebox/modules/global/modules/dhcp/depends</applyto>
 			<owner>ebox</owner>
