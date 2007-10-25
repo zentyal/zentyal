@@ -242,4 +242,30 @@ sub _table
 
 }
 
+# Method: _tailoredOrder
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::_tailoredOrder>
+#
+sub _tailoredOrder
+{
+    my ($self, $rows) = @_;
+
+    my @sortedRows = sort
+      {
+          my $ipA = new Net::IP($a->{plainValueHash}->{from});
+          my $ipB = new Net::IP($b->{plainValueHash}->{from});
+          if ( $ipA->bincomp('lt', $ipB )) {
+              return -1;
+          } elsif ( $ipB->bincomp('eq', $ipB)) {
+              return 0;
+          } else {
+              return 1;
+          }
+      } @{$rows};
+
+    return \@sortedRows;
+}
+
 1;

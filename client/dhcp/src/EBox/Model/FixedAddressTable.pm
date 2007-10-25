@@ -201,10 +201,42 @@ sub _table
 		     'class'              => 'dataTable',
 		     'rowUnique'          => 1,  # Set each row is unique
 		     'printableRowName'   => __('fixed address'),
+                     'order'              => 0   # Ordered by tailoredOrder
 		    };
 
     return $dataTable;
 
+}
+
+# Method: _tailoredOrder
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::_tailoredOrder>
+#
+sub _tailoredOrder
+{
+    my ($self, $rows) = @_;
+
+    my @sortedRows = sort _sortMappings @{$rows};
+
+    return \@sortedRows;
+}
+
+# Group: Private methods
+
+# Sorter function for table
+sub _sortMappings
+{
+    my $ipA = new Net::IP($a->{plainValueHash}->{ip});
+    my $ipB = new Net::IP($b->{plainValueHash}->{ip});
+    if ( $ipA->bincomp('lt', $ipB )) {
+        return -1;
+    } elsif ( $ipB->bincomp('eq', $ipB)) {
+        return 0;
+    } else {
+        return 1;
+    }
 }
 
 1;
