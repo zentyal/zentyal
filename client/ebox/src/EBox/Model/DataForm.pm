@@ -34,6 +34,7 @@ use EBox::Gettext;
 # Dependencies
 ###################
 use Perl6::Junction qw(any);
+use NEXT;
 
 # Core modules
 use Error qw(:try);
@@ -336,6 +337,48 @@ sub setTypedRow
 
 }
 
+# Method: set
+#
+#      Set a value from the form
+#
+# Parameters:
+#
+#      There is a variable number of parameters following this
+#      structure: fieldName => fieldValue. Check
+#      <EBox::Types::Abstract::_setValue> for every type to know which
+#      fieldValue is required to be passed
+#
+#      force - Boolean indicating if the update is forced or not
+#      *(Optional)* Default value: false
+#
+#      readOnly - Boolean indicating if the row becomes a read only
+#      kind one *(Optional)* Default value: false
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::MissingArgument> - thrown if no params are
+#     passed to set a value
+sub set
+{
+
+    my ($self, %params) = @_;
+
+    my $force = delete $params{force};
+    $force = 0 unless defined($force);
+    my $readOnly = delete $params{readOnly};
+    $readOnly = 0 unless defined($readOnly);
+
+    unless ( keys %params > 0 ) {
+        throw EBox::Exceptions::MissingArgument('Missing parameters to set their value');
+    }
+
+    my $typedParams = $self->_fillTypes(\%params);
+
+    $self->setTypedRow(0, $typedParams, force => $force,
+                       readOnly => $readOnly);
+
+}
+
 # Method: rows
 #
 #       Return a list containing the table rows. Just one row in this case
@@ -554,7 +597,7 @@ sub formSubmitted
 sub AUTOLOAD
   {
 
-      my ($self, %params) = @_;
+      my ($self, @params) = @_;
       my $methodName = our $AUTOLOAD;
 
       $methodName =~ s/.*:://;
@@ -570,8 +613,8 @@ sub AUTOLOAD
       my ($attr, $suffix) = $methodName =~ m/^(.+?)(Value|PrintableValue|Type|)$/;
 
       unless ( any( keys ( %{$row->{valueHash}} ) ) eq $attr ) {
-          throw EBox::Exceptions::Internal("Calling an unknown attribute $attr or with " .
-                                           "an unknown suffix");
+          # Try with the parent autoload
+          return $self->NEXT::ACTUAL::AUTOLOAD(@params);
       }
 
       # If no suffix is given used
