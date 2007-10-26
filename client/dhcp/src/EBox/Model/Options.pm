@@ -219,6 +219,35 @@ sub defaultGateway
 
 }
 
+# Method: setDefaultGateway
+#
+#     Set the default gateway guessing the type
+#
+# Parameters:
+#
+#     gateway - String, it can represent the following values: empty
+#     string (none), 'ebox' indicating you want eBox as gateway, an IP
+#     address or a named configured gateways
+#
+sub setDefaultGateway
+{
+    my ($self, $gateway) = @_;
+
+    my $type;
+    if ( $gateway eq 'ebox' ) {
+        $type = 'ebox';
+    } elsif ( $gateway eq '' ) {
+        $type = 'none';
+    } elsif ( new Net::IP($gateway) ) {
+        $type = 'ip';
+    } else {
+        $type = 'name';
+    }
+
+    $self->set( default_gateway => { $type => $gateway});
+
+}
+
 # Method: searchDomain
 #
 #     Get the current search domain
