@@ -57,12 +57,7 @@ sub new
 # This method overrides <EBox::Model::DataTable::_table> to return
 # a table model description.
 #
-# This table is composed of two fields:
-#
-#   domain (<EBox::Types::Text>)    
-#   enabled (EBox::Types::Boolean>)
-# 
-# The only avaiable action is edit and only makes sense for 'enabled'.
+
 # 
 sub _table
 {
@@ -77,7 +72,6 @@ sub _table
 		 editable => 1,
 		 defaultValue  => 0,
 		 populate => \&_populateContentFilterThreshold ,
-		 filter =>   \&_contentThresholdToString,
 	   ), 
 
 
@@ -120,28 +114,7 @@ sub _populateContentFilterThreshold
 
 
 
-sub _contentThresholdToString
-  {
-    my ($instancedType) = @_;
-    my $value = $instancedType->value();
 
- 
-    if ( $value >= 200) {
-      return __('Very permissive');
-    } elsif ( $value >= 160) {
-      return __('Permissive');
-    } elsif ( $value >= 120) {
-      return __('Medium');
-    } elsif ( $value >= 80) {
-      return __('Strict');
-    } elsif ( $value > 0) {
-      return __('Very strict');
-    } elsif ( $value == 0) {
-      return __('Disabled');
-    } else {
-      throw EBox::Exceptions::Internal("Bad content threshold value: $value");
-    }
-  }
 
 1;
 
