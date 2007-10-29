@@ -660,7 +660,7 @@ sub setInternalService
 		throw EBox::Exceptions::MissingArgument('decision');
 	}
 
-	unless ($decision eq 'accept' or $decision eq 'd eny') {
+	unless ($decision eq 'accept' or $decision eq 'deny') {
 		throw EBox::Exceptions::InvalidData('data' => 'decision', 
 			value => $decision, 'advice' => 'accept or deny');
 	}
