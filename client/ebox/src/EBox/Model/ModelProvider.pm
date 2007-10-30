@@ -95,20 +95,42 @@ sub newModelInstance
 
 
 
-
+#  Method: addModelInstance
+#
+#   add a instance of a provided model class which can have multiple
+#   instances.  If the class can't have multiple instances a exeception will be
+#   raised
+#   
+#  Parameters:
+#     path - path to the instance. It must contain the index to identifiy the instance
+#   instance - model instance to add
 sub addModelInstance
 {
   my ($self, $path, $instance) = @_;
   $self->addInstance(TYPE, $path, $instance);
 }
 
-
+#  Method: removeModelInstance
+#
+#   remove a instance of a provided model class which can have multiple
+#   instances.  If the class can't have multiple instances a exeception will be
+#   raised
+#   
+#  Parameters:
+#     path - path to the instance. It must contain the index to identifiy the instance
+#   
 sub removeModelInstance
 {
   my ($self, $path, $instance) = @_;
   $self->removeInstance(TYPE, $path, $instance);
 }
 
+#  Method: removeAllModelInstances
+#
+#   remove all instances of a provided model class
+#
+#  Parameters:
+#     providedName - name of the model provider class
 sub removeAllModelInstances
 {
   my ($self, $path) = @_;

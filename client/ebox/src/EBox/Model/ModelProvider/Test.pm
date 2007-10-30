@@ -75,10 +75,10 @@ sub removeAllModelInstancesTest  : Test(2)
 
 }
 
-sub providedIsMultipleTest : Test(3)
+sub providedClassIsMultipleTest : Test(3)
 {
   my ($self) = @_;
-  $self->SUPER::providedIsMultipleTest(TYPE);
+  $self->SUPER::providedClassIsMultipleTest(TYPE);
 }
 
 

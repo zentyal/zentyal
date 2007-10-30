@@ -89,19 +89,42 @@ sub newCompositeInstance
   return $instance;
 }
 
+#  Method: addCompositeInstance
+#
+#   add a instance of a provided composite class which can have multiple
+#   instances.  If the class can't have multiple instances a exeception will be
+#   raised
+#   
+#  Parameters:
+#     path - path to the instance. It must contain the index to identifiy the instance
+#   instance - composite instance to add
 sub addCompositeInstance
 {
   my ($self, $path, $instance) = @_;
   $self->addInstance(TYPE, $path, $instance);
 }
 
-
+#  Method: removeCompositeInstance
+#
+#   remove a instance of a provided composite class which can have multiple
+#   instances.  If the class can't have multiple instances a exeception will be
+#   raised
+#   
+#  Parameters:
+#     path - path to the instance. It must contain the index to identifiy the instance
+#   
 sub removeCompositeInstance
 {
   my ($self, $path, $instance) = @_;
   $self->removeInstance(TYPE, $path, $instance);
 }
 
+#  Method: removeAllInstances
+#
+#   remove all instances of a provided composite lass
+#
+#  Parameters:
+#     providedName - name of the composite provider class
 sub removeAllCompositeInstances
 {
   my ($self, $path) = @_;

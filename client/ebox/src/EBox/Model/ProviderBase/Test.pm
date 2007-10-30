@@ -498,7 +498,7 @@ sub decodePathTest :Test(26)
 }
 
 
-sub providedIsMultipleTest 
+sub providedClassIsMultipleTest 
 {
   my ($self, $type) = @_;
 
@@ -506,13 +506,13 @@ sub providedIsMultipleTest
 
   my %oneInstanceClasses = %{ $self->_oneInstanceClassesProvidedByName };
   foreach my $name (keys %oneInstanceClasses) {
-    ok (not $provider->providedIsMultiple($type, $name)), 'checking wether a  non-multiple provided element is detected as such';
+    ok (not $provider->providedClassIsMultiple($type, $name)), 'checking wether a  non-multiple provided element is detected as such';
   }
 
 
   my %multipleClasses = %{ $self->_multipleInstanceClassesProvidedByName };
   foreach my $name (keys %multipleClasses) {
-    ok  $provider->providedIsMultiple($type, $name), 'checking wether a multiple provided element is detected as such';
+    ok  $provider->providedClassIsMultiple($type, $name), 'checking wether a multiple provided element is detected as such';
   }
 }
 

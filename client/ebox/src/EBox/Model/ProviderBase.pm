@@ -27,16 +27,16 @@ use EBox::Exceptions::MissingArgument;
 use constant DEFAULT_INDEX => '';
 
 
-# Group: Public methods
+
 
 # Method: providedInstances
 #
 #
 #  Parameters:
-#     name
+#     type - the type of provided classes
 #
 #   Returns:
-#        all the instances of the given type
+#        all the instances of provided classes of the given type
 sub providedInstances
 {
   my ($self, $type) = @_;
@@ -55,9 +55,12 @@ sub providedInstances
 
 # Method: providedInstance
 #
-#  Parametes:
-#   type
-#   name
+#  Parameters:
+#   type  - the type of the provided class
+#   path  - path to the instance for retrieval
+#
+#  Returns:
+#      the instance found at the path
 sub providedInstance
 {
   my ($self, $type, $path) = @_;
@@ -151,16 +154,21 @@ sub _populate
       
     }
 
-
-
   }
 
-
-  
 }
 
 
-sub providedIsMultiple
+#  Method: providedClassIsMultiple
+#
+#  Parameters:
+#      
+#     type - type of the provided class
+#     name - short name of the provided class
+#
+#   Returns:
+#      wether the provided class can support multiple instances or not
+sub providedClassIsMultiple
 {
   my ($self, $type, $provided) = @_;
 
@@ -178,34 +186,16 @@ sub providedIsMultiple
 
 
 
-#  XXX if nobody uses it we can remove it
-# sub _providedNameByInstance
-# {
-#   my ($self, $type, $instance) = @_;
 
-#   my @providedClasses = @{  $self->_providedClasses($type) };
-
-#   foreach my $providedSpec (@providedClasses) {
-#     my $class;
-#     if (not ref $providedSpec) {
-#       $class = $providedSpec;
-#     }
-#     else {
-#       $class  =  $providedSpec->{class};
-#     }
-
-
-#     if ($instance->isa( $class )) {
-#       return $instance->name();
-#     }
-	
-#   }
-
-#   throw EBox::Exceptions::Internal('No provided class for instance');
-# }
-
-
-
+#  Method: addInstance
+#
+#   add a instance of a provided class which can have multiple instances.
+#   If the class can't have multiple instances a exeception will be raised
+#   
+#  Parameters:
+#     type - type of provided classes
+#     path - path to the instance. It must contain the index to identifiy the instance
+#    instance - instance to add
 
 sub addInstance
 {
@@ -224,6 +214,15 @@ sub addInstance
   $self->{$type}->{$providedName}->{$index} = $instance;
 }
 
+#  Method: removeInstance
+#
+#   remove a instance of a provided class which can have multiple instances.
+#   If the class can't have multiple instances a exeception will be raised
+#   
+#  Parameters:
+#     type - type of provided classes
+#     path - path for the instance to remove.
+#             It must contain the index to identifiy the instance
 
 sub removeInstance
 {
@@ -250,6 +249,14 @@ sub removeInstance
   }
 }
 
+#  Method: removeAllInstances
+#
+#   remove all instances of a provided class
+#
+#  Parameters:
+#     type - type of provided classes
+#     providedName - name of the provided class
+#
 sub removeAllInstances
 {
   my ($self, $type, $providedName) = @_;
@@ -258,7 +265,7 @@ sub removeAllInstances
 
   $self->_assureTypeIsPopulated($type);
 
-  if (not $self->providedIsMultiple($type, $providedName)) {
+  if (not $self->providedClassIsMultiple($type, $providedName)) {
     throw EBox::Exceptions::Internal("$providedName cannot have multiple instances")
   }
 
@@ -272,7 +279,7 @@ sub _checkIsMultiple
 
   $self->_assureTypeIsPopulated($type);
 
-  if (not $self->providedIsMultiple($type, $provided)) {
+  if (not $self->providedClassIsMultiple($type, $provided)) {
     throw EBox::Exceptions::Internal(
 		"$provided cannot have multiple instances of itself"
 				    );
@@ -285,6 +292,16 @@ sub _checkIsMultiple
   return 1;
 }
 
+
+# Method: decodePath
+#
+#   Parameters:
+#     path - the path to decode
+#
+#   Return:
+#      list context - a list containing the name of the provided class and
+#                     the idnex
+#      scalar context - hash with the fields name and index
 
 sub decodePath
 {
