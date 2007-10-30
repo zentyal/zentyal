@@ -53,10 +53,10 @@ use EBox::Summary::Status;
 #
 #         SERVICE - the service managed by this module
 #
-use constant SERVICE => 'event-daemon';
+use constant SERVICE                 => 'event-daemon';
 use constant CONF_DIR                => EBox::Config::conf() . 'events/';
 use constant ENABLED_DISPATCHERS_DIR => CONF_DIR . 'DispatcherEnabled/';
-use constant ENABLED_WATCHERS_DIR => CONF_DIR . 'WatcherEnabled/';
+use constant ENABLED_WATCHERS_DIR    => CONF_DIR . 'WatcherEnabled/';
 use constant CONF_DISPATCHER_MODEL_PREFIX => 'EBox::Events::Model::Dispatcher::';
 use constant CONF_WATCHER_MODEL_PREFIX => 'EBox::Events::Model::Watcher::';
 

@@ -175,17 +175,21 @@ sub modelClasses
 #                      indexes  => [ 'indexFieldNameModel', 'indexFieldNameSubmodel1' ],
 #                      [ selector => [ 'field1', 'field2'...] ] # Only available for set/get actions
 #
-#      The indexes must be unique (at least the field 'id' is unique
+#      The 'indexes' must be unique (at least the field 'id' is unique
 #      and 'position' as well) and the submodel field name refers to the
 #      name of the <EBox::Types::HasMany> field on the previous model
-#      in the list
+#      in the list.
+#
+#      If the model template may have more than one instance, the
+#      model index must be passed as the first parameter to
+#      distinguish from the remainder model instances.
 #
 #      The method call will follow this pattern:
 #
-#      methodName( '/index1/index2/index3...', ...) if there are more
+#      methodName( ['modelIndex',] '/index1/index2/index3...', ...) if there are more
 #      than one index
 #
-#      methodName( 'index1', ...) if there are just one argument
+#      methodName( ['modelIndex',] 'index1', ...) if there are just one argument
 #
 #
 sub _exposedMethods
@@ -258,7 +262,25 @@ sub _callExposedMethod
       my $action = $methodDesc->{action};
       my @selectors = @{$methodDesc->{selector}} if exists ($methodDesc->{selector});
 
+      # Getting the model instance
       my $model = EBox::Model::ModelManager->instance()->model($path[0]);
+      if ( ref ( $model ) eq 'ARRAY' ) {
+          # Search for the chosen model
+          my $index = shift (@{$paramsRef});
+          foreach my $modelInstance (@{$model}) {
+              if ( $modelInstance->index() eq $index ) {
+                  $model = $modelInstance;
+                  last;
+              }
+          }
+      } elsif ( $model->index() ) {
+          shift(@{$paramsRef});
+      }
+      unless ( defined ( $model ) or (ref ( $model ) eq 'ARRAY' )) {
+          throw EBox::Exceptions::Internal("Cannot retrieve model $path[0] "
+                                           . 'it may be a multiple one or it '
+                                           . 'is passed a wrong index');
+      }
 
       # Set the indexField for every model with index
       if ( @indexes > 0 ) {
@@ -287,7 +309,12 @@ sub _callExposedMethod
       }
 
       # The name
-      my $mappedMethodName = $action . $subModelsName . $model->name();
+      my $mappedMethodName;
+      if (  $subModelsName ) {
+          $mappedMethodName = $action . $subModelsName . $model->name();
+      } else {
+          $mappedMethodName = $action;
+      }
 
       # The parameters
       my @indexValues = grep { $_ ne '' } split ( '/', $paramsRef->[0]);
