@@ -50,8 +50,8 @@ sub new
         $self->{'optional'} = 0;
 	# Union type must contain more than one subtype
 	unless (@{$self->{'subtypes'}} > 1) {
-		EBox::Exceptions::Internal("Union type: $self->{'fieldName'}" 
-		. " must contain more than one subtype");
+            throw EBox::Exceptions::Internal("Union type: $self->{'fieldName'}"
+                                             . " must contain more than one subtype");
 	}
 
         bless($self, $class);
