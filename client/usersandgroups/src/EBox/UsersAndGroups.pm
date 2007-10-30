@@ -1373,8 +1373,15 @@ sub allWarnings($$$)
 sub menu
 {
         my ($self, $root) = @_;
-        $root->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Users',
-                                        'text' => __('Users')));
+
+        my $folder = new EBox::Menu::Folder('name' => 'Users',
+                                            'text' => __('Users'));
+        $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Users',
+                                        'text' => __('Add user')));
+        $folder->add(new EBox::Menu::Item(
+		'url' => '/UsersAndGroups/View/Users',
+                'text' => __('Edit user')));
+	$root->add($folder);
         $root->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Groups',
                                         'text' => __('Groups')));
 }

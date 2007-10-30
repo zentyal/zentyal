@@ -68,41 +68,6 @@ use EBox::Gettext;
 	</table>
 
 
-%   if(@users) {
-<h3><% __('Edit User') %></h3>
-		<table class="dataTable">
-		<thead>
-			<th widht="66%" class="tleft"><% __("User name") %></th>
-			<th class="thOptions"><% __("Actions") %></th>
-		</thead>
-		<tbody>
-%           foreach my $us (@users){
-			<tr class="border">
-				<td>
-                   	<% $us->{'username'}  %>
-				</td>
-    			<form action='Del' method='post'>
-				<td class="tcenter">
-					<a href="User?username=<% $us->{'username'} %>" >
-        			<img src='/data/images/edit.gif'
-							alt="<% __('Edit') %> <% $us->{'username'} %>"
-							title="<% __('Edit') %> <% $us->{'username'} %>" />
-					</a>
-					<img src="/data/images/sep.gif" alt=" | " />
-					<input type="hidden" name="objectname" value="<% $us->{'username'} %>" />
-        			<input 	type='image' name='deluser' 
-							src='/data/images/delete.gif'
-							alt="<% __('Remove') %> <% $us->{'username'} %>"
-							title="<% __('Remove') %> <% $us->{'username'} %>"
-							value="<% __('Remove') %>" />
-				</td>
-			</tr>
-    		</form>
-%           }
-		</tbody>
-		</table>
-%   }
-
 
 <%def .groupSelectorLine>
 <%args>
