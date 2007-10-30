@@ -28,6 +28,7 @@ use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 
 use EBox::Types::Text;
+use EBox::Types::Link;
 
 use strict;
 use warnings;
@@ -54,9 +55,17 @@ sub _table
 					'fieldName' => 'name',
 					'printableName' => __('Name'),
 					'size' => '12',
-					'unique' => 1,
-					'editable' => 1
-				      )
+				      ),
+		new EBox::Types::Text(
+					'fieldName' => 'fullname',
+					'printableName' => __('Full name'),
+					'size' => '12',
+				      ),
+		new EBox::Types::Link(
+					'fieldName' => 'edit',
+					'printableName' => __('Edit'),
+				      ),
+
 	 );
 
 	my $dataTable = 
@@ -66,17 +75,10 @@ sub _table
 			'defaultController' =>
 				'/ebox/UsersAndGroups/Controller/Users',
 			'defaultActions' =>
-				[	
-				'add', 'del',
-				'move',  'editField',
-				'changeView'
-				],
+				['changeView'],
 			'tableDescription' => \@tableHead,
 			'menuNamespace' => 'UsersAndGroups/Users',
-			'class' => 'dataTable',
-			'order' => 0,
 			'help' => __x('foo'),
-		        'rowUnique' => 0,
 		        'printableRowName' => __('user'),
 		};
 
@@ -94,19 +96,46 @@ sub rows
 					'fieldName' => 'name',
 					'printableName' => __('Name'),
 					'size' => '12',
-					'unique' => 1,
 					'editable' => 1
 				     	);
-		$user->setValue($userInfo->{'username'});
+	
+		my $userName = $userInfo->{'username'};
+		$user->setValue($userName);
 		$user->setModel($self);
-		push (@rows, { 'values' => [$user], 
-				'printableValueHash' => {'name' =>
-					$userInfo->{'username'}},
+		my $fullName = new EBox::Types::Text(
+					'fieldName' => 'fullname',
+					'printableName' => __('Full name'),
+					'size' => '12',
+					'editable' => 1
+				     	);
+		my $full = $userInfo->{'fullname'};
+		$fullName->setValue($full);
+		$fullName->setModel($self);
+	
+		my $link = new EBox::Types::Link(
+					'fieldName' => 'edit',
+					'printableName' => __('Edit'),
+				     	);
+		my $linkValue = "/ebox/UsersAndGroups/User?username=$userName";
+		$link->setValue($linkValue);
+		$link->setModel($self);
+		push (@rows, { 'values' => [$user, $fullName, $link], 
+				'printableValueHash' => 
+					{
+					 'name' => $userName, 
+					 'fullname' => $full,
+					 'edit' => ''
+					}, 
 				'id' => 'NOT_USED', 
 				'readOnly' => 1});
 	}
 
 	return $self->_filterRows(\@rows, $filter, $page);
+}
+
+sub Viewer
+{
+	return '/ajax/tableUser.mas';
 }
 
 1;
