@@ -669,6 +669,27 @@ sub Viewer
 
   }
 
+# Method: size
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::size>
+#
+# Returns:
+#
+#     Int - the number of rows which the model contains (stored in
+#     GConf)
+#
+sub size
+{
+    my ($self) = @_;
+    if ( $self->_hasRow() ) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 # Group: Private methods
 
 # Check if the model is empty
