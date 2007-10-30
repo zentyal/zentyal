@@ -1,4 +1,5 @@
 # Copyright (C) 2005  Warp Networks S.L., DBS Servicios Informaticos S.L.
+# Copyright (C) 2007  Warp Networks S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -239,6 +240,48 @@ sub models
 
 }
 
+# Method: _exposedMethods
+#
+# Overrides:
+#
+#     <EBox::Model::ModelProvider::_exposedMethods>
+#
+sub _exposedMethods
+{
+    my ($self) = @_;
+
+    my %methods =
+      ( 'setOption' => { action   => 'set',
+                         path     => [ 'Options' ],
+                         indexes  => [ 'id' ],
+                       },
+        'addRange'          => { action   => 'add',
+                                 path     => [ 'RangeTable' ],
+                               },
+        'removeRange'       => { action   => 'del',
+                                 path     => [ 'RangeTable' ],
+                                 indexes  => [ 'name' ],
+                               },
+        'setRange'          => { action   => 'set',
+                                 path     => [ 'RangeTable' ],
+                                 indexes  => [ 'name' ],
+                               },
+        'addFixedAddress'   => { action   => 'add',
+                                 path     => [ 'FixedAddressTable' ],
+                               },
+        'setFixedAddress'   => { action   => 'set',
+                                 path     => [ 'FixedAddressTable' ],
+                                 indexes  => [ 'name' ],
+                               },
+        'removeFixedAddress' => { action   => 'del',
+                                  path     => [ 'FixedAddressTable' ],
+                                  indexes  => [ 'name' ],
+                                }
+        );
+    return \%methods;
+
+}
+
 # Method: composites
 #
 # Overrides:
@@ -372,51 +415,6 @@ sub endRange # (interface)
 	return $end_range;
 }
 
-# Method: setDefaultGateway
-#
-#	Set the default gateway that will be sent to DHCP clients for a
-#	given interface
-#
-# Parameters:
-#
-#   	iface - String interface name
-#
-#	gateway - String the gateway, an IP address if it is, a name
-#	if the type is named (one of the configured gateways), ebox if
-#	you want to set eBox as gateway or empty string
-#
-# Exceptions:
-#
-#       <EBox::Exceptions::External> - thrown if the interface is not
-#       static
-#
-#       <EBox::Exceptions::DataNotFound> - thrown if the interface is
-#       not found
-#
-sub setDefaultGateway # (iface, gateway, type)
-{
-    my ($self, $iface, $gateway) = @_;
-
-    my $network = EBox::Global->modInstance('network');
-
-    #if iface doesn't exists throw exception
-    if (not $iface or not $network->ifaceExists($iface)) {
-        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                                             value => $iface);
-    }
-
-    #if iface is not static, throw exception
-    if ($network->ifaceMethod($iface) ne 'static') {
-        throw EBox::Exceptions::External(__x("{iface} is not static",
-                                             iface => $iface));
-    }
-
-    if ( defined ( $gateway ) ) {
-        $self->_getModel('optionsModel', $iface)->setDefaultGateway( $gateway );
-    }
-
-}
-
 # Method: defaultGateway
 #
 #	Get the default gateway that will be sent to DHCP clients for a
@@ -459,47 +457,6 @@ sub defaultGateway # (iface)
         return $self->_getModel('optionsModel', $iface)->defaultGateway();
 }
 
-# Method: setSearchDomain
-#
-#	Set the search domain that will be sent to DHCP clients for a
-#	given interface
-#
-# Parameters:
-#
-#   	iface  - String interface name
-#
-#	search - String search domain. It can be empty, 'ebox' or a
-#	custom domain
-#
-# Exceptions:
-#
-#       <EBox::Exceptions::External> - thrown if the interface is not
-#       static
-#
-#       <EBox::Exceptions::DataNotFound> - thrown if the interface is
-#       not found
-#
-sub setSearchDomain # (iface, search, type)
-{
-	my ($self, $iface, $search) = @_;
-
-	my $network = EBox::Global->modInstance('network');
-
-	#if iface doesn't exists throw exception
-	if (not $iface or not $network->ifaceExists($iface)) {
-		throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-				value => $iface);
-	}
-
-	#if iface is not static, throw exception
-	if($network->ifaceMethod($iface) ne 'static') {
-		throw EBox::Exceptions::External(__x("{iface} is not static",
-			iface => $iface));
-	}
-
-        $self->_getModel('optionsModel', $iface)->setSearchDomain( $search );
-}
-
 # Method: searchDomain
 #
 #	Get the search domain that will be sent to DHCP clients for a
@@ -535,72 +492,6 @@ sub searchDomain # (iface)
 
 #	$self->get_string("$iface/search");
         return $self->_getModel('optionsModel', $iface)->searchDomain();
-}
-
-# Method: setNameserver
-#
-#	Set the nameserver that will be sent to DHCP clients for a
-#	given interface
-#
-#   Parameters:
-#
-#   	iface - String interface name
-#   	number - Int nameserver number (1 or 2)
-#
-#	nameserver - String nameserver IP or 'ebox' if you want to set
-#	eBox DNS server as primary nameserver
-#
-# Exceptions:
-#
-#       <EBox::Exceptions::External> - thrown if the interface is not
-#       static or the given type is none of the suggested ones
-#
-#       <EBox::Exceptions::DataNotFound> - thrown if the interface is
-#       not found
-#
-#       <EBox::Exceptions::MissingArgument> - thrown if any compulsory
-#       argument is missing
-#
-sub setNameserver # (iface, number, nameserver)
-{
-	my ($self, $iface, $number, $nameserver) = @_;
-
-	my $network = EBox::Global->modInstance('network');
-
-        if ( not defined ($number) or not defined ( $nameserver )) {
-            throw EBox::Exceptions::MissingArgument('number or nameserver');
-        }
-
-	#if iface doesn't exists throw exception
-	if (not $iface or not $network->ifaceExists($iface)) {
-		throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-				value => $iface);
-	}
-
-	#if iface is not static, throw exception
-	if($network->ifaceMethod($iface) ne 'static') {
-		throw EBox::Exceptions::External(__x("{iface} is not static",
-			iface => $iface));
-	}
-
-#	if($nameserver) {
-#		checkIP($nameserver, __("Nameserver IP address"));
-#	}
-#	$self->set_string("$iface/nameserver$number", $nameserver);
-        if ( $number == 1 ) {
-            my $type = 'custom_ns';
-            if ( $nameserver eq '' ) {
-                $type = 'none';
-            } elsif ( $nameserver eq 'ebox' ) {
-                $type = 'eboxDNS';
-            } else {
-                $type = 'custom_ns';
-            }
-            $self->_getModel('optionsModel', $iface)->set( primary_ns => { $type => $nameserver });
-        } else {
-            $self->_getModel('optionsModel', $iface)->set( second_ns => $nameserver );
-        }
-
 }
 
 # Method: nameserver
