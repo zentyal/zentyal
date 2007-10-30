@@ -1,4 +1,4 @@
-test_scripts = DHCP.t NetworkObs.t
+test_scripts = DHCP.t networkObs.t
 
 EXTRA_DIST = $(test_scripts)
 
