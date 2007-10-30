@@ -1453,7 +1453,7 @@ sub _increaseStoredAndCachedVersion
 #       Function to be overriden by the subclasses in order to do
 #       ordering in a different way as normal order is done.  It's
 #       functional if only if <EBox::Model::DataTable::order> is set
-#       to 1.
+#       to 0.
 #
 # Parameters:
 #
@@ -2301,9 +2301,10 @@ sub AUTOLOAD
       $methodName =~ s/.*:://;
 
       # Ignore DESTROY callings (the Perl destructor)
-      if ( $methodName eq 'DESTROY' or
-           $methodName eq 'domain' ) {
+      if ( $methodName eq 'DESTROY') {
           return;
+      } elsif ( $methodName eq 'domain' ) {
+          return $self->{gconfmodule}->domain();
       }
 
       # Depending on the method name beginning, the action to be
