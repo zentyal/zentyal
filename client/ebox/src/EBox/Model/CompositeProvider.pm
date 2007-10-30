@@ -119,9 +119,9 @@ sub removeCompositeInstance
   $self->removeInstance(TYPE, $path, $instance);
 }
 
-#  Method: removeAllInstances
+#  Method: removeAllCompositeInstances
 #
-#   remove all instances of a provided composite lass
+#   remove all instances of a provided composite class
 #
 #  Parameters:
 #     providedName - name of the composite provider class
