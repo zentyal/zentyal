@@ -94,6 +94,29 @@ sub newModelInstance
 }
 
 
+
+
+sub addModelInstance
+{
+  my ($self, $path, $instance) = @_;
+  $self->addInstance(TYPE, $path, $instance);
+}
+
+
+sub removeModelInstance
+{
+  my ($self, $path, $instance) = @_;
+  $self->removeInstance(TYPE, $path, $instance);
+}
+
+sub removeAllModelInstances
+{
+  my ($self, $path) = @_;
+  $self->removeAllInstances(TYPE, $path);
+}
+
+
+
 # Method: modelClasses
 #
 #  This method must be overriden by all subclasses. It is used to register which

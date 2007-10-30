@@ -18,7 +18,7 @@ use lib '../../..';
 use EBox::Model::DataTable;
 use EBox::Model::ModelProvider;
 
-
+use constant TYPE          =>  'model' ;
 
 sub _classesProvidedByName
 {
@@ -28,6 +28,11 @@ sub _classesProvidedByName
 		       class      => 'EBox::Jungle::Model::Monkeys',
 		       parameters => [specie => 'gibbon'],
 		       },
+	   # multiple instances model
+	   Humans => {
+		      class => 'EBox::Jungle::Model::Humans',
+		      multiple => 1,
+		     },
 	  };
 }
 
@@ -38,14 +43,42 @@ sub _classesProvidedByName
 sub modelTest : Test(9)
 {
   my ($self) = @_;
-  $self->SUPER::providedInstanceTest('model');  
+  $self->SUPER::providedInstanceTest('model', 'addModelInstance');  
 }
 
 
-sub modelsTest : Test(8)
+sub modelsTest : Test(5)
 {
   my ($self) = @_;
-  $self->SUPER::providedInstancesTest('models');
+  $self->SUPER::providedInstancesTest('models', 'addModelInstance');
+}
+
+
+sub addAndRemoveModelInstanceTest : Test(15)
+{
+  my ($self) = @_;
+  $self->SUPER::addAndRemoveInstancesTest(
+					  getterMethod => 'model',
+					  addMethod   => 'addModelInstance',
+					  removeMethod => 'removeModelInstance',
+					 );
+}
+
+sub removeAllModelInstancesTest  : Test(2)
+{
+  my ($self) = @_;
+  $self->SUPER::removeAllInstancesTest(
+				       getAllMethod => 'models',
+				       addMethod    => 'addModelInstance',
+				       removeAllMethod => 'removeAllModelInstances',
+				      );
+
+}
+
+sub providedIsMultipleTest : Test(3)
+{
+  my ($self) = @_;
+  $self->SUPER::providedIsMultipleTest(TYPE);
 }
 
 
@@ -62,6 +95,7 @@ sub _providerInstance
 		                          return [values %modelClassesByName]
 	                                }
 	      );
+  $instance->mock( 'name' =>   sub { return 'moduleName'  }  );
 
   $instance->set_isa('EBox::Model::ModelProvider', 'EBox::GConfModule');
 
@@ -69,7 +103,16 @@ sub _providerInstance
 }
 
 
+sub _providedInstance
+{
+  my ($self, $provider, $class) = @_;
 
+  my $provider = $self->_providerInstance();
+  my $instance = $provider->newModelInstance(
+					     $class,
+					     name => $class->nameFromClass,
+					    );
+}
 
 
 sub _fakeModelClasses : Test(setup)

@@ -89,6 +89,25 @@ sub newCompositeInstance
   return $instance;
 }
 
+sub addCompositeInstance
+{
+  my ($self, $path, $instance) = @_;
+  $self->addInstance(TYPE, $path, $instance);
+}
+
+
+sub removeCompositeInstance
+{
+  my ($self, $path, $instance) = @_;
+  $self->removeInstance(TYPE, $path, $instance);
+}
+
+sub removeAllCompositeInstances
+{
+  my ($self, $path) = @_;
+  $self->removeAllInstances(TYPE, $path);
+}
+
 # Method: compositeClasses
 #
 #  This method must be overriden by all subclasses. It is used to rgister which
