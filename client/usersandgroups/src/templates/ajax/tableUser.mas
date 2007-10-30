@@ -1,0 +1,243 @@
+<%flags>
+  inherit => '/ajax/tableBody.mas'
+</%flags>
+<%args>
+  $model
+  $action => 'view'
+  $editid => ''
+  $hasChanged => 1
+  $filter => ''
+  $page => 0
+  $tpages => 0
+</%args>
+<%init>
+use EBox::Gettext;
+use EBox::Model::DataTable;
+</%init>
+<%method _body>
+<%args>
+  $model
+  $action => 'view'
+  $editid => ''
+  $hasChanged => 1
+  $filter => ''
+  $page => 0
+  $tpages => 0
+</%args>
+<%init>
+  use Data::Dumper;
+
+  # Fetch table head from model
+  my @tableHead = @{$model->table()->{'tableDescription'}};
+  # Pointer to different values for convenience 
+  my $actions = $model->table()->{'actions'};
+#  my $changeView = $actions->{'changeView'};
+  my $changeView = $model->action('changeView');
+  my $printableRowName = $model->table()->{'printableRowName'};
+  my $tableName = $model->table()->{'tableName'};
+  my $printableTableName = $model->table()->{'printableTableName'};
+
+  # Get the useful data after filtering and paging
+  my @data = @{$model->rows($filter, $page)};
+
+  # Set page to 0 if not defined properly
+  $page = 0 unless (length($page) > 0);
+
+  # Fetch the edited row if we are editing one
+  my $rowEdit;
+  if ($editid) {
+      foreach my $row (@data) {
+          if ($row->{'id'} ne $editid) {
+              next;
+          }
+          $rowEdit = $row;
+          last;
+      }
+  }
+
+  # Fetch the data to be displayed in setters, if we are editing a row
+  # we should show the contents of the current fields. If we are
+  # adding a new row, the fields are empty;
+  my @formData = @tableHead;
+  @formData = @{$rowEdit->{'values'}} if ($rowEdit);
+</%init>
+
+%  if ($action ne 'changeAdd' and $action ne 'changeEdit')
+%  {
+%    if ( $model->printableModelName() )
+%    {
+<& PARENT:title,
+   title => $model->printableModelName()
+&>
+%    }
+%    if ($changeView and exists $actions->{'add'}) 
+%    {
+  <input class='inputButton' 
+      type='image' 
+      name='add' 
+      value="Add" 
+      title="Add" 
+         onClick='<%
+                 $model->changeViewJS( changeType => "changeAdd", 
+                      editId => "undefined", 
+                      page => $page,
+                      isFilter => 0) 
+                %>;return false' 
+   alt="Add" src='/data/images/add.gif' 
+  />
+  <% __("Add new") %>
+%    }
+  <span id="<% 'creatingForm_' . $tableName %>"></span>   
+<br>
+%  }
+
+%  if ($action eq 'changeAdd' or $action eq 'changeEdit') 
+%  {
+%   if ( $action eq 'changeAdd' ) 
+%    {
+<& PARENT:title,
+   title => __x('Adding a new {row}',
+                row => $printableRowName)
+&>
+%    }
+%   elsif ( $action eq 'changeEdit' ) 
+%    {
+<h3>
+<& PARENT:title,
+   title => __x('Editing {row}',
+                row => $printableRowName)
+&>
+%   }
+
+<table class='formTable'>
+  <tbody>
+   <col width="1*" />
+   <col width="auto" /
+    <& PARENT:editRowFields,
+       modelName => $tableName,
+       formData => \@formData
+    &>
+    <& SELF:buttons &>
+  </tbody>
+</table>
+%  }
+
+
+% if (@data or length($filter) > 0) 
+%  {
+%    if ( $action eq 'changeAdd' or $action eq 'changeEdit' ) 
+%    {
+<h3>
+  <% 
+    $printableTableName 
+  %>
+</h3>
+%    }
+
+<table class="bDataTable">
+    <tr>
+        <td>
+<form action="javascript:void(0)">
+%    my $filterId =  $tableName  .  '_filterLoading';
+  <input type='text'
+      name='<%
+              $tableName
+            %>'
+      id='<% 
+            $tableName . "_filter" 
+          %>'
+      value="<% 
+              $filter 
+             %>"  
+  />
+  <input type='submit' 
+      name='filter' 
+      value="<% 
+               __('Search') 
+             %>" 
+      title="Apply" 
+      onClick='setLoading("<% 
+                             $filterId 
+                            %>");
+                <%
+                  $model->changeViewJS( changeType => "changeList", 
+                     editId => 'undefined', 
+                     page => 0,
+                     isFilter => 1)
+               %>;
+  
+               return false' 
+  />
+  <span id="<% 
+              $filterId 
+            %>"
+  ></span>   
+</form>
+	</td>
+        <td class="tright">
+% if (scalar @{$model->rows()} > 0)
+% {
+<& /ajax/tablePager.mas,
+  model => $model,
+  page => $page,
+  tpages => $tpages,
+  pageSize => $model->pageSize()
+&>
+% } else {
+<input type="hidden" 
+  id="<% $model->tableName() . '_pageSize' %>"
+  value="<% $model->pageSize() %>"
+>
+% }
+	</td>
+    </tr>
+</table>
+<table class='<% 
+               $model->table()->{'class'} 
+              %>'>
+    <thead>
+%    foreach my $th (@tableHead) 
+%    {
+%	next unless ($th->HTMLViewer());
+      <th class='<% 
+                   $th->class() 
+                  %>'>
+        <% 
+          $th->printableName() 
+        %>
+      </th>
+%    }
+
+    </thead>
+      
+    <tbody>      
+%    for ( my $idx = 0; $idx < scalar(@data); $idx++) 
+%    {
+%     my  $row = $data[$idx];
+
+      <tr class='border' 
+          id="<% 
+                $row->{"id"} 
+              %>">
+        
+%      foreach my $td (@{$row->{'values'}}) 
+%      {
+%	next unless ($td->HTMLViewer());
+        <td class='tcenter'>
+          <& 
+            $td->HTMLViewer(),
+            'data' => $td
+          &>
+        </td>
+%     }
+
+      </tr>
+%   }  
+    </tbody>
+
+</table>
+% }
+
+% # End body method
+</%method>
+

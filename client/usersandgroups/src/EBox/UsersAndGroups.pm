@@ -18,7 +18,7 @@ package EBox::UsersAndGroups;
 use strict;
 use warnings;
 
-use base qw(EBox::Module EBox::LdapModule);
+use base qw(EBox::GConfModule EBox::LdapModule EBox::Model::ModelProvider);
 
 use EBox::Global;
 use EBox::Ldap;
@@ -77,6 +77,14 @@ sub _regenConfig
 }
 
 
+# Method: modelClasses
+#
+# 	Override <EBox::Model::ModelProvider::modelClasses>
+# 	
+sub modelClasses
+{
+	return ['EBox::UsersAndGroups::Model::Users'];
+}
 
 # Method: groupsDn 
 #

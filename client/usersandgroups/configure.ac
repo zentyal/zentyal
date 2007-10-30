@@ -58,9 +58,12 @@ AM_PO_SUBDIRS
 AC_CONFIG_FILES([
 src/Makefile
 src/EBox/Makefile
+src/EBox/UsersAndGroups/Makefile
+src/EBox/UsersAndGroups/Model/Makefile
 src/EBox/rootTests/Makefile
 src/EBox/CGI/Makefile
 src/templates/Makefile
+src/templates/ajax/Makefile
 schemas/Makefile
 stubs/Makefile
 stubs/slapd.conf.mas
