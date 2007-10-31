@@ -25,5 +25,8 @@ function switchHelp(){
 elements=getElementByClass("help");
 
 if(elements.length == 0) {
-	document.getElementById("helpbutton").style.display="none";
+   var  helpbutton = document.getElementById("helpbutton");	
+   if (helpbutton) {
+	helpbutton..style.display="none";
+    }
 }
