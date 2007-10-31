@@ -27,6 +27,6 @@ elements=getElementByClass("help");
 if(elements.length == 0) {
    var  helpbutton = document.getElementById("helpbutton");	
    if (helpbutton) {
-	helpbutton..style.display="none";
+	helpbutton.style.display="none";
     }
 }
