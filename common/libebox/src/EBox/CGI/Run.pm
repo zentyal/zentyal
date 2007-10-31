@@ -140,8 +140,7 @@ sub _lookupViewController
             }
             my $manager = EBox::Model::ModelManager->instance();
             my $model = $manager->model($modelName);
-	    $model or
-	      return undef;
+
 
             $menuNamespace = $model->menuNamespace();
             if ( $namespace eq 'View' ) {
