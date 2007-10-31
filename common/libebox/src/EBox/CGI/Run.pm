@@ -169,7 +169,8 @@ sub _lookupViewController
                 };
             }
             unless ( defined ( $composite )) {
-                $composite = $compManager->composite($modelName);
+                my $contextName = '/' . lc ( $namespaces[2] ) . "/$modelName";
+                $composite = $compManager->composite($contextName);
             }
             $menuNamespace = $composite->menuNamespace();
             # Check if the action is defined URL: Composite/<compName>/<action>
