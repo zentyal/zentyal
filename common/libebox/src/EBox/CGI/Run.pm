@@ -63,7 +63,13 @@ sub run # (url)
 	my $cgi;
 	eval "use $classname"; 
 	if ($@) {
-		$cgi = $self->_lookupViewController($classname);
+	        try {
+		  $cgi = $self->_lookupViewController($classname);
+		}
+		catch EBox::Exceptions::DataNotFound with {
+		  # path not valid
+		  $cgi = undef;
+		};
 		
 		if (not $cgi) {
 			my $log = EBox::logger;
