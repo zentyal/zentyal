@@ -17,7 +17,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 19;
+use Test::More tests => 21;
 use Test::Exception;
 use Test::MockObject;
 
@@ -91,6 +91,13 @@ lives_ok {
 
 cmp_ok( $dhcp->defaultGateway('eth0'), 'eq', '10.0.0.1',
        'Default gateway IP address is the interface one');
+
+lives_ok {
+    $dhcp->setDefaultGateway('eth0', { ip => '10.0.0.3' });
+} 'Setting a IP address as gw using setDefaultGateway';
+
+cmp_ok( $dhcp->defaultGateway('eth0'), 'eq', '10.0.0.3',
+        'The set was done correctly');
 
 lives_ok {
     $dhcp->setOption('eth0', default_gateway => { ip => '10.0.0.2' });

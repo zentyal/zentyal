@@ -184,6 +184,13 @@ sub modelClasses
 #      model index must be passed as the first parameter to
 #      distinguish from the remainder model instances.
 #
+#      If the action is 'set' and the selector is just one field you
+#      can omit the field name when setting the element as the
+#      following example shows:
+#
+#      $modelProvider->setAttr($attrValue);
+#      $modelProvider->setAttr( attr => $attrValue);
+#
 #      The method call will follow this pattern:
 #
 #      methodName( ['modelIndex',] '/index1/index2/index3...', ...) if there are more
@@ -317,15 +324,23 @@ sub _callExposedMethod
       }
 
       # The parameters
-      my @indexValues = grep { $_ ne '' } split ( '/', $paramsRef->[0]);
-      # Remove the index param
-      shift ( @{$paramsRef} );
+      my @indexValues = ();
+      if ( @{$paramsRef} > 1 ) {
+          @indexValues = grep { $_ ne '' } split ( '/', $paramsRef->[0]);
+          # Remove the index param if any
+          shift ( @{$paramsRef} )
+      }
       my @mappedMethodParams = @indexValues;
+      if ( @selectors == 1 and $action eq 'set' ) {
+          # If it is a set action and just one selector is supplied,
+          # the field name is set as parameter
+          push ( @mappedMethodParams, $selectors[0] );
+      }
       push ( @mappedMethodParams, @{$paramsRef} );
       if ( @selectors > 0 and $action eq 'get') {
           my $selectorsRef = \@selectors;
           push (@mappedMethodParams, $selectorsRef);
-      };
+      }
 
       return $model->$mappedMethodName( @mappedMethodParams );
 
