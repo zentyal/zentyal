@@ -76,7 +76,7 @@ use constant DomainGroups =>
 EBox::init();
 
 my $global = EBox::Global->getInstance();
-my $users  = $global->modInstance('users');
+my $users  = $global->modInstance('usersandgroups');
 
 
 sub _addPDCStuff {

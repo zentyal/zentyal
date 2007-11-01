@@ -36,7 +36,7 @@ sub _delGroupWarning($$) {
         my $self = shift;
         my $group = shift;
 	
-	my $users = EBox::Global->modInstance('users');
+	my $users = EBox::Global->modInstance('usersandgroups');
 	
 	unless ($users->_groupIsEmpty($group)) {
 		return (__('This group contains users'));

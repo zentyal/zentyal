@@ -123,7 +123,7 @@ sub _getIfacesForAddress {
 sub _setMailConf {
 	my $self = shift;
 	my @array = ();
-	my $users = EBox::Global->modInstance('users');
+	my $users = EBox::Global->modInstance('usersandgroups');
 	my $ob = EBox::Global->modInstance('objects');
 	my $ldap = EBox::Ldap->instance();
 	my $allowedaddrs = "127.0.0.0/8";

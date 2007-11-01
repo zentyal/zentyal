@@ -90,7 +90,7 @@ sub addGroupAlias ($$$) { #mail alias, groupname
 	my $self = shift;
 	my $alias = shift;
 	my $groupname = shift;
-	my $users = EBox::Global->modInstance('users');
+	my $users = EBox::Global->modInstance('usersandgroups');
 
 	unless ($alias =~ /^[^\.\-][\w\.\-]+\@[^\.\-][\w\.\-]+$/) {
 		throw EBox::Exceptions::InvalidData('data' => __('mail account'),
@@ -150,7 +150,7 @@ sub addGroupAlias ($$$) { #mail alias, groupname
 sub updateGroupAlias ($$$) {
 	my ($self, $group, $alias) = @_;
 
-	my $users = EBox::Global->modInstance('users');
+	my $users = EBox::Global->modInstance('usersandgroups');
 
 	unless ($self->accountExists($alias)) {
 		throw EBox::Exceptions::DataNotFound('data' => __('mail account'),
@@ -444,7 +444,7 @@ sub aliasDn
 sub listMailGroupsByUser($$) {
 	my ($self, $user) = @_;
 	my @list;
-	my $users = EBox::Global->modInstance('users');
+	my $users = EBox::Global->modInstance('usersandgroups');
 
 	my @groups = @{$users->groupOfUsers($user)};
 	
@@ -544,7 +544,7 @@ sub aliasExists($$) { #mail alias account
 sub accountExists($$) { #mail alias account
 	my $self = shift;
 	my $alias = shift;
-	my $users = EBox::Global->modInstance('users');
+	my $users = EBox::Global->modInstance('usersandgroups');
 
 	my %attrs = (
 		base => $users->usersDn,

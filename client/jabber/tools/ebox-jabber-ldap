@@ -8,7 +8,7 @@ use EBox::UsersAndGroups;
 EBox::init();
 
 my $global = EBox::Global->getInstance(1);
-my $users = $global->modInstance('users');
+my $users = $global->modInstance('usersandgroups');
 $users->{ldap}->ldapCon;
 my $ldap = $users->{ldap};
 

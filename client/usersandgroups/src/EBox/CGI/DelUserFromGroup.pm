@@ -38,7 +38,7 @@ sub new {
 
 sub _process($) {
 	my $self = shift;
-	my $usersandgroups = EBox::Global->modInstance('users');
+	my $usersandgroups = EBox::Global->modInstance('usersandgroups');
 
 	my @args = ();
 	

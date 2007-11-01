@@ -134,7 +134,7 @@ sub _setSambaConf
 	$self->writeConfFile(SMBCONFFILE, "samba/smb.conf.mas", \@array);
 
 	my $ldapconf = $ldap->ldapConf;
-	my $users = EBox::Global->modInstance('users');
+	my $users = EBox::Global->modInstance('usersandgroups');
 	
 	@array = ();
 	push(@array, 'basedc'    => $ldapconf->{'dn'});
@@ -438,7 +438,7 @@ sub  adminUser
 {
         my ($self, $user) = @_;
 	($user) or return;
-        my $usermod = EBox::Global->modInstance('users');
+        my $usermod = EBox::Global->modInstance('usersandgroups');
 	foreach my $u (@{$usermod->usersInGroup('Domain Admins')}) {
 		return 1 if ($u eq $user);
 	}
@@ -461,7 +461,7 @@ sub  setAdminUser
         my ($self, $user, $admin) = @_;
 	($user) or return;
 	($admin xor $self->adminUser($user)) or return;
-        my $usermod = EBox::Global->modInstance('users');
+        my $usermod = EBox::Global->modInstance('usersandgroups');
 	if ($admin) {
 		$usermod->addUserToGroup($user, 'Domain Admins');
 	} else {
@@ -814,7 +814,7 @@ sub existsShareResource # (resource)
 	my $self = shift;
 	my $name = shift;
 
-	my $usermod = EBox::Global->modInstance('users');
+	my $usermod = EBox::Global->modInstance('usersandgroups');
 	if ($usermod->userExists($name)) {
 		return __('user');
 	}
@@ -832,7 +832,7 @@ sub _checkUserExists # (user)
 {
 	my $user = shift;
 	
-	my $usermod = EBox::Global->modInstance('users');
+	my $usermod = EBox::Global->modInstance('usersandgroups');
 	unless ($usermod->userExists($user)){
 			 throw EBox::Exceptions::DataNotFound(
 						'data'  => __('user'),
@@ -846,7 +846,7 @@ sub _checkGroupExists # (user)
 {
 	my $group = shift;
 	
-	my $groupmod = EBox::Global->modInstance('users');
+	my $groupmod = EBox::Global->modInstance('usersandgroups');
 	unless ($groupmod->groupExists($group)){
 			 throw EBox::Exceptions::DataNotFound(
 						'data'  => __('group'),

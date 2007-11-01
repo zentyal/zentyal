@@ -11,7 +11,7 @@ use EBox::Sudo qw(:all);
 EBox::init();
 
 my $global = EBox::Global->getInstance(1);
-my $users = $global->modInstance('users');
+my $users = $global->modInstance('usersandgroups');
 my $vdomain = new EBox::MailVDomainsLdap;
 my $vusers = new EBox::MailUserLdap;
 my $alias = new EBox::MailAliasLdap;

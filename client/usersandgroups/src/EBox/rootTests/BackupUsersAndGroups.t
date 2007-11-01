@@ -40,7 +40,7 @@ finally {
 
 sub _backupCanaryTest
 {
-  my $usersAndGroups = EBox::Global->modInstance('users');
+  my $usersAndGroups = EBox::Global->modInstance('usersandgroups');
 
   lives_ok { $usersAndGroups->makeBackup($BACKUP_DIR, fullBackup => 0)  }  "Configuration backup tried in $BACKUP_DIR";
   checkLdap($usersAndGroups);
@@ -71,7 +71,7 @@ sub checkLdap
 
 sub _cleanUsers
 {
-  my $usersAndGroups = EBox::Global->modInstance('users');
+  my $usersAndGroups = EBox::Global->modInstance('usersandgroups');
   if ($usersAndGroups->userExists($CANARY_USER)) {
     $usersAndGroups->delUser($CANARY_USER);
   }

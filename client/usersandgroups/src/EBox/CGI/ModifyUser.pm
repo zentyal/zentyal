@@ -67,7 +67,7 @@ sub _process($) {
 		$userdata->{'password'} = $password;
 	}
 
-	my $usersandgroups = EBox::Global->modInstance('users');
+	my $usersandgroups = EBox::Global->modInstance('usersandgroups');
 	$usersandgroups->modifyUser($userdata);
 	
 	$self->{redirect} = "UsersAndGroups/User?username=$user";
