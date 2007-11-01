@@ -70,8 +70,8 @@ sub _table
                                 'fieldName' => 'members',
                                 'printableName' => __('Members'),
                                 'foreignModel' => 'MemberTable',
-                                'view' => '/ebox/Object/View/MemberTable',
-                                'backView' => '/ebox/Object/View/MemberTable',
+                                'view' => '/ebox/Objects/View/MemberTable',
+                                'backView' => '/ebox/Objects/View/MemberTable',
                                 'size' => '1',
                              )
 
