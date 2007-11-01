@@ -1,5 +1,7 @@
 0.10.99
-	+ New release
+	+ Use last model/view changes to get rid of the multitable code
+	+ Remove rules using an object when it's removed
+	+ Use services module
 0.10.99
 	+ New release
 	+ Now traffic shaping rules are aware about gateway changes

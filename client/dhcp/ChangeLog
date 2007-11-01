@@ -1,5 +1,7 @@
 0.10.99
-	+ New release
+	+ Use the new model/view framework. UI uses Ajax.
+	+ Show eBox domain server if DNS is installed
+	+ Show eBox IPs on default gateway selection
 0.9.100
 	+ Use new services API 
 0.9.99
