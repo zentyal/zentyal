@@ -7,7 +7,7 @@
 #
 
 templatedir = $(datadir)/ebox/templates/ajax
-template_DATA = tableUsers.mas
+template_DATA = tableUser.mas
 
 EXTRA_DIST = $(template_DATA)
 
