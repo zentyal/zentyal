@@ -7,8 +7,8 @@ Standards-Version: 3.6.1
 
 Package: ebox-squid
 Architecture: all
-Depends: ebox (= 0.9.100), ebox-firewall, ebox-objects, squid, dansguardian
-Conflicts: ebox (<< 0.9.100)
+Depends: ebox (= 0.10.99), ebox-firewall, ebox-objects, squid, dansguardian
+Conflicts: ebox (<< 0.10.99)
 Description: Proxy cache and content filter
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified

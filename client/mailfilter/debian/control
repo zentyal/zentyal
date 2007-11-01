@@ -7,6 +7,6 @@ Standards-Version: 3.6.1
 
 Package: ebox-mailfilter
 Architecture: all
-Depends: ebox (= 0.9.100), ebox-firewall, ebox-usersandgroups , ebox-mail (>= 0.9.100), amavisd-new (>= 2.4.2), clamav (>= 0.90), clamav-daemon (>= 0.90), clamav-freshclam (>= 0.90), spamassassin, libnet-dns-perl, arj, unzoo
-Conflicts: ebox (<< 0.9.100)
+Depends: ebox (= 0.10.99), ebox-firewall, ebox-usersandgroups , ebox-mail (>= 0.10.99), amavisd-new (>= 2.4.2), clamav (>= 0.90), clamav-daemon (>= 0.90), clamav-freshclam (>= 0.90), spamassassin, libnet-dns-perl, arj, unzoo
+Conflicts: ebox (<< 0.10.99)
 Description: Mail filter module

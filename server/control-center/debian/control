@@ -7,7 +7,7 @@ Standards-Version: 3.6.1
 
 Package: ebox-control-center
 Architecture: all
-Depends: libebox (>= 0.9.100), openvpn, apache-perl, libdate-calc-perl, libconfig-tiny-perl, libsoap-lite-perl, libcrypt-ssleay-perl
+Depends: libebox (>= 0.10.99), openvpn, apache-perl, libdate-calc-perl, libconfig-tiny-perl, libsoap-lite-perl, libcrypt-ssleay-perl
 Description: eBox control center to control several eBoxes at the same time
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified

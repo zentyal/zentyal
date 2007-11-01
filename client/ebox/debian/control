@@ -8,9 +8,9 @@ Standards-Version: 3.6.1
 
 Package: ebox
 Architecture: all
-Depends: libebox (= 0.9.100), apache-perl, openssl (>= 0.9.7e), libapache-mod-ssl, libapache-reload-perl, libapache-singleton-perl, libapache-authcookie-perl, gconf2, libgnome2-gconf-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl, runit, libapache-reload-perl (= 0.07-5warp.es), postgresql, libdbd-pg-perl, libfile-tail-perl, libclone-perl, libnet-jabber-perl, libfilesys-df-perl, libchart-perl
+Depends: libebox (= 0.10.99), apache-perl, openssl (>= 0.9.7e), libapache-mod-ssl, libapache-reload-perl, libapache-singleton-perl, libapache-authcookie-perl, gconf2, libgnome2-gconf-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl, runit, libapache-reload-perl (= 0.07-5warp.es), postgresql, libdbd-pg-perl, libfile-tail-perl, libclone-perl, libnet-jabber-perl, libfilesys-df-perl, libchart-perl
 Replaces: ebox (<< 0.7.0.99), ebox-logs
-Conflicts: ebox-dhcp  (<< 0.9.100), ebox-dns-cache (<< 0.9.100), ebox-dns (<< 0.9.100), ebox-firewall (<< 0.9.100), ebox-jabber (<< 0.9.100), ebox-mail (<< 0.9.100), ebox-network (<< 0.9.100), ebox-ntp (<< 0.9.100), ebox-objects (<< 0.9.100), ebox-printers (<< 0.9.100), ebox-samba (<< 0.9.100), ebox-software (<< 0.9.100), ebox-squid (<< 0.9.100), ebox-usersandgroups (<< 0.9.100), ebox-openvpn (<< 0.9.100), ebox-ca (<< 0.9.100), ebox-logs
+Conflicts: ebox-dhcp  (<< 0.10.99), ebox-dns-cache (<< 0.10.99), ebox-dns (<< 0.10.99), ebox-firewall (<< 0.10.99), ebox-jabber (<< 0.10.99), ebox-mail (<< 0.10.99), ebox-network (<< 0.10.99), ebox-ntp (<< 0.10.99), ebox-objects (<< 0.10.99), ebox-printers (<< 0.10.99), ebox-samba (<< 0.10.99), ebox-software (<< 0.10.99), ebox-squid (<< 0.10.99), ebox-usersandgroups (<< 0.10.99), ebox-openvpn (<< 0.10.99), ebox-ca (<< 0.10.99), ebox-logs
 Description: Base framework
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
