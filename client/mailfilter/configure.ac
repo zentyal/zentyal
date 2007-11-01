@@ -1,4 +1,4 @@
-AC_INIT([EBox-mailfilter], [0.10])
+AC_INIT([EBox-mailfilter], [0.11])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/MailFilter.pm])
