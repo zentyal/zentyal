@@ -1,4 +1,7 @@
 0.10.99
+	+ Add disk usage information
+	+ Show progress in backup process
+	+ Add option to purge logs
 	+ Create a link from /var/lib/ebox/log to /var/log/ebox
 	+ Fix bug with backup descriptions containing spaces
 	+ Add removeAll method on data models
