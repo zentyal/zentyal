@@ -38,7 +38,7 @@ sub stop() {
 sub moduleAction
 {
   my ($modname, $action, $actionName) = @_;
-  my $mod = EBox::Global->modInstance($modname);
+  my $mod = $global->modInstance($modname);
   if (!defined $mod) {
     print STDERR "$modname is not a valid module name\n";
     exit 2;
