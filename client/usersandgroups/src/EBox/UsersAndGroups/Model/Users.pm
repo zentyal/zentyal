@@ -89,7 +89,7 @@ sub rows
 {
 	my ($self, $filter, $page) = @_;
 
-	my $userMod = EBox::Global->modInstance('usersandgroups');
+	my $userMod = EBox::Global->modInstance('users');
 	my @rows;
 	for my $userInfo ($userMod->users()) {
 		my $user = new EBox::Types::Text(

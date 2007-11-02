@@ -75,7 +75,7 @@ sub isAdmin #($username)
 {
         my ($self, $username) = @_;
 	my $global = EBox::Global->getInstance(1);
-	my $users = $global->modInstance('usersandgroups');
+	my $users = $global->modInstance('users');
 	my $dn = $users->usersDn;
 	my $active = '';
 	my $is_admin = 0;
@@ -100,7 +100,7 @@ sub setIsAdmin #($username, [01]) 0=disable, 1=enable
 {
         my ($self, $username, $option) = @_;
 	my $global = EBox::Global->getInstance(1);
-	my $users = $global->modInstance('usersandgroups');
+	my $users = $global->modInstance('users');
 	my $dn = "uid=$username,".$users->usersDn;
 
 	$users->{ldap}->ldapCon;
@@ -145,7 +145,7 @@ sub hasAccount #($username)
 {
         my ($self, $username) = @_;
 	my $global = EBox::Global->getInstance(1);
-	my $users = $global->modInstance('usersandgroups');
+	my $users = $global->modInstance('users');
 	my $dn = $users->usersDn;
 
 	$users->{ldap}->ldapCon;
@@ -163,7 +163,7 @@ sub setHasAccount #($username, [01]) 0=disable, 1=enable
 {
         my ($self, $username, $option) = @_;
 	my $global = EBox::Global->getInstance(1);
-	my $users = $global->modInstance('usersandgroups');
+	my $users = $global->modInstance('users');
 	my $dn = "uid=$username," . $users->usersDn;
 
 	$users->{ldap}->ldapCon;
@@ -212,7 +212,7 @@ sub getJabberAdmins
 {
         my $self = shift;
 	my $global = EBox::Global->getInstance(1);
-	my $users = $global->modInstance('usersandgroups');
+	my $users = $global->modInstance('users');
 	my $dn = $users->usersDn;
 	my @admins = ();
 

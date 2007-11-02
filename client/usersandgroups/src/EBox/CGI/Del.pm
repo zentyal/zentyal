@@ -40,7 +40,7 @@ sub _warnUser($$) {
 	my $object = shift;
 	my $name = shift;
 	
-	my $usersandgroups = EBox::Global->modInstance('usersandgroups');
+	my $usersandgroups = EBox::Global->modInstance('users');
 	my $warns = $usersandgroups->allWarnings($object, $name);
 
 	if (@{$warns}) { # If any module wants to warn user
@@ -60,7 +60,7 @@ sub _warnUser($$) {
 sub _process($) {
 	my $self = shift;
 	
-	my $usersandgroups = EBox::Global->modInstance('usersandgroups');
+	my $usersandgroups = EBox::Global->modInstance('users');
 
 	$self->_requireParam('objectname', __('object name'));
 	my $name = $self->param('objectname');

@@ -52,7 +52,7 @@ sub setupTestDir : Test(startup)
 
 sub _removeTestUsers
 {
-  my $users = EBox::Global->modInstance('usersandgroups');
+  my $users = EBox::Global->modInstance('users');
   foreach my $user ($TEST_USER, $TEST_USER_LEFTOVER) {
     if ($users->userExists($user)) {
       $users->delUser($user);
@@ -120,7 +120,7 @@ sub _checkBackup
   my ($dir, $fullBackup) = @_;
 
   my $samba = EBox::Global->modInstance('samba');
-  my $users = EBox::Global->modInstance('usersandgroups');
+  my $users = EBox::Global->modInstance('users');
 
   lives_ok { 
 #    $users->makeBackup($dir, fullBackup => $fullBackup);
@@ -134,7 +134,7 @@ sub _checkRestore
   my ($dir, $fullRestore) = @_;
 
   my $samba = EBox::Global->modInstance('samba');
-  my $users = EBox::Global->modInstance('usersandgroups');
+  my $users = EBox::Global->modInstance('users');
 
   lives_ok { 
 #    $users->restoreBackup($dir, fullRestore => $fullRestore);
@@ -145,7 +145,7 @@ sub _checkRestore
 sub _setConfig
 {
   my $samba = EBox::Global->modInstance('samba');
-  my $users = EBox::Global->modInstance('usersandgroups');
+  my $users = EBox::Global->modInstance('users');
 
   $samba->setFileService(1);
   $users->addUser({user => $TEST_USER, fullname => 'aa', password => 'a', comment => 'a'});
@@ -159,7 +159,7 @@ sub _setConfig
 sub _messConfig
 {
   my $samba = EBox::Global->modInstance('samba');
-  my $users = EBox::Global->modInstance('usersandgroups');
+  my $users = EBox::Global->modInstance('users');
 
 #  $users->addUser({user => $TEST_USER_LEFTOVER, fullname => 'aa', password => 'a', comment => 'a'});
   $samba->setFileService(0);
@@ -175,7 +175,7 @@ sub _checkConfig
   my ($status) = @_;
 
   my $samba = EBox::Global->modInstance('samba');
-  my $users = EBox::Global->modInstance('usersandgroups');
+  my $users = EBox::Global->modInstance('users');
 
   ok $samba->fileService(), 'Checking that file service was restored';
 #  ok !$users->userExists($TEST_USER_LEFTOVER), "checking that user added after backup does not exists";
@@ -218,7 +218,7 @@ sub _leftoversTest
   my ($backupDir, $fullBackup) = @_;
 
   my $samba = EBox::Global->modInstance('samba');
-  my $users = EBox::Global->modInstance('usersandgroups');
+  my $users = EBox::Global->modInstance('users');
   
   my $leftoversBase = $samba->leftoversDir();
   EBox::Sudo::root("/bin/rm -rf $leftoversBase");

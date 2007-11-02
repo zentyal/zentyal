@@ -92,7 +92,7 @@ sub _domainUser
 {
         my ($self, $user) = @_;
         ($user) or return;
-        my $usermod = EBox::Global->modInstance('usersandgroups');
+        my $usermod = EBox::Global->modInstance('users');
         foreach my $u (@{$usermod->usersInGroup('Domain Users')}) {
                 return 1 if ($u eq $user);
         }
@@ -106,7 +106,7 @@ sub _addUser ($$)
 	my $user = shift;
 	
 	my $ldap = $self->{ldap};
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 	
 	my $unixuid = $users->lastUid;
 	my $rid = 2 * $unixuid + 1000;
@@ -160,7 +160,7 @@ sub _modifyUser($$) {
 	my $self = shift;
 	my $user   = shift;
 
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 	my $dn = "uid=$user," .  $users->usersDn;
 	my $ldap = $self->{ldap};
 
@@ -223,7 +223,7 @@ sub _addGroup ($$)
 	my $group = shift;
 	 
 	my $ldap  = $self->{ldap};
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 	
 	my $rid = 2 * $users->lastGid + 1001;
 	my $sambaSID = getSID() . '-' .  $rid;
@@ -382,7 +382,7 @@ sub _setUserQuota($$){
 sub _setAllUsersQuota {
 	my $self = shift;
 
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 	my $samba = EBox::Global->modInstance('samba');
 	my $quota = $samba->defaultUserQuota;
 
@@ -425,7 +425,7 @@ sub _sharingResourceExists($$)
 	my $name  = shift;
 	
 	my $ldap  = $self->{ldap};
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 	
 	my $dn =  $users->groupsDn;
 	my %attrs = (
@@ -445,7 +445,7 @@ sub  groupShareDirectories
 	my $self = shift;
 	
 	my $ldap  = $self->{ldap};
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 	
 	my $dn =  $users->groupsDn;
 	my %attrs = (
@@ -474,7 +474,7 @@ sub  sharingName($$) {
 	my $group = shift;
 
 	my $ldap  = $self->{ldap};
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 
 	unless ($users->groupExists($group)) {
                 throw EBox::Exceptions::DataNotFound('data' => __('group name'),
@@ -502,7 +502,7 @@ sub  sharingName($$) {
 sub setSharingName($$$) {
         my ($self, $group, $name)  = @_;
           	
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 
 	unless ($users->groupExists($group)) {
                 throw EBox::Exceptions::DataNotFound('data' => __('group name'),
@@ -553,7 +553,7 @@ sub removeSharingName($$) {
 	my $self  = shift;
 	my $group = shift;
 	
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 
 	unless ($users->groupExists($group)) {
                 throw EBox::Exceptions::DataNotFound('data' => __('group name'),
@@ -590,7 +590,7 @@ sub _getAccountFlags($$) {
 	my $username   = shift;
 	
 	my $ldap  = $self->{ldap};
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 	
 	my $dn = "uid=$username," .  $users->usersDn;
 
@@ -622,7 +622,7 @@ sub setUserSharing($$) {
 	my $share = shift;
 
 	my $ldap  = $self->{ldap};
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 	
 	unless ($users->userExists($username)){
 		 throw EBox::Exceptions::DataNotFound(
@@ -703,7 +703,7 @@ sub setSambaDomainName
 		$ldap->delete($dn);	
 	}
 
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 	%attrs = (
 		attr => [
 			'sambaDomainName'	=> $domain,
@@ -734,7 +734,7 @@ sub updateNetbiosName
 {
 	my ($self, $netbios) = @_;
 	
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 	my $ldap = $self->{'ldap'};
 	
 	foreach my $user ($users->users){
@@ -780,7 +780,7 @@ sub sharedDirectories
     $_->{path}
   } @{ $self->groupShareDirectories() };
 
-  my $users = EBox::Global->modInstance('usersandgroups');
+  my $users = EBox::Global->modInstance('users');
   defined $users or throw EBox::Exceptions::Internal('Can not get users and groups module');
 
   my @homedirs = map {  $_->{homeDirectory}} $users->users();

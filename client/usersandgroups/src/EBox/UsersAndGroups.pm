@@ -45,7 +45,7 @@ use constant DEFAULTGROUP   => '__USERS__';
 sub _create 
 {
 	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'usersandgroups',
+	my $self = $class->SUPER::_create(name => 'users',
 					  domain => 'ebox-usersandgroups',
 					  @_);
 

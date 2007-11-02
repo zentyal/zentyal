@@ -51,7 +51,7 @@ sub _process($) {
 				'comment'  => $self->param('comment')
 			 };
 	
-	my $usersandgroups = EBox::Global->modInstance('usersandgroups');
+	my $usersandgroups = EBox::Global->modInstance('users');
 	$usersandgroups->modifyGroup($groupdata);
 	
 	$self->{redirect} = "UsersAndGroups/Group?group=$group";

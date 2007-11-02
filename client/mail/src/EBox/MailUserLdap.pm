@@ -59,7 +59,7 @@ sub setUserAccount () {
 	my ($self, $user, $lhs, $rhs, $mdsize)  = @_;
 	
 	my $ldap = $self->{ldap};
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 	my $mail = EBox::Global->modInstance('mail');
   	my $email = $lhs.'@'.$rhs;
 	
@@ -127,7 +127,7 @@ sub delUserAccount () { #username, mail
 	($self->_accountExists($username)) or return;
 	
 	my $mail = EBox::Global->modInstance('mail');
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 
 	# First we remove all mail aliases asociated with the user account.
 	foreach my $alias ($mail->{malias}->accountAlias($usermail)) {
@@ -194,7 +194,7 @@ sub delAccountsFromVDomain () { #vdomain
 #		value - the atribute name
 sub getUserLdapValue () { #uid, ldap value
 	my ($self, $uid, $value) = @_;
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 
 	my %args = (
 			base => $users->usersDn(),
@@ -259,7 +259,7 @@ sub _userAddOns() {
 	my ($self, $username) = @_;
 
 	my $mail = EBox::Global->modInstance('mail');
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 	
 	
 	my %args = (
@@ -294,7 +294,7 @@ sub _groupAddOns() {
 	my ($self, $group) = @_;
 
 	my $mail = EBox::Global->modInstance('mail');
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 
 	
 	my %args = (
@@ -358,7 +358,7 @@ sub _modifyGroup() {
 sub _accountExists() { #username
 	my ($self, $username) = @_;
 
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 
 	my %attrs = (
 		base => $users->usersDn,
@@ -382,7 +382,7 @@ sub _accountExists() { #username
 #		mdsize - new maildir size
 sub setMDSize() {
 	my ($self, $uid, $mdsize) = @_;
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 	
 	unless (isAPositiveNumber($mdsize)) {
 		throw EBox::Exceptions::InvalidData(
@@ -416,7 +416,7 @@ sub setMDSize() {
 sub allAccountsFromVDomain() { #vdomain
 	my ($self, $vdomain) = @_;
 
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 
 	my %attrs = (
 		base => $users->usersDn,
@@ -441,7 +441,7 @@ sub allAccountsFromVDomain() { #vdomain
 # 	
 sub usersWithMailInGroup() {
 	my ($self, $groupname) = @_;
-	my $users = EBox::Global->modInstance('usersandgroups');
+	my $users = EBox::Global->modInstance('users');
 
 	my %args = (
 		base => $users->usersDn,

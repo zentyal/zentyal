@@ -11,7 +11,7 @@ use constant DEFAULTGROUP    => '__USERS__';
 use constant DEFAULTGROUPGID => '2000';
 
 my $global = EBox::Global->getInstance(1);
-my $users = $global->modInstance('usersandgroups');
+my $users = $global->modInstance('users');
 
 sub populate
 {
