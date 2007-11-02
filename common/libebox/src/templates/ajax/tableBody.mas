@@ -89,22 +89,17 @@ use EBox::Model::DataTable;
 %    }
 %    if ($changeView and exists $actions->{'add'}) 
 %    {
-  <input class='inputButton' 
-      type='image' 
+  <a href='#' class='addNew'
       name='add' 
-      value="Add" 
-      title="Add" 
          onClick='<%
                  $model->changeViewJS( changeType => "changeAdd", 
                       editId => "undefined", 
                       page => $page,
                       isFilter => 0) 
-                %>;return false' 
-   alt="Add" src='/data/images/add.gif' 
-  />
-  <% __("Add new") %>
+                %>;return false'>Add new</a>
 %    }
   <span id="<% 'creatingForm_' . $tableName %>"></span>   
+   <br/>
 <br>
 %  }
 

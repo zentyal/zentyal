@@ -44,6 +44,7 @@ use EBox::Gettext;
   </li>
 % }
 </ul>
+<div class="insideTab">
   <!-- The error will lay on here -->
 <div id="<% "errorTabData_$tabName" | h %>">
 </div>
@@ -55,6 +56,7 @@ use EBox::Gettext;
      hasChanged => $hasChanged,
      action => 'view',
   &>
+</div>
 </div>
 
 <script type="text/javascript">

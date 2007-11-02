@@ -426,8 +426,8 @@ input {
 }
 
 .tabs {
-	border-bottom: 1px solid #787878;
-	margin: 10px 3px 0 0;
+	border-bottom: 1px solid #989898;
+	margin: 10px 0px 0 0;
 	padding: 5px 10px 5px 10px;
 }
 
@@ -452,9 +452,7 @@ input {
 .tabs li a.current{
 	background: #fff; 
 	font-weight: bold;
-	border-top: 1px solid #787878;
-	border-left: 1px solid #787878;
-	border-right: 1px solid #787878;
+	border: 1px solid #989898;
 	border-bottom: 1px solid white;
 }
 
@@ -645,4 +643,22 @@ a.changed:hover {
 }
 .button {
 	cursor: pointer;
+}
+.insideTab {
+	border: 1px solid #989898;
+	border-top: none;
+	margin: 0px;
+	padding: 10px;
+}
+
+.addNew {
+	background: #fff url('/data/images/add.gif') left no-repeat; 
+	padding-left: 18px;
+}
+
+.addNew:hover { 
+	background: #fff url('/data/images/add.gif') left no-repeat;
+	background: #fff url('/data/images/add.gif') left no-repeat;
+	color: #888;
+	text-decoration: underline;
 }
