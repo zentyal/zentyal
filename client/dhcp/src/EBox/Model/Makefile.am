@@ -3,8 +3,8 @@ SUBDIRS = t
 
 perldir = @PERLPATH@/EBox/DHCP/Model
 
-nobase_perl_DATA = RangeInfo.pm FixedAddressTable.pm \
-	 Options.pm RangeTable.pm 
+nobase_perl_DATA = AdvancedOptions.pm FixedAddressTable.pm \
+	 Options.pm RangeInfo.pm RangeTable.pm 
 
 MAINTAINERCLEANFILES = Makefile.in
 

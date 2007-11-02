@@ -131,6 +131,7 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
+    # Validate default gateway
     if ( exists $changedFields->{default_gateway} ) {
         # Check the given gateway is in the current network
         my $networkCIDR =
@@ -159,6 +160,7 @@ sub validateTypedRow
             }
         }
     }
+    # Validate primary Nameserver
     if ( exists $changedFields->{primary_ns} ) {
         # Check if chosen is DNS to check if it's enabled
         if ( $changedFields->{primary_ns}->selectedType() eq 'eboxDNS' ) {
@@ -169,6 +171,7 @@ sub validateTypedRow
             }
         }
     }
+
 }
 
 # Method: formSubmitted
@@ -216,35 +219,6 @@ sub defaultGateway
     } elsif ( $selectedTypeName eq 'ebox' ) {
         return $self->{netMod}->ifaceAddress($self->{interface});
     }
-
-}
-
-# Method: setDefaultGateway
-#
-#     Set the default gateway guessing the type
-#
-# Parameters:
-#
-#     gateway - String, it can represent the following values: empty
-#     string (none), 'ebox' indicating you want eBox as gateway, an IP
-#     address or a named configured gateways
-#
-sub setDefaultGateway
-{
-    my ($self, $gateway) = @_;
-
-    my $type;
-    if ( $gateway eq 'ebox' ) {
-        $type = 'ebox';
-    } elsif ( $gateway eq '' ) {
-        $type = 'none';
-    } elsif ( new Net::IP($gateway) ) {
-        $type = 'ip';
-    } else {
-        $type = 'name';
-    }
-
-    $self->set( default_gateway => { $type => $gateway});
 
 }
 
@@ -306,7 +280,6 @@ sub nameserver
     }
 
 }
-
 
 # Group: Protected methods
 
@@ -418,9 +391,9 @@ sub _table
 
       my $dataForm = {
                       tableName          => 'Options',
-                      printableTableName => __('Options'),
+                      printableTableName => __('Common options'),
                       modelDomain        => 'DHCP',
-                      defaultActions     => [ 'editField' ],
+                      defaultActions     => [ 'editField', 'changeView' ],
                       tableDescription   => \@tableDesc,
                       class              => 'dataForm',
                       help               => __('Setting "eBox" as default gateway will set '

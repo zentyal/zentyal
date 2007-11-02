@@ -46,6 +46,8 @@ use EBox::Common::Model::EnableForm;
 use EBox::DHCP::Composite::InterfaceConfiguration;
 use EBox::DHCP::Composite::General;
 use EBox::DHCP::Composite::Interfaces;
+use EBox::DHCP::Composite::OptionsTab;
+use EBox::DHCP::Model::AdvancedOptions;
 use EBox::DHCP::Model::FixedAddressTable;
 use EBox::DHCP::Model::Options;
 use EBox::DHCP::Model::RangeInfo;
@@ -226,6 +228,12 @@ sub models
                                              directory   => "Options/$iface",
                                              interface   => $iface);
             push ( @models, $self->{optionsModel}->{$iface} );
+            $self->{advancedOptionsModel}->{$iface} =
+              new EBox::DHCP::Model::AdvancedOptions(
+                                                     gconfmodule => $self,
+                                                     directory   => "AdvancedOptions/$iface",
+                                                     interface   => $iface);
+            push ( @models, $self->{advancedOptionsModel}->{$iface} );
             $self->{rangeInfoModel}->{$iface} =
               new EBox::DHCP::Model::RangeInfo(
                                                gconfmodule => $self,
@@ -305,6 +313,8 @@ sub composites
             # Create models
             push ( @composites,
                    new EBox::DHCP::Composite::InterfaceConfiguration(interface => $iface));
+            push ( @composites,
+                   new EBox::DHCP::Composite::OptionsTab(interface => $iface));
         }
     }
     push ( @composites,
@@ -1244,6 +1254,14 @@ sub _ifacesInfo
       if (defined($nameserver2) and $nameserver2 ne "") {
 	$iflist{$_}->{'nameserver2'} = $nameserver2;
       }
+      my $defaultLeasedTime = $self->_leasedTime('default', $_);
+      if (defined($defaultLeasedTime)) {
+        $iflist{$_}->{defaultLeasedTime} = $defaultLeasedTime;
+      }
+      my $maxLeasedTime = $self->_leasedTime('max', $_);
+      if (defined($maxLeasedTime)) {
+        $iflist{$_}->{maxLeasedTime} = $maxLeasedTime;
+      }
     }
   }
 
@@ -1275,6 +1293,22 @@ sub _realIfaces
   }
 
   return \%realifs;
+}
+
+# Method: _leasedTime
+#
+#    Get the leased time (default or maximum) in seconds if any
+#
+sub _leasedTime # (which, iface)
+{
+
+    my ($self, $which, $iface) = @_;
+
+    my $advOptionsModel = $self->_getModel('advancedOptionsModel', $iface);
+
+    my $fieldName = $which . '_leased_time';
+    return $advOptionsModel->row()->{plainValueHash}->{$fieldName};
+
 }
 
 sub _addDHCPService

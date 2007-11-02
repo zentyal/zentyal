@@ -1,39 +1,45 @@
+<%doc>
+   This template dumps the configuration for every shared network
+   including ranges and fixed IP adresses.
+</%doc>
 <%args>
 	%info
 </%args>
+% # Common options for the shared network
+	option routers <% $info{'gateway'} %>;
+% if(defined($info{'search'})) {
+	option domain-name "<% $info{'search'} %>";
+% }
+% if(length($info{'nameserver1'}) != 0) {
+	option domain-name-servers <% $info{'nameserver1'} %>\
+%       if(length($info{'nameserver2'}) != 0) {
+, <% $info{'nameserver2'} %>;
+%       }else{
+;
+%       }
+% }
+
+% if(defined($info{'defaultLeasedTime'})) {
+        default-lease-time <% $info{'defaultLeasedTime'} %>;
+% }               
+% if(defined($info{'maxLeasedTime'})) {
+        max-lease-time <% $info{'maxLeasedTime'} %>;
+% }               
+
+% if (exists $info{'staticRoutes'} ) {
+        <& staticRoutes.mas, routes => $info{'staticRoutes'}, defaultGw	=>  $info{'gateway'}   &>
+% }
+
 	subnet <% $info{'net'} %> netmask <% $info{'netmask'} %> {
 %	my $ranges = $info{'ranges'};
 %	foreach my $range (@{$ranges}) {
 		range <% $range->{'from'} %> <% $range->{'to'} %>;
 %	}
-		option routers <% $info{'gateway'} %>;
-%	if(defined($info{'search'})) {
-		option domain-name "<% $info{'search'} %>";
-%	}
-%       if(length($info{'nameserver1'}) != 0) {
-		option domain-name-servers <% $info{'nameserver1'} %>\
-%               if(length($info{'nameserver2'}) != 0) {
-, <% $info{'nameserver2'} %>;
-%               }else{
-;
-%               }
-%       }
-
-%       if (exists $info{'staticRoutes'} ) {
-        <& staticRoutes.mas, routes => $info{'staticRoutes'}, defaultGw	=>  $info{'gateway'}   &>
-%       }
-
-	}
-
-
+        }
 
 %	my $fixedAddresses = $info{'fixed'};
 %	if(@{$fixedAddresses}){
 	group {
-		option routers <% $info{'gateway'} %>;
-%	if(defined($info{'search'})) {
-		option domain-name "<% $info{'search'} %>";
-%	}
 %	foreach my $fixed (@{$fixedAddresses}) {
 		host <% $fixed->{'name'} %> {
 			hardware ethernet <% $fixed->{'mac'} %>;
@@ -42,6 +48,3 @@
 %	}
 	}
 %	}
-
-
-

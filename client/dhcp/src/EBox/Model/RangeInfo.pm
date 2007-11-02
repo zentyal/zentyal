@@ -121,11 +121,9 @@ sub printableIndex
 #      <EBox::Model::DataForm::formSubmitted>
 #
 sub formSubmitted
-  {
+{
 
-      my ($self, $oldRow) = @_;
-
-  }
+}
 
 # Group: Protected methods
 

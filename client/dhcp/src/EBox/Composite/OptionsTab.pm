@@ -13,13 +13,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::DHCP::Composite::InterfaceConfiguration
+# Class: EBox::DHCP::Composite::OptionsTab
 #
-#   This class is used to manage dhcp server configuration on a given
-#   interface. It stores four models indexed by interface this
-#   composite does
+#   This class is used to manage dhcp server general options
+#   configuration on a given interface. It stores two models for
+#   simple options and advanced ones indexed by interface
 #
-package EBox::DHCP::Composite::InterfaceConfiguration;
+package EBox::DHCP::Composite::OptionsTab;
 
 use base 'EBox::Model::Composite';
 
@@ -34,7 +34,7 @@ use EBox::Global;
 
 # Constructor: new
 #
-#         Constructor for the interface configuration
+#         Constructor for the options tab
 #
 #
 # Parameters:
@@ -46,8 +46,8 @@ use EBox::Global;
 #
 # Returns:
 #
-#       <EBox::DHCP:::Model::InterfaceConfiguration> - a
-#       interface configuration composite
+#       <EBox::DHCP:::Model::OptionsTab> - an options tab
+#        composite
 #
 sub new
 {
@@ -105,29 +105,16 @@ sub _description
 
     my $gl = EBox::Global->getInstance();
     my $dhcp = $gl->modInstance('dhcp');
-    my $net = $gl->modInstance('network');
-
-    my $helpMsg = '';
-    if ( $net->ifaceIsExternal($self->{interface})) {
-        $helpMsg = __x('In order to serve IP addresses on a external interface, '
-                       . 'you must open the service on {openhref}firewall module{closehref}',
-                       openhref => '<a href="/ebox/Firewall/View/ExternalToEBoxRuleTable">',
-                       closehref => '</a>');
-    }
-
 
     my $description =
       {
        components      => [
-                           '/' . $dhcp->name() . '/OptionsTab/' . $self->{interface},
-                           '/' . $dhcp->name() . '/RangeInfo/' . $self->{interface},
-                           '/' . $dhcp->name() . '/RangeTable/' . $self->{interface},
-                           '/' . $dhcp->name() . '/FixedAddressTable/' . $self->{interface},
+                           '/' . $dhcp->name() . '/Options/' . $self->{interface},
+                           '/' . $dhcp->name() . '/AdvancedOptions/' . $self->{interface},
                           ],
-       layout          => 'top-bottom',
-       name            => 'InterfaceConfiguration',
+       layout          => 'tabbed',
+       name            => 'OptionsTab',
        compositeDomain => 'DHCP',
-       help            => $helpMsg,
       };
 
     return $description;

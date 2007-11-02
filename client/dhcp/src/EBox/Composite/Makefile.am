@@ -3,7 +3,7 @@
 perldir = @PERLPATH@/EBox/DHCP/Composite
 
 nobase_perl_DATA = General.pm InterfaceConfiguration.pm \
-		Interfaces.pm
+		Interfaces.pm OptionsTab.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 
