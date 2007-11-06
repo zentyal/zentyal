@@ -1,0 +1,97 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use constant {
+  JNETTOP_PATH => '/usr/sbin/jnettop',
+  JNETTOP_FORMAT => q{'$proto$,$src$,$srcport$,$dst$,$dstport$,$totalbps$'},
+
+  LOGGER_PATH =>  './ebox-traffic-monitor-logger',
+};
+
+
+sub _checkEnvironment
+{
+  if ( $> != 0) { # $> means EUID
+    die 'only superuser can use this script';
+  }
+  
+  if (not -x JNETTOP_PATH) {
+    die 'cannot found jnettop program at ' . JNETTOP_PATH;
+  }
+  
+  
+  if (not -x LOGGER_PATH) {
+    die 'cannot found logger program at ' . LOGGER_PATH;
+  }
+
+}
+
+
+
+sub _jnettopCmd
+{
+  my (%params) = @_;
+
+  my $iface = $params{iface};
+
+  my $jnettopCmd = JNETTOP_PATH . ' --display text -p';
+
+  if ($iface) {
+  # check iface
+    system "ifconfig $iface 2&>1 > /dev/null";
+    if ($? != 0) {
+      die "cannot get infromation for interface $iface. Please, make sure that is a valid interface";
+    }
+    
+    $jnettopCmd .= " -i $iface";
+  }
+  
+  my $time = $params{time};
+  $time or $time = 1;
+
+  $jnettopCmd .= " -t $time";
+
+  
+  $jnettopCmd .= ' --format ' . JNETTOP_FORMAT;
+
+
+  return $jnettopCmd;
+}
+
+
+
+
+# entry point
+_checkEnvironment();
+
+my %params = @ARGV;
+
+
+
+my $jnettopCmd = _jnettopCmd(%params);
+
+
+my $LOGGER;
+open $LOGGER,  '|' . LOGGER_PATH or
+  die "cannot fork logger child process";
+
+
+while (1) {
+ my @output =  `$jnettopCmd`;
+  system $jnettopCmd;
+  if ($? != 0) {
+    die 'error executing jnettop';
+  }
+
+ print $LOGGER @output or die 'child error';
+
+
+}
+
+
+close $LOGGER  or  die "bad spool: $! $?";
+
+
+1;

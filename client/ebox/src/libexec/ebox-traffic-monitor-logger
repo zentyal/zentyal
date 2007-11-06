@@ -1,0 +1,53 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Report::NetworkUsage;
+
+use constant {
+  RRDTOOL_PATH => '/usr/bin/rrdtool',
+};
+
+
+sub _checkEnvironment
+{
+  if ( $> != 0) { # $> means EUID
+    die 'only superuser can use this script';
+  }
+  
+  if (not -x RRDTOOL_PATH) {
+    die 'cannot found rrdtool program at ' . RRDTOOL_PATH;
+  }
+
+}
+
+
+_checkEnvironment();
+
+EBox::init();
+
+
+while (1) {
+  my $line = <STDIN>;
+  print "RECEIVED $line\n";
+
+  chomp $line;
+  my ($proto ,$src, $sport, $dst, $dport, $totalbps) = split ',', $line;
+  $proto = lc $proto;
+    
+  print "$proto $src:$sport -> $dst:$dport  : $totalbps\n";
+
+  EBox::Report::NetworkUsage::addBps(
+				     proto => $proto,
+				     src => $src,
+				     sport => $sport,
+				     dst => $dst,
+				     dport => $dport,
+				     bps   => $totalbps,
+				    );
+}
+
+
+
+1;

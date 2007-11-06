@@ -3,7 +3,7 @@ SUBDIRS = t
 
 perldir = @PERLPATH@/EBox/Report
 
-packages = DiskUsage.pm  DiskUsageProvider.pm RAID.pm
+packages = DiskUsage.pm  DiskUsageProvider.pm RAID.pm NetworkUsage.pm
 
 nobase_perl_DATA = $(packages)
 
