@@ -53,6 +53,7 @@ AC_DEFINE_DIR(PERLPATH, perlpath)
 
 AC_CONFIG_FILES([
 migration/Makefile
+schemas/Makefile
 src/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile
@@ -66,7 +67,6 @@ src/EBox/TrafficShaping/t/Makefile
 src/EBox/TrafficShaping/QueueDiscipline/Makefile
 src/EBox/TrafficShaping/TreeBuilder/Makefile
 src/templates/Makefile
-schemas/Makefile
 stubs/Makefile
 www/Makefile
 Makefile
