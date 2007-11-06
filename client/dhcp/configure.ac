@@ -56,6 +56,8 @@ AC_DEFINE_DIR(PERLPATH, perlpath)
 AM_PO_SUBDIRS
 
 AC_CONFIG_FILES([
+migration/Makefile
+schemas/Makefile
 src/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile
@@ -67,7 +69,6 @@ src/EBox/Model/Makefile
 src/EBox/Model/t/Makefile
 src/EBox/CGI/Makefile
 src/templates/Makefile
-schemas/Makefile
 stubs/Makefile
 tools/Makefile
 tools/sqllog/Makefile
