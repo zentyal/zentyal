@@ -387,8 +387,8 @@ sub search {
 	if ($filters) {
 		foreach my $field (keys %{$filters}) {
 			unless (exists $tableinfo->{'titles'}->{$field}) {
-			   throw  EBox::Exceptions::External( __x(
-			   "Field {field} does not exist", 'field' => $field));
+			   throw  EBox::Exceptions::Internal(
+			   "Field $field does not appears in tableinfo's titles field");
 			}
 			if ($field eq 'event') {
 				$self->_addFilter($field, $filters->{$field});
