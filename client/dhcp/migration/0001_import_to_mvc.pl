@@ -23,6 +23,10 @@ use Perl6::Junction qw(any);
 
 # Constants:
 use constant DEFAULT_DISABLED => 0;
+# Old keys
+use constant RANGES_OLD_KEY     => 'ranges';
+use constant FIXED_OLD_KEY      => 'fixed';
+# Model names
 use constant OPTIONS_MODEL_NAME => 'Options';
 use constant FIXED_MODEL_NAME   => 'FixedAddressTable';
 use constant RANGES_MODEL_NAME  => 'RangeTable';
@@ -146,8 +150,8 @@ sub _importRanges
 
     my $ifaces = $dhcp->all_dirs_base('');
     foreach my $iface (@{$ifaces}) {
-        next unless ( $dhcp->dir_exists("$iface/ranges") );
-        my $rangesDir = $dhcp->array_from_dir("$iface/ranges");
+        next unless ( $dhcp->dir_exists("$iface/" . RANGES_OLD_KEY) );
+        my $rangesDir = $dhcp->array_from_dir("$iface/" . RANGES_OLD_KEY);
         foreach my $range (@{$rangesDir}) {
             my $rangeId = $range->{_dir};
             my $from = $range->{from};
@@ -159,7 +163,7 @@ sub _importRanges
             $dhcp->set_string( "$newRangeKey/from", $from);
             $dhcp->set_string( "$newRangeKey/to"  , $to);
             # Unset old ones
-            $dhcp->unset("$iface/ranges/$rangeId");
+            $dhcp->delete_dir("$iface/" . RANGES_OLD_KEY . "/$rangeId");
         }
     }
 }
@@ -173,8 +177,8 @@ sub _importFixedAddresses
 
     my $ifaces = $dhcp->all_dirs_base('');
     foreach my $iface (@{$ifaces}) {
-        next unless ( $dhcp->dir_exists("$iface/fixed") );
-        my $fixedDir = $dhcp->array_from_dir("$iface/fixed");
+        next unless ( $dhcp->dir_exists("$iface/" . FIXED_OLD_KEY) );
+        my $fixedDir = $dhcp->array_from_dir("$iface/" . FIXED_OLD_KEY);
         foreach my $fixedMap (@{$fixedDir}) {
             my $fixedId = $fixedMap->{_dir};
             my $name = $fixedMap->{name};
@@ -186,7 +190,7 @@ sub _importFixedAddresses
             $dhcp->set_string( "$newFixedKey/mac" , $mac);
             $dhcp->set_string( "$newFixedKey/ip"  , $ip);
             # Unset old ones
-            $dhcp->unset("$iface/fixed/$fixedId");
+            $dhcp->delete_dir("$iface/" . FIXED_OLD_KEY . "/$fixedId");
         }
     }
 }
