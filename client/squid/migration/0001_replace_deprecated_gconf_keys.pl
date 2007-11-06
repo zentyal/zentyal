@@ -88,10 +88,11 @@ sub _migrateGeneralSettings
 			   transparentProxy => $transproxy,
 			  );
 
-  my @deprecatedKeys = qw(policy transproxy port threshold);
-  foreach (@deprecatedKeys) {
-    $squid->unset($_);
-  }
+  # Disable unsetting old keys while migration script is still buggy
+  # my @deprecatedKeys = qw(policy transproxy port threshold);
+  # foreach (@deprecatedKeys) {
+    # $squid->unset($_);
+  #}
 }
 
 
