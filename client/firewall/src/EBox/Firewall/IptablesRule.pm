@@ -547,7 +547,7 @@ sub _setAddress
             throw EBox::Exceptions::DataNotFound('data' => 'object',
                                                  'value' => $obj);
         }
-        if ( @{$self->{'objects'}->objectsAddresses($obj)} == 0 ) {
+        if ( @{$self->{'objects'}->objectAddresses($obj)} == 0 ) {
             EBox::warn("No members on obj $obj: " .
                        $self->{'objects'}->objectDescription($obj) .
                        ' make no iptables rules being created');
