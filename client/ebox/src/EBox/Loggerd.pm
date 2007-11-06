@@ -117,7 +117,7 @@ sub _mainloop
 						$self->{'dbengine'})
 					}; 
 					if ($@) {
-					  EBox::debug("error while proccessing log file line: $@");
+					  EBox::debug("error while processing log file line: $@");
 					}
 				}
 			}
