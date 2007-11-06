@@ -112,8 +112,13 @@ sub _mainloop
 			if (defined($buffer) and length ($buffer) > 0) {
 				my $obj = $self->{'objects'}->{$path};
 				foreach my $line (split(/\n/, $buffer)) {
-					eval {$obj->processLine($path, $line, 
-						$self->{'dbengine'})}; 
+					eval {
+					  $obj->processLine($path, $line, 
+						$self->{'dbengine'})
+					}; 
+					if ($@) {
+					  EBox::debug("error while proccessing log file line: $@");
+					}
 				}
 			}
 		}
