@@ -102,20 +102,21 @@ sub runGConf
     $self->{servMod} = EBox::Global->modInstance('services');
 
     # Each interface directory
-    my $dirs_ref = $ts->array_from_dir('/ebox/modules/trafficshaping');
-    foreach my $dir_ref (@{$dirs_ref}) {
-        my $iface = $dir_ref->{_dir};
+    my $ifaces = $ts->all_dirs_base('');
+    foreach my $iface (@{$ifaces}) {
         my $keys_ref = $ts->array_from_dir("$iface/user_rules/keys");
         foreach my $rule_ref (@{$keys_ref}) {
+            # This skips those directories already migrated
+            next unless ( exists $rule_ref->{service_protocol} );
             my $key = "$iface/user_rules/keys/" . $rule_ref->{_dir};
             my $protocol = $rule_ref->{service_protocol};
             my $port = $rule_ref->{service_port};
             # Erase old protocol/port keys
-            $ts->unset($key . '/service_protocol');
-            $ts->unset($key . '/service_port');
+            $ts->unset("$key/service_protocol");
+            $ts->unset("$key/service_port");
             $protocol = 'all' unless defined ( $protocol );
             my $servId = $self->_addService($protocol, $port);
-            $ts->set_string( $key . '/service', $servId);
+            $ts->set_string("$key/service", $servId);
             # Set any field as selected when no value is set (ip,
             # object, whatever...)
             unless ( defined (  $rule_ref->{$rule_ref->{source_selected}} )
