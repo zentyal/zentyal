@@ -30,7 +30,7 @@ use constant FIXED_OLD_KEY      => 'fixed';
 use constant OPTIONS_MODEL_NAME => 'Options';
 use constant FIXED_MODEL_NAME   => 'FixedAddressTable';
 use constant RANGES_MODEL_NAME  => 'RangeTable';
-use constant ENABLED_MODEL_NAME => 'EnabledForm';
+use constant ENABLED_MODEL_NAME => 'EnableForm';
 
 # Group: Public methods
 
