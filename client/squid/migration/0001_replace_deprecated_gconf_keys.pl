@@ -167,12 +167,8 @@ sub _migrateAllowAndBanList
   my $allowListKey   = $args{allowListKey};
   my $banListKey     = $args{banListKey};
 
-
-  print "migrating $newModelElementType\n";
-
   my $status = $self->_populatedStatus($newModelDir, $allowListKey, $banListKey);
   if ( $status->{populated} eq 'no' ) {
-    print "NO poulated\n";
     return $self->$populateMethod();
   }
  
@@ -180,20 +176,17 @@ sub _migrateAllowAndBanList
   my $newModel = $squid->model($newModelName);  
 
   if ($status->{populated} eq 'yes') {
-    print "YEs poulated\n";
     $self->_listsToTable($allowListKey, $banListKey, $newModel, $newModelElementType);
     return;
   }
 
   if ($status->{populated} eq 'partial') {
-    print "PARTIAL poulated\n";
     my $missing = $status->{missing};
     my $force = 0;
     if ($missing == 0) {
       $force = 1; # XXX this is bz the dafult changed from 0 to 1!!
     }
 
-    print "MISSING $missing";
 
     # migrate the setted data
     if ($missing == 0) {
