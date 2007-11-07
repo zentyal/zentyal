@@ -3,7 +3,7 @@
 Migrationsdir = @LIBDIR@/ebox-squid/migration
 
 
-nobase_Migrations_SCRIPTS = 0001_replace_deprecated_gconf_keys.pl 0002_update_models.pl
+nobase_Migrations_SCRIPTS = 0001_replace_deprecated_gconf_keys.pl 
 
 
 EXTRA_DIST = $(nobase_Migrations_SCRIPTS)

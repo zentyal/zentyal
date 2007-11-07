@@ -20,81 +20,91 @@ use EBox::Global;
 use EBox::Config;
 use EBox::Sudo;
 
-use Perl6::Junction qw(any);
+use Perl6::Junction qw(any all);
 
 
 sub runGConf
 {
   my ($self) = @_;
 
-  $self->_migrateService();
-  $self->_migrateGeneralSettings();
+  $self->_migrateKeys();
   $self->_migrateDomains();
   $self->_migrateExtensions();
   $self->_migrateMIMETypes();
   $self->_migrateObjects();
-
-  my $squid = $self->{gconfmodule};
-  $squid->setTablesAsPopulated();
 }
 
 
-sub _migrateService
+
+
+sub _migrateKeys
 {
   my ($self) = @_;
 
   my $squid = $self->{gconfmodule};
 
-  my $service = $squid->get_bool('active');
+  my %deprecatedKeys = (
+			# to squid service models
+			active => {
+				   newKey => 'SquidService/enabled',
+				   getter => 'get_bool',
+				   setter => 'set_bool',
+				  },
 
-  my $squidService = $squid->model('SquidService');
-  $squidService->setRow(
-			0, # force 
-			enabled => $service
+			# to general settings model
+			policy => {
+					 newKey => 'GeneralSettings/globalPolicy',
+					 setter => 'set_string',
+					 getter => 'get_string',
+					},
+			transproxy => {
+				       newKey => 'GeneralSettings/transparentProxy',
+				       setter => 'set_bool',
+				       getter => 'get_bool',
+				      },
+			port => {
+					 newKey => 'GeneralSettings/port',
+					 setter => 'set_int',
+					 getter => 'get_int',
+					},
+			
+			# to another model
+			threshold => {
+				      newKey => 
+				      'ContentFilterThreshold/contentFilterThreshold',
+				      setter => 'set_int',
+				      getter => 'get_int',
+				     },
 		       );
 
-  $squid->unset('active');
+
+  $self->_migrateSimpleKeys($squid, \%deprecatedKeys);
 }
 
 
-sub _migrateGeneralSettings
+
+sub _migrateSimpleKeys
 {
-  my ($self) = @_;
+  my ($self, $squid, $deprecatedKeys_r) = @_;
 
-  my $squid = $self->{gconfmodule};
-  
-  my $policy  = $squid->get_string('policy');
-  $policy or $policy = 'deny';
-  my $transproxy = $squid->get_bool('transproxy');
-  $transproxy or $transproxy = 0;
-  my $port       = $squid->get_int('port');
-  $port or $port = 3128;
-  my $threshold  = $squid->get_int('threshold');
-  $threshold or $threshold = 0;
+  my $entries = $squid->all_entries_base('') ;  
+  my $allExistentKeys = all  @{ $entries };
+  while (my ($oldKey, $migrationSpec) = each %{ $deprecatedKeys_r }) {
+    if ( $oldKey ne $allExistentKeys ) {
+      next;
+    }
 
-  if (($policy eq 'filter') and ($threshold == 0)) {
-    # this configuration combination is not longer value so we set the threshold
-    # to 'very permissive' to avoid errors
-    $threshold = 200;
+    my $newKey = $migrationSpec->{newKey};
+    my $getter = $migrationSpec->{getter};
+    my $setter = $migrationSpec->{setter};
+
+
+    my $oldValue  = $squid->$getter($oldKey);
+    $squid->$setter($newKey, $oldValue);
+    
+    $squid->unset($oldKey);
   }
-
-
-  my $generalSettings = $squid->model('GeneralSettings');
-  $generalSettings->setRow(
-			   0, # force
-			   globalPolicy     => $policy,
-			   port             => $port,
-			   contentFilterThreshold => $threshold,
-			   transparentProxy => $transproxy,
-			  );
-
-  # Disable unsetting old keys while migration script is still buggy
-  # my @deprecatedKeys = qw(policy transproxy port threshold);
-  # foreach (@deprecatedKeys) {
-    # $squid->unset($_);
-  #}
 }
-
 
 sub _migrateDomains
 {
@@ -102,6 +112,28 @@ sub _migrateDomains
 
   my $squid = $self->{gconfmodule};
   my $domainFilter = $squid->model('DomainFilter');
+
+  my $allowedSites_r = $squid->get_list('allowed_sites');
+  foreach my $domain (@{ $allowedSites_r }) {
+    $domainFilter->addRow(
+			  domain => $domain,
+			  policy => 'allow',
+			 );
+  }
+  $squid->unset('allowed_sites');
+
+  
+  my $bannedSites_r = $squid->get_list('banned_sites');
+  foreach my $domain (@{ $bannedSites_r }) {
+    $domainFilter->addRow(
+			  domain => $domain,
+			  policy => 'deny',
+			 );
+  }
+  $squid->unset('banned_sites');					 
+					
+
+
   $self->_listsToTable('allowed_sites', 'banned_sites', $domainFilter, 'domain');
 }
 
@@ -213,6 +245,9 @@ sub _populateMIMETypes
 		       );
   }
 }
+
+
+
 
 
 sub _listsToTable
