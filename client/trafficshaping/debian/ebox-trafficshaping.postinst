@@ -20,7 +20,8 @@ case "$1" in
 		# Migrate data if needed
 		/usr/lib/ebox/ebox-migrate /usr/lib/ebox-trafficshaping/migration/
 
-		invoke-rc.d ebox trafficshaping restart
+		invoke-rc.d ebox trafficshaping restart || true
+                invoke-rc.d ebox apache restart || true
 		;;
 
 esac
