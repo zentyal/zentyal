@@ -116,8 +116,11 @@ sub runGConf
             $ts->unset("$key/service_port");
             $protocol = 'all' unless defined ( $protocol );
             my $servId = $self->_addService($protocol, $port);
-            EBox::info('Setting ' . $rule_ref->{service_port} . '/'
-                       . $rule_ref->{service_protocol} . " as service $servId");
+            my $msgInfo  = 'Setting ';
+            $msgInfo .= "$port/" if defined ( $port );
+            $msgInfo .= "$protocol " if defined ( $protocol );
+            $msgInfo .= "as service $servId";
+            EBox::info($msgInfo);
             $ts->set_string("$key/service", $servId);
             # Set any field as selected when no value is set (ip,
             # object, whatever...)
