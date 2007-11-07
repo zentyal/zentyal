@@ -118,7 +118,7 @@ sub _regenConfig
     $self->_createBuilders();
 
     # Called every time a Save Changes is done
-    my $ifaces_ref = $self->all_dirs_base('/ebox/modules/trafficshaping');
+    my $ifaces_ref = $self->all_dirs_base('');
     # Build a tree for each interface
     foreach my $iface (@{$ifaces_ref}) {
       if ( defined ( $self->{builders}->{$iface} ) ) {
@@ -808,7 +808,12 @@ sub setLowestPriority # (interface, priority)
 #
 # Parameters:
 #
-#       interface - String external interface attached to the rule table model
+#       interface - String external interface attached to the rule
+#       table model
+#
+#       check - Boolean indicating if you want to check if a rule
+#       model is created or not, not creating in case no model has
+#       been created *(Optional)* Default value: false
 #
 # Returns:
 #
@@ -821,28 +826,31 @@ sub setLowestPriority # (interface, priority)
 #      <EBox::Exceptions::External> - throw if interface is not external
 #
 
-sub ruleModel # (iface)
-  {
+sub ruleModel # (iface, $check)
+{
 
-    my ($self, $iface) = @_;
+    my ($self, $iface, $check) = @_;
+
+    $check = 0 unless defined ( $check );
 
     throw EBox::Exceptions::MissingArgument( __('Interface') )
       unless defined( $iface );
 
-    if ( not defined ($self->{ruleModels}->{$iface})) {
-      $self->_checkInterface($iface);
-      # Create the rule model if it's not already created
-      $self->{ruleModels}->{$iface} = new EBox::TrafficShaping::Model::RuleTable(
-										 'gconfmodule' => $self,
-										 'directory'   => "$iface/user_rules",
-										 'tablename'   => 'rule',
-										 'interface'   => $iface,
-										);
+    unless ( $check ) {
+        if ( not defined ($self->{ruleModels}->{$iface})) {
+            $self->_checkInterface($iface);
+            # Create the rule model if it's not already created
+            $self->{ruleModels}->{$iface} = new EBox::TrafficShaping::Model::RuleTable(
+                                                                                       'gconfmodule' => $self,
+                                                                                       'directory'   => "$iface/user_rules",
+                                                                                       'tablename'   => 'rule',
+                                                                                       'interface'   => $iface,
+                                                                                      );
+        }
     }
-
     return $self->{ruleModels}->{$iface};
 
-  }
+}
 
 # Method: ShaperChain
 #
@@ -1280,10 +1288,6 @@ sub _checkInterface # (iface)
 
     my ($self, $iface) = @_;
 
-#    use Devel::StackTrace;
-#    my $trace = Devel::StackTrace->new;
-#    EBox::debug($trace->as_string());
-
     my $global = EBox::Global->getInstance();
     my $network = $self->{'network'}; 
 
@@ -1304,6 +1308,9 @@ sub _checkInterface # (iface)
       my @gatewaysIface = grep { $_->{interface} eq $iface } @{$gateways_ref};
 
       if ( scalar (@gatewaysIface) <= 0 ) {
+    use Devel::StackTrace;
+    my $trace = Devel::StackTrace->new;
+    EBox::debug($trace->as_string());
 	throw EBox::Exceptions::External(
 					 __('Traffic shaping can be only done in external interfaces ' .
 					    'which have gateways associated to')
@@ -1362,10 +1369,15 @@ sub _areRulesActive # (iface)
   {
     my ($self, $iface) = @_;
 
-    my $model = $self->ruleModel($iface);
+    # Only check if there is a model
+    my $model = $self->ruleModel($iface,1);
 
-    # TODO: When enable is done, this method may change
-    return ($model->size() > 0);
+    if ( defined ($model) ) {
+   # TODO: When enable is done, this method may change
+        return ($model->size() > 0);
+    } else {
+        return 0;
+    }
 #    my $dir = $self->_ruleDirectory($iface);
 #
 #    my $rules_ref = $self->array_from_dir($dir);
@@ -1380,7 +1392,7 @@ sub _areRulesActive # (iface)
 #      return 1;
 #     }
     # No rules are active
-    return 0;
+#    return 0;
 
   }
 
@@ -2107,8 +2119,8 @@ sub _removeIfNotEnoughRemainderModels
     }
     if ( $nExt == 0 or $nInt == 0 ) {
         my $manager = EBox::Model::ModelManager->instance();
-        foreach my $iface ( keys %{$self->{ruleModels}} ) {
-            my $model = $self->{ruleModels}->{$iface};
+        foreach my $ifaceWithModel ( keys %{$self->{ruleModels}} ) {
+            my $model = $self->{ruleModels}->{$ifaceWithModel};
             if ( defined ( $model )) {
                 $model->removeAll(1);
                 $manager->removeModel($model->contextName());
