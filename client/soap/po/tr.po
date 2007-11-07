@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-soap 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:41+0100\n"
+"POT-Creation-Date: 2007-11-07 12:19+0100\n"
 "PO-Revision-Date: 2007-06-05 12:04+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -15,22 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:151
-msgid "Control center admin at a log file"
-msgstr "Bir log dosyasındaki yönetim merkez yöntecisi"
-
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:191
-msgid "Control center"
-msgstr "Yönetim merkezi"
-
-#: src/EBox/CGI/Enable.pm:38
-msgid "Enable SOAP service"
-msgstr "SOAP servisini etkinleştir"
-
-#: src/EBox/CGI/Index.pm:38
-msgid "Control center communication"
-msgstr "Yönetim merkezi ile iletişim"
 
 #: src/EBox/CGI/DeleteBundle.pm:34
 msgid "Bundle Deleted"
@@ -47,6 +31,14 @@ msgstr ""
 #: src/EBox/CGI/ConnectivityTest.pm:39
 msgid "Connectivity test"
 msgstr "Bağlantı testi"
+
+#: src/EBox/CGI/Enable.pm:38
+msgid "Enable SOAP service"
+msgstr "SOAP servisini etkinleştir"
+
+#: src/EBox/CGI/Index.pm:38
+msgid "Control center communication"
+msgstr "Yönetim merkezi ile iletişim"
 
 #: src/EBox/CGI/UploadBundle.pm:36
 msgid "Bundle Upload"
@@ -69,7 +61,15 @@ msgstr "{method} tanımlı bir yöntem değildir"
 #: src/EBox/SOAP/Global.pm:183
 #, perl-brace-format
 msgid "{module} does not exist"
-msgstr "{method} mevcut değil"
+msgstr "{module} mevcut değil"
+
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:151
+msgid "Control center admin at a log file"
+msgstr "Bir log dosyasındaki yönetim merkez yöntecisi"
+
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:191
+msgid "Control center"
+msgstr "Yönetim merkezi"
 
 #: src/EBox/SOAP.pm:168
 msgid "SOAP"

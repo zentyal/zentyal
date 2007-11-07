@@ -142,7 +142,7 @@ msgstr ""
 #: src/EBox/CA/TestStub.pm:654
 #, perl-brace-format
 msgid "The user {commonName} does NOT exist"
-msgstr "Brugeren [commonName} findes IKKE"
+msgstr "Brugeren {commonName} findes IKKE"
 
 #: src/EBox/CA/TestStub.pm:720
 msgid "Days set to the maximum allowed: Year 2038 Bug"
@@ -155,7 +155,7 @@ msgstr "Udløbsdatoen er senere end CA certifikatets udløb"
 #: src/EBox/CA.pm:255 src/EBox/CA.pm:723 src/EBox/CA.pm:1303
 #, perl-brace-format
 msgid "Days set to the maximum allowed {days}: Year 2038 Bug"
-msgstr "Maximum antal dage er sat: år 2038 problem"
+msgstr "Maximum antal dage er sat {days}: år 2038 problem"
 
 #: src/EBox/CA.pm:347
 msgid "The remove operation cannot be finished. Reason: "

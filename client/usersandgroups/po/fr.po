@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:41+0100\n"
+"POT-Creation-Date: 2007-11-07 12:22+0100\n"
 "PO-Revision-Date: 2007-04-12 11:56+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: <es@li.org>\n"
@@ -18,6 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 0.10.1\n"
+
+#: src/EBox/CGI/Group.pm:30
+msgid "Edit group"
+msgstr "Éditer groupe"
+
+#: src/EBox/CGI/Group.pm:45 src/EBox/CGI/AddUserToGroup.pm:44
+#: src/EBox/CGI/DelUserFromGroup.pm:45
+msgid "group"
+msgstr "groupe"
 
 #: src/EBox/CGI/Del.pm:65
 msgid "object name"
@@ -35,28 +44,14 @@ msgstr "Utilisateur enlevé avec succès"
 msgid "Group removed successfully"
 msgstr "Groupe enlevé avec succès"
 
-#: src/EBox/CGI/DelUserFromGroup.pm:45 src/EBox/CGI/AddUserToGroup.pm:44
-#: src/EBox/CGI/Group.pm:45
-msgid "group"
-msgstr "groupe"
+#: src/EBox/CGI/User.pm:42 src/EBox/CGI/Users.pm:31
+#: src/EBox/UsersAndGroups.pm:1378 src/EBox/UsersAndGroups/Model/Users.pm:74
+msgid "Users"
+msgstr "Utilisateurs"
 
-#: src/EBox/CGI/DelUserFromGroup.pm:50 src/EBox/CGI/AddUserToGroup.pm:49
-#: src/EBox/UsersAndGroups/Model/Users.pm:82
-msgid "user"
-msgstr "utilisateur"
-
-#: src/EBox/CGI/ModifyGroup.pm:40 src/EBox/CGI/AddGroup.pm:45
-#: src/EBox/UsersAndGroups.pm:653 src/EBox/UsersAndGroups.pm:658
-#: src/EBox/UsersAndGroups.pm:763 src/EBox/UsersAndGroups.pm:890
-#: src/EBox/UsersAndGroups.pm:927 src/EBox/UsersAndGroups.pm:1001
-#: src/EBox/UsersAndGroups.pm:1107
-msgid "group name"
-msgstr "nom de groupe"
-
-#: src/EBox/CGI/ModifyGroup.pm:47 src/EBox/CGI/ModifyUser.pm:48
-#: src/EBox/CGI/AddUser.pm:49
-msgid "comment"
-msgstr "commentaire"
+#: src/EBox/CGI/User.pm:46
+msgid "username"
+msgstr "nom d'utilisateur"
 
 #: src/EBox/CGI/ModifyUser.pm:42 src/EBox/CGI/AddUser.pm:45
 #: src/EBox/UsersAndGroups.pm:261 src/EBox/UsersAndGroups.pm:267
@@ -71,6 +66,11 @@ msgstr "nom d'utilisateur"
 msgid "full name"
 msgstr "nom complet"
 
+#: src/EBox/CGI/ModifyUser.pm:48 src/EBox/CGI/AddUser.pm:49
+#: src/EBox/CGI/ModifyGroup.pm:47
+msgid "comment"
+msgstr "commentaire"
+
 #: src/EBox/CGI/ModifyUser.pm:49 src/EBox/CGI/AddUser.pm:47
 msgid "password"
 msgstr "mot de passe"
@@ -83,46 +83,26 @@ msgstr "confirmer le mot de passe"
 msgid "Passwords do not match."
 msgstr "Les mots de passe ne correspondent pas."
 
+#: src/EBox/CGI/AddGroup.pm:45 src/EBox/CGI/ModifyGroup.pm:40
+#: src/EBox/UsersAndGroups.pm:653 src/EBox/UsersAndGroups.pm:658
+#: src/EBox/UsersAndGroups.pm:763 src/EBox/UsersAndGroups.pm:890
+#: src/EBox/UsersAndGroups.pm:927 src/EBox/UsersAndGroups.pm:1001
+#: src/EBox/UsersAndGroups.pm:1107
+msgid "group name"
+msgstr "nom de groupe"
+
 #: src/EBox/CGI/AddUser.pm:48
 msgid "retype password"
 msgstr "reécrire le mot de passe"
 
-#: src/EBox/CGI/Group.pm:30
-msgid "Edit group"
-msgstr "Éditer groupe"
-
-#: src/EBox/CGI/User.pm:42 src/EBox/CGI/Users.pm:31
-#: src/EBox/UsersAndGroups/Model/Users.pm:74 src/EBox/UsersAndGroups.pm:1378
-msgid "Users"
-msgstr "Utilisateurs"
-
-#: src/EBox/CGI/User.pm:46
-msgid "username"
-msgstr "nom d'utilisateur"
+#: src/EBox/CGI/AddUserToGroup.pm:49 src/EBox/CGI/DelUserFromGroup.pm:50
+#: src/EBox/UsersAndGroups/Model/Users.pm:82
+msgid "user"
+msgstr "utilisateur"
 
 #: src/EBox/CGI/Groups.pm:43 src/EBox/UsersAndGroups.pm:1386
 msgid "Groups"
 msgstr "Groupes"
-
-#: src/EBox/UsersAndGroups/Model/Users.pm:56
-#: src/EBox/UsersAndGroups/Model/Users.pm:97
-msgid "Name"
-msgstr ""
-
-#: src/EBox/UsersAndGroups/Model/Users.pm:61
-#: src/EBox/UsersAndGroups/Model/Users.pm:107 src/templates/users.mas:27
-#: src/templates/user.mas:28
-msgid "Full name"
-msgstr "Nom complet"
-
-#: src/EBox/UsersAndGroups/Model/Users.pm:66
-#: src/EBox/UsersAndGroups/Model/Users.pm:117
-msgid "Edit"
-msgstr "Éditer"
-
-#: src/EBox/UsersAndGroups/Model/Users.pm:81
-msgid "foo"
-msgstr ""
 
 #: src/EBox/UsersAndGroups.pm:256
 #, perl-brace-format
@@ -164,56 +144,30 @@ msgstr "Éditer usager"
 msgid "This group contains users"
 msgstr "Ce groupe contient des utilisateurs"
 
+#: src/EBox/UsersAndGroups/Model/Users.pm:56
+#: src/EBox/UsersAndGroups/Model/Users.pm:97
+msgid "Name"
+msgstr ""
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:61
+#: src/EBox/UsersAndGroups/Model/Users.pm:107 src/templates/user.mas:28
+#: src/templates/users.mas:27
+msgid "Full name"
+msgstr "Nom complet"
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:66
+#: src/EBox/UsersAndGroups/Model/Users.pm:117
+msgid "Edit"
+msgstr "Éditer"
+
+#: src/EBox/UsersAndGroups/Model/Users.pm:81
+msgid "foo"
+msgstr ""
+
 #: src/templates/ajax/tableUser.mas:88
 #, fuzzy
 msgid "Add new"
 msgstr "Ajouter d'utilisateur"
-
-#: src/templates/users.mas:11 src/templates/groups.mas:11
-msgid ""
-"Changes in user accounts take effect inmediately, they do not need to be "
-"saved."
-msgstr ""
-"Les changements aux comptes utilisateurs entrent en vigueur immédiatement, "
-"ils n'ont pas besoin d'être sauvegardés."
-
-#: src/templates/users.mas:12 src/templates/groups.mas:12
-msgid ""
-"Changes related to printing, file sharing and Jabber service do need to be "
-"saved in order to be effective."
-msgstr ""
-"Les changements liés à l'impression et au partage de fichiers doivent être "
-"sauvegardés afin d'enter en vigeur."
-
-#: src/templates/users.mas:14
-msgid "Add User"
-msgstr "Ajouter d'utilisateur"
-
-#: src/templates/users.mas:19
-msgid "User name"
-msgstr "Nom d'utilisateur"
-
-#: src/templates/users.mas:35 src/templates/group.mas:21
-#: src/templates/user.mas:18 src/templates/groups.mas:30
-msgid "Comment"
-msgstr "Commentaire"
-
-#: src/templates/users.mas:43 src/templates/user.mas:38
-msgid "Password"
-msgstr "Mot de passe"
-
-#: src/templates/users.mas:50 src/templates/user.mas:48
-msgid "Retype password"
-msgstr "Reécrire le mot de passe"
-
-#: src/templates/users.mas:63 src/templates/users.mas:64
-#: src/templates/groups.mas:42 src/templates/groups.mas:43
-msgid "Create"
-msgstr "Créer"
-
-#: src/templates/users.mas:77
-msgid "Group"
-msgstr "Groupe"
 
 #: src/templates/del.mas:15
 msgid ""
@@ -241,6 +195,56 @@ msgstr "Effacer"
 msgid "Cancel"
 msgstr "Annuler"
 
+#: src/templates/groups.mas:11 src/templates/users.mas:11
+msgid ""
+"Changes in user accounts take effect inmediately, they do not need to be "
+"saved."
+msgstr ""
+"Les changements aux comptes utilisateurs entrent en vigueur immédiatement, "
+"ils n'ont pas besoin d'être sauvegardés."
+
+#: src/templates/groups.mas:12 src/templates/users.mas:12
+msgid ""
+"Changes related to printing, file sharing and Jabber service do need to be "
+"saved in order to be effective."
+msgstr ""
+"Les changements liés à l'impression et au partage de fichiers doivent être "
+"sauvegardés afin d'enter en vigeur."
+
+#: src/templates/groups.mas:14
+msgid "Add Group"
+msgstr "Ajouter un groupe"
+
+#: src/templates/groups.mas:20 src/templates/groups.mas:54
+msgid "Group name"
+msgstr "Nom de groupe"
+
+#: src/templates/groups.mas:30 src/templates/group.mas:21
+#: src/templates/user.mas:18 src/templates/users.mas:35
+msgid "Comment"
+msgstr "Commentaire"
+
+#: src/templates/groups.mas:35
+msgid "Optional value"
+msgstr "Valeur optionelle"
+
+#: src/templates/groups.mas:42 src/templates/groups.mas:43
+#: src/templates/users.mas:63 src/templates/users.mas:64
+msgid "Create"
+msgstr "Créer"
+
+#: src/templates/groups.mas:51
+msgid "Edit Group"
+msgstr "Éditer un groupe"
+
+#: src/templates/groups.mas:55
+msgid "Actions"
+msgstr "Actions"
+
+#: src/templates/groups.mas:76 src/templates/group.mas:58
+msgid "Remove"
+msgstr "Enlever"
+
 #: src/templates/group.mas:15
 msgid ""
 "There are no users the moment. You need at least one  to manage this group "
@@ -266,10 +270,6 @@ msgstr "Utilisateurs PAS dans groupe"
 msgid "Empty list"
 msgstr "Liste vide"
 
-#: src/templates/group.mas:58 src/templates/groups.mas:76
-msgid "Remove"
-msgstr "Enlever"
-
 #: src/templates/group.mas:61
 msgid "Remove users from group"
 msgstr "Supprimer les utilisateurs du groupe"
@@ -291,6 +291,14 @@ msgstr ""
 "Si vous enlevez ce groupe toutes ses données dans son répertoire partagé "
 "seront enlevées"
 
+#: src/templates/user.mas:38 src/templates/users.mas:43
+msgid "Password"
+msgstr "Mot de passe"
+
+#: src/templates/user.mas:48 src/templates/users.mas:50
+msgid "Retype password"
+msgstr "Reécrire le mot de passe"
+
 #: src/templates/user.mas:71 src/templates/user.mas:79
 #: src/templates/user.mas:80
 msgid "Delete user"
@@ -304,25 +312,17 @@ msgstr ""
 "Cette opération causera la suppression de l'utilisateur et de toutes ses "
 "dépendances ; comme des comptes de courrier, données ..."
 
-#: src/templates/groups.mas:14
-msgid "Add Group"
-msgstr "Ajouter un groupe"
+#: src/templates/users.mas:14
+msgid "Add User"
+msgstr "Ajouter d'utilisateur"
 
-#: src/templates/groups.mas:20 src/templates/groups.mas:54
-msgid "Group name"
-msgstr "Nom de groupe"
+#: src/templates/users.mas:19
+msgid "User name"
+msgstr "Nom d'utilisateur"
 
-#: src/templates/groups.mas:35
-msgid "Optional value"
-msgstr "Valeur optionelle"
-
-#: src/templates/groups.mas:51
-msgid "Edit Group"
-msgstr "Éditer un groupe"
-
-#: src/templates/groups.mas:55
-msgid "Actions"
-msgstr "Actions"
+#: src/templates/users.mas:77
+msgid "Group"
+msgstr "Groupe"
 
 #~ msgid "Edit User"
 #~ msgstr "Éditer l'utilisateur"
