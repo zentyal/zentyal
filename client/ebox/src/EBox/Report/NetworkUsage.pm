@@ -5,7 +5,10 @@ use warnings;
 
 use RRDs;
 
-# use Params::Validate qw(validate);
+use EBox::Gettext;
+use EBox::Exceptions::Internal;
+
+use Params::Validate qw(validate);
 
 sub addBps
 {
@@ -149,5 +152,53 @@ sub addBpsToSrcAndServiceRRD
 }
 
 
+# XXX add params validation
+sub graph
+{
+  my %params = @_;
+
+  my @dataset  = @{ $params{dataset} };
+  my $startTime = $params{startTime};
+  my $title    = $params{title};
+
+  my $file     = $params{file};
+
+  my $verticalLabel = __('bytes/second');
+
+  my $step = 1; # time step one second
+
+  my @defs;
+  my @lines;
+  my $i = 0;
+  foreach my $ds (@dataset) {
+    my $rrd    = $ds->{rrd};
+    my $colour = $ds->{colour};
+    my $legend = $ds->{legend};
+
+    my $vname = "v$i";
+
+    push @defs, "DEF:$vname=$rrd:bps:AVERAGE";
+    push @lines, "LINE2:$vname#$colour:$legend";
+
+    $i++;
+  }
+
+
+
+  RRDs::graph(
+	      $file,  
+	      "-s $startTime",
+	      "-S $step",
+	      "-t $title",
+	      "-v $verticalLabel",
+	      @defs,
+	      @lines,
+	     );
+
+  my $error = RRDs::error;
+  if ($error) {
+    throw EBox::Exceptions::Internal("rrdgraph error: $error");
+  }
+}
 
 1;
