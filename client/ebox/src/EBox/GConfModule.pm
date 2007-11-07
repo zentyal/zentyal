@@ -426,7 +426,7 @@ sub _all_entries # (key)
 #
 # Returns:
 #
-#       A ref to an array of strings - Each string contains an entry
+#       array of strings - Each string contains an entry
 #
 #
 sub all_entries # (key) 
