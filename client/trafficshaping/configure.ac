@@ -57,7 +57,6 @@ schemas/Makefile
 src/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile
-src/EBox/CGI/Makefile
 src/EBox/TrafficShaping/Makefile
 src/EBox/TrafficShaping/Composite/Makefile
 src/EBox/TrafficShaping/Filter/Makefile
@@ -66,7 +65,6 @@ src/EBox/TrafficShaping/QDisc/Makefile
 src/EBox/TrafficShaping/t/Makefile
 src/EBox/TrafficShaping/QueueDiscipline/Makefile
 src/EBox/TrafficShaping/TreeBuilder/Makefile
-src/templates/Makefile
 stubs/Makefile
 www/Makefile
 Makefile

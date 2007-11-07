@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = CGI TrafficShaping t
+SUBDIRS = TrafficShaping t
 
 perldir = @PERLPATH@/EBox
 
