@@ -209,7 +209,7 @@ sub objectMembers # (object)
 #
 #	array ref - containing an ip for each element
 #
-sub objectAddresses# (object) 
+sub objectAddresses # (object)
 {
 	my ($self, $id) = @_;
 	

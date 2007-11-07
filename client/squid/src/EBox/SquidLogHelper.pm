@@ -49,12 +49,12 @@ sub domain {
 #
 sub logFiles
 {
-	return [SQUIDLOGFILE, DANSGUARDIANLOGFILE];	
+	return [SQUIDLOGFILE, DANSGUARDIANLOGFILE];
 }
 
-# Method: processLine 
+# Method: processLine
 #
-#	This fucntion will be run every time a new line is recieved in
+#	This method will be run every time a new line is received in
 #	the associated file. You must parse the line, and generate
 #	the messages which will be logged to ebox through an object
 #	implementing EBox::AbstractLogger interface.
@@ -64,7 +64,7 @@ sub logFiles
 #	file - file name
 # 	line - string containing the log line
 #	dbengine- An instance of class implemeting AbstractDBEngineinterface
-# 	
+#
 sub processLine # (file, line, logger) 
 {
 	my ($self, $file, $line, $dbengine) = @_;

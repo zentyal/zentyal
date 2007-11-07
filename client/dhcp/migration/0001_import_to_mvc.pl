@@ -97,6 +97,7 @@ sub _importOptions
 
     my $ifaces = $dhcp->all_dirs_base('');
     foreach my $iface (@{$ifaces}) {
+        # This skips those directories already migrated
         next unless ( grep { $_ eq 'gateway' } @{$dhcp->all_entries_base("$iface")});
         my $defaultGw = $dhcp->get_string("$iface/gateway");
         my $searchDomain = $dhcp->get_string("$iface/search");
@@ -150,6 +151,7 @@ sub _importRanges
 
     my $ifaces = $dhcp->all_dirs_base('');
     foreach my $iface (@{$ifaces}) {
+        # This skips those directories already migrated
         next unless ( $dhcp->dir_exists("$iface/" . RANGES_OLD_KEY) );
         my $rangesDir = $dhcp->array_from_dir("$iface/" . RANGES_OLD_KEY);
         foreach my $range (@{$rangesDir}) {
@@ -177,6 +179,7 @@ sub _importFixedAddresses
 
     my $ifaces = $dhcp->all_dirs_base('');
     foreach my $iface (@{$ifaces}) {
+        # This skips those directories already migrated
         next unless ( $dhcp->dir_exists("$iface/" . FIXED_OLD_KEY) );
         my $fixedDir = $dhcp->array_from_dir("$iface/" . FIXED_OLD_KEY);
         foreach my $fixedMap (@{$fixedDir}) {
