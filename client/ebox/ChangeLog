@@ -5,6 +5,8 @@
 	+ Create a link from /var/lib/ebox/log to /var/log/ebox
 	+ Fix bug with backup descriptions containing spaces
 	+ Add removeAll method on data models
+	+ Add HostIP, DomainName and Port types
+	+ Add readonly forms to display static information
 	+ Add Danish translation thanks to Allan Jacobsen
 0.10
 	+ New release

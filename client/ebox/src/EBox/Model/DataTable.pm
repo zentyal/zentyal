@@ -45,7 +45,7 @@ use warnings;
 # 	Fix issue with menu and generic controllers
 #
 #	Fix issue with values and printableValues fetched
-#	from foreing tables
+#	from foreign tables
 
 
 #
