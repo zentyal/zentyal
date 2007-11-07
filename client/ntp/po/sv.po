@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ntp 0.9.100\n"
+"Project-Id-Version: ebox-ntp 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:13+0200\n"
+"POT-Creation-Date: 2007-11-07 11:40+0100\n"
 "PO-Revision-Date: 2007-06-06 09:39+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -48,17 +48,17 @@ msgstr "kontinent"
 msgid "first ntp server"
 msgstr "första ntp-server"
 
-#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:199
-#: src/templates/servers.mas:18
+#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:193
+#: src/templates/servers.mas:16
 msgid "Primary server"
 msgstr "Primär server"
 
-#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:213
-#: src/templates/servers.mas:30
+#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:207
+#: src/templates/servers.mas:27
 msgid "Secondary server"
 msgstr "Sekundär server"
 
-#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:42
+#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
 msgid "Tertiary server"
 msgstr "Tertiär server"
 
@@ -86,80 +86,76 @@ msgstr "Minuter"
 msgid "Seconds"
 msgstr "Sekunder"
 
-#: src/EBox/NTP.pm:201
+#: src/EBox/NTP.pm:195
 msgid "primary server"
 msgstr "primär server"
 
-#: src/EBox/NTP.pm:206 src/EBox/NTP.pm:225
+#: src/EBox/NTP.pm:200 src/EBox/NTP.pm:219
 msgid "Primary and secondary server must be different"
 msgstr "Primär och sekundär server måste vara olika"
 
-#: src/EBox/NTP.pm:209
+#: src/EBox/NTP.pm:203
 msgid "secondary server"
 msgstr "sekundär server"
 
-#: src/EBox/NTP.pm:222
+#: src/EBox/NTP.pm:216
 msgid "Primary and tertiary server must be different"
 msgstr "Primär och tertiär server måste vara olika"
 
-#: src/EBox/NTP.pm:228
+#: src/EBox/NTP.pm:222
 msgid "tertiary server"
 msgstr "tertiär server"
 
-#: src/EBox/NTP.pm:244
+#: src/EBox/NTP.pm:238
 #, perl-brace-format
 msgid "{name} IP address"
 msgstr "IP-adress för {name}"
 
-#: src/EBox/NTP.pm:247
+#: src/EBox/NTP.pm:241
 #, perl-brace-format
 msgid "{name} host name"
 msgstr "Värdnamn för {name}"
 
-#: src/EBox/NTP.pm:389
+#: src/EBox/NTP.pm:383
 msgid "NTP local server"
 msgstr "NTP lokal server"
 
-#: src/EBox/NTP.pm:402
+#: src/EBox/NTP.pm:428
 msgid "System"
 msgstr "System"
 
-#: src/EBox/NTP.pm:405
+#: src/EBox/NTP.pm:431
 msgid "Date/time"
 msgstr "Datum/tid"
 
-#: src/EBox/NTP.pm:408 src/templates/timezone.mas:15
+#: src/EBox/NTP.pm:434 src/templates/timezone.mas:15
 msgid "Time zone"
 msgstr "Tidszon"
 
-#: src/EBox/NTP.pm:412
+#: src/EBox/NTP.pm:438
 msgid "NTP server"
 msgstr "NTP-server"
 
-#: src/templates/synch.mas:11 src/templates/synch.mas:16
+#: src/templates/synch.mas:11 src/templates/synch.mas:14
 msgid "Disabled"
 msgstr "Inaktiverad"
 
-#: src/templates/synch.mas:13 src/templates/synch.mas:18
+#: src/templates/synch.mas:12 src/templates/synch.mas:15
 msgid "Enabled"
 msgstr "Aktiverad"
 
-#: src/templates/synch.mas:23 src/templates/synch.mas:25
-#: src/templates/servers.mas:55 src/templates/timezone.mas:37
-#: src/templates/timezone.mas:39 src/templates/date.mas:111
-#: src/templates/date.mas:113
+#: src/templates/synch.mas:19 src/templates/synch.mas:20
+#: src/templates/servers.mas:50 src/templates/timezone.mas:35
+#: src/templates/timezone.mas:36 src/templates/date.mas:96
+#: src/templates/date.mas:97
 msgid "Change"
 msgstr "Ändra"
-
-#: src/templates/index.mas:11
-msgid "NTP server status"
-msgstr "Status för NTP-server"
 
 #: src/templates/servers.mas:7
 msgid "NTP servers"
 msgstr "NTP-servrar"
 
-#: src/templates/servers.mas:11
+#: src/templates/servers.mas:10
 msgid ""
 "You should remember to set up your timezone to have synchronization behaving "
 "correctly."
@@ -167,22 +163,10 @@ msgstr ""
 "Du bör komma ihåg att konfigurera din tidszon för att synkroniseringen ska "
 "fungera korrekt."
 
-#: src/templates/timezone.mas:19
+#: src/templates/timezone.mas:18
 msgid "A time zone change will cause all eBox services to be restarted"
 msgstr ""
 "En ändring av tidszon innebär att alla eBox-tjänster kommer att startas om"
-
-#: src/templates/datetime.mas:13
-msgid "Time synchronization with NTP servers"
-msgstr "Tidssynkronisering med NTP-servrar"
-
-#: src/templates/datetime.mas:18
-msgid "External NTP servers"
-msgstr "Externa NTP-servrar"
-
-#: src/templates/datetime.mas:23
-msgid "Change Date and Time"
-msgstr "Ändra datum och tid"
 
 #: src/templates/date.mas:10
 msgid ""
@@ -191,58 +175,70 @@ msgstr ""
 "En ändring av datum eller tid innebär att alla eBox-tjänster kommer att "
 "startas om"
 
-#: src/templates/date.mas:16
+#: src/templates/date.mas:15
 msgid "Date"
 msgstr "Datum"
 
-#: src/templates/date.mas:32
+#: src/templates/date.mas:30
 msgid "January"
 msgstr "Januari"
 
-#: src/templates/date.mas:33
+#: src/templates/date.mas:30
 msgid "February"
 msgstr "Februari"
 
-#: src/templates/date.mas:34
+#: src/templates/date.mas:30
 msgid "March"
 msgstr "Mars"
 
-#: src/templates/date.mas:35
+#: src/templates/date.mas:30
 msgid "April"
 msgstr "April"
 
-#: src/templates/date.mas:36
+#: src/templates/date.mas:30
 msgid "May"
 msgstr "Maj"
 
-#: src/templates/date.mas:37
+#: src/templates/date.mas:30
 msgid "June"
 msgstr "Juni"
 
-#: src/templates/date.mas:38
+#: src/templates/date.mas:30
 msgid "July"
 msgstr "Juli"
 
-#: src/templates/date.mas:39
+#: src/templates/date.mas:30
 msgid "August"
 msgstr "Augusti"
 
-#: src/templates/date.mas:40
+#: src/templates/date.mas:30
 msgid "September"
 msgstr "September"
 
-#: src/templates/date.mas:41
+#: src/templates/date.mas:30
 msgid "October"
 msgstr "Oktober"
 
-#: src/templates/date.mas:42
+#: src/templates/date.mas:30
 msgid "November"
 msgstr "November"
 
-#: src/templates/date.mas:43
+#: src/templates/date.mas:30
 msgid "December"
 msgstr "December"
 
-#: src/templates/date.mas:69
+#: src/templates/date.mas:55
 msgid "Time"
 msgstr "Tid"
+
+#~ msgid "NTP server status"
+#~ msgstr "Status för NTP-server"
+
+#~ msgid "Time synchronization with NTP servers"
+#~ msgstr "Tidssynkronisering med NTP-servrar"
+
+#~ msgid "External NTP servers"
+#~ msgstr "Externa NTP-servrar"
+
+#~ msgid "Change Date and Time"
+#~ msgstr "Ändra datum och tid"

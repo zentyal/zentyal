@@ -4,9 +4,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mailfilter 0.9.100\n"
+"Project-Id-Version: ebox-mailfilter 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:12+0200\n"
+"POT-Creation-Date: 2007-11-07 11:39+0100\n"
 "PO-Revision-Date: 2005-08-09 10:37+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -29,8 +29,8 @@ msgstr "Filtrage d'email"
 #: src/EBox/CGI/RemoveAllowedMTA.pm:58
 #, perl-brace-format
 msgid ""
-"External mail server {mta} removed. Remember to remove his mail domains from "
-"the external mail domains list"
+"External mail server {mta} removed. Remember to remove its mail domains from "
+"the external mail domain's list"
 msgstr ""
 "Serveur de mail externe {mta} supprimé. Rappelez-vous d'enlever son nom de "
 "domaine de la liste des noms de domaine externe"
@@ -61,7 +61,7 @@ msgstr "Configuration des accès refusés modifiée"
 
 #: src/EBox/CGI/ModifyFileFilterACL.pm:90
 #: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:73
-msgid "No changes where specified by the user"
+msgid "No changes were specified by the user"
 msgstr "Aucun changement n'a été spécifié par l'utilisateur"
 
 #: src/EBox/CGI/RemoveFileFilterElement.pm:66
@@ -90,9 +90,10 @@ msgstr "Status du module"
 
 #: src/EBox/CGI/RemoveExternalDomain.pm:58
 #, perl-brace-format
-msgid "Mail domain{domain} removed from external domains list."
+msgid "Mail domain {domain} removed from external domain's list."
 msgstr ""
-"Nom de domaine {domain} supprimé de la liste des noms de domaines externes"
+"Nom de domaine de courrier {domain} supprimé de la liste des noms de "
+"domaines externes"
 
 #: src/EBox/CGI/RemoveAllFileFilterElements.pm:67
 msgid "All entries were removed"
@@ -101,10 +102,10 @@ msgstr "Toutes les entrées ont été supprimées"
 #: src/EBox/CGI/AddAllowedMTA.pm:63
 #, perl-brace-format
 msgid ""
-"External mail server {mta} allowed. Remember to add his mail domains to the "
-"external mail domains list"
+"External mail server {mta} allowed. Remember to add its mail domains to the "
+"external mail domain's list"
 msgstr ""
-"Serveur de mail externe {mta} autorisé. Rappelez-vous de l'ajouter à la "
+"Serveur de courrier externe {mta} autorisé. Rappelez-vous de l'ajouter à la "
 "liste des domaines externes"
 
 #: src/EBox/MailFilter/FileFilter.pm:70
@@ -122,7 +123,6 @@ msgid "MIME type"
 msgstr "Types MIME"
 
 #: src/EBox/MailFilter/FileFilter.pm:187
-#: src/templates/fileFilterExtension.mas:15
 msgid "file extension"
 msgstr "extension de fichier"
 
@@ -161,23 +161,24 @@ msgid "It must be a number(decimal point allowed)"
 msgstr "Doit être un nombre (séparateur . de décimale toléré)"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:438
-msgid "The spam's threshold cannot be higher than his autolearn threshold"
+msgid "The spam's threshold cannot be higher than its autolearn threshold"
 msgstr ""
-"Le seuil des spams ne peut être supérieur que son seuil d'auto-apprentissage"
+"Le seuil des pourriels ne peut être supérieur que son seuil d'auto-"
+"apprentissage"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:443
 msgid ""
-"The spam's threshold cannot be lower or equalthan his ham's autolearn "
+"The spam's threshold cannot be lower or equal than its ham's autolearn "
 "threshold"
 msgstr ""
-"Le seuil de spams ne peut pas être inférieur ou égale à son seuil d'auto-"
+"Le seuil de pourriels ne peut pas être inférieur ou égale à son seuil d'auto-"
 "apprentissage de mails valides (ham)"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:520
 msgid ""
 "Cannot learn because bayesian filter is disabled in the current "
-"configuration. In order to be able to learn  enable ithe bayesian filter and "
-"save the changes"
+"configuration. In order to be able to learn enable the bayesian filter and "
+"save changes"
 msgstr ""
 "Apprentissage impossible car le filtre bayésien est désactivé dans la "
 "configuration actuelle. "
@@ -197,12 +198,12 @@ msgstr "adresse mail"
 
 #: src/EBox/MailFilter/SpamAssassin.pm:572
 msgid ""
-"The sender can only be a email address or a domain name prefixed with '@'"
+"The sender can be either an email address or a domain name prefixed with '@'"
 msgstr ""
 "L'expéditeur peut uniquement être une adresse mail ou un nom de domaine "
 "commençant par '@'"
 
-#: src/EBox/MailFilter/VDomainsLdap.pm:396 src/EBox/MailFilter.pm:733
+#: src/EBox/MailFilter/VDomainsLdap.pm:396 src/EBox/MailFilter.pm:734
 msgid "Mail filter settings"
 msgstr "Configuration du filtrage mail"
 
@@ -230,8 +231,10 @@ msgstr "Adresse du MTA"
 
 #: src/EBox/MailFilter.pm:446
 #, perl-brace-format
-msgid "Invalid externa; MTA {mta}. Local net addresses are not allowed"
-msgstr "MTA {mta} externe invalide. Les adresses locales ne sont pas permises"
+msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
+msgstr ""
+"MTA externe invalide {mta}. Les adresses du réseau locale ne sont pas "
+"permises"
 
 #: src/EBox/MailFilter.pm:474
 #, perl-brace-format
@@ -243,7 +246,7 @@ msgstr "{mta} est déjà autorisé"
 msgid "{mta} not found"
 msgstr "{mta} introuvable"
 
-#: src/EBox/MailFilter.pm:518 src/EBox/MailFilter.pm:538
+#: src/EBox/MailFilter.pm:518
 msgid "Mail domain"
 msgstr "Domaine mail"
 
@@ -252,39 +255,37 @@ msgstr "Domaine mail"
 msgid "{domain} is already acknowledged as external mail domain"
 msgstr "{domain} est déjà autorisé en tant que domaine de mails externe"
 
-#: src/EBox/MailFilter.pm:545
+#: src/EBox/MailFilter.pm:543
 #, perl-brace-format
 msgid "Domain {domain} was not acknowledged as external mail domain"
 msgstr ""
 "Le domaine {domain} n'est pas autorisé en tant que domaine de mails externe"
 
-#: src/EBox/MailFilter.pm:568
+#: src/EBox/MailFilter.pm:566
 msgid "Administrator address"
 msgstr "Adresse de l'administrateur"
 
-#: src/EBox/MailFilter.pm:630
+#: src/EBox/MailFilter.pm:628
 msgid "policy type"
 msgstr "Type de politique"
 
-#: src/EBox/MailFilter.pm:649
+#: src/EBox/MailFilter.pm:647
 msgid "filter type"
 msgstr "Type de filtre"
 
-#: src/EBox/MailFilter.pm:718
+#: src/EBox/MailFilter.pm:719
 msgid "Mail filter system"
 msgstr "Système de filtrage mail"
 
-#: src/EBox/MailFilter.pm:795
+#: src/EBox/MailFilter.pm:796
 msgid "eBox internal mail filter"
 msgstr "Filtre mail interne à eBox"
 
-#: src/EBox/MailFilter.pm:814 src/templates/antivirus.mas:20
-#: src/templates/menutabs.mas:13
+#: src/EBox/MailFilter.pm:815 src/templates/menutabs.mas:12
 msgid "Antivirus"
 msgstr "Antivirus"
 
-#: src/EBox/MailFilter.pm:824 src/templates/antispam.mas:130
-#: src/templates/menutabs.mas:15
+#: src/EBox/MailFilter.pm:825 src/templates/menutabs.mas:13
 msgid "Antispam"
 msgstr "Antispam"
 
@@ -292,40 +293,33 @@ msgstr "Antispam"
 msgid "Bad headers policy"
 msgstr "Mauvaise politique d'en-têtes"
 
-#: src/templates/badHeaders.mas:10 src/templates/antivirus.mas:28
-#: src/templates/fileFilter.mas:35 src/templates/antispam.mas:138
-msgid "Policy"
-msgstr "Politique"
-
-#: src/templates/fileFilterExtension.mas:13
-msgid "Configure denied file extensions"
-msgstr "Configurer les extensions de fichiers interdites"
-
-#: src/templates/fileFilterExtension.mas:17
-msgid "extensions"
-msgstr "extensions"
-
-#: src/templates/antivirus.mas:25
+#: src/templates/antivirus.mas:23
 msgid "Virus policy"
 msgstr "Politique antivirus"
 
-#: src/templates/antivirus.mas:35
+#: src/templates/antivirus.mas:31
 msgid "Virus database update status"
 msgstr "Status des mises-à-jours des définitions de virus"
 
-#: src/templates/antivirus.mas:71
+#: src/templates/antivirus.mas:66
 #, perl-brace-format
 msgid "The last update failed at {date}"
 msgstr "Dernière tentative de mise-à-jour le {date}"
 
-#: src/templates/antivirus.mas:84
+#: src/templates/antivirus.mas:78
 #, perl-brace-format
-msgid "Update failed at {date}.\n"
-msgstr "Mise-à-jour échouée le {date}.\n"
+msgid ""
+"Update failed at {date}.\n"
+"Your version of freshclam  is outdated.Please, install version {version} or "
+"higher"
+msgstr ""
+"Mise-à-jour échouée le {date}. \n"
+" Votre version de freshclam est dépassée. Veuillez installer la version "
+"{version} ou supérieure"
 
-#: src/templates/antivirus.mas:102
+#: src/templates/antivirus.mas:95
 #, perl-brace-format
-msgid "The last update was successful at {date}"
+msgid "The last successful update was at {date}"
 msgstr "Dernière mise-à-jour réussie le {date}"
 
 #: src/templates/fileFilter.mas:13
@@ -333,152 +327,140 @@ msgstr "Dernière mise-à-jour réussie le {date}"
 msgid "{plural} which are not listed below are allowed"
 msgstr "{plural} qui ne sont pas listés ci-dessous sont autorisés"
 
-#: src/templates/fileFilter.mas:32
+#: src/templates/fileFilter.mas:31
 msgid "Banned files policy"
 msgstr "Politique des fichiers bannis"
 
-#: src/templates/fileFilter.mas:59 src/templates/fileFilter.mas:205
+#: src/templates/fileFilter.mas:56 src/templates/fileFilter.mas:194
 msgid "Deny"
 msgstr "Interdire"
 
-#: src/templates/fileFilter.mas:63 src/templates/antispamACL.mas:34
-#: src/templates/general.mas:109 src/templates/general.mas:152
+#: src/templates/fileFilter.mas:59 src/templates/antispamACL.mas:29
+#: src/templates/general.mas:102 src/templates/general.mas:137
 msgid "Actions"
 msgstr "Actions"
 
-#: src/templates/fileFilter.mas:88 src/templates/fileFilter.mas:89
-#: src/templates/antispam.mas:89 src/templates/general.mas:30
-#: src/templates/general.mas:71 src/templates/vdomain.mas:96
-#: src/templates/policy.mas:32
-msgid "Change"
-msgstr "Modifier"
-
-#: src/templates/fileFilter.mas:164 src/templates/fileFilter.mas:166
-#: src/templates/antispamACL.mas:37 src/templates/general.mas:112
-#: src/templates/general.mas:155
+#: src/templates/fileFilter.mas:157 src/templates/fileFilter.mas:158
+#: src/templates/antispamACL.mas:31 src/templates/general.mas:104
+#: src/templates/general.mas:139
 msgid "Delete"
 msgstr "Effacer"
 
-#: src/templates/fileFilter.mas:190
+#: src/templates/fileFilter.mas:181
 #, perl-brace-format
 msgid "Add {element}"
 msgstr "Ajouter {element}"
 
-#: src/templates/fileFilter.mas:198
+#: src/templates/fileFilter.mas:188
 msgid "Name"
 msgstr "Nom"
 
-#: src/templates/fileFilter.mas:212 src/templates/antispamACL.mas:74
-#: src/templates/general.mas:141 src/templates/general.mas:184
-msgid "Add"
-msgstr "Ajouter"
-
-#: src/templates/fileFilter.mas:228
+#: src/templates/fileFilter.mas:215
 #, perl-brace-format
 msgid "All registered {plural}"
 msgstr "{plural} tous enregistrés"
 
-#: src/templates/fileFilter.mas:260 src/templates/fileFilter.mas:262
+#: src/templates/fileFilter.mas:246 src/templates/fileFilter.mas:247
 msgid "Delete them all"
 msgstr "Tous les supprimer"
 
-#: src/templates/fileFilter.mas:265
-#, perl-brace-format
-msgid "Are you sure you want to delete all {plural}?"
-msgstr "Etes-vous sûr de vouloir tous les effacer {plural} ?"
-
-#: src/templates/antispam.mas:31
+#: src/templates/antispam.mas:30
 msgid "The score threshold to mark a message as spam"
 msgstr "Seuil de score à atteindre pour marquer le message en tant que spam"
 
-#: src/templates/antispam.mas:38
+#: src/templates/antispam.mas:36
 msgid "Spam subject tag"
 msgstr "Etiquette du sujet de spam"
 
-#: src/templates/antispam.mas:40
-msgid "Tag which will be added to the subject of spam mail"
-msgstr "Etiquette qui sera ajoutée au sujet du spam"
+#: src/templates/antispam.mas:37
+msgid "Tag which will be added to the spam mail subject"
+msgstr "Etiquette qui sera ajoutée au sujet du pourriel"
 
-#: src/templates/antispam.mas:47
-msgid "Use bayesian classefier"
+#: src/templates/antispam.mas:43
+msgid "Use bayesian classifier"
 msgstr "Utiliser la classification bayésienne"
 
-#: src/templates/antispam.mas:54
+#: src/templates/antispam.mas:49
 msgid "Auto-whitelist"
 msgstr "Liste Blanche automatique"
 
-#: src/templates/antispam.mas:56
-msgid "Change the score of mail according the history of the sender"
+#: src/templates/antispam.mas:50
+msgid "Change the score of mail according to the sender history"
 msgstr ""
 "Modifier le score des mails en accord avec l'historique de l'expéditeur"
 
-#: src/templates/antispam.mas:63
+#: src/templates/antispam.mas:56
 msgid "Auto-learn"
 msgstr "Auto-apprentissage"
 
-#: src/templates/antispam.mas:65
+#: src/templates/antispam.mas:57
 msgid "Feedback the learning system with messages that reach the threshold"
 msgstr ""
 "Retour d'information du système d'apprentissage avec les messages qui "
 "atteignent le seuil"
 
-#: src/templates/antispam.mas:72
+#: src/templates/antispam.mas:63
 msgid "Autolearn spam threshold"
 msgstr "Seuil d'auto-apprentissage spam"
 
-#: src/templates/antispam.mas:74
+#: src/templates/antispam.mas:64
 msgid ""
-"Spam messages which a score equal or greater than this threshold will be  "
-"introduced  in the learning system "
+"Spam messages which a score equal or greater than this threshold will be "
+"added to the learning system "
 msgstr ""
-"Les spams qui ont un score égal ou supérieur au seuil seront introduits dans "
-"le système d'apprentissage"
+"Les pourriels qui ont un score égal ou supérieur au seuil seront introduits "
+"dans le système d'apprentissage"
 
-#: src/templates/antispam.mas:81
+#: src/templates/antispam.mas:70
 msgid "Autolearn ham threshold"
 msgstr "Seuil d'auto-apprentissage des mails valides (ham)"
 
-#: src/templates/antispam.mas:83
+#: src/templates/antispam.mas:71
 msgid ""
-"Ham messages which a score below this treshold will be introduced in the "
+"Ham messages which a score below this threshold will be added to the "
 "learning system"
 msgstr ""
 "Les mails valides (ham) qui ont un score inférieur à ce seuil seront "
 "introduits dans le système d'apprentissage"
 
-#: src/templates/antispam.mas:97
+#: src/templates/antispam.mas:76 src/templates/general.mas:67
+#: src/templates/vdomain.mas:95
+msgid "Change"
+msgstr "Modifier"
+
+#: src/templates/antispam.mas:83
 msgid "Mailbox contains"
 msgstr "La boîte mail contient"
 
-#: src/templates/antispam.mas:101
+#: src/templates/antispam.mas:86
 msgid "spam"
 msgstr "spam"
 
-#: src/templates/antispam.mas:103
+#: src/templates/antispam.mas:87
 msgid "ham"
 msgstr "ham"
 
-#: src/templates/antispam.mas:111
+#: src/templates/antispam.mas:94
 msgid "Mailbox"
 msgstr "Boîte mail"
 
-#: src/templates/antispam.mas:120
+#: src/templates/antispam.mas:102
 msgid "Train"
 msgstr "Entraîner"
 
-#: src/templates/antispam.mas:135
+#: src/templates/antispam.mas:115
 msgid "Spam policy"
 msgstr "Politique antispam"
 
-#: src/templates/antispam.mas:145
+#: src/templates/antispam.mas:123
 msgid "Antispam options"
 msgstr "Options antispam"
 
-#: src/templates/antispam.mas:151
+#: src/templates/antispam.mas:128
 msgid "Antispam global sender access lists"
 msgstr "Listes globales d'accès d'expéditeur d'Antispam"
 
-#: src/templates/antispam.mas:159
+#: src/templates/antispam.mas:135
 msgid "Spam filter training"
 msgstr "Entraînement du filtre spam"
 
@@ -486,101 +468,108 @@ msgstr "Entraînement du filtre spam"
 msgid "Whitelist"
 msgstr "Liste blanche"
 
-#: src/templates/antispamACL.mas:11
-msgid "whitelist"
-msgstr "liste blanche"
-
-#: src/templates/antispamACL.mas:15
+#: src/templates/antispamACL.mas:13
 msgid "Blacklist"
 msgstr "Liste noire"
 
-#: src/templates/antispamACL.mas:20
-msgid "blacklist"
-msgstr "liste noire"
-
-#: src/templates/antispamACL.mas:33 src/templates/antispamACL.mas:67
+#: src/templates/antispamACL.mas:29 src/templates/antispamACL.mas:58
 msgid "Sender"
 msgstr "Expéditeur"
 
-#: src/templates/antispamACL.mas:59
-#, perl-brace-format
-msgid "There isn't any sender in {type} "
-msgstr "Il n'y a aucun expéditeur dans {type}"
-
-#: src/templates/antispamACL.mas:64
+#: src/templates/antispamACL.mas:56
 #, perl-brace-format
 msgid "Add sender to {type}"
 msgstr "Ajouter l'expéditeur à {type}"
 
-#: src/templates/general.mas:11
-msgid "Enable Mail filter system"
-msgstr "Activer le système de filtrage mail"
-
-#: src/templates/general.mas:27
+#: src/templates/general.mas:26
 msgid "Service port"
 msgstr "Port du service"
 
-#: src/templates/general.mas:43
+#: src/templates/general.mas:40
 msgid "Notify of non-spam problematic messages"
 msgstr "Avertir en cas de messages problématiques non-spam"
 
-#: src/templates/general.mas:77
+#: src/templates/general.mas:49
+msgid "Notification address"
+msgstr "Adresse de notification"
+
+#: src/templates/general.mas:72
 msgid "Notification"
 msgstr "Avertissement"
 
-#: src/templates/general.mas:108
+#: src/templates/general.mas:102
 msgid "External Mail server"
 msgstr "Serveur mail externe"
 
-#: src/templates/general.mas:126
+#: src/templates/general.mas:117
 msgid "Allowed external mail servers"
 msgstr "Serveurs mail externes autorisés"
 
-#: src/templates/general.mas:131
-msgid "No allowed external mail servers"
-msgstr "Serveurs mail externes interdits"
-
-#: src/templates/general.mas:135
+#: src/templates/general.mas:124
 msgid "Add external mail server"
 msgstr "Ajouter un serveur de mail externe"
 
-#: src/templates/general.mas:138
+#: src/templates/general.mas:126
 msgid "External mail server"
 msgstr "Serveur mail externe"
 
-#: src/templates/general.mas:151
+#: src/templates/general.mas:137
 msgid "External Mail domain"
 msgstr "Domaine mail externe"
 
-#: src/templates/general.mas:169
+#: src/templates/general.mas:152
 msgid "External mail domains"
 msgstr "Domaines mail externe"
 
-#: src/templates/general.mas:174
-msgid "No external mail domains"
-msgstr "Aucun domaine mail externe"
-
-#: src/templates/general.mas:178
+#: src/templates/general.mas:159
 msgid "Add external mail domain"
 msgstr "Ajouter un domaine mail externe"
 
-#: src/templates/general.mas:181
+#: src/templates/general.mas:161
 msgid "External mail domain"
 msgstr "Domaine mail externe"
 
-#: src/templates/vdomain.mas:26
+#: src/templates/vdomain.mas:27
 msgid "Use virus filtering"
 msgstr "Utiliser le filtrage antivirus"
+
+#: src/templates/vdomain.mas:37
+#, perl-brace-format
+msgid ""
+"The \"{name}\"  setting will not have effect until the\n"
+"   antivirus service will be enabled in the mail filter"
+msgstr ""
+"Le paramètre de \"{name}\" ne sera effectif que lorsque le service antivirus "
+"sera activé dans le filtre du courrier"
 
 #: src/templates/vdomain.mas:44
 msgid "Use spam filtering"
 msgstr "Utiliser le filtrage antispam"
 
-#: src/templates/vdomain.mas:104
+#: src/templates/vdomain.mas:54
+#, perl-brace-format
+msgid ""
+"The \"{name}\"  setting will not have effect until the\n"
+"   antispam sergice will be enabled in the mail filter"
+msgstr ""
+"Le paramètre de \"{name}\" ne sera effectif que lorsque le service antivirus "
+"sera activé dans le filtre du courrier"
+
+#: src/templates/vdomain.mas:74
+#, perl-brace-format
+msgid "Use default spam threshold (current value is {v})"
+msgstr "Utilise le seuil antispam par défaut (la valeur courante est de {v})"
+
+#: src/templates/vdomain.mas:87
+#, perl-brace-format
+msgid "Spam threshold for {domain} virtual domain"
+msgstr "Seuil antispam pour le domaine virtuel {domain}"
+
+#: src/templates/vdomain.mas:102
 msgid "Mail filter options"
 msgstr "Options du filtre mail"
 
-#: src/templates/vdomain.mas:110
+#: src/templates/vdomain.mas:107
 msgid "Antispam sender access lists"
 msgstr "Listes d'accès d'expéditeur d'Antispam"
 
@@ -588,45 +577,156 @@ msgstr "Listes d'accès d'expéditeur d'Antispam"
 msgid "General"
 msgstr "Général"
 
-#: src/templates/menutabs.mas:17
+#: src/templates/menutabs.mas:14
 msgid "Extensions filter"
 msgstr "Filtre d'extensions"
 
-#: src/templates/menutabs.mas:19
+#: src/templates/menutabs.mas:15
 msgid "MIME Type filter"
 msgstr "Filtre de type MIME"
 
-#: src/templates/menutabs.mas:21
+#: src/templates/menutabs.mas:16
 msgid "Bad formed headers"
 msgstr "Entête mal formée"
-
-#: src/templates/fileFilterMimeType.mas:13
-msgid "Configure denied MIME types"
-msgstr "Configurer les types MIME refusés"
-
-#: src/templates/fileFilterMimeType.mas:15
-msgid "MIME Type"
-msgstr "Type MIME"
-
-#: src/templates/fileFilterMimeType.mas:17
-msgid "MIME types"
-msgstr "Types MIME"
 
 #: src/templates/policy.mas:11
 msgid "Pass"
 msgstr "Passage"
 
-#: src/templates/policy.mas:13
+#: src/templates/policy.mas:12
 msgid "Reject"
 msgstr "Rejet"
 
-#: src/templates/policy.mas:15
+#: src/templates/policy.mas:13
 msgid "Bounce"
 msgstr "Rebond"
 
-#: src/templates/policy.mas:17
+#: src/templates/policy.mas:14
 msgid "Discard"
 msgstr "Mise à l'écart"
 
+#~ msgid "Policy"
+#~ msgstr "Politique"
+
+#~ msgid "Configure denied file extensions"
+#~ msgstr "Configurer les extensions de fichiers interdites"
+
+#~ msgid "extensions"
+#~ msgstr "extensions"
+
+#~ msgid "Update failed at {date}.\n"
+#~ msgstr "Mise-à-jour échouée le {date}.\n"
+
+#~ msgid "The last update was successful at {date}"
+#~ msgstr "Dernière mise-à-jour réussie le {date}"
+
+#~ msgid "Add"
+#~ msgstr "Ajouter"
+
+#~ msgid "Are you sure you want to delete all {plural}?"
+#~ msgstr "Etes-vous sûr de vouloir tous les effacer {plural} ?"
+
+#~ msgid "whitelist"
+#~ msgstr "liste blanche"
+
+#~ msgid "blacklist"
+#~ msgstr "liste noire"
+
+#~ msgid "There isn't any sender in {type} "
+#~ msgstr "Il n'y a aucun expéditeur dans {type}"
+
+#~ msgid "Enable Mail filter system"
+#~ msgstr "Activer le système de filtrage mail"
+
+#~ msgid "No allowed external mail servers"
+#~ msgstr "Serveurs mail externes interdits"
+
+#~ msgid "No external mail domains"
+#~ msgstr "Aucun domaine mail externe"
+
+#~ msgid "Configure denied MIME types"
+#~ msgstr "Configurer les types MIME refusés"
+
+#~ msgid "MIME Type"
+#~ msgstr "Type MIME"
+
+#~ msgid "MIME types"
+#~ msgstr "Types MIME"
+
 #~ msgid "MailFilter system"
 #~ msgstr "Système de filtrage de courrier"
+
+#~ msgid ""
+#~ "External mail server {mta} removed. Remember to remove his mail domains "
+#~ "from the external mail domains list"
+#~ msgstr ""
+#~ "Serveur de mail externe {mta} supprimé. Rappelez-vous d'enlever son nom "
+#~ "de domaine de la liste des noms de domaine externe"
+
+#~ msgid "No changes where specified by the user"
+#~ msgstr "Aucun changement n'a été spécifié par l'utilisateur"
+
+#~ msgid "Mail domain{domain} removed from external domains list."
+#~ msgstr ""
+#~ "Nom de domaine {domain} supprimé de la liste des noms de domaines externes"
+
+#~ msgid ""
+#~ "External mail server {mta} allowed. Remember to add his mail domains to "
+#~ "the external mail domains list"
+#~ msgstr ""
+#~ "Serveur de mail externe {mta} autorisé. Rappelez-vous de l'ajouter à la "
+#~ "liste des domaines externes"
+
+#~ msgid "The spam's threshold cannot be higher than his autolearn threshold"
+#~ msgstr ""
+#~ "Le seuil des spams ne peut être supérieur que son seuil d'auto-"
+#~ "apprentissage"
+
+#~ msgid ""
+#~ "The spam's threshold cannot be lower or equalthan his ham's autolearn "
+#~ "threshold"
+#~ msgstr ""
+#~ "Le seuil de spams ne peut pas être inférieur ou égale à son seuil d'auto-"
+#~ "apprentissage de mails valides (ham)"
+
+#~ msgid ""
+#~ "Cannot learn because bayesian filter is disabled in the current "
+#~ "configuration. In order to be able to learn  enable ithe bayesian filter "
+#~ "and save the changes"
+#~ msgstr ""
+#~ "Apprentissage impossible car le filtre bayésien est désactivé dans la "
+#~ "configuration actuelle. "
+
+#~ msgid ""
+#~ "The sender can only be a email address or a domain name prefixed with '@'"
+#~ msgstr ""
+#~ "L'expéditeur peut uniquement être une adresse mail ou un nom de domaine "
+#~ "commençant par '@'"
+
+#~ msgid "Invalid externa; MTA {mta}. Local net addresses are not allowed"
+#~ msgstr ""
+#~ "MTA {mta} externe invalide. Les adresses locales ne sont pas permises"
+
+#~ msgid "Tag which will be added to the subject of spam mail"
+#~ msgstr "Etiquette qui sera ajoutée au sujet du spam"
+
+#~ msgid "Use bayesian classefier"
+#~ msgstr "Utiliser la classification bayésienne"
+
+#~ msgid "Change the score of mail according the history of the sender"
+#~ msgstr ""
+#~ "Modifier le score des mails en accord avec l'historique de l'expéditeur"
+
+#~ msgid ""
+#~ "Spam messages which a score equal or greater than this threshold will be  "
+#~ "introduced  in the learning system "
+#~ msgstr ""
+#~ "Les spams qui ont un score égal ou supérieur au seuil seront introduits "
+#~ "dans le système d'apprentissage"
+
+#~ msgid ""
+#~ "Ham messages which a score below this treshold will be introduced in the "
+#~ "learning system"
+#~ msgstr ""
+#~ "Les mails valides (ham) qui ont un score inférieur à ce seuil seront "
+#~ "introduits dans le système d'apprentissage"

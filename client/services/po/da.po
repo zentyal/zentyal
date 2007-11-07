@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-services 0.9.100"
+"Project-Id-Version: ebox-services 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-09-28 10:43+0200\n"
+"POT-Creation-Date: 2007-11-07 11:41+0100\n"
 "PO-Revision-Date: 2007-09-28 10:43+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,102 +16,102 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/Model/ServiceConfigurationTable.pm:106
-msgid "Protocol"
-msgstr ""
-
-#: src/EBox/Model/ServiceConfigurationTable.pm:112
-msgid "Source port"
-msgstr ""
-
-#: src/EBox/Model/ServiceConfigurationTable.pm:118
-msgid "Destination port"
-msgstr ""
-
-#: src/EBox/Model/ServiceConfigurationTable.pm:129
-msgid "Service configuration"
-msgstr ""
-
-#: src/EBox/Model/ServiceConfigurationTable.pm:137
-#: src/EBox/Model/ServiceTable.pm:154
-msgid "bbbb"
-msgstr ""
-
-#: src/EBox/Model/ServiceConfigurationTable.pm:138
-#: src/EBox/Model/ServiceTable.pm:155
-msgid "service"
-msgstr ""
-
-#: src/EBox/Model/ServiceConfigurationTable.pm:161
-msgid "This protocol does not use ports"
-msgstr ""
-
 #: src/EBox/Model/ServiceTable.pm:107
 msgid "Domain"
-msgstr ""
+msgstr "Domæne"
 
 #: src/EBox/Model/ServiceTable.pm:114
 msgid "Service name"
-msgstr ""
+msgstr "Service navn"
 
 #: src/EBox/Model/ServiceTable.pm:122
 msgid "Description"
-msgstr ""
+msgstr "Beskrivelse"
 
 #: src/EBox/Model/ServiceTable.pm:129
 msgid "Internal"
-msgstr ""
+msgstr "Intern"
 
 #: src/EBox/Model/ServiceTable.pm:134
 msgid "Configuration"
-msgstr ""
+msgstr "Indstillinger"
 
 #: src/EBox/Model/ServiceTable.pm:146 src/EBox/Services.pm:47
 msgid "Services"
+msgstr "Ydelser"
+
+#: src/EBox/Model/ServiceTable.pm:154
+#: src/EBox/Model/ServiceConfigurationTable.pm:137
+msgid "bbbb"
 msgstr ""
 
-#: src/EBox/Services.pm:233
+#: src/EBox/Model/ServiceTable.pm:155
+#: src/EBox/Model/ServiceConfigurationTable.pm:138
+msgid "service"
+msgstr "ydelse"
+
+#: src/EBox/Model/ServiceConfigurationTable.pm:106
+msgid "Protocol"
+msgstr "Protokol"
+
+#: src/EBox/Model/ServiceConfigurationTable.pm:112
+msgid "Source port"
+msgstr "Source port"
+
+#: src/EBox/Model/ServiceConfigurationTable.pm:118
+msgid "Destination port"
+msgstr "Destination port"
+
+#: src/EBox/Model/ServiceConfigurationTable.pm:129
+msgid "Service configuration"
+msgstr "Service indstillinger"
+
+#: src/EBox/Model/ServiceConfigurationTable.pm:161
+msgid "This protocol does not use ports"
+msgstr "Denne protokol bruger ikke porte"
+
+#: src/EBox/Services.pm:265
 msgid "port"
-msgstr ""
+msgstr "port"
 
-#: src/EBox/Services.pm:235
+#: src/EBox/Services.pm:267
 #: migration/0001_import_services_from_firewall.pl:102
 msgid "eBox administration"
-msgstr ""
+msgstr "eBox administration"
 
-#: src/EBox/Services.pm:236
+#: src/EBox/Services.pm:268
 #: migration/0001_import_services_from_firewall.pl:103
 msgid "eBox Administration port"
-msgstr ""
+msgstr "eBox administrations port"
 
-#: src/EBox/Services.pm:237 migration/0001_import_services_from_firewall.pl:70
+#: src/EBox/Services.pm:269 migration/0001_import_services_from_firewall.pl:70
 #: migration/0001_import_services_from_firewall.pl:81
 #: migration/0001_import_services_from_firewall.pl:93
 #: migration/0001_import_services_from_firewall.pl:104
 #: migration/0001_import_services_from_firewall.pl:115
 msgid "ebox-services"
-msgstr ""
+msgstr "ebox-programmer"
 
 #: migration/0001_import_services_from_firewall.pl:68
 msgid "any"
-msgstr ""
+msgstr "alle"
 
 #: migration/0001_import_services_from_firewall.pl:69
 msgid "any protocol and port"
-msgstr ""
+msgstr "alle protokoller og porte"
 
 #: migration/0001_import_services_from_firewall.pl:79
 msgid "any UDP"
-msgstr ""
+msgstr "alle UDP"
 
 #: migration/0001_import_services_from_firewall.pl:80
 msgid "any UDP port"
-msgstr ""
+msgstr "alle UDP porte"
 
 #: migration/0001_import_services_from_firewall.pl:91
 msgid "any TCP"
-msgstr ""
+msgstr "alle TCP"
 
 #: migration/0001_import_services_from_firewall.pl:92
 msgid "any TCP port"
-msgstr ""
+msgstr "alle TCP porte"

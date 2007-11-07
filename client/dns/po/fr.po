@@ -5,9 +5,9 @@
 # Ignacio Correas <icorreas@warp.es>, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dns 0.9.100\n"
+"Project-Id-Version: ebox-dns 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:11+0200\n"
+"POT-Creation-Date: 2007-11-07 11:38+0100\n"
 "PO-Revision-Date: 2007-04-12 08:06+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -17,173 +17,180 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/CGI/Edit.pm:30 src/EBox/CGI/Edit.pm:40 src/EBox/CGI/Index.pm:30
-#: src/EBox/CGI/Index.pm:40 src/EBox/DNS.pm.in:363 src/EBox/DNS.pm.in:376
-msgid "DNS"
-msgstr "DNS"
+#: src/EBox/Model/HostnameTable.pm:65
+msgid "Hostname"
+msgstr "Nom d'hôte"
 
-#: src/EBox/CGI/Edit.pm:43
-msgid "domain"
-msgstr "domaine"
-
-#: src/EBox/CGI/Enable.pm:41
-msgid "module status"
-msgstr "statut du module"
-
-#: src/EBox/CGI/AddHostname.pm:41 src/EBox/CGI/DelDomain.pm:41
-#: src/EBox/CGI/DelAlias.pm:41 src/EBox/CGI/AddDomain.pm:41
-#: src/EBox/CGI/AddAlias.pm:41 src/EBox/CGI/DelHostname.pm:41
-msgid "domain name"
-msgstr "nom de domaine"
-
-#: src/EBox/CGI/AddHostname.pm:45 src/EBox/CGI/DelAlias.pm:45
-#: src/EBox/CGI/AddAlias.pm:45 src/EBox/CGI/DelHostname.pm:45
-msgid "host name"
-msgstr "nom d'hôte"
-
-#: src/EBox/CGI/AddHostname.pm:46 src/EBox/DNS.pm.in:132
-msgid "IP address"
+#: src/EBox/Model/HostnameTable.pm:73
+msgid "IP Address"
 msgstr "Adresse IP"
 
-#: src/EBox/CGI/DelAlias.pm:46 src/EBox/CGI/AddAlias.pm:46
-#: src/EBox/DNS.pm.in:195 src/EBox/DNS.pm.in:200 src/templates/edit.mas:73
-#: src/templates/edit.mas:98
+#: src/EBox/Model/HostnameTable.pm:81 src/EBox/Model/AliasTable.pm:62
+#: src/EBox/Model/AliasTable.pm:72 src/EBox/Model/AliasTable.pm:78
+#: src/templates/edit.mas:64 src/templates/edit.mas:85
 msgid "Alias"
 msgstr "Alias"
 
-#: src/EBox/DNS.pm.in:54 src/EBox/DNS.pm.in:115
-msgid "Domain"
-msgstr "Domaine"
+#: src/EBox/Model/HostnameTable.pm:92 src/EBox/Model/HostnameTable.pm:98
+#: src/EBox/Model/DomainTable.pm:73
+msgid "Hostnames"
+msgstr "Noms d'hôtes"
 
-#: src/EBox/DNS.pm.in:67 src/EBox/DNS.pm.in:70
+#: src/EBox/Model/HostnameTable.pm:99
+msgid "hostname"
+msgstr "nom d'hôte"
+
+#: src/EBox/Model/HostnameTable.pm:113 src/EBox/Model/DomainTable.pm:105
 msgid "Domain name"
 msgstr "Nom de domaine"
 
-#: src/EBox/DNS.pm.in:74
-#, perl-brace-format
-msgid "The domain '{name}' is already used. Please choose another domain name"
+#: src/EBox/Model/HostnameTable.pm:114
+msgid "IP address"
+msgstr "Adresse IP"
+
+#: src/EBox/Model/DNSComposite.pm:76 src/EBox/DNS.pm.in:559
+#: src/EBox/DNS.pm.in:595
+msgid "DNS"
+msgstr "DNS"
+
+#: src/EBox/Model/DNSComposite.pm:78
+msgid "The DNS server allows you to resolve names for your own domains."
 msgstr ""
-"Le nom de domaine '{name}' est déjà utilisé. Veuillez en choisir un autre"
+"Le serveur DNS vous permet de résoudre les noms de votre propre domaine."
 
-#: src/EBox/DNS.pm.in:130 src/EBox/DNS.pm.in:136 src/EBox/DNS.pm.in:191
-#: src/templates/edit.mas:22
-msgid "Host name"
-msgstr "Nom d'hôte"
+#: src/EBox/Model/DomainTable.pm:65
+msgid "Domain"
+msgstr "Domaine"
 
-#: src/EBox/DNS.pm.in:134
-msgid "Host name can't contain dots"
-msgstr "Le nom d'hôte ne peut pas contenir un point"
+#: src/EBox/Model/DomainTable.pm:84 src/EBox/Model/DomainTable.pm:90
+msgid "Domains"
+msgstr "Domaines"
 
-#: src/EBox/DNS.pm.in:140
-#, perl-brace-format
-msgid "The host name '{name}' is already used. Please choose another host name"
-msgstr "Le nom d'hôte '{name}' est déjà utilisé. Veuillez en choisir un autre"
+#: src/EBox/Model/DomainTable.pm:91
+msgid "domain"
+msgstr "domaine"
 
-#: src/EBox/DNS.pm.in:143
-#, perl-brace-format
-msgid "The IP address '{ip}' is already used. Please choose another IP address"
-msgstr "L'adresse IP '{ip}' est déjà utilisée. Veuillez en choisir une autre"
+#: src/EBox/Model/EnableFormDNS.pm:84
+msgid "Service enabled"
+msgstr "Service activé"
 
-#: src/EBox/DNS.pm.in:198
-msgid "An alias can't contain dots"
-msgstr "Un alias ne peut pas contenir de point"
+#: src/EBox/Model/EnableFormDNS.pm:86
+msgid "Service disabled"
+msgstr "Service désactivé"
 
-#: src/EBox/DNS.pm.in:205
-#, perl-brace-format
-msgid ""
-"The alias '{name}' is already used as a host name. Please choose another "
-"alias"
-msgstr ""
-"L'alias '{name}' est déjà utilisé comme nom d'hôte. Veuillez en choisir un "
-"autre"
+#: src/EBox/Model/AliasTable.pm:79
+msgid "alias"
+msgstr "alias"
 
-#: src/EBox/DNS.pm.in:209
-#, perl-brace-format
-msgid ""
-"The alias '{name}' is already used as alias in the host '{host}'. Please "
-"choose another alias"
-msgstr ""
-"L'alias '{name}' est déjà utilisé comme alias pour l'hôte '{host}'. Veuillez "
-"en choisir un autre"
+#: src/EBox/Model/AliasTable.pm:93
+msgid "Alias name"
+msgstr "Nom d'alias"
+
+#: src/EBox/DNS.pm.in:50
+msgid "dns"
+msgstr "dns"
+
+#: src/EBox/DNS.pm.in:68
+msgid "DNS Server"
+msgstr "Serveur DNS"
 
 #: src/templates/edit.mas:12
 #, perl-brace-format
 msgid "Host list for domain {domain}"
 msgstr "Liste des hôtes pour le domaine {domain}"
 
-#: src/templates/edit.mas:18
+#: src/templates/edit.mas:17
 msgid "IP"
 msgstr "IP"
 
-#: src/templates/edit.mas:26 src/templates/index.mas:27
+#: src/templates/edit.mas:20
+msgid "Host name"
+msgstr "Nom d'hôte"
+
+#: src/templates/edit.mas:23 src/templates/index.mas:24
 msgid "Action"
 msgstr "Action"
 
-#: src/templates/edit.mas:44 src/templates/edit.mas:46
-#: src/templates/edit.mas:48 src/templates/edit.mas:84
-#: src/templates/edit.mas:86 src/templates/edit.mas:88
-#: src/templates/index.mas:41 src/templates/index.mas:43
-#: src/templates/index.mas:45
+#: src/templates/edit.mas:40 src/templates/edit.mas:41
+#: src/templates/edit.mas:42 src/templates/edit.mas:74
+#: src/templates/edit.mas:75 src/templates/edit.mas:76
+#: src/templates/index.mas:37 src/templates/index.mas:38
+#: src/templates/index.mas:39
 msgid "Add"
 msgstr "Ajouter"
 
-#: src/templates/edit.mas:61 src/templates/edit.mas:63
-#: src/templates/edit.mas:107 src/templates/edit.mas:109
-#: src/templates/index.mas:62 src/templates/index.mas:64
+#: src/templates/edit.mas:54 src/templates/edit.mas:55
+#: src/templates/edit.mas:93 src/templates/edit.mas:94
+#: src/templates/index.mas:53 src/templates/index.mas:54
 msgid "Delete"
 msgstr "Effacer"
 
-#: src/templates/edit.mas:126 src/templates/index.mas:82
+#: src/templates/edit.mas:110 src/templates/index.mas:70
 msgid "delete"
 msgstr "effacer"
 
-#: src/templates/index.mas:12
-msgid "DNS service status"
-msgstr "Statut du service DNS"
-
-#: src/templates/index.mas:17
+#: src/templates/index.mas:16
 msgid "Domain list"
 msgstr "Liste de domaines"
 
-#: src/templates/index.mas:23
+#: src/templates/index.mas:21
 msgid "Name"
 msgstr "Nom"
 
-#: src/templates/index.mas:56 src/templates/index.mas:57
+#: src/templates/index.mas:49
 msgid "Edit"
 msgstr "Editer"
 
-#: src/templates/index.mas:76
+#: src/templates/index.mas:65
 msgid "edit"
 msgstr "éditer"
 
-#, fuzzy
-#~ msgid "Hostname"
-#~ msgstr "Nom d'hôte"
+#~ msgid "module status"
+#~ msgstr "statut du module"
 
-#, fuzzy
-#~ msgid "IP Address"
-#~ msgstr "Adresse IP"
+#~ msgid "domain name"
+#~ msgstr "nom de domaine"
 
-#, fuzzy
-#~ msgid "Hostnames"
-#~ msgstr "Nom d'hôte"
-
-#, fuzzy
-#~ msgid "hostname"
+#~ msgid "host name"
 #~ msgstr "nom d'hôte"
 
-#, fuzzy
-#~ msgid "Domains"
-#~ msgstr "Domaine"
+#~ msgid ""
+#~ "The domain '{name}' is already used. Please choose another domain name"
+#~ msgstr ""
+#~ "Le nom de domaine '{name}' est déjà utilisé. Veuillez en choisir un autre"
 
-#, fuzzy
-#~ msgid "alias"
-#~ msgstr "Alias"
+#~ msgid "Host name can't contain dots"
+#~ msgstr "Le nom d'hôte ne peut pas contenir un point"
 
-#, fuzzy
-#~ msgid "Alias name"
-#~ msgstr "Alias"
+#~ msgid ""
+#~ "The host name '{name}' is already used. Please choose another host name"
+#~ msgstr ""
+#~ "Le nom d'hôte '{name}' est déjà utilisé. Veuillez en choisir un autre"
+
+#~ msgid ""
+#~ "The IP address '{ip}' is already used. Please choose another IP address"
+#~ msgstr ""
+#~ "L'adresse IP '{ip}' est déjà utilisée. Veuillez en choisir une autre"
+
+#~ msgid "An alias can't contain dots"
+#~ msgstr "Un alias ne peut pas contenir de point"
+
+#~ msgid ""
+#~ "The alias '{name}' is already used as a host name. Please choose another "
+#~ "alias"
+#~ msgstr ""
+#~ "L'alias '{name}' est déjà utilisé comme nom d'hôte. Veuillez en choisir "
+#~ "un autre"
+
+#~ msgid ""
+#~ "The alias '{name}' is already used as alias in the host '{host}'. Please "
+#~ "choose another alias"
+#~ msgstr ""
+#~ "L'alias '{name}' est déjà utilisé comme alias pour l'hôte '{host}'. "
+#~ "Veuillez en choisir un autre"
+
+#~ msgid "DNS service status"
+#~ msgstr "Statut du service DNS"
 
 #~ msgid "DNS cache"
 #~ msgstr "Cache DNS"

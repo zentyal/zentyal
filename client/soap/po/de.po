@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-soap 0.9.100\n"
+"Project-Id-Version: ebox-soap 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-05 12:14+0200\n"
+"POT-Creation-Date: 2007-11-07 11:41+0100\n"
 "PO-Revision-Date: 2007-06-05 12:04+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,146 +16,190 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/SOAP/Global.pm:134
-msgid "Not a public method"
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:151
+msgid "Control center admin at a log file"
 msgstr ""
+"Kontrollzentrum-Administrator in eine Log-Datei?? (Control center admin at a "
+"log file)"
 
-#: src/EBox/SOAP/Global.pm:154
-msgid "Not a defined method"
-msgstr ""
-
-#: src/EBox/SOAP.pm:66
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:191
 msgid "Control center"
 msgstr "Kontrollzentrum"
 
-#~ msgid "Control center admin at a log file"
-#~ msgstr ""
-#~ "Kontrollzentrum-Administrator in eine Log-Datei?? (Control center admin "
-#~ "at a log file)"
+#: src/EBox/CGI/Enable.pm:38
+msgid "Enable SOAP service"
+msgstr "SOAP-Dienst aktivieren"
 
-#~ msgid "Enable SOAP service"
-#~ msgstr "SOAP-Dienst aktivieren"
+#: src/EBox/CGI/Index.pm:38
+msgid "Control center communication"
+msgstr "Kommunikation mit dem Kontrollzentrum"
 
-#~ msgid "Control center communication"
-#~ msgstr "Kommunikation mit dem Kontrollzentrum"
+#: src/EBox/CGI/DeleteBundle.pm:34
+msgid "Bundle Deleted"
+msgstr "Bündel entdeckt"
 
-#~ msgid "Bundle Deleted"
-#~ msgstr "Bündel entdeckt"
+#: src/EBox/CGI/DeleteBundle.pm:74
+msgid ""
+"The previous bundle has been deleted. Upload a new one to establish a "
+"communication with an eBox control center"
+msgstr ""
+"Das vorherige Bündel wurde gelöscht. Laden Sie ein neues hoch, um die "
+"Kommunikation mit einem eBox-Kontrollzentrum herzustellen"
 
-#~ msgid ""
-#~ "The previous bundle has been deleted. Upload a new one to establish a "
-#~ "communication with an eBox control center"
-#~ msgstr ""
-#~ "Das vorherige Bündel wurde gelöscht. Laden Sie ein neues hoch, um die "
-#~ "Kommunikation mit einem eBox-Kontrollzentrum herzustellen"
+#: src/EBox/CGI/ConnectivityTest.pm:39
+msgid "Connectivity test"
+msgstr "Verbindungstest"
 
-#~ msgid "Connectivity test"
-#~ msgstr "Verbindungstest"
+#: src/EBox/CGI/UploadBundle.pm:36
+msgid "Bundle Upload"
+msgstr "Bündel hochladen"
 
-#~ msgid "Bundle Upload"
-#~ msgstr "Bündel hochladen"
+#: src/EBox/CGI/UploadBundle.pm:77
+msgid "The bundle file has been uploaded successfully"
+msgstr "Das Bündel wurde erfolgreich hochgeladen"
 
-#~ msgid "The bundle file has been uploaded successfully"
-#~ msgstr "Das Bündel wurde erfolgreich hochgeladen"
+#: src/EBox/SOAP/Global.pm:147
+#, perl-brace-format
+msgid "{method} is not a public method"
+msgstr "{method} ist keine öffentliche Methode"
 
-#~ msgid "{method} is not a public method"
-#~ msgstr "{method} ist keine öffentliche Methode"
+#: src/EBox/SOAP/Global.pm:175
+#, perl-brace-format
+msgid "{method} is not a defined method"
+msgstr "{method} ist keine definierte Methode"
 
-#~ msgid "{method} is not a defined method"
-#~ msgstr "{method} ist keine definierte Methode"
+#: src/EBox/SOAP/Global.pm:183
+#, perl-brace-format
+msgid "{module} does not exist"
+msgstr "Das Modul {module} existiert nicht"
 
-#~ msgid "{module} does not exist"
-#~ msgstr "Das Modul {module} existiert nicht"
+#: src/EBox/SOAP.pm:168
+msgid "SOAP"
+msgstr "SOAP"
 
-#~ msgid "SOAP"
-#~ msgstr "SOAP"
+#: src/EBox/SOAP.pm:309
+#, perl-brace-format
+msgid "Missing uploaded file: {uploadedFile}"
+msgstr "Die hochgeladene Datei {uploadedFile} fehlt"
 
-#~ msgid "Missing uploaded file: {uploadedFile}"
-#~ msgstr "Die hochgeladene Datei {uploadedFile} fehlt"
+#: src/EBox/SOAP.pm:321
+#, perl-brace-format
+msgid ""
+"Uploaded file is a type of {type1}  but it should be a file of type {type2}"
+msgstr ""
+"Die hochgeladene Datei ist vom Typ {type1}, sollte aber vom Typ {type2} sein"
 
-#~ msgid ""
-#~ "Uploaded file is a type of {type1}  but it should be a file of type "
-#~ "{type2}"
-#~ msgstr ""
-#~ "Die hochgeladene Datei ist vom Typ {type1}, sollte aber vom Typ {type2} "
-#~ "sein"
+#: src/EBox/SOAP.pm:333
+#, perl-brace-format
+msgid ""
+"Uploaded file does not contain the four mandatory files. It contains "
+"{number} "
+msgstr ""
+"Die hochgeladene Datei enthält die vier nötigen Dateien nicht. Es enthält "
+"nur {number}"
 
-#~ msgid ""
-#~ "Uploaded file does not contain the four mandatory files. It contains "
-#~ "{number} "
-#~ msgstr ""
-#~ "Die hochgeladene Datei enthält die vier nötigen Dateien nicht. Es enthält "
-#~ "nur {number}"
+#: src/EBox/SOAP.pm:368
+msgid "It is required to upload a bundle to delete it"
+msgstr "Um ein Bündel zu löschen, müssen Sie ein anderes hochladen"
 
-#~ msgid "It is required to upload a bundle to delete it"
-#~ msgstr "Um ein Bündel zu löschen, müssen Sie ein anderes hochladen"
+#: src/EBox/SOAP.pm:437
+msgid "You should enable the service to test the connectivity"
+msgstr "Sie sollten den Dienst aktivieren, um die Verbindung zu testen"
 
-#~ msgid "You should enable the service to test the connectivity"
-#~ msgstr "Sie sollten den Dienst aktivieren, um die Verbindung zu testen"
+#: src/EBox/SOAP.pm:940
+msgid "The OpenVPN client configuration file is missing"
+msgstr "Die OpenVPN-Benutzerkonfiguration fehlt"
 
-#~ msgid "The OpenVPN client configuration file is missing"
-#~ msgstr "Die OpenVPN-Benutzerkonfiguration fehlt"
+#: src/EBox/SOAP.pm:947
+msgid "The OpenVPN client configuration file is not well formatted "
+msgstr "Die OpenVPN-Benutzerkonfiguration ist in einem ungültigen Format"
 
-#~ msgid "The OpenVPN client configuration file is not well formatted "
-#~ msgstr "Die OpenVPN-Benutzerkonfiguration ist in einem ungültigen Format"
+#: src/EBox/SOAP.pm:977
+msgid "Some certificate is missing"
+msgstr "Ein Zertifikat fehlt"
 
-#~ msgid "Some certificate is missing"
-#~ msgstr "Ein Zertifikat fehlt"
+#: src/EBox/SOAP.pm:984
+#, perl-brace-format
+msgid ""
+"You cannot upload this bundle since the name {name} has been already used "
+"for a bundle which will be cleaned up. If you want to upload the bundle, "
+"please save changes first"
+msgstr ""
+"Sie können dieses Bündel nicht hochladen, weil der Name {name} bereits für "
+"ein gelöschtes Bündel verwendet wird, welches noch nicht entfernt ist. Falls "
+"Sie das Bündel hochladen möchten, speichern Sie zuerst die Änderungen"
 
-#~ msgid ""
-#~ "You cannot upload this bundle since the name {name} has been already used "
-#~ "for a bundle which will be cleaned up. If you want to upload the bundle, "
-#~ "please save changes first"
-#~ msgstr ""
-#~ "Sie können dieses Bündel nicht hochladen, weil der Name {name} bereits "
-#~ "für ein gelöschtes Bündel verwendet wird, welches noch nicht entfernt "
-#~ "ist. Falls Sie das Bündel hochladen möchten, speichern Sie zuerst die "
-#~ "Änderungen"
+#: src/EBox/SOAP.pm:1017
+msgid "Certificate file is missing"
+msgstr "Das Zertifikat fehlt"
 
-#~ msgid "Certificate file is missing"
-#~ msgstr "Das Zertifikat fehlt"
+#: src/EBox/SOAP.pm:1020
+msgid "Private key file is missing"
+msgstr "Der private Schlüssel fehlt"
 
-#~ msgid "Private key file is missing"
-#~ msgstr "Der private Schlüssel fehlt"
+#: src/EBox/SOAP.pm:1023
+msgid "Certification Authority file is missing"
+msgstr "Das Zertifikat der Zertifizierungsstelle fehlt"
 
-#~ msgid "Certification Authority file is missing"
-#~ msgstr "Das Zertifikat der Zertifizierungsstelle fehlt"
+#: src/EBox/SOAP.pm:1075
+msgid ""
+"You should upload a bundle to be able to communicate with the control center"
+msgstr ""
+"Sie sollten ein Bündel hochladen, um mit dem Kontrollzentrum kommunizieren "
+"zu können"
 
-#~ msgid ""
-#~ "You should upload a bundle to be able to communicate with the control "
-#~ "center"
-#~ msgstr ""
-#~ "Sie sollten ein Bündel hochladen, um mit dem Kontrollzentrum "
-#~ "kommunizieren zu können"
+#: src/EBox/SOAP.pm:1084
+msgid ""
+"The OpenVPN client is not running. You may need to save changes in order to "
+"set up the OpenVPN client"
+msgstr ""
+"Der OpenVPN-Benutzer-Dienst läuft nicht. Vielleicht müssen Sie zuerst die "
+"Änderungen speichern, um den OpenVPN-Benutzer einzurichten"
 
-#~ msgid ""
-#~ "The OpenVPN client is not running. You may need to save changes in order "
-#~ "to set up the OpenVPN client"
-#~ msgstr ""
-#~ "Der OpenVPN-Benutzer-Dienst läuft nicht. Vielleicht müssen Sie zuerst die "
-#~ "Änderungen speichern, um den OpenVPN-Benutzer einzurichten"
+#: src/templates/index.mas:27
+msgid "General configuration for"
+msgstr "Allgemeine Einstellungen für"
+
+#: src/templates/index.mas:52
+#, fuzzy, perl-brace-format
+msgid ""
+"The connection seems to be {state}. The percentage of loss was {percent}%"
+msgstr "Die Verbindung scheint {state} zu sein"
+
+#: src/templates/index.mas:54
+msgid "ok"
+msgstr "in Ordnung"
+
+#: src/templates/index.mas:54
+msgid "down"
+msgstr "unterbrochen"
+
+#: src/templates/index.mas:83
+msgid "eBox Control Center bundle"
+msgstr "eBox Kontrollzentrum Bündel"
+
+#: src/templates/index.mas:84
+#, fuzzy
+msgid ""
+"Archive which contains all elements needed to establish the communication "
+"between eBox and the control center"
+msgstr ""
+"Das vorherige Bündel wurde gelöscht. Laden Sie ein neues hoch, um die "
+"Kommunikation mit einem eBox-Kontrollzentrum herzustellen"
+
+#: src/templates/index.mas:90
+msgid "Upload"
+msgstr "Hochladen"
 
 #~ msgid "You can manage here the communication between control "
 #~ msgstr ""
 #~ "Sie können hier die Kommunikation zwischen Kontrollzentren verwalten"
-
-#~ msgid "General configuration for"
-#~ msgstr "Allgemeine Einstellungen für"
 
 #~ msgid "Test the connection between the control center and this "
 #~ msgstr "Die Verbindung zwischen dem Kontrollzentrum und dieser eBox testen"
 
 #~ msgid "Test"
 #~ msgstr "Test"
-
-#~ msgid "The connection seems to be {state}. "
-#~ msgstr "Die Verbindung scheint {state} zu sein"
-
-#~ msgid "ok"
-#~ msgstr "in Ordnung"
-
-#~ msgid "down"
-#~ msgstr "unterbrochen"
 
 #~ msgid "Remove current communication with this control center to add "
 #~ msgstr ""
@@ -169,11 +213,8 @@ msgstr "Kontrollzentrum"
 #~ msgid "Delete current communication"
 #~ msgstr "Aktuelle Kommunikation löschen"
 
-#~ msgid "eBox Control Center bundle"
-#~ msgstr "eBox Kontrollzentrum Bündel"
-
 #~ msgid "Archive which contains all "
 #~ msgstr "Archiv, das alle ?? enthält (Archive which contains all)"
 
-#~ msgid "Upload"
-#~ msgstr "Hochladen"
+#~ msgid "The connection seems to be {state}. "
+#~ msgstr "Die Verbindung scheint {state} zu sein"

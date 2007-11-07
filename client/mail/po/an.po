@@ -4,9 +4,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mail 0.9.100\n"
+"Project-Id-Version: ebox-mail 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:12+0200\n"
+"POT-Creation-Date: 2007-11-07 11:39+0100\n"
 "PO-Revision-Date: 2006-12-22 13:55+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -29,8 +29,8 @@ msgstr "Tamaño limite de mensache"
 msgid "Virtual domain name"
 msgstr "Nombre de dominio birtual"
 
-#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:989
-#: src/EBox/Mail.pm:1059 src/EBox/Mail.pm:1113
+#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:991
+#: src/EBox/Mail.pm:1061 src/EBox/Mail.pm:1115
 msgid "Mail"
 msgstr "Correu"
 
@@ -62,7 +62,7 @@ msgid "mail alias"
 msgstr "Alias de correu"
 
 #: src/EBox/CGI/QueueManager.pm:33 src/EBox/CGI/QueueManager.pm:50
-#: src/EBox/Mail.pm:1068
+#: src/EBox/Mail.pm:1070
 msgid "Queue Management"
 msgstr "Chestión de coda"
 
@@ -71,12 +71,12 @@ msgstr "Chestión de coda"
 msgid "virtual domain"
 msgstr "Dominio birtual"
 
-#: src/EBox/CGI/CreateAccount.pm:50 src/templates/alias.mas:17
+#: src/EBox/CGI/CreateAccount.pm:50
 msgid "Mail address"
 msgstr "Adreza de correu"
 
 #: src/EBox/CGI/VDomains.pm:29 src/EBox/CGI/VDomains.pm:39
-#: src/EBox/Mail.pm:1065
+#: src/EBox/Mail.pm:1067
 msgid "Virtual domains"
 msgstr "Dominio birtual"
 
@@ -106,9 +106,9 @@ msgstr "estato d'o sistema de correu"
 
 #: src/EBox/MailVDomainsLdap.pm:68 src/EBox/MailVDomainsLdap.pm:74
 #: src/EBox/MailVDomainsLdap.pm:249 src/EBox/MailVDomainsLdap.pm:255
-#: src/EBox/Mail.pm:562 src/EBox/Mail.pm:568 src/EBox/MailUserLdap.pm:78
-#: src/EBox/MailUserLdap.pm:84 src/EBox/MailUserLdap.pm:391
-#: src/EBox/MailUserLdap.pm:397
+#: src/EBox/Mail.pm:564 src/EBox/Mail.pm:570 src/EBox/MailUserLdap.pm:78
+#: src/EBox/MailUserLdap.pm:84 src/EBox/MailUserLdap.pm:389
+#: src/EBox/MailUserLdap.pm:395
 msgid "maildir size"
 msgstr "tamaño d'o buzón de correu"
 
@@ -124,168 +124,173 @@ msgstr "cuenta de correu"
 msgid "mail alias account"
 msgstr "alias de cuenta de correu"
 
-#: src/EBox/Mail.pm:273
+#: src/EBox/Mail.pm:275
 #, perl-brace-format
 msgid "Unknown filter {filter}"
 msgstr "Filtro {filter} esconoxito"
 
-#: src/EBox/Mail.pm:299
+#: src/EBox/Mail.pm:301
 msgid "Cannot change this parameter for a non-custom filter"
 msgstr ""
 
-#: src/EBox/Mail.pm:314
+#: src/EBox/Mail.pm:316
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
 
-#: src/EBox/Mail.pm:358 src/EBox/Mail.pm:366 src/EBox/Mail.pm:371
+#: src/EBox/Mail.pm:360 src/EBox/Mail.pm:368 src/EBox/Mail.pm:373
 msgid "remote IP"
 msgstr "IP remota"
 
-#: src/EBox/Mail.pm:359
+#: src/EBox/Mail.pm:361
 #, perl-brace-format
 msgid "{ip} is not a valid ip address"
 msgstr "{ip} no ye una adreza IP balida"
 
-#: src/EBox/Mail.pm:367
+#: src/EBox/Mail.pm:369
 #, perl-brace-format
 msgid "{ip} cannot be reached by any configured interface"
 msgstr "{ip} no puede estar adubito por denguna interfaz confegurata"
 
-#: src/EBox/Mail.pm:372
+#: src/EBox/Mail.pm:374
 #, perl-brace-format
 msgid "{ip} can be reached by more than one configured interface"
 msgstr "{ip} no puede estar adubito por más d'una interfaz confegurata"
 
-#: src/EBox/Mail.pm:413 src/EBox/Mail.pm:462
+#: src/EBox/Mail.pm:415 src/EBox/Mail.pm:464
 msgid "port"
 msgstr "puerto"
 
-#: src/EBox/Mail.pm:497
+#: src/EBox/Mail.pm:499
 msgid "smarthost ip"
 msgstr "IP smarthost"
 
-#: src/EBox/Mail.pm:526 src/EBox/Mail.pm:532
+#: src/EBox/Mail.pm:528 src/EBox/Mail.pm:534
 msgid "message size"
 msgstr "tamaño d'o mensache"
 
-#: src/EBox/Mail.pm:990
+#: src/EBox/Mail.pm:992
 msgid "Mail services"
 msgstr "Serbizios de correu"
 
-#: src/EBox/Mail.pm:992
+#: src/EBox/Mail.pm:994
 msgid "POP3 service"
 msgstr "serbizio POP3"
 
-#: src/EBox/Mail.pm:994
+#: src/EBox/Mail.pm:996
 msgid "IMAP service"
 msgstr "serbizio IMAP"
 
-#: src/EBox/Mail.pm:1014
+#: src/EBox/Mail.pm:1016
 msgid "enabled"
 msgstr "abilitato"
 
-#: src/EBox/Mail.pm:1014
+#: src/EBox/Mail.pm:1016
 msgid "disabled"
 msgstr "desabilitato"
 
-#: src/EBox/Mail.pm:1017 src/EBox/Mail.pm:1095
+#: src/EBox/Mail.pm:1019 src/EBox/Mail.pm:1097
 msgid "Status"
 msgstr "Estato"
 
-#: src/EBox/Mail.pm:1028 src/EBox/Mail.pm:1033 src/templates/mailtabs.mas:23
-#: src/templates/mailtabs.mas:26
+#: src/EBox/Mail.pm:1030 src/EBox/Mail.pm:1035 src/templates/mailtabs.mas:19
+#: src/templates/mailtabs.mas:21
 msgid "Filter"
 msgstr "Filtro"
 
-#: src/EBox/Mail.pm:1028
+#: src/EBox/Mail.pm:1030
 msgid "Custom"
 msgstr ""
 
-#: src/EBox/Mail.pm:1030
+#: src/EBox/Mail.pm:1032
 msgid "Address"
 msgstr ""
 
-#: src/EBox/Mail.pm:1050
+#: src/EBox/Mail.pm:1052
 msgid "Mail system"
 msgstr "Sistema de correu"
 
-#: src/EBox/Mail.pm:1062 src/templates/menutabs.mas:10
-#: src/templates/menutabs.mas:13
+#: src/EBox/Mail.pm:1064 src/templates/menutabs.mas:10
+#: src/templates/menutabs.mas:12
 msgid "General"
 msgstr "Cheneral"
 
-#: src/EBox/Mail.pm:1087 src/templates/qmanager.mas:23
+#: src/EBox/Mail.pm:1089 src/templates/qmanager.mas:21
 msgid "Date"
 msgstr "Calendata"
 
-#: src/EBox/Mail.pm:1088
+#: src/EBox/Mail.pm:1090
 msgid "Message ID"
 msgstr "ID de Mensache"
 
-#: src/EBox/Mail.pm:1089
+#: src/EBox/Mail.pm:1091
 msgid "From"
 msgstr "De"
 
-#: src/EBox/Mail.pm:1090
+#: src/EBox/Mail.pm:1092
 msgid "To"
 msgstr "Ta"
 
-#: src/EBox/Mail.pm:1091
+#: src/EBox/Mail.pm:1093
 msgid "From hostname"
 msgstr "Dende nombre de maquina"
 
-#: src/EBox/Mail.pm:1092
+#: src/EBox/Mail.pm:1094
 msgid "From host ip"
 msgstr "Dende ip d'a maquina"
 
-#: src/EBox/Mail.pm:1093 src/templates/qmanager.mas:21
+#: src/EBox/Mail.pm:1095 src/templates/qmanager.mas:20
 msgid "Size (bytes)"
 msgstr "Tamaños (bytes)"
 
-#: src/EBox/Mail.pm:1094
+#: src/EBox/Mail.pm:1096
 msgid "Relay"
 msgstr "Relay"
 
-#: src/EBox/Mail.pm:1096
+#: src/EBox/Mail.pm:1098
 msgid "Event"
 msgstr "Ebento"
 
-#: src/EBox/Mail.pm:1097
+#: src/EBox/Mail.pm:1099
 msgid "Aditional Info"
 msgstr "Informazión adizional"
 
-#: src/EBox/Mail.pm:1103
+#: src/EBox/Mail.pm:1105
 msgid "Successful messages"
 msgstr "Mensaches satisfautorios"
 
-#: src/EBox/Mail.pm:1104
+#: src/EBox/Mail.pm:1106
 msgid "Maximum message size exceeded"
 msgstr "Tamaño masimo de mensache eszedito"
 
-#: src/EBox/Mail.pm:1105
+#: src/EBox/Mail.pm:1107
 msgid "User quote exceeded"
 msgstr "Cuota d'usuario eszedita"
 
-#: src/EBox/Mail.pm:1106
+#: src/EBox/Mail.pm:1108
 msgid "Relay access denied"
 msgstr "Aczeso de Relay denegato"
 
-#: src/EBox/Mail.pm:1107
+#: src/EBox/Mail.pm:1109
 msgid "Account do not exists"
 msgstr "A cuenta no esiste"
 
-#: src/EBox/Mail.pm:1108
+#: src/EBox/Mail.pm:1110
 msgid "Host unreachable"
 msgstr "A maquina no puede adubir-se"
 
-#: src/EBox/Mail.pm:1109
+#: src/EBox/Mail.pm:1111
 msgid "Authentication error"
 msgstr "Error d'autenticazión"
 
-#: src/EBox/Mail.pm:1110
+#: src/EBox/Mail.pm:1112
 msgid "Other events"
 msgstr "Atros ebentos"
+
+#: src/EBox/Mail.pm:1219
+#, fuzzy
+msgid "Mailboxes"
+msgstr "Correu"
 
 #: src/EBox/MailUserLdap.pm:226
 msgid "This group has a mail alias"
@@ -295,11 +300,7 @@ msgstr "Iste grupo tiene un alias de cuenta de correo"
 msgid "This user has a mail account"
 msgstr "Iste usuario tiene cuenta de correo"
 
-#: src/templates/warnvd.mas:12
-msgid "Deleting virtual domain"
-msgstr "Eliminar un dominio birtual"
-
-#: src/templates/warnvd.mas:15
+#: src/templates/warnvd.mas:14
 msgid ""
 "The virtual domain you tried to delete contains data in the following "
 "modules. Please confirm you want to remove it and all its related data"
@@ -308,35 +309,35 @@ msgstr ""
 "modulos. Por fabor confirme que quiere eliminar-lo con toda a suya "
 "informazión."
 
-#: src/templates/warnvd.mas:31 src/templates/groupalias.mas:63
-#: src/templates/groupalias.mas:65 src/templates/vdomains.mas:102
-#: src/templates/vdomains.mas:104 src/templates/alias.mas:20
-#: src/templates/alias.mas:22 src/templates/alias.mas:24
-#: src/templates/alias.mas:120 src/templates/alias.mas:122
+#: src/templates/warnvd.mas:29 src/templates/groupalias.mas:64
+#: src/templates/groupalias.mas:65 src/templates/vdomains.mas:89
+#: src/templates/vdomains.mas:90 src/templates/alias.mas:22
+#: src/templates/alias.mas:23 src/templates/alias.mas:24
+#: src/templates/alias.mas:109 src/templates/alias.mas:110
 msgid "Delete"
 msgstr "Eliminar"
 
-#: src/templates/warnvd.mas:35 src/templates/warnvdmdsize.mas:38
-#: src/templates/warnusermdsize.mas:28
+#: src/templates/warnvd.mas:32 src/templates/warnvdmdsize.mas:36
+#: src/templates/warnusermdsize.mas:26
 msgid "Cancel"
 msgstr "Canzelar"
 
-#: src/templates/sasl.mas:15 src/templates/sasl.mas:20
-#: src/templates/imap.mas:22 src/templates/imap.mas:29
-#: src/templates/imap.mas:36 src/templates/pop.mas:22 src/templates/pop.mas:29
-#: src/templates/pop.mas:36
+#: src/templates/sasl.mas:15 src/templates/sasl.mas:18
+#: src/templates/imap.mas:22 src/templates/imap.mas:26
+#: src/templates/imap.mas:30 src/templates/pop.mas:22 src/templates/pop.mas:26
+#: src/templates/pop.mas:30
 msgid "No"
 msgstr "No"
 
-#: src/templates/sasl.mas:17 src/templates/sasl.mas:22
+#: src/templates/sasl.mas:16 src/templates/sasl.mas:19
 msgid "Yes"
 msgstr "Sí"
 
-#: src/templates/groupalias.mas:13
+#: src/templates/groupalias.mas:11
 msgid "Create alias mail account to group"
 msgstr "Creyar un alias de cuenta de correu á lo grupo"
 
-#: src/templates/groupalias.mas:17
+#: src/templates/groupalias.mas:16
 msgid ""
 "When the last member of a group is removed, the mail alias account will be "
 "deleted"
@@ -344,80 +345,59 @@ msgstr ""
 "Cuan o zaguer miembro d'o grupo sía eliminato, l'alias d'a cuenta de correu "
 "será eliminata"
 
-#: src/templates/groupalias.mas:23
-msgid "There are no users in the group or the users do not "
+#: src/templates/groupalias.mas:21
+#, fuzzy
+msgid ""
+"There are no users in the group or the users do not have a mail account, so "
+"an alias account cannot be created"
 msgstr "No bi ha usuarios en o grupo"
 
-#: src/templates/groupalias.mas:48 src/templates/groupalias.mas:50
-#: src/templates/createaccount.mas:64 src/templates/createaccount.mas:66
-#: src/templates/alias.mas:104 src/templates/alias.mas:106
-#: src/templates/alias.mas:108
+#: src/templates/groupalias.mas:48 src/templates/groupalias.mas:49
+#: src/templates/createaccount.mas:65 src/templates/createaccount.mas:66
+#: src/templates/alias.mas:96 src/templates/alias.mas:97
+#: src/templates/alias.mas:98
 msgid "Create"
 msgstr "Creyar"
 
-#: src/templates/groupalias.mas:56
+#: src/templates/groupalias.mas:54
 msgid "Mail alias settings"
 msgstr "Carauteristicas de l'alias d'a cuenta de correu"
 
-#: src/templates/groupalias.mas:60 src/templates/alias.mas:78
-msgid "Mail alias"
-msgstr "Alias de cuenta de correu"
-
-#: src/templates/index.mas:34
-msgid "Mail service settings"
-msgstr "Carauteristicas d'o serbizio de correu"
-
-#: src/templates/index.mas:37
-msgid "TLS for SMTP server"
-msgstr "TLS ta o serbidor SMTP"
-
-#: src/templates/index.mas:39
-msgid "Require authentication"
-msgstr "Demandar autenticazión"
-
-#: src/templates/index.mas:48 src/templates/index.mas:50
-#: src/templates/index.mas:107 src/templates/index.mas:109
-#: src/templates/index.mas:151 src/templates/index.mas:153
-#: src/templates/index.mas:195 src/templates/index.mas:197
-#: src/templates/warnvdmdsize.mas:34 src/templates/warnusermdsize.mas:24
+#: src/templates/index.mas:45 src/templates/index.mas:46
+#: src/templates/index.mas:93 src/templates/index.mas:94
+#: src/templates/index.mas:131 src/templates/index.mas:132
+#: src/templates/index.mas:170 src/templates/index.mas:171
+#: src/templates/warnvdmdsize.mas:33 src/templates/warnusermdsize.mas:23
 msgid "Change"
 msgstr "Cambear"
 
-#: src/templates/index.mas:57 src/templates/mailtabs.mas:9
-#: src/templates/mailtabs.mas:12
+#: src/templates/index.mas:52 src/templates/mailtabs.mas:9
+#: src/templates/mailtabs.mas:11
 msgid "Services"
 msgstr "Serbizios"
 
-#: src/templates/index.mas:66
+#: src/templates/index.mas:60
 msgid "Service"
 msgstr "Serbizio"
 
-#: src/templates/index.mas:70 src/templates/enable.mas:24
-#: src/templates/enable.mas:29
+#: src/templates/index.mas:63 src/templates/enable.mas:21
+#: src/templates/enable.mas:24
 msgid "Enabled"
 msgstr "Abilitar"
 
-#: src/templates/index.mas:74
+#: src/templates/index.mas:66
 msgid "SSL Support"
 msgstr "Tarabidau SSL"
 
-#: src/templates/index.mas:80
-msgid "POP3"
-msgstr "POP3"
-
-#: src/templates/index.mas:82
-msgid "IMAP"
-msgstr "IMAP"
-
-#: src/templates/index.mas:90 src/templates/index.mas:92
+#: src/templates/index.mas:79 src/templates/index.mas:80
 msgid "Apply Changes"
 msgstr "Aplicar cambeos"
 
-#: src/templates/index.mas:101
+#: src/templates/index.mas:88
 msgid "IP address of smarthost to send mail"
 msgstr "Adreza IP d'o smarthost á lo cualo nimbiar o correu"
 
-#: src/templates/index.mas:114
+#: src/templates/index.mas:98
 msgid ""
 "A value of 0 for the maximum message size and maximum mail account size "
 "stands for no size limitation."
@@ -425,29 +405,29 @@ msgstr ""
 "Un balor de 0 ta o tamaño masimo de mensache e tamaño masimo d'un buzón de "
 "correu embreca no limitazión de tamaño"
 
-#: src/templates/index.mas:120
+#: src/templates/index.mas:103
 msgid "Maximum message size accepted by the mail server"
 msgstr "Tamaño masimo de mensache adempribiato por o serbidor de correu"
 
-#: src/templates/index.mas:124 src/templates/index.mas:167
+#: src/templates/index.mas:106 src/templates/index.mas:144
 msgid "Size (MB)"
 msgstr "Tamaño (MB)"
 
-#: src/templates/index.mas:138 src/templates/index.mas:182
-#: src/templates/vdomains.mas:26 src/templates/createaccount.mas:51
-#: src/templates/editvdomains.mas:35 src/templates/alias.mas:47
+#: src/templates/index.mas:119 src/templates/index.mas:158
+#: src/templates/createaccount.mas:53 src/templates/vdomains.mas:24
+#: src/templates/editvdomains.mas:34 src/templates/alias.mas:45
 msgid "Unlimited size"
 msgstr "Tamaño ilimitato"
 
-#: src/templates/index.mas:162
+#: src/templates/index.mas:140
 msgid "Default maximum mail account size"
 msgstr "Tamaño masimo d'a cuenta de correu"
 
-#: src/templates/index.mas:203
+#: src/templates/index.mas:176
 msgid "Relay policy for objects"
 msgstr "Politica de Relay sobre ochetos"
 
-#: src/templates/index.mas:206
+#: src/templates/index.mas:178
 msgid ""
 "You should move to allowed column those objects you want to allow sending "
 "mail through this module."
@@ -455,7 +435,7 @@ msgstr ""
 "Abría de mober á la colunna premititos aquers ochetos que deseye que puedan "
 "nimbiar correu á trabiés d'iste modulo"
 
-#: src/templates/index.mas:209
+#: src/templates/index.mas:180
 msgid ""
 "Choose the object whose state you want to change and click on the arrow to "
 "move it to the desired column."
@@ -463,127 +443,129 @@ msgstr ""
 "Eslixa os ochetos cualo estato quiera cambear e pulse en a flecha ta mober-"
 "los á la colunna deseyata"
 
-#: src/templates/index.mas:217
+#: src/templates/index.mas:187
 msgid "Denied"
 msgstr "Denegato"
 
-#: src/templates/index.mas:220
+#: src/templates/index.mas:189
 msgid "Allowed"
 msgstr "Premitito"
 
-#: src/templates/index.mas:231 src/templates/index.mas:257
+#: src/templates/index.mas:199 src/templates/index.mas:221
 msgid "Empty list"
 msgstr "Lista bazía"
 
-#: src/templates/index.mas:246 src/templates/index.mas:250
+#: src/templates/index.mas:213 src/templates/index.mas:215
 msgid "Allow"
 msgstr "Premitir"
 
-#: src/templates/index.mas:248
+#: src/templates/index.mas:214
 msgid "Move selected objects to the allowed column"
 msgstr "Mueba os ochetos trigatos á la colunna premitito"
 
-#: src/templates/index.mas:274 src/templates/index.mas:278
+#: src/templates/index.mas:237 src/templates/index.mas:239
 msgid "Deny"
 msgstr "Denegato"
 
-#: src/templates/index.mas:276
+#: src/templates/index.mas:238
 msgid "Move selected objects to the denied column"
 msgstr "Mueba os ochetos trigatos á la colunna denegato"
 
-#: src/templates/index.mas:319
+#: src/templates/index.mas:279
 msgid "none"
 msgstr ""
 
-#: src/templates/index.mas:321
+#: src/templates/index.mas:280
 msgid "custom"
 msgstr ""
 
-#: src/templates/index.mas:346
+#: src/templates/index.mas:304
 msgid "Filter in use"
 msgstr ""
 
-#: src/templates/index.mas:360
+#: src/templates/index.mas:317
 msgid "Mail forward port"
 msgstr "Puerto de reimbío de correu"
 
-#: src/templates/index.mas:366
+#: src/templates/index.mas:322
 msgid "Filter's IP address"
 msgstr "Adreza IP d'o filtro"
 
-#: src/templates/index.mas:372
+#: src/templates/index.mas:327
 msgid "Filter's Port"
 msgstr "Puerto d'o filtro"
 
-#: src/templates/index.mas:381 src/templates/index.mas:383
+#: src/templates/index.mas:335 src/templates/index.mas:336
 msgid "Apply"
 msgstr "Aplicar"
 
-#: src/templates/warnvdmdsize.mas:14 src/templates/warnusermdsize.mas:10
-msgid "Changing maildir size of"
-msgstr "Cambeando lo tamaño d'o buzón de correu de"
+#: src/templates/moduleDisabled.mas:5
+msgid ""
+"The following settings only will take effect when the mail module will be "
+"enabled"
+msgstr ""
+
+#: src/templates/createaccount.mas:15
+msgid "Create mail account"
+msgstr "Creyar cuenta de correu"
+
+#: src/templates/createaccount.mas:23
+msgid "Account name"
+msgstr "Nombre de cuenta"
+
+#: src/templates/createaccount.mas:27 src/templates/vdomains.mas:17
+msgid "Domain name"
+msgstr "Nombre de dominio"
+
+#: src/templates/createaccount.mas:38
+msgid "Maildir size"
+msgstr "Tamaño d'o buzón de correu"
 
 #: src/templates/vdomains.mas:12
 msgid "Add a new virtual domain"
 msgstr "Adibir un nuebo dominio birtual"
 
-#: src/templates/vdomains.mas:18 src/templates/createaccount.mas:23
-msgid "Domain name"
-msgstr "Nombre de dominio"
-
-#: src/templates/vdomains.mas:37
+#: src/templates/vdomains.mas:34
 msgid "Default maildir size"
 msgstr "Tamaño d'o buzón de correu por defeuto"
 
-#: src/templates/vdomains.mas:49
+#: src/templates/vdomains.mas:45
 msgid "(MB)"
 msgstr "(MB)"
 
-#: src/templates/vdomains.mas:57 src/templates/vdomains.mas:59
+#: src/templates/vdomains.mas:52 src/templates/vdomains.mas:53
 msgid "Add"
 msgstr "Adibir"
 
-#: src/templates/vdomains.mas:69
+#: src/templates/vdomains.mas:62
 msgid "Virtual domains list"
 msgstr "Lista de dominios birtuals"
 
-#: src/templates/vdomains.mas:75
+#: src/templates/vdomains.mas:67
 msgid "Name"
 msgstr "Nombre"
 
-#: src/templates/vdomains.mas:79
+#: src/templates/vdomains.mas:70
 msgid "Maildir Size"
 msgstr "Tamaño de buzón de correu"
 
-#: src/templates/vdomains.mas:83 src/templates/alias.mas:82
+#: src/templates/vdomains.mas:73 src/templates/alias.mas:75
 msgid "Action"
 msgstr "Aizión"
 
-#: src/templates/vdomains.mas:96 src/templates/vdomains.mas:97
+#: src/templates/vdomains.mas:85
 msgid "Edit"
 msgstr "Editar"
 
-#: src/templates/createaccount.mas:14 src/templates/account.mas:11
-msgid "Create mail account"
-msgstr "Creyar cuenta de correu"
-
-#: src/templates/createaccount.mas:18
-msgid "Account name"
-msgstr "Nombre de cuenta"
-
-#: src/templates/createaccount.mas:35
-msgid "Maildir size"
-msgstr "Tamaño d'o buzón de correu"
-
-#: src/templates/imap.mas:24 src/templates/imap.mas:31
-#: src/templates/imap.mas:38 src/templates/pop.mas:24 src/templates/pop.mas:31
-#: src/templates/pop.mas:38
+#: src/templates/imap.mas:23 src/templates/imap.mas:27
+#: src/templates/imap.mas:31 src/templates/pop.mas:23 src/templates/pop.mas:27
+#: src/templates/pop.mas:31
 msgid "Optional"
 msgstr "Ozional"
 
-#: src/templates/imap.mas:26 src/templates/imap.mas:33
-#: src/templates/imap.mas:40 src/templates/pop.mas:26 src/templates/pop.mas:33
-#: src/templates/pop.mas:40
+#: src/templates/imap.mas:24 src/templates/imap.mas:28
+#: src/templates/imap.mas:32 src/templates/pop.mas:24 src/templates/pop.mas:28
+#: src/templates/pop.mas:32
 msgid "Required"
 msgstr "Requiesto"
 
@@ -591,11 +573,11 @@ msgstr "Requiesto"
 msgid "TLS support is required by the authentication system"
 msgstr "O tarabidau TLS ye requiesto por o sistema d'autenticazión"
 
-#: src/templates/enable.mas:16
+#: src/templates/enable.mas:15
 msgid "Service status"
 msgstr "Estato d'o serbizio"
 
-#: src/templates/enable.mas:22 src/templates/enable.mas:27
+#: src/templates/enable.mas:20 src/templates/enable.mas:23
 msgid "Disabled"
 msgstr "Esabilitato"
 
@@ -604,12 +586,12 @@ msgstr "Esabilitato"
 msgid "Maildir size for {vdomain} virtual domain"
 msgstr "Tamaño de buzón de correu ta o dominio birtual {vdomain}"
 
-#: src/templates/editvdomains.mas:45
+#: src/templates/editvdomains.mas:43
 msgid "Force the change to the existing accounts"
 msgstr "Aforzar o cambeo á las cuentas esistents"
 
-#: src/templates/editvdomains.mas:52 src/templates/editvdomains.mas:54
-#: src/templates/alias.mas:59 src/templates/alias.mas:61
+#: src/templates/editvdomains.mas:49 src/templates/editvdomains.mas:50
+#: src/templates/alias.mas:56 src/templates/alias.mas:57
 msgid "Modify"
 msgstr "Modificar"
 
@@ -617,87 +599,116 @@ msgstr "Modificar"
 msgid "Mail account settings"
 msgstr "Carauteristicas d'a cuenta de correu"
 
-#: src/templates/alias.mas:32
+#: src/templates/alias.mas:31
 msgid "Default maildir size (MB)"
 msgstr "Tamaño d'o buzón por defeuto (Mb)"
 
-#: src/templates/alias.mas:72
+#: src/templates/alias.mas:67
 msgid "Create mail aliases"
 msgstr "Creyar alias de cuenta de correu"
 
-#: src/templates/qmanager.mas:25
+#: src/templates/alias.mas:72
+msgid "Mail alias"
+msgstr "Alias de cuenta de correu"
+
+#: src/templates/qmanager.mas:22
 msgid "Sender"
 msgstr "Remitent"
 
-#: src/templates/qmanager.mas:27
+#: src/templates/qmanager.mas:23
 msgid "Recipients"
 msgstr "Destinatarios"
 
-#: src/templates/qmanager.mas:29
+#: src/templates/qmanager.mas:24
 msgid "Message"
 msgstr "ID d'o mensache"
 
-#: src/templates/qmanager.mas:31
+#: src/templates/qmanager.mas:25
 msgid "Operate"
 msgstr "Executar"
 
-#: src/templates/qmanager.mas:49 src/templates/qmanager.mas:51
+#: src/templates/qmanager.mas:42 src/templates/qmanager.mas:43
 msgid "Requeue"
 msgstr "Reencodar"
 
-#: src/templates/qmanager.mas:56 src/templates/qmanager.mas:58
+#: src/templates/qmanager.mas:47 src/templates/qmanager.mas:48
 msgid "Show Info"
 msgstr "Amostrar informazión"
 
-#: src/templates/qmanager.mas:63 src/templates/qmanager.mas:65
+#: src/templates/qmanager.mas:52 src/templates/qmanager.mas:53
 msgid "Remove"
 msgstr "Eliminar"
 
-#: src/templates/qmanager.mas:78 src/templates/qmanager.mas:80
+#: src/templates/qmanager.mas:65 src/templates/qmanager.mas:66
 msgid "Hide Info"
 msgstr "Amagar informazión"
 
-#: src/templates/qmanager.mas:100 src/templates/qmanager.mas:102
+#: src/templates/qmanager.mas:85 src/templates/qmanager.mas:86
 msgid "first"
 msgstr "primero"
 
-#: src/templates/qmanager.mas:106 src/templates/qmanager.mas:108
+#: src/templates/qmanager.mas:89 src/templates/qmanager.mas:90
 msgid "prev"
 msgstr "anterior"
 
-#: src/templates/qmanager.mas:116 src/templates/qmanager.mas:119
-msgid "Page"
-msgstr "pachina"
-
-#: src/templates/qmanager.mas:120
-msgid "of"
-msgstr "de"
-
-#: src/templates/qmanager.mas:131 src/templates/qmanager.mas:133
+#: src/templates/qmanager.mas:109 src/templates/qmanager.mas:110
 msgid "next"
 msgstr "siguient"
 
-#: src/templates/qmanager.mas:137 src/templates/qmanager.mas:139
+#: src/templates/qmanager.mas:113 src/templates/qmanager.mas:114
 msgid "last"
 msgstr "zaguera"
 
-#: src/templates/qmanager.mas:150
+#: src/templates/qmanager.mas:124
 msgid "There is not any message at the queue or the service is stopped"
 msgstr "No bi'n ha mensaches en a cola u o serbizio ye aturato"
 
-#: src/templates/mailtabs.mas:16 src/templates/mailtabs.mas:19
+#: src/templates/mailtabs.mas:14 src/templates/mailtabs.mas:16
 msgid "Settings"
 msgstr "Carauteristicas"
 
-#: src/templates/account.mas:15
-msgid "Create mail alias to mail account"
-msgstr "Creyar alias de correu á la cuenta de correu"
-
+#: src/templates/account.mas:22
 #, fuzzy
-#~ msgid ""
-#~ "There are no users in the group or the users do not have a mail account, "
-#~ "so an alias account cannot be created"
+msgid "Mail account"
+msgstr "cuenta de correu"
+
+#: src/templates/account.mas:26
+#, fuzzy
+msgid "Click here to create a new mail virtual domain"
+msgstr "Adibir un nuebo dominio birtual"
+
+#~ msgid "Deleting virtual domain"
+#~ msgstr "Eliminar un dominio birtual"
+
+#~ msgid "There are no users in the group or the users do not "
 #~ msgstr "No bi ha usuarios en o grupo"
+
+#~ msgid "Mail service settings"
+#~ msgstr "Carauteristicas d'o serbizio de correu"
+
+#~ msgid "TLS for SMTP server"
+#~ msgstr "TLS ta o serbidor SMTP"
+
+#~ msgid "Require authentication"
+#~ msgstr "Demandar autenticazión"
+
+#~ msgid "POP3"
+#~ msgstr "POP3"
+
+#~ msgid "IMAP"
+#~ msgstr "IMAP"
+
+#~ msgid "Changing maildir size of"
+#~ msgstr "Cambeando lo tamaño d'o buzón de correu de"
+
+#~ msgid "Page"
+#~ msgstr "pachina"
+
+#~ msgid "of"
+#~ msgstr "de"
+
+#~ msgid "Create mail alias to mail account"
+#~ msgstr "Creyar alias de correu á la cuenta de correu"
 
 #~ msgid "module status"
 #~ msgstr "estato d'o modulo"

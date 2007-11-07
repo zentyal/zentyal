@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-samba 0.9.100"
+"Project-Id-Version: ebox-samba 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-09-28 10:43+0200\n"
+"POT-Creation-Date: 2007-11-07 11:41+0100\n"
 "PO-Revision-Date: 2007-09-28 10:43+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,43 +16,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:474
-msgid "netbios"
-msgstr ""
-
-#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:512
-msgid "working group"
-msgstr ""
-
-#: src/EBox/CGI/SambaConf.pm:44
-msgid "working mode"
-msgstr ""
-
-#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:493
-msgid "description"
-msgstr ""
-
-#: src/EBox/CGI/SambaConf.pm:46
-msgid "user quota"
-msgstr ""
-
 #: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:66
 msgid "user name"
 msgstr ""
 
 #: src/EBox/CGI/ActivePrinting.pm:48 src/EBox/CGI/ActiveSharing.pm:44
-#: src/EBox/SambaLdapUser.pm:462 src/EBox/SambaLdapUser.pm:490
-#: src/EBox/SambaLdapUser.pm:541
+#: src/EBox/SambaLdapUser.pm:480 src/EBox/SambaLdapUser.pm:508
+#: src/EBox/SambaLdapUser.pm:559
 msgid "group name"
 msgstr ""
 
 #: src/EBox/CGI/Enable.pm:42
 msgid "module status"
-msgstr ""
-
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:242
-#: src/EBox/Samba.pm:250
-msgid "File sharing"
 msgstr ""
 
 #: src/EBox/CGI/ActiveSharing.pm:47
@@ -63,44 +38,171 @@ msgstr ""
 msgid "active"
 msgstr ""
 
-#: src/EBox/Samba.pm:289 src/EBox/Samba.pm:334
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:245
+#: src/EBox/Samba.pm:253
+msgid "File sharing"
+msgstr ""
+
+#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:477
+msgid "netbios"
+msgstr ""
+
+#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:515
+msgid "working group"
+msgstr ""
+
+#: src/EBox/CGI/SambaConf.pm:44
+msgid "working mode"
+msgstr ""
+
+#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:496
+msgid "description"
+msgstr ""
+
+#: src/EBox/CGI/SambaConf.pm:46
+msgid "user quota"
+msgstr ""
+
+#: src/EBox/Samba.pm:292 src/EBox/Samba.pm:337
 msgid "listening port"
 msgstr ""
 
-#: src/EBox/Samba.pm:372
+#: src/EBox/Samba.pm:375
 msgid "Domain Name"
 msgstr ""
 
-#: src/EBox/Samba.pm:531
+#: src/EBox/Samba.pm:534
 msgid "quota"
 msgstr ""
 
-#: src/EBox/Samba.pm:816 src/EBox/Samba.pm:835
+#: src/EBox/Samba.pm:819 src/EBox/Samba.pm:838
 msgid "user"
 msgstr ""
 
-#: src/EBox/Samba.pm:819 src/EBox/Samba.pm:849 src/EBox/SambaLdapUser.pm:611
+#: src/EBox/Samba.pm:822 src/EBox/Samba.pm:852 src/EBox/SambaLdapUser.pm:629
 msgid "group"
 msgstr ""
 
-#: src/EBox/Samba.pm:822
+#: src/EBox/Samba.pm:825
 msgid "printer"
 msgstr ""
 
-#: src/EBox/SambaLdapUser.pm:193
+#: src/EBox/Samba.pm:1166
+msgid "User's files"
+msgstr ""
+
+#: src/EBox/Samba.pm:1168
+msgid "Group's files"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:210
 msgid "This user has a sharing directory associated which conatins data"
 msgstr ""
 
-#: src/EBox/SambaLdapUser.pm:254
+#: src/EBox/SambaLdapUser.pm:271
 msgid "This group has a sharing directory associatedwhich conatins data"
 msgstr ""
 
-#: src/EBox/SambaLdapUser.pm:495
+#: src/EBox/SambaLdapUser.pm:513
 msgid "A name should be provided for the share"
 msgstr ""
 
-#: src/EBox/SambaLdapUser.pm:503
+#: src/EBox/SambaLdapUser.pm:521
 msgid "sharing resource"
+msgstr ""
+
+#: src/templates/delete.mas:11
+msgid ""
+"The group you tried to delete has a directory which contains data, if you "
+"remove it all its data will be removed. Please confirm that you want to "
+"delete it."
+msgstr ""
+
+#: src/templates/delete.mas:18 src/templates/samba.mas:79
+#: src/templates/samba.mas:80
+msgid "Delete"
+msgstr ""
+
+#: src/templates/delete.mas:21
+msgid "Cancel"
+msgstr ""
+
+#: src/templates/samba.mas:9
+msgid "PDC/File sharing account"
+msgstr ""
+
+#: src/templates/samba.mas:16
+msgid "User account"
+msgstr ""
+
+#: src/templates/samba.mas:21 src/templates/samba.mas:24
+msgid "Disabled"
+msgstr ""
+
+#: src/templates/samba.mas:22 src/templates/samba.mas:25
+msgid "Enabled"
+msgstr ""
+
+#: src/templates/samba.mas:32
+msgid "Administration rights"
+msgstr ""
+
+#: src/templates/samba.mas:46 src/templates/samba.mas:47
+#: src/templates/samba.mas:76 src/templates/samba.mas:77
+#: src/templates/samba.mas:147 src/templates/samba.mas:148
+#: src/templates/index.mas:81 src/templates/index.mas:82
+msgid "Change"
+msgstr ""
+
+#: src/templates/samba.mas:55
+msgid "Sharing directory for this group"
+msgstr ""
+
+#: src/templates/samba.mas:58
+msgid ""
+"You can set a share directory for this group, but you should keep in mind "
+"that Microsoft Windows 98 and Millenium will not be able to see names longer "
+"than 12 characters"
+msgstr ""
+
+#: src/templates/samba.mas:66
+msgid "This resource name is longer than 12 characters."
+msgstr ""
+
+#: src/templates/samba.mas:69
+msgid "Directory name"
+msgstr ""
+
+#: src/templates/samba.mas:83 src/templates/samba.mas:84
+msgid "Add"
+msgstr ""
+
+#: src/templates/samba.mas:91
+msgid "Printers"
+msgstr ""
+
+#: src/templates/samba.mas:95
+msgid "Select the printers this user will have access to."
+msgstr ""
+
+#: src/templates/samba.mas:105
+msgid "Printer"
+msgstr ""
+
+#: src/templates/samba.mas:106
+msgid "Allow"
+msgstr ""
+
+#: src/templates/samba.mas:128
+msgid "Allow all printers"
+msgstr ""
+
+#: src/templates/samba.mas:159
+msgid "printers module"
+msgstr ""
+
+#: src/templates/samba.mas:170
+msgid "file sharing module"
 msgstr ""
 
 #: src/templates/index.mas:19
@@ -142,92 +244,6 @@ msgstr ""
 
 #: src/templates/index.mas:71
 msgid "Quota limit"
-msgstr ""
-
-#: src/templates/index.mas:81 src/templates/index.mas:82
-#: src/templates/samba.mas:47 src/templates/samba.mas:48
-#: src/templates/samba.mas:75 src/templates/samba.mas:76
-#: src/templates/samba.mas:143 src/templates/samba.mas:144
-msgid "Change"
-msgstr ""
-
-#: src/templates/delete.mas:11
-msgid ""
-"The group you tried to delete has a directory which contains data, if you "
-"remove it all its data will be removed. Please confirm that you want to "
-"delete it."
-msgstr ""
-
-#: src/templates/delete.mas:18 src/templates/samba.mas:78
-#: src/templates/samba.mas:79
-msgid "Delete"
-msgstr ""
-
-#: src/templates/delete.mas:21
-msgid "Cancel"
-msgstr ""
-
-#: src/templates/samba.mas:11
-msgid "PDC/File sharing account"
-msgstr ""
-
-#: src/templates/samba.mas:17
-msgid "User account"
-msgstr ""
-
-#: src/templates/samba.mas:22 src/templates/samba.mas:25
-msgid "Disabled"
-msgstr ""
-
-#: src/templates/samba.mas:23 src/templates/samba.mas:26
-msgid "Enabled"
-msgstr ""
-
-#: src/templates/samba.mas:33
-msgid "Administration rights"
-msgstr ""
-
-#: src/templates/samba.mas:56
-msgid "Sharing directory for this group"
-msgstr ""
-
-#: src/templates/samba.mas:59
-msgid ""
-"You can set a share directory for this group, but you should keep in mind "
-"that Microsoft Windows 98 and Millenium will not be able to see names longer "
-"than 12 characters"
-msgstr ""
-
-#: src/templates/samba.mas:65
-msgid "This resource name is longer than 12 characters."
-msgstr ""
-
-#: src/templates/samba.mas:68
-msgid "Directory name"
-msgstr ""
-
-#: src/templates/samba.mas:82 src/templates/samba.mas:83
-msgid "Add"
-msgstr ""
-
-#: src/templates/samba.mas:90
-msgid "Printers"
-msgstr ""
-
-#: src/templates/samba.mas:91
-msgid "Select the printers this user will have access to."
-msgstr ""
-
-#: src/templates/samba.mas:101
-msgid "Printer"
-msgstr ""
-
-#: src/templates/samba.mas:102
-msgid "Allow"
-msgstr ""
-
-#: src/templates/samba.mas:124
-msgid "Allow all printers"
 msgstr ""
 
 #: stubs/smb.conf.mas:91

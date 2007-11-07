@@ -5,9 +5,9 @@
 # Jordi Mallach <jordi@sindominio.net>, 2004.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-objects 0.9.100\n"
+"Project-Id-Version: ebox-objects 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-09-28 09:25+0200\n"
+"POT-Creation-Date: 2007-11-07 11:40+0100\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -53,12 +53,12 @@ msgstr "Adreça IP"
 msgid "member"
 msgstr ""
 
-#: src/EBox/Model/MemberTable.pm:138
+#: src/EBox/Model/MemberTable.pm:135
 msgid "You can only use MAC addresses with hosts"
 msgstr ""
 
-#: src/EBox/Model/MemberTable.pm:141 src/EBox/Model/MemberTable.pm:142
-#: src/EBox/Model/MemberTable.pm:146
+#: src/EBox/Model/MemberTable.pm:138 src/EBox/Model/MemberTable.pm:139
+#: src/EBox/Model/MemberTable.pm:143
 msgid "network address"
 msgstr "adreça de xarxa"
 
@@ -87,7 +87,7 @@ msgstr ""
 msgid "Removed {nname} from object {object}"
 msgstr ""
 
-#: src/EBox/Objects.pm:200
+#: src/EBox/Objects.pm:252
 msgid "Object"
 msgstr "Objecte"
 

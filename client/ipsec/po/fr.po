@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ipsec 0.7\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:12+0200\n"
+"POT-Creation-Date: 2007-11-07 11:39+0100\n"
 "PO-Revision-Date: 2007-04-12 08:17+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "X-Generator: Pootle 0.10.1\n"
 
 #: src/EBox/CGI/RSA.pm:29 src/EBox/CGI/RSA.pm:39 src/EBox/IPSec.pm:1106
-#: src/templates/static.mas:120 src/templates/static-edit.mas:127
-#: src/templates/static-edit.mas:134
+#: src/templates/static.mas:112 src/templates/static-edit.mas:119
+#: src/templates/static-edit.mas:124
 msgid "RSA keys"
 msgstr "Clés RSA"
 
@@ -88,7 +88,7 @@ msgstr "secret partagé"
 #: src/EBox/CGI/StaticEdit.pm:92 src/EBox/CGI/RSAView.pm:29
 #: src/EBox/CGI/RSAView.pm:40 src/EBox/CGI/RoadWarriorEdit.pm:83
 #: src/EBox/IPSec.pm:897 src/EBox/IPSec.pm:930 src/EBox/IPSec.pm:1002
-#: src/templates/static-edit.mas:143
+#: src/templates/static-edit.mas:132
 msgid "RSA key"
 msgstr "clé RSA"
 
@@ -226,30 +226,30 @@ msgstr "Road Warriors"
 msgid "New RSA key"
 msgstr "Nouvelle clé RSA"
 
-#: src/templates/rsa.mas:13
+#: src/templates/rsa.mas:12
 msgid "Key ID:"
 msgstr "ID de clé:"
 
-#: src/templates/rsa.mas:18
+#: src/templates/rsa.mas:16
 msgid "Generate"
 msgstr "Générer"
 
-#: src/templates/rsa.mas:25
+#: src/templates/rsa.mas:22
 msgid "Key"
 msgstr "Clé"
 
-#: src/templates/rsa.mas:27
+#: src/templates/rsa.mas:23
 msgid "Actions"
 msgstr "Actions"
 
-#: src/templates/rsa.mas:40 src/templates/rsa.mas:42
+#: src/templates/rsa.mas:35 src/templates/rsa.mas:36
 msgid "View"
 msgstr "Voir"
 
-#: src/templates/rsa.mas:47 src/templates/rsa.mas:49 src/templates/rsa.mas:51
-#: src/templates/static.mas:234 src/templates/static.mas:236
-#: src/templates/static.mas:238 src/templates/roadwarrior.mas:181
-#: src/templates/roadwarrior.mas:183 src/templates/roadwarrior.mas:185
+#: src/templates/rsa.mas:40 src/templates/rsa.mas:41 src/templates/rsa.mas:42
+#: src/templates/static.mas:214 src/templates/static.mas:215
+#: src/templates/static.mas:216 src/templates/roadwarrior.mas:166
+#: src/templates/roadwarrior.mas:167 src/templates/roadwarrior.mas:168
 msgid "Delete"
 msgstr "Effacer"
 
@@ -257,72 +257,71 @@ msgstr "Effacer"
 msgid "Add new tunnel"
 msgstr "Ajouter nouveau tunnel"
 
-#: src/templates/static.mas:19 src/templates/static-edit.mas:32
-#: src/templates/roadwarrior.mas:19 src/templates/roadwarrior-edit.mas:35
+#: src/templates/static.mas:18 src/templates/static-edit.mas:31
+#: src/templates/roadwarrior.mas:18 src/templates/roadwarrior-edit.mas:34
 msgid "Name"
 msgstr "Nom"
 
-#: src/templates/static.mas:31 src/templates/static-edit.mas:44
-#: src/templates/roadwarrior.mas:31 src/templates/roadwarrior-edit.mas:48
+#: src/templates/static.mas:29 src/templates/static-edit.mas:42
+#: src/templates/roadwarrior.mas:29 src/templates/roadwarrior-edit.mas:46
 msgid "Network interface"
 msgstr "Interface de réseau"
 
-#: src/templates/static.mas:50 src/templates/static-edit.mas:64
+#: src/templates/static.mas:47 src/templates/static-edit.mas:61
 msgid "Remote IP address"
 msgstr "Adresse IP distante"
 
-#: src/templates/static.mas:62 src/templates/static-edit.mas:75
-#: src/templates/roadwarrior.mas:50 src/templates/roadwarrior-edit.mas:73
+#: src/templates/static.mas:58 src/templates/static-edit.mas:71
+#: src/templates/roadwarrior.mas:47 src/templates/roadwarrior-edit.mas:70
 msgid "Local subnet"
 msgstr "Sous-réseau local"
 
-#: src/templates/static.mas:86 src/templates/static-edit.mas:96
+#: src/templates/static.mas:81 src/templates/static-edit.mas:91
 msgid "Remote subnet"
 msgstr "Sous-réseau distant"
 
-#: src/templates/static.mas:110 src/templates/static-edit.mas:117
+#: src/templates/static.mas:104 src/templates/static-edit.mas:111
 msgid "Authentication method"
 msgstr "Mèthode d'authentification"
 
-#: src/templates/static.mas:117 src/templates/static.mas:130
-#: src/templates/static-edit.mas:124 src/templates/static-edit.mas:131
-#: src/templates/static-edit.mas:187
+#: src/templates/static.mas:110 src/templates/static.mas:121
+#: src/templates/static-edit.mas:117 src/templates/static-edit.mas:122
+#: src/templates/static-edit.mas:173
 msgid "Shared secret"
 msgstr "Secret partagé"
 
-#: src/templates/static.mas:136
+#: src/templates/static.mas:126
 msgid "RSA Key"
 msgstr "Clé RSA"
 
-#: src/templates/static.mas:163 src/templates/static-edit.mas:163
-#: src/templates/roadwarrior.mas:117 src/templates/roadwarrior-edit.mas:139
+#: src/templates/static.mas:152 src/templates/static-edit.mas:151
+#: src/templates/roadwarrior.mas:111 src/templates/roadwarrior-edit.mas:133
 msgid "Remote ID"
 msgstr "ID distante"
 
-#: src/templates/static.mas:180 src/templates/static-edit.mas:175
-#: src/templates/roadwarrior.mas:130 src/templates/roadwarrior-edit.mas:152
+#: src/templates/static.mas:168 src/templates/static-edit.mas:162
+#: src/templates/roadwarrior.mas:123 src/templates/roadwarrior-edit.mas:145
 msgid "Remote RSA public key"
 msgstr "Clé publique RSA distante"
 
-#: src/templates/static.mas:197 src/templates/static.mas:198
-#: src/templates/roadwarrior.mas:144 src/templates/roadwarrior.mas:145
+#: src/templates/static.mas:184 src/templates/roadwarrior.mas:136
 msgid "Add"
 msgstr "Ajouter"
 
-#: src/templates/static.mas:207 src/templates/roadwarrior.mas:154
+#: src/templates/static.mas:192 src/templates/roadwarrior.mas:144
 msgid "Connections"
 msgstr "Connexions"
 
-#: src/templates/static.mas:212 src/templates/roadwarrior.mas:159
+#: src/templates/static.mas:196 src/templates/roadwarrior.mas:148
 msgid "Connection"
 msgstr "Connexion"
 
-#: src/templates/static.mas:214 src/templates/roadwarrior.mas:161
+#: src/templates/static.mas:197 src/templates/roadwarrior.mas:149
 msgid "Action"
 msgstr "Action"
 
-#: src/templates/static.mas:227 src/templates/static.mas:229
-#: src/templates/roadwarrior.mas:174 src/templates/roadwarrior.mas:176
+#: src/templates/static.mas:209 src/templates/static.mas:210
+#: src/templates/roadwarrior.mas:161 src/templates/roadwarrior.mas:162
 msgid "Edit"
 msgstr "Éditer"
 
@@ -330,13 +329,11 @@ msgstr "Éditer"
 msgid "Enabled"
 msgstr "Activé"
 
-#: src/templates/static-edit.mas:201 src/templates/static-edit.mas:202
-#: src/templates/roadwarrior-edit.mas:166
-#: src/templates/roadwarrior-edit.mas:167
+#: src/templates/static-edit.mas:186 src/templates/roadwarrior-edit.mas:158
 msgid "Change"
 msgstr "Changer"
 
-#: src/templates/static-edit.mas:205 src/templates/static-edit.mas:206
+#: src/templates/static-edit.mas:188
 msgid "Back"
 msgstr "Arrière"
 
@@ -344,15 +341,14 @@ msgstr "Arrière"
 msgid "New road warrior connection"
 msgstr "Nouvelle connexion de road warrior"
 
-#: src/templates/roadwarrior.mas:74 src/templates/roadwarrior-edit.mas:95
+#: src/templates/roadwarrior.mas:70 src/templates/roadwarrior-edit.mas:91
 msgid "Allowed remote subnet range"
 msgstr "Rang de sub-réseaux distants permis"
 
-#: src/templates/roadwarrior.mas:98 src/templates/roadwarrior-edit.mas:117
+#: src/templates/roadwarrior.mas:93 src/templates/roadwarrior-edit.mas:112
 msgid "Local RSA Key"
 msgstr "Clé RSA locale"
 
-#: src/templates/roadwarrior-edit.mas:170
-#: src/templates/roadwarrior-edit.mas:171
+#: src/templates/roadwarrior-edit.mas:160
 msgid "Cancel"
 msgstr "Annuler"

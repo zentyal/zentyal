@@ -11,9 +11,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-objects 0.9.100\n"
+"Project-Id-Version: ebox-objects 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-09-28 09:25+0200\n"
+"POT-Creation-Date: 2007-11-07 11:40+0100\n"
 "PO-Revision-Date: 2007-08-18 12:53+0200\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -28,7 +28,7 @@ msgstr "Name"
 
 #: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:88
 msgid "Members"
-msgstr ""
+msgstr "Mitglieder"
 
 #: src/EBox/Model/ObjectTable.pm:83 src/EBox/Model/ObjectTable.pm:89
 #: src/EBox/Model/MemberTable.pm:94 src/EBox/Objects.pm:40
@@ -36,34 +36,31 @@ msgid "Objects"
 msgstr "Computergruppen"
 
 #: src/EBox/Model/ObjectTable.pm:90
-#, fuzzy
 msgid "object"
 msgstr "Computergruppe"
 
 #: src/EBox/Model/ObjectTable.pm:130
 msgid "This object is being used by another module"
-msgstr ""
+msgstr "Diese Computergruppe wird von einem anderen Modul verwendet"
 
 #: src/EBox/Model/MemberTable.pm:71
-#, fuzzy
 msgid "IP Address"
 msgstr "IP-Adresse"
 
 #: src/EBox/Model/MemberTable.pm:77
-#, fuzzy
 msgid "MAC Address"
-msgstr "IP-Adresse"
+msgstr "MAC-Adresse"
 
 #: src/EBox/Model/MemberTable.pm:95
 msgid "member"
-msgstr ""
+msgstr "Mitglied"
 
-#: src/EBox/Model/MemberTable.pm:138
+#: src/EBox/Model/MemberTable.pm:135
 msgid "You can only use MAC addresses with hosts"
-msgstr ""
+msgstr "Sie können nur MAC-Adressen in Verbindung mit Computer verwenden"
 
-#: src/EBox/Model/MemberTable.pm:141 src/EBox/Model/MemberTable.pm:142
-#: src/EBox/Model/MemberTable.pm:146
+#: src/EBox/Model/MemberTable.pm:138 src/EBox/Model/MemberTable.pm:139
+#: src/EBox/Model/MemberTable.pm:143
 msgid "network address"
 msgstr "Netzwerkadresse"
 
@@ -92,7 +89,7 @@ msgstr "Computergruppe {object} vollständig gelöscht"
 msgid "Removed {nname} from object {object}"
 msgstr "{nname} aus Computergruppe {object} entfernt"
 
-#: src/EBox/Objects.pm:200
+#: src/EBox/Objects.pm:252
 msgid "Object"
 msgstr "Computergruppe"
 

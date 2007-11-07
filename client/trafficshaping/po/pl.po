@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-trafficshaping 0.9.100\n"
+"Project-Id-Version: ebox-trafficshaping 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-09-28 09:26+0200\n"
+"POT-Creation-Date: 2007-11-07 11:41+0100\n"
 "PO-Revision-Date: 2007-04-05 15:54+0000\n"
 "Last-Translator: Krzysztof Kubanek <krzysztof.kubanek@gmail.com>\n"
 "Language-Team: none\n"
@@ -28,88 +28,99 @@ msgstr "Reguły kierowania ruchu"
 msgid "Traffic Shaping Management"
 msgstr "Zarządzanie kierowaniem ruchu"
 
-#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:63
-msgid "Rules lists per interface"
-msgstr "Lista reguł dla interfejsu"
-
-#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:67
-msgid ""
-"Select an interface to add traffic shaping rules. Keep in mind that if you "
-"are shaping an internal interface, you are doing ingress shaping."
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:137
+#, perl-brace-format
+msgid "Change or remove some rules on {contextName}"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleMultiTable.pm:69
-#, fuzzy
-msgid "Choose an interface to shape"
-msgstr "Wybierz interfejs zewnętrzny aby kierować ruchem"
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:263
+#, fuzzy, perl-brace-format
+msgid "interface {iface}"
+msgstr "interfejs"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:111
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:632
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:289
+#, fuzzy
+msgid "Guaranteed rate"
+msgstr "Gwarantowana przepustowość"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:294
+#, fuzzy
+msgid "Limited rate"
+msgstr "Ograniczona przepustowość"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:312
+msgid "If service is any, some source or destination should be provided"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:319
+#, fuzzy
+msgid "Guaranteed rate or limited rate is required"
+msgstr "Gwarantowana lub ograniczona przepustowość"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:423
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:630
 msgid "Service"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:117
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:430
 msgid "Source"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:123
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:152
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:435
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:463
 msgid "Any"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:126
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:438
 msgid "Source IP"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:131
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:443
 msgid "Source MAC"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:136
-#: src/EBox/TrafficShaping.pm:574
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:448
 msgid "Source object"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:146
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:458
 msgid "Destination"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:155
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:466
 msgid "Destination IP"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:160
-#: src/EBox/TrafficShaping.pm:587
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:471
 msgid "Destination object"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:170
-#: src/EBox/TrafficShaping.pm:1117 src/EBox/TrafficShaping.pm:1945
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:481
+#: src/EBox/TrafficShaping.pm:1357 src/EBox/TrafficShaping.pm:2151
 msgid "Priority"
 msgstr "Priorytet"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:177
-#: src/EBox/TrafficShaping.pm:247 src/EBox/TrafficShaping.pm:444
-#: src/EBox/TrafficShaping.pm:595 src/EBox/TrafficShaping.pm:1943
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:487
+#: src/EBox/TrafficShaping.pm:2149
 msgid "Guaranteed Rate"
 msgstr "Gwarantowana przepustowość"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:180
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:190
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:490
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:500
 msgid "Kbit/s"
 msgstr "Kbit/s"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:185
-#: src/EBox/TrafficShaping.pm:248 src/EBox/TrafficShaping.pm:448
-#: src/EBox/TrafficShaping.pm:596 src/EBox/TrafficShaping.pm:1944
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:495
+#: src/EBox/TrafficShaping.pm:2150
 msgid "Limited Rate"
 msgstr "Ograniczona przepustowość"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:197
-msgid "Rules list"
-msgstr "Lista reguł"
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:507
+#, fuzzy, perl-brace-format
+msgid "Rules list for {iface}"
+msgstr "Lista reguł dla interfejsu"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:209
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:516
 #, fuzzy
 msgid ""
 "Adding a rule to the interface should be done following maximum rate allowed "
@@ -124,9 +135,63 @@ msgstr ""
 "przepustowość. Brak reguł, lub wpisanie 0 (zero) oznacza ustawienie "
 "nieograniczonej przepustowości."
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:217
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:524
 msgid "rule"
 msgstr "reguła"
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:587
+#, perl-brace-format
+msgid "Remove {num} rules at {modelName}"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:628
+#, perl-brace-format
+msgid ""
+"Normalizing rates: {limitNum} rules have decreased its limit rate to "
+"{limitRate}, {guaranNum} rules have normalized its guaranteed rate to "
+"maintain the same proportion that it has previously and {removeNum} have "
+"been deleted because its guaranteed rate was lower than the minimum allowed"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
+#, fuzzy, perl-brace-format
+msgid ""
+"Traffic Shaping is applied when eBox is acting as a gateway. To achieve so, "
+"you need at least an internal and an external interface. Check your "
+"interface configuration to match so at {openhref}Network->Interfaces"
+"{closehref}"
+msgstr ""
+"Kształtowania ruchu włączyć można tylko na zewnętrznych interfejsach. W celu "
+"wykorzystania mechanizmów kształtowania ruchu utwórz zewnętrzny interfejs "
+"poprzez wybranie {openhref}Network->Interfaces{closehref}"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
+#, fuzzy, perl-brace-format
+msgid ""
+"Traffic Shaping is applied only if there are gateways with an upload rate "
+"set associated with an external interface. In order to do so, create a "
+"gateway at {openhref}Network->Gateways{closehref} setting as interface an "
+"external one."
+msgstr ""
+"Kształtowanie ruchu włączyć można tylko na zewnętrznych interfejsach z "
+"ustawioną bramą oraz określona szybkością. Aby ustawić powyższe opcje "
+"przejdź do {openhref}Network->Gateways{closehref}"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:123
+#, fuzzy
+msgid "Rules list per interface"
+msgstr "Lista reguł dla interfejsu"
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:125
+msgid ""
+"Select an interface to add traffic shaping rules. Keep in mind that if you "
+"are shaping an internal interface, you are doing ingress shaping."
+msgstr ""
+
+#: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:127
+#, fuzzy
+msgid "Choose an interface to shape"
+msgstr "Wybierz interfejs zewnętrzny aby kierować ruchem"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:233
 #, perl-brace-format
@@ -134,7 +199,7 @@ msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
 msgstr "Gwarantowana przepustowość przewyższa dozwoloną: {rate} kbit/s"
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:240
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:425
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:424
 #, perl-brace-format
 msgid ""
 "Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
@@ -143,7 +208,7 @@ msgstr ""
 "{maxRate} ) kbit/s "
 
 #: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:252
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:437
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:436
 #, perl-brace-format
 msgid ""
 "Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
@@ -162,14 +227,14 @@ msgstr ""
 "lub należy ustawić wyższą prędkość maksymalną pobierania z bram(-y) "
 "przypisanych do interfejsu zewnętrznego."
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:416
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:415
 #, perl-brace-format
 msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
 msgstr ""
 "Gwarantowana przepustowość przewyższa maksymalną dopuszczalną szybkości: "
 "{rate}"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:445
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:444
 #, perl-brace-format
 msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
@@ -178,11 +243,11 @@ msgstr ""
 "Ograniczenie {lR} kbit/s powinno zostać ustawione na niższym poziomie niż "
 "{maxLR} kbit/s lub powinieneś podnieść maksymalną dopuszczalną szybkość."
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:628
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:626
 msgid "Leaf class identifier"
 msgstr ""
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:634
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:632
 msgid "Address"
 msgstr ""
 
@@ -190,34 +255,35 @@ msgstr ""
 msgid "options"
 msgstr "opcje"
 
-#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:221
-#: src/EBox/TrafficShaping.pm:314 src/EBox/TrafficShaping.pm:360
-#: src/EBox/TrafficShaping.pm:422 src/EBox/TrafficShaping.pm:524
-#: src/EBox/TrafficShaping.pm:785 src/EBox/TrafficShaping.pm:1041
+#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:342
+#: src/EBox/TrafficShaping.pm:435 src/EBox/TrafficShaping.pm:481
+#: src/EBox/TrafficShaping.pm:543 src/EBox/TrafficShaping.pm:648
+#: src/EBox/TrafficShaping.pm:836 src/EBox/TrafficShaping.pm:1298
 msgid "Interface"
 msgstr "Interfejs"
 
-#: src/EBox/TrafficShaping.pm:69 src/EBox/TrafficShaping.pm:174
+#: src/EBox/TrafficShaping.pm:73 src/EBox/TrafficShaping.pm:294
 msgid "Traffic Shaping"
 msgstr "Kształtowanie Ruchu"
 
-#: src/EBox/TrafficShaping.pm:233 src/EBox/TrafficShaping.pm:544
+#: src/EBox/TrafficShaping.pm:74
+#, fuzzy
+msgid "traffic shaping"
+msgstr "Kształtowanie Ruchu"
+
+#: src/EBox/TrafficShaping.pm:354
 msgid "Guaranteed rate or limited rate"
 msgstr "Gwarantowana lub ograniczona przepustowość"
 
-#: src/EBox/TrafficShaping.pm:362 src/EBox/TrafficShaping.pm:424
+#: src/EBox/TrafficShaping.pm:483 src/EBox/TrafficShaping.pm:545
 msgid "Identifier"
 msgstr "Identyfikator"
 
-#: src/EBox/TrafficShaping.pm:364
+#: src/EBox/TrafficShaping.pm:485
 msgid "Enabled"
 msgstr "Włączone"
 
-#: src/EBox/TrafficShaping.pm:535
-msgid "If service is any, some source or destination should be provided"
-msgstr ""
-
-#: src/EBox/TrafficShaping.pm:556
+#: src/EBox/TrafficShaping.pm:661
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
@@ -226,7 +292,7 @@ msgstr ""
 "Została osiągnięta maksymalna ( {max} ) ilość reguł. Aby dodać następną usuń "
 "jedną z istniejących."
 
-#: src/EBox/TrafficShaping.pm:1055
+#: src/EBox/TrafficShaping.pm:1315
 msgid ""
 "Traffic shaping can be only done in external interfaces which have gateways "
 "associated to"
@@ -234,15 +300,15 @@ msgstr ""
 "Kształtowanie ruchu może zostać uruchomione tylko na interfejsach "
 "zewnętrznych, które posiadają zdefiniowane w konfiguracji bramy."
 
-#: src/EBox/TrafficShaping.pm:1081
+#: src/EBox/TrafficShaping.pm:1339
 msgid "Traffic Shaping Rule"
 msgstr "Reguła kształtowania ruchu"
 
-#: src/EBox/TrafficShaping.pm:1226
+#: src/EBox/TrafficShaping.pm:1475
 msgid "type"
 msgstr "typ"
 
-#: src/EBox/TrafficShaping.pm:1256
+#: src/EBox/TrafficShaping.pm:1505
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
@@ -251,23 +317,16 @@ msgstr ""
 "Interfejs {iface} powinien mieć ustawioną maksymalna przepustowość w celu "
 "wykonywania kształtowanie ruchu."
 
-#: src/EBox/TrafficShaping.pm:1941
+#: src/EBox/TrafficShaping.pm:2147
 msgid "Protocol"
 msgstr "Protokół"
 
-#: src/EBox/TrafficShaping.pm:1942
+#: src/EBox/TrafficShaping.pm:2148
 msgid "Port"
 msgstr "Port"
 
-#~ msgid ""
-#~ "Traffic Shaping is applied only to external interfaces which have "
-#~ "gateways with an upload rate set. In order to do so, create a gateway at "
-#~ "{openhref}Network->Gateways{closehref} setting as interface an external "
-#~ "one."
-#~ msgstr ""
-#~ "Kształtowanie ruchu włączyć można tylko na zewnętrznych interfejsach z "
-#~ "ustawioną bramą oraz określona szybkością. Aby ustawić powyższe opcje "
-#~ "przejdź do {openhref}Network->Gateways{closehref}"
+#~ msgid "Rules list"
+#~ msgstr "Lista reguł"
 
 #~ msgid ""
 #~ "Select an external interface with gateways associated to add traffic "
@@ -290,9 +349,6 @@ msgstr "Port"
 #~ "przepustowość. Brak reguł, lub wpisanie 0 (zero) oznacza ustawienie "
 #~ "nieograniczonej przepustowości."
 
-#~ msgid "interface"
-#~ msgstr "interfejs"
-
 #~ msgid ""
 #~ "The maximum rule account {max} is reached, please delete at least one in "
 #~ "order to add a new one"
@@ -309,6 +365,19 @@ msgstr "Port"
 #~ msgid "Rule"
 #~ msgstr "Reguła"
 
+#~ msgid "Rules lists per interface"
+#~ msgstr "Lista reguł dla interfejsu"
+
+#~ msgid ""
+#~ "Traffic Shaping is applied only to external interfaces which have "
+#~ "gateways with an upload rate set. In order to do so, create a gateway at "
+#~ "{openhref}Network->Gateways{closehref} setting as interface an external "
+#~ "one."
+#~ msgstr ""
+#~ "Kształtowanie ruchu włączyć można tylko na zewnętrznych interfejsach z "
+#~ "ustawioną bramą oraz określona szybkością. Aby ustawić powyższe opcje "
+#~ "przejdź do {openhref}Network->Gateways{closehref}"
+
 #~ msgid ""
 #~ "Traffic Shaping is applied only to external interfaces. In order to use "
 #~ "this feature create an external interface at {openhref}Network->Interfaces"
@@ -317,3 +386,6 @@ msgstr "Port"
 #~ "Kształtowania ruchu włączyć można tylko na zewnętrznych interfejsach. W "
 #~ "celu wykorzystania mechanizmów kształtowania ruchu utwórz zewnętrzny "
 #~ "interfejs poprzez wybranie {openhref}Network->Interfaces{closehref}"
+
+#~ msgid "interface"
+#~ msgstr "interfejs"

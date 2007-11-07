@@ -5,9 +5,9 @@
 # Ignacio Correas <icorreas@warp.es>, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-objects 0.9.100\n"
+"Project-Id-Version: ebox-objects 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-09-28 09:25+0200\n"
+"POT-Creation-Date: 2007-11-07 11:40+0100\n"
 "PO-Revision-Date: 2007-04-12 09:14+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -23,7 +23,7 @@ msgstr "Nom"
 
 #: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:88
 msgid "Members"
-msgstr ""
+msgstr "Membres"
 
 #: src/EBox/Model/ObjectTable.pm:83 src/EBox/Model/ObjectTable.pm:89
 #: src/EBox/Model/MemberTable.pm:94 src/EBox/Objects.pm:40
@@ -31,34 +31,31 @@ msgid "Objects"
 msgstr "Objets"
 
 #: src/EBox/Model/ObjectTable.pm:90
-#, fuzzy
 msgid "object"
-msgstr "Objet"
+msgstr "objet"
 
 #: src/EBox/Model/ObjectTable.pm:130
 msgid "This object is being used by another module"
-msgstr ""
+msgstr "Cet objet est utilisé par un autre module"
 
 #: src/EBox/Model/MemberTable.pm:71
-#, fuzzy
 msgid "IP Address"
 msgstr "Adresse IP"
 
 #: src/EBox/Model/MemberTable.pm:77
-#, fuzzy
 msgid "MAC Address"
-msgstr "Adresse IP"
+msgstr "Adresse MAC"
 
 #: src/EBox/Model/MemberTable.pm:95
 msgid "member"
-msgstr ""
+msgstr "membre"
 
-#: src/EBox/Model/MemberTable.pm:138
+#: src/EBox/Model/MemberTable.pm:135
 msgid "You can only use MAC addresses with hosts"
-msgstr ""
+msgstr "Vous ne pouvez utiliser que des adresses MAC  avec des hôtes"
 
-#: src/EBox/Model/MemberTable.pm:141 src/EBox/Model/MemberTable.pm:142
-#: src/EBox/Model/MemberTable.pm:146
+#: src/EBox/Model/MemberTable.pm:138 src/EBox/Model/MemberTable.pm:139
+#: src/EBox/Model/MemberTable.pm:143
 msgid "network address"
 msgstr "adresse réseau"
 
@@ -87,7 +84,7 @@ msgstr "Objet supprimé forcé {object}"
 msgid "Removed {nname} from object {object}"
 msgstr "suppression de {nname} de l'objet {object}"
 
-#: src/EBox/Objects.pm:200
+#: src/EBox/Objects.pm:252
 msgid "Object"
 msgstr "Objet"
 

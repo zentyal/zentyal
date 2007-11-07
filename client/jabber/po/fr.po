@@ -6,9 +6,9 @@
 # Enrique Jose Hernandez Blasco <ejhernandez@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-jabber 0.9.100\n"
+"Project-Id-Version: ebox-jabber 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:12+0200\n"
+"POT-Creation-Date: 2007-11-07 11:39+0100\n"
 "PO-Revision-Date: 2007-04-12 08:21+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: <es@li.org>\n"
@@ -46,40 +46,36 @@ msgstr "Service Jabber"
 msgid "Jabber account"
 msgstr "Compte Jabber"
 
-#: src/templates/jabber.mas:10
+#: src/templates/jabber.mas:9
 msgid "Password for Jabber service is the user password"
 msgstr ""
 "Le mot de passe pour le service Jabber est le mot de passe d'utilisateur"
 
-#: src/templates/jabber.mas:17
+#: src/templates/jabber.mas:18
 msgid "User account"
 msgstr "Compte d'utilisateur"
 
-#: src/templates/jabber.mas:23 src/templates/jabber.mas:28
+#: src/templates/jabber.mas:23 src/templates/jabber.mas:26
 msgid "Disabled"
 msgstr "Désactivé"
 
-#: src/templates/jabber.mas:25 src/templates/jabber.mas:30
+#: src/templates/jabber.mas:24 src/templates/jabber.mas:27
 msgid "Enabled"
 msgstr "Activé"
 
-#: src/templates/jabber.mas:38
+#: src/templates/jabber.mas:34
 msgid "Administration rights"
 msgstr "Droits d'administration"
 
-#: src/templates/jabber.mas:53 src/templates/jabber.mas:55
+#: src/templates/jabber.mas:48 src/templates/jabber.mas:49
 msgid "Change"
 msgstr "Changer"
 
-#: src/templates/index.mas:14
-msgid "Jabber Service status"
-msgstr "Statut du Service Jabber"
-
-#: src/templates/index.mas:18
+#: src/templates/index.mas:17
 msgid "General Settings"
 msgstr "Configuration Générale"
 
-#: src/templates/index.mas:21
+#: src/templates/index.mas:19
 msgid ""
 "Domain name should be available on the network. Otherwise, you may not be "
 "able to use this service. This applies for internal and external connections."
@@ -88,34 +84,34 @@ msgstr ""
 "pourrez pas utiliser ce service. Ceci s'applique pour les connexions "
 "internes et externes."
 
-#: src/templates/index.mas:28
+#: src/templates/index.mas:25
 msgid "Domain name"
 msgstr "Nom de domaine"
 
-#: src/templates/index.mas:37
+#: src/templates/index.mas:33
 msgid "Connect to global Jabber network"
 msgstr "Se connecter au réseau global de Jabber"
 
-#: src/templates/index.mas:50
+#: src/templates/index.mas:45
 msgid "SSL Support"
 msgstr "Support SSL"
 
-#: src/templates/index.mas:56 src/templates/index.mas:63
-#: src/templates/index.mas:70
+#: src/templates/index.mas:50 src/templates/index.mas:54
+#: src/templates/index.mas:58
 msgid "No"
 msgstr "Non"
 
-#: src/templates/index.mas:58 src/templates/index.mas:65
-#: src/templates/index.mas:72
+#: src/templates/index.mas:51 src/templates/index.mas:55
+#: src/templates/index.mas:59
 msgid "Optional"
 msgstr "Optional"
 
-#: src/templates/index.mas:60 src/templates/index.mas:67
-#: src/templates/index.mas:74
+#: src/templates/index.mas:52 src/templates/index.mas:56
+#: src/templates/index.mas:60
 msgid "Required"
 msgstr "Requis"
 
-#: src/templates/index.mas:84 src/templates/index.mas:86
+#: src/templates/index.mas:69 src/templates/index.mas:70
 msgid "Apply Changes"
 msgstr "Appliquer changements"
 
@@ -124,3 +120,6 @@ msgid "Enter a username and password to register with this server."
 msgstr ""
 "Entrer un nom d'utilisateur et un mot de passe pour s'enregistrer à ce "
 "service."
+
+#~ msgid "Jabber Service status"
+#~ msgstr "Statut du Service Jabber"

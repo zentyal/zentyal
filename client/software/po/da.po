@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.9.100"
+"Project-Id-Version: ebox-software 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:13+0200\n"
+"POT-Creation-Date: 2007-11-07 11:41+0100\n"
 "PO-Revision-Date: 2007-07-24 12:13+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,215 +18,231 @@ msgstr ""
 
 #: src/EBox/CGI/Config.pm:31 src/EBox/CGI/Config.pm:41
 msgid "Automatic software updates"
-msgstr ""
+msgstr "Automatisk software opdatering"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:314
+#: src/EBox/Software.pm:309
 msgid "System updates"
-msgstr ""
+msgstr "System opdatering"
 
 #: src/EBox/CGI/Updates.pm:45
 msgid "Software updates are being handled automatically"
-msgstr ""
+msgstr "Software opdateringer sker automatisk."
 
 #: src/EBox/CGI/Updates.pm:52
 msgid "The system is up to date"
-msgstr ""
+msgstr "Systemet er opdateret."
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "automatic updates configuration"
-msgstr ""
+msgstr "Indstillinger for automatisk opdatering."
 
 #: src/EBox/CGI/InstallPkgs.pm:76
 msgid "There were no packages to update"
-msgstr ""
+msgstr "Der var ingen pakke at opdatere."
 
-#: src/EBox/CGI/InstallPkgs.pm:88
-msgid ""
-"The packages are being installed, please refrain from using the application "
-"until the update is done"
-msgstr ""
-
-#: src/EBox/CGI/InstallPkgs.pm:93
+#: src/EBox/CGI/InstallPkgs.pm:92
 msgid "The packages were removed successfully"
-msgstr ""
+msgstr "Pakken blev successfuldt fjernet."
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:312
-msgid "eBox components"
-msgstr ""
-
-#: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/Upgrading.pm:30
+#: src/EBox/CGI/InstallPkgs.pm:118 src/EBox/CGI/CurrentPackage.pm:31
 msgid "Upgrading"
-msgstr ""
+msgstr "Opgraderer"
 
-#: src/EBox/Software.pm:137
+#: src/EBox/CGI/InstallPkgs.pm:119
+msgid "Upgrading packages"
+msgstr "Opgradere softwarepakker"
+
+#: src/EBox/CGI/InstallPkgs.pm:120
+msgid "Current package"
+msgstr "Aktuel softwarepakke"
+
+#: src/EBox/CGI/InstallPkgs.pm:121
+msgid "packages left to install"
+msgstr "Softwarepakker der mangler at blive installeret"
+
+#: src/EBox/CGI/InstallPkgs.pm:122
+msgid "The installation of the packages has finished successfully"
+msgstr "Installationen af pakkerne er sluttet succesfuldt"
+
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:307
+msgid "eBox components"
+msgstr "eBox komponenter"
+
+#: src/EBox/Software.pm:132
 msgid ""
 "An error ocurred while removing components. If the error persists or eBox "
 "stops working properly, seek technical support."
 msgstr ""
+"Der opstod en fejl mens dokumenterne blev fjernet. Hvis fejlen gentages "
+"eller eBox holder op med at virke, kontakt teknisk support."
 
-#: src/EBox/Software.pm:309 src/EBox/PackageDescriptions.pm:16
+#: src/EBox/Software.pm:304 src/EBox/PackageDescriptions.pm:18
 msgid "Software management"
-msgstr ""
+msgstr "Software styring"
 
-#: src/EBox/Software.pm:316
+#: src/EBox/Software.pm:311
 msgid "Configuration"
-msgstr ""
+msgstr "Indstillinger"
 
 #: src/EBox/PackageDescriptions.pm:1
 msgid "Certificate Authority Manager for eBox"
-msgstr ""
+msgstr "Certifikat håndtering for eBox"
 
 #: src/EBox/PackageDescriptions.pm:2
 msgid "DHCP server"
-msgstr ""
+msgstr "DHCP server"
 
 #: src/EBox/PackageDescriptions.pm:3
 msgid "eBox DNS server"
-msgstr ""
+msgstr "eBox DNS server"
 
 #: src/EBox/PackageDescriptions.pm:4
 msgid "Base framework"
-msgstr ""
+msgstr "Basis fundament"
 
 #: src/EBox/PackageDescriptions.pm:5
 msgid "Firewall"
-msgstr ""
+msgstr "Firewall"
 
 #: src/EBox/PackageDescriptions.pm:6
 msgid "IPsec VPNs"
-msgstr ""
+msgstr "IPsec VPNer"
 
 #: src/EBox/PackageDescriptions.pm:7
 msgid "Instant messaging (Jabber)"
-msgstr ""
+msgstr "Jabber"
 
 #: src/EBox/PackageDescriptions.pm:8
 msgid "Mail server"
-msgstr ""
+msgstr "Post server"
 
 #: src/EBox/PackageDescriptions.pm:9
 msgid "Mail filter module"
-msgstr ""
+msgstr "Post filter modul"
 
 #: src/EBox/PackageDescriptions.pm:10
 msgid "Network configuration"
-msgstr ""
+msgstr "Netværksindstillinger"
 
 #: src/EBox/PackageDescriptions.pm:11
 msgid "NTP server"
-msgstr ""
+msgstr "NTP server"
 
 #: src/EBox/PackageDescriptions.pm:12
 msgid "Object management"
-msgstr ""
+msgstr "Pakke håndtering"
 
 #: src/EBox/PackageDescriptions.pm:13
 msgid "OpenVPN server"
-msgstr ""
+msgstr "OpenVPN server"
 
 #: src/EBox/PackageDescriptions.pm:14
 msgid "Printer sharing"
-msgstr ""
+msgstr "Deling af printer"
 
 #: src/EBox/PackageDescriptions.pm:15
 msgid "File sharing"
-msgstr ""
+msgstr "Deling af filer"
+
+#: src/EBox/PackageDescriptions.pm:16
+msgid "Services  management"
+msgstr "Styring af funktioner"
 
 #: src/EBox/PackageDescriptions.pm:17
-msgid "Proxy cache and content filter"
-msgstr ""
-
-#: src/EBox/PackageDescriptions.pm:18
-msgid "Traffic shaper for eBox"
-msgstr ""
+msgid "SOAP server to communicate with eBox control center"
+msgstr "SOAP server som styres af eBox kontrol center"
 
 #: src/EBox/PackageDescriptions.pm:19
+msgid "Proxy cache and content filter"
+msgstr "Proxy server og indholdsfilter"
+
+#: src/EBox/PackageDescriptions.pm:20
+msgid "Traffic shaper for eBox"
+msgstr "Båndbredde styring for eBox"
+
+#: src/EBox/PackageDescriptions.pm:21
 msgid "User and Group management"
-msgstr ""
-
-#: src/templates/upgrading.mas:42
-msgid "Current package"
-msgstr ""
-
-#: src/templates/upgrading.mas:43
-msgid "Starting..."
-msgstr ""
-
-#: src/templates/upgrading.mas:48
-msgid "The installation of the packages has finished successfully"
-msgstr ""
+msgstr "Bruger- og gruppehåndtering"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
-msgstr ""
+msgstr "Følgende pakker vil blive installeret"
 
-#: src/templates/del.mas:17
+#: src/templates/del.mas:16
 msgid "The following packages will be removed"
-msgstr ""
+msgstr "Følgende pakker vil blive fjernet"
 
-#: src/templates/del.mas:34
+#: src/templates/del.mas:32
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
-#: src/templates/del.mas:36
+#: src/templates/del.mas:33
 msgid "Cancel"
-msgstr ""
-
-#: src/templates/config.mas:9
-msgid "Perform automatic security updates"
-msgstr ""
+msgstr "Afbryd"
 
 #: src/templates/updates.mas:10
 msgid "Updates are available for the following system components"
-msgstr ""
+msgstr "Opdateringer er tilgængelige for følgende systemkomponenter."
 
-#: src/templates/updates.mas:16 src/templates/ebox.mas:14
+#: src/templates/updates.mas:15 src/templates/ebox.mas:14
 msgid "Component"
-msgstr ""
+msgstr "Komponent"
 
-#: src/templates/updates.mas:18
+#: src/templates/updates.mas:16
 msgid "Description"
-msgstr ""
+msgstr "Beskrivelse"
 
-#: src/templates/updates.mas:20 src/templates/ebox.mas:31
+#: src/templates/updates.mas:17 src/templates/ebox.mas:27
 msgid "Update"
-msgstr ""
+msgstr "Opdatér"
 
-#: src/templates/updates.mas:37 src/templates/ebox.mas:82
+#: src/templates/updates.mas:33 src/templates/ebox.mas:74
 msgid "Update all packages"
-msgstr ""
+msgstr "Opdatér alle pakker"
 
-#: src/templates/updates.mas:49
+#: src/templates/updates.mas:44
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
 msgstr ""
+"Denne handling kan tage noget tid, bliv ikke nervøs hvis eBox ser ud som om "
+"den er gået i stå, efter du har trykket på Opgrader-knappen."
 
-#: src/templates/updates.mas:53
+#: src/templates/updates.mas:47
 msgid "Upgrade"
-msgstr ""
+msgstr "Opgrader"
+
+#: src/templates/ebox.mas:15
+msgid "Installed version "
+msgstr "Installeret version"
 
 #: src/templates/ebox.mas:16
-msgid "Installed version "
-msgstr ""
-
-#: src/templates/ebox.mas:18
 msgid "Latest version"
-msgstr ""
+msgstr "Seneste version"
 
-#: src/templates/ebox.mas:20
+#: src/templates/ebox.mas:17
 msgid "Actions"
-msgstr ""
+msgstr "Funktioner"
 
-#: src/templates/ebox.mas:38
+#: src/templates/ebox.mas:33
 msgid "Install"
-msgstr ""
+msgstr "Installér"
 
-#: src/templates/ebox.mas:41
+#: src/templates/ebox.mas:35
 msgid "none"
-msgstr ""
+msgstr "ingen"
 
-#: src/templates/ebox.mas:64
+#: src/templates/ebox.mas:57
 msgid "Remove"
-msgstr ""
+msgstr "Fjern"
+
+#~ msgid ""
+#~ "The packages are being installed, please refrain from using the "
+#~ "application until the update is done"
+#~ msgstr ""
+#~ "Pakken er igang med at blive installeret. Lad venligst være med at "
+#~ "benytte programmet indtil opdateringen er færdig."
+
+#~ msgid "Starting..."
+#~ msgstr "Starter..."

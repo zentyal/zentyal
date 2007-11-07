@@ -4,9 +4,9 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-jabber 0.9.100\n"
+"Project-Id-Version: ebox-jabber 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:12+0200\n"
+"POT-Creation-Date: 2007-11-07 11:39+0100\n"
 "PO-Revision-Date: 2007-03-16 11:10+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -44,72 +44,68 @@ msgstr ""
 msgid "Jabber account"
 msgstr ""
 
-#: src/templates/jabber.mas:10
+#: src/templates/jabber.mas:9
 msgid "Password for Jabber service is the user password"
 msgstr ""
 
-#: src/templates/jabber.mas:17
+#: src/templates/jabber.mas:18
 msgid "User account"
 msgstr ""
 
-#: src/templates/jabber.mas:23 src/templates/jabber.mas:28
+#: src/templates/jabber.mas:23 src/templates/jabber.mas:26
 msgid "Disabled"
 msgstr ""
 
-#: src/templates/jabber.mas:25 src/templates/jabber.mas:30
+#: src/templates/jabber.mas:24 src/templates/jabber.mas:27
 msgid "Enabled"
 msgstr ""
 
-#: src/templates/jabber.mas:38
+#: src/templates/jabber.mas:34
 msgid "Administration rights"
 msgstr ""
 
-#: src/templates/jabber.mas:53 src/templates/jabber.mas:55
+#: src/templates/jabber.mas:48 src/templates/jabber.mas:49
 msgid "Change"
 msgstr ""
 
-#: src/templates/index.mas:14
-msgid "Jabber Service status"
-msgstr ""
-
-#: src/templates/index.mas:18
+#: src/templates/index.mas:17
 msgid "General Settings"
 msgstr ""
 
-#: src/templates/index.mas:21
+#: src/templates/index.mas:19
 msgid ""
 "Domain name should be available on the network. Otherwise, you may not be "
 "able to use this service. This applies for internal and external connections."
 msgstr ""
 
-#: src/templates/index.mas:28
+#: src/templates/index.mas:25
 msgid "Domain name"
 msgstr ""
 
-#: src/templates/index.mas:37
+#: src/templates/index.mas:33
 msgid "Connect to global Jabber network"
 msgstr ""
 
-#: src/templates/index.mas:50
+#: src/templates/index.mas:45
 msgid "SSL Support"
 msgstr ""
 
-#: src/templates/index.mas:56 src/templates/index.mas:63
-#: src/templates/index.mas:70
+#: src/templates/index.mas:50 src/templates/index.mas:54
+#: src/templates/index.mas:58
 msgid "No"
 msgstr ""
 
-#: src/templates/index.mas:58 src/templates/index.mas:65
-#: src/templates/index.mas:72
+#: src/templates/index.mas:51 src/templates/index.mas:55
+#: src/templates/index.mas:59
 msgid "Optional"
 msgstr ""
 
-#: src/templates/index.mas:60 src/templates/index.mas:67
-#: src/templates/index.mas:74
+#: src/templates/index.mas:52 src/templates/index.mas:56
+#: src/templates/index.mas:60
 msgid "Required"
 msgstr ""
 
-#: src/templates/index.mas:84 src/templates/index.mas:86
+#: src/templates/index.mas:69 src/templates/index.mas:70
 msgid "Apply Changes"
 msgstr ""
 

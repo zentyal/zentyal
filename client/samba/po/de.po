@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-samba 0.9.100\n"
+"Project-Id-Version: ebox-samba 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:13+0200\n"
+"POT-Creation-Date: 2007-11-07 11:41+0100\n"
 "PO-Revision-Date: 2007-03-04 20:27+0100\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -17,8 +17,8 @@ msgid "user name"
 msgstr "Benutzername"
 
 #: src/EBox/CGI/ActivePrinting.pm:48 src/EBox/CGI/ActiveSharing.pm:44
-#: src/EBox/SambaLdapUser.pm:462 src/EBox/SambaLdapUser.pm:490
-#: src/EBox/SambaLdapUser.pm:541
+#: src/EBox/SambaLdapUser.pm:480 src/EBox/SambaLdapUser.pm:508
+#: src/EBox/SambaLdapUser.pm:559
 msgid "group name"
 msgstr "Gruppenname"
 
@@ -34,16 +34,16 @@ msgstr "Name der Freigabe"
 msgid "active"
 msgstr "Aktiv"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:242
-#: src/EBox/Samba.pm:250
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:245
+#: src/EBox/Samba.pm:253
 msgid "File sharing"
 msgstr "Dateifreigabe"
 
-#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:474
+#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:477
 msgid "netbios"
 msgstr "NetBIOS"
 
-#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:512
+#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:515
 msgid "working group"
 msgstr "Arbeitsgruppe"
 
@@ -51,7 +51,7 @@ msgstr "Arbeitsgruppe"
 msgid "working mode"
 msgstr "Arbeitsmodus"
 
-#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:493
+#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:496
 msgid "description"
 msgstr "Beschreibung"
 
@@ -59,215 +59,206 @@ msgstr "Beschreibung"
 msgid "user quota"
 msgstr "Speicherlimite für Benutzer"
 
-#: src/EBox/Samba.pm:289 src/EBox/Samba.pm:334
-#, fuzzy
+#: src/EBox/Samba.pm:292 src/EBox/Samba.pm:337
 msgid "listening port"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-samba 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-samba 0.8.99)  #-#-#-#-#\n"
-"Auf diesen Port hören"
+msgstr "Auf diesen Port hören"
 
-#: src/EBox/Samba.pm:372
-#, fuzzy
+#: src/EBox/Samba.pm:375
 msgid "Domain Name"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-samba 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-samba 0.8.99)  #-#-#-#-#\n"
-"Domänenname"
+msgstr "Name der Domäne"
 
-#: src/EBox/Samba.pm:531
+#: src/EBox/Samba.pm:534
 msgid "quota"
 msgstr "Speicherlimite"
 
-#: src/EBox/Samba.pm:816 src/EBox/Samba.pm:835
+#: src/EBox/Samba.pm:819 src/EBox/Samba.pm:838
 msgid "user"
 msgstr "Benutzer"
 
-#: src/EBox/Samba.pm:819 src/EBox/Samba.pm:849 src/EBox/SambaLdapUser.pm:611
+#: src/EBox/Samba.pm:822 src/EBox/Samba.pm:852 src/EBox/SambaLdapUser.pm:629
 msgid "group"
 msgstr "Gruppe"
 
-#: src/EBox/Samba.pm:822
+#: src/EBox/Samba.pm:825
 msgid "printer"
 msgstr "Drucker"
 
-#: src/EBox/SambaLdapUser.pm:193
+#: src/EBox/Samba.pm:1166
+msgid "User's files"
+msgstr "Dateien des Benutzers"
+
+#: src/EBox/Samba.pm:1168
+msgid "Group's files"
+msgstr "Dateien der Gruppe"
+
+#: src/EBox/SambaLdapUser.pm:210
 msgid "This user has a sharing directory associated which conatins data"
 msgstr "Dieser Benutzer hat eine Freigabe zugeordnet, welche Daten enthält"
 
-#: src/EBox/SambaLdapUser.pm:254
+#: src/EBox/SambaLdapUser.pm:271
 msgid "This group has a sharing directory associatedwhich conatins data"
 msgstr "Diese Gruppe hat eine Freigabe zugeordnet, welche Daten enthält"
 
-#: src/EBox/SambaLdapUser.pm:495
+#: src/EBox/SambaLdapUser.pm:513
 msgid "A name should be provided for the share"
 msgstr "Ein Name sollte für die Freigabe angegeben werden"
 
-#: src/EBox/SambaLdapUser.pm:503
+#: src/EBox/SambaLdapUser.pm:521
 msgid "sharing resource"
 msgstr "Ressource freigegeben"
 
-#: src/templates/delete.mas:10
-msgid "Deleting group"
-msgstr "Gruppe wird gelöscht"
-
-#: src/templates/delete.mas:12
-#, fuzzy
+#: src/templates/delete.mas:11
 msgid ""
 "The group you tried to delete has a directory which contains data, if you "
 "remove it all its data will be removed. Please confirm that you want to "
 "delete it."
 msgstr ""
-"#-#-#-#-#  de.po (ebox-samba 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-samba 0.8.99)  #-#-#-#-#\n"
 "Die Gruppe, welche Sie löschen wollten hat einen Ordner, der Daten enthält. "
 "Falls Sie die Gruppe löschen, werden alle zugehörigen Daten gelöscht. Wollen "
 "Sie wirklich löschen?"
 
-#: src/templates/delete.mas:20 src/templates/samba.mas:93
-#: src/templates/samba.mas:95
+#: src/templates/delete.mas:18 src/templates/samba.mas:79
+#: src/templates/samba.mas:80
 msgid "Delete"
 msgstr "Löschen"
 
-#: src/templates/delete.mas:24
+#: src/templates/delete.mas:21
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: src/templates/samba.mas:11
-#, fuzzy
+#: src/templates/samba.mas:9
 msgid "PDC/File sharing account"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-samba 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-samba 0.8.99)  #-#-#-#-#\n"
-"Domänencontroller-/Freigabekonto"
+msgstr "Domänencontroller-/Freigabekonto"
 
-#: src/templates/samba.mas:18
+#: src/templates/samba.mas:16
 msgid "User account"
 msgstr "Benutzerkonto"
 
-#: src/templates/samba.mas:24 src/templates/samba.mas:29
+#: src/templates/samba.mas:21 src/templates/samba.mas:24
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-#: src/templates/samba.mas:26 src/templates/samba.mas:31
+#: src/templates/samba.mas:22 src/templates/samba.mas:25
 msgid "Enabled"
 msgstr "Aktiviert"
 
-#: src/templates/samba.mas:39
+#: src/templates/samba.mas:32
 msgid "Administration rights"
 msgstr "Administrationsrechte"
 
-#: src/templates/samba.mas:54 src/templates/samba.mas:56
-#: src/templates/samba.mas:88 src/templates/samba.mas:90
-#: src/templates/samba.mas:167 src/templates/samba.mas:169
-#: src/templates/index.mas:94 src/templates/index.mas:96
+#: src/templates/samba.mas:46 src/templates/samba.mas:47
+#: src/templates/samba.mas:76 src/templates/samba.mas:77
+#: src/templates/samba.mas:147 src/templates/samba.mas:148
+#: src/templates/index.mas:81 src/templates/index.mas:82
 msgid "Change"
 msgstr "Ändern"
 
-#: src/templates/samba.mas:65
+#: src/templates/samba.mas:55
 msgid "Sharing directory for this group"
 msgstr "Freigegebener Ordner für diese Gruppe"
 
-#: src/templates/samba.mas:69
-#, fuzzy
+#: src/templates/samba.mas:58
 msgid ""
 "You can set a share directory for this group, but you should keep in mind "
 "that Microsoft Windows 98 and Millenium will not be able to see names longer "
 "than 12 characters"
 msgstr ""
-"#-#-#-#-#  de.po (ebox-samba 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-samba 0.8.99)  #-#-#-#-#\n"
 "Sie können dieser Gruppe eine Freigabe zuordnen, aber denken Sie daran, dass "
-"Microsoft Windows 98 und Millenium (ME) können nur Namen bis 12 Zeichen "
-"anzeigen"
+"Microsoft Windows 98 und Millenium (ME) nur Namen bis 12 Zeichen anzeigen "
+"können"
 
-#: src/templates/samba.mas:76
-#, fuzzy
+#: src/templates/samba.mas:66
 msgid "This resource name is longer than 12 characters."
 msgstr "Der Name dieser Ressource ist länger als 12 Zeichen"
 
-#: src/templates/samba.mas:80
+#: src/templates/samba.mas:69
 msgid "Directory name"
 msgstr "Ordnername"
 
-#: src/templates/samba.mas:99 src/templates/samba.mas:101
+#: src/templates/samba.mas:83 src/templates/samba.mas:84
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: src/templates/samba.mas:109
+#: src/templates/samba.mas:91
 msgid "Printers"
 msgstr "Drucker"
 
-#: src/templates/samba.mas:111
-#, fuzzy
+#: src/templates/samba.mas:95
 msgid "Select the printers this user will have access to."
-msgstr ""
-"#-#-#-#-#  de.po (ebox-samba 0.9)  #-#-#-#-#\n"
-"#-#-#-#-#  de.po (ebox-samba 0.8.99)  #-#-#-#-#\n"
-"Wählen Sie die Drucker welche die Benutzer verwenden dürfen"
+msgstr "Wählen Sie die Drucker welche der Benutzer verwenden darf"
 
-#: src/templates/samba.mas:122
+#: src/templates/samba.mas:105
 msgid "Printer"
 msgstr "Drucker"
 
-#: src/templates/samba.mas:124
+#: src/templates/samba.mas:106
 msgid "Allow"
 msgstr "Erlauben"
 
-#: src/templates/samba.mas:147
+#: src/templates/samba.mas:128
 msgid "Allow all printers"
 msgstr "Alle Drucker erlauben"
 
-#: src/templates/index.mas:16
-msgid "PDC/File sharing service status"
-msgstr "Status des Domänencontroller-/Freigabedienstes"
+#: src/templates/samba.mas:159
+msgid "printers module"
+msgstr "Druckermodul"
 
-#: src/templates/index.mas:20
+#: src/templates/samba.mas:170
+msgid "file sharing module"
+msgstr "Dateifreigabe-Modul"
+
+#: src/templates/index.mas:19
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
-#: src/templates/index.mas:23
+#: src/templates/index.mas:21
 msgid ""
 "To allow unlimited disk usage to users, just set zero as user quota limit."
 msgstr ""
 "Um Benutzern unbeschränkten Speicherplatz zu gewähren, setzen Sie das "
 "Speicherlimit auf null"
 
-#: src/templates/index.mas:30
+#: src/templates/index.mas:27
 msgid "Working mode"
 msgstr "Arbeitsmodus"
 
-#: src/templates/index.mas:36 src/templates/index.mas:41
+#: src/templates/index.mas:32 src/templates/index.mas:35
 msgid "File server"
 msgstr "Dateiserver"
 
-#: src/templates/index.mas:38 src/templates/index.mas:43
+#: src/templates/index.mas:33 src/templates/index.mas:36
 msgid "PDC"
 msgstr "Domänencontroller"
 
-#: src/templates/index.mas:52
+#: src/templates/index.mas:44
 msgid "Domain name"
 msgstr "Domänenname"
 
-#: src/templates/index.mas:55
+#: src/templates/index.mas:46
 msgid "Working group"
 msgstr "Arbeitsgruppe"
 
-#: src/templates/index.mas:66
+#: src/templates/index.mas:56
 msgid "Netbios name"
 msgstr "NetBIOS-Name"
 
-#: src/templates/index.mas:75
+#: src/templates/index.mas:64
 msgid "Description"
 msgstr "Beschreibung"
 
-#: src/templates/index.mas:83
+#: src/templates/index.mas:71
 msgid "Quota limit"
 msgstr "Speicherlimit"
 
 #: stubs/smb.conf.mas:91
 msgid "Home Directories"
 msgstr "Eigener Ordner"
+
+#~ msgid "Deleting group"
+#~ msgstr "Gruppe wird gelöscht"
+
+#~ msgid "PDC/File sharing service status"
+#~ msgstr "Status des Domänencontroller-/Freigabedienstes"
 
 #~ msgid "This resource name is longer than 12 charcters."
 #~ msgstr "Der Name dieser Ressource ist länger als 12 Zeichen"

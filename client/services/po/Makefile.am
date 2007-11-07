@@ -137,7 +137,7 @@ $(DOMAIN).pot-update: $(POTFILES_DEPS) remove-potcdate.sed
 	mkdir -p templates
 	if test -n "$(POTFILES_TMPL)"; \
 	then \
-		for tmpl in "$(POTFILES_TMPL)"; do \
+		for tmpl in $(POTFILES_TMPL); do \
 	        	mkdir -p templates/`dirname $$tmpl` ; \
 	        	../tools/extract-perl-from-mason dump ../$$tmpl > \
 		        	templates/`dirname $$tmpl`/`basename $$tmpl` ; \

@@ -9,9 +9,9 @@
 # This file is distributed under the same license as the libebox package.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.9.100\n"
+"Project-Id-Version: libebox 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:11+0200\n"
+"POT-Creation-Date: 2007-11-07 11:38+0100\n"
 "PO-Revision-Date: 2007-05-16 13:08+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: \n"
@@ -21,22 +21,22 @@ msgstr ""
 "X-Generator: Pootle 0.10.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/Exceptions/DataExists.pm:31
+#: src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
 msgid "{data} {value} already exists."
 msgstr "{data} ya existente: {value}."
 
-#: src/EBox/Exceptions/InvalidData.pm:32
+#: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
 msgstr "{data} inválido, valor: {value}."
 
-#: src/EBox/Exceptions/DataNotFound.pm:30
+#: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
 msgid "{data} {value} does not exist."
 msgstr "{data} no existente: {value}."
 
-#: src/EBox/Exceptions/DataMissing.pm:30
+#: src/EBox/Exceptions/DataMissing.pm:36
 #, perl-brace-format
 msgid "{data} is empty."
 msgstr "Dato vacío: {data}"
@@ -105,7 +105,7 @@ msgstr "Fichero subido inválido"
 msgid "Cannot create a temporally file for the upload"
 msgstr "No se pudo crear un fichero temporal para la subida"
 
-#: src/EBox/Sudo.pm:229
+#: src/EBox/Sudo.pm:237
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "El comando '{cmd}', ejecutado como {user}, falló"
@@ -124,6 +124,11 @@ msgstr "No se pudo abrir el fichero de configuración {file}"
 msgid "The ebox user has not been set in the config file."
 msgstr ""
 "El usuario de ebox no ha sido establecido en el fichero de configuración."
+
+#: src/EBox/FileSystem.pm:176 src/EBox/FileSystem.pm:263
+#, perl-brace-format
+msgid "Directory not found: {d}"
+msgstr "Directorio no encontrado: {d}"
 
 #: src/EBox/Validate.pm:647
 #, perl-brace-format
@@ -152,53 +157,87 @@ msgstr ""
 msgid "The file path must be absolute"
 msgstr "La ruta de archivo debe ser absoluta"
 
-#: src/templates/ajax/tableBody.mas:48
-msgid "Add new"
-msgstr "Añade nuevo"
-
-#: src/templates/ajax/tableBody.mas:59
-#, perl-brace-format
-msgid "Adding a new {row}"
-msgstr "Añadiendo una nueva {row}"
-
-#: src/templates/ajax/tableBody.mas:66
-#, perl-brace-format
-msgid "Editing {row}"
-msgstr "Editando {row}"
-
-#: src/templates/ajax/tableBody.mas:132
-msgid "Action"
-msgstr "Acción"
-
-#: src/templates/ajax/tableBody.mas:327
+#: src/templates/ajax/setter/serviceSetter.mas:23
 msgid "port"
 msgstr "puerto"
+
+#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
+msgid "Inverse match"
+msgstr "Coincidencia inversa"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:20
+msgid "From"
+msgstr "Desde"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:25
+msgid "To"
+msgstr "Hasta"
+
+#: src/templates/ajax/tablePager.mas:49 src/templates/ajax/tablePager.mas:55
+msgid "first"
+msgstr "primero"
+
+#: src/templates/ajax/tablePager.mas:51 src/templates/ajax/tablePager.mas:56
+msgid "prev"
+msgstr "previo"
+
+#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:63
+#: src/templates/ajax/tablePager.mas:74 src/templates/ajax/tablePager.mas:75
+msgid "next"
+msgstr "siguiente"
+
+#: src/templates/ajax/tablePager.mas:68 src/templates/ajax/tablePager.mas:69
+#: src/templates/ajax/tablePager.mas:78 src/templates/ajax/tablePager.mas:79
+msgid "last"
+msgstr "último"
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
 msgstr "Elije una de las opciones para mostrar la tabla asociada"
 
-#: src/templates/ajax/tableSelector.mas:33
+#: src/templates/ajax/tableSelector.mas:32
 msgid "Choose one..."
 msgstr "Elije una..."
+
+#: src/templates/ebox/pageNotFound.mas:3
+msgid "eBox's homepage"
+msgstr "página principal de eBox"
+
+#: src/templates/ebox/pageNotFound.mas:7
+msgid "If you typed the URL manually, please check it"
+msgstr "Si has escrito la URL manualmente, por favor compruébala"
+
+#: src/templates/ebox/pageNotFound.mas:8
+msgid ""
+"Maybe a change in eBox's configuration or software made no longer available "
+"the requested page"
+msgstr ""
+"Quizá un cambio en la configuración de eBox o en su software ha hecho que la "
+"página solicitada no esté más disponible"
+
+#: src/templates/ebox/pageNotFound.mas:9
+#, perl-brace-format
+msgid ""
+"If you need more help, you may want visit {homepage} for\n"
+"   documentation and mailing lists"
+msgstr ""
+"Si necesitas más ayuda, puedes visitar {homepage} para\n"
+"documentación y listas de correo"
+
+#: src/templates/ebox/pageNotFound.mas:13
+msgid "we're sorry"
+msgstr "lo sentimos"
 
 #: src/templates/ebox/pageNotFound.mas:14
 msgid "The page can not be found"
 msgstr "La página no pudo encontrarse"
 
-#: src/templates/title.mas:14
-msgid "Display help notes"
-msgstr "Ver notas de ayuda"
-
-#: src/templates/title.mas:15
+#: src/templates/title.mas:12
 msgid "show help"
 msgstr "mostrar ayuda"
 
-#: src/templates/title.mas:17
-msgid "Hide help notes"
-msgstr "Ocultar notas de ayuda"
-
-#: src/templates/title.mas:18
+#: src/templates/title.mas:13
 msgid "hide help"
 msgstr "ocultar ayuda"
 
@@ -206,7 +245,7 @@ msgstr "ocultar ayuda"
 msgid "Language selection"
 msgstr "Selección de idioma"
 
-#: src/templates/language.mas:12
+#: src/templates/language.mas:11
 msgid ""
 "Language changes happen automatically, saving the configuration it's not "
 "needed."
@@ -214,22 +253,40 @@ msgstr ""
 "Los cambios de idioma se efectúan de forma automática, no es necesario "
 "guardar la configuración"
 
-#: src/templates/language.mas:25 src/templates/enable.mas:36
-#: src/templates/enable.mas:38
+#: src/templates/language.mas:23 src/templates/enable.mas:29
+#: src/templates/enable.mas:30
 msgid "Change"
 msgstr "Cambiar"
 
-#: src/templates/enable.mas:11
+#: src/templates/enable.mas:9
 msgid "Service configuration"
 msgstr "Configuración del servicio"
 
-#: src/templates/enable.mas:24 src/templates/enable.mas:29
+#: src/templates/enable.mas:21 src/templates/enable.mas:24
 msgid "Disabled"
 msgstr "Deshabilitado"
 
-#: src/templates/enable.mas:26 src/templates/enable.mas:31
+#: src/templates/enable.mas:22 src/templates/enable.mas:25
 msgid "Enabled"
 msgstr "Habilitado"
+
+#~ msgid "Add new"
+#~ msgstr "Añade nuevo"
+
+#~ msgid "Adding a new {row}"
+#~ msgstr "Añadiendo una nueva {row}"
+
+#~ msgid "Editing {row}"
+#~ msgstr "Editando {row}"
+
+#~ msgid "Action"
+#~ msgstr "Acción"
+
+#~ msgid "Display help notes"
+#~ msgstr "Ver notas de ayuda"
+
+#~ msgid "Hide help notes"
+#~ msgstr "Ocultar notas de ayuda"
 
 #~ msgid "Table is empty"
 #~ msgstr "La tabla esta vacía"

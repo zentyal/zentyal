@@ -4,9 +4,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-ntp 0.9.100\n"
+"Project-Id-Version: ebox-ntp 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:13+0200\n"
+"POT-Creation-Date: 2007-11-07 11:40+0100\n"
 "PO-Revision-Date: 2006-11-16 13:25+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -48,17 +48,17 @@ msgstr "continent"
 msgid "first ntp server"
 msgstr "primer serbidor ntp"
 
-#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:199
-#: src/templates/servers.mas:18
+#: src/EBox/CGI/AddServers.pm:45 src/EBox/NTP.pm:193
+#: src/templates/servers.mas:16
 msgid "Primary server"
 msgstr "Serbidor primario"
 
-#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:213
-#: src/templates/servers.mas:30
+#: src/EBox/CGI/AddServers.pm:51 src/EBox/NTP.pm:207
+#: src/templates/servers.mas:27
 msgid "Secondary server"
 msgstr "Serbidor secundario"
 
-#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:42
+#: src/EBox/CGI/AddServers.pm:55 src/templates/servers.mas:38
 msgid "Tertiary server"
 msgstr "Serbidor terziario"
 
@@ -86,80 +86,76 @@ msgstr "Menutos"
 msgid "Seconds"
 msgstr "Segundos"
 
-#: src/EBox/NTP.pm:201
+#: src/EBox/NTP.pm:195
 msgid "primary server"
 msgstr "serbidor primario"
 
-#: src/EBox/NTP.pm:206 src/EBox/NTP.pm:225
+#: src/EBox/NTP.pm:200 src/EBox/NTP.pm:219
 msgid "Primary and secondary server must be different"
 msgstr "Os serbidors primario e secundario han d'estar diferents"
 
-#: src/EBox/NTP.pm:209
+#: src/EBox/NTP.pm:203
 msgid "secondary server"
 msgstr "serbidor secundario"
 
-#: src/EBox/NTP.pm:222
+#: src/EBox/NTP.pm:216
 msgid "Primary and tertiary server must be different"
 msgstr "Os serbidors primario e terziario han d'estar diferents"
 
-#: src/EBox/NTP.pm:228
+#: src/EBox/NTP.pm:222
 msgid "tertiary server"
 msgstr "serbidor terziario"
 
-#: src/EBox/NTP.pm:244
+#: src/EBox/NTP.pm:238
 #, perl-brace-format
 msgid "{name} IP address"
 msgstr "adreza IP {name}"
 
-#: src/EBox/NTP.pm:247
+#: src/EBox/NTP.pm:241
 #, perl-brace-format
 msgid "{name} host name"
 msgstr "nombre de maquina {name}"
 
-#: src/EBox/NTP.pm:389
+#: src/EBox/NTP.pm:383
 msgid "NTP local server"
 msgstr "Serbidor local NTP"
 
-#: src/EBox/NTP.pm:402
+#: src/EBox/NTP.pm:428
 msgid "System"
 msgstr "Sistema"
 
-#: src/EBox/NTP.pm:405
+#: src/EBox/NTP.pm:431
 msgid "Date/time"
 msgstr "Calendata/ora"
 
-#: src/EBox/NTP.pm:408 src/templates/timezone.mas:15
+#: src/EBox/NTP.pm:434 src/templates/timezone.mas:15
 msgid "Time zone"
 msgstr "Zona oraria"
 
-#: src/EBox/NTP.pm:412
+#: src/EBox/NTP.pm:438
 msgid "NTP server"
 msgstr "Serbidor NTP"
 
-#: src/templates/synch.mas:11 src/templates/synch.mas:16
+#: src/templates/synch.mas:11 src/templates/synch.mas:14
 msgid "Disabled"
 msgstr "Desautibato"
 
-#: src/templates/synch.mas:13 src/templates/synch.mas:18
+#: src/templates/synch.mas:12 src/templates/synch.mas:15
 msgid "Enabled"
 msgstr "Autibato"
 
-#: src/templates/synch.mas:23 src/templates/synch.mas:25
-#: src/templates/servers.mas:55 src/templates/timezone.mas:37
-#: src/templates/timezone.mas:39 src/templates/date.mas:111
-#: src/templates/date.mas:113
+#: src/templates/synch.mas:19 src/templates/synch.mas:20
+#: src/templates/servers.mas:50 src/templates/timezone.mas:35
+#: src/templates/timezone.mas:36 src/templates/date.mas:96
+#: src/templates/date.mas:97
 msgid "Change"
 msgstr "Cambear"
-
-#: src/templates/index.mas:11
-msgid "NTP server status"
-msgstr "Estato d'o serbidor NTP"
 
 #: src/templates/servers.mas:7
 msgid "NTP servers"
 msgstr "Serbidors NTP"
 
-#: src/templates/servers.mas:11
+#: src/templates/servers.mas:10
 msgid ""
 "You should remember to set up your timezone to have synchronization behaving "
 "correctly."
@@ -167,22 +163,10 @@ msgstr ""
 "Recuerde confegurar a suya zona oraria ta que a sincronizazión funzione "
 "correutament."
 
-#: src/templates/timezone.mas:19
+#: src/templates/timezone.mas:18
 msgid "A time zone change will cause all eBox services to be restarted"
 msgstr ""
 "Un cambeo en a zona oraria prebocará que se reinizien toz os serbizios d'ebox"
-
-#: src/templates/datetime.mas:13
-msgid "Time synchronization with NTP servers"
-msgstr "Sincronizar-se con serbidors NTP esternos"
-
-#: src/templates/datetime.mas:18
-msgid "External NTP servers"
-msgstr "Serbidors NTP esternos"
-
-#: src/templates/datetime.mas:23
-msgid "Change Date and Time"
-msgstr "Cambear a calendata e ora"
 
 #: src/templates/date.mas:10
 msgid ""
@@ -191,58 +175,70 @@ msgstr ""
 "Un cambeo en a calendata u ora prebocará que se reinizien toz os serbizios "
 "d'eBox"
 
-#: src/templates/date.mas:16
+#: src/templates/date.mas:15
 msgid "Date"
 msgstr "Calendata"
 
-#: src/templates/date.mas:32
+#: src/templates/date.mas:30
 msgid "January"
 msgstr "Chinero"
 
-#: src/templates/date.mas:33
+#: src/templates/date.mas:30
 msgid "February"
 msgstr "Frebero"
 
-#: src/templates/date.mas:34
+#: src/templates/date.mas:30
 msgid "March"
 msgstr "Marzo"
 
-#: src/templates/date.mas:35
+#: src/templates/date.mas:30
 msgid "April"
 msgstr "Abril"
 
-#: src/templates/date.mas:36
+#: src/templates/date.mas:30
 msgid "May"
 msgstr "Mayo"
 
-#: src/templates/date.mas:37
+#: src/templates/date.mas:30
 msgid "June"
 msgstr "Chunio"
 
-#: src/templates/date.mas:38
+#: src/templates/date.mas:30
 msgid "July"
 msgstr "Chulio"
 
-#: src/templates/date.mas:39
+#: src/templates/date.mas:30
 msgid "August"
 msgstr "Agosto"
 
-#: src/templates/date.mas:40
+#: src/templates/date.mas:30
 msgid "September"
 msgstr "Setiembre"
 
-#: src/templates/date.mas:41
+#: src/templates/date.mas:30
 msgid "October"
 msgstr "Otubre"
 
-#: src/templates/date.mas:42
+#: src/templates/date.mas:30
 msgid "November"
 msgstr "Nobiembre"
 
-#: src/templates/date.mas:43
+#: src/templates/date.mas:30
 msgid "December"
 msgstr "Abiento"
 
-#: src/templates/date.mas:69
+#: src/templates/date.mas:55
 msgid "Time"
 msgstr "Ora"
+
+#~ msgid "NTP server status"
+#~ msgstr "Estato d'o serbidor NTP"
+
+#~ msgid "Time synchronization with NTP servers"
+#~ msgstr "Sincronizar-se con serbidors NTP esternos"
+
+#~ msgid "External NTP servers"
+#~ msgstr "Serbidors NTP esternos"
+
+#~ msgid "Change Date and Time"
+#~ msgstr "Cambear a calendata e ora"

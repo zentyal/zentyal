@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-soap 0.9.100\n"
+"Project-Id-Version: ebox-soap 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-06-05 12:14+0200\n"
+"POT-Creation-Date: 2007-11-07 11:41+0100\n"
 "PO-Revision-Date: 2007-06-05 12:04+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,139 +16,184 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/EBox/SOAP/Global.pm:134
-msgid "Not a public method"
-msgstr ""
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:151
+msgid "Control center admin at a log file"
+msgstr "Bir log dosyasındaki yönetim merkez yöntecisi"
 
-#: src/EBox/SOAP/Global.pm:154
-msgid "Not a defined method"
-msgstr ""
-
-#: src/EBox/SOAP.pm:66
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:191
 msgid "Control center"
 msgstr "Yönetim merkezi"
 
-#~ msgid "Control center admin at a log file"
-#~ msgstr "Bir log dosyasındaki yönetim merkez yöntecisi"
+#: src/EBox/CGI/Enable.pm:38
+msgid "Enable SOAP service"
+msgstr "SOAP servisini etkinleştir"
 
-#~ msgid "Enable SOAP service"
-#~ msgstr "SOAP servisini etkinleştir"
+#: src/EBox/CGI/Index.pm:38
+msgid "Control center communication"
+msgstr "Yönetim merkezi ile iletişim"
 
-#~ msgid "Control center communication"
-#~ msgstr "Yönetim merkezi ile iletişim"
+#: src/EBox/CGI/DeleteBundle.pm:34
+msgid "Bundle Deleted"
+msgstr "Paket silindi"
 
-#~ msgid "Bundle Deleted"
-#~ msgstr "Paket silindi"
+#: src/EBox/CGI/DeleteBundle.pm:74
+msgid ""
+"The previous bundle has been deleted. Upload a new one to establish a "
+"communication with an eBox control center"
+msgstr ""
+"Bir önceki paket silindi. Bir eBox merkezi ile iletişim kurmak için yeni bir "
+"tane gönderin"
 
-#~ msgid ""
-#~ "The previous bundle has been deleted. Upload a new one to establish a "
-#~ "communication with an eBox control center"
-#~ msgstr ""
-#~ "Bir önceki paket silindi. Bir eBox merkezi ile iletişim kurmak için yeni "
-#~ "bir tane gönderin"
+#: src/EBox/CGI/ConnectivityTest.pm:39
+msgid "Connectivity test"
+msgstr "Bağlantı testi"
 
-#~ msgid "Connectivity test"
-#~ msgstr "Bağlantı testi"
+#: src/EBox/CGI/UploadBundle.pm:36
+msgid "Bundle Upload"
+msgstr "Paket gönderimi"
 
-#~ msgid "Bundle Upload"
-#~ msgstr "Paket gönderimi"
+#: src/EBox/CGI/UploadBundle.pm:77
+msgid "The bundle file has been uploaded successfully"
+msgstr "Paket dosya başarıyla gönderildi"
 
-#~ msgid "The bundle file has been uploaded successfully"
-#~ msgstr "Paket dosya başarıyla gönderildi"
+#: src/EBox/SOAP/Global.pm:147
+#, perl-brace-format
+msgid "{method} is not a public method"
+msgstr "{method} bir genel yöntem değildir"
 
-#~ msgid "{method} is not a public method"
-#~ msgstr "{method} bir genel yöntem değildir"
+#: src/EBox/SOAP/Global.pm:175
+#, perl-brace-format
+msgid "{method} is not a defined method"
+msgstr "{method} tanımlı bir yöntem değildir"
 
-#~ msgid "{method} is not a defined method"
-#~ msgstr "{method} tanımlı bir yöntem değildir"
+#: src/EBox/SOAP/Global.pm:183
+#, perl-brace-format
+msgid "{module} does not exist"
+msgstr "{method} mevcut değil"
 
-#~ msgid "{module} does not exist"
-#~ msgstr "{method} mevcut değil"
+#: src/EBox/SOAP.pm:168
+msgid "SOAP"
+msgstr "SOAP"
 
-#~ msgid "SOAP"
-#~ msgstr "SOAP"
+#: src/EBox/SOAP.pm:309
+#, perl-brace-format
+msgid "Missing uploaded file: {uploadedFile}"
+msgstr "Yüklenen dosya eksik: {uploadedFile}"
 
-#~ msgid "Missing uploaded file: {uploadedFile}"
-#~ msgstr "Yüklenen dosya eksik: {uploadedFile}"
+#: src/EBox/SOAP.pm:321
+#, perl-brace-format
+msgid ""
+"Uploaded file is a type of {type1}  but it should be a file of type {type2}"
+msgstr "Yüklenen dosya {type1} türünde fakat {type2} türünde olmalı"
 
-#~ msgid ""
-#~ "Uploaded file is a type of {type1}  but it should be a file of type "
-#~ "{type2}"
-#~ msgstr "Yüklenen dosya {type1} türünde fakat {type2} türünde olmalı"
+#: src/EBox/SOAP.pm:333
+#, perl-brace-format
+msgid ""
+"Uploaded file does not contain the four mandatory files. It contains "
+"{number} "
+msgstr ""
+"Gönderilen dosya bulunması gereken 4 dosyayı içermiyor. Sadece {number} tane "
+"var"
 
-#~ msgid ""
-#~ "Uploaded file does not contain the four mandatory files. It contains "
-#~ "{number} "
-#~ msgstr ""
-#~ "Gönderilen dosya bulunması gereken 4 dosyayı içermiyor. Sadece {number} "
-#~ "tane var"
+#: src/EBox/SOAP.pm:368
+msgid "It is required to upload a bundle to delete it"
+msgstr "Silmek için paketin gönderilmiş olması lazım"
 
-#~ msgid "It is required to upload a bundle to delete it"
-#~ msgstr "Silmek için paketin gönderilmiş olması lazım"
+#: src/EBox/SOAP.pm:437
+msgid "You should enable the service to test the connectivity"
+msgstr "Bağlantıyı kontrol etmek için servisi etkinleştirmelisiniz"
 
-#~ msgid "You should enable the service to test the connectivity"
-#~ msgstr "Bağlantıyı kontrol etmek için servisi etkinleştirmelisiniz"
+#: src/EBox/SOAP.pm:940
+msgid "The OpenVPN client configuration file is missing"
+msgstr "OpenVPN istemci yapılandırma dosyası yok"
 
-#~ msgid "The OpenVPN client configuration file is missing"
-#~ msgstr "OpenVPN istemci yapılandırma dosyası yok"
+#: src/EBox/SOAP.pm:947
+msgid "The OpenVPN client configuration file is not well formatted "
+msgstr "OpenVPN istemci yapılandırma dosyası düzgün biçimde değil"
 
-#~ msgid "The OpenVPN client configuration file is not well formatted "
-#~ msgstr "OpenVPN istemci yapılandırma dosyası düzgün biçimde değil"
+#: src/EBox/SOAP.pm:977
+msgid "Some certificate is missing"
+msgstr "Bazı sertifika dosyaları eksik"
 
-#~ msgid "Some certificate is missing"
-#~ msgstr "Bazı sertifika dosyaları eksik"
+#: src/EBox/SOAP.pm:984
+#, perl-brace-format
+msgid ""
+"You cannot upload this bundle since the name {name} has been already used "
+"for a bundle which will be cleaned up. If you want to upload the bundle, "
+"please save changes first"
+msgstr ""
+"Bu paketi gönderemezsiniz çünkü {name} ismi silinecek bir paket için "
+"kullanılmış. Eğer paketi göndermek istiyorsanız önce değişiklikleri kaydedin"
 
-#~ msgid ""
-#~ "You cannot upload this bundle since the name {name} has been already used "
-#~ "for a bundle which will be cleaned up. If you want to upload the bundle, "
-#~ "please save changes first"
-#~ msgstr ""
-#~ "Bu paketi gönderemezsiniz çünkü {name} ismi silinecek bir paket için "
-#~ "kullanılmış. Eğer paketi göndermek istiyorsanız önce değişiklikleri "
-#~ "kaydedin"
+#: src/EBox/SOAP.pm:1017
+msgid "Certificate file is missing"
+msgstr "Oluşturma dosyaları eksik"
 
-#~ msgid "Certificate file is missing"
-#~ msgstr "Oluşturma dosyaları eksik"
+#: src/EBox/SOAP.pm:1020
+msgid "Private key file is missing"
+msgstr "Özel anahtar dosyası eksik"
 
-#~ msgid "Private key file is missing"
-#~ msgstr "Özel anahtar dosyası eksik"
+#: src/EBox/SOAP.pm:1023
+msgid "Certification Authority file is missing"
+msgstr "Sertifika doğrulama dosyası eksik"
 
-#~ msgid "Certification Authority file is missing"
-#~ msgstr "Sertifika doğrulama dosyası eksik"
+#: src/EBox/SOAP.pm:1075
+msgid ""
+"You should upload a bundle to be able to communicate with the control center"
+msgstr ""
+"Kontrol merkezi ile iletişim kurmak için önce bir paket göndermelisiniz"
 
-#~ msgid ""
-#~ "You should upload a bundle to be able to communicate with the control "
-#~ "center"
-#~ msgstr ""
-#~ "Kontrol merkezi ile iletişim kurmak için önce bir paket göndermelisiniz"
+#: src/EBox/SOAP.pm:1084
+msgid ""
+"The OpenVPN client is not running. You may need to save changes in order to "
+"set up the OpenVPN client"
+msgstr ""
+"OpenVPN istemcisi çalışmıyor. OpenVPN istemcisini kurmak için değişiklikleri "
+"kaydetmeniz gerekiyor"
 
-#~ msgid ""
-#~ "The OpenVPN client is not running. You may need to save changes in order "
-#~ "to set up the OpenVPN client"
-#~ msgstr ""
-#~ "OpenVPN istemcisi çalışmıyor. OpenVPN istemcisini kurmak için "
-#~ "değişiklikleri kaydetmeniz gerekiyor"
+#: src/templates/index.mas:27
+msgid "General configuration for"
+msgstr "Şunun için genel yapılandırma: "
+
+#: src/templates/index.mas:52
+#, fuzzy, perl-brace-format
+msgid ""
+"The connection seems to be {state}. The percentage of loss was {percent}%"
+msgstr "Bağlantı şuanda  {state} gibi gözüküyor."
+
+#: src/templates/index.mas:54
+msgid "ok"
+msgstr "Tamam"
+
+#: src/templates/index.mas:54
+msgid "down"
+msgstr "Kapalı"
+
+#: src/templates/index.mas:83
+msgid "eBox Control Center bundle"
+msgstr "eBox Kontrol Merkez paketi"
+
+#: src/templates/index.mas:84
+#, fuzzy
+msgid ""
+"Archive which contains all elements needed to establish the communication "
+"between eBox and the control center"
+msgstr ""
+"Bir önceki paket silindi. Bir eBox merkezi ile iletişim kurmak için yeni bir "
+"tane gönderin"
+
+#: src/templates/index.mas:90
+msgid "Upload"
+msgstr "Gönder"
 
 #~ msgid "You can manage here the communication between control "
 #~ msgstr "Kontrol merkezi ile aradaki iletişimi buradan yönetebilirsiniz"
-
-#~ msgid "General configuration for"
-#~ msgstr "Şunun için genel yapılandırma: "
 
 #~ msgid "Test the connection between the control center and this "
 #~ msgstr "Kontrol merkezi ve şunun için bağlantı denemesi:"
 
 #~ msgid "Test"
 #~ msgstr "Deneme"
-
-#~ msgid "The connection seems to be {state}. "
-#~ msgstr "Bağlantı şuanda  {state} gibi gözüküyor."
-
-#~ msgid "ok"
-#~ msgstr "Tamam"
-
-#~ msgid "down"
-#~ msgstr "Kapalı"
 
 #~ msgid "Remove current communication with this control center to add "
 #~ msgstr "Şunu eklemek için kontol merkezi ile olan şu anki bağlantıyı silin:"
@@ -159,11 +204,8 @@ msgstr "Yönetim merkezi"
 #~ msgid "Delete current communication"
 #~ msgstr "Güncel iletişimi sil"
 
-#~ msgid "eBox Control Center bundle"
-#~ msgstr "eBox Kontrol Merkez paketi"
-
 #~ msgid "Archive which contains all "
 #~ msgstr "Şunların tümünü içeren arşiv:"
 
-#~ msgid "Upload"
-#~ msgstr "Gönder"
+#~ msgid "The connection seems to be {state}. "
+#~ msgstr "Bağlantı şuanda  {state} gibi gözüküyor."

@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-squid 0.9.100\n"
+"Project-Id-Version: ebox-squid 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:14+0200\n"
+"POT-Creation-Date: 2007-11-07 11:41+0100\n"
 "PO-Revision-Date: 2007-05-13 00:56+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -17,441 +17,572 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/CGI/Enable.pm:42
-msgid "module status"
-msgstr "Modul durumu"
+#: src/EBox/Squid/Model/ObjectPolicy.pm:90
+#, fuzzy
+msgid "Object"
+msgstr "Nesne"
 
-#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40
-#: src/EBox/CGI/MimeTypesUI.pm:30 src/EBox/CGI/ExtensionsUI.pm:30
-#: src/EBox/CGI/ExtensionsUI.pm:40 src/EBox/Squid.pm.in:1172
-msgid "HTTP Proxy"
-msgstr "HTTP vekil sunucusu"
+#: src/EBox/Squid/Model/ObjectPolicy.pm:98
+#: src/EBox/Squid/Model/DomainFilter.pm:98
+msgid "Policy"
+msgstr "İlkeler"
 
-#: src/EBox/CGI/AddCustomFilter.pm:41 src/EBox/CGI/SetFilterList.pm:41
-msgid "Attribute Name"
-msgstr "Öznitelik ismi"
+#: src/EBox/Squid/Model/ObjectPolicy.pm:105
+msgid "Configure network objects' policies"
+msgstr ""
 
-#: src/EBox/CGI/AddCustomFilter.pm:42 src/templates/filterTable.mas:40
-msgid "Name"
-msgstr "İsim"
+#: src/EBox/Squid/Model/ObjectPolicy.pm:117
+#, fuzzy
+msgid "object's policy"
+msgstr "Genel ilkeler"
 
-#: src/EBox/CGI/AddCustomFilter.pm:43 src/EBox/Squid.pm.in:1201
-#: src/templates/index.mas:134 src/templates/index.mas:137
-#: src/templates/filterTable.mas:47 src/templates/filterTable.mas:70
-msgid "Deny"
-msgstr "Engelle"
+#: src/EBox/Squid/Model/ObjectPolicy.pm:118
+msgid "Here you can establish a custom policy per network object"
+msgstr ""
 
-#: src/EBox/CGI/AddCustomFilter.pm:58
+#: src/EBox/Squid/Model/ObjectPolicy.pm:120
+msgid "Added object's policy"
+msgstr ""
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:121
+msgid "Removed object's policy"
+msgstr ""
+
+#: src/EBox/Squid/Model/ObjectPolicy.pm:122
+msgid "Updated object's policy"
+msgstr ""
+
+#: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:26
+msgid "MIME types"
+msgstr "MIME türleri"
+
+#: src/EBox/Squid/Model/ApplyAllowToAllMIME.pm:33
+#, fuzzy
+msgid "Set policy for all MIME types"
+msgstr "İzin verilen MIME türlerini ayarla"
+
+#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:61
+msgid "elements"
+msgstr ""
+
+#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:69
 #, perl-brace-format
-msgid "New {type} SHOULD be lower than {number} characters"
-msgstr "Yeni {type} en azından {number} karakter olmalıdır"
+msgid "Allow all {elements}"
+msgstr ""
 
-#: src/EBox/CGI/AddCustomFilter.pm:59 src/EBox/CGI/ExtensionsUI.pm:51
-msgid "Extension"
-msgstr "Uzantı"
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:70
+msgid "Threshold"
+msgstr "Kapasite"
 
-#: src/EBox/CGI/AddCustomFilter.pm:59 src/EBox/CGI/AddCustomFilter.pm:71
-#: src/EBox/CGI/AddCustomFilter.pm:80 src/EBox/CGI/MimeTypesUI.pm:46
-msgid "MIME type"
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:82
+msgid "Content filter threshold"
+msgstr "İçerik süzgeç kapasitesi"
+
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:88
+#, fuzzy
+msgid "Content filter threshold changed"
+msgstr "İçerik süzgeç kapasitesi"
+
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:103 src/EBox/Squid.pm.in:678
+msgid "Disabled"
+msgstr "Etkisiz"
+
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:104
+msgid "Very permissive"
+msgstr "Her şeye açık"
+
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:105
+msgid "Permissive"
+msgstr "Açık"
+
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:106
+msgid "Medium"
+msgstr "Orta"
+
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:107
+msgid "Strict"
+msgstr "Sıkı"
+
+#: src/EBox/Squid/Model/ContentFilterThreshold.pm:108
+msgid "Very strict"
+msgstr "Herşeye çok sıkı"
+
+#: src/EBox/Squid/Model/DomainFilter.pm:91
+#: src/EBox/Squid/Model/DomainFilter.pm:141
+msgid "Domain"
+msgstr "Alan ismi"
+
+#: src/EBox/Squid/Model/DomainFilter.pm:106
+#, fuzzy
+msgid "Domains list"
+msgstr "Alan ismi"
+
+#: src/EBox/Squid/Model/DomainFilter.pm:119
+#, fuzzy
+msgid "internet domain"
+msgstr "Yasaklı alan isimleri"
+
+#: src/EBox/Squid/Model/DomainFilter.pm:120
+msgid "Allow/Deny the HTTP traffic from/to the listed internet domains."
+msgstr ""
+
+#: src/EBox/Squid/Model/DomainFilter.pm:122
+#, fuzzy
+msgid "Domain added"
+msgstr "Alan ismi"
+
+#: src/EBox/Squid/Model/DomainFilter.pm:123
+#, fuzzy
+msgid "Domain removed"
+msgstr "Alan ismi"
+
+#: src/EBox/Squid/Model/DomainFilter.pm:124
+#, fuzzy
+msgid "Domain updated"
+msgstr "Alan ismi"
+
+#: src/EBox/Squid/Model/DomainFilter.pm:143
+msgid "You must not prefix the domain with www."
+msgstr ""
+
+#: src/EBox/Squid/Model/MIMEFilter.pm:92
+#: src/EBox/Squid/Model/MIMEFilter.pm:197
+#: src/EBox/Squid/Model/MIMEFilter.pm:206
+#: src/EBox/Squid/Model/MIMEFilter.pm:217
+#, fuzzy
+msgid "MIME Type"
 msgstr "MIME türü"
 
-#: src/EBox/CGI/AddCustomFilter.pm:70
-#, perl-brace-format
-msgid "The {type} SHOULD have the following syntax: \"word/word\""
-msgstr "{type} yandaki gibi tanımlanmalıdır: \"word/word\""
+#: src/EBox/Squid/Model/MIMEFilter.pm:99
+#: src/EBox/Squid/Model/ExtensionFilter.pm:101 src/EBox/Squid.pm.in:683
+msgid "Allow"
+msgstr "İzin ver"
 
-#: src/EBox/CGI/AddCustomFilter.pm:78
-#, perl-brace-format
-msgid "The {type} SHOULD be in IANA type. Check this link: {url} for details"
-msgstr ""
-"{type} bir IANA türünde olmalıdır. Detaylar için  {url} adresini kontrol edin"
-
-#: src/EBox/CGI/AddCustomFilter.pm:98
-#, perl-brace-format
-msgid "File extension {name} added correctly"
-msgstr "{name} dosya uzantısı başarılı bir şekilde eklendi"
-
-#: src/EBox/CGI/AddCustomFilter.pm:101
-#, perl-brace-format
-msgid "File extension {name} is already in the list"
-msgstr "{name} dosya uzantısı önceden listeye alınmış"
-
-#: src/EBox/CGI/AddCustomFilter.pm:118
-#, perl-brace-format
-msgid "MIME type {name} added correctly"
-msgstr "{name} MIME türü başarılı bir şekilde eklendi"
-
-#: src/EBox/CGI/AddCustomFilter.pm:121
-#, perl-brace-format
-msgid "MIME type {name} is already in the list"
-msgstr "{name} MIME türü önceden listeye alınmış"
-
-#: src/EBox/CGI/MimeTypesUI.pm:44
+#: src/EBox/Squid/Model/MIMEFilter.pm:111
 msgid "Configure allowed MIME types"
 msgstr "İzin verilen MIME türlerini ayarla"
 
-#: src/EBox/CGI/MimeTypesUI.pm:51
-msgid " or something starting with \"x-\"."
-msgstr "ya da bazen \"x-\" ile başlar"
+#: src/EBox/Squid/Model/MIMEFilter.pm:123
+msgid "MIME type"
+msgstr "MIME türü"
 
-#: src/EBox/CGI/MimeTypesUI.pm:52
-#, perl-brace-format
+#: src/EBox/Squid/Model/MIMEFilter.pm:124
 msgid ""
-"Add a new MIME type with the following syntax: type/subtype Where type can "
-"be: {types}"
+"Allow/Deny the HTTP traffic of the files which the given MIME types.MIME "
+"types not listed here are allowed.\n"
+"The  filter needs a 'filter' policy to be in effect"
+msgstr ""
+
+#: src/EBox/Squid/Model/MIMEFilter.pm:127
+#, fuzzy
+msgid "MIME type added"
+msgstr "MIME türü"
+
+#: src/EBox/Squid/Model/MIMEFilter.pm:128
+#, fuzzy
+msgid "MIME type removed"
+msgstr "MIME türü"
+
+#: src/EBox/Squid/Model/MIMEFilter.pm:129
+#, fuzzy
+msgid "MIME type updated"
+msgstr "MIME türü"
+
+#: src/EBox/Squid/Model/MIMEFilter.pm:199
+#, fuzzy
+msgid "A MIME Type must follows this syntax: type/subtype"
 msgstr ""
 "Yeni MIME türünü yandaki şekilde ayarlayabilirsiniz: kategori/alt kategori. "
 "Olası kategoriler şunlardır: {types}"
 
-#: src/EBox/CGI/SetPolicy.pm:30 src/EBox/CGI/Policy.pm:30
-#: src/EBox/CGI/Policy.pm:54
-msgid "HTTP proxy policy"
-msgstr "HTTP vekil sunucu ilkeleri"
-
-#: src/EBox/CGI/ExtensionsUI.pm:47
-msgid "Configure allowed extensions"
-msgstr "İzin verilen eklentileri ayarla"
-
-#: src/EBox/CGI/ExtensionsUI.pm:53
-msgid "Add a new file extension without dot. Like \"pdf\""
-msgstr "Yeni dosya eklentilerini nokta koymadan ekleyin (örn.: pdf)"
-
-#: src/EBox/CGI/General.pm:42
-msgid "content filter threshold"
-msgstr "İçerik süzgeç eşiği"
-
-#: src/EBox/CGI/General.pm:45
-msgid "transparent proxy"
-msgstr "Saydam vekil sunucu"
-
-#: src/EBox/CGI/General.pm:48 src/EBox/Squid.pm.in:477
-msgid "listening port"
-msgstr "Kullanılan port"
-
-#: src/EBox/CGI/General.pm:51
-msgid "global policy"
-msgstr "Genel ilkeler"
-
-#: src/EBox/CGI/SetFilterList.pm:59
+#: src/EBox/Squid/Model/MIMEFilter.pm:209
 #, perl-brace-format
-msgid "{attr} has been deleted successfully"
-msgstr "{attr} başarılı bir şekilde silindi"
+msgid "{type} is not a valid IANA type"
+msgstr ""
 
-#: src/EBox/CGI/SetFilterList.pm:68
-msgid "All file extensions have been deleted"
-msgstr "Bütün dosya eklentileri silindi"
+#: src/EBox/Squid/Model/MIMEFilter.pm:220
+#, perl-brace-format
+msgid "{t} subtype has a wrong syntax"
+msgstr ""
 
-#: src/EBox/CGI/SetFilterList.pm:70
-msgid "All MIME types have been deleted"
-msgstr "Bütün MIME türleri silindi"
-
-#: src/EBox/CGI/Allow.pm:40 src/EBox/CGI/Ban.pm:40 src/EBox/Squid.pm.in:639
-#: src/EBox/Squid.pm.in:644 src/EBox/Squid.pm.in:692 src/EBox/Squid.pm.in:697
-msgid "domain name"
-msgstr "Alan ismi"
-
-#: src/EBox/CGI/Allow.pm:41 src/EBox/CGI/Ban.pm:41
-msgid "action"
-msgstr "İşlem"
-
-#: src/EBox/CGI/AllowedDomains.pm:30 src/EBox/CGI/AllowedDomains.pm:40
-#: src/EBox/Squid.pm.in:1229 src/templates/allowed.mas:11
-msgid "Allowed domains"
-msgstr "İzinli alan isimleri"
-
-#: src/EBox/CGI/BannedDomains.pm:30 src/EBox/CGI/BannedDomains.pm:40
-#: src/EBox/Squid.pm.in:1231 src/templates/banned.mas:11
-msgid "Banned domains"
+#: src/EBox/Squid/Model/DomainFilterSettings.pm:91
+#, fuzzy
+msgid "Block not listed domains"
 msgstr "Yasaklı alan isimleri"
 
-#: src/EBox/Squid.pm.in:139
-msgid "You must set the cache_mem variable in the ebox configuration file"
-msgstr "cache_mem değişkenini ebox ayar dosyanızda tanımlamanız gereklidir."
+#: src/EBox/Squid/Model/DomainFilterSettings.pm:96
+msgid "Block sites specified only as IP"
+msgstr ""
 
-#: src/EBox/Squid.pm.in:218 src/EBox/Squid.pm.in:308
-msgid "object"
-msgstr "Nesne"
+#: src/EBox/Squid/Model/DomainFilterSettings.pm:105
+msgid "Domain filter settings"
+msgstr ""
 
-#: src/EBox/Squid.pm.in:401
-msgid "Squid listening port"
-msgstr "Squid kullanım portu"
+#: src/EBox/Squid/Model/DomainFilterSettings.pm:112
+msgid "Filtering settings changed"
+msgstr ""
 
-#: src/EBox/Squid.pm.in:407
-msgid "DansGuardian listening port"
-msgstr "DansGuardian kullanım portu"
-
-#: src/EBox/Squid.pm.in:615
-#, perl-brace-format
-msgid "Policy '{policy}' is invalid"
-msgstr "'{policy}' ilkesi geçersiz"
-
-#: src/EBox/Squid.pm.in:667 src/EBox/Squid.pm.in:720
-msgid "domain"
-msgstr "Alan"
-
-#: src/EBox/Squid.pm.in:747
-msgid "Threshold"
-msgstr "Kapasite"
-
-#: src/EBox/Squid.pm.in:1186
-msgid "Proxy"
-msgstr "Vekil sunucu"
-
-#: src/EBox/Squid.pm.in:1192 src/templates/index.mas:39
-#: src/templates/index.mas:44
-msgid "Enabled"
-msgstr "Etkin"
-
-#: src/EBox/Squid.pm.in:1194 src/templates/index.mas:37
-#: src/templates/index.mas:42 src/templates/index.mas:73
-#: src/templates/index.mas:76
-msgid "Disabled"
-msgstr "Etkisiz"
-
-#: src/EBox/Squid.pm.in:1196 src/templates/index.mas:30
-msgid "Transparent proxy"
+#: src/EBox/Squid/Model/GeneralSettings.pm:80
+#, fuzzy
+msgid "Transparent Proxy"
 msgstr "Saydam vekil sunucu"
 
-#: src/EBox/Squid.pm.in:1199 src/templates/index.mas:127
-#: src/templates/index.mas:130 src/templates/policy.mas:109
-#: src/templates/policy.mas:113
-msgid "Allow"
-msgstr "İzin ver"
-
-#: src/EBox/Squid.pm.in:1203 src/templates/index.mas:141
-#: src/templates/index.mas:144 src/templates/policy.mas:55
-#: src/templates/policy.mas:59 src/templates/policy.mas:119
-#: src/templates/policy.mas:123
-msgid "Filter"
-msgstr "Süzgeç"
-
-#: src/EBox/Squid.pm.in:1206 src/templates/index.mas:120
-msgid "Global policy"
-msgstr "Genel ilkeler"
-
-#: src/EBox/Squid.pm.in:1208
-msgid "Listening port"
-msgstr "Kullanılan port"
-
-#: src/EBox/Squid.pm.in:1224 src/EBox/Squid.pm.in:1258
-msgid "HTTP proxy"
-msgstr "HTTP vekil sunucusu"
-
-#: src/EBox/Squid.pm.in:1227
-msgid "General"
-msgstr "Genel"
-
-#: src/EBox/Squid.pm.in:1233
-msgid "Extensions filter"
-msgstr "Eklenti süzgeci"
-
-#: src/EBox/Squid.pm.in:1235
-msgid "MIME Type filter"
-msgstr "MIME türü süzgeci"
-
-#: src/EBox/Squid.pm.in:1237
-msgid "Policy"
-msgstr "İlkeler"
-
-#: src/EBox/Squid.pm.in:1244
-msgid "Date"
-msgstr "Tarih"
-
-#: src/EBox/Squid.pm.in:1245
-msgid "Host"
-msgstr "Makina"
-
-#: src/EBox/Squid.pm.in:1246
-msgid "URL"
-msgstr "URL"
-
-#: src/EBox/Squid.pm.in:1247
-msgid "Bytes"
-msgstr "Bayt"
-
-#: src/EBox/Squid.pm.in:1248
-msgid "Mime/type"
-msgstr "Mime/type"
-
-#: src/EBox/Squid.pm.in:1249
-msgid "Event"
-msgstr "Olay"
-
-#: src/EBox/Squid.pm.in:1254
-msgid "Accepted"
-msgstr "İzin verilen"
-
-#: src/EBox/Squid.pm.in:1255 src/templates/policy.mas:29
-msgid "Denied"
-msgstr "Yasaklanan"
-
-#: src/EBox/Squid.pm.in:1256 src/templates/policy.mas:26
-msgid "Filtered"
-msgstr "Süzgeçlenen"
-
-#: src/templates/allowed.mas:13
-msgid "Add here those domains which you want to allow access."
-msgstr "Erişimine izin vermek istediğiniz alan adı isimlerini buraya girin"
-
-#: src/templates/banned.mas:13
-msgid "Add here those domains which you do not want to allow access."
-msgstr "Erişimini yasakladığınız alan adı isimilerini buraya girin"
-
-#: src/templates/index.mas:15
-msgid "HTTP Proxy service status"
-msgstr "HTTP vekil sunucu durumu"
-
-#: src/templates/index.mas:17
-msgid "General Settings"
-msgstr "Genel Ayarlar"
-
-#: src/templates/index.mas:21
-msgid ""
-"Please note that if you set a configuration which prevents you from "
-"connecting to the administration interface through the proxy, you must then "
-"connect to it directly"
-msgstr ""
-"Vekil sunucu üzerinden internet erişimini yasaklamak için yönetici web "
-"arayüzüne doğrudan bağlanmanız gerektiğini lütfen unutmayın."
-
-#: src/templates/index.mas:53
+#: src/EBox/Squid/Model/GeneralSettings.pm:89
 msgid "Port"
 msgstr "Port"
 
-#: src/templates/index.mas:66
-msgid "Content filter threshold"
-msgstr "İçerik süzgeç kapasitesi"
+#: src/EBox/Squid/Model/GeneralSettings.pm:97
+#, fuzzy
+msgid "Default policy"
+msgstr "Genel ilkeler"
 
-#: src/templates/index.mas:80 src/templates/index.mas:83
-msgid "Very permissive"
-msgstr "Her şeye açık"
+#: src/EBox/Squid/Model/GeneralSettings.pm:106
+#, fuzzy
+msgid "General Settings "
+msgstr "Genel Ayarlar"
 
-#: src/templates/index.mas:87 src/templates/index.mas:90
-msgid "Permissive"
-msgstr "Açık"
-
-#: src/templates/index.mas:94 src/templates/index.mas:97
-msgid "Medium"
-msgstr "Orta"
-
-#: src/templates/index.mas:101 src/templates/index.mas:104
-msgid "Strict"
-msgstr "Sıkı"
-
-#: src/templates/index.mas:108 src/templates/index.mas:111
-msgid "Very strict"
-msgstr "Herşeye çok sıkı"
-
-#: src/templates/index.mas:155 src/templates/index.mas:156
-#: src/templates/filterTable.mas:172 src/templates/filterTable.mas:174
-msgid "Change"
-msgstr "Değiştir"
-
-#: src/templates/domains.mas:18
-msgid "filter"
-msgstr "Süzgeç"
-
-#: src/templates/domains.mas:29
-msgid "Introduce domains in this way: "
-msgstr "Alan adı isimlerini bu şekilde girin:"
-
-#: src/templates/domains.mas:31
-msgid "domain.com"
-msgstr "domain.com"
-
-#: src/templates/domains.mas:37
-msgid "Domain"
-msgstr "Alan ismi"
-
-#: src/templates/domains.mas:39
-msgid "Action"
-msgstr "İşlem"
-
-#: src/templates/domains.mas:57 src/templates/domains.mas:59
-#: src/templates/domains.mas:61 src/templates/filterTable.mas:32
-#: src/templates/filterTable.mas:54
-msgid "Add"
-msgstr "Ekle"
-
-#: src/templates/domains.mas:77 src/templates/domains.mas:79
-#: src/templates/domains.mas:81 src/templates/filterTable.mas:154
-#: src/templates/filterTable.mas:156
-msgid "Delete"
-msgstr "Sil"
-
-#: src/templates/filterTable.mas:15
-#, perl-brace-format
-msgid ""
-"When the filter content is enabled you can select those file {name} which "
-"are denied to download"
+#: src/EBox/Squid/Model/GeneralSettings.pm:113
+msgid "Settings changed"
 msgstr ""
-"İçerik süzgeçleme etkili hale getirilirse {name} dosyalarını seçebilirsiniz "
-"(bu dosyaların indirilmesine izin verilmez)"
 
-#: src/templates/filterTable.mas:17
+#: src/EBox/Squid/Model/GeneralSettings.pm:148
+#, perl-brace-format
+msgid "{port} is already in use. Please choose another"
+msgstr ""
+
+#: src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:26
 msgid "extensions"
 msgstr "Dosya uzantıları"
 
-#: src/templates/filterTable.mas:18
-msgid "MIME types"
-msgstr "MIME türleri"
+#: src/EBox/Squid/Model/ApplyAllowToAllExtensions.pm:33
+#, fuzzy
+msgid "Set policy for all extensions"
+msgstr "İzin verilen eklentileri ayarla"
 
-#: src/templates/filterTable.mas:74
-msgid "Actions"
-msgstr "İşlem"
+#: src/EBox/Squid/Model/ExtensionFilter.pm:94
+msgid "Extension"
+msgstr "Uzantı"
 
-#: src/templates/filterTable.mas:85
-msgid "All extensions"
+#: src/EBox/Squid/Model/ExtensionFilter.pm:112
+#, fuzzy
+msgid "Configure allowed file extensions"
+msgstr "İzin verilen eklentileri ayarla"
+
+#: src/EBox/Squid/Model/ExtensionFilter.pm:125
+#, fuzzy
+msgid "extension"
+msgstr "Dosya uzantıları"
+
+#: src/EBox/Squid/Model/ExtensionFilter.pm:126
+msgid ""
+"Allow/Deny the HTTP traffic of the files which the given extensions.\n"
+"Extensions not listed here are allowed.\n"
+"The extension filter needs a 'filter' policy to be in effect"
+msgstr ""
+
+#: src/EBox/Squid/Model/ExtensionFilter.pm:129
+#, fuzzy
+msgid "Extension added"
+msgstr "Uzantı"
+
+#: src/EBox/Squid/Model/ExtensionFilter.pm:130
+#, fuzzy
+msgid "Extension removed"
+msgstr "Uzantı"
+
+#: src/EBox/Squid/Model/ExtensionFilter.pm:131
+#, fuzzy
+msgid "Extension updated"
+msgstr "Eklenti süzgeci"
+
+#: src/EBox/Squid/Model/ExtensionFilter.pm:146
+#, fuzzy
+msgid "File extension"
 msgstr "Bütün uzantılar"
 
-#: src/templates/filterTable.mas:87
-msgid "All MIME types"
-msgstr "Bütün MIME türleri"
+#: src/EBox/Squid/Composite/FilterSettings.pm:76 src/EBox/Squid.pm.in:718
+#, fuzzy
+msgid "Filter settings"
+msgstr "Genel Ayarlar"
 
-#: src/templates/filterTable.mas:108 src/templates/filterTable.mas:110
-msgid "Delete them all"
-msgstr "Hepsini sil"
+#: src/EBox/Squid/Composite/MIME.pm:76
+#, fuzzy
+msgid "MIME types filtering"
+msgstr "MIME türü süzgeci"
 
-#: src/templates/filterTable.mas:113
-msgid "Are you sure you want to delete all file extensions?"
-msgstr "Bütün dosya uzantılarını silmek istediğinizden emin misiniz?"
-
-#: src/templates/filterTable.mas:115
-msgid "Are you sure you want to delete all MIME types?"
-msgstr "Bütün MIME türlerini silmek istediğinizden emin misiniz?"
-
-#: src/templates/policy.mas:14
-msgid ""
-"Choose the object whose state you want to change and click in the arrow to "
-"move it to the desired column."
+#: src/EBox/Squid/Composite/Domains.pm:76
+msgid "Domains filtering"
 msgstr ""
-"Durumunu değiştirmek istediğiniz nesneyi seçin. Sonra yön tuşlarını "
-"kullanarak götürmek istediğiniz sütuna taşıyın."
 
-#: src/templates/policy.mas:23
-msgid "Allowed"
-msgstr "İzin verildi"
+#: src/EBox/Squid/Composite/General.pm:76 src/EBox/Squid.pm.in:656
+msgid "HTTP Proxy"
+msgstr "HTTP vekil sunucusu"
 
-#: src/templates/policy.mas:40 src/templates/policy.mas:66
-#: src/templates/policy.mas:92
-msgid "Empty list"
-msgstr "Liste boş"
+#: src/EBox/Squid/Composite/Extensions.pm:76
+#, fuzzy
+msgid "File extensions filtering"
+msgstr "Eklenti süzgeci"
 
-#: src/templates/policy.mas:57 src/templates/policy.mas:121
-msgid "Move selected objects to the filtered column"
-msgstr "Seçili nesneleri süzgeçlendi sütununa taşı"
+#: src/EBox/Squid/Types/Policy.pm:34
+msgid "Always allow"
+msgstr ""
 
-#: src/templates/policy.mas:81 src/templates/policy.mas:85
-msgid "Ban"
-msgstr "Yasakla"
+#: src/EBox/Squid/Types/Policy.pm:35 src/EBox/Squid.pm.in:687
+msgid "Filter"
+msgstr "Süzgeç"
 
-#: src/templates/policy.mas:83
-msgid "Move selected objects to the banned column"
-msgstr "Seçili nesneleri yasakla sütununa taşı"
+#: src/EBox/Squid/Types/Policy.pm:36
+msgid "Always deny"
+msgstr ""
 
-#: src/templates/policy.mas:111
-msgid "Move selected objects to the unfiltered column"
-msgstr "Seçili nesneleri süzgeçlenmedi sütununa taşı"
+#: src/EBox/Squid/Types/Policy.pm:56
+msgid "Squid's policy"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:83
+msgid "HTTP Proxy service status"
+msgstr "HTTP vekil sunucu durumu"
+
+#: src/EBox/Squid.pm.in:191
+msgid "You must set the cache_mem variable in the ebox configuration file"
+msgstr "cache_mem değişkenini ebox ayar dosyanızda tanımlamanız gereklidir."
+
+#: src/EBox/Squid.pm.in:670
+msgid "Proxy"
+msgstr "Vekil sunucu"
+
+#: src/EBox/Squid.pm.in:676
+msgid "Enabled"
+msgstr "Etkin"
+
+#: src/EBox/Squid.pm.in:680
+msgid "Transparent proxy"
+msgstr "Saydam vekil sunucu"
+
+#: src/EBox/Squid.pm.in:685
+msgid "Deny"
+msgstr "Engelle"
+
+#: src/EBox/Squid.pm.in:690
+msgid "Global policy"
+msgstr "Genel ilkeler"
+
+#: src/EBox/Squid.pm.in:692
+msgid "Listening port"
+msgstr "Kullanılan port"
+
+#: src/EBox/Squid.pm.in:708 src/EBox/Squid.pm.in:741
+msgid "HTTP proxy"
+msgstr "HTTP vekil sunucusu"
+
+#: src/EBox/Squid.pm.in:711
+msgid "General"
+msgstr "Genel"
+
+#: src/EBox/Squid.pm.in:715
+msgid "Objects' Policy"
+msgstr ""
+
+#: src/EBox/Squid.pm.in:727
+msgid "Date"
+msgstr "Tarih"
+
+#: src/EBox/Squid.pm.in:728
+msgid "Host"
+msgstr "Makina"
+
+#: src/EBox/Squid.pm.in:729
+msgid "URL"
+msgstr "URL"
+
+#: src/EBox/Squid.pm.in:730
+msgid "Bytes"
+msgstr "Bayt"
+
+#: src/EBox/Squid.pm.in:731
+msgid "Mime/type"
+msgstr "Mime/type"
+
+#: src/EBox/Squid.pm.in:732
+msgid "Event"
+msgstr "Olay"
+
+#: src/EBox/Squid.pm.in:737
+msgid "Accepted"
+msgstr "İzin verilen"
+
+#: src/EBox/Squid.pm.in:738
+msgid "Denied"
+msgstr "Yasaklanan"
+
+#: src/EBox/Squid.pm.in:739
+msgid "Filtered"
+msgstr "Süzgeçlenen"
+
+#: src/EBox/Squid.pm.in:782
+#, fuzzy
+msgid "HTTP Proxy's cache files"
+msgstr "HTTP vekil sunucu durumu"
+
+#~ msgid "module status"
+#~ msgstr "Modul durumu"
+
+#~ msgid "Attribute Name"
+#~ msgstr "Öznitelik ismi"
+
+#~ msgid "Name"
+#~ msgstr "İsim"
+
+#~ msgid "New {type} SHOULD be lower than {number} characters"
+#~ msgstr "Yeni {type} en azından {number} karakter olmalıdır"
+
+#~ msgid "The {type} SHOULD have the following syntax: \"word/word\""
+#~ msgstr "{type} yandaki gibi tanımlanmalıdır: \"word/word\""
+
+#~ msgid ""
+#~ "The {type} SHOULD be in IANA type. Check this link: {url} for details"
+#~ msgstr ""
+#~ "{type} bir IANA türünde olmalıdır. Detaylar için  {url} adresini kontrol "
+#~ "edin"
+
+#~ msgid "File extension {name} added correctly"
+#~ msgstr "{name} dosya uzantısı başarılı bir şekilde eklendi"
+
+#~ msgid "File extension {name} is already in the list"
+#~ msgstr "{name} dosya uzantısı önceden listeye alınmış"
+
+#~ msgid "MIME type {name} added correctly"
+#~ msgstr "{name} MIME türü başarılı bir şekilde eklendi"
+
+#~ msgid "MIME type {name} is already in the list"
+#~ msgstr "{name} MIME türü önceden listeye alınmış"
+
+#~ msgid " or something starting with \"x-\"."
+#~ msgstr "ya da bazen \"x-\" ile başlar"
+
+#~ msgid "HTTP proxy policy"
+#~ msgstr "HTTP vekil sunucu ilkeleri"
+
+#~ msgid "Add a new file extension without dot. Like \"pdf\""
+#~ msgstr "Yeni dosya eklentilerini nokta koymadan ekleyin (örn.: pdf)"
+
+#~ msgid "content filter threshold"
+#~ msgstr "İçerik süzgeç eşiği"
+
+#~ msgid "transparent proxy"
+#~ msgstr "Saydam vekil sunucu"
+
+#~ msgid "listening port"
+#~ msgstr "Kullanılan port"
+
+#~ msgid "{attr} has been deleted successfully"
+#~ msgstr "{attr} başarılı bir şekilde silindi"
+
+#~ msgid "All file extensions have been deleted"
+#~ msgstr "Bütün dosya eklentileri silindi"
+
+#~ msgid "All MIME types have been deleted"
+#~ msgstr "Bütün MIME türleri silindi"
+
+#~ msgid "action"
+#~ msgstr "İşlem"
+
+#~ msgid "Allowed domains"
+#~ msgstr "İzinli alan isimleri"
+
+#~ msgid "Squid listening port"
+#~ msgstr "Squid kullanım portu"
+
+#~ msgid "DansGuardian listening port"
+#~ msgstr "DansGuardian kullanım portu"
+
+#~ msgid "Policy '{policy}' is invalid"
+#~ msgstr "'{policy}' ilkesi geçersiz"
+
+#~ msgid "domain"
+#~ msgstr "Alan"
+
+#~ msgid "Add here those domains which you want to allow access."
+#~ msgstr "Erişimine izin vermek istediğiniz alan adı isimlerini buraya girin"
+
+#~ msgid "Add here those domains which you do not want to allow access."
+#~ msgstr "Erişimini yasakladığınız alan adı isimilerini buraya girin"
+
+#~ msgid ""
+#~ "Please note that if you set a configuration which prevents you from "
+#~ "connecting to the administration interface through the proxy, you must "
+#~ "then connect to it directly"
+#~ msgstr ""
+#~ "Vekil sunucu üzerinden internet erişimini yasaklamak için yönetici web "
+#~ "arayüzüne doğrudan bağlanmanız gerektiğini lütfen unutmayın."
+
+#~ msgid "Change"
+#~ msgstr "Değiştir"
+
+#~ msgid "filter"
+#~ msgstr "Süzgeç"
+
+#~ msgid "Introduce domains in this way: "
+#~ msgstr "Alan adı isimlerini bu şekilde girin:"
+
+#~ msgid "domain.com"
+#~ msgstr "domain.com"
+
+#~ msgid "Action"
+#~ msgstr "İşlem"
+
+#~ msgid "Add"
+#~ msgstr "Ekle"
+
+#~ msgid "Delete"
+#~ msgstr "Sil"
+
+#~ msgid ""
+#~ "When the filter content is enabled you can select those file {name} which "
+#~ "are denied to download"
+#~ msgstr ""
+#~ "İçerik süzgeçleme etkili hale getirilirse {name} dosyalarını "
+#~ "seçebilirsiniz (bu dosyaların indirilmesine izin verilmez)"
+
+#~ msgid "Actions"
+#~ msgstr "İşlem"
+
+#~ msgid "All MIME types"
+#~ msgstr "Bütün MIME türleri"
+
+#~ msgid "Delete them all"
+#~ msgstr "Hepsini sil"
+
+#~ msgid "Are you sure you want to delete all file extensions?"
+#~ msgstr "Bütün dosya uzantılarını silmek istediğinizden emin misiniz?"
+
+#~ msgid "Are you sure you want to delete all MIME types?"
+#~ msgstr "Bütün MIME türlerini silmek istediğinizden emin misiniz?"
+
+#~ msgid ""
+#~ "Choose the object whose state you want to change and click in the arrow "
+#~ "to move it to the desired column."
+#~ msgstr ""
+#~ "Durumunu değiştirmek istediğiniz nesneyi seçin. Sonra yön tuşlarını "
+#~ "kullanarak götürmek istediğiniz sütuna taşıyın."
+
+#~ msgid "Allowed"
+#~ msgstr "İzin verildi"
+
+#~ msgid "Empty list"
+#~ msgstr "Liste boş"
+
+#~ msgid "Move selected objects to the filtered column"
+#~ msgstr "Seçili nesneleri süzgeçlendi sütununa taşı"
+
+#~ msgid "Ban"
+#~ msgstr "Yasakla"
+
+#~ msgid "Move selected objects to the banned column"
+#~ msgstr "Seçili nesneleri yasakla sütununa taşı"
+
+#~ msgid "Move selected objects to the unfiltered column"
+#~ msgstr "Seçili nesneleri süzgeçlenmedi sütununa taşı"
 
 #~ msgid "This list will only take effect if {globalPolicy} is set to {filter}"
 #~ msgstr ""
@@ -460,3 +591,45 @@ msgstr "Seçili nesneleri süzgeçlenmedi sütununa taşı"
 
 #~ msgid "Mime Type filter"
 #~ msgstr "MIME türü süzgeci"
+
+#, fuzzy
+#~ msgid "Configure allowed internet domains"
+#~ msgstr "İzin verilen eklentileri ayarla"
+
+#, fuzzy
+#~ msgid "Internet domain filter"
+#~ msgstr "Eklenti süzgeci"
+
+#~ msgid "Extensions filter"
+#~ msgstr "Eklenti süzgeci"
+
+#~ msgid "MIME Type filter"
+#~ msgstr "MIME türü süzgeci"
+
+#~ msgid ""
+#~ "Add a new MIME type with the following syntax: type/subtype Where type "
+#~ "can be: {types}"
+#~ msgstr ""
+#~ "Yeni MIME türünü yandaki şekilde ayarlayabilirsiniz: kategori/alt "
+#~ "kategori. Olası kategoriler şunlardır: {types}"
+
+#~ msgid "Configure allowed extensions"
+#~ msgstr "İzin verilen eklentileri ayarla"
+
+#~ msgid "global policy"
+#~ msgstr "Genel ilkeler"
+
+#~ msgid "Banned domains"
+#~ msgstr "Yasaklı alan isimleri"
+
+#~ msgid "object"
+#~ msgstr "Nesne"
+
+#~ msgid "General Settings"
+#~ msgstr "Genel Ayarlar"
+
+#~ msgid "domain name"
+#~ msgstr "Alan ismi"
+
+#~ msgid "All extensions"
+#~ msgstr "Bütün uzantılar"

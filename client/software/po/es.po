@@ -6,9 +6,9 @@
 # Javier Uruen Val <juruen@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.9.100\n"
+"Project-Id-Version: ebox-software 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:13+0200\n"
+"POT-Creation-Date: 2007-11-07 11:41+0100\n"
 "PO-Revision-Date: 2007-02-02 18:12+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: <info@ebox-platform.com>\n"
@@ -23,7 +23,7 @@ msgid "Automatic software updates"
 msgstr "Actualizaciones automáticas de software"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:314
+#: src/EBox/Software.pm:309
 msgid "System updates"
 msgstr "Actualizaciones del sistema"
 
@@ -43,27 +43,36 @@ msgstr "configuración de las actualizaciones automáticas"
 msgid "There were no packages to update"
 msgstr "No hay paquetes para actualizar"
 
-#: src/EBox/CGI/InstallPkgs.pm:88
-msgid ""
-"The packages are being installed, please refrain from using the application "
-"until the update is done"
-msgstr ""
-"Los paquetes se están actualizando, por favor no use la aplicación hasta que "
-"la actualización se complete"
-
-#: src/EBox/CGI/InstallPkgs.pm:93
+#: src/EBox/CGI/InstallPkgs.pm:92
 msgid "The packages were removed successfully"
 msgstr "Los paquetes se han eliminado correctamente"
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:312
-msgid "eBox components"
-msgstr "Componentes eBox"
-
-#: src/EBox/CGI/CurrentPackage.pm:31 src/EBox/CGI/Upgrading.pm:30
+#: src/EBox/CGI/InstallPkgs.pm:118 src/EBox/CGI/CurrentPackage.pm:31
 msgid "Upgrading"
 msgstr "Actualizando"
 
-#: src/EBox/Software.pm:137
+#: src/EBox/CGI/InstallPkgs.pm:119
+#, fuzzy
+msgid "Upgrading packages"
+msgstr "Actualizando"
+
+#: src/EBox/CGI/InstallPkgs.pm:120
+msgid "Current package"
+msgstr "Paquete actual"
+
+#: src/EBox/CGI/InstallPkgs.pm:121
+msgid "packages left to install"
+msgstr ""
+
+#: src/EBox/CGI/InstallPkgs.pm:122
+msgid "The installation of the packages has finished successfully"
+msgstr "Los paquetes se han instalado correctamente "
+
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:307
+msgid "eBox components"
+msgstr "Componentes eBox"
+
+#: src/EBox/Software.pm:132
 msgid ""
 "An error ocurred while removing components. If the error persists or eBox "
 "stops working properly, seek technical support."
@@ -71,11 +80,11 @@ msgstr ""
 "Se ha producido un error al instalar componentes. Si el error persiste o "
 "eBox deja de funcionar correctamente pida soporte técnico."
 
-#: src/EBox/Software.pm:309 src/EBox/PackageDescriptions.pm:16
+#: src/EBox/Software.pm:304 src/EBox/PackageDescriptions.pm:18
 msgid "Software management"
 msgstr "Gestión de software"
 
-#: src/EBox/Software.pm:316
+#: src/EBox/Software.pm:311
 msgid "Configuration"
 msgstr "Configuración"
 
@@ -139,72 +148,65 @@ msgstr "Compartición de impresoras"
 msgid "File sharing"
 msgstr "Compartición de ficheros"
 
+#: src/EBox/PackageDescriptions.pm:16
+#, fuzzy
+msgid "Services  management"
+msgstr "Gestión de software"
+
 #: src/EBox/PackageDescriptions.pm:17
+msgid "SOAP server to communicate with eBox control center"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:19
 msgid "Proxy cache and content filter"
 msgstr "Caché HTTP y filtro de contenidos"
 
-#: src/EBox/PackageDescriptions.pm:18
+#: src/EBox/PackageDescriptions.pm:20
 msgid "Traffic shaper for eBox"
 msgstr "Moldeador de tráfico para eBox"
 
-#: src/EBox/PackageDescriptions.pm:19
+#: src/EBox/PackageDescriptions.pm:21
 msgid "User and Group management"
 msgstr "Gestión de usuarios y grupos"
-
-#: src/templates/upgrading.mas:42
-msgid "Current package"
-msgstr "Paquete actual"
-
-#: src/templates/upgrading.mas:43
-msgid "Starting..."
-msgstr "Comenzando..."
-
-#: src/templates/upgrading.mas:48
-msgid "The installation of the packages has finished successfully"
-msgstr "Los paquetes se han instalado correctamente "
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
 msgstr "Se instalarán los siguientes paquetes"
 
-#: src/templates/del.mas:17
+#: src/templates/del.mas:16
 msgid "The following packages will be removed"
 msgstr "Los siguientes paquetes serán borrados"
 
-#: src/templates/del.mas:34
+#: src/templates/del.mas:32
 msgid "Ok"
 msgstr "Aceptar"
 
-#: src/templates/del.mas:36
+#: src/templates/del.mas:33
 msgid "Cancel"
 msgstr "Cancelar"
-
-#: src/templates/config.mas:9
-msgid "Perform automatic security updates"
-msgstr "Instalar automáticamente parches de seguridad"
 
 #: src/templates/updates.mas:10
 msgid "Updates are available for the following system components"
 msgstr ""
 "Hay actualizaciones disponibles para los siguientes componentes del sistema"
 
-#: src/templates/updates.mas:16 src/templates/ebox.mas:14
+#: src/templates/updates.mas:15 src/templates/ebox.mas:14
 msgid "Component"
 msgstr "Componente"
 
-#: src/templates/updates.mas:18
+#: src/templates/updates.mas:16
 msgid "Description"
 msgstr "Descripción"
 
-#: src/templates/updates.mas:20 src/templates/ebox.mas:31
+#: src/templates/updates.mas:17 src/templates/ebox.mas:27
 msgid "Update"
 msgstr "Actualizar"
 
-#: src/templates/updates.mas:37 src/templates/ebox.mas:82
+#: src/templates/updates.mas:33 src/templates/ebox.mas:74
 msgid "Update all packages"
 msgstr "Actualizar todos los paquetes"
 
-#: src/templates/updates.mas:49
+#: src/templates/updates.mas:44
 msgid ""
 "This operation can take some time, don't worry if eBox looks unresponsive "
 "after pressing the Upgrade button."
@@ -212,37 +214,46 @@ msgstr ""
 "Esta operación puede tomar un tiempo, no se preocupe si eBox no responde "
 "después de presionar el botón de Actualizar."
 
-#: src/templates/updates.mas:53
+#: src/templates/updates.mas:47
 msgid "Upgrade"
 msgstr "Actualizar"
 
-#: src/templates/ebox.mas:16
+#: src/templates/ebox.mas:15
 msgid "Installed version "
 msgstr "Versión instalada"
 
-#: src/templates/ebox.mas:18
+#: src/templates/ebox.mas:16
 msgid "Latest version"
 msgstr "Última versión"
 
-#: src/templates/ebox.mas:20
+#: src/templates/ebox.mas:17
 msgid "Actions"
 msgstr "Acciones"
 
-#: src/templates/ebox.mas:38
+#: src/templates/ebox.mas:33
 msgid "Install"
 msgstr "Instalar"
 
-#: src/templates/ebox.mas:41
+#: src/templates/ebox.mas:35
 msgid "none"
 msgstr "ninguna"
 
-#: src/templates/ebox.mas:64
+#: src/templates/ebox.mas:57
 msgid "Remove"
 msgstr "Eliminar"
 
-#, fuzzy
-#~ msgid "Services  management"
-#~ msgstr "Gestión de software"
+#~ msgid ""
+#~ "The packages are being installed, please refrain from using the "
+#~ "application until the update is done"
+#~ msgstr ""
+#~ "Los paquetes se están actualizando, por favor no use la aplicación hasta "
+#~ "que la actualización se complete"
+
+#~ msgid "Starting..."
+#~ msgstr "Comenzando..."
+
+#~ msgid "Perform automatic security updates"
+#~ msgstr "Instalar automáticamente parches de seguridad"
 
 #~ msgid "DNS cache"
 #~ msgstr "Caché DNS"

@@ -5,9 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mailfilter 0.9.100"
+"Project-Id-Version: ebox-mailfilter 0.10.99\n"
+"es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-09-28 10:36+0200\n"
+"POT-Creation-Date: 2007-11-07 11:39+0100\n"
 "PO-Revision-Date: 2007-09-28 10:36+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,18 +17,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/CGI/FileFilterBase.pm:32 src/EBox/CGI/AddFileFilterElement.pm:29
 #: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:40
-#: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:29
-#: src/EBox/CGI/RemoveAllFileFilterElements.pm:29
-#: src/EBox/CGI/RemoveFileFilterElement.pm:29
+#: src/EBox/CGI/AddFileFilterElement.pm:29
 #: src/EBox/CGI/ModifyFileFilterACL.pm:29
+#: src/EBox/CGI/RemoveFileFilterElement.pm:29
+#: src/EBox/CGI/FileFilterBase.pm:32
+#: src/EBox/CGI/RemoveAllFileFilterElements.pm:29
+#: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:29
 msgid "Mail filter"
-msgstr ""
-
-#: src/EBox/CGI/AddExternalDomain.pm:64
-#, perl-brace-format
-msgid "Mail domain {domain} added to external domain's list."
 msgstr ""
 
 #: src/EBox/CGI/RemoveAllowedMTA.pm:58
@@ -37,8 +34,13 @@ msgid ""
 "the external mail domain's list"
 msgstr ""
 
-#: src/EBox/CGI/RemoveSenderACL.pm:74
-msgid "The specified sender is not in the ACL"
+#: src/EBox/CGI/AntispamTraining.pm:80
+#, perl-brace-format
+msgid "Invalid mailbox type: {type}"
+msgstr ""
+
+#: src/EBox/CGI/AntispamTraining.pm:93
+msgid "Learned from mailbox file"
 msgstr ""
 
 #: src/EBox/CGI/AddFileFilterElement.pm:66
@@ -51,34 +53,14 @@ msgstr ""
 msgid "{name} added"
 msgstr ""
 
-#: src/EBox/CGI/Enable.pm:41
-msgid "module status"
-msgstr ""
-
-#: src/EBox/CGI/AddAllowedMTA.pm:63
-#, perl-brace-format
-msgid ""
-"External mail server {mta} allowed. Remember to add its mail domains to the "
-"external mail domain's list"
-msgstr ""
-
-#: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:70
 #: src/EBox/CGI/ModifyFileFilterACL.pm:87
+#: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:70
 msgid "Denied settings changed"
 msgstr ""
 
-#: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:73
 #: src/EBox/CGI/ModifyFileFilterACL.pm:90
+#: src/EBox/CGI/ChangeFileFilterDeniedElements.pm:73
 msgid "No changes were specified by the user"
-msgstr ""
-
-#: src/EBox/CGI/RemoveExternalDomain.pm:58
-#, perl-brace-format
-msgid "Mail domain {domain} removed from external domain's list."
-msgstr ""
-
-#: src/EBox/CGI/RemoveAllFileFilterElements.pm:67
-msgid "All entries were removed"
 msgstr ""
 
 #: src/EBox/CGI/RemoveFileFilterElement.pm:66
@@ -91,96 +73,51 @@ msgstr ""
 msgid "{name} removed"
 msgstr ""
 
-#: src/EBox/CGI/AntispamTraining.pm:80
+#: src/EBox/CGI/RemoveSenderACL.pm:74
+msgid "The specified sender is not in the ACL"
+msgstr ""
+
+#: src/EBox/CGI/AddExternalDomain.pm:64
 #, perl-brace-format
-msgid "Invalid mailbox type: {type}"
+msgid "Mail domain {domain} added to external domain's list."
 msgstr ""
 
-#: src/EBox/CGI/AntispamTraining.pm:93
-msgid "Learned from mailbox file"
+#: src/EBox/CGI/Enable.pm:41
+msgid "module status"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:298
-msgid "Cannot proceed because the filter is in use"
-msgstr ""
-
-#: src/EBox/MailFilter.pm:371
-msgid "Mailfilter's port"
-msgstr ""
-
-#: src/EBox/MailFilter.pm:378
+#: src/EBox/CGI/RemoveExternalDomain.pm:58
 #, perl-brace-format
-msgid "The port {port} is already used by module {mod}"
+msgid "Mail domain {domain} removed from external domain's list."
 msgstr ""
 
-#: src/EBox/MailFilter.pm:434
-msgid "MTA's address"
+#: src/EBox/CGI/RemoveAllFileFilterElements.pm:67
+msgid "All entries were removed"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:446
+#: src/EBox/CGI/AddAllowedMTA.pm:63
 #, perl-brace-format
-msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
+msgid ""
+"External mail server {mta} allowed. Remember to add its mail domains to the "
+"external mail domain's list"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:474
+#: src/EBox/MailFilter/FileFilter.pm:70
 #, perl-brace-format
-msgid "{mta} is already allowed"
+msgid "{ext} is not registered in the extensions list"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:499
+#: src/EBox/MailFilter/FileFilter.pm:137
 #, perl-brace-format
-msgid "{mta} not found"
+msgid "{ext} is not registered in the mimeTypes list"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:518 src/EBox/MailFilter.pm:538
-msgid "Mail domain"
+#: src/EBox/MailFilter/FileFilter.pm:173
+msgid "MIME type"
 msgstr ""
 
-#: src/EBox/MailFilter.pm:523
-#, perl-brace-format
-msgid "{domain} is already acknowledged as external mail domain"
-msgstr ""
-
-#: src/EBox/MailFilter.pm:545
-#, perl-brace-format
-msgid "Domain {domain} was not acknowledged as external mail domain"
-msgstr ""
-
-#: src/EBox/MailFilter.pm:568
-msgid "Administrator address"
-msgstr ""
-
-#: src/EBox/MailFilter.pm:630
-msgid "policy type"
-msgstr ""
-
-#: src/EBox/MailFilter.pm:649
-msgid "filter type"
-msgstr ""
-
-#: src/EBox/MailFilter.pm:721
-msgid "Mail filter system"
-msgstr ""
-
-#: src/EBox/MailFilter.pm:736 src/EBox/MailFilter/VDomainsLdap.pm:396
-msgid "Mail filter settings"
-msgstr ""
-
-#: src/EBox/MailFilter.pm:798
-msgid "eBox internal mail filter"
-msgstr ""
-
-#: src/EBox/MailFilter.pm:817 src/templates/menutabs.mas:12
-msgid "Antivirus"
-msgstr ""
-
-#: src/EBox/MailFilter.pm:827 src/templates/menutabs.mas:13
-msgid "Antispam"
-msgstr ""
-
-#: src/EBox/MailFilter/VDomainsLdap.pm:448
-#, perl-brace-format
-msgid "Virtual mail domain {vd} does not exist"
+#: src/EBox/MailFilter/FileFilter.pm:187
+msgid "file extension"
 msgstr ""
 
 #: src/EBox/MailFilter/SpamAssassin.pm:290
@@ -246,22 +183,91 @@ msgid ""
 "The sender can be either an email address or a domain name prefixed with '@'"
 msgstr ""
 
-#: src/EBox/MailFilter/FileFilter.pm:70
+#: src/EBox/MailFilter/VDomainsLdap.pm:396 src/EBox/MailFilter.pm:734
+msgid "Mail filter settings"
+msgstr ""
+
+#: src/EBox/MailFilter/VDomainsLdap.pm:448
 #, perl-brace-format
-msgid "{ext} is not registered in the extensions list"
+msgid "Virtual mail domain {vd} does not exist"
 msgstr ""
 
-#: src/EBox/MailFilter/FileFilter.pm:137
+#: src/EBox/MailFilter.pm:298
+msgid "Cannot proceed because the filter is in use"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:371
+msgid "Mailfilter's port"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:378
 #, perl-brace-format
-msgid "{ext} is not registered in the mimeTypes list"
+msgid "The port {port} is already used by module {mod}"
 msgstr ""
 
-#: src/EBox/MailFilter/FileFilter.pm:173
-msgid "MIME type"
+#: src/EBox/MailFilter.pm:434
+msgid "MTA's address"
 msgstr ""
 
-#: src/EBox/MailFilter/FileFilter.pm:187
-msgid "file extension"
+#: src/EBox/MailFilter.pm:446
+#, perl-brace-format
+msgid "Invalid external MTA {mta}. Local network addresses are not allowed"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:474
+#, perl-brace-format
+msgid "{mta} is already allowed"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:499
+#, perl-brace-format
+msgid "{mta} not found"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:518
+msgid "Mail domain"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:523
+#, perl-brace-format
+msgid "{domain} is already acknowledged as external mail domain"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:543
+#, perl-brace-format
+msgid "Domain {domain} was not acknowledged as external mail domain"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:566
+msgid "Administrator address"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:628
+msgid "policy type"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:647
+msgid "filter type"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:719
+msgid "Mail filter system"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:796
+msgid "eBox internal mail filter"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:815 src/templates/menutabs.mas:12
+msgid "Antivirus"
+msgstr ""
+
+#: src/EBox/MailFilter.pm:825 src/templates/menutabs.mas:13
+msgid "Antispam"
+msgstr ""
+
+#: src/templates/badHeaders.mas:7
+msgid "Bad headers policy"
 msgstr ""
 
 #: src/templates/antivirus.mas:23
@@ -290,97 +296,46 @@ msgstr ""
 msgid "The last successful update was at {date}"
 msgstr ""
 
-#: src/templates/menutabs.mas:11
-msgid "General"
+#: src/templates/fileFilter.mas:13
+#, perl-brace-format
+msgid "{plural} which are not listed below are allowed"
 msgstr ""
 
-#: src/templates/menutabs.mas:14
-msgid "Extensions filter"
+#: src/templates/fileFilter.mas:31
+msgid "Banned files policy"
 msgstr ""
 
-#: src/templates/menutabs.mas:15
-msgid "MIME Type filter"
+#: src/templates/fileFilter.mas:56 src/templates/fileFilter.mas:194
+msgid "Deny"
 msgstr ""
 
-#: src/templates/menutabs.mas:16
-msgid "Bad formed headers"
-msgstr ""
-
-#: src/templates/antispamACL.mas:6
-msgid "Whitelist"
-msgstr ""
-
-#: src/templates/antispamACL.mas:13
-msgid "Blacklist"
-msgstr ""
-
-#: src/templates/antispamACL.mas:29 src/templates/antispamACL.mas:58
-msgid "Sender"
-msgstr ""
-
-#: src/templates/antispamACL.mas:29 src/templates/general.mas:102
-#: src/templates/general.mas:137 src/templates/fileFilter.mas:59
+#: src/templates/fileFilter.mas:59 src/templates/antispamACL.mas:29
+#: src/templates/general.mas:102 src/templates/general.mas:137
 msgid "Actions"
 msgstr ""
 
+#: src/templates/fileFilter.mas:157 src/templates/fileFilter.mas:158
 #: src/templates/antispamACL.mas:31 src/templates/general.mas:104
-#: src/templates/general.mas:139 src/templates/fileFilter.mas:157
-#: src/templates/fileFilter.mas:158
+#: src/templates/general.mas:139
 msgid "Delete"
 msgstr ""
 
-#: src/templates/antispamACL.mas:56
+#: src/templates/fileFilter.mas:181
 #, perl-brace-format
-msgid "Add sender to {type}"
+msgid "Add {element}"
 msgstr ""
 
-#: src/templates/vdomain.mas:27
-msgid "Use virus filtering"
+#: src/templates/fileFilter.mas:188
+msgid "Name"
 msgstr ""
 
-#: src/templates/vdomain.mas:37
+#: src/templates/fileFilter.mas:215
 #, perl-brace-format
-msgid ""
-"The \"{name}\"  setting will not have effect until the\n"
-"   antivirus service will be enabled in the mail filter"
+msgid "All registered {plural}"
 msgstr ""
 
-#: src/templates/vdomain.mas:44
-msgid "Use spam filtering"
-msgstr ""
-
-#: src/templates/vdomain.mas:54
-#, perl-brace-format
-msgid ""
-"The \"{name}\"  setting will not have effect until the\n"
-"   antispam sergice will be enabled in the mail filter"
-msgstr ""
-
-#: src/templates/vdomain.mas:74
-#, perl-brace-format
-msgid "Use default spam threshold (current value is {v})"
-msgstr ""
-
-#: src/templates/vdomain.mas:87
-#, perl-brace-format
-msgid "Spam threshold for {domain} virtual domain"
-msgstr ""
-
-#: src/templates/vdomain.mas:95 src/templates/antispam.mas:76
-#: src/templates/general.mas:67
-msgid "Change"
-msgstr ""
-
-#: src/templates/vdomain.mas:102
-msgid "Mail filter options"
-msgstr ""
-
-#: src/templates/vdomain.mas:107
-msgid "Antispam sender access lists"
-msgstr ""
-
-#: src/templates/badHeaders.mas:7
-msgid "Bad headers policy"
+#: src/templates/fileFilter.mas:246 src/templates/fileFilter.mas:247
+msgid "Delete them all"
 msgstr ""
 
 #: src/templates/antispam.mas:30
@@ -435,6 +390,11 @@ msgid ""
 "learning system"
 msgstr ""
 
+#: src/templates/antispam.mas:76 src/templates/general.mas:67
+#: src/templates/vdomain.mas:95
+msgid "Change"
+msgstr ""
+
 #: src/templates/antispam.mas:83
 msgid "Mailbox contains"
 msgstr ""
@@ -469,6 +429,23 @@ msgstr ""
 
 #: src/templates/antispam.mas:135
 msgid "Spam filter training"
+msgstr ""
+
+#: src/templates/antispamACL.mas:6
+msgid "Whitelist"
+msgstr ""
+
+#: src/templates/antispamACL.mas:13
+msgid "Blacklist"
+msgstr ""
+
+#: src/templates/antispamACL.mas:29 src/templates/antispamACL.mas:58
+msgid "Sender"
+msgstr ""
+
+#: src/templates/antispamACL.mas:56
+#, perl-brace-format
+msgid "Add sender to {type}"
 msgstr ""
 
 #: src/templates/general.mas:26
@@ -519,6 +496,62 @@ msgstr ""
 msgid "External mail domain"
 msgstr ""
 
+#: src/templates/vdomain.mas:27
+msgid "Use virus filtering"
+msgstr ""
+
+#: src/templates/vdomain.mas:37
+#, perl-brace-format
+msgid ""
+"The \"{name}\"  setting will not have effect until the\n"
+"   antivirus service will be enabled in the mail filter"
+msgstr ""
+
+#: src/templates/vdomain.mas:44
+msgid "Use spam filtering"
+msgstr ""
+
+#: src/templates/vdomain.mas:54
+#, perl-brace-format
+msgid ""
+"The \"{name}\"  setting will not have effect until the\n"
+"   antispam sergice will be enabled in the mail filter"
+msgstr ""
+
+#: src/templates/vdomain.mas:74
+#, perl-brace-format
+msgid "Use default spam threshold (current value is {v})"
+msgstr ""
+
+#: src/templates/vdomain.mas:87
+#, perl-brace-format
+msgid "Spam threshold for {domain} virtual domain"
+msgstr ""
+
+#: src/templates/vdomain.mas:102
+msgid "Mail filter options"
+msgstr ""
+
+#: src/templates/vdomain.mas:107
+msgid "Antispam sender access lists"
+msgstr ""
+
+#: src/templates/menutabs.mas:11
+msgid "General"
+msgstr ""
+
+#: src/templates/menutabs.mas:14
+msgid "Extensions filter"
+msgstr ""
+
+#: src/templates/menutabs.mas:15
+msgid "MIME Type filter"
+msgstr ""
+
+#: src/templates/menutabs.mas:16
+msgid "Bad formed headers"
+msgstr ""
+
 #: src/templates/policy.mas:11
 msgid "Pass"
 msgstr ""
@@ -533,35 +566,4 @@ msgstr ""
 
 #: src/templates/policy.mas:14
 msgid "Discard"
-msgstr ""
-
-#: src/templates/fileFilter.mas:13
-#, perl-brace-format
-msgid "{plural} which are not listed below are allowed"
-msgstr ""
-
-#: src/templates/fileFilter.mas:31
-msgid "Banned files policy"
-msgstr ""
-
-#: src/templates/fileFilter.mas:56 src/templates/fileFilter.mas:194
-msgid "Deny"
-msgstr ""
-
-#: src/templates/fileFilter.mas:181
-#, perl-brace-format
-msgid "Add {element}"
-msgstr ""
-
-#: src/templates/fileFilter.mas:188
-msgid "Name"
-msgstr ""
-
-#: src/templates/fileFilter.mas:215
-#, perl-brace-format
-msgid "All registered {plural}"
-msgstr ""
-
-#: src/templates/fileFilter.mas:246 src/templates/fileFilter.mas:247
-msgid "Delete them all"
 msgstr ""

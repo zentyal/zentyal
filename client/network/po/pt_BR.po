@@ -4,9 +4,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-network 0.9.100\n"
+"Project-Id-Version: ebox-network 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:12+0200\n"
+"POT-Creation-Date: 2007-11-07 11:40+0100\n"
 "PO-Revision-Date: 2005-11-11 13:12+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,66 +16,71 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural= (n > 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:64
-#: src/EBox/Model/MultiGwRulesDataTable.pm:425
+#: src/EBox/Model/MultiGwRulesDataTable.pm:58
+#: src/EBox/Model/MultiGwRulesDataTable.pm:385
 msgid "any"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:95
+#: src/EBox/Model/MultiGwRulesDataTable.pm:94
 msgid "Protocol"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:104
-#: src/EBox/Model/GatewayDataTable.pm:101 src/EBox/Network.pm:651
-#: src/EBox/Network.pm:683 src/EBox/Network.pm:728 src/EBox/Network.pm:762
-#: src/EBox/Network.pm:787 src/EBox/Network.pm:863 src/EBox/Network.pm:986
-#: src/EBox/Network.pm:1181 src/EBox/Network.pm:1241 src/EBox/Network.pm:1276
-#: src/EBox/Network.pm:1312 src/EBox/Network.pm:1345 src/EBox/Network.pm:2017
-#: src/EBox/Network.pm:2049 src/EBox/Network.pm:2122 src/EBox/Network.pm:2142
-#: src/EBox/Network.pm:2163 src/EBox/Network.pm:2186
+#: src/EBox/Model/MultiGwRulesDataTable.pm:100
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:65
+#: src/EBox/Model/GatewayTable.pm:96 src/EBox/Network.pm:661
+#: src/EBox/Network.pm:693 src/EBox/Network.pm:738 src/EBox/Network.pm:772
+#: src/EBox/Network.pm:797 src/EBox/Network.pm:873 src/EBox/Network.pm:996
+#: src/EBox/Network.pm:1191 src/EBox/Network.pm:1251 src/EBox/Network.pm:1286
+#: src/EBox/Network.pm:1322 src/EBox/Network.pm:1355 src/EBox/Network.pm:2033
+#: src/EBox/Network.pm:2065 src/EBox/Network.pm:2138 src/EBox/Network.pm:2158
+#: src/EBox/Network.pm:2179 src/EBox/Network.pm:2202
 msgid "Interface"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:113
+#: src/EBox/Model/MultiGwRulesDataTable.pm:106
 msgid "Source"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:121
+#: src/EBox/Model/MultiGwRulesDataTable.pm:111
+#: src/EBox/Model/MultiGwRulesDataTable.pm:143
+msgid "Any"
+msgstr ""
+
+#: src/EBox/Model/MultiGwRulesDataTable.pm:114
 msgid "Source IP"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:129
+#: src/EBox/Model/MultiGwRulesDataTable.pm:119
 msgid "Source object"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:142
-#: src/EBox/Model/MultiGwRulesDataTable.pm:181
+#: src/EBox/Model/MultiGwRulesDataTable.pm:130
+#: src/EBox/Model/MultiGwRulesDataTable.pm:163
 msgid "Port"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:152
+#: src/EBox/Model/MultiGwRulesDataTable.pm:137
 msgid "Destination"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:160
+#: src/EBox/Model/MultiGwRulesDataTable.pm:146
 msgid "Destination IP"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:168
+#: src/EBox/Model/MultiGwRulesDataTable.pm:151
 msgid "Destination object"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:191 src/EBox/Network.pm:1477
-#: src/templates/routes.mas:35
+#: src/EBox/Model/MultiGwRulesDataTable.pm:170 src/EBox/Network.pm:1487
+#: src/templates/routes.mas:31
 msgid "Gateway"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:205
-#: src/EBox/CGI/Controller/MultiGwRulesDataTable.pm:30
+#: src/EBox/Model/MultiGwRulesDataTable.pm:182
 msgid "Multigateway rules"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:223
+#: src/EBox/Model/MultiGwRulesDataTable.pm:196
 msgid ""
 "You can decide what kind of traffic goes out by each gateway. This way, you "
 "can force a subnet, service, destiantion and so forth  to use the router you "
@@ -84,52 +89,88 @@ msgid ""
 "port or an IP address, then the rule will match all of them"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:225
+#: src/EBox/Model/MultiGwRulesDataTable.pm:198
 msgid "rule"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:243
+#: src/EBox/Model/MultiGwRulesDataTable.pm:216
 msgid "Destination port"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:248
+#: src/EBox/Model/MultiGwRulesDataTable.pm:221
 msgid "Source port"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:258
+#: src/EBox/Model/MultiGwRulesDataTable.pm:231
 msgid "Port cannot be set if no protocol is selected"
 msgstr ""
 
-#: src/EBox/Model/GatewayDataTable.pm:83 src/templates/ifaces.mas:30
-#: src/templates/ifaces.mas:231
+#: src/EBox/Model/PhysicalInterfaceTable.pm:60
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:74
+#: src/EBox/Model/GatewayTable.pm:82 src/EBox/Model/VlanInterfaceTable.pm:61
+#: src/templates/ifaces.mas:26 src/templates/ifaces.mas:205
 msgid "Name"
 msgstr ""
 
-#: src/EBox/Model/GatewayDataTable.pm:92
+#: src/EBox/Model/PhysicalInterfaceTable.pm:74
+msgid "Physical interface list"
+msgstr ""
+
+#: src/EBox/Model/PhysicalInterfaceTable.pm:81
+msgid "These are the physical interfaces which are available in your system."
+msgstr ""
+
+#: src/EBox/Model/PhysicalInterfaceTable.pm:83
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:117
+#: src/EBox/Model/VlanInterfaceTable.pm:94
+msgid "interface"
+msgstr ""
+
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:83
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:218
+#: src/templates/ifaces.mas:37
+msgid "Method"
+msgstr ""
+
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:92
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:250
+#: src/templates/ifaces.mas:74
+msgid "External"
+msgstr ""
+
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:108
+msgid "Configurable interface list"
+msgstr ""
+
+#: src/EBox/Model/ConfigurableInterfaceTable.pm:115
+msgid "These are the interfaces which can be configured"
+msgstr ""
+
+#: src/EBox/Model/GatewayTable.pm:89
 msgid "IP Address"
 msgstr ""
 
-#: src/EBox/Model/GatewayDataTable.pm:110
+#: src/EBox/Model/GatewayTable.pm:102
 msgid "Upload"
 msgstr ""
 
-#: src/EBox/Model/GatewayDataTable.pm:120
+#: src/EBox/Model/GatewayTable.pm:109
 msgid "Download"
 msgstr ""
 
-#: src/EBox/Model/GatewayDataTable.pm:130
+#: src/EBox/Model/GatewayTable.pm:116
 msgid "Weight"
 msgstr ""
 
-#: src/EBox/Model/GatewayDataTable.pm:139
+#: src/EBox/Model/GatewayTable.pm:123
 msgid "Default"
 msgstr ""
 
-#: src/EBox/Model/GatewayDataTable.pm:153
+#: src/EBox/Model/GatewayTable.pm:133
 msgid "Gateway list"
 msgstr ""
 
-#: src/EBox/Model/GatewayDataTable.pm:170
+#: src/EBox/Model/GatewayTable.pm:147
 #, perl-brace-format
 msgid ""
 "You can add as many gateways as you want. This is very useful if you want to "
@@ -139,26 +180,29 @@ msgid ""
 "a correct functionality of the traffic shaping module"
 msgstr ""
 
-#: src/EBox/Model/GatewayDataTable.pm:172
+#: src/EBox/Model/GatewayTable.pm:149
 msgid "gateway"
 msgstr ""
 
-#: src/EBox/Model/GatewayDataTable.pm:189 src/EBox/CGI/Iface.pm:87
-#: src/EBox/Network.pm:1476
+#: src/EBox/Model/GatewayTable.pm:166 src/EBox/CGI/Iface.pm:87
+#: src/EBox/Network.pm:1486
 msgid "ip address"
 msgstr ""
 
-#: src/EBox/Model/GatewayDataTable.pm:204
+#: src/EBox/Model/GatewayTable.pm:176
 msgid "There is already a default gateway"
 msgstr ""
 
-#: src/EBox/CGI/Controller/GatewayDataTableUpdate.pm:30
-#: src/EBox/CGI/Controller/GatewayDataTableDel.pm:30
-#: src/EBox/CGI/Controller/GatewayDataTableMove.pm:30
-#: src/EBox/CGI/Controller/GatewayDataTableAdd.pm:30
-#: src/EBox/CGI/Controller/GatewayDataTable.pm:30
-#: src/EBox/CGI/View/GatewayDataTable.pm:30 src/EBox/Network.pm:2312
-msgid "Gateways"
+#: src/EBox/Model/VlanInterfaceTable.pm:70
+msgid "Physical interface"
+msgstr ""
+
+#: src/EBox/Model/VlanInterfaceTable.pm:85
+msgid "Vlan interface list"
+msgstr ""
+
+#: src/EBox/Model/VlanInterfaceTable.pm:92
+msgid "These are the vlan interfaces which are available in your system."
 msgstr ""
 
 #: src/EBox/CGI/FirstTime/DNS.pm:41
@@ -170,7 +214,7 @@ msgid "Network interface configured"
 msgstr ""
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
-#: src/EBox/Network.pm:2239
+#: src/EBox/Network.pm:2255
 msgid "Network interfaces"
 msgstr ""
 
@@ -204,11 +248,11 @@ msgstr ""
 msgid "Network diagnosis"
 msgstr ""
 
-#: src/EBox/CGI/Diag.pm:51 src/templates/diag.mas:15
+#: src/EBox/CGI/Diag.pm:51 src/templates/diag.mas:14
 msgid "Host"
 msgstr ""
 
-#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2227
+#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2243
 msgid "host name"
 msgstr ""
 
@@ -233,11 +277,11 @@ msgstr ""
 msgid "virtual interface action"
 msgstr ""
 
-#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:558 src/EBox/Network.pm:563
-#: src/EBox/Network.pm:867 src/EBox/Network.pm:888 src/EBox/Network.pm:1419
-#: src/EBox/Network.pm:2019 src/EBox/Network.pm:2034 src/EBox/Network.pm:2166
-#: src/EBox/Network.pm:2284 src/templates/ifaces.mas:104
-#: src/templates/ifaces.mas:233
+#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:568 src/EBox/Network.pm:573
+#: src/EBox/Network.pm:877 src/EBox/Network.pm:898 src/EBox/Network.pm:1429
+#: src/EBox/Network.pm:2035 src/EBox/Network.pm:2050 src/EBox/Network.pm:2182
+#: src/EBox/Network.pm:2300 src/templates/ifaces.mas:91
+#: src/templates/ifaces.mas:206
 msgid "IP address"
 msgstr ""
 
@@ -245,7 +289,7 @@ msgstr ""
 msgid "virtual interface name"
 msgstr ""
 
-#: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1475
+#: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1485
 msgid "network address"
 msgstr ""
 
@@ -253,13 +297,13 @@ msgstr ""
 msgid "gateway address"
 msgstr ""
 
-#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1060
-#: src/EBox/Network.pm:1089 src/templates/ifaces.mas:164
+#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1070
+#: src/EBox/Network.pm:1099 src/templates/ifaces.mas:148
 msgid "VLAN Id"
 msgstr ""
 
 #: src/EBox/CGI/Routes.pm:29 src/EBox/CGI/Routes.pm:40
-#: src/EBox/Network.pm:2307
+#: src/EBox/Network.pm:2323
 msgid "Routes"
 msgstr ""
 
@@ -275,89 +319,93 @@ msgstr ""
 msgid "Configure default gateway"
 msgstr ""
 
-#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:1975
+#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:1991
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
 msgstr ""
 
-#: src/EBox/Network.pm:56 src/EBox/Network.pm:2299 src/templates/routes.mas:33
+#: src/EBox/Network.pm:56 src/EBox/Network.pm:2315 src/templates/routes.mas:30
 msgid "Network"
 msgstr ""
 
-#: src/EBox/Network.pm:555 src/EBox/Network.pm:559
+#: src/EBox/Network.pm:565 src/EBox/Network.pm:569
 msgid "Virtual interface name"
 msgstr ""
 
-#: src/EBox/Network.pm:558 src/EBox/Network.pm:867 src/EBox/Network.pm:2019
-#: src/templates/ifaces.mas:118 src/templates/ifaces.mas:235
+#: src/EBox/Network.pm:568 src/EBox/Network.pm:877 src/EBox/Network.pm:2035
+#: src/templates/ifaces.mas:104 src/templates/ifaces.mas:207
 msgid "Netmask"
 msgstr ""
 
-#: src/EBox/Network.pm:991
+#: src/EBox/Network.pm:1001
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr ""
 
-#: src/EBox/Network.pm:1036
+#: src/EBox/Network.pm:1046
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
 msgstr ""
 
-#: src/EBox/Network.pm:1069
+#: src/EBox/Network.pm:1079
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
 
-#: src/EBox/Network.pm:1936
+#: src/EBox/Network.pm:1952
 msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
 msgstr ""
 
-#: src/EBox/Network.pm:1979
+#: src/EBox/Network.pm:1995
 #, perl-brace-format
 msgid ""
 "Gateway {gw} must be reacheable by a static interface. Currently is "
 "reacheable by {iface} which is not static"
 msgstr ""
 
-#: src/EBox/Network.pm:2208
+#: src/EBox/Network.pm:2224
 msgid "Host name"
 msgstr ""
 
-#: src/EBox/Network.pm:2258
+#: src/EBox/Network.pm:2274
 msgid "down"
 msgstr ""
 
-#: src/EBox/Network.pm:2264
+#: src/EBox/Network.pm:2280
 msgid "up"
 msgstr ""
 
-#: src/EBox/Network.pm:2268
+#: src/EBox/Network.pm:2284
 msgid "link ok"
 msgstr ""
 
-#: src/EBox/Network.pm:2270
+#: src/EBox/Network.pm:2286
 msgid "no link"
 msgstr ""
 
-#: src/EBox/Network.pm:2273
+#: src/EBox/Network.pm:2289
 msgid "Status"
 msgstr ""
 
-#: src/EBox/Network.pm:2278
+#: src/EBox/Network.pm:2294
 msgid "MAC address"
 msgstr ""
 
-#: src/EBox/Network.pm:2303
+#: src/EBox/Network.pm:2319
 msgid "Interfaces"
 msgstr ""
 
-#: src/EBox/Network.pm:2309
+#: src/EBox/Network.pm:2325
 msgid "Diagnosis"
 msgstr ""
 
-#: src/EBox/Network.pm:2315
+#: src/EBox/Network.pm:2328
+msgid "Gateways"
+msgstr ""
+
+#: src/EBox/Network.pm:2331
 msgid "Balance traffic"
 msgstr ""
 
@@ -367,54 +415,48 @@ msgid ""
 "interfaces currently configured."
 msgstr ""
 
-#: src/templates/routes.mas:18
-msgid ""
-"Having network interfaces configured via DHCP may cause the default gateway "
-"to be overriden."
-msgstr ""
-
-#: src/templates/routes.mas:28
+#: src/templates/routes.mas:26
 msgid "Static routes"
 msgstr ""
 
-#: src/templates/routes.mas:37 src/templates/ifaces.mas:168
-#: src/templates/ifaces.mas:237
+#: src/templates/routes.mas:32 src/templates/ifaces.mas:150
+#: src/templates/ifaces.mas:208
 msgid "Action"
 msgstr ""
 
-#: src/templates/routes.mas:66 src/templates/routes.mas:68
-#: src/templates/routes.mas:70 src/templates/ifaces.mas:185
-#: src/templates/ifaces.mas:187 src/templates/ifaces.mas:189
-#: src/templates/ifaces.mas:274 src/templates/ifaces.mas:276
-#: src/templates/ifaces.mas:278
+#: src/templates/routes.mas:60 src/templates/routes.mas:61
+#: src/templates/routes.mas:62 src/templates/ifaces.mas:166
+#: src/templates/ifaces.mas:167 src/templates/ifaces.mas:168
+#: src/templates/ifaces.mas:246 src/templates/ifaces.mas:247
+#: src/templates/ifaces.mas:248
 msgid "Add"
 msgstr ""
 
-#: src/templates/routes.mas:89 src/templates/routes.mas:91
-#: src/templates/routes.mas:93 src/templates/ifaces.mas:207
-#: src/templates/ifaces.mas:209 src/templates/ifaces.mas:211
-#: src/templates/ifaces.mas:304 src/templates/ifaces.mas:306
-#: src/templates/ifaces.mas:308
+#: src/templates/routes.mas:80 src/templates/routes.mas:81
+#: src/templates/routes.mas:82 src/templates/ifaces.mas:185
+#: src/templates/ifaces.mas:186 src/templates/ifaces.mas:187
+#: src/templates/ifaces.mas:273 src/templates/ifaces.mas:274
+#: src/templates/ifaces.mas:275
 msgid "Delete"
 msgstr ""
 
-#: src/templates/diag.mas:13 src/templates/diag.mas:20
+#: src/templates/diag.mas:13 src/templates/diag.mas:18
 msgid "Ping"
 msgstr ""
 
-#: src/templates/diag.mas:25
+#: src/templates/diag.mas:22
 msgid "Name resolution"
 msgstr ""
 
-#: src/templates/diag.mas:27
+#: src/templates/diag.mas:23
 msgid "Domain name"
 msgstr ""
 
-#: src/templates/diag.mas:32
+#: src/templates/diag.mas:27
 msgid "Lookup"
 msgstr ""
 
-#: src/templates/diag.mas:35
+#: src/templates/diag.mas:29
 msgid "Output"
 msgstr ""
 
@@ -424,85 +466,66 @@ msgid ""
 "overriden."
 msgstr ""
 
-#: src/templates/dns.mas:20
+#: src/templates/dns.mas:19
 msgid "Primary"
 msgstr ""
 
-#: src/templates/dns.mas:32
+#: src/templates/dns.mas:30
 msgid "Secondary"
 msgstr ""
 
-#: src/templates/dns.mas:45
+#: src/templates/dns.mas:42
 msgid "Apply"
 msgstr ""
 
-#: src/templates/gwrules.mas:18
+#: src/templates/gwrules.mas:21
 msgid ""
 "To be able to use this feature, you need, at least, two gateways. You can "
-"add them <a href="
+"add them <a href=\"/ebox/Network/View/GatewayDataTable\">here</a> first"
 msgstr ""
 
-#: src/templates/gwrules.mas:25
+#: src/templates/gwrules.mas:27
 msgid "Traffic balancing"
 msgstr ""
 
-#: src/templates/gwrules.mas:29
-#, perl-brace-format
-msgid ""
-"By enabling this feature, your traffic will be balanced amongst your "
-"gateways. That is, every new connection will be sent by a different gateway. "
-"You can choose which proportion of traffic goes through each gateway using "
-"the weight parameter of the gateway. You can change that value {openref}here"
-"{closeref}.{br}If you want to explicitily route traffic by a certain "
-"gateway, use the multigateway rules below"
-msgstr ""
-
-#: src/templates/ifaces.mas:13
+#: src/templates/ifaces.mas:11
 msgid ""
 "Remember that changing the network interfaces configuration may cause you to "
 "lose access to the administration page."
 msgstr ""
 
-#: src/templates/ifaces.mas:17
+#: src/templates/ifaces.mas:14
 msgid ""
 "Traffic being routed through interfaces marked as external will be NATed.  "
 "Also, services meant for the LAN users will not be available on external "
 "interfaces."
 msgstr ""
 
-#: src/templates/ifaces.mas:42
-msgid "Method"
-msgstr ""
-
-#: src/templates/ifaces.mas:49 src/templates/ifaces.mas:52
+#: src/templates/ifaces.mas:43 src/templates/ifaces.mas:45
 msgid "Static"
 msgstr ""
 
-#: src/templates/ifaces.mas:64 src/templates/ifaces.mas:67
+#: src/templates/ifaces.mas:56 src/templates/ifaces.mas:58
 msgid "Trunk (802.1q)"
 msgstr ""
 
-#: src/templates/ifaces.mas:73 src/templates/ifaces.mas:76
+#: src/templates/ifaces.mas:63 src/templates/ifaces.mas:65
 msgid "Not set"
 msgstr ""
 
-#: src/templates/ifaces.mas:86
-msgid "External"
-msgstr ""
-
-#: src/templates/ifaces.mas:149
+#: src/templates/ifaces.mas:135
 msgid "Change"
 msgstr ""
 
-#: src/templates/ifaces.mas:158
+#: src/templates/ifaces.mas:143
 msgid "VLAN List"
 msgstr ""
 
-#: src/templates/ifaces.mas:166
+#: src/templates/ifaces.mas:149
 msgid "Description"
 msgstr ""
 
-#: src/templates/ifaces.mas:225
+#: src/templates/ifaces.mas:200
 msgid "Virtual interfaces"
 msgstr ""
 
@@ -512,17 +535,17 @@ msgid ""
 "more modules that use references to this network interface."
 msgstr ""
 
-#: src/templates/confirmremove.mas:15 src/templates/confirm.mas:18
+#: src/templates/confirmremove.mas:14 src/templates/confirm.mas:17
 msgid ""
 "If you choose to continue, all modules that make use of the current "
 "configuration of this network interface will delete the relevant parts of "
-"their configuration. Choose "
+"their configuration. Choose \"Cancel\" if you are not sure about this."
 msgstr ""
 
-#: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
+#: src/templates/confirmremove.mas:24 src/templates/confirm.mas:31
 msgid "Ok"
 msgstr ""
 
-#: src/templates/confirmremove.mas:29 src/templates/confirm.mas:36
+#: src/templates/confirmremove.mas:26 src/templates/confirm.mas:33
 msgid "Cancel"
 msgstr ""

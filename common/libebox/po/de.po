@@ -10,9 +10,9 @@
 # Automatically generated, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.9.100\n"
+"Project-Id-Version: libebox 0.10.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-07-24 12:11+0200\n"
+"POT-Creation-Date: 2007-11-07 11:38+0100\n"
 "PO-Revision-Date: 2007-03-30 16:28+0000\n"
 "Last-Translator: andy <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -22,22 +22,22 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/Exceptions/DataExists.pm:31
+#: src/EBox/Exceptions/DataExists.pm:36
 #, perl-brace-format
 msgid "{data} {value} already exists."
 msgstr "{data} {value} gibt es schon"
 
-#: src/EBox/Exceptions/InvalidData.pm:32
+#: src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
 msgid "Invalid value for {data}: {value}."
 msgstr "Ungültiger Wert für {data}: {value}"
 
-#: src/EBox/Exceptions/DataNotFound.pm:30
+#: src/EBox/Exceptions/DataNotFound.pm:35
 #, perl-brace-format
 msgid "{data} {value} does not exist."
 msgstr "{data} {value} gibt es nicht"
 
-#: src/EBox/Exceptions/DataMissing.pm:30
+#: src/EBox/Exceptions/DataMissing.pm:36
 #, perl-brace-format
 msgid "{data} is empty."
 msgstr "{data} ist leer"
@@ -107,7 +107,7 @@ msgstr "Die hochgeladene Datei ist ungültig"
 msgid "Cannot create a temporally file for the upload"
 msgstr "Die temporäre Datei für das Hochladen konnte nicht erstellt werden"
 
-#: src/EBox/Sudo.pm:229
+#: src/EBox/Sudo.pm:237
 #, perl-brace-format
 msgid "Running command '{cmd}' as {user} failed"
 msgstr "{user} konnte den Befehl \"{cmd}\" nicht ausführen"
@@ -125,6 +125,11 @@ msgstr "Die Konfigurationsdatei \"{file}\" konnte nicht geöffnet werden"
 #: src/EBox/Config.pm.in:88
 msgid "The ebox user has not been set in the config file."
 msgstr "Der eBox-Benutzer wurde in der Konfigurationsdatei nicht eingestellt"
+
+#: src/EBox/FileSystem.pm:176 src/EBox/FileSystem.pm:263
+#, perl-brace-format
+msgid "Directory not found: {d}"
+msgstr "Der Ordner {d} wurde nicht gefunden"
 
 #: src/EBox/Validate.pm:647
 #, perl-brace-format
@@ -157,53 +162,89 @@ msgstr ""
 msgid "The file path must be absolute"
 msgstr "Geben Sie einen absoluter Dateipfad an"
 
-#: src/templates/ajax/tableBody.mas:48
-msgid "Add new"
-msgstr "Hinzufügen"
-
-#: src/templates/ajax/tableBody.mas:59
-#, perl-brace-format
-msgid "Adding a new {row}"
-msgstr "Eine neue {row} hinzufügen"
-
-#: src/templates/ajax/tableBody.mas:66
-#, perl-brace-format
-msgid "Editing {row}"
-msgstr "{row} wird bearbeitet"
-
-#: src/templates/ajax/tableBody.mas:132
-msgid "Action"
-msgstr "Aktion"
-
-#: src/templates/ajax/tableBody.mas:327
+#: src/templates/ajax/setter/serviceSetter.mas:23
 msgid "port"
 msgstr "Port"
+
+#: src/templates/ajax/setter/inverseMatchUnionSetter.mas:9
+#: src/templates/ajax/setter/inverseMatchSelectSetter.mas:9
+msgid "Inverse match"
+msgstr "Treffer invertieren"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:20
+msgid "From"
+msgstr "Von"
+
+#: src/templates/ajax/setter/portRangeSetter.mas:25
+msgid "To"
+msgstr "An"
+
+#: src/templates/ajax/tablePager.mas:49 src/templates/ajax/tablePager.mas:55
+msgid "first"
+msgstr "erste"
+
+#: src/templates/ajax/tablePager.mas:51 src/templates/ajax/tablePager.mas:56
+msgid "prev"
+msgstr "vorherige"
+
+#: src/templates/ajax/tablePager.mas:62 src/templates/ajax/tablePager.mas:63
+#: src/templates/ajax/tablePager.mas:74 src/templates/ajax/tablePager.mas:75
+msgid "next"
+msgstr "nächste"
+
+#: src/templates/ajax/tablePager.mas:68 src/templates/ajax/tablePager.mas:69
+#: src/templates/ajax/tablePager.mas:78 src/templates/ajax/tablePager.mas:79
+msgid "last"
+msgstr "letzte"
 
 #: src/templates/ajax/tableSelector.mas:14
 msgid "Choose one of the options to show the associated table"
 msgstr "Wählen Sie eine der Optionen, um die zugehörige Tabelle anzuzeigen"
 
-#: src/templates/ajax/tableSelector.mas:33
+#: src/templates/ajax/tableSelector.mas:32
 msgid "Choose one..."
 msgstr "Wählen Sie eine..."
+
+#: src/templates/ebox/pageNotFound.mas:3
+msgid "eBox's homepage"
+msgstr "eBox-Homepage"
+
+#: src/templates/ebox/pageNotFound.mas:7
+msgid "If you typed the URL manually, please check it"
+msgstr ""
+"Falls Sie die Adresse manuell eingegeben haben, prüfen Sie sie auf "
+"Schreibfehler"
+
+#: src/templates/ebox/pageNotFound.mas:8
+msgid ""
+"Maybe a change in eBox's configuration or software made no longer available "
+"the requested page"
+msgstr ""
+"Unter Umständen hat eine Änderung in der eBox-Konfigurationsdatei oder eine "
+"Software dazu geführt, dass diese Seite nicht länger verfügbar ist"
+
+#: src/templates/ebox/pageNotFound.mas:9
+#, perl-brace-format
+msgid ""
+"If you need more help, you may want visit {homepage} for\n"
+"   documentation and mailing lists"
+msgstr ""
+"Falls Sie mehr Hilfe benötigen, besuchen Sie {homepage}, um in Dokumentation "
+"und Mailing-Listen Unterstützung zu finden"
+
+#: src/templates/ebox/pageNotFound.mas:13
+msgid "we're sorry"
+msgstr "Entschuldigung"
 
 #: src/templates/ebox/pageNotFound.mas:14
 msgid "The page can not be found"
 msgstr "Die Seite wurde nicht gefunden"
 
-#: src/templates/title.mas:14
-msgid "Display help notes"
-msgstr "Hilfetexte anzeigen"
-
-#: src/templates/title.mas:15
+#: src/templates/title.mas:12
 msgid "show help"
 msgstr "Hilfe anzeigen"
 
-#: src/templates/title.mas:17
-msgid "Hide help notes"
-msgstr "Hilfetexte ausblenden"
-
-#: src/templates/title.mas:18
+#: src/templates/title.mas:13
 msgid "hide help"
 msgstr "Hilfe ausblenden"
 
@@ -211,7 +252,7 @@ msgstr "Hilfe ausblenden"
 msgid "Language selection"
 msgstr "Wahl der Sprache"
 
-#: src/templates/language.mas:12
+#: src/templates/language.mas:11
 msgid ""
 "Language changes happen automatically, saving the configuration it's not "
 "needed."
@@ -219,68 +260,37 @@ msgstr ""
 "Die Sprache wird automatisch geändern, die Konfiguration muss dazu nicht "
 "gespeichert werden"
 
-#: src/templates/language.mas:25 src/templates/enable.mas:36
-#: src/templates/enable.mas:38
+#: src/templates/language.mas:23 src/templates/enable.mas:29
+#: src/templates/enable.mas:30
 msgid "Change"
 msgstr "Ändern"
 
-#: src/templates/enable.mas:11
+#: src/templates/enable.mas:9
 msgid "Service configuration"
 msgstr "Konfiguration der Dienste"
 
-#: src/templates/enable.mas:24 src/templates/enable.mas:29
+#: src/templates/enable.mas:21 src/templates/enable.mas:24
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-#: src/templates/enable.mas:26 src/templates/enable.mas:31
+#: src/templates/enable.mas:22 src/templates/enable.mas:25
 msgid "Enabled"
 msgstr "Aktiviert"
 
-#~ msgid "Directory not found: {d}"
-#~ msgstr "Der Ordner {d} wurde nicht gefunden"
+#~ msgid "Add new"
+#~ msgstr "Hinzufügen"
 
-#~ msgid "Inverse match"
-#~ msgstr "Treffer invertieren"
+#~ msgid "Adding a new {row}"
+#~ msgstr "Eine neue {row} hinzufügen"
 
-#~ msgid "From"
-#~ msgstr "Von"
+#~ msgid "Editing {row}"
+#~ msgstr "{row} wird bearbeitet"
 
-#~ msgid "To"
-#~ msgstr "An"
+#~ msgid "Action"
+#~ msgstr "Aktion"
 
-#~ msgid "first"
-#~ msgstr "erste"
+#~ msgid "Display help notes"
+#~ msgstr "Hilfetexte anzeigen"
 
-#~ msgid "prev"
-#~ msgstr "vorherige"
-
-#~ msgid "next"
-#~ msgstr "nächste"
-
-#~ msgid "last"
-#~ msgstr "letzte"
-
-#~ msgid "eBox's homepage"
-#~ msgstr "eBox-Homepage"
-
-#~ msgid "If you typed the URL manually, please check it"
-#~ msgstr ""
-#~ "Falls Sie die Adresse manuell eingegeben haben, prüfen Sie sie auf "
-#~ "Schreibfehler"
-
-#~ msgid ""
-#~ "Maybe a change in eBox's configuration or software made no longer "
-#~ "available the requested page"
-#~ msgstr ""
-#~ "Unter Umständen hat eine Änderung in der eBox-Konfigurationsdatei oder "
-#~ "eine Software dazu geführt, dass diese Seite nicht länger verfügbar ist"
-
-#~ msgid ""
-#~ "If you need more help, you may want visit {homepage} for\n"
-#~ "   documentation and mailing lists"
-#~ msgstr ""
-#~ "Falls Sie mehr Hilfe benötigen, besuchen Sie {homepage}, um in "
-#~ "Dokumentation und Mailing-Listen Unterstützung zu finden"
-
-#~ msgid "we're sorry"
-#~ msgstr "Entschuldigung"
+#~ msgid "Hide help notes"
+#~ msgstr "Hilfetexte ausblenden"
