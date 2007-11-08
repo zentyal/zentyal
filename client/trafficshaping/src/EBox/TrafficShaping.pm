@@ -53,7 +53,7 @@ use EBox::Model::ModelManager;
 use EBox::Model::CompositeManager;
 
 # To do try and catch
-use Error qw( :try );
+use Error qw(:try);
 use Perl6::Junction qw(none);
 
 # Using the brand new eBox types
@@ -342,17 +342,6 @@ sub addRule
     throw EBox::Exceptions::MissingArgument( __('Interface') )
       unless defined( $ruleParams{interface} );
 
-#    if ( ( not defined( $ruleParams{protocol} ) ) and
-#	 ( not defined( $ruleParams{port} ) ) and
-#	 ( not defined( $ruleParams{source} ) ) and
-#	 ( not defined( $ruleParams{destination} ) )) {
-#      throw EBox::Exceptions::MissingArgument( __('Any attribute should be provided') );
-#    }
-
-    if ( not defined ( $ruleParams{guaranteedRate} ) and
-	 not defined ( $ruleParams{limitedRate} ) ) {
-      throw EBox::Exceptions::MissingArgument( __('Guaranteed rate or limited rate') );
-    }
 
     # Setting standard rates if not defined
     $ruleParams{guaranteedRate} = 0 unless defined ( $ruleParams{guaranteedRate} );
@@ -361,16 +350,6 @@ sub addRule
     $ruleParams{limitedRate} = 0 if $ruleParams{limitedRate} eq '';
 
 
-    # Check interface to be external, already done in RuleTable model
-#    $self->_checkInterface( $ruleParams{interface} );
-    # Check protocol, port number, source and destination by <EBox::Types>
-    # Check rates
-#    $self->_checkRate( $ruleParams{guaranteedRate}, __('Guaranteed Rate') );
-#    $self->_checkRate( $ruleParams{limitedRate}, __('Limited Rate') );
-    # Check priority
-#    if ( defined( $ruleParams{priority} )) {
-#      $self->_checkPriority($ruleParams{priority});
-#    }
     # Check existence enabled
     $ruleParams{enabled} = 1 unless defined( $ruleParams{enabled} );
 
@@ -811,10 +790,6 @@ sub setLowestPriority # (interface, priority)
 #       interface - String external interface attached to the rule
 #       table model
 #
-#       check - Boolean indicating if you want to check if a rule
-#       model is created or not, not creating in case no model has
-#       been created *(Optional)* Default value: false
-#
 # Returns:
 #
 #       <EBox::TrafficShaping::Model::RuleTable>
@@ -826,7 +801,7 @@ sub setLowestPriority # (interface, priority)
 #      <EBox::Exceptions::External> - throw if interface is not external
 #
 
-sub ruleModel # (iface, $check)
+sub ruleModel # (iface)
 {
 
     my ($self, $iface, $check) = @_;
@@ -836,18 +811,23 @@ sub ruleModel # (iface, $check)
     throw EBox::Exceptions::MissingArgument( __('Interface') )
       unless defined( $iface );
 
-    unless ( $check ) {
-        if ( not defined ($self->{ruleModels}->{$iface})) {
+    if ( not defined ($self->{ruleModels}->{$iface})) {
+        try {
             $self->_checkInterface($iface);
             # Create the rule model if it's not already created
-            $self->{ruleModels}->{$iface} = new EBox::TrafficShaping::Model::RuleTable(
-                                                                                       'gconfmodule' => $self,
-                                                                                       'directory'   => "$iface/user_rules",
-                                                                                       'tablename'   => 'rule',
-                                                                                       'interface'   => $iface,
-                                                                                      );
-        }
+            $self->{ruleModels}->{$iface}
+              = new EBox::TrafficShaping::Model::RuleTable(
+                                                           'gconfmodule' => $self,
+                                                           'directory'   => "$iface/user_rules",
+                                                           'tablename'   => 'rule',
+                                                           'interface'   => $iface,
+                                                          );
+        } catch EBox::Exceptions::External with {
+            # If the interface cannot be shaped, then return undef
+            ;
+        };
     }
+
     return $self->{ruleModels}->{$iface};
 
 }

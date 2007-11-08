@@ -314,10 +314,10 @@ sub validateTypedRow
   }
 
   # Check some rate is given
-  if ( $params->{guaranteed_rate}->value() == 0 and
-       $params->{limited_rate}->value() == 0 ) {
-    throw EBox::Exceptions::External( __('Guaranteed rate or limited rate is required') );
-  }
+#  if ( $params->{guaranteed_rate}->value() == 0 and
+#       $params->{limited_rate}->value() == 0 ) {
+#    throw EBox::Exceptions::External( __('Guaranteed rate or limited rate is required') );
+#  }
 
   # Check the memory structure works as well
   $self->{ts}->checkRule(interface      => $self->{interface},
@@ -481,6 +481,7 @@ sub _table
                                printableName => __('Priority'),
                                editable      => 1,
                                populate      => \&priority,
+                               defaultValue  => 7,
                               ),
        new EBox::Types::Int(
                             fieldName     => 'guaranteed_rate',
@@ -489,6 +490,7 @@ sub _table
                             editable      => 1, # editable
                             trailingText  => __('Kbit/s'),
                             optional      => 1, # optional
+                            defaultValue  => 0,
                            ),
        new EBox::Types::Int(
                             fieldName     => 'limited_rate',
@@ -499,6 +501,7 @@ sub _table
                             editable      => 1, # editable
                             trailingText  => __('Kbit/s'),
                             optional      => 1, # optional
+                            defaultValue  => 0,
                            ),
       );
 
