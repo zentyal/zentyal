@@ -804,9 +804,7 @@ sub setLowestPriority # (interface, priority)
 sub ruleModel # (iface)
 {
 
-    my ($self, $iface, $check) = @_;
-
-    $check = 0 unless defined ( $check );
+    my ($self, $iface) = @_;
 
     throw EBox::Exceptions::MissingArgument( __('Interface') )
       unless defined( $iface );
@@ -1350,7 +1348,7 @@ sub _areRulesActive # (iface)
     my ($self, $iface) = @_;
 
     # Only check if there is a model
-    my $model = $self->ruleModel($iface,1);
+    my $model = $self->ruleModel($iface);
 
     if ( defined ($model) ) {
    # TODO: When enable is done, this method may change
