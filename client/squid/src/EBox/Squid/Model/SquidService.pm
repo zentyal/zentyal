@@ -23,6 +23,7 @@ sub _table
 
   my $table = EBox::Common::Model::EnableForm::_table($self);
   $table->{tableName} = $self->name;
+  $table->{modelDomain} = 'Squid';
 
   return $table;
 }
