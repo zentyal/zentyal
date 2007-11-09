@@ -168,6 +168,36 @@ sub saveConfig
 	};
 }
 
+# Method: saveConfigRecursive
+#
+#   Save module config and the modules which depends on recursively
+#
+sub saveConfigRecursive
+{
+    my ($self) = @_;
+
+    $self->_saveConfigRecursive($self->name);
+}
+
+# Method: _saveConfigRecursive
+#
+#   Save module config and the modules which depends on recursively
+#
+sub _saveConfigRecursive
+{
+    my ($self, $module) = @_;
+
+    my $global = EBox::Global->getInstance();
+    for my $dependency (@{$global->modDepends($module)}) {
+        $self->_saveConfigRecursive($dependency); 
+    }
+
+    my $modInstance = EBox::Global->modInstance($module);
+    $modInstance->saveConfig();
+}
+
+
+
 sub _unlock
 {
 	my $self = shift;
