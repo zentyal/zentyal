@@ -18,7 +18,7 @@
 			<owner>ebox</owner>
 			<type>list</type>
 			<list_type>string</list_type>
-			<default>[ca, network]</default>
+			<default>[ca,network]</default>
 			<locale name="C"/>
 		</schema>
 
