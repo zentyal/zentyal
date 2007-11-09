@@ -768,7 +768,8 @@ sub masonParameters
 # Exceptions:
 #
 #   <EBox::Exceptions::Internal> - thrown if an error has happened
-#   within the CGI or it is possible to read the upload file
+#   within the CGI or it is impossible to read the upload file or the
+#   parameter does not pass on the request
 #
 #   <EBox::Exceptions::External> - thrown if there is no file to
 #   upload or cannot create the temporally file
@@ -784,8 +785,8 @@ sub upload
     if ($self->cgi->cgi_error) {
       throw EBox::Exceptions::Internal('Upload error: ' . $self->cgi->cgi_error);
     }
-    throw EBox::Exceptions::External('Prudete! ' . $self->cgi->cgi_error);
-    return undef;
+    throw EBox::Exceptions::Internal("The upload parameter $uploadParam does not "
+                                     . 'pass on HTTP request');
   }
 
   # get upload contents file handle
