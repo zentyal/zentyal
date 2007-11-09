@@ -43,7 +43,7 @@ sub _saveGConfChanges
 {
 	my $self = shift;
 
-	$self->{'gconfmodule'}->saveConfig();
+	$self->{'gconfmodule'}->saveConfigRecursive();
 }
 
 sub executeGConf 
