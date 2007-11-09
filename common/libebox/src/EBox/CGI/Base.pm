@@ -751,16 +751,28 @@ sub masonParameters
 
 # Method: upload
 #
-# Uploads a file from the client computer. The file is place in
-#  the tmp directory 
+#  Upload a file from the client computer. The file is place in
+#  the tmp directory (/tmp)
 #
 #
-# Parameters: $uploadParam - CGI parameter which contains the path to the file
-#   which will be uploaded. Usually is obtained from a HTML file input
+# Parameters:
+#
+#   uploadParam - String CGI parameter name which contains the path to the
+#   file which will be uploaded. It is usually obtained from a HTML
+#   file input
 #
 # Returns:
-#   the path of the uploaded file
-# 
+#
+#   String - the path of the uploaded file
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::Internal> - thrown if an error has happened
+#   within the CGI or it is possible to read the upload file
+#
+#   <EBox::Exceptions::External> - thrown if there is no file to
+#   upload or cannot create the temporally file
+#
 sub upload
 {
   my ($self, $uploadParam) = @_;
@@ -772,12 +784,12 @@ sub upload
     if ($self->cgi->cgi_error) {
       throw EBox::Exceptions::Internal('Upload error: ' . $self->cgi->cgi_error);
     }
-
+    throw EBox::Exceptions::External('Prudete! ' . $self->cgi->cgi_error);
     return undef;
   }
 
   # get upload contents file handle
-  my $UPLOAD_FH = $self->cgi->upload($uploadParam);    
+  my $UPLOAD_FH = $self->cgi->upload($uploadParam);
   if (not $UPLOAD_FH) {
     throw EBox::Exceptions::External( __('Invalid uploaded file.'));
   }

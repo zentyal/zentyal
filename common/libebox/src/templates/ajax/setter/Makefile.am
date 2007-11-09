@@ -11,7 +11,7 @@ template_DATA = booleanSetter.mas ipaddrSetter.mas textSetter.mas \
 		hasManySetter.mas portRangeSetter.mas unionSetter.mas \
 		inverseMatchSelectSetter.mas selectSetter.mas \
 		inverseMatchUnionSetter.mas serviceSetter.mas \
-		passwordSetter.mas
+		passwordSetter.mas file.mas
 
 EXTRA_DIST = $(template_DATA)
 

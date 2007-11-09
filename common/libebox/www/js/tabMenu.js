@@ -259,12 +259,12 @@ EBox.Tabs.prototype = {
   */
   _createForm : function () {
     // Create the form inputs
-    var actionInput = document.createElement('input');
+    var actionInput = document.createElement('INPUT');
     actionInput.setAttribute('name', 'action');
     actionInput.setAttribute('type', 'hidden');
     actionInput.setAttribute('value', 'view');
     // Create Form element
-    var form = document.createElement('form');
+    var form = document.createElement('FORM');
     form.setAttribute( 'id', 'tableForm');
     form.appendChild( actionInput );
     // Append the form to the body

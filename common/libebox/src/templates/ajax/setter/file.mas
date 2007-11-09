@@ -1,0 +1,35 @@
+<%args>
+$tableName
+$data
+$cssClass => ''
+</%args>
+<%init>
+</%init>
+% my $id = $tableName . '_' . $data->fieldName();
+% if ( $data->editable() ) {
+<div id="<% $id %>" class="<% $cssClass %>">
+  <form action="/ebox/Controller/Uploader"
+        method="POST"
+        enctype="multipart/form-data"
+        id="<% $id . '_form' %>">
+    <& /input/file.mas,
+       name => $id . '_path',
+       printableName => $data->printableName(),
+       id   => $id . '_path',
+       onchange => q{var fileUpload = new EBox.FileUpload( }
+                   . q/{ formId : "/ . $id . q{_form", onStart : }
+                   . q/ function() { setLoading("/ . $id
+                   . q/_loading"); }, onComplete : function() {/
+                   . q/setDone("/ . $id
+                   . q/_loading");}}); return fileUpload.submit();/
+    &>
+    <span id="<% $id . '_loading'%>">
+    </span>
+  </form>
+</div>
+% }
+% else
+% {
+<& $data->HTMLViewer(),
+   data => $data &>
+% }

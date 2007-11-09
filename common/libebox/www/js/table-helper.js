@@ -488,6 +488,27 @@ function setLoading (elementId, modelName, isSaved)
 }
 
 /*
+Function: setDone
+
+        Set the done icon (a tick) on the given HTML element erasing
+        everything which were there.
+
+Parameters:
+
+        elementId - String the element identifier
+        
+
+*/
+function setDone (elementId)
+{
+
+  $(elementId).innerHTML = "<img src='/data/images/apply.gif' " +
+                           "alt='done' class='tcenter'/>";
+
+}
+
+
+/*
 Function: restoreHidden
 
         Restore HTML stored in *hiddenDiv*
