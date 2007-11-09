@@ -582,9 +582,10 @@ sub modDepends # (module)
 {
 	my ($self, $name) = @_;
 	$self->modExists($name) or return undef;
-	my $list = $self->get_list("modules/$name/depends");
-	if ($list) {
-		return $list;
+	my @list = map {s/^\s+//; $_}, 
+                    @{$self->get_list("modules/$name/depends")};
+	if (@list) {
+		return \@list;
 	} else {
 		return [];
 	}
