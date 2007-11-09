@@ -124,13 +124,11 @@ sub runGConf
             $ts->set_string("$key/service", $servId);
             # Set any field as selected when no value is set (ip,
             # object, whatever...)
-            unless ( defined (  $rule_ref->{$rule_ref->{source_selected}} )
-                   or ( $rule_ref->{source_selected} eq ANY_SOURCE )) {
+            unless (_is_selected('source', $rule_ref)) {
                 EBox::info("Setting a source as 'any' at a rule");
                 $ts->set_string( $key . '/source_selected', ANY_SOURCE );
             }
-            unless ( defined (  $rule_ref->{$rule_ref->{destination_selected}} )
-                   or ( $rule_ref->{destination_selected} eq ANY_DESTINATION )) {
+            unless  (_is_selected('destination', $rule_ref)) {
                 EBox::info("Setting a destination as 'any' at a rule");
                 $ts->set_string( $key . '/destination_selected', ANY_DESTINATION );
             }
@@ -141,6 +139,23 @@ sub runGConf
         }
     }
 
+}
+
+sub _is_selected
+{
+    my ($target, $rule) = @_;
+
+    my $selKey = $target . '_selected';
+    my $ipKey = $target . '_ipaddr_ip';
+    my $anyVal = $target . '_any';
+    if (($rule->{$selKey} eq $target .'_ipaddr') 
+         and defined($rule->{$ipKey})) {
+        return 1;
+    } elsif (defined($rule->{$selKey}) or $rule->{$selKey} eq $anyVal) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 # Method: _addService
