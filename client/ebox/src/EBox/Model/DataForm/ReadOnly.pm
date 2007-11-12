@@ -126,7 +126,6 @@ sub row
         my $types = $self->_fillTypes($self->{content});
         my %printableValueHash = map { $_->fieldName() => $_->printableValue() }
           values (%{$types});
-        # my @values = values (%{$types});
         my @values = map { $types->{$_} } @{$self->fields()};
         @values = grep { defined ( $_ ) } @values; # Remove not defined fields
         return { values => \@values ,

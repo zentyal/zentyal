@@ -24,6 +24,8 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::NotImplemented;
 
+use Error qw(:try);
+
 sub new # (cgi=?)
 {
 	my $class = shift;
@@ -43,13 +45,11 @@ sub new # (cgi=?)
 sub getParams
 {
 	my $self = shift;
-	
+
 	my $tableDesc = $self->{'tableModel'}->table()->{'tableDescription'};
 
 	my %params;
 	foreach my $field (@{$tableDesc}) {
-
-		my $type = $field->type();
 
 		foreach my $fieldName ($field->fields()) {
 			my $value = $self->param($fieldName);
@@ -61,7 +61,7 @@ sub getParams
 
 	$params{'id'} = $self->param('id');
 	$params{'filter'} = $self->param('filter');
-	
+
 	return %params;
 }
 
@@ -115,7 +115,7 @@ sub editField
 	my $model = $self->{'tableModel'};
 	my %params = $self->getParams();
 	my $force = $self->param('force');
-	$model->setRow($force, $self->getParams());
+	$model->setRow($force, %params);
 	
 	my $editField = $self->param('editfield');
 	if (not $editField) {

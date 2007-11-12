@@ -133,7 +133,7 @@ sub _i18filter
 
     my $value = $self->{'value'};
     return unless defined($value);
-    
+
     my $row = $self->row();
     return $value unless ($row);
 
@@ -141,7 +141,7 @@ sub _i18filter
         throw EBox::Exceptions::Internal(
           'i18filter has been called and there is no translationDomain filter');
     }
-    
+
     my $domain = $row->{'valueHash'}->{'translationDomain'}->value();
 
     if (defined($domain)  and length($domain) > 0) {

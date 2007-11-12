@@ -20,11 +20,17 @@ use warnings;
 
 use base 'EBox::CGI::ClientRawBase';
 
+# eBox uses
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::NotImplemented;
 
+# Core modules
 use Error qw(:try);
+use File::Basename;
+use File::Copy;
+
+# Group: Public methods
 
 sub new # (cgi=?)
 {
@@ -35,18 +41,35 @@ sub new # (cgi=?)
 	return  $self;
 }
 
+# Group: Protected methods
 
+# Method: _process
+#
+#      Upload a file which is defined by a single parameter. The file
+#      is stored in <EBox::Config::tmp> directory with base name
+#      equals to the base name from the user path.
+#
+# Overrides:
+#
+#      <EBox::CGI::Base::_process>
+#
 sub _process
 {
     my $self = shift;
 
     my $params = $self->params();
-    use Data::Dumper;
-    EBox::debug(Dumper($params));
 
     my $filePathParam = $params->[0];
     my $uploadedFile = $self->upload($filePathParam);
-    EBox::debug("uploaded file $uploadedFile");
+
+    my $basenameFilePathParam = fileparse($self->param($filePathParam));
+    my ($baseTmp, $tmpDir) = fileparse($uploadedFile);
+
+    # Rename to the user-defined file name
+    move($uploadedFile, $tmpDir . $basenameFilePathParam) or
+      throw EBox::Exceptions::Internal("Cannot move $uploadedFile to "
+                                       . $tmpDir . $basenameFilePathParam
+                                       . " $!");
 
 }
 
