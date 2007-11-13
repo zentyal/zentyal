@@ -62,13 +62,15 @@ sub _process
     my $filePathParam = $params->[0];
     my $uploadedFile = $self->upload($filePathParam);
 
-    my $basenameFilePathParam = fileparse($self->param($filePathParam));
     my ($baseTmp, $tmpDir) = fileparse($uploadedFile);
 
+    # Remove the model name to get just the field name
+    $filePathParam =~ s/^.*?_//g;
+
     # Rename to the user-defined file name
-    move($uploadedFile, $tmpDir . $basenameFilePathParam) or
+    move($uploadedFile, $tmpDir . $filePathParam) or
       throw EBox::Exceptions::Internal("Cannot move $uploadedFile to "
-                                       . $tmpDir . $basenameFilePathParam
+                                       . $tmpDir . $filePathParam
                                        . " $!");
 
 }

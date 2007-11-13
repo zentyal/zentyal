@@ -112,22 +112,23 @@ sub isEqualTo
 {
     my ($self, $new) = @_;
 
-    if ( $self->path ne '' and $new->path() ne '' ) {
-        if ( basename($self->path()) eq basename($new->path()) ) {
-            # Check MD5 sum to check content uniqueness
-            my ($origFile, $newFile);
-            my $origMD5 = Digest::MD5->new();
-            open ($origFile, '<', $self->path());
-            binmode ( $origFile );
-            $origMD5->addfile($origFile);
-            my $origDigest = $origMD5->hexdigest();
-            my $newMD5 = Digest::MD5->new();
-            open ( $newFile, '<', $self->_tmpPath($new->path()));
-            binmode ( $newFile );
-            $newMD5->addfile($newFile);
-            my $newDigest = $newMD5->hexdigest();
-            return ($origDigest eq $newDigest);
-        }
+
+    if ( defined ( $self->path() ) and $self->path() ne ''
+         and defined ( $new->path() ) and $new->path() ne '' ) {
+        # Check MD5 sum to check content uniqueness
+        my ($origFile, $newFile);
+        my $origMD5 = Digest::MD5->new();
+        open ($origFile, '<', $self->path());
+        binmode ( $origFile );
+        $origMD5->addfile($origFile);
+        my $origDigest = $origMD5->hexdigest();
+        my $newMD5 = Digest::MD5->new();
+        open ( $newFile, '<', $self->_tmpPath());
+        binmode ( $newFile );
+        $newMD5->addfile($newFile);
+        my $newDigest = $newMD5->hexdigest();
+        return ($origDigest eq $newDigest);
+
     }
     return 0;
 
@@ -194,19 +195,6 @@ sub allowDownload
 #
 sub _setMemValue
 {
-	my ($self, $params) = @_;
-
-        my $paramPath = $params->{$self->{fieldName} . '_path'};
-        my $tmpPath = $self->_tmpPath($paramPath);
-
-        if ( defined ( $self->{contentDirectory} )
-             and not defined ( $self->{filePath} )) {
-            $self->{filePath} = $self->{contentDirectory}
-              . basename($paramPath);
-        } elsif ( defined ( $self->path())) {
-            EBox::warn('File path is already set by developer '
-                       . $self->path());
-        }
 
 }
 
@@ -222,11 +210,14 @@ sub _storeInGConf
 
     my $keyField = "$key/" . $self->fieldName() . '_path';
 
+    EBox::debug('path: ' . $self->path());
     if ($self->path()) {
         $gconfmod->set_string($keyField, $self->path());
         # Do actually move
-        my $tmpPath = $self->_tmpPath($self->path());
+        my $tmpPath = $self->_tmpPath();
+        EBox::debug("tmpPath: $tmpPath");
         if ( -f $tmpPath ) {
+            EBox::debug("Moving from $tmpPath to " . $self->path());
             File::Copy::move($tmpPath, $self->path()) or
                 throw EBox::Exceptions::Internal("Cannot move from $tmpPath "
                                                  . ' to ' . $self->path());
@@ -283,7 +274,7 @@ sub _paramIsSet
 
     return 0 unless defined ( $pathValue );
 
-    return (-f $self->_tmpPath($pathValue));
+    return (-f $self->_tmpPath());
 
 }
 
@@ -292,10 +283,9 @@ sub _paramIsSet
 # Get the tmp path when the file is not used by the file type
 sub _tmpPath
 {
-    my ($self, $fullPath) = @_;
+    my ($self) = @_;
 
-    my $pathBaseName = fileparse($fullPath);
-    return ( EBox::Config::tmp() . $pathBaseName );
+    return ( EBox::Config::tmp() . $self->fieldName() . '_path' );
 }
 
 1;

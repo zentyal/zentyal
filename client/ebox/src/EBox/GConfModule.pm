@@ -27,7 +27,10 @@ use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::GConfState;
 use EBox::GConfConfig;
+
+# Core modules
 use File::Basename;
+use File::Copy::Recursive;
 
 sub _create # (name)
 {
@@ -174,6 +177,8 @@ sub revokeConfig
 	my $ro = $self->{ro};
 	$self->{ro} = undef;
 	$self->_load_from_file();
+        # Restore <EBox::Types::File> which content a file
+        $self->_restoreFilesFromBackup();
 	$self->{ro} = $ro;
 }
 
@@ -194,6 +199,8 @@ sub _saveConfig
 			 . " module: " . $self->name() . "\n");
 	}
 	$self->_dump_to_file();
+        # Backup a copy of the content of <EBox::Types::File>
+        $self->_backupFiles();
 	$self->_load_from_file(undef, "/ebox-ro/modules/". $self->name());
 }
 
@@ -983,6 +990,86 @@ sub _get_unique_id
 		$id = $prefix . int(rand(10000));
 	}
 	return $id;
+}
+
+# Method: _restoreFilesFromBackup
+#
+#     Restore the files stored using <EBox::Types::File> type by
+#     models, therefore the model itself must be a
+#     <EBox::Model::ModelProvider> instance
+#
+sub _restoreFilesFromBackup
+{
+
+    my ($self) = @_;
+
+    unless ( $self->isa('EBox::Model::ModelProvider') ) {
+        return;
+    }
+    my $filePaths = $self->_filePaths();
+    if ( @{$filePaths} > 0 ) {
+        foreach my $filePath (@{$filePaths}) {
+            File::Copy::Recursive::fcopy($filePath . '.bak', $filePath)
+                or throw EBox::Exceptions::Internal('Cannot copy from ' .
+                                                    $filePath . ".bak to $filePath");
+        }
+    }
+}
+
+# Method: _backupFiles
+#
+#     Backup the files stored using <EBox::Types::File> type by
+#     models, therefore the model itself must be a
+#     <EBox::Model::ModelProvider> instance
+#
+sub _backupFiles
+{
+
+    my ($self) = @_;
+
+    unless ( $self->isa('EBox::Model::ModelProvider') ) {
+        return;
+    }
+    my $filePaths = $self->_filePaths();
+    if ( @{$filePaths} > 0 ) {
+        foreach my $filePath (@{$filePaths}) {
+            File::Copy::Recursive::fcopy($filePath, $filePath  . '.bak')
+                or throw EBox::Exceptions::Internal('Cannot copy from '
+                                                    . "$filePath to $filePath"
+                                                    . '.bak');
+        }
+    }
+}
+
+
+# Method to get those file full paths which are enclosed within this
+# model provider
+# Return value: array ref with the current file paths
+sub _filePaths
+{
+    my ($self) = @_;
+
+    my @filePaths = ();
+    my $models = $self->models();
+    foreach my $model (@{$models}) {
+        my $hasFileType = 0;
+        foreach my $fieldName ( @{$model->fields()} ) {
+            if ( $model->fieldHeader($fieldName)->isa('EBox::Types::File')) {
+                $hasFileType = 1;
+                last;
+            }
+        }
+        if ( $hasFileType ) {
+            foreach my $modelRow (@{$model->rows()}) {
+                foreach my $field (@{$modelRow->{values}} ) {
+                    if ( $field->isa('EBox::Types::File' )) {
+                        push ( @filePaths, $field->path()) if ( $field->path() ne '');
+                    }
+                }
+            }
+        }
+    }
+    return \@filePaths;
 }
 
 1;
