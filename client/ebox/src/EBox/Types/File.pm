@@ -74,7 +74,7 @@ sub new
             $opts{'HTMLSetter'} ='/ajax/setter/file.mas';
         }
         unless (exists $opts{'HTMLViewer'}) {
-            $opts{'HTMLViewer'} ='/ajax/viewer/textViewer.mas';
+            $opts{'HTMLViewer'} ='/ajax/viewer/file.mas';
         }
 
         $opts{'type'} = 'file';
@@ -178,6 +178,40 @@ sub allowDownload
 
     return $self->{allowDownload};
 
+}
+
+# Method: showFileWhenEditing
+#
+#     Show the file path name when edition is done
+#
+# Returns:
+#
+#     Boolean - true if it is shown, false otherwise
+#
+sub showFileWhenEditing
+{
+    my ($self) = @_;
+
+    return $self->{showFileWhenEditing};
+
+}
+
+# Method: linkToDownload
+#
+#      Link to the CGI which downloads the file
+#
+sub linkToDownload
+{
+    my ($self) = @_;
+
+    my $link = '/ebox/';
+    $link .= $self->model()->modelDomain() . '/Controller/';
+    $link .= $self->model()->name() . '/';
+    $link .= $self->model()->index() . '/' if defined ( $self->model()->index());
+    $link .= 'Download/';
+    $link .= $self->row()->{id} . '/' . $self->fieldName();
+
+    return $link;
 }
 
 # Group: Protected methods

@@ -912,6 +912,8 @@ sub _row
       }
 
       $row->{'values'} = \@values;
+      # Dummy id for dataform
+      $row->{'id'} = 'dummy';
 
       return $row;
 

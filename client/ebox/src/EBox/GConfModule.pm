@@ -1003,9 +1003,6 @@ sub _restoreFilesFromBackup
 
     my ($self) = @_;
 
-    unless ( $self->isa('EBox::Model::ModelProvider') ) {
-        return;
-    }
     my $filePaths = $self->_filePaths();
     if ( @{$filePaths} > 0 ) {
         foreach my $filePath (@{$filePaths}) {
@@ -1027,9 +1024,6 @@ sub _backupFiles
 
     my ($self) = @_;
 
-    unless ( $self->isa('EBox::Model::ModelProvider') ) {
-        return;
-    }
     my $filePaths = $self->_filePaths();
     if ( @{$filePaths} > 0 ) {
         foreach my $filePath (@{$filePaths}) {
@@ -1048,6 +1042,10 @@ sub _backupFiles
 sub _filePaths
 {
     my ($self) = @_;
+
+    unless ( $self->isa('EBox::Model::ModelProvider') ) {
+        return ();
+    }
 
     my @filePaths = ();
     my $models = $self->models();
