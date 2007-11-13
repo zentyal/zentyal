@@ -1,0 +1,29 @@
+<%doc>
+ This template show the file type on a HTML. The file path is
+ shown. If the allowDownload property is set, a link to download the
+ file is displayed and a user may perform the download action.
+</%doc>
+<%args>
+$data
+</%args>
+<%init>
+my $showPath = defined ( $data->printableValue());
+$showPath = $showPath && (-f $data->path());
+my $download = $showPath && $data->allowDownload();
+</%init>
+% if ( $download ) {
+<a href="<% $data->linkToDownload() %>">
+% } else {
+<span>
+% }
+% if ( $showPath ) {
+  <% $data->printableValue() %>
+% }
+% else {
+  --
+% }
+% if ( $download ) {
+</a>
+% } else {
+</span>
+% }

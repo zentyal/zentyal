@@ -8,7 +8,7 @@
 
 templatedir = $(datadir)/ebox/templates/ajax/viewer
 template_DATA = booleanViewer.mas  hasManyViewer.mas textViewer.mas \
-		passwordViewer.mas
+		passwordViewer.mas file.mas
 
 EXTRA_DIST = $(template_DATA)
 

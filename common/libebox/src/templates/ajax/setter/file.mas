@@ -8,6 +8,10 @@ $cssClass => ''
 % my $id = $tableName . '_' . $data->fieldName();
 % if ( $data->editable() ) {
 <div id="<% $id %>" class="<% $cssClass %>">
+%   if ( $data->showFileWhenEditing() ) {
+  <& $data->HTMLViewer(), data => $data &>
+  <br><br>
+%   }
   <form action="/ebox/Controller/Uploader"
         method="POST"
         enctype="multipart/form-data"
