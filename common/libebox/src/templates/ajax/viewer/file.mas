@@ -18,8 +18,7 @@ my $download = $showPath && $data->allowDownload();
 % }
 % if ( $showPath ) {
   <% $data->printableValue() %>
-% }
-% else {
+% } else {
   --
 % }
 % if ( $download ) {

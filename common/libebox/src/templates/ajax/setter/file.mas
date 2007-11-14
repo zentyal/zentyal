@@ -8,7 +8,7 @@ $cssClass => ''
 % my $id = $tableName . '_' . $data->fieldName();
 % if ( $data->editable() ) {
 <div id="<% $id %>" class="<% $cssClass %>">
-%   if ( $data->showFileWhenEditing() ) {
+%   if ( $data->showFileWhenEditing() and (-f $data->path() )) {
   <& $data->HTMLViewer(), data => $data &>
   <br><br>
 %   }
