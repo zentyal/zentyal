@@ -1006,9 +1006,11 @@ sub _restoreFilesFromBackup
     my $filePaths = $self->_filePaths();
     if ( @{$filePaths} > 0 ) {
         foreach my $filePath (@{$filePaths}) {
-            File::Copy::Recursive::fcopy($filePath . '.bak', $filePath)
-                or throw EBox::Exceptions::Internal('Cannot copy from ' .
-                                                    $filePath . ".bak to $filePath");
+            if ( -f $filePath . '.bak' ) {
+                File::Copy::Recursive::fcopy($filePath . '.bak', $filePath)
+                    or throw EBox::Exceptions::Internal('Cannot copy from ' .
+                                                        $filePath . ".bak to $filePath : $!");
+            }
         }
     }
 }
@@ -1027,10 +1029,12 @@ sub _backupFiles
     my $filePaths = $self->_filePaths();
     if ( @{$filePaths} > 0 ) {
         foreach my $filePath (@{$filePaths}) {
-            File::Copy::Recursive::fcopy($filePath, $filePath  . '.bak')
-                or throw EBox::Exceptions::Internal('Cannot copy from '
-                                                    . "$filePath to $filePath"
-                                                    . '.bak');
+            if ( -f $filePath ) {
+                File::Copy::Recursive::fcopy($filePath, $filePath  . '.bak')
+                    or throw EBox::Exceptions::Internal('Cannot copy from '
+                                                        . "$filePath to $filePath"
+                                                        . ".bak: $!");
+            }
         }
     }
 }

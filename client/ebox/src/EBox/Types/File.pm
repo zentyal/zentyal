@@ -163,6 +163,26 @@ sub path
 
 }
 
+# Method: exist
+#
+#    Check if the file path marked exists
+#
+# Returns:
+#
+#    boolean - if the file exists given a file path
+#    undef - if the file path is not set
+#
+sub exist
+{
+    my ($self) = @_;
+
+    if ( $self->path() ) {
+        return (-f $self->path());
+    } else {
+        return undef;
+    }
+}
+
 # Method: allowDownload
 #
 #     Check if it is possible to allow download or not from the viewer
