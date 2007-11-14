@@ -1048,7 +1048,7 @@ sub _filePaths
     my ($self) = @_;
 
     unless ( $self->isa('EBox::Model::ModelProvider') ) {
-        return ();
+        return [];
     }
 
     my @filePaths = ();
