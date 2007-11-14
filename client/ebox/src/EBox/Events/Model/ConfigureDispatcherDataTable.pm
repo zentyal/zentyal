@@ -203,11 +203,13 @@ sub updatedRowNotify
 sub validateTypedRow
   {
 
-      my ( $self, $action, $newFields ) = @_;
+      my ( $self, $action, $newFields, $allFields ) = @_;
 
       if ( $action eq 'update' ) {
-          $self->_checkIfConfigured($newFields);
-          $self->_checkEnabled($newFields);
+          if ( exists $newFields->{enabled} ) {
+              $self->_checkIfConfigured($allFields);
+              $self->_checkEnabled($allFields);
+          }
       }
 
   }
@@ -483,12 +485,12 @@ sub _fetchDispatchers
   }
 
 # Check if the event dispatcher is already configurated or not
-sub _checkIfConfigured # (newFields)
+sub _checkIfConfigured # (allFields)
   {
 
-      my ($self, $newFields) = @_;
+      my ($self, $allFields) = @_;
 
-      my $className = $newFields->{enabled}->row()->{plainValueHash}->{eventDispatcher};
+      my $className = $allFields->{eventDispatcher}->value();
 
       eval "use $className";
       if ( $@ ) {
@@ -498,7 +500,7 @@ sub _checkIfConfigured # (newFields)
 
       my $dispatcher = $className->new();
       if ( (not $dispatcher->configured()) and
-           $newFields->{enabled}->value() ) {
+           $allFields->{enabled}->value() ) {
           throw EBox::Exceptions::External(__('In order to enable a configurable event ' .
                                               'dispatcher, you need to configure it first'));
       }
@@ -506,14 +508,14 @@ sub _checkIfConfigured # (newFields)
   }
 
 # Check if the event dispatcher is enabled to send messages
-sub _checkEnabled # (newFields)
+sub _checkEnabled # (allFields)
   {
 
-      my ($self, $newFields) = @_;
+      my ($self, $allFields) = @_;
 
       # Check if it is capable only if it is enabled to send events
-      if ( $newFields->{enabled}->value() ) {
-          my $className = $newFields->{enabled}->row()->{plainValueHash}->{eventDispatcher};
+      if ( $allFields->{enabled}->value() ) {
+          my $className = $allFields->{eventDispatcher}->value();
 
           eval "use $className";
           if ( $@ ) {

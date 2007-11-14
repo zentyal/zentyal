@@ -210,6 +210,41 @@ sub models
 
   }
 
+# Method: _exposedMethods
+#
+# Overrides:
+#
+#       <EBox::Model::ModelProvider::_exposedMethods>
+#
+sub _exposedMethods
+{
+    my %exposedMethods =
+      ( enableDispatcher => { action   => 'set',
+                              path     => [ 'ConfigureDispatcherDataTable' ],
+                              indexes  => [ 'eventDispatcher' ],
+                              selector => [ 'enabled' ],
+                            },
+        isEnableDispatcher => { action   => 'get',
+                                path     => [ 'ConfigureDispatcherDataTable' ],
+                                indexes  => [ 'eventDispatcher' ],
+                                selector => [ 'enabled' ],
+                              },
+        enableWatcher    => { action   => 'set',
+                              path     => [ 'ConfigureEventDataTable' ],
+                              indexes  => [ 'eventWatcher' ],
+                              selector => [ 'enabled' ],
+                            },
+        isEnableWatcher   => { action   => 'get',
+                               path     => [ 'ConfigureEventDataTable' ],
+                               indexes  => [ 'eventWatcher' ],
+                               selector => [ 'enabled' ],
+                             },
+      );
+
+    return \%exposedMethods;
+
+}
+
 # Method: composites
 #
 #       Return the composites used by events eBox module
@@ -378,7 +413,7 @@ sub enableEventElement # ($className, $enabled)
       } else {
           my @disabled  = @{$self->get_list($type . '_to_disable')};
           unless ( grep { $_ eq $className } @disabled ) {
-              # Disable watcher
+              # Disable
               my @enabled = @{$self->get_list($type . '_to_enable')};
               my $enabled = scalar(@enabled);
               @enabled = grep { $_ ne $className } @enabled;
