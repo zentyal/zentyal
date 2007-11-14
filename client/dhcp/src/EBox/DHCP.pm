@@ -1343,7 +1343,7 @@ sub _ifacesInfo
       }
       # Thin client options
       my $nextServer = $self->_thinClientOption('nextServer', $_);
-      if (defined($nextServer)) {
+      if ($nextServer) {
         $iflist{$_}->{'nextServer'} = $nextServer;
       }
       my $filename = $self->_thinClientOption('filename', $_);
