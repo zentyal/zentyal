@@ -13,17 +13,16 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::DHCP::Model::AdvancedOptions
+# Class: EBox::DHCP::Model::LeaseTimes
 #
-# This class is the model to configurate advanced options for the dhcp
+# This class is the model to configurate lease times for the dhcp
 # server on a static interface. The fields are the following:
 #
 #     - default leased time
 #     - maximum leased time
-#     - Ticket #842
 #
 
-package EBox::DHCP::Model::AdvancedOptions;
+package EBox::DHCP::Model::LeaseTimes;
 
 use base 'EBox::Model::DataForm';
 
@@ -31,22 +30,14 @@ use strict;
 use warnings;
 
 # eBox uses
+use EBox::DHCP;
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Global;
-use EBox::NetWrappers;
-use EBox::Types::DomainName;
-use EBox::Types::HostIP;
 use EBox::Types::Int;
-use EBox::Types::Select;
-use EBox::Types::Union;
-use EBox::Types::Union::Text;
 use EBox::Validate;
-
-# Dependencies
-use Net::IP;
 
 # Constants
 use constant DEFAULT_LEASED_TIME => 1800;
@@ -56,7 +47,7 @@ use constant MAX_LEASED_TIME     => 7200;
 
 # Constructor: new
 #
-#     Create the advanced options to the dhcp server
+#     Create the lease times to the dhcp server
 #
 # Overrides:
 #
@@ -69,7 +60,7 @@ use constant MAX_LEASED_TIME     => 7200;
 #
 # Returns:
 #
-#     <EBox::DHCP::Model::AdvancedOptions>
+#     <EBox::DHCP::Model::LeaseTimes>
 #
 # Exceptions:
 #
@@ -217,12 +208,11 @@ sub _table
                             trailingText     => __('seconds'),
                             optional         => 1,
                            ),
-
       );
 
     my $dataForm = {
-                    tableName          => 'AdvancedOptions',
-                    printableTableName => __('Advanced Options'),
+                    tableName          => 'LeaseTimes',
+                    printableTableName => __('Lease times'),
                     modelDomain        => 'DHCP',
                     defaultActions     => [ 'editField', 'changeView' ],
                     tableDescription   => \@tableDesc,

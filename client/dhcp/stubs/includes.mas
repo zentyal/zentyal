@@ -1,0 +1,25 @@
+<%doc>
+  This template is done in order to add include statements to the dhcp
+  server.
+
+Parameters:
+
+  iface - String the iface to search for
+</%doc>
+<%args>
+  $iface
+</%args>
+<%init>
+use EBox::DHCP;
+my $dirName = EBox::DHCP->PluginConfDir($iface);
+opendir ( my $dirHandle, $dirName);
+my @files = ();
+while ( defined(my $fileName = readdir ($dirHandle))) {
+    next unless -f "$dirName$fileName";
+    push ( @files, "$dirName$fileName" );
+}
+closedir ($dirHandle);
+</%init>
+% foreach my $includeFile (@files) {
+        include "<% $includeFile %>";
+% }

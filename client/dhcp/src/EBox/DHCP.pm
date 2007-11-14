@@ -21,17 +21,17 @@ use warnings;
 
 use base qw(EBox::GConfModule EBox::NetworkObserver EBox::LogObserver EBox::Model::ModelProvider EBox::Model::CompositeProvider);
 
-use EBox::Objects;
-use EBox::Gettext;
-use EBox::Global;
 use EBox::Config;
-use EBox::Validate qw(:all);
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
-use EBox::Summary::Status;
+use EBox::Gettext;
+use EBox::Global;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
+use EBox::Objects;
+use EBox::Summary::Status;
+use EBox::Validate qw(:all);
 
 use EBox::Model::ModelManager;
 use EBox::Model::CompositeManager;
@@ -43,24 +43,30 @@ use EBox::DHCPLogHelper;
 
 # Models & Composites
 use EBox::Common::Model::EnableForm;
+use EBox::DHCP::Composite::AdvancedOptions;
 use EBox::DHCP::Composite::InterfaceConfiguration;
 use EBox::DHCP::Composite::General;
 use EBox::DHCP::Composite::Interfaces;
 use EBox::DHCP::Composite::OptionsTab;
-use EBox::DHCP::Model::AdvancedOptions;
 use EBox::DHCP::Model::FixedAddressTable;
+use EBox::DHCP::Model::LeaseTimes;
 use EBox::DHCP::Model::Options;
 use EBox::DHCP::Model::RangeInfo;
 use EBox::DHCP::Model::RangeTable;
+use EBox::DHCP::Model::ThinClientOptions;
 use Net::IP;
 use HTML::Mason;
 use Error qw(:try);
 use Perl6::Junction qw(any);
+use File::Path;
 
-#Module local conf stuff
+# Module local conf stuff
 use constant DHCPCONFFILE => "/etc/dhcp3/dhcpd.conf";
 use constant PIDFILE => "/var/run/dhcpd.pid";
 use constant SERVICE => "dhcpd3";
+
+use constant CONF_DIR => EBox::Config::conf() . 'dhcp/';
+use constant PLUGIN_CONF_SUBDIR => 'plugins/';
 
 # Group: Public and protected methods
 
@@ -151,6 +157,9 @@ sub onInstall
 {
     EBox::init();
 
+    # Create user conf dir
+    mkdir (CONF_DIR, 0755);
+
     _addDHCPService();
 
     my $fw = EBox::Global->modInstance('firewall');
@@ -177,6 +186,10 @@ sub onRemove
 
     $serviceMod->save();
     $fwMod->save();
+
+    # Remove user defined conf dir
+    File::Path::rmtree( CONF_DIR );
+
 }
 
 # Method: menu
@@ -228,12 +241,18 @@ sub models
                                              directory   => "Options/$iface",
                                              interface   => $iface);
             push ( @models, $self->{optionsModel}->{$iface} );
-            $self->{advancedOptionsModel}->{$iface} =
-              new EBox::DHCP::Model::AdvancedOptions(
-                                                     gconfmodule => $self,
-                                                     directory   => "AdvancedOptions/$iface",
-                                                     interface   => $iface);
-            push ( @models, $self->{advancedOptionsModel}->{$iface} );
+            $self->{leaseTimesModel}->{$iface} =
+              new EBox::DHCP::Model::LeaseTimes(
+                                                gconfmodule => $self,
+                                                directory   => "LeaseTimes/$iface",
+                                                interface   => $iface);
+            push ( @models, $self->{leaseTimesModel}->{$iface} );
+            $self->{thinClientModel}->{$iface} =
+              new EBox::DHCP::Model::ThinClientOptions(
+                                                       gconfmodule => $self,
+                                                       directory   => "ThinClientOptions/$iface",
+                                                       interface   => $iface);
+            push ( @models, $self->{thinClientModel}->{$iface} );
             $self->{rangeInfoModel}->{$iface} =
               new EBox::DHCP::Model::RangeInfo(
                                                gconfmodule => $self,
@@ -315,6 +334,8 @@ sub composites
                    new EBox::DHCP::Composite::InterfaceConfiguration(interface => $iface));
             push ( @composites,
                    new EBox::DHCP::Composite::OptionsTab(interface => $iface));
+            push ( @composites,
+                   new EBox::DHCP::Composite::AdvancedOptions(interface => $iface));
         }
     }
     push ( @composites,
@@ -815,6 +836,63 @@ sub fixedAddresses # (interface)
         return $self->_getModel('fixedAddrModel', $iface)->printableValueRows();
 }
 
+# Group: Static or class methods
+
+# Method: ConfDir
+#
+#      Get the DHCP configuration directory where to store the user
+#      defined configuration files
+#
+# Parameters:
+#
+#      iface - String the interface which the user configuration file
+#      is within
+#
+# Returns:
+#
+#      String - the configuration path
+#
+sub ConfDir
+{
+    my ($class, $iface) = @_;
+
+    # Create directory unless it already exists
+    unless ( -d CONF_DIR . $iface ) {
+        mkdir ( CONF_DIR . $iface, 0755 );
+    }
+    my $pluginDir = CONF_DIR . $iface . '/' . PLUGIN_CONF_SUBDIR;
+    unless ( -d $pluginDir ) {
+        mkdir ( $pluginDir, 0755 );
+    }
+    return CONF_DIR . "$iface/";
+}
+
+# Method: PluginConfDir
+#
+#      Get the DHCP plugin configuration directory where to store the user
+#      defined configuration files
+#
+# Parameters:
+#
+#      iface - String the interface which the user configuration file
+#      is within
+#
+# Returns:
+#
+#      String - the configuration path
+#
+sub PluginConfDir
+{
+    my ($class, $iface) = @_;
+
+    my $pluginDir = CONF_DIR . $iface . '/' . PLUGIN_CONF_SUBDIR;
+    unless ( -d $pluginDir ) {
+        mkdir ( $pluginDir, 0755 );
+    }
+    return $pluginDir;
+}
+
+
 # Group: Network observer implementations
 
 # Method: ifaceMethodChanged
@@ -1254,13 +1332,23 @@ sub _ifacesInfo
       if (defined($nameserver2) and $nameserver2 ne "") {
 	$iflist{$_}->{'nameserver2'} = $nameserver2;
       }
+      # Leased times
       my $defaultLeasedTime = $self->_leasedTime('default', $_);
       if (defined($defaultLeasedTime)) {
-        $iflist{$_}->{defaultLeasedTime} = $defaultLeasedTime;
+        $iflist{$_}->{'defaultLeasedTime'} = $defaultLeasedTime;
       }
       my $maxLeasedTime = $self->_leasedTime('max', $_);
       if (defined($maxLeasedTime)) {
-        $iflist{$_}->{maxLeasedTime} = $maxLeasedTime;
+        $iflist{$_}->{'maxLeasedTime'} = $maxLeasedTime;
+      }
+      # Thin client options
+      my $nextServer = $self->_thinClientOption('nextServer', $_);
+      if (defined($nextServer)) {
+        $iflist{$_}->{'nextServer'} = $nextServer;
+      }
+      my $filename = $self->_thinClientOption('filename', $_);
+      if (defined($filename)) {
+        $iflist{$_}->{'filename'} = $filename;
       }
     }
   }
@@ -1304,10 +1392,34 @@ sub _leasedTime # (which, iface)
 
     my ($self, $which, $iface) = @_;
 
-    my $advOptionsModel = $self->_getModel('advancedOptionsModel', $iface);
+    my $advOptionsModel = $self->_getModel('leaseTimesModel', $iface);
 
     my $fieldName = $which . '_leased_time';
     return $advOptionsModel->row()->{plainValueHash}->{$fieldName};
+
+}
+
+# Method: _thinClientOption
+#
+#    Get the thin client option (nextServer or filename) if defined
+#
+sub _thinClientOption # (option, iface)
+{
+
+    my ($self, $option, $iface) = @_;
+
+    my $thinClientModel = $self->_getModel('thinClientModel', $iface);
+
+    if ( $option eq 'filename' ) {
+        my $fileType = $thinClientModel->row()->{valueHash}->{filename};
+        if ( $fileType->exist() ) {
+            return $fileType->path();
+        } else {
+            return undef;
+        }
+    } else {
+        return $thinClientModel->nextServer();
+    }
 
 }
 
@@ -1363,7 +1475,7 @@ sub _removeDataModelsAttached
     my ($self, $iface) = @_;
 
     # RangeTable/Options/FixedAddressTable
-    foreach my $modelName (qw(OptionsModel RangeModel FixedAddrModel)) {
+    foreach my $modelName (qw(leaseTimesModel thinClientModel optionsModel rangeModel fixedAddrModel)) {
         my $model = $self->_getModel($modelName, $iface);
         if ( defined ( $model )) {
             $model->removeAll(1);

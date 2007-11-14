@@ -21,10 +21,17 @@
 
 % if(defined($info{'defaultLeasedTime'})) {
         default-lease-time <% $info{'defaultLeasedTime'} %>;
-% }               
+% }
 % if(defined($info{'maxLeasedTime'})) {
         max-lease-time <% $info{'maxLeasedTime'} %>;
-% }               
+% }
+
+% if(defined($info{'nextServer'})) {
+        next-server <% $info{'nextServer'} %>;
+% }
+% if(defined($info{'filename'})) {
+        filename "<% $info{'filename'} %>";
+% }
 
 % if (exists $info{'staticRoutes'} ) {
         <& staticRoutes.mas, routes => $info{'staticRoutes'}, defaultGw	=>  $info{'gateway'}   &>

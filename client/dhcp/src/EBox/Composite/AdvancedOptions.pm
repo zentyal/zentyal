@@ -13,13 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::DHCP::Composite::OptionsTab
+# Class: EBox::DHCP::Composite::AdvancedOptions
 #
-#   This class is used to manage dhcp server general options
-#   configuration on a given interface. It stores two models for
-#   simple options and advanced ones indexed by interface
+#   This class is used to manage advanced options from a dhcp
+#   server. It stores two models, the former is the LeaseTime model
+#   which stores the lease times configuration, and the latter the
+#   thin client model that stores the thin client configuration
 #
-package EBox::DHCP::Composite::OptionsTab;
+package EBox::DHCP::Composite::AdvancedOptions;
 
 use base 'EBox::Model::Composite';
 
@@ -34,7 +35,7 @@ use EBox::Global;
 
 # Constructor: new
 #
-#         Constructor for the options tab
+#         Constructor for the advanced options composite
 #
 #
 # Parameters:
@@ -46,7 +47,7 @@ use EBox::Global;
 #
 # Returns:
 #
-#       <EBox::DHCP::Composite::OptionsTab> - an options tab
+#       <EBox::DHCP::Composite::AdvancedOptions> - an options tab
 #        composite
 #
 sub new
@@ -109,12 +110,13 @@ sub _description
     my $description =
       {
        components      => [
-                           '/' . $dhcp->name() . '/Options/' . $self->{interface},
-                           '/' . $dhcp->name() . '/AdvancedOptions/' . $self->{interface},
+                           '/' . $dhcp->name() . '/LeaseTimes/' . $self->{interface},
+                           '/' . $dhcp->name() . '/ThinClientOptions/' . $self->{interface},
                           ],
-       layout          => 'tabbed',
-       name            => 'OptionsTab',
+       layout          => 'top-bottom',
+       name            => 'AdvancedOptions',
        compositeDomain => 'DHCP',
+       printableName   => __('Advanced options'),
       };
 
     return $description;

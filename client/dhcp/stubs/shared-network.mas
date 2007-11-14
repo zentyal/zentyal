@@ -4,8 +4,14 @@
 	@vifaces
 </%args>
 shared-network <% $iface %> {
+<& includes.mas,
+   iface => $iface
+&>
 <& subnet.mas, info => $ifaces{$iface} &>
 % foreach my $viface (@vifaces) {
+<& includes.mas,
+   iface => $viface
+&>
 <& subnet.mas, info => $ifaces{$viface} &>
 % }
 }
