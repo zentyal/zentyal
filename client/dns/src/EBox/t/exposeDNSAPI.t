@@ -101,7 +101,7 @@ ok ( $dnsMod->addAlias( '/foo.com/d',
      'Adding alias d3 to hostname d');
 
 lives_ok {
-    $dnsMod->changeAlias( '/foo.com/d/d3', alias => 'dd3');
+    $dnsMod->changeAlias( '/foo.com/d/d3', 'dd3');
 } 'Changing alias name from d3 to dd3';
 
 lives_ok {
@@ -113,7 +113,7 @@ throws_ok {
   } 'EBox::Exceptions::DataNotFound', 'Removing an inexistant alias dd3';
 
 lives_ok {
-    $dnsMod->setIP( '/foo.com/d', ipaddr => '192.168.4.4' );
+    $dnsMod->setIP( '/foo.com/d', '192.168.4.4' );
 } 'Setting a different mapping on hostname d';
 
 cmp_ok ( $dnsMod->getHostName('/foo.com/d')->{plainValueHash}->{ipaddr}, 'eq',
