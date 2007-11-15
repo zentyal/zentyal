@@ -191,7 +191,19 @@ sub _enable
 
       my ($self) = @_;
 
-      $self->_confClient();
+      # Don't reenable a connection when it's already connected
+      if ( defined ( $self->{connection} )) {
+          if ( $self->{connection}->Connected() ) {
+              # Just send a presence send and return
+              $self->{connection}->PresenceSend();
+          } else {
+              # Destroy previous connection and reconnect
+              $self->{connection}->Disconnect();
+              $self->_confClient();
+          }
+      } else {
+          $self->_confClient();
+      }
 
   }
 

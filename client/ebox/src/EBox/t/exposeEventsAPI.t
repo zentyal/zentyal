@@ -40,28 +40,28 @@ lives_ok {
     $events->enableDispatcher('EBox::Event::Dispatcher::Jabber', 0);
 } 'Disabling jabber dispatcher';
 
-ok( ! $events->isEnableDispatcher('EBox::Event::Dispatcher::Jabber')->value(),
+ok( ! $events->isEnabledDispatcher('EBox::Event::Dispatcher::Jabber')->value(),
     'Disable jabber dispatcher done');
 
 lives_ok {
     $events->enableDispatcher('EBox::Event::Dispatcher::Log', 1);
 } 'Enabling log dispatcher';
 
-ok( $events->isEnableDispatcher('EBox::Event::Dispatcher::Log')->value(),
+ok( $events->isEnabledDispatcher('EBox::Event::Dispatcher::Log')->value(),
     'Enable log dispatcher done');
 
 lives_ok {
     $events->enableWatcher('EBox::Event::Watcher::Runit', 0);
 } 'Disabling runit watcher';
 
-ok( ! $events->isEnableWatcher('EBox::Event::Watcher::Runit')->value(),
+ok( ! $events->isEnabledWatcher('EBox::Event::Watcher::Runit')->value(),
     'Disable runit watcher done');
 
 lives_ok {
     $events->enableWatcher('EBox::Event::Watcher::State', 1);
 } 'Enabling state watcher';
 
-ok( $events->isEnableWatcher('EBox::Event::Watcher::State')->value(),
+ok( $events->isEnabledWatcher('EBox::Event::Watcher::State')->value(),
     'Enable state watcher done');
 
 1;

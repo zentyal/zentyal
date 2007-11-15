@@ -428,7 +428,21 @@ sub _dispatchEventByDispatcher
 
       # Dispatch the event
       foreach my $dispatcher (@requestedDispatchers) {
-          $dispatcher->send($event);
+          try {
+              $dispatcher->enable();
+              $dispatcher->send($event);
+          } catch EBox::Exceptions::External with {
+              EBox::warn($dispatcher->name() . ' is not enabled to send messages');
+              # TODO: Disable dispatcher since it's not enabled to
+              # send events
+              eval { require 'EBox::Global'};
+              my $events = EBox::Global->modInstance('events');
+              # Disable the model
+              $events->enableDispatcher( ref ( $dispatcher ), 0);
+              $events->configureDispatcherModel()->setMessage(
+                         __x('Dispatcher {name} disabled since it is not able to '
+                             . 'send events', name => $dispatcher->name()));
+          };
       }
 
   }
