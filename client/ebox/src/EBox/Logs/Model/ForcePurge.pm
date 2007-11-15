@@ -15,12 +15,14 @@
 
 # Class: EBox::Logs::Model::ForcePurge
 #
-#       Form model to purge a selected kind of log from a fixed date
+#       Form model to purge a selected kind of log from a fixed
+#       date. This model inherits from <EBox::Model::DataForm::Action>
+#       since no data is required to be stored.
 #
 
 package EBox::Logs::Model::ForcePurge;
 
-use base 'EBox::Model::DataForm';
+use base 'EBox::Model::DataForm::Action';
 
 use strict;
 use warnings;
@@ -60,21 +62,21 @@ sub new
       return $self;
   }
 
-# Method: setRow
+# Method: formSubmitted
 #
 # Overrides:
 #
-#      <EBox::Model::DataTable::setRow>
+#      <EBox::Model::DataForm::formSubmitted>
 #
-#
-sub setRow
-  {
-    my ($self, $force, %params) = @_;
-  my $lifeTime = $params{lifeTime};
+sub formSubmitted
+{
+    my ($self, $row, $force) = @_;
 
-  my $logs = EBox::Global->modInstance('logs');
+    my $lifeTime = $row->{plainValueHash}->{lifeTime};
 
-  $logs->forcePurge($lifeTime);
+    my $logs = EBox::Global->modInstance('logs');
+    $logs->forcePurge($lifeTime);
+
 }
 
 # Group: Protected methods
@@ -102,12 +104,13 @@ sub _table
         );
 
       my $dataForm = {
-                      tableName          => 'ForcePurge',
-                      printableTableName => __('Force log purge'),
-                      modelDomain        => 'Logs',
-                      defaultActions     => [ 'editField', 'changeView' ],
-                      tableDescription   => \@tableDesc,
-                      class              => 'dataForm',
+                      tableName           => 'ForcePurge',
+                      printableTableName  => __('Force log purge'),
+                      modelDomain         => 'Logs',
+                      defaultActions      => [ 'editField', 'changeView' ],
+                      printableActionName => __('Purge'),
+                      tableDescription    => \@tableDesc,
+                      class               => 'dataForm',
                      };
 
       return $dataForm;

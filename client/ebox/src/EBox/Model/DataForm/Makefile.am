@@ -3,7 +3,7 @@ SUBDIRS = t
 
 perldir = @PERLPATH@/EBox/Model/DataForm
 
-mods = ReadOnly.pm
+mods = Action.pm ReadOnly.pm
 
 nobase_perl_DATA = $(mods)
 

@@ -291,27 +291,22 @@ sub setRow
 
       my ($self, $force, %params) = @_;
 
-      # Check cached row id
-      if ( $self->_hasRow() ) {
-          $self->validateRow('update', @_);
-          # We can only set those types which have setters
-          my @newValues = @{$self->setterTypes()};
+      $self->validateRow('update', \%params);
+      # We can only set those types which have setters
+      my @newValues = @{$self->setterTypes()};
 
-          my $changedData;
-          for (my $i = 0; $i < @newValues ; $i++) {
-              my $newData = clone($newValues[$i]);
-              $newData->setMemValue(\%params);
+      my $changedData;
+      for (my $i = 0; $i < @newValues ; $i++) {
+          my $newData = clone($newValues[$i]);
+          $newData->setMemValue(\%params);
 
-              $changedData->{$newData->fieldName()} = $newData;
-          }
-
-          $self->_setTypedRow( $changedData,
-                               force => $force,
-                               readOnly => $params{'readOnly'});
-      } else {
-          # Add a new one
-          $self->_addRow(%params);
+          $changedData->{$newData->fieldName()} = $newData;
       }
+
+      $self->setTypedRow( '',
+                          $changedData,
+                          force => $force,
+                          readOnly => $params{'readOnly'});
 
   }
 
@@ -562,6 +557,26 @@ sub formSubmitted
   {
 
   }
+
+# Method: printableActionName
+#
+#      Get the i18ned action name for the form.
+#
+# Returns:
+#
+#      String - the i18ned action name. Default value: 'Change'
+#
+sub printableActionName
+{
+    my ($self) = @_;
+
+    unless (defined ( $self->table()->{'printableActionName'})) {
+        $self->table()->{'printableActionName'} = __('Change');
+    }
+
+    return $self->table()->{'printableActionName'};
+
+}
 
 # Method: AUTOLOAD
 #
