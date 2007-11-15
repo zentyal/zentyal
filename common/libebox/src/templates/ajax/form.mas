@@ -76,7 +76,7 @@
 <td id="<% 'buttons_' . $model->modelName() %>"
   <& /input/submit.mas,
      name => 'change',
-     value => __('Change'),
+     value => $model->printableActionName(),
      onclick => $model->changeRowJS(0, 0) . '; return false',
   &>
 </td>
