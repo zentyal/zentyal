@@ -1600,6 +1600,7 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
     if ( $htbBuilder->isa('EBox::TrafficShaping::TreeBuilder::HTB')){
       my $src = undef;
       my $srcObj = undef;
+      my $objs = $self->{'objects'}; 
       if ( ( defined ( $rule_ref->{source} )
 	     and $rule_ref->{source} ne '' ) and
 	   ( $rule_ref->{source}->isa('EBox::Types::IPAddr') or
@@ -1613,6 +1614,7 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
 	# then attaching filters according to members of this object
 	$src = undef;
 	$srcObj =  $rule_ref->{source};
+	return unless (@{$objs->objectAddresses($srcObj)}); 
       }
 
       # The same related to destination
@@ -1629,11 +1631,12 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
 	# then attaching filters according to members of this object
 	$dst = undef;
 	$dstObj =  $rule_ref->{destination} ;
+	return unless (@{$objs->objectAddresses($dstObj)}); 
       }
 
       # Set a filter with objects if src or dst are not objects
       my $service = undef;
-      $service = $rule_ref->{service} unless ( $srcObj or $dstObj );
+      $service = $rule_ref->{service};# unless ( $srcObj or $dstObj );
 
       $htbBuilder->buildRule(
 			     service        => $service,
