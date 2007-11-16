@@ -59,7 +59,6 @@ use HTML::Mason;
 use Error qw(:try);
 use Perl6::Junction qw(any);
 use File::Path;
-use List::Util;
 
 # Module local conf stuff
 use constant DHCPCONFFILE => "/etc/dhcp3/dhcpd.conf";
@@ -69,7 +68,7 @@ use constant TFTP_SERVICE => "tftpd-hpa";
 
 use constant CONF_DIR => EBox::Config::conf() . 'dhcp/';
 use constant PLUGIN_CONF_SUBDIR => 'plugins/';
-use constant TFTPD_CONF_DIR => CONF_DIR . 'tftpboot';
+use constant TFTPD_CONF_DIR => '/var/lib/tftpboot';
 
 # Group: Public and protected methods
 
@@ -166,9 +165,11 @@ sub onInstall
     mkdir (CONF_DIR, 0755);
 
     _addDHCPService();
+    _addTFTPService();
 
     my $fw = EBox::Global->modInstance('firewall');
     $fw->setInternalService('dhcp', 'accept');
+    $fw->setInternalService('tftp', 'accept');
     $fw->save();
 }
 
@@ -186,7 +187,13 @@ sub onRemove
     if ($serviceMod->serviceExists('name' => 'dhcp')) {
         $serviceMod->removeService('name' => 'dhcp');
     } else {
-        EBox::info("Not removing dhcp services as it already exists");
+        EBox::info("Not removing dhcp service as it already removed");
+    }
+
+    if ($serviceMod->serviceExists('name' => 'tftp')) {
+        $serviceMod->removeService('name' => 'tftp');
+    } else {
+        EBox::info("Not removing tftp service as it already removed");
     }
 
     $serviceMod->save();
@@ -1285,18 +1292,6 @@ sub _doDaemon
 	} elsif (not $self->service and EBox::Service::running(DHCP_SERVICE)) {
 		EBox::Service::manage(DHCP_SERVICE,'stop');
 	}
-        # tftpd-hpa server
-        if ( $self->_areThereThinClientOptions() ) {
-            if ( $self->service() and EBox::Service::running(TFTP_SERVICE)) {
-                EBox::Service::manage(TFTP_SERVICE, 'restart');
-            } elsif ( $self->service() ) {
-                EBox::Service::manage(TFTP_SERVICE, 'start');
-            } elsif (not $self->service and EBox::Service::running(TFTP_SERVICE)) {
-		EBox::Service::manage(TFTP_SERVICE, 'stop');
-            }
-        } else {
-            EBox::Service::manage(TFTP_SERVICE, 'stop');
-        }
 }
 
 # Method: _setDHCPConf
@@ -1532,6 +1527,7 @@ sub _addDHCPService
 
 	if (not $serviceMod->serviceExists('name' => 'dhcp')) {
 		 $serviceMod->addService('name' => 'dhcp',
+                        'description' => __('Dynamic Host Configuration Protocol'),
 			'protocol' => 'udp',
 			'sourcePort' => 'any',
 			'destinationPort' => 67,
@@ -1540,6 +1536,7 @@ sub _addDHCPService
 
 	} else {
 		 $serviceMod->setService('name' => 'dhcp',
+                        'description' => __('Dynamic Host Configuration Protocol'),
 			'protocol' => 'udp',
 			'sourcePort' => 'any',
 			'destinationPort' => 67,
@@ -1548,6 +1545,36 @@ sub _addDHCPService
 
 		EBox::info("Not adding dhcp services as it already exists");
 	}
+
+    $serviceMod->save();
+
+}
+
+# Add tftp service on ebox-services module
+sub _addTFTPService
+{
+    my $serviceMod = EBox::Global->modInstance('services');
+
+    if (not $serviceMod->serviceExists('name' => 'tftp')) {
+        $serviceMod->addService('name' => 'tftp',
+                                'description' => __('Trivial File Transfer Protocol'),
+                                'protocol' => 'udp',
+                                'sourcePort' => 'any',
+                                'destinationPort' => 69,
+                                'internal' => 1,
+                                'readOnly' => 1);
+
+    } else {
+        $serviceMod->setService('name' => 'tftp',
+                                'description' => __('Trivial File Transfer Protocol'),
+                                'protocol' => 'udp',
+                                'sourcePort' => 'any',
+                                'destinationPort' => 69,
+                                'internal' => 1,
+                                'readOnly' => 1);
+
+        EBox::info("Not adding tftp service as it already exists");
+    }
 
     $serviceMod->save();
 
