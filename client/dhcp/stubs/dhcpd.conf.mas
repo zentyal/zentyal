@@ -1,6 +1,19 @@
+<%doc>
+   This stub writes the DHCP server configuration file
+
+Parameters:
+
+    ifaces - Hash
+    real_ifaces - Hash
+    thinClientOption - Boolean indicating whether the thin client
+    options have been used or not
+    dnsone - String the default primary DNS server
+    dnstwo - String the default secondary DNS server
+</%doc>
 <%args>
 	%ifaces
 	%real_ifaces
+        $thinClientOption => 0
 	$dnsone => ""
 	$dnstwo => ""
 </%args>
@@ -22,8 +35,15 @@ option domain-name-servers <% $dnsone %>\
 %		}
 %	}
 
+% if($thinClientOption) {
+allow booting;
+allow bootp;
+% }
+
 default-lease-time 1800;
 max-lease-time 7200;
+
+
 
 
 %	foreach my $iface (keys(%real_ifaces)) {
