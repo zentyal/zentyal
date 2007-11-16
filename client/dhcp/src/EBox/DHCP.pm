@@ -59,14 +59,17 @@ use HTML::Mason;
 use Error qw(:try);
 use Perl6::Junction qw(any);
 use File::Path;
+use List::Util;
 
 # Module local conf stuff
 use constant DHCPCONFFILE => "/etc/dhcp3/dhcpd.conf";
 use constant PIDFILE => "/var/run/dhcpd.pid";
-use constant SERVICE => "dhcpd3";
+use constant DHCP_SERVICE => "dhcpd3";
+use constant TFTP_SERVICE => "tftpd-hpa";
 
 use constant CONF_DIR => EBox::Config::conf() . 'dhcp/';
 use constant PLUGIN_CONF_SUBDIR => 'plugins/';
+use constant TFTPD_CONF_DIR => CONF_DIR . 'tftpboot';
 
 # Group: Public and protected methods
 
@@ -112,7 +115,8 @@ sub domain
 #
 sub _stopService
 {
-	EBox::Service::manage(SERVICE,'stop');
+	EBox::Service::manage(DHCP_SERVICE,'stop');
+        EBox::Service::manage(TFTP_SERVICE,'stop');
 }
 
 # Method: _regenConfig
@@ -127,6 +131,7 @@ sub _regenConfig
 {
     my ($self) = @_;
     $self->_setDHCPConf();
+    $self->_setTFTPDConf();
     $self->_doDaemon();
 }
 
@@ -145,7 +150,7 @@ sub statusSummary
 {
 	my $self = shift;
 	return new EBox::Summary::Status('dhcp', 'DHCP',
-		EBox::Service::running(SERVICE), $self->service);
+		EBox::Service::running(DHCP_SERVICE), $self->service);
 }
 
 # Method: onInstall
@@ -867,6 +872,26 @@ sub ConfDir
     return CONF_DIR . "$iface/";
 }
 
+# Method: TftpdRootDir
+#
+#      Get the default Tftpd root directory to store the firmwares
+#      uploaded by our users
+#
+# Returns:
+#
+#      String - the tftpd root directory path
+#
+sub TftpdRootDir
+{
+    my ($class) = @_;
+
+    # Create directory unless it already exists
+    unless ( -d TFTPD_CONF_DIR ) {
+        mkdir ( TFTPD_CONF_DIR, 0755 );
+    }
+    return TFTPD_CONF_DIR;
+}
+
 # Method: PluginConfDir
 #
 #      Get the DHCP plugin configuration directory where to store the user
@@ -1242,18 +1267,36 @@ sub logHelper
 
 # Method: _doDaemon
 #
-#      Manage the dhcp3-server service
+#      Manage dchp-related services (dhcp3-server and tftpd-hpa)
+#
+# Parameters:
+#
+#      service - String the service to manage. Options: dhcp or tftp
 #
 sub _doDaemon
 {
 	my ($self) = @_;
-	if ($self->service and EBox::Service::running(SERVICE)) {
-		EBox::Service::manage(SERVICE,'restart');
+
+        # dhcp3-server
+	if ($self->service and EBox::Service::running(DHCP_SERVICE)) {
+		EBox::Service::manage(DHCP_SERVICE,'restart');
 	} elsif ($self->service) {
-		EBox::Service::manage(SERVICE,'start');
-	} elsif (not $self->service and EBox::Service::running(SERVICE)) {
-		EBox::Service::manage(SERVICE,'stop');
+		EBox::Service::manage(DHCP_SERVICE,'start');
+	} elsif (not $self->service and EBox::Service::running(DHCP_SERVICE)) {
+		EBox::Service::manage(DHCP_SERVICE,'stop');
 	}
+        # tftpd-hpa server
+        if ( $self->_areThereThinClientOptions() ) {
+            if ( $self->service() and EBox::Service::running(TFTP_SERVICE)) {
+                EBox::Service::manage(TFTP_SERVICE, 'restart');
+            } elsif ( $self->service() ) {
+                EBox::Service::manage(TFTP_SERVICE, 'start');
+            } elsif (not $self->service and EBox::Service::running(TFTP_SERVICE)) {
+		EBox::Service::manage(TFTP_SERVICE, 'stop');
+            }
+        } else {
+            EBox::Service::manage(TFTP_SERVICE, 'stop');
+        }
 }
 
 # Method: _setDHCPConf
@@ -1267,13 +1310,38 @@ sub _setDHCPConf
     my $net = EBox::Global->modInstance('network');
     my $staticRoutes_r =  $self->staticRoutes();
 
+    my $ifacesInfo = $self->_ifacesInfo($staticRoutes_r);
     my @params = ();
     push @params, ('dnsone' => $net->nameserverOne());
     push @params, ('dnstwo' => $net->nameserverTwo());
-    push @params, ('ifaces' => $self->_ifacesInfo($staticRoutes_r));
+    push @params, ('thinClientOption' =>
+                   $self->_areThereThinClientOptions($ifacesInfo));
+    push @params, ('ifaces' => $ifacesInfo);
     push @params, ('real_ifaces' => $self->_realIfaces());
 
     $self->writeConfFile(DHCPCONFFILE, "dhcp/dhcpd.conf.mas", \@params);
+}
+
+# Method: _setTFTPDConf
+#
+#     Set the proper files on the TFTPD root dir
+#
+sub _setTFTPDConf
+{
+    my ($self) = @_;
+
+    if ( $self->areThereThinClientOptions() ) {
+        foreach my $iface ( keys %{$self->{thinClientModel}} ) {
+            my $model = $self->{thinClientModel}->{$iface};
+            my $fileType = $model->row()->{valueHash}->{filename};
+            my $linkPath = EBox::DHCP::TftpdRootDir() . $iface
+              . '_firmware';
+            unlink ( $linkPath );
+            if ( $fileType->exist()) {
+                symlink ( $fileType->path(), $linkPath );
+            }
+        }
+    }
 }
 
 # Method: _ifacesInfo
@@ -1383,6 +1451,40 @@ sub _realIfaces
   return \%realifs;
 }
 
+# Method: _areThereThinClientOptions
+#
+#    Check if there are thin client options in order to allow DHCP
+#    server acting as a boot server by setting these options on the
+#    configuration file
+#
+# Parameters:
+#
+#    ifacesInfo - hash ref every static interface is the key and the
+#    value contains every single parameter required to be written on
+#    the configuration file
+#
+# Returns:
+#
+#    Boolean - true if there are thin client options in at least one
+#    iface, false otherwise
+#
+sub _areThereThinClientOptions
+{
+
+    my ($self, $ifacesInfo) = @_;
+
+    foreach my $iface (keys %{$ifacesInfo}) {
+        my $nextServer = $ifacesInfo->{$iface}->{'nextServer'};
+        my $fileName   = $ifacesInfo->{$iface}->{'filename'};
+        # Defined and non-zero strings
+        if ( $nextServer and $fileName ) {
+            return 1;
+        }
+    }
+    return 0;
+
+}
+
 # Method: _leasedTime
 #
 #    Get the leased time (default or maximum) in seconds if any
@@ -1413,7 +1515,8 @@ sub _thinClientOption # (option, iface)
     if ( $option eq 'filename' ) {
         my $fileType = $thinClientModel->row()->{valueHash}->{filename};
         if ( $fileType->exist() ) {
-            return $fileType->path();
+            # Write down the one stored in tftpd
+            return EBox::DHCP->TftpdRootDir() . $iface . '_firmware';
         } else {
             return undef;
         }
