@@ -1330,7 +1330,7 @@ sub _setTFTPDConf
 {
     my ($self) = @_;
 
-    if ( $self->areThereThinClientOptions() ) {
+    if ( $self->_areThereThinClientOptions() ) {
         foreach my $iface ( keys %{$self->{thinClientModel}} ) {
             my $model = $self->{thinClientModel}->{$iface};
             my $fileType = $model->row()->{valueHash}->{filename};
