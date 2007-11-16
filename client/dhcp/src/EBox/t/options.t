@@ -94,7 +94,7 @@ cmp_ok( $dhcp->defaultGateway('eth0'), 'eq', '10.0.0.1',
 
 lives_ok {
     $dhcp->setDefaultGateway('eth0', { ip => '10.0.0.3' });
-} 'Setting a IP address as gw using setDefaultGateway';
+} 'Setting an IP address as gw using setDefaultGateway';
 
 cmp_ok( $dhcp->defaultGateway('eth0'), 'eq', '10.0.0.3',
         'The set was done correctly');
