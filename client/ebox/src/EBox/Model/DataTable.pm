@@ -1170,7 +1170,7 @@ sub setTypedRow
       my @setterTypes = @{$self->setterTypes()};
 
       my $changedData = { };
-      my $allData = $oldValues;
+      my $allData = $self->row($id)->{'valueHash'};
       my @changedData = ();
       foreach my $paramName (keys %{$paramsRef}) {
           unless ( exists ( $oldValues->{$paramName} )) {
