@@ -130,24 +130,14 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
+    if ( exists $changedFields->{filename} ) {
+        if ( $allFields->{nextServer}->selected() ne 'nextServerEBox' ) {
+            throw EBox::Exceptions::External(__('In order to upload firmware to boot '
+                                                . 'PCs to eBox, you need to set eBox '
+                                                . 'as next server'));
+        }
+    }
 }
-
-# Method: formSubmitted
-#
-#       When the form is submitted, the model must set up the jabber
-#       dispatcher client service and sets the output rule in the
-#       firewall
-#
-# Overrides:
-#
-#      <EBox::Model::DataForm::formSubmitted>
-#
-sub formSubmitted
-  {
-
-      my ($self, $oldRow) = @_;
-
-  }
 
 # Method: nextServer
 #
@@ -170,10 +160,38 @@ sub nextServer
     my $nextServerSelectedName = $nextServerType->selectedType();
     if ( $nextServerSelectedName eq 'nextServerNone' ) {
         return '';
+    } elsif ( $nextServerSelectedName eq 'nextServerEBox' ) {
+        my $netMod = EBox::Global->modInstance('network');
+        return $netMod->ifaceAddress($self->{interface});
     } else {
         return $nextServerType->printableValue();
     }
 
+}
+
+# Method: formSubmitted
+#
+#      Delete firmware when nextServer option is changed from
+#      nextServerEBox
+#
+# Overrides:
+#
+#      <EBox::Model::DataForm::formSubmitted>
+#
+sub formSubmitted
+{
+    my ($self, $oldRow) = @_;
+
+    if ( $oldRow->{valueHash}->{nextServer}->selected() eq 'nextServerEBox'
+         and $self->row()->{valueHash}->{nextServer}->selected() ne 'nextServerEBox') {
+        unlink($self->row()->{valueHash}->{nextServer}->path())
+          or throw EBox::Exceptions::Internal('Cannot unlink ' .
+                                              $self->row()->{valueHash}->{nextServer}->path()
+                                              . ": $!");
+        $self->setMessage(__x('Unlinked previous uploaded firmware since next server option'
+                             . 'has been changed from eBox to {option}',
+                             option => $self->row()->{valueHash}->{nextServer}->printableName()));
+    }
 }
 
 # Group: Protected methods
@@ -207,6 +225,9 @@ sub _table
                               subtypes      =>
                               [new EBox::Types::Union::Text(fieldName     => 'nextServerNone',
                                                             printableName => __('None'),
+                                                           ),
+                               new EBox::Types::Union::Text(fieldName     => 'nextServerEBox',
+                                                            printableName => __('eBox'),
                                                            ),
                                new EBox::Types::HostIP(fieldName     => 'nextServerIP',
                                                        printableName => __('IP address'),
