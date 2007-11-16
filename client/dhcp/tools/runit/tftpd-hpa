@@ -1,0 +1,4 @@
+#!/bin/sh
+exec 2>&1
+tftpdRootDir=$(perl -e 'use EBox::DHCP; print EBox::DHCP->TftpdRootDir();')
+exec /usr/sbin/in.tftpd -l -s $tftpdRootDir

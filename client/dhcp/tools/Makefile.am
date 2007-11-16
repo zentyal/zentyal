@@ -4,4 +4,5 @@ SUBDIRS = sqllog
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = runit/dhcpd3
+EXTRA_DIST = runit/dhcpd3 runit/dhcpd3.finish runit/tftpd-hpa \
+	runit/tftpd-hpa.finish

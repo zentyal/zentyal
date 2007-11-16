@@ -1,0 +1,2 @@
+#!/bin/sh
+exec ebox-runit-finisher dhcp tftpd-hpa
