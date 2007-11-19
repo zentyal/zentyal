@@ -1,9 +1,8 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = t
 
-perldir = @PERLPATH@/EBox/Report
+perldir = @PERLPATH@/EBox/Network/Report
 
-packages = DiskUsage.pm  DiskUsageProvider.pm RAID.pm 
+packages = NetworkUsage.pm
 
 nobase_perl_DATA = $(packages)
 

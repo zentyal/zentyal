@@ -2,7 +2,7 @@
 
 scriptsdir = @LIBDIR@/ebox
 
-scripts_SCRIPTS = ebox-loggerd ebox-kill-pid ebox-traffic-monitor ebox-traffic-monitor-logger
+scripts_SCRIPTS = ebox-loggerd ebox-kill-pid 
 
 MAINTAINERCLEANFILES = Makefile.in
 

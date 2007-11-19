@@ -1,6 +1,8 @@
 ## Process this file with automake to produce Makefile.in
+SUBDIRS = Report
 
 perldir = @PERLPATH@/EBox/Network
+
 
 nobase_perl_DATA = FirstTime.pm
 
