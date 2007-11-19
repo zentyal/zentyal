@@ -846,24 +846,24 @@ sub ruleModel # (iface)
 #      String - shaper chain's name
 #
 sub ShaperChain
-  {
+{
 
     my ($class, $iface, $where) = @_;
 
     $where = 'egress' unless defined ( $where );
 
     if ( $where eq 'egress' ) {
-      return 'EBOX-SHAPER-OUT-' . $iface;
-    }
-    elsif ( $where eq 'ingress' ) {
-      return 'EBOX-SHAPER-IN-' . $iface;
-    }
-    elsif ( $where eq 'forward' ) {
-      # For MAC addresses and internal interfaces
-      return 'EBOX-SHAPER-FORWARD-' . $iface;
+        #return 'EBOX-SHAPER-OUT-' . $iface;
+        # Doing in PREROUTING to avoid NAT
+        return 'EBOX-SHAPER-IN-' . $iface;
+    } elsif ( $where eq 'ingress' ) {
+        return 'EBOX-SHAPER-IN-' . $iface;
+    } elsif ( $where eq 'forward' ) {
+        # For MAC addresses and internal interfaces
+        return 'EBOX-SHAPER-FORWARD-' . $iface;
     }
 
-  }
+}
 
 ###################################
 # Network Observer Implementation
@@ -1591,105 +1591,108 @@ sub _buildRule # ($iface, $rule_ref, $test)
 # Throws Internal exception if not normal builder
 # is asked to build the rule
 sub _buildANewRule # ($iface, $rule_ref, $test?)
-  {
+{
 
     my ($self, $iface, $rule_ref, $test) = @_;
 
     my $htbBuilder = $self->{builders}->{$iface};
 
-    if ( $htbBuilder->isa('EBox::TrafficShaping::TreeBuilder::HTB')){
-      my $src = undef;
-      my $srcObj = undef;
-      my $objs = $self->{'objects'}; 
-      if ( ( defined ( $rule_ref->{source} )
-	     and $rule_ref->{source} ne '' ) and
-	   ( $rule_ref->{source}->isa('EBox::Types::IPAddr') or
-	     $rule_ref->{source}->isa('EBox::Types::MACAddr'))
-	 ) {
-	$src = $rule_ref->{source};
-	$srcObj = undef;
-      }
-      else {
-	# If an object is provided no source is needed to set a rule but
-	# then attaching filters according to members of this object
-	$src = undef;
-	$srcObj =  $rule_ref->{source};
-	return unless (@{$objs->objectAddresses($srcObj)}); 
-      }
+    if ( $htbBuilder->isa('EBox::TrafficShaping::TreeBuilder::HTB')) {
+        my $src = undef;
+        my $srcObj = undef;
+        my $objs = $self->{'objects'}; 
+        if ( ( defined ( $rule_ref->{source} )
+               and $rule_ref->{source} ne '' ) and
+             ( $rule_ref->{source}->isa('EBox::Types::IPAddr') or
+               $rule_ref->{source}->isa('EBox::Types::MACAddr'))
+           ) {
+            $src = $rule_ref->{source};
+            $srcObj = undef;
+        } elsif ( ( not defined ( $rule_ref->{source} ))
+                  or $rule_ref->{source}->isa('EBox::Types::Union::Text')) {
+            $src = undef;
+            $srcObj = undef;
+        } else {
+            # If an object is provided no source is needed to set a rule but
+            # then attaching filters according to members of this object
+            $src = undef;
+            $srcObj =  $rule_ref->{source};
+            return unless (@{$objs->objectAddresses($srcObj)}); 
+        }
 
-      # The same related to destination
-      my $dst = undef;
-      my $dstObj = undef;
-      if ( ( defined ( $rule_ref->{destination} ) and
-	     $rule_ref->{destination} ne '' ) and
-	   ( $rule_ref->{destination}->isa('EBox::Types::IPAddr'))) {
-	$dst = $rule_ref->{destination};
-	$dstObj = undef;
-      }
-      else {
-	# If an object is provided no source is needed to set a rule but
-	# then attaching filters according to members of this object
-	$dst = undef;
-	$dstObj =  $rule_ref->{destination} ;
-	return unless (@{$objs->objectAddresses($dstObj)}); 
-      }
+        # The same related to destination
+        my $dst = undef;
+        my $dstObj = undef;
+        if ( ( defined ( $rule_ref->{destination} ) and
+               $rule_ref->{destination} ne '' ) and
+             ( $rule_ref->{destination}->isa('EBox::Types::IPAddr'))) {
+            $dst = $rule_ref->{destination};
+            $dstObj = undef;
+        } elsif ( not defined ( $rule_ref->{destination} )
+                  or ($rule_ref->{destination}->isa('EBox::Types::Union::Text'))) {
+            $dst = undef;
+            $dstObj = undef;
+        } else {
+            # If an object is provided no source is needed to set a rule but
+            # then attaching filters according to members of this object
+            $dst = undef;
+            $dstObj =  $rule_ref->{destination} ;
+            return unless (@{$objs->objectAddresses($dstObj)}); 
+        }
 
-      # Set a filter with objects if src or dst are not objects
-      my $service = undef;
-      $service = $rule_ref->{service};# unless ( $srcObj or $dstObj );
+        # Set a filter with objects if src or dst are not objects
+        my $service = undef;
+        $service = $rule_ref->{service}; # unless ( $srcObj or $dstObj );
 
-      $htbBuilder->buildRule(
-			     service        => $service,
-			     source         => $src,
-			     destination    => $dst,
-			     guaranteedRate => $rule_ref->{guaranteedRate},
-			     limitedRate    => $rule_ref->{limitedRate},
-			     priority       => $rule_ref->{priority},
-			     identifier     => $rule_ref->{identifier},
-			     testing        => $test,
-			    );
-      # If an object is provided, attach filters to every member to the
-      # flow object id
+        $htbBuilder->buildRule(
+                               service        => $service,
+                               source         => $src,
+                               destination    => $dst,
+                               guaranteedRate => $rule_ref->{guaranteedRate},
+                               limitedRate    => $rule_ref->{limitedRate},
+                               priority       => $rule_ref->{priority},
+                               identifier     => $rule_ref->{identifier},
+                               testing        => $test,
+                              );
+        # If an object is provided, attach filters to every member to the
+        # flow object id
 
-      # Only if not testing
-      if ( not $test ) {
-	if ( $srcObj and not $dstObj) {
-	  $self->_buildObjMembers( treeBuilder  => $htbBuilder,
-				   what         => 'source',
-				   objectName   => $rule_ref->{source},
-				   ruleRelated  => $rule_ref->{identifier},
-				   serviceAssoc => $rule_ref->{service},
-				   where        => $rule_ref->{destination},
-				   rulePriority => $rule_ref->{priority},
-				 );
-	}
-	elsif ( $dstObj and not $srcObj ) {
-	  $self->_buildObjMembers(
-				  treeBuilder  => $htbBuilder,
-				  what         => 'destination',
-				  objectName   => $rule_ref->{destination},
-				  ruleRelated  => $rule_ref->{identifier},
-				  serviceAssoc => $rule_ref->{service},
-				  where        => $rule_ref->{source},
-				  rulePriority => $rule_ref->{priority},
-				 );
-	}
-	elsif ( $dstObj and $srcObj ) {
-	  # We have to build whole station
-	  $self->_buildObjToObj( treeBuilder  => $htbBuilder,
-				 srcObject    => $rule_ref->{source},
-				 dstObject    => $rule_ref->{destination},
-				 ruleRelated  => $rule_ref->{identifier},
-				 serviceAssoc => $rule_ref->{service},
-				 rulePriority => $rule_ref->{priority},
-			       );
-	}
-      }
+        # Only if not testing
+        if ( not $test ) {
+            if ( $srcObj and not $dstObj) {
+                $self->_buildObjMembers( treeBuilder  => $htbBuilder,
+                                         what         => 'source',
+                                         objectName   => $rule_ref->{source},
+                                         ruleRelated  => $rule_ref->{identifier},
+                                         serviceAssoc => $rule_ref->{service},
+                                         where        => $rule_ref->{destination},
+                                         rulePriority => $rule_ref->{priority},
+                                       );
+            } elsif ( $dstObj and not $srcObj ) {
+                $self->_buildObjMembers(
+                                        treeBuilder  => $htbBuilder,
+                                        what         => 'destination',
+                                        objectName   => $rule_ref->{destination},
+                                        ruleRelated  => $rule_ref->{identifier},
+                                        serviceAssoc => $rule_ref->{service},
+                                        where        => $rule_ref->{source},
+                                        rulePriority => $rule_ref->{priority},
+                                       );
+            } elsif ( $dstObj and $srcObj ) {
+                # We have to build whole station
+                $self->_buildObjToObj( treeBuilder  => $htbBuilder,
+                                       srcObject    => $rule_ref->{source},
+                                       dstObject    => $rule_ref->{destination},
+                                       ruleRelated  => $rule_ref->{identifier},
+                                       serviceAssoc => $rule_ref->{service},
+                                       rulePriority => $rule_ref->{priority},
+                                     );
+            }
+        }
 
-    }
-    else {
-      throw EBox::Exceptions::Internal('Tree builder which is not HTB ' .
-				       'which actually builds the rules');
+    } else {
+        throw EBox::Exceptions::Internal('Tree builder which is not HTB ' .
+                                         'which actually builds the rules');
     }
 
 }
