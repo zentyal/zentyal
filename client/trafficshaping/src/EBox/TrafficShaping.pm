@@ -260,7 +260,7 @@ sub _stopService
 
     $self->startUp();
 
-    my $ifaces_ref = $self->all_dirs_base('/ebox/modules/trafficshaping');
+    my $ifaces_ref = $self->all_dirs_base('');
 
     foreach my $iface (@{$ifaces_ref}) {
       # Cleaning iptables
