@@ -230,7 +230,7 @@ sub models
     my ($self) = @_;
 
     my @models;
-    my $net = EBox::Global->modInstance('network');
+   my $net = EBox::Global->modInstance('network');
     foreach my $iface (@{$net->allIfaces()}) {
         if ( $net->ifaceMethod($iface) eq 'static' ) {
             # Create models
@@ -1323,20 +1323,6 @@ sub _setDHCPConf
 #
 sub _setTFTPDConf
 {
-    my ($self) = @_;
-
-    if ( $self->_areThereThinClientOptions() ) {
-        foreach my $iface ( keys %{$self->{thinClientModel}} ) {
-            my $model = $self->{thinClientModel}->{$iface};
-            my $fileType = $model->row()->{valueHash}->{filename};
-            my $linkPath = EBox::DHCP::TftpdRootDir() . $iface
-              . '_firmware';
-            unlink ( $linkPath );
-            if ( $fileType->exist()) {
-                symlink ( $fileType->path(), $linkPath );
-            }
-        }
-    }
 }
 
 # Method: _ifacesInfo
