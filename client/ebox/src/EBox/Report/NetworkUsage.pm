@@ -10,6 +10,10 @@ use EBox::Exceptions::Internal;
 
 use Params::Validate qw(validate);
 
+use constant SRC_COLOUR      => '0xFF0000';
+use constant SERVICE_COLOUR =>  '0X00FF00';
+use constant SRC_AND_SERVICE_COLOUR => '0x0000FF';
+
 sub addBps
 {
   my %params = @_;
@@ -64,6 +68,8 @@ sub _addBpsToRRD
 {
   my ($rrd, $bps) = @_;
 
+  _createRRDIfNotExists($rrd);
+
   RRDs::update($rrd, "N:$bps");
   my $err = RRDs::error;
   if ( $err) {
@@ -82,7 +88,7 @@ sub srcRRD
 {
   my ($src) = @_;
   my $rrd =  _rrdDir() . $src . '.rrd';
-  _createRRDIfNotExists($rrd);
+
   return $rrd;
 }
 
@@ -90,7 +96,6 @@ sub serviceRRD
 {
   my ($service) = @_;
   my $rrd =  _rrdDir() . $service . '.rrd';
-  _createRRDIfNotExists($rrd);
   return $rrd;
 }
 
@@ -99,7 +104,6 @@ sub srcAndServiceRRD
 {
   my ($src, $service) = @_;
   my $rrd =  _rrdDir() . "$src-$service.rrd";
-  _createRRDIfNotExists($rrd);
   return $rrd;
 }
 
@@ -200,5 +204,162 @@ sub graph
     throw EBox::Exceptions::Internal("rrdgraph error: $error");
   }
 }
+
+
+
+sub srcGraph
+{
+  my (%params) = @_;
+
+  my $src = delete $params{src};
+  my $rrd = srcRRD($src);
+  if (not -f $rrd) {
+    throw EBox::Exceptions::External(
+				     'Traffic data not found for source {src}',
+				     src => $src,
+				    );
+  }
+
+  my $dataset = [
+		 _srcDatasetElement($src, $rrd),
+		];
+
+
+  my $title =__x('Network traffic from {src}', src => $src);
+
+  graph(
+	dataset => $dataset,
+	title   => $title,
+	%params,
+       );
+}
+
+sub serviceGraph
+{
+  my (%params) = @_;
+
+  my $service = delete $params{service};
+  my $rrd = serviceRRD($service);
+  if (not -f $rrd) {
+    throw EBox::Exceptions::External(
+				     'Traffic data not found for service {service}',
+				     service => $service,
+				    );
+  }
+
+  my $dataset = [
+		 _serviceDatasetElement($service, $rrd),
+		];
+
+
+  my $title =__x('Network traffic for {service}', service => $service);
+
+  graph(
+	dataset => $dataset,
+	title   => $title,
+	%params,
+     );
+}
+
+sub srcAndServiceGraph
+{
+  my (%params) = @_;
+
+  my $src     = delete $params{src};
+  my $service = delete $params{service};
+
+  my $srcRRD = srcRRD($src);
+  if (not -f $srcRRD) {
+    throw EBox::Exceptions::External(
+				     'Traffic data not found for source {src}',
+				     src => $src,
+				    );
+  }
+
+  my $serviceRRD  = serviceRRD($service);  
+  if (not -f $serviceRRD) {
+    throw EBox::Exceptions::External(
+				     'Traffic data not found for service {service}',
+				     service => $service,
+				    );
+  }
+
+  my $srcAndServiceRRD = srcAndServiceRRD($src, $service);
+  if (not -f $srcAndServiceRRD) {
+    throw EBox::Exceptions::External(
+				     'Traffic data not found for source {src} and service {service}',
+				     src     => $src,
+				     service => $service,
+				    );
+  }
+
+  my $dataset = [
+		 _srcAndServiceDatasetElement($src, $service, $srcAndServiceRRD),
+		 _srcDatasetElement($src, $srcRRD),
+		 _serviceDatasetElement($service, $serviceRRD),
+		];
+
+
+  my $title =__x('Network traffic from source {src} and for service {service}', 
+		 src     => $src,
+		 service => $service,
+		);
+
+  graph(
+	dataset => $dataset,
+	title   => $title,
+	%params,
+     );
+}
+
+
+sub _srcDatasetElement
+{
+  my ($src, $rrd) = @_;
+
+  my $legend = __x("Traffic rate from {src}", src => $src);
+
+  my $ds = {
+	  rrd => $rrd,
+	  legend => $legend,
+	  colour => SRC_COLOUR,
+	 };
+
+  return $ds;
+}
+
+sub _serviceDatasetElement
+{
+  my ($service, $rrd) = @_;
+
+  my $legend = __x("Traffic rate for {service}", service => $service);
+
+  my $ds = {
+	  rrd => $rrd,
+	  legend => $legend,
+	  colour => SERVICE_COLOUR,
+	 };
+
+  return $ds;
+}
+
+sub _srcAndServiceDatasetElement
+{
+  my ($src, $service, $rrd) = @_;
+
+  my $legend = __x("{Traffic rate from {src} for {service}", 
+		   src     => $src,
+		   service => $service,
+		  );
+
+  my $ds = {
+	  rrd => $rrd,
+	  legend => $legend,
+	  colour => SERVICE_COLOUR,
+	 };
+
+  return $ds;
+}
+
 
 1;
