@@ -207,17 +207,22 @@ sub objectMembers # (object)
 #
 # Returns:
 #
-#	array ref - containing an ip for each element
+#	array ref - containing an ip for each element, empty array if
+#	there are no members in the object
 #
 sub objectAddresses # (object)
 {
 	my ($self, $id) = @_;
-	
+
 	unless (defined($id)) {
 		throw EBox::Exceptions::MissingArgument("id");
 	}
-	
-	my @ips = map { $_->{'ipaddr'} } @{$self->objectMembers($id)};
+
+        my $members = $self->objectMembers($id);
+
+        return [] unless defined ( $members );
+
+	my @ips = map { $_->{'ipaddr'} } @{$members};
 
 	return \@ips;
 }
