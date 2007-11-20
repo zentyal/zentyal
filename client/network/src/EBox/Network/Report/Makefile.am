@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/Network/Report
 
-packages = NetworkUsage.pm
+packages = BitRate.pm
 
 nobase_perl_DATA = $(packages)
 

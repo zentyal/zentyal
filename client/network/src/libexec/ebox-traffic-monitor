@@ -3,11 +3,14 @@
 use strict;
 use warnings;
 
+use EBox::Config;
+use POSIX qw(setsid);
+
 use constant {
   JNETTOP_PATH => '/usr/sbin/jnettop',
   JNETTOP_FORMAT => q{'$proto$,$src$,$srcport$,$dst$,$dstport$,$totalbps$'},
 
-  LOGGER_PATH =>  './ebox-traffic-monitor-logger',
+  LOGGER_PATH =>  EBox::Config::libexec() . 'ebox-traffic-monitor-logger',
 };
 
 
@@ -49,7 +52,8 @@ sub _jnettopCmd
   }
   
   my $time = $params{time};
-  $time or $time = 1;
+  defined $time or
+    die 'time parameter needed';
 
   $jnettopCmd .= " -t $time";
 
@@ -60,6 +64,26 @@ sub _jnettopCmd
   return $jnettopCmd;
 }
 
+sub _daemonize
+{
+  # try to detach usign a fork
+  chdir('/');
+#   open STDIN, '/dev/null'   or die "Can't read /dev/null: $!";
+#   open STDOUT, '>/dev/null' or die "Can't write to /dev/null: $!";
+#   open STDERR, '>/dev/null' or die "Can't write to /dev/null: $!";
+
+  my $pid = fork();
+  defined $pid or
+    die "cannot fork: $!";
+
+  if ($pid) {
+    # parent returns
+    exit;
+  }
+
+  # child becames a daemon
+  setsid() or die "Can't start new session: $!";
+}
 
 
 
@@ -68,7 +92,7 @@ _checkEnvironment();
 
 my %params = @ARGV;
 
-
+_daemonize();
 
 my $jnettopCmd = _jnettopCmd(%params);
 
@@ -80,7 +104,6 @@ open $LOGGER,  '|' . LOGGER_PATH or
 
 while (1) {
  my @output =  `$jnettopCmd`;
-  system $jnettopCmd;
   if ($? != 0) {
     die 'error executing jnettop';
   }

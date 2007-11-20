@@ -1,10 +1,11 @@
-package EBox::Report::NetworkUsage;
+package EBox::Network::Report::BitRate;
 #
 use strict;
 use warnings;
 
 use RRDs;
 
+use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 
@@ -13,6 +14,60 @@ use Params::Validate qw(validate);
 use constant SRC_COLOUR      => '0xFF0000';
 use constant SERVICE_COLOUR =>  '0X00FF00';
 use constant SRC_AND_SERVICE_COLOUR => '0x0000FF';
+
+use constant SERVICE_KEY => 'usage-monitor-active';
+
+
+use constant MONITOR_DAEMON => '/usr/lib/ebox/ebox-traffic-monitor';
+
+
+sub service
+{
+  my ($class) = @_;
+  my $network  = EBox::Global->modInstance('network');
+  return $network->get_bool(SERVICE_KEY)
+}
+
+
+sub setService
+{
+  my ($class, $newService) = @_;
+
+  my $network  = EBox::Global->modInstance('network');
+  my $oldService = $network->get_bool(SERVICE_KEY);
+  if ($newService xor $oldService) {
+    $network->set_bool(SERVICE_KEY, $newService);
+  }
+}
+
+
+
+sub running
+{
+  my ($class) = @_;
+
+  system 'pgrep ' . MONITOR_DAEMON;
+  return ($? == 0);
+}
+
+sub _regenConfig
+{
+  my ($class) = @_;
+
+  my $service = $class->service;
+  my $running = $class->running();
+
+  if ($running xor $service) {
+    if ($running) {
+      EBox::Sudo::root('pkill ' . MONITOR_DAEMON);
+    }
+    if ($service) {
+      EBox::Sudo::root(MONITOR_DAEMON . ' time 60');
+    }
+  }
+
+}
+
 
 sub addBps
 {

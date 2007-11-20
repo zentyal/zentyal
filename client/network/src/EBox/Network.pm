@@ -49,6 +49,9 @@ use File::Basename;
 use EBox::Network::Model::GatewayTable;
 use EBox::Network::Model::MultiGwRulesDataTable;
 
+use EBox::Network::Report::BitRate;
+
+
 sub _create
 {
 	my $class = shift;
@@ -1869,6 +1872,9 @@ sub _regenConfig
 	$self->_generateRoutes();
 	$self->_multigwRoutes();
 	$self->_cleanupVlanIfaces();
+
+	# regenerate config for the bit rate report
+	EBox::Network::Report::BitRate->_regenConfig();
 }
 
 sub stopService

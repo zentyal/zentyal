@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 use EBox;
-use EBox::Network::Report::NetworkUsage;
+use EBox::Network::Report::BitRate;
 
 use constant {
   RRDTOOL_PATH => '/usr/bin/rrdtool',
@@ -40,7 +40,7 @@ while (1) {
   # XXX remove debug statement in production code  
   print "$proto $src:$sport -> $dst:$dport  : $totalbps\n";
 
-  EBox::Network::Report::NetworkUsage::addBps(
+  EBox::Network::Report::BitRate::addBps(
 				     proto => $proto,
 				     src => $src,
 				     sport => $sport,
