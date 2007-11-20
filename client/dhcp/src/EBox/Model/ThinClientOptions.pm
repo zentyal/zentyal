@@ -210,15 +210,6 @@ sub _table
 
     my @tableDesc =
       (
-       new EBox::Types::File(
-                             fieldName     => 'filename',
-                             printableName => __('File name'),
-                             editable      => 1,
-                             optional      => 1,
-                             filePath      => EBox::DHCP->ConfDir($self->{interface}) . 'firmware',
-                             showFileWhenEditing => 1,
-                             allowDownload => 1,
-                            ),
        new EBox::Types::Union(
                               fieldName     => 'nextServer',
                               printableName => __('Next server'),
@@ -239,6 +230,15 @@ sub _table
                                                            editable      => 1,
                                                           ),
                               ]),
+       new EBox::Types::File(
+                             fieldName     => 'filename',
+                             printableName => __('File name'),
+                             editable      => 1,
+                             optional      => 1,
+                             filePath      => EBox::DHCP->ConfDir($self->{interface}) . 'firmware',
+                             showFileWhenEditing => 1,
+                             allowDownload => 1,
+                            ),
       );
 
     my $dataForm = {

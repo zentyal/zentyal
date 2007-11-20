@@ -1456,9 +1456,8 @@ sub _areThereThinClientOptions
 
     foreach my $iface (keys %{$ifacesInfo}) {
         my $nextServer = $ifacesInfo->{$iface}->{'nextServer'};
-        my $fileName   = $ifacesInfo->{$iface}->{'filename'};
         # Defined and non-zero strings
-        if ( $nextServer and $fileName ) {
+        if ( $nextServer ) {
             return 1;
         }
     }
