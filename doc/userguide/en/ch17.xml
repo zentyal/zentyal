@@ -171,8 +171,7 @@ nobind
 	as if they were under the same local network. Therefore we need
 	to set up the OpenVPN server as we do in
 	<xref linkend="sect-roadwarrior" />. However, just one change 
-	is needed setting on option <literal>
-	Pull routes from eBox clients</literal> to exchange routes
+	is needed setting on option <literal>Allow eBox-to-eBox tunnels</literal> to exchange routes
 	among eBox machines.
       </para>
       <para>

@@ -177,7 +177,7 @@ nobind
 	local. Por tanto, debemos configurar un servidor OpenVPN
 	como hacemos en <xref linkend="sect-roadwarrior" />. Sin
 	embargo, se necesita hacer un pequeño cambio habilitando
-	la opción <literal>Ofrecer rutas de clientes eBox</literal>
+	la opción <literal> Permitir túneles eBox a eBox</literal>
 	para intercambiar rutas entre máquinas eBox.
       </para>
       <para>
