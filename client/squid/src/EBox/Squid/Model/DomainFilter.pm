@@ -134,6 +134,8 @@ sub validateTypedRow
 {
   my ($self, $action, $params_r) = @_;
 
+  return unless (exists $params_r->{domain});
+
   my $domain = $params_r->{domain}->value();
 
   if ($domain =~ m{^www\.}) {
