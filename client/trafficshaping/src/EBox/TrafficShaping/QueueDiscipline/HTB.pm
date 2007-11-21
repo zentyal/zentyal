@@ -131,9 +131,11 @@ sub _scaleRate # (rate)
     my ($self, $rate) = @_;
 
     if ( $rate >= 2 ** 20 ) {
-        return ($rate / (2 ** 20 )) . 'gibit ';
+        # Round the given rate
+        return int(($rate / (2 ** 20 )) + .5) . 'gibit ';
     } elsif ( $rate >= 2 ** 10 ) {
-        return ($rate / (2 ** 10 )) . 'mibit ';
+        # Round the given rate
+        return int(($rate / (2 ** 10 )) + .5) . 'mibit ';
     } else {
         return $rate . 'Kibit '
     }
