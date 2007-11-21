@@ -115,7 +115,6 @@ sub domain
 sub _stopService
 {
 	EBox::Service::manage(DHCP_SERVICE,'stop');
-        EBox::Service::manage(TFTP_SERVICE,'stop');
 }
 
 # Method: _regenConfig
