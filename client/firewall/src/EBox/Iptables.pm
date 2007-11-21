@@ -168,10 +168,12 @@ sub setStructure
 	pf '-N iglobal';
 	pf '-N idrop';
 
+	pf '-N drop';
 
 	pf '-N ointernal';
 	pf '-N omodules';
 	pf '-N oglobal';
+	pf '-N odrop';
 
 	pf '-t nat -A PREROUTING -j premodules';
 
@@ -199,9 +201,11 @@ sub setStructure
 	pf '-A OUTPUT -j ointernal';
 	pf '-A OUTPUT -j omodules';
 	pf '-A OUTPUT -j oglobal';
+	pf '-A OUTPUT -j odrop';
 
-	pf "-A idrop -j " . $self->{deny};
-	pf "-A fdrop -j " . $self->{deny};
+	pf "-A idrop -j drop";
+	pf "-A odrop -j drop";
+	pf "-A fdrop -j drop";
 }
 
 # Method: setDNS
@@ -422,6 +426,8 @@ sub start
 		}
 	}
 
+	$self->_drop();
+
 	$self->_iexternal();
 	$self->_iglobal();
 
@@ -561,6 +567,8 @@ sub _fglobal
     
 }
 
+
+
 # Method: _ffwdrules
 #
 #	Add rules to ffwdrules, that is the chain to control access
@@ -574,5 +582,17 @@ sub _ffwdrules
         pf "$rule";
     }
     
+}
+
+# Method: _drop
+#
+#	Set up drop chain. Log rule and drop rule
+#	
+sub _drop
+{
+    my ($self) = @_;
+
+    pf '-I drop -j DROP';
+    pf '-I drop -j LOG --log-prefix "ebox-firewall "';
 }
 1;
