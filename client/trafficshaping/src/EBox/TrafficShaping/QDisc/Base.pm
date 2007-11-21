@@ -267,8 +267,8 @@ sub dumpTcCommands
     my $qDiscAttr = $self->{qdisc}->dumpTcAttr();
 
     my @tcCommands = ("qdisc add dev $iface parent "
-                      . sprintf("%X:%X ", $parentId{major},$parentId{minor})
-                      . sprintf("handle %X: ", $selfId{major})
+                      . sprintf("0x%X:0x%X ", $parentId{major},$parentId{minor})
+                      . sprintf("handle 0x%X: ", $selfId{major})
                       . "$qDiscAttr");
     # Now it's time for attached filters
     foreach my $filter (@{$self->{filters}}) {

@@ -296,8 +296,8 @@ sub dumpTcCommand
     $tcCommand .= "prio " . $self->{prio} . " "
       if ( $self->{prio} );
     $tcCommand .= "protocol " . $self->{protocol} . " ";
-    $tcCommand .= sprintf("handle %X ",  $self->getIdentifier());
-    $tcCommand .= sprintf("fw flowid %X:%X ",
+    $tcCommand .= sprintf("handle 0x%X ",  $self->getIdentifier());
+    $tcCommand .= sprintf("fw flowid 0x%X:0x%X ",
                           $self->{flowId}->{rootHandle},
                           $self->{flowId}->{classId});
 
