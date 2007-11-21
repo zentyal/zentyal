@@ -60,9 +60,10 @@ use Perl6::Junction qw(none);
 use EBox::Types::IPAddr;
 use EBox::Types::MACAddr;
 
-# We set rule identifiers among 256 and 512
+# We set rule identifiers among 0100 and FF00
 use constant MIN_ID_VALUE => 256; # 0x100
 use constant MAX_ID_VALUE => 65280; # 0xFF00
+use constant DEFAULT_CLASS_ID => 21;
 
 # Constructor for traffic shaping module
 sub _create
@@ -104,6 +105,12 @@ sub startUp
     $self->{'started'} = 1;
 }
 
+# Method: _regenConfig
+#
+# Overrides:
+#
+#       <EBox::Module::_regenConfig>
+#
 sub _regenConfig
   {
 
@@ -865,6 +872,19 @@ sub ShaperChain
 
 }
 
+# Method: MaxIdValue
+#
+#      Get the maximum identifier value allowed by the system
+#
+# Returns:
+#
+#      Int - the maximum allowed identifier
+#
+sub MaxIdValue
+{
+    return MAX_ID_VALUE;
+}
+
 ###################################
 # Network Observer Implementation
 ###################################
@@ -1462,16 +1482,14 @@ sub _createTree # (interface, type)
     elsif ( $type eq "HTB" ) {
       $self->{builders}->{$iface} = EBox::TrafficShaping::TreeBuilder::HTB->new($iface, $self);
       # Build it
-      # Get the rate from Network
-      my $linkRate;
-#     FIXME
-#     $linkRate = $self->{network}->ifaceUploadRate($iface)
+
       # Check if interface is internal or external to set a maximum rate
       # The maximum rate for an internal interface is the sum of the gateways associated
       # to the external interfaces
 
-      my $global = EBox::Global->getInstance();
-      my $network = $self->{'network'}; 
+      # Get the rate from Network
+      my $linkRate;
+      my $network = $self->{'network'};
       if ( $network->ifaceIsExternal($iface) ) {
 	$linkRate = $self->uploadRate($iface);
       }
@@ -1484,7 +1502,7 @@ sub _createTree # (interface, type)
 					     "bandwidth rate in order to do traffic shaping",
 					     iface => $iface));
       }
-      $self->{builders}->{$iface}->buildRoot(21, $linkRate);
+      $self->{builders}->{$iface}->buildRoot(DEFAULT_CLASS_ID, $linkRate);
     }
     elsif ( $type eq "HFSC" ) {
       ;
