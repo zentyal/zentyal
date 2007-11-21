@@ -155,9 +155,10 @@ sub dumpTcCommands
     my $qdiscTcCmds_ref = $self->{qdisc}->dumpTcCommands()
       if (defined ( $self->{qdisc} ));
 
-    my @tcCommands = ("class add dev $iface " .
-		      "parent $parentId{major}:$parentId{minor} " .
-		      "classid $selfId{major}:$selfId{minor} $qDiscAttr");
+    my @tcCommands = ("class add dev $iface "
+                      . sprintf("parent %X:%X ", $parentId{major},$parentId{minor})
+                      . sprintf("classid %X:%X ", $selfId{major},$selfId{minor})
+                      . "$qDiscAttr");
 
     push (@tcCommands, @{$qdiscTcCmds_ref})
       if (defined ($qdiscTcCmds_ref) );

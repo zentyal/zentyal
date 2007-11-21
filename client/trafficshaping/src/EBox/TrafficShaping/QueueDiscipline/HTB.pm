@@ -92,25 +92,25 @@ sub new
 #         String - options for the particular queue discipline
 #
 sub dumpTcAttr
-  {
+{
     my ($self) = @_;
 
-    my $attrs = "htb ";
-    $attrs .= "default " . $self->{defaultClass} . " "
+    my $attrs = 'htb ';
+    $attrs .= 'default ' . $self->{defaultClass} . ' '
       if defined( $self->{defaultClass} );
     if ( defined( $self->{rate} ) ) {
-      if ( $self->{rate} == 0 ) {
-	$attrs .= "rate 1bps ";
-      }
-      else {
-	$attrs .= "rate " . $self->{rate} . "kbit ";
-      }
+        if ( $self->{rate} == 0 ) {
+            $attrs .= 'rate 1bps ';
+        } else {
+            $attrs .= 'rate ' . $self->_scaleRate($self->{rate});
+        }
     }
-    $attrs .= "ceil " . $self->{ceil} . "kbit "
+
+    $attrs .= "ceil " . $self->_scaleRate($self->{ceil})
       if defined( $self->{ceil} ) and ($self->{ceil} > 0);
-    $attrs .= "burst " . $self->{burst} . "kb "
+    $attrs .= "burst " . $self->_scaleRate($self->{burst})
       if defined( $self->{burst} );
-    $attrs .= "cburst " . $self->{cburst} . "kb "
+    $attrs .= "cburst " . $self->_scaleRate($self->{cburst})
       if defined( $self->{cburst} );
     $attrs .= "r2q " . $self->{r2q} . " "
       if defined( $self->{r2q} );
@@ -119,6 +119,25 @@ sub dumpTcAttr
 
     return $attrs;
 
-  }
+}
+
+# Group: Private methods
+
+# Change the measure depending on the given value
+# rate parameter is in kbit/s
+sub _scaleRate # (rate)
+{
+
+    my ($self, $rate) = @_;
+
+    if ( $rate >= 2 ** 20 ) {
+        return ($rate / (2 ** 20 )) . 'gbit ';
+    } elsif ( $rate >= 2 ** 10 ) {
+        return ($rate / (2 ** 10 )) . 'mbit ';
+    } else {
+        return $rate . 'kbit '
+    }
+
+}
 
 1;

@@ -296,9 +296,10 @@ sub dumpTcCommand
     $tcCommand .= "prio " . $self->{prio} . " "
       if ( $self->{prio} );
     $tcCommand .= "protocol " . $self->{protocol} . " ";
-    $tcCommand .= "handle " . $self->getIdentifier() . " ";
-    $tcCommand .= "fw flowid " . $self->{flowId}->{rootHandle} .
-      ":" . $self->{flowId}->{classId} . " ";
+    $tcCommand .= sprintf("handle %X ",  $self->getIdentifier());
+    $tcCommand .= sprintf("fw flowid %X:%X ",
+                          $self->{flowId}->{rootHandle},
+                          $self->{flowId}->{classId});
 
     return $tcCommand;
 
@@ -323,6 +324,7 @@ sub dumpIptablesCommands
     my $mask = hex ( MARK_MASK );
     # Applying the mask
     my $mark = $self->{mark} & $mask;
+    $mark = sprintf("0x%X", $mark);
 #    my $protocol = $self->{fProtocol};
 
     # Set no port if protocol is all
@@ -369,37 +371,8 @@ sub dumpIptablesCommands
       }
 
       $ipTablesRule->setService($self->{service});
-
-
-#      my $leadingStr = "-t mangle -A $shaperChain ";
-#      my $trailingStr = "-j MARK --set-mark $mark";
-#      my $mediumStr = q{};
-#
-#      # Mark if the packet is not already marked
-#      $mediumStr .= '-m mark --mark 0/' . MARK_MASK . ' ';
-#      $mediumStr .= "--protocol $protocol " if ( defined ( $protocol ));
-#      $mediumStr .= "--sport $sport " if ( $sport );
-#      $mediumStr .= "--source $srcIP" if ( defined ( $srcIP ));
-#      $mediumStr .= "-m mac --mac-source $srcMAC " if ( defined( $srcMAC) );
-#      $mediumStr .= "/$srcNetMask" if ( defined ( $srcNetMask ));
-#      $mediumStr .= q{ }; # Adding a trailing space
-#      $mediumStr .= "--destination $dstIP" if ( defined ( $dstIP ));
-#      $mediumStr .= "/$dstNetMask" if ( defined ( $dstNetMask ));
-#      $mediumStr .= q{ }; # Adding a trailing space
-#      # Set source port
-#      push(@ipTablesCommands,
-#	   $leadingStr . $mediumStr . $trailingStr
-#	  );
-#      if ( $self->{fPort} ) {
-#	# Substituying from src to dst
-#	$mediumStr =~ s/--sport [0-9]+ /--dport $dport /g;
-#	# Set destination port
-#	push(@ipTablesCommands,
-#	     $leadingStr . $mediumStr . $trailingStr
-#	    );
-#      }
       push(@ipTablesCommands, @{$ipTablesRule->strings()});
-    } 
+    }
     # FIXME Comment out because it messes up with multipath marks
     #else {
       # Set redundant mark to send to default one
