@@ -4,12 +4,12 @@
 <gconfschemafile>
 	<schemalist>
         <schema>
-               <key>/schemas/ebox/modules/global/modules/firewall/class</key>
-               <applyto>/ebox/modules/global/modules/firewall/class</applyto>
-               <owner>ebox</owner>
-               <type>string</type>
-               <default>EBox::Firewall</default>
-               <locale name="C"/>
+           <key>/schemas/ebox/modules/global/modules/firewall/class</key>
+           <applyto>/ebox/modules/global/modules/firewall/class</applyto>
+           <owner>ebox</owner>
+           <type>string</type>
+           <default>EBox::Firewall</default>
+           <locale name="C"/>
         </schema>
         <schema>
 			<key>/schemas/ebox/modules/global/modules/firewall/depends</key>

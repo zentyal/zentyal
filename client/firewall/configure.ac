@@ -67,6 +67,8 @@ src/templates/ajax/Makefile
 src/templates/ajax/viewer/Makefile
 src/libexec/Makefile
 schemas/Makefile
+tools/Makefile
+tools/sqllog/Makefile
 Makefile
 ])
 
