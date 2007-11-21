@@ -34,9 +34,14 @@ use EBox::Iptables;
 
 use EBox::Gettext;
 
+# Dependencies
+use Clone;
+
 use constant R2Q => 5;
 # We assume an MTU of 1500 Bytes
 use constant MTU => 1500;
+# Maximum rate allowed by the network card (Ex. 1Gb/s)
+use constant MAX_RATE => 10 * (2 ** 20);
 
 # Constructor: new
 #
@@ -55,9 +60,8 @@ use constant MTU => 1500;
 sub new # (iface)
   {
 
-    my $class = shift;
+    my ($class, $iface, $trafficShaping) = @_;
     my $self = {};
-    my ($iface, $trafficShaping) = @_;
 
     $self->{trafficShaping} = $trafficShaping;
     $self->{defaultClass} = undef;
@@ -79,7 +83,9 @@ sub new # (iface)
 #
 #         defaultClass - default class where all unknown traffic is
 #         sent
-#         rate         - Int Maximum rate are guaranteed in Kilobits per second
+#
+#         rate - Int Maximum rate are guaranteed in Kilobits per
+#         second
 #
 # Returns:
 #
@@ -101,11 +107,22 @@ sub buildRoot # (defaultClass, rate)
     throw EBox::Exceptions::MissingArgument('rate')
       unless defined( $self->{rate} );
 
+
+    # There are different ways to implement depending on if the
+    # interface is internal or external
+    my $netMod = EBox::Global->modInstance('network');
+    my $external = $netMod->ifaceIsExternal($self->getInterface());
+
+    # Set maximum rate for the root class
+    my $maxRate;
+    if ( $external ) {
+        $maxRate = $self->{rate};
+    } else {
+        $maxRate = MAX_RATE;
+    }
+
     # Set highest major number
     $self->{highestMajorNumber} = $defaultClass + 1;
-    # Reset iptables related chains and rules -> It should be a called to iptables
-    # FIXME
-    # $self->_resetChain();
 
     # HTB qdisc root
 
@@ -119,7 +136,7 @@ sub buildRoot # (defaultClass, rate)
 								  r2q          => R2Q,
 								 );
     my $rootQDisc = EBox::TrafficShaping::QDisc::Root->new(
-							 interface   => $self->{interface},
+							 interface   => $self->getInterface(),
 							 majorNumber => 1,
 							 realQDisc   => $HTBRoot,
 							);
@@ -128,57 +145,25 @@ sub buildRoot # (defaultClass, rate)
     $self->{treeRoot} = Tree->new($rootQDisc);
 
     # Create unique child class from root qdisc
-
     my $childHTB = EBox::TrafficShaping::QueueDiscipline::HTB->new(
-								   rate => $self->{rate},
-								   ceil => $self->{rate},
-						 );
+								   rate => $maxRate,
+								   ceil => $maxRate,
+                                                                  );
     my $childClass = EBox::TrafficShaping::Class->new(
-							minorNumber     => 1,
-							parent          => $self->{treeRoot},
-							queueDiscipline => $childHTB,
-						       );
+                                                      minorNumber     => 1,
+                                                      parent          => $self->{treeRoot},
+                                                      queueDiscipline => $childHTB,
+                                                     );
 
     # We add to the tree
     my $childNode = Tree->new( $childClass );
     $self->{treeRoot}->add_child( $childNode );
 
-    # Create the leaf default qdisc which always exist in a HTB tree
-    my $emptySFQ = EBox::TrafficShaping::QueueDiscipline::SFQ->new();
-    my $leafQDisc = EBox::TrafficShaping::QDisc::Base->new(
-						     majorNumber => $defaultClass,
-						     realQDisc   => $emptySFQ,
-						    );
-
-    # All traffic should be guaranteed, default will have remainder values
-    my $defaultHTB = EBox::TrafficShaping::QueueDiscipline::HTB->new(rate => $self->{rate},
-								     ceil => $self->{ceil},
-								     prio => $self->{trafficShaping}->getLowestPriority($self->{interface}),
-								    );
-    my $leafClass = EBox::TrafficShaping::Class->new(
-						       minorNumber     => $defaultClass,
-						       parent          => $childNode,
-						       qdiscAttached   => $leafQDisc,
-						       queueDiscipline => $defaultHTB,
-						      );
-    $self->{defaultClass} = $leafClass;
-
-    # Add class to the structure
-    my $leafNode = Tree->new( $leafClass );
-    $childNode->add_child( $leafNode );
-    $leafQDisc->setParent( $leafNode );
-
-    # Filter to default class
-    my $defaultFilter = new EBox::TrafficShaping::Filter::Fw(
-							     flowId    => { rootHandle => 1,
-									    classId    => $defaultClass,
-									  },
-							     mark      => $defaultClass,
-							     prio      => 0,
-							     parent    => $rootQDisc,
-							    );
-    # Attach filter to the root qdisc
-    $rootQDisc->attachFilter( $defaultFilter );
+    if ( $external ) {
+        $self->_createExternalStructure($defaultClass);
+    } else {
+        $self->_createInternalStructure($defaultClass);
+    }
 
     return $self->{treeRoot};
 
@@ -272,7 +257,8 @@ sub buildRule
     }
 
     # Parent node
-    my ($childNode) = $self->{treeRoot}->children(0);
+    # my ($childNode) = $self->{treeRoot}->children(0);
+    my $childNode = $self->_parentUserDefinedClassesNode();
     # It's high time to add class to the tree
     my $emptySFQ = EBox::TrafficShaping::QueueDiscipline::SFQ->new();
 
@@ -281,6 +267,7 @@ sub buildRule
     if ( defined( $args{identifier} ) ) {
       $classId = $args{identifier};
     }
+
     else {
       $classId = $self->_getMajorNumber();
     }
@@ -691,17 +678,17 @@ sub _allowedGuaranteedRate
 
     my ($self) = @_;
 
-    my ($mainChild) = $self->{treeRoot}->children(0);
+    my $mainChild = $self->_parentUserDefinedClassesNode();
     my @leafClasses = $mainChild->children();
 
     my $givenGuaranteedRate = 0;
     foreach my $leafClass (@leafClasses) {
       # Don't take default class' rate into account
       if (not $leafClass->value()->equals( $self->{defaultClass} )) {
-	my $guaranteedRate = $leafClass->value()->
-	  getAssociatedQueueDiscipline()->attribute('rate');
-	# Add every leaf class (Default has no guaranteed rate)
-	$givenGuaranteedRate += $guaranteedRate;
+          my $guaranteedRate = $leafClass->value()->
+            getAssociatedQueueDiscipline()->attribute('rate');
+          # Add every leaf class (Default has no guaranteed rate)
+          $givenGuaranteedRate += $guaranteedRate;
       }
     }
 
@@ -723,30 +710,15 @@ sub _canSupportLimitedRate # (lr)
 # Ask about what is the maximum limited rate
 # Return a result in kbit/s
 sub _allowedLimitedRate
-  {
+{
 
     my ($self) = @_;
 
-    my ($mainChild) = $self->{treeRoot}->children(0);
-    my @leafClasses = $mainChild->children();
-
     my $maxRate = $self->{rate};
 
-#    my $childrenRate = 0;
-#    foreach my $leafClass (@leafClasses) {
-#      my $childRate = $leafClass->value()->
-#	getAssociatedQueueDiscipline()->attribute('ceil');
-#      # Add every leaf class (Default has no limits)
-#      # If not defined -> limited rate = 0
-#      if ( defined( $childRate ) ) {
-#	$childrenRate += $childRate;
-#      }
-#    }
-#
-#    return ($maxRate - $childrenRate);
     return $maxRate;
 
-  }
+}
 
 
 # Minimum allowed guaranteed rate to have at least a quantum of 1
@@ -797,13 +769,214 @@ sub _getMajorNumber
   }
 
 ###
+# Shortcut helper
+###
+
+# Check if the interface which belongs this queue is internal
+sub _isIfaceInternal
+{
+
+    my ($self) = @_;
+
+    return ! ($self->{'trafficShaping'}->{'network'}->ifaceIsExternal($self->getInterface()));
+
+}
+
+###
+# Helper builders
+###
+
+# Method: _createExternalStructure
+#
+#      Build the HTB tree used by *external* interface. It is the basic
+#      one. We may think this as a simple case where we are restricted
+#      by the upload rate ($self->{rate} attribute)
+#
+#      The structure is the next one:
+#
+#                         QDisc HTB 1:0
+#                             |
+#                         Class 1:1 (rate UPLOAD ceil UPLOAD)
+#                             |
+#       -----------------------------------------
+#       |                                        |
+#  Class 1:21 (Default)              User defined classes (1:256, 1:512 ...)
+#       |                                        |
+#  QDisc SFQ 21:0                    QDisc SFQ (256:0, 512:0 ...)
+#
+#       All filters are associated to the parent Qdisc.
+#
+sub _createExternalStructure  # (defaultClass)
+{
+    my ($self, $defaultClass) = @_;
+
+    my $childNode = $self->{treeRoot}->children(0);
+    my $rootQDisc = $self->{treeRoot}->value();
+    # Create the leaf default qdisc which always exist in a HTB tree
+    my $emptySFQ = EBox::TrafficShaping::QueueDiscipline::SFQ->new();
+    my $leafQDisc = EBox::TrafficShaping::QDisc::Base->new(
+                                                           majorNumber => $defaultClass,
+                                                           realQDisc   => $emptySFQ,
+                                                          );
+
+    # All traffic should be guaranteed, default will have remainder values
+    my $defaultHTB = EBox::TrafficShaping::QueueDiscipline::HTB->new(rate => $self->{rate},
+								     ceil => $self->{rate},
+								     prio => $self->{trafficShaping}->getLowestPriority($self->getInterface()),
+								    );
+    my $leafClass = EBox::TrafficShaping::Class->new(
+                                                     minorNumber     => $defaultClass,
+                                                     parent          => $childNode,
+                                                     qdiscAttached   => $leafQDisc,
+                                                     queueDiscipline => $defaultHTB,
+                                                    );
+    $self->{defaultClass} = $leafClass;
+
+    # Add class to the structure
+    my $leafNode = Tree->new( $leafClass );
+    $childNode->add_child( $leafNode );
+    $leafQDisc->setParent( $leafNode );
+
+    # Filter to default class
+    my $defaultFilter = new EBox::TrafficShaping::Filter::Fw(
+							     flowId    => { rootHandle => 1,
+									    classId    => $defaultClass,
+									  },
+							     mark      => $defaultClass,
+							     prio      => 0,
+							     parent    => $rootQDisc,
+							    );
+    # Attach filter to the root qdisc
+    $rootQDisc->attachFilter( $defaultFilter );
+
+}
+
+# Method: _createInternalStructure
+#
+#      Build the HTB classes used by *internal* interface. It is the
+#      complex one. Its structure relies on the traffic flow
+#      origin. If it is eBox, the traffic flow must not be
+#      shaped. Otherwise the traffic must be shaped by the total
+#      download rate.
+#
+#      The structure is as follows:
+#
+#                         QDisc HTB 1:0
+#                             |
+#                         Class 1:1 (rate inf ceil inf)
+#                             |
+#       -----------------------------------------
+#       |                                        |
+#  Class 1:FF00 (eBox -> Int)             Class 1:2 (Ext -> Int)
+#    (Default)                        (rate DOWNLOAD ceil DOWNLOAD)
+#  (rate inf ceil inf)                           |
+#       |                                        |----------------------------
+#  QDisc SFQ FF00:0                              |                           |
+#                                      User defined classes       Default class 1:21
+#                                                |                           |
+#                                        QDisc SFQ (256:0, 512:0, ...)     |
+#                                                                      QDisc SFQ 21:0
+#
+#      All filters are associated to the parent Qdisc. To distinguish
+#      among FE00 and 2 is done by a filter.
+#
+sub _createInternalStructure # (defaultClassId)
+{
+    my ($self, $defaultClassId) = @_;
+
+    # Parent 1
+    my $parent = $self->{treeRoot}->children(0);
+    # Create 1:2 class
+    my $parentUserDefinedHTB = new EBox::TrafficShaping::QueueDiscipline::HTB(
+                                                                              rate => $self->{rate},
+                                                                              ceil => $self->{ceil},
+                                                                              prio => 7
+                                                                             );
+    my $parentUserDefinedClass = new EBox::TrafficShaping::Class(
+                                                                 minorNumber     => 2,
+                                                                 parent          => $parent,
+                                                                 queueDiscipline => $parentUserDefinedHTB,
+                                                                );
+
+    # Add class to the structure
+    my $parentUserDefinedNode = new Tree($parentUserDefinedClass);
+    $parent->add_child( $parentUserDefinedNode );
+
+    # Add QDisc to associated default traffic (ext -> int)
+    my $emptySFQ = new EBox::TrafficShaping::QueueDiscipline::SFQ();
+    my $leafDefaultQDisc = new EBox::TrafficShaping::QDisc::Base(
+                                                                 majorNumber => $defaultClassId,
+                                                                 realQDisc   => $emptySFQ,
+                                                                );
+    my $defaultClass = new EBox::TrafficShaping::Class(
+                                                       minorNumber      => $defaultClassId,
+                                                       parent           => $parentUserDefinedNode,
+                                                       queueDiscipline  => Clone::clone($parentUserDefinedHTB),
+                                                       qdiscAttached    => $leafDefaultQDisc,
+                                                      );
+    $self->{defaultClass} = $defaultClass;
+    # Add Class to the structure
+    my $leafNode = new Tree( $defaultClass );
+    $parentUserDefinedNode->add_child( $leafNode );
+    $leafDefaultQDisc->setParent( $leafNode );
+
+    # Filter for default class
+    my $defaultFilter = new EBox::TrafficShaping::Filter::Fw(
+                                                             flowId => { rootHandle => 1,
+                                                                         classId    => $defaultClassId,
+                                                                       },
+                                                             mark   => $defaultClassId,
+                                                             prio   => 0,
+                                                             parent => $self->{treeRoot}->value(),
+                                                            );
+    $self->{treeRoot}->value()->attachFilter( $defaultFilter );
+
+    # Create 1:FF00 class
+    my $eBoxHTB = new EBox::TrafficShaping::QueueDiscipline::HTB(
+                                                                 rate => MAX_RATE,
+                                                                 ceil => MAX_RATE,
+                                                                 prio => 7,
+                                                                );
+    my $eBoxId = $self->{trafficShaping}->MaxIdValue();
+    my $eBoxQDisc = new EBox::TrafficShaping::QDisc::Base(
+                                                          majorNumber => $eBoxId,
+                                                          realQDisc   => $emptySFQ,
+                                                         );
+    my $eBoxClass = new EBox::TrafficShaping::Class(
+                                                    minorNumber     => $eBoxId,
+                                                    parent          => $parent,
+                                                    queueDiscipline => $eBoxHTB,
+                                                    qdiscAttached   => $eBoxQDisc,
+                                                   );
+    # Add class to the structure
+    my $eBoxNode = Tree->new( $eBoxClass );
+    $parent->add_child( $eBoxNode );
+    $eBoxQDisc->setParent( $eBoxNode );
+
+    # Filter to generated in eBox traffic
+    my $netMod = EBox::Global->modInstance('network');
+    my $servMod = EBox::Global->modInstance('services');
+    my $ifaceAddr = $netMod->ifaceAddress($self->getInterface());
+    my $ifaceType = new EBox::Types::IPAddr(fieldName     => 'ifaceAddr',
+                                            printableName => 'ifaceAddr');
+    $ifaceType->setValue("$ifaceAddr/32");
+    $self->addFilter(leafClassId => $eBoxId,
+                     priority    => 0,
+                     srcAddr     => $ifaceType,
+                     service     => $servMod->serviceId('any'),
+                    );
+
+
+}
+
+###
 # Helper methods in tree structure
 ###
 
 # Given an leaf class identifier it returns the node
 # which has this node
 sub _getNode # (leafClassId)
-  {
+{
 
     my ($self, $leafClassId) = @_;
 
@@ -819,7 +992,21 @@ sub _getNode # (leafClassId)
 
     return $foundNode;
 
-  }
+}
+
+# Get the node from where all the user defined classes will hang
+# Returns: <Tree>
+sub _parentUserDefinedClassesNode
+{
+    my ($self) = @_;
+
+    my ($mainChild) = $self->{treeRoot}->children(0);
+    if ( $self->_isIfaceInternal() ) {
+        ($mainChild) = $mainChild->children(0);
+    }
+    return $mainChild;
+
+}
 
 # Given a node, it removes from the structure
 sub _removeNode # (node)
