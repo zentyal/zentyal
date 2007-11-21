@@ -227,7 +227,7 @@ sub _addDecisionToRule
     if ($decision eq 'accept') {
         $rule->setDecision('ACCEPT');    
     } elsif ($decision eq 'deny') {
-        $rule->setDecision('DROP');    
+        $rule->setDecision('drop');    
     }
 
 }
