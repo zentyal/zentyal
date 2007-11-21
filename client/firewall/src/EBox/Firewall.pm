@@ -19,7 +19,7 @@ use strict;
 use warnings;
 
 use base qw(EBox::GConfModule EBox::ObjectsObserver EBox::NetworkObserver
-EBox::Model::ModelProvider);
+EBox::Model::ModelProvider EBox::LogObserver);
 
 use EBox::Objects;
 use EBox::Global;
@@ -32,6 +32,7 @@ use EBox::Firewall::Model::InternalToEBoxRuleTable;
 use EBox::Firewall::Model::ExternalToEBoxRuleTable;
 use EBox::Firewall::Model::EBoxOutputRuleTable;
 use EBox::Firewall::Model::ExternalToInternalRuleTable;
+use EBox::FirewallLogHelper;
 use EBox::Order;
 use EBox::Gettext;
 
@@ -762,5 +763,47 @@ sub menu
 
 	$root->add($folder);
 }
+
+# Impelment LogHelper interface
+sub tableInfo {
+        my ($self) = @_ ;
+	
+	my $titles = { 
+			'timestamp' => __('Date'),
+			'fw_in'     => __('Input interface'),
+			'fw_out'    => __('Output interface'),
+			'fw_src'    => __('Source'),
+			'fw_dst'    => __('Destination'),
+			'fw_proto'  => __('Protocol'),
+			'fw_spt'    => __('Source port'),
+			'fw_dpt'    => __('Destination port'),
+			'event'     => __('Decision')
+		      };
+	
+	my @order = qw(timestamp fw_in fw_out fw_src fw_dst fw_proto fw_spt fw_dpt);
+	
+	my $events = { 'drop' => __('DROP') };
+
+	return {
+		'name' => __('Firewall'),
+		'index' => 'firewall',
+		'titles' => $titles,
+		'order' => \@order,
+		'tablename' => 'firewall',
+		'timecol' => 'timestamp',
+		'filter' => ['fw_in', 'fw_out', 'fw_src', 
+			     'fw_dst', 'fw_proto', 'fw_spt', 'fw_dpt'],
+		'events' => $events,
+		'eventcol' => 'event'
+		};
+}
+
+sub logHelper
+{
+        my $self = shift;
+
+        return (new EBox::FirewallLogHelper);
+}
+
 
 1;

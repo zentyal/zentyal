@@ -4,7 +4,7 @@ SUBDIRS = CGI Firewall Model t
 perldir = @PERLPATH@/EBox
 
 nobase_perl_DATA = FirewallHelper.pm Firewall.pm Iptables.pm \
-	FirewallObserver.pm
+	FirewallObserver.pm FirewallLogHelper.pm
 
 DISTCLEANFILES = 
 
