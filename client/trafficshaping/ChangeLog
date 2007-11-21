@@ -1,3 +1,6 @@
+0.11.99
+        + Now, eBox -> internal networks traffic flow is not shaped
+	anymore
 0.10.99
 	+ Use last model/view changes to get rid of the multitable code
 	+ Remove rules using an object when it's removed
@@ -5,13 +8,7 @@
 	+ Adding a rule using an object with no members is now not
 	possible
 	+ Now rules are applied in PREROUTING chain to avoid NAT
-0.10.99
-	+ New release
 	+ Now traffic shaping rules are aware about gateway changes
-	+ Use Services from ebox-services modules instead of using a
-	EBox::Types::Service class
-	+ Automatic remove traffic shaping rules which comprise objects
-	that is about to be deleted
 	+ Use composite with a 'select' layout instead of old tailored
 	version. This includes some refurbishing and enhancing on
 	notifying changes on Network module regarding to traffic shaping
