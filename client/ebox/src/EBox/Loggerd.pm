@@ -86,7 +86,7 @@ sub _prepare # (fifo)
 				next;
 			}
 			push @{$self->{'filetails'}}, $tail;
-			$self->{'objects'}->{$file} =  $obj;
+			push @{$self->{'objects'}->{$file}}, $obj;
 		}
 	}
 
@@ -96,7 +96,7 @@ sub _mainloop
 {
 	my $self = shift;
 	my $rin;
-
+ 
 	my @files = @{$self->{'filetails'}};
 	while(@files) {
 		vec($rin, fileno($piperd), 1) = 1;
@@ -110,18 +110,15 @@ sub _mainloop
 			my $path = $file->{'input'};
 			my $buffer = $file->read();
 			if (defined($buffer) and length ($buffer) > 0) {
-				my $obj = $self->{'objects'}->{$path};
-				foreach my $line (split(/\n/, $buffer)) {
-					eval {
-					  $obj->processLine($path, $line, 
-						$self->{'dbengine'})
-					}; 
-					if ($@) {
-					  EBox::debug("error while processing log file line: $@");
+				for my $obj (@{$self->{'objects'}->{$path}}) {
+					foreach my $line (split(/\n/, $buffer)) {
+						eval {$obj->processLine($path, $line, 
+							$self->{'dbengine'})}; 
 					}
 				}
 			}
 		}
+
 	}
 
 }
