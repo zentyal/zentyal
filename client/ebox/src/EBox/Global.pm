@@ -84,6 +84,9 @@ sub modExists # (module)
 	# Try to dectect if gconf is messing with us,
 	# and a removed module is still there
 	eval "use $class";
+        if ($@) {
+            EBox::error("Error loading class $class: $@");
+        }
 	return undef if ($@);
 
 	return 1;
