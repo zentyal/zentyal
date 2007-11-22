@@ -55,6 +55,7 @@ AC_CONF_EBOX($enable_runtime_tests)
 AM_PO_SUBDIRS
 
 AC_CONFIG_FILES([
+conf/Makefile
 migration/Makefile
 src/Makefile
 src/EBox/Makefile
