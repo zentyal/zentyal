@@ -17,6 +17,9 @@
 
 # A module to test an already created TrafficShaping module
 
+use strict;
+use warnings;
+
 use Test::More tests => 3;
 use Test::Exception;
 use Test::Deep;

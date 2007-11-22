@@ -16,6 +16,8 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # A module to test TrafficShaping module
+use warnings;
+use strict;
 
 use Test::More tests => 40;
 use Test::Exception;
