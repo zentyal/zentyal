@@ -17,6 +17,7 @@ package EBox::Iptables;
 # Package to manage iptables command utility
 
 use EBox::Firewall;
+use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Objects;
@@ -593,8 +594,25 @@ sub _drop
 {
     my ($self) = @_;
 
+    my $limit = EBox::Config::configkey('iptables_log_limit');
+    my $burst = EBox::Config::configkey('iptables_log_burst');
+
+    unless (defined($limit) and $limit =~ /^\d+$/) {
+	throw EBox::Exceptions::External(__('You must set the ' .
+		'iptables_log_limit variable in the ebox configuration file'));
+
+    }
+
+    unless (defined($burst) and $burst =~ /^\d+$/) {
+	throw EBox::Exceptions::External(__('You must set the ' .
+		'iptables_log_burst variable in the ebox configuration file'));
+
+    }
+
     pf '-I drop -j DROP';
-    pf '-I drop -j LOG  --log-level ' . SYSLOG_LEVEL . 
+    pf "-I drop -j LOG -m limit --limit $limit/min --limit-burst $burst" . 
+       ' --log-level ' . SYSLOG_LEVEL . 
        ' --log-prefix "ebox-firewall "';
 }
+
 1;
