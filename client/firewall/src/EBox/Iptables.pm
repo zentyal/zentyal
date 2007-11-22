@@ -28,7 +28,8 @@ use EBox::Sudo qw( :all );
 
 my $new = " -m state --state NEW ";
 
-use constant IPT_MODULES => ('ip_conntrack_ftp', 'ip_nat_ftp', 'ip_conntrack_tftp');
+use constant IPT_MODULES => ('ip_conntrack_ftp', 'ip_nat_ftp');
+use constant SYSLOG_LEVEL => 7;
 
 # Constructor: new
 #
@@ -593,6 +594,7 @@ sub _drop
     my ($self) = @_;
 
     pf '-I drop -j DROP';
-    pf '-I drop -j LOG --log-prefix "ebox-firewall "';
+    pf '-I drop -j LOG  --log-level ' . SYSLOG_LEVEL . 
+       ' --log-prefix "ebox-firewall "';
 }
 1;
