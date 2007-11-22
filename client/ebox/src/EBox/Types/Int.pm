@@ -53,6 +53,23 @@ sub size
 	return $self->{'size'};
 }
 
+# Method: cmp
+#
+# Overrides:
+#
+#      <EBox::Types::Abstract::cmp>
+#
+sub cmp
+{
+    my ($self, $compareType) = @_;
+
+    unless ( $self->type() eq $compareType->type() ) {
+        return undef;
+    }
+
+    return $self->value() <=> $compareType->value();
+
+}
 
 # Group: Protected methods
 

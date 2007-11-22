@@ -381,6 +381,23 @@ sub defaultEnabledValue
 
 }
 
+# Method: sortedBy
+#
+#       Return the field name which is used by model to sort rows when
+#       the model is not ordered
+#
+# Returns:
+#
+#       String - field name used to sort the rows
+#
+sub sortedBy
+{
+    my ($self) = @_;
+    my $sortedBy = $self->table()->{'sortedBy'};
+    return '' unless ( defined $sortedBy );
+    return $sortedBy;
+}
+
 # Method: fieldHeader
 #
 #	Return the instanced type of a given header field
@@ -1540,10 +1557,23 @@ sub _increaseStoredAndCachedVersion
 #       hash ref of every row
 #
 sub _tailoredOrder # (rows)
-  {
-	return $_[1];
-	
-  }
+{
+    my ($self, $rows) = @_;
+
+    # Sorted by sortedBy field element if it's given
+    my $fieldName = $self->sortedBy();
+    if ( $fieldName ) {
+        if ( $self->fieldHeader($fieldName) ) {
+            my @sortedRows =
+              sort {
+                  $a->{valueHash}->{$fieldName}->cmp($b->{valueHash}->{$fieldName})
+              } @{$rows};
+            return \@sortedRows;
+        }
+    }
+    return $_[1];
+
+}
 
 
 # Method: setTableName

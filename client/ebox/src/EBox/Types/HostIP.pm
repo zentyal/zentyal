@@ -28,6 +28,9 @@ use base 'EBox::Types::Text';
 # eBox uses
 use EBox::Validate;
 
+# Dependencies
+use Net::IP;
+
 # Group: Public methods
 
 # Constructor: new
@@ -45,6 +48,33 @@ sub new
         $self->{'type'} = 'hostip';
         bless($self, $class);
         return $self;
+}
+
+# Method: cmp
+#
+# Overrides:
+#
+#      <EBox::Types::Abstract::cmp>
+#
+sub cmp
+{
+    my ($self, $compareType) = @_;
+
+    unless ( $self->type() eq $compareType->type() ) {
+        return undef;
+    }
+
+    my $ipA = new Net::IP($self->value());
+    my $ipB = new Net::IP($compareType->value());
+
+    if ( $ipA->bincomp('lt', $ipB) ) {
+        return -1;
+    } elsif ( $ipB->bincomp('eq', $ipB)) {
+        return 0;
+    } else {
+        return 1;
+    }
+
 }
 
 # Group: Protected methods

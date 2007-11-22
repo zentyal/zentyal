@@ -342,6 +342,33 @@ sub compareToHash
 
 }
 
+# Method: cmp
+#
+#      Comparison among two types of the same type. Some types will
+#      override the function, some others not as
+#      <EBox::Types::HasMany>
+#
+#      Its behaviour is equal to cmp function per string. The
+#      comparison should be done only if the types are equal
+#
+# Parameters:
+#
+#      compareType - <EBox::Types::Abstract> the type to compare with
+#
+# Returns:
+#
+#      -1 - if self is lower than compareType
+#
+#       0 - if both are equal
+#
+#       1 - if self is higher than compareType
+#
+#       undef - otherwise (not equal types)
+#
+sub cmp
+{
+}
+
 # Method: restoreFromHash
 #
 #      Restore the value from a hash.

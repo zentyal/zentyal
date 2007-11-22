@@ -127,6 +127,37 @@ sub mask
 	return $self->{'mask'};
 }
 
+# Method: cmp
+#
+# Overrides:
+#
+#      <EBox::Types::Abstract::cmp>
+#
+sub cmp
+{
+    my ($self, $compareType) = @_;
+
+    unless ( $self->type() eq $compareType->type() ) {
+        return undef;
+    }
+
+    my $ipA = new Net::IP($self->printableValue());
+    my $ipB = new Net::IP($compareType->printableValue());
+
+    EBox::debug($ipA->print());
+    EBox::debug($ipB->print());
+    EBox::debug($ipA->bincomp('lt', $ipB));
+
+    if ( $ipA->bincomp('lt', $ipB) ) {
+        return -1;
+    } elsif ( $ipB->bincomp('eq', $ipB)) {
+        return 0;
+    } else {
+        return 1;
+    }
+
+}
+
 # Group: Protected methods
 
 # Method: _setMemValue

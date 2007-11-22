@@ -70,6 +70,24 @@ sub printableValue
     }
 }
 
+# Method: cmp
+#
+# Overrides:
+#
+#      <EBox::Types::Abstract::cmp>
+#
+sub cmp
+{
+    my ($self, $compareType) = @_;
+
+    unless ( $self->type() eq $compareType->type() ) {
+        return undef;
+    }
+
+    return $self->value() cmp $compareType->value();
+
+}
+
 # Group: Protected methods
 
 # Method: _storeInGConf
