@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use EBox::Config;
+use EBox::AbstractDaemon;
 use POSIX qw(setsid);
 
 use constant {
@@ -31,7 +32,17 @@ sub _checkEnvironment
 
 }
 
+sub _checkParams
+{
+  my (%params) = @_;
+  if (not exists $params{time}) {
+    die 'time parameter not found';
+  }
+  elsif ($params{time} <= 0) {
+    die 'time parameter must be greater than zero';
+  }
 
+}
 
 sub _jnettopCmd
 {
@@ -45,15 +56,13 @@ sub _jnettopCmd
   # check iface
     system "ifconfig $iface 2&>1 > /dev/null";
     if ($? != 0) {
-      die "cannot get infromation for interface $iface. Please, make sure that is a valid interface";
+      die "cannot get information for interface $iface. Please, make sure that is a valid interface";
     }
     
     $jnettopCmd .= " -i $iface";
   }
-  
+
   my $time = $params{time};
-  defined $time or
-    die 'time parameter needed';
 
   $jnettopCmd .= " -t $time";
 
@@ -66,24 +75,25 @@ sub _jnettopCmd
 
 sub _daemonize
 {
-  # try to detach usign a fork
-  chdir('/');
-#   open STDIN, '/dev/null'   or die "Can't read /dev/null: $!";
-#   open STDOUT, '>/dev/null' or die "Can't write to /dev/null: $!";
-#   open STDERR, '>/dev/null' or die "Can't write to /dev/null: $!";
+  # POSIX unmasks the sigprocmask properly
+  my $sigset = POSIX::SigSet->new();
+  my $action = POSIX::SigAction->new('sigINT_handler',
+                                     $sigset,
+                                     &POSIX::SA_NODEFER);
+  POSIX::sigaction(&POSIX::SIGINT, $action);
 
-  my $pid = fork();
-  defined $pid or
-    die "cannot fork: $!";
 
-  if ($pid) {
-    # parent returns
-    exit;
-  }
-
-  # child becames a daemon
-  setsid() or die "Can't start new session: $!";
+  my $daemon = EBox::AbstractDaemon->new(name => 'ebox-traffic-monitor');
+  $daemon->init();
 }
+
+
+sub sigINT_handler 
+{
+  system 'pkill -f ' . JNETTOP_PATH ;
+  exit 0;
+}
+
 
 
 
@@ -91,6 +101,7 @@ sub _daemonize
 _checkEnvironment();
 
 my %params = @ARGV;
+_checkParams(%params);
 
 _daemonize();
 
@@ -108,7 +119,7 @@ while (1) {
     die 'error executing jnettop';
   }
 
- print $LOGGER @output or die 'child error';
+ print $LOGGER @output or die "child error $!";
 
 
 }

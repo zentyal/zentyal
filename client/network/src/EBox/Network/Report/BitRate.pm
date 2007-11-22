@@ -11,9 +11,9 @@ use EBox::Exceptions::Internal;
 
 use Params::Validate qw(validate);
 
-use constant SRC_COLOUR      => '0xFF0000';
-use constant SERVICE_COLOUR =>  '0X00FF00';
-use constant SRC_AND_SERVICE_COLOUR => '0x0000FF';
+use constant SRC_COLOUR      => 'FF0000';
+use constant SERVICE_COLOUR =>  '00FF00';
+use constant SRC_AND_SERVICE_COLOUR => '0000FF';
 
 use constant SERVICE_KEY => 'usage-monitor-active';
 
@@ -46,7 +46,7 @@ sub running
 {
   my ($class) = @_;
 
-  system 'pgrep ' . MONITOR_DAEMON;
+  system 'pgrep -f ' . MONITOR_DAEMON;
   return ($? == 0);
 }
 
@@ -59,7 +59,7 @@ sub _regenConfig
 
   if ($running xor $service) {
     if ($running) {
-      EBox::Sudo::root('pkill ' . MONITOR_DAEMON);
+      $class->stopService();
     }
     if ($service) {
       EBox::Sudo::root(MONITOR_DAEMON . ' time 60');
@@ -68,6 +68,12 @@ sub _regenConfig
 
 }
 
+
+sub stopService
+{
+  my ($class) = @_;
+  EBox::Sudo::root('pkill -f ' . MONITOR_DAEMON);
+}
 
 sub addBps
 {
@@ -82,8 +88,13 @@ sub addBps
 # 		 bps => 1,
 # 		});
 
-  my $proto = $params{proto};
+
+
+
   my $src = $params{src};
+#  $src or return;
+
+  my $proto = $params{proto};
   my $sport = $params{sport};
   my $dst = $params{dst};
   my $dport = $params{dport};
@@ -91,7 +102,10 @@ sub addBps
 
 
   my $service = _service($proto, $dport, $sport);
+#   $service or
+#     return
 
+  print "addBps: src $src service $service\n";
 
   addBpsToSrcRRD($src, $bps);
   addBpsToServiceRRD($service, $bps);
@@ -142,15 +156,18 @@ sub _rrdDir
 sub srcRRD
 {
   my ($src) = @_;
-  my $rrd =  _rrdDir() . $src . '.rrd';
+  
 
+  my $rrd =  _rrdDir() . 'src-' . $src . '.rrd';
+
+  print "SRC: $src RRD: $rrd\n";
   return $rrd;
 }
 
 sub serviceRRD
 {
   my ($service) = @_;
-  my $rrd =  _rrdDir() . $service . '.rrd';
+  my $rrd =  _rrdDir() . 'service-'. $service . '.rrd';
   return $rrd;
 }
 
@@ -158,7 +175,7 @@ sub serviceRRD
 sub srcAndServiceRRD
 {
   my ($src, $service) = @_;
-  my $rrd =  _rrdDir() . "$src-$service.rrd";
+  my $rrd =  _rrdDir() . "src-$src-service-$service.rrd";
   return $rrd;
 }
 
@@ -269,9 +286,11 @@ sub srcGraph
   my $src = delete $params{src};
   my $rrd = srcRRD($src);
   if (not -f $rrd) {
-    throw EBox::Exceptions::External(
-				     'Traffic data not found for source {src}',
-				     src => $src,
+    throw EBox::Exceptions::External( 
+				     __x(
+					 'Traffic data not found for source {src}',
+					 src => $src,
+					)
 				    );
   }
 
@@ -296,9 +315,11 @@ sub serviceGraph
   my $service = delete $params{service};
   my $rrd = serviceRRD($service);
   if (not -f $rrd) {
-    throw EBox::Exceptions::External(
+    throw EBox::Exceptions::External( 
+				     __x(
 				     'Traffic data not found for service {service}',
 				     service => $service,
+					 )
 				    );
   }
 
@@ -325,26 +346,32 @@ sub srcAndServiceGraph
 
   my $srcRRD = srcRRD($src);
   if (not -f $srcRRD) {
-    throw EBox::Exceptions::External(
-				     'Traffic data not found for source {src}',
-				     src => $src,
+    throw EBox::Exceptions::External( 
+				     __x(
+					'Traffic data not found for source {src}',
+					src => $src,
+				       )
 				    );
   }
 
   my $serviceRRD  = serviceRRD($service);  
   if (not -f $serviceRRD) {
     throw EBox::Exceptions::External(
+				     __x(
 				     'Traffic data not found for service {service}',
 				     service => $service,
+					)
 				    );
   }
 
   my $srcAndServiceRRD = srcAndServiceRRD($src, $service);
   if (not -f $srcAndServiceRRD) {
-    throw EBox::Exceptions::External(
+    throw EBox::Exceptions::External( 
+				     __x(
 				     'Traffic data not found for source {src} and service {service}',
 				     src     => $src,
 				     service => $service,
+				     )
 				    );
   }
 
@@ -402,7 +429,7 @@ sub _srcAndServiceDatasetElement
 {
   my ($src, $service, $rrd) = @_;
 
-  my $legend = __x("{Traffic rate from {src} for {service}", 
+  my $legend = __x("Traffic rate from {src} for {service}", 
 		   src     => $src,
 		   service => $service,
 		  );

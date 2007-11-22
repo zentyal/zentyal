@@ -1890,6 +1890,8 @@ sub stopService
 			root("/sbin/ifdown --force -i $file $if");
 		} catch EBox::Exceptions::Internal with {};
 	}
+
+	EBox::Network::Report::BitRate->stopService();
 }
 
 #internal use functions
