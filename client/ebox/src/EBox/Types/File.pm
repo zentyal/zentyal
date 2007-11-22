@@ -114,7 +114,8 @@ sub isEqualTo
 
 
     if ( defined ( $self->path() ) and $self->path() ne ''
-         and defined ( $new->path() ) and $new->path() ne '' ) {
+         and (-f $self->path()) and defined ( $self->tmpPath() )
+         and (-f $self->tmpPath())) {
         # Check MD5 sum to check content uniqueness
         my ($origFile, $newFile);
         my $origMD5 = Digest::MD5->new();
@@ -123,7 +124,7 @@ sub isEqualTo
         $origMD5->addfile($origFile);
         my $origDigest = $origMD5->hexdigest();
         my $newMD5 = Digest::MD5->new();
-        open ( $newFile, '<', $self->_tmpPath());
+        open ( $newFile, '<', $self->tmpPath());
         binmode ( $newFile );
         $newMD5->addfile($newFile);
         my $newDigest = $newMD5->hexdigest();
@@ -234,6 +235,24 @@ sub linkToDownload
     return $link;
 }
 
+# Method: tmpPath
+#
+#       Get the tmp path when the file is not used by the file type by
+#       it is already uploaded to the server
+#
+# Returns:
+#
+#       String - the path within the tmp directory where the potential
+#       file is stored
+#
+sub tmpPath
+{
+    my ($self) = @_;
+
+    return ( EBox::Config::tmp() . $self->fieldName() . '_path' );
+}
+
+
 # Group: Protected methods
 
 # Method: _setMemValue
@@ -268,7 +287,7 @@ sub _storeInGConf
     if ($self->path()) {
         $gconfmod->set_string($keyField, $self->path());
         # Do actually move
-        my $tmpPath = $self->_tmpPath();
+        my $tmpPath = $self->tmpPath();
         EBox::debug("tmpPath: $tmpPath");
         if ( -f $tmpPath ) {
             EBox::debug("Moving from $tmpPath to " . $self->path());
@@ -328,18 +347,8 @@ sub _paramIsSet
 
     return 0 unless defined ( $pathValue );
 
-    return (-f $self->_tmpPath());
+    return (-f $self->tmpPath());
 
-}
-
-# Group: Private methods
-
-# Get the tmp path when the file is not used by the file type
-sub _tmpPath
-{
-    my ($self) = @_;
-
-    return ( EBox::Config::tmp() . $self->fieldName() . '_path' );
 }
 
 1;
