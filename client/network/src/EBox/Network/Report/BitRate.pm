@@ -9,7 +9,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 
-use Params::Validate qw(validate);
+use Params::Validate qw(validate SCALAR);
 
 use constant SRC_COLOUR      => 'FF0000';
 use constant SERVICE_COLOUR =>  '00FF00';
@@ -20,6 +20,9 @@ use constant SERVICE_KEY => 'usage-monitor-active';
 
 use constant MONITOR_DAEMON => '/usr/lib/ebox/ebox-traffic-monitor';
 
+# XX DEBUG
+    use DB;
+our @ISA = qw(DB);
 
 sub service
 {
@@ -75,24 +78,25 @@ sub stopService
   EBox::Sudo::root('pkill -f ' . MONITOR_DAEMON);
 }
 
+my %srcBps;
+my %serviceBps;
+my %srcAndServiceBps;
+
 sub addBps
 {
   my %params = @_;
 
-#   validate (@_, {
-# 		 proto => 1,
-# 		 src => 1,
-# 		 sport => 1,
-# 		 dst => 1,
-# 		 dport => 1,
-# 		 bps => 1,
-# 		});
-
-
-
+  validate (@_, {
+		 proto => { TYPE => SCALAR },
+		 src => { TYPE => SCALAR },
+		 sport => { TYPE => SCALAR },
+		 dst => { TYPE => SCALAR },
+		 dport => { TYPE => SCALAR },
+		 bps => { TYPE => SCALAR },
+		});
 
   my $src = $params{src};
-#  $src or return;
+
 
   my $proto = $params{proto};
   my $sport = $params{sport};
@@ -102,14 +106,36 @@ sub addBps
 
 
   my $service = _service($proto, $dport, $sport);
-#   $service or
-#     return
 
   print "addBps: src $src service $service\n";
 
-  addBpsToSrcRRD($src, $bps);
-  addBpsToServiceRRD($service, $bps);
-  addBpsToSrcAndServiceRRD($src, $service, $bps);
+  # store the values waitng for flush..
+  $srcBps{$src}         += $bps;
+  $serviceBps{$service} += $bps;
+
+  my $srcAndServiceId = "$src|$service";
+  $srcAndServiceBps{$srcAndServiceId} += $bps;
+}
+
+
+sub flushBps
+{
+  while (my ($src, $bps) = each %srcBps) {
+    addBpsToSrcRRD($src, $bps);
+  }
+
+  while (my ($service, $bps) = each %serviceBps) {
+    addBpsToServiceRRD($service, $bps);
+  }
+  
+  while (my ($id, $bps) = each %srcAndServiceBps) {
+    my ($src, $service) = split '\|', $id, 2;
+    addBpsToSrcAndServiceRRD($src, $service, $bps);
+  }
+  
+  %srcBps     = ();
+  %serviceBps = ();
+  %srcAndServiceBps = ();
 }
 
 
@@ -120,7 +146,7 @@ sub  _service
 
   $service = getservbyport($dport, $proto);
 
-  if (not $service) {
+  if (not $service and ($sport ne 'AGGR.')) {
     $service = getservbyport($sport, $proto);
   }
 
@@ -142,7 +168,10 @@ sub _addBpsToRRD
   RRDs::update($rrd, "N:$bps");
   my $err = RRDs::error;
   if ( $err) {
-    die $err;
+
+    my $stack = __PACKAGE__->backtrace;
+
+   throw EBox::Exceptions::Internal " error updating $rrd: $err\nstack: $stack";
   }
 }
 
@@ -437,7 +466,7 @@ sub _srcAndServiceDatasetElement
   my $ds = {
 	  rrd => $rrd,
 	  legend => $legend,
-	  colour => SERVICE_COLOUR,
+	  colour => SRC_AND_SERVICE_COLOUR,
 	 };
 
   return $ds;

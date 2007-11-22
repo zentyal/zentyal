@@ -52,6 +52,8 @@ sub _jnettopCmd
 
   my $jnettopCmd = JNETTOP_PATH . ' --display text -p';
 
+  $jnettopCmd .= ' --local-aggr port ' ;
+
   if ($iface) {
   # check iface
     system "ifconfig $iface 2&>1 > /dev/null";

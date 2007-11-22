@@ -25,8 +25,12 @@ sub _checkEnvironment
 
 _checkEnvironment();
 
+
 EBox::init();
 
+# prepate flush bps alarm
+$SIG{ALRM} = \&_flushBps;
+alarm (2); # start the flush timer
 
 while (1) {
   my $line = <STDIN>;
@@ -48,8 +52,18 @@ while (1) {
 				     dport => $dport,
 				     bps   => $totalbps,
 				    );
+
+
 }
 
+
+sub _flushBps
+{
+  EBox::Network::Report::BitRate::flushBps();
+
+  # restart the alarm
+  alarm(2);
+}
 
 
 1;
