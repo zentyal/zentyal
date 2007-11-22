@@ -30,7 +30,7 @@ foreach my $component (@{$components}) {
     if ( $component->can('index') ) {
         if ( $component->index() ne '' ) {
             $option = { value => $component->contextName(),
-                        printableValue => $component->index()};
+                        printableValue => $component->printableIndex()};
         } else {
             $option = { value => $component->contextName(),
                         printableValue => $component->printableName()};
