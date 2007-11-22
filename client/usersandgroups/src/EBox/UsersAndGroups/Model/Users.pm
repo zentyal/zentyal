@@ -80,6 +80,7 @@ sub _table
 			'menuNamespace' => 'UsersAndGroups/Users',
 			'help' => __x('foo'),
 		        'printableRowName' => __('user'),
+                        'sortedBy' => 'name',
 		};
 
 	return $dataTable;

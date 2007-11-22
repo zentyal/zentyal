@@ -64,6 +64,47 @@ sub new
 
   }
 
+sub validateTypedRow
+{
+  my ($self, $action, $params_r) = @_;
+
+  if (exists $params_r->{extension} ) {
+    my $extension = $params_r->{extension}->value();
+    if ($extension =~ m{\.}) {
+      throw EBox::Exceptions::InvalidData(
+					  data  => __('File extension'),
+					  value => $extension,
+					  advice => ('Dots (".") are not allowed in file extensions')
+					 )
+    }
+  }
+
+}
+
+
+# Function: bannedExtensions
+#
+#	Fetch the banned extensions
+#
+# Returns:
+#
+# 	Array ref - containing the extensions
+sub banned
+{
+  my ($self) = @_;
+  
+  my @bannedExtensions = map {
+    my $values = $_->{plainValueHash};
+    if ($values->{allowed}) {
+      ();
+    } else {
+      ($values->{extension});
+    }
+  } @{ $self->rows() };
+		   
+  return \@bannedExtensions;
+}
+
 # Group: Protected methods
 
 # Method: _table
@@ -111,8 +152,8 @@ sub _table
      tableName          => 'ExtensionFilter',
      printableTableName => __('Configure allowed file extensions'),
      modelDomain        => 'Squid',
-     'defaultController' => '/ebox/Squid/Controller/ExtensionFilter',
-     'defaultActions' =>
+     defaultController  => '/ebox/Squid/Controller/ExtensionFilter',
+     defaultActions     =>
      [	
       'add', 'del',
       'editField',
@@ -130,52 +171,10 @@ sub _table
 			    del    => __('Extension removed'),
 			    update => __('Extension updated'),
 			   },
+     sortedBy           => 'extension',
     };
 
 }
-
-
-sub validateTypedRow
-{
-  my ($self, $action, $params_r) = @_;
-
-  if (exists $params_r->{extension} ) {
-    my $extension = $params_r->{extension}->value();
-    if ($extension =~ m{\.}) {
-      throw EBox::Exceptions::InvalidData(
-					  data  => __('File extension'),
-					  value => $extension,
-					  advice => ('Dots (".") are not allowed in file extensions')
-					 )
-    }
-  }
-
-}
-
-
-# Function: bannedExtensions
-#
-#	Fetch the banned extensions
-#
-# Returns:
-#
-# 	Array ref - containing the extensions
-sub banned
-{
-  my ($self) = @_;
-  
-  my @bannedExtensions = map {
-    my $values = $_->{plainValueHash};
-    if ($values->{allowed}) {
-      ();
-    } else {
-      ($values->{extension});
-    }
-  } @{ $self->rows() };
-		   
-  return \@bannedExtensions;
-}
-
 
 1;
 

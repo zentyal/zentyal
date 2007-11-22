@@ -128,6 +128,7 @@ sub _table
 			    del =>  __('MIME type removed'),
 			    update => __('MIME type updated'),
 			   },
+     sortedBy           => 'MIMEType',
     };
 
 }

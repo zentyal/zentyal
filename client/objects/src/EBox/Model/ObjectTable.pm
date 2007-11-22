@@ -88,6 +88,7 @@ sub _table
             'class' => 'dataTable',
             'help' => __('Objects'),
             'printableRowName' => __('object'),
+            'sortedBy' => 'name',
         };
 
     return $dataTable;
@@ -98,19 +99,19 @@ sub _table
 #        Overrides <EBox::Model::DataTable::_tailoredOrder>
 #
 #
-sub _tailoredOrder # (rows)
-{
-
-    my ($self, $rows_ref) = @_;
-
-    # Order rules per priority
-    my @orderedRows = sort { $a->{valueHash}->{name}->value()
-        cmp $b->{valueHash}->{name}->value() }
-    @{$rows_ref};
-
-    return \@orderedRows;
-
-}
+#sub _tailoredOrder # (rows)
+#{
+#
+#    my ($self, $rows_ref) = @_;
+#
+#    # Order rules per priority
+#    my @orderedRows = sort { $a->{valueHash}->{name}->value()
+#        cmp $b->{valueHash}->{name}->value() }
+#    @{$rows_ref};
+#
+#    return \@orderedRows;
+#
+#}
 
 # Method: warnIfIdUsed
 #

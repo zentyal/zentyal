@@ -202,6 +202,7 @@ sub _table
 		     'rowUnique'          => 1,  # Set each row is unique
 		     'printableRowName'   => __('fixed address'),
                      'order'              => 0   # Ordered by tailoredOrder
+                     'sortedBy'           => 'ip',
 		    };
 
     return $dataTable;
@@ -214,15 +215,15 @@ sub _table
 #
 #      <EBox::Model::DataTable::_tailoredOrder>
 #
-sub _tailoredOrder
-{
-    my ($self, $rows) = @_;
-
-    my @sortedRows = sort _sortMappings @{$rows};
-
-    return \@sortedRows;
-}
-
+#sub _tailoredOrder
+#{
+#    my ($self, $rows) = @_;
+#
+#    my @sortedRows = sort _sortMappings @{$rows};
+#
+#    return \@sortedRows;
+#}
+#
 # Group: Private methods
 
 # Sorter function for table

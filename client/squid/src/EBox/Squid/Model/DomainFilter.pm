@@ -124,7 +124,7 @@ sub _table
 				update => __('Domain updated'),
 
 			       },
-
+         sortedBy           => 'domain',
 	};
 
   }
