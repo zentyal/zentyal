@@ -113,6 +113,7 @@ sub model
 {
     my ($self, $path) = @_;
 
+
     unless ( defined ( $path )) {
         throw EBox::Exceptions::MissingArgument('path');
     }
@@ -125,6 +126,7 @@ sub model
     }
 
     # Re-read from the modules if the model manager has changed
+
     if ( $self->_hasChanged() ) {
         $self->_setUpModels();
         $self->{'version'} = $self->_version();
@@ -141,7 +143,9 @@ sub model
             # There are at least one parameter
             return $self->_chooseModelUsingParameters($path);
         } else {
-            if ( @{$self->{'models'}->{$moduleName}->{$modelName}} == 1 ) {
+            if ($parameters[0] ne '*' 
+	    	and  @{$self->{'models'}->{$moduleName}->{$modelName}} == 1 ) {
+		
                 return $self->{'models'}->{$moduleName}->{$modelName}->[0];
             } else {
                 return $self->{'models'}->{$moduleName}->{$modelName};
