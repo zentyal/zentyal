@@ -263,10 +263,10 @@ sub printableIndex
     my ($self) = @_;
 
     if ( $self->{interfaceType} eq 'internal' ) {
-        return __x('internal interface {iface}',
+        return __x('{iface} (internal interface)',
                    iface => $self->{interface});
     } else {
-        return __x('external interface {iface}',
+        return __x('{iface} (external interface)',
                    iface => $self->{interface});
     }
 
