@@ -131,7 +131,9 @@ EOT
 		chown ebox.ebox /var/lib/ebox/.pgpass
 
 		# create link from ebox's log directory to /var/log
-		ln -s /var/lib/ebox/log /var/log/ebox
+                if [ ! -L /var/log/ebox ]; then
+                    ln -s /var/lib/ebox/log /var/log/ebox
+                fi
 
 		#Create user and database
 		create_db
