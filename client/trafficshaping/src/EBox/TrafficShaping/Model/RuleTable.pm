@@ -82,8 +82,10 @@ sub new
     my $netMod = EBox::Global->modInstance('network');
     if ( $netMod->ifaceIsExternal($self->{interface}) ) {
         $self->_setLimitRate( $self->{ts}->uploadRate($self->{interface}) );
+        $self->{interfaceType} = 'external';
     } else {
         $self->_setLimitRate( $self->{ts}->totalDownloadRate() );
+        $self->{interfaceType} = 'internal';
     }
 
     bless($self, $class);
@@ -260,8 +262,13 @@ sub printableIndex
 
     my ($self) = @_;
 
-    return __x("interface {iface}",
-              iface => $self->{interface});
+    if ( $self->{interfaceType} eq 'internal' ) {
+        return __x('internal interface {iface}',
+                   iface => $self->{interface});
+    } else {
+        return __x('external interface {iface}',
+                   iface => $self->{interface});
+    }
 
 }
 
@@ -522,8 +529,8 @@ sub _table
 
     my $dataTable = {
 		     'tableName'          => 'tsTable',
-		     'printableTableName' => __x('Rules list for {iface}',
-                                                iface => $self->{interface}),
+		     'printableTableName' => __x('Rules list for {printableIndex}',
+                                                 printableIndex => $self->printableIndex()),
                      'defaultActions'     =>
                            [ 'add', 'del', 'editField', 'changeView' ],
                      'modelDomain'        => 'TrafficShaping',

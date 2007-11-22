@@ -1,6 +1,7 @@
 0.11.99
-        + Now, eBox -> internal networks traffic flow is not shaped
+        + eBox -> internal networks traffic flow is not shaped
 	anymore
+	+ Difference easily internal/external interfaces through GUI
 0.10.99
 	+ Use last model/view changes to get rid of the multitable code
 	+ Remove rules using an object when it's removed
