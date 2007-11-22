@@ -957,13 +957,20 @@ sub _createInternalStructure # (defaultClassId)
     my $netMod = EBox::Global->modInstance('network');
     my $servMod = EBox::Global->modInstance('services');
     my $ifaceAddr = $netMod->ifaceAddress($self->getInterface());
-    my $ifaceType = new EBox::Types::IPAddr(fieldName     => 'ifaceAddr',
+    my $eBoxIPType = new EBox::Types::IPAddr(fieldName     => 'ifaceAddr',
                                             printableName => 'ifaceAddr');
-    $ifaceType->setValue("$ifaceAddr/32");
+    $eBoxIPType->setValue("$ifaceAddr/32");
+    my $anyServiceId = $servMod->serviceId('any');
     $self->addFilter(leafClassId => $eBoxId,
                      priority    => 0,
-                     srcAddr     => $ifaceType,
-                     service     => $servMod->serviceId('any'),
+                     srcAddr     => $eBoxIPType,
+                     service     => $anyServiceId,
+                    );
+    $self->addFilter(leafClassId => $eBoxId,
+                     priority    => 0,
+                     dstAddr     => $eBoxIPType,
+                     service     => $anyServiceId,
+                     id          => $eBoxId + 1,
                     );
 
 
