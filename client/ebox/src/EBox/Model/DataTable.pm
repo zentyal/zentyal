@@ -117,6 +117,10 @@ sub table
       $self->_setControllers();
       # This is useful for submodels
       $self->{'table'}->{'gconfdir'} = $self->{'gconfdir'};
+      # Add enabled field if desired
+      if ( $self->isEnablePropertySet() ) {
+          $self->_setEnabledAsFieldInTable();
+      }
       # Make fields accessible by their names
       for my $field (@{$self->{'table'}->{'tableDescription'}}) {
       	my $name = $field->fieldName();
@@ -127,9 +131,6 @@ sub table
 	$self->{'table'}->{'class'} = 'dataTable';
       }
       $self->_setDefaultMessages();
-      if ( $self->isEnablePropertySet() ) {
-          $self->_setEnabledAsFieldInTable();
-      }
     }
 
     return $self->{'table'};
@@ -1407,6 +1408,29 @@ sub printableValueRows
         return \@values;
 }
 
+# Method: enabledRows
+#
+#       Returns those rows which are enabled, that is, those whose
+#       field 'enabled' is set to true. If there is no enabled field,
+#       all rows are returned.
+#
+# Returns:
+#
+#       The same as <EBox::Model::DataTable::rows> but only including
+#       those are enabled.
+#
+sub enabledRows
+{
+    my ($self) = @_;
+
+    my $fields = $self->fields();
+    unless ( grep { $_ eq 'enabled' } @{$fields}) {
+        return $self->rows();
+    }
+    return $self->_find('enabled' => 1, 1, 'row');
+
+}
+
 # Method: size
 #
 #      Determine the size (in number of rows) from a model
@@ -2098,7 +2122,7 @@ sub find
         throw EBox::Exceptions::MissingArgument("Missing field name"); 
     }
 
-    my @matched = @{$self->_find($fieldName, $value, undef, 1)};
+    my @matched = @{$self->_find($fieldName, $value, undef, 'printableValue')};
 
     if (@matched) {
         return $matched[0];
@@ -2139,7 +2163,7 @@ sub findAll
         throw EBox::Exceptions::MissingArgument("Missing field name"); 
     }
 
-    my @matched = @{$self->_find($fieldName, $value, 1, 1)};
+    my @matched = @{$self->_find($fieldName, $value, 1, 'printableValue')};
 
     return \@matched;
 
@@ -2150,7 +2174,7 @@ sub findAll
 #	Return the first row which matches the value of the given
 #	field against the data returned by the method value()
 #
-#	If you want to match against value use
+#	If you want to match against printable value use
 #	<EBox::Model::DataTable::find>
 # Parameters:
 #
@@ -2177,7 +2201,7 @@ sub findValue
         throw EBox::Exceptions::MissingArgument("Missing field name"); 
     }
 
-    my @matched = @{$self->_find($fieldName, $value, undef, undef)};
+    my @matched = @{$self->_find($fieldName, $value, undef, 'value')};
 
     if (@matched) {
         return $matched[0];
@@ -2218,7 +2242,7 @@ sub findAllValue
         throw EBox::Exceptions::MissingArgument("Missing field name"); 
     }
 
-    my @matched = @{$self->_find($fieldName, $value, 1, undef)};
+    my @matched = @{$self->_find($fieldName, $value, 1, 'value')};
 
     return \@matched;
 
@@ -2659,37 +2683,46 @@ sub _setDefaultMessages
 #	allMatches -   1 or undef to tell the method to return just the
 #		first match or all of them
 #
-#	printableValue - if 1 match against printableValue, undef against value
-# 	Example:
+#	kind - String if 'printableValue' match against
+#	printableValue, if 'value' against value, 'row' match against
+#	value returning the row *(Optional)* Default value: 'value'
 #
-# 	find('default',  1, undef);
+# Example:
+#
+# 	_find('default',  1, undef, 'printableValue');
 #
 # Returns:
 #
 #	An array of hash ref containing the rows with their printable
 #	values
-# 	
-sub _find 
+#
+sub _find
 {
-    my ($self, $fieldName, $value, $allMatches, $printableValue) = @_;
+    my ($self, $fieldName, $value, $allMatches, $kind) = @_;
 
     unless (defined ($fieldName)) {
         throw EBox::Exceptions::MissingArgument("Missing field name"); 
     }
+
+    $kind = 'value' unless defined ( $kind );
 
     my $rows = $self->rows();
 
     my @matched;
     foreach my $row (@{$rows}) {
     	my $values;
-	if ($printableValue) {
-        	$values = $row->{'printableValueHash'};  
-	} else {
-		$values = $row->{'plainValueHash'};
-	}
+	if ($kind eq 'printableValue') {
+            $values = $row->{'printableValueHash'};
+        } else {
+            $values = $row->{'plainValueHash'};
+        }
         next unless (exists $values->{$fieldName});
         next unless ($values->{$fieldName} eq $value);
-        push (@matched, $values);
+        if ( $kind ne 'row' ) {
+            push (@matched, $values);
+        } else {
+            push (@matched, $row);
+        }
         return (\@matched) unless ($allMatches);
     }
 
