@@ -27,6 +27,8 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::NotImplemented;
 
+use EBox::Types::Boolean;
+
 # Dependencies
 use Error qw(:try);
 use POSIX qw(ceil);
@@ -125,6 +127,9 @@ sub table
 	$self->{'table'}->{'class'} = 'dataTable';
       }
       $self->_setDefaultMessages();
+      if ( $self->isEnablePropertySet() ) {
+          $self->_setEnabledAsFieldInTable();
+      }
     }
 
     return $self->{'table'};
@@ -327,6 +332,52 @@ sub precondition
 sub preconditionFailMsg
 {
     return '';
+}
+
+# Method: isEnablePropertySet
+#
+#       Return whether the row enabled is set or not
+#
+# Returns:
+#
+#       Boolean - true if a row may be enabled or not in the model
+#
+sub isEnablePropertySet
+{
+    my ($self) = @_;
+
+    return $self->{'table'}->{'enableProperty'};
+}
+
+# Method: defaultEnabledValue
+#
+#      Get the default value for enabled field in a row if the Enable
+#      property is set, check
+#      <EBox::Model::DataTable::isEnablePropertySet>. If it is not set
+#      the undef value is returned.
+#
+#      Default value is false.
+#
+# Returns:
+#
+#      boolean - true or false depending on the user defined option on
+#      *defaultEnabledValue*
+#
+#      undef - if <EBox::Model::DataTable::isEnablePropertySet>
+#      returns false
+#
+sub defaultEnabledValue
+{
+    my ($self) = @_;
+
+    unless ( $self->isEnablePropertySet() ) {
+        return undef;
+    }
+    if ( not defined ( $self->{'table'}->{'defaultEnabledValue'} )) {
+        $self->{'table'}->{'defaultEnabledValue'} = 0;
+    }
+    return $self->{'table'}->{'defaultEnabledValue'};
+
 }
 
 # Method: fieldHeader
@@ -2564,33 +2615,32 @@ sub actionClickedJS
 #      Set the default messages done by possible actions
 #
 sub _setDefaultMessages
-  {
+{
 
-      my ($self) = @_;
+    my ($self) = @_;
 
-      # Table is already defined
-      my $table = $self->{'table'};
+    # Table is already defined
+    my $table = $self->{'table'};
 
-      $table->{'messages'} = {} unless ( $table->{'messages'} );
-      my $rowName = $self->printableRowName();
+    $table->{'messages'} = {} unless ( $table->{'messages'} );
+    my $rowName = $self->printableRowName();
 
-      my %defaultMessages =
-        (
-         'add'       => __x('{row} added', row => $rowName),
-         'del'       => __x('{row} deleted', row => $rowName),
-         'update'    => __x('{row} updated', row => $rowName),
-         'moveUp'    => __x('{row} moved up', row => $rowName),
-         'moveDown'  => __x('{row} moved down', row => $rowName),
-        );
+    my %defaultMessages =
+      (
+       'add'       => __x('{row} added', row => $rowName),
+       'del'       => __x('{row} deleted', row => $rowName),
+       'update'    => __x('{row} updated', row => $rowName),
+       'moveUp'    => __x('{row} moved up', row => $rowName),
+       'moveDown'  => __x('{row} moved down', row => $rowName),
+      );
 
-      foreach my $action (keys (%defaultMessages)) {
-          unless ( exists $table->{'messages'}->{$action} ) {
-              $table->{'messages'}->{$action} = $defaultMessages{$action};
-          }
-      }
+    foreach my $action (keys (%defaultMessages)) {
+        unless ( exists $table->{'messages'}->{$action} ) {
+            $table->{'messages'}->{$action} = $defaultMessages{$action};
+        }
+    }
 
-
-  }
+}
 
 # Group: Private helper functions
 
@@ -3804,5 +3854,29 @@ sub _filterFields
       return $newRow;
 
   }
+
+# Method: _setEnabledAsFieldInTable
+#
+#       Set the enabled field (a boolean type) in the current model
+#       with name 'Enabled'
+#
+sub _setEnabledAsFieldInTable
+{
+    my ($self) = @_;
+
+    # Check if enabled field already exists
+    if ( exists $self->{'table'}->{'tableDescriptionByName'}->{'enabled'} ) {
+        return;
+    }
+
+    my $tableDesc = $self->{'table'}->{'tableDescription'};
+
+    my $enabledType = new EBox::Types::Boolean(fieldName     => 'enabled',
+                                               printableName => __('Enabled'),
+                                               editable      => 1,
+                                               defaultValue  => $self->defaultEnabledValue());
+    push (@{$tableDesc}, $enabledType);
+
+}
 
 1;
