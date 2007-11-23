@@ -1300,8 +1300,6 @@ sub setTypedRow
 
       }
 
-      $oldRow->{'values'} = \@newValues;
-
       if ($modified) {
           $self->_setCacheDirty();
           $self->setMessage($self->message('update'));
@@ -1312,7 +1310,7 @@ sub setTypedRow
               $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
           }
           $self->_notifyCompositeManager('update', $self->row($id));
-          $self->updatedRowNotify($oldRow, $force);
+          $self->updatedRowNotify($self->row($id), $force);
       }
 
   }
