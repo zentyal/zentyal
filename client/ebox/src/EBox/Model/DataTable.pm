@@ -775,7 +775,7 @@ sub addTypedRow
 
       # Check if the new row is unique
       if ( $self->rowUnique() ) {
-          $self->_checkRowIsUnique(undef, \@userData);
+          $self->_checkRowIsUnique(undef, $paramsRef);
       }
 
       my $leadingText = substr( $tableName, 0, 4);
@@ -1267,11 +1267,10 @@ sub setTypedRow
 
       }
 
-      # TODO: Check its usefulness
-      my @newValues = @{$self->setterTypes()};
       # Check if the new row is unique
+      my @newValues = values(%{$allData});
       if ( $self->rowUnique() ) {
-	  $self->_checkRowIsUnique($id, \@newValues);
+	  $self->_checkRowIsUnique($id, $allData);
       }
 
       $changedData->{id} = $id;
@@ -2763,62 +2762,50 @@ sub _checkFieldIsUnique
 {
 	my ($self, $newData) = @_;
 
-
-	my $gconfmod = $self->{'gconfmodule'};
-	my $dir = $self->{'directory'};
-
-	unless ($gconfmod->dir_exists($dir)) {
-		return 0;
-	}
-
-	my @ids = $gconfmod->all_dirs($dir);
-
-	foreach my $id (@ids) {
-		my $hash = $gconfmod->hash_from_dir($id);
-
-		if ($newData->compareToHash($hash))  {
-			throw EBox::Exceptions::DataExists(
-					'data' => $newData->printableName(),
-					'value' => $newData->printableValue());
-
-		}
-	}
-
+        my $rows = $self->rows();
+        foreach my $row (@{$rows}) {
+            my $rowField = $row->{'valueHash'}->{$newData->fieldName()};
+            if ( $newData->isEqualTo($rowField) ) {
+                throw EBox::Exceptions::DataExists(
+                                      'data'  => $newData->printableName(),
+                                      'value' => $newData->printableValue(),
+                                                  );
+            }
+        }
 	return 0;
 }
 
-# Check the new row to add/set is unique
+# Check the new row to add/set is unique, it ignores enabled parameter
+# is any
 # rowId can be undef if the call comes from an addition
-# An array ref of types is passing in
+# A hash ref of types is passing in
 # throw <EBox::Exceptions::DataExists> if not unique
 sub _checkRowIsUnique # (rowId, row_ref)
-  {
-
+{
     my ($self, $rowId, $row_ref) = @_;
 
-    my $rowIds_ref = $self->{'gconfmodule'}->all_dirs_base($self->{'directory'});
+    my $rows = $self->rows();
 
-    foreach my $aRowId (@{$rowIds_ref}) {
-      # Compare if the row identifier is different
-      next if (defined ($rowId)) and ($aRowId eq $rowId);
-
-      my $hash = $self->{'gconfmodule'}->hash_from_dir($self->{'directory'} . '/' . $aRowId);
-      # Check every field
-      my $equal = 'equal';
-      foreach my $field (@{$row_ref}) {
-	next if ($field->compareToHash($hash));
-	$equal = undef;
-	last;
-      }
-      if ($equal) {
-	throw EBox::Exceptions::DataExists(
-					   'data'  => $self->printableRowName(),
-					   'value' => ''
-					  );
-      }
+    my $fields = $self->fields();
+    # Exclude 'enabled' field if isEnablePropertySet
+    if ( $self->isEnablePropertySet() ) {
+        my @fieldsWithoutEnabled = grep { $_ ne 'enabled' } @{$fields};
+        $fields = \@fieldsWithoutEnabled;
+    }
+    foreach my $row (@{$rows}) {
+        # Compare if the row identifier is different
+        next if ( defined($rowId) and $row->{'id'} eq $rowId);
+        my $nEqual = grep
+          { $row_ref->{$_}->isEqualTo($row->{valueHash}->{$_}) }
+            @{$fields};
+        next if ( $nEqual == 0 );
+        throw EBox::Exceptions::DataExists(
+                                           'data'  => $self->printableRowName(),
+                                           'value' => ''
+                                           );
     }
 
-  }
+}
 
 
 # Deprecated?
