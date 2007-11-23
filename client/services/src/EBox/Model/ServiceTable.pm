@@ -152,7 +152,8 @@ sub _table
         'menuNamespace' => 'Services/View/ServiceTable',
         'class' => 'dataTable',
         'help' => __x('bbbb'),
-        'printableRowName' => __('service')
+        'printableRowName' => __('service'),
+        'sortedBy' => 'name',
     };
 
     return $dataTable;
