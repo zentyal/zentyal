@@ -52,6 +52,20 @@ sub logHelper
 	return undef;
 }
 
+# Method: enableLog
+#
+#   This method must be overriden by the class implementing this interface,
+#   if it needs to enable or disable logging facilities in the services its
+#   managing.
+#
+# Parameters:
+#
+#   enable - boolean, true if it's enabled, false it's disabled
+#
+sub enableLog 
+{
+}
+
 # Method: tableInfo
 #
 #	This function returns a hash ref with these parameters.
