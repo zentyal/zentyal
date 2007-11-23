@@ -291,6 +291,7 @@ sub getAllTables
 	
 	foreach my $mod (@{getLogsModules()}) {
 		my $comp = $mod->tableInfo();
+        $comp->{'helper'} = $mod;
 		next unless ($comp);
 		$tables->{$comp->{'index'}} = $comp;
 	}
