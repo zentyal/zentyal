@@ -261,7 +261,13 @@ sub rows
     # Add new domains to gconf
     foreach my $domain (keys %currentLogDomains) {
         next if (exists $storedLogDomains{$domain});
-        $self->addRow('domain' => $domain, 'enabled' => '1', lifeTime => 0);
+	my $enabled;
+	if ($currentTables->{$domain}->{'disabledByDefault'})  {
+		$enabled = 0;
+	} else {
+		$enabled = 1;
+	}
+        $self->addRow('domain' => $domain, 'enabled' => $enabled, lifeTime => 0);
     }
 
     # Remove non-existing domains from gconf
@@ -273,6 +279,31 @@ sub rows
 
     return $self->SUPER::rows($filter, $page);
 }
+
+# Method: validateTypedRow
+#
+#	Override <EBox::Model::DataTable::validateTypedRow>
+#
+sub updatedRowNotify 
+{
+  my ($self, $row) = @_;
+
+  my $domain = $row->{'valueHash'}->{'domain'}->value();
+  my $enabled = $row->{'valueHash'}->{'enabled'}->value();
+ 
+  my $logs = EBox::Global->modInstance('logs');
+  my $tables = $logs->getAllTables();
+
+  unless (exists $tables->{$domain}) {
+	EBox::warn("Domain: $domain does not exist in logs");
+  }
+  
+
+  my $helper = $tables->{$domain}->{'helper'};
+  $helper->enableLog($enabled);
+
+}
+
 
 1;
 
