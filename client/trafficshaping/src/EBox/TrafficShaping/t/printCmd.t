@@ -26,11 +26,15 @@ use EBox;
 
 EBox->init();
 
+my ($iface) = @ARGV;
+
+$iface = 'eth0' unless defined($iface);
+
 my $ts = EBox::Global->modInstance('trafficshaping');
 $ts->startUp();
 
-my $tcCommands_ref = $ts->{builders}->{'eth0'}->dumpTcCommands();
-my $ipTablesCommands_ref = $ts->{builders}->{'eth0'}->dumpIptablesCommands();
+my $tcCommands_ref = $ts->{builders}->{$iface}->dumpTcCommands();
+my $ipTablesCommands_ref = $ts->{builders}->{$iface}->dumpIptablesCommands();
 
 print ( Dumper($tcCommands_ref) );
 print ( Dumper($ipTablesCommands_ref) );
