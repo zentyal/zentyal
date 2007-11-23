@@ -139,17 +139,17 @@ sub model
     }
 
     if ( exists $self->{'models'}->{$moduleName}->{$modelName} ) {
-        if ( @parameters > 0 and $parameters[0] ne '*') {
+        if (@parameters and $parameters[0] ne '*') {
             # There are at least one parameter
             return $self->_chooseModelUsingParameters($path);
         } else {
-            if ($parameters[0] ne '*' 
-	    	and  @{$self->{'models'}->{$moduleName}->{$modelName}} == 1 ) {
-		
-                return $self->{'models'}->{$moduleName}->{$modelName}->[0];
-            } else {
-                return $self->{'models'}->{$moduleName}->{$modelName};
-            }
+		my $nModels = @{$self->{'models'}->{$moduleName}->{$modelName}};
+		if ((@parameters and $parameters[0] eq '*') or $nModels > 1) {
+			return $self->{'models'}->{$moduleName}->{$modelName};
+		} else {
+			return 
+			  $self->{'models'}->{$moduleName}->{$modelName}->[0];
+		}
         }
     } else {
         throw EBox::Exceptions::DataNotFound( data  => 'model',
