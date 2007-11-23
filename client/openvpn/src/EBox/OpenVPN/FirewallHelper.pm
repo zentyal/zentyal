@@ -53,7 +53,7 @@ sub externalInput
 
     # do not firewall openvpn virtual ifaces
     foreach my $iface (@{ $self->ifaces() }) {
-      push @rules, "-i $iface -j ACCEPT";
+      push @rules, "-i $iface -p udp --source-port 520 -j ACCEPT";
     }
 
     my $portsByProto = $self->portsByProto;
@@ -77,7 +77,7 @@ sub output
     if ($self->service()) {
     # do not firewall openvpn virtual ifaces
       foreach my $iface (@{ $self->ifaces() }) {
-	push @rules, "-o $iface -j ACCEPT";
+	push @rules, "-o $iface -p udp --destination-port 520 -j ACCEPT";
       }
     
       foreach my $server_r (@{ $self->serversToConnect() }) {
