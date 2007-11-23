@@ -691,6 +691,56 @@ sub setInternalService
 	return 1;
 }
 
+# Method: enableLog 
+#
+#   Override <EBox::LogObserver>
+#
+#
+sub enableLog 
+{
+	my ($self, $enable) = @_;
+ 
+ 	$self->setLogging($enable);
+}
+
+# Method: setLogging 
+#
+#   This method is used to enable/disable the iptables logging facilities.
+#
+#   When enabled, it will log drop packets to syslog, and they will be
+#   introduced into the eBox log DB.
+#
+# Parameters:
+#
+#   enable - boolean true to enable, false to disable 
+#
+sub setLogging
+{
+    my ($self, $enable) = @_;
+
+    if ($enable xor $self->logging()) {
+        $self->set_bool('logging', $enable);
+    }
+}
+
+# Method: logging 
+#
+#   This method is used to fetch the logging status which is set by the user
+#
+#
+# Returns:
+#
+#   boolean true to enable, false to disable 
+#
+sub logging
+{
+    my ($self) = @_;
+
+    return  $self->get_bool('logging');
+}
+
+
+
 # Method: onInstall
 #
 # 	Method to execute the first time the module is installed.
@@ -794,7 +844,8 @@ sub tableInfo {
 		'filter' => ['fw_in', 'fw_out', 'fw_src', 
 			     'fw_dst', 'fw_proto', 'fw_spt', 'fw_dpt'],
 		'events' => $events,
-		'eventcol' => 'event'
+		'eventcol' => 'event',
+		'disabledByDefault' => 1
 		};
 }
 
