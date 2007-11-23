@@ -594,6 +594,13 @@ sub _drop
 {
     my ($self) = @_;
 
+   
+
+    pf '-I drop -j DROP';
+
+    # If logging is disabled we are done
+    return unless ($self->{firewall}->logging());
+
     my $limit = EBox::Config::configkey('iptables_log_limit');
     my $burst = EBox::Config::configkey('iptables_log_burst');
 
@@ -608,8 +615,6 @@ sub _drop
 		'iptables_log_burst variable in the ebox configuration file'));
 
     }
-
-    pf '-I drop -j DROP';
     pf "-I drop -j LOG -m limit --limit $limit/min --limit-burst $burst" . 
        ' --log-level ' . SYSLOG_LEVEL . 
        ' --log-prefix "ebox-firewall "';
