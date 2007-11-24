@@ -2798,7 +2798,7 @@ sub _checkRowIsUnique # (rowId, row_ref)
         my $nEqual = grep
           { $row_ref->{$_}->isEqualTo($row->{valueHash}->{$_}) }
             @{$fields};
-        next if ( $nEqual == 0 );
+        next unless ( $nEqual == scalar(@{$fields}) );
         throw EBox::Exceptions::DataExists(
                                            'data'  => $self->printableRowName(),
                                            'value' => ''
