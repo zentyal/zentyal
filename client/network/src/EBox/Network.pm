@@ -968,7 +968,7 @@ sub _checkStatic # (iface, force)
 
 	foreach my $vif (@{$self->vifaceNames($iface)}) {
 		foreach my $mod (@mods) {
-			my ($tmp, $viface) = $self->_viface2array($iface);
+			my ($tmp, $viface) = $self->_viface2array($vif);
 			if ($mod->vifaceDelete($iface, $viface)) {
 				if ($force) {
 					$mod->freeViface($iface, $viface);
