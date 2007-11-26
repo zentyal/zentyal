@@ -60,6 +60,8 @@ AC_CONFIG_FILES([
 src/EBox/CGI/FirstTime/Makefile
 src/EBox/Network/Makefile
 src/EBox/Network/Report/Makefile
+src/EBox/Network/Report/t/Makefile
+src/EBox/Network/Report/BitRate/Makefile
 src/Makefile
 src/EBox/Makefile
 src/EBox/Model/Makefile

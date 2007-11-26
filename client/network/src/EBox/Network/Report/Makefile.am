@@ -1,4 +1,5 @@
 ## Process this file with automake to produce Makefile.in
+SUBDIRS = BitRate t
 
 perldir = @PERLPATH@/EBox/Network/Report
 
