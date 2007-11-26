@@ -80,8 +80,6 @@ use constant MIN_ID_VALUE => 256; # 0x100
 use constant MAX_ID_VALUE => 65280; # 0xFF00
 use constant DEFAULT_CLASS_ID => 21;
 
-use constant LIMIT_RATE_KEY => '/limitRate';
-
 # Constructor for traffic shaping module
 sub _create
   {
@@ -724,7 +722,7 @@ sub freeIface # (iface)
 #
 #    Int - the upload rate in kilobits per second
 #
-sub uploadRate # (iface, previous)
+sub uploadRate # (iface)
 {
 
     # FIXME: Change when the ticket #373
@@ -753,7 +751,7 @@ sub uploadRate # (iface, previous)
 #
 #        Int - the download rate in kilobits per second
 #
-sub totalDownloadRate # (previous)
+sub totalDownloadRate
 {
 
 # FIXME: Change when the ticket #373
@@ -766,7 +764,7 @@ sub totalDownloadRate # (previous)
 
     my $sumDownload = 0;
 
-    foreach my $gateway _ref (@{$gateways_ref}) {
+    foreach my $gateway_ref (@{$gateways_ref}) {
         if ( $net->ifaceIsExternal($gateway_ref->{interface}) ) {
             $sumDownload += $gateway_ref->{download};
         }
@@ -1067,9 +1065,6 @@ sub _ruleParams # (iface, ruleId)
 #       interface - String interface's name to create the tree
 #       type - String HTB, default or HFSC
 #
-#       regenConfig - Boolean indicating if the call comes from regen
-#       config or not
-#
 # Exceptions:
 #
 #      <EBox::Exceptions::InvalidData> - throw if type is not one of
@@ -1081,10 +1076,10 @@ sub _ruleParams # (iface, ruleId)
 #      <EBox::Exceptions::External> - throw if rate is not given for
 #      every external interface
 #
-sub _createTree # (interface, type, regenConfig)
+sub _createTree # (interface, type)
   {
 
-    my ($self, $iface, $type, $regenConfig) = @_;
+    my ($self, $iface, $type) = @_;
 
     # Check arguments
     throw EBox::Exceptions::MissingArgument('interface')
@@ -1113,14 +1108,7 @@ sub _createTree # (interface, type, regenConfig)
       my $linkRate;
       my $model = $self->ruleModel($iface);
       $linkRate = $model->committedLimitRate();
-#      my $network = $self->{'network'};
-#      if ( $network->ifaceIsExternal($iface) ) {
-#          $linkRate = $self->uploadRate($iface, $regenConfig);
-#      }
-#      else {
-#          $linkRate = $self->totalDownloadRate($regenConfig);
-#      }
-#
+
       if ( not defined($linkRate) or $linkRate == 0) {
 	throw EBox::Exceptions::External(__x("Interface {iface} should have a maximum " .
 					     "bandwidth rate in order to do traffic shaping",

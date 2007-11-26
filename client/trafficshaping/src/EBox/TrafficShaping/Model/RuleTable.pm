@@ -173,7 +173,6 @@ sub isUsingId
       my ($self, $modelName, $id) = @_;
 
       if ( $modelName eq 'GatewayTable' ) {
-          my $isUsingId;
           if ( $self->{interfaceType} eq 'external' ) {
               my $manager = EBox::Model::ModelManager->instance();
               my $observableModel = $manager->model($modelName);
@@ -185,7 +184,6 @@ sub isUsingId
               # Every time a gateway is changed, call a warning from an internal interface
               return ($self->size() > 0);
           }
-          return $isUsingId;
       }
 
       return 0;
@@ -339,8 +337,6 @@ sub validateTypedRow
     throw EBox::Exceptions::External(__('If service is any, some source or destination should be provided'));
 
   }
-
-  # Check rule uniqueness
 
   # Check the memory structure works as well
   $self->{ts}->checkRule(interface      => $self->{interface},
@@ -663,10 +659,10 @@ sub _normalize
                 $self->set( $pos, guaranteed_rate => $guaranteedRate,
                             limited_rate => $limitedRate);
             } catch EBox::Exceptions::External with {
-                my ($exc) = @_;
-                EBox::error($exc);
                 # The updated rule is fucking everything up (min guaranteed
                 # rate reached and more!)
+                my ($exc) = @_;
+                EBox::warn($row->{id} . " is being removed. Reason: $exc");
                 $self->removeRow( $row->{id}, 1);
                 $removeNum++;
                 $pos--;
@@ -705,27 +701,6 @@ sub _checkRate # (rate, printableName)
   }
 
   return 1;
-
-}
-
-# Get the rate stored by state in order to work when gateway changes
-# are produced
-sub _stateRate
-{
-    my ($self) = @_;
-
-    return $self->{gconfmodule}->st_get_int($self->{directory} . LIMIT_RATE_KEY);
-
-}
-
-# Set the rate into GConf state in order to work when gateway changes
-# are produced
-sub _setStateRate
-{
-    my ($self, $rate) = @_;
-
-    $self->{gconfmodule}->st_set_int($self->{directory} . LIMIT_RATE_KEY,
-                                     $rate);
 
 }
 
