@@ -704,4 +704,25 @@ sub _checkRate # (rate, printableName)
 
 }
 
+# Get the rate stored by state in order to work when gateway changes
+# are produced
+sub _stateRate
+{
+    my ($self) = @_;
+
+    return $self->{gconfmodule}->st_get_int($self->{directory} . LIMIT_RATE_KEY);
+
+}
+
+# Set the rate into GConf state in order to work when gateway changes
+# are produced
+sub _setStateRate
+{
+    my ($self, $rate) = @_;
+
+    $self->{gconfmodule}->st_set_int($self->{directory} . LIMIT_RATE_KEY,
+                                     $rate);
+
+}
+
 1;
