@@ -68,7 +68,7 @@ sub _regenConfig
   
   if ( $service) {
     $class->_writeConfFile();
-    EBox::Sudo::root(MONITOR_DAEMON . ' time 60 ' . ' conffile ' . CONF_FILE);
+    EBox::Sudo::root(MONITOR_DAEMON . ' time 15 ' . ' conffile ' . CONF_FILE);
   }
 
 }
@@ -118,6 +118,9 @@ sub addBps
 		 dport => { TYPE => SCALAR },
 		 bps => { TYPE => SCALAR },
 		});
+
+
+  EBox::debug("addBps @_");
 
   my $src = $params{src};
 
@@ -429,9 +432,9 @@ sub srcAndServiceGraph
   }
 
   my $dataset = [
-		 _srcAndServiceDatasetElement($src, $service, $srcAndServiceRRD),
 		 _srcDatasetElement($src, $srcRRD),
 		 _serviceDatasetElement($service, $serviceRRD),
+		 _srcAndServiceDatasetElement($src, $service, $srcAndServiceRRD),
 		];
 
 
