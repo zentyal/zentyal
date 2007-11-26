@@ -20,6 +20,8 @@ use constant SERVICE_KEY => 'usage-monitor-active';
 
 use constant MONITOR_DAEMON => '/usr/lib/ebox/ebox-traffic-monitor';
 
+use constant CONF_FILE => '/etc/jnettop.conf';
+
 # XX DEBUG
     use DB;
 our @ISA = qw(DB);
@@ -60,13 +62,13 @@ sub _regenConfig
   my $service = $class->service;
   my $running = $class->running();
 
-  if ($running xor $service) {
-    if ($running) {
-      $class->stopService();
-    }
-    if ($service) {
-      EBox::Sudo::root(MONITOR_DAEMON . ' time 60');
-    }
+  if ($running) {
+    $class->stopService();
+  }
+  
+  if ( $service) {
+    $class->_writeConfFile();
+    EBox::Sudo::root(MONITOR_DAEMON . ' time 60 ' . ' conffile ' . CONF_FILE);
   }
 
 }
@@ -76,6 +78,28 @@ sub stopService
 {
   my ($class) = @_;
   EBox::Sudo::root('pkill -f ' . MONITOR_DAEMON);
+}
+
+
+sub _writeConfFile
+{
+  my ($class) = @_;
+
+  my $network = EBox::Global->modInstance('network');
+  my @internalIfaces = @{ $network->InternalIfaces()  };
+
+  my @localNets = map {
+    my $addr = $network->ifaceAddress($_);
+    my $mask = $network->ifaceNetmask($_);
+    [$addr, $mask]
+  } @internalIfaces;
+
+  EBox::Module->writeConfFile(
+			      CONF_FILE,
+			      'network/jnettop.conf.mas',
+			      [ localNetworks => \@localNets,  ]
+
+			     );
 }
 
 my %srcBps;

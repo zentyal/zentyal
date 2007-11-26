@@ -1,0 +1,7 @@
+<%args>
+@localNetworks
+</%args>
+% foreach my  $net (@localNetworks) {
+% my ($addr, $mask) = @{ $net };
+local_network <% qq{"$addr" "$mask"} %>
+% }

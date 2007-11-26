@@ -2,7 +2,7 @@
 
 Stubdir = @STUBSPATH@/network
 
-nobase_Stub_DATA = rt_tables.mas dhclient.conf.mas
+nobase_Stub_DATA = rt_tables.mas dhclient.conf.mas jnettop.conf.mas
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 

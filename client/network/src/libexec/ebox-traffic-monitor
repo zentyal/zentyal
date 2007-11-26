@@ -42,6 +42,10 @@ sub _checkParams
     die 'time parameter must be greater than zero';
   }
 
+
+  if (not exists $params{conffile}) {
+    die 'misssing conffile parameter';
+  }
 }
 
 sub _jnettopCmd
@@ -67,6 +71,9 @@ sub _jnettopCmd
   my $time = $params{time};
 
   $jnettopCmd .= " -t $time";
+
+  my $cf = $params{conffile};
+  $jnettopCmd .= " -f $cf ";
 
   
   $jnettopCmd .= ' --format ' . JNETTOP_FORMAT;
