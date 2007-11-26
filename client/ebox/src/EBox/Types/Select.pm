@@ -296,10 +296,6 @@ sub _filterOptions
           push( @optionsAlreadyModel, $row->{valueHash}->{$field});
       }
 
-      use Data::Dumper;
-      EBox::debug(Dumper(\@optionsAlreadyModel));
-      EBox::debug(Dumper($options));
-
       # Difference among optionsAlreadyModel and options arrays
       my @filteredOptions = grep { $_->{value} ne any(@optionsAlreadyModel) } @{$options};
 

@@ -144,10 +144,6 @@ sub cmp
     my $ipA = new Net::IP($self->printableValue());
     my $ipB = new Net::IP($compareType->printableValue());
 
-    EBox::debug($ipA->print());
-    EBox::debug($ipB->print());
-    EBox::debug($ipA->bincomp('lt', $ipB));
-
     if ( $ipA->bincomp('lt', $ipB) ) {
         return -1;
     } elsif ( $ipB->bincomp('eq', $ipB)) {

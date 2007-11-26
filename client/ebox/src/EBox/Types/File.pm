@@ -283,14 +283,11 @@ sub _storeInGConf
 
     my $keyField = "$key/" . $self->fieldName() . '_path';
 
-    EBox::debug('path: ' . $self->path());
     if ($self->path()) {
         $gconfmod->set_string($keyField, $self->path());
         # Do actually move
         my $tmpPath = $self->tmpPath();
-        EBox::debug("tmpPath: $tmpPath");
         if ( -f $tmpPath ) {
-            EBox::debug("Moving from $tmpPath to " . $self->path());
             File::Copy::move($tmpPath, $self->path()) or
                 throw EBox::Exceptions::Internal("Cannot move from $tmpPath "
                                                  . ' to ' . $self->path());
