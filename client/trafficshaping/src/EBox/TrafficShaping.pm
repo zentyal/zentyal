@@ -15,6 +15,21 @@
 
 # FIXME:  Get rid of unnecessary stuff already provided by the framework
 # 
+
+# Class: EBox::TrafficShaping
+#
+#      This eBox module is intended to manage traffic shaping rules
+#      set by user per real interface. Each rule may represent a bunch
+#      of iptables and tc commands to tell the kernel how to manage
+#      the traffic flows.
+#
+#      Current state of developing is the following:
+#
+#      Shaping (guaranteed, limited and prioriting) traffic per
+#      service (protocol/port union), source (IP, MAC, object) and
+#      destination (IP, object) on *egress* traffic from every static
+#      interface
+#
 package EBox::TrafficShaping;
 
 use strict;
@@ -65,6 +80,8 @@ use constant MIN_ID_VALUE => 256; # 0x100
 use constant MAX_ID_VALUE => 65280; # 0xFF00
 use constant DEFAULT_CLASS_ID => 21;
 
+use constant LIMIT_RATE_KEY => '/limitRate';
+
 # Constructor for traffic shaping module
 sub _create
   {
@@ -78,11 +95,7 @@ sub _create
     $self->{network} = EBox::Global->modInstance('network');
     $self->{objects} = EBox::Global->modInstance('objects');
 
-
 #    $self->_setLogAdminActions();
-
-#    my $global = EBox::Global->getInstance();
-#    $self->{network} = $global->modInstance('network');
 
     bless($self, $class);
 
@@ -100,7 +113,7 @@ sub startUp
     $self->{tc} = EBox::TC->new();
     $self->{ipTables} = EBox::Iptables->new();
     # Create tree builders
-    $self->_createBuilders();
+    $self->_createBuilders(regenConfig => 0);
 
     $self->{'started'} = 1;
 }
@@ -122,7 +135,7 @@ sub _regenConfig
 
     # Create builders ( Disc -> Memory ) Mandatory every time an
     # access in memory is done
-    $self->_createBuilders();
+    $self->_createBuilders(regenConfig => 1);
 
     # Called every time a Save Changes is done
     my $ifaces_ref = $self->all_dirs_base('');
@@ -302,292 +315,6 @@ sub menu # (root)
 
 }
 
-# Method: addRule
-#
-#       Add a custom rule. A guaranteed rate or a limited rate should
-#       be given.
-#
-# Parameters:
-#
-#       interface      - interface to attach the rule
-#       protocol       - inet protocol *(Optional)*
-#       port           - port number *(Optional)*
-#       source         - source. It could be an <EBox::Types::IPAddr>,
-#                        <EBox::Types::MACAddr> or an object name (more info at
-#                        <EBox::Objects>) *(Optional)*
-#       destination    - destination. It could be an <EBox::Types::IPAddr>
-#                        or an object name (more info at <EBox::Objects>) *(Optional)*
-#       guaranteedRate - maximum guaranteed rate in Kilobits per second *(Optional)*
-#       limitedRate    - maximum allowed rate in Kilobits per second *(Optional)*
-#       priority       - rule priority (lower number, highest priority)
-#                        Default: lowest priority *(Optional)*
-#       enabled        - set if the rule added is enabled *(Optional)*
-#                        Default: true
-#
-#       - (Named Parameters)
-#
-# Returns:
-#
-#       Nothing
-#
-# Exceptions:
-#
-#      <EBox::Exceptions::MissingArgument> - throw if parameter is not
-#      passed
-#      <EBox::Exceptions::InvalidData> - throw if parameter has invalid
-#      data
-#      <EBox::Exceptions::External> - throw if interface is not external
-#       or the rule cannot be built
-#      <EBox::Exceptions::DataExists> - throw if the data already exists
-#       in the module
-#
-sub addRule
-  {
-
-    my ( $self, %ruleParams ) = @_;
-
-    throw EBox::Exceptions::MissingArgument( __('Interface') )
-      unless defined( $ruleParams{interface} );
-
-
-    # Setting standard rates if not defined
-    $ruleParams{guaranteedRate} = 0 unless defined ( $ruleParams{guaranteedRate} );
-    $ruleParams{guaranteedRate} = 0 if $ruleParams{guaranteedRate} eq '';
-    $ruleParams{limitedRate} = 0 unless defined ( $ruleParams{limitedRate} );
-    $ruleParams{limitedRate} = 0 if $ruleParams{limitedRate} eq '';
-
-
-    # Check existence enabled
-    $ruleParams{enabled} = 1 unless defined( $ruleParams{enabled} );
-
-    my $iface = delete ( $ruleParams{interface} );
-
-    # Check if it already exists rule (Done at model)
-
-    # Get the lowest priority if no priority is provided
-    if (not defined( $ruleParams{priority} )) {
-      $ruleParams{priority} = $self->getLowestPriority($iface) + 1;
-    }
-
-    # Create builders ( Disc -> Memory ) Mandatory every time an
-    # access in memory is done
-    $self->_createBuilders();
-
-    # Update priorities to be coherent with the remainders
-    $self->_correctPriorities($iface);
-
-    # Add admin logging
-#    logAdminDeferred('trafficshaping',"addRule",
-#		     "iface=$iface,protocol=$ruleParams{protocol},port=$ruleParams{port}," .
-#		     "gRate=ruleParams{guaranteed_rate},lRate=$ruleParams{limited_rate}," .
-#		     "priority=$ruleParams{priority},enabled=$ruleParams{enabled}");
-
-#    return $ruleId;
-    return undef;
-
-  }
-
-# Method: removeRule
-#
-#       Remove a custom rule. If the ruleId is given no more optional
-#       are needed. The same in the order way around.
-#
-# Parameters:
-#
-#       interface      - interface under the rule is given
-#       ruleId         - rule unique identifier *(Optional)*
-#       protocol       - protocol *(Optional)*
-#       port           - port number *(Optional)*
-#       guaranteedRate - guaranteed rate in Kbit/s *(Optional)**
-#       limitedRate    - limited rate in Kbit/s *(Optional)*
-#
-#       - Named parameters
-#
-# Exceptions:
-#
-#      <EBox::Exceptions::MissingArgument> - throw if parameter is not
-#      passed
-#      <EBox::Exceptions::DataNotFound> - throw if rule is not found
-#      <EBox::Exceptions::External> - throw if interface is not external
-#
-sub removeRule
-  {
-
-    my ( $self, %args ) = @_;
-
-    my $iface = delete $args{interface};
-#    my $ruleId = delete $args {ruleId};
-
-    throw EBox::Exceptions::MissingArgument( __('Interface') )
-      unless defined( $iface );
-
-    # Check interface
-    # $self->_checkInterface( $iface );
-
-    # Create builders ( Disc -> Memory ) Mandatory every time an
-    # access in memory is done
-    $self->_createBuilders();
-
-    # Destroy rule from builder
-#   $self->_destroyRule( $iface, $ruleId, \%args);
-
-    # Update priorities to be coherent with the remainders
-    $self->_correctPriorities($iface);
-
-    # Add admin logging
-#    logAdminDeferred('trafficshaping',"removeRule",
-#		     "iface=$iface,protocol=$entries{protocol},port=$entries{port}," .
-#		     "gRate=$entries{guaranteed_rate},lRate=$entries{limited_rate}," .
-#		     "priority=$entries{priority},$entries{enabled}");
-
-  }
-
-# Method: enableRule
-#
-#       Enable or disable a rule
-#
-# Parameters:
-#
-#       interface - interface under the rule is given
-#       ruleId    - rule unique identifier
-#       enabled   - set if rule is enabled or disabled
-#
-# Exceptions:
-#
-#      <EBox::Exceptions::MissingArgument> - throw if parameter is not
-#      passed
-#      <EBox::Exceptions::DataNotFound> - throw if rule is not found
-#      <EBox::Exceptions::External> - throw if interface is not external
-#
-sub enableRule # (interface, ruleId, enabled)
-  {
-
-    my ( $self, $iface, $ruleId, $enabled ) = @_;
-
-    throw EBox::Exceptions::MissingArgument( __('Interface') )
-      unless defined( $iface );
-    throw EBox::Exceptions::MissingArgument( __('Identifier') )
-      unless defined( $ruleId );
-    throw EBox::Exceptions::MissingArgument( __('Enabled') )
-      unless defined( $enabled );
-
-    # Check interface and rule existence
-    $self->_checkInterface( $iface );
-    $self->_checkRuleExistence( $iface, $ruleId );
-
-    # Create builders ( Disc -> Memory ) Mandatory every time an
-    # access in memory is done
-    $self->_createBuilders();
-
-    # Update builder tree
-#    $self->_enableRule($iface, $ruleId);
-
-    # Admin log stuff
-    my %entries = %{$self->_ruleParams( $iface, $ruleId )};
-
-    if ( $enabled ) {
-#      logAdminDeferred("trafficshaping","enableRule",
-#		       "iface=$iface,protocol=$entries{protocol},port=$entries{port}," .
-#		       "gRate=$entries{guaranteed_rate},lRate=$entries{limited_rate}," .
-#		       "priority=$entries{priority}");
-    }
-    else {
-#      logAdminDeferred("trafficshaping","disableRule",
-#		       "iface=$iface,protocol=$entries{protocol},port=$entries{port}," .
-#		       "gRate=$entries{guaranteed_rate},lRate=$entries{limited_rate}," .
-#		       "priority=$entries{priority}");
-    }
-
-  }
-
-# Method: updateRule
-#
-#       Update any component rule except enable/disable
-#
-# Parameters:
-#
-#       interface      - interface under the rule is given
-#       ruleId         - rule unique identifier
-#       - Named Parameters
-#
-# Exceptions:
-#
-#      <EBox::Exceptions::MissingArgument> - throw if any mandatory
-#      parameter is not passed
-#
-#      <EBox::Exceptions::DataNotFound> - throw if rule is not found
-#      <EBox::Exceptions::External> - throw if interface is not external
-#
-sub updateRule
-  {
-
-    my ($self, %args) = @_;
-
-    my $iface          = delete $args{interface};
-    my $ruleId         = $args{ruleId};
-
-    throw EBox::Exceptions::MissingArgument( __('Interface') )
-      unless defined( $iface );
-    throw EBox::Exceptions::MissingArgument( __('Identifier') )
-      unless defined( $ruleId );
-
-    # Check interface and rule existence
-    $self->_checkInterface( $iface );
-    $self->_checkRuleExistence( $iface, $ruleId );
-
-    my $ruleParams_ref = $self->_ruleParams($iface, $ruleId);
-
-    # Checking protocol and port done by model
-#    if ( defined( $ruleParams_ref->{protocol} )) {
-#      # Check protocol
-#      checkProtocol( $ruleParams_ref->{protocol}, __('Protocol'));
-#    }
-#
-#    if ( defined( $ruleParams_ref->{port} )) {
-#      checkPort( $ruleParams_ref->{port}, __('Port'));
-#    }
-
-#    if ( defined( $ruleParams_ref->{guaranteedRate} )) {
-#      $self->_checkRate( $ruleParams_ref->{guaranteedRate}, __('Guaranteed Rate'));
-#    }
-#
-#    if ( defined( $ruleParams_ref->{limitedRate} )) {
-#      $self->_checkRate( $ruleParams_ref->{limitedRate}, __('Limited Rate'));
-#    }
-
-    # Done at _correctPriorities
-#    if ( defined( $priority )) {
-#      $self->_checkPriority($priority);
-#      # Set the new lowest priority
-#      $self->_setNewLowestPriority($iface, $priority);
-#    }
-
-#    $ruleParams_ref->{priority} = $priority;
-
-    # Setting standard rates if not defined
-    $ruleParams_ref->{guaranteedRate} = 0 unless defined ( $ruleParams_ref->{guaranteedRate} );
-    $ruleParams_ref->{guaranteedRate} = 0 if $ruleParams_ref->{guaranteedRate} eq '';
-    $ruleParams_ref->{limitedRate} = 0 unless defined ( $ruleParams_ref->{limitedRate} );
-    $ruleParams_ref->{limitedRate} = 0 if $ruleParams_ref->{limitedRate} eq '';
-
-    # Create builders ( Disc -> Memory ) Mandatory every time an
-    # access in memory is done
-    $self->_createBuilders();
-
-    # Already done by _createBuilders
-#    $self->_updateRule( $iface, $ruleId, $ruleParams_ref );
-
-    # Update priorities to be coherent with the remainders
-    $self->_correctPriorities($iface);
-
-    # Set logAdminAction only if any update is done
-    if ( scalar(keys %args) > 2 ) {
-      # Log update, only new data is available
-#      $self->_logUpdate($ruleParams_ref);
-    } # Only mandatory arguments are passed -> nothing to log
-
-  }
-
 # Method: checkRule
 #
 #       Check if the rule passed can be added or updated. The guaranteed rate
@@ -612,6 +339,8 @@ sub updateRule
 #       limitedRate    - maximum allowed rate in Kilobits per second *(Optional)*
 #       ruleId         - the rule identifier. It's given if the rule is
 #                        gonna be updated *(Optional)*
+#
+#       enabled        - Boolean indicating whether the rule is enabled or not
 #
 # Returns:
 #
@@ -649,32 +378,18 @@ sub checkRule
 		max => MAX_ID_VALUE));
     }
 
-    # Check interface to be external, it is already check on model
-    # RuleTable
-#    $self->_checkInterface( $ruleParams{interface} );
-
-    # Check rates
-#    $self->_checkRate( $ruleParams{guaranteedRate}, __('Guaranteed Rate') );
-#    $self->_checkRate( $ruleParams{limitedRate}, __('Limited Rate') );
-
-#    if ( defined ( $ruleParams{priority} ) ) {
-#      $self->_checkPriority( $ruleParams{priority} );
-#    }
     unless ( defined ( $ruleParams{priority} )) {
       # Set the priority the lowest
       $ruleParams{priority} = 7;
     }
 
-    # Set the rule enabled
-    $ruleParams{enabled} = 'enabled';
-
     # Create builders ( Disc -> Memory ) Mandatory every time an
     # access in memory is done
-    $self->_createBuilders();
+    $self->_createBuilders(regenConfig => 0);
 
-    if ( defined( $ruleParams{id} )) {
+    if ( defined( $ruleParams{ruleId} )) {
       # Try to update the rule
-      $self->_updateRule( $ruleParams{interface}, $ruleParams{id}, \%ruleParams, 'test' );
+      $self->_updateRule( $ruleParams{interface}, $ruleParams{ruleId}, \%ruleParams, 'test' );
     }
     else {
       # Try to build the rule
@@ -731,6 +446,7 @@ sub listRules
            priority    => $row->{plainValueHash}->{priority},
            guaranteed_rate => $row->{plainValueHash}->{guaranteed_rate},
            limited_rate => $row->{plainValueHash}->{limited_rate},
+           enabled     => $row->{plainValueHash}->{enabled},
           };
         push ( @rules, $ruleRef );
     }
@@ -941,22 +657,7 @@ sub ifaceExternalChanged # (iface, external)
 
     my ($self, $iface, $external) = @_;
 
-#    # Check if any interface is being shaped
-#    if ( $self->_areRulesActive($iface) ) {
-#        return 1;
-#    }
-#    my $netMod = $self->{network};
-#
-#    my $nExt = @{$netMod->ExternalIfaces()};
-#    my $nInt = @{$netMod->InternalIfaces()};
-#    if ( $external ) {
-#        $nExt++;
-#        $nInt--;
-#    } else {
-#        $nExt--;
-#        $nInt++;
-#    }
-#    return ( $nExt == 0 or $nInt == 0);
+    # Check if any interface is being shaped
     if ( defined ( $self->{ruleModels}->{$iface} )) {
         return not $self->enoughInterfaces();
     }
@@ -973,70 +674,14 @@ sub ifaceExternalChanged # (iface, external)
 #    <EBox::NetworkObserver::changeIfaceExternalProperty>
 #
 sub changeIfaceExternalProperty # (iface, external)
-  {
+{
 
     my ($self, $iface, $external) = @_;
 
-#    my $netMod = $self->{network};
     my $manager = EBox::Model::ModelManager->instance();
     $manager->markAsChanged();
-#    if ( $external and $netMod->ifaceMethod() eq 'dhcp' ) {
-#        if ( defined ( $self->{ruleModels}->{$iface} )) {
-#            # Delete the model itself and its rows
-#            my $model = $self->ruleModel($iface);
-#            $model->removeAll(1);
-#            # Delete from model manager
-#            $manager->removeModel($model->contextName());
-#            $self->{ruleModels}->{$iface} = undef;
-#        }
-#    } elsif ( not $external ) {
-#        if ( $netMod->ifaceMethod() eq 'static' ) {
-#            if ( defined ( $self->{ruleModels}->{$iface} )) {
-#                # Delete the model itself and its rows
-#                my $model = $self->ruleModel($iface);
-#                $model->removeAll(1);
-#                # Delete from model manager
-#                $manager->removeModel($model->contextName());
-#                $self->{ruleModels}->{$iface} = undef;
-#            }
-#        } elsif ( $netMod->ifaceMethod() eq 'dhcp' ) {
-#            if ( defined ( $self->{ruleModels}->{$iface} )) {
-#                # Create the model
-#                my $model = $self->ruleModel($iface);
-#                # Add to the model manager
-#                $manager->addModel($model->contextName(),
-#                                   $model);
-#            }
-#        }
-#    }
-#    my $model = $self->ruleModel($iface);
-#    if ( $model->size() ) {
-#        $model->removeAll(1);
-#    }
-#    my $nExt = @{$netMod->ExternalIfaces()};
-#    my $nInt = @{$netMod->InternalIfaces()};
-#    if ( $external ) {
-#        $nExt++;
-#        $nInt--;
-#    } else {
-#        $nExt--;
-#        $nInt++;
-#    }
-#    if ( $nInt == 0 or $nExt == 0 ) {
-#        # Destroy the model
-#        my $manager = EBox::Model::ModelManager->instance();
-#        $manager->removeModel($model->contextName());
-#        $self->{ruleModels}->{$iface} = undef;
-#    }
-##    my $dir = $self->_ruleDirectory($iface);
-#
-#    if ( $self->dir_exists($dir) ) {
-#      $self->_destroyIface($iface);
-#    }
-#
-#    return undef;
 
-  }
+}
 
 
 # Method: freeIface
@@ -1060,22 +705,6 @@ sub freeIface # (iface)
     $manager->markAsChanged();
     $manager = EBox::Model::CompositeManager->Instance();
     $manager->markAsChanged();
-#    if ( defined ( $self->{ruleModels}->{$iface} )) {
-#        my $model = $self->ruleModel($iface);
-#        $model->removeAll(1);
-#        # Destroy the model
-#        $manager->removeModel($model->contextName());
-#        $self->{ruleModels}->{$iface} = undef;
-#        $self->_removeIfNotEnoughRemainderModels();
-#    } else {
-#        # Create the model
-#        my $model = $self->ruleModel($iface);
-#        # Add to the model manager
-#        $manager->addModel($model->contextName(),
-#                           $model);
-#        
-#    }
-    #    $self->_destroyIface($iface);
 
 }
 
@@ -1095,25 +724,25 @@ sub freeIface # (iface)
 #
 #    Int - the upload rate in kilobits per second
 #
-sub uploadRate # (iface)
-  {
+sub uploadRate # (iface, previous)
+{
 
-# FIXME: Change when the ticket #373
+    # FIXME: Change when the ticket #373
 
     my ($self, $iface) = @_;
 
     my $gateways_ref = $self->{'network'}->gateways();
 
     my $sumUpload = 0;
-    foreach my $gateway_ref (@{$gateways_ref}) {
-      if ($gateway_ref->{interface} eq $iface) {
-	$sumUpload += $gateway_ref->{upload};
-      }
+    foreach my $gateway _ref (@{$gateways_ref}) {
+        if ($gateway_ref->{interface} eq $iface) {
+            $sumUpload += $gateway_ref->{upload};
+        }
     }
 
     return $sumUpload;
 
-  }
+}
 
 # Method: totalDownloadRate
 #
@@ -1124,8 +753,8 @@ sub uploadRate # (iface)
 #
 #        Int - the download rate in kilobits per second
 #
-sub totalDownloadRate
-  {
+sub totalDownloadRate # (previous)
+{
 
 # FIXME: Change when the ticket #373
 
@@ -1137,15 +766,15 @@ sub totalDownloadRate
 
     my $sumDownload = 0;
 
-    foreach my $gateway_ref (@{$gateways_ref}) {
-      if ( $net->ifaceIsExternal($gateway_ref->{interface}) ) {
-	  $sumDownload += $gateway_ref->{download};
-      }
+    foreach my $gateway _ref (@{$gateways_ref}) {
+        if ( $net->ifaceIsExternal($gateway_ref->{interface}) ) {
+            $sumDownload += $gateway_ref->{download};
+        }
     }
 
     return $sumDownload;
 
-  }
+}
 
 # Method: enoughInterfaces
 #
@@ -1363,34 +992,24 @@ sub _checkPriority # (priority)
 
 # Check if there are rules are active within a given interface
 # Returns true if any, false otherwise
-sub _areRulesActive # (iface)
+sub _areRulesActive # (iface, countDisabled)
   {
-    my ($self, $iface) = @_;
+    my ($self, $iface, $countDisabled) = @_;
 
+    $countDisabled = 0 unless (defined($countDisabled));
     # Only check if there is a model
     my $model = $self->ruleModel($iface);
 
     if ( defined ($model) ) {
-   # TODO: When enable is done, this method may change
-        return ($model->size() > 0);
+        if ( $countDisabled ) {
+            return ($model->size() > 0);
+        } else {
+            my $enabledRows = $model->enabledRows();
+            return (scalar(@{$enabledRows}) > 0);
+        }
     } else {
         return 0;
     }
-#    my $dir = $self->_ruleDirectory($iface);
-#
-#    my $rules_ref = $self->array_from_dir($dir);
-#
-#    if ( scalar(@{$rules_ref}) != 0 ) {
-      # Check if there's any enabled TODO
-#      foreach my $rule_ref (@{$rules_ref}) {
-#	if ( $rule_ref->{enabled} ) {
-#	  return 1;
-#	}
-#      }
-#      return 1;
-#     }
-    # No rules are active
-#    return 0;
 
   }
 
@@ -1445,8 +1064,11 @@ sub _ruleParams # (iface, ruleId)
 #
 # Parameters:
 #
-#       interface - interface's name to create the tree
-#       type - HTB, default or HFSC
+#       interface - String interface's name to create the tree
+#       type - String HTB, default or HFSC
+#
+#       regenConfig - Boolean indicating if the call comes from regen
+#       config or not
 #
 # Exceptions:
 #
@@ -1459,10 +1081,10 @@ sub _ruleParams # (iface, ruleId)
 #      <EBox::Exceptions::External> - throw if rate is not given for
 #      every external interface
 #
-sub _createTree # (interface, type)
+sub _createTree # (interface, type, regenConfig)
   {
 
-    my ($self, $iface, $type) = @_;
+    my ($self, $iface, $type, $regenConfig) = @_;
 
     # Check arguments
     throw EBox::Exceptions::MissingArgument('interface')
@@ -1489,14 +1111,16 @@ sub _createTree # (interface, type)
 
       # Get the rate from Network
       my $linkRate;
-      my $network = $self->{'network'};
-      if ( $network->ifaceIsExternal($iface) ) {
-	$linkRate = $self->uploadRate($iface);
-      }
-      else {
-	$linkRate = $self->totalDownloadRate();
-      }
-
+      my $model = $self->ruleModel($iface);
+      $linkRate = $model->committedLimitRate();
+#      my $network = $self->{'network'};
+#      if ( $network->ifaceIsExternal($iface) ) {
+#          $linkRate = $self->uploadRate($iface, $regenConfig);
+#      }
+#      else {
+#          $linkRate = $self->totalDownloadRate($regenConfig);
+#      }
+#
       if ( not defined($linkRate) or $linkRate == 0) {
 	throw EBox::Exceptions::External(__x("Interface {iface} should have a maximum " .
 					     "bandwidth rate in order to do traffic shaping",
@@ -1512,10 +1136,10 @@ sub _createTree # (interface, type)
 
 # Build the tree from gconf variables stored.
 # It assumes rules are correct
-sub _buildGConfRules # (iface)
+sub _buildGConfRules # (iface, regenConfig)
 {
 
-    my ($self, $iface) = @_;
+    my ($self, $iface, $regenConfig) = @_;
 
     my $model = $self->ruleModel($iface);
 
@@ -1550,6 +1174,13 @@ sub _buildGConfRules # (iface)
         $ruleRef->{guaranteedRate} = 0 unless defined ($ruleRef->{guaranteedRate});
         $ruleRef->{limitedRate} = $row->{plainValueHash}->{limited_rate};
         $ruleRef->{limitedRate} = 0 unless defined ($ruleRef->{limitedRate});
+        # Take care of enabled value only if regenConfig is enabled
+        if ( $regenConfig ) {
+            $ruleRef->{enabled} = $row->{plainValueHash}->{enabled};
+            $ruleRef->{enabled} = 1 unless defined ($ruleRef->{enabled});
+        } else {
+            $ruleRef->{enabled} = 1;
+        }
 
         $self->_buildANewRule( $iface, $ruleRef, undef );
 
@@ -1561,21 +1192,23 @@ sub _buildGConfRules # (iface)
 sub _createBuilders
   {
 
-    my ($self) = @_;
+    my ($self, %params) = @_;
+
+    my $regenConfig = $params{regenConfig};
 
     my $global = EBox::Global->getInstance();
-    my $network = $self->{'network'}; 
+    my $network = $self->{'network'};
 
     my @ifaces = @{$network->ifaces()};
 
     foreach my $iface (@ifaces) {
       $self->{builders}->{$iface} = {};
-      if ( $self->_areRulesActive($iface) ) {
+      if ( $self->_areRulesActive($iface, not $regenConfig) ) {
 	# If there's any rule, for now use an HTBTreeBuilder
-	$self->_createTree($iface, "HTB");
+	$self->_createTree($iface, "HTB", $regenConfig);
 	# Build every rule and stores the identifier in gconf to destroy
 	# them afterwards
-	$self->_buildGConfRules($iface);
+	$self->_buildGConfRules($iface, $regenConfig);
       }
       else {
 	# For now, if no user_rules are given, use DefaultTreeBuilder
@@ -1662,19 +1295,22 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
         my $service = undef;
         $service = $rule_ref->{service}; # unless ( $srcObj or $dstObj );
 
-        $htbBuilder->buildRule(
-                               service        => $service,
-                               source         => $src,
-                               destination    => $dst,
-                               guaranteedRate => $rule_ref->{guaranteedRate},
-                               limitedRate    => $rule_ref->{limitedRate},
-                               priority       => $rule_ref->{priority},
-                               identifier     => $rule_ref->{identifier},
-                               testing        => $test,
-                              );
+        # Only to dump enabled rules, however testing adding new rules
+        # is done, no matter if the rule is enabled or not
+        if ( $rule_ref->{enabled} or $test ) {
+            $htbBuilder->buildRule(
+                                   service        => $service,
+                                   source         => $src,
+                                   destination    => $dst,
+                                   guaranteedRate => $rule_ref->{guaranteedRate},
+                                   limitedRate    => $rule_ref->{limitedRate},
+                                   priority       => $rule_ref->{priority},
+                                   identifier     => $rule_ref->{identifier},
+                                   testing        => $test,
+                                  );
+        }
         # If an object is provided, attach filters to every member to the
         # flow object id
-
         # Only if not testing
         if ( not $test ) {
             if ( $srcObj and not $dstObj) {
@@ -1947,27 +1583,6 @@ sub _destroyRule # (iface, ruleId, params_ref?)
    }
 
  }
-
-# Enable a rule from the builder taking arguments from GConf
-sub _enableRule # (iface, ruleId)
-  {
-
-    my ($self, $iface, $ruleId) = @_;
-
-    my $rule_ref = $self->_ruleParams($iface, $ruleId);
-
-    # TODO: Check enability
-
-    if ( $rule_ref->{enabled} ) {
-      $self->_buildRule($iface, $ruleId, $rule_ref);
-    }
-    else {
-      $self->_destroyRule($iface, $ruleId);
-    }
-
-    return;
-
-  }
 
 # Update a rule from the builder taking arguments from GConf
 sub _updateRule # (iface, ruleId, ruleParams_ref?, test?)
