@@ -338,11 +338,22 @@ sub validateTypedRow
 
   }
 
+  # Transform objects (Select type) to object identifier to satisfy
+  # checkRule API
+  my %targets;
+  foreach my $target (qw(source destination)) {
+      if ( $params->{$target}->subtype()->isa('EBox::Types::Select') ) {
+          $targets{$target} = $params->{$target}->value();
+      } else {
+          $targets{$target} = $params->{$target}->subtype();
+      }
+  }
+
   # Check the memory structure works as well
   $self->{ts}->checkRule(interface      => $self->{interface},
 			 service        => $params->{service}->value(),
-			 source         => $params->{source}->subtype(),
-			 destination    => $params->{destination}->subtype(),
+			 source         => $targets{source},
+			 destination    => $targets{destination},
 			 priority       => $params->{priority}->value(),
 			 guaranteedRate => $params->{guaranteed_rate}->value(),
 			 limitedRate    => $params->{limited_rate}->value(),

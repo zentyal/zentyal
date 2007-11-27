@@ -10,6 +10,8 @@
 	correctly under rate decreasing 
 	+ Warning about a change on gateways when there is at least a rule
 	on internal interfaces models
+	+ Bugfix: Rates are now checked if the source or destination is an
+	object
 0.10.99
 	+ Use last model/view changes to get rid of the multitable code
 	+ Remove rules using an object when it's removed
