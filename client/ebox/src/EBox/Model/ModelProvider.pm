@@ -326,10 +326,12 @@ sub _callExposedMethod
       # The parameters
       my @indexValues = ();
 #      if ( @{$paramsRef} > 1 ) {
-      unless ( ref ( $paramsRef->[0] )) {
-          @indexValues = grep { $_ ne '' } split ( '/', $paramsRef->[0]);
-          # Remove the index param if any
-          shift ( @{$paramsRef} );
+      unless ( ref ( $paramsRef->[0] ) ) {
+          if ( defined ( $paramsRef->[0] )) {
+              @indexValues = grep { $_ ne '' } split ( '/', $paramsRef->[0]);
+              # Remove the index param if any
+              shift ( @{$paramsRef} );
+          }
       }
       my @mappedMethodParams = @indexValues;
       if ( @selectors == 1 and $action eq 'set' ) {
