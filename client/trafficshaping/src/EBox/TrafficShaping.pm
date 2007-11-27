@@ -213,23 +213,27 @@ sub _exposedMethods
 {
 
   my %exposedMethods =
-    ( addRule1 => { action     => 'add',
-		    path       => [ 'RuleTable' ],
-		    modelIndex => 1,
-		  },
-      removeRule1 => { action     => 'del',
-		       path       => [ 'RuleTable' ],
-		       modelIndex => 1,
+    ( addRule    => { action     => 'add',
+                      path       => [ 'tsTable' ],
+                    },
+      removeRule => { action     => 'del',
+                      path       => [ 'tsTable' ],
+                    },
+      enableRule => { action     => 'set',
+                      path       => [ 'tsTable' ],
+                      selector   => [ 'enabled' ],
 		     },
-      enableRule1 => { action     => 'set',
-		       path       => [ 'RuleTable' ],
-		       modelIndex => 1,
-		       selector   => [ 'enabled' ],
-		     },
-      updateRule1 => { action     => 'set',
-		       path       => [ 'RuleTable' ],
-		       modelIndex => 1,
-		     },
+      isEnabledRule => { action   => 'get',
+                         path     => [ 'tsTable' ],
+                         selector => [ 'enabled' ],
+                       },
+      updateRule => { action     => 'set',
+                      path       => [ 'tsTable' ],
+                    },
+      getRule    => { action     => 'get',
+                      path       => [ 'tsTable' ],
+                      selector   => [ 'id' ],
+                    },
     );
 
   return \%exposedMethods;
@@ -487,18 +491,20 @@ sub getLowestPriority # (interface, search?)
 #
 # Parameters:
 #
-#       interface - String external interface attached to the rule
-#       table model
+#       interface - String interface attached to the rule table model
 #
 # Returns:
 #
-#       <EBox::TrafficShaping::Model::RuleTable>
+#       <EBox::TrafficShaping::Model::RuleTable> - if there is a model
+#       associated with the given interface
+#
+#       undef - if there is no model associated with the given
+#       interface
 #
 # Exceptions:
 #
 #      <EBox::Exceptions::MissingArgument> - throw if parameter is not
 #      passed
-#      <EBox::Exceptions::External> - throw if interface is not external
 #
 
 sub ruleModel # (iface)
