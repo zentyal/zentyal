@@ -257,7 +257,6 @@ sub buildRule
     }
 
     # Parent node
-    # my ($childNode) = $self->{treeRoot}->children(0);
     my $childNode = $self->_parentUserDefinedClassesNode();
     # It's high time to add class to the tree
     my $emptySFQ = EBox::TrafficShaping::QueueDiscipline::SFQ->new();
@@ -551,7 +550,7 @@ sub findLeafClassId
     # Get class id related with such
     my $classesAssociated_ref = $self->_findTargetFromFilter($args{protocol}, $args{port});
 
-    my ($childNode) = $self->{treeRoot}->children(0);
+    my $childNode = $self->_parentUserDefinedClassesNode();
     my @leafNodes = $childNode->children();
     # Node which has the node to destroy
     my $foundNode;
@@ -987,7 +986,7 @@ sub _getNode # (leafClassId)
 
     my ($self, $leafClassId) = @_;
 
-    my ($childNode) = $self->{treeRoot}->children(0);
+    my $childNode = $self->_parentUserDefinedClassesNode();
     my @leafNodes = $childNode->children();
     # Node which has the node to destroy
     my $foundNode;

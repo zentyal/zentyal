@@ -732,7 +732,7 @@ sub uploadRate # (iface)
     my $gateways_ref = $self->{'network'}->gateways();
 
     my $sumUpload = 0;
-    foreach my $gateway _ref (@{$gateways_ref}) {
+    foreach my $gateway_ref (@{$gateways_ref}) {
         if ($gateway_ref->{interface} eq $iface) {
             $sumUpload += $gateway_ref->{upload};
         }
@@ -1135,11 +1135,8 @@ sub _buildGConfRules # (iface, regenConfig)
     my $rulesRef = [];
 
     foreach my $row (@{$rows}) {
-        # FIXME when enabled property will be on
-        # next unless ( $row->{plainValueHash}->{enabled} )
         my $ruleRef = {};
         $ruleRef->{identifier} = $self->_nextMap($row->{id});
-        $ruleRef->{identifier} = $self->_getNumber($ruleRef->{identifier});
         $ruleRef->{service} = $row->{plainValueHash}->{service};
         # Source and destination
         for my $targetName (qw(source destination)) {
@@ -1550,35 +1547,12 @@ sub _getRuleId  # (iface, inRule_ref)
 
   }
 
-# Destroy a rule from the builder taking arguments from GConf
-sub _destroyRule # (iface, ruleId, params_ref?)
-  {
-
-   my ($self, $iface, $ruleId, $params_ref) = @_;
-
-   if ($self->{builders}->{$iface}->isa('EBox::TrafficShaping::TreeBuilder::Default')) {
-     # Nothing to destroy
-     return;
-   }
-
-   # my $minorNumber = $self->_getNumber($ruleId);
-   my $minorNumber = $self->_mapRuleToClassId($ruleId);
-   $self->{builders}->{$iface}->destroyRule($minorNumber);
-
-   # If no more rules are active, build a default tree builder
-   if (not $self->_areRulesActive($iface) ) {
-     $self->_createTree($iface, "default");
-   }
-
- }
-
 # Update a rule from the builder taking arguments from GConf
 sub _updateRule # (iface, ruleId, ruleParams_ref?, test?)
   {
 
     my ($self, $iface, $ruleId, $ruleParams_ref, $test) = @_;
 
-    # my $minorNumber = $self->_getNumber($ruleId);
     my $minorNumber = $self->_mapRuleToClassId($ruleId);
     # Update the rule stating the same leaf class id (If test not do)
     $self->{builders}->{$iface}->updateRule(
@@ -1598,20 +1572,6 @@ sub _updateRule # (iface, ruleId, ruleParams_ref?, test?)
 ###
 # Naming convention helper functions
 ###
-
-# Get the number from an identifier with the following pattern: letters+numbers+
-sub _getNumber # (id)
-  {
-
-    my ($self, $id) = @_;
-
-    my $tmpId = $id;
-
-    $tmpId =~ s/.*?(\d+)/$1/;
-
-    return $tmpId;
-
-  }
 
 # Set the identifiers to the correct intervals with this function
 # (Ticket #481)
