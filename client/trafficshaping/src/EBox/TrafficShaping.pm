@@ -481,27 +481,6 @@ sub getLowestPriority # (interface, search?)
 
   }
 
-# Method: setLowestPriority
-#
-#       Mutator to the lowest priority.
-#
-# Parameters:
-#
-#       interface - interface name
-#       priority  - the lowest priority
-#
-sub setLowestPriority # (interface, priority)
-  {
-
-    my ($self, $iface, $priority) = @_;
-
-    $self->{lowestPriority} = $priority;
-#    $self->set_int("$iface/user_rules/lowest_priority", $priority);
-
-    return;
-
-  }
-
 # Method: ruleModel
 #
 #       Return the model associated to the rules table
@@ -811,7 +790,7 @@ sub _setNewLowestPriority # (iface, priority?)
     if ( defined( $priority ) ){
       # Check only with the currently lowest priority
       if ( $priority > $self->getLowestPriority($iface) ){
-	$self->setLowestPriority($iface, $priority);
+	$self->_setLowestPriority($iface, $priority);
       }
     }
     else {
@@ -826,35 +805,29 @@ sub _setNewLowestPriority # (iface, priority?)
 	$lowest = $rule_ref->{priority} if ( $rule_ref->{priority} > $lowest );
       }
       # Set lowest
-      $self->setLowestPriority($iface, $lowest);
+      $self->_setLowestPriority($iface, $lowest);
     }
 
   }
 
-# Update priorities to all rules
-# Taking data from GConf stored values
-sub _correctPriorities # (iface)
+# Method: _setLowestPriority
+#
+#       Mutator to the lowest priority.
+#
+# Parameters:
+#
+#       interface - interface name
+#       priority  - the lowest priority
+#
+sub _setLowestPriority # (interface, priority)
   {
 
-    my ($self, $iface) = @_;
+    my ($self, $iface, $priority) = @_;
 
-    my $order_ref = $self->{ruleModels}->{$iface}->order();
-    my $builder = $self->{builders}->{$iface};
+    $self->{lowestPriority} = $priority;
+#    $self->set_int("$iface/user_rules/lowest_priority", $priority);
 
-    if ($builder->isa('EBox::TrafficShaping::TreeBuilder::HTB') ) {
-      # Starting with highest priority update priority
-      my $priority = 0;
-      foreach my $ruleId (@{$order_ref}) {
-	my $leafClassId = $self->_mapRuleToClassId($ruleId);
-	$self->{builders}->{$iface}->updateRule(
-						identifier  => $leafClassId,
-						priority    => $priority,
-					       );
-	$priority++;
-      }
-      # Set the lowest priority
-      $self->setLowestPriority($iface, $priority);
-    }
+    return;
 
   }
 
@@ -933,58 +906,17 @@ sub _checkInterface # (iface)
       my @gatewaysIface = grep { $_->{interface} eq $iface } @{$gateways_ref};
 
       if ( scalar (@gatewaysIface) <= 0 ) {
-    use Devel::StackTrace;
-    my $trace = Devel::StackTrace->new;
-    EBox::debug($trace->as_string());
-	throw EBox::Exceptions::External(
-					 __('Traffic shaping can be only done in external interfaces ' .
-					    'which have gateways associated to')
-					);
+          use Devel::StackTrace;
+          my $trace = Devel::StackTrace->new;
+          EBox::debug($trace->as_string());
+          throw EBox::Exceptions::External(
+                                           __('Traffic shaping can be only done in external interfaces ' .
+                                              'which have gateways associated to')
+                                          );
       }
     }
 
     return;
-
-  }
-
-# Check rule if exist
-# Throw DataNotFound if not, nothing otherwise
-sub _checkRuleExistence # (iface, ruleId)
-  {
-
-    my ($self, $iface, $ruleId) = @_;
-
-    # In god we trust. Actually, this code is not necessary any longer
-    
-    return 1;
-    my $dir = $self->_ruleDirectory($iface, $ruleId);
-
-    if (not $self->dir_exists("$dir") ) {
-      throw EBox::Exceptions::DataNotFound(
-					   data  => __('Traffic Shaping Rule'),
-					   value => $iface . "/" . $ruleId,
-					  );
-    }
-
-    return 1;
-
-  }
-
-# Check priority
-# Throw InvalidData if it's not a positive number
-sub _checkPriority # (priority)
-  {
-
-    my ($self, $priority) = @_;
-
-    if ( ($priority < 0) or ($priority > 7) ) {
-      throw EBox::Exceptions::InvalidData(
-					  'data'  => __('Priority'),
-					  'value' => $priority,
-					 );
-    }
-
-    return 1;
 
   }
 
@@ -1033,26 +965,6 @@ sub _ruleDirectory # (iface, ruleId?)
     }
 
   }
-
-# Given a rule identifier and an interface, get its params
-# in an hash ref
-sub _ruleParams # (iface, ruleId)
-  {
-
-    my ($self, $iface, $ruleId) = @_;
-
-    my $dir = $self->_ruleDirectory($iface, $ruleId);
-
-    my $ruleParams_ref = $self->hash_from_dir($dir);
-
-    # Transform gconf-like to camel case
-    $ruleParams_ref->{guaranteedRate} = delete $ruleParams_ref->{guaranteed_rate};
-    $ruleParams_ref->{limitedRate} = delete $ruleParams_ref->{limited_rate};
-
-    return $ruleParams_ref;
-
-  }
-
 
 # Underlying stuff (Come to the mud)
 
@@ -1458,95 +1370,6 @@ sub _buildObjToObj
   }
 
 
-# Get a rule given all its parameters in GConf
-# undef if not found
-sub _getRuleId  # (iface, inRule_ref)
-  {
-    my ($self, $iface, $inRule_ref) = @_;
-
-    my $dir = $self->_ruleDirectory($iface);
-
-    my $rules_ref = $self->array_from_dir($dir);
-
-    my $ruleId = undef;
-    foreach my $rule_ref (@{$rules_ref}) {
-
-      # Service
-      if ( defined ( $rule_ref->{service_protocol} ) and
-	   defined ( $inRule_ref->{protocol})) {
-	next unless $rule_ref->{service_protocol} eq $inRule_ref->{protocol};
-      }
-      else {
-	next;
-      }
-      if ( defined ( $rule_ref->{service_port} ) and
-	   defined ( $inRule_ref->{port}) ) {
-	next unless $rule_ref->{service_port} == $inRule_ref->{port};
-      }
-      else {
-	next;
-      }
-
-      # Source
-      if ( defined ( $rule_ref->{source_selected} ) ) {
-	if ( defined ( $rule_ref->{source_ipaddr_ip} ) and
-	     defined ( $inRule_ref->{source} ) and
-	     $inRule_ref->{source}->isa('EBox::Types::IPAddr') ) {
-	  next unless $rule_ref->{source_ipaddr_ip} eq $inRule_ref->{source}->ip() and
-	    $rule_ref->{source_ipaddr_mask} eq $inRule_ref->{source}->mask();
-	}
-	if ( defined ( $rule_ref->{source_macaddr} ) and
-	     defined ( $inRule_ref->{source} ) and
-	     $inRule_ref->{source}->isa('EBox::Types::MACAddr') ) {
-	  next unless $rule_ref->{source_macaddr} eq $inRule_ref->{source}->value();
-	}
-	if ( defined ( $rule_ref->{source_object} ) and
-	     defined ( $inRule_ref->{source} ) ) {
-	  next unless $rule_ref->{source_object} eq $inRule_ref->{source};
-	}
-      }
-
-      # Destination
-      if ( defined ( $rule_ref->{destination_selected} ) ) {
-	if ( defined ( $rule_ref->{destination_ipaddr_ip} ) and
-	     defined ( $inRule_ref->{destination} ) and
-	     $inRule_ref->{destination}->isa('EBox::Types::IPAddr') ) {
-	  next unless $rule_ref->{destination_ipaddr_ip} eq $inRule_ref->{destination}->ip() and
-	    $rule_ref->{destination_ipaddr_mask} eq $inRule_ref->{destination}->mask();
-	}
-	if ( defined ( $rule_ref->{destination_object} ) and
-	     defined ( $inRule_ref->{destination} ) ) {
-	  next unless $rule_ref->{destination_object} eq $inRule_ref->{destination};
-	}
-      }
-
-      # Guaranteed rate
-      if ( defined ( $rule_ref->{guaranteed_rate} ) and
-	   defined ( $inRule_ref->{guaranteedRate} )) {
-	next unless $rule_ref->{guaranteed_rate} == $inRule_ref->{guaranteedRate};
-      }
-      else {
-	next;
-      }
-
-      # Limited rate
-      if ( defined ( $rule_ref->{limited_rate} ) and
-	   defined ( $inRule_ref->{limitedRate} )) {
-	next unless $rule_ref->{limited_rate}    == $inRule_ref->{limitedRate};
-      }
-      else {
-	next;
-      }
-
-      # You found it!
-      $ruleId = $rule_ref->{_dir};
-      last;
-    }
-
-    return $ruleId;
-
-  }
-
 # Update a rule from the builder taking arguments from GConf
 sub _updateRule # (iface, ruleId, ruleParams_ref?, test?)
   {
@@ -1619,52 +1442,9 @@ sub _mapRuleToClassId # (ruleId)
 
   }
 
-# Changes from CamelCase to GConf
-# Returns the same string with underscores instead of camel case
-sub _CamelCase_to_underscore # (string)
-  {
-
-    my ( $str ) = @_;
-
-    my $retValue = $str;
-
-    # The change
-    $retValue =~ s/(\p{IsLu}+)/_\L$1\E/g;
-
-    return $retValue;
-
-  }
-
-
 ###
 # Network observer helper functions
 ###
-
-# Destroy an interface, called by Network
-sub _destroyIface # (iface)
-  {
-
-    my ($self, $iface) = @_;
-
-    # Take all rules from this interface
-    my $rules_ref = $self->listRules($iface);
-
-    if ( defined ($rules_ref) ) {
-      foreach my $rule_ref (@{$rules_ref}) {
-	# Remove each rule inside this interface
-	$self->removeRule(
-			  interface => $iface,
-			  ruleId    => $rule_ref->{ruleId},
-			 );
-      }
-    }
-
-    # Remove model
-    my $manager = EBox::Model::ModelManager->instance();
-    $manager->removeModel($self->{ruleModels}->{$iface}->contextName());
-    $self->{ruleModels}->{$iface} = undef;
-
-  }
 
 # Remove remainder models if there are no enough interfaces
 sub _removeIfNotEnoughRemainderModels
