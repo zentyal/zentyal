@@ -8,8 +8,15 @@ use RRDs;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
+use EBox::NetWrappers;
+use EBox::ColourRange;
+
+use File::Glob qw(:glob);
+use File::Basename;
 
 use Params::Validate qw(validate SCALAR);
+
+use constant RRD_TTL => 601; 
 
 use constant SRC_COLOUR      => 'FF0000';
 use constant SERVICE_COLOUR =>  '00FF00';
@@ -68,7 +75,7 @@ sub _regenConfig
   
   if ( $service) {
     $class->_writeConfFile();
-    EBox::Sudo::root(MONITOR_DAEMON . ' time 15 ' . ' conffile ' . CONF_FILE);
+    EBox::Sudo::root(MONITOR_DAEMON . ' time 10 ' . ' conffile ' . CONF_FILE);
   }
 
 }
@@ -89,8 +96,8 @@ sub _writeConfFile
   my @internalIfaces = @{ $network->InternalIfaces()  };
 
   my @localNets = map {
-    my $addr = $network->ifaceAddress($_);
-    my $mask = $network->ifaceNetmask($_);
+    my $net = $network->ifaceNetwork($_);
+    my ($addr, $mask) = EBox::NetWrappers::to_network_without_mask($net);
     [$addr, $mask]
   } @internalIfaces;
 
@@ -246,7 +253,7 @@ sub _createRRDIfNotExists
 	       $rrd,
 	       '-s 1',
 	       'DS:bps:GAUGE:60:0:U',
-	       'RRA:AVERAGE:0.99:2:600',
+	       'RRA:AVERAGE:0.99:2:600', # store 10 minutes of data
 	      );
 
 
@@ -284,16 +291,88 @@ sub addBpsToSrcAndServiceRRD
 }
 
 
+
+sub _activeRRDs
+{
+  my ($rrds_r) = @_;
+
+  my $now = time();
+  my $threshold = $now -  RRD_TTL;
+
+  my @active;
+  foreach my $rrd (@{ $rrds_r }) {
+    my $lastUpdate = RRDs::last($rrd);
+    my $err        = RRDs::error;
+    if ($err) {
+      EBox::error("Error getting last update time of RRD $rrd: $err");
+      next;
+    }
+
+    if ($lastUpdate < $threshold ) {
+      _removeRRD($rrd);
+      next;
+    }
+
+    push @active, $rrd;
+  }
+
+  return \@active;
+}
+
+
+
+sub _removeRRD
+{
+  my ($rrd) = @_;
+
+  unlink $rrd;
+
+  # remove related RRDs
+  my $dir  = _rrdDir();
+  my $relatedGlob = basename $rrd;
+  $relatedGlob =~ s{\.rrd$}{};
+  $relatedGlob = "$dir/*" . $relatedGlob . '*.rrd';
+  
+  my @relatedFiles = bsd_glob($relatedGlob);
+  foreach (@relatedFiles) {
+    unlink $_;
+  }
+}
+
+sub activeServiceRRDs
+{
+  my $dir = _rrdDir();
+  my @rrds = bsd_glob("$dir/service-*.rrd");
+  @rrds = @{ _activeRRDs(\@rrds) };
+
+  return \@rrds;
+}
+
+
+sub activeSrcRRDs
+{
+  my $dir = _rrdDir();
+  my @rrds = bsd_glob("$dir/src-*.rrd");
+  @rrds = grep {
+    not ($_ =~ m/-service-/)  # discard rrds of src + service aggregation
+  } @rrds;
+
+  @rrds = @{ _activeRRDs(\@rrds) };
+
+  return \@rrds;
+}
+
+
 # XXX add params validation
 sub graph
 {
   my %params = @_;
 
-  my @dataset  = @{ $params{dataset} };
+  my @dataset   = @{ $params{dataset} };
   my $startTime = $params{startTime};
-  my $title    = $params{title};
+  my $title     = $params{title};
 
-  my $file     = $params{file};
+  my $file      = $params{file};
 
   my $verticalLabel = __('bytes/second');
 
@@ -450,6 +529,76 @@ sub srcAndServiceGraph
      );
 }
 
+sub activeServicesGraph
+{
+  my %params = @_;
+
+  my $title = __('Active services');
+
+  my @services = @{  activeServiceRRDs()  };  
+  @services or
+    throw EBox::Exceptions::External(
+				     __('No services bit rate data found')
+				    );
+
+  my @colours = @{ EBox::ColourRange::range(scalar @services) };
+
+  my @dataset;
+  foreach my $service (@services) {
+    # extract service name
+    $service =~ m/service-(.*)\.rrd/;
+    my $legend = $1;
+    my $ds = {
+	      rrd     => $service,
+	      legend => $legend,
+	      colour => pop @colours,
+	     };
+    
+    push @dataset, $ds;
+  }
+  
+  graph(
+	dataset => \@dataset,
+	title   => $title,
+	%params,
+     );
+}
+
+
+sub activeSrcsGraph
+{
+  my %params = @_;
+
+  my $title = __('Active sources');
+
+  my @srcs = @{  activeSrcRRDs()  };  
+  @srcs or
+    throw EBox::Exceptions::External(
+				     __('No sources bit rate data found')
+				    );
+
+  my @colours = @{ EBox::ColourRange::range(scalar @srcs) };
+
+  my @dataset;
+  foreach my $src (@srcs) {
+    # extract src name
+    $src =~ m/src-(.*)\.rrd/;
+    my $legend = $1;
+    my $ds = {
+	      rrd     => $src,
+	      legend => $legend,
+	      colour => pop @colours,
+	     };
+    
+    push @dataset, $ds;
+  }
+  
+  graph(
+	dataset => \@dataset,
+	title   => $title,
+	%params,
+     );
+}
 
 sub _srcDatasetElement
 {
