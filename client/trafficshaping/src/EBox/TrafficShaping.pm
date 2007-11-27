@@ -330,11 +330,16 @@ sub menu # (root)
 #       ebox-services module containing the inet protocol and source
 #       and destination port numbers *(Optional)*
 #
-#       source         - source. It could be an <EBox::Types::IPAddr>,
-#                        <EBox::Types::MACAddr> or an object name (more info at
-#                        <EBox::Objects>) *(Optional)*
-#       destination    - destination. It could be an <EBox::Types::IPAddr>
-#                        or an object name (more info at <EBox::Objects>) *(Optional)*
+#       source - the rule source. It could be an
+#       <EBox::Types::IPAddr>, <EBox::Types::MACAddr>, an object
+#       identifier (more info at <EBox::Objects>) or an
+#       <EBox::Types::Union::Text> to indicate any source *(Optional)*
+#
+#       destination - the rule destination. It could be an
+#       <EBox::Types::IPAddr>, an object identifier (more info at
+#       <EBox::Objects>) or an <EBox::Types::Union::Text> to indicate
+#       any destination *(Optional)*
+#
 #       priority       - Int the rule priority *(Optional)*
 #                        Default value: Lowest priority
 #       guaranteedRate - maximum guaranteed rate in Kilobits per second *(Optional)*
@@ -1129,9 +1134,6 @@ sub _buildRule # ($iface, $rule_ref, $test)
     my ( $self, $iface, $rule_ref, $test ) = @_;
 
     if ( $self->{builders}->{$iface}->isa('EBox::TrafficShaping::TreeBuilder::Default') ) {
-      if (not $rule_ref->{enabled} ) {
-	return;
-      }
       # Build a new HTB
       $self->_createTree($iface, "HTB");
     }
@@ -1154,7 +1156,7 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
     if ( $htbBuilder->isa('EBox::TrafficShaping::TreeBuilder::HTB')) {
         my $src = undef;
         my $srcObj = undef;
-        my $objs = $self->{'objects'}; 
+        my $objs = $self->{'objects'};
         if ( ( defined ( $rule_ref->{source} )
                and $rule_ref->{source} ne '' ) and
              ( $rule_ref->{source}->isa('EBox::Types::IPAddr') or
@@ -1171,7 +1173,7 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
             # then attaching filters according to members of this object
             $src = undef;
             $srcObj =  $rule_ref->{source};
-            return unless (@{$objs->objectAddresses($srcObj)}); 
+            return unless (@{$objs->objectAddresses($srcObj)});
         }
 
         # The same related to destination
