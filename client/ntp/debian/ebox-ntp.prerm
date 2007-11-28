@@ -27,7 +27,7 @@ case "$1" in
 		;;
 	remove)
 		onRemove
-		remove_gconf_schemas
 		invoke-rc.d ntp-server stop || true
+		remove_gconf_schemas
 		;;	
 esac 
