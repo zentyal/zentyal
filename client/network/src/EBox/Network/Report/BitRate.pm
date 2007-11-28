@@ -7,6 +7,7 @@ use RRDs;
 
 use EBox::Global;
 use EBox::Gettext;
+use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::NetWrappers;
 use EBox::ColourRange;
@@ -178,6 +179,10 @@ sub  _service
   my ($proto, $dport, $sport) = @_;
   my $service;
 
+  if ($proto eq 'arp') {
+    return 'arp';
+  }
+
   $service = getservbyport($dport, $proto);
 
   if (not $service and ($sport ne 'AGGR.')) {
@@ -185,7 +190,7 @@ sub  _service
   }
 
   if (not $service) {
-    $service = $dport;
+    $service = $proto . $dport;
   }
 
   return $service;
@@ -212,7 +217,7 @@ sub _addBpsToRRD
 
 sub _rrdDir
 {
-  return '/var/lib/ebox/tmp/';
+  return EBox::Config::tmp() . 'rrd/';
 }
 
 
