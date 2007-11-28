@@ -4,6 +4,12 @@
 	before actually sending it
 	+ Added Action forms to perform an action without modifying
 	persistent data
+0.11
+	+ Fix issue with multiple models and models with params.
+	  This triggered a bug in DHCP when there was just one static
+	  interface
+	+ Fix _checkRowIsUnique and _checkFieldIsUnique 
+	+ Fix paging 
 0.10.99
 	+ Add disk usage information
 	+ Show progress in backup process
