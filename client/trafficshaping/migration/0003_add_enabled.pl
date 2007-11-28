@@ -107,7 +107,7 @@ sub runGConf
             next if ( exists $rule_ref->{enabled} );
             my $key = "$iface/user_rules/keys/" . $rule_ref->{_dir};
             EBox::info('Setting enabled rule to rule ' . $rule_ref->{_dir});
-            $ts->set_bool( $key . '/enabled', 1);
+            $ts->set_bool( $key . '/enabled', DEFAULT_ENABLED);
         }
     }
 
