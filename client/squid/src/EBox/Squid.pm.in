@@ -73,7 +73,12 @@ sub domain
 	return 'ebox-squid';
 }
 
-
+# Method: modelClasses
+#
+# Overrides:
+#
+#    <EBox::Model::ModelProvider::modelClasses>
+#
 sub modelClasses
 {
   return [
@@ -81,7 +86,8 @@ sub modelClasses
 	   class => 'EBox::Squid::Model::SquidService',
 	   parameters => [
 			  enableTitle => __('HTTP Proxy service status'),
-			  modelDomain => 'ebox-squid',
+			  domain      => 'ebox-squid',
+                          modelDomain => 'Squid',
 			 ],
 	  },
 	  'EBox::Squid::Model::GeneralSettings',
@@ -102,6 +108,12 @@ sub modelClasses
 }
 
 
+# Method: compositeClasses
+#
+# Overrides:
+#
+#    <EBox::Model::CompositeProvider::compositeClasses>
+#
 sub compositeClasses
 {
  return [
@@ -111,7 +123,7 @@ sub compositeClasses
 	    'EBox::Squid::Composite::Domains',
 
 	    'EBox::Squid::Composite::FilterTabs',
-	    'EBox::Squid::Composite::FilterSettings',	    	    
+	    'EBox::Squid::Composite::FilterSettings',
          ];
 }
 
