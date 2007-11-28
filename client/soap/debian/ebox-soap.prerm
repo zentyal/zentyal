@@ -21,13 +21,14 @@ onRemove() {
 #DEBHELPER#
 
 case "$1" in
-	upgrade)
-		remove_gconf_schemas
-		;;
-        remove)
-                onRemove
-		remove_gconf_schemas
-                invoke-rc.d ebox soap stop || true
-                rm -rf /var/lib/ebox/conf/soap
-		;;	
+    upgrade)
+        remove_gconf_schemas
+        ;;
+    remove)
+        onRemove
+
+        invoke-rc.d ebox soap stop || true
+        rm -rf /var/lib/ebox/conf/soap
+        remove_gconf_schemas
+        ;;	
 esac 
