@@ -20,6 +20,7 @@ case "$1" in
 		remove_gconf_schemas
 		;;
 	remove)
+        /etc/init.d/ebox dns stop || true
 		remove_gconf_schemas
 		;;	
 esac 
