@@ -20,12 +20,7 @@ case "$1" in
 		remove_gconf_schemas
 		;;
 	remove)
-		if [ -z "$2" ]; then
-			perl -e 'use EBox::Squid; use EBox;
-                                EBox::init(); 
-				my $sq = EBox::Global->modInstance("squid");
-				$sq->stopService();'
-		fi
+        /etc/init.d/ebox squid stop || true
 		remove_gconf_schemas
 		;;	
 esac 
