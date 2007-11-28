@@ -195,11 +195,6 @@ use EBox::Model::DataTable;
   tpages => $tpages,
   pageSize => $model->pageSize()
 &>
-% } else {
-<input type="hidden" 
-  id="<% $model->tableName() . '_pageSize' %>"
-  value="<% $model->pageSize() %>"
->
 % }
 	</td>
     </tr>
@@ -339,7 +334,13 @@ use EBox::Model::DataTable;
     </tbody>
 
 </table>
+% } else {
+<input type="hidden" 
+  id="<% $model->tableName() . '_pageSize' %>"
+  value="<% $model->pageSize() %>"
+>
 % }
+
 
 % # End body method
 </%method>
