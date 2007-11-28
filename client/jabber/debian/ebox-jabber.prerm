@@ -22,6 +22,7 @@ case "$1" in
 	remove)
 		remove_gconf_schemas
 
+        /etc/init.d/ebox jabber stop || true
 		#clean ldap
 		/usr/lib/ebox-jabber/ebox-jabber-ldap clean
 		
