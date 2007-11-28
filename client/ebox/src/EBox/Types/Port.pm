@@ -17,6 +17,17 @@ sub new
   return $self;
 }
 
+# Method: size
+#
+# Overrides:
+#
+#     <EBox::Types::Int::size>
+#
+sub size
+{
+    return 6;
+}
+
 # Method: _paramIsValid
 #
 #     Check if the params has a correct port
