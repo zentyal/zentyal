@@ -20,7 +20,7 @@ case "$1" in
 		remove_gconf_schemas
 		;;
 	remove)
+		/etc/init.d/ebox openvpn stop || true
 		remove_gconf_schemas
-		/etc/init.d/ebox openvpn stop
 		;;	
 esac 
