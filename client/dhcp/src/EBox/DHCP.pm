@@ -941,13 +941,9 @@ sub PluginConfDir
 sub ifaceMethodChanged # (iface, old_method, new_method)
 {
 	my ($self, $iface, $old_method, $new_method) = @_;
-#	return 0 if !$self->service();
-#	return 0 if $old_method ne 'static';
-#	return 0 if $new_method eq 'static';
-#
-#	return 1;
+
         if ($old_method eq 'static'
-           and $new_method ne 'static') {
+            and $new_method ne 'static') {
             my $rangeModel = $self->_getModel('rangeModel', $iface);
             if ( defined ( $rangeModel )) {
                 return 1 if ( $rangeModel->size() > 0);
@@ -1026,39 +1022,6 @@ sub vifaceAdded # (iface, viface, address, netmask)
         $manager->markAsChanged();
         my $compManager = EBox::Model::CompositeManager->Instance();
         $compManager->markAsChanged();
-#
-#	my $ifaces = $net->allIfaces();
-#	foreach my $if (@{$ifaces}) {
-#		my $ranges = $self->ranges($if);
-#		foreach my $r (@{$ranges}){
-#			my $r_ip = new Net::IP($r->{'from'} ." - ". $r->{'to'});
-#			#check that the new IP isn't in any range
-#			unless($ip->overlaps($r_ip)==$IP_NO_OVERLAP){
-#				throw EBox::Exceptions::External(
-#				__x("The IP address of the virtual interface " .
-#				"you're trying to add is already used by the " .
-#				"DHCP range '{range}' in the interface " .
-#				"'{iface}'. Please, remove it before trying " .
-#				"to add a virtual interface using it.",
-#				range => $r->{name}, iface => $if));
-#			}
-#		}
-#		my $fixedAddresses = $self->fixedAddresses($if);
-#		foreach my $f (@{$fixedAddresses}){
-#			my $f_ip = new Net::IP($f->{'ip'});
-#			#check that the new IP isn't in any fixed address
-#			unless($ip->overlaps($f_ip)==$IP_NO_OVERLAP){
-#				throw EBox::Exceptions::External(
-#				__x("The IP address of the virtual interface " .
-#				"you're trying to add is already used by the " .
-#				"DHCP fixed address '{fixed}' in the " .
-#				"interface '{iface}'. Please, remove it " .
-#				"before trying to add a virtual interface " .
-#				"using it.",
-#				fixed => $f->{name}, iface => $if));
-#			}
-#		}
-#	}
 
 }
 
@@ -1077,9 +1040,6 @@ sub vifaceAdded # (iface, viface, address, netmask)
 sub vifaceDelete # (iface, viface)
 {
 	my ( $self, $iface, $viface) = @_;
-#	my $nr = @{$self->ranges("$iface:$viface")};
-#	my $nf = @{$self->fixedAddresses("$iface:$viface")};
-#	return (($nr != 0) or ($nf != 0));
         my $manager = EBox::Model::ModelManager->instance();
 
         foreach my $modelName (qw(RangeTable FixedAddressTable Options)) {
