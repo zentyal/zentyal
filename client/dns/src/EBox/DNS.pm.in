@@ -50,43 +50,31 @@ sub _create
                                           printableName => __('dns'),
                                           @_);
 
-	$self->{'domainModel'} = new EBox::DNS::Model::DomainTable(
-			'gconfmodule' => $self,
-			'directory' => 'domainTable'
-		);
-	$self->{'hostnameModel'} = new EBox::DNS::Model::HostnameTable(
-			'gconfmodule' => $self,
-			'directory' => 'hostnameTable'
-		);
-	$self->{'aliasModel'} = new EBox::DNS::Model::AliasTable(
-			'gconfmodule' => $self,
-			'directory' => 'aliasTable'
-		);
-	$self->{'enableModel'} = new EBox::DNS::Model::EnableFormDNS(
-			'gconfmodule' => $self,
-			'directory' => 'enableForm',
-			'enableTitle' => __('DNS Server'),
-			'modelDomain' => 'DNS'
-		);
- 	$self->{'dnsComposite'} = new EBox::DNS::Model::DNSComposite();
-
 	bless($self, $class);
 	return $self;
 }
 
-# Method: models
-# 	Overrides <EBox::ModelImplementator::models>
+# Method: modelClasses
 #
-sub models
+# Overrides:
+#
+#       <EBox::ModelProvider::modelClasses>
+#
+sub modelClasses
 {
-	my ($self) = @_;
-
-	return [
-		$self->{'domainModel'}, 
-		$self->{'hostnameModel'}, 
-		$self->{'aliasModel'},
-		$self->{'enableModel'}
-	];
+    return [
+            'EBox::DNS::Model::DomainTable',
+            'EBox::DNS::Model::HostnameTable',
+            'EBox::DNS::Model::AliasTable',
+            {
+             class => 'EBox::DNS::Model::EnableFormDNS',
+             parameters => [
+                            enableTitle => __('DNS Server'),
+                            modelDomain => 'DNS',
+                            domain      => 'ebox-dns'
+                           ],
+            }
+           ];
 }
 
 # Method: exposedMethods
@@ -149,28 +137,26 @@ sub _exposedMethods
 
   }
 
-# Method: composites 
-# 
-#	Return the compistes used by the DNS eBox module
-#	
+# Method: compositeClasses
+#
 # Overrides:
-# 
-#        <EBox::Model::CompositeProvider::composites>
-# 
-sub composites 
+#
+#    <EBox::Model::CompositeProvider::compositeClasses>
+#
+sub compositeClasses
 {
-	my ($self) = @_;
-
-	return [
-		$self->{'dnsComposite'}, 
-	];
+ return [
+         'EBox::DNS::Model::DNSComposite',
+        ];
 }
 
-
 # Method: addDomain
-# 	add new domain to table model
 #
-# Parameter:
+# 	Add new domain to table model
+#
+# Parameters:
+#
+#       Check <EBox::DNS::Model::DomainTable> for details
 #
 sub addDomain
 {
@@ -180,18 +166,6 @@ sub addDomain
 
 	$domainModel->addDomain($domainData);
 }
-
-# $domainModel->add( domain    => 'foo.com',
-#                    hostnames => [
-#                                  { name => 'bar',
-#                                    ip   => 192.168.1.2,
-#                                    aliases => [
-#                                                { alias => 'bar'},
-#                                                { alias => 'b4r'},
-#                                               ]
-#                                  }
-#                                 ],
-#                  )
 
 # Method: domains
 # 	returns an array with all domain names
@@ -248,6 +222,40 @@ sub hostnames
 	}
 
 	return \@array;
+}
+
+# Method: getHostnames
+#
+#       Given a domain name, it returns an array ref of hostnames that
+#       it contains.
+#
+# Parameters:
+#
+#       domain - String the domain's name
+#
+# Returns:
+#
+#       array ref - containing the same structure as
+#       <EBox::DNS::hostnames> returns
+#
+sub getHostnames
+{
+
+    my ($self, $domain) = @_;
+
+    my $domainModel = $self->model('DomainTable');
+    my $domainRowId = $domainModel->findId(domain => $domain);
+
+    unless ( defined($domainRowId) ) {
+        throw EBox::Exceptions::DataNotFound(data  => __('domain'),
+                                             value => $domain);
+    }
+    my $hostnameModel = $self->model('HostnameTable');
+    $hostnameModel->setDirectory($domainModel->directory()
+                                 . "/keys/$domainRowId/hostnames");
+
+    return $self->hostnames($hostnameModel->printableValueRows());
+
 }
 
 # Method: aliases

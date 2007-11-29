@@ -123,13 +123,13 @@ sub validateRow()
 # Parameters:
 #
 #   (NAMED)
-#   name       - host name
-#   ip         - host ipaddr
+#   hostname   - String host name
+#   ip         - String host ipaddr
 #   aliases    - array ref containing the alias names
 #
 #   Example:
 #
-#      'name'         => 'bar',
+#      'hostname'     => 'bar',
 #      'ip'           => '192.168.1.2',
 #      'aliases'      => [
 #                         { 'bar',
