@@ -114,7 +114,7 @@ sub validateRow()
 # Parameters:
 #
 #   (NAMED)
-#   name       - domain's name
+#   domain_name - String domain's name
 #   hostnames  - array ref containing the following hash ref in each value:
 #
 #                name        - host's name
@@ -123,17 +123,17 @@ sub validateRow()
 #
 #   Example:
 #
-#       name      => 'foo.com',
-#       hostnames => [ 
-#                     { 'name'         => 'bar',
-#                       'ip'           => '192.168.1.2',
-#                       'aliases'      => [
-#                                        { 'bar',
-#                                          'b4r'
-#                                        }
-#                                       ]
-#                     }
-#                    ]
+#       domain_name => 'foo.com',
+#       hostnames   => [
+#                       { 'name'         => 'bar',
+#                         'ip'           => '192.168.1.2',
+#                         'aliases'      => [
+#                                             { 'bar',
+#                                               'b4r'
+#                                             }
+#                                           ]
+#                       }
+#                      ]
 sub addDomain
 {
     my ($self, $params) = @_;
