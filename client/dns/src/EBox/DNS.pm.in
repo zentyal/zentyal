@@ -77,7 +77,7 @@ sub modelClasses
            ];
 }
 
-# Method: exposedMethods
+# Method: _exposedMethods
 #
 #
 # Overrides:
@@ -469,7 +469,7 @@ sub service
 
       my ($self) = @_;
 
-      my $enableModel = $self->{'enableModel'};
+      my $enableModel = $self->model('EnableFormDNS');
 
       return $enableModel->enabledValue();
 
@@ -488,7 +488,7 @@ sub setService
 
       my ($self, $enabled) = @_;
 
-      my $enableModel = $self->{'enableModel'};
+      my $enableModel = $self->model('EnableFormDNS');
 
       $enableModel->setRow(1,
                            ( enabled => $enabled ),
