@@ -12,6 +12,7 @@ function addNewRow(url, table, fields, directory)
 {
 	var pars = 'action=add&tablename=' + table + '&directory=' + directory + '&';
 
+    pars += '&page=0';
   	pars += '&filter=' + inputValue(table + '_filter');
   	pars += '&pageSize=' + inputValue(table + '_pageSize');
 	
