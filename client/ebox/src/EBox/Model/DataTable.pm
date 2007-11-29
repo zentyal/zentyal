@@ -1650,8 +1650,7 @@ sub tableName
 
     my ($self) = @_;
 
-    return $self->table()->{'tableName'};
-
+    return $self->{'table'}->{'tableName'};
   }
 
 # Method: printableModelName
@@ -1978,8 +1977,7 @@ sub modelDomain
 
       my ($self) = @_;
 
-      return $self->table()->{'modelDomain'};
-
+      return $self->{'table'}->{'modelDomain'};
   }
 
 # Method: fields 
