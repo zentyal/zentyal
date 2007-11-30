@@ -1,0 +1,33 @@
+#!/bin/bash
+
+remove_gconf_schemas(){
+	# remove gconf schemas
+	SCHEMA_LOCATION=/usr/share/gconf/schemas
+	SCHEMA_FILES="webserver.schemas "
+	for SCHEMA in $SCHEMA_FILES; do
+	if [ -e $SCHEMA_LOCATION/$SCHEMA ]; then
+		HOME=/var/lib/ebox GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` \
+		gconftool-2 \
+			--makefile-uninstall-rule $SCHEMA_LOCATION/$SCHEMA > /dev/null
+	fi
+	done
+}
+
+onRemove() {
+
+	perl -e 'use EBox::WebServer::Maintenance; EBox::WebServer::Maintenance::onRemove();'
+}
+
+
+#DEBHELPER#
+
+case "$1" in
+	upgrade)
+		remove_gconf_schemas
+		;;
+	remove)
+		onRemove
+		/etc/init.d/ebox webserver stop || true
+		remove_gconf_schemas
+		;;	
+esac 

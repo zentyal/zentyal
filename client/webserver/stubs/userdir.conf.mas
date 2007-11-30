@@ -1,0 +1,33 @@
+<%doc>
+   Template to configure the user directory configuration in eBox
+   WebServer.
+
+   If samba module is installed, the subdirectory public_html from
+   home directory samba users is also published.
+
+</%doc>
+<%init>
+  use EBox::Global;
+  my $gl = EBox::Global->getInstance();
+  my $sambaExists = $gl->modExists('samba');
+  my $homeDir = '';
+  if ( $sambaExists ) {
+      eval "use EBox::SambaLdapUser";
+      $homeDir = EBox::SambaLdapUser::usersPath();
+  }
+</%init>
+<IfModule mod_userdir.c>
+        UserDir public_html
+        UserDir disabled root
+
+        <Directory /home/*/public_html>
+                AllowOverride FileInfo AuthConfig Limit
+                Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec
+        </Directory>
+% if ( $sambaExists ) {
+        <Directory <% $homeDir %>/*/public_html>
+                AllowOverride FileInfo AuthConfig Limit
+                Options MultiViews Indexes SymLinksIfOwnerMatch IncludesNoExec
+        </Directory>
+% }
+</IfModule>

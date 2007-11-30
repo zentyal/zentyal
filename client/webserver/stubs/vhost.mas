@@ -1,0 +1,37 @@
+<%doc>
+   Template to configure a simple named virtual host using the default
+   site given with the apache2 debian package
+   
+   Parameters:
+
+   vHostName - String the virtual host's name
+</%doc>
+<%args>
+  $vHostName
+</%args>
+<%init>
+  use EBox::WebServer;
+  use EBox::WebServer::PlatformPath;
+  my $vHostPrefix = EBox::WebServer::VHostPrefix();
+  my $docRoot = EBox::WebServer::PlatformPath::DocumentRoot();
+</%init>
+NameVirtualHost *
+<VirtualHost *>
+        ServerAdmin webmaster@localhost
+
+        ServerName <% $vHostName %>
+        DocumentRoot /var/www/<% $vHostName %>
+
+        ErrorLog /var/log/apache2/error.log
+
+        # Possible values include: debug, info, notice, warn, error, crit,
+        # alert, emerg.
+        LogLevel warn
+
+        CustomLog /var/log/apache2/access.log combined
+        ServerSignature On
+
+        # Under this directory you can manually configure every thing
+        # you may need of that stuff
+        Include sites-available/<%  'user-' . "$vHostPrefix$vHostName" %>/*
+</VirtualHost>

@@ -1,0 +1,13 @@
+<%doc>
+  ports.conf.mas writes the listening port used by apache virtual host
+  to serve Web pages.
+
+  Parameters:
+
+  portNumber - Int the port number to listen to Web requests
+
+</%doc>
+<%args>
+  $portNumber
+</%args>
+Listen <% $portNumber %>

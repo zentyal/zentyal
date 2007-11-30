@@ -1,0 +1,95 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+# GNU copyright 1997 to 1999 by Joey Hess.
+
+include  debian/common-rules/ebox.mk
+
+PACKAGE = ebox-webserver
+
+config.status: configure
+	dh_testdir
+	./configure \
+	LOGPATH="/var/lib/ebox/log" \
+        CONFPATH="/var/lib/ebox/conf" \
+        STUBSPATH="/usr/share/ebox/stubs" \
+        CGIPATH="/usr/share/ebox/cgi/" \
+        TEMPLATESPATH="/usr/share/ebox/templates" \
+        SCHEMASPATH="/usr/share/ebox/schemas" \
+        WWWPATH="/usr/share/ebox/www/" \
+        CSSPATH="/usr/share/ebox/www/css" \
+        IMAGESPATH="/usr/share/ebox/www/images" \
+        VARPATH="/var" \
+        ETCPATH="/etc/ebox" \
+	APACHE2CONFDIRPATH="/etc/apache2" \
+	APACHE2EXECPATH="/usr/sbin/apache2" \
+	APACHE2DOCROOT="/var/www" \
+		--disable-runtime-tests \
+		--prefix=/usr --localstatedir=/var/ --sysconfdir=/etc
+
+build: build-stamp
+
+build-stamp: config.status
+	dh_testdir
+	$(MAKE)
+	touch build-stamp
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp
+	-$(MAKE) distclean
+ifneq "$(wildcard /usr/share/misc/config.sub)" ""
+	cp -f /usr/share/misc/config.sub config.sub
+endif
+ifneq "$(wildcard /usr/share/misc/config.guess)" ""
+	cp -f /usr/share/misc/config.guess config.guess
+endif
+	rm -f config.log
+	dh_clean 
+
+install-indep: build config.status
+	dh_testdir
+	dh_testroot
+	dh_clean -k 
+	dh_installdirs
+
+	GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=yes DESTDIR=$(CURDIR)/debian/$(PACKAGE)/ \
+	DESTDIR=$(CURDIR)/debian/$(PACKAGE)/ \
+		$(MAKE) install schemadir=usr/share/gconf/schemas
+	if [ -d tools/runit ] ; then \
+		pushd tools/runit ; \
+		for serv in * ; do \
+			if echo $$serv | grep -q -v '^.*\.finish$$' ; then \
+				install -d -m 755 $(CURDIR)/debian/ebox/etc/runit/$$serv ; \
+				install -m 755 $(CURDIR)/tools/runit/$$serv $(CURDIR)/debian/ebox/etc/runit/$$serv/run ; \
+				touch $(CURDIR)/debian/ebox/etc/runit/$$serv/down ; \
+				if [ -f $(CURDIR)/tools/runit/$${serv}.finish ] ; then \
+					install -m 755 $(CURDIR)/tools/runit/$${serv}.finish $(CURDIR)/debian/ebox/etc/runit/$$serv/finish ; \
+				fi ; \
+				echo "etc/runit/$$serv var/service/$$serv" >> $(CURDIR)/debian/links ; \
+			fi ; \
+		done ; \
+		popd ; \
+	fi
+
+binary-indep: install-indep
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs ChangeLog
+	dh_installdocs
+	dh_install
+	dh_link
+#	dh_gconf - done manually
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+# Build architecture-independent files here.
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch install
