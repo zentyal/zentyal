@@ -1650,7 +1650,7 @@ sub tableName
 
     my ($self) = @_;
 
-    return $self->{'table'}->{'tableName'};
+    return $self->table()->{'tableName'};
   }
 
 # Method: printableModelName
@@ -3192,7 +3192,7 @@ sub _setControllers
           # If it is not a defaultController, we try to guess it from
           # the model domain and its name
           $defAction = '/ebox/' . $self->modelDomain() . '/Controller/' .
-            $self->tableName();
+            $self->{'table'}->{'tableName'};
           if ( $self->index() ne '' ) {
               $defAction .= '/' . $self->index();
           }
