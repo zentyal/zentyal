@@ -97,6 +97,11 @@ sub _exposedMethods
 			    path     => [ 'ServiceTable' ],
 			    indexes  => [ 'id' ],
 			  },
+         'updateDestPort'  => { action   => 'set',
+                                path     => [ 'ServiceTable', 'configuration' ],
+                                indexes  => [ 'name', 'id' ],
+                                selector => [ 'destination' ]
+                              },
          );
 
       return \%exposedMethods;
@@ -178,7 +183,7 @@ sub serviceConfiguration
     my @conf = map {$_->{'plainValueHash'}} @{$model->rows()};
 
     return \@conf;
-}              
+}
 
 # Method: addService 
 #
