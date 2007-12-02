@@ -60,6 +60,8 @@ use EBox::Model::DataTable;
   # Set page to 0 if not defined properly
   $page = 0 unless (length($page) > 0);
 
+  # Set number of pages 
+  $tpages = $model->pages($filter);
   # Fetch the edited row if we are editing one
   my $rowEdit;
   if ($editid) {
