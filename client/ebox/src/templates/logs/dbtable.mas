@@ -33,7 +33,22 @@ my $domain = settextdomain('libebox');
 %   if ($it eq 'event') {
 		<td><% $params->{'events'}->{$row->{$it}} %></td>
 %   } else {
-		<td><% $row->{$it} %></td>
+<%doc>
+FIXME: This is a quick solution to show URL's and tooltips.
+The nice thing would be implementing filters which can be set within
+the table definition
+</%doc>
+%		my $content = $row->{$it};
+%		$content =~ s/ +$//;
+%		my $tooltip = $content;
+%		if (length ($content) > 40 ) {
+%			$content = substr ($content, 0, 40) . '...';
+%		}
+%		if ($content =~ /^http:/) {
+		<td><a href = "<% $tooltip | h %>" title="<% $tooltip | h %>"><% $content | h %></a></td>
+%		} else {
+		<td><div title="<% $tooltip | h  %>"><% $content | h %></div></td>
+%		}
 %   }
 %  }
 </tr>
