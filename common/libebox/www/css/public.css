@@ -233,8 +233,10 @@
 	text-decoration: none;
 }
 
-.dataTable td a:hover { color: #BC0606; 
-	background-color: none;
+.dataTable td a:hover { 
+    background: none;
+    text-decoration: underline;
+    color: #A3BD5B;
 }
 
 .dataTable tr.highlight { background: #E58A22; }
