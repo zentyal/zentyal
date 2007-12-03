@@ -11,7 +11,8 @@ SUBDIRS = setter viewer
 templatedir = $(datadir)/ebox/templates/ajax
 template_DATA = composite.mas form.mas modelViewer.mas selector.mas \
 	        tableHeader.mas tableBody.mas tableSelector.mas \
-	        tabMenu.mas tablePager.mas
+	        tabMenu.mas tablePager.mas \
+                image.mas
 
 EXTRA_DIST = $(template_DATA)
 
