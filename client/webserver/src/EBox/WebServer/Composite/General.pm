@@ -65,28 +65,28 @@ sub new
 #     <EBox::Model::Composite::_description>
 #
 sub _description
-  {
+{
 
-      my $wsMod = EBox::Global->modInstance('webserver');
+    my $wsMod = EBox::Global->modInstance('webserver');
 
-      my $description =
-        {
-         components      => [
-                             '/' . $wsMod->name() . '/EnableForm',
-                             '/' . $wsMod->name() . '/GeneralSettings',
-                             '/' . $wsMod->name() . '/VHostTable',
-                            ],
-         layout          => 'top-bottom',
-         name            => 'General',
-         printableName   => __('Web service'),
-         compositeDomain => 'Web',
-         help            => __('The eBox web service allows you ' .
-                               'to host Web pages in plain HTML ' .
-                               'within different virtual hosts'),
-        };
+    my $description =
+      {
+       components      => [
+                           '/' . $wsMod->name() . '/EnableForm',
+                           '/' . $wsMod->name() . '/GeneralSettings',
+                           '/' . $wsMod->name() . '/VHostTable',
+                          ],
+       layout          => 'top-bottom',
+       name            => 'General',
+       printableName   => __('Web service'),
+       compositeDomain => 'Web',
+       help            => __('The eBox web service allows you ' .
+                             'to host Web pages in plain HTML ' .
+                             'within different virtual hosts'),
+      };
 
-      return $description;
+    return $description;
 
-  }
+}
 
 1;

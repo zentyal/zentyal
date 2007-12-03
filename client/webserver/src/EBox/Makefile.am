@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = WebServer
+SUBDIRS = t WebServer
 
 perldir = @PERLPATH@/EBox
 

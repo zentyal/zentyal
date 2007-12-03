@@ -145,7 +145,7 @@ sub statusSummary
     my ($self) = @_;
 
     return new EBox::Summary::Status(
-                                     'web',
+                                     'webserver',
                                      __('Web'),
                                      $self->running(),
                                      $self->service(),
@@ -191,6 +191,38 @@ sub compositeClasses
 ################
 # API exposed
 ################
+
+# Method: _exposedMethods
+#
+# Overrides:
+#
+#      <EBox::Model::ModelProvider::_exposedMethods>
+#
+sub _exposedMethods
+{
+    my ($self) = @_;
+
+    my %exposedMethods =
+      (
+       'addVHost'    => { action  => 'add',
+                          path    => [ 'VHostTable' ],
+                        },
+       'removeVHost' => { action  => 'del',
+                          path    => [ 'VHostTable' ],
+                          indexes => [ 'name' ],
+                        },
+       'updateVHost' => { action  => 'set',
+                          path    => [ 'VHostTable' ],
+                          indexes => [ 'name' ],
+                        },
+       'vHost'       => { action  => 'get',
+                          path    => [ 'VHostTable' ],
+                          indexes => [ 'name' ],
+                        },
+       );
+
+    return \%exposedMethods;
+}
 
 # Method: running
 #
@@ -328,14 +360,11 @@ sub _setUserDir
         $self->writeConfFile( AVAILABLE_MODS_DIR . (USERDIR_CONF_FILES)[0],
                               'webserver/userdir.conf.mas',
                               []);
-        # Create the symbolic link
-        unless ( -l (ENABLED_MODS_DIR . (USERDIR_CONF_FILES)[0])) {
-            EBox::Sudo::root('ln -s ' . join ( ' ', map { AVAILABLE_MODS_DIR . $_ } USERDIR_CONF_FILES)
-                             . ' ' . ENABLED_MODS_DIR);
-        }
+        # Enable the module
+        EBox::Sudo::root('a2enmod userdir');
     } else {
-        # Remove the symbolic link
-        EBox::Sudo::root('rm -f ' . join ( ' ', map { ENABLED_MODS_DIR . $_ } USERDIR_CONF_FILES));
+        # Disable the module
+        EBox::Sudo::root('a2dismod userdir');
     }
 }
 
