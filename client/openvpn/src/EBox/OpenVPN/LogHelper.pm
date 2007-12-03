@@ -166,7 +166,7 @@ sub processLine # (file, line, logger)
 {
   my ($self, $file, $line, $dbengine) = @_;
 
-  my ($wday, $month, $mday, $time, $year, $msg) = split '\s', $line, 6;
+  my ($wday, $month, $mday, $time, $year, $msg) = split '\s+', $line, 6;
 
 
   my $eventInfo = $self->_eventFromMsg($msg);
