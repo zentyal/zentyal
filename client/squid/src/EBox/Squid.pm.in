@@ -361,7 +361,17 @@ sub port
 {
   my $self = shift;    	
 
-  return $self->_generalSetting('port');
+  # FIXME Workaround. It seems that in some migrations the 
+  # port variable gets ereased and returns an empty value
+  
+  my $port = $self->_generalSetting('port');
+
+  unless (defined($port) and ($port =~ /^\d+$/)) {
+    return SQUIDPORT;
+  }
+
+  return $port;
+
 }
 
 
