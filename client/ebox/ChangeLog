@@ -10,6 +10,8 @@
 	  interface
 	+ Fix _checkRowIsUnique and _checkFieldIsUnique 
 	+ Fix paging 
+	+ Trim long strings in log table, show tooltip with the whole string
+	  and show links for URLs starting with "http://"
 0.10.99
 	+ Add disk usage information
 	+ Show progress in backup process
