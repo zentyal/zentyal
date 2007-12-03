@@ -55,7 +55,7 @@ lives_ok {
                          enabled => 0);
 } 'Updating a virtual host';
 
-ok ( ! $webMod->vHost('devendra.banhart.com')->{plainValueHash}->{enabled},
+ok ( ! $webMod->isVHostEnabled('devendra.banhart.com')->value(),
      'The virtual host is correctly disabled');
 
 SKIP: {
