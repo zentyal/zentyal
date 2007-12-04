@@ -30,7 +30,7 @@ use EBox::CGI::Temp;
 sub new
 {
 
-  my $class = shift;
+  my $class = shift @_;
   
   my $self = $class->SUPER::new(@_);
   
