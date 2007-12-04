@@ -20,7 +20,7 @@ NameVirtualHost *
         ServerAdmin webmaster@localhost
 
         ServerName <% $vHostName %>
-        DocumentRoot /var/www/<% $vHostName %>
+        DocumentRoot <% $docRoot %>/<% $vHostName %>
 
         ErrorLog /var/log/apache2/error.log
 

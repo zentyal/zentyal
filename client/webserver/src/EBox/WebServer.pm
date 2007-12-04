@@ -30,6 +30,7 @@ use base qw(EBox::GConfModule EBox::Model::ModelProvider EBox::Model::CompositeP
 use EBox::Common::Model::EnableForm;
 use EBox::Exceptions::External;
 use EBox::Gettext;
+use EBox::Global;
 use EBox::Service;
 use EBox::Sudo;
 use EBox::Summary::Module;
@@ -47,6 +48,7 @@ use constant ENABLED_MODS_DIR   => CONF_DIR . '/mods-enabled/';
 use constant AVAILABLE_MODS_DIR   => CONF_DIR . '/mods-available/';
 
 use constant USERDIR_CONF_FILES => ('userdir.conf', 'userdir.load');
+use constant LDAP_USERDIR_CONF_FILE => 'ldap_userdir.conf';
 use constant SITES_AVAILABLE_DIR   => CONF_DIR . '/sites-available/';
 use constant SITES_ENABLED_DIR   => CONF_DIR . '/sites-enabled/';
 
@@ -351,6 +353,7 @@ sub _setUserDir
     my ($self) = @_;
 
     my $generalConf = $self->model('GeneralSettings');
+    my $gl = EBox::Global->getInstance();
 
     if ( $generalConf->enableDirValue() ) {
         # User dir enabled
@@ -361,15 +364,30 @@ sub _setUserDir
                                                      userDirConfFile => AVAILABLE_MODS_DIR . $confFile));
             }
         }
-        # Dump the configuration file
-        $self->writeConfFile( AVAILABLE_MODS_DIR . (USERDIR_CONF_FILES)[0],
-                              'webserver/userdir.conf.mas',
-                              []);
-        # Enable the module
+        # Manage configuration for mod_ldap_userdir apache2 module
+        if ( $gl->modExists('samba') ) {
+            eval 'use EBox::Ldap; use EBox::UsersAndGroups;';
+            my $rootDN = EBox::Ldap::rootDn();
+            my $ldapPass = EBox::Ldap::getPassword();
+            my $usersMod = $gl->modInstance('users');
+            my $usersDN = $usersMod->usersDn();
+            $self->writeConfFile( AVAILABLE_MODS_DIR . LDAP_USERDIR_CONF_FILE,
+                                  'webserver/ldap_userdir.conf.mas',
+                                  [
+                                   rootDN  => $rootDN,
+                                   usersDN => $usersDN,
+                                   dnPass  => $ldapPass,
+                                  ]);
+            EBox::Sudo::root('a2enmod ldap_userdir');
+        }
+        # Enable the modules
         EBox::Sudo::root('a2enmod userdir');
     } else {
-        # Disable the module
+        # Disable the modules
         EBox::Sudo::root('a2dismod userdir');
+        if ( $gl->modExists('samba')) {
+            EBox::Sudo::root('a2dismod ldap_userdir');
+        }
     }
 }
 

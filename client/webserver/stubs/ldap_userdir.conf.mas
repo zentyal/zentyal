@@ -1,0 +1,24 @@
+<%doc>
+   Template to configure the LDAP user directory configuration in eBox
+   WebServer. The username and home directory search is done under
+   LDAP database. To do so, the module mod_ldap_userdir to Apache2 is
+   installed.
+
+Parameters:
+
+     rootDN - String the root distinguished name used to log in LDAP database
+     usersDN - String the distinguished name from where all users
+     leaves hang and where to start the LDAP search
+     dnPass - String the LDAP password to look up into the database
+</%doc>
+<%args>
+  $rootDN
+  $usersDN
+  $dnPass
+</%args>
+<IfModule mod_ldap_userdir.c>
+        LDAPUserDir public_html
+        LDAPUserDirDNInfo <% $rootDN %> <% $dnPass %>
+        LDAPUserDirBaseDN <% $usersDN %>
+        LDAPUserDirHomeAttribute homeDirectory
+</IfModule>
