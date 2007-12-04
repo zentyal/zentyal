@@ -55,10 +55,11 @@ AC_DEFINE_DIR(PERLPATH, perlpath)
 AC_CONFIG_FILES([
 src/Makefile
 src/EBox/Makefile
+src/EBox/t/Makefile
 src/EBox/WebServer/Makefile
 src/EBox/WebServer/PlatformPath.pm
-src/EBox/WebServer/Model/Makefile
 src/EBox/WebServer/Composite/Makefile
+src/EBox/WebServer/Model/Makefile
 schemas/Makefile
 stubs/Makefile
 www/Makefile

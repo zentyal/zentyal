@@ -1,0 +1,128 @@
+# Catalan translations for eBox-webserver package.
+# Copyright (C) 2007 Warp S.L.
+# This file is distributed under the same license as the eBox-webserver package.
+# Automatically generated, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-webserver 0.11.99"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2007-12-04 10:03+0100\n"
+"PO-Revision-Date: 2007-12-04 10:03+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/EBox/WebServer/Maintenance.pm:66
+msgid "HyperText Transport Protocol"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:90
+msgid "listening port"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:136
+msgid "Listening port"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:142
+#, perl-brace-format
+msgid "Enable per user {dirName}"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:152
+msgid "General configuration settings"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:156
+#, perl-brace-format
+msgid ""
+"General Web server configuration. The listening port must not be got from "
+"another service. If you enable user to publish their own html pages, the "
+"pages will be loaded from {dirName} directory from their samba home "
+"directories"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:162
+msgid "General Web server configuration settings updated"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:92
+msgid "Virtual host's name"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:140
+#, perl-brace-format
+msgid ""
+"Virtual host {vhost} added. A domain {domain} has been created with the "
+"mapping name {name} - IP address {ip} "
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:158
+#, perl-brace-format
+msgid ""
+"Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
+"added to {domain} domain"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:172
+#, perl-brace-format
+msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:178
+#: src/EBox/WebServer/Model/VHostTable.pm:183
+#, perl-brace-format
+msgid "Virtual host {vhost} added"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:188
+msgid "There is no static internal interface to set the Web server IP address"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:214
+msgid "Name"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:224
+msgid "Virtual hosts"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:228
+#, perl-brace-format
+msgid ""
+"Virtual hosts are a form of web hosting service where many instances of the "
+"same web server is hosted on a single physical server. Different host names "
+"will point to the same web server. The DNS entry is automatically created if "
+"this is possible. The content must be placed under {docRoot}/vHostName "
+"directory"
+msgstr ""
+
+#: src/EBox/WebServer/Model/VHostTable.pm:235
+msgid "virtual host"
+msgstr ""
+
+#: src/EBox/WebServer/Composite/General.pm:81
+msgid "Web service"
+msgstr ""
+
+#: src/EBox/WebServer/Composite/General.pm:83
+msgid ""
+"The eBox web service allows you to host Web pages in plain HTML within "
+"different virtual hosts"
+msgstr ""
+
+#: src/EBox/WebServer.pm:126 src/EBox/WebServer.pm:150
+msgid "Web"
+msgstr ""
+
+#: src/EBox/WebServer.pm:169
+msgid "Web service status"
+msgstr ""
+
+#: src/EBox/WebServer.pm:360
+#, perl-brace-format
+msgid "The {userDirConfFile} is missing! Please recover it"
+msgstr ""
