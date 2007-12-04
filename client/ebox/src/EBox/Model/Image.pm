@@ -30,9 +30,9 @@ use EBox::CGI::Temp;
 sub new
 {
 
-  my $class = shift @_;
+  my ($class, @params) =  @_;
   
-  my $self = $class->SUPER::new(@_);
+  my $self = $class->SUPER::new(@params);
   
   bless ( $self, $class );
   
