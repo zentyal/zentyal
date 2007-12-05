@@ -1,4 +1,4 @@
-package EBox::Network::Report::BitRate;
+package EBox::Network::Report::ByteRate;
 #
 use strict;
 use warnings;
@@ -30,9 +30,9 @@ use constant MONITOR_DAEMON => '/usr/lib/ebox/ebox-traffic-monitor';
 
 use constant CONF_FILE => '/etc/jnettop.conf';
 
-# XX DEBUG
-    use DB;
-our @ISA = qw(DB);
+# # XX DEBUG
+#     use DB;
+# our @ISA = qw(DB);
 
 sub service
 {
@@ -98,14 +98,14 @@ sub _writeConfFile
 
   my @localNets = map {
     my $net = $network->ifaceNetwork($_);
-    my ($addr, $mask) = EBox::NetWrappers::to_network_without_mask($net);
+    my ($addr, $mask) = EBox::NetWrappers::to_network_with_mask($net);
     [$addr, $mask]
   } @internalIfaces;
 
   EBox::Module->writeConfFile(
 			      CONF_FILE,
 			      'network/jnettop.conf.mas',
-			      [ localNetworks => \@localNets,  ]
+			      [ localNetworks => \@localNets,  ],
 
 			     );
 }
@@ -128,7 +128,7 @@ sub addBps
 		});
 
 
-  EBox::debug("addBps @_");
+#  EBox::debug("addBps @_");
 
   my $src = $params{src};
 
@@ -142,7 +142,7 @@ sub addBps
 
   my $service = _service($proto, $dport, $sport);
 
-  print "addBps: src $src service $service\n";
+#  print "addBps: src $src service $service\n"; # XXX denug
 
   # store the values waitng for flush..
   $srcBps{$src}         += $bps;
@@ -208,9 +208,12 @@ sub _addBpsToRRD
   my $err = RRDs::error;
   if ( $err) {
 
-    my $stack = __PACKAGE__->backtrace;
+#    my $stack = __PACKAGE__->backtrace;  # XXX DEBUG
 
-   throw EBox::Exceptions::Internal " error updating $rrd: $err\nstack: $stack";
+#   throw EBox::Exceptions::Internal " error updating $rrd: $err\nstack:
+#   $stack"; 
+
+    throw EBox::Exceptions::Internal " error updating $rrd: $err";
   }
 }
 
@@ -228,7 +231,7 @@ sub srcRRD
 
   my $rrd =  _rrdDir() . 'src-' . $src . '.rrd';
 
-  print "SRC: $src RRD: $rrd\n";
+#  print "SRC: $src RRD: $rrd\n"; # XXX debug
   return $rrd;
 }
 

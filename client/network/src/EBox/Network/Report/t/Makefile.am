@@ -1,4 +1,4 @@
-test_scripts = BitRate.t
+test_scripts = ByteRate.t
 
 EXTRA_DIST = $(test_scripts)
 

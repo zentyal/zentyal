@@ -1,9 +1,9 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = BitRate t
+SUBDIRS = ByteRate t
 
 perldir = @PERLPATH@/EBox/Network/Report
 
-packages = BitRate.pm
+packages = ByteRate.pm
 
 nobase_perl_DATA = $(packages)
 

@@ -46,10 +46,9 @@ use EBox::Sudo qw( :all );
 use EBox::Gettext;
 #use EBox::LogAdmin qw( :all );
 use File::Basename;
-use EBox::Network::Model::GatewayTable;
-use EBox::Network::Model::MultiGwRulesDataTable;
 
-use EBox::Network::Report::BitRate;
+
+use EBox::Network::Report::ByteRate;
 
 
 sub _create
@@ -60,30 +59,27 @@ sub _create
 					domain => 'ebox-network',
 					@_);
 	$self->{'actions'} = {};
-	$self->{'gatewayModel'} = new EBox::Network::Model::GatewayTable(
-					'gconfmodule' => $self,
-					'directory' => 'gatewaytable',
-					);
-	
-	$self->{'multigwrulesModel'} = 
-				new EBox::Network::Model::MultiGwRulesDataTable(
-					'gconfmodule' => $self,
-					'directory' => 'multigwrulestable',
-					);
+
 	bless($self, $class);
 	
 	return $self;
 }
 
-# Method: models
-#
-#      Overrides <EBox::ModelImplementator::models>
-#
-sub models
+
+
+
+sub modelClasses
 {
-	my ($self) = @_;
-	return [$self->{'gatewayModel'},  $self->{'multigwrulesModel'}];
+  return [
+	  { class => 'EBox::Network::Model::GatewayTable',
+	    'directory' => 'gatewaytable', },
+	  {
+	  class => 'EBox::Network::Model::MultiGwRulesDataTable', 	'directory' => 'multigwrulestable', },
+	  'EBox::Network::Model::ByteRateGraph',
+	 ]
+    
 }
+
 
 # Method: IPAddressExists
 #
@@ -1874,7 +1870,7 @@ sub _regenConfig
 	$self->_cleanupVlanIfaces();
 
 	# regenerate config for the bit rate report
-	EBox::Network::Report::BitRate->_regenConfig();
+	EBox::Network::Report::ByteRate->_regenConfig();
 }
 
 sub stopService
@@ -1891,7 +1887,7 @@ sub stopService
 		} catch EBox::Exceptions::Internal with {};
 	}
 
-	EBox::Network::Report::BitRate->stopService();
+	EBox::Network::Report::ByteRate->stopService();
 }
 
 #internal use functions
@@ -2349,11 +2345,10 @@ sub menu
 #
 # 	GatewayTableModel
 #
+#  XXX delete and replace calls with direct call to the 'model' method
 sub gatewayModel {
-	
 	my $self = shift;
-
-	return $self->{'gatewayModel'};
+	return $self->model('gatewayModel');
 }
 
 # Method: multigwrulesModel
@@ -2364,11 +2359,12 @@ sub gatewayModel {
 #
 # 	MultiGwRuleTableModel
 #
+#  XXX delete and replace calls with direct call to the 'model' method
 sub multigwrulesModel {
 	
 	my $self = shift;
 
-	return $self->{'multigwrulesModel'};
+	return $self->model('multigwrulesModel');
 }
 
 

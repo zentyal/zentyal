@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 use EBox;
-use EBox::Network::Report::BitRate;
+use EBox::Network::Report::ByteRate;
 
 use constant {
   RRDTOOL_PATH => '/usr/bin/rrdtool',
@@ -28,23 +28,25 @@ _checkEnvironment();
 
 EBox::init();
 
+# preparate termination
+$SIG{TERM} = \&_terminate;
 # prepate flush bps alarm
 $SIG{ALRM} = \&_flushBps;
 alarm (2); # start the flush timer
 
 while (1) {
   my $line = <STDIN>;
-  # XXX remove debug statement in production code
+  # XXX debug remove debug statement in production code
   print "RECEIVED $line\n";
 
   chomp $line;
   my ($proto ,$src, $sport, $dst, $dport, $totalbps) = split ',', $line;
   $proto = lc $proto;
     
-  # XXX remove debug statement in production code  
+  # XXX debug remove debug statement in production code  
   print "$proto $src:$sport -> $dst:$dport  : $totalbps\n";
 
-  EBox::Network::Report::BitRate::addBps(
+  EBox::Network::Report::ByteRate::addBps(
 				     proto => $proto,
 				     src => $src,
 				     sport => $sport,
@@ -59,11 +61,23 @@ while (1) {
 
 sub _flushBps
 {
-  EBox::Network::Report::BitRate::flushBps();
+  EBox::Network::Report::ByteRate::flushBps();
 
   # restart the alarm
   alarm(2);
 }
 
+
+sub _terminate
+{
+  print "TERMINATE CALLED\n"; # XXX debug!!
+
+  alarm(0); # deactivate the flus alarm
+  sleep 1; # to assure we don't collide with the previous flush
+  EBox::Network::Report::ByteRate::flushBps();
+  
+  # exit the program
+  exit 0;
+}
 
 1;

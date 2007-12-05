@@ -15,6 +15,8 @@ use constant {
 };
 
 
+my $LOGGER;  # logger daemon process file handler
+
 sub _checkEnvironment
 {
   if ( $> != 0) { # $> means EUID
@@ -84,21 +86,21 @@ sub _jnettopCmd
 
 sub _daemonize
 {
-  # POSIX unmasks the sigprocmask properly
-  my $sigset = POSIX::SigSet->new();
-  my $action = POSIX::SigAction->new('sigINT_handler',
-                                     $sigset,
-                                     &POSIX::SA_NODEFER);
-  POSIX::sigaction(&POSIX::SIGINT, $action);
-
-
   my $daemon = EBox::AbstractDaemon->new(name => 'ebox-traffic-monitor');
   $daemon->init();
 }
 
 
-sub sigINT_handler 
+sub terminate
 {
+  if ($LOGGER) {
+    close $LOGGER  or  die "bad spool: $! $?";
+  }
+  
+
+  print "TERMINATED\n";
+
+
   system 'pkill -f ' . JNETTOP_PATH ;
   exit 0;
 }
@@ -113,11 +115,13 @@ my %params = @ARGV;
 _checkParams(%params);
 
 _daemonize();
+$SIG{TERM} = \&terminate;
+
 
 my $jnettopCmd = _jnettopCmd(%params);
 
 
-my $LOGGER;
+
 open $LOGGER,  '|' . LOGGER_PATH or
   die "cannot fork logger child process";
 
