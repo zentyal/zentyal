@@ -73,6 +73,17 @@ sub new
 
   }
 
+# Method: ConfigurationMethod
+#
+# Overrides:
+#
+#       <EBox::Event::Component::ConfigurationMethod>
+#
+sub ConfigurationMethod
+{
+    return 'none';
+}
+
 # Method: run
 #
 #        Check if any partition is full

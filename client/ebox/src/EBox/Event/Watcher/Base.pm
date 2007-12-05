@@ -26,6 +26,8 @@ package EBox::Event::Watcher::Base;
 use strict;
 use warnings;
 
+use base 'EBox::Event::Component';
+
 # eBox uses
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::MissingArgument;
@@ -57,18 +59,13 @@ sub new
   {
       my ($class, %args) = @_;
 
-      my ($period, $domain ) = ( $args{period}, $args{domain} );
-
-      defined ( $period ) or
+      defined ( $args{period} ) or
         throw EBox::Exceptions::MissingArgument('period');
-      defined ( $domain ) or
-        throw EBox::Exceptions::MissingArgument('domain');
 
-      my $self = {
-                  period => $period,
-                  domain => $domain,
-                 };
+      my $self = $class->SUPER::new(%args);
       bless ($self, $class);
+
+      $self->{period} = $args{period};
 
       return $self;
   }
@@ -90,23 +87,6 @@ sub period
 
   }
 
-# Method: domain
-#
-#       Accessor to the Gettext domain
-#
-# Returns:
-#
-#       String - the Gettext domain
-#
-sub domain
-  {
-
-      my ($self) = @_;
-
-      return $self->{domain};
-
-  }
-
 
 # Method: description
 #
@@ -119,41 +99,19 @@ sub domain
 #       String - the detailed description
 #
 sub description
-  {
+{
 
-      my ($self) = @_;
+    my ($self) = @_;
 
-      # Get the event watcher Gettext domain
-      my $oldDomain   = EBox::Gettext::settextdomain($self->domain());
-      my $description = $self->_description();
-      EBox::Gettext::settextdomain($oldDomain);
+    # Get the event watcher Gettext domain
+    my $oldDomain   = EBox::Gettext::settextdomain($self->domain());
+    my $description = $self->_description();
+    EBox::Gettext::settextdomain($oldDomain);
 
-      return $description;
+    return $description;
 
-  }
+}
 
-# Method: name
-#
-#       Accessor to the event watcher identifier. If
-#       <EBox::Event::Watcher::Base::_name> is not overridden, the
-#       class name is returned.
-#
-# Returns:
-#
-#       String - the unique name
-#
-sub name
-  {
-
-      my ( $self ) = @_;
-
-      my $oldDomain = EBox::Gettext::settextdomain($self->domain());
-      my $eventName = $self->_name();
-      EBox::Gettext::settextdomain($oldDomain);
-
-      return $eventName;
-
-  }
 
 # Method: run
 #
@@ -194,24 +152,6 @@ sub _description
 
   }
 
-# Method: _name
-#
-#      The i18ned method to name the event watcher. To be
-#      overridden by subclasses.
-#
-# Returns:
-#
-#      String - the name. Default value: the class name
-#
-sub _name
-  {
-
-      my ($self) = @_;
-
-      # Default, return the class name
-      return ref ( $self );
-
-  }
 
 
 1;

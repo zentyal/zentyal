@@ -15,47 +15,28 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# A module to test Event::Dispatcher::Jabber module
+# A module to test EBox::Event::Watcher::Log module
 
-use Test::More tests => 4;
+use Test::More tests => 3;
 use Test::Exception;
 use Test::Deep;
 use Data::Dumper;
-
-use lib ('../../../..', '../../../../../../../common/libebox/src');
 
 use EBox;
 use EBox::Event;
 use EBox::Global;
 
-diag ( 'Starting EBox::Event::Dispatcher::Jabber test' );
-
 BEGIN {
-  use_ok ( 'EBox::Event::Dispatcher::Jabber' )
-    or die;
+    diag ( 'Starting EBox::Event::Watcher::Log test' );
+    use_ok ( 'EBox::Event::Watcher::Log' )
+      or die;
 }
 
-use EBox::TestStub;
-EBox::TestStub::fake();
+EBox::init();
 
-my $jabberDispatcher;
-my $event;
-lives_ok
-  {
-      $jabberDispatcher = new EBox::Event::Dispatcher::Jabber();
-      $event = new EBox::Event(
-                               message => 'test event',
-                               level   => 'info',
-                              );
-  } 'Creating the jabber dispatcher and the event to send';
+my $logWatcher = new EBox::Event::Watcher::Log();
+isa_ok( $logWatcher, 'EBox::Event::Watcher::Log');
 
-lives_ok
-  {
-      $jabberDispatcher->enable()
-  } 'Enabling the jabber dispatcher';
-
-ok ( $jabberDispatcher->send($event),
-     'Sending test event to the admin');
+lives_ok { $logWatcher->run() } 'Running correctly');
 
 1;
-

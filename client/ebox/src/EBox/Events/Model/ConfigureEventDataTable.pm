@@ -119,12 +119,18 @@ sub rows
       # Adding new ones
       foreach my $watcher (keys ( %currentEventWatchers )) {
           next if ( exists ( $storedEventWatchers{$watcher} ));
-          $self->addRow( 'eventWatcher' => $watcher,
+          my %params = ('eventWatcher' => $watcher,
                          # The value is obtained dynamically
                          'description'  => undef,
                          # The events are disabled by default
                          'enabled'      => 0,
+                         'configuration_selected' => 'configuration_'
+                                                    . $watcher->ConfigurationMethod(),
                        );
+          if ( $watcher->ConfigurationMethod() eq 'none' ) {
+              $params{configuration_none} = '';
+          }
+          $self->addRow( %params );
       }
 
       # Removing old ones
@@ -193,48 +199,51 @@ sub _table
                                class         => 'tleft',
                                size          => 12,
                                unique        => 1,
-                               editable      => 0,
-                               optional      => 0,
                                filter        => \&filterName,
                               ),
          new EBox::Types::Text(
                                fieldName     => 'description',
                                printableName => __('Description'),
-                               class         => 'tcenter',
                                size          => 30,
-                               unique        => 0,
                                optional      => 1,
-                               editable      => 0,
                                # The value is obtained dynamically
                                volatile      => 1,
                                filter        => \&filterDescription,
                               ),
-         new EBox::Types::Boolean(
-                                  fieldName     => 'enabled', 
-                                  printableName => __('Enabled'),
-                                  class         => 'tcenter',
-                                  type          => 'boolean',
-                                  size          => 1,
-                                  unique        => 0,
-                                  trailingText  => '',
-                                  editable      => 1,
-                                  )
+         new EBox::Types::Union(
+                                fieldName     => 'configuration',
+                                printableName => __('Configuration'),
+                                editable      => 0,
+                                subtypes      =>
+                                [
+                                 new EBox::Types::HasMany(
+                                                          fieldName            => 'configuration_model',
+                                                          foreignModelAcquirer => \&acquireConfModel,
+                                                          backView             => '/ebox/Events/Composite/GeneralComposite',
+                                                         ),
+                                 new EBox::Types::Union::Text(
+                                                              fieldName        => 'configuration_none',
+                                                              printableName    => __('None'),
+                                                             ),
+                                ]
+                               ),
         );
 
       my $dataTable =
         {
-         tableName          => 'ConfigureEventDataTable',
-         printableTableName => __('Configure events'),
+         tableName           => 'ConfigureEventDataTable',
+         printableTableName  => __('Configure events'),
          actions => {
                      editField  => '/ebox/Events/Controller/ConfigureEventDataTable',
                      changeView => '/ebox/Events/Controller/ConfigureEventDataTable',
                     },
-         tableDescription   => \@tableHeader,
-         class              => 'dataTable',
-         order              => 0,
-         rowUnique          => 1,
-         printableRowName   => __('event'),
-         help               => __('Enable/Disable each event watcher monitoring'),
+         tableDescription    => \@tableHeader,
+         class               => 'dataTable',
+         rowUnique           => 1,
+         printableRowName    => __('event'),
+         help                => __('Enable/Disable each event watcher monitoring'),
+         enableProperty      => 1,
+         defaultEnabledValue => 0,
         };
 
       return $dataTable;
@@ -306,6 +315,36 @@ sub filterDescription
 
   }
 
+# Function: acquireConfModel
+#
+#       Callback function used to gather the foreignModel and its view
+#       in order to configure the event watcher
+#
+# Parameters:
+#
+#       row - hash ref with the content what is stored in GConf
+#       regarding to this row.
+#
+# Returns:
+#
+#      String - the foreign model to configurate the watcher
+#
+sub acquireConfModel
+  {
+
+      my ($row) = @_;
+
+      my $className = $row->{eventWatcher};
+
+      eval "use $className";
+      if ( $@ ) {
+          # Error loading class -> dispatcher to remove
+          return;
+      }
+
+      return $className->ConfigureModel();
+
+  }
 
 # Group: Private methods
 

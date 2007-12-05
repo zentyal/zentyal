@@ -102,7 +102,7 @@ sub configured
 #
 # Overrides:
 #
-#       <EBox::Event::Dispatcher::Abstract::ConfigurationMethod>
+#       <EBox::Event::Component::ConfigurationMethod>
 #
 sub ConfigurationMethod
   {
@@ -115,7 +115,7 @@ sub ConfigurationMethod
 #
 # Overrides:
 #
-#        <EBox::Event::Dispatcher::Abstract::ConfigureModel>
+#        <EBox::Event::Component::ConfigureModel>
 #
 sub ConfigureModel
   {

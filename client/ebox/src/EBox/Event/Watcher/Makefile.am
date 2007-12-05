@@ -1,8 +1,11 @@
 ## Process this file with automake to produce Makefile.in
 
+SUBDIRS= t
+
 perldir = @PERLPATH@/EBox/Event/Watcher
 
-nobase_perl_DATA = Base.pm Runit.pm State.pm DiskFreeSpace.pm
+nobase_perl_DATA = Base.pm DiskFreeSpace.pm Log.pm Runit.pm \
+	State.pm
 
 SOURCES = $(nobase_perl_DATA)
 

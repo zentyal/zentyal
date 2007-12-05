@@ -56,7 +56,7 @@ use Fcntl qw(:flock); # Import LOCK * constants
 #
 # Returns:
 #
-#        <EBox::Event::Watcher::State> - the newly created object
+#        <EBox::Event::Watcher::Runit> - the newly created object
 #
 sub new
   {
@@ -72,6 +72,18 @@ sub new
       return $self;
 
   }
+
+# Method: ConfigurationMethod
+#
+# Overrides:
+#
+#       <EBox::Event::Component::ConfigurationMethod>
+#
+sub ConfigurationMethod
+{
+    return 'none';
+}
+
 
 # Method: run
 #

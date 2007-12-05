@@ -117,10 +117,12 @@ src/EBox/Event/Makefile
 src/EBox/Event/Dispatcher/Makefile
 src/EBox/Event/Dispatcher/t/Makefile
 src/EBox/Event/Watcher/Makefile
+src/EBox/Event/Watcher/t/Makefile
 src/EBox/Events/Makefile
 src/EBox/Events/Model/Makefile
 src/EBox/Events/Model/Dispatcher/Makefile
 src/EBox/Events/Model/t/Makefile
+src/EBox/Events/Model/Watcher/Makefile
 src/EBox/Report/Makefile
 src/EBox/Report/t/Makefile
 src/EBox/Report/t/testdata/Makefile

@@ -26,6 +26,8 @@ package EBox::Event::Dispatcher::Abstract;
 use strict;
 use warnings;
 
+use base 'EBox::Event::Component';
+
 # eBox uses
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::MissingArgument;
@@ -52,39 +54,21 @@ use EBox::Gettext;
 #       is missing
 #
 sub new
-  {
+{
 
       my ($class, $domain) = @_;
 
       defined ( $domain ) or
         throw EBox::Exceptions::MissingArgument('domain');
 
-      my $self = { domain => $domain };
-
+      my $self = $class->SUPER::new( domain => $domain );
       bless ( $self, $class);
 
       return $self;
 
-  }
+}
 
-# Method: domain
-#
-#       Accessor to the Gettext domain
-#
-# Returns:
-#
-#       String - the Gettext domain
-#
-sub domain
-  {
-
-      my ($self) = @_;
-
-      return $self->{domain};
-
-  }
-
-# Method: description
+# Method: receiver
 #
 #       Accessor to the receiver of what this event dispatcher
 #       does. If <EBox::Event::Dispatcher::Abstract::_description> is not
@@ -107,30 +91,6 @@ sub receiver
       return $receiver;
 
   }
-
-# Method: name
-#
-#       Accessor to the event dispatcher identifier. If
-#       <EBox::Event::Dispatcher::Abstract::_name> is not overridden, the
-#       class name is returned.
-#
-# Returns:
-#
-#       String - the unique name
-#
-sub name
-  {
-
-      my ( $self ) = @_;
-
-      my $oldDomain = EBox::Gettext::settextdomain($self->domain());
-      my $dispatcherName = $self->_name();
-      EBox::Gettext::settextdomain($oldDomain);
-
-      return $dispatcherName;
-
-  }
-
 
 # Method: configured
 #
@@ -184,60 +144,6 @@ sub enable
 
   }
 
-
-# Method: ConfigurationMethod
-#
-#       Class method which determines which kind of method is used in
-#       order to select which kind of configuration will be used. This
-#       method should be overridden. *(Abstract)*
-#
-# Returns:
-#
-#       String - one of the following:
-#           - link - if the configuration is done via URL
-#           - model - if the configuration is done via Model
-#           - none - if no configuration is required
-#
-sub ConfigurationMethod
-  {
-
-      throw EBox::Exceptions::NotImplemented();
-
-  }
-
-# Method: ConfigureURL
-#
-#       Get the configuration URL to set the configuration. Static
-#       method.
-#
-# Returns:
-#
-#       String - the URL where to set the configuration
-#
-sub ConfigureURL
-  {
-
-      throw EBox::Exceptions::NotImplemented();
-
-  }
-
-# Method: ConfigureModel
-#
-#       Get the configuration model to set the dispatcher
-#       configuration. Static method.
-#
-# Returns:
-#
-#       String - the model which describe the configuration
-#
-sub ConfigureModel
-  {
-
-      throw EBox::Exceptions::NotImplemented();
-
-  }
-
-
 # Method: send
 #
 #       Send an event through its own transport layer. It must be
@@ -283,24 +189,6 @@ sub _receiver
 
   }
 
-# Method: _name
-#
-#      The i18ned method to name the event dispatcher. To be
-#      overridden by subclasses.
-#
-# Returns:
-#
-#      String - the name. Default value: the class name
-#
-sub _name
-  {
-
-      my ($self) = @_;
-
-      # Default, return the class name
-      return ref ( $self );
-
-  }
 
 # Method: _enable
 #

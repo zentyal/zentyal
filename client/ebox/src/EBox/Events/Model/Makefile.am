@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/Events/Model
 
-SUBDIRS = Dispatcher t
+SUBDIRS = Dispatcher t Watcher
 
 mods = ConfigureEventDataTable.pm ConfigureDispatcherDataTable.pm \
 	ConfigurationComposite.pm GeneralComposite.pm

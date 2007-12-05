@@ -64,6 +64,17 @@ sub new
 
   }
 
+# Method: ConfigurationMethod
+#
+# Overrides:
+#
+#       <EBox::Event::Component::ConfigurationMethod>
+#
+sub ConfigurationMethod
+{
+    return 'none';
+}
+
 # Method: run
 #
 #        Check that Apache-perl from Web UI is up and running.

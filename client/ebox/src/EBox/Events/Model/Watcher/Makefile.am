@@ -1,10 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = Watcher Dispatcher
+perldir = @PERLPATH@/EBox/Events/Model/Watcher
 
-perldir = @PERLPATH@/EBox/Event
-
-nobase_perl_DATA = Component.pm
+nobase_perl_DATA = Log.pm
 
 SOURCES = $(nobase_perl_DATA)
 

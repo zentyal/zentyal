@@ -273,7 +273,7 @@ sub _table
                                                       ),
                                  new EBox::Types::HasMany(
                                                           fieldName            => 'configuration_model',
-                                                          backView             => '/ebox/Events/View/ConfigureDispatcherDataTable',
+                                                          backView             => '/ebox/Events/Composite/GeneralComposite',
                                                           size                 => 1,
                                                           trailingText         => '',
                                                           foreignModelAcquirer => \&acquireConfModel,
