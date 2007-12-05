@@ -23,6 +23,9 @@ package EBox::Event::Watcher::Log;
 
 use base 'EBox::Event::Watcher::Base';
 
+use strict;
+use warnings;
+
 # eBox uses
 use EBox::Event;
 use EBox::Event::Watcher::Base;
@@ -197,7 +200,7 @@ sub _description
                           map { $logs->getTableInfo($_)->{name} } @loggers);
 
       return __x('Notify when a logger ({loggers}) has logged something',
-                 loggers => $loggerMsg);
+                 loggers => $loggersMsg);
 
   }
 
