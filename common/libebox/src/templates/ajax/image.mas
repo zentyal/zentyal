@@ -73,131 +73,9 @@ my $msg = exists $childArgs{action} ? 'EXISTE' : 'NOEXISTE';
 
 
 
-
 <& SELF:hiddenImg, model => $model, prefix => $hiddenPrefix, activePrefix =>
 $activePrefix, reloadAction => $reloadAction &>
 
-
-% if (not $reloadAction) {
-<& SELF:alignImgs, activePrefix => $activePrefix, hiddenPrefix => $hiddenPrefix &>
-% }
-
-</%method>
-
-
-<%method alignImgs>
-<%args>
-$activePrefix
-$hiddenPrefix
-</%args>
-<script type="text/javascript">
-
-// from portotype 1.6
-function _returnOffset(l,t) {
-  var result = [l, t];
-  result.left = l;
-  result.top = t;
-  return result;
-}
-
-function getOffsetParent(element) {
-    if (element.offsetParent) return $(element.offsetParent);
-    if (element == document.body) return $(element);
-
-    while ((element = element.parentNode) && element != document.body)
-      if (Element.getStyle(element, 'position') != 'static')
-        return $(element);
-
-    return $(document.body);
-  }
-
-
-  function viewportOffset(forElement) {
-    var valueT = 0, valueL = 0;
-
-    var element = forElement;
-    do {
-      valueT += element.offsetTop  || 0;
-      valueL += element.offsetLeft || 0;
-
-      // Safari fix
-      if (element.offsetParent == document.body &&
-        Element.getStyle(element, 'position') == 'absolute') break;
-
-    } while (element = element.offsetParent);
-
-    element = forElement;
-    do {
-      if (!Prototype.Browser.Opera || element.tagName == 'BODY') {
-        valueT -= element.scrollTop  || 0;
-        valueL -= element.scrollLeft || 0;
-      }
-    } while (element = element.parentNode);
-
-//    return Element._returnOffset(valueL, valueT);
-    return _returnOffset(valueL, valueT);
-  };
-
-function clonePosition(element, source) {
-    var options = Object.extend({
-      setLeft:    true,
-      setTop:     true,
-      setWidth:   true,
-      setHeight:  true,
-      offsetTop:  0,
-      offsetLeft: 0
-    }, arguments[2] || { });
-
-    // find page position of source
-    source = $(source);
-//    var p = source.viewportOffset();
-      var p = viewportOffset(source);
-
-    // find coordinate system to use
-    element = $(element);
-    var delta = [0, 0];
-    var parent = null;
-    // delta [0,0] will do fine with position: fixed elements,
-    // position:absolute needs offsetParent deltas
-    if (Element.getStyle(element, 'position') == 'absolute') {
-      parent = element.getOffsetParent();
-      delta = parent.viewportOffset();
-    }
-
-    // correct by body offsets (fixes Safari)
-    if (parent == document.body) {
-      delta[0] -= document.body.offsetLeft;
-      delta[1] -= document.body.offsetTop;
-    }
-
-    // set position
-    if (options.setLeft)   element.style.left  = (p[0] - delta[0] + options.offsetLeft) + 'px';
-    if (options.setTop)    element.style.top   = (p[1] - delta[1] + options.offsetTop) + 'px';
-    if (options.setWidth)  element.style.width = source.offsetWidth + 'px';
-    if (options.setHeight) element.style.height = source.offsetHeight + 'px';
-    return element;
-  }
-
-
-function alignImgs(hiddenPrefix, activePrefix)
-{
-     var hiddenImgId = hiddenPrefix + 'Img';
-     var hiddenDivId = hiddenPrefix + 'Div';
-     var activeImgId = activePrefix + 'Img';
-     var activeDivId = activePrefix + 'Div';
-
-     var hiddenImg = document.getElementById(hiddenImgId);
-     var hiddenDiv = document.getElementById(hiddenDivId);
-     var activeImg = document.getElementById(activeImgId);
-     var activeDiv = document.getElementById(activeDivId);
-
-     // setting x,y and size
-     clonePosition(hiddenDiv, activeDiv);
-     clonePosition(hiddenImg, activeImg);
-}
-
-
-</script>
 
 </%method>
 
@@ -284,100 +162,6 @@ my $pe = $model->name . 'Pe';
 </%init>
 <script type="text/javascript">
 
-// from portotype 1.6
-   function _returnOffset(l,t) {
-  var result = [l, t];
-  result.left = l;
-  result.top = t;
-  return result;
-};
-
-
-  function viewportOffset(forElement) {
-    var valueT = 0, valueL = 0;
-
-    var element = forElement;
-    do {
-      valueT += element.offsetTop  || 0;
-      valueL += element.offsetLeft || 0;
-
-      // Safari fix
-      if (element.offsetParent == document.body &&
-        Element.getStyle(element, 'position') == 'absolute') break;
-
-    } while (element = element.offsetParent);
-
-    element = forElement;
-    do {
-      if (!Prototype.Browser.Opera || element.tagName == 'BODY') {
-        valueT -= element.scrollTop  || 0;
-        valueL -= element.scrollLeft || 0;
-      }
-    } while (element = element.parentNode);
-
-//    return Element._returnOffset(valueL, valueT);
-    return _returnOffset(valueL, valueT);
-  };
-
-function clonePosition(element, source) {
-    var options = Object.extend({
-      setLeft:    true,
-      setTop:     true,
-      setWidth:   true,
-      setHeight:  true,
-      offsetTop:  0,
-      offsetLeft: 0
-    }, arguments[2] || { });
-
-    // find page position of source
-    source = $(source);
-//    var p = source.viewportOffset();
-      var p = viewportOffset(source);
-
-    // find coordinate system to use
-    element = $(element);
-    var delta = [0, 0];
-    var parent = null;
-    // delta [0,0] will do fine with position: fixed elements,
-    // position:absolute needs offsetParent deltas
-    if (Element.getStyle(element, 'position') == 'absolute') {
-      parent = element.getOffsetParent();
-      delta = parent.viewportOffset();
-    }
-
-    // correct by body offsets (fixes Safari)
-    if (parent == document.body) {
-      delta[0] -= document.body.offsetLeft;
-      delta[1] -= document.body.offsetTop;
-    }
-
-    // set position
-    if (options.setLeft)   element.style.left  = (p[0] - delta[0] + options.offsetLeft) + 'px';
-    if (options.setTop)    element.style.top   = (p[1] - delta[1] + options.offsetTop) + 'px';
-    if (options.setWidth)  element.style.width = source.offsetWidth + 'px';
-    if (options.setHeight) element.style.height = source.offsetHeight + 'px';
-    return element;
-  }
-
-
-function alignImgs(hiddenPrefix, activePrefix)
-{
-     var hiddenImgId = hiddenPrefix + 'Img';
-     var hiddenDivId = hiddenPrefix + 'Div';
-     var activeImgId = activePrefix + 'Img';
-     var activeDivId = activePrefix + 'Div';
-
-     var hiddenImg = document.getElementById(hiddenImgId);
-     var hiddenDiv = document.getElementById(hiddenDivId);
-     var activeImg = document.getElementById(activeImgId);
-     var activeDiv = document.getElementById(activeDivId);
-
-     // setting x,y and size
-     clonePosition(hiddenDiv, activeDiv);
-     clonePosition(hiddenImg, activeImg);
-}
-
-
 function reloadGraph(url, target, directory, action)
 {
 
@@ -423,18 +207,6 @@ function switchImg(hiddenPrefix, activePrefix)
      var oldActiveImg = document.getElementById(activeImgId);
      var oldActiveDiv = document.getElementById(activeDivId);
 
-
-//     alignImgs(hiddenPrefix, activePrefix);
-//     oldHiddenDiv.offsetLeft = oldActiveDiv.offsetLeft;
-//     oldHiddenDiv.offsetTop = oldActiveDiv.offsetTop;
-//     oldHiddenDiv.offsetWidth = oldActiveDiv.offsetWidth;
-//     oldHiddenDiv.offsetHeight = oldActiveDiv.offsetHeight;
-//
-//     oldHiddenImg.offsetLeft = oldActiveImg.offsetLeft;
-//     oldHiddenImg.offsetTop = oldActiveImg.offsetTop;
-//     oldHiddenImg.offsetWidth = oldActiveImg.offsetWidth;
-//     oldHiddenImg.offsetHeight = oldActiveImg.offsetHeight;
-
      oldHiddenImg.id = activeImgId;
      oldHiddenDiv.id = activeDivId;   
      oldActiveImg.id = hiddenImgId;
@@ -443,21 +215,11 @@ function switchImg(hiddenPrefix, activePrefix)
      var divTop = oldActiveDiv.style.top;
      var imgTop = oldActiveDiv.style.top;
 
-//     Element.setStyle( oldActiveDiv, { top: divTop, 'z-index': 0});
-//     Element.setStyle( oldHiddenDiv, { top: divTop, 'z-index': 1});
-//     Element.setStyle( oldActiveImg, { top: imgTop, 'z-index': 0});
-//     Element.setStyle( oldHiddenImg, { top: imgTop, 'z-index': 1});
      Element.setStyle( oldActiveDiv, {  'z-index': 0, position: 'absolute'});
      Element.setStyle( oldHiddenDiv, {  'z-index': 1, position: 'absolute', });
      Element.setStyle( oldActiveImg, {  'z-index': 0, position: 'absolute'});
      Element.setStyle( oldHiddenImg, {  'z-index': 1, position: 'absolute'});
 
-
-     
-//     activeDivClass = oldActiveDiv.class;
-//     oldActiveDiv.class = 'hidden';
-//     oldHiddenDiv.class = activeDivClass;
-//
      hiddenImgOnload = oldHiddenDiv.onload;
      oldHiddenDiv.onload = '';
      oldActiveDiv = hiddenImgOnload;
