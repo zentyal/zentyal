@@ -299,8 +299,6 @@ sub _filterOptions
       # Difference among optionsAlreadyModel and options arrays
       my @filteredOptions = grep { $_->{value} ne any(@optionsAlreadyModel) } @{$options};
 
-      EBox::debug(Dumper(\@filteredOptions));
-
       # Add the current value if the action is an edition
       if ( $self->value() ) {
           push ( @filteredOptions, {
