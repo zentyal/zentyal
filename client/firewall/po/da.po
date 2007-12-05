@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-firewall 0.10.99\n"
+"Project-Id-Version: ebox-firewall 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:39+0100\n"
+"POT-Creation-Date: 2007-12-05 09:48+0100\n"
 "PO-Revision-Date: 2007-07-24 15:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,55 +18,57 @@ msgstr ""
 
 #: src/EBox/Model/BaseRuleTable.pm:66
 msgid "ACCEPT"
-msgstr ""
+msgstr "ACCEPTER"
 
 #: src/EBox/Model/BaseRuleTable.pm:68
 msgid "DENY"
-msgstr ""
+msgstr "AFVIS"
 
-#: src/EBox/Model/BaseRuleTable.pm:109
+#: src/EBox/Model/BaseRuleTable.pm:109 src/EBox/Firewall.pm:830
 msgid "Decision"
-msgstr ""
+msgstr "Beslutning"
 
-#: src/EBox/Model/BaseRuleTable.pm:117 src/templates/fwdrules.mas:161
+#: src/EBox/Model/BaseRuleTable.pm:117 src/EBox/Firewall.pm:825
+#: src/templates/fwdrules.mas:161
 msgid "Source"
-msgstr ""
+msgstr "Kilde"
 
 #: src/EBox/Model/BaseRuleTable.pm:122 src/EBox/Model/BaseRuleTable.pm:149
 msgid "Any"
-msgstr ""
+msgstr "Enhver"
 
 #: src/EBox/Model/BaseRuleTable.pm:125
 msgid "Source IP"
-msgstr ""
+msgstr "Kilde IP"
 
 #: src/EBox/Model/BaseRuleTable.pm:130
 msgid "Source object"
-msgstr ""
+msgstr "Kilde objekt"
 
-#: src/EBox/Model/BaseRuleTable.pm:144 src/templates/fwdrules.mas:163
+#: src/EBox/Model/BaseRuleTable.pm:144 src/EBox/Firewall.pm:826
+#: src/templates/fwdrules.mas:163
 msgid "Destination"
-msgstr ""
+msgstr "Destination"
 
 #: src/EBox/Model/BaseRuleTable.pm:152
 msgid "Destination IP"
-msgstr ""
+msgstr "Destination IP"
 
 #: src/EBox/Model/BaseRuleTable.pm:157
 msgid "Destination object"
-msgstr ""
+msgstr "Destination objekt"
 
 #: src/EBox/Model/BaseRuleTable.pm:172 src/templates/objectService.mas:46
 msgid "Service"
-msgstr ""
+msgstr "Service"
 
 #: src/EBox/Model/BaseRuleTable.pm:179
 msgid "Description"
-msgstr ""
+msgstr "Beskrivelse"
 
 #: src/EBox/Model/ToInternetRuleTable.pm:65 src/templates/filter.mas:17
 msgid "Filtering rules for internal networks"
-msgstr ""
+msgstr "Filtrerings regler for interne netværk"
 
 #: src/EBox/Model/ToInternetRuleTable.pm:78
 #: src/EBox/Model/InternalToEBoxRuleTable.pm:78
@@ -79,173 +81,209 @@ msgstr ""
 #: src/EBox/CGI/ObjectRule.pm:64 src/EBox/CGI/ObjectRule.pm:75
 #: src/EBox/CGI/ObjectRule.pm:79
 msgid "rule"
-msgstr ""
+msgstr "REgel"
 
 #: src/EBox/Model/InternalToEBoxRuleTable.pm:68 src/templates/filter.mas:10
 msgid "Filtering rules from internal networks to eBox"
-msgstr ""
+msgstr "Filtrerings regler for interne netværk i eBox"
 
 #: src/EBox/Model/EBoxOutputRuleTable.pm:68 src/templates/filter.mas:25
 msgid "Filtering rules for traffic coming out from eBox"
-msgstr ""
+msgstr "Filtrering regler for udgående trafik fra eBox"
 
 #: src/EBox/Model/ExternalToInternalRuleTable.pm:68
 #: src/templates/filter.mas:44
 msgid "Filtering rules from external networks to internal networks"
-msgstr ""
+msgstr "Filtrerings regler for externe netværk til interne netværk"
 
 #: src/EBox/Model/ExternalToEBoxRuleTable.pm:68
 msgid "Filtering rules from  external networks to eBox"
-msgstr ""
+msgstr "Filtrerings regler fra externe netværk til eBox"
 
 #: src/EBox/CGI/Redirects.pm:31 src/EBox/CGI/Redirects.pm:42
 msgid "Port redirections"
-msgstr ""
+msgstr "Port redirigeringer"
 
 #: src/EBox/CGI/Filter.pm:31 src/EBox/CGI/Filter.pm:42
 msgid "Packet filtering"
-msgstr ""
+msgstr "Pakke filtrering"
 
 #: src/EBox/CGI/Object.pm:46 src/EBox/CGI/Object.pm:51
 #: src/EBox/CGI/ObjectPolicy.pm:41 src/EBox/CGI/ObjectService.pm:113
 #: src/EBox/CGI/ChangeObjectService.pm:62 src/EBox/CGI/ObjectRule.pm:41
 msgid "Object"
-msgstr ""
+msgstr "Objekt"
 
 #: src/EBox/CGI/Object.pm:62
 msgid "Global firewall configuration"
-msgstr ""
+msgstr "Global firewall konfigurering"
 
 #: src/EBox/CGI/Object.pm:64
 #, perl-brace-format
 msgid "Firewall configuration: {desc}"
-msgstr ""
+msgstr "Firewall konfigurering: {desc}"
 
 #: src/EBox/CGI/ObjectPolicy.pm:43 src/EBox/CGI/ChangeObjectService.pm:68
 msgid "policy"
-msgstr ""
+msgstr "politik"
 
 #: src/EBox/CGI/ObjectService.pm:62
 msgid "Global services' filtering rules"
-msgstr ""
+msgstr "Global service filtrerings regler"
 
 #: src/EBox/CGI/ObjectService.pm:67
 #, perl-brace-format
 msgid "Services' filtering rules {desc}"
-msgstr ""
+msgstr "Service filtrerings regler {desc}"
 
 #: src/EBox/CGI/Redirection.pm:43 src/EBox/CGI/Redirection.pm:54
 #: src/EBox/CGI/Redirection.pm:61 src/EBox/CGI/Redirection.pm:68
-#: src/EBox/Firewall.pm:253 src/EBox/Firewall.pm:286 src/EBox/Firewall.pm:587
-#: src/EBox/Firewall.pm:612
+#: src/EBox/Firewall.pm:254 src/EBox/Firewall.pm:287 src/EBox/Firewall.pm:588
+#: src/EBox/Firewall.pm:613
 msgid "protocol"
-msgstr ""
+msgstr "protokol"
 
 #: src/EBox/CGI/Redirection.pm:44 src/EBox/CGI/Redirection.pm:56
 #: src/EBox/CGI/Redirection.pm:63 src/EBox/CGI/Redirection.pm:67
 msgid "network interface"
-msgstr ""
+msgstr "netværk interface"
 
 #: src/EBox/CGI/Redirection.pm:45 src/EBox/CGI/Redirection.pm:55
 #: src/EBox/CGI/Redirection.pm:62 src/EBox/CGI/Redirection.pm:69
-#: src/EBox/Firewall.pm:255 src/EBox/Firewall.pm:287
+#: src/EBox/Firewall.pm:256 src/EBox/Firewall.pm:288
 msgid "external port"
-msgstr ""
+msgstr "extern port"
 
 #: src/EBox/CGI/Redirection.pm:46 src/EBox/CGI/Redirection.pm:64
-#: src/EBox/CGI/Redirection.pm:70 src/EBox/Firewall.pm:254
+#: src/EBox/CGI/Redirection.pm:70 src/EBox/Firewall.pm:255
 msgid "destination address"
-msgstr ""
+msgstr "destination adresse"
 
 #: src/EBox/CGI/Redirection.pm:47 src/EBox/CGI/Redirection.pm:65
-#: src/EBox/CGI/Redirection.pm:71 src/EBox/Firewall.pm:256
+#: src/EBox/CGI/Redirection.pm:71 src/EBox/Firewall.pm:257
 msgid "destination port"
-msgstr ""
+msgstr "destination port"
 
 #: src/EBox/CGI/FwdRule.pm:44 src/EBox/CGI/FwdRule.pm:68
 #: src/EBox/CGI/ObjectRule.pm:48 src/EBox/CGI/ObjectRule.pm:65
-#: src/EBox/CGI/Deny.pm:41 src/EBox/Firewall.pm:204
+#: src/EBox/CGI/Deny.pm:41 src/EBox/Firewall.pm:205
 msgid "action"
-msgstr ""
+msgstr "handling"
 
 #: src/EBox/CGI/FwdRules.pm:30 src/EBox/CGI/FwdRules.pm:42
 #: src/templates/object.mas:37
 msgid "Rules"
-msgstr ""
+msgstr "Regler"
 
 #: src/EBox/CGI/ChangeObjectService.pm:67
 #: src/EBox/CGI/ChangeObjectService.pm:73
 msgid "service"
-msgstr ""
+msgstr "service"
 
 #: src/EBox/CGI/FwdRuleEdit.pm:30 src/EBox/CGI/FwdRuleEdit.pm:42
 msgid "Edit rule"
-msgstr ""
+msgstr "Rediger regel"
 
-#: src/EBox/Firewall.pm:44
+#: src/EBox/Firewall.pm:45
 msgid "firewall"
-msgstr ""
+msgstr "firewall"
 
-#: src/EBox/Firewall.pm:260
+#: src/EBox/Firewall.pm:261
 #, perl-brace-format
 msgid "Port {port} is being used by a service or port redirection."
-msgstr ""
+msgstr "Porten {port} bliver brugt af en service eller en port redirigering."
 
-#: src/EBox/Firewall.pm:411 src/EBox/Firewall.pm:456 src/EBox/Firewall.pm:480
+#: src/EBox/Firewall.pm:412 src/EBox/Firewall.pm:457 src/EBox/Firewall.pm:481
 #, perl-brace-format
 msgid "Name '{name}' is invalid"
-msgstr ""
+msgstr "Navnet '{name}' er ugyldigt"
 
-#: src/EBox/Firewall.pm:412 src/EBox/Firewall.pm:588 src/EBox/Firewall.pm:613
+#: src/EBox/Firewall.pm:413 src/EBox/Firewall.pm:589 src/EBox/Firewall.pm:614
 msgid "port"
-msgstr ""
+msgstr "port"
 
-#: src/EBox/Firewall.pm:727
+#: src/EBox/Firewall.pm:778 src/EBox/Firewall.pm:838
 msgid "Firewall"
-msgstr ""
+msgstr "Firewall"
 
-#: src/EBox/Firewall.pm:731
+#: src/EBox/Firewall.pm:782
 msgid "Packet Filter"
-msgstr ""
+msgstr "Pakke filter"
 
-#: src/EBox/Firewall.pm:734
+#: src/EBox/Firewall.pm:785
 msgid "Redirects"
-msgstr ""
+msgstr "Redirigerer"
+
+#: src/EBox/Firewall.pm:822
+msgid "Date"
+msgstr "Dato"
+
+#: src/EBox/Firewall.pm:823
+msgid "Input interface"
+msgstr "Input interface"
+
+#: src/EBox/Firewall.pm:824
+msgid "Output interface"
+msgstr "Output interface"
+
+#: src/EBox/Firewall.pm:827 src/templates/redirects.mas:25
+#: src/templates/object.mas:47 src/templates/fwdrules.mas:18
+#: src/templates/fwdrules.mas:160 src/templates/fwdruleedit.mas:31
+msgid "Protocol"
+msgstr "Protokol"
+
+#: src/EBox/Firewall.pm:828 src/templates/fwdrules.mas:76
+#: src/templates/fwdruleedit.mas:109
+msgid "Source port"
+msgstr "Kilde port"
+
+#: src/EBox/Firewall.pm:829 src/templates/fwdrules.mas:124
+#: src/templates/fwdruleedit.mas:167
+msgid "Destination port"
+msgstr "Destination port"
+
+#: src/EBox/Firewall.pm:835
+msgid "DROP"
+msgstr "DROP"
+
+#: src/EBox/Iptables.pm:608
+msgid ""
+"You must set the iptables_log_limit variable in the ebox configuration file"
+msgstr "Du skal sætte værdien iptables_log_limit i eBoxs konfigurations fil"
+
+#: src/EBox/Iptables.pm:614
+msgid ""
+"You must set the iptables_log_burst variable in the ebox configuration file"
+msgstr "DU skal sætte værdien iptables_log_burst i eBoxs konfigurations fil"
 
 #: src/templates/redirects.mas:23
 msgid "Interface"
-msgstr ""
+msgstr "Interface"
 
 #: src/templates/redirects.mas:24
 msgid "External port"
-msgstr ""
-
-#: src/templates/redirects.mas:25 src/templates/object.mas:47
-#: src/templates/fwdrules.mas:18 src/templates/fwdrules.mas:160
-#: src/templates/fwdruleedit.mas:31
-msgid "Protocol"
-msgstr ""
+msgstr "Extern port"
 
 #: src/templates/redirects.mas:26
 msgid "IP address"
-msgstr ""
+msgstr "IP adresse"
 
 #: src/templates/redirects.mas:27 src/templates/object.mas:48
 #: src/templates/fwdrules.mas:162 src/templates/fwdrules.mas:164
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: src/templates/redirects.mas:28 src/templates/object.mas:52
 #: src/templates/objectService.mas:48 src/templates/fwdrules.mas:165
 msgid "Actions"
-msgstr ""
+msgstr "Handlinger"
 
 #: src/templates/redirects.mas:72 src/templates/redirects.mas:73
 #: src/templates/redirects.mas:74 src/templates/object.mas:100
 #: src/templates/object.mas:101 src/templates/object.mas:102
 #: src/templates/objectService.mas:38 src/templates/fwdrules.mas:146
 msgid "Add"
-msgstr ""
+msgstr "Tilføj"
 
 #: src/templates/redirects.mas:147 src/templates/redirects.mas:148
 #: src/templates/redirects.mas:149 src/templates/object.mas:185
@@ -254,7 +292,7 @@ msgstr ""
 #: src/templates/objectService.mas:77 src/templates/fwdruleedit.mas:194
 #: src/templates/fwdruleedit.mas:195 src/templates/fwdruleedit.mas:196
 msgid "Change"
-msgstr ""
+msgstr "Skift"
 
 #: src/templates/redirects.mas:155 src/templates/redirects.mas:156
 #: src/templates/redirects.mas:157 src/templates/object.mas:193
@@ -263,19 +301,21 @@ msgstr ""
 #: src/templates/objectService.mas:84 src/templates/fwdrules.mas:274
 #: src/templates/fwdrules.mas:275 src/templates/fwdrules.mas:276
 msgid "Delete"
-msgstr ""
+msgstr "Slet"
 
 #: src/templates/filter.mas:12
 msgid ""
 "These rules are meant to control access from internal network interfaces to "
 "services running on your eBox machine"
 msgstr ""
+"Disse regler skal kontrollere adgang fra interne netværk interfaces til "
+"services på din eBox maskine"
 
 #: src/templates/filter.mas:14 src/templates/filter.mas:22
 #: src/templates/filter.mas:30 src/templates/filter.mas:41
 #: src/templates/filter.mas:52
 msgid "Configure rules"
-msgstr ""
+msgstr "Konfigurer regler"
 
 #: src/templates/filter.mas:19
 msgid ""
@@ -283,20 +323,26 @@ msgid ""
 "Internet, and traffic between your internal networks. If you wish to provide "
 "access to your eBox services, you must use the above section"
 msgstr ""
+"Disse regler tillader dig at kontrollere adgangen fra dine interne netværk "
+"til internettet, og trafik mellem dine interne netværk. Ønsker du at give "
+"adgang til dine eBox services, skal du bruge ovenstående sektion"
 
 #: src/templates/filter.mas:27
 msgid "These rules allow you to control access from eBox to external services"
 msgstr ""
+"Disse regler tillader dig at kontrollere adgang fra eBox til externe services"
 
 #: src/templates/filter.mas:33
 msgid "Filtering rules from external networks to eBox"
-msgstr ""
+msgstr "Filtrerings regler fra externe netværk til eBox"
 
 #: src/templates/filter.mas:35
 msgid ""
 "These rules allow you to control access from external networks to sevices "
 "running on your eBox machine."
 msgstr ""
+"Disse regler tillader dig at kontrollere adgang fra externe netværk til "
+"services der kører på din eBox maskine."
 
 #: src/templates/filter.mas:38 src/templates/filter.mas:49
 msgid ""
@@ -304,12 +350,17 @@ msgid ""
 "security as you may grant access from untrusted networks. Please do not use "
 "this unless you know what you are doing"
 msgstr ""
+"Vær opmærksom på at tilføjelse af regler i denne sektion kan forringe din "
+"netværk sikkerhed, da du kan give adgang fra usikre netværk. Brug ikke disse "
+"muligheder medmindre du ved hvad du gør"
 
 #: src/templates/filter.mas:46
 msgid ""
 "These rules allow you to control access from external networks to internal "
 "networks."
 msgstr ""
+"Disse regler tillader dig at kontrollere adgang fra externe netværk til "
+"interne netværk"
 
 #: src/templates/object.mas:39
 msgid ""
@@ -317,6 +368,9 @@ msgid ""
 "applied in order, from top to bottom, you can reorder them once they are "
 "added. Rules can also be disabled without deleting them."
 msgstr ""
+"Protokol, port og destinations adresse er options. Reglerne tilføjes i "
+"rækkefølge, fra toppen og ned, og du kan flytte dem rundt når de er "
+"tilføjet. Regler kan også slås fra uden at man skal slette dem."
 
 #: src/templates/object.mas:42
 msgid ""
@@ -325,20 +379,24 @@ msgid ""
 "interfaces as external in the <a href='../Network/Ifaces'>Network "
 "Interfaces</a> configuration page."
 msgstr ""
+"Regler uden en eksplicit destinations adresse vil blive tilføjet pakker der "
+"forlader eBox gennem et externt netværk interface. Du kan markere netværk "
+"interfaces som externe i <a href='../Network/Ifaces'>Netværk Interfaces</a> "
+"konfigurerings side."
 
 #: src/templates/object.mas:49 src/templates/fwdrules.mas:95
 #: src/templates/fwdruleedit.mas:135
 msgid "Destination address"
-msgstr ""
+msgstr "Destinations adresse"
 
 #: src/templates/object.mas:50 src/templates/fwdrules.mas:33
 #: src/templates/fwdruleedit.mas:58
 msgid "Action"
-msgstr ""
+msgstr "Handling"
 
 #: src/templates/object.mas:51
 msgid "Active"
-msgstr ""
+msgstr "Aktiv"
 
 #: src/templates/object.mas:90 src/templates/object.mas:166
 #: src/templates/object.mas:169 src/templates/object.mas:261
@@ -347,7 +405,7 @@ msgstr ""
 #: src/templates/objectService.mas:67 src/templates/fwdrules.mas:38
 #: src/templates/fwdruleedit.mas:64 src/templates/fwdruleedit.mas:67
 msgid "Allow"
-msgstr ""
+msgstr "Tillad"
 
 #: src/templates/object.mas:91 src/templates/object.mas:167
 #: src/templates/object.mas:170 src/templates/object.mas:255
@@ -356,23 +414,23 @@ msgstr ""
 #: src/templates/objectService.mas:68 src/templates/fwdrules.mas:39
 #: src/templates/fwdruleedit.mas:65 src/templates/fwdruleedit.mas:68
 msgid "Deny"
-msgstr ""
+msgstr "Afvis"
 
 #: src/templates/object.mas:201 src/templates/object.mas:202
 #: src/templates/object.mas:203 src/templates/fwdrules.mas:280
 #: src/templates/fwdrules.mas:281 src/templates/fwdrules.mas:282
 msgid "Up"
-msgstr ""
+msgstr "Op"
 
 #: src/templates/object.mas:209 src/templates/object.mas:210
 #: src/templates/object.mas:211 src/templates/fwdrules.mas:286
 #: src/templates/fwdrules.mas:287 src/templates/fwdrules.mas:288
 msgid "Down"
-msgstr ""
+msgstr "Ned"
 
 #: src/templates/object.mas:232 src/templates/objectService.mas:47
 msgid "Policy"
-msgstr ""
+msgstr "Politik"
 
 #: src/templates/object.mas:234
 msgid ""
@@ -381,21 +439,27 @@ msgid ""
 "external network interface. If you want to allow traffic between internal "
 "networks you need to create explicit rules for that."
 msgstr ""
+"Politikken tilkendegiver hvad der skal ske med netværk pakker der ikke "
+"præcis passer med nedenstående. Politikken gælder forbindelser der forlader "
+"eBox gennem et externt netværk interface. Hvis du vil tillade trafik mellem "
+"interne netværk må du lave eksplicitte regler for det."
 
 #: src/templates/object.mas:238
 msgid ""
 "Choosing global will make the firewall fall back to the <a href='Object?"
 "object=_global'>default configuration</a>."
 msgstr ""
+"At vælge global vil sætte firewallen til <a href='Object?"
+"object=_global'>default konfiguration</a>."
 
 #: src/templates/object.mas:248 src/templates/object.mas:250
 #: src/templates/object.mas:269
 msgid "Global"
-msgstr ""
+msgstr "Global"
 
 #: src/templates/objectService.mas:23
 msgid "Services"
-msgstr ""
+msgstr "Services/ydelser"
 
 #: src/templates/fwdrules.mas:10
 msgid ""
@@ -403,14 +467,17 @@ msgid ""
 "order, from top to bottom, you can reorder them once they are added. Rules "
 "can also be disabled without deleting them."
 msgstr ""
+"Protokol,porte og adresser er options. Reglerne bliver tilføjet i rækkefølge "
+"fra toppen og nedad, og du kan ændre rækkefølgen senere. Regler kan "
+"deaktiveres uden at slette dem."
 
 #: src/templates/fwdrules.mas:12
 msgid "New rule"
-msgstr ""
+msgstr "Ny regel"
 
 #: src/templates/fwdrules.mas:47 src/templates/fwdruleedit.mas:77
 msgid "Source address"
-msgstr ""
+msgstr "Kilde adresse"
 
 #: src/templates/fwdrules.mas:52 src/templates/fwdrules.mas:81
 #: src/templates/fwdrules.mas:100 src/templates/fwdrules.mas:129
@@ -419,7 +486,7 @@ msgstr ""
 #: src/templates/fwdruleedit.mas:141 src/templates/fwdruleedit.mas:144
 #: src/templates/fwdruleedit.mas:173 src/templates/fwdruleedit.mas:176
 msgid "is not"
-msgstr ""
+msgstr "er ikke"
 
 #: src/templates/fwdrules.mas:53 src/templates/fwdrules.mas:82
 #: src/templates/fwdrules.mas:101 src/templates/fwdrules.mas:130
@@ -428,44 +495,36 @@ msgstr ""
 #: src/templates/fwdruleedit.mas:142 src/templates/fwdruleedit.mas:145
 #: src/templates/fwdruleedit.mas:174 src/templates/fwdruleedit.mas:177
 msgid "is"
-msgstr ""
-
-#: src/templates/fwdrules.mas:76 src/templates/fwdruleedit.mas:109
-msgid "Source port"
-msgstr ""
+msgstr "er"
 
 #: src/templates/fwdrules.mas:86 src/templates/fwdrules.mas:134
 #: src/templates/fwdruleedit.mas:125 src/templates/fwdruleedit.mas:183
 msgid "to"
-msgstr ""
-
-#: src/templates/fwdrules.mas:124 src/templates/fwdruleedit.mas:167
-msgid "Destination port"
-msgstr ""
+msgstr "til"
 
 #: src/templates/fwdrules.mas:155
 msgid "Rule list"
-msgstr ""
+msgstr "Regel liste"
 
 #: src/templates/fwdrules.mas:180 src/templates/fwdrules.mas:181
 #: src/templates/fwdrules.mas:301 src/templates/fwdrules.mas:302
 msgid "allow"
-msgstr ""
+msgstr "tillad"
 
 #: src/templates/fwdrules.mas:184 src/templates/fwdrules.mas:185
 #: src/templates/fwdrules.mas:318 src/templates/fwdrules.mas:319
 msgid "allow (disabled)"
-msgstr ""
+msgstr "tillad (deaktiveret)"
 
 #: src/templates/fwdrules.mas:188 src/templates/fwdrules.mas:189
 #: src/templates/fwdrules.mas:304 src/templates/fwdrules.mas:305
 msgid "deny"
-msgstr ""
+msgstr "nægt"
 
 #: src/templates/fwdrules.mas:192 src/templates/fwdrules.mas:193
 #: src/templates/fwdrules.mas:321 src/templates/fwdrules.mas:322
 msgid "deny (disabled)"
-msgstr ""
+msgstr "nægt (deaktiveret)"
 
 #: src/templates/fwdrules.mas:203 src/templates/fwdrules.mas:204
 #: src/templates/fwdrules.mas:225 src/templates/fwdrules.mas:226
@@ -473,33 +532,33 @@ msgstr ""
 #: src/templates/fwdrules.mas:258 src/templates/fwdrules.mas:259
 #: src/templates/fwdrules.mas:313 src/templates/fwdrules.mas:314
 msgid "inverse match"
-msgstr ""
+msgstr "omvendt match"
 
 #: src/templates/fwdrules.mas:268 src/templates/fwdrules.mas:269
 #: src/templates/fwdrules.mas:270
 msgid "Edit"
-msgstr ""
+msgstr "Rediger"
 
 #: src/templates/fwdrules.mas:307 src/templates/fwdrules.mas:308
 msgid "delete"
-msgstr ""
+msgstr "slet"
 
 #: src/templates/fwdrules.mas:310 src/templates/fwdrules.mas:311
 msgid "edit"
-msgstr ""
+msgstr "rediger"
 
 #: src/templates/fwdrules.mas:324 src/templates/fwdrules.mas:325
 msgid "move up"
-msgstr ""
+msgstr "flyt op"
 
 #: src/templates/fwdrules.mas:327 src/templates/fwdrules.mas:328
 msgid "move down"
-msgstr ""
+msgstr "flyt ned"
 
 #: src/templates/fwdrules.mas:338
 msgid "any"
-msgstr ""
+msgstr "enhver"
 
 #: src/templates/fwdruleedit.mas:15
 msgid "Enabled"
-msgstr ""
+msgstr "Aktiv"

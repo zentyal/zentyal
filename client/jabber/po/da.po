@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-jabber 0.10.99\n"
+"Project-Id-Version: ebox-jabber 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:39+0100\n"
+"POT-Creation-Date: 2007-12-05 09:48+0100\n"
 "PO-Revision-Date: 2007-09-28 10:35+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,97 +18,99 @@ msgstr ""
 
 #: src/EBox/CGI/Enable.pm:41
 msgid "module status"
-msgstr ""
+msgstr "Modul status"
 
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Jabber.pm:297
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
 
 #: src/EBox/CGI/JabberConf.pm:42 src/EBox/Jabber.pm:232
 msgid "domain"
-msgstr ""
+msgstr "domæne"
 
 #: src/EBox/CGI/JabberUserOptions.pm:44
 msgid "username"
-msgstr ""
+msgstr "brugernavn"
 
 #: src/EBox/Jabber.pm:197
 msgid "listening port"
-msgstr ""
+msgstr "port der lyttes på"
 
 #: src/EBox/Jabber.pm:309
 msgid "Jabber Service"
-msgstr ""
+msgstr "Jabber service"
 
 #: src/templates/jabber.mas:8
 msgid "Jabber account"
-msgstr ""
+msgstr "Jabber konto"
 
 #: src/templates/jabber.mas:9
 msgid "Password for Jabber service is the user password"
-msgstr ""
+msgstr "passwordet for jabber er brugerens almindelige password"
 
 #: src/templates/jabber.mas:18
 msgid "User account"
-msgstr ""
+msgstr "Brugerkonto"
 
 #: src/templates/jabber.mas:23 src/templates/jabber.mas:26
 msgid "Disabled"
-msgstr ""
+msgstr "Slået fra"
 
 #: src/templates/jabber.mas:24 src/templates/jabber.mas:27
 msgid "Enabled"
-msgstr ""
+msgstr "Slået til"
 
 #: src/templates/jabber.mas:34
 msgid "Administration rights"
-msgstr ""
+msgstr "Administrator rettigheder"
 
 #: src/templates/jabber.mas:48 src/templates/jabber.mas:49
 msgid "Change"
-msgstr ""
+msgstr "Ændre"
 
 #: src/templates/index.mas:17
 msgid "General Settings"
-msgstr ""
+msgstr "Generelle indstillinger"
 
 #: src/templates/index.mas:19
 msgid ""
 "Domain name should be available on the network. Otherwise, you may not be "
 "able to use this service. This applies for internal and external connections."
 msgstr ""
+"Domænenavnet skal findes på netværket, ellers er det muligt at Jabber ikke "
+"virker. Dette gølder både internt og externt."
 
 #: src/templates/index.mas:25
 msgid "Domain name"
-msgstr ""
+msgstr "Domænenavn"
 
 #: src/templates/index.mas:33
 msgid "Connect to global Jabber network"
-msgstr ""
+msgstr "Forbind til et globalt Jabber netværk"
 
 #: src/templates/index.mas:45
 msgid "SSL Support"
-msgstr ""
+msgstr "SSL understøttelse"
 
 #: src/templates/index.mas:50 src/templates/index.mas:54
 #: src/templates/index.mas:58
 msgid "No"
-msgstr ""
+msgstr "Nej"
 
 #: src/templates/index.mas:51 src/templates/index.mas:55
 #: src/templates/index.mas:59
 msgid "Optional"
-msgstr ""
+msgstr "Frivillig"
 
 #: src/templates/index.mas:52 src/templates/index.mas:56
 #: src/templates/index.mas:60
 msgid "Required"
-msgstr ""
+msgstr "Tvungen"
 
 #: src/templates/index.mas:69 src/templates/index.mas:70
 msgid "Apply Changes"
-msgstr ""
+msgstr "Gem rettelser"
 
 #: stubs/c2s.xml.mas:77
 msgid "Enter a username and password to register with this server."
-msgstr ""
+msgstr "Skriv et brugernavn og password for at registrere dig på denne server"

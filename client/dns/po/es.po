@@ -8,9 +8,9 @@
 # Jorge Arcas <jorge@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dns 0.10.99\n"
+"Project-Id-Version: ebox-dns 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:38+0100\n"
+"POT-Creation-Date: 2007-12-05 09:48+0100\n"
 "PO-Revision-Date: 2007-02-02 18:08+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: Español <ebox-devel@lists.warp.es>\n"
@@ -51,8 +51,8 @@ msgstr "Nombre del dominio"
 msgid "IP address"
 msgstr "dirección IP"
 
-#: src/EBox/Model/DNSComposite.pm:76 src/EBox/DNS.pm.in:559
-#: src/EBox/DNS.pm.in:595
+#: src/EBox/Model/DNSComposite.pm:76 src/EBox/DNS.pm.in:567
+#: src/EBox/DNS.pm.in:603
 msgid "DNS"
 msgstr "DNS"
 
@@ -69,13 +69,13 @@ msgstr "Dominio"
 msgid "Domains"
 msgstr "Dominio"
 
-#: src/EBox/Model/DomainTable.pm:91
+#: src/EBox/Model/DomainTable.pm:91 src/EBox/DNS.pm.in:250
 msgid "domain"
 msgstr "dominio"
 
 #: src/EBox/Model/EnableFormDNS.pm:84
 msgid "Service enabled"
-msgstr ""
+msgstr "Servicio habilitado"
 
 #: src/EBox/Model/EnableFormDNS.pm:86
 msgid "Service disabled"
@@ -95,7 +95,7 @@ msgstr "Alias"
 msgid "dns"
 msgstr ""
 
-#: src/EBox/DNS.pm.in:68
+#: src/EBox/DNS.pm.in:72
 msgid "DNS Server"
 msgstr ""
 

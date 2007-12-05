@@ -5,9 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-webserver 0.11.99"
+"Project-Id-Version: ebox-webserver 0.11.99\n"
+"es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-04 10:03+0100\n"
+"POT-Creation-Date: 2007-12-05 09:51+0100\n"
 "PO-Revision-Date: 2007-12-04 10:03+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,40 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-
-#: src/EBox/WebServer/Maintenance.pm:66
-msgid "HyperText Transport Protocol"
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:90
-msgid "listening port"
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:136
-msgid "Listening port"
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:142
-#, perl-brace-format
-msgid "Enable per user {dirName}"
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:152
-msgid "General configuration settings"
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:156
-#, perl-brace-format
-msgid ""
-"General Web server configuration. The listening port must not be got from "
-"another service. If you enable user to publish their own html pages, the "
-"pages will be loaded from {dirName} directory from their samba home "
-"directories"
-msgstr ""
-
-#: src/EBox/WebServer/Model/GeneralSettings.pm:162
-msgid "General Web server configuration settings updated"
-msgstr ""
 
 #: src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host's name"
@@ -106,6 +73,36 @@ msgstr ""
 msgid "virtual host"
 msgstr ""
 
+#: src/EBox/WebServer/Model/GeneralSettings.pm:90
+msgid "listening port"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:136
+msgid "Listening port"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:142
+#, perl-brace-format
+msgid "Enable per user {dirName}"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:152
+msgid "General configuration settings"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:156
+#, perl-brace-format
+msgid ""
+"General Web server configuration. The listening port must not be got from "
+"another service. If you enable user to publish their own html pages, the "
+"pages will be loaded from {dirName} directory from their samba home "
+"directories"
+msgstr ""
+
+#: src/EBox/WebServer/Model/GeneralSettings.pm:162
+msgid "General Web server configuration settings updated"
+msgstr ""
+
 #: src/EBox/WebServer/Composite/General.pm:81
 msgid "Web service"
 msgstr ""
@@ -116,15 +113,19 @@ msgid ""
 "different virtual hosts"
 msgstr ""
 
-#: src/EBox/WebServer.pm:126 src/EBox/WebServer.pm:150
+#: src/EBox/WebServer/Maintenance.pm:66
+msgid "HyperText Transport Protocol"
+msgstr ""
+
+#: src/EBox/WebServer.pm:127 src/EBox/WebServer.pm:151
 msgid "Web"
 msgstr ""
 
-#: src/EBox/WebServer.pm:169
+#: src/EBox/WebServer.pm:170
 msgid "Web service status"
 msgstr ""
 
-#: src/EBox/WebServer.pm:360
+#: src/EBox/WebServer.pm:362
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
 msgstr ""

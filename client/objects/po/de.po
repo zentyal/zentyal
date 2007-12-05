@@ -11,9 +11,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-objects 0.10.99\n"
+"Project-Id-Version: ebox-objects 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:40+0100\n"
+"POT-Creation-Date: 2007-12-05 09:49+0100\n"
 "PO-Revision-Date: 2007-08-18 12:53+0200\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -26,12 +26,12 @@ msgstr ""
 msgid "Name"
 msgstr "Name"
 
-#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:88
+#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
 msgid "Members"
 msgstr "Mitglieder"
 
 #: src/EBox/Model/ObjectTable.pm:83 src/EBox/Model/ObjectTable.pm:89
-#: src/EBox/Model/MemberTable.pm:94 src/EBox/Objects.pm:40
+#: src/EBox/Model/MemberTable.pm:93 src/EBox/Objects.pm:40
 msgid "Objects"
 msgstr "Computergruppen"
 
@@ -39,28 +39,28 @@ msgstr "Computergruppen"
 msgid "object"
 msgstr "Computergruppe"
 
-#: src/EBox/Model/ObjectTable.pm:130
+#: src/EBox/Model/ObjectTable.pm:131
 msgid "This object is being used by another module"
 msgstr "Diese Computergruppe wird von einem anderen Modul verwendet"
 
-#: src/EBox/Model/MemberTable.pm:71
+#: src/EBox/Model/MemberTable.pm:70
 msgid "IP Address"
 msgstr "IP-Adresse"
 
-#: src/EBox/Model/MemberTable.pm:77
+#: src/EBox/Model/MemberTable.pm:76
 msgid "MAC Address"
 msgstr "MAC-Adresse"
 
-#: src/EBox/Model/MemberTable.pm:95
+#: src/EBox/Model/MemberTable.pm:94
 msgid "member"
 msgstr "Mitglied"
 
-#: src/EBox/Model/MemberTable.pm:135
+#: src/EBox/Model/MemberTable.pm:116
 msgid "You can only use MAC addresses with hosts"
 msgstr "Sie können nur MAC-Adressen in Verbindung mit Computer verwenden"
 
-#: src/EBox/Model/MemberTable.pm:138 src/EBox/Model/MemberTable.pm:139
-#: src/EBox/Model/MemberTable.pm:143
+#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
+#: src/EBox/Model/MemberTable.pm:124
 msgid "network address"
 msgstr "Netzwerkadresse"
 
@@ -89,7 +89,7 @@ msgstr "Computergruppe {object} vollständig gelöscht"
 msgid "Removed {nname} from object {object}"
 msgstr "{nname} aus Computergruppe {object} entfernt"
 
-#: src/EBox/Objects.pm:252
+#: src/EBox/Objects.pm:257
 msgid "Object"
 msgstr "Computergruppe"
 

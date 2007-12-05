@@ -6,9 +6,9 @@
 # Copyright (C) YEAR Warp S.L.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dhcp 0.10.99\n"
+"Project-Id-Version: ebox-dhcp 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-16 18:13+0100\n"
+"POT-Creation-Date: 2007-12-05 09:47+0100\n"
 "PO-Revision-Date: 2007-04-15 18:59+0000\n"
 "Last-Translator: Filipe Henriques <filipeh@gotr00t.net>\n"
 "Language-Team: <es@li.org>\n"
@@ -18,59 +18,86 @@ msgstr ""
 "X-Generator: Pootle 0.10.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/AddFixed.pm:39
-#: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
-#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:488
-#: src/EBox/DHCP.pm:524 src/EBox/DHCP.pm:574 src/EBox/DHCP.pm:672
-#: src/EBox/DHCP.pm:726 src/EBox/DHCP.pm:775 src/EBox/DHCP.pm:831
-#: src/EBox/DHCP.pm:1238
-msgid "Interface"
+#: src/EBox/Model/RangeTable.pm:95 src/EBox/Model/RangeInfo.pm:108
+#: src/EBox/Model/LeaseTimes.pm:113 src/EBox/Model/Options.pm:119
+#: src/EBox/Model/FixedAddressTable.pm:94
+#: src/EBox/Model/ThinClientOptions.pm:118
+#: src/EBox/Composite/InterfaceConfiguration.pm:87
+#: src/EBox/Composite/AdvancedOptions.pm:88
+#: src/EBox/Composite/OptionsTab.pm:87
+#, fuzzy, perl-brace-format
+msgid "interface {iface}"
 msgstr "Placa de Rede"
 
-#: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
+#: src/EBox/Model/RangeTable.pm:117
+#, fuzzy, perl-brace-format
+msgid "{from} - {to} is an invalid range"
+msgstr "{from}-{to} não é um range válido"
+
+#: src/EBox/Model/RangeTable.pm:128
+#, perl-brace-format
+msgid "Range {from}-{to} is not in network {net}"
+msgstr "Range {from}-{to} não está na rede{net}"
+
+#: src/EBox/Model/RangeTable.pm:141
+#, fuzzy, perl-brace-format
+msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
+msgstr "Range {new_from}-{new_to} está incluso no endereço IP:{iface_ip}"
+
+#: src/EBox/Model/RangeTable.pm:163
+#, fuzzy, perl-brace-format
+msgid ""
+"Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
+msgstr ""
+"Range{new_from}-{new_to} é redundante com range '{range}': {old_from}-"
+"{old_to}"
+
+#: src/EBox/Model/RangeTable.pm:180
+#, fuzzy, perl-brace-format
+msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
+msgstr "Range {new_from}-{new_to} inclui o endereço fixado'{name}': {fixed_ip}"
+
 #: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:176
-#: src/templates/ranges.mas:53 src/templates/fixed.mas:8
+#: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
+#: src/templates/fixed.mas:8 src/templates/ranges.mas:53
 msgid "Name"
 msgstr "Nome"
 
-#: src/EBox/CGI/AddRange.pm:44 src/EBox/Model/RangeTable.pm:217
+#: src/EBox/Model/RangeTable.pm:217 src/EBox/CGI/AddRange.pm:44
 #: src/templates/ranges.mas:54
 msgid "From"
 msgstr "De"
 
-#: src/EBox/CGI/AddRange.pm:45 src/EBox/Model/RangeTable.pm:223
+#: src/EBox/Model/RangeTable.pm:223 src/EBox/CGI/AddRange.pm:45
 #: src/templates/ranges.mas:55
 msgid "To"
 msgstr "Para"
 
-#: src/EBox/CGI/AddFixed.pm:43 src/EBox/Model/FixedAddressTable.pm:182
-#: src/EBox/DHCP.pm:1239 src/templates/fixed.mas:9
-msgid "MAC address"
-msgstr "MAC address"
+#: src/EBox/Model/RangeTable.pm:231 src/templates/ranges.mas:49
+msgid "Ranges"
+msgstr "Ranges"
 
-#: src/EBox/CGI/AddFixed.pm:44 src/EBox/Model/FixedAddressTable.pm:188
-#: src/EBox/Model/ThinClientOptions.pm:234 src/templates/fixed.mas:10
-msgid "IP address"
-msgstr "Endereço IP"
+#: src/EBox/Model/RangeTable.pm:238
+#, fuzzy
+msgid "range"
+msgstr "Ranges"
 
-#: src/EBox/CGI/Status.pm:42
-msgid "Module Status"
-msgstr "Status do Módulo"
+#: src/EBox/Model/RangeInfo.pm:143
+#, fuzzy
+msgid "Interface IP address"
+msgstr "Endereço IP do Gateway"
 
-#: src/EBox/CGI/Enable.pm:39
-msgid "module status"
-msgstr "status do módulo"
+#: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
+msgid "Subnet"
+msgstr "Subrede"
 
-#: src/EBox/Model/LeaseTimes.pm:113 src/EBox/Model/Options.pm:119
-#: src/EBox/Model/RangeTable.pm:95 src/EBox/Model/RangeInfo.pm:108
-#: src/EBox/Model/FixedAddressTable.pm:94
-#: src/EBox/Model/ThinClientOptions.pm:118
-#: src/EBox/Composite/InterfaceConfiguration.pm:87
-#: src/EBox/Composite/OptionsTab.pm:87
-#: src/EBox/Composite/AdvancedOptions.pm:88
-#, fuzzy, perl-brace-format
-msgid "interface {iface}"
-msgstr "Placa de Rede"
+#: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
+msgid "Available range"
+msgstr "Range Disponível"
+
+#: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
+msgid "DHCP ranges"
+msgstr "Range DHCP"
 
 #: src/EBox/Model/LeaseTimes.pm:133
 msgid "Default leased time must be higher than 0 seconds"
@@ -136,7 +163,7 @@ msgid "local eBox DNS"
 msgstr ""
 
 #: src/EBox/Model/Options.pm:325 src/EBox/Model/Options.pm:337
-#: src/EBox/Model/Options.pm:360 src/EBox/Model/ThinClientOptions.pm:228
+#: src/EBox/Model/Options.pm:360 src/EBox/Model/ThinClientOptions.pm:219
 msgid "None"
 msgstr ""
 
@@ -144,7 +171,7 @@ msgstr ""
 msgid "Default gateway"
 msgstr "Gateway Padrão"
 
-#: src/EBox/Model/Options.pm:350 src/EBox/Model/ThinClientOptions.pm:231
+#: src/EBox/Model/Options.pm:350 src/EBox/Model/ThinClientOptions.pm:222
 msgid "eBox"
 msgstr ""
 
@@ -183,60 +210,6 @@ msgid ""
 "optionals setting its value as \"None\" or leaving blank."
 msgstr ""
 
-#: src/EBox/Model/RangeTable.pm:117
-#, fuzzy, perl-brace-format
-msgid "{from} - {to} is an invalid range"
-msgstr "{from}-{to} não é um range válido"
-
-#: src/EBox/Model/RangeTable.pm:128
-#, perl-brace-format
-msgid "Range {from}-{to} is not in network {net}"
-msgstr "Range {from}-{to} não está na rede{net}"
-
-#: src/EBox/Model/RangeTable.pm:141
-#, fuzzy, perl-brace-format
-msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
-msgstr "Range {new_from}-{new_to} está incluso no endereço IP:{iface_ip}"
-
-#: src/EBox/Model/RangeTable.pm:163
-#, fuzzy, perl-brace-format
-msgid ""
-"Range {newFrom}-{newTo} overlaps with range '{range}': {oldFrom}-{oldTo}"
-msgstr ""
-"Range{new_from}-{new_to} é redundante com range '{range}': {old_from}-"
-"{old_to}"
-
-#: src/EBox/Model/RangeTable.pm:180
-#, fuzzy, perl-brace-format
-msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
-msgstr "Range {new_from}-{new_to} inclui o endereço fixado'{name}': {fixed_ip}"
-
-#: src/EBox/Model/RangeTable.pm:231 src/templates/ranges.mas:49
-msgid "Ranges"
-msgstr "Ranges"
-
-#: src/EBox/Model/RangeTable.pm:238
-#, fuzzy
-msgid "range"
-msgstr "Ranges"
-
-#: src/EBox/Model/RangeInfo.pm:143
-#, fuzzy
-msgid "Interface IP address"
-msgstr "Endereço IP do Gateway"
-
-#: src/EBox/Model/RangeInfo.pm:147 src/templates/ranges.mas:20
-msgid "Subnet"
-msgstr "Subrede"
-
-#: src/EBox/Model/RangeInfo.pm:151 src/templates/ranges.mas:40
-msgid "Available range"
-msgstr "Range Disponível"
-
-#: src/EBox/Model/RangeInfo.pm:157 src/templates/ranges.mas:15
-msgid "DHCP ranges"
-msgstr "Range DHCP"
-
 #: src/EBox/Model/FixedAddressTable.pm:120
 #, perl-brace-format
 msgid "IP address {ip} is not in network {net}"
@@ -251,6 +224,17 @@ msgstr "O IP selecionado é o endereço IP:{iface_ip}"
 #, fuzzy, perl-brace-format
 msgid "IP address {ip} is in range '{range}': {from}-{to}"
 msgstr "o endereço IP {ip} está no range '{range}': {old_from}-{old_to}"
+
+#: src/EBox/Model/FixedAddressTable.pm:182 src/EBox/CGI/AddFixed.pm:43
+#: src/EBox/DHCP.pm:1205 src/templates/fixed.mas:9
+msgid "MAC address"
+msgstr "MAC address"
+
+#: src/EBox/Model/FixedAddressTable.pm:188
+#: src/EBox/Model/ThinClientOptions.pm:225 src/EBox/CGI/AddFixed.pm:44
+#: src/templates/fixed.mas:10
+msgid "IP address"
+msgstr "Endereço IP"
 
 #: src/EBox/Model/FixedAddressTable.pm:196 src/templates/fixed.mas:5
 msgid "Fixed addresses"
@@ -275,17 +259,17 @@ msgid ""
 msgstr ""
 
 #: src/EBox/Model/ThinClientOptions.pm:215
-msgid "File name"
-msgstr ""
-
-#: src/EBox/Model/ThinClientOptions.pm:224
 msgid "Next server"
 msgstr ""
 
-#: src/EBox/Model/ThinClientOptions.pm:238
+#: src/EBox/Model/ThinClientOptions.pm:229
 #, fuzzy
 msgid "name"
 msgstr "Nome"
+
+#: src/EBox/Model/ThinClientOptions.pm:235
+msgid "File name"
+msgstr ""
 
 #: src/EBox/Model/ThinClientOptions.pm:246
 msgid "Thin client"
@@ -298,17 +282,29 @@ msgid ""
 "all the files you require under {path} directory"
 msgstr ""
 
+#: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/AddFixed.pm:39
+#: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
+#: src/EBox/CGI/SetIfaceOptions.pm:39 src/EBox/DHCP.pm:494
+#: src/EBox/DHCP.pm:530 src/EBox/DHCP.pm:580 src/EBox/DHCP.pm:678
+#: src/EBox/DHCP.pm:732 src/EBox/DHCP.pm:781 src/EBox/DHCP.pm:837
+#: src/EBox/DHCP.pm:1204
+msgid "Interface"
+msgstr "Placa de Rede"
+
+#: src/EBox/CGI/Enable.pm:39
+msgid "module status"
+msgstr "status do módulo"
+
+#: src/EBox/CGI/Status.pm:42
+msgid "Module Status"
+msgstr "Status do Módulo"
+
 #: src/EBox/Composite/InterfaceConfiguration.pm:112
 #, perl-brace-format
 msgid ""
 "In order to serve IP addresses on a external interface, you must open the "
 "service on {openhref}firewall module{closehref}"
 msgstr ""
-
-#: src/EBox/Composite/AdvancedOptions.pm:119
-#, fuzzy
-msgid "Advanced options"
-msgstr "Opções"
 
 #: src/EBox/Composite/General.pm:79
 #, perl-brace-format
@@ -317,6 +313,11 @@ msgid ""
 "it. To do so, change {openhref}interfaces configuration{closehref} in "
 "network module"
 msgstr ""
+
+#: src/EBox/Composite/AdvancedOptions.pm:119
+#, fuzzy
+msgid "Advanced options"
+msgstr "Opções"
 
 #: src/EBox/Composite/Interfaces.pm:76
 msgid "Choose a static interface to configure:"
@@ -332,12 +333,12 @@ msgid ""
 "least a range or a fixed address."
 msgstr ""
 
-#: src/EBox/DHCP.pm:97
+#: src/EBox/DHCP.pm:96
 #, fuzzy
 msgid "DHCP service status"
 msgstr "Status do Servidor DHCP"
 
-#: src/EBox/DHCP.pm:374
+#: src/EBox/DHCP.pm:380
 #, fuzzy, perl-brace-format
 msgid ""
 "DHCP server cannot activated because there are not any network interface "
@@ -347,21 +348,21 @@ msgstr ""
 "rede com endereço estático. <a href='Network/Ifaces'>Configure um</a> "
 "primeiro"
 
-#: src/EBox/DHCP.pm:494 src/EBox/DHCP.pm:530 src/EBox/DHCP.pm:580
-#: src/EBox/DHCP.pm:678 src/EBox/DHCP.pm:781 src/EBox/DHCP.pm:837
+#: src/EBox/DHCP.pm:500 src/EBox/DHCP.pm:536 src/EBox/DHCP.pm:586
+#: src/EBox/DHCP.pm:684 src/EBox/DHCP.pm:787 src/EBox/DHCP.pm:843
 #, perl-brace-format
 msgid "{iface} is not static"
 msgstr "{iface} não é estático"
 
-#: src/EBox/DHCP.pm:664
+#: src/EBox/DHCP.pm:670
 msgid "Not a valid action: add, set and del are available"
 msgstr ""
 
-#: src/EBox/DHCP.pm:767
+#: src/EBox/DHCP.pm:773
 msgid "No valid action. Available ones are: add, set and del"
 msgstr ""
 
-#: src/EBox/DHCP.pm:989
+#: src/EBox/DHCP.pm:991
 #, fuzzy, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -373,7 +374,7 @@ msgstr ""
 "remova isto antes de tentar adicionar uma interface virtual usando este "
 "endereço."
 
-#: src/EBox/DHCP.pm:1007
+#: src/EBox/DHCP.pm:1009
 #, fuzzy, perl-brace-format
 msgid ""
 "The IP address of the virtual interface you are trying to add is already "
@@ -384,29 +385,37 @@ msgstr ""
 "sendo usado pelo endereço DHCP fixado '{fixed}' na interface '{iface}'. Por "
 "Favro remova-o antes de adicionar uma interface virtual usando este IP"
 
-#: src/EBox/DHCP.pm:1237
+#: src/EBox/DHCP.pm:1203
 msgid "Date"
 msgstr "Data"
 
-#: src/EBox/DHCP.pm:1240
+#: src/EBox/DHCP.pm:1206
 msgid "IP"
 msgstr "IP"
 
-#: src/EBox/DHCP.pm:1241
+#: src/EBox/DHCP.pm:1207
 msgid "Event"
 msgstr "Evento"
 
-#: src/EBox/DHCP.pm:1244
+#: src/EBox/DHCP.pm:1210
 msgid "Leased"
 msgstr "Atribuido"
 
-#: src/EBox/DHCP.pm:1244
+#: src/EBox/DHCP.pm:1210
 msgid "Released"
 msgstr "Libertado"
 
-#: src/EBox/DHCP.pm:1247
+#: src/EBox/DHCP.pm:1213
 msgid "DHCP"
 msgstr "DHCP"
+
+#: src/EBox/DHCP.pm:1474 src/EBox/DHCP.pm:1483
+msgid "Dynamic Host Configuration Protocol"
+msgstr ""
+
+#: src/EBox/DHCP.pm:1504 src/EBox/DHCP.pm:1513
+msgid "Trivial File Transfer Protocol"
+msgstr ""
 
 #: src/templates/options.mas:8
 msgid "Options"
@@ -424,29 +433,29 @@ msgstr ""
 msgid "Apply"
 msgstr "Aplicar"
 
-#: src/templates/ranges.mas:30
-msgid "Subnet netmask"
-msgstr "Máscara de Subrede"
-
-#: src/templates/ranges.mas:56 src/templates/fixed.mas:11
+#: src/templates/fixed.mas:11 src/templates/ranges.mas:56
 msgid "Action"
 msgstr "Ação"
 
-#: src/templates/ranges.mas:74 src/templates/ranges.mas:75
-#: src/templates/ranges.mas:76 src/templates/fixed.mas:34
-#: src/templates/fixed.mas:37 src/templates/fixed.mas:38
+#: src/templates/fixed.mas:34 src/templates/fixed.mas:37
+#: src/templates/fixed.mas:38 src/templates/ranges.mas:74
+#: src/templates/ranges.mas:75 src/templates/ranges.mas:76
 msgid "Add"
 msgstr "Adicionar"
-
-#: src/templates/ranges.mas:91 src/templates/ranges.mas:92
-#: src/templates/ranges.mas:93
-msgid "Delete"
-msgstr "Apagar"
 
 #: src/templates/fixed.mas:51 src/templates/fixed.mas:53
 #: src/templates/fixed.mas:54
 msgid "Remove"
 msgstr "Remover"
+
+#: src/templates/ranges.mas:30
+msgid "Subnet netmask"
+msgstr "Máscara de Subrede"
+
+#: src/templates/ranges.mas:91 src/templates/ranges.mas:92
+#: src/templates/ranges.mas:93
+msgid "Delete"
+msgstr "Apagar"
 
 #~ msgid "Nameserver IP address"
 #~ msgstr "Endereço IP do DNS Server"
@@ -543,3 +552,7 @@ msgstr "Remover"
 
 #~ msgid "DHCP server status"
 #~ msgstr "Status do Servidor DHCP"
+
+#, fuzzy
+#~ msgid "Advanced Options"
+#~ msgstr "Opções"

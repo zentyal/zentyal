@@ -8,9 +8,9 @@
 # Copyright (C) 2005 Warp Networks S.L and DBS Servicios Informaticos S.L.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-objects 0.10.99\n"
+"Project-Id-Version: ebox-objects 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:40+0100\n"
+"POT-Creation-Date: 2007-12-05 09:49+0100\n"
 "PO-Revision-Date: 2007-02-02 09:48+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: \n"
@@ -24,12 +24,12 @@ msgstr ""
 msgid "Name"
 msgstr "Nombre"
 
-#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:88
+#: src/EBox/Model/ObjectTable.pm:71 src/EBox/Model/MemberTable.pm:87
 msgid "Members"
 msgstr ""
 
 #: src/EBox/Model/ObjectTable.pm:83 src/EBox/Model/ObjectTable.pm:89
-#: src/EBox/Model/MemberTable.pm:94 src/EBox/Objects.pm:40
+#: src/EBox/Model/MemberTable.pm:93 src/EBox/Objects.pm:40
 msgid "Objects"
 msgstr "Objetos"
 
@@ -38,30 +38,30 @@ msgstr "Objetos"
 msgid "object"
 msgstr "Objeto"
 
-#: src/EBox/Model/ObjectTable.pm:130
+#: src/EBox/Model/ObjectTable.pm:131
 msgid "This object is being used by another module"
 msgstr ""
 
-#: src/EBox/Model/MemberTable.pm:71
+#: src/EBox/Model/MemberTable.pm:70
 #, fuzzy
 msgid "IP Address"
 msgstr "Dirección IP"
 
-#: src/EBox/Model/MemberTable.pm:77
+#: src/EBox/Model/MemberTable.pm:76
 #, fuzzy
 msgid "MAC Address"
 msgstr "Dirección IP"
 
-#: src/EBox/Model/MemberTable.pm:95
+#: src/EBox/Model/MemberTable.pm:94
 msgid "member"
 msgstr ""
 
-#: src/EBox/Model/MemberTable.pm:135
+#: src/EBox/Model/MemberTable.pm:116
 msgid "You can only use MAC addresses with hosts"
 msgstr ""
 
-#: src/EBox/Model/MemberTable.pm:138 src/EBox/Model/MemberTable.pm:139
-#: src/EBox/Model/MemberTable.pm:143
+#: src/EBox/Model/MemberTable.pm:119 src/EBox/Model/MemberTable.pm:120
+#: src/EBox/Model/MemberTable.pm:124
 msgid "network address"
 msgstr "dirección de red"
 
@@ -90,7 +90,7 @@ msgstr "Borrado forzado del objeto {object}"
 msgid "Removed {nname} from object {object}"
 msgstr "Borrado {nname} del objeto {object}"
 
-#: src/EBox/Objects.pm:252
+#: src/EBox/Objects.pm:257
 msgid "Object"
 msgstr "Objeto"
 

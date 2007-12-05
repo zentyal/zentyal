@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.10.99\n"
+"Project-Id-Version: libebox 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:38+0100\n"
+"POT-Creation-Date: 2007-12-05 09:47+0100\n"
 "PO-Revision-Date: 2007-04-05 10:50+0000\n"
 "Last-Translator: Krzysztof Kubanek <krzysztof.kubanek@gmail.com>\n"
 "Language-Team: none\n"
@@ -94,11 +94,11 @@ msgstr ""
 "Twoje żądanie nie mogło zostać przetworzone ponieważ brakło w nim niektórych "
 "wymaganych parametrów."
 
-#: src/EBox/CGI/Base.pm:782
+#: src/EBox/CGI/Base.pm:795
 msgid "Invalid uploaded file."
 msgstr "Wgrano nieprawidłowy plik."
 
-#: src/EBox/CGI/Base.pm:788
+#: src/EBox/CGI/Base.pm:801
 msgid "Cannot create a temporally file for the upload"
 msgstr ""
 

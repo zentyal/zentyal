@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-openvpn 0.10.99\n"
+"Project-Id-Version: ebox-openvpn 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:40+0100\n"
+"POT-Creation-Date: 2007-12-05 09:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: src/EBox/CGI/Index.pm:16 src/EBox/CGI/ClientBundle.pm:19
 #: src/EBox/CGI/DeleteClient.pm:15 src/EBox/CGI/CreateClient.pm:34
 #: src/EBox/CGI/Delete.pm:15 src/EBox/CGI/Create.pm:15
-#: src/EBox/OpenVPN.pm:1345 src/EBox/OpenVPN.pm:1470
+#: src/EBox/OpenVPN.pm:1346 src/EBox/OpenVPN.pm:1471
 msgid "OpenVPN"
 msgstr ""
 
@@ -364,63 +364,63 @@ msgid ""
 "prefix {pf}"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1361
+#: src/EBox/OpenVPN.pm:1362
 msgid "OpenVPN daemons"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1391
+#: src/EBox/OpenVPN.pm:1392
 msgid "OpenVPN service"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1446
+#: src/EBox/OpenVPN.pm:1447
 msgid "Date"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1447
+#: src/EBox/OpenVPN.pm:1448
 msgid "Event"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1449
+#: src/EBox/OpenVPN.pm:1450
 msgid "Type"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1450
+#: src/EBox/OpenVPN.pm:1451
 msgid "Remote IP"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1451
+#: src/EBox/OpenVPN.pm:1452
 msgid "Remote Certificate"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1456
+#: src/EBox/OpenVPN.pm:1457
 msgid "Initialization sequence completed"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1458
+#: src/EBox/OpenVPN.pm:1459
 msgid "Certificate issuer not authorized"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1459
+#: src/EBox/OpenVPN.pm:1460
 msgid "Certificate common name not authorized"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1460
+#: src/EBox/OpenVPN.pm:1461
 msgid "Certificate verification failed"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1462
+#: src/EBox/OpenVPN.pm:1463
 msgid "Client connection initiated"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1463
+#: src/EBox/OpenVPN.pm:1464
 msgid "Client connection terminated"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1465
+#: src/EBox/OpenVPN.pm:1466
 msgid "Connection to server initiated"
 msgstr ""
 
-#: src/EBox/OpenVPN.pm:1466
+#: src/EBox/OpenVPN.pm:1467
 msgid "Server connection terminated"
 msgstr ""
 

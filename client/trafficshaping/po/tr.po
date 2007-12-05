@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-trafficshaping 0.10.99\n"
+"Project-Id-Version: ebox-trafficshaping 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:41+0100\n"
+"POT-Creation-Date: 2007-12-05 09:51+0100\n"
 "PO-Revision-Date: 2007-05-15 13:09+0000\n"
 "Last-Translator: Tutku DALMAZ <tutkudalmaz@gmail.com>\n"
 "Language-Team: none\n"
@@ -18,108 +18,106 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 0.10.1\n"
 
-#: src/EBox/CGI/Controller/RuleTable.pm:30
-#: src/EBox/CGI/View/RuleMultiTable.pm:35 src/EBox/CGI/View/RuleTable.pm:41
-msgid "Traffic Shaping rules"
-msgstr "Trafik Şekillendirme Kuralları"
-
-#: src/EBox/CGI/Index.pm:40
-msgid "Traffic Shaping Management"
-msgstr "Trafik Şekillendirme Yönetimi"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:137
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:138
 #, perl-brace-format
 msgid "Change or remove some rules on {contextName}"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:263
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:269
 #, fuzzy, perl-brace-format
-msgid "interface {iface}"
-msgstr "Arabirim"
+msgid "{iface} (internal interface)"
+msgstr "Herbir arabirim için kurallar listesi"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:289
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:272
+#, perl-brace-format
+msgid "{iface} (external interface)"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:299
 #, fuzzy
 msgid "Guaranteed rate"
 msgstr "Garantili Oran"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:294
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:304
 #, fuzzy
 msgid "Limited rate"
 msgstr "Sınırlı Oran"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:312
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:314
+#, perl-brace-format
+msgid ""
+"Object {object} has no members. Please add at least one to add rules using "
+"this object"
+msgstr ""
+
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:337
 msgid "If service is any, some source or destination should be provided"
 msgstr "Eğer bir hizmet sunulacaksa bazı kaynak veya hedef verilmeli"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:319
-#, fuzzy
-msgid "Guaranteed rate or limited rate is required"
-msgstr "Garantilenmiş veya sınırlanmış oran"
-
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:423
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:630
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:471
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:616
 msgid "Service"
 msgstr "Servis"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:430
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:478
 msgid "Source"
 msgstr "Kaynak"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:435
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:463
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:483
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:511
 msgid "Any"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:438
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:486
 msgid "Source IP"
 msgstr "Kaynak IP"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:443
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:491
 msgid "Source MAC"
 msgstr "Kaynak MAC"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:448
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:496
 msgid "Source object"
 msgstr "Kaynak nesne"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:458
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:506
 msgid "Destination"
 msgstr "Hedef"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:466
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:514
 msgid "Destination IP"
 msgstr "Hedef IP"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:471
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:519
 msgid "Destination object"
 msgstr "Hedef nesne"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:481
-#: src/EBox/TrafficShaping.pm:1357 src/EBox/TrafficShaping.pm:2151
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:529
+#: src/EBox/TrafficShaping.pm:1504
 msgid "Priority"
 msgstr "Öncelik"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:487
-#: src/EBox/TrafficShaping.pm:2149
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:536
+#: src/EBox/TrafficShaping.pm:1502
 msgid "Guaranteed Rate"
 msgstr "Garantili Oran"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:490
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:500
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:539
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:550
 msgid "Kbit/s"
 msgstr "Kbit/s"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:495
-#: src/EBox/TrafficShaping.pm:2150
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:545
+#: src/EBox/TrafficShaping.pm:1503
 msgid "Limited Rate"
 msgstr "Sınırlı Oran"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:507
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:558
 #, fuzzy, perl-brace-format
-msgid "Rules list for {iface}"
+msgid "Rules list for {printableIndex}"
 msgstr "Herbir arabirim için kurallar listesi"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:516
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:567
 msgid ""
 "Adding a rule to the interface should be done following maximum rate allowed "
 "to that interface and the sum of the different guaranteed rates should be at "
@@ -135,16 +133,16 @@ msgstr ""
 "Bir kural tanımlamak için bir özellik girilmelidir. En yüksek öncelik:0 , en "
 "düşük öncelik: 7"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:524
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:575
 msgid "rule"
 msgstr "kural"
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:587
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:640
 #, perl-brace-format
 msgid "Remove {num} rules at {modelName}"
 msgstr ""
 
-#: src/EBox/TrafficShaping/Model/RuleTable.pm:628
+#: src/EBox/TrafficShaping/Model/RuleTable.pm:685
 #, perl-brace-format
 msgid ""
 "Normalizing rates: {limitNum} rules have decreased its limit rate to "
@@ -191,27 +189,27 @@ msgstr ""
 msgid "Choose an interface to shape"
 msgstr "Şekillendirilecek arayüzü seçin"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:233
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:218
 #, perl-brace-format
 msgid "Guaranteed Rate exceeds the allowed rate: {rate} kbit/s"
 msgstr "Garantilenmiş Oran izin verilen oranı aştı: {rate} kbit/s"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:240
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:424
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:225
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:410
 #, perl-brace-format
 msgid ""
 "Guaranteed Rate must be in this interval: ( {minRate}, {maxRate} ) kbit/s"
 msgstr "Garantilenmiş Oran şu aralıkta olmalı: ( {minRate}, {maxRate} ) kbit/s"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:252
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:436
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:237
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:422
 #, perl-brace-format
 msgid ""
 "Limited Rate {lR} kbit/s should be higher than Guaranteed Rate {gR}kbit/s"
 msgstr ""
 "Sınırlanmış Oran {lR} kbit/s Garantilenmiş Orandan {gR} kbit/s yükske olmalı"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:259
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:244
 #, perl-brace-format
 msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR}kbit/s or you should "
@@ -222,12 +220,12 @@ msgstr ""
 "arabirimle ilgili olan ağ geçidine doğru azami upload trafiğini "
 "yükseltmelisiniz "
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:415
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:401
 #, perl-brace-format
 msgid "Guaranteed Rate exceeded the allowed rate: {rate}"
 msgstr "Garantilenmiş Oran izin verilen oranı aştı: {rate}"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:444
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:430
 #, perl-brace-format
 msgid ""
 "Limited Rate {lR} kbit/s should be lower than {maxLR} or you should increase "
@@ -236,11 +234,11 @@ msgstr ""
 "Sınırlanmış Oran {lR} kbit/s {maxLR} kbit/s'den düşük olmalı veya izin "
 "verilen azami trafiği yükseltmelisiniz"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:626
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:612
 msgid "Leaf class identifier"
 msgstr "Sayfa sınıf tanımlayıcısı"
 
-#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:632
+#: src/EBox/TrafficShaping/TreeBuilder/HTB.pm:618
 msgid "Address"
 msgstr "Adres"
 
@@ -248,35 +246,21 @@ msgstr "Adres"
 msgid "options"
 msgstr "Seçenekler"
 
-#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:342
-#: src/EBox/TrafficShaping.pm:435 src/EBox/TrafficShaping.pm:481
-#: src/EBox/TrafficShaping.pm:543 src/EBox/TrafficShaping.pm:648
-#: src/EBox/TrafficShaping.pm:836 src/EBox/TrafficShaping.pm:1298
+#: src/EBox/TC.pm:107 src/EBox/TrafficShaping.pm:370
+#: src/EBox/TrafficShaping.pm:520 src/EBox/TrafficShaping.pm:907
 msgid "Interface"
 msgstr "Arabirim"
 
-#: src/EBox/TrafficShaping.pm:73 src/EBox/TrafficShaping.pm:294
+#: src/EBox/TrafficShaping.pm:89 src/EBox/TrafficShaping.pm:316
 msgid "Traffic Shaping"
 msgstr "Trafik Şekillendirme"
 
-#: src/EBox/TrafficShaping.pm:74
+#: src/EBox/TrafficShaping.pm:90
 #, fuzzy
 msgid "traffic shaping"
 msgstr "Trafik Şekillendirme"
 
-#: src/EBox/TrafficShaping.pm:354
-msgid "Guaranteed rate or limited rate"
-msgstr "Garantilenmiş veya sınırlanmış oran"
-
-#: src/EBox/TrafficShaping.pm:483 src/EBox/TrafficShaping.pm:545
-msgid "Identifier"
-msgstr "Tanımlayıcı"
-
-#: src/EBox/TrafficShaping.pm:485
-msgid "Enabled"
-msgstr "Etkin"
-
-#: src/EBox/TrafficShaping.pm:661
+#: src/EBox/TrafficShaping.pm:383
 #, perl-brace-format
 msgid ""
 "The maximum rule account {max} is reached, please delete at least one in "
@@ -285,7 +269,7 @@ msgstr ""
 "Azami kural hesabına {max} ulaşıldı, lütfen bir yenisini eklemek için mevcut "
 "olandan en azından birini silin."
 
-#: src/EBox/TrafficShaping.pm:1315
+#: src/EBox/TrafficShaping.pm:924
 msgid ""
 "Traffic shaping can be only done in external interfaces which have gateways "
 "associated to"
@@ -293,15 +277,11 @@ msgstr ""
 "Trafik şekillendirmesi ilişikilendirilmiş ağ geçidine sahip harici "
 "arabirimlerde yapılabilir"
 
-#: src/EBox/TrafficShaping.pm:1339
-msgid "Traffic Shaping Rule"
-msgstr "Trafik Şekillendirme Kuralı"
-
-#: src/EBox/TrafficShaping.pm:1475
+#: src/EBox/TrafficShaping.pm:1013
 msgid "type"
 msgstr "tip"
 
-#: src/EBox/TrafficShaping.pm:1505
+#: src/EBox/TrafficShaping.pm:1036
 #, perl-brace-format
 msgid ""
 "Interface {iface} should have a maximum bandwidth rate in order to do "
@@ -310,13 +290,39 @@ msgstr ""
 "{iface} arabirimi trafik şekillendirmesi yapabilmek için azami bir bant "
 "genişliği oranına sahip olmalıdır"
 
-#: src/EBox/TrafficShaping.pm:2147
+#: src/EBox/TrafficShaping.pm:1500
 msgid "Protocol"
 msgstr "Protokol"
 
-#: src/EBox/TrafficShaping.pm:2148
+#: src/EBox/TrafficShaping.pm:1501
 msgid "Port"
 msgstr "Port"
+
+#~ msgid "Traffic Shaping rules"
+#~ msgstr "Trafik Şekillendirme Kuralları"
+
+#~ msgid "Traffic Shaping Management"
+#~ msgstr "Trafik Şekillendirme Yönetimi"
+
+#, fuzzy
+#~ msgid "interface {iface}"
+#~ msgstr "Arabirim"
+
+#, fuzzy
+#~ msgid "Guaranteed rate or limited rate is required"
+#~ msgstr "Garantilenmiş veya sınırlanmış oran"
+
+#~ msgid "Guaranteed rate or limited rate"
+#~ msgstr "Garantilenmiş veya sınırlanmış oran"
+
+#~ msgid "Identifier"
+#~ msgstr "Tanımlayıcı"
+
+#~ msgid "Enabled"
+#~ msgstr "Etkin"
+
+#~ msgid "Traffic Shaping Rule"
+#~ msgstr "Trafik Şekillendirme Kuralı"
 
 #~ msgid "Rules list"
 #~ msgstr "Kurallar listesi"
@@ -337,3 +343,7 @@ msgstr "Port"
 #~ "arabirimlerde uygulanır. Bunu yapmak için, {openhref}Network->Gateways"
 #~ "{closehref} altında arabirimlerden biri harici olarak bir gateway "
 #~ "oluşturun. "
+
+#, fuzzy
+#~ msgid "Rules list for {iface}"
+#~ msgstr "Herbir arabirim için kurallar listesi"

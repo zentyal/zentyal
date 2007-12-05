@@ -4,9 +4,9 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.10.99\n"
+"Project-Id-Version: libebox 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:38+0100\n"
+"POT-Creation-Date: 2007-12-05 09:47+0100\n"
 "PO-Revision-Date: 2007-03-28 23:18+0000\n"
 "Last-Translator: Kong <kong@noworkteam.org>\n"
 "Language-Team: none\n"
@@ -90,11 +90,11 @@ msgid ""
 msgstr ""
 "Zure eskaera ezin da prozesatu beharrezko zenbait parametro ez ditu eta."
 
-#: src/EBox/CGI/Base.pm:782
+#: src/EBox/CGI/Base.pm:795
 msgid "Invalid uploaded file."
 msgstr "Igotako fitxategi baliogabea."
 
-#: src/EBox/CGI/Base.pm:788
+#: src/EBox/CGI/Base.pm:801
 msgid "Cannot create a temporally file for the upload"
 msgstr "Ezin da igotakoarentzat aldizkako fitxategi at sortu."
 

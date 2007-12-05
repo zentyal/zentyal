@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.10.99\n"
+"Project-Id-Version: ebox-software 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:41+0100\n"
+"POT-Creation-Date: 2007-12-05 09:50+0100\n"
 "PO-Revision-Date: 2007-04-11 16:25+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -22,7 +22,7 @@ msgid "Automatic software updates"
 msgstr ""
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:309
+#: src/EBox/Software.pm:315
 msgid "System updates"
 msgstr ""
 
@@ -66,21 +66,21 @@ msgstr ""
 msgid "The installation of the packages has finished successfully"
 msgstr ""
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:307
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:313
 msgid "eBox components"
 msgstr ""
 
-#: src/EBox/Software.pm:132
+#: src/EBox/Software.pm:138
 msgid ""
 "An error ocurred while removing components. If the error persists or eBox "
 "stops working properly, seek technical support."
 msgstr ""
 
-#: src/EBox/Software.pm:304 src/EBox/PackageDescriptions.pm:18
+#: src/EBox/Software.pm:310 src/EBox/PackageDescriptions.pm:18
 msgid "Software management"
 msgstr ""
 
-#: src/EBox/Software.pm:311
+#: src/EBox/Software.pm:317
 msgid "Configuration"
 msgstr ""
 
@@ -162,6 +162,10 @@ msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:21
 msgid "User and Group management"
+msgstr ""
+
+#: src/EBox/PackageDescriptions.pm:22
+msgid "Web Server"
 msgstr ""
 
 #: src/templates/del.mas:14

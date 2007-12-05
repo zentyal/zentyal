@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-samba 0.10.99\n"
+"Project-Id-Version: ebox-samba 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:41+0100\n"
+"POT-Creation-Date: 2007-12-05 09:50+0100\n"
 "PO-Revision-Date: 2007-09-28 10:43+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,98 +18,98 @@ msgstr ""
 
 #: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:66
 msgid "user name"
-msgstr ""
+msgstr "bruger navn"
 
 #: src/EBox/CGI/ActivePrinting.pm:48 src/EBox/CGI/ActiveSharing.pm:44
 #: src/EBox/SambaLdapUser.pm:480 src/EBox/SambaLdapUser.pm:508
 #: src/EBox/SambaLdapUser.pm:559
 msgid "group name"
-msgstr ""
+msgstr "gruppe navn"
 
 #: src/EBox/CGI/Enable.pm:42
 msgid "module status"
-msgstr ""
+msgstr "modul status"
 
 #: src/EBox/CGI/ActiveSharing.pm:47
 msgid "sharing name"
-msgstr ""
+msgstr "deling navn"
 
 #: src/EBox/CGI/ActiveSharing.pm:69
 msgid "active"
-msgstr ""
+msgstr "aktiv"
 
 #: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:245
 #: src/EBox/Samba.pm:253
 msgid "File sharing"
-msgstr ""
+msgstr "Fil deling"
 
 #: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:477
 msgid "netbios"
-msgstr ""
+msgstr "netbios"
 
 #: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:515
 msgid "working group"
-msgstr ""
+msgstr "arbejds gruppe"
 
 #: src/EBox/CGI/SambaConf.pm:44
 msgid "working mode"
-msgstr ""
+msgstr "arbejds mode"
 
 #: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:496
 msgid "description"
-msgstr ""
+msgstr "beskrivelse"
 
 #: src/EBox/CGI/SambaConf.pm:46
 msgid "user quota"
-msgstr ""
+msgstr "bruger kvota"
 
 #: src/EBox/Samba.pm:292 src/EBox/Samba.pm:337
 msgid "listening port"
-msgstr ""
+msgstr "lyttende port"
 
 #: src/EBox/Samba.pm:375
 msgid "Domain Name"
-msgstr ""
+msgstr "Domæne navn"
 
 #: src/EBox/Samba.pm:534
 msgid "quota"
-msgstr ""
+msgstr "kvota"
 
 #: src/EBox/Samba.pm:819 src/EBox/Samba.pm:838
 msgid "user"
-msgstr ""
+msgstr "bruger"
 
 #: src/EBox/Samba.pm:822 src/EBox/Samba.pm:852 src/EBox/SambaLdapUser.pm:629
 msgid "group"
-msgstr ""
+msgstr "gruppe"
 
 #: src/EBox/Samba.pm:825
 msgid "printer"
-msgstr ""
+msgstr "printer"
 
 #: src/EBox/Samba.pm:1166
 msgid "User's files"
-msgstr ""
+msgstr "Brugers filer"
 
 #: src/EBox/Samba.pm:1168
 msgid "Group's files"
-msgstr ""
+msgstr "Gruppes filer"
 
 #: src/EBox/SambaLdapUser.pm:210
 msgid "This user has a sharing directory associated which conatins data"
-msgstr ""
+msgstr "Denne bruger har et delt directory der indeholder filer"
 
 #: src/EBox/SambaLdapUser.pm:271
 msgid "This group has a sharing directory associatedwhich conatins data"
-msgstr ""
+msgstr "Denne gruppe har et delt directory der indeholder filer"
 
 #: src/EBox/SambaLdapUser.pm:513
 msgid "A name should be provided for the share"
-msgstr ""
+msgstr "Et navn skal tildeles denne share"
 
 #: src/EBox/SambaLdapUser.pm:521
 msgid "sharing resource"
-msgstr ""
+msgstr "delt resource"
 
 #: src/templates/delete.mas:11
 msgid ""
@@ -117,46 +117,49 @@ msgid ""
 "remove it all its data will be removed. Please confirm that you want to "
 "delete it."
 msgstr ""
+"Den gruppe du prøvede at slette har et dir der indeholder data. Hvis du "
+"fjerner det vil alle data blive slettet.  Bekræft venligst at du ønsker at "
+"fjerne det."
 
 #: src/templates/delete.mas:18 src/templates/samba.mas:79
 #: src/templates/samba.mas:80
 msgid "Delete"
-msgstr ""
+msgstr "Slet"
 
 #: src/templates/delete.mas:21
 msgid "Cancel"
-msgstr ""
+msgstr "Fortryd"
 
 #: src/templates/samba.mas:9
 msgid "PDC/File sharing account"
-msgstr ""
+msgstr "PDC/Fil deling konto"
 
 #: src/templates/samba.mas:16
 msgid "User account"
-msgstr ""
+msgstr "Bruger konto"
 
 #: src/templates/samba.mas:21 src/templates/samba.mas:24
 msgid "Disabled"
-msgstr ""
+msgstr "Inaktiv"
 
 #: src/templates/samba.mas:22 src/templates/samba.mas:25
 msgid "Enabled"
-msgstr ""
+msgstr "Aktiveret"
 
 #: src/templates/samba.mas:32
 msgid "Administration rights"
-msgstr ""
+msgstr "Administrator rettigheder"
 
 #: src/templates/samba.mas:46 src/templates/samba.mas:47
 #: src/templates/samba.mas:76 src/templates/samba.mas:77
 #: src/templates/samba.mas:147 src/templates/samba.mas:148
 #: src/templates/index.mas:81 src/templates/index.mas:82
 msgid "Change"
-msgstr ""
+msgstr "Skift"
 
 #: src/templates/samba.mas:55
 msgid "Sharing directory for this group"
-msgstr ""
+msgstr "Delt directory for denne gruppe"
 
 #: src/templates/samba.mas:58
 msgid ""
@@ -164,88 +167,92 @@ msgid ""
 "that Microsoft Windows 98 and Millenium will not be able to see names longer "
 "than 12 characters"
 msgstr ""
+"Du kan sætte et delt dir for denne gruppe, men huskat MIcrosoft Windows 98 "
+"og Millenium ikke kan se navne der er længere end 12 karakterer"
 
 #: src/templates/samba.mas:66
 msgid "This resource name is longer than 12 characters."
-msgstr ""
+msgstr "Denne ressource er længere end 12 karakterer"
 
 #: src/templates/samba.mas:69
 msgid "Directory name"
-msgstr ""
+msgstr "Directory navn"
 
 #: src/templates/samba.mas:83 src/templates/samba.mas:84
 msgid "Add"
-msgstr ""
+msgstr "Tilføj"
 
 #: src/templates/samba.mas:91
 msgid "Printers"
-msgstr ""
+msgstr "Printere"
 
 #: src/templates/samba.mas:95
 msgid "Select the printers this user will have access to."
-msgstr ""
+msgstr "Vælg de printere denne bruger skal have adgang til"
 
 #: src/templates/samba.mas:105
 msgid "Printer"
-msgstr ""
+msgstr "Printer"
 
 #: src/templates/samba.mas:106
 msgid "Allow"
-msgstr ""
+msgstr "Tillad"
 
 #: src/templates/samba.mas:128
 msgid "Allow all printers"
-msgstr ""
+msgstr "Tillad alle printere"
 
 #: src/templates/samba.mas:159
 msgid "printers module"
-msgstr ""
+msgstr "printer modul"
 
 #: src/templates/samba.mas:170
 msgid "file sharing module"
-msgstr ""
+msgstr "fil delings modul"
 
 #: src/templates/index.mas:19
 msgid "General Settings"
-msgstr ""
+msgstr "Almen opsætning"
 
 #: src/templates/index.mas:21
 msgid ""
 "To allow unlimited disk usage to users, just set zero as user quota limit."
 msgstr ""
+"Tillad ubegrænset disk forbrug til brugere, ved at skrive nul som bruger "
+"kvota grænse."
 
 #: src/templates/index.mas:27
 msgid "Working mode"
-msgstr ""
+msgstr "Arbejds mode"
 
 #: src/templates/index.mas:32 src/templates/index.mas:35
 msgid "File server"
-msgstr ""
+msgstr "Fil server"
 
 #: src/templates/index.mas:33 src/templates/index.mas:36
 msgid "PDC"
-msgstr ""
+msgstr "PDC"
 
 #: src/templates/index.mas:44
 msgid "Domain name"
-msgstr ""
+msgstr "Domæne navn"
 
 #: src/templates/index.mas:46
 msgid "Working group"
-msgstr ""
+msgstr "Arbejds gruppe"
 
 #: src/templates/index.mas:56
 msgid "Netbios name"
-msgstr ""
+msgstr "Netbios navn"
 
 #: src/templates/index.mas:64
 msgid "Description"
-msgstr ""
+msgstr "Beskrivelse"
 
 #: src/templates/index.mas:71
 msgid "Quota limit"
-msgstr ""
+msgstr "Kvota grænse"
 
 #: stubs/smb.conf.mas:91
 msgid "Home Directories"
-msgstr ""
+msgstr "Hjemme Directorier"

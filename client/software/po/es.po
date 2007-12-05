@@ -6,9 +6,9 @@
 # Javier Uruen Val <juruen@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.10.99\n"
+"Project-Id-Version: ebox-software 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:41+0100\n"
+"POT-Creation-Date: 2007-12-05 09:50+0100\n"
 "PO-Revision-Date: 2007-02-02 18:12+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: <info@ebox-platform.com>\n"
@@ -23,7 +23,7 @@ msgid "Automatic software updates"
 msgstr "Actualizaciones automáticas de software"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:309
+#: src/EBox/Software.pm:315
 msgid "System updates"
 msgstr "Actualizaciones del sistema"
 
@@ -68,11 +68,11 @@ msgstr ""
 msgid "The installation of the packages has finished successfully"
 msgstr "Los paquetes se han instalado correctamente "
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:307
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:313
 msgid "eBox components"
 msgstr "Componentes eBox"
 
-#: src/EBox/Software.pm:132
+#: src/EBox/Software.pm:138
 msgid ""
 "An error ocurred while removing components. If the error persists or eBox "
 "stops working properly, seek technical support."
@@ -80,11 +80,11 @@ msgstr ""
 "Se ha producido un error al instalar componentes. Si el error persiste o "
 "eBox deja de funcionar correctamente pida soporte técnico."
 
-#: src/EBox/Software.pm:304 src/EBox/PackageDescriptions.pm:18
+#: src/EBox/Software.pm:310 src/EBox/PackageDescriptions.pm:18
 msgid "Software management"
 msgstr "Gestión de software"
 
-#: src/EBox/Software.pm:311
+#: src/EBox/Software.pm:317
 msgid "Configuration"
 msgstr "Configuración"
 
@@ -168,6 +168,11 @@ msgstr "Moldeador de tráfico para eBox"
 #: src/EBox/PackageDescriptions.pm:21
 msgid "User and Group management"
 msgstr "Gestión de usuarios y grupos"
+
+#: src/EBox/PackageDescriptions.pm:22
+#, fuzzy
+msgid "Web Server"
+msgstr "Servidor DNS para eBox"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"

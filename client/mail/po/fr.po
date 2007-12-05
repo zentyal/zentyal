@@ -5,9 +5,9 @@
 # Ignacio Correas <icorreas@warp.es>, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mail 0.10.99\n"
+"Project-Id-Version: ebox-mail 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:39+0100\n"
+"POT-Creation-Date: 2007-12-05 09:48+0100\n"
 "PO-Revision-Date: 2007-05-15 13:08+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -501,9 +501,9 @@ msgid "Apply"
 msgstr "Appliquer"
 
 #: src/templates/moduleDisabled.mas:5
+#, fuzzy
 msgid ""
-"The following settings only will take effect when the mail module will be "
-"enabled"
+"The following settings only will take effect when the mail module is enabled"
 msgstr ""
 "Les paramètres suivants ne prendront effets que lorsque le module de "
 "courrier sera activé"
@@ -763,3 +763,10 @@ msgstr "Cliquer ici pour créer un nouveau domaine virtuel de courrier"
 
 #~ msgid "Esto es un foobar del Mail: "
 #~ msgstr "Ça c'est un foobar du courrier"
+
+#~ msgid ""
+#~ "The following settings only will take effect when the mail module will be "
+#~ "enabled"
+#~ msgstr ""
+#~ "Les paramètres suivants ne prendront effets que lorsque le module de "
+#~ "courrier sera activé"

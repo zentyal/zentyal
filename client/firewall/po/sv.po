@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-firewall 0.10.99\n"
+"Project-Id-Version: ebox-firewall 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:39+0100\n"
+"POT-Creation-Date: 2007-12-05 09:48+0100\n"
 "PO-Revision-Date: 2007-06-06 09:38+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -24,12 +24,13 @@ msgstr ""
 msgid "DENY"
 msgstr ""
 
-#: src/EBox/Model/BaseRuleTable.pm:109
+#: src/EBox/Model/BaseRuleTable.pm:109 src/EBox/Firewall.pm:830
 #, fuzzy
 msgid "Decision"
 msgstr "Åtgärd vid nekning"
 
-#: src/EBox/Model/BaseRuleTable.pm:117 src/templates/fwdrules.mas:161
+#: src/EBox/Model/BaseRuleTable.pm:117 src/EBox/Firewall.pm:825
+#: src/templates/fwdrules.mas:161
 msgid "Source"
 msgstr "Källa"
 
@@ -48,7 +49,8 @@ msgstr "Källa"
 msgid "Source object"
 msgstr "Källport"
 
-#: src/EBox/Model/BaseRuleTable.pm:144 src/templates/fwdrules.mas:163
+#: src/EBox/Model/BaseRuleTable.pm:144 src/EBox/Firewall.pm:826
+#: src/templates/fwdrules.mas:163
 msgid "Destination"
 msgstr "Destination"
 
@@ -148,8 +150,8 @@ msgstr ""
 
 #: src/EBox/CGI/Redirection.pm:43 src/EBox/CGI/Redirection.pm:54
 #: src/EBox/CGI/Redirection.pm:61 src/EBox/CGI/Redirection.pm:68
-#: src/EBox/Firewall.pm:253 src/EBox/Firewall.pm:286 src/EBox/Firewall.pm:587
-#: src/EBox/Firewall.pm:612
+#: src/EBox/Firewall.pm:254 src/EBox/Firewall.pm:287 src/EBox/Firewall.pm:588
+#: src/EBox/Firewall.pm:613
 msgid "protocol"
 msgstr "protokoll"
 
@@ -160,23 +162,23 @@ msgstr "nätverksgränssnitt"
 
 #: src/EBox/CGI/Redirection.pm:45 src/EBox/CGI/Redirection.pm:55
 #: src/EBox/CGI/Redirection.pm:62 src/EBox/CGI/Redirection.pm:69
-#: src/EBox/Firewall.pm:255 src/EBox/Firewall.pm:287
+#: src/EBox/Firewall.pm:256 src/EBox/Firewall.pm:288
 msgid "external port"
 msgstr "extern port"
 
 #: src/EBox/CGI/Redirection.pm:46 src/EBox/CGI/Redirection.pm:64
-#: src/EBox/CGI/Redirection.pm:70 src/EBox/Firewall.pm:254
+#: src/EBox/CGI/Redirection.pm:70 src/EBox/Firewall.pm:255
 msgid "destination address"
 msgstr "destinationsadress"
 
 #: src/EBox/CGI/Redirection.pm:47 src/EBox/CGI/Redirection.pm:65
-#: src/EBox/CGI/Redirection.pm:71 src/EBox/Firewall.pm:256
+#: src/EBox/CGI/Redirection.pm:71 src/EBox/Firewall.pm:257
 msgid "destination port"
 msgstr "destinationsport"
 
 #: src/EBox/CGI/FwdRule.pm:44 src/EBox/CGI/FwdRule.pm:68
 #: src/EBox/CGI/ObjectRule.pm:48 src/EBox/CGI/ObjectRule.pm:65
-#: src/EBox/CGI/Deny.pm:41 src/EBox/Firewall.pm:204
+#: src/EBox/CGI/Deny.pm:41 src/EBox/Firewall.pm:205
 msgid "action"
 msgstr "åtgärd"
 
@@ -194,36 +196,81 @@ msgstr "tjänst"
 msgid "Edit rule"
 msgstr "Redigera regel"
 
-#: src/EBox/Firewall.pm:44
+#: src/EBox/Firewall.pm:45
 #, fuzzy
 msgid "firewall"
 msgstr "Brandvägg"
 
-#: src/EBox/Firewall.pm:260
+#: src/EBox/Firewall.pm:261
 #, perl-brace-format
 msgid "Port {port} is being used by a service or port redirection."
 msgstr ""
 
-#: src/EBox/Firewall.pm:411 src/EBox/Firewall.pm:456 src/EBox/Firewall.pm:480
+#: src/EBox/Firewall.pm:412 src/EBox/Firewall.pm:457 src/EBox/Firewall.pm:481
 #, perl-brace-format
 msgid "Name '{name}' is invalid"
 msgstr "Namnet \"{name}\" är ogiltigt"
 
-#: src/EBox/Firewall.pm:412 src/EBox/Firewall.pm:588 src/EBox/Firewall.pm:613
+#: src/EBox/Firewall.pm:413 src/EBox/Firewall.pm:589 src/EBox/Firewall.pm:614
 msgid "port"
 msgstr "port"
 
-#: src/EBox/Firewall.pm:727
+#: src/EBox/Firewall.pm:778 src/EBox/Firewall.pm:838
 msgid "Firewall"
 msgstr "Brandvägg"
 
-#: src/EBox/Firewall.pm:731
+#: src/EBox/Firewall.pm:782
 msgid "Packet Filter"
 msgstr "Paketfilter"
 
-#: src/EBox/Firewall.pm:734
+#: src/EBox/Firewall.pm:785
 msgid "Redirects"
 msgstr "Omdirigeringar"
+
+#: src/EBox/Firewall.pm:822
+#, fuzzy
+msgid "Date"
+msgstr "Ta bort"
+
+#: src/EBox/Firewall.pm:823
+#, fuzzy
+msgid "Input interface"
+msgstr "nätverksgränssnitt"
+
+#: src/EBox/Firewall.pm:824
+#, fuzzy
+msgid "Output interface"
+msgstr "nätverksgränssnitt"
+
+#: src/EBox/Firewall.pm:827 src/templates/redirects.mas:25
+#: src/templates/object.mas:47 src/templates/fwdrules.mas:18
+#: src/templates/fwdrules.mas:160 src/templates/fwdruleedit.mas:31
+msgid "Protocol"
+msgstr "Protokoll"
+
+#: src/EBox/Firewall.pm:828 src/templates/fwdrules.mas:76
+#: src/templates/fwdruleedit.mas:109
+msgid "Source port"
+msgstr "Källport"
+
+#: src/EBox/Firewall.pm:829 src/templates/fwdrules.mas:124
+#: src/templates/fwdruleedit.mas:167
+msgid "Destination port"
+msgstr "Destinationsport"
+
+#: src/EBox/Firewall.pm:835
+msgid "DROP"
+msgstr ""
+
+#: src/EBox/Iptables.pm:608
+msgid ""
+"You must set the iptables_log_limit variable in the ebox configuration file"
+msgstr ""
+
+#: src/EBox/Iptables.pm:614
+msgid ""
+"You must set the iptables_log_burst variable in the ebox configuration file"
+msgstr ""
 
 #: src/templates/redirects.mas:23
 msgid "Interface"
@@ -232,12 +279,6 @@ msgstr "Nätverksgränssnitt"
 #: src/templates/redirects.mas:24
 msgid "External port"
 msgstr "Extern port"
-
-#: src/templates/redirects.mas:25 src/templates/object.mas:47
-#: src/templates/fwdrules.mas:18 src/templates/fwdrules.mas:160
-#: src/templates/fwdruleedit.mas:31
-msgid "Protocol"
-msgstr "Protokoll"
 
 #: src/templates/redirects.mas:26
 msgid "IP address"
@@ -444,18 +485,10 @@ msgstr "är inte"
 msgid "is"
 msgstr "är"
 
-#: src/templates/fwdrules.mas:76 src/templates/fwdruleedit.mas:109
-msgid "Source port"
-msgstr "Källport"
-
 #: src/templates/fwdrules.mas:86 src/templates/fwdrules.mas:134
 #: src/templates/fwdruleedit.mas:125 src/templates/fwdruleedit.mas:183
 msgid "to"
 msgstr "till"
-
-#: src/templates/fwdrules.mas:124 src/templates/fwdruleedit.mas:167
-msgid "Destination port"
-msgstr "Destinationsport"
 
 #: src/templates/fwdrules.mas:155
 msgid "Rule list"

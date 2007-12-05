@@ -10,9 +10,9 @@
 # This file is distributed under the same license as the EBox-mail package.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mail 0.10.99\n"
+"Project-Id-Version: ebox-mail 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:39+0100\n"
+"POT-Creation-Date: 2007-12-05 09:48+0100\n"
 "PO-Revision-Date: 2007-05-16 13:01+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -189,9 +189,8 @@ msgid "IMAP service"
 msgstr "servicio IMAP"
 
 #: src/EBox/Mail.pm:1016
-#, fuzzy
 msgid "enabled"
-msgstr "Habilitar"
+msgstr "habilitado"
 
 #: src/EBox/Mail.pm:1016
 #, fuzzy
@@ -511,8 +510,7 @@ msgstr "Aplicar"
 
 #: src/templates/moduleDisabled.mas:5
 msgid ""
-"The following settings only will take effect when the mail module will be "
-"enabled"
+"The following settings only will take effect when the mail module is enabled"
 msgstr ""
 
 #: src/templates/createaccount.mas:15
@@ -757,3 +755,10 @@ msgstr "Añadir un nuevo dominio virtual"
 #~ msgstr ""
 #~ "Elija los objetos cuyo estado quiera cambiar y pulse en la flecha para "
 #~ "moverlos a la columna deseada"
+
+#~ msgid ""
+#~ "The following settings only will take effect when the mail module will be "
+#~ "enabled"
+#~ msgstr ""
+#~ "Los siguientes parámetros sólo tendrán efecto cuando el módulo de correo "
+#~ "esté habilitado"

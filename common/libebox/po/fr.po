@@ -7,9 +7,9 @@
 # Javier Amor Garcia <javier.amor.garcia@warp.es>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.10.99\n"
+"Project-Id-Version: libebox 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:38+0100\n"
+"POT-Creation-Date: 2007-12-05 09:47+0100\n"
 "PO-Revision-Date: 2007-05-15 14:19+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: \n"
@@ -95,11 +95,11 @@ msgid ""
 msgstr ""
 "Votre requête ne peut être effectuée à cause d'un de ses paramètres manquant"
 
-#: src/EBox/CGI/Base.pm:782
+#: src/EBox/CGI/Base.pm:795
 msgid "Invalid uploaded file."
 msgstr "Fichier envoyé invalide"
 
-#: src/EBox/CGI/Base.pm:788
+#: src/EBox/CGI/Base.pm:801
 msgid "Cannot create a temporally file for the upload"
 msgstr "Impossible de créer un fichier temporaire pour l'envoi de données"
 

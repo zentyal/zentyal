@@ -5,9 +5,9 @@
 # Ignacio Correas <icorreas@warp.es>, 2005.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dns 0.10.99\n"
+"Project-Id-Version: ebox-dns 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:38+0100\n"
+"POT-Creation-Date: 2007-12-05 09:48+0100\n"
 "PO-Revision-Date: 2007-04-12 08:06+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -48,8 +48,8 @@ msgstr "Nom de domaine"
 msgid "IP address"
 msgstr "Adresse IP"
 
-#: src/EBox/Model/DNSComposite.pm:76 src/EBox/DNS.pm.in:559
-#: src/EBox/DNS.pm.in:595
+#: src/EBox/Model/DNSComposite.pm:76 src/EBox/DNS.pm.in:567
+#: src/EBox/DNS.pm.in:603
 msgid "DNS"
 msgstr "DNS"
 
@@ -66,7 +66,7 @@ msgstr "Domaine"
 msgid "Domains"
 msgstr "Domaines"
 
-#: src/EBox/Model/DomainTable.pm:91
+#: src/EBox/Model/DomainTable.pm:91 src/EBox/DNS.pm.in:250
 msgid "domain"
 msgstr "domaine"
 
@@ -90,7 +90,7 @@ msgstr "Nom d'alias"
 msgid "dns"
 msgstr "dns"
 
-#: src/EBox/DNS.pm.in:68
+#: src/EBox/DNS.pm.in:72
 msgid "DNS Server"
 msgstr "Serveur DNS"
 

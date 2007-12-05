@@ -11,9 +11,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.10.99\n"
+"Project-Id-Version: ebox-software 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:41+0100\n"
+"POT-Creation-Date: 2007-12-05 09:50+0100\n"
 "PO-Revision-Date: 2007-08-19 12:32+0200\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -27,7 +27,7 @@ msgid "Automatic software updates"
 msgstr "Automatische Softwareaktualisierungen"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:309
+#: src/EBox/Software.pm:315
 msgid "System updates"
 msgstr "Systemaktualisierungen"
 
@@ -71,11 +71,11 @@ msgstr "Pakete, die noch installiert werden müssen"
 msgid "The installation of the packages has finished successfully"
 msgstr "Die Installation der Pakete ist erfolgreich abgelaufen"
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:307
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:313
 msgid "eBox components"
 msgstr "eBox-Komponenten"
 
-#: src/EBox/Software.pm:132
+#: src/EBox/Software.pm:138
 msgid ""
 "An error ocurred while removing components. If the error persists or eBox "
 "stops working properly, seek technical support."
@@ -84,11 +84,11 @@ msgstr ""
 "weiterhin auftritt oder die eBox nicht mehr richtig funktioniert, ziehen Sie "
 "technische Unterstützung bei"
 
-#: src/EBox/Software.pm:304 src/EBox/PackageDescriptions.pm:18
+#: src/EBox/Software.pm:310 src/EBox/PackageDescriptions.pm:18
 msgid "Software management"
 msgstr "Softwareverwaltung"
 
-#: src/EBox/Software.pm:311
+#: src/EBox/Software.pm:317
 msgid "Configuration"
 msgstr "Konfiguration"
 
@@ -171,6 +171,11 @@ msgstr "Bandbreitennutzung für eBox"
 #: src/EBox/PackageDescriptions.pm:21
 msgid "User and Group management"
 msgstr "Benutzer- und Gruppenverwaltung"
+
+#: src/EBox/PackageDescriptions.pm:22
+#, fuzzy
+msgid "Web Server"
+msgstr "DNS-Server"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"

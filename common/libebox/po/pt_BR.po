@@ -4,9 +4,9 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
-"Project-Id-Version: libebox 0.10.99\n"
+"Project-Id-Version: libebox 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:38+0100\n"
+"POT-Creation-Date: 2007-12-05 09:47+0100\n"
 "PO-Revision-Date: 2007-04-15 19:22+0000\n"
 "Last-Translator: Filipe Henriques <filipeh@gotr00t.net>\n"
 "Language-Team: <en@li.org>\n"
@@ -90,11 +90,11 @@ msgid ""
 msgstr ""
 "O seu pedido não pode ser processado porque faltam parametros necessários."
 
-#: src/EBox/CGI/Base.pm:782
+#: src/EBox/CGI/Base.pm:795
 msgid "Invalid uploaded file."
 msgstr "Upload de ficheiro inválido."
 
-#: src/EBox/CGI/Base.pm:788
+#: src/EBox/CGI/Base.pm:801
 msgid "Cannot create a temporally file for the upload"
 msgstr ""
 

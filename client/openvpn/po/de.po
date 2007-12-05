@@ -10,9 +10,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-openvpn 0.10.99\n"
+"Project-Id-Version: ebox-openvpn 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:40+0100\n"
+"POT-Creation-Date: 2007-12-05 09:49+0100\n"
 "PO-Revision-Date: 2007-08-19 12:17+0200\n"
 "Last-Translator: andy <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -25,7 +25,7 @@ msgstr ""
 #: src/EBox/CGI/Index.pm:16 src/EBox/CGI/ClientBundle.pm:19
 #: src/EBox/CGI/DeleteClient.pm:15 src/EBox/CGI/CreateClient.pm:34
 #: src/EBox/CGI/Delete.pm:15 src/EBox/CGI/Create.pm:15
-#: src/EBox/OpenVPN.pm:1345 src/EBox/OpenVPN.pm:1470
+#: src/EBox/OpenVPN.pm:1346 src/EBox/OpenVPN.pm:1471
 msgid "OpenVPN"
 msgstr "OpenVPN"
 
@@ -43,6 +43,8 @@ msgid ""
 "Certificate files cannot be changed in isolation. You must change all files "
 "at the same time"
 msgstr ""
+"Zertifikate können nicht für sich allein geändert werden. Sie müssen alle "
+"zusammen ändern"
 
 #: src/EBox/CGI/Edit.pm:158
 #, perl-brace-format
@@ -121,27 +123,31 @@ msgstr ""
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:45
 msgid "File supplied as CA's certificate is not valid"
-msgstr ""
+msgstr "Das angegebene Zertifikat der Zertifizierungsstelle ist ungültig"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:61
 msgid "File supplied as client's certificate is not valid"
-msgstr ""
+msgstr "Das angegebene Zertifikat des VPN-Benutzers ist ungültig"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:76
 msgid "File supplied as client's private key is not valid"
-msgstr ""
+msgstr "Der angegebene private Schlüssel des VPN-Benutzers ist ungültig"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:89
 msgid ""
 "File supplied as client's certficate doesn't match with file supplied as "
 "CA's certificate"
 msgstr ""
+"Das angegebene Zertifikat des VPN-Benutzers passt nicht zum angegebenen "
+"Zertifikat der Zertifizierungsstelle"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:118
 msgid ""
 "File supplied as client's certficate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
+"Das angegebene Zertifikat des VPN-Benutzers passt nicht zum angegebene "
+"privaten Schlüssel"
 
 #: src/EBox/OpenVPN/Server.pm:45
 msgid "The protocol only may be TCP or UDP."
@@ -265,12 +271,11 @@ msgid "A  server certificate must be specified"
 msgstr "Ein Serverzertifikat muss zugewiesen werden"
 
 #: src/EBox/OpenVPN/Server.pm:732
-#, fuzzy
 msgid ""
 "Cannot create the OpenVPN server because thre is not any external network "
 "interface available"
 msgstr ""
-"Der OpenVPN-Server {name} kann nicht aktiviert werden, weil keine "
+"Der OpenVPN-Server kann nicht erstellt werden, weil keine externen "
 "Netzwerkkarten verfügbar sind"
 
 #: src/EBox/OpenVPN/Server.pm:925
@@ -395,71 +400,65 @@ msgstr ""
 "Der Name {name} ist ungültig. Der Name eines internen Dienstes muss mit dem "
 "Präfix {pf} beginnen"
 
-#: src/EBox/OpenVPN.pm:1361
+#: src/EBox/OpenVPN.pm:1362
 msgid "OpenVPN daemons"
 msgstr "OpenVPN-Dienste"
 
-#: src/EBox/OpenVPN.pm:1391
+#: src/EBox/OpenVPN.pm:1392
 msgid "OpenVPN service"
 msgstr "OpenVPN-Dienst"
 
-#: src/EBox/OpenVPN.pm:1446
-#, fuzzy
-msgid "Date"
-msgstr "Generieren"
-
 #: src/EBox/OpenVPN.pm:1447
-msgid "Event"
-msgstr ""
+msgid "Date"
+msgstr "Datum"
 
-#: src/EBox/OpenVPN.pm:1449
-msgid "Type"
-msgstr ""
+#: src/EBox/OpenVPN.pm:1448
+msgid "Event"
+msgstr "Ereignis"
 
 #: src/EBox/OpenVPN.pm:1450
-msgid "Remote IP"
-msgstr ""
+msgid "Type"
+msgstr "Typ"
 
 #: src/EBox/OpenVPN.pm:1451
-#, fuzzy
+msgid "Remote IP"
+msgstr "IP-Adresse des Gegenübers"
+
+#: src/EBox/OpenVPN.pm:1452
 msgid "Remote Certificate"
-msgstr "Zertifikat"
+msgstr "Zertifikat des Gegenübers"
 
-#: src/EBox/OpenVPN.pm:1456
+#: src/EBox/OpenVPN.pm:1457
 msgid "Initialization sequence completed"
-msgstr ""
-
-#: src/EBox/OpenVPN.pm:1458
-msgid "Certificate issuer not authorized"
-msgstr ""
+msgstr "Die Einleitungssequenz ist abgeschlossen"
 
 #: src/EBox/OpenVPN.pm:1459
-msgid "Certificate common name not authorized"
-msgstr ""
+msgid "Certificate issuer not authorized"
+msgstr "Der Aussteller des Zertifikates ist nicht berechtigt"
 
 #: src/EBox/OpenVPN.pm:1460
-msgid "Certificate verification failed"
-msgstr ""
+msgid "Certificate common name not authorized"
+msgstr "Die Zertifikatsbezeichnung ist nicht berechtigt"
 
-#: src/EBox/OpenVPN.pm:1462
-#, fuzzy
-msgid "Client connection initiated"
-msgstr "Zertifikat des VPN-Benutzers"
+#: src/EBox/OpenVPN.pm:1461
+msgid "Certificate verification failed"
+msgstr "Das Zertifikat konnte nicht überprüft werden"
 
 #: src/EBox/OpenVPN.pm:1463
-#, fuzzy
-msgid "Client connection terminated"
-msgstr "Zertifikat des VPN-Benutzers"
+msgid "Client connection initiated"
+msgstr "Verbindung zum VPN-Benutzer aufgebaut"
 
-#: src/EBox/OpenVPN.pm:1465
-#, fuzzy
-msgid "Connection to server initiated"
-msgstr "Gegenstelle"
+#: src/EBox/OpenVPN.pm:1464
+msgid "Client connection terminated"
+msgstr "Verbindung zum VPN-Benutzer beendet"
 
 #: src/EBox/OpenVPN.pm:1466
-#, fuzzy
+msgid "Connection to server initiated"
+msgstr "Verbindung zum Server aufgebaut"
+
+#: src/EBox/OpenVPN.pm:1467
 msgid "Server connection terminated"
-msgstr "Konfiguration für Server {name} wurde aktualisiert"
+msgstr "Verbindung zum Server beendet"
 
 #: src/templates/createClient.mas:4
 msgid "OpenVPN client creation"
@@ -617,6 +616,9 @@ msgid ""
 "Changes in certificates and key files can not be discarded. You cannot "
 "change a certificate or key file in isolation; you must change all at once"
 msgstr ""
+"Änderungen an Zertifikaten und Schlüssel können nicht abgebrochen werden. "
+"Sie können ein Zertifikat nicht für sich allein ändern, Sie müssen immer "
+"alle zusammen ändern"
 
 #: src/templates/edit.mas:25
 #, perl-brace-format
@@ -721,7 +723,7 @@ msgstr ""
 
 #: src/templates/clientBundle.mas:37
 msgid "Add OpenVPN's installer to bundle"
-msgstr ""
+msgstr "OpenVPN-Installationsprogramm zum Paket hinzufügen"
 
 #: src/templates/clientBundle.mas:69
 msgid "Server's IP address"
@@ -811,13 +813,12 @@ msgid "Client name"
 msgstr "VPN-Benutzername"
 
 #: src/templates/externalIfaceRequired.mas:5
-#, fuzzy
 msgid ""
 "OpenVPN servers require at leat one external network\n"
 "interface available. Configure one first"
 msgstr ""
-"OpenVPN-Server brauchen mindestens ein VPN-Benutzerzertifikat. Generieren "
-"Sie zuerst eines"
+"OpenVPN-Server brauchen mindestens eine externe Netzwerkkarte. Konfigurieren "
+"Sie zuerst eine"
 
 #~ msgid "OpenVPN service status changed"
 #~ msgstr "Status des OpenVPN-Dienstes geändert"

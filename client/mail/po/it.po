@@ -4,9 +4,9 @@
 # Automatically generated, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-mail 0.10.99\n"
+"Project-Id-Version: ebox-mail 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:39+0100\n"
+"POT-Creation-Date: 2007-12-05 09:48+0100\n"
 "PO-Revision-Date: 2007-04-09 15:24+0000\n"
 "Last-Translator: Andrea Fino <af@netzen.it>\n"
 "Language-Team: none\n"
@@ -506,8 +506,7 @@ msgstr "Applica"
 
 #: src/templates/moduleDisabled.mas:5
 msgid ""
-"The following settings only will take effect when the mail module will be "
-"enabled"
+"The following settings only will take effect when the mail module is enabled"
 msgstr ""
 
 #: src/templates/createaccount.mas:15

@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-soap 0.10.99\n"
+"Project-Id-Version: ebox-soap 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 12:19+0100\n"
+"POT-Creation-Date: 2007-12-05 09:50+0100\n"
 "PO-Revision-Date: 2007-09-28 10:45+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,73 +16,76 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:151
+msgid "Control center admin at a log file"
+msgstr "Kontrolcenter info i en logfil"
+
+#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:191
+msgid "Control center"
+msgstr "Kontrolcenter"
+
+#: src/EBox/CGI/Enable.pm:38
+msgid "Enable SOAP service"
+msgstr "Slå SOAP til"
+
+#: src/EBox/CGI/Index.pm:38
+msgid "Control center communication"
+msgstr "Kontrolcenter kommunikation"
+
 #: src/EBox/CGI/DeleteBundle.pm:34
 msgid "Bundle Deleted"
-msgstr ""
+msgstr "bundle slettet"
 
 #: src/EBox/CGI/DeleteBundle.pm:74
 msgid ""
 "The previous bundle has been deleted. Upload a new one to establish a "
 "communication with an eBox control center"
 msgstr ""
+"Den foregående forbindelse er blevet slettet. Etabler en ny for at forbinde "
+"til et eBox kontrolcenter."
 
 #: src/EBox/CGI/ConnectivityTest.pm:39
 msgid "Connectivity test"
-msgstr ""
-
-#: src/EBox/CGI/Enable.pm:38
-msgid "Enable SOAP service"
-msgstr ""
-
-#: src/EBox/CGI/Index.pm:38
-msgid "Control center communication"
-msgstr ""
+msgstr "Forbindelsestest"
 
 #: src/EBox/CGI/UploadBundle.pm:36
 msgid "Bundle Upload"
-msgstr ""
+msgstr "Opload en bundle"
 
 #: src/EBox/CGI/UploadBundle.pm:77
 msgid "The bundle file has been uploaded successfully"
-msgstr ""
+msgstr "bundle filen er blevet oploadet"
 
 #: src/EBox/SOAP/Global.pm:147
 #, perl-brace-format
 msgid "{method} is not a public method"
-msgstr ""
+msgstr "{method} er ikke en offentlig metode"
 
 #: src/EBox/SOAP/Global.pm:175
 #, perl-brace-format
 msgid "{method} is not a defined method"
-msgstr ""
+msgstr "{method} er ikke definered"
 
 #: src/EBox/SOAP/Global.pm:183
 #, perl-brace-format
 msgid "{module} does not exist"
-msgstr ""
-
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:151
-msgid "Control center admin at a log file"
-msgstr ""
-
-#: src/EBox/Event/Dispatcher/ControlCenter.pm:164 src/EBox/SOAP.pm:191
-msgid "Control center"
-msgstr ""
+msgstr "{method} findes ikke"
 
 #: src/EBox/SOAP.pm:168
 msgid "SOAP"
-msgstr ""
+msgstr "SOAP"
 
 #: src/EBox/SOAP.pm:309
 #, perl-brace-format
 msgid "Missing uploaded file: {uploadedFile}"
-msgstr ""
+msgstr "{uploadedFile} kunne ikke findes"
 
 #: src/EBox/SOAP.pm:321
 #, perl-brace-format
 msgid ""
 "Uploaded file is a type of {type1}  but it should be a file of type {type2}"
 msgstr ""
+"Den oploadede fil er af typen {type1} , men den skulle være af typen {type2}"
 
 #: src/EBox/SOAP.pm:333
 #, perl-brace-format
@@ -90,26 +93,27 @@ msgid ""
 "Uploaded file does not contain the four mandatory files. It contains "
 "{number} "
 msgstr ""
+"den oploaded fil indeholder ikke de 4 krævede filer, den indeholder {number}"
 
 #: src/EBox/SOAP.pm:368
 msgid "It is required to upload a bundle to delete it"
-msgstr ""
+msgstr "Der er nødvendigt at oploade en bundle for at slette den"
 
 #: src/EBox/SOAP.pm:437
 msgid "You should enable the service to test the connectivity"
-msgstr ""
+msgstr "Du skal slå servicen til for at teste forbindelsen"
 
 #: src/EBox/SOAP.pm:940
 msgid "The OpenVPN client configuration file is missing"
-msgstr ""
+msgstr "OpenVPN client konfigurationens filen mangler"
 
 #: src/EBox/SOAP.pm:947
 msgid "The OpenVPN client configuration file is not well formatted "
-msgstr ""
+msgstr "OpenVPN klient konfigurationsfilen er ikke korrekt opbygget"
 
 #: src/EBox/SOAP.pm:977
 msgid "Some certificate is missing"
-msgstr ""
+msgstr "et certifikat mangler"
 
 #: src/EBox/SOAP.pm:984
 #, perl-brace-format
@@ -118,58 +122,65 @@ msgid ""
 "for a bundle which will be cleaned up. If you want to upload the bundle, "
 "please save changes first"
 msgstr ""
+"Du kan ikke oploade denne bundle fordi navnet {name} har været brugt til en "
+"bundle, der bliver slettet. hvis du ønsker at oploade denne bundle, så skal "
+"du gemme ændringer først"
 
 #: src/EBox/SOAP.pm:1017
 msgid "Certificate file is missing"
-msgstr ""
+msgstr "Certifikat filen mangler"
 
 #: src/EBox/SOAP.pm:1020
 msgid "Private key file is missing"
-msgstr ""
+msgstr "Den private nøgle mangler"
 
 #: src/EBox/SOAP.pm:1023
 msgid "Certification Authority file is missing"
-msgstr ""
+msgstr "Certifikatudsteder filen mangler"
 
 #: src/EBox/SOAP.pm:1075
 msgid ""
 "You should upload a bundle to be able to communicate with the control center"
-msgstr ""
+msgstr "Du skal oploade et bundle, for at kunne kommunikere med kontrolcentret"
 
 #: src/EBox/SOAP.pm:1084
 msgid ""
 "The OpenVPN client is not running. You may need to save changes in order to "
 "set up the OpenVPN client"
 msgstr ""
+"OpenVPN klienten kører ikke. Du skal måske gemme ændringerne for at kunne "
+"sætte OpenVPN klienten op"
 
 #: src/templates/index.mas:27
 msgid "General configuration for"
-msgstr ""
+msgstr "Generelle indstillinger for"
 
 #: src/templates/index.mas:52
 #, perl-brace-format
 msgid ""
 "The connection seems to be {state}. The percentage of loss was {percent}%"
-msgstr ""
+msgstr "Forbindelsen lader til at være {state}. Tabsprocenten er {percent}%"
 
 #: src/templates/index.mas:54
 msgid "ok"
-msgstr ""
+msgstr "ok"
 
 #: src/templates/index.mas:54
 msgid "down"
-msgstr ""
+msgstr "nede"
 
 #: src/templates/index.mas:83
 msgid "eBox Control Center bundle"
-msgstr ""
+msgstr "eBox kontrolcenter bundle"
 
 #: src/templates/index.mas:84
 msgid ""
 "Archive which contains all elements needed to establish the communication "
 "between eBox and the control center"
 msgstr ""
+"Backup der indeholder alle ting der er nødvendige for at kommunikere mellem "
+"eBox og kontrolcentret"
 
 #: src/templates/index.mas:90
 msgid "Upload"
-msgstr ""
+msgstr "opload"

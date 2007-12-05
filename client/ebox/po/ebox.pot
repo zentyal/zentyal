@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox 0.10.99\n"
+"Project-Id-Version: ebox 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:39+0100\n"
+"POT-Creation-Date: 2007-12-05 09:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -188,17 +188,17 @@ msgstr ""
 msgid "Jabber"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:217
+#: src/EBox/Event/Dispatcher/Jabber.pm:229
 #, perl-brace-format
 msgid "Jabber server {serverName} is down or connection is not allowed"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:247
+#: src/EBox/Event/Dispatcher/Jabber.pm:259
 #, perl-brace-format
 msgid "Subscription failed: {message}"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/Jabber.pm:254
+#: src/EBox/Event/Dispatcher/Jabber.pm:266
 #, perl-brace-format
 msgid "Authorization failed: {result} - {message}"
 msgstr ""
@@ -277,7 +277,7 @@ msgstr ""
 msgid "Choose a value within the value set {set}"
 msgstr ""
 
-#: src/EBox/Types/Int.pm:93
+#: src/EBox/Types/Int.pm:110
 msgid "Write down a positive number"
 msgstr ""
 
@@ -325,6 +325,62 @@ msgstr ""
 msgid "Disabled"
 msgstr ""
 
+#: src/EBox/Model/DataTable.pm:246
+#, perl-brace-format
+msgid "{model} in {module} module"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:250
+msgid " at "
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:431
+msgid "field"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:1854 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/Composite.pm:603 src/EBox/Model/Composite.pm:618
+#: src/EBox/Logs.pm:556
+msgid "Action"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:2460
+#, perl-brace-format
+msgid "Remove {num} rows of {rowName} from {model}{br}"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:2678
+#, perl-brace-format
+msgid "{row} added"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:2679
+#, perl-brace-format
+msgid "{row} deleted"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:2680
+#, perl-brace-format
+msgid "{row} updated"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:2681
+#, perl-brace-format
+msgid "{row} moved up"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:2682
+#, perl-brace-format
+msgid "{row} moved down"
+msgstr ""
+
+#: src/EBox/Model/DataTable.pm:3922
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:119
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:214
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:289
+msgid "Enabled"
+msgstr ""
+
 #: src/EBox/Model/ProviderBase.pm:127
 msgid ""
 "A provided class with has multiple instances cannot have construction "
@@ -336,74 +392,31 @@ msgstr ""
 msgid "Provided object with index {i} soes not exist"
 msgstr ""
 
-#: src/EBox/Model/ModelManager.pm:450
+#: src/EBox/Model/ModelManager.pm:454
 msgid ""
 "The data you are removing is being used by\n"
 "\t\t\tthe following sections:"
 msgstr ""
 
-#: src/EBox/Model/ModelManager.pm:497
+#: src/EBox/Model/ModelManager.pm:501
 msgid ""
 "The data you are modifying is being used by\n"
 "\t\t\tthe following sections:"
 msgstr ""
 
-#: src/EBox/Model/DataMultiTable.pm:168 src/EBox/Model/DataTable.pm:1753
-#: src/EBox/Model/Composite.pm:603 src/EBox/Model/Composite.pm:618
-#: src/EBox/Logs.pm:555
-msgid "Action"
-msgstr ""
-
-#: src/EBox/Model/DataForm.pm:529
+#: src/EBox/Model/DataForm.pm:524
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
 msgstr ""
 
-#: src/EBox/Model/DataForm.pm:652 src/templates/progress.mas:20
+#: src/EBox/Model/DataForm.pm:574 src/templates/firstTime/passwd.mas:38
+#: src/templates/password.mas:55 src/templates/dataInUse.mas:25
+#: src/templates/dataInUse.mas:34 src/templates/port.mas:14
+msgid "Change"
+msgstr ""
+
+#: src/EBox/Model/DataForm.pm:667 src/templates/progress.mas:20
 msgid "Done"
-msgstr ""
-
-#: src/EBox/Model/DataTable.pm:240
-#, perl-brace-format
-msgid "{model} in {module} module"
-msgstr ""
-
-#: src/EBox/Model/DataTable.pm:244
-msgid " at "
-msgstr ""
-
-#: src/EBox/Model/DataTable.pm:362
-msgid "field"
-msgstr ""
-
-#: src/EBox/Model/DataTable.pm:2360
-#, perl-brace-format
-msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr ""
-
-#: src/EBox/Model/DataTable.pm:2579
-#, perl-brace-format
-msgid "{row} added"
-msgstr ""
-
-#: src/EBox/Model/DataTable.pm:2580
-#, perl-brace-format
-msgid "{row} deleted"
-msgstr ""
-
-#: src/EBox/Model/DataTable.pm:2581
-#, perl-brace-format
-msgid "{row} updated"
-msgstr ""
-
-#: src/EBox/Model/DataTable.pm:2582
-#, perl-brace-format
-msgid "{row} moved up"
-msgstr ""
-
-#: src/EBox/Model/DataTable.pm:2583
-#, perl-brace-format
-msgid "{row} moved down"
 msgstr ""
 
 #: src/EBox/Model/Composite.pm:319
@@ -476,7 +489,7 @@ msgstr ""
 msgid "Restoring modules"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:554
+#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:555
 #: src/templates/finish.mas:22
 msgid "Module"
 msgstr ""
@@ -572,7 +585,7 @@ msgstr ""
 msgid "Bug-report configuration dump"
 msgstr ""
 
-#: src/EBox/CGI/Logs/Index.pm:33 src/EBox/Logs.pm:534
+#: src/EBox/CGI/Logs/Index.pm:33 src/EBox/Logs.pm:535
 msgid "Logs"
 msgstr ""
 
@@ -650,18 +663,12 @@ msgstr ""
 msgid "Domain"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:119
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:214
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:287
-msgid "Enabled"
-msgstr ""
-
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:129
-#: src/EBox/Logs/Model/ForcePurge.pm:97
+#: src/EBox/Logs/Model/ForcePurge.pm:99
 msgid "Purge logs older than"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:141 src/EBox/Logs.pm:540
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:141 src/EBox/Logs.pm:541
 msgid "Configure logs"
 msgstr ""
 
@@ -678,47 +685,51 @@ msgid "never purge"
 msgstr ""
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:167
-#: src/EBox/Logs/Model/ForcePurge.pm:122
+#: src/EBox/Logs/Model/ForcePurge.pm:125
 msgid "one hour"
 msgstr ""
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:171
-#: src/EBox/Logs/Model/ForcePurge.pm:126
+#: src/EBox/Logs/Model/ForcePurge.pm:129
 msgid "twelve hours"
 msgstr ""
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:175
-#: src/EBox/Logs/Model/ForcePurge.pm:130
+#: src/EBox/Logs/Model/ForcePurge.pm:133
 msgid "one day"
 msgstr ""
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:179
-#: src/EBox/Logs/Model/ForcePurge.pm:134
+#: src/EBox/Logs/Model/ForcePurge.pm:137
 msgid "three days"
 msgstr ""
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:183
-#: src/EBox/Logs/Model/ForcePurge.pm:138
+#: src/EBox/Logs/Model/ForcePurge.pm:141
 msgid "one week"
 msgstr ""
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:187
-#: src/EBox/Logs/Model/ForcePurge.pm:142
+#: src/EBox/Logs/Model/ForcePurge.pm:145
 msgid "fifteeen days"
 msgstr ""
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:191
-#: src/EBox/Logs/Model/ForcePurge.pm:146
+#: src/EBox/Logs/Model/ForcePurge.pm:149
 msgid "thirty days"
 msgstr ""
 
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:195
-#: src/EBox/Logs/Model/ForcePurge.pm:150
+#: src/EBox/Logs/Model/ForcePurge.pm:153
 msgid "ninety days"
 msgstr ""
 
-#: src/EBox/Logs/Model/ForcePurge.pm:106
+#: src/EBox/Logs/Model/ForcePurge.pm:108
 msgid "Force log purge"
+msgstr ""
+
+#: src/EBox/Logs/Model/ForcePurge.pm:111
+msgid "Purge"
 msgstr ""
 
 #: src/EBox/Events/Model/Dispatcher/Jabber.pm:191
@@ -767,7 +778,7 @@ msgid "It should follow the pattern 'user@domain[/resource]'"
 msgstr ""
 
 #: src/EBox/Events/Model/ConfigureEventDataTable.pm:192
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:239
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:241
 msgid "Name"
 msgstr ""
 
@@ -789,31 +800,31 @@ msgstr ""
 msgid "Enable/Disable each event watcher monitoring"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:249
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:251
 msgid "Receiver"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:261
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:263
 msgid "Configuration"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:281
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:283
 msgid "None"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:304
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:306
 msgid "Configure dispatchers"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:313
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:315
 msgid "dispatcher"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:314
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:316
 msgid "Enable/Disable each event dispatcher"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:502
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:504
 msgid ""
 "In order to enable a configurable event dispatcher, you need to configure it "
 "first"
@@ -867,41 +878,41 @@ msgstr ""
 msgid "port"
 msgstr ""
 
-#: src/EBox/Logs.pm:376
+#: src/EBox/Logs.pm:377
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr ""
 
-#: src/EBox/Logs.pm:537
+#: src/EBox/Logs.pm:538
 msgid "Query logs"
 msgstr ""
 
-#: src/EBox/Logs.pm:552 src/templates/confirm-backup.mas:28
+#: src/EBox/Logs.pm:553 src/templates/confirm-backup.mas:28
 #: src/templates/backup.mas:125 src/templates/finish.mas:21
 msgid "Date"
 msgstr ""
 
-#: src/EBox/Logs.pm:553
+#: src/EBox/Logs.pm:554
 msgid "Client Address"
 msgstr ""
 
-#: src/EBox/Logs.pm:556
+#: src/EBox/Logs.pm:557
 msgid "Params"
 msgstr ""
 
-#: src/EBox/Logs.pm:557
+#: src/EBox/Logs.pm:558
 msgid "Committed"
 msgstr ""
 
-#: src/EBox/Logs.pm:562
+#: src/EBox/Logs.pm:563
 msgid "Admin"
 msgstr ""
 
-#: src/EBox/Logs.pm:656
+#: src/EBox/Logs.pm:657
 msgid "Log messages"
 msgstr ""
 
-#: src/EBox/Logs.pm:668
+#: src/EBox/Logs.pm:669
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr ""
 
@@ -913,7 +924,7 @@ msgstr ""
 msgid "events"
 msgstr ""
 
-#: src/EBox/Events.pm:568
+#: src/EBox/Events.pm:603
 msgid "Event service status"
 msgstr ""
 
@@ -1005,6 +1016,11 @@ msgstr ""
 
 #: src/EBox/Backup.pm:1102
 msgid "Backup's archives"
+msgstr ""
+
+#: src/EBox/EventDaemon.pm:443
+#, perl-brace-format
+msgid "Dispatcher {name} disabled since it is not able to send events"
 msgstr ""
 
 #: src/EBox/FirstTime.pm:67 src/templates/firstTime/passwd.mas:4
@@ -1202,19 +1218,19 @@ msgstr ""
 msgid "No logs matching current criterion"
 msgstr ""
 
-#: src/templates/logs/dbtable.mas:72 src/templates/logs/dbtable.mas:73
+#: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
 msgid "first"
 msgstr ""
 
-#: src/templates/logs/dbtable.mas:76 src/templates/logs/dbtable.mas:77
+#: src/templates/logs/dbtable.mas:91 src/templates/logs/dbtable.mas:92
 msgid "prev"
 msgstr ""
 
-#: src/templates/logs/dbtable.mas:96 src/templates/logs/dbtable.mas:97
+#: src/templates/logs/dbtable.mas:111 src/templates/logs/dbtable.mas:112
 msgid "next"
 msgstr ""
 
-#: src/templates/logs/dbtable.mas:100 src/templates/logs/dbtable.mas:101
+#: src/templates/logs/dbtable.mas:115 src/templates/logs/dbtable.mas:116
 msgid "last"
 msgstr ""
 
@@ -1228,12 +1244,6 @@ msgstr ""
 
 #: src/templates/firstTime/passwd.mas:25 src/templates/password.mas:41
 msgid "Confirm password"
-msgstr ""
-
-#: src/templates/firstTime/passwd.mas:38 src/templates/password.mas:55
-#: src/templates/dataInUse.mas:25 src/templates/dataInUse.mas:34
-#: src/templates/port.mas:14
-msgid "Change"
 msgstr ""
 
 #: src/templates/firstTime/index.mas:6

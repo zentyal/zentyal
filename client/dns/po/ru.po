@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-dns 0.10.99\n"
+"Project-Id-Version: ebox-dns 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:38+0100\n"
+"POT-Creation-Date: 2007-12-05 09:48+0100\n"
 "PO-Revision-Date: 2007-04-11 16:23+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -52,8 +52,8 @@ msgstr "Доменное имя"
 msgid "IP address"
 msgstr "IP-адрес"
 
-#: src/EBox/Model/DNSComposite.pm:76 src/EBox/DNS.pm.in:559
-#: src/EBox/DNS.pm.in:595
+#: src/EBox/Model/DNSComposite.pm:76 src/EBox/DNS.pm.in:567
+#: src/EBox/DNS.pm.in:603
 msgid "DNS"
 msgstr "DNS"
 
@@ -70,7 +70,7 @@ msgstr "Домен"
 msgid "Domains"
 msgstr "Домен"
 
-#: src/EBox/Model/DomainTable.pm:91
+#: src/EBox/Model/DomainTable.pm:91 src/EBox/DNS.pm.in:250
 msgid "domain"
 msgstr "домен"
 
@@ -96,7 +96,7 @@ msgstr "Псевдоним"
 msgid "dns"
 msgstr ""
 
-#: src/EBox/DNS.pm.in:68
+#: src/EBox/DNS.pm.in:72
 msgid "DNS Server"
 msgstr ""
 

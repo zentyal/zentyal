@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: ebox-software 0.10.99\n"
+"Project-Id-Version: ebox-software 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-11-07 11:41+0100\n"
+"POT-Creation-Date: 2007-12-05 09:50+0100\n"
 "PO-Revision-Date: 2007-04-22 12:00+0000\n"
 "Last-Translator: Alper orus <alperor@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -22,7 +22,7 @@ msgid "Automatic software updates"
 msgstr "Otomatil sistem güncellemeleri"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:309
+#: src/EBox/Software.pm:315
 msgid "System updates"
 msgstr "Sistem güncellemeleri"
 
@@ -67,11 +67,11 @@ msgstr ""
 msgid "The installation of the packages has finished successfully"
 msgstr "Paketlerin kurulu başarılı bir şekilde tamamlandı"
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:307
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:313
 msgid "eBox components"
 msgstr "eBox bileşenleri"
 
-#: src/EBox/Software.pm:132
+#: src/EBox/Software.pm:138
 msgid ""
 "An error ocurred while removing components. If the error persists or eBox "
 "stops working properly, seek technical support."
@@ -79,11 +79,11 @@ msgstr ""
 "Bir bileşenin kaldırılması esnasında bir hata oluştur. Eğer bu hata tekrar "
 "meydana gelirse veya eBox düzgün çalışmaz ise 'Teknik Servis' bölümünü okuyun"
 
-#: src/EBox/Software.pm:304 src/EBox/PackageDescriptions.pm:18
+#: src/EBox/Software.pm:310 src/EBox/PackageDescriptions.pm:18
 msgid "Software management"
 msgstr "Uygulama yönetimi"
 
-#: src/EBox/Software.pm:311
+#: src/EBox/Software.pm:317
 msgid "Configuration"
 msgstr "Ayarlar"
 
@@ -166,6 +166,11 @@ msgstr "Ebox için internet trafik kontrolü"
 #: src/EBox/PackageDescriptions.pm:21
 msgid "User and Group management"
 msgstr "Kullanıcı ve grup yönetimi"
+
+#: src/EBox/PackageDescriptions.pm:22
+#, fuzzy
+msgid "Web Server"
+msgstr "eBox DNS sunucusu"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"
