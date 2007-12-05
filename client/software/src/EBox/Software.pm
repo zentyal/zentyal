@@ -20,6 +20,7 @@ use warnings;
 
 use base qw(EBox::GConfModule);
 
+use EBox;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Menu::Folder;
@@ -104,6 +105,11 @@ sub listEBoxPkgs
 sub installPkgs # (@pkgs)
 {
 	my ($self, @pkgs) = @_;
+
+	if (not @pkgs) {
+	  EBox::info("No packages to install");
+	  return;
+	}
 
 	my $executable = EBox::Config::libexec . "../ebox-software/ebox-update-packages @pkgs";
 	my $progress = EBox::ProgressIndicator->create(
