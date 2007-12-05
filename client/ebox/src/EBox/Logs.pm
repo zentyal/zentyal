@@ -291,7 +291,7 @@ sub getAllTables
 	
 	foreach my $mod (@{getLogsModules()}) {
 		my $comp = $mod->tableInfo();
-        $comp->{'helper'} = $mod;
+                $comp->{'helper'} = $mod;
 		next unless ($comp);
 		$tables->{$comp->{'index'}} = $comp;
 	}
@@ -300,8 +300,16 @@ sub getAllTables
 	return $tables;
 }
 
-
-sub  getTableInfo
+# Method: getTableInfo
+#
+#       Accessor to the table information from a log observer
+#
+# Returns:
+#
+#       hash ref - the table information returned by
+#       <EBox::LogObserver::tableInfo>
+#
+sub getTableInfo
 {
 	my ($self, $index) = @_;
 
@@ -362,22 +370,57 @@ sub _checkValidDate # (date)
 	return 1;
 }
 
+# Method: search
+#
+#       Search for content in stored logs (in posgresql database)
+#
+# Parameters:
+#
+#       from - String which represents the "from" date in "day-month-year
+#       hour:min:sec" format
+#
+#       to - String which represents the "to" date in "day-month-year
+#       hour:min:sec" format
+#
+#       index - String the module's name in lower case
+#
+#       pagesize - Int the page's size to return the result
+#
+#       page - Int the page to search for results
+#
+#       timecol - String the table field which contains the timestamp
+#       value (time and date field)
+#
+#       filters - hash ref a list of filters indexed by name which
+#       contains the value of the given filter (normally a
+#       string). Passing *undef* no filters are applied
+#
+# Returns:
+#
+#       hash ref - containing the search result. The components are
+#       the following:
+#
+#         totalret - Int the number of results, it could be zero
+#         arrayret - array ref containing the each returned row. Each
+#         component is an hash ref whose description is determined by
+#         the returned value of <EBox::Logs::getTableInfo> with
+#         parameter <EBox::Logs::search::index>.
+#
 sub search {
 	my ($self, $from, $to, $index, 
 	    $pagesize, $page, $timecol, $filters) = @_;
 
 	my $dbengine = EBox::DBEngineFactory::DBEngine();
-	
+
 	my $tables = $self->getAllTables();
 	my $tableinfo = $tables->{$index};
 	my $table = $tableinfo->{'tablename'};
-	
+
 	unless (defined $tableinfo) {
 		   throw  EBox::Exceptions::External( __x(
 		   'Table {table} does not exist', 'table' => $table));
 	}
-	
-	
+
 	$self->_addTableName($table);
 	if (_checkValidDate($from)) {
 		$self->_addDateFilter($timecol, $from, '>');
