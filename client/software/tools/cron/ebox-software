@@ -22,8 +22,19 @@ unless ($software->getAutomaticUpdates()) {
 	exit 0;
 }
 
+
+
 my @pkgnames = ();
 foreach my $pkg (@pkgs) {
 	push(@pkgnames, $pkg->{name});
 }
-$software->installPkgs(@pkgnames);
+
+if (@pkgnames) {
+  $software->installPkgs(@pkgnames);
+  # the installation has invalidated the previous packages list so we need to
+  # regenerate the cache
+  $software->listUpgradablePkgs(1);
+  $software->listEBoxPkgs(1);
+}
+
+1;
