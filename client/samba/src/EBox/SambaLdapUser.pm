@@ -151,7 +151,7 @@ sub _addUser ($$)
 	}
 
 	my  $samba = EBox::Global->modInstance('samba');
-	$self->_createDir(USERSPATH . "/$user", $unixuid, USERGROUP, '0700');
+	$self->_createDir(USERSPATH . "/$user", $unixuid, USERGROUP, '0701');
 	$self->_createDir(PROFILESPATH . "/$user", $unixuid, USERGROUP, '0700');
 	$self->_setUserQuota($unixuid, $samba->defaultUserQuota);
 }
