@@ -64,9 +64,12 @@ sub reloadModelsOnChange
 
 # Method: model
 #
+#      Accessor to the model instances provided by this provider
 #
 # Parameters:
-#          name - model's name
+#
+#      name - String model's name, that is, the value returned by
+#      method <EBox::Model::DataTable::name>
 #
 # Returns:
 #   a instance of the model requested
