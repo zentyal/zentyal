@@ -83,4 +83,40 @@ sub tableInfo
 	throw EBox::Exceptions::NotImplemented;
 }
 
+# Method: humanEventMessage
+#
+#      Given a row with the table description given by
+#      <EBox::LogObserver::tableInfo> it will return a human readable
+#      message to inform admin using events.
+#
+#      To be overriden by subclasses. Default behaviour is showing
+#      every field name following by a colon and the value.
+#
+# Parameters:
+#
+#      row - hash ref the row returned by <EBox::Logs::search>
+#
+# Returns:
+#
+#      String - the i18ned human readable message to send in an event
+#
+sub humanEventMessage
+{
+    my ($self, $row) = @_;
+
+    my $tableInfo = $self->tableInfo();
+    my $message = q{};
+    foreach my $field (@{$tableInfo->{order}}) {
+        if ( $field eq $tableInfo->{eventcol} ) {
+            $message .= $tableInfo->{titles}->{$tableInfo->{eventcol}}
+              . ': ' . $tableInfo->{events}->{$row->{$field}} . ' ';
+        } else {
+            $message .= $tableInfo->{titles}->{$field} . ': '
+              . $row->{$field} . ' ';
+        }
+    }
+    return $message;
+
+}
+
 1;
