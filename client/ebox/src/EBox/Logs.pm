@@ -467,7 +467,19 @@ sub search {
 }
 
 
-
+# Method: totalRecords
+#
+#       Get the total records stored in database for a given table
+#
+# Parameters:
+#
+#       tableName - String the table name to check the number of
+#       records
+#
+# Returns:
+#
+#       Integer - the number of records for this table
+#
 sub totalRecords {
 	my ($self, $table) = @_;
 	my $dbengine = EBox::DBEngineFactory::DBEngine();

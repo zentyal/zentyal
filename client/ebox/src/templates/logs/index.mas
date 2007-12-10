@@ -196,8 +196,21 @@ use Data::Dumper;
 %	if (@{$data}) {
 		<& logs/dbtable.mas , params => $tableinfo , data => $data , 
 				page => $page , selected => $selected, fromdate => \@fromdate,
-				todate => \@todate, tpages => $tpages, filters => $filters &>
-%	} else {
-		<div class='note'><% __('No logs matching current criterion') %></div>
+				todate => \@todate, tpages => $tpages,filters => $filters &>
+<%perl>
+	} else {
+            my $logs = EBox::Global->modInstance('logs');
+            my $totalRec =
+		$logs->totalRecords($tableinfo->{tablename});
+            if ( $totalRec > 0) {
+</%perl>
+		<div class='note'>
+                   <% __('No logs matching current criterion') %>
+                </div>
+%           } else {
+                <div class='note'>
+                   <% __('There are no logs for this domain') %>
+                </div>
+%           }
 %	}
 % }
