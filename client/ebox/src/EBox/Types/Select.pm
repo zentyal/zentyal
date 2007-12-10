@@ -223,7 +223,7 @@ sub _paramIsValid
         unless ( grep { $_ eq $value } @allowedValues ) {
             throw EBox::Exceptions::InvalidData( data   => $self->printableName(),
                                                  value  => $value,
-                                                 advice => __x('Choose a value within the value set {set}',
+                                                 advice => __x('Choose a value within the value set: {set}',
                                                               set => join(', ', @allowedValues)));
         }
 

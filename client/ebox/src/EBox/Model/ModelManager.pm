@@ -187,6 +187,7 @@ sub addModel
     push ( @{$self->{'models'}->{$modName}->{$modelName}}, $model);
 
     $self->markAsChanged();
+    $self->{'version'} = $self->_version();
 
 }
 
@@ -237,6 +238,7 @@ sub removeModel
     }
 
     $self->markAsChanged();
+    $self->{'version'} = $self->_version();
 
 }
 

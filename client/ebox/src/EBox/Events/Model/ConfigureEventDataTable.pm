@@ -35,6 +35,7 @@ use EBox;
 use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
+use EBox::Model::ModelManager;
 use EBox::Types::Text;
 use EBox::Types::Boolean;
 
@@ -160,20 +161,24 @@ sub rows
 #
 #
 sub updatedRowNotify
-  {
+{
 
-      my ($self, $rowRef) = @_;
+    my ($self, $rowRef) = @_;
 
-      # Get whether the event watcher is enabled or not
-      my $newRow = $self->row($rowRef->{id});
-      my $enabled = $newRow->{valueHash}->{enabled}->{value};
-      my $className = $newRow->{valueHash}->{eventWatcher}->{value};
+    # Get whether the event watcher is enabled or not
+    my $newRow = $self->row($rowRef->{id});
+    my $enabled = $newRow->{valueHash}->{enabled}->{value};
+    my $className = $newRow->{valueHash}->{eventWatcher}->{value};
 
-      # Set to move
-      $self->{gconfmodule}->enableEventElement('watcher', $className, $enabled);
+    # Set to move
+    $self->{gconfmodule}->enableEventElement('watcher', $className, $enabled);
 
+    # if the class name is a the log one, check if any log observer is ready
+    if ( $className =~ m/::Log$/ and $enabled) {
+        $self->_checkLogWatchers();
+    }
 
-  }
+}
 
 # Group: Protected methods
 
@@ -384,7 +389,26 @@ sub _fetchWatchers
 
   }
 
+# Method to check if there are any log watcher enabled
+sub _checkLogWatchers
+{
+    my ($self) = @_;
 
+    my $manager = EBox::Model::ModelManager->instance();
+
+    my $logWatcherConfModel = $manager->model('/' . $self->{gconfmodule}->name()
+                                              . '/LogWatcherConfiguration');
+
+    # Find those log watchers that are enabled
+    unless ( $logWatcherConfModel->find( enabled => 1 ) ) {
+        $self->setMessage(__('Warning! There is no log domain watcher enabled. '
+                             . q{Please, go to 'Configuration' to enable at least }
+                             . 'one to be notified when a log in this domain happens. ')
+                          . $self->message()
+                         );
+    }
+
+}
 
 1;
 

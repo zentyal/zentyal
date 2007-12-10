@@ -135,20 +135,21 @@ sub run
     my $to   = $self->_toDMYHMS($now);
     foreach my $logger (@loggers) {
         next unless $self->_isLoggerEnabled($logger);
-        my $finished = 0;
         my $pagesize = PAGESIZE;
-        my $page = 0;
         my $timeCol = $logs->getTableInfo($logger)->{timecol};
-        # my $filtersHash = $logs->getTableInfo($logger)->{filter};
-        do {
-            my $result = $logs->search($from, $to, $logger, $pagesize,
-                                       $page, $timeCol, undef);
-            my $nPages = POSIX::ceil ( $result->{totalret} / $pagesize );
-            $finished = ($page + 1) >= $nPages;
-            $page++;
-            my $newEvents = $self->_createEvents($logger, $result->{arrayret});
-            push (@{$events}, @{$newEvents})
-        } while (not $finished);
+        foreach my $filter (@{$self->_filters($logger)}) {
+            my $finished = 0;
+            my $page = 0;
+            do {
+                my $result = $logs->search($from, $to, $logger, $pagesize,
+                                           $page, $timeCol, $filter);
+                my $nPages = POSIX::ceil ( $result->{totalret} / $pagesize );
+                $finished = ($page + 1) >= $nPages;
+                $page++;
+                my $newEvents = $self->_createEvents($logger, $result->{arrayret});
+                push (@{$events}, @{$newEvents})
+            } while (not $finished);
+        }
     }
     $self->_setLastQueriedTime($now);
 
@@ -277,6 +278,36 @@ sub _isLoggerEnabled
     my $row = $confModel->find(domain => $logger);
 
     return $row->{enabled};
+
+}
+
+# Returns the filters used to do the search in and-ed mode
+sub _filters
+{
+
+    my ($self, $logger) = @_;
+
+    my $manager = EBox::Model::ModelManager->instance();
+    my $logConfModel = $manager->model($self->ConfigureModel());
+    my $loggerConfRow = $logConfModel->findValue(domain => $logger);
+
+    my $filterDirectory = $loggerConfRow->{filters}->{directory};
+
+    my $filterModel = $manager->model($loggerConfRow->{filters}->{model});
+    $filterModel->setDirectory($filterDirectory);
+
+    my @filterSearchs = ();
+    foreach my $filterRow (@{$filterModel->rows()}) {
+        my $filterSearch = {};
+        foreach my $filterField (@{$filterRow->{values}}) {
+            if ( $filterField->value() ) {
+                $filterSearch->{$filterField->fieldName()} = $filterField->value();
+            }
+        }
+        push ( @filterSearchs, $filterSearch );
+    }
+
+    return \@filterSearchs;
 
 }
 

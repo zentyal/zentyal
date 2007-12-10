@@ -43,6 +43,9 @@ use EBox::Menu::Item;
 use EBox::Service;
 use EBox::Summary::Status;
 
+# Core modules
+use Error qw(:try);
+
 ################
 # Core modules
 ################
@@ -574,11 +577,19 @@ sub _obtainModelsByPrefix # (prefix)
           # It should be a model
           next unless ( $className->isa('EBox::Model::DataTable'));
 
-          push ( @models,  $className->new(
-                                           gconfmodule => $self,
-                                           directory   => $fileName,
-                                          )
-               );
+          try {
+              my $model = $className->new(
+                                          gconfmodule => $self,
+                                          directory   => $fileName,
+                                         );
+              push ( @models, $model);
+              # If there are submodels, created them as well
+              if ( $model->can('subModels') ) {
+                  push( @models, @{$model->subModels()});
+              }
+          } catch EBox::Exceptions::Base with {
+              EBox::warn("model $className cannot be instantiated");
+          };
 
       }
 

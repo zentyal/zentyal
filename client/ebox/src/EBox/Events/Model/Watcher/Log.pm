@@ -30,11 +30,16 @@ package EBox::Events::Model::Watcher::Log;
 use base 'EBox::Model::DataTable';
 
 # eBox uses
+use EBox::Exceptions::DataNotFound;
+use EBox::Events::Model::Watcher::LogFiltering;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Model::ModelManager;
 use EBox::Types::HasMany;
 use EBox::Types::Text;
+
+# Core modules
+use Error qw(:try);
 
 # Constants
 use constant FILTERING_MODEL_NAME => 'LogWatcherFiltering';
@@ -61,10 +66,30 @@ sub new
       bless ( $self, $class);
 
       $self->{logs} = EBox::Global->modInstance('logs');
+      $self->{models} = [];
 
       return $self;
 
   }
+
+# Method: models
+#
+#     Return the list of models which has to be included in model
+#     manager
+#
+# Returns:
+#
+#     array ref - containing all models
+#
+sub subModels
+{
+
+    my ($self) = @_;
+
+    $self->_setUpModels();
+    return $self->{models};
+
+}
 
 # Method: rows
 #
@@ -87,7 +112,10 @@ sub rows
 
     my $logs = $self->{logs};
 
-    # Fetch the current log domains stored in gconf 
+    # Set up every model
+    $self->_setUpModels();
+
+    # Fetch the current log domains stored in gconf
     my $currentRows = $self->SUPER::rows();
     my %storedLogDomains;
     foreach my $row (@{$currentRows}) {
@@ -105,7 +133,6 @@ sub rows
     foreach my $domain (keys %currentLogDomains) {
         next if (exists $storedLogDomains{$domain});
         $self->addRow('domain' => $domain, 'enabled' => 0);
-        $self->_createFilteringModel($domain);
     }
 
     # Remove non-existing domains from gconf
@@ -120,13 +147,64 @@ sub rows
 
 }
 
+# Method: updatedRowNotify
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::updatedRowNotify>
+#
+sub updatedRowNotify
+{
+    my ($self, $oldRow, $force) = @_;
+
+    my $row = $self->row($oldRow->{id});
+
+    # Warn if the parent log observer is not enabled
+    if ( $row->{plainValueHash}->{enabled} ) {
+        my $manager = EBox::Model::ModelManager->instance();
+        my $eventModel = $manager->model('ConfigureEventDataTable');
+        my $logConfRow = $eventModel->find( eventWatcher => ref( $self ));
+        unless ( $logConfRow->{enabled} ) {
+            $self->setMessage(__('Warning! The log watcher is not enabled. '
+                                 . 'Enable to be notified when logs happen. '
+                                 . $self->message()));
+        }
+    }
+
+}
+
+# Method: addedRowNotify
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::addedRowNotify>
+#
+sub addedRowNotify
+{
+    my ($self, $row, $force) = @_;
+
+    # Warn if the parent log observer is not enabled
+    if ( $row->{plainValueHash}->{enabled} ) {
+        my $manager = EBox::Model::ModelManager->instance();
+        my $eventModel = $manager->model('ConfigureEventDataTable');
+        my $logConfRow = $eventModel->find( eventWatcher => ref( $self ));
+        unless ( $logConfRow->{enabled} ) {
+            $self->setMessage(__('Warning! The log watcher is not enabled. '
+                                 . 'Enable to be notified when logs happen. '
+                                 . $self->message()));
+        }
+    }
+
+}
+
+
 # Group: Protected methods
 
 # Method: _table
 #
 # Overrides:
 #
-#     <EBox::Model::DataForm::_table>
+#     <EBox::Model::DataTable::_table>
 #
 sub _table
   {
@@ -193,21 +271,35 @@ sub acquireFilteringModel
 
 # Group: Private methods
 
+# Set up the already created models
+sub _setUpModels
+{
+
+    my ($self) = @_;
+
+    my @logDomains = keys %{$self->{logs}->getAllTables()};
+    foreach my $domain (@logDomains) {
+        push ( @{$self->{models}},
+               $self->_createFilteringModel($domain));
+    }
+
+}
+
 # Create a new filtering model given a
 # log domain and notify this new model to model manager
 sub _createFilteringModel # (domain)
 {
     my ($self, $domain) = @_;
 
+
     my $domainTableInfo = $self->{logs}->getTableInfo($domain);
+    $filteringModel = new EBox::Events::Model::Watcher::LogFiltering(
+                                                                     gconfmodule => $self->{gconfmodule},
+                                                                     directory   => $self->{gconfdir},
+                                                                     tableInfo => $domainTableInfo,
+                                                                    );
 
-    my $filteringModel = new EBox::Events::Model::Watcher::LogFiltering(
-                                                                        tableInfo => $domainTableInfo,
-                                                                       );
-    my $modelManager = EBox::Model::ModelManager->instance();
-
-    $modelManager->addModel('/events/' . FILTERING_MODEL_NAME . "/$domain",
-                            $filteringModel);
+    return $filteringModel;
 
 }
 

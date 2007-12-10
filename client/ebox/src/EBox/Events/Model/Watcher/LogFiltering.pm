@@ -21,13 +21,12 @@
 # (Check <EBox::LogObserver::tableInfo> for details)
 #
 # The model composition based on tableInfo information is the
-# following: 
+# following:
 #
 #     - filter1..n - Text
 #     - event      - Selection between the given selections from tableInfo
 #
 
-# FIXME ALL code 
 package EBox::Events::Model::Watcher::LogFiltering;
 
 use strict;
@@ -138,17 +137,40 @@ sub _table
 	         fieldName     => $filter,
 	         printableName => $self->{tableInfo}->{titles}->{$filter},
 		 editable      => 1,
+                 optional      => 1,
 				 ));
     }
     # Every event is a selection filter, we always allow the 'any'
     # selection which matches with every event that logger logs
+
+    # Create the options
+    my %events = %{$self->{tableInfo}->{events}};
+    my @eventOptions = ( {
+                          value => 'any',
+                          printableValue => __('Any')
+                         });
+    my $defaultEventOptionValue = 'any';
+    foreach my $eventName (keys %events) {
+        EBox::debug("adding $eventName");
+        push ( @eventOptions,
+               { value          => $eventName,
+                 printableValue => $events{$eventName},
+               }
+             );
+    }
+    # If there are one only event, just show that event as selectable
+    if ( @eventOptions == 2 ) {
+        shift(@eventOptions);
+        $defaultEventOptionValue = undef;
+    }
+
     push ( @tableDesc,
 	   new EBox::Types::Select(
 				   fieldName => 'event',
 				   printableName => __('Event'),
 				   editable => 1,
-				   populate => \&populateEvents,
-				   defaultValue => 'any'
+                                   options  => \@eventOptions,
+				   defaultValue => $defaultEventOptionValue,
 				  ));
 
     my $dataTable = {
@@ -171,23 +193,5 @@ sub _table
     return $dataTable;
 
 }
-
-# Group: Callback functions
-
-# Function: populateEvents
-#
-#    Populate event field with options from 'event' key in table
-#    info. Moreover, the 'any' element is added if there is more than
-#    one event lives in the table info
-#
-# Returns:
-#
-#    array ref - containing hash ref with value and printable value
-#
-sub populateEvents
-{
-
-}
-
 
 1;
