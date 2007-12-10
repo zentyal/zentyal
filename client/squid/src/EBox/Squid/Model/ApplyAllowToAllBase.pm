@@ -165,7 +165,7 @@ END
 		   );
 
 
-  EBox::debug("applyToAll js:\n $JS");
+
   return $JS;
 
 }
