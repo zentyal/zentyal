@@ -47,9 +47,7 @@ function applyAllChangeRows(url, table, fields, directory, id, page, force, onCo
 	if ( page != undefined ) {
 	   pars += '&page=' + page;
 	 }
-        if ( page != undefined ) {
-          pars += '&page=' + page;
-        }
+
   	pars += '&filter=' + inputValue(table + '_filter');
   	pars += '&pageSize=' + inputValue(table + '_pageSize');
 
