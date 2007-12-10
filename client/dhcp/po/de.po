@@ -47,7 +47,7 @@ msgstr "Der Bereich {from}-{to} ist nicht im Netzwerk {net}"
 #, perl-brace-format
 msgid "Range {from}-{to} includes interface with IP address: {ifaceIP}"
 msgstr ""
-"Der Bereich {from}-{new} beinhaltet die IP-Adresse einer Netzwerkkarte: "
+"Der Bereich {from}-{to} beinhaltet die IP-Adresse einer Netzwerkkarte: "
 "{ifaceIP}"
 
 #: src/EBox/Model/RangeTable.pm:163
