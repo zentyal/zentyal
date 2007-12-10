@@ -44,7 +44,12 @@
       on the sort of interface you shape on. If we select  external interfaces,
       the shaping takes place on the traffic coming out from eBox 
       to the Internet.  On the other hand, shaping on internal interfaces 
-      affects to traffic coming in from the Internet.
+      affects to traffic coming in from the Internet. This is very
+      important when the source and destination values are set. For
+      example, if you want to shape the downloading from a single
+      host, you may set its host address in destination not in
+      source. On the other hand, if you want to shape its uploading
+      rate, you may set its address on the source value.
     </para>
    </section>
    <section id="sect-rules">
