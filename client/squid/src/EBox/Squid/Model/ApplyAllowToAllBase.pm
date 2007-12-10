@@ -32,7 +32,6 @@ sub setRow
   my ($self, $force, %params) = @_;
 
   my $allowValue = $params{allowForAll} ? 1 : 0;
-  EBox::debug("allow value $allowValue");
 
 
   my $listModel = $self->listModel();
