@@ -4,6 +4,11 @@
 	before actually sending it
 	+ Added Action forms to perform an action without modifying
 	persistent data
+	+ Log queries are faster if there is no results
+	+ Show no data stored when there are no logs for a domain
+	+ Log watcher is added in order to notify when an event has
+	happened. You can configure which log watcher you may enable and
+	what you want to be notify by a determined filter and/or event.
 0.11
 	+ Fix issue with multiple models and models with params.
 	  This triggered a bug in DHCP when there was just one static
