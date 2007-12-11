@@ -28,8 +28,7 @@ case "$1" in
         /usr/lib/ebox/ebox-migrate /usr/lib/ebox-firewall/migration/
 
         # create log table
-        /usr/lib/ebox/ebox-sql-table add firewall 
-        /usr/share/ebox/sqllog/firewall.sql
+        /usr/lib/ebox/ebox-sql-table add firewall /usr/share/ebox/sqllog/firewall.sql
 
         # restart logs
         invoke-rc.d ebox logs restart || true
