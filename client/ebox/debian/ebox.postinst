@@ -139,8 +139,9 @@ EOT
 		create_db
 
 		/usr/lib/ebox/ebox-sql-table add admin /usr/share/ebox/sqllog/admin.sql
-		# migrate logs data if needed
+		# migrate logs and events data if needed
 		/usr/lib/ebox/ebox-migrate /usr/lib/ebox-logs/migration/
+		/usr/lib/ebox/ebox-migrate /usr/lib/ebox-events/migration/
 
 		/etc/init.d/ebox start
 

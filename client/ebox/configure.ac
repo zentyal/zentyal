@@ -160,6 +160,8 @@ schemas/Makefile
 conf/Makefile
 conf/.gconf.path
 migration/Makefile
+migration/events/Makefile
+migration/logs/Makefile
 Makefile
 ])
 
