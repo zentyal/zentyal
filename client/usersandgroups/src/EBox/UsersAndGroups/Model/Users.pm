@@ -73,7 +73,7 @@ sub _table
 			'tableName' => 'Users',
 			'printableTableName' => __('Users'),
 			'defaultController' =>
-				'/ebox/UsersAndGroups/Controller/Users',
+                'ebox/Users/Controller/Users',
 			'defaultActions' =>
 				['changeView'],
 			'tableDescription' => \@tableHead,

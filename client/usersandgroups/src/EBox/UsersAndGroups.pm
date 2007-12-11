@@ -45,7 +45,7 @@ use constant DEFAULTGROUP   => '__USERS__';
 sub _create 
 {
 	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'usersandgroups',
+	my $self = $class->SUPER::_create(name => 'users',
 					  domain => 'ebox-usersandgroups',
 					  @_);
 
@@ -1379,7 +1379,7 @@ sub menu
         $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Users',
                                         'text' => __('Add user')));
         $folder->add(new EBox::Menu::Item(
-		'url' => '/UsersAndGroups/View/Users',
+		'url' => '/Users/View/Users',
                 'text' => __('Edit user')));
 	$root->add($folder);
         $root->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Groups',
