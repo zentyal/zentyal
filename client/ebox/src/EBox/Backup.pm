@@ -1053,7 +1053,7 @@ sub _checkModDeps
 
   if (not defined $mod) {
     if ($level == 0) {
-      throw EBox::Exceptions::Internal ("$topModule can not be created again");
+      throw EBox::Exceptions::Internal ("$topModule cannot be created again");
     }
     else {
       throw EBox::Exceptions::External __x('Unresolved restore dependency for module {topModule}: {modName} is not installed', topModule => $topModule, modName => $modName  );
