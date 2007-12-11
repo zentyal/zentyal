@@ -321,9 +321,11 @@ sub _populateMIMETypes
 
   my $defaultAllow = 1;
 
-  if ($onlyAllowType != $defaultAllow) {
-    if ( $force) {
-      $defaultAllow = $onlyAllowType;
+  if (defined $onlyAllowType)  {
+    if ($onlyAllowType != $defaultAllow) {
+      if ( $force) {
+	$defaultAllow = $onlyAllowType;
+      }
     }
   }
 
