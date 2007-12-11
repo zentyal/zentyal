@@ -69,7 +69,7 @@ sub _description
         {
          components      => [
                              'SquidService',
-                             'GeneralSettings',
+                             '/squid/GeneralSettings',
                             ],
          layout          => 'top-bottom',
          name            => 'General',
