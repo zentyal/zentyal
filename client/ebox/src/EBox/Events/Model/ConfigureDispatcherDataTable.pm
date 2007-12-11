@@ -417,7 +417,7 @@ sub acquireURL
 
 # Function: acquireConfModel
 #
-#       Callback function used to gather the foreignModel and its view
+#       Callback function used to gather the URL
 #       in order to configure the event dispatcher
 #
 # Parameters:

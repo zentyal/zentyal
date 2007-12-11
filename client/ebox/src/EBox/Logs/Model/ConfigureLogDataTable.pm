@@ -30,12 +30,14 @@ package EBox::Logs::Model::ConfigureLogDataTable;
 # eBox classes
 use EBox::Global;
 use EBox::Gettext;
+use EBox::Model::ModelManager;
 use EBox::Validate qw(:all);
-use EBox::Types::Int;
-use EBox::Types::Text;
 use EBox::Types::Boolean;
-use EBox::Types::Select;
+use EBox::Types::Int;
 use EBox::Types::IPAddr;
+use EBox::Types::Link;
+use EBox::Types::Select;
+use EBox::Types::Text;
 use EBox::Types::Union;
 use EBox::Sudo;
 # eBox exceptions used 
@@ -47,6 +49,7 @@ use warnings;
 
 use base 'EBox::Model::DataTable';
 
+# Group: Public methods
 
 sub new 
 {
@@ -57,145 +60,6 @@ sub new
     bless($self, $class);
 
     return $self;
-}
-
-# Function: filterDomain
-#
-#   This is a callback used to filter the output of the field domain.
-#   It basically translates the log domain
-#
-# Parameters:
-#
-#   instancedType-  an object derivated of <EBox::Types::Abastract>
-#
-# Return:
-#
-#   string - translation
-sub filterDomain
-{
-    my ($instancedType) = @_;
-
-    my $logs = EBox::Global->modInstance('logs');
-
-    my $table = $logs->getTableInfo($instancedType->value());
-
-    my $translation = $table->{'name'};
-
-    if ($translation) {
-        return $translation;
-    } else {
-        return $instancedType->value();
-    }
-}
-
-# Method:  _table
-#
-# This method overrides <EBox::Model::DataTable::_table> to return
-# a table model description.
-#
-# This table is composed of two fields:
-#
-#   domain (<EBox::Types::Text>)    
-#   enabled (EBox::Types::Boolean>)
-# 
-# The only avaiable action is edit and only makes sense for 'enabled'.
-# 
-sub _table
-{
-    my @tableHead = 
-        ( 
-            new EBox::Types::Text(
-                    'fieldName' => 'domain',
-                    'printableName' => __('Domain'),
-                    'class' => 'tcenter',
-                    'type' => 'text',
-                    'size' => '12',
-                    'unique' => 1,
-                    'editable' => 0,
-		    'filter' => \&filterDomain
-                 ),
-            new EBox::Types::Boolean(
-                    'fieldName' => 'enabled',
-                    'printableName' => __('Enabled'),
-                    'class' => 'tcenter',
-                    'type' => 'boolean',
-                    'size' => '1',
-                    'unique' => 0,
-                    'trailingText' => '',
-                    'editable' => 1,
-                ),
-	    new EBox::Types::Select(
-		  'fieldName' => 'lifeTime',
-		  'printableName' => __('Purge logs older than'),
-		   populate       => \&_populateSelectLifeTime,
-		   editable       => 1,
-		  defaultValue    => 168, # one week
-		 ),
-
-
-        );
-
-    my $dataTable = 
-        { 
-            'tableName' => 'ConfigureLogTable',
-            'printableTableName' => __('Configure logs'),
-	    'defaultController' => '/ebox/Logs/Controller/ConfigureLogTable',
-            'defaultActions' => [ 'editField', 'changeView' ],
-            'tableDescription' => \@tableHead,
-            'class' => 'dataTable',
-            'order' => 0,
-            'help' => __x('Enable/disable logging per-module basis'),
-            'rowUnique' => 0,
-            'printableRowName' => __('logs'),
-        };
-
-    return $dataTable;
-}
-
-
-
-sub _populateSelectLifeTime
-
-{
-  # life time values must be in hours
-  return  [
-	   {
-	    printableValue => __('never purge'),
-	    value          =>  0,
-	   },
-	   {
-	    printableValue => __('one hour'),
-	    value          => 1,
-	   },
-	   {
-	    printableValue => __('twelve hours'),
-	    value          => 12,
-	   },
-	   {
-	    printableValue => __('one day'),
-	    value          => 24,
-	   },
-	   {
-	    printableValue => __('three days'),
-	    value          => 72,
-	   },
-	   {
-	    printableValue => __('one week'),
-	    value          =>  168,
-	   },
-	   {
-	    printableValue => __('fifteeen days'),
-	    value          =>  360,
-	   },
-	   {
-	    printableValue => __('thirty days'),
-	    value          =>  720,
-	   },
-	   {
-	    printableValue => __('ninety days'),
-	    value          =>  2160,
-	   },
-	  ];
 }
 
 
@@ -304,6 +168,181 @@ sub updatedRowNotify
 
 }
 
+# Group: Callback functions
+
+# Function: filterDomain
+#
+#   This is a callback used to filter the output of the field domain.
+#   It basically translates the log domain
+#
+# Parameters:
+#
+#   instancedType-  an object derivated of <EBox::Types::Abastract>
+#
+# Return:
+#
+#   string - translation
+sub filterDomain
+{
+    my ($instancedType) = @_;
+
+    my $logs = EBox::Global->modInstance('logs');
+
+    my $table = $logs->getTableInfo($instancedType->value());
+
+    my $translation = $table->{'name'};
+
+    if ($translation) {
+        return $translation;
+    } else {
+        return $instancedType->value();
+    }
+}
+
+sub _populateSelectLifeTime
+{
+  # life time values must be in hours
+  return  [
+	   {
+	    printableValue => __('never purge'),
+	    value          =>  0,
+	   },
+	   {
+	    printableValue => __('one hour'),
+	    value          => 1,
+	   },
+	   {
+	    printableValue => __('twelve hours'),
+	    value          => 12,
+	   },
+	   {
+	    printableValue => __('one day'),
+	    value          => 24,
+	   },
+	   {
+	    printableValue => __('three days'),
+	    value          => 72,
+	   },
+	   {
+	    printableValue => __('one week'),
+	    value          =>  168,
+	   },
+	   {
+	    printableValue => __('fifteeen days'),
+	    value          =>  360,
+	   },
+	   {
+	    printableValue => __('thirty days'),
+	    value          =>  720,
+	   },
+	   {
+	    printableValue => __('ninety days'),
+	    value          =>  2160,
+	   },
+	  ];
+}
+
+# Function: acquireEventConfURL
+#
+#      Callback function used to gather the foreign model view URL to
+#      configure the event watcher configuration for this log domain
+#
+# Parameters:
+#
+#      instancedType - <EBox::Types::Abstract> the cell from which the
+#      URL will be obtained
+#
+# Returns:
+#
+#      String - the desired URL
+#
+sub acquireEventConfURL
+{
+    my ($instancedType) = @_;
+
+    my $logDomain = $instancedType->row()->{plainValueHash}->{domain};
+
+    my $modelManager = EBox::Model::ModelManager->instance();
+
+    my $logConfModel  = $modelManager->model('/events/LogWatcherConfiguration');
+    my $loggerConfRow = $logConfModel->findValue(domain => $logDomain);
+    my $filterDirectory = $loggerConfRow->{filters}->{directory};
+
+    my $logFilteringWatcher = $modelManager->model("/events/LogWatcherFiltering/$logDomain");
+
+    return '/ebox/' . $logFilteringWatcher->menuNamespace()
+      . "?directory=$filterDirectory";
+
+}
+
+# Group: Protected methods
+
+# Method:  _table
+#
+# This method overrides <EBox::Model::DataTable::_table> to return
+# a table model description.
+#
+# This table is composed of four fields:
+#
+#   domain (<EBox::Types::Text>)
+#   enabled (<EBox::Types::Boolean>)
+#   lifeTime (<EBox::Types::Select>)
+#   eventConf (<EBox::Types::Link>)
+#
+# The only avaiable action is edit and only makes sense for 'enabled'
+# and lifeTime.
+#
+sub _table
+{
+    my @tableHead =
+        (
+         new EBox::Types::Text(
+                    'fieldName' => 'domain',
+                    'printableName' => __('Domain'),
+                    'size' => '12',
+                    'unique' => 1,
+                    'editable' => 0,
+		    'filter' => \&filterDomain
+                              ),
+         new EBox::Types::Boolean(
+                    'fieldName' => 'enabled',
+                    'printableName' => __('Enabled'),
+                    'unique' => 0,
+                    'trailingText' => '',
+                    'editable' => 1,
+                                 ),
+         new EBox::Types::Select(
+		  'fieldName'     => 'lifeTime',
+		  'printableName' => __('Purge logs older than'),
+		  'populate'      => \&_populateSelectLifeTime,
+		  'editable'      => 1,
+                  'defaultValue'  => 168, # one week
+                                ),
+         new EBox::Types::Link(
+                  'fieldName'     => 'eventConf',
+                  'printableName' => __('Event configuration'),
+                  'editable'      => 0,
+                  'volatile'      => 1,
+                  'acquirer'      => \&acquireEventConfURL,
+                              ),
+        );
+
+    my $dataTable = 
+        { 
+            'tableName' => 'ConfigureLogTable',
+            'printableTableName' => __('Configure logs'),
+	    'defaultController' => '/ebox/Logs/Controller/ConfigureLogTable',
+            'defaultActions' => [ 'editField', 'changeView' ],
+            'tableDescription' => \@tableHead,
+            'class' => 'dataTable',
+            'order' => 0,
+            'help' => __x('Enable/disable logging per-module basis'),
+            'rowUnique' => 0,
+            'printableRowName' => __('logs'),
+        };
+
+    return $dataTable;
+}
 
 1;
 
