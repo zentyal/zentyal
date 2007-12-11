@@ -376,10 +376,10 @@ sub _checkValidDate # (date)
 #
 # Parameters:
 #
-#       from - String which represents the "from" date in "day-month-year
+#       from - String which represents the "from" date in "year-month-day
 #       hour:min:sec" format
 #
-#       to - String which represents the "to" date in "day-month-year
+#       to - String which represents the "to" date in "year-month-day
 #       hour:min:sec" format
 #
 #       index - String the module's name in lower case
@@ -570,7 +570,7 @@ sub _sqlStmnt {
 		}
 	}
 
-	$stmt .= "OFFSET ? LIMIT ?";
+        $stmt .= "OFFSET ? LIMIT ?";
 	push @params, $sql->{'offset'}, $sql->{'limit'};
 
 	return $stmt, @params;

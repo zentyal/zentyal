@@ -42,7 +42,7 @@ use Error qw(:try);
 use Time::Local;
 
 # Constants
-use constant LAST_QUERIED_FILE => EBox::Config::conf() . 'events/last-queried';
+use constant LAST_QUERIED_KEY => 'LogWatcher/LastQueriedTime';
 use constant PAGESIZE => 100;
 
 # Group: Public methods
@@ -131,8 +131,8 @@ sub run
     my $lastQueried = $self->_lastQueriedTime();
     my $now = time();
 
-    my $from = $self->_toDMYHMS($lastQueried);
-    my $to   = $self->_toDMYHMS($now);
+    my $from = $self->_toYMDHMS($lastQueried);
+    my $to   = $self->_toYMDHMS($now);
     foreach my $logger (@loggers) {
         next unless $self->_isLoggerEnabled($logger);
         my $pagesize = PAGESIZE;
@@ -230,15 +230,14 @@ sub _lastQueriedTime
     my ($self) = @_;
 
     if ( $self->{lastQueried} == 0 ) {
-        my $resOpen = open (my $fh, '<', LAST_QUERIED_FILE);
-        if ( $resOpen ) {
-            my $line = <$fh>;
-            ($self->{lastQueried}) = $line =~ m/(\d+)/;
-            close ($fh);
-        }
-        if ( $self->{lastQueried} == 0 ) {
+        # Get the last queried from State
+        my $eventsMod = EBox::Global->modInstance('events');
+        my $lastQueried = $eventsMod->st_get_int(LAST_QUERIED_KEY);
+        if ( not defined($lastQueried) or $lastQueried == 0) {
             # First query time in ages (1 January 2000)
             $self->{lastQueried} = timelocal(0, 0, 0, 1, 1, 2000);
+        } else {
+            $self->{lastQueried} = $lastQueried;
         }
     }
     return $self->{lastQueried};
@@ -251,20 +250,19 @@ sub _setLastQueriedTime
     my ($self, $lastQueried) = @_;
 
     $self->{lastQueried} = $lastQueried;
-    my $resOpen = open (my $fh, '>', LAST_QUERIED_FILE);
-    print $fh $self->{lastQueried};
-    close($fh);
+    my $eventsMod = EBox::Global->modInstance('events');
+    $eventsMod->st_set_int(LAST_QUERIED_KEY, $lastQueried);
 
 }
 
-# Transform from Epoch seconds to DMYHMS date string
-sub _toDMYHMS
+# Transform from Epoch seconds to YMDHMS date string
+sub _toYMDHMS
 {
     my ($self, $epochSecs) = @_;
 
     my ($secs, $mins, $hours, $days, $month, $year) = localtime($epochSecs);
-    return sprintf( "%02d-%02d-%04d %02d:%02d:%02d",
-                    $days, $month, $year+1900, $hours, $mins, $secs);
+    return sprintf( "%04d-%02d-%02d %02d:%02d:%02d",
+                    $year+1900, $month, $days, $hours, $mins, $secs);
 }
 
 # Get from configuration model if an event notification from a logger
