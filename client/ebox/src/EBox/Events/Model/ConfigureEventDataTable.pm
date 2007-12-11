@@ -36,9 +36,11 @@ use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Model::ModelManager;
+use EBox::Types::Boolean;
 use EBox::Types::HasMany;
 use EBox::Types::Text;
-use EBox::Types::Boolean;
+use EBox::Types::Union;
+use EBox::Types::Union::Text;
 
 # Constants:
 #

@@ -151,7 +151,6 @@ sub _table
                          });
     my $defaultEventOptionValue = 'any';
     foreach my $eventName (keys %events) {
-        EBox::debug("adding $eventName");
         push ( @eventOptions,
                { value          => $eventName,
                  printableValue => $events{$eventName},

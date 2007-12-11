@@ -147,7 +147,7 @@ sub run
                 $finished = ($page + 1) >= $nPages;
                 $page++;
                 my $newEvents = $self->_createEvents($logger, $result->{arrayret});
-                push (@{$events}, @{$newEvents})
+                push (@{$events}, @{$newEvents});
             } while (not $finished);
         }
     }
@@ -262,7 +262,7 @@ sub _toYMDHMS
 
     my ($secs, $mins, $hours, $days, $month, $year) = localtime($epochSecs);
     return sprintf( "%04d-%02d-%02d %02d:%02d:%02d",
-                    $year+1900, $month, $days, $hours, $mins, $secs);
+                    $year+1900, $month+1, $days, $hours, $mins, $secs);
 }
 
 # Get from configuration model if an event notification from a logger

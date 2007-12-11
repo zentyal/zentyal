@@ -111,8 +111,10 @@ sub humanEventMessage
             $message .= $tableInfo->{titles}->{$tableInfo->{eventcol}}
               . ': ' . $tableInfo->{events}->{$row->{$field}} . ' ';
         } else {
-            $message .= $tableInfo->{titles}->{$field} . ': '
-              . $row->{$field} . ' ';
+            my $rowContent = $row->{$field};
+            # Delete trailing spaces
+            $rowContent =~ s{ \s* \z}{}gxm;
+            $message .= $tableInfo->{titles}->{$field} . ": $rowContent ";
         }
     }
     return $message;
