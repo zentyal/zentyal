@@ -20,7 +20,7 @@ use warnings;
 
 use lib '../../..';
 
-use Test::More tests => 24;
+use Test::More tests => 26;
 use Test::Exception;
 use Test::Deep;
 use Test::MockObject;
@@ -50,7 +50,12 @@ Test::MockObject->fake_module('EBox::Network',
 
 sub _ifaceNetwork
 {
-    return '10.0.0.0';
+    my ($self, $iface) = @_;
+    if ( $iface eq 'eth0' ) {
+        return '10.0.0.0';
+    } else {
+        return '10.0.1.0';
+    }
 }
 
 sub _ifaceNetmask
@@ -60,12 +65,17 @@ sub _ifaceNetmask
 
 sub _ifaceAddress
 {
-    return '10.0.0.1';
+    my ($self, $iface) = @_;
+    if ( $iface eq 'eth0' ) {
+        return '10.0.0.1';
+    } else {
+        return '10.0.1.1';
+    }
 }
 
 sub _allIfaces
 {
-    return [ 'eth0' ];
+    return [ 'eth0', 'eth1' ];
 }
 
 sub _ifaceMethod
@@ -179,6 +189,17 @@ throws_ok {
     $fixedAddressModel->set( $addedMapId,
                              ip => '10.0.0.33');
 } 'EBox::Exceptions::External', 'Setting an ip within a range';
+
+# Test address coincedence in different models
+my $fixedAddressModel2 = $manager->model('/dhcp/FixedAddressTable/eth1');
+isa_ok($fixedAddressModel2, 'EBox::DHCP::Model::FixedAddressTable');
+
+throws_ok {
+    $fixedAddressModel2->add( name => 'mansun',
+                              ip   => '10.0.1.20',
+                              mac  => '00:AD:DA:AD:AD:AA',
+                            );
+} 'EBox::Exceptions::External', 'Setting a fixed address name which already exists in other model';
 
 lives_ok {
     $rangeModel->removeRow( $addedRangeId );

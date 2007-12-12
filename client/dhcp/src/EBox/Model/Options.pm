@@ -417,14 +417,14 @@ sub _table
 sub _domainModel
 {
     # FIXME: when model works with old fashioned
-    return EBox::Global->modInstance('dns')->{domainModel};
+    return EBox::Global->modInstance('dns')->model('DomainTable');
 }
 
 # Get the object model from Service module
 sub _gatewayModel
 {
     # FIXME: when model works with old fashioned
-    return EBox::Global->modInstance('network')->{gatewayModel};
+    return EBox::Global->modInstance('network')->model('GatewayTable');
 }
 
 # Fetch ip address from current interface

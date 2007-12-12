@@ -106,7 +106,7 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    # TODO: Check the given fixed address is not in any user given
+    # Check the given fixed address is not in any user given
     # range, it is within the available range and it cannot be the
     # interface address
     if ( exists ( $changedFields->{ip} )) {
@@ -151,6 +151,33 @@ sub validateTypedRow
                                                      from  => $from, to => $to));
             }
         }
+    }
+    if ( exists ( $changedFields->{name} )) {
+        # Check remainder FixedAddressTable models uniqueness since
+        # the dhcpd.conf may confuse those name repetition
+        my @fixedAddressTables = @{EBox::Model::ModelManager->instance()->model(
+             '/dhcp/FixedAddressTable/*'
+                                                                             )};
+        # Delete the self model
+        @fixedAddressTables = grep { $_->index() ne $self->index() }
+          @fixedAddressTables;
+
+        my @repRows = grep { $_->findValue( name => $changedFields->{name}->value() ) }
+          @fixedAddressTables;
+
+        if ( @repRows > 0 ) {
+            my $i18nAction = '';
+            if ( $action eq 'update' ) {
+                $i18nAction = __('update');
+            } else {
+                $i18nAction = __('add');
+            }
+            throw EBox::Exceptions::External(__x('You cannot {action} a fixed address with a '
+                                                 . 'name which is already used in other fixed '
+                                                 . 'address table',
+                                                 action => $i18nAction));
+        }
+
     }
 
 }
