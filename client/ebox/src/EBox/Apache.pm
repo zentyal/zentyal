@@ -126,8 +126,8 @@ sub _regenConfig
 }
 
 
-#  all the state keys for apache are session object so we delete them all
-#  warning: in the future this may change
+#  all the state keys for apache are sessions object so we delete them all
+#  warning: in the future maybe we can have other type of states keys
 sub _deleteSessionObjects
 {
   my ($self) = @_;
