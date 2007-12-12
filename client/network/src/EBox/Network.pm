@@ -74,7 +74,9 @@ sub modelClasses
 	  { class => 'EBox::Network::Model::GatewayTable',
 	    'directory' => 'gatewaytable', },
 	  {
-	  class => 'EBox::Network::Model::MultiGwRulesDataTable', 	'directory' => 'multigwrulestable', },
+           class => 'EBox::Network::Model::MultiGwRulesDataTable',
+           'directory' => 'multigwrulestable',
+          },
 	  'EBox::Network::Model::ByteRateGraph',
 	 ]
     
@@ -2348,7 +2350,7 @@ sub menu
 #  XXX delete and replace calls with direct call to the 'model' method
 sub gatewayModel {
 	my $self = shift;
-	return $self->model('gatewayModel');
+	return $self->model('GatewayTable');
 }
 
 # Method: multigwrulesModel
@@ -2364,7 +2366,7 @@ sub multigwrulesModel {
 	
 	my $self = shift;
 
-	return $self->model('multigwrulesModel');
+	return $self->model('MultiGwRulesDataTable');
 }
 
 
