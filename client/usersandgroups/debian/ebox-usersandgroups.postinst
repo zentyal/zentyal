@@ -47,12 +47,18 @@ case "$1" in
 
 			
 		# Init ldap data base
-		PASS="ebox$RANDOM$RANDOM"
+        LDAP_PWD="/var/lib/ebox/conf/ebox-ldap.passwd"
+        if [ -s $LDAP_PWD ]; then
+            PASS=$(cat $LDAP_PWD)
+        else 
+		    PASS="ebox$RANDOM$RANDOM"
+        fi
+
 		CRYPTPASS=`create_password_hash "$PASS"`;
 
-                echo "$PASS" > /var/lib/ebox/conf/ebox-ldap.passwd
-                chmod 0440 /var/lib/ebox/conf/ebox-ldap.passwd
-                chown ebox.ebox /var/lib/ebox/conf/ebox-ldap.passwd
+        echo "$PASS" > $LDAP_PWD 
+        chmod 0440 $LDAP_PWD 
+        chown ebox.ebox $LDAP_PWD 
 
 		# create slapd pid directory
 		test -d /var/run/slapd || mkdir /var/run/slapd
