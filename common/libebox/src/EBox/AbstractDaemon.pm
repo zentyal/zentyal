@@ -21,6 +21,7 @@
 package EBox::AbstractDaemon;
 
 use EBox;
+use EBox::Config;
 use POSIX;
 
 use Error qw(:try);
@@ -49,7 +50,10 @@ sub new
         my $class = shift;
 	my %opts = @_;
 	my $name = delete $opts{'name'};
-        my $self = {'name' => $name};
+        my $self = {
+		    'name' => $name
+		    
+		   };
         bless($self, $class);
         return $self;
 }
@@ -75,9 +79,13 @@ sub init {
 
 	foreach my $fd (0 .. 64) { POSIX::close($fd); }
 
-        open(STDIN,  "+</tmp/stdin");
-    	open(STDOUT, "+>/tmp/stdout");
-   	open(STDERR, "+>/tmp/stderr");
+
+	open(STDIN,  "+</tmp/stdin");
+	if (EBox::Config::configkey('debug') eq 'yes') {
+	  open(STDOUT, "+>/tmp/stdout");
+	  open(STDERR, "+>/tmp/stderr");
+	}
+
 
 	unless (-d PIDPATH) {
 		mkdir PIDPATH;
