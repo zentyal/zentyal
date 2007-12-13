@@ -183,9 +183,22 @@ use Data::Dumper;
 
 	<tr>
 	<td></td>
-	<td><input class='inputButton' type='submit' name='search'
-			value="<% __('Search') %>"
-			alt="<% __('Search') %>"></td>
+	<td>
+          <span>
+             <input class='inputButton' type='submit' name='search'
+               	    value="<% __('Search') %>"
+		    alt="<% __('Search') %>">
+          </span>
+          <span>
+            <input class='inputButton' type='submit' name='saveAsEvent'
+                   value="<% __('Save as event') %>"
+                   alt="<% __('Save as event') %>"
+                   title="<% __('Save query as an event to be '
+                          	. 'notified') %>">
+          </span>
+        </td>
+        
+
 	</tr>
 
 	<input type='hidden' name='tpages' value='<% $tpages %>'>

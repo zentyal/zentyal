@@ -24,7 +24,9 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::NotImplemented;
 
+# Dependencies
 use Error qw(:try);
+use Clone;
 
 sub new # (cgi=?)
 {
@@ -50,7 +52,6 @@ sub getParams
 
 	my %params;
 	foreach my $field (@{$tableDesc}) {
-
 		foreach my $fieldName ($field->fields()) {
 			my $value = $self->param($fieldName);
             # TODO Review code to see if we are actually checking
@@ -116,7 +117,7 @@ sub editField
 	my %params = $self->getParams();
 	my $force = $self->param('force');
 	$model->setRow($force, %params);
-	
+
 	my $editField = $self->param('editfield');
 	if (not $editField) {
 		return;
@@ -134,9 +135,10 @@ sub editField
 			}
 	}
 
-
 }
 
+
+# Method to refresh the table by calling rows method
 sub refreshTable
 {
 	my $self = shift;
@@ -166,6 +168,8 @@ sub refreshTable
 	$self->{'params'} = \@params;
 
 }
+
+# Group: Protected methods
 
 sub _process
 {

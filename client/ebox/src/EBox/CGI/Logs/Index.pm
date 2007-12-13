@@ -23,6 +23,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Model::ModelManager;
 use POSIX qw(ceil);
 
 use constant PAGESIZE => 15;
@@ -162,12 +163,8 @@ sub _searchLogs
     
     my @fromdate = @{ $self->_fromDate() };
     my @todate   = @{ $self->_toDate() };
-    
-    foreach my $filter (grep(s/^filter-//, @{$self->params()})) {
-	$hfilters->{$filter} = 
-	    $self->unsafeParam("filter-$filter");
-    }
-    
+
+    $hfilters = $self->_paramFilters();
     %hret = %{$logs->search($fromdate[2].'-'.$fromdate[1].'-'.$fromdate[0].' '.$fromdate[3].':'.$fromdate[4].':0',
 			    $todate[2].'-'.$todate[1].'-'.$todate[0].' '.$todate[3].':'.$todate[4].':0',
 			    $selected, 
@@ -202,12 +199,64 @@ sub _encode_filters {
 	return \%encoded;
 }
 
+# Method called when the user may want to save the query as an event
+# to be notified
+sub _saveAsEvent
+{
+    my ($self) = @_;
+
+    # Get filters
+    my $hfilters = $self->_paramFilters();
+    my $selected = $self->param('selected');
+
+    my $manager = EBox::Model::ModelManager->instance();
+    my $logConfModel = $manager->model('/events/LogWatcherConfiguration');
+    my $loggerConfRow = $logConfModel->findValue(domain => $selected);
+    my $logFilteringDirectory = $loggerConfRow->{filters}->{directory};
+
+    my $url = "Events/View/LogWatcherFiltering/$selected";
+    my $params = '?action=presetUpdate&tablename=LogWatcherFiltering&'
+      . "directory=$logFilteringDirectory&page=0&filter=&pagesize=10";
+    while (my ($key, $value) = each %{$hfilters}) {
+        if ( $key eq 'event' and not $value) {
+            $value = 'any';
+        }
+        # Do not pass the empty values ''
+        next unless ( $value );
+        $params .= "&$key=$value";
+    }
+
+    $self->setRedirect( $url . $params );
+    return;
+
+}
+
+# Function to get the filters from CGI parameters
+# Return an hash ref indexed by filter's name
+sub _paramFilters
+{
+    my ($self) = @_;
+
+    my $hfilters = {};
+    foreach my $filter (grep(s/^filter-//, @{$self->params()})) {
+	$hfilters->{$filter} =
+          $self->unsafeParam("filter-$filter");
+    }
+    return $hfilters;
+
+}
+
 sub _process
 {
 	my ($self) = @_;
-	
+
 	my $logs = EBox::Global->modInstance('logs');
 
+        # The user may click on saveAsEvent
+        if ( $self->param('saveAsEvent') ) {
+            $self->_saveAsEvent();
+            return;
+        }
 
 	my $selected = $self->param('selected');
 
