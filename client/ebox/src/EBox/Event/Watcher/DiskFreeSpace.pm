@@ -14,9 +14,13 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Event::Watcher::DiskFreeSpace;
+
 # Class: EBox::Event::Watcher::DiskFreeSpace
 #
-#   This class is a watcher which checks if a partition has no free space left
+#   This class is a watcher which checks if a partition has no free
+#   space left. The measure is done in percentages which is
+#   configurable by the user.
+#
 
 
 use base 'EBox::Event::Watcher::Base';
@@ -65,7 +69,7 @@ sub new
 
       my $self = $class->SUPER::new(
                                     period      => 120,
-                                    domain      => 'ebox',
+                                    domain      => 'ebox-events',
                                    );
       bless( $self, $class);
 
@@ -81,7 +85,19 @@ sub new
 #
 sub ConfigurationMethod
 {
-    return 'none';
+    return 'model';
+}
+
+
+# Method: ConfigureModel
+#
+# Overrides:
+#
+#       <EBox::Event::Component::ConfigureModel>
+#
+sub ConfigureModel
+{
+    return 'DiskFreeWatcherConfiguration';
 }
 
 # Method: run
@@ -94,10 +110,10 @@ sub ConfigurationMethod
 #
 # Returns:
 #
-#        undef - if all partiitons has sufficent space lef
+#        undef - if all partitions have sufficent space left
 #
-#        array ref - <EBox::Event> an event is sent when some partitions have
-#        not space left
+#        array ref - <EBox::Event> an event is sent when some
+#        partitions does not have space left
 #
 sub run
 {
@@ -106,13 +122,13 @@ sub run
   my @events;
   my $eventMod = EBox::Global->modInstance('events');
 
-  my %fileSys = %{ $self->_filesysToMonitor };
+  my %fileSys = %{ $self->_filesysToMonitor() };
   while (my ($fs, $properties) = each %fileSys) {
     my $key      = _eventKey($fs);
     my $eventHappened = $eventMod->st_get_bool($key);
 
     my $df = df($properties->{mountPoint});
-    if (($df->{bfree} < SPACE_THRESHOLD) and not $eventHappened) {
+    if ($self->_isFSFull($df) and not $eventHappened) {
       $eventMod->st_set_bool($key, 1);
 
       push @events,
@@ -134,48 +150,6 @@ sub run
   return \@events if @events;
   return undef;
 }
-
-
-sub _eventKey
-{
-  my ($fs) = @_;
-  $fs =~ s{/}{S}g;
-
-  return "event_fired/partition_full/$fs";
-}
-
-
-sub _filesysToMonitor
-{
-  my %fileSys = %{  EBox::FileSystem::fileSystems() };
-
-
-  foreach my $fs (keys %fileSys) {
-    # remove not-device filesystems
-    if (not $fs =~ m{^/dev/}) {
-      delete $fileSys{$fs};
-      next;
-    } 
-
-  # remove removable media filesystems
-    my $mpoint = $fileSys{$fs}->{mountPoint};
-    if ($mpoint =~ m{^/media/}) {
-      delete $fileSys{$fs};
-      next;
-    }
-
-    # we don't care about space shortage in read only file systems
-    my @options = split ',', $filesys{$fs}->{options};
-    if ('ro' eq any @options) {
-      delete $filesys{$fs};
-      next;
-    }
-
-  }
-
-  return \%fileSys;
-}
-
 
 # Group: Protected methods
 
@@ -213,6 +187,75 @@ sub _description
                 ' has no storage space left');
 
   }
+
+# Group: Private methods
+
+sub _eventKey
+{
+  my ($fs) = @_;
+
+  # Substitute slashes because of GConf key structure
+  $fs =~ s{/}{S}g;
+
+  return "event_fired/partition_full/$fs";
+}
+
+
+sub _filesysToMonitor
+{
+  my %fileSys = %{  EBox::FileSystem::fileSystems() };
+
+
+  foreach my $fs (keys %fileSys) {
+    # remove not-device filesystems
+    if (not $fs =~ m{^/dev/}) {
+      delete $fileSys{$fs};
+      next;
+    } 
+
+  # remove removable media filesystems
+    my $mpoint = $fileSys{$fs}->{mountPoint};
+    if ($mpoint =~ m{^/media/}) {
+      delete $fileSys{$fs};
+      next;
+    }
+
+    # we don't care about space shortage in read only file systems
+    my @options = split ',', $filesys{$fs}->{options};
+    if ('ro' eq any @options) {
+      delete $filesys{$fs};
+      next;
+    }
+
+  }
+
+  return \%fileSys;
+}
+
+# Method to get if a filesystem is full of space or not
+sub _isFSFull
+{
+  my ($self, $df) = @_;
+
+#  return ($df->{bfree} < SPACE_THRESHOLD);
+  return ( 110 - $df->{per} > $self->_spaceThreshold() );
+
+}
+
+# Method to get the configurable minimum percentage before the user is
+# notified because of the free space lack
+sub _spaceThreshold
+{
+  # return SPACE_THRESHOLD;
+  my ($self) = @_;
+
+  my $manager = EBox::Model::ModelManager->instance();
+
+  my $confModel = $manager->model('/events/' . $self->ConfigureModel());
+
+  return $confModel->spaceThresholdValue();
+
+}
 
 
 1;

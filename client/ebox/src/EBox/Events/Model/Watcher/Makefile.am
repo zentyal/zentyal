@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/Events/Model/Watcher
 
-nobase_perl_DATA = Log.pm LogFiltering.pm
+nobase_perl_DATA = DiskFreeSpace.pm Log.pm LogFiltering.pm
 
 SOURCES = $(nobase_perl_DATA)
 

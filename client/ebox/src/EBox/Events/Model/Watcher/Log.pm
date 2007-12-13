@@ -72,7 +72,7 @@ sub new
 
   }
 
-# Method: models
+# Method: subModels
 #
 #     Return the list of models which has to be included in model
 #     manager
