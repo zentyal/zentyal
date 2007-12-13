@@ -1,4 +1,5 @@
 0.11.99
+	+ Rotate log files when they reach MB for 7 rotations
 	+ Add File type including uploading and downloading
 	+ Event daemon now checks if it is possible to send an event
 	before actually sending it
