@@ -6,3 +6,5 @@ Etc_DATA = ebox
 EXTRA_DIST = $(Etc_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in
+
+DISTCLEANFILES = ebox
