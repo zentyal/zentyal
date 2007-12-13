@@ -98,7 +98,7 @@ sub _table
 			      fieldName     => 'allowed',
 			      printableName => __('Allow'),
  
-			      optional      => 1,
+			      optional      => 0,
 			      editable      => 1,
 			      defaultValue  => 1,
 			     ),
