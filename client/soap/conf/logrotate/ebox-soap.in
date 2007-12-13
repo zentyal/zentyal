@@ -1,0 +1,16 @@
+@LOCALSTATEDIR@/lib/ebox/log/error-soap.log @LOCALSTATEDIR@/lib/ebox/log/access-soap.log {
+        rotate 7
+        size 10M
+        compress
+        nocreate
+        missingok
+        delaycompress
+        notifempty
+        postrotate
+                if [ -x /usr/sbin/invoke-rc.d ]; then \
+                        invoke-rc.d ebox soap restart > /dev/null; \
+                else \
+                        /etc/init.d/ebox soap restart > /dev/null; \
+                fi; \
+        endscript
+}

@@ -61,6 +61,9 @@ src/EBox/Event/Dispatcher/t/Makefile
 src/EBox/SOAP/Makefile
 src/EBox/t/Makefile
 src/templates/Makefile
+conf/Makefile
+conf/logrotate/Makefile
+conf/logrotate/ebox-soap
 schemas/Makefile
 stubs/Makefile
 stubs/apache.mas
