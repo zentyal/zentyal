@@ -299,7 +299,13 @@ sub _filters
         my $filterSearch = {};
         foreach my $filterField (@{$filterRow->{values}}) {
             if ( $filterField->value() ) {
-                $filterSearch->{$filterField->fieldName()} = $filterField->value();
+                # Do not store a thing if the field is the event with
+                # 'any' value to work with <EBox::Logs::search> API
+                unless ( $filterField->fieldName() eq 'event'
+                         and $filterField->value() eq 'any' ) {
+                    $filterSearch->{$filterField->fieldName()} =
+                      $filterField->value();
+                }
             }
         }
         push ( @filterSearchs, $filterSearch );
