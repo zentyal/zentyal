@@ -72,6 +72,12 @@ sub isEqualTo
 	my $oldValue = $self->{'value'};
 	my $newValue = $newObject->memValue();
 
+        # A great dilemma
+        if ( not defined ( $oldValue ) and
+             not defined ( $newValue )) {
+            return 1;
+        }
+
 	if ( not defined ( $oldValue ) or
 	     not defined ( $newValue )) {
 	  return 0;
