@@ -9,6 +9,7 @@
   $filter => ''
   $page => 0
   $tpages => 0
+  %presetParams => ()
 </%args>
 <%init>
 use EBox::Gettext;
@@ -40,6 +41,7 @@ use EBox::Model::DataTable;
   $filter => ''
   $page => 0
   $tpages => 0
+  %presetParams => ()
 </%args>
 <%init>
   use Data::Dumper;
@@ -76,12 +78,25 @@ use EBox::Model::DataTable;
 
   # Fetch the data to be displayed in setters, if we are editing a row
   # we should show the contents of the current fields. If we are
-  # adding a new row, the fields are empty;
+  # adding a new row, the fields are empty except for a preset values
+  # adding where preset contents must be shown
   my @formData = @tableHead;
-  @formData = @{$rowEdit->{'values'}} if ($rowEdit);
+  if ($rowEdit) {
+      @formData = @{$rowEdit->{'values'}};
+  } elsif ( ((keys %presetParams) > 0)
+            and $action eq 'presetUpdate') {
+      # The preset is not empty
+      @formData = values(%presetParams);
+  }
+  # If the action is a preset update, choose for an edition or an
+  # addition whether the editid is set or not
+  if ( $action eq 'presetUpdate' ) {
+      $action = 'changeAdd' if (not $editid);
+      $action = 'changeEdit' if ( $editid );
+  }
 </%init>
 
-%  if ($action ne 'changeAdd' and $action ne 'changeEdit')
+%  if ( $action ne 'changeAdd' and $action ne 'changeEdit' )
 %  {
 %    if ( $model->printableModelName() )
 %    {
@@ -105,9 +120,9 @@ use EBox::Model::DataTable;
 <br>
 %  }
 
-%  if ($action eq 'changeAdd' or $action eq 'changeEdit') 
+%  if ( $action eq 'changeAdd' or $action eq 'changeEdit' )
 %  {
-%   if ( $action eq 'changeAdd' ) 
+%   if ( $action eq 'changeAdd' )
 %    {
 <& PARENT:title,
    title => __x('Adding a new {row}',
@@ -139,7 +154,7 @@ use EBox::Model::DataTable;
 
 % if (@data or length($filter) > 0) 
 %  {
-%    if ( $action eq 'changeAdd' or $action eq 'changeEdit' ) 
+%    if ( $action eq 'changeAdd' or $action eq 'changeEdit' )
 %    {
 <h3>
   <% 
@@ -343,6 +358,9 @@ use EBox::Model::DataTable;
 >
 % }
 
+% if ( $action eq 'changeEdit' and $editid ) {
+<script>highlightRow('<% $editid %>', 1);</script>
+% }
 
 % # End body method
 </%method>
@@ -367,12 +385,17 @@ use EBox::Model::DataTable;
   my $page   = $m->request_args()->{page};
   my $tpages = $m->request_args()->{tpages};
   my $changeView = $model->action('changeView');
+
+  if ( $action eq 'presetUpdate' ) {
+      $action = 'changeAdd' if ( not $editid );
+      $action = 'changeEdit' if ( $editid );
+  }
 </%init>
 <tr>
   <td id="applyChanges">
   </td>
   <td id="<% 'buttons_' . $model->modelName() %>">
-% if ($action eq 'changeAdd') 
+% if ( $action eq 'changeAdd' )
 % {
     <input class='inputButton' 
            type='submit' 

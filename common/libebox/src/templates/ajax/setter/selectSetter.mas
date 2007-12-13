@@ -56,7 +56,6 @@ if ( $data->unique() ) {
 }
 </%init>
 % my $id = $tableName . '_' . $data->fieldName();
-
 <& /input/select.mas,
    'name'    => "$id" ,
    'value'   => $data->value(),
@@ -65,6 +64,5 @@ if ( $data->unique() ) {
    'class'   => "$cssClass",
 &>
 <% $data->trailingText() %>
-
 
 

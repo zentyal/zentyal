@@ -144,7 +144,9 @@ sub _lookupViewController
             my ($model, $action) = undef;
             try {
                 $model = $manager->model($modelName);
-                $action = splice ( @namespaces, 6, 1 );
+                if ( @namespaces >= 6 ) {
+                    $action = splice ( @namespaces, 6, 1 );
+                }
             } catch EBox::Exceptions::DataNotFound with {
                 $action = $namespaces[5];
                 # Remove the previous thought index

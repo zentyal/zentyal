@@ -24,7 +24,7 @@
   use EBox::Gettext;
 </%init>
 
-% if ( $action eq 'view' ) {
+% if ( $action eq 'view' or $action eq 'presetUpdate') {
 <& SELF:view,
    model => $model,
    hasChanged => $hasChanged
@@ -61,9 +61,9 @@
   $model
   $hasChanged
 </%args>
-  <& SELF:header,
-     model => $model
-   &>
+<& SELF:header,
+   model => $model
+&>
 % if ( $model->precondition() ) {
 <div id="<% $model->modelName() %>">
   <& SELF:body,

@@ -402,6 +402,14 @@ sub param # (param)
 	}
 }
 
+# Method: params
+#
+#      Get the CGI parameters
+#
+# Returns:
+#
+#      array ref - containing the CGI parameters
+#
 sub params
 {
 	my $self = shift;
