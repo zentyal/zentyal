@@ -1,0 +1,25 @@
+@LOCALSTATEDIR@/lib/ebox/log/error.log @LOCALSTATEDIR@/lib/ebox/log/access.log {
+        rotate 7
+        size 10M
+        compress
+        nocreate
+        missingok
+        delaycompress
+        notifempty
+        postrotate
+                if [ -x /usr/sbin/invoke-rc.d ]; then \
+                        invoke-rc.d ebox apache restart > /dev/null; \
+                else \
+                        /etc/init.d/ebox apache restart > /dev/null; \
+                fi; \
+        endscript
+}
+
+@LOCALSTATEDIR@/lib/ebox/log/ebox.log {
+        rotate 7
+        size 10M
+        compress
+        nocreate
+        missingok
+        notifempty
+}

@@ -158,6 +158,8 @@ src/EBox/CGI/Report/Makefile
 src/EBox/Summary/Makefile
 schemas/Makefile
 conf/Makefile
+conf/logrotate/ebox
+conf/logrotate/Makefile
 conf/.gconf.path
 migration/Makefile
 migration/events/Makefile
