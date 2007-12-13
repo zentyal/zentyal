@@ -98,6 +98,7 @@ sub _table
 			      printableName => __('Minimum free disk space per filesystem'),
 			      editable      => 1,
 			      trailingText  => '%',
+	                      defaultValue  => 10,
 			     ),
        );
 
