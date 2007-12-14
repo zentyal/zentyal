@@ -30,6 +30,7 @@ use base 'EBox::Model::DataForm';
 
 # eBox uses
 use EBox::Exceptions::External;
+use EBox::Gettext;
 use EBox::Types::Int;
 
 # Core modules
@@ -70,12 +71,13 @@ sub validateTypedRow
     my ($self, $action, $changedFields, $allFields) = @_;
 
     if ( exists ( $changedFields->{spaceThreshold} )) {
-      if ( $changedFields->{spaceThreshold} <= 0
-	   or $changedFields->{spaceThreshold} >= 100 ) {
-	throw EBox::Exceptions::External('The allowed values for the '
-					 . 'minimum free disk space must '
-					 . 'be in the interval (1, 99)');
-      }
+        my $spaceThreshold = $changedFields->{spaceThreshold}->value();
+        unless ( $spaceThreshold > 0 and $spaceThreshold < 100 ) {
+            EBox::debug($changedFields->{spaceThreshold});
+            throw EBox::Exceptions::External('The allowed values for the '
+                                             . 'minimum free disk space must '
+                                             . 'be in the interval (1, 99)');
+        }
     }
 
 }

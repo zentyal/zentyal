@@ -221,9 +221,9 @@ sub _filesysToMonitor
     }
 
     # we don't care about space shortage in read only file systems
-    my @options = split ',', $filesys{$fs}->{options};
+    my @options = split ',', $fileSys{$fs}->{options};
     if ('ro' eq any @options) {
-      delete $filesys{$fs};
+      delete $fileSys{$fs};
       next;
     }
 
@@ -238,7 +238,7 @@ sub _isFSFull
   my ($self, $df) = @_;
 
 #  return ($df->{bfree} < SPACE_THRESHOLD);
-  return ( 110 - $df->{per} > $self->_spaceThreshold() );
+  return ( 100 - $df->{per} < $self->_spaceThreshold() );
 
 }
 

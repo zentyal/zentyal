@@ -1,4 +1,4 @@
-test_scripts = Log.t
+test_scripts = DiskFreeSpace.t Log.t
 
 EXTRA_DIST = $(test_scripts)
 

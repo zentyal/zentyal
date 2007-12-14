@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# A module to test EBox::Event::Watcher::Log module
+# A module to test EBox::Event::Watcher::DiskFreeSpace module
 
 use Test::More tests => 3;
 use Test::Exception;
@@ -27,15 +27,15 @@ use EBox::Event;
 use EBox::Global;
 
 BEGIN {
-    diag ( 'Starting EBox::Event::Watcher::Log test' );
-    use_ok ( 'EBox::Event::Watcher::Log' )
+    diag ( 'Starting EBox::Event::Watcher::DiskFreeSpace test' );
+    use_ok ( 'EBox::Event::Watcher::DiskFreeSpace' )
       or die;
 }
 
 EBox::init();
 
-my $logWatcher = new EBox::Event::Watcher::Log();
-isa_ok( $logWatcher, 'EBox::Event::Watcher::Log');
+my $logWatcher = new EBox::Event::Watcher::DiskFreeSpace();
+isa_ok( $logWatcher, 'EBox::Event::Watcher::DiskFreeSpace');
 
 lives_ok {
     $logWatcher->run();
