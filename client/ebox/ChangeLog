@@ -1,5 +1,7 @@
 0.11.99
 	+ Rotate log files when they reach 10MB for 7 rotations
+	+ Configurable minimum free space left for being notified by means
+	of percentage
 	+ Add File type including uploading and downloading
 	+ Event daemon now checks if it is possible to send an event
 	before actually sending it
