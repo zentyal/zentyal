@@ -8,7 +8,7 @@ Standards-Version: 3.6.1
 
 Package: ebox
 Architecture: all
-Depends: libebox (= 0.10.99), apache-perl, openssl (>= 0.9.7e), libapache-mod-ssl, libapache-reload-perl, libapache-singleton-perl, libapache-authcookie-perl, gconf2, libgnome2-gconf-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl, runit, libapache-reload-perl (= 0.07-5warp.es), postgresql, libdbd-pg-perl, libfile-tail-perl, libclone-perl, libnet-jabber-perl, libfilesys-df-perl, libchart-perl, libfile-mmagic-perl
+Depends: libebox (= 0.10.99), apache-perl, openssl (>= 0.9.7e), libapache-mod-ssl, libapache-reload-perl, libapache-singleton-perl, libapache-authcookie-perl, gconf2, libgnome2-gconf-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl, runit, libapache-reload-perl (= 0.07-5warp.es), postgresql, libdbd-pg-perl, libfile-tail-perl, libclone-perl, libnet-jabber-perl, libfilesys-df-perl, libchart-perl, libfile-mmagic-perl, libnet-smtp-tls-perl
 Replaces: ebox (<< 0.7.0.99), ebox-logs
 Conflicts: ebox-dhcp  (<< 0.10.99), ebox-dns-cache (<< 0.10.99), ebox-dns (<< 0.10.99), ebox-firewall (<< 0.10.99), ebox-jabber (<< 0.10.99), ebox-mail (<< 0.10.99), ebox-network (<< 0.10.99), ebox-ntp (<< 0.10.99), ebox-objects (<< 0.10.99), ebox-printers (<< 0.10.99), ebox-samba (<< 0.10.99), ebox-software (<< 0.10.99), ebox-squid (<< 0.10.99), ebox-usersandgroups (<< 0.10.99), ebox-openvpn (<< 0.10.99), ebox-ca (<< 0.10.99), ebox-logs
 Description: Base framework
