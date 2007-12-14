@@ -73,7 +73,6 @@ sub validateTypedRow
     if ( exists ( $changedFields->{spaceThreshold} )) {
         my $spaceThreshold = $changedFields->{spaceThreshold}->value();
         unless ( $spaceThreshold > 0 and $spaceThreshold < 100 ) {
-            EBox::debug($changedFields->{spaceThreshold});
             throw EBox::Exceptions::External('The allowed values for the '
                                              . 'minimum free disk space must '
                                              . 'be in the interval (1, 99)');
