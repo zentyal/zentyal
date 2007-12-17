@@ -206,7 +206,8 @@ sub _confParams
 
     my ($self) = @_;
 
-    my $model = EBox::Model::ModelManager::instance()->model($self->ConfigureModel());
+    my $model = EBox::Model::ModelManager::instance()->model('/mail/'
+                                                             . $self->ConfigureModel());
 
     my $row = $model->row();
 

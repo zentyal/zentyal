@@ -140,7 +140,7 @@ sub _table
       my $dataForm = {
                       tableName          => 'MailDispatcherConfiguration',
                       printableTableName => __('Configure mail dispatcher'),
-                      modelDomain        => 'Events',
+                      modelDomain        => 'Mail',
                       defaultActions     => [ 'editField' ],
                       tableDescription   => \@tableDesc,
                       class              => 'dataForm',
