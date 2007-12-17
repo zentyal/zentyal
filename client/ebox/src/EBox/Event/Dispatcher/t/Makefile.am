@@ -1,4 +1,4 @@
-test_scripts = Jabber.t Mail.t
+test_scripts = Jabber.t
 
 EXTRA_DIST = $(test_scripts)
 
