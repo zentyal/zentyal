@@ -1,6 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 perldir = @PERLPATH@/EBox/Mail
 
+SUBDIRS = Model
+
 regular_packages = FilterProvider.pm
 
 test_packages = Test.pm

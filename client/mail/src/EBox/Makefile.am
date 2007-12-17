@@ -1,5 +1,5 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = CGI Mail t
+SUBDIRS = CGI Event Mail t
 
 perldir = @PERLPATH@/EBox
 

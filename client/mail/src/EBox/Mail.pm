@@ -18,9 +18,9 @@ package EBox::Mail;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::LdapModule EBox::ObjectsObserver 
-            EBox::FirewallObserver EBox::LogObserver 
-            EBox::Report::DiskUsageProvider);
+use base qw(EBox::GConfModule EBox::LdapModule EBox::ObjectsObserver
+            EBox::FirewallObserver EBox::LogObserver
+            EBox::Report::DiskUsageProvider EBox::Model::ModelProvider);
 
 use EBox::Sudo qw( :all );
 use EBox::Validate qw( :all );
@@ -80,8 +80,20 @@ sub _create
 
 sub domain 
 {
-	return 'ebox-mail';	
+	return 'ebox-mail';
 }
+
+# Method: modelClasses
+#
+# Overrides:
+#
+#    <EBox::Model::ModelProvider::modelClasses>
+#
+sub modelClasses
+{
+  return [ 'EBox::Mail::Model::Dispatcher::Mail' ];
+}
+
 
 # Method: _getIfacesForAddress
 #

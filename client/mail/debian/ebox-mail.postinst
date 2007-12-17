@@ -50,6 +50,7 @@ case "$1" in
 
                 # restart logs
                 invoke-rc.d ebox logs restart || true
+                invoke-rc.d ebox apache restart || true
 
 esac
 
