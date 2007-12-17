@@ -44,7 +44,7 @@ iface lo inet loopback
 EOF
 
         # create directory for RRD databases
-        RRD_DIR=`perl -MEBox::Network::Report::BitRate -e'$d = EBox::Network::Report::BitRate::_rrdDir(); print $d; 1'`
+        RRD_DIR=`perl -MEBox::Network::Report::ByteRate -e'$d = EBox::Network::Report::ByteRate::_rrdDir(); print $d; 1'`
 	mkdir -p $RRD_DIR
 	chown ebox.ebox $RRD_DIR
 
