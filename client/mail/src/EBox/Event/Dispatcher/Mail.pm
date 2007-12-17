@@ -36,7 +36,6 @@ use EBox::Model::ModelManager;
 # Dependencies
 ################
 use Net::SMTP;
-use Net::SMTP::TLS;
 
 ####################
 # Core Dependencies
@@ -255,32 +254,15 @@ sub _sendMail
 }
 
 # Method to get the mailer
-# First, try to do it using TLS, then if not possible try to do it
-# plain without user/password and then using user/password if
-# given
 sub _getMailer
 {
 
     my ($self) = @_;
 
-    my $mailer;
-    try {
-        $mailer = new Net::SMTP::TLS(
-                                     $self->{smtp},
-                                     Hello => 'ebox.org',
-                                    );
-    } otherwise {
-        $mailer = undef;
-    };
-
-    if ( not defined ( $mailer )) {
-        EBox::info('Server ' . $self->{smtp} . ' does not allow '
-                   . 'TLS connections at all');
-        $mailer = new Net::SMTP(
+    my $mailer = new Net::SMTP(
                                 $self->{smtp},
                                 Hello => 'ebox.org',
                                );
-    }
 
     return $mailer;
 }
