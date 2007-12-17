@@ -22,6 +22,7 @@
 #     - subject
 #     - to
 #     - smtp
+#     - port
 #     - user
 #     - pass
 #
@@ -142,27 +143,28 @@ sub _table
       # Just add the eBox SMTP server option when it's installed
       my @smtpSubTypes = ();
       my $gl = EBox::Global->getInstance();
-      if ( $gl->modExists('mail')) {
-          push(@smtpSubTypes, new EBox::Types::Union::Text(
-                                                           fieldName => 'eBoxSMTP',
-                                                           printableName => __('local eBox'),
-                                                          ));
-      }
       push(@smtpSubTypes, new EBox::Types::Text(
                                                 fieldName     => 'custom_smtp',
                                                 printableName => __('custom'),
                                                 editable      => 1,
                                                ));
+      push(@smtpSubTypes, new EBox::Types::Union::Text(
+                                                       fieldName => 'eBoxSMTP',
+                                                       printableName => __('local eBox'),
+                                                       disabled => not $gl->modExists('mail'),
+                                                      ));
 
 
       my @tableDesc =
         (
          new EBox::Types::Text(
-                               fieldName     => 'subject',
-                               printableName => __('Subject'),
-                               editable      => 1,
-                               defaultValue  => __x('[EBox-event] An event has happened at {hostName}',
-                                                    hostName => hostname()),
+                               fieldName        => 'subject',
+                               printableName    => __('Subject'),
+                               editable         => 1,
+                               defaultValue     => __x('[EBox-event] An event has happened at {hostName}',
+                                                       hostName => hostname()),
+                               size             => 70,
+                               allowUnsafeChars => 1,
                               ),
          new EBox::Types::Text(
                                fieldName     => 'to',
@@ -182,10 +184,12 @@ sub _table
                                optional      => 1,
                               ),
          new EBox::Types::Password(
-                                   fieldName     => 'password',
-                                   printableName => __('User password'),
-                                   editable      => 1,
-                                   optional      => 1,
+                                   fieldName        => 'password',
+                                   printableName    => __('User password'),
+                                   editable         => 1,
+                                   optional         => 1,
+                                   size             => 6,
+                                   allowUnsafeChars => 1,
                                   ),
         );
 

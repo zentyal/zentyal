@@ -38,6 +38,12 @@ use EBox::Model::ModelManager;
 use Net::SMTP;
 use Net::SMTP::TLS;
 
+####################
+# Core Dependencies
+####################
+use Sys::Hostname;
+use Error qw(:try);
+
 # Group: Public methods
 
 # Constructor: new
@@ -177,7 +183,8 @@ sub _enable
 
       $self->_confParams();
 
-      my $sender = new Net::SMTP($self->{smtp});
+      my $sender = new Net::SMTP($self->{smtp},
+                                 Timeout => 30);
 
       unless ( defined ($sender) ) {
           throw EBox::Exceptions::External(__x('Cannot connect to {smtp} mail server',
@@ -228,67 +235,74 @@ sub _sendMail
 {
     my ($self, $event) = @_;
 
-    # First, try to do it using TLS, then if not possible try to do it
-    # plain without user/password and then using user/password if
-    # given
-    my $mailer;
-    eval {
-        $mailer = new Net::SMTP::TLS(
-                                     $self->{smtp},
-                                     Hello => 'ebox.org',
-                                    );
-    };
-    if ($@) {
-        EBox::info('Server ' . $self->{smtp} . ' does not allow '
-                   . 'TLS connections without authenticate');
-        if ( $self->{user} and $self->{password} ) {
-            eval {
-                $mailer = new Net::SMTP::TLS(
-                                             $self->{smtp},
-                                             Hello => 'ebox.org',
-                                             user  => $self->{user},
-                                             password => $self->{password},
-                                            );
-            };
-            if ( $@ ) {
-                EBox::info('Server ' . $self->{smtp} . ' does not allow '
-                           . 'TLS connections at all');
-                $mailer = new Net::SMTP(
-                                        Host => $self->{smtp},
-                                        Hello => 'ebox.org',
-                                       );
-                $mailer->auth( $self->{user}, $self->{password} );
-            }
-        } else {
-            $mailer = new Net::SMTP(
-                                    Host  => $self->{smtp},
-                                    Hello => 'ebox.org'
-                                   );
-        }
-    }
+    my $mailer = $self->_getMailer();
 
     if ( not defined ( $mailer )) {
         throw EBox::Exceptions::External(__x('Cannot connect to the server {hostname} '
                                              . 'to send the event through SMTP',
                                              hostname => $self->{smtp}));
     }
+
     # Construct the message
-    $smtp->mail('ebox@ebox.org');
-    $smtp->to($self->{to});
+    $mailer->mail('ebox-noreply@' . hostname());
+    $mailer->to($self->{to});
 
-    $smtp->data();
-    $smtp->datasend('Subject: ' . $self->{subject} . '\n');
-    $smtp->datasend('From: ebox@' . hostname . '\n');
-    $smtp->datasend('To: ' . $self->{to} . '\n');
-    $smtp->datasend('\n');
-    $smtp->datasend($event->level() ' : '
-                    . $event->message() . '\n');
-    $smtp->dataend();
+    $mailer->data();
+    $mailer->datasend('Subject: ' . $self->{subject} . "\n");
+    $mailer->datasend('From: ebox-noreply@' . hostname() . "\n");
+    $mailer->datasend('To: ' . $self->{to} . "\n");
+    $mailer->datasend("\n");
+    $mailer->datasend($event->level() . ' : '
+                    . $event->message() . "\n");
+    $mailer->dataend();
 
-    $smtp->end();
+    $mailer->quit();
 
     return 1;
 
+}
+
+# Method to get the mailer
+# First, try to do it using TLS, then if not possible try to do it
+# plain without user/password and then using user/password if
+# given
+sub _getMailer
+{
+
+    my ($self) = @_;
+
+    my $mailer;
+    try {
+        if ( $self->{user} and $self->{password} ) {
+            $mailer = new Net::SMTP::TLS(
+                                         $self->{smtp},
+                                         Hello => 'ebox.org',
+                                         user  => $self->{user},
+                                         password => $self->{password},
+                                        );
+        } else {
+            $mailer = new Net::SMTP::TLS(
+                                         $self->{smtp},
+                                         Hello => 'ebox.org',
+                                        );
+        }
+    } otherwise {
+        $mailer = undef;
+    };
+
+    if ( not defined ( $mailer )) {
+        EBox::info('Server ' . $self->{smtp} . ' does not allow '
+                   . 'TLS connections at all');
+        $mailer = new Net::SMTP(
+                                $self->{smtp},
+                                Hello => 'ebox.org',
+                               );
+        if ( $self->{user} and $self->{password} ) {
+            $mailer->auth( $self->{user}, $self->{password} );
+        }
+    }
+
+    return $mailer;
 }
 
 1;

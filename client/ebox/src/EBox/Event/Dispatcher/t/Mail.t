@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# A module to test Event::Dispatcher::Jabber module
+# A module to test EBox::Event::Dispatcher::Mail module
 
 use Test::More tests => 4;
 use Test::Exception;
@@ -29,31 +29,28 @@ use EBox::Event;
 use EBox::Global;
 
 BEGIN {
-    diag ( 'Starting EBox::Event::Dispatcher::Jabber test' );
-    use_ok ( 'EBox::Event::Dispatcher::Jabber' )
+    diag ( 'Starting EBox::Event::Dispatcher::Mail test' );
+    use_ok ( 'EBox::Event::Dispatcher::Mail' )
       or die;
 }
 
-use EBox::TestStub;
-EBox::TestStub::fake();
+EBox::init();
 
-my $jabberDispatcher;
+my $mailDispatcher;
 my $event;
-lives_ok
-  {
-      $jabberDispatcher = new EBox::Event::Dispatcher::Jabber();
-      $event = new EBox::Event(
-                               message => 'test event',
-                               level   => 'info',
-                              );
-  } 'Creating the jabber dispatcher and the event to send';
+lives_ok {
+    $mailDispatcher = new EBox::Event::Dispatcher::Mail();
+    $event = new EBox::Event(
+                             message => 'test event',
+                             level   => 'info',
+                            );
+} 'Creating the mail dispatcher and the event to send';
 
-lives_ok
-  {
-      $jabberDispatcher->enable()
-  } 'Enabling the jabber dispatcher';
+lives_ok {
+    $mailDispatcher->enable()
+} 'Enabling the mail dispatcher';
 
-ok ( $jabberDispatcher->send($event),
+ok ( $mailDispatcher->send($event),
      'Sending test event to the admin');
 
 1;
