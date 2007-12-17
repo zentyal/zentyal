@@ -10,6 +10,8 @@
         value          - the value of the option
         printableValue - the string who represent the value in the
   GUI. Defaults to value
+        disabled       - boolean indicating if the option is enabled
+       or not
   
   You can pass also other HTML attributes as parameters.
 
@@ -40,14 +42,16 @@ if (@options == 0) {
 $value
 $selected => 0
 $printableValue => undef
+$disabled => 0
 </%args>
 <%init>
 if (!defined $printableValue) {
    $printableValue = $value;
 }
 my $selectedAttr = $selected ? 'selected="selected"' : '';
+my $disabledAttr = $disabled ? 'disabled="disabled"' : '';
 </%init>
-<option value="<% $value | h %>" <% $selectedAttr %> >
+<option value="<% $value | h %>" <% $selectedAttr %> <% $disabledAttr %> >
 <% $printableValue %>
 </option>
 </%def>

@@ -5,12 +5,19 @@ $cssClass => ''
 </%args>
 % my $id = $tableName . '_' . $data->fieldName();
 
-%	if ($data->editable()) {
-					<input type="text" class="inputText <% $cssClass %>" value="<% $data->printableValue() %>"
-						size="<% $data->size() %>" id='<% $id %>' name='<% $id %>' /> 
-						<% $data->trailingText() %>
-%	} else {
-					<input type="hidden"  value="<% $data->value() %>" id='<% $id %>' name='<% $id %>' /> 
-					<% $data->printableValue() %>
-					<% $data->trailingText() %>
+% if ($data->editable()) {
+%    if ( $data->size() < 40 ) { 
+<input type="text" class="inputText <% $cssClass %>" value="<% $data->printableValue() %>"
+ size="<% $data->size() %>" id='<% $id %>' name='<% $id %>' />
+%    } else {
+%     my $colSize = 17; # FIXME
+%     my $nRows = $data->size() / $colSize;
+<textarea class="inputText <% $cssClass %>" cols="<% $colSize %>"
+ rows="<% $nRows %>" id='<% $id %>' name='<% $id %>'><% $data->printableValue() %></textarea>
+%    }
+<% $data->trailingText() %>
+% } else {
+<input type="hidden"  value="<% $data->value() %>" id='<% $id %>' name='<% $id %>' /> 
+<% $data->printableValue() %>
+<% $data->trailingText() %>
 %}

@@ -53,10 +53,15 @@ sub getParams
 	my %params;
 	foreach my $field (@{$tableDesc}) {
 		foreach my $fieldName ($field->fields()) {
-			my $value = $self->param($fieldName);
+                    my $value;
+                    if ( $field->allowUnsafeChars() ) {
+                        $value = $self->unsafeParam($fieldName);
+                    } else {
+			$value = $self->param($fieldName);
+                    }
             # TODO Review code to see if we are actually checking
             # types which are not optional
-			$params{$fieldName} = $value;
+                    $params{$fieldName} = $value;
 		}
 	}
 

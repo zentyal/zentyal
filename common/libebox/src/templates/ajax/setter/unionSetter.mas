@@ -8,9 +8,10 @@ my $id = $tableName . '_' . $data->fieldName() . '_selected';
 my @options;
 foreach my $type (@{$data->subtypes()}) {
 	push (@options, {
-						'value' => $type->fieldName(),
-						'printableValue' => $type->printableName()
-					});
+                         'value' => $type->fieldName(),
+                         'printableValue' => $type->printableName(),
+                         'disabled' => $type->disabled(),
+                        });
 }
 </%init>
 <span class='<% $cssClass %>'>

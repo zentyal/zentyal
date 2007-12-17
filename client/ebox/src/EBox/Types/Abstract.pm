@@ -224,6 +224,43 @@ sub optional
 	return $self->{'optional'};
 }
 
+# Method: disabled
+#
+#      An instanced type is disabled when it must appear to be
+#      selectable on an union type but it is not selectable
+#
+# Returns:
+#
+#      boolean - indicating if the instanced type is disabled or not
+#
+sub disabled
+{
+    my ($self) = @_;
+
+    return $self->{'disabled'};
+
+}
+
+# Method: allowUnsafeChars
+#
+#      Attribute to determine the value which contains this type
+#      allows unsafe characters that may be used to inject malicious
+#      code. This only makes sense on HTML-based values
+#
+# Returns:
+#
+#      boolean - indicating if the instanced type may store unsafe
+#      characters or not
+#
+sub allowUnsafeChars
+{
+
+    my ($self) = @_;
+
+    return $self->{'allowUnsafeChars'};
+
+}
+
 # Method: paramExist
 #
 #      *DEPRECATED*
