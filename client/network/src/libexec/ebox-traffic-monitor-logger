@@ -37,14 +37,14 @@ alarm (2); # start the flush timer
 while (1) {
   my $line = <STDIN>;
   # XXX debug remove debug statement in production code
-  print "RECEIVED $line\n";
+#  print "RECEIVED $line\n";
 
   chomp $line;
   my ($proto ,$src, $sport, $dst, $dport, $totalbps) = split ',', $line;
   $proto = lc $proto;
     
   # XXX debug remove debug statement in production code  
-  print "$proto $src:$sport -> $dst:$dport  : $totalbps\n";
+#  print "$proto $src:$sport -> $dst:$dport  : $totalbps\n";
 
   EBox::Network::Report::ByteRate::addBps(
 				     proto => $proto,

@@ -18,7 +18,7 @@ package EBox::Network;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Model::ModelProvider);
+use base qw(EBox::GConfModule EBox::Model::ModelProvider EBox::Model::CompositeProvider);
 
 use constant DHCLIENT_CONF_FILE => '/etc/dhcp3/dhclient.conf';
 # Interfaces list which will be ignored
@@ -71,17 +71,28 @@ sub _create
 sub modelClasses
 {
   return [
-	  { class => 'EBox::Network::Model::GatewayTable',
-	    'directory' => 'gatewaytable', },
+	  { 
+	   class     => 'EBox::Network::Model::GatewayTable',
+	   directory => 'gatewaytable', 
+	  },
 	  {
-           class => 'EBox::Network::Model::MultiGwRulesDataTable',
-           'directory' => 'multigwrulestable',
+           class     => 'EBox::Network::Model::MultiGwRulesDataTable',
+           directory => 'multigwrulestable',
           },
 	  'EBox::Network::Model::ByteRateGraph',
-	 ]
-    
+	  'EBox::Network::Model::ByteRateGraphControl',
+	 ];
 }
 
+
+
+sub compositeClasses
+{
+  return [
+	  'EBox::Network::Composite::ByteRate',
+	 ];
+
+}
 
 # Method: IPAddressExists
 #

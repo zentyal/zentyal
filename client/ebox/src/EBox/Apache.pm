@@ -120,8 +120,6 @@ sub _regenConfig
 	$self->_writeHttpdConfFile();
 	$self->_writeStartupFile();
 
-	
-
 	$self->_daemon('restart');
 }
 

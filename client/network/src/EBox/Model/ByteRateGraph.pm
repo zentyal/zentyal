@@ -45,20 +45,41 @@ sub new
 #
 sub _table
   {
-
+    my  @tableHead = (
+		      new EBox::Types::Text(
+					    printableName  => __('Graph type'),
+					    'fieldName' => 'graphType',
+					    'size' => '10',
+					    'optional' => 1, 
+					    defaultValue    => 'activeSrcsGraph',
+#					    'hidden' => 1,
+					    editable => 1,
+					   ),
+		      new EBox::Types::Text(
+					    printableName  => __('Graph parameters'),
+					    'fieldName' => 'graphArguments',
+					    'size' => '40',
+					    'optional' => 1, 
+					    defaultValue    => '',
+#					    'hidden' => 1,
+					    editable => 1,
+					   ),
+		     );
 
       my $dataTable =
         {
+	 'tableDescription' => \@tableHead,
          tableName          => 'ByteRateGraph',
          printableTableName => __('Byte rate'),
 	 modelDomain        => 'Network',
 #         help               => __(''),
 
 			'defaultActions' =>
-				[	
-				'changeView'
+				[
+				 'editField',
+				'changeView',
 				],
-				
+	
 	};
 
 
@@ -68,14 +89,50 @@ sub _table
 
 sub _generateImage
 {
-  my ($class, $file) = @_;
+  my ($self, $file) = @_;
 
   my $startTime = -600;
 
-      EBox::Network::Report::ByteRate::activeSrcsGraph(
-						   startTime => $startTime,
-						   file      => $file,
-						  );
+  my @commonArguments = (
+			 startTime => $startTime,
+			 file      => $file,
+			);
+
+  my $sub_r         = $self->_graphSub();
+  my @subArguments  = $self->_graphSubArguments();
+
+  
+  $sub_r->(
+	   @commonArguments,
+	   @subArguments,
+	  );
+
+}
+
+
+sub _graphSub
+{
+  my ($self) = @_;
+
+  my $graphType = $self->graphTypeValue();
+  my $graphSub = EBox::Network::Report::ByteRate->can($graphType);
+  EBox::debug("GRAPH SUB $graphType $graphSub");
+  if (not $graphSub) {
+    throw EBox::Exceptions::Internal("Unknown graph type: $graphType");
+  }  
+
+  return $graphSub;
+}
+
+sub _graphSubArguments
+{
+  my ($self) = @_;
+  my $graphArguments = $self->graphArgumentsValue();
+  $graphArguments or
+    return ();
+
+  my @args = split '\s+', $graphArguments;
+  return @args;
 }
 
 

@@ -15,8 +15,6 @@ use EBox::ColourRange;
 use File::Glob qw(:glob);
 use File::Basename;
 
-use Params::Validate qw(validate SCALAR);
-
 use constant RRD_TTL => 601; 
 
 use constant SRC_COLOUR      => 'FF0000';
@@ -98,7 +96,7 @@ sub _writeConfFile
 
   my @localNets = map {
     my $net = $network->ifaceNetwork($_);
-    my ($addr, $mask) = EBox::NetWrappers::to_network_with_mask($net);
+    my ($addr, $mask) = EBox::NetWrappers::to_network_without_mask($net);
     [$addr, $mask]
   } @internalIfaces;
 
@@ -118,26 +116,26 @@ sub addBps
 {
   my %params = @_;
 
-  validate (@_, {
-		 proto => { TYPE => SCALAR },
-		 src => { TYPE => SCALAR },
-		 sport => { TYPE => SCALAR },
-		 dst => { TYPE => SCALAR },
-		 dport => { TYPE => SCALAR },
-		 bps => { TYPE => SCALAR },
-		});
-
 
 #  EBox::debug("addBps @_");
 
   my $src = $params{src};
-
+  $src or return;
 
   my $proto = $params{proto};
+  $proto or return;
+
   my $sport = $params{sport};
+  $sport or return;
+
   my $dst = $params{dst};
+  $dst or return;
+
   my $dport = $params{dport};
+  $dport or return;
+
   my $bps  = $params{bps};
+  $bps or return;
 
 
   my $service = _service($proto, $dport, $sport);
@@ -580,32 +578,36 @@ sub activeSrcsGraph
   my $title = __('Active sources');
 
   my @srcs = @{  activeSrcRRDs()  };  
-  @srcs or
-    throw EBox::Exceptions::External(
-				     __('No sources bit rate data found')
-				    );
 
-  my @colours = @{ EBox::ColourRange::range(scalar @srcs) };
 
   my @dataset;
-  foreach my $src (@srcs) {
-    # extract src name
-    $src =~ m/src-(.*)\.rrd/;
-    my $legend = $1;
-    my $ds = {
-	      rrd     => $src,
-	      legend => $legend,
-	      colour => pop @colours,
-	     };
-    
-    push @dataset, $ds;
+  if (@srcs) {
+      my @colours = @{ EBox::ColourRange::range(scalar @srcs) };
+
+      foreach my $src (@srcs) {
+	# extract src name
+	$src =~ m/src-(.*)\.rrd/;
+	my $legend = $1;
+	my $ds = {
+		  rrd     => $src,
+		  legend => $legend,
+		  colour => pop @colours,
+		 };
+	
+	push @dataset, $ds;
+      }
+
+      
+      graph(
+	    dataset => \@dataset,
+	    title   => $title,
+	    %params,
+	   );
   }
+
+
   
-  graph(
-	dataset => \@dataset,
-	title   => $title,
-	%params,
-     );
+
 }
 
 sub _srcDatasetElement

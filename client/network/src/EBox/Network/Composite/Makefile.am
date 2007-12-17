@@ -1,10 +1,8 @@
 ## Process this file with automake to produce Makefile.in
-SUBDIRS = Report Composite
 
-perldir = @PERLPATH@/EBox/Network
+perldir = @PERLPATH@/EBox/Network/Composite
 
-
-nobase_perl_DATA = FirstTime.pm
+nobase_perl_DATA = ByteRate.pm
 
 DISTCLEANFILES = 
 

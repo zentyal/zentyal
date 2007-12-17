@@ -13,14 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Model::DataForm::Image
+# Class: EBox::Model::Image
 #
 #       An specialized model from <EBox::Model::DataForm> which
 #       includes a image or a graphic. 
 
 package EBox::Model::Image;
 
-use base 'EBox::Model::DataTable';
+use base 'EBox::Model::DataForm';
 
 use strict;
 use warnings;
@@ -74,45 +74,37 @@ sub _generateImage
 
 
 
-
-
-
-
-sub addRow
-  {
-      throw EBox::Exceptions::Internal('It is not possible to add a row to ' .
-                                       'a image model');
-
-  }
-
-
-sub addTypedRow
+sub _setDefaultMessages
 {
 
-    throw EBox::Exceptions::Internal('It is not possible to add a row to ' .
-                                     'a image model');
+    my ($self) = @_;
 
+    # Table is already defined
+    my $table = $self->{'table'};
+
+    $table->{'messages'} = {} unless ( $table->{'messages'} );
+    my $rowName = $self->printableRowName();
+
+    my %defaultMessages =
+      (
+       'add'       => undef,
+       'del'       => undef,
+       'update'    => undef,
+       'moveUp'    => undef,
+       'moveDown'  => undef,
+      );
+
+    foreach my $action (keys (%defaultMessages)) {
+        unless ( exists $table->{'messages'}->{$action} ) {
+            $table->{'messages'}->{$action} = $defaultMessages{$action};
+        }
+    }
 }
 
 
 
-sub setRow
-{
-    throw EBox::Exceptions::Internal('Forbidden action in ' .
-                                     'a image model');
-}
-
-sub setTypedRow
-{
-    throw EBox::Exceptions::Internal('Forbidden action in ' .
-                                     'a image model');
-}
 
 
-sub set
-{
-    throw EBox::Exceptions::Internal('Forbidden action in ' .
-                                     'a image model');
-}
+
 
 1;

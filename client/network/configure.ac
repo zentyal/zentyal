@@ -59,6 +59,7 @@ AM_PO_SUBDIRS
 AC_CONFIG_FILES([
 src/EBox/CGI/FirstTime/Makefile
 src/EBox/Network/Makefile
+src/EBox/Network/Composite/Makefile
 src/EBox/Network/Report/Makefile
 src/EBox/Network/Report/t/Makefile
 src/EBox/Network/Report/ByteRate/Makefile
