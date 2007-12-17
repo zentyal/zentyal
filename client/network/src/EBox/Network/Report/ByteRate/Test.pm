@@ -29,6 +29,10 @@ sub _fakeAddBpsToRRD : Test(startup)
 }
 
 
+sub _clearRRDs : Test(setup)
+{
+  %bpsByRRD = ();
+}
 
 
 
@@ -69,7 +73,7 @@ sub addBpsTest : Test(4)
   $expectedRRDs{$src1WwwRRD} +=  1;
 
 
-  is_deeply \%bpsByRRD, {}, 'checking that before flushing the bps the RRDs have not nay data';
+  is_deeply \%bpsByRRD, {}, 'checking that before flushing the bps the RRDs have not any data';
 
   EBox::Network::Report::ByteRate->flushBps();
 
@@ -135,6 +139,47 @@ sub addBpsTest : Test(4)
   EBox::Network::Report::ByteRate->flushBps();
 
   is_deeply \%bpsByRRD, \%expectedRRDs, 'checking data after two more adds of another service';
+}
+
+
+
+sub addDeviantBpsTest : Test(12)
+{
+
+  my %goodCase = {
+		  proto => 'tcp',
+		  src   => '92.68.45.3',
+		  sport => 10000,
+		  dst   => '45.23.12.12',
+		  dport => 70,
+		  bps => 2,	  
+		 };
+
+  my %badValues = (
+		   proto => 'bad_proto',
+		   src   => '300.21.32.12',
+		   sport => -1,
+		   dst => 'bad_destination',
+		   dport => 'bad_port',
+		   bps => 'bad_bps',
+		  );
+
+
+  my @deviantCases;
+  while (my ($param, $badValue) = each %badValues) {
+    my %case = %goodCase;
+    $case{$param}  = $badValue;
+
+    push @deviantCases, [ %case ];
+  }
+
+  foreach my $case (@deviantCases) {
+    lives_ok {
+      EBox::Network::Report::ByteRate::addBps( @{ $case }); 
+    } 'adding incorrect bps data';
+    is keys %bpsByRRD, 0, 'checking that no bps data has been added when supplied bad data';
+  }
+
 }
 
 1;

@@ -5,9 +5,11 @@ use warnings;
 
 use RRDs;
 
+use EBox;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Config;
+use EBox::Validate;
 use EBox::Exceptions::Internal;
 use EBox::NetWrappers;
 use EBox::ColourRange;
@@ -120,27 +122,29 @@ sub addBps
 #  EBox::debug("addBps @_");
 
   my $src = $params{src};
-  $src or return;
+  _checkAddr($src) or return;
+  $src = _escapeSrc($src);
 
   my $proto = $params{proto};
-  $proto or return;
+ _checkProto($proto) or return;
 
   my $sport = $params{sport};
-  $sport or return;
+ _checkPort($sport) or return;
 
-  my $dst = $params{dst};
-  $dst or return;
+#   XXX commented out, we do nothing with the destination parameter, for now...
+#   my $dst = $params{dst};
+#  _checkAddr($dst) or return;
 
   my $dport = $params{dport};
-  $dport or return;
+ _checkPort($dport) or return;
 
   my $bps  = $params{bps};
-  $bps or return;
+  _checkBps($bps) or return;
 
 
   my $service = _service($proto, $dport, $sport);
 
-#  print "addBps: src $src service $service\n"; # XXX denug
+#  print "addBps: src $src service $service\n"; # XXX debug
 
   # store the values waitng for flush..
   $srcBps{$src}         += $bps;
@@ -149,6 +153,7 @@ sub addBps
   my $srcAndServiceId = "$src|$service";
   $srcAndServiceBps{$srcAndServiceId} += $bps;
 }
+
 
 
 sub flushBps
@@ -296,6 +301,86 @@ sub addBpsToSrcAndServiceRRD
   _addBpsToRRD($rrd, $bps);
 }
 
+sub _checkAddr
+{
+  my ($addr) = @_;
+
+  my $valid = 0;
+
+  if (EBox::Validate::checkIP($addr)) {
+    $valid = 1;
+  }
+  elsif (EBox::Validate::checkMAC($addr)) {
+    $valid;
+  }
+
+  if (not $valid) {
+    EBox::warn("Incorrect address $addr, data will not be added to trafic statistics");
+  }
+
+  return $valid;
+}
+
+
+sub _checkPort
+{
+  my ($port) = @_;
+  if (EBox::Validate::checkPort($port)) {
+    return 1;
+  }
+  else {
+    EBox::warn("Incorrect port $port, data will not be added to trafic statistics");
+    return 0;
+  }
+}
+
+sub _checkBps
+{
+  my ($bps) = @_;
+  if (EBox::Validate::isANumber($bps) and ($bps >= 0)) {
+    return 1;
+  }
+  else {
+    EBox::warn("Incorrect bytes per second: $bps, data will not be added to trafic statistics");
+    return 0;
+  }
+}
+
+
+sub _checkProto
+{
+  my ($proto) = @_;
+  my $valid = 0;
+
+  if (EBox::Validate::checkProtocol($proto)) {
+    $valid = 1;
+  }
+  elsif ($proto eq 'icmp') { # icmp is not convered by checkProtocol
+    $valid = 1;
+  }
+  
+  if (not $valid) {
+        EBox::warn("Incorrect protocol $proto, data will not be added to trafic statistics");
+  }
+  
+
+  return $valid;
+}
+
+
+sub _escapeSrc
+{
+  my ($src) = @_;
+  $src =~ s{:}{S}g;
+  return $src;
+}
+
+sub _unescapeSrc
+{
+  my ($src) = @_;
+  $src =~ s{S}{:};
+  return $src;
+}
 
 
 sub _activeRRDs
