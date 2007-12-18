@@ -99,6 +99,8 @@ tools/cron/Makefile
 doc/Makefile
 src/Makefile
 src/libexec/Makefile
+src/templates/ajax/Makefile
+src/templates/ajax/viewer/Makefile
 src/templates/common/Makefile
 src/templates/login/Makefile
 src/templates/logout/Makefile

@@ -1,4 +1,5 @@
 0.11.99
+	+ Add RSS dispatcher to show eBox events under a RSS feed
 	+ Rotate log files when they reach 10MB for 7 rotations
 	+ Configurable minimum free space left for being notified by means
 	of percentage

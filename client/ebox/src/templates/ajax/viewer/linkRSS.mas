@@ -1,0 +1,18 @@
+<%doc>
+   Template to show the link to the RSS putting the standard RSS feed
+   icon near it.
+
+Parameters:
+
+   data - <EBox::Types::Link> the instanced type which contains the
+   RSS type
+</%doc>
+<%args>
+$data
+</%args>
+<%init>
+  use EBox::Gettext;
+</%init>
+<a href="<% $data->linkToView() %>">
+  <img src="/data/images/feed-icon.gif">
+</a>

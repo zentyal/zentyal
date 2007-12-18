@@ -30,6 +30,8 @@ use warnings;
 use EBox::Config;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::Lock;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Model::ModelManager;
@@ -38,6 +40,7 @@ use EBox::Model::ModelManager;
 # Core modules
 ################
 use Sys::Hostname;
+use Fcntl qw(:flock);
 
 ################
 # Dependencies
@@ -46,6 +49,9 @@ use XML::RSS;
 
 # Constants
 use constant RSS_FILE => EBox::Config::conf() . 'events/alerts.rss';
+
+# Class data
+our $LockFH;
 
 # Group: Public methods
 
@@ -85,19 +91,6 @@ sub configured
 
 }
 
-# Method: ConfigurationMethod
-#
-# Overrides:
-#
-#       <EBox::Event::Component::ConfigurationMethod>
-#
-sub ConfigurationMethod
-{
-
-      return 'none';
-
-}
-
 # Method: send
 #
 #        Send the event to the admin using Jabber protocol
@@ -119,6 +112,91 @@ sub send
       return 1;
 
   }
+
+# Group: Static class methods
+
+# Method: RSSFilePath
+#
+#       Get the RSS file path
+#
+# Returns:
+#
+#       String - the RSS file path
+#
+sub RSSFilePath
+{
+    return RSS_FILE;
+}
+
+# Method: LockRSSFile
+#
+#       Lock the RSS file for working with it. This call is blocking
+#       is said so until the other process releases the lock using
+#       <EBox::Event::Dispatcher::RSS::UnlockRSSFile>
+#
+# Parameters:
+#
+#       exclusive - boolean indicating if the lock for the RSS file is
+#       asked exclusively or not
+#
+sub LockRSSFile
+{
+    my ($class, $exclusive) = @_;
+
+    open($LockFH, '+<', $class->_RSSLockFilePath())
+      or throw EBox::Exceptions::Internal('Cannot open lock file '
+                                          . $class->_RSSLockFilePath()
+                                          . ": $!");
+    my $flag = $exclusive ? LOCK_EX : LOCK_SH;
+
+    flock($LockFH, $flag)
+      or throw EBox::Exceptions::Lock($class);
+
+}
+
+# Method: UnlockRSSFile
+#
+#       Release the lock for the RSS file after working with it. This
+#       call must be done after locking the RSS file using
+#       <EBox::Event::Dispatcher::RSS::LockRSSFile>
+#
+sub UnlockRSSFile
+{
+    my ($class) = @_;
+
+    my $flag = LOCK_UN;
+
+    flock($LockFH, $flag);
+    close($LockFH);
+
+}
+
+# Method: ConfigurationMethod
+#
+# Overrides:
+#
+#       <EBox::Event::Component::ConfigurationMethod>
+#
+sub ConfigurationMethod
+{
+
+      return 'model';
+
+}
+
+# Method: ConfigureModel
+#
+# Overrides:
+#
+#        <EBox::Event::Component::ConfigureModel>
+#
+sub ConfigureModel
+{
+
+    return 'RSSDispatcherConfiguration';
+
+}
+
 
 # Group: Protected methods
 
@@ -172,6 +250,9 @@ sub _addEventToRSS
     # FIXME: get the URL from the configuration
     my $net = EBox::Global->modInstance('network');
 
+    # Locking exclusively
+    $self->LockRSSFile(1);
+
     unless ( -r RSS_FILE ) {
         # Create the channel if it does not exist
         $rss->channel(title => __x('eBox alerts channel for {hostname}',
@@ -190,6 +271,8 @@ sub _addEventToRSS
                                   . $event->message());
 
     $rss->save(RSS_FILE);
+
+    $self->UnlockRSSFile();
 
 }
 

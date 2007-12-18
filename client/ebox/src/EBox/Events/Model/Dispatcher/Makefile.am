@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/Events/Model/Dispatcher
 
-nobase_perl_DATA = Jabber.pm
+nobase_perl_DATA = Jabber.pm RSS.pm
 
 SOURCES = $(nobase_perl_DATA)
 
