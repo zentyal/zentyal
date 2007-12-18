@@ -36,7 +36,7 @@ sub _clearRRDs : Test(setup)
 
 
 
-sub addBpsTest : Test(4)
+sub addBpsTest : Test(5)
 {
   my %expectedRRDs;
 
@@ -49,12 +49,17 @@ sub addBpsTest : Test(4)
   my $src1RRD = EBox::Network::Report::ByteRate::srcRRD($src1);
   my $src2    = '10.45.23.12';
   my $src2RRD = EBox::Network::Report::ByteRate::srcRRD($src2);
+
+  my $srcIp6 = 'fe80::20c:29ff:fe8c:5862';
+  my $escapedSrcIp6 =  EBox::Network::Report::ByteRate::escapeAddress($srcIp6);
+  my $srcIp6RRD     =   EBox::Network::Report::ByteRate::srcRRD($escapedSrcIp6);
+
   
   my $src1WwwRRD = EBox::Network::Report::ByteRate::srcAndServiceRRD($src1, 'www');
   my $src2WwwRRD = EBox::Network::Report::ByteRate::srcAndServiceRRD($src2, 'www');
   my $src1SshRRD = EBox::Network::Report::ByteRate::srcAndServiceRRD($src1, 'ssh');
   my $src2SshRRD = EBox::Network::Report::ByteRate::srcAndServiceRRD($src2, 'ssh');
-
+  my $srcIp6WwwRRD =  EBox::Network::Report::ByteRate::srcAndServiceRRD($escapedSrcIp6, 'www');
 
 
   EBox::Network::Report::ByteRate::addBps(
@@ -139,6 +144,23 @@ sub addBpsTest : Test(4)
   EBox::Network::Report::ByteRate->flushBps();
 
   is_deeply \%bpsByRRD, \%expectedRRDs, 'checking data after two more adds of another service';
+
+  # ip6 address addition
+    EBox::Network::Report::ByteRate::addBps(
+					 proto => 'tcp',
+					 src   => $srcIp6,
+					 sport => 10000,
+					 dst   => '45.23.12.12',
+					 dport => $wwwPort,
+					 bps => 1,
+					); 
+  EBox::Network::Report::ByteRate->flushBps();
+
+  $expectedRRDs{$srcIp6RRD} += 1;
+  $expectedRRDs{$wwwRRD}  += 1;
+  $expectedRRDs{$srcIp6WwwRRD} += 1;
+
+    is_deeply \%bpsByRRD, \%expectedRRDs, 'checking data after one add from a ip6 source address';
 }
 
 
@@ -178,6 +200,24 @@ sub addDeviantBpsTest : Test(12)
       EBox::Network::Report::ByteRate::addBps( @{ $case }); 
     } 'adding incorrect bps data';
     is keys %bpsByRRD, 0, 'checking that no bps data has been added when supplied bad data';
+  }
+
+}
+
+
+
+sub escapeAddressTest : Test(2)
+{
+  my @cases = (
+	       '192.168.54.12', # ip4 address
+	       'fe80::20c:29ff:fe8c:5862',    # ip6 address
+	      );
+
+  foreach my $addr (@cases) {
+    my $escaped = EBox::Network::Report::ByteRate::escapeAddress($addr);
+    my $unescaped = EBox::Network::Report::ByteRate::unescapeAddress($escaped);
+    is $unescaped, $addr, 'Checking wether unescaping a escaped address turn it back to the original';
+    
   }
 
 }

@@ -123,7 +123,7 @@ sub addBps
 
   my $src = $params{src};
   _checkAddr($src) or return;
-  $src = _escapeSrc($src);
+  $src = escapeAddress($src);
 
   my $proto = $params{proto};
  _checkProto($proto) or return;
@@ -307,11 +307,11 @@ sub _checkAddr
 
   my $valid = 0;
 
-  if (EBox::Validate::checkIP($addr)) {
+  if (EBox::Validate::checkIP($addr)) {   
     $valid = 1;
   }
-  elsif (EBox::Validate::checkMAC($addr)) {
-    $valid;
+  elsif (EBox::Validate::checkIP6($addr)) {
+    $valid = 1;
   }
 
   if (not $valid) {
@@ -368,17 +368,17 @@ sub _checkProto
 }
 
 
-sub _escapeSrc
+sub escapeAddress
 {
   my ($src) = @_;
   $src =~ s{:}{S}g;
   return $src;
 }
 
-sub _unescapeSrc
+sub unescapeAddress
 {
   my ($src) = @_;
-  $src =~ s{S}{:};
+  $src =~ s{S}{:}g;
   return $src;
 }
 
@@ -454,6 +454,8 @@ sub activeSrcRRDs
 }
 
 
+# XXX TODO separate graph functions to another package
+
 # XXX add params validation
 sub graph
 {
@@ -510,12 +512,14 @@ sub srcGraph
   my (%params) = @_;
 
   my $src = delete $params{src};
+  my $printableSrc = unescapeAddress($src);
+
   my $rrd = srcRRD($src);
   if (not -f $rrd) {
     throw EBox::Exceptions::External( 
 				     __x(
 					 'Traffic data not found for source {src}',
-					 src => $src,
+					 src => $printableSrc,
 					)
 				    );
   }
@@ -525,7 +529,7 @@ sub srcGraph
 		];
 
 
-  my $title =__x('Network traffic from {src}', src => $src);
+  my $title =__x('Network traffic from {src}', src => $printableSrc);
 
   graph(
 	dataset => $dataset,
@@ -568,6 +572,7 @@ sub srcAndServiceGraph
   my (%params) = @_;
 
   my $src     = delete $params{src};
+  my $printableSrc = unescapeAddress($src);
   my $service = delete $params{service};
 
   my $srcRRD = srcRRD($src);
@@ -575,7 +580,7 @@ sub srcAndServiceGraph
     throw EBox::Exceptions::External( 
 				     __x(
 					'Traffic data not found for source {src}',
-					src => $src,
+					src => $printableSrc,
 				       )
 				    );
   }
@@ -595,7 +600,7 @@ sub srcAndServiceGraph
     throw EBox::Exceptions::External( 
 				     __x(
 				     'Traffic data not found for source {src} and service {service}',
-				     src     => $src,
+				     src     => $printableSrc,
 				     service => $service,
 				     )
 				    );
@@ -672,7 +677,7 @@ sub activeSrcsGraph
       foreach my $src (@srcs) {
 	# extract src name
 	$src =~ m/src-(.*)\.rrd/;
-	my $legend = $1;
+	my $legend = unescapeAddress($1); 
 	my $ds = {
 		  rrd     => $src,
 		  legend => $legend,
@@ -698,8 +703,9 @@ sub activeSrcsGraph
 sub _srcDatasetElement
 {
   my ($src, $rrd) = @_;
+  my $printableSrc = unescapeAddress($src);
 
-  my $legend = __x("Traffic rate from {src}", src => $src);
+  my $legend = __x("Traffic rate from {src}", src => $printableSrc);
 
   my $ds = {
 	  rrd => $rrd,
@@ -729,8 +735,9 @@ sub _srcAndServiceDatasetElement
 {
   my ($src, $service, $rrd) = @_;
 
+  my $printableSrc = unescapeAddress($src);
   my $legend = __x("Traffic rate from {src} for {service}", 
-		   src     => $src,
+		   src     => $printableSrc,
 		   service => $service,
 		  );
 
