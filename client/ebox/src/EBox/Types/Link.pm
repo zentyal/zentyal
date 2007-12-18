@@ -65,7 +65,9 @@ sub new
 
       bless ( $self, $class );
 
-      $self->{'HTMLSetter'} = undef;
+      unless (exists $opts{'HTMLSetter'}) {
+          $self->{'HTMLSetter'} = undef;
+      }
 
       return $self;
 
