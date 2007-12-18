@@ -20,14 +20,16 @@
 #
 package EBox::AbstractDaemon;
 
+use strict;
+use warnings;
+
 use EBox;
 use EBox::Config;
 use POSIX;
 
 use Error qw(:try);
+use File::Slurp;
 
-use strict;
-use warnings;
 
 use constant PIDPATH => EBox::Config::tmp . '/pids/';
 
@@ -92,13 +94,51 @@ sub init {
 	}
 
         my $FD;
-	unless (open($FD ,  '>' . PIDPATH . $self->{'name'} . '.pid')) {
+	unless (open($FD ,  '>' .  $self->pidFile)) {
 		EBox::debug ('Cannot save pid');
 		exit 1;
 	}
 
 	print $FD "$$";
 	close $FD;
+}
+
+
+sub pidFile
+{
+  my ($self, $name) = @_;
+
+  if (ref $self) {
+    $name and 
+      throw EBox::Exceptions::Internal('No need to specify daemon name when called as object method');
+    $name = $self->{'name'};
+  }
+
+  return  PIDPATH . $name . '.pid';
+}
+
+
+sub pid
+{
+  my ($self, $name) = @_;
+  my $pidFile;
+
+  if (ref $self) {
+    $name and 
+      throw EBox::Exceptions::Internal('No need to specify daemon name when called as object method');
+    $pidFile = $self->pidFile();
+  }
+  else {
+    $pidFile = $self->pidFile($name);
+  }
+
+  if (not -r $pidFile) {
+    return undef;
+  }
+
+  my $pid = File::Slurp::read_file($pidFile);
+  return $pid;
+
 }
 
 1;
