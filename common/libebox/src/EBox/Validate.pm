@@ -169,6 +169,44 @@ sub checkIP # (ip, name?)
 	}
 }
 
+#
+# Function: checkIP6
+#
+#	Checks if the string param that holds an ip address is a valid
+#	IPv6 address.
+#
+# Parameters:
+#
+#       ip - IPv6 address
+#	name - ip's name to be used when throwing an Exception (optional)
+#
+# Returns:
+#
+#	boolean - True if it is a valid IPv4 address, false otherwise
+#
+# Exceptions:
+#
+#	If name is passed an exception could be raised
+#
+#	InvalidData - IP is invalid
+#
+sub checkIP6 # (ip, name?) 
+{
+   my ($ip, $name) = @_;
+
+   if (Net::IP::ip_is_ipv6($ip)) {
+     return 1;
+   }
+
+   if ($name) {
+     throw EBox::Exceptions::InvalidData
+       ('data' => $name, 'value' => $ip);
+   } else {
+     return undef;
+   }
+}
+
+
 # 
 # Function: checkNetmask
 #

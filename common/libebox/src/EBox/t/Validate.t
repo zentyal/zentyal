@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 105;
+use Test::More tests => 115;
 use Test::Exception;
 use Fatal qw(mkdir);
 
@@ -15,6 +15,7 @@ checkAbsoluteFilePathTest();
 checkIsPrivateDir();
 checkHostTest();
 checkEmailAddressTest();
+checkIP6Test();
 
 sub checkFilePathTest
 {
@@ -173,6 +174,40 @@ sub checkEmailAddressTest
 	ok ! EBox::Validate::checkEmailAddress($case), $name;
 	dies_ok {  EBox::Validate::checkEmailAddress($case, $name) } "$name (with name parameter)";
     }
+}
+
+
+sub checkIP6Test
+{
+  my @valid = (
+	       '2001:0db8:0000:0000:0000:0000:1428:57ab',
+	       '2001:0db8:0000:0000:0000::1428:57ab',
+	       '2001:0db8:0:0:0:0:1428:57ab',
+	       '2001:0db8:0:0::1428:57ab',
+	       '2001:0db8::1428:57ab',
+	       '2001:db8::1428:57ab',
+	      );
+
+  my @invalid = (
+		 'macaco',
+		 '192.168.45.3',
+		);
+
+
+  foreach my $ip (@valid) {
+    ok EBox::Validate::checkIP6($ip), 'checking wether checkIP6 recognizes valid addresses';
+  }
+
+  
+  foreach my $ip (@invalid) {
+    my $errorReturnValue = not EBox::Validate::checkIP6($ip);
+    ok $errorReturnValue, 'checking wether checkIP6 signals invalid values wit its return value';;
+    dies_ok {
+      EBox::Validate::checkIP6($ip, 'error');
+    } 'checking wether checkIP6 signals a invalid value raising exception';
+  }
+
+
 }
 
 1;
