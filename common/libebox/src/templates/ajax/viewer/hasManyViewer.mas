@@ -1,4 +1,4 @@
 <%args>
 $data
 </%args>
-<a href="<% $data->linkToView() %>" <img src="/data/images/edit-table.gif"> </a>
+<a href="<% $data->linkToView() %>"><img src="/data/images/edit-table.gif"></a>
