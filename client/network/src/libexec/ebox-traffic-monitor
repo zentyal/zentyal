@@ -12,10 +12,13 @@ use constant {
   JNETTOP_FORMAT => q{'$proto$,$src$,$srcport$,$dst$,$dstport$,$totalbps$'},
 
   LOGGER_PATH =>  EBox::Config::libexec() . 'ebox-traffic-monitor-logger',
+  DAEMON_NAME => 'ebox-traffic-monitor',
 };
 
 
 my $LOGGER;  # logger daemon process file handler
+
+
 
 sub _checkEnvironment
 {
@@ -86,22 +89,28 @@ sub _jnettopCmd
 
 sub _daemonize
 {
-  my $daemon = EBox::AbstractDaemon->new(name => 'ebox-traffic-monitor');
+  my $daemon = EBox::AbstractDaemon->new(name => DAEMON_NAME);
+
+  if ($daemon->pid) {
+    die 'already running';
+  }
+
   $daemon->init();
+
+ $SIG{TERM} = $SIG{HUP} = $SIG{INT} = \&terminate;
 }
 
 
 sub terminate
 {
-  if ($LOGGER) {
-    close $LOGGER  or  die "bad spool: $! $?";
-  }
-  
+  # kill children
+  system 'pkill -f ' . LOGGER_PATH;
+  system 'pkill -f ' . JNETTOP_PATH;
 
-  print "TERMINATED\n";
+  # remove pid file
+  my $pidFile =  EBox::AbstractDaemon->pidFile(DAEMON_NAME);
+  system "rm -f $pidFile";
 
-
-  system 'pkill -f ' . JNETTOP_PATH ;
   exit 0;
 }
 
@@ -115,7 +124,7 @@ my %params = @ARGV;
 _checkParams(%params);
 
 _daemonize();
-$SIG{TERM} = \&terminate;
+
 
 
 my $jnettopCmd = _jnettopCmd(%params);
@@ -124,6 +133,7 @@ my $jnettopCmd = _jnettopCmd(%params);
 
 open $LOGGER,  '|' . LOGGER_PATH or
   die "cannot fork logger child process";
+
 
 
 while (1) {
@@ -138,7 +148,7 @@ while (1) {
 }
 
 
-close $LOGGER  or  die "bad spool: $! $?";
+
 
 
 1;
