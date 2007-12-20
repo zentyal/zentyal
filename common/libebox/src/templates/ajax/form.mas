@@ -73,7 +73,7 @@
   # Getting the arguments from the first request
   my $model = $m->caller_args(2)->{model};
 </%init>
-<td id="<% 'buttons_' . $model->modelName() %>"
+<td id="<% 'buttons_' . $model->modelName() %>">
   <& /input/submit.mas,
      name => 'change',
      value => $model->printableActionName(),
