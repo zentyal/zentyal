@@ -223,10 +223,10 @@ function switchImg(hiddenPrefix, activePrefix)
      var divTop = oldActiveDiv.style.top;
      var imgTop = oldActiveDiv.style.top;
 
-     Element.setStyle( oldActiveDiv, {  'z-index': 0, position: 'absolute'});
-     Element.setStyle( oldHiddenDiv, {  'z-index': 1, position: 'absolute', });
-     Element.setStyle( oldActiveImg, {  'z-index': 0, position: 'absolute'});
-     Element.setStyle( oldHiddenImg, {  'z-index': 1, position: 'absolute'});
+     Element.setStyle( oldActiveDiv, {   position: 'absolute', display: 'none'});
+     Element.setStyle( oldHiddenDiv, {   position: 'absolute', display : 'block' });
+     Element.setStyle( oldActiveImg, {   position: 'absolute', display: 'none'});
+     Element.setStyle( oldHiddenImg, {   position: 'absolute', display: 'block' });
 
      hiddenImgOnload = oldHiddenDiv.onload;
      oldHiddenDiv.onload = '';
