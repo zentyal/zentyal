@@ -235,6 +235,16 @@ sub _name
 #
 sub _enable
 {
+    # Check how the public access is done
+    my $manager = EBox::Model::ModelManager->instance();
+    my $confModel = $manager->model('/events/' . $self->ConfigureModel());
+
+    my $allowed = $confModel->allowedValue();
+
+    if ( $allowed eq 'allowedAuth' ) {
+	EBox::warn('The allowed readers for the RSS are the users administration');
+    }
+
     return 1;
 }
 

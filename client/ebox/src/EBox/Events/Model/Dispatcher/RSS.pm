@@ -132,8 +132,8 @@ sub _table
                                 subtypes      =>
                                 [
                                  new EBox::Types::Union::Text(
-                                                              fieldName => 'allowedNobody',
-                                                              printableName => __('Nobody'),
+                                                              fieldName => 'allowedAuth',
+                                                              printableName => __('HTTP Authenticate'),
                                                              ),
                                  new EBox::Types::IPAddr(
                                                          fieldname => 'allowedIP',
