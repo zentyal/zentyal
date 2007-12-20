@@ -21,6 +21,7 @@ use strict;
 use warnings;
 
 use EBox::Global;
+use EBox::Gettext;
 
 sub imageModel
 {
@@ -29,5 +30,14 @@ sub imageModel
   my $network = EBox::Global->modInstance('network');
   return $network->model('ByteRateGraph');
 }
+ 
+sub _table
+{
+  my ($class) = @_;
+  my $table = $class->SUPER::_table();
+  $table->{printableName} = __('Select traffic graphic');
+  return $table;
+}
+
 
 1;

@@ -13,6 +13,7 @@ use EBox::Validate;
 use EBox::Exceptions::Internal;
 use EBox::NetWrappers;
 use EBox::ColourRange;
+use EBox::AbstractDaemon;
 
 use File::Glob qw(:glob);
 use File::Basename;
@@ -27,6 +28,8 @@ use constant SERVICE_KEY => 'usage-monitor-active';
 
 
 use constant MONITOR_DAEMON => '/usr/lib/ebox/ebox-traffic-monitor';
+use constant MONITOR_DAEMON_NAME => 'ebox-traffic-monitor';
+use constant MONITOR_PERIOD => 5;
 
 use constant CONF_FILE => '/etc/jnettop.conf';
 
@@ -38,20 +41,21 @@ sub service
 {
   my ($class) = @_;
   my $network  = EBox::Global->modInstance('network');
-  return $network->get_bool(SERVICE_KEY)
+  my $settings = $network->model('ByteRateSettings');
+  return $settings->serviceValue();
 }
 
 
-sub setService
-{
-  my ($class, $newService) = @_;
+# sub setService
+# {
+#   my ($class, $newService) = @_;
 
-  my $network  = EBox::Global->modInstance('network');
-  my $oldService = $network->get_bool(SERVICE_KEY);
-  if ($newService xor $oldService) {
-    $network->set_bool(SERVICE_KEY, $newService);
-  }
-}
+#   my $network  = EBox::Global->modInstance('network');
+#   my $oldService = $network->get_bool(SERVICE_KEY);
+#   if ($newService xor $oldService) {
+#     $network->set_bool(SERVICE_KEY, $newService);
+#   }
+# }
 
 
 
@@ -67,6 +71,8 @@ sub _regenConfig
 {
   my ($class) = @_;
 
+  $class->_writeConfFile();
+
   my $service = $class->service;
   my $running = $class->running();
 
@@ -75,17 +81,48 @@ sub _regenConfig
   }
   
   if ( $service) {
-    $class->_writeConfFile();
-    EBox::Sudo::root(MONITOR_DAEMON . ' time 10 ' . ' conffile ' . CONF_FILE);
+    $class->startService();
   }
 
 }
 
 
+sub _ifaceToListenOn
+{
+  my $network  = EBox::Global->modInstance('network');
+  my $settings = $network->model('ByteRateSettings');
+  return $settings->ifaceValue();
+}
+
+
+sub startService
+{
+  my ($class) = @_;
+
+  my $cmd = MONITOR_DAEMON . ' time ' . MONITOR_PERIOD;
+  $cmd  .= ' conffile ' . CONF_FILE;
+  
+    my $iface = _ifaceToListenOn();
+  if ($iface ne 'all') {
+    $cmd .= " iface $iface";
+  }
+  
+  EBox::Sudo::root($cmd);
+}
+
 sub stopService
 {
   my ($class) = @_;
-  EBox::Sudo::root('pkill -f ' . MONITOR_DAEMON);
+
+  my $pid = EBox::AbstractDaemon->pid(MONITOR_DAEMON_NAME);
+  if (defined $pid) {
+    EBox::Sudo::root('kill ' . $pid);
+  }
+  else {
+    _warnIfDebug('Cannot stop traffic rate monitor because we cannot found his PID. Are you sure is running?');
+  }
+ 
+
 }
 
 
@@ -97,9 +134,15 @@ sub _writeConfFile
   my @internalIfaces = @{ $network->InternalIfaces()  };
 
   my @localNets = map {
-    my $net = $network->ifaceNetwork($_);
-    my ($addr, $mask) = EBox::NetWrappers::to_network_without_mask($net);
-    [$addr, $mask]
+    my @nets;
+    my %addresses = %{ EBox::NetWrappers::iface_addresses_with_netmask($_) };
+    while (my ($addr, $mask) = each %addresses) {
+      my $network = EBox::NetWrappers::ip_network($addr, $mask);
+      push @nets, [$network, $mask];
+    }
+
+    @nets;
+
   } @internalIfaces;
 
   EBox::Module->writeConfFile(
@@ -313,9 +356,12 @@ sub _checkAddr
   elsif (EBox::Validate::checkIP6($addr)) {
     $valid = 1;
   }
+  elsif ($addr eq '0.0.0.0') { # especial case for ARP protocol
+    $valid = 1;
+  }
 
   if (not $valid) {
-    EBox::warn("Incorrect address $addr, data will not be added to trafic statistics");
+    _warnIfDebug("Incorrect address $addr, data will not be added to trafic statistics");
   }
 
   return $valid;
@@ -325,11 +371,11 @@ sub _checkAddr
 sub _checkPort
 {
   my ($port) = @_;
-  if (EBox::Validate::checkPort($port)) {
+  if (EBox::Validate::checkPort($port) or ($port eq 'AGGR.')) {
     return 1;
   }
   else {
-    EBox::warn("Incorrect port $port, data will not be added to trafic statistics");
+    _warnIfDebug("Incorrect port $port, data will not be added to trafic statistics");
     return 0;
   }
 }
@@ -341,7 +387,7 @@ sub _checkBps
     return 1;
   }
   else {
-    EBox::warn("Incorrect bytes per second: $bps, data will not be added to trafic statistics");
+    _warnIfDebug("Incorrect bytes per second: $bps, data will not be added to trafic statistics");
     return 0;
   }
 }
@@ -360,13 +406,22 @@ sub _checkProto
   }
   
   if (not $valid) {
-        EBox::warn("Incorrect protocol $proto, data will not be added to trafic statistics");
+        _warnIfDebug("Incorrect protocol $proto, data will not be added to trafic statistics");
   }
   
 
   return $valid;
 }
 
+
+# we only log the warning if debug active bz otherwise we can fill the hard disk
+sub _warnIfDebug
+{
+  my ($msg) = @_;
+  if (EBox::Config::configkey('debug') eq 'yes') {
+    EBox::warn($msg);
+  }
+}
 
 sub escapeAddress
 {
@@ -418,6 +473,7 @@ sub _removeRRD
 
   unlink $rrd;
 
+  # XXX reork this, only works for sources
   # remove related RRDs
   my $dir  = _rrdDir();
   my $relatedGlob = basename $rrd;

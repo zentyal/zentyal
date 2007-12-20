@@ -79,6 +79,7 @@ sub modelClasses
            class     => 'EBox::Network::Model::MultiGwRulesDataTable',
            directory => 'multigwrulestable',
           },
+	  'EBox::Network::Model::ByteRateSettings',
 	  'EBox::Network::Model::ByteRateGraph',
 	  'EBox::Network::Model::ByteRateGraphControl',
 	 ];
@@ -2346,6 +2347,11 @@ sub menu
 	$folder->add(new EBox::Menu::Item('url' => 
 						'Network/View/MultiGwRulesDataTable',
 					  'text' => __('Balance traffic')));
+	$folder->add(new EBox::Menu::Item('url' => 
+						'Network/Composite/ByteRate',
+					  'text' => __('Traffic rate monitor')));
+
+
 
 	$root->add($folder);
 }

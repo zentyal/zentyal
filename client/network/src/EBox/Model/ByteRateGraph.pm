@@ -20,6 +20,10 @@ use warnings;
 
 use EBox::Gettext;
 use EBox::Network::Report::ByteRate;
+use EBox::Types::Text;
+use EBox::Types::HostIP;
+use EBox::Types::Select;
+
 
 sub new
   {
@@ -44,47 +48,80 @@ sub new
 #       name and description are read-only fields.
 #
 sub _table
-  {
+{
+  my $graphTypePopulateSub_r  = sub {
+    return [
+	    {
+	     value => 'activeSrcsGraph',
+	     printableValue => __('Active sources traffic'),
+	    },
+	    {
+	     value => 'activeServicesGraph',
+	     printableValue => __('Active services traffic'),
+	    },
+	    {
+	     value => 'srcGraph',
+	     printableValue => __('Source traffic'),
+	    },
+	    {
+	     value => 'serviceGraph',
+	       printableValue => __('Service traffic'),
+	    },	
+	    {
+	     value => 'srcAndServiceGraph',
+	     printableValue => __('Source and service traffic'),
+	    },
+	    
+	   ];
+  };
+
     my  @tableHead = (
-		      new EBox::Types::Text(
+		      new EBox::Types::Select(
 					    printableName  => __('Graph type'),
 					    'fieldName' => 'graphType',
 					    'size' => '10',
-					    'optional' => 1, 
+					    'optional' => 0, 
 					    defaultValue    => 'activeSrcsGraph',
+#					    'hidden' => 1,
+					    editable => 1,
+					    populate => $graphTypePopulateSub_r,
+					   ),
+		      new EBox::Types::HostIP(
+					    printableName  => __('Source'),
+					    'fieldName' => 'source',
+					    'size' => '40',
+					    'optional' => 1, 
 #					    'hidden' => 1,
 					    editable => 1,
 					   ),
 		      new EBox::Types::Text(
-					    printableName  => __('Graph parameters'),
-					    'fieldName' => 'graphArguments',
+					    printableName  => __('Service'),
+					    'fieldName' => 'netService',
 					    'size' => '40',
 					    'optional' => 1, 
-					    defaultValue    => '',
 #					    'hidden' => 1,
-					    editable => 1,
+					    editable => 1,					    
 					   ),
 		     );
 
-      my $dataTable =
-        {
-	 'tableDescription' => \@tableHead,
-         tableName          => 'ByteRateGraph',
-         printableTableName => __('Byte rate'),
-	 modelDomain        => 'Network',
-#         help               => __(''),
+  my $dataTable = {
+		   'tableDescription' => \@tableHead,
+		   tableName          => 'ByteRateGraph',
+#		   printableTableName => __('Byte rate'),
+		   modelDomain        => 'Network',
+		   #         help               => __(''),
 
-			'defaultActions' =>
-				[
-				 'editField',
-				'changeView',
-				],
-	
-	};
+		   'defaultActions' =>
+		   [
+		    'editField',
+		    'changeView',
+		   ],
+	 
+		  };
 
 
-      return $dataTable;
-  }
+  return $dataTable;
+}
 
 
 sub _generateImage
@@ -127,13 +164,39 @@ sub _graphSub
 sub _graphSubArguments
 {
   my ($self) = @_;
-  my $graphArguments = $self->graphArgumentsValue();
-  $graphArguments or
-    return ();
+  my $graphType = $self->graphTypeValue();
 
-  my @args = split '\s+', $graphArguments;
-  return @args;
+  if ($graphType eq 'srcGraph') {
+    return (source => $self->sourceValue);
+  }
+  elsif ($graphType eq 'serviceGraph') {
+    return (service => $self->netServiceValue);
+  }
+  elsif ($graphType eq 'srcAndServiceGraph') {
+    return (source => $self->sourceValue , service => $self->netServiceValue);
+  }
+  else {
+    return ()
+  }
+
 }
 
+# XXX ugly fix
+# we need to manage this in the arent class itself
+sub _setTypedRow
+{
+  my ($self, @params) = @_;
+  my $modName = 'network';
+  my $global  = EBox::Global->modInstance('global');
+  my $changed = $global->modIsChanged($modName);
+
+  $self->SUPER::_setTypedRow(@params);
+
+  if (not $changed) {
+
+    $global->set_bool("modules/$modName/changed", undef);
+  }
+}
+ 
 
 1;

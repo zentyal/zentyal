@@ -9,7 +9,7 @@ use POSIX qw(setsid);
 
 use constant {
   JNETTOP_PATH => '/usr/sbin/jnettop',
-  JNETTOP_FORMAT => q{'$proto$,$src$,$srcport$,$dst$,$dstport$,$totalbps$'},
+  JNETTOP_FORMAT => q{\$proto\$,\$src\$,\$srcport\$,\$dst\$,\$dstport\$,\$totalbps\$},
 
   LOGGER_PATH =>  EBox::Config::libexec() . 'ebox-traffic-monitor-logger',
   DAEMON_NAME => 'ebox-traffic-monitor',
@@ -143,7 +143,6 @@ while (1) {
   }
 
  print $LOGGER @output or die "child error $!";
-
 
 }
 
