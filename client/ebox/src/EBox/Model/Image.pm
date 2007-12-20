@@ -49,24 +49,49 @@ sub Viewer
 }
 
 
+
+# returns a hash with the following:
+#      uri - image uri
+#      alt - alt text for image 
+#        - or -
+#      error - error message to print instead of image  
 sub image
 {
   my ($self) = @_;
 
-  my $image_r = EBox::CGI::Temp::newImage();
-  $self->_generateImage($image_r->{file});
+  my $imageFile_r = EBox::CGI::Temp::newImage();
 
+  my $generatedImage_r =   $self->_generateImage($imageFile_r->{file});
+  
+  # add default alt if needed
+  exists $generatedImage_r->{alt} or 
+    $generatedImage_r->{alt} = '';
+  exists $generatedImage_r->{error} or
+    $generatedImage_r->{error} = 'No image available';
 
-  return $image_r->{url};
+  if ($generatedImage_r->{image}) {
+    return {
+	    url => $imageFile_r->{url},
+	    alt => $generatedImage_r->{alt},
+	   }
+  }
+  else {
+    return {
+	    text => $generatedImage_r->{text},
+	   }
+  }
+
 }
 
 
-sub imageAlt
-{
-  return '';
-}
+
 
 # to override by subclass
+# must return a hash with the following:
+#      image - wether the image was created or not
+#      alt - alt text for image (optional)
+#      error - error message to print instead of image  (optional)
+#     
 sub _generateImage
 {
   throw EBox::Exceptions::NotImplemented();

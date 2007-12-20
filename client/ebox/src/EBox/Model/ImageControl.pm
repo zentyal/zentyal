@@ -3,7 +3,7 @@ package EBox::Model::ImageControl;
 use strict;
 use warnings;
 
-use base 'EBox::Model::DataForm';
+use base 'EBox::Model::DataForm::Action';
 
 use EBox::Gettext;
 

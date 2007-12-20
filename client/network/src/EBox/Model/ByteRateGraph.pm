@@ -24,6 +24,9 @@ use EBox::Types::Text;
 use EBox::Types::HostIP;
 use EBox::Types::Select;
 
+use EBox::Exceptions::DataNotFound;
+
+use Error qw(:try);
 
 sub new
   {
@@ -138,12 +141,24 @@ sub _generateImage
   my $sub_r         = $self->_graphSub();
   my @subArguments  = $self->_graphSubArguments();
 
-  
-  $sub_r->(
-	   @commonArguments,
-	   @subArguments,
-	  );
+  my $error = undef;
+  try {
+    $sub_r->(
+	     @commonArguments,
+	     @subArguments,
+	    );
+  }
+  catch EBox::Exceptions::DataNotFound with  {
+    my $ex = shift;
+    $error = $ex->text;
+  };
 
+  if (defined $error) {
+    return { image => 0, error => $error };
+  }
+
+
+  return { image => 1 };
 }
 
 
