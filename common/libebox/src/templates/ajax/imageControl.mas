@@ -47,19 +47,9 @@
 </%method>
 
 
-<%method header>
-<%args>
-  $model
-</%args>
-<& PARENT:header, model => $model &>
+<%method headerScriptSection>
 
-<script type="text/javascript" src="/data/js/table-helper.js">
-  //
-</script>
-<script type="text/javascript" src="/data/js/fileUpload.js">//</script>
-<!-- Element to hide the elements while Asynchronous request are -->
-<!-- working. Find more information at "table-helper.js"  -->
-
+<& PARENT:headerScriptSection &>
 
 <script type='text/javascript'>
 function applyChangeToImage(url, table, fields, directory, force)
@@ -107,15 +97,6 @@ function applyChangeToImage(url, table, fields, directory, force)
 
 </script>
 
-<div id="<% 'hiddenDiv_' . $model->name() | h %>" class="hidden"></div>
-
-% if ($model->help()) {
-<div class="help">
-  <% $model->help() %>
-</div>
-% }
-
-<div id='error_<% $model->modelName() | hu %>'></div>
 
 
 </%method>

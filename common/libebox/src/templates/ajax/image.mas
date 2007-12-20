@@ -150,6 +150,7 @@ my $refreshFunction =   q{function(pe) } . ' { ' .
                             q{reloadGraph(} .
                             q{'} .  $table->{'actions'}->{'changeView'} . q{', } .
 			    q{'}. $hiddenDiv . q{', } .
+			    q{'} . $table->{tableName} . q{',} .
 			    q{'} . $table->{'gconfdir'} . q{', } .
                             q{'changeList'}.
                             q{)} .
@@ -162,14 +163,26 @@ my $pe = $model->name . 'Pe';
 </%init>
 <script type="text/javascript">
 
-function reloadGraph(url, target, directory, action)
+var <% $pe %>;
+<% $pe %> = new PeriodicalExecuter(<% $refreshFunction %>, <% $refreshInterval %>);
+
+</script>
+</%method>
+
+
+<%method headerScriptSection>
+
+<& PARENT:headerScriptSection &>
+
+<script type="text/javascript">
+
+function reloadGraph(url, target, tableName, directory, action)
 {
 
 
 	var pars = 'action=' + action + '&tablename=' + target + '&directory=' + directory; //+ '&editid=' + id;
 
-//	cleanError(table);
-//        cleanError(target);
+        cleanError(tableName);
 	
 	var MyAjax = new Ajax.Updater(
 		{
@@ -189,11 +202,6 @@ function reloadGraph(url, target, directory, action)
 		});
 
 }
-
-
-
-var <% $pe %>;
-<% $pe %> = new PeriodicalExecuter(<% $refreshFunction %>, <% $refreshInterval %>);
 
 function switchImg(hiddenPrefix, activePrefix)
 {
@@ -225,8 +233,8 @@ function switchImg(hiddenPrefix, activePrefix)
      oldActiveDiv = hiddenImgOnload;
 }
 </script>
-</%method>
 
+</%method>
 
 <%method editForm>
 $m->abort('images cannot be edited');
