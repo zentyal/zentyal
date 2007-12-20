@@ -29,10 +29,16 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Config;
 use English qw(-no_match_vars);
 use File::Basename();
+
+# Constants
+use constant RESTRICTED_FILES_KEY    => 'restricted_files';
+use constant RESTRICTED_IP_LIST_KEY  => 'allowed_ips';
 
 sub _create
 {
@@ -196,6 +202,14 @@ sub port
 	return $self->get_int('port');
 }
 
+# Method: setPort
+#
+#     Set the listening port for the apache perl
+#
+# Parameters:
+#
+#     port - Int the new listening port
+#
 sub setPort # (port) 
 {
 	my ($self, $port) = @_;
@@ -237,4 +251,93 @@ sub logs {
 	push(@logs, $log);
 	return \@logs;
 }
+
+# Method: setRestrictedFile
+#
+#      Set a restricted file to the Apache perl configuration
+#
+# Parameters:
+#
+#      filename - String the file name to restrict
+#
+#      allowedIPs - Array ref the set of IPs which allow the
+#      restricted file to be accessed in CIDR format or magic word
+#      'all', in that case, all sources are allowed to see that
+#      filename
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#      argument is missing
+#
+#      <EBox::Exceptions::Internal> - thrown if any of the allowed IP
+#      addresses are not in CIDR format or no allowed IP is given
+#
+sub setRestrictedFile
+{
+    my ($self, $filename, $allowedIPs) = @_;
+
+
+    throw EBox::Exceptions::MissingArgument('filename')
+      unless defined ( $filename );
+    throw EBox::Exceptions::MissingArgument('allowedIPs')
+      unless defined ( $allowedIPs );
+
+    my $allFound = grep { $_ eq 'all' } @{$allowedIPs};
+    if ( $allFound ) {
+        $allowedIPs = ['all'];
+    } else {
+        # Check the given list is a list of IPs
+        my $notIPs = grep { ! checkCIDR($_) } @{$allowedIPs};
+        if ( $notIPs > 0 ) {
+            throw EBox::Exceptions::Internal('Some of the given allowed IP'
+                                             . 'addresses are not in CIDR format');
+        }
+        if ( @{$allowedIPs} == 0 ) {
+            throw EBox::Exceptions::Internal('Some allowed IP must be set');
+        }
+    }
+
+    my $rootKey = RESTRICTED_FILES_KEY . "/$filename/";
+    # Get the current list
+    $self->set_list( $rootKey . RESTRICTED_IP_LIST_KEY,
+                     'string', $allowedIPs );
+
+}
+
+# Method: delRestrictedFile
+#
+#       Remove a restricted file from the list
+#
+# Parameters:
+#
+#       filename - String the file name which indexes which restricted
+#       file is requested to be deleted
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#      argument is missing
+#
+#      <EBox::Exceptions::DataNotFound> - thrown if the given file name is
+#      not in the list of restricted files
+#
+sub delRestrictedFile
+{
+    my ($self, $filename) = @_;
+
+    throw EBox::Exceptions::MissingArgument('filename')
+      unless defined ( $filename );
+
+    my $fileKey = RESTRICTED_FILES_KEY . "/$filename";
+
+    unless ( $self->dir_exists($fileKey) ) {
+        throw EBox::Exceptions::DataNotFound( data  => 'filename',
+                                              value => $filename);
+    }
+
+    $self->delete_dir($fileKey);
+
+}
+
 1;
