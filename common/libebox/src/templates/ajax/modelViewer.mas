@@ -92,10 +92,7 @@
 <%args>
   $model
 </%args>
-<script type="text/javascript" src="/data/js/table-helper.js">
-  //
-</script>
-<script type="text/javascript" src="/data/js/fileUpload.js">//</script>
+<& SELF:headerScriptSection &>
 <!-- Element to hide the elements while Asynchronous request are -->
 <!-- working. Find more information at "table-helper.js"  -->
 <div id="<% 'hiddenDiv_' . $model->name() | h %>" class="hidden"></div>
@@ -108,6 +105,14 @@
 
 <div id='error_<% $model->modelName() | hu %>'></div>
 </%method>
+
+<%method headerScriptSection>
+<script type="text/javascript" src="/data/js/table-helper.js">
+  //
+</script>
+<script type="text/javascript" src="/data/js/fileUpload.js">//</script>
+</%method>
+
 
 <%doc>
   Method: body
