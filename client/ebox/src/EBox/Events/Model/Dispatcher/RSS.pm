@@ -94,18 +94,34 @@ sub validateTypedRow
 #      <EBox::Model::DataForm::formSubmitted>
 #
 sub formSubmitted
-  {
+{
 
-      my ($self, $oldRow) = @_;
+    my ($self, $oldRow) = @_;
 
-      my $newRow = $self->row();
+    # Set the restricted file in Apache-perl configuration
+    my $selectedAllowed = $self->allowedType()->selectedType();
+    my @ips = ();
+    if ( $selectedAllowed eq 'allowedNobody' ) {
+        push ( @ips, 'nobody');
+    } elsif ( $selectedAllowed eq 'allowedIP' ) {
+        push ( @ips, $self->allowedPrintableValue());
+    } elsif ( $selectedAllowed eq 'allowedObject' ) {
+        my $objMod = EBox::Global->modInstance('objects');
+        my $objIPs = $objMod->objectAddresses( $self->allowedValue() );
+        if ( @{$objIPs} > 0 ) {
+            push ( @ips, @{$objIPs} );
+        }
+    } elsif ( $selectedAllowed eq 'allowedAll' ) {
+        push( @ips, 'all');
+    }
+    my $apacheMod = EBox::Global->modInstance('apache');
+    my $rssFilePath =  EBox::Event::Dispatcher::RSS::RSSFilePath();
+    if ( @ips > 0 ) {
+        $apacheMod->setRestrictedFile( $rssFilePath,
+                                       \@ips);
+    }
 
-      unless ( $newRow->{plainValueHash}->{link} eq $oldRow->{plainValueHash}->{link} ) {
-          my $netMod = EBox::Global->modInstance('network');
-          $self->_updateLinkInRSS($netMod->ifaceAddress($newRow->{plainValueHash}->{link}));
-      }
-
-  }
+}
 
 # Group: Protected methods
 
@@ -120,23 +136,18 @@ sub _table
 
       my @tableDesc =
         (
-         new EBox::Types::Select(
-                                 fieldName     => 'link',
-                                 printableName => __('Channel link'),
-                                 editable      => 1,
-                                 populate      => \&populateLinks,
-                                ),
          new EBox::Types::Union(
                                 fieldName     => 'allowed',
                                 printableName => __('Allowed readers'),
+                                editable      => 1,
                                 subtypes      =>
                                 [
                                  new EBox::Types::Union::Text(
-                                                              fieldName => 'allowedAuth',
-                                                              printableName => __('HTTP Authenticate'),
+                                                              fieldName => 'allowedNobody',
+                                                              printableName => __('Nobody'),
                                                              ),
                                  new EBox::Types::IPAddr(
-                                                         fieldname => 'allowedIP',
+                                                         fieldName => 'allowedIP',
                                                          printableName => __('IP address'),
                                                          editable  => 1,
                                                         ),
@@ -183,33 +194,6 @@ sub _table
 
 # Group: Callback functions
 
-# Function: populateLinks
-#
-#     Populate the available channel links
-#
-# Returns:
-#
-#     array ref - the array reference containing the value and
-#     printable value for each link to use as a channel link
-#
-sub populateLinks
-{
-
-    my $net = EBox::Global->modInstance('network');
-
-    my @options;
-    foreach my $iface (@{$net->ifaces()}) {
-        push ( @options,
-               {
-                value => $net->ifaceAddress($iface),
-                printableValue => $iface,
-               });
-    }
-
-    return \@options;
-
-}
-
 # Function: objectModel
 #
 #     Getter for the object model using model manager
@@ -242,12 +226,12 @@ sub setLinkToRSS
 
     my ($row) = @_;
 
-    EBox::Event::Dispatcher::RSS::LockRSSFile(0);
+    EBox::Event::Dispatcher::RSS->LockRSSFile(0);
 
     my $rss = new XML::RSS(version => '2.0');
-    $rss->parsefile(EBox::Event::Dispatcher::RSS::RSSFilePath());
+    $rss->parsefile(EBox::Event::Dispatcher::RSS->RSSFilePath());
 
-    EBox::Event::Dispatcher::RSS::UnlockRSSFile();
+    EBox::Event::Dispatcher::RSS->UnlockRSSFile();
 
     return $rss->channel('link');
 

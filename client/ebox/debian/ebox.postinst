@@ -67,7 +67,7 @@ case "$1" in
 
 
 		# add the dynamic www-directories
-		DYNAMIC_WWW_DIRS=`perl -MEBox::Config -e'print EBox::Config::dynamicwww() ; print " " ; print EBox::Config::dynamicimages();  1'`; 
+		DYNAMIC_WWW_DIRS=`perl -MEBox::Config -e'print EBox::Config::dynamicwww() ; print " " ; print join(" ", EBox::Config::dynamicSubdirs());  1;'`; 
 		for DIR in $DYNAMIC_WWW_DIRS; do
 		    mkdir -p $DIR
 		    chown -R ebox.ebox $DIR

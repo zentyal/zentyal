@@ -20,8 +20,9 @@
 use warnings;
 use strict;
 
-use Test::More qw(no_plan);
+use Test::More tests => 12;
 use Test::Exception;
+use Test::Deep;
 
 use lib '../../..';
 
@@ -62,6 +63,15 @@ throws_ok {
 throws_ok {
     $apacheMod->setRestrictedFile( $fileNames[2], [ 'foobar', '10.0.0.2/24'] );
 } 'EBox::Exceptions::Internal', 'Deviant IP address';
+
+cmp_deeply( $apacheMod->_restrictedFiles(),
+            [ { allowedIPs => [ '192.168.1.4/32' ],
+                name       => $fileNames[0]
+              },
+              { allowedIPs => ['all'],
+                name       => $fileNames[1],
+              }],
+            'The additions and updates were done correctly');
 
 throws_ok {
     $apacheMod->delRestrictedFile( );

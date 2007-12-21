@@ -1,9 +1,28 @@
+<%doc>
+   Template to set the apache configuration file
+   for the Web administration
+
+Parameters:
+
+   port - Int the listening port
+   group - String the group that must live apache-perl process
+   user  - String the user that the apache-perl process must be 
+   serverroot - String the path to the Apache server root
+   debug - String to enable Apache::Reload or not *(Optional)*
+           Default value: 'no'
+   restrictedFiles - Array containing a hash ref structure
+                     which contains the following elements:
+                - allowedIPs - array ref containing the allowed IPs
+                               for accessing this file
+                - name - String the file name
+</%doc>
 <%args>
 	$port
 	$group
 	$user
 	$serverroot
         $debug => 'no'
+        @restrictedFiles => ()
 </%args>
 
 ServerType standalone
@@ -71,6 +90,24 @@ DocumentRoot @WWWPATH@
     Order allow,deny
     Allow from all
 </Directory>
+
+<%perl>
+if ( @restrictedFiles > 0 ) {
+    foreach my $restrictedFile (@restrictedFiles) {
+        my @allowIPs = @{$restrictedFile->{allowedIPs}};
+        my $restrictedFileName = $restrictedFile->{name};
+</%perl>
+<Files <% $restrictedFileName %>>
+    Order Allow,Deny
+%           foreach my $ip (@allowIPs) {
+%               if ( $ip ne 'nobody' ) {
+    Allow from <% $ip %>
+%               }
+%           }
+    Deny from all
+</Files>
+%   }
+% }
 
 
 UseCanonicalName Off
@@ -144,16 +181,15 @@ PerlSetVar AuthCookieDebug 0
 </Files>
 
 <Directory @CGIPATH@>
-   <IfModule mod_ssl.c>
+        <IfModule mod_ssl.c>
 	   SSLOptions +StdEnvVars
-   </IfModule>
-
-	AuthType EBox::Auth
-	AuthName EBox
-	PerlModule 	EBox::Auth
-	PerlAuthenHandler EBox::Auth->authenticate
-	PerlAuthzHandler  EBox::Auth->authorize
-	require valid-user
+        </IfModule>
+        AuthType EBox::Auth
+        AuthName EBox
+        PerlModule 	EBox::Auth
+        PerlAuthenHandler EBox::Auth->authenticate
+        PerlAuthzHandler  EBox::Auth->authorize
+        require valid-user
         SetHandler perl-script
         PerlHandler Apache::Registry
         PerlSendHeader On

@@ -39,6 +39,9 @@ use File::Basename();
 # Constants
 use constant RESTRICTED_FILES_KEY    => 'restricted_files';
 use constant RESTRICTED_IP_LIST_KEY  => 'allowed_ips';
+use constant RESTRICTED_PATH_TYPE_KEY => 'path_type';
+use constant ABS_PATH => 'absolute';
+use constant REL_PATH => 'relative';
 
 sub _create
 {
@@ -149,10 +152,11 @@ sub _writeHttpdConfFile
 			comp_file => (EBox::Config::stubs . '/apache.mas'));
 
 	my @confFileParams = ();
-	push @confFileParams, ( port => $self->port);
-	push @confFileParams, ( user => EBox::Config::user);
-	push @confFileParams, ( group => EBox::Config::group);
-	push @confFileParams, ( serverroot => $self->serverroot);
+	push @confFileParams, ( port => $self->port());
+	push @confFileParams, ( user => EBox::Config::user());
+	push @confFileParams, ( group => EBox::Config::group());
+	push @confFileParams, ( serverroot => $self->serverroot());
+        push @confFileParams, ( restrictedFiles => $self->_restrictedFiles() );
 
         my $debugMode =  EBox::Config::configkey('debug') eq 'yes';
 	push @confFileParams, ( debug => $debugMode);
@@ -262,8 +266,9 @@ sub logs {
 #
 #      allowedIPs - Array ref the set of IPs which allow the
 #      restricted file to be accessed in CIDR format or magic word
-#      'all', in that case, all sources are allowed to see that
-#      filename
+#      'all' or 'nobody'. The former all sources are allowed to see
+#      that filename and the latter nobody is allowed to see this
+#      file. 'all' value has more priority than 'nobody' value.
 #
 # Exceptions:
 #
@@ -284,8 +289,11 @@ sub setRestrictedFile
       unless defined ( $allowedIPs );
 
     my $allFound = grep { $_ eq 'all' } @{$allowedIPs};
+    my $nobodyFound = grep { $_ eq 'nobody' } @{$allowedIPs};
     if ( $allFound ) {
         $allowedIPs = ['all'];
+    } elsif ( $nobodyFound ) {
+        $allowedIPs = ['nobody'];
     } else {
         # Check the given list is a list of IPs
         my $notIPs = grep { ! checkCIDR($_) } @{$allowedIPs};
@@ -298,7 +306,16 @@ sub setRestrictedFile
         }
     }
 
+    my $nSubs = ($filename =~ s:^/::);
     my $rootKey = RESTRICTED_FILES_KEY . "/$filename/";
+    if ( $nSubs > 0 ) {
+        $self->set_string( $rootKey . RESTRICTED_PATH_TYPE_KEY,
+                           ABS_PATH );
+    } else {
+        $self->set_string( $rootKey . RESTRICTED_PATH_TYPE_KEY,
+                           REL_PATH );
+    }
+
     # Get the current list
     $self->set_list( $rootKey . RESTRICTED_IP_LIST_KEY,
                      'string', $allowedIPs );
@@ -329,6 +346,8 @@ sub delRestrictedFile
     throw EBox::Exceptions::MissingArgument('filename')
       unless defined ( $filename );
 
+    $filename =~ s:^/::;
+
     my $fileKey = RESTRICTED_FILES_KEY . "/$filename";
 
     unless ( $self->dir_exists($fileKey) ) {
@@ -338,6 +357,36 @@ sub delRestrictedFile
 
     $self->delete_dir($fileKey);
 
+}
+
+# Get the structure for the apache.mas.in template to restrict a
+# certain number of files for a set of ip addresses
+sub _restrictedFiles
+{
+
+    my ($self) = @_;
+
+    my @restrictedFiles = ();
+    foreach my $dir (@{$self->all_dirs_base(RESTRICTED_FILES_KEY)}) {
+        my $filename = $dir;
+        my $compKey = RESTRICTED_FILES_KEY . "/$dir";
+        while ( @{$self->all_dirs_base($compKey)} > 0 ) {
+            my ($subdir) = @{$self->all_dirs_base($compKey)};
+            $compKey .= "/$subdir";
+            $filename .= "/$subdir";
+        }
+        # Add first slash if the added file name is absolute
+        if ( $self->get_string("$compKey/" . RESTRICTED_PATH_TYPE_KEY )
+             eq ABS_PATH ) {
+            $filename = "/$filename";
+        }
+        my $restrictedFile = {
+                              allowedIPs => $self->get_list("$compKey/" . RESTRICTED_IP_LIST_KEY),
+                              name       => $filename
+                             };
+        push ( @restrictedFiles, $restrictedFile );
+    }
+    return \@restrictedFiles;
 }
 
 1;

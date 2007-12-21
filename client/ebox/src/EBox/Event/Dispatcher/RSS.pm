@@ -48,7 +48,8 @@ use Fcntl qw(:flock);
 use XML::RSS;
 
 # Constants
-use constant RSS_FILE => EBox::Config::conf() . 'events/alerts.rss';
+use constant RSS_FILE => EBox::Config::dynamicRSS() . 'alerts.rss';
+use constant RSS_LOCK_FILE => EBox::Config::tmp() . 'alerts.rss.lock';
 
 # Class data
 our $LockFH;
@@ -143,7 +144,7 @@ sub LockRSSFile
 {
     my ($class, $exclusive) = @_;
 
-    open($LockFH, '+<', $class->_RSSLockFilePath())
+    open($LockFH, '+>', $class->_RSSLockFilePath())
       or throw EBox::Exceptions::Internal('Cannot open lock file '
                                           . $class->_RSSLockFilePath()
                                           . ": $!");
@@ -210,7 +211,7 @@ sub _receiver
 {
 
     return __x('RSS file: {path}',
-               path => '<a href="/ebox/alerts.rss">Alerts</a>');
+               path => '<a href="/dynamic-data/feed/alerts.rss">Alerts</a>');
 
 }
 
@@ -235,14 +236,17 @@ sub _name
 #
 sub _enable
 {
+
+    my ($self) = @_;
+
     # Check how the public access is done
     my $manager = EBox::Model::ModelManager->instance();
     my $confModel = $manager->model('/events/' . $self->ConfigureModel());
 
-    my $allowed = $confModel->allowedValue();
+    my $allowedType = $confModel->allowedType();
 
-    if ( $allowed eq 'allowedAuth' ) {
-	EBox::warn('The allowed readers for the RSS are the users administration');
+    if ( $allowedType->selectedType() eq 'allowedNobody' ) {
+	EBox::warn('There are no allowed readers for the RSS');
     }
 
     return 1;
@@ -284,6 +288,11 @@ sub _addEventToRSS
 
     $self->UnlockRSSFile();
 
+}
+
+sub _RSSLockFilePath
+{
+    return RSS_LOCK_FILE;
 }
 
 1;
