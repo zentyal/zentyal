@@ -26,6 +26,7 @@ use EBox::Global;
 use EBox::Service;
 use HTML::Mason::Interp;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
@@ -37,9 +38,10 @@ use English qw(-no_match_vars);
 use File::Basename();
 
 # Constants
-use constant RESTRICTED_FILES_KEY    => 'restricted_files';
+use constant RESTRICTED_RESOURCES_KEY    => 'restricted_resources';
 use constant RESTRICTED_IP_LIST_KEY  => 'allowed_ips';
 use constant RESTRICTED_PATH_TYPE_KEY => 'path_type';
+use constant RESTRICTED_RESOURCE_TYPE_KEY => 'type';
 use constant ABS_PATH => 'absolute';
 use constant REL_PATH => 'relative';
 
@@ -156,7 +158,7 @@ sub _writeHttpdConfFile
 	push @confFileParams, ( user => EBox::Config::user());
 	push @confFileParams, ( group => EBox::Config::group());
 	push @confFileParams, ( serverroot => $self->serverroot());
-        push @confFileParams, ( restrictedFiles => $self->_restrictedFiles() );
+        push @confFileParams, ( restrictedResources => $self->_restrictedResources() );
 
         my $debugMode =  EBox::Config::configkey('debug') eq 'yes';
 	push @confFileParams, ( debug => $debugMode);
@@ -256,37 +258,51 @@ sub logs {
 	return \@logs;
 }
 
-# Method: setRestrictedFile
+# Method: setRestrictedResource
 #
-#      Set a restricted file to the Apache perl configuration
+#      Set a restricted resource to the Apache perl configuration
 #
 # Parameters:
 #
-#      filename - String the file name to restrict
+#      resourceName - String the resource name to restrict
 #
 #      allowedIPs - Array ref the set of IPs which allow the
-#      restricted file to be accessed in CIDR format or magic word
+#      restricted resource to be accessed in CIDR format or magic word
 #      'all' or 'nobody'. The former all sources are allowed to see
-#      that filename and the latter nobody is allowed to see this
-#      file. 'all' value has more priority than 'nobody' value.
+#      that resourcename and the latter nobody is allowed to see this
+#      resource. 'all' value has more priority than 'nobody' value.
+#
+#      resourceType - String the resource type: It can be one of the
+#      following: 'file', 'directory' and 'location'.
 #
 # Exceptions:
 #
 #      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
 #      argument is missing
 #
+#      <EBox::Exceptions::InvalidType> - thrown if the resource type
+#      is invalid
+#
 #      <EBox::Exceptions::Internal> - thrown if any of the allowed IP
 #      addresses are not in CIDR format or no allowed IP is given
 #
-sub setRestrictedFile
+sub setRestrictedResource
 {
-    my ($self, $filename, $allowedIPs) = @_;
+    my ($self, $resourceName, $allowedIPs, $resourceType) = @_;
 
 
-    throw EBox::Exceptions::MissingArgument('filename')
-      unless defined ( $filename );
+    throw EBox::Exceptions::MissingArgument('resourceName')
+      unless defined ( $resourceName );
     throw EBox::Exceptions::MissingArgument('allowedIPs')
       unless defined ( $allowedIPs );
+    throw EBox::Exceptions::MissingArgument('resourceType')
+      unless defined ( $resourceType );
+
+    unless ( $resourceType eq 'file' or $resourceType eq 'directory'
+             or $resourceType eq 'location' ) {
+        throw EBox::Exceptions::InvalidType('resourceType',
+                                            'file, directory or location');
+    }
 
     my $allFound = grep { $_ eq 'all' } @{$allowedIPs};
     my $nobodyFound = grep { $_ eq 'nobody' } @{$allowedIPs};
@@ -306,8 +322,8 @@ sub setRestrictedFile
         }
     }
 
-    my $nSubs = ($filename =~ s:^/::);
-    my $rootKey = RESTRICTED_FILES_KEY . "/$filename/";
+    my $nSubs = ($resourceName =~ s:^/::);
+    my $rootKey = RESTRICTED_RESOURCES_KEY . "/$resourceName/";
     if ( $nSubs > 0 ) {
         $self->set_string( $rootKey . RESTRICTED_PATH_TYPE_KEY,
                            ABS_PATH );
@@ -316,77 +332,81 @@ sub setRestrictedFile
                            REL_PATH );
     }
 
-    # Get the current list
+    # Set the current list
     $self->set_list( $rootKey . RESTRICTED_IP_LIST_KEY,
                      'string', $allowedIPs );
+    $self->set_string( $rootKey . RESTRICTED_RESOURCE_TYPE_KEY,
+                       $resourceType);
 
 }
 
-# Method: delRestrictedFile
+# Method: delRestrictedResource
 #
-#       Remove a restricted file from the list
+#       Remove a restricted resource from the list
 #
 # Parameters:
 #
-#       filename - String the file name which indexes which restricted
-#       file is requested to be deleted
+#       resourcename - String the resource name which indexes which restricted
+#       resource is requested to be deleted
 #
 # Exceptions:
 #
 #      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
 #      argument is missing
 #
-#      <EBox::Exceptions::DataNotFound> - thrown if the given file name is
-#      not in the list of restricted files
+#      <EBox::Exceptions::DataNotFound> - thrown if the given resource name is
+#      not in the list of restricted resources
 #
-sub delRestrictedFile
+sub delRestrictedResource
 {
-    my ($self, $filename) = @_;
+    my ($self, $resourcename) = @_;
 
-    throw EBox::Exceptions::MissingArgument('filename')
-      unless defined ( $filename );
+    throw EBox::Exceptions::MissingArgument('resourcename')
+      unless defined ( $resourcename );
 
-    $filename =~ s:^/::;
+    $resourcename =~ s:^/::;
 
-    my $fileKey = RESTRICTED_FILES_KEY . "/$filename";
+    my $resourceKey = RESTRICTED_RESOURCES_KEY . "/$resourcename";
 
-    unless ( $self->dir_exists($fileKey) ) {
-        throw EBox::Exceptions::DataNotFound( data  => 'filename',
-                                              value => $filename);
+    unless ( $self->dir_exists($resourceKey) ) {
+        throw EBox::Exceptions::DataNotFound( data  => 'resourcename',
+                                              value => $resourcename);
     }
 
-    $self->delete_dir($fileKey);
+    $self->delete_dir($resourceKey);
 
 }
 
 # Get the structure for the apache.mas.in template to restrict a
-# certain number of files for a set of ip addresses
-sub _restrictedFiles
+# certain number of resources for a set of ip addresses
+sub _restrictedResources
 {
 
     my ($self) = @_;
 
-    my @restrictedFiles = ();
-    foreach my $dir (@{$self->all_dirs_base(RESTRICTED_FILES_KEY)}) {
-        my $filename = $dir;
-        my $compKey = RESTRICTED_FILES_KEY . "/$dir";
+    my @restrictedResources = ();
+    foreach my $dir (@{$self->all_dirs_base(RESTRICTED_RESOURCES_KEY)}) {
+        my $resourcename = $dir;
+        my $compKey = RESTRICTED_RESOURCES_KEY . "/$dir";
         while ( @{$self->all_dirs_base($compKey)} > 0 ) {
             my ($subdir) = @{$self->all_dirs_base($compKey)};
             $compKey .= "/$subdir";
-            $filename .= "/$subdir";
+            $resourcename .= "/$subdir";
         }
-        # Add first slash if the added file name is absolute
+        # Add first slash if the added resource name is absolute
         if ( $self->get_string("$compKey/" . RESTRICTED_PATH_TYPE_KEY )
              eq ABS_PATH ) {
-            $filename = "/$filename";
+            $resourcename = "/$resourcename";
         }
-        my $restrictedFile = {
+        my $restrictedResource = {
                               allowedIPs => $self->get_list("$compKey/" . RESTRICTED_IP_LIST_KEY),
-                              name       => $filename
+                              name       => $resourcename,
+                              type       => $self->get_string( "$compKey/"
+                                                               . RESTRICTED_RESOURCE_TYPE_KEY),
                              };
-        push ( @restrictedFiles, $restrictedFile );
+        push ( @restrictedResources, $restrictedResource );
     }
-    return \@restrictedFiles;
+    return \@restrictedResources;
 }
 
 1;
