@@ -1435,6 +1435,8 @@ sub onInstall
 			'sourcePort' => 'any',
 			'destinationPort' => 389,
 			'internal' => 0);
+
+        $serviceMod->save();
 		
 	} else {
 		EBox::info("Not adding ldap service as it already exists");
