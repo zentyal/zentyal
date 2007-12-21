@@ -28,6 +28,7 @@ package EBox::Events::Model::Dispatcher::RSS;
 use base 'EBox::Model::DataForm';
 
 # eBox uses
+use EBox::Config;
 use EBox::Event::Dispatcher::RSS;
 use EBox::Gettext;
 use EBox::Global;
@@ -116,9 +117,12 @@ sub formSubmitted
     }
     my $apacheMod = EBox::Global->modInstance('apache');
     my $rssFilePath =  EBox::Event::Dispatcher::RSS::RSSFilePath();
+    my $dynamicWWWPath = EBox::Config::dynamicwww();
+    $rssFilePath =~ s:$dynamicWWWPath:/dynamic-data/:;
     if ( @ips > 0 ) {
-        $apacheMod->setRestrictedFile( $rssFilePath,
-                                       \@ips);
+        $apacheMod->setRestrictedResource( $rssFilePath,
+                                           \@ips,
+                                           'location');
     }
 
 }
@@ -132,65 +136,73 @@ sub formSubmitted
 #     <EBox::Model::DataForm::_table>
 #
 sub _table
-  {
+{
 
-      my @tableDesc =
-        (
-         new EBox::Types::Union(
-                                fieldName     => 'allowed',
-                                printableName => __('Allowed readers'),
-                                editable      => 1,
-                                subtypes      =>
-                                [
-                                 new EBox::Types::Union::Text(
-                                                              fieldName => 'allowedNobody',
-                                                              printableName => __('Nobody'),
-                                                             ),
-                                 new EBox::Types::IPAddr(
-                                                         fieldName => 'allowedIP',
-                                                         printableName => __('IP address'),
-                                                         editable  => 1,
-                                                        ),
-                                 new EBox::Types::Select(
-                                                         fieldName     => 'allowedObject',
-                                                         printableName => __('Object'),
-                                                         editable      => 1,
-                                                         foreignModel  => \&objectModel,
-                                                         foreignField  => 'name',
-                                                        ),
-                                 new EBox::Types::Union::Text(
-                                                              fieldName => 'allowedAll',
-                                                              printableName => __('Public'),
-                                                             ),
-                                ],
-                               ),
-         new EBox::Types::Link(
-                               fieldName      => 'linkToRSS',
-                               printableName  => __('Syndicate this RSS'),
-                               volatile       => 1,
-                               acquirer       => \&setLinkToRSS,
-                               HTMLViewer     => '/ajax/viewer/linkRSS.mas',
-                               HTMLSetter     => '/ajax/viewer/linkRSS.mas',
-                              ),
-        );
+    my ($self) = @_;
 
-      my $dataForm = {
-                      tableName          => 'RSSDispatcherConfiguration',
-                      printableTableName => __('Configure RSS dispatcher'),
-                      modelDomain        => 'Events',
-                      defaultActions     => [ 'editField' ],
-                      tableDescription   => \@tableDesc,
-                      class              => 'dataForm',
-                      help               => __('The channel link is the link which is used to '
-                                               . 'syndicate the content to your favourite RSS. '),
-                      messages           => {
-                                             update => __('RSS dispatcher configuration updated'),
-                                            },
-                     };
+    my @tableDesc =
+      (
+       new EBox::Types::Text(
+                             fieldName     => 'link',
+                             printableName => __('Channel link'),
+                             editable      => 1,
+                             defaultValue  => $self->_defaultChannelLink(),
+                            ),
+       new EBox::Types::Union(
+                              fieldName     => 'allowed',
+                              printableName => __('Allowed readers'),
+                              editable      => 1,
+                              subtypes      =>
+                              [
+                               new EBox::Types::Union::Text(
+                                                            fieldName => 'allowedNobody',
+                                                            printableName => __('Nobody'),
+                                                           ),
+                               new EBox::Types::IPAddr(
+                                                       fieldName => 'allowedIP',
+                                                       printableName => __('IP address'),
+                                                       editable  => 1,
+                                                      ),
+                               new EBox::Types::Select(
+                                                       fieldName     => 'allowedObject',
+                                                       printableName => __('Object'),
+                                                       editable      => 1,
+                                                       foreignModel  => \&objectModel,
+                                                       foreignField  => 'name',
+                                                      ),
+                               new EBox::Types::Union::Text(
+                                                            fieldName => 'allowedAll',
+                                                            printableName => __('Public'),
+                                                           ),
+                              ],
+                             ),
+       new EBox::Types::Link(
+                             fieldName      => 'linkToRSS',
+                             printableName  => __('Syndicate this RSS'),
+                             volatile       => 1,
+                             acquirer       => \&setLinkToRSS,
+                             HTMLViewer     => '/ajax/viewer/linkRSS.mas',
+                             HTMLSetter     => '/ajax/viewer/linkRSS.mas',
+                            ),
+      );
 
-      return $dataForm;
+    my $dataForm = {
+                    tableName          => 'RSSDispatcherConfiguration',
+                    printableTableName => __('Configure RSS dispatcher'),
+                    modelDomain        => 'Events',
+                    defaultActions     => [ 'editField' ],
+                    tableDescription   => \@tableDesc,
+                    class              => 'dataForm',
+                    help               => __('The channel link is the link which is used to '
+                                             . 'syndicate the content to your favourite RSS. '),
+                    messages           => {
+                                           update => __('RSS dispatcher configuration updated'),
+                                          },
+                   };
 
-  }
+    return $dataForm;
+
+}
 
 # Group: Callback functions
 
@@ -226,14 +238,10 @@ sub setLinkToRSS
 
     my ($row) = @_;
 
-    EBox::Event::Dispatcher::RSS->LockRSSFile(0);
-
-    my $rss = new XML::RSS(version => '2.0');
-    $rss->parsefile(EBox::Event::Dispatcher::RSS->RSSFilePath());
-
-    EBox::Event::Dispatcher::RSS->UnlockRSSFile();
-
-    return $rss->channel('link');
+    my $rssPath = EBox::Event::Dispatcher::RSS::RSSFilePath();
+    my $dynamicWWWPath = EBox::Config::dynamicwww();
+    $rssPath =~ s:$dynamicWWWPath::;
+    return '/dynamic-data/' . $rssPath;
 
 }
 
@@ -263,6 +271,31 @@ sub _updateLinkInRSS # (ip)
     $rss->save();
 
     EBox::Event::Dispatcher::RSS::UnlockRSSFile();
+
+}
+
+# Set the default channel link
+sub _defaultChannelLink
+{
+    my ($self) = @_;
+
+    my $gl = EBox::Global->getInstance();
+    if ( $gl->modExists('network') ) {
+        my $netMod = $gl->modInstance('network');
+        my @ifaces = @{$netMod->ifaces()};
+        my $idx = 0;
+        my $ip = '';
+        do {
+            $ip = $netMod->ifaceAddress($ifaces[$idx]);
+            $idx++;
+        } while ( not $ip and $idx < scalar(@ifaces));
+        if ( $ip ) {
+            return "https://$ip/ebox";
+        }
+    }
+
+    return 'http://ebox-platform.com';
+
 
 }
 

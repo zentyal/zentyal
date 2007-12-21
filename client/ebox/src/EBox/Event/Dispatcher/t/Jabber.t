@@ -45,6 +45,7 @@ lives_ok
       $event = new EBox::Event(
                                message => 'test event',
                                level   => 'info',
+                               source  => 'unit test',
                               );
   } 'Creating the jabber dispatcher and the event to send';
 

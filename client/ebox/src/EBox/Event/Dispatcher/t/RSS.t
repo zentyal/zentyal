@@ -44,6 +44,7 @@ lives_ok
       $event = new EBox::Event(
                                message => 'test event',
                                level   => 'info',
+                               source  => 'unit test',
                               );
   } 'Creating the RSS dispatcher and the event to send';
 

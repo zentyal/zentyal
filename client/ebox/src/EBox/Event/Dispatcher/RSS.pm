@@ -41,6 +41,8 @@ use EBox::Model::ModelManager;
 ################
 use Sys::Hostname;
 use Fcntl qw(:flock);
+use POSIX qw(strftime);
+use Time::localtime;
 
 ################
 # Dependencies
@@ -260,29 +262,41 @@ sub _addEventToRSS
 
     my ($self, $event) = @_;
 
-    my $rss = new XML::RSS(version => '2.0');
-    # FIXME: get the URL from the configuration
-    my $net = EBox::Global->modInstance('network');
+    my $manager = EBox::Model::ModelManager->instance();
+    my $confModel = $manager->model('/events/' . $self->ConfigureModel());
 
+    my $rss = new XML::RSS(version => '2.0');
     # Locking exclusively
     $self->LockRSSFile(1);
 
     unless ( -r RSS_FILE ) {
         # Create the channel if it does not exist
-        $rss->channel(title => __x('eBox alerts channel for {hostname}',
-                                  hostname => hostname()),
-                      link  => 'https://' . $net->ifaceAddress('eth0')
-                               . '/ebox/alerts.rss',
+        $rss->channel(title       => __x('eBox alerts channel for {hostname}',
+                                         hostname => hostname()),
+                      link        => $confModel->linkValue(),
                       description => __('This channel tracks what happens on '
                                         . 'this eBox machine along the time'),
+                      language    => $self->_currentLanguage(),
+                      pubDate     => $self->_currentDate(),
                      );
+        $rss->image(title       => 'eBox platform',
+                    url         => 'http://trac.ebox-platform.com/chrome/common/ebox-logo.png',
+                    link        => 'http://ebox-platform.com',
+                    description => 'eBox platform',
+                    alt         => 'eBox platform',
+                   );
     } else {
         $rss->parsefile(RSS_FILE);
     }
-    $rss->add_item(title => __x('An event has happened in eBox {hostname}',
-                                    hostname => hostname()),
-                   description => $event->level() . ' : '
-                                  . $event->message());
+    $rss->add_item(
+                   title       => __x('An event has happened in eBox {hostname} '
+                                      . 'from {source}',
+                                      hostname => hostname(),
+                                      source   => $event->source()),
+                   description => ($event->level() . ' : ' . $event->message()),
+                   pubDate     => $event->strTimestamp(),
+                   category    => $event->source(),
+                  );
 
     $rss->save(RSS_FILE);
 
@@ -293,6 +307,23 @@ sub _addEventToRSS
 sub _RSSLockFilePath
 {
     return RSS_LOCK_FILE;
+}
+
+# Get the current language
+sub _currentLanguage
+{
+    my $lang = $ENV{LANG};
+    $lang =~ s:\..*$::g;
+    $lang =~ s:_:-:g;
+
+    return $lang;
+}
+
+# Get the current date in RSS 2.0 complaint way
+sub _currentDate
+{
+    return strftime("%a, %d %b %Y %T", localtime(time()));
+
 }
 
 1;
