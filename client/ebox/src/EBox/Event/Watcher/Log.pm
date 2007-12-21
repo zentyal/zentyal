@@ -217,7 +217,8 @@ sub _createEvents
         my $logger = EBox::Global->modInstance($loggerName);
         push(@retEvents, new EBox::Event(
                                          message => $logger->humanEventMessage($row),
-                                         level   => 'info'
+                                         level   => 'info',
+                                         source  => $self->name() . '/' . $loggerName,
                                         )
             );
     }

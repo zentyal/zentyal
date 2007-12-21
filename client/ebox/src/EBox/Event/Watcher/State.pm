@@ -110,11 +110,13 @@ sub run
           $event = new EBox::Event(
                                    message => __('eBox is up and running'),
                                    level   => 'info',
+                                   source  => $self->name(),
                                   );
       } else {
           $event = new EBox::Event(
                                    message => __('eBox is critically down'),
                                    level   => 'fatal',
+                                   source  => $self->name(),
                                   );
       }
 

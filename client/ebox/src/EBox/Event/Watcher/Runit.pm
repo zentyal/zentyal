@@ -147,6 +147,7 @@ sub run
                                                   time    => $timeInterval,
                                                   ),
                                    level   => 'error',
+                                   source  => $self->name(),
                                                      ));
                   }
                   return \@events;

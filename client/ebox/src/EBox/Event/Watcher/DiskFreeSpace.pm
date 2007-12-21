@@ -25,9 +25,6 @@ package EBox::Event::Watcher::DiskFreeSpace;
 
 use base 'EBox::Event::Watcher::Base';
 
-
-
-
 use EBox::Event;
 use EBox::Event::Watcher::Base;
 use EBox::Exceptions::Internal;
@@ -139,6 +136,7 @@ sub run
 				       mp => $properties->{mountPoint},
 				      ),
 			level   => 'error',
+                        source  => $self->name(),
 		       );
     }
     elsif ($eventHappened) {
