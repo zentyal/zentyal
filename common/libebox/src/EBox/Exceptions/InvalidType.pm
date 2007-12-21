@@ -28,6 +28,8 @@ use Log::Log4perl;
 #     arg  - the mistaken argument
 #     type - the correct type
 #
+#     - Positional parameters
+#
 # Returns:
 #
 #     The newly created <EBox::Exceptions::InvalidType> exception
