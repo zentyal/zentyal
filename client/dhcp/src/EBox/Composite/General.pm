@@ -76,7 +76,7 @@ sub precondition
 #
 sub preconditionFailMsg
 {
-    return __x('At least, an interface must set as static'
+    return __x('An interface must set as static '
                . 'to configure the DHCP service on it. To '
                . 'do so, change {openhref}interfaces '
                . 'configuration{closehref} in network module',
