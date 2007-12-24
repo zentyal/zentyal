@@ -11,8 +11,20 @@
 	border-top: 1px solid #fa601d;
 	padding: 5px;
 	font-size: 11px;
-	margin: 0 0 0 90px;
+	margin: 0 0 4px 90px;
 	background: #fdddd9;
+	color: #484554;
+}
+
+#capsWarning {
+	text-align: left;
+	font-weight: normal;
+	border-bottom: 1px solid #fa601d;
+	border-top: 1px solid #fa601d;
+	padding: 5px;
+	font-size: 11px;
+	margin: 0 0 4px 90px;
+	background: #dfef7a;
 	color: #484554;
 }
 
