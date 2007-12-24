@@ -109,6 +109,11 @@ sub rows
 
       my ($self, $filter, $page) = @_;
 
+      # If the GConf module is readonly, return current rows
+      if ( $self->{'gconfmodule'}->isReadOnly() ) {
+          return $self->SUPER::rows($filter, $page);
+      }
+
       # Fetch the current event watchers from gconf
       my $currentRows = $self->SUPER::rows();
 
