@@ -114,9 +114,6 @@ if ( @restrictedResources > 0 ) {
 %            foreach my $ip (@allowIPs) {
     Allow from <% $ip %>
 %            }
-%            unless ( $foundAll ) {
-    Deny from all
-%            }
 %        }
 </<% $type %>>
 %   }
