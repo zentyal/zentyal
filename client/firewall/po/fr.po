@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-firewall 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-05 09:48+0100\n"
+"POT-Creation-Date: 2007-12-24 13:22+0100\n"
 "PO-Revision-Date: 2007-05-15 13:06+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -216,19 +216,16 @@ msgid "Redirects"
 msgstr "Redirections de port"
 
 #: src/EBox/Firewall.pm:822
-#, fuzzy
 msgid "Date"
-msgstr "Effacer"
+msgstr "Date"
 
 #: src/EBox/Firewall.pm:823
-#, fuzzy
 msgid "Input interface"
-msgstr "interface réseau"
+msgstr "Interface d'entrée"
 
 #: src/EBox/Firewall.pm:824
-#, fuzzy
 msgid "Output interface"
-msgstr "interface réseau"
+msgstr "Interface de sortie"
 
 #: src/EBox/Firewall.pm:827 src/templates/redirects.mas:25
 #: src/templates/object.mas:47 src/templates/fwdrules.mas:18
@@ -248,17 +245,21 @@ msgstr "Port de destination"
 
 #: src/EBox/Firewall.pm:835
 msgid "DROP"
-msgstr ""
+msgstr "Supprimer"
 
 #: src/EBox/Iptables.pm:608
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr ""
+"Vous devez définir la variable iptables_log_limit dans le fichier de "
+"configuration d'eBox"
 
 #: src/EBox/Iptables.pm:614
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr ""
+"Vous devez définir la variable iptables_log_burst dans le fichier de "
+"configuration d'eBox"
 
 #: src/templates/redirects.mas:23
 msgid "Interface"

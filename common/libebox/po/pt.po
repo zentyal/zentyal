@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-05 09:47+0100\n"
+"POT-Creation-Date: 2007-12-24 13:21+0100\n"
 "PO-Revision-Date: 2007-06-06 09:36+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -46,7 +46,7 @@ msgid ""
 "these non alphanumeric chars: /.?&+:-@ and spaces are allowed."
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:532
+#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:540
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -58,32 +58,32 @@ msgid ""
 "relevant information can be found in the logs."
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:538
+#: src/EBox/CGI/Base.pm:546
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:544
+#: src/EBox/CGI/Base.pm:552
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:631
+#: src/EBox/CGI/Base.pm:639
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:646
+#: src/EBox/CGI/Base.pm:654
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:795
+#: src/EBox/CGI/Base.pm:803
 msgid "Invalid uploaded file."
 msgstr ""
 
-#: src/EBox/CGI/Base.pm:801
+#: src/EBox/CGI/Base.pm:809
 msgid "Cannot create a temporally file for the upload"
 msgstr ""
 
@@ -111,25 +111,25 @@ msgstr ""
 msgid "Directory not found: {d}"
 msgstr ""
 
-#: src/EBox/Validate.pm:647
+#: src/EBox/Validate.pm:685
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
 "the permissions forbid access to it"
 msgstr ""
 
-#: src/EBox/Validate.pm:652
+#: src/EBox/Validate.pm:690
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 
-#: src/EBox/Validate.pm:727
+#: src/EBox/Validate.pm:765
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
 msgstr ""
 
-#: src/EBox/Validate.pm:755
+#: src/EBox/Validate.pm:793
 msgid "The file path must be absolute"
 msgstr ""
 

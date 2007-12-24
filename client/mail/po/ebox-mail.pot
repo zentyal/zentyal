@@ -8,13 +8,33 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-05 09:48+0100\n"
+"POT-Creation-Date: 2007-12-24 13:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: src/EBox/Event/Dispatcher/Mail.pm:155
+msgid "Admin mail recipient"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/CGI/Index.pm:28
+#: src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:1003 src/EBox/Mail.pm:1073
+#: src/EBox/Mail.pm:1127
+msgid "Mail"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/Mail.pm:189
+#, perl-brace-format
+msgid "Cannot connect to {smtp} mail server"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/Mail.pm:233
+#, perl-brace-format
+msgid "Cannot connect to the server {hostname} to send the event through SMTP"
+msgstr ""
 
 #: src/EBox/CGI/ModifyVDomain.pm:57 src/EBox/CGI/DelVDomain.pm:72
 #: src/EBox/CGI/EditVDomain.pm:43
@@ -27,11 +47,6 @@ msgstr ""
 
 #: src/EBox/CGI/AddVDomain.pm:42
 msgid "Virtual domain name"
-msgstr ""
-
-#: src/EBox/CGI/Index.pm:28 src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:991
-#: src/EBox/Mail.pm:1061 src/EBox/Mail.pm:1115
-msgid "Mail"
 msgstr ""
 
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
@@ -62,7 +77,7 @@ msgid "mail alias"
 msgstr ""
 
 #: src/EBox/CGI/QueueManager.pm:33 src/EBox/CGI/QueueManager.pm:50
-#: src/EBox/Mail.pm:1070
+#: src/EBox/Mail.pm:1082
 msgid "Queue Management"
 msgstr ""
 
@@ -76,7 +91,7 @@ msgid "Mail address"
 msgstr ""
 
 #: src/EBox/CGI/VDomains.pm:29 src/EBox/CGI/VDomains.pm:39
-#: src/EBox/Mail.pm:1067
+#: src/EBox/Mail.pm:1079
 msgid "Virtual domains"
 msgstr ""
 
@@ -104,9 +119,36 @@ msgstr ""
 msgid "mail system status"
 msgstr ""
 
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
+msgid "Subject"
+msgstr ""
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:128
+#, perl-brace-format
+msgid "[EBox-event] An event has happened at {hostName}"
+msgstr ""
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1104
+msgid "To"
+msgstr ""
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:142
+msgid "Configure mail dispatcher"
+msgstr ""
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:147
+msgid ""
+"In order to configure the Mail event dispatcher is required to enable the "
+"mail service from eBox"
+msgstr ""
+
+#: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
+msgid "Mail dispatcher configuration updated"
+msgstr ""
+
 #: src/EBox/MailVDomainsLdap.pm:68 src/EBox/MailVDomainsLdap.pm:74
 #: src/EBox/MailVDomainsLdap.pm:249 src/EBox/MailVDomainsLdap.pm:255
-#: src/EBox/Mail.pm:564 src/EBox/Mail.pm:570 src/EBox/MailUserLdap.pm:78
+#: src/EBox/Mail.pm:576 src/EBox/Mail.pm:582 src/EBox/MailUserLdap.pm:78
 #: src/EBox/MailUserLdap.pm:84 src/EBox/MailUserLdap.pm:389
 #: src/EBox/MailUserLdap.pm:395
 msgid "maildir size"
@@ -124,170 +166,166 @@ msgstr ""
 msgid "mail alias account"
 msgstr ""
 
-#: src/EBox/Mail.pm:275
+#: src/EBox/Mail.pm:287
 #, perl-brace-format
 msgid "Unknown filter {filter}"
 msgstr ""
 
-#: src/EBox/Mail.pm:301
+#: src/EBox/Mail.pm:313
 msgid "Cannot change this parameter for a non-custom filter"
 msgstr ""
 
-#: src/EBox/Mail.pm:316
+#: src/EBox/Mail.pm:328
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
 
-#: src/EBox/Mail.pm:360 src/EBox/Mail.pm:368 src/EBox/Mail.pm:373
+#: src/EBox/Mail.pm:372 src/EBox/Mail.pm:380 src/EBox/Mail.pm:385
 msgid "remote IP"
 msgstr ""
 
-#: src/EBox/Mail.pm:361
+#: src/EBox/Mail.pm:373
 #, perl-brace-format
 msgid "{ip} is not a valid ip address"
 msgstr ""
 
-#: src/EBox/Mail.pm:369
+#: src/EBox/Mail.pm:381
 #, perl-brace-format
 msgid "{ip} cannot be reached by any configured interface"
 msgstr ""
 
-#: src/EBox/Mail.pm:374
+#: src/EBox/Mail.pm:386
 #, perl-brace-format
 msgid "{ip} can be reached by more than one configured interface"
 msgstr ""
 
-#: src/EBox/Mail.pm:415 src/EBox/Mail.pm:464
+#: src/EBox/Mail.pm:427 src/EBox/Mail.pm:476
 msgid "port"
 msgstr ""
 
-#: src/EBox/Mail.pm:499
+#: src/EBox/Mail.pm:511
 msgid "smarthost ip"
 msgstr ""
 
-#: src/EBox/Mail.pm:528 src/EBox/Mail.pm:534
+#: src/EBox/Mail.pm:540 src/EBox/Mail.pm:546
 msgid "message size"
 msgstr ""
 
-#: src/EBox/Mail.pm:992
+#: src/EBox/Mail.pm:1004
 msgid "Mail services"
 msgstr ""
 
-#: src/EBox/Mail.pm:994
+#: src/EBox/Mail.pm:1006
 msgid "POP3 service"
 msgstr ""
 
-#: src/EBox/Mail.pm:996
+#: src/EBox/Mail.pm:1008
 msgid "IMAP service"
 msgstr ""
 
-#: src/EBox/Mail.pm:1016
+#: src/EBox/Mail.pm:1028
 msgid "enabled"
 msgstr ""
 
-#: src/EBox/Mail.pm:1016
+#: src/EBox/Mail.pm:1028
 msgid "disabled"
 msgstr ""
 
-#: src/EBox/Mail.pm:1019 src/EBox/Mail.pm:1097
+#: src/EBox/Mail.pm:1031 src/EBox/Mail.pm:1109
 msgid "Status"
 msgstr ""
 
-#: src/EBox/Mail.pm:1030 src/EBox/Mail.pm:1035 src/templates/mailtabs.mas:19
+#: src/EBox/Mail.pm:1042 src/EBox/Mail.pm:1047 src/templates/mailtabs.mas:19
 #: src/templates/mailtabs.mas:21
 msgid "Filter"
 msgstr ""
 
-#: src/EBox/Mail.pm:1030
+#: src/EBox/Mail.pm:1042
 msgid "Custom"
 msgstr ""
 
-#: src/EBox/Mail.pm:1032
+#: src/EBox/Mail.pm:1044
 msgid "Address"
 msgstr ""
 
-#: src/EBox/Mail.pm:1052
+#: src/EBox/Mail.pm:1064
 msgid "Mail system"
 msgstr ""
 
-#: src/EBox/Mail.pm:1064 src/templates/menutabs.mas:10
+#: src/EBox/Mail.pm:1076 src/templates/menutabs.mas:10
 #: src/templates/menutabs.mas:12
 msgid "General"
 msgstr ""
 
-#: src/EBox/Mail.pm:1089 src/templates/qmanager.mas:21
+#: src/EBox/Mail.pm:1101 src/templates/qmanager.mas:21
 msgid "Date"
 msgstr ""
 
-#: src/EBox/Mail.pm:1090
+#: src/EBox/Mail.pm:1102
 msgid "Message ID"
 msgstr ""
 
-#: src/EBox/Mail.pm:1091
+#: src/EBox/Mail.pm:1103
 msgid "From"
 msgstr ""
 
-#: src/EBox/Mail.pm:1092
-msgid "To"
-msgstr ""
-
-#: src/EBox/Mail.pm:1093
+#: src/EBox/Mail.pm:1105
 msgid "From hostname"
 msgstr ""
 
-#: src/EBox/Mail.pm:1094
+#: src/EBox/Mail.pm:1106
 msgid "From host ip"
 msgstr ""
 
-#: src/EBox/Mail.pm:1095 src/templates/qmanager.mas:20
+#: src/EBox/Mail.pm:1107 src/templates/qmanager.mas:20
 msgid "Size (bytes)"
 msgstr ""
 
-#: src/EBox/Mail.pm:1096
+#: src/EBox/Mail.pm:1108
 msgid "Relay"
 msgstr ""
 
-#: src/EBox/Mail.pm:1098
+#: src/EBox/Mail.pm:1110
 msgid "Event"
 msgstr ""
 
-#: src/EBox/Mail.pm:1099
+#: src/EBox/Mail.pm:1111
 msgid "Aditional Info"
 msgstr ""
 
-#: src/EBox/Mail.pm:1105
+#: src/EBox/Mail.pm:1117
 msgid "Successful messages"
 msgstr ""
 
-#: src/EBox/Mail.pm:1106
+#: src/EBox/Mail.pm:1118
 msgid "Maximum message size exceeded"
 msgstr ""
 
-#: src/EBox/Mail.pm:1107
+#: src/EBox/Mail.pm:1119
 msgid "User quote exceeded"
 msgstr ""
 
-#: src/EBox/Mail.pm:1108
+#: src/EBox/Mail.pm:1120
 msgid "Relay access denied"
 msgstr ""
 
-#: src/EBox/Mail.pm:1109
+#: src/EBox/Mail.pm:1121
 msgid "Account do not exists"
 msgstr ""
 
-#: src/EBox/Mail.pm:1110
+#: src/EBox/Mail.pm:1122
 msgid "Host unreachable"
 msgstr ""
 
-#: src/EBox/Mail.pm:1111
+#: src/EBox/Mail.pm:1123
 msgid "Authentication error"
 msgstr ""
 
-#: src/EBox/Mail.pm:1112
+#: src/EBox/Mail.pm:1124
 msgid "Other events"
 msgstr ""
 
-#: src/EBox/Mail.pm:1219
+#: src/EBox/Mail.pm:1231
 msgid "Mailboxes"
 msgstr ""
 

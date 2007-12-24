@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-05 09:47+0100\n"
+"POT-Creation-Date: 2007-12-24 13:21+0100\n"
 "PO-Revision-Date: 2007-04-12 07:57+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: <es@li.org>\n"
@@ -59,7 +59,7 @@ msgstr ""
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
 msgstr "La plage {from}-{to} inclue l'adresse fixe '{name}': {fixedIP}"
 
-#: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:176
+#: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:203
 #: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
 #: src/templates/fixed.mas:8 src/templates/ranges.mas:53
 msgid "Name"
@@ -101,44 +101,48 @@ msgstr "Plage DHCP"
 
 #: src/EBox/Model/LeaseTimes.pm:133
 msgid "Default leased time must be higher than 0 seconds"
-msgstr ""
+msgstr "Le temps alloué par défaut doit être supérieur à 0 secondes"
 
 #: src/EBox/Model/LeaseTimes.pm:138
 #, perl-brace-format
 msgid "Default leased time {default} must be lower than maximum one {max}"
 msgstr ""
+"Le temps alloué par défaut {default} doit être inférieur au temps maximum "
+"{max}"
 
 #: src/EBox/Model/LeaseTimes.pm:149
 msgid "Maximum leased time must be higher than 0 seconds"
-msgstr ""
+msgstr "Le temps alloué maximum doit être supérieur à 0 secondes"
 
 #: src/EBox/Model/LeaseTimes.pm:154
 #, perl-brace-format
 msgid "Maximum leased time {max} must be higher than default one {default}"
 msgstr ""
+"Le temps alloué maximum {max} doit être supérieur au temps par défaut "
+"{default}"
 
 #: src/EBox/Model/LeaseTimes.pm:197
-#, fuzzy
 msgid "Default leased time"
-msgstr "Passerelle par défaut"
+msgstr "Temps alloué par défaut"
 
 #: src/EBox/Model/LeaseTimes.pm:200 src/EBox/Model/LeaseTimes.pm:208
 msgid "seconds"
-msgstr ""
+msgstr "secondes"
 
 #: src/EBox/Model/LeaseTimes.pm:205
 msgid "Maximum leased time"
-msgstr ""
+msgstr "Temps alloué maximum"
 
 #: src/EBox/Model/LeaseTimes.pm:215
-#, fuzzy
 msgid "Lease times"
-msgstr "Passerelle par défaut"
+msgstr "Temps alloués"
 
 #: src/EBox/Model/LeaseTimes.pm:220
 msgid ""
 "Leased time is the time which a given IP address is valid by the DHCP server"
 msgstr ""
+"Le temps alloué est le temps pour lequel une adresse IP donnée est validée "
+"par le serveur DHCP"
 
 #: src/EBox/Model/Options.pm:157
 #, perl-brace-format
@@ -148,20 +152,19 @@ msgstr "{gateway} n'est pas dans le réseau actuel"
 #: src/EBox/Model/Options.pm:169
 msgid ""
 "DNS service must be active to as primary nameserver the local eBox DNS server"
-msgstr ""
+msgstr "Le service DNS doit être activé en tant que serveur de nom primaire"
 
 #: src/EBox/Model/Options.pm:302 src/EBox/Model/Options.pm:330
 msgid "Custom"
 msgstr "Personnalisé"
 
 #: src/EBox/Model/Options.pm:310
-#, fuzzy
 msgid "eBox's domain"
-msgstr "Recherche du domaine"
+msgstr "Domaine d'eBox"
 
 #: src/EBox/Model/Options.pm:318
 msgid "local eBox DNS"
-msgstr ""
+msgstr "DNS locale d'eBox"
 
 #: src/EBox/Model/Options.pm:325 src/EBox/Model/Options.pm:337
 #: src/EBox/Model/Options.pm:360 src/EBox/Model/ThinClientOptions.pm:219
@@ -198,7 +201,7 @@ msgstr "Serveur de nom secondaire"
 
 #: src/EBox/Model/Options.pm:394
 msgid "Common options"
-msgstr ""
+msgstr "Options communes"
 
 #: src/EBox/Model/Options.pm:399
 msgid ""
@@ -231,22 +234,39 @@ msgstr "L'adresse IP choisie est l'adresse IP de l'interface: {ifaceIP}"
 msgid "IP address {ip} is in range '{range}': {from}-{to}"
 msgstr "L'adresse IP {ip} est dans la plage '{range}': {from}-{to}"
 
-#: src/EBox/Model/FixedAddressTable.pm:182 src/EBox/CGI/AddFixed.pm:43
+#: src/EBox/Model/FixedAddressTable.pm:171
+#, fuzzy
+msgid "update"
+msgstr "Date"
+
+#: src/EBox/Model/FixedAddressTable.pm:173
+#, fuzzy
+msgid "add"
+msgstr "Ajouter"
+
+#: src/EBox/Model/FixedAddressTable.pm:175
+#, perl-brace-format
+msgid ""
+"You cannot {action} a fixed address with a name which is already used in "
+"other fixed address table"
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:209 src/EBox/CGI/AddFixed.pm:43
 #: src/EBox/DHCP.pm:1205 src/templates/fixed.mas:9
 msgid "MAC address"
 msgstr "Adresse MAC"
 
-#: src/EBox/Model/FixedAddressTable.pm:188
+#: src/EBox/Model/FixedAddressTable.pm:215
 #: src/EBox/Model/ThinClientOptions.pm:225 src/EBox/CGI/AddFixed.pm:44
 #: src/templates/fixed.mas:10
 msgid "IP address"
 msgstr "Adresse IP"
 
-#: src/EBox/Model/FixedAddressTable.pm:196 src/templates/fixed.mas:5
+#: src/EBox/Model/FixedAddressTable.pm:223 src/templates/fixed.mas:5
 msgid "Fixed addresses"
 msgstr "Adresses fixes"
 
-#: src/EBox/Model/FixedAddressTable.pm:203
+#: src/EBox/Model/FixedAddressTable.pm:230
 msgid "fixed address"
 msgstr "adresse fixe"
 
@@ -255,6 +275,8 @@ msgid ""
 "In order to upload firmware to boot PCs to eBox, you need to set eBox as "
 "next server"
 msgstr ""
+"Afin d'envoyer un progiciels (firmware) pour démarrer des PCs depuis eBox, "
+"vous devez définir eBox en tant que prochain serveur"
 
 #: src/EBox/Model/ThinClientOptions.pm:192
 #, perl-brace-format
@@ -262,23 +284,24 @@ msgid ""
 "Unlinked previous uploaded firmware since next server optionhas been changed "
 "from eBox to {option}"
 msgstr ""
+"L'ancien progiciel (firmware) est détaché depuis que les options du serveur "
+"ont été changées d'eBox à {option}"
 
 #: src/EBox/Model/ThinClientOptions.pm:215
 msgid "Next server"
-msgstr ""
+msgstr "Prochain serveur"
 
 #: src/EBox/Model/ThinClientOptions.pm:229
-#, fuzzy
 msgid "name"
-msgstr "Nom"
+msgstr "nom"
 
 #: src/EBox/Model/ThinClientOptions.pm:235
 msgid "File name"
-msgstr ""
+msgstr "Nom de fichier"
 
 #: src/EBox/Model/ThinClientOptions.pm:246
 msgid "Thin client"
-msgstr ""
+msgstr "Client léger"
 
 #: src/EBox/Model/ThinClientOptions.pm:251
 #, perl-brace-format
@@ -286,6 +309,9 @@ msgid ""
 "You may want to customise your thin client options.To do so, you may include "
 "all the files you require under {path} directory"
 msgstr ""
+"Vous pouvez vouloir modifier les options de votre client léger. Afin de le "
+"faire, vous pouvez inclure tous les fichiers dont vous avez besoin sous "
+"{path}"
 
 #: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/AddFixed.pm:39
 #: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
@@ -314,20 +340,18 @@ msgstr ""
 "le service sur {openhref}le module pare-feu{closehref}"
 
 #: src/EBox/Composite/General.pm:79
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
-"At least, an interface must set as staticto configure the DHCP service on "
-"it. To do so, change {openhref}interfaces configuration{closehref} in "
-"network module"
+"An interface must set as static to configure the DHCP service on it. To do "
+"so, change {openhref}interfaces configuration{closehref} in network module"
 msgstr ""
 "Au moins une interface doit être définie comme statique, afin de configurer "
 "son service DHCP. Pour le faire, modifier {openhref}la configuration des "
 "interfaces{closehref} dans le module réseau"
 
 #: src/EBox/Composite/AdvancedOptions.pm:119
-#, fuzzy
 msgid "Advanced options"
-msgstr "Options"
+msgstr "Options avancées"
 
 #: src/EBox/Composite/Interfaces.pm:76
 msgid "Choose a static interface to configure:"
@@ -350,14 +374,14 @@ msgid "DHCP service status"
 msgstr "Statut du service DHCP"
 
 #: src/EBox/DHCP.pm:380
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "DHCP server cannot activated because there are not any network interface "
 "with a static address. {openhref}Configure one{closehref} first"
 msgstr ""
 "Le serveur DHCP ne peut pas être activé car aucune carte réseau n'est "
-"parametrée avec une adresse ip statique. <a href='Network/Ifaces'>Veuillez "
-"en configurer une</a>"
+"paramétrée avec une adresse ip statique. {openhref}Veuillez en configurer une"
+"{closehref} d'abord"
 
 #: src/EBox/DHCP.pm:500 src/EBox/DHCP.pm:536 src/EBox/DHCP.pm:586
 #: src/EBox/DHCP.pm:684 src/EBox/DHCP.pm:787 src/EBox/DHCP.pm:843
@@ -367,11 +391,12 @@ msgstr "{iface} n'est pas statique"
 
 #: src/EBox/DHCP.pm:670
 msgid "Not a valid action: add, set and del are available"
-msgstr ""
+msgstr "N'est pas une action valide : ajouter, définir et effacer en sont"
 
 #: src/EBox/DHCP.pm:773
 msgid "No valid action. Available ones are: add, set and del"
 msgstr ""
+"N'est pas une action valide. Action disponibles : ajouter, définir et effacer"
 
 #: src/EBox/DHCP.pm:991
 #, perl-brace-format
@@ -421,11 +446,11 @@ msgstr "DHCP"
 
 #: src/EBox/DHCP.pm:1474 src/EBox/DHCP.pm:1483
 msgid "Dynamic Host Configuration Protocol"
-msgstr ""
+msgstr "Configuration du protocole de clients dynamiques"
 
 #: src/EBox/DHCP.pm:1504 src/EBox/DHCP.pm:1513
 msgid "Trivial File Transfer Protocol"
-msgstr ""
+msgstr "Protocole de transfert de fichier insignifiant"
 
 #: src/templates/options.mas:8
 msgid "Options"
@@ -466,6 +491,15 @@ msgstr "Masque de sous-réseau"
 #: src/templates/ranges.mas:93
 msgid "Delete"
 msgstr "Supprimer"
+
+#~ msgid ""
+#~ "At least, an interface must set as staticto configure the DHCP service on "
+#~ "it. To do so, change {openhref}interfaces configuration{closehref} in "
+#~ "network module"
+#~ msgstr ""
+#~ "Au moins une interface doit être définie comme statique, afin de "
+#~ "configurer son service DHCP. Pour le faire, modifier {openhref}la "
+#~ "configuration des interfaces{closehref} dans le module réseau"
 
 #~ msgid "Nameserver IP address"
 #~ msgstr "Adresse IP du nameserver"

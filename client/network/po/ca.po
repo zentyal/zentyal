@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-network 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-05 09:49+0100\n"
+"POT-Creation-Date: 2007-12-24 13:23+0100\n"
 "PO-Revision-Date: 2004-11-01 23:09+0100\n"
 "Last-Translator: Jordi Mallach <jordi@sindominio.net>\n"
 "Language-Team: Catalan\n"
@@ -28,17 +28,18 @@ msgstr ""
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:100
 #: src/EBox/Model/ConfigurableInterfaceTable.pm:65
-#: src/EBox/Model/GatewayTable.pm:96 src/EBox/Network.pm:664
-#: src/EBox/Network.pm:696 src/EBox/Network.pm:741 src/EBox/Network.pm:775
-#: src/EBox/Network.pm:800 src/EBox/Network.pm:876 src/EBox/Network.pm:999
-#: src/EBox/Network.pm:1194 src/EBox/Network.pm:1254 src/EBox/Network.pm:1289
-#: src/EBox/Network.pm:1325 src/EBox/Network.pm:1358 src/EBox/Network.pm:2041
-#: src/EBox/Network.pm:2073 src/EBox/Network.pm:2146 src/EBox/Network.pm:2166
-#: src/EBox/Network.pm:2187 src/EBox/Network.pm:2210
+#: src/EBox/Model/GatewayTable.pm:96 src/EBox/Network.pm:674
+#: src/EBox/Network.pm:706 src/EBox/Network.pm:751 src/EBox/Network.pm:785
+#: src/EBox/Network.pm:810 src/EBox/Network.pm:886 src/EBox/Network.pm:1009
+#: src/EBox/Network.pm:1204 src/EBox/Network.pm:1264 src/EBox/Network.pm:1299
+#: src/EBox/Network.pm:1335 src/EBox/Network.pm:1368 src/EBox/Network.pm:2051
+#: src/EBox/Network.pm:2083 src/EBox/Network.pm:2156 src/EBox/Network.pm:2176
+#: src/EBox/Network.pm:2197 src/EBox/Network.pm:2220
 msgid "Interface"
 msgstr "Interfície"
 
 #: src/EBox/Model/MultiGwRulesDataTable.pm:106
+#: src/EBox/Model/ByteRateGraph.pm:93
 msgid "Source"
 msgstr ""
 
@@ -74,7 +75,7 @@ msgstr "Descripció"
 msgid "Destination object"
 msgstr ""
 
-#: src/EBox/Model/MultiGwRulesDataTable.pm:170 src/EBox/Network.pm:1490
+#: src/EBox/Model/MultiGwRulesDataTable.pm:170 src/EBox/Network.pm:1500
 #: src/templates/routes.mas:31
 msgid "Gateway"
 msgstr "Pasarel·la"
@@ -200,7 +201,7 @@ msgid "gateway"
 msgstr "Pasarel·la"
 
 #: src/EBox/Model/GatewayTable.pm:166 src/EBox/CGI/Iface.pm:87
-#: src/EBox/Network.pm:1489
+#: src/EBox/Network.pm:1499
 msgid "ip address"
 msgstr "adreça ip"
 
@@ -224,6 +225,59 @@ msgstr "Interfícies virtuals"
 msgid "These are the vlan interfaces which are available in your system."
 msgstr "Interfícies de xarxa"
 
+#: src/EBox/Model/ByteRateSettings.pm:67
+msgid "Traffic rate monitor active"
+msgstr ""
+
+#: src/EBox/Model/ByteRateSettings.pm:76
+#, fuzzy
+msgid "Interface to listen"
+msgstr "Interfície"
+
+#: src/EBox/Model/ByteRateSettings.pm:88
+msgid "Traffic rate monitor settings"
+msgstr ""
+
+#: src/EBox/Model/ByteRateSettings.pm:95
+msgid "Settings changed"
+msgstr ""
+
+#: src/EBox/Model/ByteRateSettings.pm:116
+msgid "all"
+msgstr ""
+
+#: src/EBox/Model/ByteRateGraph.pm:59
+msgid "Active sources traffic"
+msgstr ""
+
+#: src/EBox/Model/ByteRateGraph.pm:63
+msgid "Active services traffic"
+msgstr ""
+
+#: src/EBox/Model/ByteRateGraph.pm:67
+msgid "Source traffic"
+msgstr ""
+
+#: src/EBox/Model/ByteRateGraph.pm:71
+msgid "Service traffic"
+msgstr ""
+
+#: src/EBox/Model/ByteRateGraph.pm:75
+msgid "Source and service traffic"
+msgstr ""
+
+#: src/EBox/Model/ByteRateGraph.pm:83
+msgid "Graph type"
+msgstr ""
+
+#: src/EBox/Model/ByteRateGraph.pm:101
+msgid "Service"
+msgstr ""
+
+#: src/EBox/Model/ByteRateGraphControl.pm:38
+msgid "Select traffic graphic"
+msgstr ""
+
 #: src/EBox/CGI/FirstTime/DNS.pm:41
 msgid "You can revisit this page at Network/DNS in the menu"
 msgstr ""
@@ -234,7 +288,7 @@ msgid "Network interface configured"
 msgstr "Interfícies de xarxa"
 
 #: src/EBox/CGI/FirstTime/Ifaces.pm:13 src/EBox/CGI/Ifaces.pm:29
-#: src/EBox/Network.pm:2263
+#: src/EBox/Network.pm:2273
 msgid "Network interfaces"
 msgstr "Interfícies de xarxa"
 
@@ -275,7 +329,7 @@ msgstr "Interfícies de xarxa"
 msgid "Host"
 msgstr ""
 
-#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2251
+#: src/EBox/CGI/Diag.pm:58 src/EBox/Network.pm:2261
 msgid "host name"
 msgstr ""
 
@@ -300,10 +354,10 @@ msgstr ""
 msgid "virtual interface action"
 msgstr "acció d'interfície virtual"
 
-#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:571 src/EBox/Network.pm:576
-#: src/EBox/Network.pm:880 src/EBox/Network.pm:901 src/EBox/Network.pm:1432
-#: src/EBox/Network.pm:2043 src/EBox/Network.pm:2058 src/EBox/Network.pm:2190
-#: src/EBox/Network.pm:2308 src/templates/ifaces.mas:91
+#: src/EBox/CGI/VIface.pm:62 src/EBox/Network.pm:581 src/EBox/Network.pm:586
+#: src/EBox/Network.pm:890 src/EBox/Network.pm:911 src/EBox/Network.pm:1442
+#: src/EBox/Network.pm:2053 src/EBox/Network.pm:2068 src/EBox/Network.pm:2200
+#: src/EBox/Network.pm:2318 src/templates/ifaces.mas:91
 #: src/templates/ifaces.mas:206
 msgid "IP address"
 msgstr "Adreça IP"
@@ -312,7 +366,7 @@ msgstr "Adreça IP"
 msgid "virtual interface name"
 msgstr "nom de la interfície virtual"
 
-#: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1488
+#: src/EBox/CGI/Route.pm:41 src/EBox/Network.pm:1498
 msgid "network address"
 msgstr "adreça de xarxa"
 
@@ -320,79 +374,79 @@ msgstr "adreça de xarxa"
 msgid "gateway address"
 msgstr "adreça de la pasarel·la"
 
-#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1073
-#: src/EBox/Network.pm:1102 src/templates/ifaces.mas:148
+#: src/EBox/CGI/Vlan.pm:50 src/EBox/CGI/Vlan.pm:53 src/EBox/Network.pm:1083
+#: src/EBox/Network.pm:1112 src/templates/ifaces.mas:148
 msgid "VLAN Id"
 msgstr ""
 
 #: src/EBox/CGI/Routes.pm:29 src/EBox/CGI/Routes.pm:40
-#: src/EBox/Network.pm:2331
+#: src/EBox/Network.pm:2341
 msgid "Routes"
 msgstr "Rutes"
 
-#: src/EBox/Network/Report/BitRate.pm:382
+#: src/EBox/Network/Composite/ByteRate.pm:73
+msgid "Byte rate"
+msgstr ""
+
+#: src/EBox/Network/Report/ByteRate.pm:526
 msgid "bytes/second"
 msgstr ""
 
-#: src/EBox/Network/Report/BitRate.pm:431
-#: src/EBox/Network/Report/BitRate.pm:491
+#: src/EBox/Network/Report/ByteRate.pm:577
+#: src/EBox/Network/Report/ByteRate.pm:638
 #, perl-brace-format
 msgid "Traffic data not found for source {src}"
 msgstr ""
 
-#: src/EBox/Network/Report/BitRate.pm:442
+#: src/EBox/Network/Report/ByteRate.pm:588
 #, perl-brace-format
 msgid "Network traffic from {src}"
 msgstr ""
 
-#: src/EBox/Network/Report/BitRate.pm:460
-#: src/EBox/Network/Report/BitRate.pm:501
+#: src/EBox/Network/Report/ByteRate.pm:606
+#: src/EBox/Network/Report/ByteRate.pm:648
 #, perl-brace-format
 msgid "Traffic data not found for service {service}"
 msgstr ""
 
-#: src/EBox/Network/Report/BitRate.pm:471
+#: src/EBox/Network/Report/ByteRate.pm:617
 #, perl-brace-format
 msgid "Network traffic for {service}"
 msgstr ""
 
-#: src/EBox/Network/Report/BitRate.pm:511
+#: src/EBox/Network/Report/ByteRate.pm:658
 #, perl-brace-format
 msgid "Traffic data not found for source {src} and service {service}"
 msgstr ""
 
-#: src/EBox/Network/Report/BitRate.pm:525
+#: src/EBox/Network/Report/ByteRate.pm:672
 #, perl-brace-format
 msgid "Network traffic from source {src} and for service {service}"
 msgstr ""
 
-#: src/EBox/Network/Report/BitRate.pm:541
+#: src/EBox/Network/Report/ByteRate.pm:688
 msgid "Active services"
 msgstr ""
 
-#: src/EBox/Network/Report/BitRate.pm:546
+#: src/EBox/Network/Report/ByteRate.pm:693
 msgid "No services bit rate data found"
 msgstr ""
 
-#: src/EBox/Network/Report/BitRate.pm:577
+#: src/EBox/Network/Report/ByteRate.pm:724
 msgid "Active sources"
 msgstr ""
 
-#: src/EBox/Network/Report/BitRate.pm:582
-msgid "No sources bit rate data found"
-msgstr ""
-
-#: src/EBox/Network/Report/BitRate.pm:612
+#: src/EBox/Network/Report/ByteRate.pm:764
 #, perl-brace-format
 msgid "Traffic rate from {src}"
 msgstr ""
 
-#: src/EBox/Network/Report/BitRate.pm:627
+#: src/EBox/Network/Report/ByteRate.pm:779
 #, perl-brace-format
 msgid "Traffic rate for {service}"
 msgstr ""
 
-#: src/EBox/Network/Report/BitRate.pm:642
+#: src/EBox/Network/Report/ByteRate.pm:795
 #, perl-brace-format
 msgid "Traffic rate from {src} for {service}"
 msgstr ""
@@ -411,96 +465,100 @@ msgstr ""
 msgid "Configure default gateway"
 msgstr "Pasarel·la per defecte"
 
-#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:1999
+#: src/EBox/NetworkUtil.pm:55 src/EBox/Network.pm:2009
 #, perl-brace-format
 msgid "Gateway {gw} not reachable"
 msgstr "No es pot accedir a la pasarel·la {gw}"
 
-#: src/EBox/Network.pm:59 src/EBox/Network.pm:2323 src/templates/routes.mas:30
+#: src/EBox/Network.pm:58 src/EBox/Network.pm:2333 src/templates/routes.mas:30
 msgid "Network"
 msgstr "Xarxa"
 
-#: src/EBox/Network.pm:568 src/EBox/Network.pm:572
+#: src/EBox/Network.pm:578 src/EBox/Network.pm:582
 msgid "Virtual interface name"
 msgstr "Nom de la interfície virtual"
 
-#: src/EBox/Network.pm:571 src/EBox/Network.pm:880 src/EBox/Network.pm:2043
+#: src/EBox/Network.pm:581 src/EBox/Network.pm:890 src/EBox/Network.pm:2053
 #: src/templates/ifaces.mas:104 src/templates/ifaces.mas:207
 msgid "Netmask"
 msgstr "Màscara de xarxa"
 
-#: src/EBox/Network.pm:1004
+#: src/EBox/Network.pm:1014
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr ""
 
-#: src/EBox/Network.pm:1049
+#: src/EBox/Network.pm:1059
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
 msgstr ""
 
-#: src/EBox/Network.pm:1082
+#: src/EBox/Network.pm:1092
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr ""
 
-#: src/EBox/Network.pm:1960
+#: src/EBox/Network.pm:1970
 msgid ""
 "The requested operation will cause one of the configured routers to become "
 "unreachable. Please remove it first if you really want to make this change."
 msgstr ""
 
-#: src/EBox/Network.pm:2003
+#: src/EBox/Network.pm:2013
 #, perl-brace-format
 msgid ""
 "Gateway {gw} must be reacheable by a static interface. Currently is "
 "reacheable by {iface} which is not static"
 msgstr ""
 
-#: src/EBox/Network.pm:2232
+#: src/EBox/Network.pm:2242
 msgid "Host name"
 msgstr ""
 
-#: src/EBox/Network.pm:2282
+#: src/EBox/Network.pm:2292
 msgid "down"
 msgstr "avall"
 
-#: src/EBox/Network.pm:2288
+#: src/EBox/Network.pm:2298
 msgid "up"
 msgstr "amunt"
 
-#: src/EBox/Network.pm:2292
+#: src/EBox/Network.pm:2302
 msgid "link ok"
 msgstr ""
 
-#: src/EBox/Network.pm:2294
+#: src/EBox/Network.pm:2304
 msgid "no link"
 msgstr ""
 
-#: src/EBox/Network.pm:2297
+#: src/EBox/Network.pm:2307
 msgid "Status"
 msgstr "Estat"
 
-#: src/EBox/Network.pm:2302
+#: src/EBox/Network.pm:2312
 msgid "MAC address"
 msgstr "Adreça MAC"
 
-#: src/EBox/Network.pm:2327
+#: src/EBox/Network.pm:2337
 #, fuzzy
 msgid "Interfaces"
 msgstr "Interfície"
 
-#: src/EBox/Network.pm:2333
+#: src/EBox/Network.pm:2343
 msgid "Diagnosis"
 msgstr ""
 
-#: src/EBox/Network.pm:2336
+#: src/EBox/Network.pm:2346
 #, fuzzy
 msgid "Gateways"
 msgstr "Pasarel·la"
 
-#: src/EBox/Network.pm:2339
+#: src/EBox/Network.pm:2349
 msgid "Balance traffic"
+msgstr ""
+
+#: src/EBox/Network.pm:2352
+msgid "Traffic rate monitor"
 msgstr ""
 
 #: src/templates/routes.mas:12

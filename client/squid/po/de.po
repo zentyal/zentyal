@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-squid 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-05 09:50+0100\n"
+"POT-Creation-Date: 2007-12-24 13:24+0100\n"
 "PO-Revision-Date: 2007-08-19 14:56+0200\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -63,11 +63,11 @@ msgstr "MIME-Typen"
 msgid "Set policy for all MIME types"
 msgstr "Vorgehen für alle MIME-Typen einstellen"
 
-#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:61
+#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:60
 msgid "elements"
 msgstr "Elemente"
 
-#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:69
+#: src/EBox/Squid/Model/ApplyAllowToAllBase.pm:68
 #, perl-brace-format
 msgid "Allow all {elements}"
 msgstr "Alle {elements} erlauben"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-05 09:47+0100\n"
+"POT-Creation-Date: 2007-12-24 13:21+0100\n"
 "PO-Revision-Date: 2007-05-15 14:19+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: \n"
@@ -52,7 +52,7 @@ msgstr ""
 "alphanumériques, plus ceux ci non alphanumériques sont permis: /.?&+:-@ et "
 "espaces."
 
-#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:532
+#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:540
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -68,7 +68,7 @@ msgstr ""
 "Une erreur interne liée à une matrice s'est produite. C'est un bogue, "
 "l'information pertinente peut être trouvé dans les logs."
 
-#: src/EBox/CGI/Base.pm:538
+#: src/EBox/CGI/Base.pm:546
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -76,30 +76,30 @@ msgstr ""
 "Une erreur interne innatendue s'est produite. C'est un bogue, l'information "
 "pertinente peut être trouvé dans les logs."
 
-#: src/EBox/CGI/Base.pm:544
+#: src/EBox/CGI/Base.pm:552
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
 "Vous avez trouvé un bogue dans l'eBox. Veuillez contacter le support "
 "technique"
 
-#: src/EBox/CGI/Base.pm:631
+#: src/EBox/CGI/Base.pm:639
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Votre requête ne peut être effectuée à cause d'un de ses paramètres incorrect"
 
-#: src/EBox/CGI/Base.pm:646
+#: src/EBox/CGI/Base.pm:654
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
 "Votre requête ne peut être effectuée à cause d'un de ses paramètres manquant"
 
-#: src/EBox/CGI/Base.pm:795
+#: src/EBox/CGI/Base.pm:803
 msgid "Invalid uploaded file."
 msgstr "Fichier envoyé invalide"
 
-#: src/EBox/CGI/Base.pm:801
+#: src/EBox/CGI/Base.pm:809
 msgid "Cannot create a temporally file for the upload"
 msgstr "Impossible de créer un fichier temporaire pour l'envoi de données"
 
@@ -127,7 +127,7 @@ msgstr "L'utilisateur d'ebox n'a pas été défini dans le fichier de config."
 msgid "Directory not found: {d}"
 msgstr "Dossier non trouvé : {d}"
 
-#: src/EBox/Validate.pm:647
+#: src/EBox/Validate.pm:685
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -136,13 +136,13 @@ msgstr ""
 "Impossible d'accéder au dossier : {dir}. Il est peut-être inexistant ou vous "
 "n'avez pas de droits suffisants"
 
-#: src/EBox/Validate.pm:652
+#: src/EBox/Validate.pm:690
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 "Le répertoire {dir} n'est pas privé, car il appartient à un autre utilisateur"
 
-#: src/EBox/Validate.pm:727
+#: src/EBox/Validate.pm:765
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
@@ -150,7 +150,7 @@ msgstr ""
 "Le chemin au fichier désiré est invalide. (Actuellement, tous les caractères "
 "de fichier ne sont pas supportés)"
 
-#: src/EBox/Validate.pm:755
+#: src/EBox/Validate.pm:793
 msgid "The file path must be absolute"
 msgstr "Le chemin du fichier doit être absolut"
 

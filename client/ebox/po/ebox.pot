@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-05 09:48+0100\n"
+"POT-Creation-Date: 2007-12-24 13:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -203,6 +203,34 @@ msgstr ""
 msgid "Authorization failed: {result} - {message}"
 msgstr ""
 
+#: src/EBox/Event/Dispatcher/RSS.pm:214
+#, perl-brace-format
+msgid "RSS file: {path}"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/RSS.pm:228
+msgid "RSS"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/RSS.pm:274
+#, perl-brace-format
+msgid "eBox alerts channel for {hostname}"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/RSS.pm:277
+msgid "This channel tracks what happens on this eBox machine along the time"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/RSS.pm:296
+#, perl-brace-format
+msgid "The event has happened in eBox {hostname} from {source}"
+msgstr ""
+
+#: src/EBox/Event/Dispatcher/RSS.pm:300
+#, perl-brace-format
+msgid "Go to your {url} to check its status."
+msgstr ""
+
 #: src/EBox/Event/Dispatcher/Log.pm:116
 msgid "Log file"
 msgstr ""
@@ -211,52 +239,61 @@ msgstr ""
 msgid "Log"
 msgstr ""
 
-#: src/EBox/Event/Dispatcher/Abstract.pm:180
+#: src/EBox/Event/Dispatcher/Abstract.pm:140
 #, perl-brace-format
 msgid "Dispatcher {name} is not configured to be enabled"
 msgstr ""
 
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:109
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:133
 #, perl-brace-format
 msgid "The file system {fs}, mounted on {mp}, has no space left"
 msgstr ""
 
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:167
 msgid "Free storage space"
 msgstr ""
 
-#: src/EBox/Event/Watcher/DiskFreeSpace.pm:201
+#: src/EBox/Event/Watcher/DiskFreeSpace.pm:184
 msgid "Check if any disk partition  has no storage space left"
 msgstr ""
 
-#: src/EBox/Event/Watcher/State.pm:100
+#: src/EBox/Event/Watcher/State.pm:111
 msgid "eBox is up and running"
 msgstr ""
 
-#: src/EBox/Event/Watcher/State.pm:105
+#: src/EBox/Event/Watcher/State.pm:117
 msgid "eBox is critically down"
 msgstr ""
 
-#: src/EBox/Event/Watcher/State.pm:129 src/templates/report/raid.mas:197
+#: src/EBox/Event/Watcher/State.pm:142 src/templates/report/raid.mas:197
 msgid "State"
 msgstr ""
 
-#: src/EBox/Event/Watcher/State.pm:146
+#: src/EBox/Event/Watcher/State.pm:159
 msgid "Check if eBox is currently up or down"
 msgstr ""
 
-#: src/EBox/Event/Watcher/Runit.pm:130
+#: src/EBox/Event/Watcher/Log.pm:179
+msgid "Log observer"
+msgstr ""
+
+#: src/EBox/Event/Watcher/Log.pm:203
+#, perl-brace-format
+msgid "Notify when a logger ({loggers}) has logged something"
+msgstr ""
+
+#: src/EBox/Event/Watcher/Runit.pm:142
 #, perl-brace-format
 msgid ""
 "The service {service} has been restarted {restart} times in {time} seconds "
 "and it has been stopped"
 msgstr ""
 
-#: src/EBox/Event/Watcher/Runit.pm:164
+#: src/EBox/Event/Watcher/Runit.pm:177
 msgid "Service"
 msgstr ""
 
-#: src/EBox/Event/Watcher/Runit.pm:181
+#: src/EBox/Event/Watcher/Runit.pm:194
 msgid "Check if any service has been restarted many  times in a time interval"
 msgstr ""
 
@@ -274,7 +311,7 @@ msgstr ""
 
 #: src/EBox/Types/Select.pm:226
 #, perl-brace-format
-msgid "Choose a value within the value set {set}"
+msgid "Choose a value within the value set: {set}"
 msgstr ""
 
 #: src/EBox/Types/Int.pm:110
@@ -282,6 +319,7 @@ msgid "Write down a positive number"
 msgstr ""
 
 #: src/EBox/Types/Service.pm:187 src/EBox/Types/PortRange.pm:283
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:150
 #: src/templates/logs/index.mas:173
 msgid "Any"
 msgstr ""
@@ -338,45 +376,44 @@ msgstr ""
 msgid "field"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:1854 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/DataTable.pm:1859 src/EBox/Model/DataMultiTable.pm:168
 #: src/EBox/Model/Composite.pm:603 src/EBox/Model/Composite.pm:618
-#: src/EBox/Logs.pm:556
+#: src/EBox/Logs.pm:620
 msgid "Action"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2460
+#: src/EBox/Model/DataTable.pm:2465
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2678
+#: src/EBox/Model/DataTable.pm:2683
 #, perl-brace-format
 msgid "{row} added"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2679
+#: src/EBox/Model/DataTable.pm:2684
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2680
+#: src/EBox/Model/DataTable.pm:2685
 #, perl-brace-format
 msgid "{row} updated"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2681
+#: src/EBox/Model/DataTable.pm:2686
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2682
+#: src/EBox/Model/DataTable.pm:2687
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:3922
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:119
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:214
+#: src/EBox/Model/DataTable.pm:3927
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:309
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:289
 msgid "Enabled"
 msgstr ""
@@ -392,13 +429,13 @@ msgstr ""
 msgid "Provided object with index {i} soes not exist"
 msgstr ""
 
-#: src/EBox/Model/ModelManager.pm:454
+#: src/EBox/Model/ModelManager.pm:456
 msgid ""
 "The data you are removing is being used by\n"
 "\t\t\tthe following sections:"
 msgstr ""
 
-#: src/EBox/Model/ModelManager.pm:501
+#: src/EBox/Model/ModelManager.pm:503
 msgid ""
 "The data you are modifying is being used by\n"
 "\t\t\tthe following sections:"
@@ -489,7 +526,7 @@ msgstr ""
 msgid "Restoring modules"
 msgstr ""
 
-#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:555
+#: src/EBox/CGI/EBox/Backup.pm:256 src/EBox/Logs.pm:619
 #: src/templates/finish.mas:22
 msgid "Module"
 msgstr ""
@@ -585,7 +622,7 @@ msgstr ""
 msgid "Bug-report configuration dump"
 msgstr ""
 
-#: src/EBox/CGI/Logs/Index.pm:33 src/EBox/Logs.pm:535
+#: src/EBox/CGI/Logs/Index.pm:34 src/EBox/Logs.pm:599
 msgid "Logs"
 msgstr ""
 
@@ -659,69 +696,74 @@ msgstr ""
 msgid "A instance of a subclass of EBox::GConfModule is expected"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:109
-msgid "Domain"
-msgstr ""
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:129
-#: src/EBox/Logs/Model/ForcePurge.pm:99
-msgid "Purge logs older than"
-msgstr ""
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:141 src/EBox/Logs.pm:541
-msgid "Configure logs"
-msgstr ""
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:147
-msgid "Enable/disable logging per-module basis"
-msgstr ""
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:149 src/EBox/Logs.pm:59
-msgid "logs"
-msgstr ""
-
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:163
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:207
 msgid "never purge"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:167
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:211
 #: src/EBox/Logs/Model/ForcePurge.pm:125
 msgid "one hour"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:171
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:215
 #: src/EBox/Logs/Model/ForcePurge.pm:129
 msgid "twelve hours"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:175
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:219
 #: src/EBox/Logs/Model/ForcePurge.pm:133
 msgid "one day"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:179
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:223
 #: src/EBox/Logs/Model/ForcePurge.pm:137
 msgid "three days"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:183
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:227
 #: src/EBox/Logs/Model/ForcePurge.pm:141
 msgid "one week"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:187
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:231
 #: src/EBox/Logs/Model/ForcePurge.pm:145
 msgid "fifteeen days"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:191
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:235
 #: src/EBox/Logs/Model/ForcePurge.pm:149
 msgid "thirty days"
 msgstr ""
 
-#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:195
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:239
 #: src/EBox/Logs/Model/ForcePurge.pm:153
 msgid "ninety days"
+msgstr ""
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:301
+#: src/EBox/Events/Model/Watcher/Log.pm:216
+msgid "Domain"
+msgstr ""
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:316
+#: src/EBox/Logs/Model/ForcePurge.pm:99
+msgid "Purge logs older than"
+msgstr ""
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:323
+msgid "Event configuration"
+msgstr ""
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:333 src/EBox/Logs.pm:605
+msgid "Configure logs"
+msgstr ""
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:339
+msgid "Enable/disable logging per-module basis"
+msgstr ""
+
+#: src/EBox/Logs/Model/ConfigureLogDataTable.pm:341 src/EBox/Logs.pm:59
+msgid "logs"
 msgstr ""
 
 #: src/EBox/Logs/Model/ForcePurge.pm:108
@@ -777,39 +819,148 @@ msgstr ""
 msgid "It should follow the pattern 'user@domain[/resource]'"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:192
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:147
+msgid "Channel link"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:153
+msgid "Allowed readers"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:159
+msgid "Nobody"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:163
+msgid "IP address"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:168
+msgid "Object"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:175
+msgid "Public"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:181
+msgid "Syndicate this RSS"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:191
+msgid "Configure RSS dispatcher"
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:196
+msgid ""
+"The channel link is the link which is used to syndicate the content to your "
+"favourite RSS. "
+msgstr ""
+
+#: src/EBox/Events/Model/Dispatcher/RSS.pm:199
+msgid "RSS dispatcher configuration updated"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:109
+#, perl-brace-format
+msgid "Log domain {logDomain}"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:169
+#: src/templates/logs/index.mas:171
+msgid "Event"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:177
+#, perl-brace-format
+msgid "Filters to apply to notify logs from {logDomain}"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:185
+msgid ""
+"Every filter added is cumulative.Then every log line which matches with any "
+"filter given will be notified"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/LogFiltering.pm:189
+msgid "filter"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:99
+msgid "Minimum free disk space per filesystem"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:108
+msgid "Configure disk free space watcher"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/DiskFreeSpace.pm:113
+msgid ""
+"Take care the minimum percentage of free space is done per file system and "
+"not in overall"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/Log.pm:168
+#: src/EBox/Events/Model/Watcher/Log.pm:192
+msgid ""
+"Warning! The log watcher is not enabled. Enable to be notified when logs "
+"happen. "
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/Log.pm:221
+msgid "Filtering"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/Log.pm:229
+msgid "Configure log watchers"
+msgstr ""
+
+#: src/EBox/Events/Model/Watcher/Log.pm:231
+msgid "Log watcher"
+msgstr ""
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:206
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:241
 msgid "Name"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:202
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:214
 #: src/templates/confirm-backup.mas:36 src/templates/backup.mas:41
 #: src/templates/backup.mas:123
 msgid "Description"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:227
-msgid "Configure events"
-msgstr ""
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:236
-msgid "event"
-msgstr ""
-
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:237
-msgid "Enable/Disable each event watcher monitoring"
-msgstr ""
-
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:251
-msgid "Receiver"
-msgstr ""
-
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:223
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:263
 msgid "Configuration"
 msgstr ""
 
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:234
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:283
 msgid "None"
+msgstr ""
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:243
+msgid "Configure events"
+msgstr ""
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:251
+msgid "event"
+msgstr ""
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:252
+msgid "Enable/Disable each event watcher monitoring"
+msgstr ""
+
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:407
+msgid ""
+"Warning! There is no log domain watcher enabled. Please, go to "
+"'Configuration' to enable at least one to be notified when a log in this "
+"domain happens. "
+msgstr ""
+
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:251
+msgid "Receiver"
 msgstr ""
 
 #: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:306
@@ -830,8 +981,8 @@ msgid ""
 "first"
 msgstr ""
 
-#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:157
-#: src/EBox/Events.pm:180
+#: src/EBox/Events/Model/GeneralComposite.pm:76 src/EBox/Events.pm:160
+#: src/EBox/Events.pm:183
 msgid "Events"
 msgstr ""
 
@@ -861,58 +1012,58 @@ msgstr ""
 msgid "System"
 msgstr ""
 
-#: src/EBox/Apache.pm:50
+#: src/EBox/Apache.pm:61
 msgid ""
 "You must set the httpd_serverroot variable in the ebox configuration file"
 msgstr ""
 
-#: src/EBox/Apache.pm:60
+#: src/EBox/Apache.pm:71
 msgid "You must set the httpd_init variable in the ebox configuration file"
 msgstr ""
 
-#: src/EBox/Apache.pm:63
+#: src/EBox/Apache.pm:74
 msgid "The httpd_init script you configured is not executable."
 msgstr ""
 
-#: src/EBox/Apache.pm:205 src/EBox/Apache.pm:214
+#: src/EBox/Apache.pm:223 src/EBox/Apache.pm:232
 msgid "port"
 msgstr ""
 
-#: src/EBox/Logs.pm:377
+#: src/EBox/Logs.pm:421
 #, perl-brace-format
 msgid "Table {table} does not exist"
 msgstr ""
 
-#: src/EBox/Logs.pm:538
+#: src/EBox/Logs.pm:602
 msgid "Query logs"
 msgstr ""
 
-#: src/EBox/Logs.pm:553 src/templates/confirm-backup.mas:28
+#: src/EBox/Logs.pm:617 src/templates/confirm-backup.mas:28
 #: src/templates/backup.mas:125 src/templates/finish.mas:21
 msgid "Date"
 msgstr ""
 
-#: src/EBox/Logs.pm:554
+#: src/EBox/Logs.pm:618
 msgid "Client Address"
 msgstr ""
 
-#: src/EBox/Logs.pm:557
+#: src/EBox/Logs.pm:621
 msgid "Params"
 msgstr ""
 
-#: src/EBox/Logs.pm:558
+#: src/EBox/Logs.pm:622
 msgid "Committed"
 msgstr ""
 
-#: src/EBox/Logs.pm:563
+#: src/EBox/Logs.pm:627
 msgid "Admin"
 msgstr ""
 
-#: src/EBox/Logs.pm:657
+#: src/EBox/Logs.pm:721
 msgid "Log messages"
 msgstr ""
 
-#: src/EBox/Logs.pm:669
+#: src/EBox/Logs.pm:733
 msgid "Lifetime parameter must be a positive number of hours"
 msgstr ""
 
@@ -920,11 +1071,11 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
-#: src/EBox/Events.pm:84
+#: src/EBox/Events.pm:87
 msgid "events"
 msgstr ""
 
-#: src/EBox/Events.pm:603
+#: src/EBox/Events.pm:614
 msgid "Event service status"
 msgstr ""
 
@@ -1206,16 +1357,20 @@ msgstr ""
 msgid "To date:"
 msgstr ""
 
-#: src/templates/logs/index.mas:171
-msgid "Event"
-msgstr ""
-
-#: src/templates/logs/index.mas:187 src/templates/logs/index.mas:188
+#: src/templates/logs/index.mas:189 src/templates/logs/index.mas:190
 msgid "Search"
 msgstr ""
 
-#: src/templates/logs/index.mas:201
+#: src/templates/logs/index.mas:194 src/templates/logs/index.mas:195
+msgid "Save as event"
+msgstr ""
+
+#: src/templates/logs/index.mas:221
 msgid "No logs matching current criterion"
+msgstr ""
+
+#: src/templates/logs/index.mas:225
+msgid "There are no logs for this domain"
 msgstr ""
 
 #: src/templates/logs/dbtable.mas:87 src/templates/logs/dbtable.mas:88
@@ -1250,15 +1405,19 @@ msgstr ""
 msgid "Use default values"
 msgstr ""
 
-#: src/templates/login/index.mas:27
+#: src/templates/login/index.mas:26
+msgid "Warning: Caps Lock is enabled"
+msgstr ""
+
+#: src/templates/login/index.mas:29
 msgid "Password"
 msgstr ""
 
-#: src/templates/login/index.mas:34
+#: src/templates/login/index.mas:36
 msgid "Enter"
 msgstr ""
 
-#: src/templates/login/index.mas:40
+#: src/templates/login/index.mas:42
 msgid ""
 "Created by <a href='http://www.warp.es'>Warp Networks</a> in collaboration "
 "with <a href='http://www.dbs.es'>DBS Servicios Informaticos</a>"

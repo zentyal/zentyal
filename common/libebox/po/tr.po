@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-05 09:47+0100\n"
+"POT-Creation-Date: 2007-12-24 13:21+0100\n"
 "PO-Revision-Date: 2007-04-18 19:04+0000\n"
 "Last-Translator: Erkan Kaplan <erkan@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -49,7 +49,7 @@ msgstr ""
 "Giriş geçersiz karakter içeriyor. Tüm alfanümerik karakterlere ilaveten şu "
 "alfanümerik olmayan karakterler: /.?&+:-@ ve boşluk kullanılabilir."
 
-#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:532
+#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:540
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -65,7 +65,7 @@ msgstr ""
 "Şablonla ilgili bir dahili hata oluştu. Bu bir bug(hata), ilgili bilgi log "
 "dosyalarında bulunabilir."
 
-#: src/EBox/CGI/Base.pm:538
+#: src/EBox/CGI/Base.pm:546
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -73,26 +73,26 @@ msgstr ""
 "Beklenmeyen dahili bir hata oluştu. Bu bir bug(hata), ilgili bilgi log "
 "dosyalarında bulunabilir."
 
-#: src/EBox/CGI/Base.pm:544
+#: src/EBox/CGI/Base.pm:552
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr "eBox'da bir hata yakaladınız. Lütfen teknik destek araştırın."
 
-#: src/EBox/CGI/Base.pm:631
+#: src/EBox/CGI/Base.pm:639
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr "İsteğiniz işleme konulamadı çünkü yanlış parametreler içermekte"
 
-#: src/EBox/CGI/Base.pm:646
+#: src/EBox/CGI/Base.pm:654
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr "İsteğiniz işleme konulamadı çünkü bazı parametreleri eksik"
 
-#: src/EBox/CGI/Base.pm:795
+#: src/EBox/CGI/Base.pm:803
 msgid "Invalid uploaded file."
 msgstr "Geçersiz gönderilen dosya."
 
-#: src/EBox/CGI/Base.pm:801
+#: src/EBox/CGI/Base.pm:809
 msgid "Cannot create a temporally file for the upload"
 msgstr "Dosya göndermek için geçici dosya yaratılamıyor"
 
@@ -120,7 +120,7 @@ msgstr "eBox kullanıcısı yapılandırma dosyasında ayarlanmamış."
 msgid "Directory not found: {d}"
 msgstr "Dizin bulunamadı: {d}"
 
-#: src/EBox/Validate.pm:647
+#: src/EBox/Validate.pm:685
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -128,12 +128,12 @@ msgid ""
 msgstr ""
 "{dir} dizinine girilemiyor. Dizin mevcut değil veya erişim yetkiniz yok"
 
-#: src/EBox/Validate.pm:652
+#: src/EBox/Validate.pm:690
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr "{dir} dizini özel değil; çünkü başka bir kullanıcı sahipliği altında"
 
-#: src/EBox/Validate.pm:727
+#: src/EBox/Validate.pm:765
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
@@ -141,7 +141,7 @@ msgstr ""
 "Verilen dosya yolu gerçerli değil. (Şu an geçerli olan tüm dosya "
 "karakterleri desteklenmiyor)"
 
-#: src/EBox/Validate.pm:755
+#: src/EBox/Validate.pm:793
 msgid "The file path must be absolute"
 msgstr "Dosya yolu mutlak olmalı"
 

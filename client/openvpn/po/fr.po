@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-openvpn 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-05 09:49+0100\n"
+"POT-Creation-Date: 2007-12-24 13:23+0100\n"
 "PO-Revision-Date: 2007-05-15 13:17+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: none\n"
@@ -38,6 +38,8 @@ msgid ""
 "Certificate files cannot be changed in isolation. You must change all files "
 "at the same time"
 msgstr ""
+"Les fichiers de certificat ne peuvent être changés en isolement. Vous devez "
+"modifier tous les fichiers en même temps."
 
 #: src/EBox/CGI/Edit.pm:158
 #, perl-brace-format
@@ -113,27 +115,31 @@ msgstr "Le certificat du client ne peut pas être le même que celui du serveur"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:45
 msgid "File supplied as CA's certificate is not valid"
-msgstr ""
+msgstr "Le fichier fourni en tant que certificat CA n'est pas valide"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:61
 msgid "File supplied as client's certificate is not valid"
-msgstr ""
+msgstr "Le fichier fourni en tant que certificat client n'est pas valide"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:76
 msgid "File supplied as client's private key is not valid"
-msgstr ""
+msgstr "Le fichier fourni en tant que clef privée du client n'est pas valide"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:89
 msgid ""
 "File supplied as client's certficate doesn't match with file supplied as "
 "CA's certificate"
 msgstr ""
+"Le fichier fourni en tant que certificat client ne correspond pas à celui du "
+"CA"
 
 #: src/EBox/OpenVPN/Client/ValidateCertificate.pm:118
 msgid ""
 "File supplied as client's certficate doesn't match with file supplied as "
 "certificate's private key"
 msgstr ""
+"Le fichier fourni en tant que certificat client ne correspond pas à celui du "
+"certificat de clef privée"
 
 #: src/EBox/OpenVPN/Server.pm:45
 msgid "The protocol only may be TCP or UDP."
@@ -258,13 +264,12 @@ msgid "A  server certificate must be specified"
 msgstr "Un certificat de serveur doit être spécifié"
 
 #: src/EBox/OpenVPN/Server.pm:732
-#, fuzzy
 msgid ""
 "Cannot create the OpenVPN server because thre is not any external network "
 "interface available"
 msgstr ""
-"Le serveur OpenVPN {name} ne peut pas être activé car il n'y a aucune "
-"interface réseau disponible"
+"Le serveur OpenVPN ne peut pas être activé car il n'y a aucune interface "
+"réseau externe disponible"
 
 #: src/EBox/OpenVPN/Server.pm:925
 #, perl-brace-format
@@ -602,6 +607,9 @@ msgid ""
 "Changes in certificates and key files can not be discarded. You cannot "
 "change a certificate or key file in isolation; you must change all at once"
 msgstr ""
+"Les modifications sur les fichiers de clef et les certificats ne peuvent "
+"être annulée. Vous ne pouvez pas changer un certificat ou une clef en "
+"isolement, vous devez les modifier tous en semble"
 
 #: src/templates/edit.mas:25
 #, perl-brace-format
@@ -706,7 +714,7 @@ msgstr ""
 
 #: src/templates/clientBundle.mas:37
 msgid "Add OpenVPN's installer to bundle"
-msgstr ""
+msgstr "Ajouter l'installation d'OpenVPN au paquet"
 
 #: src/templates/clientBundle.mas:69
 msgid "Server's IP address"
@@ -796,12 +804,12 @@ msgid "Client name"
 msgstr "Nom du client"
 
 #: src/templates/externalIfaceRequired.mas:5
-#, fuzzy
 msgid ""
 "OpenVPN servers require at leat one external network\n"
 "interface available. Configure one first"
 msgstr ""
-"Le serveur OpenVPN nécessite au moins un certificat client. Créer-le d'abord"
+"Le serveur OpenVPN nécessite au moins une interface de réseau extérieur. \n"
+" Configurez-en un d'abord"
 
 #~ msgid "OpenVPN service status changed"
 #~ msgstr "Statut du service OpenVPN modifié"

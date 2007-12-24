@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-05 09:51+0100\n"
+"POT-Creation-Date: 2007-12-24 13:24+0100\n"
 "PO-Revision-Date: 2007-05-15 14:17+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: none\n"
@@ -22,14 +22,14 @@ msgid "Change or remove some rules on {contextName}"
 msgstr "Modifier ou effacer les règles sur {contextName}"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:269
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{iface} (internal interface)"
-msgstr "Liste de règles par interface"
+msgstr "{iface} (interface interne)"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:272
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{iface} (external interface)"
-msgstr "Sélectionner une interface externe pour lisser le trafic"
+msgstr "{iface} (interface externe)"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:299
 msgid "Guaranteed rate"
@@ -45,6 +45,8 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object"
 msgstr ""
+"L'objet {object} n'a pas de membre. Veuillez en ajouter au moins un pour "
+"pouvoir ajouter des règles sur cet objet"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:337
 msgid "If service is any, some source or destination should be provided"
@@ -111,9 +113,9 @@ msgid "Limited Rate"
 msgstr "Taux limité"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:558
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Rules list for {printableIndex}"
-msgstr "Listes des règles pour {iface}"
+msgstr "Listes des règles pour {printableIndex}"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:567
 msgid ""

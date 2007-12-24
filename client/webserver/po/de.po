@@ -6,20 +6,20 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.11.99\n"
-"es\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-05 09:51+0100\n"
+"POT-Creation-Date: 2007-12-24 13:24+0100\n"
 "PO-Revision-Date: 2007-12-04 10:03+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host's name"
-msgstr ""
+msgstr "Name des virtuellen Servers"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:140
 #, perl-brace-format
@@ -27,6 +27,8 @@ msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
 "mapping name {name} - IP address {ip} "
 msgstr ""
+"Der virtuelle Server {vhost} ist hinzugefügt worden. Die Domäne {domain} "
+"wurde erstellt mit der Verknüpfung {name} - IP-Adresse {ip}"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:158
 #, perl-brace-format
@@ -34,29 +36,35 @@ msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
 "added to {domain} domain"
 msgstr ""
+"Der virtuelle Server {vhost} ist hinzugefügt worden. Die Verknüpfung {name} "
+"- IP-Adresse {ip} wurde zur Domäne {domain} hinzugefügt"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:172
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
 msgstr ""
+"Der virtuelle Server {vhost} ist als Alias {alias} zum Server {hostname} "
+"hinzugefügt worden"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:178
 #: src/EBox/WebServer/Model/VHostTable.pm:183
 #, perl-brace-format
 msgid "Virtual host {vhost} added"
-msgstr ""
+msgstr "Der virtuelle Server {vhost} wurde hinzugefügt"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:188
 msgid "There is no static internal interface to set the Web server IP address"
 msgstr ""
+"Es ist keine feste IP-Adresse vorhanden, die als IP-Adresse für den "
+"Webserver dienen könnte"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:214
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:224
 msgid "Virtual hosts"
-msgstr ""
+msgstr "Virtuelle Server"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:228
 #, perl-brace-format
@@ -67,14 +75,18 @@ msgid ""
 "this is possible. The content must be placed under {docRoot}/vHostName "
 "directory"
 msgstr ""
+"Virtuelle Server sind eine Form von Webhosting wobei ein physikalischer "
+"Server verschiedene Webserver bereitstellt. Verschiedene Servernamen zeigen "
+"auf den gleichen Webserver. Der DNS-Eintrag wird automatisch erstellt, falls "
+"möglich. Die Website muss im Ordner {docRoot}/Servername gespeichert sein."
 
 #: src/EBox/WebServer/Model/VHostTable.pm:235
 msgid "virtual host"
-msgstr ""
+msgstr "virtueller Server"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:90
 msgid "listening port"
-msgstr ""
+msgstr "Hört auf Port"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:136
 msgid "Listening port"

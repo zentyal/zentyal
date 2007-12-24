@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-05 09:50+0100\n"
+"POT-Creation-Date: 2007-12-24 13:24+0100\n"
 "PO-Revision-Date: 2007-04-12 11:27+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: Español <es@li.org>\n"
@@ -168,9 +168,8 @@ msgid "User and Group management"
 msgstr "Gestion des utilisateurs et groupes"
 
 #: src/EBox/PackageDescriptions.pm:22
-#, fuzzy
 msgid "Web Server"
-msgstr "Serveur DNS"
+msgstr "Serveur Web"
 
 #: src/templates/del.mas:14
 msgid "The following packages will be installed"

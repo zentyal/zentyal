@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-05 09:51+0100\n"
+"POT-Creation-Date: 2007-12-24 13:24+0100\n"
 "PO-Revision-Date: 2007-08-19 14:49+0200\n"
 "Last-Translator: andy <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -23,14 +23,14 @@ msgid "Change or remove some rules on {contextName}"
 msgstr "Ändern oder Entfernen einiger Regeln von {contextName}"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:269
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{iface} (internal interface)"
-msgstr "Liste der Regeln pro Netzwerkkarte"
+msgstr "{iface} interne Netzwerkkarte"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:272
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{iface} (external interface)"
-msgstr "Wählen Sie eine externe Netzwerkkarte, die Sie begrenzen möchten"
+msgstr "{iface} externe Netzwerkkarte"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:299
 msgid "Guaranteed rate"
@@ -46,6 +46,8 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object"
 msgstr ""
+"Die Computergruppe {object} ist leer. Bitte fügen Sie mindestens einen "
+"Computer hinzu, bevor Sie Regeln für diese Gruppe vergeben"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:337
 msgid "If service is any, some source or destination should be provided"
@@ -112,9 +114,9 @@ msgid "Limited Rate"
 msgstr "Maximale Bandbreite"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:558
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Rules list for {printableIndex}"
-msgstr "Liste der Regeln pro Netzwerkkarte"
+msgstr "Liste der Regeln für {printableIndex}"
 
 #: src/EBox/TrafficShaping/Model/RuleTable.pm:567
 msgid ""

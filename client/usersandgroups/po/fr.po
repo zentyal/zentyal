@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-usersandgroups 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-05 09:51+0100\n"
+"POT-Creation-Date: 2007-12-24 13:24+0100\n"
 "PO-Revision-Date: 2007-04-12 11:56+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: <es@li.org>\n"
@@ -107,7 +107,7 @@ msgstr "Groupes"
 #: src/EBox/UsersAndGroups/Model/Users.pm:56
 #: src/EBox/UsersAndGroups/Model/Users.pm:98
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:61
 #: src/EBox/UsersAndGroups/Model/Users.pm:108 src/templates/users.mas:27
@@ -122,7 +122,7 @@ msgstr "Éditer"
 
 #: src/EBox/UsersAndGroups/Model/Users.pm:81
 msgid "foo"
-msgstr ""
+msgstr "foo"
 
 #: src/EBox/UsersAndGroups.pm:256
 #, perl-brace-format
@@ -152,9 +152,8 @@ msgstr ""
 "Le mot de passe ne peut pas être plus long que {maxPwdLength} caractères "
 
 #: src/EBox/UsersAndGroups.pm:1380
-#, fuzzy
 msgid "Add user"
-msgstr "Ajouter d'utilisateur"
+msgstr "Ajouter un utilisateur"
 
 #: src/EBox/UsersAndGroups.pm:1383
 msgid "Edit user"
@@ -165,9 +164,8 @@ msgid "This group contains users"
 msgstr "Ce groupe contient des utilisateurs"
 
 #: src/templates/ajax/tableUser.mas:88
-#, fuzzy
 msgid "Add new"
-msgstr "Ajouter d'utilisateur"
+msgstr "Ajouter un nouvel utilisateur"
 
 #: src/templates/users.mas:11 src/templates/groups.mas:11
 msgid ""

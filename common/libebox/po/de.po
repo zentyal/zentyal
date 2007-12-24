@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-05 09:47+0100\n"
+"POT-Creation-Date: 2007-12-24 13:21+0100\n"
 "PO-Revision-Date: 2007-03-30 16:28+0000\n"
 "Last-Translator: andy <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -54,7 +54,7 @@ msgstr ""
 "Die Eingabe enthält ungültige Zeichen. Alle Buchstaben (A-Z, a-z), die "
 "Zahlen (0-9) und diese Zeichen (/.?&+:-@) sowie Leerzeichen sind erlaubt"
 
-#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:532
+#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:540
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -70,7 +70,7 @@ msgstr ""
 "Ein interner Fehler betreffend einer Vorlage ist aufgetreten. Dies ist ein "
 "Programmierfehler, mehr Informationen finden Sie in den Logs"
 
-#: src/EBox/CGI/Base.pm:538
+#: src/EBox/CGI/Base.pm:546
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -78,20 +78,20 @@ msgstr ""
 "Ein unerwarteter Fehler ist aufgetreten. Dies ist ein Programmierfehler, "
 "mehr Informationen finden Sie in den Logs"
 
-#: src/EBox/CGI/Base.pm:544
+#: src/EBox/CGI/Base.pm:552
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
 "Sie haben einen Programmierfehler in der eBox entdeckt, bitte suchen Sie "
 "technische Unterstützung"
 
-#: src/EBox/CGI/Base.pm:631
+#: src/EBox/CGI/Base.pm:639
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Ihre Anfrage konnte nicht verarbeitet werden, weil sie falsche Parameter "
 "enthält"
 
-#: src/EBox/CGI/Base.pm:646
+#: src/EBox/CGI/Base.pm:654
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
@@ -99,11 +99,11 @@ msgstr ""
 "Ihre Anfrage konnte nicht verarbeitet werden, weil einige nötige Parameter "
 "fehlen"
 
-#: src/EBox/CGI/Base.pm:795
+#: src/EBox/CGI/Base.pm:803
 msgid "Invalid uploaded file."
 msgstr "Die hochgeladene Datei ist ungültig"
 
-#: src/EBox/CGI/Base.pm:801
+#: src/EBox/CGI/Base.pm:809
 msgid "Cannot create a temporally file for the upload"
 msgstr "Die temporäre Datei für das Hochladen konnte nicht erstellt werden"
 
@@ -131,7 +131,7 @@ msgstr "Der eBox-Benutzer wurde in der Konfigurationsdatei nicht eingestellt"
 msgid "Directory not found: {d}"
 msgstr "Der Ordner {d} wurde nicht gefunden"
 
-#: src/EBox/Validate.pm:647
+#: src/EBox/Validate.pm:685
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -142,7 +142,7 @@ msgstr ""
 "Informationen zum Verzeichnis \"{dir}\" konnten nicht abgerufen werden. "
 "Vielleicht sind Sie nicht zugriffsberechtigt"
 
-#: src/EBox/Validate.pm:652
+#: src/EBox/Validate.pm:690
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
@@ -150,7 +150,7 @@ msgstr ""
 "#-#-#-#-#  de.po (libebox 0.8.99)  #-#-#-#-#\n"
 "Der Ordner {dir} ist nicht privat weil er einem anderen Benutzer gehört"
 
-#: src/EBox/Validate.pm:727
+#: src/EBox/Validate.pm:765
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
@@ -158,7 +158,7 @@ msgstr ""
 "Sie haben einen ungültigen Dateipfad angegeben. (Zum jetztigen Zeitpunkt "
 "sind noch nicht alle gültigen Zeichen unterstützt)"
 
-#: src/EBox/Validate.pm:755
+#: src/EBox/Validate.pm:793
 msgid "The file path must be absolute"
 msgstr "Geben Sie einen absoluter Dateipfad an"
 

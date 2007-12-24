@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-05 09:47+0100\n"
+"POT-Creation-Date: 2007-12-24 13:21+0100\n"
 "PO-Revision-Date: 2007-08-19 12:26+0200\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -64,7 +64,7 @@ msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
 msgstr ""
 "Der Bereich {from}-{to} beinhaltet die fixe IP Adresse \"{name}\": {fixedIP}"
 
-#: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:176
+#: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:203
 #: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
 #: src/templates/fixed.mas:8 src/templates/ranges.mas:53
 msgid "Name"
@@ -139,9 +139,8 @@ msgid "Maximum leased time"
 msgstr "Höchst-Mietdauer"
 
 #: src/EBox/Model/LeaseTimes.pm:215
-#, fuzzy
 msgid "Lease times"
-msgstr "Standardgateway"
+msgstr "Mietdauer"
 
 #: src/EBox/Model/LeaseTimes.pm:220
 msgid ""
@@ -244,22 +243,39 @@ msgstr ""
 msgid "IP address {ip} is in range '{range}': {from}-{to}"
 msgstr "Die IP Adresse {ip} ist im Bereich \"{range}\": {from}-{to}"
 
-#: src/EBox/Model/FixedAddressTable.pm:182 src/EBox/CGI/AddFixed.pm:43
+#: src/EBox/Model/FixedAddressTable.pm:171
+#, fuzzy
+msgid "update"
+msgstr "Datum"
+
+#: src/EBox/Model/FixedAddressTable.pm:173
+#, fuzzy
+msgid "add"
+msgstr "Hinzufügen"
+
+#: src/EBox/Model/FixedAddressTable.pm:175
+#, perl-brace-format
+msgid ""
+"You cannot {action} a fixed address with a name which is already used in "
+"other fixed address table"
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:209 src/EBox/CGI/AddFixed.pm:43
 #: src/EBox/DHCP.pm:1205 src/templates/fixed.mas:9
 msgid "MAC address"
 msgstr "MAC Adresse"
 
-#: src/EBox/Model/FixedAddressTable.pm:188
+#: src/EBox/Model/FixedAddressTable.pm:215
 #: src/EBox/Model/ThinClientOptions.pm:225 src/EBox/CGI/AddFixed.pm:44
 #: src/templates/fixed.mas:10
 msgid "IP address"
 msgstr "IP Adresse"
 
-#: src/EBox/Model/FixedAddressTable.pm:196 src/templates/fixed.mas:5
+#: src/EBox/Model/FixedAddressTable.pm:223 src/templates/fixed.mas:5
 msgid "Fixed addresses"
 msgstr "Feste Adressen"
 
-#: src/EBox/Model/FixedAddressTable.pm:203
+#: src/EBox/Model/FixedAddressTable.pm:230
 msgid "fixed address"
 msgstr "Feste Adresse"
 
@@ -268,6 +284,8 @@ msgid ""
 "In order to upload firmware to boot PCs to eBox, you need to set eBox as "
 "next server"
 msgstr ""
+"Um die Firmware hochzuladen, um andere PCs von der eBox zu starten, müssen "
+"Sie die eBox als nächsten Server angeben"
 
 #: src/EBox/Model/ThinClientOptions.pm:192
 #, perl-brace-format
@@ -275,23 +293,24 @@ msgid ""
 "Unlinked previous uploaded firmware since next server optionhas been changed "
 "from eBox to {option}"
 msgstr ""
+"Die zuvor hochgeladene Firmware wurde entfernt, weil nicht mehr die eBox der "
+"nächste Server ist, sondern {option}"
 
 #: src/EBox/Model/ThinClientOptions.pm:215
 msgid "Next server"
-msgstr ""
+msgstr "Nächster Server"
 
 #: src/EBox/Model/ThinClientOptions.pm:229
-#, fuzzy
 msgid "name"
 msgstr "Name"
 
 #: src/EBox/Model/ThinClientOptions.pm:235
 msgid "File name"
-msgstr ""
+msgstr "Dateiname"
 
 #: src/EBox/Model/ThinClientOptions.pm:246
 msgid "Thin client"
-msgstr ""
+msgstr "Thin Client"
 
 #: src/EBox/Model/ThinClientOptions.pm:251
 #, perl-brace-format
@@ -299,6 +318,8 @@ msgid ""
 "You may want to customise your thin client options.To do so, you may include "
 "all the files you require under {path} directory"
 msgstr ""
+"Um die Einstellungen Ihres Thin Clients zu ändern speichern Sie die "
+"benötigten Dateien im Ordner {path}"
 
 #: src/EBox/CGI/AddRange.pm:39 src/EBox/CGI/AddFixed.pm:39
 #: src/EBox/CGI/RemoveRange.pm:39 src/EBox/CGI/RemoveFixed.pm:39
@@ -327,20 +348,18 @@ msgstr ""
 "den Dienst im {openhref}Firewall-Modul{closehref} freigeben"
 
 #: src/EBox/Composite/General.pm:79
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
-"At least, an interface must set as staticto configure the DHCP service on "
-"it. To do so, change {openhref}interfaces configuration{closehref} in "
-"network module"
+"An interface must set as static to configure the DHCP service on it. To do "
+"so, change {openhref}interfaces configuration{closehref} in network module"
 msgstr ""
 "Mindestens eine Netzwerkkarte muss eine statische IP-Adresse haben, damit "
 "Sie den DHCP-Dienst verwenden können. Die Netzwerkkarten können Sie im "
 "{openhref}Netzwerk-Modul{closehref} konfigurieren"
 
 #: src/EBox/Composite/AdvancedOptions.pm:119
-#, fuzzy
 msgid "Advanced options"
-msgstr "Optionen"
+msgstr "Erweiterte Einstellungen"
 
 #: src/EBox/Composite/Interfaces.pm:76
 msgid "Choose a static interface to configure:"
@@ -439,10 +458,14 @@ msgstr "DHCP"
 #: src/EBox/DHCP.pm:1474 src/EBox/DHCP.pm:1483
 msgid "Dynamic Host Configuration Protocol"
 msgstr ""
+"Dynamic Host Configuration Protocol (Protokoll zur dynamischen Konfiguration "
+"der Computer)"
 
 #: src/EBox/DHCP.pm:1504 src/EBox/DHCP.pm:1513
 msgid "Trivial File Transfer Protocol"
 msgstr ""
+"Trivial File Transfer Protocol (Protokoll zur einfachen Übertragung von "
+"Dateien)"
 
 #: src/templates/options.mas:8
 msgid "Options"
@@ -483,6 +506,15 @@ msgstr "Subnetzmaske"
 #: src/templates/ranges.mas:93
 msgid "Delete"
 msgstr "Löschen"
+
+#~ msgid ""
+#~ "At least, an interface must set as staticto configure the DHCP service on "
+#~ "it. To do so, change {openhref}interfaces configuration{closehref} in "
+#~ "network module"
+#~ msgstr ""
+#~ "Mindestens eine Netzwerkkarte muss eine statische IP-Adresse haben, damit "
+#~ "Sie den DHCP-Dienst verwenden können. Die Netzwerkkarten können Sie im "
+#~ "{openhref}Netzwerk-Modul{closehref} konfigurieren"
 
 #~ msgid "Nameserver IP address"
 #~ msgstr "IP Adresse des Nameservers"

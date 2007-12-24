@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-05 09:47+0100\n"
+"POT-Creation-Date: 2007-12-24 13:21+0100\n"
 "PO-Revision-Date: 2006-08-29 12:57+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -53,7 +53,7 @@ msgstr ""
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
 msgstr ""
 
-#: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:176
+#: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:203
 #: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
 #: src/templates/fixed.mas:8 src/templates/ranges.mas:53
 msgid "Name"
@@ -216,22 +216,37 @@ msgstr ""
 msgid "IP address {ip} is in range '{range}': {from}-{to}"
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:182 src/EBox/CGI/AddFixed.pm:43
+#: src/EBox/Model/FixedAddressTable.pm:171
+msgid "update"
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:173
+msgid "add"
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:175
+#, perl-brace-format
+msgid ""
+"You cannot {action} a fixed address with a name which is already used in "
+"other fixed address table"
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:209 src/EBox/CGI/AddFixed.pm:43
 #: src/EBox/DHCP.pm:1205 src/templates/fixed.mas:9
 msgid "MAC address"
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:188
+#: src/EBox/Model/FixedAddressTable.pm:215
 #: src/EBox/Model/ThinClientOptions.pm:225 src/EBox/CGI/AddFixed.pm:44
 #: src/templates/fixed.mas:10
 msgid "IP address"
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:196 src/templates/fixed.mas:5
+#: src/EBox/Model/FixedAddressTable.pm:223 src/templates/fixed.mas:5
 msgid "Fixed addresses"
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:203
+#: src/EBox/Model/FixedAddressTable.pm:230
 msgid "fixed address"
 msgstr ""
 
@@ -298,9 +313,8 @@ msgstr ""
 #: src/EBox/Composite/General.pm:79
 #, perl-brace-format
 msgid ""
-"At least, an interface must set as staticto configure the DHCP service on "
-"it. To do so, change {openhref}interfaces configuration{closehref} in "
-"network module"
+"An interface must set as static to configure the DHCP service on it. To do "
+"so, change {openhref}interfaces configuration{closehref} in network module"
 msgstr ""
 
 #: src/EBox/Composite/AdvancedOptions.pm:119

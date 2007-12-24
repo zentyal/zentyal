@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: libebox 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-05 09:47+0100\n"
+"POT-Creation-Date: 2007-12-24 13:21+0100\n"
 "PO-Revision-Date: 2007-06-06 09:36+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -48,7 +48,7 @@ msgstr ""
 "Inmatningen innehåller ogiltiga tecken. Alla alfanumeriska tecken plus dessa "
 "icke-alfabetiska tecknen: /.?&+:-@ och blanksteg tillåts."
 
-#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:532
+#: src/EBox/CGI/Base.pm:311 src/EBox/CGI/Base.pm:540
 msgid ""
 "An internal error has ocurred. This is most probably a bug, relevant "
 "information can be found in the logs."
@@ -64,7 +64,7 @@ msgstr ""
 "Ett internt fel relaterat till en mall har inträffat. Det här är ett "
 "programfel. Relevant information kan hittas i loggarna."
 
-#: src/EBox/CGI/Base.pm:538
+#: src/EBox/CGI/Base.pm:546
 msgid ""
 "An unexpected internal error has ocurred. This is a bug, relevant "
 "information can be found in the logs."
@@ -72,29 +72,29 @@ msgstr ""
 "Ett oväntat internt fel har inträffat. Det här är ett programfel. Relevant "
 "information kan hittas i loggarna."
 
-#: src/EBox/CGI/Base.pm:544
+#: src/EBox/CGI/Base.pm:552
 msgid "You have just hit a bug in eBox. Please seek technical support."
 msgstr ""
 "Du har precis påträffat ett programfel i eBox. Kontakta teknisk support."
 
-#: src/EBox/CGI/Base.pm:631
+#: src/EBox/CGI/Base.pm:639
 msgid ""
 "Your request could not be processed because it had some incorrect parameters"
 msgstr ""
 "Din begäran kunde inte behandlas eftersom den innehöll felaktiga parametrar"
 
-#: src/EBox/CGI/Base.pm:646
+#: src/EBox/CGI/Base.pm:654
 msgid ""
 "Your request could not be processed because it lacked some required "
 "parameters"
 msgstr ""
 "Din begäran kunde inte behandlas eftersom den saknade nödvändiga parametrar"
 
-#: src/EBox/CGI/Base.pm:795
+#: src/EBox/CGI/Base.pm:803
 msgid "Invalid uploaded file."
 msgstr "Ogiltig uppskickad fil."
 
-#: src/EBox/CGI/Base.pm:801
+#: src/EBox/CGI/Base.pm:809
 msgid "Cannot create a temporally file for the upload"
 msgstr "Kan inte skapa en temporärfil för sändningen"
 
@@ -122,7 +122,7 @@ msgstr "eBox-användaren har inte ställts in i konfigurationsfilen."
 msgid "Directory not found: {d}"
 msgstr ""
 
-#: src/EBox/Validate.pm:647
+#: src/EBox/Validate.pm:685
 #, perl-brace-format
 msgid ""
 "Cannot stat dir: {dir}. This may mean that the directory does not exist or "
@@ -131,13 +131,13 @@ msgstr ""
 "Kan inte läsa status på katalog: {dir}. Det kan betyda att katalogen inte "
 "finns eller att rättigheterna inte tillåter åtkomst till den"
 
-#: src/EBox/Validate.pm:652
+#: src/EBox/Validate.pm:690
 #, perl-brace-format
 msgid "The directory {dir} is not private; because it is owned by another user"
 msgstr ""
 "Katalogen {dir} är inte privat; därför att den ägs av en annan användare"
 
-#: src/EBox/Validate.pm:727
+#: src/EBox/Validate.pm:765
 msgid ""
 "The file path supplied is not valid. (Currently not all of the valid file's  "
 "characters are supported) "
@@ -145,7 +145,7 @@ msgstr ""
 "Filsökvägen som angavs är inte giltig. (För närvarande stöds inte alla av "
 "den giltiga filens tecken) "
 
-#: src/EBox/Validate.pm:755
+#: src/EBox/Validate.pm:793
 msgid "The file path must be absolute"
 msgstr "Filsökvägen måste vara absolut"
 
