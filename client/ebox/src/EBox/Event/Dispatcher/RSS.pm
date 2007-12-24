@@ -42,7 +42,6 @@ use EBox::Model::ModelManager;
 use Sys::Hostname;
 use Fcntl qw(:flock);
 use POSIX qw(strftime);
-use Time::localtime;
 
 ################
 # Dependencies
@@ -269,15 +268,17 @@ sub _addEventToRSS
     # Locking exclusively
     $self->LockRSSFile(1);
 
+    my $rssComplaintDate = $self->_currentDate();
     unless ( -r RSS_FILE ) {
         # Create the channel if it does not exist
-        $rss->channel(title       => __x('eBox alerts channel for {hostname}',
+        $rss->channel(title         => __x('eBox alerts channel for {hostname}',
                                          hostname => hostname()),
-                      link        => $confModel->linkValue(),
-                      description => __('This channel tracks what happens on '
-                                        . 'this eBox machine along the time'),
-                      language    => $self->_currentLanguage(),
-                      pubDate     => $self->_currentDate(),
+                      link          => $confModel->linkValue(),
+                      description   => __('This channel tracks what happens on '
+                                          . 'this eBox machine along the time'),
+                      language      => $self->_currentLanguage(),
+                      pubDate       => $rssComplaintDate,
+                      lastBuildDate => $rssComplaintDate,
                      );
         $rss->image(title       => 'eBox platform',
                     url         => 'http://trac.ebox-platform.com/chrome/common/ebox-logo.png',
@@ -288,12 +289,20 @@ sub _addEventToRSS
     } else {
         $rss->parsefile(RSS_FILE);
     }
+    # Update the lastBuildDate and pubDate
+    $rss->channel(pubDate       => $rssComplaintDate,
+                  lastBuildDate => $rssComplaintDate
+                 );
+    my $descriptionStr = __x('The event has happened in eBox {hostname} '
+                             . 'from {source}',
+                             hostname => hostname(),
+                             source   => $event->source());
+    $descriptionStr .= '<br><br>' . __x('Go to your {url} to check its status.',
+                                    url => '<a href="' . $confModel->linkValue()
+                                    . '">eBox</a>');
     $rss->add_item(
-                   title       => __x('An event has happened in eBox {hostname} '
-                                      . 'from {source}',
-                                      hostname => hostname(),
-                                      source   => $event->source()),
-                   description => ($event->level() . ' : ' . $event->message()),
+                   description => $descriptionStr,
+                   title       => ($event->level() . ' : ' . $event->message()),
                    pubDate     => $event->strTimestamp(),
                    category    => $event->source(),
                   );
