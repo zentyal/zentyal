@@ -75,9 +75,8 @@ sub _description
          name            => 'GeneralComposite',
          printableName   => __('Events'),
          compositeDomain => 'Events',
-         help            => __('Events module may help you to make eBox ' .
-                               'inform you about events that happen at eBox ' .
-                               'in some different ways'),
+         help            => __('Events module configures eBox to help ' .
+                               'informing you about events that happen'),
         };
 
       return $description;

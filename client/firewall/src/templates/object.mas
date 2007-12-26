@@ -14,8 +14,8 @@ use EBox::Gettext;
 % my $disabled =  not $externalIfaceAvailable;
 % if ($disabled) {
 <div class='warning'>
-% my $msg = q{The following controls are disabled because they would not affect your system};
-% $msg .= q{ if you hadn't any network interface marked as external};
+% my $msg = q{The following controls are disabled because you have not };
+% $msg .= q{configured any external network interface };
 <% __($msg) %>
 </div>
 % }

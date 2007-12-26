@@ -82,9 +82,9 @@ sub preconditionFailMsg
     my $enough = $tsMod->enoughInterfaces();
     if ( not $enough ) {
         return __x('Traffic Shaping is applied when eBox is acting as '
-                   . 'a gateway. To achieve so, you need at least an internal '
+                   . 'a gateway. To achieve this, you need at least an internal '
                    . 'and an external interface. Check your interface '
-                   . 'configuration to match so at '
+                   . 'configuration to match, at '
                    . '{openhref}Network->Interfaces{closehref}',
                    openhref  => '<a href="/ebox/Network/Ifaces">',
                    closehref => '</a>');
