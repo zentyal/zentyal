@@ -47,7 +47,7 @@ sub enabled
 #        type  - array type as found in mdstat (ej: raid1, raid2, ..)
 #        activeDevicesNeeded - how many active RAID devices requires the  array
 #                               to function properly
-#        activeDevices      - how may active RAID devices are now
+#        activeDevices      - how many active RAID devices are now
 #        blocks             - size in blocks of the array
 #        operation          - whether the array is engaged in some important
 #                             management operation. Contains 'none' or

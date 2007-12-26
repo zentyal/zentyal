@@ -1,4 +1,6 @@
 0.11.99
+        + Fix bug when installing new event components and event GConf
+	subtree has not changed
 	+ Add RSS dispatcher to show eBox events under a RSS feed
 	+ Rotate log files when they reach 10MB for 7 rotations
 	+ Configurable minimum free space left for being notified by means
@@ -13,6 +15,8 @@
 	+ Log watcher is added in order to notify when an event has
 	happened. You can configure which log watcher you may enable and
 	what you want to be notify by a determined filter and/or event.
+	+ RAID watcher is added to check the RAID events that may happen
+	when the RAID subsystem is configured in the eBox machine
 0.11
 	+ Fix issue with multiple models and models with params.
 	  This triggered a bug in DHCP when there was just one static
