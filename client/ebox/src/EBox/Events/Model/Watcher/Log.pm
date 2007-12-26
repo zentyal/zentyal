@@ -277,10 +277,13 @@ sub _setUpModels
 
     my ($self) = @_;
 
-    my @logDomains = keys %{$self->{logs}->getAllTables()};
-    foreach my $domain (@logDomains) {
-        push ( @{$self->{models}},
-               $self->_createFilteringModel($domain));
+    my $logDomainTables = $self->{logs}->getAllTables();
+    if ( defined ( $logDomainTables )) {
+        my @logDomains = keys %{$logDomainTables};
+        foreach my $domain (@logDomains) {
+            push ( @{$self->{models}},
+                   $self->_createFilteringModel($domain));
+        }
     }
 
 }
