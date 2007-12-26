@@ -23,7 +23,7 @@ use warnings;
 use EBox::Global;
 use EBox::Gettext;
 
-sub imageModel
+sub _imageModel
 {
   my ($self) = @_;
   
@@ -31,13 +31,69 @@ sub imageModel
   return $network->model('ByteRateGraph');
 }
  
-sub _table
+sub _tableDesc
 {
-  my ($class) = @_;
-  my $table = $class->SUPER::_table();
-  $table->{printableName} = __('Select traffic graphic');
-  return $table;
+  my $graphTypePopulateSub_r  = sub {
+    return [
+	    {
+	     value => 'activeSrcsGraph',
+	     printableValue => __('Active sources traffic'),
+	    },
+	    {
+	     value => 'activeServicesGraph',
+	     printableValue => __('Active services traffic'),
+	    },
+	    {
+	     value => 'srcGraph',
+	     printableValue => __('Source traffic'),
+	    },
+	    {
+	     value => 'serviceGraph',
+	       printableValue => __('Service traffic'),
+	    },	
+	    {
+	     value => 'srcAndServiceGraph',
+	     printableValue => __('Source and service traffic'),
+	    },
+	    
+	   ];
+  };
+  
+  my  @tableHead = (
+		    new EBox::Types::Select(
+					    printableName  => __('Graph type'),
+					    'fieldName' => 'graphType',
+					    'size' => '10',
+					    'optional' => 0, 
+					    defaultValue    => 'activeSrcsGraph',
+					    editable => 1,
+					    populate => $graphTypePopulateSub_r,
+					   ),
+		    new EBox::Types::HostIP(
+					    printableName  => __('Source'),
+					    'fieldName' => 'source',
+					    'size' => '40',
+					    'optional' => 1, 
+					    editable => 1,
+					   ),
+		    new EBox::Types::Text(
+					  printableName  => __('Service'),
+					  'fieldName' => 'netService',
+					  'size' => '40',
+					  'optional' => 1, 
+					  editable => 1,					    
+					 ),
+		   );
+
+  return \@tableHead;
 }
+
+
+sub printableName
+{
+  return  __('Select traffic graphic');
+}
+
 
 
 1;

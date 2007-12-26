@@ -52,63 +52,9 @@ sub new
 #
 sub _table
 {
-  my $graphTypePopulateSub_r  = sub {
-    return [
-	    {
-	     value => 'activeSrcsGraph',
-	     printableValue => __('Active sources traffic'),
-	    },
-	    {
-	     value => 'activeServicesGraph',
-	     printableValue => __('Active services traffic'),
-	    },
-	    {
-	     value => 'srcGraph',
-	     printableValue => __('Source traffic'),
-	    },
-	    {
-	     value => 'serviceGraph',
-	       printableValue => __('Service traffic'),
-	    },	
-	    {
-	     value => 'srcAndServiceGraph',
-	     printableValue => __('Source and service traffic'),
-	    },
-	    
-	   ];
-  };
-
-    my  @tableHead = (
-		      new EBox::Types::Select(
-					    printableName  => __('Graph type'),
-					    'fieldName' => 'graphType',
-					    'size' => '10',
-					    'optional' => 0, 
-					    defaultValue    => 'activeSrcsGraph',
-#					    'hidden' => 1,
-					    editable => 1,
-					    populate => $graphTypePopulateSub_r,
-					   ),
-		      new EBox::Types::HostIP(
-					    printableName  => __('Source'),
-					    'fieldName' => 'source',
-					    'size' => '40',
-					    'optional' => 1, 
-#					    'hidden' => 1,
-					    editable => 1,
-					   ),
-		      new EBox::Types::Text(
-					    printableName  => __('Service'),
-					    'fieldName' => 'netService',
-					    'size' => '40',
-					    'optional' => 1, 
-#					    'hidden' => 1,
-					    editable => 1,					    
-					   ),
-		     );
 
   my $dataTable = {
-		   'tableDescription' => \@tableHead,
+		   'tableDescription' => [],
 		   tableName          => 'ByteRateGraph',
 #		   printableTableName => __('Byte rate'),
 		   modelDomain        => 'Network',
@@ -166,7 +112,7 @@ sub _graphSub
 {
   my ($self) = @_;
 
-  my $graphType = $self->graphTypeValue();
+  my $graphType = $self->_controlModelField('graphType');
   my $graphSub = EBox::Network::Report::ByteRate->can($graphType);
   EBox::debug("GRAPH SUB $graphType $graphSub");
   if (not $graphSub) {
@@ -179,16 +125,19 @@ sub _graphSub
 sub _graphSubArguments
 {
   my ($self) = @_;
-  my $graphType = $self->graphTypeValue();
+  my $graphType = $self->_controlModelField('graphType');
 
   if ($graphType eq 'srcGraph') {
-    return (source => $self->sourceValue);
+    return (source => $self->_controlModelField('source'));
   }
   elsif ($graphType eq 'serviceGraph') {
-    return (service => $self->netServiceValue);
+    return (service => $self->_controlModelField('netService'));
   }
   elsif ($graphType eq 'srcAndServiceGraph') {
-    return (source => $self->sourceValue , service => $self->netServiceValue);
+    return (
+	    source  => $self->_controlModelField('source') , 
+	    service => $self->_controlModelField('netService')
+	   );
   }
   else {
     return ()
@@ -196,22 +145,16 @@ sub _graphSubArguments
 
 }
 
-# XXX ugly fix
-# we need to manage this in the arent class itself
-sub _setTypedRow
+sub _controlModel
 {
-  my ($self, @params) = @_;
-  my $modName = 'network';
-  my $global  = EBox::Global->modInstance('global');
-  my $changed = $global->modIsChanged($modName);
-
-  $self->SUPER::_setTypedRow(@params);
-
-  if (not $changed) {
-
-    $global->set_bool("modules/$modName/changed", undef);
-  }
+  my ($self) = @_;
+  
+  my $network = EBox::Global->modInstance('network');
+  return $network->model('ByteRateGraphControl');
 }
- 
+
+
+
+
 
 1;

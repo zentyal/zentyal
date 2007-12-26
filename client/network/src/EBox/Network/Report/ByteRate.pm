@@ -397,8 +397,8 @@ sub _checkProto
     return 1;
   }
   else {
-        _warnIfDebug("Incorrect protocol $proto, data will not be added to trafic statistics");
-	return 0;
+    _warnIfDebug("Incorrect protocol $proto, data will not be added to trafic statistics");
+    return 0;
   }
 
 }

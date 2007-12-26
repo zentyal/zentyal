@@ -3,7 +3,8 @@ package EBox::Model::ImageControl;
 use strict;
 use warnings;
 
-use base 'EBox::Model::DataForm::Action';
+#use base 'EBox::Model::DataForm::Action';
+use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
 
@@ -17,29 +18,6 @@ sub new
 
       return $self;
 }
-
-
-# Method: setRow
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::setRow>
-#
-#
-
-sub setRow
-{ 
- my ($self, $force, %params) = @_;
- my %paramsCopy = %params;
-
- $self->SUPER::setRow($force, %params);
-
-  my $imageModel = $self->imageModel();
-  $imageModel->setRow($force, %paramsCopy);
-}
-
-
-
 
 
 
@@ -67,6 +45,7 @@ sub _table
 		  modelDomain        => $modelDomain,
 		  defaultActions     => [ 'editField', 'changeView' ],
 		  tableDescription   => $tableDesc,
+		  messages           => $self->_messages(),
 		  #                      class              => 'dataForm',
 		 };
   
@@ -74,25 +53,23 @@ sub _table
 }
 
 
+sub _messages
+{
+  my ($self) = @_;
 
+  return {
+	  'add'       => undef,
+	  'del'       => undef,
+	  'update'    => undef,
+	  'moveUp'    => undef,
+	  'moveDown'  => undef,
+	 };
+  
+}
 
 sub _tableDesc
 {
-  my ($self) = @_;
-  my $tableDesc;
-  
-  my $imageModel = $self->imageModel();
-  my $imageTable = $imageModel->_table();
-
-  my $imgTableDesc_r   = $imageTable->{tableDescription};
-#   foreach my $field (values %{ $imgTableDesc_r }) {
-#     $field
-#   }
-
-
-#   return $tableDesc;
-
-  return $imgTableDesc_r;
+  throw EBox::Exceptions::NotImplemented;
 }
 
 
@@ -100,7 +77,7 @@ sub _modelDomain
 {
   my ($self) = @_;
 
-  my $imageModel = $self->imageModel();
+  my $imageModel = $self->_imageModel();
   my $imageTable = $imageModel->_table();
 
   return  $imageTable->{modelDomain};
@@ -127,7 +104,7 @@ sub changeRowJS
   my  $function = 'applyChangeToImage("%s", "%s", %s, "%s")';
 
 
-  my $table = $self->imageModel->table();
+  my $table = $self->_imageModel->table();
   my $fields = $self->_paramsWithSetterJS();
 
   $fields =~ s/'/"/g; 
@@ -154,9 +131,11 @@ sub printableTableName
   return '';
 }
 
-sub imageModel
+
+sub _imageModel
 {
   throw EBox::Exceptions::NotImplemented;
 }
+ 
 
 1;

@@ -99,37 +99,24 @@ sub _generateImage
 
 
 
-sub _setDefaultMessages
+
+
+
+# must return the ImageControl subclass associated with the image
+sub _controlModel
 {
-
-    my ($self) = @_;
-
-    # Table is already defined
-    my $table = $self->{'table'};
-
-    $table->{'messages'} = {} unless ( $table->{'messages'} );
-    my $rowName = $self->printableRowName();
-
-    my %defaultMessages =
-      (
-       'add'       => undef,
-       'del'       => undef,
-       'update'    => undef,
-       'moveUp'    => undef,
-       'moveDown'  => undef,
-      );
-
-    foreach my $action (keys (%defaultMessages)) {
-        unless ( exists $table->{'messages'}->{$action} ) {
-            $table->{'messages'}->{$action} = $defaultMessages{$action};
-        }
-    }
+  throw EBox::Exceptions::NotImplemented;
 }
 
 
+sub _controlModelField
+{
+  my ($self, $field) = @_;
+  my $control = $self->_controlModel;
 
-
-
+  my $getter = $field . 'Value';
+  return $control->$getter;
+}
 
 
 1;
