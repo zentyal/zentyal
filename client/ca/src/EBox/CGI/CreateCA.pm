@@ -20,9 +20,10 @@ use warnings;
 
 use base 'EBox::CGI::ClientBase';
 
+use EBox;
 use EBox::Gettext;
 use EBox::Global;
-use EBox;
+use EBox::Validate;
 
 # Constants:
 use constant MIN_PASS_LENGTH => 5;
@@ -119,9 +120,7 @@ sub actuate
                                                length => MIN_PASS_LENGTH));
       }
 
-      if ( $days <= 0 ) {
-          throw EBox::Exceptions::External(__('Days to expire MUST be a natural number'));
-      }
+      EBox::Validate::isAPositiveNumber($days, 'days');
 
       my $retVal = $ca->createCA( orgName       => $orgName,
                                   days          => $days,

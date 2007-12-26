@@ -22,6 +22,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Validate;
 
 # Constants:
 use constant MIN_PASS_LENGTH => 5;
@@ -97,9 +98,7 @@ sub _process
 
     $caPass = undef if ( $caPass eq '' );
 
-    if ( $days <= 0 ) {
-      throw EBox::Exceptions::External(__('Days to expire MUST be a natural number'));
-    }
+    EBox::Validate::isAPositiveNumber($days, 'days');
 
     # Only valid chars minus '/' --> security risk
     unless ( index ( $name, '/' ) == -1 ) {
