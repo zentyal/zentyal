@@ -13,43 +13,53 @@ use Error qw(:try);
 use constant PROC_MDSTAT => '/proc/mdstat';
 # see t/testdata fpr examples of mdstat files
 
+# Group: Public functions
 
 # Function: enabled
+#
 # Returns:
-#  wethet the RAID is enabled in the system
+#
+#    whethet the RAID is enabled in the system
+#
 # Warning:
-#   it looks if /proc/mdstat exist
+#
+#   it looks if /proc/mdstat exists
+#
 sub enabled
 {
   return (-r PROC_MDSTAT)
 }
 
-
-#  Unfortunely the /sys/block/md?/md directory doesn't exist so we will parse
-#  PROC_MDSTAT  to get the info
+# Function: info
 #
-# Returns: hash reference with a key for each RAID array and a 'unusedDevices' entry
+#  Retrieve the valuable info for RAID infrastructure if present.
 #
-#   -  the unuseDevices contains a list with the unused RAI devices 
+#  Unfortunately, the /sys/block/md?/md directory doesn't exist so we will parse
+#  PROC_MDSTAT to get the require information
+#
+# Returns:
+#
+#   hash reference with a key for each RAID array and a 'unusedDevices' entry
+#
+#   - the unusedDevices contains a list with the unused RAID devices
 #   - each RAID array entry contains a hash reference with the following fields:
-#        active - wether the array is active 
-#         type  - array type as found in mdstat (ej: raid1, raid2, ..)
+#        active - whether the array is active
+#        type  - array type as found in mdstat (ej: raid1, raid2, ..)
 #        activeDevicesNeeded - how many active RAID devices requires the  array
 #                               to function properly
 #        activeDevices      - how may active RAID devices are now
 #        blocks             - size in blocks of the array
-#        operation          - wether the array is engaged in some important
-#                             management operation. Contains 'none' or 
+#        operation          - whether the array is engaged in some important
+#                             management operation. Contains 'none' or
 #                             the name of the operation.
 #       operationPercentage - percentage of the operation completed so far.
 #                             No present if there isn't any operation active
-#       operationEstimatedTime - estimated time left for the operation's end
+#       operationEstimatedTime - estimated time left for the operation's end.
 #                             No present if there isn't any operation active
-#       operationSpeed        - current speed of the operation, measured in 
-#                               data/time units   
+#       operationSpeed        - current operation speed, measured in data/time units.
 #                             No present if there isn't any operation active
 #       raidDevices        - reference to a hash with information of the devices
-#                            which forms the array.
+#                            which comprise the array.
 #                            The RAID device numbers are used as keys and the 
 #                            values are a reference to a hash which the following
 #                            fields:
@@ -58,6 +68,7 @@ sub enabled
 #                                           Values: 'up', 'failure', 'spare'
 # See also:
 #      t/RAID.t to see some examples of the return value of this function
+#
 sub info
 {
   my @mdstat = @{  _mdstatContents() };
@@ -112,7 +123,7 @@ sub info
   return \%info;
 }
 
-
+# Group: Private methods
 
 sub _mdstatContents
 {
