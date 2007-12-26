@@ -136,6 +136,7 @@ sub rows
                          'enabled'      => 0,
                          'configuration_selected' => 'configuration_'
                                                     . $watcher->ConfigurationMethod(),
+                         'readOnly'     => $self->_checkWatcherAbility($watcher),
                        );
           if ( $watcher->ConfigurationMethod() eq 'none' ) {
               $params{configuration_none} = '';
@@ -146,9 +147,15 @@ sub rows
       # Removing old ones
       foreach my $row (@{$currentRows}) {
           my $stored = $row->{valueHash}->{eventWatcher}->value();
-          next if ( exists ( $currentEventWatchers{$stored} ));
-          $self->removeRow( $row->{id} );
+          if ( exists ( $currentEventWatchers{$stored} )) {
+              # Check its ability
+              my $able = $self->_checkWatcherAbility($stored);
+              $self->setTypedRow($row->{id}, undef, readOnly => ! $able);
+          } else {
+              $self->removeRow( $row->{id} );
+          }
       }
+
 
       return $self->SUPER::rows($filter, $page);
 
@@ -416,6 +423,23 @@ sub _checkLogWatchers
                           . $self->message()
                          );
     }
+
+}
+
+# This method checks if the event watcher is able to monitor the
+# event. For example, a RAID watcher makes no sense if the disk
+# subsystem does not work with RAID
+sub _checkWatcherAbility # (watcherClassName)
+{
+
+    my ($self, $watcherClassName) = @_;
+
+    eval "use $watcherClassName";
+    if ( $@ ) {
+        return 0;
+    }
+
+    return $watcherClassName->Able();
 
 }
 
