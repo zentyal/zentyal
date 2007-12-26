@@ -82,28 +82,6 @@ sub new
 
 }
 
-# Method: ConfigurationMethod
-#
-# Overrides:
-#
-#       <EBox::Event::Component::ConfigurationMethod>
-#
-sub ConfigurationMethod
-{
-    return 'model';
-}
-
-# Method: ConfigureModel
-#
-# Overrides:
-#
-#       <EBox::Event::Component::ConfigureModel>
-#
-sub ConfigureModel
-{
-    return 'LogWatcherConfiguration';
-}
-
 # Method: run
 #
 #        Check if any logger has logged anything to create events
@@ -161,6 +139,42 @@ sub run
 
 }
 
+# Group: Static class methods
+
+# Method: ConfigurationMethod
+#
+# Overrides:
+#
+#       <EBox::Event::Component::ConfigurationMethod>
+#
+sub ConfigurationMethod
+{
+    return 'model';
+}
+
+# Method: ConfigureModel
+#
+# Overrides:
+#
+#       <EBox::Event::Component::ConfigureModel>
+#
+sub ConfigureModel
+{
+    return 'LogWatcherConfiguration';
+}
+
+# Method: Able
+#
+# Overrides:
+#
+#       <EBox::Event::Watcher::Able>
+#
+sub Able
+{
+    my $logs = EBox::Global->modInstance('logs');
+    return defined($logs->getAllTables());
+}
+
 # Group: Protected methods
 
 # Method: _name
@@ -195,10 +209,13 @@ sub _description
       my ($self) = @_;
 
       my $logs = $self->{logs};
-      my @loggers = keys %{$logs->getAllTables()};
-
-      my $loggersMsg = join( ', ',
-                          map { $logs->getTableInfo($_)->{name} } @loggers);
+      my $loggerTables = $logs->getAllTables();
+      my $loggersMsg = '';
+      if ( defined ( $loggerTables ) ) {
+          my @loggers = keys %{$loggerTables};
+          my $loggersMsg = join( ', ',
+                                 map { $logs->getTableInfo($_)->{name} } @loggers);
+      }
 
       return __x('Notify when a logger ({loggers}) has logged something',
                  loggers => $loggersMsg);

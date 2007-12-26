@@ -133,6 +133,32 @@ sub run
 
   }
 
+# Group: Class static methods
+
+# Method: Able
+#
+#      Check if the event watcher is able to watch and monitor an
+#      event. If it is unable, then the event will never happen
+#      anyway.
+#
+# Example:
+#
+#      Monitoring RAID events in a flat disk subsystem has no sense
+#
+# Returns:
+#
+#      boolean - indicating if the event watcher is able to monitor a
+#      set of events
+#
+# Default value:
+#
+#      true
+#
+sub Able
+{
+    return 1;
+}
+
 # Group: Protected method
 
 # Method: _description
