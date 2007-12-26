@@ -77,7 +77,7 @@ sub image
   }
   else {
     return {
-	    text => $generatedImage_r->{text},
+	    error => $generatedImage_r->{error},
 	   }
   }
 
