@@ -10,10 +10,12 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Config;
 use EBox::Validate;
-use EBox::Exceptions::Internal;
 use EBox::NetWrappers;
 use EBox::ColourRange;
 use EBox::AbstractDaemon;
+
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::DataNotFound;
 
 use File::Glob qw(:glob);
 use File::Basename;
@@ -33,6 +35,9 @@ use constant MONITOR_PERIOD => 5;
 
 use constant CONF_FILE => '/etc/jnettop.conf';
 
+
+
+
 # # XX DEBUG
 #     use DB;
 # our @ISA = qw(DB);
@@ -44,18 +49,6 @@ sub service
   my $settings = $network->model('ByteRateSettings');
   return $settings->serviceValue();
 }
-
-
-# sub setService
-# {
-#   my ($class, $newService) = @_;
-
-#   my $network  = EBox::Global->modInstance('network');
-#   my $oldService = $network->get_bool(SERVICE_KEY);
-#   if ($newService xor $oldService) {
-#     $network->set_bool(SERVICE_KEY, $newService);
-#   }
-# }
 
 
 
@@ -393,24 +386,21 @@ sub _checkBps
 }
 
 
+
+
+my %VALID_PROTOCOLS = (tcp => 1, udp => 1, arp => 1, icmp => 1, );
 sub _checkProto
 {
   my ($proto) = @_;
-  my $valid = 0;
 
-  if (EBox::Validate::checkProtocol($proto)) {
-    $valid = 1;
+  if (exists $VALID_PROTOCOLS{$proto}) {
+    return 1;
   }
-  elsif ($proto eq 'icmp') { # icmp is not convered by checkProtocol
-    $valid = 1;
-  }
-  
-  if (not $valid) {
+  else {
         _warnIfDebug("Incorrect protocol $proto, data will not be added to trafic statistics");
+	return 0;
   }
-  
 
-  return $valid;
 }
 
 
@@ -572,7 +562,7 @@ sub srcGraph
 
   my $rrd = srcRRD($src);
   if (not -f $rrd) {
-    throw EBox::Exceptions::External( 
+    throw EBox::Exceptions::DataNotFound( 
 				     __x(
 					 'Traffic data not found for source {src}',
 					 src => $printableSrc,
@@ -601,7 +591,7 @@ sub serviceGraph
   my $service = delete $params{service};
   my $rrd = serviceRRD($service);
   if (not -f $rrd) {
-    throw EBox::Exceptions::External( 
+    throw EBox::Exceptions::DataNotFound( 
 				     __x(
 				     'Traffic data not found for service {service}',
 				     service => $service,
@@ -633,7 +623,7 @@ sub srcAndServiceGraph
 
   my $srcRRD = srcRRD($src);
   if (not -f $srcRRD) {
-    throw EBox::Exceptions::External( 
+    throw EBox::Exceptions::DataNotFound( 
 				     __x(
 					'Traffic data not found for source {src}',
 					src => $printableSrc,
@@ -643,7 +633,7 @@ sub srcAndServiceGraph
 
   my $serviceRRD  = serviceRRD($service);  
   if (not -f $serviceRRD) {
-    throw EBox::Exceptions::External(
+    throw EBox::Exceptions::DataNotFound(
 				     __x(
 				     'Traffic data not found for service {service}',
 				     service => $service,
@@ -689,8 +679,8 @@ sub activeServicesGraph
 
   my @services = @{  activeServiceRRDs()  };  
   @services or
-    throw EBox::Exceptions::External(
-				     __('No services bit rate data found')
+    throw EBox::Exceptions::DataNotFound(
+				     __('No traffic data found for services')
 				    );
 
   my @colours = @{ EBox::ColourRange::range(scalar @services) };
@@ -724,7 +714,10 @@ sub activeSrcsGraph
   my $title = __('Active sources');
 
   my @srcs = @{  activeSrcRRDs()  };  
-
+  @srcs or
+    throw EBox::Exceptions::DataNotFound(
+				     __('No traffic data for sources found')
+				    );
 
   my @dataset;
   if (@srcs) {
