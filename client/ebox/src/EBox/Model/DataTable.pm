@@ -822,6 +822,7 @@ sub addTypedRow
 #
 #		- 'id' =>  row id
 #		- 'order' => row order
+#               - 'readOnly' => Boolean indicating if the row is readOnly or not
 #		- 'values' => array ref containing objects
 #			    implementing <EBox::Types::Abstract> interface
 #       - 'valueHash' => hash ref containing the same objects as
