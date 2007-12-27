@@ -39,11 +39,6 @@ use constant CONF_FILE => '/etc/jnettop.conf';
 
 
 
-
-# # XX DEBUG
-#     use DB;
-# our @ISA = qw(DB);
-
 sub service
 {
   my ($class) = @_;
@@ -248,12 +243,6 @@ sub _addBpsToRRD
   RRDs::update($rrd, "N:$bps");
   my $err = RRDs::error;
   if ( $err) {
-
-#    my $stack = __PACKAGE__->backtrace;  # XXX DEBUG
-
-#   throw EBox::Exceptions::Internal " error updating $rrd: $err\nstack:
-#   $stack"; 
-
     throw EBox::Exceptions::Internal " error updating $rrd: $err";
   }
 }
@@ -373,7 +362,7 @@ sub _checkPort
   elsif ($port eq 'AGGR.') { # aggregated port by jneetop
     return 1;
   }
-  elsif ($port == 0) { # used when there is not port ocncept (i.e. ARP)
+  elsif ($port == 0) { # used when there is not port concept (i.e. ARP)
     return 1;
   }
   else {
@@ -662,7 +651,7 @@ sub srcAndServiceGraph
 
   my $srcAndServiceRRD = srcAndServiceRRD($src, $service);
   if (not -f $srcAndServiceRRD) {
-    throw EBox::Exceptions::External( 
+    throw EBox::Exceptions::DataNotFound( 
 				     data =>
 				     __( 'Traffic data not found for source and service pair'),
 				     value => __x(

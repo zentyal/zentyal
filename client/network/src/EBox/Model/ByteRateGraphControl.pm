@@ -100,8 +100,8 @@ my %paramsByGraphType = (
 			 activeSrcsGraph =>  {} ,
 			 activeServicesGraph  =>  {},
 			 srcGraph  => { source => 1 },
-			 serviceGraph => { service => 1 },
-			 srcAndServiceGraph => { source => 1, service => 1 },
+			 serviceGraph => { netService => 1 },
+			 srcAndServiceGraph => { source => 1, netService => 1 },
 
 			);
 

@@ -108,6 +108,7 @@ sub _populateIfaceSelect
   my $network = EBox::Global->modInstance('network');
   my @ifaces = @{ $network->ifaces };
 
+
   my @options = map {
     { value => $_, printableValue => $_ }
   } @ifaces;
@@ -118,34 +119,7 @@ sub _populateIfaceSelect
   return \@options;
 }
 
-sub validateTypedRow
-{
-  my ($self, $action, $params_r) = @_;
 
-#   my $network = EBox::Global->modInstance('network');
-#   my @ifaces = @{ $network->ifaces };
-
-#   if (exists $params_r->{iface}) {
-#     my $iface = $params_r->{iface};
-    
-#     if (($iface ne 'all') and ($iface ne all(@ifaces))) {
-#       throw EBox::Exceptions::External(
-#                  __x('{iface} does not exist',
-# 		     iface => $iface
-# 		    )
-# 				      );
-#     }
-#   }
-
-#   if (exists $params_r->{service}) {
-#     if (not @ifaces) {
-#       throw EBox::Exceptions::External(
-#            'No network interfaces available'
-# 				      );
-#     }
-#   }
-
-}
 
 
 
