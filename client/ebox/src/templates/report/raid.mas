@@ -87,14 +87,29 @@ my %algorithmPrintableValue = (
 				3  => __('right-symmetric'),
 			       );
 
-# name, printableName, sub for massage value
+# name, printableName, sub for message value
 my @raidProperties     = (
       [
-       'active', 
-       __('Active'), 
-       sub { 
-	 my ($v) = @_;   
-	 return $v ? __('yes') : __('no')
+       'state',
+       __('Status'),
+       sub {
+	 my ($compValue) = @_;
+         my @values = split (', ', $compValue);
+         my @printableValues = ();
+         foreach my $value (@values) {
+             if ( $value eq 'active' ) {
+                 push(@printableValues, __('active'));
+             } elsif ( $value eq 'degraded' ) {
+                 push(@printableValues, __('degraded'));
+             } elsif ( $value eq 'recovering' ) {
+                 push(@printableValues, __('recovering'));
+             } elsif ( $value eq 'resyncing' ) {
+                 push(@printableValues, __('resyncing'));
+             } elsif ( $value eq 'failed' ) {
+                 push(@printableValues, __('failed'));
+             }
+         }
+	 return join( ', ', @printableValues);
        }
       ],
       [

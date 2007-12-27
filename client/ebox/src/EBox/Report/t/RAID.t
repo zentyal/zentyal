@@ -29,6 +29,7 @@ push @cases,  {
 
 		 '/dev/md0' => {
 		     active => 1,
+                     state  => 'active, degraded, resyncing',
 		     type   => 'raid1',
 		     activeDevices       => 2,
 		     activeDevicesNeeded => 2,
@@ -78,6 +79,7 @@ push @cases,  {
 
 		 '/dev/md0' => {
 		     active => 1,
+                     state  => 'active',
 		     type   => 'raid1',
 		     activeDevices       => 2,
 		     activeDevicesNeeded => 2,
@@ -121,6 +123,7 @@ push @cases,  {
 
 		 '/dev/md0' => {
 		     active => 1,
+                     state  => 'active, degraded, recovering',
 		     type   => 'raid1',
 		     activeDevices       => 1,
 		     activeDevicesNeeded => 2,
@@ -165,6 +168,7 @@ push @cases,  {
 
 		 '/dev/md0' => {
 		     active => 1,
+                     state  => 'active',
 		     type   => 'raid1',
 		     activeDevices       => 2,
 		     activeDevicesNeeded => 2,
@@ -205,6 +209,7 @@ push @cases,  {
 
 		 '/dev/md0' => {
 		     active => 1,
+                     state  => 'active',
 		     type   => 'raid1',
 		     activeDevices       => 2,
 		     activeDevicesNeeded => 2,
@@ -234,6 +239,7 @@ push @cases,  {
 
 		 '/dev/md1' => {
 				 active => 1,
+                                 state  => 'active',
 				 type   => 'raid0',
 
 				activeDevices       => 1,
@@ -264,6 +270,7 @@ push @cases,  {
 
 		 '/dev/md0' => {
 		     active => 1,
+                     state  => 'active',
 		     type   => 'raid5',
                      algorithm => 2,
 
@@ -308,6 +315,7 @@ push @cases,  {
 
 		 '/dev/md0' => {
 		     active => 1,
+                     state  => 'active',
 		     type   => 'raid5',
                      algorithm => 2,
 

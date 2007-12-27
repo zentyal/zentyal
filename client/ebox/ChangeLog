@@ -1,4 +1,5 @@
 0.11.99
+	+ Added state to the RAID report instead of simpler active boolean
         + Fix bug when installing new event components and event GConf
 	subtree has not changed
 	+ Add RSS dispatcher to show eBox events under a RSS feed

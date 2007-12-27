@@ -1,3 +1,18 @@
+# Copyright (C) 2007 Warp Networks S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 package EBox::Report::RAID;
 #
 use strict;
@@ -43,10 +58,14 @@ sub enabled
 #
 #   - the unusedDevices contains a list with the unused RAID devices
 #   - each RAID array entry contains a hash reference with the following fields:
-#        active - whether the array is active
+#
+#        state - String the array state. Several values may appear
+#                together separated by commas.
+#                Possible values: 'active', 'degraded', 'recovering',
+#                                 'resyncing', 'failed'.
 #        type  - array type as found in mdstat (ej: raid1, raid2, ..)
 #        activeDevicesNeeded - how many active RAID devices requires the  array
-#                               to function properly
+#                               to work properly
 #        activeDevices      - how many active RAID devices are now
 #        blocks             - size in blocks of the array
 #        operation          - whether the array is engaged in some important
@@ -77,7 +96,7 @@ sub info
 
   my %info;
 
-  push @mdstat, 'endoffile:dummy'; # this dummy section is to forrce to process
+  push @mdstat, 'endoffile:dummy'; # this dummy section is to force to process
                                    # the real last section
   my $currentSection;
   my @currentSectionData;
@@ -95,19 +114,18 @@ sub info
 	my ($key, $value) = splice @sectionInfo, 0, 2;
 	$info{$key} = $value;
       }
-      
-      # reset section variables to new section vlaues
+
+      # reset section variables to new section values
       my ($sectionHeader, $sectionData) = @parts;
       $currentSection = $sectionHeader;
       @currentSectionData = ($sectionData);
-      
+
     }
     else {
       push @currentSectionData, $line;
     }
 
   }
-  
 
   foreach my $dev (keys %info) {
     if (not $dev =~ m{^/dev/}) {
@@ -116,9 +134,9 @@ sub info
     }
 
     _calculateDevicesStatus($info{$dev});
-    
-  }
+    _setArrayStatus($info{$dev});
 
+  }
 
   return \%info;
 }
@@ -134,7 +152,7 @@ sub _mdstatContents
   return $contents_r;
 }
 
-# calcualte devices status using other fields values
+# calculate devices status using other fields values
 sub _calculateDevicesStatus
 {
   my ($info_r) = @_;
@@ -151,6 +169,7 @@ sub _calculateDevicesStatus
     my $spare = 0;
     my $up    = 0;
 
+    $devAttrs->{state} = '' unless (defined($devAttrs->{state}));
     if ($devAttrs->{state} eq 'failure') {
       next;
     }
@@ -184,6 +203,34 @@ sub _calculateDevicesStatus
 		  } @devNumbers;
   }
 
+}
+
+# set the array state from the remainder elements
+sub _setArrayStatus
+{
+    my ($info_r) = @_;
+
+    my $state = '';
+    if ( $info_r->{active} ) {
+        $state .= 'active, ';
+        if ( $info_r->{operation} ne 'none' ) {
+            $state .= 'degraded, ';
+        }
+        if ( $info_r->{operation} eq 'recovery' ) {
+            $state .= 'recovering';
+        } elsif ( $info_r->{operation} eq 'resync' ) {
+            $state .= 'resyncing';
+        }
+        if ( $info_r->{activeDevicesNeeded} > $info_r->{activeDevices} ) {
+            unless ( $state =~ m/degraded/g ) {
+                $state .= 'degraded';
+            }
+        }
+    } else {
+        $state .= 'failed';
+    }
+    $state =~ s/, $//g;
+    $info_r->{state} = $state;
 
 }
 
@@ -389,6 +436,7 @@ sub _processDeviceOperationLine
 {
   my ($line) = @_;
 
+  $line = '' unless (defined($line));
   my %deviceInfo;
 
   my $operationLineRe =  qr{
