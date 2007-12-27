@@ -118,7 +118,7 @@ sub _graphSub
 
   my $graphType = $self->_controlModelField('graphType');
   my $graphSub = EBox::Network::Report::ByteRate->can($graphType);
-  EBox::debug("GRAPH SUB $graphType $graphSub");
+
   if (not $graphSub) {
     throw EBox::Exceptions::Internal("Unknown graph type: $graphType");
   }  

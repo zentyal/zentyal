@@ -154,5 +154,19 @@ sub validateTypedRow
 }
 
 
+sub _setTypedRow
+{
+  my ($self, @params) = @_;
+    
+  my $global   = EBox::Global->getInstance();
+  my $networkChanged = $global->modIsChanged('network');
 
+  $self->SUPER::_setTypedRow(@params);
+
+  if (not $networkChanged) {
+    $global->set_bool('modules/network/changed', undef);
+  }
+
+
+}
 1;
