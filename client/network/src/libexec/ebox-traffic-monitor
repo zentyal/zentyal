@@ -64,11 +64,6 @@ sub _jnettopCmd
   $jnettopCmd .= ' --local-aggr port ' ;
 
   if ($iface) {
-  # check iface
-    system "ifconfig $iface 2&>1 > /dev/null";
-    if ($? != 0) {
-      die "cannot get information for interface $iface. Please, make sure that is a valid interface";
-    }
     
     $jnettopCmd .= " -i $iface";
   }
