@@ -4,6 +4,7 @@
 	  ${EBOX_HOME}/conf/dhcp/${iface}/plugins subdir
 	+ Bugfix. Check fixed mapping names not to collide with other
 	mappings in other models and make dhcpd crash
+	+ Bugfix. Fixed mapping names cannot contain spaces
 0.10.99
 	+ Use the new model/view framework. UI uses Ajax.
 	+ Show eBox domain server if DNS is installed

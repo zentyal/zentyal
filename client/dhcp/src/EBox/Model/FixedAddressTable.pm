@@ -153,6 +153,12 @@ sub validateTypedRow
         }
     }
     if ( exists ( $changedFields->{name} )) {
+        # Check the given name does not contain spaces
+        my $newName = $changedFields->{name}->value();
+        if ( $newName =~ m:\s: ) {
+            throw EBox::Exceptions::External(__x('{name} cannot contain spaces',
+                                                 name => $changedFields->{name}->printableName()));
+        }
         # Check remainder FixedAddressTable models uniqueness since
         # the dhcpd.conf may confuse those name repetition
         my @fixedAddressTables = @{EBox::Model::ModelManager->instance()->model(
@@ -162,7 +168,7 @@ sub validateTypedRow
         @fixedAddressTables = grep { $_->index() ne $self->index() }
           @fixedAddressTables;
 
-        my @repRows = grep { $_->findValue( name => $changedFields->{name}->value() ) }
+        my @repRows = grep { $_->findValue( name => $newName ) }
           @fixedAddressTables;
 
         if ( @repRows > 0 ) {
