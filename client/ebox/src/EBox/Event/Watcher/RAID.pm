@@ -118,7 +118,10 @@ sub run
       }
       # Check removed ones
 
-      # Store last info in GConf state
+      # Store last info in GConf state if changed
+      if ( @events > 0 ) {
+          $self->_storeNewRAIDState($raidInfo);
+      }
 
       if ( @events > 0 ) {
           return \@events;
@@ -200,7 +203,7 @@ sub _checkRaidArray # (arrayRaidName, raidInfo)
     unless ( defined ($storedInfo) ) {
         return $self->_createEventArrayRaid($arrayRaidName, $raidInfo);
     }
-    # Check the activeness
+    # Check the state
     # Check the devices' number
     # Check the operations
     # Check each RAID device
@@ -241,23 +244,23 @@ sub _storedArrayRaidInfo
 sub _createEventArrayRaid # (arrayName, raidInfo)
 {
 
-    my ($self, $arrayName, $raidInfo) = @_;
+    my ($self, $arrayName, $raidArrayInfo) = @_;
 
-    my $msg = __x('Array RAID device {devName} information:',
+    my $msg = __x('New array RAID device {devName} information:',
                   devName => $arrayName) . '\n';
-    $msg .= __x('State: {state}', state => $raidInfo->{state}) . '\n';
-    $msg .= __x('Type: {type}', type => $raidInfo->{type}) . '\n';
-    $msg .= __x('Active devices needed: {nb}', nb => $raidInfo->{activeDevicesNeeded}) . '\n';
-    $msg .= __x('Active devices: {nb}', nb => $raidInfo->{activeDevices}) . '\n';
-    unless ( $raidInfo eq 'none' ) {
+    $msg .= __x('State: {state}', state => $raidArrayInfo->{state}) . '\n';
+    $msg .= __x('Type: {type}', type => $raidArrayInfo->{type}) . '\n';
+    $msg .= __x('Active devices needed: {nb}', nb => $raidArrayInfo->{activeDevicesNeeded}) . '\n';
+    $msg .= __x('Active devices: {nb}', nb => $raidArrayInfo->{activeDevices}) . '\n';
+    unless ( $raidArrayInfo eq 'none' ) {
         $msg .= __x('Operation in progress: {operation}',
-                    operation => $raidInfo->{operation}) . '\n';
+                    operation => $raidArrayInfo->{operation}) . '\n';
         $msg .= __x('Completed operation percentage: {per}',
-                    per => $raidInfo->{operationPercentage}) . '\n';
+                    per => $raidArrayInfo->{operationPercentage}) . '\n';
         $msg .= __x('Operation estimated finish time: {time}',
-                    time => $raidInfo->{operationEstimatedTime}) . '\n';
+                    time => $raidArrayInfo->{operationEstimatedTime}) . '\n';
     }
-    while (my ($raidCompNum, $raidCompInfo) = each %{$raidInfo->{raidDevices}}) {
+    while (my ($raidCompNum, $raidCompInfo) = each %{$raidArrayInfo->{raidDevices}}) {
         $msg .= __x('Raid component {nb}: device {device} state {state}',
                     nb => $raidCompNum, device => $raidCompInfo->{device},
                     state => $raidCompInfo->{state}) . '\n';
@@ -269,7 +272,39 @@ sub _createEventArrayRaid # (arrayName, raidInfo)
                                          message => $msg
                                         );
 
-    return $arrayRaidEvent;
+    return [ $arrayRaidEvent ];
+
+}
+
+# Store last RAID info in GConf state
+sub _storeNewRAIDState
+{
+    my ($self, $raidInfo) = @_;
+
+    my $evMod = $self->{events};
+    $evMod->st_delete_dir(RAID_ARRAY_KEY);
+
+    while ( my ($raidArrayName, $raidArrayInfo) = each %{$raidInfo} ) {
+        next if ( $raidArrayName eq 'unusedDevices' );
+        my $id = $evMod->st_get_unique_id('array', RAID_ARRAY_KEY);
+        my $rootKey = RAID_ARRAY_KEY . "/$id/";
+        $evMod->st_set_string($rootKey . 'name', $raidArrayName);
+        $evMod->st_set_string($rootKey . 'state', $raidArrayInfo->{state});
+        $evMod->st_set_int($rootKey . 'deviceNumber', $raidArrayInfo->{activeDevices});
+        $evMod->st_set_string($rootKey . 'operation', $raidArrayInfo->{operation});
+        if ( $raidArrayInfo->{operation} ne 'none' ) {
+            $evMod->st_set_int($rootKey . 'operationAttr/percentage',
+                               $raidArrayInfo->{operationPercentage});
+            $evMod->st_set_string($rootKey . 'operationAttr/estimatedFinishTime',
+                                  $raidArrayInfo->{operationEstimatedTime});
+        }
+        while (my ($raidCompNum, $raidCompInfo) = each %{$raidArrayInfo->{raidDevices}}) {
+            my $compId = $evMod->st_get_unique_id('comp', $rootKey . 'components');
+            my $compKey = $rootKey . "components/$compId/";
+            $evMod->st_set_string( $compKey . 'device', $raidCompInfo->{device});
+            $evMod->st_set_string( $compKey . 'state', $raidCompInfo->{state});
+        }
+    }
 
 }
 
