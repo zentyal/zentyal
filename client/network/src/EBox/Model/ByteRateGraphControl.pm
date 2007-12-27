@@ -23,6 +23,7 @@ use warnings;
 use EBox::Global;
 use EBox::Gettext;
 
+
 sub _imageModel
 {
   my ($self) = @_;
@@ -63,7 +64,6 @@ sub _tableDesc
 		    new EBox::Types::Select(
 					    printableName  => __('Graph type'),
 					    'fieldName' => 'graphType',
-					    'size' => '10',
 					    'optional' => 0, 
 					    defaultValue    => 'activeSrcsGraph',
 					    editable => 1,
@@ -72,14 +72,14 @@ sub _tableDesc
 		    new EBox::Types::HostIP(
 					    printableName  => __('Source'),
 					    'fieldName' => 'source',
-					    'size' => '40',
+					    'size' => 15,
 					    'optional' => 1, 
 					    editable => 1,
 					   ),
 		    new EBox::Types::Text(
 					  printableName  => __('Service'),
 					  'fieldName' => 'netService',
-					  'size' => '40',
+					  'size' => 20,
 					  'optional' => 1, 
 					  editable => 1,					    
 					 ),
@@ -92,6 +92,65 @@ sub _tableDesc
 sub printableName
 {
   return  __('Select traffic graphic');
+}
+
+
+
+my %paramsByGraphType = (
+			 activeSrcsGraph =>  {} ,
+			 activeServicesGraph  =>  {},
+			 srcGraph  => { source => 1 },
+			 serviceGraph => { service => 1 },
+			 srcAndServiceGraph => { source => 1, service => 1 },
+
+			);
+
+sub validateTypedRow
+{
+  my ($self, $action,  $changedFields, $allFields) = @_;
+
+  exists $allFields->{'graphType'}  or throw EBox::Exceptions::MissingArgument('graphType');
+  my $graphType = $allFields->{'graphType'}->value();
+
+  exists $paramsByGraphType{$graphType} or
+    throw EBox::Exceptions::External(
+            __x('Unknown graph type {t}', t => $graphType)
+				    );
+
+  my %paramsSpec =  %{ $paramsByGraphType{$graphType} };
+
+  while (my ($name, $object) = each %{ $allFields }) {
+    next if ($name eq 'graphType');
+
+    my $empty;
+    my $value =   $object->value();
+    if ($value) {
+      $empty = ($value =~ m/^\s*$/);
+    }
+    else {
+      $empty = 1;
+    }
+
+    if (not exists $paramsSpec{$name}) {
+      next if $empty;
+      throw EBox::Exceptions::External(
+	  __x('The parameter {p} is not needed for this graphic type', p => $name)
+				      );
+    }
+    else {
+      if ($empty) {
+	throw EBox::Exceptions::MissingArgument($name);	
+      }
+    }
+
+    delete $paramsSpec{$name};
+  }
+
+  my ($missingParameter) = keys %paramsSpec;
+  if ($missingParameter) {
+    throw EBox::Exceptions::MissingArgument($missingParameter);
+  }
+
 }
 
 

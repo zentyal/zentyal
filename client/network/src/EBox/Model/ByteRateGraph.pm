@@ -97,6 +97,10 @@ sub _generateImage
   catch EBox::Exceptions::DataNotFound with  {
     my $ex = shift;
     $error = $ex->text;
+  }
+  catch EBox::Exceptions::MissingArgument with  {
+    my $ex = shift;
+    $error = $ex->text;
   };
 
   if (defined $error) {
@@ -128,14 +132,14 @@ sub _graphSubArguments
   my $graphType = $self->_controlModelField('graphType');
 
   if ($graphType eq 'srcGraph') {
-    return (source => $self->_controlModelField('source'));
+    return (src  => $self->_source);
   }
   elsif ($graphType eq 'serviceGraph') {
     return (service => $self->_controlModelField('netService'));
   }
   elsif ($graphType eq 'srcAndServiceGraph') {
     return (
-	    source  => $self->_controlModelField('source') , 
+	    src     => $self->_source , 
 	    service => $self->_controlModelField('netService')
 	   );
   }
@@ -143,6 +147,15 @@ sub _graphSubArguments
     return ()
   }
 
+}
+
+
+sub _source
+{
+  my ($self) = @_;
+
+  my $unescapedSrc =  $self->_controlModelField('source');
+  return EBox::Network::Report::ByteRate::escapeAddress($unescapedSrc);
 }
 
 sub _controlModel

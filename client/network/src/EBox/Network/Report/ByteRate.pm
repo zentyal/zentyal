@@ -16,6 +16,8 @@ use EBox::AbstractDaemon;
 
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 
 use File::Glob qw(:glob);
 use File::Basename;
@@ -364,7 +366,14 @@ sub _checkAddr
 sub _checkPort
 {
   my ($port) = @_;
-  if (EBox::Validate::checkPort($port) or ($port eq 'AGGR.')) {
+  
+  if (EBox::Validate::checkPort($port)) {  # normal port
+    return 1;
+  }
+  elsif ($port eq 'AGGR.') { # aggregated port by jneetop
+    return 1;
+  }
+  elsif ($port == 0) { # used when there is not port ocncept (i.e. ARP)
     return 1;
   }
   else {
@@ -388,7 +397,8 @@ sub _checkBps
 
 
 
-my %VALID_PROTOCOLS = (tcp => 1, udp => 1, arp => 1, icmp => 1, );
+my %VALID_PROTOCOLS = (tcp => 1, udp => 1, arp => 1, icmp => 1, icmp6 => 1, ether => 1 );
+
 sub _checkProto
 {
   my ($proto) = @_;
@@ -558,15 +568,17 @@ sub srcGraph
   my (%params) = @_;
 
   my $src = delete $params{src};
+  if (not $src) {
+    throw EBox::Exceptions::MissingArgument('src');
+  }
+
   my $printableSrc = unescapeAddress($src);
 
   my $rrd = srcRRD($src);
   if (not -f $rrd) {
     throw EBox::Exceptions::DataNotFound( 
-				     __x(
-					 'Traffic data not found for source {src}',
-					 src => $printableSrc,
-					)
+					 data => __('Traffic data for source'),
+					 value => $printableSrc,
 				    );
   }
 
@@ -589,12 +601,15 @@ sub serviceGraph
   my (%params) = @_;
 
   my $service = delete $params{service};
+  if (not $service) {
+    throw EBox::Exceptions::MissingArgument('service');
+  }
+
   my $rrd = serviceRRD($service);
   if (not -f $rrd) {
     throw EBox::Exceptions::DataNotFound( 
-				     __x(
-				     'Traffic data not found for service {service}',
-				     service => $service,
+				     data => __( 'Traffic data not found for service',
+				     value => $service,
 					 )
 				    );
   }
@@ -618,38 +633,44 @@ sub srcAndServiceGraph
   my (%params) = @_;
 
   my $src     = delete $params{src};
-  my $printableSrc = unescapeAddress($src);
+  if (not $src) {
+    throw EBox::Exceptions::MissingArgument('src');
+  }
+
   my $service = delete $params{service};
+  if (not $service) {
+    throw EBox::Exceptions::MissingArgument('service');
+  }
+
+  my $printableSrc = unescapeAddress($src);
 
   my $srcRRD = srcRRD($src);
   if (not -f $srcRRD) {
     throw EBox::Exceptions::DataNotFound( 
-				     __x(
-					'Traffic data not found for source {src}',
-					src => $printableSrc,
-				       )
+					 data => __('Traffic data for source'),
+					 src => $printableSrc,
 				    );
   }
 
   my $serviceRRD  = serviceRRD($service);  
   if (not -f $serviceRRD) {
     throw EBox::Exceptions::DataNotFound(
-				     __x(
-				     'Traffic data not found for service {service}',
-				     service => $service,
-					)
-				    );
+				     data => __( 'Traffic data for service'),
+				     value => $service,
+					);
   }
 
   my $srcAndServiceRRD = srcAndServiceRRD($src, $service);
   if (not -f $srcAndServiceRRD) {
     throw EBox::Exceptions::External( 
-				     __x(
-				     'Traffic data not found for source {src} and service {service}',
-				     src     => $printableSrc,
-				     service => $service,
-				     )
-				    );
+				     data =>
+				     __( 'Traffic data not found for source and service pair'),
+				     value => __x(
+						  'source {src} and service {service}',
+						  src     => $printableSrc,
+						  service => $service,
+						 )
+				     );
   }
 
   my $dataset = [
@@ -680,7 +701,8 @@ sub activeServicesGraph
   my @services = @{  activeServiceRRDs()  };  
   @services or
     throw EBox::Exceptions::DataNotFound(
-				     __('No traffic data found for services')
+					 data => __('Traffic data for '),
+					 value => __('all services'),
 				    );
 
   my @colours = @{ EBox::ColourRange::range(scalar @services) };
@@ -716,7 +738,8 @@ sub activeSrcsGraph
   my @srcs = @{  activeSrcRRDs()  };  
   @srcs or
     throw EBox::Exceptions::DataNotFound(
-				     __('No traffic data for sources found')
+				     data => __('Traffic data for'),
+				     value => __('all sources')
 				    );
 
   my @dataset;
