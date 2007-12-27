@@ -1,4 +1,4 @@
-test_scripts = Watcher.t
+test_scripts = RAID.t Watcher.t
 
 EXTRA_DIST = $(test_scripts)
 

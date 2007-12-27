@@ -220,6 +220,10 @@ sub _setArrayStatus
             $state .= 'recovering';
         } elsif ( $info_r->{operation} eq 'resync' ) {
             $state .= 'resyncing';
+        } elsif ( $info_r->{operation} eq 'reshape' ) {
+            $state .= 'reshaping';
+        } elsif ( $info_r->{operation} eq 'rebuild' ) {
+            $state .= 'rebuilding';
         }
         if ( $info_r->{activeDevicesNeeded} > $info_r->{activeDevices} ) {
             unless ( $state =~ m/degraded/g ) {

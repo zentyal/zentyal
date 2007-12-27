@@ -26,11 +26,16 @@ package EBox::Event::Watcher::RAID;
 #
 #    - Changing its state: active (sync, resync), faulty, spare, remove
 #
+#    - Hot additions and removals
+#
 #   RAID array events:
 #
 #    - Changing its state: active, degraded, recovering, clean, failed, resync
 #
-#    - Operation: active with percentage, estimated time to finish and speed
+#    - Number of devices
+#
+#    - Operation: active with percentage and estimated time to
+#    finish. Finish and starting ones.
 #
 #    - Management: addition, removal, failure
 #
@@ -117,6 +122,10 @@ sub run
           }
       }
       # Check removed ones
+      my $removedArrayEvents = $self->_checkRemoveArray($raidInfo);
+      if ( @{$removedArrayEvents} > 0 ) {
+          push (@events, @{$removedArrayEvents});
+      }
 
       # Store last info in GConf state if changed
       if ( @events > 0 ) {
@@ -196,26 +205,31 @@ sub _description
 # Check any event that may ocurr in the RAID array
 sub _checkRaidArray # (arrayRaidName, raidInfo)
 {
-    my ($self, $arrayRaidName, $raidInfo) = @_;
+    my ($self, $arrayRaidName, $raidArrayInfo) = @_;
 
     my $storedInfo = $self->_storedArrayRaidInfo($arrayRaidName);
 
     unless ( defined ($storedInfo) ) {
-        return $self->_createEventArrayRaid($arrayRaidName, $raidInfo);
+        return $self->_createEventArrayRaid($arrayRaidName, $raidArrayInfo);
     }
+
+    my @updatedEvents = ();
+
     # Check the state
     # Check the devices' number
     # Check the operations
     # Check each RAID device
+    my @checkSubs = ('_checkArrayStatus', '_checkArrayCompNum', '_checkArrayOp',
+                     '_checkComponents');
 
-}
+    foreach my $checkSub (@checkSubs) {
+        my $newEvents = $self->$checkSub($arrayRaidName, $raidArrayInfo, $storedInfo);
+        if ( defined($newEvents) ) {
+            push(@updatedEvents, @{$newEvents});
+        }
+    }
 
-# Check any event that may ocurr in the RAID device
-sub _checkRaidComponent # (raidDevInfo)
-{
-    my ($self, $raidCompInfo) = @_;
-
-    # Check its state
+    return \@updatedEvents;
 
 }
 
@@ -233,6 +247,8 @@ sub _storedArrayRaidInfo
         if ( $arrayName eq $arrayRaidName ) {
             $matchedStoredInfo = $self->{events}->st_hash_from_dir(RAID_ARRAY_KEY
                                                                    . "/$arraySeqNum");
+            $matchedStoredInfo->{components}
+              = $self->{events}->st_array_from_dir(RAID_ARRAY_KEY . "/$arraySeqNum/components");
         }
     }
 
@@ -292,18 +308,297 @@ sub _storeNewRAIDState
         $evMod->st_set_string($rootKey . 'state', $raidArrayInfo->{state});
         $evMod->st_set_int($rootKey . 'deviceNumber', $raidArrayInfo->{activeDevices});
         $evMod->st_set_string($rootKey . 'operation', $raidArrayInfo->{operation});
-        if ( $raidArrayInfo->{operation} ne 'none' ) {
-            $evMod->st_set_int($rootKey . 'operationAttr/percentage',
-                               $raidArrayInfo->{operationPercentage});
-            $evMod->st_set_string($rootKey . 'operationAttr/estimatedFinishTime',
-                                  $raidArrayInfo->{operationEstimatedTime});
-        }
         while (my ($raidCompNum, $raidCompInfo) = each %{$raidArrayInfo->{raidDevices}}) {
             my $compId = $evMod->st_get_unique_id('comp', $rootKey . 'components');
             my $compKey = $rootKey . "components/$compId/";
             $evMod->st_set_string( $compKey . 'device', $raidCompInfo->{device});
             $evMod->st_set_string( $compKey . 'state', $raidCompInfo->{state});
         }
+    }
+
+}
+
+# Check if any of the stored RAID array has dissappeared
+sub _checkRemoveArray # (raidInfo)
+{
+    my ($self, $raidInfo) = @_;
+
+    my $evMod = $self->{events};
+    my @removeEvents = ();
+    my @currentArrays = grep { $_ ne 'unusedDevices' } keys %{$raidInfo};
+    my %currentArrays = map { $_ => 1 } @currentArrays;
+
+    my $dirs = $evMod->st_all_dirs_base(RAID_ARRAY_KEY);
+    foreach my $dir (@{$dirs}) {
+        my $devName = $evMod->st_get_string(RAID_ARRAY_KEY . "/$dir/name");
+        next if ( exists ( $currentArrays{$devName} ));
+        my $evtMsg = __x('RAID device {name} has dissappeared: A RAID array '
+                         . 'which previously was configured appears to no '
+                         . 'longer be configured', name => $devName);
+        push( @removeEvents, new EBox::Event(level   => 'info',
+                                             source  => $self->name(),
+                                             message => $evtMsg));
+    }
+
+    return \@removeEvents;
+
+}
+
+# Group: Checkers update in RAID subsystem
+
+# Check if the RAID device status has changed
+sub _checkArrayStatus # (arrayName, arrayInfo, storedInfo)
+{
+    my ($self, $arrayName, $arrayInfo, $storedInfo) = @_;
+
+    if ( $arrayInfo->{state} ne $storedInfo->{state} ) {
+        my $evtMsg = __x('RAID device {name} has changed its state '
+                         . 'from {oldState} to {newState}',
+                         name     => $arrayName,
+                         oldState => $self->_i18nState($storedInfo->{state}),
+                         newState => $self->_i18nState($arrayInfo->{state}));
+        return [ new EBox::Event(level   => 'info',
+                                 source  => $self->name(),
+                                 message => $evtMsg) ];
+    }
+
+    return undef;
+}
+
+# Check the array component number in the RAID array device
+sub _checkArrayCompNum # (arrayName, arrayInfo, storedInfo)
+{
+
+    my ($self, $arrayName, $arrayInfo, $storedInfo) = @_;
+
+    if ( $storedInfo->{deviceNumber} != $arrayInfo->{activeDevices} ) {
+        my $evtMsg = __x('RAID device {name} has changed its number '
+                         . 'of active components from {oldNum} to {newNum}',
+                         name => $arrayName,
+                         oldNum => $storedInfo->{deviceNumber},
+                         newNum => $arrayInfo->{activeDevices});
+
+        return [ new EBox::Event(level   => 'info',
+                                 source  => $self->name(),
+                                 message => $evtMsg) ];
+    }
+
+    return undef;
+
+}
+
+# Check the array component number in the RAID array device
+sub _checkArrayCompNum # (arrayName, arrayInfo, storedInfo)
+{
+
+    my ($self, $arrayName, $arrayInfo, $storedInfo) = @_;
+
+    if ( $storedInfo->{deviceNumber} != $arrayInfo->{activeDevices} ) {
+        my $evtMsg = __x('RAID device {name} has changed its number '
+                         . 'of active components from {oldNum} to {newNum}',
+                         name => $arrayName,
+                         oldNum => $storedInfo->{deviceNumber},
+                         newNum => $arrayInfo->{activeDevices});
+
+        return [ new EBox::Event(level   => 'info',
+                                 source  => $self->name(),
+                                 message => $evtMsg) ];
+    }
+
+    return undef;
+
+}
+
+# Check the current operation in the RAID array device
+sub _checkArrayOp # (arrayName, arrayInfo, storedInfo)
+{
+
+    my ($self, $arrayName, $arrayInfo, $storedInfo) = @_;
+
+    my ($evtMsg, $showPer) = ('', 0);
+    if ( $storedInfo->{operation} ne $arrayInfo->{operation} ) {
+        if ( $storedInfo->{operation} eq 'none' ) {
+             $evtMsg = __x('RAID device {name} has started operation {opName}',
+                           name   => $arrayName,
+                           opName => $self->_i18nOp($arrayInfo->{operation}),
+                          ) . '\n';
+             $showPer = 1;
+         } elsif ( $arrayInfo->{operation} eq 'none' ) {
+             $evtMsg = __x('RAID device {name} has finished operation {opName} '
+                           . 'or it was aborted',
+                           name   => $arrayName,
+                           opName => $self->_i18nOp($storedInfo->{operation}));
+         } else {
+             # None is 'none' operation
+             $evtMsg = __x('RAID device {name} has finished operation {oldOpName} '
+                           . 'and started {newOpName}',
+                           name      => $arrayName,
+                           oldOpName => $self->_i18nOp($storedInfo->{operation}),
+                           newOpName => $self->_i18nOp($arrayInfo->{operation})
+                          ) . '\n';
+             $showPer = 1;
+         }
+    } elsif ( $arrayInfo->{operation} ne 'none' ) {
+        # An operation in RAID array is being performed, show percentage
+        $evtMsg = __x('RAID device {name} is performing operation {opName}',
+                      name   => $arrayName,
+                      opName => $self->_i18nOp($arrayInfo->{operation})
+                     ) . '\n';
+        $showPer = 1;
+    }
+
+    if ( $evtMsg ) {
+        if ( $showPer ) {
+            $evtMsg .= __x('Status: {percentage}% completed',
+                           percentage => $arrayInfo->{operationPercentage}) . '\n';
+            $evtMsg .= __x('Estimated finish time: {time}',
+                           time => $arrayInfo->{operationEstimatedTime});
+        }
+        return [ new EBox::Event(level   => 'info',
+                                 source  => $self->name(),
+                                 message => $evtMsg) ];
+    } else {
+        return undef;
+    }
+
+}
+
+# Check each array component in the RAID array device
+sub _checkComponents # (arrayName, arrayInfo, storedInfo)
+{
+
+    my ($self, $arrayName, $arrayInfo, $storedInfo) = @_;
+
+    my %currentComps = map { $_->{device} => $_->{state} } values %{$arrayInfo->{raidDevices}};
+    my %storedComps  = map { $_->{device} => $_->{state} } @{$storedInfo->{components}};
+
+    my @compEvents = ();
+    my $evtMsg;
+    foreach my $currentComp (keys %currentComps) {
+        if ( exists $storedComps{$currentComp} ) {
+            # Check updates
+            my $oldStatus = $storedComps{$currentComp};
+            my $newStatus = $currentComps{$currentComp};
+            if ( $newStatus ne $oldStatus ) {
+                if ( $newStatus eq 'failure'
+                     and $oldStatus eq 'up') {
+                    $evtMsg = __x('Active component {compName} from RAID array {arrayName} '
+                                  . 'has been marked as faulty',
+                                  compName  => $currentComp,
+                                  arrayName => $arrayName);
+                    push ( @compEvents, new EBox::Event(level   => 'error',
+                                                        source  => $self->name(),
+                                                        message => $evtMsg));
+                } elsif ( $newStatus eq 'failure'
+                          and $oldStatus eq 'spare' ) {
+                    $evtMsg = __x('Spare component {compName} from RAID array {arrayName} '
+                                  . 'which was being rebuilt to replace a faulty device '
+                                  . 'has failed',
+                                  compName  => $currentComp,
+                                  arrayName => $arrayName);
+                    push ( @compEvents, new EBox::Event(level   => 'error',
+                                                        source  => $self->name(),
+                                                        message => $evtMsg));
+                } elsif ( $newStatus eq 'up'
+                          and $oldStatus eq 'spare' ) {
+                    $evtMsg = __x('Spare component {compName} from RAID array {arrayName} '
+                                  . 'which was being rebuilt to replace a faulty device '
+                                  . 'has been successfully rebuilt and has been made '
+                                  . 'active',
+                                  compName  => $currentComp,
+                                  arrayName => $arrayName);
+                    push ( @compEvents, new EBox::Event(level   => 'info',
+                                                        source  => $self->name(),
+                                                        message => $evtMsg));
+                }
+            }
+        } else {
+            # An addition
+            $evtMsg = __x('A new component {compName} has been hot added '
+                          . 'to RAID device {arrayName} with status {status}',
+                          compName  => $currentComp,
+                          arrayName => $arrayName,
+                          status    => $self->_i18nCompStatus($currentComps{$currentComp}));
+            push ( @compEvents, new EBox::Event(level   => 'info',
+                                                source  => $self->name(),
+                                                message => $evtMsg));
+        }
+    }
+    # Check removals
+    foreach my $storedComp (keys %storedComps) {
+        next if (exists $currentComps{$storedComp});
+        $evtMsg = __x('A component {compName} has been hot removed from '
+                      . 'RAID array {arrayName} when its status was {status}',
+                     compName  => $storedComp,
+                     arrayName => $arrayName,
+                     status    => $storedComps{$storedComp});
+        push ( @compEvents, new EBox::Event(level   => 'warn',
+                                            source  => $self->name(),
+                                            message => $evtMsg));
+    }
+
+    return \@compEvents;
+
+}
+
+
+# Group: Helper methods
+
+# Get the array i18ned state message
+sub _i18nState
+{
+    my ($self, $state) = @_;
+
+    my @singleStates = split( ', ', $state);
+    my @i18nedStates = ();
+    foreach my $singleState (@singleStates) {
+        if ( $singleState eq 'active' ) {
+            push(@i18nedStates, __('active'));
+        } elsif ( $singleState eq 'degraded' ) {
+            push(@i18nedStates, __('degraded'));
+        } elsif ( $singleState eq 'recovering' ) {
+            push(@i18nedStates, __('recovering'));
+        } elsif ( $singleState eq 'resyncing' ) {
+            push(@i18nedStates, __('resyncing'));
+        } elsif ( $singleState eq 'rebuilding' ) {
+            push(@i18nedStates, __('rebuilding'));
+        } elsif ( $singleState eq 'reshaping' ) {
+            push(@i18nedStates, __('reshaping'));
+        } elsif ( $singleState eq 'failed' ) {
+            push(@i18nedStates, __('failed'));
+        }
+    }
+    return join( ', ', @i18nedStates);
+
+}
+
+sub _i18nOp
+{
+    my ($self, $op) = @_;
+
+    if ( $op eq 'resync' ) {
+        return __('resync');
+    } elsif ( $op eq 'rebuild' ) {
+        return __('rebuild');
+    } elsif ( $op eq 'reshape' ) {
+        return __('reshape');
+    } elsif ( $op eq 'recovery' ) {
+        return __('recovery');
+    }
+    return '';
+}
+
+# Get the component i18ned status message
+sub _i18nCompStatus
+{
+    my ($self, $status) = @_;
+
+    if ( $status eq 'up' ) {
+        return __('active');
+    } elsif ( $status eq 'failure' ) {
+        return __('faulty');
+    } elsif ( $status eq 'spare' ) {
+        return __('spare');
     }
 
 }

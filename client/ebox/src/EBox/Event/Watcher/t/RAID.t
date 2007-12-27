@@ -16,13 +16,15 @@
 use strict;
 use warnings;
 
-use Test::More tests => 14;
+use Test::More tests => 7;
 use Test::Exception;
 use Test::MockObject;
 use Test::Differences;
+use Test::Cmd;
 use File::Slurp qw(read_file);
 
-use lib '../../..';
+use lib '../../../..';
+use EBox::Event::Watcher::RAID;
 use EBox::Report::RAID;
 use EBox::TestStub;
 
@@ -175,7 +177,7 @@ push @cases,  {
 };
 
 
-# # RAID 1 failure in one device, after rebuilding
+# # RAID 1 failure in one device, aafter rebuilding
 push @cases,  {
 	       mdstatFile => './testdata/raid1-mdstat-failure.txt',
 	       expectedRaidInfo => {
@@ -367,40 +369,27 @@ push @cases,  {
 
 };
 
+my $watcher = new EBox::Event::Watcher::RAID();
 
-foreach my $case (@cases) {
-  setFakeMdInfo( 
-		$case->{mdstatFile},
+my $cmd = new Test::Cmd( prog => '/usr/bin/gconftool',
+                         verbose => 1);
+$cmd->run( args => '--recursive-unset "/ebox/state/events"');
+cmp_ok( $? , '==', 0, 'Deleting previous state');
 
-	       );
-
-
-  my $expectedMdDevices = $case->{expectedMdDevices};
-  my $expectedInfo      = $case->{expectedRaidInfo};
-
-  my $actualMdDevices;
-  my $actualInfo;
-  lives_ok {
-    $actualInfo      = EBox::Report::RAID::info();
-  } 'getting RAID and MD devices information';
-
-#    use Data::Dumper;
-#   diag "about tou dump\n";
-#    diag Dumper $actualInfo;
-
- SKIP: {
-  skip  'Error getting RAID information' unless defined $actualInfo;
-
-
-
-# eq_or_diff $actualInfo, $expectedInfo,
- is_deeply $actualInfo, $expectedInfo,
-   'checking RAID info contents';
-  }
+my @tests = (
+             { result => 1, str => 'Added first event'},
+             { result => 2, str => 'Operation resync finished and state changed'},
+             { result => 4, str => 'Operation recovery after a component fail'},
+             { result => 5, str => 'Operation recovery completed'},
+             { result => 1, str => 'Added RAID0'},
+             { result => 8, str => 'Using RAID5'},
+             { result => 7, str => 'Changing devices and partitions'},
+            );
+for (my $step = 0; $step < $#cases; $step++) {
+    setFakeMdInfo( $cases[$step]->{mdstatFile} );
+    cmp_ok ( @{$watcher->run()}, '==',
+             $tests[$step]->{result}, $tests[$step]->{str});
 }
-
-
-
 
 FAKE_SUBS:{
   my $mdstatFile;
@@ -421,5 +410,6 @@ FAKE_SUBS:{
 
 
 }
+
 
 1;

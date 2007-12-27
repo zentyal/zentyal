@@ -105,6 +105,10 @@ my @raidProperties     = (
                  push(@printableValues, __('recovering'));
              } elsif ( $value eq 'resyncing' ) {
                  push(@printableValues, __('resyncing'));
+             } elsif ( $value eq 'reshaping' ) {
+                 push(@printableValues, __('reshaping'));
+             } elsif ( $value eq 'rebuilding' ) {
+                 push(@printableValues, __('rebuilding'));
              } elsif ( $value eq 'failed' ) {
                  push(@printableValues, __('failed'));
              }
