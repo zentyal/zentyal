@@ -156,7 +156,7 @@ if (exists $img_r->{url} ) {
 <img <& /htmlAttributes.mas,  @imgAttrs &> />
 % } 
 % elsif ($showError) {  # no image to display, showing the text message
-<p><% $img_r->{error} %></p>
+<p><strong><% $img_r->{error} %></strong></p>
 % } 
 
 </%method>
