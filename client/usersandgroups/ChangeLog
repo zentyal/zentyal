@@ -1,5 +1,7 @@
+0.12
+	+ Remove use of Apache::Singleton
 0.11.2
-        + Do not generate a new LDAP password if it already exists
+    + Do not generate a new LDAP password if it already exists
 0.11.1
 	+ Fix issue with module naming which prevented backups from being
 	restored

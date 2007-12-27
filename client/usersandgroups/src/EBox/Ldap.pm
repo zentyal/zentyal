@@ -45,7 +45,8 @@ use constant ROOTDN        => 'cn=admin,' . DN;
 use constant INIT_SCRIPT   => '/etc/init.d/slapd';
 use constant DATA_DIR      => '/var/lib/ebox/ldap';
 
-use base qw (Apache::Singleton);
+# Singleton variable
+my $_instance = undef;
 
 sub _new_instance {
 	my $class = shift;
@@ -54,6 +55,24 @@ sub _new_instance {
 	$self->{ldap} = undef;
 	bless($self, $class);
 	return $self;
+}
+
+# Method: instance
+#
+#   Return a singleton instance of class <EBox::Ldap>
+#
+# Returns:
+#
+#   object of class <EBox::Ldap>
+sub instance
+{
+    my ($self) = @_;
+
+    unless(defined($_instance)) {
+        $_instance = EBox::Ldap->_new_instance();
+    }
+
+    return $_instance;
 }
 
 # Method: ldapCon 
