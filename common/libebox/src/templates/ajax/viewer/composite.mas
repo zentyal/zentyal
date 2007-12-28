@@ -1,0 +1,12 @@
+<%doc>
+  This template is intended to show the type viewer within the
+  composite type
+</%doc>
+<%args>
+$data
+</%args>
+% foreach my $simpleType (@{$data->types()}) {
+<& $simpleType->HTMLViewer(),
+   data => $data
+&>
+% }

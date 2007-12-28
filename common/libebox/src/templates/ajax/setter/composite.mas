@@ -1,0 +1,16 @@
+<%doc>
+  This template is intended to show the type setters within the
+  composite type
+</%doc>
+<%args>
+$tableName
+$data
+$cssClass => ''
+</%args>
+% foreach my $type (@{$data->types()}) {
+<& $type->HTMLSetter(),
+   data => $type,
+   tableName => $tableName,
+   cssClass  => $cssClass
+&>
+% }
