@@ -41,7 +41,7 @@ use EBox::Summary::Value;
 use File::Glob qw(:glob);
 use File::Basename;
 
-use constant RRD_TTL => 601; 
+use constant RRD_TTL => 601;
 
 use constant SRC_COLOUR      => 'FF0000';
 use constant SERVICE_COLOUR =>  '00FF00';
@@ -318,6 +318,34 @@ sub srcAndServiceRRD
   return $rrd;
 }
 
+# Method: srcServicesRRD
+#
+#      Get those files which have the same source and different
+#      services
+#
+# Parameters:
+#
+#      src - String the source IP address
+#
+# Returns:
+#
+#      array ref - containing those services which have a RRD table
+#      associated with this source
+#
+sub srcServicesRRD
+{
+    my ($src) = @_;
+
+    my $dir = _rrdDir();
+    my @rrds = bsd_glob("$dir/src-$src-service-*.rrd");
+    @rrds = @{ _activeRRDs(\@rrds) };
+
+    my @servs = map { /service-(.*)\.rrd/ } @rrds;
+
+    return \@servs;
+
+}
+
 sub _createRRDIfNotExists
 {
   my ($rrd) = @_;
@@ -397,7 +425,7 @@ sub _checkPort
   if (EBox::Validate::checkPort($port)) {  # normal port
     return 1;
   }
-  elsif ($port eq 'AGGR.') { # aggregated port by jneetop
+  elsif ($port eq 'AGGR.') { # aggregated port by jnettop
     return 1;
   }
   elsif ($port == 0) { # used when there is not port concept (i.e. ARP)
@@ -434,7 +462,7 @@ sub _checkProto
     return 1;
   }
   else {
-    _warnIfDebug("Incorrect protocol $proto, data will not be added to trafic statistics");
+    _warnIfDebug("Incorrect protocol $proto, data will not be added to traffic statistics");
     return 0;
   }
 
@@ -500,7 +528,7 @@ sub _removeRRD
 
   unlink $rrd;
 
-  # XXX reork this, only works for sources
+  # XXX rework this, only works for sources
   # remove related RRDs
   my $dir  = _rrdDir();
   my $relatedGlob = basename $rrd;
@@ -588,8 +616,15 @@ sub graph
   }
 }
 
-
-
+# Method: srcGraph
+#
+#      Given a source, it will ask to rrdtools to create a graph with
+#      that source
+#
+# Parameters:
+#
+#      src - String the source IP address
+#
 sub srcGraph
 {
   my (%params) = @_;
@@ -603,16 +638,26 @@ sub srcGraph
 
   my $rrd = srcRRD($src);
   if (not -f $rrd) {
-    throw EBox::Exceptions::DataNotFound( 
+    throw EBox::Exceptions::DataNotFound(
 					 data => __('Traffic data for source'),
 					 value => $printableSrc,
-				    );
+                                        );
   }
 
   my $dataset = [
 		 _srcDatasetElement($src, $rrd),
 		];
 
+  my @services = @{ srcServicesRRD($src) };
+  my @colours = @{ EBox::ColourRange::range(scalar @services) };
+  for ( my $idx; $idx < @services; $idx++) {
+      my $serv = $services[$idx];
+      my $srcAndServRRD = srcAndServiceRRD( $src, $serv );
+      my $newDataset = _srcAndServiceDatasetElement($src, $serv, $srcAndServRRD, 1);
+      my $colour = $colours[$idx];
+      $newDataset->{colour} = $colour;
+      push( @{$dataset}, $newDataset );
+  }
 
   my $title =__x('Network traffic from {src}', src => $printableSrc);
 
@@ -703,11 +748,11 @@ sub srcAndServiceGraph
   my $dataset = [
 		 _srcDatasetElement($src, $srcRRD),
 		 _serviceDatasetElement($service, $serviceRRD),
-		 _srcAndServiceDatasetElement($src, $service, $srcAndServiceRRD),
+		 _srcAndServiceDatasetElement($src, $service, $srcAndServiceRRD, 0),
 		];
 
 
-  my $title =__x('Network traffic from source {src} and for service {service}', 
+  my $title =__x('Network traffic from source {src} and for service {service}',
 		 src     => $src,
 		 service => $service,
 		);
@@ -723,7 +768,7 @@ sub activeServicesGraph
 {
   my %params = @_;
 
-  my $title = __('Active services');
+  my $title = __('All active services');
 
   my @services = @{  activeServiceRRDs()  };  
   @services or
@@ -760,7 +805,7 @@ sub activeSrcsGraph
 {
   my %params = @_;
 
-  my $title = __('Active sources');
+  my $title = __('All active sources');
 
   my @srcs = @{  activeSrcRRDs()  };  
   @srcs or
@@ -832,13 +877,18 @@ sub _serviceDatasetElement
 
 sub _srcAndServiceDatasetElement
 {
-  my ($src, $service, $rrd) = @_;
+  my ($src, $service, $rrd, $isSrcGraph) = @_;
 
   my $printableSrc = unescapeAddress($src);
-  my $legend = __x("Traffic rate from {src} for {service}", 
-		   src     => $printableSrc,
-		   service => $service,
-		  );
+  my $legend;
+  if ( $isSrcGraph ) {
+      $legend = $service;
+  } else {
+      $legend = __x("Traffic rate from {src} for {service}", 
+                    src     => $printableSrc,
+                    service => $service,
+                   );
+  }
 
   my $ds = {
 	  rrd => $rrd,
