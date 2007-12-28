@@ -38,11 +38,11 @@ sub _tableDesc
     return [
 	    {
 	     value => 'activeSrcsGraph',
-	     printableValue => __('Active sources traffic'),
+	     printableValue => __('All active sources traffic'),
 	    },
 	    {
 	     value => 'activeServicesGraph',
-	     printableValue => __('Active services traffic'),
+	     printableValue => __('All active services traffic'),
 	    },
 	    {
 	     value => 'srcGraph',
@@ -51,12 +51,11 @@ sub _tableDesc
 	    {
 	     value => 'serviceGraph',
 	       printableValue => __('Service traffic'),
-	    },	
+	    },
 	    {
 	     value => 'srcAndServiceGraph',
 	     printableValue => __('Source and service traffic'),
 	    },
-	    
 	   ];
   };
   
@@ -72,16 +71,16 @@ sub _tableDesc
 		    new EBox::Types::HostIP(
 					    printableName  => __('Source'),
 					    'fieldName' => 'source',
-					    'size' => 15,
+					    'size' => 13,
 					    'optional' => 1, 
 					    editable => 1,
 					   ),
 		    new EBox::Types::Text(
 					  printableName  => __('Service'),
 					  'fieldName' => 'netService',
-					  'size' => 20,
-					  'optional' => 1, 
-					  editable => 1,					    
+					  'size' => 6,
+					  'optional' => 1,
+					  editable => 1,
 					 ),
 		   );
 
@@ -134,12 +133,13 @@ sub validateTypedRow
     if (not exists $paramsSpec{$name}) {
       next if $empty;
       throw EBox::Exceptions::External(
-	  __x('The parameter {p} is not needed for this graphic type', p => $name)
+	  __x('The parameter {p} is not needed for this graphic type',
+              p => $object->printableName())
 				      );
     }
     else {
       if ($empty) {
-	throw EBox::Exceptions::MissingArgument($name);	
+	throw EBox::Exceptions::MissingArgument($name);
       }
     }
 
@@ -164,7 +164,7 @@ sub _setTypedRow
   $self->SUPER::_setTypedRow(@params);
 
   if (not $networkChanged) {
-    $global->set_bool('modules/network/changed', undef);
+    $global->set_bool('modules/network/changed', 0);
   }
 
 

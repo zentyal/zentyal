@@ -65,12 +65,13 @@ sub _description
       my $description =
         {
          components      => [
+                             '/network/EnableForm',
 			     'ByteRateSettings',
                              'ByteRateGraphControl',
                              'ByteRateGraph',
                             ],
          layout          => 'top-bottom',
-         printableName   => __('Byte rate'),
+         printableName   => __('Traffic rate monitoring'),
          compositeDomain => 'Network',
 	 name            => 'ByteRate',
 #         help            => __(''),

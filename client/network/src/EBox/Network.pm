@@ -37,9 +37,10 @@ use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use Error qw(:try);
+use EBox::Summary::Composite;
 use EBox::Summary::Module;
-use EBox::Summary::Value;
 use EBox::Summary::Section;
+use EBox::Summary::Value;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Sudo qw( :all );
@@ -78,6 +79,14 @@ sub modelClasses
 	  {
            class     => 'EBox::Network::Model::MultiGwRulesDataTable',
            directory => 'multigwrulestable',
+          },
+          {
+           class      => 'EBox::Common::Model::EnableForm',
+           parameters => [
+                          enableTitle  => __('Traffic rate monitor'),
+                          domain       => 'ebox-network',
+                          modelDomain  => 'Network',
+                         ],
           },
 	  'EBox::Network::Model::ByteRateSettings',
 	  'EBox::Network::Model::ByteRateGraph',
@@ -2270,6 +2279,7 @@ sub resolv # (host)
 sub summary
 {
 	my $self = shift;
+        my $composite = new EBox::Summary::Composite();
 	my $item = new EBox::Summary::Module(__("Network interfaces"));
 	my $ifaces = $self->ifacesWithRemoved;
 	my $linkstatus = {};
@@ -2318,7 +2328,13 @@ sub summary
 				(__("IP address"), $ip));
 		}
 	}
-	return $item;
+	$composite->add($item);
+        my $monSummary = EBox::Network::Report::ByteRate->summary();
+        if ( defined($monSummary) ) {
+            $composite->add($monSummary);
+        }
+
+        return $composite;
 }
 
 # Method: menu 

@@ -1,3 +1,18 @@
+# Copyright (C) 2007 Warp Networks S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 package EBox::Network::Report::ByteRate;
 #
 use strict;
@@ -19,6 +34,10 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
 
+use EBox::Summary::Module;
+use EBox::Summary::Section;
+use EBox::Summary::Value;
+
 use File::Glob qw(:glob);
 use File::Basename;
 
@@ -37,14 +56,15 @@ use constant MONITOR_PERIOD => 5;
 
 use constant CONF_FILE => '/etc/jnettop.conf';
 
-
-
 sub service
 {
   my ($class) = @_;
+
   my $network  = EBox::Global->modInstance('network');
-  my $settings = $network->model('ByteRateSettings');
-  return $settings->serviceValue();
+  my $enableForm = $network->model('EnableForm');
+  return $enableForm->enabledValue();
+#  my $settings = $network->model('ByteRateSettings');
+#  return $settings->serviceValue();
 }
 
 
@@ -63,7 +83,7 @@ sub _regenConfig
 
   $class->_writeConfFile();
 
-  my $service = $class->service;
+  my $service = $class->service();
   my $running = $class->running();
 
   if ($running) {
@@ -76,6 +96,24 @@ sub _regenConfig
 
 }
 
+# Method: summary
+#
+#     See <EBox::Module::summary> for details
+#
+sub summary
+{
+    my ($class) = @_;
+
+    if ( $class->service() ) {
+        my $item = new EBox::Summary::Module(__('Traffic rate monitoring'));
+        my $section = new EBox::Summary::Section('');
+        $section->add(new EBox::Summary::Value(__('Status'), __('Running')));
+        $item->add($section);
+        return $item;
+    } else {
+        return undef;
+    }
+}
 
 sub _ifaceToListenOn
 {
@@ -109,7 +147,7 @@ sub stopService
     EBox::Sudo::root('kill ' . $pid);
   }
   else {
-    _warnIfDebug('Cannot stop traffic rate monitor because we cannot found his PID. Are you sure is running?');
+    _warnIfDebug('Cannot stop traffic rate monitor because we cannot found its PID. Are you sure is running?');
   }
  
 

@@ -61,15 +61,15 @@ sub _table
 {
     my @tableDesc = 
         ( 
-            new EBox::Types::Boolean(
-                    fieldName => 'service',
-
-                    printableName => __('Traffic rate monitor active'),
- 
-                    editable => 1,
-
-		    defaultValue   => 0,
-                ),
+#            new EBox::Types::Boolean(
+#                    fieldName => 'service',
+#
+#                    printableName => __('Traffic rate monitor active'),
+# 
+#                    editable => 1,
+#
+#		    defaultValue   => 0,
+#                ),
             new EBox::Types::Select(
                     fieldName => 'iface',
 
