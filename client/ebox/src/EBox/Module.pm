@@ -680,6 +680,10 @@ sub menu
 #
 #       <EBox::Summary::Module> - the summary for the module
 #
+#       <EBox::Summary::Composite> - if several modules are included
+#       in the same summary it may return an instance of this class
+#       which consists of <EBox::Summary::Module> as elements
+#
 sub summary
 {
 	# default empty implementation

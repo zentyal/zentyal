@@ -3,7 +3,7 @@
 perldir = @PERLPATH@/EBox/Summary
 
 nobase_perl_DATA = Item.pm Module.pm Section.pm Value.pm Page.pm Status.pm \
-		   Error.pm
+		   Error.pm Composite.pm
 
 MAINTAINERCLEANFILES = Makefile.in
 
