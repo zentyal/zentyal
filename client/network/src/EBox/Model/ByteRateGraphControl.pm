@@ -22,7 +22,10 @@ use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
-
+use EBox::Types::Composite;
+use EBox::Types::HostIP;
+use EBox::Types::Text;
+use EBox::Types::Union::Text;
 
 sub _imageModel
 {
@@ -34,55 +37,108 @@ sub _imageModel
  
 sub _tableDesc
 {
-  my $graphTypePopulateSub_r  = sub {
-    return [
-	    {
-	     value => 'activeSrcsGraph',
-	     printableValue => __('All active sources traffic'),
-	    },
-	    {
-	     value => 'activeServicesGraph',
-	     printableValue => __('All active services traffic'),
-	    },
-	    {
-	     value => 'srcGraph',
-	     printableValue => __('Source traffic'),
-	    },
-	    {
-	     value => 'serviceGraph',
-	       printableValue => __('Service traffic'),
-	    },
-	    {
-	     value => 'srcAndServiceGraph',
-	     printableValue => __('Source and service traffic'),
-	    },
-	   ];
-  };
-  
-  my  @tableHead = (
-		    new EBox::Types::Select(
-					    printableName  => __('Graph type'),
-					    'fieldName' => 'graphType',
-					    'optional' => 0, 
-					    defaultValue    => 'activeSrcsGraph',
-					    editable => 1,
-					    populate => $graphTypePopulateSub_r,
-					   ),
-		    new EBox::Types::HostIP(
-					    printableName  => __('Source'),
-					    'fieldName' => 'source',
-					    'size' => 13,
-					    'optional' => 1, 
-					    editable => 1,
-					   ),
-		    new EBox::Types::Text(
-					  printableName  => __('Service'),
-					  'fieldName' => 'netService',
-					  'size' => 6,
-					  'optional' => 1,
-					  editable => 1,
-					 ),
-		   );
+#  my $graphTypePopulateSub_r  = sub {
+#    return [
+#	    {
+#	     value => 'activeSrcsGraph',
+#	     printableValue => __('All active sources traffic'),
+#	    },
+#	    {
+#	     value => 'activeServicesGraph',
+#	     printableValue => __('All active services traffic'),
+#	    },
+#	    {
+#	     value => 'srcGraph',
+#	     printableValue => __('Source traffic'),
+#	    },
+#	    {
+#	     value => 'serviceGraph',
+#	       printableValue => __('Service traffic'),
+#	    },
+#	    {
+#	     value => 'srcAndServiceGraph',
+#	     printableValue => __('Source and service traffic'),
+#	    },
+#	   ];
+#  };
+#  
+#  my  @tableHead = (
+#		    new EBox::Types::Select(
+#					    printableName  => __('Graph type'),
+#					    'fieldName' => 'graphType',
+#					    'optional' => 0, 
+#					    defaultValue    => 'activeSrcsGraph',
+#					    editable => 1,
+#					    populate => $graphTypePopulateSub_r,
+#					   ),
+#		    new EBox::Types::HostIP(
+#					    printableName  => __('Source'),
+#					    'fieldName' => 'source',
+#					    'size' => 13,
+#					    'optional' => 1, 
+#					    editable => 1,
+#					   ),
+#		    new EBox::Types::Text(
+#					  printableName  => __('Service'),
+#					  'fieldName' => 'netService',
+#					  'size' => 6,
+#					  'optional' => 1,
+#					  editable => 1,
+#					 ),
+#		   );
+#
+  my @tableHead
+    = (
+       new EBox::Types::Union(
+             printableName => __('Graph type'),
+             fieldName     => 'graphType',
+             editable      => 1,
+             subtypes      =>
+              [
+               new EBox::Types::Union::Text(
+                                            name => 'activeSrcsGraph',
+                                            printableName => __('All active traffic by source'),
+                                           ),
+               new EBox::Types::Union::Text(
+                                            name => 'activeServicesGraph',
+                                            printableName => __('All active traffic by service'),
+                                           ),
+               new EBox::Types::HostIP(
+                                       name => 'srcGraph',
+                                       printableName => __('Traffic by source'),
+                                       editable => 1,
+                                       size     => 13,
+                                      ),
+               new EBox::Types::Text(
+                                     name => 'serviceGraph',
+                                     printableName => __('Traffic by service'),
+                                     editable => 1,
+                                     size => 6,
+                                    ),
+               new EBox::Types::Composite(
+                      name => 'srcAndServiceGraph',
+                      printableName => __('Source and service traffic'),
+                      types =>
+                         [
+                          new EBox::Types::HostIP(
+                                                  printableName  => __('Source'),
+                                                  fieldName => 'source',
+                                                  size => 13,
+                                                  editable => 1,
+                                                 ),
+                          new EBox::Types::Text(
+                                                printableName  => __('Service'),
+                                                fieldName => 'netService',
+                                                size => 6,
+                                                editable => 1,
+                                               ),
+                         ]
+                                                ),
+              ]
+                             ),
+      );
+
+
 
   return \@tableHead;
 }
