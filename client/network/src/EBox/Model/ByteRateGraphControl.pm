@@ -96,28 +96,30 @@ sub _tableDesc
              subtypes      =>
               [
                new EBox::Types::Union::Text(
-                                            name => 'activeSrcsGraph',
+                                            fieldName => 'activeSrcsGraph',
                                             printableName => __('All active traffic by source'),
                                            ),
                new EBox::Types::Union::Text(
-                                            name => 'activeServicesGraph',
+                                            fieldName => 'activeServicesGraph',
                                             printableName => __('All active traffic by service'),
                                            ),
                new EBox::Types::HostIP(
-                                       name => 'srcGraph',
+                                       fieldName => 'srcGraph',
                                        printableName => __('Traffic by source'),
                                        editable => 1,
                                        size     => 13,
                                       ),
                new EBox::Types::Text(
-                                     name => 'serviceGraph',
+                                     fieldName => 'serviceGraph',
                                      printableName => __('Traffic by service'),
                                      editable => 1,
                                      size => 6,
                                     ),
                new EBox::Types::Composite(
-                      name => 'srcAndServiceGraph',
-                      printableName => __('Source and service traffic'),
+                      fieldName => 'srcAndServiceGraph',
+                      printableName => __('Traffic by source and service'),
+		      editable => 1,
+		      showTypeName => 0,
                       types =>
                          [
                           new EBox::Types::HostIP(

@@ -173,8 +173,4 @@ sub _controlModel
   return $network->model('ByteRateGraphControl');
 }
 
-
-
-
-
 1;
