@@ -82,9 +82,9 @@ sub modelClasses
            directory => 'multigwrulestable',
           },
           {
-           class      => 'EBox::Common::Model::EnableForm',
+           class      => 'EBox::Network::Model::ByteRateEnableForm',
            parameters => [
-                          enableTitle  => __('Traffic rate monitor'),
+                          enableTitle  => __('Activate traffic rate monitor'),
                           domain       => 'ebox-network',
                           modelDomain  => 'Network',
                          ],
