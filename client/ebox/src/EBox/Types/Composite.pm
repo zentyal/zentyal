@@ -57,7 +57,7 @@ sub new
             $opts{'HTMLViewer'} ='/ajax/viewer/composite.mas';
         }
 
-        my $self = $class->SUPER::new(@_);
+        my $self = $class->SUPER::new(%opts);
         $self->{'type'} = 'composite';
         $self->{'types'} = $opts{'types'};
         if ( not defined ( $self->{'types'} )) {
@@ -67,6 +67,25 @@ sub new
 
         bless($self, $class);
         return $self;
+}
+
+# Method: fields
+#
+# Overrides:
+#
+#      <EBox::Types::Abstract::fields>
+#
+sub fields
+{
+    my ($self) = @_;
+
+    my @fields;
+    foreach my $simpleType (@{$self->types()}) {
+        push ( @fields, $simpleType->fields() );
+    }
+
+    return @fields;
+
 }
 
 # Method: cmp
@@ -127,6 +146,27 @@ sub types
     return $self->{types};
 }
 
+# Method: showTypeName
+#
+#     Accessor to the property which determines whether to show the
+#     printable type name or not just helping the viewer/setter to
+#     make beautiful viewer
+#
+# Returns:
+#
+#     boolean - true if we want to show the type printable name, false
+#     otherwise
+#
+sub showTypeName
+{
+
+    my ($self) = @_;
+
+    return $self->{showTypeName};
+
+}
+
+
 # Protected Methods
 
 # Method: _setMemValue
@@ -140,10 +180,7 @@ sub _setMemValue
 
     my ($self, $params) = @_;
 
-    foreach my $type ( @{$self->types()} ) {
-        $type->_setMemValue($params);
-    }
-
+    $self->_callTypeMethod('_setMemValue', $params);
 }
 
 # Method: _restoreFromHash
@@ -157,10 +194,7 @@ sub _restoreFromHash
 
     my ($self, $hash) = @_;
 
-    foreach my $type ( @{$self->types()} ) {
-        $type->_restoreFromHash($hash);
-    }
-
+    $self->_callTypeMethod('_restoreFromHash', $hash);
 }
 
 # Method: _storeInGConf
@@ -173,9 +207,7 @@ sub _storeInGConf
 {
     my ($self, $gconfmod, $key) = @_;
 
-    foreach my $type ( @{$self->types()} ) {
-        $type->_storedInGConf($gconfmod, $key);
-    }
+    $self->_callTypeMethod('_storeInGConf', $gconfmod, $key);
 
 }
 
@@ -190,9 +222,7 @@ sub _paramIsValid
 
     my ($self, $params) = @_;
 
-    foreach my $type ( @{$self->types()} ) {
-        $type->_paramIsValid($params);
-    }
+    $self->_callTypeMethod('_paramIsValid', $params);
 
     return 1;
 
@@ -246,6 +276,22 @@ sub _setValue
         my $simpleType = $simpleTypes[$idx];
         $simpleType->_setValue($simpleValue);
     }
+}
+
+# Group: Private methods
+
+# Call given method to every type which lives inside the Composite
+# type
+sub _callTypeMethod # (methodName, args)
+{
+    my ($self, $methodName, @args) = @_;
+
+    foreach my $simpleType ( @{$self->types()} ) {
+        $simpleType->$methodName(@args);
+    }
+
+    return;
+
 }
 
 1;
