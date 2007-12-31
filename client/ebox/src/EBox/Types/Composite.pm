@@ -88,6 +88,29 @@ sub fields
 
 }
 
+# Method: value
+#
+# Overrides:
+#
+#      <EBox::Types::Abstract::value>
+#
+# Returns:
+#
+#      hash ref - containing each value for each simple type indexed
+#      by the field name
+#
+sub value
+{
+    my ($self) = @_;
+
+    my %values;
+    foreach my $simpleType (@{$self->types()}) {
+      $values{$simpleType->fieldName()} = $simpleType->value();
+    }
+    return \%values;
+
+}
+
 # Method: cmp
 #
 # Overrides:
