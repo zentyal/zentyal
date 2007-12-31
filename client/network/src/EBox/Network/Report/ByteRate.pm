@@ -625,6 +625,8 @@ sub graph
 #
 #      src - String the source IP address
 #
+#      - Named parameters
+#
 sub srcGraph
 {
   my (%params) = @_;
@@ -668,6 +670,17 @@ sub srcGraph
        );
 }
 
+# Method: serviceGraph
+#
+#      Given a service, it will ask to rrdtools to create a graph with
+#      that service
+#
+# Parameters:
+#
+#      service - String the service name
+#
+#      - Named parameters
+#
 sub serviceGraph
 {
   my (%params) = @_;
@@ -680,10 +693,9 @@ sub serviceGraph
   my $rrd = serviceRRD($service);
   if (not -f $rrd) {
     throw EBox::Exceptions::DataNotFound( 
-				     data => __( 'Traffic data not found for service',
-				     value => $service,
-					 )
-				    );
+           data => __( 'Traffic data not found for service'),
+	   value => $service,
+	);
   }
 
   my $dataset = [
@@ -719,8 +731,8 @@ sub srcAndServiceGraph
   my $srcRRD = srcRRD($src);
   if (not -f $srcRRD) {
     throw EBox::Exceptions::DataNotFound( 
-					 data => __('Traffic data for source'),
-					 src => $printableSrc,
+					 data  => __('Traffic data for source'),
+					 value => $printableSrc,
 				    );
   }
 

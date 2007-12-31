@@ -13,6 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+# Class: EBox::Network::Model::ByteRateGraphControl
+#
+#   This class is intended to handle the control settings related to
+#   the ByteRateGraph model to change its displayed values
+#
+
 package EBox::Network::Model::ByteRateGraphControl;
 use base 'EBox::Model::ImageControl';
 #
@@ -27,6 +33,21 @@ use EBox::Types::HostIP;
 use EBox::Types::Text;
 use EBox::Types::Union::Text;
 
+# Group: Public methods
+
+# Method: printableName
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::printableName>
+#
+sub printableName
+{
+  return  __('Select traffic graphic');
+}
+
+# Group: Protected methods
+
 sub _imageModel
 {
   my ($self) = @_;
@@ -37,56 +58,6 @@ sub _imageModel
  
 sub _tableDesc
 {
-#  my $graphTypePopulateSub_r  = sub {
-#    return [
-#	    {
-#	     value => 'activeSrcsGraph',
-#	     printableValue => __('All active sources traffic'),
-#	    },
-#	    {
-#	     value => 'activeServicesGraph',
-#	     printableValue => __('All active services traffic'),
-#	    },
-#	    {
-#	     value => 'srcGraph',
-#	     printableValue => __('Source traffic'),
-#	    },
-#	    {
-#	     value => 'serviceGraph',
-#	       printableValue => __('Service traffic'),
-#	    },
-#	    {
-#	     value => 'srcAndServiceGraph',
-#	     printableValue => __('Source and service traffic'),
-#	    },
-#	   ];
-#  };
-#  
-#  my  @tableHead = (
-#		    new EBox::Types::Select(
-#					    printableName  => __('Graph type'),
-#					    'fieldName' => 'graphType',
-#					    'optional' => 0, 
-#					    defaultValue    => 'activeSrcsGraph',
-#					    editable => 1,
-#					    populate => $graphTypePopulateSub_r,
-#					   ),
-#		    new EBox::Types::HostIP(
-#					    printableName  => __('Source'),
-#					    'fieldName' => 'source',
-#					    'size' => 13,
-#					    'optional' => 1, 
-#					    editable => 1,
-#					   ),
-#		    new EBox::Types::Text(
-#					  printableName  => __('Service'),
-#					  'fieldName' => 'netService',
-#					  'size' => 6,
-#					  'optional' => 1,
-#					  editable => 1,
-#					 ),
-#		   );
-#
   my @tableHead
     = (
        new EBox::Types::Union(
@@ -144,73 +115,6 @@ sub _tableDesc
 
   return \@tableHead;
 }
-
-
-sub printableName
-{
-  return  __('Select traffic graphic');
-}
-
-
-
-my %paramsByGraphType = (
-			 activeSrcsGraph =>  {} ,
-			 activeServicesGraph  =>  {},
-			 srcGraph  => { source => 1 },
-			 serviceGraph => { netService => 1 },
-			 srcAndServiceGraph => { source => 1, netService => 1 },
-
-			);
-
-sub validateTypedRow
-{
-  my ($self, $action,  $changedFields, $allFields) = @_;
-
-  exists $allFields->{'graphType'}  or throw EBox::Exceptions::MissingArgument('graphType');
-  my $graphType = $allFields->{'graphType'}->value();
-
-  exists $paramsByGraphType{$graphType} or
-    throw EBox::Exceptions::External(
-            __x('Unknown graph type {t}', t => $graphType)
-				    );
-
-  my %paramsSpec =  %{ $paramsByGraphType{$graphType} };
-
-  while (my ($name, $object) = each %{ $allFields }) {
-    next if ($name eq 'graphType');
-
-    my $empty;
-    my $value =   $object->value();
-    if ($value) {
-      $empty = ($value =~ m/^\s*$/);
-    }
-    else {
-      $empty = 1;
-    }
-
-    if (not exists $paramsSpec{$name}) {
-      next if $empty;
-      throw EBox::Exceptions::External(
-	  __x('The parameter {p} is not needed for this graphic type',
-              p => $object->printableName())
-				      );
-    }
-    else {
-      if ($empty) {
-	throw EBox::Exceptions::MissingArgument($name);
-      }
-    }
-
-    delete $paramsSpec{$name};
-  }
-
-  my ($missingParameter) = keys %paramsSpec;
-  if ($missingParameter) {
-    throw EBox::Exceptions::MissingArgument($missingParameter);
-  }
-
-}
-
 
 sub _setTypedRow
 {
