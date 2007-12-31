@@ -75,6 +75,21 @@ sub HTMLSetter
 
   }
 
+# Method: value
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::value>
+#
+sub value
+{
+    my ($self) = @_;
+
+    return $self->{'value'} if defined($self->{'value'});
+    return $self->fieldName();
+}
+
+
 # Protected Methods
 
 # Method: _setMemValue
@@ -88,7 +103,7 @@ sub _setMemValue
 
       my ($self, $params) = @_;
 
-      $self->{'value'} = $self->printableName();
+      $self->{'value'} = $self->fieldName();
 
   }
 
@@ -103,7 +118,7 @@ sub _restoreFromHash
 
       my ($self, $hash) = @_;
 
-      $self->{'value'} = $self->printableName();
+      $self->{'value'} = $self->fieldName();
 
   }
 
@@ -147,5 +162,19 @@ sub _paramIsSet
       return 1;
 
   }
+
+# Method: _setValue
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::_setValue>
+#
+sub _setValue
+{
+    my ($self) = @_;
+
+    $self->_setMemValue();
+
+}
 
 1;
