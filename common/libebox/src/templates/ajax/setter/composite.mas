@@ -7,10 +7,20 @@ $tableName
 $data
 $cssClass => ''
 </%args>
-% foreach my $type (@{$data->types()}) {
-<& $type->HTMLSetter(),
-   data => $type,
-   tableName => $tableName,
-   cssClass  => $cssClass
-&>
+<%init>
+my $id = $tableName . '_' . $data->fieldName();
+</%init>
+<span id="<% $id %>" class="<% $cssClass %>">
+% foreach my $simpleType (@{$data->types()}) {
+%    if ( $data->showTypeName() ) {
+  <span>
+    <% $simpleType->printableName() %>:
+  </span>
+%    }
+  <& $simpleType->HTMLSetter(),
+     data => $simpleType,
+     tableName => $tableName,
+     cssClass  => $cssClass
+  &>
 % }
+</span>

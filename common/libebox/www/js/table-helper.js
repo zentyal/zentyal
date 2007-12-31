@@ -372,11 +372,20 @@ function showSelected (selectId, nodeId, tableName)
       var node = $(nodeId).childNodes[idx];
       // I'd like to use constant but in IE 6 simply they don't exist
       if ( node.nodeType == 1 /* Node.ELEMENT_NODE */ ) {
+	var descendants = $(node).descendants();
 	if ( node.id == selectedValue ) {
 	  show( node.id );
+	  // Show not only the selected by its children
+	  descendants.each(function(desc) {
+		  show(desc.id);
+	      });
 	} 
 	else {
+	  // Hide not only the selected by its children
 	  hide( node.id );
+	  descendants.each(function(desc) {
+		  hide(desc.id);
+	      });
 	}
       }
     }

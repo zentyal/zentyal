@@ -6,6 +6,9 @@
 $data
 </%args>
 % foreach my $simpleType (@{$data->types()}) {
+<span>
+  <% $simpleType->printableName() %>:
+</span>
 <& $simpleType->HTMLViewer(),
    data => $data
 &>
