@@ -18,17 +18,11 @@
   use EBox::CGI::Temp;
 
 </%init>
-
-
-
 <& SELF:view,
    model => $model,
    hasChanged => $hasChanged,
    action => $action,
 &>
-
-
-
 <%doc>
 % # Anyway you should call the change menu sub-component to check if
 % # any change has been done
@@ -51,13 +45,7 @@ my %childArgs = $m->caller_args($stackDeep);
 
 my $action = exists $childArgs{action} ? $childArgs{action} : 'view';
 my $reloadAction = $action eq 'changeList';
-
-my $msg = exists $childArgs{action} ? 'EXISTE' : 'NOEXISTE';
 </%init>
-
-
-
-
 % if (not $reloadAction) {
 <& SELF:refreshJS, model => $model, hiddenPrefix => $hiddenPrefix &>
 
@@ -71,12 +59,13 @@ my $msg = exists $childArgs{action} ? 'EXISTE' : 'NOEXISTE';
 
 % }
 
-
-
 <& SELF:hiddenImg, model => $model, prefix => $hiddenPrefix, activePrefix =>
 $activePrefix, reloadAction => $reloadAction &>
 
-
+% if ( exists $model->image()->{url} ) {
+% # Set the height depending on the images' height
+<img src="/data/images/bkgwhite.png" height="200px"/>
+% }
 </%method>
 
 
@@ -110,7 +99,7 @@ $activePrefix, reloadAction => $reloadAction &>
   my $activeImgId = $activePrefix . 'Img';
   my $activeDivId = $activePrefix . 'Div';
 
-  my $img_r = $model->image;
+  my $img_r = $model->image();
 
   my $onLoadCall = qq{switchImg("$prefix", "$activePrefix")};
 </%init>
@@ -118,9 +107,9 @@ $activePrefix, reloadAction => $reloadAction &>
 %# <div class='hidden' id='<% $divId %>' >
 <div  id='<% $divId %>' >
 % }
-<& SELF:.img, 
-             imgId => $imgId, 
-             img_r => $img_r, 
+<& SELF:.img,
+             imgId => $imgId,
+             img_r => $img_r,
              onLoad => $onLoadCall,
 	     showError => 0,
 &>
@@ -154,10 +143,10 @@ if (exists $img_r->{url} ) {
 </%init>
 % if (exists $img_r->{url} ) {
 <img <& /htmlAttributes.mas,  @imgAttrs &> />
-% } 
+% }
 % elsif ($showError) {  # no image to display, showing the text message
 <p><strong><% $img_r->{error} %></strong></p>
-% } 
+% }
 
 </%method>
 
