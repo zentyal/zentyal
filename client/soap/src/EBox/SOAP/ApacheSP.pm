@@ -27,9 +27,13 @@ use SOAP::Transport::HTTP;
 
 use strict;
 use vars qw(@ISA);
-use Data::Dumper;
+
 use EBox::Config;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::Lock;
+
+use Data::Dumper;
+use Fcntl qw(:flock);
 
 my $server = SOAP::Transport::HTTP::Apache
   -> objects_by_reference(qw(EBox::SOAP::Global))
@@ -55,7 +59,14 @@ sub _saveSession
       or EBox::Exceptions::Internal('Could not open ' .
 				    EBox::Config->soapSession());
 
+    # Lock the file in exclusive mode
+    flock($sessionFile, LOCK_EX)
+      or throw EBox::Exceptions::Lock('EBox::SOAP::ApacheSP');
+
     print $sessionFile time() . $/;
+
+    # Release the lock and close the file
+    flock($sessionFile, LOCK_UN);
     close($sessionFile);
 
   }

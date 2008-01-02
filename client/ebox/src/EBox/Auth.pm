@@ -21,14 +21,17 @@ use warnings;
 
 use base qw(Apache::AuthCookie);
 
-use Apache;
-use Digest::MD5;
 use EBox;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::Lock;
 use EBox::LogAdmin;
+
+use Apache;
+use Digest::MD5;
+use Fcntl qw(:flock);
 
 # By now, the expiration time for session is hardcoded here
 use constant EXPIRE => 3600; #In seconds  1h
@@ -58,7 +61,12 @@ sub _savesession # (session_id)
          		      "Could not open to write ".
 	                      EBox::Config->sessionid);
       	}
+        # Lock the file in exclusive mode
+        flock($sidFile, LOCK_EX)
+          or throw EBox::Exceptions::Lock('EBox::Auth');
 	print $sidFile $sid . "\t" . time if defined $sid;
+        # Release the lock
+        flock($sidFile, LOCK_UN);
 	close($sidFile);
 }
 
@@ -248,13 +256,21 @@ sub _currentSessionId
     }
     unless   (open ($SID_F,  EBox::Config->sessionid)){
 	throw EBox::Exceptions::Internal(
-					 "Could not open ". 
+					 "Could not open ".
 					 EBox::Config->sessionid);
     }
+
+    # Lock in shared mode for reading
+    flock($SID_F, LOCK_SH)
+      or throw EBox::Exceptions::Lock('EBox::Auth');
 
     $_ = <$SID_F>;
     my ($sid, $lastime);
     ($sid, $lastime) = split /\t/ if defined $_;
+
+    # Release the lock
+    flock($SID_F, LOCK_UN);
+    close($SID_F);
 
     if (wantarray()) {
 	return ($sid, $lastime) ;
@@ -299,9 +315,18 @@ sub _activeSOAPSession
     open( $soapSessionFile, '<', EBox::Config->soapSession() ) or
       throw EBox::Exceptions::Internal('Could not open ' .
 				       EBox::Config->soapSession());
+
+    # Lock in exclusive mode
+    flock($soapSessionFile, LOCK_EX)
+      or throw EBox::Exceptions::Lock($self);
+
     # The file structure is the following:
     # TIMESTAMP
     my ($timeStamp) = <$soapSessionFile>;
+
+    # Release the lock and close the file
+    flock($soapSessionFile, LOCK_UN);
+    close($soapSessionFile);
 
     # time() return the # of seconds since an epoch (1 Jan 1970
     # typically)
