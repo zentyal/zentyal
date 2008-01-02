@@ -56,6 +56,15 @@ use constant MONITOR_PERIOD => 5;
 
 use constant CONF_FILE => '/etc/jnettop.conf';
 
+# Method: service
+#
+#       Check if the traffic monitoring is enabled or not
+#
+# Returns:
+#
+#       boolean - true if the traffic monitoring is enabled, false
+#       otherwise
+#
 sub service
 {
   my ($class) = @_;
@@ -63,12 +72,17 @@ sub service
   my $network  = EBox::Global->modInstance('network');
   my $enableForm = $network->model('EnableForm');
   return $enableForm->enabledValue();
-#  my $settings = $network->model('ByteRateSettings');
-#  return $settings->serviceValue();
 }
 
-
-
+# Method: running
+#
+#       Check whether the traffic monitoring daemon is running or not
+#
+# Returns:
+#
+#       boolean - true if the traffic monitoring daemon is running,
+#       false otherwise
+#
 sub running
 {
   my ($class) = @_;
@@ -77,6 +91,11 @@ sub running
   return ($? == 0);
 }
 
+# Method: _regenConfig
+#
+#       Regenerate the configuration file for the traffic
+#       monitoring daemon and start/stop the service itself
+#
 sub _regenConfig
 {
   my ($class) = @_;
@@ -89,7 +108,7 @@ sub _regenConfig
   if ($running) {
     $class->stopService();
   }
-  
+
   if ( $service) {
     $class->startService();
   }
@@ -122,7 +141,10 @@ sub _ifaceToListenOn
   return $settings->ifaceValue();
 }
 
-
+# Method: startService
+#
+#     Start the traffic rate monitoring service
+#
 sub startService
 {
   my ($class) = @_;
@@ -138,6 +160,10 @@ sub startService
   EBox::Sudo::root($cmd);
 }
 
+# Method: stopService
+#
+#     Stop the traffic rate monitoring service
+#
 sub stopService
 {
   my ($class) = @_;
@@ -149,7 +175,6 @@ sub stopService
   else {
     _warnIfDebug('Cannot stop traffic rate monitor because we cannot found its PID. Are you sure is running?');
   }
- 
 
 }
 
@@ -248,7 +273,7 @@ sub flushBps
 }
 
 
-sub  _service
+sub _service
 {
   my ($proto, $dport, $sport) = @_;
   my $service;
@@ -796,6 +821,10 @@ sub activeServicesGraph
     # extract service name
     $service =~ m/service-(.*)\.rrd/;
     my $legend = $1;
+    # Change tcp100 for tcp/100
+    if ( $legend =~ m:\D\d: ) {
+        $legend =~ s:(\D)(\d):\1/\2:;
+    }
     my $ds = {
 	      rrd     => $service,
 	      legend => $legend,
@@ -833,7 +862,7 @@ sub activeSrcsGraph
       foreach my $src (@srcs) {
 	# extract src name
 	$src =~ m/src-(.*)\.rrd/;
-	my $legend = unescapeAddress($1); 
+	my $legend = unescapeAddress($1);
 	my $ds = {
 		  rrd     => $src,
 		  legend => $legend,
@@ -861,7 +890,7 @@ sub _srcDatasetElement
   my ($src, $rrd) = @_;
   my $printableSrc = unescapeAddress($src);
 
-  my $legend = __x("Traffic rate from {src}", src => $printableSrc);
+  my $legend = __x("Total traffic rate from {src}", src => $printableSrc);
 
   my $ds = {
 	  rrd => $rrd,
@@ -876,7 +905,7 @@ sub _serviceDatasetElement
 {
   my ($service, $rrd) = @_;
 
-  my $legend = __x("Traffic rate for {service}", service => $service);
+  my $legend = __x("Total traffic rate for {service}", service => $service);
 
   my $ds = {
 	  rrd => $rrd,
@@ -895,6 +924,10 @@ sub _srcAndServiceDatasetElement
   my $legend;
   if ( $isSrcGraph ) {
       $legend = $service;
+      # Change tcp100 for tcp/100
+      if ( $legend =~ m:\D\d: ) {
+          $legend =~ s:(\D)(\d):\1/\2:;
+      }
   } else {
       $legend = __x("Traffic rate from {src} for {service}", 
                     src     => $printableSrc,

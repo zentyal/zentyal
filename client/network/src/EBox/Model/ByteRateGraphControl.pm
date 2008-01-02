@@ -76,13 +76,13 @@ sub _tableDesc
                                            ),
                new EBox::Types::HostIP(
                                        fieldName => 'srcGraph',
-                                       printableName => __('Traffic by source'),
+                                       printableName => __('Traffic by selected source'),
                                        editable => 1,
                                        size     => 13,
                                       ),
                new EBox::Types::Text(
                                      fieldName => 'serviceGraph',
-                                     printableName => __('Traffic by service'),
+                                     printableName => __('Traffic by selected service'),
                                      editable => 1,
                                      size => 6,
                                     ),
