@@ -64,8 +64,8 @@ function switchImg(hiddenPrefix, activePrefix)
      if ( imgElements.length == 2 ) {
        oldHiddenDiv.parentNode.appendChild(backgroundImg);
      } else {
-       oldHiddenDiv.parentNode.replaceChild(imgElements[2],
-                                            backgroundImg);
+       oldHiddenDiv.parentNode.replaceChild(backgroundImg,
+                                            imgElements[2]);
      }                                           
 
 }
