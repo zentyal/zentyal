@@ -55,7 +55,7 @@ sub _saveSession
   {
 
     my $sessionFile;
-    open ($sessionFile, '>', EBox::Config->soapSession() )
+    open ($sessionFile, '+<', EBox::Config->soapSession() )
       or EBox::Exceptions::Internal('Could not open ' .
 				    EBox::Config->soapSession());
 
@@ -63,6 +63,8 @@ sub _saveSession
     flock($sessionFile, LOCK_EX)
       or throw EBox::Exceptions::Lock('EBox::SOAP::ApacheSP');
 
+    # Trunacte the file before writing
+    truncate( $sessionFile, 0);
     print $sessionFile time() . $/;
 
     # Release the lock and close the file

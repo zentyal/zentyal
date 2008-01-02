@@ -56,7 +56,7 @@ sub _savesession # (session_id)
 {
 	my $sid = shift;
 	my $sidFile;
-	unless  ( open ( $sidFile, '>', EBox::Config->sessionid )){
+	unless  ( open ( $sidFile, '+<', EBox::Config->sessionid )){
                 throw EBox::Exceptions::Internal(
          		      "Could not open to write ".
 	                      EBox::Config->sessionid);
@@ -64,6 +64,8 @@ sub _savesession # (session_id)
         # Lock the file in exclusive mode
         flock($sidFile, LOCK_EX)
           or throw EBox::Exceptions::Lock('EBox::Auth');
+        # Truncate the file after locking
+        truncate($sidFile, 0);
 	print $sidFile $sid . "\t" . time if defined $sid;
         # Release the lock
         flock($sidFile, LOCK_UN);
@@ -246,7 +248,7 @@ sub _currentSessionId
     my $SID_F; # sid file handle
 
     unless( -e EBox::Config->sessionid){
-	unless  (open ($SID_F,  "> ". EBox::Config->sessionid)){
+	unless  (open ($SID_F,  ">". EBox::Config->sessionid)){
 	    throw EBox::Exceptions::Internal(
 					     "Could not create  ". 
 					     EBox::Config->sessionid);
@@ -316,8 +318,8 @@ sub _activeSOAPSession
       throw EBox::Exceptions::Internal('Could not open ' .
 				       EBox::Config->soapSession());
 
-    # Lock in exclusive mode
-    flock($soapSessionFile, LOCK_EX)
+    # Lock in shared mode
+    flock($soapSessionFile, LOCK_SH)
       or throw EBox::Exceptions::Lock($self);
 
     # The file structure is the following:
