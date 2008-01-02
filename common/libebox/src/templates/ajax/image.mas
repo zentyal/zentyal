@@ -36,7 +36,7 @@
   $model
 </%args>
 <%init>
-my $modelName = $model->name;
+my $modelName = $model->name();
 my $activePrefix = $modelName . 'Active';
 my $hiddenPrefix =  $modelName . 'Hidden';
 
@@ -49,23 +49,20 @@ my $reloadAction = $action eq 'changeList';
 % if (not $reloadAction) {
 <& SELF:refreshJS, model => $model, hiddenPrefix => $hiddenPrefix &>
 
-% if ( $model->printableName() ) {
+%    if ( $model->printableName() ) {
 <& PARENT:title,
    title => $model->printableName()
 &>
-% }
+%    }
 
 <& SELF:activeImg, model => $model, prefix => $activePrefix &>
 
 % }
 
-<& SELF:hiddenImg, model => $model, prefix => $hiddenPrefix, activePrefix =>
-$activePrefix, reloadAction => $reloadAction &>
+<& SELF:hiddenImg, model => $model, prefix => $hiddenPrefix,
+  activePrefix => $activePrefix, reloadAction => $reloadAction
+&>
 
-% if ( exists $model->image()->{url} ) {
-% # Set the height depending on the images' height
-<img src="/data/images/bkgwhite.png" height="200px"/>
-% }
 </%method>
 
 
@@ -104,7 +101,6 @@ $activePrefix, reloadAction => $reloadAction &>
   my $onLoadCall = qq{switchImg("$prefix", "$activePrefix")};
 </%init>
 % if (not $reloadAction) {
-%# <div class='hidden' id='<% $divId %>' >
 <div  id='<% $divId %>' >
 % }
 <& SELF:.img,
@@ -116,10 +112,8 @@ $activePrefix, reloadAction => $reloadAction &>
 
 % if (not $reloadAction) {
 </div>
-%} 
+%}
 </%method>
-
-
 
 <%method .img>
 <%args>
@@ -132,8 +126,8 @@ $showError => 1
 my @imgAttrs;
 if (exists $img_r->{url} ) {
   @imgAttrs = (
-	 src => $img_r->{url}, 
-	 alt => $img_r->{alt}, 
+	 src => $img_r->{url},
+	 alt => $img_r->{alt},
          id  => $imgId ,
   );
  if (defined $onLoad) {
@@ -145,7 +139,7 @@ if (exists $img_r->{url} ) {
 <img <& /htmlAttributes.mas,  @imgAttrs &> />
 % }
 % elsif ($showError) {  # no image to display, showing the text message
-<p><strong><% $img_r->{error} %></strong></p>
+<p id="<% $imgId %>"><strong><% $img_r->{error} %></strong></p>
 % }
 
 </%method>
@@ -189,64 +183,8 @@ var <% $pe %>;
 
 <& PARENT:headerScriptSection &>
 
-<script type="text/javascript">
-
-function reloadGraph(url, target, tableName, directory, action)
-{
-
-
-	var pars = 'action=' + action + '&tablename=' + target + '&directory=' + directory; //+ '&editid=' + id;
-
-        cleanError(tableName);
-	
-	var MyAjax = new Ajax.Updater(
-		{
-			success: target,
-			failure: target,
-		},
-		url,
-		{
-			method: 'post',
-			parameters: pars,
-			asyncrhonous: false,
-			evalScripts: true,
-			onComplete: function(t) { 
-			  stripe('dataTable', '#ecf5da', '#ffffff');
-
-			},
-		});
-
-}
-
-function switchImg(hiddenPrefix, activePrefix)
-{
-     var hiddenImgId = hiddenPrefix + 'Img';
-     var hiddenDivId = hiddenPrefix + 'Div';
-     var activeImgId = activePrefix + 'Img';
-     var activeDivId = activePrefix + 'Div';
-
-     var oldHiddenImg = document.getElementById(hiddenImgId);
-     var oldHiddenDiv = document.getElementById(hiddenDivId);
-     var oldActiveImg = document.getElementById(activeImgId);
-     var oldActiveDiv = document.getElementById(activeDivId);
-
-     oldHiddenImg.id = activeImgId;
-     oldHiddenDiv.id = activeDivId;   
-     oldActiveImg.id = hiddenImgId;
-     oldActiveDiv.id = hiddenDivId;   
-
-     var divTop = oldActiveDiv.style.top;
-     var imgTop = oldActiveDiv.style.top;
-
-     Element.setStyle( oldActiveDiv, {   position: 'absolute', display: 'none'});
-     Element.setStyle( oldHiddenDiv, {   position: 'absolute', display : 'block' });
-     Element.setStyle( oldActiveImg, {   position: 'absolute', display: 'none'});
-     Element.setStyle( oldHiddenImg, {   position: 'absolute', display: 'block' });
-
-     hiddenImgOnload = oldHiddenDiv.onload;
-     oldHiddenDiv.onload = '';
-     oldActiveDiv = hiddenImgOnload;
-}
+<script type="text/javascript" src="/data/js/image-helper.js">
+//
 </script>
 
 </%method>
