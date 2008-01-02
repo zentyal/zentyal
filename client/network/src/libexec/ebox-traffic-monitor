@@ -1,11 +1,27 @@
 #!/usr/bin/perl
 
+# Copyright (C) 2007 Warp Networks S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
 use EBox::Config;
 use EBox::AbstractDaemon;
 use POSIX qw(setsid);
+use Proc::ProcessTable;
 
 use constant {
   JNETTOP_PATH => '/usr/sbin/jnettop',
@@ -84,17 +100,38 @@ sub _jnettopCmd
 
 sub _daemonize
 {
-  my $daemon = EBox::AbstractDaemon->new(name => DAEMON_NAME);
+    my $daemon = EBox::AbstractDaemon->new(name => DAEMON_NAME);
 
-  if ($daemon->pid) {
-    die 'already running';
-  }
+    if ($daemon->pid()) {
+        # Check if the process is really running
+        if ( _isRunning($daemon->pid()) ) {
+            die 'already running';
+        } else {
+            # remove pid file
+            my $pidFile = EBox::AbstractDaemon->pidFile(DAEMON_NAME);
+            system "rm -f $pidFile";
+        }
+    }
 
-  $daemon->init();
+    $daemon->init();
 
- $SIG{TERM} = $SIG{HUP} = $SIG{INT} = \&terminate;
+    $SIG{TERM} = $SIG{HUP} = $SIG{INT} = \&terminate;
 }
 
+# Check if the ebox-traffic-monitor is already running
+sub _isRunning # (pid)
+{
+    my ($pid) = @_;
+
+    my $t = new Proc::ProcessTable();
+    foreach my $proc (@{$t->table()}) {
+        if ( $pid == $proc->pid() ) {
+            return 1;
+        }
+    }
+    return 0;
+
+}
 
 sub terminate
 {
