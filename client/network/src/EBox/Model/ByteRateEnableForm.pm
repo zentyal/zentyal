@@ -68,7 +68,8 @@ sub formSubmitted
     EBox::Network::Report::ByteRate->_regenConfig();
 
     if ( $self->enabledValue() ) {
-        $self->setMessage(__('Starting traffic rate monitoring'));
+        $self->setMessage(__('Starting traffic rate monitoring. '
+                             . 'Wait patiently until the graph appears'));
     } else {
         $self->setMessage(__('Stopping traffic rate monitoring'));
     }

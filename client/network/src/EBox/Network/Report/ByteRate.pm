@@ -56,6 +56,12 @@ use constant MONITOR_PERIOD => 5;
 
 use constant CONF_FILE => '/etc/jnettop.conf';
 
+# Graph constants
+use constant {
+    GRAPH_HEIGHT => 135,
+    GRAPH_WIDTH  => 540,
+};
+
 # Method: service
 #
 #       Check if the traffic monitoring is enabled or not
@@ -626,11 +632,13 @@ sub graph
 
 
   RRDs::graph(
-	      $file,  
+	      $file,
 	      "-s $startTime",
 	      "-S $step",
 	      "-t $title",
 	      "-v $verticalLabel",
+              '-w ' . GRAPH_WIDTH,
+              '-h ' . GRAPH_HEIGHT,
 	      @defs,
 	      @lines,
 	     );
