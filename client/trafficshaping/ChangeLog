@@ -4,6 +4,7 @@
 	+ Exposing API from models
 	+ Removing old code to decrease the module complexity and LOC by
 	more than 500 lines
+	+ Traffic shaping rules may be enabled/disabled by user 
 0.11
 	+ Difference easily internal/external interfaces through GUI
 	+ Normalizing guaranteed rates from two or more rules now works

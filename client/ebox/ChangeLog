@@ -1,4 +1,7 @@
 0.11.99
+	+ DataTable contains the property 'enableProperty' to set a column
+	called 'enabled' to enable/disable rows from the user point of
+	view. The 'enabled' column is put the first
 	+ Added state to the RAID report instead of simpler active boolean
         + Fix bug when installing new event components and event GConf
 	subtree has not changed

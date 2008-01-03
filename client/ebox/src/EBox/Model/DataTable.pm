@@ -3928,7 +3928,7 @@ sub _setEnabledAsFieldInTable
                                                printableName => __('Enabled'),
                                                editable      => 1,
                                                defaultValue  => $self->defaultEnabledValue());
-    push (@{$tableDesc}, $enabledType);
+    unshift (@{$tableDesc}, $enabledType);
 
 }
 
