@@ -213,7 +213,8 @@ void listEBoxPkgs() {
 		std::string available;
 		std::string description;
 
-		if(!strncmp(P.Name(),"ebox",4)) {
+		if((!strncmp(P.Name(),"ebox",4))
+                   || (!strncmp(P.Name(),"libebox",7))) {
 			name = P.Name();
 
 			Log << " Processing " << name << std::endl;
@@ -301,7 +302,10 @@ void listUpgradablePkgs() {
 	std::cout << "my $result = [" << std::endl;
 
 	for (pkgCache::PkgIterator P = Cache->PkgBegin(); P.end() == false; P++){
-		if((!strncmp(P.Name(),"ebox",4)) || (!strncmp(P.Name(),"kernel-image",12)) || (!strncmp(P.Name(),"linux-image",11))) {
+		if((!strncmp(P.Name(),"ebox",4))
+                    || (!strncmp(P.Name(),"kernel-image",12))
+                    || (!strncmp(P.Name(),"linux-image",11))
+                    || (!strncmp(P.Name(),"libebox",7))) {
 			continue;
 		}
 		if(P->SelectedState != pkgCache::State::Install) {

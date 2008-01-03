@@ -1,3 +1,9 @@
+esofttool (0.4) unstable; urgency=low
+
+  * Setting libebox package as eBox package and not as system package
+
+ -- Enrique José Hernández Blasco <quique@warp.es>  Thu,  3 Jan 2008 14:38:07 +0100
+
 esofttool (0.3) unstable; urgency=low
 
   * Skip rc packages which are not available
