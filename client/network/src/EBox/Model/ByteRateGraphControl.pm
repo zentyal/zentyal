@@ -43,7 +43,21 @@ use EBox::Types::Union::Text;
 #
 sub printableName
 {
-  return  __('Select traffic graphic');
+    return  __('Select traffic graphic');
+}
+
+# Method: help
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::help>
+#
+sub help
+{
+    return __('Several views are showed depending on the parameter selection. '
+              . 'An host IP address and a service, which must match the text '
+              . 'given by the graphs legend based on /etc/services, may be '
+              . 'required by the graph type. The flow view will change accordingly');
 }
 
 # Group: Protected methods

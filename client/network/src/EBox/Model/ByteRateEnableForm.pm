@@ -76,4 +76,17 @@ sub formSubmitted
 
 }
 
+# Method: help
+#
+# Overrides:
+#
+#     <EBox::Model::DataForm::help>
+#
+sub help
+{
+    return __('The traffic rate monitor is start/stop on demand without '
+              . 'requiring to save changes first');
+}
+
+
 1;

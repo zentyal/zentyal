@@ -15,17 +15,15 @@
 
 # Class:
 #
-#   EBox::Network::model::ByteRateSetting
+#   EBox::Network::Model::ByteRateSettings
 #
-#   This class is used as a model to describe a table which will be
-#   used to select the logs domains the user wants to enable/disable.
+#   This class is used to manage the traffic rate monitoring general settings
 #
 #   It subclasses <EBox::Model::DataTable>
 #
-#  
-# 
 
 package EBox::Network::Model::ByteRateSettings;
+
 use base 'EBox::Model::DataForm';
 
 use strict;
@@ -34,18 +32,12 @@ use warnings;
 # eBox classes
 use EBox::Global;
 use EBox::Gettext;
-use EBox::Validate qw(:all);
-use EBox::Types::Text;
+use EBox::Network::Report::ByteRate;
 use EBox::Types::Select;
 
-use EBox::Sudo;
+# Group: Public methods
 
-# eBox exceptions used 
-use EBox::Exceptions::External;
-
-use Perl6::Junction qw(all);
-
-sub new 
+sub new
 {
     my $class = shift @_ ;
 
@@ -55,32 +47,41 @@ sub new
     return $self;
 }
 
+# Method: formSubmitted
+#
+# Overrides:
+#
+#        <EBox::Model::DataForm::formSubmitted>
+#
+sub formSubmitted
+{
 
+    my ($self, $oldRow) = @_;
 
+    # Restart monitoring when settings are changed
+    EBox::Network::Report::ByteRate->_regenConfig();
+
+}
+
+# Group: Protected methods
+
+# Method: _table
+#
+# Overrides:
+#
+#        <EBox::Model::DataTable::_table>
+#
 sub _table
 {
-    my @tableDesc = 
-        ( 
-#            new EBox::Types::Boolean(
-#                    fieldName => 'service',
-#
-#                    printableName => __('Traffic rate monitor active'),
-# 
-#                    editable => 1,
-#
-#		    defaultValue   => 0,
-#                ),
+    my @tableDesc =
+        (
             new EBox::Types::Select(
                     fieldName => 'iface',
-
                     printableName => __('Interface to listen'),
-
                     editable => 1,
-
 		    populate       => \&_populateIfaceSelect,
 		    defaultValue   => 'all',
                  ),
-
         );
 
       my $dataForm = {
@@ -89,8 +90,8 @@ sub _table
 		      modelDomain        => 'Network',
                       defaultActions     => [ 'editField', 'changeView' ],
                       tableDescription   => \@tableDesc,
-
-
+                      help               => __('Changes will be applied immediately to the '
+                                               . 'traffic rate monitor'),
 		      messages           => {
 			    update => __('Settings changed'),
 			   },
@@ -101,28 +102,35 @@ sub _table
     return $dataForm;
 }
 
-
+# Group: Private methods
 
 sub _populateIfaceSelect
 {
-  my $network = EBox::Global->modInstance('network');
-  my @ifaces = @{ $network->ifaces };
+    my $network = EBox::Global->modInstance('network');
+    my @extIfaces = @{ $network->ExternalIfaces() };
+    my @intIfaces = @{ $network->InternalIfaces() };
 
+    my @options = map {
+        { value => $_,
+            printableValue => __x( "{iface} (internal interface)",
+                                   iface => $_)
+        }
+    } @intIfaces;
 
-  my @options = map {
-    { value => $_, printableValue => $_ }
-  } @ifaces;
-  
-  push @options,
-    { value => 'all', printableValue => __('all')};
+    push @options, map {
+        { value => $_,
+            printableValue => __x("{iface} (external interface)",
+                                  iface => $_)
+        }
+    } @extIfaces;
 
-  return \@options;
+    push @options,
+      {
+       value => 'all', printableValue => __('all')};
+
+    return \@options;
+
 }
-
-
-
-
-
 
 1;
 
