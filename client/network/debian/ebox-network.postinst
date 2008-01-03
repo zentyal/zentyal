@@ -52,7 +52,6 @@ EOF
         invoke-rc.d networking start
 
 		invoke-rc.d ebox network restart
-        invoke-rc.d ebox apache restart
 	;;
 esac
 

@@ -72,8 +72,6 @@ case "$1" in
 		invoke-rc.d ebox logs restart || true
 		# restart squid module
 		invoke-rc.d ebox squid restart
-        # restart apache
-        invoke-rc.d ebox apache restart
 esac
 
 

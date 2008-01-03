@@ -33,9 +33,6 @@ case "$1" in
 		# restart logs
 		invoke-rc.d ebox logs restart || true
 
-		# restart apache 
-		invoke-rc.d ebox apache restart || true
-
 		# run the onInstall method in the module
 		onInstall
 

@@ -21,7 +21,6 @@ case "$1" in
         /usr/lib/ebox/ebox-migrate /usr/lib/ebox-objects/migration/
 
 		invoke-rc.d ebox objects restart
-        invoke-rc.d ebox apache restart
 	;;
 esac
 

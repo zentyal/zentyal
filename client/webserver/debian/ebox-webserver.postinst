@@ -28,7 +28,6 @@ case "$1" in
 		onInstall
 
 		invoke-rc.d ebox webserver restart
-                invoke-rc.d ebox apache restart
 esac
 
 #DEBHELPER#
