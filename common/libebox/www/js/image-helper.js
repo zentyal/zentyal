@@ -1,3 +1,8 @@
+/* 
+   This bunch of function are JS function to improve the development
+   of /ajax/image.mas template.
+*/
+
 function reloadGraph(url, target, tableName, directory, action)
 {
 
@@ -61,11 +66,11 @@ function switchImg(hiddenPrefix, activePrefix)
      var imgElements = oldHiddenDiv.parentNode.getElementsByTagName('img');
      
      // If only contains the hidden and active images appended
-     if ( imgElements.length == 2 ) {
+     if ( imgElements.length < 3 ) {
        oldHiddenDiv.parentNode.appendChild(backgroundImg);
      } else {
        oldHiddenDiv.parentNode.replaceChild(backgroundImg,
-                                            imgElements[2]);
+                                            imgElements[imgElements.length - 1]);
      }                                           
 
 }
