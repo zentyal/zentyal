@@ -125,8 +125,10 @@ sub _stopService
 sub _regenConfig
 {
 	my $self = shift;
-	
-	$self->_deleteSessionObjects();
+
+        # We comment out this in order to make ebox-software
+        # work. State will be removed at ebox initial script
+        # $self->_deleteSessionObjects();
 
 	$self->_writeHttpdConfFile();
 	$self->_writeStartupFile();
