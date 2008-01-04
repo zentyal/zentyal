@@ -190,9 +190,9 @@ sub lastUid # (system)
 	my $system = shift;
 	
 	my %args = (
-			base => $self->usersDn,
+            base =>  $self->{ldap}->dn(),
 			filter => '(objectclass=posixAccount)',
-			scope => 'one', 
+			scope => 'sub', 
 			attrs => ['uidNumber']
 		   );
 
