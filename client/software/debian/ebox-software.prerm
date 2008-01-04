@@ -21,8 +21,8 @@ case "$1" in
 		;;
 	remove)
 		remove_gconf_schemas
-      # allow eBox to fetch packages via http
-      perl -e ' use EBox;
+                # allow eBox to fetch packages via http
+                perl -e ' use EBox;
          use EBox::Global;
          EBox::init();
          my $global = EBox::Global->getInstance();
@@ -31,6 +31,10 @@ case "$1" in
          my $fw = EBox::Global->modInstance("firewall");
          $fw->removeOutputRule("tcp",80);
          $fw->save();'
-
+                # Remove the cache
+                tmpDir=$(perl -e 'use EBox::Config; print EBox::Config::tmp;')
+                eBoxPackageCache=${tmpDir}eboxpackagelist
+                nonEBoxPackageCache=${tmpDir}packagelist
+                rm -f $eBoxPackageCache $nonEBoxPackageCache
 		;;	
 esac 

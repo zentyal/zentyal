@@ -22,6 +22,8 @@ use base qw(EBox::GConfModule);
 
 use EBox;
 use EBox::Config;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
@@ -32,6 +34,8 @@ use Digest::MD5;
 use Error qw(:try);
 use Storable qw(fd_retrieve store retrieve);
 
+# Group: Public methods
+
 sub _create 
 {
 	my $class = shift;
@@ -40,22 +44,6 @@ sub _create
 						@_);
 	bless($self, $class);
 	return $self;
-}
-
-sub _getInfoEBoxPkgs {
-	return _getSoftToolResult("i");
-}
-
-sub _getUpgradablePkgs {
-	return _getSoftToolResult("u");
-}
-
-sub _getSoftToolResult {
-	my ($command) = @_;
-	open(PKGS, "/usr/bin/esofttool -$command |");
-	my $data = join("",<PKGS>);
-	close(PKGS);
-	return eval($data);
 }
 
 # Method: listEBoxPkgs
@@ -102,6 +90,12 @@ sub listEBoxPkgs
 # Parameters:
 #
 # 	array -  holding the package names
+#
+# Returns:
+#
+#       <EBox::ProgressIndicator> - an instance of the progress
+#       indicator to indicate how the installation is working
+# 
 sub installPkgs # (@pkgs)
 {
 	my ($self, @pkgs) = @_;
@@ -130,6 +124,7 @@ sub installPkgs # (@pkgs)
 sub removePkgs # (@pkgs)
 {
 	my ($self, @pkgs) = @_;
+
 	my $cmd ='/usr/bin/apt-get remove --purge --no-download -q --yes ';
 	$cmd .= join(" ", @pkgs);
 	try {
@@ -147,7 +142,7 @@ sub removePkgs # (@pkgs)
 # 
 sub updatePkgList
 {
-	my $self = shift;
+	my ($self) = @_;
 
 	my $cmd ='/usr/bin/apt-get update -qq';
 	try {
@@ -163,6 +158,7 @@ sub updatePkgList
 sub fetchAllPkgs
 {
 	my @pkgs;
+
 	@pkgs = @{_getInfoEBoxPkgs()};
 
 	my $cmd ='/usr/bin/apt-get install -qq --download-only --yes ';
@@ -241,6 +237,7 @@ sub listUpgradablePkgs
 sub listPackageInstallDepends
 {
 	my ($self,$packages) = @_;
+
 	my $cmd = "apt-get -qq -s install " . join(" ", @{$packages}) . " | grep ^Inst | cut -d' ' -f 2 | grep ^ebox";
 	my $pkglist = root($cmd);
 	my @array = @{$pkglist};
@@ -263,6 +260,7 @@ sub listPackageInstallDepends
 sub listPackageRemoveDepends
 {
 	my ($self,$packages) = @_;
+
 	my $cmd = "apt-get -qq -s remove " . join(" ", @{$packages}) . " | grep ^Remv | cut -d' ' -f 2 | grep ^ebox";
 	my $pkglist = root($cmd);
 	my @array = @{$pkglist};
@@ -298,10 +296,9 @@ sub setAutomaticUpdates # (auto)
 }
 
 
-#   Function: menu 
+# Method: menu
 #
 #       Overrides EBox::Module method.
-#   
 #
 sub menu
 {
@@ -314,9 +311,28 @@ sub menu
         $folder->add(new EBox::Menu::Item('url' => 'Software/Updates',
                                           'text' => __('System updates')));
         $folder->add(new EBox::Menu::Item('url' => 'Software/Config',
-                                          'text' => __('Configuration')));
+                                          'text' => __('Automatic updates')));
         $root->add($folder);
 }
 
+
+# Group: Private methods
+
+sub _getInfoEBoxPkgs {
+	return _getSoftToolResult("i");
+}
+
+sub _getUpgradablePkgs {
+	return _getSoftToolResult("u");
+}
+
+sub _getSoftToolResult {
+	my ($command) = @_;
+	open(my $PKGS, "/usr/bin/esofttool -$command |")
+          or throw EBox::Exceptions::Internal("Cannot open esofttool with command $command");
+	my $data = join("",<$PKGS>);
+	close($PKGS);
+	return eval($data);
+}
 
 1;

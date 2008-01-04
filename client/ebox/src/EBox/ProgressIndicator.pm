@@ -1,3 +1,18 @@
+# Copyright (C) 2007 Warp Networks S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 package EBox::ProgressIndicator;
 #
 use strict;
@@ -9,6 +24,7 @@ use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
 
+use Error qw(:try);
 use POSIX;
 
 use constant HOST_MODULE => 'apache';
@@ -44,6 +60,9 @@ sub create
   my $idKey = $class->_baseDir($id) . '/id';
   $hostMod->st_set_string($idKey, $id);
 
+  # Remove those instances which have finished
+  $class->_cleanupFinished();
+
   my $self = $class->retrieve($id);
   
   # store data
@@ -70,14 +89,15 @@ sub retrieve
   my $baseDir  =  $class->_baseDir($id);
   my $hostMod = EBox::Global->modInstance(HOST_MODULE);
   defined $hostMod or
-    throw EBox::Exceptions::Internal('apache module cannot be instantiated');
+    throw EBox::Exceptions::Internal(HOST_MODULE
+                                     . ' module cannot be instantiated');
 
 
-  $hostMod->st_dir_exists($baseDir) or
-    throw EBox::Exceptions::External(
+  unless ( $hostMod->st_dir_exists($baseDir) ) {
+      throw EBox::Exceptions::External(
         __x('Progress indicator with id {id} not found', id => $id,  ) 
-				    );
-
+                                      );
+  }
 
   my $self   = $class->SUPER::new($baseDir, $hostMod);
   bless $self, $class;
@@ -194,9 +214,9 @@ sub setAsFinished
 {
   my ($self) = @_;
 
-  if (not $self->started) {
+  if (not $self->started()) {
     throw EBox::Exceptions::External(
-	__('The executable has not run')			     
+	__('The executable has not run')
 				    );
   }
 
@@ -237,7 +257,7 @@ sub stateAsString
 sub destroy
 {
   my ($self) = @_;
-  my $piDir = $self->confKeysBase;
+  my $piDir = $self->confKeysBase();
 
   $self->fullModule->st_delete_dir($piDir);
   $_[0] = undef; # to cancel the self value
@@ -256,7 +276,7 @@ sub runExecutable
   my ($self) = @_;
   if ($self->started) {
     throw EBox::Exceptions::External(
-	__('The executable has already been started')			     
+	__('The executable has already been started')
 				    );
   }
   elsif ($self->finished) {
@@ -317,5 +337,30 @@ sub execProgressIdParamName
   return 'progress-id';
 }
 
+# Method to clean up the rubbish regarding to the progress indicator
+# stored in GConf state. It must be called when a new progress
+# indicator is created, that suppossed a single ProgressIndicator
+# alives on Apache
+sub _cleanupFinished
+{
+    my ($class) = @_;
+
+    my $baseDir = $class->_baseDir();
+    my $hostMod = EBox::Global->modInstance(HOST_MODULE);
+
+    my $allIDs = $hostMod->st_all_dirs_base($baseDir);
+
+    foreach my $id (@{$allIDs}) {
+        try {
+            my $pI = $class->retrieve($id);
+            if ( $pI->finished() ) {
+                $pI->destroy();
+            }
+        } catch EBox::Exceptions::Base with {
+            # Ignore this strange case (Already cleaned up)
+            ;
+        };
+    }
+}
 
 1;
