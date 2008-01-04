@@ -1,3 +1,8 @@
+0.11.99
+	+ System and software updates work correctly again with progress
+	indicator showing process already finished
+	+ Bugfix. libebox is treated as an eBox package and not as a
+	system package
 0.11
 	+ New release
 0.10.99
