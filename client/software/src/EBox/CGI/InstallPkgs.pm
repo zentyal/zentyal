@@ -119,7 +119,9 @@ sub showInstallProgress
 		      text     => __('Upgrading packages'),
 		      currentItemCaption  =>  __("Current package"),
 		      itemsLeftMessage  => __('packages left to install'),
-		      endNote  =>  __("The installation of the packages has finished successfully"),
+		      endNote  =>  __("The packages installation has finished successfully"),
+                      errorNote => __('The packages installation has not finished correctly '
+                                      . '. More information on the logs'),
 		      reloadInterval  => 2,
 		     );
 }

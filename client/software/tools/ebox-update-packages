@@ -42,6 +42,7 @@ my $progress = EBox::ProgressIndicator->retrieve($progressId);
 $progress->started() or
   die('progress executable not run');
 
+my ($retValue, $errorMsg) = (0, '');
 try {
   foreach my $pkg (@packages) {
     $progress->notifyTick();
@@ -49,10 +50,14 @@ try {
     my $cmd ='/usr/bin/apt-get install --no-download -q --yes';
     EBox::Sudo::root("$cmd $pkg");
   }
-}
-finally {
+} catch EBox::Exceptions::Sudo::Command with {
+    my ($exc) = @_;
+    $retValue = $exc->exitValue();
+    $errorMsg = $exc->_errorMsg();
+    EBox::error($exc->_errorMsg());
+} finally {
     try {
-        $progress->setAsFinished();
+        $progress->setAsFinished($retValue, $errorMsg);
     } catch EBox::Exceptions::External with {
         # Ignore if it cannot put as finished since it's possible it
         # is already destroyed. Why?
@@ -60,7 +65,21 @@ finally {
     };
 };
 
-EBox::Sudo::root("apt-get install -f --yes");
+if ( $retValue > 0 ) {
+    exit $retValue;
+}
+
+try {
+    EBox::Sudo::root("apt-get install -f --yes");
+} catch EBox::Exceptions::Sudo::Command with {
+    my ($exc) = @_;
+    $retValue = $exc->exitValue();
+    EBox::error($exc->_errorMsg());
+};
+
+if ( $retValue > 0 ) {
+    exit $retValue;
+}
 
 my $global = EBox::Global->getInstance(1);
 my $software = $global->modInstance('software');
