@@ -74,12 +74,16 @@ sub modelClasses
 {
   return [
 	  { 
-	   class     => 'EBox::Network::Model::GatewayTable',
-	   directory => 'gatewaytable', 
+	   class      => 'EBox::Network::Model::GatewayTable',
+	   parameters => [
+                          directory => 'gatewaytable',
+                         ],
 	  },
 	  {
            class     => 'EBox::Network::Model::MultiGwRulesDataTable',
-           directory => 'multigwrulestable',
+           parameters => [
+                          directory => 'multigwrulestable',
+                         ],
           },
           {
            class      => 'EBox::Network::Model::ByteRateEnableForm',
