@@ -24,8 +24,7 @@ images = images/delete.gif images/show.gif \
 
 js = js/csshover.htc js/common.js \
   js/help.js js/table-helper.js js/prototype.js \
-  js/tabMenu.js js/progress.js js/fileUpload.js \
-  js/image-helper.js
+  js/tabMenu.js js/fileUpload.js js/image-helper.js
 
 css =   css/public.css    css/login.css 
 nobase_www_DATA =  $(images) $(js) $(css)
