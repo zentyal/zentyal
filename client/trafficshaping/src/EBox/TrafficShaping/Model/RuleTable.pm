@@ -553,7 +553,8 @@ sub _table
                            ),
       );
 
-    my $dataTable = {
+
+    my $dataTable = { 
 		     'tableName'          => 'tsTable',
 		     'printableTableName' => __x('Rules list for {printableIndex}',
                                                  printableIndex => $self->printableIndex()),
@@ -570,7 +571,11 @@ sub _table
 						'rate allowed. No limited rate or zero means unlimited rate ' .
 					        'in terms of bandwidth link. At least, one should be provided.' .
 					        'In order to identify a rule, an attribute should be given.' .
-					        'Highest priority: 0 lowest priority: 7'),
+					        'Highest priority: 0 lowest priority: 7.') . ' '
+                                             __('Take care about the traffic flow setting the correct source '
+                                                . 'and destination. If the interface is internal, the traffic '
+                                                . 'flow comes from Internet to inside and the external is the '
+                                                . 'other way around'),
 		     'rowUnique'          => 1,  # Set each row is unique
 		     'printableRowName'   => __('rule'),
                      'notifyActions'      => [ 'GatewayTable' ],
