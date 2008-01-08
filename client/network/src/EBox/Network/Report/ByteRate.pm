@@ -831,7 +831,7 @@ sub activeServicesGraph
     my $legend = $1;
     # Change tcp100 for tcp/100
     if ( $legend =~ m:\D\d: ) {
-        $legend =~ s:(\D)(\d):\1/\2:;
+        $legend =~ s:(\D)(\d):$1/$2:;
     }
     my $ds = {
 	      rrd     => $service,
@@ -934,7 +934,7 @@ sub _srcAndServiceDatasetElement
       $legend = $service;
       # Change tcp100 for tcp/100
       if ( $legend =~ m:\D\d: ) {
-          $legend =~ s:(\D)(\d):\1/\2:;
+          $legend =~ s:(\D)(\d):$1/$2:;
       }
   } else {
       $legend = __x("Traffic rate from {src} for {service}", 
