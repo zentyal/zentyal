@@ -24,6 +24,7 @@ use EBox;
 use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
@@ -33,6 +34,14 @@ use EBox::Sudo qw( :all );
 use Digest::MD5;
 use Error qw(:try);
 use Storable qw(fd_retrieve store retrieve);
+use Fcntl qw(:flock);
+
+# Constants
+use constant {
+    LOCK_FILE     => EBox::Config::tmp() . 'ebox-software-lock',
+    LOCKED_BY_KEY => 'lockedBy',
+    LOCKER_PID_KEY => 'lockerPid',
+};
 
 # Group: Public methods
 
@@ -58,6 +67,12 @@ sub _create
 # Returns:
 #
 # 	array ref of hashes holding the above keys
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::External> - thrown if the module is locked
+#       by other process
+#
 sub listEBoxPkgs
 {
 	my ($self,$clear) = @_;
@@ -76,7 +91,8 @@ sub listEBoxPkgs
 			return $eboxlist;
 		}
 	}
-	
+
+        $self->_isModLocked();
 	$eboxlist =  _getInfoEBoxPkgs();
 
 	store($eboxlist, $file);
@@ -95,10 +111,17 @@ sub listEBoxPkgs
 #
 #       <EBox::ProgressIndicator> - an instance of the progress
 #       indicator to indicate how the installation is working
-# 
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::External> - thrown if the module is locked
+#       by other process
+#
 sub installPkgs # (@pkgs)
 {
 	my ($self, @pkgs) = @_;
+
+        $self->_isModLocked();
 
 	if (not @pkgs) {
 	  EBox::info("No packages to install");
@@ -114,16 +137,24 @@ sub installPkgs # (@pkgs)
 	return $progress;
 }
 
-# Method: removePkgs 
-#	
+# Method: removePkgs
+#
 #	Removes a list of packages via apt
-# 
+#
 # Parameters:
 #
 # 	array -  holding the package names
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::External> - thrown if the module is locked
+#       by other process
+#
 sub removePkgs # (@pkgs)
 {
 	my ($self, @pkgs) = @_;
+
+        $self->_isModLocked();
 
 	my $cmd ='/usr/bin/apt-get remove --purge --no-download -q --yes ';
 	$cmd .= join(" ", @pkgs);
@@ -137,12 +168,19 @@ sub removePkgs # (@pkgs)
 }
 
 # Method: updatePkgList
-#	
+#
 #	Update the package list
-# 
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::External> - thrown if the module is locked
+#       by other process
+#
 sub updatePkgList
 {
 	my ($self) = @_;
+
+        $self->_isModLocked();
 
 	my $cmd ='/usr/bin/apt-get update -qq';
 	try {
@@ -154,9 +192,18 @@ sub updatePkgList
 # Method: fetchAllPkgs 
 #	
 #	Download all the new ebox packages and the system updates
-# 
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::External> - thrown if the module is locked
+#       by other process
+#
 sub fetchAllPkgs
 {
+        my ($self) = @_;
+
+        $self->_isModLocked();
+
 	my @pkgs;
 
 	@pkgs = @{_getInfoEBoxPkgs()};
@@ -196,6 +243,12 @@ sub fetchAllPkgs
 #
 #	array ref - holding hashes ref containing keys: 'name' and 
 #	'description' for each package
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::External> - thrown if the module is locked
+#       by other process
+#
 sub listUpgradablePkgs 
 {
 	my ($self,$clear) = @_;
@@ -214,7 +267,9 @@ sub listUpgradablePkgs
 			return $upgrade;
 		}
 	}
-	
+
+        $self->_isModLocked();
+
 	$upgrade = _getUpgradablePkgs();
 
 	store($upgrade, $file);
@@ -234,9 +289,16 @@ sub listUpgradablePkgs
 #
 #	array ref - holding the names of the ebox packages which will be 
 #	            installed
+# Exceptions:
+#
+#       <EBox::Exceptions::External> - thrown if the module is locked
+#       by other process
+#
 sub listPackageInstallDepends
 {
 	my ($self,$packages) = @_;
+
+        $self->_isModLocked();
 
 	my $cmd = "apt-get -qq -s install " . join(" ", @{$packages}) . " | grep ^Inst | cut -d' ' -f 2 | grep ^ebox";
 	my $pkglist = root($cmd);
@@ -257,9 +319,17 @@ sub listPackageInstallDepends
 # Returns:
 #
 #	array ref - holding the names of the ebox packages which will be removed
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::External> - thrown if the module is locked
+#       by other process
+#
 sub listPackageRemoveDepends
 {
 	my ($self,$packages) = @_;
+
+        $self->_isModLocked();
 
 	my $cmd = "apt-get -qq -s remove " . join(" ", @{$packages}) . " | grep ^Remv | cut -d' ' -f 2 | grep ^ebox";
 	my $pkglist = root($cmd);
@@ -315,6 +385,64 @@ sub menu
         $root->add($folder);
 }
 
+# Method: lock
+#
+#      Lock the ebox-software module to work
+#
+# Parameters:
+#
+#      by - String the subsystem name which locks the module
+#
+#      - Named parameters
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#      argument is missing
+#
+sub lock
+{
+    my ($self, %params) = @_;
+
+    unless (exists $params{by}) {
+        throw EBox::Exceptions::MissingArgument('by');
+    }
+
+    open( $self->{lockFile}, '>', LOCK_FILE);
+    flock( $self->{lockFile}, LOCK_EX );
+
+    $self->st_set_string(LOCKED_BY_KEY, $params{by});
+    $self->st_set_int(LOCKER_PID_KEY, $$);
+
+}
+
+# Method: unlock
+#
+#      Unlock the ebox-software module
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::Internal> - thrown if the module has not
+#      previously locked
+#
+sub unlock
+{
+    my ($self) = @_;
+
+    unless ( exists( $self->{lockFile} )) {
+        throw EBox::Exceptions::Internal('The ebox-module has not '
+                                         . 'locked previously');
+    }
+
+    flock( $self->{lockFile}, LOCK_UN );
+    close( $self->{lockFile} );
+    undef $self->{lockFile};
+
+    $self->st_unset(LOCKED_BY_KEY);
+    $self->st_unset(LOCKER_PID_KEY);
+
+}
+
 
 # Group: Private methods
 
@@ -334,5 +462,24 @@ sub _getSoftToolResult {
 	close($PKGS);
 	return eval($data);
 }
+
+# Check if the module is locked or not
+sub _isModLocked
+{
+    my ($self) = @_;
+
+    my $lockedBy = $self->st_get_string(LOCKED_BY_KEY);
+
+    if ( $lockedBy ) {
+        unless ( $$ == $self->st_get_int(LOCKER_PID_KEY)) {
+            throw EBox::Exceptions::External(__x('Software management is currently '
+                                                 . ' locked by {locker}. Please, try'
+                                                 . ' again later',
+                                                 locker => $lockedBy));
+        }
+    }
+
+}
+
 
 1;

@@ -6,35 +6,45 @@ use warnings;
 use EBox;
 use EBox::Global;
 
+use Error qw(:try);
+
 EBox::init();
 my $global = EBox::Global->getInstance(1);
 my $software = $global->modInstance('software');
-$software->updatePkgList();
-$software->fetchAllPkgs();
+my @pkgs;
+try {
+    $software->lock(by => 'ebox-software');
+    $software->updatePkgList();
+    $software->fetchAllPkgs();
 
-#call listUpgradablePkgs even if we're not using them just now as this
-#causes the cache to be generated
-my @pkgs = @{$software->listUpgradablePkgs(1)};
-#call also listEBoxPkgs to regen the cache
-my @eboxpkgs = @{$software->listEBoxPkgs(1)};
-
+    #call listUpgradablePkgs even if we're not using them just now as this
+    #causes the cache to be generated
+    @pkgs = @{$software->listUpgradablePkgs(1)};
+    #call also listEBoxPkgs to regen the cache
+    my @eboxpkgs = @{$software->listEBoxPkgs(1)};
+} finally {
+    $software->unlock();
+};
 unless ($software->getAutomaticUpdates()) {
-	exit 0;
+    exit 0;
 }
 
-
-
-my @pkgnames = ();
-foreach my $pkg (@pkgs) {
+try {
+    $software->lock(by => 'ebox-software');
+    my @pkgnames = ();
+    foreach my $pkg (@pkgs) {
 	push(@pkgnames, $pkg->{name});
-}
+    }
 
-if (@pkgnames) {
-  $software->installPkgs(@pkgnames);
-  # the installation has invalidated the previous packages list so we need to
-  # regenerate the cache
-  $software->listUpgradablePkgs(1);
-  $software->listEBoxPkgs(1);
-}
+    if (@pkgnames) {
+        $software->installPkgs(@pkgnames);
+        # the installation has invalidated the previous packages list so we need to
+        # regenerate the cache
+        $software->listUpgradablePkgs(1);
+        $software->listEBoxPkgs(1);
+    }
+} finally {
+    $software->unlock();
+};
 
 1;

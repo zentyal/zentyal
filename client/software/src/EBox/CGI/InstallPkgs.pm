@@ -82,6 +82,7 @@ sub _process($) {
 	}
 
 	if ($doit eq 'yes') {
+		delete $self->{'template'};
 		if ($action eq 'install') {
 			my $progress = $software->installPkgs(@pkgs);
 			$self->showInstallProgress($progress);
@@ -91,7 +92,6 @@ sub _process($) {
 			$self->{msg} = 
 				__('The packages were removed successfully');
 		}
-		delete $self->{'template'};
 		return;
 	}
 	my @array;
