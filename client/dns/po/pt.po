@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dns 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-24 13:21+0100\n"
+"POT-Creation-Date: 2008-01-08 15:48+0100\n"
 "PO-Revision-Date: 2007-06-06 09:37+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,96 +18,96 @@ msgstr ""
 
 #: src/EBox/Model/HostnameTable.pm:65
 msgid "Hostname"
-msgstr ""
+msgstr "Hostname"
 
 #: src/EBox/Model/HostnameTable.pm:73
 msgid "IP Address"
-msgstr ""
+msgstr "Endereço IP"
 
 #: src/EBox/Model/HostnameTable.pm:81 src/EBox/Model/AliasTable.pm:62
 #: src/EBox/Model/AliasTable.pm:72 src/EBox/Model/AliasTable.pm:78
 #: src/templates/edit.mas:64 src/templates/edit.mas:85
 msgid "Alias"
-msgstr ""
+msgstr "Alias"
 
 #: src/EBox/Model/HostnameTable.pm:92 src/EBox/Model/HostnameTable.pm:98
 #: src/EBox/Model/DomainTable.pm:73
 msgid "Hostnames"
-msgstr ""
+msgstr "Hostnames"
 
 #: src/EBox/Model/HostnameTable.pm:99
 msgid "hostname"
-msgstr ""
+msgstr "Hostname"
 
 #: src/EBox/Model/HostnameTable.pm:113 src/EBox/Model/DomainTable.pm:105
 msgid "Domain name"
-msgstr ""
+msgstr "Nome do Domínio"
 
 #: src/EBox/Model/HostnameTable.pm:114
 msgid "IP address"
-msgstr ""
+msgstr "Endereço IP"
 
 #: src/EBox/Model/DNSComposite.pm:76 src/EBox/DNS.pm.in:567
 #: src/EBox/DNS.pm.in:603
 msgid "DNS"
-msgstr ""
+msgstr "DNS"
 
 #: src/EBox/Model/DNSComposite.pm:78
 msgid "The DNS server allows you to resolve names for your own domains."
-msgstr ""
+msgstr "O servidor DNS permite resolver nomes dos seus próprios domínios"
 
 #: src/EBox/Model/DomainTable.pm:65
 msgid "Domain"
-msgstr ""
+msgstr "Domínio"
 
 #: src/EBox/Model/DomainTable.pm:84 src/EBox/Model/DomainTable.pm:90
 msgid "Domains"
-msgstr ""
+msgstr "Domínios"
 
 #: src/EBox/Model/DomainTable.pm:91 src/EBox/DNS.pm.in:250
 msgid "domain"
-msgstr ""
+msgstr "domínio"
 
 #: src/EBox/Model/EnableFormDNS.pm:84
 msgid "Service enabled"
-msgstr ""
+msgstr "Serviço activado"
 
 #: src/EBox/Model/EnableFormDNS.pm:86
 msgid "Service disabled"
-msgstr ""
+msgstr "Serviço desactivado"
 
 #: src/EBox/Model/AliasTable.pm:79
 msgid "alias"
-msgstr ""
+msgstr "alias"
 
 #: src/EBox/Model/AliasTable.pm:93
 msgid "Alias name"
-msgstr ""
+msgstr "Nome alias"
 
 #: src/EBox/DNS.pm.in:50
 msgid "dns"
-msgstr ""
+msgstr "dns"
 
 #: src/EBox/DNS.pm.in:72
 msgid "DNS Server"
-msgstr ""
+msgstr "DNS Server"
 
 #: src/templates/edit.mas:12
 #, perl-brace-format
 msgid "Host list for domain {domain}"
-msgstr ""
+msgstr "Lista de hosts do domínio {domain}"
 
 #: src/templates/edit.mas:17
 msgid "IP"
-msgstr ""
+msgstr "IP"
 
 #: src/templates/edit.mas:20
 msgid "Host name"
-msgstr ""
+msgstr "Nome do host"
 
 #: src/templates/edit.mas:23 src/templates/index.mas:24
 msgid "Action"
-msgstr ""
+msgstr "Acção"
 
 #: src/templates/edit.mas:40 src/templates/edit.mas:41
 #: src/templates/edit.mas:42 src/templates/edit.mas:74
@@ -115,30 +115,30 @@ msgstr ""
 #: src/templates/index.mas:37 src/templates/index.mas:38
 #: src/templates/index.mas:39
 msgid "Add"
-msgstr ""
+msgstr "Adicionar"
 
 #: src/templates/edit.mas:54 src/templates/edit.mas:55
 #: src/templates/edit.mas:93 src/templates/edit.mas:94
 #: src/templates/index.mas:53 src/templates/index.mas:54
 msgid "Delete"
-msgstr ""
+msgstr "Apagar"
 
 #: src/templates/edit.mas:110 src/templates/index.mas:70
 msgid "delete"
-msgstr ""
+msgstr "apagar"
 
 #: src/templates/index.mas:16
 msgid "Domain list"
-msgstr ""
+msgstr "Lista de domínios"
 
 #: src/templates/index.mas:21
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: src/templates/index.mas:49
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: src/templates/index.mas:65
 msgid "edit"
-msgstr ""
+msgstr "editar"

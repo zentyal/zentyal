@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.11.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-24 13:24+0100\n"
+"POT-Creation-Date: 2008-01-08 15:51+0100\n"
 "PO-Revision-Date: 2007-12-04 10:03+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host's name"
-msgstr ""
+msgstr "Nome virtual host"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:140
 #, perl-brace-format
@@ -27,6 +27,8 @@ msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the "
 "mapping name {name} - IP address {ip} "
 msgstr ""
+"Virtual host {vhost} aggiunto. Un dominio {domain} è stato creato con il "
+"mapping nome {name} - indirizzo IP {ip}"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:158
 #, perl-brace-format
@@ -34,29 +36,34 @@ msgid ""
 "Virtual host {vhost} added. A mapping name {name} - IP address {ip} has been "
 "added to {domain} domain"
 msgstr ""
+"Virtual host {vhost} aggiunto. Un mapping nome {name} - indirizzo IP {ip} è "
+"stato aggiunto al dominio {domain}"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:172
 #, perl-brace-format
 msgid "Virtual host {vhost} added as an alias {alias} to hostname {hostname}"
 msgstr ""
+"Virtual host {vhost} aggiunto come alias {alias} del nome host {hostname}"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:178
 #: src/EBox/WebServer/Model/VHostTable.pm:183
 #, perl-brace-format
 msgid "Virtual host {vhost} added"
-msgstr ""
+msgstr "Virtual host {vhost} aggiunto"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:188
 msgid "There is no static internal interface to set the Web server IP address"
 msgstr ""
+"Non c'è alcuna interfaccia statica interna per impostare l'indirizzo IP del "
+"server Web"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:214
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:224
 msgid "Virtual hosts"
-msgstr ""
+msgstr "Virtual host"
 
 #: src/EBox/WebServer/Model/VHostTable.pm:228
 #, perl-brace-format
@@ -67,27 +74,32 @@ msgid ""
 "this is possible. The content must be placed under {docRoot}/vHostName "
 "directory"
 msgstr ""
+"I virtual host sono un tipo di servizio di web hosting dove diverse istanze "
+"dello stesso web server sono ospitate da uno stesso server fisico. Nomi host "
+"diversi punteranno allo stesso server web. La voce su DNS viene creata "
+"automaticamente se possibile. Il contenuto deve essere posizionato nella "
+"directory {docRoot}/vHostName "
 
 #: src/EBox/WebServer/Model/VHostTable.pm:235
 msgid "virtual host"
-msgstr ""
+msgstr "virtual host"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:90
 msgid "listening port"
-msgstr ""
+msgstr "porta di ascolto"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:136
 msgid "Listening port"
-msgstr ""
+msgstr "Porta di ascolto"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:142
 #, perl-brace-format
 msgid "Enable per user {dirName}"
-msgstr ""
+msgstr "Attiva per utente {dirName}"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:152
 msgid "General configuration settings"
-msgstr ""
+msgstr "Impostazioni generali di configurazione"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:156
 #, perl-brace-format
@@ -97,34 +109,40 @@ msgid ""
 "pages will be loaded from {dirName} directory from their samba home "
 "directories"
 msgstr ""
+"Configurazione generale Web server. La porta di ascolto non deve essere "
+"occupata da un altro servizio. Se attivi per l'utente la pubblicazione delle "
+"sue pagine web, le pagine saranno caricate dalla directory {dirName} sotto "
+"le home directory samba"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:162
 msgid "General Web server configuration settings updated"
-msgstr ""
+msgstr "Impostazioni generali di configurazione aggiornate"
 
 #: src/EBox/WebServer/Composite/General.pm:81
 msgid "Web service"
-msgstr ""
+msgstr "Servizio Web"
 
 #: src/EBox/WebServer/Composite/General.pm:83
 msgid ""
 "The eBox web service allows you to host Web pages in plain HTML within "
 "different virtual hosts"
 msgstr ""
+"Il servizio web di eBox permette la pubblicazione di pagine Web in HTML "
+"semplice su virtual host diversi"
 
 #: src/EBox/WebServer/Maintenance.pm:66
 msgid "HyperText Transport Protocol"
-msgstr ""
+msgstr "HyperText Transport Protocol"
 
 #: src/EBox/WebServer.pm:127 src/EBox/WebServer.pm:151
 msgid "Web"
-msgstr ""
+msgstr "Web"
 
 #: src/EBox/WebServer.pm:170
 msgid "Web service status"
-msgstr ""
+msgstr "Stato servizio Web"
 
 #: src/EBox/WebServer.pm:362
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
-msgstr ""
+msgstr "Manca il file {userDirConfFile}! Prego recuperalo"

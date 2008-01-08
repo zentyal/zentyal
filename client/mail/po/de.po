@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-24 13:22+0100\n"
+"POT-Creation-Date: 2008-01-08 15:49+0100\n"
 "PO-Revision-Date: 2007-08-19 15:42+0200\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: src/EBox/Event/Dispatcher/Mail.pm:155
 msgid "Admin mail recipient"
-msgstr ""
+msgstr "Empfänger für E-Mails an den Administrator"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/CGI/Index.pm:28
 #: src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:1003 src/EBox/Mail.pm:1073
@@ -35,12 +35,14 @@ msgstr "E-Mail"
 #: src/EBox/Event/Dispatcher/Mail.pm:189
 #, perl-brace-format
 msgid "Cannot connect to {smtp} mail server"
-msgstr ""
+msgstr "Es konnte keine Verbindung zum Mailserver {smtp} hergestellt werden"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:233
 #, perl-brace-format
 msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr ""
+"Es konnte keine Verbindung zum Mailserver {hostname} hergestellt werden, um "
+"das Ereignis mittels SMTP zu übermitteln"
 
 #: src/EBox/CGI/ModifyVDomain.pm:57 src/EBox/CGI/DelVDomain.pm:72
 #: src/EBox/CGI/EditVDomain.pm:43
@@ -56,7 +58,7 @@ msgid "Virtual domain name"
 msgstr "Name der virtuellen Domäne"
 
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
-#: src/templates/qmanager.mas:19
+#: src/templates/qmanager.mas:17
 msgid "Queue ID"
 msgstr "ID der Warteschlange"
 
@@ -127,12 +129,12 @@ msgstr "Status des E-Mail Systems"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
 msgid "Subject"
-msgstr ""
+msgstr "Betreff"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:128
 #, perl-brace-format
 msgid "[EBox-event] An event has happened at {hostName}"
-msgstr ""
+msgstr "[eBox-Ereignis] Es hat sich etwas beim Server {hostName} ereignet"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1104
 msgid "To"
@@ -140,17 +142,19 @@ msgstr "An"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:142
 msgid "Configure mail dispatcher"
-msgstr ""
+msgstr "Mailverteiler konfigurieren"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:147
 msgid ""
 "In order to configure the Mail event dispatcher is required to enable the "
 "mail service from eBox"
 msgstr ""
+"Um den Mailverteiler für eBox-Ereignisse zu konfigurieren, müssen Sie den E-"
+"Mail-Dienst der eBox aktivieren"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
 msgid "Mail dispatcher configuration updated"
-msgstr ""
+msgstr "Die Einstellungen für den Mailverteiler wurden aktualisiert"
 
 #: src/EBox/MailVDomainsLdap.pm:68 src/EBox/MailVDomainsLdap.pm:74
 #: src/EBox/MailVDomainsLdap.pm:249 src/EBox/MailVDomainsLdap.pm:255
@@ -269,7 +273,7 @@ msgstr "E-Mail-System"
 msgid "General"
 msgstr "Allgemein"
 
-#: src/EBox/Mail.pm:1101 src/templates/qmanager.mas:21
+#: src/EBox/Mail.pm:1101 src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "Datum"
 
@@ -289,7 +293,7 @@ msgstr "Von Computername"
 msgid "From host ip"
 msgstr "Von IP-Adresse"
 
-#: src/EBox/Mail.pm:1107 src/templates/qmanager.mas:20
+#: src/EBox/Mail.pm:1107 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr "Grösse (in Bytes)"
 
@@ -550,12 +554,11 @@ msgid "Apply"
 msgstr "Anwenden"
 
 #: src/templates/moduleDisabled.mas:5
-#, fuzzy
 msgid ""
 "The following settings only will take effect when the mail module is enabled"
 msgstr ""
-"Die folgenden Einstellungen werden nur angewendet, wenn das Modul aktiviert "
-"ist"
+"Die folgenden Einstellungen werden nur angewendet, wenn der E-Mail-Dienst "
+"aktiviert ist"
 
 #: src/templates/createaccount.mas:15
 msgid "Create mail account"
@@ -663,56 +666,57 @@ msgstr "Neues E-Mail Alias"
 msgid "Mail alias"
 msgstr "E-Mail-Alias"
 
-#: src/templates/qmanager.mas:22
+#: src/templates/qmanager.mas:20
 msgid "Sender"
 msgstr "Absender"
 
-#: src/templates/qmanager.mas:23
+#: src/templates/qmanager.mas:21
 msgid "Recipients"
 msgstr "Empfänger"
 
-#: src/templates/qmanager.mas:24
+#: src/templates/qmanager.mas:22
 msgid "Message"
 msgstr "Nachricht"
 
-#: src/templates/qmanager.mas:25
+#: src/templates/qmanager.mas:23
 msgid "Operate"
 msgstr "Verarbeiten"
 
-#: src/templates/qmanager.mas:42 src/templates/qmanager.mas:43
+#: src/templates/qmanager.mas:40 src/templates/qmanager.mas:41
 msgid "Requeue"
 msgstr "In Warteschlange einreihen"
 
-#: src/templates/qmanager.mas:47 src/templates/qmanager.mas:48
+#: src/templates/qmanager.mas:45 src/templates/qmanager.mas:46
 msgid "Show Info"
 msgstr "Info anzeigen"
 
-#: src/templates/qmanager.mas:52 src/templates/qmanager.mas:53
+#: src/templates/qmanager.mas:50 src/templates/qmanager.mas:51
 msgid "Remove"
 msgstr "Löschen"
 
-#: src/templates/qmanager.mas:65 src/templates/qmanager.mas:66
+#: src/templates/qmanager.mas:63 src/templates/qmanager.mas:64
 msgid "Hide Info"
 msgstr "Info verbergen"
 
-#: src/templates/qmanager.mas:85 src/templates/qmanager.mas:86
+#: src/templates/qmanager.mas:83 src/templates/qmanager.mas:84
 msgid "first"
 msgstr "Erster"
 
-#: src/templates/qmanager.mas:89 src/templates/qmanager.mas:90
+#: src/templates/qmanager.mas:87 src/templates/qmanager.mas:88
 msgid "prev"
 msgstr "Vorheriger"
 
-#: src/templates/qmanager.mas:109 src/templates/qmanager.mas:110
+#: src/templates/qmanager.mas:107 src/templates/qmanager.mas:108
 msgid "next"
 msgstr "Nächster"
 
-#: src/templates/qmanager.mas:113 src/templates/qmanager.mas:114
+#: src/templates/qmanager.mas:111 src/templates/qmanager.mas:112
 msgid "last"
 msgstr "Letzter"
 
-#: src/templates/qmanager.mas:124
-msgid "There is not any message at the queue or the service is stopped"
+#: src/templates/qmanager.mas:122
+#, fuzzy
+msgid "There is no messages in queue or the service is stopped"
 msgstr ""
 "In dieser Warteschlange hat es keine Nachrichten oder der Dienst ist gestoppt"
 
@@ -797,3 +801,8 @@ msgstr "Eine virtuelle Domäne hinzufügen"
 #~ msgstr ""
 #~ "Die folgenden Einstellungen werden nur angewendet, wenn das Modul "
 #~ "aktiviert ist"
+
+#~ msgid "There is not any message at the queue or the service is stopped"
+#~ msgstr ""
+#~ "In dieser Warteschlange hat es keine Nachrichten oder der Dienst ist "
+#~ "gestoppt"

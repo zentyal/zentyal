@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-ca 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-24 13:21+0100\n"
+"POT-Creation-Date: 2008-01-08 15:48+0100\n"
 "PO-Revision-Date: 2007-03-15 15:45+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -16,15 +16,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Translate Toolkit 0.10.1\n"
 
-#: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/CreateCA.pm:43
+#: src/EBox/CGI/ShowForm.pm:41 src/EBox/CGI/CreateCA.pm:44
 #: src/EBox/CGI/Index.pm:39 src/EBox/CGI/DownloadFiles.pm:42
-#: src/EBox/CGI/IssueCertificate.pm:43 src/EBox/CGI/RevokeCertificate.pm:42
+#: src/EBox/CGI/IssueCertificate.pm:44 src/EBox/CGI/RevokeCertificate.pm:42
 #: src/EBox/CGI/RenewCertificate.pm:42
 msgid "Certification Authority Management"
 msgstr "Gestione della Autorita' di Certificazione"
 
 #: src/EBox/CGI/ShowForm.pm:62 src/EBox/CGI/DownloadFiles.pm:69
-#: src/EBox/CGI/IssueCertificate.pm:69 src/EBox/CGI/RevokeCertificate.pm:76
+#: src/EBox/CGI/IssueCertificate.pm:70 src/EBox/CGI/RevokeCertificate.pm:76
 #: src/EBox/CGI/RenewCertificate.pm:74 src/EBox/CA/TestStub.pm:438
 #: src/EBox/CA/TestStub.pm:516 src/EBox/CA/TestStub.pm:642 src/EBox/CA.pm:706
 #: src/EBox/CA.pm:872 src/EBox/CA.pm:1187 src/EBox/CA.pm:1229
@@ -46,20 +46,16 @@ msgstr "Solamente azioni di revoca e di rinnovo sono eseguite"
 msgid "Common name: {cn} does NOT exist in database"
 msgstr "Il common name: {cn} NON esiste nel database"
 
-#: src/EBox/CGI/CreateCA.pm:108 src/EBox/CGI/IssueCertificate.pm:83
+#: src/EBox/CGI/CreateCA.pm:109 src/EBox/CGI/IssueCertificate.pm:84
 msgid "CA passphrases do NOT match"
 msgstr "la CA passwordfrase non coincide "
 
-#: src/EBox/CGI/CreateCA.pm:118 src/EBox/CGI/IssueCertificate.pm:91
+#: src/EBox/CGI/CreateCA.pm:119 src/EBox/CGI/IssueCertificate.pm:92
 #, perl-brace-format
 msgid "CA Passphrase should be at least {length} characters"
 msgstr "La passfrase CA dovrebbe essere lunga almeno {length} caratteri"
 
-#: src/EBox/CGI/CreateCA.pm:123 src/EBox/CGI/IssueCertificate.pm:101
-msgid "Days to expire MUST be a natural number"
-msgstr "Il numero di giorni per espirare deve essere un numero naturale"
-
-#: src/EBox/CGI/CreateCA.pm:132
+#: src/EBox/CGI/CreateCA.pm:131
 msgid "Problems creating Certification Authority has happened"
 msgstr ""
 "Sono stati rilevati dei problemi nella creazione della Autorita' di "
@@ -69,20 +65,20 @@ msgstr ""
 msgid "Error creating file"
 msgstr "Errore nella  creazione del file"
 
-#: src/EBox/CGI/IssueCertificate.pm:67 src/EBox/CA/TestStub.pm:154
+#: src/EBox/CGI/IssueCertificate.pm:68 src/EBox/CA/TestStub.pm:154
 #: src/EBox/CA/TestStub.pm:254 src/EBox/CA.pm:214 src/EBox/CA.pm:488
 #: src/templates/formRenew.mas:37 src/templates/createCA.mas:7
 #: src/templates/index.mas:22 src/templates/formRevoke.mas:22
 msgid "Organization Name"
 msgstr "Nome dell'organizzazione"
 
-#: src/EBox/CGI/IssueCertificate.pm:72 src/EBox/CGI/RenewCertificate.pm:69
+#: src/EBox/CGI/IssueCertificate.pm:73 src/EBox/CGI/RenewCertificate.pm:69
 #: src/templates/formRenew.mas:13 src/templates/createCA.mas:9
 #: src/templates/index.mas:28
 msgid "Days to expire"
 msgstr "Giorni per espirare"
 
-#: src/EBox/CGI/IssueCertificate.pm:106
+#: src/EBox/CGI/IssueCertificate.pm:105
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: .?&+:\\@ and spaces are allowed."
@@ -90,11 +86,11 @@ msgstr ""
 "L'input contiene dei caratteri non validi. Sono permessi tutti i caratteri "
 "alfanumerici, piu' i seguenti non alfanumerici: .?&+:\\@ e gli spazi"
 
-#: src/EBox/CGI/IssueCertificate.pm:125
+#: src/EBox/CGI/IssueCertificate.pm:124
 msgid "The certificate has been issued"
 msgstr "Il certificato e' stato emesso"
 
-#: src/EBox/CGI/IssueCertificate.pm:126
+#: src/EBox/CGI/IssueCertificate.pm:125
 msgid "The new CA certificate has been issued"
 msgstr "Il nuovo certificato CA e' stato emesso"
 
@@ -491,3 +487,6 @@ msgstr "Revoca un certificato"
 #: src/templates/formRevoke.mas:18
 msgid "Revoke the selected certificate"
 msgstr "Revoca il certificato selezionato"
+
+#~ msgid "Days to expire MUST be a natural number"
+#~ msgstr "Il numero di giorni per espirare deve essere un numero naturale"

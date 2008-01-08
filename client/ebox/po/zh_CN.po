@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-24 13:22+0100\n"
+"POT-Creation-Date: 2008-01-08 15:48+0100\n"
 "PO-Revision-Date: 2006-09-18 09:55+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -257,6 +257,198 @@ msgstr ""
 msgid "Check if any disk partition  has no storage space left"
 msgstr ""
 
+#: src/EBox/Event/Watcher/RAID.pm:182
+msgid "RAID"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:199
+msgid "Check if any event has happened in RAID subsystem"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:265
+#, perl-brace-format
+msgid "New array RAID device {devName} information:"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:267
+#, perl-brace-format
+msgid "State: {state}"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:268
+#, perl-brace-format
+msgid "Type: {type}"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:269
+#, perl-brace-format
+msgid "Active devices needed: {nb}"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:270
+#, perl-brace-format
+msgid "Active devices: {nb}"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:272
+#, perl-brace-format
+msgid "Operation in progress: {operation}"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:274
+#, perl-brace-format
+msgid "Completed operation percentage: {per}"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:276
+#, perl-brace-format
+msgid "Operation estimated finish time: {time}"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:280
+#, perl-brace-format
+msgid "Raid component {nb}: device {device} state {state}"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:335
+#, perl-brace-format
+msgid ""
+"RAID device {name} has dissappeared: A RAID array which previously was "
+"configured appears to no longer be configured"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:355
+#, perl-brace-format
+msgid "RAID device {name} has changed its state from {oldState} to {newState}"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:375 src/EBox/Event/Watcher/RAID.pm:397
+#, perl-brace-format
+msgid ""
+"RAID device {name} has changed its number of active components from {oldNum} "
+"to {newNum}"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:421
+#, perl-brace-format
+msgid "RAID device {name} has started operation {opName}"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:427
+#, perl-brace-format
+msgid "RAID device {name} has finished operation {opName} or it was aborted"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:433
+#, perl-brace-format
+msgid ""
+"RAID device {name} has finished operation {oldOpName} and started {newOpName}"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:443
+#, perl-brace-format
+msgid "RAID device {name} is performing operation {opName}"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:452
+#, perl-format, perl-brace-format
+msgid "Status: {percentage}% completed"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:454
+#, perl-brace-format
+msgid "Estimated finish time: {time}"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:485
+#, perl-brace-format
+msgid ""
+"Active component {compName} from RAID array {arrayName} has been marked as "
+"faulty"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:494
+#, perl-brace-format
+msgid ""
+"Spare component {compName} from RAID array {arrayName} which was being "
+"rebuilt to replace a faulty device has failed"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:504
+#, perl-brace-format
+msgid ""
+"Spare component {compName} from RAID array {arrayName} which was being "
+"rebuilt to replace a faulty device has been successfully rebuilt and has "
+"been made active"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:517
+#, perl-brace-format
+msgid ""
+"A new component {compName} has been hot added to RAID device {arrayName} "
+"with status {status}"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:530
+#, perl-brace-format
+msgid ""
+"A component {compName} has been hot removed from RAID array {arrayName} when "
+"its status was {status}"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:556 src/EBox/Event/Watcher/RAID.pm:597
+#: src/templates/report/raid.mas:101
+msgid "active"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:558 src/templates/report/raid.mas:103
+msgid "degraded"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:560 src/templates/report/raid.mas:105
+msgid "recovering"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:562 src/templates/report/raid.mas:107
+msgid "resyncing"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:564 src/templates/report/raid.mas:111
+msgid "rebuilding"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:566 src/templates/report/raid.mas:109
+msgid "reshaping"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:568 src/templates/report/raid.mas:113
+msgid "failed"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:580
+msgid "resync"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:582
+msgid "rebuild"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:584
+msgid "reshape"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:586
+msgid "recovery"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:599
+msgid "faulty"
+msgstr ""
+
+#: src/EBox/Event/Watcher/RAID.pm:601 src/templates/report/raid.mas:223
+msgid "spare"
+msgstr ""
+
 #: src/EBox/Event/Watcher/State.pm:111
 msgid "eBox is up and running"
 msgstr ""
@@ -265,7 +457,7 @@ msgstr ""
 msgid "eBox is critically down"
 msgstr ""
 
-#: src/EBox/Event/Watcher/State.pm:142 src/templates/report/raid.mas:197
+#: src/EBox/Event/Watcher/State.pm:142 src/templates/report/raid.mas:216
 msgid "State"
 msgstr ""
 
@@ -273,11 +465,11 @@ msgstr ""
 msgid "Check if eBox is currently up or down"
 msgstr ""
 
-#: src/EBox/Event/Watcher/Log.pm:179
+#: src/EBox/Event/Watcher/Log.pm:193
 msgid "Log observer"
 msgstr ""
 
-#: src/EBox/Event/Watcher/Log.pm:203
+#: src/EBox/Event/Watcher/Log.pm:220
 #, perl-brace-format
 msgid "Notify when a logger ({loggers}) has logged something"
 msgstr ""
@@ -376,45 +568,45 @@ msgstr ""
 msgid "field"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:1859 src/EBox/Model/DataMultiTable.pm:168
+#: src/EBox/Model/DataTable.pm:1860 src/EBox/Model/DataMultiTable.pm:168
 #: src/EBox/Model/Composite.pm:603 src/EBox/Model/Composite.pm:618
 #: src/EBox/Logs.pm:620
 msgid "Action"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2465
+#: src/EBox/Model/DataTable.pm:2466
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2683
+#: src/EBox/Model/DataTable.pm:2684
 #, perl-brace-format
 msgid "{row} added"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2684
+#: src/EBox/Model/DataTable.pm:2685
 #, perl-brace-format
 msgid "{row} deleted"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2685
+#: src/EBox/Model/DataTable.pm:2686
 #, perl-brace-format
 msgid "{row} updated"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2686
+#: src/EBox/Model/DataTable.pm:2687
 #, perl-brace-format
 msgid "{row} moved up"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:2687
+#: src/EBox/Model/DataTable.pm:2688
 #, perl-brace-format
 msgid "{row} moved down"
 msgstr ""
 
-#: src/EBox/Model/DataTable.pm:3927
+#: src/EBox/Model/DataTable.pm:3928
 #: src/EBox/Logs/Model/ConfigureLogDataTable.pm:309
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:289
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:294
 msgid "Enabled"
 msgstr ""
 
@@ -452,7 +644,7 @@ msgstr ""
 msgid "Change"
 msgstr ""
 
-#: src/EBox/Model/DataForm.pm:667 src/templates/progress.mas:20
+#: src/EBox/Model/DataForm.pm:667 src/templates/progress.mas:22
 msgid "Done"
 msgstr ""
 
@@ -471,6 +663,7 @@ msgid "Choose one of the following:"
 msgstr ""
 
 #: src/EBox/CGI/Summary/Index.pm:35 src/EBox/SysInfo.pm:120
+#: src/templates/report/raid.mas:94
 msgid "Status"
 msgstr ""
 
@@ -919,63 +1112,63 @@ msgstr ""
 msgid "Log watcher"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:206
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:241
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:219
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:246
 msgid "Name"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:214
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:227
 #: src/templates/confirm-backup.mas:36 src/templates/backup.mas:41
 #: src/templates/backup.mas:123
 msgid "Description"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:223
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:263
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:236
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:268
 msgid "Configuration"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:234
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:283
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:247
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:288
 msgid "None"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:243
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:256
 msgid "Configure events"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:251
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:264
 msgid "event"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:252
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:265
 msgid "Enable/Disable each event watcher monitoring"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureEventDataTable.pm:407
+#: src/EBox/Events/Model/ConfigureEventDataTable.pm:420
 msgid ""
 "Warning! There is no log domain watcher enabled. Please, go to "
 "'Configuration' to enable at least one to be notified when a log in this "
 "domain happens. "
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:251
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:256
 msgid "Receiver"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:306
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:311
 msgid "Configure dispatchers"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:315
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:320
 msgid "dispatcher"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:316
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:321
 msgid "Enable/Disable each event dispatcher"
 msgstr ""
 
-#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:504
+#: src/EBox/Events/Model/ConfigureDispatcherDataTable.pm:509
 msgid ""
 "In order to enable a configurable event dispatcher, you need to configure it "
 "first"
@@ -988,8 +1181,7 @@ msgstr ""
 
 #: src/EBox/Events/Model/GeneralComposite.pm:78
 msgid ""
-"Events module may help you to make eBox inform you about events that happen "
-"at eBox in some different ways"
+"Events module configures eBox to help informing you about events that happen"
 msgstr ""
 
 #: src/EBox/Report/DiskUsage.pm:57
@@ -1025,7 +1217,7 @@ msgstr ""
 msgid "The httpd_init script you configured is not executable."
 msgstr ""
 
-#: src/EBox/Apache.pm:223 src/EBox/Apache.pm:232
+#: src/EBox/Apache.pm:225 src/EBox/Apache.pm:234
 msgid "port"
 msgstr ""
 
@@ -1222,49 +1414,49 @@ msgstr ""
 msgid "Halt/Reboot"
 msgstr ""
 
-#: src/EBox/Auth.pm:136
+#: src/EBox/Auth.pm:146
 msgid "Password changed"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:24
+#: src/EBox/ProgressIndicator.pm:40
 msgid "Total ticks"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:26
+#: src/EBox/ProgressIndicator.pm:42
 msgid "It must be a non-zero positive number"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:34
+#: src/EBox/ProgressIndicator.pm:50
 #, perl-brace-format
 msgid "Cannot execute  {exe}"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:78
+#: src/EBox/ProgressIndicator.pm:100
 #, perl-brace-format
 msgid "Progress indicator with id {id} not found"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:116
+#: src/EBox/ProgressIndicator.pm:138
 msgid "Number of ticks to notify"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:118
+#: src/EBox/ProgressIndicator.pm:140
 msgid "must be greater than zero"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:124
+#: src/EBox/ProgressIndicator.pm:146
 msgid "Executable has not been run"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:199
+#: src/EBox/ProgressIndicator.pm:236
 msgid "The executable has not run"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:259
+#: src/EBox/ProgressIndicator.pm:370
 msgid "The executable has already been started"
 msgstr ""
 
-#: src/EBox/ProgressIndicator.pm:263
+#: src/EBox/ProgressIndicator.pm:374
 msgid "The executable has already finished"
 msgstr ""
 
@@ -1439,7 +1631,7 @@ msgstr ""
 msgid "Mounted on"
 msgstr ""
 
-#: src/templates/report/diskUsage.mas:30 src/templates/report/raid.mas:102
+#: src/templates/report/diskUsage.mas:30 src/templates/report/raid.mas:121
 #: src/templates/confirm-backup.mas:44 src/templates/backup.mas:124
 msgid "Type"
 msgstr ""
@@ -1501,99 +1693,83 @@ msgstr ""
 msgid "right-symmetric"
 msgstr ""
 
-#: src/templates/report/raid.mas:94
-msgid "Active"
-msgstr ""
-
-#: src/templates/report/raid.mas:97
-msgid "yes"
-msgstr ""
-
-#: src/templates/report/raid.mas:97
-msgid "no"
-msgstr ""
-
-#: src/templates/report/raid.mas:113
+#: src/templates/report/raid.mas:132
 msgid "Active RAID devices"
 msgstr ""
 
-#: src/templates/report/raid.mas:114
+#: src/templates/report/raid.mas:133
 msgid "Active RAID devices needed"
 msgstr ""
 
-#: src/templates/report/raid.mas:115
+#: src/templates/report/raid.mas:134
 msgid "Size in blocks"
 msgstr ""
 
-#: src/templates/report/raid.mas:116
+#: src/templates/report/raid.mas:135
 msgid "Chunk size"
 msgstr ""
 
-#: src/templates/report/raid.mas:119
+#: src/templates/report/raid.mas:138
 msgid "Parity algorithm"
 msgstr ""
 
-#: src/templates/report/raid.mas:151
+#: src/templates/report/raid.mas:170
 msgid "Array properties"
 msgstr ""
 
-#: src/templates/report/raid.mas:166
+#: src/templates/report/raid.mas:185
 msgid "Resyncing array"
 msgstr ""
 
-#: src/templates/report/raid.mas:167
+#: src/templates/report/raid.mas:186
 msgid "Rebuild array"
 msgstr ""
 
-#: src/templates/report/raid.mas:168
+#: src/templates/report/raid.mas:187
 msgid "Reshape array"
 msgstr ""
 
-#: src/templates/report/raid.mas:176
+#: src/templates/report/raid.mas:195
 msgid "Operation type"
 msgstr ""
 
-#: src/templates/report/raid.mas:178
+#: src/templates/report/raid.mas:197
 msgid "Percentage completed"
 msgstr ""
 
-#: src/templates/report/raid.mas:180
+#: src/templates/report/raid.mas:199
 msgid "Estimated time left"
 msgstr ""
 
-#: src/templates/report/raid.mas:182
+#: src/templates/report/raid.mas:201
 msgid "Operation speed"
 msgstr ""
 
-#: src/templates/report/raid.mas:184
+#: src/templates/report/raid.mas:203
 msgid "Current operation"
 msgstr ""
 
-#: src/templates/report/raid.mas:195
+#: src/templates/report/raid.mas:214
 msgid "RAID device number"
 msgstr ""
 
-#: src/templates/report/raid.mas:196
+#: src/templates/report/raid.mas:215
 msgid "Device"
 msgstr ""
 
-#: src/templates/report/raid.mas:202
+#: src/templates/report/raid.mas:221
 msgid "up"
 msgstr ""
 
-#: src/templates/report/raid.mas:203
+#: src/templates/report/raid.mas:222
 msgid "failure"
 msgstr ""
 
-#: src/templates/report/raid.mas:204
-msgid "spare"
-msgstr ""
-
-#: src/templates/report/raid.mas:232
+#: src/templates/report/raid.mas:251
 msgid "No unused RAID devices"
 msgstr ""
 
-#: src/templates/report/raid.mas:235
+#: src/templates/report/raid.mas:254
 msgid "Unused RAID arrays"
 msgstr ""
 
@@ -1621,15 +1797,19 @@ msgstr ""
 msgid "Current password"
 msgstr ""
 
-#: src/templates/progress.mas:18
+#: src/templates/progress.mas:20
 msgid "Item"
 msgstr ""
 
-#: src/templates/progress.mas:19
+#: src/templates/progress.mas:21
 msgid "items left"
 msgstr ""
 
-#: src/templates/progress.mas:33
+#: src/templates/progress.mas:23
+msgid "Some error has happened in eBox. Check the logs"
+msgstr ""
+
+#: src/templates/progress.mas:37
 msgid "Starting..."
 msgstr ""
 

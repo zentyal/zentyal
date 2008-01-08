@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-24 13:22+0100\n"
+"POT-Creation-Date: 2008-01-08 15:49+0100\n"
 "PO-Revision-Date: 2007-05-16 13:01+0000\n"
 "Last-Translator: Enrique J. Hernández <quique@warp.es>\n"
 "Language-Team: <es@li.org>\n"
@@ -56,7 +56,7 @@ msgid "Virtual domain name"
 msgstr "Nombre de dominio virtual"
 
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
-#: src/templates/qmanager.mas:19
+#: src/templates/qmanager.mas:17
 msgid "Queue ID"
 msgstr "ID de la cola"
 
@@ -267,7 +267,7 @@ msgstr "Sistema de correo"
 msgid "General"
 msgstr "General"
 
-#: src/EBox/Mail.pm:1101 src/templates/qmanager.mas:21
+#: src/EBox/Mail.pm:1101 src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "Fecha"
 
@@ -287,7 +287,7 @@ msgstr "Desde nombre de máquina"
 msgid "From host ip"
 msgstr "Desde ip de la máquina"
 
-#: src/EBox/Mail.pm:1107 src/templates/qmanager.mas:20
+#: src/EBox/Mail.pm:1107 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr "Tamaños (bytes)"
 
@@ -657,56 +657,57 @@ msgstr "Crear alias de cuenta de correo"
 msgid "Mail alias"
 msgstr "Alias de cuenta de correo"
 
-#: src/templates/qmanager.mas:22
+#: src/templates/qmanager.mas:20
 msgid "Sender"
 msgstr "Remitente"
 
-#: src/templates/qmanager.mas:23
+#: src/templates/qmanager.mas:21
 msgid "Recipients"
 msgstr "Destinatarios"
 
-#: src/templates/qmanager.mas:24
+#: src/templates/qmanager.mas:22
 msgid "Message"
 msgstr "ID del mensaje"
 
-#: src/templates/qmanager.mas:25
+#: src/templates/qmanager.mas:23
 msgid "Operate"
 msgstr "Ejecutar"
 
-#: src/templates/qmanager.mas:42 src/templates/qmanager.mas:43
+#: src/templates/qmanager.mas:40 src/templates/qmanager.mas:41
 msgid "Requeue"
 msgstr "Reencolar"
 
-#: src/templates/qmanager.mas:47 src/templates/qmanager.mas:48
+#: src/templates/qmanager.mas:45 src/templates/qmanager.mas:46
 msgid "Show Info"
 msgstr "Mostrar información"
 
-#: src/templates/qmanager.mas:52 src/templates/qmanager.mas:53
+#: src/templates/qmanager.mas:50 src/templates/qmanager.mas:51
 msgid "Remove"
 msgstr "Eliminar"
 
-#: src/templates/qmanager.mas:65 src/templates/qmanager.mas:66
+#: src/templates/qmanager.mas:63 src/templates/qmanager.mas:64
 msgid "Hide Info"
 msgstr "Ocultar información"
 
-#: src/templates/qmanager.mas:85 src/templates/qmanager.mas:86
+#: src/templates/qmanager.mas:83 src/templates/qmanager.mas:84
 msgid "first"
 msgstr "primero"
 
-#: src/templates/qmanager.mas:89 src/templates/qmanager.mas:90
+#: src/templates/qmanager.mas:87 src/templates/qmanager.mas:88
 msgid "prev"
 msgstr "anterior"
 
-#: src/templates/qmanager.mas:109 src/templates/qmanager.mas:110
+#: src/templates/qmanager.mas:107 src/templates/qmanager.mas:108
 msgid "next"
 msgstr "siguiente"
 
-#: src/templates/qmanager.mas:113 src/templates/qmanager.mas:114
+#: src/templates/qmanager.mas:111 src/templates/qmanager.mas:112
 msgid "last"
 msgstr "última"
 
-#: src/templates/qmanager.mas:124
-msgid "There is not any message at the queue or the service is stopped"
+#: src/templates/qmanager.mas:122
+#, fuzzy
+msgid "There is no messages in queue or the service is stopped"
 msgstr "No hay mensajes en la cola o el servicio esta detenido"
 
 #: src/templates/mailtabs.mas:14 src/templates/mailtabs.mas:16
@@ -800,3 +801,6 @@ msgstr "Añadir un nuevo dominio virtual"
 #~ msgstr ""
 #~ "Los siguientes parámetros sólo tendrán efecto cuando el módulo de correo "
 #~ "esté habilitado"
+
+#~ msgid "There is not any message at the queue or the service is stopped"
+#~ msgstr "No hay mensajes en la cola o el servicio esta detenido"

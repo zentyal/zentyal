@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-services 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-24 13:24+0100\n"
+"POT-Creation-Date: 2008-01-08 15:51+0100\n"
 "PO-Revision-Date: 2007-09-03 17:18+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -18,71 +18,71 @@ msgstr ""
 
 #: src/EBox/Model/ServiceTable.pm:107
 msgid "Domain"
-msgstr ""
+msgstr "Domínio"
 
 #: src/EBox/Model/ServiceTable.pm:114
 msgid "Service name"
-msgstr ""
+msgstr "Nome do serviço"
 
 #: src/EBox/Model/ServiceTable.pm:122
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 #: src/EBox/Model/ServiceTable.pm:129
 msgid "Internal"
-msgstr ""
+msgstr "Interno"
 
 #: src/EBox/Model/ServiceTable.pm:134
 msgid "Configuration"
-msgstr ""
+msgstr "Configuração"
 
 #: src/EBox/Model/ServiceTable.pm:146 src/EBox/Services.pm:47
 msgid "Services"
-msgstr ""
+msgstr "Serviços"
 
 #: src/EBox/Model/ServiceTable.pm:154
 #: src/EBox/Model/ServiceConfigurationTable.pm:137
 msgid "bbbb"
-msgstr ""
+msgstr "bbbb"
 
 #: src/EBox/Model/ServiceTable.pm:155
 #: src/EBox/Model/ServiceConfigurationTable.pm:138
 msgid "service"
-msgstr ""
+msgstr "serviço"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:106
 msgid "Protocol"
-msgstr ""
+msgstr "Protocolo"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:112
 msgid "Source port"
-msgstr ""
+msgstr "Porto fonte"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:118
 msgid "Destination port"
-msgstr ""
+msgstr "Porto destino"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:129
 msgid "Service configuration"
-msgstr ""
+msgstr "Configuração do serviço"
 
 #: src/EBox/Model/ServiceConfigurationTable.pm:161
 msgid "This protocol does not use ports"
-msgstr ""
+msgstr "Este protocolo não utiliza portos"
 
 #: src/EBox/Services.pm:270
 msgid "port"
-msgstr ""
+msgstr "porto"
 
 #: src/EBox/Services.pm:272
 #: migration/0001_import_services_from_firewall.pl:102
 msgid "eBox administration"
-msgstr ""
+msgstr "Administração do ebox"
 
 #: src/EBox/Services.pm:273
 #: migration/0001_import_services_from_firewall.pl:103
 msgid "eBox Administration port"
-msgstr ""
+msgstr "Administração dos portos do ebox"
 
 #: src/EBox/Services.pm:274 migration/0001_import_services_from_firewall.pl:70
 #: migration/0001_import_services_from_firewall.pl:81
@@ -90,28 +90,28 @@ msgstr ""
 #: migration/0001_import_services_from_firewall.pl:104
 #: migration/0001_import_services_from_firewall.pl:115
 msgid "ebox-services"
-msgstr ""
+msgstr "serviços-ebox"
 
 #: migration/0001_import_services_from_firewall.pl:68
 msgid "any"
-msgstr ""
+msgstr "qualquer"
 
 #: migration/0001_import_services_from_firewall.pl:69
 msgid "any protocol and port"
-msgstr ""
+msgstr "qualquer protocolo e porto"
 
 #: migration/0001_import_services_from_firewall.pl:79
 msgid "any UDP"
-msgstr ""
+msgstr "qualquer UDP"
 
 #: migration/0001_import_services_from_firewall.pl:80
 msgid "any UDP port"
-msgstr ""
+msgstr "qualquer porto UDP"
 
 #: migration/0001_import_services_from_firewall.pl:91
 msgid "any TCP"
-msgstr ""
+msgstr "qualquer TCP"
 
 #: migration/0001_import_services_from_firewall.pl:92
 msgid "any TCP port"
-msgstr ""
+msgstr "qualquer porto TCP"

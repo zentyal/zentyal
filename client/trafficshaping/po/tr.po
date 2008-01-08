@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-trafficshaping 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-24 13:24+0100\n"
+"POT-Creation-Date: 2008-01-08 15:51+0100\n"
 "PO-Revision-Date: 2007-05-15 13:09+0000\n"
 "Last-Translator: Tutku DALMAZ <tutkudalmaz@gmail.com>\n"
 "Language-Team: none\n"
@@ -152,13 +152,15 @@ msgid ""
 msgstr ""
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:84
-#, perl-brace-format
+#, fuzzy, perl-brace-format
 msgid ""
-"Traffic Shaping is applied when eBox is acting as a gateway. To achieve so, "
-"you need at least an internal and an external interface. Check your "
-"interface configuration to match so at {openhref}Network->Interfaces"
-"{closehref}"
+"Traffic Shaping is applied when eBox is acting as a gateway. To achieve "
+"this, you need at least an internal and an external interface. Check your "
+"interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
+"Trafik Şekillendirme upload oran ayarı olan ağ geçitlerine sahip harici "
+"arabirimlerde uygulanır. Bunu yapmak için, {openhref}Network->Gateways"
+"{closehref} altında arabirimlerden biri harici olarak bir gateway oluşturun. "
 
 #: src/EBox/TrafficShaping/Composite/DynamicGeneral.pm:93
 #, fuzzy, perl-brace-format

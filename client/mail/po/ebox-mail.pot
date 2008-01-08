@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-24 13:22+0100\n"
+"POT-Creation-Date: 2008-01-08 15:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,7 +50,7 @@ msgid "Virtual domain name"
 msgstr ""
 
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
-#: src/templates/qmanager.mas:19
+#: src/templates/qmanager.mas:17
 msgid "Queue ID"
 msgstr ""
 
@@ -257,7 +257,7 @@ msgstr ""
 msgid "General"
 msgstr ""
 
-#: src/EBox/Mail.pm:1101 src/templates/qmanager.mas:21
+#: src/EBox/Mail.pm:1101 src/templates/qmanager.mas:19
 msgid "Date"
 msgstr ""
 
@@ -277,7 +277,7 @@ msgstr ""
 msgid "From host ip"
 msgstr ""
 
-#: src/EBox/Mail.pm:1107 src/templates/qmanager.mas:20
+#: src/EBox/Mail.pm:1107 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr ""
 
@@ -635,56 +635,56 @@ msgstr ""
 msgid "Mail alias"
 msgstr ""
 
-#: src/templates/qmanager.mas:22
+#: src/templates/qmanager.mas:20
 msgid "Sender"
 msgstr ""
 
-#: src/templates/qmanager.mas:23
+#: src/templates/qmanager.mas:21
 msgid "Recipients"
 msgstr ""
 
-#: src/templates/qmanager.mas:24
+#: src/templates/qmanager.mas:22
 msgid "Message"
 msgstr ""
 
-#: src/templates/qmanager.mas:25
+#: src/templates/qmanager.mas:23
 msgid "Operate"
 msgstr ""
 
-#: src/templates/qmanager.mas:42 src/templates/qmanager.mas:43
+#: src/templates/qmanager.mas:40 src/templates/qmanager.mas:41
 msgid "Requeue"
 msgstr ""
 
-#: src/templates/qmanager.mas:47 src/templates/qmanager.mas:48
+#: src/templates/qmanager.mas:45 src/templates/qmanager.mas:46
 msgid "Show Info"
 msgstr ""
 
-#: src/templates/qmanager.mas:52 src/templates/qmanager.mas:53
+#: src/templates/qmanager.mas:50 src/templates/qmanager.mas:51
 msgid "Remove"
 msgstr ""
 
-#: src/templates/qmanager.mas:65 src/templates/qmanager.mas:66
+#: src/templates/qmanager.mas:63 src/templates/qmanager.mas:64
 msgid "Hide Info"
 msgstr ""
 
-#: src/templates/qmanager.mas:85 src/templates/qmanager.mas:86
+#: src/templates/qmanager.mas:83 src/templates/qmanager.mas:84
 msgid "first"
 msgstr ""
 
-#: src/templates/qmanager.mas:89 src/templates/qmanager.mas:90
+#: src/templates/qmanager.mas:87 src/templates/qmanager.mas:88
 msgid "prev"
 msgstr ""
 
-#: src/templates/qmanager.mas:109 src/templates/qmanager.mas:110
+#: src/templates/qmanager.mas:107 src/templates/qmanager.mas:108
 msgid "next"
 msgstr ""
 
-#: src/templates/qmanager.mas:113 src/templates/qmanager.mas:114
+#: src/templates/qmanager.mas:111 src/templates/qmanager.mas:112
 msgid "last"
 msgstr ""
 
-#: src/templates/qmanager.mas:124
-msgid "There is not any message at the queue or the service is stopped"
+#: src/templates/qmanager.mas:122
+msgid "There is no messages in queue or the service is stopped"
 msgstr ""
 
 #: src/templates/mailtabs.mas:14 src/templates/mailtabs.mas:16

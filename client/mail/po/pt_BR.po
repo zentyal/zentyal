@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-24 13:22+0100\n"
+"POT-Creation-Date: 2008-01-08 15:49+0100\n"
 "PO-Revision-Date: 2006-10-18 19:02-0200\n"
 "Last-Translator: junior\n"
 "Language-Team: <en@li.org>\n"
@@ -50,7 +50,7 @@ msgid "Virtual domain name"
 msgstr "Nome do Domínio Virtual"
 
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
-#: src/templates/qmanager.mas:19
+#: src/templates/qmanager.mas:17
 msgid "Queue ID"
 msgstr ""
 
@@ -263,7 +263,7 @@ msgstr "Sistema EMail"
 msgid "General"
 msgstr "Geral"
 
-#: src/EBox/Mail.pm:1101 src/templates/qmanager.mas:21
+#: src/EBox/Mail.pm:1101 src/templates/qmanager.mas:19
 #, fuzzy
 msgid "Date"
 msgstr "Criar"
@@ -286,7 +286,7 @@ msgstr ""
 msgid "From host ip"
 msgstr "IP smarthost"
 
-#: src/EBox/Mail.pm:1107 src/templates/qmanager.mas:20
+#: src/EBox/Mail.pm:1107 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr ""
 
@@ -667,61 +667,62 @@ msgstr "Criar Aliases de Email"
 msgid "Mail alias"
 msgstr "Mail Aliases"
 
-#: src/templates/qmanager.mas:22
+#: src/templates/qmanager.mas:20
 #, fuzzy
 msgid "Sender"
 msgstr "Geral"
 
-#: src/templates/qmanager.mas:23
+#: src/templates/qmanager.mas:21
 msgid "Recipients"
 msgstr ""
 
-#: src/templates/qmanager.mas:24
+#: src/templates/qmanager.mas:22
 #, fuzzy
 msgid "Message"
 msgstr "Tamanho Mensagem"
 
-#: src/templates/qmanager.mas:25
+#: src/templates/qmanager.mas:23
 #, fuzzy
 msgid "Operate"
 msgstr "Criar"
 
-#: src/templates/qmanager.mas:42 src/templates/qmanager.mas:43
+#: src/templates/qmanager.mas:40 src/templates/qmanager.mas:41
 #, fuzzy
 msgid "Requeue"
 msgstr "Obrigatório"
 
-#: src/templates/qmanager.mas:47 src/templates/qmanager.mas:48
+#: src/templates/qmanager.mas:45 src/templates/qmanager.mas:46
 msgid "Show Info"
 msgstr ""
 
-#: src/templates/qmanager.mas:52 src/templates/qmanager.mas:53
+#: src/templates/qmanager.mas:50 src/templates/qmanager.mas:51
 msgid "Remove"
 msgstr ""
 
-#: src/templates/qmanager.mas:65 src/templates/qmanager.mas:66
+#: src/templates/qmanager.mas:63 src/templates/qmanager.mas:64
 msgid "Hide Info"
 msgstr ""
 
-#: src/templates/qmanager.mas:85 src/templates/qmanager.mas:86
+#: src/templates/qmanager.mas:83 src/templates/qmanager.mas:84
 msgid "first"
 msgstr ""
 
-#: src/templates/qmanager.mas:89 src/templates/qmanager.mas:90
+#: src/templates/qmanager.mas:87 src/templates/qmanager.mas:88
 msgid "prev"
 msgstr ""
 
-#: src/templates/qmanager.mas:109 src/templates/qmanager.mas:110
+#: src/templates/qmanager.mas:107 src/templates/qmanager.mas:108
 msgid "next"
 msgstr ""
 
-#: src/templates/qmanager.mas:113 src/templates/qmanager.mas:114
+#: src/templates/qmanager.mas:111 src/templates/qmanager.mas:112
 msgid "last"
 msgstr ""
 
-#: src/templates/qmanager.mas:124
-msgid "There is not any message at the queue or the service is stopped"
-msgstr ""
+#: src/templates/qmanager.mas:122
+#, fuzzy
+msgid "There is no messages in queue or the service is stopped"
+msgstr "Se não haver usuários no grupo, ou os usuários não"
 
 #: src/templates/mailtabs.mas:14 src/templates/mailtabs.mas:16
 msgid "Settings"
@@ -739,10 +740,6 @@ msgstr "Adicionar um novo domínio virtual"
 
 #~ msgid "Deleting virtual domain"
 #~ msgstr "Deletar Domínio Virtual"
-
-#, fuzzy
-#~ msgid "There are no users in the group or the users do not "
-#~ msgstr "Se não haver usuários no grupo, ou os usuários não"
 
 #~ msgid "Mail service settings"
 #~ msgstr "Configurações do Serviço de Email"
@@ -804,3 +801,7 @@ msgstr "Adicionar um novo domínio virtual"
 
 #~ msgid "Esto es un foobar del Mail: "
 #~ msgstr "Isto é um foobar de Email"
+
+#, fuzzy
+#~ msgid "There are no users in the group or the users do not "
+#~ msgstr "Se não haver usuários no grupo, ou os usuários não"

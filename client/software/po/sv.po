@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-24 13:24+0100\n"
+"POT-Creation-Date: 2008-01-08 15:51+0100\n"
 "PO-Revision-Date: 2007-06-06 09:40+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -21,7 +21,7 @@ msgid "Automatic software updates"
 msgstr "Automatisk uppdatering av programvara"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:315
+#: src/EBox/Software.pm:382
 msgid "System updates"
 msgstr "Systemuppdateringar"
 
@@ -41,7 +41,7 @@ msgstr "konfiguration av automatiska uppdateringar"
 msgid "There were no packages to update"
 msgstr "Det fanns inga paket att uppdatera"
 
-#: src/EBox/CGI/InstallPkgs.pm:92
+#: src/EBox/CGI/InstallPkgs.pm:93
 msgid "The packages were removed successfully"
 msgstr "Paketen togs bort utan fel"
 
@@ -63,14 +63,21 @@ msgid "packages left to install"
 msgstr ""
 
 #: src/EBox/CGI/InstallPkgs.pm:122
-msgid "The installation of the packages has finished successfully"
+#, fuzzy
+msgid "The packages installation has finished successfully"
 msgstr "Installationen av paketen har färdigställts"
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:313
+#: src/EBox/CGI/InstallPkgs.pm:123
+msgid ""
+"The packages installation has not finished correctly . More information on "
+"the logs"
+msgstr ""
+
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:380
 msgid "eBox components"
 msgstr "Komponenter i eBox"
 
-#: src/EBox/Software.pm:138
+#: src/EBox/Software.pm:164
 msgid ""
 "An error ocurred while removing components. If the error persists or eBox "
 "stops working properly, seek technical support."
@@ -78,13 +85,20 @@ msgstr ""
 "Ett fel inträffade vid borttagning av komponenter. Om felet kvarstår eller "
 "om eBox slutar att fungera bör du kontakta en tekniker."
 
-#: src/EBox/Software.pm:310 src/EBox/PackageDescriptions.pm:18
+#: src/EBox/Software.pm:377 src/EBox/PackageDescriptions.pm:18
 msgid "Software management"
 msgstr "Hantering av programvara"
 
-#: src/EBox/Software.pm:317
-msgid "Configuration"
-msgstr "Konfiguration"
+#: src/EBox/Software.pm:384
+#, fuzzy
+msgid "Automatic updates"
+msgstr "Automatisk uppdatering av programvara"
+
+#: src/EBox/Software.pm:475
+#, perl-brace-format
+msgid ""
+"Software management is currently  locked by {locker}. Please, try again later"
+msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:1
 msgid "Certificate Authority Manager for eBox"
@@ -243,6 +257,12 @@ msgstr "ingen"
 #: src/templates/ebox.mas:57
 msgid "Remove"
 msgstr "Ta bort"
+
+#~ msgid "The installation of the packages has finished successfully"
+#~ msgstr "Installationen av paketen har färdigställts"
+
+#~ msgid "Configuration"
+#~ msgstr "Konfiguration"
 
 #~ msgid ""
 #~ "The packages are being installed, please refrain from using the "

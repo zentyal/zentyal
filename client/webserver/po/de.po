@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-webserver 0.11.99\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-24 13:24+0100\n"
+"POT-Creation-Date: 2008-01-08 15:51+0100\n"
 "PO-Revision-Date: 2007-12-04 10:03+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -90,16 +90,16 @@ msgstr "Hört auf Port"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:136
 msgid "Listening port"
-msgstr ""
+msgstr "Port"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:142
 #, perl-brace-format
 msgid "Enable per user {dirName}"
-msgstr ""
+msgstr "Ein {dirName} pro Benutzer"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:152
 msgid "General configuration settings"
-msgstr ""
+msgstr "Allgemeine Einstellungen"
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:156
 #, perl-brace-format
@@ -109,34 +109,42 @@ msgid ""
 "pages will be loaded from {dirName} directory from their samba home "
 "directories"
 msgstr ""
+"Allgemeine Einstellungen für den Webserver. Der Port, auf der Webserver die "
+"Anfragen entgegennimmt, darf nicht von anderen Diensten verwendet werden. "
+"Wenn Sie Benutzern erlauben, eigene HTML-Seiten zu veröffentlichen, müssen "
+"sie im Ordner {dirName} ihres eigenen Ordners der Dateifreigabe liegen."
 
 #: src/EBox/WebServer/Model/GeneralSettings.pm:162
 msgid "General Web server configuration settings updated"
-msgstr ""
+msgstr "Die allgemeinen Einstellungen wurden aktualisiert"
 
 #: src/EBox/WebServer/Composite/General.pm:81
 msgid "Web service"
-msgstr ""
+msgstr "Webserver"
 
 #: src/EBox/WebServer/Composite/General.pm:83
 msgid ""
 "The eBox web service allows you to host Web pages in plain HTML within "
 "different virtual hosts"
 msgstr ""
+"Der eBox Webserver erlaubt Ihnen verschiedene HTML-Webseiten in "
+"unterschiedlichen virtuellen Servern zu speichern"
 
 #: src/EBox/WebServer/Maintenance.pm:66
 msgid "HyperText Transport Protocol"
 msgstr ""
+"HyperText Transport Protokoll (Protokoll für den Transport von "
+"angereichertem Text)"
 
 #: src/EBox/WebServer.pm:127 src/EBox/WebServer.pm:151
 msgid "Web"
-msgstr ""
+msgstr "Web"
 
 #: src/EBox/WebServer.pm:170
 msgid "Web service status"
-msgstr ""
+msgstr "Status des Webserverdienstes"
 
 #: src/EBox/WebServer.pm:362
 #, perl-brace-format
 msgid "The {userDirConfFile} is missing! Please recover it"
-msgstr ""
+msgstr "Die Datei {userDirConfFile} wurde nicht gefunden."

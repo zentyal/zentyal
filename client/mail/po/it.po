@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-24 13:22+0100\n"
+"POT-Creation-Date: 2008-01-08 15:49+0100\n"
 "PO-Revision-Date: 2007-04-09 15:24+0000\n"
 "Last-Translator: Andrea Fino <af@netzen.it>\n"
 "Language-Team: none\n"
@@ -18,7 +18,7 @@ msgstr ""
 
 #: src/EBox/Event/Dispatcher/Mail.pm:155
 msgid "Admin mail recipient"
-msgstr ""
+msgstr "Destinatario posta amministratore "
 
 #: src/EBox/Event/Dispatcher/Mail.pm:168 src/EBox/CGI/Index.pm:28
 #: src/EBox/CGI/Index.pm:64 src/EBox/Mail.pm:1003 src/EBox/Mail.pm:1073
@@ -29,12 +29,13 @@ msgstr "Posta"
 #: src/EBox/Event/Dispatcher/Mail.pm:189
 #, perl-brace-format
 msgid "Cannot connect to {smtp} mail server"
-msgstr ""
+msgstr "Impossibile collegarsi al mail server {smtp}"
 
 #: src/EBox/Event/Dispatcher/Mail.pm:233
 #, perl-brace-format
 msgid "Cannot connect to the server {hostname} to send the event through SMTP"
 msgstr ""
+"Impossibile collegarsi al server {hostname} per inviare l'evento via SMTP"
 
 #: src/EBox/CGI/ModifyVDomain.pm:57 src/EBox/CGI/DelVDomain.pm:72
 #: src/EBox/CGI/EditVDomain.pm:43
@@ -50,7 +51,7 @@ msgid "Virtual domain name"
 msgstr "Nome del dominio virtuale"
 
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
-#: src/templates/qmanager.mas:19
+#: src/templates/qmanager.mas:17
 msgid "Queue ID"
 msgstr "Id della coda"
 
@@ -121,12 +122,12 @@ msgstr "stato del sistema di posta"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:126
 msgid "Subject"
-msgstr ""
+msgstr "Oggetto"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:128
 #, perl-brace-format
 msgid "[EBox-event] An event has happened at {hostName}"
-msgstr ""
+msgstr "[EBox-event] Un evento si è verificato su {hostName}"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:135 src/EBox/Mail.pm:1104
 msgid "To"
@@ -134,17 +135,19 @@ msgstr "A"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:142
 msgid "Configure mail dispatcher"
-msgstr ""
+msgstr "Configura mail dispatcher"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:147
 msgid ""
 "In order to configure the Mail event dispatcher is required to enable the "
 "mail service from eBox"
 msgstr ""
+"Per configurare il dispatcher degli eventi Mail è necessario attivare il "
+"servizio mail da eBox"
 
 #: src/EBox/Mail/Model/Dispatcher/Mail.pm:150
 msgid "Mail dispatcher configuration updated"
-msgstr ""
+msgstr "Configurazione mail dispatcher aggiornata"
 
 #: src/EBox/MailVDomainsLdap.pm:68 src/EBox/MailVDomainsLdap.pm:74
 #: src/EBox/MailVDomainsLdap.pm:249 src/EBox/MailVDomainsLdap.pm:255
@@ -169,16 +172,18 @@ msgstr "alias dell'account di mail"
 #: src/EBox/Mail.pm:287
 #, perl-brace-format
 msgid "Unknown filter {filter}"
-msgstr ""
+msgstr "Filtro sconosciuto {filter}"
 
 #: src/EBox/Mail.pm:313
 msgid "Cannot change this parameter for a non-custom filter"
 msgstr ""
+"Impossibile modificare questo parametro per un filtro non personalizzato"
 
 #: src/EBox/Mail.pm:328
 msgid ""
 "The mail filter does not exist. Please set another mail filter or disable it"
 msgstr ""
+"Il filtro mail non esiste. Prego imposta un altro filtro mail o disattivalo"
 
 #: src/EBox/Mail.pm:372 src/EBox/Mail.pm:380 src/EBox/Mail.pm:385
 msgid "remote IP"
@@ -212,9 +217,8 @@ msgid "message size"
 msgstr "dimensione del messaggio"
 
 #: src/EBox/Mail.pm:1004
-#, fuzzy
 msgid "Mail services"
-msgstr "Impostazioni del servizio di posta"
+msgstr "Servizi di Posta"
 
 #: src/EBox/Mail.pm:1006
 msgid "POP3 service"
@@ -225,14 +229,12 @@ msgid "IMAP service"
 msgstr "IMAP servizio"
 
 #: src/EBox/Mail.pm:1028
-#, fuzzy
 msgid "enabled"
-msgstr "Abilitato"
+msgstr "abilitato"
 
 #: src/EBox/Mail.pm:1028
-#, fuzzy
 msgid "disabled"
-msgstr "Disabilitato"
+msgstr "disabilitato"
 
 #: src/EBox/Mail.pm:1031 src/EBox/Mail.pm:1109
 msgid "Status"
@@ -241,11 +243,11 @@ msgstr "Stato"
 #: src/EBox/Mail.pm:1042 src/EBox/Mail.pm:1047 src/templates/mailtabs.mas:19
 #: src/templates/mailtabs.mas:21
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 #: src/EBox/Mail.pm:1042
 msgid "Custom"
-msgstr ""
+msgstr "Personalizzato"
 
 #: src/EBox/Mail.pm:1044
 #, fuzzy
@@ -261,7 +263,7 @@ msgstr "Sistema di posta"
 msgid "General"
 msgstr "Generale"
 
-#: src/EBox/Mail.pm:1101 src/templates/qmanager.mas:21
+#: src/EBox/Mail.pm:1101 src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "Data"
 
@@ -281,7 +283,7 @@ msgstr "Dal nome host"
 msgid "From host ip"
 msgstr "Dall' host ip"
 
-#: src/EBox/Mail.pm:1107 src/templates/qmanager.mas:20
+#: src/EBox/Mail.pm:1107 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr "Dimensione (bytes)"
 
@@ -330,9 +332,8 @@ msgid "Other events"
 msgstr "Altri eventi"
 
 #: src/EBox/Mail.pm:1231
-#, fuzzy
 msgid "Mailboxes"
-msgstr "Posta"
+msgstr "Caselle"
 
 #: src/EBox/MailUserLdap.pm:226
 msgid "This group has a mail alias"
@@ -388,11 +389,12 @@ msgstr ""
 "sara' rimosso"
 
 #: src/templates/groupalias.mas:21
-#, fuzzy
 msgid ""
 "There are no users in the group or the users do not have a mail account, so "
 "an alias account cannot be created"
-msgstr "Non ci sono utenti nel gruppo o gli utenti non"
+msgstr ""
+"Non ci sono utenti nel gruppo o gli utenti non hanno un account di posta, "
+"per cui un account alias non può essere creato"
 
 #: src/templates/groupalias.mas:48 src/templates/groupalias.mas:49
 #: src/templates/createaccount.mas:65 src/templates/createaccount.mas:66
@@ -515,28 +517,27 @@ msgstr "Muove gli oggetti selezionati sulla colonna negata"
 
 #: src/templates/index.mas:279
 msgid "none"
-msgstr ""
+msgstr "nessuno"
 
 #: src/templates/index.mas:280
 msgid "custom"
-msgstr ""
+msgstr "personalizzato"
 
 #: src/templates/index.mas:304
 msgid "Filter in use"
-msgstr ""
+msgstr "filtro in uso"
 
 #: src/templates/index.mas:317
 msgid "Mail forward port"
-msgstr ""
+msgstr "Porta forwars mail"
 
 #: src/templates/index.mas:322
-#, fuzzy
 msgid "Filter's IP address"
-msgstr "Indirizzo IP remoto"
+msgstr "Indirizzo IP del filtro"
 
 #: src/templates/index.mas:327
 msgid "Filter's Port"
-msgstr ""
+msgstr "Porta del filtro"
 
 #: src/templates/index.mas:335 src/templates/index.mas:336
 msgid "Apply"
@@ -546,6 +547,7 @@ msgstr "Applica"
 msgid ""
 "The following settings only will take effect when the mail module is enabled"
 msgstr ""
+"Le seguenti impostazioni avranno effetto solo quando il modulo verrà attivato"
 
 #: src/templates/createaccount.mas:15
 msgid "Create mail account"
@@ -653,71 +655,69 @@ msgstr "Crea un alias di posta"
 msgid "Mail alias"
 msgstr "Alias di posta"
 
-#: src/templates/qmanager.mas:22
+#: src/templates/qmanager.mas:20
 msgid "Sender"
 msgstr "Mittente"
 
-#: src/templates/qmanager.mas:23
+#: src/templates/qmanager.mas:21
 msgid "Recipients"
 msgstr "Destinatari"
 
-#: src/templates/qmanager.mas:24
+#: src/templates/qmanager.mas:22
 msgid "Message"
 msgstr "Mesaggio"
 
-#: src/templates/qmanager.mas:25
+#: src/templates/qmanager.mas:23
 msgid "Operate"
 msgstr "Opera"
 
-#: src/templates/qmanager.mas:42 src/templates/qmanager.mas:43
+#: src/templates/qmanager.mas:40 src/templates/qmanager.mas:41
 msgid "Requeue"
 msgstr "Ri-accoda"
 
-#: src/templates/qmanager.mas:47 src/templates/qmanager.mas:48
+#: src/templates/qmanager.mas:45 src/templates/qmanager.mas:46
 msgid "Show Info"
 msgstr "Mostra informazioni"
 
-#: src/templates/qmanager.mas:52 src/templates/qmanager.mas:53
+#: src/templates/qmanager.mas:50 src/templates/qmanager.mas:51
 msgid "Remove"
 msgstr "Rimuove"
 
-#: src/templates/qmanager.mas:65 src/templates/qmanager.mas:66
+#: src/templates/qmanager.mas:63 src/templates/qmanager.mas:64
 msgid "Hide Info"
 msgstr "Nascondi informazioni"
 
-#: src/templates/qmanager.mas:85 src/templates/qmanager.mas:86
+#: src/templates/qmanager.mas:83 src/templates/qmanager.mas:84
 msgid "first"
 msgstr "primo"
 
-#: src/templates/qmanager.mas:89 src/templates/qmanager.mas:90
+#: src/templates/qmanager.mas:87 src/templates/qmanager.mas:88
 msgid "prev"
 msgstr "precedente"
 
-#: src/templates/qmanager.mas:109 src/templates/qmanager.mas:110
+#: src/templates/qmanager.mas:107 src/templates/qmanager.mas:108
 msgid "next"
 msgstr "prossimo"
 
-#: src/templates/qmanager.mas:113 src/templates/qmanager.mas:114
+#: src/templates/qmanager.mas:111 src/templates/qmanager.mas:112
 msgid "last"
 msgstr "ultimo"
 
-#: src/templates/qmanager.mas:124
-msgid "There is not any message at the queue or the service is stopped"
-msgstr "Non c'e' nessun messaggio in cosa o il servizio e' fermo"
+#: src/templates/qmanager.mas:122
+msgid "There is no messages in queue or the service is stopped"
+msgstr "Non ci sono messaggi in coda o il servizio è spento"
 
 #: src/templates/mailtabs.mas:14 src/templates/mailtabs.mas:16
 msgid "Settings"
 msgstr "Impostazioni"
 
 #: src/templates/account.mas:22
-#, fuzzy
 msgid "Mail account"
-msgstr "account della mail"
+msgstr "Account mail"
 
 #: src/templates/account.mas:26
-#, fuzzy
 msgid "Click here to create a new mail virtual domain"
-msgstr "Aggiungi un nuovo dominio virtuale"
+msgstr "Fai clic qui per creare un nuovo dominio virtuale"
 
 #~ msgid "Deleting virtual domain"
 #~ msgstr "Sto cancellando il dominio virtuale"
@@ -766,3 +766,6 @@ msgstr "Aggiungi un nuovo dominio virtuale"
 
 #~ msgid "Remote Port"
 #~ msgstr "Porta remota"
+
+#~ msgid "There is not any message at the queue or the service is stopped"
+#~ msgstr "Non c'e' nessun messaggio in cosa o il servizio e' fermo"

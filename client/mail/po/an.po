@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-mail 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-24 13:22+0100\n"
+"POT-Creation-Date: 2008-01-08 15:49+0100\n"
 "PO-Revision-Date: 2006-12-22 13:55+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -50,7 +50,7 @@ msgid "Virtual domain name"
 msgstr "Nombre de dominio birtual"
 
 #: src/EBox/CGI/MQRequeue.pm:42 src/EBox/CGI/MQRemove.pm:42
-#: src/templates/qmanager.mas:19
+#: src/templates/qmanager.mas:17
 msgid "Queue ID"
 msgstr "ID d'a coda"
 
@@ -257,7 +257,7 @@ msgstr "Sistema de correu"
 msgid "General"
 msgstr "Cheneral"
 
-#: src/EBox/Mail.pm:1101 src/templates/qmanager.mas:21
+#: src/EBox/Mail.pm:1101 src/templates/qmanager.mas:19
 msgid "Date"
 msgstr "Calendata"
 
@@ -277,7 +277,7 @@ msgstr "Dende nombre de maquina"
 msgid "From host ip"
 msgstr "Dende ip d'a maquina"
 
-#: src/EBox/Mail.pm:1107 src/templates/qmanager.mas:20
+#: src/EBox/Mail.pm:1107 src/templates/qmanager.mas:18
 msgid "Size (bytes)"
 msgstr "Tamaños (bytes)"
 
@@ -648,56 +648,57 @@ msgstr "Creyar alias de cuenta de correu"
 msgid "Mail alias"
 msgstr "Alias de cuenta de correu"
 
-#: src/templates/qmanager.mas:22
+#: src/templates/qmanager.mas:20
 msgid "Sender"
 msgstr "Remitent"
 
-#: src/templates/qmanager.mas:23
+#: src/templates/qmanager.mas:21
 msgid "Recipients"
 msgstr "Destinatarios"
 
-#: src/templates/qmanager.mas:24
+#: src/templates/qmanager.mas:22
 msgid "Message"
 msgstr "ID d'o mensache"
 
-#: src/templates/qmanager.mas:25
+#: src/templates/qmanager.mas:23
 msgid "Operate"
 msgstr "Executar"
 
-#: src/templates/qmanager.mas:42 src/templates/qmanager.mas:43
+#: src/templates/qmanager.mas:40 src/templates/qmanager.mas:41
 msgid "Requeue"
 msgstr "Reencodar"
 
-#: src/templates/qmanager.mas:47 src/templates/qmanager.mas:48
+#: src/templates/qmanager.mas:45 src/templates/qmanager.mas:46
 msgid "Show Info"
 msgstr "Amostrar informazión"
 
-#: src/templates/qmanager.mas:52 src/templates/qmanager.mas:53
+#: src/templates/qmanager.mas:50 src/templates/qmanager.mas:51
 msgid "Remove"
 msgstr "Eliminar"
 
-#: src/templates/qmanager.mas:65 src/templates/qmanager.mas:66
+#: src/templates/qmanager.mas:63 src/templates/qmanager.mas:64
 msgid "Hide Info"
 msgstr "Amagar informazión"
 
-#: src/templates/qmanager.mas:85 src/templates/qmanager.mas:86
+#: src/templates/qmanager.mas:83 src/templates/qmanager.mas:84
 msgid "first"
 msgstr "primero"
 
-#: src/templates/qmanager.mas:89 src/templates/qmanager.mas:90
+#: src/templates/qmanager.mas:87 src/templates/qmanager.mas:88
 msgid "prev"
 msgstr "anterior"
 
-#: src/templates/qmanager.mas:109 src/templates/qmanager.mas:110
+#: src/templates/qmanager.mas:107 src/templates/qmanager.mas:108
 msgid "next"
 msgstr "siguient"
 
-#: src/templates/qmanager.mas:113 src/templates/qmanager.mas:114
+#: src/templates/qmanager.mas:111 src/templates/qmanager.mas:112
 msgid "last"
 msgstr "zaguera"
 
-#: src/templates/qmanager.mas:124
-msgid "There is not any message at the queue or the service is stopped"
+#: src/templates/qmanager.mas:122
+#, fuzzy
+msgid "There is no messages in queue or the service is stopped"
 msgstr "No bi'n ha mensaches en a cola u o serbizio ye aturato"
 
 #: src/templates/mailtabs.mas:14 src/templates/mailtabs.mas:16
@@ -752,3 +753,6 @@ msgstr "Adibir un nuebo dominio birtual"
 
 #~ msgid "External Filter"
 #~ msgstr "Filtrato esterno"
+
+#~ msgid "There is not any message at the queue or the service is stopped"
+#~ msgstr "No bi'n ha mensaches en a cola u o serbizio ye aturato"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-24 13:21+0100\n"
+"POT-Creation-Date: 2008-01-08 15:48+0100\n"
 "PO-Revision-Date: 2007-08-19 12:26+0200\n"
 "Last-Translator: Andreas Baur <semilbi@hotmail.com>\n"
 "Language-Team: none\n"
@@ -64,7 +64,7 @@ msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
 msgstr ""
 "Der Bereich {from}-{to} beinhaltet die fixe IP Adresse \"{name}\": {fixedIP}"
 
-#: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:203
+#: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:209
 #: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
 #: src/templates/fixed.mas:8 src/templates/ranges.mas:53
 msgid "Name"
@@ -243,39 +243,44 @@ msgstr ""
 msgid "IP address {ip} is in range '{range}': {from}-{to}"
 msgstr "Die IP Adresse {ip} ist im Bereich \"{range}\": {from}-{to}"
 
-#: src/EBox/Model/FixedAddressTable.pm:171
-#, fuzzy
-msgid "update"
-msgstr "Datum"
+#: src/EBox/Model/FixedAddressTable.pm:159
+#, perl-brace-format
+msgid "{name} cannot contain spaces"
+msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:173
-#, fuzzy
+#: src/EBox/Model/FixedAddressTable.pm:177
+msgid "update"
+msgstr "Aktualisieren"
+
+#: src/EBox/Model/FixedAddressTable.pm:179
 msgid "add"
 msgstr "Hinzufügen"
 
-#: src/EBox/Model/FixedAddressTable.pm:175
+#: src/EBox/Model/FixedAddressTable.pm:181
 #, perl-brace-format
 msgid ""
 "You cannot {action} a fixed address with a name which is already used in "
 "other fixed address table"
 msgstr ""
+"Sie können einen feste Adresse nicht {action} mit einem Namen, der bereits "
+"in einer anderen Tabelle mit festen Adressen verzeichnet ist"
 
-#: src/EBox/Model/FixedAddressTable.pm:209 src/EBox/CGI/AddFixed.pm:43
+#: src/EBox/Model/FixedAddressTable.pm:215 src/EBox/CGI/AddFixed.pm:43
 #: src/EBox/DHCP.pm:1205 src/templates/fixed.mas:9
 msgid "MAC address"
 msgstr "MAC Adresse"
 
-#: src/EBox/Model/FixedAddressTable.pm:215
+#: src/EBox/Model/FixedAddressTable.pm:221
 #: src/EBox/Model/ThinClientOptions.pm:225 src/EBox/CGI/AddFixed.pm:44
 #: src/templates/fixed.mas:10
 msgid "IP address"
 msgstr "IP Adresse"
 
-#: src/EBox/Model/FixedAddressTable.pm:223 src/templates/fixed.mas:5
+#: src/EBox/Model/FixedAddressTable.pm:229 src/templates/fixed.mas:5
 msgid "Fixed addresses"
 msgstr "Feste Adressen"
 
-#: src/EBox/Model/FixedAddressTable.pm:230
+#: src/EBox/Model/FixedAddressTable.pm:236
 msgid "fixed address"
 msgstr "Feste Adresse"
 
@@ -348,7 +353,7 @@ msgstr ""
 "den Dienst im {openhref}Firewall-Modul{closehref} freigeben"
 
 #: src/EBox/Composite/General.pm:79
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "An interface must set as static to configure the DHCP service on it. To do "
 "so, change {openhref}interfaces configuration{closehref} in network module"

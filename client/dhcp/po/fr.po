@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-dhcp 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-24 13:21+0100\n"
+"POT-Creation-Date: 2008-01-08 15:48+0100\n"
 "PO-Revision-Date: 2007-04-12 07:57+0000\n"
 "Last-Translator: Nicolas Liaudat <nliaudat@pompiers-chatel.ch>\n"
 "Language-Team: <es@li.org>\n"
@@ -59,7 +59,7 @@ msgstr ""
 msgid "Range {from}-{to} includes fixed address '{name}': {fixedIP}"
 msgstr "La plage {from}-{to} inclue l'adresse fixe '{name}': {fixedIP}"
 
-#: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:203
+#: src/EBox/Model/RangeTable.pm:211 src/EBox/Model/FixedAddressTable.pm:209
 #: src/EBox/CGI/AddRange.pm:43 src/EBox/CGI/AddFixed.pm:45
 #: src/templates/fixed.mas:8 src/templates/ranges.mas:53
 msgid "Name"
@@ -234,39 +234,44 @@ msgstr "L'adresse IP choisie est l'adresse IP de l'interface: {ifaceIP}"
 msgid "IP address {ip} is in range '{range}': {from}-{to}"
 msgstr "L'adresse IP {ip} est dans la plage '{range}': {from}-{to}"
 
-#: src/EBox/Model/FixedAddressTable.pm:171
+#: src/EBox/Model/FixedAddressTable.pm:159
+#, perl-brace-format
+msgid "{name} cannot contain spaces"
+msgstr ""
+
+#: src/EBox/Model/FixedAddressTable.pm:177
 #, fuzzy
 msgid "update"
 msgstr "Date"
 
-#: src/EBox/Model/FixedAddressTable.pm:173
+#: src/EBox/Model/FixedAddressTable.pm:179
 #, fuzzy
 msgid "add"
 msgstr "Ajouter"
 
-#: src/EBox/Model/FixedAddressTable.pm:175
+#: src/EBox/Model/FixedAddressTable.pm:181
 #, perl-brace-format
 msgid ""
 "You cannot {action} a fixed address with a name which is already used in "
 "other fixed address table"
 msgstr ""
 
-#: src/EBox/Model/FixedAddressTable.pm:209 src/EBox/CGI/AddFixed.pm:43
+#: src/EBox/Model/FixedAddressTable.pm:215 src/EBox/CGI/AddFixed.pm:43
 #: src/EBox/DHCP.pm:1205 src/templates/fixed.mas:9
 msgid "MAC address"
 msgstr "Adresse MAC"
 
-#: src/EBox/Model/FixedAddressTable.pm:215
+#: src/EBox/Model/FixedAddressTable.pm:221
 #: src/EBox/Model/ThinClientOptions.pm:225 src/EBox/CGI/AddFixed.pm:44
 #: src/templates/fixed.mas:10
 msgid "IP address"
 msgstr "Adresse IP"
 
-#: src/EBox/Model/FixedAddressTable.pm:223 src/templates/fixed.mas:5
+#: src/EBox/Model/FixedAddressTable.pm:229 src/templates/fixed.mas:5
 msgid "Fixed addresses"
 msgstr "Adresses fixes"
 
-#: src/EBox/Model/FixedAddressTable.pm:230
+#: src/EBox/Model/FixedAddressTable.pm:236
 msgid "fixed address"
 msgstr "adresse fixe"
 

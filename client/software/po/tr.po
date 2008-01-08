@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-software 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-24 13:24+0100\n"
+"POT-Creation-Date: 2008-01-08 15:51+0100\n"
 "PO-Revision-Date: 2007-04-22 12:00+0000\n"
 "Last-Translator: Alper orus <alperor@linux-sevenler.org>\n"
 "Language-Team: none\n"
@@ -22,7 +22,7 @@ msgid "Automatic software updates"
 msgstr "Otomatil sistem güncellemeleri"
 
 #: src/EBox/CGI/Updates.pm:30 src/EBox/CGI/Updates.pm:40
-#: src/EBox/Software.pm:315
+#: src/EBox/Software.pm:382
 msgid "System updates"
 msgstr "Sistem güncellemeleri"
 
@@ -42,7 +42,7 @@ msgstr "Otomatik güncelleme ayarları"
 msgid "There were no packages to update"
 msgstr "Güncellenecek paket mevcut değil"
 
-#: src/EBox/CGI/InstallPkgs.pm:92
+#: src/EBox/CGI/InstallPkgs.pm:93
 msgid "The packages were removed successfully"
 msgstr "Paketler başarılı bir şekilde silindi"
 
@@ -64,14 +64,21 @@ msgid "packages left to install"
 msgstr ""
 
 #: src/EBox/CGI/InstallPkgs.pm:122
-msgid "The installation of the packages has finished successfully"
+#, fuzzy
+msgid "The packages installation has finished successfully"
 msgstr "Paketlerin kurulu başarılı bir şekilde tamamlandı"
 
-#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:313
+#: src/EBox/CGI/InstallPkgs.pm:123
+msgid ""
+"The packages installation has not finished correctly . More information on "
+"the logs"
+msgstr ""
+
+#: src/EBox/CGI/EBox.pm:30 src/EBox/CGI/EBox.pm:40 src/EBox/Software.pm:380
 msgid "eBox components"
 msgstr "eBox bileşenleri"
 
-#: src/EBox/Software.pm:138
+#: src/EBox/Software.pm:164
 msgid ""
 "An error ocurred while removing components. If the error persists or eBox "
 "stops working properly, seek technical support."
@@ -79,13 +86,20 @@ msgstr ""
 "Bir bileşenin kaldırılması esnasında bir hata oluştur. Eğer bu hata tekrar "
 "meydana gelirse veya eBox düzgün çalışmaz ise 'Teknik Servis' bölümünü okuyun"
 
-#: src/EBox/Software.pm:310 src/EBox/PackageDescriptions.pm:18
+#: src/EBox/Software.pm:377 src/EBox/PackageDescriptions.pm:18
 msgid "Software management"
 msgstr "Uygulama yönetimi"
 
-#: src/EBox/Software.pm:317
-msgid "Configuration"
-msgstr "Ayarlar"
+#: src/EBox/Software.pm:384
+#, fuzzy
+msgid "Automatic updates"
+msgstr "Otomatil sistem güncellemeleri"
+
+#: src/EBox/Software.pm:475
+#, perl-brace-format
+msgid ""
+"Software management is currently  locked by {locker}. Please, try again later"
+msgstr ""
 
 #: src/EBox/PackageDescriptions.pm:1
 msgid "Certificate Authority Manager for eBox"
@@ -243,6 +257,12 @@ msgstr "hiçbirşey"
 #: src/templates/ebox.mas:57
 msgid "Remove"
 msgstr "Kaldır"
+
+#~ msgid "The installation of the packages has finished successfully"
+#~ msgstr "Paketlerin kurulu başarılı bir şekilde tamamlandı"
+
+#~ msgid "Configuration"
+#~ msgstr "Ayarlar"
 
 #~ msgid ""
 #~ "The packages are being installed, please refrain from using the "

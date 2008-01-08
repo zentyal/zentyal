@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ebox-samba 0.11\n"
 "Report-Msgid-Bugs-To: bugs@warp.es\n"
-"POT-Creation-Date: 2007-12-24 13:23+0100\n"
+"POT-Creation-Date: 2008-01-08 15:50+0100\n"
 "PO-Revision-Date: 2007-03-16 11:36+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -89,11 +89,11 @@ msgstr "stampante"
 
 #: src/EBox/Samba.pm:1166
 msgid "User's files"
-msgstr ""
+msgstr "File dell'utente"
 
 #: src/EBox/Samba.pm:1168
 msgid "Group's files"
-msgstr ""
+msgstr "File del gruppo"
 
 #: src/EBox/SambaLdapUser.pm:210
 msgid "This user has a sharing directory associated which conatins data"
