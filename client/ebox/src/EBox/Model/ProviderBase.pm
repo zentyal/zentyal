@@ -139,7 +139,10 @@ sub _populate
     }
   
     if (not $multiple) {
-      my $name =   $class->nameFromClass; # XXX change to $class->name when possible
+      my $name =   $class->nameFromClass(); # XXX change to $class->name when possible
+      # Set name from directory if exists
+      my %constructionParams = @constructionParams;
+      $name = $constructionParams{directory} if exists ($constructionParams{directory});
       push @constructionParams, (name => $name);
       
       # construct instance
