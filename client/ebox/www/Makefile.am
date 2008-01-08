@@ -2,7 +2,7 @@
 
 wwwdir = $(datadir)/ebox/www
 
-js = js/capsLock.js
+js = js/capsLock.js js/progress.js
 
 nobase_www_DATA = $(js)
 

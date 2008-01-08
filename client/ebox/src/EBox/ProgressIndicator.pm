@@ -73,6 +73,8 @@ sub create
   $self->setConfString('message', '');
   $self->setConfBool('started', 0);
   $self->setConfBool('finished', 0);
+  # retValue=-1, not finished
+  $self->setConfInt('retValue', -1);
 
   return $self;
 }
@@ -209,10 +211,25 @@ sub finished
   return $self->getConfBool('finished');
 }
 
-
+# Method: setAsFinished
+#
+#     Set the progress indicator as finished.
+#
+# Parameters:
+#
+#     retValue - Int the returned value. Possible values
+#                *(Optional)* Default value: 0
+#
+#          - 0 : mean the progress has finished correctly
+#          - >0 : mean something wrong happened
+#          - otherwise: undocumented
+#
+#     errorMessage - String the error message if retValue > 0
+#                    *(Optional)* Default value: ''
+#
 sub setAsFinished
 {
-  my ($self) = @_;
+  my ($self, $retValue, $errorMsg) = @_;
 
   if (not $self->started()) {
     throw EBox::Exceptions::External(
@@ -221,16 +238,82 @@ sub setAsFinished
   }
 
   $self->setConfBool('finished', 1);
+
+  if (defined ( $retValue )) {
+      $self->setConfInt('retValue', $retValue);
+      if ( $retValue > 0 and defined($errorMsg)) {
+          $self->setConfString('errorMsg', $errorMsg);
+      }
+  }
+
 }
 
+# Method: retValue
+#
+#      Returned value if it makes sense and only if the state is
+#      marked as finished
+#
+# Returns:
+#
+#      Int - the returned value, if -1 is returned, the value must not
+#      take into account
+#
+sub retValue
+{
+    my ($self) = @_;
+    return $self->getConfInt('retValue');
+}
+
+# Method: setRetValue
+#
+#      Set returned value.
+#
+# Parameters:
+#
+#      retValue - Int the returned value, if -1 is set, the value
+#      must not take into account
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::Internal> - thrown if the state is not
+#      finished
+#
+sub setRetValue
+{
+    my ($self, $retValue) = @_;
+
+    unless ( $self->finished() ) {
+        throw EBox::Exceptions::Internal('Cannot set a return value to '
+                                         . 'a not finished task');
+    }
+    return $self->setConfInt('retValue', $retValue);
+
+}
+
+# Method: errorMsg
+#
+#      Get the error message when the executable has finished. It only
+#      makes sense when <EBox::ProgressIndicator::retValue> returns a
+#      value greater than zero.
+#
+# Returns:
+#
+#      String - the error message if any
+#
+sub errorMsg
+{
+    my ($self) = @_;
+
+    return $self->getConfString('errorMsg');
+}
 
 sub stateAsString
 {
   my ($self) = @_;
 
-  my $totalTicks = $self->totalTicks;
-  my $ticks      = $self->ticks;
-  my $message     = $self->message;
+  my $totalTicks = $self->totalTicks();
+  my $ticks      = $self->ticks();
+  my $message     = $self->message();
 
   my $state;
   if (not $self->started()) {
@@ -240,8 +323,16 @@ sub stateAsString
     if ($ticks < $totalTicks) {
       $state = 'error';
     }
-    else {
+    else  {
       $state ='done';
+      my $retValue = $self->retValue();
+      if ( $retValue > 0 ) {
+          $state .= ",retValue:$retValue";
+          my $errorMsg = $self->errorMsg();
+          if ( $errorMsg ) {
+              $state .= ",errorMsg:$errorMsg";
+          }
+      }
     }
   }
   else {

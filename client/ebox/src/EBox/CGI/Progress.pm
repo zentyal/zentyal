@@ -56,7 +56,8 @@ sub _process
     $self->{title} = $title;
   }
 
-  my @paramsNames = qw( text currentItemCaption itemsLeftMessage endNote reloadInterval currentItemUrl);
+  my @paramsNames = qw( text currentItemCaption itemsLeftMessage
+                        endNote errorNote reloadInterval currentItemUrl);
   foreach my $name (@paramsNames) {
     my $value = $self->param($name);
     $value or

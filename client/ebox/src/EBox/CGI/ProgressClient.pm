@@ -25,6 +25,9 @@ sub new
 #   itemsLeftMessage   - text after the 'x of y' 
 #   endNote            - text of the note showed when the operation ends
 #
+#   errorNote - String text showed when operation has not finished
+#               correctly
+#
 #   reloadInterval - reload interval in seconds (default 5)
 #
 #  currentItemUrl - with this you can change the CGI used to fetch the current
