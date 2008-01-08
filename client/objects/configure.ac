@@ -1,4 +1,4 @@
-AC_INIT([EBox-objects], [0.11])
+AC_INIT([EBox-objects], [0.11.99])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Objects.pm])
