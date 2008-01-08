@@ -72,7 +72,6 @@ sub _table
                                 'foreignModel' => 'MemberTable',
                                 'view' => '/ebox/Objects/View/MemberTable',
                                 'backView' => '/ebox/Objects/View/MemberTable',
-                                'size' => '1',
                              )
 
           );
@@ -93,25 +92,6 @@ sub _table
 
     return $dataTable;
 }
-
-# Method: _tailoredOrder
-#
-#        Overrides <EBox::Model::DataTable::_tailoredOrder>
-#
-#
-#sub _tailoredOrder # (rows)
-#{
-#
-#    my ($self, $rows_ref) = @_;
-#
-#    # Order rules per priority
-#    my @orderedRows = sort { $a->{valueHash}->{name}->value()
-#        cmp $b->{valueHash}->{name}->value() }
-#    @{$rows_ref};
-#
-#    return \@orderedRows;
-#
-#}
 
 # Method: warnIfIdUsed
 #
