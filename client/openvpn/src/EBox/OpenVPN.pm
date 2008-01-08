@@ -1473,7 +1473,7 @@ sub tableInfo
 	  titles => $titles,
 	  'order' => \@order,
 	  'tablename' => 'openvpn',
-		'timecol' => 'timestamp',
+          'timecol' => 'timestamp',
 	  'filter' => ['daemon_name', 'from_ip', 'from_cert'],
 	  'events' => $events,
 	  'eventcol' => 'event'

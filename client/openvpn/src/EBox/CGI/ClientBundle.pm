@@ -113,7 +113,6 @@ sub _addressesFromParams
     } 
   }
 
-  EBox::debug("addrs @addrs");
   return \@addrs;
 }
 
