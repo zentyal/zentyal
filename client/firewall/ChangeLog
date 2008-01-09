@@ -1,3 +1,7 @@
+0.11.99
+	+ Added log domain for firewall's drops. Firewall logging limits
+	are stored in a configuration file
+	+ Enhanced strings
 0.11
 	+ New release
 0.10.99
