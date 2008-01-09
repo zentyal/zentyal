@@ -1,3 +1,7 @@
+0.11.99
+	+ Added traffic rate monitoring done on demand and in
+	real-time. The monitoring may be filter by source address and
+	service (protocol/port).
 0.11
 	+ Bugfix: Change from static to other method works again
 0.10.99
