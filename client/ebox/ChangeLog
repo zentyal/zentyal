@@ -23,6 +23,8 @@
 	when the RAID subsystem is configured in the eBox machine
 	+ Progress indicator now contains a returned value and error
 	message as well
+	+ Lock session file for HTTP and SOAP sessions to avoid bugs
+	related to multiple requests (AJAX) in a short time
 0.11
 	+ Fix issue with multiple models and models with params.
 	  This triggered a bug in DHCP when there was just one static
