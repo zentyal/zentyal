@@ -284,7 +284,7 @@ sub getLogsModules
 sub getAllTables
 {
 	my ($self) = @_;
-	my $global = EBox::Global->getInstance();	
+	my $global = EBox::Global->getInstance();
 	my $tables;
 	
 	return $self->{tables} if ($self->{tables});

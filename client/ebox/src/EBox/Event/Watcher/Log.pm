@@ -213,8 +213,8 @@ sub _description
       my $loggersMsg = '';
       if ( defined ( $loggerTables ) ) {
           my @loggers = keys %{$loggerTables};
-          my $loggersMsg = join( ', ',
-                                 map { $logs->getTableInfo($_)->{name} } @loggers);
+          $loggersMsg = join( ', ',
+                              map { $logs->getTableInfo($_)->{name} } @loggers);
       }
 
       return __x('Notify when a logger ({loggers}) has logged something',

@@ -72,18 +72,22 @@ sub new
 sub printableValue
 {
     my ($self) = @_;
-    
+
     return '' unless (exists $self->{'foreignModel'});
-    my $model = EBox::Model::ModelManager->instance()->model($self->{'foreignModel'});
-    return unless (defined($model));
-    my $olddir = $model->directory();
-    $model->setDirectory($self->directory());
-    my $val = $model->printableValueRows();
-    $model->setDirectory($olddir);
-  	return { 'model' => $self->{'foreignModel'}, , 
+    my $val;
+    try {
+        my $model = EBox::Model::ModelManager->instance()->model($self->{'foreignModel'});
+        my $olddir = $model->directory();
+        $model->setDirectory($self->directory());
+        my $val = $model->printableValueRows();
+        $model->setDirectory($olddir);
+    } catch EBox::Exceptions::DataNotFound with {
+        $val = undef;
+    };
+    return { 'model' => $self->{'foreignModel'},
              'directory' => $self->directory(),
              'values' => $val};
-}   
+}
 
 sub value
 {
@@ -289,9 +293,13 @@ sub _restoreFromHash
       if ( defined ( $self->foreignModelAcquirer() )) {
           my $acquirerFunc = $self->foreignModelAcquirer();
           $self->{'foreignModel'} = &$acquirerFunc($hashRef);
-          my $model = EBox::Model::ModelManager->instance()->model($self->{'foreignModel'});
-          $self->{'view'} = '/ebox/' . $model->menuNamespace();
-          $self->setDirectory($model->directory());
+          try {
+              my $model = EBox::Model::ModelManager->instance()->model($self->{'foreignModel'});
+              $self->{'view'} = '/ebox/' . $model->menuNamespace();
+              $self->setDirectory($model->directory());
+          } catch EBox::Exceptions::DataNotFound with {
+              $self->{'view'} = '/ebox/';
+          };
       }
 
   }
