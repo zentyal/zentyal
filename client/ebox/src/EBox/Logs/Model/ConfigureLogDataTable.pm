@@ -27,6 +27,9 @@
 
 package EBox::Logs::Model::ConfigureLogDataTable;
 
+use strict;
+use warnings;
+
 # eBox classes
 use EBox::Global;
 use EBox::Gettext;
@@ -43,9 +46,8 @@ use EBox::Sudo;
 # eBox exceptions used 
 use EBox::Exceptions::External;
 
-use strict;
-use warnings;
-
+# Core modules
+use Error qw(:try);
 
 use base 'EBox::Model::DataTable';
 
@@ -268,10 +270,19 @@ sub acquireEventConfURL
     my $loggerConfRow = $logConfModel->findValue(domain => $logDomain);
     my $filterDirectory = $loggerConfRow->{filters}->{directory};
 
-    my $logFilteringWatcher = $modelManager->model("/events/LogWatcherFiltering/$logDomain");
+    my $logFilteringWatcher;
+    try {
+        $logFilteringWatcher = $modelManager->model("/events/LogWatcherFiltering/$logDomain");
+    } catch EBox::Exceptions::DataNotFound with {
+        $logFilteringWatcher = undef;
+    };
 
-    return '/ebox/' . $logFilteringWatcher->menuNamespace()
-      . "?directory=$filterDirectory";
+    if ( $logFilteringWatcher ) {
+        return '/ebox/' . $logFilteringWatcher->menuNamespace()
+          . "?directory=$filterDirectory";
+    } else {
+        return '/ebox/';
+    }
 
 }
 
