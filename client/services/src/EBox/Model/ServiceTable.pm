@@ -151,7 +151,7 @@ sub _table
         'tableDescription' => \@tableHead,
         'menuNamespace' => 'Services/View/ServiceTable',
         'class' => 'dataTable',
-        'help' => __x('bbbb'),
+        'help' => '', # FIXME
         'printableRowName' => __('service'),
         'sortedBy' => 'name',
     };

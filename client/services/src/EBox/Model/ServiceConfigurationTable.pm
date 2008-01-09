@@ -134,7 +134,7 @@ sub _table
                 'tableDescription' => \@tableHead,
                 'menuNamespace' => 'Services/View/ServiceConfigurationTable',
                 'class' => 'dataTable',
-                'help' => __x('bbbb'),
+                'help' => '', # FIXME
                 'printableRowName' => __('service'),
         };
 
