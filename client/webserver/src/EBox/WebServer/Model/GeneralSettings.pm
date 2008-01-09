@@ -112,6 +112,22 @@ sub formSubmitted
 
 }
 
+# Group: Public class static methods
+
+# Method: DefaultEnableDir
+#
+#     Accessor to the default value for the enableDir field in the
+#     model
+#
+# Returns:
+#
+#     boolean - the default value for enableDir field
+#
+sub DefaultEnableDir
+{
+    return 0;
+}
+
 # Group: Protected methods
 
 # Method: _table
@@ -142,7 +158,7 @@ sub _table
                                 printableName => __x('Enable per user {dirName}',
                                                      dirName => PUBLIC_DIR),
                                 editable      => 1,
-                                defaultValue  => 0,
+                                defaultValue  => EBox::WebServer::Model::GeneralSettings::DefaultEnableDir(),
                                ),
       );
 

@@ -85,7 +85,10 @@ sub onInstall
     # Save settings on the model
     my $webMod = $gl->modInstance('webserver');
     my $settingsModel = $webMod->model('GeneralSettings');
-    $settingsModel->set(port => $port);
+    $settingsModel->set(
+                        port      => $port,
+                        enableDir => EBox::WebServer::Model::GeneralSettings::DefaultEnableDir(),
+                       );
     $webMod->save();
 
 }
