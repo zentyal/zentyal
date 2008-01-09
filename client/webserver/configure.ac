@@ -62,6 +62,7 @@ src/EBox/WebServer/Composite/Makefile
 src/EBox/WebServer/Model/Makefile
 schemas/Makefile
 stubs/Makefile
+tools/Makefile
 www/Makefile
 Makefile
 ])
