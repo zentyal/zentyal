@@ -7,9 +7,9 @@ Standards-Version: 3.6.1
 
 Package: ebox-dhcp
 Architecture: all
-Depends: ebox (= 0.10.99), ebox-firewall, ebox-services, dhcp3-server, tftpd-hpa
+Depends: ebox (= 0.11.99), ebox-firewall, ebox-services, dhcp3-server, tftpd-hpa
 Suggests: pxe, etherboot
-Conflicts: ebox (<< 0.10.99)
+Conflicts: ebox (<< 0.11.99)
 Description: DHCP server
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified

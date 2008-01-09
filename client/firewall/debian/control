@@ -7,9 +7,9 @@ Standards-Version: 3.6.1
 
 Package: ebox-firewall
 Architecture: all
-Depends: ebox (= 0.10.99),  ebox-network, ebox-objects, ebox-services, iptables 
+Depends: ebox (= 0.11.99),  ebox-network, ebox-objects, ebox-services, iptables 
 Replaces: ebox (<< 0.6)
-Conflicts: ebox (<< 0.10.99)
+Conflicts: ebox (<< 0.11.99)
 Description: Firewall
  eBox is a framework for the development and deployment of security-wise
  firewall services in small and medium-sized firewalls, offering a simplified
