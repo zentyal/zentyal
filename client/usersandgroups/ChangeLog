@@ -1,4 +1,4 @@
-0.12
+0.11.99
 	+ Remove use of Apache::Singleton
 0.11.3
 	+ Check used uid's on every posixAccount object under dc=ebox, 
@@ -6,7 +6,7 @@
 	  with Samba PDC when adding machines and creating users with 
 	  repeated uid
 0.11.2
-    + Do not generate a new LDAP password if it already exists
+	+ Do not generate a new LDAP password if it already exists
 0.11.1
 	+ Fix issue with module naming which prevented backups from being
 	restored
