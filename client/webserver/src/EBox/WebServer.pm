@@ -29,6 +29,7 @@ use base qw(EBox::GConfModule EBox::Model::ModelProvider EBox::Model::CompositeP
 # eBox uses
 use EBox::Common::Model::EnableForm;
 use EBox::Exceptions::External;
+use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Service;
@@ -38,6 +39,8 @@ use EBox::WebServer::Composite::General;
 use EBox::WebServer::Model::GeneralSettings;
 use EBox::WebServer::Model::VHostTable;
 use EBox::WebServer::PlatformPath;
+
+use Error qw(:try);
 
 # Constants
 use constant VHOST_PREFIX => 'ebox-';
@@ -378,15 +381,47 @@ sub _setUserDir
                                    usersDN => $usersDN,
                                    dnPass  => $ldapPass,
                                   ]);
-            EBox::Sudo::root('a2enmod ldap_userdir');
+            try {
+                EBox::Sudo::root('a2enmod ldap_userdir');
+            } catch EBox::Exceptions::Sudo::Command with {
+                my ($exc) = @_;
+                # Already enabled?
+                if ( $exc->exitValue() != 1 ) {
+                    throw $exc;
+                }
+            };
         }
         # Enable the modules
-        EBox::Sudo::root('a2enmod userdir');
+        try {
+            EBox::Sudo::root('a2enmod userdir');
+        } catch EBox::Exceptions::Sudo::Command with {
+            my ($exc) = @_;
+            # Already enabled?
+            if ( $exc->exitValue() != 1 ) {
+                throw $exc;
+            }
+        };
     } else {
         # Disable the modules
-        EBox::Sudo::root('a2dismod userdir');
+        try {
+            EBox::Sudo::root('a2dismod userdir');
+        } catch EBox::Exceptions::Sudo::Command with {
+            my ($exc) = @_;
+            # Already enabled?
+            if ( $exc->exitValue() != 1 ) {
+                throw $exc;
+            }
+        };
         if ( $gl->modExists('samba')) {
-            EBox::Sudo::root('a2dismod ldap_userdir');
+            try {
+                EBox::Sudo::root('a2dismod ldap_userdir');
+            } catch EBox::Exceptions::Sudo::Command with {
+                my ($exc) = @_;
+                # Already disabled?
+                if ( $exc->exitValue() != 1 ) {
+                    throw $exc;
+                }
+            };
         }
     }
 }
