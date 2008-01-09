@@ -35,6 +35,13 @@ case "$1" in
 		test -d /home/samba/profiles || mkdir /home/samba/profiles
 		test -d /home/samba/netlogon || mkdir /home/samba/netlogon
 
+                # Set correct permission to public www using
+                # ebox-webserver module if there are users
+                if [ -n "$2" ] && ls /home/samba/users/* 2&>1 > /dev/null \
+                    && dpkg --compare-versions "$2" lt 0.11.99;
+                then
+                    chmod o+x /home/samba/users/*
+                fi
 				
 		# Change nsswitch.conf to use ldap
 		sed  -i -e 's/^\(passwd:.*\)/\1 ldap/' /etc/nsswitch.conf
