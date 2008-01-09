@@ -387,28 +387,6 @@ sub _checkArrayCompNum # (arrayName, arrayInfo, storedInfo)
 
 }
 
-# Check the array component number in the RAID array device
-sub _checkArrayCompNum # (arrayName, arrayInfo, storedInfo)
-{
-
-    my ($self, $arrayName, $arrayInfo, $storedInfo) = @_;
-
-    if ( $storedInfo->{deviceNumber} != $arrayInfo->{activeDevices} ) {
-        my $evtMsg = __x('RAID device {name} has changed its number '
-                         . 'of active components from {oldNum} to {newNum}',
-                         name => $arrayName,
-                         oldNum => $storedInfo->{deviceNumber},
-                         newNum => $arrayInfo->{activeDevices});
-
-        return [ new EBox::Event(level   => 'info',
-                                 source  => $self->name(),
-                                 message => $evtMsg) ];
-    }
-
-    return undef;
-
-}
-
 # Check the current operation in the RAID array device
 sub _checkArrayOp # (arrayName, arrayInfo, storedInfo)
 {
