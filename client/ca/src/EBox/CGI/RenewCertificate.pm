@@ -25,6 +25,7 @@ use EBox::Global;
 # For exceptions
 use Error qw(:try);
 use EBox::Exceptions::DataInUse;
+use EBox::Validate;
 
 # Method: new
 #
@@ -83,6 +84,12 @@ sub _process
     my $expireDays = $self->param('expireDays');
     my $caPassphrase = $self->param('caPassphrase');
     $caPassphrase = undef if ( $caPassphrase eq '' );
+
+    unless ( EBox::Validate::isAPositiveNumber($expireDays)) {
+        throw EBox::Exceptions::External(__x('Days to expire ({days}) must be '
+                                             . 'a positive number',
+                                             days => $expireDays));
+    }
 
     my $retValue;
     my $retFromCatch;
