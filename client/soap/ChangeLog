@@ -2,6 +2,7 @@
 	+ Rotate log files when they reach 10MB for 7 rotations
 	+ Lock session file for SOAP session to avoid bugs related to
 	multiple requests in a short time
+	+ Bugfix. Correct parameter naming in OpenVPN client creation
 0.11
 	+ New release
 0.10.99

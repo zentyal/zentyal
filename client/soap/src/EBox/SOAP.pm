@@ -875,9 +875,9 @@ sub _createOpenVPNClient
                                         $clientName,
                                         servers => \@servers,
                                         proto   => $vpnServ->protocol(),
-                                        caCertificatePath  => $self->CACertificateFile(),
-                                        certificatePath => $self->certificateFile(),
-                                        certificateKey  => $self->privateKeyFile(),
+                                        caCertificate  => $self->CACertificateFile(),
+                                        certificate    => $self->certificateFile(),
+                                        certificateKey => $self->privateKeyFile(),
                                         service => $self->enabled(),
                                         internal  => 1,
                                        );

@@ -44,8 +44,8 @@ use Error qw(:try);
 
 
 use constant MAX_IFACE_NUMBER => 999999;  # this is the last number which prints
-                                          # correctly in ifconfig 
-use constant RESERVED_PREFIX => 'RESERVED_DAEMON_';
+                                          # correctly in ifconfig
+use constant RESERVED_PREFIX => 'R_D_';
 
 my @daemonTypes   = qw(server client); # in the daemons method they will appear in this order
 my $anyDaemonType = any @daemonTypes;
@@ -579,9 +579,9 @@ sub clientExists
 #  hostnames or IP addresses.
 #  proto - the client's IP protocol.
 #
-#  caCertificatePath - Path to the CA's certificate.
-#  certificatePath   -  Path to the client's certificate.
-#  certificateKey    -  Path to the client's certificate key.
+#  caCertificate  - Path to the CA's certificate.
+#  certificate    - Path to the client's certificate.
+#  certificateKey - Path to the client's certificate key.
 #
 #  service - whether the client is enabled or disabed. *(default: disabled)*
 #
@@ -639,9 +639,11 @@ sub _checkName
 
   unless ( EBox::Validate::checkName($name) ) {
     throw EBox::Exceptions::External ( __x(
-					   "Invalid name {name}. Only alphanumerics and underscores are allowed", 
+					   'Invalid name {name}. Only alphanumerics '
+                                           . 'and underscores characters are allowed '
+                                           . 'with a maximum length of 20 characters',
 					   name => $name,
-					  ) 
+					  )
 				     );
   }
 

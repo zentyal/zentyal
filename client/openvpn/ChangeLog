@@ -1,5 +1,6 @@
 0.11.99
-	+ New release
+	+ Bugfix. Shorten reserved daemons prefix to enlarge the daemon name
+	user choice from RESERVED_DAEMON_ to R_D_
 0.11
 	+ Bugfix. Allow RIP connections on tap interfaces
 	+ Bugfix. Log timestamp with one-digit day
