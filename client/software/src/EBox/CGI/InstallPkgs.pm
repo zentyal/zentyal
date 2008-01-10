@@ -119,7 +119,10 @@ sub showInstallProgress
 		      text     => __('Upgrading packages'),
 		      currentItemCaption  =>  __("Current package"),
 		      itemsLeftMessage  => __('packages left to install'),
-		      endNote  =>  __("The packages installation has finished successfully"),
+		      endNote  =>  __('The packages installation has finished successfully. '
+                                      . 'The administration interface may become unresponsive '
+                                      . 'for a few seconds. Please wait patiently until '
+                                      . 'the system has been fully restarted'),
                       errorNote => __('The packages installation has not finished correctly '
                                       . '. More information on the logs'),
 		      reloadInterval  => 2,
