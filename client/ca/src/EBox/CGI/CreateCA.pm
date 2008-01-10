@@ -120,7 +120,11 @@ sub actuate
                                                length => MIN_PASS_LENGTH));
       }
 
-      EBox::Validate::isAPositiveNumber($days, 'days');
+      unless ( EBox::Validate::isAPositiveNumber($days)) {
+          throw EBox::Exceptions::External(__x('Days to expire ({days}) must be '
+                                               . 'a positive number',
+                                               days => $days));
+      }
 
       my $retVal = $ca->createCA( orgName       => $orgName,
                                   days          => $days,

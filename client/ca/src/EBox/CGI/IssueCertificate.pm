@@ -98,7 +98,11 @@ sub _process
 
     $caPass = undef if ( $caPass eq '' );
 
-    EBox::Validate::isAPositiveNumber($days, 'days');
+    unless ( EBox::Validate::isAPositiveNumber($days)) {
+        throw EBox::Exceptions::External(__x('Days to expire ({days}) must be '
+                                             . 'a positive number',
+                                             days => $days));
+    }
 
     # Only valid chars minus '/' --> security risk
     unless ( index ( $name, '/' ) == -1 ) {
