@@ -49,8 +49,11 @@ use POSIX qw(strftime);
 use XML::RSS;
 
 # Constants
-use constant RSS_FILE => EBox::Config::dynamicRSS() . 'alerts.rss';
-use constant RSS_LOCK_FILE => EBox::Config::tmp() . 'alerts.rss.lock';
+use constant {
+    RSS_FILE => EBox::Config::dynamicRSS() . 'alerts.rss',
+    RSS_LOCK_FILE => EBox::Config::tmp() . 'alerts.rss.lock',
+    CHANNEL_TTL => 5,
+};
 
 # Class data
 our $LockFH;
@@ -277,8 +280,9 @@ sub _addEventToRSS
                       description   => __('This channel tracks what happens on '
                                           . 'this eBox machine along the time'),
                       language      => $self->_currentLanguage(),
-                      pubDate       => $rssComplaintDate,
+#                      pubDate       => $rssComplaintDate,
                       lastBuildDate => $rssComplaintDate,
+                      ttl           => CHANNEL_TTL,
                      );
         $rss->image(title       => 'eBox platform',
                     url         => 'http://trac.ebox-platform.com/chrome/common/ebox-logo.png',
@@ -305,6 +309,7 @@ sub _addEventToRSS
                    title       => ($event->level() . ' : ' . $event->message()),
                    pubDate     => $event->strTimestamp(),
                    category    => $event->source(),
+                   guid        => $event->source() . '-' . $event->timestamp(),
                   );
 
     $rss->save(RSS_FILE);
@@ -331,7 +336,7 @@ sub _currentLanguage
 # Get the current date in RSS 2.0 complaint way
 sub _currentDate
 {
-    return strftime("%a, %d %b %Y %T", localtime(time()));
+    return strftime("%a, %d %b %Y %T %z", localtime(time()));
 
 }
 

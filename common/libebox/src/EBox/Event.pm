@@ -208,7 +208,7 @@ sub strTimestamp
 {
     my ($self) = @_;
 
-    return strftime("%a, %d %b %Y %T", 
+    return strftime("%a, %d %b %Y %T %z",
                     localtime($self->{timestamp}));
 
 }
