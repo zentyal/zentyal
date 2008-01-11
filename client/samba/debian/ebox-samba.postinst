@@ -37,8 +37,8 @@ case "$1" in
 
                 # Set correct permission to public www using
                 # ebox-webserver module if there are users
-                if [ -n "$2" ] && ls /home/samba/users/* 2&>1 > /dev/null \
-                    && dpkg --compare-versions "$2" lt 0.11.99;
+                if [ -n "$2" ] && ls /home/samba/users/* > /dev/null 2>&1 \
+                    && dpkg --compare-versions "$2" le 0.11.99;
                 then
                     chmod o+x /home/samba/users/*
                 fi
