@@ -1118,7 +1118,7 @@ sub tableInfo {
 		'maxmsgsize' => __('Maximum message size exceeded'),
 		'maxusrsize' => __('User quote exceeded'),
 		'norelay' => __('Relay access denied'),
-		'noaccount' => __('Account do not exists'),
+		'noaccount' => __('Account does not exist'),
 		'nohost' => __('Host unreachable'),
 		'noauth' => __('Authentication error'),
 		'other' => __('Other events') };
