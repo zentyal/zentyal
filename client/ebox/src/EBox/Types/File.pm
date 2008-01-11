@@ -252,6 +252,23 @@ sub tmpPath
     return ( EBox::Config::tmp() . $self->fieldName() . '_path' );
 }
 
+# Method: userPath
+#
+#       Get the user given path where the file is stored to be
+#       uploaded by the browser. This returned value is useful to
+#       determine if any file has been uploaded or not.
+#
+# Returns:
+#
+#       String - the user given path
+#
+sub userPath
+{
+    my ($self) = @_;
+
+    return $self->{userPath};
+
+}
 
 # Group: Protected methods
 
@@ -268,6 +285,11 @@ sub tmpPath
 #
 sub _setMemValue
 {
+    my ($self, $params) = @_;
+
+    my $homePathParam = $self->fieldName() . '_path';
+
+    $self->{userPath} = $params->{$homePathParam};
 
 }
 
@@ -283,7 +305,7 @@ sub _storeInGConf
 
     my $keyField = "$key/" . $self->fieldName() . '_path';
 
-    if ($self->path()) {
+    if ($self->path() and $self->userPath()) {
         $gconfmod->set_string($keyField, $self->path());
         # Do actually move
         my $tmpPath = $self->tmpPath();
@@ -295,6 +317,14 @@ sub _storeInGConf
 
     } else {
         $gconfmod->unset($keyField);
+        if ( not $self->userPath() ) {
+            # Actually remove
+            if ( -f $self->path() ) {
+                unlink( $self->path() ) or
+                  throw EBox::Exceptions::Internal('Cannot unlink '
+                                                   . $self->path());
+            }
+        }
     }
 }
 

@@ -130,12 +130,14 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    if ( exists $changedFields->{filename}
-         and (-f $changedFields->{filename}->tmpPath())) {
-        if ( $allFields->{nextServer}->selectedType() ne 'nextServerEBox' ) {
-            throw EBox::Exceptions::External(__('In order to upload firmware to boot '
-                                                . 'PCs to eBox, you need to set eBox '
-                                                . 'as next server'));
+    if ( exists $changedFields->{filename} ) {
+        if ( $changedFields->{filename}->userPath() and
+             -f $changedFields->{filename}->tmpPath()) {
+            if ( $allFields->{nextServer}->selectedType() ne 'nextServerEBox' ) {
+                throw EBox::Exceptions::External(__('In order to upload firmware to boot '
+                                                    . 'PCs to eBox, you need to set eBox '
+                                                    . 'as next server'));
+            }
         }
     }
 }
@@ -185,12 +187,8 @@ sub formSubmitted
 
     if ( $oldRow->{valueHash}->{nextServer}->selectedType() eq 'nextServerEBox'
          and $self->row()->{valueHash}->{nextServer}->selectedType() ne 'nextServerEBox') {
-        unlink($self->row()->{valueHash}->{filename}->path())
-          or throw EBox::Exceptions::Internal('Cannot unlink ' .
-                                              $self->row()->{valueHash}->{filename}->path()
-                                              . ": $!");
         $self->setMessage(__x('Unlinked previous uploaded firmware since next server option'
-                             . 'has been changed from eBox to {option}',
+                             . ' has been changed from eBox to {option}',
                              option => $self->row()->{valueHash}->{nextServer}->printableName()));
     }
 }
