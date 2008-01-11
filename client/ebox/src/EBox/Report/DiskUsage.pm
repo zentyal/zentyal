@@ -75,7 +75,7 @@ sub _chart
 #  my $legendFont = GD::Font->Small;
 
   my %colors = (
-		dataset0 => [255, 255, 0],
+		dataset0 => [18, 130, 76],
 	       );
 
   $chart->set (
