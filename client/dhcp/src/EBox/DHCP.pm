@@ -68,7 +68,7 @@ use constant TFTP_SERVICE => "tftpd-hpa";
 
 use constant CONF_DIR => EBox::Config::conf() . 'dhcp/';
 use constant PLUGIN_CONF_SUBDIR => 'plugins/';
-use constant TFTPD_CONF_DIR => '/var/lib/tftpboot';
+use constant TFTPD_CONF_DIR => '/var/lib/tftpboot/';
 
 # Group: Public and protected methods
 
