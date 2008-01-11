@@ -140,6 +140,34 @@ sub _table
 
     my ($self) = @_;
 
+    my $gl = EBox::Global->getInstance();
+
+    my @subtypesAllowed =
+      ( new EBox::Types::Union::Text(
+                                     fieldName => 'allowedNobody',
+                                     printableName => __('Nobody'),
+                                    ),
+        new EBox::Types::IPAddr(
+                                fieldName => 'allowedIP',
+                                printableName => __('IP address'),
+                                editable  => 1,
+                               ));
+    if ( $gl->modExists('objects')) {
+        push(@subtypesAllowed,
+             new EBox::Types::Select(
+                                     fieldName     => 'allowedObject',
+                                     printableName => __('Object'),
+                                     editable      => 1,
+                                     foreignModel  => \&objectModel,
+                                     foreignField  => 'name',
+                                    ));
+    }
+    push(@subtypesAllowed,
+         new EBox::Types::Union::Text(
+                                      fieldName => 'allowedAll',
+                                      printableName => __('Public'),
+                                     ));
+
     my @tableDesc =
       (
        new EBox::Types::Text(
@@ -152,29 +180,7 @@ sub _table
                               fieldName     => 'allowed',
                               printableName => __('Allowed readers'),
                               editable      => 1,
-                              subtypes      =>
-                              [
-                               new EBox::Types::Union::Text(
-                                                            fieldName => 'allowedNobody',
-                                                            printableName => __('Nobody'),
-                                                           ),
-                               new EBox::Types::IPAddr(
-                                                       fieldName => 'allowedIP',
-                                                       printableName => __('IP address'),
-                                                       editable  => 1,
-                                                      ),
-                               new EBox::Types::Select(
-                                                       fieldName     => 'allowedObject',
-                                                       printableName => __('Object'),
-                                                       editable      => 1,
-                                                       foreignModel  => \&objectModel,
-                                                       foreignField  => 'name',
-                                                      ),
-                               new EBox::Types::Union::Text(
-                                                            fieldName => 'allowedAll',
-                                                            printableName => __('Public'),
-                                                           ),
-                              ],
+                              subtypes      => \@subtypesAllowed,
                              ),
        new EBox::Types::Link(
                              fieldName      => 'linkToRSS',
