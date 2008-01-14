@@ -15,6 +15,7 @@
 
 package EBox::Network::Report::ByteRate;
 #
+#  XXX TODO: separate graphic function to their own package
 use strict;
 use warnings;
 
@@ -47,7 +48,6 @@ use constant SRC_COLOUR      => 'FF0000';
 use constant SERVICE_COLOUR =>  '00FF00';
 use constant SRC_AND_SERVICE_COLOUR => '0000FF';
 
-use constant SERVICE_KEY => 'usage-monitor-active';
 
 
 use constant MONITOR_DAEMON => '/usr/lib/ebox/ebox-traffic-monitor';
@@ -216,6 +216,22 @@ my %srcBps;
 my %serviceBps;
 my %srcAndServiceBps;
 
+
+# Method: addBps
+#
+#       register new traffic data. The data would not be added to the database
+#       until the flushBps function is called
+#
+# Parameters:
+#
+#     src   - source of the trafic
+#     dst   - destination of the traffic (currently unused)
+#     proto - protocol of the traffic
+#     sport - source port of the traffic
+#     dport - destination port of the traffic
+#     bps   - traffic rate in bytes per second
+#
+#      - Named parameters
 sub addBps
 {
   my %params = @_;
@@ -246,7 +262,6 @@ sub addBps
 
   my $service = _service($proto, $dport, $sport);
 
-#  print "addBps: src $src service $service\n"; # XXX debug
 
   # store the values waitng for flush..
   $srcBps{$src}         += $bps;
@@ -257,7 +272,14 @@ sub addBps
 }
 
 
-
+#  Method: flushBps
+#
+#    flush the stored traffic data and write it to the various rrdtool databases   
+#
+# Warning: 
+#   we trust in rrdtool extrapolation feature however to be sure we have
+#   accurate rate is advised to have a flush frequency the closer possible to a
+#   second
 sub flushBps
 {
   while (my ($src, $bps) = each %srcBps) {
@@ -279,6 +301,15 @@ sub flushBps
 }
 
 
+# Method: _service
+#
+#   try to guess the traffic service's name. Wether a name is not found, the 
+#   concatenation of the protocol and the destination port is used.
+#
+#  Parameters:
+#      proto - traffic's protocol
+#      dport - traffic's destination port
+#      sport - traffic's source port
 sub _service
 {
   my ($proto, $dport, $sport) = @_;
@@ -323,17 +354,33 @@ sub _rrdDir
 }
 
 
+# Method: srcRRD
+#
+#    get the RRD database file for the given source 
+#
+#  Parameters:
+#    src - source address (escaped)
+#
+#  Returns:
+#       RRD  file full path
 sub srcRRD
 {
   my ($src) = @_;
   
-
   my $rrd =  _rrdDir() . 'src-' . $src . '.rrd';
 
-#  print "SRC: $src RRD: $rrd\n"; # XXX debug
   return $rrd;
 }
 
+# Method: serviceRRD
+#
+#    get the RRD database file for the given service 
+#
+#  Parameters:
+#    service - network service 
+#
+#  Returns:
+#       RRD  file full path
 sub serviceRRD
 {
   my ($service) = @_;
@@ -341,7 +388,16 @@ sub serviceRRD
   return $rrd;
 }
 
-
+# Method: srcAndServiceRRD
+#
+#    get the RRD database file for the combination of the given source and service
+#
+#  Parameters:
+#    src - source address (escaped)
+#    service - network service 
+#
+#  Returns:
+#       RRD  file full path
 sub srcAndServiceRRD
 {
   my ($src, $service) = @_;
@@ -398,7 +454,14 @@ sub _createRRDIfNotExists
   }
 }
 
-
+# Method: addBpsToSrcRRD
+#
+#    add byte per seconds data point to source RRD
+#
+#  Parameters:
+#    src - source address (escaped)
+#    bps - bytes per second to add
+#
 sub addBpsToSrcRRD
 {
   my ($src, $bps) = @_;
@@ -407,6 +470,14 @@ sub addBpsToSrcRRD
   _addBpsToRRD($rrd, $bps);
 }
 
+# Method: addBpsToServiceRRD
+#
+#    add byte per seconds data point to service RRD
+#
+#  Parameters:
+#    service  - network service
+#    bps - bytes per second to add
+#
 sub addBpsToServiceRRD
 {
   my ($service, $bps) = @_;
@@ -416,6 +487,15 @@ sub addBpsToServiceRRD
   _addBpsToRRD($rrd, $bps);
 }
 
+# Method: addBpsToSrcAndServiceRRD
+#
+#    add byte per seconds data point to source and service combination RRD
+#
+#  Parameters:
+#    src - source address (escaped)
+#    service  - network service
+#    bps - bytes per second to add
+#
 sub addBpsToSrcAndServiceRRD
 {
   my ($src, $service, $bps) = @_;
@@ -509,18 +589,40 @@ sub _warnIfDebug
   }
 }
 
+# Method: escapeAddress
+#
+# escapes a network address to a represetation without problematic symbols
+#
+#  Parameters:
+#    addr - unescaped source address
+#
+#  Returns:
+#     escaped address
+#
+# Note: 
+#    the problematic character is ':' for rrdtool. Other option would be to
+#    take care to escape the address in rrdtool's invokations
 sub escapeAddress
 {
-  my ($src) = @_;
-  $src =~ s{:}{S}g;
-  return $src;
+  my ($addr) = @_;
+  $addr =~ s{:}{S}g;
+  return $addr;
 }
 
+# Method: unescapeAddress
+#
+# unescapes the network address back to his real shape
+#
+#  Parameters:
+#    addr - escaped source address
+#
+#  Returns:
+#     unescaped address
 sub unescapeAddress
 {
-  my ($src) = @_;
-  $src =~ s{S}{:}g;
-  return $src;
+  my ($addr) = @_;
+  $addr =~ s{S}{:}g;
+  return $addr;
 }
 
 
@@ -572,6 +674,20 @@ sub _removeRRD
   }
 }
 
+
+
+#  Method: activeServiceRRDs
+#
+#    return all the active service RRRDs 
+#
+#   Returns:
+#     reference to list of all service RRDs
+#
+# Warning: 
+#  this function cleans up all the inactive service RRDs (hence the
+#  'active' in the name)
+#
+# XXX TODO the inactive RRDs cleanup should be done independently of this function
 sub activeServiceRRDs
 {
   my $dir = _rrdDir();
@@ -581,7 +697,18 @@ sub activeServiceRRDs
   return \@rrds;
 }
 
-
+#  Method: activeSrcsRRDs
+#
+#    return all the active sources RRRDs 
+#
+#   Returns:
+#     reference to list of all sources RRDs
+#
+# Warning: 
+#  this function cleans up all the inactive sources RRDs (hence the
+#  'active' in the name)
+#
+# XXX TODO the inactive RRDs cleanup should be done independently of this function
 sub activeSrcRRDs
 {
   my $dir = _rrdDir();
@@ -599,6 +726,22 @@ sub activeSrcRRDs
 # XXX TODO separate graph functions to another package
 
 # XXX add params validation
+
+# Method: graph
+#
+#   make a traffic rate  graph
+#
+#   Parameters:
+#      startTime - start time for the graphic (in seconds)
+#      title     - graph's title
+#      file      - file path for the graph image
+#      dataset - dataset for the graphic, must be a reference to a list of hashes
+#          each element must have the following fields:
+#                   rrd - rrd file to extract the byte per seconds data
+#                   colour - colour for the element's line
+#                   legend - legend for the element
+#
+#      - Named parameters
 sub graph
 {
   my %params = @_;
@@ -656,7 +799,9 @@ sub graph
 #
 # Parameters:
 #
-#      src - String the source IP address
+#      startTime - start time for the graphic (in seconds)
+#      file      - file path for the graph image
+#      src - String the source IP address (escaped)
 #
 #      - Named parameters
 #
@@ -710,6 +855,8 @@ sub srcGraph
 #
 # Parameters:
 #
+#      startTime - start time for the graphic (in seconds)
+#      file      - file path for the graph image
 #      service - String the service name
 #
 #      - Named parameters
@@ -745,6 +892,20 @@ sub serviceGraph
      );
 }
 
+# Method: srcAndServiceGraph
+#
+#      Given a source and service pair, it will ask to rrdtools to create a graph
+#      for this combination
+#
+# Parameters:
+#
+#      startTime - start time for the graphic (in seconds)
+#      file      - file path for the graph image
+#      src - String the source IP address (escaped)
+#      service - String the service name
+#
+#      - Named parameters
+#
 sub srcAndServiceGraph
 {
   my (%params) = @_;
@@ -809,6 +970,17 @@ sub srcAndServiceGraph
      );
 }
 
+# Method: activeServicesGraph
+#
+#    creates a graphic with all the active services
+#
+# Parameters:
+#
+#      startTime - start time for the graphic (in seconds)
+#      file      - file path for the graph image
+#
+#      - Named parameters
+#
 sub activeServicesGraph
 {
   my %params = @_;
@@ -849,7 +1021,17 @@ sub activeServicesGraph
      );
 }
 
-
+# Method: activeSrcsGraph
+#
+#    creates a graphic with all the active sources
+#
+# Parameters:
+#
+#      startTime - start time for the graphic (in seconds)
+#      file      - file path for the graph image
+#
+#      - Named parameters
+#
 sub activeSrcsGraph
 {
   my %params = @_;
