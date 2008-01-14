@@ -130,6 +130,9 @@ sub _tableDesc
   return \@tableHead;
 }
 
+# XXX we need to store the current value of the graphics option but we don't
+# want to mark the module as changed.
+# XXX TODO replace this ugly fudgle with another thing
 sub _setTypedRow
 {
   my ($self, @params) = @_;
