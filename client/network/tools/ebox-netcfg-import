@@ -102,7 +102,7 @@ foreach my $iface (get_interfaces) {
 		}
 		
 	} elsif ($iface->{'method'} eq 'dhcp') {
-		$network->setIfaceDHCP($iface->{'name'}, undef, 1);
+		$network->setIfaceDHCP($iface->{'name'}, 0, 1);
 	}
 }
 
