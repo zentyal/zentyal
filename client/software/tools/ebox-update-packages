@@ -48,7 +48,7 @@ try {
     $progress->notifyTick();
     $progress->setMessage($pkg);
     my $cmd ='/usr/bin/apt-get install --no-download -q --yes';
-    EBox::Sudo::root(qq{export DEBIAN_FRONTEND="noninteractive" && $cmd $pkg});
+    EBox::Sudo::root(qq{sh -c 'export DEBIAN_FRONTEND="noninteractive" && $cmd $pkg'});
   }
 } catch EBox::Exceptions::Sudo::Command with {
     my ($exc) = @_;
@@ -71,7 +71,7 @@ if ( $retValue > 0 ) {
 
 try {
     EBox::Sudo::root(
-      qq{export DEBIAN_FRONTEND="noninteractive" && apt-get install -f --yes}
+      qq{sh -c 'export DEBIAN_FRONTEND="noninteractive" && apt-get install -f --yes'}
                     );
 } catch EBox::Exceptions::Sudo::Command with {
     my ($exc) = @_;
