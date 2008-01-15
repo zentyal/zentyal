@@ -1,2 +1,2 @@
 #!/bin/sh
-exec ebox-runit-finisher web apache2
+exec ebox-runit-finisher webserver apache2
