@@ -24,6 +24,8 @@ case "$1" in
 
 		# don't start Web server with its script	
 		update-rc.d -f apache2 remove
+                # Stop any previous daemon
+                invoke-rc.d apache2 stop
 
 		onInstall
 
