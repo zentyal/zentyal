@@ -1,5 +1,5 @@
 #!/usr/bin/perl
 #Stop apache, sleep a few seconds and restart.
-system("/usr/bin/sudo /usr/bin/runsvctrl down /var/service/apache-perl > /dev/null");
+system("/usr/bin/sudo /usr/bin/sv down /var/service/apache-perl > /dev/null");
 sleep 5;
-system("/usr/bin/sudo /usr/bin/runsvctrl up /var/service/apache-perl > /dev/null");
+system("/usr/bin/sudo /usr/bin/sv up /var/service/apache-perl > /dev/null");

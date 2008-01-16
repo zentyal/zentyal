@@ -41,14 +41,14 @@ sub manage # (daemon,action)
 		throw EBox::Exceptions::Internal("No such daemon: $daemon");
 
 	if ( $action eq 'start' ) {
-		root("/usr/bin/runsvctrl up /var/service/$daemon");
+		root("/usr/bin/sv up /var/service/$daemon");
 	}
 	elsif ( $action eq 'stop' ) {
-		root("/usr/bin/runsvctrl down /var/service/$daemon");
+		root("/usr/bin/sv down /var/service/$daemon");
 	}
 	elsif ( $action eq 'restart') {
-		root("/usr/bin/runsvctrl down /var/service/$daemon");
-		root("/usr/bin/runsvctrl up /var/service/$daemon");
+		root("/usr/bin/sv down /var/service/$daemon");
+		root("/usr/bin/sv up /var/service/$daemon");
 	}
 	else {
 		throw EBox::Exceptions::Internal("Bad argument: $action");
@@ -66,7 +66,7 @@ sub manage # (daemon,action)
 #
 #   Exceptions:
 #
-#       Internal - Bad argument
+#       <EBox::Exceptions::Internal> - Bad argument
 #
 sub running # (daemon)
 {
@@ -74,15 +74,15 @@ sub running # (daemon)
 	(-d "/var/service/$daemon") or
 		throw EBox::Exceptions::Internal("No such daemon: $daemon");
 
-	my $output = root("/usr/bin/runsvstat /var/service/$daemon");
+	my $output = root("/usr/bin/sv status /var/service/$daemon");
 	my $status = @{$output}[0];
-	if ($status =~ m{^/var/service/$daemon: run}) {
+	if ($status =~ m{^run: /var/service/$daemon:}) {
 		return 1;
-	} elsif ($status =~ m{^/var/service/$daemon: down}) {
+	} elsif ($status =~ m{^down: /var/service/$daemon:}) {
 		return undef;
-        } elsif ($status =~ m{^/var/service/$daemon: finish}) {
-            # TODO: Tristate is done. This state happens when a finish script is running
-                return undef;
+        } elsif ($status =~ m{^finish: /var/service/$daemon:}) {
+                # TODO: Tristate when finish script is running
+                return 0;
 	} else {
 		throw EBox::Exceptions::Internal("Error getting status: $daemon");
 	}
