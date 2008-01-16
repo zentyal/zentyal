@@ -661,7 +661,7 @@ sub _doDaemon
           EBox::Service::manage( SERVICE, 'restart' );
       } elsif ( $self->enabled() and $vpnClientRunning) {
           EBox::Service::manage( SERVICE, 'start' );
-      } elsif ( not $self->enabled() and EBox::Service::running(SERVICE) ) {
+      } elsif ( not $self->enabled() ) {
           EBox::Service::manage( SERVICE, 'stop' );
       }
 
