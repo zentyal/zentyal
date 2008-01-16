@@ -85,7 +85,7 @@ sub _doDaemon
 		$self->_daemons('restart');
 	} elsif ($self->service) {
 		$self->_daemons('start');
-	} elsif (EBox::Service::running('jabber-c2s')){
+	} else {
 		$self->_daemons('stop');
 	}
 }
