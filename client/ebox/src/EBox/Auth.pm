@@ -56,8 +56,12 @@ sub _savesession # (session_id)
 {
 	my $sid = shift;
 	my $sidFile;
-	unless  ( open ( $sidFile, '+<', EBox::Config->sessionid )){
-                throw EBox::Exceptions::Internal(
+        my $openMode = '>';
+        if ( -f EBox::Config->sessionid() ) {
+            $openMode = '+<';
+        }
+	unless  ( open ( $sidFile, $openMode, EBox::Config->sessionid() )){
+            throw EBox::Exceptions::Internal(
          		      "Could not open to write ".
 	                      EBox::Config->sessionid);
       	}

@@ -55,7 +55,11 @@ sub _saveSession
   {
 
     my $sessionFile;
-    open ($sessionFile, '+<', EBox::Config->soapSession() )
+    my $openMode = '>';
+    if ( -f EBox::Config->soapSession() ) {
+        $openMode = '+<';
+    }
+    open ($sessionFile, $openMode, EBox::Config->soapSession() )
       or EBox::Exceptions::Internal('Could not open ' .
 				    EBox::Config->soapSession());
 
