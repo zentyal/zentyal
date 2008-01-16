@@ -230,6 +230,7 @@ sub finished
 sub setAsFinished
 {
   my ($self, $retValue, $errorMsg) = @_;
+  defined $retValue or $retValue = 0;
 
   if (not $self->started()) {
     throw EBox::Exceptions::External(
@@ -239,11 +240,9 @@ sub setAsFinished
 
   $self->setConfBool('finished', 1);
 
-  if (defined ( $retValue )) {
-      $self->setConfInt('retValue', $retValue);
-      if ( $retValue > 0 and defined($errorMsg)) {
-          $self->setConfString('errorMsg', $errorMsg);
-      }
+  $self->setConfInt('retValue', $retValue);
+  if ( $retValue > 0 and defined($errorMsg)) {
+    $self->setConfString('errorMsg', $errorMsg);
   }
 
 }
@@ -320,20 +319,19 @@ sub stateAsString
     $state = 'not running';
   }
   elsif ($self->finished()) {
-    if ($ticks < $totalTicks) {
-      $state = 'error';
-    }
-    else  {
-      $state ='done';
-      my $retValue = $self->retValue();
-      if ( $retValue > 0 ) {
-          $state .= ",retValue:$retValue";
-          my $errorMsg = $self->errorMsg();
-          if ( $errorMsg ) {
-              $state .= ",errorMsg:$errorMsg";
-          }
+    $state = 'done';
+
+    my $retValue = $self->retValue();
+
+    if ($retValue != 0 ) {
+      $state .= ",retValue:$retValue";
+      my $errorMsg = $self->errorMsg();
+      if ( $errorMsg ) {
+	$state .= ",errorMsg:$errorMsg";
       }
     }
+
+
   }
   else {
     $state = 'running';
