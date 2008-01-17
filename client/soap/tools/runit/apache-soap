@@ -1,6 +1,5 @@
 #!/bin/sh
 exec 2>&1
-if [ -f /var/lib/ebox/conf/soap/httpd.conf ]; then
-    # Launch the apache perl with the specific configuration file
-    exec /usr/sbin/apache-perl -F -f /var/lib/ebox/conf/soap/httpd.conf
-fi
+test -f /var/lib/ebox/conf/soap/httpd.conf || exit 1
+# Launch the apache perl with the specific configuration file
+exec /usr/sbin/apache-perl -F -f /var/lib/ebox/conf/soap/httpd.conf
