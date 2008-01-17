@@ -581,16 +581,10 @@ sub _squidAndDG
 
 	$self->writeConfFile(SQUIDCONFFILE, "squid/squid.conf.mas", \@writeParam);
 
-	my $locale = EBox::locale();
-	my $lang = 'ukenglish';
-	if ($locale =~ /^es_/) {
-		$lang = 'arspanish';
-	} elsif ($locale =~ /^fr_/) {
-		$lang = 'french';
-	}
+	# FIXME - get a proper lang name for the current locale
+        my $lang = $self->_DGLang();
 
 	@writeParam = ();
-	# FIXME - get a proper lang name for the current locale
 	push(@writeParam, 'port'  => DGPORT);
 	push(@writeParam, 'lang'  => $lang);
 	push(@writeParam, 'squidport'  => $self->port);
@@ -807,6 +801,35 @@ sub _facilitiesForDiskUsage
   return {
 	  $cachePrintableName => [ $cachePath ],
 	 };
+
+}
+
+# Method to return the language to use with DG depending on the locale
+# given by EBox
+sub _DGLang
+{
+    my $locale = EBox::locale();
+    my $lang = 'ukenglish';
+
+    my %langs = (
+                 'da' => 'danish',
+                 'de' => 'german',
+                 'es' => 'arspanish',
+                 'fr' => 'french',
+                 'it' => 'italian',
+                 'nl' => 'dutch',
+                 'pl' => 'polish',
+                 'pt' => 'portuguese',
+                 'sv' => 'swedish',
+                 'tr' => 'turkish',
+                );
+
+    $locale = substr($locale,0,2);
+    if ( exists $langs{$locale} ) {
+        $lang = $langs{$locale};
+    }
+
+    return $lang;
 
 }
 
