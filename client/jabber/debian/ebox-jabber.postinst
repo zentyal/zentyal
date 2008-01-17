@@ -2,6 +2,17 @@
 
 webserver=apache
 
+stopJabber() {
+
+    jabberComponents=( c2s s2s sm resolver router )
+    for jabberComp in ${jabberComponents[@]}
+      do
+      start-stop-daemon -o -u jabber --stop --signal 15 --retry 3 \
+          --exec /usr/sbin/jabberd2-$jabberComp
+    done
+
+}
+
 case "$1" in
 	configure)
 		# install gconf schemas
@@ -23,6 +34,10 @@ case "$1" in
 		# stop jabberd2-ldap-bdb  if it's running as a normal service
 		invoke-rc.d jabberd2-ldap-bdb  stop
 
+                # Workaround since the previous script does not stop
+                # jabber service correctly, we manage jabber daemons
+                # using runit
+                stopJabber
 
 		# regenerate slapd.conf
 		/usr/lib/ebox-usersandgroups/ebox-init-ldap genconfig
