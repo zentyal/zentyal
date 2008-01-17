@@ -90,6 +90,20 @@ sub _doDaemon
 	}
 }
 
+# Method: _stopService
+#
+#        Stop the dhcp service
+#
+# Overrides:
+#
+#       <EBox::Module::_stopService>
+#
+sub _stopService
+{
+        my ($self) = @_;
+	$self->_daemons('stop');
+}
+
 sub usesPort # (protocol, port, iface)
 {
 	my ($self, $protocol, $port, $iface) = @_;
