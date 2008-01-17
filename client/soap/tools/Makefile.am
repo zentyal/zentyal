@@ -3,4 +3,4 @@
 MAINTAINERCLEANFILES = Makefile.in
 
 # File which will be used by runit to manage SOAP-enabled Apache server
-EXTRA_DIST = runit/apache-soap
+EXTRA_DIST = runit/apache-soap runit/apache-soap.finish

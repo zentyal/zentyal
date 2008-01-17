@@ -37,7 +37,7 @@ install-indep: build config.status
 	GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=yes DESTDIR=$(CURDIR)/debian/$(PACKAGE)/ \
 	DESTDIR=$(CURDIR)/debian/$(PACKAGE)/ \
 		$(MAKE) install schemadir=usr/share/gconf/schemas
-	
+
 	if [ -d tools/runit ] ; then \
 		pushd tools/runit ; \
 		for serv in * ; do \
