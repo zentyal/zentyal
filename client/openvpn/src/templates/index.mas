@@ -15,6 +15,7 @@ my $clientsShowed = @clients;
 </%init>
 
 <& enable.mas, title => __('OpenVPN service status'), active => $active &>
+<h3> <% __('Servers') %> </h3>
 % if ($noCA) {
   <& /openvpn/caRequired.mas &>
 % }
@@ -25,7 +26,7 @@ my $clientsShowed = @clients;
 <& serversList, servers => \@servers &>
 
 % }
-
+<h3> <% __('Clients') %> </h3>
 <& clientsList, clients => \@clients &>
 
 % if ($serversShowed or $clientsShowed) {
@@ -60,7 +61,6 @@ my @rows = map {
 
 my  @columnTitlesParam = @servers > 0 ? (columnTitles => \@columnTitles) : ();
 </%init>
-<h3> <% __('Servers') %> </h3>
 <& dataTable.mas,  , rows => \@rows, @columnTitlesParam, additionalComponents => [qw(/openvpn/index.mas:.addServerRow)] &>
 </%def>
 
@@ -102,7 +102,6 @@ my @rows = map {
 
 my  @columnTitlesParam = @clients > 0 ? (columnTitles => \@columnTitles) : ();
 </%init>
-<h3> <% __('Clients') %> </h3>
 <& dataTable.mas,  , rows => \@rows, @columnTitlesParam, additionalComponents => [qw(/openvpn/index.mas:.addClientRow)] &>
 </%def>
 
