@@ -46,8 +46,8 @@
 	  <title>Road warrior scenario</title>
 	  <mediaobject>
 	    <imageobject>
-	      <imagedata fileref="images/road-warrior.jpeg"
-			 format="JPEG" />
+	      <imagedata fileref="images/road-warrior.png"
+			 format="PNG" />
 	    </imageobject>
 	  </mediaobject>
 	</figure>
@@ -161,8 +161,8 @@ nobind
 	<title>eBox OpenVPN server vs. eBox OpenVPN client</title>
 	<mediaobject>
 	  <imageobject>
-	    <imagedata fileref="images/two-offices.jpeg"
-		       format="JPEG" />
+	    <imagedata fileref="images/two-offices.png"
+		       format="PNG" />
 	  </imageobject>
 	</mediaobject>
       </figure>
