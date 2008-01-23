@@ -79,7 +79,7 @@ sub printableValue
         my $model = EBox::Model::ModelManager->instance()->model($self->{'foreignModel'});
         my $olddir = $model->directory();
         $model->setDirectory($self->directory());
-        my $val = $model->printableValueRows();
+        $val = $model->printableValueRows();
         $model->setDirectory($olddir);
     } catch EBox::Exceptions::DataNotFound with {
         $val = undef;
