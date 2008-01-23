@@ -63,15 +63,31 @@ sub _create
 sub modelClasses
 {
     return [
-            'EBox::DNS::Model::DomainTable',
-            'EBox::DNS::Model::HostnameTable',
-            'EBox::DNS::Model::AliasTable',
+            {
+             class      => 'EBox::DNS::Model::DomainTable',
+             parameters => [
+                            directory => 'domainTable',
+                           ],
+            },
+            {
+             class      => 'EBox::DNS::Model::HostnameTable',
+             parameters => [
+                            directory => 'hostnameTable',
+                           ],
+            },
+            {
+             class      => 'EBox::DNS::Model::AliasTable',
+             parameters => [
+                            directory => 'aliasTable',
+                           ],
+            },
             {
              class => 'EBox::DNS::Model::EnableFormDNS',
              parameters => [
                             enableTitle => __('DNS Server'),
                             modelDomain => 'DNS',
-                            domain      => 'ebox-dns'
+                            domain      => 'ebox-dns',
+                            directory   => 'enableForm',
                            ],
             }
            ];
