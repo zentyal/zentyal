@@ -431,15 +431,22 @@ sub _dgNeeded
 	  return undef;
 	}  
 
-	if ($self->banThreshold > 0) {
+	if ($self->globalPolicy eq 'filter') {
+	    return 1;
+	}
+	elsif ($self->banThreshold > 0) {
 	   return 1;
         }
+
 
 	my $domainFilter = $self->model('DomainFilter');
 	if ( @{ $domainFilter->banned } )  {
 	    return 1;
 	}
 	elsif ( @{ $domainFilter->allowed } ) {
+        	return 1;
+	}
+	elsif ( @{ $domainFilter->filtered } ) {
         	return 1;
 	}
 	
@@ -451,7 +458,7 @@ sub _dgNeeded
 	elsif ($domainFilterSettings->blockIpValue) {
 	  return 1;
 	}
-		
+	
 	
 	my $objectPolicy = $self->model('ObjectPolicy');
 	if ( @{ $objectPolicy->filtered } ) {
@@ -774,19 +781,6 @@ sub logHelper
         return (new EBox::SquidLogHelper);
 }
 
-
-
-sub setTablesAsPopulated
-{
-   my ($self) = @_;
-   $self->set_int('tables_are_populated', 1);
-}
-
-sub tablesArePopulated
-{
-   my ($self) = @_;
-   $self->get_int('tables_are_populated');
-}
 
 
 # Overrides:
