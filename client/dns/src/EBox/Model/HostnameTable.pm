@@ -87,7 +87,7 @@ sub _table
           );
 
     my $dataTable = 
-        { 
+        {
             'tableName' => 'HostnameTable',
             'printableTableName' => __('Hostnames'),
             'automaticRemove' => 1,
@@ -97,6 +97,7 @@ sub _table
             'class' => 'dataTable',
             'help' => __('Hostnames'),
             'printableRowName' => __('hostname'),
+            'sortedBy' => 'hostname',
         };
 
     return $dataTable;

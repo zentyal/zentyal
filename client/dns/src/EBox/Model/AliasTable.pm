@@ -77,6 +77,7 @@ sub _table
             'class' => 'dataTable',
             'help' => __('Alias'),
             'printableRowName' => __('alias'),
+            'sortedBy' => 'alias',
         };
 
     return $dataTable;

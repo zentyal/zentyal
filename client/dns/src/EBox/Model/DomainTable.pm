@@ -89,6 +89,7 @@ sub _table
             'class' => 'dataTable',
             'help' => __('Domains'),
             'printableRowName' => __('domain'),
+            'sortedBy' => 'domain',
         };
 
     return $dataTable;
