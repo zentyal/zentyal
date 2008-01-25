@@ -6,7 +6,7 @@ my @time = localtime();
 my $date = sprintf("%04d%02d%02d%02d",$time[5]+1900,$time[4]+1,$time[3],$time[2]);
 </%init>
 $TTL 3D
-@	IN	SOA	ns.<% $domain{'name'} %>.	admin.warp.es (
+@	IN	SOA	ns.<% $domain{'name'} %>.	admin.warp.es. (
 			<% $date %>	;serial number
 			8H		;refresh
 			2H		;retry
