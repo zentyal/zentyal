@@ -42,7 +42,7 @@ sub _changeLogFiles
   my $oldLogDir = EBox::Config::log();
 
   my $DIR_H;
-  opendir $DIR_H, $oldLogDir or return;
+  opendir($DIR_H, $oldLogDir) or return;
 
   while  (1) {
     my $file;
