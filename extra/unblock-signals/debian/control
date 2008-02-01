@@ -1,0 +1,13 @@
+Source: unblock-signals
+Section: devel
+Priority: optional
+Maintainer: Isaac Clerencia <isaac@debian.org>
+Standards-Version: 3.7.2
+Build-Depends: debhelper (>= 5)
+
+Package: unblock-signals
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: Makes a process unblock signals before an exec
+ This preload library replaces the execve and execvp system calls so they
+ unblock all signals before performing the actual exec.
