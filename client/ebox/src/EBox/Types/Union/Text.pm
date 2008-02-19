@@ -86,7 +86,7 @@ sub value
     my ($self) = @_;
 
     return $self->{'value'} if defined($self->{'value'});
-    return $self->fieldName();
+    return $self->printableName();
 }
 
 
