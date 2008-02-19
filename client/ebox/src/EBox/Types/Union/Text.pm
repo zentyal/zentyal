@@ -86,9 +86,22 @@ sub value
     my ($self) = @_;
 
     return $self->{'value'} if defined($self->{'value'});
-    return $self->printableName();
+    return $self->fieldName();
 }
 
+# Method: printableValue
+#
+# Overrides:
+#
+#       <EBox::Types::Abstract::printableValue>
+#
+sub printableValue
+{
+    my ($self) = @_;
+
+    return $self->printableName();
+
+}
 
 # Protected Methods
 
