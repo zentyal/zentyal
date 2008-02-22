@@ -14,12 +14,14 @@
 <%init>
   use EBox::Gettext;
   use Data::Dumper;
-  my $componentsRef = $model->components();
 </%init>
 <& .title,
    title => $model->printableName()
 &>
 % if ( $model->precondition() ) {
+%    # Define the components when we are sure the precondition is
+%    # matched
+%    my $componentsRef = $model->components();
 %    # Print the help if any
 %    if ( $model->help() ) {
 <div class="help">
