@@ -1,0 +1,47 @@
+How to update an eBox live CD from a old version to a newer one
+
+1. Download livecd iso from http://ebox-platform.com/download
+
+These two steps are not needed if you have "morphing-tools" installed in your system:
+
+2. Add apt repository:
+
+deb http://www.morphix.org/debian/ unstable/
+
+3. Install morphing-tools metapackage
+
+4. Get the main module from old iso to directory module:
+
+$ isomorph --get main ./ebox_live.iso module/
+
+   It will create the ebox_<old_version>.mod file
+
+5. Enter into chroot 
+
+$ morphix-chroot module/ebox_<old_version>.mod
+
+6.a Run: $ runsvdir-start & to start runit
+6.b Update eBox to its lastest version
+
+7. Delete any session key, files to destroy:
+
+  -> /var/lib/ebox/conf/*.bak
+  -> /var/lib/ebox/tmp/*.lock
+  -> /var/lib/ebox/.gconfd/saved_state
+
+8. Exit from chroot
+
+9.pre1 Create a fresh iso without eBox main module
+
+$ isomorph --del-all main ./ebox_live.iso ./ebox_live_free.iso
+
+9.pre2 Rename the module  to the last version <version>
+
+$ mv module/ebox_<old_version>.mod module/ebox_<version>.mod
+
+9. Merge main module from a fresh iso (without eBox main module)
+
+$ isomorph --add main module/ebox_<version>.mod ./ebox_live_free.iso ./ebox_live_<version>.iso
+
+10. Try the recently created eBox live CD ISO
+  
