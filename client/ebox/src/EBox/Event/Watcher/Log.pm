@@ -116,6 +116,7 @@ sub run
         my $pagesize = PAGESIZE;
         my $timeCol = $logs->getTableInfo($logger)->{timecol};
         foreach my $filter (@{$self->_filters($logger)}) {
+            $filter = undef if (%{$filter});
             my $finished = 0;
             my $page = 0;
             do {

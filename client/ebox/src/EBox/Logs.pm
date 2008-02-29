@@ -428,7 +428,7 @@ sub search {
 	if (_checkValidDate($to)) {
 		$self->_addDateFilter($timecol, $to, '<');
 	}
-	if ($filters) {
+	if ($filters and %{$filters}) {
 		foreach my $field (keys %{$filters}) {
 			unless (exists $tableinfo->{'titles'}->{$field}) {
 			   throw  EBox::Exceptions::Internal(
