@@ -99,7 +99,11 @@ sub run
       my $up = EBox::Service::running(ADMIN_SERVICE);
       my $gl = EBox::Global->getInstance(1);
       if ( $gl->modExists('soap') ){
-          my $soap = $gl->modInstance('soap');
+          unless (defined $self->{'soap'}) {
+              $self->{'soap'} = $gl->modInstance('soap');
+          }
+
+          my $soap = $self->{'soap'};
           if ( $soap->enabled() ) {
               $up = $up and $soap->running();
           }
