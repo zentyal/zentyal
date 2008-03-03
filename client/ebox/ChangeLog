@@ -1,5 +1,6 @@
 0.11.100
 	+ Bugfix. Fix issue with event filters and empty hashes
+	+ Bugfix. Cache stuff in log and soap watcher to avoid memory leaks
 0.11.99
 	+ DataTable contains the property 'enableProperty' to set a column
 	called 'enabled' to enable/disable rows from the user point of
