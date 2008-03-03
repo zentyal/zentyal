@@ -116,7 +116,8 @@ sub run
         my $pagesize = PAGESIZE;
         my $timeCol = $logs->getTableInfo($logger)->{timecol};
         foreach my $filter (@{$self->_filters($logger)}) {
-            $filter = undef if (%{$filter});
+	   
+	    $filter = undef if (%{$filter}); 
             my $finished = 0;
             my $page = 0;
             do {
@@ -290,12 +291,14 @@ sub _isLoggerEnabled
 {
     my ($self, $logger) = @_;
 
-    my $confModel = EBox::Model::ModelManager->instance()->model($self->ConfigureModel());
+    unless (exists $self->{logger}->{$logger}) {
+        my $confModel = EBox::Model::ModelManager
+                                   ->instance()->model($self->ConfigureModel());
+        my $row = $confModel->find(domain => $logger);
+        $self->{logger}->{$logger} = $row->{enabled};
+    }
 
-    my $row = $confModel->find(domain => $logger);
-
-    return $row->{enabled};
-
+    return  $self->{logger}->{$logger};
 }
 
 # Returns the filters used to do the search in and-ed mode
@@ -304,34 +307,39 @@ sub _filters
 
     my ($self, $logger) = @_;
 
-    my $manager = EBox::Model::ModelManager->instance();
-    my $logConfModel = $manager->model($self->ConfigureModel());
-    my $loggerConfRow = $logConfModel->findValue(domain => $logger);
+    unless ($self->{filters}->{$logger}) {
+        my $manager = EBox::Model::ModelManager->instance();
+        my $logConfModel = $manager->model($self->ConfigureModel());
 
-    my $filterDirectory = $loggerConfRow->{filters}->{directory};
+        my $loggerConfRow = $logConfModel->findValue(domain => $logger);
 
-    my $filterModel = $manager->model($loggerConfRow->{filters}->{model});
-    $filterModel->setDirectory($filterDirectory);
+        my $filterDirectory = $loggerConfRow->{filters}->{directory};
 
-    my @filterSearchs = ();
-    foreach my $filterRow (@{$filterModel->rows()}) {
-        my $filterSearch = {};
-        foreach my $filterField (@{$filterRow->{values}}) {
-            if ( $filterField->value() ) {
-                # Do not store a thing if the field is the event with
-                # 'any' value to work with <EBox::Logs::search> API
-                unless ( $filterField->fieldName() eq 'event'
-                         and $filterField->value() eq 'any' ) {
-                    $filterSearch->{$filterField->fieldName()} =
-                      $filterField->value();
+        my $filterModel = $manager->model($loggerConfRow->{filters}->{model});
+        $filterModel->setDirectory($filterDirectory);
+
+        my @filterSearchs = ();
+        foreach my $filterRow (@{$filterModel->rows()}) {
+            my $filterSearch = {};
+            foreach my $filterField (@{$filterRow->{values}}) {
+                if ( $filterField->value() ) {
+                    # Do not store a thing if the field is the event with
+                    # 'any' value to work with <EBox::Logs::search> API
+                    unless ( $filterField->fieldName() eq 'event'
+                            and $filterField->value() eq 'any' ) {
+                        $filterSearch->{$filterField->fieldName()} =
+                            $filterField->value();
+                    }
                 }
             }
+
+            push ( @filterSearchs, $filterSearch );
         }
-        push ( @filterSearchs, $filterSearch );
+        $self->{filters}->{$logger} = \@filterSearchs;
+
     }
 
-    return \@filterSearchs;
-
+    return $self->{filters}->{$logger};
 }
 
 1;
