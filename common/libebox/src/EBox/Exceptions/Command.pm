@@ -99,6 +99,8 @@ sub _errorMsg
   my $errorStr = join ' ', @{ $error };
   my $outputStr = join ' ', @{ $output };
 
+  $cmdType = '' unless defined($cmdType);
+
   return "$cmdType $cmd failed. \nError output: $errorStr\nCommand output: $outputStr. \nExit value: $exitValue";
 }
 

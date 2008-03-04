@@ -1,3 +1,5 @@
+0.11.100
+	+ Fix an annoying warning found when interpoling undef values
 0.11.99
 	+ Fix rendering bug in hasMany viewer closing an open tag
 	+ Added `EBox::ColourRange` to handle colour ranges
