@@ -1,0 +1,251 @@
+# Japanese translations for ebox-samba package.
+# Copyright (C) 2008 Warp S.L.
+# This file is distributed under the same license as the ebox-samba package.
+# Automatically generated, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ebox-samba 0.11.99"
+"Report-Msgid-Bugs-To: bugs@warp.es\n"
+"POT-Creation-Date: 2008-01-08 15:50+0100\n"
+"PO-Revision-Date: 2008-01-08 15:50+0100\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: src/EBox/CGI/ActivePrinting.pm:44 src/EBox/CGI/ActiveSharing.pm:66
+msgid "user name"
+msgstr ""
+
+#: src/EBox/CGI/ActivePrinting.pm:48 src/EBox/CGI/ActiveSharing.pm:44
+#: src/EBox/SambaLdapUser.pm:480 src/EBox/SambaLdapUser.pm:508
+#: src/EBox/SambaLdapUser.pm:559
+msgid "group name"
+msgstr ""
+
+#: src/EBox/CGI/Enable.pm:42
+msgid "module status"
+msgstr ""
+
+#: src/EBox/CGI/ActiveSharing.pm:47
+msgid "sharing name"
+msgstr ""
+
+#: src/EBox/CGI/ActiveSharing.pm:69
+msgid "active"
+msgstr ""
+
+#: src/EBox/CGI/Index.pm:30 src/EBox/CGI/Index.pm:40 src/EBox/Samba.pm:245
+#: src/EBox/Samba.pm:253
+msgid "File sharing"
+msgstr ""
+
+#: src/EBox/CGI/SambaConf.pm:42 src/EBox/Samba.pm:477
+msgid "netbios"
+msgstr ""
+
+#: src/EBox/CGI/SambaConf.pm:43 src/EBox/Samba.pm:515
+msgid "working group"
+msgstr ""
+
+#: src/EBox/CGI/SambaConf.pm:44
+msgid "working mode"
+msgstr ""
+
+#: src/EBox/CGI/SambaConf.pm:45 src/EBox/Samba.pm:496
+msgid "description"
+msgstr ""
+
+#: src/EBox/CGI/SambaConf.pm:46
+msgid "user quota"
+msgstr ""
+
+#: src/EBox/Samba.pm:292 src/EBox/Samba.pm:337
+msgid "listening port"
+msgstr ""
+
+#: src/EBox/Samba.pm:375
+msgid "Domain Name"
+msgstr ""
+
+#: src/EBox/Samba.pm:534
+msgid "quota"
+msgstr ""
+
+#: src/EBox/Samba.pm:819 src/EBox/Samba.pm:838
+msgid "user"
+msgstr ""
+
+#: src/EBox/Samba.pm:822 src/EBox/Samba.pm:852 src/EBox/SambaLdapUser.pm:629
+msgid "group"
+msgstr ""
+
+#: src/EBox/Samba.pm:825
+msgid "printer"
+msgstr ""
+
+#: src/EBox/Samba.pm:1166
+msgid "User's files"
+msgstr ""
+
+#: src/EBox/Samba.pm:1168
+msgid "Group's files"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:210
+msgid "This user has a sharing directory associated which conatins data"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:271
+msgid "This group has a sharing directory associatedwhich conatins data"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:513
+msgid "A name should be provided for the share"
+msgstr ""
+
+#: src/EBox/SambaLdapUser.pm:521
+msgid "sharing resource"
+msgstr ""
+
+#: src/templates/delete.mas:11
+msgid ""
+"The group you tried to delete has a directory which contains data, if you "
+"remove it all its data will be removed. Please confirm that you want to "
+"delete it."
+msgstr ""
+
+#: src/templates/delete.mas:18 src/templates/samba.mas:79
+#: src/templates/samba.mas:80
+msgid "Delete"
+msgstr ""
+
+#: src/templates/delete.mas:21
+msgid "Cancel"
+msgstr ""
+
+#: src/templates/samba.mas:9
+msgid "PDC/File sharing account"
+msgstr ""
+
+#: src/templates/samba.mas:16
+msgid "User account"
+msgstr ""
+
+#: src/templates/samba.mas:21 src/templates/samba.mas:24
+msgid "Disabled"
+msgstr ""
+
+#: src/templates/samba.mas:22 src/templates/samba.mas:25
+msgid "Enabled"
+msgstr ""
+
+#: src/templates/samba.mas:32
+msgid "Administration rights"
+msgstr ""
+
+#: src/templates/samba.mas:46 src/templates/samba.mas:47
+#: src/templates/samba.mas:76 src/templates/samba.mas:77
+#: src/templates/samba.mas:147 src/templates/samba.mas:148
+#: src/templates/index.mas:81 src/templates/index.mas:82
+msgid "Change"
+msgstr ""
+
+#: src/templates/samba.mas:55
+msgid "Sharing directory for this group"
+msgstr ""
+
+#: src/templates/samba.mas:58
+msgid ""
+"You can set a share directory for this group, but you should keep in mind "
+"that Microsoft Windows 98 and Millenium will not be able to see names longer "
+"than 12 characters"
+msgstr ""
+
+#: src/templates/samba.mas:66
+msgid "This resource name is longer than 12 characters."
+msgstr ""
+
+#: src/templates/samba.mas:69
+msgid "Directory name"
+msgstr ""
+
+#: src/templates/samba.mas:83 src/templates/samba.mas:84
+msgid "Add"
+msgstr ""
+
+#: src/templates/samba.mas:91
+msgid "Printers"
+msgstr ""
+
+#: src/templates/samba.mas:95
+msgid "Select the printers this user will have access to."
+msgstr ""
+
+#: src/templates/samba.mas:105
+msgid "Printer"
+msgstr ""
+
+#: src/templates/samba.mas:106
+msgid "Allow"
+msgstr ""
+
+#: src/templates/samba.mas:128
+msgid "Allow all printers"
+msgstr ""
+
+#: src/templates/samba.mas:159
+msgid "printers module"
+msgstr ""
+
+#: src/templates/samba.mas:170
+msgid "file sharing module"
+msgstr ""
+
+#: src/templates/index.mas:19
+msgid "General Settings"
+msgstr ""
+
+#: src/templates/index.mas:21
+msgid ""
+"To allow unlimited disk usage to users, just set zero as user quota limit."
+msgstr ""
+
+#: src/templates/index.mas:27
+msgid "Working mode"
+msgstr ""
+
+#: src/templates/index.mas:32 src/templates/index.mas:35
+msgid "File server"
+msgstr ""
+
+#: src/templates/index.mas:33 src/templates/index.mas:36
+msgid "PDC"
+msgstr ""
+
+#: src/templates/index.mas:44
+msgid "Domain name"
+msgstr ""
+
+#: src/templates/index.mas:46
+msgid "Working group"
+msgstr ""
+
+#: src/templates/index.mas:56
+msgid "Netbios name"
+msgstr ""
+
+#: src/templates/index.mas:64
+msgid "Description"
+msgstr ""
+
+#: src/templates/index.mas:71
+msgid "Quota limit"
+msgstr ""
+
+#: stubs/smb.conf.mas:91
+msgid "Home Directories"
+msgstr ""
