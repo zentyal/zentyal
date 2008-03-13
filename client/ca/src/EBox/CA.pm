@@ -48,7 +48,6 @@ use constant TEMPDIR     => EBox::Config->tmp(); # "/tmp/";
 use constant OPENSSLPATH => "/usr/bin/openssl";
 
 use constant CATOPDIR => EBox::Config->home() . "CA/";
-# "/home/quique/my-stuff/openssl-tests/demoCA/";
 
 use constant SSLCONFFILE => EBox::Config->conf() . "openssl.cnf";
 # CATOPDIR . "../openssl.cnf";
