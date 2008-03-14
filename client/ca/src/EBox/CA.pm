@@ -171,8 +171,8 @@ sub isCreated
   {
     my ($self, $name) = @_;
 
-    my $retValue = (-d CATOPDIR) and (-f CACERT) and (-f CAPRIVKEY)
-      and (-f CAPUBKEY);
+    my $retValue = ((-d CATOPDIR) and (-f CACERT) and (-f CAPRIVKEY)
+      and (-f CAPUBKEY));
 
     return $retValue;
 
