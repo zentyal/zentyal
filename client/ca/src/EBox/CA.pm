@@ -1574,6 +1574,8 @@ sub currentCACertificateState
 
     my $serialCert = $self->_obtain(CACERT, 'serial');
 
+    return '!' unless (defined($serialCert));
+
     my $certRef = $self->getCertificateMetadata(serialNumber => $serialCert);
 
     if ( not defined($certRef) ) {
