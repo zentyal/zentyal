@@ -7,8 +7,9 @@ AM_INIT_AUTOMAKE([foreign])
 
 AM_MAINTAINER_MODE
 
-
 AC_DEFINE_DIR(DATADIR, datadir)
+AC_DEFINE_DIR(SYSCONFDIR, sysconfdir)
+AC_DEFINE_DIR(LOCALSTATEDIR, localstatedir)
 AC_DEFINE_DIR(LIBDIR, libdir)
 
 AC_ARG_ENABLE([runtime-tests],
