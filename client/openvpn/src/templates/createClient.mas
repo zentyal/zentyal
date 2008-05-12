@@ -50,7 +50,7 @@ my @submitElements = (
 		     );
 </%init>
            <h3><% __('OpenVPN client creation') %> </h3>
-	   <form action=CreateClient' method='POST' enctype="multipart/form-data">
+	   <form action='CreateClient' method='POST' enctype="multipart/form-data">
 	      <& /openvpn/fixedTdFormTable.mas, rows => \@commonElements &>
 
 	      <div id='manual'>
