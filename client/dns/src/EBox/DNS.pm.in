@@ -18,7 +18,10 @@ package EBox::DNS;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Model::ModelProvider EBox::Model::CompositeProvider);
+use base qw(EBox::GConfModule 
+			EBox::Model::ModelProvider 
+			EBox::Model::CompositeProvider
+			EBox::ServiceModule::ServiceInterface);
 
 use EBox::Objects;
 use EBox::Gettext;
@@ -31,7 +34,6 @@ use EBox::Validate qw( :all );
 use EBox::DNS::Model::DomainTable;
 use EBox::DNS::Model::HostnameTable;
 use EBox::DNS::Model::AliasTable;
-use EBox::DNS::Model::EnableFormDNS;
 use EBox::DNS::Model::DNSComposite;
 use EBox::Model::ModelManager;
 
@@ -455,22 +457,110 @@ sub switchToReverseInfoData
 	return \@reversedData;
 }
 
+# Method: usedFiles
+#
+#	Override EBox::ServiceModule::ServiceInterface::usedFiles
+#
+sub usedFiles
+{
+	my ($self) = @_;
+	my $files = 	[{
+		 'file' => BIND9CONFFILE,
+		 'module' => 'dns',
+ 	 	 'reason' => 'main bind9 configuration file'
+		},
+		{
+		 'file' => BIND9CONFOPTIONSFILE,
+		 'module' => 'dns',
+ 	 	 'reason' => 'main bind9 options configuration file'
+		},
+		{
+		 'file' => BIND9CONFLOCALFILE ,
+		 'module' => 'dns',
+ 	 	 'reason' => 'local bind9 options configuration file'
+		}
+	       ];
+
+
+	my @domains = @{$self->domains()};
+
+	my @domainData;
+	foreach my $domain (@domains)
+	{
+		my $domdata = $self->completeDomain($domain);
+		push(@domainData, $domdata);
+		my $file = BIND9CONFDIR . "/db." . $domdata->{'name'};
+		push (@{$files}, 
+						{
+							 'file' => $file,
+							 'module' => 'dns',
+							 'reason' => __x('configuration file for zone {zone}', zone => $file )
+						});
+
+	}
+
+	my $reversedData = $self->switchToReverseInfoData(\@domainData);
+	my @inaddrs;
+	foreach my $reversedDataItem(@{$reversedData})
+	{
+		my $file = BIND9CONFDIR . "/db." . $reversedDataItem->{'groupip'};
+		push (@{$files}, 
+						{
+							 'file' => $file,
+							 'module' => 'dns',
+							 'reason' => __x('configuration file for reverse resolution zone {zone}', zone => $file )
+						});
+
+
+	}
+
+	return $files;
+}
+
+# Method: enableActions 
+#
+# 	Override EBox::ServiceModule::ServiceInterface::enableActions
+#
+sub enableActions
+{
+    root(EBox::Config::share() . '/ebox-dns/ebox-dns-enable');
+}
+
+
+# Method: serviceModuleName 
+#
+#	Override EBox::ServiceModule::ServiceInterface::serviceModuleName
+#
+sub serviceModuleName
+{
+	return 'dns';
+}
+
+# Method: isRunning
+#
+# 	Override EBox::ServiceModule::ServiceInterface::isRunning
+#
+sub isRunning
+{
+    return EBox::Service::running('ebox.bind9');
+}
+
 sub _doDaemon
 {
 	my $self = shift;
 
-	if ($self->service and EBox::Service::running('bind9')) {
-		EBox::Service::manage('bind9','restart');
+	if ($self->service and EBox::Service::running('ebox.bind9')) {
+		EBox::Service::manage('ebox.bind9','restart');
 	} elsif ($self->service) {
-		EBox::Service::manage('bind9','start');
-	} elsif (EBox::Service::running('bind9')) {
-		EBox::Service::manage('bind9','stop');
+		EBox::Service::manage('ebox.bind9','start');
+	} elsif (EBox::Service::running('ebox.bind9')) {
+		EBox::Service::manage('ebox.bind9','stop');
 	}
 }
 
 sub _stopService
 {
-	EBox::Service::manage('bind9','stop');
+	EBox::Service::manage('ebox.bind9','stop');
 }
 # Method: service
 #
@@ -481,15 +571,12 @@ sub _stopService
 #      boolean - the service is enabled or not
 #
 sub service
-  {
+{
 
-      my ($self) = @_;
-
-      my $enableModel = $self->model('EnableFormDNS');
-
-      return $enableModel->enabledValue();
-
-  }
+	my ($self) = @_;
+	
+	return $self->isEnabled();
+}
 
 # Method: setService
 #
@@ -500,17 +587,26 @@ sub service
 #      enabled - boolean service to be enabled or not
 #
 sub setService
-  {
+{
 
-      my ($self, $enabled) = @_;
+	my ($self, $enabled) = @_;
 
-      my $enableModel = $self->model('EnableFormDNS');
+	$self->enableService($enabled)
+}
 
-      $enableModel->setRow(1,
-                           ( enabled => $enabled ),
-                          );
-
-  }
+# Method: enableService
+#
+# Overrides:
+#
+#  <EBox::ServiceModule::ServiceInterface::enableService>
+#
+sub enableService
+{
+	my ($self, $status) = @_;
+	
+	$self->SUPER::enableService($status);
+	$self->configureFirewall();    
+}
 
 # Method: _regenConfig
 #
@@ -543,8 +639,8 @@ sub _setBindConf
 #				"dns/named.conf.local.mas", 
 #				\@array);
 
-	root("/bin/rm -rf " . BIND9CONFDIR . "/zones/");
-	root("/bin/mkdir " . BIND9CONFDIR . "/zones/");
+#	root("/bin/rm -rf " . BIND9CONFDIR . "/zones/");
+#	root("/bin/mkdir " . BIND9CONFDIR . "/zones/");
 
 	my @domainData;
 	foreach my $domain (@domains)
@@ -552,7 +648,7 @@ sub _setBindConf
 		my $domdata = $self->completeDomain($domain);
 		push(@domainData, $domdata);
 
-		my $file = BIND9CONFDIR . "/zones/db." . $domdata->{'name'};
+		my $file = BIND9CONFDIR . "/db." . $domdata->{'name'};
 		@array = ();
 		push(@array, 'domain' => $domdata);
 		$self->writeConfFile($file,"dns/db.mas",\@array);
@@ -563,7 +659,7 @@ sub _setBindConf
 	my @inaddrs;
 	foreach my $reversedDataItem(@{$reversedData})
 	{
-		my $file = BIND9CONFDIR . "/zones/db." . $reversedDataItem->{'groupip'};
+		my $file = BIND9CONFDIR . "/db." . $reversedDataItem->{'groupip'};
 		push(@inaddrs, $reversedDataItem->{'groupip'});
 		@array = ();
 		push(@array, 'rdata' => $reversedDataItem);
@@ -581,7 +677,7 @@ sub statusSummary
 {
 	my $self = shift;
 	return new EBox::Summary::Status('dns', __('DNS'),
-		EBox::Service::running('bind9'), $self->service);
+		EBox::Service::running('ebox.bind9'), $self->service);
 }
 
 sub configureFirewall
@@ -599,14 +695,6 @@ sub configureFirewall
 	}
 }
 
-sub onInstall
-{
-	EBox::init();
-	_addDNSService();
-	my $fw = EBox::Global->modInstance('firewall');
-	$fw->setInternalService('dns', 'accept');
-	$fw->save();
-}
 
 # Method: menu 
 #
@@ -619,30 +707,5 @@ sub menu
                                         'text' => __('DNS')));
 }
 
-sub _addDNSService
-{
-   my $serviceMod = EBox::Global->modInstance('services');
-
-   if (not $serviceMod->serviceExists('name' => 'dns')) {
-       $serviceMod->addService('name' => 'dns',
-           'protocol' => 'udp',
-           'sourcePort' => 'any',
-           'destinationPort' => 53,
-           'internal' => 1,
-	   'readOnly' => 1);
-
-   } else {
-       $serviceMod->setService('name' => 'dns',
-           'protocol' => 'udp',
-           'sourcePort' => 'any',
-           'destinationPort' => 53,
-           'internal' => 1,
-	   'readOnly' => 1);
-       EBox::info("Not adding dns service as it already exists");
-   }
-
-   $serviceMod->save();
-
-}
 
 1;

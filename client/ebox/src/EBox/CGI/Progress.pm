@@ -14,12 +14,12 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
-# package EBox::CGI::ProgressBase
+# package EBox::CGI::Progress
 #
 #  This class is to used to show the progress of a long operation 
 #
 #  This CGI is not intended to be caled directly, any CGI whom wants to switch
-#   to a porgress view must inherit from ProgressClient and call to the method showProgress
+#   to a progress view must inherit from ProgressClient and call to the method showProgress
 package EBox::CGI::Progress;
 
 use strict;
@@ -73,11 +73,11 @@ sub _process
 sub _progressId
 {
   my ($self) = @_;
-  my $pi = $self->param('progress');
+  my $pId = $self->param('progress');
 
-  $pi or
+  $pId or
     throw EBox::Exceptions::Internal('No progress indicator id supplied');
-  return $pi;
+  return $pId;
 }
 
 1;

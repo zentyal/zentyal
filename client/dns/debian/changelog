@@ -1,8 +1,26 @@
+ebox-dns (0.11.99-0ubuntu1~ppa1) hardy; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Mon, 25 Feb 2008 12:33:13 +0100
+
 ebox-dns (0.11.99) unstable; urgency=low
 
   * New upstream release
 
  -- Enrique José Hernández Blasco <quique@warp.es>  Tue,  8 Jan 2008 16:14:38 +0100
+
+ebox-dns (0.11-0ubuntu1~ppa1) hardy; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Mon, 18 Feb 2008 14:58:55 +0100
+
+ebox-dns (0.11-1) unstable; urgency=low
+
+  * Create /var/run/bind/run directory in upstart script
+
+ -- Javier Uruen Val <javi@warp.es>  Sun, 20 Jan 2008 21:41:49 +0100
 
 ebox-dns (0.11) unstable; urgency=low
 

@@ -2,7 +2,8 @@
 
 schemadir   = @GCONF_SCHEMA_FILE_DIR@
 schema_DATA = mailfilter.schemas 
-ldap_schemas = eboxfilter.schema
+
+pkgdata_DATA = eboxfilter.schema
 
 if GCONF_SCHEMAS_INSTALL
 install-data-local:
@@ -15,6 +16,6 @@ install-data-local:
 
 endif
 
-EXTRA_DIST = $(schema_DATA) $(ldap_schemas)
+EXTRA_DIST = $(schema_DATA) $(pkgdata_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in

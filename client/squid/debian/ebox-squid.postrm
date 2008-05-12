@@ -1,18 +1,24 @@
 #!/bin/bash
 
+#DEBHELPER#
+
 case "$1" in
 	remove)
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 		
-	        # restart logs
-                invoke-rc.d ebox logs restart || true
+	    # restart logs
+        invoke-rc.d ebox logs restart || true
 
-		/usr/bin/ebox-clean-gconf squid || true
+		#/usr/share/ebox/ebox-clean-gconf squid || true
+
+        # Restart eBox apache
+        invoke-rc.d ebox apache restart || true
+
 		;;		
 	purge)
-		/usr/lib/ebox/ebox-sql-table drop access || true
+		/usr/share/ebox/ebox-sql-table drop access || true
 
 		;;
 esac
 
-#DEBHELPER#
+

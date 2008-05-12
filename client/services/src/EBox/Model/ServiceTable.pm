@@ -238,6 +238,7 @@ sub availablePort
 #   destinationPort - same as source
 #   internal - booelan, to indicate if the service is internal or not
 #   readOnly - the service can't be deleted or modified
+#   translationDomain - eBox module domain for i18
 #
 #   Example:
 #
@@ -340,6 +341,123 @@ sub setService
 
 }
 
+# Method: addMultipleService 
+#
+#   Add a multi protocol service to the services table	
+#
+# Parameters:
+#
+#   (NAMED)
+#   
+#   name        - service's name
+#   description - service's description
+#   internal - boolean, internal services can't be modified from the UI
+#   readOnly - boolean, set the row unremovable from the UI
+#
+#   services - array ref of hash ref containing:
+#
+#	    protocol    - it can take one of these: any, tcp, udp, 
+#	                                            tcp/udp, grep, icmp
+#	    sourcePort  - it can take:  "any"
+#                                   An integer from 1 to 65536 -> 22
+#                                   Two integers separated by colons -> 22:25 
+#	    destinationPort - same as source
+#
+#
+#	Example:
+#
+#       'name' => 'ssh',
+#       'description' => 'secure shell'.
+#       'services' => [ 
+#                       {
+#	                        'protocol' => 'tcp',
+#	                        'sourcePort' => 'any',
+#                           'destinationPort' => '21:22'
+#                        },
+#                        {
+#	                        'protocol' => 'tcp',
+#	                        'sourcePort' => 'any',
+#                           'destinationPort' => '21:22'
+#                        }
+#                     ];
+#
+#   Returns:
+#
+#   string - id of the new created row  
+sub addMultipleService 
+{
+    my ($self, %params) = @_;
+
+    my $id = $self->addRow(_serviceParams(%params)); 
+
+    unless (defined($id)) {
+        throw EBox::Exceptions::Internal("Couldn't add name and description");
+    }
+
+    my $serviceConf = EBox::Model::ModelManager
+                                       ->instance()
+                                       ->model('ServiceConfigurationTable');
+    unless (defined($serviceConf)) {
+        throw EBox::Exceptions::Internal(
+                    "Couldn't get ServiceConfigurationTable");
+    }
+
+
+
+    $serviceConf->setDirectory($self->{'directory'} . "/$id/configuration");
+
+    for my $service (@{$params{'services'}}) {    
+        $service->{'internal'} = $params{'internal'};
+        $service->{'readOnly'} = $params{'readOnly'};
+        $serviceConf->addRow(_serviceConfParams(%{$service}));
+    }
+
+    return $id;
+
+#    my $name = $params{'name'};
+#    unless (defined($name)) {
+#        throw EBox::Exceptions::MissingArgument('name');
+#    }
+#
+#    my $row = $self->findValue('name' => $name); 
+#    unless (defined($row)) {
+#       throw EBox::Exceptions::DataNotFound('data' => 'service', 
+#                                            'value' => 'name');
+#    }
+#
+#    my $id = $row->{'id'};
+#    $self->setRow(1, _serviceParams(%params), 'id' => $id);
+#
+#    my $serviceConf = EBox::Model::ModelManager
+#                                       ->instance()
+#                                       ->model('ServiceConfigurationTable');
+#    unless (defined($serviceConf)) {
+#        throw EBox::Exceptions::Internal(
+#                    "Couldn't get ServiceConfigurationTable");
+#    }
+#
+#
+#    $serviceConf->setDirectory($self->{'directory'} . "/$id/configuration");
+#    my @rows = @{$serviceConf->rows()};
+#    unless (@rows > 0) {
+#	throw EBox::Exceptions::External(
+#			"This service has no protocols configured");
+#    }
+#
+#    my $idConf = $rows[0]->{'id'};
+#    
+#    my $rowId = 1;
+#    for my $service (@{$params{'service'}}) {    
+#        $service->{'internal'} = $params{'internal'};
+#        $service->{'readOnly'} = $params{'readOnly'};
+#        my %confParams = _serviceConfParams(%{$service});
+#        $confParams{'id'} = $idConf;
+#        $serviceConf->setRow($rowId, %confParams);
+#        $rowId++;
+#    }
+#
+}
+
 sub _serviceParams
 {
     my (%params) = @_;
@@ -348,9 +466,14 @@ sub _serviceParams
     my $description = delete $params{'description'};
     my $internal = $params{'internal'};
     my $readonly = $params{'readOnly'};
+    my $translationDomain;
+    if (exists $params{'translationDomain'}) {
+        $translationDomain = $params{'translationDomain'};
+    }
     
    return ('name' => $name, 'description' => $description,
-           'internal' => $internal, 'readOnly' => $readonly);
+           'internal' => $internal, 'readOnly' => $readonly,
+           'translationDomain' => $translationDomain);
  
 }
 

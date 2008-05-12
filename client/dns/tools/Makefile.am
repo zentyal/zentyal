@@ -1,5 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = runit/bind9
+pkgdata_SCRIPTS =  ebox-dns-enable
+
+MAINTAINERCLEANFILES = Makefile.in 
+
+EXTRA_DIST = $(pkgdata_SCRIPTS)

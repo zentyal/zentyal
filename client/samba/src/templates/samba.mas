@@ -179,8 +179,7 @@ $mod
 </%args>
 <div class='warning'>
 <% __x(
-       q{The following settings will take effect only when the {mod} will be
-enabled},
+       q{The following settings will take effect only when the {mod} is enabled},
     mod => $mod,
     )
 %>

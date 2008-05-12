@@ -12,7 +12,7 @@ use Perl6::Junction qw(any);
 use File::Basename;
 use File::Slurp qw(read_file write_file);
 
-my @clientPropierties = qw(proto  service);
+my @clientPropierties = qw(proto  service ripPasswd);
 my @clientCertificates = qw( caCertificate certificate certificateKey);
 my @serverPropierties  = qw(serverAddr serverPort); # this special treatment is due because the module is ready to use more than one server but no the CGIs.
 

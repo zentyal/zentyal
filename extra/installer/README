@@ -1,0 +1,32 @@
+Howto create the install CD
+
+
+
+1) Edit configuration file
+ You must edit the file 'build_cd.conf' to reflect your environment. At least you will need to change the MAINTAINER_ADRESS and YOURKEYID items, probably also the BASE_DIR variable.
+ The UBUNTU_KEYRING_TAR and UBUNTU_KEYRING_DIR must changed to reflect the version number of the package.
+ THe VERSION and the VERSION_NUMBER keys must reflect the version name and number of the Ubuntu version remastered for create the CD
+
+2) Put extra ubuntu packages
+  You must put all extra .deb  archives in the directoty pointed by the key EXTRAs_DIR (found in build_cd.conf).
+  Today the extra packages needed are all eBox packages and its dependencies not already provided by the base CD. 
+ Tip: A way to get dependencies is to put in extras the stuff, install the CD and scan the install log to see what pacakges are downlaoded from the mirror. Another way is to have a list of packages and use the packagesNotInCd script to see which aren't included, anyway check the log ater the installation to find any missing package/
+
+3) Change if needed ebox's server files
+  In the director pointed by DATA_DIR there are some files  that eithrt  are used in the install process (preseed, isntall scripts) or installed verbatim (inittab, ..). 
+ If you need it you can edit them.
+
+4) Download ubuntu-keyring tar
+   Download the tar source of this package, be sure this file is correctly referenced by the UBUNTU_KEYRING_TAR key.
+   Remember that the YOURKEYID must be the gpg ID of the key you will use to sign the CD.
+
+5) Download the ubuntu server iso and setup the build directory
+  You need to download the ISO file to remaster. 
+  After download it, execute the setup_build_dir.sh ISO_FILE_PATH command.
+
+6) Make sure you have the latest version of the EBox::Gettext perl package in your perl path. You can get it from the sources or form the libebox debian package.
+
+
+7) Execute the build CD script.
+ Execute the ./build_cd.sh script, it will ask you about your gpg passphrase a few times. If the build was sucessful you'll have your ISO written to the file pointed by the ISO_IMAGE key.
+  

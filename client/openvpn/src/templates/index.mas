@@ -1,26 +1,19 @@
 <%args>
-$service
 @servers
 @clients
 
-@externalIfaces
 $noCA => 0
 </%args>
 <%init>
 use EBox::Gettext;
-my $active  = $service ? 'yes' : 'no';
 
 my $serversShowed = (@servers and not $noCA);
 my $clientsShowed = @clients;
 </%init>
 
-<& enable.mas, title => __('OpenVPN service status'), active => $active &>
 <h3> <% __('Servers') %> </h3>
 % if ($noCA) {
   <& /openvpn/caRequired.mas &>
-% }
-% elsif (not @externalIfaces) {
- <& /openvpn/externalIfaceRequired.mas &>
 % }
 % else {
 <& serversList, servers => \@servers &>

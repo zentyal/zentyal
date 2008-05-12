@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# stop daemons 
+invoke-rc.d squid stop
+invoke-rc.d dansguardian stop

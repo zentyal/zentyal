@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Set samba admin password to ldap admin password
+LDAP_PASS=/var/lib/ebox/conf/ebox-ldap.passwd
+LDAP_PASS_TEMP=/var/lib/ebox/conf/ebox-ldap.tmp
+
+echo  | cat $LDAP_PASS - > $LDAP_PASS_TEMP
+echo  | cat $LDAP_PASS - >> $LDAP_PASS_TEMP
+cat $LDAP_PASS_TEMP | smbpasswd -s -W
+
+rm $LDAP_PASS_TEMP

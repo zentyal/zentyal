@@ -1,62 +1,226 @@
-	<!-- vim: ts=2 sw=2 tw=75
--->
-<chapter id="ch-software">
+<chapter id="ch-firewall">
 
-	<title>Actualizaciones del sistema</title>
+	<title>Cortafuegos</title>
 
-	<section id='sect-software-config'>
-		<!-- Software->Configuration -->
-		<title>Configuración</title>
+	<section id='sect-fw-desc'>
+		<title>Funcionamiento del cortafuegos</title>
 
 		<para>
-		eBox es capaz de actualizar automáticamente el software que utiliza
-		su sistema. Esta opción se puede activar en 
-			<menuchoice>
-				<guimenu>Gestión de software</guimenu>
-				<guimenuitem>Configuración</guimenuitem>
-			</menuchoice>
+                  Una de las características más importantes de eBox
+                  es su módulo de cortafuegos. Puedes acceder a través
+                  de 
+                  <menuchoice>
+                    <guimenu>Cortafuegos</guimenu>
+                  </menuchoice>. Allí puedes hacer filtrado de tráfico
+                  (<xref linkend="sect-fw-filter" />) o redirección de
+                  puertos (<xref linkend='sect-fw-redirects'/>).
+                </para>
+
+		<para>
+                  El cortafuegos tiene diferente comportamiento con
+                  los interfaces internos y externos. Los interfaces
+                  internos están conectados a las redes
+                  locales. No tienen las mismas restricciones que se
+                  aplican a los interfaces externos.
+                  <!--TODO: qué hace eBox con los interfaces externos-->
 		</para>
+                
+                <para>
+                  Los interfaces externos se conectan a las redes
+                  externas y eBox sólo permite las redirecciones desde
+                  ellas.
+                </para>
 
 		<para>
-		Al automatizar las actualizaciones de software del sistema se
-		simplifica la tarea de mantener el sistema funcionando con
-		la ultima versión disponible y evitar posibles bugs o problemas
-		de seguridad tan pronto como aparezca una solución.
+		<!--TODO: qué tráficos se aplican para objetos y reglas-->
 		</para>
-
-		<warning>
+		
 		<para>
-		Todas las funcionalidades del componente de gestión de
-		software de eBox requieren que el sistema operativo sea Debian
-		GNU/Linux.
-		</para>
-		</warning>
-	</section>
-
-	<section id='sect-software-ebox'>
-		<!-- Software->eBox components -->
-		<title>Componentes eBox</title>
-
-		<para>
-		En
-			<menuchoice>
-				<guimenu>Gestión de software</guimenu>
-				<guimenuitem>Componentes eBox</guimenuitem>
-			</menuchoice>
-		se permite instalar, actualizar o eliminar los diferentes paquetes de eBox
-		que existen. Sólo se excluyen de la desinstalación algunos de los módulos 
-		por resultar imprescindibles para el correcto funcionamiento básico de eBox.
+		<!--TODO: qué diferencias hay entre objetos y reglas-->
 		</para>
 	</section>
 
-	<section id='sect-software-system'>
-		<!-- Software->System updates -->
-		<title>Actualizaciones del sistema operativo</title>
+	<section id='sect-fw-redirects'>
+		<!-- Firewall->Redirects -->
+		<title>Redirecciones de puertos</title>
 
 		<para>
-		De la misma forma que se gestionan los componentes de eBox se puede gestionar 
-		el resto del software del sistema sobre el que está instalado	eBox. 
+		Las redirecciones de puertos permiten llevar un tráfico
+		procedente del exterior de la red hacia una máquina detrás de un
+		cortafuegos equipado con eBox. Se puede acceder a la configuración de las
+		redirecciones de puertos a través de 
+		<menuchoice>
+			<guimenu>Cortafuegos</guimenu>
+			<guimenuitem>Redirecciones</guimenuitem>
+		</menuchoice>
+		.
 		</para>
+
+		<para>
+		Para añadir una nueva redirección, en primer lugar debe
+		seleccionarse el <guilabel>Interfaz</guilabel> que atenderá las
+		peticiones de conexión. Este debe ser uno de los designados como
+		externos en la configuración de los interfaces de red. Además, debe
+		especificarse el <guilabel>Puerto externo</guilabel> sobre el que se
+		espera recibir el tráfico, y el <guilabel>Protocolo</guilabel> que este
+		empleará.
+		</para>
+
+		<para>
+		En cuanto a la máquina destino, se debe introducir su
+		<guilabel>Dirección IP</guilabel> y el <guilabel>Puerto</guilabel> al
+		que se reencaminarán los paquetes.
+		</para>
+
+		<para>
+		Una vez suministrados todos estos datos, basta escoger entre las
+		<guilabel>Acciones</guilabel> la correspondiente a añadir, y pulsar
+		sobre ella.
+		</para>
+
+		<para>
+		Para eliminar una regla, debe seleccionarse borrar entre las
+		<guilabel>Acciones</guilabel>, y pulsar sobre ella.
+		</para>
+
+		<para>
+		La configuración de una redirección puede modificarse simplemente
+		cambiando los parámetros sobre la misma y pulsando entre las
+		<guilabel>Acciones</guilabel> en la correspondiente a modificar.
+		</para>
+	</section>
+
+	<section id='sect-fw-filter'>
+		<!-- Firewall->Packet Filter -->
+		<title>Filtrado</title>
+
+		<para>
+		Desde
+		<menuchoice>
+			<guimenu>Cortafuegos</guimenu>
+			<guimenuitem>Filtrado de paquetes</guimenuitem>
+		</menuchoice>
+		se pueden configurar las reglas de filtrado de
+                paquetes. Puedes usar las abstracciones dadas
+                anteriormente como los <link
+                linkend="ch-services">servicios de red</link> o los
+                <link linkend="ch-objects">objetos de
+                red</link>. Usando estos conceptos mejora la
+                flexibilidad y claridad de las reglas, reduciendo su número.
+		</para>
+
+                <para>A primera vista, tenemos cinco flujos diferentes
+                de tráfico para establecer las reglas de cortafuegos.
+                <variablelist>
+                  <varlistentry>
+                    <term>Desde redes internas a eBox</term>
+                    <listitem><para>Estas reglas se usan para
+                    controlar el acceso desde los interfaces de red
+                    internos a los servicios que se ejecutan en tu
+                    máquina eBox. Varios módulos de eBox añaden reglas
+                    de filtrado por ti para gestionar los servicios de
+                    eBox más fácilmente.</para></listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Para las redes internas</term>
+                    <listitem><para>Estas reglas te permiten controlar
+                    el acceso desde tus redes internas a Internet, y
+                    el tráfico entre tus redes internas.</para></listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Saliendo desde eBox</term>
+                    <listitem><para>Estas reglas te permiten controlar
+                    el acceso desde eBox a las redes externas.</para></listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Desde redes externas a eBox</term>
+                    <listitem><para>Estas reglas te permiten controlar
+                    el acceso desde las redes externas a los servicios
+                    corriendo en tu máquina eBox.
+                    </para></listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Desde redes externas a redes internas</term>
+                    <listitem><para>Estas reglas te permiten controlar
+                    el acceso desde redes externas a las redes internas.
+                    </para></listitem>
+                  </varlistentry>
+                </variablelist>
+                Ten en cuenta que los últimos dos conjuntos de reglas
+                conceden acceso a redes no confiables sobre tus
+                redes. Esto puede comprometer la seguridad de tu
+                red. Según la política de seguro por defecto se
+                recomienda, no modificar estas reglas a menos que se
+                sepa lo que se está haciendo. La figura<xref
+                linkend="fig-firewall"/> trata de aclarar el concepto:
+                </para>
+                <figure id="fig-firewall">
+                  <title>Conjuntos de reglas del cortafuegos</title>
+                  <mediaobject>
+                    <imageobject>
+                      <imagedata fileref="images/firewall.png"
+                                 format="PNG"/>
+                    </imageobject>
+                  </mediaobject>
+                </figure>
+
+		<para>
+                  La política de denegación de paquetes para el
+                  cortafuegos de eBox es de ignorar paquetes. Esto
+                  hace que los paquetes filtrados sean descartados sin notificar
+                  al remitente.
+		</para>
+
+                <para>Cada conjunto de reglas definen un
+                comportamiento determinado para los flujos de tráfico
+                en el que se aplican. Estas reglas se comprobarán de
+                arriba a abajo, por tanto el orden es importante. Cada
+                regla está formada por estos campos, algunos de ellos
+                están sólo disponibles para algún conjunto de reglas
+                determinado por su construcción:
+                <variablelist>
+                  <varlistentry>
+                    <term>Decisión</term>
+                    <listitem><para>Aceptar o denegar. Se determina
+                    explícitamente si se acepta o se deniega el flujo
+                    de tráfico.</para></listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Origen</term>
+                    <listitem><para>El origen del flujo de
+                    tráfico. Puede ser un objeto de red o una
+                    dirección IP. Este campo está disponible en cada
+                    conjunto de reglas excepto para el tráfico
+                    "Saliendo de eBox"</para></listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Destino</term>
+                    <listitem><para>El objetivo del flujo de
+                    tráfico. Puede ser un objeto de red o una
+                    dirección IP. Este campo está disponible para los
+                    conjuntos de reglas "Para redes internas",
+                    "Saliendo de eBox" y "De redes externas a redes
+                    internas".</para></listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Servicio</term>
+                    <listitem><para>El servicio que presta el flujo de
+                    tráfico como se describe en el <xref
+                    linkend="ch-services"/>. La expresión puede ser la
+                    inversa, por ejemplo el inverso de "cualquiera" es
+                    "ninguno". Este campo es obligatorio, así para
+                    crear una nueva regla, es necesario disponer del
+                    servicio de red deseado. Si éste no existe, desde
+                    crearlo primero.</para></listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Descripción</term>
+                    <listitem><para>Una descripción opcional
+                    facilitará la gestión de reglas del cortafuegos.</para></listitem>
+                  </varlistentry>
+                </variablelist>
+                </para>
+
 	</section>
 
 </chapter>

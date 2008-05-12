@@ -1,0 +1,133 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2008 Warp Networks S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+
+use strict;
+use warnings;
+
+use File::Slurp qw(read_file);
+
+my $debug = 1;
+
+
+my @baseDirs = @ARGV;
+
+@baseDirs or @baseDirs  = qw(
+                /home/javier/src/branches/ubuntu-0.11.99/client
+                /home/javier/src/branches/ubuntu-0.11.99/common
+                 );
+
+
+
+my %packages = (
+		ssh => 1,  # always add ssh package
+	       );
+
+
+my %packageRules = (
+		    apache2 => 0,
+		    postgresql => 0,
+		    'ntp-server' => 'ntp',
+
+		   );
+
+my $findCommand = "find @baseDirs -name control";
+
+
+my @controlFiles = `$findCommand`;
+
+
+
+# remove svn files
+@controlFiles = grep {
+   not  ($_ =~  m{\.svn/})
+} @controlFiles;
+
+#remove no debian/control files
+@controlFiles = grep {
+  $_ =~ m{/debian/control$}
+} @controlFiles;
+
+# remove ipsec module
+@controlFiles = grep {
+  not ($_ =~ m{ipsec/debian/control})
+} @controlFiles;
+
+print "Package dependencies will be extracted from the following control files @controlFiles\n\n" if $debug;
+
+#remove end of line
+@controlFiles = map {  chomp $_; $_ } @controlFiles;
+
+foreach my $control (@controlFiles) {
+
+
+  my @lines = read_file($control);
+  foreach my $line (@lines) {
+    chomp $line;
+    my ($header, $contents) = split ':', $line;
+    $header or next;
+    $contents or next;
+
+    if ($header eq 'Depends') {
+      my @p = split ',', $contents;
+      foreach  my $package (@p) {
+	$package or next;
+	# skip if is a ebox package 
+	# XXX this may exclude any unrelated ebox
+	#      package with the string ebox in its name
+	next if $package =~ m/ebox/;
+	next if $package =~ m/esofttool/;
+
+	# remove version dependency
+	$package =~ s/\(.*$//;
+	# remove shell constructs
+	$package =~ s/\$.*$//;
+	# remove blanks
+	$package =~ s/\s//g;
+
+	if (exists $packageRules{$package}) {
+	  my $rule = $packageRules{$package};
+	  if (not $rule) {
+	    print "Package $package ignored by rule\n" if $debug;
+	    next;
+	  }
+	  else {
+	    print "Package $package repalced by $rule \n" if $debug;
+	    $package = $rule;
+	  }
+	}
+
+	$packages{$package} = 1;
+      }
+
+
+    }
+
+  }
+}
+
+
+my @packages = sort keys %packages;
+my $diCommand =  "d-i pkgsel/include string @packages";
+$diCommand =~ s{\s\s}{ }g;
+
+
+print "$diCommand\n";
+
+
+
+1;

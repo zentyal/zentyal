@@ -13,10 +13,6 @@ remove_gconf_schemas(){
 	done
 }
 
-onRemove() {
-
-	perl -e 'use EBox::WebServer::Maintenance; EBox::WebServer::Maintenance::onRemove();'
-}
 
 
 #DEBHELPER#
@@ -26,7 +22,6 @@ case "$1" in
 		remove_gconf_schemas
 		;;
 	remove)
-		onRemove
 		/etc/init.d/ebox webserver stop || true
 		remove_gconf_schemas
 		;;	

@@ -39,14 +39,18 @@ sub new {
 sub _process($) {
 	my $self = shift;
 	my $usersandgroups = EBox::Global->modInstance('users');
-	
+
 	$self->{'title'} = __('Groups');
-	
+
 	my @args = ();
 
-	my @groups = $usersandgroups->groups();
-
-	push(@args, 'groups' => \@groups);
+	if ($usersandgroups->configured()) {
+		my @groups = $usersandgroups->groups();
+		push(@args, 'groups' => \@groups);
+	} else  {
+		$self->setTemplate('/notConfigured.mas'); 
+		push(@args, 'module' => __('Users'));
+	}
 
 	$self->{params} = \@args;
 }

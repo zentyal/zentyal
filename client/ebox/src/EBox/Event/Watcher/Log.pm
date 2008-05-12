@@ -104,9 +104,11 @@ sub run
 
     my $logs = $self->{logs};
     my @loggers = keys %{$logs->getAllTables()};
+
     my $events = [];
 
     my $lastQueried = $self->_lastQueriedTime();
+
     my $now = time();
 
     my $from = $self->_toYMDHMS($lastQueried);
@@ -116,13 +118,19 @@ sub run
         my $pagesize = PAGESIZE;
         my $timeCol = $logs->getTableInfo($logger)->{timecol};
         foreach my $filter (@{$self->_filters($logger)}) {
-	   
-	    $filter = undef if (%{$filter}); 
+            # Copy filter in filterCpy to workaround nasty
+            # issues with the garbage collector. 
+            my $filterCpy;
+            if (%{$filter}) {
+            $filterCpy = $filter;
+            } else {
+            $filterCpy = undef;
+            }	
             my $finished = 0;
             my $page = 0;
             do {
                 my $result = $logs->search($from, $to, $logger, $pagesize,
-                                           $page, $timeCol, $filter);
+                                           $page, $timeCol, $filterCpy);
                 my $nPages = POSIX::ceil ( $result->{totalret} / $pagesize );
                 $finished = ($page + 1) >= $nPages;
                 $page++;
@@ -292,10 +300,10 @@ sub _isLoggerEnabled
     my ($self, $logger) = @_;
 
     unless (exists $self->{logger}->{$logger}) {
-        my $confModel = EBox::Model::ModelManager
-                                   ->instance()->model($self->ConfigureModel());
-        my $row = $confModel->find(domain => $logger);
-        $self->{logger}->{$logger} = $row->{enabled};
+    	my $confModel = EBox::Model::ModelManager
+				->instance()->model($self->ConfigureModel());
+    	my $row = $confModel->find(domain => $logger);
+	$self->{logger}->{$logger} = $row->{enabled};
     }
 
     return  $self->{logger}->{$logger};
@@ -308,35 +316,35 @@ sub _filters
     my ($self, $logger) = @_;
 
     unless ($self->{filters}->{$logger}) {
-        my $manager = EBox::Model::ModelManager->instance();
-        my $logConfModel = $manager->model($self->ConfigureModel());
+	    my $manager = EBox::Model::ModelManager->instance();
+	    my $logConfModel = $manager->model($self->ConfigureModel());
+	    
+	    my $loggerConfRow = $logConfModel->findValue(domain => $logger);
 
-        my $loggerConfRow = $logConfModel->findValue(domain => $logger);
+	    my $filterDirectory = $loggerConfRow->{filters}->{directory};
 
-        my $filterDirectory = $loggerConfRow->{filters}->{directory};
+	    my $filterModel = $manager->model($loggerConfRow->{filters}->{model});
+	    $filterModel->setDirectory($filterDirectory);
 
-        my $filterModel = $manager->model($loggerConfRow->{filters}->{model});
-        $filterModel->setDirectory($filterDirectory);
-
-        my @filterSearchs = ();
-        foreach my $filterRow (@{$filterModel->rows()}) {
-            my $filterSearch = {};
-            foreach my $filterField (@{$filterRow->{values}}) {
-                if ( $filterField->value() ) {
-                    # Do not store a thing if the field is the event with
-                    # 'any' value to work with <EBox::Logs::search> API
-                    unless ( $filterField->fieldName() eq 'event'
-                            and $filterField->value() eq 'any' ) {
-                        $filterSearch->{$filterField->fieldName()} =
-                            $filterField->value();
-                    }
-                }
-            }
-
-            push ( @filterSearchs, $filterSearch );
-        }
-        $self->{filters}->{$logger} = \@filterSearchs;
-
+	    my @filterSearchs = ();
+	    foreach my $filterRow (@{$filterModel->rows()}) {
+		my $filterSearch = {};
+		foreach my $filterField (@{$filterRow->{values}}) {
+		    if ( $filterField->value() ) {
+			# Do not store a thing if the field is the event with
+			# 'any' value to work with <EBox::Logs::search> API
+			unless ( $filterField->fieldName() eq 'event'
+				 and $filterField->value() eq 'any' ) {
+			    $filterSearch->{$filterField->fieldName()} =
+			      $filterField->value();
+			}
+		    }
+		}
+		
+		push ( @filterSearchs, $filterSearch );
+	    }
+	    $self->{filters}->{$logger} = \@filterSearchs;
+	    
     }
 
     return $self->{filters}->{$logger};

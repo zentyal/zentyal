@@ -1,60 +1,34 @@
 #!/bin/bash
 
-webserver=apache
+#DEBHELPER#
 
 case "$1" in
-	configure)
-		# install gconf schemas
-		SCHEMA_LOCATION=/usr/share/gconf/schemas
-		SCHEMA_FILES="network.schemas "
-		for SCHEMA in $SCHEMA_FILES; do
-			if [ -e $SCHEMA_LOCATION/$SCHEMA ]; then
-				HOME=/var/lib/ebox GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` \
-				gconftool-2 \
-				--makefile-install-rule $SCHEMA_LOCATION/$SCHEMA > /dev/null
-			fi
-		done
+    configure)
+        kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
-		
-		kill `pidof gconfd-2` >/dev/null 2>&1 || true
-
-		
-		# import network configuration from system 
-		# if installing for the first time
-		if [ -z "$2" ] ; then
-			/usr/lib/ebox-network/ebox-netcfg-import
-		fi
+        # import network configuration from system 
+        # if installing for the first time
+        if [ -z "$2" ] ; then
+            /usr/share/ebox-network/ebox-netcfg-import
+        fi
 
 
-		# Migrate data if needed
-		/usr/lib/ebox/ebox-migrate /usr/lib/ebox-network/migration/
+        # Migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-network/migration/
 
-        # stop networking
-        invoke-rc.d networking stop
+        # Restart eBox apache
+        invoke-rc.d ebox apache restart || true
 
-        # Once we have the network configuration we leave
-        # /etc/network/interfaces just with the lo interface configured
-        # eBox takes care of the other interfaces now.
-        # Note this is an interim solution until we deal with system
-        # configuration nicely.
-cat <<EOF > /etc/network/interfaces
-auto lo
-iface lo inet loopback
-
-EOF
-
+        # Comment out due to a bug LP: 220205
         # create directory for RRD databases
-        RRD_DIR=`perl -MEBox::Network::Report::ByteRate -e'$d = EBox::Network::Report::ByteRate::_rrdDir(); print $d; 1'`
-	mkdir -p $RRD_DIR
-	chown ebox.ebox $RRD_DIR
+        # RRD_DIR=`perl -MEBox::Network::Report::ByteRate -e'$d = EBox::Network::Report::ByteRate::_rrdDir(); print $d; 1'`
+        # mkdir -p $RRD_DIR
+        # chown ebox:ebox $RRD_DIR
 
-        # restart networking
-        invoke-rc.d networking start
-
-		invoke-rc.d ebox network restart
-	;;
+        invoke-rc.d ebox network restart
+    ;;
 esac
 
-#DEBHELPER#
+
 
 exit 0

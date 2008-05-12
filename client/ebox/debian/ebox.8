@@ -1,0 +1,44 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.TH EBOX 8 "Jun 13 2007"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+ebox \- start/stop ebox modules from command line
+.SH SYNOPSIS
+.B ebox 
+.RI < start|stop|restart >
+.RI [ module ] " " < start|stop|restart >
+.SH DESCRIPTION
+This manual page documents briefly the
+.B ebox
+command.
+.PP
+.B ebox
+allows you to start/stop/restart ebox itself or one of its modules.
+.SH OPTIONS
+.TP
+.B start
+starts ebox, if it's not already running.
+.TP
+.B stop
+stops ebox, if it's running.
+.TP
+.B restart
+If ebox is running, restart it. If it's not running, start it.
+.TP
+If a
+.I module
+is given, the command only acts on a single module.
+.PP
+This manual page was written by Soren Hansen <soren@ubuntu.com>,
+for Ubuntu (but may be used by others).

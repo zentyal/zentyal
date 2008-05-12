@@ -22,7 +22,8 @@ use warnings;
 #use base qw(EBox::GConfModule EBox::LogObserver);
 use base qw(EBox::GConfModule 
             EBox::Model::ModelProvider EBox::Model::CompositeProvider 
-            EBox::Report::DiskUsageProvider);
+            EBox::Report::DiskUsageProvider
+			EBox::ServiceModule::ServiceInterface);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -63,19 +64,56 @@ sub _create
 	return $self;
 }
 
+
+# Method: actions
+#
+# 	Override EBox::ServiceModule::ServiceInterface::actions
+#
+sub actions
+{
+	return [ 
+	{
+		'action' => __('Create logs database'),
+		'reason' => __('eBox store its logs in the database'),
+		'module' => 'logs'
+	}
+    ];
+}
+
+
+# Method: enableActions 
+#
+# 	Override EBox::ServiceModule::ServiceInterface::enableActions
+#
+sub enableActions
+{
+    EBox::Sudo::root(EBox::Config::share() . '/ebox/ebox-logs-enable');
+}
+
+#  Method: serviceModuleName
+#
+#   Override EBox::ServiceModule::ServiceInterface::serviceModuleName
+#
+sub serviceModuleName
+{
+	return 'logs';
+}
+
+
 sub _regenConfig
 {
 	my ($self) = @_;
 
 	$self->_saveEnabledLogs();
 	_stopService();
-	root(EBox::Config::libexec . 'ebox-loggerd');
+	return unless ($self->isEnabled());
+	system(EBox::Config::pkgdata . 'ebox-loggerd');
 }
 
 sub _stopService
 {
 	if (-f PIDPATH . "loggerd.pid") {
-        	root(EBox::Config::libexec . 'ebox-kill-pid loggerd');
+        	system(EBox::Config::pkgdata . 'ebox-kill-pid loggerd');
 	}
 }
 
@@ -421,6 +459,8 @@ sub search {
 		   'Table {table} does not exist', 'table' => $table));
 	}
 
+	$self->{'sqlselect'} = { };
+
 	$self->_addTableName($table);
 	if (_checkValidDate($from)) {
 		$self->_addDateFilter($timecol, $from, '>');
@@ -464,8 +504,6 @@ sub search {
 	$self->_addSelect('*');
 	my @ret = @{$dbengine->query($self->_sqlStmnt())};
 	
-	$self->{'sqlselect'} = undef;
-
 	my $hashret = {
 		'totalret' => $tcount,
 		'arrayret' => \@ret
@@ -621,7 +659,7 @@ sub tableInfo {
 		'params' => __('Params'),
 		'committed' => __('Committed')
 	};
-	my @order = ('timestamp', 'clientaddress', 'module',
+	my @order = ('timestamp', 'source', 'module',
 		'action', 'params', 'committed');
 	return {
 		'name' => __('Admin'),
@@ -630,7 +668,7 @@ sub tableInfo {
 		'order' => \@order,
 		'tablename' => 'admin',
 		'timecol' => 'timestamp',
-		'filter' => ['clientaddress', 'module']
+		'filter' => ['source', 'module']
 	};
 }
 

@@ -1,0 +1,60 @@
+<%args>
+    @files
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id='file_comment'>
+<p><% __('eBox detected that some files which need to be overwritten have been
+modified by you.') %>
+</p>
+<p><% __('Do you wish to overwrite these files?') %>
+</p>
+</div>
+
+% for my $file (@files) {
+    <div class='conf_file_entry' id="<% $file->{'globalId'} %>">
+		<input class='image' type='image' name='reject'
+		    src='/images/deny-active.gif' title="<% __('Keep current file') %>" 
+		    onClick="rejectConfFile('<% $file->{'globalId'} %>', 
+			<% scalar (@files) %>)"/>
+		<input class='inputButton' type='image' name='accept'
+		    src='/images/apply.gif' title="<% __('Modify') %>" 
+		    onClick="acceptConfFile('<% $file->{'globalId'} %>', 
+			<% scalar (@files) %>)"/>
+		<div class='conf_file_entry_module'>
+		    <span class='bold'><% __('Module') %>:</span> <% $file->{'module'} %>
+		</div>
+		<div class='conf_file_entry_file'>
+		    <span class='bold'><% __('File') %>:</span> <% $file->{'file'} %> 
+		 </div>
+		<div class='conf_file_entry_reason'>
+		    <span class='bold'><% __('Comment') %>: </span><% $file->{'reason'} %>
+		</div>
+    </div>
+% }
+
+<form class='hidden' id="finishForm">
+  <p>
+    <input disabled id='saveButton' class="inputButton" type="submit" value="Save" name="save" onClick="sendAcceptedFiles(); return false;"/>
+    <input class="inputButton" type="submit" value="Discard changes" name="cancel"/>
+  </p>
+</form>
+

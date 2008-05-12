@@ -21,8 +21,8 @@ defined $currentItemCaption or $currentItemCaption = __('Item');
 defined $itemsLeftMessage   or $itemsLeftMessage   = __('items left');
 defined $endNote            or $endNote            = __('Done');
 defined $errorNote          or $errorNote = __('Some error has '
-                                               . 'happened in eBox. '
-                                               . 'Check the logs');
+                                               . 'happened in eBox: '
+                                               );
 my $progressIn = EBox::ProgressIndicator->retrieve($progressId);
 </%init>
 <script type="text/javascript" src="/data/js/prototype.js">//</script>

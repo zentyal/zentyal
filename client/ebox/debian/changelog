@@ -1,10 +1,126 @@
+ebox (0.11.99-0ubuntu11~ppa1) hardy; urgency=low
+
+  * Disable bug reports for security reasons
+
+ -- Javier Uruen Val <javi@warp.es>  Tue, 15 Apr 2008 16:25:37 +0200
+
+ebox (0.11.99-0ubuntu10) hardy; urgency=low
+
+  * debian/patches/14_fix_backup_creation_mask.dpatch 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Thu, 10 Apr 2008 11:29:02 -0400
+
+ebox (0.11.99-0ubuntu9) hardy; urgency=low
+
+  * Fix permissions on /var/lib/ebox/conf/ebox.sid. To prevent cookies from
+    being read. 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Wed, 09 Apr 2008 10:51:36 -0400
+
+ebox (0.11.99-0ubuntu8) hardy; urgency=low
+
+  * debian/patches/11_progress_indicator_cleanup.dpatch
+    - Clean up file descriptiors before running exec in progress indicator.
+  * debian/patches/12_ebox_init.dpatch
+    - use /lib/lsb/init-functions to log start/stop fucntions.
+  * debian/patches/13_backup_configured_modules.dpatch
+    - Backup only configured modules.
+  * Add preinst script to fetch from eBox's apache port and set it in debconf.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Mon, 07 Apr 2008 10:13:48 -0400
+
+ebox (0.11.99-0ubuntu7) hardy; urgency=low
+
+  * debian/patches/10_service_watcher.dpatch
+    - Check to see if a service is up when it shouldn't be.
+  * debian/ebox.postinst
+    - Cosmetic changes to ebox.postinst
+    - Wait for apache to stop completely. 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Mon, 31 Mar 2008 08:39:04 -0400
+
+ebox (0.11.99-0ubuntu6) hardy; urgency=low
+
+  * Add default value to ebox/port_used template.
+  * Run db_input "|| true" to avoid issues with questions without default
+    and noninteractive install. 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Thu, 27 Mar 2008 10:04:23 -0400
+
+ebox (0.11.99-0ubuntu5) hardy; urgency=low
+
+  * debian/patches/08_fix_apache_pid_file.dpatch
+    - Store apache's pid file under eBox directory to not interfere with 
+      the main apache instance.
+  * debian/patches/09_fix_apache_watcher.dpatch
+    - Fix the state watcher by checking if apache port is accesible.
+  * Ask user which port eBox apache must use in config using debconf. 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Wed, 26 Mar 2008 09:13:44 -0400
+
+ebox (0.11.99-0ubuntu4) hardy; urgency=low
+
+  * debian/patches/04_fix_disable_log_daemon.dpatch
+    - Disable log daemon if requested by user
+  * debian/patches/05_fix_event_link.dpatch
+    - Fix symlink creation.
+  * debian/patches/06_reduce_rss_items.dpatch
+    - Reduce the number of RSS entries to 500.
+  * debian/patches/07_intialise_log_statement.dpatch 
+    - Fix log queries.
+  * debian/ebox.cron.hourly
+    - Install in the right place.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Mon, 24 Mar 2008 09:45:27 -0400
+
+ebox (0.11.99-0ubuntu2) hardy; urgency=low
+
+  * debian/control
+    - Added dpatch.
+  * debian/patches/01_fix_memory_leak_events.dpatch,
+    debian/patches/02_fix_backup_parameter.dpatch,
+    debian/patches/03_fix_apache_restart.dpatch:
+    - Added patch from upstream to fix various issues. 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Tue, 11 Mar 2008 08:42:21 -0400
+
+ebox (0.11.99-0ubuntu1) hardy; urgency=low
+
+  * Added libfile-copy-recursive-perl to depends. 
+
+ -- Chuck Short <zulcss@ubuntu.com>  Fri, 29 Feb 2008 09:40:52 -0500
+
+ebox (0.11.99-0ubuntu1~ppa1) hardy; urgency=low
+
+  * New upstream version.
+
+ -- Chuck Short <zulcss@ubuntu.com>  Wed, 27 Feb 2008 11:24:27 -0500
+
+ebox (0.11.99-0ubuntu1~ppa2) hardy; urgency=low
+
+  * Move progress.js from libebox to ebox
+
+ -- Javier Uruen Val <javi@warp.es>  Tue, 26 Feb 2008 11:58:13 +0100
+
+ebox (0.11.99-0ubuntu1~ppa1) hardy; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Mon, 25 Feb 2008 12:47:13 +0100
+
 ebox (0.11.99) unstable; urgency=low
 
   * New upstream release
 
  -- Enrique José Hernández Blasco <quique@warp.es>  Tue,  8 Jan 2008 16:14:38 +0100
 
-ebox (0.11) unstable; urgency=low
+ebox (0.11-0ubuntu1~ppa2) hardy; urgency=low
+
+  * Use debconf to set admin password
+
+ -- Javier Uruen Val <javi@warp.es>  Wed, 20 Feb 2008 18:57:29 +0100
+
+ebox (0.11-0ubuntu1~ppa1) hardy; urgency=low
 
   * New upstream release
 
@@ -62,7 +178,7 @@ ebox (0.8.99) unstable; urgency=low
 
   * New upstream release
 
- -- Enrique José Hernández Blasco <quique@warp.es>  Fri, 16 Feb 2007 11:42:55 +0100
+ -- Enrique Jos� Hern�ndez Blasco <quique@warp.es>  Fri, 16 Feb 2007 11:42:55 +0100
 
 ebox (0.7.99) unstable; urgency=low
 

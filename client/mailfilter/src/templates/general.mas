@@ -1,5 +1,4 @@
 <%args>
-   $active
    $port
    @allowedMTAs
    @externalDomains
@@ -8,7 +7,6 @@
 <%init>
 use EBox::Gettext;
 </%init>
-<& /enable.mas, title => __('Enable Mail filter system'), active => $active &>
 <br/>
 <& .changePort, port => $port &>
 <br/>

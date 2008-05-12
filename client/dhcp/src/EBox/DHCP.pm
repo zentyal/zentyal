@@ -19,7 +19,12 @@ package EBox::DHCP;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::NetworkObserver EBox::LogObserver EBox::Model::ModelProvider EBox::Model::CompositeProvider);
+use base qw(EBox::GConfModule 
+		EBox::NetworkObserver 
+		EBox::LogObserver 
+		EBox::Model::ModelProvider 
+		EBox::Model::CompositeProvider
+		EBox::ServiceModule::ServiceInterface);
 
 use EBox::Config;
 use EBox::Exceptions::InvalidData;
@@ -58,12 +63,11 @@ use Net::IP;
 use HTML::Mason;
 use Error qw(:try);
 use Perl6::Junction qw(any);
-use File::Path;
 
 # Module local conf stuff
 use constant DHCPCONFFILE => "/etc/dhcp3/dhcpd.conf";
 use constant PIDFILE => "/var/run/dhcpd.pid";
-use constant DHCP_SERVICE => "dhcpd3";
+use constant DHCP_SERVICE => "ebox.dhcpd3";
 use constant TFTP_SERVICE => "tftpd-hpa";
 
 use constant CONF_DIR => EBox::Config::conf() . 'dhcp/';
@@ -84,18 +88,10 @@ sub _create
 {
 	my $class = shift;
 	my $self  = $class->SUPER::_create(name => 'dhcp', 
+									   printableName => 'dhcp server',
                                            domain => 'ebox-dhcp',
                                            @_);
 	bless ($self, $class);
-
-        $self->{enableModel} =
-          new EBox::Common::Model::EnableForm(
-                                              gconfmodule => $self,
-                                              directory   => 'EnableForm',
-                                              domain      => 'ebox-dhcp',
-                                              enableTitle => __('DHCP service status'),
-                                              modelDomain => 'DHCP',
-                                             );
 
 	return $self;
 }
@@ -103,6 +99,58 @@ sub _create
 sub domain
 {
 	return 'ebox-dhcp';
+}
+
+# Method: usedFiles
+#
+#	Override EBox::ServiceModule::ServiceInterface::usedFiles
+#
+sub usedFiles
+{
+	return [
+		{
+		 'file' => DHCPCONFFILE,
+		 'module' => 'dhcp',
+ 	 	 'reason' => 'dhcpd configuration file'
+		}
+	       ];
+}
+
+#  Method: enableModDepends
+#
+#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+#
+sub enableModDepends 
+{
+    return ['network'];
+}
+
+# Method: enableActions 
+#
+# 	Override EBox::ServiceModule::ServiceInterface::enableActions
+#
+sub enableActions
+{
+    root(EBox::Config::share() . '/ebox-dhcp/ebox-dhcp-enable');
+}
+
+
+# Method: serviceModuleName 
+#
+#	Override EBox::ServiceModule::ServiceInterface::serviceModuleName
+#
+sub serviceModuleName
+{
+	return 'dhcp';
+}
+
+# Method: isRunning
+#
+#   Override EBox::ServiceModule::ServiceInterface::isRunning
+#
+sub isRunning
+{
+    return EBox::Service::running(DHCP_SERVICE);
 }
 
 # Method: _stopService
@@ -149,58 +197,6 @@ sub statusSummary
 	my $self = shift;
 	return new EBox::Summary::Status('dhcp', 'DHCP',
 		EBox::Service::running(DHCP_SERVICE), $self->service);
-}
-
-# Method: onInstall
-#
-# 	Static method to execute the first time the module is
-# 	installed.
-#
-sub onInstall
-{
-    EBox::init();
-
-    # Create user conf dir
-    mkdir (CONF_DIR, 0755);
-
-    _addDHCPService();
-    _addTFTPService();
-
-    my $fw = EBox::Global->modInstance('firewall');
-    $fw->setInternalService('dhcp', 'accept');
-    $fw->setInternalService('tftp', 'accept');
-    $fw->save();
-}
-
-# Method: onRemove
-#
-# 	Static method to execute before the module is uninstalled
-#
-sub onRemove
-{
-    EBox::init();
-
-    my $serviceMod = EBox::Global->modInstance('services');
-    my $fwMod = EBox::Global->modInstance('firewall');
-
-    if ($serviceMod->serviceExists('name' => 'dhcp')) {
-        $serviceMod->removeService('name' => 'dhcp');
-    } else {
-        EBox::info("Not removing dhcp service as it already removed");
-    }
-
-    if ($serviceMod->serviceExists('name' => 'tftp')) {
-        $serviceMod->removeService('name' => 'tftp');
-    } else {
-        EBox::info("Not removing tftp service as it already removed");
-    }
-
-    $serviceMod->save();
-    $fwMod->save();
-
-    # Remove user defined conf dir
-    File::Path::rmtree( CONF_DIR );
-
 }
 
 # Method: menu
@@ -272,7 +268,6 @@ sub models
             push ( @models, $self->{rangeInfoModel}->{$iface});
         }
     }
-    push ( @models, $self->{enableModel} );
 
     return \@models;
 
@@ -371,27 +366,29 @@ sub setService # (enabled)
 {
     my ($self, $active) = @_;
 
-    ($active and $self->service) and return;
-    (!$active and !$self->service) and return;
+    $self->enableService($active);
 
-    if ($active) {
-        if ($self->_nStaticIfaces() == 0) {
-            throw EBox::Exceptions::External(
-                     __x('DHCP server cannot activated because '
-                         . 'there are not any network interface '
-                         . 'with a static address. '
-                         . '{openhref}Configure one{closehref} first',
-                         openhref  => "<a href='Network/Ifaces'>",
-                         closehref => '</a>')
-                                            );
-        }
-    }
-
-        #	$self->set_bool("active", $active);
-        #	$self->_configureFirewall();
-    $self->{enableModel}->setRow(1,
-                                 ( enabled => $active)
-                                );
+#    ($active and $self->service) and return;
+#    (!$active and !$self->service) and return;
+#
+#    if ($active) {
+#        if ($self->_nStaticIfaces() == 0) {
+#            throw EBox::Exceptions::External(
+#                     __x('DHCP server cannot activated because '
+#                         . 'there are not any network interface '
+#                         . 'with a static address. '
+#                         . '{openhref}Configure one{closehref} first',
+#                         openhref  => "<a href='Network/Ifaces'>",
+#                         closehref => '</a>')
+#                                            );
+#        }
+#    }
+#
+#        #	$self->set_bool("active", $active);
+#        #	$self->_configureFirewall();
+#    $self->{enableModel}->setRow(1,
+#                                 ( enabled => $active)
+#                                );
 }
 
 # Method: service
@@ -405,8 +402,10 @@ sub setService # (enabled)
 sub service
 {
     my ($self) = @_;
+
+    return $self->isEnabled();
 #	return $self->get_bool("active");
-    return $self->{enableModel}->enabledValue();
+    #return $self->{enableModel}->enabledValue();
 }
 
 
@@ -1465,66 +1464,8 @@ sub _thinClientOption # (option, iface)
 
 }
 
-sub _addDHCPService
-{
-	my $serviceMod = EBox::Global->modInstance('services');
-
-	if (not $serviceMod->serviceExists('name' => 'dhcp')) {
-		 $serviceMod->addService('name' => 'dhcp',
-                        'description' => __('Dynamic Host Configuration Protocol'),
-			'protocol' => 'udp',
-			'sourcePort' => 'any',
-			'destinationPort' => 67,
-			'internal' => 1,
-			'readOnly' => 1);
-
-	} else {
-		 $serviceMod->setService('name' => 'dhcp',
-                        'description' => __('Dynamic Host Configuration Protocol'),
-			'protocol' => 'udp',
-			'sourcePort' => 'any',
-			'destinationPort' => 67,
-			'internal' => 1,
-			'readOnly' => 1);
-
-		EBox::info("Not adding dhcp services as it already exists");
-	}
-
-    $serviceMod->save();
-
-}
-
-# Add tftp service on ebox-services module
-sub _addTFTPService
-{
-    my $serviceMod = EBox::Global->modInstance('services');
-
-    if (not $serviceMod->serviceExists('name' => 'tftp')) {
-        $serviceMod->addService('name' => 'tftp',
-                                'description' => __('Trivial File Transfer Protocol'),
-                                'protocol' => 'udp',
-                                'sourcePort' => 'any',
-                                'destinationPort' => 69,
-                                'internal' => 1,
-                                'readOnly' => 1);
-
-    } else {
-        $serviceMod->setService('name' => 'tftp',
-                                'description' => __('Trivial File Transfer Protocol'),
-                                'protocol' => 'udp',
-                                'sourcePort' => 'any',
-                                'destinationPort' => 69,
-                                'internal' => 1,
-                                'readOnly' => 1);
-
-        EBox::info("Not adding tftp service as it already exists");
-    }
-
-    $serviceMod->save();
-
-}
-
 # Configure the firewall rules to add
+# XXX maybe this is dead code?
 sub _configureFirewall {
 	my $self = shift;
 	my $fw = EBox::Global->modInstance('firewall');
@@ -1598,6 +1539,16 @@ sub _nStaticIfaces
   my $staticIfaces = grep  { $net->ifaceMethod($_) eq 'static' } @{$ifaces};
 
   return $staticIfaces;
+}
+
+
+# Method:  userConfDir
+#
+#  Returns:
+#  path to the user configuration dir
+sub userConfDir
+{
+  return CONF_DIR;
 }
 
 

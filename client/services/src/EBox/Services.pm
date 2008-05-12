@@ -45,7 +45,7 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'services',
             title => __n('Services'),
-            domain => 'ebox-objects',
+            domain => 'ebox-services',
             @_);
     $self->{'serviceModel'} = 
         new EBox::Services::Model::ServiceTable(
@@ -203,6 +203,7 @@ sub serviceConfiguration
 #	destinationPort - same as source
 #   internal - boolean, internal services can't be modified from the UI
 #   readOnly - boolean, set the row unremovable from the UI
+#   translationDomain - eBox module domain for i18n
 #
 #	Example:
 #
@@ -220,6 +221,56 @@ sub addService
     my ($self, %params) = @_;
 
     return $self->{'serviceModel'}->addService(%params);
+}
+
+# Method: addMultipleService 
+#
+#   Add a multi protocol service to the services table	
+#
+# Parameters:
+#
+#   (NAMED)
+#   
+#   name        - service's name
+#   description - service's description
+#   internal - boolean, internal services can't be modified from the UI
+#   readOnly - boolean, set the row unremovable from the UI
+#
+#   services - array ref of hash ref containing:
+#
+#	    protocol    - it can take one of these: any, tcp, udp, 
+#	                                            tcp/udp, grep, icmp
+#	    sourcePort  - it can take:  "any"
+#                                   An integer from 1 to 65536 -> 22
+#                                   Two integers separated by colons -> 22:25 
+#	    destinationPort - same as source
+#
+#
+#	Example:
+#
+#       'name' => 'ssh',
+#       'description' => 'secure shell'.
+#       'services' => [ 
+#                       {
+#	                        'protocol' => 'tcp',
+#	                        'sourcePort' => 'any',
+#                           'destinationPort' => '21:22'
+#                        },
+#                        {
+#	                        'protocol' => 'tcp',
+#	                        'sourcePort' => 'any',
+#                           'destinationPort' => '21:22'
+#                        }
+#                     ];
+#
+#   Returns:
+#
+#   string - id of the new created row  
+sub addMultipleService 
+{
+    my ($self, %params) = @_;
+
+    return $self->{'serviceModel'}->addMultipleService(%params);
 }
 
 # Method: setService 

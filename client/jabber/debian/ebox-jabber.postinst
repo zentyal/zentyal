@@ -1,55 +1,16 @@
 #!/bin/bash
 
-webserver=apache
-
-stopJabber() {
-
-    jabberComponents=( c2s s2s sm resolver router )
-    for jabberComp in ${jabberComponents[@]}
-      do
-      start-stop-daemon -o -u jabber --stop --signal 15 --retry 3 \
-          --exec /usr/sbin/jabberd2-$jabberComp
-    done
-
-}
+#DEBHELPER#
 
 case "$1" in
 	configure)
-		# install gconf schemas
-		SCHEMA_LOCATION=/usr/share/gconf/schemas
-		SCHEMA_FILES="jabber.schemas "
-		for SCHEMA in $SCHEMA_FILES; do
-			if [ -e $SCHEMA_LOCATION/$SCHEMA ]; then
-				HOME=/var/lib/ebox GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` \
-				gconftool-2 \
-				--makefile-install-rule $SCHEMA_LOCATION/$SCHEMA > /dev/null
-			fi
-		done
-
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
-		# don't start jabber2-ldap-bdb  with its script
-		update-rc.d -f jabberd2-ldap-bdb remove
-
-		# stop jabberd2-ldap-bdb  if it's running as a normal service
-		invoke-rc.d jabberd2-ldap-bdb  stop
-
-                # Workaround since the previous script does not stop
-                # jabber service correctly, we manage jabber daemons
-                # using runit
-                stopJabber
-
-		# regenerate slapd.conf
-		/usr/lib/ebox-usersandgroups/ebox-init-ldap genconfig
-				
-		# restart slapd
-		/etc/init.d/slapd restart
-		
-		# update current ldap database
-		/usr/lib/ebox-jabber/ebox-jabber-ldap update
+		# restart apache 
+	    invoke-rc.d ebox apache restart	
 
 esac
 
-#DEBHELPER#
+
 
 exit 0

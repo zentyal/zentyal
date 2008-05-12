@@ -37,9 +37,6 @@ sub new {
 sub _process($) {
 	my $self = shift;
 	my $mail = EBox::Global->modInstance('mail');
-
-	$self->_requireParam('active', __('mail system status'));
-	my $active = $self->param('active');
 	
 	$mail->setService('sasl', ($self->param('sasl') eq 'yes'));
 	
@@ -49,7 +46,7 @@ sub _process($) {
 		$mail->setTlsSmtp(0);
 	}
 
-	$mail->setService('active', ($self->param('active') eq 'yes'));
+
 }
 
 1;

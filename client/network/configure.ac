@@ -1,4 +1,4 @@
-AC_INIT([EBox-network], [0.11.99])
+AC_INIT([EBox-network], [0.11.100])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Network.pm])
@@ -72,7 +72,7 @@ src/templates/Makefile
 migration/Makefile
 schemas/Makefile
 src/libexec/Makefile
-src/libexec/ebox
+src/libexec/ebox-exit
 stubs/Makefile
 tools/Makefile
 Makefile

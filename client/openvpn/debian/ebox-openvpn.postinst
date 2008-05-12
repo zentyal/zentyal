@@ -1,56 +1,43 @@
 #!/bin/bash
 
-webserver=apache
+#DEBHELPER#
 
 case "$1" in
 	configure)
-		# install gconf schemas
-		SCHEMA_LOCATION=/usr/share/gconf/schemas
-		SCHEMA_FILES="openvpn.schemas "
-		for SCHEMA in $SCHEMA_FILES; do
-			if [ -e $SCHEMA_LOCATION/$SCHEMA ]; then
-				HOME=/var/lib/ebox GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` \
-				gconftool-2 \
-				--makefile-install-rule $SCHEMA_LOCATION/$SCHEMA > /dev/null
-			fi
-		done
+        kill  `pidof gconfd-2` >/dev/null 2>&1 || true
 
-		kill `pidof gconfd-2` >/dev/null 2>&1 || true
+        # add a tun device if not exists
+        #[ -e /dev/net ] || mkdir -m 755 /dev/net
+        #[ -d /dev/net -a ! -e /dev/net/tun ] && /bin/mknod /dev/net/tun c 10 200
 
-                # add a tun device if not exists
-                [ -e /dev/net ] || mkdir -m 755 /dev/net
-                [ -d /dev/net -a ! -e /dev/net/tun ] && /bin/mknod /dev/net/tun c 10 200
+        # create diffie-hellman parameters if needed
+        DH_FILE='/etc/openvpn/ebox-dh1024.pem'
+        if [ -e $DH_FILE  ]; then
+            echo "We assume $DH_FILE is a Diffie-Hellman parameter file with 1024 byte length. If the assumption is false, please remove it and create a new one manually. If you do NOT do so, your OpenVPN tunnels may be compromised"
+        else
+            openssl dhparam -out $DH_FILE 1024
+        fi
 
-		# create diffie-hellman parameters if needed
-		DH_FILE='/etc/openvpn/dh1024.pem'
-		if [ -e $DH_FILE  ]; then
-		    echo "We assume $DH_FILE is a Diffie-Hellman parameter file with 1024 byte length. If the assumption is false, please remove it and create a new one manually. If you do NOT do so, your OpenVPN tunnels may be compromised"
-		else
-		    openssl dhparam -out $DH_FILE 1024
-		fi
 
-		# create openvpn status log directory
-		STATUS_DIR=`perl -MEBox::OpenVPN -e 'print EBox::OpenVPN->logDir(); 1 '`
-		mkdir -p  $STATUS_DIR
-		chown nobody.nogroup $STATUS_DIR
-		
+        # create openvpn status log directory
+        STATUS_DIR=`perl -MEBox::OpenVPN -e 'print EBox::OpenVPN->logDir(); 1 '`
+        mkdir -p  $STATUS_DIR
+        chown nobody:nogroup $STATUS_DIR
 
-		# don't start openvpn services 
-		update-rc.d -f openvpn remove
-		# XXX quagga don't start quagga services
-		update-rc.d -f quagga remove
 
-        	# create log table
-                /usr/lib/ebox/ebox-sql-table add openvpn /usr/share/ebox/sqllog/openvpn.sql
+        # create log table
+        /usr/share/ebox/ebox-sql-table add openvpn /usr/share/ebox/sqllog/openvpn.sql
 
-		# migrate data if needed
-		/usr/lib/ebox/ebox-migrate /usr/lib/ebox-openvpn/migration/		
-		# restart logs
-		invoke-rc.d ebox logs restart || true
-		# restart module
-		invoke-rc.d ebox openvpn restart
-esac
+        # migrate data if needed
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-openvpn/migration/		
+        # restart logs
+        invoke-rc.d ebox logs restart || true
+        # restart module
+        invoke-rc.d ebox openvpn restart
+        # Restart eBox apache
+        invoke-rc.d ebox apache restart || true
+    esac
 
-#DEBHELPER#
+
 
 exit 0

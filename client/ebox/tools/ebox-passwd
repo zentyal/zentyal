@@ -1,0 +1,46 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Auth;
+
+use English qw(-no_match_vars);
+
+if ($EUID != 0) {
+  die q{Only root can change eBox's password};
+}
+
+EBox::init();
+
+print "EBox\n";
+print "Enter new passwd: "; 
+&deactivate_echo();
+my $passwd1 = <STDIN>;
+&activate_echo();
+$passwd1 =~ s/[\n\r]//g;
+
+print "\nPlease retype: ";
+&deactivate_echo();
+my $passwd2 = <STDIN>;
+&activate_echo();
+$passwd2 =~ s/[\n\r]//g;
+
+if ($passwd1 eq $passwd2) {
+  EBox::Auth->setPassword($passwd1);
+  print "\nPassword changed\n";
+} else {
+	print "Wrong input, passwords are different\n";
+}
+
+sub  activate_echo(){
+	system("/bin/stty echo");
+}
+
+sub deactivate_echo(){
+	system("/bin/stty -echo");
+}
+
+
+1;

@@ -1,29 +1,171 @@
-	<!-- vim: ts=2 sw=2 tw=75
--->
-<chapter id="ch-time">
+<chapter id="ch-proxy">
 
-	<title>Servidor NTP</title>
+	<title>Proxy HTTP</title>
 
-	<section id='sect-time-ntp'>
-		<!-- NTP->Server -->
-		<title>Servidor NTP</title>
+	<section id='sect-proxy-general'>
+		<!-- Proxy->General -->
+		<title>Configuración general</title>
 
 		<para>
-	  El servidor de fecha y hora sólo puede ser activado o 
-		desactivado en la pantalla de configuración a la que se puede
-		acceder a través de 
-			<menuchoice>
-				<guimenu>Servidor NTP</guimenu>
-			</menuchoice>
+		Mediante
+		<menuchoice>
+			<guimenu>Proxy HTTP</guimenu>
+			<guimenuitem>General</guimenuitem>
+		</menuchoice>
+		se accede a la configuración general del proxy-caché HTTP de
+		eBox. 
 		</para>
 
 		<para>
-		Si se encuentra activado, los clientes que tengan eBox 
-		como servidor NTP	mantendrán sincronizada su configuración horaria 
-		con la que posea eBox, que a su vez puede ser configurada siguiendo
-		las instrucciones que se indican en
-		<link linkend='sect-ebox-datetime'>Configuración horaria</link>
+		En la ventana de configuración se pueden configurar
+                los detalles que se detallan a continuación:
+		<variablelist>
+                  <varlistentry>
+                    <term>Proxy transparente</term>
+                    <listitem>
+                      <para>
+                        Si el proxy transparente está habilitado, todos
+                        los usuarios de eBox utilizarán el proxy
+                        obligatoriamente y sin darse cuenta. Si se
+                        deshabilita, habría que configurar los navegadores
+                        de cada uno de los usuarios para que se conectaran
+                        a través del proxy.
+                      </para>
+                      <warning><para>La característica del proxy
+                      transparente sólo funciona cuando eBox posee al
+                      menos un interfaz interno y otro externo.</para></warning>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Puerto</term>
+                    <listitem>
+                      <para>
+                        Asigna el número de puerto al que se conectarán 
+                        los navegadores para acceder a internet a través
+                        del proxy, cuando funciona de forma no transparente.
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Política global</term>
+                    <listitem>
+                      <para>
+                        Corresponde a la política que tendrán por defecto los 
+                        usuarios que utilicen el proxy. Se puede elegir entre
+                        permitir el acceso libre y sin restricciones,
+                        filtrar el acceso con la restricción de contenidos
+                        o denegar el acceso completamente. Posteriormente esta política puede
+                        ser modificada para cada uno de los casos concretos de
+                        los objetos de red para los cuales se desea un
+                        comportamiento específico, tal y como se explica en
+                        las siguientes secciones.
+                      </para>
+                    </listitem>
+                  </varlistentry>
+		</variablelist>
 		</para>
+		
+		<warning>
+		<para>
+		Si se estableciera una configuración que denegara el acceso al 
+		interfaz de administración desde las máquinas que utilicen
+		eBox, se tendría que conectar a dicho interfaz desde esas máquinas
+		directamente, evitando la mediación del proxy.
+		</para>
+                </warning>
+        </section>
+ 	<section id='sect-proxy-filter-settings'>
+          <!-- Proxy->Filter settings -->
+          <title>Parámetros de filtrado</title>
+
+          <para>
+            En <menuchoice><guimenu>Proxy
+            HTTP</guimenu><guimenuitem>Parámetros de filtrado</guimenuitem></menuchoice>,
+            puedes seleccionar los parámetros para el filtrado en
+            aquellos elementos de la red cuya política sea la de
+            filtrado.
+          </para>
+          <warning>
+            <para>El filtrado requiere una política de 'Filtrar' para
+            que sea efectiva</para>
+          </warning>
+          <para>
+            Permite establecer un nivel de restricción para
+            contenidos que tienen que ver con sexo y violencia
+            en aquellos elementos que se encuentren filtrados 
+            por el proxy.
+          </para>
+          <variablelist>
+            <varlistentry>
+              <term><guilabel>Filtrado de extensiones de fichero</guilabel></term>
+              <listitem>
+                <para>Puedes seleccionar que extensiones de fichero se
+                permiten para ser descargadas desde el proxy
+                HTTP. Para permitir extensiones debes editar la fila
+                correspondiente y tildar la caja del elemento
+                <guilabel>Permitir</guilabel>. Existe un formulario especial
+                llamado "Todas las extensiones" para aplicar la misma
+                política a todas las extensiones a la vez. Se puede
+                añadir tantas extensiones como se desee. Varias de
+                ellas ya se han incluido con eBox.</para>
+                <para>Cualquier extensión que no aparezca aquí, por
+                defecto, es permitida. En futuras versiones, este
+                comportamiento puede cambiar.</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><guilabel>Filtrado de tipos MIME</guilabel></term>
+              <listitem>
+                <para>Puedes seleccionar que fichero con tipos
+                MIME determinados pueden descargarse a través
+                del proxy HTTP. La gestión es análoga al
+                filtrado de extensiones de fichero explicado
+                anteriormente.</para>
+              </listitem>
+            </varlistentry>
+            <varlistentry>
+              <term><guilabel>Filtrado de dominios</guilabel></term>
+              <listitem>
+                <para>Puedes configurar que dominios se
+                permiten o deniegan ser visitado editando la
+                tabla <guilabel>Lista de
+                dominios</guilabel>. Escribe el nombre del
+                dominio completo, cuyo comportamiento por
+                defecto quieres cambiar. El nombre de dominio
+                no necesita la cadena "www". Por ejemplo, para
+                permitir el dominio "www.warp.es", se
+                introduciría "warp.es".
+                </para>
+                <para>
+                  Además, se puede bloquear aquellos sitios
+                  que no están en la lista de dominios
+                  anulando la política por defecto. También
+                  permite bloquear aquellos sitios web que no
+                  tengan un nombre completamente cualificado
+                  (FQDN) y, por tanto, usan una dirección IP
+                  para acceder a su contenido.
+                </para>
+              </listitem>
+            </varlistentry>
+          </variablelist>
+
+		
 	</section>
+
+	<section id='sect-proxy-content-policy'>
+          <!-- Proxy->Objects' Policy -->
+          <title>Establecimiento de políticas</title>
+          <para>A través de 
+          <menuchoice>
+            <guimenu>Proxy HTTP</guimenu>
+            <guimenuitem>Políticas</guimenuitem>
+          </menuchoice>
+          es posible establecer una conexión entre la política
+          designada con cada <link
+          linkend='ch-objects'>objeto de red</link>, permitiendo una
+          configuración diferente para cada objeto nuevo creado. Esta
+          configuración se antepondrá a la política global del proxy
+          para los objetos seleccionados.</para>
+        </section>
 
 </chapter>

@@ -1,4 +1,4 @@
-AC_INIT([EBox-software], [0.11.99])
+AC_INIT([EBox-software], [0.11.100])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Software.pm])
@@ -55,6 +55,7 @@ AC_DEFINE_DIR(PERLPATH, perlpath)
 AM_PO_SUBDIRS
 
 AC_CONFIG_FILES([
+migration/Makefile
 tools/Makefile
 tools/cron/Makefile
 src/Makefile

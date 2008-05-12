@@ -18,9 +18,6 @@ use EBox::Gettext;
 % elsif ($disabled)  {
   <& /openvpn/caRequired.mas, caCreated => 0 &>
 % }
-% elsif (not @localInterfaces) {
-  <& /openvpn/externalIfaceRequired.mas  &>
-% }
 % else {
 <h3><% __x("Server {name} configuration", name => $name) %></h3>
 <form action='Edit' method='POST'>

@@ -1,0 +1,6 @@
+pre-start script
+    /etc/init.d/ntp stop || true
+end script
+
+respawn
+exec /usr/sbin/ntpd -n -g

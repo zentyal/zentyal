@@ -23,7 +23,7 @@ use base 'EBox::Event::Watcher::Base';
 
 # Constants:
 #
-use constant ADMIN_SERVICE => 'apache-perl';
+use IO::Socket; 
 
 # eBox uses
 use EBox::Event;
@@ -95,9 +95,20 @@ sub run
 
       my ($self) = @_;
 
-      # Check apache-perl is up and running
-      my $up = EBox::Service::running(ADMIN_SERVICE);
+      # Check if apache is up and running
+      my $up = undef;
       my $gl = EBox::Global->getInstance(1);
+      my $sock =    IO::Socket::INET->new(
+                        PeerAddr => "127.0.0.1",
+                        PeerPort => $gl->modInstance('apache')->port(),
+                        Proto	 => "tcp",
+                        Timeout	 => 5);
+      if ($sock) {
+        close($sock);
+        $up = 1;
+      }
+
+
       if ( $gl->modExists('soap') ){
           unless (defined $self->{'soap'}) {
               $self->{'soap'} = $gl->modInstance('soap');

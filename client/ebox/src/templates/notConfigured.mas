@@ -1,0 +1,9 @@
+<%args>
+	$module 
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<div class="note">
+	<div><%__x('You must enable the module {module} in the module status section in order to use it. ', module => $module )%></div><br/>
+</div>

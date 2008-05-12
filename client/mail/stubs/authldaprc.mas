@@ -35,8 +35,7 @@ use EBox::Gettext;
 #
 # Location of your LDAP server:
 
-LDAP_SERVER		127.0.0.1
-LDAP_PORT		389
+LDAP_URI		ldap://127.0.0.1
 
 ##NAME: LDAP_PROTOCOL_VERSION:0
 #

@@ -1,150 +1,145 @@
-<chapter id="ch-firewall">
+<chapter id="ch-services">
+  <title>Network services</title>
+  <section id='sect-serv-desc'>
+    <title>Network services in eBox</title>
+    <para>
+      As it happened in <xref linkend="ch-objects"/>, the network
+      services are an abstraction to ease the management of your
+      network. Each network service describes a set of ports for
+      Internet protocols where service accepts requests. Providing a
+      name plus an optional description allows
+      you to manage the network service policies more intuitively and
+      less error-prone.
+    </para>
+    <para>
+      The network services are used by firewall module (<xref
+      linkend="ch-firewall"/>) and traffic shaping module (<xref
+      linkend="ch-trafficshaping"/>). Anyway, as eBox philosophy every
+      feature which use a network service must use this module to work
+      with and ease the administration life.
+    </para>
+  </section>
+  <section id="sect-services-manage">
+    <title>Network services management</title>
+    <para>
+      In order to get the network service management you may go to
+      <menuchoice>
+        <guimenu>Services</guimenu>
+      </menuchoice>.
+    </para>
+    <para>
+      As you may notice, there are several services which
+      have been created by eBox for you. These services are used by
+      eBox modules afterwards. For instance, <emphasis>dhcp</emphasis>
+      service is described as an internal service called
+      '<emphasis>Dynamic Host Configuration Protocol</emphasis>'.This
+      service is read-only as it is already
+      managed by dhcp module automatically. Each service has a
+      configuration where the service protocol, well-known source and
+      destination ports are set. There are three special services
+      which define the generic abstraction for every service
+      (<emphasis>any</emphasis>) and every TCP/UDP service. They are
+      entered to handle easily rules defined in other modules that
+      depends on this network services.
+    </para>
+    <para>
+      You may input a new service with these following elements:
+      <variablelist>
+        <varlistentry>
+          <term>Service name</term>
+          <listitem><para>The name for the service which refers
+          uniquely this service in the system</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Description</term>
+          <listitem><para>This field defines the verbose description
+          for the network service to ease the administration
+          management. It is an optional field.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Internal</term>
+          <listitem><para>When a network service is set as internal,
+          those protocol/port pairs that owns this service will be set
+          as busy, that is not available for others services to
+          use.</para></listitem>
+        </varlistentry>
+        <varlistentry>
+          <term>Configuration</term>
+          <listitem>
+            <para>The service configuration is a multiple value
+            configuration setting which may contain these three
+            elements:</para>
+            <variablelist>
+              <varlistentry>
+                <term>Protocol</term>
+                <listitem><para>The Internet protocol which may set
+                one of these values: TCP/UDP, TCP, UDP, GRE, ICMP or
+                "any". If the protocol is set to GRE or ICMP, then it is
+                banned to set any port since it is banned by protocol
+                construction</para></listitem>
+              </varlistentry>
+              <varlistentry>
+                <term>Source port</term>
+                <listitem>
+                  <para>A well-known source port may contain
+                  one of the following:</para>
+                  <itemizedlist>
+                    <listitem><formalpara>
+                      <title>Any</title><para>Indicates any port for
+                      that protocol or set of them</para></formalpara>
+                    </listitem>
+                    <listitem><formalpara><title>Single
+                    port</title><para>Indicates a single port for
+                    that protocol or set of them</para></formalpara>
+                    </listitem>
+                    <listitem><formalpara><title>Port range</title><para>Indicates a port
+                    range including all of them for
+                    that protocol or set of them</para></formalpara>
+                    </listitem>
+                  </itemizedlist>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term>Destination port</term>
+                <listitem><para>Analogously with source port, the same
+                elements appear in destination port.</para></listitem>
+              </varlistentry>
+            </variablelist>
+          </listitem>
+        </varlistentry>
+      </variablelist>
+      You might inspect several system-defined services prior to add
+      your own ones. Anyway, a user-defined service may be created
+      when additional network services be installed on top of an eBox
+      installation, for example introducing <emphasis>FTP (File
+      Transfer Protocol)</emphasis> service.
+    </para>
+    <example id="serv-conf-example">
+      <title>Service configuration example</title>
+      <itemizedlist>
+        <listitem><formalpara><title>Service name</title><para>ftp</para></formalpara></listitem>
+        <listitem><formalpara><title>Description</title><para>File Transfer Protocol</para></formalpara></listitem>
+        <listitem><formalpara><title>Internal</title><para>yes</para></formalpara></listitem>
+        <listitem>
+          <formalpara>
+            <title>Configuration:</title>
+            <para>
+              <itemizedlist>
+                <listitem><para>
+                  protocol: tcp, source port: any, destination port:
+                  20 (<emphasis>Define the control connection channel</emphasis>) </para>
+                </listitem>
+                <listitem>
+                  <para>protocol: tcp, source port: any,
+                  destination port: 21 (<emphasis>Define the data flow connection
+                  channel</emphasis>)</para>
+                </listitem>
+              </itemizedlist>
+            </para>
+          </formalpara>
+        </listitem>
+      </itemizedlist>
+    </example>
 
-	<title>Firewall</title>
-
-	<section id='sect-fw-desc'>
-		<title>Firewall in eBox</title>
-
-		<para>
-		  One of the most important features in eBox is its firewall
-		  module. You can access it through
-		  <menuchoice>
-		    <guimenu>Firewall</guimenu>
-		  </menuchoice>
-		  . There you can make packet filtering (<xref
-		  linkend='sect-fw-filter' />) or port
-		  redirection (<xref linkend='sect-fw-redirects'/>).
-		</para>
-
-		<para>
-                 The firewall has different behavior with 
-		external or internal network interfaces.
-		<!--TODO: qué hace eBox con los interfaces externos-->
-		</para>
-
-                <para>
-                 The internal interfaces are connected to local
-                 networks. They had not restrictions as the
-                 external interfaces have.
-                </para>
-
-                <para>
-                The external interfaces are connected to external
-                networks and eBox only allows redirections from them.
-               </para>
-
-		<para>
-		<!--TODO: qué tráficos se aplican para objetos y reglas-->
-		</para>
-		
-		<para>
-		<!--TODO: qué diferencias hay entre objetos y reglas-->
-		</para>
-	</section>
-
-	<section id='sect-fw-redirects'>
-		<!-- Firewall->Redirects -->
-		<title>Port Redirects</title>
-
-		<para>Port redirects allow to get external traffic
-		into a host behind a eBox system with firewall module
-		installed. You can get the configuration of these
-		options at
-		<menuchoice>
-			<guimenu>Firewall</guimenu>
-			<guimenuitem>Redirects</guimenuitem>
-		</menuchoice>
-		.
-		</para>
-
-		<para>
-		If you need to add a new redirect, first select your
-		desired <guilabel>Interface</guilabel> which will
-		listen incoming connections. This should be one of the
-		interfaces previously selected as external. Moreover,
-		it should be assigned the <guilabel>External
-		port</guilabel> where you expect your incoming
-		traffic, and the <guilabel>protocol</guilabel> that
-		will be used.</para>
-
-		<para>You should enter the destination system
-		<guilabel>IP address</guilabel> and its
-		<guilabel>Port</guilabel> where packets would go
-		on.</para>
-	        
-		<para>Once you have selected this data, you just need
-		to select between the different
-		<guilabel>Actions</guilabel>, the
-		<guilabel>Add</guilabel> one, and click on it.</para>
-				
-		<para>To remove a rule, you should select remove
-		between the available <guilabel>Actions</guilabel>,
-		and click on it.</para>
-
-		<para>Redirect configuration can be modified by
-		changing its parameters and clicking on their modify
-		<guilabel>Actions</guilabel>.</para>
-	</section>
-
-	<section id='sect-fw-filter'>
-		<!-- Firewall->Packet Filter -->
-		<title>Packet filter</title>
-
-		<para>
-		From
-		<menuchoice>
-			<guimenu>Firewall</guimenu>
-			<guimenuitem>Packet filter</guimenuitem>
-		</menuchoice>
-		you can configure general packet filter rules or
-		define them to each network object.
-		</para>
-
-		<para>At configuration window we can establish a deny
-		policy for network packets. If you select this deny
-		policy, it will be notified to the sender that the
-		packet will be denied on destination. If you select an
-		ignorance policy for network packets, they will be
-		filtered and discarded without any notification.
-		</para>
-
-		<para>
-		Making a click on Packet filer rules, you can access
-		to a rule list for the eBox firewall. Each rule can be
-		enabled or disabled without remove it. These rules,
-		will be applied from top to bottom, so order could be
-		important. On each rule, you can select its
-		transmission protocol, which action to apply if a
-		packet matches this rule (accept it or deny it),
-		origin address and port and destination address and
-		port. When specifying an address or a port, you can
-		choose which ones belongs to the rule or which not, to
-		enhance its flexibility and clearness of the rules,
-		reducing the amount.
-		</para>
-
-		<para>
-		Inside <guilabel>Default rules
-		configuration</guilabel>, we can establish rules to be
-		applied by default to each eBox object. This includes
-		a general policy for the object, denying or accepting
-		some services allowed to select from a list. It also
-		includes the creation of a specific rules list for the
-		object, which allow or deny connections with a
-		protocol, a destination address (with a network mask)
-		and certain ports. These rules can be enabled or
-		disabled without removing them, as in eBox filtering rules</para>
-
-		<para>
-		At the bottom, we can choose an eBox network object
-		from the selection list, and clicking on "Go", to
-		apply the specified packet filtering rules. Between
-		the selectable options for network objects we find:
-		fix a specific policy or use a global policy,
-		accepting or denying some services, from the Services
-		selection list, and create rules for the object in the
-		same way they are created for the global policy.
-		</para>
-	</section>
-
+  </section>
 </chapter>

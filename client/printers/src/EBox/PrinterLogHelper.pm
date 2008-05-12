@@ -23,7 +23,7 @@ use EBox;
 use EBox::Config;
 use EBox::Gettext;
 
-use constant CUPSLOGFILE => '/var/log/cups/error_log';
+use constant CUPSLOGFILE => '/var/log/cups/page_log';
 
 sub new 
 {
@@ -68,13 +68,13 @@ sub processLine # (file, line, logger)
 {
 	my ($self, $file, $line, $dbengine, $event) = @_;
 
-	
-	unless ($line =~ /^.*\[([^ ]+) .*\] Job (\d+) queued on '(\w+)' by '(\w+)'.*/) {
+	unless ($line =~ /^(\w+) (\w+) (\d+) \[([^ ]+) .*\] .*/) {
 		return;
 	}
 
-	my $data = { 'timestamp' => $1, 'job' => $2, 
-		     'printer' => $3, 'owner' => $4 };
+	my $data = { 'timestamp' => $4, 'job' => $3, 
+		     'printer' => $1, 'owner' => $2,
+		     'event' => 'queued' };
 	$dbengine->insert('jobs', $data);
 	
 }

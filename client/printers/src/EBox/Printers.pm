@@ -18,7 +18,8 @@ package EBox::Printers;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::FirewallObserver EBox::LogObserver);
+use base qw(EBox::GConfModule EBox::FirewallObserver EBox::LogObserver
+			EBox::ServiceModule::ServiceInterface);
 
 use EBox::Gettext;
 use EBox::Config;
@@ -29,26 +30,30 @@ use EBox::Menu::Item;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::External;
+use EBox::Exceptions::MissingArgument;
 use EBox::Validate qw( :all );
 use EBox::Sudo qw( :all );
 use EBox::PrinterFirewall;
 use EBox::PrinterLogHelper;
 use Foomatic::DB;
-use Net::CUPS::Printer;
+use Net::CUPS::Destination;
+use Net::CUPS;
 use Storable;
 
-use constant PPDBASEPATH      	=> '/usr/share/ppd/';
 use constant MAXPRINTERLENGHT 	=> 10;
 use constant SUPPORTEDMETHODS 	=> ('usb', 'parallel', 'network', 'samba');
 use constant CUPSPRINTERS     	=> '/etc/cups/printers.conf';
+use constant CUPSD              => '/etc/cups/cupsd.conf';
 use constant CUPSPPD 		=> '/etc/cups/ppd/';
 
 sub _create 
 {
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'printers', 
+					  printableName => __('printers'),
 					  domain => 'ebox-printers' );
 	bless($self, $class);
+	$self->{'cups'} = new Net::CUPS;
 	return $self;
 }
 
@@ -57,6 +62,99 @@ sub domain
 	return 'ebox-printers';	
 }
 
+# Method: actions
+#
+# 	Override EBox::ServiceModule::ServiceInterface::actions
+#
+sub actions
+{
+	return [ 
+	{
+		'action' => __('Create spool directory for printers'),
+		'reason' => __('eBox will create a spool directory ' .
+						'under /var/spool/samba'),
+		'module' => 'printers'
+	},
+	{	
+		'action' => __('Add user ebox to lpadmin group'),
+		'reason' => __('In order to manage printers and queues from the ' .
+                       'eBox web interface'),
+		'module' => 'printers'
+	},
+	{	
+		'action' => __('Create log table'),
+		'reason' => __('eBox will create a new table into its log database ' .
+					   'to store printers logs'),
+		'module' => 'printers'
+	}
+    ];
+}
+
+# Method: usedFiles 
+#
+# 	Override EBox::ServiceModule::ServiceInterface::files
+#
+sub usedFiles 
+{
+    return [
+	{
+		'file' => CUPSPRINTERS,
+		'reason' => __('To add and manage printers'),
+		'module' => 'printers',
+	},
+        {
+                'file' => CUPSD,
+                'reason' => __('To enable standalone cupsd '
+                               . 'listen on internal interfaces'),
+                'module' => 'printers',
+        },
+	];
+}
+
+# Method: enableActions 
+#
+# 	Override EBox::ServiceModule::ServiceInterface::enableActions
+#
+sub enableActions
+{
+    root(EBox::Config::share() . '/ebox-printers/ebox-printers-enable');
+}
+
+# Method: enableService
+#
+# Overrides:
+#
+#  <EBox::ServiceModule::ServiceInterface::enableService>
+#
+sub enableService
+{
+	my ($self, $status) = @_;
+	
+	$self->SUPER::enableService($status);
+
+	if (_checkSambaInstalled()) {
+		my $samba = EBox::Global->modInstance('samba');
+		$samba->setPrinterService($status);
+	}
+}
+
+#  Method: serviceModuleName
+#
+#   Override EBox::ServiceModule::ServiceInterface::servivceModuleName
+#
+sub serviceModuleName
+{
+	return 'printers';
+}
+
+#  Method: enableModDepends
+#
+#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+#
+sub enableModDepends 
+{
+    return ['samba'];
+}
 
 sub firewallHelper
 {
@@ -88,12 +186,23 @@ sub _setCupsConf
 
 	my @array;
 	push(@array, 'printers' => \@conf);
-	$self->writeConfFile(CUPSPRINTERS, "printers/printers.conf", \@array);
+	$self->writeConfFile(CUPSPRINTERS, 'printers/printers.conf.mas', \@array);
+
+        # Added configuration for standalone cups
+        my @internalIfaces = ();
+        if ( $self->isStandaloneCupsEnabled() ) {
+            my $net = EBox::Global->modInstance('network');
+            @internalIfaces = @{$net->InternalIfaces()};
+        }
+        @array = ( standaloneCups => $self->isStandaloneCupsEnabled(),
+                   ifaces => \@internalIfaces );
+        $self->writeConfFile(CUPSD, 'printers/cupsd.conf.mas', \@array);
+
 }
 
 sub isRunning 
 {
-	EBox::Service::running('cups');
+	EBox::Service::running('ebox.cups');
 }
 
 sub _doDaemon
@@ -102,12 +211,12 @@ sub _doDaemon
 
 	my $service = $self->service();
 
-        if ($service and $self->isRunning) {
-                EBox::Service::manage('cups','restart');
+        if ($service and $self->isRunning()) {
+                EBox::Service::manage('ebox.cups','restart');
         } elsif ($service) {
-                EBox::Service::manage('cups','start');
-        } elsif ($self->isRunning) {
-                EBox::Service::manage('cups','stop');
+                EBox::Service::manage('ebox.cups','start');
+        } elsif ($self->isRunning()) {
+                EBox::Service::manage('ebox.cups','stop');
         }
 }
 
@@ -148,11 +257,9 @@ sub statusSummary
 #
 sub setService # (enabled)
 {
-        my ($self, $active) = @_;
+     my ($self, $active) = @_;
 
-        ($active and $self->service) and return;
-        (!$active and !$self->service) and return;
-        $self->set_bool("active", $active);
+	$self->SUPER::enableService($active);
 
 	if (_checkSambaInstalled()) {
 		my $samba = EBox::Global->modInstance('samba');
@@ -172,7 +279,8 @@ sub setService # (enabled)
 sub service
 {
         my $self = shift;
-        return $self->get_bool("active");
+		
+		return ($self->isEnabled());
 }
 
 
@@ -181,7 +289,7 @@ sub manufacturers
 	shift;
 	
 	my $db = new Foomatic::DB;
-	my @makes = $db->get_makes();
+	my @makes = sort($db->get_makes());
 	return \@makes;
 }
 
@@ -192,26 +300,8 @@ sub manufacturerModels($$)
 
 	my $db = new Foomatic::DB;
 	my $manufacturer = $self->manufacturer($id);
-	my @models = grep($self->_checkModelHasDriver($id, $manufacturer, $_), 
-			$db->get_models_by_make($manufacturer));
+	my @models = sort ($db->get_models_by_make($manufacturer));
 	return \@models;
-}
-
-sub _checkModelHasDriver
-{
-        my $self = shift;
-        my $id = shift;
-        my $manufacturer = shift;
-        my $printer = shift;
-       
-	$printer =~ s/\s/_/g;
-        my $dir = PPDBASEPATH . $manufacturer . "/";
-        foreach my $file (`ls $dir`) {
-                chomp($file);
-                return 1 if ($file =~ m{$manufacturer-$printer.*\.ppd\.gz});
-        }
-
-        return undef;
 }
 
 sub _printerFromManuModel($$$)
@@ -1008,8 +1098,8 @@ sub _setDriverOptionsToFile($$)
 	my $printerid = $self->_printerFromManuModel($manufacturer, $printer);
 	$printerid or return {};
 	
-	my $ppd = PPDBASEPATH . $manufacturer . "/$printerid-$driver.ppd.gz";
-	command("/bin/cp $ppd " . EBox::Config::tmp);
+	my $ppd = EBox::Config::tmp . "/$manufacturer-$printerid-$driver.ppd";
+	command("foomatic-ppdfile -w -p $printerid -d $driver > '$ppd'");
 	my $db = new Foomatic::DB;
 	my $dat = $db->getdat($driver, $printerid);
 
@@ -1023,11 +1113,9 @@ sub _setDriverOptionsToFile($$)
 		}
 	}
 
-	my $tmpfile = EBox::Config::tmp . "$printerid-$driver.ppd";
-	$db->ppdsetdefaults($tmpfile . ".gz");
-	command("/bin/gunzip -f $tmpfile.gz"); 
+	$db->ppdsetdefaults($ppd);
 	my $info = $self->_printerInfo($id);
-	root("/bin/mv $tmpfile " .  CUPSPPD . $info->{name} . ".ppd");
+	root("/bin/mv '$ppd' " .  CUPSPPD . $info->{name} . ".ppd");
 }
 
 sub printerJobs # (printerid, completed)
@@ -1045,10 +1133,15 @@ sub printerJobs # (printerid, completed)
 	}
 
 	my $info = $self->_printerInfo($id);
-	my @jobs =  cupsGetJobs($info->{'name'}, 0, $completed);
+	my $printer = $self->{'cups'}->getDestination($info->{'name'});
+	
+	my @jobs;
+	if ($printer) {
+		@jobs = $printer->getJobs(0, $completed);
+	}
+
 	if (@jobs and ($jobs[0])) {
 		return \@jobs;
-
 	} else {
 		return [];
 	}
@@ -1205,5 +1298,48 @@ sub _checkSambaInstalled
 	my $samba = EBox::Global->modInstance('samba');
 	return  $samba ? 1 : undef;
 }
+
+# Method: enableStandaloneCups
+#
+#      Enable/disable CUPS standalone management. If set, samba is not
+#      the only one which can manage the printers.
+#
+# Parameters:
+#
+#      enable - Boolean if set, it enables the CUPS standalone
+#      management. False, only Samba may manage printers
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#      argument is missing
+#
+sub enableStandaloneCups
+{
+    my ($self, $enable) = @_;
+
+    throw EBox::Exceptions::MissingArgument('enable')
+      unless defined($enable);
+
+    $self->set_bool('standaloneCups', $enable);
+
+}
+
+# Method: isStandaloneCupsEnabled
+#
+#      Check if CUPS standalone management is enabled or not
+#
+# Returns:
+#
+#      boolean - true if enabled, false otherwise
+#
+sub isStandaloneCupsEnabled
+{
+    my ($self) = @_;
+
+    return $self->get_bool('standaloneCups');
+
+}
+
 
 1;

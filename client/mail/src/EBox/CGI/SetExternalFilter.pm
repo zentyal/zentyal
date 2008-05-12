@@ -43,7 +43,7 @@ sub _process($) {
 	$self->keepParam('menu');
 
 	my $filter = $self->param('filter');
-	my $filterActive = ($filter ne 'disabled'); 
+	my $filterActive = ($filter ne 'none'); 
 
 	$mail->setService('filter', $filterActive);
 	EBox::debug("filter  $filter active $filterActive");

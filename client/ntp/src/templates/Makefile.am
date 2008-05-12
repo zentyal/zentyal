@@ -2,7 +2,7 @@
 
 templatedir = @TEMPLATESPATH@/ntp
 
-template_DATA = index.mas date.mas timezone.mas synch.mas servers.mas datetime.mas timezone.mas
+template_DATA = date.mas timezone.mas synch.mas servers.mas datetime.mas timezone.mas
 
 EXTRA_DIST = $(template_DATA)
 

@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# Function stolen from slapd.config in slapd package
+create_password_hash() {
+  perl -e '
+    sub GenRandom {
+      local ($len) = @_;
+      local ($char, $data, @chars);
+      @chars = split(//, "abcdefghijklmnopqrstuvwxyz"
+                       . "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+
+      open(RD, "</dev/urandom") or die "Failed to open random source";
+      $data = "";
+      while ($len--) {
+        read(RD, $char, 1) == 1 or die "Failed to read random data";
+        $data .= $chars[ord($char) % @chars];
+      }
+
+      close(RD);
+      return $data;
+    }
+    print crypt($ARGV[0], GenRandom(2));' "$1"
+}
+
+LDAP_PWD="/var/lib/ebox/conf/ebox-ldap.passwd"
+PASS=$(cat $LDAP_PWD)
+
+CRYPTPASS=`create_password_hash "$PASS"`;
+
+echo "Pass is: $PASS, Crypto is: $CRYPTPASS";
+
+# Backup current ldap database
+/usr/share/ebox-usersandgroups/slapd.backup
+
+# remove current database
+invoke-rc.d slapd stop
+rm -rf /var/lib/ldap/*
+
+# Add slapd default
+cp /usr/share/ebox-usersandgroups/slapd.default /etc/default/slapd
+
+cat <<EOF | slapadd
+dn: dc=ebox
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: warp
+dc: ebox
+structuralObjectClass: organization
+
+dn: cn=admin,dc=ebox
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: admin
+description: LDAP administrator
+userPassword: {crypt}$CRYPTPASS
+structuralObjectClass: organizationalRole
+
+EOF
+
+chown -R openldap.openldap /var/lib/ldap
+
+invoke-rc.d slapd start
+

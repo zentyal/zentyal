@@ -1,7 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-pkglib_SCRIPTS =  ebox-init-ldap 
+pkgdata_SCRIPTS =  ebox-init-ldap ebox-ldap-admin slapd.backup
+pkgdata_DATA =  slapd.default
 
 MAINTAINERCLEANFILES = Makefile.in 
 
-EXTRA_DIST = $(pkglib_SCRIPTS)
+EXTRA_DIST = $(pkgdata_SCRIPTS) $(pkgdata_DATA)

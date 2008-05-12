@@ -1,57 +1,9 @@
 #!/usr/bin/make -f
-# -*- makefile -*-
-# Sample debian/rules that uses debhelper.
-# GNU copyright 1997 to 1999 by Joey Hess.
 
-config.status: configure
-	dh_testdir
-	./configure --disable-runtime-tests --prefix=/usr \
-		--localstatedir=/var --sysconfdir=/etc
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/autotools.mk
+ 					
+DEB_CONFIGURE_EXTRA_FLAGS := --disable-runtime-tests 
 
-build: build-stamp
-
-build-stamp: config.status
-	dh_testdir
-	$(MAKE)
-	touch build-stamp
-
-clean:
-	dh_testdir
-	dh_testroot
-	rm -f build-stamp
-	-$(MAKE) distclean
-ifneq "$(wildcard /usr/share/misc/config.sub)" ""
-	cp -f /usr/share/misc/config.sub config.sub
-endif
-ifneq "$(wildcard /usr/share/misc/config.guess)" ""
-	cp -f /usr/share/misc/config.guess config.guess
-endif
-	rm -f config.log
-	dh_clean 
-
-install-indep: build config.status
-	dh_testdir
-	dh_testroot
-	dh_clean -k 
-	dh_installdirs
-
-	DESTDIR=$(CURDIR)/debian/libebox/ \
-		$(MAKE) install
-
-binary-indep: install-indep
-	dh_testdir
-	dh_testroot
-	dh_installchangelogs ChangeLog
-	dh_installdocs
-	dh_install
-	dh_link
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch install
+clean::
+	rm -f config.status

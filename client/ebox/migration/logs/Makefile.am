@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @LIBDIR@/ebox-logs/migration
+Migrationsdir = @DATADIR@/ebox-logs/migration
 
 
 nobase_Migrations_SCRIPTS = 0001_update_configurelogtable.pl

@@ -33,6 +33,8 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
 use Error qw(:try);
 
+# Constant
+use constant MAX_INT => 32767;
 
 # Singleton variable
 my $_instance = undef;
@@ -521,8 +523,8 @@ sub markAsChanged
 
     my $oldVersion = $self->_version();
     $oldVersion = 0 unless ( defined ( $oldVersion ));
-    $oldVersion++;
-    $gl->set_int('model_manager/version', $oldVersion);
+    $oldVersion = ($oldVersion + 1) % MAX_INT;
+    $gl->st_set_int('model_manager/version', $oldVersion);
 
 }
 
@@ -821,7 +823,7 @@ sub _hasChanged
 
     my ($self) = @_;
 
-    return $self->{'version'} < $self->_version();
+    return ($self->{'version'} != $self->_version());
 
 }
 
@@ -842,7 +844,7 @@ sub _version
 
     my $gl = EBox::Global->getInstance();
 
-    return $gl->get_int('model_manager/version');
+    return $gl->st_get_int('model_manager/version');
 
 }
 

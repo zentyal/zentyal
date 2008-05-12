@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @LIBDIR@/ebox-events/migration
+Migrationsdir = @DATADIR@/ebox-events/migration
 
 nobase_Migrations_SCRIPTS = 0001_add_conf_configureeventtable.pl \
 	0002_add_conf_diskfree_watcher.pl

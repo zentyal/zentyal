@@ -28,7 +28,7 @@ my $tlsRemoteInput = [
 		     ];
 
 my @localOptions = map { { value => $_ } } @localInterfaces; 
-push @localOptions,  { value => '', printableValue => __('All external interfaces'), };
+push @localOptions,  { value => '', printableValue => __('All network interfaces'), };
 # if the local interface does not exist (was removed by force) put in
 # int the options to avoid confusion about the actual value
 if ($properties{local}) {
@@ -62,16 +62,28 @@ my @tableElements  = (
        ],					 
       $certificateInput,	
       $tlsRemoteInput,
-      [ name => 'pullRoutes', 
-	printableName => __('Allow eBox-to-eBox tunnels'), 
-	input => 'checkbox', 
-	help => __("If you want to create a tunnel between two eBox, you will need this option to allow connections from clients to this server"),
+		      
+      [ 
+       name =>  'masquerade',
+       printableName => __('Network Address Translation'),
+       input => 'checkbox',
       ],
 		      
       [ name => 'clientToClient',    printableName => __('Allow client-to-client connections'), 
 	input => 'checkbox' ,
 	help => __('Allow clients to connect each other within the VPN'),
       ], 
+
+      [ name => 'pullRoutes', 
+	printableName => __('Allow eBox-to-eBox tunnels'), 
+	input => 'checkbox', 
+	help => __("If you want to create a tunnel between two eBox, you will need this option to allow connections from clients to this server"),
+      ],
+      [ name => 'ripPasswd', 
+	printableName => __('eBox-to-eBox tunnel password'), 
+	input => 'text', 
+	help => __("Only this password is required for eBox-to-eBox tunnels. The same password must be set in the client or it wouldn't be able to push routes to this host"),
+      ],
       $localInput,		      
      );
 if ($nameEditable) {

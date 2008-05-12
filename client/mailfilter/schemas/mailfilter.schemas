@@ -17,7 +17,7 @@
 			<owner>ebox</owner>
 			<type>list</type>
          		<list_type>string</list_type>
-			<default>[mail, firewall]</default>
+			<default>[firewall]</default>
 			<locale name="C"/>
 		</schema>
 

@@ -44,6 +44,7 @@ sub _userAddOns
 	my ($self, $username) = @_;
 	my $jabber = EBox::Global->modInstance('jabber');
 
+	return unless ($jabber->configured());
 
 	my $active = 'no';
 	$active = 'yes' if($self->hasAccount($username));
@@ -57,7 +58,7 @@ sub _userAddOns
 	             'active'   => $active,
 		     'is_admin' => $is_admin, 
 
-		     'service' => $jabber->service,
+		     'service' => $jabber->isEnabled(),
 		   };
 
 	return { path => '/jabber/jabber.mas',
@@ -66,7 +67,11 @@ sub _userAddOns
 
 sub _includeLDAPSchemas
 {
-        my $self = shift;
+    my $self = shift;
+
+	my $jabber = EBox::Global->modInstance('jabber');
+	return [] unless ($jabber->configured());
+
 	my @schemas = SCHEMAS;
 	return \@schemas;
 }

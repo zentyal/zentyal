@@ -35,6 +35,7 @@ use EBox::Event::Watcher::Base;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Service;
+use EBox::Global;
 
 # Core modules
 use Error qw(:try);
@@ -107,52 +108,16 @@ sub run
 
       my ($self) = @_;
 
-      # The wild services are stored within a file with the following
-      # format:
-      # wildService1\twildService2\twildService3
+      my @modules = $self->_runningAlertServices();
+      if (@modules) {
+          $msg = __x("The following modules are not running: {modules}\n", 
+                  modules => "@modules");
 
-      if ( -f WILD_SERVICES ) {
-      # Check if any service has been left
-          open(my $wildServicesFile, '+<', WILD_SERVICES) or
-            throw EBox::Exceptions::Internal('Cannot open for read/writing file ' .
-                                             WILD_SERVICES . " : $!");
-
-          my $line;
-          try {
-              # Lock the file for reading/writing
-              flock( $wildServicesFile, LOCK_EX );
-              $line = <$wildServicesFile>;
-              # Truncate the file
-              truncate ( $wildServicesFile, 0 );
-          } finally {
-              # Unlock the file
-              flock( $wildServicesFile, LOCK_UN );
-              close ( $wildServicesFile );
-          };
-
-          if ( defined ( $line )) {
-              chomp($line);
-              my @wildServices = split ( '\t', $line);
-              if ( scalar ( @wildServices ) > 0 ) {
-                  my @events = ();
-                  my ( $restartMax, $timeInterval ) = ( EBox::Config::configkey('restart_max'),
-                                                        EBox::Config::configkey('time_interval') );
-                  foreach my $wildService (@wildServices) {
-                      push ( @events, new EBox::Event(
-                                   message => __x('The service {service} has been restarted ' .
-                                                  '{restart} times in {time} seconds and it ' .
-                                                  'has been stopped',
-                                                  service => $wildService,
-                                                  restart => $restartMax,
-                                                  time    => $timeInterval,
-                                                  ),
-                                   level   => 'error',
-                                   source  => $self->name(),
-                                                     ));
-                  }
-                  return \@events;
-              }
-          }
+          return [ new EBox::Event( 
+                  message => $msg,
+                  level   => 'error',
+                  source  => $self->name(),
+                  )];
       }
 
       return undef;
@@ -191,10 +156,92 @@ sub _name
 sub _description
   {
 
-      return __('Check if any service has been restarted many ' .
-                ' times in a time interval');
+      return __('Check if any eBox service is not running when it should');
 
   }
 
+# Method: _runningAlertServices
+#
+#   Generate events for services which are running or not when they should
+sub _runningAlertServices
+{
+    my ($self) = @_;
+
+    my $gl = EBox::Global->getInstance(1);
+
+    my $class = 'EBox::ServiceModule::ServiceInterface';
+    my @mods;
+    for my $mod (@{$gl->modInstancesOfType($class)}) {
+        next unless ($mod->can('isRunning'));
+        my $enabled = $mod->isEnabled(); 
+        my $running = $mod->isRunning();
+        if (not $running and $enabled) {
+            my $name = $mod->printableName();
+            push (@mods, $name);
+        }
+    }
+
+    return @mods;
+}
+
+# Method: _wildServices
+#
+#   XXX: Not used at the moment
+#
+#   Generate events for services which have been forced to stop by upstart
+#   due to too fast respawing.
+sub _wildServices
+{
+      my ($self) = @_;
+
+      # The wild services are stored within a file with the following
+      # format:
+      # wildService1\twildService2\twildService3
+
+      my @events;
+      if ( -f WILD_SERVICES ) {
+      # Check if any service has been left
+          open(my $wildServicesFile, '+<', WILD_SERVICES) or
+            throw EBox::Exceptions::Internal('Cannot open for read/writing file ' .
+                                             WILD_SERVICES . " : $!");
+
+          my $line;
+          try {
+              # Lock the file for reading/writing
+              flock( $wildServicesFile, LOCK_EX );
+              $line = <$wildServicesFile>;
+              # Truncate the file
+              truncate ( $wildServicesFile, 0 );
+          } finally {
+              # Unlock the file
+              flock( $wildServicesFile, LOCK_UN );
+              close ( $wildServicesFile );
+          };
+
+          if ( defined ( $line )) {
+              chomp($line);
+              my @wildServices = split ( '\t', $line);
+              if ( scalar ( @wildServices ) > 0 ) {
+                  my ( $restartMax, $timeInterval ) = ( EBox::Config::configkey('restart_max'),
+                                                        EBox::Config::configkey('time_interval') );
+                  foreach my $wildService (@wildServices) {
+                      push ( @events, new EBox::Event(
+                                   message => __x('The service {service} has been restarted ' .
+                                                  '{restart} times in {time} seconds and it ' .
+                                                  'has been stopped',
+                                                  service => $wildService,
+                                                  restart => $restartMax,
+                                                  time    => $timeInterval,
+                                                  ),
+                                   level   => 'error',
+                                   source  => $self->name(),
+                                                     ));
+                  }
+              }
+          }
+      }
+
+     return @events;
+}
 
 1;

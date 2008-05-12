@@ -1,0 +1,44 @@
+#!/bin/bash -x
+
+# don't start postfix and courier with its init script
+update-rc.d -f postfix remove
+update-rc.d -f courier-authdaemon remove
+update-rc.d -f courier-imap remove
+update-rc.d -f courier-imap-ssl remove
+update-rc.d -f courier-pop remove
+update-rc.d -f courier-pop-ssl remove
+
+# copy LDAP schemas
+cp /usr/share/ebox-mail/*.schema /etc/ldap/schema
+
+# Create dir within postfix chroot
+SASLAUTHD="/var/spool/postfix/var/run/saslauthd"
+test -d $SASLAUTHD || mkdir -p $SASLAUTHD
+
+# Allow postfix to connect to the unix socket
+dpkg-statoverride --add postfix sasl 710 $SASLAUTHD
+
+# Create certificates for smptd
+/usr/share/ebox-mail/ebox-create-certificate /etc/postfix/sasl/
+mv /etc/postfix/sasl/smtp.key /etc/postfix/sasl/smtpd-key.pem
+mv /etc/postfix/sasl/smtp.cert /etc/postfix/sasl/smtpd.pem
+
+# Generate mail aliases
+touch /etc/postfix/main.cf # newaliases fails if no main.cf file is present
+newaliases
+
+# regenerate slapd.conf
+/usr/share/ebox-usersandgroups/ebox-init-ldap genconfig
+
+# restart slapd
+invoke-rc.d slapd restart
+
+# populate ldap
+/usr/share/ebox-mail/ebox-mail-ldap update
+
+
+# restart mail to generate configuration files
+invoke-rc.d ebox mail restart
+
+# restart saslauthdaemon
+invoke-rc.d saslauthd restart

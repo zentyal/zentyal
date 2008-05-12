@@ -73,7 +73,7 @@ sub _table
 			'tableName' => 'Users',
 			'printableTableName' => __('Users'),
 			'defaultController' =>
-                '/ebox/Users/Controller/Users',
+            '/ebox/Users/Controller/Users',
 			'defaultActions' =>
 				['changeView'],
 			'tableDescription' => \@tableHead,
@@ -85,6 +85,37 @@ sub _table
 
 	return $dataTable;
 }
+
+# Method: precondition
+#	
+#	Check if the module is configured
+#
+# Overrides:
+#
+#	<EBox::Model::DataTable::precondition>
+sub precondition
+{
+	my $users = EBox::Global->modInstance('users');
+	return $users->configured();
+}
+
+# Method: preconditionFailMsg
+#	
+#	Check if the module is configured
+#
+# Overrides:
+#
+#	<EBox::Model::DataTable::precondition>
+sub preconditionFailMsg
+{
+	my $users = EBox::Global->modInstance('users');
+	return __('You must enable the module Users in the module ' .
+		  'status section in order to use it.');
+}
+
+
+
+
 
 sub rows
 {

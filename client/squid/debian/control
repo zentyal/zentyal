@@ -1,14 +1,16 @@
 Source: ebox-squid
 Section: web
 Priority: optional
-Maintainer: Enrique J. Hernandez <quique@warp.es>
-Build-Depends: debhelper (>= 4.0.0)
-Standards-Version: 3.6.1
+Maintainer: Ubuntu MOTU Developers <ubuntu-motu@lists.ubuntu.com>
+XSBC-Original-Maintainer: Javier Uruen  <javi@warp.es>
+Build-Depends: debhelper (>= 4.0.0), cdbs
+Standards-Version: 3.7.3
 
 Package: ebox-squid
 Architecture: all
-Depends: ebox (= 0.11.99), ebox-firewall, ebox-objects, squid, dansguardian
-Conflicts: ebox (<< 0.11.99)
+Depends: ebox (>= 0.11.99), ebox (<< 0.12), ebox-firewall, ebox-objects, squid, dansguardian, adduser, ${misc:Depends}
+Conflicts: ebox (<< 0.9.99)
+Replaces: ebox (<< 0.9.99)
 Description: Proxy cache and content filter
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified

@@ -1,0 +1,9 @@
+# eBox event daemon
+#
+#
+
+description     "eBox event daemon"
+author          "Javier Uruen Val <javi@warp.es>"
+
+respawn
+exec  /usr/bin/perl /usr/share/perl5/EBox/EventDaemon.pm

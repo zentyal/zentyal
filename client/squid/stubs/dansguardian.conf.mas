@@ -127,3 +127,7 @@ nologger = off
 # daemongroup = 'nobody'
 
 softrestart = off
+
+virusscan = off
+forkscanlength = 32768
+

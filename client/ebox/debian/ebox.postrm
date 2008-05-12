@@ -1,33 +1,17 @@
 #!/bin/bash
 
 case "$1" in
-	remove) 
-		if grep '#-- ebox begin' /etc/inittab >/dev/null; then
-			echo 'Removing eBox inittab entry...'
-			rm -f /etc/inittab'{new}'
-			sed -e '/#-- ebox begin/,/#-- ebox end/d' \
-				< /etc/inittab >/etc/inittab'{new}'
-			mv -f /etc/inittab'{new}' /etc/inittab
-			kill -s HUP 1 || :
-		fi
-		;;
 	purge)
-		#postgresql and logs
-		db_name="eboxlogs"
-		db_user="eboxlogs"
-		su postgres -c "dropdb $db_name" || true
-		su postgres -c "dropuser $db_user" || true
+        #postgresql and logs
+        db_name="eboxlogs"
+        db_user="ebox"
+        su postgres -c "dropdb $db_name" || true
+        su postgres -c "dropuser $db_user" || true
 
-		if grep '#-- ebox begin' /etc/inittab >/dev/null; then
-			echo 'Removing eBox inittab entry...'
-			rm -f /etc/inittab'{new}'
-			sed -e '/#-- ebox begin/,/#-- ebox end/d' \
-				< /etc/inittab >/etc/inittab'{new}'
-			mv -f /etc/inittab'{new}' /etc/inittab
-			kill -s HUP 1 || :
-		fi
-		# delete eBox's apache certificates
-		rm -rf /etc/ebox/ssl*
+        # delete eBox's apache certificates
+        rm -f /var/lib/ebox/conf/ssl.crt/ebox.cert  /var/lib/ebox/conf/ssl.key/ebox.key \
+            /var/lib/ebox/conf/ssl.pem/ebox.pem
+
 
 		;;	
 esac

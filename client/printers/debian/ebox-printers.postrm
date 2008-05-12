@@ -1,24 +1,23 @@
 #!/bin/bash
 
+#DEBHELPER#
+
 case "$1" in
 	remove)
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 		
 		# restart logs
 		invoke-rc.d ebox logs restart || true
+
+        # Restart eBox apache
+        invoke-rc.d ebox apache restart || true
 		
-		# Generate configuration
-		/usr/lib/ebox-usersandgroups/ebox-init-ldap genconfig
-
-		# Restart slapd
-		invoke-rc.d slapd restart
-
-		/usr/bin/ebox-clean-gconf printers || true
+		# /usr/share/ebox/ebox-clean-gconf printers || true
 		;;		
 	purge)
-                /usr/lib/ebox/ebox-sql-table drop jobs || true
+        # /usr/share/ebox/ebox-sql-table drop jobs || true
 
-	        ;;    
+        ;;    
 esac
 
-#DEBHELPER#
+

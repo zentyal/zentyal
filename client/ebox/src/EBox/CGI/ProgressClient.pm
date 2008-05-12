@@ -1,8 +1,6 @@
 package EBox::CGI::ProgressClient;
 #  this class is to provide helper method for any CGI which must 
 #
-#  See also:
-#   EBox::CGI::ProgressBase
 use strict;
 use warnings;
 

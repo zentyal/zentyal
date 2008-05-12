@@ -1,3 +1,6 @@
+0.11.100
+	+ onInstall() functionality moved to migration script
+	+ Bugfix. Quote file names to avoid issues with ppds containing spaces
 0.11.99
 	+ New release
 0.11

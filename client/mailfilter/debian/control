@@ -1,12 +1,20 @@
 Source: ebox-mailfilter
 Section: web
 Priority: optional
-Maintainer: Isaac Clerencia <isaac@warp.es>
-Build-Depends: debhelper (>= 4.0.0)
-Standards-Version: 3.6.1
+Maintainer: Ubuntu MOTU Developers <ubuntu-motu@lists.ubuntu.com>
+XSBC-Original-Maintainer: Javier Uruen Val <javi@warp.es>
+Build-Depends: debhelper (>= 4.0.0), cdbs
+Standards-Version: 3.7.3
 
 Package: ebox-mailfilter
 Architecture: all
-Depends: ebox (= 0.11.99), ebox-firewall, ebox-usersandgroups , ebox-mail (>= 0.11.99), amavisd-new (>= 2.4.2), clamav (>= 0.90), clamav-daemon (>= 0.90), clamav-freshclam (>= 0.90), spamassassin, libnet-dns-perl, arj, unzoo
+Depends: ebox (>= 0.11.99), ebox (<< 0.12), ebox-firewall, ebox-usersandgroups , ebox-mail (>= 0.11.99), amavisd-new (>= 2.4.2), clamav (>= 0.90), clamav-daemon (>= 0.90), clamav-freshclam (>= 0.90), spamassassin, libnet-dns-perl, arj, unzoo
 Conflicts: ebox (<< 0.11.99)
-Description: Mail filter module
+Description: ebox - Mail filter module
+ eBox is a framework for the development and deployment of security-wise
+ network services in small and medium-sized networks, offering a simplified
+ graphical interface to non expert users. It can be set up as a gateway,
+ having some extra features over a usual router.
+ .
+ This module adds a mail filter server to your eBox installation, allowing to 
+ scan mails to filter viruses and spam.

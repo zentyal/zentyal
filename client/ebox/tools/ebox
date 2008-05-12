@@ -1,17 +1,26 @@
 #!/usr/bin/perl
+### BEGIN INIT INFO
+# Provides:          ebox 
+# Required-Start:    networking 
+# Required-Stop:     networking
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 6
+# Short-Description: eBox platform (network services framework) 
+### END INIT INFO
 
 use strict;
 use warnings;
 
 use EBox::Global;
 use EBox;
+use EBox::Sudo;
 use Error qw(:try);
 
 EBox::init();
 my $global = EBox::Global->getInstance(1);
 
 sub usage {
-	print "Usage: $0 start|stop|restart\n";
+	print "Usage: $0 start|stop|status|restart\n";
 	print "       $0 <module> start|stop|restart\n";
 	exit 1;
 }
@@ -44,45 +53,74 @@ sub moduleAction
     exit 2;
   }
 
+  # Do not restart apache if we are run under ebox-software
+  if ($actionName eq 'restart' and $modname eq 'apache' ) {
+	return if (exists $ENV{'EBOX_SOFTWARE'} and $ENV{'EBOX_SOFTWARE'} == 1 );
+  }
+
+  if ($actionName eq 'start' and $modname eq 'network' and $mod->isEnabled()) {
+      try {
+        EBox::Sudo::root("/etc/init.d/networking stop");
+      } otherwise {};
+  }
+
   my $success;
   my $errorMsg;
   try {
     $mod->$action();
-    $success = 1;
+    $success = 0;
   } 
   catch EBox::Exceptions::Base with {
       my $ex = shift;
-      $success = 0;
+      $success = 1;
       $errorMsg =  $ex->text;
   };
 
   printModuleMessage($modname, $actionName, $success, $errorMsg);
 }
 
+sub status
+{
+  my ($modname, $action, $actionName) = @_;
+  my $mod = $global->modInstance($modname);
+  if (!defined $mod) {
+    print STDERR "$modname is not a valid module name\n";
+    exit 2;
+  }   
+  
+  my $status;
+  my $msg = "EBox: status module $modname:\t\t\t";
+  if ($mod->isEnabled()) {
+   print STDOUT $msg . "[ ENABLED ]\n";
+   exit 0;
+  } else {
+   print STDOUT $msg . "[ DISABLED ]\n";
+   exit 1;
+  }
+
+}
+
+sub _logActionFunction
+{
+	my ($action, $success) = @_;
+	system(". /lib/lsb/init-functions; " . 
+	       " log_begin_msg \"$action\"; log_end_msg $success");
+}
+
+
 
 sub printModuleMessage
 {
   my ($modname, $action, $success, $errorMsg) = @_;
+  
+  my %actions = ( 'start' => 'Starting', 'stop' => 'Stopping', 
+		  'restart' => 'Restarting' );
 
-  my $successMsg = $success ?  '   [ OK ]' : '[ ERROR ]';
-  my $tabstr     = tabs($modname);
-
-  print STDOUT 'EBox: ', $action, ' ', $modname, ':',  $tabstr, $successMsg, "\n";
-
+  my $msg = $actions{$action} . " eBox module: $modname";
+  _logActionFunction($msg, $success);
   if ($errorMsg) {
     print STDERR $errorMsg, "\n";
   }
-}
-
-sub tabs
-{
-  my ($modname) = @_;
-
-  my $tabs;
-  { use integer; $tabs = 3 - (length($modname)/8); };
-
-  my $tabstr = "\t" x $tabs;
-  return $tabstr;
 }
 
 
@@ -114,8 +152,7 @@ sub main
     } 
     elsif ($ARGV[0] eq 'stop') {
       stop();
-    } 
-    else {
+    } else {
       usage();
     }
   } 
@@ -128,8 +165,9 @@ sub main
     } 
     elsif ($action eq 'stop') {
       moduleStop($modName);
-    }
-    else {
+    } elsif ($action eq 'status') {
+      status($modName);
+    } else {
       usage();
     }
   } 

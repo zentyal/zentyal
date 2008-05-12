@@ -1,6 +1,14 @@
 0.11.100
 	+ Bugfix. Fix issue with event filters and empty hashes
 	+ Bugfix. Cache stuff in log and soap watcher to avoid memory leaks
+	+ Bugfix. Fix bug that prevented the user from being warned when a row to
+	  be deleted is being used by other model
+	+ Bugfix. Add missing use of EBox::Global in State event watcher
+	+ Added progress screen, now pogress screen keeps track of the changed
+	  state of the modules and change the top page element properly
+	+ Do not exec() to restart apache outside mod_perl
+	+ Improve apache restart script
+	+ Improve progress screen 
 0.11.99
 	+ DataTable contains the property 'enableProperty' to set a column
 	called 'enabled' to enable/disable rows from the user point of
@@ -32,6 +40,8 @@
 	+ Upgrade runit dependency until 1.8.0 to avoid runit related
 	issues
 0.11
+	+ Use apache2
+	+ Add ebox-unblock-exec to unset signal mask before running  a executable
 	+ Fix issue with multiple models and models with params.
 	  This triggered a bug in DHCP when there was just one static
 	  interface

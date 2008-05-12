@@ -20,7 +20,7 @@ use warnings;
 
 use base 'EBox::CGI::ClientBase';
 use EBox::Gettext;
-use Apache;
+use Apache2::RequestUtil;
 
 use Readonly;
 Readonly::Scalar my $DEFAULT_DESTINATION => '/ebox/Summary/Index';
@@ -45,7 +45,7 @@ sub _print
 sub _process
 {
 	my $self = shift;
-	my $r = Apache->request;
+	my $r = Apache2::RequestUtil->request;
 	my $envre;
 	my $authreason;
 	

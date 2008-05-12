@@ -1,0 +1,23 @@
+#!/bin/bash 
+
+
+create_db() 
+{
+    db_name="eboxlogs"
+    db_user="ebox"
+
+    su postgres -c 'psql -Alt' | grep -q '^$db_name|' && db_exists=1 || db_exists=0 || true
+    if [ $db_exists -eq 0 ]; then
+        echo "Creating the $db_name database"
+        su postgres -c "createdb $db_name" > /dev/null 2>&1 || true
+        su postgres -c "createuser -R -S -D $db_user" > /dev/null 2>&1 || true
+        su postgres -c "psql -d $db_name -c \"GRANT ALL ON DATABASE $db_name TO $db_user\"" > /dev/null 2>&1 || true
+    fi
+
+}
+
+
+#Create user and database
+create_db
+
+/usr/share/ebox/ebox-sql-table add admin /usr/share/ebox/sqllog/admin.sql

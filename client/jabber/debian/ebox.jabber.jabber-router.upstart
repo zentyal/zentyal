@@ -1,0 +1,5 @@
+pre-start script
+    invoke-rc.d jabberd2-ldap-bdb stop || true
+end script
+exec /usr/sbin/jabberd2-router -c /etc/jabberd2/router.xml
+respawn

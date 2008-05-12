@@ -2,8 +2,8 @@
 
 SUBDIRS = sqllog
 
-pkglib_SCRIPTS = ebox-mail-ldap
+pkgdata_SCRIPTS = ebox-mail-ldap ebox-mail-enable ebox-create-certificate
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(pkglib_SCRIPTS)
+EXTRA_DIST = $(pkgdata_SCRIPTS)

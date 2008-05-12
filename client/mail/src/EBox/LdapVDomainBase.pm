@@ -98,7 +98,7 @@ sub _delVDomainWarning($$) # (vdomain)
 #
 # Returns:
 #
-#   	A hash ref containing:
+#   	A reference to a list of hash references each containing:
 #
 #   	path - mason component which is going to be added
 #   	params - parameters for the mason component

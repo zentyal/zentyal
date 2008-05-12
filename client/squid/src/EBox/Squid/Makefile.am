@@ -1,10 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 SUBDIRS = Model Composite Types
 
-perldir = @PERLPATH@/EBox/OpenVPN
-
-nobase_perl_DATA = 
-
 test_classes = Test.pm
 
 DISTCLEANFILES = 

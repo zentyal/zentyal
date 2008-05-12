@@ -1,7 +1,7 @@
 ## Process this file with automake to produce Makefile.in
 
-pkglib_SCRIPTS =  ebox-timezone-import
+pkgdata_SCRIPTS =  ebox-timezone-import ebox-ntp-enable
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(pkglib_SCRIPTS) runit/ntpd
+EXTRA_DIST = $(pkgdata_SCRIPTS) 

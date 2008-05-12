@@ -1,0 +1,2 @@
+exec /usr/sbin/jabberd2-s2s -D -c /etc/jabberd2/s2s.xml
+respawn

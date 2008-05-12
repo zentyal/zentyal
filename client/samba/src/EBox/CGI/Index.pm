@@ -47,12 +47,12 @@ sub _process($) {
 		$active = 'yes';
 	}
 	push (@array, 'active'		=> $active);
-	push (@array, 'domain'		=> $samba->domainName);
 	push (@array, 'pdc'		=> $samba->pdc);
 	push (@array, 'workinggroup'    => $samba->workgroup);
 	push (@array, 'netbios'         => $samba->netbios);
 	push (@array, 'description'     => $samba->description);
 	push (@array, 'userquota'       => $samba->defaultUserQuota);
+	push (@array, 'roaming'         => $samba->roamingProfiles);
 
 	$self->{params} = \@array;
 }

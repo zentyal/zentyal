@@ -1,43 +1,33 @@
 #!/bin/bash
 
-webserver=apache
-onInstall() {
+#DEBHELPER#
 
-	perl -e 'use EBox::Firewall; EBox::Firewall::onInstall();'
-}
+
+
 case "$1" in
 	configure)
-		# install gconf schemas
-		SCHEMA_LOCATION=/usr/share/gconf/schemas
-		SCHEMA_FILES="firewall.schemas "
-		for SCHEMA in $SCHEMA_FILES; do
-			if [ -e $SCHEMA_LOCATION/$SCHEMA ]; then
-				HOME=/var/lib/ebox GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` \
-				gconftool-2 \
-				--makefile-install-rule $SCHEMA_LOCATION/$SCHEMA > /dev/null
-			fi
-		done
-
 		
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 		
-		# run the oninstall method in the module
-		onInstall
 
         # Migrate data if needed
-        /usr/lib/ebox/ebox-migrate /usr/lib/ebox-firewall/migration/
+        /usr/share/ebox/ebox-migrate /usr/share/ebox-firewall/migration/
 
         # create log table
-        /usr/lib/ebox/ebox-sql-table add firewall /usr/share/ebox/sqllog/firewall.sql
+        /usr/share/ebox/ebox-sql-table add firewall /usr/share/ebox/sqllog/firewall.sql
 
         # restart logs
         invoke-rc.d ebox logs restart || true
 
 
 		invoke-rc.d ebox firewall restart
+
+        # Restart eBox apache
+        invoke-rc.d ebox apache restart || true
+
 	;;
 esac
 
-#DEBHELPER#
+
 
 exit 0

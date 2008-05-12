@@ -1,19 +1,19 @@
 <%args>
 $nameEditable   => 0
-%properties     => ()
-$submitName
-$submitValue
-%overridePrintableNames => ()
-</%args>
-<%init>
-use EBox::Gettext;
-use Perl6::Junction qw(any);
 
-my @tableElements  = (
+</%args>
+<%shared>
+use EBox::Gettext;
+use Perl6::Junction qw(any all);
+
+our @clientPortion  = (
       [ name => 'service',           printableName => __('Active'), input => 'checkbox' ],
-					 
+			
+);
+		 
       # server portion (if we support someday multiple servers the
       # protocol would be part of client portion
+our @serverPortion = (
       [ name => 'serverAddr',            printableName => __("Server's address"),], 
       [ name => 'proto',             
 	printableName => __("Server's protocol"), 
@@ -46,12 +46,42 @@ my @tableElements  = (
 	printableName =>      __("Client's private key"),
 	help => __("Private key used to unlock the client's certificate"),
       ], 
+
+      [ name => 'ripPasswd', 
+	printableName => __("Server's tunnel password"), 
+	input => 'text', 
+	help => __("This password must be the same as  the one set in the server. Otherwise, the client would be unable to push routes to the server"),
+      ],
      );
-if ($nameEditable) {
-   unshift @tableElements, [ name => 'name', printableName =>    __('Client name') ];
-}
+
+</%shared>
 
 
+<%method tableElements>
+<%init>
+  my (%args) = @_;
+  my %properties = exists $args{properties} ? %{ $args{properties}} : ();
+  my $nameEditable = exists $args{nameEditable} ? $args{nameEditable} : 0;
+  my %overridePrintableNames = exists $args{overridePrintableNames} ? 
+    %{ $args{overridePrintableNames} } : 
+      ();
+  my $serverPortion = exists $args{serverPortion}  ? $args{serverPortion} : 1;
+  my $clientPortion = exists $args{clientPortion}  ? $args{clientPortion} : 1;
+
+
+  my @tableElements;
+
+  if ($clientPortion) {
+    if ($nameEditable) {
+      push @tableElements, [  'name' => 'name', 'printableName' =>  __('Client name')  ];
+    }
+
+    push @tableElements, @clientPortion;
+  }
+
+  if ($serverPortion) {
+    push @tableElements, @serverPortion;
+  }
 
 # set values if required..
 
@@ -79,9 +109,8 @@ my $anyUpload = any(qw(caCertificatePath certificatePath certificateKey)) ;
   [ %element ]
 } @tableElements;
 
-
-
-push @tableElements, [ name => $submitName, value => $submitValue, input => 'submit' ];
-
+return @tableElements;
 </%init>
-<& /formTable.mas, rows => \@tableElements &>
+
+
+</%method>

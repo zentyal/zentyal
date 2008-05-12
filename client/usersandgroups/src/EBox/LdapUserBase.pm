@@ -148,7 +148,10 @@ sub _delGroupWarning($$) # (group)
 # 	'path'   => MASON_COMPONENT_PATH_TO_BE_ADDED
 # 	'params' => PARAMETERS_FOR_MASON_COMPONENT
 #
-# Parameters:
+#        The method can also return undef to sigmnal there is not add on for the
+#        module
+#
+#       Parameters:
 #
 #   	user - user name to be edited
 #
@@ -158,6 +161,9 @@ sub _delGroupWarning($$) # (group)
 #
 #   	path - mason component which is going to be added
 #   	params - parameters for the mason component
+#
+#       - or -
+#         undef if there is not component to add
 sub _userAddOns($$)
 {
 

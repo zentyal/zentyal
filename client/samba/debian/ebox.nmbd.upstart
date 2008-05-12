@@ -1,0 +1,2 @@
+exec /usr/sbin/nmbd -F
+respawn

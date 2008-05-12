@@ -2,5 +2,7 @@
 
 SUBDIRS = events logs
 
+Migrationsdir = @DATADIR@/ebox-logs/migration
+
 MAINTAINERCLEANFILES = Makefile.in
 

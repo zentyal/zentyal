@@ -1,14 +1,19 @@
 #!/bin/bash
 
+#DEBHELPER#
+
 case "$1" in
 	remove)
-	        /usr/bin/ebox-clean-gconf openvpn || true
 
-		kill `pidof gconfd-2` >/dev/null 2>&1 || true
+		kill  `pidof gconfd-2` >/dev/null 2>&1 || true
 	
 		# openvpn changes network interfaces so we must restart network module to propagate the changes
-                /etc/init.d/ebox network restart   || true 
+        invoke-rc.d ebox network restart   || true 
+
+        # Restart eBox apache
+        invoke-rc.d ebox apache restart || true
+
 		;;		
 esac
 
-#DEBHELPER#
+

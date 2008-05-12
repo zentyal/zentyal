@@ -20,6 +20,9 @@ my $modeOptions = [
 my $disabledAttr = $modulesChanged ? 'disabled' : '';
 
 </%init>
+<div class='note'>
+    <% __x('Those modules which have not been enabled for first time in the {openref}module status{closeref} section will be ignored in both backup and restore operations', openref => '<a href="/ebox/ServiceModule/StatusView">', closeref => '</a>') %>
+</div>
 <h3><% __('Back up the current state') %></h3>
 <div class='help'>
 	<% __("Backups will be stored in eBox and then you will be able to

@@ -176,11 +176,11 @@ sub extendedRestoreTest : Test(7)
 }
 
 
-sub setFilterServiceTest : Test(10)
+sub setFilterServiceTest : Test(5)
 {
   my $mail = EBox::Global->modInstance('mail');
   my @states = (0, 1, 1, 0, 0);
-  foreach my $service ('active', 'filter') {
+  foreach my $service ( 'filter') {
   foreach my $state (@states) {
     $mail->setService($service, $state);
     my $newState = $mail->service($service) ? 1 : 0;

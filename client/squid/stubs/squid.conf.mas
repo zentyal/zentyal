@@ -6,7 +6,11 @@
 	$memory
 </%args>
 # <EBOX> TAG_HTTPORT #
-http_port <% $port %>
+% my $transKey = '';
+% if ($transparent eq 'yes') { 
+%   $transKey = 'transparent';
+% }
+http_port <% $port %> <% $transKey %>
 # END_TAG #
 
 visible_hostname localhost
@@ -20,15 +24,7 @@ coredump_dir /var/spool/squid
 cache_effective_user proxy
 cache_effective_group proxy
 cache_mem <% $memory %> MB
-
-% if ($transparent eq 'yes') { 
-# <EBOX> TAG_TRANSPARENT #
-httpd_accel_host virtual
-httpd_accel_port 80
-httpd_accel_with_proxy on
-httpd_accel_uses_host_header on
-# END_TAG #
-% }
+access_log /var/log/squid/access.log squid
 
 
 # <EBOX> TAG_ACL #

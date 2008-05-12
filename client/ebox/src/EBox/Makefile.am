@@ -9,14 +9,14 @@ mods = AbstractDBEngine.pm Apache.pm Auth.pm Backup.pm DBEngineFactory.pm \
         Module.pm  \
 	Order.pm ProgressIndicator.pm \
 	PgDBEngine.pm Service.pm SysInfo.pm Test.pm \
-	TestStubs.pm MigrationBase.pm
+	TestStubs.pm MigrationBase.pm 
 
 
 nobase_perl_DATA = $(mods)
 
 
 SUBDIRS = Backup CGI Common GConfModule interactiveTest Event Events Global Logs \
-	Model   ProgressIndicator Report Summary t Test Types 
+	Model   ProgressIndicator Report Summary t Test Types ServiceModule
 
 SOURCES = $(nobase_perl_DATA)
 

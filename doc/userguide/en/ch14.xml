@@ -1,84 +1,145 @@
-<chapter id="ch-dns">
+<chapter id="ch-dhcp">
 
-		<!-- DNS Cache -->
-		<title>DNS service</title>
+  <title>DHCP Server</title>
+	
+  <section id="dhcp-serv-sect">
+    <title>DHCP Server</title>
+	
+    <para>You can enter into DHCP Server configuration
+    going into
+    <menuchoice>
+      <guimenu>DHCP</guimenu>
+    </menuchoice>
+    .
+    </para>
 
-		<para>
-		The DNS service can work just as as a DNS cache server, or
-		as a proper DNS server to answer queries for your local
-		domains
-		</para>
-
-		<section id='sect-dns-cache'>
-		<title>DNS cache</title>
-		 <para>
-		 When  the DNS service is enabled it will automatically work as
-		 a DNS cache service, that is, several DNS requests will be
-		 resolved as an only external DNS request, reducing response
-		 time and network traffic with most visited hosts.
-		 </para>
-		</section>
-
-		<section id='sect-dns-server'>
-		<title>DNS server</title>
-		 <para>
-		 There is a more advanced feature that will allow you to create
-		 domains for your local network. This is very useful if you want
-		 your users to use host names for your local machines instead of
-		 recalling IPs.
-		 </para>
-
-		 <para>
-		 The DNS service in eBox features a simple to use server which
-		 allows you to add domains. And within each domain, you can add
-		 machines and aliases for each one of them. Note that it lacks
-		 features such as setting MX register, zone transfer and so
-		 forth. Those features will be added in the future.
-		 </para>
-	         
-		 <variablelist>
-	          <varlistentry>
-	 	   <term>Domains</term>
-		    <listitem>
-		     <para>
-		      You can add as many domains as you need. Remember that
-		      your hosts will be added taking a domain as a root.
-		     </para>
-		     <para>
-		     To add a domain, go to 
-		     <menuchoice><guimenu>DNS</guimenu></menuchoice>, 
-                     and just type a domain's name in the table placed below 
-		     the service configuration. As we mentioned you can 
-		     add as many domains as you need.
-		     </para>
-		    </listitem>
-	           </varlistentry>
-
-		   <varlistentry>
-		    <term>Hosts</term>
-		    <listitem>
-		     <para>
-		      The next step, after creating a domain, is adding 
-		      host names to the domain. What you are doing here 
-		      is binding an IP address to a host name. 
-		     </para>
-
-		     <para>
-		      To add a host name, you must edit the domain you would
-		      like to add the host to. To do so, click on the pencil
-		      icon in the domain table. A new screen will show up. In
-		      this new screen you will be able to add a host name and
-		      its corresponding IP.
-		     </para>
-
-		     <para>
-		      In case of having an IP address with more than one name associated to it, you can add <emphasis>aliases</emphasis> right below the first host name added.
-		     </para>
-		    </listitem>
-		   </varlistentry>
-
-		 </variablelist>
-
-		</section>
-
+    <para>You just will be able to configure DHCP server if there is any
+    network interface declared as Static. If there are different
+    interfaces set as static, you could choose which one will be
+    configured through the selection element. DHCP server works as
+    well with virtual static interfaces. In order to serve IP
+    addresses in a static interface is required to set at least a range
+    or a fixed address mapping.</para>
+      
+    <para>If you want to enable DHCP server, check out <xref
+    linkend="sect-mod-status"/> for details to do so.</para>
+			
+    <para>Working configuration about DHCP server can be adjusted with
+    these options:
+    <variablelist>
+      <varlistentry>
+        <term>Options</term>
+        <listitem>
+          <para>There are two tabs to set the options for the DHCP
+          server in that interface.
+          <variablelist>
+            <varlistentry>
+              <term><guilabel>Common options</guilabel></term>
+              <listitem>
+              <para>These options set:
+              <variablelist>
+                <varlistentry>
+                  <term>Default gateway</term>
+                  <listitem><para>Indicate DHCP clients which is the
+                  next step to go if they don't know how to reach the
+                  destination. Their values may be eBox itself, a
+                  custom IP address in CIDR format, none or a
+                  configured gateway done in <xref
+                  linkend="sect-gateways"/>.</para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term>Search domain</term>
+                  <listitem><para>Indicate DHCP clients which is the
+                  search domain to add when a not fully qualified
+                  domain is given to the DNS. Its value may be a
+                  custom one, none or one of the configured in the
+                  <link linkend="ch-dns">DNS module</link>.</para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term>Primary nameserver</term>
+                  <listitem><para>Indicate DHCP clients which is the
+                  primary name server to ask for domain name - IP
+                  address queries. Its value may be the eBox itself, a
+                  custom one using its IP address or none.</para>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term>Secondary nameserver</term>
+                  <listitem><para>Indicate DHCP clients which is the
+                  secondary name server to ask for domain name - IP
+                  address queries when the primary one is down. Its
+                  value is optional and it must a valid host IP
+                  address.</para>
+                  </listitem>
+                </varlistentry>
+              </variablelist>
+              </para>
+              </listitem>
+            </varlistentry>
+                <varlistentry>
+                  <term><guilabel>Advanced options</guilabel></term>
+                  <listitem>
+                    <para>These set of options are managed only
+                    advanced users to determine a leased time and thin
+                    client options.
+                    <variablelist>
+                      <varlistentry>
+                        <term>Lease times</term>
+                        <listitem>
+                          <para>The leased time is those which a given
+                          IP address is set as valid by the DHCP
+                          server. You may modify the default values to
+                          set a new default one and a maximum one as
+                          well.</para>
+                        </listitem>
+                      </varlistentry>
+                      <varlistentry>
+                        <term>Thin client</term>
+                        <listitem>
+                          <para>These options allows to use eBox as a
+                          thin client (proxy) server. It acts as proxy
+                          thin client server when the next server
+                          option points to another computer. If it set
+                          as thin client server by setting the option
+                          as <emphasis>eBox</emphasis>, then you may
+                          include all files to load in thin client
+                          such as boot files and parameters in a fixed
+                          directory as help outputs.</para>
+                        </listitem>
+                      </varlistentry>
+                    </variablelist>
+                    </para>
+                  </listitem>
+                </varlistentry>
+          </variablelist>
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Ranges</term>
+        <listitem>
+          <para>Range lists can be created with some values you would
+          like to assign to network hosts. These lists must not have matches
+          between them and every allocatable addresses must belong to
+          the available range shown above the ranges list.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Static assignments</term>
+        <listitem>
+          <para>A fixed IP can be assigned (if belongs to the
+          available range) to a MAC address from the network. You just
+          need to create an item at the static assignation list which has
+          the MAC address and the required IP address.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+    Take into account that every setting in ranges list and fixed
+    address mappings must not overlap each other. Not only in the same
+    interface but also in the remainder ones. These checks are done
+    automatically by eBox.
+    </para>
+  </section>
 </chapter>

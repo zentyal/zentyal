@@ -9,8 +9,8 @@ use EBox::Global;
 use EBox::OpenVPN;
 use Perl6::Junction qw(any);
 
-my @serverProperties = qw(subnet subnetNetmask port proto certificate  clientToClient local service tlsRemote pullRoutes);
-my @regularAccessorsAndMutators =  qw(port proto certificate  clientToClient local service tlsRemote pullRoutes);
+my @serverProperties = qw(subnet subnetNetmask port proto certificate  clientToClient local service tlsRemote pullRoutes ripPasswd masquerade);
+my @regularAccessorsAndMutators =  qw(port proto certificate  clientToClient local service tlsRemote pullRoutes masquerade);
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -57,8 +57,6 @@ sub masonParameters
 {
     my ($self) = @_;
 
-    
-
     my $name = $self->param('name');
     $name or throw EBox::Exceptions::External('No server name provided');
 
@@ -68,7 +66,7 @@ sub masonParameters
     my %serverAttributes;
     foreach my $attr (@serverProperties) {
 	my $accessor_r = $server->can($attr);
-	defined $accessor_r or throw EBox::Exceptions::Internal "Can not locate accessor for $attr in server class";
+	defined $accessor_r or throw EBox::Exceptions::Internal "Cannot locate accessor for $attr in server class";
 	my $value = $accessor_r->($server);
 	$serverAttributes{$attr} = $value;
     }
@@ -88,14 +86,14 @@ sub masonParameters
     }
 
     my $network = EBox::Global->modInstance('network');
-    my $externalIfaces = $network->ExternalIfaces();
+    my $ifaces = $network->ifaces();
 
     return [
 	    name => $name, 
 	    serverAttrs => \%serverAttributes,
 	    availableCertificates => $availableCertificates,
 	    disabled              => $disabled,
-	    localInterfaces       => $externalIfaces,
+	    localInterfaces       => $ifaces,
 	    advertisedNets        => \@advertisedNets,	   
 	   ];
 }
@@ -111,11 +109,6 @@ sub actuate
   # check if CA and a certificate is available
   my $openVPN = EBox::Global->modInstance('openvpn');
   $openVPN->CAIsReady() or return;
-
-  # check if there are external nics available
-  my $network = EBox::Global->modInstance('network');
-  my $externalIfaces = $network->ExternalIfaces();
-  @{ $externalIfaces } or return;
 
   if ($self->param('edit')) {
     $self->_doEdit();
@@ -134,6 +127,9 @@ sub _doEdit
     my $openVPN = EBox::Global->modInstance('openvpn');
     my $server = $openVPN->server($name);
     my $changed = 0;
+
+    $self->_checkTunnelParams($server);
+
 
     my $anyPropertyParam = any @regularAccessorsAndMutators;
     my @mutatorsParams = grep { $_ eq $anyPropertyParam } @{ $self->params() };
@@ -182,6 +178,27 @@ sub _editSubnetAndMask
   $server->setSubnetAndMask($subnet, $subnetNetmask);
 
   return 1;
+}
+
+
+sub _checkTunnelParams
+{
+  my ($self, $server) = @_;
+
+  my $pull = $self->param('pullRoutes');
+  defined $pull or $pull = $server->pullRoutes();
+
+  my $passwd = $self->param('ripPasswd');
+  defined $passwd or $passwd = $server->ripPasswd();
+  
+  if ($pull) {
+    if (not $passwd) {
+      throw EBox::Exceptions::External(
+       __(q{A eBox-to-eBox tunnel's password is required})
+				      );
+    }
+  }
+
 }
 
 1;

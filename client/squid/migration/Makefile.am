@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @LIBDIR@/ebox-squid/migration
+Migrationsdir = @DATADIR@/ebox-squid/migration
 
 
 nobase_Migrations_SCRIPTS = 0001_replace_deprecated_gconf_keys.pl 

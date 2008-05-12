@@ -1,10 +1,9 @@
 ## Process this file with automake to produce Makefile.in
 
-SUBDIRS = sqllog 
+SUBDIRS = sqllog
 
+pkgdata_SCRIPTS =  ebox-squid-enable
 
-runit_files = runit/dansguardian runit/squid
+MAINTAINERCLEANFILES = Makefile.in 
 
-MAINTAINERCLEANFILES = Makefile.in
-
-EXTRA_DIST =   $(runit_files)
+EXTRA_DIST = $(pkgdata_SCRIPTS)

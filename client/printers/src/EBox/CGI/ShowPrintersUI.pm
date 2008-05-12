@@ -54,6 +54,7 @@ sub _process($) {
 	
 	push (@array, 'printers' => $printers->printers());
 	push (@array, 'active' => $active);
+        push (@array, 'standaloneCups' => $printers->isStandaloneCupsEnabled());
 	$self->{params} = \@array;
 }
 

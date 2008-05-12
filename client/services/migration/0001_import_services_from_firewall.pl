@@ -18,6 +18,7 @@ use EBox::Global;
 use EBox::NetWrappers qw(:all);
 use EBox::Validate qw(:all);
 use EBox::Gettext;
+use Error qw(:try);
 
 use base 'EBox::MigrationBase';
 
@@ -98,15 +99,24 @@ sub _addBaseServices
                 'readOnly' => 1);
     }
     
-    unless ($serviceMod->serviceExists('name' => 'administration')) {
-        $serviceMod->addService('name' => __d('eBox administration'),
-                'description' => __d('eBox Administration port'),
-                'domain' => __d('ebox-services'),
-                'protocol' => 'tcp', 
-                'sourcePort' => 'any',
-                'destinationPort' => '443',
-                'internal' => 1,
-                'readOnly' => 1);
+    my $apachePort;
+    try {
+        $apachePort = EBox::Global->modInstance('apache')->port();
+    } otherwise {
+        $apachePort = 443;
+    };
+    my %adminService = ('name' => __d('eBox administration'),
+                        'description' => __d('eBox Administration port'),
+                        'domain' => __d('ebox-services'),
+                        'protocol' => 'tcp', 
+                        'sourcePort' => 'any',
+                        'destinationPort' => $apachePort,
+                        'internal' => 1,
+                        'readOnly' => 1);
+    if ($serviceMod->serviceExists('name' => 'eBox administration')) {
+        $serviceMod->setService(%adminService);
+    } else {
+        $serviceMod->addService(%adminService);
     }
 
     unless ($serviceMod->serviceExists('name' => 'ssh')) {

@@ -12,6 +12,7 @@ use lib '../..';
 use EBox::TestStub;
 use EBox::Global::TestStub;
 use EBox::Config::TestStub;
+use Apache2::Connection;
 
 
 use constant {
@@ -204,7 +205,7 @@ sub _newRequest
   defined $host or $host = '10.0.0.2';
 
   my $r = Test::MockObject->new();
-  $r->mock(get_remote_host => sub { return $host }  );
+  $r->mock(connection => mock(get_remote_host => sub { return $host }  ));
   $r->mock(subprocess_env =>  sub {
 	     my $self = shift;
 	     if (@_) {

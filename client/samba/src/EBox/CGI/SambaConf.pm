@@ -44,12 +44,14 @@ sub _process($) {
 	$self->_requireParam('mode', __('working mode'));
 	$self->_requireParam('description', __('description'));
 	$self->_requireParam('userquota', __('user quota'));
+	$self->_requireParam('roaming', __('roaming profiles'));
 
 	$samba->setPdc($self->param('mode') eq 'pdc');
 	$samba->setWorkgroup($self->param('workgroup'));
 	$samba->setNetbios($self->param('netbios'));
 	$samba->setDefaultUserQuota($self->param('userquota'));
 	$samba->setDescription($self->param('description'));
+	$samba->setRoamingProfiles(($self->param('roaming') eq 'enabled'));
 
 }
 

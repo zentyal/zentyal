@@ -1,190 +1,147 @@
-<chapter id="ch-openvpn">
-  <title>OpenVPN Service</title>
-  <section id="sect-vpn">
-    <title>Virtual Private Network service</title>
+<chapter id="ch-ca">
+  <title>Certification Authority Management</title>
+
+  <section id="sect-ca-prereq">
+    <title>Prerequisites</title>
     <para>
-      You can get to Virtual Private Network (VPN) configuration at 
+      A basic knowledge of public key infrastructure is needed to 
+      understand and use this module.
+      You can find a good introduction at <ulink
+      url="http://en.wikipedia.org/wiki/Public_key_infrastructure">the Wikipedia article
+      about PKI.</ulink>
+    </para>
+  </section>
+
+
+  <section id="sect-ca-overview">
+    <title>Overview of Certification Authority Management</title>
+    <para>
+      You can get to Certification Authority (<acronym>CA</acronym>) 
+      Management at
       <menuchoice>
-	<guimenu>OpenVPN</guimenu>
+	<guimenu>Certificate Manager</guimenu>
       </menuchoice>
-      .
+    </para>
+
+    <para>
+      The CA Management purpose is to allow the issue of certificates, 
+      which can be used by another eBox modules or external applications.
     </para>
     <para>
-      In order to set up VPN service, you first need to configure a
-      Certification Authority. eBox also provides this service so you
-      can build it up via 
-      <link linkend="ch-ca">
-	<menuchoice>
-	  <guimenu>Certification Authority</guimenu>
-	</menuchoice>
-      </link>
-      .
-    </para>
-    <para>
-      OpenVPN module can configure eBox as OpenVPN server as well as
-      client. As many servers/clients as you want can be
-      configured.
+      The certificates are issued using a CA's
+      certificate which will be created with this module.
     </para>
   </section>
-  <section id="sect-typical-scenarios">
-    <title>Typical scenarios</title>
+  <section id="sect-create-ca">				      
+    <title>CA's certificate creation</title>
     <para>
-      Since VPN is a quite complicated service, we illustrate with two typical
-      scenarios how to configure them with eBox.
+      Firstly, in order to use certificate, issuing the CA's certificate
+      is needed signing by itself. This certificate is used to
+      issue 'normal' certificates, so the other module's features would
+      not be available until it exists.
     </para>
-    <section id="sect-roadwarrior">
-	<title>Road warrior</title>
-	<para>
-	  You can set up eBox to support Road Warriors. That is, eBox
-	  working as a gateway and an OpenVPN server, which has a
-	  local area network (LAN) behind, letting clients connect to
-	  eBox from WAN (road warriors) in order to access the
-	  protected LAN via VPN service. The following figure could
-	  show a better picture:
-	</para>
-	<figure id="fig-roadwarrior">
-	  <title>Road warrior scenario</title>
-	  <mediaobject>
-	    <imageobject>
-	      <imagedata fileref="images/road-warrior.png"
-			 format="PNG" />
-	    </imageobject>
-	  </mediaobject>
-	</figure>
-	<para>
-	  Our objective is to connect client 3 with the other two
-	  far away clients (1 and 2) and last two each other.
-	</para>
-	<para>
-	  First, we need to create the Certification Authority and
-	  certificates for all elements present in the system, the
-	  OpenVPN server and the two away clients. Here, this eBox acts
-	  as well as Certification Authority.
-	</para>
-	<note>
-	  <para>
-	    To obtain detail information about eBox Certification Authority
-	    module,<link linkend="ch-ca">check its own part in the manual.</link> 
-	  </para>
-	</note>
-	<para>
-	  Once we have the certificates, we should set up the
-	  OpenVPN server in eBox at <guilabel>Create new
-	  server</guilabel>. We should give it a name, a
-	  protocol/port pair, a certificate (which have recently
-	  created above) and a subnet to work with. The remainder
-	  elements can be set by default values. As we see, the
-	  OpenVPN server will be listening on all external
-	  interfaces, so we need to set at least one of eBox
-	  interfaces as external via
-	  <menuchoice>
-	    <guimenu>Network</guimenu>
-	    <guimenuitem>Interfaces</guimenuitem>
-	  </menuchoice>
-	  . In our scenario only two interfaces are needed, an internal
-	  one for the LAN and an external one to work in
-	  Internet.
-	</para>
-	<para>
-	  After creating the OpenVPN server, we should enable the
-	  service and save changes. Then, check out in
-	  <guilabel>Status</guilabel> that there is an OpenVPN server
-	  fully working.
-	</para>
-	<para>
-	  Afterward, you should add advertised networks, which are
-	  those which authorized OpenVPN clients will be able to access. In
-	  order to achieve so, you need to have these advertised
-	  networks reachable. You can set them on editing the chosen
-	  OpenVPN server. In our scenario, you should add local
-	  network to make visible client 3 to other two clients.
-	</para>
-	<para>
-	  Now it is high time to configure clients. An OpenVPN
-	  client can be configured with the following example file:
-	</para>
-	<example id="example-conf-file">
-	  <title>OpenVPN client configuration example file</title>
-	  <programlisting><![CDATA[
-client
-
-dev tap
-# Under Status page, you can see the interface address and the port
-# where OpenVPN is listening to
-remote <iface_address> <port>
-# Under Status page, you can see the protocol as well
-proto <protocol>
-
-####
-# All certificates should be downloaded from eBox Certification
-# Authority interface and then upload to the client machines.
-# Each user certificate created should match with only one machine.
-####
-
-# CA certificate
-ca <ca_cert_file>
-# Client certificate
-cert <client_cert_file>
-# Client private key
-key <client_private_key_file>
-
-# Other options
-comp-lzo
-nobind
-]]>
-	  </programlisting>
-	</example>
-	<para>
-	  This example configuration can be passed to OpenVPN daemon
-	  with the following command: <command>openvpn --config
-	  filename</command>. Now you have access to client 3 from 
-	  two remote clients. Connecting each other remote clients is
-	  necessary to to set <guilabel>Allow client-to-client
-	  connections</guilabel>  checkbox within OpenVPN
-	  server configuration. In order to check the configuration
-	  is correct, you can see the routing table where advertised
-	  networks are added to <literal>tapX</literal> virtual
-	  interface.
-	</para>
-    </section>
-    <section id="sect-two-offices">
-      <title>Connect two offices with eBox and OpenVPN</title>
+    
+    <para>
+       To achieve so, we enter in the module's page and we find
+       a form to create the CA's certificate.
+       The form requires the organization's name and the number of
+       days till the certificate expires.
+    </para>
+    <warning>
       <para>
-	This second scenario tries to picture a common use case for
-	eBox. Two offices in different networks need to be connected
-	through a private network. To do so, we are going to use
-	eBox in both local networks as gateways and one as an OpenVPN
-	client and another as a server. The following figure tries to
-	make clearer the situation:
-      </para>
-      <figure id="fig-ebox-vs-ebox">
-	<title>eBox OpenVPN server vs. eBox OpenVPN client</title>
-	<mediaobject>
-	  <imageobject>
-	    <imagedata fileref="images/two-offices.png"
-		       format="PNG" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-      <para>
-	Our aim is to connect client 1 in LAN 1 with client 2 in LAN 2
-	as if they were under the same local network. Therefore we need
-	to set up the OpenVPN server as we do in
-	<xref linkend="sect-roadwarrior" />. However, just one change 
-	is needed setting on option <literal>Allow eBox-to-eBox tunnels</literal> to exchange routes
-	among eBox machines.
-      </para>
-      <para>
-	In order to configure eBox as OpenVPN client, we can do it at
-	<guilabel>Create new client</guilabel> button within
-	<guimenu>OpenVPN</guimenu> menu. We should set client's
-	name, the OpenVPN server address and protocol/port pair and
-	the corresponding certificates. You can obtain this
-	information analogously to the one shown above. When you save
-	changes, in status summary, you can see the new OpenVPN
-	daemon in LAN 2 running as a client with the connection target to the
-	other eBox within LAN 1.
-      </para>
-    </section>
+	Establishing certificate's life, we have to keep in
+	mind that its expiration will also expire any certificate
+	issued with it.
+	This would stop any service which depends on the revoked certificates.
+      </para> 
+    </warning>
+    
   </section>
+
+  <section id="sect-create-certificate">
+    <title>Certificates creation</title>
+    <para>
+      Once the CA's certificate is in place, we are
+      able to issue new certificates with it.
+    </para>
+    <para>
+      In order to do so, we fill the form which appears on the top of
+      the module's page.
+      The mandatory data are the certificate's common name and the
+      number of days until its expiration. This last value is limited by
+      the duration of the CA's certificate.
+    </para>
+    <para>
+      When the certificate has been issued, it will appear in the
+      certificate's list and it will be available to the remainder eBox
+      modules to use it.
+    </para>
+  </section>
+      
+  <section id="sect-certificate-actions">
+    <title>Actions upon certificates</title>
+    <para>
+      Through the certificate's list we can access to actions which can
+      be done upon each certificate.
+      The actions available are <link linkend="sect-certificate-actions-download">download files</link>, 
+      <link linkend="sect-certificate-actions-revoke">revoke</link> 
+      and <link linkend="sect-certificate-actions-renew">renew</link>.
+    </para>
+
+    <section id="sect-certificate-actions-download">
+      <title>Download files</title>
+      <para>
+	Clicking in the download icon we will get a compressed
+	archive which contains both the certificate and his public and
+	private keys.
+	In the case of certification authority's certificate, the
+	private key is not supplied in the archive.
+      </para>
+    </section>
+      
+    <section id="sect-certificate-actions-revoke">
+      <title>Revoke</title>
+      <para>
+	Through the revoke icon, we can revoke any certificate.
+	After clicking it, we find another form in which we can
+	specify the revocation reason or cancel the action.
+      </para>
+      <para>
+	Once a certificate is revoked, it will appear in the list but
+	marked as revoked. However, it could not be used by other eBox
+	modules or any external application.
+      </para>
+      <warning>
+	<para>
+	  In case the revoked certificate is the CA's certificate, 
+	  all certificates generated with the certificate will be 
+	  automatically revoked.
+	</para>
+      </warning>
+    </section>
+
+    <section id="sect-certificate-actions-renew">
+      <title>Renew</title>
+      <para>
+	You can renew certificates using the renew icon. You are
+	asked about the new certificate's duration.
+      </para>
+      <para>
+	When renewing a certificate, a revocation and an issue of the new
+	certificate with the same data is done.
+	The eBox modules will be automatically get the new certificate
+	but you will need to supply it manually to external applications.
+      </para>
+      <warning>
+	<para>
+	  If you renew the CA's certificate, all
+	  the certificates created with it will be also automatically renewed
+	  until at much the CA's certificate expiration date.
+	</para>
+      </warning>
+    </section>
+
+  </section>
+
+
 </chapter>

@@ -1,20 +1,21 @@
-#!/bin/bash
+#!/bin/sh
 
-SUDOERS=`cat /etc/sudoers`
+SUDOERS=/etc/sudoers
+umask 227
+cp ${SUDOERS} ${SUDOERS}.backup
+cp ${SUDOERS} ${SUDOERS}.tmp
 
-ebox=$(echo "$SUDOERS" | grep "#<ebox>")
-if [ $? -eq 0 ]
+sed -i -e '/\#<ebox>/,/\#<\/ebox>/ d' ${SUDOERS}.tmp
+cat >> ${SUDOERS}.tmp << EOT 
+#<ebox>
+# DO NOT MODIFY ANYTHING BETWEEN THESE MARKS.
+# EBOX WILL OVERWRITE IT. 
+EOT
+/usr/share/ebox/ebox-sudoers >> ${SUDOERS}.tmp
+echo '#</ebox>' >> ${SUDOERS}.tmp
+if visudo -f ${SUDOERS}.tmp -c > /dev/null 2>&1
 then
-	echo "$SUDOERS" | sed -n -e '0,/\#<ebox>/p' > /etc/sudoers
-	ebox-sudoers >> /etc/sudoers
-	echo "$SUDOERS" | sed -n -e '/\#<\/ebox>/,$p' >> /etc/sudoers
+	mv ${SUDOERS}.tmp ${SUDOERS} 
 else
-	echo "$SUDOERS" | sed -n -e '/^Cmnd_Alias/,$!p' > /etc/sudoers
-	echo "$SUDOERS" | sed -n -e '/^Cmnd_Alias/,/^Cmnd_Alias.*EBOXCMNDS/{/^Cmnd_Alias.*EBOXCMNDS/,$!p}' >> /etc/sudoers
-	echo "# DO NOT MODIFY ANYTHING BETWEEN THESE MARKS." >> /etc/sudoers
-	echo "# EBOX WILL OVERWRITE IT." >> /etc/sudoers
-	echo "#<ebox>" >> /etc/sudoers
-	ebox-sudoers >> /etc/sudoers
-	echo "#</ebox>" >> /etc/sudoers
-	echo "$SUDOERS" | sed -n -e '0,/^ebox/!p' >> /etc/sudoers
+	rm ${SUDOERS}.tmp ${SUDOERS}.backup 
 fi

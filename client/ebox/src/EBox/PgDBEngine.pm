@@ -82,7 +82,7 @@ sub _connect {
 
 	return if($self->{'dbh'});
 
-	my $dbh = DBI->connect("dbi:Pg:dbname=".$self->_dbname().";host=localhost",
+	my $dbh = DBI->connect("dbi:Pg:dbname=".$self->_dbname(),
 		$self->_dbuser(), $self->_dbpass(), { PrintError => 0});
 
 	unless ($dbh) {

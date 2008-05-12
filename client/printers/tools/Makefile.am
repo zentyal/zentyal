@@ -2,6 +2,8 @@
 
 SUBDIRS = sqllog 
 
+pkgdata_SCRIPTS =  ebox-printers-enable
+
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = runit/cups
+EXTRA_DIST = $(pkgdata_SCRIPTS) 

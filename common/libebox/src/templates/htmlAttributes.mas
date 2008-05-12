@@ -6,7 +6,11 @@ The quoting character used is ["] so don't use it in the value.
 my $attrString = '';
 while (my ($key, $value) = each %ARGS) {
    defined $value or die "Attribute $key has not value.\n If $key is a boolean attribute with true value use the form '$key=$key'";
-   $attrString .= qq{$key='$value' };
+   if ($key eq 'disabled' and $value) {
+	$attrString .= 'disabled ';
+   } else {
+   	$attrString .= qq{$key='$value' };
+   }
 }
 $m->print($attrString);
 return 

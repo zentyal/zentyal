@@ -1,4 +1,4 @@
-AC_INIT([EBox], [0.11.99])
+AC_INIT([EBox], [0.11.100])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Module.pm])
@@ -125,6 +125,7 @@ src/EBox/Events/Model/Makefile
 src/EBox/Events/Model/Dispatcher/Makefile
 src/EBox/Events/Model/t/Makefile
 src/EBox/Events/Model/Watcher/Makefile
+src/EBox/ServiceModule/Makefile
 src/EBox/Report/Makefile
 src/EBox/Report/t/Makefile
 src/EBox/Report/t/testdata/Makefile
@@ -150,6 +151,7 @@ src/EBox/Test/t/Makefile
 src/EBox/CGI/Makefile
 src/EBox/CGI/EBox/Makefile
 src/EBox/CGI/Controller/Makefile
+src/EBox/CGI/ServiceModule/Makefile
 src/EBox/CGI/View/Makefile
 src/EBox/CGI/Login/Makefile
 src/EBox/CGI/Logout/Makefile

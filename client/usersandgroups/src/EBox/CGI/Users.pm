@@ -27,31 +27,36 @@ use EBox::Gettext;
 
 
 sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Users'),
-				      'template' => '/usersandgroups/users.mas',
-				      @_);
-	$self->{domain} = 'ebox-usersandgroups';
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => __('Users'),
+            'template' => '/usersandgroups/users.mas',
+            @_);
+    $self->{domain} = 'ebox-usersandgroups';
+    bless($self, $class);
+    return $self;
 }
 
 
 sub _process($) {
-	my $self = shift;
-	my $usersandgroups = EBox::Global->modInstance('users');
+    my ($self) = @_;
+    my $usersandgroups = EBox::Global->modInstance('users');
 
-	my @args = ();
+    my @args = ();
 
-	my @groups = $usersandgroups->groups();
-	my @users = $usersandgroups->users();
+    if ($usersandgroups->configured()) {
 
-	push(@args, 'groups' => \@groups);
-	push(@args, 'users' => \@users);
+        my @groups = $usersandgroups->groups();
+        my @users = $usersandgroups->users();
 
+        push(@args, 'groups' => \@groups);
+        push(@args, 'users' => \@users);
 
-	$self->{params} = \@args;
+    } else {
+        $self->setTemplate('/notConfigured.mas'); 
+        push(@args, 'module' => __('Users'));
+    }
+
+    $self->{params} = \@args;   
 }
-
 
 1;

@@ -19,5 +19,14 @@
             <default>false</default>
             <locale name="C"/>
         </schema>
+        <schema>
+            <key>/schemas/ebox/modules/global/modules/printers/depends</key>
+            <applyto>/ebox/modules/global/modules/printers/depends</applyto>
+            <owner>ebox</owner>
+            <type>list</type>
+            <list_type>string</list_type>
+            <default>[samba]</default>
+            <locale name="C"/>
+        </schema>
 	</schemalist>
 </gconfschemafile>

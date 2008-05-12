@@ -1,3 +1,0 @@
-#!/bin/sh
-exec >/dev/null 2>&1
-exec /usr/sbin/jabberd2-resolver -D -c /etc/jabberd2/resolver.xml

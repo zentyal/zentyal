@@ -53,6 +53,7 @@ sub new
 sub addVDomain { #vdomain
 	my ($self, $vdomain, $dftmdsize) = @_;
 	
+
 	my $ldap = $self->{ldap};
 
 	checkDomainName($vdomain, 'Virtual domain name');
@@ -63,29 +64,24 @@ sub addVDomain { #vdomain
 														'value' => $vdomain);
 	}
 	
-	unless (isAPositiveNumber($dftmdsize)) {
-		throw EBox::Exceptions::InvalidData(
-			'data'	=> __('maildir size'),
-			'value'	=> $dftmdsize);
-	}
-	
-	if($dftmdsize > MAXMGSIZE) {
-		throw EBox::Exceptions::InvalidData(
-			'data'	=> __('maildir size'),
-			'value'	=> $dftmdsize);
-	}
+
 	
 	my $dn = "domainComponent=$vdomain, " . $self->vdomainDn;
 	my %attrs = ( 
 		attr => [
-			'domainComponent'	=> $vdomain,
-			'vddftMaildirSize'=> ($dftmdsize * $self->BYTES),
-			'objectclass'		=> 'domain',
-			'objectclass'		=> 'vdeboxmail'
+			'domainComponent' => $vdomain,
+			'objectclass'    => 'domain',
+			'objectclass'     => 'vdeboxmail'
 		]
 	);
 
 	my $r = $self->{'ldap'}->add($dn, \%attrs);
+
+	my $mail = EBox::Global->modInstance('mail');
+	if ($mail->mdQuotaAvailable) {
+	  $self->_addVDomainWiithMdQuota($dn, $dftmdsize);
+	}
+
 
 	$self->_initVDomain($vdomain);
 }
@@ -177,112 +173,6 @@ sub vdomains($)
 	return @vdomains;
 }
 
-# Method: vdandmaxsizes
-#
-#  This method returns all defined virtual domain with their maximal maildir
-#  sizes.
-#
-# Returns:
-#
-#     hash - with (vdomain name, dflt mfsize) pairs
-sub vdandmaxsizes()
-{
-	my $self = shift;
-
-	my %args = (
-		base => $self->vdomainDn,
-		filter => 'objectclass=*',
-		scope => 'one',
-		attrs => ['domainComponent', 'vddftMaildirSize']
-	);
-	
-	my $result = $self->{ldap}->search(\%args);
-
-	my %vdomains = map { $_->get_value('dc'), ($_->get_value('vddftMaildirSize') / $self->BYTES)}
-	$result->sorted('domainComponent');
-
-	return %vdomains;
-}
-
-# Method: getMDSize
-#
-#  This method returns the maildir size of a virtual domain.
-#
-# Parameters:
-#
-#     vdomain - The virtual domain name
-#
-# Returns:
-# 
-#		dftmdsize - Default maildir size for the vdomain
-sub getMDSize() {
-	my ($self, $vdomain) = @_;
-	
-	my %args = (
-		base => $self->vdomainDn,
-		filter => 'domainComponent='.$vdomain,
-		scope => 'one',
-		attrs => ['vddftMaildirSize']
-	);
-	
-	my $result = $self->{ldap}->search(\%args);
-	my $entry = $result->entry(0);
-
-	my $mdsize = $entry->get_value('vddftMaildirSize');
-
-	return ($mdsize / $self->BYTES);
-}
-
-# Method: setMDSize
-#
-#  This method changes the default maildir size of a virtual domain
-#
-# Parameters:
-#
-#     vdomain - The virtual domain name
-#		mdsize - Desired maildir size for the vdomain
-sub setMDSize() {
-	my ($self, $vdomain, $mdsize) = @_;
-   
-	unless (isAPositiveNumber($mdsize)) {
-		throw EBox::Exceptions::InvalidData(
-			'data'	=> __('maildir size'),
-			'value'	=> $mdsize);
-	}
-	
-	if($mdsize > MAXMGSIZE) {
-		throw EBox::Exceptions::InvalidData(
-			'data'	=> __('maildir size'),
-			'value'	=> $mdsize);
-	}
-
-	my $dn = "domainComponent=$vdomain," .  $self->vdomainDn;
-
-	$self->_updateVDomain($vdomain);
-
-	my $r = $self->{'ldap'}->modify($dn, {
-		replace => { 'vddftMaildirSize' => $mdsize * $self->BYTES }});
-}
-
-# Method: updateMDSizes
-#
-#  This method updates all maildir sizes of users accounts that belongs to the
-#  virtual domain.
-#
-# Parameters:
-#
-#     vdomain - The virtual domain name
-#		mdsize - Default maildir size for the vdomain
-sub updateMDSizes() {
-	my ($self, $vdomain, $mdsize) = @_;
-	my $mail = EBox::Global->modInstance('mail');
-	
-	my %accounts = %{$mail->{musers}->allAccountsFromVDomain($vdomain)};
-
-	foreach my $uids (keys %accounts) {
-		$mail->{musers}->setMDSize($uids, $mdsize);
-	}
-}
 
 # Method: _updateVDomain
 #
@@ -413,8 +303,9 @@ sub allVDomainsAddOns # (user)
 	my $global = EBox::Global->modInstance('global');
 	my @names = @{$global->modNames};
 
+	my @components = @{ $self->_vdomainAddOns($vdomain)  };
+
 	my @modsFunc = @{$self->_modsVDomainModule()};
-	my @components;
 	foreach my $mod (@modsFunc) {
 		my @comp = @{$mod->_vdomainAddOns($vdomain)};
 		if (@comp) {
@@ -424,5 +315,200 @@ sub allVDomainsAddOns # (user)
 
 	return \@components;
 }
+
+
+sub _vdomainAddOns
+{
+  my ($self, $vdomain) = @_;
+
+  my @addons;
+
+  my $mail =  EBox::Global->modInstance('mail');
+  if ($mail->mdQuotaAvailable) {
+    push @addons, $self->_mdQuotaAddOn($vdomain);
+  }
+
+  return \@addons;
+}
+
+
+# Mail dir quota methods...
+
+sub _mdQuotaAddOn
+{
+  my ($self, $vdomain) = @_;
+
+  my $mail =  EBox::Global->modInstance('mail');
+
+  my @params;
+  push @params, ('vdomain' => $vdomain);
+  push @params, ('mdsize' => $mail->{vdomains}->getMDSize($vdomain));
+
+  my $addon = {
+	       name => __('Size quota'),
+	       path => '/mail/editVDomainSizeQuota.mas',
+	       params => \@params,
+
+	      };
+
+
+  return $addon;
+}
+
+
+
+# Method: vdandmaxsizes
+#
+#  This method returns all defined virtual domain with their maximal maildir
+#  sizes.
+#
+# Returns:
+#
+#     hash - with (vdomain name, dflt mfsize) pairs
+sub vdandmaxsizes()
+{
+	my $self = shift;
+
+	my $mail = EBox::Global->modInstance('mail');
+	$mail->assureMdQuotaIsAvailable();
+
+	my %args = (
+		base => $self->vdomainDn,
+		filter => 'objectclass=*',
+		scope => 'one',
+		attrs => ['domainComponent', 'vddftMaildirSize']
+	);
+	
+	my $result = $self->{ldap}->search(\%args);
+
+	my %vdomains = map { $_->get_value('dc'), ($_->get_value('vddftMaildirSize') / $self->BYTES)}
+	$result->sorted('domainComponent');
+
+	return %vdomains;
+}
+
+# Method: getMDSize
+#
+#  This method returns the maildir size of a virtual domain.
+#
+# Parameters:
+#
+#     vdomain - The virtual domain name
+#
+# Returns:
+# 
+#		dftmdsize - Default maildir size for the vdomain
+sub getMDSize() {
+	my ($self, $vdomain) = @_;
+
+	my $mail = EBox::Global->modInstance('mail');
+	$mail->assureMdQuotaIsAvailable();
+	
+	my %args = (
+		base => $self->vdomainDn,
+		filter => 'domainComponent='.$vdomain,
+		scope => 'one',
+		attrs => ['vddftMaildirSize']
+	);
+	
+	my $result = $self->{ldap}->search(\%args);
+	my $entry = $result->entry(0);
+
+	my $mdsize = $entry->get_value('vddftMaildirSize');
+
+	return ($mdsize / $self->BYTES);
+}
+
+# Method: setMDSize
+#
+#  This method changes the default maildir size of a virtual domain
+#
+# Parameters:
+#
+#     vdomain - The virtual domain name
+#		mdsize - Desired maildir size for the vdomain
+sub setMDSize() {
+	my ($self, $vdomain, $mdsize) = @_;
+
+	my $mail = EBox::Global->modInstance('mail');
+	$mail->assureMdQuotaIsAvailable();
+   
+	unless (isAPositiveNumber($mdsize)) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('maildir size'),
+			'value'	=> $mdsize);
+	}
+	
+	if($mdsize > MAXMGSIZE) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('maildir size'),
+			'value'	=> $mdsize);
+	}
+
+	my $dn = "domainComponent=$vdomain," .  $self->vdomainDn;
+
+	$self->_updateVDomain($vdomain);
+
+	my $r = $self->{'ldap'}->modify($dn, {
+		replace => { 'vddftMaildirSize' => $mdsize * $self->BYTES }});
+}
+
+# Method: updateMDSizes
+#
+#  This method updates all maildir sizes of users accounts that belongs to the
+#  virtual domain.
+#
+# Parameters:
+#
+#     vdomain - The virtual domain name
+#		mdsize - Default maildir size for the vdomain
+sub updateMDSizes() {
+	my ($self, $vdomain, $mdsize) = @_;
+
+	my $mail = EBox::Global->modInstance('mail');
+	$mail->assureMdQuotaIsAvailable();
+	
+	my %accounts = %{$mail->{musers}->allAccountsFromVDomain($vdomain)};
+
+	foreach my $uids (keys %accounts) {
+		$mail->{musers}->setMDSize($uids, $mdsize);
+	}
+}
+
+
+
+sub _addVDomainWiithMdQuota
+{
+  my ($self, $dn, $dftmdsize) = @_;
+
+  unless (isAPositiveNumber($dftmdsize)) {
+    throw EBox::Exceptions::InvalidData(
+					'data'	=> __('maildir size'),
+					'value'	=> $dftmdsize);
+  }
+  
+  if($dftmdsize > MAXMGSIZE) {
+    throw EBox::Exceptions::InvalidData(
+					'data'	=> __('maildir size'),
+					'value'	=> $dftmdsize);
+  }
+
+  
+  my $ldap = $self->{ldap};
+
+  my %modificationParams = ( 
+			    changes => [
+					add => [
+						'vddftMaildirSize'=> ($dftmdsize * $self->BYTES),
+
+					       ]
+				       ],
+			   );
+
+  $ldap->modify($dn, \%modificationParams);
+
+  
+}
+
 
 1;

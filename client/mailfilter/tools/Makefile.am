@@ -1,6 +1,7 @@
 ## Process this file with automake to produce Makefile.in
-pkglib_SCRIPTS = ebox-mailfilter-ldap ebox-mailfilter-populate-filefilter
+pkgdata_SCRIPTS = ebox-mailfilter-ldap ebox-mailfilter-populate-filefilter \
+		 ebox-mailfilter-enable
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(pkglib_SCRIPTS) 
+EXTRA_DIST = $(pkgdata_SCRIPTS) 

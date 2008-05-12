@@ -1,193 +1,62 @@
 	<!-- vim: ts=2 sw=2 tw=75
 -->
-<chapter id="ch-proxy">
+<chapter id="ch-software">
 
-	<title>Proxy HTTP</title>
+	<title>Actualizaciones del sistema</title>
 
-	<section id='sect-proxy-general'>
-		<!-- Proxy->General -->
-		<title>Configuración general</title>
+	<section id='sect-software-config'>
+		<!-- Software->Configuration -->
+		<title>Configuración</title>
 
 		<para>
-		Mediante
-		<menuchoice>
-			<guimenu>Proxy HTTP</guimenu>
-			<guimenuitem>General</guimenuitem>
-		</menuchoice>
-		se accede a la configuración general del proxy-caché HTTP de
-		eBox. 
+		eBox es capaz de actualizar automáticamente el software que utiliza
+		su sistema. Esta opción se puede activar en 
+			<menuchoice>
+				<guimenu>Gestión de software</guimenu>
+				<guimenuitem>Configuración</guimenuitem>
+			</menuchoice>
 		</para>
 
 		<para>
-		En la ventana de configuración es posible habilitar
-		o deshabilitar el proxy utilizando el menú desplegable
-		superior. El resto de opciones se detallan a continuación:
-		<variablelist>
-			<varlistentry>
-				<term>Proxy transparente</term>
-				<listitem>
-					<para>
-					Si el proxy transparente está habilitado, todos
-					los usuarios de eBox utilizarán el proxy
-					obligatoriamente y sin darse cuenta. Si se
-					deshabilita, habría que configurar los navegadores
-					de cada uno de los usuarios para que se conectaran
-					a través del proxy.
-					</para>
-				</listitem>
-			</varlistentry>
-			<varlistentry>
-				<term>Puerto</term>
-				<listitem>
-					<para>
-					Asigna el número de puerto al que se conectarán 
-					los navegadores para acceder a internet a través
-					del proxy, cuando funciona de forma no transparente.
-					</para>
-				</listitem>
-			</varlistentry>
-			<varlistentry>
-				<term>Restricción de contenidos</term>
-				<listitem>
-					<para>
-					Permite establecer un nivel de restricción para
-					contenidos que tienen que ver con sexo y violencia
-					en aquellos elementos que se encuentren filtrados 
-					por el proxy.
-					</para>
-				</listitem>
-			</varlistentry>
-			<varlistentry>
-				<term>Política global</term>
-				<listitem>
-					<para>
-					Corresponde a la política que tendrán por defecto los 
-					usuarios que utilicen el proxy. Se puede elegir entre
-					permitir el acceso libre y sin restricciones,
-					filtrar el acceso con la restricción de contenidos
-					explicada en el apartado anterior o denegar el acceso
-					completamente. Posteriormente esta política puede
-					ser modificada para cada uno de los casos concretos de
-					usuarios y dominios para los cuales se desea un
-					comportamiento específico, tal y como se explica en
-					las siguientes secciones.
-					</para>
-				</listitem>
-			</varlistentry>
-		</variablelist>
+		Al automatizar las actualizaciones de software del sistema se
+		simplifica la tarea de mantener el sistema funcionando con
+		la ultima versión disponible y evitar posibles bugs o problemas
+		de seguridad tan pronto como aparezca una solución.
 		</para>
-		
+
 		<warning>
 		<para>
-		Si se estableciera una configuración que denegara el acceso al 
-		interfaz de administración desde las máquinas que utilicen
-		eBox, se tendría que conectar a dicho interfaz desde esas máquinas
-		directamente,	evitando la mediación del proxy.
+		Todas las funcionalidades del componente de gestión de
+		software de eBox requieren que el sistema operativo sea Debian
+		GNU/Linux.
 		</para>
 		</warning>
 	</section>
 
-	<section id='sect-proxy-content-lists'>
-		<!-- Proxy->Policy -->
-		<title>Listas de dominios prohibidos y permitidos</title>
+	<section id='sect-software-ebox'>
+		<!-- Software->eBox components -->
+		<title>Componentes eBox</title>
 
 		<para>
-		Dentro de
-		<menuchoice>
-			<guimenu>Proxy HTTP</guimenu>
-			<guimenuitem>Dominios permitidos</guimenuitem>
-		</menuchoice>
-		y
-		<menuchoice>
-			<guimenu>Proxy HTTP</guimenu>
-			<guimenuitem>Dominios denegados</guimenuitem>
-		</menuchoice>
-		se pueden especificar los dominios que se desean 
-		permitir o denegar para todos los usuarios de eBox. Para que estas listas
-                tengan efecto la política global del proxy debe estar establecida a "filtrar"
-		; la clasificación de los distintos dominios en estas listas
-		es prioritaria sobre cualquier otra configuración del proxy.
-		</para>
-
-		<para>
-		Para ello sólo es necesario agregar a la lista correspondiente 
-		los dominios a los que se desea permitir o denegar el acceso.
-		Simplemente hay que escribir el nombre completo del dominio del
-		que se desea modificar el comportamiento por defecto y hacer click
-		en el botón de acción añadir. El formato correcto para el nombre
-		del dominio es dominio.extensión, por ejemplo: "warp.es".
-		</para>
-
-		<para>
-		Si se desea eliminar un dominio de cualquiera de las listas basta 
-		con utilizar el botón de acción de <guibutton>borrar</guibutton> 
-		correspondiente al dominio que se desea suprimir de la lista.
-		</para>
-		
-	</section>
-
-	<section id='sect-proxy-content-policy'>
-		<!-- Proxy->Policy -->
-		<title>Establecimiento de políticas</title>
-
-		<para>
-		Por medio de
-		<menuchoice>
-			<guimenu>Proxy HTTP</guimenu>
-			<guimenuitem>Políticas</guimenuitem>
-		</menuchoice>
-		es posible establecer una política de conexión específica para un 
-		<link linkend='ch-objects'>objeto de red</link> concreto, permitiendo
-		así una configuración distinta para cada uno de los objetos	creados 
-		en eBox. Esta configuración se antepondrá a la política	global del 
-		proxy de eBox para los objetos seleccionados.
+		En
+			<menuchoice>
+				<guimenu>Gestión de software</guimenu>
+				<guimenuitem>Componentes eBox</guimenuitem>
+			</menuchoice>
+		se permite instalar, actualizar o eliminar los diferentes paquetes de eBox
+		que existen. Sólo se excluyen de la desinstalación algunos de los módulos 
+		por resultar imprescindibles para el correcto funcionamiento básico de eBox.
 		</para>
 	</section>
 
-	<section id='sect-proxy-extensions-filter'>
-		<!-- Proxy->ExtensionsFilter -->
-		<title>Filtro de extensiones</title>
+	<section id='sect-software-system'>
+		<!-- Software->System updates -->
+		<title>Actualizaciones del sistema operativo</title>
 
-		<para>Por medio de 
-		<menuchoice>
-			<guimenu>Proxy HTTP</guimenu>
-			<guimenuitem>Filtro de extensiones</guimenuitem>
-		</menuchoice>
-		se puede seleccionar que extensiones de archivo tendrán su descarga bloqueada
-                a través del proxy HTTP.
-               </para>
-                <para>
-	              Para bloquear extensiones se debe activar la caja de selección en la columna "denegar". Existe un elemento especial "Todas las extensiones" para denegar todas las extensiones a la vez.
-                </para>
-                <para>
-                 Si se echa en falta alguna extensión, se puede añadir usando el formulario "Añadir extensión".
-                </para>
-                <para>
-		 Se permite la descarga de cualquier extensión que no esta listada. En funciones versiones es posible que este comportamiento cambie.
-                </para>
-	</section>
-
-	<section id='sect-proxy-mime-type-filter'>
-		<!-- Proxy->MimeTypeFilter -->
-			<title>Filtro de tipos MIME</title>
-
-		<para>Por medio de 
-		<menuchoice>
-			<guimenu>Proxy HTTP</guimenu>
-			<guimenuitem>Filtro de tipos MIME</guimenuitem>
-		</menuchoice>
-		se puede seleccionar que tipos MIME tendrán su descarga bloqueada
-                a través del proxy HTTP.
-               </para>
-                <para>
-	              Para bloquear tipos MIME se debe activar la caja de selección en la columna "denegar". Existe un elemento especial "Todos los tipos MIME" para denegar todas las extensiones a la vez.
-                </para>
-                <para>
-                 Si se echa en falta algún tipo MIME, se puede añadir usando el formulario "Añadir tipo MIME".
-                </para>
-                <para>
-		 Se permite la descarga de cualquier tipo MIME que no este listado. En futuras versiones es posible que este comportamiento cambie.
-                </para>
+		<para>
+		De la misma forma que se gestionan los componentes de eBox se puede gestionar 
+		el resto del software del sistema sobre el que está instalado	eBox. 
+		</para>
 	</section>
 
 </chapter>

@@ -1,15 +1,17 @@
 Source: ebox-samba
 Section: web
 Priority: optional
-Maintainer: Isaac Clerencia <isaac@warp.es>
-Build-Depends: debhelper (>= 4.0.0)
-Standards-Version: 3.6.1
+Maintainer: Ubuntu MOTU Developers <ubuntu-motu@lists.ubuntu.com>
+XSBC-Original-Maintainer: Javier Uruen Val <javi@warp.es>
+Build-Depends: debhelper (>= 4.0.0), cdbs
+Standards-Version: 3.7.3
 
 Package: ebox-samba
 Architecture: all
-Depends: ebox (= 0.11.99), ebox-network, ebox-firewall,  ebox-usersandgroups, samba, libnss-ldap, libcrypt-smbhash-perl, quota, smbldap-tools, bzip2
-Conflicts: ebox (<< 0.11.99)
-Description: File sharing
+Depends: ebox (>= 0.11.99), ebox (<< 0.12), ebox-network, ebox-firewall,  ebox-usersandgroups, samba, libnss-ldap, libcrypt-smbhash-perl, quota, smbldap-tools, bzip2, ${misc:Depends}
+Conflicts: ebox (<< 0.9.99)
+Replaces: ebox (<< 0.9.99)
+Description: ebox - File sharing
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
  graphical interface to non expert users. It can be set up as a gateway,

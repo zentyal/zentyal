@@ -36,28 +36,6 @@ sub new
         return $self;
 }
 
-sub input
-{
-	my $self = shift;
-	my @rules = ();
-	
-	my $net = EBox::Global->modInstance('network');
-	my @ifaces = @{$net->InternalIfaces()};
-	foreach my $ifc (@ifaces) {
-		foreach my $port (SMBPORTS) {
-			my $r = "-m state --state NEW -i $ifc  ".
-				"-p tcp --dport $port -j ACCEPT";
-			push(@rules, $r);
-			$r = "-m state --state NEW -i $ifc  ".
-				"-p udp --dport $port -j ACCEPT";
-			push(@rules, $r);
-
-		}
-	}
-	
-	return \@rules;
-}
-
 sub output
 {
 	my $self = shift;
@@ -73,7 +51,12 @@ sub output
 			$r = "-m state --state NEW -o $ifc  ".
 				"-p udp --sport $port -j ACCEPT";
 			push(@rules, $r);
-
+			$r = "-m state --state NEW -o $ifc  ".
+				"-p tcp --dport $port -j ACCEPT";
+			push(@rules, $r);
+			$r = "-m state --state NEW -o $ifc  ".
+				"-p udp --dport $port -j ACCEPT";
+			push(@rules, $r);
 		}
 	}
 	

@@ -1,3 +1,4 @@
+
 # Copyright (C) 2005 Warp Networks S.L., DBS Servicios Informaticos S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -18,7 +19,7 @@ package EBox::Software;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule);
+use base qw(EBox::GConfModule EBox::ServiceModule::ServiceInterface);
 
 use EBox;
 use EBox::Config;
@@ -54,6 +55,34 @@ sub _create
 	bless($self, $class);
 	return $self;
 }
+
+# Method: enableActions 
+#
+# 	Override EBox::ServiceModule::ServiceInterface::enableActions
+#
+sub enableActions
+{
+    root(EBox::Config::share() . '/ebox-software/ebox-software-enable');
+}
+
+#  Method: serviceModuleName
+#
+#   Override EBox::ServiceModule::ServiceInterface::serviceModuleName
+#
+sub serviceModuleName
+{
+	return 'software';
+}
+
+#  Method: enableModDepends
+#
+#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+#
+sub enableModDepends 
+{
+    return ['network'];
+}
+
 
 # Method: listEBoxPkgs
 # 	
@@ -128,7 +157,7 @@ sub installPkgs # (@pkgs)
 	  return;
 	}
 
-	my $executable = EBox::Config::libexec . "../ebox-software/ebox-update-packages @pkgs";
+	my $executable = EBox::Config::share() . "/ebox-software/ebox-update-packages @pkgs";
 	my $progress = EBox::ProgressIndicator->create(
 						       totalTicks => scalar @pkgs,
 						       executable => $executable,
@@ -145,26 +174,36 @@ sub installPkgs # (@pkgs)
 #
 # 	array -  holding the package names
 #
+# Returns:
+#
+#       <EBox::ProgressIndicator> - an instance of the progress
+#       indicator to indicate how the removal is working
+#
 # Exceptions:
 #
 #       <EBox::Exceptions::External> - thrown if the module is locked
 #       by other process
-#
+
 sub removePkgs # (@pkgs)
 {
 	my ($self, @pkgs) = @_;
 
-        $self->_isModLocked();
+	$self->_isModLocked();
 
-	my $cmd ='/usr/bin/apt-get remove --purge --no-download -q --yes ';
-	$cmd .= join(" ", @pkgs);
-	try {
-		root($cmd);
-	} catch EBox::Exceptions::Internal with {
-		throw EBox::Exceptions::External(__('An error ocurred while '.
-			'removing components. If the error persists or eBox '.
-			'stops working properly, seek technical support.'));
-	};
+	if (not @pkgs) {
+	  EBox::info("No packages to remove");
+	  return;
+	}
+
+	my $executable = EBox::Config::share() . 
+	  "/ebox-software/ebox-remove-packages @pkgs";
+	my $progress = EBox::ProgressIndicator->create(
+						       totalTicks => scalar @pkgs,
+						       executable => $executable,
+						      );
+	$progress->runExecutable();
+	return $progress;
+
 }
 
 # Method: updatePkgList
@@ -296,15 +335,12 @@ sub listUpgradablePkgs
 #
 sub listPackageInstallDepends
 {
-	my ($self,$packages) = @_;
+	my ($self, $packages) = @_;
 
         $self->_isModLocked();
 
-	my $cmd = "apt-get -qq -s install " . join(" ", @{$packages}) . " | grep ^Inst | cut -d' ' -f 2 | grep ^ebox";
-	my $pkglist = root($cmd);
-	my @array = @{$pkglist};
-	@array = map { chomp($_); $_ } @array;
-	return \@array;
+	return $self->_packageDepends('install', $packages);
+
 }
 
 # Method: listPackageRemoveDepends
@@ -327,15 +363,53 @@ sub listPackageInstallDepends
 #
 sub listPackageRemoveDepends
 {
-	my ($self,$packages) = @_;
+	my ($self, $packages) = @_;
 
         $self->_isModLocked();
 
-	my $cmd = "apt-get -qq -s remove " . join(" ", @{$packages}) . " | grep ^Remv | cut -d' ' -f 2 | grep ^ebox";
-	my $pkglist = root($cmd);
-	my @array = @{$pkglist};
-	@array = map { chomp($_); $_ } @array;
-	return \@array;
+	return $self->_packageDepends('remove', $packages);
+}
+
+
+
+sub _packageDepends
+{
+    my ($self, $action, $packages) = @_;
+    if (($action ne 'install') and ($action ne 'remove')) {
+	throw EBox::Exceptions::Internal("Bad action: $action");
+    }
+    
+    my $aptCmd = "apt-get --quiet --quiet --simulate $action " . 
+	join ' ',  @{ $packages };
+
+    my $header;
+    if ($action eq 'install') {
+	$header = 'Inst';
+    }
+    elsif ($action eq 'remove') {
+	$header = 'Remv'
+    }
+
+
+    my $output = root($aptCmd);
+
+
+    my @packages = grep {
+	$_ =~ m/
+              ^$header\s      # requested operation
+             (?:lib)?ebox     # is a ebox package
+             /x
+    } @{ $output };
+
+   
+    @packages = map {
+	chomp $_;
+	my ($h, $p) = split '\s', $_;
+	$p;
+    } @packages;
+
+
+   return \@packages;
 }
 
 # Method: getAutomaticUpdates 

@@ -14,7 +14,7 @@
 %		foreach my $dom (@domains) {
 zone "<% $dom->{'name'} %>" {
 	type master;
-	file "/etc/bind/zones/db.<% $dom->{'name'} %>";
+	file "/etc/bind/db.<% $dom->{'name'} %>";
 };
 %		}
 %	}
@@ -23,7 +23,7 @@ zone "<% $dom->{'name'} %>" {
 %		foreach my $inaddr (@inaddrs) {
 zone "<% $inaddr %>.in-addr.arpa" {
 	type master;
-	file "/etc/bind/zones/db.<% $inaddr %>";
+	file "/etc/bind/db.<% $inaddr %>";
 };
 %		}
 %	}

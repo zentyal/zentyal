@@ -25,6 +25,11 @@ sub fake
 		 '_delete_dir_internal' => \&_mockedDeleteDirInternal ,
 		 '_backup' => sub {} ,
 		 'hash_from_dir' => \&_mockedHashFromDir,  
+		 '_all_entries'    => sub {
+		                         my ($self, $key) = @_;
+					 $key = $self->_key($key);
+					 return _allEntries($key);
+		                         },
 		);
 }
 

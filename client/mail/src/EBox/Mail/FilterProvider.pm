@@ -9,11 +9,13 @@ use warnings;
 #
 #  return thes filter name and specifications. The specifications are a
 #  reference to a hash with the following fields: 
+#    - active
 #    - prettyName 
 #    - address
 #    - port
 #    - forwardPort
 #    - instance 
+#    - module
 #
 #   if there is no filter available undef will be returned instead
 #

@@ -1,0 +1,104 @@
+<%args>
+    @modules
+    $hasChanged => 'notset'
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+function sendStatus()
+{
+    var pars = Form.serialize('statusForm');
+
+	var MyAjax = new Ajax.Updater( 'statusTable',
+		'/ebox/ServiceModule/StatusController',
+		{
+			method: 'post',
+			parameters: pars,
+			asyncrhonous: true,
+			evalScripts: true
+		});
+}
+
+function configureModule(module, title) 
+{
+    if ($(module).checked) {
+        $(module).checked = false;
+        Modalbox.show('/ebox/ServiceModule/ConfigureView?module=' + module, 
+                  {title: title, width: 600, height: 400});
+    }
+}
+
+% my $className;
+% unless (defined($hasChanged) and $hasChanged eq 'notset') {
+%   if ($hasChanged) {
+%       $className = 'changed';
+%   } else {
+%       $className = 'notChanged'
+%   }
+$('changes_menu').className = '<% $className %>';
+% }
+
+stripe('dataTable', '#ecf5da', '#ffffff');
+
+</script>
+
+<form id="statusForm">
+    <table class='dataTable'>
+<thead>
+    <tr>
+        <th class='tleft'><% __('Module') %></th>
+        <th class='tleft'><% __('Depends') %></th>
+        <th class='thOptions'><% __('Status') %></th>
+    </tr>
+</thead>
+% for my $mod (@modules) {
+%   my $name = $mod->{'name'};
+%   my $printableName = $mod->{'printableName'};
+%   my $depends = $mod->{'depends'};
+%   my $status = $mod->{'status'};
+%   my $configured = $mod->{'configured'};
+    <tr>
+        <td>
+            <% $printableName %>
+        </td>
+        <td style="color:#888">
+        <% join(', ', @{$mod->{'printableDepends'}}) %> 
+        </td>
+        <td class='tcenter'>
+%   if (not $depends) {
+           <& /input/checkbox.mas, 
+                'name' => $name, 
+                'id' => $name,  
+                'value' => undef,
+                'disabled' => 1
+            &>
+%   } elsif (not $configured) {
+%       my $title = __x("Configure module: {module}", module => $name );
+           <& /input/checkbox.mas, 
+                'name' => $name, 
+                'id' => $name,  
+                'value' => $status,
+                'onChange' => qq{configureModule("$name", "$title")}
+                
+            &>
+%   } else {
+           <& /input/checkbox.mas, 
+                'name' => $name, 
+                'id' => $name,  
+                'value' => $status,
+                'onChange' => 'sendStatus()'
+            &>
+%   }
+        </td>
+    </tr>
+% }
+    </table></form>

@@ -1,0 +1,13 @@
+pre-start script
+    invoke-rc.d clamav-freshclam stop || true
+    invoke-rc.d clamav-daemon stop    || true
+    DIR=/var/run/clamav
+    USER=clamav
+    if [ ! -d "$DIR" ]; then
+        mkdir -p-m 0755 "$DIR"
+        chown "$USER:$USER" "$DIR"
+    fi
+end script
+
+exec /usr/sbin/clamd -c /etc/clamav/ebox.clamd.conf
+respawn

@@ -18,6 +18,10 @@ use constant PERCENTAGE_TO_APPEAR => 0.1; # percentage of disk size must reach a
                                           # facilty to be worthwile of display
                                           # in the chart
 
+use constant PIE_RADIUS => 50;
+
+use constant MIN_GRAPH_HEIGHT => 400;
+use constant MIN_GRAPH_WIDTH  => 650;
 
 # Function: charts
 #
@@ -67,27 +71,35 @@ sub _chart
   my ($datasets) = @_;
 
   my $imageLocation = EBox::CGI::Temp::newImage();
-  
-
-  my $chart = new Chart::Pie(600, 400);
-
+ 
   my $labelFont  = GD::Font->Large;
-#  my $legendFont = GD::Font->Small;
-
+  my $legendFont = GD::Font->Small;
+  my $textSpace  = 2;
+ 
   my %colors = (
 		dataset0 => [18, 130, 76],
 	       );
 
-  $chart->set (
-	     transparent => 'true',
-             grey_background => 'false',
-	      
-	     precision       => 2,
+  my $chartParams = {
+		     transparent => 'true',
+		     grey_background => 'false',
+		     
+		     precision       => 2,
+		     
+		     legend          => 'bottom',
+		     colors => \%colors,
+		     label_font => $labelFont,
+		     legend_font => $legendFont,
+		     text_space  => $textSpace,
+		    };
 
-	     legend          => 'bottom',
-	     colors => \%colors,
-	     label_font => $labelFont,
-#	     legend_font => $legendFont,
+
+  my $chart = new Chart::Pie( _calcGraphSize($datasets, $chartParams)  );
+
+
+
+  $chart->set (
+	       %{ $chartParams  }
 	    );
 
   foreach my $ds_r (@{ $datasets }) {
@@ -99,6 +111,69 @@ sub _chart
 
 
   return $imageLocation->{url};
+}
+
+# the calcualtion is derivated of the one found in Graph::Pie::_draw_data
+# this assumes that we use percents to show the values in the pie chart
+#  and that the legend is at the bottom
+sub _calcGraphSize
+{
+  my ($datasets, $params) = @_;
+  my $graphWidth = 1;
+  my $graphHeight = 1;
+
+  $params->{'legend_space'} = 4; # extracted from Chart::Base::_init
+
+  my $max_label_len = 1;
+
+  my %labelsByUsage = @{ $datasets };
+
+  while (my($label, $value) = each %labelsByUsage) {
+    my $text =  sprintf("%s %4.2f%%", $label, $value );
+    my $length = length $text;
+    if ($length > $max_label_len) {
+      $max_label_len = $length;
+    }
+  }
+
+
+  my $fWidth = $params->{label_font}->width;
+  my $fHeight = $params->{label_font}->height;
+
+  $max_label_len *= $fWidth;
+  
+  my $labeldistance = 2*($fWidth > $fHeight ? $fWidth : $fHeight);
+  my $pieLabelsSize =    2*$max_label_len + $labeldistance;
+
+  # graph width
+  $graphWidth = $pieLabelsSize + PIE_RADIUS;
+  
+  $graphWidth += $params->{text_space} *2;
+
+  if ($graphWidth < MIN_GRAPH_WIDTH) {
+    $graphWidth = MIN_GRAPH_WIDTH;
+  }
+
+
+  # graph height
+  $graphHeight= $pieLabelsSize + PIE_RADIUS;
+  # calculate the height used by the legend and add it to the height
+
+
+
+  # we take a row for datapoint to simplify to don't have to follow all the
+  # calculations scattered in Chart code
+  my $rows = values %labelsByUsage;
+  my $legend_row_height = $params->{legend_font}->height + $params->{text_space};
+
+  $graphHeight += ($rows * $legend_row_height) + $params->{text_space}
+			      + (2 * $params->{'legend_space'});
+
+  if ($graphHeight < MIN_GRAPH_HEIGHT) {
+    $graphHeight = MIN_GRAPH_HEIGHT;
+  }
+
+  return ($graphWidth, $graphHeight);
 }
 
 

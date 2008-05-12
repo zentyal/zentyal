@@ -1,0 +1,36 @@
+<%doc>
+This specialization of formTable.mas exists only to make the <td> of the lables
+of fixed length. This needed in order to align the various forms in the
+createClient page. 
+
+If this need arises again we must look for a better way to do so
+</%doc>
+<%flags>
+inherit => '/formTable.mas'
+</%flags>
+<%args>
+@rows  => (),
+@additionalComponents => ()
+</%args>
+
+<%init>
+use EBox::Gettext;
+</%init>
+<& SELF:table,  rows => \@rows, additionalComponents => \@additionalComponents &>
+
+
+<%method labelTd>
+<%args>
+$printableName
+</%args>
+<%init>
+if ($printableName ne '') {
+    $printableName .= ':';
+}
+</%init>
+     <td  class='tright'  style='width:15em'> 
+       <span  class='ftitle'>
+         <% "$printableName" %>
+       </span>
+     </td>
+</%method>

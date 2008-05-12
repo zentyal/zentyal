@@ -1,65 +1,108 @@
-<chapter id="ch-dhcp">
+<chapter id="ch-mail">
 
-	<title>DHCP Server</title>
-	
-	<section id="dhcp-serv-sect">
-		<title>DHCP Server</title>
-	
-		<para>You can enter into DHCP Server configuration
-		going into
-			<menuchoice>
-				<guimenu>DHCP</guimenu>
-			</menuchoice>
-		.
-		</para>
+	<title>Mail server</title>
 
-		<para>You just will be able to configure DHCP server if there is any
-		network interface declared as Static. If there are different
-		interfaces set as static, you could choose which one will be
-		configured through the upper tabs, just below the status select
-		list.</para>
-      
-		<para>If you want to enable DHCP server, select from the selection
-		list (at the upper zone of the configuration page), status "Enabled"
-		and accept the form clicking at "Change".</para>
-			
-		<para>Working configuration about DHCP server can be adjusted with
-		these options:
+	<section id='sect-mail-config'>
+		<!-- Mail->General->Settings -->
+		<title>General Settings</title>
+
+		<para>To enter at the General settings on the eBox
+		mail server, go to
+		<menuchoice>
+			<guimenu>Mail</guimenu>
+			<guimenuitem>General</guimenuitem>
+		</menuchoice>
+		. At the configuration page, upper zone, some tabs
+		will be shown to configure different things on the
+		mail server:
 		<variablelist>
 			<varlistentry>
-				<term>Options</term>
+				<term>Services</term>
 				<listitem>
-					<para>These options are not required, and
-					leave them blank is OK. They are used to
-					define the default gateway, name domain search
-					and primary and secondary Name Servers 
-					in the network.</para>
+					<para>Choosing services tab, we may ask for authentication
+					to mail users or allow free access, and use
+					(or not) TLS to cipher communications between
+					server and client. Also, you can enable POP3
+					and IMAP requiring users to use SSL, just
+					allowing them the decision or deny SSL use.
+					</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
-				<term>Ranges</term>
+				<term>Configuration</term>
 				<listitem>
-					<para>Range lists can be created with some
-					values you could like to assign to network
-					hosts. This lists must not have matches
-					between them and every allocatable addresses
-					must belong to the available range shown above
-					the ranges list. If no list is created, every
-					range will be used to assign addresses to the
-					network.</para>
+					<para>The configuration shown below this tab,
+					allow to set a relay server, simply using its
+					IP address. It also allows to set a maximum
+					message limit, accepted by the server, and a
+					default size limit for the new mail
+					accounts. At the bottom, you can set the relay
+					policy for each network object, which have a
+					higher priority over the general configuration
+					option at Services tab.</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
-				<term>Static assignments</term>
+				<term>External filter</term>
 				<listitem>
-					<para>A fixed IP can be assigned (if belongs
-					to the available range) to a MAC address from
-					the network. You just need to create an
-					item at the static assignation list which has
-					the MAC address and the required IP address.</para>
+					<para>From this tab, you can enable an
+					external filter to control eBox mail
+					messages. To enable it, we need to set a port
+					on eBox system to establish communications,
+					and know IP address and port where the filter
+					is located.</para>
 				</listitem>
 			</varlistentry>
 		</variablelist>
 		</para>
-		</section>
+	</section>
+
+	<section id='sect-mail-vdomain'>
+		<!-- Mail->Virtual domains-->
+		<title>Domain management</title>
+
+		<para>
+		At
+		<menuchoice>
+			<guimenu>Mail</guimenu>
+			<guimenuitem>Virtual domains</guimenuitem>
+		</menuchoice>
+	        you can manage virtual domains, which give a name
+	        domain to the mail accounts of the different eBox
+	        users.</para>
+
+		<para>To create a new domain, you just need to choose a name for the
+		domain and a default size for the eBox users' mailboxes who belong to
+		the domain. Later, you can modify the default mailbox size and force
+		changes at existing mailboxes to any size, from the menu you can find
+		clicking at <guibutton>Edit</guibutton> for the desired domain. If you want to remove one
+		existing domain, just click at the <guibutton>Remove</guibutton> button for that domain.</para>
+	</section>
+
+	<section id='sect-mail-accounts'>
+		<title>Accounts and mail aliases</title>
+
+		<para>If mail module is installed and enabled in eBox,
+		and you wish to create one mail account to a user, it
+		must be done going into
+		<menuchoice>
+			<guimenu>Users</guimenu>
+		</menuchoice>
+		and editing our desired user, where you can also set
+		an alias for the user mail address. Check <link
+		linkend='sect-users-users'>User accounts</link> to
+		know more about the eBox user configuration.</para>
+
+		<para>To set an alias to user groups, you have to get
+		the group configuration page using 
+		<menuchoice>
+			<guimenu>Groups</guimenu>
+		</menuchoice>
+		. If mail module is enabled, an alias can be set for
+	        all group members. Check <link
+	        linkend='sect-users-groups'>User groups</link> to know
+	        how to get to group configuration.
+		</para>
+	</section>
+
 </chapter>

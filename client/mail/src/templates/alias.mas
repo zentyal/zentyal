@@ -24,6 +24,101 @@ use EBox::Gettext;
 			alt="<% __('Delete') %>">
 </form>
 
+% if ($params->{mdQuotaAvailable}) {
+  <& .modifyMdSize, params => $params &>
+% }
+<form action='/ebox/Mail/CreateAlias' method='POST'>
+    <input type="hidden" name="maildrop" value="<% $params->{'mail'} %>">
+    <input type="hidden" name="username" value="<% $params->{'username'} %>">
+
+		<h3><% __('Create mail aliases') %></h3>
+		<table cellspacing='0' class='dataTable'>
+			<thead>
+				<tr>
+					<th width='66%' class='tleft'>
+						<% __('Mail alias') %>
+					</th>
+					<th class='thOptions'>
+						<% __('Action') %>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>
+					<input type='text' class='inputText' name='lhs'>
+					 @ 
+					<select name="rhs" enabled>
+%					my @kvd = @{ $params->{'vdomains'} };
+%					foreach my $vd (@kvd) {
+						<option value= <% $vd %> > <% __($vd) %> </option>
+%					}
+					</select>
+				</td>
+				<td class='tcenter'>
+					<input class='inputButton' 
+							type='image' 
+							src='/data/images/add.gif'
+							name='change'
+							value="<% __('Create') %>"
+							title="<% __('Create') %>"
+							alt="<% __('Create') %>">
+				</td>
+			</tr>
+%	if(@{$params->{aliases}} != 0) {
+%			my @aux=();
+%			foreach my $alias (@{$params->{aliases}}) {
+				<tr class='border'>
+					<td><% $alias %></td>
+					<td class='tcenter'>
+						<a href='../Mail/DelAlias?alias=<% $alias %>&username=<% $params->{'username'} %>'>
+						<img src='/data/images/delete.gif' 
+							title="<% __('Delete') %>"
+							alt="<% __('Delete') %>"/></a>
+					</td>
+				</tr>
+%				}
+%	}
+			</tbody>
+		</table>
+</form>
+% settextdomain('ebox-usersandgroups');
+
+% if ($params->{mdQuotaAvailable}) {
+  <& .updateMDSizeJs, params => $params &>
+% }
+
+
+<%def .updateMDSizeJs>
+<%args>
+$params
+</%args>
+<script type="text/javascript">
+	function updateMDSize() {
+		var size = document.getElementById("mdsize")
+		var chk = document.getElementById("ummsize")
+		var val = <% $params->{'mdsize'} %>;
+
+		if(chk.checked) {
+			size.disabled = true;
+			size.value = '';
+		} else {
+			size.disabled = false;
+			
+			if(val == 0) {
+				val = 10;
+			}
+			size.value = val;
+		}
+	}
+</script>
+</%def>
+
+
+<%def .modifyMdSize>
+<%args>
+$params
+</%args>
 <form action='/ebox/Mail/ModifyAccountMDSize' method='POST'>
 <table class='formTable'>
 <input type="hidden" name="username" value="<% $params->{'username'} %>">
@@ -59,80 +154,4 @@ use EBox::Gettext;
 	</tr>
 </table>
 </form>
-
-<form action='/ebox/Mail/CreateAlias' method='POST'>
-    <input type="hidden" name="maildrop" value="<% $params->{'mail'} %>">
-    <input type="hidden" name="username" value="<% $params->{'username'} %>">
-
-		<h3><% __('Create mail aliases') %></h3>
-		<table cellspacing='0' class='dataTable'>
-			<thead>
-				<tr>
-					<th width='66%' class='tleft'>
-						<% __('Mail alias') %>
-					</th>
-					<th class='thOptions'>
-						<% __('Action') %>
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-			<tr>
-				<td>
-					<input type='text' class='inputText' name='lhs'>
-					 @ 
-					<select name="rhs" enabled>
-%					my @kvd = keys %{$params->{'vdomains'}};
-%					foreach my $vd (@kvd) {
-						<option value= <% $vd %> > <% __($vd) %> </option>
-%					}
-					</select>
-				</td>
-				<td class='tcenter'>
-					<input class='inputButton' 
-							type='image' 
-							src='/data/images/add.gif'
-							name='change'
-							value="<% __('Create') %>"
-							title="<% __('Create') %>"
-							alt="<% __('Create') %>">
-				</td>
-			</tr>
-%	if(@{$params->{aliases}} != 0) {
-%			my @aux=();
-%			foreach my $alias (@{$params->{aliases}}) {
-				<tr class='border'>
-					<td><% $alias %></td>
-					<td class='tcenter'>
-						<a href='../Mail/DelAlias?alias=<% $alias %>&username=<% $params->{'username'} %>'>
-						<img src='/data/images/delete.gif' 
-							title="<% __('Delete') %>"
-							alt="<% __('Delete') %>"/></a>
-					</td>
-				</tr>
-%				}
-%	}
-			</tbody>
-		</table>
-</form>
-% settextdomain('ebox-usersandgroups');
-
-<script type="text/javascript">
-	function updateMDSize() {
-		var size = document.getElementById("mdsize")
-		var chk = document.getElementById("ummsize")
-		var val = <% $params->{'mdsize'} %>;
-
-		if(chk.checked) {
-			size.disabled = true;
-			size.value = '';
-		} else {
-			size.disabled = false;
-			
-			if(val == 0) {
-				val = 10;
-			}
-			size.value = val;
-		}
-	}
-</script>
+</%def>

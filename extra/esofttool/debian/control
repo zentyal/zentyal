@@ -1,13 +1,15 @@
 Source: esofttool
 Section: utils
 Priority: optional
-Maintainer: Isaac Clerencia <isaac@debian.org>
-Build-Depends: cdbs, debhelper (>= 4.1.0), libapt-pkg-dev
-Standards-Version: 3.6.2
+Maintainer: Ubuntu MOTU Developers <ubuntu-motu@lists.ubuntu.com>
+XSBC-Original-Maintainer: Javier Uruen Val <javi@warp.es>
+Build-Depends: cdbs, debhelper (>= 4.0.0), libapt-pkg-dev
+Standards-Version: 3.7.3
 
 Package: esofttool
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: ebox software tool
  This tool is used by the ebox-software modules to gather info about
- ebox packages and upgradable packages.
+ ebox packages and upgradable packages. It is used as interface to
+ the apt library and the eBox perl module.

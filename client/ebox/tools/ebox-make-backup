@@ -10,9 +10,11 @@ use Error qw(:try);
 
 
 my %params = @ARGV;
+(exists $params{'--progress-id'}) or 
+  die 'not progress indicator id supplied';
 
-my $progressId = delete $params{'progress-id'};
-$progressId or die 'not progress indicator id supplied';
+my $progressId = delete $params{'--progress-id'};
+
 
 my $progress = EBox::ProgressIndicator->retrieve($progressId);
 
@@ -20,8 +22,16 @@ my $progress = EBox::ProgressIndicator->retrieve($progressId);
 # put  progress indicator param
 $params{progress} = $progress;
 
+try {
+  EBox::Backup->makeBackup(%params);
+}
+otherwise {
+  my $ex = shift @_;
 
-EBox::Backup->makeBackup(%params);
+ $progress->setAsFinished(1, $ex->text);
+
+  $ex->throw();
+};
 
 
 1;

@@ -1,12 +1,30 @@
+ebox-mail (0.11.99-0ubuntu1~ppa1) hardy; urgency=low
+
+  * New upstream release
+
+ -- Javier Uruen Val <javi@warp.es>  Wed, 27 Feb 2008 10:35:52 +0100
+
 ebox-mail (0.11.99) unstable; urgency=low
 
   * New upstream release
 
  -- Enrique José Hernández Blasco <quique@warp.es>  Tue,  8 Jan 2008 16:14:39 +0100
 
+ebox-mail (0.11-2) unstable; urgency=low
+
+  * Wrap service call with ebox-unblock-exec
+
+ -- Javier Uruen Val <javi@warp.es>  Sun, 20 Jan 2008 21:47:13 +0100
+
+ebox-mail (0.11-1) unstable; urgency=low
+
+  * Fix postinst and postrm to use pkgdata paths
+
+ -- Javier Uruen Val <javi@warp.es>  Wed, 16 Jan 2008 17:05:09 +0100
+
 ebox-mail (0.11) unstable; urgency=low
 
-  * New upstream release
+  * First ubuntu release 
 
  -- Javier Uruen Val <javi@warp.es>  Wed, 28 Nov 2007 15:23:33 +0100
 

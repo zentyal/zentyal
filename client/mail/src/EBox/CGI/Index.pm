@@ -72,10 +72,9 @@ sub _process($) {
 	my @deniedobjs = @{$mail->deniedObj};
 	my @allowedobjs = @{$mail->allowedObj};
 	
-	push (@array, 'active'		=> $self->_inService('active'));
 	push (@array, 'relay'		=> $mail->relay());
 	push (@array, 'maxmsgsize'		=> $mail->getMaxMsgSize());
-	push (@array, 'maxmdsize'		=> $mail->getMDDefaultSize());
+
 	push (@array, 'deniedobjs'	=> $self->_objectsToHash(\@deniedobjs));
 	push (@array, 'allowedobjs'=> $self->_objectsToHash(\@allowedobjs));
 	push (@array, 'menu'		=> $menu);
@@ -92,6 +91,12 @@ sub _process($) {
 	push (@array, 'availableFilters',         => $mail->externalFiltersFromModules);
 	push (@array, 'ipfilter'		=> $mail->ipfilter());
 	push (@array, 'portfilter'		=>  $mail->portfilter());
+
+	if ($mail->mdQuotaAvailable()) {
+	  push (@array, mdQuotaAvailable => 1);
+	  push (@array, 'maxmdsize'		=> $mail->getMDDefaultSize());
+
+	}
 
 	$self->{params} = \@array;
 }

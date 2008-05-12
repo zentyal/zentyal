@@ -27,66 +27,40 @@
 		the web interface.
 		</para>
 
-		<section id="create-object">
-			<title>Object creation</title>
+                <para>
+                  You may add as many objects you want. A name must be
+                  provided to the object. After that, you may enter
+                  into <emphasis><guilabel>members</guilabel></emphasis> field where you
+                  may define:
 
-			<para>New object creation is done at
-				<menuchoice><guimenu>Objects</guimenu></menuchoice>
-			.
-			</para>
+                  <itemizedlist>
+                    <listitem><para><guilabel>Name</guilabel>
+                    : name assigned to the member.
+                    </para></listitem>
+                    <listitem><para><guilabel>IP
+                    address</guilabel>
+                    : member IP address
+                    </para></listitem>
+                    <listitem><para><guilabel>Network
+                    mask</guilabel>
+                    : network mask, using CIDR notation
+                    </para></listitem>
+                    <!-- FIXME: poner equivalencias entre notación CIDR y dotted
+                         subnet -->
+                    <listitem><para><guilabel>MAC</guilabel> 
+                    (optional): hardware address -or MAC
+                    address- of the network interface
+                    corresponding to that IP address.
+                    </para></listitem>
+                  </itemizedlist>
+                </para>
+                <para>
+                  Editing an object or a member of it is done by
+                  clicking the pencil icon in <guilabel>Action</guilabel>
+                  field. Likewise the object/member removal is done by
+                  clicking on the trash can icon.
+                </para>
 
-			<para>So, you should enter the name's object
-			at the text input and click 
-				<guibutton>Create</guibutton>
-			.
-			</para>
-
-			<para>The next step is to enter every member
-			for the object shown in the screen. For each
-			member, you can define:
-			</para>
-
-			<itemizedlist>
-				<listitem><para><guilabel>Name</guilabel>
-				: name assigned to the member.
-				</para></listitem>
-				<listitem><para><guilabel>IP
-				address</guilabel>
-				: member IP address
-				</para></listitem>
-				<listitem><para><guilabel>Network
-				mask</guilabel>
-				: network mask, using CIDR notation
-				</para></listitem>
-				<!-- FIXME: poner equivalencias entre notación CIDR y dotted
-				subnet -->
-				<listitem><para><guilabel>MAC</guilabel> 
-				(optional): hardware address -or MAC
-				address- of the network interface
-				corresponding to that IP address.
-				</para></listitem>
-			</itemizedlist>
-
-			<para>Once you have entered those fields,
-			click at its <guilabel>Action</guilabel> add icon.
-			</para>
-		</section>
-
-		<section id="edit-object">
-			<title>Edit objects</title>
-
-			<para>To edit one object, just click at its
-			<guilabel>Action</guilabel> edit icon. Edition
-			process is identical as creation one.</para>
-		</section>
-
-		<section id="delete-object">
-			<title>Objects removal</title>
-
-			<para>To remove one object located at the
-			current object list, you have to click at its
-			<guilabel>Action</guilabel> removal icon.</para>
-		</section>
 	</section>
 	
 </chapter>

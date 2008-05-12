@@ -2,10 +2,7 @@
 
 webserver=apache
 
-onInstall() {
 
-    perl -e 'use EBox::WebServer::Maintenance; EBox::WebServer::Maintenance::onInstall();'
-}
 
 case "$1" in
 	configure)
@@ -27,7 +24,8 @@ case "$1" in
                 # Stop any previous daemon
                 invoke-rc.d apache2 stop
 
-		onInstall
+		# Migrate data if needed
+		/usr/share/ebox/ebox-migrate /usr/share/ebox-webserver/migration/
 
 		invoke-rc.d ebox webserver restart
 esac

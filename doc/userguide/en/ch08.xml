@@ -1,25 +1,157 @@
-<chapter id="ch-time">
+<chapter id="ch-proxy">
 
-	<title>NTP Server</title>
+	<title>HTTP Proxy</title>
 
-	<section id='sect-time-ntp'>
-		<!-- NTP->Server -->
-		<title>NTP Server</title>
+	<section id='sect-proxy-general'>
+		<!-- Proxy->General -->
+		<title>General configuration</title>
 
-		<para>NTP server can only be enabled or disabled at its configuration
-		page, you can access through
-			<menuchoice>
-				<guimenu>NTP Server</guimenu>
-			</menuchoice>
-		.
+		<para>
+	        Through
+		<menuchoice>
+			<guimenu>HTTP Proxy</guimenu>
+			<guimenuitem>General</guimenuitem>
+		</menuchoice>
+		you can access into the eBox's proxy HTTP general
+		configuration.</para>
+
+		<para>At the configuration window these options are detailed:
+		<variablelist>
+                  <varlistentry>
+                    <term>Transparent proxy</term>
+                    <listitem>
+                      <para>If transparent proxy is enabled, every
+                      eBox user will use the transparent proxy without
+                      noticing it. If it is disabled, you should
+                      configure each browser to work through the
+                      proxy.
+                      <warning><para>Transparent proxy feature is only
+                      working when eBox has at least an internal and
+                      an external interface</para></warning>
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Port</term>
+                    <listitem>
+                      <para>You can assign a proxy port. It will be used by the browsers, inside
+                      the network, to connect to Internet.
+                      </para>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Default policy</term>
+                    <listitem>
+                      <para>It is the default policy for the proxy
+                      users. Free (<emphasis>allow all</emphasis>) access, filter
+                      contents or always deny access can be selected. Later, this policy can be modified
+                      for each network object where you need an
+                      specific behaviour, as it is
+                      explained below</para>
+                    </listitem>
+                  </varlistentry>
+		</variablelist>
 		</para>
-
-		<para>If it's <emphasis>"Enabled"</emphasis>, clients with eBox as NTP Server will have its
-		date/time configuration synchronized with eBox one, whose
-		configuration can be configured following the instructions at <link
-		linkend='sect-ebox-datetime'>Date/time configuration</link>
-		.
+		
+		<warning>
+		<para>If you establish a configuration which denies access to
+		administration interface from the machines connected to eBox, you
+		should allow the host where you want to connect from, or you could
+		lose the connection with the web interface.
 		</para>
+		</warning>
 	</section>
 
+	<section id='sect-proxy-filter-settings'>
+		<!-- Proxy->Filter settings -->
+		<title>Filter settings</title>
+
+		<para>
+		At <menuchoice>
+                <guimenu>HTTP Proxy</guimenu>
+                <guimenuitem>Filter settings</guimenuitem>
+                </menuchoice>, you can select the filter settings to
+                those elements of this network which set their policy
+                to filter.
+                </para>
+                <warning>
+                  <para>The filter needs a 'filter' policy to be in effect</para>
+                </warning>
+                <para>
+                  You may set the content filter threshold which
+                  establishes a restriction level to web contents
+                  with explicit sex and violence items to be filtered
+                  by the proxy.
+                </para>
+                <para>
+                  To perform a more detailed filter policy. A tab
+                  menu is shown with the following elements:
+                  <variablelist>
+                    <varlistentry>
+                      <term><guilabel>File extensions filtering</guilabel></term>
+                      <listitem>
+                        <para>You may choose which file extensions are allowed to be
+                        downloaded through the HTTP proxy. To allow
+                        extensions you must edit the row and check the box in the
+                        <guilabel>Allow</guilabel> element. A special "All extensions" form
+                        exists to apply the same policy to all
+                        extensions at once. You may add as many
+                        extensions you require by adding new
+                        ones. Several ones are set by eBox.</para>
+                        <para>Any extension not listed here is, by default,
+                        allowed. In future releases, this behaviour may change.
+                        </para>
+                      </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                      <term><guilabel>MIME type filtering</guilabel></term>
+                      <listitem>
+                        <para>You may select which file MIME types are
+                        allowed to be downloaded through the HTTP
+                        proxy. The management is analogous to the
+                        extension filtering explained above.
+                        </para>
+                      </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                      <term><guilabel>Domains filtering</guilabel></term>
+                      <listitem>
+                        <para>You may customise which domains are
+                        allowed or denied to visit by editing the
+                        table <emphasis>Domains list</emphasis>. Write
+                        the full domain name, whose default behaviour
+                        you require to change. The domain name does
+                        not require the "www" string. For instance,
+                        you add as allowed domain
+                        "www.warp.es", we'd set "warp.es"
+                        domain.
+                        </para>
+                        <para>
+                          Furthermore, you may block those domain
+                          sites which are not in the domains list
+                          overriding default allowance policy. It also let
+                          block those sites which does not have a
+                          fully qualified name (FQDN) and, therefore, they use
+                        an IP address to access to their content</para>
+                      </listitem>
+                    </varlistentry>
+                  </variablelist>
+                </para>
+		
+	</section>
+
+	<section id='sect-proxy-content-policy'>
+          <!-- Proxy->Objects' Policy -->
+          <title>Policy establishment</title>
+          <para>Through 
+          <menuchoice>
+            <guimenu>HTTP Proxy</guimenu>
+            <guimenuitem>Objects' Policy</guimenuitem>
+          </menuchoice>
+          it is possible to establish one connection policy for every <link
+          linkend='ch-objects'>network object</link>, allowing a different
+          configuration for each newly created objects. This configuration will
+          be applied previously to the eBox global policy for the selected
+          objects.</para>
+        </section>
 </chapter>

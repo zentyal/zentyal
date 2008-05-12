@@ -23,6 +23,7 @@ use HTML::Mason::Exceptions;
 use CGI;
 use EBox::Gettext;
 use EBox;
+use EBox::Global;
 use EBox::Exceptions::Base;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
@@ -34,6 +35,8 @@ use Data::Dumper;
 use Perl6::Junction qw(all);
 use File::Temp qw(tempfile);
 use File::Basename;
+use Apache2::Connection;
+use Apache2::RequestUtil;
 
 ## arguments
 ##		title [optional]
@@ -56,6 +59,13 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
 	}
 	$self->{domain} = 'ebox';
 	$self->{paramsKept} = ();
+
+	# XXX workaround form utf8 hell
+	if (Encode::is_utf8($self->{title})) {
+	  Encode::_utf8_off($self->{title});
+	}
+
+
 	bless($self, $class);
 	return $self;
 }
@@ -72,18 +82,15 @@ sub _menu
 sub _title
 {
 	my $self = shift;
+
+	my $title = $self->{title}; 
+	defined $title or $title = '';
+
 	my $filename = EBox::Config::templates . '/title.mas';
 	my $interp = $self->_masonInterp();
 	my $comp = $interp->make_component(comp_file => $filename);
-	my @params = ();
-	
-	my $title = $self->{title}; 
-	if (defined($title) and (length($title) > 0)) {
-		$title = __($title);
-	} else {
-		$title = "";
-	}
-	push(@params, 'title' => $title);
+
+	my @params = ( 'title' => $title);
 
 	settextdomain('ebox');
 	$interp->exec($comp, @params);
@@ -297,7 +304,20 @@ sub run
 	} 
 
 	if ((defined($self->{redirect})) && (!defined($self->{error}))) {
-		print($self->cgi()->redirect("/ebox/" . $self->{redirect}));
+                my $request = Apache2::RequestUtil->request();
+                my $headersIn = $request->headers_in(); 
+                my $localAddr = $request->connection()->local_ip();
+                my $portStr = '';
+                # If the connection comes from a Proxy, redirects with the Proxy IP address
+                if ( exists $headersIn->{Via} and exists $headersIn->{'X-Forwarded-Host'}) {
+                    $localAddr = $headersIn->{'X-Forwarded-Host'};
+                } else {
+                    my $apachePort = EBox::Global->getInstance(1)->modInstance('apache')->port();
+                    if ( $apachePort != 443 ) {
+                        $portStr = ":$apachePort";
+                    }
+                }
+		print($self->cgi()->redirect("https://${localAddr}${portStr}/ebox/" . $self->{redirect}));
 		EBox::debug("redirect: " . $self->{redirect});
 		return;
 	} 

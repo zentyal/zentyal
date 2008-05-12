@@ -8,6 +8,8 @@ use base qw(EBox::GConfModule::Partition EBox::NetworkObserver);
 use File::Slurp;
 use Error qw(:try);
 
+use EBox::NetWrappers;
+
 sub new
 {
     my ($class, $name, $daemonPrefix, $openvpnModule) = @_;
@@ -104,6 +106,43 @@ sub ifaceType
   return 'tap';
 }
 
+
+#
+# Method: ifaceAddress
+#
+#   get the vpn's iface address
+#
+# Returns:
+#    - the address in CIDR notation or undef if the interface has not address
+sub ifaceAddress
+{
+  my ($self) = @_;
+  my $iface = $self->iface();
+
+  if (not EBox::NetWrappers::iface_exists($iface)) {
+    return undef;
+  }
+
+  if (not EBox::NetWrappers::iface_is_up($iface)) {
+    return undef;
+  }
+  
+  my %addresses = %{ EBox::NetWrappers::iface_addresses_with_netmask($iface) };
+  my $nAddresses = keys %addresses;
+  if ($nAddresses == 0) {
+    EBox::error("No address found for interface $iface");
+    return undef;
+  }
+  elsif ($nAddresses > 1) {
+    EBox::warn("More than one addres for interface $iface. Only one of them will be show");
+  }
+
+  my ($addr, $netmask) = each %addresses;
+  my $cidrAddr = EBox::NetWrappers::to_network_with_mask($addr, $netmask);
+
+  return $cidrAddr;
+}
+
 #
 # Method: user
 #
@@ -117,7 +156,7 @@ sub user
     return $self->_openvpnModule->user();
 }
 
-#
+
 # Method: group
 #
 #    Return the user will be used to run the  daemon
@@ -334,18 +373,69 @@ sub confFileParams
 #
 #   Abstract method. Must return the configuration file template
 #
+#
 # Returns:
 #   undef if no ripDaemon is needed by the openvpn's daemon
 #   if the ripDaemons is needed it must return a hash refrence with the
 #   following keys:
-#       iface        - the iface where the rip daemon needs to be active
+#       iface        - a hash ref returned from the method ifaceWithRipPasswd
 #       redistribute - wether the daemon wants to redistribute routes or not
 sub ripDaemon
 {
   throw EBox::Exceptions::NotImplemented();
 }
 
+#   Method: ifaceWithRipPasswd
 #
+#  return a reference to a hash with the interface information needed to
+#  configure the ripd daemon
+#
+#   Returns:
+#        hash reference with the following fields
+#              ifaceName - name of the network interface
+#              passwd    - rip password for this daemon
+sub ifaceWithRipPasswd
+{
+  my ($self) = @_;
+  my $iface = $self->iface;
+  my $passwd = $self->ripPasswd;
+
+  return {
+	  ifaceName => $iface,
+	  passwd    => $passwd,
+	 };
+}
+
+#  Method: ripPasswd
+#
+#     get the password used by this daemon to secure RIP transmissions
+#
+#     Returns:
+#        the password as string (empty string if the password wasn't set)
+sub ripPasswd
+{
+  my ($self) = @_;
+  my $passwd = $self->getConfString('ripPasswd');
+  defined $passwd or $passwd = '';   # since is optional it may be undefined
+  return $passwd;
+}
+
+#  Method: setRipPasswd
+#
+#     set the password used by this daemon to secure RIP transmissions
+#
+#     Parameters:
+#        passwd - a non-empty password
+sub setRipPasswd
+{
+  my ($self, $passwd) = @_;
+  $passwd or 
+    throw EBox::Exceptions::External(__('You must supply a non-empty password'));
+
+  $self->setConfString('ripPasswd', $passwd);
+}
+
+
 # Method: start
 #
 #  Start the daemon
@@ -427,16 +517,17 @@ sub _pidFile
 sub pid
 {
   my ($self) = @_;
+  my $pid;
+
   try {
-    my $pid = File::Slurp::read_file($self->_pidFile);
-    return $pid;
+    $pid = File::Slurp::read_file($self->_pidFile);
 
   }
   otherwise {
-  return undef;
-  } 
+    $pid = undef;
+  };
 
-
+  return $pid;
 }
 
 
@@ -450,7 +541,7 @@ sub running
 {
   my ($self) = @_;
   my $pid = $self->pid;
-  return defined $pid;
+  return (defined $pid);
 }
 
 

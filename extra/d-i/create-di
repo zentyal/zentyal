@@ -1,8 +1,0 @@
-#!/bin/bash
-source CONF.sh
-make distclean || exit
-make status || exit
-make bin-list TASK=tasks/base-sarge COMPLETE=0 || exit
-make bootable || exit
-make upgrade || exit
-make bin-images || exit

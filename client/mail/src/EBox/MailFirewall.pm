@@ -26,11 +26,37 @@ use EBox::Mail;
 use EBox::Gettext;
 use EBox::Validate qw( :all );
 
+
+my %portByService = (
+		     'active' => 25,
+		     'pop'    => 110,
+		     'imap'   => 143,
+		     # filter service port can change so we add it in the constructor
+		    );
+
+
+my %servicesWithSsl = (
+		       pop  =>  {
+				 port => 995,
+				 getter => 'sslPop',
+				},
+		       
+		       imap => { 
+				port => 993,
+				getter => 'sslImap',
+			       },
+		      );
+
 sub new 
 {
         my $class = shift;
         my %opts = @_;
         my $self = $class->SUPER::new(@_);
+
+	# retrieve port for filter service
+	my $mail = EBox::Global->modInstance('mail');
+	$portByService{filter} = $mail->fwport();
+
         bless($self, $class);
         return $self;
 }
@@ -41,32 +67,70 @@ sub input
 	my @rules = ();
 	
 	my $mail = EBox::Global->modInstance('mail');
-	my %srvpto = (
-		'active' => 25,
-		'pop'    => 110,
-		'imap'   => 143,
-		'filter'	=> $mail->fwport(),
-	);
 
 	my $net = EBox::Global->modInstance('network');
-	my @ifaces = @{$net->InternalIfaces()};
+	my @ifaces = @{ $net->InternalIfaces() };
 	foreach my $ifc (@ifaces) {
-		foreach my $srv (keys %srvpto) {
-			if ($mail->service($srv)) {
-				my $r = "";
-				if($srv eq 'filter') {
-					$r .= "-s ".$mail->ipfilter." ";
-				}
-				$r .= "-m state --state NEW -i $ifc  ".
-					"-p tcp --dport ".$srvpto{$srv}." -j ACCEPT";
-				push(@rules, $r);
-			}
-		}
+	  foreach my $service (keys %portByService) {
+	    $mail->service($service) or
+	      next;
+
+	    push @rules, $self->serviceRules($mail, $service, $ifc);
+	    push @rules, $self->sslServiceRules($mail, $service, $ifc);
+	  }
 	}
+
 	
 	return \@rules;
 }
 
+
+
+
+
+sub serviceRules
+{
+  my ($self, $mail, $service, $ifc) = @_;
+
+
+  my $r = "";
+  if($service eq 'filter') {
+    $r .= "-s ".$mail->ipfilter." ";
+  }
+
+  $r .= "-m state --state NEW -i $ifc  ".
+    "-p tcp --dport ".$portByService{$service}." -j ACCEPT";
+	  
+  return ($r);
+}
+
+
+sub sslServiceRules
+{
+  my ($self, $mail, $service, $ifc) = @_;
+
+  exists $servicesWithSsl{$service} or
+    return;
+
+  my $getter = $servicesWithSsl{$service}->{getter};
+  my $state = $mail->$getter();
+  if ($state eq 'no') {
+    # ssl service not allowed
+    return ();
+  }
+  
+  my $port = $servicesWithSsl{$service}->{port};
+
+  my $r = "";
+  if($service eq 'filter') {
+    $r .= "-s ".$mail->ipfilter." ";
+  }
+
+  $r .= "-m state --state NEW -i $ifc  ".
+    "-p tcp --dport ". $port ." -j ACCEPT";
+	  
+  return ($r);
+}
 
 sub externalInput
 {

@@ -13,10 +13,6 @@ remove_gconf_schemas(){
 	done
 }
 
-onRemove() {
-
-	perl -e 'use EBox::SOAP; EBox::SOAP::onRemove();'
-}
 
 #DEBHELPER#
 
@@ -25,8 +21,6 @@ case "$1" in
         remove_gconf_schemas
         ;;
     remove)
-        onRemove
-
         invoke-rc.d ebox soap stop || true
         rm -rf /var/lib/ebox/conf/soap
         remove_gconf_schemas

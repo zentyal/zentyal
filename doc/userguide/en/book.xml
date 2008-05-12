@@ -20,7 +20,9 @@
 <!ENTITY ch17     SYSTEM "ch17.xml">
 <!ENTITY ch18     SYSTEM "ch18.xml">
 <!ENTITY ch19     SYSTEM "ch19.xml">
+<!ENTITY ch20     SYSTEM "ch20.xml">
 ]>
+<!-- TODO: logs and events modules -->
 
 <book id='ebox' lang='en'>
   <title>eBox users guide</title>
@@ -57,7 +59,7 @@
     </copyright>
 
     <copyright>
-      <year>2006-2007</year>
+      <year>2006-2008</year>
       <holder>Warp Networks S.L.</holder>
     </copyright>
 
@@ -90,5 +92,6 @@
   &ch17;
   &ch18;
   &ch19;
+  &ch20;
 
 </book>

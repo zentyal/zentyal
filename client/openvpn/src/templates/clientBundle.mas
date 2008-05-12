@@ -1,6 +1,7 @@
 <%args>
 $name
 $disabled
+$EBoxToEBoxTunnel => 0
 @availableCertificates
 @addresses
 </%args>
@@ -16,27 +17,52 @@ my $certificateInput =  [
 			 help => __('This certificate will be used by the client to authenticate itself to the server'),
 			];
 
-my $osInput = [
-			 name => 'os', 
-			 printableName => __(q{Client's operative system}), 
+
+my @disabledAttr = (disabled => 'disabled');
+
+my @typeOptions = (
+ { 
+    value => 'windows', 
+    printableValue =>'Windows', 
+    $EBoxToEBoxTunnel ? @disabledAttr : (),
+ }, 
+ { 
+    value => 'linux',   
+    printableValue =>'Linux',
+    $EBoxToEBoxTunnel ? @disabledAttr : (),
+ } ,
+ { 
+    value => 'EBoxToEBox', 
+    printableValue => __('EBox to EBox tunnel') ,
+   $EBoxToEBoxTunnel ? () : @disabledAttr,
+  },
+
+);
+
+my $typeInputValue = $EBoxToEBoxTunnel ? 'EBoxToEBox' : 'windows';
+
+my $typeInput = [
+			 name => 'clientType', 
+			 printableName => __(q{Client's type}), 
 			 input => 'select', 
-			  options => [ 
-				      {value => 'windows', printableValue =>'Windows'}, 
-				      {value => 'linux',   printableValue =>'Linux'} 
-				     ] , 
+			 
+			 value   => $typeInputValue,
+			 options => \@typeOptions, 
 					
 			 help => __('This selection should match the operative
 			 system running on the client computer'),
 
-			 id => 'os',
-			 onChange => 'osChanged()',
+			 id => 'type',
+			 onChange => 'typeChanged()',
 			];
 
 my $installerInput = [
 			name => 'installer',
 			printableName => __(q(Add OpenVPN's installer to bundle)),
                         input   => 'checkbox',
-                        value   => 1,
+                        $EBoxToEBoxTunnel ?
+                                         ( value => 0, disabled => 'disabled') :
+                                         ( value => 1),
                         id      => 'installer',
 		       ];
 
@@ -46,7 +72,7 @@ my @formElements = (
                      [ 
 		        name => 'name', value => $name, input =>'hidden',
 		     ],
-                     $osInput,
+                     $typeInput,
 		     $certificateInput,
                      $installerInput,
                     ); 
@@ -57,6 +83,11 @@ my @addressesInputs = ();
 
 my $nInputs = @addresses;
 $nInputs = 2 if $nInputs < 2;
+
+# XXX remove this when create client dialog supports more than one address
+if ($EBoxToEBoxTunnel) {
+  $nInputs = 0;
+}
 
 foreach my $i (0 .. $nInputs) {
   my $name = "ip$i";
@@ -104,7 +135,7 @@ push @formElements, [
 <h3><% __x('Client files for server {name}', name => $name) %></h3>
 <div class='note'>
 <% __('You can download an archive with all the required files to set up a
-OpenVPN client. Remember to place the contained files in the client machine configuration directory') %>
+OpenVPN client. Remember to place the contained files in the client configuration directory') %>
 <p>
 % if (@addresses) {
 <%  __(q{eBox  has guessed for you the values of the addresses' fields. If those values are incorrect or you want another ones, change them}) %>
@@ -123,14 +154,14 @@ OpenVPN client. Remember to place the contained files in the client machine conf
 <%def .jsSection>
 <script type="text/javascript">
 
-function osChanged() {
-    var selectOs   = document.getElementById('os');
-    var index      = selectOs.selectedIndex;
-    var osValue    = selectOs.options[index].value;
+function typeChanged() {
+    var selectType   = document.getElementById('type');
+    var index      = selectType.selectedIndex;
+    var typeValue    = selectType.options[index].value;
 
     var installer = document.getElementById('installer');
 
-    if (osValue ==  'windows') {
+    if (typeValue ==  'windows') {
           installer.disabled = false
     }
     else {
@@ -138,6 +169,6 @@ function osChanged() {
     }
 }
 
-osChanged();
+typeChanged();
 </script>
 </%def>

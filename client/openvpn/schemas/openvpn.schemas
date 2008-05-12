@@ -38,7 +38,7 @@
 			<applyto>/ebox/modules/openvpn/dh</applyto>
 			<owner>ebox</owner>
 			<type>string</type>
-			<default>/etc/openvpn/dh1024.pem</default>
+			<default>/etc/openvpn/ebox-dh1024.pem</default>
 			<locale name="C">
 				<short>Diffie hellman parametes file</short>
 			</locale>

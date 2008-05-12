@@ -68,7 +68,6 @@ sub _description
       my $description =
         {
          components      => [
-                             'SquidService',
                              '/squid/GeneralSettings',
                             ],
          layout          => 'top-bottom',

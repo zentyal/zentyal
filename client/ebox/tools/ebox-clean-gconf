@@ -7,20 +7,14 @@ use EBox::Config;
 my ($module) = @ARGV;
 $module or die "You must supply the name of an eBox's module";
 
-system 'pkill gconf';
-sleep 1; # to let time to die
-
-
 EBox::init();
 
 #my $user = EBox::Config::user();
 
-
-my $gconftool =  '/usr/bin/gconftool';
+my $gconftool =  '/usr/bin/gconftool-2';
 ( -e $gconftool) or die "$gconftool does not exist";
 ( -f $gconftool) or die "$gconftool must be a regular file";
 ( -x $gconftool) or die "$gconftool must have execution permission";
-
 
 my $globalConf = "/ebox/modules/global/modules/$module";
 my $moduleConf = "/ebox/modules/$module";
@@ -28,12 +22,12 @@ foreach my $conf ($globalConf, $moduleConf) {
   system "$gconftool --recursive-unset $conf";
 }
 
-sleep 1;
+#sleep 1;
 
-foreach my $conf ($globalConf, $moduleConf) {
-  system "$gconftool --dir-exists $conf";
-  my $returnValue = ($? >> 8);
-  ($returnValue == 2) or die "Cannot remove gconf directory $conf";
-}
+#foreach my $conf ($globalConf, $moduleConf) {
+#  system "$gconftool --dir-exists $conf";
+#  my $returnValue = ($? >> 8);
+#  ($returnValue == 2) or die "Cannot remove gconf directory $conf";
+#}
 
 1;

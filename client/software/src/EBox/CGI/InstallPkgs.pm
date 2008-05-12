@@ -37,77 +37,104 @@ sub new {
 
 sub _process($) {
 	my $self = shift;
-	my $software = EBox::Global->modInstance('software');
+
 	my $action;
 	my $doit = 'no';
 
 	if (defined($self->param('go'))) {
 		$doit = 'yes';
 	}
+
 	if (defined($self->param('cancel'))) {
 		$self->{chain} = "Software/EBox";
-		delete $self->{'template'};
 		return;
 	}
+
 	if (defined($self->param('upgrade'))) {
-		$self->{chain} = "Software/EBox";
-		delete $self->{'template'};
 		$action = 'install';
 		$doit = 'yes';
 	} elsif (defined($self->param('ebox-install'))) {
-		if($doit eq 'yes') {
-			$self->{chain} = "Software/EBox";
-		}
 		$action = 'install';	
 	} elsif (defined($self->param('ebox-remove'))) {
-		if($doit eq 'yes') {
-			$self->{chain} = "Software/EBox";
-		}
 		$action = 'remove';
 	} else {
-		$self->{redirect} = "Summary/Index";
-		return;
+	    throw EBox::Exceptions::Internal("Missing action parameter");
 	}
 
 	# Take the packages
-	my @pkgs;
-	if (not $self->param('allbox') ) {
-	  @pkgs = grep(s/^pkg-//, @{$self->params()});
-	  (@pkgs == 0) and throw EBox::Exceptions::External(__('There were no packages to update'));
-	} else {
-	  # Take the name from upgradable package list
-	  foreach my $pkg (@{$software->listUpgradablePkgs()}) {
-	    push (@pkgs, $pkg->{name} );
-	  }
-	}
+	my $packages_r = $self->_packages( $self->param('allbox') );
 
 	if ($doit eq 'yes') {
-		delete $self->{'template'};
-		if ($action eq 'install') {
-			my $progress = $software->installPkgs(@pkgs);
-			$self->showInstallProgress($progress);
-
-		} else {
-			$software->removePkgs(@pkgs);
-			$self->{msg} = 
-				__('The packages were removed successfully');
-		}
-		return;
+	    $self->_goAhead($action, $packages_r);
 	}
-	my @array;
-	push(@array, 'action' => $action);
-	push(@array, 'packages' => \@pkgs);
-	my $actpackages;
-	if($action eq 'install') {
-		$actpackages = $software->listPackageInstallDepends(\@pkgs);
-	} else {
-		$actpackages = $software->listPackageRemoveDepends(\@pkgs);
+	else {
+	    $self->showConfirmationPage($action, $packages_r);
 	}
-	push(@array, 'actpackages' => $actpackages);
-	$self->{params} = \@array;
 }
 
 
+sub _packages
+{
+    my ($self, $allPackages) = @_;
+    defined $allPackages or $allPackages = 0;
+
+    my @pkgs;
+    if (not  $allPackages) {
+	@pkgs = grep(s/^pkg-//, @{$self->params()});
+	(@pkgs == 0) and throw EBox::Exceptions::External(__('There were no packages to update'));
+	} else {
+	    # Take the name from upgradable package list
+	    my $software = EBox::Global->modInstance('software');
+	    foreach my $pkg (@{$software->listUpgradablePkgs()}) {
+		push (@pkgs, $pkg->{name} );
+	    }
+	}
+
+    return \@pkgs;
+}
+
+sub _goAhead
+{
+    my ($self, $action, $packages_r) = @_;
+    my $software = EBox::Global->modInstance('software');
+
+    $self->{chain} = "Software/EBox";
+
+    if ($action eq 'install') {
+	my $progress = $software->installPkgs(@{ $packages_r });
+	$self->showInstallProgress($progress);
+	
+    } elsif ($action eq 'remove') {
+	my $progress = $software->removePkgs(@{  $packages_r  });
+	$self->showRemoveProgress($progress);
+    } else {
+	throw EBox::Exceptions::Internal("Bad action: $action");
+    }
+}
+
+
+sub showConfirmationPage
+{
+    my ($self, $action, $packages_r) = @_;
+    my $software = EBox::Global->modInstance('software');
+
+    my $actpackages;
+    if($action eq 'install') {
+	$actpackages = $software->listPackageInstallDepends($packages_r);
+    } elsif ($action eq 'remove') {
+	$actpackages = $software->listPackageRemoveDepends($packages_r);
+    }  else {
+	throw EBox::Exceptions::Internal("Bad action: $action");
+    }
+    
+    $self->{'template'} = 'software/del.mas',
+
+    my @array;
+    push(@array, 'action' => $action);
+    push(@array, 'packages' => $packages_r);
+    push(@array, 'actpackages' => $actpackages);
+    $self->{params} = \@array;
+}
 
 sub showInstallProgress
 {
@@ -129,5 +156,24 @@ sub showInstallProgress
 		     );
 }
 
+sub showRemoveProgress
+{
+  my ($self, $progressIndicator) = @_;
+  $self->showProgress(
+		      progressIndicator => $progressIndicator,
+
+		      title    => __('Removing package'),
+		      text     => __('Removing the selected package and its dependent packages'),
+		      currentItemCaption  =>  __("Current package"),
+		      itemsLeftMessage  => __('packages left to remove'),
+		      endNote  =>  __('The packages removal has finished successfully. '
+                                      . 'The administration interface may become unresponsive '
+                                      . 'for a few seconds. Please wait patiently until '
+                                      . 'the system has been fully restarted'),
+                      errorNote => __('The packages removal has not finished correctly '
+                                      . '. More information on the logs'),
+		      reloadInterval  => 2,
+		     );
+}
 
 1;

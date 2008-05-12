@@ -1,0 +1,22 @@
+#!/usr/bin/perl
+
+use EBox;
+use EBox::Global;
+
+EBox::init();
+
+my $module = $ARGV[0];
+
+unless (defined($module)) {
+	print "Usage: $0 module\n";	
+	exit 1;
+}
+
+my $global = EBox::Global->getInstance();
+
+unless ($global->modExists($module)) {
+	print "Module $module doesn't exists\n";
+}
+
+my $mod = $global->modInstance($module);
+$mod->st_set_bool('_serviceConfigured', undef);

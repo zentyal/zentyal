@@ -1,0 +1,63 @@
+#!/bin/bash
+#
+# Backup LDAP directories
+#
+# This script can be put in cron to create backups.
+#
+# Author:  Matthijs Mohlmann <matthijs@cacholong.nl>
+# Date:    Sat, 15 Jul 2006 21:13:14 +0200
+# License: GPLv2
+
+# Make sure the backups are secured.
+umask 077
+
+BACKUPDIR="/var/backups/slapd"
+DEFAULTS="/etc/default/slapd"
+
+# Check if there is a directory slapd, otherwise create it.
+if [ ! -d "$BACKUPDIR" ]; then
+  mkdir -p -m 0700 "$BACKUPDIR"
+fi
+
+# Load default settings.
+if [ -e "$DEFAULTS" ]; then
+  . "$DEFAULTS"
+fi
+
+# Specify a slapd.conf if not specified.
+if [ -z "$SLAPD_CONF" ]; then
+  SLAPD_CONF="/etc/ldap/slapd.conf"
+fi
+
+# Set IFS to end of line.
+ORIGIFS=$IFS
+IFS=`echo -en "\n\b"`
+
+# Backup recursive through all configfiles all suffix's in the form:
+# suffix.ldif in /var/backups/slapd
+function backupDirectories() {
+  local conf=$1
+  local directory=""
+  local include=""
+
+  suffix=`grep "^suffix" $conf | sed -e "s/\(^suffix\s\+\|\"\|\'\)//g"`
+  for directory in "$suffix"; do
+    if [ ! -z "$suffix" ]; then
+      date=$(date +%C%y%m%d-%H%M%S)
+      slapcat > "$BACKUPDIR/$suffix-$date.ldif" -b "$suffix"
+    fi
+  done
+
+  includes=`grep "^include" $conf | awk '{print $2}'`
+  for include in $includes; do
+    backupDirectories "$include"
+  done
+}
+
+backupDirectories "$SLAPD_CONF"
+
+# Put IFS back.
+IFS=$ORIGIFS
+
+exit 0
+

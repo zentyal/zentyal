@@ -18,13 +18,19 @@ package EBox::LogAdmin;
 use strict;
 use warnings;
 
+use Error qw(:try);
+
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Config;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::External;
 use EBox::DBEngineFactory;
-use Apache;
+
+use Apache2::RequestUtil;
+use Apache2::Connection;
+
+
 
 BEGIN {
 	use Exporter ();
@@ -47,16 +53,38 @@ BEGIN {
 sub _logAdmin
 {
 	my ($module, $action, $params, $committed) = @_;
-	
-	my $req = Apache->request();
-	my $client = $req->get_remote_host();
+
+	my $source = _actionSource();
 
 	my $dbengine = EBox::DBEngineFactory::DBEngine();
 
 	my $time = localtime();
-	my $data = { 'timestamp' => $time, 'source' => $client,
+	my $data = { 'timestamp' => $time, 'source' => $source,
 		'module' => $module, 'action' => $action, 'params' => $params, 'committed' => $committed };
 	$dbengine->insert('admin', $data);
+}
+
+
+sub _actionSource
+{
+  my $req;
+  try {
+    $req = Apache2::RequestUtil->request();
+  }
+  otherwise {
+    # if  Apache2::RequestUtil->request() fails we aren't running inside apache
+    # so we will assume that we are calling ebox API from a script or similiar
+    $req = undef;
+  };
+
+
+  if (defined $req) {
+    return $req->connection->remote_host();
+  }
+  else {
+    return 'local';
+  }
+
 }
 
 # Method: logAdminDeferred

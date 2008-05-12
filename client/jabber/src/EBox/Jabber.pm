@@ -18,7 +18,11 @@ package EBox::Jabber;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::LdapModule EBox::FirewallObserver);
+use base qw(EBox::GConfModule 
+			EBox::LdapModule 
+			EBox::FirewallObserver
+			EBox::ServiceModule::ServiceInterface
+			);
 
 use EBox::Exceptions::DataExists;
 use EBox::Gettext;
@@ -44,6 +48,7 @@ sub _create
 	my $class = shift;
 	my $self = $class->SUPER::_create(name => 'jabber',
 					  domain => 'ebox-jabber',
+					  printableName => 'jabber',
 					  @_);
 	bless($self, $class);
 	return $self;
@@ -54,22 +59,92 @@ sub domain
 	return "ebox-jabber";
 }
 
+
+# Method: actions
+#
+# 	Override EBox::ServiceModule::ServiceInterface::actions
+#
+sub actions
+{
+	return [ 
+	{
+		'action' => __('Copy jabber ldap schema to /etc/ldap/schemas'),
+		'reason' => __('eBox will need this schema to store jabber users'),
+		'module' => 'jabber'
+	},
+
+    ];
+}
+
+# Method: usedFiles
+#
+#	Override EBox::ServiceModule::ServiceInterface::usedFiles
+#
+sub usedFiles
+{
+	return [
+		{
+		 'file' => JABBERC2SCONFFILE,
+		 'module' => 'jabber',
+ 	 	 'reason' => __('To properly configure jabberd2')
+		},
+		{
+		 'file' => JABBERSMCONFFILE,
+		 'module' => 'jabber',
+ 	 	 'reason' => __('To properly configure jabberd2')
+		},
+		{
+		 'file' => '/etc/ldap/slapd.conf',
+		 'reason' => __('To add the LDAP schemas used by eBox jabber'),
+		 'module' => 'users'
+		} 
+       ];
+}
+# Method: enableActions 
+#
+# 	Override EBox::ServiceModule::ServiceInterface::enableActions
+#
+sub enableActions
+{
+    root(EBox::Config::share() . '/ebox-jabber/ebox-enable-jabber');
+}
+
+
+# Method: serviceModuleName 
+#
+#	Override EBox::ServiceModule::ServiceInterface::serviceModuleName
+#
+sub serviceModuleName
+{
+	return 'jabber';
+}
+
+#  Method: enableModDepends
+#
+#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+#
+sub enableModDepends 
+{
+    return ['users'];
+}
+
+
 sub _daemons # (action)
 {
 	my ($self, $action) = @_;
 	
 	if ($action eq 'start') {
-	      EBox::Service::manage('jabber-router', $action);
-	      EBox::Service::manage('jabber-resolver', $action) if ($self->externalConnection);
-	      EBox::Service::manage('jabber-sm', $action);
-	      EBox::Service::manage('jabber-c2s', $action);
-	      EBox::Service::manage('jabber-s2s', $action) if ($self->externalConnection);
+	      EBox::Service::manage('ebox.jabber.jabber-router', $action);
+	      EBox::Service::manage('ebox.jabber.jabber-resolver', $action) if ($self->externalConnection);
+	      EBox::Service::manage('ebox.jabber.jabber-sm', $action);
+	      EBox::Service::manage('ebox.jabber.jabber-c2s', $action);
+	      EBox::Service::manage('ebox.jabber.jabber-s2s', $action) if ($self->externalConnection);
 	} elsif ($action eq 'stop'){
-	      EBox::Service::manage('jabber-s2s', $action);
-	      EBox::Service::manage('jabber-c2s', $action);
-	      EBox::Service::manage('jabber-sm', $action);
-  	      EBox::Service::manage('jabber-resolver', $action);
-	      EBox::Service::manage('jabber-router', $action);
+	      EBox::Service::manage('ebox.jabber.jabber-s2s', $action);
+	      EBox::Service::manage('ebox.jabber.jabber-c2s', $action);
+	      EBox::Service::manage('ebox.jabber.jabber-sm', $action);
+  	      EBox::Service::manage('ebox.jabber.jabber-resolver', $action);
+	      EBox::Service::manage('ebox.jabber.jabber-router', $action);
 	} else {
   	      $self->_daemons('stop');
 	      $self->_daemons('start');
@@ -81,9 +156,9 @@ sub _doDaemon
 {
 	my $self = shift;
 
-	if ($self->service and EBox::Service::running('jabber-c2s')) {
+	if ($self->isEnabled and EBox::Service::running('ebox.jabber.jabber-c2s')) {
 		$self->_daemons('restart');
-	} elsif ($self->service) {
+	} elsif ($self->isEnabled) {
 		$self->_daemons('start');
 	} else {
 		$self->_daemons('stop');
@@ -108,7 +183,7 @@ sub usesPort # (protocol, port, iface)
 {
 	my ($self, $protocol, $port, $iface) = @_;
 
-	return undef unless($self->service());
+	return undef unless($self->isEnabled());
 
 	return 1 if (($port eq JABBERPORT) and !($self->ssl eq 'required'));
 	return 1 if (($port eq JABBERPORTSSL) and !($self->ssl eq 'no'));
@@ -120,7 +195,7 @@ sub usesPort # (protocol, port, iface)
 sub firewallHelper
 {
 	my $self = shift;
-	if ($self->service){
+	if ($self->isEnabled){
 		return new EBox::JabberFirewall();
 	}
 	return undef;
@@ -187,48 +262,6 @@ sub ssl
     return $self->get_string('ssl');
 }
 
-# Method: setService
-#
-#       Sets the jabber service as enabled or disabled
-#
-# Parameters:
-#
-#       enabled - boolean. True, enable. undef, disable.
-#
-sub setService
-{
-	my ($self, $active) = @_;
-	($active and $self->service) and return;
-	(!$active and !$self->service) and return;
-
-	if ($active) {
-		if (not $self->service){
-			my $fw = EBox::Global->modInstance('firewall');
-			my $port = JABBERPORT;
-			unless ($fw->availablePort('tcp', $port) and
-				$fw->availablePort('udp', $port)){
-					throw EBox::Exceptions::DataExists(
-						'data' => __('listening port'),
-						'value' => $port);
-				}
-		}
-	}
-	$self->set_bool('active', $active);
-}
-
-# Method: service
-#
-#       Returns if the jabber service is enabled
-#
-# Returns:
-#
-#       boolean. True enabled, undef disabled
-sub service
-{
-	my $self = shift;
-	return $self->get_bool('active');
-}
-
 # Method: setJabberDomain
 #
 #       Sets the domain for jabber service. Accounts would have
@@ -292,7 +325,7 @@ sub _setJabberConf
 
 	$self->writeConfFile(JABBERC2SCONFFILE,
 			     "jabber/c2s.xml.mas",
-			     \@array);
+			     \@array, { 'uid' => 0, 'gid' => 0, mode => '600' });
 
 	@array = ();
 
@@ -309,7 +342,7 @@ sub statusSummary
 {
 	my $self = shift;
 	return new EBox::Summary::Status('jabber', __('Jabber'),
-		EBox::Service::running('jabber-c2s'), $self->service);
+		EBox::Service::running('ebox.jabber.jabber-c2s'), $self->isEnabled);
 }
 
 

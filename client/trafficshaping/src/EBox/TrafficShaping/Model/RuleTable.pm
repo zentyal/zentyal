@@ -559,12 +559,12 @@ sub _table
 		     'printableTableName' => __x('Rules list for {printableIndex}',
                                                  printableIndex => $self->printableIndex()),
                      'defaultActions'     =>
-                           [ 'add', 'del', 'editField', 'changeView' ],
+                           [ 'add', 'del', 'editField', 'changeView', 'move' ],
                      'modelDomain'        => 'TrafficShaping',
 		     'tableDescription'   => \@tableHead,
 		     'class'              => 'dataTable',
 		     # Priority field set the ordering through _order function
-		     'order'              => 0,
+		     'order'              => 1,
 		     'help'               => __('Adding a rule to the interface should be done following ' .
 						'maximum rate allowed to that interface and the sum of the ' .
 						'different guaranteed rates should be at much as the total ' .
@@ -591,27 +591,6 @@ sub _table
     return $dataTable;
 
 }
-
-# Method: _tailoredOrder
-#
-#        Overrides <EBox::Model::DataTable::_tailoredOrder>
-#
-#
-sub _tailoredOrder # (rows)
-  {
-
-    my ($self, $rows_ref) = @_;
-
-    # Order rules per priority
-    my @orderedRows = sort { $a->{plainValueHash}->{priority}
-			     <=>
-			     $b->{plainValueHash}->{priority}
-			   }
-      @{$rows_ref};
-
-    return \@orderedRows;
-
-  }
 
 ####################################################
 # Group: Private methods

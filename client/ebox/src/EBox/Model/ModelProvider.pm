@@ -352,4 +352,85 @@ sub _callExposedMethod
 
   }
 
+
+
+
+
+sub modelsSaveConfig
+{
+  my ($self) = @_;
+
+  foreach my $model ( @{ $self->models() } ) {
+    if ($model->can('backupFiles')) {
+      $model->backupFiles();
+    }
+
+  }
+
+}
+
+sub modelsRevokeConfig
+{
+  my ($self) = @_;
+
+  foreach my $model ( @{ $self->models() } ) {
+    if ($model->can('restoreFiles')) {
+      $model->restoreFiles();
+    }
+  }
+
+}
+
+
+
+sub _filesArchive
+{
+  my ($self, $dir) = @_;
+  return "$dir/modelsFiles.tar";
+}
+
+sub backupFilesInArchive
+{
+  my ($self, $dir) = @_;
+
+  my @filesToBackup;
+  foreach my $model ( @{ $self->models() } ) {
+    if ($model->can('backupFilesPaths')) {
+      push @filesToBackup, @{ $model->backupFilesPaths() };
+    }
+  }
+
+  @filesToBackup or
+    return;
+
+  my $archive = $self->_filesArchive($dir);
+
+
+  my $firstFile  = shift @filesToBackup;
+  my $archiveCmd = "tar  -C / -cf $archive --atime-preserve --absolute-names --preserve --same-owner $firstFile";
+  EBox::Sudo::root($archiveCmd);
+
+  # we append the files one per one bz we don't want to overflow the command
+  # line limit. Another approach would be to use a file catalog however I think
+  # that for only a few files (typical situation for now) the append method is better
+  foreach my $file (@filesToBackup) {
+    $archiveCmd = "tar -C /  -rf $archive --atime-preserve --absolute-names --preserve --same-owner $file";
+    EBox::Sudo::root($archiveCmd);
+    
+  }
+}
+
+
+sub restoreFilesFromArchive
+{
+  my ($self, $dir) = @_;
+  my $archive = $self->_filesArchive($dir);
+
+  ( -f $archive) or
+    return;
+
+  my $restoreCmd = "tar  -C / -xf $archive --atime-preserve --absolute-names --preserve --same-owner";
+  EBox::Sudo::root($restoreCmd);
+}
+
 1;

@@ -1,3 +1,7 @@
+0.11.100
+	+ Regenerate cache before finishing package installation/removal
+	+ Do not truncate sources.list
+	+ Delete packages using the progress screen
 0.11.99
 	+ System and software updates work correctly again with progress
 	indicator showing process already finished

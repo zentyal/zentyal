@@ -20,11 +20,13 @@ use warnings;
 
 use base qw(EBox::GConfModule EBox::LdapModule EBox::ObjectsObserver
             EBox::FirewallObserver EBox::LogObserver
-            EBox::Report::DiskUsageProvider EBox::Model::ModelProvider);
+            EBox::Report::DiskUsageProvider EBox::Model::ModelProvider
+            EBox::ServiceModule::ServiceInterface);
 
 use EBox::Sudo qw( :all );
 use EBox::Validate qw( :all );
 use EBox::Gettext;
+use EBox::Config;
 use EBox::Summary::Module;
 use EBox::Summary::Status;
 use EBox::Menu::Item;
@@ -34,6 +36,8 @@ use EBox::MailUserLdap;
 use EBox::MailAliasLdap;
 use EBox::MailLogHelper;
 use EBox::MailFirewall;
+
+use EBox::Exceptions::InvalidData;
 
 use Proc::ProcessTable;
 use Perl6::Junction qw(all);
@@ -66,8 +70,8 @@ use constant SERVICES => ('active', 'filter', 'pop', 'imap', 'sasl');
 sub _create 
 {
 	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'mail',
-		domain => 'ebox-mail',
+	my $self = $class->SUPER::_create(name => 'mail', printableName =>
+					__('mail'), domain => 'ebox-mail',
 		@_);
 
 	$self->{vdomains} = new EBox::MailVDomainsLdap;
@@ -82,6 +86,159 @@ sub domain
 {
 	return 'ebox-mail';
 }
+
+# Method: actions
+#
+# 	Override EBox::ServiceModule::ServiceInterface::actions
+#
+sub actions
+{
+	return [ 
+	{
+		'action' => __('Remove postfix init script link'),
+		'reason' => __('eBox will take care of starting and stopping ' .
+						'the service.'),
+		'module' => 'mail'
+	},
+	{
+		'action' => __('Remove courier init script links for authdaemon, '.
+                       'imap, imap-ssl, pop, and pop-ssl'),
+		'reason' => __('eBox will take care of starting and stopping those ' .
+						'services'),
+		'module' => 'mail'
+	},
+	{	
+		'action' => __('dpkg-stateoverride  saslauthdaemon directory'),
+		'reason' => __('To allow postfix communicate with saslauthd '),
+		'module' => 'mail'
+	},
+	{	
+		'action' => __('Generate mail aliases'),
+		'reason' => __('eBox will execute /usr/sbin/postalias /etc/aliases '),
+		'module' => 'mail'
+	},
+	{	
+		'action' => __('Add LDAP schemas'),
+		'reason' => __('eBox will add two LDAP schemas: authldap.schema and ' .
+						'eboximail.schema.'),
+		'module' => 'mail'
+	}
+    ];
+}
+
+# Method: usedFiles 
+#
+# 	Override EBox::ServiceModule::ServiceInterface::files
+#
+sub usedFiles 
+{
+    return [
+	{	
+		'file' => MAILMAINCONFFILE, 
+		'reason' => __('To configure postfix'),
+		'module' => 'mail'
+	},
+    {	
+		'file' => MAILMASTERCONFFILE,
+		'reason' => __('To define how client programs connect to services in ' .
+                        ' postfix'),
+		'module' => 'mail'
+	},
+	{	
+		'file' => AUTHDAEMONCONFFILE,
+		'reason' => __('To configure courier to authenticate against LDAP'),
+		'module' => 'mail'
+	},
+    {	
+		'file' => AUTHLDAPCONFFILE,
+		'reason' => __('To let courier know how to access LDAP'),
+		'module' => 'mail'
+	},
+    {	
+		'file' => POP3DCONFFILE,
+		'reason' => __('To configure courier POP3'),
+		'module' => 'mail'
+	},
+    {	
+		'file' => POP3DSSLCONFFILE,
+		'reason' => __('To configure POP3 with SSL support'),
+		'module' => 'mail'
+	},
+    {	
+		'file' => IMAPDCONFFILE,
+		'reason' => __('To configure IMAP'),
+		'module' => 'mail'
+	},
+    {	
+		'file' => IMAPDSSLCONFFILE,
+		'reason' => __('To configure IMAP with SSL support'),
+		'module' => 'mail'
+	},
+    {	
+		'file' => SASLAUTHDDCONFFILE,
+		'reason' => __('To configure saslauthd to authenticate against LDAP '),
+		'module' => 'mail'
+	},
+    {	
+		'file' => SASLAUTHDCONFFILE,
+		'reason' => __('To configure saslauthd to authenticate against LDAP '),
+		'module' => 'mail'
+	},
+    {	
+		'file' => SMTPDCONFFILE,
+		'reason' => __('To configure saslauthd to use LDAP'),
+		'module' => 'mail'
+	},
+    {	
+		'file' => '/etc/ldap/slapd.conf',
+		'reason' => __('To add the LDAP schemas used by eBox mail'),
+		'module' => 'users'
+	}
+	];
+}
+
+# Method: enableActions 
+#
+# 	Override EBox::ServiceModule::ServiceInterface::enableActions
+#
+sub enableActions
+{
+    root(EBox::Config::share() . '/ebox-mail/ebox-mail-enable');
+}
+
+#  Method: serviceModuleName
+#
+#   Override EBox::ServiceModule::ServiceInterface::serviceModuleName
+#
+sub serviceModuleName
+{
+	return 'mail';
+}
+
+#  Method: enableModDepends
+#
+#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+#
+sub enableModDepends 
+{
+    my ($self) = @_;
+    my @depends =  ('network', 'users');
+
+    if ($self->service('filter') ) {
+	my $name = $self->externalFilter();
+	if ($name ne 'custom') { # we cannot get deps from a custom module
+	    my $filterMod = $self->_filterAttr($name, 'module', 0);
+	    if ($filterMod) {
+		push @depends, $filterMod;
+	    }
+	}
+    }
+
+
+    return \@depends;
+}
+
+
 
 # Method: modelClasses
 #
@@ -234,21 +391,46 @@ sub _fqdn
 sub isRunning
 {
 	my ($self, $service) = @_;
-	if ($service eq 'active') {
-		my $t = new Proc::ProcessTable;
-		foreach my $proc (@{$t->table}) {
-			($proc->fname eq 'master') and return 1;
+	
+	if (not defined($service)) {
+		return undef unless $self->_postfixIsRunning();
+		if ($self->service('pop') and not $self->_popIsRunning()) {
+			return undef;
 		}
+		if ($self->service('imap') and not $self->_imapIsRunning()) {
+			return undef;
+		}
+		return 1;
+	} elsif ($service eq 'active') {
+		return $self->_postfixIsRunning();
 	} elsif ($service eq 'pop') {
-		return $self->pidFileRunning(POPPIDFILE);
+		return $self->_popIsRunning(); 
 	} elsif ($service eq 'imap') {
-		return $self->pidFileRunning(IMAPPIDFILE);
-	} else {
-		return undef;
+		return $self->_imapIsRunning();
 	}
 }
 
+sub _popIsRunning
+{
+	my ($self) = @_;
+	return $self->pidFileRunning(POPPIDFILE);
+}
 
+sub _imapIsRunning
+{
+	my ($self) = @_;
+	return $self->pidFileRunning(IMAPPIDFILE);
+}
+
+sub _postfixIsRunning
+{
+	my ($self, $service) = @_;
+	my $t = new Proc::ProcessTable;
+	foreach my $proc (@{$t->table}) {
+		($proc->fname eq 'master') and return 1;
+	}
+	return undef;
+}
 
 # Method: externalFiltersFromModules
 #
@@ -281,13 +463,7 @@ sub setExternalFilter
   my ($self, $filter) = @_;
 
   if ($filter ne 'custom') {
-    my $filters_r = $self->externalFiltersFromModules();
-    exists $filters_r->{$filter} or
-      throw EBox::Exceptions::External(
-				       __x('Unknown filter {filter}',
-					   filter => $filter,
-					  )
-				      )
+      $self->_assureFilterIsActive($filter);
   }
 
   $self->set_string('external_filter_name', $filter);
@@ -318,17 +494,17 @@ sub _assureCustomFilter
 
 sub _filterAttr
 {
-  my ($self, $name, $attr) = @_;
+  my ($self, $name, $attr, $onlyActive) = @_;
+  defined $onlyActive or
+      $onlyActive = 1;
 
 
   my $filters_r = $self->externalFiltersFromModules();
   
   exists $filters_r->{$name} or
     throw EBox::Exceptions::External(
-      __('The mail filter does not exist. Please set another mail filter or disable it'
-	 )
-				    );
-  
+      __('The mail filter does not exist. Please set another mail filter or disable it')
+	 );
 
   my $value =  $filters_r->{$name}->{$attr};
   defined $value or
@@ -336,6 +512,26 @@ sub _filterAttr
 
   return $value;
 }
+
+
+sub _assureFilterIsActive
+{
+    my ($self, $name) = @_;
+    my $filters_r = $self->externalFiltersFromModules();
+
+  exists $filters_r->{$name} or
+    throw EBox::Exceptions::External(
+      __('The mail filter does not exist. Please set another mail filter or disable it')
+	 );
+
+
+    if (not $filters_r->{$name}->{active}) {
+	throw EBox::Exceptions::External(
+					 __('The mail filter $name is not active. Please set another mail filter or disable it')
+					);  
+    }
+}
+
 
 # returns wether we must use the filter attr instead of the stored in the
 # module's cponfgiuration
@@ -498,7 +694,8 @@ sub fwport
 
 # Method: setRelay
 #
-#  This method sets the ip address of the smarthost
+#  This method sets the ip address of the smarthost 
+#  The address may be a domain name, hostname or a host address
 #
 # Parameters:
 #
@@ -508,7 +705,20 @@ sub setRelay #(smarthost)
 	my ($self, $relay) = @_;
 	
 	unless ($relay eq "") {
-		checkIP($relay, __('smarthost ip'));
+	        my $relayOk = 0;
+
+		$relayOk = checkHost($relay);
+		unless ($relayOk) {
+		  $relayOk = checkDomainName($relay);
+		}
+
+		if (not $relayOk) {
+		  throw EBox::Exceptions::InvalidData(
+						      data => __('Smarthost'),
+						      value => $relay,
+						      advice => __('The smart host must be a domain name, a host name or an host address'),
+						     )
+		}
 	}
 
 	$self->set_string('relay', $relay);
@@ -560,41 +770,6 @@ sub getMaxMsgSize
 	return $self->get_int('maxmsgsize');
 }
 
-# Method: setMDDefaultSize
-#
-#  This method sets the default maildir size 
-#
-# Parameters:
-#
-# 		size - size of maildir
-sub setMDDefaultSize
-{
-	my ($self, $size)  = @_;
-	
-	unless (isAPositiveNumber($size)) {
-		throw EBox::Exceptions::InvalidData(
-			'data'	=> __('maildir size'),
-			'value'	=> $size);
-	}
-	
-	if($size > MAXMGSIZE) {
-		throw EBox::Exceptions::InvalidData(
-			'data'	=> __('maildir size'),
-			'value'	=> $size);
-	}
-	
-	$self->set_int('mddefaultsize', $size);
-}
-
-# Method: getMDDefaultSize
-#
-#  This method returns the default maildir size
-#
-sub getMDDefaultSize
-{
-	my $self = shift;
-	return $self->get_int('mddefaultsize');
-}
 
 # Method: setAllowedObj
 #
@@ -852,20 +1027,22 @@ sub _command
 	my ($self, $action, $service) = @_;
 	my $cmd = undef;
 
+	$cmd = EBox::Config::pkgdata() . 'ebox-unblock-exec ';
 	if ($service eq 'active') {
-		$cmd = MAILINIT . " " . $action;
+		$cmd .= MAILINIT . " " . $action;
 	} elsif ($service eq 'pop') {
-		$cmd = POPINIT . " " . $action;
+		$cmd .= POPINIT . " " . $action;
 	} elsif ($service eq 'imap') {
-		$cmd = IMAPINIT . " " . $action;
+		$cmd .= IMAPINIT . " " . $action;
 	} elsif ($service eq 'authdaemon') {
-		$cmd = AUTHDAEMONINIT . " " . $action;
+		$cmd .= AUTHDAEMONINIT . " " . $action;
 	} elsif ($service eq 'authldap') {
-		$cmd = AUTHLDAPINIT . " " . $action;
+		$cmd .= AUTHLDAPINIT . " " . $action;
 	} else {
 		throw EBox::Exceptions::Internal("Bad service: $service");
 	}
 
+	EBox::debug($cmd);
 	return $cmd;
 }		
 
@@ -899,9 +1076,12 @@ sub _stopService
 sub _regenConfig
 {
 	my $self = shift;
-	my @services = ('active', 'pop', 'imap');
-	$self->_setMailConf;
 
+	if ($self->service) {
+	    $self->_setMailConf;
+	}
+
+	my @services = ('active', 'pop', 'imap');
 	foreach (@services) {
 		$self->_doDaemon($_);
 	}
@@ -933,7 +1113,11 @@ sub setService
 
 	($active xor $self->service($service)) or return;
 
-	$self->set_bool($service, $active);
+	if ($service eq 'active') {
+	    throw EBox::Exceptions::Internal("active service must be enabled via module status menu");
+	} else {	
+		$self->set_bool($service, $active);
+	}
 }
 
 #
@@ -955,7 +1139,11 @@ sub service
 	defined ($service) or $service = 'active';
 	$self->_checkService($service);
 
-	return $self->get_bool($service);
+	if ($service eq 'active') {
+		return $self->isEnabled();
+	} else {
+		return $self->get_bool($service);
+	}
 }
 
 #
@@ -1233,6 +1421,65 @@ sub _facilitiesForDiskUsage
   return {
 	  $printableName => [ $self->_storageMailDirs() ],
 	 };
+}
+
+
+sub mdQuotaAvailable
+{
+  my ($self) = @_;
+
+  return (EBox::Config::configkey('mdQuotaAvailable') eq 'yes');
+}
+
+
+sub assureMdQuotaIsAvailable
+{
+  my ($self) = @_;
+
+  if (not $self->mdQuotaAvailable) {
+    throw EBox::Exceptions::Internal('Maildir size quota is not available');
+  }
+}
+
+# Method: setMDDefaultSize
+#
+#  This method sets the default maildir size 
+#
+# Parameters:
+#
+# 		size - size of maildir
+sub setMDDefaultSize
+{
+	my ($self, $size)  = @_;
+
+	$self-> assureMdQuotaIsAvailable();
+	
+	unless (isAPositiveNumber($size)) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('maildir size'),
+			'value'	=> $size);
+	}
+	
+	if($size > MAXMGSIZE) {
+		throw EBox::Exceptions::InvalidData(
+			'data'	=> __('maildir size'),
+			'value'	=> $size);
+	}
+	
+	$self->set_int('mddefaultsize', $size);
+}
+
+# Method: getMDDefaultSize
+#
+#  This method returns the default maildir size
+#
+sub getMDDefaultSize
+{
+	my $self = shift;
+
+	$self-> assureMdQuotaIsAvailable();
+
+	return $self->get_int('mddefaultsize');
 }
 
 

@@ -1,3 +1,6 @@
+0.11.100
+	+ add translationDomain parameter to services
+	+ fix translation domain to ebox-services
 0.11.99
 	+ Added "updateDestPort" to the API to change a destination port
 	in a service configuration agily

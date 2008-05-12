@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-Migrationsdir = @LIBDIR@/ebox-ca/migration
+Migrationsdir = @DATADIR@/ebox-ca/migration
 
 nobase_Migrations_SCRIPTS = 0001_add_password_aware.pl
 

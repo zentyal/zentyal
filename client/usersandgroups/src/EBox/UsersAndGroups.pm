@@ -18,7 +18,11 @@ package EBox::UsersAndGroups;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::LdapModule EBox::Model::ModelProvider);
+use base qw(EBox::GConfModule 
+			EBox::LdapModule 
+			EBox::Model::ModelProvider
+			EBox::ServiceModule::ServiceInterface
+		   );
 
 use EBox::Global;
 use EBox::Ldap;
@@ -29,6 +33,9 @@ use EBox::Sudo qw( :all );
 use EBox::FileSystem;
 use Error qw(:try);
 use EBox::LdapUserImplementation;
+
+use File::Copy;
+use Perl6::Junction qw(any);
 
 use constant USERSDN	    => 'ou=Users';
 use constant GROUPSDN       => 'ou=Groups';
@@ -45,14 +52,72 @@ use constant DEFAULTGROUP   => '__USERS__';
 sub _create 
 {
 	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'users',
-					  domain => 'ebox-usersandgroups',
-					  @_);
+	my $self = $class->SUPER::_create(name => 'users', 
+			printableName => __('users and groups'),
+			domain => 'ebox-usersandgroups',
+			@_);
 
 	$self->{ldap} = EBox::Ldap->instance();
 
 	bless($self, $class);
 	return $self;
+}
+
+# Method: actions
+#
+# 	Override EBox::ServiceModule::ServiceInterface::actions
+#
+sub actions
+{
+	return [ 
+	{
+		'action' => __('Your current openLDAP database will be replaced ' .
+				'and backuped in /var/backups/slapd'),
+		'reason' => __('eBox will initialize openLDAP to store its database. ' .
+				'It will also overwrite your current configuration'),
+		'module' => 'users'
+	}
+    ];
+}
+
+# Method: usedFiles 
+#
+# 	Override EBox::ServiceModule::ServiceInterface::files
+#
+sub usedFiles 
+{
+    return [
+	{	
+		'file' => '/etc/default/slapd',
+		'reason' => __('To make openLDAP listen on TCP and Unix sockets'),
+		'module' => 'users'
+	},
+	{	
+		'file' => '/etc/ldap/slapd.conf',
+		'reason' => __('To configure the openLDAP database with dc ' .
+					' entry, rootpw, rootdn, schemas and ACLs used by '.
+					' the LDAP based eBox modules'),
+		'module' => 'users'
+	}
+	];
+}
+
+# Method: enableActions 
+#
+# 	Override EBox::ServiceModule::ServiceInterface::enableActions
+#
+sub enableActions
+{
+    command(EBox::Config::share() . '/ebox-usersandgroups/ebox-init-ldap init');
+}
+
+#  Method: serviceModuleName
+#
+#   Override EBox::ServiceModule::ServiceInterface::servivceModuleName
+#
+sub serviceModuleName
+{
+	return 'users';
 }
 
 # Method: _regenConfig
@@ -1400,9 +1465,14 @@ sub _ldapModImplementation
 
 sub dumpConfig
 {
-  my ($self, $dir) = @_;
+  my ($self, $dir, %options) = @_;
 
   $self->{ldap}->dumpLdapData($dir);
+
+  if ($options{bug}) {
+    my $file = $self->{ldap}->ldifFile($dir);
+    $self->_removePasswds($file);
+  }
 }
 
 
@@ -1414,53 +1484,48 @@ sub restoreConfig
 }
 
 
-# Method: onInstall 
-#
-#	This method is meant to be used when the module is installed
-#	for first time. So far it is responsible to add the ldap
-#	service to the firewall module. It is a class method.
-#
-sub onInstall
+
+sub _removePasswds
 {
-	EBox::init();
+  my ($self, $file) = @_;
 
-	my $global = EBox::Global->instance();
-	my $fw = $global->modInstance('firewall');
+  my $tmpFile = "/tmp/ea";
+  
 
-    my $serviceMod = EBox::Global->modInstance('services');
+  my $anyPasswdAttr = any(qw(
+                              userPassword 
+                              sambaLMPassword 
+                              sambaNTPassword
+                            )
+			 );
+  my $passwordSubstitution = "password";
 
-	if (not $serviceMod->serviceExists('name' => 'ldap')) {
-		 $serviceMod->addService('name' => 'ldap',
-			'protocol' => 'tcp',
-			'sourcePort' => 'any',
-			'destinationPort' => 389,
-			'internal' => 0);
+  my $FH_IN;
+  my $FH_OUT;
 
-        $serviceMod->save();
-		
-	} else {
-		EBox::info("Not adding ldap service as it already exists");
-	}
+  open $FH_IN, "<$file" or 
+    throw EBox::Exceptions::Internal ("Cannot open $file: $!");
+  open $FH_OUT, ">$tmpFile" or
+    throw EBox::Exceptions::Internal ("Cannot open $tmpFile: $!");
 
-    $fw->setInternalService('ldap', 'accept');
+  foreach my $line (<$FH_IN>) {
+    my ($attr, $value) = split ':', $line;
+    if ($attr eq $anyPasswdAttr) {
+      $line = $attr . ': ' . $passwordSubstitution . "\n";
+    }
 
+    print $FH_OUT $line;
+  }
 
-	$fw->save();
-
+  close $FH_IN  or 
+    throw EBox::Exceptions::Internal ("Cannot close $file: $!");
+  close $FH_OUT or
+    throw EBox::Exceptions::Internal ("Cannot close $tmpFile: $!");
+    
+  File::Copy::move($tmpFile, $file);
+  unlink $tmpFile;
 }
 
-# Method: onRemove 
-#
-#	This method is meant to be used when the module is removed. 
-#	So far it is responsible to remve the ldap service 
-#	from the firewall module. It is a class method
-#
-sub onRemove 
-{
-	EBox::init();
-
-
-}
 
 
 1;

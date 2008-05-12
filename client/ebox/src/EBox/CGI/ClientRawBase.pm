@@ -21,7 +21,7 @@ use base 'EBox::CGI::Base';
 use EBox::Gettext;
 use EBox::Html;
 use HTML::Mason::Exceptions;
-use Apache;
+use Apache2::RequestUtil;
 use Error qw(:try);
 use HTML::Mason::Exceptions;
 use EBox::Exceptions::DataInUse;
@@ -63,7 +63,8 @@ sub _title
 
 sub _header
 {
-
+	my $self = shift;
+	print($self->cgi()->header(-charset=>'utf-8'));
 }
 
 sub _footer
@@ -79,6 +80,7 @@ sub _print
 {
 	my $self = shift;
 	settextdomain($self->{'domain'});
+	$self->_header();
 	$self->_body();
 	settextdomain('ebox');
 }
@@ -91,17 +93,20 @@ sub _print_error
 
 	# We send a ERROR_STATUS code. This is necessary in order to trigger
 	# onFailure functions on Ajax code
-	my $r = Apache->request();
-	$r->status(ERROR_STATUS);
-	$r->custom_response(ERROR_STATUS, "");
-
+	my $r = Apache2::RequestUtil->request();
 	my $filename = EBox::Config::templates . '/error.mas';
+	my $output;
 	my $interp = HTML::Mason::Interp->new(comp_root => 
-						EBox::Config::templates);
+						EBox::Config::templates,
+						out_method => \$output);
 	my $comp = $interp->make_component(comp_file => $filename);
 	my @params = ();
 	push(@params, 'error' => $text);
 	$interp->exec($comp, @params);
+
+	$r->status(ERROR_STATUS);
+	$r->custom_response(ERROR_STATUS, $output);
+
 }
 
 sub _print_warning
@@ -111,13 +116,16 @@ sub _print_warning
 	($text ne "") or return;
 
 	# We send a WARNING_STATUS code. 
-	my $r = Apache->request();
+	my $r = Apache2::RequestUtil->request();
 	$r->status(DATA_IN_USE_STATUS);
 	$r->custom_response(DATA_IN_USE_STATUS, "");
 
 	my $filename = EBox::Config::templates . '/dataInUse.mas';
+	my $output;
 	my $interp = HTML::Mason::Interp->new(comp_root => 
-						EBox::Config::templates);
+						EBox::Config::templates,
+						out_method => \$output);
+					
 	my $comp = $interp->make_component(comp_file => $filename);
 	my @params = ();
 	push(@params, 'warning' => $text);
@@ -125,12 +133,14 @@ sub _print_warning
 	push(@params, 'params' => $self->paramsAsHash());
 	$interp->exec($comp, @params);
 
+	$r->status(DATA_IN_USE_STATUS);
+	$r->custom_response(DATA_IN_USE_STATUS, $output);
 }
 
 # TODO Refactor this stuff as it's used in the auth process too
 sub _requestURL
 {
-	my $r = Apache->request();
+	my $r = Apache2::RequestUtil->request();
 	return unless($r);
 
 	my $request = $r->the_request();

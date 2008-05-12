@@ -15,8 +15,9 @@ attributetype ( 1.3.6.1.4.1.7165.2.1.73 NAME 'vddftMaildirSize'
 			
 objectclass ( 1.3.6.1.4.1.7165.2.2.33 NAME 'usereboxmail' SUP posixAccount AUXILIARY
 	DESC 'Extra User Data to Mail Ebox Module'
-	MUST (mailHomeDirectory $ userMaildirSize ) )
+	MUST (mailHomeDirectory)
+	MAY  (userMaildirSize ) )
 
 objectclass ( 1.3.6.1.4.1.7165.2.2.34 NAME 'vdeboxmail' AUXILIARY
 	DESC 'Extra Virtual Domain Data to Mail Ebox Module'
-	MUST (vddftMaildirSize ) )
+	MAY  (vddftMaildirSize ) )

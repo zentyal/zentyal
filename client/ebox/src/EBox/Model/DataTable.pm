@@ -1024,7 +1024,7 @@ sub removeRow
 	# the effects its actions will have.
 	if ((not $force) and $self->table()->{'automaticRemove'}) {
             my $manager = EBox::Model::ModelManager->instance();
-            $manager->warnIfIdIsUsed($self->tableName(), $id);
+            $manager->warnIfIdIsUsed($self->contextName(), $id);
 #            $self->warnIfIdUsed($id);
 	}
 
@@ -3931,5 +3931,58 @@ sub _setEnabledAsFieldInTable
     unshift (@{$tableDesc}, $enabledType);
 
 }
+
+
+sub _fileFields
+{
+  my ($self) = @_;
+
+  my $tableDesc = $self->table()->{tableDescription};
+  my @files = grep { $_->isa('EBox::Types::File') } @{ $tableDesc };
+
+  return @files;
+}
+
+
+sub backupFiles
+{
+  my ($self) = @_;
+
+  my @files = $self->_fileFields();
+  @files or return;
+
+  foreach my $file (@files) {
+    $file->backup();
+  }
+  
+}
+
+
+sub restoreFiles
+{
+  my ($self) = @_;
+
+  my @files = $self->_fileFields();
+  @files or return;
+
+  foreach my $file (@files) {
+    $file->restore();
+  }
+}
+
+sub backupFilesPaths
+{
+  my ($self) = @_;
+
+  my @paths =  map {
+    $_->path();
+  }  grep {  
+    $_->exist()
+  }
+ $self->_fileFields();
+
+  return \@paths;
+}
+
 
 1;

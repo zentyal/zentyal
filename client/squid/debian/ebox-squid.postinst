@@ -1,77 +1,28 @@
 #!/bin/bash
 
-webserver=apache
-
-# XXX 
-#
-# This function stinks from miles away, but some users have reported
-# issues due to uncreated swap directories. This is an ugly workaround
-# to relieve such situations.
-#
-# Yeah, I know it's shameful, but if you take a look at the rc script
-# to manage squid, it seems that we aren't the first ones in having problems
-# sometimes to stop it.
-
-stop_squid() {
-	invoke-rc.d ebox squid stop
-	# Ask squid nicely to shut down
-	/etc/init.d/squid stop
-	sleep 2
-	pgrep -x squid  || return 0 
-	
-	# Ask squid himself to shut down
-	/usr/sbin/squid -k kill
-	sleep 2
-	pgrep -x squid || return 0 
-
-	# Stop playing with me and shut the fuck down
-	pkill -9 -x squid
-	sleep 2
-	pgrep -x squid || return  0 
-
-	return 1 
-}
-
-create_swap() {
-	if  stop_squid; then 
-		/usr/sbin/squid -z
-	else 
-		echo "I'm really sorry but I couldn't create swap directories"
-	fi
-}
+#DEBHELPER#
 
 case "$1" in
 	configure)
-		# install gconf schemas
-		SCHEMA_LOCATION=/usr/share/gconf/schemas
-		SCHEMA_FILES="squid.schemas "
-		for SCHEMA in $SCHEMA_FILES; do
-			if [ -e $SCHEMA_LOCATION/$SCHEMA ]; then
-				HOME=/var/lib/ebox GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` \
-				gconftool-2 \
-				--makefile-install-rule $SCHEMA_LOCATION/$SCHEMA > /dev/null
-			fi
-		done
-
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
-		# don't start neither squid nor dansguardian with its script
-		update-rc.d -f squid remove
-		update-rc.d -f dansguardian remove
+        # add ebox to proxy to read squid logs
+        adduser --quiet ebox proxy
 
-		# create swap directory
-	  	create_swap;	
-		
 		# create log table
-        /usr/lib/ebox/ebox-sql-table add access /usr/share/ebox/sqllog/squid.sql
-
+        /usr/share/ebox/ebox-sql-table add access /usr/share/ebox/sqllog/squid.sql
 		# migrate data if needed
-		/usr/lib/ebox/ebox-migrate /usr/lib/ebox-squid/migration/
+		/usr/share/ebox/ebox-migrate /usr/share/ebox-squid/migration/
 
 		# restart logs
 		invoke-rc.d ebox logs restart || true
 		# restart squid module
 		invoke-rc.d ebox squid restart
+
+        # Restart eBox apache
+        invoke-rc.d ebox apache restart || true
+    ;;
+
 esac
 
 

@@ -1,4 +1,7 @@
 0.11.100
+	+ Add groups() to set groups eBox belongs to: ebox, adm, lp...
+	+ Use eBox tmp directory to create std* files
+	+ Fix an annoying warning found when interpoling undef values
 	+ Fix an annoying warning found when interpoling undef values
 0.11.99
 	+ Fix rendering bug in hasMany viewer closing an open tag

@@ -1,0 +1,25 @@
+#!/bin/bash 
+
+
+# move out old amavis conf files
+mv /etc/amavis/conf.d /etc/amavis/conf.d.old
+mkdir /etc/amavis/conf.d
+chmod --reference=/etc/amavis/conf.d.old /etc/amavis/conf.d
+chown --reference=/etc/amavis/conf.d.old /etc/amavis/conf.d
+
+
+# add clamav user to group amavis. Because it need access to amavis stuff
+addgroup clamav amavis
+
+# copy LDAP schemas
+cp /usr/share/ebox-mailfilter/*.schema /etc/ldap/schema
+# update ldap
+/usr/share/ebox-usersandgroups/ebox-init-ldap genconfig
+/etc/init.d/slapd restart
+/usr/share/ebox-mailfilter/ebox-mailfilter-ldap update
+
+# populate file filter
+/usr/share/ebox-mailfilter/ebox-mailfilter-populate-filefilter update
+
+exit 0;
+

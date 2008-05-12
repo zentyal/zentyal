@@ -1,19 +1,21 @@
 #!/bin/bash
 
+#DEBHELPER#
+
 case "$1" in
 	remove)
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
-		invoke-rc.d dhcp3-server stop || true
 		invoke-rc.d ebox logs restart || true
-		/usr/bin/ebox-clean-gconf dhcp || true
+
+        # Restart eBox apache
+        invoke-rc.d ebox apache restart || true
+
 		;;		
 	
 	purge)
 		# drop log table
-		/usr/lib/ebox/ebox-sql-table drop leases || true
+		/usr/share/ebox/ebox-sql-table drop leases || true
 
 		;;
 
 esac
-
-#DEBHELPER#

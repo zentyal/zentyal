@@ -37,16 +37,59 @@ sub new {
 sub _process($) {
 	my $self = shift;
 	$self->{title} = __('Virtual domains');
-	my $mail = EBox::Global->modInstance('mail');
+	my $mail        = EBox::Global->modInstance('mail');
+	
+	if ($mail->configured()) {
+		my $masonParams = [];
+		if ($mail->mdQuotaAvailable()) {
+		  $masonParams = $self->_masonParamsWithMDQuota();
+		}
+		else {
+		  $masonParams = $self->_masonParamsWoMDQuota();
+		}
 
-	my @array = ();
 
-	my %vdomains = $mail->{vdomains}->vdandmaxsizes();
+		$self->{params} = $masonParams;
+	} else {
+	        $self->setTemplate('/notConfigured.mas'); 
+        	$self->{params} = ['module' => __('Mail')];
+	}
+}
 
-	push(@array, 'mdsize'		=> $mail->getMDDefaultSize());
-	push(@array, 'vdomains'		=> \%vdomains);
 
-	$self->{params} = \@array;
+sub _masonParamsWithMDQuota
+{
+  my ($self) = @_;
+
+  my $mail = EBox::Global->modInstance('mail');
+  
+  my @array = ();
+  
+  my %vdomains = $mail->{vdomains}->vdandmaxsizes();
+  
+  push(@array, 'mdQuotaAvailable' => 1);
+  push(@array, 'mdsize'           => $mail->getMDDefaultSize());
+  push(@array,  'vdomains'        => [keys %vdomains]);
+  push(@array, 'sizeByVDomain'	  => \%vdomains);
+
+  return \@array;
+}
+
+
+
+sub _masonParamsWoMDQuota
+{
+  my ($self) = @_;
+
+  my $mail = EBox::Global->modInstance('mail');
+  
+  my @array = ();
+  
+  my @vdomains = $mail->{vdomains}->vdomains();
+  
+  @array = (vdomains => \@vdomains);
+
+  return \@array;  
 }
 
 1;

@@ -24,7 +24,11 @@ package EBox::Events;
 #      since it may be considered as a base module as logs. It manages
 #      the EventDaemon.
 
-use base qw(EBox::GConfModule EBox::Model::ModelProvider EBox::Model::CompositeProvider);
+use base qw(EBox::GConfModule 
+            EBox::Model::ModelProvider 
+            EBox::Model::CompositeProvider
+			EBox::ServiceModule::ServiceInterface
+            );
 
 use strict;
 use warnings;
@@ -56,7 +60,7 @@ use Error qw(:try);
 #
 #         SERVICE - the service managed by this module
 #
-use constant SERVICE                 => 'event-daemon';
+use constant SERVICE                 => 'ebox.event-daemon';
 use constant CONF_DIR                => EBox::Config::conf() . 'events/';
 use constant ENABLED_DISPATCHERS_DIR => CONF_DIR . 'DispatcherEnabled/';
 use constant ENABLED_WATCHERS_DIR    => CONF_DIR . 'WatcherEnabled/';
@@ -93,6 +97,16 @@ sub _create
       return $self;
 
   }
+
+#  Method: serviceModuleName
+#
+#   Override EBox::ServiceModule::ServiceInterface::servivceModuleName
+#
+sub serviceModuleName
+{
+	return 'events';
+}
+
 
 # Method: _regenConfig
 #
@@ -349,9 +363,7 @@ sub service
 
       my ($self) = @_;
 
-      my $enableModel = $self->_enableForm();
-
-      return $enableModel->enabledValue();
+	  return $self->isEnabled();
 
   }
 
@@ -367,13 +379,8 @@ sub setService
   {
 
       my ($self, $enabled) = @_;
-
-      my $enableModel = $self->_enableForm();
-
-      $enableModel->setRow(1,
-                           ( enabled => $enabled ),
-                          );
-
+      
+      $self->enableService($enabled);
   }
 
 # Method: enableEventElement
@@ -477,6 +484,29 @@ sub _adminDumbness
 
   }
 
+# Enable/disable watchers and dispatchers to restore backup
+sub _prepareRestoreBackup
+{
+    my ($self) = @_;
+
+    my $eventModel = $self->configureEventModel();
+    my @enableEvents =  map { $_->{'eventWatcher'} } 
+    @{$eventModel->findAllValue (enabled => 1)};
+    my @disableEvents =  map { $_->{'eventWatcher'} } 
+    @{$eventModel->findAllValue (enabled => 0)};
+
+    my $dispatcherModel = $self->configureDispatcherModel();
+    my @enableDispatchers =  map { $_->{'eventDispatcher'} } 
+    @{$dispatcherModel->findAllValue (enabled => 1)};
+    my @disableDispatchers =  map { $_->{'eventDispatcher'} } 
+    @{$dispatcherModel->findAllValue (enabled => 0)};
+
+    $self->set_list('watcher_to_enable', 'string', \@enableEvents);
+    $self->set_list('watcher_to_disable', 'string', \@disableEvents);
+    $self->set_list('dispatcher_to_enable', 'string', \@enableDispatchers);
+    $self->set_list('dispatcher_to_disable', 'string', \@disableDispatchers);
+}
+
 # Submit the files to the correct directories
 sub _submitEventElements
   {
@@ -510,7 +540,9 @@ sub _submitEventElements
                       my $filePath = EBox::Config::perlPath() . $element . '.pm';
                       # Get the class final name
                       ($element) = $element =~ m:^.*/(.*)$:g;
-                      symlink ( $filePath, $dir . '/' . $element . '.pm' )
+                       my $dest = "$dir/$element.pm";
+                       next if ( -l $dest );
+                       symlink ( $filePath, $dest )
                         or throw EBox::Exceptions::Internal("Cannot copy from $filePath to $dir");
                   } else {
                       ($element) = $element =~ m/^.*::(.*)$/;
@@ -648,5 +680,25 @@ sub _configurationComposite
       return $self->{confComposite};
 
   }
+
+
+# Method:  restoreConfig
+#
+#   Restore its configuration from the backup file.
+#
+# Parameters:
+#  dir - Directory where are located the backup files
+#
+sub restoreConfig
+  {
+
+    my ($self, $dir) = @_;
+
+    # Call super
+    $self->SUPER::restoreConfig($dir);
+
+    $self->_prepareRestoreBackup();
+  }
+
 
 1;

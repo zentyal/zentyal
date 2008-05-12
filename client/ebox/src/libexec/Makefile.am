@@ -1,6 +1,6 @@
 ## Process this file with automake to produce Makefile.in
 
-scriptsdir = @LIBDIR@/ebox
+scriptsdir = @DATADIR@/ebox
 
 scripts_SCRIPTS = ebox-loggerd ebox-kill-pid 
 

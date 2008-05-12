@@ -18,7 +18,9 @@
 <!ENTITY ch15     SYSTEM "ch15.xml">
 <!ENTITY ch16     SYSTEM "ch16.xml">
 <!ENTITY ch17     SYSTEM "ch17.xml">
+<!ENTITY ch18     SYSTEM "ch18.xml">
 ]>
+<!-- TODO: logs, events, traffic shaping, control center y demás -->
 
 <book id='ebox' lang='es'>
   <title>Manual de usuario de eBox</title>
@@ -55,7 +57,7 @@
     </copyright>
 
     <copyright>
-      <year>2006-2007</year>
+      <year>2006-2008</year>
       <holder>Warp Networks S.L.</holder>
     </copyright>
 
@@ -86,5 +88,6 @@
   &ch15;
   &ch16;
   &ch17;
+  &ch18;
 
 </book>

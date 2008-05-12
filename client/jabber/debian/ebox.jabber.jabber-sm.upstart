@@ -1,0 +1,2 @@
+exec /usr/sbin/jabberd2-sm -D -c /etc/jabberd2/sm.xml
+respawn

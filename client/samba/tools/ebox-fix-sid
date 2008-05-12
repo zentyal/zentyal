@@ -1,0 +1,157 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2007 Warp Networks S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Ldap;
+use EBox::Global;
+use EBox::Sudo;
+use EBox::SambaLdapUser;
+
+
+use constant MIN_ELEMENTS_SID_WITH_DOMAIN => 7;
+
+EBox::init();
+
+
+my ($domainID) = @ARGV;
+defined $domainID or
+  die 'you must supply the wanted domain SID portion';
+
+
+my $samba = EBox::Global->modInstance('samba');
+$samba->stopService();
+
+
+_setLocalSID($domainID);
+_setDomainSID($domainID);
+_removeSambaDomainName();
+_removeSambaDomain();
+_fixLdapSIDs($domainID);
+
+
+$samba->restartService();
+
+
+sub _setLocalSID
+{
+  my ($domainID) = @_;
+  my $cmd = "net  SETLOCALSID $domainID";
+  EBox::Sudo::root($cmd);
+}
+
+
+sub _setDomainSID
+{
+  my ($domainID) = @_;
+  my $cmd = "net  SETDOMAINSID $domainID";
+  EBox::Sudo::root($cmd);
+}
+
+# remove all attributes sambaDomainName. those attributes refer to the previous
+# domain name and are recreated by samba start
+sub _removeSambaDomainName
+{
+  my $smbldap = new EBox::SambaLdapUser;
+  $smbldap->deleteSambaDomainNameAttrs();
+}
+
+# remove the sambaDomain objects, those objects are recreated correctly by the
+# samba start
+sub _removeSambaDomain
+{
+  my $smbldap = new EBox::SambaLdapUser;
+  $smbldap->deleteSambaDomains();
+}
+
+# change all SIDs to refer to the new domain
+sub _fixLdapSIDs
+{
+
+  my ($domainID) = @_;
+
+  my $ldap = EBox::Ldap->instance();
+  my @sidAttrs = ('sambaSID', 'sambaPrimaryGroupSID');
+
+  my $sidFilter = '(|';
+  foreach my $attr (@sidAttrs) {
+    $sidFilter .= "($attr=*)";
+  }
+  $sidFilter .= ')';
+
+  my $result = $ldap->search(
+			     {
+			      base => $ldap->dn(),
+			      filter => $sidFilter,		     
+			      scope => 'sub',
+			      attrs => \@sidAttrs,
+			     }
+	       );
+
+  
+  foreach my $entry ($result->entries()) {
+    my @attrs = $entry->attributes;
+
+    my $changed = 0;
+    foreach my $attr (@attrs) {
+      my $oldSid = $entry->get_value($attr); # we just use the first attr value
+                                             # bz it must be only one, anyway if
+                                             # we have multiple entries we don't
+                                             # know what we must use to get the
+                                             # old SID
+      defined $oldSid or
+	next;
+
+      my $newSid = _newSID($oldSid, $domainID);
+      defined $newSid
+	or next;
+
+      $entry->replace($attr => $newSid);
+      $changed = 1;
+    }
+
+    if ($changed) {
+      $entry->update($ldap->ldapCon);
+    }
+
+  }
+}
+
+
+
+sub _newSID
+{
+  my ($oldSid, $domainId) = @_;
+
+  my @sidPortions = split '-', $oldSid;
+  if (@sidPortions < MIN_ELEMENTS_SID_WITH_DOMAIN ) { # SID not contains domain 
+                                                      # portion so there is no
+                                                      # need of a new SID
+    return undef;
+  }
+
+  my $RID = pop @sidPortions;
+
+  my $newSid = "$domainId-$RID";
+  return $newSid;
+
+}
+
+
+1;

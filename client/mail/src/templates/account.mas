@@ -4,7 +4,7 @@
 <%init>
 use EBox::Gettext;
 </%init>
-% if  (not keys %{$ params->{vdomains} } ) {
+% if  (not  @{$ params->{vdomains} } ) {
 <& .noVdomains &>
 % }
 %elsif($params->{'mail'} eq undef) {

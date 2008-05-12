@@ -1,0 +1,31 @@
+Template: ebox/password1
+Type: password
+Description: eBox administrator password:
+ Please enter the password which will be used to log into the eBox web
+ interface.
+
+Template: ebox/password2
+Type: password
+Description: Confirm password:
+ Please enter the password which will be used to log into the eBox web
+ interface.
+
+Template: ebox/password_mismatch
+Type: note
+Description: Passowrd mismatch
+ The two passwords you entered were not the same. Please try again
+
+Template: ebox/port
+Type: string 
+Default: 443
+Description: eBox HTTPS port:
+ Please enter the port which will be used by the eBox HTTPS server. Use an
+ available port that is not being used by another service. 
+
+Template: ebox/port_used
+Type: boolean
+Default: true
+Description: Do you want to continue?
+ It seems that the port you have selected is already being used. Press yes to 
+ proceed anyway, or no to enter a new port.
+

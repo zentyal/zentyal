@@ -1,171 +1,53 @@
-<chapter id="ch-proxy">
+<chapter id="ch-software">
+	<title>System updates</title>
 
-	<title>HTTP Proxy</title>
+	<section id='sect-software-config'>
+		<!-- Software->Configuration -->
+		<title>Configuration</title>
 
-	<section id='sect-proxy-general'>
-		<!-- Proxy->General -->
-		<title>General configuration</title>
+		<para>eBox can automatically upgrade your system
+		software. This option can be enable at
+			<menuchoice>
+				<guimenu>Software</guimenu>
+				<guimenuitem>Configuration</guimenuitem>
+			</menuchoice>
+		</para>
 
 		<para>
-	        Through
-		<menuchoice>
-			<guimenu>HTTP Proxy</guimenu>
-			<guimenuitem>General</guimenuitem>
-		</menuchoice>
-		you can access into the eBox's proxy HTTP general
-		configuration.</para>
+			When you make automatic the system software
+			update, it will be easier to keep an
+			up-to-date system, avoiding possible bugs or
+			security problems as soon as a solution appear.
+		</para>
 
-		<para>At the configuration window, it's possible to
-		enable or disable the eBox proxy, using the upper
-		selection list. Other options are detailed here:
-		<variablelist>
-			<varlistentry>
-				<term>Transparent proxy</term>
-				<listitem>
-					<para>If transparent proxy is enabled, every eBox user will use the
-					transparent proxy without noticing it. If it's disabled, you should
-					configure each browser to work through the proxy.</para>
-				</listitem>
-			</varlistentry>
-			<varlistentry>
-				<term>Port</term>
-				<listitem>
-					<para>You can assign a proxy port. It will be used by the browsers, inside
-					the network, to connect to Internet.
-					</para>
-				</listitem>
-			</varlistentry>
-			<varlistentry>
-				<term>Content filter threshold</term>
-				<listitem>
-					<para>You can establish a restriction level to contents with explicit sex and
-					violence items, which will be filtered by the proxy.
-					</para>
-				</listitem>
-			</varlistentry>
-			<varlistentry>
-				<term>Global policy</term>
-				<listitem>
-					<para>It is the default policy for the proxy users. Free access, filter
-					contents or deny access can be selected. Later, this policy can be modified
-					for each user and domain where you need an specific behavior, as it's
-					explained on next sections.
-					</para>
-				</listitem>
-			</varlistentry>
-		</variablelist>
-		</para>
-		
 		<warning>
-		<para>If you establish a configuration which denies access to
-		administration interface from the machines connected to eBox, you
-		should allow the host where you want to connect from, or you could
-		lose the connection with the web interface.
-		</para>
+			<para>For all these eBox software management module's
+			functionalities, it is needed the Operating System is
+		        Debian GNU/Linux.</para>
 		</warning>
 	</section>
 
-	<section id='sect-proxy-content-lists'>
-		<!-- Proxy->Policy -->
-		<title>Allowed and forbidden domain list</title>
+	<section id='sect-software-ebox'>
+		<!-- Software->eBox components -->
+		<title>eBox components</title>
 
 		<para>
 		At
-		<menuchoice>
-			<guimenu>HTTP Proxy</guimenu>
-			<guimenuitem>Allowed domains</guimenuitem>
-		</menuchoice>
-		and
-		<menuchoice>
-			<guimenu>HTTP Proxy</guimenu>
-			<guimenuitem>Denied domains</guimenuitem>
-		</menuchoice>
-	        you can choose the allowed or denied domains for each eBox
-	        user. The global policy of the proxy must be in
-	        'filter' mode for this list had any effect; classification of each domain on the lists is applied before any
-	        other proxy option.
-		</para>
-
-		<para>So, you just need to add, to the deny access list or allow access
-	        list, the desired domains, to apply this option. Write the full domain
-	        name, whose default behavior you need to modify, and make click on
-	        the "Add" action icon. You need to write correctly the domain name, a
-	        correct example could be: "warp.es".
-		</para>
-
-		<para>If you want to remove any domain from the lists, click on the
-		"remove" action button, to erased your desired domain.
-		</para>
-
-		
+			<menuchoice>
+				<guimenu>Software</guimenu>
+				<guimenuitem>eBox components</guimenuitem>
+			</menuchoice>
+		you can install, upgrade or remove different existing
+		eBox packages. Some packages won't be uninstalled, so
+		these are needed for eBox correct working.</para>
 	</section>
 
-	<section id='sect-proxy-content-policy'>
-		<!-- Proxy->Policy -->
-		<title>Policy establishment</title>
+	<section id='sect-software-system'>
+		<!-- Software->System updates -->
+		<title>System updates</title>
 
-		<para>Through 
-		<menuchoice>
-			<guimenu>HTTP Proxy</guimenu>
-			<guimenuitem>Policy</guimenuitem>
-		</menuchoice>
-	        it's possible to establish one connection policy for one <link
-		linkend='ch-objects'>network object</link>, allowing a different
-		configuration for each newly created objects. This configuration will
-		be applied previously to the eBox global policy for the selected
-		objects.</para>
-	</section>
-
-	<section id='sect-proxy-extensions-filter'>
-		<!-- Proxy->ExtensionsFilter -->
-		<title>Extensions filter</title>
-
-		<para>At
-		<menuchoice>
-			<guimenu>HTTP Proxy</guimenu>
-			<guimenuitem>Extensions filter</guimenuitem>
-		</menuchoice>
-	        you can choose which file extensions are disallowed to be
-	        downloaded through the HTTP proxy.</para>
-                <para>
-                     To disallow extensions you must check the box in the
-                     'deny' column. A special "All extensions" item
-                     exists to deny all extensions at once.
-                </para>
-                <para>
-                 If you are missing any extension, you can add it through
-                 "Add extension" form.
-                </para>
-                <para>
-                 Any extension not listed here is, by default, allowed. In future
-                 releases, this behavior may change.
-                </para>
-	</section>
-
-	<section id='sect-proxy-mime-type-filter'>
-		<!-- Proxy->MimeTypeFilter -->
-		<title>Mime type filter</title>
-                <para> At
-		<menuchoice>
-			<guimenu>HTTP Proxy</guimenu>
-			<guimenuitem>MIME Type filter</guimenuitem>
-		</menuchoice> you can select which file MIME types are
-			denied to be downloaded through the HTTP
-			proxy.
-                </para>
-                <para>
-                     To deny types you must check the box in the
-                     'deny' column. A special "All MIME types" item
-                     exists to deny all types at once.
-                </para>
-                <para>
-                 If you are missing any extension, you can add it through
-                 "Add MIME type" form.
-                </para>
-                <para>
-                 Any MIME type not listed here is, by default, allowed. In future
-                 releases, this behavior may change.
-                </para>
+		<para>You can manage the software at the system where
+		eBox is installed with the same ease as components management.</para>
 	</section>
 
 </chapter>

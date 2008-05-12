@@ -1,113 +1,95 @@
-<chapter id="ch-files">
+<chapter id="ch-printers">
 
-  <title>File sharing</title>
+	<title>Printers</title>
 
-  <section id='sect-files'>
-    <!-- File Sharing -->
-    <title>File Sharing</title>
-    
-    <para>
-      You can get into file sharing configuration entering into
-      <menuchoice>
-	<guimenu>File sharing</guimenu>
-      </menuchoice>
-      .
-      To activate file sharing, just select from the status list, at the
-      upper configuration page, "Enabled" status and accept the changes
-      clicking at "Change".
-    </para>
+	<section id='sect-printers-new'>
+		<!-- eBox->Add printer -->
+		<title>Add new printers</title>
 
-    <para>
-      There are two working modes to this module. It
-      can behave as a simple File Server using SMB/CIFS protocols or
-      as well as a centralized authenticate method using Primary Domain
-      Controller (PDC) to login on Windows NT-based.
-    </para>
+		<para>You can add new printers on eBox at
+			<menuchoice>
+				<guimenu>Printers</guimenu>
+				<guimenuitem>Add printer</guimenuitem>
+			</menuchoice>
+		. Each new printer could  be shared on your network,
+		allowing or not users and groups accesses.
+		</para>
 
-    <para>
-      Both working modes needs the following fields configured:
-      <variablelist>
-	<varlistentry>
-	  <term>Domain name</term>
-	  <listitem>
-	    <para>
-	      Only machines and users who belong to the same domain can
-	      share their files between them. With this name eBox will
-	      be recognize within the local network.
-	    </para>
-	  </listitem>
-	</varlistentry>
-	<varlistentry>
-	  <term>Netbios name</term>
-	  <listitem>
-	    <para>
-	      Name applied to old NetBIOS framework which makes
-	      eBox have a name within Windows environment.
-	    </para>
-	  </listitem>
-	</varlistentry>
-	<varlistentry>
-	  <term>Description</term>
-	  <listitem>
-	    <para>
-	      eBox description which goes with the Netbios name to
-	      provide a detailed description within the network.
-	    </para>
-	  </listitem>
-	</varlistentry>
-	<varlistentry>
-	  <term>Quota limit</term>
-	  <listitem>
-	    <para>Quota disk limit on MB to use for each
-	    user. If you don't want to set any quota is OK
-	    to fill this field with zero value.</para>
-	  </listitem>
-	</varlistentry>
-      </variablelist>
-    </para>
-  </section>
+		<para>Adding a new printer requires to know some information like how
+		it's connected with eBox, manufacturer, model and driver if you want
+		to get a full-working system. eBox will ask the information and will
+		offer existing possibilities to configure the new printer.
+		</para>
+	</section>
 
-  <section id='sect-shared-files'>
-    <title>User and group shared folders</title>
+	<section id='sect-printers-admin'>
+		<!-- eBox->Printers admin -->
+		<title>Printers administration</title>
 
-    <para>
-      If file sharing module is installed and enabled in eBox,
-      you may want to share files among users within the same group or
-      publish files within the local network. To achieve so, you
-      should go into
-      <menuchoice>
-	<guimenu>Users</guimenu>
-      </menuchoice>
-      and edit the user which can publish files on the local
-      network. There, you can enable this user to do so and ,
-      furthermore, you can set him administrative rights to add
-      machines to the domain, if the working mode is
-      <emphasis>PDC</emphasis>. Check <link
-      linkend='sect-users-users'>User accounts</link> to know more
-      about the eBox user configuration.
-    </para>
+		<para>Going into
+			<menuchoice>
+				<guimenu>Printers</guimenu>
+				<guimenuitem>Printers admin</guimenuitem>
+			</menuchoice>
+		you can access into eBox printer administration.
+		</para>
 
-    <para>
-      If you want to share a directory among the users within a group,
-      you should reach
-      <menuchoice>
-	<guimenu>Groups</guimenu>
-      </menuchoice>
-      and edit the group you want. There you can set a name to that
-      directory.
-    </para>
+	        <para>We can review and modify the printer sharing current status in
+		the system, and see the printer list configured on the system. We also
+		can remove them from eBox or modify its status and its current
+		parameters.</para>
 
-    <note>
-      <para>
-	The current file permission allows to read, write and
-	execute a file to the owner and read and write to the
-	group. Regarding to subdirectories, the setgid bit is set, so
-	subdirectories group owner will be the group. Furthermore, the
-	new subdirectories will have full access to the group.
-      </para>
-      
-    </note>
+		<para>Any moment after the addition of a new printer, you can remove
+		it clicking at its own corresponding action, or access to its specific
+		configuration clicking at "Edit" on that printer.
+		</para>
 
-  </section>
+		<para>If you decide to edit the printer configuration, a four-tabbed
+		windows will appear, which give access to each configuration item on
+		the printer management:
+		<variablelist>
+			<varlistentry>
+				<term>Printer details</term>
+				<listitem>
+					<para>You can review and modify every details
+					related to manufacturer, model and driver
+					about selected printer.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Driver options</term>
+				<listitem>
+					<para>Configuration options depends on the
+					installed driver. eBox will show, frequently,
+					a list with the possible values for each
+					option, making easier the configuration, and
+					avoiding incorrect values of configured parameters.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Configuration options</term>
+				<listitem>
+					<para>This part allows to modify the printer
+					connection method with eBox. Depending on if
+					it's USB, parallel port or samba,
+					configuration options will be different.
+					</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Pending jobs</term>
+				<listitem>
+					<para>Pending jobs of the selected printer are
+					shown. For each job is shown its ID, owner,
+					name, size and creation date. A job can be
+					also cancelled using its action button,
+					removing it from the job list.</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+		</para>
+	</section>
 
 </chapter>

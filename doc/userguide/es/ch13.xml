@@ -1,81 +1,120 @@
-<chapter id="ch-dhcp">
+<chapter id="ch-mail">
 
-	<title>Servidor DHCP</title>
-	
-	<section>
-		<title>Servidor DHCP</title>
-	
-		<para>
-		Se puede acceder a la configuración del servidor DHCP
-		a traves de 
-			<menuchoice>
-				<guimenu>DHCP</guimenu>
-			</menuchoice>
-		.
-		</para>
+	<title>Servidor de correo</title>
+
+	<section id='sect-mail-config'>
+		<!-- Mail->General->Settings -->
+		<title>Configuración general</title>
 
 		<para>
-		Sólo se podrá configurar el servidor DHCP si hay algún 
-		interfaz de red configurado como estático. Si hay varios
-		interfaces configurados como estáticos se podrá elegir cuál
-		de ellos configurar a traves de unas pestañas en la parte
-		superior de la configuración, justo debajo de la lista de estados
-		del servicio.
-		</para>
-
-		<para>
-		Para activar el servidor DHCP seleccione de la lista 
-		desplegable de estados, en la parte superior de la ventana 
-		de configuración, el estado habilitado y acepte el cambio
-		pulsando en cambiar.
-		</para>
-
-		<para>
-		Se puede configurar el funcionamiento del servidor DHCP 
-		correspondiente en distintos aspectos:
+		Para acceder a la configuración general del servidor de
+		correo de eBox hay que entrar en 
+		<menuchoice>
+			<guimenu>Correo</guimenu>
+			<guimenuitem>General</guimenuitem>
+		</menuchoice>
+		. En la ventana de configuración, en la parte superior, 
+		aparecerán varias pestañas referentes a distintos aspectos 
+		de configuración del servidor de correo:
 		<variablelist>
 			<varlistentry>
-				<term>Opciones</term>
+				<term>Servicios</term>
 				<listitem>
 					<para>
-					Estos apartados son opcionales, pudiendo quedar en blanco.
-					Se usan para especificar la puerta de enlace por defecto, el
-					dominio de búsqueda de nombre y el servidor primario y secundario
-					de nombres para la red.
+					En la pestaña de servicios se permite requerir autenticación para los usuarios
+					que se conecten al servidor de correo o permitir acceso libre y
+					utilizar o no TLS para cifrar la comunicación SMTP con el servidor. 
+					También se permite desde aquí habilitar POP3 e IMAP así como
+					obligar al usuario a utilizar SSL, permitirselo o prohibirselo.
 					</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
-				<term>Rangos</term>
+				<term>Configuración</term>
 				<listitem>
 					<para>
-					Se pueden crear listas de rangos con los valores que se
-					quieran asignar a las máquinas de la red. Estas listas no deben
-					tener coincidencias entre sí y todas las direcciones asignables
-					deben	pertenecer al rango disponible mostrado justo encima de
-					la lista de rangos. Si no se crea ninguna lista, se usará todo
-					el rango disponible para asignar direcciones a las máquinas 
-					de la	red.
+					La configuración que se muestra en esta pestaña permite fijar
+					un servidor para hacer relay simplemente utilizando su IP, así
+					como establecer un límite de tamaño de mensaje aceptado por el
+					servidor de correo y un límite de tamaño para las nuevas cuentas
+					de correo por defecto. En la parte inferior se puede concretar
+					una política de relay para cada uno de los objetos de red de
+					eBox que tendrá preferencia para el objeto sobre la configuración
+					general establecida en la pestaña Servicios.
 					</para>
 				</listitem>
 			</varlistentry>
 			<varlistentry>
-				<term>Asignaciones estáticas</term>
+				<term>Filtro externo</term>
 				<listitem>
 					<para>
-					Se puede asignar una dirección IP concreta (siempre que 
-					pertenezca al	rango disponible) a una dirección MAC de 
-					la red. Para ello sólo hay que crear un elemento en la lista
-					de asignaciones estáticas que contenga la dirección MAC
-					de la máquina conocida y la IP que se le desea asignar.
+					Desde esta pestaña podemos habilitar un filtro externo para 
+					filtrar los mensajes de correo de eBox. Para ello se debe fijar 
+					un puerto en la máquina de eBox para poder establecer
+					la comunicación y conocer la direccion IP y el puerto donde se
+					encuentra el filtro.
 					</para>
 				</listitem>
 			</varlistentry>
 		</variablelist>
 		</para>
-				
-		
+	</section>
 
-		</section>
-	
+	<section id='sect-mail-vdomain'>
+		<!-- Mail->Virtual domains-->
+		<title>Gestión de dominios</title>
+
+		<para>
+		En 
+		<menuchoice>
+			<guimenu>Correo</guimenu>
+			<guimenuitem>Dominio Virtual</guimenuitem>
+		</menuchoice>
+		se pueden administrar los dominios virtuales, que dan nombre
+		de dominio a las cuentas de correo de los distintos
+		usuarios de eBox. 
+		</para>
+
+		<para>
+		Para crear un dominio basta con elegir un nombre para el
+		dominio y un tamaño por defecto para los buzones de correo
+		de los usuarios de eBox que pertenezcan al dominio. Posteriormente
+		se puede modificar el tamaño por defecto de los buzones e incluso
+		forzar el cambio de los buzones ya existentes a ese tamaño desde el 
+		menú al que se accede utilizando el boton de accion 
+		<guibutton>Editar</guibutton> del dominio correspondiente. 
+		Si se desea borrar uno de los dominios existentes simplemente se 
+		debe pulsar el boton de acción correspondiente a borrar de dicho dominio.
+		</para>
+	</section>
+
+	<section id='sect-mail-accounts'>
+		<title>Cuentas y alias de correo</title>
+
+		<para>
+		Si el módulo de correo está instalado y activado en eBox y se desea 
+		crear una cuenta de correo para un determinado usuario, habrá que 
+		hacerlo a través de
+		<menuchoice>
+			<guimenu>Usuarios</guimenu>
+		</menuchoice>
+		editando el usuario correspondiente, donde también se podrá fijar un
+		alias para la dirección de correo. Ver 
+		<link linkend='sect-users-users'>Cuentas de usuario</link> para saber
+		cómo acceder a la configuración de un usuario de eBox.
+		</para>
+
+		<para>
+		Para poner alias a grupos de usuarios hay que acceder a la configuración
+		del grupo usando 
+		<menuchoice>
+			<guimenu>Grupos</guimenu>
+		</menuchoice>
+		. Si el módulo de correo está activado se podrá fijar un alias para
+		todos los miembros del grupo. Ver 
+		<link linkend='sect-users-groups'>Grupos de usuarios</link> para saber cómo
+		se accede a la configuración de un grupo.
+		</para>
+	</section>
+
 </chapter>

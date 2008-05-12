@@ -2,11 +2,6 @@
 
 webserver=apache
 
-onInstall() {
-
-        perl -e 'use EBox::SOAP; EBox::SOAP::onInstall();'
-}
-
 case "$1" in
 	configure)
 		# install gconf schemas
@@ -22,8 +17,8 @@ case "$1" in
 
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
-                # run the onInstall method in the module
-                onInstall
+		# Migrate data if needed
+		/usr/share/ebox/ebox-migrate /usr/share/ebox-soap/migration/
 
 		invoke-rc.d ebox soap restart
 		;;

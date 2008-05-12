@@ -115,7 +115,6 @@ for (0..2) {
 	}
 }
 $network->setNameservers($dns[0], $dns[1], $dns[2]);
-$network->generateInterfaces();
-$network->save();
-root("/bin/cp " . INTERFACES . " " . EBox::Config::tmp . "interfaces");
-root("/bin/chown ebox.ebox " . EBox::Config::tmp . "interfaces");
+$network->saveConfig();
+#root("/bin/cp " . INTERFACES . " " . EBox::Config::tmp . "interfaces");
+#root("/bin/chown ebox.ebox " . EBox::Config::tmp . "interfaces");

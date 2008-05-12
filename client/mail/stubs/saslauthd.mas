@@ -14,4 +14,4 @@ START=yes
 
 MECHANISMS="ldap"
 CONFFILE="/etc/saslauthd.conf"
-PARAMS="-m /var/spool/postfix/var/run/saslauthd"
+OPTIONS="-m /var/spool/postfix/var/run/saslauthd"

@@ -1,0 +1,59 @@
+#!/bin/bash 
+# Script to execute after debian installer base-config and before
+# showing login indicator and debian sarge is ready to be fucked up
+
+
+RC_NAME=ebox-installer
+
+mount /cdrom
+apt-cdrom add --no-mount
+APT_SUCCESS=$?
+umount /cdrom
+
+if [ $APT_SUCCESS != 0 ]; then
+    # retry prompting the user
+    apt-cdrom add
+fi
+
+
+echo Installing eBox...
+
+export HOME=/root # need for ssl-cert postinst
+apt-get install -y    "^ebox-.*" ssh
+if [ $? != 0 ]; then
+    echo "Installation failed. You can run manually $0 to check what failed"
+    exit 1
+fi
+
+# Enable eBox modules
+echo Preconfiguring eBox modules...
+/var/tmp/enable-all-modules.pl > /dev/null 2>&1
+rm /var/tmp/enable-all-modules.pl
+
+
+# load LANG variable with default locale
+. /etc/default/locale
+
+# Append eBox support languages to generate to current supported
+# locales
+LOCALES_FILE=/var/lib/locales/supported.d/local
+TMP=/tmp/local.tmp
+cat /var/tmp/locale.gen $LOCALES_FILE > $TMP
+sort $TMP | uniq > $LOCALES_FILE
+rm -f $TMP
+
+# Regenerate locales to update the new messages from eBox
+/usr/sbin/locale-gen 
+
+/usr/share/ebox/ebox-set-locale $LANG > /dev/null 2>&1
+
+# Run ebox-software in order to update packages list (which is done
+# nightly)
+#echo "Updating package list"
+#ebox-software
+
+# delete itself 
+echo Cleaning up eBox installer files...
+rm -f /var/tmp/locale.gen
+update-rc.d -f $RC_NAME remove
+rm /etc/init.d/$RC_NAME

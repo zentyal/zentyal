@@ -1,6 +1,8 @@
+SUBDIRS = EBoxToEBox t
+
 perldir = @PERLPATH@/EBox/OpenVPN/Server/ClientBundleGenerator
 
-nobase_perl_DATA = Linux.pm Windows.pm 
+nobase_perl_DATA = Linux.pm Windows.pm  EBoxToEBox.pm
 
 test_classes     = Test.pm
 

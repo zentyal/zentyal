@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# stop dhcp3-server if it's running as a normal service
+invoke-rc.d dhcp3-server stop

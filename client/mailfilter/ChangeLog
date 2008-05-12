@@ -1,3 +1,11 @@
+<<<<<<< .mine
+0.11.100
+	+ Stop daemons in pre-start upstart script
+	+ Create /var/run/* directories in pre-start 
+	+ Removed erroneous activation order dependency with module mail
+	+ Added module activation with mail only when mail is not
+	configured (mailfilter depends on ldap data created in
+	configuration of mail module)
 0.11.99
 	+ Bugfix: Banned file names regular expressions are case
 	insensitive

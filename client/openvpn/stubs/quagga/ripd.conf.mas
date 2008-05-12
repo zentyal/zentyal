@@ -2,26 +2,42 @@
 @ifaces
 $redistribute
 </%args>
-hostname ebox
-password ripd
-enable password ripd
-% foreach my $iface (@ifaces) {
-interface <% $iface %>
-no ip rip authentication mode
+<%init>
+sub _keychainForIface
+{
+   my ($iface) = @_;
+   return $iface . 'KC';
+}
+</%init>
+
+
+% foreach my $iface_r (@ifaces) {
+%   my $keyChainName = _keychainForIface($iface_r->{ifaceName});
+key chain <% $keyChainName %>
+   key 1
+      key-string <% $iface_r->{passwd} %>
+
+interface <% $iface_r->{ifaceName} %>
+    ip rip send version 2
+    ip rip receive version 2
+    ip rip authentication mode md5
+    ip rip authentication key-chain <% $keyChainName %>
 % }
 
 router rip
-% foreach my $iface (@ifaces) {
-network <% $iface %>
+
+% foreach my $iface_r (@ifaces) {
+network <% $iface_r->{ifaceName} %>
 % }
-% foreach my $iface (@ifaces) {
-distribute-list private in <% $iface %>
-distribute-list private out  <% $iface %>
+% foreach my $iface_r (@ifaces) {
+distribute-list private in  <% $iface_r->{ifaceName} %>
+distribute-list private out <% $iface_r->{ifaceName} %>
 % }
 % if ($redistribute) {
 redistribute connected
 redistribute static
 % }
+
 debug rip events
 debug rip packet
 log file /var/log/quagga/ripd.log
@@ -29,3 +45,4 @@ access-list private permit 10.0.0.0/8
 access-list private permit 172.16.0.0/12
 access-list private permit 192.168.0.0/16
 access-list private deny any
+

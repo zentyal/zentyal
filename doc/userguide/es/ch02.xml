@@ -1,5 +1,3 @@
-	<!-- vim: ts=2 sw=2 tw=75
--->
 <chapter id="ch-system">
 
 	<title>Configuración del sistema</title>
@@ -341,10 +339,64 @@
 
 		<warning>
 			<para>
-			Al realizar un cambio en la configuración horaria del sistema 
-			se reiniciarán todos los servicios de eBox.
+			Al realizar un cambio en la configuración
+                        horaria del sistema, es posible que tu sistema
+                        se vuelva inestable, por ello es mejor
+                        reiniciar la máquina tras salvar cambios.
 			</para>
 		</warning>
 	</section>
+
+        <section id="sect-mod-status">
+          <title>Estado módulos</title>
+          <para>
+            El estado de cada módulo de eBox se maneja desde aquí en
+            vez de tener que habilitar cada módulo desde una de sus
+            páginas de configuración. Esto permite tener a simple
+            vista que módulos están habilitados de manera análoga como
+            se hace con el sumario de cada módulo en la página de
+            sumario. Cada módulo eBox es deshabilitado por defecto
+            incluyendo módulos como Red (<xref linkend="ch-network"/>)
+            o Cortafuegos (<xref linkend="ch-firewall"/>).
+          </para>
+          <para>
+            Hay módulos que dependen de otros para ser habilitados. En
+            una instalación típica, por ejemplo el módulo squid tiene
+            una cadena de dependencias para habilitarse como se
+            muestra: squid -> cortafuegos -> red. Así para habilitar
+            el módulo Squid, tenemos que habilitar primero sus
+            dependencias. Un módulo puede tener múltiples dependencias
+            para funcionar correctamente.
+          </para>
+          <para>
+            La primera vez que habilitas un módulo, eBox te preguntará
+            si puede realizar una serie de acciones y modificaciones
+            en ciertos ficheros que debes aceptar explicítamente para
+            habilitar el módulo. Esto es así para cumplir la política
+            Debian la cual indica que cada paquete debe manejar sus
+            propios datos y si modifica datos o configuraciones de
+            otros paquetes, estas modificaciones deben ser aceptadas
+            explícitamente por el usuario. Cada acción a realizar
+            tiene una razón explicada de manera acorde. Hasta que no
+            se salvan cambios, los módulos no se habilitarán ni sus
+            cambios serán confirmados.
+          </para>
+          <para>
+            Cada vez que un usuario hace una modificación en un
+            fichero controlado por eBox, se informará que un cambio se
+            ha realizado y que va a ser anulado. Esta comprobación se
+            hace al guardar cambios. Esta monitorización se realiza
+            únicamente en aquellos ficheros que afectan a módulos
+            habilitados. Si ya sólo se usa la Interfaz de eBox para
+            configurar los servicios, no saldrán más diálogos de este
+            tipo.
+          </para>
+          <para>
+            Para deshabilitar un módulo, simplemente tilda en la
+            columna <guilabel>Estado</guilabel> del módulo deseado. Si
+            el módulo es una dependencia de otros módulos, éstos
+            también se deshabilitarán.
+          </para>
+        </section>
 	
 </chapter>

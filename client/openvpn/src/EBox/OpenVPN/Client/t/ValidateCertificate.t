@@ -4,7 +4,7 @@ use warnings;
 
 use EBox::TestStubs;
 
-use Test::More tests => 9;
+use Test::More tests => 10;
 use Test::Exception;
 
 use lib '../../../..';
@@ -13,15 +13,31 @@ use_ok ('EBox::OpenVPN::Client::ValidateCertificate');
 EBox::TestStubs::activateTestStubs();
 EBox::TestStubs::setEBoxConfigKeys(tmp => '/tmp');
 
+# first set of certificates
 my $caCert = 'testdata/cacert.pem';
 my $cert   = 'testdata/cert.pem';
 my $pkey   = 'testdata/pkey.pem';
+
+# second set of certificates
+my $caCert2 = 'testdata/cacert2.pem';
+my $cert2   = 'testdata/cert2.pem';
+my $pkey2   = 'testdata/pkey2.pem';
+
+
 my $unrelatedFile = 'testdata/unrelated.pem';
 
 
-lives_ok {
-  EBox::OpenVPN::Client::ValidateCertificate::check($caCert, $cert, $pkey);
-} 'checking valid certificates files';
+my @goodCases = (
+		 [$caCert, $cert, $pkey],
+		 [$caCert2, $cert2, $pkey2],
+		);
+foreach my $case (@goodCases) {
+  my @files =  @{ $case };
+  lives_ok {
+    EBox::OpenVPN::Client::ValidateCertificate::check(@files);
+  } 'checking valid certificates files';
+}
+
 
 
 my @badCases = (

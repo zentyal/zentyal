@@ -1,147 +1,93 @@
-<chapter id="ch-ca">
-  <title>Certification Authority Management</title>
+<chapter id="ch-jabber">
 
-  <section id="sect-ca-prereq">
-    <title>Prerequisites</title>
-    <para>
-      A basic knowledge of public key infrastructure is needed to 
-      understand and use this module.
-      You can find a good introduction at <ulink
-      url="http://en.wikipedia.org/wiki/Public_key_infrastructure">the Wikipedia article
-      about PKI.</ulink>
-    </para>
-  </section>
+	<title>Jabber Server</title>
+	
+	<section id="jabber-serv-sect">
+		<title>Jabber Server</title>
+	
+		<para>You can get to Jabber server configuration at
+			<menuchoice>
+				<guimenu>Jabber</guimenu>
+			</menuchoice>
+		and with each user options.</para>
 
+		<para>Jabber server configures a instant messenger network access, for
+		a local network or with external connection. It also handles
+		authentication per-user, allowing or not its access to each one.</para>
+		
+		<para>If you want to enable Jabber server, check out
+                <xref linkend="sect-mod-status"/> for details to do so.
+                </para>
 
-  <section id="sect-ca-overview">
-    <title>Overview of Certification Authority Management</title>
-    <para>
-      You can get to Certification Authority (<acronym>CA</acronym>) 
-      Management at
-      <menuchoice>
-	<guimenu>Certificate Manager</guimenu>
-      </menuchoice>
-    </para>
+		<para>You can configure Jabber server behavior by setting these options:
+			<variablelist>
+				<varlistentry>
+					<term>Domain Name</term>
+					<listitem>
+						<para>Every account on a Jabber server has this syntax:
+						user@domain. Users shall use this syntax on their IM clients to
+						chat. For this reason, the domain name should be resolved by the
+						user's PC, and resolved by the rest of Internet if external access
+						is configured.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Global Jabber network connection</term>
+					<listitem>
+						<para>Jabber server can be part of the planet-wide Jabber network;
+						or work as a stand-alone server on a corporative network. This
+						option allows to select its behavior.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>SSL Support</term>
+					<listitem>
+						<para>Authentication and data transmission between Jabber user and
+						the server can be made of three different ways:
+							<itemizedlist>
+								<listitem>
+									<para>First, selecting "No" value will make
+									a plain communication between both
+									parts.</para>
+								</listitem>
+								<listitem>
+									<para>Second option, "Optional". It allows
+									the user to choose if communication with the
+									server should be encrypted, with SSL, or
+									plain.</para> 
+								</listitem>
+								<listitem>
+									<para>Last, if SSL access is "Required", IM
+									client must allow SSL authentication to get
+									connected to Jabber server.</para>
+								</listitem>
+							</itemizedlist>
+						</para>
+					</listitem>
+				</varlistentry>
+			</variablelist>
+		</para>
 
-    <para>
-      The CA Management purpose is to allow the issue of certificates, 
-      which can be used by another eBox modules or external applications.
-    </para>
-    <para>
-      The certificates are issued using a CA's
-      certificate which will be created with this module.
-    </para>
-  </section>
-  <section id="sect-create-ca">				      
-    <title>CA's certificate creation</title>
-    <para>
-      Firstly, in order to use certificate, issuing the CA's certificate
-      is needed signing by itself. This certificate is used to
-      issue 'normal' certificates, so the other module's features would
-      not be available until it exists.
-    </para>
-    
-    <para>
-       To achieve so, we enter in the module's page and we find
-       a form to create the CA's certificate.
-       The form requires the organization's name and the number of
-       days till the certificate expires.
-    </para>
-    <warning>
-      <para>
-	Establishing certificate's life, we have to keep in
-	mind that its expiration will also expire any certificate
-	issued with it.
-	This would stop any service which depends on the revoked certificates.
-      </para> 
-    </warning>
-    
-  </section>
-
-  <section id="sect-create-certificate">
-    <title>Certificates creation</title>
-    <para>
-      Once the CA's certificate is in place, we are
-      able to issue new certificates with it.
-    </para>
-    <para>
-      In order to do so, we fill the form which appears on the top of
-      the module's page.
-      The mandatory data are the certificate's common name and the
-      number of days until its expiration. This last value is limited by
-      the duration of the CA's certificate.
-    </para>
-    <para>
-      When the certificate has been issued, it will appear in the
-      certificate's list and it will be available to the remainder eBox
-      modules to use it.
-    </para>
-  </section>
-      
-  <section id="sect-certificate-actions">
-    <title>Actions upon certificates</title>
-    <para>
-      Through the certificate's list we can access to actions which can
-      be done upon each certificate.
-      The actions available are <link linkend="sect-certificate-actions-download">download files</link>, 
-      <link linkend="sect-certificate-actions-revoke">revoke</link> 
-      and <link linkend="sect-certificate-actions-renew">renew</link>.
-    </para>
-
-    <section id="sect-certificate-actions-download">
-      <title>Download files</title>
-      <para>
-	Clicking in the download icon we will get a compressed
-	archive which contains both the certificate and his public and
-	private keys.
-	In the case of certification authority's certificate, the
-	private key is not supplied in the archive.
-      </para>
-    </section>
-      
-    <section id="sect-certificate-actions-revoke">
-      <title>Revoke</title>
-      <para>
-	Through the revoke icon, we can revoke any certificate.
-	After clicking it, we find another form in which we can
-	specify the revocation reason or cancel the action.
-      </para>
-      <para>
-	Once a certificate is revoked, it will appear in the list but
-	marked as revoked. However, it could not be used by other eBox
-	modules or any external application.
-      </para>
-      <warning>
-	<para>
-	  In case the revoked certificate is the CA's certificate, 
-	  all certificates generated with the certificate will be 
-	  automatically revoked.
-	</para>
-      </warning>
-    </section>
-
-    <section id="sect-certificate-actions-renew">
-      <title>Renew</title>
-      <para>
-	You can renew certificates using the renew icon. You are
-	asked about the new certificate's duration.
-      </para>
-      <para>
-	When renewing a certificate, a revocation and an issue of the new
-	certificate with the same data is done.
-	The eBox modules will be automatically get the new certificate
-	but you will need to supply it manually to external applications.
-      </para>
-      <warning>
-	<para>
-	  If you renew the CA's certificate, all
-	  the certificates created with it will be also automatically renewed
-	  until at much the CA's certificate expiration date.
-	</para>
-      </warning>
-    </section>
-
-  </section>
-
-
+		<para>On each user configuration, we can find two new options for its Jabber access configuration:
+			<variablelist>
+				<varlistentry>
+					<term>User account</term>
+					<listitem>
+						<para>It can be checked or not, which will allow the user access to
+						the Jabber server.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>User has administration rights</term>
+					<listitem>
+						<para>A user with administration privileges can be notified with
+						some server events, or make some actions only available to admin
+						users. Please, check Jabber documentation if you need to know about
+						the full set of privileges of a Jabber network administrator.</para>
+					</listitem>
+				</varlistentry>
+			</variablelist>
+		</para>
+		</section>
+	
 </chapter>

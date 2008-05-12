@@ -1,0 +1,29 @@
+Dir {
+  ArchiveDir "ARCHIVE_DIR";
+};
+
+TreeDefault {
+  Directory "pool/";
+};
+
+BinDirectory "pool/main" {
+  Packages "dists/hardy/main/binary-i386/Packages";
+  BinOverride "INDICES/override.hardy.main";
+  ExtraOverride "INDICES/override.hardy.extra.main";
+};
+
+BinDirectory "pool/restricted" {
+ Packages "dists/hardy/restricted/binary-i386/Packages";
+ BinOverride "INDICES/override.hardy.restricted";
+};
+
+Default {
+  Packages {
+    Extensions ".deb";
+    Compress ". gzip";
+  };
+};
+
+Contents {
+  Compress "gzip";
+};

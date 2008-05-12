@@ -1,41 +1,25 @@
 #!/bin/bash
 
-webserver=apache
+#DEBHELPER#
+
 
 case "$1" in
-	configure)
-		# install gconf schemas
-		SCHEMA_LOCATION=/usr/share/gconf/schemas
-		SCHEMA_FILES="printers.schemas "
-		for SCHEMA in $SCHEMA_FILES; do
-			if [ -e $SCHEMA_LOCATION/$SCHEMA ]; then
-				HOME=/var/lib/ebox GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` \
-				gconftool-2 \
-				--makefile-install-rule $SCHEMA_LOCATION/$SCHEMA > /dev/null
-			fi
-		done
+    configure)
+        kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
-		
-		kill `pidof gconfd-2` >/dev/null 2>&1 || true
+        # add ebox to lpadmin to manage printers and queues
+        adduser --quiet ebox lpadmin
+         # add ebox to lp to read cups logs
+        adduser --quiet ebox lp
 
-		# don't start cups with its script
-		update-rc.d -f cupsys remove
-		
-		# stop cups
-		invoke-rc.d cupsys stop
+	/usr/share/ebox/ebox-migrate /usr/share/ebox-printers/migration/
 
-		adduser --quiet ebox lpadmin
+        # Restart eBox apache
+        invoke-rc.d ebox apache restart || true
 
-		# create log table
-		/usr/lib/ebox/ebox-sql-table add jobs /usr/share/ebox/sqllog/printers.sql	
-	
-		# restart logs
-		invoke-rc.d ebox logs restart || true
-
-		invoke-rc.d ebox printers restart
-	;;
+     ;;
 esac
 
-#DEBHELPER#
+
 
 exit 0

@@ -67,9 +67,9 @@ sub processLine # (file, line, logger)
 {
 	my ($self, $file, $line, $dbengine) = @_;
 
-	system("echo > /tmp/kkka");
-	return unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) [\w\s]+: ebox-firewall (.+)/);
-
+	unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*: \[.*\] ebox-firewall (.+)/) {
+	    return;
+	}
 	my $date = $1;
 	my $rule = $2;
 

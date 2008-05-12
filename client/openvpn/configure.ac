@@ -1,4 +1,4 @@
-AC_INIT([EBox-openvpn], [0.11.99])
+AC_INIT([EBox-openvpn], [0.11.100])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/OpenVPN.pm])
@@ -59,10 +59,13 @@ AC_CONFIG_FILES([
 src/Makefile
 src/EBox/Makefile
 src/EBox/t/Makefile
+src/EBox/t/testdata/Makefile
 src/EBox/OpenVPN/Makefile
 src/EBox/OpenVPN/Server/Makefile
 src/EBox/OpenVPN/Server/t/Makefile
 src/EBox/OpenVPN/Server/ClientBundleGenerator/Makefile
+src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox/Makefile
+src/EBox/OpenVPN/Server/ClientBundleGenerator/t/Makefile
 src/EBox/OpenVPN/Client/Makefile
 src/EBox/OpenVPN/Client/t/Makefile
 src/EBox/OpenVPN/Client/t/testdata/Makefile
@@ -84,7 +87,6 @@ migration/Makefile
 tools/installer/Makefile
 tools/sqllog/Makefile
 tools/Makefile
-www/Makefile
 Makefile
 ])
 

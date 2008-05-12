@@ -1,0 +1,117 @@
+PORT=443
+
+# This function uses the eBox API to fetch the configured apache port used
+# by eBox
+#
+# Usage: port=$(fetch_ebox_port)
+fetch_ebox_port()
+{
+    set +e 
+
+    ret=$(perl -e '
+            use EBox; 
+            use EBox::Global; 
+            EBox::init();
+
+            my $apache = EBox::Global->modInstance('apache');
+            print $apache->port();
+            exit 0;
+            ' 2> /dev/null );
+
+    if [ $? -eq 0 ]; then
+        PORT=$ret;
+    fi
+
+    set -e
+}
+
+# This function is used to try guess if a given port is available. It tries
+# to connect to the port. Note that it does not distinguish if the port
+# is being already used by eBox.
+#
+# Usage: check_port_available port_number
+check_port_available()
+{
+    check_port=$1
+
+    set +e
+
+    perl -e '
+        use IO::Socket; 
+        my $port = $ARGV[0];			
+        IO::Socket::INET->new(
+            PeerAddr => "127.0.0.1",
+            PeerPort => $port,
+            Proto	 => "tcp",
+            Timeout	 => 5) or exit 0;
+        exit 1;
+        ' $check_port 2> /dev/null;
+    ret=$?
+
+    set -e
+    return $ret;
+}
+
+# This function uses the eBox API to set the apache port to be used by eBox.
+#
+# In case the current port and the new port are the same it returns without
+# modifying the current value.
+#
+# We have to do two things to set the port:
+#   
+#   Tell apache module its new port
+#   Save changes in apache and services
+#
+# Usage: set_ebox_port new_port
+set_ebox_port()
+{
+
+    db_get ebox/port
+    new_port=$RET
+
+	fetch_ebox_port;
+	if [ $new_port -eq $PORT ]; then
+		echo "Skipping apache port setting as current port and new port are equal"
+		return 0;
+	fi
+
+    set +e 
+
+    ret=$(perl -e '
+            use EBox; 
+            use EBox::Global; 
+
+            EBox::init();
+            my $port = $ARGV[0];
+            my $global = EBox::Global->getInstance();
+            my $apache = $global->modInstance('apache');
+            $apache->setPort($port);
+            $apache->saveConfig();
+            if ($global->modExists('services')) {
+                $global->modInstance('services')->saveConfig();
+            }
+            ' $new_port);
+
+    set -e
+}
+
+store_password() {
+    local pass1 
+
+    db_get ebox/password1
+    pass1="$RET"
+
+    if [ -z "pass1" ]; then
+        pass1="ebox"
+    fi
+
+    db_set ebox/password1 ""
+    db_set ebox/password2 ""
+
+    echo -n "$pass1"| md5sum - | cut -d' ' -f1 > /var/lib/ebox/conf/ebox.passwd
+    chown ebox:ebox /var/lib/ebox/conf/ebox.passwd
+    chmod 600 /var/lib/ebox/conf/ebox.passwd
+
+}
+
+

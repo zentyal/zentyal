@@ -1,4 +1,4 @@
-AC_INIT([EBox-mail], [0.11.99])
+AC_INIT([EBox-mail], [0.11.100])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/Mail.pm])
@@ -50,9 +50,23 @@ fi
 
 AC_DEFINE_DIR(PERLPATH, perlpath)
 
+
+if test "$MD_QUOTA" = "yes"; then
+	postfix_deps="postfix (>= 1:2.1.5-1warp.es), postfix-tls (>= 1:2.1.5-1warp.es), postfix-ldap (>= 1:2.1.5-1warp.es)"
+	md_quota="yes"
+
+else
+	postfix_deps="postfix (>= 2.4.5-3ubuntu1.ebox1), postfix-ldap (>= 2.4.5-3ubuntu1.ebox1)"
+	md_quota="no"
+fi
+
+AC_SUBST(POSTFIX_DEPS, ["$postfix_deps"])
+AC_SUBST(MD_QUOTA, ["$md_quota"])
+
 AM_PO_SUBDIRS
 
 AC_CONFIG_FILES([
+debian/control
 src/Makefile
 src/EBox/Makefile
 src/EBox/Event/Makefile

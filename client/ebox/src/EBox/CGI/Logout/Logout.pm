@@ -24,6 +24,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
 use EBox::Global;
+use Apache2::RequestUtil;
 
 sub new 
 {
@@ -37,7 +38,7 @@ sub _process
 {
 	my $self = shift;
 
-	my $r = Apache->request;
+	my $r = Apache2::RequestUtil->request;
 	my $auth_type = $r->auth_type;
 
 

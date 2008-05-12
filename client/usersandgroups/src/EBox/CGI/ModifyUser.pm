@@ -57,9 +57,9 @@ sub _process($) {
 			 };
 	
 	# Change password if not empty		 
-	my $password = $self->param('password');
+	my $password = $self->unsafeParam('password');
 	if ($password) {
-		my $repassword = $self->param('repassword');
+		my $repassword = $self->unsafeParam('repassword');
 		if ($password ne $repassword){
 			 throw EBox::Exceptions::External(
 					__('Passwords do not match.'));

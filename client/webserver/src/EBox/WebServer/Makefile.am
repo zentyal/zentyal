@@ -3,7 +3,7 @@ SUBDIRS = Composite Model
 
 perldir = @PERLPATH@/EBox/WebServer
 
-nobase_perl_DATA = Maintenance.pm PlatformPath.pm
+nobase_perl_DATA =  PlatformPath.pm
 
 DISTCLEANFILES = PlatformPath.pm
 

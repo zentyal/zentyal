@@ -19,7 +19,6 @@ use strict;
 use warnings;
 
 use base 'EBox::CGI::ClientBase';
-use Apache;
 use EBox::Global;
 use EBox::Gettext;
 

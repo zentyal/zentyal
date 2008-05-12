@@ -98,7 +98,6 @@ sub _description
       my $description =
         {
          components      => [
-                             '/dhcp/EnableForm',
                              'Interfaces',
                             ],
          layout          => 'top-bottom',

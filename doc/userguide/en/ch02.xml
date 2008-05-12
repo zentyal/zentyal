@@ -259,14 +259,14 @@
 			</menuchoice>
 		, you can adjust eBox date and time. There are two different options
 		to adjust date and time correctly: by hand, setting as "Disabled" NTP
-		Server synchronization, and using an external NTP Server, setting as
-		"Enabled" NTP synchronization.
+		Server synchronisation, and using an external NTP Server, setting as
+		"Enabled" NTP synchronisation.
 
 		<variablelist>
 			<varlistentry>
 				<term>By hand</term>
 				<listitem>
-					<para>If synchronization with other NTP server
+					<para>If synchronisation with other NTP server
 					is disabled, date and time adjust will be
 					manual. Selecting corresponding values, shown
 					in the page, for system date and time values.
@@ -276,7 +276,7 @@
 			<varlistentry>
 				<term>Using another NTP Server</term>
 				<listitem>
-					<para>If date/time synchronization with a NTP
+					<para>If date/time synchronisation with a NTP
 					Server is enabled, another configuration will
 					be shown, where you can specify until a
 					maximum of three NTP Servers where eBox will
@@ -299,10 +299,56 @@
 		</para>
 
 		<warning>
-			<para>When you make a change on the system date/time
-			configuration, every eBox service will be restarted.
+			<para>When you make a change, it is possible your system becomes
+			unstable, so you'd better to restart the whole machine after saving changes.
 			</para>
 		</warning>
 	</section>
-	
+
+	<section id="sect-mod-status">
+          <title>Module status</title>
+          <para>
+            Each eBox module status is managed from here instead of
+            having to enable every module from one of its configuration
+            page. This allows us to have in a single sight which
+            modules are enabled analogously the module summary in
+            Summary page. Each eBox module is disabled by default
+            including base modules such as Network (<xref
+            linkend="ch-network"/>) or Firewall (<xref
+            linkend="ch-firewall"/>).
+          </para>
+          <para>
+            There are modules which depends on another to be
+            enabled. In a typical installation, for example, the squid module has a
+            chain of dependencies to be enabled as shown: squid ->
+            firewall -> network. So to enable Squid module, firstly
+            the dependant modules must be enabled first. A module may
+            have multiple module dependencies to work.
+          </para>
+          <para>
+            The first time you enable a module, eBox will ask to
+            perform several actions and file modifications that you
+            must accept explicitly to enable the module. This is so to
+            comply the Debian policy which indicate that every package
+            must manage its own data and if it modifies
+            configuration/data from other packages the user must
+            accept explicitly those modifications. Every action to
+            perform has a reason which is explained accordingly.
+            Until you save changes, the modules that you may enable
+            would not be committed.
+           </para>
+          <para>
+            Every time a user make a modification in an eBox-controlled file, eBox
+            will realise that a change may be done when saving
+            changes. And it will ask you again to override your
+            changes. This monitoring is only done on those modules
+            which are enabled. If every configuration setting is done
+            through eBox UI, no more dialogues of this kind will be shown.
+          </para>
+          <para>
+            In order to disable a module, just click <guilabel>status</guilabel> column of
+            the desired module. If the module is a dependency from
+            other modules, this action will disable them as well.
+         </para>
+        </section>
 </chapter>

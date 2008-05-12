@@ -42,7 +42,7 @@ sub _process($) {
 
 	my @array = ();
 	my $active = 'no';
-	if ($jabber->service()) {
+	if ($jabber->isEnabled()) {
 	    $active = 'yes';
 	}
 

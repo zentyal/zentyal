@@ -18,7 +18,7 @@ package EBox::NTP;
 use strict;
 use warnings;
 
-use base 'EBox::GConfModule';
+use base qw(EBox::GConfModule EBox::ServiceModule::ServiceInterface);
 
 use EBox::Objects;
 use EBox::Gettext;
@@ -39,7 +39,7 @@ use constant NTPCONFFILE => "/etc/ntp.conf";
 sub _create 
 {
 	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'ntp', 
+	my $self = $class->SUPER::_create(name => 'ntp', printableName => 'ntp',
 						domain => 'ebox-ntp',
 						@_);
 	bless($self, $class);
@@ -52,12 +52,62 @@ sub isRunning
 	# return undef if service is not enabled
 	# otherwise it might be misleading if time synchronization is set
 	($self->service) or return undef;
-	return EBox::Service::running('ntpd');
+	return EBox::Service::running('ebox.ntpd');
 }
 
 sub domain
 {
 	return 'ebox-ntp';
+}
+
+# Method: actions
+#
+# 	Override EBox::ServiceModule::ServiceInterface::actions
+#
+sub actions
+{
+	return [ 
+	{
+		'action' => __('Remove ntp init script links'),
+		'reason' => __('eBox will take care of starting and stopping ' .
+						'the services.'),
+		'module' => 'ntp'
+	}
+    ];
+}
+
+
+# Method: usedFiles
+#
+#	Override EBox::ServiceModule::ServiceInterface::usedFiles
+#
+sub usedFiles
+{
+	return [
+		{
+		 'file' => NTPCONFFILE,
+		 'module' => 'ntp',
+ 	 	 'reason' => 'ntp configuration file'
+		}
+	       ];
+}
+
+# Method: enableActions 
+#
+# 	Override EBox::ServiceModule::ServiceInterface::enableActions
+#
+sub enableActions
+{
+    root(EBox::Config::share() . '/ebox-ntp/ebox-ntp-enable');
+}
+
+# Method: serviceModuleName 
+#
+# 	Override EBox::ServiceModule::ServiceInterface::serviceModuleName
+#
+sub serviceModuleName
+{
+    return 'ntp';
 }
 
 sub _doDaemon
@@ -66,17 +116,17 @@ sub _doDaemon
 	my $logger = EBox::logger();
 
   if (($self->service or $self->synchronized) and $self->isRunning) {
-      EBox::Service::manage('ntpd','stop');
+      EBox::Service::manage('ebox.ntpd','stop');
 		sleep 2;
 		if ($self->synchronized) {
 			my $exserver = $self->get_string('server1');
 			try { 
 				root("/usr/sbin/ntpdate $exserver");
 			} catch EBox::Exceptions::Internal with {
-				$logger->info("Error no se pudo lanzar ntpdate");
+				$logger->info("Couldn't execute ntpdata");
 			};
 		}
-      EBox::Service::manage('ntpd','start');
+      EBox::Service::manage('ebox.ntpd','start');
    } elsif ($self->service or $self->synchronized) {    
 		if ($self->synchronized) {
 			my $exserver = $self->get_string('server1');
@@ -86,18 +136,18 @@ sub _doDaemon
 				$logger->info("Error no se pudo lanzar ntpdate");
 			};
 		}
-      EBox::Service::manage('ntpd','start');
+      EBox::Service::manage('ebox.ntpd','start');
    } elsif ($self->isRunning) {
-      		EBox::Service::manage('ntpd','stop');
+      		EBox::Service::manage('ebox.ntpd','stop');
 		if ($self->synchronized) {
-      			EBox::Service::manage('ntpd','start');
+      			EBox::Service::manage('ebox.ntpd','start');
 		}
    }
 }
 
 sub _stopService
 {
-      	EBox::Service::manage('ntpd','stop');
+      	EBox::Service::manage('ebox.ntpd','stop');
 }
 
 sub _configureFirewall($){
@@ -125,7 +175,7 @@ sub setService # (active)
 	my ($self, $active) = @_;
 	($active and $self->service) and return;
 	(!$active and !$self->service) and return;
-	$self->set_bool('active', $active);
+	$self->enableService($active);
 	$self->_configureFirewall;
 }
 
@@ -139,7 +189,8 @@ sub setService # (active)
 sub service
 {
    my $self = shift;
-   return $self->get_bool('active');
+
+	return $self->isEnabled();
 }
 
 # Method: setSynchronized
@@ -373,8 +424,8 @@ sub setNewTimeZone # (continent, country))
 	$self->set_string('country', $country);
 	root("rm /etc/localtime");
 	root($command);
-	my $global = EBox::Global->getInstance(1);
-	$self->_restartAllServices;
+#	my $global = EBox::Global->getInstance(1);
+#	$self->_restartAllServices;
 }	
 
 sub statusSummary
@@ -384,39 +435,7 @@ sub statusSummary
 					$self->isRunning, $self->service);
 }
 
-# Method: onInstall
-#
-# 	Method to execute the first time the module is installed.
-#
-sub onInstall
-{
-	EBox::init();
-	_addNTPService();
-	my $fw = EBox::Global->modInstance('firewall');
-	$fw->setInternalService('ntp', 'accept');
-    $fw->save();
-}
 
-# Method: onRemove
-#
-# 	Method to execute before the module is uninstalled
-#
-sub onRemove
-{
-	EBox::init();
-
-	my $serviceMod = EBox::Global->modInstance('services');
-	my $fwMod = EBox::Global->modInstance('firewall');
-
-	if ($serviceMod->serviceExists('name' => 'ntp')) {
-		 $serviceMod->removeService('name' => 'ntp');
-	} else {
-		EBox::info("Not removing ntp services as it already exists");
-	}
-
-	$serviceMod->save();
-    $fwMod->save();
-}
 # Method: menu 
 #
 #       Overrides EBox::Module method.
@@ -433,37 +452,7 @@ sub menu
         $folder->add(new EBox::Menu::Item('url' => 'NTP/Timezone',
                                           'text' => __('Time zone')));
         $root->add($folder);
-
-        my $item = new EBox::Menu::Item('url' => 'NTP/Index',
-                                        'text' => __('NTP server'));
-		$root->add($item);
 }
 
-sub _addNTPService
-{
-
-    my $serviceMod = EBox::Global->modInstance('services');
-
-	if (not $serviceMod->serviceExists('name' => 'ntp')) {
-		 $serviceMod->addService('name' => 'ntp',
-			'protocol' => 'udp',
-			'sourcePort' => 'any',
-			'destinationPort' => 123,
-			'internal' => 1,
-			'readOnly' => 1);
-		
-	} else {
-          $serviceMod->setService('name' => 'ntp',
-			'protocol' => 'udp',
-			'sourcePort' => 'any',
-			'destinationPort' => 123,
-			'internal' => 1,
-			'readOnly' => 1);
-
-		EBox::info("Not adding ntp services as it already exists");
-	}
-
-    $serviceMod->save();
-}
 
 1;

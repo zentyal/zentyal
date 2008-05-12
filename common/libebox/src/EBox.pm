@@ -20,7 +20,8 @@ use warnings;
 
 use EBox::Config;
 use EBox::Exceptions::DeprecatedMethod;
-use POSIX qw(setuid setgid setlocale LC_ALL);
+use POSIX qw(setuid setgid setlocale LC_ALL LC_NUMERIC);
+use English;
 
 my $loginit = 0;
 
@@ -105,13 +106,19 @@ sub locale
 
 sub init
 {
-        POSIX::setlocale(LC_ALL, EBox::locale());
-        my $user = EBox::Config::user();
-        my $group = EBox::Config::group();
-        my $uid = getpwnam($user);
-        my $gid = getgrnam($group);
-        setgid($gid) or die "Cannot change group to $group";
-        setuid($uid) or die "Cannot change user to $user";
+	POSIX::setlocale(LC_ALL, EBox::locale());
+	POSIX::setlocale(LC_NUMERIC, 'C');
+
+	my @groups = @{EBox::Config::groups()};
+	my $gids = '';
+	for my $group (@groups) {
+		$gids .= getgrnam($group) . ' ';	
+	}
+	$GID = $EGID = getgrnam(EBox::Config::group()) . " $gids";
+
+	my $user = EBox::Config::user();
+	my $uid = getpwnam($user);
+	setuid($uid) or die "Cannot change user to $user";
 }
 
 1;

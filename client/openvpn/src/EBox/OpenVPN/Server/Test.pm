@@ -7,6 +7,7 @@ use base qw(EBox::Test::Class);
 
 use EBox::Test;
 use EBox::TestStubs qw(fakeEBoxModule);
+
 use Test::More;
 use Test::Exception;
 use Test::MockObject;
@@ -15,6 +16,7 @@ use Test::Differences;
 use Perl6::Junction qw(any);
 
 use lib '../../../';
+use  EBox::OpenVPN::Test;
 use EBox::OpenVPN;
 use EBox::CA::TestStub;
 
@@ -75,41 +77,6 @@ sub ignoreChownRootCommand : Test(startup)
 
 
 
-sub fakeNetworkModule
-{
-  my ($externalIfaces_r, $internalIfaces_r) = @_;
-
-  my @externalIfaces = defined $externalIfaces_r ? @{ $externalIfaces_r } :  qw(eth0 eth2);
-  my @internalIfaces = defined $internalIfaces_r ? @{ $internalIfaces_r } : ('eth1', 'eth3');
-
-  my $anyExternalIfaces = any(@externalIfaces);
-  my $anyInternalIfaces = any(@internalIfaces);
-
-  my $ifaceExistsSub_r = sub {
-    my ($self, $iface) = @_;
-    return ($iface eq $anyInternalIfaces) or ($iface eq $anyExternalIfaces);
-  };
-
-  my $ifaceIsExternalSub_r = sub {
-    my ($self, $iface) = @_;
-    return  ($iface eq $anyExternalIfaces);
-  };
-
-
-
-  fakeEBoxModule(
-		 name => 'network',
-		 package => 'EBox::Network',
-		 subs => [
-			  ifaceIsExternal => $ifaceIsExternalSub_r,
-			  ifaceExists     => $ifaceExistsSub_r,
-			  ExternalIfaces  => sub { return \@externalIfaces },
-			  InternalIfaces  => sub { return \@internalIfaces },
-			  ifaceMethod     => sub { return 'anythingButNonSet' }, # this if for bug #395
-			 ],
-		);
-
-}
 
 
 sub setUpConfiguration : Test(setup)
@@ -162,7 +129,7 @@ sub setUpConfiguration : Test(setup)
 		       );
 
     $ca->setInitialState(\@certificates);
-    fakeNetworkModule();
+    EBox::OpenVPN::Test::fakeNetworkModule();
     fakeFirewall();
 }
 
@@ -464,18 +431,23 @@ sub setPortTestForMultipleServers : Test(4)
 }
 
 
-sub setLocalTest : Test(14)
+sub setLocalTest : Test(16)
 {
     my ($self) = @_;
 
     my $server          = $self->_newServer('macaco');
     my $localGetter_r    =  $server->can('local');
     my $localSetter_r    =  $server->can('setLocal');
-    my $correctLocals   = [qw(eth0 eth2) ];
-    my $incorrectLocals = [ qw(inx1 eth1 inx2 eth3)];
 
-    
-    Test::MockObject->fake_module('EBox::NetWrappers', 'list_local_addresses' => sub { return @{ $correctLocals  } } );
+    my @extIfaces = qw(eth0 eth1);
+    my @intIfaces = qw(eth2 eth3);
+
+
+    # listen in all interfaces 
+    EBox::OpenVPN::Test::fakeNetworkModule(\@extIfaces, \@intIfaces);
+
+    my $correctLocals   = [ @extIfaces ];
+    my $incorrectLocals = [ @intIfaces, qw(inx1 inx2 )];
 
     setterAndGetterTest(
 			  object         => $server,
@@ -483,13 +455,82 @@ sub setLocalTest : Test(14)
 			  setter         => $localSetter_r,
 			  straightValues => $correctLocals,
 			  deviantValues  => $incorrectLocals,
-			  propierty      => "Server\'s IP local address",
+			  propierty      => "Server\'s IP local interface (without masquerade active)",
 			);
 
     lives_ok { $server->setLocal('')  } 'Unsetting local (i.e: all interfaces)';
     ok !$server->local(), 'Checking wether local value was unsetted';
+
+    my $internalIface = $intIfaces[0];
+    $server->setMasquerade(1);
+    lives_ok { $server->setLocal($internalIface)  } 'Setting a internal iface after make sure masquerade is active';
+    is $server->local(), $internalIface, 'Checking that internal iface was correctly set as listen -on interface';
 }
 
+
+sub setMasqueradeTest : Test(32)
+{
+    my ($self) = @_;
+
+    my $server          = $self->_newServer('macaco');
+    my $masqGetter_r    =  $server->can('masquerade');
+    my $masqSetter_r    =  $server->can('setMasquerade');
+
+    my @extIfaces = qw(eth0 eth1);
+    my @intIfaces = qw(eth2 eth3);
+
+    
+
+    # listen in all interfaces 
+    EBox::OpenVPN::Test::fakeNetworkModule(\@extIfaces, \@intIfaces);
+    
+    setterAndGetterTest(
+			  object         => $server,
+			  getter         => $masqGetter_r,
+			  setter         => $masqSetter_r,
+			  straightValues => [0, 1, 1, 0, 0,],
+			  deviantValues  => [],
+			  propierty      => "Server\'s masquerading when listening on all interfaces",
+		       );
+
+    # listen in all interfaces but all interfaces are local
+    EBox::OpenVPN::Test::fakeNetworkModule([], \@intIfaces);
+    setterAndGetterTest(
+			  object         => $server,
+			  getter         => $masqGetter_r,
+			  setter         => $masqSetter_r,
+			  straightValues => [1, 1],
+			  deviantValues  => [0],
+			  propierty      => "Server\'s masqurading when listening on all interfaces but all interfaces are local ",
+		       );
+
+    # listen in a external iface
+    EBox::OpenVPN::Test::fakeNetworkModule(\@extIfaces, \@intIfaces);
+    $server->setLocal('eth0');
+
+    setterAndGetterTest(
+			  object         => $server,
+			  getter         => $masqGetter_r,
+			  setter         => $masqSetter_r,
+			  straightValues => [0, 1, 1, 0, 0,],
+			  deviantValues  => [],
+			  propierty      => "Server\'s masquerading when listening on a external interface",
+		       );
+    # listen in a internal iface
+    EBox::OpenVPN::Test::fakeNetworkModule(\@extIfaces, \@intIfaces);
+    $server->setMasquerade(1); # masuqerade must be on to be able to change to a
+                               # local interface
+    $server->setLocal('eth2');
+
+    setterAndGetterTest(
+			  object         => $server,
+			  getter         => $masqGetter_r,
+			  setter         => $masqSetter_r,
+			  straightValues => [1, 1],
+			  deviantValues  => [0],
+			  propierty      => "Server\'s masquerading when listening on a internal interface",
+		       );
+}
 
 sub setInternalTest : Test(4)
 {
@@ -662,13 +703,13 @@ sub setSubnetAndMaskTest : Test(18)
 # }
 
 
-sub addAndRemoveAdvertisedNet : Test(30)
+sub addAndRemoveAdvertisedNet : Test(31)
 {
   my ($self) = @_;
   my $server = $self->_newServer('macaco');
 
   my @straightNets = (
-	      ['192.168.24.1', '255.255.255.0'],
+	      ['192.168.24.0', '255.255.255.0'],
 	      ['192.168.86.0', '255.255.255.0'],
 	      ['10.0.0.0', '255.0.0.0'],
 	      [ '192.168.34.0', '255.255.255.0'], # not directly reacheable net
@@ -692,7 +733,7 @@ sub addAndRemoveAdvertisedNet : Test(30)
 
 
 
-  # varaibles to control the tests' results
+  # variables to control the tests' results
   my ($address, $mask);
   my @nets;
   my $netCount = 0;
@@ -717,6 +758,8 @@ sub addAndRemoveAdvertisedNet : Test(30)
   dies_ok { $server->addAdvertisedNet('10.0.0.0.0', '255.255.255.0')  } 'Expecting error when adding a net with a incorrect address';
   dies_ok { $server->addAdvertisedNet('10.0.0.0', '256.255.255.0')  } 'Expecting error when adding a net with a incorrect netmask';
   dies_ok { $server->addAdvertisedNet('10.0.0.0.1111', '0.255.255.0')  } 'Expecting error when adding a net with both a incorrect address and netmask';
+  dies_ok { $server->addAdvertisedNet('10.0.0.11', '255.255.255.0')  } 'Expecting error when adding a net with both a host insteead of a network';
+
 
 
   # remove straight cases 
@@ -842,7 +885,7 @@ sub ifaceMethodChangedTest : Test(6)
   ok !$server->ifaceMethodChanged('eth0', 'whatever', 'nonset'), "Checking wether changing the iface method to 'nonset' is considered disruptive if the interface is the local interface";
 
 
-  fakeNetworkModule(['eth0'], []);
+  EBox::OpenVPN::Test::fakeNetworkModule(['eth0'], []);
   $server->setLocal('');  
   ok !$server->ifaceMethodChanged('eth0', 'whatever', 'nonset'), "Checking wether changing the iface method to 'nonset' is  considered disruptive where are only one interface left";
 
@@ -862,7 +905,7 @@ sub vifaceDeleteTest : Test(4)
   $server->setLocal('eth2');
   ok $server->vifaceDelete('eth0', 'eth2'), 'Checking wether deleting a virtual interface is reported as disruptive when the interface is the local interface';  
 
-  fakeNetworkModule(['eth2'], []);
+  EBox::OpenVPN::Test::fakeNetworkModule(['eth2'], []);
 
   $server->setLocal('');  
   ok $server->vifaceDelete('eth0', 'eth2'), 'Checking wether deleting a virtual interface is reported as disruptive when the interface is the only interfaces left';  
@@ -888,7 +931,7 @@ sub freeIfaceTest : Test(4)
   ok !$server->service(), 'Checking wether freeing a interface which is the local interface in a system which has more interfaces available  deactivates the server';
 
 
-  fakeNetworkModule(['eth2'], []);
+  EBox::OpenVPN::Test::fakeNetworkModule(['eth2'], []);
 
   $server->setLocal('');  
   $server->setService(1);
@@ -917,7 +960,7 @@ sub freeVifaceTest : Test(4)
   ok !$server->service(), 'Checking wether freeing a virtual interface which is the local virtual interface in a system which has more virtual interfaces available  deactivates the server';
 
 
-  fakeNetworkModule(['eth2'], []);
+  EBox::OpenVPN::Test::fakeNetworkModule(['eth2'], []);
 
   $server->setLocal('');  
   $server->setService(1);
@@ -965,9 +1008,9 @@ sub setServiceTest : Test(56)
 
   diag 'Setting server to listen in all interfaces but with no interfaces left';
   $server->unsetConf('local');
-  fakeNetworkModule([], []);
+  EBox::OpenVPN::Test::fakeNetworkModule([], []);
   $self->_checkSetServiceWithBadStatus($server, 'no networks interfaces available');
-  fakeNetworkModule();
+  EBox::OpenVPN::Test::fakeNetworkModule();
 
   # certificates bad states
   my $ca    = EBox::Global->modInstance('ca');

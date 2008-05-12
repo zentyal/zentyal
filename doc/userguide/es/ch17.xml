@@ -1,197 +1,159 @@
-<chapter id="ch-openvpn">
-  <title>Servicio OpenVPN</title>
-  <section id="sect-vpn">
-    <title>Servicio de Redes Privadas Virtuales</title>
+<chapter id="ch-ca">
+  <title>Gestión de la Autoridad de Certificados</title>
+
+  <section id="sect-ca-prereq">
+    <title>Requisitos previos</title>
     <para>
-      Puedes acceder a la configuración de Redes Privadas Virtuales (VPN) en
-      <link linkend="ch-ca">
-	<menuchoice>
-	  <guimenu>OpenVPN</guimenu>
-	</menuchoice>
-      </link>
-      .
+      Es necesario un conocimiento básico de la infraestructura de clave
+      pública (<acronym>PKI</acronym>) para el uso del módulo de
+      Gestión de Certificados. 
+      Un buen sitio para empezar a iniciarse en el tema puede ser
+      <ulink  url="http://es.wikipedia.org/wiki/PKI">el artículo de Wikipedia sobre PKI</ulink>
     </para>
+  </section>
+
+  <section id="sect-ca-overview">
+    <title>Gestión de la Autoridad de Certificados</title>
     <para>
-    Para crear el servicio VPN, se necesita primero configurar una
-    autoridad de certificación. eBox también da cobertura a este
-    servicio que puedes crear a través de 
+      Puedes acceder a la Gestión de la Autoridad de Certificados a
+      través de 
       <menuchoice>
-	<guimenu>Autoridad de Certificación</guimenu>
+	<guimenu>Gestor de Certificados</guimenu>
       </menuchoice>
-      .
+    </para>
+
+    <para>
+     El propósito del módulo de Gestión de la Autoridad de Certificados es permitir la creación
+     de certificados para su uso por otros módulos eBox o por aplicaciones externas. 
     </para>
     <para>
-    El módulo OpenVPN puede configurar a eBox tanto como un servidor
-    OpenVPN como cliente. Se pueden poner en marcha tantos
-    clientes/servidores como queramos.
+     Los certificados se crean usando un certificado de la autoridad
+     de certificación (<acronym>CA</acronym> : "Certification
+     Authority") que será creado con este módulo.
     </para>
   </section>
-  <section id="sect-typical-scenarios">
-    <title>Escenarios típicos</title>
+
+  <section id="sect-create-ca">				
+    <title>Creación del certificado de la autoridad de certificación</title>
     <para>
-      Como VPN es un servicio bastante complicado, ilustramos con dos
-      escenarios típicos su configuración con eBox.
+      Primero, es necesario expedir el certificado de la CA, que es
+      firmado por sí mismo.
+      El certificado de la CA es necesario para expedir nuevos
+      certificados; así que el resto de funcionalidad del módulo
+      no estará disponible hasta que ésta sea creada.
     </para>
-    <section id="sect-roadwarrior">
-	<title>"Road warrior"</title>
-	<para>
-	  Se puede configurar a eBox para dar soporte a "Road
-          Warriors". Esto es, una máquina eBox trabajando como puerta
-	  de enlace y como servidor OpenVPN, que tiene una red de 
-	  área local (LAN) detrás, permitiendo a clientes en Internet
-	  (road warriors) conectarse a dicha red local vía servicio
-	  VPN. La siguiente figura puede dar una mejor visión:
-	</para>
-	<figure id="fig-roadwarrior">
-	  <title>Escenario "Road Warrior"</title>
-	  <mediaobject>
-	    <imageobject>
-	      <imagedata fileref="images/road-warrior.png"
-			 format="PNG" />
-	    </imageobject>
-	  </mediaobject>
-	</figure>
-	<para>
-	  Nuestro objetivo es conectar al cliente 3 con los otros 2 
-	  clientes lejanos (1 y 2) y estos últimos entre sí.
-	</para>
-	<para>
-	  Para ello, necesitamos crear una "Autoridad de
-	  Certificación" y certificados para todos los elementos
-	  presentes en el sistema, el servidor OpenVPN y los dos
-	  clientes lejanos. Aquí, la máquina eBox actúa también como
-	  autoridad de certificación.
-
-	</para>
-	<note>
-	  <para>
-	    Para obtener información detallada sobre el módulo de 
-	    Autoridad de Certificación, <link linkend="ch-ca">visitar su propia parte del manual </link>
-	  </para>
-	</note>
-	<para>
-	  Una vez tenemos los certificados, deberíamos poner a punto
-	  el servidor OpenVPN en eBox en <guilabel>Crear un nuevo
-	  servidor</guilabel>. Se deben dar un nombre, un par
-	  protocolo/puerto, un certificado (aquel que acabamos de
-	  crear previamente) y una subred donde trabajar. Para los 
-	  demás elementos se pueden dejar los valores por
-          defecto. Como vemos, el servidor OpenVPN estará escuchando
-	  en todas las interfaces externas, por tanto debemos poner
-	  al menos una de nuestras interfaces como externa vía
-	  <menuchoice>
-	    <guimenu>Red</guimenu>
-	    <guimenuitem>Interfaces</guimenuitem>
-	  </menuchoice>
-	  . En nuestro escenario sólo se necesitan dos interfaces,
-	  uno interna para la LAN y otra externa para escuchar en
-	  Internet.
-	</para>
-	<para>
-	  Tras crear el servidor OpenVPN, debemos habilitar el 
-	  servicio y guardar los cambios. Luego, comprobar en
-	  <guilabel>Estado</guilabel> que un servidor OpenVPN
-	  está funcionando.
-	</para>
-	<para>
-	  Tras ello, debemos anunciar redes, dichas redes serán
-	  accesibles por los clientes OpenVPN autorizados. Para 
-	  conseguirlo, necesitamos redes que sean accesibles desde
-	  la máquina eBox. En nuestro escenario, deberemos añadir
-	  la red local para hacer visible el cliente 3 a los
-	  otros dos clientes.
-	</para>
-	<para>
-	  Es momento de configurar los clientes. Un cliente OpenVPN 
-	  puede configurarse con el siguiente fichero de configuración
-	  de ejemplo:
-	</para>
-	<example id="example-conf-file">
-	  <title>Fichero ejemplo de configuración de un cliente
-	    OpenVPN</title>
-	  <programlisting><![CDATA[
-client
-
-dev tap
-# En la página de Estado, se puede observar la dirección del interfaz
-# y el puerto en el que tu servidor OpenVPN está escuchando
-remote <direccion_del_interfaz> <puerto>
-# También en la misma página se puede ver el protocolo
-proto <protocolo>
-
-####
-# Todos los certificados deben descargarse del interfaz de eBox 
-# para la autoridad de certificación para luego subirse a la máquinas
-# clientes. Cada certificado creado debe ser utilizado por una única
-# máquina.
-####
-
-# Certificado de la Autoridad
-ca <fichero_ca_cert>
-# Certificado del cliente
-cert <fichero_cliente_cert>
-# Clave privada del cliente
-key <fichero_cliente_clave_privada>
-
-# Otras opciones
-comp-lzo
-nobind
-]]>
-	  </programlisting>
-	</example>
-	<para>
-	  Esta configuración ejemplo puede pasarse al demonio OpenVPN
-	  con el siguiente comando: <command>openvpn --config
-	  filename</command>. Ahora tenemos acceso al cliente 3 desde 
-	  los dos clientes remotos. Para conectar entre sí los clientes
-	  remotos, necesitamos activar la opción <guilabel>
-	  Habilitar conexiones cliente-a-cliente</guilabel> dentro de la configuración
-	  del servidor OpenVPN. Para comprobar que la configuración es
-	  correcta, observar la tabla de rutas donde las nuevas red
-	  anunciadas se han añadido al interfaz virtual   
-	  <literal>tapX</literal>.
-	</para>
-    </section>
-    <section id="sect-two-offices">
-      <title>Conectar dos oficinas con eBox y OpenVPN</title>
+    <para>
+      Para crearlo simplemente entraremos en la página del módulo y nos
+      encontraremos ante el formulario para crear el certificado de la
+      CA.
+      Se requerirán el nombre de la organización y el número de
+      días que transcurrirán antes de la expiración del certificado.
+    </para>
+    <warning>
       <para>
-	Este segundo escenario trata de mostrar un caso de uso común
-	para eBox. Dos oficinas en diferentes redes necesitan estar 
-	conectadas a través de una red privada. Para hacerlo, usaremos
-	eBox en ambas como puertas de enlace y una como cliente
-	OpenVPN y otra como servidora. La siguiente imagen trata de 
-	aclarar la situación:
-      </para>
-      <figure id="fig-ebox-vs-ebox">
-	<title>eBox como servidor OpenVPN vs. eBox como cliente OpenVPN </title>
-	<mediaobject>
-	  <imageobject>
-	    <imagedata fileref="images/two-offices.png"
-		       format="PNG" />
-	  </imageobject>
-	</mediaobject>
-      </figure>
-      <para>
-	Nuestro fin es conectar al cliente 1 en la LAN 1 con el
-	cliente 2 en la LAN 2 como si estuviesen en la misma red
-	local. Por tanto, debemos configurar un servidor OpenVPN
-	como hacemos en <xref linkend="sect-roadwarrior" />. Sin
-	embargo, se necesita hacer un pequeño cambio habilitando
-	la opción <literal> Permitir túneles eBox a eBox</literal>
-	para intercambiar rutas entre máquinas eBox.
-      </para>
-      <para>
-	Para configurar eBox como un cliente OpenVPN, podemos hacerlo
-	a través del botón <guilabel>Crear un nuevo cliente</guilabel>
-	dentro del menú <guimenu>OpenVPN</guimenu>. Se deben dar el
-	nombre del cliente, la dirección, puerto y protocolo del
-	servidor OpenVPN donde está la otra eBox y los certificados
-	correspondientes. Se pueden obtener de manera análoga a la
-	explicada anteriormente. Cuando salvas los cambios, en el
-	sumario, se puede ver un nuevo demonio OpenVPN en la red 2
-	ejecutándose como cliente con la conexión objetivo dirigido a
-	la otra eBox dentro de la LAN 1.
-      </para>
-    </section>
+	A la hora de establecer la duración del certificado hay que tener
+	en cuenta que su expiración revocará todos los certificados
+	expedidos por él.
+	Esto supondrá la parada de los servicios
+	dependientes de la infraestructura de certificación hasta que
+	sea restablecida.
+      </para>				
+    </warning>
+    
   </section>
+
+  <section id="sect-create-certificate">
+    <title>Creación de certificados </title>
+    <para>
+      Una vez creado el certificado de la CA, seremos capaces de
+      generar certificados con él.
+    </para>
+    <para>
+      Para generarlos tan sólo tendremos que usar el formulario que
+      aparece en la parte superior de la página de la autoridad de
+      certificación.
+      Los datos necesarios son el nombre común del certificado y los
+      días que permanecerá activo antes de expirar. Este último dato
+      está limitado por el hecho de que ningún certificado puede
+      ser válido más tiempo que el certificado de la CA.
+    </para>
+    <para>
+      Una vez el certificado haya sido creado, aparecerá en la lista
+      de certificados y estará disponible para los módulos de eBox que
+      usen certificados y las demás aplicaciones externas.
+    </para>
+  </section>
+      
+  <section id="sect-certificate-actions">
+    <title>Acciones sobre certificados</title>
+    <para>
+      A través de la lista de certificados podemos acceder a distintas
+      acciones que realizar con ellas. 
+      Las acciones disponibles son <link
+      linkend="sect-certificate-actions-download">descargar archivos</link>, 
+      <link linkend="sect-certificate-actions-revoke">revocar</link> 
+      y <link linkend="sect-certificate-actions-renew">renovar.</link>
+    </para>
+
+    <section id="sect-certificate-actions-download">
+      <title>Descargar archivos</title>
+      <para>
+	Pulsando en el icono de descargar obtendremos un archivo
+	comprimido en el que podemos encontrar tanto el certificado como sus
+	claves publicas y privado.
+	En el caso del certificado de la propia autoridad de
+	certificación, la clave privada no se encontrará en el archivo.
+      </para>
+    </section>
+      
+    <section id="sect-certificate-actions-revoke">
+      <title>Revocar</title>
+      <para>
+	Mediante el icono de revocar, podemos revocar cualquier
+	certificado. 
+	Tras pulsar en la opción correspondiente nos
+	encontraremos en una pantalla donde podremos indicar la razón
+	que nos ha llevado a revocarlo o cancelar la acción.
+      </para>
+      <para>
+	Una vez revocado un certificado, continuará apareciendo en la
+	lista pero marcado como revocado. Sin embargo, no podrá ser usado ni
+	por eBox ni por ninguna aplicación externa.
+      </para>
+      <warning>
+	<para>
+	  Si el certificado revocado es el certificado de la CA, 
+	  todos los certificados generados con él serán
+	  automáticamente revocados
+	</para>
+      </warning>
+    </section>
+
+    <section id="sect-certificate-actions-renew">
+      <title>Renovar</title>
+      <para>
+	Es posible renovar un certificado usando el icono de
+	renovar. Será solicitada la nueva duración del certificado.
+      </para>
+      <para>
+	Para renovar un certificado, primero se revoca y a
+	continuación se expide uno nuevo.
+	Los módulos de eBox serán capaces de obtener el nuevo
+	certificado pero se tendrá que suministrar manualmente a las
+	aplicaciones externas.
+      </para>
+      <warning>
+	<para>
+	  Si renovamos el certificado de la autoridad de certificación,
+	  se renovaran automáticamente todos los certificados
+	  generados con él. La duración de los certificados renovados
+	  automáticamente será hasta la fecha de expiración del
+	  certificado de CA.
+	</para>
+      </warning>
+    </section>
+
+  </section>
+
+
 </chapter>

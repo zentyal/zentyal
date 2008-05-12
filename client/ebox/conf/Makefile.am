@@ -3,7 +3,7 @@
 SUBDIRS = logrotate
 
 Etcdir = $(sysconfdir)/ebox
-Etc_DATA = 70runitfinisher.conf 80eboxclient.conf 90eboxpglogger.conf
+Etc_DATA = 70runitfinisher.conf 90eboxpglogger.conf  80eboxclient.conf
 
 
 Passwddir = $(localstatedir)/lib/ebox/conf

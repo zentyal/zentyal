@@ -1,15 +1,16 @@
 Source: ebox-jabber
 Section: web
 Priority: optional
-Maintainer: Javier Uruen Val <juruen@warp.es>
-Build-Depends: debhelper (>= 4.0.0)
-Standards-Version: 3.6.1
+Maintainer: Ubuntu MOTU Developers <ubuntu-motu@lists.ubuntu.com>
+XSBC-Original-Maintainer: Javier Uruen  <javi@warp.es>
+Build-Depends: debhelper (>= 4.0.0), cdbs
+Standards-Version: 3.7.3
 
 Package: ebox-jabber
 Architecture: all
-Depends: ebox (= 0.11.99), ebox-firewall, ebox-usersandgroups (>= 0.7.0.99), jabber-common, jabberd2-ldap-bdb
+Depends: ebox (>= 0.11.99), ebox-firewall, ebox-usersandgroups (>= 0.7.0.99), jabber-common, jabberd2-ldap-bdb, ${misc:Depends}
 Conflicts: ebox (<< 0.11.99)
-Description: Instant messaging (Jabber)
+Description: ebox - Instant messaging (Jabber)
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
  graphical interface to non expert users. It can be set up as a gateway,

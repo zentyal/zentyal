@@ -1,0 +1,6 @@
+pre-start script
+    invoke-rc.d samba stop || true
+end script
+
+exec /usr/sbin/smbd -F
+respawn

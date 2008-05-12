@@ -8,18 +8,19 @@ use Perl6::Junction qw(any all);
 use File::Slurp qw(read_file write_file);
 use EBox::Config;
 use EBox::Service;
+use EBox::Gettext;
 
 use EBox::MailFilter::VDomainsLdap;
 
 use constant {
   CLAMAVPIDFILE			=> '/var/run/clamav/clamd.pid',
   CLAMD_INIT			=> '/etc/init.d/clamav-daemon',
-  CLAMD_DAEMON                  => 'clamd',
-  CLAMD_CONF_FILE               => 'clamd.conf',
+  CLAMD_SERVICE                  => 'ebox.clamd',
+  CLAMD_CONF_FILE               => '/etc/clamav/ebox.clamd.conf',
 
   CLAMD_SOCKET                  => '/var/run/clamav/clamd.ctl',
 
-  FRESHCLAM_CONF_FILE           => 'freshclam.conf',
+  FRESHCLAM_CONF_FILE           => '/etc/clamav/freshclam.conf',
   FRESHCLAM_OBSERVER_SCRIPT     => 'freshclam-observer',  
   FRESHCLAM_CRON_SCRIPT         => '/etc/cron.hourly/freshclam',
 };
@@ -42,7 +43,21 @@ sub _mailfilterModule
   return EBox::GconfModule::Partition::fullModule(@_);
 }
 
-
+sub usedFiles
+{
+  return (
+# 	  {
+# 	   file => CLAMD_CONF_FILE,
+# 	   reason => __(' To configure clamd daemon'),
+# 	   module => 'mailfilter',
+# 	  },
+	  {
+	   file => FRESHCLAM_CONF_FILE,
+	   reason => __('To configure freshclam updater daemon'),
+	   module => 'mailfilter',
+	  },
+	 );
+}
 
 
 sub doDaemon
@@ -72,7 +87,7 @@ sub _daemon
     throw EBox::Exceptions::Internal("Bad argument: $action");
   }
 
-  EBox::Service::manage(CLAMD_DAEMON, $action);
+  EBox::Service::manage(CLAMD_SERVICE, $action);
 }
 
 
@@ -151,7 +166,7 @@ sub _clamdRunning
 {
   my ($self) = @_;
 
-  return EBox::Service::running(CLAMD_DAEMON);
+  return EBox::Service::running(CLAMD_SERVICE);
 }
 
 
@@ -161,11 +176,7 @@ sub localSocket
   return CLAMD_SOCKET;
 }
 
-sub _clamConfDir
-{
-  my ($self) = @_;
-  return $self->getConfString('conf_dir');
-}
+
 
 sub writeConf
 {
@@ -177,20 +188,19 @@ sub writeConf
 		localSocket => $localSocket,
 	       );
 
-  my $clamdConfFile = $self->_clamConfDir() . '/' . CLAMD_CONF_FILE;
-  EBox::Module->writeConfFile($clamdConfFile, "mailfilter/clamd.conf.mas", \@clamdParams);
+  EBox::Module->writeConfFile(CLAMD_CONF_FILE, "mailfilter/clamd.conf.mas", \@clamdParams);
 
 
 
   my $observerScript = EBox::Config::libexec() . FRESHCLAM_OBSERVER_SCRIPT;
 
   my @freshclamParams = (
-			 clamdConfFile   => $clamdConfFile,
+			 clamdConfFile   => CLAMD_CONF_FILE,
 			 observerScript  => $observerScript,
 			);
 
-  my $freshclamConfFile = $self->_clamConfDir() . '/' . FRESHCLAM_CONF_FILE;
-  EBox::Module->writeConfFile($freshclamConfFile, "mailfilter/freshclam.conf.mas", \@freshclamParams);
+
+  EBox::Module->writeConfFile(FRESHCLAM_CONF_FILE, "mailfilter/freshclam.conf.mas", \@freshclamParams);
 
   my $antivirusService = $self->service;
   if ($antivirusService and $globalService) {

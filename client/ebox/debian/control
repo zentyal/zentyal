@@ -1,17 +1,17 @@
 Source: ebox
 Section: web
 Priority: optional
-Maintainer: Isaac Clerencia <isaac@warp.es>
+Maintainer: Ubuntu MOTU Developers <ubuntu-motu@lists.ubuntu.com>
+XSBC-Original-Maintainer: Javier Uruen Val <javi@warp.es>
 Replaces: ebox (<= 0.5.2)
-Build-Depends: debhelper (>= 4.0.0)
-Standards-Version: 3.6.1
+Build-Depends: debhelper (>= 4.0.0), cdbs
+Standards-Version: 3.7.3
 
 Package: ebox
 Architecture: all
-Depends: libebox (= 0.11.99), apache-perl, openssl (>= 0.9.7e), libapache-mod-ssl, libapache-reload-perl, libapache-singleton-perl, libapache-authcookie-perl, gconf2, libgnome2-gconf-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl, runit (>= 1.8.0), libapache-reload-perl (= 0.07-5warp.es), postgresql, libdbd-pg-perl, libfile-tail-perl, libclone-perl, libnet-jabber-perl, libfilesys-df-perl, libchart-perl, libfile-mmagic-perl, libxml-rss-perl
-Replaces: ebox (<< 0.7.0.99), ebox-logs, libebox (<< 0.11.99)
-Conflicts: ebox-dns-cache (<< 0.11.99), ebox-logs
-Description: Base framework
+Depends: libebox (>= 0.11.99), apache2, openssl (>= 0.9.7e), libapache2-mod-perl2, libapache-singleton-perl, libapache-authcookie-perl, gconf2, libgnome2-gconf-perl, libsys-cpu-perl, libsys-cpuload-perl, libproc-process-perl, postgresql, libdbd-pg-perl, libfile-tail-perl, libclone-perl, libnet-jabber-perl, libfilesys-df-perl, libchart-perl, adduser, debconf, libfile-mmagic-perl, libxml-rss-perl
+Replaces: libebox (<< 0.11.99)
+Description: the eBox platform - Base framework
  eBox is a framework for the development and deployment of security-wise
  network services in small and medium-sized networks, offering a simplified
  graphical interface to non expert users. It can be set up as a gateway,

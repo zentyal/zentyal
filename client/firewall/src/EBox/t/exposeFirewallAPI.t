@@ -51,8 +51,8 @@ unless ( $servMod->serviceExists('name' => 'test') ) {
 
 my $addedId;
 ok ( $addedId = $fwMod->addOutputService( decision    => 'accept',
-                                          destination => { destination_any => 'any', inverse => 0 },
-                                          service     => $servId,
+                                          destination => { destination_any => 'any'},
+                                          service     => { value => $servId, inverse => 0},
                                           description => ''),
      'Adding an output rule to test service');
 

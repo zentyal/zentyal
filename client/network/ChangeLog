@@ -1,8 +1,16 @@
+O.11.100
+	+ Disable network traffic monitor due to a bug in perl and RRDs module
+	+ Use /etc/network/interfaces and not /var/lib/ebox/tmp/interfaces
+	+ Run saveConfig() after importing network configuration and not save()
+	  which forced a restart of the interfaces stored 
+	  in /etc/network/interfaces at package installation time
+	+ Add default gateway to /etc/network/interfaces 
 0.11.99
 	+ Added traffic rate monitoring done on demand and in
 	real-time. The monitoring may be filter by source address and
 	service (protocol/port).
 0.11
+	+ move helper scripts to data dir (applied Soren's patch)
 	+ Bugfix: Change from static to other method works again
 0.10.99
 	+ New release

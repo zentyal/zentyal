@@ -14,6 +14,8 @@ install-data-local:
 
 endif
 
-EXTRA_DIST = $(schema_DATA) jabber.schema
+pkgdata_DATA = jabber.schema
+
+EXTRA_DIST = $(schema_DATA) $(pkgdata_DATA)
 
 MAINTAINERCLEANFILES = Makefile.in

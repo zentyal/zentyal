@@ -1,0 +1,49 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+my ($cdImage, @packages) = @ARGV;
+
+(-d $cdImage) or 
+  die "No $cdImage directory";
+
+my @packagesFiles = `find $cdImage -name Packages`;
+@packagesFiles = map { chomp $_; $_ } @packagesFiles;
+
+print "package Files @packagesFiles\n";
+
+my %packagesInCd;
+
+foreach my $file (@packagesFiles) {
+  open my $FH, $file or die "Cannot open $file: $!";
+  while (my $line = <$FH>) {
+    my ($field, $name) = split ':', $line, 2;
+    $field or next;
+    $name or next;
+    if ($field eq 'Package') {
+      chomp $name;
+      $name =~ s/\s//g;
+      $packagesInCd{$name} = 1;
+    }
+  }
+
+  close $FH or die "Canot close $file: $!";
+}
+
+
+my @packagesNotInCd = grep { 
+                              not ( exists $packagesInCd{$_} )  
+		     } @packages;
+
+
+#print "@packagesNotInCd\n";
+foreach (@packagesNotInCd) {
+  print $_, "\n";
+}
+
+
+  
+
+
+1;

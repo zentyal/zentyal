@@ -1,8 +1,11 @@
-0.12
+0.11.100
+	+ Use the new syntax to enable transparent proxy
+	+ Do not launch dansguardian with setsid. It was necessary with runit,
+	  but not with upstart any more.
+	+ do not remove rc scripts, stop on pre-start
+0.11.99
 	+ Set proper language to show denied access page by dansguardian
 	using eBox locale (Currently manually maintained)
-0.11.99
-	+ New release
 0.11.1
 	+ Bugfix. MIME and extension filter allow attribute is NOT
 	optional but they have a default value

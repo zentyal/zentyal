@@ -81,6 +81,20 @@ sub configkey # (key)
 	return $value;
 }
 
+sub configkeys # (key)
+{
+	my $key = shift;
+
+	my @conffiles = glob(EBox::Config::etc() . "[0-9][0-9]*.conf");
+	
+	my @values;
+	foreach my $file (@conffiles){
+		my $value = configkeyFromFile($key, $file);
+		push (@values, $value) if defined($value);
+	}
+	return \@values;
+}
+
 sub user
 {
 	my $user = configkey('user');
@@ -89,12 +103,29 @@ sub user
 	return $user;
 }
 
+sub groups
+{
+	my @values = @{configkeys('group')};
+	@values or throw EBox::Exceptions::External("The ebox group has not ".
+						"been set in the config file.");
+	my @groups;
+	for my $group (@values) {
+		if ($group =~ m/:/) {
+			push (@groups, split(':', $group));
+		} else {
+			push (@groups, $group);
+		}
+	}
+
+	return \@groups;
+}
+
 sub group
 {
-	my $user = configkey('group');
-	$user or throw EBox::Exceptions::External("The ebox group has not ".
-						"been set in the config file.");
-	return $user;
+	my $value = configkey('egroup');
+	$value or throw EBox::Exceptions::External("The ebox group has not ".
+			"been set in the config file.");
+	return $value;
 }
 
 sub home
@@ -122,6 +153,11 @@ sub lib
 sub libexec 
 {
 	return $ref->{libdir} . "ebox/";
+}
+
+sub pkgdata 
+{
+	return $ref->{datadir} . "ebox/";
 }
 
 sub locale 
@@ -172,12 +208,12 @@ sub soapSession
 
 sub log 
 {
-	return $ref->{localstatedir} . "lib/ebox/log/";
+	return $ref->{localstatedir} . "log/ebox/";
 }
 
 sub logfile
 {
-	return $ref->{localstatedir} . "lib/ebox/log/ebox.log";
+	return $ref->{localstatedir} . "log/ebox/ebox.log";
 }
 
 sub stubs 

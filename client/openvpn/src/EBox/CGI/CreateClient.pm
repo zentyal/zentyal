@@ -45,7 +45,7 @@ sub requiredParameters
 {
     my ($self) = @_;
     if ($self->param('create')) {
-	[qw(create name proto caCertificate certificate certificateKey serverAddr serverPort service)];
+	[qw(create serverValuesFrom  name proto caCertificate certificate certificateKey serverAddr serverPort service ripPasswd bundle)];
     }
     else {
 	return [];
@@ -75,7 +75,9 @@ sub actuate
     if ($self->param('create')) {
 	my $openVPN = EBox::Global->modInstance('openvpn');
 
-	my $anyParamWithUpload = any(qw(caCertificate certificate certificateKey));
+
+
+	my $anyParamWithUpload = any(qw(caCertificate certificate certificateKey bundle));
 
 	my $name;
 	my %params;
@@ -118,6 +120,9 @@ sub actuate
 	    delete $params{$key};
 	}
 
+	# remove unused parameter
+	delete $params{serverValuesFrom};
+
 	$params{internal} = 0; # clients created by UI aren't internal
 
 	$openVPN->newClient($name, servers => \@servers, %params);
@@ -127,6 +132,7 @@ sub actuate
 	$self->{chain} = 'OpenVPN/Index';
     }
 }
+
 
 
 

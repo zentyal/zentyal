@@ -1,93 +1,91 @@
-<chapter id="ch-jabber">
+<chapter id="ch-dns">
 
-	<title>Jabber Server</title>
-	
-	<section id="jabber-serv-sect">
-		<title>Jabber Server</title>
-	
-		<para>You can get to Jabber server configuration at
-			<menuchoice>
-				<guimenu>Jabber</guimenu>
-			</menuchoice>
-		and with each user options.</para>
+		<!-- DNS Cache -->
+		<title>DNS service</title>
 
-		<para>Jabber server configures a instant messenger network access, for
-		a local network or with external connection. It also handles
-		authentication per-user, allowing or not its access to each one.</para>
-		
-		<para>If you want to enable Jabber server, enter on its configuration
-		page and select, from the upper part, "Enabled" option from the
-		selection list.</para>
-
-		<para>You can configure Jabber server behavior by setting these options:
-			<variablelist>
-				<varlistentry>
-					<term>Domain Name</term>
-					<listitem>
-						<para>Every account on a Jabber server has this syntax:
-						user@domain. Users shall use this syntax on their IM clients to
-						chat. For this reason, the domain name should be resolved by the
-						user's PC, and resolved by the rest of Internet if external access
-						is configured.</para>
-					</listitem>
-				</varlistentry>
-				<varlistentry>
-					<term>Global Jabber network connection</term>
-					<listitem>
-						<para>Jabber server can be part of the planet-wide Jabber network;
-						or work as a stand-alone server on a corporative network. This
-						option allows to select its behavior.</para>
-					</listitem>
-				</varlistentry>
-				<varlistentry>
-					<term>SSL Support</term>
-					<listitem>
-						<para>Authentication and data transmission between Jabber user and
-						the server can be made of three different ways:
-							<itemizedlist>
-								<listitem>
-									<para>First, selecting "No" value will make
-									a plain communication between both
-									parts.</para>
-								</listitem>
-								<listitem>
-									<para>Second option, "Optional". It allows
-									the user to choose if communication with the
-									server should be encrypted, with SSL, or
-									plain.</para> 
-								</listitem>
-								<listitem>
-									<para>Last, if SSL access is "Required", IM
-									client must allow SSL authentication to get
-									connected to Jabber server.</para>
-								</listitem>
-							</itemizedlist>
-						</para>
-					</listitem>
-				</varlistentry>
-			</variablelist>
+		<para>
+		The DNS service can work just as a DNS cache server, or
+		as a proper DNS server to answer queries for your local
+		domains
 		</para>
 
-		<para>On each user configuration, we can find two new options for its Jabber access configuration:
-			<variablelist>
-				<varlistentry>
-					<term>User account</term>
-					<listitem>
-						<para>It can be checked or not, which will allow the user access to
-						the Jabber server.</para>
-					</listitem>
-				</varlistentry>
-				<varlistentry>
-					<term>User has administration rights</term>
-					<listitem>
-						<para>A user with administration privileges can be notified with
-						some server events, or make some actions only available to admin
-						users. Please, check Jabber documentation if you need to know about
-						the full set of privileges of a Jabber network administrator.</para>
-					</listitem>
-				</varlistentry>
-			</variablelist>
-		</para>
+		<section id='sect-dns-cache'>
+		<title>DNS cache</title>
+		 <para>
+		 When  the DNS service is enabled it will automatically work as
+		 a DNS cache service, that is, several DNS requests will be
+		 resolved as an only external DNS request, reducing response
+		 time and network traffic with most visited hosts.
+		 </para>
 		</section>
-	
+
+		<section id='sect-dns-server'>
+		<title>DNS server</title>
+		 <para>
+		 There is a more advanced feature that will allow you to create
+		 domains for your local network. This is very useful if you want
+		 your users to use host names for your local machines instead of
+		 recalling IPs.
+		 </para>
+
+		 <para>
+		 The DNS service in eBox features a simple to use server which
+		 allows you to add domains. And within each domain, you can add
+		 machines and aliases for each one of them. Note that it lacks
+		 features such as setting MX register, zone transfer and so
+		 forth. Those features will be added in the future.
+		 </para>
+	         
+		 <variablelist>
+	          <varlistentry>
+	 	   <term>Domains</term>
+		    <listitem>
+		     <para>
+		      You can add as many domains as you need. Remember that
+		      your hosts will be added taking a domain as a root.
+		     </para>
+		     <para>
+		     To add a domain, go to 
+		     <menuchoice><guimenu>DNS</guimenu></menuchoice>, 
+                     and just type a domain's name in the table placed below 
+		     the service configuration. As we mentioned you can 
+		     add as many domains as you need.
+		     </para>
+		    </listitem>
+	           </varlistentry>
+
+		   <varlistentry>
+		    <term>Hosts</term>
+		    <listitem>
+		     <para>
+		      The next step, after creating a domain, is adding 
+		      host names to the domain. What you are doing here 
+		      is binding an IP address to a host name. 
+		     </para>
+
+		     <para>
+		      To add a host name, you must edit the domain you would
+		      like to add the host to. To do so, click on the pencil
+		      icon in the domain table. A new screen will show up. In
+		      this new screen you will be able to add a host name and
+		      its corresponding IP.
+		     </para>
+
+		     <para>
+		      In case of having an IP address with more than
+                      one name associated to it, you can add
+                      <emphasis>aliases</emphasis> right below the
+                      first host name added.
+		     </para>
+		    </listitem>
+		   </varlistentry>
+
+		 </variablelist>
+
+                 <para>Moreover, reverse mapping is done as well
+                 automatically. Every host which has an IP address
+                 associated with, the inverse relation is done as
+                 well.</para>
+		</section>
+
 </chapter>

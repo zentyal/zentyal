@@ -1,3 +1,6 @@
+0.11.100
+	+ Fix English string
+	+ onInstall() functionality moved to migration script
 0.11.99
 	+ Added log domain for firewall's drops. Firewall logging limits
 	are stored in a configuration file

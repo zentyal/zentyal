@@ -13,8 +13,8 @@ use EBox::NetWrappers;
 use EBox::MailFilter::VDomainsLdap;
 
 use constant {
-  SA_DAEMON          => 'spamd',
-  SA_CONF_DIR        => '/etc/spamassassin',
+  SA_SERVICE          => 'ebox.spamd',
+  SA_CONF_FILE       => '/etc/spamassassin/local.cf',
 
   CONF_USER          => 'amavis',
 };
@@ -29,6 +29,19 @@ sub new
   bless $self, $class;
   return $self;
 }
+
+sub usedFiles
+{
+  return (
+	  {
+	   file =>  SA_CONF_FILE,
+	   reason => __(' To configure spamassassin daemon'),
+	   module => 'mailfilter',
+	  },
+
+	 );
+}
+
 
 sub _vdomains
 {
@@ -46,13 +59,13 @@ sub doDaemon
   my ($self, $mailfilterService) = @_;
   
   if ($mailfilterService and $self->service() and $self->isRunning()) {
-    EBox::Service::manage(SA_DAEMON, 'restart');
+    EBox::Service::manage(SA_SERVICE, 'restart');
   } 
   elsif ($mailfilterService and $self->service()) {
-    EBox::Service::manage(SA_DAEMON, 'start');
+    EBox::Service::manage(SA_SERVICE, 'start');
   } 
   elsif ($self->isRunning()) {
-    EBox::Service::manage(SA_DAEMON, 'stop');
+    EBox::Service::manage(SA_SERVICE, 'stop');
   }
 }
 
@@ -61,7 +74,7 @@ sub stopService
 {
   my ($self) = @_;
   if ($self->isRunning) {
-    EBox::Service::manage(SA_DAEMON, 'stop');   
+    EBox::Service::manage(SA_SERVICE, 'stop');   
   }
 }
 
@@ -123,7 +136,7 @@ sub vdomainService
 
 sub isRunning
 {
-  return EBox::Service::running(SA_DAEMON);
+  return EBox::Service::running(SA_SERVICE);
 }
 
 
@@ -139,8 +152,7 @@ sub writeConf
   push @confParams, (bayesAutolearnSpamThreshold => $self->autolearnSpamThreshold);
   push @confParams, (bayesAutolearnHamThreshold => $self->autolearnHamThreshold);
 
-  my $confFile = SA_CONF_DIR . '/local.cf';
-  EBox::Module->writeConfFile($confFile, "mailfilter/local.cf.mas", \@confParams);
+  EBox::Module->writeConfFile(SA_CONF_FILE, "mailfilter/local.cf.mas", \@confParams);
 }
 
 #

@@ -17,7 +17,6 @@ package EBox::Gettext;
 
 use Locale::gettext;
 use EBox::Config;
-use Encode qw(:all);
 
 BEGIN {
 	use Exporter ();
@@ -71,13 +70,13 @@ sub __ # (text)
 	_set_packagedomain();
 	my $string = gettext(shift);
 	_unset_packagedomain();
-	_utf8_on($string);
 	return $string;
 }
 
 sub __n # (text)
 {
 	my $string = shift;
+	my ($p, $a, $c) = caller;
 	return $string;
 }
 
@@ -87,7 +86,6 @@ sub __x # (text, %variables)
 	_set_packagedomain();
 	my $string = gettext($msgid);
 	_unset_packagedomain();
-	_utf8_on($string);
 	return __expand($string, %vars);
 }
 
@@ -98,7 +96,6 @@ sub __d # (text,domain)
 	textdomain($domain);
 	$string = gettext($string);
 	textdomain($cur_domain);
-	_utf8_on($string);
 	return $string;
 }
 
@@ -140,7 +137,6 @@ sub _unset_packagedomain
 	}
 }
 
-use utf8;
 my $langs;
 $langs->{'an_ES.UTF-8'} = 'Aragonés';
 $langs->{'es_ES.UTF-8'} = 'Castellano';
@@ -158,7 +154,6 @@ $langs->{'pt_PT.UTF-8'} = 'Português';
 $langs->{'ru_RU.UTF-8'} = 'Русский';
 $langs->{'sv_SE.UTF-8'} = 'Svenska';
 $langs->{'tr_TR.UTF-8'} = 'Türkçe';
-no utf8;
 
 # Method:  langname
 #

@@ -37,19 +37,19 @@
             <locale name="C"/>
         </schema>
 		<schema>
-            <key>/schemas/ebox/modules/samba/domain</key>
-            <applyto>/ebox/modules/samba/domain</applyto>
-            <owner>ebox</owner>
-            <type>string</type>
-            <default>EBOX</default>
-            <locale name="C"/>
-        </schema>
-		<schema>
             <key>/schemas/ebox/modules/samba/pdc</key>
             <applyto>/ebox/modules/samba/pdc</applyto>
             <owner>ebox</owner>
             <type>bool</type>
             <default>true</default>
+            <locale name="C"/>
+        </schema>
+		<schema>
+            <key>/schemas/ebox/modules/samba/roaming</key>
+            <applyto>/ebox/modules/samba/roaming</applyto>
+            <owner>ebox</owner>
+            <type>bool</type>
+            <default>false</default>
             <locale name="C"/>
         </schema>
 
@@ -83,7 +83,7 @@
             <owner>ebox</owner>
             <type>list</type>
             <list_type>string</list_type>
-            <default>[network]</default>
+            <default>[network,users]</default>
             <locale name="C"/>
         </schema>
 	</schemalist>

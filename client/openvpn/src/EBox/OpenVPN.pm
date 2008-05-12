@@ -16,7 +16,8 @@
 package EBox::OpenVPN;
 use base qw(EBox::GConfModule 
            EBox::NetworkObserver  EBox::LogObserver
-           EBox::FirewallObserver EBox::CA::Observer);
+           EBox::FirewallObserver EBox::CA::Observer
+           EBox::ServiceModule::ServiceInterface);
 
 use strict;
 use warnings;
@@ -53,7 +54,7 @@ my $anyDaemonType = any @daemonTypes;
 sub _create 
 {
 	my $class = shift;
-	my $self = $class->SUPER::_create(name => 'openvpn');
+	my $self = $class->SUPER::_create(name => 'openvpn', printableName => __('openVPN'));
 	bless($self, $class);
 	return $self;
 }
@@ -63,11 +64,86 @@ sub _regenConfig
     my ($self) = @_;
 
     $self->_writeConfFiles();
+    $self->_prepareLogFiles();
     $self->_cleanupDeletedDaemons();
     $self->_doDaemon();
 }
 
 
+# Method: actions
+#
+# 	Override EBox::ServiceModule::ServiceInterface::actions
+#
+sub actions
+{
+	return [ 
+	{
+		'action' => __('Remove openVPN and quagga init script links'),
+		'reason' => __('eBox will take care of starting and stopping ' .
+						'the services.'),
+		'module' => 'openvpn'
+	}
+    ];
+}
+
+
+# Method: usedFiles
+#
+#	Override EBox::ServiceModule::ServiceInterface::usedFiles
+#
+sub usedFiles
+{
+	return [
+		{
+		 'file' => '/etc/quagga/daemons',
+		 'module' => 'openvpn',
+ 	 	 'reason' => __('To configure Quagga to run ripd and zebra')
+		},
+		{
+		 'file' => '/etc/quagga/debian.conf',
+		 'module' => 'openvpn',
+ 	 	 'reason' => __('To configure Quagga to listen on the given interfaces') 
+		},
+		{
+		 'file' => '/etc/quagga/zebra.conf',
+		 'module' => 'openvpn',
+ 	 	 'reason' => __('Main zebra configuration file')
+		},
+		{
+		 'file' => '/etc/quagga/ripd.conf',
+		 'module' => 'openvpn',
+ 	 	 'reason' => __('To configure ripd to exchange routes with client '.
+                        'to client connections')
+		}
+	       ];
+}
+# Method: enableActions 
+#
+# 	Override EBox::ServiceModule::ServiceInterface::enableActions
+#
+sub enableActions
+{
+    EBox::Sudo::root(EBox::Config::share() . '/ebox-openvpn/ebox-openvpn-enable');
+}
+
+
+# Method: serviceModuleName 
+#
+#	Override EBox::ServiceModule::ServiceInterface::serviceModuleName
+#
+sub serviceModuleName
+{
+	return 'openvpn';
+}
+
+#  Method: enableModDepends
+#
+#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+#
+sub enableModDepends 
+{
+    return ['network'];
+}
 #
 # Method: confDir
 #
@@ -113,6 +189,23 @@ sub _writeConfFiles
     }
 }
 
+sub _prepareLogFiles
+{
+    my ($self) = @_;
+
+    my $logDir = $self->logDir();
+    for my $name ($self->daemonsNames()) {
+        for my $file ("$logDir/$name.log", "$logDir/status-$name.log") {
+            try {
+                EBox::Sudo::root("test -e $file");
+            } otherwise {
+                EBox::Sudo::root("touch $file");
+            };
+            EBox::Sudo::root("chown root:ebox $file");
+            EBox::Sudo::root("chmod 0640 $file");
+        }
+    }
+}
 
 sub _cleanupDeletedDaemons
 {
@@ -170,7 +263,7 @@ sub notifyDaemonDeletion
 {
   my ($self, $name, %params) = @_;
   $self  or throw EBox::Exceptions::MissingArgument("you must call this on a object");
-  $name  or throw EBox::Exceptions::MissingArgument("you must supply the name of the daemon to delete");
+  $name  or throw EBox::Exceptions::MissingArgument("you must supply the name of tssub firewalhe daemon to delete");
   exists $params{daemonClass} or
     throw EBox::Exceptions::MissingArgument('daemonClass');
 
@@ -657,7 +750,7 @@ sub _checkName
     throw EBox::Exceptions::External(
         __x(
 	    'Cannot use the name {name} because a  deleted daemon which has not been cleaned up has the same name.' 
-             . ' If you wan to use this name, please save changes first',
+             . ' If you want to use this name, please save changes first',
 	    name => $name,
      ));
   }
@@ -682,7 +775,7 @@ sub _checkNamePrefix
   }
   elsif (not $isReservedName and $internalDaemon) {
     throw EBox::Exceptions::External( __x(
-					  'Invalid name {name}. A internal daemon must has a name which begins with the prefix {pf}',
+					  'Invalid name {name}. A internal daemon must have a name which begins with the prefix {pf}',
 					  name => $name,
 					  pf => $reservedPrefix,
 					 )
@@ -803,18 +896,40 @@ sub firewallHelper
 
     my $service = $self->service();
 
-    my @ifaces = map {
-      $_->iface()
-    }  $self->activeDaemons() ;
+    my @activeDaemons =  $self->activeDaemons() ;
 
-    my $portsByProto = $self->_portsByProtoFromServers($self->activeServers); 
+    my @ifaces = map {
+       $_->iface();
+    } @activeDaemons;
+    
+    my @ports = map {
+	my $port = $_->port();
+	my $proto = $_->proto();
+	my $external = $_->runningOnInternalIface ? 0 : 1;
+	
+	{ port => $port, proto => $proto, external => $external }
+    }  @activeDaemons;
+    
+
+    my @networksToMasquerade = map {
+	my $network = $_->subnet();
+	my $mask    = $_->subnetNetmask();
+	my $cidrNet = EBox::NetWrappers::to_network_with_mask($network, $mask);
+	$cidrNet
+    } grep {
+	$_->masquerade() and $_->can('subnet')
+    } @activeDaemons;
+
+
     my $serversToConnect = $self->_serversToConnect();
 
     my $firewallHelper = new EBox::OpenVPN::FirewallHelper (
 							    service          => $service,
 							    ifaces           => \@ifaces,
-							    portsByProto     => $portsByProto,
+							    ports     => \@ports,
 							    serversToConnect => $serversToConnect,
+							    networksToMasquerade => \@networksToMasquerade,
+							    
 							   );
     return $firewallHelper;
 }
@@ -850,67 +965,18 @@ sub CAIsReady
 
 
 
-sub setUserService
-{
-  my ($self, $active) = @_;
-  $self->_setService('userActive', $self->userService, $active);
 
-
-}
-
-sub setInternalService
-{
-  my ($self, $active) = @_;
-  $self->_setService('internalActive', $self->internalService, $active);
-
-
-}
-
-
-sub _setService # (active)
-{
-  my ($self, $serviceKey, $actualService, $newService) = @_;
-  
-  ($newService xor $actualService) or return;
-  
-  $self->set_bool($serviceKey, $newService);
-}
 
 
 sub service
 {
   my ($self) = @_;
-  my $service = $self->userService;
-  $service and return $service;
 
-  return $self->internalService;
+  return $self->isEnabled();
 }
 
 
 
-sub userService
-{
-  my ($self) = @_;
-  return $self->_service('userActive');
-}
-
-
-
-sub internalService
-{
-  my ($self) = @_;
-  return $self->_service('internalActive');
-}
-
-
-sub _service
-{
-   my ($self, $serviceKey) = @_;
-   my $service =  $self->get_bool($serviceKey);
-
-
-   return $service;
-}
 
 sub _doDaemon
 {
@@ -950,7 +1016,7 @@ sub running
   if ($self->_runningInstances()) {
     return 1;
   } 
-  elsif ($self->userService) {
+  elsif ($self->service) {
     my @activeUserDaemons = grep { (not $_->service) and (not $_->internal) } $self->daemons;
     return @activeUserDaemons == 0 ? 1 : 0;      
   }
@@ -979,15 +1045,8 @@ sub _startDaemon
 
 
   try {
-    my @daemons;
+    my @daemons =  grep { $_->service   } $self->daemons;
 
-    if ($self->userService) {
-      push @daemons, grep { $_->service and (not $_->internal)  } $self->daemons;
-    }
-
-    if ($self->internalService()) {
-      push @daemons, grep { $_->service and  $_->internal } $self->daemons;
-    }
 
     foreach my $daemon (@daemons) {
       $daemon->start();
@@ -1281,6 +1340,12 @@ sub freeViface
   return $self->_invokeOnDaemons('freeViface', @params);
 }
 
+sub changeIfaceExternalProperty # (iface, external)
+{
+   my ($self, @params) = @_;
+  return $self->_invokeOnDaemons('changeIfaceExternalProperty', @params);     
+}
+
 
 # common listeners helpers..
 
@@ -1391,7 +1456,7 @@ sub summary
 sub statusSummary
 {
     my ($self) = @_;
-    return new EBox::Summary::Status('openvpn', __('OpenVPN service'), $self->userRunning, $self->userService);
+    return new EBox::Summary::Status('openvpn', __('OpenVPN service'), $self->userRunning, $self->service);
 }
 
 

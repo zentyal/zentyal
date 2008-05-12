@@ -38,7 +38,7 @@ sub optionalParameters
     my ($self) = @_;
     # we use unsafeParam because download is free text and we don't use the value; only we check if the param is present
     if ($self->unsafeParam('download')) {
-	[qw(installer download os clientCertificate ip\d+)];
+	[qw(installer download clientType clientCertificate ip\d+)];
     }
     else {
 	return [];
@@ -55,7 +55,10 @@ sub masonParameters
 
     my $openvpn    = EBox::Global->modInstance('openvpn');
     my $serverName = $self->param('name');
-    my $serverCert = $openvpn->server($serverName)->certificate();
+
+    my $server     =  $openvpn->server($serverName);
+    my $serverCert       = $server->certificate();
+    my $EBoxToEBoxTunnel = $server->pullRoutes();
 
     my @clientCertificates = grep { $_ ne $serverCert  } @{ $openvpn->availableCertificates() };
 
@@ -72,6 +75,8 @@ sub masonParameters
     return [
 	    name                  => $serverName,
 	    disabled              => $disabled,
+
+	    EBoxToEBoxTunnel      => $EBoxToEBoxTunnel,
 	    availableCertificates => \@clientCertificates,
 	    addresses             =>  $addresses,
 	   ];
@@ -125,7 +130,7 @@ sub actuate
 	my $openvpn = EBox::Global->modInstance('openvpn');
 
 	my $name              = $self->param('name');
-	my $os                = $self->param('os');
+	my $clientType        = $self->param('clientType');
 	my $clientCertificate = $self->param('clientCertificate');
 	my $installer         = $self->param('installer');
 
@@ -135,7 +140,7 @@ sub actuate
 	my $bundle;
 	try {
 	  $bundle = $openvpn->server($name)->clientBundle(
-					   os => $os, 
+					   clientType => $clientType, 
 					   clientCertificate => $clientCertificate, 
 					   addresses => $addresses,
 					  installer => $installer,

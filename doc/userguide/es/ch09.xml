@@ -1,92 +1,24 @@
-	<!-- vim: ts=2 sw=2 tw=75
--->
-<chapter id="ch-users">
+<chapter id="ch-time">
 
-	<title>Gestión de usuarios</title>
+	<title>Servidor NTP</title>
 
-	<section id='sect-users-users'>
-		<!-- Users -->
-		<title>Cuentas de usuario</title>
+	<section id='sect-time-ntp'>
+		<!-- NTP->Server -->
+		<title>Servidor NTP</title>
 
-		<para>
-		A través de 
-		<menuchoice>
-			<guimenu>Usuarios</guimenu>
-		</menuchoice>
-		es posible crear usuarios de eBox y modificar la 
-		configuración asignada a cada uno de ellos.
+		<para> El servidor de fecha y hora sólo puede ser activado o 
+                desactivado en <menuchoice><guimenu>Estado de los
+                módulos</guimenu></menuchoice> pinchando en
+                "Habilitar" en su fila correspondiente como se explica
+                en <xref linkend="sect-mod-status"/>.
 		</para>
 
 		<para>
-		Para crear un usuario basta con introducir la 
-		información en el formulario que se muestra en la
-		ventana de configuración y hacer click en 
-		<guibutton>Crear</guibutton>. 
-		Hay campos para introducir nombre de usuario, nombre real, 
-		un comentario sobre el usuario, su contraseña (con confirmación) 
-		y el grupo al que pertenecerá. 
-		</para>
-
-		<para>
-		Posteriormente, la configuración de cada usuario creado 
-		puede ser modificada seleccionando el usuario en la lista
-		desplegable inferior y haciendo click en 
-		<guibutton>Editar</guibutton>.
-		</para>
-
-		<para>
-		La ventana de edición de usuarios es dinámica, lo cual quiere
-		decir que su contenido cambiará dependiendo de los módulos 
-		que estén instalados en eBox. Hay dos bloques que serán fijos
-		dentro de la ventana: en la parte superior se mostrara la información
-		general del usuario para permitir su modifición, incluyendo 
-		comentario,	nombre y contraseña (con confirmación); en la parte
-		inferior aparecerá un boton Eliminar usuario que borrará el 
-		usuario de eBox, así como sus dependencias con los módulos
-		instalados. Entre estos dos bloques puede aparecer información 
-		referente a cada uno de los módulos de eBox que se encuentren
-		instalados y habilitados y puedan ofrecer servicio a usuarios de
-		manera individualizada: cuentas de correo, compartición de
-		archivos, acceso a impresoras...
-		</para>
-	</section>
-
-	<section id='sect-users-groups'>
-		<!-- Groups -->
-		<title>Grupos de usuarios</title>
-
-		<para>
-		Entrando en 
-		<menuchoice>
-			<guimenu>Grupos</guimenu>
-		</menuchoice>
-		se pueden crear grupos nuevos o editar la configuración de 
-		los grupos existentes.
-		</para>
-
-		<para>
-		Para crera un grupo nuevo sólo es necesario introducir un
-		nombre de grupo, un comentario sobre el grupo (opcional) y
-		hacer click en el botón Crear.
-		</para>
-
-		<para>
-		Si se desea editar un grupo, al igual que para la edición de 
-		usuarios, simplemente hay que seleccionarlo en la lista desplegable 
-		inferior y pulsar el boton Editar.
-		</para>
-
-		<para>
-		La ventana de edición de grupos es dinámica al igual que la
-		de usuarios y también incluye dos bloques	de configuración fijos: 
-		en la parte superior se permite cambiar	el comentario del grupo y 
-		los usuarios que pertenecen o no pertenecen a dicho grupo; y en la 
-		parte inferior se muestra un botón <guibutton>Eliminar</guibutton> 
-		grupo que borrara el grupo de eBox y todas las dependencias del grupo 
-		con los módulos que se encuentren instalados. Entre los dos bloques 
-		se mostrará la información que tiene que ver con los módulos instalados 
-		que se encuentran habilitados en el momento actual y que poseen alguna 
-		configuración específica para grupos de usuarios.
+		Si se encuentra activado, los clientes que tengan eBox 
+		como servidor NTP mantendrán sincronizada su configuración horaria 
+		con la que posea eBox, que a su vez puede ser configurada siguiendo
+		las instrucciones que se indican en
+		<link linkend='sect-ebox-datetime'>Configuración horaria</link>
 		</para>
 	</section>
 

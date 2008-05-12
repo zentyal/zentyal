@@ -1,14 +1,86 @@
-<!-- vim: ts=4 sw=4 filetype=mason
-</script>
-</script>
+<!-- Vim: ts=4 sw=4 filetype=mason
 -->
 <%args>
-	$mdsize
-	%vdomains
+	@vdomains
+
+        $mdQuotaAvailable => 0
+	$mdsize => 0
+        %sizeByVDomain => ()
 </%args>
 <%init>
 use EBox::Gettext;
+
+if ($mdQuotaAvailable) {
+  if (not (keys %sizeByVDomain == @vdomains)) {
+    $m->abort('incongruence between domains lists and size by domain hash');
+  }
+}
+
+
+foreach my $size (values %sizeByVDomain) {
+  if (not $size) {
+    $size = __('unlimited');
+  }
+  
+}
+
 </%init>
+
+<& .addVDomain,
+
+  mdQuotaAvailable => $mdQuotaAvailable,
+  mdsize => $mdsize,   
+
+&>
+
+
+
+% if  (@vdomains != 0) {
+    <& .vdomainsList,
+       vdomains => \@vdomains,
+
+       mdQuotaAvailable => $mdQuotaAvailable,
+       sizeByVDomain     => \%sizeByVDomain,
+    &>
+% }
+
+
+% if ($mdQuotaAvailable) {
+<& .mdSizeJS, mdsize => $mdsize &>
+% }
+
+
+
+<%def .mdSizeJS>
+<%args>
+$mdsize
+</%args>
+<script type="text/javascript">
+function updateMDSize() {
+    var size = document.getElementById("mdsize")
+    var chk = document.getElementById("ummsize")
+	var val = <% $mdsize %>;
+
+    if(chk.checked) {
+        size.disabled = true;
+        size.value = '';
+    } else {
+        size.disabled = false;
+		
+		if(val == 0) {
+			val = 10;
+		}
+        size.value = val;
+    }
+}
+</script>
+</%def>
+
+<%def .addVDomain>
+<%args>
+$mdQuotaAvailable => 0
+$mdsize => 0
+</%args>
 <h3><% __('Add a new virtual domain') %></h3>
 <form action='AddVDomain' method='POST'>
 	<table class='formTable'>
@@ -20,6 +92,9 @@ use EBox::Gettext;
 			<input type='text' class='inputText' name='vdomain' />
 		</td>
 	</tr>
+
+%#   MD QUOTA OPTIONS
+%   if ($mdQuotaAvailable) {
 	<tr>
 		<td class='tright'><% __('Unlimited size') %></td>
 		<td><input type='checkbox' name='ummsize' id='ummsize'
@@ -45,6 +120,8 @@ use EBox::Gettext;
 			/> <% __("(MB)") %>
 		</td>
 	</tr>
+%   }
+
 	<tr>
 		<td></td>
 		<td>
@@ -55,10 +132,22 @@ use EBox::Gettext;
 	</tr>
 	</table>
 </form>
+</%def>
 
-%   my @kvd = keys %vdomains;
-%	if(@kvd != 0) {
+<%def .vdomainsList>
+<%args>
+@vdomains
 
+$mdQuotaAvailable => 0
+ %sizeByVDomain => ()
+</%args>
+<%init>
+foreach my $size (values %sizeByVDomain) {
+     if (not  $size) {
+          $size = __('Unlimited');
+     }
+}
+</%init>
 		<h3><% __('Virtual domains list') %></h3>
 		<table cellspacing='0' class='dataTable'>
 			<thead>
@@ -66,19 +155,25 @@ use EBox::Gettext;
 					<th width='44%' class='tleft'>
 						<% __('Name') %>
 					</th>
+%                                  if ($mdQuotaAvailable) {
 					<th width='22%' class='tleft'>
 						<% __('Maildir Size') %>
 					</th>
+%                                  }
 					<th class='thOptions'>
 						<% __('Action') %>
 					</th>
 				</tr>
 			</thead>
 			<tbody>
-%			foreach my $domain (@kvd) {
+%			foreach my $domain (@vdomains) {
 				<tr class='border'>
 					<td><% $domain %></td>
-					<td><% $vdomains{$domain} %></td>
+%                             if ($mdQuotaAvailable) {
+					<td>
+                                            <% $sizeByVDomain{$domain} %>
+                                        </td>
+%                             }
 					<td class='tcenter'>
 						<a href="EditVDomain?vdomain=<% $domain %>">
 						<img src='/data/images/edit.gif'
@@ -93,24 +188,4 @@ use EBox::Gettext;
 %				}
 			</tbody>
 		</table>
-%	}
-
-<script type="text/javascript">
-function updateMDSize() {
-    var size = document.getElementById("mdsize")
-    var chk = document.getElementById("ummsize")
-	var val = <% $mdsize %>;
-
-    if(chk.checked) {
-        size.disabled = true;
-        size.value = '';
-    } else {
-        size.disabled = false;
-		
-		if(val == 0) {
-			val = 10;
-		}
-        size.value = val;
-    }
-}
-</script>
+</%def>

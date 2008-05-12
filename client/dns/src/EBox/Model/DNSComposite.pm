@@ -68,7 +68,6 @@ sub _description
       my $description =
         {
          components      => [
-                             'EnableFormDNS',
                              'DomainTable',
                             ],
          layout          => 'top-bottom',

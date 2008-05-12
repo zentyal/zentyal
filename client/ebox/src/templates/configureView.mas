@@ -1,0 +1,58 @@
+<%args>
+    $module
+    @files
+    @actions
+</%args>
+<%init>
+use EBox::Gettext;
+use Data::Dumper;
+</%init>
+
+
+
+
+
+<div>
+<% __('Enabling this module will cause eBox to perform the actions and file modifications listed below. You must explicitly accept these changes to enable the module.') %>
+</div>
+
+% if (@actions) {
+<h3><% __('Actions to perform by eBox') %></h3>
+% }
+
+% for my $action (@actions) {
+ <div class='conf_file_entry'>
+       <div class='conf_file_entry_action'>
+           <span class="bold"><% __('Action') %>:</span> <% $action->{'action'} %> 
+         </div>
+        <div class='conf_file_entry_reason'>
+           <span class="bold"> <% __('Reason') %>:</span> <% $action->{'reason'} %>
+        </div>
+    </div>
+% }
+
+% if (@files) {
+<h3><% __('Files to modify by eBox') %></h3>
+% }
+
+% for my $file (@files) {
+ <div class='conf_file_entry'>
+       <div class='conf_file_entry_file'>
+           <span class="bold"><% __('File') %>:</span> <% $file->{'file'} %> 
+         </div>
+        <div class='conf_file_entry_reason'>
+            <span class="bold"><% __('Reason') %>:</span> <% $file->{'reason'} %>
+        </div>
+   </div>
+% }
+
+<div class='endForm'>
+<form id='acceptChanges' method='post'
+    action='/ebox/ServiceModule/ConfigureModuleController'>
+
+    <input class='inputButton' type='submit' name='accept'
+        value="<% __('Accept') %>" />
+
+    <input type='hidden' name='module' value='<% $module %>' />
+</form>
+</div>

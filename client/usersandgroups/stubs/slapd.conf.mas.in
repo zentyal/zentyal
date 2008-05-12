@@ -18,29 +18,66 @@ include         /etc/ldap/schema/inetorgperson.schema
 include 	<% $schema %>
 % }
 
-schemacheck     on
-
+# Where the pid file is put. The init.d script
+# will not stop the server if you change this.
 pidfile         /var/run/slapd/slapd.pid
 
 # List of arguments that were passed to the server
-argsfile        /var/run/slapd.args
+argsfile        /var/run/slapd/slapd.args
 
-loglevel 	0
+# Read slapd.conf(5) for possible values
+loglevel        none
 
+# Where the dynamically loaded modules are stored
 modulepath	/usr/lib/ldap
-moduleload	back_bdb
+moduleload	back_hdb
 
-backend		bdb
+# The maximum number of entries that is returned for a search operation
+sizelimit 500
 
-database        bdb
+# The tool-threads parameter sets the actual amount of cpu's that is used
+# for indexing.
+tool-threads 1
+
+#######################################################################
+# Specific Backend Directives for hdb:
+# Backend specific directives apply to this backend until another
+# 'backend' directive occurs
+backend		hdb
+
+#######################################################################
+# Specific Backend Directives for 'other':
+# Backend specific directives apply to this backend until another
+# 'backend' directive occurs
+#backend		<other>
+
+#######################################################################
+# Specific Directives for database #1, of type hdb:
+# Database specific directives apply to this databasse until another
+# 'database' directive occurs
+database        hdb
 
 
-
+# The base of your directory in database #1
 suffix          "<% $dn %>"
 
-checkpoint      1 1
+checkpoint      512 30
 
-directory       "@LOCALSTATEDIR@/lib/ebox/ldap"
+directory       "/var/lib/ldap"
+
+dbconfig set_cachesize 0 2097152 0
+
+# Sven Hartge reported that he had to set this value incredibly high
+# to get slapd running at all. See http://bugs.debian.org/303057 for more
+# information.
+
+# Number of objects that can be locked at the same time.
+dbconfig set_lk_max_objects 1500
+# Number of locks (both requested and granted)
+dbconfig set_lk_max_locks 1500
+# Number of lockers
+dbconfig set_lk_max_lockers 1500
+
 
 index           objectClass eq
 
@@ -49,7 +86,7 @@ lastmod         on
 rootdn  "<% $rootdn %>"	
 rootpw 	<% $rootpw %>
 
-access to attrs=userPassword
+access to attrs=userPassword,shadowLastChange
         by dn.regex="<% $rootdn %>" write
         by anonymous auth
         by self write

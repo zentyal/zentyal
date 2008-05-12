@@ -27,10 +27,7 @@ use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::GConfState;
 use EBox::GConfConfig;
-
-# Core modules
 use File::Basename;
-use File::Copy::Recursive;
 
 sub _create # (name)
 {
@@ -71,6 +68,7 @@ sub _helper
 sub _config
 {
 	my $self = shift;
+	$self->{gconf}->clear_cache();
 	$self->{helper} = $self->{config};
 }
 
@@ -99,7 +97,14 @@ sub initChangedState
 sub aroundRestoreConfig
 {
   my ($self, $dir) = @_;
+
   $self->_load_from_file($dir);  
+
+  if ($self->isa('EBox::Model::ModelProvider')) {
+    $self->restoreFilesFromArchive($dir);
+  }
+
+
   $self->restoreConfig($dir);     
 }
 
@@ -113,22 +118,35 @@ sub _load_from_file # (dir?, key?)
   $self->_config();
 
   my $file =  $self->_bak_file_from_dir($dir);
-  -f $file or throw EBox::Exceptions::Internal("Backup file missing: ".
-					       "$file.");
+  if (not  -f $file)  {
+    EBox::error("GConf backup file missing for module " . $self->name);
+    return;
+  }
+
   ($key) or $key = $self->_key("");
   $self->_delete_dir_internal($key);
-  `/usr/bin/gconftool --load=$file $key` and
+
+  system "/usr/bin/gconftool --load=$file $key";
+  if (not ($? == 0)) {
     throw EBox::Exceptions::Internal("Error while restoring " .
 				     "configuration from $file");
+  }
+
 }
 
 
 # we override aroundDumpConfig to save gconf data before dump module config
 sub aroundDumpConfig
 {
-  my ($self, $dir) = @_;
-  $self->_dump_to_file($dir);  
-  $self->dumpConfig($dir);     
+  my ($self, $dir, @options) = @_;
+
+  $self->_dump_to_file($dir); 
+  
+  if ($self->isa('EBox::Model::ModelProvider')) {
+    $self->backupFilesInArchive($dir);
+  }
+
+  $self->dumpConfig($dir, @options);     
 }
 
 # dumps GConf entries to a file in the dir specified
@@ -140,7 +158,7 @@ sub _dump_to_file # (dir?)
 	my $key = "/ebox/modules/" . $self->name;
 	($dir) or $dir = EBox::Config::conf;
 	my $file = $self->_bak_file_from_dir($dir);
-	`/usr/bin/gconftool --dump $key > $file` and
+	`umask 0077; /usr/bin/gconftool --dump $key > $file` and
 		throw EBox::Exceptions::Internal("Error while backing up " .
 						 "configuration on $file");
 }
@@ -177,8 +195,12 @@ sub revokeConfig
 	my $ro = $self->{ro};
 	$self->{ro} = undef;
 	$self->_load_from_file();
-        # Restore <EBox::Types::File> which content a file
-        $self->_restoreFilesFromBackup();
+
+	if ($self->isa('EBox::Model::ModelProvider')) {
+	  $self->modelsRevokeConfig();
+	}
+
+
 	$self->{ro} = $ro;
 }
 
@@ -198,9 +220,13 @@ sub _saveConfig
 		throw EBox::Exceptions::Internal("tried to save a read-only"
 			 . " module: " . $self->name() . "\n");
 	}
+
 	$self->_dump_to_file();
-        # Backup a copy of the content of <EBox::Types::File>
-        $self->_backupFiles();
+
+	if ($self->isa('EBox::Model::ModelProvider')) {
+	  $self->modelsSaveConfig();
+	}
+
 	$self->_load_from_file(undef, "/ebox-ro/modules/". $self->name());
 }
 
@@ -418,7 +444,9 @@ sub _all_entries # (key)
 {
 	my ($self, $key) = @_;
 	$key = $self->_key($key);
-	return $self->_gconf_wrapper("all_entries", $key);
+	my @entries = $self->_gconf_wrapper("all_entries", $key);
+	my @entrypaths = map { $_->{key} } @entries;
+	return @entrypaths;
 }
 
 #
@@ -433,7 +461,7 @@ sub _all_entries # (key)
 #
 # Returns:
 #
-#       array of strings - Each string contains an entry
+#       A ref to an array of strings - Each string contains an entry
 #
 #
 sub all_entries # (key) 
@@ -917,7 +945,7 @@ sub _delete_dir_internal # (key)
 	my ($self, $dir) = @_;
 	my @keys = $self->_gconf_wrapper("all_entries", $dir);
 	foreach (@keys) {
-		$self->_gconf_wrapper("unset", $_);
+		$self->_gconf_wrapper("unset", $_->{key});
 	}
 	@keys = $self->_gconf_wrapper("all_dirs", $dir);
 	foreach (@keys) {
@@ -990,88 +1018,6 @@ sub _get_unique_id
 		$id = $prefix . int(rand(10000));
 	}
 	return $id;
-}
-
-# Method: _restoreFilesFromBackup
-#
-#     Restore the files stored using <EBox::Types::File> type by
-#     models, therefore the model itself must be a
-#     <EBox::Model::ModelProvider> instance
-#
-sub _restoreFilesFromBackup
-{
-
-    my ($self) = @_;
-
-    my $filePaths = $self->_filePaths();
-    if ( @{$filePaths} > 0 ) {
-        foreach my $filePath (@{$filePaths}) {
-            if ( -f $filePath . '.bak' ) {
-                File::Copy::Recursive::fcopy($filePath . '.bak', $filePath)
-                    or throw EBox::Exceptions::Internal('Cannot copy from ' .
-                                                        $filePath . ".bak to $filePath : $!");
-            }
-        }
-    }
-}
-
-# Method: _backupFiles
-#
-#     Backup the files stored using <EBox::Types::File> type by
-#     models, therefore the model itself must be a
-#     <EBox::Model::ModelProvider> instance
-#
-sub _backupFiles
-{
-
-    my ($self) = @_;
-
-    my $filePaths = $self->_filePaths();
-    if ( @{$filePaths} > 0 ) {
-        foreach my $filePath (@{$filePaths}) {
-            if ( -f $filePath ) {
-                File::Copy::Recursive::fcopy($filePath, $filePath  . '.bak')
-                    or throw EBox::Exceptions::Internal('Cannot copy from '
-                                                        . "$filePath to $filePath"
-                                                        . ".bak: $!");
-            }
-        }
-    }
-}
-
-
-# Method to get those file full paths which are enclosed within this
-# model provider
-# Return value: array ref with the current file paths
-sub _filePaths
-{
-    my ($self) = @_;
-
-    unless ( $self->isa('EBox::Model::ModelProvider') ) {
-        return [];
-    }
-
-    my @filePaths = ();
-    my $models = $self->models();
-    foreach my $model (@{$models}) {
-        my $hasFileType = 0;
-        foreach my $fieldName ( @{$model->fields()} ) {
-            if ( $model->fieldHeader($fieldName)->isa('EBox::Types::File')) {
-                $hasFileType = 1;
-                last;
-            }
-        }
-        if ( $hasFileType ) {
-            foreach my $modelRow (@{$model->rows()}) {
-                foreach my $field (@{$modelRow->{values}} ) {
-                    if ( $field->isa('EBox::Types::File' )) {
-                        push ( @filePaths, $field->path()) if ( $field->path() ne '');
-                    }
-                }
-            }
-        }
-    }
-    return \@filePaths;
 }
 
 1;

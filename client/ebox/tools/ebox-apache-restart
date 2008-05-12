@@ -1,5 +1,66 @@
 #!/usr/bin/perl
-#Stop apache, sleep a few seconds and restart.
-system("/usr/bin/sudo /usr/bin/sv down /var/service/apache-perl > /dev/null");
-sleep 5;
-system("/usr/bin/sudo /usr/bin/sv up /var/service/apache-perl > /dev/null");
+
+use EBox;
+use EBox::Global;
+use EBox::Sudo;
+use IO::Socket;
+use Error qw(:try);
+
+use constant RECONNECTION_ATTEMPTS => 9;
+
+
+EBox::init();
+
+sub fetch_ebox_port 
+{
+    my $global = EBox::Global->getInstance(1);
+    my $apache = $global->modInstance('apache');
+    return $apache->port();
+}
+
+sub check_port_used
+{
+    my ($port) = @_;
+
+    my $sock = IO::Socket::INET->new(
+                    PeerAddr => "127.0.0.1",
+                    PeerPort => $port,
+                    Proto    => "tcp",
+                    Timeout  => 1000);
+    if ($sock) {
+        close ($sock);
+        return 1;
+    } else {
+        return 0;
+    }
+
+}
+
+try {
+    EBox::Sudo::root("/usr/share/ebox/ebox-apache2ctl stop");
+} otherwise {};
+
+my $port = fetch_ebox_port();
+if (defined($port) and $port =~ /^\d+$/) {
+    my $ready = undef;
+    for my $i (0..RECONNECTION_ATTEMPTS) {
+        if (not check_port_used($port)) {
+            $ready = 1;
+            last;
+        }
+        EBox::info("Waiting for apache to shutdown, attempt $i");
+        sleep(1);
+    }
+
+    unless ($ready) {
+        EBox::info("Trying to stop apache for last time");
+        try {
+            EBox::Sudo::root("/usr/share/ebox/ebox-apache2ctl stop");
+        } otherwise {};
+        sleep(3);
+    }
+}
+
+try {
+    EBox::Sudo::root("/usr/share/ebox/ebox-apache2ctl start");
+} otherwise {};

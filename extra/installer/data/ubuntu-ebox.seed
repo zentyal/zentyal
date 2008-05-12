@@ -1,0 +1,98 @@
+# Always install the server kernel.
+d-i	base-installer/kernel/override-image	string linux-server
+# Only install basic language packs. Let tasksel ask about tasks.
+d-i	pkgsel/language-pack-patterns	string
+# No language support packages.
+d-i	pkgsel/install-language-support	boolean false
+
+# install ebox dependencies and ssh
+d-i pkgsel/include string adduser amavisd-new  arj bind9 bzip2 clamav clamav-daemon clamav-freshclam courier-authdaemon courier-imap courier-imap-ssl courier-ldap courier-pop courier-pop-ssl cupsys dansguardian debconf dhcp3-client dhcp3-server dnsutils foomatic-db foomatic-db-engine foomatic-db-hpijs foomatic-filters gconf2 gettext iproute iptables jabber-common jabberd2-ldap-bdb jnettop libapache-authcookie-perl libapache-singleton-perl libapache2-mod-ldap-userdir libapache2-mod-perl2 libchart-perl libclone-perl libconfig-tiny-perl libcrypt-smbhash-perl libdate-calc-perl libdbd-pg-perl libdevel-stacktrace-perl liberror-perl libexporter-cluster-perl libfile-copy-recursive-perl libfile-mmagic-perl libfile-slurp-perl libfile-tail-perl libfilesys-df-perl libgnome2-gconf-perl libhtml-mason-perl libintl-perl liblocale-gettext-perl liblog-dispatch-perl liblog-log4perl-perl libmail-rfc822-address-perl libnet-arp-perl libnet-cups-perl libnet-dns-perl libnet-ip-perl libnet-jabber-perl libnet-ldap-perl libnss-ldap libperl6-junction-perl libproc-process-perl libreadonly-perl libreadonly-xs-perl librrds-perl libsasl2-2 libsasl2-modules libsoap-lite-perl libsys-cpu-perl libsys-cpuload-perl libtree-perl libxml-rss-perl net-tools ntp ntpdate openssl openvpn postfix-ldap quagga quota rrdtool samba sasl2-bin slapd smbldap-tools spamassassin squid ssh sudo tftpd-hpa unzoo vlan zip 
+
+
+
+# Uncomment to ease installation testing
+
+
+# # Hostname:
+# netcfg	netcfg/get_hostname	string	ubuntu
+
+# # Is the system clock set to UTC?
+# clock-setup	clock-setup/utc	boolean	false
+# # Initialization vector generation algorithm for this partition:
+# # Choices: 
+# partman-crypto	partman-crypto/ivalgorithm	select	
+# # Dummy template for preseeding unavailable questions
+# d-i	console-keymaps-at/keymap	string	us
+# # Passphrase input error
+# partman-crypto	partman-crypto/passphrase-mismatch	error	
+# # Continue with partitioning?
+# partman-partitioning	partman-partitioning/unknown_label	boolean	true
+
+
+# # Locale sets language and country.
+# d-i debian-installer/locale string en_US
+
+
+# # Keyboard layout:
+# # Choices: USA - Alternative international (former us_intl), USA - Classic Dvorak, USA - Colemak, USA - Dvorak international, USA - Dvorak, USA - Group toggle on multiply/divide key, USA - International (AltGr dead keys), USA - International (with dead keys), USA - Left handed Dvorak, USA - Macintosh, USA - Right handed Dvorak, USA - Russian phonetic, USA - With EuroSign on 5, USA
+# d-i	console-setup/variant	select	USA
+
+# #d-i apt-setup/use_mirror boolean false
+# d-i mirror/http/proxy string
+# d-i time/zone string US/Eastern
+
+# # To create a normal user account.
+# d-i passwd/user-fullname string Debian User
+# d-i passwd/username string foobar
+# # Normal user's password, either in clear text
+# d-i passwd/user-password password foobar
+# d-i passwd/user-password-again password foobar
+
+# # XXX END
+
+
+tasksel        tasksel/first  multiselect
+
+# postfix answers
+postfix	postfix/main_mailer_type	select	No configuration
+
+#ldap answers
+# Administrator password:
+slapd	slapd/password1	password
+# Confirm password:
+slapd	slapd/password2	password
+# LDAP version to use:
+# Choices: 3, 2
+ldap-auth-config	ldap-auth-config/ldapns/ldap_version	select	3
+# Unprivileged database user:
+ldap-auth-config	ldap-auth-config/binddn	string	cn=proxyuser,dc=example,dc=net
+# LDAP server Uniform Resource Identifier:
+ldap-auth-config	ldap-auth-config/ldapns/ldap-server	string	ldapi:///findme
+# Distinguished name of the search base:
+ldap-auth-config	ldap-auth-config/ldapns/base-dn	string	dc=example,dc=netfindme
+# Does the LDAP database require login?
+ldap-auth-config	ldap-auth-config/dblogin	boolean	false
+# Make local root Database admin:
+ldap-auth-config	ldap-auth-config/dbrootlogin	boolean	false
+# LDAP account for root:
+ldap-auth-config	ldap-auth-config/rootbinddn	string	cn=manager,dc=example,dc=net
+# LDAP root account password:
+ldap-auth-config	ldap-auth-config/rootbindpw	password
+
+# courier answers:
+# Create directories for web-based administration?
+courier-base	courier-base/webadmin-configmode	boolean	false
+
+# courier-ssl answers:
+# SSL certificate required
+courier-ssl	courier-ssl/certnotice	note
+
+# Å√âsta orden se ejecuta despuÅ√Å©s de que finalice base-config, y
+# antes de presentar el indicador Å¬Å´login:Å¬Åª. Å√âsta es una buena forma de
+# instalar el conjunto de paquetes que desea, o de modificar la
+# configuraciÅ√Å≥n del sistema:
+
+d-i preseed/late_command string cp /cdrom/ebox/* /target/tmp/ && chroot /target sh /tmp/prepare-ebox-install.sh 
+
+
+

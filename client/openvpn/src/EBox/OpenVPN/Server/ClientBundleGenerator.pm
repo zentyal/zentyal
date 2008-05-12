@@ -172,11 +172,11 @@ sub clientBundle
 {
   my ($class, %params) = @_;
   # extract mandatory parameters
-  my $server = delete $params{server};
+  my $server = $params{server};
   $server or throw EBox::Exceptions::MissingArgument('server');
-  my $clientCertificate = delete $params{clientCertificate};
+  my $clientCertificate = $params{clientCertificate};
   $clientCertificate or throw EBox::Exceptions::MissingArgument('clientCertificate');
-  my $serversAddr_r = delete $params{addresses};
+  my $serversAddr_r = $params{addresses};
   $serversAddr_r or throw EBox::Exceptions::MissingArgument('addresses');
 
   
@@ -188,15 +188,9 @@ sub clientBundle
   EBox::FileSystem::makePrivateDir($tmpDir);
 
   try {
-    my $certificatesPath_r = $class->_clientCertificatesPaths($server, $clientCertificate);
-
-    # client configuration file
-    my $confFile = $class->_confFile($server, $tmpDir);
-    $class->_generateClientConf($server, $confFile, $certificatesPath_r, $serversAddr_r);
-
-    $class->_copyCertFilesToDir($certificatesPath_r, $tmpDir);
+    $class->_createBundleContents($server, $tmpDir, %params);
     
-    # create bundle 
+    # create bundle itself
     $bundle  =  $class->_createBundle($server,  $tmpDir, %params);
   }
   finally {
@@ -212,6 +206,22 @@ sub clientBundle
 	  };
 }
 
+
+
+sub _createBundleContents
+{
+  my ($class, $server, $tmpDir, %params) = @_;
+  my $clientCertificate = $params{clientCertificate};
+  my $serversAddr_r = $params{addresses};
+
+    my $certificatesPath_r = $class->_clientCertificatesPaths($server, $clientCertificate);
+
+    # client configuration file
+    my $confFile = $class->_confFile($server, $tmpDir);
+    $class->_generateClientConf($server, $confFile, $certificatesPath_r, $serversAddr_r);
+
+    $class->_copyCertFilesToDir($certificatesPath_r, $tmpDir);
+}
 
 sub _confFile
 {

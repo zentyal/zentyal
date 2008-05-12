@@ -18,11 +18,12 @@ use strict;
 use warnings;
 
 use base qw(
-	   EBox::GConfModule 
-	   EBox::Model::ModelProvider EBox::Model::CompositeProvider
-           EBox::FirewallObserver  EBox::LogObserver   
-	   EBox::Report::DiskUsageProvider
-	   );
+		EBox::GConfModule 
+		EBox::Model::ModelProvider EBox::Model::CompositeProvider
+		EBox::FirewallObserver  EBox::LogObserver   
+		EBox::Report::DiskUsageProvider
+		EBox::ServiceModule::ServiceInterface
+		);
 
 use EBox::Service;
 use EBox::Objects;
@@ -79,17 +80,11 @@ sub domain
 #
 #    <EBox::Model::ModelProvider::modelClasses>
 #
+
+
 sub modelClasses
 {
   return [
-	  {
-	   class => 'EBox::Squid::Model::SquidService',
-	   parameters => [
-			  enableTitle => __('HTTP Proxy service status'),
-			  domain      => 'ebox-squid',
-                          modelDomain => 'Squid',
-			 ],
-	  },
 	  'EBox::Squid::Model::GeneralSettings',
 
           'EBox::Squid::Model::ContentFilterThreshold',
@@ -130,7 +125,7 @@ sub compositeClasses
 
 sub isRunning
 {
-	return EBox::Service::running('squid');
+	return EBox::Service::running('ebox.squid');
 }
 
 
@@ -138,8 +133,86 @@ sub isRunning
 
 sub DGIsRunning
 {
-	return EBox::Service::running('dansguardian');
+	return EBox::Service::running('ebox.dansguardian');
 }
+
+# Method: usedFiles
+#
+#	Override EBox::ServiceModule::ServiceInterface::usedFiles
+#
+sub usedFiles
+{
+	return [
+		{
+		 'file' => '/etc/squid/squid.conf',
+		 'module' => 'squid',
+ 	 	 'reason' => 'HTTP proxy configuration file'
+		},
+		{
+		 'file' => DGDIR . '/dansguardian.conf',
+		 'module' => 'squid',
+ 	 	 'reason' => 'Content filter configuration file'
+		},
+		{
+		 'file' => DGDIR . "/dansguardianf1.conf",
+		 'module' => 'squid',
+ 	 	 'reason' => 'Content filter threshold'
+		},
+		{
+		 'file' => DGDIR . "/bannedextensionlist",
+		 'module' => 'squid',
+ 	 	 'reason' => 'Content filter banned extension list'
+		},
+		{
+		 'file' => DGDIR . "/bannedmimetypelist",
+		 'module' => 'squid',
+ 	 	 'reason' => 'Content filter banned mime type list'
+		},
+		{
+		 'file' => DGDIR . "/exceptionsitelist",
+		 'module' => 'squid',
+ 	 	 'reason' => 'Content filter exception site list'
+		},
+		{
+		 'file' => DGDIR . "/greysitelist",
+		 'module' => 'squid',
+ 	 	 'reason' => 'Content filter grey site list'
+		},
+		{
+		 'file' => DGDIR . "/bannedsitelist",
+		 'module' => 'squid',
+ 	 	 'reason' => 'Content filter banned site list'
+		}
+	       ];
+}
+# Method: enableActions 
+#
+# 	Override EBox::ServiceModule::ServiceInterface::enableActions
+#
+sub enableActions
+{
+    root(EBox::Config::share() . '/ebox-squid/ebox-squid-enable');
+}
+
+
+# Method: serviceModuleName 
+#
+#	Override EBox::ServiceModule::ServiceInterface::serviceModuleName
+#
+sub serviceModuleName
+{
+	return 'squid';
+}
+
+#  Method: enableModDepends
+#
+#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+#
+sub enableModDepends 
+{
+    return ['firewall'];
+}
+
 
 sub _doDaemon
 {
@@ -156,7 +229,7 @@ sub _doDaemon
 		return;
 	}
 
-	EBox::Service::manage('squid', $action);
+	EBox::Service::manage('ebox.squid', $action);
 }
 
 sub _doDGDaemon
@@ -174,13 +247,13 @@ sub _doDGDaemon
 		return;
 	}
 
-	EBox::Service::manage('dansguardian', $action);
+	EBox::Service::manage('ebox.dansguardian', $action);
 }
 
 sub _stopService 
 {
-	EBox::Service::manage('squid', 'stop');
-	EBox::Service::manage('dansguardian', 'stop');
+	EBox::Service::manage('ebox.squid', 'stop');
+	EBox::Service::manage('ebox.dansguardian', 'stop');
 }
 
 # Method: _regenConfig
@@ -249,12 +322,7 @@ sub auth
 sub setService # (enabled) 
 {
 	my ($self, $active) = @_;
-
-      my $enableModel = $self->model('SquidService');
-
-      $enableModel->setRow(1,
-                           ( enabled => $active ),
-                          );
+	$self->enableService($active);
 }
 
 # Method: service 
@@ -267,10 +335,8 @@ sub setService # (enabled)
 sub service
 {
       my ($self) = @_;
-      my $enableModel = $self->model('SquidService');
 
-      return $enableModel->enabledValue();
-
+      return $self->isEnabled();
 }
 
 

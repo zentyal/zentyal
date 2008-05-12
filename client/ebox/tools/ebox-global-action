@@ -1,0 +1,56 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+use EBox::ProgressIndicator;
+use EBox::Exceptions::Internal;
+use EBox::LogAdmin;
+
+use Error qw(:try);
+
+my %params = @ARGV;
+(exists $params{'--progress-id'}) or 
+  die 'not progress indicator id supplied';
+
+my $action = $params{'--action'};
+$action or
+    throw EBox::Exceptions::Internal('Not action provided');
+
+if ( ($action ne 'saveAllModules') and ($action ne 'revokeAllModules') ) {
+    throw EBox::Exceptions::Internal("Bad action: $action");
+}
+
+my $progressId = delete $params{'--progress-id'};
+
+
+my $progress = EBox::ProgressIndicator->retrieve($progressId);
+
+
+# put  progress indicator param
+
+try {
+  my $global = EBox::Global->getInstance();
+
+  if ($action eq 'saveAllModules') {
+      $global->saveAllModules(progress => $progress);
+      EBox::LogAdmin::commitPending();
+  }
+  elsif ($action eq 'revokeAllModules') {
+      $global->revokeAllModules(progress => $progress);
+      EBox::LogAdmin::rollbackPending();
+  }
+
+
+}
+otherwise {
+  my $ex = shift @_;
+
+ $progress->setAsFinished(1, $ex->text);
+
+  $ex->throw();
+};
+
+
+1;

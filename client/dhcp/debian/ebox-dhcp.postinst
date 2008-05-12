@@ -1,49 +1,29 @@
 #!/bin/bash
 
-webserver=apache
-onInstall() {
 
-	perl -e 'use EBox::DHCP; EBox::DHCP::onInstall();'
-}
+#DEBHELPER#
 
 case "$1" in
 	configure)
-		# install gconf schemas
-		SCHEMA_LOCATION=/usr/share/gconf/schemas
-		SCHEMA_FILES="dhcp.schemas "
-		for SCHEMA in $SCHEMA_FILES; do
-			if [ -e $SCHEMA_LOCATION/$SCHEMA ]; then
-				HOME=/var/lib/ebox GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` \
-				gconftool-2 \
-				--makefile-install-rule $SCHEMA_LOCATION/$SCHEMA > /dev/null
-			fi
-		done
-
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
-		# don't start dhcp with its script
-		update-rc.d -f dhcp3-server remove
-
-		# stop dhcp3-server if it's running as a normal service
-		invoke-rc.d dhcp3-server stop
-
  		# create log table
-                /usr/lib/ebox/ebox-sql-table add leases /usr/share/ebox/sqllog/dhcp.sql
+        /usr/share/ebox/ebox-sql-table add leases /usr/share/ebox/sqllog/dhcp.sql
 	
 		# restart logs
 		invoke-rc.d ebox logs restart || true
 
-		# run the onInstall method in the module
-		onInstall
-
 		# Migrate data if needed
-		/usr/lib/ebox/ebox-migrate /usr/lib/ebox-dhcp/migration/
+		/usr/share/ebox/ebox-migrate /usr/share/ebox-dhcp/migration/
 
-                # Restart dhcp module
-                invoke-rc.d ebox dhcp restart || true
+        # Restart dhcp module
+        invoke-rc.d ebox dhcp restart || true
+
+        # Restart eBox apache
+        invoke-rc.d ebox apache restart || true
 
 esac
 
-#DEBHELPER#
+
 
 exit 0

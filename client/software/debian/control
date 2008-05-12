@@ -1,13 +1,14 @@
 Source: ebox-software
 Section: web
 Priority: optional
-Maintainer: Isaac Clerencia <isaac@warp.es>
-Build-Depends: debhelper (>= 4.0.0)
-Standards-Version: 3.6.1
+Maintainer: Ubuntu MOTU Developers <ubuntu-motu@lists.ubuntu.com>
+XSBC-Original-Maintainer: Javier Uruen  <javi@warp.es>
+Build-Depends: debhelper (>= 4.0.0), cdbs
+Standards-Version: 3.7.3
 
 Package: ebox-software
 Architecture: all
-Depends: ebox (= 0.11.99), esofttool (>= 0.4)
+Depends: ebox (>= 0.11.99), ebox(<< 0.12), esofttool (>= 0.4.1)
 Conflicts: ebox (<< 0.11.99)
 Description: Software management
  eBox is a framework for the development and deployment of security-wise

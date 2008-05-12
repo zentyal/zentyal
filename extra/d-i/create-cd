@@ -1,9 +1,0 @@
-#!/bin/sh
-source CONF.sh
-make distclean || exit
-make status || exit
-make bin-list TASK=tasks/ebox COMPLETE=0 || exit
-make bootable || exit
-make upgrade || exit
-make bin-extras CD=1 ROOTSRC=/root/stuff/ebox-cd/ DIR=ebox/ || exit
-make bin-images || exit

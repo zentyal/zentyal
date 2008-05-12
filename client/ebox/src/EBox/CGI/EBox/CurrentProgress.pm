@@ -53,10 +53,22 @@ sub _print($) {
 	my $progressId = $self->param('progress');
 	my $progress = EBox::ProgressIndicator->retrieve($progressId);
 
-	my $response = $progress->stateAsString();
+	my $response;
+	$response .= $progress->stateAsString();
+	$response .= $self->modulesChangedStateAsString();
 
 	print($self->cgi()->header(-charset=>'utf-8'));
 	print $response;
+}
+
+
+sub modulesChangedStateAsString
+{
+    my ($self) = @_;
+
+    my $global = EBox::Global->getInstance();
+    my $state = $global->unsaved() ? 'changed' : 'notChanged';
+    return "changed:$state";
 }
 
 1;

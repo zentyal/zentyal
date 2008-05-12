@@ -7,7 +7,7 @@ $action
 use EBox::Gettext;
 my $warningMsg;
 if ($type eq 'client') {
-   $warningMsg = __x("Are you sure you want delete the {type} {name}?\nThis action can not be undone.", name => $name, type => $type);
+   $warningMsg = __x("Are you sure you want delete the {type} {name}?\nThis action cannot be undone.", name => $name, type => $type);
 }
 else {
    $warningMsg = __x("Are you sure you want delete the {type} {name}?", name => $name, type => $type);

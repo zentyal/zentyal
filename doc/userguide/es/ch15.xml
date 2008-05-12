@@ -1,112 +1,26 @@
-	<!-- vim: ts=2 sw=2 tw=75
--->
-<chapter id="ch-jabber">
+<chapter id="ch-dns">
 
-	<title>Servidor Jabber</title>
-	
-	<section>
-		<title>Servidor Jabber</title>
-	
+	<title>Servicio DNS</title>
+
+        <para>
+          El servicio DNS puede funcionar como un servidor DNS caché,
+          o como un servidor DNS propio para responder a consultas de
+          tus dominios locales.
+        </para>
+
+	<section id='sect-dns-cache'>
+		<!-- DNS Cache -->
+		<title>Caché DNS</title>
+                
 		<para>
-		Se puede acceder a la configuración del servidor Jabber
-		a traves de 
-			<menuchoice>
-				<guimenu>Jabber</guimenu>
-			</menuchoice>
-		y a través de las opciones de cada uno de los usuarios.
+		Si se encuentra el servicio DNS activado actuará
+                automáticamente como un servicio de DNS
+                caché. Permitirá que varias peticiones DNS iguales 
+		a eBox se resuelvan con una sola petición DNS externa, reduciendo así
+		el tiempo de respuesta y el tráfico por la red para los sitios más 
+		frecuentados.
 		</para>
+	</section>
+        <!-- TODO: Servidor DNS sección -->
 
-		<para>El servidor de Jabber configura el acceso a una red de
-		mensajería, para una red local o que pueda tener también acceso
-		externo. Controla además el acceso por cada usuario, pudiendo
-		aceptarles o denegarles la conexión a cada uno de ellos.</para>
-		
-		<para>Para activar el servidor Jabber, entre en su página de
-		configuración, y seleccione, en la parte superior, la opción de
-		Habilitado en la lista desplegable.</para>
-
-		<para>Se puede configurar el comportamiento del servidor Jabber en los
-		siguientes aspectos:
-			<variablelist>
-				<varlistentry>
-					<term>Nombre del dominio</term>
-					<listitem>
-						<para>Las cuentas de un servidor Jabber tienen la forma
-						usuario@dominio. Los usuarios deberán utilizar ese formato en sus
-						clientes de Mensajería Instantánea para poder conversar. Por esta
-						razón, el nombre del dominio deberá poderlo resolver el usuario en
-						su propia máquina, así como el resto de servidores de internet si
-						está configurado el acceso externo.</para>
-					</listitem>
-				</varlistentry>
-				<varlistentry>
-					<term>Conectar a la red global Jabber</term>
-					<listitem>
-						<para>El servidor Jabber tiene la capacidad de formar parte de la
-						red de servidores Jabber, repartida por todo el planeta; o funcionar
-						independientemente dentro de una red corporativa. Esta opción
-						permite seleccionar el comportamiento deseado.</para>
-					</listitem>
-				</varlistentry>
-				<varlistentry>
-					<term>Soporte SSL</term>
-					<listitem>
-						<para>La autenticación y transmisión de datos entre el servidor
-						Jabber y el usuario Jabber puede realizarse de tres formas:
-							<itemizedlist>
-								<listitem>
-									<para>La primera, dando el valor "No" a la
-									opción, hará que la comunicación sea en
-									texto plano.</para>
-								</listitem>
-								<listitem>
-									<para>La segunda, "Opcional" permite que el
-									usuario decida si desea que la comunicación
-									se realice de forma segura, mediante SSL, o
-									convencional.</para>
-								</listitem>
-								<listitem>
-									<para>Por último, si es "Requerido" el
-									acceso por SSL, el cliente de mensajería
-									instantánea del usuario deberá soportar tal
-									opción, para que pueda conectarse al
-									servidor Jabber.</para>
-								</listitem>
-							</itemizedlist>
-						</para>
-					</listitem>
-				</varlistentry>
-			</variablelist>
-		</para>
-
-		<para>En la configuración de cada usuario nos encontraremos con dos
-		nuevas opciones para la configuración de su acceso a Jabber:
-			<variablelist>
-				<varlistentry>
-					<term>Cuenta del usuario</term>
-					<listitem>
-						<para>Puede tomar dos valores, que
-						permitirán el acceso del usuario al
-						servidor Jabber o no.</para>
-					</listitem>
-				</varlistentry>
-				<varlistentry>
-					<term>El usuario tiene permisos de
-					administrador</term>
-					<listitem>
-						<para>Un usuario con permisos de
-						administrador puede ser notificado
-						acerca de algunos aspectos del
-						servidor, o realizar acciones sólo
-						disponibles para usuarios con tales
-						permisos. Por favor, para más
-						información sobre los privilegios de
-						administrador de una red Jabber
-						consulte su documentación.</para>
-					</listitem>
-				</varlistentry>
-			</variablelist>
-		</para>
-		</section>
-	
 </chapter>

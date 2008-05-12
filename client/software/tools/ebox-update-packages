@@ -57,6 +57,25 @@ try {
     EBox::error($exc->_errorMsg());
 } finally {
     try {
+        EBox::Sudo::root(
+          qq{sh -c 'export DEBIAN_FRONTEND="noninteractive" && apt-get install -f --yes'}
+        my $global = EBox::Global->getInstance(1);
+        my $software = $global->modInstance('software');
+
+        #causes the cache to be generated
+        $software->listUpgradablePkgs(1);
+        #call also listEBoxPkgs to regen the cache
+        $software->listEBoxPkgs(1);
+
+        my $apache = EBox::Global->modInstance('apache');
+        $apache->_daemon('restart');
+                        );
+    } catch EBox::Exceptions::Sudo::Command with {
+        my ($exc) = @_;
+        $retValue = $exc->exitValue();
+        EBox::error($exc->_errorMsg());
+    };
+    try {
         $progress->setAsFinished($retValue, $errorMsg);
     } catch EBox::Exceptions::External with {
         # Ignore if it cannot put as finished since it's possible it
@@ -68,30 +87,5 @@ try {
 if ( $retValue > 0 ) {
     exit $retValue;
 }
-
-try {
-    EBox::Sudo::root(
-      qq{sh -c 'export DEBIAN_FRONTEND="noninteractive" && apt-get install -f --yes'}
-                    );
-} catch EBox::Exceptions::Sudo::Command with {
-    my ($exc) = @_;
-    $retValue = $exc->exitValue();
-    EBox::error($exc->_errorMsg());
-};
-
-if ( $retValue > 0 ) {
-    exit $retValue;
-}
-
-my $global = EBox::Global->getInstance(1);
-my $software = $global->modInstance('software');
-
-#causes the cache to be generated
-$software->listUpgradablePkgs(1);
-#call also listEBoxPkgs to regen the cache
-$software->listEBoxPkgs(1);
-
-my $apache = EBox::Global->modInstance('apache');
-$apache->_daemon('restart');
 
 1;

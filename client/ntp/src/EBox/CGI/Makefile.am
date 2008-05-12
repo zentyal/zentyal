@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CGI/NTP
 
-nobase_perl_DATA = Index.pm Enable.pm ChangeDate.pm Synch.pm AddServers.pm \
+nobase_perl_DATA = ChangeDate.pm Synch.pm AddServers.pm \
 	Datetime.pm Timezone.pm ChangeTimeZone.pm
 
 MAINTAINERCLEANFILES = Makefile.in

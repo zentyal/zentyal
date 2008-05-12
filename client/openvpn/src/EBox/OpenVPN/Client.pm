@@ -11,6 +11,7 @@ use EBox::Sudo;
 use EBox::FileSystem;
 use EBox::Gettext;
 use EBox::OpenVPN::Client::ValidateCertificate;
+use EBox::OpenVPN::Server::ClientBundleGenerator::EBoxToEBox;
 
 use Params::Validate qw(validate_pos SCALAR);
 use Error qw(:try);
@@ -23,7 +24,7 @@ sub new
     my $prefix= 'client';
 
     my $self = $class->SUPER::new($name, $prefix, $openvpnModule);
-      bless $self, $class;
+    bless $self, $class;
 
     return $self;
 }
@@ -121,9 +122,14 @@ sub privateDir
   my $dir = $self->confFile($openVPNConfDir) . '.d';
 
   if (not EBox::Sudo::fileTest('-d', $dir)) {
+    if  ( EBox::Sudo::fileTest('-e', $dir) ) {
+      throw EBox::Exceptions::Internal("$dir exists but is not a directory");
+    }
+
     # create dir if it does not exist
-    EBox::Sudo::root("mkdir --mode 0500  $dir");
+    EBox::Sudo::root("mkdir --mode 0700  $dir");
   } 
+
 
   return $dir;
 }
@@ -132,6 +138,9 @@ sub _setPrivateFile
 {
   my ($self, $type, $path) = @_;
 
+  if (not EBox::Sudo::fileTest('-r', $path)) {
+    throw EBox::Exceptions::Internal('Cannot read private file source' );
+  } 
 
   my $privateDir = $self->privateDir();
   
@@ -144,7 +153,6 @@ sub _setPrivateFile
   }
   otherwise {
     EBox::Sudo::root("rm -f '$newPath'");
-    EBox::Sudo::root("rm -f '$path'");
   };
 
   $self->setConfString($type, $newPath);
@@ -210,7 +218,7 @@ sub confFileParams
   my @paramsNeeded = qw(name caCertificate certificate certificateKey  user group proto );
   foreach my $param (@paramsNeeded) {
     my $accessor_r = $self->can($param);
-    defined $accessor_r or die "Can not found accesoor for param $param";
+    defined $accessor_r or die "Cannot found accessor for param $param";
     my $value = $accessor_r->($self);
     defined $value or next;
     push @templateParams, ($param => $value);
@@ -329,49 +337,76 @@ sub removeServer
 #
 #  *( named parameters)*   
 #
-#  servers - client's servers list. Muast be a list reference. The servers may be
+#  servers - client's servers list. Must be a list reference. The servers may be
 #  hostnames or IP addresses.
 #  proto - the client's IP protocol.
 #
 #  caCertificate - Path to the CA's certificate.
 #  certificate  -  Path to the client's certificate.
 #  certificateKey    -  Path yo the client's certificate key.
+#  ripPasswd      - rip password from the server
 #
 #  service - wether the client is enabled or disabed. *(Default: disabled)*
 #
-#  hidden  - wethet the client is hidden from the web GUI *(default: false)*
+#  internal  - wethet the client is hidden from the web GUI *(default: false)*
 sub init
 {
     my ($self, %params) = @_;
 
-    (exists $params{proto}) or throw EBox::Exceptions::External __("A IP protocol must be specified for the client");
-    (exists $params{caCertificate}) or throw EBox::Exceptions::External __("The CA certificate is needed");
-    (exists $params{certificate}) or throw EBox::Exceptions::External __("The client certificate must be specified");
-    (exists $params{certificateKey}) or throw EBox::Exceptions::External __("The client private key must be specified");
-    (exists $params{servers}) or throw EBox::Exceptions::External __("Servers must be supplied to the client");
-    
 
-    exists $params{service} or $params{service} = 0;
-    exists $params{internal}  or $params{internal}  = 0;
-
-    $self->setCertificateFiles($params{caCertificate}, $params{certificate}, $params{certificateKey});
-
-   my @attrs = qw(proto servers service internal);
-    foreach my $attr (@attrs)  {
-	if (exists $params{$attr} ) {
-	    my $mutator_r = $self->can("set\u$attr");
-	    defined $mutator_r or die "Not mutator found for attribute $attr";
-	    $mutator_r->($self, $params{$attr});
-	}
+    if ($params{bundle}) {
+      %params = (%params, EBox::OpenVPN::Server::ClientBundleGenerator::EBoxToEBox->initParamsFromBundle($params{bundle}) );
     }
+
+    try {
+      (exists $params{proto}) or throw EBox::Exceptions::External __("A IP protocol must be specified for the client");
+      (exists $params{caCertificate}) or throw EBox::Exceptions::External __("The CA certificate is needed");
+      (exists $params{certificate}) or throw EBox::Exceptions::External __("The client certificate must be specified");
+      (exists $params{certificateKey}) or throw EBox::Exceptions::External __("The client private key must be specified");
+      (exists $params{servers}) or throw EBox::Exceptions::External __("Servers must be supplied to the client");
+
+      
+      exists $params{service} or $params{service} = 0;
+      exists $params{internal}  or $params{internal}  = 0;
+
+      # ripPasswd is not neccesary for internal clietns bz 
+      if (not exists $params{internal}) {
+	(exists $params{ripPasswd}) or 
+	  throw EBox::Exceptions::External __("Server's tunnel password missing");
+      }
+
+      
+    $self->setCertificateFiles($params{caCertificate}, $params{certificate}, $params{certificateKey});
+      
+   my @attrs = qw(proto servers service internal ripPasswd);
+      foreach my $attr (@attrs)  {
+	if (exists $params{$attr} ) {
+	  my $mutator_r = $self->can("set\u$attr");
+	  defined $mutator_r or die "Not mutator found for attribute $attr";
+	  $mutator_r->($self, $params{$attr});
+	}
+      }
+
+
+    }
+    finally {
+      if ($params{bundle}) {
+	system 'rm -rf ' . $params{tmpDir};
+      }
+    };
 }
+
+
 
 
 sub ripDaemon
 {
   my ($self) = @_;
+
+  # internal client don't need to push routes to the server
+  return undef if $self->internal();
   
-  my $iface = $self->iface();
+  my $iface = $self->ifaceWithRipPasswd();
   return { iface => $iface, redistribute => 1 };
 }
 
@@ -411,6 +446,13 @@ sub freeViface
   $self->freeIface($viface); 
 }
 
+sub changeIfaceExternalProperty # (iface, external)
+{
+   my ($self, $iface, $external) = @_;
+   # no effect for openvpn clients. Except that the server may not be reacheable
+   # anymore but we don't check this in any moment..
+   return;
+}
 
 sub _availableIfaces
 {
@@ -447,6 +489,16 @@ sub summary
   my ($addr, $port) = @{ $servers[0]  };
   my $server = "$addr $port/\U$proto";
   push @summary,__('Connection target'), $server;
+
+
+  my $ifAddr = $self->ifaceAddress();
+  if ($ifAddr) {
+    push @summary, (__('VPN interface address'), $ifAddr);
+  }
+  else {
+    push @summary, (__('VPN interface address'), __('No active'));
+  }
+
 
   return @summary;
 }

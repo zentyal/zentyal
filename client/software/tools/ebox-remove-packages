@@ -1,0 +1,88 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2007 Warp Networks S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use strict;
+use warnings;
+
+use EBox;
+use EBox::Global;
+use EBox::ProgressIndicator;
+use EBox::Sudo;
+
+use Error qw(:try);
+
+EBox::init();
+
+my $progressId          = pop @ARGV;
+my $progressIdParamName = pop @ARGV; # unused
+my @packages            = @ARGV;
+
+defined $progressId or
+ die "not progress indicator parameter supplied";
+defined $progressIdParamName or
+ die "not progress indicator parameter supplied";
+@packages or
+  die "no packages to remove supplied";
+
+my $progress = EBox::ProgressIndicator->retrieve($progressId);
+
+
+$progress->started() or
+  die('progress executable not run');
+
+my ($retValue, $errorMsg) = (0, '');
+try {
+  my $removeCmd ='/usr/bin/apt-get remove  --purge --no-download -q --yes';
+
+  foreach my $pkg (@packages) {
+    $progress->notifyTick();
+    $progress->setMessage($pkg);
+    my $cmd = "$removeCmd $pkg";
+    EBox::Sudo::root(qq{sh -c 'export DEBIAN_FRONTEND="noninteractive" && $cmd'});
+  }
+} catch EBox::Exceptions::Sudo::Command with {
+    my ($exc) = @_;
+    $retValue = $exc->exitValue();
+    $errorMsg = $exc->_errorMsg();
+    EBox::error($exc->_errorMsg());
+} finally {
+    try {
+        $progress->setAsFinished($retValue, $errorMsg);
+    } catch EBox::Exceptions::External with {
+        # Ignore if it cannot put as finished since it's possible it
+        # is already destroyed. Why?
+        EBox::warn("$progressId does not exist");
+    };
+};
+
+if ( $retValue > 0 ) {
+    exit $retValue;
+}
+
+
+my $global = EBox::Global->getInstance(1);
+my $software = $global->modInstance('software');
+
+#causes the cache to be generated
+$software->listUpgradablePkgs(1);
+#call also listEBoxPkgs to regen the cache
+$software->listEBoxPkgs(1);
+
+my $apache = EBox::Global->modInstance('apache');
+$apache->_daemon('restart');
+
+1;

@@ -38,12 +38,14 @@ use Error qw(:try);
 use File::Slurp qw(read_file);
 
 use constant DN            => "dc=ebox";
-use constant LDAPI         => "ldapi://%2fvar%2frun%2fldapi";
+use constant LDAPI         => "ldapi://%2fvar%2frun%2fslapd%2fldapi";
 use constant LDAP	   => "ldap://127.0.0.1";
 use constant SLAPDCONFFILE => "/etc/ldap/slapd.conf";
 use constant ROOTDN        => 'cn=admin,' . DN;
 use constant INIT_SCRIPT   => '/etc/init.d/slapd';
-use constant DATA_DIR      => '/var/lib/ebox/ldap';
+use constant DATA_DIR      => '/var/lib/ldap';
+use constant LDAP_USER	   => 'openldap';
+use constant LDAP_GROUP    => 'openldap';
 
 # Singleton variable
 my $_instance = undef;
@@ -108,9 +110,23 @@ sub ldapCon {
 
 
 	if ((not defined $self->{ldap}) or $reconnect) {
-		$self->{ldap} = Net::LDAP->new (LDAPI) or
+		# We try to connect 5 times in 5 seconds, as we might need to 
+		# give slapd some time to accept connections after a
+		# slapd restart
+		my $connected = undef;
+		for (0..4) {
+			$self->{ldap} = Net::LDAP->new (LDAPI);
+			if ($self->{ldap}) {
+				$connected = 1;
+				last;
+			} else {
+				sleep (1);
+			}	
+		}
+		unless ($connected) {
 			throw EBox::Exceptions::Internal(
 					"Can't create ldapi connection");
+		}
 		$self->{ldap}->bind(ROOTDN, password => getPassword());
 	}
 
@@ -201,7 +217,7 @@ sub slapdConfFile {
 #     hash ref  - holding the keys 'dn', 'ldapi', 'ldap', and 'rootdn' 
 #
 sub ldapConf {
-	shift;
+	my ($class) = @_;
 	
 	my $conf = {
 		     'dn'     => DN,
@@ -231,7 +247,7 @@ sub search($$) # (args)
 	$self->ldapCon;	
 	my $result = $self->{ldap}->search(%{$args});
 	_errorOnLdap($result, $args);
-	return _utf8Attrs($result);
+	return $result;
 	
 }
 
@@ -522,6 +538,13 @@ sub refreshLdap
 
 
 
+sub ldifFile
+{
+  my ($self, $dir) = @_;
+  return "$dir/ldap.ldif";
+}
+
+
 sub dumpLdapData
 {
   my ($self, $dir) = @_;
@@ -530,7 +553,7 @@ sub dumpLdapData
   my $slapdConfFile = EBox::Ldap::slapdConfFile();
   my $user  = EBox::Config::user();
   my $group = EBox::Config::group();
-  my $ldifFile = "$dir/ldap.ldif";
+  my $ldifFile = $self->ldifFile($dir);
 
   my $slapcatCommand = $self->_slapcatCmd($ldifFile, $slapdConfFile);
   my $chownCommand = "/bin/chown $user.$group $ldifFile";
@@ -545,25 +568,35 @@ sub loadLdapData
   
   my $ldapDir   = EBox::Ldap::dataDir();
   my $slapdConfFile = EBox::Ldap::slapdConfFile();
-  my $ldifFile = "$dir/ldap.ldif";
+  my $ldifFile = $self->ldifFile($dir);
 
+  my $backupCommand = $self->_backupSystemDirectory();
   my $rmCommand = $self->_rmLdapDirCmd($ldapDir);
   my $slapaddCommand = $self->_slapaddCmd($ldifFile, $slapdConfFile);
+  my $chownDataCommand = $self->_chownDatadir;
   
-  $self->_pauseAndExecute(cmds => [$rmCommand, $slapaddCommand ]);
+  $self->_pauseAndExecute(
+		cmds => [$backupCommand, $rmCommand, 
+			 $slapaddCommand, $chownDataCommand 
+			]);
 }
 
+
+sub _chownDatadir
+{
+	return 'chown -R '  . LDAP_USER . ':' . LDAP_GROUP . ' ' . dataDir();
+}
 
 sub _slapcatCmd
 {
   my ($self, $ldifFile, $slapdConfFile) = @_;
-  return  "/usr/sbin/slapcat  -f $slapdConfFile -l $ldifFile";
+  return  "/usr/sbin/slapcat  -f $slapdConfFile > $ldifFile";
 }
 
 sub _slapaddCmd
 {
   my ($self, $ldifFile, $slapdConfFile) = @_;
-  return  "/usr/sbin/slapadd  -c -l $ldifFile -f $slapdConfFile";
+  return  "/usr/sbin/slapadd  -c -f $slapdConfFile < $ldifFile" ;
 }
 
 sub _rmLdapDirCmd
@@ -571,7 +604,14 @@ sub _rmLdapDirCmd
   my ($self, $ldapDir)   = @_;
   $ldapDir .= '/*' if  defined $ldapDir ;
 
-  return "/bin/rm -rf $ldapDir";
+  return "sh -c '/bin/rm -rf $ldapDir'";
+}
+
+sub _backupSystemDirectory
+{
+  my ($self) = @_;
+  
+  return EBox::Config::share() . '/ebox-usersandgroups/slapd.backup';
 }
 
 sub _pauseAndExecute

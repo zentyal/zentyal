@@ -1,0 +1,6 @@
+Template: ebox-usersandgroups/keep_database
+Type: boolean
+Default: true
+Description: keep eBox LDAP database when the package is removed?
+ If you enable this option, the eBox LDAP database will not be removed
+ when the package is uninstalled

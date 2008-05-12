@@ -1,15 +1,35 @@
-<!-- vim: ts=4 sw=4 filetype=mason
--->
 <%args>
 @printers
 $active
+$standaloneCups => 0
 </%args>
 <%init>
 use EBox::Gettext;
+# Elements for general settings on printers
+my @generalSettingsElements =
+  (
+   [
+    name => 'enableStandaloneCups',
+    printableName => __('Enable standalone CUPS'),
+    value => $standaloneCups,
+    input => 'checkbox'
+   ],
+   [
+    name => 'change',
+    value => __('Change'),
+    input => 'submit',
+    ],
+  );
 </%init>
-<& enable.mas, title => __('Printer sharing status'), active => $active &>
-
 % if(@printers){
+<h3><% __('General settings') %></h3>
+<div class='help'>
+  <% __('This will enable cupsd to listen on internal '
+        . 'interfaces to see printers and jobs') %>
+</div>
+    <form method="POST" action="GeneralSettings">
+         <& /formTable.mas, rows => \@generalSettingsElements &>
+    </form>
 <h3><% __('List of printers') %></h3>
 <table class='dataTable' cellspacing='0'>
     <thead>
@@ -50,4 +70,8 @@ use EBox::Gettext;
 %       }
     </tbody>
 </table>
+% } else {
+<div class='note'>
+<% __('There is no printer configured yet') %>
+</div>
 % }

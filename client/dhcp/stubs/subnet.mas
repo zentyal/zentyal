@@ -10,9 +10,9 @@
 % if(defined($info{'search'})) {
 	option domain-name "<% $info{'search'} %>";
 % }
-% if(length($info{'nameserver1'}) != 0) {
+% if(exists $info{'nameserver1'} and length($info{'nameserver1'}) > 0) {
 	option domain-name-servers <% $info{'nameserver1'} %>\
-%       if(length($info{'nameserver2'}) != 0) {
+%       if(exists $info{'nameserver2'} and  length($info{'nameserver2'}) > 0) {
 , <% $info{'nameserver2'} %>;
 %       }else{
 ;

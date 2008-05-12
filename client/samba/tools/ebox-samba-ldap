@@ -12,7 +12,8 @@ use Crypt::SmbHash qw(nthash ntlmgen);
 
 
 use constant DEFAULTDOMAINNAME => 'EBOX';
-use constant TMPROOT	=> 'ebox-samba-admin';
+use constant TMP_ROOT	=> 'ebox-samba-admin';
+use constant TMP_UNIX_ID_POOL => 'tmpIdPool';
 
 # LDAP Domain stuff
 use constant DomainGroups => 
@@ -79,17 +80,19 @@ my $global = EBox::Global->getInstance();
 my $users  = $global->modInstance('users');
 
 
-sub _addPDCStuff {
-	my $ldap = EBox::Ldap->instance();
-	my $smb  = new EBox::SambaLdapUser;
-	my $sid = EBox::SambaLdapUser::getSID();
-	my $samba  = $global->modInstance('samba');
-	
+sub populateLdap
+{
+        my $ldap = EBox::Ldap->instance();
+	my $sambaLdap = new EBox::SambaLdapUser;
+
+	my $sid = $sambaLdap->alwaysGetSID();
+	defined $sid or die 'Cannot get domain SID';
+
 	# Mandatory groups
 	foreach my $group (DomainGroups) {
 		my ($name, $gid, $gtype) = ($group->{'name'}, 
 					    $group->{'gid'}, $group->{'gtype'});
-		my %attrs = (
+		my %attrs = ( 
 				base => 'ou=Groups,dc=ebox',
 				filter => "&(objectclass=*)(cn=$name)",
 				scope => 'one'
@@ -152,69 +155,48 @@ sub _addPDCStuff {
 		$ldap->add($dn, \%args);
 	}
 
-
-	# SambaDomainName
-	%args = (
-                        base => "dc=ebox",
-                        filter => "(sambaDomainName=*)",
-			attrs => ['sambaDomainName'],
-                        scope => "sub"
-                    );
-	
-
-	# Set permissions for Domain Admins 
-        %args = (
-                        base => "ou=Users,dc=ebox",
-                        filter => '(uid=' . TMPROOT . ')',
-                        scope => "sub"
-                    );
-	
-	# TODO Redo from here to the end of the function
-	
-	unless ($ldap->search(\%args)->pop_entry()) {
-		root('/usr/sbin/smbldap-useradd -a ' . TMPROOT);
-		root('/usr/sbin/smbldap-usermod  -u 0 '.  TMPROOT);
-	}
-
-	my $pass .= int (rand(10000000)); 
-	my ($lm ,$nt) = ntlmgen $pass;
-	%args = (
-		changes => [
-			replace => [
-					sambaLMPassword 	=> $lm,
-					sambaNTPassword 	=> $nt,
-					sambaAcctFlags		=> '[U]',
-					sambaPwdLastSet		=> time
-				]
-			]
-		);
-
-	my $dn = 'uid=' . TMPROOT . ',' . $users->usersDn;
-	$ldap->modify($dn, \%args );
-	
-	# This evil hack needs to be done to use net rpc rights 
-	# Now, I prefer to modify the TDB file directly to set
-	# the proper bits.
-	my $oldserv = $samba->fileService();
-	unless ($oldserv) {
-		$samba->setFileService(1);
-		$samba->save();
-	}
-	$samba->_regenConfig();
-	system("/etc/init.d/ebox samba restart");
-	sleep 5;
-	my $domain = $samba->workgroup();
-	system("net rpc rights grant  '$domain\\Domain Admins' " .
-		"Semachineaccountprivilege -U " . TMPROOT . "%$pass");
-	unless ($oldserv) {
-		$samba->setFileService(undef);
-		$samba->save();
-		$samba->_regenConfig();
-	}
-	root('/usr/sbin/smbldap-userdel ' . TMPROOT);
-	
-
 }
+
+sub _addPDCStuff 
+{
+	# add unixIdPool attributes to newly created domains
+	_addSambaUnixIdPool();
+}
+
+
+sub _addSambaUnixIdPool
+{
+	my $users = EBox::Global->modInstance('users');	
+	my $lastUid = $users->lastUid;
+	my $lastGid = $users->lastGid;
+
+	my $ldap = EBox::Ldap->instance();
+	my %searchParams = (
+				base => $ldap->dn,
+				filter => "objectClass=sambaDomain",
+				scope => "sub"
+		    );
+
+
+	my @sambaDomains = $ldap->search(\%searchParams)->entries();
+	foreach my $entry (@sambaDomains) {
+	  my $dn = $entry->dn;	
+
+	  if (not $ldap->isObjectClass($dn, 'sambaUnixIdPool')) {
+	    $ldap->modify($dn, 
+			  { add => {  
+				    objectClass => 'sambaUnixIdPool',
+				    uidNumber => $lastUid + 1,
+				    gidNumber => $lastGid + 1,
+				   }
+			  }
+			  
+			 );
+	  }
+
+	}
+}
+
 
 sub clean 
 {
@@ -274,7 +256,7 @@ sub clean
 		$ldap->delete($dn);
 	}
 
-	# Comptuers
+	# Computers
 	%args = (base => "dc=ebox", filter => "&(ou=Computers)", 
 			scope => 'sub');
 	if ($ldap->search(\%args)->pop_entry()) {
@@ -294,23 +276,10 @@ sub clean
 	
 }
 
-sub update 
+sub updateUsers
 {
 	my $smb  = new EBox::SambaLdapUser;
-
-	# update users
-	foreach my $user ($users->users){
-		my $username = $user->{'username'};
-		my $dn = "uid=$username," .  $users->usersDn;
-			$smb->_addUser($username);		
-	}
-
-	# update groups
-	foreach my $group ($users->groups){
-		my $groupname = $group->{'account'};
-		my $dn = "cn=$groupname," .  $users->groupsDn;
-			$smb->_addGroup($groupname);		
-	}
+	$smb->migrateUsers();
 }
 
 sub gen_config
@@ -319,9 +288,16 @@ sub gen_config
 	$samba->_regenConfig;
 }
 
+
+sub fixSIDs
+{
+	my $samba = EBox::Global->modInstance('samba');
+	$samba->fixSIDs();
+}
+
 sub usage
 {
-	print "Usage: $0 update | clean | genconfig\n";
+	print "Usage: $0 populate-ldap update-users | update-pdc | clean | genconfig | fix-sids\n";
 	exit 1;
 }
 
@@ -331,10 +307,15 @@ unless ($#ARGV == 0) {
 	usage();
 }
 
-if ($ARGV[0] eq 'update-users') {
-	update();
+if ($ARGV[0] eq 'populate-ldap') {
+	populateLdap();
+}
+elsif ($ARGV[0] eq 'update-users') {
+	updateUsers();
 } elsif ($ARGV[0] eq 'update-pdc') {
 	_addPDCStuff();
+} elsif ($ARGV[0] eq 'fix-sids') {
+	fixSIDs();
 } elsif ($ARGV[0] eq 'genconfig') {
 	gen_config();
 } elsif ($ARGV[0] eq 'clean') {

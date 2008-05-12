@@ -1,124 +1,24 @@
 #!/bin/bash
 
-webserver=apache
+#DEBHELPER#
 
 
 case "$1" in
 	configure)
-		# install gconf schemas
-		SCHEMA_LOCATION=/usr/share/gconf/schemas
-		SCHEMA_FILES="samba.schemas "
-		for SCHEMA in $SCHEMA_FILES; do
-			if [ -e $SCHEMA_LOCATION/$SCHEMA ]; then
-				HOME=/var/lib/ebox GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` \
-				gconftool-2 \
-				--makefile-install-rule $SCHEMA_LOCATION/$SCHEMA > /dev/null
-			fi
-		done
-
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
-		# don't start samba with its script
-		update-rc.d -f samba remove
+        # FIXME
+        initctl list >/dev/null  2>&1 || true
 
-		# stop samba 
-		invoke-rc.d samba stop
+      # migrate data if needed
+		/usr/share/ebox/ebox-migrate /usr/share/ebox-samba/migration/	
 
-		# create spool
-		test -d /var/spool/samba || mkdir /var/spool/samba \
-		&& chmod 1777 /var/spool/samba
+        # Restart eBox apache
+        invoke-rc.d ebox apache restart || true
 
-		# create home directories
-		test -d /home/samba || mkdir /home/samba
-		test -d /home/samba/users || mkdir /home/samba/users
-		test -d /home/samba/groups || mkdir /home/samba/groups
-		test -d /home/samba/profiles || mkdir /home/samba/profiles
-		test -d /home/samba/netlogon || mkdir /home/samba/netlogon
 
-                # Set correct permission to public www using
-                # ebox-webserver module if there are users
-                if [ -n "$2" ] && ls /home/samba/users/* > /dev/null 2>&1 \
-                    && dpkg --compare-versions "$2" le 0.11.99;
-                then
-                    chmod o+x /home/samba/users/*
-                fi
-				
-		# Change nsswitch.conf to use ldap
-		sed  -i -e 's/^\(passwd:.*\)/\1 ldap/' /etc/nsswitch.conf
-		sed  -i -e 's/^\(group:.*\)/\1 ldap/' /etc/nsswitch.conf
-		sed  -i -e 's/^\(shadow:.*\)/\1 ldap/' /etc/nsswitch.conf
+    ;;
 
-		# create slapd pid directory 
-		test -d /var/run/slapd || mkdir /var/run/slapd
-
-	 	# regenerate slapd.conf
-		/usr/lib/ebox-usersandgroups/ebox-init-ldap genconfig
-				
-		# restart slapd
-		/etc/init.d/slapd restart
-
-		# update current ldap database
-		/usr/lib/ebox-samba/ebox-samba-ldap update-users
-		
-		# generate smb.conf and libnss-ldap.conf
-		/usr/lib/ebox-samba/ebox-samba-ldap genconfig
-
-		# Set samba admin password to ldap admin password
-		smbpasswd -w `cat /var/lib/ebox/conf/ebox-ldap.passwd`
-
-		# update current ldap database
-		/usr/lib/ebox-samba/ebox-samba-ldap update-pdc
-
-		# Add quota support to fstab. It's set up for "/home" if exists,
-		# otherwise we fall back to "/". Remount partition and
-		# and turn quotas on
-		
-		perl -e '
-		open(FD, "/etc/fstab") or die "Could not open /etc/fstab";
-		my @fstab = <FD>; 
-		close(FD);
-		my $home = undef;
-		my $root = undef;
-		my $num = -1;
-		for $line (@fstab) {
-			$num++;
-			my @fields = split(/[\t\s]+/, $line);
-			next if ($fields[0] =~ /^#.*/);
-			if ($fields[1] =~ /^\/$/) {
-				$root = $num;
-			} elsif ($fields[1] =~ /^\/home$/){
-				$home = $num;
-			}
-		}
-		my $line = $home ? $home : $root;
-		my $mount;
-		if ($line) {
-			my @fields = split(/[\t\s]+/, $fstab[$line]);	
-			$mount = $fields[1];
-			if ($fstab[$line] =~ /usrquota/) {
-				print "Fstab already set up to use quotas\n";
-				exit 0;
-			} else {
-				my $t = $fields[3];
-				$fstab[$line] =~ s/$t/$t,usrquota,grpquota/;
-			}
-		} else {
-			print "Could not find / or /home mounting points";
-			exit 1;
-		}
-
-		open(FD, ">/etc/fstab") or die "Could not write on  /etc/fstab";
-		print FD  @fstab;
-		close(FD);
-		system("/bin/mount -o remount $mount");
-		exit 0;
-	';
-
-		invoke-rc.d quota restart 
-		
-		invoke-rc.d ebox samba restart
 esac
-
-#DEBHELPER#
 
 exit 0

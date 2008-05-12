@@ -23,7 +23,8 @@ use base (
 	  'EBox::VDomainModule',
 	  'EBox::LdapModule',
 	  'EBox::Mail::FilterProvider', 
-	  'EBox::FirewallObserver'
+	  'EBox::FirewallObserver',
+          'EBox::ServiceModule::ServiceInterface',
 	 );
 
 use Perl6::Junction qw(all any);
@@ -41,9 +42,10 @@ use EBox::MailFilter::FirewallHelper;
 use EBox::MailVDomainsLdap;
 use EBox::Validate;
 use EBox::Config;
+use EBox::Global;
 
 use constant {
-  AMAVIS_DAEMON                 => 'amavisd-new',
+  AMAVIS_SERVICE                 => 'ebox.amavisd-new',
   AMAVIS_CONF_FILE              => '/etc/amavis/conf.d/amavisd.conf',
   AMAVISPIDFILE			=> '/var/run/amavis/amavisd.pid',
   AMAVIS_INIT			=> '/etc/init.d/amavis',
@@ -73,6 +75,95 @@ sub _create
 
 	return $self;
 }
+
+# Method: actions
+#
+# 	Override EBox::ServiceModule::ServiceInterface::actions
+#
+sub actions
+{
+  return [ 
+	  {
+	   'action' => __('Add clamav user to amavis group'),
+	   'reason' => __('Clamav need access to amavis fields to properly scan mail'),
+	   'module' => 'mailfilter',
+	  },
+	  {
+	   'action' => __('Update LDAP'),
+	   'reason' => __('Add amavis specific classes and fields'),
+	   'module' => 'mailfilter',
+	  },
+	 ]
+}
+
+
+# Method: usedFiles 
+#
+# 	Override EBox::ServiceModule::ServiceInterface::files
+#
+sub usedFiles 
+{
+  my @usedFiles = (
+		   {	
+		    'file' =>   AMAVIS_CONF_FILE,
+		    'reason' => __('To configure amavis'),
+		    'module' => 'mailfilter'
+            },
+            {
+            'file' => '/etc/ldap/slapd.conf',
+            'reason' => __('To add the LDAP schemas used by eBox mailfilter'),
+            'module' => 'users'
+            }
+          );
+
+  push @usedFiles, EBox::MailFilter::ClamAV::usedFiles();
+  push @usedFiles, EBox::MailFilter::SpamAssassin::usedFiles();
+
+
+   return \@usedFiles;
+}
+
+# Method: enableActions 
+#
+# 	Override EBox::ServiceModule::ServiceInterface::enableActions
+#
+sub enableActions
+{
+    root(EBox::Config::share() . '/ebox-mailfilter/ebox-mailfilter-enable');
+}
+
+#  Method: serviceModuleName
+#
+#   Override EBox::ServiceModule::ServiceInterface::serviceModuleName
+#
+sub serviceModuleName
+{
+	return 'mailfilter';
+}
+
+#  Method: enableModDepends
+#
+#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+#
+#  The mail dependency only exists bz we need the ldap mail data or we wil lrun
+#  in error when seting mail domains options
+sub enableModDepends 
+{
+    my ($self) = @_;
+    my @depends = qw(network);
+
+    my $mail = EBox::Global->modInstance('mail');
+    if ($mail) {
+	if (not $mail->configured()) {
+	    push @depends, 'mail';
+	}
+    }
+
+
+    return \@depends;;
+}
+
+
 
 #
 # Method: antivirus
@@ -115,6 +206,7 @@ sub _regenConfig
 {
   my ($self) = @_;
   my $service = $self->service();
+
 
   $self->antivirus()->writeConf($service);
   $self->antispam()->writeConf();
@@ -240,7 +332,7 @@ sub isRunning
 sub _amavisdIsRunning
 {
   my ($self) = @_;
-  return EBox::Service::running(AMAVIS_DAEMON);
+  return EBox::Service::running(AMAVIS_SERVICE);
 }
 
 #
@@ -255,31 +347,9 @@ sub _amavisdIsRunning
 sub service
 {
   my ($self) = @_;
-  return $self->get_bool('active');
+  return $self->isEnabled();
 }
 
-#
-# Method: setService
-#
-#  Enable/Disable the service.
-#
-# Parameters:
-#
-#  active - true or false
-#
-sub setService 
-{
-	my ($self, $active) = @_;
-	($active and $self->service()) and return;
-	(!$active and !$self->service()) and return;
-
-	if (not $active) {
-	  $self->_assureFilterNotInUse();
-	}
-
-
-	$self->set_bool('active', $active);
-}
 
 
 
@@ -312,13 +382,13 @@ sub _doDaemon
     my $self = shift;
 
     if ($self->service() and $self->isRunning()) {
-      EBox::Service::manage(AMAVIS_DAEMON, 'restart');
+      EBox::Service::manage(AMAVIS_SERVICE, 'restart');
     } 
     elsif ($self->service()) {
-      EBox::Service::manage(AMAVIS_DAEMON, 'start');
+      EBox::Service::manage(AMAVIS_SERVICE, 'start');
     } 
     elsif ($self->isRunning()) {
-      EBox::Service::manage(AMAVIS_DAEMON, 'stop');
+      EBox::Service::manage(AMAVIS_SERVICE, 'stop');
     }
   }
 
@@ -335,7 +405,7 @@ sub _stopService
 	  $self->antispam()->stopService();
 	  $self->antivirus()->stopService();
 
-	  EBox::Service::manage(AMAVIS_DAEMON, 'stop');
+	  EBox::Service::manage(AMAVIS_SERVICE, 'stop');
 	}
 }
 
@@ -783,18 +853,16 @@ sub mailFilter
 {
   my ($self) = @_;
 
-  if (not $self->service) {
-    return undef;
-  }
-
 
   my $name       = $self->mailFilterName;
+  my $active     = $self->service ? 1 : 0;
   my %properties = (
 		     address     => '127.0.0.1',
 		     port        => $self->port(),
 		     forwardPort => $self->fwport,
 		     prettyName  => __('eBox internal mail filter'),
 		     module      => $self->name,
+		     active      => $active,
 		    );
 
   

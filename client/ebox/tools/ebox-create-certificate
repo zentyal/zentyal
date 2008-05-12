@@ -16,14 +16,7 @@ my %COMPROMISED_FILES_SUMS = (
 _checkCredentials();
 _checkPrograms();
 
-my ($sysconfDir) = @ARGV;
-
-$sysconfDir or $sysconfDir = '/etc';
-if (not -d $sysconfDir ) {
-  die "System configuration $sysconfDir is not a directory.";
-}
-
-my $eboxDir  = _eboxDir($sysconfDir);
+my $eboxDir  = '/var/lib/ebox/conf/';
 
 my ($keyFile, $keyUpdated)  = _generateRSAKey($eboxDir, $RSA_LENGTH);
 my $certFile = _generateCert($eboxDir, $keyFile, $keyUpdated);

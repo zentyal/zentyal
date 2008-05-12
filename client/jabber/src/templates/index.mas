@@ -11,7 +11,6 @@ use EBox::Gettext;
 </%init>
 
 <div class='jabbernew'>
-<& enable.mas, title => __('Jabber Service status'), active => $active &>
 
 <form action='JabberConf' method='POST'>
 	<h3><% __('General Settings') %></h3>

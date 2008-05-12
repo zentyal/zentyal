@@ -1,0 +1,16 @@
+<%args>
+    @modules
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<link href="/data/css/modalbox.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript" src="/data/js/prototype.js">//</script>
+<script type="text/javascript" src="/data/js/scriptaculous/scriptaculous.js">//</script>
+<script type="text/javascript" src="/data/js/modalbox.js">//</script>
+
+<div id='statusTable'>
+    <& moduleStatusTable.mas, 'modules' => \@modules &>
+</div>

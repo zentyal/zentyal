@@ -1,7 +1,8 @@
 ## Process this file with automake to produce Makefile.in
 
-pkglib_SCRIPTS =  ebox-samba-ldap
+pkgdata_SCRIPTS =  ebox-samba-ldap ebox-fix-sid ebox-samba-enable \
+					ebox-setadmin-pass
 
 MAINTAINERCLEANFILES = Makefile.in
 
-EXTRA_DIST = $(pkglib_SCRIPTS) runit/nmbd runit/smbd
+EXTRA_DIST = $(pkgdata_SCRIPTS) 

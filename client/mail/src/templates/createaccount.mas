@@ -27,13 +27,37 @@ settextdomain('ebox-mail');
 		<td class="tright"><% __('Domain name') %>:</td>
 		<td>
 			<select name="vdomain" enabled onChange='vdomainChanged(this)'>
-%			my @kvd = keys %{$params->{'vdomains'}};
+%			my @kvd = @{ $params->{'vdomains'} };
 %			foreach my $vd (@kvd) {
 				<option value= <% $vd %> > <% __($vd) %> </option>
 %			}
 			</select>
 		</td>
 	</tr>
+
+%  if ($params->{mdQuotaAvailable} ) {
+        <& .maildirSize, params => $params &>
+%  }
+
+	<tr>
+		<td></td>
+		<td>
+			<input class='inputButton' type='submit' name='change'
+					value="<% __('Create') %>"
+					alt="<% __('Create') %>">
+		</td>
+        </tr>
+	</table>
+</form>
+
+
+
+% settextdomain('ebox-usersandgroups');
+
+<%def .maildirSize>
+<%args>
+$params
+</%args>
 	<tr>
 	<td class='tright'><% __('Maildir size') %>:</td>
 	<td><input type='text' class='inputText' name='mdsize'
@@ -49,6 +73,7 @@ settextdomain('ebox-mail');
 		/> (Mb)
 	</td>
 	</tr>
+
 	<tr>
 	<td class='tright'><% __('Unlimited size') %></td>
 	<td><input type='checkbox' name='ummsize' id='ummsize'
@@ -58,51 +83,4 @@ settextdomain('ebox-mail');
 %				} 
 	></td>
 	</tr>
-	<tr>
-		<td></td>
-		<td>
-			<input class='inputButton' type='submit' name='change'
-					value="<% __('Create') %>"
-					alt="<% __('Create') %>">
-		</td>
-	</table>
-</form>
-
-<script type="text/javascript"><!--
-    var a = new Array();
-
-%	my %hashdom = %{$params->{'vdomains'}};
-%   foreach my $domain (@kvd) {
-        a["<%$domain%>"] = <% $hashdom{$domain} %>;
-%   }
-
-    function vdomainChanged(select){
-        domain = select.options[select.selectedIndex].value;
-        maildirsizeText.value = a[domain];
-    }
-
-	function updateMDSize() {
-		var size = document.getElementById("mdsize")
-		var chk = document.getElementById("ummsize")
-		var val = <% $params->{'mdsize'} %>;
-
-		if(chk.checked) {
-			size.disabled = true;
-			size.value = '';
-		} else {
-			size.disabled = false;
-			
-			if(val == 0) {
-				val = 10;
-			}
-			size.value = val;
-		}
-	}
-
-var maildirsizeText = document.forms.createaccount.dftmdsize;
-var vdomainSelect = document.forms.createaccount.vdomain;
-vdomainChanged(vdomainSelect);
-//--></script>
-
-
-% settextdomain('ebox-usersandgroups');
+</%def>

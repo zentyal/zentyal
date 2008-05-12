@@ -2,8 +2,7 @@
 
 Stubdir = @STUBSPATH@/printers
 
-
-nobase_Stub_DATA = printers.conf
+nobase_Stub_DATA = cupsd.conf.mas printers.conf.mas
 
 EXTRA_DIST = $(nobase_Stub_DATA)
 

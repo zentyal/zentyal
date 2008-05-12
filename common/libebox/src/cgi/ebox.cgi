@@ -4,11 +4,16 @@ use warnings;
 
 use EBox::Gettext;
 use Error qw(:try);
-
+use POSIX qw(:signal_h);
 
 try {
 	use EBox::CGI::Run;
 	use EBox;
+
+	# Workaround to clear Apache2's process mask
+	my $sigset = POSIX::SigSet->new();
+	$sigset->fillset();
+	sigprocmask(SIG_UNBLOCK, $sigset);
 
 	EBox::init();
 	EBox::CGI::Run->run($ENV{'script'});

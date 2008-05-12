@@ -33,6 +33,7 @@ use EBox::Global;
 
 # Constants:
 use constant VERSION_KEY => 'composite_manager/version';
+use constant MAX_INT => 32767;
 
 # Singleton variable
 my $_instance = undef;
@@ -288,8 +289,8 @@ sub markAsChanged
 
     my $oldVersion = $self->_version();
     $oldVersion = 0 unless ( defined ( $oldVersion ));
-    $oldVersion++;
-    $gl->set_int(VERSION_KEY, $oldVersion);
+    $oldVersion = ($oldVersion + 1) % MAX_INT;
+    $gl->st_set_int(VERSION_KEY, $oldVersion);
 
 }
 
@@ -453,7 +454,7 @@ sub _hasChanged
 
     my ($self) = @_;
 
-    return $self->{'version'} < $self->_version();
+    return ($self->{'version'} != $self->_version());
 
 }
 
@@ -474,7 +475,7 @@ sub _version
 
     my $gl = EBox::Global->getInstance();
 
-    return $gl->get_int(VERSION_KEY);
+    return $gl->st_get_int(VERSION_KEY);
 
 }
 

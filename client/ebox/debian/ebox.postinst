@@ -1,158 +1,121 @@
 #!/bin/bash
 
-webserver=apache-perl
+set -e
+
+. /usr/share/debconf/confmodule
+
+# This will be replaced with debian/ebox.scripts-commmon which includes
+# helper functions to set the password
+#SCRIPTSCOMMON#
+
+
+#DEBHELPER#
 
 create_db() 
 {
-	db_name="eboxlogs"
-	db_user="eboxlogs"
-	db_pass="eboxlogs"
+    db_name="eboxlogs"
+    db_user="ebox"
 
-	su postgres -c 'psql -Alt' | grep -q '^$db_name|' && db_exists=1 || db_exists=0
-	if [ $db_exists -eq 0 ]; then
-		echo "Creating the $db_name database"
-		su postgres -c "createdb $db_name" > /dev/null 2>&1
-		su postgres -c "createuser -A -D $db_user" > /dev/null 2>&1
-		su postgres -c "psql -d $db_name -c \"GRANT ALL ON DATABASE $db_name TO  $db_user\"" > /dev/null 2>&1
-		su postgres -c "psql -d template1 -c \"ALTER USER $db_user WITH PASSWORD \"\"'\"$db_pass\"'\" " > /dev/null 2>&1 || (echo "Cannot set password for database user $db_user" && exit 1)
+    su postgres -c 'psql -Alt' | grep -q '^$db_name|' && db_exists=1 || db_exists=0 || true
+    if [ $db_exists -eq 0 ]; then
+        echo "Creating the $db_name database"
+        su postgres -c "createdb $db_name" > /dev/null 2>&1 || true
+        su postgres -c "createuser -R -S -D $db_user" > /dev/null 2>&1 || true
+        su postgres -c "psql -d $db_name -c \"GRANT ALL ON DATABASE $db_name TO $db_user\"" > /dev/null 2>&1 || true
+    fi
 
-	cat <<EOF > /etc/postgresql/pg_hba.conf
-# TYPE  DATABASE    USER        IP-ADDRESS        IP-MASK           METHOD
-# Database administrative login by UNIX sockets
-local   all         postgres                                        ident sameuser
-#
-# eBox log database
-host    $db_name    $db_user     127.0.0.1       255.255.255.255 md5
-local   $db_name    $db_user                                        md5
-# All IPv4 connections from localhost
-host    all         all         127.0.0.1         255.255.255.255  ident sameuser
-# 
-# All IPv6 localhost connections
-host    all         all         ::1               ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff        ident sameuser
-host    all         all         ::ffff:127.0.0.1/128                ident sameuser
-# 
-# reject all other connection attempts
-host    all         all         0.0.0.0           0.0.0.0           reject
-EOF
-
-	fi
-
-	invoke-rc.d postgresql  restart
 }
 
 case "$1" in
 	configure)
+        
+        # Create log directory
+        test -d /var/log/ebox || mkdir /var/log/ebox
+       
+        # This needs to be done to make the gconf keys appear
+        pkill -u ebox gconfd-2 || true
 
-		# don't start apache-perl with its script
-		update-rc.d -f apache-perl remove
+        # create ebox's' apache certificates
+        /usr/share/ebox/ebox-create-certificate
 
-		# stop apache-perl
-		invoke-rc.d apache-perl stop
+        #add the ebox group and user
+        if ! getent group ebox > /dev/null 2>&1
+        then
+            addgroup --system ebox
+        fi
+        if ! getent passwd ebox > /dev/null 2>&1
+        then
+            adduser --system --home /var/lib/ebox/ \
+                --disabled-password --ingroup ebox ebox
+            adduser ebox adm
+        fi
+       
+        chown ebox:adm /var/log/ebox
+        chown -R ebox:adm /var/lib/ebox/tmp
+        chown -R ebox:adm /var/lib/ebox/conf
+        chown -R ebox:adm /var/lib/ebox/log
+ 
+        # Create and set permissions for ebox.sid
+        EBOX_SID="/var/lib/ebox/conf/ebox.sid"
+        if [ ! -e $EBOX_SID ]; then
+            touch $EBOX_SID
+        fi
+        chown ebox:ebox $EBOX_SID
+        chmod 0600 $EBOX_SID
 
-		# create ebox's' apache certificates
-		ebox-create-certificate
-
-		#add the ebox group and user
-		touch /tmp/test.$$
-		chgrp ebox /tmp/test.$$ >/dev/null 2>&1 || addgroup --system ebox
-		chown ebox /tmp/test.$$ >/dev/null 2>&1 || 
-		adduser --system --home /var/lib/ebox/ --no-create-home \
-				--disabled-password --ingroup ebox ebox
-
-		# add the stderr file needed by sudo
-		STDERR_FILE=`perl -MEBox::Config -e'print EBox::Config::tmp() . 'stderr'; 1'`;
-		touch ${STDERR_FILE}
-		chmod 0600 ${STDERR_FILE}
-		chown ebox.ebox ${STDERR_FILE}
+        # add the stderr file needed by sudo
+        STDERR_FILE=`perl -MEBox::Config -e'print EBox::Config::tmp() . 'stderr'; 1'`;
+        touch ${STDERR_FILE}
+        chmod 0600 ${STDERR_FILE}
+        chown ebox:ebox ${STDERR_FILE}
 
 
-		# add the dynamic www-directories
-		DYNAMIC_WWW_DIRS=$(perl -MEBox::Config -e'print EBox::Config::dynamicwww() ; print " " ; print join(" ", @{EBox::Config::dynamicwwwSubdirs()});  1;'); 
-		for DIR in $DYNAMIC_WWW_DIRS; do
-		    mkdir -p $DIR
-		    chown -R ebox.ebox $DIR
-		done
+        # add the stderr file needed by sudo
+        STDERR_FILE=`perl -MEBox::Config -e'print EBox::Config::tmp() . 'stderr'; 1'`;
+        touch ${STDERR_FILE}
+        chmod 0600 ${STDERR_FILE}
+        chown ebox:ebox ${STDERR_FILE}
 
-		#change the /var/lib/ebox/ user
-		chown -R ebox.ebox /var/lib/ebox
+        # add the dynamic www-directories
+        DYNAMIC_WWW_DIRS=$(perl -MEBox::Config -e'print EBox::Config::dynamicwww() ; print " " ; print join(" ", @{EBox::Config::dynamicwwwSubdirs()});  1;'); 
+        for DIR in $DYNAMIC_WWW_DIRS; do
+        mkdir -p $DIR
+        chown -R ebox.ebox $DIR
+        done
 
-		# install gconf schemas
-		SCHEMA_LOCATION=/usr/share/gconf/schemas
-		SCHEMA_FILES="events.schemas global.schemas sysinfo.schemas apache.schemas logs.schemas "
-		for SCHEMA in $SCHEMA_FILES; do
-			if [ -e $SCHEMA_LOCATION/$SCHEMA ]; then
-				HOME=/var/lib/ebox GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` \
-					gconftool-2 \
-						--makefile-install-rule $SCHEMA_LOCATION/$SCHEMA > /dev/null
-			fi
-		done
+        #change the /var/lib/ebox/ user
+        chown  ebox:ebox /var/lib/ebox
 
-		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
-		#sudo configuration
-		ebox-sudoers-friendly
-		chmod 0440 /etc/sudoers
+        #sudo configuration
+        /usr/share/ebox/ebox-sudoers-friendly
 
-		# Set default passwd if it does not exist yet
-		if [ ! -f /var/lib/ebox/conf/ebox.passwd ]; then
-			echo -n 'ebox' | md5sum | cut -d' ' -f1 > \
-				/var/lib/ebox/conf/ebox.passwd
-			chown ebox.ebox /var/lib/ebox/conf/ebox.passwd
-		fi
+        # Set default passwd if it does not exist yet
+        if [ ! -f /var/lib/ebox/conf/ebox.passwd ]; then
+            store_password;
+        fi
 
-		if test -z "$2"; then
-			# not upgrading
-			if grep '^EB:' /etc/inittab >/dev/null; then
-				cat <<\EOT >&2
+        #Create user and database
+        create_db
 
-There already is an EB entry in /etc/inittab.  In order to have this package
-add an entry with the name EB to have ebox starting by sysvinit you need to
-remove or rename the current EB entry first.
+        /usr/share/ebox/ebox-sql-table add admin /usr/share/ebox/sqllog/admin.sql
 
-Installation failed.
+        set_ebox_port
 
-EOT
-				exit 1
-			fi
-		fi
-		if ! grep '^EB:' /etc/inittab >/dev/null; then
-			echo 'Adding eBox inittab entry...'
-			cp /etc/inittab /etc/inittab'{new}'
-			cat >>/etc/inittab'{new}' <<-\EOT
-#-- ebox begin
-EB:2:once:/etc/init.d/ebox start
-#-- ebox end
-EOT
-			mv -f /etc/inittab'{new}' /etc/inittab
-		fi
+        if [ -z "$2" ]; then
+            invoke-rc.d ebox apache start || true
+        else 
+            invoke-rc.d ebox apache stop || true
+            # Give apache some time to stop completely 
+            # Otherwise it will fail to start as the port is being used
+            sleep 5
+            invoke-rc.d ebox apache start || true
+        fi 
+        
 
-		#postgresql and logs
-		chmod 0600 /var/lib/ebox/.pgpass
-		chown ebox.ebox /var/lib/ebox/.pgpass
-
-		# create link from ebox's log directory to /var/log
-                if [ ! -L /var/log/ebox ]; then
-                    ln -s /var/lib/ebox/log /var/log/ebox
-                fi
-
-		#Create user and database
-		create_db
-
-		/usr/lib/ebox/ebox-sql-table add admin /usr/share/ebox/sqllog/admin.sql
-		# migrate logs and events data if needed
-		/usr/lib/ebox/ebox-migrate /usr/lib/ebox-logs/migration/
-		/usr/lib/ebox/ebox-migrate /usr/lib/ebox-events/migration/
-
-		/etc/init.d/ebox start
-
-		if [ -n "$2" ] && dpkg --compare-versions "$2" lt 0.7.1;
-		then
-			/etc/init.d/ebox apache restart
-		fi
-
-		;;
+        ;;
 esac
 
-#DEBHELPER#
+
 
 exit 0

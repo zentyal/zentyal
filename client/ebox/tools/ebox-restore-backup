@@ -6,28 +6,157 @@ use EBox;
 use EBox::Backup;
 use EBox::ProgressIndicator;
 
+use Getopt::Long;
+
+use English qw(-no-match-vars);
 use Error qw(:try);
 
+# check user..
+if ($EUID == getpwnam('ebox')) {
+  # ok ...
+}
+elsif ($EUID == 0) {
+  EBox::init();
+}
+else {
+  die 'This program can be only run by root or ebox user';
+}
 
 
-EBox::debug("$0 pid: $$");
+# process cli
+my $progressId = undef;
+my @modsToRestore = ();
 
-my %params = @ARGV;
+my $configRestore = 0;
+my $fullRestore   = 0;
+my $dataRestore   = 0;
 
-my $file = delete $params{'file'};
-$file or die 'not file supplied';
+my $forceDependencies = 0;
 
-my $progressId = delete $params{'progress-id'};
-$progressId or die 'not progress indicator id supplied';
+my $help = 0;;
+my $info = 0;
+
+my $optionsOk = GetOptions(
+			   'module:s' => \@modsToRestore,
+			   'progress-id:i' => \$progressId,
+			   'config-restore' => \$configRestore,
+			   'full-restore'  => \$fullRestore,
+			   'data-restore'  => \$dataRestore,
+			   'force-dependencies' => \$forceDependencies,
+
+			   'info'       => \$info,
+
+			   'help'               => \$help,
+			   
+			  );
+
+if (not $optionsOk) {
+  usage();
+  exit 1;
+}
+elsif (@ARGV != 1) {
+  usage();
+  exit 1;
+}
 
 
-my $progress = EBox::ProgressIndicator->retrieve($progressId);
 
-# put  progress indicator param
-$params{progress} = $progress;
+my ($file) = @ARGV;
 
 
-EBox::Backup->restoreBackup($file, %params);
+# see operation mode
+if ($help) {
+  usage();
+  exit 0;
+}
+elsif ($info) {
+  info($file);
+  exit 0;
+}
 
+
+# operation mode: restore backup 
+
+
+# see if we have incompatible operation modes
+my $incompatibleModes = grep { $_  }  ($configRestore, $dataRestore, $fullRestore, );
+
+if ($incompatibleModes > 1) {
+  die "You can only choose one orestore mode from --config-restore, --data-restore or --full-restore. (--config-restore is the default restore mode)";
+}
+
+
+# prepare restoreBackup execution
+my %restoreParams;
+if ($progressId) {
+  my $progress = EBox::ProgressIndicator->retrieve($progressId);
+  $restoreParams{progress} = $progress;
+}
+
+if (@modsToRestore) {
+  $restoreParams{modsToRestore} = \@modsToRestore;
+}
+
+
+$restoreParams{fullRestore}       = $fullRestore;
+$restoreParams{dataRestore}       = $dataRestore;
+$restoreParams{forceDependencies} = $forceDependencies;
+
+try {
+  EBox::Backup->restoreBackup($file, %restoreParams);
+}
+otherwise {
+  my $ex = shift @_;
+
+  if (exists $restoreParams{progress}) {
+    my $progress = $restoreParams{progress};
+    $progress->setAsFinished(1, $ex->text);
+  }
+
+
+  $ex->throw();
+};
+
+
+
+sub info
+{
+  my ($archive) = @_;
+
+  my $details_r = EBox::Backup->backupDetailsFromArchive($archive);
+  my $desc = $details_r->{description};
+  my $date = $details_r->{date};
+  my $type = $details_r->{type};
+
+  my @modulesInBackup = @{  EBox::Backup->_modulesInBackup($archive)   };
+
+  print <<END;
+      $desc
+      Date: $date
+      Backup type: $type
+      Modules in backup: @modulesInBackup
+END
+
+}
+
+sub usage
+{
+  print <<END;
+  Usage:
+  $0  [OPTION\]... [--module NAME]...   ARCHIVE_FILE
+  $0  --info ARCHIVE_FILE
+  $0  --help
+  
+  Options:
+    --config-restore
+    --data-restore
+    --full-restore
+
+    --force-dependencies
+
+    --progress-id
+END
+
+}
 
 1;

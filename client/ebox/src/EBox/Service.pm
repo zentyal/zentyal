@@ -37,18 +37,18 @@ use EBox::Sudo qw( :all );
 sub manage # (daemon,action)
 {
 	my ($daemon, $action) = @_;
-	(-d "/var/service/$daemon") or
+	(-f "/etc/event.d/$daemon") or
 		throw EBox::Exceptions::Internal("No such daemon: $daemon");
 
 	if ( $action eq 'start' ) {
-		root("/usr/bin/sv up /var/service/$daemon");
+		root("start $daemon");
 	}
 	elsif ( $action eq 'stop' ) {
-		root("/usr/bin/sv down /var/service/$daemon");
+		root("stop $daemon");
 	}
 	elsif ( $action eq 'restart') {
-		root("/usr/bin/sv down /var/service/$daemon");
-		root("/usr/bin/sv up /var/service/$daemon");
+		root("stop $daemon");
+		root("start $daemon");
 	}
 	else {
 		throw EBox::Exceptions::Internal("Bad argument: $action");
@@ -71,20 +71,20 @@ sub manage # (daemon,action)
 sub running # (daemon)
 {
 	my ($daemon) = @_;
-	(-d "/var/service/$daemon") or
+	(-f "/etc/event.d/$daemon") or
 		throw EBox::Exceptions::Internal("No such daemon: $daemon");
 
-	my $output = root("/usr/bin/sv status /var/service/$daemon");
+	my $output = root("status $daemon");
 	my $status = @{$output}[0];
-	if ($status =~ m{^run: /var/service/$daemon:}) {
+	# TODO: Parse different exit status:
+	# 		Pre-start
+	# 		Post-start
+	# 		....
+	# 		Not it's running or stopped
+	if ($status =~ m{^$daemon .* running}) {
 		return 1;
-	} elsif ($status =~ m{^down: /var/service/$daemon:}) {
-		return undef;
-        } elsif ($status =~ m{^finish: /var/service/$daemon:}) {
-                # TODO: Tristate when finish script is running
-                return 0;
 	} else {
-		throw EBox::Exceptions::Internal("Error getting status: $daemon");
+		return undef;
 	}
 }
 

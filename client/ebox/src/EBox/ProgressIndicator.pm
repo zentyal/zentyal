@@ -23,9 +23,10 @@ use base 'EBox::GConfModule::StatePartition';
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Apache;
 
 use Error qw(:try);
-use POSIX;
+
 
 use constant HOST_MODULE => 'apache';
 
@@ -73,7 +74,7 @@ sub create
   $self->setConfString('message', '');
   $self->setConfBool('started', 0);
   $self->setConfBool('finished', 0);
-  # retValue=-1, not finished
+  # retValue==-1, not finished
   $self->setConfInt('retValue', -1);
 
   return $self;
@@ -240,7 +241,7 @@ sub setAsFinished
 
   $self->setConfBool('finished', 1);
 
-  $self->setConfInt('retValue', $retValue);
+  $self->setRetValue($retValue);
   if ( $retValue > 0 and defined($errorMsg)) {
     $self->setConfString('errorMsg', $errorMsg);
   }
@@ -319,11 +320,12 @@ sub stateAsString
     $state = 'not running';
   }
   elsif ($self->finished()) {
-    $state = 'done';
-
     my $retValue = $self->retValue();
-
-    if ($retValue != 0 ) {
+    if ($retValue == 0) {
+      $state = 'done';
+    }
+    elsif ($retValue != 0 ) {
+      $state = 'error';
       $state .= ",retValue:$retValue";
       my $errorMsg = $self->errorMsg();
       if ( $errorMsg ) {
@@ -389,11 +391,10 @@ sub _fork
   }
 
   if ($pid) {
-    EBox::debug("parent $$");
     return; # parent returns immediately
   }
   else {
-    EBox::debug("child $$");
+
     $self->_childExec();
   }
 }
@@ -401,29 +402,23 @@ sub _fork
 
 sub _childExec
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  POSIX::setsid();
-#   close(STDOUT);
-#   close(STDERR);
-#   open(STDOUT, "> /dev/null");
-#   open(STDERR, "> /dev/null");
+    my $cmd = $self->_executable() .
+        ' ' .
+        $self->execProgressIdParamName() .
+        ' ' . 
+        $self->id();
 
-  my $cmd = $self->_executable() .
-                  ' ' .
-                  $self->execProgressIdParamName() .
-                  ' ' . 
-		 $self->id();
-
-  EBox::debug("about to execute $cmd");
-  exec($cmd);
+    EBox::Apache::cleanupForExec();
+    exec($cmd);
 }
 
 
 sub execProgressIdParamName
 {
   my ($self) = @_;
-  return 'progress-id';
+  return '--progress-id';
 }
 
 # Method to clean up the rubbish regarding to the progress indicator

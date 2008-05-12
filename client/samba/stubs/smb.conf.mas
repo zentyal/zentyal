@@ -10,6 +10,7 @@
 	$active_printer
 	$active_file
 	$backup_path
+	$roaming
 </%args>
 <%init>
 use EBox::Gettext;
@@ -51,7 +52,11 @@ use EBox::Gettext;
  logon script = logon.bat
  logon drive = H:
  logon home =
- logon path = \\<% $netbios %>\%U
+%  if ($roaming) {
+ logon path = \\<% $netbios %>\profiles\%U
+% } else {
+ logon path = "" 
+% }
 
  domain logons = Yes
  os level = 65
@@ -94,12 +99,13 @@ use EBox::Gettext;
  browseable = No
 
 % 	foreach my $group (@dirgroup) {
-[_<% $group->{'sharename'} %>]
+[<% $group->{'sharename'} %>]
+    comment = "<% __x('{group} share directory', group => $group->{'groupname'}) %>"
 	path = <% $group->{'path'} %>
 	valid users = @"<% $group->{'groupname'} %>"
 	force group = "<% $group->{'groupname'} %>"
 	force create mode = 0770
-	force directory mode = 1770
+	force directory mode = 0770
 	printable = No
 	read only = No
 	browseable = Yes

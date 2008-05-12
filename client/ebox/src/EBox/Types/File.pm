@@ -44,6 +44,7 @@ use EBox::Exceptions::Internal;
 
 # Core modules
 use File::Basename;
+use File::Copy::Recursive;
 use Digest::MD5;
 
 # Group: Public methods
@@ -375,6 +376,76 @@ sub _paramIsSet
     return 0 unless defined ( $pathValue );
 
     return (-f $self->tmpPath());
+
+}
+
+
+
+sub backupPath
+{
+  my ($self) = @_;
+  my $path = $self->path();
+  $path or return undef;
+
+  my $backupPath = $path . '.bak';
+  return $backupPath;
+}
+
+sub noPreviousFilePath
+{
+  my ($self) = @_;
+  my $path = $self->path();
+  $path or return undef;
+
+  my $backupPath = $path . '.noprevious.bak';
+  return $backupPath;
+}
+
+
+#  in backup and restore method is assummed that all files are owned by ebox
+sub backup
+{
+  my ($self) = @_;
+  my $path        = $self->path();
+  $path or return;
+
+  if ($self->exist()) {
+    my $backupPath = $self->backupPath();
+    $backupPath or return;
+
+     File::Copy::Recursive::fcopy ($path, $backupPath);
+  }
+  else {
+    my $noPreviousFilePath = $self->noPreviousFilePath();
+    open my $FH, ">$noPreviousFilePath" or
+      throw EBox::Exceptions::Internal("Cannot open $noPreviousFilePath: $!");
+    close $FH or
+      throw EBox::Exceptions::Internal("Cannot close $noPreviousFilePath: $!");
+  }
+
+}
+
+
+sub restore
+{
+  my ($self) = @_;
+
+  my $path = $self->path();
+  $path or return;
+
+  my $backupPath = $self->backupPath();
+  if (-f $backupPath) {
+    copy ($backupPath, $path);
+    return;
+  }
+  
+  my $noPreviousFilePath = $self->noPreviousFilePath();
+  if (-f $noPreviousFilePath) {
+    unlink $path;
+    unlink $noPreviousFilePath;
+  }
+  
+
 
 }
 

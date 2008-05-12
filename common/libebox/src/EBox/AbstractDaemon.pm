@@ -81,11 +81,11 @@ sub init {
 
 	foreach my $fd (0 .. 64) { POSIX::close($fd); }
 
-
-	open(STDIN,  "+</tmp/stdin");
+	my $tmp = EBox::Config::tmp();
+	open(STDIN,  "+<$tmp/stdin");
 	if (EBox::Config::configkey('debug') eq 'yes') {
-	  open(STDOUT, "+>/tmp/stdout");
-	  open(STDERR, "+>/tmp/stderr");
+	  open(STDOUT, "+>$tmp/stout");
+	  open(STDERR, "+>$tmp/stderr");
 	}
 
 

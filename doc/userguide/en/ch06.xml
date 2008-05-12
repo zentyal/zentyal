@@ -1,53 +1,216 @@
-<chapter id="ch-software">
-	<title>System updates</title>
+<chapter id="ch-firewall">
 
-	<section id='sect-software-config'>
-		<!-- Software->Configuration -->
-		<title>Configuration</title>
+	<title>Firewall</title>
 
-		<para>eBox can automatically upgrade your system
-		software. This option can be enable at
-			<menuchoice>
-				<guimenu>Software</guimenu>
-				<guimenuitem>Configuration</guimenuitem>
-			</menuchoice>
+	<section id='sect-fw-desc'>
+		<title>Firewall in eBox</title>
+
+		<para>
+		  One of the most important features in eBox is its firewall
+		  module. You can access it through
+		  <menuchoice>
+		    <guimenu>Firewall</guimenu>
+		  </menuchoice>
+		  . There you can make packet filtering (<xref
+		  linkend='sect-fw-filter' />) or port
+		  redirection (<xref linkend='sect-fw-redirects'/>).
 		</para>
 
 		<para>
-			When you make automatic the system software
-			update, it will be easier to keep an
-			up-to-date system, avoiding possible bugs or
-			security problems as soon as a solution appear.
+                 The firewall has different behaviour with 
+		external or internal network interfaces.
+		<!--TODO: qué hace eBox con los interfaces externos-->
 		</para>
 
-		<warning>
-			<para>For all these eBox software management module's
-			functionalities, it is needed the Operating System is
-		        Debian GNU/Linux.</para>
-		</warning>
-	</section>
+                <para>
+                 The internal interfaces are connected to local
+                 networks. They had not restrictions as the
+                 external interfaces have.
+                </para>
 
-	<section id='sect-software-ebox'>
-		<!-- Software->eBox components -->
-		<title>eBox components</title>
+                <para>
+                The external interfaces are connected to external
+                networks and eBox only allows redirections from them.
+               </para>
 
 		<para>
-		At
-			<menuchoice>
-				<guimenu>Software</guimenu>
-				<guimenuitem>eBox components</guimenuitem>
-			</menuchoice>
-		you can install, upgrade or remove different existing
-		eBox packages. Some packages won't be uninstalled, so
-		these are needed for eBox correct working.</para>
+		<!--TODO: qué tráficos se aplican para objetos y reglas-->
+		</para>
+		
+		<para>
+		<!--TODO: qué diferencias hay entre objetos y reglas-->
+		</para>
 	</section>
 
-	<section id='sect-software-system'>
-		<!-- Software->System updates -->
-		<title>System updates</title>
+	<section id='sect-fw-redirects'>
+		<!-- Firewall->Redirects -->
+		<title>Port Redirects</title>
 
-		<para>You can manage the software at the system where
-		eBox is installed with the same ease as components management.</para>
+		<para>Port redirects allow to get external traffic
+		into a host behind a eBox system with firewall module
+		installed. You can get the configuration of these
+		options at
+		<menuchoice>
+			<guimenu>Firewall</guimenu>
+			<guimenuitem>Redirects</guimenuitem>
+		</menuchoice>
+		.
+		</para>
+
+		<para>
+		If you need to add a new redirect, first select your
+		desired <guilabel>Interface</guilabel> which will
+		listen incoming connections. This should be one of the
+		interfaces previously selected as external. Moreover,
+		it should be assigned the <guilabel>External
+		port</guilabel> where you expect your incoming
+		traffic, and the <guilabel>protocol</guilabel> that
+		will be used.</para>
+
+		<para>You should enter the destination system
+		<guilabel>IP address</guilabel> and its
+		<guilabel>Port</guilabel> where packets would go
+		on.</para>
+	        
+		<para>Once you have selected this data, you just need
+		to select between the different
+		<guilabel>Actions</guilabel>, the
+		<guilabel>Add</guilabel> one, and click on it.</para>
+				
+		<para>To remove a rule, you should select remove
+		between the available <guilabel>Actions</guilabel>,
+		and click on it.</para>
+
+		<para>Redirect configuration can be modified by
+		changing its parameters and clicking on their modify
+		<guilabel>Actions</guilabel>.</para>
+	</section>
+
+	<section id='sect-fw-filter'>
+		<!-- Firewall->Packet Filter -->
+		<title>Packet filter</title>
+
+		<para>
+		From
+		<menuchoice>
+			<guimenu>Firewall</guimenu>
+			<guimenuitem>Packet filter</guimenuitem>
+		</menuchoice>
+		you can configure packet filter rules. You may use the
+                abstractions provided above such as <link
+                linkend="ch-services">network services</link> and
+                <link linkend="ch-objects">network objects</link>.
+                Using these concepts enhances
+                the rules flexibility and clearness, reducing the amount.
+		</para>
+
+                <para>At first sight, we have five different traffic flows
+                to set your firewall rules to them.
+                <variablelist>
+                  <varlistentry>
+                    <term>From internal networks to eBox</term>
+                    <listitem><para>These rules are meant to control
+                    access from internal network interfaces to
+                    services running on your eBox machine. Several
+                    eBox modules may add filtering rules for you to
+                    manage eBox services easily.</para></listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>For internal networks</term>
+                    <listitem><para>These rules allow you to control
+                    access from your internal networks to the
+                    Internet, and traffic between your internal
+                    networks.</para></listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Coming out from eBox</term>
+                    <listitem><para>These rules allow you to control
+                    access from eBox to external
+                    services.</para></listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>From external networks to eBox</term>
+                    <listitem><para>These rules allow you to control
+                    access from external networks to services running
+                    on your eBox machine.
+                    </para></listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>From external networks to internal networks</term>
+                    <listitem><para>These rules allow you to control
+                    access from external networks to internal
+                    networks.
+                    </para></listitem>
+                  </varlistentry>
+                </variablelist>
+                Take into account to the last two set of rules that it
+                is granted access to untrusted networks to your
+                managed networks. This may compromise your network
+                security. As eBox secure by default policy recommends,
+                do not modify these rules unless you know what you are
+                doing. The figure <xref
+                linkend="fig-firewall"/> try to make up the concept:
+                </para>
+                <figure id="fig-firewall">
+                  <title>Firewall rules set</title>
+                  <mediaobject>
+                    <imageobject>
+                      <imagedata fileref="images/firewall.png"
+                                 format="PNG"/>
+                    </imageobject>
+                  </mediaobject>
+                </figure>
+
+		<para>The deny policy for eBox firewall is a
+                ignorance one. Every denied packet is filtered and
+                discarded without any notification.</para>
+
+                <para>Every set of rules define a fixed behaviour for
+                the traffic flows that they apply. These rules will be
+                matched from top to the bottom, thus order is
+                important. Each rule consists of these following fields, some of
+                them are only available to several rule set by
+                construction:
+                <variablelist>
+                  <varlistentry>
+                    <term>Decision</term>
+                    <listitem><para>Accept or deny. This explicitly
+                    accepts or denies a traffic flow.</para></listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Source</term>
+                    <listitem><para>The traffic flow origin. It may be
+                    a network object or a single IP address. This
+                    field is available for every rule set except for
+                    "Filtering rules for traffic coming out from
+                    eBox"</para></listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Destination</term>
+                    <listitem><para>The traffic flow target. It may be
+                    a network object or a single IP address. This
+                    field is available for "For internal networks",
+                    "Coming out from eBox" and "From external networks
+                    to internal networks" filtering
+                    rules.</para></listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Service</term>
+                    <listitem><para>The traffic flow service as it is
+                    described in <xref linkend="ch-services"/>. The
+                    match could be inverse one, i.e. the inverse "any"
+                    service is "none" service. This is a compulsory
+                    field, therefore in order to create a new rule, it
+                    is required to have a network service. If it does
+                    not exist, you must make up previously.</para></listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Description</term>
+                    <listitem><para>An optional description to ease
+                    the firewall rule set management.</para></listitem>
+                  </varlistentry>
+                </variablelist>
+                </para>
 	</section>
 
 </chapter>

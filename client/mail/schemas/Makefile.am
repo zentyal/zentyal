@@ -3,6 +3,8 @@
 schemadir   = @GCONF_SCHEMA_FILE_DIR@
 schema_DATA = mail.schemas
 
+pkgdata_DATA = authldap.schema eboxmail.schema
+
 if GCONF_SCHEMAS_INSTALL
 install-data-local:
 	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) $(GCONFTOOL) --makefile-install-rule $(srcdir)/$(schema_DATA)
@@ -14,6 +16,6 @@ install-data-local:
 
 endif
 
-EXTRA_DIST = $(schema_DATA) authldap.schema eboxmail.schema
+EXTRA_DIST = $(schema_DATA) $(pkgdata_DATA) 
 
 MAINTAINERCLEANFILES = Makefile.in

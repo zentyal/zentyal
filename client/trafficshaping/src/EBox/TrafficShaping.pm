@@ -35,7 +35,12 @@ package EBox::TrafficShaping;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::NetworkObserver EBox::Model::ModelProvider EBox::Model::CompositeProvider);
+use base qw(EBox::GConfModule 
+            EBox::NetworkObserver 
+            EBox::Model::ModelProvider 
+            EBox::Model::CompositeProvider
+            EBox::ServiceModule::ServiceInterface
+            );
 
 ######################################
 # Dependencies:
@@ -116,6 +121,45 @@ sub startUp
     $self->{'started'} = 1;
 }
 
+
+# Method: actions
+#
+# 	Override EBox::ServiceModule::ServiceInterface::actions
+#
+sub actions
+{
+	return [ 
+	{
+		'action' => __('Add iptables rules to mangle table'),
+		'reason' => __('To mark packets with different priorities and rates'),
+		'module' => 'trafficshping'
+	},
+    {
+		'action' => __('Add tc rules'),
+		'reason' => __('To implement the traffic shaping rules'),
+		'module' => 'trafficshping'
+	}
+    ];
+}
+
+#  Method: serviceModuleName
+#
+#   Override EBox::ServiceModule::ServiceInterface::serviceModuleName
+#
+sub serviceModuleName
+{
+	return 'trafficshaping';
+}
+
+#  Method: enableModDepends
+#
+#   Override EBox::ServiceModule::ServiceInterface::enableModDepends
+#
+sub enableModDepends 
+{
+    return ['network'];
+}
+
 # Method: _regenConfig
 #
 # Overrides:
@@ -128,8 +172,9 @@ sub _regenConfig
     my ($self) = @_;
 
     # FIXME
-
-    $self->startUp() unless ($self->{'started'});
+    # Clean up stuff
+    $self->_stopService();
+    return unless ($self->isEnabled());
 
     # Create builders ( Disc -> Memory ) Mandatory every time an
     # access in memory is done
@@ -280,7 +325,7 @@ sub _stopService
   {
     my $self = shift;
 
-    $self->startUp();
+    $self->startUp() unless ($self->{'started'});
 
     my $ifaces_ref = $self->all_dirs_base('');
 

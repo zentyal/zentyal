@@ -1,4 +1,4 @@
-AC_INIT([EBox-ntp], [0.11.99])
+AC_INIT([EBox-ntp], [0.11.101])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/NTP.pm])
@@ -64,7 +64,7 @@ src/templates/Makefile
 stubs/Makefile
 tools/Makefile
 schemas/Makefile
-www/Makefile
+migration/Makefile
 Makefile
 ])
 

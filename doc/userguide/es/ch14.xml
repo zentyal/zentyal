@@ -1,28 +1,168 @@
-	<!-- vim: ts=2 sw=2 tw=75
--->
-<chapter id="ch-dns">
+<chapter id="ch-dhcp">
 
-	<title>Caché DNS</title>
+	<title>Servidor DHCP</title>
+	
+	<section id="dhcp-serv-sect">
+          <title>Servidor DHCP</title>
+          
+          <para>
+            Se puede acceder a la configuración del servidor DHCP
+            a través de 
+            <menuchoice>
+              <guimenu>DHCP</guimenu>
+            </menuchoice>
+            .
+          </para>
 
-	<section id='sect-dns-cache'>
-		<!-- DNS Cache -->
-		<title>Caché DNS</title>
+          <para>
+            Sólo se podrá configurar el servidor DHCP si hay algún 
+            interfaz de red configurado como estático. Si hay varios
+            interfaces configurados como estáticos se podrá elegir cuál
+            de ellos configurar a través del selector que está en la parte
+            superior de la configuración. El servidor DHCP funciona
+            también con interfaces estáticos virtuales. Para servir
+            direcciones IP en un interfaz estático se requiere tener
+            al menos un rango de direcciones o una asignación estática
+            configurada.
+          </para>
 
-		<para>
-		La caché DNS sólo permite ser activada o desactivada en la pantalla
-		de configuración a la que se puede acceder a través de 
-			<menuchoice>
-				<guimenu>Caché DNS</guimenu>
-			</menuchoice>
-		.
-		</para>
+          <para>
+            Para activar el servidor DHCP, visite la <xref
+            linkend="sect-mod-status"/> para obtener detalles de como
+            hacerlo.
+          </para>
 
-		<para>
-		Si se encuentra activada permitirá que varias peticiones DNS iguales 
-		a eBox se	resuelvan con una sola petición DNS externa, reduciendo así
-		el tiempo de respuesta y el tráfico por la red para los sitios más 
-		frecuentados.
-		</para>
-	</section>
-
+          <para>
+            Se puede configurar el funcionamiento del servidor DHCP 
+            correspondiente en distintos aspectos:
+            <variablelist>
+              <varlistentry>
+                <term>Opciones</term>
+                <listitem>
+                  <para>Hay dos pestañas para establecer las opciones
+                  para el servidor DHCP en el interfaz elegido:
+                  <variablelist>
+                    <varlistentry>
+                      <term><guilabel>Opciones comunes</guilabel></term>
+                      <listitem>
+                        <para>Estas opciones configuran:
+                        <variablelist>
+                          <varlistentry>
+                            <term>Puerta de enlace por defecto</term>
+                            <listitem><para>Indica a los clientes DHCP
+                            cual es el siguiente paso si no saben como
+                            llegar al destino. Sus valores pueden ser
+                            eBox misma, una dirección IP en formato
+                            CIDR, ninguna o una puerta de enlace
+                            configura en la <xref
+                            linkend="sect-gateways"/>.</para>
+                            </listitem>
+                          </varlistentry>
+                          <varlistentry>
+                            <term>Dominio de búsqueda</term>
+                            <listitem><para>Indica a los clientes DHCP
+                            cual es el dominio de búsqueda de nombre a
+                            añadir cuando no se da un dominio
+                            completamente cualificado al servidor
+                            DNS. Su valor puede ser uno específico,
+                            ninguno o uno configurado en el
+                            <link linkend="ch-dns">módulo DNS</link>.</para>
+                            </listitem>
+                          </varlistentry>
+                          <varlistentry>
+                            <term>Servidor de nombres primario</term>
+                            <listitem><para>Indica a los clientes DHCP
+                            cual es el servidor de nombre primario
+                            para hacer consultas DNS. Su valor puede
+                            ser eBox misma, una dirección IP o ninguno.</para>
+                            </listitem>
+                          </varlistentry>
+                          <varlistentry>
+                            <term>Servidor de nombres secundario</term>
+                            <listitem><para>Indica a los clientes DHCP
+                            cual es el servidor de nombres secundario
+                            al que preguntar consultas DNS cuando el
+                            primario está caído. Su valor es opcional
+                            y si aparece debe ser una dirección IP de
+                            máquina.</para>
+                            </listitem>
+                          </varlistentry>
+                        </variablelist>
+                        </para>
+                      </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                      <term><guilabel>Opciones avanzadas</guilabel></term>
+                      <listitem>
+                        <para>Este conjunto de opciones las deben
+                        gestionar usuarios avanzados para fijar el
+                        tiempo de alquiler y opciones de cliente ligero.
+                        <variablelist>
+                          <varlistentry>
+                            <term>Tiempos de alquiler</term>
+                            <listitem>
+                              <para>El tiempo de alquiler es aquel en el
+                              que una dirección IP servida es válida
+                              en el servidor DHCP. Puedes modificar el
+                              valor por defecto y el valor máximo ofrecido.</para>
+                            </listitem>
+                          </varlistentry>
+                          <varlistentry>
+                            <term>Cliente ligero</term>
+                            <listitem>
+                              <para>Estas opciones permite usar eBox
+                              como servidor de clientes ligeros o
+                              proxy. Actúa como proxy cuando el
+                              servidor siguiente apunta a otro
+                              computador. Se configura como servidor
+                              cuando se pone como opción
+                              <emphasis>eBox</emphasis>, luego incluye
+                              todos los ficheros a cargar en cliente
+                              ligero como ficheros de inicio y
+                              parámetros en un directorio fijo
+                              mostrado por la ayuda contextual
+                              .</para>
+                            </listitem>
+                          </varlistentry>
+                        </variablelist>
+                        </para>
+                      </listitem>
+                    </varlistentry>
+                  </variablelist>
+                </para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term>Rangos</term>
+                <listitem>
+                  <para>
+                    Se pueden crear listas de rangos con los valores que se
+                    quieran asignar a las máquinas de la red. Estas listas no deben
+                    tener coincidencias entre sí y todas las direcciones asignables
+                    deben pertenecer al rango disponible mostrado justo encima de
+                    la lista de rangos.
+                  </para>
+                </listitem>
+              </varlistentry>
+              <varlistentry>
+                <term>Asignaciones estáticas</term>
+                <listitem>
+                  <para>
+                    Se puede asignar una dirección IP concreta (siempre que 
+                    pertenezca al rango disponible) a una dirección MAC de 
+                    la red. Para ello sólo hay que crear un elemento en la lista
+                    de asignaciones estáticas que contenga la dirección MAC
+                    de la máquina conocida y la IP que se le desea asignar.
+                  </para>
+                </listitem>
+              </varlistentry>
+            </variablelist>
+            Ten en cuenta que cada opción en la lista de rangos y las
+            asignaciones estáticas no se deben superponer entre
+            ellas. No sólo el mismo interfaz sino también en los
+            demás. Estas comprobaciones las hace eBox y se avisa
+            cuando dichas guardas no se cumplen.
+          </para>
+        </section>
+        
 </chapter>

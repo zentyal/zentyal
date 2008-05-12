@@ -1,159 +1,111 @@
-<chapter id="ch-ca">
-  <title>Gestión de la Autoridad de Certificados</title>
+	<!-- vim: ts=2 sw=2 tw=75
+-->
+<chapter id="ch-jabber">
 
-  <section id="sect-ca-prereq">
-    <title>Requisitos previos</title>
-    <para>
-      Es necesario un conocimiento básico de la infraestructura de clave
-      pública (<acronym>PKI</acronym>) para el uso del módulo de
-      Gestión de Certificados. 
-      Un buen sitio para empezar a iniciarse en el tema puede ser
-      <ulink  url="http://es.wikipedia.org/wiki/PKI">el artículo de Wikipedia sobre PKI</ulink>
-    </para>
-  </section>
+	<title>Servidor Jabber</title>
+	
+	<section>
+		<title>Servidor Jabber</title>
+	
+		<para>
+		Se puede acceder a la configuración del servidor Jabber
+		a través de 
+			<menuchoice>
+				<guimenu>Jabber</guimenu>
+			</menuchoice>
+		y a través de las opciones de cada uno de los usuarios.
+		</para>
 
-  <section id="sect-ca-overview">
-    <title>Gestión de la Autoridad de Certificados</title>
-    <para>
-      Puedes acceder a la Gestión de la Autoridad de Certificados a
-      través de 
-      <menuchoice>
-	<guimenu>Gestor de Certificados</guimenu>
-      </menuchoice>
-    </para>
+		<para>El servidor de Jabber configura el acceso a una red de
+		mensajería, para una red local o que pueda tener también acceso
+		externo. Controla además el acceso por cada usuario, pudiendo
+		aceptarles o denegarles la conexión a cada uno de ellos.</para>
+		
+		<para>Para activar el servidor Jabber, visite la <xref linkend="sect-mod-status"/>
+                para obtener detalles de como hacerlo.</para>
 
-    <para>
-     El propósito del módulo de Gestión de la Autoridad de Certificados es permitir la creación
-     de certificados para su uso por otros módulos eBox o por aplicaciones externas. 
-    </para>
-    <para>
-     Los certificados se crean usando un certificado de la autoridad
-     de certificación (<acronym>CA</acronym> : "Certification
-     Authority") que será creado con este módulo.
-    </para>
-  </section>
+		<para>Se puede configurar el comportamiento del servidor Jabber en los
+		siguientes aspectos:
+			<variablelist>
+				<varlistentry>
+					<term>Nombre del dominio</term>
+					<listitem>
+						<para>Las cuentas de un servidor Jabber tienen la forma
+						usuario@dominio. Los usuarios deberán utilizar ese formato en sus
+						clientes de Mensajería Instantánea para poder conversar. Por esta
+						razón, el nombre del dominio deberá poderlo resolver el usuario en
+						su propia máquina, así como el resto de servidores de internet si
+						está configurado el acceso externo.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Conectar a la red global Jabber</term>
+					<listitem>
+						<para>El servidor Jabber tiene la capacidad de formar parte de la
+						red de servidores Jabber, repartida por todo el planeta; o funcionar
+						independientemente dentro de una red corporativa. Esta opción
+						permite seleccionar el comportamiento deseado.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>Soporte SSL</term>
+					<listitem>
+						<para>La autenticación y transmisión de datos entre el servidor
+						Jabber y el usuario Jabber puede realizarse de tres formas:
+							<itemizedlist>
+								<listitem>
+									<para>La primera, dando el valor "No" a la
+									opción, hará que la comunicación sea en
+									texto plano.</para>
+								</listitem>
+								<listitem>
+									<para>La segunda, "Opcional" permite que el
+									usuario decida si desea que la comunicación
+									se realice de forma segura, mediante SSL, o
+									convencional.</para>
+								</listitem>
+								<listitem>
+									<para>Por último, si es "Requerido" el
+									acceso por SSL, el cliente de mensajería
+									instantánea del usuario deberá soportar tal
+									opción, para que pueda conectarse al
+									servidor Jabber.</para>
+								</listitem>
+							</itemizedlist>
+						</para>
+					</listitem>
+				</varlistentry>
+			</variablelist>
+		</para>
 
-  <section id="sect-create-ca">				
-    <title>Creación del certificado de la autoridad de certificación</title>
-    <para>
-      Primero, es necesario expedir el certificado de la CA, que es
-      firmado por sí mismo.
-      El certificado de la CA es necesario para expedir nuevos
-      certificados; así que el resto de funcionalidad del módulo
-      no estará disponible hasta que ésta sea creada.
-    </para>
-    <para>
-      Para crearlo simplemente entraremos en la página del módulo y nos
-      encontraremos ante el formulario para crear el certificado de la
-      CA.
-      Se requerirán el nombre de la organización y el número de
-      días que transcurrirán antes de la expiración del certificado.
-    </para>
-    <warning>
-      <para>
-	A la hora de establecer la duración del certificado hay que tener
-	en cuenta que su expiración revocará todos los certificados
-	expedidos por él.
-	Esto supondrá la parada de los servicios
-	dependientes de la infraestructura de certificación hasta que
-	sea restablecida.
-      </para>				
-    </warning>
-    
-  </section>
-
-  <section id="sect-create-certificate">
-    <title>Creación de certificados </title>
-    <para>
-      Una vez creado el certificado de la CA, seremos capaces de
-      generar certificados con él.
-    </para>
-    <para>
-      Para generarlos tan sólo tendremos que usar el formulario que
-      aparece en la parte superior de la página de la autoridad de
-      certificación.
-      Los datos necesarios son el nombre común del certificado y los
-      días que permanecerá activo antes de expirar. Este último dato
-      está limitado por el hecho de que ningún certificado puede
-      ser válido más tiempo que el certificado de la CA.
-    </para>
-    <para>
-      Una vez el certificado haya sido creado, aparecerá en la lista
-      de certificados y estará disponible para los módulos de eBox que
-      usen certificados y las demás aplicaciones externas.
-    </para>
-  </section>
-      
-  <section id="sect-certificate-actions">
-    <title>Acciones sobre certificados</title>
-    <para>
-      A través de la lista de certificados podemos acceder a distintas
-      acciones que realizar con ellas. 
-      Las acciones disponibles son <link
-      linkend="sect-certificate-actions-download">descargar archivos</link>, 
-      <link linkend="sect-certificate-actions-revoke">revocar</link> 
-      y <link linkend="sect-certificate-actions-renew">renovar.</link>
-    </para>
-
-    <section id="sect-certificate-actions-download">
-      <title>Descargar archivos</title>
-      <para>
-	Pulsando en el icono de descargar obtendremos un archivo
-	comprimido en el que podemos encontrar tanto el certificado como sus
-	claves publicas y privado.
-	En el caso del certificado de la propia autoridad de
-	certificación, la clave privada no se encontrará en el archivo.
-      </para>
-    </section>
-      
-    <section id="sect-certificate-actions-revoke">
-      <title>Revocar</title>
-      <para>
-	Mediante el icono de revocar, podemos revocar cualquier
-	certificado. 
-	Tras pulsar en la opción correspondiente nos
-	encontraremos en una pantalla donde podremos indicar la razón
-	que nos ha llevado a revocarlo o cancelar la acción.
-      </para>
-      <para>
-	Una vez revocado un certificado, continuará apareciendo en la
-	lista pero marcado como revocado. Sin embargo, no podrá ser usado ni
-	por eBox ni por ninguna aplicación externa.
-      </para>
-      <warning>
-	<para>
-	  Si el certificado revocado es el certificado de la CA, 
-	  todos los certificados generados con él serán
-	  automáticamente revocados
-	</para>
-      </warning>
-    </section>
-
-    <section id="sect-certificate-actions-renew">
-      <title>Renovar</title>
-      <para>
-	Es posible renovar un certificado usando el icono de
-	renovar. Será solicitada la nueva duración del certificado.
-      </para>
-      <para>
-	Para renovar un certificado, primero se revoca y a
-	continuación se expide uno nuevo.
-	Los módulos de eBox serán capaces de obtener el nuevo
-	certificado pero se tendrá que suministrar manualmente a las
-	aplicaciones externas.
-      </para>
-      <warning>
-	<para>
-	  Si renovamos el certificado de la autoridad de certificación,
-	  se renovaran automáticamente todos los certificados
-	  generados con él. La duración de los certificados renovados
-	  automáticamente será hasta la fecha de expiración del
-	  certificado de CA.
-	</para>
-      </warning>
-    </section>
-
-  </section>
-
-
+		<para>En la configuración de cada usuario nos encontraremos con dos
+		nuevas opciones para la configuración de su acceso a Jabber:
+			<variablelist>
+				<varlistentry>
+					<term>Cuenta del usuario</term>
+					<listitem>
+						<para>Puede tomar dos valores, que
+						permitirán el acceso del usuario al
+						servidor Jabber o no.</para>
+					</listitem>
+				</varlistentry>
+				<varlistentry>
+					<term>El usuario tiene permisos de
+					administrador</term>
+					<listitem>
+						<para>Un usuario con permisos de
+						administrador puede ser notificado
+						acerca de algunos aspectos del
+						servidor, o realizar acciones sólo
+						disponibles para usuarios con tales
+						permisos. Por favor, para más
+						información sobre los privilegios de
+						administrador de una red Jabber
+						consulte su documentación.</para>
+					</listitem>
+				</varlistentry>
+			</variablelist>
+		</para>
+		</section>
+	
 </chapter>

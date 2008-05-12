@@ -2,7 +2,7 @@
 
 perldir = @PERLPATH@/EBox/CGI/MailFilter
 
-nobase_perl_DATA = Index.pm Enable.pm ChangePort.pm  ChangeAdminAddress.pm \
+nobase_perl_DATA = Index.pm  ChangePort.pm  ChangeAdminAddress.pm \
  ChangePolicy.pm \
 AddAllowedMTA.pm RemoveAllowedMTA.pm EnableAntivirus.pm\
 EnableAntispam.pm ChangeAntispamSettings.pm AddSenderACL.pm RemoveSenderACL.pm\

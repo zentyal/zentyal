@@ -1,4 +1,4 @@
-AC_INIT([EBox-CA], [0.11.99])
+AC_INIT([EBox-CA], [0.11.100])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/CA.pm])
@@ -61,8 +61,6 @@ src/EBox/CA/Makefile
 src/EBox/t/Makefile
 src/templates/Makefile
 schemas/Makefile
-stubs/Makefile
-www/Makefile
 Makefile
 ])
 

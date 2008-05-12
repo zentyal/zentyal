@@ -1,57 +1,21 @@
 #!/bin/bash
 
-webserver=apache
-
+#DEBHELPER#
 
 case "$1" in
 	configure)
-		# install gconf schemas
-		SCHEMA_LOCATION=/usr/share/gconf/schemas
-		SCHEMA_FILES="mail.schemas "
-		for SCHEMA in $SCHEMA_FILES; do
-			if [ -e $SCHEMA_LOCATION/$SCHEMA ]; then
-				HOME=/var/lib/ebox GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source` \
-				gconftool-2 \
-				--makefile-install-rule $SCHEMA_LOCATION/$SCHEMA > /dev/null
-			fi
-		done
-
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
-		# don't start postfix with its script
-		update-rc.d -f postfix remove
-		update-rc.d -f courier-authdaemon remove
-		update-rc.d -f courier-imap remove
-		update-rc.d -f courier-imap-ssl remove
-		update-rc.d -f courier-pop remove
-		update-rc.d -f courier-pop-ssl remove
-
-		# create directory for saslauthdaemon
-		SASLAUTHD="/var/spool/postfix/var/run/saslauthd"
-		test -d $SASLAUTHD || mkdir -p $SASLAUTHD
-
-		# regenerate slapd.conf
-		/usr/lib/ebox-usersandgroups/ebox-init-ldap genconfig
-
-		# restart slapd
-		/etc/init.d/slapd restart
-
-		# populate ldap
-		/usr/lib/ebox-mail/ebox-mail-ldap update
-
-		# restart mail to generate configuration files
-		invoke-rc.d ebox mail restart
-
-		# restart saslauthdaemon
-		invoke-rc.d saslauthd restart
-
 		# create log table
-		/usr/lib/ebox/ebox-sql-table add message /usr/share/ebox/sqllog/mail.sql
+		/usr/share/ebox/ebox-sql-table add message /usr/share/ebox/sqllog/mail.sql
 
-                # restart logs
-                invoke-rc.d ebox logs restart || true
+        # restart logs
+        invoke-rc.d ebox logs restart || true
+
+        # restart apache
+        invoke-rc.d ebox apache restart || true
 esac
 
-#DEBHELPER#
+
 
 exit 0

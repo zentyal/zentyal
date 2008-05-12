@@ -1,0 +1,87 @@
+libexec=@DATADIR@/ebox
+
+firewall_script=$libexec/dhcp-firewall.pl
+
+ebox_bound() {
+	$libexec/dhcp-address.pl $interface $new_ip_address $new_subnet_mask
+	$libexec/dhcp-nameservers.pl $interface $new_domain_name_servers
+	$libexec/dhcp-gateway.pl $ebox_routers
+
+	if ( [ -x $firewall_script ] ); then
+	    $firewall_script
+	fi;
+}
+
+ebox_renew() {
+	change="no"
+	if [ "z$new_ip_address" != "z$old_ip_address" ] ; then
+		change="yes"
+	fi
+	if [ "z$new_subnet_mask" != "z$old_subnet_mask" ] ; then
+		change="yes"
+	fi
+	if [ "$change" == "yes" ] ; then
+		$libexec/dhcp-address.pl $interface $new_ip_address \
+					$new_subnet_mask
+	fi
+	if [ "z$new_domain_name_servers" != "z$old_domain_name_servers" ] ; then
+		change="yes"
+		$libexec/dhcp-nameservers.pl $interface $new_domain_name_servers
+	fi
+	if [ "z$ebox_routers" != "z$old_routers" ] ; then
+		$libexec/dhcp-gateway.pl $ebox_routers
+	fi
+	if [ "$change" == "yes" ] ; then
+
+	if ( [ -x $firewall_script ] ); then
+		$firewall_script
+	    fi;
+	fi
+}
+
+ebox_expire() {
+	$libexec/dhcp-clear.pl $interface
+	if [ "z" != "z$old_routers" ] ; then
+		$libexec/dhcp-clear-gateway.pl
+	fi
+
+	if ( [ -x $firewall_script ] ); then
+		$firewall_script $interface
+	fi;
+	
+}
+
+
+set_router() {
+    if [ -z "$old_ip_address" -o "$old_ip_address" != "$new_ip_address" -o \
+                "$reason" = "BOUND" -o "$reason" = "REBOOT" ]; then
+        
+        for router in $ebox_routers; do
+                    ip route add default dev $interface via $router table default
+        done
+
+    fi
+
+}
+
+
+# Do nothing if network module is disbled
+if  /etc/init.d/ebox network status; then
+    case $reason in
+        BOUND)
+            ebox_bound
+            set_router
+            ;;
+        REBOOT|RENEW|REBIND|TIMEOUT)
+            ebox_renew
+            set_router
+            ;;
+        EXPIRE|FAIL|RELEASE)
+            ebox_expire
+            ;;
+        *)
+            ;;
+    esac
+fi
+
+

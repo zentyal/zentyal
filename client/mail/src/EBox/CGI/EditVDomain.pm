@@ -41,17 +41,29 @@ sub _process($) {
 	my $mail = EBox::Global->modInstance('mail');
  
 	$self->_requireParam('vdomain', __('vdomain'));
+
 	my $vdomain = $self->param('vdomain');
 	my $components = $mail->{'vdomains'}->allVDomainsAddOns($vdomain);
 
-	my $menu = '0'; 
-	if (defined($self->param('menu'))) { $menu = $self->param('menu'); }
+	my $menu; 
+	if (defined($self->param('menu'))) {
+	  $menu = $self->param('menu'); 
+	}
+	else {
+	  $menu = 0;
+	}
 
 	my @array = ();
 	push(@array, 'vdomain' => $vdomain);
-	push(@array, 'mdsize' => $mail->{vdomains}->getMDSize($vdomain));
+
 	push(@array, 'menu' => $menu);
 	push(@array, 'components' => $components);
+
+	if ($mail->mdQuotaAvailable()) {
+	  push (@array, 'mdQuotaAvailable' => 1);
+
+	}
+
 
 	$self->{params} = \@array;
 }

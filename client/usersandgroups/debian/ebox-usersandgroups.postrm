@@ -1,17 +1,36 @@
 #!/bin/bash
 
-onRemove()
-{
-       perl -e 'use EBox::UsersAndGroups; EBox::UsersAndGroups::onRemove();'
-	
-}
 
+# Load debconf
+. /usr/share/debconf/confmodule
+
+#DEBHELPER#
+
+
+
+remove_database()
+{
+    db_get ebox-usersandgroups/keep_database || true
+    keep_database="$RET"
+
+  # XXX AppArmor forces to store the database within /var/lib/ldap...
+  #     So we dont remove /var/lib/ebox/ldap
+  #  if [ "$keep_database" = "false" ]; then
+  #     echo "Removing eBox LDAP database as requested"
+  #    rm -rf /var/lib/ebox/ldap
+  #  fi
+
+}
 case "$1" in
 	remove)
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
-		onRemove
-		/usr/bin/ebox-clean-gconf usersandgroups || true
+
+        remove_database
+
+        # Restart eBox apache
+        invoke-rc.d ebox apache restart || true
+
 		;;		
 esac
 
-#DEBHELPER#
+

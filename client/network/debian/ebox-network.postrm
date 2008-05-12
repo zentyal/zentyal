@@ -1,17 +1,18 @@
 #!/bin/bash
 
+#DEBHELPER#
+
 case "$1" in
 	remove)
 		kill `pidof gconfd-2` >/dev/null 2>&1 || true
 
-		/usr/bin/ebox-clean-gconf network || true
+        # Restart eBox apache
+        invoke-rc.d ebox apache restart || true
 
-		# restore script in dhclient.conf
-		sed -i 's/^script .*/#script/'  /etc/dhcp3/dhclient.conf || true
 		;;		
 	purge)
 
-	        ;;    
+        ;;    
 esac
 
-#DEBHELPER#
+

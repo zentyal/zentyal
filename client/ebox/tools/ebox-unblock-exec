@@ -1,0 +1,17 @@
+#!/usr/bin/perl
+
+use POSIX qw(:signal_h);
+
+use warnings;
+use strict;
+
+my $exec = shift @ARGV;
+
+die "Usage: executable" unless (defined($exec) and -e $exec);
+
+my $sigset = POSIX::SigSet->new();
+$sigset->fillset();
+
+sigprocmask(SIG_UNBLOCK, $sigset);
+
+exec ($exec, @ARGV);

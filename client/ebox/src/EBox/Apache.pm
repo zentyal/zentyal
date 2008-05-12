@@ -35,7 +35,8 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Config;
 use English qw(-no_match_vars);
-use File::Basename();
+use File::Basename;
+use POSIX ('setsid');
 
 # Constants
 use constant RESTRICTED_RESOURCES_KEY    => 'restricted_resources';
@@ -56,24 +57,33 @@ sub _create
 
 sub serverroot
 {
-	my $root = EBox::Config::configkey('httpd_serverroot');
-	($root) or
-		throw EBox::Exceptions::External(__('You must set the '.
-		'httpd_serverroot variable in the ebox configuration file'));
-	return $root;
+	return '/var/lib/ebox';
 }
 
-#not used now
 sub initd
 {
-	my $initd = EBox::Config::configkey('httpd_init');
-	($initd) or
-		throw EBox::Exceptions::External(__('You must set the '.
-			'httpd_init variable in the ebox configuration file'));
-	( -x $initd ) or
-		throw EBox::Exceptions::External(__('The httpd_init script'.
-			' you configured is not executable.'));
-	return $initd;
+	return '/usr/share/ebox/ebox-apache2ctl';
+}
+
+# Method: cleanupForExec
+#
+#	It does the job to prepare a forked apache process to do an exec.
+#	We should use spawn_proc_prog() from mod_perl but we experience
+#	some issues.
+#
+#
+sub cleanupForExec
+{
+    POSIX::setsid();
+
+	opendir(my $dir, "/proc/$$/fd");
+	while (defined(my $fd = readdir($dir))) {
+		next unless ($fd =~ /^\d+$/);
+		eval('POSIX::close($fd)');
+	}
+	open(STDOUT, '> /dev/null');
+	open(STDERR, '> /dev/null');
+	open(STDIN, '/dev/null');
 }
 
 # restarting apache from inside apache could be problematic, so we fork() and
@@ -94,21 +104,22 @@ sub _daemon # (action)
 		if ($pid) { 
 			return; # parent returns inmediately
 		}
-
-		POSIX::setsid();
-		close(STDOUT);
-		close(STDERR);
-		open(STDOUT, "> /dev/null");
-		open(STDERR, "> /dev/null");
-		sleep(5);
-	}
+		cleanupForExec();
+	} 
 
 	if ($action eq 'stop') {
-		EBox::Service::manage('apache-perl','stop');
+		EBox::Sudo::root('/usr/share/ebox/ebox-apache2ctl stop');
 	} elsif ($action eq 'start') {
-		EBox::Service::manage('apache-perl','start');
+		EBox::Sudo::root('/usr/share/ebox/ebox-apache2ctl start');
 	} elsif ($action eq 'restart') {
-		exec(EBox::Config::libexec . 'ebox-apache-restart');
+		my $restartCmd = EBox::Config::pkgdata . 'ebox-apache-restart';
+		if ($fork) {
+			exec($restartCmd);
+		}
+		else {
+			EBox::Sudo::root($restartCmd);
+		}
+
 	}
 
 	if ($fork) {
@@ -160,6 +171,7 @@ sub _writeHttpdConfFile
 	push @confFileParams, ( user => EBox::Config::user());
 	push @confFileParams, ( group => EBox::Config::group());
 	push @confFileParams, ( serverroot => $self->serverroot());
+	push @confFileParams, ( tmpdir => EBox::Config::tmp());
         push @confFileParams, ( restrictedResources => $self->_restrictedResources() );
 
         my $debugMode =  EBox::Config::configkey('debug') eq 'yes';
@@ -191,17 +203,14 @@ sub _writeStartupFile
 
 sub _httpdConfFile
 {
-    my $httpdconf = EBox::Config::configkey('httpd_conf');
-    return $httpdconf;
+    return '/var/lib/ebox/conf/apache2.conf';
 }
 
 
 sub _startupFile
 {
   
-    my $startup = File::Basename::dirname( _httpdConfFile() ); # startup mus be in the same dir thet the pache conf file
-    $startup .= '/startup.pl';
-    return $startup;
+    return '/var/lib/ebox/conf/startup.pl';
 }
 
 sub port

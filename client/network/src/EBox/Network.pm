@@ -19,19 +19,24 @@ package EBox::Network;
 use strict;
 use warnings;
 
-use base qw(EBox::GConfModule EBox::Model::ModelProvider EBox::Model::CompositeProvider);
+use base qw(
+            EBox::GConfModule 
+			EBox::Model::ModelProvider
+			EBox::ServiceModule::ServiceInterface
+           ); 
 
-use constant DHCLIENT_CONF_FILE => '/etc/dhcp3/dhclient.conf';
 # Interfaces list which will be ignored
 use constant ALLIFACES => qw(sit tun tap lo irda eth wlan vlan);
 use constant IGNOREIFACES => qw(sit tun tap lo irda);
 use constant IFNAMSIZ => 16; #Max length name for interfaces
+use constant INTERFACES_FILE => '/etc/network/interfaces';
 
 use Net::IP;
 use EBox::NetWrappers qw(:all);
 use EBox::Validate qw(:all);
 use EBox::Config;
 use EBox::Order;
+use EBox::ServiceModule::Manager;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataInUse;
@@ -49,8 +54,8 @@ use EBox::Gettext;
 #use EBox::LogAdmin qw( :all );
 use File::Basename;
 
-
-use EBox::Network::Report::ByteRate;
+# XXX uncomment when DynLoader bug with locales is fixed
+# use EBox::Network::Report::ByteRate;
 
 
 sub _create
@@ -67,8 +72,52 @@ sub _create
 	return $self;
 }
 
+# Method: actions
+#
+# 	Override EBox::ServiceModule::ServiceInterface::actions
+#
+sub actions
+{
+	return [ 
+	{
+		'action' => __('Add default routers to the default table'),
+		'reason' => __('This is needed to work with a multigateway ' .
+					'configuration. Note that to list the default routes you ' .
+					'must execute: ') . ' ip route ls table default ',
+		'module' => 'network'
+	},
+	{	
+		'action' => __('Enable eBox DHCP hook'),
+		'reason' => __('It will take care of adding the default route' .
+				' given by a DHCP server to the default route table. '),
+		'module' => 'network'
+	}
+	];
+}
 
+# Method: usedFiles
+#
+# 	Override EBox::ServiceModule::ServiceInterface::usedFiles
+#
+sub usedFiles
+{
+	return [ 
+	{	
+		'file' => INTERFACES_FILE,
+		'reason' => __('eBox will set your network configuration'),
+		'module' => 'network'
+	}
+	];
+}
 
+#  Method: serviceModuleName
+#
+#   Override EBox::ServiceModule::ServiceInterface::servivceModuleName
+#
+sub serviceModuleName
+{
+	return 'network';
+}
 
 sub modelClasses
 {
@@ -85,29 +134,33 @@ sub modelClasses
                           directory => 'multigwrulestable',
                          ],
           },
-          {
-           class      => 'EBox::Network::Model::ByteRateEnableForm',
-           parameters => [
-                          enableTitle  => __('Activate traffic rate monitor'),
-                          domain       => 'ebox-network',
-                          modelDomain  => 'Network',
-                         ],
-          },
-	  'EBox::Network::Model::ByteRateSettings',
-	  'EBox::Network::Model::ByteRateGraph',
-	  'EBox::Network::Model::ByteRateGraphControl',
+
+# XXX uncomment when DynLoader bug with locales is fixed
+ #          {
+#            class      => 'EBox::Network::Model::ByteRateEnableForm',
+#            parameters => [
+#                           enableTitle  => __('Activate traffic rate monitor'),
+#                           domain       => 'ebox-network',
+#                           modelDomain  => 'Network',
+#                          ],
+#           },
+# 	  'EBox::Network::Model::ByteRateSettings',
+# 	  'EBox::Network::Model::ByteRateGraph',
+# 	  'EBox::Network::Model::ByteRateGraphControl',
 	 ];
 }
 
 
 
-sub compositeClasses
-{
-  return [
-	  'EBox::Network::Composite::ByteRate',
-	 ];
+# XXX uncomment when DynLoader bug with locales is fixed
+#sub compositeClasses
+#{
+#  return [
+#	  'EBox::Network::Composite::ByteRate',
+#	 ];
+#
+#}
 
-}
 
 # Method: IPAddressExists
 #
@@ -1638,11 +1691,18 @@ sub _generateResolver
 sub generateInterfaces
 {
 	my $self = shift;
-	my $file = EBox::Config::tmp . "/interfaces";
+	my $file = INTERFACES_FILE; 
+	my $tmpfile = EBox::Config::tmp . '/interfaces';
 	my $iflist = $self->allIfacesWithRemoved();
 
+	my $manager = new EBox::ServiceModule::Manager();
+	if ($manager->skipModification('network', $file)) {
+		EBox::info("Skipping modification of $file");
+		return;
+	}
+
 	#writing /etc/network/interfaces
-	open(IFACES, ">", $file) or
+	open(IFACES, ">", $tmpfile) or
 		throw EBox::Exceptions::Internal("Could not write on $file");
 	print IFACES "auto lo";
 	foreach (@{$iflist}) {
@@ -1651,6 +1711,7 @@ sub generateInterfaces
 			print IFACES " " . $_;
 		}
 	}
+	my ($gwIface, $gwIP) = $self->_defaultGwAndIface();
 	print IFACES "\niface lo inet loopback\n";
 	foreach my $ifname (@{$iflist}) {
 		my $method = $self->ifaceMethod($ifname);
@@ -1672,9 +1733,16 @@ sub generateInterfaces
 				"\n";
 			print IFACES "\tbroadcast " . 
 				$self->ifaceBroadcast($ifname) . "\n";
+            if (defined($gwIface) and defined($gwIP) and ($gwIface eq $ifname))
+            {
+                print IFACES "\tgateway $gwIP\n";
+            }
 		}
 	}
 	close(IFACES);
+
+	root("cp $tmpfile $file");
+	$manager->updateFileDigest('network', $file);
 }
 
 sub _generateRoutes
@@ -1690,18 +1758,6 @@ sub _generateRoutes
 		}
 		root("/sbin/ip route add $net via $router table main || true");
 	}
-}
-
-sub _generateDHCPClientConf
-{
-	my $self = shift;
-	
-	my @params = ('script' => 
-		EBox::Config::libexec . "../ebox-network/dhclient-script");
-	
-	$self->writeConfFile(DHCLIENT_CONF_FILE,
-				'network/dhclient.conf.mas',
-				\@params);
 }
 
 sub _multigwRoutes
@@ -1733,9 +1789,8 @@ sub _multigwRoutes
 	# We modify the dhclient script behaviour to add the
 	# default route where we need it.
 
-	$self->_generateDHCPClientConf();
 	
-	root(EBox::Config::libexec . "../ebox-network/ebox-flush-fwmarks");
+	root(EBox::Config::share() . "ebox-network/ebox-flush-fwmarks");
 	my $marks = $self->marksForRouters();
 	my $routers = $self->gatewaysWithMac();
 	for my $router (@{$routers}) {
@@ -1807,7 +1862,7 @@ sub _regenConfig
 
 	my $gateway = $self->gateway;
 	my $skipdns = undef;
-	my $file = EBox::Config::tmp . "/interfaces";
+	my $file = INTERFACES_FILE;
 
 	try {
 		root("/sbin/modprobe 8021q");
@@ -1817,12 +1872,6 @@ sub _regenConfig
 	} catch EBox::Exceptions::Internal with {};
 
 	$self->DHCPGatewayCleanUpFix();
-	my $dhcpgw = $self->DHCPGateway();
-	unless ($dhcpgw and ($dhcpgw ne '')) {
-		try {
-			root("/sbin/ip route del default table default");
-		} catch EBox::Exceptions::Internal with {};
-	}
 
 	#bring down changed interfaces
 	my $iflist = $self->allIfacesWithRemoved();
@@ -1874,11 +1923,23 @@ sub _regenConfig
 		}
 	}
 	foreach (@ifups) {
-		root("/sbin/ifup --force -i $file $_");
+		root(EBox::Config::pkgdata() . "ebox-unblock-exec /sbin/ifup --force -i $file $_");
 		unless ($self->isReadOnly()) {
 			$self->_unsetChanged($_);
 		}
 	}
+
+	my $dhcpgw = $self->DHCPGateway();
+	unless ($dhcpgw and ($dhcpgw ne '')) {
+		try {
+			root("/sbin/ip route del default table default");
+		} catch EBox::Exceptions::Internal with {};
+		try {
+			root("/sbin/ip route del default");
+		} catch EBox::Exceptions::Internal with {};
+	
+	}
+
 
 
 	my $multipathCmd = $self->_multipathCommand();
@@ -1897,15 +1958,21 @@ sub _regenConfig
 	$self->_multigwRoutes();
 	$self->_cleanupVlanIfaces();
 
-	# regenerate config for the bit rate report
-	EBox::Network::Report::ByteRate->_regenConfig();
+	# XXX uncomment when DynLoader bug with locales is fixed
+# 	# regenerate config for the bit rate report
+# 	EBox::Network::Report::ByteRate->_regenConfig();
 }
 
 sub stopService
 {
 	my $self = shift;
 
-	my $file = EBox::Config::tmp . "/interfaces";
+	# XXX uncomment when DynLoader bug with locales is fixed
+	# EBox::Network::Report::ByteRate->stopService();
+
+	return unless ($self->configured());
+
+	my $file = INTERFACES_FILE;
 	my $iflist = $self->allIfaces();
 	foreach my $if (@{$iflist}) {
 		try {
@@ -1915,7 +1982,9 @@ sub stopService
 		} catch EBox::Exceptions::Internal with {};
 	}
 
-	EBox::Network::Report::ByteRate->stopService();
+# XXX uncomment when DynLoader bug with locales is fixed
+#	EBox::Network::Report::ByteRate->stopService();
+
 }
 
 #internal use functions
@@ -2334,10 +2403,13 @@ sub summary
 		}
 	}
 	$composite->add($item);
-        my $monSummary = EBox::Network::Report::ByteRate->summary();
-        if ( defined($monSummary) ) {
-            $composite->add($monSummary);
-        }
+
+	
+# XXX uncomment when DynLoader bug with locales is fixed
+#         my $monSummary = EBox::Network::Report::ByteRate->summary();
+#         if ( defined($monSummary) ) {
+#             $composite->add($monSummary);
+#         }
 
         return $composite;
 }
@@ -2368,9 +2440,12 @@ sub menu
 	$folder->add(new EBox::Menu::Item('url' => 
 						'Network/View/MultiGwRulesDataTable',
 					  'text' => __('Balance traffic')));
-	$folder->add(new EBox::Menu::Item('url' => 
-						'Network/Composite/ByteRate',
-					  'text' => __('Traffic rate monitor')));
+
+
+# XXX uncomment when DynLoader bug with locales is fixed
+# 	$folder->add(new EBox::Menu::Item('url' => 
+# 						'Network/Composite/ByteRate',
+# 					  'text' => __('Traffic rate monitor')));
 
 
 
@@ -2435,6 +2510,19 @@ sub gateways
 
 	return $gatewayModel->gateways();
 
+}
+
+sub _defaultGwAndIface
+{
+	my ($self) = @_;
+
+	my $row = $self->gatewayModel()->find('default' => 1);
+
+	if ($row) {
+		return ($row->{'interface'}, $row->{'ip'});
+	} else {
+		return (undef, undef);
+	}
 }
 
 

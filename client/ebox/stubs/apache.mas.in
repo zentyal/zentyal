@@ -1,69 +1,69 @@
-<%doc>
-   Template to set the apache configuration file
-   for the Web administration
-
-Parameters:
-
-   port - Int the listening port
-   group - String the group that must live apache-perl process
-   user  - String the user that the apache-perl process must be 
-   serverroot - String the path to the Apache server root
-   debug - String to enable Apache::Reload or not *(Optional)*
-           Default value: 'no'
-   restrictedResources - Array containing a hash ref structure
-                     which contains the following elements:
-                - allowedIPs - array ref containing the allowed IPs
-                               for accessing this resource
-                - name - String the resource name
-                - type - String the resource type. Options: file, directory or location.
-</%doc>
 <%args>
 	$port
 	$group
 	$user
 	$serverroot
-        $debug => 'no'
-        @restrictedResources => ()
+	$tmpdir
+    $debug => 'no'
 </%args>
-
-ServerType standalone
-ServerRoot <% $serverroot %>
-LockFile @VARPATH@/lock/apache-perl.lock
-PidFile @VARPATH@/run/apache-perl.pid
-ScoreBoardFile @VARPATH@/run/apache-perl.scoreboard
 
 Timeout 300
 KeepAlive On
 MaxKeepAliveRequests 100
 KeepAliveTimeout 15
-MinSpareServers 1
-MaxSpareServers 2 
-StartServers 2
-MaxClients 3
-MaxRequestsPerChild 100
 AddDefaultCharset utf-8	
 
-# begin modules
-ClearModuleList
-AddModule mod_so.c
-AddModule mod_macro.c
-LoadModule config_log_module /usr/lib/apache/1.3/mod_log_config.so
-LoadModule mime_magic_module /usr/lib/apache/1.3/mod_mime_magic.so
-LoadModule mime_module /usr/lib/apache/1.3/mod_mime.so
-LoadModule dir_module /usr/lib/apache/1.3/mod_dir.so
-LoadModule cgi_module /usr/lib/apache/1.3/mod_cgi.so
-LoadModule alias_module /usr/lib/apache/1.3/mod_alias.so
-LoadModule rewrite_module /usr/lib/apache/1.3/mod_rewrite.so
-LoadModule access_module /usr/lib/apache/1.3/mod_access.so
-LoadModule auth_module /usr/lib/apache/1.3/mod_auth.so
-LoadModule expires_module /usr/lib/apache/1.3/mod_expires.so
-LoadModule setenvif_module /usr/lib/apache/1.3/mod_setenvif.so
-LoadModule ssl_module /usr/lib/apache/1.3/mod_ssl.so
-AddModule mod_perl.c
-AddModule mod_ssl.c
-# end modules
+PidFile <% $tmpdir %>/apache.pid
 
-Port <% $port %>
+<IfModule mpm_prefork_module>
+    StartServers          1 
+    MinSpareServers       1
+    MaxSpareServers       5
+    MaxClients            5 
+    MaxRequestsPerChild   20
+</IfModule>
+
+# worker MPM
+# StartServers: initial number of server processes to start
+# MaxClients: maximum number of simultaneous client connections
+# MinSpareThreads: minimum number of worker threads which are kept spare
+# MaxSpareThreads: maximum number of worker threads which are kept spare
+# ThreadsPerChild: constant number of worker threads in each server process
+# MaxRequestsPerChild: maximum number of requests a server process serves
+<IfModule mpm_worker_module>
+    StartServers         1 
+    MaxClients         	 5 
+    MinSpareThreads      1 
+    MaxSpareThreads      1 
+    ThreadsPerChild      1
+    MaxRequestsPerChild   20
+</IfModule>
+
+PerlInterpMaxRequests 20
+
+Include /etc/apache2/mods-available/auth_basic.load
+Include /etc/apache2/mods-available/authn_file.load
+Include /etc/apache2/mods-available/authz_default.load
+Include /etc/apache2/mods-available/authz_groupfile.load
+Include /etc/apache2/mods-available/authz_host.load
+Include /etc/apache2/mods-available/authz_user.load
+Include /etc/apache2/mods-available/autoindex.load
+Include /etc/apache2/mods-available/cgi.load
+Include /etc/apache2/mods-available/deflate.conf
+Include /etc/apache2/mods-available/deflate.load
+Include /etc/apache2/mods-available/dir.conf
+Include /etc/apache2/mods-available/dir.load
+Include /etc/apache2/mods-available/env.load
+Include /etc/apache2/mods-available/mime.load
+Include /etc/apache2/mods-available/negotiation.load
+Include /etc/apache2/mods-available/setenvif.load
+Include /etc/apache2/mods-available/rewrite.load
+Include /etc/apache2/mods-available/ssl.conf
+Include /etc/apache2/mods-available/ssl.load
+Include /etc/apache2/mods-available/status.load
+Include /etc/apache2/mods-available/perl.load
+
+Listen <% $port %>
 User <% $user %>
 Group <% $group %>
 
@@ -91,33 +91,6 @@ DocumentRoot @WWWPATH@
     Order allow,deny
     Allow from all
 </Directory>
-
-<%perl>
-if ( @restrictedResources > 0 ) {
-    foreach my $restrictedResource (@restrictedResources) {
-        my @allowIPs = @{$restrictedResource->{allowedIPs}};
-        my $restrictedResourceName = $restrictedResource->{name};
-        my $foundNobody = grep { $_ eq 'nobody' } @allowIPs;
-        my $foundAll = grep { $_ eq 'all' } @allowIPs;
-        my $type = $restrictedResource->{type};
-        if ( $type eq 'file' ) {
-           $type = 'Files';
-        } elsif ( $type eq 'dir' ) {
-           $type = 'Directory';
-        } elsif ( $type eq 'location' ) {
-           $type = 'Location';
-        }      
-</%perl>
-<<% $type %> <% $restrictedResourceName %>>
-    Order Allow,Deny
-%        unless ( $foundNobody ) {
-%            foreach my $ip (@allowIPs) {
-    Allow from <% $ip %>
-%            }
-%        }
-</<% $type %>>
-%   }
-% }
 
 
 UseCanonicalName Off
@@ -154,8 +127,8 @@ SSLEngine on
 SSLProtocol all
 SSLCipherSuite HIGH:MEDIUM
 
-SSLCertificateFile @ETCPATH@/ssl.crt/ebox.cert
-SSLCertificateKeyFile @ETCPATH@/ssl.key/ebox.key
+SSLCertificateFile /var/lib/ebox/conf/ssl.crt/ebox.cert
+SSLCertificateKeyFile /var/lib/ebox/conf/ssl.key/ebox.key
 </IfModule>
 
 <IfModule mod_setenvif.c>
@@ -166,16 +139,13 @@ SSLCertificateKeyFile @ETCPATH@/ssl.key/ebox.key
     BrowserMatch "JDK/1\.0" force-response-1.0
 </IfModule>
 
-Alias /data/ @WWWPATH@
-Alias /dynamic-data @DYNAMICWWWPATH@
-ScriptAlias /ebox/ @CGIPATH@
-
 % if ($debug eq 'yes') {
-PerlInitHandler	Apache::Reload
+# Yes, this is useless right now.
+#PerlInitHandler	Apache2::Reload
 % }
 PerlWarn On
 
-PerlRequire "startup.pl"
+PerlRequire "/var/lib/ebox/conf/startup.pl"
 
 PerlModule EBox::Auth
 PerlSetVar EBoxPath /
@@ -191,27 +161,35 @@ PerlSetVar AuthCookieDebug 0
 </Files>
 
 <Directory @CGIPATH@>
-        <IfModule mod_ssl.c>
+   <IfModule mod_ssl.c>
 	   SSLOptions +StdEnvVars
-        </IfModule>
-        AuthType EBox::Auth
-        AuthName EBox
-        PerlModule 	EBox::Auth
-        PerlAuthenHandler EBox::Auth->authenticate
-        PerlAuthzHandler  EBox::Auth->authorize
-        require valid-user
-        SetHandler perl-script
-        PerlHandler Apache::Registry
-        PerlSendHeader On
-        AllowOverride None
-        Options +ExecCGI
-        Order allow,deny
-        Allow from all
+   </IfModule>
+
+	AuthType EBox::Auth
+	AuthName EBox
+	PerlAuthenHandler EBox::Auth->authenticate
+	PerlAuthzHandler  EBox::Auth->authorize
+	require valid-user
+    SetHandler perl-script
+    PerlHandler ModPerl::Registry
+    PerlSendHeader On
+    AllowOverride None
+    Options +ExecCGI
+    Order allow,deny
+    Allow from all
 </Directory>
 
 RewriteEngine On
 
-RewriteRule ^/ebox$ /ebox/ [R]
-RewriteRule ^/$ /ebox/ [R]
-RewriteRule ^/ebox/ebox.cgi$ [S,PT]
-RewriteRule ^/ebox/(.*) /ebox/ebox.cgi [E=script:$1,PT,L]
+# From /ebox to /ebox/ and redirect
+RewriteRule ^/ebox$ /ebox/
+# From / to /ebox and redirect
+RewriteRule ^/$ /ebox/
+# Map /ebox/ebox.cgi to the right Perl CGI and redirect
+RewriteRule ^/ebox/ebox.cgi$ /ebox/
+# From /data/ to / and finish
+RewriteRule ^/data(.*) $1 [L]
+# From /dynamic-data/ to the right directory in FS and finish
+RewriteRule ^/dynamic-data(.*) @DYNAMICWWWPATH@$1 [L]
+RewriteRule ^/ebox/(.*) @CGIPATH@ebox.cgi [E=script:$1,L]
+

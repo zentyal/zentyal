@@ -29,21 +29,18 @@ use EBox::Exceptions::DataExists;
 use Error qw(:try);
 use EBox::Config;
 use EBox::Gettext;
+use EBox::ProgressIndicator;
+use EBox::ProgressIndicator::Dummy;
 use Log::Log4perl;
 use POSIX qw(setuid setgid setlocale LC_ALL);
 
 use Digest::MD5;
 
+
+
+
 #redefine inherited method to create own constructor
 #for Singleton pattern
-#sub _new_instance 
-#{
-	#my $class = shift;
-	#my $self  = bless { }, $class;
-	#$self->{'global'} = _create EBox::Global;
-	#return $self;
-#}
-
 sub _new_instance 
 {
 	my $class = shift;
@@ -218,6 +215,18 @@ sub unsaved
 	return undef;
 }
 
+
+sub prepareRevokeAllModules
+{
+    my ($self) = @_;
+
+    my $totalTicks = grep {
+	$self->modIsChanged($_);
+    }  @{$self->modNames};
+
+    return $self->_prepareActionScript('revokeAllModules', $totalTicks);
+}
+
 #
 # Method: revokeAllModules 
 #
@@ -225,12 +234,22 @@ sub unsaved
 #
 sub revokeAllModules
 {
-	my $self = shift;
+	my ($self, %options) = @_;
+
+	my $progress = $options{progress};
+	if (not $progress) {
+	    $progress = EBox::ProgressIndicator::Dummy->create();
+	}
+
 	my @names = @{$self->modNames};
 	my $failed = "";
 
 	foreach my $name (@names) {
 		$self->modIsChanged($name) or next;
+
+		$progress->setMessage($name);
+		$progress->notifyTick();
+
 		my $mod = $self->modInstance($name);
 		try {
 			$mod->revokeConfig;
@@ -238,27 +257,24 @@ sub revokeAllModules
 			$failed .= "$name ";
 		};
 	}
+
 	if ($failed eq "") {
-		return;
+	    $progress->setAsFinished();   
+	    return;
 	}
-	throw EBox::Exceptions::Internal("The following modules failed while ".
-		"revoking their changes, their state is unknown: $failed");
+
+	my $errorText = "The following modules failed while ".
+		"revoking their changes, their state is unknown: $failed";
+	$progress->setAsFinished(1, $errorText);  
+	throw EBox::Exceptions::Internal($errorText);
 }
 
-#
-# Method: saveAllModules
-#
-#      Save changes in all modules 		
-#
-sub saveAllModules
+sub modifiedModules
 {
-	my $self = shift;
+    my ($self) = @_;
 	my @names = @{$self->modNames};
-	my @mods = ();
-	my $log = EBox::logger();
-	my $msg = "Saving config and restarting services: ";
-	my $failed = "";
-	
+    my @mods;
+
 	if ($self->modExists('firewall')) {
 		push(@mods, 'firewall');
 	}
@@ -267,17 +283,71 @@ sub saveAllModules
 
 		unless (grep(/^$modname$/, @mods)) {
 			push(@mods, $modname);
-			$msg .= "$modname ";
 		}
 		
 		my @deps = @{$self->modRevDepends($modname)};
 		foreach my $aux (@deps) {
 			unless (grep(/^$aux$/, @mods)) {
 				push(@mods, $aux);
-				$msg .= "$aux ";
 			}
 		}
 	}
+
+    return \@mods;
+}
+
+
+
+sub prepareSaveAllModules
+{
+    my ($self) = @_;
+
+    my $totalTicks =  scalar @{$self->modifiedModules()};;
+    
+    return $self->_prepareActionScript('saveAllModules', $totalTicks);
+}
+
+
+sub _prepareActionScript
+{
+    my ($self, $action, $totalTicks) = @_;
+
+     my $script =   EBox::Config::pkgdata() . 'ebox-global-action';
+    $script .= " --action $action";
+
+
+    my $progressIndicator =  EBox::ProgressIndicator->create(
+			     executable => $script,
+			     totalTicks => $totalTicks,
+						    );
+
+    $progressIndicator->runExecutable();
+
+    return $progressIndicator;
+
+}
+
+# Method: saveAllModules
+#
+#      Save changes in all modules 		
+#
+sub saveAllModules
+{
+	my ($self, %options) = @_;
+
+	my $log = EBox::logger();
+
+	my $failed = "";
+	
+	my $progress = $options{progress};
+	if (not $progress) {
+	    $progress = EBox::ProgressIndicator::Dummy->create();
+	}
+
+
+	my @mods = @{$self->modifiedModules()};
+	my $msg = "Saving config and restarting services: @mods";
+
 	$log->info($msg);
 
 	my $apache = 0;
@@ -286,7 +356,18 @@ sub saveAllModules
 			$apache = 1;
 			next;
 		}
+
+		$progress->setMessage($name);
+		$progress->notifyTick();
+
 		my $mod = $self->modInstance($name);
+		my $class = 'EBox::ServiceModule::ServiceInterface';
+		if ($mod->isa($class) and not $mod->configured()) {
+			$mod->_saveConfig();
+			$self->modRestarted($name);
+			next;
+		}
+
 		try {
 			$mod->save();
 		} catch EBox::Exceptions::Internal with {
@@ -296,6 +377,9 @@ sub saveAllModules
 
 	# FIXME - tell the CGI to inform the user that apache is restarting
 	if ($apache) {
+		$progress->setMessage('apache');
+		$progress->notifyTick();
+
 		my $mod = $self->modInstance('apache');
 		try {
 			$mod->save();
@@ -306,10 +390,15 @@ sub saveAllModules
 	}
 	
 	if ($failed eq "") {
+	    $progress->setAsFinished();   
 		return;
 	}
-	throw EBox::Exceptions::Internal("The following modules failed while ".
-		"saving their changes, their state is unknown: $failed");
+
+	my $errorText = "The following modules failed while ".
+		"saving their changes, their state is unknown: $failed";
+
+	$progress->setAsFinished(1, $errorText);   
+	throw EBox::Exceptions::Internal($errorText);
 }
 
 #
